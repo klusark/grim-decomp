@@ -19,6 +19,7 @@ Usage: python -I gen_asm.py [prog...] [--select]   (--select re-derives the list
 import glob, json, os, re, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import ghidra_api as g
+import namefix
 import export_raw
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -32,7 +33,7 @@ class Ctx:
     def __init__(self, prog):
         self.prog = prog
         raw = os.path.join(ROOT, "raw", prog)
-        self.funcs = {int(f["address"], 16): f for f in json.load(open(os.path.join(raw, "functions.json")))}
+        self.funcs = {int(f["address"], 16): f for f in namefix.load_functions(raw, prog)[0]}
         self.secs = [(s["name"].strip("."), int(s["start"], 16), s["size"]) for s in json.load(open(os.path.join(raw, "sections.json")))]
         for line in open(os.path.join(raw, "segments.txt")):
             if line.startswith(".text:"):
@@ -225,7 +226,7 @@ def read_text(path, a, n):
 def select(prog):
     raw = os.path.join(ROOT, "raw", prog)
     out = []
-    for f in json.load(open(os.path.join(raw, "functions.json"))):
+    for f in namefix.load_functions(raw, prog)[0]:
         if f.get("isThunk") or f.get("isExternal"):
             continue
         p = os.path.join(raw, "functions", f["address"] + ".c")
@@ -251,7 +252,7 @@ def select(prog):
     # instruction boundary (multi-word arithmetic, x87 state, return values read from EAX/EDX/ST0)
     arti = re.compile(r"\b(CARRY[124]|SBORROW[124]|SCARRY[124]|in_FPUStatusWord|in_ST[0-7]|extraout_ST[0-7]|extraout_E[ABCD]X|unaff_E[A-Z]+|unaff_retaddr)\b")
     import build_src  # OVERRIDES: functions hand-written in build/overrides.c stay C
-    for f in json.load(open(os.path.join(raw, "functions.json"))):
+    for f in namefix.load_functions(raw, prog)[0]:
         if f.get("isThunk") or f.get("isExternal") or f["name"] in build_src.OVERRIDES:
             continue
         p = os.path.join(raw, "functions", f["address"] + ".c")
@@ -272,7 +273,7 @@ def select(prog):
             if re.match(r"(crt|tmpnam|getlcid|translatename|parse|getsystemcp|setsbcs|setsbuplow)", os.path.basename(sp)):
                 crt_addrs |= set(re.findall(r"(?m)^/\* ---- 0x([0-9a-f]+)  ", open(sp, encoding="utf-8", errors="replace").read()))
         keep = set(out)
-        out += [f["address"] for f in json.load(open(os.path.join(raw, "functions.json")))
+        out += [f["address"] for f in namefix.load_functions(raw, prog)[0]
                 if not (f.get("isThunk") or f.get("isExternal") or f["name"] in build_src.OVERRIDES)
                 and f["address"] not in crt_addrs]
         out = [a for a in out if a not in crt_addrs or a in keep]
@@ -281,7 +282,7 @@ def select(prog):
         skip = set(json.load(open(ep)).get(prog, []))
         out = [a for a in out if a not in skip]
     # a function written by hand in build/overrides.c must not also be assembled (duplicate symbol)
-    hand = {f["address"] for f in json.load(open(os.path.join(raw, "functions.json"))) if f["name"] in build_src.OVERRIDES}
+    hand = {f["address"] for f in namefix.load_functions(raw, prog)[0] if f["name"] in build_src.OVERRIDES}
     out = [a for a in out if a not in hand]
     return sorted(set(out))
 

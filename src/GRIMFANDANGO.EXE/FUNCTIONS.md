@@ -360,8 +360,8 @@
 | 00402930 | Display_InitFromConfig | stddisplay.c | 1 |
 | 004029b0 | Display_GetLastFromRegistry | stddisplay.c | 133 |
 | 00402b60 | Display_PickDefault | stddisplay.c | 46 |
-| 004730d0 | stdDisplay_BuildBitmapInfo8 | stddisplay.c | 62 |
-| 00473180 | stdDisplay_BuildBitmapInfo16 | stddisplay.c | 42 |
+| 004730d0 | stdDisplay_BuildBitmapInfo8 | stddisplay.c | 1 |
+| 00473180 | stdDisplay_BuildBitmapInfo16 | stddisplay.c | 1 |
 | 004731f0 | FUN_004731f0 | stddisplay.c | 52 |
 | 00473270 | Palette_SwapRedBlue | stddisplay.c | 60 |
 | 00473a40 | Display_EnumDevices | stddisplay.c | 31 |
@@ -1630,7 +1630,7 @@
 | 004aa930 | Text_GetDefaultFont | text.c | 5 |
 | 004aa940 | Font_LoadFile | text.c | 14 |
 | 004aa990 | Font_Free | text.c | 8 |
-| 004aa9b0 | Text_NextChar | text.c | 22 |
+| 004aa9b0 | Text_NextChar | text.c | 1 |
 | 004aaa20 | Text_CharWidth | text.c | 18 |
 | 004aaa80 | Text_MeasureWidth | text.c | 40 |
 | 004aab10 | Text_MeasureHeight | text.c | 37 |
@@ -1641,7 +1641,7 @@
 | 004ab210 | Text_LayoutString | text.c | 1 |
 | 004ab510 | Font_GlyphAdvance | text.c | 24 |
 | 004ab570 | Font_GlyphWidth | text.c | 17 |
-| 004ab5d0 | Text_DrawString | text.c | 77 |
+| 004ab5d0 | Text_DrawString | text.c | 1 |
 | 004ab710 | Text_DrawChar | text.c | 1 |
 | 0048c470 | TextObject_Activate | textobject.c | 23 |
 | 0048c4d0 | FUN_0048c4d0 | textobject.c | 13 |
@@ -1794,7 +1794,7 @@
 | 004d0c20 | Sound_DriverQuery | sound.c | 15 |
 | 004d0cf0 | Sound_VoiceSampleCount | sound.c | 1 |
 | 004a48c0 | sputRoom_Initialize | sputroom.c | 27 |
-| 004a4920 | FUN_004a4920 | sputroom.c | 6 |
+| 004a4920 | FUN_004a4920 | sputroom.c | 1 |
 | 004a4930 | FUN_004a4930 | sputroom.c | 17 |
 | 004a4980 | FUN_004a4980 | sputroom.c | 6 |
 | 004a4990 | FUN_004a4990 | sputroom.c | 6 |
@@ -2471,7 +2471,7 @@
 | 004d5e70 | FUN_004d5e70 | crt_unnamed.c | 1 |
 | 004d5eb0 | FUN_004d5eb0 | crt_unnamed.c | 7 |
 | 004d5ed0 | FUN_004d5ed0 | crt_unnamed.c | 38 |
-| 004d5f70 | FUN_004d5f70 | crt_unnamed.c | 15 |
+| 004d5f70 | FUN_004d5f70 | crt_unnamed.c | 1 |
 | 004d5fd0 | FUN_004d5fd0 | crt_unnamed.c | 1 |
 | 004d6030 | FUN_004d6030 | crt_unnamed.c | 1 |
 | 004d6046 | FUN_004d6046 | crt_unnamed.c | 6 |

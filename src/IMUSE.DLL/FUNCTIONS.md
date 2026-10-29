@@ -1,6 +1,6 @@
 # IMUSE.DLL function index
 
-433 functions, 268 with real names.
+434 functions, 268 with real names.
 
 | address | name | module | lines |
 |---|---|---|---|
@@ -214,7 +214,7 @@
 | 10007700 | FUN_10007700 | imuse_api.c | 1 |
 | 10007790 | SoundsFloodMusicBuffer | imuse_api.c | 1 |
 | 100077c0 | FUN_100077c0 | imuse_api.c | 1 |
-| 10007810 | SoundsPeriodic | imuse_api.c | 30 |
+| 10007810 | SoundsPeriodic | imuse_api.c | 1 |
 | 10007830 | SoundsGetMusicPosition | imuse_api.c | 1 |
 | 100078a0 | SoundsSetMuscriptLocal | imuse_api.c | 1 |
 | 100078b0 | SoundsSetMuscriptRemote | imuse_api.c | 1 |
@@ -225,6 +225,7 @@
 | 10007a60 | FUN_10007a60 | imuse_api.c | 1 |
 | 10007a70 | FUN_10007a70 | imuse_api.c | 1 |
 | 10007a80 | FUN_10007a80 | imuse_api.c | 1 |
+| 10007a90 | FUN_10007a90 | imuse_api.c | 68 |
 | 10007bc0 | FUN_10007bc0 | imuse_api.c | 1 |
 | 10007ca0 | FUN_10007ca0 | imuse_api.c | 1 |
 | 10008140 | FUN_10008140 | imuse_api.c | 1 |
@@ -251,7 +252,7 @@
 | 1000c5d0 | FUN_1000c5d0 | imuse_api.c | 1 |
 | 1000c600 | ImFile_Unlock | imuse_api.c | 1 |
 | 1000c640 | FUN_1000c640 | imuse_api.c | 1 |
-| 1000c670 | FUN_1000c670 | imuse_api.c | 445 |
+| 1000c670 | FUN_1000c670 | imuse_api.c | 1 |
 | 1000d000 | FUN_1000d000 | imuse_api.c | 1 |
 | 1000d050 | FUN_1000d050 | imuse_api.c | 1 |
 | 1000d090 | FUN_1000d090 | imuse_api.c | 1 |

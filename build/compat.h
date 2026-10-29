@@ -73,3 +73,6 @@ _Static_assert(sizeof(GrimServices) == 0x70, "GrimServices is 0x70 bytes");
 
 /* float constant given as its IEEE bit pattern (Ghidra prints float arguments as hex) */
 #define FBITS(b) (((union { unsigned u; float f; }){ (unsigned)(b) }).f)
+
+/* host getenv for the test knobs (GRIM_ACTIVE: the window procedure ignores WM_ACTIVATEAPP) */
+extern char *GRIM_getenv(const char *) __asm__("_getenv");

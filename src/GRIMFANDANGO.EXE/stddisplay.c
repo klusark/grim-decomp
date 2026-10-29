@@ -395,6 +395,8 @@ Display_PickDefault(int wantFullscreen,int want3D,int *deviceIdx,int *modeIdx,in
 
 
 /* ---- 0x004730d0  stdDisplay_BuildBitmapInfo8 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Fills a BITMAPINFO (0x28 header, negative height) with a 256-entry palette */
 
 void stdDisplay_BuildBitmapInfo8
@@ -457,8 +459,12 @@ void stdDisplay_BuildBitmapInfo8
 #undef local_424
 #undef local_428
 
+#endif
+
 
 /* ---- 0x00473180  stdDisplay_BuildBitmapInfo16 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void stdDisplay_BuildBitmapInfo16(int param_1,uint param_2,int param_3,int param_4)
 
 {
@@ -500,6 +506,8 @@ void stdDisplay_BuildBitmapInfo16(int param_1,uint param_2,int param_3,int param
 #undef local_2c
 #undef local_8
 #undef local_c
+
+#endif
 
 
 /* ---- 0x004731f0  FUN_004731f0 ---- */

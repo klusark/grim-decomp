@@ -35,12 +35,16 @@ undefined * __cdecl sputRoom_Initialize(uint param_1,undefined **param_2)
 }
 
 /* ---- 0x004a4920  FUN_004a4920 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_004a4920(undefined4 param_1)
 
 {
   FUN_004a4930(param_1);
   return;
 }
+#endif
+
 
 /* ---- 0x004a4930  FUN_004a4930 ---- */
 undefined4 FUN_004a4930(char *param_1)

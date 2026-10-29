@@ -97,7 +97,7 @@ void FUN_100096a0(void)
   pbVar3 = (byte *)luaL_check_string(1);
   bVar2 = *pbVar3;
   while (bVar2 != 0) {
-    uVar4 = toupper((uint)bVar2);
+    uVar4 = tolower((uint)bVar2);
     luaL_addchar((char)uVar4);
     pbVar1 = pbVar3 + 1;
     pbVar3 = pbVar3 + 1;
@@ -120,7 +120,7 @@ void FUN_100096e0(void)
   pbVar3 = (byte *)luaL_check_string(1);
   bVar2 = *pbVar3;
   while (bVar2 != 0) {
-    uVar4 = tolower((uint)bVar2);
+    uVar4 = toupper((uint)bVar2);
     luaL_addchar((char)uVar4);
     pbVar1 = pbVar3 + 1;
     pbVar3 = pbVar3 + 1;
@@ -332,7 +332,7 @@ uint __cdecl str_matchclass(uint param_1,uint param_2)
     return 0;
   }
   uVar2 = param_2 & 0xff;
-  uVar1 = toupper(uVar2);
+  uVar1 = tolower(uVar2);
   switch(uVar1) {
   case 0x61:
     if (DAT_10028b5c < 2) {
@@ -498,6 +498,8 @@ LAB_10009d07:
 
 
 /* ---- 0x10009e40  str_push_captures ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* errors 'unfinished capture' */
 
 void __cdecl str_push_captures(int *param_1,int *param_2)
@@ -526,6 +528,8 @@ void __cdecl str_push_captures(int *param_1,int *param_2)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x10009ea0  str_match ---- */
 /* replaced by the hand-written version in build/overrides.c */

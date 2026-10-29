@@ -89,7 +89,7 @@ extern undefined4 DAT_1001e8d4; /* used by 3 fn(s), first 0x10005360 */
 extern undefined DAT_1001e8d8; /* used by 4 fn(s), first 0x10007920 */
 extern undefined DAT_1001e8dc; /* used by 2 fn(s), first 0x100078a0 */
 extern char s_C__grimsrc_libs_iMUSE_sounds_c_1001e8e0[]; /* used by 13 fn(s), first 0x10007210 */
-extern undefined DAT_1001e900; /* used by 4 fn(s), first 0x100072b0 */
+extern undefined DAT_1001e900; /* used by 5 fn(s), first 0x100072b0 */
 extern undefined4 DAT_1001e904; /* used by 2 fn(s), first 0x100072b0 */
 extern undefined DAT_1001e908; /* used by 2 fn(s), first 0x100072b0 */
 extern undefined DAT_1001e90c; /* used by 1 fn(s), first 0x10008250 */
@@ -243,7 +243,7 @@ extern undefined DAT_1002e311; /* used by 1 fn(s), first 0x100068b0 */
 extern undefined DAT_1002e330; /* used by 1 fn(s), first 0x10006070 */
 extern undefined DAT_1002e338; /* used by 1 fn(s), first 0x10008ce0 */
 extern undefined DAT_1002e340; /* used by 2 fn(s), first 0x100089b0 */
-extern undefined DAT_1002eb10; /* used by 4 fn(s), first 0x10007250 */
+extern undefined DAT_1002eb10; /* used by 5 fn(s), first 0x10007250 */
 extern undefined DAT_1002ebd8; /* used by 3 fn(s), first 0x10007a20 */
 extern undefined DAT_1002ec10; /* used by 3 fn(s), first 0x10007a20 */
 extern undefined DAT_1002ec18; /* used by 2 fn(s), first 0x100089b0 */
