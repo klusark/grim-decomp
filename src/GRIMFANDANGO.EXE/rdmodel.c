@@ -688,6 +688,8 @@ LAB_0040d640:
 
 
 /* ---- 0x0040d880  rdModel_AddMeshToCache ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 undefined4 rdModel_AddMeshToCache(int param_1,int param_2)
@@ -858,4 +860,6 @@ LAB_0040dbd3:
 #undef local_20
 #undef local_24
 #undef local_c
+
+#endif
 

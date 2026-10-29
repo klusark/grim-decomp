@@ -17,6 +17,8 @@ void Component_SetBitmapFrame(undefined4 param_1,int *param_2,undefined4 param_3
 }
 
 /* ---- 0x004960a0  FUN_004960a0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 undefined4
@@ -162,4 +164,6 @@ FUN_004960a0(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4
 #undef local_2c
 #undef local_30
 #undef local_34
+
+#endif
 

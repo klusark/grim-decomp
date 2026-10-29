@@ -187,6 +187,8 @@ rdPrimit3_DrawLine(float *param_1,float *param_2,int *param_3,int *param_4,int *
 
 
 /* ---- 0x0040dde0  rdPrimit3_DrawPoint ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Projects a world-space point with a radius and draws it as a 2D point */
 
 void rdPrimit3_DrawPoint(float *param_1,float param_2,undefined4 param_3)
@@ -227,8 +229,12 @@ void rdPrimit3_DrawPoint(float *param_1,float param_2,undefined4 param_3)
 #undef local_2c
 #undef local_30
 
+#endif
+
 
 /* ---- 0x0040deb0  rdPrimit3_ClipFace ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Clips one face against the frustum; the switch selects the vertex attribute set from the
    geometry/lighting modes */
 
@@ -514,6 +520,8 @@ switchD_0040dec1_default:
   *param_6 = uVar7;
   return;
 }
+#endif
+
 
 /* ---- 0x0040e500  rdPrimit3_CopyFaceVerts ---- */
 /* Copies the face's vertex attributes (position, uv, intensity) into the cache pools without

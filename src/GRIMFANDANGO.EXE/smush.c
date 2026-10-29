@@ -171,6 +171,8 @@ undefined4 Smush_Close(void)
 }
 
 /* ---- 0x004bd970  Smush_Advance ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 int __cdecl Smush_Advance(int *outDone)
 
 {
@@ -223,6 +225,8 @@ int __cdecl Smush_Advance(int *outDone)
 #undef local_400
 #undef local_468
 #undef local_46c
+
+#endif
 
 
 /* ---- 0x004bde90  Smush_SetColorTable ---- */

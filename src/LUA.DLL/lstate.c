@@ -38,6 +38,8 @@ undefined4 * __fastcall lstate__75e0(undefined4 *param_1)
 }
 
 /* ---- 0x10007660  lstate__7660 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Unidentified function of lstate.c (Grim execution states / tasks) */
 
 undefined4 __stdcall lstate__7660(int a1)
@@ -108,6 +110,8 @@ LAB_100077c9:
 }
 #undef local_4
 #undef local_8
+
+#endif
 
 
 /* ---- 0x10007810  FUN_10007810 ---- */

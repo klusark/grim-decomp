@@ -6,6 +6,8 @@
 #include "functions.h"
 
 /* ---- 0x00401140  Grim_FindDataOnDrives ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* grimdemo.c: scans CD-ROM drives (and network drives when g_devMode) for <drive>\<subdir>; shows
    the _engn006/_engn007 'could not find data' message and returns 0 if none has it. */
 
@@ -124,8 +126,12 @@ int __cdecl Grim_FindDataOnDrives(char *subdir)
 #undef acStack_174
 #undef auStack_140
 
+#endif
+
 
 /* ---- 0x004012b0  Grim_Init ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* grimdemo.c: whole-engine startup: service tables, registry/config, window + 256-colour check,
    display enumeration, resource system, Lua engine lib registration, iMUSE. */
@@ -264,6 +270,8 @@ undefined4 Grim_Init(char *param_1)
 #undef local_78
 #undef local_7c
 #undef local_80
+
+#endif
 
 
 /* ---- 0x00401640  Grim_DecodeRegKeyName ---- */
@@ -543,6 +551,8 @@ undefined4 Grim_OnDisplayModeChange(void *param_1,int param_2)
 }
 
 /* ---- 0x00402c80  Grim_ParseCommandLine ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* grimdemo.c: strtok loop over the command line. Options set g_bAlwaysLog, g_bDevMode,
    g_bWindowedStart etc., a bad option shows the 'GRIME: Grim Fandango Executable Usage' box. */
@@ -638,6 +648,8 @@ LAB_00402f60:
     }
   } while( true );
 }
+#endif
+
 
 /* ---- 0x004034b0  Grim_OpenRegistry ---- */
 /* Opens HKLM\SOFTWARE\LucasArts Entertainment Company LLC\... and seeds GrimDataDir with the

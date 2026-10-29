@@ -85,6 +85,8 @@ undefined1 * rdCache_AllocMesh(void)
 }
 
 /* ---- 0x00406770  rdCache_Flush ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Sorts (sort mode 2) and draws every cached mesh with the software or 3D path chosen by the
    occlusion/zbuffer modes */
@@ -147,6 +149,8 @@ void rdCache_Flush(void)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x00406860  rdCache_AddMesh ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -1301,6 +1305,8 @@ int FUN_00407f90(int param_1,int param_2)
 }
 
 /* ---- 0x00407fd0  rdCache_DrawMesh ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software path without z-buffer: clamps the mesh modes to the global limits and calls the
    rasterizer entry for each face */
 
@@ -1780,16 +1786,24 @@ LAB_00408067:
 }
 #undef local_4
 
+#endif
+
 
 /* ---- 0x00408800  FUN_00408800 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 FUN_00408800(void)
 
 {
   ((code *)rdRaster_Draw16_TexLit_6)();
   return 1;
 }
+#endif
+
 
 /* ---- 0x00408af0  rdCache_DrawMeshZ ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software path with z-buffer */
 
 int __cdecl rdCache_DrawMeshZ(void *mesh)
@@ -2249,4 +2263,6 @@ switchD_00408bad_default:
   return 1;
 }
 #undef local_4
+
+#endif
 

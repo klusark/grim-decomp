@@ -2474,6 +2474,8 @@ undefined4 * FUN_00497d10(undefined4 param_1,int *param_2,int param_3)
 }
 
 /* ---- 0x00497e10  FUN_00497e10 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 bool FUN_00497e10(undefined4 param_1,undefined4 param_2,int param_3,int param_4,uint param_5)
 
 {
@@ -2560,6 +2562,8 @@ bool FUN_00497e10(undefined4 param_1,undefined4 param_2,int param_3,int param_4,
 #undef local_24
 #undef local_28
 #undef local_2c
+
+#endif
 
 
 /* ---- 0x00498000  FUN_00498000 ---- */
@@ -7261,6 +7265,8 @@ void Lua_MakeCurrentSetup(void)
 
 
 /* ---- 0x0049dbb0  Lua_GetCurrentSetup ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Variable defined which should be unmapped: local_10 */
 /* Lua opcode: GetCurrentSetup */
 
@@ -7304,6 +7310,8 @@ void Lua_GetCurrentSetup(void)
 }
 #undef local_10
 #undef local_4
+
+#endif
 
 
 /* ---- 0x0049dc70  Lua_MakeCurrentSet ---- */
@@ -7949,6 +7957,8 @@ void Lua_SetSoundPosition(void)
 
 
 /* ---- 0x0049e7e0  Lua_StartFullscreenMovie ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: StartFullscreenMovie */
 
 void Lua_StartFullscreenMovie(void)
@@ -7973,6 +7983,8 @@ void Lua_StartFullscreenMovie(void)
   lua_pushnil();
   return;
 }
+#endif
+
 
 /* ---- 0x0049e860  Lua_PauseMovie ---- */
 /* Lua opcode: PauseMovie */
@@ -8532,6 +8544,8 @@ void Lua_LoadCostume(void)
 }
 
 /* ---- 0x0049f080  Lua_GetPhysicalBytes ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Variable defined which should be unmapped: local_4 */
 /* WARNING: Variable defined which should be unmapped: local_8 */
 /* Lua opcode: GetPhysicalBytes */
@@ -8550,6 +8564,8 @@ void __fastcall Lua_GetPhysicalBytes(undefined4 param_1)
 }
 #undef local_4
 #undef local_8
+
+#endif
 
 
 /* ---- 0x0049f0a0  Lua_SetMemoryUsage ---- */
@@ -12137,6 +12153,8 @@ void Lua_RestoreCacheRect(void)
 
 
 /* ---- 0x004a26f0  Lua_ResReport ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Variable defined which should be unmapped: local_4 */
 /* WARNING: Variable defined which should be unmapped: local_8 */
 /* Lua opcode: ResReport */
@@ -12156,6 +12174,8 @@ void __fastcall Lua_ResReport(undefined4 param_1)
 }
 #undef local_4
 #undef local_8
+
+#endif
 
 
 /* ---- 0x004a2720  Lua_HardwareAccelerated ---- */
@@ -12521,6 +12541,8 @@ void Lua_IrisUp(void)
 
 
 /* ---- 0x004a2cd0  Lua_IrisComplete ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Variable defined which should be unmapped: local_4 */
 /* WARNING: Variable defined which should be unmapped: local_8 */
 /* Lua opcode: IrisComplete */
@@ -12539,6 +12561,8 @@ void __fastcall Lua_IrisComplete(undefined4 param_1)
 }
 #undef local_4
 #undef local_8
+
+#endif
 
 
 /* ---- 0x004a2d00  Lua_TextFileGetLineCount ---- */
@@ -13180,6 +13204,8 @@ void Lua_GetSaveGameData(void)
 
 
 /* ---- 0x004a3830  Lua_GetTextSpeed ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Variable defined which should be unmapped: local_4 */
 /* WARNING: Variable defined which should be unmapped: local_8 */
 /* Lua opcode: GetTextSpeed */
@@ -13198,6 +13224,8 @@ void __fastcall Lua_GetTextSpeed(undefined4 param_1)
 }
 #undef local_4
 #undef local_8
+
+#endif
 
 
 /* ---- 0x004a3850  Lua_SetTextSpeed ---- */

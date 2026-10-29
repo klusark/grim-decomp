@@ -169,6 +169,8 @@ void Walker_ReplanPath(int param_1,int param_2,undefined4 *param_3,undefined4 pa
 
 
 /* ---- 0x004917e0  Walker_AvoidActorPath ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Variable defined which should be unmapped: local_124 */
 
 uint Walker_AvoidActorPath
@@ -638,6 +640,8 @@ LAB_00491fa5:
 #undef local_f4
 #undef local_f8
 #undef local_fc
+
+#endif
 
 
 /* ---- 0x00494880  Walker_SetFadeTime ---- */

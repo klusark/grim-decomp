@@ -49,6 +49,8 @@ void __cdecl Set_MakeCurrent(char *name)
 }
 
 /* ---- 0x00482820  Set_ChangeSetup ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Changes the camera setup of the current set: resets the set's sound parameters
    (Set_SetSoundParams: min 20, max 127, scale 8.0, pan scale 1.5, near 0.8), runs the camera change
    handler and moves every positioned sound again (PositionedSounds_UpdateAll). */
@@ -76,6 +78,8 @@ void * Set_ChangeSetup(uint param_1)
   }
   return pvVar3;
 }
+#endif
+
 
 /* ---- 0x00483aa0  Set_ApplySetupCamera ---- */
 /* Selects the setup's colormap, binds the rdCamera (setup+0x48) to the canvas, sets zoom 1.0 and
@@ -294,6 +298,8 @@ void Set_DrawDebugLights(int param_1)
 
 
 /* ---- 0x004859c0  Set_DrawDebugCameras ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void __cdecl Set_DrawDebugCameras(void *set,uint setupIdx)
 
 {
@@ -320,6 +326,8 @@ void __cdecl Set_DrawDebugCameras(void *set,uint setupIdx)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x004a4010  Set_SetSoundParams ---- */
 void Set_SetSoundParams(int param_1,undefined4 param_2,undefined1 param_3,undefined1 param_4,
@@ -1052,6 +1060,8 @@ int Set_FindHandle(char *name)
 }
 
 /* ---- 0x004a5550  FUN_004a5550 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 FUN_004a5550(undefined4 param_1)
 
 {
@@ -1083,6 +1093,8 @@ undefined4 FUN_004a5550(undefined4 param_1)
   return 1;
 }
 #undef local_20
+
+#endif
 
 
 /* ---- 0x004a55d0  Set_IsHandleValid ---- */

@@ -6,6 +6,8 @@
 #include "functions.h"
 
 /* ---- 0x10001110  CosUtil_Write ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 undefined4 CosUtil_Write(char *param_1,int param_2,undefined4 param_3)
@@ -246,6 +248,8 @@ LAB_1000167e:
 #undef uStack_20
 #undef uStack_24
 #undef uStack_8
+
+#endif
 
 
 /* ---- 0x10002020  CosUtil_CompPtrFromHandle ---- */

@@ -222,6 +222,8 @@ uint LecShare_Unregister(undefined4 param_1)
 }
 
 /* ---- 0x004c16c0  LecShare_Resolve ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Looks a module up by name (wildcards allowed), honouring the application's override list */
 
 undefined4 LecShare_Resolve(char *param_1,char *param_2)
@@ -341,6 +343,8 @@ undefined4 LecShare_Resolve(char *param_1,char *param_2)
   return 0;
 }
 #undef local_64
+
+#endif
 
 
 /* ---- 0x004c1800  LecShare_Release ---- */

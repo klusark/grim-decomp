@@ -79,6 +79,8 @@ void __cdecl stdMemory_Free(void *p)
 }
 
 /* ---- 0x0047ff70  stdMemory_Realloc ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void * __cdecl stdMemory_Realloc(void *p,uint size,char *file,int line)
 
 {
@@ -118,3 +120,5 @@ void * __cdecl stdMemory_Realloc(void *p,uint size,char *file,int line)
   stdMemory_Free(p);
   return puVar2;
 }
+#endif
+

@@ -6,6 +6,8 @@
 #include "functions.h"
 
 /* ---- 0x004016a0  Game_FrameUpdate ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Per-frame function of the main loop. Passes the one-shot global DAT_004f5a48 ("fixed frame time",
    ms) to Engine_UpdateFrame and zeroes it. The load of that global at 0x401721 is what
@@ -87,4 +89,6 @@ void Game_FrameUpdate(void)
 #undef local_14
 #undef local_18
 #undef local_c
+
+#endif
 

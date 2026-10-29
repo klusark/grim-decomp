@@ -6,6 +6,8 @@
 #include "functions.h"
 
 /* ---- 0x00485a40  Setup_DrawDebugCamera ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Draws the three axis lines at the setup's interest point and the camera actor's costume at its
    position */
 
@@ -55,6 +57,8 @@ void Setup_DrawDebugCamera(int param_1)
 #undef local_4
 #undef local_8
 #undef local_c
+
+#endif
 
 
 /* ---- 0x004a3db0  Setup_GetBackgroundBitmap ---- */

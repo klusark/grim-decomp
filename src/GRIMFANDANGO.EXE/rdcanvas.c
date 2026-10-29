@@ -1539,6 +1539,8 @@ rdCanvas_Init(uint *canvas,uint flags,uint surface,uint zSurface,uint x0,uint y0
 }
 
 /* ---- 0x004c0610  rdCanvas_Free ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void rdCanvas_Free(int param_1)
 
 {
@@ -1548,3 +1550,5 @@ void rdCanvas_Free(int param_1)
   }
   return;
 }
+#endif
+

@@ -253,6 +253,8 @@ undefined * __cdecl Engine_CallCharacterHandler(int param_1)
 }
 
 /* ---- 0x00482990  Engine_UpdateFrame ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Variable defined which should be unmapped: local_8 */
 /* WARNING: Variable defined which should be unmapped: local_c */
 /* Engine_UpdateFrame(draw, fixedMs). Runs the frame: sound (SoundsPeriodic), then the timer
@@ -318,6 +320,8 @@ void Engine_UpdateFrame(int param_1,int param_2)
 }
 #undef local_8
 #undef local_c
+
+#endif
 
 
 /* ---- 0x00482ae0  Engine_SetIMuseState ---- */
