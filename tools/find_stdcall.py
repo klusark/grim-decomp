@@ -25,7 +25,8 @@ def scan(prog_name, prog_path):
         d = g.get("disassemble_function", program=prog_path, address=f["address"])
         imms = {int(m.group(1), 16) for m in RET_RE.finditer(d)}
         imms.discard(0)
-        if imms:
+        skip = json.load(open(os.path.join(ROOT, "names", "not_stdcall.json"))).get(prog_name, [])
+        if imms and f["address"] not in skip:
             found[f["address"]] = {"name": f["name"], "bytes": max(imms)}
         if i % 200 == 0:
             print(f"  {prog_name}: {i}/{len(funcs)}", flush=True)

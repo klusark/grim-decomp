@@ -834,7 +834,7 @@ LAB_004ab257:
   local_18 = 0;
   local_1c = 0;
   cVar3 = Text_NextChar(&param_3);
-  iVar6 = CONCAT31(extraout_var,cVar3);
+  iVar6 = ((uint)(cVar3));
   iVar7 = (int)param_1;
   do {
     param_1 = (void *)iVar7;
@@ -904,7 +904,7 @@ LAB_004ab425:
         iVar8 = 1;
         local_c = (uint)param_3;
         cVar3 = Text_NextChar(&param_3);
-        iVar6 = CONCAT31(extraout_var_00,cVar3);
+        iVar6 = ((uint)(cVar3));
         if (iVar6 != 0) {
           do {
             if ((iVar6 != 0x20) && (iVar6 != 0xfe)) break;
@@ -913,7 +913,7 @@ LAB_004ab425:
             iVar8 = iVar8 + 1;
             local_c = (uint)param_3;
             cVar3 = Text_NextChar(&param_3);
-            iVar6 = CONCAT31(extraout_var_01,cVar3);
+            iVar6 = ((uint)(cVar3));
           } while (iVar6 != 0);
           if (iVar6 != 0) goto LAB_004ab344;
         }
@@ -944,7 +944,7 @@ LAB_004ab344:
     local_14 = local_14 + uVar5;
     local_18 = local_18 + 1;
     cVar3 = Text_NextChar(&param_3);
-    iVar6 = CONCAT31(extraout_var_02,cVar3);
+    iVar6 = ((uint)(cVar3));
     iVar7 = (int)param_1;
   } while( true );
 }
@@ -1056,7 +1056,7 @@ LAB_004ab66a:
     if (0 < (int)local_14) {
       do {
         cVar2 = Text_NextChar(&text);
-        ch = CONCAT31(extraout_var,cVar2);
+        ch = ((uint)(cVar2));
         if ((iVar3 != 10) || (ch != 0xd)) {
           Text_DrawChar(ctx_00,font,ch);
         }

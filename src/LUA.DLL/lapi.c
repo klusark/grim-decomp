@@ -677,7 +677,7 @@ int __cdecl lua_getcfunction(int param_1)
   
                     /* 0x1940  28  lua_getcfunction */
   bVar1 = lua_iscfunction(param_1);
-  if (CONCAT31(extraout_var,bVar1) == 0) {
+  if (((uint)(bVar1)) == 0) {
     return 0;
   }
   piVar2 = luaA_normalizeObj((int *)(PTR_1002bf6c[8] + -8 + param_1 * 8));

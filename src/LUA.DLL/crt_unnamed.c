@@ -2399,7 +2399,7 @@ FUN_10019040(uint param_1,uint param_2,uint param_3,undefined4 param_4,uint para
   #define local_20 (*(uint *)(_frame + (0x70 - 0x20)))
   
   bVar1 = _handle_exc(param_1,(double *)&param_5,param_7);
-  if (CONCAT31(extraout_var,bVar1) == 0) {
+  if (((uint)(bVar1)) == 0) {
     local_20 = local_20 & 0xfffffffe;
     _raise_exc(local_58,&param_7,(byte)param_1,param_2,&param_3,&param_5);
   }
@@ -3238,7 +3238,7 @@ undefined4 __stdcall FUN_1001ddd0(int a1)
   }
   if (_DAT_1002c594 != (code *)0x0) {
     bVar2 = _ValidateExecute(_DAT_1002c594);
-    if (CONCAT31(extraout_var,bVar2) != 0) {
+    if (((uint)(bVar2)) != 0) {
       uVar3 = (*_DAT_1002c594)(a1);
       return uVar3;
     }

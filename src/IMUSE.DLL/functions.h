@@ -219,7 +219,7 @@ undefined4 FUN_100076b0(void); /* 0x100076b0 */
 undefined4 __cdecl FUN_10007700(undefined4 *param_1,undefined4 *param_2,int *param_3,undefined4 *param_4); /* 0x10007700 */
 int __cdecl SoundsFloodMusicBuffer(void); /* 0x10007790 */
 undefined4 FUN_100077c0(void); /* 0x100077c0 */
-char * __stdcall SoundsPeriodic(int a1,int a2,int a3,int a4,int a5); /* 0x10007810 */
+void __cdecl SoundsPeriodic(void); /* 0x10007810 */
 uint __cdecl SoundsGetMusicPosition(void); /* 0x10007830 */
 undefined4 __cdecl SoundsSetMuscriptLocal(undefined4 param_1); /* 0x100078a0 */
 undefined4 __cdecl SoundsSetMuscriptRemote(undefined4 param_1); /* 0x100078b0 */

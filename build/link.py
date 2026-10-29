@@ -196,7 +196,8 @@ def link(cc, src, obj, prog, env):
     target = os.path.join(d, prog.lower())
     # linked against the host mingw/msvcrt runtime: it supplies the CRT functions the
     # decompiled code calls and the start-up (DllMainCRTStartup / WinMainCRTStartup)
-    ldflags = ["-Wl,--enable-stdcall-fixup", "-Wl,--no-insert-timestamp", "-Wl,--allow-multiple-definition"]
+    ldflags = ["-Wl,--enable-stdcall-fixup", "-Wl,--no-insert-timestamp", "-Wl,--allow-multiple-definition",
+               "-Wl,--disable-dynamicbase"]
     if prog in IMAGE_BASE:
         ldflags.append("-Wl,--image-base=" + IMAGE_BASE[prog])
     if is_dll:

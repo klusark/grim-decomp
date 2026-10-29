@@ -1,0 +1,4 @@
+{
+ "_comment": "Functions whose Ghidra body swallows a neighbour's `RET n` through a tail jump; they are really cdecl.",
+ "IMUSE.DLL": ["10007810"]
+}
