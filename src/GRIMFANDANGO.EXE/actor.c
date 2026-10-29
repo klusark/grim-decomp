@@ -6,6 +6,8 @@
 #include "functions.h"
 
 /* ---- 0x00485290  Actor_ComputeScreenBox ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Projects the actor's model through its frame and stores the covering screen rectangle at
    actor+0x6c (valid flag at +0x68) */
 
@@ -37,8 +39,12 @@ void __cdecl Actor_ComputeScreenBox(void *actor)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x00485320  Actor_DrawDebugWalker ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Variable defined which should be unmapped: local_28 */
 /* Debug overlay: the walker's path segments, its sector outline and the look-at circle */
 
@@ -84,6 +90,8 @@ void Actor_DrawDebugWalker(void *param_1)
 }
 #undef local_28
 #undef local_c
+
+#endif
 
 
 /* ---- 0x0048b2e0  Actor_CreateSubtitle ---- */
@@ -214,6 +222,8 @@ void * __cdecl Actor_CreateSubtitle(void *actor,char *text,int x,int y)
 
 
 /* ---- 0x0048f930  Actor_SetCostume ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua SetActorCostume: replaces the whole costume stack with one costume */
 
 int __cdecl Actor_SetCostume(void *actor,char *name,int param_3)
@@ -241,8 +251,12 @@ int __cdecl Actor_SetCostume(void *actor,char *name,int param_3)
   Actor_SetFrustumCull(actor,~*(uint *)((int)actor + 4) >> 2 & 1);
   return 1;
 }
+#endif
+
 
 /* ---- 0x0048f9d0  Actor_SetHead ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Variable defined which should be unmapped: local_14 */
 /* Lua SetActorHead: head-tracking joints and limits */
 
@@ -276,6 +290,8 @@ Actor_SetHead(void *actor,int joint1,int joint2,int joint3,float maxRoll,float m
   return;
 }
 #undef local_14
+
+#endif
 
 
 /* ---- 0x0048fa60  Actor_CanSeePoint ---- */
@@ -346,6 +362,8 @@ int __cdecl Actor_CanSeePoint(void *actor,float *point,float *outDistance)
 
 
 /* ---- 0x0048fb80  Actor_CanSee ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua CanActorSee / GetVisibleThings line-of-sight test */
 
 int __cdecl Actor_CanSee(void *viewer,void *target,float *outDistance)
@@ -366,8 +384,12 @@ int __cdecl Actor_CanSee(void *viewer,void *target,float *outDistance)
   }
   return 0;
 }
+#endif
+
 
 /* ---- 0x0048fbd0  Actor_TurnKey ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Actor_TurnKey(actor, dir): the TurnActor builtin. Walker extra struct at actor+0xa4: +0x1c turn
    rate (deg/s, default 135, set by SetActorTurnRate), +0x41c time scale, +0x28 angle still to turn.
    Turn per press = rate * frameSeconds * timescale * dir; the key is accepted (+0x10 = +-1) only
@@ -405,8 +427,12 @@ void Actor_TurnKey(int param_1,float param_2)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x0048fc80  Actor_WalkForward ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Actor_WalkForward(actor): creates the walker if missing and sets extra+0xc (walk forward this
    frame), consumed by Actor_UpdateWalker. */
 
@@ -420,8 +446,12 @@ void Actor_WalkForward(int param_1)
   *(undefined4 *)(*(int *)(param_1 + 0xa4) + 0xc) = 1;
   return;
 }
+#endif
+
 
 /* ---- 0x0048fd90  Actor_UpdateMovement ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Actor_UpdateMovement(actor, dt): per frame; path following when actor+8 bit 0 (Actor_FollowPath),
    Actor_UpdateWalker, Actor_UpdateMoveChores, costume update with dt * time scale, Actor_PuckOrient
    when actor+4 & 0x10. */
@@ -462,6 +492,8 @@ void Actor_UpdateMovement(void *param_1,float param_2)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x0048fe80  Actor_UpdateLookAt ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -696,20 +728,30 @@ int __cdecl Actor_SetSelected(int handle)
 
 
 /* ---- 0x00490360  Actor_FromHandle ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void * Actor_FromHandle(int param_1)
 
 {
   return (void *)((int)g_pActorTable + param_1 * 0xa8);
 }
+#endif
+
 
 /* ---- 0x00490380  Actor_GetHandle ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 int __cdecl Actor_GetHandle(void *actor,int tag)
 
 {
   return ((int)actor - (int)g_pActorTable) / 0xa8;
 }
+#endif
+
 
 /* ---- 0x004903a0  Actor_Create ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 /* Lua LoadActor: allocates an actor record and returns its handle (-1 when full) */
 
@@ -797,8 +839,12 @@ int Actor_Create(void)
 #undef aiStack_10
 #undef local_14
 
+#endif
+
 
 /* ---- 0x00490580  Actor_CreateExtra ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Source: Engine/sputActor.cpp (lines 1561-1564, from __FILE__/__LINE__ passed to the allocator) */
 
 void Actor_CreateExtra(int param_1)
@@ -837,8 +883,12 @@ void Actor_CreateExtra(int param_1)
   *(undefined4 *)(*(int *)(param_1 + 0xa4) + 0x408) = 0x3f800000;
   return;
 }
+#endif
+
 
 /* ---- 0x004906b0  Actor_SetFollowBoxes ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Actor_SetFollowBoxes(actor, follow): sets extra+0x1b8. Following creates the walker and
    reattaches it to the set; not following clears the walker's sector (+0x5c) but keeps the walker.
     */
@@ -864,6 +914,8 @@ void Actor_SetFollowBoxes(int param_1,int param_2)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x00490730  Actor_CreateWalker ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -928,6 +980,8 @@ void Actor_CreateWalker(void *param_1,int param_2)
 
 
 /* ---- 0x00490870  Actor_SetPositionClamped ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void Actor_SetPositionClamped(int param_1,float *param_2)
 
 {
@@ -959,6 +1013,8 @@ void Actor_SetPositionClamped(int param_1,float *param_2)
   *(float *)(param_1 + 0x14) = fVar2;
   return;
 }
+#endif
+
 
 /* ---- 0x00490900  Actor_SetRot ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -1029,6 +1085,8 @@ void Actor_SetRot(int param_1,undefined4 *param_2,int param_3)
 
 
 /* ---- 0x00490a40  Actor_SetReflection ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void __cdecl Actor_SetReflection(void *actor,float angle)
 
 {
@@ -1040,8 +1098,12 @@ void __cdecl Actor_SetReflection(void *actor,float angle)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x00490a60  Actor_SetWalkChore ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void __cdecl Actor_SetWalkChore(void *actor,int chore,void *costume)
 
 {
@@ -1080,8 +1142,12 @@ void __cdecl Actor_SetWalkChore(void *actor,int chore,void *costume)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x00490b50  Actor_SetTurnChores ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void __cdecl Actor_SetTurnChores(void *actor,int leftChore,int rightChore,void *costume)
 
 {
@@ -1126,8 +1192,12 @@ void __cdecl Actor_SetTurnChores(void *actor,int leftChore,int rightChore,void *
   }
   return;
 }
+#endif
+
 
 /* ---- 0x00490c80  Actor_SetRestChore ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void __cdecl Actor_SetRestChore(void *actor,int chore,void *costume)
 
 {
@@ -1163,8 +1233,12 @@ void __cdecl Actor_SetRestChore(void *actor,int chore,void *costume)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x00490d30  Actor_PushCostume ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 int __cdecl Actor_PushCostume(void *actor,char *name,int param_3)
 
 {
@@ -1190,8 +1264,12 @@ int __cdecl Actor_PushCostume(void *actor,char *name,int param_3)
   Actor_SetFrustumCull(actor,~*(uint *)((int)actor + 4) >> 2 & 1);
   return 1;
 }
+#endif
+
 
 /* ---- 0x00490dd0  Actor_PopCostume ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void __cdecl Actor_PopCostume(void *actor,int free)
 
 {
@@ -1201,6 +1279,8 @@ void __cdecl Actor_PopCostume(void *actor,int free)
   *(void **)((int)actor + 0xa0) = pvVar1;
   return;
 }
+#endif
+
 
 /* ---- 0x00490f50  Actor_PuckOrient ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -1350,6 +1430,8 @@ void Actor_UpdateWalker(int param_1)
 
 
 /* ---- 0x004913f0  Actor_UpdateMoveChores ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Actor_UpdateMoveChores (after Actor_UpdateWalker): costume record [10] walk, [0xb] left turn,
    [0xc] right turn, [0xd] rest. Walking (walker+0xc): start walk chore (rest flag +0x14 = 0) else
    stop it; walking clears +0x10. +0x10 >= 1 plays left, < 0 plays right (eased turns set -1 always:
@@ -1470,8 +1552,12 @@ LAB_0049162b:
   *(undefined4 *)(*(int *)(param_1 + 0xa4) + 0x10) = 0;
   return;
 }
+#endif
+
 
 /* ---- 0x00492b30  Actor_SayLine ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Starts speech: resolves the /id/ to a voice file (.wvc/.wav/.imc/.imu), plays it (3D positioned
    when flag 8), creates the subtitle text object, times text-only speech from its length, and plays
    the talk chore */
@@ -1710,8 +1796,12 @@ LAB_00492fe7:
 #undef local_24
 #undef local_44
 
+#endif
+
 
 /* ---- 0x00493060  Actor_ShutUp ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua ShutUpActor: stops the actor's speech and talk chores */
 
 void __cdecl Actor_ShutUp(void *actor)
@@ -1781,8 +1871,12 @@ void __cdecl Actor_ShutUp(void *actor)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x004931f0  Actor_PushSectorOppositeEdge ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua GetSectorOppositeEdge: pushes the point on the far edge of the sector from the actor */
 
 void __cdecl Actor_PushSectorOppositeEdge(int a1,int a2)
@@ -1797,8 +1891,12 @@ void __cdecl Actor_PushSectorOppositeEdge(int a1,int a2)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x00493230  Actor_FollowPath ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Actor_FollowPath(actor): walk to a point along the planned path (walker+0x2c next node); sets
    actor+8 bit 0 while the path lasts, clears it at the end. TurnActor and SetActorRot clear bit 0,
    ending the walk. */
@@ -1859,16 +1957,24 @@ void Actor_FollowPath(int param_1)
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x004933c0  Actor_SetWalkDominate ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void __cdecl Actor_SetWalkDominate(void *actor,int dominate)
 
 {
   *(int *)(*(int *)((int)actor + 0xa4) + 0x1bc) = dominate;
   return;
 }
+#endif
+
 
 /* ---- 0x004933e0  Actor_SetConstrain ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void Actor_SetConstrain(int param_1,int param_2)
 
 {
@@ -1880,8 +1986,12 @@ void Actor_SetConstrain(int param_1,int param_2)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x004934b0  Actor_IsVoicePlaying ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 int __cdecl Actor_IsVoicePlaying(void *actor)
 
 {
@@ -1898,8 +2008,12 @@ int __cdecl Actor_IsVoicePlaying(void *actor)
   iVar1 = SoundsIsSoundPlaying(iVar1 + 0x1dc);
   return (uint)(0 < iVar1);
 }
+#endif
+
 
 /* ---- 0x00493510  Actor_HasShadow ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 int __cdecl Actor_HasShadow(void *actor)
 
 {
@@ -1917,14 +2031,20 @@ int __cdecl Actor_HasShadow(void *actor)
   } while (iVar2 < 6);
   return 0;
 }
+#endif
+
 
 /* ---- 0x00493540  Actor_ActivateShadow ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void __cdecl Actor_ActivateShadow(void *actor,int shadowIdx,int active)
 
 {
   *(int *)(*(int *)((int)actor + 0xa4) + (shadowIdx + 6) * 0x54) = active;
   return;
 }
+#endif
+
 
 /* ---- 0x00493570  Actor_SetShadowPlane ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -1962,6 +2082,8 @@ void Actor_SetShadowPlane(int param_1,char *param_2)
 
 
 /* ---- 0x004935f0  Actor_SetShadowPoint ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void __cdecl Actor_SetShadowPoint(void *actor,float x,float y,float z)
 
 {
@@ -1973,16 +2095,24 @@ void __cdecl Actor_SetShadowPoint(void *actor,float x,float y,float z)
   *(float *)(iVar1 + 0x20) = z;
   return;
 }
+#endif
+
 
 /* ---- 0x00493630  Actor_SetShadowValid ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void __cdecl Actor_SetShadowValid(void *actor,int shadowIdx,int valid)
 
 {
   *(int *)(*(int *)((int)actor + 0xa4) + 0x1fc + shadowIdx * 0x54) = valid;
   return;
 }
+#endif
+
 
 /* ---- 0x00493660  Actor_AddShadowPlane ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Shadow records are 0x54 bytes at extra+(idx+6)*0x54 with the plane equation at +8 */
 
 void __cdecl Actor_AddShadowPlane(void *actor,int shadowIdx,char *sectorName)
@@ -2009,8 +2139,12 @@ void __cdecl Actor_AddShadowPlane(void *actor,int shadowIdx,char *sectorName)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x004936b0  Actor_KillShadows ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void __cdecl Actor_KillShadows(void *actor)
 
 {
@@ -2026,6 +2160,8 @@ void __cdecl Actor_KillShadows(void *actor)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x004936e0  Actor_DrawShadows ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -2067,6 +2203,8 @@ void Actor_DrawShadows(int param_1)
 
 
 /* ---- 0x00493790  Actor_GetFrame ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Returns the actor's 12-float frame (position + 3x3 rotation), rebuilding it from pos/rot when
    dirty */
 
@@ -2079,6 +2217,8 @@ float * __cdecl Actor_GetFrame(void *actor)
   }
   return (float *)((int)actor + 0x38);
 }
+#endif
+
 
 /* ---- 0x004937c0  Actor_ToClean ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -2180,6 +2320,8 @@ void __cdecl Actor_ToClean(void *actor)
 
 
 /* ---- 0x00494690  Actor_CountCostumes ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 int Actor_CountCostumes(int param_1)
 
 {
@@ -2192,8 +2334,12 @@ int Actor_CountCostumes(int param_1)
   }
   return iVar2;
 }
+#endif
+
 
 /* ---- 0x004946b0  Actor_SetClipPlane ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void Actor_SetClipPlane(int param_1,undefined4 *param_2,undefined4 *param_3)
 
 {
@@ -2212,8 +2358,12 @@ void Actor_SetClipPlane(int param_1,undefined4 *param_2,undefined4 *param_3)
   *(undefined4 *)(iVar1 + 0x414) = param_3[2];
   return;
 }
+#endif
+
 
 /* ---- 0x00494710  Actor_SetClipActive ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void Actor_SetClipActive(int param_1,undefined4 param_2)
 
 {
@@ -2223,8 +2373,12 @@ void Actor_SetClipActive(int param_1,undefined4 param_2)
   *(undefined4 *)(*(int *)(param_1 + 0xa4) + 0x3fc) = param_2;
   return;
 }
+#endif
+
 
 /* ---- 0x00494780  Actor_SetFrustumCull ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void Actor_SetFrustumCull(int param_1,int param_2)
 
 {
@@ -2248,8 +2402,12 @@ void Actor_SetFrustumCull(int param_1,int param_2)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x004947c0  Actor_Destroy ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Removes the actor from its set, kills shadows, frees costumes, walker, extra and colormap
    reference */
 
@@ -2283,6 +2441,8 @@ void __cdecl Actor_Destroy(void *actor)
   g_nActorCount = g_nActorCount + -1;
   return;
 }
+#endif
+
 
 /* ---- 0x00494940  Actor_DrawShadowPlane ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -2433,6 +2593,8 @@ void Actor_DrawCostumes(undefined4 param_1,undefined4 param_2)
 
 
 /* ---- 0x004950a0  Actor_DrawCostumeMeshes ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Draws the meshes of an actor's costume. Enables the user clip plane when extra+0x3fc != 0 (normal
    extra+0x400, point extra+0x40c). For a model hung on a node (component+0x44 != 0) whose node
    index (+0x48) equals extra+0x420 (SetActorInvClipNode) the plane through the actor position
@@ -2618,8 +2780,12 @@ LAB_004951b3:
 #undef uStack_18
 #undef uStack_1c
 
+#endif
+
 
 /* ---- 0x004a5eb0  Actor_RemoveFromSet ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void __cdecl Actor_RemoveFromSet(char *setName,void *actor)
 
 {
@@ -2657,8 +2823,12 @@ void __cdecl Actor_RemoveFromSet(char *setName,void *actor)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x004a5f60  Actor_PutInSet ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* sputRoom.cpp: moves the actor into the named set's actor list (actor+0x7c holds the set name) */
 
 void __cdecl Actor_PutInSet(void *actor,char *setName)
@@ -2734,6 +2904,8 @@ LAB_004a5fa6:
   }
   return;
 }
+#endif
+
 
 /* ---- 0x004a8500  Actor_GetYawToPoint ---- */
 /* replaced by the hand-written version in build/overrides.c */
