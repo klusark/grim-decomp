@@ -250,3 +250,39 @@ under gdb: `cd "C:/GOG Games/GRIMDATA" && gdb -batch -ex run -ex bt --args
 * `build/run.gdb` runs the game under gdb and steps over the debugger-only
   `STATUS_INVALID_HANDLE` exceptions `RegCloseKey` raises when the LucasArts
   registry key is missing; the real game behaves the same outside a debugger.
+
+## Playable (2026-10-29)
+
+The rebuilt EXE runs the opening scene in the software renderer (windowed, `build/run/`, working
+directory `C:\GOG Games\GRIMDATA`): Manny stands in his office (`docs/manny.png`), the arrow keys walk
+him (Up = forward, Left/Right = turn, like the original), the rest chore plays. Movies are off (the
+Smush/LecShare chain is not reproduced), sound has not been verified by ear.
+
+What it took, in the order the bugs showed up (each is a class that will recur):
+
+* **Float bits stored through int slots.** Ghidra types a dword as `undefined4`/`uint` that really
+  holds a float (`puVar[1] = fVar6` in `luaU_LoadConstants`, `(float)ref[-0x21]` in
+  `Set_LoadResources`): gcc converts the value (4.0 -> 4) where the original copied bits. Lua numbers
+  became integers, actors had denormal positions, the camera FOV clamped to 179. Find them with
+  `tools/find_float_stores.py`; the cure is assembly mode (`names/asm_extra.json`).
+* **Parameter slots reused as locals** (`sscanf(buf, "...", &param_1)` then `param_1` read back
+  under another name): `tools/find_param_addr.py`. CHORE.DLL is assembled completely for this reason.
+* **Lost x87 results**: `lua_getnumber(x); _ftol(garbage)` (`Lua_PlayActorChore` played chore 0),
+  `in_FPUControlWord` (`Services_SetCurrent` must save the control word that `Math_Round` etc. load).
+* **`_input`** (the scanf engine) is split by Ghidra's jump table; EXE/LUA/CHORE forward it to the
+  host `sscanf` (`overrides.c`). Do not test it with gdb's own `sscanf` symbol, that is the host's.
+* **Section layout is part of the code.** `.rdata` is linked directly in front of `.data` at the
+  original distance (tables run across the boundary); table bases like `[idx*4+0x4d3600]` point
+  *outside* every section and are only valid with the original layout, so `gen_asm.py` rewrites a
+  base inside `.text` relative to `_sect_data`; the code bytes themselves are linked as `_sect_text`
+  so data islands in the code section (DirectInput's `c_dfDIKeyboard`, switch data) exist.
+* **DirectInput** refuses `Acquire` without `SetCooperativeLevel` (the original never set one for the
+  keyboard); `SetDataFormat` failed (E_INVALIDARG) until `c_dfDIKeyboard` was real data.
+* Debugging tips: `set environment _NO_DEBUG_HEAP=1` in gdb (the debug heap's 0xBAADF00D fills change
+  behaviour), `OutputDebugStringA` shows up as a gdb warning, `PrintWindow` captures the game window
+  even when it is behind others, `rdModel_DrawMesh` arguments (mesh, matrix) show whether node
+  matrices are sane, `Cos_InstChoreName/Status` show which chores run.
+* Functions that break when assembled stay C via `names/asm_exclude.json`: `ModelComponent_Create`
+  (0x496e20), `luaS_newlstr`/`lstring__9180`, two EXE CRT functions. Whole-EXE assembly (`--all`)
+  still hangs at start-up (black window); the working set is the rendering/math/actor/walker modules
+  plus the artifact-driven picks.

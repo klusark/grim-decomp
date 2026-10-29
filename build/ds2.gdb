@@ -1,18 +1,9 @@
 set pagination off
-break Lua_MakeCurrentSet
+set environment _NO_DEBUG_HEAP=1
 run
-delete
-break luaL_verror
-python
-import gdb
-try:
-    gdb.execute('p (int)lua_dostring("tx = 4; ty = -3")')
-except gdb.error as e:
-    print('>> stopped')
-end
-bt 8
-x/4wx $esp
-x/s *(char**)($esp+8)
-x/s *(char**)($esp+12)
-x/s *(char**)($esp+16)
+thread 1
+p (unsigned)g_pDirectSound
+p (unsigned)PTR_1002d83c
+p (int)DAT_1002d840
+bt 1
 kill
