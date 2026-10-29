@@ -102,6 +102,8 @@ undefined4 DSound_Init(void)
 
 
 /* ---- 0x004c1090  DSound_Shutdown ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void DSound_Shutdown(void)
 
 {
@@ -121,8 +123,12 @@ void DSound_Shutdown(void)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x004c1110  DSound_SetPrimaryVolume ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* IDirectSoundBuffer::SetVolume on the primary buffer under priority cooperative level */
 
 void __cdecl DSound_SetPrimaryVolume(int volume)
@@ -145,6 +151,8 @@ void __cdecl DSound_SetPrimaryVolume(int volume)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x004cddf0  Mixer_TimerThread ---- */
 /* Software sound mixer thread: wakes every 16 ms (timeGetTime) while g_nMixerRunning and refills
@@ -181,6 +189,8 @@ undefined * __stdcall Mixer_TimerThread(int a1)
 }
 
 /* ---- 0x004ce060  Mixer_Update ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Advances the mixer clock and mixes every active voice into the accumulator */
 
@@ -258,6 +268,8 @@ void Mixer_Update(void)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x004ce1d0  Mixer_ServiceVoices ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
@@ -289,6 +301,8 @@ void Mixer_ServiceVoices(void)
 }
 
 /* ---- 0x004ce260  Mixer_ScheduleVoices ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void Mixer_ScheduleVoices(void)
 
 {
@@ -323,8 +337,12 @@ void Mixer_ScheduleVoices(void)
     }
   } while( true );
 }
+#endif
+
 
 /* ---- 0x004d27d0  DSound_FillStreamBuffer ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Locks the next 0x1800-byte block(s) of the streaming buffer behind the play cursor and fills them
    from the mixer */
 
@@ -406,8 +424,12 @@ void DSound_FillStreamBuffer(void)
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x004d2c60  DSound_GetPlayBlock ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* IDirectSoundBuffer::GetCurrentPosition / 0x1800 modulo the block count */
 
 int DSound_GetPlayBlock(void)
@@ -423,6 +445,8 @@ int DSound_GetPlayBlock(void)
   }
   return -1;
 }
+#endif
+
 
 /* ---- 0x004d2e60  Mixer_Output ---- */
 void Mixer_Output(undefined4 param_1,undefined4 param_2)

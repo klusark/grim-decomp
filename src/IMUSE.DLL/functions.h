@@ -12,7 +12,7 @@ void __cdecl Im_ConvertBlockImpl(short *param_1,undefined2 *param_2,byte *param_
 undefined4 Im_DispatchInit(void); /* 0x10001f10 */
 undefined4 __cdecl Im_SwitchStreamImpl(int param_1,undefined4 param_2,uint param_3,uint param_4,uint param_5); /* 0x10002260 */
 void __cdecl Im_DispatchMixTrack(int *param_1,uint param_2,uint param_3); /* 0x10002570 */
-int Im_DispatchAllocBuffers(void); /* 0x10002a60 */
+int __cdecl Im_DispatchAllocBuffers(int *param_1); /* 0x10002a60 */
 int __cdecl Im_DispatchFetchNext(int *param_1); /* 0x10002d30 */
 undefined4 __cdecl Im_DSoundInit(undefined4 param_1,undefined4 *param_2); /* 0x100036b0 */
 undefined4 * __cdecl Im_DSoundHeartbeat(undefined4 param_1,uint *param_2); /* 0x10003730 */
@@ -51,8 +51,8 @@ undefined4 __cdecl FUN_10006560(int param_1); /* 0x10006560 */
 undefined4 __cdecl FUN_10006620(int param_1); /* 0x10006620 */
 undefined4 FUN_100067a0(void); /* 0x100067a0 */
 undefined4 __cdecl FUN_100067b0(uint param_1,char *param_2); /* 0x100067b0 */
-void __cdecl FUN_100068b0(char *param_1,uint param_2,int param_3); /* 0x100068b0 */
-void __cdecl FUN_100070e0(char *param_1); /* 0x100070e0 */
+void __cdecl FUN_100068b0(char *param_1,uint param_2,int param_3,uint param_4,int param_5,uint param_6, uint param_7,uint param_8); /* 0x100068b0 */
+void __cdecl FUN_100070e0(char *param_1,char *param_2); /* 0x100070e0 */
 void FUN_10007110(void); /* 0x10007110 */
 undefined4 __cdecl Im_SoundsFindByName(undefined4 param_1,char *param_2); /* 0x100089b0 */
 void __cdecl Im_SoundsFreeSlot(int param_1); /* 0x10008b60 */

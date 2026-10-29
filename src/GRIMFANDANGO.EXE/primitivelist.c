@@ -23,6 +23,8 @@ void __fastcall PrimitiveList_Clear(int *param_1)
 }
 
 /* ---- 0x0048a670  PrimitiveList_Append ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void * __thiscall PrimitiveList_Append(void *this,int id,int layer)
 
 {
@@ -80,6 +82,8 @@ void * __thiscall PrimitiveList_Append(void *this,int id,int layer)
 #undef local_4
 #undef local_c
 #undef pcStack_8
+
+#endif
 
 
 /* ---- 0x0048a9f0  PrimitiveList_Draw ---- */

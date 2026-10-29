@@ -808,6 +808,8 @@ void __cdecl Render_InvalidateBackground(int redrawBackground,int redrawDepth)
 
 
 /* ---- 0x004864a0  Render_BuildColorTable ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Variable defined which should be unmapped: local_40 */
 /* Fills the 65536-entry 16-bit remap table g_wColorTable for the pixel format and gamma */
 
@@ -871,6 +873,8 @@ void Render_BuildColorTable(int param_1,float param_2)
 #undef local_40
 #undef local_8
 #undef local_c
+
+#endif
 
 
 /* ---- 0x00486620  Render_RemapPixels ---- */
@@ -1144,6 +1148,8 @@ void Render_SetDrawEnabled(int param_1)
 }
 
 /* ---- 0x00486d00  Render_DrawIris ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Blacks out the back buffer outside a rectangle centred on (x,y) that has closed by `percent` (0 =
    fully open, 1 = closed) */
 
@@ -1241,6 +1247,8 @@ void __cdecl Render_DrawIris(float percent,int x,int y)
   Surface_Unlock(&g_BackBuffer);
   return;
 }
+#endif
+
 
 /* ---- 0x00486eb0  Render_StartIrisClose ---- */
 /* Lua IrisDown: starts an iris transition closing over durationMs */
@@ -1281,6 +1289,8 @@ uint Render_IsIrisDone(void)
 }
 
 /* ---- 0x00486f90  Render_CaptureThumbnail ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Renders a dimmed frame and scales the background down into a new w x h bitmap (save game
    thumbnail) */
 
@@ -1357,8 +1367,12 @@ void * __cdecl Render_CaptureThumbnail(int w,int h)
 #undef local_58
 #undef local_5c
 
+#endif
+
 
 /* ---- 0x004870e0  Render_FillRect ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 void __cdecl Render_FillRect(int x,int y,int w,int h,float r,float g,float b)
@@ -1413,6 +1427,8 @@ void __cdecl Render_FillRect(int x,int y,int w,int h,float r,float g,float b)
 #undef local_4
 #undef local_8
 #undef local_c
+
+#endif
 
 
 /* ---- 0x00487260  Render_SaveScreen ---- */
@@ -1550,6 +1566,8 @@ void __cdecl Render_SaveScreenshotBmp(char *filename)
 
 
 /* ---- 0x004873d0  Render_DrawProgressBar ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Draws the save/load progress bar directly on the primary surface */
 
 void __cdecl Render_DrawProgressBar(float fraction)
@@ -1604,6 +1622,8 @@ void __cdecl Render_DrawProgressBar(float fraction)
   return;
 }
 #undef local_4
+
+#endif
 
 
 /* ---- 0x004874c0  Render_SetWaitCursorEnabled ---- */

@@ -959,6 +959,8 @@ undefined4 __cdecl lua_unpausetasks(void)
 }
 
 /* ---- 0x10001e10  lua_updatetasks ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 bool __cdecl lua_updatetasks(int param_1)
 
 {
@@ -1066,6 +1068,8 @@ LAB_1000201b:
 #undef local_4c
 #undef local_8
 #undef local_c
+
+#endif
 
 
 /* ---- 0x10002090  lua_stackedfunction ---- */

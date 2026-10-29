@@ -1,5 +1,5 @@
 /* GRIMFANDANGO.EXE :: movie.c
- * functions 0x00489030 .. 0x00489530 (19 functions)
+ * functions 0x00489030 .. 0x00489540 (20 functions)
  * Decompiled from the shipped binaries with Ghidra; see ../../README.md */
 #include "ghidra_types.h"
 #include "globals.h"
@@ -291,6 +291,14 @@ void FUN_00489520(void)
 void FUN_00489530(void)
 
 {
-  atexit(&LAB_00489540);
+  atexit(FUN_00489540);
+  return;
+}
+
+/* ---- 0x00489540  FUN_00489540 ---- */
+void FUN_00489540(void)
+
+{
+  PrimitiveList_Clear((int *)&UINT_008ca0a0);
   return;
 }

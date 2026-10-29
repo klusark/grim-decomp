@@ -573,10 +573,10 @@ void __cdecl rdModel_DrawMesh(void *mesh,float *matrix)
         uVar10 = 0;
         UINT_007f31fc = 0;
         local_a8 = 0;
+        pvVar9 = g_pRdCurrentCamera;
+        pvVar11 = PTR_007f30a0;
         if (UINT_007f31f8 != 0) {
           local_ac = (uint)&UINT_007f1498;
-          pvVar9 = g_pRdCurrentCamera;
-          pvVar11 = PTR_007f30a0;
           do {
             piVar3 = *(int **)local_ac;
             if (piVar3[2] != 0) {
@@ -617,7 +617,11 @@ void __cdecl rdModel_DrawMesh(void *mesh,float *matrix)
             local_ac = local_ac + 4;
           } while (local_a8 < UINT_007f31f8);
         }
-        fVar13 = rdKeyframe_Interpolate();
+        fVar13 = rdKeyframe_Interpolate
+                           ((int *)&UINT_007f30e0,(float *)&DAT_007f1598,IMG_ADDR(0x007f1168),uVar10,
+                            *(int **)((int)pvVar11 + 0x44),*(uint *)((int)pvVar11 + 0x30),
+                            *(float **)((int)pvVar11 + 0x38),*(float **)((int)pvVar11 + 0x3c),
+                            *(uint *)((int)pvVar11 + 0x48),*(float *)((int)pvVar9 + 0x45c));
         *(float *)((int)mesh + 0x5c) = fVar13;
         break;
       case 6:
@@ -686,7 +690,7 @@ LAB_0040d640:
 /* ---- 0x0040d880  rdModel_AddMeshToCache ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-undefined4 rdModel_AddMeshToCache(int param_1,undefined4 param_2)
+undefined4 rdModel_AddMeshToCache(int param_1,int param_2)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -694,8 +698,8 @@ undefined4 rdModel_AddMeshToCache(int param_1,undefined4 param_2)
   byte flags;
   int iVar2;
   uint uVar3;
-  int iVar4;
-  float *pfVar5;
+  float *pfVar4;
+  int iVar5;
   bool bVar6;
   float fVar7;
   #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
@@ -744,7 +748,7 @@ undefined4 rdModel_AddMeshToCache(int param_1,undefined4 param_2)
     return 0;
   }
   if (UINT_007f3204 != 0) {
-    Vec3_Copy(local_c,(float *)&DAT_004ddb70);
+    Vec3_Copy(local_c,(float *)&DAT_004ddb70,(float *)((int)g_pRdCurrentCamera + 8));
     Vec3_Sub(local_18,(float *)&DAT_007f3208,(float *)((int)g_pRdCurrentCamera + 8));
     uVar3 = Polygon_ClipToPlane(local_c,local_18,UINT_007f1474,UINT_007f1478,UINT_007f147c,
                                 UINT_007f1468);
@@ -755,7 +759,22 @@ undefined4 rdModel_AddMeshToCache(int param_1,undefined4 param_2)
     *(uint *)(iVar2 + 0x1c) = uVar3;
   }
   if (*(int *)(iVar2 + 0xc) == 2) {
-    fVar7 = rdKeyframe_InterpolateNode();
+    if (param_2 == 0) {
+      fVar7 = *(float *)((int)g_pRdCurrentCamera + 0x45c);
+      iVar5 = *(int *)((int)PTR_007f30a0 + 0x30);
+      pfVar4 = (float *)(param_1 + 0x40);
+    }
+    else {
+      local_24 = (uint)-*(float *)(param_1 + 0x40);
+      local_20 = (uint)-*(float *)(param_1 + 0x44);
+      local_1c = (uint)-*(float *)(param_1 + 0x48);
+      fVar7 = *(float *)((int)g_pRdCurrentCamera + 0x45c);
+      iVar5 = *(int *)((int)PTR_007f30a0 + 0x30);
+      pfVar4 = (float *)&local_24;
+    }
+    fVar7 = rdKeyframe_InterpolateNode
+                      ((int *)&UINT_007f30e0,IMG_ADDR(0x007f1598),IMG_ADDR(0x007f1168),UINT_007f31fc,param_1,pfVar4,iVar5,
+                       fVar7);
     *(float *)(iVar2 + 0x44) = fVar7;
   }
   (**(code **)((int)g_pRdCurrentCamera + 0x50))(UINT_007f1490,UINT_007f1474,UINT_007f1468);
@@ -765,11 +784,11 @@ undefined4 rdModel_AddMeshToCache(int param_1,undefined4 param_2)
   else {
     *(undefined4 *)(iVar2 + 0x40) = *(undefined4 *)((int)g_pRdCurrentCamera + 0x54);
   }
-  iVar4 = *(int *)(param_1 + 0x24);
-  if ((iVar4 == -1) && (*(int *)(param_1 + 0x20) != 0)) {
-    iVar4 = *(int *)(*(int *)(param_1 + 0x20) + 100);
+  iVar5 = *(int *)(param_1 + 0x24);
+  if ((iVar5 == -1) && (*(int *)(param_1 + 0x20) != 0)) {
+    iVar5 = *(int *)(*(int *)(param_1 + 0x20) + 100);
   }
-  *(int *)(iVar2 + 0x3c) = iVar4;
+  *(int *)(iVar2 + 0x3c) = iVar5;
   bVar6 = UINT_004f5ec0 != UINT_004f5ec4;
   if (*(float *)(iVar2 + 0x40) < 1.0) {
     if (*(int *)(iVar2 + 0xc) == 2) {
@@ -784,13 +803,13 @@ undefined4 rdModel_AddMeshToCache(int param_1,undefined4 param_2)
       goto LAB_0040dbd3;
     }
     if (*(int *)(iVar2 + 0xc) != 3) goto LAB_0040dbd3;
-    pfVar5 = *(float **)(iVar2 + 0x28);
-    fVar7 = *pfVar5;
+    pfVar4 = *(float **)(iVar2 + 0x28);
+    fVar7 = *pfVar4;
     uVar3 = 1;
     if (1 < UINT_007f1468) {
       do {
-        pfVar5 = pfVar5 + 1;
-        fVar1 = *pfVar5 - fVar7;
+        pfVar4 = pfVar4 + 1;
+        fVar1 = *pfVar4 - fVar7;
         if (fVar1 < 0.0) {
           fVar1 = -fVar1;
         }
@@ -827,7 +846,7 @@ LAB_0040dbd3:
   if (2 < *(int *)(iVar2 + 0xc)) {
     flags = flags | 4;
   }
-  *(undefined4 *)(iVar2 + 0x50) = param_2;
+  *(int *)(iVar2 + 0x50) = param_2;
   *(undefined4 *)(iVar2 + 4) = *(undefined4 *)(param_1 + 4);
   *(undefined4 *)(iVar2 + 0x48) = *(undefined4 *)(param_1 + 0x30);
   *(undefined4 *)(iVar2 + 0x38) = *(undefined4 *)(param_1 + 0x20);

@@ -943,7 +943,7 @@ Im_SwitchStreamImpl(int param_1,undefined4 param_2,uint param_3,uint param_4,uin
   *(undefined1 *)(piVar7 + 7) = 0;
   piVar7[6] = 0;
   piVar7[5] = 0;
-  iVar2 = Im_DispatchAllocBuffers();
+  iVar2 = Im_DispatchAllocBuffers(piVar7);
   if ((iVar2 != 0) && (iVar2 != -3)) {
     Im_FreeTrack((int *)*piVar7);
     Im_GuardLeave();
@@ -1004,7 +1004,7 @@ LAB_10002693:
   do {
     if (piVar1[6] == 0) {
       DAT_10024de0 = 0;
-      iVar4 = Im_DispatchAllocBuffers();
+      iVar4 = Im_DispatchAllocBuffers(piVar1);
       if (iVar4 != 0) {
         if (iVar4 == -1) {
           Im_FreeTrack(param_1);
@@ -1111,7 +1111,7 @@ LAB_100028ef:
 /* WARNING: Removing unreachable block (ram,0x10002cfb) */
 /* Unidentified function of iMUSE_Dispatch.c (command dispatch, fades, triggers) */
 
-int Im_DispatchAllocBuffers(void)
+int __cdecl Im_DispatchAllocBuffers(int *param_1)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1123,7 +1123,6 @@ int Im_DispatchAllocBuffers(void)
   uint uVar6;
   int *piVar7;
   undefined4 *puVar8;
-  int *in_stack_00000004;
   #define local_4 (*(int *)(_frame + (0x20 - 0x4)))
   
   local_4 = -1;
@@ -1132,57 +1131,54 @@ int Im_DispatchAllocBuffers(void)
     DAT_1002d814 = 1;
   }
   EnterCriticalSection(IMG_ADDR(0x1002d7f0));
-  iVar2 = Im_DispatchFetchNext(in_stack_00000004);
-  if (((iVar2 == 0) && (iVar2 = local_4, in_stack_00000004[6] == 0)) &&
-     ((in_stack_00000004[0x207] == 0 ||
-      (in_stack_00000004[5] == *(int *)(in_stack_00000004[0x209] + 0xc))))) {
+  iVar2 = Im_DispatchFetchNext(param_1);
+  if (((iVar2 == 0) && (iVar2 = local_4, param_1[6] == 0)) &&
+     ((param_1[0x207] == 0 || (param_1[5] == *(int *)(param_1[0x209] + 0xc))))) {
     piVar7 = (int *)0x0;
     do {
       do {
         while( true ) {
-          piVar7 = (int *)iMUSE_Dispatch__30d0
-                                    ((int)(in_stack_00000004 + 7),in_stack_00000004[5],(int)piVar7);
+          piVar7 = (int *)iMUSE_Dispatch__30d0((int)(param_1 + 7),param_1[5],(int)piVar7);
           if (piVar7 == (int *)0x0) goto LAB_10002d11;
           iVar3 = *piVar7;
           if (0x4a554d50 < iVar3) break;
           if (iVar3 == 0x4a554d50) {
-            iVar3 = iMUSE_stream__b840((int *)(*in_stack_00000004 + 0x38),piVar7[4]);
+            iVar3 = iMUSE_stream__b840((int *)(*param_1 + 0x38),piVar7[4]);
             if (iVar3 == 0) {
-              in_stack_00000004[5] = piVar7[3];
-              if (in_stack_00000004[0x207] != 0) {
-                puVar4 = (undefined4 *)in_stack_00000004[0x209];
-                piVar1 = in_stack_00000004 + 0x209;
+              param_1[5] = piVar7[3];
+              if (param_1[0x207] != 0) {
+                puVar4 = (undefined4 *)param_1[0x209];
+                piVar1 = param_1 + 0x209;
                 if ((puVar4[4] != 0) || (puVar4[1] == 0)) {
-                  iMUSE_Dispatch__3250(in_stack_00000004,puVar4,(int)piVar7,1);
+                  iMUSE_Dispatch__3250(param_1,puVar4,(int)piVar7,1);
                 }
                 *(undefined4 *)(*piVar1 + 8) = 0;
                 iMUSE_stream__b7a0(piVar1,(int *)*piVar1);
                 if (*(int *)(*piVar1 + 0x14) != 0) {
-                  if (in_stack_00000004[0x20b] != 0) {
-                    iMUSE_Dispatch__3640(in_stack_00000004[0x20b]);
+                  if (param_1[0x20b] != 0) {
+                    iMUSE_Dispatch__3640(param_1[0x20b]);
                   }
                   DAT_1002d7e8 = *(uint *)(*piVar1 + 0x10);
                   iVar3 = iMUSE_Dispatch__35a0(&DAT_1002d7e8);
-                  in_stack_00000004[0x20b] = iVar3;
+                  param_1[0x20b] = iVar3;
                   if (iVar3 != 0) {
-                    in_stack_00000004[0x20c] = 0;
-                    in_stack_00000004[0x20d] = 0;
-                    in_stack_00000004[0x20e] = in_stack_00000004[1];
-                    in_stack_00000004[0x20f] = in_stack_00000004[2];
-                    in_stack_00000004[0x210] = in_stack_00000004[3];
-                    in_stack_00000004[0x211] = 0;
-                    in_stack_00000004[0x212] = 0;
-                    in_stack_00000004[0x213] = 0x7f0000;
-                    in_stack_00000004[0x214] = 0;
+                    param_1[0x20c] = 0;
+                    param_1[0x20d] = 0;
+                    param_1[0x20e] = param_1[1];
+                    param_1[0x20f] = param_1[2];
+                    param_1[0x210] = param_1[3];
+                    param_1[0x211] = 0;
+                    param_1[0x212] = 0;
+                    param_1[0x213] = 0x7f0000;
+                    param_1[0x214] = 0;
                     if (DAT_1002d7e8 != 0) {
                       do {
-                        uVar6 = DAT_1002d7e8 - in_stack_00000004[0x20d];
+                        uVar6 = DAT_1002d7e8 - param_1[0x20d];
                         if (0x3fff < uVar6) {
                           uVar6 = 0x4000;
                         }
-                        puVar4 = (undefined4 *)iMUSE_stream__a420(in_stack_00000004[0x207],uVar6);
-                        puVar8 = (undefined4 *)(in_stack_00000004[0x20d] + in_stack_00000004[0x20b])
-                        ;
+                        puVar4 = (undefined4 *)iMUSE_stream__a420(param_1[0x207],uVar6);
+                        puVar8 = (undefined4 *)(param_1[0x20d] + param_1[0x20b]);
                         for (uVar5 = uVar6 >> 2; uVar5 != 0; uVar5 = uVar5 - 1) {
                           *puVar8 = *puVar4;
                           puVar4 = puVar4 + 1;
@@ -1193,14 +1189,14 @@ int Im_DispatchAllocBuffers(void)
                           puVar4 = (undefined4 *)((int)puVar4 + 1);
                           puVar8 = (undefined4 *)((int)puVar8 + 1);
                         }
-                        iVar3 = in_stack_00000004[0x20d];
-                        in_stack_00000004[0x20d] = iVar3 + uVar6;
+                        iVar3 = param_1[0x20d];
+                        param_1[0x20d] = iVar3 + uVar6;
                       } while (iVar3 + uVar6 < DAT_1002d7e8);
                     }
                     DAT_10024de0 = 1;
                   }
-                  *(undefined4 *)(in_stack_00000004[0x209] + 8) = 0;
-                  iMUSE_stream__b7a0(in_stack_00000004 + 0x209,(int *)in_stack_00000004[0x209]);
+                  *(undefined4 *)(param_1[0x209] + 8) = 0;
+                  iMUSE_stream__b7a0(param_1 + 0x209,(int *)param_1[0x209]);
                 }
               }
               piVar7 = (int *)0x0;
@@ -1208,26 +1204,26 @@ int Im_DispatchAllocBuffers(void)
           }
           else {
             if (iVar3 != 0x46524d54) goto LAB_10002d11;
-            in_stack_00000004[4] = (uint)(piVar7[3] == 0);
-            in_stack_00000004[1] = piVar7[4];
-            in_stack_00000004[2] = piVar7[5];
-            in_stack_00000004[3] = piVar7[6];
+            param_1[4] = (uint)(piVar7[3] == 0);
+            param_1[1] = piVar7[4];
+            param_1[2] = piVar7[5];
+            param_1[3] = piVar7[6];
           }
         }
         if (iVar3 == 0x5245474e) {
-          in_stack_00000004[6] = piVar7[3];
+          param_1[6] = piVar7[3];
           goto LAB_10002d0d;
         }
       } while (iVar3 == 0x53594e43);
       if (iVar3 != 0x54455854) goto LAB_10002d11;
-      iVar3 = *(int *)(*in_stack_00000004 + 0xc);
+      iVar3 = *(int *)(*param_1 + 0xc);
       Im_FireTriggers(iVar3,(char *)(piVar7 + 3));
-      if (iVar3 != *(int *)(*in_stack_00000004 + 0xc)) {
+      if (iVar3 != *(int *)(*param_1 + 0xc)) {
         local_4 = -3;
         iVar2 = local_4;
         goto LAB_10002d11;
       }
-    } while (in_stack_00000004[6] == 0);
+    } while (param_1[6] == 0);
 LAB_10002d0d:
     local_4 = 0;
     iVar2 = local_4;
@@ -2854,6 +2850,8 @@ LAB_10006549:
 }
 
 /* ---- 0x10006560  FUN_10006560 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 __cdecl FUN_10006560(int param_1)
 
 {
@@ -2861,6 +2859,10 @@ undefined4 __cdecl FUN_10006560(int param_1)
   int *piVar2;
   char *pcVar3;
   uint uVar4;
+  uint unaff_retaddr;
+  uint in_stack_00000008;
+  uint in_stack_0000000c;
+  uint in_stack_00000010;
   
   if (param_1 == -1) {
     return (&DAT_1001730c)[DAT_1002df70 * 0x15];
@@ -2879,7 +2881,8 @@ undefined4 __cdecl FUN_10006560(int param_1)
         else {
           pcVar3 = &DAT_100172e8 + uVar4 * 0x54;
         }
-        FUN_100068b0(pcVar3,uVar4,0);
+        FUN_100068b0(pcVar3,uVar4,0,unaff_retaddr,param_1,in_stack_00000008,in_stack_0000000c,
+                     in_stack_00000010);
       }
       DAT_1002df70 = uVar1;
       return (&DAT_1001730c)[DAT_1002df70 * 0x15];
@@ -2889,8 +2892,12 @@ undefined4 __cdecl FUN_10006560(int param_1)
   } while ((int)piVar2 < IMG_ADDR(0x1001ae70));
   return 0;
 }
+#endif
+
 
 /* ---- 0x10006620  FUN_10006620 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 __cdecl FUN_10006620(int param_1)
 
 {
@@ -2899,17 +2906,22 @@ undefined4 __cdecl FUN_10006620(int param_1)
   char *pcVar3;
   int iVar4;
   int iVar5;
+  uint unaff_retaddr;
+  uint in_stack_00000008;
+  uint in_stack_0000000c;
+  uint in_stack_00000010;
   
   if (param_1 == -1) {
     return (&DAT_1001ae74)[DAT_1002e308 * 0x15];
   }
+  iVar4 = param_1;
   if (param_1 == 0) {
-    param_1 = 2000;
+    iVar4 = 2000;
   }
   iVar5 = 0;
   piVar2 = &DAT_1001ae74;
   do {
-    if (param_1 == *piVar2) {
+    if (iVar4 == *piVar2) {
       ImPrintf(s_SEQ_NULL_1001ae78 + iVar5 * 0x54);
       ImPrintf(&DAT_100171b0);
       iVar4 = DAT_1002e308;
@@ -2923,13 +2935,15 @@ undefined4 __cdecl FUN_10006620(int param_1)
             else {
               pcVar3 = &DAT_100172e8 + DAT_1002df70 * 0x54;
             }
-            FUN_100068b0(pcVar3,DAT_1002df70,1);
+            FUN_100068b0(pcVar3,DAT_1002df70,1,unaff_retaddr,param_1,in_stack_00000008,
+                         in_stack_0000000c,in_stack_00000010);
             DAT_1002e308 = 0;
             iVar4 = DAT_1002e308;
             iVar1 = DAT_1002e30c;
           }
           else {
-            FUN_100068b0(&DAT_1001ae50 + DAT_1002e30c * 0x54,0,1);
+            FUN_100068b0(&DAT_1001ae50 + DAT_1002e30c * 0x54,0,1,unaff_retaddr,param_1,
+                         in_stack_00000008,in_stack_0000000c,in_stack_00000010);
             iVar4 = DAT_1002e30c;
             DAT_1002e308 = DAT_1002e30c;
             DAT_1002e30c = 0;
@@ -2940,7 +2954,8 @@ undefined4 __cdecl FUN_10006620(int param_1)
         else if ((DAT_1002e308 == 0) ||
                 ((iVar1 = iVar5, *(int *)(&DAT_1001ae70 + DAT_1002e308 * 0x54) != 4 &&
                  (*(int *)(&DAT_1001ae70 + DAT_1002e308 * 0x54) != 6)))) {
-          FUN_100068b0(&DAT_1001ae50 + iVar5 * 0x54,0,1);
+          FUN_100068b0(&DAT_1001ae50 + iVar5 * 0x54,0,1,unaff_retaddr,param_1,in_stack_00000008,
+                       in_stack_0000000c,in_stack_00000010);
           DAT_1002e30c = 0;
           (&DAT_1002e25c)[iVar5] = 1;
           iVar4 = iVar5;
@@ -2957,6 +2972,8 @@ undefined4 __cdecl FUN_10006620(int param_1)
   ImPrintf(s_ERR__bogus_sequence____1001e720);
   return 0xffffffff;
 }
+#endif
+
 
 /* ---- 0x100067a0  FUN_100067a0 ---- */
 undefined4 FUN_100067a0(void)
@@ -3038,7 +3055,9 @@ undefined4 __cdecl FUN_100067b0(uint param_1,char *param_2)
 }
 
 /* ---- 0x100068b0  FUN_100068b0 ---- */
-void __cdecl FUN_100068b0(char *param_1,uint param_2,int param_3)
+void __cdecl
+FUN_100068b0(char *param_1,uint param_2,int param_3,uint param_4,int param_5,uint param_6,
+            uint param_7,uint param_8)
 
 {
   char cVar1;
@@ -3051,11 +3070,6 @@ void __cdecl FUN_100068b0(char *param_1,uint param_2,int param_3)
   int iVar8;
   undefined1 *puVar9;
   char *pcVar10;
-  undefined4 in_stack_00000010;
-  int in_stack_00000014;
-  uint in_stack_00000018;
-  uint in_stack_0000001c;
-  uint in_stack_00000020;
   
   if (DAT_1001e688 == 0) {
     return;
@@ -3167,7 +3181,7 @@ LAB_1000695e:
       DAT_1002e304 = 0;
       ImSetTrigger(uVar3,&DAT_1001e858,0);
     }
-    ImPrintf(s_HOOK__lu____1001e824,in_stack_00000010);
+    ImPrintf(s_HOOK__lu____1001e824,param_4);
     if (uVar4 == 0) {
       ImPrintf(s_No_stream_sound____1001e7ac);
       iVar7 = ImStartStream(uVar3,0x7e,2);
@@ -3178,17 +3192,17 @@ LAB_1000695e:
       ImFadeParam(uVar3,0x600,*(uint *)(param_1 + 0x4c),iVar8);
       ImSetParam(uVar3,0x700,*(uint *)(param_1 + 0x50));
       ImSetParam(uVar3,0x400,4);
-      ImSetHook(uVar3,in_stack_0000001c);
+      ImSetHook(uVar3,param_7);
       goto LAB_10007019;
     }
     if (*(int *)(param_1 + 0x20) == 2) {
-      ImSwitchStream(uVar4,uVar3,in_stack_00000018,0,0);
-      ImPrintf(s_FADE__lu____1001e818,in_stack_00000018);
+      ImSwitchStream(uVar4,uVar3,param_6,0,0);
+      ImPrintf(s_FADE__lu____1001e818,param_6);
       ImPrintf(s_vol__lu____1001e80c);
       ImFadeParam(uVar3,0x600,*(uint *)(param_1 + 0x4c),iVar8);
       ImFadeParam(uVar3,0x700,*(uint *)(param_1 + 0x50),iVar8);
       ImSetParam(uVar3,0x400,4);
-      ImSetHook(uVar3,in_stack_0000001c);
+      ImSetHook(uVar3,param_7);
       ImProcessStreams();
       goto LAB_10007019;
     }
@@ -3201,13 +3215,13 @@ LAB_1000695e:
       }
       goto LAB_10007019;
     }
-    if (((in_stack_0000001c == 0) && (*(int *)(param_1 + 0x40) != 0)) &&
+    if (((param_7 == 0) && (*(int *)(param_1 + 0x40) != 0)) &&
        (*(int *)(param_1 + 0x40) == *(int *)(&DAT_10017328 + DAT_1002df70 * 0x54))) {
-      ImSwitchStream(uVar4,uVar3,in_stack_00000018,0,1);
+      ImSwitchStream(uVar4,uVar3,param_6,0,1);
       ImFadeParam(uVar3,0x600,*(uint *)(param_1 + 0x4c),iVar8);
       ImFadeParam(uVar3,0x700,*(uint *)(param_1 + 0x50),iVar8);
       ImSetParam(uVar3,0x400,4);
-      if (in_stack_00000014 == 100) {
+      if (param_5 == 100) {
         ImSetHook(uVar3,100);
         ImProcessStreams();
         goto LAB_10007019;
@@ -3234,14 +3248,14 @@ LAB_10006f42:
           goto LAB_10007019;
         }
         if (iVar7 != 0xc) {
-          ImSwitchStream(uVar4,uVar3,in_stack_00000018,0,0);
-          ImPrintf(s_FADE__lu____1001e818,in_stack_00000018);
+          ImSwitchStream(uVar4,uVar3,param_6,0,0);
+          ImPrintf(s_FADE__lu____1001e818,param_6);
           ImPrintf(s_vol__lu____1001e80c);
           ImFadeParam(uVar3,0x600,*(uint *)(param_1 + 0x4c),iVar8);
           ImFadeParam(uVar3,0x700,*(uint *)(param_1 + 0x50),iVar8);
           ImPrintf(s_set_pan__lu____1001e7e4);
           ImSetParam(uVar3,0x400,4);
-          ImSetHook(uVar3,in_stack_00000020);
+          ImSetHook(uVar3,param_8);
           goto LAB_10006f42;
         }
         ImSetHook(uVar4,99);
@@ -3250,7 +3264,7 @@ LAB_10006f42:
         ImSetTrigger(uVar4,&DAT_1001e804,0xe);
         ImSetTrigger(uVar4,&DAT_1001e804,0xe);
         ImSetTrigger(uVar4,&DAT_1001e804,0xc);
-        ImPrintf(s_HOOK__lu____1001e824,in_stack_00000014);
+        ImPrintf(s_HOOK__lu____1001e824,param_5);
       }
       ImSetTrigger(uVar4,&DAT_1001e804,0xf);
       ImProcessStreams();
@@ -3295,13 +3309,11 @@ LAB_1000692f:
 }
 
 /* ---- 0x100070e0  FUN_100070e0 ---- */
-void __cdecl FUN_100070e0(char *param_1)
+void __cdecl FUN_100070e0(char *param_1,char *param_2)
 
 {
-  char *in_stack_00000008;
-  
   ImPrintf(s_CALLBACK__1001e898);
-  if (*in_stack_00000008 == '_') {
+  if (*param_2 == '_') {
     DAT_1002e304 = 1;
     return;
   }

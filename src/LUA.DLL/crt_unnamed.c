@@ -182,6 +182,8 @@ int __cdecl FUN_1000f310(int param_1,int param_2,int param_3,uint *param_4,uint 
 }
 
 /* ---- 0x1000f45d  FUN_1000f45d ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void __fastcall FUN_1000f45d(undefined4 param_1)
 
 {
@@ -193,6 +195,8 @@ void __fastcall FUN_1000f45d(undefined4 param_1)
   DAT_100282c4 = unaff_EBP;
   return;
 }
+#endif
+
 
 /* ---- 0x1000f5c0  FUN_1000f5c0 ---- */
 uint __cdecl FUN_1000f5c0(int param_1)
@@ -393,6 +397,8 @@ void __cdecl FUN_100119f0(char *param_1,int param_2)
 }
 
 /* ---- 0x10011e20  FUN_10011e20 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 float __cdecl FUN_10011e20(void)
 
 {
@@ -405,8 +411,12 @@ float __cdecl FUN_10011e20(void)
   fVar1 = (float10)((code *)FUN_10011e3d)(SUB84(dVar2,0),(uint)((ulonglong)dVar2 >> 0x20));
   return (float)fVar1;
 }
+#endif
+
 
 /* ---- 0x10011e3d  FUN_10011e3d ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void __cdecl FUN_10011e3d(int param_1,uint param_2)
 
 {
@@ -443,6 +453,8 @@ LAB_10011ecc:
   }
   return;
 }
+#endif
+
 
 /* ---- 0x100120fa  FUN_100120fa ---- */
 float __fastcall FUN_100120fa(undefined4 param_1)
@@ -455,6 +467,8 @@ float __fastcall FUN_100120fa(undefined4 param_1)
 }
 
 /* ---- 0x10012104  FUN_10012104 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 float10 FUN_10012104(void)
@@ -476,6 +490,8 @@ float10 FUN_10012104(void)
   } while ((in_FPUStatusWord & 0x400) != 0);
   return in_ST1;
 }
+#endif
+
 
 /* ---- 0x10012350  FUN_10012350 ---- */
 void __cdecl FUN_10012350(int param_1)
@@ -769,6 +785,8 @@ void __cdecl FUN_10013420(undefined4 *param_1,char *param_2,int param_3,uint par
 }
 
 /* ---- 0x100139a6  FUN_100139a6 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_100139a6(void)
 
 {
@@ -777,8 +795,12 @@ void FUN_100139a6(void)
   FUN_100139f0(*(undefined4 *)(unaff_EBP + -0x14));
   return;
 }
+#endif
+
 
 /* ---- 0x100139b3  FUN_100139b3 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Stack frame is not setup normally: Input value of stackpointer is not used */
 
 void FUN_100139b3(void)
@@ -820,6 +842,8 @@ void FUN_100139b3(void)
   *unaff_FS_OFFSET = *(undefined4 *)(unaff_EBP + -0x10);
   return;
 }
+#endif
+
 
 /* ---- 0x100139f0  FUN_100139f0 ---- */
 undefined4 FUN_100139f0(undefined4 *param_1)
@@ -832,6 +856,8 @@ undefined4 FUN_100139f0(undefined4 *param_1)
 }
 
 /* ---- 0x10013b57  FUN_10013b57 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_10013b57(void)
 
 {
@@ -840,8 +866,12 @@ void FUN_10013b57(void)
   FUN_10013c00(*(undefined4 *)(unaff_EBP + -0x14));
   return;
 }
+#endif
+
 
 /* ---- 0x10013b64  FUN_10013b64 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Stack frame is not setup normally: Input value of stackpointer is not used */
 
 undefined4 FUN_10013b64(void)
@@ -860,8 +890,12 @@ undefined4 FUN_10013b64(void)
   *unaff_FS_OFFSET = *(undefined4 *)(unaff_EBP + -0x10);
   return 0;
 }
+#endif
+
 
 /* ---- 0x10013b8f  FUN_10013b8f ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_10013b8f(void)
 
 {
@@ -884,6 +918,8 @@ void FUN_10013b8f(void)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x10013c00  FUN_10013c00 ---- */
 undefined4 FUN_10013c00(int *param_1)
@@ -905,6 +941,8 @@ undefined4 FUN_10013e0b(void)
 }
 
 /* ---- 0x10013e11  FUN_10013e11 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Stack frame is not setup normally: Input value of stackpointer is not used */
 
 void FUN_10013e11(void)
@@ -919,6 +957,8 @@ void FUN_10013e11(void)
   *unaff_FS_OFFSET = *(undefined4 *)(unaff_EBP + -0x10);
   return;
 }
+#endif
+
 
 /* ---- 0x10013e40  FUN_10013e40 ---- */
 void __cdecl FUN_10013e40(int param_1)
@@ -952,6 +992,8 @@ void __cdecl FUN_10013e40(int param_1)
 
 
 /* ---- 0x10013e8a  FUN_10013e8a ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 bool FUN_10013e8a(void)
 
 {
@@ -959,8 +1001,12 @@ bool FUN_10013e8a(void)
   
   return *(char *)(unaff_EBP + 0xc) != '\0';
 }
+#endif
+
 
 /* ---- 0x10013e95  FUN_10013e95 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Stack frame is not setup normally: Input value of stackpointer is not used */
 
 void FUN_10013e95(void)
@@ -975,6 +1021,8 @@ void FUN_10013e95(void)
   *unaff_FS_OFFSET = *(undefined4 *)(unaff_EBP + -0x10);
   return;
 }
+#endif
+
 
 /* ---- 0x10013ec0  FUN_10013ec0 ---- */
 int __cdecl FUN_10013ec0(int param_1,int *param_2)
@@ -992,6 +1040,8 @@ int __cdecl FUN_10013ec0(int param_1,int *param_2)
 }
 
 /* ---- 0x10013ef0  FUN_10013ef0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Restarted to delay deadcode elimination for space: stack */
 
 undefined4 __stdcall FUN_10013ef0(int a1,int a2,int a3)
@@ -1008,6 +1058,8 @@ undefined4 __stdcall FUN_10013ef0(int a1,int a2,int a3)
   FUN_1000f45d(a3);
   return extraout_EAX_00;
 }
+#endif
+
 
 /* ---- 0x1001416a  FUN_1001416a ---- */
 undefined4 FUN_1001416a(void)
@@ -1017,6 +1069,8 @@ undefined4 FUN_1001416a(void)
 }
 
 /* ---- 0x10014170  FUN_10014170 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Stack frame is not setup normally: Input value of stackpointer is not used */
 
 void FUN_10014170(void)
@@ -1032,6 +1086,8 @@ void FUN_10014170(void)
   *unaff_FS_OFFSET = *(undefined4 *)(unaff_EBP + -0x10);
   return;
 }
+#endif
+
 
 /* ---- 0x10014197  FUN_10014197 ---- */
 void FUN_10014197(void)
@@ -1079,6 +1135,8 @@ undefined4 FUN_100141f1(void)
 }
 
 /* ---- 0x100141f7  FUN_100141f7 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Stack frame is not setup normally: Input value of stackpointer is not used */
 
 void FUN_100141f7(void)
@@ -1094,6 +1152,8 @@ void FUN_100141f7(void)
   *unaff_FS_OFFSET = *(undefined4 *)(unaff_EBP + -0x10);
   return;
 }
+#endif
+
 
 /* ---- 0x1001421e  FUN_1001421e ---- */
 void FUN_1001421e(void)
@@ -1145,6 +1205,8 @@ undefined4 FUN_10015160(int a1)
 
 
 /* ---- 0x1001519c  FUN_1001519c ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 bool FUN_1001519c(void)
 
 {
@@ -1152,8 +1214,12 @@ bool FUN_1001519c(void)
   
   return *(int *)**(undefined4 **)(unaff_EBP + -0x14) == -0x3ffffffb;
 }
+#endif
+
 
 /* ---- 0x100151b0  FUN_100151b0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 __stdcall FUN_100151b0(int a1)
 
 {
@@ -1164,6 +1230,8 @@ undefined4 __stdcall FUN_100151b0(int a1)
   *unaff_FS_OFFSET = *(undefined4 *)(unaff_EBP + -0x10);
   return 0;
 }
+#endif
+
 
 /* ---- 0x100156f0  FUN_100156f0 ---- */
 int FUN_100156f0(int *param_1)
@@ -1854,11 +1922,11 @@ undefined4 FUN_100178e0(void)
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   byte *pbVar1;
   undefined2 *puVar2;
-  int iVar3;
-  uint uVar4;
-  int *piVar5;
-  byte *pbVar6;
-  undefined2 *puVar7;
+  undefined4 *puVar3;
+  int iVar4;
+  uint uVar5;
+  int *piVar6;
+  byte *pbVar7;
   undefined2 *puVar8;
   undefined2 *puVar9;
   undefined *puVar10;
@@ -1879,7 +1947,7 @@ undefined4 FUN_100178e0(void)
     return 0;
   }
   if ((DAT_1002c218 != 0) ||
-     (iVar3 = FUN_10020090(0,(uint)DAT_1002c1e4,0xb,(char *)&DAT_1002c218), iVar3 == 0)) {
+     (iVar4 = FUN_10020090(0,(uint)DAT_1002c1e4,0xb,(char *)&DAT_1002c218), iVar4 == 0)) {
     puStack_18 = (undefined2 *)malloc(0x202);
     puStack_1c = (undefined2 *)malloc(0x202);
     puVar10 = (undefined *)malloc(0x101);
@@ -1887,63 +1955,63 @@ undefined4 FUN_100178e0(void)
     if ((puStack_18 != (undefined2 *)0x0) &&
        (((puStack_1c != (undefined2 *)0x0 && (puVar10 != (undefined *)0x0)) &&
         (puVar9 != (undefined2 *)0x0)))) {
-      iVar3 = 0;
+      iVar4 = 0;
       do {
-        puVar10[iVar3] = (char)iVar3;
-        iVar3 = iVar3 + 1;
-      } while (iVar3 < 0x100);
-      iVar3 = GetCPInfo(DAT_1002c218,(int)&uStack_14);
-      if ((iVar3 != 0) && (uStack_14 < 3)) {
+        puVar10[iVar4] = (char)iVar4;
+        iVar4 = iVar4 + 1;
+      } while (iVar4 < 0x100);
+      iVar4 = GetCPInfo(DAT_1002c218,(int)&uStack_14);
+      if ((iVar4 != 0) && (uStack_14 < 3)) {
         DAT_10028b5c = uStack_14 & 0xffff;
         if ((1 < DAT_10028b5c) && (abStack_e[0] != 0)) {
-          pbVar6 = abStack_e + 1;
+          pbVar7 = abStack_e + 1;
           do {
-            if (*pbVar6 == 0) break;
-            uVar4 = (uint)pbVar6[-1];
-            if (uVar4 <= *pbVar6) {
+            if (*pbVar7 == 0) break;
+            uVar5 = (uint)pbVar7[-1];
+            if (uVar5 <= *pbVar7) {
               do {
-                puVar10[uVar4] = 0;
-                uVar4 = uVar4 + 1;
-              } while ((int)uVar4 <= (int)(uint)*pbVar6);
+                puVar10[uVar5] = 0;
+                uVar5 = uVar5 + 1;
+              } while ((int)uVar5 <= (int)(uint)*pbVar7);
             }
-            pbVar1 = pbVar6 + 1;
-            pbVar6 = pbVar6 + 2;
+            pbVar1 = pbVar7 + 1;
+            pbVar7 = pbVar7 + 2;
           } while (*pbVar1 != 0);
         }
         puVar2 = puStack_18 + 1;
-        iVar3 = __crtGetStringTypeA(1,puVar10,0x100,puVar2,0,0,0);
-        if (iVar3 != 0) {
+        iVar4 = __crtGetStringTypeA(1,puVar10,0x100,puVar2,0,0,0);
+        if (iVar4 != 0) {
           *puStack_18 = 0;
-          iVar3 = 0;
-          puVar7 = puVar9;
+          iVar4 = 0;
+          puVar8 = puVar9;
           do {
-            *puVar7 = (short)iVar3;
-            puVar7 = puVar7 + 1;
-            iVar3 = iVar3 + 1;
-          } while (iVar3 < 0x100);
-          puVar7 = puStack_1c + 1;
-          piVar5 = __crtGetStringTypeW(1,puVar9,0x100,puVar7,0);
-          if (piVar5 != (int *)0x0) {
+            *puVar8 = (short)iVar4;
+            puVar8 = puVar8 + 1;
+            iVar4 = iVar4 + 1;
+          } while (iVar4 < 0x100);
+          puVar3 = (undefined4 *)(puStack_1c + 1);
+          piVar6 = __crtGetStringTypeW(1,(int)puVar9,0x100,puVar3,0,0);
+          if (piVar6 != (int *)0x0) {
             *puStack_1c = 0;
             if ((1 < (int)DAT_10028b5c) && (abStack_e[0] != 0)) {
-              pbVar6 = abStack_e + 1;
+              pbVar7 = abStack_e + 1;
               do {
-                if (*pbVar6 == 0) break;
-                uVar4 = (uint)pbVar6[-1];
-                if (uVar4 <= *pbVar6) {
-                  puVar8 = puStack_18 + uVar4 + 1;
+                if (*pbVar7 == 0) break;
+                uVar5 = (uint)pbVar7[-1];
+                if (uVar5 <= *pbVar7) {
+                  puVar8 = puStack_18 + uVar5 + 1;
                   do {
                     *puVar8 = 0x8000;
-                    uVar4 = uVar4 + 1;
+                    uVar5 = uVar5 + 1;
                     puVar8 = puVar8 + 1;
-                  } while ((int)uVar4 <= (int)(uint)*pbVar6);
+                  } while ((int)uVar5 <= (int)(uint)*pbVar7);
                 }
-                pbVar1 = pbVar6 + 1;
-                pbVar6 = pbVar6 + 2;
+                pbVar1 = pbVar7 + 1;
+                pbVar7 = pbVar7 + 2;
               } while (*pbVar1 != 0);
             }
             PTR_DAT_10028950 = (undefined *)puVar2;
-            PTR_DAT_10028954 = (undefined *)puVar7;
+            PTR_DAT_10028954 = (undefined *)puVar3;
             if (DAT_1002c1d0 != (undefined2 *)0x0) {
               free((undefined *)DAT_1002c1d0);
             }
@@ -2065,6 +2133,8 @@ void __cdecl FUN_10017df0(int param_1,int param_2,int *param_3)
 }
 
 /* ---- 0x10018c77  FUN_10018c77 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void __fastcall FUN_10018c77(undefined4 param_1,int param_2)
 
 {
@@ -2104,6 +2174,8 @@ void __fastcall FUN_10018c77(undefined4 param_1,int param_2)
               + 0x10))();
   return;
 }
+#endif
+
 
 /* ---- 0x10018d14  FUN_10018d14 ---- */
 float10 FUN_10018d14(void)
@@ -2113,6 +2185,8 @@ float10 FUN_10018d14(void)
 }
 
 /* ---- 0x10018d4d  FUN_10018d4d ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 float10 FUN_10018d4d(void)
 
 {
@@ -2129,8 +2203,12 @@ float10 FUN_10018d4d(void)
   }
   return *(float10 *)(unaff_EBP + -0x9e) + in_ST0;
 }
+#endif
+
 
 /* ---- 0x10018d4f  FUN_10018d4f ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 float10 FUN_10018d4f(void)
 
 {
@@ -2147,8 +2225,12 @@ float10 FUN_10018d4f(void)
   }
   return *(float10 *)(unaff_EBP + -0x9e) + in_ST1;
 }
+#endif
+
 
 /* ---- 0x10018d77  FUN_10018d77 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 float10 FUN_10018d77(void)
 
 {
@@ -2174,8 +2256,12 @@ float10 FUN_10018d77(void)
 LAB_10018db3:
   return fVar2 + in_ST1;
 }
+#endif
+
 
 /* ---- 0x10018db6  FUN_10018db6 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 unkbyte10 FUN_10018db6(void)
@@ -2190,8 +2276,12 @@ unkbyte10 FUN_10018db6(void)
   }
   return Var1;
 }
+#endif
+
 
 /* ---- 0x10018de0  FUN_10018de0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 float10 __fastcall
 FUN_10018de0(undefined4 param_1,uint param_2,undefined2 param_3,undefined4 param_4,
             undefined4 param_5,undefined4 param_6,undefined4 param_7,undefined4 param_8)
@@ -2224,8 +2314,12 @@ FUN_10018de0(undefined4 param_1,uint param_2,undefined2 param_3,undefined4 param
 #undef uStack_1c
 #undef uStack_20
 
+#endif
+
 
 /* ---- 0x10018df7  FUN_10018df7 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 float10 __fastcall
 FUN_10018df7(undefined4 param_1,uint param_2,ushort param_3,undefined4 param_4,undefined4 param_5,
             undefined4 param_6)
@@ -2252,8 +2346,12 @@ FUN_10018df7(undefined4 param_1,uint param_2,ushort param_3,undefined4 param_4,u
 #undef local_24
 #undef local_c
 
+#endif
+
 
 /* ---- 0x10018e40  FUN_10018e40 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined1 *FUN_10018e40(void)
 
 {
@@ -2265,6 +2363,8 @@ undefined1 *FUN_10018e40(void)
   auVar2 = (undefined1  [10])fscale((float10)1 + fVar1,ROUND(in_ST0));
   return auVar2;
 }
+#endif
+
 
 /* ---- 0x10018e55  FUN_10018e55 ---- */
 undefined4 FUN_10018e55(void)
@@ -2318,6 +2418,8 @@ void FUN_10018ede(void)
 }
 
 /* ---- 0x10018eeb  FUN_10018eeb ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void __fastcall
 FUN_10018eeb(undefined4 param_1,uint param_2,undefined4 param_3,undefined4 param_4,
             undefined4 param_5)
@@ -2333,8 +2435,12 @@ FUN_10018eeb(undefined4 param_1,uint param_2,undefined4 param_3,undefined4 param
   }
   return;
 }
+#endif
+
 
 /* ---- 0x10018f29  FUN_10018f29 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void __fastcall
 FUN_10018f29(undefined4 param_1,uint param_2,undefined4 param_3,undefined4 param_4,
             undefined4 param_5,undefined4 param_6,undefined4 param_7)
@@ -2366,35 +2472,44 @@ FUN_10018f29(undefined4 param_1,uint param_2,undefined4 param_3,undefined4 param
 }
 #undef uStack_4
 
+#endif
+
 
 /* ---- 0x10018ff0  FUN_10018ff0 ---- */
-float10 __cdecl FUN_10018ff0(int param_1,undefined4 param_2,undefined4 param_3)
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
+float10 __cdecl FUN_10018ff0(int param_1,int param_2,uint param_3)
 
 {
   int *piVar1;
-  float10 fVar2;
+  float10 extraout_ST0;
+  uint in_stack_00000010;
   
   if (DAT_1002bbe0 == 0) {
-    fVar2 = FUN_10019770(1,param_1);
-    return fVar2;
+    FUN_10019770((float10 *)0x1,param_1,param_2,param_3,0,0,param_2,param_3,in_stack_00000010);
+    return extraout_ST0;
   }
   piVar1 = _errno();
   *piVar1 = 0x21;
   FUN_10019aa0();
   return (float10)(double)CONCAT44(param_3,param_2);
 }
+#endif
+
 
 /* ---- 0x10019040  FUN_10019040 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 float10 __cdecl
-FUN_10019040(uint param_1,uint param_2,uint param_3,undefined4 param_4,uint param_5,
-            undefined4 param_6,uint param_7)
+FUN_10019040(uint param_1,uint param_2,uint param_3,uint param_4,uint param_5,uint param_6,
+            uint param_7)
 
 {
   unsigned char _frame[0x70] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   bool bVar1;
   undefined3 extraout_var;
-  int iVar2;
-  float10 fVar3;
+  float10 *__return_storage_ptr__;
+  float10 extraout_ST0;
   #define local_58 (*(uint (*)[14])(_frame + (0x70 - 0x58)))
   #define local_20 (*(uint *)(_frame + (0x70 - 0x20)))
   
@@ -2403,39 +2518,42 @@ FUN_10019040(uint param_1,uint param_2,uint param_3,undefined4 param_4,uint para
     local_20 = local_20 & 0xfffffffe;
     _raise_exc(local_58,&param_7,(byte)param_1,param_2,&param_3,&param_5);
   }
-  iVar2 = FUN_10019880(param_1);
-  if ((DAT_1002bbe0 == 0) && (iVar2 != 0)) {
-    fVar3 = FUN_10019770(iVar2,param_2);
-    return fVar3;
+  __return_storage_ptr__ = (float10 *)FUN_10019880(param_1);
+  if ((DAT_1002bbe0 == 0) && (__return_storage_ptr__ != (float10 *)0x0)) {
+    FUN_10019770(__return_storage_ptr__,param_2,param_3,param_4,0,0,param_5,param_6,param_7);
+    return extraout_ST0;
   }
-  FUN_10019820(iVar2);
+  FUN_10019820((int)__return_storage_ptr__);
   FUN_10019aa0();
   return (float10)(double)CONCAT44(param_6,param_5);
 }
 #undef local_20
 #undef local_58
 
+#endif
+
 
 /* ---- 0x10019770  FUN_10019770 ---- */
-float10 __cdecl FUN_10019770(int param_1,int param_2)
+float10 * __cdecl
+FUN_10019770(float10 *__return_storage_ptr__,int param_1,int param_2,uint param_3,uint param_4,
+            uint param_5,uint param_6,uint param_7,uint param_8)
 
 {
   int iVar1;
-  undefined4 in_stack_0000001c;
-  undefined4 in_stack_00000020;
+  float10 *pfVar2;
   
-  iVar1 = FUN_10019850(param_2);
+  iVar1 = FUN_10019850(param_1);
   if (iVar1 != 0) {
     FUN_10019aa0();
-    iVar1 = FUN_100119e0();
-    if (iVar1 == 0) {
-      FUN_10019820(param_1);
+    pfVar2 = (float10 *)FUN_100119e0();
+    if (pfVar2 == (float10 *)0x0) {
+      pfVar2 = (float10 *)((code *)FUN_10019820)((int)__return_storage_ptr__);
     }
-    return (float10)(double)CONCAT44(in_stack_00000020,in_stack_0000001c);
+    return pfVar2;
   }
   FUN_10019aa0();
-  FUN_10019820(param_1);
-  return (float10)(double)CONCAT44(in_stack_00000020,in_stack_0000001c);
+  pfVar2 = (float10 *)((code *)FUN_10019820)((int)__return_storage_ptr__);
+  return pfVar2;
 }
 
 /* ---- 0x10019820  FUN_10019820 ---- */
@@ -2579,6 +2697,8 @@ float __cdecl FUN_10019960(uint param_1,uint param_2,int *param_3)
 }
 
 /* ---- 0x10019a70  FUN_10019a70 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 int FUN_10019a70(void)
 
 {
@@ -2586,8 +2706,12 @@ int FUN_10019a70(void)
   
   return (int)in_FPUStatusWord;
 }
+#endif
+
 
 /* ---- 0x10019a80  FUN_10019a80 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 int FUN_10019a80(void)
 
 {
@@ -2595,6 +2719,8 @@ int FUN_10019a80(void)
   
   return (int)in_FPUStatusWord;
 }
+#endif
+
 
 /* ---- 0x10019aa0  FUN_10019aa0 ---- */
 int FUN_10019aa0(void)
@@ -2624,6 +2750,8 @@ void __fastcall FUN_10019b30(undefined4 param_1,int param_2)
 }
 
 /* ---- 0x10019bfa  FUN_10019bfa ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_10019bfa(void)
 
 {
@@ -2686,56 +2814,57 @@ LAB_10019cc9:
            (ushort *)(unaff_EBP + -0xa4));
   return;
 }
+#endif
+
 
 /* ---- 0x1001a5a6  FUN_1001a5a6 ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-undefined4 FUN_1001a5a6(undefined4 param_1,uint param_2,ushort param_3)
+undefined4 __cdecl
+FUN_1001a5a6(undefined4 param_1,uint param_2,ushort param_3,uint param_4,uint param_5,uint param_6,
+            uint param_7,uint param_8,ushort param_9)
 
 {
+  uint uVar1;
   undefined4 in_EAX;
-  int iVar1;
-  float10 fVar2;
+  int iVar2;
   float10 fVar3;
-  undefined4 in_stack_0000001c;
-  undefined2 uStack00000020;
-  undefined2 uStack00000022;
-  ushort in_stack_00000024;
+  float10 fVar4;
   
   if ((((((CONCAT22(param_3,PIECE(param_2,2,2)) ^ 0x700) & 0x700) == 0) &&
        (*(char *)(((PIECE(param_2,2,2) & 0x7800) >> 0xb) + IMG_ADDR(0x1002970c)) != '\0')) &&
       ((param_3 & 0x7fff) != 0x7fff)) &&
-     ((((in_stack_00000024 & 0x7fff) != 0 && ((in_stack_00000024 & 0x7fff) != 0x7fff)) &&
-      (((PIECE(uStack00000020,0,4) & 0x7fffffff) == 0 && ((param_2 & 0x7fffffff) == 0)))))) {
-    if ((ushort)((param_3 & 0x7fff) + 0x3f) < (in_stack_00000024 & 0x7fff)) {
-      iVar1 = ((in_stack_00000024 & 0x7fff) - (param_3 & 0x7fff) & 0x3f | 0x20) + 1;
-      fVar3 = ABS((float10)CONCAT28(in_stack_00000024 & 0x7fff | param_3 & 0x8000,
+     ((((param_9 & 0x7fff) != 0 && ((param_9 & 0x7fff) != 0x7fff)) &&
+      (((param_8 & 0x7fffffff) == 0 && ((param_2 & 0x7fffffff) == 0)))))) {
+    uVar1 = param_8;
+    if ((ushort)((param_3 & 0x7fff) + 0x3f) < (param_9 & 0x7fff)) {
+      iVar2 = ((param_9 & 0x7fff) - (param_3 & 0x7fff) & 0x3f | 0x20) + 1;
+      fVar4 = ABS((float10)CONCAT28(param_9 & 0x7fff | param_3 & 0x8000,
                                     CONCAT26(PIECE(param_2,2,2),CONCAT24((undefined2)param_2,param_1))));
-      fVar2 = ABS((float10)CONCAT28(in_stack_00000024,
-                                    CONCAT26(uStack00000022,
-                                             CONCAT24(uStack00000020,in_stack_0000001c))));
+      fVar3 = ABS((float10)CONCAT28(param_9,CONCAT26(PIECE(param_8,2,2),
+                                                     CONCAT24((undefined2)param_8,param_7))));
       do {
-        if (fVar3 <= fVar2) {
-          fVar2 = fVar2 - fVar3;
+        if (fVar4 <= fVar3) {
+          fVar3 = fVar3 - fVar4;
         }
-        fVar3 = fVar3 * (float10)_DAT_1002973c;
-        iVar1 = iVar1 + -1;
-      } while (iVar1 != 0);
+        fVar4 = fVar4 * (float10)_DAT_1002973c;
+        iVar2 = iVar2 + -1;
+      } while (iVar2 != 0);
     }
     else {
-      while (-1 < (int)((in_stack_00000024 & 0x7fff) - ((param_3 & 0x7fff) + 10))) {
-        fVar2 = (float10)CONCAT28(in_stack_00000024,
-                                  CONCAT26(uStack00000022,CONCAT24(uStack00000020,in_stack_0000001c)
-                                          ));
-        fVar3 = (float10)CONCAT28((in_stack_00000024 & 0x7fff) -
-                                  ((in_stack_00000024 & 0x7fff) - param_3 & 7 | 4) |
+      while( true ) {
+        PIECE(param_8,2,2) = (undefined2)(uVar1 >> 0x10);
+        PIECE(param_8,0,2) = (undefined2)uVar1;
+        if ((int)((param_9 & 0x7fff) - ((param_3 & 0x7fff) + 10)) < 0) break;
+        fVar3 = (float10)CONCAT28(param_9,CONCAT26(PIECE(param_8,2,2),
+                                                   CONCAT24((undefined2)param_8,param_7)));
+        fVar4 = (float10)CONCAT28((param_9 & 0x7fff) - ((param_9 & 0x7fff) - param_3 & 7 | 4) |
                                   param_3 & 0x8000,
                                   CONCAT26(PIECE(param_2,2,2),CONCAT24((undefined2)param_2,param_1)));
-        fVar2 = fVar2 - (float10)(unkint10)(fVar2 / fVar3) * fVar3;
-        in_stack_0000001c = SUB104(fVar2,0);
-        uStack00000020 = (undefined2)((unkuint10)fVar2 >> 0x20);
-        uStack00000022 = (undefined2)((unkuint10)fVar2 >> 0x30);
-        in_stack_00000024 = (ushort)((unkuint10)fVar2 >> 0x40);
+        fVar3 = fVar3 - (float10)(unkint10)(fVar3 / fVar4) * fVar4;
+        param_7 = SUB104(fVar3,0);
+        uVar1 = (uint)((unkuint10)fVar3 >> 0x20);
+        param_9 = (ushort)((unkuint10)fVar3 >> 0x40);
       }
     }
   }
@@ -2743,33 +2872,63 @@ undefined4 FUN_1001a5a6(undefined4 param_1,uint param_2,ushort param_3)
 }
 
 /* ---- 0x1001a7ac  FUN_1001a7ac ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 float10 FUN_1001a7ac(void)
 
 {
   float10 in_ST0;
+  float10 extraout_ST0;
   float10 fVar1;
+  float10 extraout_ST0_00;
   float10 in_ST1;
+  uint uVar2;
+  uint uVar3;
+  ushort uVar4;
+  uint in_stack_ffffffd8;
+  uint in_stack_ffffffdc;
+  undefined2 in_stack_ffffffe0;
+  undefined2 in_stack_ffffffe2;
+  uint uVar5;
+  uint uVar6;
+  ushort uVar7;
   
+  uVar5 = SUB104(in_ST0,0);
+  uVar6 = (uint)((unkuint10)in_ST0 >> 0x20);
+  uVar7 = (ushort)((unkuint10)in_ST0 >> 0x40);
+  uVar2 = SUB104(in_ST1,0);
+  uVar3 = (uint)((unkuint10)in_ST1 >> 0x20);
+  uVar4 = (ushort)((unkuint10)in_ST1 >> 0x40);
   if (((uint)((unkuint10)in_ST1 >> 0x30) & 0x7fff0000) != 0) {
-    fVar1 = (float10)((code *)FUN_1001a5a6)();
-    return fVar1;
+    FUN_1001a5a6(uVar2,uVar3,uVar4,in_stack_ffffffd8,in_stack_ffffffdc,
+                 CONCAT22(in_stack_ffffffe2,in_stack_ffffffe0),uVar5,uVar6,uVar7);
+    return extraout_ST0;
   }
-  if (SUB104(in_ST1,0) != 0 || (int)((unkuint10)in_ST1 >> 0x20) != 0) {
-    fVar1 = (float10)((undefined4 (*)(float))FUN_1001a5a6)(in_ST1 * (float10)_DAT_10029724);
-    return fVar1;
+  if (uVar2 == 0 && uVar3 == 0) {
+    return in_ST0 - (float10)(unkint10)(in_ST0 / in_ST1) * in_ST1;
   }
-  return in_ST0 - (float10)(unkint10)(in_ST0 / in_ST1) * in_ST1;
+  if ((uVar7 & 0x7fff) < 0x7fbf) {
+    fVar1 = in_ST0 * (float10)_DAT_10029724;
+    uVar5 = SUB104(fVar1,0);
+    uVar6 = (uint)((unkuint10)fVar1 >> 0x20);
+    uVar7 = (ushort)((unkuint10)fVar1 >> 0x40);
+  }
+  fVar1 = in_ST1 * (float10)_DAT_10029724;
+  FUN_1001a5a6(SUB104(fVar1,0),(uint)((unkuint10)fVar1 >> 0x20),(ushort)((unkuint10)fVar1 >> 0x40),
+               uVar2,uVar3,CONCAT22(in_stack_ffffffe2,uVar4),uVar5,uVar6,uVar7);
+  return extraout_ST0_00;
 }
+#endif
+
 
 /* ---- 0x1001c720  FUN_1001c720 ---- */
-int __cdecl FUN_1001c720(int param_1,int param_2,int param_3,int param_4)
+int __cdecl FUN_1001c720(int param_1,int param_2,int param_3,int param_4,int param_5)
 
 {
   int iVar1;
   undefined *a3;
-  int in_stack_00000014;
   
   if (DAT_1002c25c == 0) {
     iVar1 = GetLocaleInfoW(0,1,0,0);
@@ -2791,8 +2950,8 @@ int __cdecl FUN_1001c720(int param_1,int param_2,int param_3,int param_4)
   if (DAT_1002c25c != 1) {
     return DAT_1002c25c;
   }
-  if (in_stack_00000014 == 0) {
-    in_stack_00000014 = DAT_1002c218;
+  if (param_5 == 0) {
+    param_5 = DAT_1002c218;
   }
   iVar1 = GetLocaleInfoW(param_1,param_2,0,0);
   if (iVar1 != 0) {
@@ -2803,14 +2962,14 @@ int __cdecl FUN_1001c720(int param_1,int param_2,int param_3,int param_4)
     iVar1 = GetLocaleInfoW(param_1,param_2,(int)a3,iVar1);
     if (iVar1 != 0) {
       if (param_4 == 0) {
-        iVar1 = WideCharToMultiByte(in_stack_00000014,0x220,(int)a3,-1,0,0,0,0);
+        iVar1 = WideCharToMultiByte(param_5,0x220,(int)a3,-1,0,0,0,0);
         if (iVar1 != 0) {
           free(a3);
           return iVar1;
         }
       }
       else {
-        iVar1 = WideCharToMultiByte(in_stack_00000014,0x220,(int)a3,-1,param_3,param_4,0,0);
+        iVar1 = WideCharToMultiByte(param_5,0x220,(int)a3,-1,param_3,param_4,0,0);
         if (iVar1 != 0) {
           free(a3);
           return iVar1;
@@ -3446,7 +3605,7 @@ LAB_1001f637:
 }
 
 /* ---- 0x10020090  FUN_10020090 ---- */
-undefined4 __cdecl FUN_10020090(int param_1,undefined4 param_2,undefined4 param_3,char *param_4)
+undefined4 __cdecl FUN_10020090(int param_1,int param_2,int param_3,char *param_4)
 
 {
   unsigned char _frame[0x90] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -3463,7 +3622,7 @@ undefined4 __cdecl FUN_10020090(int param_1,undefined4 param_2,undefined4 param_
     if (param_1 != 0) {
       return 0xffffffff;
     }
-    iVar4 = __crtGetLocaleInfoA(param_2,param_3,&DAT_1002c5a8,4);
+    iVar4 = __crtGetLocaleInfoA(param_2,param_3,IMG_ADDR(0x1002c5a8),4,0);
     if (iVar4 != 0) {
       pbVar7 = &DAT_1002c5a8;
       *param_4 = '\0';
@@ -3488,13 +3647,13 @@ undefined4 __cdecl FUN_10020090(int param_1,undefined4 param_2,undefined4 param_
   }
   puVar5 = local_80;
   bVar2 = false;
-  uVar3 = FUN_1001c720(param_2,param_3,local_80,0x80);
+  uVar3 = FUN_1001c720(param_2,param_3,(int)local_80,0x80,0);
   if (uVar3 == 0) {
     iVar4 = GetLastError();
-    if (((iVar4 != 0x7a) || (uVar3 = FUN_1001c720(param_2,param_3,0,0), uVar3 == 0)) ||
+    if (((iVar4 != 0x7a) || (uVar3 = FUN_1001c720(param_2,param_3,0,0,0), uVar3 == 0)) ||
        (puVar5 = (uint *)malloc(uVar3), puVar5 == (uint *)0x0)) goto LAB_10020140;
     bVar2 = true;
-    uVar3 = FUN_1001c720(param_2,param_3,puVar5,uVar3);
+    uVar3 = FUN_1001c720(param_2,param_3,(int)puVar5,uVar3,0);
     if (uVar3 == 0) goto LAB_10020140;
   }
   puVar6 = (uint *)malloc(uVar3);
@@ -3575,6 +3734,8 @@ void FUN_10021a10(undefined4 *param_1)
 }
 
 /* ---- 0x10021f90  FUN_10021f90 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_10021f90(void)
 
 {
@@ -3583,8 +3744,12 @@ void FUN_10021f90(void)
   luaM_free(*(void **)(unaff_EBP + -0x10));
   return;
 }
+#endif
+
 
 /* ---- 0x10021f9b  FUN_10021f9b ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_10021f9b(void)
 
 {
@@ -3593,6 +3758,8 @@ void FUN_10021f9b(void)
   luaM_free(*(void **)(unaff_EBP + -0x10));
   return;
 }
+#endif
+
 
 /* ---- 0x10021fa6  FUN_10021fa6 ---- */
 void __cdecl FUN_10021fa6(int *param_1,int param_2,int param_3,undefined4 param_4)
@@ -3603,6 +3770,8 @@ void __cdecl FUN_10021fa6(int *param_1,int param_2,int param_3,undefined4 param_
 }
 
 /* ---- 0x10021fb0  FUN_10021fb0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_10021fb0(void)
 
 {
@@ -3611,8 +3780,12 @@ void FUN_10021fb0(void)
   luaM_free(*(void **)(unaff_EBP + -0x10));
   return;
 }
+#endif
+
 
 /* ---- 0x10021fd0  FUN_10021fd0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_10021fd0(void)
 
 {
@@ -3621,8 +3794,12 @@ void FUN_10021fd0(void)
   lvm__dd90(*(int *)(unaff_EBP + 8));
   return;
 }
+#endif
+
 
 /* ---- 0x10021fdb  FUN_10021fdb ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_10021fdb(void)
 
 {
@@ -3631,6 +3808,8 @@ void FUN_10021fdb(void)
   lvm__dd90(*(int *)(unaff_EBP + 4));
   return;
 }
+#endif
+
 
 /* ---- 0x10021fe6  FUN_10021fe6 ---- */
 void __cdecl FUN_10021fe6(int *param_1,int param_2,int param_3,undefined4 param_4)
@@ -3641,6 +3820,8 @@ void __cdecl FUN_10021fe6(int *param_1,int param_2,int param_3,undefined4 param_
 }
 
 /* ---- 0x10021ff0  FUN_10021ff0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_10021ff0(void)
 
 {
@@ -3649,6 +3830,8 @@ void FUN_10021ff0(void)
   lvm__dd90(*(int *)(unaff_EBP + -0x10));
   return;
 }
+#endif
+
 
 /* ---- 0x10021ffb  FUN_10021ffb ---- */
 void __cdecl FUN_10021ffb(int *param_1,int param_2,int param_3,undefined4 param_4)
@@ -3659,6 +3842,8 @@ void __cdecl FUN_10021ffb(int *param_1,int param_2,int param_3,undefined4 param_
 }
 
 /* ---- 0x10022010  FUN_10022010 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_10022010(void)
 
 {
@@ -3667,8 +3852,12 @@ void FUN_10022010(void)
   luaM_free(*(void **)(unaff_EBP + -0x10));
   return;
 }
+#endif
+
 
 /* ---- 0x10022030  FUN_10022030 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_10022030(void)
 
 {
@@ -3677,6 +3866,8 @@ void FUN_10022030(void)
   lvm__dd90(*(int *)(unaff_EBP + 8));
   return;
 }
+#endif
+
 
 /* ---- 0x1002203b  FUN_1002203b ---- */
 void __cdecl FUN_1002203b(int *param_1,int param_2,int param_3,undefined4 param_4)
@@ -3687,6 +3878,8 @@ void __cdecl FUN_1002203b(int *param_1,int param_2,int param_3,undefined4 param_
 }
 
 /* ---- 0x10022050  FUN_10022050 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_10022050(void)
 
 {
@@ -3695,6 +3888,8 @@ void FUN_10022050(void)
   luaM_free(*(void **)(unaff_EBP + -0x10));
   return;
 }
+#endif
+
 
 /* ---- 0x1002205b  FUN_1002205b ---- */
 void __cdecl FUN_1002205b(int *param_1,int param_2,int param_3,undefined4 param_4)

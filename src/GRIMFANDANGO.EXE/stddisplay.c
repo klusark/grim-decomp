@@ -176,6 +176,8 @@ int __cdecl Display_Select3DDevice(int threeDNum)
 
 
 /* ---- 0x00402930  Display_InitFromConfig ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 /* Uses the registry's last display, else picks a default, then Display_Select */
 
@@ -205,6 +207,8 @@ undefined * Display_InitFromConfig(void)
 #undef local_4
 #undef local_8
 #undef local_c
+
+#endif
 
 
 /* ---- 0x004029b0  Display_GetLastFromRegistry ---- */
@@ -648,6 +652,8 @@ bool Display_EnumDevices(void)
 }
 
 /* ---- 0x00473b30  Display_RestoreMode ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* IDirectDraw::RestoreDisplayMode when a DirectDraw device is active */
 
@@ -660,6 +666,8 @@ void Display_RestoreMode(void)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x00473c80  Display_SelectDevice ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
@@ -935,6 +943,8 @@ void Display_CloseMode(void)
 }
 
 /* ---- 0x00474380  Display_SuspendForDialog ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void Display_SuspendForDialog(void)
 
 {
@@ -952,8 +962,12 @@ void Display_SuspendForDialog(void)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x004743d0  Display_ResumeAfterDialog ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void Display_ResumeAfterDialog(void)
 
 {
@@ -971,6 +985,8 @@ void Display_ResumeAfterDialog(void)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x00474420  Display_Flip ---- */
 /* BitBlt of the DIB back buffer or DirectDraw flip */
@@ -999,6 +1015,8 @@ int Display_Flip(void)
 }
 
 /* ---- 0x00474480  Surface_Create ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Std/Win95/Stddisplay.c: creates a surface record (0xd8 bytes) from a 19-dword format/size
    description */
 
@@ -1107,6 +1125,8 @@ void * __cdecl Surface_Create(void *info,int videoMem,int b,int c)
 }
 #undef puStack_8
 
+#endif
+
 
 /* ---- 0x004746d0  Surface_Free ---- */
 void __cdecl Surface_Free(void *surface)
@@ -1120,6 +1140,8 @@ void __cdecl Surface_Free(void *surface)
 }
 
 /* ---- 0x004746f0  Surface_Release ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Releases DirectDraw surfaces (type 1) or frees the system memory pixels (types 0/2) */
 
 void __cdecl Surface_Release(void *surface)
@@ -1154,6 +1176,8 @@ void __cdecl Surface_Release(void *surface)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x00474750  Surface_Lock ---- */
 int __cdecl Surface_Lock(void *surface)
@@ -1363,6 +1387,8 @@ int __cdecl Surface_Blit(void *dst,void *src,int x,int y,int *srcRect,int colorK
 }
 
 /* ---- 0x00474ae0  Surface_SetColorKey ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 int __cdecl Surface_SetColorKey(void *surface,int color)
 
 {
@@ -1383,6 +1409,8 @@ int __cdecl Surface_SetColorKey(void *surface,int color)
 }
 #undef local_4
 #undef local_8
+
+#endif
 
 
 /* ---- 0x00474b30  Surface_Decompress ---- */
@@ -1565,6 +1593,8 @@ int __cdecl Palette_ApplyGamma(void *dst,void *src,int count,int gammaIdx)
 }
 
 /* ---- 0x00474e40  Display_DrawText ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* GDI TextOut of the debug font onto the back buffer (DIB or locked DirectDraw DC) */
 
 int __cdecl Display_DrawText(char *text,int x,int y)
@@ -1638,6 +1668,8 @@ int __cdecl Display_DrawText(char *text,int x,int y)
   return 0;
 }
 #undef local_4
+
+#endif
 
 
 /* ---- 0x00475000  Display_FindClosestDevice ---- */
@@ -1959,6 +1991,8 @@ int __cdecl Surface_BlitSoftware(void *dst,void *src,uint x,uint y,int *srcRect,
 }
 
 /* ---- 0x004755e0  Surface_BlitDDraw ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4
 Surface_BlitDDraw(int param_1,int param_2,uint param_3,uint param_4,uint *param_5,byte param_6)
 
@@ -2118,6 +2152,8 @@ Surface_BlitDDraw(int param_1,int param_2,uint param_3,uint param_4,uint *param_
 #undef local_7c
 #undef local_80
 #undef local_84
+
+#endif
 
 
 /* ---- 0x004758a0  Surface_BlitLockedSrc ---- */
@@ -2548,6 +2584,8 @@ Surface_BlitLockedDst
 
 
 /* ---- 0x004760d0  DDraw_Create ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 bool DDraw_Create(undefined4 param_1)
 
 {
@@ -2583,8 +2621,12 @@ bool DDraw_Create(undefined4 param_1)
   iVar1 = (**(code_std **)(*(int *)g_pDirectDraw + 0x50))(g_pDirectDraw,param_1,8);
   return iVar1 == 0;
 }
+#endif
+
 
 /* ---- 0x00476190  DDraw_Release ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void DDraw_Release(void)
 
 {
@@ -2594,8 +2636,12 @@ void DDraw_Release(void)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x004761b0  FUN_004761b0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined * __stdcall FUN_004761b0(int a1,int a2,int a3,int a4)
 
 {
@@ -2690,6 +2736,8 @@ undefined * __stdcall FUN_004761b0(int a1,int a2,int a3,int a4)
 #undef local_2dc
 #undef uStack_2b0
 #undef uStack_2b4
+
+#endif
 
 
 /* ---- 0x00476390  FUN_00476390 ---- */
@@ -2893,6 +2941,8 @@ void * DDraw_Get(void)
 }
 
 /* ---- 0x004767d0  DDraw_CreateSurfaces ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Sets the display mode and creates the primary (+ back buffer when triple buffering) surfaces and
    palette */
@@ -3048,6 +3098,8 @@ LAB_00476b98:
 #undef puStack_28
 #undef uStack_10
 
+#endif
+
 
 /* ---- 0x00476bc0  DDraw_ReleaseSurfaces ---- */
 void DDraw_ReleaseSurfaces(void)
@@ -3062,6 +3114,8 @@ void DDraw_ReleaseSurfaces(void)
 }
 
 /* ---- 0x00476bf0  DDraw_LockSurface ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 DDraw_LockSurface(undefined4 *param_1)
 
 {
@@ -3081,8 +3135,12 @@ undefined4 DDraw_LockSurface(undefined4 *param_1)
   } while (iVar1 == 0);
   return param_1[0xb];
 }
+#endif
+
 
 /* ---- 0x00476c40  DDraw_UnlockSurface ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 DDraw_UnlockSurface(undefined4 *param_1)
 
 {
@@ -3104,8 +3162,12 @@ undefined4 DDraw_UnlockSurface(undefined4 *param_1)
   } while (iVar1 == 0);
   return 0;
 }
+#endif
+
 
 /* ---- 0x00476c90  DDraw_Flip ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 DDraw_Flip(void)
 
 {
@@ -3127,8 +3189,12 @@ undefined4 DDraw_Flip(void)
   } while (iVar1 == -0x7789fde4);
   return 0;
 }
+#endif
+
 
 /* ---- 0x00476cd0  DDraw_FillSurface ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 DDraw_FillSurface(undefined4 *param_1,uint param_2,uint *param_3)
 
 {
@@ -3191,8 +3257,12 @@ undefined4 DDraw_FillSurface(undefined4 *param_1,uint param_2,uint *param_3)
 #undef local_70
 #undef local_74
 
+#endif
+
 
 /* ---- 0x00476dc0  DDraw_SetPalette ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 DDraw_SetPalette(undefined1 *param_1)
 
 {
@@ -3223,6 +3293,8 @@ undefined4 DDraw_SetPalette(undefined1 *param_1)
   return 1;
 }
 #undef local_400
+
+#endif
 
 
 /* ---- 0x00476e40  DIB_CreateSurface ---- */
@@ -3292,6 +3364,8 @@ void __cdecl Display_SetPalette3D(void *palette,int flags)
 }
 
 /* ---- 0x0047b610  Palette_FromFloatTable ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Writes n RGB byte triplets from a float colour table */
 
 void Palette_FromFloatTable(undefined1 *param_1,undefined4 param_2,int param_3)
@@ -3318,8 +3392,12 @@ void Palette_FromFloatTable(undefined1 *param_1,undefined4 param_2,int param_3)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x0047b8a0  Pixel_Convert ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Converts pixels between the 16-bit RGB layouts described by the format records */
 
 void __cdecl Pixel_Convert(ushort *dst,int dstFormat,ushort *src,int srcFormat,uint count)
@@ -3425,6 +3503,8 @@ void __cdecl Pixel_Convert(ushort *dst,int dstFormat,ushort *src,int srcFormat,u
 #undef local_4
 #undef local_8
 #undef local_c
+
+#endif
 
 
 /* ---- 0x0047bbb0  Pixel_ConvertOne ---- */

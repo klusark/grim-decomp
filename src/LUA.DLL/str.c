@@ -793,6 +793,8 @@ LAB_1000a291:
 
 
 /* ---- 0x1000a2e0  str_add_value ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* gsub replacement: string or function result */
 
 void __cdecl str_add_value(int param_1,int *param_2)
@@ -867,6 +869,8 @@ LAB_1000a36b:
   }
   return;
 }
+#endif
+
 
 /* ---- 0x1000a440  FUN_1000a440 ---- */
 /* replaced by the hand-written version in build/overrides.c */

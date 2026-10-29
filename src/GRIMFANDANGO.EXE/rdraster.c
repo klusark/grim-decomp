@@ -6,6 +6,8 @@
 #include "functions.h"
 
 /* ---- 0x0040ea50  rdRaster_SetupPoly ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Finds the top/bottom vertices of a screen polygon and the attribute gradients (plane equations)
    for the span fillers */
@@ -242,8 +244,12 @@ LAB_0040ec61:
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x0040ef90  rdRaster_SetupPolyTex ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* rdRaster_SetupPoly variant that also computes the texture coordinate gradients */
 
@@ -512,6 +518,8 @@ LAB_0040f4ea:
 #undef local_4
 #undef local_8
 #undef local_c
+
+#endif
 
 
 /* ---- 0x0040f5f0  rdRaster_Select_Flat ---- */
@@ -4960,6 +4968,8 @@ void rdRaster_SpanP16_TexKeyZw_3(uint *param_1)
 
 
 /* ---- 0x00418550  rdRaster_Grad_Flat ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Software rasterizer variant (auto-classified from the decompilation: Grad Flat). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -5169,8 +5179,12 @@ LAB_0041894c:
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x00418a00  rdRaster_Grad_Flat_2 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Software rasterizer variant (auto-classified from the decompilation: Grad Flat). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -5421,6 +5435,8 @@ LAB_00418ede:
 #undef local_4
 #undef local_8
 #undef local_c
+
+#endif
 
 
 /* ---- 0x00418fe0  rdRaster_DrawPoints ---- */
@@ -9940,6 +9956,8 @@ void rdRaster_Span_Tex_5(uint *param_1,uint *param_2)
 
 
 /* ---- 0x0042003c  FUN_0042003c ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void __fastcall FUN_0042003c(int param_1,int param_2)
 
 {
@@ -9968,6 +9986,8 @@ void __fastcall FUN_0042003c(int param_1,int param_2)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x004200c0  rdRaster_Span16_Tex_9 ---- */
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex). Grimjedi RDroid
@@ -17425,6 +17445,8 @@ LAB_0042d542:
 
 
 /* ---- 0x0042d5f0  rdRaster_Grad_Flat_4 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Software rasterizer variant (auto-classified from the decompilation: Grad Flat). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -17668,6 +17690,8 @@ LAB_0042da90:
 #undef local_4
 #undef local_8
 #undef local_c
+
+#endif
 
 
 /* ---- 0x0042dba0  rdRaster_DrawPointsZ ---- */

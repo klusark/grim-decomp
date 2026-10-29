@@ -1438,6 +1438,8 @@ void __cdecl rdCanvas_DrawLine(void *canvas,int x0,int y0,int x1,int y1,ushort c
 
 
 /* ---- 0x00451dd0  rdCanvas_DrawPoint ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Clips a point with radius against the canvas rect and draws it */
 
 void rdCanvas_DrawPoint(void *param_1,int param_2,int param_3,undefined4 param_4,float param_5,
@@ -1485,6 +1487,8 @@ void rdCanvas_DrawPoint(void *param_1,int param_2,int param_3,undefined4 param_4
 #undef local_4
 #undef local_8
 #undef local_c
+
+#endif
 
 
 /* ---- 0x004c04f0  rdCanvas_New ---- */

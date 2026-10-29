@@ -492,6 +492,8 @@ void __stdcall Primitive_Draw(void *prim,void *canvas)
 
 
 /* ---- 0x0048ab50  Primitive_Invalidate ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Marks the primitive's bounding rectangle dirty on the last buffer */
 
 undefined * __stdcall Primitive_Invalidate(int a1)
@@ -535,6 +537,8 @@ undefined * __stdcall Primitive_Invalidate(int a1)
 #undef local_4
 #undef local_8
 #undef local_c
+
+#endif
 
 
 /* ---- 0x0048abc0  Primitive_ResetIds ---- */

@@ -15,8 +15,6 @@ extern undefined4 lua_assume_binary; /* 0x1002bee0, undefined4 in Ghidra */
 extern undefined4 lua_debug; /* 0x1002bee4, undefined4 in Ghidra */
 
 /* ---- unnamed data (type inferred from use) ---- */
-extern undefined4 * in_stack_00000004; /* used by 1 fn(s), first 0x10011160 */
-extern undefined4 in_stack_00000018; /* used by 1 fn(s), first 0x1001b000 */
 extern code LAB_1000f3b0;  /* code label (address only) */ /* used by 2 fn(s), first 0x1000f3d2 */
 extern code LAB_1001dec8;  /* code label (address only) */ /* used by 6 fn(s), first 0x10013930 */
 extern undefined DAT_10021fbb; /* used by 1 fn(s), first 0x10003260 */
@@ -398,7 +396,7 @@ extern int * DAT_1002c0a8; /* used by 4 fn(s), first 0x10010340 */
 extern undefined4 DAT_1002c0ac; /* used by 1 fn(s), first 0x1001fa40 */
 extern int * DAT_1002c0b0; /* used by 3 fn(s), first 0x10010340 */
 extern undefined DAT_1002c0b8; /* used by 1 fn(s), first 0x1001c950 */
-extern undefined4 DAT_1002c0c0; /* used by 2 fn(s), first 0x1000fea0 */
+extern undefined DAT_1002c0c0; /* used by 2 fn(s), first 0x1000fea0 */
 extern undefined4 DAT_1002c0c4; /* used by 2 fn(s), first 0x10012cb0 */
 extern undefined4 DAT_1002c0c8; /* used by 1 fn(s), first 0x100155f0 */
 extern undefined4 DAT_1002c0d8; /* used by 2 fn(s), first 0x10016230 */
@@ -523,8 +521,8 @@ extern undefined4 in_stack_ffffffbc; /* used by 1 fn(s), first 0x1001dc70 */
 #define _DAT_1002c0a0 (*(undefined4 *)&DAT_1002c0a0) /* same address as DAT_1002c0a0, other width */
 #define _DAT_1002c0b8 (*(undefined4 *)&DAT_1002c0b8) /* same address as DAT_1002c0b8, other width */
 #define _DAT_1002c1bc (*(int * *)&DAT_1002c1bc) /* same address as DAT_1002c1bc, other width */
-#define _DAT_1002c1f6 (*(undefined4 *)&DAT_1002c1f6) /* same address as DAT_1002c1f6, other width */
-#define _DAT_1002c1f8 (*(undefined4 *)&DAT_1002c1f8) /* same address as DAT_1002c1f8, other width */
+#define _DAT_1002c1f6 (*(undefined2 *)&DAT_1002c1f6) /* same address as DAT_1002c1f6, other width */
+#define _DAT_1002c1f8 (*(undefined2 *)&DAT_1002c1f8) /* same address as DAT_1002c1f8, other width */
 #define _DAT_1002c214 (*(undefined4 *)&DAT_1002c214) /* same address as DAT_1002c214, other width */
 #define _DAT_1002c578 (*(undefined4 *)&DAT_1002c578) /* same address as DAT_1002c578, other width */
 #define _DAT_1002c57c (*(undefined4 *)&DAT_1002c57c) /* same address as DAT_1002c57c, other width */

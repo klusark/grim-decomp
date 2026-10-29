@@ -151,7 +151,7 @@ undefined4 __cdecl iMUSE_Dispatch__2170(int param_1,uint param_2)
     piVar1[0x209] = 0;
     piVar1[0x20a] = 0;
   }
-  iVar3 = Im_DispatchAllocBuffers();
+  iVar3 = Im_DispatchAllocBuffers(piVar1);
   if ((iVar3 != 0) && (iVar3 != -3)) {
     iMUSE_Dispatch__2200(*piVar1);
     return 0xffffffff;

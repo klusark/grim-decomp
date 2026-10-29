@@ -6,6 +6,8 @@
 #include "functions.h"
 
 /* ---- 0x00446c10  rdClip_Line2D ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Cohen-Sutherland line clip against a rectangle using rdClip_Outcode2D */
 
 undefined4
@@ -68,6 +70,8 @@ rdClip_Line2D(undefined4 param_1,undefined4 *param_2,undefined4 *param_3,undefin
 #undef local_4
 #undef local_8
 #undef local_c
+
+#endif
 
 
 /* ---- 0x00446e80  rdClip_Outcode2D ---- */

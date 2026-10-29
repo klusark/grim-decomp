@@ -88,15 +88,16 @@ undefined4 FUN_00496020(undefined4 param_1,int param_2); /* 0x00496020 */
 void Lua_Stub(void); /* 0x00497830 */
 bool FUN_00497840(undefined4 param_1,int param_2,int param_3,undefined4 param_4); /* 0x00497840 */
 void FUN_00497890(undefined4 param_1,int *param_2,undefined4 param_3,int param_4,uint param_5, undefined4 param_6,undefined4 param_7,undefined4 param_8); /* 0x00497890 */
+void FUN_00497cb0(int param_1,int param_2,uint param_3); /* 0x00497cb0 */
 undefined4 * FUN_00497d10(undefined4 param_1,int *param_2,int param_3); /* 0x00497d10 */
 bool FUN_00497e10(undefined4 param_1,undefined4 param_2,int param_3,int param_4,uint param_5); /* 0x00497e10 */
 undefined4 FUN_00498000(int *param_1,undefined4 param_2); /* 0x00498000 */
 void Lua_GetMemoryUsage(void); /* 0x00498d80 */
 void Lua_GetDiskFreeSpace(void); /* 0x00498da0 */
-void Lua_TEST(void); /* 0x00498e20 */
-void Lua_ShrinkBoxes(void); /* 0x00498e50 */
+void Lua_TEST(uint param_1,uint param_2,float param_3,float param_4,float param_5,float *param_6, float param_7,float param_8,float param_9,float param_10,uint param_11, undefined4 param_12,double param_13); /* 0x00498e20 */
+void Lua_ShrinkBoxes(uint param_1,float param_2,float param_3,float param_4,float *param_5, float param_6,float param_7,float param_8,float param_9,uint param_10, undefined4 param_11,double param_12); /* 0x00498e50 */
 void Lua_UnShrinkBoxes(void); /* 0x00498e90 */
-void Lua_GetShrinkPos(void); /* 0x00498ea0 */
+void Lua_GetShrinkPos(undefined4 param_1,double param_2); /* 0x00498ea0 */
 void Lua_SetSoundParameters(void); /* 0x00499000 */
 void Lua_GetSoundParameters(void); /* 0x004991c0 */
 void Lua_SetDebugKeysCallback(uint param_1); /* 0x00499250 */
@@ -500,7 +501,7 @@ void * __cdecl rdColormap_Load(char *name); /* 0x004043c0 */
 int __cdecl rdColormap_LoadEntry(char *name,void *cmp); /* 0x00404420 */
 void rdColormap_Free(undefined4 param_1); /* 0x00404730 */
 void rdColormap_FreeEntry(int param_1); /* 0x00404750 */
-undefined8 rdColormap_Build16bitTables(undefined2 *param_1,ushort *param_2); /* 0x004047e0 */
+undefined8 __cdecl rdColormap_Build16bitTables (undefined2 *param_1,ushort *param_2,uint param_3,uint param_4,uint param_5,int param_6); /* 0x004047e0 */
 undefined4 rdColormap_BuildGreyRamp(undefined4 *param_1); /* 0x00404a40 */
 int FUN_00404b30(int param_1); /* 0x00404b30 */
 
@@ -539,7 +540,7 @@ undefined4 rdModel_ComputeMeshLighting(byte *param_1); /* 0x00409580 */
 undefined4 FUN_00409d20(int param_1,int param_2); /* 0x00409d20 */
 void rdModel_DrawNode(int param_1); /* 0x0040d140 */
 void __cdecl rdModel_DrawMesh(void *mesh,float *matrix); /* 0x0040d230 */
-undefined4 rdModel_AddMeshToCache(int param_1,undefined4 param_2); /* 0x0040d880 */
+undefined4 rdModel_AddMeshToCache(int param_1,int param_2); /* 0x0040d880 */
 
 /* ===== rdprimit3.c ===== */
 void * __cdecl rdPrimit3_DrawPolygon(float *verts,int count,void *material); /* 0x00409d50 */
@@ -595,7 +596,7 @@ void FUN_0040cc30(int param_1); /* 0x0040cc30 */
 void FUN_0040ce90(int param_1); /* 0x0040ce90 */
 
 /* ===== rdpuppet.c ===== */
-void __cdecl rdPuppet_BuildJointMatrices(void *model,float *frame); /* 0x0040cee0 */
+void __cdecl rdPuppet_BuildJointMatrices(void *model,float *frame,uint param_3,uint param_4); /* 0x0040cee0 */
 undefined4 * rdPuppet_New(void *param_1); /* 0x00450500 */
 int __cdecl rdPuppet_Init(void *puppet,void *thing); /* 0x00450560 */
 uint __cdecl rdPuppet_AddTrack(void *puppet,uint keyframe,uint lowPri,uint highPri); /* 0x004505a0 */
@@ -609,8 +610,8 @@ void __cdecl rdPuppet_AdvanceTrack(void *puppet,int track,float dt); /* 0x004507
 void __cdecl rdPuppet_Advance(void *puppet,float seconds); /* 0x00450a90 */
 void rdPuppet_ClearTrackNodes(int param_1,int param_2); /* 0x00450b50 */
 void __cdecl rdPuppet_UpdateFrame(void *model,float *frame); /* 0x00450ba0 */
-float __cdecl rdKeyframe_Interpolate(void); /* 0x00451510 */
-float __cdecl rdKeyframe_InterpolateNode(void); /* 0x00451800 */
+float __cdecl rdKeyframe_Interpolate (int *param_1,float *param_2,int param_3,uint param_4,int *param_5,uint param_6, float *param_7,float *param_8,uint param_9,float param_10); /* 0x00451510 */
+float __cdecl rdKeyframe_InterpolateNode (int *param_1,int param_2,uint param_3,uint param_4,int param_5,float *param_6,int param_7 ,float param_8); /* 0x00451800 */
 
 /* ===== rdthing.c ===== */
 int __cdecl rdThing_Draw(void *thing,float *position); /* 0x0040cf20 */
@@ -1033,7 +1034,7 @@ void Matrix_Multiply(float *param_1,float *param_2); /* 0x0044fc60 */
 void Matrix_BuildTransform(float *param_1,undefined4 param_2); /* 0x0044fe50 */
 void Matrix_SetTranslation(int param_1,float *param_2); /* 0x0044fe80 */
 void Matrix_BuildTransform2(float *param_1,undefined4 param_2); /* 0x0044feb0 */
-void __cdecl Vec3_Copy(float *out,float *v); /* 0x0044fee0 */
+void __cdecl Vec3_Copy(float *out,float *v,float *param_3); /* 0x0044fee0 */
 void __cdecl Vec3_TransformTo(float *out,float *v,float *m); /* 0x0044ff50 */
 void __cdecl Vec3_Transform(float *vec,float *m); /* 0x0044ffc0 */
 void __cdecl Vec3_Sub(float *out,float *a,float *b); /* 0x00450060 */
@@ -1091,7 +1092,7 @@ int rdPolyline_New(undefined4 param_1,undefined4 param_2,undefined4 param_3,unde
 undefined4 rdPolyline_Init(int param_1,int param_2,undefined4 param_3,char *param_4,undefined4 param_5, undefined4 param_6,undefined4 param_7,undefined4 param_8,undefined4 param_9, undefined4 param_10,undefined4 *param_11); /* 0x00472910 */
 void rdSprite_Free(int param_1); /* 0x00472b50 */
 void rdSprite_FreeContents(int param_1); /* 0x00472b70 */
-undefined4 rdSprite_Draw(int param_1,int param_2); /* 0x00472bd0 */
+undefined4 rdSprite_Draw(int param_1,float *param_2); /* 0x00472bd0 */
 
 /* ===== stdfileutil.c ===== */
 undefined * __cdecl stdFile_Open(uint param_1,uint param_2); /* 0x00473430 */
@@ -1145,7 +1146,7 @@ undefined4 FUN_0047c7e0(byte *param_1,undefined4 param_2); /* 0x0047c7e0 */
 void FUN_0047c8c0(void); /* 0x0047c8c0 */
 
 /* ===== stdbitmap.c ===== */
-void * __cdecl stdBitmap_Load(char *filename); /* 0x00473630 */
+void * __cdecl stdBitmap_Load(char *filename,int param_2,int param_3); /* 0x00473630 */
 void * __cdecl stdBitmap_LoadFile(char *name,int a,int b); /* 0x00473660 */
 int __cdecl stdBitmap_SaveByExtension(char *filename,void *bitmap); /* 0x00473810 */
 void * __cdecl stdBitmap_LoadResource(char *name,int a,int b); /* 0x0047aa50 */
@@ -1401,7 +1402,7 @@ undefined4 FUN_00482380(code *param_1); /* 0x00482380 */
 /* ===== engine.c ===== */
 void Engine_ResetState(void); /* 0x00482460 */
 void Engine_OpenResourceLog(undefined4 param_1); /* 0x00482530 */
-void Engine_PushSelectedActorCostume(void); /* 0x004825c0 */
+void Engine_PushSelectedActorCostume(int param_1); /* 0x004825c0 */
 void Engine_PopSelectedActorCostume(void); /* 0x004825f0 */
 int __cdecl Engine_OpenRenderer(void *mode,int flags); /* 0x00482620 */
 undefined4 Engine_CloseRenderer(void); /* 0x00482660 */
@@ -1558,7 +1559,7 @@ undefined4 sputRender_Initialize(GrimServices *param_1,undefined4 *param_2); /* 
 void __cdecl Actor_ComputeScreenBox(void *actor); /* 0x00485290 */
 void Actor_DrawDebugWalker(void *param_1); /* 0x00485320 */
 void * __cdecl Actor_CreateSubtitle(void *actor,char *text,int x,int y); /* 0x0048b2e0 */
-int __cdecl Actor_SetCostume(void *actor,char *name); /* 0x0048f930 */
+int __cdecl Actor_SetCostume(void *actor,char *name,int param_3); /* 0x0048f930 */
 void __cdecl Actor_SetHead(void *actor,int joint1,int joint2,int joint3,float maxRoll,float maxPitch,float maxYaw ); /* 0x0048f9d0 */
 int __cdecl Actor_CanSeePoint(void *actor,float *point,float *outDistance); /* 0x0048fa60 */
 int __cdecl Actor_CanSee(void *viewer,void *target,float *outDistance); /* 0x0048fb80 */
@@ -1580,7 +1581,7 @@ void __cdecl Actor_SetReflection(void *actor,float angle); /* 0x00490a40 */
 void __cdecl Actor_SetWalkChore(void *actor,int chore,void *costume); /* 0x00490a60 */
 void __cdecl Actor_SetTurnChores(void *actor,int leftChore,int rightChore,void *costume); /* 0x00490b50 */
 void __cdecl Actor_SetRestChore(void *actor,int chore,void *costume); /* 0x00490c80 */
-int __cdecl Actor_PushCostume(void *actor,char *name); /* 0x00490d30 */
+int __cdecl Actor_PushCostume(void *actor,char *name,int param_3); /* 0x00490d30 */
 void __cdecl Actor_PopCostume(void *actor,int free); /* 0x00490dd0 */
 void Actor_PuckOrient(float param_1); /* 0x00490f50 */
 void Actor_UpdateWalker(int param_1); /* 0x00491110 */
@@ -1657,7 +1658,7 @@ undefined * SetFile_ParseSectors(int param_1); /* 0x004a7bc0 */
 int __thiscall Sector_ClipPolygon(void *this,float *verts,int count,float *out); /* 0x004a8cb0 */
 float __thiscall Sector_EdgeDistance(void *this,int a1,int a2); /* 0x004a9070 */
 undefined4 __fastcall Sector_CollapseShortestEdge(void *param_1); /* 0x004a9180 */
-void SectorList_ShrinkWalkSectors(float param_1); /* 0x004a9d00 */
+void __cdecl SectorList_ShrinkWalkSectors (float param_1,uint param_2,uint param_3,uint param_4,float param_5,float param_6, float param_7,float *param_8,float param_9,float param_10,float param_11,float param_12, uint param_13,double param_14); /* 0x004a9d00 */
 
 /* ===== drawlist.c ===== */
 void DrawList_Reset(void); /* 0x00486250 */
@@ -1724,6 +1725,7 @@ void Movie_SetPaused(int paused); /* 0x004894f0 */
 void FUN_00489510(void); /* 0x00489510 */
 void FUN_00489520(void); /* 0x00489520 */
 void FUN_00489530(void); /* 0x00489530 */
+void FUN_00489540(void); /* 0x00489540 */
 
 /* ===== primitives.c ===== */
 void __cdecl Primitives_DrawAll(uint layerMask); /* 0x00489550 */
@@ -1872,7 +1874,7 @@ int Planner_SharedSector(undefined4 param_1,int param_2); /* 0x004a9ca0 */
 
 /* ===== collision.c ===== */
 void Collision_PushOutOfBox (float *param_1,float param_2,float param_3,float param_4,float param_5,float param_6 ,float param_7,float *param_8,float *param_9); /* 0x004922d0 */
-undefined4 Collision_PointInBox(float *param_1,float *param_2,undefined4 param_3); /* 0x00492510 */
+undefined4 __cdecl Collision_PointInBox (float *param_1,float *param_2,undefined4 param_3,uint param_4,uint param_5,uint param_6, uint param_7,uint param_8,uint param_9,uint param_10,float *param_11); /* 0x00492510 */
 void Collision_BoxCorners(int param_1,float param_2,float *param_3,float param_4,float *param_5); /* 0x004925c0 */
 undefined4 Collision_SegmentHitsBox (float *param_1,float *param_2,float *param_3,float param_4,float param_5, undefined4 param_6,float param_7,float param_8,undefined4 param_9,float *param_10); /* 0x00492680 */
 int Collision_PickDetour(float *param_1,float *param_2,int param_3); /* 0x00492a50 */
@@ -1936,7 +1938,7 @@ undefined4 ModelComponent_Destroy(undefined4 param_1,undefined4 param_2,void *pa
 void FUN_00496d40(undefined4 param_1,int *param_2,undefined4 param_3,int param_4); /* 0x00496d40 */
 undefined4 ModelComponent_Create(undefined4 param_1,undefined4 param_2,int *param_3,int param_4,char *param_5); /* 0x00496e20 */
 bool FUN_00497180(undefined4 param_1,undefined4 param_2); /* 0x00497180 */
-void FUN_004971a0(int param_1,float param_2,undefined4 param_3,float param_4); /* 0x004971a0 */
+void __cdecl FUN_004971a0(int param_1,float param_2,undefined4 param_3,float param_4,uint param_5,uint param_6, uint param_7,uint param_8); /* 0x004971a0 */
 undefined4 FUN_00497320(int *param_1,undefined4 param_2); /* 0x00497320 */
 bool FUN_00497460(undefined4 param_1,undefined4 param_2,int param_3,undefined4 param_4,char *param_5 ); /* 0x00497460 */
 undefined4 FUN_00497640(undefined4 param_1,undefined4 param_2,undefined4 param_3); /* 0x00497640 */
@@ -2294,11 +2296,15 @@ void FUN_004b0550(void); /* 0x004b0550 */
 undefined4 FUN_004b0570(void); /* 0x004b0570 */
 undefined * FUN_004b05c0(void); /* 0x004b05c0 */
 void FUN_004b05f0(char *param_1); /* 0x004b05f0 */
+void FUN_004b0650(char *param_1); /* 0x004b0650 */
+undefined4 FUN_004b06c0(double *param_1); /* 0x004b06c0 */
+void FUN_004b06e0(int param_1,undefined4 *param_2,undefined4 param_3); /* 0x004b06e0 */
 int FUN_004b0740(undefined4 *param_1,int param_2,int param_3,undefined4 param_4); /* 0x004b0740 */
 undefined1 * FUN_004b07c0(undefined1 *param_1,int param_2,int param_3,int *param_4,char param_5); /* 0x004b07c0 */
 int FUN_004b08c0(undefined4 *param_1,int param_2,int param_3); /* 0x004b08c0 */
 undefined1 * FUN_004b0930(undefined1 *param_1,uint param_2,int *param_3,char param_4); /* 0x004b0930 */
 void FUN_004b09f0(undefined4 *param_1,int param_2,int param_3,undefined4 param_4); /* 0x004b09f0 */
+void FUN_004b0ab0(undefined4 param_1,undefined4 param_2,int param_3,undefined4 param_4, undefined4 param_5); /* 0x004b0ab0 */
 void FUN_004b0b20(char *param_1,int param_2); /* 0x004b0b20 */
 undefined4 FUN_004b0c30(void); /* 0x004b0c30 */
 undefined4 FUN_004b0d30(undefined4 param_1,undefined4 param_2); /* 0x004b0d30 */
@@ -2317,6 +2323,7 @@ void FUN_004b1800(void); /* 0x004b1800 */
 void FUN_004b19e0(void); /* 0x004b19e0 */
 void FUN_004b19f0(void); /* 0x004b19f0 */
 undefined4 FUN_004b1c00(void); /* 0x004b1c00 */
+undefined4 FUN_004b1c48(int param_1,int param_2,undefined4 param_3); /* 0x004b1c48 */
 void FUN_004b2040(void); /* 0x004b2040 */
 void FUN_004b2100(void); /* 0x004b2100 */
 uint __thiscall FUN_004b4440(undefined4 param_1,undefined4 *param_2); /* 0x004b4440 */
@@ -2374,7 +2381,7 @@ void FUN_004b77f0(void); /* 0x004b77f0 */
 uint FUN_004b7800(int param_1,int param_2,int param_3,int param_4,uint param_5,uint param_6); /* 0x004b7800 */
 int FUN_004b7c10(void); /* 0x004b7c10 */
 int __fastcall FUN_004b8f30(byte param_1,int param_2); /* 0x004b8f30 */
-undefined4 FUN_004b9916(undefined4 param_1,uint param_2,ushort param_3); /* 0x004b9916 */
+undefined4 __cdecl FUN_004b9916(undefined4 param_1,uint param_2,ushort param_3,uint param_4,uint param_5,uint param_6, uint param_7,uint param_8,ushort param_9); /* 0x004b9916 */
 float10 FUN_004b9b1c(void); /* 0x004b9b1c */
 float __cdecl FUN_004b9fc0(undefined4 param_1,undefined4 param_2,short param_3); /* 0x004b9fc0 */
 undefined4 FUN_004ba000(int param_1,uint param_2); /* 0x004ba000 */
@@ -2397,7 +2404,7 @@ int FUN_004bcb40(uint param_1,int param_2); /* 0x004bcb40 */
 void FUN_004bd430(void); /* 0x004bd430 */
 undefined4 FUN_004bd440(void); /* 0x004bd440 */
 void FUN_004bd4d0(void); /* 0x004bd4d0 */
-undefined4 FUN_004bdad0(void); /* 0x004bdad0 */
+undefined4 __cdecl FUN_004bdad0(uint param_1,uint param_2,uint param_3,uint param_4,uint param_5,uint param_6, uint param_7); /* 0x004bdad0 */
 undefined4 FUN_004bdf70(int *param_1,undefined4 param_2); /* 0x004bdf70 */
 void FUN_004bdfb0(void); /* 0x004bdfb0 */
 void FUN_004bdfe0(undefined4 param_1,undefined4 param_2,undefined4 param_3); /* 0x004bdfe0 */
@@ -2434,6 +2441,7 @@ void FUN_004c2720(undefined4 *param_1,int param_2); /* 0x004c2720 */
 void FUN_004c2760(undefined4 *param_1); /* 0x004c2760 */
 undefined4 FUN_004c2780(int param_1); /* 0x004c2780 */
 int FUN_004c27a0(undefined4 *param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4, undefined4 param_5,undefined4 param_6,undefined4 param_7,undefined4 param_8, undefined4 param_9,undefined4 param_10); /* 0x004c27a0 */
+void FUN_004c2a70(undefined4 param_1,int param_2); /* 0x004c2a70 */
 void FUN_004c2a80(undefined4 param_1,int param_2); /* 0x004c2a80 */
 char * FUN_004c2b00(int param_1); /* 0x004c2b00 */
 void FUN_004c2b30(uint param_1); /* 0x004c2b30 */
@@ -2553,7 +2561,7 @@ undefined4 FUN_004cbbb0(void); /* 0x004cbbb0 */
 undefined4 FUN_004cbbc0(void); /* 0x004cbbc0 */
 void FUN_004cbbd0(void); /* 0x004cbbd0 */
 undefined4 FUN_004cbbe0(int param_1); /* 0x004cbbe0 */
-undefined4 FUN_004cbc00(void); /* 0x004cbc00 */
+undefined4 __cdecl FUN_004cbc00(uint param_1,uint param_2,uint param_3,uint param_4,uint param_5,uint *param_6); /* 0x004cbc00 */
 undefined4 FUN_004cbf40(void); /* 0x004cbf40 */
 void FUN_004cbf50(int param_1,undefined1 *param_2,uint param_3,uint param_4); /* 0x004cbf50 */
 undefined4 FUN_004cc210(int *param_1,uint param_2); /* 0x004cc210 */
@@ -2645,6 +2653,7 @@ void FUN_004d0ed0(byte param_1,byte param_2); /* 0x004d0ed0 */
 void FUN_004d0f00(undefined4 param_1,uint param_2,uint param_3,undefined1 param_4,undefined1 param_5 ,uint param_6); /* 0x004d0f00 */
 void FUN_004d1180(int param_1,int param_2,uint param_3,int param_4,int param_5,uint param_6, int param_7,int param_8,int param_9,int param_10); /* 0x004d1180 */
 void FUN_004d1690(void); /* 0x004d1690 */
+void FUN_004d16a0(int param_1,code *param_2); /* 0x004d16a0 */
 void FUN_004d2340(int param_1,undefined4 param_2); /* 0x004d2340 */
 void FUN_004d23e0(undefined4 param_1,undefined4 param_2,undefined4 param_3); /* 0x004d23e0 */
 void FUN_004d2400(undefined4 param_1,undefined4 param_2,undefined4 param_3); /* 0x004d2400 */

@@ -6,6 +6,8 @@
 #include "functions.h"
 
 /* ---- 0x1000ef80  _ftol ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
 
 longlong _ftol(void)
@@ -15,8 +17,12 @@ longlong _ftol(void)
   
   return (longlong)ROUND(in_ST0);
 }
+#endif
+
 
 /* ---- 0x1000efa8  _setjmp3 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
 
 undefined4 __cdecl _setjmp3(undefined4 *param_1,int param_2,int param_3,undefined4 param_4)
@@ -67,6 +73,8 @@ undefined4 __cdecl _setjmp3(undefined4 *param_1,int param_2,int param_3,undefine
   }
   return 0;
 }
+#endif
+
 
 /* ---- 0x1000f030  _CallSettingFrame ---- */
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
@@ -183,6 +191,8 @@ undefined4 _unwind_handler(void)
 }
 
 /* ---- 0x1000f466  _NLG_Notify ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
 
 undefined4 __stdcall _NLG_Notify(int a1)
@@ -196,6 +206,8 @@ undefined4 __stdcall _NLG_Notify(int a1)
   DAT_100282c4 = unaff_EBP;
   return in_EAX;
 }
+#endif
+
 
 /* ---- 0x1000f480  vsprintf ---- */
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
@@ -971,7 +983,7 @@ uint __cdecl system(int param_1)
   local_10 = (uint *)getenv((byte *)"COMSPEC");
   if (param_1 == 0) {
     if (local_10 != (uint *)0x0) {
-      iVar1 = _access((uint)local_10);
+      iVar1 = _access((uint)local_10,0);
       return (uint)(iVar1 == 0);
     }
     return 0;
@@ -1074,11 +1086,11 @@ LAB_10010201:
       return (char *)0x0;
     }
   }
-  iVar2 = _access(IMG_ADDR(0x1002bfc0));
+  iVar2 = _access(IMG_ADDR(0x1002bfc0),0);
   while (iVar2 == 0) {
     iVar2 = FUN_100102a0((byte *)&DAT_1002bfc0);
     if (iVar2 != 0) goto LAB_10010201;
-    iVar2 = _access(IMG_ADDR(0x1002bfc0));
+    iVar2 = _access(IMG_ADDR(0x1002bfc0),0);
   }
   if (param_1 == (char *)0x0) {
     piVar3 = _getptd();
@@ -1771,12 +1783,11 @@ int * __cdecl localtime(int *param_1)
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
 
-void time(void)
+void __cdecl time(int *param_1)
 
 {
   unsigned char _frame[0xe0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
-  int *in_stack_00000004;
   #define uStack_cc (*(undefined4 *)(_frame + (0xe0 - 0xcc)))
   #define uStack_c8 (*(undefined4 *)(_frame + (0xe0 - 0xc8)))
   #define uStack_c4 (*(undefined4 *)(_frame + (0xe0 - 0xc4)))
@@ -1819,8 +1830,8 @@ void time(void)
 LAB_1001122f:
   iVar1 = __loctotime_t((uint)local_bc,(uint)uStack_ba,(uint)uStack_b6,(uint)uStack_b4,
                         (uint)uStack_b2,(uint)uStack_b0,DAT_1002bfe8);
-  if (in_stack_00000004 != (int *)0x0) {
-    *in_stack_00000004 = iVar1;
+  if (param_1 != (int *)0x0) {
+    *param_1 = iVar1;
   }
   return;
 }
@@ -2255,7 +2266,7 @@ LAB_100118ba:
         if (iVar4 != 0) {
           return (char *)0x0;
         }
-        iVar4 = __get_qualified_locale((char *)local_88);
+        iVar4 = __get_qualified_locale((char *)local_88,IMG_ADDR(0x1002c000),(int)local_88);
         if (iVar4 == 0) {
           return (char *)0x0;
         }
@@ -2556,6 +2567,8 @@ uint __cdecl _tolower_lk(uint param_1)
 
 
 /* ---- 0x10011d50  _CIsqrt ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
 
 float __cdecl _CIsqrt(void)
@@ -2570,8 +2583,12 @@ float __cdecl _CIsqrt(void)
   fVar1 = (float10)((code *)_sqrt)(SUB84(dVar2,0),(uint)((ulonglong)dVar2 >> 0x20));
   return (float)fVar1;
 }
+#endif
+
 
 /* ---- 0x10011d6d  _sqrt ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
 
 void __cdecl _sqrt(int param_1,uint param_2)
@@ -2610,6 +2627,8 @@ LAB_10011dfc:
   }
   return;
 }
+#endif
+
 
 /* ---- 0x10011ef0  floor ---- */
 /* MSVC 6 C runtime (matched against the EXE runtime by structure); floor/ceil pair, order not
@@ -2710,6 +2729,8 @@ float __cdecl ceil(uint param_1,uint param_2)
 
 
 /* ---- 0x10012130  _CIpow ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
 
 float __cdecl _CIpow(void)
@@ -2723,16 +2744,24 @@ float __cdecl _CIpow(void)
                 SUB84((double)in_ST0,0),(uint)((ulonglong)(double)in_ST0 >> 0x20));
   return (float)(float10)PUN(float,auVar1);
 }
+#endif
+
 
 /* ---- 0x10012152  _pow ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Ghidra could not decompile this function: {"error":"Decompilation did not complete. Reason: \nLow-level Error: Overlapping input varnodes"} */
 void FUN_10012152(void)
 
 {
   __builtin_trap();
 }
+#endif
+
 
 /* ---- 0x10012325  _ftol  (renamed _ftol_10012325: duplicate name) ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
 
@@ -2756,6 +2785,8 @@ undefined4 __cdecl _ftol_10012325(void)
   return CONCAT22(uVar1,(ushort)(fVar2 < in_ST0) << 8 | (ushort)(ISNAN(fVar2) || ISNAN(in_ST0)) << 10 |
                         (ushort)(fVar2 == in_ST0) << 0xe);
 }
+#endif
+
 
 /* ---- 0x10012390  bsearch ---- */
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
@@ -3354,7 +3385,7 @@ int __cdecl strcoll(byte *param_1,byte *param_2)
       _lock(0x13);
     }
     if (DAT_1002c204 != 0) {
-      iVar2 = __crtGetLocaleInfoA(DAT_1002c204,0xb,local_10,8);
+      iVar2 = __crtGetLocaleInfoA(DAT_1002c204,0xb,(int)local_10,8,0);
       if (iVar2 == 0) {
         if (!bVar4) {
           _unlock(0x13);
@@ -4069,6 +4100,8 @@ CallCatchBlock(int param_1,undefined4 param_2,int param_3,undefined4 param_4,und
 
 
 /* ---- 0x10013b98  Eh_CallCatchBlockInner ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
 
 void Eh_CallCatchBlockInner(void)
@@ -4092,6 +4125,8 @@ void Eh_CallCatchBlockInner(void)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x10013c30  BuildCatchObject ---- */
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
@@ -4426,6 +4461,8 @@ LAB_100142b3:
 }
 
 /* ---- 0x10014370  _output ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
 
 int __cdecl _output(int *param_1,char *param_2,undefined4 *param_3)
@@ -4872,6 +4909,8 @@ LAB_10014acf:
 #undef local_248
 #undef local_24c
 #undef uStack_1
+
+#endif
 
 
 /* ---- 0x10014d00  write_char ---- */
@@ -5879,7 +5918,7 @@ int __cdecl _spawnvpe(undefined4 param_1,uint *param_2,undefined4 *param_3,undef
         pcVar11 = pcVar11 + 1;
         pcVar13 = pcVar13 + 1;
       }
-      iVar7 = _access((uint)pcVar5);
+      iVar7 = _access((uint)pcVar5,0);
       if (iVar7 != -1) {
         local_8 = _spawnve(param_1,pcVar5,param_3,param_4);
         break;
@@ -5889,7 +5928,7 @@ int __cdecl _spawnvpe(undefined4 param_1,uint *param_2,undefined4 *param_3,undef
     free(pcVar5);
   }
   else {
-    iVar7 = _access((uint)local_c);
+    iVar7 = _access((uint)local_c,0);
     if (iVar7 != -1) {
       local_8 = _spawnve(param_1,(char *)local_c,param_3,param_4);
     }
@@ -5926,13 +5965,12 @@ int __cdecl _spawnve(undefined4 param_1,char *param_2,undefined4 *param_3,undefi
 /* ---- 0x10015da0  _access ---- */
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
 
-undefined4 __cdecl _access(uint param_1)
+undefined4 __cdecl _access(uint param_1,byte param_2)
 
 {
   uint uVar1;
   undefined *puVar2;
   int *piVar3;
-  byte in_stack_00000008;
   
   uVar1 = GetFileAttributesA(param_1);
   if (uVar1 == 0xffffffff) {
@@ -5940,7 +5978,7 @@ undefined4 __cdecl _access(uint param_1)
     _dosmaperr(puVar2);
     return 0xffffffff;
   }
-  if (((uVar1 & 1) != 0) && ((in_stack_00000008 & 2) != 0)) {
+  if (((uVar1 & 1) != 0) && ((param_2 & 2) != 0)) {
     piVar3 = _errno();
     *piVar3 = 0xd;
     piVar3 = __doserrno();
@@ -6694,13 +6732,11 @@ void __cdecl free(undefined *param_1)
 /* ---- 0x10017c50  __get_qualified_locale ---- */
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
 
-undefined4 __cdecl __get_qualified_locale(char *param_1)
+undefined4 __cdecl __get_qualified_locale(char *param_1,uint param_2,int param_3)
 
 {
   int iVar1;
   uint uVar2;
-  undefined2 *in_stack_00000008;
-  int in_stack_0000000c;
   
   if (DAT_1002c23c == (code *)0x0) {
     iVar1 = FUN_100185b0();
@@ -6740,18 +6776,18 @@ LAB_10017d15:
   if ((((DAT_1002c234 != 0) && (uVar2 = TranslateName((byte *)(param_1 + 0x80)), uVar2 != 0)) &&
       (iVar1 = IsValidCodePage(uVar2 & 0xffff), iVar1 != 0)) &&
      (iVar1 = IsValidLocale(DAT_1002c21c,1), iVar1 != 0)) {
-    if (in_stack_00000008 != (undefined2 *)0x0) {
-      *in_stack_00000008 = (undefined2)DAT_1002c21c;
-      in_stack_00000008[1] = (undefined2)DAT_1002c238;
-      in_stack_00000008[2] = (short)uVar2;
+    if (param_2 != 0) {
+      *(undefined2 *)param_2 = (undefined2)DAT_1002c21c;
+      *(undefined2 *)(param_2 + 2) = (undefined2)DAT_1002c238;
+      *(short *)(param_2 + 4) = (short)uVar2;
     }
-    if (in_stack_0000000c == 0) {
+    if (param_3 == 0) {
       return 1;
     }
-    iVar1 = (*DAT_1002c23c)(DAT_1002c21c,0x1001,in_stack_0000000c,0x40);
+    iVar1 = (*DAT_1002c23c)(DAT_1002c21c,0x1001,param_3,0x40);
     if ((iVar1 != 0) &&
-       (iVar1 = (*DAT_1002c23c)(DAT_1002c238,0x1002,in_stack_0000000c + 0x40,0x40), iVar1 != 0)) {
-      FUN_10015f40(uVar2,(char *)(in_stack_0000000c + 0x80),10);
+       (iVar1 = (*DAT_1002c23c)(DAT_1002c238,0x1002,param_3 + 0x40,0x40), iVar1 != 0)) {
+      FUN_10015f40(uVar2,(char *)(param_3 + 0x80),10);
       return 1;
     }
   }
@@ -7364,7 +7400,7 @@ undefined4 __cdecl _is_integer_double(double param_1)
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
 
 int * __cdecl
-__crtGetStringTypeW(int param_1,int param_2,int param_3,undefined4 *param_4,int param_5)
+__crtGetStringTypeW(int param_1,int param_2,int param_3,undefined4 *param_4,int param_5,int param_6)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -7373,7 +7409,6 @@ __crtGetStringTypeW(int param_1,int param_2,int param_3,undefined4 *param_4,int 
   int *piVar3;
   int iVar4;
   undefined4 *a5;
-  int in_stack_00000018;
   #define local_4 (*(int **)(_frame + (0x20 - 0x4)))
   
   a5 = (undefined4 *)0x0;
@@ -7407,13 +7442,13 @@ __crtGetStringTypeW(int param_1,int param_2,int param_3,undefined4 *param_4,int 
       }
       iVar4 = WideCharToMultiByte(param_5,0x220,param_2,param_3,(int)piVar3,iVar2,0,0);
       if ((iVar4 != 0) && (a5 = (undefined4 *)malloc(iVar2 * 2 + 2), a5 != (undefined4 *)0x0)) {
-        if (in_stack_00000018 == 0) {
-          in_stack_00000018 = DAT_1002c208;
+        if (param_6 == 0) {
+          param_6 = DAT_1002c208;
         }
         uVar1 = param_3 * 2;
         *(undefined2 *)((int)a5 + uVar1) = 0xffff;
         *(undefined2 *)((int)a5 + (uVar1 - 2)) = 0xffff;
-        local_4 = (int *)GetStringTypeA(in_stack_00000018,param_1,(int)piVar3,iVar2,(int)a5);
+        local_4 = (int *)GetStringTypeA(param_6,param_1,(int)piVar3,iVar2,(int)a5);
         if ((*(short *)((int)a5 + (uVar1 - 2)) == -1) || (*(short *)((int)a5 + uVar1) != -1)) {
           local_4 = (int *)0x0;
         }
@@ -7492,6 +7527,8 @@ __crtGetStringTypeA(int param_1,int param_2,int param_3,int param_4,int param_5,
 
 
 /* ---- 0x1001b2d0  _input ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
 
 int __cdecl _input(int *param_1,byte *param_2,undefined4 *param_3)
@@ -8188,6 +8225,8 @@ LAB_1001bed3:
 #undef local_1cc
 #undef local_1cd
 
+#endif
+
 
 /* ---- 0x1001c010  _hextodec ---- */
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
@@ -8413,6 +8452,8 @@ uint __cdecl wcstol(short *param_1,undefined4 *param_2,uint param_3)
 }
 
 /* ---- 0x1001c410  wcstoxl ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
 
 uint __cdecl wcstoxl(short *param_1,undefined4 *param_2,uint param_3,uint param_4)
@@ -8524,17 +8565,18 @@ LAB_1001c55b:
     }
   } while( true );
 }
+#endif
+
 
 /* ---- 0x1001c5f0  __crtGetLocaleInfoA ---- */
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
 
-int __cdecl __crtGetLocaleInfoA(int param_1,int param_2,int param_3,int param_4)
+int __cdecl __crtGetLocaleInfoA(int param_1,int param_2,int param_3,int param_4,int param_5)
 
 {
   int iVar1;
   uint a4;
   undefined *a3;
-  int in_stack_00000014;
   
   if (DAT_1002c258 == 0) {
     iVar1 = GetLocaleInfoW(0,1,0,0);
@@ -8556,8 +8598,8 @@ int __cdecl __crtGetLocaleInfoA(int param_1,int param_2,int param_3,int param_4)
   if (DAT_1002c258 != 2) {
     return DAT_1002c258;
   }
-  if (in_stack_00000014 == 0) {
-    in_stack_00000014 = DAT_1002c218;
+  if (param_5 == 0) {
+    param_5 = DAT_1002c218;
   }
   a4 = GetLocaleInfoA(param_1,param_2,0,0);
   if (a4 != 0) {
@@ -8568,14 +8610,14 @@ int __cdecl __crtGetLocaleInfoA(int param_1,int param_2,int param_3,int param_4)
     iVar1 = GetLocaleInfoA(param_1,param_2,(int)a3,a4);
     if (iVar1 != 0) {
       if (param_4 == 0) {
-        iVar1 = MultiByteToWideChar(in_stack_00000014,1,(int)a3,-1,0,0);
+        iVar1 = MultiByteToWideChar(param_5,1,(int)a3,-1,0,0);
         if (iVar1 != 0) {
           free(a3);
           return iVar1;
         }
       }
       else {
-        iVar1 = MultiByteToWideChar(in_stack_00000014,1,(int)a3,-1,param_3,param_4);
+        iVar1 = MultiByteToWideChar(param_5,1,(int)a3,-1,param_3,param_4);
         if (iVar1 != 0) {
           free(a3);
           return iVar1;
@@ -9752,6 +9794,8 @@ int __cdecl _wctomb_lk(undefined1 *param_1,ushort param_2)
 }
 
 /* ---- 0x1001e4d0  _aulldiv ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
 
 int __stdcall _aulldiv(int a1,int a2,int a3,int a4)
@@ -9795,8 +9839,12 @@ int __stdcall _aulldiv(int a1,int a2,int a3,int a4)
   }
   return iVar3;
 }
+#endif
+
 
 /* ---- 0x1001e540  _aullrem ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
 
 int __stdcall _aullrem(int a1,int a2,int a3,int a4)
@@ -9842,6 +9890,8 @@ int __stdcall _aullrem(int a1,int a2,int a3,int a4)
   }
   return iVar6;
 }
+#endif
+
 
 /* ---- 0x1001e5c0  _callnewh ---- */
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
@@ -11907,7 +11957,7 @@ uint __cdecl iswctype(uint param_1,uint param_2)
     if (DAT_1002c208 == 0) {
       return 0;
     }
-    piVar1 = __crtGetStringTypeW(1,&param_1,1,&local_4,0);
+    piVar1 = __crtGetStringTypeW(1,(int)&param_1,1,&local_4,0,0);
     if (piVar1 == (int *)0x0) {
       return 0;
     }

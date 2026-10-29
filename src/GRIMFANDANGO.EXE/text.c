@@ -6,6 +6,8 @@
 #include "functions.h"
 
 /* ---- 0x0048c050  Text_ParseLuaTable ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Reads x, y, font, width, height, fgcolor, bgcolor, ... keys from a Lua table into a text context
     */
 
@@ -184,6 +186,8 @@ int __cdecl Text_ParseLuaTable(void *ctx,void *table,void *textObj)
 }
 #undef local_4
 #undef local_8
+
+#endif
 
 
 /* ---- 0x0048c8d0  Text_ParseLineId ---- */

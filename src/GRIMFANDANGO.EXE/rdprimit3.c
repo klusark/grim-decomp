@@ -125,6 +125,8 @@ void * __cdecl rdPrimit3_DrawPolygon(float *verts,int count,void *material)
 
 
 /* ---- 0x0040dcc0  rdPrimit3_DrawLine ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Clips a world-space segment against the camera frustum, projects it and draws it with
    rdCanvas_DrawLine */
 
@@ -180,6 +182,8 @@ rdPrimit3_DrawLine(float *param_1,float *param_2,int *param_3,int *param_4,int *
 #undef local_18
 #undef local_30
 #undef local_c
+
+#endif
 
 
 /* ---- 0x0040dde0  rdPrimit3_DrawPoint ---- */

@@ -427,6 +427,8 @@ void Costume_TouchComponents(undefined4 param_1)
 
 
 /* ---- 0x00495730  Costume_UpdateAll ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void __cdecl Costume_UpdateAll(void *costumeList,float dt)
 
 {
@@ -455,3 +457,5 @@ void __cdecl Costume_UpdateAll(void *costumeList,float dt)
   }
   return;
 }
+#endif
+

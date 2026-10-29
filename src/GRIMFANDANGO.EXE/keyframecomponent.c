@@ -356,6 +356,8 @@ undefined4 * FUN_004985c0(int param_1,undefined4 *param_2,int param_3)
 }
 
 /* ---- 0x004986e0  FUN_004986e0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 FUN_004986e0(undefined4 *param_1,undefined4 param_2)
 
 {
@@ -422,6 +424,8 @@ undefined4 FUN_004986e0(undefined4 *param_1,undefined4 param_2)
 #undef local_40
 #undef local_44
 #undef local_48
+
+#endif
 
 
 /* ---- 0x004988a0  FUN_004988a0 ---- */

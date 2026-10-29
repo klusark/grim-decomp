@@ -946,6 +946,8 @@ undefined4 * lstate__8ad0(void)
 
 
 /* ---- 0x10008b70  lstate__8b70 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Unidentified function of lstate.c (Grim execution states / tasks) */
 
 int __thiscall lstate__8b70(void *this,int a1)
@@ -967,6 +969,8 @@ int __thiscall lstate__8b70(void *this,int a1)
   }
   return iVar1;
 }
+#endif
+
 
 /* ---- 0x10008bb0  lstate__8bb0 ---- */
 /* Unidentified function of lstate.c (Grim execution states / tasks) */

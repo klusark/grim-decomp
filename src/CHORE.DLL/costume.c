@@ -135,6 +135,8 @@ undefined4 Cos_Load(undefined4 param_1)
 }
 
 /* ---- 0x10001770  Cos_LoadEntry ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 undefined4 Cos_LoadEntry(char *param_1,int param_2)
@@ -250,6 +252,8 @@ LAB_10001a10:
   return 0;
 }
 #undef uStack_4
+
+#endif
 
 
 /* ---- 0x10001a30  Cos_FreeCosInstance ---- */
@@ -1829,6 +1833,8 @@ uint FUN_10004320(int param_1,undefined4 param_2,int param_3)
 }
 
 /* ---- 0x10004390  FUN_10004390 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 undefined4 FUN_10004390(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4)
@@ -1973,6 +1979,8 @@ LAB_1000470a:
 #undef uStack_14
 #undef uStack_4
 #undef uStack_c
+
+#endif
 
 
 /* ---- 0x10004770  FUN_10004770 ---- */

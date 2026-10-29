@@ -754,7 +754,7 @@ void Camera_BuildBasis(float *param_1,float *param_2,float *param_3,undefined4 p
   #define local_3c (*(uint *)(_frame + (0x60 - 0x3c)))
   #define local_38 (*(uint *)(_frame + (0x60 - 0x38)))
   #define local_34 (*(uint *)(_frame + (0x60 - 0x34)))
-  #define local_30 (*(undefined1 (*)[48])(_frame + (0x60 - 0x30)))
+  #define local_30 (*(float (*)[12])(_frame + (0x60 - 0x30)))
   
   pfVar1 = param_1 + 3;
   *pfVar1 = *param_3 - *param_2;
@@ -778,7 +778,7 @@ void Camera_BuildBasis(float *param_1,float *param_2,float *param_3,undefined4 p
     v = (float *)&local_3c;
     local_34 = 0x80000000;
   }
-  Vec3_Copy((float *)&local_48,v);
+  Vec3_Copy((float *)&local_48,v,local_30);
   *param_1 = param_1[4] * (float)local_40 - param_1[5] * (float)local_44;
   param_1[1] = param_1[5] * (float)local_48 - *pfVar1 * (float)local_40;
   param_1[2] = *pfVar1 * (float)local_44 - param_1[4] * (float)local_48;
@@ -1115,14 +1115,12 @@ void Matrix_BuildTransform2(float *param_1,undefined4 param_2)
 
 
 /* ---- 0x0044fee0  Vec3_Copy ---- */
-void __cdecl Vec3_Copy(float *out,float *v)
+void __cdecl Vec3_Copy(float *out,float *v,float *param_3)
 
 {
-  float *in_stack_0000000c;
-  
-  *out = *v * *in_stack_0000000c + v[1] * in_stack_0000000c[3] + v[2] * in_stack_0000000c[6];
-  out[1] = in_stack_0000000c[1] * *v + in_stack_0000000c[4] * v[1] + v[2] * in_stack_0000000c[7];
-  out[2] = in_stack_0000000c[2] * *v + in_stack_0000000c[8] * v[2] + v[1] * in_stack_0000000c[5];
+  *out = *v * *param_3 + v[1] * param_3[3] + v[2] * param_3[6];
+  out[1] = param_3[1] * *v + param_3[4] * v[1] + v[2] * param_3[7];
+  out[2] = param_3[2] * *v + param_3[8] * v[2] + v[1] * param_3[5];
   return;
 }
 

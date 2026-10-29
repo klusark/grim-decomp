@@ -1,0 +1,13 @@
+{
+ "_comment": "Lines inserted after one instruction of an assembled function: {prog: {function addr: {instruction addr: [asm lines]}}}. Intel syntax, local labels as 9:/9f.",
+ "GRIMFANDANGO.EXE": {
+  "00477730": {
+   "00477794": [
+    "test eax,eax",
+    "jns 9f",
+    "mov dword ptr [esp+0x10],0",
+    "9:"
+   ]
+  }
+ }
+}
