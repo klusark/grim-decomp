@@ -6,20 +6,30 @@
 #include "functions.h"
 
 /* ---- 0x00446880  Vec3_Dot ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 float __cdecl Vec3_Dot(float *a,float *b)
 
 {
   return *a * *b + a[1] * b[1];
 }
+#endif
+
 
 /* ---- 0x004468a0  Vec3_Dot2 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 float __cdecl Vec3_Dot2(float *a,float *b)
 
 {
   return *a * *b + b[2] * a[2] + a[1] * b[1];
 }
+#endif
+
 
 /* ---- 0x004468d0  Vec3_Cross ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void __cdecl Vec3_Cross(float *out,float *a,float *b)
 
 {
@@ -28,8 +38,12 @@ void __cdecl Vec3_Cross(float *out,float *a,float *b)
   out[2] = b[1] * *a - a[1] * *b;
   return;
 }
+#endif
+
 
 /* ---- 0x00446920  Vec3_NormalizeTo ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void Vec3_NormalizeTo(float *param_1,float *param_2)
 
 {
@@ -51,8 +65,12 @@ void Vec3_NormalizeTo(float *param_1,float *param_2)
 }
 #undef local_4
 
+#endif
+
 
 /* ---- 0x004469a0  Vec3_Normalize ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 float __cdecl Vec3_Normalize(float *param_1)
 
 {
@@ -72,8 +90,12 @@ float __cdecl Vec3_Normalize(float *param_1)
 }
 #undef local_4
 
+#endif
+
 
 /* ---- 0x00446a10  Vec3_NormalizeApprox ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Rough vector length: with the absolute values sorted max >= mid >= min, len = max + 0.34375 * mid
    + 0.25 * min. Also divides the vector by it (in place, in floats) and returns the length. */
 
@@ -153,8 +175,12 @@ float __cdecl Vec3_NormalizeApprox(float *param_1)
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x00446ba0  Vec3_Rotate ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua RotateVector: rotates a vector by pitch/yaw/roll angles */
 
 void __cdecl Vec3_Rotate(float *vec,float *rot)
@@ -168,6 +194,8 @@ void __cdecl Vec3_Rotate(float *vec,float *rot)
   return;
 }
 #undef local_30
+
+#endif
 
 
 /* ---- 0x00446bd0  Matrix_GetAngles ---- */
@@ -189,6 +217,8 @@ void __cdecl Matrix_GetAngles(float *matrix,float *outAngles)
 
 
 /* ---- 0x0044e7d0  Frustum_TestSphere ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined1 Frustum_TestSphere(int *param_1,float *param_2,float param_3)
 
 {
@@ -286,6 +316,8 @@ undefined1 Frustum_TestSphere(int *param_1,float *param_2,float param_3)
 #undef local_4
 #undef local_8
 #undef local_c
+
+#endif
 
 
 /* ---- 0x0044ea50  Polygon_ClipToPlane ---- */
@@ -527,6 +559,8 @@ void Angles_ToMatrix(float *param_1,undefined4 *param_2,float *param_3)
 
 
 /* ---- 0x0044efd0  Matrix_Transpose ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void __cdecl Matrix_Transpose(float *out,float *m)
 
 {
@@ -551,6 +585,8 @@ void __cdecl Matrix_Transpose(float *out,float *m)
   out[0xb] = -(m[7] * fVar1 + m[6] * fVar3 + m[8] * fVar2);
   return;
 }
+#endif
+
 
 /* ---- 0x0044f080  Angles_ToMatrixNoPos ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -602,6 +638,8 @@ void Angles_ToMatrixNoPos(float *param_1,undefined4 *param_2)
 
 
 /* ---- 0x0044f1a0  Matrix_BuildTranslation ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Identity 3x4 (from g_MatrixIdentity) with the translation column set */
 
 void __cdecl Matrix_BuildTranslation(float *m,float *pos)
@@ -623,8 +661,12 @@ void __cdecl Matrix_BuildTranslation(float *m,float *pos)
   m[0xb] = pos[2];
   return;
 }
+#endif
+
 
 /* ---- 0x0044f1d0  Matrix_BuildTranslation2 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void Matrix_BuildTranslation2(undefined4 *param_1,undefined4 *param_2)
 
 {
@@ -642,6 +684,8 @@ void Matrix_BuildTranslation2(undefined4 *param_1,undefined4 *param_2)
   param_1[0xb] = 0;
   return;
 }
+#endif
+
 
 /* ---- 0x0044f210  Matrix_AxisAngle ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -756,6 +800,8 @@ void Matrix_AxisAngle(float *param_1,float *param_2,float param_3)
 
 
 /* ---- 0x0044f490  Camera_BuildBasis ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Camera basis from (position, interest, roll) into out[0..11]: out+0 right = normalise(forward x
    rolledUp), out+0xc forward = normalise(interest - position), out+0x18 up = right-forward cross,
    out+0x24 position. The up used is (0,0,1) rolled about the forward by roll with Matrix_AxisAngle
@@ -819,6 +865,8 @@ void Camera_BuildBasis(float *param_1,float *param_2,float *param_3,undefined4 p
 #undef local_40
 #undef local_44
 #undef local_48
+
+#endif
 
 
 /* ---- 0x0044f650  Matrix_ToAngles ---- */
@@ -926,6 +974,8 @@ void Matrix_ToAngles(float *param_1,float *param_2)
 
 
 /* ---- 0x0044f880  Matrix_Identity ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void __cdecl Matrix_Identity(float *m)
 
 {
@@ -940,8 +990,12 @@ void __cdecl Matrix_Identity(float *m)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x0044f8a0  Matrix_Mul34 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* 3x4 affine matrix product */
 
 void __cdecl Matrix_Mul34(float *out,float *a,float *b)
@@ -961,8 +1015,12 @@ void __cdecl Matrix_Mul34(float *out,float *a,float *b)
   out[0xb] = a[8] * b[0xb] + a[2] * b[9] + a[5] * b[10] + a[0xb];
   return;
 }
+#endif
+
 
 /* ---- 0x0044fa70  Matrix_BuildRotation ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Rotation 3x4 from pitch/yaw/roll angles in degrees */
 
 void __cdecl Matrix_BuildRotation(float *m,float *angles)
@@ -1026,8 +1084,12 @@ void __cdecl Matrix_BuildRotation(float *m,float *angles)
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x0044fc60  Matrix_Multiply ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void Matrix_Multiply(float *param_1,float *param_2)
 
 {
@@ -1097,8 +1159,12 @@ void Matrix_Multiply(float *param_1,float *param_2)
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x0044fe50  Matrix_BuildTransform ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Rotation then translation */
 
 void Matrix_BuildTransform(float *param_1,undefined4 param_2)
@@ -1113,8 +1179,12 @@ void Matrix_BuildTransform(float *param_1,undefined4 param_2)
 }
 #undef local_30
 
+#endif
+
 
 /* ---- 0x0044fe80  Matrix_SetTranslation ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void Matrix_SetTranslation(int param_1,float *param_2)
 
 {
@@ -1123,8 +1193,12 @@ void Matrix_SetTranslation(int param_1,float *param_2)
   *(float *)(param_1 + 0x2c) = param_2[2] + *(float *)(param_1 + 0x2c);
   return;
 }
+#endif
+
 
 /* ---- 0x0044feb0  Matrix_BuildTransform2 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void Matrix_BuildTransform2(float *param_1,undefined4 param_2)
 
 {
@@ -1137,8 +1211,12 @@ void Matrix_BuildTransform2(float *param_1,undefined4 param_2)
 }
 #undef local_30
 
+#endif
+
 
 /* ---- 0x0044fee0  Vec3_Copy ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void __cdecl Vec3_Copy(float *out,float *v,float *param_3)
 
 {
@@ -1147,8 +1225,12 @@ void __cdecl Vec3_Copy(float *out,float *v,float *param_3)
   out[2] = param_3[2] * *v + param_3[8] * v[2] + v[1] * param_3[5];
   return;
 }
+#endif
+
 
 /* ---- 0x0044ff50  Vec3_TransformTo ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void __cdecl Vec3_TransformTo(float *out,float *v,float *m)
 
 {
@@ -1157,8 +1239,12 @@ void __cdecl Vec3_TransformTo(float *out,float *v,float *m)
   out[2] = m[6] * *v + m[8] * v[2] + v[1] * m[7];
   return;
 }
+#endif
+
 
 /* ---- 0x0044ffc0  Vec3_Transform ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Transforms the point in place by the 3x4 matrix */
 
 void __cdecl Vec3_Transform(float *vec,float *m)
@@ -1196,8 +1282,12 @@ void __cdecl Vec3_Transform(float *vec,float *m)
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x00450060  Vec3_Sub ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void __cdecl Vec3_Sub(float *out,float *a,float *b)
 
 {
@@ -1206,8 +1296,12 @@ void __cdecl Vec3_Sub(float *out,float *a,float *b)
   out[2] = b[2] * *a + b[8] * a[2] + a[1] * b[5] + b[0xb];
   return;
 }
+#endif
+
 
 /* ---- 0x004500d0  Vec3_Rotate3x3 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Rotates the vector in place by the 3x3 part of the matrix */
 
 void __cdecl Vec3_Rotate3x3(float *vec,float *m)
@@ -1249,8 +1343,12 @@ void __cdecl Vec3_Rotate3x3(float *vec,float *m)
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x00450170  Matrix_TransformPoints ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void __cdecl Matrix_TransformPoints(float *m,float *in,float *out,int count)
 
 {
@@ -1263,8 +1361,12 @@ void __cdecl Matrix_TransformPoints(float *m,float *in,float *out,int count)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x00450220  FUN_00450220 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 FUN_00450220(undefined4 *param_1)
 
 {
@@ -1283,8 +1385,12 @@ undefined4 FUN_00450220(undefined4 *param_1)
   param_1[0xc] = 0;
   return 1;
 }
+#endif
+
 
 /* ---- 0x00450260  FUN_00450260 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_00450260(int param_1)
 
 {
@@ -1296,8 +1402,12 @@ void FUN_00450260(int param_1)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x00450290  FUN_00450290 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_00450290(float *param_1,float *param_2,float *param_3,float *param_4)
 
 {
@@ -1330,6 +1440,8 @@ void FUN_00450290(float *param_1,float *param_2,float *param_3,float *param_4)
 #undef local_4
 #undef local_8
 #undef local_c
+
+#endif
 
 
 /* ---- 0x00450380  FUN_00450380 ---- */
@@ -1377,6 +1489,8 @@ void FUN_00450380(float *param_1,float param_2)
 
 
 /* ---- 0x00450410  FUN_00450410 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 FUN_00450410(float *param_1,float *param_2,float *param_3)
 
 {
@@ -1413,4 +1527,6 @@ undefined4 FUN_00450410(float *param_1,float *param_2,float *param_3)
 #undef local_4
 #undef local_8
 #undef local_c
+
+#endif
 

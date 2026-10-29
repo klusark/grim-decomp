@@ -6,6 +6,8 @@
 #include "functions.h"
 
 /* ---- 0x0040cf20  rdThing_Draw ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Rdthing.c: frustum-tests the model's bounding sphere, picks the geometry set, updates the puppet
    and draws the node hierarchy */
 
@@ -100,8 +102,12 @@ int __cdecl rdThing_Draw(void *thing,float *position)
 }
 #undef local_c
 
+#endif
+
 
 /* ---- 0x00471a40  rdThing_New ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 uint rdThing_New(undefined4 param_1)
 
 {
@@ -116,8 +122,12 @@ uint rdThing_New(undefined4 param_1)
   iVar2 = rdThing_Init(uVar1,param_1);
   return -(uint)(iVar2 != 0) & uVar1;
 }
+#endif
+
 
 /* ---- 0x00471a80  rdThing_Init ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Default thing: geometry mode 4, lighting 3, texture 2, no model, both sprite indices -1 */
 
 undefined4 rdThing_Init(undefined4 *param_1,undefined4 param_2)
@@ -143,8 +153,12 @@ undefined4 rdThing_Init(undefined4 *param_1,undefined4 param_2)
   param_1[0xb] = 0;
   return 1;
 }
+#endif
+
 
 /* ---- 0x00471af0  rdThing_Free ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void rdThing_Free(int param_1)
 
 {
@@ -154,8 +168,12 @@ void rdThing_Free(int param_1)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x00471b10  rdThing_FreeEntry ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Type 1 (model) things free their puppet buffers */
 
 void rdThing_FreeEntry(int *param_1)
@@ -199,8 +217,12 @@ void rdThing_FreeEntry(int *param_1)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x00471bd0  rdThing_SetModel ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void __cdecl rdThing_SetModel(void *thing,void *model)
 
 {
@@ -271,8 +293,12 @@ void __cdecl rdThing_SetModel(void *thing,void *model)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x00471d40  rdThing_SetCamera ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Thing type 2 pointing at a sprite */
 
 undefined4 rdThing_SetCamera(undefined4 *param_1,undefined4 param_2)
@@ -282,8 +308,12 @@ undefined4 rdThing_SetCamera(undefined4 *param_1,undefined4 param_2)
   param_1[1] = param_2;
   return 1;
 }
+#endif
+
 
 /* ---- 0x00471d60  rdThing_SetPolyline ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Thing type 4 pointing at a polyline */
 
 undefined4 rdThing_SetPolyline(undefined4 *param_1,undefined4 param_2)
@@ -294,8 +324,12 @@ undefined4 rdThing_SetPolyline(undefined4 *param_1,undefined4 param_2)
   param_1[0xc] = 0xffffffff;
   return 1;
 }
+#endif
+
 
 /* ---- 0x00471d80  rdThing_DrawAlt ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 int __cdecl rdThing_DrawAlt(void *thing,float *frame)
 
 {
@@ -323,8 +357,12 @@ int __cdecl rdThing_DrawAlt(void *thing,float *frame)
   }
   return 0;
 }
+#endif
+
 
 /* ---- 0x00471e00  rdThing_BuildNodeMatrix ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Node matrix = node pivot/offset transform times the parent's matrix */
 
 void rdThing_BuildNodeMatrix(int param_1,int param_2,float *param_3)
@@ -369,4 +407,6 @@ void rdThing_BuildNodeMatrix(int param_1,int param_2,float *param_3)
 #undef local_34
 #undef local_38
 #undef local_3c
+
+#endif
 

@@ -528,6 +528,8 @@ switchD_0040dec1_default:
 
 
 /* ---- 0x0040e500  rdPrimit3_CopyFaceVerts ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Copies the face's vertex attributes (position, uv, intensity) into the cache pools without
    clipping */
 
@@ -791,3 +793,5 @@ LAB_0040e609:
   *param_5 = *param_4;
   return;
 }
+#endif
+

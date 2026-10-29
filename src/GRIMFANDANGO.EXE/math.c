@@ -6,6 +6,8 @@
 #include "functions.h"
 
 /* ---- 0x004735d0  Math_Log2Int ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 int __cdecl Math_Log2Int(int n)
 
 {
@@ -17,6 +19,8 @@ int __cdecl Math_Log2Int(int n)
   }
   return iVar1;
 }
+#endif
+
 
 /* ---- 0x0047bbe0  Math_PowInt ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -85,6 +89,8 @@ float __cdecl Math_NormalizeAngle360(float degrees)
 
 
 /* ---- 0x0047bce0  Math_NormalizeAngle180 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 float __cdecl Math_NormalizeAngle180(float param_1)
 
 {
@@ -99,8 +105,12 @@ float __cdecl Math_NormalizeAngle180(float param_1)
 }
 #undef local_8
 
+#endif
+
 
 /* ---- 0x0047bd20  Math_SinCosTable ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Variable defined which should be unmapped: local_30 */
 /* Math_SinCosTable(deg, &sin, &cos): 4096-entry quarter table, interpolated, per quadrant. Some
    quadrant indexes are one entry (90/4096 = 0.022 deg) off: a walker heading turned by a small
@@ -239,8 +249,12 @@ void Math_SinCosTable(float param_1,float *param_2,float *param_3)
 #undef local_c
 #undef uStack_2c
 
+#endif
+
 
 /* ---- 0x0047c100  Math_Round ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 float __cdecl Math_Round(float param_1)
 
 {
@@ -250,6 +264,8 @@ float __cdecl Math_Round(float param_1)
   return ROUND(param_1);
 }
 #undef local_8
+
+#endif
 
 
 /* ---- 0x0047c120  Math_SinDeg ---- */
@@ -407,11 +423,15 @@ float __cdecl Math_AsinDegrees(float x)
 
 
 /* ---- 0x0047c490  Math_Sqrt ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 float __cdecl Math_Sqrt(float param_1)
 
 {
   return SQRT(param_1);
 }
+#endif
+
 
 /* ---- 0x0047c4a0  Math_AsinDegreesSeries ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -562,14 +582,20 @@ float __cdecl Math_Atan2Deg(float y,float x)
 
 
 /* ---- 0x0047c7c0  FUN_0047c7c0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_0047c7c0(undefined4 param_1)
 
 {
   FUN_0047c7e0(param_1,&DAT_004dda54);
   return;
 }
+#endif
+
 
 /* ---- 0x0047c7e0  FUN_0047c7e0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 FUN_0047c7e0(byte *param_1,undefined4 param_2)
 
 {
@@ -622,8 +648,12 @@ LAB_0047c827:
   UINT_0080cbcc = 1;
   return 1;
 }
+#endif
+
 
 /* ---- 0x0047c8c0  FUN_0047c8c0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_0047c8c0(void)
 
 {
@@ -641,3 +671,5 @@ void FUN_0047c8c0(void)
   }
   return;
 }
+#endif
+

@@ -560,6 +560,8 @@ void rdRaster_Select_Flat(float *param_1,int param_2)
 
 
 /* ---- 0x0040f650  rdRaster_SpanFlatSetup ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Span callback installed by the flat-colour selector: picks the 8/16-bit flat colour and draws the
    span */
 
@@ -591,8 +593,12 @@ void rdRaster_SpanFlatSetup(int *param_1)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x0040f6d0  rdRaster_SpanOutline8 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Wireframe span: plots only the two end pixels */
 
 void rdRaster_SpanOutline8(int *param_1)
@@ -607,8 +613,12 @@ void rdRaster_SpanOutline8(int *param_1)
   puVar2[param_1[1] + -1] = DAT_008ddf40;
   return;
 }
+#endif
+
 
 /* ---- 0x0040f710  rdRaster_SpanOutline16 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: SpanR Flat). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -625,8 +635,12 @@ void rdRaster_SpanOutline16(int *param_1)
   puVar1[param_1[1] + -1] = DAT_008ddf08;
   return;
 }
+#endif
+
 
 /* ---- 0x0040f750  rdRaster_EdgeStepFlat ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Advances an edge record one scanline (x += dx, attribute += dAttr) */
 
 void rdRaster_EdgeStepFlat(int param_1)
@@ -636,6 +650,8 @@ void rdRaster_EdgeStepFlat(int param_1)
   *(float *)(param_1 + 0x10) = *(float *)(param_1 + 0x14) + *(float *)(param_1 + 0x10);
   return;
 }
+#endif
+
 
 /* ---- 0x0040f770  rdRaster_EdgeSetup_Flat ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -766,6 +782,8 @@ void rdRaster_Select_Flat_2(float *param_1,int param_2)
 
 
 /* ---- 0x0040fa80  rdRaster_SpanTexSetup ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void rdRaster_SpanTexSetup(int *param_1)
 
 {
@@ -835,6 +853,8 @@ void rdRaster_SpanTexSetup(int *param_1)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x0040fbe0  rdRaster_EdgeSetup_Flat_2 ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -928,6 +948,8 @@ undefined4 rdRaster_EdgeSetup_Flat_2(undefined4 *param_1,int *param_2,int param_
 
 
 /* ---- 0x0040fe90  rdRaster_Select_TexLit ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Select Tex Lit). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -961,8 +983,12 @@ void rdRaster_Select_TexLit(float *param_1,int param_2,float param_3)
   param_1[0x7a] = PUN(float,rdRaster_EdgeSetup_Flat_3);
   return;
 }
+#endif
+
 
 /* ---- 0x0040ff20  rdRaster_SpanLitSetup ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Loads the light step from the poly record (+0x19c) before filling */
 
 void rdRaster_SpanLitSetup(int param_1)
@@ -1009,6 +1035,8 @@ void rdRaster_SpanLitSetup(int param_1)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x0040ffe0  rdRaster_EdgeSetup_Flat_3 ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -1102,6 +1130,8 @@ undefined4 rdRaster_EdgeSetup_Flat_3(undefined4 *param_1,int *param_2,int param_
 
 
 /* ---- 0x00410290  rdRaster_Select_FlatLit ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Select Flat Lit). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -1140,8 +1170,12 @@ void rdRaster_Select_FlatLit(float *param_1,int param_2)
   param_1[0x7a] = PUN(float,rdRaster_EdgeSetup_Flat_4);
   return;
 }
+#endif
+
 
 /* ---- 0x00410330  FUN_00410330 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_00410330(int param_1)
 
 {
@@ -1216,8 +1250,12 @@ void FUN_00410330(int param_1)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x004104b0  FUN_004104b0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_004104b0(int param_1)
 
 {
@@ -1226,6 +1264,8 @@ void FUN_004104b0(int param_1)
   *(int *)(param_1 + 0x40) = *(int *)(param_1 + 0x40) + *(int *)(param_1 + 0x44);
   return;
 }
+#endif
+
 
 /* ---- 0x004104e0  rdRaster_EdgeSetup_Flat_4 ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -1328,6 +1368,8 @@ undefined4 rdRaster_EdgeSetup_Flat_4(undefined4 *param_1,int *param_2,int param_
 
 
 /* ---- 0x004108b0  rdRaster_Select_FlatLit_2 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Select Flat Lit). Calls
    0040ea50. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.
     */
@@ -1355,8 +1397,12 @@ void rdRaster_Select_FlatLit_2(int *param_1,int param_2)
   param_1[0x7a] = (int)rdRaster_EdgeSetup_Flat_5;
   return;
 }
+#endif
+
 
 /* ---- 0x00410970  FUN_00410970 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 void FUN_00410970(int param_1)
@@ -1445,6 +1491,8 @@ void FUN_00410970(int param_1)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x00410d80  rdRaster_EdgeSetup_Flat_5 ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -1559,6 +1607,8 @@ undefined4 rdRaster_EdgeSetup_Flat_5(undefined4 *param_1,int *param_2,int param_
 
 
 /* ---- 0x00411270  rdRaster_Select_FlatLit_3 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Select Flat Lit). Calls
    0040ea50. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.
     */
@@ -1586,8 +1636,12 @@ void rdRaster_Select_FlatLit_3(int *param_1,int param_2)
   param_1[0x7a] = (int)rdRaster_EdgeSetup_Flat_5;
   return;
 }
+#endif
+
 
 /* ---- 0x00411330  FUN_00411330 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 void FUN_00411330(int param_1)
@@ -1617,8 +1671,12 @@ void FUN_00411330(int param_1)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x004113e0  rdRaster_SpanR8_TexKey ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: SpanR Tex Key). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -1682,8 +1740,12 @@ void rdRaster_SpanR8_TexKey(int *param_1)
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x004114f0  rdRaster_SpanR16_TexKey ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: SpanR Tex Key). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -1749,8 +1811,12 @@ void rdRaster_SpanR16_TexKey(int *param_1)
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x00411630  rdRaster_Select_FlatLit_4 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Select Flat Lit). Calls
    0040ea50. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.
     */
@@ -1780,8 +1846,12 @@ void rdRaster_Select_FlatLit_4(int *param_1,int param_2,float param_3)
   param_1[0x76] = (uVar2 >> ((byte)iVar1 & 0x1f)) << ((byte)param_1[0x72] & 0x1f);
   return;
 }
+#endif
+
 
 /* ---- 0x00411740  FUN_00411740 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 void FUN_00411740(int param_1)
@@ -1873,8 +1943,12 @@ void FUN_00411740(int param_1)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x00411b70  FUN_00411b70 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_00411b70(int param_1)
 
 {
@@ -1884,6 +1958,8 @@ void FUN_00411b70(int param_1)
   *(int *)(param_1 + 0x38) = *(int *)(param_1 + 0x38) + *(int *)(param_1 + 0x3c);
   return;
 }
+#endif
+
 
 /* ---- 0x00411ba0  rdRaster_EdgeSetup_Flat_6 ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -1998,6 +2074,8 @@ undefined4 rdRaster_EdgeSetup_Flat_6(undefined4 *param_1,int *param_2,int param_
 
 
 /* ---- 0x00412090  rdRaster_Select_FlatLit_5 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Select Flat Lit). Calls
    0040ea50. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.
     */
@@ -2027,8 +2105,12 @@ void rdRaster_Select_FlatLit_5(int *param_1,int param_2,float param_3)
   param_1[0x76] = (uVar2 >> ((byte)iVar1 & 0x1f)) << ((byte)param_1[0x72] & 0x1f);
   return;
 }
+#endif
+
 
 /* ---- 0x004121a0  FUN_004121a0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 void FUN_004121a0(int param_1)
@@ -2063,8 +2145,12 @@ void FUN_004121a0(int param_1)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x00412280  rdRaster_SpanR8_TexKey_2 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: SpanR Tex Key). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -2130,8 +2216,12 @@ void rdRaster_SpanR8_TexKey_2(int *param_1)
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x004123b0  rdRaster_SpanR16_TexKey_2 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: SpanR Tex Key). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -2197,8 +2287,12 @@ void rdRaster_SpanR16_TexKey_2(int *param_1)
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x004124f0  rdRaster_Select_FlatLit_6 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Select Flat Lit). Calls
    0040ea50. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.
     */
@@ -2229,8 +2323,12 @@ void rdRaster_Select_FlatLit_6(int *param_1,int param_2)
   param_1[0x76] = (uVar3 >> ((byte)iVar2 & 0x1f)) << ((byte)param_1[0x72] & 0x1f);
   return;
 }
+#endif
+
 
 /* ---- 0x004125c0  FUN_004125c0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 void FUN_004125c0(int param_1)
@@ -2322,8 +2420,12 @@ void FUN_004125c0(int param_1)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x004129f0  FUN_004129f0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_004129f0(int param_1)
 
 {
@@ -2334,6 +2436,8 @@ void FUN_004129f0(int param_1)
   *(int *)(param_1 + 0x40) = *(int *)(param_1 + 0x40) + *(int *)(param_1 + 0x44);
   return;
 }
+#endif
+
 
 /* ---- 0x00412a30  rdRaster_EdgeSetup_Flat_7 ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -2460,6 +2564,8 @@ undefined4 rdRaster_EdgeSetup_Flat_7(undefined4 *param_1,int *param_2,int param_
 
 
 /* ---- 0x00413040  rdRaster_Select_FlatLit_7 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Select Flat Lit). Calls
    0040ea50. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.
     */
@@ -2490,8 +2596,12 @@ void rdRaster_Select_FlatLit_7(int *param_1,int param_2)
   param_1[0x76] = (uVar3 >> ((byte)iVar2 & 0x1f)) << ((byte)param_1[0x72] & 0x1f);
   return;
 }
+#endif
+
 
 /* ---- 0x00413110  FUN_00413110 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 void FUN_00413110(int param_1)
@@ -2526,8 +2636,12 @@ void FUN_00413110(int param_1)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x004131f0  rdRaster_SpanR8_TexKey_3 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: SpanR Tex Key). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -2602,8 +2716,12 @@ void rdRaster_SpanR8_TexKey_3(int *param_1)
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x00413340  rdRaster_SpanR16_TexKey_3 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: SpanR Tex Key). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -2678,6 +2796,8 @@ void rdRaster_SpanR16_TexKey_3(int *param_1)
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x004134a0  rdRaster_Select_FlatLit_8 ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -2716,6 +2836,8 @@ void rdRaster_Select_FlatLit_8(int *param_1,int param_2)
 
 
 /* ---- 0x00413590  FUN_00413590 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 void FUN_00413590(int param_1)
@@ -2810,8 +2932,12 @@ void FUN_00413590(int param_1)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x004139f0  rdRaster_EdgeSetup_Flat_8 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: EdgeSetup Flat). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -2897,6 +3023,8 @@ undefined4 rdRaster_EdgeSetup_Flat_8(undefined4 *param_1,int *param_2,int param_
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x00413ce0  rdRaster_Select_FlatLit_9 ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -2935,6 +3063,8 @@ void rdRaster_Select_FlatLit_9(int *param_1,int param_2)
 
 
 /* ---- 0x00413dd0  FUN_00413dd0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 void FUN_00413dd0(int param_1)
@@ -2972,6 +3102,8 @@ void FUN_00413dd0(int param_1)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x00413ee0  rdRaster_SpanP8_TexKeyZw ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -3476,6 +3608,8 @@ void rdRaster_Select_FlatLit_10(int *param_1,int param_2,float param_3)
 
 
 /* ---- 0x00414d20  FUN_00414d20 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 void FUN_00414d20(int param_1)
@@ -3573,8 +3707,12 @@ void FUN_00414d20(int param_1)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x00415180  FUN_00415180 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_00415180(int param_1)
 
 {
@@ -3584,16 +3722,24 @@ void FUN_00415180(int param_1)
   *(int *)(param_1 + 0x28) = *(int *)(param_1 + 0x28) + *(int *)(param_1 + 0x2c);
   return;
 }
+#endif
+
 
 /* ---- 0x004151c0  FUN_004151c0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_004151c0(int param_1)
 
 {
   *(int *)(param_1 + 0x28) = *(int *)(param_1 + 0x28) + *(int *)(param_1 + 0x2c);
   return;
 }
+#endif
+
 
 /* ---- 0x004151d0  rdRaster_EdgeSetup_Flat_9 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: EdgeSetup Flat). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -3679,6 +3825,8 @@ undefined4 rdRaster_EdgeSetup_Flat_9(undefined4 *param_1,int *param_2,int param_
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x004154c0  rdRaster_Select_FlatLit_11 ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -3719,6 +3867,8 @@ void rdRaster_Select_FlatLit_11(int *param_1,int param_2,float param_3)
 
 
 /* ---- 0x00415600  FUN_00415600 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 void FUN_00415600(int param_1)
@@ -3759,6 +3909,8 @@ void FUN_00415600(int param_1)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x00415720  rdRaster_SpanP8_TexKeyZw_2 ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -4266,6 +4418,8 @@ void rdRaster_Select_FlatLit_12(int *param_1,int param_2)
 
 
 /* ---- 0x00416580  FUN_00416580 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 void FUN_00416580(int param_1)
@@ -4363,8 +4517,12 @@ void FUN_00416580(int param_1)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x004169f0  FUN_004169f0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_004169f0(int param_1)
 
 {
@@ -4375,8 +4533,12 @@ void FUN_004169f0(int param_1)
   *(float *)(param_1 + 0x20) = *(float *)(param_1 + 0x24) + *(float *)(param_1 + 0x20);
   return;
 }
+#endif
+
 
 /* ---- 0x00416a30  FUN_00416a30 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_00416a30(int param_1)
 
 {
@@ -4384,6 +4546,8 @@ void FUN_00416a30(int param_1)
   *(int *)(param_1 + 0x40) = *(int *)(param_1 + 0x40) + *(int *)(param_1 + 0x44);
   return;
 }
+#endif
+
 
 /* ---- 0x00416a50  rdRaster_EdgeSetup_Flat_10 ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -4526,6 +4690,8 @@ undefined4 rdRaster_Select_FlatLit_13(int *param_1,int param_2)
 
 
 /* ---- 0x00416f80  FUN_00416f80 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 void FUN_00416f80(int param_1)
@@ -4566,6 +4732,8 @@ void FUN_00416f80(int param_1)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x004170a0  rdRaster_SpanP8_TexKeyZw_3 ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -5528,6 +5696,8 @@ LAB_00418ede:
 
 
 /* ---- 0x00418fe0  rdRaster_DrawPoints ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Plots each vertex of the polygon as one pixel (8 and 16 bpp) */
 
 void rdRaster_DrawPoints(int param_1,int param_2)
@@ -5586,8 +5756,12 @@ void rdRaster_DrawPoints(int param_1,int param_2)
 }
 #undef local_8
 
+#endif
+
 
 /* ---- 0x00419150  rdRaster_DrawWireframe ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Draws the polygon edges with rdCanvas_DrawLine */
 
 void rdRaster_DrawWireframe(int param_1,int param_2)
@@ -5671,8 +5845,12 @@ void rdRaster_DrawWireframe(int param_1,int param_2)
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x00419450  rdRaster_Draw16_FlatLit ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Draw Flat Lit). Calls
    004195f0, 00419680, 00419840, 00419e60. Grimjedi RDroid Rdraster; verify the exact pixel format
    before relying on the suffix. */
@@ -5760,8 +5938,12 @@ void rdRaster_Draw16_FlatLit(int param_1,int param_2)
 #undef local_84
 #undef local_88
 
+#endif
+
 
 /* ---- 0x004195f0  rdRaster_Span16_Flat ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Flat). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -5794,8 +5976,12 @@ void rdRaster_Span16_Flat(uint *param_1,uint *param_2)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x00419680  rdRaster_Edge_Flat ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Edge Flat). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -5857,8 +6043,12 @@ undefined4 rdRaster_Edge_Flat(int *param_1)
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x00419840  rdRaster_Edge_Flat_2 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Edge Flat). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -5920,8 +6110,12 @@ undefined4 rdRaster_Edge_Flat_2(int *param_1)
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x00419a00  rdRaster_Draw16_TexLit ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit). Calls
    00419680, 00419840, 00419be0, 0041a4f0. Grimjedi RDroid Rdraster; verify the exact pixel format
    before relying on the suffix. */
@@ -6013,8 +6207,12 @@ void rdRaster_Draw16_TexLit(int param_1,int param_2)
 #undef local_84
 #undef local_88
 
+#endif
+
 
 /* ---- 0x00419be0  rdRaster_Span16_Tex ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -6051,8 +6249,12 @@ void rdRaster_Span16_Tex(uint *param_1,uint *param_2)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x00419ca0  rdRaster_Draw16_FlatLit_2 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Draw Flat Lit). Calls
    00419e60, 00419ee0, 00419f70, 0041a130. Grimjedi RDroid Rdraster; verify the exact pixel format
    before relying on the suffix. */
@@ -6142,8 +6344,12 @@ void rdRaster_Draw16_FlatLit_2(int param_1,int param_2,float param_3)
 #undef local_88
 #undef local_8c
 
+#endif
+
 
 /* ---- 0x00419e60  rdRaster_Span_Flat ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Flat). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -6184,8 +6390,12 @@ void rdRaster_Span_Flat(uint *param_1,uint *param_2)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x00419ee0  rdRaster_Span16_Flat_2 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Flat). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -6218,8 +6428,12 @@ void rdRaster_Span16_Flat_2(uint *param_1,uint *param_2)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x00419f70  rdRaster_Edge_Flat_3 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Edge Flat). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -6281,8 +6495,12 @@ undefined4 rdRaster_Edge_Flat_3(int *param_1)
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x0041a130  rdRaster_Edge_Flat_4 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Edge Flat). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -6344,8 +6562,12 @@ undefined4 rdRaster_Edge_Flat_4(int *param_1)
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x0041a2f0  rdRaster_Draw16_TexLit_2 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit). Calls
    00419f70, 0041a130, 0041a4f0, 0041a580. Grimjedi RDroid Rdraster; verify the exact pixel format
    before relying on the suffix. */
@@ -6439,8 +6661,12 @@ void rdRaster_Draw16_TexLit_2(int param_1,int param_2,float param_3)
 #undef local_88
 #undef local_8c
 
+#endif
+
 
 /* ---- 0x0041a4f0  rdRaster_Span_Tex ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -6474,8 +6700,12 @@ void rdRaster_Span_Tex(uint *param_1,uint *param_2)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x0041a580  rdRaster_Span16_Tex_2 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -6512,8 +6742,12 @@ void rdRaster_Span16_Tex_2(uint *param_1,uint *param_2)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x0041a640  rdRaster_Draw_FlatLit ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Draw Flat Lit). Calls
    0041a810, 0041a900, 0041aa10, 0041ac60. Grimjedi RDroid Rdraster; verify the exact pixel format
    before relying on the suffix. */
@@ -6611,8 +6845,12 @@ void rdRaster_Draw_FlatLit(int param_1,int param_2)
 #undef local_88
 #undef local_c
 
+#endif
+
 
 /* ---- 0x0041a810  rdRaster_Span8_Flat ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Flat). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -6667,8 +6905,12 @@ void rdRaster_Span8_Flat(uint *param_1,uint *param_2)
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x0041a900  rdRaster_Span16_Flat_3 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Flat). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -6723,8 +6965,12 @@ void rdRaster_Span16_Flat_3(uint *param_1,uint *param_2)
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x0041aa10  rdRaster_Edge_Flat_5 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Edge Flat). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -6790,8 +7036,12 @@ undefined4 rdRaster_Edge_Flat_5(int *param_1)
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x0041ac60  rdRaster_Edge_Flat_6 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Edge Flat). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -6855,8 +7105,12 @@ undefined4 rdRaster_Edge_Flat_6(int *param_1)
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x0041aeb0  rdRaster_Draw16_TexLit_3 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit). Calls
    0041aa10, 0041ac60, 0041b0d0, 0041b1e0. Grimjedi RDroid Rdraster; verify the exact pixel format
    before relying on the suffix. */
@@ -6960,8 +7214,12 @@ void rdRaster_Draw16_TexLit_3(int param_1,int param_2)
 #undef local_88
 #undef local_c
 
+#endif
+
 
 /* ---- 0x0041b0d0  rdRaster_Span_Tex_2 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -7019,8 +7277,12 @@ void rdRaster_Span_Tex_2(uint *param_1,uint *param_2)
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x0041b1e0  rdRaster_Span16_Tex_3 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -7079,8 +7341,12 @@ void rdRaster_Span16_Tex_3(uint *param_1,uint *param_2)
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x0041b310  rdRaster_Draw16_TexLit_4 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit). Calls
    00418550, 0041b6f0, 0041b880, 0041ba30, 0041bd20. Grimjedi RDroid Rdraster; verify the exact
    pixel format before relying on the suffix. */
@@ -7223,8 +7489,12 @@ void rdRaster_Draw16_TexLit_4(int param_1,int param_2)
 #undef local_84
 #undef local_88
 
+#endif
+
 
 /* ---- 0x0041b6f0  rdRaster_Span_Flat_2 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Flat). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -7290,8 +7560,12 @@ void rdRaster_Span_Flat_2(uint *param_1,uint *param_2)
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x0041b880  rdRaster_Span16_Tex_4 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -7361,8 +7635,12 @@ void rdRaster_Span16_Tex_4(uint *param_1,uint *param_2)
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x0041ba30  rdRaster_Edge_Flat_7 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Edge Flat). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -7433,8 +7711,12 @@ undefined4 rdRaster_Edge_Flat_7(int *param_1)
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x0041bd20  rdRaster_Edge_Flat_8 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Edge Flat). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -7505,8 +7787,12 @@ undefined4 rdRaster_Edge_Flat_8(int *param_1)
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x0041c010  rdRaster_Draw16_TexLit_5 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit). Calls
    00418550, 0041ba30, 0041bd20, 0041c260, 0041c410. Grimjedi RDroid Rdraster; verify the exact
    pixel format before relying on the suffix. */
@@ -7621,8 +7907,12 @@ void rdRaster_Draw16_TexLit_5(int param_1,int param_2)
 #undef local_84
 #undef local_88
 
+#endif
+
 
 /* ---- 0x0041c260  rdRaster_Span_Tex_3 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -7689,8 +7979,12 @@ void rdRaster_Span_Tex_3(uint *param_1,uint *param_2)
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x0041c410  rdRaster_Span16_Tex_5 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -7763,8 +8057,12 @@ void rdRaster_Span16_Tex_5(uint *param_1,uint *param_2)
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x0041c5e0  rdRaster_Draw16_TexLitKey ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit Key). Calls
    00418550, 0041ba30, 0041bd20, 0041c810, 0041c9b0. Grimjedi RDroid Rdraster; verify the exact
    pixel format before relying on the suffix. */
@@ -7877,8 +8175,12 @@ void rdRaster_Draw16_TexLitKey(int param_1,int param_2)
 #undef local_84
 #undef local_88
 
+#endif
+
 
 /* ---- 0x0041c810  rdRaster_Span_FlatKey ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Flat Key). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -7947,8 +8249,12 @@ void rdRaster_Span_FlatKey(uint *param_1,uint *param_2)
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x0041c9b0  rdRaster_Span16_TexKey ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Key). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -8019,8 +8325,12 @@ void rdRaster_Span16_TexKey(uint *param_1,uint *param_2)
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x0041cb80  rdRaster_Draw16_TexLitKey_2 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit Key). Calls
    00418550, 0041ba30, 0041bd20, 0041cdd0, 0041cf90. Grimjedi RDroid Rdraster; verify the exact
    pixel format before relying on the suffix. */
@@ -8135,8 +8445,12 @@ void rdRaster_Draw16_TexLitKey_2(int param_1,int param_2)
 #undef local_84
 #undef local_88
 
+#endif
+
 
 /* ---- 0x0041cdd0  rdRaster_Span_TexKey ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Key). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -8205,8 +8519,12 @@ void rdRaster_Span_TexKey(uint *param_1,uint *param_2)
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x0041cf90  rdRaster_Span16_TexKey_2 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Key). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -8280,8 +8598,12 @@ void rdRaster_Span16_TexKey_2(uint *param_1,uint *param_2)
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x0041d180  rdRaster_Draw_FlatLit_2 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Draw Flat Lit). Calls
    00418550, 0041d710, 0041da00. Grimjedi RDroid Rdraster; verify the exact pixel format before
    relying on the suffix. */
@@ -8422,8 +8744,12 @@ void rdRaster_Draw_FlatLit_2(int param_1,int param_2,float param_3)
 #undef local_88
 #undef local_8c
 
+#endif
+
 
 /* ---- 0x0041d560  rdRaster_Span16_Tex_6 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -8493,8 +8819,12 @@ void rdRaster_Span16_Tex_6(uint *param_1,uint *param_2)
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x0041d710  rdRaster_Edge_Flat_9 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Edge Flat). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -8565,8 +8895,12 @@ undefined4 rdRaster_Edge_Flat_9(int *param_1)
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x0041da00  rdRaster_Edge_Flat_10 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Edge Flat). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -8637,8 +8971,12 @@ undefined4 rdRaster_Edge_Flat_10(int *param_1)
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x0041dcf0  rdRaster_Draw16_TexLit_6 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit). Calls
    00418550, 0041d710, 0041da00, 0041df60, 0041e120. Grimjedi RDroid Rdraster; verify the exact
    pixel format before relying on the suffix. */
@@ -8756,8 +9094,12 @@ void rdRaster_Draw16_TexLit_6(int param_1,int param_2,float param_3)
 #undef local_88
 #undef local_8c
 
+#endif
+
 
 /* ---- 0x0041df60  rdRaster_Span_Tex_4 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -8826,8 +9168,12 @@ void rdRaster_Span_Tex_4(uint *param_1,uint *param_2)
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x0041e120  rdRaster_Span16_Tex_7 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -8903,8 +9249,12 @@ void rdRaster_Span16_Tex_7(uint *param_1,uint *param_2)
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x0041e300  rdRaster_Draw_TexLitKey ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit Key). Calls
    00418550, 0041d710, 0041da00, 0041e550, 0041e700. Grimjedi RDroid Rdraster; verify the exact
    pixel format before relying on the suffix. */
@@ -9020,8 +9370,12 @@ void rdRaster_Draw_TexLitKey(int param_1,int param_2,float param_3)
 #undef local_88
 #undef local_8c
 
+#endif
+
 
 /* ---- 0x0041e550  rdRaster_Span8_TexKey ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Key). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -9091,8 +9445,12 @@ void rdRaster_Span8_TexKey(uint *param_1,uint *param_2)
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x0041e700  rdRaster_Span16_TexKey_3 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Key). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -9163,8 +9521,12 @@ void rdRaster_Span16_TexKey_3(uint *param_1,uint *param_2)
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x0041e8d0  rdRaster_Draw_TexLitKey_2 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit Key). Calls
    00418550, 0041d710, 0041da00, 0041eb40, 0041ed10. Grimjedi RDroid Rdraster; verify the exact
    pixel format before relying on the suffix. */
@@ -9282,8 +9644,12 @@ void rdRaster_Draw_TexLitKey_2(int param_1,int param_2,float param_3)
 #undef local_88
 #undef local_8c
 
+#endif
+
 
 /* ---- 0x0041eb40  rdRaster_Span_TexKey_2 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Key). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -9355,8 +9721,12 @@ void rdRaster_Span_TexKey_2(uint *param_1,uint *param_2)
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x0041ed10  rdRaster_Span_TexKey_3 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Key). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -9433,8 +9803,12 @@ void rdRaster_Span_TexKey_3(uint *param_1,uint *param_2)
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x0041eef0  rdRaster_Draw_FlatLit_3 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Draw Flat Lit). Calls
    00418550, 0041f520, 0041f890. Grimjedi RDroid Rdraster; verify the exact pixel format before
    relying on the suffix. */
@@ -9586,8 +9960,12 @@ void rdRaster_Draw_FlatLit_3(int param_1,int param_2)
 #undef local_88
 #undef local_c
 
+#endif
+
 
 /* ---- 0x0041f2f0  rdRaster_Span16_Tex_8 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -9671,8 +10049,12 @@ void rdRaster_Span16_Tex_8(uint *param_1,uint *param_2)
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x0041f520  rdRaster_Edge_Flat_11 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Edge Flat). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -9749,8 +10131,12 @@ undefined4 rdRaster_Edge_Flat_11(int *param_1)
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x0041f890  rdRaster_Edge_Flat_12 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Edge Flat). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -9827,8 +10213,12 @@ undefined4 rdRaster_Edge_Flat_12(int *param_1)
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x0041fc00  rdRaster_Draw16_TexLit_7 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit). Calls
    00418550, 0041f520, 0041f890, 0041fe90, 004200c0. Grimjedi RDroid Rdraster; verify the exact
    pixel format before relying on the suffix. */
@@ -9957,8 +10347,12 @@ void rdRaster_Draw16_TexLit_7(int param_1,int param_2)
 #undef local_88
 #undef local_c
 
+#endif
+
 
 /* ---- 0x0041fe90  rdRaster_Span_Tex_5 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -10042,6 +10436,8 @@ void rdRaster_Span_Tex_5(uint *param_1,uint *param_2)
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x0042003c  FUN_0042003c ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -10078,6 +10474,8 @@ void __fastcall FUN_0042003c(int param_1,int param_2)
 
 
 /* ---- 0x004200c0  rdRaster_Span16_Tex_9 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -10164,8 +10562,12 @@ void rdRaster_Span16_Tex_9(uint *param_1,uint *param_2)
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x00420310  rdRaster_Draw_TexLitKey_3 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit Key). Calls
    00418550, 0041f520, 0041f890, 00420580, 004207b0. Grimjedi RDroid Rdraster; verify the exact
    pixel format before relying on the suffix. */
@@ -10292,8 +10694,12 @@ void rdRaster_Draw_TexLitKey_3(int param_1,int param_2)
 #undef local_88
 #undef local_c
 
+#endif
+
 
 /* ---- 0x00420580  rdRaster_Span8_TexKey_2 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Key). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -10376,8 +10782,12 @@ void rdRaster_Span8_TexKey_2(uint *param_1,uint *param_2)
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x004207b0  rdRaster_Span16_TexKey_4 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Key). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -10462,8 +10872,12 @@ void rdRaster_Span16_TexKey_4(uint *param_1,uint *param_2)
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x004209f0  rdRaster_Draw16_TexLitKey_3 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit Key). Calls
    00418550, 0041f520, 0041f890, 00420c80, 00420ec0. Grimjedi RDroid Rdraster; verify the exact
    pixel format before relying on the suffix. */
@@ -10592,8 +11006,12 @@ void rdRaster_Draw16_TexLitKey_3(int param_1,int param_2)
 #undef local_88
 #undef local_c
 
+#endif
+
 
 /* ---- 0x00420c80  rdRaster_Span_TexKey_4 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Key). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -10678,8 +11096,12 @@ void rdRaster_Span_TexKey_4(uint *param_1,uint *param_2)
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x00420ec0  rdRaster_Span16_TexKey_5 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Key). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -10766,6 +11188,8 @@ void rdRaster_Span16_TexKey_5(uint *param_1,uint *param_2)
 }
 #undef local_8
 #undef local_c
+
+#endif
 
 
 /* ---- 0x00421120  rdRaster_Draw_FlatLit_4 ---- */
@@ -11205,6 +11629,8 @@ undefined4 rdRaster_Edge_Flat_13(int *param_1)
 
 
 /* ---- 0x00421dc0  rdRaster_Edge_Flat_14 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Edge Flat). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -11265,6 +11691,8 @@ undefined4 rdRaster_Edge_Flat_14(int *param_1)
 #undef local_18
 #undef local_8
 #undef local_c
+
+#endif
 
 
 /* ---- 0x00421f80  rdRaster_Draw16_TexLit_8 ---- */
@@ -13361,6 +13789,8 @@ undefined4 rdRaster_Edge_Flat_15(int *param_1)
 
 
 /* ---- 0x00425a00  rdRaster_Edge_Flat_16 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Edge Flat). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -13421,6 +13851,8 @@ undefined4 rdRaster_Edge_Flat_16(int *param_1)
 #undef local_18
 #undef local_8
 #undef local_c
+
+#endif
 
 
 /* ---- 0x00425bc0  rdRaster_Draw16_TexLit_9 ---- */
@@ -15571,6 +16003,8 @@ undefined4 rdRaster_Edge_Flat_17(int *param_1)
 
 
 /* ---- 0x00429b70  rdRaster_Edge_Flat_18 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Edge Flat). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -15635,6 +16069,8 @@ undefined4 rdRaster_Edge_Flat_18(int *param_1)
 #undef local_18
 #undef local_8
 #undef local_c
+
+#endif
 
 
 /* ---- 0x00429dc0  rdRaster_Draw16_TexLit_10 ---- */
@@ -17476,6 +17912,8 @@ void rdRaster_Span16_TexKey_11(uint *param_1,uint *param_2)
 
 
 /* ---- 0x0042d190  rdRaster_Grad_Flat_3 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Software rasterizer variant (auto-classified from the decompilation: Grad Flat). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -17674,6 +18112,8 @@ LAB_0042d542:
 #undef local_4
 #undef local_8
 #undef local_c
+
+#endif
 
 
 /* ---- 0x0042d5f0  rdRaster_Grad_Flat_4 ---- */
@@ -17927,6 +18367,8 @@ LAB_0042da90:
 
 
 /* ---- 0x0042dba0  rdRaster_DrawPointsZ ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void rdRaster_DrawPointsZ(int param_1,int param_2)
 
 {
@@ -17983,8 +18425,12 @@ void rdRaster_DrawPointsZ(int param_1,int param_2)
 }
 #undef local_8
 
+#endif
+
 
 /* ---- 0x0042dd10  rdRaster_DrawWireframeZ ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void rdRaster_DrawWireframeZ(int param_1,int param_2)
 
 {
@@ -18065,6 +18511,8 @@ void rdRaster_DrawWireframeZ(int param_1,int param_2)
 #undef local_1c
 #undef local_8
 #undef local_c
+
+#endif
 
 
 /* ---- 0x0042e010  rdRaster_Draw_FlatLitZ ---- */
@@ -20314,6 +20762,8 @@ void rdRaster_Draw_FlatLit_7(int param_1,int param_2)
 
 
 /* ---- 0x00430fd0  rdRaster_Span_FlatZ ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Flat Z). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -20402,8 +20852,12 @@ void rdRaster_Span_FlatZ(uint *param_1,uint *param_2)
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x004311d0  rdRaster_Span16_TexLit ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -20491,6 +20945,8 @@ void rdRaster_Span16_TexLit(uint *param_1,uint *param_2)
 #undef local_18
 #undef local_8
 #undef local_c
+
+#endif
 
 
 /* ---- 0x00431400  rdRaster_SpanR_Flat_7 ---- */
@@ -20785,6 +21241,8 @@ void rdRaster_Draw_TexLitZ_4(int param_1,int param_2)
 
 
 /* ---- 0x00431c90  rdRaster_Span8_TexLitZ_3 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Z). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -20874,8 +21332,12 @@ void rdRaster_Span8_TexLitZ_3(uint *param_1,uint *param_2)
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x00431eb0  rdRaster_Span16_TexLit_2 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -20970,6 +21432,8 @@ void rdRaster_Span16_TexLit_2(uint *param_1,uint *param_2)
 #undef local_20
 #undef local_8
 #undef local_c
+
+#endif
 
 
 /* ---- 0x00432100  rdRaster_Draw_TexLitKeyZw ---- */
@@ -21102,6 +21566,8 @@ void rdRaster_Draw_TexLitKeyZw(int param_1,int param_2)
 
 
 /* ---- 0x00432350  rdRaster_Span8_FlatKeyZw ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Flat Key Zw). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -21189,8 +21655,12 @@ void rdRaster_Span8_FlatKeyZw(uint *param_1,uint *param_2)
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x00432560  rdRaster_Span16_TexLitKey ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Key). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -21280,6 +21750,8 @@ void rdRaster_Span16_TexLitKey(uint *param_1,uint *param_2)
 #undef local_1c
 #undef local_8
 #undef local_c
+
+#endif
 
 
 /* ---- 0x004327a0  rdRaster_Draw_TexLitKeyZw_2 ---- */
@@ -21414,6 +21886,8 @@ void rdRaster_Draw_TexLitKeyZw_2(int param_1,int param_2)
 
 
 /* ---- 0x00432a10  rdRaster_Span8_TexLitKeyZw ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Key Zw).
    Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -21503,8 +21977,12 @@ void rdRaster_Span8_TexLitKeyZw(uint *param_1,uint *param_2)
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x00432c40  rdRaster_Span16_TexLitKey_2 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Key). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -21598,6 +22076,8 @@ void rdRaster_Span16_TexLitKey_2(uint *param_1,uint *param_2)
 #undef local_1c
 #undef local_8
 #undef local_c
+
+#endif
 
 
 /* ---- 0x00432ea0  rdRaster_Draw_FlatLit_8 ---- */
@@ -21790,6 +22270,8 @@ void rdRaster_Draw_FlatLit_8(int param_1,int param_2,float param_3)
 
 
 /* ---- 0x00433480  rdRaster_Span_TexLitZ ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Z). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -21879,8 +22361,12 @@ void rdRaster_Span_TexLitZ(uint *param_1,uint *param_2)
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x004336a0  rdRaster_Span16_TexLit_3 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -21970,6 +22456,8 @@ void rdRaster_Span16_TexLit_3(uint *param_1,uint *param_2)
 #undef local_1c
 #undef local_8
 #undef local_c
+
+#endif
 
 
 /* ---- 0x004338d0  rdRaster_SpanR_Flat_9 ---- */
@@ -22267,6 +22755,8 @@ void rdRaster_Draw_TexLitZ_5(int param_1,int param_2,float param_3)
 
 
 /* ---- 0x00434180  rdRaster_Span8_TexLitZ_4 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Z). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -22356,8 +22846,12 @@ void rdRaster_Span8_TexLitZ_4(uint *param_1,uint *param_2)
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x004343b0  rdRaster_Span16_TexLitZ_3 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Z). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -22455,6 +22949,8 @@ void rdRaster_Span16_TexLitZ_3(uint *param_1,uint *param_2)
 #undef local_20
 #undef local_8
 #undef local_c
+
+#endif
 
 
 /* ---- 0x00434610  rdRaster_Draw_TexLitKeyZw_3 ---- */
@@ -22590,6 +23086,8 @@ void rdRaster_Draw_TexLitKeyZw_3(int param_1,int param_2,float param_3)
 
 
 /* ---- 0x00434880  rdRaster_Span8_TexLitKeyZw_2 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Key Zw).
    Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -22680,8 +23178,12 @@ void rdRaster_Span8_TexLitKeyZw_2(uint *param_1,uint *param_2)
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x00434aa0  rdRaster_Span16_TexLitKey_3 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Key). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -22771,6 +23273,8 @@ void rdRaster_Span16_TexLitKey_3(uint *param_1,uint *param_2)
 #undef local_1c
 #undef local_8
 #undef local_c
+
+#endif
 
 
 /* ---- 0x00434ce0  rdRaster_Draw_TexLitKeyZw_4 ---- */
@@ -22908,6 +23412,8 @@ void rdRaster_Draw_TexLitKeyZw_4(int param_1,int param_2,float param_3)
 
 
 /* ---- 0x00434f70  rdRaster_Span8_TexLitKeyZw_3 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Key Zw).
    Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -22998,8 +23504,12 @@ void rdRaster_Span8_TexLitKeyZw_3(uint *param_1,uint *param_2)
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x004351a0  rdRaster_Span16_TexLitKey_4 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Key). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -23093,6 +23603,8 @@ void rdRaster_Span16_TexLitKey_4(uint *param_1,uint *param_2)
 #undef local_1c
 #undef local_8
 #undef local_c
+
+#endif
 
 
 /* ---- 0x00435400  rdRaster_Draw_FlatLit_9 ---- */
@@ -23296,6 +23808,8 @@ void rdRaster_Draw_FlatLit_9(int param_1,int param_2)
 
 
 /* ---- 0x00435a00  rdRaster_Span_TexLitZ_2 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Z). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -23400,8 +23914,12 @@ void rdRaster_Span_TexLitZ_2(uint *param_1,uint *param_2)
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x00435c70  rdRaster_Span16_TexLitZ_4 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Z). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -23534,6 +24052,8 @@ void rdRaster_Span16_TexLitZ_4(uint *param_1,uint *param_2)
 #undef local_3c
 #undef local_8
 #undef local_c
+
+#endif
 
 
 /* ---- 0x00435f60  rdRaster_SpanR_Flat_11 ---- */
@@ -23854,6 +24374,8 @@ void rdRaster_Draw_TexLitZ_6(int param_1,int param_2)
 
 
 /* ---- 0x00436950  rdRaster_Span8_TexLitZ_5 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Z). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -23959,8 +24481,12 @@ void rdRaster_Span8_TexLitZ_5(uint *param_1,uint *param_2)
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x00436be0  rdRaster_Span16_TexLitZ_5 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Z). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -24070,6 +24596,8 @@ void rdRaster_Span16_TexLitZ_5(uint *param_1,uint *param_2)
 #undef local_28
 #undef local_8
 #undef local_c
+
+#endif
 
 
 /* ---- 0x00436e80  rdRaster_Draw_TexLitKeyZw_5 ---- */
@@ -24216,6 +24744,8 @@ void rdRaster_Draw_TexLitKeyZw_5(int param_1,int param_2)
 
 
 /* ---- 0x00437110  rdRaster_Span8_TexLitKeyZw_4 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Key Zw).
    Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -24320,8 +24850,12 @@ void rdRaster_Span8_TexLitKeyZw_4(uint *param_1,uint *param_2)
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x00437390  rdRaster_Span16_TexLitKeyZw ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Key Zw).
    Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -24426,6 +24960,8 @@ void rdRaster_Span16_TexLitKeyZw(uint *param_1,uint *param_2)
 #undef local_24
 #undef local_8
 #undef local_c
+
+#endif
 
 
 /* ---- 0x00437620  rdRaster_Draw_TexLitKeyZw_6 ---- */
@@ -24574,6 +25110,8 @@ void rdRaster_Draw_TexLitKeyZw_6(int param_1,int param_2)
 
 
 /* ---- 0x004378d0  rdRaster_Span8_TexLitKeyZw_5 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Key Zw).
    Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -24679,8 +25217,12 @@ void rdRaster_Span8_TexLitKeyZw_5(uint *param_1,uint *param_2)
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x00437b60  rdRaster_Span16_TexLitKeyZw_2 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Key Zw).
    Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -24788,6 +25330,8 @@ void rdRaster_Span16_TexLitKeyZw_2(uint *param_1,uint *param_2)
 #undef local_24
 #undef local_8
 #undef local_c
+
+#endif
 
 
 /* ---- 0x00437e10  rdRaster_Draw_FlatLit_10 ---- */
@@ -25535,6 +26079,8 @@ undefined4 rdRaster_SpanR_Flat_13(int *param_1)
 
 
 /* ---- 0x00439400  rdRaster_SpanR_Flat_14 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: SpanR Flat). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -25595,6 +26141,8 @@ undefined4 rdRaster_SpanR_Flat_14(int *param_1)
 #undef local_18
 #undef local_8
 #undef local_c
+
+#endif
 
 
 /* ---- 0x004395c0  rdRaster_Draw_TexLitZ_7 ---- */
@@ -28207,6 +28755,8 @@ undefined4 rdRaster_SpanR_Flat_15(int *param_1)
 
 
 /* ---- 0x0043df20  rdRaster_SpanR_Flat_16 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: SpanR Flat). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -28267,6 +28817,8 @@ undefined4 rdRaster_SpanR_Flat_16(int *param_1)
 #undef local_18
 #undef local_8
 #undef local_c
+
+#endif
 
 
 /* ---- 0x0043e0e0  rdRaster_Draw_TexLitZ_8 ---- */
@@ -30967,6 +31519,8 @@ undefined4 rdRaster_SpanR_Flat_17(int *param_1)
 
 
 /* ---- 0x00442db0  rdRaster_SpanR_Flat_18 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: SpanR Flat). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -31031,6 +31585,8 @@ undefined4 rdRaster_SpanR_Flat_18(int *param_1)
 #undef local_18
 #undef local_8
 #undef local_c
+
+#endif
 
 
 /* ---- 0x00443000  rdRaster_Draw_TexLitZ_9 ---- */
@@ -33092,6 +33648,8 @@ void rdRaster_Span16_TexKeyZw_6(uint *param_1,uint *param_2)
 
 
 /* ---- 0x00451fa0  rdRaster_SpanR_FlatZw ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: SpanR Flat Zw). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -33140,8 +33698,12 @@ void rdRaster_SpanR_FlatZw(int *param_1)
 }
 #undef local_8
 
+#endif
+
 
 /* ---- 0x00452070  rdRaster_SpanR_FlatZw_2 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: SpanR Flat Zw). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -33189,8 +33751,12 @@ void rdRaster_SpanR_FlatZw_2(int *param_1)
 }
 #undef local_8
 
+#endif
+
 
 /* ---- 0x00452150  rdRaster_SpanR16_Tex ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: SpanR Tex). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -33227,8 +33793,12 @@ void rdRaster_SpanR16_Tex(int *param_1)
   UINT_007f4b3c = UINT_007f4b3c + UINT_008dde40 * 2;
   return;
 }
+#endif
+
 
 /* ---- 0x004522b0  rdRaster_SpanR16_Tex_2 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: SpanR Tex). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -33270,8 +33840,12 @@ void rdRaster_SpanR16_Tex_2(int *param_1)
   UINT_007f4b3c = UINT_007f4b3c + UINT_008dde40 * 2;
   return;
 }
+#endif
+
 
 /* ---- 0x004523f0  rdRaster_SpanR16_Tex_3 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: SpanR Tex). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -33313,8 +33887,12 @@ void rdRaster_SpanR16_Tex_3(int *param_1)
   UINT_007f4b3c = UINT_007f4b3c + UINT_008dde40 * 2;
   return;
 }
+#endif
+
 
 /* ---- 0x00452530  rdRaster_SpanR16_Tex_4 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: SpanR Tex). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -33356,8 +33934,12 @@ void rdRaster_SpanR16_Tex_4(int *param_1)
   UINT_007f4b3c = UINT_007f4b3c + UINT_008dde40 * 2;
   return;
 }
+#endif
+
 
 /* ---- 0x00452670  rdRaster_SpanR16_TexLit ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: SpanR Tex Lit). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -33399,8 +33981,12 @@ void rdRaster_SpanR16_TexLit(int *param_1)
   UINT_007f4b3c = UINT_007f4b3c + UINT_008dde40 * 2;
   return;
 }
+#endif
+
 
 /* ---- 0x004527b0  rdRaster_SpanR16_Tex_5 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: SpanR Tex). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -33442,8 +34028,12 @@ void rdRaster_SpanR16_Tex_5(int *param_1)
   UINT_007f4b3c = UINT_007f4b3c + UINT_008dde40 * 2;
   return;
 }
+#endif
+
 
 /* ---- 0x004528f0  rdRaster_SpanR16_Tex_6 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: SpanR Tex). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -33485,8 +34075,12 @@ void rdRaster_SpanR16_Tex_6(int *param_1)
   UINT_007f4b3c = UINT_007f4b3c + UINT_008dde40 * 2;
   return;
 }
+#endif
+
 
 /* ---- 0x00452a30  rdRaster_SpanR16_Tex_7 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: SpanR Tex). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -33523,8 +34117,12 @@ void rdRaster_SpanR16_Tex_7(int *param_1)
   UINT_007f4b3c = UINT_007f4b3c + UINT_008dde40 * 2;
   return;
 }
+#endif
+
 
 /* ---- 0x00452b90  rdRaster_SpanR16_Tex_8 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: SpanR Tex). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -33566,8 +34164,12 @@ void rdRaster_SpanR16_Tex_8(int *param_1)
   UINT_007f4b3c = UINT_007f4b3c + UINT_008dde40 * 2;
   return;
 }
+#endif
+
 
 /* ---- 0x00452cd0  rdRaster_SpanR16_Tex_9 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: SpanR Tex). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -33609,8 +34211,12 @@ void rdRaster_SpanR16_Tex_9(int *param_1)
   UINT_007f4b3c = UINT_007f4b3c + UINT_008dde40 * 2;
   return;
 }
+#endif
+
 
 /* ---- 0x00452e10  rdRaster_SpanR16_Tex_10 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: SpanR Tex). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -33652,8 +34258,12 @@ void rdRaster_SpanR16_Tex_10(int *param_1)
   UINT_007f4b3c = UINT_007f4b3c + UINT_008dde40 * 2;
   return;
 }
+#endif
+
 
 /* ---- 0x00452f50  rdRaster_SpanR16_TexLit_2 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: SpanR Tex Lit). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -33695,8 +34305,12 @@ void rdRaster_SpanR16_TexLit_2(int *param_1)
   UINT_007f4b3c = UINT_007f4b3c + UINT_008dde40 * 2;
   return;
 }
+#endif
+
 
 /* ---- 0x00453090  rdRaster_SpanR16_Tex_11 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: SpanR Tex). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -33738,8 +34352,12 @@ void rdRaster_SpanR16_Tex_11(int *param_1)
   UINT_007f4b3c = UINT_007f4b3c + UINT_008dde40 * 2;
   return;
 }
+#endif
+
 
 /* ---- 0x004531d0  rdRaster_SpanR16_Tex_12 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: SpanR Tex). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -33781,8 +34399,12 @@ void rdRaster_SpanR16_Tex_12(int *param_1)
   UINT_007f4b3c = UINT_007f4b3c + UINT_008dde40 * 2;
   return;
 }
+#endif
+
 
 /* ---- 0x00453310  rdRaster_SpanR16_TexLit_3 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: SpanR Tex Lit). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -33825,8 +34447,12 @@ void rdRaster_SpanR16_TexLit_3(int *param_1)
   UINT_007f4b3c = UINT_007f4b3c + UINT_008dde40 * 2;
   return;
 }
+#endif
+
 
 /* ---- 0x004534d0  rdRaster_SpanR16_TexLit_4 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: SpanR Tex Lit). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -33878,8 +34504,12 @@ void rdRaster_SpanR16_TexLit_4(int *param_1)
   UINT_007f4b3c = UINT_007f4b3c + UINT_008dde40 * 2;
   return;
 }
+#endif
+
 
 /* ---- 0x00453660  rdRaster_SpanR16_TexLit_5 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: SpanR Tex Lit). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -33931,8 +34561,12 @@ void rdRaster_SpanR16_TexLit_5(int *param_1)
   UINT_007f4b3c = UINT_007f4b3c + UINT_008dde40 * 2;
   return;
 }
+#endif
+
 
 /* ---- 0x004537f0  rdRaster_SpanR16_TexLit_6 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: SpanR Tex Lit). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -33984,8 +34618,12 @@ void rdRaster_SpanR16_TexLit_6(int *param_1)
   UINT_007f4b3c = UINT_007f4b3c + UINT_008dde40 * 2;
   return;
 }
+#endif
+
 
 /* ---- 0x00453980  rdRaster_SpanR16_TexLit_7 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: SpanR Tex Lit). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -34037,8 +34675,12 @@ void rdRaster_SpanR16_TexLit_7(int *param_1)
   UINT_007f4b3c = UINT_007f4b3c + UINT_008dde40 * 2;
   return;
 }
+#endif
+
 
 /* ---- 0x00453b10  rdRaster_SpanR16_TexLit_8 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: SpanR Tex Lit). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -34090,8 +34732,12 @@ void rdRaster_SpanR16_TexLit_8(int *param_1)
   UINT_007f4b3c = UINT_007f4b3c + UINT_008dde40 * 2;
   return;
 }
+#endif
+
 
 /* ---- 0x00453ca0  rdRaster_SpanR16_TexLit_9 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: SpanR Tex Lit). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -34143,6 +34789,8 @@ void rdRaster_SpanR16_TexLit_9(int *param_1)
   UINT_007f4b3c = UINT_007f4b3c + UINT_008dde40 * 2;
   return;
 }
+#endif
+
 
 /* ---- 0x00453e30  rdRaster_SpanP16_Tex ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -38600,6 +39248,8 @@ void rdRaster_SpanP16_TexLit_9(uint *param_1)
 
 
 /* ---- 0x0045ff10  rdRaster_Span16_TexLitZw ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Zw). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -38701,8 +39351,12 @@ void rdRaster_Span16_TexLitZw(uint *param_1,uint *param_2)
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x004602c0  rdRaster_Span16_TexLitZw_2 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Zw). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -38819,8 +39473,12 @@ LAB_004605e4:
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x00460670  rdRaster_Span16_TexLitZw_3 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Zw). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -38937,8 +39595,12 @@ LAB_00460994:
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x00460a20  rdRaster_Span16_TexLitZw_4 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Zw). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -39055,8 +39717,12 @@ LAB_00460d44:
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x00460dd0  rdRaster_Span16_TexLitZw_5 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Zw). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -39173,8 +39839,12 @@ LAB_004610f4:
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x00461180  rdRaster_Span16_TexLitZw_6 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Zw). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -39291,8 +39961,12 @@ LAB_004614a4:
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x00461530  rdRaster_Span16_TexLitZw_7 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Zw). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -39409,8 +40083,12 @@ LAB_00461854:
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x004618e0  rdRaster_Span16_TexLitZw_8 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Zw). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -39526,6 +40204,8 @@ LAB_00461c04:
 #undef local_10
 #undef local_8
 #undef local_c
+
+#endif
 
 
 /* ---- 0x00461c90  rdRaster_Span16_TexZw ---- */
@@ -41646,6 +42326,8 @@ LAB_0046689a:
 
 
 /* ---- 0x00466920  rdRaster_Span16_TexLitZw_15 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Zw). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -41736,8 +42418,12 @@ void rdRaster_Span16_TexLitZw_15(uint *param_1,uint *param_2)
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x00466c30  rdRaster_Span16_TexLitZw_16 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Zw). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -41839,8 +42525,12 @@ LAB_00466ec0:
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x00466f30  rdRaster_Span16_TexLitZw_17 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Zw). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -41942,8 +42632,12 @@ LAB_004671c0:
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x00467230  rdRaster_Span16_TexLitZw_18 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Zw). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -42045,8 +42739,12 @@ LAB_004674c0:
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x00467530  rdRaster_Span16_TexLitZw_19 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Zw). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -42148,8 +42846,12 @@ LAB_004677c0:
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x00467830  rdRaster_Span16_TexLitZw_20 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Zw). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -42251,8 +42953,12 @@ LAB_00467ac0:
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x00467b30  rdRaster_Span16_TexLitZw_21 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Zw). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -42354,8 +43060,12 @@ LAB_00467dc0:
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x00467e30  rdRaster_Span16_TexLitZw_22 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Zw). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -42456,6 +43166,8 @@ LAB_004680c0:
 #undef local_10
 #undef local_8
 #undef local_c
+
+#endif
 
 
 /* ---- 0x00468130  rdRaster_Span16_TexZw_2 ---- */
@@ -44416,6 +45128,8 @@ LAB_0046c2c4:
 
 
 /* ---- 0x0046c330  rdRaster_Span16_TexLitZw_24 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Zw). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -44506,8 +45220,12 @@ void rdRaster_Span16_TexLitZw_24(uint *param_1,uint *param_2)
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x0046c640  rdRaster_Span16_TexLitZw_25 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Zw). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -44609,8 +45327,12 @@ LAB_0046c8d0:
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x0046c940  rdRaster_Span16_TexLitZw_26 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Zw). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -44712,8 +45434,12 @@ LAB_0046cbd0:
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x0046cc40  rdRaster_Span16_TexLitZw_27 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Zw). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -44815,8 +45541,12 @@ LAB_0046ced0:
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x0046cf40  rdRaster_Span16_TexLitZw_28 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Zw). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -44918,8 +45648,12 @@ LAB_0046d1d0:
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x0046d240  rdRaster_Span16_TexLitZw_29 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Zw). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -45021,8 +45755,12 @@ LAB_0046d4d0:
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x0046d540  rdRaster_Span16_TexLitZw_30 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Zw). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
@@ -45123,6 +45861,8 @@ LAB_0046d7d0:
 #undef local_10
 #undef local_8
 #undef local_c
+
+#endif
 
 
 /* ---- 0x0046d840  rdRaster_Span16_TexZw_8 ---- */

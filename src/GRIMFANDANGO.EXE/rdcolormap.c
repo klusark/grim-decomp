@@ -6,6 +6,8 @@
 #include "functions.h"
 
 /* ---- 0x00404380  rdColormap_SetCurrent ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 rdColormap_SetCurrent(uint param_1)
 
 {
@@ -14,8 +16,12 @@ undefined4 rdColormap_SetCurrent(uint param_1)
   }
   return 1;
 }
+#endif
+
 
 /* ---- 0x004043c0  rdColormap_Load ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* RDroid/Engine/Rdcolormap.c: allocates a 0x350-byte colormap and loads it from the named .CMP file
     */
 
@@ -42,8 +48,12 @@ void * __cdecl rdColormap_Load(char *name)
   rdColormap_Free(cmp);
   return (void *)0x0;
 }
+#endif
+
 
 /* ---- 0x00404420  rdColormap_LoadEntry ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Reads the CMP header (flags, tint), the 768-byte palette, the 0x10000-byte light-level table and
    optional 0x8000-byte transparency table. Falls back to the grey ramp when the magic is wrong. */
 
@@ -186,8 +196,12 @@ LAB_00404659:
 #undef uStack_34
 #undef uStack_38
 
+#endif
+
 
 /* ---- 0x00404730  rdColormap_Free ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void rdColormap_Free(undefined4 param_1)
 
 {
@@ -195,8 +209,12 @@ void rdColormap_Free(undefined4 param_1)
   (*g_pSvcRdroid->pFree)(param_1);
   return;
 }
+#endif
+
 
 /* ---- 0x00404750  rdColormap_FreeEntry ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void rdColormap_FreeEntry(int param_1)
 
 {
@@ -220,6 +238,8 @@ void rdColormap_FreeEntry(int param_1)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x004047e0  rdColormap_Build16bitTables ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -312,6 +332,8 @@ rdColormap_Build16bitTables
 
 
 /* ---- 0x00404a40  rdColormap_BuildGreyRamp ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Fills the colormap with the synthetic GREYRAMP.CMP palette and 64 light levels */
 
 undefined4 rdColormap_BuildGreyRamp(undefined4 *param_1)
@@ -360,8 +382,12 @@ undefined4 rdColormap_BuildGreyRamp(undefined4 *param_1)
   } while (uVar3 < 0x100);
   return 1;
 }
+#endif
+
 
 /* ---- 0x00404b30  FUN_00404b30 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 int FUN_00404b30(int param_1)
 
 {
@@ -382,3 +408,5 @@ int FUN_00404b30(int param_1)
   }
   return iVar1;
 }
+#endif
+

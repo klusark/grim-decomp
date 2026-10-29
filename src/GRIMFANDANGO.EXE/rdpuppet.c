@@ -6,6 +6,8 @@
 #include "functions.h"
 
 /* ---- 0x0040cee0  rdPuppet_BuildJointMatrices ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void __cdecl rdPuppet_BuildJointMatrices(void *model,float *frame,uint param_3,uint param_4)
 
 {
@@ -23,8 +25,12 @@ void __cdecl rdPuppet_BuildJointMatrices(void *model,float *frame,uint param_3,u
   }
   return;
 }
+#endif
+
 
 /* ---- 0x00450500  rdPuppet_New ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 * rdPuppet_New(void *param_1)
 
 {
@@ -49,8 +55,12 @@ undefined4 * rdPuppet_New(void *param_1)
   }
   return (undefined4 *)0x0;
 }
+#endif
+
 
 /* ---- 0x00450560  rdPuppet_Init ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Six tracks of 0x134 bytes starting at +8; all stopped */
 
 int __cdecl rdPuppet_Init(void *puppet,void *thing)
@@ -72,8 +82,12 @@ int __cdecl rdPuppet_Init(void *puppet,void *thing)
   } while (track < 6);
   return 1;
 }
+#endif
+
 
 /* ---- 0x004505a0  rdPuppet_AddTrack ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Takes the first free track (status 0) and binds the keyframe to it */
 
 uint __cdecl rdPuppet_AddTrack(void *puppet,uint keyframe,uint lowPri,uint highPri)
@@ -117,8 +131,12 @@ uint __cdecl rdPuppet_AddTrack(void *puppet,uint keyframe,uint lowPri,uint highP
   rdPuppet_ClearTrackNodes(puppet,track);
   return track;
 }
+#endif
+
 
 /* ---- 0x00450640  rdPuppet_StopTrack ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void __cdecl rdPuppet_StopTrack(void *puppet,int track)
 
 {
@@ -135,8 +153,12 @@ void __cdecl rdPuppet_StopTrack(void *puppet,int track)
   puVar1[0x4b] = 0;
   return;
 }
+#endif
+
 
 /* ---- 0x004506a0  rdPuppet_SetTrackFlags ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 rdPuppet_SetTrackFlags(int param_1,int param_2,uint param_3)
 
 {
@@ -146,8 +168,12 @@ undefined4 rdPuppet_SetTrackFlags(int param_1,int param_2,uint param_3)
   *puVar1 = *puVar1 | param_3;
   return 1;
 }
+#endif
+
 
 /* ---- 0x004506d0  rdPuppet_SetTrackUserData ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Writes the last dword (+0x12c) of the track record */
 
 void rdPuppet_SetTrackUserData(int param_1,int param_2,undefined4 param_3)
@@ -156,8 +182,12 @@ void rdPuppet_SetTrackUserData(int param_1,int param_2,undefined4 param_3)
   *(undefined4 *)(param_1 + (param_2 + 1) * 0x134) = param_3;
   return;
 }
+#endif
+
 
 /* ---- 0x004506f0  rdPuppet_PlayTrack ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Status bits: clears 0x10, sets 2, speed 1.0 */
 
 undefined4 rdPuppet_PlayTrack(int param_1,int param_2)
@@ -170,6 +200,8 @@ undefined4 rdPuppet_PlayTrack(int param_1,int param_2)
   puVar1[6] = 0x3f800000;
   return 1;
 }
+#endif
+
 
 /* ---- 0x00450720  rdPuppet_FadeInTrack ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -343,6 +375,8 @@ void __cdecl rdPuppet_AdvanceTrack(void *puppet,int track,float dt)
 
 
 /* ---- 0x00450a90  rdPuppet_Advance ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Variable defined which should be unmapped: local_14 */
 
 void __cdecl rdPuppet_Advance(void *puppet,float seconds)
@@ -393,8 +427,12 @@ void __cdecl rdPuppet_Advance(void *puppet,float seconds)
 }
 #undef local_14
 
+#endif
+
 
 /* ---- 0x00450b50  rdPuppet_ClearTrackNodes ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Zeroes the 64 node weights of a track and marks it status 3 */
 
 void rdPuppet_ClearTrackNodes(int param_1,int param_2)
@@ -419,6 +457,8 @@ void rdPuppet_ClearTrackNodes(int param_1,int param_2)
   *puVar1 = 3;
   return;
 }
+#endif
+
 
 /* ---- 0x00450ba0  rdPuppet_UpdateFrame ---- */
 /* replaced by the hand-written version in build/overrides.c */

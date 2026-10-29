@@ -191,6 +191,8 @@ undefined4 Insane_PrepareFrame(int *param_1,undefined4 *param_2,uint *param_3)
 
 
 /* ---- 0x004bdca0  Insane_Blit8To16Doubled ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Pixel-doubling conversion of 8-bit frame rows into a 16-bit destination */
 
 undefined8 __fastcall
@@ -235,6 +237,8 @@ Insane_Blit8To16Doubled
 #undef local_14
 #undef local_8
 #undef local_c
+
+#endif
 
 
 /* ---- 0x004bdd50  Insane_BlitRowsDual ---- */

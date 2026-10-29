@@ -925,6 +925,8 @@ void __cdecl luaY_code_number(float param_1)
 
 
 /* ---- 0x1000b950  luaY_real_constant ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Unidentified function of lua.stx (yacc parser) and code generation */
 
 int __cdecl luaY_real_constant(float param_1)
@@ -960,6 +962,8 @@ int __cdecl luaY_real_constant(float param_1)
   *(float *)(iVar1 + 4 + iVar2 * 8) = param_1;
   return iVar2;
 }
+#endif
+
 
 /* ---- 0x1000b9c0  lparser__b9c0 ---- */
 /* Unidentified function of lua.stx (yacc parser) and code generation */

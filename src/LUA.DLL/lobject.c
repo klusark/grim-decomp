@@ -35,6 +35,8 @@ undefined4 __cdecl luaO_redimension(int param_1)
 }
 
 /* ---- 0x100074b0  luaO_equalObj ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Unidentified function of lobject.c */
 
 bool __cdecl luaO_equalObj(int *param_1,int *param_2)
@@ -64,6 +66,8 @@ bool __cdecl luaO_equalObj(int *param_1,int *param_2)
   }
   return false;
 }
+#endif
+
 
 /* ---- 0x10007550  luaO_findstring ---- */
 /* Unidentified function of lobject.c */

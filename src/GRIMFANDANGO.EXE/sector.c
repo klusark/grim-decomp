@@ -211,6 +211,8 @@ void SectorList_FreeShrinkSave(void)
 }
 
 /* ---- 0x004a6380  SectorList_RestoreAfterShrink ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void SectorList_RestoreAfterShrink(void)
 
 {
@@ -288,6 +290,8 @@ void SectorList_RestoreAfterShrink(void)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x004a6490  Sector_Construct ---- */
 /* Sector_Construct(sector, vertices, count, group name): vertices go through
@@ -1519,6 +1523,8 @@ void SectorList_ResetFree(void)
 }
 
 /* ---- 0x004a7ab0  SectorVertexPool_GetOrAdd ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Source: Engine/WalkPlane.cpp (line 974, from __FILE__/__LINE__ passed to the allocator) */
 
 float * SectorVertexPool_GetOrAdd(undefined4 param_1,float *param_2)
@@ -1566,6 +1572,8 @@ float * SectorVertexPool_GetOrAdd(undefined4 param_1,float *param_2)
   pfVar4[3] = param_2[2];
   return pfVar4;
 }
+#endif
+
 
 /* ---- 0x004a7ba0  SectorVertexPool_Release ---- */
 void SectorVertexPool_Release(int *param_1)

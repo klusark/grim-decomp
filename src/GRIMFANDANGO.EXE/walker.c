@@ -1492,6 +1492,8 @@ undefined4 Planner_PortalPoint(void *param_1,void *param_2,float *param_3,undefi
 
 
 /* ---- 0x004a9aa0  Planner_SmoothPath ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 Planner_SmoothPath(void)
 
 {
@@ -1585,6 +1587,8 @@ undefined4 Planner_SmoothPath(void)
 #undef local_4
 #undef local_8
 #undef local_c
+
+#endif
 
 
 /* ---- 0x004a9ca0  Planner_SharedSector ---- */

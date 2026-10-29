@@ -6,6 +6,8 @@
 #include "functions.h"
 
 /* ---- 0x00409f50  rdCamera_New ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void * __cdecl rdCamera_New(float fov,int type,float aspectX,float aspectY,float zoom)
 
 {
@@ -20,8 +22,12 @@ void * __cdecl rdCamera_New(float fov,int type,float aspectX,float aspectY,float
   iVar1 = rdCamera_Init(camera,fov,type,(int)aspectX,(int)aspectY,zoom);
   return (void *)(-(uint)(iVar1 != 0) & (uint)camera);
 }
+#endif
+
 
 /* ---- 0x00409fb0  rdCamera_Init ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Allocates the 0x34-byte projection block (camera+0x48), clamps the FOV to 5..179 and selects
    perspective projection */
 
@@ -56,8 +62,12 @@ int __cdecl rdCamera_Init(void *camera,float fov,int a,int b,int c,float zoom)
   }
   return 0;
 }
+#endif
+
 
 /* ---- 0x0040a080  FUN_0040a080 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_0040a080(int param_1)
 
 {
@@ -67,8 +77,12 @@ void FUN_0040a080(int param_1)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x0040a0a0  FUN_0040a0a0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_0040a0a0(int param_1)
 
 {
@@ -77,8 +91,12 @@ void FUN_0040a0a0(int param_1)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x0040a0c0  rdCamera_SetCanvas ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void __cdecl rdCamera_SetCanvas(void *camera,void *canvas)
 
 {
@@ -86,8 +104,12 @@ void __cdecl rdCamera_SetCanvas(void *camera,void *canvas)
   rdCamera_BuildProjection(camera);
   return;
 }
+#endif
+
 
 /* ---- 0x0040a0e0  rdCamera_SetCurrent ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 rdCamera_SetCurrent(void *param_1)
 
 {
@@ -96,8 +118,12 @@ undefined4 rdCamera_SetCurrent(void *param_1)
   }
   return 1;
 }
+#endif
+
 
 /* ---- 0x0040a100  rdCamera_SetFov ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void __cdecl rdCamera_SetFov(void *camera,float fov)
 
 {
@@ -111,8 +137,12 @@ void __cdecl rdCamera_SetFov(void *camera,float fov)
   rdCamera_BuildProjection(camera);
   return;
 }
+#endif
+
 
 /* ---- 0x0040a150  rdCamera_SetProjectType ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* 0 orthographic, 1 perspective; installs the project/unproject function pointers (+0x4c/+0x50) and
    rebuilds the frustum */
 
@@ -145,8 +175,12 @@ int __cdecl rdCamera_SetProjectType(void *camera,int type)
   }
   return 1;
 }
+#endif
+
 
 /* ---- 0x0040a1d0  rdCamera_SetZoom ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void __cdecl rdCamera_SetZoom(void *camera,float zoom)
 
 {
@@ -176,6 +210,8 @@ void __cdecl rdCamera_SetZoom(void *camera,float zoom)
   rdCamera_BuildProjection(camera);
   return;
 }
+#endif
+
 
 /* ---- 0x0040a280  rdCamera_BuildProjection ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -236,6 +272,8 @@ undefined4 rdCamera_BuildProjection(int *param_1)
 
 
 /* ---- 0x0040a430  rdCamera_SetFrame ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void __cdecl rdCamera_SetFrame(float *frame)
 
 {
@@ -252,8 +290,12 @@ void __cdecl rdCamera_SetFrame(float *frame)
   Matrix_ToAngles(&UINT_008ddf60,&DAT_008ddf50);
   return;
 }
+#endif
+
 
 /* ---- 0x0040a470  FUN_0040a470 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_0040a470(float *param_1,float *param_2)
 
 {
@@ -266,8 +308,12 @@ void FUN_0040a470(float *param_1,float *param_2)
   param_1[2] = param_2[1];
   return;
 }
+#endif
+
 
 /* ---- 0x0040a4b0  FUN_0040a4b0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_0040a4b0(float *param_1,float *param_2,int param_3)
 
 {
@@ -297,8 +343,12 @@ void FUN_0040a4b0(float *param_1,float *param_2,int param_3)
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x0040a530  FUN_0040a530 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_0040a530(float *param_1,float *param_2)
 
 {
@@ -310,8 +360,12 @@ void FUN_0040a530(float *param_1,float *param_2)
   param_1[2] = param_2[1];
   return;
 }
+#endif
+
 
 /* ---- 0x0040a570  FUN_0040a570 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_0040a570(float *param_1,float *param_2,int param_3)
 
 {
@@ -339,8 +393,12 @@ void FUN_0040a570(float *param_1,float *param_2,int param_3)
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x0040a5e0  FUN_0040a5e0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_0040a5e0(float *param_1,float *param_2)
 
 {
@@ -356,8 +414,12 @@ void FUN_0040a5e0(float *param_1,float *param_2)
   param_1[2] = param_2[1];
   return;
 }
+#endif
+
 
 /* ---- 0x0040a620  FUN_0040a620 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_0040a620(float *param_1,float *param_2,int param_3)
 
 {
@@ -385,8 +447,12 @@ void FUN_0040a620(float *param_1,float *param_2,int param_3)
 #undef local_4
 #undef local_8
 
+#endif
+
 
 /* ---- 0x0040a6a0  FUN_0040a6a0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_0040a6a0(float *param_1,float *param_2)
 
 {
@@ -400,8 +466,12 @@ void FUN_0040a6a0(float *param_1,float *param_2)
   param_1[2] = param_2[1];
   return;
 }
+#endif
+
 
 /* ---- 0x0040a6e0  FUN_0040a6e0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_0040a6e0(float *param_1,float *param_2,int param_3)
 
 {
@@ -427,8 +497,12 @@ void FUN_0040a6e0(float *param_1,float *param_2,int param_3)
 #undef local_4
 #undef local_8
 
+#endif
+
 
 /* ---- 0x0040a750  rdCamera_SetAmbientLight ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua SetAmbientLight */
 
 void __cdecl rdCamera_SetAmbientLight(void *camera,float ambient)
@@ -437,8 +511,12 @@ void __cdecl rdCamera_SetAmbientLight(void *camera,float ambient)
   *(float *)((int)camera + 0x54) = ambient;
   return;
 }
+#endif
+
 
 /* ---- 0x0040a760  rdCamera_AddLight ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Up to 64 lights per camera; stores the light pointer and position and precomputes the falloff
    terms */
 
@@ -461,8 +539,12 @@ void __cdecl rdCamera_AddLight(void *camera,void *light,float *pos)
   *(int *)((int)camera + 0x58) = *(int *)((int)camera + 0x58) + 1;
   return;
 }
+#endif
+
 
 /* ---- 0x0040a7d0  rdCamera_ClearCanvas ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void rdCamera_ClearCanvas(void)
 
 {
@@ -497,14 +579,20 @@ void rdCamera_ClearCanvas(void)
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x0040a860  rdCamera_ResetStats ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void rdCamera_ResetStats(void)
 
 {
   UINT_007f31ec = 0;
   return;
 }
+#endif
+
 
 /* ---- 0x0040dc30  rdCamera_ProjectPoint ---- */
 /* replaced by the hand-written version in build/overrides.c */
