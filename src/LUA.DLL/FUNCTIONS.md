@@ -166,7 +166,7 @@
 | 10004580 | luaD_callC | ldo.c | 29 |
 | 10004600 | ldo__4600 | ldo.c | 16 |
 | 100046a0 | luaD_message | ldo.c | 1 |
-| 100046e0 | luaD_protectedrun | ldo.c | 47 |
+| 100046e0 | luaD_protectedrun | ldo.c | 1 |
 | 100047c0 | luaD_callinc | ldo.c | 14 |
 | 10004810 | luaD_gcIM | ldo.c | 23 |
 | 100049b0 | luaD_domain | ldo.c | 32 |
@@ -803,7 +803,7 @@
 | 1001d850 | FUN_1001d850 | crt_unnamed.c | 8 |
 | 1001d860 | FUN_1001d860 | crt_unnamed.c | 15 |
 | 1001d880 | FUN_1001d880 | crt_unnamed.c | 38 |
-| 1001dc70 | FUN_1001dc70 | crt_unnamed.c | 58 |
+| 1001dc70 | FUN_1001dc70 | crt_unnamed.c | 1 |
 | 1001dd00 | FUN_1001dd00 | crt_unnamed.c | 45 |
 | 1001ddc0 | FUN_1001ddc0 | crt_unnamed.c | 6 |
 | 1001ddd0 | FUN_1001ddd0 | crt_unnamed.c | 24 |

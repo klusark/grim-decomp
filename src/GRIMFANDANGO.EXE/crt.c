@@ -124,6 +124,8 @@ longlong __cdecl _ftol(double x)
 
 
 /* ---- 0x004ac720  _snprintf ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 int __cdecl _snprintf(char *buf,uint n,char *fmt,...)
 
 {
@@ -152,6 +154,8 @@ int __cdecl _snprintf(char *buf,uint n,char *fmt,...)
 #undef local_18
 #undef local_1c
 #undef local_20
+
+#endif
 
 
 /* ---- 0x004ac790  atol ---- */
@@ -9566,6 +9570,8 @@ int getenv(char *param_1)
 }
 
 /* ---- 0x004bbc10  _chsize ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 int _chsize(void)
 
 {
@@ -9633,6 +9639,8 @@ LAB_004bbcca:
   iVar7 = -1;
   goto LAB_004bbcca;
 }
+#endif
+
 
 /* ---- 0x004bbd60  _raise_exc ---- */
 void _raise_exc(uint *param_1,uint *param_2,byte param_3,uint param_4,uint *param_5,uint *param_6)

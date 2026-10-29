@@ -482,6 +482,8 @@ void __cdecl luaD_message(byte *param_1)
 
 
 /* ---- 0x100046e0  luaD_protectedrun ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* setjmp-protected call (do_protectedrun) */
 
 undefined4 __cdecl luaD_protectedrun(void *param_1)
@@ -529,6 +531,8 @@ undefined4 __cdecl luaD_protectedrun(void *param_1)
   PTR_1002bf6c[2] = PTR_1002bf6c[2] + -1;
   return uVar8;
 }
+#endif
+
 
 /* ---- 0x100047c0  luaD_callinc ---- */
 /* Unidentified function of ldo.c (stack and call machinery, Grim task marks) */

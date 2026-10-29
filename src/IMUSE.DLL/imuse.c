@@ -2019,6 +2019,8 @@ void Im_GuardLeave(void)
 }
 
 /* ---- 0x10004f70  Im_DispatchCommand ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Single-entry command dispatcher: switches on the command id and calls the Im* API */
 
 uint __cdecl
@@ -2113,6 +2115,8 @@ Im_DispatchCommand(uint param_1,int *param_2,undefined4 *param_3,uint param_4,in
   }
   return 0xffffffff;
 }
+#endif
+
 
 /* ---- 0x10005360  Im_MixerInit ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */

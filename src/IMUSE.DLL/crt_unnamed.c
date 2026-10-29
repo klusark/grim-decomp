@@ -3797,6 +3797,8 @@ int FUN_10012bc0(int param_1,int param_2,int param_3,int param_4,int param_5,int
 
 
 /* ---- 0x10012f40  FUN_10012f40 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 int FUN_10012f40(void)
 
 {
@@ -3863,6 +3865,8 @@ LAB_10012ffa:
   iVar6 = -1;
   goto LAB_10012ffa;
 }
+#endif
+
 
 /* ---- 0x10013090  FUN_10013090 ---- */
 int __cdecl FUN_10013090(uint param_1,char *param_2,int param_3)

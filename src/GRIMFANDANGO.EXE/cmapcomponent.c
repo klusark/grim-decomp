@@ -74,6 +74,8 @@ undefined4 CmapComponent_Destroy(undefined4 param_1,undefined4 param_2,void *par
 }
 
 /* ---- 0x004965b0  FUN_004965b0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 FUN_004965b0(void)
 
 {
@@ -83,6 +85,8 @@ undefined4 FUN_004965b0(void)
   (*in_stack_00000014)(in_stack_00000010 + 8,4);
   return 1;
 }
+#endif
+
 
 /* ---- 0x004965d0  FUN_004965d0 ---- */
 void FUN_004965d0(undefined4 param_1,int param_2,undefined4 param_3,undefined4 param_4)

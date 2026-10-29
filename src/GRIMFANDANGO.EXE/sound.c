@@ -178,6 +178,8 @@ undefined4 Sound_DriverQuery(void)
 }
 
 /* ---- 0x004d0cf0  Sound_VoiceSampleCount ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Converts the byte count of a 0x34-byte voice record to samples depending on its format code
    (halved for 8/16-bit mono formats 1,2,4) */
 
@@ -211,3 +213,5 @@ switchD_004d0d15_default:
   lVar2 = _ftol(x);
   return (undefined *)lVar2;
 }
+#endif
+
