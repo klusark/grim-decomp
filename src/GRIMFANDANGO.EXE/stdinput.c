@@ -546,6 +546,7 @@ void Input_PollKeyboard(void)
 
 {
   unsigned char _frame[0x330] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _stkneg[816] __attribute__((aligned(16)));  /* the original frame below the return address */
   uint uVar1;
   uint uVar2;
   void *pvVar3;
@@ -607,7 +608,7 @@ LAB_0047780b:
     }
     if ((iVar5 == 1) &&
        (iVar5 = (**(code_std **)(*(int *)g_pDInputKeyboard + 0x24))
-                          (g_pDInputKeyboard,0x100,&STACK0X(0xfffffcec)), uVar1 = UINT_00805fbc,
+                          (g_pDInputKeyboard,0x100,(_stkneg + 28)), uVar1 = UINT_00805fbc,
        -1 < iVar5)) {
       iVar5 = 0;
       puVar4 = &UINT_00804020;
@@ -904,6 +905,7 @@ void Input_PollMouse(void)
 
 {
   unsigned char _frame[0x230] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _stkneg[560] __attribute__((aligned(16)));  /* the original frame below the return address */
   uint uVar1;
   int iVar2;
   uint *puVar3;
@@ -927,7 +929,7 @@ void Input_PollMouse(void)
     UINT_00805fcc = unaff_EBP;
     UINT_00805fd0 = unaff_EBX;
     iVar2 = (**(code_std **)(*(int *)g_pDInputMouse + 0x28))
-                      (g_pDInputMouse,0x10,auStack_20c,&STACK0X(0xfffffde0));
+                      (g_pDInputMouse,0x10,auStack_20c,(_stkneg + 16));
     uVar1 = UINT_00805fbc;
     if (iVar2 == 1) {
       iVar2 = 0;
@@ -969,6 +971,7 @@ void Input_FlushJoystick(void)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _stkneg[48] __attribute__((aligned(16)));  /* the original frame below the return address */
   uint uVar1;
   uint *puVar2;
   uint uVar3;
@@ -978,7 +981,7 @@ void Input_FlushJoystick(void)
   
   if (UINT_004dea40 != 0) {
     (**(code_std **)(*(int *)g_pDInputMouse + 0x24))(g_pDInputMouse,0x10,local_10);
-    (**(code_std **)(*(int *)g_pDInputMouse + 0x28))(g_pDInputMouse,0x10,0,&STACK0X(0xffffffe0),0);
+    (**(code_std **)(*(int *)g_pDInputMouse + 0x28))(g_pDInputMouse,0x10,0,(_stkneg + 16),0);
     uVar1 = UINT_00805fbc;
     iVar4 = 0;
     puVar2 = &UINT_00805f30;

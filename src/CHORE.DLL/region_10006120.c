@@ -1827,6 +1827,7 @@ void FUN_10007ff0(void)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _stkneg[32] __attribute__((aligned(16)));  /* the original frame below the return address */
   int iVar1;
   int unaff_EDI;
   char *pcVar2;
@@ -1839,12 +1840,12 @@ void FUN_10007ff0(void)
   if (*_DAT_10015af4 == '\0') {
     pcVar2 = (char *)IMG_ADDR(0x100144e0);
   }
-  FUN_10008090(pcVar2,0,0,&iStack_14,&STACK0X(0xfffffff0));
+  FUN_10008090(pcVar2,0,0,&iStack_14,(_stkneg + 16));
   iVar1 = FUN_10009580(unaff_EDI + iStack_14 * 4);
   if (iVar1 == 0) {
     FUN_10006120(8);
   }
-  FUN_10008090(pcVar2,iVar1,iVar1 + unaff_EDI * 4,&STACK0X(0xfffffff0),&STACK0X(0xfffffff4));
+  FUN_10008090(pcVar2,iVar1,iVar1 + unaff_EDI * 4,(_stkneg + 16),(_stkneg + 20));
   _DAT_100144b0 = iVar1;
   _DAT_100144ac = unaff_EDI + -1;
   return;
@@ -2016,6 +2017,7 @@ undefined4 FUN_100082a0(undefined4 param_1)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _stkneg[48] __attribute__((aligned(16)));  /* the original frame below the return address */
   byte bVar1;
   byte bVar2;
   int iVar3;
@@ -2100,7 +2102,7 @@ undefined4 FUN_100082a0(undefined4 param_1)
     }
     else {
       if ((char)((uint)unaff_EBX >> 0x10) != '\0') {
-        pbVar9 = &STACK0X(0xffffffeb);
+        pbVar9 = (_stkneg + 27);
         do {
           bVar1 = *pbVar9;
           if (bVar1 == 0) break;
@@ -2219,6 +2221,7 @@ void FUN_100085c0(void)
 
 {
   unsigned char _frame[0x530] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _stkneg[1328] __attribute__((aligned(16)));  /* the original frame below the return address */
   byte bVar1;
   int iVar2;
   uint uVar3;
@@ -2244,7 +2247,7 @@ void FUN_100085c0(void)
     bVar1 = (byte)((uint)unaff_EBX >> 0x10);
     auStack_508[0]._0_1_ = 0x20;
     if (bVar1 != 0) {
-      pbVar6 = &STACK0X(0xfffffaeb);
+      pbVar6 = (_stkneg + 27);
       do {
         uVar3 = (uint)bVar1;
         if (uVar3 <= *pbVar6) {
@@ -2490,6 +2493,7 @@ void FUN_100089e0(int param_1)
 
 {
   unsigned char _frame[0x1c0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _stkneg[448] __attribute__((aligned(16)));  /* the original frame below the return address */
   char cVar1;
   int *piVar2;
   int iVar3;
@@ -2564,7 +2568,7 @@ void FUN_100089e0(int param_1)
         FUN_100055a0(pcVar6,&UNK_1000e430,3);
       }
       puVar8 = (undefined4 *)&UNK_1000e414;
-      puVar9 = (undefined4 *)&STACK0X(0xfffffe50);
+      puVar9 = (undefined4 *)(_stkneg + 16);
       for (iVar3 = 6; iVar3 != 0; iVar3 = iVar3 + -1) {
         *puVar9 = *puVar8;
         puVar8 = puVar8 + 1;
@@ -2582,7 +2586,7 @@ void FUN_100089e0(int param_1)
       } while (cVar1 != '\0');
       uVar4 = ~uVar4;
       iVar3 = -1;
-      pcVar6 = &STACK0X(0xfffffe50);
+      pcVar6 = (_stkneg + 16);
       do {
         pcVar10 = pcVar6;
         if (iVar3 == 0) break;
@@ -2615,7 +2619,7 @@ void FUN_100089e0(int param_1)
       } while (cVar1 != '\0');
       uVar4 = ~uVar4;
       iVar3 = -1;
-      pcVar6 = &STACK0X(0xfffffe50);
+      pcVar6 = (_stkneg + 16);
       do {
         pcVar10 = pcVar6;
         if (iVar3 == 0) break;
@@ -2648,7 +2652,7 @@ void FUN_100089e0(int param_1)
       } while (cVar1 != '\0');
       uVar4 = ~uVar4;
       iVar7 = -1;
-      pcVar6 = &STACK0X(0xfffffe50);
+      pcVar6 = (_stkneg + 16);
       do {
         pcVar10 = pcVar6;
         if (iVar7 == 0) break;
@@ -2669,7 +2673,7 @@ void FUN_100089e0(int param_1)
         pcVar6 = pcVar6 + 1;
         pcVar11 = pcVar11 + 1;
       }
-      ((code *)FUN_1000b7a0)(&STACK0X(0xfffffe50),&UNK_1000e3e8);
+      ((code *)FUN_1000b7a0)((_stkneg + 16),&UNK_1000e3e8);
       return;
     }
   }
@@ -6059,6 +6063,7 @@ int FUN_1000cb70(uint param_1,char *param_2,int param_3)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _stkneg[48] __attribute__((aligned(16)));  /* the original frame below the return address */
   int *piVar1;
   char cVar2;
   byte bVar3;
@@ -6124,7 +6129,7 @@ int FUN_1000cb70(uint param_1,char *param_2,int param_3)
                   iVar4 = 0;
                   pcVar8 = pcVar8 + 1;
                   iVar7 = ReadFile(*(undefined4 *)(iVar6 + *unaff_ESI),(int)&uStack_20 + 3,1,
-                                   &STACK0X(0xffffffe4),0);
+                                   (_stkneg + 20),0);
                   if (iVar7 == 0) {
                     iVar4 = GetLastError();
                   }

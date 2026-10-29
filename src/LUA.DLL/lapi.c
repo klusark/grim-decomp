@@ -1600,7 +1600,7 @@ undefined4 __cdecl lua_error(byte *param_1)
     luaD_message(param_1);
   }
   if (PTR_1002bf6c[0xd] != 0) {
-    uVar1 = ((code *)_except_handler3)(PTR_1002bf6c[0xd]);
+    uVar1 = ((code *)longjmp)(PTR_1002bf6c[0xd]);
     return uVar1;
   }
   uVar1 = (**(code **)(DAT_1002beb8 + 0x18))

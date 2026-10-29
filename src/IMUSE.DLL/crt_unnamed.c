@@ -1554,6 +1554,7 @@ void FUN_1000f650(void)
 
 {
   unsigned char _frame[0x530] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _stkneg[1328] __attribute__((aligned(16)));  /* the original frame below the return address */
   byte bVar1;
   int iVar2;
   uint uVar3;
@@ -1579,7 +1580,7 @@ void FUN_1000f650(void)
     bVar1 = (byte)((uint)unaff_EBX >> 0x10);
     acStack_508[0] = ' ';
     if (bVar1 != 0) {
-      pbVar6 = &STACK0X(0xfffffaeb);
+      pbVar6 = (_stkneg + 27);
       do {
         uVar3 = (uint)bVar1;
         if (uVar3 <= *pbVar6) {

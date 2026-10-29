@@ -481,6 +481,7 @@ void __cdecl luaD_message(byte *param_1)
 undefined4 __cdecl luaD_protectedrun(void *param_1)
 
 {
+  unsigned char _stkneg[112] __attribute__((aligned(16)));  /* the original frame below the return address */
   int iVar1;
   int iVar2;
   int iVar3;
@@ -497,9 +498,9 @@ undefined4 __cdecl luaD_protectedrun(void *param_1)
   iVar3 = PTR_1002bf6c[0xd];
   iVar4 = PTR_1002bf6c[0xc];
   iVar5 = *PTR_1002bf6c;
-  PTR_1002bf6c[0xd] = (int)&STACK0X(0xffffffa8);
+  PTR_1002bf6c[0xd] = (int)(_stkneg + 24);
   PTR_1002bf6c[2] = PTR_1002bf6c[2] + 1;
-  iVar7 = _setjmp3((undefined4 *)&STACK0X(0xffffffa8),0,in_stack_ffffffa8,in_stack_ffffffac);
+  iVar7 = _setjmp3((undefined4 *)(_stkneg + 24),0,in_stack_ffffffa8,in_stack_ffffffac);
   piVar6 = PTR_1002bf6c;
   if (iVar7 == 0) {
     luaD_callinc(param_1);
@@ -604,6 +605,7 @@ int __cdecl luaD_domain(int *param_1,int param_2)
 undefined4 __cdecl luaD_protectedparser(int *param_1,int param_2)
 
 {
+  unsigned char _stkneg[96] __attribute__((aligned(16)));  /* the original frame below the return address */
   int iVar1;
   bool bVar2;
   int iVar3;
@@ -611,8 +613,8 @@ undefined4 __cdecl luaD_protectedparser(int *param_1,int param_2)
   undefined4 in_stack_ffffffb8;
   
   iVar1 = PTR_1002bf6c[0xd];
-  PTR_1002bf6c[0xd] = (int)&STACK0X(0xffffffb8);
-  iVar3 = _setjmp3((undefined4 *)&STACK0X(0xffffffb8),0,unaff_ESI,in_stack_ffffffb8);
+  PTR_1002bf6c[0xd] = (int)(_stkneg + 24);
+  iVar3 = _setjmp3((undefined4 *)(_stkneg + 24),0,unaff_ESI,in_stack_ffffffb8);
   if (iVar3 == 0) {
     if (param_2 == 0) {
       iVar3 = luaY_parser((int)param_1);

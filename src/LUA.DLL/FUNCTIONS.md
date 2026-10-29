@@ -166,11 +166,11 @@
 | 10004580 | luaD_callC | ldo.c | 29 |
 | 10004600 | ldo__4600 | ldo.c | 16 |
 | 100046a0 | luaD_message | ldo.c | 17 |
-| 100046e0 | luaD_protectedrun | ldo.c | 46 |
+| 100046e0 | luaD_protectedrun | ldo.c | 47 |
 | 100047c0 | luaD_callinc | ldo.c | 14 |
 | 10004810 | luaD_gcIM | ldo.c | 23 |
 | 100049b0 | luaD_domain | ldo.c | 32 |
-| 10004a50 | luaD_protectedparser | ldo.c | 41 |
+| 10004a50 | luaD_protectedparser | ldo.c | 42 |
 | 10004ba0 | luaF_newproto | lfunc.c | 15 |
 | 10004bf0 | luaF_newclosure | lfunc.c | 20 |
 | 10004c40 | luaF_freeclosure | lfunc.c | 15 |
@@ -463,7 +463,7 @@
 | 1000f930 | strtoul | crt.c | 10 |
 | 1000f960 | strchr | crt.c | 68 |
 | 1000fa20 | memcpy | crt.c | 304 |
-| 1000fd58 | _except_handler3 | crt.c | 29 |
+| 1000fd58 | longjmp | crt.c | 29 |
 | 1000fec0 | strerror | crt.c | 51 |
 | 1000ff30 | _dosmaperr | crt.c | 36 |
 | 1000ffb0 | _errno | crt.c | 10 |
@@ -682,7 +682,7 @@
 | 1000f070 | FUN_1000f070 | crt_unnamed.c | 10 |
 | 1000f0e0 | FUN_1000f0e0 | crt_unnamed.c | 9 |
 | 1000f120 | FUN_1000f120 | crt_unnamed.c | 28 |
-| 1000f1b0 | FUN_1000f1b0 | crt_unnamed.c | 62 |
+| 1000f1b0 | FUN_1000f1b0 | crt_unnamed.c | 63 |
 | 1000f280 | FUN_1000f280 | crt_unnamed.c | 20 |
 | 1000f310 | FUN_1000f310 | crt_unnamed.c | 34 |
 | 1000f45d | FUN_1000f45d | crt_unnamed.c | 11 |
@@ -835,7 +835,7 @@
 | 10010220 | tmpnam_genfname | tmpnam.c | 68 |
 | 100102a0 | FUN_100102a0 | tmpnam.c | 42 |
 | 10017e50 | GetLcidFromLangCountry | getlcidfromlangcountry.c | 41 |
-| 10017ee0 | FUN_10017ee0 | getlcidfromlangcountry.c | 107 |
+| 10017ee0 | FUN_10017ee0 | getlcidfromlangcountry.c | 108 |
 | 100181c0 | GetLcidFromLanguage | getlcidfromlanguage.c | 30 |
 | 10018220 | FUN_10018220 | getlcidfromlanguage.c | 45 |
 | 10018300 | GetLcidFromCountryOnly | getlcidfromcountryonly.c | 24 |

@@ -493,6 +493,9 @@ extern undefined4 DAT_1002c70c; /* used by 11 fn(s), first 0x100103f0 */
 extern int DAT_1002c710; /* used by 3 fn(s), first 0x10011290 */
 extern undefined DAT_1002c714; /* used by 4 fn(s), first 0x1000fde0 */
 extern undefined DAT_1002d720; /* used by 4 fn(s), first 0x1000fde0 */
+extern undefined4 in_stack_ffffffa8; /* used by 1 fn(s), first 0x100046e0 */
+extern undefined4 in_stack_ffffffac; /* used by 1 fn(s), first 0x100046e0 */
+extern undefined4 in_stack_ffffffb8; /* used by 1 fn(s), first 0x10004a50 */
 extern undefined4 in_stack_ffffffbc; /* used by 1 fn(s), first 0x1001dc70 */
 
 /* ---- re-typed views of the symbols above ---- */
