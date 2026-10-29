@@ -8,3 +8,6 @@ build/run_orig*/
 build/hmi/*.a
 *.log
 names/*.out
+build/perf/base/
+build/perf/csyms_*.txt
+build/perf/*.raw

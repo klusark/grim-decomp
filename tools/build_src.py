@@ -650,15 +650,17 @@ STDCALL_FUNCS = set()  # C names of callee-pop functions (raw/<prog>/stdcall_fun
 
 
 def load_overrides():
-    """Names of the functions build/overrides.c defines by hand."""
-    path = os.path.join(ROOT, "build", "overrides.c")
-    if not os.path.exists(path):
-        return set()
-    text = open(path, encoding="utf-8").read()
-    names = set(re.findall(r"^[A-Za-z_][\w *]*?\b(\w+)\s*\([^;{]*\)\s*\{", text, re.M))
-    # functions written in top-level asm() blocks are declared by a `/* OVERRIDES: a b c */` line
-    for m in re.finditer(r"^/\* OVERRIDES: ([^*]*?)\s*\*/", text, re.M):
-        names |= set(m.group(1).split())
+    """Names of the functions build/overrides.c and build/fastpaths.c define by hand."""
+    names = set()
+    for fname in ("overrides.c", "fastpaths.c"):
+        path = os.path.join(ROOT, "build", fname)
+        if not os.path.exists(path):
+            continue
+        text = open(path, encoding="utf-8").read()
+        names |= set(re.findall(r"^[A-Za-z_][\w *]*?\b(\w+)\s*\([^;{]*\)\s*\{", text, re.M))
+        # functions written in top-level asm() blocks are declared by a `/* OVERRIDES: a b c */` line
+        for m in re.finditer(r"^/\* OVERRIDES: ([^*]*?)\s*\*/", text, re.M):
+            names |= set(m.group(1).split())
     return names
 
 
