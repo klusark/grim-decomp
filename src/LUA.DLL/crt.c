@@ -406,7 +406,7 @@ LAB_1000f864:
         }
         return local_4;
       }
-      uVar3 = tolower((int)(char)bVar5);
+      uVar3 = toupper((int)(char)bVar5);
       uVar3 = uVar3 - 0x37;
     }
     else {
@@ -2481,10 +2481,10 @@ void __cdecl __lc_lctostr(char *param_1,char *param_2)
   return;
 }
 
-/* ---- 0x10011bc0  tolower ---- */
+/* ---- 0x10011bc0  toupper ---- */
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
 
-uint __cdecl tolower(uint param_1)
+uint __cdecl toupper(uint param_1)
 
 {
   bool bVar1;
@@ -2501,7 +2501,7 @@ uint __cdecl tolower(uint param_1)
       InterlockedDecrement(IMG_ADDR(0x1002c710));
       _lock(0x13);
     }
-    param_1 = _tolower_lk(param_1);
+    param_1 = _toupper_lk(param_1);
     if (bVar1) {
       _unlock(0x13);
       return param_1;
@@ -2511,10 +2511,10 @@ uint __cdecl tolower(uint param_1)
   return param_1;
 }
 
-/* ---- 0x10011c50  _tolower_lk ---- */
+/* ---- 0x10011c50  _toupper_lk ---- */
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
 
-uint __cdecl _tolower_lk(uint param_1)
+uint __cdecl _toupper_lk(uint param_1)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -3082,10 +3082,10 @@ LAB_100126eb:
   return param_1;
 }
 
-/* ---- 0x10012770  toupper ---- */
+/* ---- 0x10012770  tolower ---- */
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
 
-uint __cdecl toupper(uint param_1)
+uint __cdecl tolower(uint param_1)
 
 {
   bool bVar1;
@@ -3102,7 +3102,7 @@ uint __cdecl toupper(uint param_1)
       InterlockedDecrement(IMG_ADDR(0x1002c710));
       _lock(0x13);
     }
-    param_1 = _toupper_lk(param_1);
+    param_1 = _tolower_lk(param_1);
     if (bVar1) {
       _unlock(0x13);
       return param_1;
@@ -3112,10 +3112,10 @@ uint __cdecl toupper(uint param_1)
   return param_1;
 }
 
-/* ---- 0x10012800  _toupper_lk ---- */
+/* ---- 0x10012800  _tolower_lk ---- */
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
 
-uint __cdecl _toupper_lk(uint param_1)
+uint __cdecl _tolower_lk(uint param_1)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -6553,8 +6553,8 @@ LAB_1001699e:
         uVar8 = CONCAT31((int3)(uVar8 >> 8),bVar4);
         param_1 = param_1 + 1;
       } while (bVar5 == bVar4);
-      uVar8 = _toupper_lk(uVar8);
-      uVar7 = _toupper_lk(uVar7);
+      uVar8 = _tolower_lk(uVar8);
+      uVar7 = _tolower_lk(uVar7);
     } while ((byte)uVar8 == (byte)uVar7);
     uVar8 = (uint)((byte)uVar8 < (byte)uVar7);
     uVar7 = (1 - uVar8) - (uint)(uVar8 != 0);
@@ -8543,7 +8543,7 @@ LAB_1001c55b:
         }
         return uVar5;
       }
-      uVar6 = toupper(uVar6);
+      uVar6 = tolower(uVar6);
       uVar6 = (uVar6 & 0xffff) - 0x37;
     }
     else {
@@ -11580,8 +11580,8 @@ LAB_1002029f:
         if ((uVar5 == 0) || (uVar7 == 0)) break;
         param_1 = param_1 + 1;
         param_2 = param_2 + 1;
-        uVar7 = _toupper_lk(uVar7);
-        uVar5 = _toupper_lk(uVar5);
+        uVar7 = _tolower_lk(uVar7);
+        uVar5 = _tolower_lk(uVar5);
         bVar8 = uVar5 < uVar7;
         if (uVar5 != uVar7) goto LAB_10020315;
         param_3 = param_3 + -1;
@@ -11862,10 +11862,10 @@ uint __cdecl _ungetc_lk(uint param_1,int *param_2)
   return 0xffffffff;
 }
 
-/* ---- 0x10020870  toupper  (renamed toupper_10020870: duplicate name) ---- */
+/* ---- 0x10020870  wtoupper ---- */
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
 
-uint __cdecl toupper_10020870(uint param_1)
+uint __cdecl wtoupper(uint param_1)
 
 {
   uint uVar1;
@@ -11885,7 +11885,7 @@ uint __cdecl toupper_10020870(uint param_1)
       InterlockedDecrement(IMG_ADDR(0x1002c710));
       _lock(0x13);
     }
-    uVar1 = _toupper_lk(param_1);
+    uVar1 = _wtoupper_lk(param_1);
     if (bVar3) {
       _unlock(0x13);
       return CONCAT22(extraout_var,(short)uVar1);
@@ -11896,10 +11896,10 @@ uint __cdecl toupper_10020870(uint param_1)
   return param_1;
 }
 
-/* ---- 0x10020900  _toupper_lk  (renamed _toupper_lk_10020900: duplicate name) ---- */
+/* ---- 0x10020900  _wtoupper_lk ---- */
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
 
-uint __cdecl _toupper_lk_10020900(uint param_1)
+uint __cdecl _wtoupper_lk(uint param_1)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */

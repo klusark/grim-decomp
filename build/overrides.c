@@ -303,6 +303,19 @@ void Im_DSoundCreateBuffer(int n)
     }
     DAT_1002d840 = 0;
 }
+/* FUN_1000c670 is MSVC's _output(FILE *, format, va_list), the printf engine of IMUSE.DLL's own C runtime
+ * (the only callers are the sprintf/vsprintf wrappers, which pass a string stream {ptr, cnt, base, flag}).
+ * Ghidra splits the function at its jump table, the compiled version jumps into data and crashes the first
+ * time iMUSE formats a log line ("opening <file>.IMC"). The host formatter does the same job: format at
+ * the stream pointer and advance ptr/cnt like _output would. */
+extern int host_vsprintf(char *, const char *, char *) __asm__("___mingw_vsprintf");   /* not the CRT port's own vsprintf */
+int FUN_1000c670(int *stream, char *format, undefined4 *args)
+{
+    int n = host_vsprintf((char *)stream[0], format, (char *)args);
+    stream[0] += n;
+    stream[1] -= n;
+    return n;
+}
 #endif /* GRIM_IMUSE */
 
 #if defined(GRIM_CHORE) || defined(GRIM_EXE) || defined(GRIM_LUA)

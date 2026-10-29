@@ -668,7 +668,7 @@ void __cdecl FUN_10012f60(char *param_1)
   char cVar2;
   uint uVar3;
   
-  uVar3 = toupper((int)*param_1);
+  uVar3 = tolower((int)*param_1);
   if (uVar3 != 0x65) {
     do {
       param_1 = param_1 + 1;

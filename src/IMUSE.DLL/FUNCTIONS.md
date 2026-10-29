@@ -251,7 +251,7 @@
 | 1000c5d0 | FUN_1000c5d0 | imuse_api.c | 1 |
 | 1000c600 | ImFile_Unlock | imuse_api.c | 1 |
 | 1000c640 | FUN_1000c640 | imuse_api.c | 1 |
-| 1000c670 | FUN_1000c670 | imuse_api.c | 445 |
+| 1000c670 | FUN_1000c670 | imuse_api.c | 1 |
 | 1000d000 | FUN_1000d000 | imuse_api.c | 1 |
 | 1000d050 | FUN_1000d050 | imuse_api.c | 1 |
 | 1000d090 | FUN_1000d090 | imuse_api.c | 1 |
