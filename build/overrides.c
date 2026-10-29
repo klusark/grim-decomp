@@ -29,12 +29,21 @@ void stdMemory_CheckMagic(int p)
 void Input_CreateKeyboard(void)
 {
     unsigned prop[5] = { 0x14, 0x10, 0, 0, 0x20 };
+    char msg[96];
+    int r1, r2, r3, r4;
     if (g_pDirectInput == 0)
         return;
-    if (COM(g_pDirectInput, 0xc, &DAT_004d8350, &g_pDInputKeyboard, 0) == 0) {
-        COM(g_pDInputKeyboard, 0x2c, &DAT_004d5370);
-        COM(g_pDInputKeyboard, 0x18, 1, prop);
+    r1 = COM(g_pDirectInput, 0xc, &DAT_004d8350, &g_pDInputKeyboard, 0);
+    r2 = r3 = r4 = -1;
+    if (r1 == 0) {
+        r2 = COM(g_pDInputKeyboard, 0x2c, &DAT_004d5370);
+        /* the original never sets a cooperative level (DirectInput 5 assumed foreground, shared); current
+         * DirectInput refuses Acquire without one (E_INVALIDARG) */
+        r3 = COM(g_pDInputKeyboard, 0x34, Win_GetMainHwnd(), 6);
+        r4 = COM(g_pDInputKeyboard, 0x18, 1, prop);
     }
+    wsprintfA(msg, "grim: keyboard create=%x format=%x coop=%x bufsize=%x\n", r1, r2, r3, r4);
+    OutputDebugStringA(msg);
 }
 
 /* Input_CreateMouse (0x4775a0): system mouse, c_dfDIMouse format, exclusive

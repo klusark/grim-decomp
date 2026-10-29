@@ -92,18 +92,41 @@ def main(prog, src, obj):
                 return s
         return None
 
+    # the code section as a data blob (data islands inside it: DirectInput's c_dfDIKeyboard, switch data)
+    tbp = os.path.join(ROOT, "raw", prog, "textblob.json")
+    tb = None
+    if os.path.exists(tbp):
+        tb = json.load(open(tbp))
+        tb["start"] = int(tb["start"], 16)
+        tb["bytes"] = open(os.path.join(ROOT, "raw", prog, "sections", tb["file"]), "rb").read()
+
+    def in_text_blob(addr):
+        return tb is not None and tb["start"] <= addr < tb["start"] + tb["size"] and addr not in funcs
+
     # symbols to place
     placed = {}  # addr -> [names]
     defined = []
+    text_syms = []
     for n in referenced_symbols(src, prog):
         if n.endswith("_exref") or n.startswith(("LAB_", "switchD_")):
             continue
         m = ADDR_SUFFIX.search(n)
         addr = int(m.group(1), 16) if m else named.get(n)
-        if addr is None or section_of(addr) is None:
+        if addr is None:
+            continue
+        if section_of(addr) is None:
+            if in_text_blob(addr) and not n.startswith(("FUN_", "thunk_")):
+                text_syms.append((addr, n))
             continue
         placed.setdefault(addr, []).append(n)
         defined.append(n)
+    # data islands of the code section: from the first to the last named data symbol that is no
+    # function; dwords in there are relocated like those of the real data sections
+    island = None
+    if text_syms:
+        lo = min(a for a, _ in text_syms)
+        hi = max(a for a, _ in text_syms) + 0x400
+        island = (lo & ~0xf, hi)
 
     # byte ranges that are text: every string Ghidra found (raw/<prog>/strings.txt),
     # extended to its NUL terminator in the dump. Dwords inside them are never
@@ -219,6 +242,54 @@ def main(prog, src, obj):
         nxt = next((t for t in secs if t["start"] > base and s["name"] == ".rdata"), None)
         if nxt is not None and nxt["start"] > base + size:
             out.append("\t.zero %d\t# gap up to %s" % (nxt["start"] - base - size, nxt["name"]))
+    if tb is not None:
+        out.append("")
+        out.append("\t.section .data")
+        out.append("\t.p2align 4")
+        out.append("\t.globl _sect_text")
+        out.append("_sect_text:")
+        tsyms = {}
+        for a, n in text_syms:
+            tsyms.setdefault(a - tb["start"], []).append(n)
+            defined.append(n)
+        data = tb["bytes"]
+        base = tb["start"]
+        off = 0
+        run = []
+
+        def tflush():
+            if run:
+                out.append("\t.byte " + ",".join(str(b) for b in run))
+                del run[:]
+
+        while off < tb["size"]:
+            if off in tsyms:
+                tflush()
+                for n in tsyms[off]:
+                    out.append("\t.globl _%s" % n)
+                    out.append("_%s:" % n)
+            if island and island[0] <= base + off < island[1] and off % 4 == 0 and off + 4 <= len(data) \
+                    and not any((off + k) in tsyms for k in (1, 2, 3)):
+                v = int.from_bytes(data[off:off + 4], "little")
+                target = None
+                ts = section_of(v)
+                if ts is not None and v != 0:
+                    target = "%s + 0x%x" % (ts["sym"], v - ts["start"])
+                elif v in funcs and not funcs[v].get("isExternal") \
+                        and (not funcs[v].get("isThunk") or not funcs[v]["name"].startswith(("thunk_", "FUN_"))):
+                    target = DLL_STD.get(funcs[v]["name"], "_" + funcs[v]["name"])
+                elif island[0] <= v < island[1]:
+                    target = "_sect_text + 0x%x" % (v - base)
+                if target:
+                    tflush()
+                    out.append("\t.long %s" % target)
+                    off += 4
+                    continue
+            run.append(data[off] if off < len(data) else 0)
+            off += 1
+            if len(run) >= 24:
+                tflush()
+        tflush()
     with open(os.path.join(obj, prog, "data.s"), "w", newline="\n") as w:
         w.write("\n".join(out) + "\n")
     print(json.dumps({"defined": defined, "stats": stats, "sections": [(s["name"], s["size"], len(s["bytes"])) for s in secs]}))
