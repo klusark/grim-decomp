@@ -6,6 +6,8 @@
 #include "functions.h"
 
 /* ---- 0x10003a80  iMUSE_dsound__3a80 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Unidentified function of iMUSE_dsound.c (DirectSound output) */
 
 int iMUSE_dsound__3a80(void)
@@ -19,8 +21,12 @@ int iMUSE_dsound__3a80(void)
   }
   return -1;
 }
+#endif
+
 
 /* ---- 0x10004540  iMUSE_dsound__4540 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Unidentified function of iMUSE_dsound.c (DirectSound output) */
 
 undefined4 __cdecl iMUSE_dsound__4540(uint param_1)
@@ -38,8 +44,12 @@ undefined4 __cdecl iMUSE_dsound__4540(uint param_1)
   }
   return 0;
 }
+#endif
+
 
 /* ---- 0x10004570  iMUSE_dsound__4570 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Unidentified function of iMUSE_dsound.c (DirectSound output) */
 
 undefined4 __cdecl iMUSE_dsound__4570(uint param_1)
@@ -57,8 +67,12 @@ undefined4 __cdecl iMUSE_dsound__4570(uint param_1)
   }
   return 0;
 }
+#endif
+
 
 /* ---- 0x100045a0  iMUSE_dsound__45a0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Unidentified function of iMUSE_dsound.c (DirectSound output) */
 
 undefined4 __cdecl iMUSE_dsound__45a0(uint param_1)
@@ -69,8 +83,12 @@ undefined4 __cdecl iMUSE_dsound__45a0(uint param_1)
   }
   return 0;
 }
+#endif
+
 
 /* ---- 0x100045c0  iMUSE_dsound__45c0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Unidentified function of iMUSE_dsound.c (DirectSound output) */
 
 undefined4 __cdecl iMUSE_dsound__45c0(uint param_1,undefined4 param_2,undefined4 param_3)
@@ -88,8 +106,12 @@ undefined4 __cdecl iMUSE_dsound__45c0(uint param_1,undefined4 param_2,undefined4
   }
   return 0;
 }
+#endif
+
 
 /* ---- 0x10004600  iMUSE_dsound__4600 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Unidentified function of iMUSE_dsound.c (DirectSound output) */
 
 undefined4 __cdecl iMUSE_dsound__4600(uint param_1,undefined4 param_2,undefined4 param_3)
@@ -107,8 +129,12 @@ undefined4 __cdecl iMUSE_dsound__4600(uint param_1,undefined4 param_2,undefined4
   }
   return 0;
 }
+#endif
+
 
 /* ---- 0x10004640  iMUSE_dsound__4640 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Unidentified function of iMUSE_dsound.c (DirectSound output) */
 
 undefined4 __cdecl iMUSE_dsound__4640(int param_1)
@@ -122,8 +148,12 @@ undefined4 __cdecl iMUSE_dsound__4640(int param_1)
   }
   return 0;
 }
+#endif
+
 
 /* ---- 0x10004660  FUN_10004660 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 undefined4 FUN_10004660(undefined4 param_1)
@@ -168,8 +198,12 @@ undefined4 FUN_10004660(undefined4 param_1)
   _DAT_1002dd78 = 0;
   return 1;
 }
+#endif
+
 
 /* ---- 0x10004750  FUN_10004750 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 int __cdecl FUN_10004750(uint param_1)
@@ -210,3 +244,5 @@ int __cdecl FUN_10004750(uint param_1)
   hmiFXPresetLock(_DAT_1002dd0c);
   return DAT_1002dd7c;
 }
+#endif
+

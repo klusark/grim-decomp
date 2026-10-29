@@ -6,6 +6,8 @@
 #include "functions.h"
 
 /* ---- 0x10001fd0  iMUSE_Dispatch__1fd0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Unidentified function of iMUSE_Dispatch.c (command dispatch, fades, triggers) */
 
 undefined4 iMUSE_Dispatch__1fd0(void)
@@ -14,8 +16,12 @@ undefined4 iMUSE_Dispatch__1fd0(void)
   (**(code **)(DAT_10033510 + 0x24))(DAT_1002d808);
   return 0;
 }
+#endif
+
 
 /* ---- 0x10001ff0  iMUSE_Dispatch__1ff0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Unidentified function of iMUSE_Dispatch.c (command dispatch, fades, triggers) */
 
 undefined4 * __cdecl iMUSE_Dispatch__1ff0(int param_1)
@@ -23,8 +29,12 @@ undefined4 * __cdecl iMUSE_Dispatch__1ff0(int param_1)
 {
   return &DAT_100252a0 + param_1 * 0x215;
 }
+#endif
+
 
 /* ---- 0x10002010  iMUSE_Dispatch__2010 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Unidentified function of iMUSE_Dispatch.c (command dispatch, fades, triggers) */
 
 undefined4 __cdecl iMUSE_Dispatch__2010(undefined4 *param_1,uint param_2)
@@ -44,8 +54,12 @@ undefined4 __cdecl iMUSE_Dispatch__2010(undefined4 *param_1,uint param_2)
   }
   return 0x8540;
 }
+#endif
+
 
 /* ---- 0x10002040  iMUSE_Dispatch__2040 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Unidentified function of iMUSE_Dispatch.c (command dispatch, fades, triggers) */
 
 undefined4 __cdecl iMUSE_Dispatch__2040(undefined4 *param_1)
@@ -84,8 +98,12 @@ undefined4 __cdecl iMUSE_Dispatch__2040(undefined4 *param_1)
   } while (iVar1 != 0);
   return 0x8540;
 }
+#endif
+
 
 /* ---- 0x100020c0  iMUSE_Dispatch__20c0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Unidentified function of iMUSE_Dispatch.c (command dispatch, fades, triggers) */
 
 undefined4 iMUSE_Dispatch__20c0(void)
@@ -122,8 +140,12 @@ undefined4 iMUSE_Dispatch__20c0(void)
   }
   return 0;
 }
+#endif
+
 
 /* ---- 0x10002170  iMUSE_Dispatch__2170 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Unidentified function of iMUSE_Dispatch.c (command dispatch, fades, triggers) */
 
 undefined4 __cdecl iMUSE_Dispatch__2170(int param_1,uint param_2)
@@ -158,8 +180,12 @@ undefined4 __cdecl iMUSE_Dispatch__2170(int param_1,uint param_2)
   }
   return 0;
 }
+#endif
+
 
 /* ---- 0x10002200  iMUSE_Dispatch__2200 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Unidentified function of iMUSE_Dispatch.c (command dispatch, fades, triggers) */
 
 undefined4 __cdecl iMUSE_Dispatch__2200(int param_1)
@@ -185,8 +211,12 @@ undefined4 __cdecl iMUSE_Dispatch__2200(int param_1)
   }
   return 0;
 }
+#endif
+
 
 /* ---- 0x10002a00  iMUSE_Dispatch__2a00 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Unidentified function of iMUSE_Dispatch.c (command dispatch, fades, triggers) */
 
 void iMUSE_Dispatch__2a00(void)
@@ -210,8 +240,12 @@ void iMUSE_Dispatch__2a00(void)
   Im_GuardLeave();
   return;
 }
+#endif
+
 
 /* ---- 0x10002fe0  iMUSE_Dispatch__2fe0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Unidentified function of iMUSE_Dispatch.c (command dispatch, fades, triggers) */
 
 int __cdecl iMUSE_Dispatch__2fe0(undefined4 *param_1,undefined4 *param_2)
@@ -282,8 +316,12 @@ int __cdecl iMUSE_Dispatch__2fe0(undefined4 *param_1,undefined4 *param_2)
   }
   return -1;
 }
+#endif
+
 
 /* ---- 0x100030d0  iMUSE_Dispatch__30d0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Unidentified function of iMUSE_Dispatch.c (command dispatch, fades, triggers) */
 
 uint __cdecl iMUSE_Dispatch__30d0(int param_1,int param_2,int param_3)
@@ -308,8 +346,12 @@ uint __cdecl iMUSE_Dispatch__30d0(int param_1,int param_2,int param_3)
   }
   return 0;
 }
+#endif
+
 
 /* ---- 0x10003130  iMUSE_Dispatch__3130 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Unidentified function of iMUSE_Dispatch.c (command dispatch, fades, triggers) */
 
@@ -347,8 +389,12 @@ void __cdecl iMUSE_Dispatch__3130(int *param_1)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x100031d0  iMUSE_Dispatch__31d0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Removing unreachable block (ram,0x10003234) */
 /* Unidentified function of iMUSE_Dispatch.c (command dispatch, fades, triggers) */
 
@@ -376,8 +422,12 @@ int * __cdecl iMUSE_Dispatch__31d0(int *param_1,int param_2,int *param_3)
   }
   return piVar5;
 }
+#endif
+
 
 /* ---- 0x10003250  iMUSE_Dispatch__3250 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Unidentified function of iMUSE_Dispatch.c (command dispatch, fades, triggers) */
 
 void __cdecl iMUSE_Dispatch__3250(int *param_1,undefined4 *param_2,int param_3,int param_4)
@@ -459,8 +509,12 @@ void __cdecl iMUSE_Dispatch__3250(int *param_1,undefined4 *param_2,int param_3,i
 }
 #undef local_4
 
+#endif
+
 
 /* ---- 0x10003430  iMUSE_Dispatch__3430 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Unidentified function of iMUSE_Dispatch.c (command dispatch, fades, triggers) */
 
 void __cdecl iMUSE_Dispatch__3430(int *param_1,int param_2)
@@ -488,8 +542,12 @@ void __cdecl iMUSE_Dispatch__3430(int *param_1,int param_2)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x100034b0  iMUSE_Dispatch__34b0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Unidentified function of iMUSE_Dispatch.c (command dispatch, fades, triggers) */
 
 int __cdecl iMUSE_Dispatch__34b0(int *param_1)
@@ -508,8 +566,12 @@ int __cdecl iMUSE_Dispatch__34b0(int *param_1)
   }
   return (0x80 - (param_1[0x213] >> 0x10)) * iVar1 >> 7;
 }
+#endif
+
 
 /* ---- 0x10003510  iMUSE_Dispatch__3510 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Unidentified function of iMUSE_Dispatch.c (command dispatch, fades, triggers) */
 
 int __cdecl iMUSE_Dispatch__3510(int *param_1,int param_2)
@@ -531,8 +593,12 @@ int __cdecl iMUSE_Dispatch__3510(int *param_1,int param_2)
   }
   return iVar2 * ((iVar1 >> 0x10) + 1) >> 7;
 }
+#endif
+
 
 /* ---- 0x10003570  iMUSE_Dispatch__3570 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Unidentified function of iMUSE_Dispatch.c (command dispatch, fades, triggers) */
 
 undefined4 * iMUSE_Dispatch__3570(void)
@@ -558,8 +624,12 @@ undefined4 * iMUSE_Dispatch__3570(void)
   } while (iVar2 < 0x32);
   return (undefined4 *)0x0;
 }
+#endif
+
 
 /* ---- 0x100035a0  iMUSE_Dispatch__35a0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Unidentified function of iMUSE_Dispatch.c (command dispatch, fades, triggers) */
 
 int __cdecl iMUSE_Dispatch__35a0(uint *param_1)
@@ -601,8 +671,12 @@ int __cdecl iMUSE_Dispatch__35a0(uint *param_1)
   } while (iVar1 < DAT_1001e8cc);
   return 0;
 }
+#endif
+
 
 /* ---- 0x10003640  iMUSE_Dispatch__3640 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Unidentified function of iMUSE_Dispatch.c (command dispatch, fades, triggers) */
 
 void __cdecl iMUSE_Dispatch__3640(int param_1)
@@ -637,3 +711,5 @@ void __cdecl iMUSE_Dispatch__3640(int param_1)
   }
   return;
 }
+#endif
+
