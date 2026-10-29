@@ -6,14 +6,20 @@
 #include "functions.h"
 
 /* ---- 0x0040a870  Renderer_EnableClipPlane ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void Renderer_EnableClipPlane(uint param_1)
 
 {
   UINT_007f3204 = param_1;
   return;
 }
+#endif
+
 
 /* ---- 0x0040a880  Renderer_SetClipPlane ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 void Renderer_SetClipPlane(undefined4 *param_1,undefined4 *param_2)
@@ -27,8 +33,12 @@ void Renderer_SetClipPlane(undefined4 *param_1,undefined4 *param_2)
   _DAT_007f3210 = param_2[2];
   return;
 }
+#endif
+
 
 /* ---- 0x0040a8c0  FUN_0040a8c0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_0040a8c0(undefined4 *param_1)
 
 {
@@ -45,8 +55,12 @@ void FUN_0040a8c0(undefined4 *param_1)
   param_1[0x14] = 0;
   return;
 }
+#endif
+
 
 /* ---- 0x0040a8f0  FUN_0040a8f0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 * FUN_0040a8f0(undefined4 param_1)
 
 {
@@ -80,6 +94,8 @@ undefined4 * FUN_0040a8f0(undefined4 param_1)
   FUN_0040c0d0(puVar1);
   return (undefined4 *)0x0;
 }
+#endif
+
 
 /* ---- 0x0040a980  FUN_0040a980 ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -861,6 +877,8 @@ undefined4 FUN_0040b8e0(int param_1,int param_2)
 
 
 /* ---- 0x0040c090  FUN_0040c090 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_0040c090(undefined4 param_1)
 
 {
@@ -872,8 +890,12 @@ void FUN_0040c090(undefined4 param_1)
   FUN_0040c280(param_1);
   return;
 }
+#endif
+
 
 /* ---- 0x0040c0d0  FUN_0040c0d0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_0040c0d0(int param_1)
 
 {
@@ -887,8 +909,12 @@ void FUN_0040c0d0(int param_1)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x0040c100  FUN_0040c100 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_0040c100(int param_1)
 
 {
@@ -969,8 +995,12 @@ void FUN_0040c100(int param_1)
 #undef local_4
 #undef local_8
 
+#endif
+
 
 /* ---- 0x0040c280  FUN_0040c280 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_0040c280(int param_1)
 
 {
@@ -1067,8 +1097,12 @@ void FUN_0040c280(int param_1)
 }
 #undef local_4
 
+#endif
+
 
 /* ---- 0x0040c520  FUN_0040c520 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_0040c520(uint param_1)
 
 {
@@ -1161,8 +1195,12 @@ void FUN_0040c520(uint param_1)
 }
 #undef local_4
 
+#endif
+
 
 /* ---- 0x0040c710  FUN_0040c710 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_0040c710(int param_1,int param_2,float *param_3)
 
 {
@@ -1245,6 +1283,8 @@ void FUN_0040c710(int param_1,int param_2,float *param_3)
 #undef local_a0
 #undef local_a4
 #undef local_a8
+
+#endif
 
 
 /* ---- 0x0040c8c0  FUN_0040c8c0 ---- */
@@ -1371,6 +1411,8 @@ void FUN_0040c970(int param_1,int param_2,float *param_3)
 
 
 /* ---- 0x0040cad0  FUN_0040cad0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_0040cad0(uint param_1)
 
 {
@@ -1448,8 +1490,12 @@ void FUN_0040cad0(uint param_1)
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x0040cc30  FUN_0040cc30 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_0040cc30(int param_1)
 
 {
@@ -1594,8 +1640,12 @@ void FUN_0040cc30(int param_1)
 #undef local_40
 #undef local_44
 
+#endif
+
 
 /* ---- 0x0040ce90  FUN_0040ce90 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_0040ce90(int param_1)
 
 {
@@ -1625,3 +1675,5 @@ void FUN_0040ce90(int param_1)
   }
   return;
 }
+#endif
+

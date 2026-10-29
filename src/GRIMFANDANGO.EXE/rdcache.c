@@ -6,6 +6,8 @@
 #include "functions.h"
 
 /* ---- 0x00406650  rdCache_BeginScene3D ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void rdCache_BeginScene3D(void)
 
 {
@@ -15,8 +17,12 @@ void rdCache_BeginScene3D(void)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x00406660  rdCache_EndScene3D ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void rdCache_EndScene3D(void)
 
 {
@@ -26,8 +32,12 @@ void rdCache_EndScene3D(void)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x00406670  rdCache_Reset ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Empties the 1024-entry mesh list (0x78 bytes each at g_RdCacheMeshes) and the vertex/uv/colour
    pools */
 
@@ -40,8 +50,12 @@ void rdCache_Reset(void)
   UINT_007f0fc4 = 0;
   return;
 }
+#endif
+
 
 /* ---- 0x00406690  rdCache_ClearStats ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 void rdCache_ClearStats(void)
@@ -50,8 +64,12 @@ void rdCache_ClearStats(void)
   _DAT_007f0fb8 = 0;
   return;
 }
+#endif
+
 
 /* ---- 0x004066a0  rdCache_AllocMesh ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Returns the next free cached-mesh record, flushing first when the list or a 0x8000-entry pool is
    full */
 
@@ -83,6 +101,8 @@ undefined1 * rdCache_AllocMesh(void)
   (&UINT_008ddff4)[uVar2 * 0x1e] = (uint)(&DAT_006d0fb0 + UINT_007f0fc4 * 4);
   return &DAT_008ddfc0 + iVar1;
 }
+#endif
+
 
 /* ---- 0x00406770  rdCache_Flush ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -1253,6 +1273,8 @@ LAB_00407e89:
 
 
 /* ---- 0x00407ed0  rdCache_Begin3DBatch ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void rdCache_Begin3DBatch(void)
 
 {
@@ -1262,8 +1284,12 @@ void rdCache_Begin3DBatch(void)
   UINT_0068bfa8 = 0;
   return;
 }
+#endif
+
 
 /* ---- 0x00407ef0  rdCache_Flush3DBatch ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void rdCache_Flush3DBatch(void)
 
 {
@@ -1290,8 +1316,12 @@ void rdCache_Flush3DBatch(void)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x00407f90  FUN_00407f90 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 int FUN_00407f90(int param_1,int param_2)
 
 {
@@ -1303,6 +1333,8 @@ int FUN_00407f90(int param_1,int param_2)
   }
   return (-(uint)(iVar1 != 0) & 2) - 1;
 }
+#endif
+
 
 /* ---- 0x00407fd0  rdCache_DrawMesh ---- */
 /* replaced by the hand-written version in build/overrides.c */

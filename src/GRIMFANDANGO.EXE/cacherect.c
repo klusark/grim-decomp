@@ -6,6 +6,8 @@
 #include "functions.h"
 
 /* ---- 0x00486b40  CacheRect_Create ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua CacheRect: copies a rectangle of the background and depth images into a 0x20-byte record
    {magic, x, y, w, h, bgCopy, zCopy, next} on g_pCacheRectList */
 
@@ -68,8 +70,12 @@ void * __cdecl CacheRect_Create(int x,int y,int w,int h)
 }
 #undef aiStack_4c
 
+#endif
+
 
 /* ---- 0x00486c50  CacheRect_Restore ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua RestoreCacheRect: copies the most recent cached rectangle back and invalidates it */
 
 void CacheRect_Restore(void)
@@ -89,8 +95,12 @@ void CacheRect_Restore(void)
   Render_InvalidateRect(rect,1);
   return;
 }
+#endif
+
 
 /* ---- 0x00486cb0  CacheRect_FreeAll ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void CacheRect_FreeAll(void)
 
 {
@@ -111,3 +121,5 @@ void CacheRect_FreeAll(void)
   g_pCacheRectList = pvVar1;
   return;
 }
+#endif
+

@@ -6,6 +6,8 @@
 #include "functions.h"
 
 /* ---- 0x00451b80  rdPrimit2_DrawLine ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void __cdecl rdPrimit2_DrawLine(void *canvas,int x1,int y1,int x2,int y2,int color,int mask)
 
 {
@@ -111,8 +113,12 @@ void __cdecl rdPrimit2_DrawLine(void *canvas,int x1,int y1,int x2,int y2,int col
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x00451f20  rdPrimit2_DrawRect ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void __cdecl rdPrimit2_DrawRect(void *canvas,int x1,int y1,int x2,int y2,int color,int mask)
 
 {
@@ -122,3 +128,5 @@ void __cdecl rdPrimit2_DrawRect(void *canvas,int x1,int y1,int x2,int y2,int col
   rdPrimit2_DrawLine(canvas,x1,y2,x2,y2,color,mask);
   return;
 }
+#endif
+

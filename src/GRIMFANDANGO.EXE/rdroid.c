@@ -6,6 +6,8 @@
 #include "functions.h"
 
 /* ---- 0x00404180  rdroid_Startup ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* RDroid library startup: stores the service table and builds the reciprocal/fixed-point tables */
 
 int __cdecl rdroid_Startup(GrimServices *svc)
@@ -21,8 +23,12 @@ int __cdecl rdroid_Startup(GrimServices *svc)
   UINT_004f5eb8 = 1;
   return 1;
 }
+#endif
+
 
 /* ---- 0x004041c0  rdroid_Shutdown ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void rdroid_Shutdown(void)
 
 {
@@ -31,8 +37,12 @@ void rdroid_Shutdown(void)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x004041e0  rdroid_Open ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Sets the default render state (geometry/lighting modes) and initialises the rasterizer caches */
 
@@ -57,8 +67,12 @@ int __cdecl rdroid_Open(int flags)
   }
   return 1;
 }
+#endif
+
 
 /* ---- 0x00404270  rdroid_Close ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void rdroid_Close(void)
 
 {
@@ -67,8 +81,12 @@ void rdroid_Close(void)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x00404290  rdroid_SetRenderFlags ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Sets g_dwRdroidFlags (bit 1: apply camera fog/attenuation at +0x54) */
 
 void rdroid_SetRenderFlags(uint param_1)
@@ -77,8 +95,12 @@ void rdroid_SetRenderFlags(uint param_1)
   g_dwRdroidFlags = param_1;
   return;
 }
+#endif
+
 
 /* ---- 0x004042a0  rdroid_SetGeometryMode ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Upper limit for the per-mesh geometry mode (0 none .. 4 textured) */
 
 void rdroid_SetGeometryMode(int param_1)
@@ -87,24 +109,36 @@ void rdroid_SetGeometryMode(int param_1)
   g_nRdroidGeometryMode = param_1;
   return;
 }
+#endif
+
 
 /* ---- 0x004042b0  rdroid_SetLightingMode ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void rdroid_SetLightingMode(int param_1)
 
 {
   g_nRdroidLightingMode = param_1;
   return;
 }
+#endif
+
 
 /* ---- 0x004042c0  rdroid_SetTextureMode ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void rdroid_SetTextureMode(int param_1)
 
 {
   g_nRdroidTextureMode = param_1;
   return;
 }
+#endif
+
 
 /* ---- 0x004042d0  rdroid_SetSortMode ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* 2 = qsort the cached mesh list by depth before drawing */
 
 void rdroid_SetSortMode(int param_1)
@@ -113,8 +147,12 @@ void rdroid_SetSortMode(int param_1)
   g_nRdroidSortMode = param_1;
   return;
 }
+#endif
+
 
 /* ---- 0x004042e0  rdroid_SetOcclusionMode ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* 0 selects the plain software path in rdCache_Flush */
 
 void rdroid_SetOcclusionMode(int param_1)
@@ -123,8 +161,12 @@ void rdroid_SetOcclusionMode(int param_1)
   g_nRdroidOcclusionMode = param_1;
   return;
 }
+#endif
+
 
 /* ---- 0x004042f0  rdroid_SetZBufferMode ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* 2 selects the z-buffered software path (rdCache_DrawMeshZ) */
 
 void rdroid_SetZBufferMode(int param_1)
@@ -133,8 +175,12 @@ void rdroid_SetZBufferMode(int param_1)
   g_nRdroidZBufferMode = param_1;
   return;
 }
+#endif
+
 
 /* ---- 0x00404300  rdroid_BeginFrame ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Resets the caches, bumps the frame counter, clears the canvas and begins the 3D scene */
 
 void rdroid_BeginFrame(void)
@@ -146,8 +192,12 @@ void rdroid_BeginFrame(void)
   rdCache_BeginScene3D();
   return;
 }
+#endif
+
 
 /* ---- 0x00404320  rdroid_EndFrame ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Flushes the mesh cache, ends the 3D scene and dumps the memory log */
 
 void rdroid_EndFrame(void)
@@ -158,8 +208,12 @@ void rdroid_EndFrame(void)
   Mem_DumpLog();
   return;
 }
+#endif
+
 
 /* ---- 0x00404330  rdroid_InitCaches ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void rdroid_InitCaches(void)
 
 {
@@ -168,8 +222,12 @@ void rdroid_InitCaches(void)
   rdCamera_ResetStats();
   return;
 }
+#endif
+
 
 /* ---- 0x00404350  rdroid_SetColormap ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 rdroid_SetColormap(uint param_1)
 
 {
@@ -181,6 +239,8 @@ undefined4 rdroid_SetColormap(uint param_1)
   }
   return 1;
 }
+#endif
+
 
 /* ---- 0x00404b80  rdroid_BuildMathTables ---- */
 /* replaced by the hand-written version in build/overrides.c */

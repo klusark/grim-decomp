@@ -6,6 +6,8 @@
 #include "functions.h"
 
 /* ---- 0x00409580  rdModel_ComputeMeshLighting ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Rdcamera.c: picks the light level of a mesh from the current geometry/lighting/texture modes
    (gouraud, flat, per-vertex) and hands it to the mesh draw callback at +0x14 */
 
@@ -379,8 +381,12 @@ switchD_00409661_default:
 #undef local_4
 #undef local_8
 
+#endif
+
 
 /* ---- 0x00409d20  FUN_00409d20 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 FUN_00409d20(int param_1,int param_2)
 
 {
@@ -392,8 +398,12 @@ undefined4 FUN_00409d20(int param_1,int param_2)
   }
   return 0xffffffff;
 }
+#endif
+
 
 /* ---- 0x0040d140  rdModel_DrawNode ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Recursive hierarchy walk (+0x58 child count, +0x5c first child, +0x60 sibling) drawing each
    node's mesh */
 
@@ -436,6 +446,8 @@ void rdModel_DrawNode(int param_1)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x0040d230  rdModel_DrawMesh ---- */
 /* replaced by the hand-written version in build/overrides.c */

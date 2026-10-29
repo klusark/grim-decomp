@@ -800,6 +800,8 @@ void FUN_004a4d80(undefined4 param_1,int param_2)
 }
 
 /* ---- 0x004a4fe0  Set_LoadResources ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Loads colormaps (set+0x80, 0x34 each), each setup's background/depth bitmaps, creates the
    rdCamera (setup+0x48) and rdThing (+0x4c), builds the camera basis and adds the set's lights */
 
@@ -954,6 +956,8 @@ LAB_004a51bd:
 }
 #undef local_4
 #undef local_8
+
+#endif
 
 
 /* ---- 0x004a5390  FUN_004a5390 ---- */

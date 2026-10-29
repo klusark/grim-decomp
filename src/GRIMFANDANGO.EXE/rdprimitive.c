@@ -143,6 +143,8 @@ undefined4 rdPolyline_Draw(int param_1,float *param_2)
 
 
 /* ---- 0x00472360  rdPolyline_DrawFace ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Allocates a cache mesh for one polyline face, clips and adds it */
 
 void rdPolyline_DrawFace(int param_1,int param_2,undefined4 param_3,undefined4 *param_4)
@@ -296,8 +298,12 @@ void rdPolyline_DrawFace(int param_1,int param_2,undefined4 param_3,undefined4 *
 #undef local_2c
 #undef local_4
 
+#endif
+
 
 /* ---- 0x00472640  rdSprite_DrawThing ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Billboard: builds a camera-facing matrix for the thing position and draws the sprite */
 
@@ -392,8 +398,12 @@ int __cdecl rdSprite_DrawThing(void *thing,void *sprite)
 #undef local_3c
 #undef local_40
 
+#endif
+
 
 /* ---- 0x004728a0  rdPolyline_New ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Allocates a 0xb8-byte polyline (RDroid Primitiv*.c) and initialises it */
 
 int rdPolyline_New(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4,
@@ -412,8 +422,12 @@ int rdPolyline_New(undefined4 param_1,undefined4 param_2,undefined4 param_3,unde
                   param_10);
   return iVar1;
 }
+#endif
+
 
 /* ---- 0x00472910  rdPolyline_Init ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Copies the 31-char name and builds the vertex ring for the given radius/segment counts */
 
 undefined4
@@ -509,8 +523,12 @@ LAB_00472af2:
   }
   return 0;
 }
+#endif
+
 
 /* ---- 0x00472b50  rdSprite_Free ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void rdSprite_Free(int param_1)
 
 {
@@ -520,8 +538,12 @@ void rdSprite_Free(int param_1)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x00472b70  rdSprite_FreeContents ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void rdSprite_FreeContents(int param_1)
 
 {
@@ -539,6 +561,8 @@ void rdSprite_FreeContents(int param_1)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x00472bd0  rdSprite_Draw ---- */
 /* replaced by the hand-written version in build/overrides.c */

@@ -144,9 +144,11 @@ def main(prog, src, obj):
         size = s["size"]
         init = len(data)
         base = s["start"]
-        flags = ',"dr"' if s["name"] == ".rdata" else ""
+        # .rdata is emitted inside the .data output section, directly in front of the .data blob at the
+        # original distance: code indexes tables that run from .rdata into .data (the sine/cosine
+        # quadrant tables; Math_SinCosTable reads one entry past the end of the third one)
         out.append("")
-        out.append("\t.section %s%s" % (s["name"], flags))
+        out.append("\t.section .data")
         out.append("\t.p2align 4")
         out.append("\t.globl %s" % s["sym"])
         out.append("%s:" % s["sym"])
@@ -214,6 +216,9 @@ def main(prog, src, obj):
             if len(run) >= 24:
                 flush()
         flush()
+        nxt = next((t for t in secs if t["start"] > base and s["name"] == ".rdata"), None)
+        if nxt is not None and nxt["start"] > base + size:
+            out.append("\t.zero %d\t# gap up to %s" % (nxt["start"] - base - size, nxt["name"]))
     with open(os.path.join(obj, prog, "data.s"), "w", newline="\n") as w:
         w.write("\n".join(out) + "\n")
     print(json.dumps({"defined": defined, "stats": stats, "sections": [(s["name"], s["size"], len(s["bytes"])) for s in secs]}))

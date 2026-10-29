@@ -6,6 +6,8 @@
 #include "functions.h"
 
 /* ---- 0x00404c00  rdCanvas_InitEdgeTables ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Clears the per-scanline edge buckets for the current canvas height */
 
@@ -51,16 +53,24 @@ void rdCanvas_InitEdgeTables(void)
   UINT_004f6f2c = 0;
   return;
 }
+#endif
+
 
 /* ---- 0x00404ca0  rdCanvas_ResetPolyCount ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void rdCanvas_ResetPolyCount(void)
 
 {
   UINT_005e6f98 = 0;
   return;
 }
+#endif
+
 
 /* ---- 0x00404cb0  rdCanvas_ScanConvert ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Rdcanvas.c: active-edge scanline loop over all queued polygons; merges edges per scanline, emits
    spans, flushes them */
 
@@ -142,8 +152,12 @@ void rdCanvas_ScanConvert(void)
   rdCanvas_FlushSpans();
   return;
 }
+#endif
+
 
 /* ---- 0x00404e00  rdCanvas_EmitSpans ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Walks the active edge list for one scanline, computing 0x2c-byte span records with interpolated
    z/u/v/light */
 
@@ -510,8 +524,12 @@ LAB_004055a9:
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x004055d0  rdCanvas_FlushSpans ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Calls each polygon's span-draw callback for its accumulated spans and resets the span buffer */
 
 void rdCanvas_FlushSpans(void)
@@ -536,8 +554,12 @@ void rdCanvas_FlushSpans(void)
   UINT_004f6f2c = 0;
   return;
 }
+#endif
+
 
 /* ---- 0x00405620  rdCanvas_BuildEdgeLists ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* For every queued polygon, runs its edge-setup callback on each edge and inserts the edges into
    the per-scanline buckets */
 
@@ -627,8 +649,12 @@ void rdCanvas_BuildEdgeLists(void)
 }
 #undef local_4
 
+#endif
+
 
 /* ---- 0x00405770  rdCanvas_PreparePolygon ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 rdCanvas_PreparePolygon(byte *param_1)
 
 {
@@ -1324,8 +1350,12 @@ LAB_0040585d:
 }
 #undef local_4
 
+#endif
+
 
 /* ---- 0x00451950  rdCanvas_DrawLine ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Bresenham line, 8 and 16 bpp, with a 32-bit stipple pattern */
 
 void __cdecl rdCanvas_DrawLine(void *canvas,int x0,int y0,int x1,int y1,ushort color,uint pattern)
@@ -1436,6 +1466,8 @@ void __cdecl rdCanvas_DrawLine(void *canvas,int x0,int y0,int x1,int y1,ushort c
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x00451dd0  rdCanvas_DrawPoint ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -1492,6 +1524,8 @@ void rdCanvas_DrawPoint(void *param_1,int param_2,int param_3,undefined4 param_4
 
 
 /* ---- 0x004c04f0  rdCanvas_New ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Rdcanvas.c: allocates a 0x28-byte canvas and initialises it */
 
 uint * rdCanvas_New(uint param_1,uint param_2,uint param_3,uint param_4,uint param_5,uint param_6,
@@ -1508,6 +1542,8 @@ uint * rdCanvas_New(uint param_1,uint param_2,uint param_3,uint param_4,uint par
   rdCanvas_Init(canvas,param_1,param_2,param_3,param_4,param_5,param_6,param_7,param_8);
   return canvas;
 }
+#endif
+
 
 /* ---- 0x004c0550  rdCanvas_Init ---- */
 /* replaced by the hand-written version in build/overrides.c */

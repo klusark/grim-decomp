@@ -6,6 +6,8 @@
 #include "functions.h"
 
 /* ---- 0x00451460  rdLight_Init ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Defaults: type 2, on, white (0xffffff), intensity 1.0 */
 
 undefined4 rdLight_Init(int param_1)
@@ -24,8 +26,12 @@ undefined4 rdLight_Init(int param_1)
   *(undefined4 *)(param_1 + 0x2c) = 0;
   return 1;
 }
+#endif
+
 
 /* ---- 0x004514a0  rdLight_SetAngles ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void __cdecl rdLight_SetAngles(void *light,float inner,float outer)
 
 {
@@ -45,4 +51,6 @@ void __cdecl rdLight_SetAngles(void *light,float inner,float outer)
   return;
 }
 #undef local_4
+
+#endif
 

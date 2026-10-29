@@ -989,6 +989,8 @@ void FUN_10006ea0(void)
 
 
 /* ---- 0x10006ee0  FUN_10006ee0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_10006ee0(void)
 
 {
@@ -1000,8 +1002,12 @@ void FUN_10006ee0(void)
   lua_pushnumber((float)fVar1);
   return;
 }
+#endif
+
 
 /* ---- 0x10006f00  FUN_10006f00 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_10006f00(void)
 
 {
@@ -1013,8 +1019,12 @@ void FUN_10006f00(void)
   lua_pushnumber((float)fVar1);
   return;
 }
+#endif
+
 
 /* ---- 0x10006f20  FUN_10006f20 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_10006f20(void)
 
 {
@@ -1026,6 +1036,8 @@ void FUN_10006f20(void)
   lua_pushnumber((float)fVar1);
   return;
 }
+#endif
+
 
 /* ---- 0x10006f50  FUN_10006f50 ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -1056,6 +1068,8 @@ void FUN_10006f80(void)
 }
 
 /* ---- 0x10006fb0  FUN_10006fb0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_10006fb0(void)
 
 {
@@ -1067,8 +1081,12 @@ void FUN_10006fb0(void)
   lua_pushnumber((float)(fVar1 * (float10)57.29577951308232));
   return;
 }
+#endif
+
 
 /* ---- 0x10006fe0  FUN_10006fe0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_10006fe0(void)
 
 {
@@ -1082,6 +1100,8 @@ void FUN_10006fe0(void)
   lua_pushnumber((float)(fVar1 * (float10)57.29577951308232));
   return;
 }
+#endif
+
 
 /* ---- 0x10007020  FUN_10007020 ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -1162,6 +1182,8 @@ void FUN_100070e0(void)
 
 
 /* ---- 0x10007120  FUN_10007120 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_10007120(void)
 
 {
@@ -1173,8 +1195,12 @@ void FUN_10007120(void)
   lua_pushnumber((float)((float10)0.6931471805599453 * fVar1));
   return;
 }
+#endif
+
 
 /* ---- 0x10007140  FUN_10007140 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_10007140(void)
 
 {
@@ -1186,8 +1212,12 @@ void FUN_10007140(void)
   lua_pushnumber((float)((float10)0.3010299956639812 * fVar1));
   return;
 }
+#endif
+
 
 /* ---- 0x10007160  FUN_10007160 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_10007160(void)
 
 {
@@ -1202,6 +1232,8 @@ void FUN_10007160(void)
   lua_pushnumber((float)fVar1);
   return;
 }
+#endif
+
 
 /* ---- 0x10007190  FUN_10007190 ---- */
 void FUN_10007190(void)

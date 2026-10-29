@@ -2028,6 +2028,8 @@ void __cdecl Actor_KillShadows(void *actor)
 }
 
 /* ---- 0x004936e0  Actor_DrawShadows ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Draws the shadows of an actor: slots at extra+0x1f8, 0x54 bytes each (+0 active, +4 valid,
    +8..+0x14 plane normal and d, +0x18..0x20 shadow point). valid 0: always; -1: only when pos.n+d
    <= 0; 1: only when >= 0 (pos = actor+0xc). Set by SetActorShadowPlane (Actor_SetShadowPlane
@@ -2061,6 +2063,8 @@ void Actor_DrawShadows(int param_1)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x00493790  Actor_GetFrame ---- */
 /* Returns the actor's 12-float frame (position + 3x3 rotation), rebuilding it from pos/rot when

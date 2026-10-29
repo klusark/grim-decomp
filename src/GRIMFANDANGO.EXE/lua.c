@@ -1549,6 +1549,8 @@ void Lua_KillTextObject(void)
 }
 
 /* ---- 0x0048bb70  Lua_GetFontDimensions ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Variable defined which should be unmapped: local_c */
 /* Lua opcode: GetFontDimensions */
 
@@ -1567,6 +1569,8 @@ void Lua_GetFontDimensions(void)
   return;
 }
 #undef local_c
+
+#endif
 
 
 /* ---- 0x0048bbc0  Lua_GetTextObjectDimensions ---- */
@@ -1911,6 +1915,8 @@ void Lua_SetTranslationMode(void)
 
 
 /* ---- 0x00495850  Lua_GetKeyLength ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: GetKeyLength */
 
 void Lua_GetKeyLength(void)
@@ -1938,6 +1944,8 @@ void Lua_GetKeyLength(void)
   lua_pushnumber(((float)*(uint *)(iVar2 + 0x34) / *(float *)(piVar3[1] + 0x30)) * 1000.0);
   return;
 }
+#endif
+
 
 /* ---- 0x00495900  Lua_GetSmushLength ---- */
 /* WARNING: Variable defined which should be unmapped: local_c */
@@ -4261,6 +4269,8 @@ void Lua_StopActorChore(void)
 
 
 /* ---- 0x0049a830  Lua_PlayActorChore ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: PlayActorChore */
 
 void Lua_PlayActorChore(void)
@@ -4307,6 +4317,8 @@ void Lua_PlayActorChore(void)
   return;
 }
 #undef local_4
+
+#endif
 
 
 /* ---- 0x0049a910  Lua_CompleteActorChore ---- */
@@ -4362,6 +4374,8 @@ void Lua_CompleteActorChore(void)
 
 
 /* ---- 0x0049a9e0  Lua_PlayActorChoreLooping ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: PlayActorChoreLooping */
 
 void Lua_PlayActorChoreLooping(void)
@@ -4408,6 +4422,8 @@ void Lua_PlayActorChoreLooping(void)
   return;
 }
 #undef local_4
+
+#endif
 
 
 /* ---- 0x0049aac0  Lua_ActorLookAt ---- */
@@ -5120,6 +5136,8 @@ void Lua_SetActorTalkChore(void)
 
 
 /* ---- 0x0049b6c0  Lua_SetActorHead ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Variable defined which should be unmapped: local_24 */
 /* WARNING: Variable defined which should be unmapped: local_28 */
 /* WARNING: Variable defined which should be unmapped: local_2c */
@@ -5207,6 +5225,8 @@ void Lua_SetActorHead(void)
 #undef local_4
 #undef local_8
 #undef local_c
+
+#endif
 
 
 /* ---- 0x0049b830  Lua_CanActorSee ---- */
@@ -5364,6 +5384,8 @@ void Lua_GetVisibleThings(void)
 
 
 /* ---- 0x0049bb10  Lua_GetActorRect ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Variable defined which should be unmapped: local_c */
 /* Lua opcode: GetActorRect */
 
@@ -5395,6 +5417,8 @@ void Lua_GetActorRect(void)
   return;
 }
 #undef local_c
+
+#endif
 
 
 /* ---- 0x0049bba0  Lua_GetActorPuckVector ---- */
@@ -5814,6 +5838,8 @@ void Lua_GetActorSector(void)
 
 
 /* ---- 0x0049c2c0  Lua_IsActorInSector ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Variable defined which should be unmapped: local_10 */
 /* Lua opcode: IsActorInSector */
 
@@ -5864,6 +5890,8 @@ void Lua_IsActorInSector(void)
   return;
 }
 #undef local_10
+
+#endif
 
 
 /* ---- 0x0049c3b0  Lua_GetPointSector ---- */
@@ -12908,6 +12936,8 @@ void Lua_FreeImage(void)
 }
 
 /* ---- 0x004a3130  Lua_BlastImage ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: BlastImage */
 
 void Lua_BlastImage(void)
@@ -12955,6 +12985,8 @@ void Lua_BlastImage(void)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x004a31f0  Lua_BlastRect ---- */
 /* replaced by the hand-written version in build/overrides.c */

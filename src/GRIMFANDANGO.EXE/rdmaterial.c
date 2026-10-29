@@ -6,6 +6,8 @@
 #include "functions.h"
 
 /* ---- 0x00417e90  rdMaterial_SetLoadHook ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Installs the engine's material loader callback and returns the previous one */
 
 uint rdMaterial_SetLoadHook(uint param_1)
@@ -17,8 +19,12 @@ uint rdMaterial_SetLoadHook(uint param_1)
   UINT_007f4238 = param_1;
   return uVar1;
 }
+#endif
+
 
 /* ---- 0x00417ea0  rdMaterial_SetFreeHook ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 uint rdMaterial_SetFreeHook(uint param_1)
 
 {
@@ -28,6 +34,8 @@ uint rdMaterial_SetFreeHook(uint param_1)
   UINT_007f423c = param_1;
   return uVar1;
 }
+#endif
+
 
 /* ---- 0x00417eb0  rdMaterial_Load ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -57,6 +65,8 @@ void * __cdecl rdMaterial_Load(char *name,int a,int b)
 
 
 /* ---- 0x00417f30  rdMaterial_LoadFile ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Reads a 'MAT ' material file: header, colour table, per-cel texture surfaces (type 2 colour-keyed
    / type 0 solid) */
 
@@ -280,6 +290,8 @@ LAB_0041833a:
 #undef uStack_418
 #undef uStack_428
 
+#endif
+
 
 /* ---- 0x00418360  rdMaterial_Free ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -361,6 +373,8 @@ void rdMaterial_FreeContents(int param_1)
 
 
 /* ---- 0x004184a0  rdMaterial_EnsureTexture ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Touches the cel's Direct3D texture or creates it (D3D_CreateTexture) on first use */
 
 int __cdecl rdMaterial_EnsureTexture(void *a,uint *material,int cel,int alt)
@@ -391,3 +405,5 @@ int __cdecl rdMaterial_EnsureTexture(void *a,uint *material,int cel,int alt)
   }
   return 1;
 }
+#endif
+

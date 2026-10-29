@@ -6,6 +6,8 @@
 #include "functions.h"
 
 /* ---- 0x00494890  Shadow_SetColor ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua SetShadowColor */
 
 void __cdecl Shadow_SetColor(int r,int g,int b)
@@ -34,6 +36,8 @@ void __cdecl Shadow_SetColor(int r,int g,int b)
   } while (iVar2 < 0x300);
   return;
 }
+#endif
+
 
 /* ---- 0x00494bf0  Shadow_DrawClippedPoly ---- */
 /* replaced by the hand-written version in build/overrides.c */
