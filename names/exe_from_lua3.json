@@ -22,7 +22,6 @@
  {"addr": "0045ff00", "name": "Mem_DumpLog", "comment": "Lua DumpMemoryLog", "tags": "memory"},
  {"addr": "0048e240", "name": "Res_NukeAll", "comment": "Lua NukeResources: frees every loaded resource", "tags": "resource"},
  {"addr": "00482460", "name": "Engine_ResetState", "comment": "Called when nuking resources and before a restore", "tags": "engine"},
- {"addr": "004a40f0", "name": "Set_SetCurrentSet", "proto": "void Set_SetCurrentSet(void * set, int setup)", "tags": "set"},
  {"addr": "008cf270", "global": "g_nShrinkVertexCount", "type": "int", "comment": "Number of sector vertices saved by SectorList_SaveForShrink"},
  {"addr": "008cf274", "global": "g_pShrinkVertexSave", "type": "void *", "comment": "Saved sector vertices (20 bytes each) for UnShrinkBoxes"},
  {"addr": "008cf278", "global": "g_nShrinkSectorCount", "type": "int", "comment": "Number of sectors saved by SectorList_SaveForShrink"},
