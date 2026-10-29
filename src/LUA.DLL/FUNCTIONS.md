@@ -165,7 +165,7 @@
 | 100044e0 | ldo__44e0 | ldo.c | 36 |
 | 10004580 | luaD_callC | ldo.c | 29 |
 | 10004600 | ldo__4600 | ldo.c | 16 |
-| 100046a0 | luaD_message | ldo.c | 17 |
+| 100046a0 | luaD_message | ldo.c | 1 |
 | 100046e0 | luaD_protectedrun | ldo.c | 47 |
 | 100047c0 | luaD_callinc | ldo.c | 14 |
 | 10004810 | luaD_gcIM | ldo.c | 23 |
@@ -455,7 +455,7 @@
 | 1000f3d2 | _local_unwind2 | crt.c | 37 |
 | 1000f43a | _unwind_handler | crt.c | 17 |
 | 1000f466 | _NLG_Notify | crt.c | 13 |
-| 1000f480 | _snprintf | crt.c | 30 |
+| 1000f480 | vsprintf | crt.c | 30 |
 | 1000f4f0 | sprintf | crt.c | 30 |
 | 1000f560 | printf | crt.c | 15 |
 | 1000f680 | strtol | crt.c | 8 |

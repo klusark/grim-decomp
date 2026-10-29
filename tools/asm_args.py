@@ -67,6 +67,7 @@ def main():
     for prog in names:
         path = export_raw.PROGRAMS[prog]
         ctx = Ctx(prog)
+        g.ensure_current(path)
         for addr in sel.get(prog, []):
             lines = g.get("disassemble_function", program=path, address=addr).splitlines()
             args = analyze(lines)

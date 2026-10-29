@@ -6,7 +6,7 @@ python
 import gdb
 gdb.execute('set pagination off')
 b = gdb.Breakpoint('Grim_Init'); gdb.execute('run'); b.delete()
-gdb.Breakpoint('lua_error')
+gdb.Breakpoint('luaD_message')
 count = 0
 while count < 6:
     try:
@@ -14,7 +14,7 @@ while count < 6:
     except gdb.error:
         break
     f = gdb.newest_frame()
-    if (f.name() or '') != 'lua_error':
+    if (f.name() or '') != 'luaD_message':
         print('>> native fault in', f.name()); gdb.execute('bt 6'); break
     count += 1
     msg = gdb.execute('x/s param_1', to_string=True).strip()

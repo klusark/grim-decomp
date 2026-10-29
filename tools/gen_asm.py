@@ -189,7 +189,12 @@ def select(prog):
         p = os.path.join(raw, "functions", f["address"] + ".c")
         if os.path.exists(p) and SELECT_RE.search(open(p, encoding="utf-8", errors="replace").read()):
             out.append(f["address"])
-    return sorted(out)
+    # hand-picked: the decompiler mishandles them for other reasons (stack objects, register
+    # values); names/asm_extra.json {prog: [addresses]}
+    xp = os.path.join(ROOT, "names", "asm_extra.json")
+    if os.path.exists(xp):
+        out += json.load(open(xp)).get(prog, [])
+    return sorted(set(out))
 
 
 def main():

@@ -149,7 +149,7 @@ undefined4 * __cdecl luaH_free(int param_1)
 #if 0
 /* Unidentified function of ltable.c (hash tables, with Grim save support) */
 
-undefined4 * luaH_init(void)
+undefined4 * __cdecl luaH_init(int a1)
 
 {
   undefined4 *puVar1;

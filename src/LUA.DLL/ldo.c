@@ -455,6 +455,8 @@ void __cdecl ldo__4600(undefined *param_1)
 }
 
 /* ---- 0x100046a0  luaD_message ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* ldo.c message(): pushes the string and calls the error tag method */
 
 void __cdecl luaD_message(byte *param_1)
@@ -471,6 +473,8 @@ void __cdecl luaD_message(byte *param_1)
   return;
 }
 #undef local_4
+
+#endif
 
 
 /* ---- 0x100046e0  luaD_protectedrun ---- */

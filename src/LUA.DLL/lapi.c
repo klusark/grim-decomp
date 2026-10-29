@@ -448,7 +448,7 @@ undefined4 __cdecl lua_createtable(void)
   
                     /* 0x1610  19  lua_createtable */
   ((code *)lgc__5300)();
-  local_4 = luaH_init();
+  local_4 = luaH_init(0);
   local_8 = 0xfffffffd;
   uVar1 = lapi__1430(&local_8);
   return uVar1;
