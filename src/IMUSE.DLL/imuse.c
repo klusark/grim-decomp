@@ -1237,6 +1237,8 @@ LAB_10002d11:
 
 
 /* ---- 0x10002d30  Im_DispatchFetchNext ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Advances a dispatch through its sound regions / jumps and fetches the next data */
 
 int __cdecl Im_DispatchFetchNext(int *param_1)
@@ -1404,6 +1406,8 @@ LAB_10002f3c:
 #undef local_50
 #undef local_54
 #undef local_58
+
+#endif
 
 
 /* ---- 0x100036b0  Im_DSoundInit ---- */
@@ -3651,6 +3655,8 @@ void FUN_10008e60(void)
 }
 
 /* ---- 0x100093d0  Im_SoundsPrepare ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Decodes the header/first block of a loaded sound and applies FX */
 
 void __cdecl Im_SoundsPrepare(uint param_1)
@@ -3709,6 +3715,8 @@ void __cdecl Im_SoundsPrepare(uint param_1)
 #undef local_4
 #undef local_8
 #undef local_c
+
+#endif
 
 
 /* ---- 0x10009530  FUN_10009530 ---- */
@@ -3798,6 +3806,8 @@ void FUN_10009700(void)
 }
 
 /* ---- 0x10009710  Im_SoundsLoad ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* iMUSE_sounds.c: opens the sound file into a slot */
 
 int * __cdecl Im_SoundsLoad(uint *param_1,char *param_2)
@@ -3943,6 +3953,8 @@ int * __cdecl Im_SoundsLoad(uint *param_1,char *param_2)
 #undef iStack_c
 #undef pbStack_4
 #undef uStack_14
+
+#endif
 
 
 /* ---- 0x10009b20  Im_SoundsUnload ---- */
@@ -5262,6 +5274,8 @@ undefined4 __cdecl Im_TriggersRestore(undefined4 *param_1)
 }
 
 /* ---- 0x1000b220  Im_SetTriggerImpl ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
     */
 
@@ -5340,6 +5354,8 @@ undefined4 __cdecl Im_SetTriggerImpl(int param_1,char *param_2,int param_3)
   } while (iVar2 != 0);
   return 0;
 }
+#endif
+
 
 /* ---- 0x1000b2e0  Im_CheckTriggerImpl ---- */
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
@@ -5589,6 +5605,8 @@ LAB_1000b52c:
 
 
 /* ---- 0x1000b570  Im_DeferCommandImpl ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
     */
 
@@ -5628,6 +5646,8 @@ undefined4 __cdecl Im_DeferCommandImpl(int param_1,int param_2)
   } while (iVar2 < 8);
   return 0xfffffffa;
 }
+#endif
+
 
 /* ---- 0x1000b5e0  Im_ProcessDeferred ---- */
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred

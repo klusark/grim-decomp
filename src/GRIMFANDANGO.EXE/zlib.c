@@ -666,6 +666,8 @@ undefined4 gzclose(int param_1)
 }
 
 /* ---- 0x004c49c0  gz_putLong ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void gz_putLong(undefined4 param_1,uint param_2)
 
 {
@@ -684,6 +686,8 @@ void gz_putLong(undefined4 param_1,uint param_2)
   } while (iVar3 != 0);
   return;
 }
+#endif
+
 
 /* ---- 0x004c4c40  zlibVersion ---- */
 /* MSVC CRT default _matherr: returns 0 (was mislabelled zlibVersion) */
@@ -2279,6 +2283,8 @@ inflate_codes_new(undefined1 param_1,undefined1 param_2,uint param_3,uint param_
 }
 
 /* ---- 0x004ca660  inflate_codes ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined * __cdecl inflate_codes(uint param_1,byte *param_2,int param_3)
 
 {
@@ -2676,6 +2682,8 @@ switchD_004ca6ad_caseD_8:
 #undef local_4
 #undef local_8
 #undef local_c
+
+#endif
 
 
 /* ---- 0x004cae10  inflate_codes_free ---- */

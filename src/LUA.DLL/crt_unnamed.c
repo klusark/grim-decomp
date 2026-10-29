@@ -2818,6 +2818,8 @@ LAB_10019cc9:
 
 
 /* ---- 0x1001a5a6  FUN_1001a5a6 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 undefined4 __cdecl
@@ -2870,6 +2872,8 @@ FUN_1001a5a6(undefined4 param_1,uint param_2,ushort param_3,uint param_4,uint pa
   }
   return in_EAX;
 }
+#endif
+
 
 /* ---- 0x1001a7ac  FUN_1001a7ac ---- */
 /* replaced by the hand-written version in build/overrides.c */

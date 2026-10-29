@@ -805,6 +805,8 @@ undefined4 __thiscall lstate__8640(void *this,int a1)
 
 
 /* ---- 0x100087f0  lstate__87f0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Unidentified function of lstate.c (Grim execution states / tasks) */
 
 undefined4 __thiscall lstate__87f0(void *this,int a1)
@@ -910,8 +912,12 @@ undefined4 __thiscall lstate__87f0(void *this,int a1)
 #undef uStack_4
 #undef uStack_c
 
+#endif
+
 
 /* ---- 0x10008ad0  lstate__8ad0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Unidentified function of lstate.c (Grim execution states / tasks) */
 
 undefined4 * lstate__8ad0(void)
@@ -947,6 +953,8 @@ undefined4 * lstate__8ad0(void)
 #undef local_4
 #undef local_c
 #undef puStack_8
+
+#endif
 
 
 /* ---- 0x10008b70  lstate__8b70 ---- */

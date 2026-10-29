@@ -253,6 +253,8 @@ LAB_1000167e:
 
 
 /* ---- 0x10002020  CosUtil_CompPtrFromHandle ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 int CosUtil_CompPtrFromHandle(int param_1,uint param_2)
 
 {
@@ -262,8 +264,12 @@ int CosUtil_CompPtrFromHandle(int param_1,uint param_2)
   }
   return *(int *)(param_1 + 0x2c) + param_2 * 0x40;
 }
+#endif
+
 
 /* ---- 0x10002040  CosUtil_PtrFromHandle ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 int CosUtil_PtrFromHandle(undefined4 param_1)
 
 {
@@ -273,8 +279,12 @@ int CosUtil_PtrFromHandle(undefined4 param_1)
   iVar1 = FUN_10005160(param_1);
   return DAT_100143b4 + iVar1 * 0x3c;
 }
+#endif
+
 
 /* ---- 0x10002060  CosUtil_RegisterCompNotifier ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 undefined4 CosUtil_RegisterCompNotifier(undefined4 param_1)
@@ -287,8 +297,12 @@ undefined4 CosUtil_RegisterCompNotifier(undefined4 param_1)
   _DAT_100143d8 = param_1;
   return uVar1;
 }
+#endif
+
 
 /* ---- 0x10002070  CosUtil_RegisterBitmapMunger ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 undefined4 CosUtil_RegisterBitmapMunger(undefined4 param_1)
@@ -301,8 +315,12 @@ undefined4 CosUtil_RegisterBitmapMunger(undefined4 param_1)
   _DAT_100143dc = param_1;
   return uVar1;
 }
+#endif
+
 
 /* ---- 0x10002260  CosUtil_DeleteComponent ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 undefined4 CosUtil_DeleteComponent(uint param_1,uint param_2)
@@ -521,8 +539,12 @@ undefined4 CosUtil_DeleteComponent(uint param_1,uint param_2)
 }
 #undef piStack_c
 
+#endif
+
 
 /* ---- 0x100026a0  CosUtil_AdjustComponent ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 int CosUtil_AdjustComponent(int param_1,uint param_2)
 
 {
@@ -550,8 +572,12 @@ int CosUtil_AdjustComponent(int param_1,uint param_2)
   iVar3 = (*(code *)PTR_100143c0[iVar3 * 0x17 + 0xf])(iVar2 + 0x24,iVar2,0x20);
   return iVar3;
 }
+#endif
+
 
 /* ---- 0x10002740  CosUtil_ComponentHasAdjuster ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 CosUtil_ComponentHasAdjuster(int param_1,uint param_2)
 
 {
@@ -574,8 +600,12 @@ undefined4 CosUtil_ComponentHasAdjuster(int param_1,uint param_2)
   }
   return 1;
 }
+#endif
+
 
 /* ---- 0x100027e0  CosUtil_AddComponent ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 bool CosUtil_AddComponent
@@ -621,8 +651,12 @@ bool CosUtil_AddComponent
   iVar3 = (*pcVar2)(param_1,param_3,param_4,param_5,param_2);
   return iVar3 != 0;
 }
+#endif
+
 
 /* ---- 0x10002880  CosUtil_AddChore ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 int CosUtil_AddChore(int param_1)
 
 {
@@ -641,8 +675,12 @@ int CosUtil_AddChore(int param_1)
   FUN_10004140(iVar1 + -0x2c + *(int *)(param_1 + 0x30) * 0x2c);
   return *(int *)(param_1 + 0x30) + -1;
 }
+#endif
+
 
 /* ---- 0x100028f0  CosUtil_DeleteChore ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 __cdecl CosUtil_DeleteChore(int param_1,uint param_2)
 
 {
@@ -682,8 +720,12 @@ undefined4 __cdecl CosUtil_DeleteChore(int param_1,uint param_2)
   *(undefined4 *)(param_1 + 0x34) = uVar1;
   return uVar1;
 }
+#endif
+
 
 /* ---- 0x100029e0  CosUtil_SetChoreLength ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 int __cdecl CosUtil_SetChoreLength(int param_1,uint param_2,uint param_3)
 
 {
@@ -731,8 +773,12 @@ int __cdecl CosUtil_SetChoreLength(int param_1,uint param_2,uint param_3)
   *(uint *)(*(int *)(param_1 + 0x34) + 0x28 + iVar5) = param_3;
   return iVar2;
 }
+#endif
+
 
 /* ---- 0x10002ab0  CosUtil_NameChore ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined1 * __cdecl CosUtil_NameChore(int param_1,int param_2,char *param_3)
 
 {
@@ -778,8 +824,12 @@ undefined1 * __cdecl CosUtil_NameChore(int param_1,int param_2,char *param_3)
   }
   return puVar2;
 }
+#endif
+
 
 /* ---- 0x10002b40  CosUtil_DeleteKey ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 CosUtil_DeleteKey(int param_1,uint param_2,uint param_3,int param_4)
 
 {
@@ -831,8 +881,12 @@ undefined4 CosUtil_DeleteKey(int param_1,uint param_2,uint param_3,int param_4)
   }
   return 0;
 }
+#endif
+
 
 /* ---- 0x10002c50  CosUtil_QueryValueAtTime ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 uint * CosUtil_QueryValueAtTime(int param_1,uint param_2,uint param_3,uint param_4)
 
 {
@@ -882,8 +936,12 @@ uint * CosUtil_QueryValueAtTime(int param_1,uint param_2,uint param_3,uint param
   }
   return (uint *)0x0;
 }
+#endif
+
 
 /* ---- 0x10002cf0  CosUtil_AddFSKey ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4
 CosUtil_AddFSKey(int param_1,undefined4 param_2,int param_3,undefined4 param_4,undefined4 param_5)
 
@@ -901,8 +959,12 @@ CosUtil_AddFSKey(int param_1,undefined4 param_2,int param_3,undefined4 param_4,u
   *(undefined4 *)(iVar1 + 4) = param_5;
   return 1;
 }
+#endif
+
 
 /* ---- 0x10002d50  CosUtil_AddIntKey ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4
 CosUtil_AddIntKey(int param_1,undefined4 param_2,int param_3,undefined4 param_4,undefined4 param_5)
 
@@ -920,8 +982,12 @@ CosUtil_AddIntKey(int param_1,undefined4 param_2,int param_3,undefined4 param_4,
   *(undefined4 *)(iVar1 + 4) = param_5;
   return 1;
 }
+#endif
+
 
 /* ---- 0x10002db0  CosUtil_AddFloatKey ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4
 CosUtil_AddFloatKey(int param_1,undefined4 param_2,int param_3,undefined4 param_4,undefined4 param_5
                    )
@@ -940,8 +1006,12 @@ CosUtil_AddFloatKey(int param_1,undefined4 param_2,int param_3,undefined4 param_
   *(undefined4 *)(iVar1 + 4) = param_5;
   return 1;
 }
+#endif
+
 
 /* ---- 0x10002e10  CosUtil_CountComponents ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 CosUtil_CountComponents(int param_1)
 
 {
@@ -951,8 +1021,12 @@ undefined4 CosUtil_CountComponents(int param_1)
   }
   return *(undefined4 *)(param_1 + 0x28);
 }
+#endif
+
 
 /* ---- 0x10002e40  CosUtil_ComponentInfo ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void CosUtil_ComponentInfo
                (int param_1,uint param_2,int *param_3,undefined4 *param_4,undefined4 *param_5,
                int *param_6)
@@ -984,16 +1058,24 @@ void CosUtil_ComponentInfo
   }
   return;
 }
+#endif
+
 
 /* ---- 0x10002fa0  CosUtil_CountChores ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 CosUtil_CountChores(int param_1)
 
 {
                     /* 0x2fa0  11  CosUtil_CountChores */
   return *(undefined4 *)(param_1 + 0x30);
 }
+#endif
+
 
 /* ---- 0x100030b0  CosUtil_ChoreName ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 int CosUtil_ChoreName(int param_1,uint param_2)
 
 {
@@ -1003,8 +1085,12 @@ int CosUtil_ChoreName(int param_1,uint param_2)
   }
   return *(int *)(param_1 + 0x34) + param_2 * 0x2c;
 }
+#endif
+
 
 /* ---- 0x100030f0  CosUtil_CountTags ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 undefined4 CosUtil_CountTags(void)
@@ -1013,8 +1099,12 @@ undefined4 CosUtil_CountTags(void)
                     /* 0x30f0  13  CosUtil_CountTags */
   return _DAT_100143b8;
 }
+#endif
+
 
 /* ---- 0x10003100  CosUtil_TagInfo ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 int * CosUtil_TagInfo(uint param_1,int *param_2)
@@ -1029,3 +1119,5 @@ int * CosUtil_TagInfo(uint param_1,int *param_2)
   }
   return PTR_100143c0 + param_1 * 0x17 + 2;
 }
+#endif
+

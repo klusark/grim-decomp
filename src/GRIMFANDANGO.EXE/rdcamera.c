@@ -178,6 +178,8 @@ void __cdecl rdCamera_SetZoom(void *camera,float zoom)
 }
 
 /* ---- 0x0040a280  rdCamera_BuildProjection ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Variable defined which should be unmapped: local_14 */
 /* Computes the projection scale from FOV and canvas size and the frustum planes */
 
@@ -229,6 +231,8 @@ undefined4 rdCamera_BuildProjection(int *param_1)
 #undef local_14
 #undef local_4
 #undef local_8
+
+#endif
 
 
 /* ---- 0x0040a430  rdCamera_SetFrame ---- */

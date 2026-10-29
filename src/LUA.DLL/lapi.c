@@ -1156,6 +1156,8 @@ int __cdecl lua_stackedfunction(int param_1)
 }
 
 /* ---- 0x100020f0  lua_printstack ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 __cdecl lua_printstack(int param_1)
 
 {
@@ -1235,6 +1237,8 @@ LAB_1000224a:
 }
 #undef local_4
 #undef local_8
+
+#endif
 
 
 /* ---- 0x10002280  lua_currentline ---- */
@@ -1497,6 +1501,8 @@ void lapi__2660(void)
 }
 
 /* ---- 0x10002670  lua_Save ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 __cdecl lua_Save(undefined *param_1)
 
 {
@@ -1537,6 +1543,8 @@ undefined4 __cdecl lua_Save(undefined *param_1)
 }
 #undef local_4
 
+#endif
+
 
 /* ---- 0x10002730  FUN_10002730 ---- */
 void __cdecl FUN_10002730(undefined4 param_1,int param_2)
@@ -1548,6 +1556,8 @@ void __cdecl FUN_10002730(undefined4 param_1,int param_2)
 }
 
 /* ---- 0x10002760  lua_Restore ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 lua_Restore(code *param_1)
 
 {
@@ -1630,6 +1640,8 @@ undefined4 lua_Restore(code *param_1)
 #undef uStack_14
 #undef uStack_4
 #undef uStack_c
+
+#endif
 
 
 /* ---- 0x10002900  FUN_10002900 ---- */

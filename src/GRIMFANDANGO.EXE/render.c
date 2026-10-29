@@ -584,6 +584,8 @@ void Render_InitColorConstants(int param_1)
 }
 
 /* ---- 0x00485bd0  Render_DrawDebugGrid ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void Render_DrawDebugGrid(void)
 
 {
@@ -654,6 +656,8 @@ void Render_DrawDebugGrid(void)
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x00486100  Render_CanvasIsPaletted ---- */
 bool Render_CanvasIsPaletted(void)
@@ -663,6 +667,8 @@ bool Render_CanvasIsPaletted(void)
 }
 
 /* ---- 0x00486120  Render_BuildActorDrawList ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Collects the visible actors of the current set with their view-space depth into 12-byte {kind,
    depth, index} entries and sorts them back to front */
 
@@ -723,8 +729,12 @@ void Render_BuildActorDrawList(void)
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x004862e0  Render_ScreenToWorld ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Reads the depth image at (x,y) and un-projects the pixel through the current camera frame */
 
 void __cdecl Render_ScreenToWorld(int x,int y,float *outPos)
@@ -756,6 +766,8 @@ void __cdecl Render_ScreenToWorld(int x,int y,float *outPos)
 #undef local_4
 #undef local_8
 #undef local_c
+
+#endif
 
 
 /* ---- 0x004863b0  Render_InvalidateBackground ---- */

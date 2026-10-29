@@ -6,6 +6,8 @@
 #include "functions.h"
 
 /* ---- 0x00483720  Polyglot_LoadTable ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* polyglot.c: loads the language table (text id -> translated string) */
 
 void Polyglot_LoadTable(undefined *param_1)
@@ -67,6 +69,8 @@ void Polyglot_LoadTable(undefined *param_1)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x004838e0  Polyglot_Lookup ---- */
 /* Binary search of the language table for a /xxxx/ text id */

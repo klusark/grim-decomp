@@ -201,6 +201,8 @@ void __cdecl Set_SwitchSetup(void *set,int setupIdx)
 
 
 /* ---- 0x00485780  Set_DrawDebugLights ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Debug overlay of every light in the set: point/omni lights as a line and circle, spot lights as a
    cone frustum */
 
@@ -295,6 +297,8 @@ void Set_DrawDebugLights(int param_1)
 #undef local_6c
 #undef local_70
 #undef local_74
+
+#endif
 
 
 /* ---- 0x004859c0  Set_DrawDebugCameras ---- */

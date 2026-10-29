@@ -4461,6 +4461,8 @@ LAB_100142b3:
 }
 
 /* ---- 0x10014370  _output ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
 
 int __cdecl _output(int *param_1,char *param_2,undefined4 *param_3)
@@ -4907,6 +4909,8 @@ LAB_10014acf:
 #undef local_248
 #undef local_24c
 #undef uStack_1
+
+#endif
 
 
 /* ---- 0x10014d00  write_char ---- */
@@ -7523,6 +7527,8 @@ __crtGetStringTypeA(int param_1,int param_2,int param_3,int param_4,int param_5,
 
 
 /* ---- 0x1001b2d0  _input ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
 
 int __cdecl _input(int *param_1,byte *param_2,undefined4 *param_3)
@@ -8218,6 +8224,8 @@ LAB_1001bed3:
 #undef local_1c7
 #undef local_1cc
 #undef local_1cd
+
+#endif
 
 
 /* ---- 0x1001c010  _hextodec ---- */

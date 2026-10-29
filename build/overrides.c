@@ -230,7 +230,7 @@ void Im_DSoundCreateBuffer(int n)
 }
 #endif /* GRIM_IMUSE */
 
-#ifdef GRIM_CHORE
+#if defined(GRIM_CHORE) || defined(GRIM_EXE) || defined(GRIM_LUA)
 #include "functions.h"
 /* FUN_10006b30 (0x10006b30) is MSVC's _input(FILE *, format, va_list), the scanf engine. Ghidra
  * splits its jump-table cases into pieces, so it can neither be decompiled nor assembled from its
@@ -247,7 +247,15 @@ typedef int (*scanf_fn)(const char *, const char *,
 /* libmsvcrt.a has no import entry for sscanf (mingw has its own), so ask msvcrt.dll for it */
 extern void *__attribute__((stdcall)) GRIM_LoadLibraryA(const char *) __asm__("_LoadLibraryA@4");
 extern void *__attribute__((stdcall)) GRIM_GetProcAddress(void *, const char *) __asm__("_GetProcAddress@8");
+/* OVERRIDES: _input FUN_10006b30 */
+#if defined(GRIM_CHORE)
 int FUN_10006b30(undefined4 stream, byte *format, undefined4 *a)
+#elif defined(GRIM_LUA)
+int __cdecl _input(int *stream, byte *format, undefined4 *a)
+#else
+/* the EXE's own copy of the same function (0x004b3620) */
+uint _input(undefined4 stream, byte *format, uint *a)
+#endif
 {
     static scanf_fn host_sscanf;
     const char *s = *(const char **)(unsigned)stream;
@@ -259,7 +267,7 @@ int FUN_10006b30(undefined4 stream, byte *format, undefined4 *a)
                          a[16], a[17], a[18], a[19], a[20], a[21], a[22], a[23],
                          a[24], a[25], a[26], a[27], a[28], a[29], a[30], a[31]);
 }
-#endif /* GRIM_CHORE */
+#endif /* GRIM_CHORE || GRIM_EXE || GRIM_LUA */
 
 /* MSVC 6 pow family (_CIpow takes its operands on the x87 stack, _pow on the C stack). The CRT's own
  * versions branch through special-case helpers that live in pieces Ghidra cannot stitch together, so

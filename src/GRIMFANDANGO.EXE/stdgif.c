@@ -796,6 +796,8 @@ uint stdGif_ReadByte(undefined4 param_1)
 }
 
 /* ---- 0x0047e7f0  stdGif_LzwInitEncoder ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 uint stdGif_LzwInitEncoder(undefined4 param_1,undefined4 param_2)
@@ -828,6 +830,8 @@ uint stdGif_LzwInitEncoder(undefined4 param_1,undefined4 param_2)
   stdGif_LzwWriteCode(param_1,CONCAT22(extraout_var,DAT_00811b2c));
   return _DAT_008155f8 & 0xffff;
 }
+#endif
+
 
 /* ---- 0x0047e8b0  stdGif_LzwWriteCode ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */

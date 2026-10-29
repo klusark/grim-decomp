@@ -18,6 +18,8 @@ undefined4 SpriteComponent_Destroy(undefined4 param_1,undefined4 param_2,void *p
 }
 
 /* ---- 0x00496370  FUN_00496370 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 * FUN_00496370(undefined4 param_1,undefined4 param_2,int *param_3)
 
 {
@@ -57,8 +59,12 @@ undefined4 * FUN_00496370(undefined4 param_1,undefined4 param_2,int *param_3)
 #undef auStack_4
 #undef uStack_8
 
+#endif
+
 
 /* ---- 0x00496d70  SpriteComponent_NewInstance ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Source: Engine/sputCostume.cpp (line 2900, from __FILE__/__LINE__ passed to the allocator) */
 
 undefined4 * SpriteComponent_NewInstance(undefined4 param_1,undefined4 param_2,int param_3)
@@ -86,6 +92,8 @@ undefined4 * SpriteComponent_NewInstance(undefined4 param_1,undefined4 param_2,i
   return puVar3;
 }
 #undef auStack_4
+
+#endif
 
 
 /* ---- 0x00496e10  FUN_00496e10 ---- */

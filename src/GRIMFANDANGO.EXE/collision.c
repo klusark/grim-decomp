@@ -6,6 +6,8 @@
 #include "functions.h"
 
 /* ---- 0x004922d0  Collision_PushOutOfBox ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void Collision_PushOutOfBox
                (float *param_1,float param_2,float param_3,float param_4,float param_5,float param_6
                ,float param_7,float *param_8,float *param_9)
@@ -87,6 +89,8 @@ void Collision_PushOutOfBox
 #undef local_4
 #undef local_8
 #undef local_c
+
+#endif
 
 
 /* ---- 0x00492510  Collision_PointInBox ---- */
@@ -183,6 +187,8 @@ void Collision_BoxCorners(int param_1,float param_2,float *param_3,float param_4
 }
 
 /* ---- 0x00492680  Collision_SegmentHitsBox ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Walker_AvoidActorPath: does the path segment pass through the other actor's collision box */
 
@@ -286,6 +292,8 @@ LAB_00492801:
 #undef local_4
 #undef local_8
 #undef local_c
+
+#endif
 
 
 /* ---- 0x00492a50  Collision_PickDetour ---- */
@@ -649,6 +657,8 @@ LAB_004940c6:
 
 
 /* ---- 0x00494100  Collision_BoxSlide ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Variable defined which should be unmapped: local_58 */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Collision_BoxSlide: box collision response (entry face from the move, slide along the face).
@@ -874,4 +884,6 @@ Collision_BoxSlide(float *param_1,float *param_2,float param_3,float param_4,flo
 #undef local_4c
 #undef local_50
 #undef local_58
+
+#endif
 

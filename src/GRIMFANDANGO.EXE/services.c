@@ -241,6 +241,8 @@ void __cdecl Services_InitDefaults(GrimServices *svc)
 }
 
 /* ---- 0x004733a0  Services_SetCurrent ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Stores the module service table in g_pServices and captures the FPU control words used for
    rounding modes */
@@ -265,6 +267,8 @@ void __cdecl Services_SetCurrent(GrimServices *svc)
   _DAT_007f6490 = 1;
   return;
 }
+#endif
+
 
 /* ---- 0x00473400  Services_Clear ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */

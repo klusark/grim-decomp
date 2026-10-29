@@ -1239,6 +1239,8 @@ undefined4 D3D_ClearZBuffer(void)
 
 
 /* ---- 0x00479b50  D3D_FindClosestDriver ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 uint D3D_FindClosestDriver(int *param_1,int param_2,uint param_3)
 
 {
@@ -1277,6 +1279,8 @@ uint D3D_FindClosestDriver(int *param_1,int param_2,uint param_3)
   return local_4;
 }
 #undef local_4
+
+#endif
 
 
 /* ---- 0x00479be0  D3D_FindTextureFormat ---- */
@@ -1337,6 +1341,8 @@ uint D3D_FindTextureFormat(int *param_1,int param_2,uint param_3)
 
 
 /* ---- 0x00479cc0  D3D_SetViewportRect ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 void D3D_SetViewportRect(uint *param_1)
@@ -1378,6 +1384,8 @@ void D3D_SetViewportRect(uint *param_1)
   _DAT_00900560 = 0x8200;
   return;
 }
+#endif
+
 
 /* ---- 0x00479db0  D3D_InitRenderState ---- */
 /* replaced by the hand-written version in build/overrides.c */

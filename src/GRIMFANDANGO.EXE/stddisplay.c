@@ -3524,9 +3524,13 @@ void __cdecl Pixel_Convert(ushort *dst,int dstFormat,ushort *src,int srcFormat,u
 
 
 /* ---- 0x0047bbb0  Pixel_ConvertOne ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 int Pixel_ConvertOne(int param_1,undefined4 param_2,int param_3)
 
 {
   Pixel_Convert((ushort *)&param_3,param_1,(ushort *)&param_2,param_3,1);
   return param_3;
 }
+#endif
+

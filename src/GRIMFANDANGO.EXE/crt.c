@@ -3212,6 +3212,8 @@ LAB_004af9d3:
 }
 
 /* ---- 0x004afa90  _output ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* printf-family formatting core */
 
 uint _output(undefined4 param_1,char *param_2,uint *param_3)
@@ -3658,6 +3660,8 @@ LAB_004b01ef:
 #undef local_248
 #undef local_24c
 #undef uStack_1
+
+#endif
 
 
 /* ---- 0x004b0420  write_char ---- */
@@ -5339,6 +5343,8 @@ int _lseek_lk(uint param_1,int param_2,int param_3)
 }
 
 /* ---- 0x004b3620  _input ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* scanf-family parsing core */
 
 uint _input(undefined4 param_1,byte *param_2,uint *param_3)
@@ -6030,6 +6036,8 @@ LAB_004b4223:
 #undef local_1c7
 #undef local_1cc
 #undef local_1cd
+
+#endif
 
 
 /* ---- 0x004b4360  _hextodec ---- */

@@ -171,6 +171,8 @@ void __cdecl Vec3_Rotate(float *vec,float *rot)
 
 
 /* ---- 0x00446bd0  Matrix_GetAngles ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void __cdecl Matrix_GetAngles(float *matrix,float *outAngles)
 
 {
@@ -183,6 +185,8 @@ void __cdecl Matrix_GetAngles(float *matrix,float *outAngles)
   outAngles[1] = fVar1;
   return;
 }
+#endif
+
 
 /* ---- 0x0044e7d0  Frustum_TestSphere ---- */
 undefined1 Frustum_TestSphere(int *param_1,float *param_2,float param_3)
@@ -285,6 +289,8 @@ undefined1 Frustum_TestSphere(int *param_1,float *param_2,float param_3)
 
 
 /* ---- 0x0044ea50  Polygon_ClipToPlane ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 uint Polygon_ClipToPlane(float *param_1,float *param_2,float *param_3,undefined4 *param_4,
                         float *param_5,uint *param_6)
 
@@ -468,8 +474,12 @@ LAB_0044ed90:
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x0044eeb0  Angles_ToMatrix ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void Angles_ToMatrix(float *param_1,undefined4 *param_2,float *param_3)
 
 {
@@ -513,6 +523,8 @@ void Angles_ToMatrix(float *param_1,undefined4 *param_2,float *param_3)
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x0044efd0  Matrix_Transpose ---- */
 void __cdecl Matrix_Transpose(float *out,float *m)
@@ -541,6 +553,8 @@ void __cdecl Matrix_Transpose(float *out,float *m)
 }
 
 /* ---- 0x0044f080  Angles_ToMatrixNoPos ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void Angles_ToMatrixNoPos(float *param_1,undefined4 *param_2)
 
 {
@@ -583,6 +597,8 @@ void Angles_ToMatrixNoPos(float *param_1,undefined4 *param_2)
 #undef local_4
 #undef local_8
 #undef local_c
+
+#endif
 
 
 /* ---- 0x0044f1a0  Matrix_BuildTranslation ---- */
@@ -628,6 +644,8 @@ void Matrix_BuildTranslation2(undefined4 *param_1,undefined4 *param_2)
 }
 
 /* ---- 0x0044f210  Matrix_AxisAngle ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void Matrix_AxisAngle(float *param_1,float *param_2,float param_3)
 
 {
@@ -734,6 +752,8 @@ void Matrix_AxisAngle(float *param_1,float *param_2,float param_3)
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x0044f490  Camera_BuildBasis ---- */
 /* Camera basis from (position, interest, roll) into out[0..11]: out+0 right = normalise(forward x
@@ -802,6 +822,8 @@ void Camera_BuildBasis(float *param_1,float *param_2,float *param_3,undefined4 p
 
 
 /* ---- 0x0044f650  Matrix_ToAngles ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Variable defined which should be unmapped: local_28 */
 
 void Matrix_ToAngles(float *param_1,float *param_2)
@@ -899,6 +921,8 @@ void Matrix_ToAngles(float *param_1,float *param_2)
 #undef local_4
 #undef local_8
 #undef local_c
+
+#endif
 
 
 /* ---- 0x0044f880  Matrix_Identity ---- */
@@ -1309,6 +1333,8 @@ void FUN_00450290(float *param_1,float *param_2,float *param_3,float *param_4)
 
 
 /* ---- 0x00450380  FUN_00450380 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_00450380(float *param_1,float param_2)
 
 {
@@ -1347,6 +1373,8 @@ void FUN_00450380(float *param_1,float param_2)
   param_1[2] = param_1[2];
   return;
 }
+#endif
+
 
 /* ---- 0x00450410  FUN_00450410 ---- */
 undefined4 FUN_00450410(float *param_1,float *param_2,float *param_3)

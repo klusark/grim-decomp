@@ -279,6 +279,8 @@ Actor_SetHead(void *actor,int joint1,int joint2,int joint3,float maxRoll,float m
 
 
 /* ---- 0x0048fa60  Actor_CanSeePoint ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* True when the point lies within the head joint's view cone (cosine threshold at costume+0x24 set
    by Actor_SetHead) */
 
@@ -339,6 +341,8 @@ int __cdecl Actor_CanSeePoint(void *actor,float *point,float *outDistance)
 #undef local_48
 #undef local_8
 #undef local_c
+
+#endif
 
 
 /* ---- 0x0048fb80  Actor_CanSee ---- */
@@ -460,6 +464,8 @@ void Actor_UpdateMovement(void *param_1,float param_2)
 }
 
 /* ---- 0x0048fe80  Actor_UpdateLookAt ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Head tracking: turns the three head joints toward the look-at point (extra+0) limited by the look
    rate and the yaw/pitch limits */
 
@@ -600,6 +606,8 @@ void __cdecl Actor_UpdateLookAt(void *actor,float dt)
 #undef local_bc
 #undef local_c0
 #undef local_c4
+
+#endif
 
 
 /* ---- 0x00490210  Actor_UpdateTalk ---- */
@@ -858,6 +866,8 @@ void Actor_SetFollowBoxes(int param_1,int param_2)
 }
 
 /* ---- 0x00490730  Actor_CreateWalker ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Source: Engine/sputActor.cpp (line 1637, from __FILE__/__LINE__ passed to the allocator) */
 
 void Actor_CreateWalker(void *param_1,int param_2)
@@ -914,6 +924,8 @@ void Actor_CreateWalker(void *param_1,int param_2)
 #undef local_c
 #undef pcStack_8
 
+#endif
+
 
 /* ---- 0x00490870  Actor_SetPositionClamped ---- */
 void Actor_SetPositionClamped(int param_1,float *param_2)
@@ -949,6 +961,8 @@ void Actor_SetPositionClamped(int param_1,float *param_2)
 }
 
 /* ---- 0x00490900  Actor_SetRot ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Variable defined which should be unmapped: local_40 */
 /* Actor_SetRot(actor, angles, snap): clears actor+8 bit 0 first, which ends a WalkActorTo path walk
    (Actor_UpdateMovement only calls Actor_FollowPath while it is set). Pitch (+0x24) and roll
@@ -1010,6 +1024,8 @@ void Actor_SetRot(int param_1,undefined4 *param_2,int param_3)
 #undef local_24
 #undef local_30
 #undef local_40
+
+#endif
 
 
 /* ---- 0x00490a40  Actor_SetReflection ---- */
@@ -1187,6 +1203,8 @@ void __cdecl Actor_PopCostume(void *actor,int free)
 }
 
 /* ---- 0x00490f50  Actor_PuckOrient ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Variable defined which should be unmapped: local_68 */
 /* Actor_PuckOrient: at the end of the actor update when actor+4 & 0x10 (ActorPuckOrient). Rebuilds
    the actor matrix, takes the angle between its up row and the up vector of the walker frame; over
@@ -1268,8 +1286,12 @@ void Actor_PuckOrient(float param_1)
 #undef local_54
 #undef local_68
 
+#endif
+
 
 /* ---- 0x00491110  Actor_UpdateWalker ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void Actor_UpdateWalker(int param_1)
 
 {
@@ -1324,6 +1346,8 @@ void Actor_UpdateWalker(int param_1)
   *(undefined4 *)(param_1 + 0x14) = uVar4;
   return;
 }
+#endif
+
 
 /* ---- 0x004913f0  Actor_UpdateMoveChores ---- */
 /* Actor_UpdateMoveChores (after Actor_UpdateWalker): costume record [10] walk, [0xb] left turn,
@@ -1903,6 +1927,8 @@ void __cdecl Actor_ActivateShadow(void *actor,int shadowIdx,int active)
 }
 
 /* ---- 0x00493570  Actor_SetShadowPlane ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void Actor_SetShadowPlane(int param_1,char *param_2)
 
 {
@@ -1932,6 +1958,8 @@ void Actor_SetShadowPlane(int param_1,char *param_2)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x004935f0  Actor_SetShadowPoint ---- */
 void __cdecl Actor_SetShadowPoint(void *actor,float x,float y,float z)
@@ -2704,6 +2732,8 @@ LAB_004a5fa6:
 }
 
 /* ---- 0x004a8500  Actor_GetYawToPoint ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 float __thiscall Actor_GetYawToPoint(void *this,int a1)
 
 {
@@ -2739,4 +2769,6 @@ float __thiscall Actor_GetYawToPoint(void *this,int a1)
 #undef local_4
 #undef local_8
 #undef local_c
+
+#endif
 

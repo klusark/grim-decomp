@@ -35,6 +35,8 @@ void Primitives_Show(void)
 }
 
 /* ---- 0x00489600  FUN_00489600 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 FUN_00489600(code *param_1)
 
 {
@@ -66,8 +68,12 @@ undefined4 FUN_00489600(code *param_1)
 }
 #undef local_4
 
+#endif
+
 
 /* ---- 0x004896b0  FUN_004896b0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 FUN_004896b0(code *param_1)
 
 {
@@ -127,6 +133,8 @@ undefined4 FUN_004896b0(code *param_1)
 #undef uStack_4
 #undef uStack_8
 #undef uStack_c
+
+#endif
 
 
 /* ---- 0x004897d0  FUN_004897d0 ---- */
@@ -302,6 +310,8 @@ void __thiscall Primitive_Kill(void *this,int id)
 }
 
 /* ---- 0x0048a7b0  Primitive_SetColor ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined * __stdcall Primitive_SetColor(int a1,int a2)
 
 {
@@ -314,8 +324,12 @@ undefined * __stdcall Primitive_SetColor(int a1,int a2)
   }
   return (undefined *)0x0;
 }
+#endif
+
 
 /* ---- 0x0048a7e0  Primitive_SetLayer ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined * __stdcall Primitive_SetLayer(int a1,int a2)
 
 {
@@ -332,8 +346,12 @@ undefined * __stdcall Primitive_SetLayer(int a1,int a2)
   }
   return (undefined *)0x0;
 }
+#endif
+
 
 /* ---- 0x0048a830  Primitive_Offset ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined * __stdcall Primitive_Offset(int a1,int a2,int a3)
 
 {
@@ -350,8 +368,12 @@ undefined * __stdcall Primitive_Offset(int a1,int a2,int a3)
   }
   return (undefined *)0x0;
 }
+#endif
+
 
 /* ---- 0x0048a8a0  Primitive_MoveTo ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined * __stdcall Primitive_MoveTo(int a1,int a2,int a3)
 
 {
@@ -386,8 +408,12 @@ undefined * __stdcall Primitive_MoveTo(int a1,int a2,int a3)
   }
   return (undefined *)0x0;
 }
+#endif
+
 
 /* ---- 0x0048a960  Primitive_SetEnd ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined * __stdcall Primitive_SetEnd(int a1,int a2,int a3)
 
 {
@@ -409,8 +435,12 @@ undefined * __stdcall Primitive_SetEnd(int a1,int a2,int a3)
   }
   return puVar1;
 }
+#endif
+
 
 /* ---- 0x0048a9a0  Primitive_SetSize ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined * __stdcall Primitive_SetSize(int a1,int a2,int a3)
 
 {
@@ -432,6 +462,8 @@ undefined * __stdcall Primitive_SetSize(int a1,int a2,int a3)
   }
   return puVar1;
 }
+#endif
+
 
 /* ---- 0x0048aa20  Primitive_Draw ---- */
 void __stdcall Primitive_Draw(void *prim,void *canvas)

@@ -6,6 +6,8 @@
 #include "functions.h"
 
 /* ---- 0x100053e0  Chore_AdvanceTime ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Advances a chore by dt ms. Keys with time in [cur, cur+dt) are set; first update after
    Cos_InstPlayChore already takes dt (no zero-length first frame). time >= length ends the chore
    (flags and time cleared); a looping chore carries the remainder over from time 0. */
@@ -87,8 +89,12 @@ void __cdecl Chore_AdvanceTime(int param_1,int param_2,int param_3,int param_4,u
 }
 #undef local_4
 
+#endif
+
 
 /* ---- 0x10005530  FUN_10005530 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void __cdecl
 FUN_10005530(undefined4 param_1,undefined4 *param_2,undefined4 param_3,int param_4,
             undefined4 param_5,int param_6,undefined4 param_7,undefined4 param_8)
@@ -107,3 +113,5 @@ FUN_10005530(undefined4 param_1,undefined4 *param_2,undefined4 param_3,int param
              *(undefined4 *)(param_6 + 4),param_7,param_8);
   return;
 }
+#endif
+

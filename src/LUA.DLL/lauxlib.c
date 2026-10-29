@@ -6,6 +6,8 @@
 #include "functions.h"
 
 /* ---- 0x10002960  lauxlib__2960 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Unidentified function of lauxlib.c (argument checking helpers) */
 
 int __cdecl lauxlib__2960(undefined4 param_1)
@@ -19,6 +21,8 @@ int __cdecl lauxlib__2960(undefined4 param_1)
   }
   return (int)(char)param_1;
 }
+#endif
+
 
 /* ---- 0x10002990  lauxlib__2990 ---- */
 /* Unidentified function of lauxlib.c (argument checking helpers) */

@@ -6,6 +6,8 @@
 #include "functions.h"
 
 /* ---- 0x00491230  Walker_UpdateYaw ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Walker_UpdateYaw(actor, pos): eases the visible yaw (actor+0x28) toward the walker heading. Done
    (returns 1) when under 0.5 deg. step = rate*frameSec*timescale; if remaining > step, step =
    (remaining - step)*0.1 + step. Rate <= 0 (snap) jumps the whole way and re-negates the rate. */
@@ -80,6 +82,8 @@ undefined4 Walker_UpdateYaw(void *param_1,float *param_2)
 #undef local_40
 #undef local_44
 #undef local_48
+
+#endif
 
 
 /* ---- 0x00491650  Walker_ReplanPath ---- */
@@ -807,6 +811,8 @@ undefined * __thiscall Walker_TurnHeading(void *this,int a1)
 
 
 /* ---- 0x004a8450  Walker_TurnToPoint ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 float __thiscall Walker_TurnToPoint(void *this,int a1,int a2)
 
 {
@@ -838,6 +844,8 @@ float __thiscall Walker_TurnToPoint(void *this,int a1,int a2)
 #undef local_4
 #undef local_8
 #undef local_c
+
+#endif
 
 
 /* ---- 0x004a85b0  Walker_SetConstraint ---- */
@@ -872,6 +880,8 @@ undefined * __thiscall Walker_SetConstraint(void *this,int a1)
 
 
 /* ---- 0x004a8610  Walker_WalkSectors ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Variable defined which should be unmapped: local_48 */
 /* Walker_WalkSectors: the per-frame walk of an actor over the walk sectors (target-inside test with
    tolerance, exit point of the edge, neighbour lookup with the current sector deactivated, 0.02 cap
@@ -1020,6 +1030,8 @@ undefined * __thiscall Walker_WalkSectors(void *this,int a1,int a2,int a3)
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x004a89b0  Walker_SetSectorFrame ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -1080,6 +1092,8 @@ void __fastcall Walker_RebuildRightVector(int param_1)
 }
 
 /* ---- 0x004a8b00  Walker_DrawDebugAxes ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void __stdcall Walker_DrawDebugAxes(int color)
 
 {
@@ -1136,6 +1150,8 @@ void __stdcall Walker_DrawDebugAxes(int color)
 #undef local_4
 #undef local_8
 #undef local_c
+
+#endif
 
 
 /* ---- 0x004a9420  Planner_GetPath ---- */
@@ -1274,6 +1290,8 @@ undefined4 Planner_SearchSectors(float *param_1,float *param_2,void *param_3)
 
 
 /* ---- 0x004a96f0  Planner_CollectSharedCorners ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 uint Planner_CollectSharedCorners(void *param_1,float *param_2,uint *param_3)
 
 {
@@ -1403,6 +1421,8 @@ uint Planner_CollectSharedCorners(void *param_1,float *param_2,uint *param_3)
 #undef local_1e8
 #undef local_1ec
 #undef local_1f0
+
+#endif
 
 
 /* ---- 0x004a9920  Planner_PortalPoint ---- */

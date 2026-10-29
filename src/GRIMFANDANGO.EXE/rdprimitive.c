@@ -6,6 +6,8 @@
 #include "functions.h"
 
 /* ---- 0x00471ee0  rdPolyline_Draw ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Variable defined which should be unmapped: local_b0 */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -136,6 +138,8 @@ undefined4 rdPolyline_Draw(int param_1,float *param_2)
 #undef local_9c
 #undef local_a0
 #undef local_b0
+
+#endif
 
 
 /* ---- 0x00472360  rdPolyline_DrawFace ---- */
@@ -537,6 +541,8 @@ void rdSprite_FreeContents(int param_1)
 }
 
 /* ---- 0x00472bd0  rdSprite_Draw ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Frustum tests the sprite, builds the quad in the cache and clips it */
 
@@ -754,4 +760,6 @@ undefined4 rdSprite_Draw(int param_1,float *param_2)
 #undef local_74
 #undef local_78
 #undef local_7c
+
+#endif
 

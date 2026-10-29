@@ -582,6 +582,8 @@ LAB_0040b8c4:
 
 
 /* ---- 0x0040b8e0  FUN_0040b8e0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 FUN_0040b8e0(int param_1,int param_2)
 
 {
@@ -854,6 +856,8 @@ undefined4 FUN_0040b8e0(int param_1,int param_2)
 #undef local_1c
 #undef local_8
 #undef uStack_4
+
+#endif
 
 
 /* ---- 0x0040c090  FUN_0040c090 ---- */
@@ -1244,6 +1248,8 @@ void FUN_0040c710(int param_1,int param_2,float *param_3)
 
 
 /* ---- 0x0040c8c0  FUN_0040c8c0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 void FUN_0040c8c0(int param_1)
@@ -1282,8 +1288,12 @@ void FUN_0040c8c0(int param_1)
 }
 #undef local_4
 
+#endif
+
 
 /* ---- 0x0040c970  FUN_0040c970 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 void FUN_0040c970(int param_1,int param_2,float *param_3)
@@ -1356,6 +1366,8 @@ void FUN_0040c970(int param_1,int param_2,float *param_3)
 #undef local_a0
 #undef local_a4
 #undef local_a8
+
+#endif
 
 
 /* ---- 0x0040cad0  FUN_0040cad0 ---- */

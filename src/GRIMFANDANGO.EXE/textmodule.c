@@ -84,6 +84,8 @@ undefined4 FUN_004aa880(code *param_1)
 
 
 /* ---- 0x004aa8d0  TextModule_CheckHeader ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Expects 'TxtB', 1, 0 from the read function */
 
 undefined4 TextModule_CheckHeader(code *param_1)
@@ -106,3 +108,5 @@ undefined4 TextModule_CheckHeader(code *param_1)
   }
   return uVar2;
 }
+#endif
+

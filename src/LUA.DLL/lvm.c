@@ -317,6 +317,8 @@ undefined4 __thiscall lvm__db40(void *this,int a1)
 }
 
 /* ---- 0x1000dbd0  lvm__dbd0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Unidentified function of lvm.c (virtual machine) */
 
 undefined4 __thiscall lvm__dbd0(void *this,int a1,int a2,int a3)
@@ -376,8 +378,12 @@ undefined4 __thiscall lvm__dbd0(void *this,int a1,int a2,int a3)
 #undef pcStack_8
 #undef uStack_c
 
+#endif
+
 
 /* ---- 0x1000dd10  lvm__dd10 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Unidentified function of lvm.c (virtual machine) */
 
 void * __cdecl lvm__dd10(int size)
@@ -418,6 +424,8 @@ void * __cdecl lvm__dd10(int size)
 #undef local_4
 #undef local_c
 #undef pcStack_8
+
+#endif
 
 
 /* ---- 0x1000dd90  lvm__dd90 ---- */
