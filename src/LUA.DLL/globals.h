@@ -17,8 +17,6 @@ extern undefined4 lua_debug; /* 0x1002bee4, undefined4 in Ghidra */
 /* ---- unnamed data (type inferred from use) ---- */
 extern code LAB_1000f3b0;  /* code label (address only) */ /* used by 2 fn(s), first 0x1000f3d2 */
 extern code LAB_1001dec8;  /* code label (address only) */ /* used by 6 fn(s), first 0x10013930 */
-extern undefined DAT_10021fbb; /* used by 1 fn(s), first 0x10003260 */
-extern undefined DAT_1002201b; /* used by 1 fn(s), first 0x10008ad0 */
 extern undefined DAT_10023188; /* used by 1 fn(s), first 0x1000abd0 */
 extern undefined DAT_100232a8; /* used by 1 fn(s), first 0x1000abd0 */
 extern undefined DAT_10023378; /* used by 1 fn(s), first 0x1000abd0 */
@@ -48,6 +46,8 @@ extern undefined DAT_10024950; /* used by 1 fn(s), first 0x10018400 */
 extern undefined4 DAT_10024d10; /* used by 1 fn(s), first 0x1001d340 */
 extern undefined DAT_10024d2c; /* used by 1 fn(s), first 0x1001d340 */
 extern undefined4 DAT_10024d30; /* used by 1 fn(s), first 0x1001d340 */
+extern undefined UNK_10024df8; /* used by 1 fn(s), first 0x10021fbb */
+extern undefined UNK_10024e78; /* used by 1 fn(s), first 0x1002201b */
 extern undefined DAT_10026000; /* used by 1 fn(s), first 0x10015590 */
 extern undefined DAT_10026004; /* used by 1 fn(s), first 0x10015590 */
 extern undefined DAT_10026008; /* used by 1 fn(s), first 0x10015590 */

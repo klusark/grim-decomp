@@ -1,5 +1,5 @@
 /* LUA.DLL :: crt_unnamed.c
- * functions 0x1000f070 .. 0x1002205b (153 functions)
+ * functions 0x1000f070 .. 0x1002205b (155 functions)
  * Decompiled from the shipped binaries with Ghidra; see ../../README.md */
 #include "ghidra_types.h"
 #include "globals.h"
@@ -3791,6 +3791,16 @@ void FUN_10021fb0(void)
 #endif
 
 
+/* ---- 0x10021fbb  FUN_10021fbb ---- */
+undefined4 FUN_10021fbb(int *param_1,int param_2,int param_3,undefined4 param_4)
+
+{
+  undefined4 uVar1;
+  
+  uVar1 = __InternalCxxFrameHandler(param_1,param_2,param_3,param_4,(int *)&UNK_10024df8,0,0,'\0');
+  return uVar1;
+}
+
 /* ---- 0x10021fd0  FUN_10021fd0 ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
@@ -3862,6 +3872,16 @@ void FUN_10022010(void)
 }
 #endif
 
+
+/* ---- 0x1002201b  FUN_1002201b ---- */
+undefined4 FUN_1002201b(int *param_1,int param_2,int param_3,undefined4 param_4)
+
+{
+  undefined4 uVar1;
+  
+  uVar1 = __InternalCxxFrameHandler(param_1,param_2,param_3,param_4,(int *)&UNK_10024e78,0,0,'\0');
+  return uVar1;
+}
 
 /* ---- 0x10022030  FUN_10022030 ---- */
 /* replaced by the hand-written version in build/overrides.c */
