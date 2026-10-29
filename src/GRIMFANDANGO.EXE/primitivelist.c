@@ -116,19 +116,18 @@ undefined * __thiscall PrimitiveList_Invalidate(void *this,int a1)
 }
 
 /* ---- 0x0048abd0  PrimitiveList_FindById ---- */
-undefined * __stdcall PrimitiveList_FindById(int a1,int a2)
+void * __thiscall PrimitiveList_FindById(void *this,int id,void *after)
 
 {
   undefined4 *puVar1;
-  undefined4 *in_ECX;
   
-  if (a2 == 0) {
-    puVar1 = (undefined4 *)*in_ECX;
+  if (after == (void *)0x0) {
+    puVar1 = *(undefined4 **)this;
   }
   else {
-    puVar1 = *(undefined4 **)a2;
+    puVar1 = *(undefined4 **)after;
   }
-  for (; (puVar1 != (undefined4 *)0x0 && (puVar1[3] != a1)); puVar1 = (undefined4 *)*puVar1) {
+  for (; (puVar1 != (undefined4 *)0x0 && (puVar1[3] != id)); puVar1 = (undefined4 *)*puVar1) {
   }
-  return (undefined *)puVar1;
+  return puVar1;
 }

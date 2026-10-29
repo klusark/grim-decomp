@@ -84,7 +84,7 @@ LAB_004ac5ff:
 int __cdecl sprintf(char *buf,char *fmt,...)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x30];  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   #define local_20 (*(uint *)(_frame + (0x30 - 0x20)))
   #define local_1c (*(uint *)(_frame + (0x30 - 0x1c)))
@@ -1559,7 +1559,7 @@ uint memcmp(char *param_1,char *param_2,int param_3)
 int __cdecl sscanf(char *str,char *fmt,...)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x30];  /* Ghidra stack frame, see tools/frame_locals.py */
   char cVar1;
   int iVar2;
   uint uVar3;
@@ -1662,7 +1662,7 @@ uint * strchr(uint *param_1,char param_2)
 undefined4 _vsnprintf(uint param_1,uint param_2,undefined4 param_3)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x30];  /* Ghidra stack frame, see tools/frame_locals.py */
   undefined4 uVar1;
   #define local_20 (*(uint *)(_frame + (0x30 - 0x20)))
   #define local_1c (*(uint *)(_frame + (0x30 - 0x1c)))
@@ -3215,7 +3215,7 @@ LAB_004af9d3:
 uint _output(undefined4 param_1,char *param_2,uint *param_3)
 
 {
-  unsigned char _frame[0x260] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x260];  /* Ghidra stack frame, see tools/frame_locals.py */
   short sVar1;
   uint uVar2;
   undefined4 uVar3;

@@ -119,7 +119,7 @@ void FUN_004ad2b0(void)
 void FUN_004addf0(void)
 
 {
-  unsigned char _frame[0x1010] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x1010];  /* Ghidra stack frame, see tools/frame_locals.py */
   uint in_EAX;
   undefined1 *puVar1;
   uint local_res0;
@@ -8279,7 +8279,7 @@ bool FUN_004c5f50(undefined4 param_1)
 void FUN_004c5f80(undefined4 param_1,undefined4 param_2)
 
 {
-  unsigned char _frame[0x210] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x210];  /* Ghidra stack frame, see tools/frame_locals.py */
   char cVar1;
   uint uVar2;
   char *pcVar3;

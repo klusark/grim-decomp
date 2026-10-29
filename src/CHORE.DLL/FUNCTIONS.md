@@ -53,12 +53,12 @@
 | 10004090 | FUN_10004090 | costume.c | 36 |
 | 10004140 | FUN_10004140 | costume.c | 10 |
 | 10004170 | FUN_10004170 | costume.c | 23 |
-| 100041e0 | FUN_100041e0 | costume.c | 59 |
+| 100041e0 | FUN_100041e0 | costume.c | 66 |
 | 10004320 | FUN_10004320 | costume.c | 26 |
 | 10004390 | FUN_10004390 | costume.c | 1 |
 | 10004770 | FUN_10004770 | costume.c | 24 |
-| 100047f0 | FUN_100047f0 | costume.c | 71 |
-| 10004970 | FUN_10004970 | costume.c | 94 |
+| 100047f0 | FUN_100047f0 | costume.c | 78 |
+| 10004970 | FUN_10004970 | costume.c | 113 |
 | 10004bb0 | FUN_10004bb0 | costume.c | 34 |
 | 10004c40 | FUN_10004c40 | costume.c | 19 |
 | 10004c70 | FUN_10004c70 | costume.c | 50 |
@@ -81,7 +81,7 @@
 | 100056f0 | FUN_100056f0 | costume.c | 5 |
 | 10005700 | FUN_10005700 | costume.c | 13 |
 | 10005740 | FUN_10005740 | costume.c | 70 |
-| 10005810 | FUN_10005810 | costume.c | 33 |
+| 10005810 | FUN_10005810 | costume.c | 31 |
 | 10005860 | FUN_10005860 | costume.c | 300 |
 | 10005ba0 | FUN_10005ba0 | costume.c | 90 |
 | 10005d50 | FUN_10005d50 | costume.c | 18 |

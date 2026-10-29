@@ -198,16 +198,15 @@ void __fastcall FUN_0048a500(undefined4 *param_1)
 }
 
 /* ---- 0x0048a560  Primitive_AddLine ---- */
-int __stdcall Primitive_AddLine(int x1,int y1,int x2,int y2,int color,int layer)
+int __thiscall Primitive_AddLine(void *this,int x1,int y1,int x2,int y2,int color,int layer)
 
 {
   int id;
   void *pvVar1;
-  void *in_ECX;
   
   id = g_nNextPrimitiveId;
   g_nNextPrimitiveId = g_nNextPrimitiveId + 1;
-  pvVar1 = PrimitiveList_Append(in_ECX,id,layer);
+  pvVar1 = PrimitiveList_Append(this,id,layer);
   *(int *)((int)pvVar1 + 0x14) = x1;
   *(int *)((int)pvVar1 + 0x18) = y1;
   *(int *)((int)pvVar1 + 0x1c) = x2;
@@ -217,16 +216,16 @@ int __stdcall Primitive_AddLine(int x1,int y1,int x2,int y2,int color,int layer)
 }
 
 /* ---- 0x0048a5b0  Primitive_AddRect ---- */
-int __stdcall Primitive_AddRect(int x1,int y1,int x2,int y2,int color,int filled,int layer)
+int __thiscall
+Primitive_AddRect(void *this,int x1,int y1,int x2,int y2,int color,int filled,int layer)
 
 {
   int id;
   void *pvVar1;
-  void *in_ECX;
   
   id = g_nNextPrimitiveId;
   g_nNextPrimitiveId = g_nNextPrimitiveId + 1;
-  pvVar1 = PrimitiveList_Append(in_ECX,id,layer);
+  pvVar1 = PrimitiveList_Append(this,id,layer);
   *(undefined4 *)((int)pvVar1 + 8) = 1;
   *(int *)((int)pvVar1 + 0x14) = x1;
   *(int *)((int)pvVar1 + 0x18) = y1;
@@ -238,13 +237,12 @@ int __stdcall Primitive_AddRect(int x1,int y1,int x2,int y2,int color,int filled
 }
 
 /* ---- 0x0048a600  Primitive_AddPolyline ---- */
-int __stdcall Primitive_AddPolyline(int count,int *points,int color,int layer)
+int __thiscall Primitive_AddPolyline(void *this,int count,int *points,int color,int layer)
 
 {
   int *piVar1;
   int id;
   void *pvVar2;
-  void *in_ECX;
   int *piVar3;
   int iVar4;
   
@@ -254,7 +252,7 @@ int __stdcall Primitive_AddPolyline(int count,int *points,int color,int layer)
   if (0 < iVar4) {
     piVar3 = points + 1;
     do {
-      pvVar2 = PrimitiveList_Append(in_ECX,id,layer);
+      pvVar2 = PrimitiveList_Append(this,id,layer);
       *(undefined4 *)((int)pvVar2 + 8) = 2;
       *(int *)((int)pvVar2 + 0x14) = piVar3[-1];
       *(int *)((int)pvVar2 + 0x18) = *piVar3;
@@ -307,11 +305,12 @@ void __thiscall Primitive_Kill(void *this,int id)
 undefined * __stdcall Primitive_SetColor(int a1,int a2)
 
 {
-  undefined *a2_00;
+  void *after;
+  void *in_ECX;
   
-  for (a2_00 = PrimitiveList_FindById(a1,0); a2_00 != (undefined *)0x0;
-      a2_00 = PrimitiveList_FindById(a1,(int)a2_00)) {
-    *(int *)(a2_00 + 0x24) = a2;
+  for (after = PrimitiveList_FindById(in_ECX,a1,(void *)0x0); after != (void *)0x0;
+      after = PrimitiveList_FindById(in_ECX,a1,after)) {
+    *(int *)((int)after + 0x24) = a2;
   }
   return (undefined *)0x0;
 }
@@ -320,15 +319,16 @@ undefined * __stdcall Primitive_SetColor(int a1,int a2)
 undefined * __stdcall Primitive_SetLayer(int a1,int a2)
 
 {
-  undefined *a1_00;
+  void *after;
+  void *in_ECX;
   
-  for (a1_00 = PrimitiveList_FindById(a1,0); a1_00 != (undefined *)0x0;
-      a1_00 = PrimitiveList_FindById(a1,(int)a1_00)) {
-    Primitive_Invalidate((int)a1_00);
+  for (after = PrimitiveList_FindById(in_ECX,a1,(void *)0x0); after != (void *)0x0;
+      after = PrimitiveList_FindById(in_ECX,a1,after)) {
+    Primitive_Invalidate((int)after);
     if ((a2 != 2) && (a2 != 1)) {
       a2 = 2;
     }
-    *(int *)(a1_00 + 0x10) = a2;
+    *(int *)((int)after + 0x10) = a2;
   }
   return (undefined *)0x0;
 }
@@ -337,15 +337,16 @@ undefined * __stdcall Primitive_SetLayer(int a1,int a2)
 undefined * __stdcall Primitive_Offset(int a1,int a2,int a3)
 
 {
-  undefined *a1_00;
+  void *after;
+  void *in_ECX;
   
-  for (a1_00 = PrimitiveList_FindById(a1,0); a1_00 != (undefined *)0x0;
-      a1_00 = PrimitiveList_FindById(a1,(int)a1_00)) {
-    Primitive_Invalidate((int)a1_00);
-    *(int *)(a1_00 + 0x14) = *(int *)(a1_00 + 0x14) + a2;
-    *(int *)(a1_00 + 0x20) = *(int *)(a1_00 + 0x20) + a3;
-    *(int *)(a1_00 + 0x18) = *(int *)(a1_00 + 0x18) + a3;
-    *(int *)(a1_00 + 0x1c) = *(int *)(a1_00 + 0x1c) + a2;
+  for (after = PrimitiveList_FindById(in_ECX,a1,(void *)0x0); after != (void *)0x0;
+      after = PrimitiveList_FindById(in_ECX,a1,after)) {
+    Primitive_Invalidate((int)after);
+    *(int *)((int)after + 0x14) = *(int *)((int)after + 0x14) + a2;
+    *(int *)((int)after + 0x20) = *(int *)((int)after + 0x20) + a3;
+    *(int *)((int)after + 0x18) = *(int *)((int)after + 0x18) + a3;
+    *(int *)((int)after + 0x1c) = *(int *)((int)after + 0x1c) + a2;
   }
   return (undefined *)0x0;
 }
@@ -354,32 +355,33 @@ undefined * __stdcall Primitive_Offset(int a1,int a2,int a3)
 undefined * __stdcall Primitive_MoveTo(int a1,int a2,int a3)
 
 {
-  undefined *puVar1;
+  void *pvVar1;
+  void *in_ECX;
   int iVar2;
   int iVar3;
   
   iVar2 = 0;
   iVar3 = 0;
-  puVar1 = PrimitiveList_FindById(a1,0);
-  if (puVar1 != (undefined *)0x0) {
-    Primitive_Invalidate((int)puVar1);
+  pvVar1 = PrimitiveList_FindById(in_ECX,a1,(void *)0x0);
+  if (pvVar1 != (void *)0x0) {
+    Primitive_Invalidate((int)pvVar1);
     if (a2 != -1) {
-      iVar3 = a2 - *(int *)(puVar1 + 0x14);
-      *(int *)(puVar1 + 0x14) = a2;
+      iVar3 = a2 - *(int *)((int)pvVar1 + 0x14);
+      *(int *)((int)pvVar1 + 0x14) = a2;
     }
     if (a3 != -1) {
-      iVar2 = a3 - *(int *)(puVar1 + 0x18);
-      *(int *)(puVar1 + 0x18) = a3;
+      iVar2 = a3 - *(int *)((int)pvVar1 + 0x18);
+      *(int *)((int)pvVar1 + 0x18) = a3;
     }
-    *(int *)(puVar1 + 0x20) = *(int *)(puVar1 + 0x20) + iVar2;
-    *(int *)(puVar1 + 0x1c) = *(int *)(puVar1 + 0x1c) + iVar3;
-    for (puVar1 = PrimitiveList_FindById(a1,(int)puVar1); puVar1 != (undefined *)0x0;
-        puVar1 = PrimitiveList_FindById(a1,(int)puVar1)) {
-      Primitive_Invalidate((int)puVar1);
-      *(int *)(puVar1 + 0x14) = *(int *)(puVar1 + 0x14) + iVar3;
-      *(int *)(puVar1 + 0x18) = *(int *)(puVar1 + 0x18) + iVar2;
-      *(int *)(puVar1 + 0x1c) = *(int *)(puVar1 + 0x1c) + iVar3;
-      *(int *)(puVar1 + 0x20) = *(int *)(puVar1 + 0x20) + iVar2;
+    *(int *)((int)pvVar1 + 0x20) = *(int *)((int)pvVar1 + 0x20) + iVar2;
+    *(int *)((int)pvVar1 + 0x1c) = *(int *)((int)pvVar1 + 0x1c) + iVar3;
+    for (pvVar1 = PrimitiveList_FindById(in_ECX,a1,pvVar1); pvVar1 != (void *)0x0;
+        pvVar1 = PrimitiveList_FindById(in_ECX,a1,pvVar1)) {
+      Primitive_Invalidate((int)pvVar1);
+      *(int *)((int)pvVar1 + 0x14) = *(int *)((int)pvVar1 + 0x14) + iVar3;
+      *(int *)((int)pvVar1 + 0x18) = *(int *)((int)pvVar1 + 0x18) + iVar2;
+      *(int *)((int)pvVar1 + 0x1c) = *(int *)((int)pvVar1 + 0x1c) + iVar3;
+      *(int *)((int)pvVar1 + 0x20) = *(int *)((int)pvVar1 + 0x20) + iVar2;
     }
   }
   return (undefined *)0x0;
@@ -389,19 +391,20 @@ undefined * __stdcall Primitive_MoveTo(int a1,int a2,int a3)
 undefined * __stdcall Primitive_SetEnd(int a1,int a2,int a3)
 
 {
-  undefined *a1_00;
+  void *a1_00;
   undefined *puVar1;
+  void *in_ECX;
   
-  a1_00 = PrimitiveList_FindById(a1,0);
+  a1_00 = PrimitiveList_FindById(in_ECX,a1,(void *)0x0);
   puVar1 = (undefined *)0x0;
-  if (a1_00 != (undefined *)0x0) {
+  if (a1_00 != (void *)0x0) {
     Primitive_Invalidate((int)a1_00);
     if (a2 != -1) {
-      *(int *)(a1_00 + 0x1c) = a2;
+      *(int *)((int)a1_00 + 0x1c) = a2;
     }
     puVar1 = (undefined *)a3;
     if (a3 != -1) {
-      *(int *)(a1_00 + 0x20) = a3;
+      *(int *)((int)a1_00 + 0x20) = a3;
     }
   }
   return puVar1;
@@ -411,19 +414,20 @@ undefined * __stdcall Primitive_SetEnd(int a1,int a2,int a3)
 undefined * __stdcall Primitive_SetSize(int a1,int a2,int a3)
 
 {
-  undefined *a1_00;
+  void *a1_00;
   undefined *puVar1;
+  void *in_ECX;
   
-  a1_00 = PrimitiveList_FindById(a1,0);
+  a1_00 = PrimitiveList_FindById(in_ECX,a1,(void *)0x0);
   puVar1 = (undefined *)0x0;
-  if (a1_00 != (undefined *)0x0) {
+  if (a1_00 != (void *)0x0) {
     Primitive_Invalidate((int)a1_00);
     if (a2 != -1) {
-      *(int *)(a1_00 + 0x1c) = *(int *)(a1_00 + 0x14) + a2;
+      *(int *)((int)a1_00 + 0x1c) = *(int *)((int)a1_00 + 0x14) + a2;
     }
     puVar1 = (undefined *)a3;
     if (a3 != -1) {
-      *(int *)(a1_00 + 0x20) = *(int *)(a1_00 + 0x18) + a3;
+      *(int *)((int)a1_00 + 0x20) = *(int *)((int)a1_00 + 0x18) + a3;
     }
   }
   return puVar1;

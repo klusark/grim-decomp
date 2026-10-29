@@ -53,7 +53,7 @@ extern undefined DAT_100143b0; /* used by 1 fn(s), first 0x100037a0 */
 extern undefined4 DAT_100143b4; /* used by 35 fn(s), first 0x10001040 */
 extern undefined DAT_100143b8; /* used by 9 fn(s), first 0x10001ed0 */
 extern undefined DAT_100143bc; /* used by 3 fn(s), first 0x10004f30 */
-extern int * PTR_100143c0; /* used by 30 fn(s), first 0x10001110 */
+extern int * PTR_100143c0; /* used by 31 fn(s), first 0x10001110 */
 extern undefined DAT_100143c4; /* used by 4 fn(s), first 0x10001a30 */
 extern undefined4 DAT_100143c8; /* used by 12 fn(s), first 0x10001000 */
 extern int DAT_100143cc; /* used by 31 fn(s), first 0x10001000 */
@@ -148,8 +148,8 @@ extern undefined DAT_10015af8; /* used by 1 fn(s), first 0x10006070 */
 #define _DAT_10010908 (*(undefined4 *)&DAT_10010908) /* same address as DAT_10010908, other width */
 #define _DAT_10010ac8 (*(undefined4 *)&DAT_10010ac8) /* same address as DAT_10010ac8, other width */
 #define _DAT_10010ad0 (*(undefined4 *)&DAT_10010ad0) /* same address as DAT_10010ad0, other width */
-#define _DAT_10010ad8 (*(undefined4 *)&DAT_10010ad8) /* same address as DAT_10010ad8, other width */
-#define _DAT_10010adc (*(undefined4 *)&DAT_10010adc) /* same address as DAT_10010adc, other width */
+#define _DAT_10010ad8 (*(undefined2 * *)&DAT_10010ad8) /* same address as DAT_10010ad8, other width */
+#define _DAT_10010adc (*(undefined2 * *)&DAT_10010adc) /* same address as DAT_10010adc, other width */
 #define _DAT_100117a8 (*(undefined4 *)&DAT_100117a8) /* same address as DAT_100117a8, other width */
 #define _DAT_100117ac (*(undefined4 * *)&DAT_100117ac) /* same address as DAT_100117ac, other width */
 #define _DAT_100117b8 (*(undefined4 *)&DAT_100117b8) /* same address as DAT_100117b8, other width */

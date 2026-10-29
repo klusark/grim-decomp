@@ -247,7 +247,7 @@ int __cdecl vsprintf(char *buf,char *fmt,void *args)
 int __cdecl sprintf(char *buf,char *fmt,...)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x30];  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   #define local_20 (*(char **)(_frame + (0x30 - 0x20)))
   #define local_1c (*(int *)(_frame + (0x30 - 0x1c)))
@@ -3317,7 +3317,7 @@ uint __cdecl strncmp(char *param_1,char *param_2,int param_3)
 int __cdecl sscanf(char *str,char *fmt,...)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x30];  /* Ghidra stack frame, see tools/frame_locals.py */
   char cVar1;
   int iVar2;
   uint uVar3;
@@ -4468,7 +4468,7 @@ LAB_100142b3:
 int __cdecl _output(int *param_1,char *param_2,undefined4 *param_3)
 
 {
-  unsigned char _frame[0x260] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x260];  /* Ghidra stack frame, see tools/frame_locals.py */
   ushort uVar1;
   int a3;
   uint uVar2;

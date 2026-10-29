@@ -226,11 +226,28 @@ void Im_DSoundCreateBuffer(int n)
  * splits its jump-table cases into pieces, so it can neither be decompiled nor assembled from its
  * listing. sscanf calls it on a FILE that wraps a string (_ptr = current position, MSVC layout
  * {_ptr, _cnt, _base, _flag}), so the host's vsscanf on that string does the same job. */
-extern int vsscanf(const char *, const char *, void *);
-int FUN_10006b30(undefined4 stream, byte *format, undefined4 *args)
+/* (mingw's vsscanf is no help: it rebuilds the call from the format and crashes on these.) Every
+ * scanf output is a pointer, so the va_list words are forwarded to msvcrt's sscanf as 32 extra
+ * arguments; the callee reads as many as the format needs and the caller pops them all. */
+typedef int (*scanf_fn)(const char *, const char *,
+                        unsigned, unsigned, unsigned, unsigned, unsigned, unsigned, unsigned, unsigned,
+                        unsigned, unsigned, unsigned, unsigned, unsigned, unsigned, unsigned, unsigned,
+                        unsigned, unsigned, unsigned, unsigned, unsigned, unsigned, unsigned, unsigned,
+                        unsigned, unsigned, unsigned, unsigned, unsigned, unsigned, unsigned, unsigned);
+/* libmsvcrt.a has no import entry for sscanf (mingw has its own), so ask msvcrt.dll for it */
+extern void *__attribute__((stdcall)) GRIM_LoadLibraryA(const char *) __asm__("_LoadLibraryA@4");
+extern void *__attribute__((stdcall)) GRIM_GetProcAddress(void *, const char *) __asm__("_GetProcAddress@8");
+int FUN_10006b30(undefined4 stream, byte *format, undefined4 *a)
 {
+    static scanf_fn host_sscanf;
     const char *s = *(const char **)(unsigned)stream;
-    return vsscanf(s, (const char *)format, args);
+    if (!host_sscanf)
+        host_sscanf = (scanf_fn)GRIM_GetProcAddress(GRIM_LoadLibraryA("msvcrt.dll"), "sscanf");
+    return host_sscanf(s, (const char *)format,
+                         a[0], a[1], a[2], a[3], a[4], a[5], a[6], a[7],
+                         a[8], a[9], a[10], a[11], a[12], a[13], a[14], a[15],
+                         a[16], a[17], a[18], a[19], a[20], a[21], a[22], a[23],
+                         a[24], a[25], a[26], a[27], a[28], a[29], a[30], a[31]);
 }
 #endif /* GRIM_CHORE */
 

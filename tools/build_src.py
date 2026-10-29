@@ -866,6 +866,10 @@ def fix_function(code, ctx, stats):
     # last: offset-named locals become views into one frame array (keeps Ghidra's layout)
     body, trailer = frame_locals.rewrite(body)
     body = float_frame_locals(body)
+    # STACK0X(0x..) is __builtin_frame_address(0) + offset: an aligned local makes gcc realign the
+    # stack and move the frame pointer away from the argument area, so those functions get no alignment
+    if re.search(r"STACK0X\(0x0", body):
+        body = body.replace(" __attribute__((aligned(16)))", "")
     return head + body + trailer
 
 
