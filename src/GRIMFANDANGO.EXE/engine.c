@@ -94,7 +94,7 @@ void Engine_ShutdownGame(void)
     UINT_008a8c40 = 0;
     Control_Release();
     Render_Close();
-    Set_SetCurrent((void *)0x0);
+    Set_SetCurrent((void *)0x0,0);
     UINT_008a8c78 = 0;
   }
   return;
@@ -288,7 +288,7 @@ void Engine_UpdateFrame(int param_1,int param_2)
     Profile_Begin(1);
     uVar1 = Timer_GetFrameMs();
     fVar2 = Timer_GetFrameSeconds();
-    ((code *)Engine_RunShutdownHooks)(fVar2,uVar1);
+    Engine_RunShutdownHooks(fVar2,uVar1);
     Profile_End(1);
     if ((UINT_008a8c40 != 1) || (param_2 != 0)) {
       UINT_008a8c3c = UINT_008a8c3c + 1;
@@ -1192,7 +1192,7 @@ void __cdecl Engine_RegisterShutdownHook(void *fn)
 /* ---- 0x0048d1c0  Engine_RunShutdownHooks ---- */
 /* Runs the registered shutdown hooks (Engine_RegisterShutdownHook) then dumps the memory log */
 
-void Engine_RunShutdownHooks(undefined4 param_1)
+void __cdecl Engine_RunShutdownHooks(undefined4 param_1,undefined4 param_2)
 
 {
   int iVar1;

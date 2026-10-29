@@ -108,9 +108,7 @@ void * __cdecl Actor_CreateSubtitle(void *actor,char *text,int x,int y)
   char *pcVar2;
   void *pvVar3;
   int iVar4;
-  int unaff_ESI;
   uint *puVar5;
-  int unaff_EDI;
   uint *puVar6;
   #define local_5c (*(uint *)(_frame + (0x70 - 0x5c)))
   #define local_58 (*(uint *)(_frame + (0x70 - 0x58)))
@@ -194,7 +192,7 @@ void * __cdecl Actor_CreateSubtitle(void *actor,char *text,int x,int y)
   }
   local_20 = *(int *)(*(int *)local_28 + 8) + y;
   local_24 = x;
-  pvVar3 = TextObject_New(&local_30,text,unaff_EDI,unaff_ESI);
+  pvVar3 = TextObject_New(&local_30,text);
   *(void **)((int)pvVar3 + 0x254) = pvVar1;
   *(uint *)((int)pvVar1 + 4) = *(uint *)((int)pvVar1 + 4) | 4;
   return pvVar3;

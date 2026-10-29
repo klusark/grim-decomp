@@ -133,7 +133,7 @@ void FUN_0048c6f0(void)
 }
 
 /* ---- 0x0048c7e0  TextObject_New ---- */
-void * __cdecl TextObject_New(void *ctx,char *text,int durationMs,int flags)
+void * __cdecl TextObject_New(void *ctx,char *text)
 
 {
   undefined4 *puVar1;

@@ -311,7 +311,7 @@ uint __cdecl luaX_lex(float *param_1)
         *puVar2 = uVar4;
         if (uVar4 == 0x2e) {
           luaL_addchar(0);
-          lparser__a730();
+          lparser__a730(s_ambiguous_syntax__decimal_point_x_10026e5c);
         }
       }
 LAB_10006398:
@@ -534,7 +534,7 @@ LAB_10006563:
     case 0xffffffff:
       luaL_addchar(0);
       if (0 < (int)puVar2[5]) {
-        luaY_error();
+        luaY_error(s_input_ends_inside_a__if_10026e44,&DAT_1002bedc);
       }
       return 0;
     }
@@ -648,6 +648,8 @@ void __cdecl luaX_pragma(uint *param_1)
   uint uVar3;
   int iVar4;
   uint uVar5;
+  char *msg;
+  byte *token;
   #define local_18 (*(byte (*)[24])(_frame + (0x30 - 0x18)))
   
   *(int *)param_1[1] = *(int *)param_1[1] + -1;
@@ -699,14 +701,14 @@ void __cdecl luaX_pragma(uint *param_1)
     uVar2 = param_1[5];
     param_1[5] = uVar2 - 1;
     if (uVar2 != 0) break;
-  default:
-    luaY_error();
-    break;
+    token = &DAT_10026f00;
+    msg = s_unmatched__end_10026ef0;
+    goto LAB_10006a8e;
   case 4:
     uVar5 = 1;
   case 5:
     if (param_1[5] == 4) {
-      luaY_error();
+      luaY_error(s_too_many_nested__ifs_10026ed4,&DAT_10026eec);
     }
     llex__6bb0(param_1,(int)local_18);
     uVar3 = param_1[5];
@@ -726,7 +728,7 @@ void __cdecl luaX_pragma(uint *param_1)
     break;
   case 6:
     if (param_1[(param_1[5] + 2) * 3] != 0) {
-      luaY_error();
+      luaY_error(s_unmatched__else_10026ebc,s__else_10026ecc);
     }
     param_1[(param_1[5] + 2) * 3] = 1;
     uVar2 = param_1[5];
@@ -736,11 +738,17 @@ void __cdecl luaX_pragma(uint *param_1)
     else {
       param_1[uVar2 * 3 + 8] = 1;
     }
+    break;
+  default:
+    token = local_18;
+    msg = s_unknown_pragma_10026eac;
+LAB_10006a8e:
+    luaY_error(msg,(char *)token);
   }
   luaX_inclinenumber(param_1);
   if (*param_1 != 10) {
     if (*param_1 != 0xffffffff) {
-      luaY_error();
+      luaY_error(s_invalid_pragma_format_10026e94,(char *)local_18);
     }
     llex__6c30(param_1);
     return;
@@ -792,7 +800,7 @@ uint __cdecl luaX_error(byte *param_1)
   if ((int)uVar2 < 0) {
     uVar2 = FUN_1000f5c0((uint)*param_1);
     if ((uVar2 == 0) && (*param_1 != 0x5f)) {
-      luaY_error();
+      luaY_error(s_invalid__if_condition_10026f08,(char *)param_1);
       return 0;
     }
     bVar1 = lstring__9550(param_1);
@@ -819,7 +827,7 @@ void __cdecl llex__6bb0(uint *param_1,int param_2)
     if ((uVar3 == 0) && (*param_1 != 0x5f)) break;
     if (0x13 < iVar4) {
       *(undefined1 *)(param_2 + 0x14) = 0;
-      luaY_error();
+      luaY_error(s_pragma_too_long_10026f20,(char *)param_2);
     }
     *(char *)(iVar4 + param_2) = (char)*param_1;
     iVar4 = iVar4 + 1;
@@ -854,7 +862,7 @@ void __cdecl llex__6c30(uint *param_1)
       luaX_pragma(param_1);
     }
     else if (*param_1 == 0xffffffff) {
-      luaY_error();
+      luaY_error(s_input_ends_inside_a__if_10026e44,&DAT_1002bedc);
     }
     else {
       *(int *)param_1[1] = *(int *)param_1[1] + -1;
