@@ -172,6 +172,8 @@ undefined4 rdPuppet_PlayTrack(int param_1,int param_2)
 }
 
 /* ---- 0x00450720  rdPuppet_FadeInTrack ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 int __cdecl rdPuppet_FadeInTrack(void *puppet,int track,float seconds)
 
 {
@@ -186,8 +188,12 @@ int __cdecl rdPuppet_FadeInTrack(void *puppet,int track,float seconds)
   puVar1[7] = 0x3f800000;
   return 1;
 }
+#endif
+
 
 /* ---- 0x00450780  rdPuppet_FadeOutTrack ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 int __cdecl rdPuppet_FadeOutTrack(void *puppet,int track,float seconds)
 
 {
@@ -202,8 +208,12 @@ int __cdecl rdPuppet_FadeOutTrack(void *puppet,int track,float seconds)
   puVar1[7] = 0x3f800000;
   return 1;
 }
+#endif
+
 
 /* ---- 0x004507e0  rdPuppet_AdvanceTrack ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Advances the track time, handles fades and loops, stops finished tracks */
 
 void __cdecl rdPuppet_AdvanceTrack(void *puppet,int track,float dt)
@@ -329,6 +339,8 @@ void __cdecl rdPuppet_AdvanceTrack(void *puppet,int track,float dt)
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x00450a90  rdPuppet_Advance ---- */
 /* WARNING: Variable defined which should be unmapped: local_14 */
@@ -409,6 +421,8 @@ void rdPuppet_ClearTrackNodes(int param_1,int param_2)
 }
 
 /* ---- 0x00450ba0  rdPuppet_UpdateFrame ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Variable defined which should be unmapped: local_88 */
 
 void __cdecl rdPuppet_UpdateFrame(void *model,float *frame)
@@ -757,8 +771,12 @@ void __cdecl rdPuppet_UpdateFrame(void *model,float *frame)
 #undef local_88
 #undef local_c
 
+#endif
+
 
 /* ---- 0x00451510  rdKeyframe_Interpolate ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Blends keyframe node transforms into the puppet's output matrices (returns the weight) */
 
 float __cdecl
@@ -879,8 +897,12 @@ LAB_0045173f:
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x00451800  rdKeyframe_InterpolateNode ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 float __cdecl
 rdKeyframe_InterpolateNode
           (int *param_1,int param_2,uint param_3,uint param_4,int param_5,float *param_6,int param_7
@@ -936,4 +958,6 @@ rdKeyframe_InterpolateNode
 #undef local_4
 #undef local_8
 #undef local_c
+
+#endif
 

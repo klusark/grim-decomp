@@ -36,6 +36,8 @@ void __cdecl Shadow_SetColor(int r,int g,int b)
 }
 
 /* ---- 0x00494bf0  Shadow_DrawClippedPoly ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Clips the projected polygon against each sector of the shadow plane and draws it, growing the
    dirty box */
 
@@ -88,4 +90,6 @@ void __cdecl Shadow_DrawClippedPoly(float *verts,int count,float *minXY,float *m
 }
 #undef local_90
 #undef local_b4
+
+#endif
 

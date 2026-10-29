@@ -95,6 +95,8 @@ void luaX_save(void)
 }
 
 /* ---- 0x10005d00  luaX_lex ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* llex.c: main tokenizer; numbers are returned through the float out-parameter */
 
 uint __cdecl luaX_lex(float *param_1)
@@ -631,6 +633,8 @@ LAB_10006241:
 #undef local_10
 #undef local_8
 
+#endif
+
 
 /* ---- 0x10006890  luaX_pragma ---- */
 /* llex.c: handles the $debug / $nodebug / $if pragmas */
@@ -964,6 +968,8 @@ switchD_10006cce_caseD_5b:
 }
 
 /* ---- 0x10006ea0  FUN_10006ea0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_10006ea0(void)
 
 {
@@ -978,6 +984,8 @@ void FUN_10006ea0(void)
   return;
 }
 #undef uStack_4
+
+#endif
 
 
 /* ---- 0x10006ee0  FUN_10006ee0 ---- */
@@ -1218,6 +1226,8 @@ void FUN_100071b0(void)
 }
 
 /* ---- 0x100071d0  FUN_100071d0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_100071d0(void)
 
 {
@@ -1243,8 +1253,12 @@ void FUN_100071d0(void)
 }
 #undef fStack_4
 
+#endif
+
 
 /* ---- 0x10007230  FUN_10007230 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_10007230(void)
 
 {
@@ -1269,6 +1283,8 @@ void FUN_10007230(void)
   return;
 }
 #undef fStack_4
+
+#endif
 
 
 /* ---- 0x10007290  FUN_10007290 ---- */

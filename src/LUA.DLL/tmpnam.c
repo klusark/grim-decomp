@@ -76,6 +76,8 @@ void __cdecl tmpnam_genfname(int param_1)
 }
 
 /* ---- 0x100102a0  FUN_100102a0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 __cdecl FUN_100102a0(byte *param_1)
 
 {
@@ -118,3 +120,5 @@ undefined4 __cdecl FUN_100102a0(byte *param_1)
   }
   return 0;
 }
+#endif
+

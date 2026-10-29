@@ -327,6 +327,8 @@ undefined1 * __cdecl luaB_tostring(int param_1)
 
 
 /* ---- 0x10003260  lbuiltin__3260 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Unidentified function of lbuiltin.c (built-in functions) */
 
 void lbuiltin__3260(void)
@@ -384,6 +386,8 @@ void lbuiltin__3260(void)
 #undef local_4
 #undef local_c
 #undef puStack_8
+
+#endif
 
 
 /* ---- 0x10003370  FUN_10003370 ---- */

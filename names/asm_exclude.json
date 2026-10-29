@@ -1,4 +1,11 @@
 {
  "_comment": "Functions kept as C even though a selection rule picked them (they broke when assembled).",
- "GRIMFANDANGO.EXE": ["004c60e0", "004c7c50"]
+ "GRIMFANDANGO.EXE": [
+  "004c60e0",
+  "004c7c50"
+ ],
+ "LUA.DLL": [
+  "10009000",
+  "10009180"
+ ]
 }

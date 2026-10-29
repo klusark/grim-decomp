@@ -6,6 +6,8 @@
 #include "functions.h"
 
 /* ---- 0x00409d50  rdPrimit3_DrawPolygon ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void * __cdecl rdPrimit3_DrawPolygon(float *verts,int count,void *material)
 
 {
@@ -122,6 +124,8 @@ void * __cdecl rdPrimit3_DrawPolygon(float *verts,int count,void *material)
 #undef local_328
 #undef local_32c
 #undef local_330
+
+#endif
 
 
 /* ---- 0x0040dcc0  rdPrimit3_DrawLine ---- */

@@ -6,6 +6,8 @@
 #include "functions.h"
 
 /* ---- 0x00496890  ModelComponent_EditParentOffset ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Editor dialog 'Resolve parent offset' */
 
 undefined4 ModelComponent_EditParentOffset(int *param_1,undefined4 param_2)
@@ -35,6 +37,8 @@ undefined4 ModelComponent_EditParentOffset(int *param_1,undefined4 param_2)
 }
 #undef local_20
 #undef local_24
+
+#endif
 
 
 /* ---- 0x00496930  ModelComponent_SetVisibleFlag ---- */
@@ -421,6 +425,8 @@ bool FUN_00497180(undefined4 param_1,undefined4 param_2)
 }
 
 /* ---- 0x004971a0  FUN_004971a0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void __cdecl
 FUN_004971a0(int param_1,float param_2,undefined4 param_3,float param_4,uint param_5,uint param_6,
             uint param_7,uint param_8)
@@ -487,6 +493,8 @@ FUN_004971a0(int param_1,float param_2,undefined4 param_3,float param_4,uint par
   return;
 }
 #undef local_4
+
+#endif
 
 
 /* ---- 0x00497320  FUN_00497320 ---- */

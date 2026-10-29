@@ -109,20 +109,28 @@ undefined4 FUN_00473570(undefined4 param_1,char *param_2)
 }
 
 /* ---- 0x004735f0  stdFile_ReadByte ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 uint stdFile_ReadByte(uint param_1)
 
 {
   (*g_pSvcMain->pFread)(param_1,&param_1,1);
   return param_1 & 0xff;
 }
+#endif
+
 
 /* ---- 0x00473610  stdFile_WriteByte ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void stdFile_WriteByte(undefined4 param_1,undefined4 param_2)
 
 {
   (*g_pSvcMain->pFwrite)(param_2,&param_1,1);
   return;
 }
+#endif
+
 
 /* ---- 0x00473a00  stdCompress_Decompress ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */

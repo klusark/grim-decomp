@@ -6,6 +6,8 @@
 #include "functions.h"
 
 /* ---- 0x10001000  Cos_InstRescue ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 int __cdecl Cos_InstRescue(int param_1,undefined4 param_2)
 
 {
@@ -26,8 +28,12 @@ int __cdecl Cos_InstRescue(int param_1,undefined4 param_2)
   }
   return iVar3;
 }
+#endif
+
 
 /* ---- 0x10001040  Cos_Free ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 int __cdecl Cos_Free(undefined4 param_1)
@@ -59,8 +65,12 @@ int __cdecl Cos_Free(undefined4 param_1)
   _DAT_100143ac = _DAT_100143ac + -1;
   return _DAT_100143ac;
 }
+#endif
+
 
 /* ---- 0x100010d0  FUN_100010d0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 void FUN_100010d0(int param_1)
@@ -76,8 +86,12 @@ void FUN_100010d0(int param_1)
   *(undefined4 *)(param_1 + 0x34) = 0;
   return;
 }
+#endif
+
 
 /* ---- 0x100016a0  Cos_New ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 Cos_New(void)
 
 {
@@ -93,8 +107,12 @@ undefined4 Cos_New(void)
   uVar2 = FUN_10005180(iVar1);
   return uVar2;
 }
+#endif
+
 
 /* ---- 0x100016e0  Cos_Load ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 undefined4 Cos_Load(undefined4 param_1)
@@ -133,6 +151,8 @@ undefined4 Cos_Load(undefined4 param_1)
   FUN_10004c70(uVar2);
   return 0;
 }
+#endif
+
 
 /* ---- 0x10001770  Cos_LoadEntry ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -260,6 +280,8 @@ LAB_10001a10:
 
 
 /* ---- 0x10001a30  Cos_FreeCosInstance ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 int __cdecl Cos_FreeCosInstance(int param_1)
@@ -277,8 +299,12 @@ int __cdecl Cos_FreeCosInstance(int param_1)
   _DAT_100143c4 = _DAT_100143c4 + -1;
   return _DAT_100143c4;
 }
+#endif
+
 
 /* ---- 0x10001a80  Cos_CreateCosInstance ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 int Cos_CreateCosInstance(uint *param_1,uint param_2)
@@ -429,8 +455,12 @@ joined_r0x10001cd0:
 }
 #undef uStack_c
 
+#endif
+
 
 /* ---- 0x10001d70  Cos_InstGetInstanceData ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 Cos_InstGetInstanceData(int param_1,int param_2,int *param_3)
 
 {
@@ -450,8 +480,12 @@ undefined4 Cos_InstGetInstanceData(int param_1,int param_2,int *param_3)
   }
   return 0;
 }
+#endif
+
 
 /* ---- 0x10001e00  Cos_RegisterInstanceHook ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 undefined4 Cos_RegisterInstanceHook(undefined4 param_1)
@@ -464,8 +498,12 @@ undefined4 Cos_RegisterInstanceHook(undefined4 param_1)
   _DAT_100143e0 = param_1;
   return uVar1;
 }
+#endif
+
 
 /* ---- 0x10001e10  Cos_RegisterSaveHook ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 undefined4 Cos_RegisterSaveHook(undefined4 param_1)
@@ -478,8 +516,12 @@ undefined4 Cos_RegisterSaveHook(undefined4 param_1)
   _DAT_100143e4 = param_1;
   return uVar1;
 }
+#endif
+
 
 /* ---- 0x10001e20  Cos_InstGetUserData ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 Cos_InstGetUserData(int param_1)
 
 {
@@ -492,8 +534,12 @@ undefined4 Cos_InstGetUserData(int param_1)
   }
   return 0;
 }
+#endif
+
 
 /* ---- 0x10001e50  Cos_InstSetUserData ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 int __cdecl Cos_InstSetUserData(int param_1,undefined4 param_2)
 
 {
@@ -509,8 +555,12 @@ int __cdecl Cos_InstSetUserData(int param_1,undefined4 param_2)
   }
   return iVar2;
 }
+#endif
+
 
 /* ---- 0x10001e80  Cos_NewStateBasedTag ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4
 Cos_NewStateBasedTag
           (undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4 *param_4,int param_5)
@@ -533,8 +583,12 @@ Cos_NewStateBasedTag
   }
   return 0;
 }
+#endif
+
 
 /* ---- 0x10001ed0  FUN_10001ed0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 undefined4
@@ -580,8 +634,12 @@ FUN_10001ed0(int *param_1,int param_2,char *param_3,undefined4 param_4,undefined
   *(undefined4 *)(*param_1 + 0x28) = param_5;
   return 1;
 }
+#endif
+
 
 /* ---- 0x10001f80  Cos_NewIntTag ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4
 Cos_NewIntTag(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4 *param_4,
              int param_5)
@@ -604,8 +662,12 @@ Cos_NewIntTag(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined
   }
   return 0;
 }
+#endif
+
 
 /* ---- 0x10001fd0  Cos_NewFloatTag ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4
 Cos_NewFloatTag(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4 *param_4,
                int param_5)
@@ -628,8 +690,12 @@ Cos_NewFloatTag(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefin
   }
   return 0;
 }
+#endif
+
 
 /* ---- 0x10002080  Cos_RegisterComponent ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 undefined4
@@ -704,8 +770,12 @@ Cos_RegisterComponent
   }
   return 0;
 }
+#endif
+
 
 /* ---- 0x100021f0  Cos_RemoveComponent ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 int __cdecl Cos_RemoveComponent(undefined4 param_1,int param_2,int param_3)
 
 {
@@ -733,8 +803,12 @@ int __cdecl Cos_RemoveComponent(undefined4 param_1,int param_2,int param_3)
   }
   return iVar1;
 }
+#endif
+
 
 /* ---- 0x10002ee0  Cos_InstCountComponents ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 Cos_InstCountComponents(int param_1)
 
 {
@@ -749,8 +823,12 @@ undefined4 Cos_InstCountComponents(int param_1)
   uVar2 = CosUtil_CountComponents(DAT_100143b4 + *(int *)(DAT_100143cc + iVar1 * 0x14) * 0x3c);
   return uVar2;
 }
+#endif
+
 
 /* ---- 0x10002f20  Cos_InstComponentInfo ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void Cos_InstComponentInfo
                (int param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4,
                undefined4 param_5)
@@ -765,8 +843,12 @@ void Cos_InstComponentInfo
              param_5,0);
   return;
 }
+#endif
+
 
 /* ---- 0x10002f70  Cos_InstCountChores ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 Cos_InstCountChores(int param_1)
 
 {
@@ -776,8 +858,12 @@ undefined4 Cos_InstCountChores(int param_1)
   iVar1 = FUN_100051a0(param_1);
   return *(undefined4 *)(DAT_100143b4 + 0x30 + *(int *)(DAT_100143cc + iVar1 * 0x14) * 0x3c);
 }
+#endif
+
 
 /* ---- 0x10002fb0  Cos_GetCostumeName ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 int Cos_GetCostumeName(undefined4 param_1)
@@ -792,8 +878,12 @@ int Cos_GetCostumeName(undefined4 param_1)
   }
   return DAT_100143b4 + iVar1 * 0x3c;
 }
+#endif
+
 
 /* ---- 0x10003000  Cos_InstGetCostume ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 int Cos_InstGetCostume(int param_1,undefined4 *param_2)
 
 {
@@ -811,8 +901,12 @@ int Cos_InstGetCostume(int param_1,undefined4 *param_2)
   }
   return iVar2;
 }
+#endif
+
 
 /* ---- 0x10003050  Cos_InstChoreName ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 int Cos_InstChoreName(int param_1,uint param_2)
 
 {
@@ -828,8 +922,12 @@ int Cos_InstChoreName(int param_1,uint param_2)
   }
   return *(int *)(iVar2 + 0x34) + param_2 * 0x2c;
 }
+#endif
+
 
 /* ---- 0x10003160  Cos_InstStopChores ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 Cos_InstStopChores(uint param_1)
 
 {
@@ -875,8 +973,12 @@ undefined4 Cos_InstStopChores(uint param_1)
   }
   return 1;
 }
+#endif
+
 
 /* ---- 0x10003240  Cos_InstStopChore ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 Cos_InstStopChore(int param_1,uint param_2)
 
 {
@@ -917,8 +1019,12 @@ undefined4 Cos_InstStopChore(int param_1,uint param_2)
   }
   return 0;
 }
+#endif
+
 
 /* ---- 0x10003300  Cos_InstPauseChores ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 Cos_InstPauseChores(int param_1)
 
 {
@@ -944,8 +1050,12 @@ undefined4 Cos_InstPauseChores(int param_1)
   }
   return 1;
 }
+#endif
+
 
 /* ---- 0x10003360  Cos_InstPauseChore ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 Cos_InstPauseChore(int param_1,uint param_2)
 
 {
@@ -961,8 +1071,12 @@ undefined4 Cos_InstPauseChore(int param_1,uint param_2)
   }
   return 0;
 }
+#endif
+
 
 /* ---- 0x100033b0  Cos_InstCompleteChore ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 Cos_InstCompleteChore(int param_1,uint param_2)
 
 {
@@ -982,8 +1096,12 @@ undefined4 Cos_InstCompleteChore(int param_1,uint param_2)
   }
   return 0;
 }
+#endif
+
 
 /* ---- 0x10003430  Cos_InstCompleteChores ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 Cos_InstCompleteChores(int param_1)
 
 {
@@ -1021,8 +1139,12 @@ undefined4 Cos_InstCompleteChores(int param_1)
 }
 #undef iStack_4
 
+#endif
+
 
 /* ---- 0x100034c0  Cos_InstPlayChore ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 __cdecl Cos_InstPlayChore(int param_1,uint param_2,int param_3,int param_4)
 
 {
@@ -1044,8 +1166,12 @@ undefined4 __cdecl Cos_InstPlayChore(int param_1,uint param_2,int param_3,int pa
   }
   return 0;
 }
+#endif
+
 
 /* ---- 0x10003530  Cos_InstUpdateChore ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 __cdecl Cos_InstUpdateChore(int param_1,uint param_2,int param_3)
 
 {
@@ -1063,8 +1189,12 @@ undefined4 __cdecl Cos_InstUpdateChore(int param_1,uint param_2,int param_3)
   }
   return 0;
 }
+#endif
+
 
 /* ---- 0x100035a0  Cos_InstUpdateChores ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 Cos_InstUpdateChores(int param_1,int param_2)
 
 {
@@ -1092,8 +1222,12 @@ undefined4 Cos_InstUpdateChores(int param_1,int param_2)
   }
   return 1;
 }
+#endif
+
 
 /* ---- 0x10003620  Cos_InstSetChoreLoop ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 Cos_InstSetChoreLoop(int param_1,uint param_2,int param_3)
 
 {
@@ -1113,8 +1247,12 @@ undefined4 Cos_InstSetChoreLoop(int param_1,uint param_2,int param_3)
   *puVar1 = *puVar1 & 0xfffffffd;
   return 1;
 }
+#endif
+
 
 /* ---- 0x10003690  Cos_InstSetChoreAdv ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 Cos_InstSetChoreAdv(int param_1,uint param_2,int param_3)
 
 {
@@ -1134,8 +1272,12 @@ undefined4 Cos_InstSetChoreAdv(int param_1,uint param_2,int param_3)
   *puVar1 = *puVar1 | 4;
   return 1;
 }
+#endif
+
 
 /* ---- 0x10003700  Cos_InstChoreStatus ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 Cos_InstChoreStatus(int param_1,uint param_2)
 
 {
@@ -1148,8 +1290,12 @@ undefined4 Cos_InstChoreStatus(int param_1,uint param_2)
   }
   return 0;
 }
+#endif
+
 
 /* ---- 0x10003750  Cos_Initialize ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 undefined4 Cos_Initialize(undefined4 param_1,undefined4 *param_2)
@@ -1168,8 +1314,12 @@ undefined4 Cos_Initialize(undefined4 param_1,undefined4 *param_2)
   _DAT_100143a0 = 1;
   return 0;
 }
+#endif
+
 
 /* ---- 0x100037a0  Cos_Save ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 undefined4 Cos_Save(code *param_1)
@@ -1226,8 +1376,12 @@ LAB_10003863:
 }
 #undef iStack_4
 
+#endif
+
 
 /* ---- 0x10003890  Cos_SaveInstance ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 Cos_SaveInstance(int param_1,code *param_2)
 
 {
@@ -1268,8 +1422,12 @@ undefined4 Cos_SaveInstance(int param_1,code *param_2)
   }
   return 0;
 }
+#endif
+
 
 /* ---- 0x10003970  Cos_Restore ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 undefined4 Cos_Restore(code *param_1)
@@ -1356,8 +1514,12 @@ undefined4 Cos_Restore(code *param_1)
 #undef iStack_24
 #undef iStack_28
 
+#endif
+
 
 /* ---- 0x10003b40  Cos_RestoreInstance ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 Cos_RestoreInstance(int param_1,code *param_2)
 
 {
@@ -1398,8 +1560,12 @@ undefined4 Cos_RestoreInstance(int param_1,code *param_2)
   }
   return 0;
 }
+#endif
+
 
 /* ---- 0x10003c20  FUN_10003c20 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
 int FUN_10003c20(int param_1)
@@ -1444,8 +1610,12 @@ int FUN_10003c20(int param_1)
 }
 #undef uStack_4
 
+#endif
+
 
 /* ---- 0x10003c90  FUN_10003c90 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 FUN_10003c90(int param_1,uint param_2,int param_3,uint param_4)
 
 {
@@ -1542,8 +1712,12 @@ undefined4 FUN_10003c90(int param_1,uint param_2,int param_3,uint param_4)
 }
 #undef auStack_8
 
+#endif
+
 
 /* ---- 0x10003e50  FUN_10003e50 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 uint FUN_10003e50(uint *param_1,uint *param_2)
 
 {
@@ -1552,8 +1726,12 @@ uint FUN_10003e50(uint *param_1,uint *param_2)
   }
   return (uint)(*param_2 < *param_1);
 }
+#endif
+
 
 /* ---- 0x10003e70  FUN_10003e70 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 uint FUN_10003e70(int param_1,int *param_2)
@@ -1670,8 +1848,12 @@ uint FUN_10003e70(int param_1,int *param_2)
   }
   return uVar4;
 }
+#endif
+
 
 /* ---- 0x10004090  FUN_10004090 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_10004090(undefined4 param_1,int param_2,char *param_3,int param_4,undefined4 param_5,
                  undefined4 param_6)
 
@@ -1708,8 +1890,12 @@ void FUN_10004090(undefined4 param_1,int param_2,char *param_3,int param_4,undef
   }
   return;
 }
+#endif
+
 
 /* ---- 0x10004140  FUN_10004140 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_10004140(int param_1)
 
 {
@@ -1720,8 +1906,12 @@ void FUN_10004140(int param_1)
   *(undefined1 *)(param_1 + 0x1f) = 0;
   return;
 }
+#endif
+
 
 /* ---- 0x10004170  FUN_10004170 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 uint FUN_10004170(int param_1,int param_2,int param_3,undefined4 param_4)
 
 {
@@ -1745,8 +1935,12 @@ uint FUN_10004170(int param_1,int param_2,int param_3,undefined4 param_4)
   }
   return uVar3;
 }
+#endif
+
 
 /* ---- 0x100041e0  FUN_100041e0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 FUN_100041e0(undefined4 param_1,undefined4 param_2,uint param_3)
 
 {
@@ -1813,8 +2007,12 @@ undefined4 FUN_100041e0(undefined4 param_1,undefined4 param_2,uint param_3)
 #undef auStack_2c
 #undef iStack_28
 
+#endif
+
 
 /* ---- 0x10004320  FUN_10004320 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 uint FUN_10004320(int param_1,undefined4 param_2,int param_3)
@@ -1841,6 +2039,8 @@ uint FUN_10004320(int param_1,undefined4 param_2,int param_3)
   }
   return uVar3;
 }
+#endif
+
 
 /* ---- 0x10004390  FUN_10004390 ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -2010,6 +2210,8 @@ LAB_1000470a:
 
 
 /* ---- 0x10004770  FUN_10004770 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 uint FUN_10004770(int param_1,int param_2,int param_3,undefined4 param_4,int param_5)
 
 {
@@ -2034,8 +2236,12 @@ uint FUN_10004770(int param_1,int param_2,int param_3,undefined4 param_4,int par
   }
   return uVar3;
 }
+#endif
+
 
 /* ---- 0x100047f0  FUN_100047f0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 FUN_100047f0(undefined4 param_1,int param_2,undefined4 param_3)
 
 {
@@ -2114,8 +2320,12 @@ undefined4 FUN_100047f0(undefined4 param_1,int param_2,undefined4 param_3)
 }
 #undef auStack_4
 
+#endif
+
 
 /* ---- 0x10004970  FUN_10004970 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 undefined4 FUN_10004970(undefined4 param_1,int param_2)
@@ -2229,8 +2439,12 @@ undefined4 FUN_10004970(undefined4 param_1,int param_2)
 #undef uStack_10
 #undef uStack_18
 
+#endif
+
 
 /* ---- 0x10004bb0  FUN_10004bb0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 undefined4 FUN_10004bb0(undefined4 param_1,char *param_2,int param_3)
@@ -2265,8 +2479,12 @@ undefined4 FUN_10004bb0(undefined4 param_1,char *param_2,int param_3)
   }
   return 0;
 }
+#endif
+
 
 /* ---- 0x10004c40  FUN_10004c40 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_10004c40(undefined4 param_1,int param_2,uint param_3)
 
 {
@@ -2286,8 +2504,12 @@ void FUN_10004c40(undefined4 param_1,int param_2,uint param_3)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x10004c70  FUN_10004c70 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_10004c70(undefined4 param_1)
 
 {
@@ -2338,8 +2560,12 @@ void FUN_10004c70(undefined4 param_1)
 }
 #undef uStack_4
 
+#endif
+
 
 /* ---- 0x10004d70  FUN_10004d70 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_10004d70(undefined4 param_1,undefined4 *param_2,int param_3)
 
 {
@@ -2386,8 +2612,12 @@ LAB_10004dc2:
   }
   return;
 }
+#endif
+
 
 /* ---- 0x10004e50  FUN_10004e50 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -2432,8 +2662,12 @@ int FUN_10004e50(void)
   *(undefined4 *)(DAT_100143b4 + 0x38 + iVar1) = 0;
   return iVar2;
 }
+#endif
+
 
 /* ---- 0x10004f30  FUN_10004f30 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 int FUN_10004f30(void)
@@ -2448,8 +2682,12 @@ int FUN_10004f30(void)
   _DAT_100143b8 = _DAT_100143b8 + 1;
   return iVar1;
 }
+#endif
+
 
 /* ---- 0x10004f70  FUN_10004f70 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_10004f70(int param_1)
 
 {
@@ -2512,8 +2750,12 @@ joined_r0x10005011:
   }
   return;
 }
+#endif
+
 
 /* ---- 0x10005090  FUN_10005090 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -2558,8 +2800,12 @@ int FUN_10005090(void)
   *(undefined4 *)(DAT_100143cc + 0x10 + iVar1) = 0;
   return iVar2;
 }
+#endif
+
 
 /* ---- 0x10005160  FUN_10005160 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 int FUN_10005160(int param_1)
@@ -2570,8 +2816,12 @@ int FUN_10005160(int param_1)
   }
   return -1;
 }
+#endif
+
 
 /* ---- 0x10005180  FUN_10005180 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 int FUN_10005180(int param_1)
@@ -2582,8 +2832,12 @@ int FUN_10005180(int param_1)
   }
   return 0;
 }
+#endif
+
 
 /* ---- 0x100051a0  FUN_100051a0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 int __cdecl FUN_100051a0(int param_1)
 
 {
@@ -2592,8 +2846,12 @@ int __cdecl FUN_100051a0(int param_1)
   }
   return -1;
 }
+#endif
+
 
 /* ---- 0x100051c0  FUN_100051c0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 int FUN_100051c0(int param_1)
 
 {
@@ -2602,8 +2860,12 @@ int FUN_100051c0(int param_1)
   }
   return 0;
 }
+#endif
+
 
 /* ---- 0x100051e0  FUN_100051e0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 void FUN_100051e0(void)
@@ -2615,8 +2877,12 @@ void FUN_100051e0(void)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x10005200  FUN_10005200 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 undefined4 FUN_10005200(void)
@@ -2661,8 +2927,12 @@ undefined4 FUN_10005200(void)
   _DAT_100143a4 = 1;
   return 0;
 }
+#endif
+
 
 /* ---- 0x10005350  FUN_10005350 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 void FUN_10005350(void)
@@ -2685,8 +2955,12 @@ void FUN_10005350(void)
   _DAT_100143a4 = 0;
   return;
 }
+#endif
+
 
 /* ---- 0x10005590  Cos_RegisterSaveVerify ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 undefined4 __cdecl Cos_RegisterSaveVerify(undefined4 param_1)
@@ -2696,8 +2970,12 @@ undefined4 __cdecl Cos_RegisterSaveVerify(undefined4 param_1)
   _DAT_100143e8 = param_1;
   return param_1;
 }
+#endif
+
 
 /* ---- 0x100055a0  FUN_100055a0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 uint * FUN_100055a0(uint *param_1,uint *param_2,uint param_3)
 
 {
@@ -2802,8 +3080,12 @@ LAB_1000561b:
   } while (param_3 != 0);
   return param_1;
 }
+#endif
+
 
 /* ---- 0x100056a0  FUN_100056a0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 char * FUN_100056a0(char *param_1,char param_2)
 
 {
@@ -2837,8 +3119,12 @@ char * FUN_100056a0(char *param_1,char param_2)
   }
   return pcVar3;
 }
+#endif
+
 
 /* ---- 0x100056d0  FUN_100056d0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 void FUN_100056d0(void)
@@ -2849,15 +3135,23 @@ void FUN_100056d0(void)
   FUN_10006160();
   return;
 }
+#endif
+
 
 /* ---- 0x100056f0  FUN_100056f0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_100056f0(void)
 
 {
   return;
 }
+#endif
+
 
 /* ---- 0x10005700  FUN_10005700 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 void FUN_10005700(void)
@@ -2871,6 +3165,8 @@ void FUN_10005700(void)
   _DAT_100106dc = FUN_100066c0;
   return;
 }
+#endif
+
 
 /* ---- 0x10005740  FUN_10005740 ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -2949,6 +3245,8 @@ LAB_100057ef:
 
 
 /* ---- 0x10005810  FUN_10005810 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 int __cdecl FUN_10005810(char *param_1,char *param_2,...)
 
 {
@@ -2979,6 +3277,8 @@ int __cdecl FUN_10005810(char *param_1,char *param_2,...)
 #undef pcStack_18
 #undef pcStack_20
 #undef uStack_14
+
+#endif
 
 
 /* ---- 0x10005860  FUN_10005860 ---- */
@@ -3284,6 +3584,8 @@ code_r0x100059b8:
 }
 
 /* ---- 0x10005ba0  FUN_10005ba0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_10005ba0(uint param_1,uint param_2,uint param_3,code *param_4)
 
 {
@@ -3374,8 +3676,12 @@ LAB_10005c15:
 #undef puStack_fc
 #undef uStack_100
 
+#endif
+
 
 /* ---- 0x10005d50  FUN_10005d50 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_10005d50(uint param_1,uint param_2,int param_3,code *param_4)
 
 {
@@ -3394,8 +3700,12 @@ void FUN_10005d50(uint param_1,uint param_2,int param_3,code *param_4)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x10005db0  FUN_10005db0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_10005db0(undefined1 *param_1,undefined1 *param_2,int param_3)
 
 {
@@ -3412,8 +3722,12 @@ void FUN_10005db0(undefined1 *param_1,undefined1 *param_2,int param_3)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x10005de0  FUN_10005de0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 uint FUN_10005de0(undefined4 param_1,uint param_2,uint param_3,int param_4,code *param_5)
 
 {
@@ -3459,8 +3773,12 @@ uint FUN_10005de0(undefined4 param_1,uint param_2,uint param_3,int param_4,code 
   }
   return 0;
 }
+#endif
+
 
 /* ---- 0x10005e90  FUN_10005e90 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 uint * FUN_10005e90(uint *param_1,char param_2)
 
 {
@@ -3527,8 +3845,12 @@ uint * FUN_10005e90(uint *param_1,char param_2)
   }
   return (uint *)0x0;
 }
+#endif
+
 
 /* ---- 0x10005f50  FUN_10005f50 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 undefined4 __stdcall FUN_10005f50(int a1,int a2,int a3)
@@ -3584,3 +3906,5 @@ undefined4 __stdcall FUN_10005f50(int a1,int a2,int a3)
   FUN_10008950();
   return 0;
 }
+#endif
+

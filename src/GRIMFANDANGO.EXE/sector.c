@@ -545,6 +545,8 @@ void __thiscall Sector_SetName(void *this,char *name)
 }
 
 /* ---- 0x004a6790  Sector_SetSavedType ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Stores the type bits (+0x24); 0x1000 sets a small shrink tolerance, 0x100 (edge sector) needs 4
    vertices and picks the long axis (+0x78) */
 
@@ -643,6 +645,8 @@ void __thiscall Sector_SetSavedType(void *this,uint type)
 #undef local_4
 #undef local_8
 #undef local_c
+
+#endif
 
 
 /* ---- 0x004a6980  Sector_ContainsPoint ---- */
@@ -839,6 +843,8 @@ int __thiscall Sector_ClampPoint(void *this,int a1)
 
 
 /* ---- 0x004a6d10  Sector_FindExitPoint ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Variable defined which should be unmapped: local_3c */
 
 float __thiscall Sector_FindExitPoint(void *this,int a1,int a2,int a3)
@@ -958,6 +964,8 @@ float __thiscall Sector_FindExitPoint(void *this,int a1,int a2,int a3)
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x004a6fa0  Sector_SnapToPlane ---- */
 /* Lua SnapToPlane: projects the point onto the plane of the sector found by Sector_FindByName */
@@ -1057,6 +1065,8 @@ void FUN_004a7100(void *param_1)
 }
 
 /* ---- 0x004a71e0  SectorList_FindByPoint ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void * SectorList_FindByPoint(float *param_1,uint param_2)
 
 {
@@ -1078,6 +1088,8 @@ void * SectorList_FindByPoint(float *param_1,uint param_2)
   }
   return this;
 }
+#endif
+
 
 /* ---- 0x004a7230  Sector_FindByName ---- */
 void * __cdecl Sector_FindByName(char *name)
@@ -1134,6 +1146,8 @@ void * __cdecl Sector_FindById(int id)
 }
 
 /* ---- 0x004a72b0  SectorList_FindNearestPoint ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* SectorList_FindNearestPoint(point, mask): the sector with the mask that contains the point
    (SectorList_FindByPoint), else the active sector whose Sector_ClampPoint of the point is nearest.
    Used by Lua GetShrinkPos, which then clamps the point in it (so (x, y) stay and only the height
@@ -1182,8 +1196,12 @@ void * SectorList_FindNearestPoint(float *param_1,uint param_2)
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x004a7390  Sector_MoveWalkerToOppositeEdge ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void __thiscall Sector_MoveWalkerToOppositeEdge(void *this,float *walker)
 
 {
@@ -1267,8 +1285,12 @@ void __thiscall Sector_MoveWalkerToOppositeEdge(void *this,float *walker)
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x004a7520  Sector_EdgeFollowDirection ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* For a 4-vertex edge sector: direction along the edge the walker should follow (g_vEdgeFollowDir),
    stepping the current edge index when the walker reaches a corner */
@@ -1481,6 +1503,8 @@ float * __thiscall Sector_EdgeFollowDirection(void *this,float *walker)
 #undef local_4
 #undef local_8
 
+#endif
+
 
 /* ---- 0x004a7a90  SectorList_ResetFree ---- */
 void SectorList_ResetFree(void)
@@ -1556,6 +1580,8 @@ void SectorVertexPool_Release(int *param_1)
 }
 
 /* ---- 0x004a7bc0  SetFile_ParseSectors ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Source: Engine/WalkPlane.cpp (lines 1070-1184, from __FILE__/__LINE__ passed to the allocator) */
 
 undefined * SetFile_ParseSectors(int param_1)
@@ -1937,8 +1963,12 @@ LAB_004a80a5:
 #undef local_c
 #undef pcStack_8
 
+#endif
+
 
 /* ---- 0x004a8cb0  Sector_ClipPolygon ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Sutherland-Hodgman clip of a polygon against the sector's edges in its projection plane; returns
    the vertex count */
 
@@ -2136,6 +2166,8 @@ LAB_004a903f:
 #undef local_84
 #undef local_90
 
+#endif
+
 
 /* ---- 0x004a9070  Sector_EdgeDistance ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -2202,6 +2234,8 @@ float __thiscall Sector_EdgeDistance(void *this,int a1,int a2)
 
 
 /* ---- 0x004a9180  Sector_CollapseShortestEdge ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Sector_CollapseShortestEdge: for a sector of 4 or more vertices, finds the shortest edge a -
    (a+1) and replaces its two ends by the point where the line of the edge before it (a-1 -> a)
    meets the line of the edge after it ((a+1) -> (a+2)), computed on the two dominant axes (+0x7c,
@@ -2354,6 +2388,8 @@ undefined4 __fastcall Sector_CollapseShortestEdge(void *param_1)
 #undef local_4c
 #undef local_50
 #undef local_54
+
+#endif
 
 
 /* ---- 0x004a9d00  SectorList_ShrinkWalkSectors ---- */

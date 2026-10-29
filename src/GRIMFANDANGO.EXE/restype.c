@@ -278,6 +278,8 @@ void * FUN_0048dab0(int *param_1)
 
 
 /* ---- 0x0048dbd0  FUN_0048dbd0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void * FUN_0048dbd0(int *param_1)
 
 {
@@ -310,6 +312,8 @@ void * FUN_0048dbd0(int *param_1)
   }
   return (void *)0x0;
 }
+#endif
+
 
 /* ---- 0x0048dc60  FUN_0048dc60 ---- */
 void * FUN_0048dc60(int *param_1)

@@ -6,6 +6,8 @@
 #include "functions.h"
 
 /* ---- 0x004a5d50  ObjectState_Create ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua NewObjectState (userdata tag 'STAT'): record {?, type, setupIdx, ...} linked into setup+0x128
     */
 
@@ -54,6 +56,8 @@ void * __cdecl ObjectState_Create(int setupIdx,int type,char *bitmap,char *zbitm
 #undef local_4
 #undef local_c
 #undef pcStack_8
+
+#endif
 
 
 /* ---- 0x004a5e50  ObjectState_Free ---- */
@@ -283,6 +287,8 @@ bool __fastcall StateImage_IsCurrentFrame(int param_1)
 }
 
 /* ---- 0x004aa410  ObjectState_Construct ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* ObjectState record (0xfc bytes): +4 type, +8 setupIdx, +0xc bitmap StateImage, +0x80 depth
    StateImage, +0xf4 prev, +0xf8 next */
 
@@ -324,8 +330,12 @@ ObjectState_Construct(void *this,int type,char *bitmapName,char *zbufName,int se
 #undef local_c
 #undef pcStack_8
 
+#endif
+
 
 /* ---- 0x004aa4c0  ObjectState_Destruct ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void __fastcall ObjectState_Destruct(int param_1)
 
 {
@@ -354,6 +364,8 @@ void __fastcall ObjectState_Destruct(int param_1)
 #undef local_4
 #undef local_c
 #undef pcStack_8
+
+#endif
 
 
 /* ---- 0x004aa540  ObjectState_LoadImages ---- */

@@ -316,6 +316,8 @@ undefined4 KeyframeComponent_Destroy(undefined4 param_1,undefined4 param_2,int *
 }
 
 /* ---- 0x004985c0  FUN_004985c0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 * FUN_004985c0(int param_1,undefined4 *param_2,int param_3)
 
 {
@@ -362,6 +364,8 @@ undefined4 * FUN_004985c0(int param_1,undefined4 *param_2,int param_3)
   puVar3[0xe] = 1;
   return puVar3;
 }
+#endif
+
 
 /* ---- 0x004986e0  FUN_004986e0 ---- */
 /* replaced by the hand-written version in build/overrides.c */

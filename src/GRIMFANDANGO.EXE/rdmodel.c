@@ -438,6 +438,8 @@ void rdModel_DrawNode(int param_1)
 }
 
 /* ---- 0x0040d230  rdModel_DrawMesh ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 void __cdecl rdModel_DrawMesh(void *mesh,float *matrix)
@@ -685,6 +687,8 @@ LAB_0040d640:
 #undef local_a4
 #undef local_a8
 #undef local_ac
+
+#endif
 
 
 /* ---- 0x0040d880  rdModel_AddMeshToCache ---- */

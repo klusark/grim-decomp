@@ -1510,6 +1510,8 @@ uint * rdCanvas_New(uint param_1,uint param_2,uint param_3,uint param_4,uint par
 }
 
 /* ---- 0x004c0550  rdCanvas_Init ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* flags bit 0: explicit clip rect, otherwise the whole surface */
 
 int __cdecl
@@ -1537,6 +1539,8 @@ rdCanvas_Init(uint *canvas,uint flags,uint surface,uint zSurface,uint x0,uint y0
   canvas[3] = (uint)((float)(int)canvas[7] + (float)(int)((canvas[9] - canvas[7]) + 1) * 0.5);
   return 1;
 }
+#endif
+
 
 /* ---- 0x004c0610  rdCanvas_Free ---- */
 /* replaced by the hand-written version in build/overrides.c */

@@ -89,6 +89,8 @@ void ResRef_Release(undefined4 *param_1)
 }
 
 /* ---- 0x00482260  FUN_00482260 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 FUN_00482260(code *param_1)
 
 {
@@ -150,6 +152,8 @@ undefined4 FUN_00482260(code *param_1)
   } while( true );
 }
 #undef local_4
+
+#endif
 
 
 /* ---- 0x00482380  FUN_00482380 ---- */

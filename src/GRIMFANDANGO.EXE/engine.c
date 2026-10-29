@@ -891,6 +891,8 @@ undefined4 Engine_CreateCameraActor(void)
 }
 
 /* ---- 0x00484260  Engine_RenderFrame ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* sputRender.cpp: draws one frame. Mode 3 polls the movie; otherwise re-prepares the set when it
    changed, draws object states, actors (profile slots 4-7), overlays, the iris/fade (flag 4 of
    g_dwRenderFlags) and text */
@@ -1166,6 +1168,8 @@ void Engine_RenderFrame(void)
 #undef local_14
 #undef local_18
 #undef local_1c
+
+#endif
 
 
 /* ---- 0x0048d1a0  Engine_RegisterShutdownHook ---- */

@@ -286,6 +286,8 @@ void __cdecl luaU_LoadLocals(int param_1,uint *param_2)
 }
 
 /* ---- 0x1000d230  luaU_LoadConstants ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Unidentified function of lundump.c (precompiled chunk loader) */
 
 void __cdecl luaU_LoadConstants(int param_1,undefined4 *param_2)
@@ -329,8 +331,12 @@ void __cdecl luaU_LoadConstants(int param_1,undefined4 *param_2)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x1000d2f0  luaU_LoadNumber ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Unidentified function of lundump.c (precompiled chunk loader) */
 
 float __cdecl luaU_LoadNumber(undefined4 *param_1)
@@ -355,6 +361,8 @@ float __cdecl luaU_LoadNumber(undefined4 *param_1)
   return (float)local_8;
 }
 #undef local_8
+
+#endif
 
 
 /* ---- 0x1000d360  lundump__d360 ---- */
@@ -426,6 +434,8 @@ void __cdecl lundump__d3c0(int param_1,int *param_2)
 }
 
 /* ---- 0x1000d420  luaU_loadheader ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* lundump.c: binary file %s too new/old version */
 
 void __cdecl luaU_loadheader(undefined4 *param_1)
@@ -477,6 +487,8 @@ void __cdecl luaU_loadheader(undefined4 *param_1)
 }
 #undef local_8
 
+#endif
+
 
 /* ---- 0x1000d570  luaU_LoadSignature ---- */
 /* Unidentified function of lundump.c (precompiled chunk loader) */
@@ -501,6 +513,8 @@ void __cdecl luaU_LoadSignature(int *param_1)
 }
 
 /* ---- 0x1000d5c0  luaU_str2number ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* lundump.c: parses %lf %c */
 
 undefined4 __cdecl luaU_str2number(int *param_1)
@@ -524,6 +538,8 @@ undefined4 __cdecl luaU_str2number(int *param_1)
   return 2;
 }
 #undef local_8
+
+#endif
 
 
 /* ---- 0x1000d620  lundump__d620 ---- */

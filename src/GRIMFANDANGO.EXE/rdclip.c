@@ -152,6 +152,8 @@ int __cdecl rdClip_PointInFrustum(void *frustum,float *point)
 }
 
 /* ---- 0x00446f80  rdClip_Line3 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 int __cdecl rdClip_Line3(void *frustum,float *p0,float *p1,int *clipped0,int *clipped1)
 
 {
@@ -487,6 +489,8 @@ int __cdecl rdClip_Line3(void *frustum,float *p0,float *p1,int *clipped0,int *cl
   }
   return 1;
 }
+#endif
+
 
 /* ---- 0x004478c0  rdClip_Face3_Pos ---- */
 /* Frustum clip of a face with position-only vertices (output into the rdClip work buffers at

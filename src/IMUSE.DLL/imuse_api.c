@@ -402,6 +402,8 @@ LAB_10004371:
 }
 
 /* ---- 0x10004380  ImFlushSounds ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 uint __cdecl ImFlushSounds(void)
 
 {
@@ -436,6 +438,8 @@ uint __cdecl ImFlushSounds(void)
   }
   return in_EAX;
 }
+#endif
+
 
 /* ---- 0x10004460  FUN_10004460 ---- */
 undefined4 __cdecl FUN_10004460(int *param_1,int *param_2)
@@ -1708,6 +1712,8 @@ int FUN_10007bc0(int param_1,int param_2,int param_3)
 }
 
 /* ---- 0x10007ca0  FUN_10007ca0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Type propagation algorithm not settling */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -1947,6 +1953,8 @@ undefined4 * FUN_10007ca0(undefined4 *param_1,undefined4 *param_2,undefined4 *pa
 }
 #undef uStack_c
 
+#endif
+
 
 /* ---- 0x10008140  FUN_10008140 ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
@@ -2183,6 +2191,8 @@ undefined4 FUN_10008250(code *param_1)
 
 
 /* ---- 0x10008580  FUN_10008580 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 FUN_10008580(code *param_1,uint param_2)
 
 {
@@ -2283,6 +2293,8 @@ LAB_1000883c:
 #undef puStack_20
 #undef uStack_24
 #undef uStack_4
+
+#endif
 
 
 /* ---- 0x10008860  FUN_10008860 ---- */

@@ -3703,6 +3703,8 @@ int __fastcall FUN_004b8f30(byte param_1,int param_2)
 }
 
 /* ---- 0x004b9916  FUN_004b9916 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 undefined4 __cdecl
@@ -3757,6 +3759,8 @@ FUN_004b9916(undefined4 param_1,uint param_2,ushort param_3,uint param_4,uint pa
   return in_EAX;
 }
 #undef local_24
+
+#endif
 
 
 /* ---- 0x004b9b1c  FUN_004b9b1c ---- */
@@ -4893,6 +4897,8 @@ undefined * __stdcall FUN_004bf950(int a1,int a2,int a3,int a4)
 
 
 /* ---- 0x004bffb0  FUN_004bffb0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Variable defined which should be unmapped: local_18 */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -5062,6 +5068,8 @@ switchD_004c008d_caseD_13:
   return puVar4;
 }
 #undef local_18
+
+#endif
 
 
 /* ---- 0x004c0630  FUN_004c0630 ---- */

@@ -101,6 +101,8 @@ void __thiscall PrimitiveList_Draw(void *this,void *canvas,uint layerMask)
 }
 
 /* ---- 0x0048ab20  PrimitiveList_Invalidate ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined * __thiscall PrimitiveList_Invalidate(void *this,int a1)
 
 {
@@ -114,6 +116,8 @@ undefined * __thiscall PrimitiveList_Invalidate(void *this,int a1)
   }
   return in_EAX;
 }
+#endif
+
 
 /* ---- 0x0048abd0  PrimitiveList_FindById ---- */
 void * __thiscall PrimitiveList_FindById(void *this,int id,void *after)

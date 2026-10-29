@@ -2434,6 +2434,8 @@ void FUN_00497cb0(int param_1,int param_2,uint param_3)
 }
 
 /* ---- 0x00497d10  FUN_00497d10 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 * FUN_00497d10(undefined4 param_1,int *param_2,int param_3)
 
 {
@@ -2472,6 +2474,8 @@ undefined4 * FUN_00497d10(undefined4 param_1,int *param_2,int param_3)
   *puVar3 = uVar4;
   return puVar3;
 }
+#endif
+
 
 /* ---- 0x00497e10  FUN_00497e10 ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -3098,6 +3102,8 @@ void Lua_SetSelectedActor(void)
 }
 
 /* ---- 0x004993c0  Lua_PutActorAt ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: PutActorAt */
 
 void Lua_PutActorAt(void)
@@ -3150,6 +3156,8 @@ void Lua_PutActorAt(void)
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x004994a0  Lua_PutActorInSet ---- */
 /* Lua opcode: PutActorInSet */
@@ -3191,6 +3199,8 @@ void Lua_PutActorInSet(void)
 }
 
 /* ---- 0x00499590  Lua_WalkActorVector ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Variable defined which should be unmapped: local_78 */
 /* Lua opcode: WalkActorVector(actor, cameraActor, x, y, z [, yawOffset]). Transforms the vector by
    the camera actor's frame, adds the actor position, turns the walker heading toward it by at most
@@ -3331,6 +3341,8 @@ void Lua_WalkActorVector(void)
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x00499800  Lua_WalkActorForward ---- */
 /* Lua opcode: WalkActorForward */
@@ -3356,6 +3368,8 @@ void Lua_WalkActorForward(void)
 }
 
 /* ---- 0x00499860  Lua_WalkActorTo ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: WalkActorTo */
 
 void Lua_WalkActorTo(void)
@@ -3434,8 +3448,12 @@ void Lua_WalkActorTo(void)
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x004999d0  Lua_WalkActorToAvoiding ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: WalkActorToAvoiding */
 
 void Lua_WalkActorToAvoiding(void)
@@ -3521,6 +3539,8 @@ void Lua_WalkActorToAvoiding(void)
 #undef local_4
 #undef local_8
 #undef local_c
+
+#endif
 
 
 /* ---- 0x00499b80  Lua_IsActorMoving ---- */
@@ -5190,6 +5210,8 @@ void Lua_SetActorHead(void)
 
 
 /* ---- 0x0049b830  Lua_CanActorSee ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: CanActorSee */
 
 void Lua_CanActorSee(void)
@@ -5285,6 +5307,8 @@ void Lua_CanActorSee(void)
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x0049b9e0  Lua_GetVisibleThings ---- */
 /* Lua opcode: GetVisibleThings */
@@ -5374,6 +5398,8 @@ void Lua_GetActorRect(void)
 
 
 /* ---- 0x0049bba0  Lua_GetActorPuckVector ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: GetActorPuckVector */
 
 void Lua_GetActorPuckVector(void)
@@ -5422,8 +5448,12 @@ void Lua_GetActorPuckVector(void)
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x0049bcc0  Lua_GetActorYawToPoint ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: GetActorYawToPoint(actor, x, y, z | {x, y, z}). Creates the extra and the walker if
    missing, then returns Actor_GetYawToPoint. */
 
@@ -5497,6 +5527,8 @@ void Lua_GetActorYawToPoint(void)
 #undef local_4
 #undef local_8
 #undef local_c
+
+#endif
 
 
 /* ---- 0x0049be40  Lua_SetActorReflection ---- */
@@ -5582,6 +5614,8 @@ void Lua_GetActorRot(void)
 }
 
 /* ---- 0x0049bfa0  Lua_SetActorRot ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: SetActorRot */
 
 void Lua_SetActorRot(void)
@@ -5638,6 +5672,8 @@ void Lua_SetActorRot(void)
 #undef local_4
 #undef local_8
 #undef local_c
+
+#endif
 
 
 /* ---- 0x0049c0a0  Lua_SetActorPitch ---- */
@@ -5903,6 +5939,8 @@ void Lua_GetPointSector(void)
 
 
 /* ---- 0x0049c4c0  Lua_IsPointInSector ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Variable defined which should be unmapped: local_20 */
 /* Lua opcode: IsPointInSector */
 
@@ -5960,6 +5998,8 @@ void Lua_IsPointInSector(void)
 #undef local_4
 #undef local_8
 #undef local_c
+
+#endif
 
 
 /* ---- 0x0049c5e0  Lua_RunSystemScript ---- */
@@ -6455,6 +6495,8 @@ void Lua_EnableDebugKeys(void)
 }
 
 /* ---- 0x0049cf60  Lua_WorldToScreen ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Variable defined which should be unmapped: local_2c */
 /* Lua opcode: WorldToScreen */
 
@@ -6508,6 +6550,8 @@ void Lua_WorldToScreen(void)
 #undef local_2c
 #undef local_8
 #undef local_c
+
+#endif
 
 
 /* ---- 0x0049d030  Lua_ScreenToWorld ---- */
@@ -8601,6 +8645,8 @@ void Lua_SetMemoryUsage(void)
 
 
 /* ---- 0x0049f0f0  Lua_RotateVector ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: RotateVector */
 
 void Lua_RotateVector(void)
@@ -8684,6 +8730,8 @@ void Lua_RotateVector(void)
 #undef local_4
 #undef local_8
 #undef local_c
+
+#endif
 
 
 /* ---- 0x0049f2b0  Lua_GetCameraPosition ---- */
@@ -9154,6 +9202,8 @@ void Lua_GetCameraLookVector(void)
 
 
 /* ---- 0x0049fb00  Lua_PointActorAt ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: PointActorAt(actor, x, y, z | actor). Creates the walker if missing, turns the walker
    heading all the way to the point (Walker_TurnToPoint with FLT_MAX) and negates the turn rate so
    Walker_UpdateYaw snaps the visible yaw next frame. Only the yaw changes; pitch and roll are not
@@ -9220,8 +9270,12 @@ void Lua_PointActorAt(void)
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x0049fc60  Lua_TurnActorTo ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: TurnActorTo(actor, x, y, z | actor). Creates the walker if missing, turns the heading
    by at most |rate| * frameSeconds (no time scale) and returns TRUE while a whole step was taken
    (angle left >= step), nil once done. With a turn rate of 0 the step is 0 and it returns TRUE
@@ -9303,6 +9357,8 @@ LAB_0049fde2:
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x0049fdf0  Lua_PerSecond ---- */
 /* WARNING: Variable defined which should be unmapped: local_c */
@@ -9332,6 +9388,8 @@ void Lua_PerSecond(void)
 
 
 /* ---- 0x0049fe40  Lua_SnapToPlane ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: SnapToPlane */
 
 void Lua_SnapToPlane(void)
@@ -9377,8 +9435,12 @@ void Lua_SnapToPlane(void)
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x0049ff00  Lua_GetAngleBetweenVectors ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Variable defined which should be unmapped: local_30 */
 /* Lua opcode: GetAngleBetweenVectors */
 
@@ -9458,8 +9520,12 @@ void Lua_GetAngleBetweenVectors(void)
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x004a00a0  Lua_GetAngleBetweenActors ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Variable defined which should be unmapped: local_30 */
 /* Lua opcode: GetAngleBetweenActors */
 
@@ -9527,6 +9593,8 @@ void Lua_GetAngleBetweenActors(void)
 #undef local_4
 #undef local_8
 #undef local_c
+
+#endif
 
 
 /* ---- 0x004a0230  Lua_SetAmbientLight ---- */
@@ -12226,6 +12294,8 @@ void Lua_SetActorClipActive(void)
 
 
 /* ---- 0x004a27b0  Lua_SetActorClipPlane ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: SetActorClipPlane */
 
 void Lua_SetActorClipPlane(void)
@@ -12308,6 +12378,8 @@ void Lua_SetActorClipPlane(void)
 #undef local_4
 #undef local_8
 #undef local_c
+
+#endif
 
 
 /* ---- 0x004a2920  Lua_MarkDirtyRect ---- */
@@ -13079,6 +13151,8 @@ void __cdecl Lua_CallSaveGameCallback(void *writeFn)
 
 
 /* ---- 0x004a35d0  Lua_SubmitSaveGameData ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: SubmitSaveGameData */
 
 void Lua_SubmitSaveGameData(void)
@@ -13155,8 +13229,12 @@ void Lua_SubmitSaveGameData(void)
 #undef local_c
 #undef uStack_8
 
+#endif
+
 
 /* ---- 0x004a3720  Lua_GetSaveGameData ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: GetSaveGameData */
 
 void Lua_GetSaveGameData(void)
@@ -13205,6 +13283,8 @@ void Lua_GetSaveGameData(void)
 #undef local_88
 #undef local_8c
 #undef local_90
+
+#endif
 
 
 /* ---- 0x004a3830  Lua_GetTextSpeed ---- */

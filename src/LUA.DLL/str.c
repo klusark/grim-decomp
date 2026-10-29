@@ -528,6 +528,8 @@ void __cdecl str_push_captures(int *param_1,int *param_2)
 }
 
 /* ---- 0x10009ea0  str_match ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* recursive pattern matcher; errors 'too many captures' */
 
 char * __cdecl str_match(char *param_1,int *param_2,int *param_3)
@@ -608,6 +610,8 @@ LAB_10009f5e:
     }
   } while( true );
 }
+#endif
+
 
 /* ---- 0x1000a030  str_capture_to_close ---- */
 /* Unidentified function of lstrlib.c (string library) */
@@ -873,6 +877,8 @@ LAB_1000a36b:
 
 
 /* ---- 0x1000a440  FUN_1000a440 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_1000a440(void)
 
 {
@@ -990,6 +996,8 @@ LAB_1000a5fe:
 #undef iStack_104
 #undef iStack_10c
 #undef uStack_c7
+
+#endif
 
 
 /* ---- 0x1000a680  str_add_s ---- */

@@ -656,6 +656,8 @@ void Text_CopyRunes(byte *param_1,undefined4 *param_2,int param_3,int param_4)
 
 
 /* ---- 0x004aaf30  Text_BuildLineTable ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 Text_BuildLineTable(undefined4 param_1,int *param_2)
 
 {
@@ -783,8 +785,12 @@ undefined4 Text_BuildLineTable(undefined4 param_1,int *param_2)
 #undef local_40
 #undef uStack_42
 
+#endif
+
 
 /* ---- 0x004ab210  Text_LayoutString ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Measures one line with word wrap (flag 4) within the clip rect and applies centre (1) / right (2)
    justification; returns the start of the next line */
 
@@ -959,6 +965,8 @@ LAB_004ab344:
 #undef local_4
 #undef local_8
 #undef local_c
+
+#endif
 
 
 /* ---- 0x004ab510  Font_GlyphAdvance ---- */

@@ -305,7 +305,7 @@ def main():
             defined = {ia for ia, _ in insns}
             refs = set()
             for _, text in insns:
-                refs |= {int(x, 16) for x in re.findall(r"\.L[0-9a-f]+_([0-9a-f]+)\b", text)}
+                refs |= {int(x, 16) for x in re.findall(r"\.L[0-9a-f]{6,8}_([0-9a-f]{6,8})\b", text)}
             ents_ok = True
             for taddr in jt:
                 raw = read_text(path, taddr, 4 * 128)
