@@ -1,0 +1,1030 @@
+/* GRIMFANDANGO.EXE :: stdinput.c
+ * functions 0x00476f10 .. 0x00477e70 (23 functions)
+ * Decompiled from the shipped binaries with Ghidra; see ../../README.md */
+#include "ghidra_types.h"
+#include "globals.h"
+#include "functions.h"
+
+/* ---- 0x00476f10  Input_Init ---- */
+/* WARNING: Unknown calling convention -- yet parameter storage is locked */
+/* Creates DirectInput, the keyboard and mouse devices and scans the joysticks */
+
+undefined4 Input_Init(void)
+
+{
+  int iVar1;
+  undefined4 *puVar2;
+  int a2;
+  void **a3;
+  int a4;
+  
+  puVar2 = &DAT_00901500;
+  for (iVar1 = 0x5a; iVar1 != 0; iVar1 = iVar1 + -1) {
+    *puVar2 = 0;
+    puVar2 = puVar2 + 1;
+  }
+  a4 = 0;
+  a3 = &g_pDirectInput;
+  puVar2 = &DAT_00803fd0;
+  for (iVar1 = 0xf; iVar1 != 0; iVar1 = iVar1 + -1) {
+    *puVar2 = 0;
+    puVar2 = puVar2 + 1;
+  }
+  a2 = 0x500;
+  iVar1 = Win_GetInstance();
+  DirectInputCreateA(iVar1,a2,(int)a3,a4);
+  Input_CreateKeyboard();
+  Input_InitJoysticks();
+  Input_CreateMouse();
+  Input_ResetState();
+  DAT_00805f98 = 1;
+  return 1;
+}
+
+/* ---- 0x00476f70  Input_Shutdown ---- */
+void Input_Shutdown(void)
+
+{
+  if (DAT_00805f98 != 0) {
+    DAT_00805f98 = 0;
+    if (g_pDInputMouse != (void *)0x0) {
+      (**(code_std **)(*(int *)g_pDInputMouse + 8))(g_pDInputMouse);
+    }
+    if (g_pDInputKeyboard != (void *)0x0) {
+      (**(code_std **)(*(int *)g_pDInputKeyboard + 8))(g_pDInputKeyboard);
+    }
+    if (g_pDirectInput != (void *)0x0) {
+      (**(code_std **)(*(int *)g_pDirectInput + 8))(g_pDirectInput);
+    }
+  }
+  return;
+}
+
+/* ---- 0x00476fc0  Input_Enable ---- */
+undefined4 Input_Enable(void)
+
+{
+  g_nInputEnabled = 1;
+  Input_SetAcquired(1);
+  return 1;
+}
+
+/* ---- 0x00476fe0  Input_Disable ---- */
+undefined4 Input_Disable(void)
+
+{
+  if (g_nInputEnabled == 0) {
+    return 0;
+  }
+  Input_SetAcquired(0);
+  g_nInputEnabled = 0;
+  return 1;
+}
+
+/* ---- 0x00477010  Input_Flush ---- */
+/* Lua FlushControls: resets keyboard and joystick state */
+
+void Input_Flush(void)
+
+{
+  DAT_00805fbc = timeGetTime();
+  if (g_pDInputKeyboard != (void *)0x0) {
+    Input_FlushKeyboard();
+  }
+  if (g_pDInputMouse != (void *)0x0) {
+    Input_FlushJoystick();
+    return;
+  }
+  return;
+}
+
+/* ---- 0x00477040  Input_ResetState ---- */
+/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+
+void Input_ResetState(void)
+
+{
+  uint *puVar1;
+  uint *puVar2;
+  
+  DAT_004dea40 = 0;
+  DAT_00805fb8 = 0;
+  DAT_00803fc8 = 0;
+  DAT_00804010 = 0x680;
+  _DAT_00803fcc = 0;
+  _DAT_00804014 = 0x680;
+  puVar1 = &DAT_00901500;
+  do {
+    puVar2 = puVar1 + 6;
+    *puVar1 = *puVar1 & 0xfffffffd;
+    puVar1 = puVar2;
+  } while (puVar2 < &DAT_00901668);
+  return;
+}
+
+/* ---- 0x00477090  Input_EnableAxis ---- */
+/* Axes 0-11 belong to the two joysticks, 12-14 to the mouse */
+
+int __cdecl Input_EnableAxis(uint axis)
+
+{
+  if (0xe < axis) {
+    return 0;
+  }
+  if (((&DAT_00901500)[axis * 6] & 1) == 0) {
+    return 0;
+  }
+  (&DAT_00901500)[axis * 6] = (&DAT_00901500)[axis * 6] | 2;
+  Input_MarkAxisUsed(axis);
+  return 1;
+}
+
+/* ---- 0x004770d0  Input_Update ---- */
+/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+/* Once per frame: polls keyboard, joysticks and mouse and records press/release times */
+
+void Input_Update(void)
+
+{
+  uint uVar1;
+  int iVar2;
+  undefined4 *puVar3;
+  
+  if (g_nInputAcquired != 0) {
+    DAT_00805fa4 = 1;
+    DAT_00805fbc = timeGetTime();
+    uVar1 = DAT_00805fbc - DAT_00805fc0;
+    if (uVar1 != 0) {
+      _DAT_004dea44 = 1.0 / (float)uVar1;
+      puVar3 = &DAT_00803fd0;
+      DAT_00805fc8 = uVar1;
+      for (iVar2 = 0xf; iVar2 != 0; iVar2 = iVar2 + -1) {
+        *puVar3 = 0;
+        puVar3 = puVar3 + 1;
+      }
+      _DAT_004dea48 = _DAT_004dea44 * 1000.0;
+      Input_PollKeyboard();
+      if (DAT_00805fb8 != 0) {
+        Input_PollJoysticks();
+      }
+      Input_PollMouse();
+      DAT_00805fc0 = DAT_00805fbc;
+    }
+  }
+  return;
+}
+
+/* ---- 0x00477160  Input_GetAxis ---- */
+float __cdecl Input_GetAxis(int inputId)
+
+{
+  float fVar1;
+  float fVar2;
+  int iVar3;
+  int iVar4;
+  int iVar5;
+  
+  if (g_nInputAcquired == 0) {
+    return 0.0;
+  }
+  iVar5 = inputId * 0x18;
+  if (((&DAT_00901500)[inputId * 6] & 2) == 0) {
+    return 0.0;
+  }
+  iVar3 = (&DAT_00803fd0)[inputId] - *(int *)(&DAT_0090150c + iVar5);
+  if (iVar3 == 0) {
+    return 0.0;
+  }
+  if ((((&DAT_00901500)[inputId * 6] & 8) == 0) && (*(int *)(&DAT_00901510 + iVar5) != 0)) {
+    iVar4 = iVar3;
+    if (iVar3 < 0) {
+      iVar4 = -iVar3;
+    }
+    if (iVar4 < *(int *)(&DAT_00901510 + iVar5)) {
+      return 0.0;
+    }
+  }
+  fVar1 = (float)iVar3 * *(float *)(&DAT_00901514 + iVar5);
+  fVar2 = fVar1;
+  if (fVar1 < 0.0) {
+    fVar2 = -fVar1;
+  }
+  if (fVar2 <= 1e-05) {
+    fVar1 = 0.0;
+  }
+  if ((DAT_00805fa4 != 0) && (fVar1 != 0.0)) {
+    DAT_00805fa4 = 0;
+  }
+  return fVar1;
+}
+
+/* ---- 0x00477230  Input_GetButtonState ---- */
+int __cdecl Input_GetButtonState(int inputId,int *down,int *justPressed)
+
+{
+  if ((g_nInputAcquired != 0) && (DAT_00805fa0 == 0)) {
+    if ((DAT_00805fa4 != 0) && ((&DAT_00804018)[inputId * 7] != 0)) {
+      DAT_00805fa4 = 0;
+    }
+    if (down != (int *)0x0) {
+      *down = (&DAT_0080402c)[inputId * 7];
+    }
+    if (justPressed != (int *)0x0) {
+      *justPressed = (&DAT_00804030)[inputId * 7];
+    }
+    return (&DAT_00804018)[inputId * 7];
+  }
+  if (down != (int *)0x0) {
+    *down = 0;
+  }
+  if (justPressed != (int *)0x0) {
+    *justPressed = 0;
+  }
+  return 0;
+}
+
+/* ---- 0x004772d0  FUN_004772d0 ---- */
+undefined4 FUN_004772d0(undefined4 param_1,int param_2,int param_3)
+
+{
+  if (param_2 != 0x112) {
+    return 0;
+  }
+  if ((param_3 != 0xf100) && (param_3 != 0xf140)) {
+    return 0;
+  }
+  return 1;
+}
+
+/* ---- 0x00477300  Input_SetAcquired ---- */
+void __cdecl Input_SetAcquired(int acquire)
+
+{
+  if (g_nInputEnabled != 0) {
+    if (acquire != 0) {
+      if ((g_pDInputMouse != (void *)0x0) && (DAT_004dea40 != 0)) {
+        (**(code_std **)(*(int *)g_pDInputMouse + 0x1c))(g_pDInputMouse);
+        ShowCursor(0);
+      }
+      if (g_pDInputKeyboard != (void *)0x0) {
+        (**(code_std **)(*(int *)g_pDInputKeyboard + 0x1c))(g_pDInputKeyboard);
+      }
+      g_nInputAcquired = 1;
+      return;
+    }
+    if (g_pDInputMouse != (void *)0x0) {
+      (**(code_std **)(*(int *)g_pDInputMouse + 0x20))(g_pDInputMouse);
+      ShowCursor(1);
+    }
+    if (g_pDInputKeyboard != (void *)0x0) {
+      (**(code_std **)(*(int *)g_pDInputKeyboard + 0x20))(g_pDInputKeyboard);
+    }
+    g_nInputAcquired = 0;
+  }
+  return;
+}
+
+/* ---- 0x00477380  Input_ShowCursor ---- */
+void Input_ShowCursor(int param_1)
+
+{
+  ShowCursor(param_1);
+  return;
+}
+
+/* ---- 0x00477390  Input_InitJoysticks ---- */
+/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+/* Up to two joysticks via joyGetDevCaps; six axes each, POV hat flagged */
+
+void Input_InitJoysticks(void)
+
+{
+  unsigned char _frame[0x1c0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  uint uVar1;
+  int iVar2;
+  uint uVar3;
+  undefined4 *puVar4;
+  int axis;
+  uint a1;
+  #define local_1a4 (*(undefined1 (*)[16])(_frame + (0x1c0 - 0x1a4)))
+  #define local_194 (*(undefined1 (*)[36])(_frame + (0x1c0 - 0x194)))
+  #define local_170 (*(int *)(_frame + (0x1c0 - 0x170)))
+  #define local_16c (*(int *)(_frame + (0x1c0 - 0x16c)))
+  #define local_168 (*(int *)(_frame + (0x1c0 - 0x168)))
+  #define local_164 (*(int *)(_frame + (0x1c0 - 0x164)))
+  #define local_160 (*(int *)(_frame + (0x1c0 - 0x160)))
+  #define local_15c (*(int *)(_frame + (0x1c0 - 0x15c)))
+  #define local_14c (*(int *)(_frame + (0x1c0 - 0x14c)))
+  #define local_148 (*(int *)(_frame + (0x1c0 - 0x148)))
+  #define local_144 (*(int *)(_frame + (0x1c0 - 0x144)))
+  #define local_140 (*(int *)(_frame + (0x1c0 - 0x140)))
+  #define local_13c (*(int *)(_frame + (0x1c0 - 0x13c)))
+  #define local_138 (*(int *)(_frame + (0x1c0 - 0x138)))
+  #define local_134 (*(byte *)(_frame + (0x1c0 - 0x134)))
+  #define local_128 (*(uint *)(_frame + (0x1c0 - 0x128)))
+  
+  DAT_009014e8 = 0;
+  DAT_00901668 = 0;
+  DAT_009014e0 = 0;
+  _DAT_009014ec = 0;
+  _DAT_0090166c = 0;
+  _DAT_009014e4 = 0;
+  uVar1 = joyGetNumDevs();
+  if (1 < uVar1) {
+    uVar1 = 2;
+  }
+  a1 = 0;
+  if (uVar1 != 0) {
+    puVar4 = &DAT_009014e0;
+    axis = 2;
+    do {
+      iVar2 = joyGetPos(a1,(int)local_1a4);
+      if (iVar2 == 0) {
+        iVar2 = joyGetDevCapsA(a1,(int)local_194,0x194);
+        if (iVar2 == 0) {
+          (&DAT_009014e8)[a1] = 1;
+          uVar3 = local_128;
+          if (0xd < local_128) {
+            uVar3 = 0xe;
+          }
+          (&DAT_00901668)[a1] = uVar3;
+          Input_SetAxisRange(axis + -2,local_170,local_16c,0.1);
+          Input_SetAxisRange(axis + -1,local_168,local_164,0.1);
+          if ((local_134 & 1) != 0) {
+            Input_SetAxisRange(axis,local_160,local_15c,0.1);
+          }
+          if ((local_134 & 2) != 0) {
+            Input_SetAxisRange(axis + 1,local_14c,local_148,0.1);
+          }
+          if ((local_134 & 4) != 0) {
+            Input_SetAxisRange(axis + 2,local_144,local_140,0.1);
+          }
+          if ((local_134 & 8) != 0) {
+            Input_SetAxisRange(axis + 3,local_13c,local_138,0.1);
+          }
+          if ((local_134 & 0x10) != 0) {
+            *puVar4 = 1;
+          }
+        }
+      }
+      a1 = a1 + 1;
+      axis = axis + 6;
+      puVar4 = puVar4 + 1;
+    } while (a1 < uVar1);
+  }
+  return;
+}
+#undef local_128
+#undef local_134
+#undef local_138
+#undef local_13c
+#undef local_140
+#undef local_144
+#undef local_148
+#undef local_14c
+#undef local_15c
+#undef local_160
+#undef local_164
+#undef local_168
+#undef local_16c
+#undef local_170
+#undef local_194
+#undef local_1a4
+
+
+/* ---- 0x00477530  Input_CreateKeyboard ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
+void Input_CreateKeyboard(void)
+
+{
+  unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  int iVar1;
+  #define pvStack_2c (*(void **)(_frame + (0x40 - 0x2c)))
+  #define puStack_28 (*(undefined **)(_frame + (0x40 - 0x28)))
+  #define pvStack_24 (*(void **)(_frame + (0x40 - 0x24)))
+  #define puStack_20 (*(undefined **)(_frame + (0x40 - 0x20)))
+  #define ppvStack_1c (*(void ***)(_frame + (0x40 - 0x1c)))
+  #define uStack_18 (*(undefined4 *)(_frame + (0x40 - 0x18)))
+  
+  if (g_pDirectInput != (void *)0x0) {
+    uStack_18 = 0;
+    ppvStack_1c = &g_pDInputKeyboard;
+    puStack_20 = &DAT_004d8350;
+    pvStack_24 = g_pDirectInput;
+    puStack_28 = (undefined *)0x47754e;
+    iVar1 = (**(code_std **)(*(int *)g_pDirectInput + 0xc))();
+    if (iVar1 == 0) {
+      puStack_28 = &DAT_004d5370;
+      pvStack_2c = g_pDInputKeyboard;
+      (**(code_std **)(*(int *)g_pDInputKeyboard + 0x2c))();
+      pvStack_2c = (void *)0x14;
+      puStack_28 = (undefined *)0x10;
+      pvStack_24 = (void *)0x0;
+      puStack_20 = (undefined *)0x0;
+      ppvStack_1c = (void **)0x20;
+      (**(code_std **)(*(int *)g_pDInputKeyboard + 0x18))(g_pDInputKeyboard,1,&pvStack_2c);
+    }
+  }
+  return;
+}
+#undef ppvStack_1c
+#undef puStack_20
+#undef puStack_28
+#undef pvStack_24
+#undef pvStack_2c
+#undef uStack_18
+
+#endif
+
+
+/* ---- 0x004775a0  Input_CreateMouse ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
+/* Mouse axes 12 (x), 13 (y), 14 (wheel) in relative mode */
+
+void Input_CreateMouse(void)
+
+{
+  unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  int iVar1;
+  #define uStack_38 (*(undefined4 *)(_frame + (0x50 - 0x38)))
+  #define uStack_34 (*(undefined4 *)(_frame + (0x50 - 0x34)))
+  #define pvStack_30 (*(void **)(_frame + (0x50 - 0x30)))
+  #define puStack_2c (*(undefined **)(_frame + (0x50 - 0x2c)))
+  #define pvStack_28 (*(void **)(_frame + (0x50 - 0x28)))
+  #define puStack_24 (*(undefined **)(_frame + (0x50 - 0x24)))
+  #define ppvStack_20 (*(void ***)(_frame + (0x50 - 0x20)))
+  
+  if (g_pDirectInput != (void *)0x0) {
+    ppvStack_20 = (void **)0x4775b9;
+    GetSystemMetrics(0x2b);
+    ppvStack_20 = &g_pDInputMouse;
+    puStack_24 = &DAT_004d8340;
+    pvStack_28 = g_pDirectInput;
+    puStack_2c = (undefined *)0x4775d0;
+    iVar1 = (**(code_std **)(*(int *)g_pDirectInput + 0xc))();
+    if (iVar1 == 0) {
+      puStack_2c = &DAT_004d5400;
+      pvStack_30 = g_pDInputMouse;
+      uStack_34 = 0x4775e8;
+      iVar1 = (**(code_std **)(*(int *)g_pDInputMouse + 0x2c))();
+      if (iVar1 == 0) {
+        uStack_34 = 5;
+        iVar1 = *(int *)g_pDInputMouse;
+        uStack_38 = 0x4775fe;
+        uStack_38 = Win_GetMainHwnd();
+        pvStack_30 = (void *)(**(code_std **)(iVar1 + 0x34))(g_pDInputMouse);
+        if (pvStack_30 == (void *)0x0) {
+          uStack_38 = 0x14;
+          uStack_34 = 0x10;
+          pvStack_28 = (void *)0x20;
+          puStack_2c = pvStack_30;
+          (**(code_std **)(*(int *)g_pDInputMouse + 0x18))(g_pDInputMouse,1,&uStack_38);
+          Input_SetAxisRange(0xc,-0xfa,0xfa,0.0);
+          Input_SetAxisRange(0xd,-200,200,0.0);
+          Input_SetAxisRange(0xe,-0x14,0x14,0.0);
+        }
+      }
+    }
+  }
+  return;
+}
+#undef ppvStack_20
+#undef puStack_24
+#undef puStack_2c
+#undef pvStack_28
+#undef pvStack_30
+#undef uStack_34
+#undef uStack_38
+
+#endif
+
+
+/* ---- 0x00477680  Input_MarkAxisUsed ---- */
+void Input_MarkAxisUsed(uint param_1)
+
+{
+  uint uVar1;
+  
+  if ((0xb < param_1) && (param_1 < 0xf)) {
+    DAT_004dea40 = 1;
+    return;
+  }
+  if (param_1 < 0xc) {
+    DAT_00805fb8 = 1;
+    uVar1 = (uint)(5 < param_1);
+    (&DAT_00803fc8)[uVar1] = 1;
+    switch(param_1 + uVar1 * -6) {
+    case 0:
+      (&DAT_00804010)[uVar1] = (&DAT_00804010)[uVar1] | 1;
+      return;
+    case 1:
+      (&DAT_00804010)[uVar1] = (&DAT_00804010)[uVar1] | 2;
+      return;
+    case 2:
+      (&DAT_00804010)[uVar1] = (&DAT_00804010)[uVar1] | 4;
+      return;
+    case 3:
+      (&DAT_00804010)[uVar1] = (&DAT_00804010)[uVar1] | 8;
+      return;
+    case 4:
+      (&DAT_00804010)[uVar1] = (&DAT_00804010)[uVar1] | 0x10;
+      return;
+    case 5:
+      (&DAT_00804010)[uVar1] = (&DAT_00804010)[uVar1] | 0x20;
+    }
+  }
+  return;
+}
+
+/* ---- 0x00477730  Input_PollKeyboard ---- */
+/* Buffered DirectInput key events plus the immediate key state; each key has a 7-dword record {?,
+   lastDown, down, downTime, upTime, pressCount, doubleTap} */
+
+void Input_PollKeyboard(void)
+
+{
+  unsigned char _frame[0x330] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  int iVar1;
+  int iVar2;
+  int iVar3;
+  void *pvVar4;
+  uint uVar5;
+  undefined4 *puVar6;
+  int iVar7;
+  int iVar8;
+  uint *puVar9;
+  uint uVar10;
+  int *piVar11;
+  #define puStack_320 (*(undefined1 **)(_frame + (0x330 - 0x320)))
+  #define puStack_31c (*(undefined4 **)(_frame + (0x330 - 0x31c)))
+  #define iStack_318 (*(int *)(_frame + (0x330 - 0x318)))
+  #define local_304 (*(undefined4 (*)[60])(_frame + (0x330 - 0x304)))
+  #define aiStack_214 (*(int (*)[5])(_frame + (0x330 - 0x214)))
+  #define local_200 (*(undefined1 (*)[512])(_frame + (0x330 - 0x200)))
+  
+  uVar5 = DAT_00805fbc;
+  pvVar4 = g_pDInputKeyboard;
+  local_304[0] = 0x20;
+  if ((g_pDInputKeyboard != (void *)0x0) && (DAT_00805fa0 == 0)) {
+    puVar6 = &DAT_00804020;
+    do {
+      puVar6[-1] = uVar5;
+      puVar6[-2] = *puVar6;
+      puVar6[4] = 0;
+      puVar6[3] = 0;
+      puVar6 = puVar6 + 7;
+    } while (puVar6 < &DAT_00805fa0);
+    puStack_31c = local_304;
+    iStack_318 = 0;
+    puStack_320 = local_200;
+    iVar7 = (**(code_std **)(*(int *)pvVar4 + 0x28))(pvVar4,0x10);
+    if (iStack_318 != 0) {
+      piVar11 = aiStack_214 + 1;
+      iVar8 = iStack_318;
+      do {
+        iVar1 = piVar11[-1];
+        iVar2 = *piVar11;
+        iVar3 = piVar11[1];
+        if (iVar2 == (&DAT_00804020)[iVar1 * 7]) {
+          if (iVar2 != 0) {
+LAB_0047780b:
+            (&DAT_00804028)[iVar1 * 7] = iVar3;
+          }
+        }
+        else {
+          if ((iVar2 != 0) && ((uint)(iVar3 - (&DAT_00804028)[iVar1 * 7]) < 200)) {
+            (&DAT_00804030)[iVar1 * 7] = 1;
+          }
+          (&DAT_00804020)[iVar1 * 7] = iVar2;
+          (&DAT_00804024)[iVar1 * 7] = iVar3;
+          if (iVar2 != 0) {
+            (&DAT_0080402c)[iVar1 * 7] = (&DAT_0080402c)[iVar1 * 7] + 1;
+            (&DAT_00804018)[iVar1 * 7] = iVar2;
+            goto LAB_0047780b;
+          }
+        }
+        piVar11 = piVar11 + 4;
+        iVar8 = iVar8 + -1;
+      } while (iVar8 != 0);
+    }
+    if ((iVar7 == 1) &&
+       (iVar7 = (**(code_std **)(*(int *)g_pDInputKeyboard + 0x24))
+                          (g_pDInputKeyboard,0x100,&STACK0X(0xfffffcec)), uVar5 = DAT_00805fbc,
+       -1 < iVar7)) {
+      iVar7 = 0;
+      puVar9 = &DAT_00804020;
+      do {
+        uVar10 = (uint)*(byte *)((int)&puStack_320 + iVar7);
+        if (uVar10 == *puVar9) {
+          if (uVar10 != 0) {
+LAB_00477881:
+            puVar9[2] = uVar5;
+          }
+        }
+        else {
+          if ((uVar10 != 0) && (uVar5 - puVar9[2] < 200)) {
+            puVar9[4] = 1;
+          }
+          *puVar9 = uVar10;
+          puVar9[1] = uVar5;
+          if (uVar10 != 0) {
+            puVar9[3] = puVar9[3] + 1;
+            puVar9[-2] = uVar10;
+            goto LAB_00477881;
+          }
+        }
+        puVar9 = puVar9 + 7;
+        iVar7 = iVar7 + 1;
+      } while (puVar9 < &DAT_00805c20);
+    }
+  }
+  return;
+}
+#undef aiStack_214
+#undef iStack_318
+#undef local_200
+#undef local_304
+#undef puStack_31c
+#undef puStack_320
+
+
+/* ---- 0x004778a0  Input_FlushKeyboard ---- */
+void Input_FlushKeyboard(void)
+
+{
+  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  int iVar1;
+  int *piVar2;
+  #define local_4 (*(undefined4 *)(_frame + (0x20 - 0x4)))
+  
+  local_4 = 0xffffffff;
+  if (g_pDInputKeyboard != (void *)0x0) {
+    (**(code_std **)(*(int *)g_pDInputKeyboard + 0x28))(g_pDInputKeyboard,0x10,0,&local_4,0);
+    iVar1 = DAT_00805fbc;
+    piVar2 = &DAT_00804020;
+    do {
+      if (*piVar2 != 0) {
+        *piVar2 = 0;
+        piVar2[1] = iVar1;
+      }
+      piVar2 = piVar2 + 7;
+    } while (piVar2 < &DAT_00805c20);
+  }
+  return;
+}
+#undef local_4
+
+
+/* ---- 0x004778f0  Input_PollJoysticks ---- */
+/* joyGetPosEx per stick; the POV hat is mapped onto four virtual buttons */
+
+void Input_PollJoysticks(void)
+
+{
+  unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  uint uVar1;
+  uint *puVar2;
+  int iVar3;
+  uint uVar4;
+  uint uVar5;
+  #define local_44 (*(undefined4 **)(_frame + (0x60 - 0x44)))
+  #define local_40 (*(uint *)(_frame + (0x60 - 0x40)))
+  #define local_3c (*(uint **)(_frame + (0x60 - 0x3c)))
+  #define local_38 (*(int *)(_frame + (0x60 - 0x38)))
+  #define local_34 (*(uint (*)[4])(_frame + (0x60 - 0x34)))
+  #define local_24 (*(undefined4 *)(_frame + (0x60 - 0x24)))
+  #define local_20 (*(undefined4 *)(_frame + (0x60 - 0x20)))
+  #define local_1c (*(undefined4 *)(_frame + (0x60 - 0x1c)))
+  #define local_18 (*(undefined4 *)(_frame + (0x60 - 0x18)))
+  #define local_14 (*(uint *)(_frame + (0x60 - 0x14)))
+  #define local_c (*(int *)(_frame + (0x60 - 0xc)))
+  
+  local_40 = 1;
+  local_38 = 0;
+  local_3c = &DAT_00804010;
+  local_44 = &DAT_00803fd4;
+  uVar5 = 0x1c00;
+  do {
+    if (((&DAT_00803fc8)[local_38] != 0) && ((&DAT_009014e8)[local_38] != 0)) {
+      puVar2 = local_34;
+      for (iVar3 = 0xd; iVar3 != 0; iVar3 = iVar3 + -1) {
+        *puVar2 = 0;
+        puVar2 = puVar2 + 1;
+      }
+      local_34[0] = 0x34;
+      local_34[1] = *local_3c;
+      iVar3 = joyGetPosEx(local_38,(int)local_34);
+      if (iVar3 != 0) {
+        return;
+      }
+      local_44[-1] = local_34[2];
+      *local_44 = local_34[3];
+      if ((local_34[1] & 4) != 0) {
+        local_44[1] = local_24;
+      }
+      if ((local_34[1] & 8) != 0) {
+        local_44[2] = local_20;
+      }
+      if ((local_34[1] & 0x10) != 0) {
+        local_44[3] = local_1c;
+      }
+      if ((local_34[1] & 0x20) != 0) {
+        local_44[4] = local_18;
+      }
+      uVar1 = DAT_00805fbc;
+      puVar2 = (uint *)((int)&DAT_00804020 + uVar5);
+      iVar3 = 10;
+      do {
+        uVar4 = local_14 & local_40;
+        if (uVar4 == *puVar2) {
+          if (uVar4 != 0) {
+LAB_004779fd:
+            puVar2[2] = uVar1;
+          }
+        }
+        else {
+          if ((uVar4 != 0) && (uVar1 - puVar2[2] < 200)) {
+            puVar2[4] = 1;
+          }
+          *puVar2 = uVar4;
+          puVar2[1] = uVar1;
+          if (uVar4 != 0) {
+            puVar2[3] = puVar2[3] + 1;
+            puVar2[-2] = uVar4;
+            goto LAB_004779fd;
+          }
+        }
+        puVar2 = puVar2 + 7;
+        local_40 = local_40 << 1;
+        iVar3 = iVar3 + -1;
+      } while (iVar3 != 0);
+      if ((local_34[1] & 0x200) != 0) {
+        if ((local_c < 0x57e4) || (0x7b0c < local_c)) {
+          iVar3 = 0;
+        }
+        else {
+          iVar3 = 1;
+        }
+        if (iVar3 == *(int *)(uVar5 + IMG_ADDR(0x00804138))) {
+          if (iVar3 != 0) {
+LAB_00477a8e:
+            *(uint *)(uVar5 + IMG_ADDR(0x00804140)) = uVar1;
+          }
+        }
+        else {
+          if ((iVar3 != 0) && (uVar1 - *(int *)(uVar5 + IMG_ADDR(0x00804140)) < 200)) {
+            *(undefined4 *)(uVar5 + IMG_ADDR(0x00804148)) = 1;
+          }
+          *(int *)(uVar5 + IMG_ADDR(0x00804138)) = iVar3;
+          *(uint *)(uVar5 + IMG_ADDR(0x0080413c)) = uVar1;
+          if (iVar3 != 0) {
+            *(int *)(uVar5 + IMG_ADDR(0x00804144)) = *(int *)(uVar5 + IMG_ADDR(0x00804144)) + 1;
+            *(int *)(uVar5 + IMG_ADDR(0x00804130)) = iVar3;
+            goto LAB_00477a8e;
+          }
+        }
+        if ((((local_c < 0x7b0c) && (0x1194 < local_c)) || (local_c < 0)) || (local_c == 0xffff)) {
+          iVar3 = 0;
+        }
+        else {
+          iVar3 = 1;
+        }
+        if (iVar3 == *(int *)(uVar5 + IMG_ADDR(0x00804154))) {
+          if (iVar3 != 0) {
+LAB_00477b03:
+            *(uint *)(uVar5 + IMG_ADDR(0x0080415c)) = uVar1;
+          }
+        }
+        else {
+          if ((iVar3 != 0) && (uVar1 - *(int *)(uVar5 + IMG_ADDR(0x0080415c)) < 200)) {
+            *(undefined4 *)(uVar5 + IMG_ADDR(0x00804164)) = 1;
+          }
+          *(int *)(uVar5 + IMG_ADDR(0x00804154)) = iVar3;
+          *(uint *)(uVar5 + IMG_ADDR(0x00804158)) = uVar1;
+          if (iVar3 != 0) {
+            *(int *)(uVar5 + IMG_ADDR(0x00804160)) = *(int *)(uVar5 + IMG_ADDR(0x00804160)) + 1;
+            *(int *)(uVar5 + IMG_ADDR(0x0080414c)) = iVar3;
+            goto LAB_00477b03;
+          }
+        }
+        if ((local_c < 0x1194) || (0x34bc < local_c)) {
+          iVar3 = 0;
+        }
+        else {
+          iVar3 = 1;
+        }
+        if (iVar3 == *(int *)(uVar5 + IMG_ADDR(0x00804170))) {
+          if (iVar3 != 0) {
+LAB_00477b6c:
+            *(uint *)(uVar5 + IMG_ADDR(0x00804178)) = uVar1;
+          }
+        }
+        else {
+          if ((iVar3 != 0) && (uVar1 - *(int *)(uVar5 + IMG_ADDR(0x00804178)) < 200)) {
+            *(undefined4 *)(uVar5 + IMG_ADDR(0x00804180)) = 1;
+          }
+          *(int *)(uVar5 + IMG_ADDR(0x00804170)) = iVar3;
+          *(uint *)(uVar5 + IMG_ADDR(0x00804174)) = uVar1;
+          if (iVar3 != 0) {
+            *(int *)(uVar5 + IMG_ADDR(0x0080417c)) = *(int *)(uVar5 + IMG_ADDR(0x0080417c)) + 1;
+            *(int *)(uVar5 + IMG_ADDR(0x00804168)) = iVar3;
+            goto LAB_00477b6c;
+          }
+        }
+        if ((local_c < 0x34bc) || (0x57e4 < local_c)) {
+          iVar3 = 0;
+        }
+        else {
+          iVar3 = 1;
+        }
+        if (iVar3 == *(int *)(uVar5 + IMG_ADDR(0x0080418c))) {
+          if (iVar3 != 0) {
+LAB_00477bd5:
+            *(uint *)(uVar5 + IMG_ADDR(0x00804194)) = uVar1;
+          }
+        }
+        else {
+          if ((iVar3 != 0) && (uVar1 - *(int *)(uVar5 + IMG_ADDR(0x00804194)) < 200)) {
+            *(undefined4 *)(uVar5 + IMG_ADDR(0x0080419c)) = 1;
+          }
+          *(int *)(uVar5 + IMG_ADDR(0x0080418c)) = iVar3;
+          *(uint *)(uVar5 + IMG_ADDR(0x00804190)) = uVar1;
+          if (iVar3 != 0) {
+            *(int *)(uVar5 + IMG_ADDR(0x00804198)) = *(int *)(uVar5 + IMG_ADDR(0x00804198)) + 1;
+            *(int *)(uVar5 + IMG_ADDR(0x00804184)) = iVar3;
+            goto LAB_00477bd5;
+          }
+        }
+      }
+    }
+    uVar5 = uVar5 + 0x188;
+    local_38 = local_38 + 1;
+    local_44 = local_44 + 6;
+    local_3c = local_3c + 1;
+    if (0x1f0f < uVar5) {
+      return;
+    }
+  } while( true );
+}
+#undef local_14
+#undef local_18
+#undef local_1c
+#undef local_20
+#undef local_24
+#undef local_34
+#undef local_38
+#undef local_3c
+#undef local_40
+#undef local_44
+#undef local_c
+
+
+/* ---- 0x00477c20  Input_PollMouse ---- */
+/* WARNING: Removing unreachable block (ram,0x00477cd3) */
+/* WARNING: Removing unreachable block (ram,0x00477cd5) */
+/* WARNING: Removing unreachable block (ram,0x00477cdc) */
+/* WARNING: Removing unreachable block (ram,0x00477ce1) */
+/* WARNING: Removing unreachable block (ram,0x00477d05) */
+/* WARNING: Removing unreachable block (ram,0x00477d09) */
+/* WARNING: Removing unreachable block (ram,0x00477d19) */
+/* WARNING: Removing unreachable block (ram,0x00477d23) */
+/* WARNING: Removing unreachable block (ram,0x00477d33) */
+/* WARNING: Removing unreachable block (ram,0x00477cff) */
+/* WARNING: Removing unreachable block (ram,0x00477d03) */
+/* WARNING: Removing unreachable block (ram,0x00477d46) */
+/* WARNING: Removing unreachable block (ram,0x00477d4c) */
+/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+
+void Input_PollMouse(void)
+
+{
+  unsigned char _frame[0x220] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  uint uVar1;
+  int iVar2;
+  uint *puVar3;
+  uint uVar4;
+  int unaff_EBX;
+  int unaff_EBP;
+  #define local_210 (*(undefined1 (*)[4])(_frame + (0x220 - 0x210)))
+  #define auStack_20c (*(undefined1 (*)[524])(_frame + (0x220 - 0x20c)))
+  
+  if ((DAT_004dea40 != 0) &&
+     (iVar2 = (**(code_std **)(*(int *)g_pDInputMouse + 0x24))(g_pDInputMouse,0x10,local_210),
+     iVar2 == 0)) {
+    _DAT_00804008 = 0x20;
+    _DAT_00804000 = unaff_EBP;
+    _DAT_00804004 = unaff_EBX;
+    if (DAT_00805fc8 < 0x19) {
+      _DAT_00804000 = DAT_00805fcc + unaff_EBP >> 1;
+      _DAT_00804004 = DAT_00805fd0 + unaff_EBX >> 1;
+    }
+    DAT_00805fcc = unaff_EBP;
+    DAT_00805fd0 = unaff_EBX;
+    iVar2 = (**(code_std **)(*(int *)g_pDInputMouse + 0x28))
+                      (g_pDInputMouse,0x10,auStack_20c,&STACK0X(0xfffffde0));
+    uVar1 = DAT_00805fbc;
+    if (iVar2 == 1) {
+      iVar2 = 0;
+      puVar3 = &DAT_00805f30;
+      do {
+        uVar4 = (uint)(byte)auStack_20c[iVar2 + -0x18];
+        if (uVar4 == *puVar3) {
+          if (uVar4 != 0) {
+LAB_00477da3:
+            puVar3[2] = uVar1;
+          }
+        }
+        else {
+          if ((uVar4 != 0) && (uVar1 - puVar3[2] < 200)) {
+            puVar3[4] = 1;
+          }
+          *puVar3 = uVar4;
+          puVar3[1] = uVar1;
+          if (uVar4 != 0) {
+            puVar3[3] = puVar3[3] + 1;
+            puVar3[-2] = uVar4;
+            goto LAB_00477da3;
+          }
+        }
+        puVar3 = puVar3 + 7;
+        iVar2 = iVar2 + 1;
+      } while (puVar3 < &DAT_00805fa0);
+    }
+  }
+  return;
+}
+#undef auStack_20c
+#undef local_210
+
+
+/* ---- 0x00477dc0  Input_FlushJoystick ---- */
+void Input_FlushJoystick(void)
+
+{
+  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  uint uVar1;
+  uint *puVar2;
+  uint uVar3;
+  int iVar4;
+  #define local_10 (*(undefined1 (*)[16])(_frame + (0x20 - 0x10)))
+  
+  if (DAT_004dea40 != 0) {
+    (**(code_std **)(*(int *)g_pDInputMouse + 0x24))(g_pDInputMouse,0x10,local_10);
+    (**(code_std **)(*(int *)g_pDInputMouse + 0x28))(g_pDInputMouse,0x10,0,&STACK0X(0xffffffe0),0);
+    uVar1 = DAT_00805fbc;
+    iVar4 = 0;
+    puVar2 = &DAT_00805f30;
+    do {
+      uVar3 = (uint)(byte)local_10[iVar4 + -0x14];
+      if (uVar3 == *puVar2) {
+        if (uVar3 != 0) {
+LAB_00477e51:
+          puVar2[2] = uVar1;
+        }
+      }
+      else {
+        if ((uVar3 != 0) && (uVar1 - puVar2[2] < 200)) {
+          puVar2[4] = 1;
+        }
+        *puVar2 = uVar3;
+        puVar2[1] = uVar1;
+        if (uVar3 != 0) {
+          puVar2[3] = puVar2[3] + 1;
+          puVar2[-2] = uVar3;
+          goto LAB_00477e51;
+        }
+      }
+      puVar2 = puVar2 + 7;
+      iVar4 = iVar4 + 1;
+    } while (puVar2 < &DAT_00805fa0);
+  }
+  return;
+}
+#undef local_10
+
+
+/* ---- 0x00477e70  Input_SetAxisRange ---- */
+void __cdecl Input_SetAxisRange(int axis,int min,int max,float deadZone)
+
+{
+  int iVar1;
+  undefined4 uVar2;
+  int iVar3;
+  
+  iVar1 = ((max - min) + 1) / 2 + min;
+  iVar3 = axis * 0x18;
+  (&DAT_00901500)[axis * 6] = (&DAT_00901500)[axis * 6] | 1;
+  (&DAT_00901504)[axis * 6] = min;
+  *(int *)(&DAT_00901508 + iVar3) = max;
+  *(int *)(&DAT_0090150c + iVar3) = iVar1;
+  *(float *)(&DAT_00901514 + iVar3) = 1.0 / (float)(max - iVar1);
+  if (deadZone != 0.0) {
+    uVar2 = _ftol();
+    *(undefined4 *)(&DAT_00901510 + iVar3) = uVar2;
+    return;
+  }
+  *(undefined4 *)(&DAT_00901510 + iVar3) = 0;
+  return;
+}

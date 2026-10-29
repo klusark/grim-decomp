@@ -1,0 +1,663 @@
+/* GRIMFANDANGO.EXE :: grim.c
+ * functions 0x00401140 .. 0x00403520 (11 functions)
+ * Decompiled from the shipped binaries with Ghidra; see ../../README.md */
+#include "ghidra_types.h"
+#include "globals.h"
+#include "functions.h"
+
+/* ---- 0x00401140  Grim_FindDataOnDrives ---- */
+/* Source: grimdemo.c (line 353, from __FILE__/__LINE__ passed to the allocator) */
+
+int __cdecl Grim_FindDataOnDrives(char *subdir)
+
+{
+  unsigned char _frame[0x190] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  char cVar1;
+  bool bVar2;
+  int iVar3;
+  char *pcVar4;
+  char *pcVar5;
+  uint uVar6;
+  uint uVar7;
+  char *pcVar8;
+  char *pcVar9;
+  char *pcVar10;
+  undefined4 uVar11;
+  #define acStack_174 (*(char (*)[52])(_frame + (0x190 - 0x174)))
+  #define auStack_140 (*(undefined1 (*)[320])(_frame + (0x190 - 0x140)))
+  
+  bVar2 = false;
+  iVar3 = GetLogicalDriveStringsA(0,0);
+  if (iVar3 != 0) {
+    pcVar4 = (char *)(*g_pSvcMain->pAlloc)
+                               (iVar3 + 1,s_C__grimsrc_tools_grimdemo_grimde_004dd50c,0x161);
+    GetLogicalDriveStringsA(iVar3,(int)pcVar4);
+    pcVar5 = pcVar4;
+    while (((pcVar5 != (char *)0x0 && (*pcVar5 != '\0')) && (!bVar2))) {
+      iVar3 = GetDriveTypeA((int)pcVar5);
+      if ((iVar3 == 5) || ((DAT_004f5a24 != 0 && (iVar3 == 4)))) {
+        uVar6 = 0xffffffff;
+        pcVar8 = pcVar5;
+        do {
+          pcVar10 = pcVar8;
+          if (uVar6 == 0) break;
+          uVar6 = uVar6 - 1;
+          pcVar10 = pcVar8 + 1;
+          cVar1 = *pcVar8;
+          pcVar8 = pcVar10;
+        } while (cVar1 != '\0');
+        uVar6 = ~uVar6;
+        pcVar8 = pcVar10 + -uVar6;
+        pcVar10 = acStack_174;
+        for (uVar7 = uVar6 >> 2; uVar7 != 0; uVar7 = uVar7 - 1) {
+          *(undefined4 *)pcVar10 = *(undefined4 *)pcVar8;
+          pcVar8 = pcVar8 + 4;
+          pcVar10 = pcVar10 + 4;
+        }
+        for (uVar6 = uVar6 & 3; uVar6 != 0; uVar6 = uVar6 - 1) {
+          *pcVar10 = *pcVar8;
+          pcVar8 = pcVar8 + 1;
+          pcVar10 = pcVar10 + 1;
+        }
+        uVar6 = 0xffffffff;
+        pcVar8 = subdir;
+        do {
+          pcVar10 = pcVar8;
+          if (uVar6 == 0) break;
+          uVar6 = uVar6 - 1;
+          pcVar10 = pcVar8 + 1;
+          cVar1 = *pcVar8;
+          pcVar8 = pcVar10;
+        } while (cVar1 != '\0');
+        uVar6 = ~uVar6;
+        iVar3 = -1;
+        pcVar8 = acStack_174;
+        do {
+          pcVar9 = pcVar8;
+          if (iVar3 == 0) break;
+          iVar3 = iVar3 + -1;
+          pcVar9 = pcVar8 + 1;
+          cVar1 = *pcVar8;
+          pcVar8 = pcVar9;
+        } while (cVar1 != '\0');
+        pcVar8 = pcVar10 + -uVar6;
+        pcVar10 = pcVar9 + -1;
+        for (uVar7 = uVar6 >> 2; uVar7 != 0; uVar7 = uVar7 - 1) {
+          *(undefined4 *)pcVar10 = *(undefined4 *)pcVar8;
+          pcVar8 = pcVar8 + 4;
+          pcVar10 = pcVar10 + 4;
+        }
+        for (uVar6 = uVar6 & 3; uVar6 != 0; uVar6 = uVar6 - 1) {
+          *pcVar10 = *pcVar8;
+          pcVar8 = pcVar8 + 1;
+          pcVar10 = pcVar10 + 1;
+        }
+        iVar3 = FindFirstFileA((int)acStack_174,(int)auStack_140);
+        if (iVar3 != -1) {
+          bVar2 = true;
+          FindClose(iVar3);
+        }
+      }
+      uVar6 = 0xffffffff;
+      pcVar8 = pcVar5;
+      do {
+        if (uVar6 == 0) break;
+        uVar6 = uVar6 - 1;
+        cVar1 = *pcVar8;
+        pcVar8 = pcVar8 + 1;
+      } while (cVar1 != '\0');
+      pcVar5 = pcVar5 + ~uVar6;
+    }
+    (*g_pSvcMain->pFree)(pcVar4);
+  }
+  if (!bVar2) {
+    uVar11 = 0;
+    pcVar5 = Polyglot_Lookup(s__engn007_Grim_Fandango_could_not_004dd4dc);
+    pcVar4 = Polyglot_Lookup(s__engn006_Please_make_sure_that_t_004dd47c);
+    uVar11 = ((code *)Win_GetMainHwnd)(pcVar4,pcVar5,uVar11);
+    ((code *)Grim_FatalMessageBox)(uVar11);
+    return 0;
+  }
+  return 1;
+}
+#undef acStack_174
+#undef auStack_140
+
+
+/* ---- 0x004012b0  Grim_Init ---- */
+/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+/* grimdemo.c: whole-engine startup: service tables, registry/config, window + 256-colour check,
+   display enumeration, resource system, Lua engine lib registration, iMUSE. */
+
+undefined4 Grim_Init(char *param_1)
+
+{
+  unsigned char _frame[0x90] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  int iVar1;
+  char *pcVar2;
+  char *pcVar3;
+  int iVar4;
+  undefined4 *puVar5;
+  undefined4 uVar6;
+  #define local_80 (*(undefined4 *)(_frame + (0x90 - 0x80)))
+  #define local_7c (*(undefined4 *)(_frame + (0x90 - 0x7c)))
+  #define local_78 (*(undefined2 *)(_frame + (0x90 - 0x78)))
+  #define local_76 (*(undefined1 *)(_frame + (0x90 - 0x76)))
+  #define local_75 (*(undefined4 (*)[13])(_frame + (0x90 - 0x75)))
+  #define acStack_40 (*(char (*)[64])(_frame + (0x90 - 0x40)))
+  
+  local_80 = DAT_004dd668;
+  local_7c = DAT_004dd66c;
+  local_76 = DAT_004dd672;
+  local_78 = DAT_004dd670;
+  puVar5 = local_75;
+  for (iVar4 = 0xd; iVar4 != 0; iVar4 = iVar4 + -1) {
+    *puVar5 = 0;
+    puVar5 = puVar5 + 1;
+  }
+  *(undefined1 *)puVar5 = 0;
+  Services_InitDefaults(&DAT_008ddda0);
+  iVar4 = Grim_ParseCommandLine(param_1);
+  if (iVar4 == 0) {
+    return 0;
+  }
+  Services_InitPlatform(&DAT_008ddda0);
+  _DAT_008dddb4 = DAT_008dddac;
+  Services_SetCurrent(&DAT_008ddda0);
+  IMuseModule_Init(&DAT_008ddda0,&DAT_008ddd80);
+  (*DAT_008ddd88)();
+  Polyglot_LoadTable(s_grim_tab_004dd238);
+  Grim_OpenRegistry();
+  Grim_DecodeRegKeyName((char *)&local_80);
+  Reg_GetString((char *)&local_80,acStack_40,0x40,(char *)0x0);
+  iVar4 = _stricmp(acStack_40,&DAT_004dd660);
+  if (iVar4 == 0) {
+    DAT_004f5a24 = 1;
+  }
+  iVar4 = _stricmp(acStack_40,&DAT_004dd65c);
+  if (iVar4 == 0) {
+    DAT_004f5a24 = 1;
+  }
+  if (DAT_004f5a24 == 0) {
+    iVar4 = Grim_FindDataOnDrives(s_GrimData_004dd650);
+    if (iVar4 == 0) {
+      return 0;
+    }
+  }
+  rdroid_Startup((GrimServices *)&DAT_008ddda0);
+  iVar4 = rdroid_Open(0);
+  if (iVar4 == 0) {
+    return 0;
+  }
+  Win_AddMessageHook(Win_WndProc);
+  Win_AddMessageHook(FUN_004772d0);
+  iVar4 = GetDC(0);
+  iVar1 = GetDeviceCaps(iVar4,0xc);
+  ReleaseDC(0,iVar4);
+  if (iVar1 < 8) {
+    uVar6 = 0;
+    pcVar2 = Polyglot_Lookup(s__engn001_Grim_Fandango_004dd638);
+    pcVar3 = Polyglot_Lookup(s__engn002_System_must_be_in_256_c_004dd5f8);
+    uVar6 = ((code *)Win_GetMainHwnd)(pcVar3,pcVar2,uVar6);
+    ((code *)Grim_FatalMessageBox)(uVar6);
+    return 0;
+  }
+  iVar4 = Display_EnumDevices();
+  if (iVar4 == 0) {
+    return 0;
+  }
+  Grim_EnumDisplayModes();
+  if ((DAT_004f5a24 != 0) && (DAT_004f5a20 != 0)) {
+    Reg_SetInt(s_ExperimentalDisplay_004dd5e4,1);
+  }
+  iVar4 = Display_InitFromConfig();
+  if (iVar4 == 0) {
+    return 0;
+  }
+  iVar4 = EngineModule_Init((GrimServices *)&DAT_008ddda0,(undefined4 *)&DAT_008dde20);
+  if (iVar4 != 0) {
+    return 0;
+  }
+  iVar4 = (*DAT_008dde28)();
+  if (iVar4 != 0) {
+    uVar6 = 0;
+    pcVar2 = Polyglot_Lookup(s__engn005_Grim_Fandango_could_not_004dd5a8);
+    pcVar3 = Polyglot_Lookup(s__engn004_Please_make_sure_you_ar_004dd534);
+    uVar6 = ((code *)Win_GetMainHwnd)(pcVar3,pcVar2,uVar6);
+    ((code *)Grim_FatalMessageBox)(uVar6);
+    return 0;
+  }
+  lua_openlib(&PTR_s_Is3DHardwareEnabled_004dd350,DAT_004dd380);
+  Engine_SetIdleCallback(FUN_00402050);
+  Engine_SetRenderUserCallback(Grim_OnDisplayModeChange);
+  Engine_SetFlipCallback(Display_Flip);
+  Engine_SetDebugKeysCallback(DebugLog_Init);
+  Resource_OpenArchives();
+  Grim_ShowSplash();
+  DebugLog_Init(1);
+  iVar4 = Engine_RunSystemScript();
+  if (iVar4 != 0) {
+    uVar6 = 0;
+    pcVar2 = Polyglot_Lookup(s__engn007_Grim_Fandango_could_not_004dd4dc);
+    pcVar3 = Polyglot_Lookup(s__engn006_Please_make_sure_that_t_004dd47c);
+    uVar6 = ((code *)Win_GetMainHwnd)(pcVar3,pcVar2,uVar6);
+    ((code *)Grim_FatalMessageBox)(uVar6);
+    return 0;
+  }
+  iVar4 = Engine_CallSystemFunction(DAT_004f5a10,-(uint)(DAT_004f5a14 != 0) & 0x4f59b0);
+  if (iVar4 != 0) {
+    return 0;
+  }
+  if (DAT_004f5a44 != 0) {
+    ChoreFace_Toggle(1);
+  }
+  iVar4 = Win_GetMainHwnd();
+  SetActiveWindow(iVar4);
+  _DAT_004f5a00 = 1;
+  return 1;
+}
+#undef acStack_40
+#undef local_75
+#undef local_76
+#undef local_78
+#undef local_7c
+#undef local_80
+
+
+/* ---- 0x00401640  Grim_DecodeRegKeyName ---- */
+/* De-obfuscates the 10-character registry key name in place by adding per-character offsets */
+
+void __cdecl Grim_DecodeRegKeyName(char *s)
+
+{
+  *s = *s + -8;
+  s[1] = s[1] + -3;
+  s[2] = s[2] + '\a';
+  s[3] = s[3] + -1;
+  s[4] = s[4] + '\x05';
+  s[5] = s[5] + -3;
+  s[6] = s[6] + '\x04';
+  s[7] = s[7] + -1;
+  s[8] = s[8] + '\x05';
+  s[9] = s[9] + -2;
+  return;
+}
+
+/* ---- 0x004018b0  Grim_FatalMessageBox ---- */
+/* MessageBoxA wrapper that first tears down the display so the box is visible */
+
+int Grim_FatalMessageBox(int param_1,int param_2,int param_3,int param_4)
+
+{
+  int iVar1;
+  
+  DAT_004e814c = 0;
+  iVar1 = MessageBoxA(param_1,param_2,param_3,param_4);
+  Grim_ShutdownDisplay();
+  CloseWindow(param_1);
+  Input_ShowCursor(1);
+  DAT_004e814c = 1;
+  return iVar1;
+}
+
+/* ---- 0x00401900  Grim_ShutdownDisplay ---- */
+void Grim_ShutdownDisplay(void)
+
+{
+  if (g_nDisplayDeviceOpen != 0) {
+    Engine_CloseRenderer();
+    if (g_pD3dDriver == (void *)0x0) {
+      Surface_Free(DAT_004f5a34);
+    }
+    else {
+      Display_Shutdown3D();
+    }
+    DAT_004f5a34 = (void *)0x0;
+    Display_CloseMode();
+    Display_CloseDevice();
+    Reg_SetInt(s_ExperimentalDisplay_004dd5e4,0);
+  }
+  return;
+}
+
+/* ---- 0x00401950  Grim_Shutdown ---- */
+/* grimdemo.c: frees the display-mode tables, closes resources, Lua, window, iMUSE, memory services
+    */
+
+void Grim_Shutdown(void)
+
+{
+  int iVar1;
+  int iVar2;
+  uint uVar3;
+  
+  if (DAT_004f44e0 != 0) {
+    ResFile_Close(DAT_004f44e0);
+    DAT_004f44e0 = 0;
+    DAT_004f5a18 = 0;
+  }
+  uVar3 = 0;
+  if (g_dwDisplayDeviceCount != 0) {
+    iVar2 = 0;
+    do {
+      iVar1 = *(int *)((int)g_pDisplayModes + iVar2 + 0xc);
+      if (iVar1 != 0) {
+        (*g_pSvcMain->pFree)(iVar1);
+      }
+      iVar1 = *(int *)((int)g_pDisplayModes + iVar2 + 4);
+      if (iVar1 != 0) {
+        (*g_pSvcMain->pFree)(iVar1);
+      }
+      uVar3 = uVar3 + 1;
+      iVar2 = iVar2 + 0x10;
+    } while (uVar3 < g_dwDisplayDeviceCount);
+  }
+  if (g_pDisplayModes != (void *)0x0) {
+    (*g_pSvcMain->pFree)(g_pDisplayModes);
+  }
+  Spew_Shutdown();
+  Engine_ShutdownGame();
+  (*DAT_008dde2c)();
+  (*DAT_008dde24)();
+  rdroid_Close();
+  rdroid_Shutdown();
+  Grim_ShutdownDisplay();
+  Display_RestoreMode();
+  if (DAT_004f5a20 == 0) {
+    Input_ShowCursor(1);
+  }
+  Reg_Close();
+  if (DAT_008ddd8c != (code *)0x0) {
+    (*DAT_008ddd8c)();
+  }
+  if (DAT_008ddd84 != (code *)0x0) {
+    (*DAT_008ddd84)();
+  }
+  Services_Clear();
+  DebugLog_Init(0);
+  return;
+}
+
+/* ---- 0x00401a50  Grim_EnumDisplayModes ---- */
+/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+/* Source: grimdemo.c (lines 787-810, from __FILE__/__LINE__ passed to the allocator) */
+
+void Grim_EnumDisplayModes(void)
+
+{
+  unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  undefined4 uVar1;
+  int iVar2;
+  uint uVar3;
+  int iVar4;
+  uint uVar5;
+  undefined4 *puVar6;
+  undefined4 *puVar7;
+  #define local_38 (*(undefined4 (*)[14])(_frame + (0x50 - 0x38)))
+  
+  local_38[2] = 5;
+  local_38[4] = 5;
+  local_38[6] = 5;
+  puVar6 = &DAT_004f44e8;
+  for (iVar2 = 0x12; iVar2 != 0; iVar2 = iVar2 + -1) {
+    *puVar6 = 0;
+    puVar6 = puVar6 + 1;
+  }
+  puVar6 = &DAT_004f4d38;
+  for (iVar2 = 0x13; uVar5 = g_dwDisplayDeviceCount, iVar2 != 0; iVar2 = iVar2 + -1) {
+    *puVar6 = 0;
+    puVar6 = puVar6 + 1;
+  }
+  iVar4 = 0;
+  local_38[9] = 2;
+  _DAT_004f450c = 2;
+  local_38[0] = 1;
+  local_38[1] = 0x10;
+  local_38[3] = 6;
+  local_38[5] = 0xb;
+  local_38[7] = 0;
+  local_38[8] = 3;
+  local_38[10] = 3;
+  local_38[0xb] = 0;
+  local_38[0xc] = 0;
+  local_38[0xd] = 0;
+  puVar6 = local_38;
+  puVar7 = &DAT_004f4d54;
+  for (iVar2 = 0xe; iVar2 != 0; iVar2 = iVar2 + -1) {
+    *puVar7 = *puVar6;
+    puVar6 = puVar6 + 1;
+    puVar7 = puVar7 + 1;
+  }
+  DAT_004f44e8 = 1;
+  DAT_004f44ec = 1;
+  _DAT_004f44f0 = 1;
+  _DAT_004f4d40 = 0x280;
+  _DAT_004f4d44 = 0x1e0;
+  g_pDisplayModes =
+       (void *)(*g_pSvcMain->pAlloc)(uVar5 << 4,s_C__grimsrc_tools_grimdemo_grimde_004dd50c,0x313);
+  puVar6 = g_pDisplayModes;
+  for (iVar2 = (g_dwDisplayDeviceCount & 0xfffffff) << 2; iVar2 != 0; iVar2 = iVar2 + -1) {
+    *puVar6 = 0;
+    puVar6 = puVar6 + 1;
+  }
+  uVar5 = 0;
+  for (iVar2 = 0; iVar2 != 0; iVar2 = iVar2 + -1) {
+    *(undefined1 *)puVar6 = 0;
+    puVar6 = (undefined4 *)((int)puVar6 + 1);
+  }
+  if (g_dwDisplayDeviceCount != 0) {
+    do {
+      Display_SelectDevice(uVar5);
+      *(uint *)((int)g_pDisplayModes + iVar4) = g_dwVideoModeCount;
+      uVar1 = (*g_pSvcMain->pAlloc)
+                        (g_dwVideoModeCount * 0x54,s_C__grimsrc_tools_grimdemo_grimde_004dd50c,0x31e
+                        );
+      *(undefined4 *)((int)g_pDisplayModes + iVar4 + 4) = uVar1;
+      puVar6 = &DAT_00901760;
+      puVar7 = *(undefined4 **)((int)g_pDisplayModes + iVar4 + 4);
+      for (uVar3 = g_dwVideoModeCount * 0x15 & 0x3fffffff; uVar3 != 0; uVar3 = uVar3 - 1) {
+        *puVar7 = *puVar6;
+        puVar6 = puVar6 + 1;
+        puVar7 = puVar7 + 1;
+      }
+      for (iVar2 = 0; iVar2 != 0; iVar2 = iVar2 + -1) {
+        *(undefined1 *)puVar7 = *(undefined1 *)puVar6;
+        puVar6 = (undefined4 *)((int)puVar6 + 1);
+        puVar7 = (undefined4 *)((int)puVar7 + 1);
+      }
+      *(undefined4 *)((int)g_pDisplayModes + iVar4 + 8) = 0;
+      *(undefined4 *)((int)g_pDisplayModes + iVar4 + 0xc) = 0;
+      iVar2 = D3D_Enumerate();
+      if (iVar2 != 0) {
+        *(uint *)((int)g_pDisplayModes + iVar4 + 8) = g_dwD3dDriverCount;
+        if (g_dwD3dDriverCount != 0) {
+          uVar1 = (*g_pSvcMain->pAlloc)
+                            (g_dwD3dDriverCount * 0x22c,s_C__grimsrc_tools_grimdemo_grimde_004dd50c,
+                             0x32a);
+          *(undefined4 *)((int)g_pDisplayModes + iVar4 + 0xc) = uVar1;
+        }
+        puVar6 = &DAT_00900b40;
+        puVar7 = *(undefined4 **)((int)g_pDisplayModes + iVar4 + 0xc);
+        for (uVar3 = g_dwD3dDriverCount * 0x8b & 0x3fffffff; uVar3 != 0; uVar3 = uVar3 - 1) {
+          *puVar7 = *puVar6;
+          puVar6 = puVar6 + 1;
+          puVar7 = puVar7 + 1;
+        }
+        for (iVar2 = 0; iVar2 != 0; iVar2 = iVar2 + -1) {
+          *(undefined1 *)puVar7 = *(undefined1 *)puVar6;
+          puVar6 = (undefined4 *)((int)puVar6 + 1);
+          puVar7 = (undefined4 *)((int)puVar7 + 1);
+        }
+        D3D_Release();
+      }
+      Display_CloseDevice();
+      uVar5 = uVar5 + 1;
+      iVar4 = iVar4 + 0x10;
+    } while (uVar5 < g_dwDisplayDeviceCount);
+  }
+  return;
+}
+#undef local_38
+
+
+/* ---- 0x00402060  Grim_OnDisplayModeChange ---- */
+undefined4 Grim_OnDisplayModeChange(void *param_1,int param_2)
+
+{
+  Display_SetDIBPalette(param_1);
+  Display_SetPalette(param_1);
+  if (g_pD3dDriver != (void *)0x0) {
+    Display_SetPalette3D(param_1,param_2);
+  }
+  return 1;
+}
+
+/* ---- 0x00402c80  Grim_ParseCommandLine ---- */
+/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+/* grimdemo.c: strtok loop over the command line. Options set g_bAlwaysLog, g_bDevMode,
+   g_bWindowedStart etc., a bad option shows the 'GRIME: Grim Fandango Executable Usage' box. */
+
+int __cdecl Grim_ParseCommandLine(char *cmdline)
+
+{
+  int iVar1;
+  int iVar2;
+  undefined4 uVar3;
+  
+  iVar1 = strtok(cmdline,&DAT_004dd918);
+  if (iVar1 == 0) {
+    return 1;
+  }
+  do {
+    iVar2 = _stricmp(iVar1,&DAT_004dd914);
+    if ((iVar2 == 0) || (iVar2 = _stricmp(iVar1,&DAT_004dd910), iVar2 == 0)) {
+      uVar3 = strtok(0,&DAT_004dd918);
+      strncpy(s_grim_tab_004dd238,uVar3,0x103);
+      DAT_004dd33b = 0;
+LAB_00402f60:
+      iVar1 = strtok(0,&DAT_004dd918);
+    }
+    else {
+      iVar2 = _stricmp(iVar1,&DAT_004dd90c);
+      if ((iVar2 == 0) || (iVar2 = _stricmp(iVar1,&DAT_004dd908), iVar2 == 0)) {
+        uVar3 = strtok(0,&DAT_004dd918);
+        _DAT_004dd34c = atoi(uVar3);
+        Res_SetCacheSizeMB(_DAT_004dd34c);
+        goto LAB_00402f60;
+      }
+      iVar2 = _stricmp(iVar1,&DAT_004dd904);
+      if ((iVar2 == 0) || (iVar2 = _stricmp(iVar1,&DAT_004dd900), iVar2 == 0)) {
+        DAT_004f5a44 = 1;
+        goto LAB_00402f60;
+      }
+      iVar2 = _stricmp(iVar1,&DAT_004dd8fc);
+      if ((iVar2 == 0) || (iVar2 = _stricmp(iVar1,&DAT_004dd8f8), iVar2 == 0)) {
+        DAT_004f5a18 = 1;
+        goto LAB_00402f60;
+      }
+      iVar2 = _stricmp(iVar1,&DAT_004dd8f4);
+      if ((iVar2 == 0) || (iVar2 = _stricmp(iVar1,&DAT_004dd8f0), iVar2 == 0)) {
+        DAT_004f5a28 = 1;
+        goto LAB_00402f60;
+      }
+      iVar2 = _stricmp(iVar1,&DAT_004dd8ec);
+      if ((iVar2 == 0) || (iVar2 = _stricmp(iVar1,&DAT_004dd8e8), iVar2 == 0)) {
+        DAT_004f5a1c = 1;
+        goto LAB_00402f60;
+      }
+      iVar2 = _stricmp(iVar1,&DAT_004dd8e4);
+      if ((iVar2 == 0) || (iVar2 = _stricmp(iVar1,&DAT_004dd8e0), iVar2 == 0)) {
+        DAT_004f5a20 = 1;
+        goto LAB_00402f60;
+      }
+      iVar2 = _stricmp(iVar1,&DAT_004dd8dc);
+      if ((iVar2 == 0) || (iVar2 = _stricmp(iVar1,&DAT_004dd8d8), iVar2 == 0)) {
+        DAT_004f5a10 = 1;
+        goto LAB_00402f60;
+      }
+      iVar2 = _stricmp(iVar1,&DAT_004dd8d4);
+      if ((iVar2 == 0) || (iVar2 = _stricmp(iVar1,&DAT_004dd8d0), iVar2 == 0)) {
+        DAT_004f5a14 = 1;
+        uVar3 = strtok(0,&DAT_004dd918);
+        strncpy(&DAT_004f59b0,uVar3,0x4f);
+        DAT_004f59ff = 0;
+        goto LAB_00402f60;
+      }
+      iVar2 = _stricmp(iVar1,&DAT_004dd8cc);
+      if ((iVar2 == 0) || (iVar2 = _stricmp(iVar1,&DAT_004dd8c8), iVar2 == 0)) {
+        uVar3 = strtok(0,&DAT_004dd918);
+        Engine_SetExtraDataDir(uVar3);
+        goto LAB_00402f60;
+      }
+      iVar2 = _stricmp(iVar1,&DAT_004dd8c4);
+      if ((iVar2 != 0) && (iVar2 = _stricmp(iVar1,&DAT_004dd8c0), iVar2 != 0)) {
+        iVar2 = _stricmp(iVar1,&DAT_004dd8bc);
+        if ((iVar2 == 0) || (iVar1 = _stricmp(iVar1,&DAT_004dd8b8), iVar1 == 0)) {
+          cmdline = s_Usage_004dd8b0;
+        }
+        uVar3 = ((code *)Win_GetMainHwnd)(s_GRIME__Grim_Fandango_Executable_U_004dd048,cmdline,0);
+        ((code *)Grim_FatalMessageBox)(uVar3);
+        return 0;
+      }
+      iVar1 = strtok(0,&DAT_004dd918);
+      DAT_004e806c = 0;
+    }
+    if (iVar1 == 0) {
+      return 1;
+    }
+  } while( true );
+}
+
+/* ---- 0x004034b0  Grim_OpenRegistry ---- */
+/* Opens HKLM\SOFTWARE\LucasArts Entertainment Company LLC\... and seeds GrimDataDir with the
+   current directory when it is missing */
+
+void Grim_OpenRegistry(void)
+
+{
+  unsigned char _frame[0x120] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  int iVar1;
+  #define local_104 (*(char (*)[260])(_frame + (0x120 - 0x104)))
+  
+  Reg_Open(0x80000002,s_SOFTWARE_LucasArts_Entertainment_004dd958,&DAT_004dd998);
+  iVar1 = Reg_GetString(s_GrimDataDir_004dd94c,local_104,0x104,&DAT_004f5a98);
+  if (iVar1 == 0) {
+    iVar1 = GetCurrentDirectoryA(0x104,(int)local_104);
+    if (iVar1 != 0) {
+      Reg_SetString(s_GrimDataDir_004dd94c,local_104);
+    }
+  }
+  return;
+}
+#undef local_104
+
+
+/* ---- 0x00403520  Grim_ShowSplash ---- */
+/* Loads splash.bm, converts each row to the screen format and flips it onto the primary surface
+   twice */
+
+void Grim_ShowSplash(void)
+
+{
+  void *src;
+  void *bitmap;
+  int iVar1;
+  
+  bitmap = stdBitmap_LoadResource(s_splash_bm_004dd99c,0,0);
+  if ((bitmap != (void *)0x0) &&
+     (src = (void *)**(undefined4 **)((int)bitmap + 0x78), src != (void *)0x0)) {
+    iVar1 = 0;
+    if (0 < *(int *)((int)src + 0x10)) {
+      do {
+        Render_RemapPixels((ushort *)(iVar1 * *(int *)((int)src + 0x18) + *(int *)((int)src + 0x5c))
+                           ,*(uint *)((int)src + 0xc));
+        iVar1 = iVar1 + 1;
+      } while (iVar1 < *(int *)((int)src + 0x10));
+    }
+    Surface_Blit(&g_PrimarySurface,src,0,0,(int *)0x0,0);
+    Display_Flip();
+    Surface_Blit(&g_PrimarySurface,src,0,0,(int *)0x0,0);
+    stdBitmap_Free(bitmap);
+  }
+  return;
+}

@@ -1,0 +1,303 @@
+/* GRIMFANDANGO.EXE :: insane.c
+ * functions 0x004bd370 .. 0x004bddb0 (8 functions)
+ * Decompiled from the shipped binaries with Ghidra; see ../../README.md */
+#include "ghidra_types.h"
+#include "globals.h"
+#include "functions.h"
+
+/* ---- 0x004bd370  Insane_Poll ---- */
+/* INSANE (SMUSH) movie player glue: steps the player when the file io, decoder and output modules
+   are all registered */
+
+undefined4 Insane_Poll(void)
+
+{
+  undefined4 uVar1;
+  
+  if (((DAT_008d16a0 != 0) && (DAT_008d16a4 != 0)) && (DAT_008d16a8 != 0)) {
+    uVar1 = Sound_VoiceSampleCount(0);
+    return uVar1;
+  }
+  return 0;
+}
+
+/* ---- 0x004bd3a0  Insane_RegisterFilio ---- */
+/* Registers the 'FILIO' LecShare module ('insane zfilio') and fills the caller's vtable with the
+   open/read/seek/close entry points */
+
+undefined4 Insane_RegisterFilio(undefined4 param_1,undefined4 *param_2)
+
+{
+  undefined4 uVar1;
+  
+  DAT_008d11f4 = param_1;
+  uVar1 = 1;
+  if (DAT_008d16a0 == 0) {
+    PTR_008d11d4 = (int *)LecShare_Startup(0,&PTR_FUN_004f0ba0,s_FILIO_insane_zfilio_004f0ca0,
+                                           &DAT_004f5a98);
+    if (PTR_008d11d4 == (int *)0x0) {
+      return 1;
+    }
+    DAT_008d16a0 = 1;
+    if (param_2 != (undefined4 *)0x0) {
+      *param_2 = Insane_RegisterFilio;
+      param_2[1] = FUN_004bd430;
+      param_2[2] = FUN_004bd440;
+      param_2[3] = FUN_004bd4d0;
+      param_2[4] = 0;
+      param_2[5] = 0;
+      param_2[6] = 0;
+      param_2[7] = 0;
+    }
+    uVar1 = 0;
+  }
+  return uVar1;
+}
+
+/* ---- 0x004bd540  Insane_SetOutputParams ---- */
+/* Copies six dwords (destination surface geometry) into g_InsaneOutput */
+
+void Insane_SetOutputParams(undefined4 *param_1)
+
+{
+  int iVar1;
+  undefined4 *puVar2;
+  
+  puVar2 = &DAT_008d1098;
+  for (iVar1 = 6; iVar1 != 0; iVar1 = iVar1 + -1) {
+    *puVar2 = *param_1;
+    param_1 = param_1 + 1;
+    puVar2 = puVar2 + 1;
+  }
+  return;
+}
+
+/* ---- 0x004bd7c0  Insane_ReadFrameHeader ---- */
+/* Reads a packed 0x16-byte header field by field through the file io vtable at g_pInsaneFileOps */
+
+undefined4 Insane_ReadFrameHeader(int param_1,int param_2)
+
+{
+  undefined4 uVar1;
+  
+  if (param_1 == 0) {
+    return 0;
+  }
+  uVar1 = (*(code *)PTR_008d10c8[4])(param_1);
+  (*(code *)PTR_008d10c8[5])(param_1,0x10,0);
+  (*(code *)PTR_008d10c8[2])(param_1,param_2,1);
+  (*(code *)PTR_008d10c8[2])(param_1,param_2 + 1,1);
+  (*(code *)PTR_008d10c8[2])(param_1,param_2 + 2,2);
+  (*(code *)PTR_008d10c8[2])(param_1,param_2 + 4,2);
+  (*(code *)PTR_008d10c8[2])(param_1,param_2 + 6,2);
+  (*(code *)PTR_008d10c8[2])(param_1,(short *)(param_2 + 8),2);
+  (*(code *)PTR_008d10c8[2])(param_1,(short *)(param_2 + 10),2);
+  (*(code *)PTR_008d10c8[2])(param_1,param_2 + 0xc,2);
+  (*(code *)PTR_008d10c8[2])(param_1,param_2 + 0xe,4);
+  (*(code *)PTR_008d10c8[2])(param_1,(int *)(param_2 + 0x12),4);
+  (*(code *)PTR_008d10c8[2])(param_1,param_2 + 0x16,0x400);
+  (*(code *)PTR_008d10c8[2])(param_1,param_2 + 0x416,2);
+  if (((0 < *(short *)(param_2 + 8)) && (0 < *(short *)(param_2 + 10))) &&
+     (0 < *(int *)(param_2 + 0x12))) {
+    (*(code *)PTR_008d10c8[5])(param_1,uVar1,0);
+    return 0;
+  }
+  return 0xfffffffe;
+}
+
+/* ---- 0x004bdb00  Insane_PrepareFrame ---- */
+/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+/* Validates the frame against the output size and chooses the blit mode bits in g_dwInsaneBlitFlags
+    */
+
+undefined4 Insane_PrepareFrame(int *param_1,undefined4 *param_2,int *param_3)
+
+{
+  int iVar1;
+  undefined4 uVar2;
+  int iVar3;
+  int iVar4;
+  int iVar5;
+  int iVar6;
+  int iVar7;
+  int iVar8;
+  
+  if ((param_1 != (int *)0x0) && (param_2 != (undefined4 *)0x0)) {
+    _DAT_008d16c0 = 0;
+    if ((_DAT_008d1090 & 1) != 0) {
+      _DAT_008d1090 = _DAT_008d1090 & 0xfffffff9;
+      if (param_3[2] / 2 < DAT_008d11e8) {
+        if (DAT_008d11ec < param_3[3]) {
+          _DAT_008d1090 = _DAT_008d1090 | 2;
+        }
+      }
+      else {
+        _DAT_008d1090 = _DAT_008d1090 | 4;
+      }
+    }
+    iVar7 = ((_DAT_008d1090 & 6) != 0) + 1;
+    iVar4 = ((_DAT_008d1090 & 4) != 0) + 1;
+    iVar5 = iVar4 * DAT_008d11e8;
+    iVar3 = DAT_008d11ec * iVar7;
+    iVar1 = *param_3;
+    iVar6 = DAT_008d11e0;
+    if (DAT_008d11e0 < iVar1) {
+      iVar5 = iVar5 + (DAT_008d11e0 - iVar1);
+      iVar6 = iVar1;
+    }
+    if (iVar1 + param_3[2] < iVar6 + iVar5) {
+      iVar5 = (iVar1 + param_3[2]) - iVar6;
+    }
+    iVar1 = param_3[1];
+    iVar8 = DAT_008d11e4;
+    if (DAT_008d11e4 < iVar1) {
+      iVar3 = iVar3 + (DAT_008d11e4 - iVar1);
+      iVar8 = iVar1;
+    }
+    if (iVar1 + param_3[3] < iVar8 + iVar3) {
+      iVar3 = (iVar1 + param_3[3]) - iVar8;
+    }
+    iVar5 = (iVar5 / iVar4) * param_2[3];
+    iVar1 = param_1[5];
+    uVar2 = *param_2;
+    iVar6 = param_1[3] * iVar6 * iVar4 + iVar8 * iVar7 * iVar1 + *param_1;
+    if ((_DAT_008d1090 & 4) == 0) {
+      if ((_DAT_008d1090 & 2) == 0) {
+        Insane_BlitRows16(uVar2,param_2[5],iVar6,iVar1,iVar5,iVar3 / iVar7);
+      }
+      else {
+        ((code *)Insane_BlitRowsDual)(uVar2);
+      }
+    }
+    else {
+      ((code *)Insane_Blit8To16Doubled)(uVar2,param_2[5],iVar6,iVar1,iVar5,iVar3 / iVar7);
+    }
+  }
+  _DAT_008d16ac = 0;
+  return 0;
+}
+
+/* ---- 0x004bdca0  Insane_Blit8To16Doubled ---- */
+/* Pixel-doubling conversion of 8-bit frame rows into a 16-bit destination */
+
+undefined8 __fastcall
+Insane_Blit8To16Doubled
+          (undefined4 param_1,undefined4 param_2,uint *param_3,int param_4,uint *param_5,int param_6
+          ,int param_7,int param_8)
+
+{
+  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  int iVar1;
+  uint uVar2;
+  uint uVar3;
+  #define local_10 (*(int *)(_frame + (0x20 - 0x10)))
+  
+  local_10 = 0;
+  do {
+    iVar1 = (int)param_3 + param_7;
+    do {
+      uVar3 = *param_3;
+      uVar2 = (uVar3 & 0xff00) << 8 | uVar3 & 0xff;
+      uVar2 = uVar2 << 8 | uVar2;
+      *param_5 = uVar2;
+      param_5 = (uint *)((int)param_5 + param_6);
+      uVar3 = uVar3 & 0xff000000 | uVar3 >> 8 & 0xff00;
+      *param_5 = uVar2;
+      param_3 = param_3 + 1;
+      uVar3 = uVar3 | uVar3 >> 8;
+      param_5[1] = uVar3;
+      param_5 = (uint *)((int)param_5 + (8 - param_6));
+      param_5[-1] = uVar3;
+    } while ((int)param_3 < iVar1);
+    param_3 = (uint *)((int)param_3 + (param_4 - param_7));
+    param_5 = (uint *)((int)param_5 + param_7 * -2 + param_6 * 2);
+    local_10 = local_10 + 1;
+  } while (local_10 < param_8);
+  return CONCAT44(param_2,param_4 - param_7);
+}
+#undef local_10
+
+
+/* ---- 0x004bdd50  Insane_BlitRowsDual ---- */
+/* Copies frame rows to two destinations (front and back buffer) */
+
+void Insane_BlitRowsDual(int param_1,int param_2,undefined4 *param_3,int param_4,int param_5,
+                        int param_6)
+
+{
+  undefined4 uVar1;
+  undefined4 *puVar2;
+  int iVar3;
+  
+  for (; param_6 != 0; param_6 = param_6 + -1) {
+    if (param_5 >> 2 != 0) {
+      puVar2 = param_3;
+      iVar3 = param_5 >> 2;
+      do {
+        uVar1 = *(undefined4 *)((int)puVar2 + (param_1 - (int)param_3));
+        *(undefined4 *)((int)puVar2 + param_4) = uVar1;
+        *puVar2 = uVar1;
+        puVar2 = puVar2 + 1;
+        iVar3 = iVar3 + -1;
+      } while (iVar3 != 0);
+    }
+    param_1 = param_1 + param_2;
+    param_3 = (undefined4 *)((int)param_3 + param_4 * 2);
+  }
+  return;
+}
+
+/* ---- 0x004bddb0  Insane_BlitRows16 ---- */
+void Insane_BlitRows16(ushort *param_1,int param_2,int param_3,int param_4,int param_5,int param_6)
+
+{
+  ushort *puVar1;
+  int iVar2;
+  int iVar3;
+  int iVar4;
+  
+  iVar2 = param_5 >> 2;
+  if (DAT_008d16bc == 0) {
+    if (param_6 != 0) {
+      param_5 = param_6;
+      do {
+        if (iVar2 != 0) {
+          puVar1 = param_1;
+          iVar4 = iVar2;
+          do {
+            *(undefined4 *)((int)puVar1 + (param_3 - (int)param_1)) = *(undefined4 *)puVar1;
+            puVar1 = puVar1 + 2;
+            iVar4 = iVar4 + -1;
+          } while (iVar4 != 0);
+        }
+        param_1 = (ushort *)((int)param_1 + param_2);
+        param_3 = param_3 + param_4;
+        param_5 = param_5 + -1;
+      } while (param_5 != 0);
+    }
+  }
+  else {
+    iVar4 = DAT_008d16bc;
+    if (param_6 != 0) {
+      do {
+        if (iVar2 != 0) {
+          puVar1 = param_1;
+          iVar3 = iVar2;
+          do {
+            iVar3 = iVar3 + -1;
+            *(uint *)((int)puVar1 + (param_3 - (int)param_1)) =
+                 CONCAT22(*(undefined2 *)(iVar4 + (uint)puVar1[1] * 2),
+                          *(undefined2 *)(iVar4 + (uint)*puVar1 * 2));
+            puVar1 = puVar1 + 2;
+            iVar4 = DAT_008d16bc;
+          } while (iVar3 != 0);
+        }
+        param_3 = param_3 + param_4;
+        param_1 = (ushort *)((int)param_1 + param_2);
+        param_6 = param_6 + -1;
+      } while (param_6 != 0);
+      return;
+    }
+  }
+  return;
+}

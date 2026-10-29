@@ -1,0 +1,12 @@
+[
+ {"addr": "0040cf20", "name": "rdThing_DrawModel", "comment": "Model branch of rdThing_Draw: frustum-tests the bounding sphere, picks the geometry set, updates the puppet and draws the node hierarchy", "tags": "rdroid"},
+ {"addr": "0047aab0", "name": "stdBitmap_LoadFile", "comment": "Opens the file through the main services and reads a BM bitmap", "tags": "jedi,bitmap"},
+ {"addr": "00906c10", "global": "g_pOnExitEnd", "type": "void * *", "comment": "End pointer of the atexit/_onexit function table"},
+ {"addr": "00906c14", "global": "g_pOnExitBegin", "type": "void * *", "comment": "Start of the atexit/_onexit function table (realloc-grown)"},
+ {"addr": "007f42fc", "global": "g_nRdRasterEndVertex", "type": "int", "comment": "Index of the bottom vertex where both polygon edges meet in the rasterizer"},
+ {"addr": "007f42e8", "global": "g_nRdRasterStartVertex", "type": "int", "comment": "Index of the top vertex where the rasterizer starts both edges"},
+ {"addr": "007f4308", "global": "g_pRdRasterVerts", "type": "float *", "comment": "Screen-space vertex array (12 bytes each) of the polygon being rasterized"},
+ {"addr": "007f424c", "global": "g_nRdRasterVertCount", "type": "int", "comment": "Vertex count of the polygon being rasterized"},
+ {"addr": "007f42ec", "global": "g_nRdRasterStepA", "type": "int", "comment": "Vertex index step (+1 or -1) of the first edge walker"},
+ {"addr": "007f4394", "global": "g_nRdRasterStepB", "type": "int", "comment": "Vertex index step (+1 or -1) of the second edge walker"}
+]

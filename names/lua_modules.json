@@ -1,0 +1,233 @@
+[
+{
+"addr": "10001970",
+"name": "lapi__1970",
+"comment": "Unidentified function of lapi.c (Lua 3.1 C API)",
+"tags": "lapi",
+"program": "/LUA.DLL"
+},
+{
+"addr": "100025f0",
+"name": "lapi__25f0",
+"comment": "Unidentified function of lapi.c (Lua 3.1 C API)",
+"tags": "lapi",
+"program": "/LUA.DLL"
+},
+{
+"addr": "10002d10",
+"name": "lbuiltin__2d10",
+"comment": "Unidentified function of lbuiltin.c (built-in functions)",
+"tags": "lbuiltin",
+"program": "/LUA.DLL"
+},
+{
+"addr": "10002d30",
+"name": "lbuiltin__2d30",
+"comment": "Unidentified function of lbuiltin.c (built-in functions)",
+"tags": "lbuiltin",
+"program": "/LUA.DLL"
+},
+{
+"addr": "10002d80",
+"name": "lbuiltin__2d80",
+"comment": "Unidentified function of lbuiltin.c (built-in functions)",
+"tags": "lbuiltin",
+"program": "/LUA.DLL"
+},
+{
+"addr": "10004d40",
+"name": "lfunc__4d40",
+"comment": "Unidentified function of lfunc.c (prototypes and closures)",
+"tags": "lfunc",
+"program": "/LUA.DLL"
+},
+{
+"addr": "10004e30",
+"name": "lfunc__4e30",
+"comment": "Unidentified function of lfunc.c (prototypes and closures)",
+"tags": "lfunc",
+"program": "/LUA.DLL"
+},
+{
+"addr": "100053d0",
+"name": "liolib__53d0",
+"comment": "Unidentified function of liolib.c (file/system library)",
+"tags": "liolib",
+"program": "/LUA.DLL"
+},
+{
+"addr": "100053f0",
+"name": "liolib__53f0",
+"comment": "Unidentified function of liolib.c (file/system library)",
+"tags": "liolib",
+"program": "/LUA.DLL"
+},
+{
+"addr": "10005430",
+"name": "liolib__5430",
+"comment": "Unidentified function of liolib.c (file/system library)",
+"tags": "liolib",
+"program": "/LUA.DLL"
+},
+{
+"addr": "10005480",
+"name": "liolib__5480",
+"comment": "Unidentified function of liolib.c (file/system library)",
+"tags": "liolib",
+"program": "/LUA.DLL"
+},
+{
+"addr": "100054c0",
+"name": "liolib__54c0",
+"comment": "Unidentified function of liolib.c (file/system library)",
+"tags": "liolib",
+"program": "/LUA.DLL"
+},
+{
+"addr": "10005520",
+"name": "liolib__5520",
+"comment": "Unidentified function of liolib.c (file/system library)",
+"tags": "liolib",
+"program": "/LUA.DLL"
+},
+{
+"addr": "10005550",
+"name": "liolib__5550",
+"comment": "Unidentified function of liolib.c (file/system library)",
+"tags": "liolib",
+"program": "/LUA.DLL"
+},
+{
+"addr": "10005780",
+"name": "liolib__5780",
+"comment": "Unidentified function of liolib.c (file/system library)",
+"tags": "liolib",
+"program": "/LUA.DLL"
+},
+{
+"addr": "10005b20",
+"name": "liolib__5b20",
+"comment": "Unidentified function of liolib.c (file/system library)",
+"tags": "liolib",
+"program": "/LUA.DLL"
+},
+{
+"addr": "100095b0",
+"name": "lstrlib__95b0",
+"comment": "Unidentified function of lstrlib.c (string library)",
+"tags": "lstrlib",
+"program": "/LUA.DLL"
+},
+{
+"addr": "10009650",
+"name": "lstrlib__9650",
+"comment": "Unidentified function of lstrlib.c (string library)",
+"tags": "lstrlib",
+"program": "/LUA.DLL"
+},
+{
+"addr": "10009680",
+"name": "lstrlib__9680",
+"comment": "Unidentified function of lstrlib.c (string library)",
+"tags": "lstrlib",
+"program": "/LUA.DLL"
+},
+{
+"addr": "10009760",
+"name": "lstrlib__9760",
+"comment": "Unidentified function of lstrlib.c (string library)",
+"tags": "lstrlib",
+"program": "/LUA.DLL"
+},
+{
+"addr": "100097f0",
+"name": "lstrlib__97f0",
+"comment": "Unidentified function of lstrlib.c (string library)",
+"tags": "lstrlib",
+"program": "/LUA.DLL"
+},
+{
+"addr": "100099e0",
+"name": "lstrlib__99e0",
+"comment": "Unidentified function of lstrlib.c (string library)",
+"tags": "lstrlib",
+"program": "/LUA.DLL"
+},
+{
+"addr": "10009a10",
+"name": "lstrlib__9a10",
+"comment": "Unidentified function of lstrlib.c (string library)",
+"tags": "lstrlib",
+"program": "/LUA.DLL"
+},
+{
+"addr": "10009e40",
+"name": "lstrlib__9e40",
+"comment": "Unidentified function of lstrlib.c (string library)",
+"tags": "lstrlib",
+"program": "/LUA.DLL"
+},
+{
+"addr": "10009ea0",
+"name": "lstrlib__9ea0",
+"comment": "Unidentified function of lstrlib.c (string library)",
+"tags": "lstrlib",
+"program": "/LUA.DLL"
+},
+{
+"addr": "1000a030",
+"name": "lstrlib__a030",
+"comment": "Unidentified function of lstrlib.c (string library)",
+"tags": "lstrlib",
+"program": "/LUA.DLL"
+},
+{
+"addr": "1000a060",
+"name": "lstrlib__a060",
+"comment": "Unidentified function of lstrlib.c (string library)",
+"tags": "lstrlib",
+"program": "/LUA.DLL"
+},
+{
+"addr": "1000a150",
+"name": "lstrlib__a150",
+"comment": "Unidentified function of lstrlib.c (string library)",
+"tags": "lstrlib",
+"program": "/LUA.DLL"
+},
+{
+"addr": "1000a180",
+"name": "lstrlib__a180",
+"comment": "Unidentified function of lstrlib.c (string library)",
+"tags": "lstrlib",
+"program": "/LUA.DLL"
+},
+{
+"addr": "1000a2e0",
+"name": "lstrlib__a2e0",
+"comment": "Unidentified function of lstrlib.c (string library)",
+"tags": "lstrlib",
+"program": "/LUA.DLL"
+},
+{
+"addr": "1000a680",
+"name": "lstrlib__a680",
+"comment": "Unidentified function of lstrlib.c (string library)",
+"tags": "lstrlib",
+"program": "/LUA.DLL"
+},
+{
+"addr": "1000ef20",
+"name": "lzio__ef20",
+"comment": "Unidentified function of lzio.c (input streams)",
+"tags": "lzio",
+"program": "/LUA.DLL"
+},
+{
+"addr": "1000ef40",
+"name": "lzio__ef40",
+"comment": "Unidentified function of lzio.c (input streams)",
+"tags": "lzio",
+"program": "/LUA.DLL"
+}
+]

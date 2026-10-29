@@ -1,0 +1,1022 @@
+[
+{
+"program": "/LUA.DLL",
+"addr": "10001970",
+"name": "luaA_normalizeObj",
+"tags": "lapi"
+},
+{
+"program": "/LUA.DLL",
+"addr": "100025f0",
+"name": "luaA_callObject",
+"comment": "Opens stack space and runs luaD_call for the C API",
+"tags": "lapi"
+},
+{
+"program": "/LUA.DLL",
+"addr": "100053d0",
+"name": "io_getint",
+"comment": "liolib.c helper: numeric argument through lua2C",
+"tags": "liolib"
+},
+{
+"program": "/LUA.DLL",
+"addr": "100053f0",
+"name": "io_pushresult",
+"comment": "Pushes userdata/nil plus strerror(errno) like Lua 3.1 pushresult",
+"tags": "liolib"
+},
+{
+"program": "/LUA.DLL",
+"addr": "10005430",
+"name": "io_setfile",
+"comment": "Stores a file handle in a global (_INPUT/_OUTPUT) with the file tag",
+"tags": "liolib"
+},
+{
+"program": "/LUA.DLL",
+"addr": "10005480",
+"name": "io_getfilebyname",
+"comment": "errors '%s is not a file'",
+"tags": "liolib"
+},
+{
+"program": "/LUA.DLL",
+"addr": "100054c0",
+"name": "io_gethandle",
+"comment": "checks the userdata tag and errors 'a closed file'",
+"tags": "liolib"
+},
+{
+"program": "/LUA.DLL",
+"addr": "10005520",
+"name": "io_setreturn",
+"tags": "liolib"
+},
+{
+"program": "/LUA.DLL",
+"addr": "10005550",
+"name": "io_setfilebyname",
+"tags": "liolib"
+},
+{
+"program": "/LUA.DLL",
+"addr": "10005780",
+"name": "io_getfileparam",
+"tags": "liolib"
+},
+{
+"program": "/LUA.DLL",
+"addr": "10005b20",
+"name": "lua_iolibopen",
+"comment": "Registers readfrom/writeto/... and the _INPUT/_OUTPUT globals",
+"tags": "liolib"
+},
+{
+"program": "/LUA.DLL",
+"addr": "100095b0",
+"name": "str_sub",
+"comment": "lstrlib.c strsub",
+"tags": "lstrlib"
+},
+{
+"program": "/LUA.DLL",
+"addr": "10009650",
+"name": "str_addnchar",
+"tags": "lstrlib"
+},
+{
+"program": "/LUA.DLL",
+"addr": "10009680",
+"name": "str_closeandpush",
+"tags": "lstrlib"
+},
+{
+"program": "/LUA.DLL",
+"addr": "10009760",
+"name": "str_addstr",
+"tags": "lstrlib"
+},
+{
+"program": "/LUA.DLL",
+"addr": "100097f0",
+"name": "str_singlematch",
+"comment": "luaI_singlematch: one pattern item against one char",
+"tags": "lstrlib"
+},
+{
+"program": "/LUA.DLL",
+"addr": "100099e0",
+"name": "str_bracket_end",
+"tags": "lstrlib"
+},
+{
+"program": "/LUA.DLL",
+"addr": "10009a10",
+"name": "str_matchclass",
+"comment": "%a %d %s ... character classes",
+"tags": "lstrlib"
+},
+{
+"program": "/LUA.DLL",
+"addr": "10009e40",
+"name": "str_push_captures",
+"comment": "errors 'unfinished capture'",
+"tags": "lstrlib"
+},
+{
+"program": "/LUA.DLL",
+"addr": "10009ea0",
+"name": "str_match",
+"comment": "recursive pattern matcher; errors 'too many captures'",
+"tags": "lstrlib"
+},
+{
+"program": "/LUA.DLL",
+"addr": "1000a030",
+"name": "str_capture_to_close",
+"tags": "lstrlib"
+},
+{
+"program": "/LUA.DLL",
+"addr": "1000a060",
+"name": "str_matchbalance",
+"comment": "errors 'unbalanced pattern'",
+"tags": "lstrlib"
+},
+{
+"program": "/LUA.DLL",
+"addr": "1000a150",
+"name": "str_check_capture",
+"comment": "errors 'invalid capture index'",
+"tags": "lstrlib"
+},
+{
+"program": "/LUA.DLL",
+"addr": "1000a180",
+"name": "str_expand",
+"comment": "max/min expansion of a repeated pattern item",
+"tags": "lstrlib"
+},
+{
+"program": "/LUA.DLL",
+"addr": "1000a2e0",
+"name": "str_add_value",
+"comment": "gsub replacement: string or function result",
+"tags": "lstrlib"
+},
+{
+"program": "/LUA.DLL",
+"addr": "1000a680",
+"name": "str_add_s",
+"comment": "gsub replacement string with %n captures",
+"tags": "lstrlib"
+},
+{
+"program": "/LUA.DLL",
+"addr": "1000f930",
+"name": "strtoul",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "1000f960",
+"name": "strchr",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "1000fec0",
+"name": "strerror",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "1000ffd0",
+"name": "system",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "10010090",
+"name": "remove",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "100100c0",
+"name": "rename",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "10010100",
+"name": "tmpnam",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "10010220",
+"name": "tmpnam_genfname",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "10010310",
+"name": "getenv",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "10010340",
+"name": "_getenv_lk",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "100103d0",
+"name": "strftime",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "100103f0",
+"name": "_Strftime",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "10010540",
+"name": "_expandtime",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "10010ae0",
+"name": "_store_str",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "10010b10",
+"name": "_store_num",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "10010bb0",
+"name": "_store_number",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "10010c20",
+"name": "_store_winword",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "10010f70",
+"name": "localtime",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "10011160",
+"name": "time",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "10011290",
+"name": "setlocale",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "10011560",
+"name": "_setlocale_set_cat",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "100116c0",
+"name": "_setlocale_get_all",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "100117e0",
+"name": "_expandlocale",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "10011a40",
+"name": "__lc_strtolc",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "10011b50",
+"name": "__lc_lctostr",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "10011d50",
+"name": "_CIsqrt",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "10011d6d",
+"name": "_sqrt",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "10011ef0",
+"name": "floor",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure); floor/ceil pair, order not verified",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "10011ff0",
+"name": "ceil",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure); floor/ceil pair, order not verified",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "10012130",
+"name": "_CIpow",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "10012152",
+"name": "_pow",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure); Ghidra cannot decompile it (overlapping varnodes)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "10012325",
+"name": "_ftol",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "10012770",
+"name": "toupper",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "10012800",
+"name": "_toupper_lk",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "10012a20",
+"name": "strcmp",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "10012a60",
+"name": "strncmp",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "10012cb0",
+"name": "_CRT_INIT",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure) (DLL entry work: heap, mt, io, locale)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "100130b0",
+"name": "_cftoe",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "10013130",
+"name": "_cftoe2",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "10013230",
+"name": "_cftof",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "100132a0",
+"name": "_cftof2",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "10013360",
+"name": "_cftog",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "10013490",
+"name": "_shift",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "10013f40",
+"name": "_mtinit",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "10013fa0",
+"name": "_mtterm",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "10014070",
+"name": "_freeptd",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "10014e30",
+"name": "_mtinitlocks",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "10014e60",
+"name": "_mtdeletelocks",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "100151d0",
+"name": "_ioinit",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "100153e0",
+"name": "_ioterm",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "10015590",
+"name": "_cinit",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "100155e0",
+"name": "_cexit",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "10015940",
+"name": "_spawnvpe_search",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "10015b30",
+"name": "_spawnvpe",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "10015d30",
+"name": "_spawnve",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "10015da0",
+"name": "_access",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "10015ef0",
+"name": "_strdup",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "10016020",
+"name": "_mbschr",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "10016130",
+"name": "_strnicoll",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "10016170",
+"name": "__crtsetenv_from_wenviron",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "100161f0",
+"name": "__tzset",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "10016230",
+"name": "_tzset_lk",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "10016510",
+"name": "_isindst",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "10016540",
+"name": "_isindst_lk",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "100167b0",
+"name": "_cvtdate",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "10016950",
+"name": "_stricmp",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "10016a20",
+"name": "gmtime",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "10016b90",
+"name": "__loctotime_t",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "10017c50",
+"name": "__get_qualified_locale",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "10017e50",
+"name": "GetLcidFromLangCountry",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "100181c0",
+"name": "GetLcidFromLanguage",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "10018300",
+"name": "GetLcidFromCountry",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "100183e0",
+"name": "GetLcidFromDefault",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "10018400",
+"name": "TranslateName",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "10018fd0",
+"name": "_frnd",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "10019100",
+"name": "_raise_exc",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "10019440",
+"name": "_handle_exc",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "1001ad40",
+"name": "_pow_special_cases",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "1001af70",
+"name": "_is_integer_double",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "1001c860",
+"name": "_setenvp",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "1001c950",
+"name": "_setargv",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "1001c9f0",
+"name": "parse_cmdline",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "1001cc00",
+"name": "_setmbcp",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "1001ce30",
+"name": "getSystemCP",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "1001cee0",
+"name": "setSBCS",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "1001cf20",
+"name": "setSBUpLow",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "1001d100",
+"name": "__initmbctable",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "1001d110",
+"name": "__crtGetEnvironmentStringsA",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "1001d270",
+"name": "_heap_init",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "1001d2b0",
+"name": "_heap_term",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "1001d940",
+"name": "_ld12tocvt",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "1001db10",
+"name": "_ld12tod",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "1001db30",
+"name": "_ld12tof",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "1001db50",
+"name": "_atodbl",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "1001db90",
+"name": "_atoflt",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "1001dbd0",
+"name": "_fptostr",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "1001ed00",
+"name": "__sbh_resize_block",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "1001efc0",
+"name": "_mbschr_lk",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "1001f090",
+"name": "_dospawn",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "1001f320",
+"name": "_cenvarg",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "1001fa10",
+"name": "strrchr",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "1001fa40",
+"name": "__crtsetenv",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "1001fc50",
+"name": "findenv",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "1001fcd0",
+"name": "copy_environ",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "1001fd40",
+"name": "atol",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "1001fde0",
+"name": "wcstombs",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "1001fe60",
+"name": "_wcstombs_lk",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "10020050",
+"name": "wcsncnt",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "10020240",
+"name": "_strnicmp",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "10020350",
+"name": "_except1",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "100209f0",
+"name": "wcslen",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "10020cf0",
+"name": "__addl",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "10020d20",
+"name": "__add_12",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "10020d90",
+"name": "__shl_12",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "10020dc0",
+"name": "__shr_12",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "10020df0",
+"name": "__mtold12",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "10020ef0",
+"name": "__strgtold12",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "10021680",
+"name": "_I10_OUTPUT",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "10021a80",
+"name": "realloc",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "10021c30",
+"name": "__ld12mul",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/LUA.DLL",
+"addr": "10021ef0",
+"name": "__multtenpow12",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+}
+]

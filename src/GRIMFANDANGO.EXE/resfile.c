@@ -1,0 +1,469 @@
+/* GRIMFANDANGO.EXE :: resfile.c
+ * functions 0x00480890 .. 0x00481fd0 (11 functions)
+ * Decompiled from the shipped binaries with Ghidra; see ../../README.md */
+#include "ghidra_types.h"
+#include "globals.h"
+#include "functions.h"
+
+/* ---- 0x00480890  ResFile_Open ---- */
+/* Returns a 1-based handle into the 128-entry g_ResFileTable. Read-mode names without a path are
+   looked up inside the open LAB archives first (entry = archive handle + offset + size); otherwise
+   the underlying fopen is used. */
+
+int __cdecl ResFile_Open(char *name,char *mode)
+
+{
+  unsigned char _frame[0x230] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  int iVar1;
+  char cVar2;
+  int *piVar3;
+  int iVar4;
+  uint uVar5;
+  uint uVar6;
+  int iVar7;
+  char *pcVar8;
+  int *piVar9;
+  char *pcVar10;
+  #define local_218 (*(undefined1 (*)[4])(_frame + (0x230 - 0x218)))
+  #define local_214 (*(int *)(_frame + (0x230 - 0x214)))
+  #define local_210 (*(undefined4 *)(_frame + (0x230 - 0x210)))
+  #define local_20c (*(undefined4 *)(_frame + (0x230 - 0x20c)))
+  #define local_208 (*(int *)(_frame + (0x230 - 0x208)))
+  #define local_103 (*(undefined1 (*)[259])(_frame + (0x230 - 0x103)))
+  
+  piVar3 = &DAT_00825f40;
+  iVar7 = 0;
+  do {
+    if (*piVar3 == 0) break;
+    piVar3 = piVar3 + 0x40b;
+    iVar7 = iVar7 + 1;
+  } while ((int)piVar3 < IMG_ADDR(0x008a7540));
+  if (iVar7 != 0x80) {
+    iVar1 = iVar7 * 0x102c;
+    piVar3 = &DAT_00825f40 + iVar7 * 0x40b;
+    piVar9 = piVar3;
+    for (iVar4 = 0x40b; iVar4 != 0; iVar4 = iVar4 + -1) {
+      *piVar9 = 0;
+      piVar9 = piVar9 + 1;
+    }
+    uVar5 = 0xffffffff;
+    *(undefined4 *)(iVar1 + IMG_ADDR(0x00825f60)) = 0x1000;
+    pcVar8 = mode;
+    do {
+      pcVar10 = pcVar8;
+      if (uVar5 == 0) break;
+      uVar5 = uVar5 - 1;
+      pcVar10 = pcVar8 + 1;
+      cVar2 = *pcVar8;
+      pcVar8 = pcVar10;
+    } while (cVar2 != '\0');
+    uVar5 = ~uVar5;
+    pcVar8 = pcVar10 + -uVar5;
+    pcVar10 = (char *)(iVar1 + 0x825f64);
+    for (uVar6 = uVar5 >> 2; uVar6 != 0; uVar6 = uVar6 - 1) {
+      *(undefined4 *)pcVar10 = *(undefined4 *)pcVar8;
+      pcVar8 = pcVar8 + 4;
+      pcVar10 = pcVar10 + 4;
+    }
+    for (uVar5 = uVar5 & 3; uVar5 != 0; uVar5 = uVar5 - 1) {
+      *pcVar10 = *pcVar8;
+      pcVar8 = pcVar8 + 1;
+      pcVar10 = pcVar10 + 1;
+    }
+    iVar4 = tolower((int)*mode);
+    if (((iVar4 == 0x72) && (iVar4 = strchr(name,0x5c), iVar4 == 0)) &&
+       (iVar4 = Lab_FindFile(name,local_218), iVar4 != 0)) {
+      if (local_208 != 0) {
+        *piVar3 = local_214;
+        *(undefined4 *)(iVar1 + IMG_ADDR(0x00825f5c)) = 0;
+        *(undefined4 *)(iVar1 + IMG_ADDR(0x00825f50)) = local_210;
+        *(undefined4 *)(iVar1 + IMG_ADDR(0x00825f54)) = local_20c;
+        return iVar7 + 1;
+      }
+      iVar4 = (**(code **)(DAT_008a8570 + 0x30))(local_103,mode);
+      *piVar3 = iVar4;
+      if (iVar4 == 0) {
+        return 0;
+      }
+      *(undefined4 *)(iVar1 + IMG_ADDR(0x00825f5c)) = 1;
+      return iVar7 + 1;
+    }
+    iVar4 = (**(code **)(DAT_008a8570 + 0x30))(name,mode);
+    *piVar3 = iVar4;
+    if (iVar4 != 0) {
+      *(undefined4 *)(iVar1 + IMG_ADDR(0x00825f5c)) = 1;
+      return iVar7 + 1;
+    }
+  }
+  return 0;
+}
+#undef local_103
+#undef local_208
+#undef local_20c
+#undef local_210
+#undef local_214
+#undef local_218
+
+
+/* ---- 0x00480a00  ResFile_Close ---- */
+/* Source: Temp/Res.c (line 1844, from __FILE__/__LINE__ passed to the allocator) */
+
+int __cdecl ResFile_Close(int fh)
+
+{
+  int iVar1;
+  int *piVar2;
+  
+  if ((fh < 1) || (0x80 < fh)) {
+    (**(code **)(DAT_008a856c + 0x18))
+              (s__int_fh___0_____int_fh____MAX_OP_004e7a8c,
+               s_C__grimsrc_libs_grimlib_Temp_Res_004e7a1c,0x734);
+  }
+  iVar1 = *(int *)(&DAT_00824f14 + fh * 0x102c);
+  if (iVar1 == 0) {
+    return 1;
+  }
+  if (*(int *)(&DAT_00824f30 + fh * 0x102c) != 0) {
+    (**(code **)(DAT_008a8570 + 0x34))(iVar1);
+  }
+  piVar2 = (int *)(&DAT_00824f14 + fh * 0x102c);
+  for (iVar1 = 0x40b; iVar1 != 0; iVar1 = iVar1 + -1) {
+    *piVar2 = 0;
+    piVar2 = piVar2 + 1;
+  }
+  return 0;
+}
+
+/* ---- 0x00480a70  ResFile_Read ---- */
+/* Source: Temp/Res.c (line 1899, from __FILE__/__LINE__ passed to the allocator) */
+
+uint __cdecl ResFile_Read(int fh,void *buf,uint n)
+
+{
+  int iVar1;
+  int *entry;
+  int iVar2;
+  uint uVar3;
+  int iVar4;
+  uint uVar5;
+  undefined4 *puVar6;
+  undefined4 *puVar7;
+  
+  iVar1 = fh * 0x102c;
+  entry = (int *)(&DAT_00824f14 + iVar1);
+  if ((fh < 1) || (0x80 < fh)) {
+    (**(code **)(DAT_008a856c + 0x18))
+              (s__int_fh___0_____int_fh____MAX_OP_004e7a8c,
+               s_C__grimsrc_libs_grimlib_Temp_Res_004e7a1c,0x76b);
+  }
+  if (*entry == 0) {
+    return 0;
+  }
+  if (*(int *)(&DAT_00824f30 + iVar1) != 0) {
+    uVar3 = (**(code **)(DAT_008a8570 + 0x38))(*entry,buf,n);
+    return uVar3;
+  }
+  *(uint *)(&DAT_00824f2c + iVar1) =
+       (uint)(*(int *)(&DAT_00824f24 + iVar1) <= *(int *)(&DAT_00824f18 + iVar1));
+  if ((n < *(uint *)(&DAT_00824f34 + iVar1)) && (*(uint *)(&DAT_00824f20 + iVar1) < n)) {
+    ResFile_FillBuffer(entry);
+  }
+  uVar3 = *(uint *)(&DAT_00824f20 + iVar1);
+  if (n <= uVar3) {
+    puVar6 = (undefined4 *)(iVar1 + 0x824f40 + *(int *)(&DAT_00824f1c + iVar1));
+    for (uVar3 = n >> 2; uVar3 != 0; uVar3 = uVar3 - 1) {
+      *(undefined4 *)buf = *puVar6;
+      puVar6 = puVar6 + 1;
+      buf = (undefined4 *)((int)buf + 4);
+    }
+    for (uVar3 = n & 3; uVar3 != 0; uVar3 = uVar3 - 1) {
+      *(undefined1 *)buf = *(undefined1 *)puVar6;
+      puVar6 = (undefined4 *)((int)puVar6 + 1);
+      buf = (undefined4 *)((int)buf + 1);
+    }
+    *(uint *)(&DAT_00824f20 + iVar1) = *(int *)(&DAT_00824f20 + iVar1) - n;
+    *(uint *)(&DAT_00824f18 + iVar1) = *(int *)(&DAT_00824f18 + iVar1) + n;
+    *(uint *)(&DAT_00824f1c + iVar1) = *(int *)(&DAT_00824f1c + iVar1) + n;
+    return n;
+  }
+  if (uVar3 != 0) {
+    puVar6 = (undefined4 *)(*(int *)(&DAT_00824f1c + iVar1) + 0x2c + (int)entry);
+    puVar7 = buf;
+    for (uVar5 = uVar3 >> 2; uVar5 != 0; uVar5 = uVar5 - 1) {
+      *puVar7 = *puVar6;
+      puVar6 = puVar6 + 1;
+      puVar7 = puVar7 + 1;
+    }
+    for (uVar3 = uVar3 & 3; uVar3 != 0; uVar3 = uVar3 - 1) {
+      *(undefined1 *)puVar7 = *(undefined1 *)puVar6;
+      puVar6 = (undefined4 *)((int)puVar6 + 1);
+      puVar7 = (undefined4 *)((int)puVar7 + 1);
+    }
+  }
+  iVar2 = *(int *)(&DAT_00824f20 + iVar1);
+  iVar4 = *(int *)(&DAT_00824f18 + iVar1);
+  *(int *)(&DAT_00824f18 + iVar1) = iVar4 + iVar2;
+  *(int *)(&DAT_00824f1c + iVar1) = *(int *)(&DAT_00824f1c + iVar1) + iVar2;
+  *(undefined4 *)(&DAT_00824f20 + iVar1) = 0;
+  iVar4 = Lab_ReadRaw(entry,(void *)(iVar2 + (int)buf),iVar4 + iVar2,n - iVar2);
+  *(int *)(&DAT_00824f18 + iVar1) = *(int *)(&DAT_00824f18 + iVar1) + iVar4;
+  return iVar4 + iVar2;
+}
+
+/* ---- 0x00480bb0  FUN_00480bb0 ---- */
+char * FUN_00480bb0(int param_1,char *param_2,uint param_3)
+
+{
+  int iVar1;
+  int iVar2;
+  char *pcVar3;
+  char cVar4;
+  char *pcVar5;
+  
+  iVar2 = param_1;
+  cVar4 = '\0';
+  param_1 = 0;
+  iVar1 = iVar2 * 0x102c;
+  if ((iVar2 < 1) || (0x80 < iVar2)) {
+    (**(code **)(DAT_008a856c + 0x18))
+              (s__int_fh___0_____int_fh____MAX_OP_004e7a8c,
+               s_C__grimsrc_libs_grimlib_Temp_Res_004e7a1c,0x7bc);
+  }
+  iVar2 = *(int *)(&DAT_00824f14 + iVar1);
+  if (iVar2 == 0) {
+    return (char *)0x0;
+  }
+  if (*(int *)(&DAT_00824f30 + iVar1) != 0) {
+    pcVar3 = (char *)(**(code **)(DAT_008a8570 + 0x3c))(iVar2,param_2,param_3);
+    return pcVar3;
+  }
+  if (*(uint *)(&DAT_00824f20 + iVar1) < param_3) {
+    ResFile_FillBuffer(&DAT_00824f14 + iVar1);
+  }
+  if (*(uint *)(&DAT_00824f20 + iVar1) < param_3) {
+    param_3 = *(uint *)(&DAT_00824f20 + iVar1) + 1;
+  }
+  pcVar3 = (char *)(iVar1 + 0x824f40 + *(int *)(&DAT_00824f1c + iVar1));
+  pcVar5 = param_2;
+  while (param_3 = param_3 - 1, 0 < (int)param_3) {
+    cVar4 = *pcVar3;
+    pcVar3 = pcVar3 + 1;
+    param_1 = param_1 + 1;
+    if ((cVar4 == '\n') || (cVar4 == '\r')) break;
+    *pcVar5 = cVar4;
+    pcVar5 = pcVar5 + 1;
+  }
+  if (param_3 != 0) {
+    *pcVar5 = '\n';
+    pcVar5 = pcVar5 + 1;
+  }
+  *pcVar5 = '\0';
+  if ((cVar4 == '\r') && (*pcVar3 == '\n')) {
+    param_1 = param_1 + 1;
+  }
+  iVar2 = *(int *)(&DAT_00824f18 + iVar1);
+  *(int *)(&DAT_00824f18 + iVar1) = iVar2 + param_1;
+  *(int *)(&DAT_00824f1c + iVar1) = *(int *)(&DAT_00824f1c + iVar1) + param_1;
+  *(int *)(&DAT_00824f20 + iVar1) = *(int *)(&DAT_00824f20 + iVar1) - param_1;
+  if ((*(int *)(&DAT_00824f24 + iVar1) <= iVar2 + param_1) && (*param_2 == '\0')) {
+    *(undefined4 *)(&DAT_00824f2c + iVar1) = 1;
+    return (char *)0x0;
+  }
+  *(undefined4 *)(&DAT_00824f2c + iVar1) = 0;
+  return param_2;
+}
+
+/* ---- 0x00480ce0  FUN_00480ce0 ---- */
+undefined4 FUN_00480ce0(int param_1,undefined4 param_2,undefined4 param_3)
+
+{
+  undefined4 uVar1;
+  
+  if (param_1 != 0) {
+    if ((param_1 < 1) || (0x80 < param_1)) {
+      (**(code **)(DAT_008a856c + 0x18))
+                (s__int_fh___0_____int_fh____MAX_OP_004e7a8c,
+                 s_C__grimsrc_libs_grimlib_Temp_Res_004e7a1c,0x81b);
+    }
+    if ((*(int *)(&DAT_00824f14 + param_1 * 0x102c) != 0) &&
+       (*(int *)(&DAT_00824f30 + param_1 * 0x102c) != 0)) {
+      uVar1 = (**(code **)(DAT_008a8570 + 0x40))
+                        (*(int *)(&DAT_00824f14 + param_1 * 0x102c),param_2,param_3);
+      return uVar1;
+    }
+  }
+  return 0;
+}
+
+/* ---- 0x00480d50  FUN_00480d50 ---- */
+undefined4 FUN_00480d50(int param_1)
+
+{
+  int iVar1;
+  undefined4 uVar2;
+  
+  iVar1 = param_1 * 0x102c;
+  if ((param_1 < 1) || (0x80 < param_1)) {
+    (**(code **)(DAT_008a856c + 0x18))
+              (s__int_fh___0_____int_fh____MAX_OP_004e7a8c,
+               s_C__grimsrc_libs_grimlib_Temp_Res_004e7a1c,0x84c);
+  }
+  if (*(int *)(&DAT_00824f14 + iVar1) == 0) {
+    return 1;
+  }
+  if (*(int *)(&DAT_00824f30 + iVar1) != 0) {
+    uVar2 = (**(code **)(DAT_008a8570 + 0x44))(*(int *)(&DAT_00824f14 + iVar1));
+    return uVar2;
+  }
+  return *(undefined4 *)(&DAT_00824f2c + iVar1);
+}
+
+/* ---- 0x00480dc0  FUN_00480dc0 ---- */
+undefined4 FUN_00480dc0(int param_1)
+
+{
+  int iVar1;
+  undefined4 uVar2;
+  
+  iVar1 = param_1 * 0x102c;
+  if ((param_1 < 1) || (0x80 < param_1)) {
+    (**(code **)(DAT_008a856c + 0x18))
+              (s__int_fh___0_____int_fh____MAX_OP_004e7a8c,
+               s_C__grimsrc_libs_grimlib_Temp_Res_004e7a1c,0x87e);
+  }
+  if (*(int *)(&DAT_00824f14 + iVar1) == 0) {
+    return 0xffffffff;
+  }
+  if (*(int *)(&DAT_00824f30 + iVar1) != 0) {
+    uVar2 = (**(code **)(DAT_008a8570 + 0x48))(*(int *)(&DAT_00824f14 + iVar1));
+    return uVar2;
+  }
+  return *(undefined4 *)(&DAT_00824f18 + iVar1);
+}
+
+/* ---- 0x00480e30  ResFile_Seek ---- */
+/* Source: Temp/Res.c (line 2225, from __FILE__/__LINE__ passed to the allocator) */
+
+int __cdecl ResFile_Seek(int fh,int offset,int whence)
+
+{
+  int iVar1;
+  int iVar2;
+  int iVar3;
+  
+  iVar2 = fh * 0x102c;
+  if ((fh < 1) || (0x80 < fh)) {
+    (**(code **)(DAT_008a856c + 0x18))
+              (s__int_fh___0_____int_fh____MAX_OP_004e7a8c,
+               s_C__grimsrc_libs_grimlib_Temp_Res_004e7a1c,0x8b1);
+  }
+  iVar1 = *(int *)(&DAT_00824f14 + iVar2);
+  if (iVar1 == 0) {
+    return 1;
+  }
+  if (*(int *)(&DAT_00824f30 + iVar2) != 0) {
+    if ((whence == 0) && (iVar1 = (**(code **)(DAT_008a8570 + 0x48))(iVar1), iVar1 == offset)) {
+      return 0;
+    }
+    iVar2 = (**(code **)(DAT_008a8570 + 0x4c))(*(int *)(&DAT_00824f14 + iVar2),offset,whence);
+    return (uint)(iVar2 == 0);
+  }
+  if (whence != 0) {
+    if (whence == 1) {
+      iVar1 = *(int *)(&DAT_00824f18 + iVar2);
+    }
+    else {
+      if (whence != 2) {
+        return 1;
+      }
+      iVar1 = *(int *)(&DAT_00824f24 + iVar2);
+    }
+    offset = iVar1 + offset;
+  }
+  iVar3 = *(int *)(&DAT_00824f18 + iVar2) - *(int *)(&DAT_00824f1c + iVar2);
+  iVar1 = iVar3 + *(int *)(&DAT_00824f20 + iVar2) + *(int *)(&DAT_00824f1c + iVar2);
+  if ((iVar3 <= offset) && (offset < iVar1 + -1)) {
+    *(int *)(&DAT_00824f20 + iVar2) = iVar1 - offset;
+    *(int *)(&DAT_00824f1c + iVar2) = offset - iVar3;
+    *(int *)(&DAT_00824f18 + iVar2) = offset;
+    return 0;
+  }
+  *(undefined4 *)(&DAT_00824f20 + iVar2) = 0;
+  *(undefined4 *)(&DAT_00824f1c + iVar2) = 0;
+  *(int *)(&DAT_00824f18 + iVar2) = offset;
+  return 0;
+}
+
+/* ---- 0x00480f40  ResFile_Size ---- */
+int __cdecl ResFile_Size(char *name)
+
+{
+  unsigned char _frame[0x230] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  int iVar1;
+  #define local_218 (*(undefined1 (*)[8])(_frame + (0x230 - 0x218)))
+  #define local_210 (*(int *)(_frame + (0x230 - 0x210)))
+  
+  iVar1 = Lab_FindFile(name,local_218);
+  if (iVar1 != 0) {
+    return local_210;
+  }
+  iVar1 = (**(code **)(DAT_008a8570 + 0x50))(name);
+  return iVar1;
+}
+#undef local_210
+#undef local_218
+
+
+/* ---- 0x00480f90  ResFile_Printf ---- */
+/* Source: Temp/Res.c (line 2342, from __FILE__/__LINE__ passed to the allocator) */
+
+int __cdecl ResFile_Printf(int fh,char *fmt,...)
+
+{
+  unsigned char _frame[0x410] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  int *piVar1;
+  int iVar2;
+  #define local_400 (*(undefined1 (*)[1024])(_frame + (0x410 - 0x400)))
+  
+  piVar1 = (int *)(&DAT_00824f14 + fh * 0x102c);
+  if (fh == 0) {
+    return 0;
+  }
+  if ((fh < 1) || (0x80 < fh)) {
+    (**(code **)(DAT_008a856c + 0x18))
+              (s__int_fh___0_____int_fh____MAX_OP_004e7a8c,
+               s_C__grimsrc_libs_grimlib_Temp_Res_004e7a1c,0x926);
+  }
+  if ((*piVar1 != 0) && (*(int *)(&DAT_00824f30 + fh * 0x102c) != 0)) {
+    vsprintf(local_400,fmt,&STACK0X(0x0000000c));
+    iVar2 = (**(code **)(DAT_008a8570 + 0x54))(*piVar1,local_400);
+    fflush(*piVar1);
+    return iVar2;
+  }
+  return 0;
+}
+#undef local_400
+
+
+/* ---- 0x00481fd0  ResFile_FillBuffer ---- */
+void __cdecl ResFile_FillBuffer(void *entry)
+
+{
+  int iVar1;
+  int iVar2;
+  void *buf;
+  
+  iVar2 = *(int *)((int)entry + 0x20);
+  buf = (void *)((int)entry + 0x2c);
+  iVar1 = 0;
+  if (*(int *)((int)entry + 0xc) != 0) {
+    memcpy(buf,*(int *)((int)entry + 8) + (int)buf,*(int *)((int)entry + 0xc));
+    iVar1 = *(int *)((int)entry + 0xc);
+    iVar2 = iVar2 - iVar1;
+    buf = (void *)((int)buf + iVar1);
+  }
+  iVar2 = Lab_ReadRaw(entry,buf,*(int *)((int)entry + 4) + iVar1,iVar2);
+  *(undefined4 *)((int)entry + 8) = 0;
+  *(int *)((int)entry + 0xc) = *(int *)((int)entry + 0xc) + iVar2;
+  return;
+}
