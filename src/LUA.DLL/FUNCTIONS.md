@@ -306,7 +306,7 @@
 | 100099e0 | str_bracket_end | str.c | 17 |
 | 10009a10 | str_matchclass | str.c | 91 |
 | 10009cb0 | FUN_10009cb0 | str.c | 1 |
-| 10009e40 | str_push_captures | str.c | 28 |
+| 10009e40 | str_push_captures | str.c | 1 |
 | 10009ea0 | str_match | str.c | 1 |
 | 1000a030 | str_capture_to_close | str.c | 22 |
 | 1000a060 | str_matchbalance | str.c | 42 |

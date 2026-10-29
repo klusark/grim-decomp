@@ -384,8 +384,14 @@ void __cdecl Win_AbortIfAlreadyRunning(void *hInstance, void *hPrevInstance, cha
     int iVar1;
     int iVar2;
 
-    if (GRIM_getenv("GRIM_MULTI"))
-        appName = "Grim Fandango (test)";   /* a different title also passes the check in Win_CreateMainWindow */
+    if (GRIM_getenv("GRIM_MULTI")) {
+        /* a different title also passes the check in Win_CreateMainWindow; GRIM_MULTI=<tag> makes it
+         * "Grim Fandango (<tag>)" so that several sessions with different tags can run at once */
+        static char title[64];
+        const char *tag = GRIM_getenv("GRIM_MULTI");
+        wsprintfA(title, "Grim Fandango (%s)", tag[0] == '1' && !tag[1] ? "test" : tag);
+        appName = title;
+    }
     iVar1 = FindWindowA(IMG_ADDR(0x004ed080), (int)appName);
     if (iVar1 != 0) {
         SetForegroundWindow(iVar1);
