@@ -1571,7 +1571,7 @@
 | 00488fb0 | sputSmush_Initialize | sputsmush.c | 22 |
 | 00489030 | Movie_SaveState | movie.c | 12 |
 | 00489090 | FUN_00489090 | movie.c | 16 |
-| 00489130 | FUN_00489130 | movie.c | 1 |
+| 00489130 | FUN_00489130 | movie.c | 20 |
 | 00489190 | FUN_00489190 | movie.c | 13 |
 | 004891b0 | Movie_PollPlayback | movie.c | 42 |
 | 00489280 | Movie_SetTarget | movie.c | 9 |
@@ -2238,7 +2238,7 @@
 | 004c3660 | FUN_004c3660 | crt_unnamed.c | 14 |
 | 004c3690 | FUN_004c3690 | crt_unnamed.c | 6 |
 | 004c36a0 | FUN_004c36a0 | crt_unnamed.c | 5 |
-| 004c36b0 | FUN_004c36b0 | crt_unnamed.c | 15 |
+| 004c36b0 | FUN_004c36b0 | crt_unnamed.c | 1 |
 | 004c36f0 | FUN_004c36f0 | crt_unnamed.c | 185 |
 | 004c3b30 | FUN_004c3b30 | crt_unnamed.c | 28 |
 | 004c3bb0 | FUN_004c3bb0 | crt_unnamed.c | 22 |
@@ -2301,7 +2301,7 @@
 | 004c5dd0 | FUN_004c5dd0 | crt_unnamed.c | 6 |
 | 004c5df0 | FUN_004c5df0 | crt_unnamed.c | 6 |
 | 004c5e10 | FUN_004c5e10 | crt_unnamed.c | 6 |
-| 004c5e30 | FUN_004c5e30 | crt_unnamed.c | 6 |
+| 004c5e30 | FUN_004c5e30 | crt_unnamed.c | 1 |
 | 004c5e50 | FUN_004c5e50 | crt_unnamed.c | 6 |
 | 004c5e70 | FUN_004c5e70 | crt_unnamed.c | 6 |
 | 004c5e90 | FUN_004c5e90 | crt_unnamed.c | 12 |
@@ -2324,7 +2324,7 @@
 | 004c92d0 | FUN_004c92d0 | crt_unnamed.c | 1 |
 | 004c9390 | FUN_004c9390 | crt_unnamed.c | 140 |
 | 004c95c0 | FUN_004c95c0 | crt_unnamed.c | 39 |
-| 004c9640 | FUN_004c9640 | crt_unnamed.c | 16 |
+| 004c9640 | FUN_004c9640 | crt_unnamed.c | 1 |
 | 004c96c0 | FUN_004c96c0 | crt_unnamed.c | 75 |
 | 004c97b0 | FUN_004c97b0 | crt_unnamed.c | 97 |
 | 004c9a20 | FUN_004c9a20 | crt_unnamed.c | 240 |
@@ -2385,7 +2385,7 @@
 | 004ce320 | FUN_004ce320 | crt_unnamed.c | 7 |
 | 004ce350 | FUN_004ce350 | crt_unnamed.c | 11 |
 | 004ce3b0 | FUN_004ce3b0 | crt_unnamed.c | 9 |
-| 004ce3e0 | FUN_004ce3e0 | crt_unnamed.c | 69 |
+| 004ce3e0 | FUN_004ce3e0 | crt_unnamed.c | 1 |
 | 004ce840 | FUN_004ce840 | crt_unnamed.c | 65 |
 | 004ce980 | FUN_004ce980 | crt_unnamed.c | 9 |
 | 004ce9b0 | FUN_004ce9b0 | crt_unnamed.c | 24 |
@@ -2450,7 +2450,7 @@
 | 004d2bf0 | FUN_004d2bf0 | crt_unnamed.c | 19 |
 | 004d2cb0 | FUN_004d2cb0 | crt_unnamed.c | 29 |
 | 004d2ce0 | FUN_004d2ce0 | crt_unnamed.c | 38 |
-| 004d2d40 | FUN_004d2d40 | crt_unnamed.c | 7 |
+| 004d2d40 | FUN_004d2d40 | crt_unnamed.c | 1 |
 | 004d2d70 | FUN_004d2d70 | crt_unnamed.c | 6 |
 | 004d2d90 | FUN_004d2d90 | crt_unnamed.c | 44 |
 | 004d2e80 | FUN_004d2e80 | crt_unnamed.c | 1 |

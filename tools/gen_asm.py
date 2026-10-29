@@ -144,7 +144,7 @@ def convert(ctx, addr, lines):
             mn, lock = mn[:-5], "lock "
         up = mn.upper()
         text = None
-        m = re.fullmatch(r"(\w+)\.(REP|REPE|REPNE)\s*.*", mn, re.I)
+        m = re.fullmatch(r"(\w+)\.(REPNE|REPE|REP).*", mn, re.I)
         if m:
             pre = {"REP": "rep", "REPE": "repe", "REPNE": "repne"}[m.group(2).upper()]
             text = "%s %s" % (pre, m.group(1).lower())

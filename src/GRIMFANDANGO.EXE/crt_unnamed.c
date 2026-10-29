@@ -6543,6 +6543,8 @@ uint FUN_004c36a0(void)
 }
 
 /* ---- 0x004c36b0  FUN_004c36b0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_004c36b0(int param_1)
 
 {
@@ -6558,6 +6560,8 @@ void FUN_004c36b0(int param_1)
   *(undefined4 *)(param_1 + 0x44) = 0;
   return;
 }
+#endif
+
 
 /* ---- 0x004c36f0  FUN_004c36f0 ---- */
 uint FUN_004c36f0(int param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4,
@@ -8229,12 +8233,16 @@ void FUN_004c5e10(undefined4 param_1,undefined4 param_2,undefined4 param_3)
 }
 
 /* ---- 0x004c5e30  FUN_004c5e30 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_004c5e30(undefined4 param_1)
 
 {
   (*(code *)PTR_008d7848[4])(param_1);
   return;
 }
+#endif
+
 
 /* ---- 0x004c5e50  FUN_004c5e50 ---- */
 void FUN_004c5e50(undefined4 param_1,undefined4 param_2,undefined4 param_3)
@@ -9517,6 +9525,8 @@ void FUN_004c95c0(undefined2 *param_1,int param_2,short *param_3)
 
 
 /* ---- 0x004c9640  FUN_004c9640 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_004c9640(int param_1)
 
 {
@@ -9533,6 +9543,8 @@ void FUN_004c9640(int param_1)
   *(int *)(param_1 + 0x16a0) = *(int *)(param_1 + 0x16a0) + iVar1 * 3 + 0x11;
   return;
 }
+#endif
+
 
 /* ---- 0x004c96c0  FUN_004c96c0 ---- */
 void FUN_004c96c0(int param_1,int param_2,int param_3)
@@ -12242,6 +12254,8 @@ void FUN_004ce3b0(void)
 }
 
 /* ---- 0x004ce3e0  FUN_004ce3e0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 FUN_004ce3e0(int *param_1,int param_2,int param_3,int param_4)
 
 {
@@ -12310,6 +12324,8 @@ LAB_004ce7b5:
   return uVar3;
 }
 #undef local_4
+
+#endif
 
 
 /* ---- 0x004ce840  FUN_004ce840 ---- */
@@ -15507,6 +15523,8 @@ FUN_004d2ce0(undefined4 param_1,undefined4 param_2,undefined4 *param_3,undefined
 }
 
 /* ---- 0x004d2d40  FUN_004d2d40 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_004d2d40(undefined4 param_1,uint param_2,int param_3)
 
 {
@@ -15514,6 +15532,8 @@ void FUN_004d2d40(undefined4 param_1,uint param_2,int param_3)
   FUN_004d2e80(param_1,2,param_3 * 4,0);
   return;
 }
+#endif
+
 
 /* ---- 0x004d2d70  FUN_004d2d70 ---- */
 void FUN_004d2d70(undefined4 param_1)
