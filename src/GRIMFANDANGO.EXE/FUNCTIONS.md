@@ -96,7 +96,7 @@
 | 00499250 | Lua_SetDebugKeysCallback | lua.c | 6 |
 | 00499260 | Lua_EnginePause | lua.c | 8 |
 | 00499270 | Lua_EngineResume | lua.c | 8 |
-| 00499280 | Lua_EngineDisplay | lua.c | 15 |
+| 00499280 | Lua_EngineDisplay | lua.c | 1 |
 | 004992b0 | Lua_LoadActor | lua.c | 17 |
 | 004992d0 | Lua_PutActorAtInterest | lua.c | 37 |
 | 00499360 | Lua_SetSelectedActor | lua.c | 24 |
@@ -1736,7 +1736,7 @@
 | 00496e10 | FUN_00496e10 | spritecomponent.c | 6 |
 | 00496460 | CmapComponent_Create | cmapcomponent.c | 1 |
 | 00496580 | CmapComponent_Destroy | cmapcomponent.c | 7 |
-| 004965b0 | FUN_004965b0 | cmapcomponent.c | 9 |
+| 004965b0 | FUN_004965b0 | cmapcomponent.c | 1 |
 | 004965d0 | FUN_004965d0 | cmapcomponent.c | 6 |
 | 004965e0 | CmapComponent_NewInstance | cmapcomponent.c | 25 |
 | 00496670 | FUN_00496670 | cmapcomponent.c | 1 |
@@ -1792,7 +1792,7 @@
 | 004a4e20 | PositionedSound_Add | sound.c | 21 |
 | 004a4e80 | PositionedSound_Apply | sound.c | 1 |
 | 004d0c20 | Sound_DriverQuery | sound.c | 15 |
-| 004d0cf0 | Sound_VoiceSampleCount | sound.c | 33 |
+| 004d0cf0 | Sound_VoiceSampleCount | sound.c | 1 |
 | 004a48c0 | sputRoom_Initialize | sputroom.c | 27 |
 | 004a4920 | FUN_004a4920 | sputroom.c | 6 |
 | 004a4930 | FUN_004a4930 | sputroom.c | 17 |
@@ -1839,7 +1839,7 @@
 | 004ac550 | _stricmp | crt.c | 73 |
 | 004ac620 | sprintf | crt.c | 28 |
 | 004ac6f0 | _ftol | crt.c | 1 |
-| 004ac720 | _snprintf | crt.c | 29 |
+| 004ac720 | _snprintf | crt.c | 1 |
 | 004ac790 | atol | crt.c | 45 |
 | 004ac830 | atoi | crt.c | 8 |
 | 004ac840 | strncpy | crt.c | 104 |
@@ -2031,7 +2031,7 @@
 | 004bb950 | _wcstombs_lk | crt.c | 103 |
 | 004bbb40 | wcsncnt | crt.c | 20 |
 | 004bbb80 | getenv | crt.c | 49 |
-| 004bbc10 | _chsize | crt.c | 67 |
+| 004bbc10 | _chsize | crt.c | 1 |
 | 004bbd60 | _raise_exc | crt.c | 147 |
 | 004bc0a0 | _handle_exc | crt.c | 145 |
 | 004bc730 | __ld12mul | crt.c | 164 |

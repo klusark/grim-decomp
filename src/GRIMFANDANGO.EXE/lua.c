@@ -2993,6 +2993,8 @@ void Lua_EngineResume(void)
 }
 
 /* ---- 0x00499280  Lua_EngineDisplay ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: EngineDisplay */
 
 void Lua_EngineDisplay(void)
@@ -3008,6 +3010,8 @@ void Lua_EngineDisplay(void)
   Render_SetDrawEnabled((int)lVar2);
   return;
 }
+#endif
+
 
 /* ---- 0x004992b0  Lua_LoadActor ---- */
 /* Lua opcode: LoadActor */

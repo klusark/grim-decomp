@@ -3265,6 +3265,8 @@ void __cdecl FUN_1001d880(uint *param_1,int param_2)
 }
 
 /* ---- 0x1001dc70  FUN_1001dc70 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 int * __cdecl FUN_1001dc70(undefined4 param_1,undefined4 param_2,int *param_3,char *param_4)
 
 {
@@ -3322,6 +3324,8 @@ int * __cdecl FUN_1001dc70(undefined4 param_1,undefined4 param_2,int *param_3,ch
 #undef local_20
 #undef local_24
 #undef local_28
+
+#endif
 
 
 /* ---- 0x1001dd00  FUN_1001dd00 ---- */

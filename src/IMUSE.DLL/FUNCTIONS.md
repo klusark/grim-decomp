@@ -32,7 +32,7 @@
 | 10004a80 | Im_GetGroupVol | imuse.c | 10 |
 | 10004f50 | Im_GuardEnter | imuse.c | 10 |
 | 10004f60 | Im_GuardLeave | imuse.c | 14 |
-| 10004f70 | Im_DispatchCommand | imuse.c | 94 |
+| 10004f70 | Im_DispatchCommand | imuse.c | 1 |
 | 10005360 | Im_MixerInit | imuse.c | 51 |
 | 10005490 | Im_MixerReset | imuse.c | 9 |
 | 100054c0 | Im_MixerHeartbeat | imuse.c | 21 |
@@ -421,7 +421,7 @@
 | 100127d0 | FUN_100127d0 | crt_unnamed.c | 14 |
 | 10012840 | FUN_10012840 | crt_unnamed.c | 124 |
 | 10012bc0 | FUN_10012bc0 | crt_unnamed.c | 67 |
-| 10012f40 | FUN_10012f40 | crt_unnamed.c | 66 |
+| 10012f40 | FUN_10012f40 | crt_unnamed.c | 1 |
 | 10013090 | FUN_10013090 | crt_unnamed.c | 137 |
 | 100132c0 | FUN_100132c0 | crt_unnamed.c | 14 |
 | 100132f0 | FUN_100132f0 | crt_unnamed.c | 19 |
