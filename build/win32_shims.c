@@ -84,3 +84,14 @@ void free(void *p)
     VirtualFree(base, (*(unsigned *)base + 1) * 4096, 0x4000 /* MEM_DECOMMIT */);
 }
 #endif /* GRIM_FENCE */
+
+/* The decompiled functions register MSVC C++ exception frames (handler FUN_10021fe6 ->
+ * FUN_1000f0e0 -> __InternalCxxFrameHandler). They only matter when C++ objects need
+ * destructing during a throw or a longjmp unwind, which the Lua error path does (the msvcrt
+ * longjmp walks the frame chain). A handler that declines (ExceptionContinueSearch = 1)
+ * lets the unwind continue; the skipped cleanups just leak. */
+int __attribute__((cdecl)) __InternalCxxFrameHandler(void *rec, void *frame, void *ctx, void *disp)
+{
+    (void)rec; (void)frame; (void)ctx; (void)disp;
+    return 1;
+}
