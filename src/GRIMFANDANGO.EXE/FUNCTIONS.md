@@ -586,7 +586,7 @@
 | 00471bd0 | rdThing_SetModel | rdthing.c | 70 |
 | 00471d40 | rdThing_SetCamera | rdthing.c | 9 |
 | 00471d60 | rdThing_SetPolyline | rdthing.c | 10 |
-| 00471d80 | rdThing_Draw | rdthing.c | 27 |
+| 00471d80 | rdThing_DrawAlt | rdthing.c | 27 |
 | 00471e00 | rdThing_BuildNodeMatrix | rdthing.c | 45 |
 | 0040ea50 | rdRaster_SetupPoly | rdraster.c | 231 |
 | 0040ef90 | rdRaster_SetupPolyTex | rdraster.c | 265 |
@@ -1090,7 +1090,7 @@
 | 00473660 | stdBitmap_LoadFile | stdbitmap.c | 90 |
 | 00473810 | stdBitmap_SaveByExtension | stdbitmap.c | 103 |
 | 0047aa50 | stdBitmap_LoadResource | stdbitmap.c | 19 |
-| 0047aab0 | stdBitmap_Load | stdbitmap.c | 22 |
+| 0047aab0 | stdBitmap_LoadFromFile | stdbitmap.c | 22 |
 | 0047ab20 | stdBitmap_LoadBM | stdbitmap.c | 161 |
 | 0047ae70 | stdBitmap_Free | stdbitmap.c | 7 |
 | 0047ae90 | stdBitmap_FreeSurfaces | stdbitmap.c | 26 |

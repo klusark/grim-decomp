@@ -231,7 +231,7 @@ void * __cdecl stdBitmap_LoadResource(char *name,int a,int b)
   a_00 = (void *)(*g_pSvcMain->pAlloc)
                            (0x7c,s_C__grimjedi_Libs_Std_General_Std_004df574,DAT_004df550 + 4);
   if (a_00 != (void *)0x0) {
-    pvVar1 = ((code *)stdBitmap_Load)(name,(int)a_00,a,b);
+    pvVar1 = stdBitmap_LoadFromFile(name,(int)a_00,a,b);
     if (pvVar1 != (void *)0x0) {
       return a_00;
     }
@@ -240,10 +240,10 @@ void * __cdecl stdBitmap_LoadResource(char *name,int a,int b)
   return (void *)0x0;
 }
 
-/* ---- 0x0047aab0  stdBitmap_Load  (renamed stdBitmap_Load_0047aab0: duplicate name) ---- */
+/* ---- 0x0047aab0  stdBitmap_LoadFromFile ---- */
 /* Stdbitmap.c: opens the file through the main services and reads a BM bitmap */
 
-void * __cdecl stdBitmap_Load_0047aab0(char *filename,int a,int b,int c)
+void * __cdecl stdBitmap_LoadFromFile(char *filename,int a,int b,int c)
 
 {
   int iVar1;

@@ -295,8 +295,8 @@ undefined4 rdThing_SetPolyline(undefined4 *param_1,undefined4 param_2)
   return 1;
 }
 
-/* ---- 0x00471d80  rdThing_Draw  (renamed rdThing_Draw_00471d80: duplicate name) ---- */
-int __cdecl rdThing_Draw_00471d80(void *thing,float *frame)
+/* ---- 0x00471d80  rdThing_DrawAlt ---- */
+int __cdecl rdThing_DrawAlt(void *thing,float *frame)
 
 {
   int iVar1;

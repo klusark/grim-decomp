@@ -179,7 +179,8 @@ def link(cc, src, obj, prog, env):
     else:
         print(f"{prog}: no section dump (tools/export_data.py), data stays zero-filled\n{gen.stderr[:500]}")
     # Win32 entry points the import libraries lack (intrinsics) + mingwex hooks
-    rc, out = run([cc] + cflags + ["-c", os.path.join(here, "win32_shims.c"), "-o", os.path.join(d, "win32_shims.o")], env)
+    fence = ["-DGRIM_FENCE"] if os.environ.get("GRIM_FENCE") and not prog.endswith(".DLL") else []  # debug allocator, see win32_shims.c
+    rc, out = run([cc] + cflags + fence + ["-c", os.path.join(here, "win32_shims.c"), "-o", os.path.join(d, "win32_shims.o")], env)
     if rc:
         print(f"{prog}: win32_shims.c does not compile:\n{out[:2000]}")
         return

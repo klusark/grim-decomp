@@ -68,7 +68,7 @@ undefined4 DSound_Init(void)
 
     if (g_pDirectSound != 0)
         return 0;
-    DAT_008d3664 = 0;
+    UINT_008d3664 = 0;
     if (DirectSoundCreate(0, &g_pDirectSound, 0) < 0) {
         g_pDirectSound = 0;
         return 0;
@@ -77,17 +77,17 @@ undefined4 DSound_Init(void)
     if (COM(g_pDirectSound, 0x18, hwnd, 2) < 0)
         return 1;
     desc.size = 0x14;
-    desc.flags = DAT_008d3664 ? 0x91 : 0x81;   /* PRIMARYBUFFER | CTRLVOLUME [| CTRL3D] */
+    desc.flags = UINT_008d3664 ? 0x91 : 0x81;   /* PRIMARYBUFFER | CTRLVOLUME [| CTRL3D] */
     desc.bytes = 0;
     desc.reserved = 0;
     desc.format = 0;
-    DAT_008d3654 = hwnd;
+    UINT_008d3654 = hwnd;
     if (COM(g_pDirectSound, 0xc, &desc, &g_pDSoundPrimary, 0) < 0) {
         g_pDSoundPrimary = 0;
         return 1;
     }
-    COM(g_pDSoundPrimary, 0x18, &DAT_008d3658);          /* GetVolume */
-    rate = DAT_008d3660 ? 0x2b11 : 0x5622;
+    COM(g_pDSoundPrimary, 0x18, &UINT_008d3658);          /* GetVolume */
+    rate = UINT_008d3660 ? 0x2b11 : 0x5622;
     wfx.tag = 1;
     wfx.channels = 2;
     wfx.rate = rate;
@@ -96,10 +96,10 @@ undefined4 DSound_Init(void)
     wfx.bits = 0x10;
     wfx.cb = 0;
     COM(g_pDSoundPrimary, 0x38, &wfx);                   /* SetFormat */
-    DSound_SetPrimaryVolume(DAT_004f1000);
-    if (DAT_008d3664 != 0) {
+    DSound_SetPrimaryVolume(UINT_004f1000);
+    if (UINT_008d3664 != 0) {
         if (COM(g_pDSoundPrimary, 0, &DAT_004d8510, &PTR_008d3674) < 0) {
-            DAT_008d3664 = 0;
+            UINT_008d3664 = 0;
             PTR_008d3674 = 0;
         } else {
             COM(PTR_008d3674, 0x2c, 0x3f000000, 1);

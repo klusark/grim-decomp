@@ -7,7 +7,7 @@ python
 import gdb, os
 gdb.execute('set pagination off')
 gdb.execute('set unwindonsignal on')
-watch = ['stdMemory_Alloc', 'stdMemory_Free'] + [f for f in os.environ.get('FUNCS', '').split(',') if f]
+watch = ([] if os.environ.get('NOMEM') else ['stdMemory_Alloc', 'stdMemory_Free']) + [f for f in os.environ.get('FUNCS', '').split(',') if f]
 for fn in watch:
     try: gdb.Breakpoint(fn)
     except gdb.error: print('no', fn)
