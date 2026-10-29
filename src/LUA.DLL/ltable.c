@@ -230,7 +230,7 @@ int __cdecl luaH_present(int param_1,int *param_2)
   iVar5 = iVar3 % iVar1;
   iVar6 = iVar5 * 0x10;
   piVar4 = (int *)(*(int *)(param_1 + 8) + iVar6);
-  if ((*piVar4 != -7) && (bVar2 = luaO_equalObj(param_2,piVar4), CONCAT31(extraout_var,bVar2) == 0))
+  if ((*piVar4 != -7) && (bVar2 = luaO_equalObj(param_2,piVar4), ((uint)(bVar2)) == 0))
   {
     iVar3 = iVar3 % (iVar1 + -2) + 1;
     do {
@@ -242,7 +242,7 @@ int __cdecl luaH_present(int param_1,int *param_2)
       }
       piVar4 = (int *)(*(int *)(param_1 + 8) + iVar6);
     } while ((*piVar4 != -7) &&
-            (bVar2 = luaO_equalObj(param_2,piVar4), CONCAT31(extraout_var_00,bVar2) == 0));
+            (bVar2 = luaO_equalObj(param_2,piVar4), ((uint)(bVar2)) == 0));
   }
   return iVar5;
 }

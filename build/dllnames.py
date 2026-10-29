@@ -12,6 +12,8 @@ def load():
         raw = os.path.join(ROOT, "raw", prog)
         try:
             sc = json.load(open(os.path.join(raw, "stdcall_funcs.json")))
+            skip = set(json.load(open(os.path.join(ROOT, "names", "not_stdcall.json"))).get(prog, []))
+            sc = {k: v for k, v in sc.items() if k not in skip}
             for line in open(os.path.join(raw, "exports.json"), encoding="utf-8", errors="replace"):
                 m = re.match(r"^(\S+) -> ([0-9a-f]{8})", line.strip())
                 if m and m.group(1) != "entry" and not m.group(1).startswith("Ordinal_") and m.group(2) in sc:

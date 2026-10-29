@@ -95,3 +95,19 @@ int __attribute__((cdecl)) __InternalCxxFrameHandler(void *rec, void *frame, voi
     (void)rec; (void)frame; (void)ctx; (void)disp;
     return 1;
 }
+
+/* ---- MSVC CRT internals the decompiled CRT code calls (single-threaded stand-ins) ---- */
+
+/* per-thread data block (rand/srand keep their seed in word 5, strtok its state, ...).
+   One shared block is enough for the game's threads: only the main thread uses these. */
+int *_getptd(void)
+{
+    static int ptd[256];
+    return ptd;
+}
+
+/* stdio / low-level I/O locks: the rebuilt DLLs run these paths from one thread at a time */
+void _lock_fhandle(int fh) { (void)fh; }
+void _unlock_fhandle(int fh) { (void)fh; }
+void _lock_file2(int i, void *f) { (void)i; (void)f; }
+void _unlock_file2(int i, void *f) { (void)i; (void)f; }

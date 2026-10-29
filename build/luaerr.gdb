@@ -8,7 +8,7 @@ gdb.execute('set pagination off')
 b = gdb.Breakpoint('Grim_Init'); gdb.execute('run'); b.delete()
 gdb.Breakpoint('luaD_message')
 count = 0
-while count < 6:
+while count < 40:
     try:
         gdb.execute('continue', to_string=True)
     except gdb.error:

@@ -205,7 +205,7 @@ LAB_1000d333:
   if ((uVar7 & 0x10c) == 0) {
     if ((param_2 == (int *)&DAT_1001ead0) || (param_2 == (int *)&DAT_1001eaf0)) {
       bVar4 = _isatty(uVar1);
-      if (CONCAT31(extraout_var,bVar4) != 0) goto LAB_1000d283;
+      if (((uint)(bVar4)) != 0) goto LAB_1000d283;
     }
     _getbuf(piVar3);
   }

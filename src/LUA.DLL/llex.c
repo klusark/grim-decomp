@@ -796,7 +796,7 @@ uint __cdecl luaX_error(byte *param_1)
       return 0;
     }
     bVar1 = lstring__9550(param_1);
-    uVar2 = CONCAT31(extraout_var,bVar1);
+    uVar2 = ((uint)(bVar1));
   }
   return uVar2;
 }
@@ -1080,6 +1080,8 @@ void FUN_10006fe0(void)
 }
 
 /* ---- 0x10007020  FUN_10007020 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_10007020(void)
 
 {
@@ -1090,8 +1092,12 @@ void FUN_10007020(void)
   lua_pushnumber(fVar1);
   return;
 }
+#endif
+
 
 /* ---- 0x10007050  FUN_10007050 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_10007050(void)
 
 {
@@ -1102,6 +1108,8 @@ void FUN_10007050(void)
   lua_pushnumber(fVar1);
   return;
 }
+#endif
+
 
 /* ---- 0x10007080  FUN_10007080 ---- */
 void FUN_10007080(void)

@@ -220,6 +220,8 @@ void __cdecl luaV_setglobal(int *param_1)
 }
 
 /* ---- 0x1000da30  luaV_pack ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Unidentified function of lvm.c (virtual machine) */
 
 void __cdecl luaV_pack(int param_1,int param_2,undefined4 *param_3)
@@ -267,6 +269,8 @@ void __cdecl luaV_pack(int param_1,int param_2,undefined4 *param_3)
 #undef local_10
 #undef local_4
 #undef local_c
+
+#endif
 
 
 /* ---- 0x1000db10  lvm__db10 ---- */
@@ -867,7 +871,7 @@ LAB_1000e37f:
   case 0x5b:
   case 0x5c:
     bVar7 = luaO_equalObj((int *)(*(int *)param_1[7] + -0x10),(int *)(*(int *)param_1[7] + -8));
-    uVar15 = CONCAT31(extraout_var,bVar7);
+    uVar15 = ((uint)(bVar7));
     *(int *)param_1[7] = *(int *)param_1[7] + -8;
     if (param_1[9] == 0x5c) {
       uVar15 = (uint)(uVar15 == 0);

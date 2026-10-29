@@ -1706,7 +1706,7 @@ int * __cdecl localtime(int *param_1)
     piVar2 = gmtime(piVar2);
     bVar1 = _isindst(piVar2);
     iVar3 = *piVar2;
-    if (CONCAT31(extraout_var_00,bVar1) != 0) {
+    if (((uint)(bVar1)) != 0) {
       iVar3 = iVar3 - DAT_10028d70;
     }
     param_1 = (int *)(iVar3 - DAT_10028d68);
@@ -1756,7 +1756,7 @@ int * __cdecl localtime(int *param_1)
     piVar2 = gmtime((int *)&param_1);
     if (DAT_10028d6c != 0) {
       bVar1 = _isindst(piVar2);
-      if (CONCAT31(extraout_var,bVar1) != 0) {
+      if (((uint)(bVar1)) != 0) {
         param_1 = (int *)((int)param_1 - DAT_10028d70);
         piVar2 = gmtime((int *)&param_1);
         piVar2[8] = 1;
@@ -3809,7 +3809,7 @@ FindHandler(int *param_1,int param_2,int param_3,undefined4 param_4,int param_5,
       piVar3 = _getptd();
       param_3 = piVar3[0x1c];
       bVar2 = _ValidateRead(param_1,1);
-      if (CONCAT31(extraout_var,bVar2) == 0) {
+      if (((uint)(bVar2)) == 0) {
         FUN_100141b0();
       }
       if (*param_1 != -0x1f928c9d) goto LAB_10013806;
@@ -4132,8 +4132,8 @@ void __cdecl BuildCatchObject(int param_1,int param_2,byte *param_3,byte *param_
       if ((*param_4 & 1) == 0) {
         if (*(int *)(param_4 + 0x18) == 0) {
           bVar2 = _ValidateRead(*(undefined4 *)(param_1 + 0x18),1);
-          if ((CONCAT31(extraout_var_03,bVar2) != 0) &&
-             (bVar2 = _ValidateWrite(piVar1,1), CONCAT31(extraout_var_04,bVar2) != 0)) {
+          if ((((uint)(bVar2)) != 0) &&
+             (bVar2 = _ValidateWrite(piVar1,1), ((uint)(bVar2)) != 0)) {
             uVar5 = *(uint *)(param_4 + 0x14);
             puVar4 = (undefined4 *)FUN_10013ec0(*(int *)(param_1 + 0x18),(int *)(param_4 + 8));
             memcpy(piVar1,puVar4,uVar5);
@@ -4142,10 +4142,10 @@ void __cdecl BuildCatchObject(int param_1,int param_2,byte *param_3,byte *param_
         }
         else {
           bVar2 = _ValidateRead(*(undefined4 *)(param_1 + 0x18),1);
-          if (((CONCAT31(extraout_var_05,bVar2) != 0) &&
-              (bVar2 = _ValidateWrite(piVar1,1), CONCAT31(extraout_var_06,bVar2) != 0)) &&
+          if (((((uint)(bVar2)) != 0) &&
+              (bVar2 = _ValidateWrite(piVar1,1), ((uint)(bVar2)) != 0)) &&
              (bVar2 = _ValidateExecute(*(undefined4 *)(param_4 + 0x18)),
-             CONCAT31(extraout_var_07,bVar2) != 0)) {
+             ((uint)(bVar2)) != 0)) {
             if ((*param_4 & 4) == 0) {
               FUN_10013ec0(*(int *)(param_1 + 0x18),(int *)(param_4 + 8));
               FUN_1000f070(piVar1,*(undefined **)(param_4 + 0x18));
@@ -4160,8 +4160,8 @@ void __cdecl BuildCatchObject(int param_1,int param_2,byte *param_3,byte *param_
       }
       else {
         bVar2 = _ValidateRead(*(undefined4 *)(param_1 + 0x18),1);
-        if ((CONCAT31(extraout_var_01,bVar2) != 0) &&
-           (bVar2 = _ValidateWrite(piVar1,1), CONCAT31(extraout_var_02,bVar2) != 0)) {
+        if ((((uint)(bVar2)) != 0) &&
+           (bVar2 = _ValidateWrite(piVar1,1), ((uint)(bVar2)) != 0)) {
           memcpy(piVar1,*(undefined4 **)(param_1 + 0x18),*(uint *)(param_4 + 0x14));
           if ((*(int *)(param_4 + 0x14) == 4) && (*piVar1 != 0)) {
             iVar3 = FUN_10013ec0(*piVar1,(int *)(param_4 + 8));
@@ -4173,8 +4173,8 @@ void __cdecl BuildCatchObject(int param_1,int param_2,byte *param_3,byte *param_
     }
     else {
       bVar2 = _ValidateRead(*(undefined4 *)(param_1 + 0x18),1);
-      if ((CONCAT31(extraout_var,bVar2) != 0) &&
-         (bVar2 = _ValidateWrite(piVar1,1), CONCAT31(extraout_var_00,bVar2) != 0)) {
+      if ((((uint)(bVar2)) != 0) &&
+         (bVar2 = _ValidateWrite(piVar1,1), ((uint)(bVar2)) != 0)) {
         iVar3 = *(int *)(param_1 + 0x18);
         *piVar1 = iVar3;
         iVar3 = FUN_10013ec0(iVar3,(int *)(param_4 + 8));
@@ -4387,7 +4387,7 @@ LAB_10014363:
   if ((uVar7 & 0x10c) == 0) {
     if ((param_2 == (int *)&DAT_100282f0) || (param_2 == (int *)&DAT_10028310)) {
       bVar4 = _isatty(uVar1);
-      if (CONCAT31(extraout_var,bVar4) != 0) goto LAB_100142b3;
+      if (((uint)(bVar4)) != 0) goto LAB_100142b3;
     }
     _getbuf(piVar3);
   }
@@ -5094,7 +5094,7 @@ undefined4 __cdecl _stbuf(undefined4 *param_1)
   int iVar4;
   
   bVar2 = _isatty(param_1[4]);
-  if (CONCAT31(extraout_var,bVar2) == 0) {
+  if (((uint)(bVar2)) == 0) {
     return 0;
   }
   if (param_1 == (undefined4 *)&DAT_100282f0) {
@@ -6650,7 +6650,7 @@ __loctotime_t(int param_1,int param_2,int param_3,int param_4,int param_5,int pa
     local_10 = uVar3;
     local_8 = iVar4;
     bVar2 = _isindst(local_24);
-    if (CONCAT31(extraout_var,bVar2) == 0) {
+    if (((uint)(bVar2)) == 0) {
       return iVar1;
     }
   }
@@ -11598,7 +11598,7 @@ void __cdecl _except1(uint param_1,int *param_2,ushort *param_3)
     uVar3 = 0x10;
   }
   bVar1 = _handle_exc(uVar3,(double *)(param_2 + 6),(uint)param_3);
-  if (CONCAT31(extraout_var,bVar1) == 0) {
+  if (((uint)(bVar1)) == 0) {
     if (((param_1 == 0x10) || (param_1 == 0x16)) || (param_1 == 0x1d)) {
       local_30 = param_2[4];
       local_20 = local_20 & 0xffffffe3 | 3;

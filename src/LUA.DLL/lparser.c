@@ -276,6 +276,8 @@ void __cdecl luaY_growvector(undefined4 param_1,undefined4 param_2)
 }
 
 /* ---- 0x1000abd0  yyparse ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* lua.stx: generated LALR parser from lua.stx */
 
 undefined4 yyparse(void)
@@ -789,6 +791,8 @@ LAB_1000b464:
 #undef local_bd8
 #undef local_bdc
 #undef local_be0
+
+#endif
 
 
 /* ---- 0x1000b770  lparser__b770 ---- */

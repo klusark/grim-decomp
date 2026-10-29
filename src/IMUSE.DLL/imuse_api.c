@@ -1481,7 +1481,7 @@ undefined4 FUN_100077c0(void)
 /* ---- 0x10007810  SoundsPeriodic ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-char * __stdcall SoundsPeriodic(int a1,int a2,int a3,int a4,int a5)
+void __cdecl SoundsPeriodic(void)
 
 {
   char *pcVar1;
@@ -1503,11 +1503,11 @@ char * __stdcall SoundsPeriodic(int a1,int a2,int a3,int a4,int a5)
       iVar3 = iVar3 + -1;
     } while (iVar3 != 0);
     if (_DAT_1001e8d0 < iVar2) {
-      pcVar1 = (char *)Sounds_EvictOldestIdleSlot();
+      Sounds_EvictOldestIdleSlot();
     }
-    return pcVar1;
+    return;
   }
-  return (char *)0;
+  return;
 }
 
 /* ---- 0x10007830  SoundsGetMusicPosition ---- */

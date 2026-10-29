@@ -235,8 +235,8 @@
 | 10006f80 | FUN_10006f80 | llex.c | 10 |
 | 10006fb0 | FUN_10006fb0 | llex.c | 11 |
 | 10006fe0 | FUN_10006fe0 | llex.c | 13 |
-| 10007020 | FUN_10007020 | llex.c | 10 |
-| 10007050 | FUN_10007050 | llex.c | 10 |
+| 10007020 | FUN_10007020 | llex.c | 1 |
+| 10007050 | FUN_10007050 | llex.c | 1 |
 | 10007080 | FUN_10007080 | llex.c | 12 |
 | 100070c0 | FUN_100070c0 | llex.c | 9 |
 | 100070e0 | FUN_100070e0 | llex.c | 1 |
@@ -330,7 +330,7 @@
 | 1000ab20 | lparser__ab20 | lparser.c | 8 |
 | 1000ab30 | lparser__ab30 | lparser.c | 9 |
 | 1000ab50 | luaY_growvector | lparser.c | 21 |
-| 1000abd0 | yyparse | lparser.c | 514 |
+| 1000abd0 | yyparse | lparser.c | 1 |
 | 1000b770 | lparser__b770 | lparser.c | 27 |
 | 1000b800 | lparser__b800 | lparser.c | 8 |
 | 1000b810 | luaY_string_constant | lparser.c | 19 |
@@ -421,7 +421,7 @@
 | 1000d810 | luaV_settable | lvm.c | 48 |
 | 1000d900 | luaV_getglobal | lvm.c | 34 |
 | 1000d990 | luaV_setglobal | lvm.c | 39 |
-| 1000da30 | luaV_pack | lvm.c | 48 |
+| 1000da30 | luaV_pack | lvm.c | 1 |
 | 1000db10 | lvm__db10 | lvm.c | 17 |
 | 1000db40 | lvm__db40 | lvm.c | 22 |
 | 1000dbd0 | lvm__dbd0 | lvm.c | 59 |

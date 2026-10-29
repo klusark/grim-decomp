@@ -3058,7 +3058,7 @@ int SoundsGetParam(); /* import */
 int SoundsIsSoundPlaying(); /* import */
 int SoundsLoadProcessStartSound(); /* import */
 int SoundsLoadStartSound(); /* import */
-int STDCALL SoundsPeriodic() __asm__("_SoundsPeriodic@20"); /* import */
+int SoundsPeriodic(); /* import */
 int SoundsSetParam(); /* import */
 int SoundsStopSound(); /* import */
 int Sounds_PlatformDevice(); /* import */
