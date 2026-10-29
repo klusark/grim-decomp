@@ -10573,6 +10573,8 @@ undefined4 FUN_004cc210(int *param_1,uint param_2)
 }
 
 /* ---- 0x004cc250  FUN_004cc250 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 FUN_004cc250(uint param_1)
 
 {
@@ -10592,6 +10594,8 @@ undefined4 FUN_004cc250(uint param_1)
   } while (param_1 != 0);
   return 0;
 }
+#endif
+
 
 /* ---- 0x004cc290  FUN_004cc290 ---- */
 void FUN_004cc290(void)
@@ -10838,6 +10842,8 @@ void FUN_004cc6a0(uint param_1)
 }
 
 /* ---- 0x004cc7d0  FUN_004cc7d0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_004cc7d0(int param_1)
 
 {
@@ -11159,6 +11165,8 @@ LAB_004ccb89:
 #undef local_168
 #undef local_4
 #undef local_c4
+
+#endif
 
 
 /* ---- 0x004ccd00  FUN_004ccd00 ---- */
@@ -16034,12 +16042,16 @@ undefined * __stdcall FUN_004d5e35(int a1)
 
 
 /* ---- 0x004d5e50  FUN_004d5e50 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_004d5e50(undefined4 param_1,undefined4 param_2,undefined4 param_3)
 
 {
   ((code *)FUN_004d5fd0)(param_1,param_2,param_3);
   return;
 }
+#endif
+
 
 /* ---- 0x004d5e70  FUN_004d5e70 ---- */
 /* replaced by the hand-written version in build/overrides.c */

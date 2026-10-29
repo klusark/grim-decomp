@@ -384,7 +384,9 @@ void __cdecl Win_AbortIfAlreadyRunning(void *hInstance, void *hPrevInstance, cha
     int iVar1;
     int iVar2;
 
-    iVar1 = GRIM_getenv("GRIM_MULTI") ? 0 : FindWindowA(IMG_ADDR(0x004ed080), (int)appName);
+    if (GRIM_getenv("GRIM_MULTI"))
+        appName = "Grim Fandango (test)";   /* a different title also passes the check in Win_CreateMainWindow */
+    iVar1 = FindWindowA(IMG_ADDR(0x004ed080), (int)appName);
     if (iVar1 != 0) {
         SetForegroundWindow(iVar1);
         ShowWindow(iVar1, 9);

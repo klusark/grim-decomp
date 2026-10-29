@@ -2922,6 +2922,7 @@ int STDCALL FileTimeToSystemTime() __asm__("_FileTimeToSystemTime@8"); /* import
 int STDCALL FindClose() __asm__("_FindClose@4"); /* import */
 int STDCALL FindFirstFileA() __asm__("_FindFirstFileA@8"); /* import */
 int STDCALL FindNextFileA() __asm__("_FindNextFileA@8"); /* import */
+int STDCALL FindWindowA() __asm__("_FindWindowA@8"); /* import */
 int STDCALL FlushFileBuffers() __asm__("_FlushFileBuffers@4"); /* import */
 int STDCALL FreeEnvironmentStringsA() __asm__("_FreeEnvironmentStringsA@4"); /* import */
 int STDCALL FreeEnvironmentStringsW() __asm__("_FreeEnvironmentStringsW@4"); /* import */

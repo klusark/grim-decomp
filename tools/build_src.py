@@ -871,8 +871,6 @@ def fix_function(code, ctx, stats):
     # last: offset-named locals become views into one frame array (keeps Ghidra's layout)
     body, trailer = frame_locals.rewrite(body)
     body = float_frame_locals(body)
-    # several test instances may run side by side (see Win_AbortIfAlreadyRunning in build/overrides.c)
-    body = body.replace("FindWindowA(IMG_ADDR(0x004ed080),", "GRIM_FindWindowA(IMG_ADDR(0x004ed080),")
     # STACK0X(0x..) is __builtin_frame_address(0) + offset: an aligned local makes gcc realign the
     # stack and move the frame pointer away from the argument area, so those functions get no alignment
     if re.search(r"STACK0X\(0x0", body):

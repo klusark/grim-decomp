@@ -259,7 +259,7 @@ Win_AbortIfAlreadyRunning
   int iVar1;
   int iVar2;
   
-  iVar1 = GRIM_FindWindowA(IMG_ADDR(0x004ed080),(int)appName);
+  iVar1 = FindWindowA(IMG_ADDR(0x004ed080),(int)appName);
   if (iVar1 != 0) {
     SetForegroundWindow(iVar1);
     ShowWindow(iVar1,9);
@@ -440,7 +440,7 @@ undefined4 Win_CreateMainWindow(uint param_1,undefined4 param_2,int param_3)
   if ((short)iVar1 == 0) {
     return 0;
   }
-  iVar1 = GRIM_FindWindowA(IMG_ADDR(0x004ed080),param_3);
+  iVar1 = FindWindowA(IMG_ADDR(0x004ed080),param_3);
   if (iVar1 != 0) {
     exit(0xffffffff);
   }
