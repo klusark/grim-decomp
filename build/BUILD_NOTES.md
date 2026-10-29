@@ -286,3 +286,32 @@ What it took, in the order the bugs showed up (each is a class that will recur):
   (0x496e20), `luaS_newlstr`/`lstring__9180`, two EXE CRT functions. Whole-EXE assembly (`--all`)
   still hangs at start-up (black window); the working set is the rendering/math/actor/walker modules
   plus the artifact-driven picks.
+
+## Gameplay checks (2026-10-29, agent B)
+
+Test knobs (environment, all optional): `GRIM_MULTI=<tag>` (window title "Grim Fandango (<tag>)", several instances),
+`GRIM_NOMOVIE=1` (movies off, set every frame), `GRIM_ACTIVE=1` (draw and present although the window is not the foreground
+window, ignore WM_ACTIVATEAPP), `GRIM_LUA_FILE`/`GRIM_LUA_LOG` (Lua lines per frame; polled from Lua_UpdateFrame and from
+Game_FrameUpdate, so it also works while the engine is paused in a menu). An unhandled exception writes `grim_crash.txt`
+(registers, three frame arguments, stack) in the working directory; resolve addresses with `nm`.
+
+Verified by script (Lua hook + PrintWindow screenshots + audio meter): walking and camera cuts (`manny:walkto`), set changes
+through the game's door scripts (office, hallway, elevator, garage), the Glottis dialogue (choice menu, spoken lines with text
+and audio, responses), inventory open/close and holding an item (ShrinkBoxes), the F1 menu and its actions (options, help,
+save, load, cutscenes, transcript), Save and Load of a game, and `format`/`strfind`/`gsub` in Lua.
+
+Bug classes found on the way (each is a pattern to grep for when something else misbehaves):
+
+* **Wrong CRT names** (Ghidra's structural match swapped `toupper`/`tolower` in LUA.DLL; the build links the host CRT, so the
+  name decides the behaviour: `%d` in a pattern never matched): `tools/namefix.py` corrects them when raw/ still carries the old names.
+* **Phantom parameters** (`lua_setfallback` got a third parameter from a stack-offset slip, `str_push_captures` a second one: the
+  C body read garbage): assemble the callee.
+* **Sign extension of a byte result**: `Text_NextChar` returns the byte zero-extended in EAX, the C callers used `char`.
+* **Void-declared functions whose result is used** (`lstring__9410`, `io_getfileparam`, ...): `scan_void.py`-style check of the asm
+  callers; assembled now.
+* **Code pointers pushed as immediates that are no function** (IMUSE callback 0x10007a90, two SEH handlers): gen_asm links them
+  to the unrelocated `_sect_text` copy; create the function in Ghidra (names the symbol) instead.
+* **`DAT_` arrays typed `undefined4` although Ghidra scaled pointer arithmetic by their element** (`DAT_1002bf68 + 1`): every proto id
+  of a savegame was read at a byte offset; `infer_global_types` now types such globals from the frame-local they are added to.
+* **Address literals in integer arithmetic** (`iVar + -0x8cb0b0 >> 4`, an index into a static pool): relocated with `IMG_ADDR`.
+* **printf engine of IMUSE's own CRT** (`FUN_1000c670`) jumps into data: replaced by the host formatter.

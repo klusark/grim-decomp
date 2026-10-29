@@ -725,6 +725,11 @@ def ptrdiff(m):
     a byte offset from the relocated section address."""
     k = int(m.group(2), 16) * 4
     if not any(start <= k <= start + size for _, start, size in IMG_SECTIONS):
+        v = int(m.group(2), 16)
+        if any(start <= v <= start + size for _, start, size in IMG_SECTIONS):
+            # `iVar + -0x8cb0b0 >> 4`: an int minus the byte address of a table (an index into it): the
+            # address relocates with the table, a bare literal would be off by the section shift
+            return "%s - (int)IMG_ADDR(0x%08x)" % (m.group(1), v)
         return m.group(0)
     return "(int *)((char *)%s - IMG_ADDR(0x%08x))" % (m.group(1), k)
 

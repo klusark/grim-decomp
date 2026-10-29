@@ -10481,7 +10481,7 @@ void FUN_004cbf50(int param_1,undefined1 *param_2,uint param_3,uint param_4)
   if (param_4 != 0) {
     local_14 = (uint)&DAT_008d785a;
     do {
-      local_20 = param_1 + -0x8d785a + local_14;
+      local_20 = param_1 - (int)IMG_ADDR(0x008d785a) + local_14;
       param_2 = (undefined1 *)(int)(char)(&DAT_008d7858)[local_18];
       uVar7 = (uint)*(short *)local_14;
       if (param_3 != 0) {
