@@ -90,56 +90,56 @@ void Collision_PushOutOfBox
 
 
 /* ---- 0x00492510  Collision_PointInBox ---- */
-undefined4 Collision_PointInBox(float *param_1,float *param_2,undefined4 param_3)
+undefined4 __cdecl
+Collision_PointInBox
+          (float *param_1,float *param_2,undefined4 param_3,uint param_4,uint param_5,uint param_6,
+          uint param_7,uint param_8,uint param_9,uint param_10,float *param_11)
 
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   undefined4 uVar1;
   int iVar2;
-  undefined4 *puVar3;
-  float **ppfVar4;
-  float fStack00000010;
-  float fStack00000014;
-  float fStack00000018;
-  undefined4 in_stack_00000028;
-  float *in_stack_0000002c;
-  #define apfStack_38 (*(float *(*)[5])(_frame + (0x50 - 0x38)))
+  uint *puVar3;
+  uint *puVar4;
+  #define auStack_38 (*(uint (*)[4])(_frame + (0x50 - 0x38)))
+  #define pfStack_28 (*(float **)(_frame + (0x50 - 0x28)))
   #define pfStack_24 (*(float **)(_frame + (0x50 - 0x24)))
-  #define iStack_20 (*(int *)(_frame + (0x50 - 0x20)))
+  #define uStack_20 (*(uint *)(_frame + (0x50 - 0x20)))
   #define local_c (*(uint *)(_frame + (0x50 - 0xc)))
   #define local_8 (*(uint *)(_frame + (0x50 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x50 - 0x4)))
   
-  local_c = (uint)(*in_stack_0000002c + *param_1);
-  iStack_20 = in_stack_00000028;
-  fStack00000010 = *in_stack_0000002c + *param_2;
-  local_8 = (uint)(param_1[1] + in_stack_0000002c[1]);
-  fStack00000014 = param_2[1] + in_stack_0000002c[1];
-  local_4 = (uint)(param_1[2] + in_stack_0000002c[2]);
-  fStack00000018 = param_2[2] + in_stack_0000002c[2];
-  puVar3 = &STACK0X(0x00000010);
-  ppfVar4 = apfStack_38;
+  local_c = (uint)(*param_11 + *param_1);
+  uStack_20 = param_10;
+  param_4 = (uint)(*param_11 + *param_2);
+  local_8 = (uint)(param_1[1] + param_11[1]);
+  param_5 = (uint)(param_2[1] + param_11[1]);
+  local_4 = (uint)(param_1[2] + param_11[2]);
+  param_6 = (uint)(param_2[2] + param_11[2]);
+  puVar3 = &param_4;
+  puVar4 = auStack_38;
   for (iVar2 = 6; iVar2 != 0; iVar2 = iVar2 + -1) {
-    *ppfVar4 = (float *)*puVar3;
+    *puVar4 = *puVar3;
     puVar3 = puVar3 + 1;
-    ppfVar4 = ppfVar4 + 1;
+    puVar4 = puVar4 + 1;
   }
-  iStack_20 = ((code *)Collision_SegmentHitsBox)(&local_c,&STACK0X(0x00000010),param_3);
-  if (iStack_20 == 0) {
+  uStack_20 = ((code *)Collision_SegmentHitsBox)(&local_c,&param_4,param_3);
+  if (uStack_20 == 0) {
     pfStack_24 = param_2;
-    apfStack_38[4] = param_1;
-    apfStack_38[3] = (float *)0x4925a6;
+    pfStack_28 = param_1;
+    auStack_38[3] = 0x4925a6;
     uVar1 = ((code *)Planner_PlanPath)();
     return uVar1;
   }
   return 0;
 }
-#undef apfStack_38
-#undef iStack_20
+#undef auStack_38
 #undef local_4
 #undef local_8
 #undef local_c
 #undef pfStack_24
+#undef pfStack_28
+#undef uStack_20
 
 
 /* ---- 0x004925c0  Collision_BoxCorners ---- */
@@ -434,8 +434,8 @@ undefined4 Collision_TestActorAgainstOthers(void *param_1)
   #define local_4 (*(uint *)(_frame + (0xf0 - 0x4)))
   
   iVar8 = *(int *)(*(int *)(*(int *)((int)param_1 + 0xa0) + 4) + 4);
-  Actor_GetFrame(param_1);
-  Vec3_Copy((float *)&local_98,(float *)(iVar8 + 0x78));
+  pfVar6 = Actor_GetFrame(param_1);
+  Vec3_Copy((float *)&local_98,(float *)(iVar8 + 0x78),pfVar6);
   local_6c = (uint)((float)local_98 + *(float *)((int)param_1 + 0xc));
   local_54 = 0;
   local_68 = (uint)(*(float *)((int)param_1 + 0x10) + (float)local_94);
@@ -448,10 +448,10 @@ undefined4 Collision_TestActorAgainstOthers(void *param_1)
       if (((actor != param_1) && (*(int *)((int)actor + 0xa4) != 0)) &&
          (*(int *)(*(int *)((int)actor + 0xa4) + 0x3f0) != 0)) {
         iVar8 = *(int *)(*(int *)(*(int *)((int)actor + 0xa0) + 4) + 4);
-        pfVar7 = (float *)(iVar8 + 0x78);
-        pfVar6 = Actor_GetFrame(actor);
+        pfVar6 = (float *)(iVar8 + 0x78);
+        pfVar7 = Actor_GetFrame(actor);
         pvStack_d0 = (void *)0x493ac7;
-        Vec3_Sub((float *)&local_60,pfVar7,pfVar6);
+        Vec3_Sub((float *)&local_60,pfVar6,pfVar7);
         local_4c = (uint)((float)local_6c - (float)local_60);
         local_50 = (uint)((float)local_68 - (float)local_5c);
         fVar5 = (float)local_64 - (float)local_58;
@@ -462,12 +462,12 @@ undefined4 Collision_TestActorAgainstOthers(void *param_1)
         if (fVar4 < (float)local_8c + fVar3) {
           if (*(int *)(*(int *)((int)actor + 0xa4) + 0x3f0) == 2) {
             *(undefined4 *)(*(int *)((int)param_1 + 0xa4) + 0x3f8) = 1;
-            pfVar7 = (float *)((int)param_1 + 0xc);
+            pfVar6 = (float *)((int)param_1 + 0xc);
             *(undefined4 *)(*(int *)((int)actor + 0xa4) + 0x3f8) = 1;
             local_24 = (uint)((float)local_6c - (float)local_60);
             local_20 = (uint)((float)local_68 - (float)local_5c);
             local_1c = (uint)((float)local_64 - (float)local_58);
-            _DAT_008ca348 = *pfVar7;
+            _DAT_008ca348 = *pfVar6;
             _DAT_008ca34c = *(undefined4 *)((int)param_1 + 0x10);
             _DAT_008ca350 = *(undefined4 *)((int)param_1 + 0x14);
             Vec3_Normalize((float *)&local_24);
@@ -477,10 +477,10 @@ undefined4 Collision_TestActorAgainstOthers(void *param_1)
             local_14 = (uint)(((float)local_20 * fVar4 + (float)local_68) - (float)local_94);
             local_10 = (uint)(((float)local_1c * fVar4 + (float)local_64) - (float)local_90);
             ((code *)Actor_SetPositionClamped)();
-            _DAT_008ca338 = *pfVar7;
+            _DAT_008ca338 = *pfVar6;
             _DAT_008ca33c = *(undefined4 *)((int)param_1 + 0x10);
             _DAT_008ca340 = *(undefined4 *)((int)param_1 + 0x14);
-            _DAT_008ca320 = *pfVar7;
+            _DAT_008ca320 = *pfVar6;
             _DAT_008ca324 = *(float *)((int)param_1 + 0x10);
             _DAT_008ca328 = *(float *)((int)param_1 + 0x14);
             if ((bVar1 & 1) != 0) {
@@ -491,10 +491,10 @@ undefined4 Collision_TestActorAgainstOthers(void *param_1)
             local_88 = local_4c;
             local_84 = local_50;
             local_80 = (uint)fVar5;
-            pfVar6 = Actor_GetFrame(actor);
+            pfVar7 = Actor_GetFrame(actor);
             pvStack_d0 = (void *)0x493d0d;
-            Vec3_TransformTo((float *)&local_a4,(float *)&local_88,pfVar6);
-            local_a4 = (uint)((float)local_a4 + *pfVar7);
+            Vec3_TransformTo((float *)&local_a4,(float *)&local_88,pfVar7);
+            local_a4 = (uint)((float)local_a4 + *pfVar6);
             local_a0 = (uint)((float)local_a0 + *(float *)(iVar8 + 0x7c));
             local_9c = (uint)((float)local_9c + *(float *)(iVar8 + 0x80));
             iVar2 = *(int *)((int)actor + 0xa4);
@@ -518,10 +518,10 @@ undefined4 Collision_TestActorAgainstOthers(void *param_1)
             ;
             local_80 = (uint)((*(float *)((int)param_1 + 0x20) + (float)local_90) - (float)local_58)
             ;
-            pfVar6 = Actor_GetFrame(actor);
+            pfVar7 = Actor_GetFrame(actor);
             pvStack_d0 = (void *)0x493ee1;
-            Vec3_TransformTo((float *)&local_48,(float *)&local_88,pfVar6);
-            local_48 = (uint)((float)local_48 + *pfVar7);
+            Vec3_TransformTo((float *)&local_48,(float *)&local_88,pfVar7);
+            local_48 = (uint)((float)local_48 + *pfVar6);
             local_44 = (uint)((float)local_44 + *(float *)(iVar8 + 0x7c));
             local_40 = (uint)((float)local_40 + *(float *)(iVar8 + 0x80));
             puVar9 = &local_3c;
@@ -547,16 +547,16 @@ undefined4 Collision_TestActorAgainstOthers(void *param_1)
               local_78 = local_a0;
               local_74 = local_9c;
             }
-            pfVar7 = Actor_GetFrame(actor);
-            Vec3_Rotate3x3((float *)&local_7c,pfVar7);
+            pfVar6 = Actor_GetFrame(actor);
+            Vec3_Rotate3x3((float *)&local_7c,pfVar6);
             local_7c = (uint)((float)local_7c - (float)local_98);
             local_78 = (uint)((float)local_78 - (float)local_94);
             *(float *)((int)param_1 + 0x18) = *(float *)((int)param_1 + 0xc);
             local_74 = (uint)((float)local_74 - (float)local_90);
             *(undefined4 *)((int)param_1 + 0x1c) = *(undefined4 *)((int)param_1 + 0x10);
             *(undefined4 *)((int)param_1 + 0x20) = *(undefined4 *)((int)param_1 + 0x14);
-            pfVar7 = Actor_GetFrame(actor);
-            Vec3_Rotate3x3((float *)&DAT_008ca320,pfVar7);
+            pfVar6 = Actor_GetFrame(actor);
+            Vec3_Rotate3x3((float *)&DAT_008ca320,pfVar6);
             _DAT_008ca320 = _DAT_008ca320 - (float)local_98;
             _DAT_008ca324 = _DAT_008ca324 - (float)local_94;
             _DAT_008ca328 = _DAT_008ca328 - (float)local_90;

@@ -111,6 +111,8 @@ int __cdecl sprintf(char *buf,char *fmt,...)
 
 
 /* ---- 0x004ac6f0  _ftol ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 longlong __cdecl _ftol(double x)
 
 {
@@ -118,6 +120,8 @@ longlong __cdecl _ftol(double x)
   
   return (longlong)ROUND(in_ST0);
 }
+#endif
+
 
 /* ---- 0x004ac720  _snprintf ---- */
 int __cdecl _snprintf(char *buf,uint n,char *fmt,...)
@@ -391,14 +395,14 @@ void entry(void)
   #define local_30 (*(uint *)(_frame + (0x80 - 0x30)))
   #define local_1c (*(uint *)(_frame + (0x80 - 0x1c)))
   #define local_14 (*(uint *)(_frame + (0x80 - 0x14)))
-  #define puStack_10 (*(undefined1 **)(_frame + (0x80 - 0x10)))
+  #define pcStack_10 (*(code **)(_frame + (0x80 - 0x10)))
   #define puStack_c (*(undefined **)(_frame + (0x80 - 0xc)))
   #define local_8 (*(uint *)(_frame + (0x80 - 0x8)))
   byte *pbVar4;
   
   local_8 = 0xffffffff;
   puStack_c = &DAT_004d8998;
-  puStack_10 = &LAB_004b1c48;
+  pcStack_10 = FUN_004b1c48;
   local_14 = *unaff_FS_OFFSET;
   *unaff_FS_OFFSET = (uint)&local_14;
   local_1c = (uint)(_stkneg + 24);
@@ -471,7 +475,7 @@ void entry(void)
 #undef local_64
 #undef local_68
 #undef local_8
-#undef puStack_10
+#undef pcStack_10
 #undef puStack_c
 
 
@@ -1934,6 +1938,8 @@ uint _tolower_lk(uint param_1)
 
 
 /* ---- 0x004ae540  _CIpow ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 float __cdecl _CIpow(void)
 
 {
@@ -1944,8 +1950,12 @@ float __cdecl _CIpow(void)
   fVar1 = (float10)((float10 (*)(float, float))_pow)((double)in_ST1,(double)in_ST0);
   return (float)fVar1;
 }
+#endif
+
 
 /* ---- 0x004ae562  _pow ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 float10 _pow(int param_1,uint param_2,int param_3,uint param_4)
@@ -2068,6 +2078,8 @@ LAB_004ae5da:
   return fVar5;
 }
 #undef local_78
+
+#endif
 
 
 /* ---- 0x004ae760  _strlwr ---- */
@@ -3001,6 +3013,8 @@ undefined4 _unwind_handler(void)
 }
 
 /* ---- 0x004af736  _NLG_Notify ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined * __stdcall _NLG_Notify(int a1)
 
 {
@@ -3012,6 +3026,8 @@ undefined * __stdcall _NLG_Notify(int a1)
   UINT_004ed0dc = unaff_EBP;
   return in_EAX;
 }
+#endif
+
 
 /* ---- 0x004af750  isdigit ---- */
 uint isdigit(int param_1)
@@ -3192,6 +3208,8 @@ LAB_004af9d3:
 }
 
 /* ---- 0x004afa90  _output ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* printf-family formatting core */
 
 uint _output(undefined4 param_1,char *param_2,uint *param_3)
@@ -3638,6 +3656,8 @@ LAB_004b01ef:
 #undef local_248
 #undef local_24c
 #undef uStack_1
+
+#endif
 
 
 /* ---- 0x004b0420  write_char ---- */
@@ -5319,6 +5339,8 @@ int _lseek_lk(uint param_1,int param_2,int param_3)
 }
 
 /* ---- 0x004b3620  _input ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* scanf-family parsing core */
 
 uint _input(undefined4 param_1,byte *param_2,uint *param_3)
@@ -6011,6 +6033,8 @@ LAB_004b4223:
 #undef local_1cc
 #undef local_1cd
 
+#endif
+
 
 /* ---- 0x004b4360  _hextodec ---- */
 uint _hextodec(uint param_1)
@@ -6176,6 +6200,8 @@ int _strncnt(char *param_1,int param_2)
 }
 
 /* ---- 0x004b4ba0  _pow_except1 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 float10 __fastcall
 _pow_except1(undefined4 param_1,undefined4 param_2,undefined2 param_3,undefined4 param_4,
             undefined4 param_5,undefined4 param_6,uint param_7,uint param_8)
@@ -6205,8 +6231,12 @@ _pow_except1(undefined4 param_1,undefined4 param_2,undefined2 param_3,undefined4
 #undef uStack_18
 #undef uStack_1c
 
+#endif
+
 
 /* ---- 0x004b4bb7  _pow_except2 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 float10 __fastcall
 _pow_except2(undefined4 param_1,undefined4 param_2,undefined2 param_3,undefined4 param_4,
             uint param_5,uint param_6)
@@ -6231,6 +6261,8 @@ _pow_except2(undefined4 param_1,undefined4 param_2,undefined2 param_3,undefined4
 #undef local_20
 #undef local_24
 #undef local_c
+
+#endif
 
 
 /* ---- 0x004b4d90  _pow_special_cases ---- */
@@ -6670,12 +6702,12 @@ void FrameUnwindToState(int param_1,undefined4 param_2,int param_3,int param_4)
   #define local_20 (*(uint *)(_frame + (0x30 - 0x20)))
   #define local_1c (*(uint *)(_frame + (0x30 - 0x1c)))
   #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define puStack_10 (*(undefined1 **)(_frame + (0x30 - 0x10)))
+  #define pcStack_10 (*(code **)(_frame + (0x30 - 0x10)))
   #define puStack_c (*(undefined **)(_frame + (0x30 - 0xc)))
   #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
   
   puStack_c = &DAT_004d8df0;
-  puStack_10 = &LAB_004b1c48;
+  pcStack_10 = FUN_004b1c48;
   local_14 = *unaff_FS_OFFSET;
   *unaff_FS_OFFSET = (uint)&local_14;
   for (iVar1 = *(int *)(param_1 + 8); local_8 = 0xffffffff, iVar1 != param_4;
@@ -6697,7 +6729,7 @@ void FrameUnwindToState(int param_1,undefined4 param_2,int param_3,int param_4)
 #undef local_1c
 #undef local_20
 #undef local_8
-#undef puStack_10
+#undef pcStack_10
 #undef puStack_c
 
 
@@ -6742,13 +6774,13 @@ CallCatchBlock(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefine
   #define local_20 (*(uint *)(_frame + (0x40 - 0x20)))
   #define local_1c (*(uint *)(_frame + (0x40 - 0x1c)))
   #define local_14 (*(uint *)(_frame + (0x40 - 0x14)))
-  #define puStack_10 (*(undefined1 **)(_frame + (0x40 - 0x10)))
+  #define pcStack_10 (*(code **)(_frame + (0x40 - 0x10)))
   #define puStack_c (*(undefined **)(_frame + (0x40 - 0xc)))
   #define local_8 (*(uint *)(_frame + (0x40 - 0x8)))
   
   local_8 = 0xffffffff;
   puStack_c = &DAT_004d8e00;
-  puStack_10 = &LAB_004b1c48;
+  pcStack_10 = FUN_004b1c48;
   local_14 = *unaff_FS_OFFSET;
   *unaff_FS_OFFSET = (uint)&local_14;
   _getptd();
@@ -6772,11 +6804,13 @@ CallCatchBlock(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefine
 #undef local_2c
 #undef local_30
 #undef local_8
-#undef puStack_10
+#undef pcStack_10
 #undef puStack_c
 
 
 /* ---- 0x004b58b8  Eh_CallCatchBlockInner ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void Eh_CallCatchBlockInner(void)
 
 {
@@ -6798,6 +6832,8 @@ void Eh_CallCatchBlockInner(void)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x004b5950  BuildCatchObject ---- */
 void BuildCatchObject(int param_1,int param_2,byte *param_3,byte *param_4)
@@ -6810,12 +6846,12 @@ void BuildCatchObject(int param_1,int param_2,byte *param_3,byte *param_4)
   uint *unaff_FS_OFFSET = (uint *)TEB_BASE();
   #define local_1c (*(uint *)(_frame + (0x30 - 0x1c)))
   #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define puStack_10 (*(undefined1 **)(_frame + (0x30 - 0x10)))
+  #define pcStack_10 (*(code **)(_frame + (0x30 - 0x10)))
   #define puStack_c (*(undefined **)(_frame + (0x30 - 0xc)))
   #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
   
   puStack_c = &DAT_004d8e18;
-  puStack_10 = &LAB_004b1c48;
+  pcStack_10 = FUN_004b1c48;
   local_14 = *unaff_FS_OFFSET;
   *unaff_FS_OFFSET = (uint)&local_14;
   if (((*(int *)(param_3 + 4) != 0) && (*(char *)(*(int *)(param_3 + 4) + 8) != '\0')) &&
@@ -6880,7 +6916,7 @@ LAB_004b5b40:
 #undef local_14
 #undef local_1c
 #undef local_8
-#undef puStack_10
+#undef pcStack_10
 #undef puStack_c
 
 
@@ -6893,12 +6929,12 @@ void terminate(void)
   uint *unaff_FS_OFFSET = (uint *)TEB_BASE();
   #define local_1c (*(uint *)(_frame + (0x30 - 0x1c)))
   #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define puStack_10 (*(undefined1 **)(_frame + (0x30 - 0x10)))
+  #define pcStack_10 (*(code **)(_frame + (0x30 - 0x10)))
   #define puStack_c (*(undefined **)(_frame + (0x30 - 0xc)))
   #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
   
   puStack_c = &DAT_004d8e38;
-  puStack_10 = &LAB_004b1c48;
+  pcStack_10 = FUN_004b1c48;
   local_14 = *unaff_FS_OFFSET;
   *unaff_FS_OFFSET = (uint)&local_14;
   local_8 = 0;
@@ -6916,7 +6952,7 @@ void terminate(void)
 #undef local_14
 #undef local_1c
 #undef local_8
-#undef puStack_10
+#undef pcStack_10
 #undef puStack_c
 
 
@@ -7008,6 +7044,8 @@ int _wctomb_lk(undefined1 *param_1,ushort param_2)
 }
 
 /* ---- 0x004b6e60  _aulldiv ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined * __stdcall _aulldiv(int a1,int a2,int a3,int a4)
 
 {
@@ -7051,8 +7089,12 @@ undefined * __stdcall _aulldiv(int a1,int a2,int a3,int a4)
   }
   return puVar3;
 }
+#endif
+
 
 /* ---- 0x004b6ed0  _aullrem ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined * __stdcall _aullrem(int a1,int a2,int a3,int a4)
 
 {
@@ -7098,6 +7140,8 @@ undefined * __stdcall _aullrem(int a1,int a2,int a3,int a4)
   }
   return puVar7;
 }
+#endif
+
 
 /* ---- 0x004b7370  _ld12tocvt ---- */
 /* Converts a 12-byte long double record to double/float (float conversion core) */
@@ -10727,6 +10771,8 @@ void longjmp(int param_1)
 }
 
 /* ---- 0x004d5a4c  _setjmp3 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 _setjmp3(undefined4 *param_1,int param_2,int param_3,undefined4 param_4)
 
 {
@@ -10775,6 +10821,8 @@ undefined4 _setjmp3(undefined4 *param_1,int param_2,int param_3,undefined4 param
   }
   return 0;
 }
+#endif
+
 
 /* ---- 0x004d5ad0  _fltin ---- */
 undefined * __cdecl _fltin(uint *param_1,int param_2)

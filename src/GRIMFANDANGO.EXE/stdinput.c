@@ -42,6 +42,8 @@ undefined * Input_Init(void)
 }
 
 /* ---- 0x00476f70  Input_Shutdown ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void Input_Shutdown(void)
 
 {
@@ -59,6 +61,8 @@ void Input_Shutdown(void)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x00476fc0  Input_Enable ---- */
 undefined4 Input_Enable(void)
@@ -257,6 +261,8 @@ undefined4 FUN_004772d0(undefined4 param_1,int param_2,int param_3)
 }
 
 /* ---- 0x00477300  Input_SetAcquired ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void __cdecl Input_SetAcquired(int acquire)
 
 {
@@ -283,6 +289,8 @@ void __cdecl Input_SetAcquired(int acquire)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x00477380  Input_ShowCursor ---- */
 void Input_ShowCursor(int param_1)
@@ -539,6 +547,8 @@ void Input_MarkAxisUsed(uint param_1)
 }
 
 /* ---- 0x00477730  Input_PollKeyboard ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Buffered DirectInput key events plus the immediate key state; each key has a 7-dword record {?,
    lastDown, down, downTime, upTime, pressCount, doubleTap} */
 
@@ -646,8 +656,12 @@ LAB_00477881:
 #undef puStack_31c
 #undef puStack_320
 
+#endif
+
 
 /* ---- 0x004778a0  Input_FlushKeyboard ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void Input_FlushKeyboard(void)
 
 {
@@ -672,6 +686,8 @@ void Input_FlushKeyboard(void)
   return;
 }
 #undef local_4
+
+#endif
 
 
 /* ---- 0x004778f0  Input_PollJoysticks ---- */
@@ -886,6 +902,8 @@ LAB_00477bd5:
 
 
 /* ---- 0x00477c20  Input_PollMouse ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Removing unreachable block (ram,0x00477cd3) */
 /* WARNING: Removing unreachable block (ram,0x00477cd5) */
 /* WARNING: Removing unreachable block (ram,0x00477cdc) */
@@ -965,8 +983,12 @@ LAB_00477da3:
 #undef local_210
 #undef local_214
 
+#endif
+
 
 /* ---- 0x00477dc0  Input_FlushJoystick ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void Input_FlushJoystick(void)
 
 {
@@ -1014,8 +1036,12 @@ LAB_00477e51:
 #undef local_10
 #undef local_14
 
+#endif
+
 
 /* ---- 0x00477e70  Input_SetAxisRange ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void __cdecl Input_SetAxisRange(int axis,int min,int max,float deadZone)
 
 {
@@ -1040,3 +1066,5 @@ void __cdecl Input_SetAxisRange(int axis,int min,int max,float deadZone)
   *(undefined4 *)(&DAT_00901510 + iVar2) = 0;
   return;
 }
+#endif
+

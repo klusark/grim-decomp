@@ -858,6 +858,8 @@ switchD_004bf4ef_caseD_2:
 
 
 /* ---- 0x004bf560  LightEd_ReadControl ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Parses the edited text field back into the light (position, direction, intensity, angles,
    falloff) */
 
@@ -937,6 +939,8 @@ LAB_004bf718:
   return;
 }
 #undef local_4c
+
+#endif
 
 
 /* ---- 0x004bf760  LightEd_SetLightPosComponent ---- */

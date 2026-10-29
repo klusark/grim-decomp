@@ -16,7 +16,7 @@ functions under `#if 0`.
 
 Usage: python -I gen_asm.py [prog...] [--select]   (--select re-derives the list)
 """
-import json, os, re, sys
+import glob, json, os, re, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import ghidra_api as g
 import export_raw
@@ -39,9 +39,14 @@ class Ctx:
                 lo, hi = line.split(":", 1)[1].strip().split(" - ")
                 self.text = (int(lo, 16), int(hi, 16))
         self.slots = {}
+        try:
+            imported = {i["name"] for i in json.load(open(os.path.join(raw, "imports.json")))}
+        except OSError:
+            imported = None
         for line in open(os.path.join(raw, "data_items.txt"), encoding="utf-8", errors="replace"):
             m = re.match(r"^PTR_(\w+)_([0-9a-f]{8}) @ ([0-9a-f]{8}) ", line)
-            if m:
+            # Ghidra also names plain data pointers PTR_DAT_/PTR_FUN_/PTR_s_...; only imports are slots
+            if m and (imported is None or m.group(1) in imported):
                 self.slots[int(m.group(3), 16)] = m.group(1)
         try:
             self.dec = json.load(open(os.path.join(ROOT, "build", "stdcall_names.json")))
@@ -77,7 +82,7 @@ class Ctx:
 
 def convert_operand_text(ctx, text, fstart, fend, labels, tables):
     """Rewrite one operand string; returns (text, consumed_label_targets)."""
-    t = text
+    t = text.replace("extended double ptr", "tbyte ptr")  # Ghidra's spelling of the 80-bit operand
     for a, b in PTR.items():
         t = t.replace(a + " ptr", b + " ptr")
     t = re.sub(r"\bST(\d)\b", r"st(\1)", t)
@@ -125,6 +130,8 @@ def convert(ctx, addr, lines):
             text = "%s %s" % (pre, m.group(1).lower())
         elif re.fullmatch(r"(MOVS|STOS|LODS|SCAS|CMPS)[BWD]", up):
             text = up.lower()
+        elif up == "XLAT":
+            text = "xlatb"
         elif up == "CALL" or up.startswith("J") or up == "LOOP":
             m1 = re.fullmatch(r"0x([0-9a-f]+)", ops)
             ms = re.fullmatch(r"dword ptr \[0x([0-9a-f]{8})\]", ops)
@@ -158,6 +165,11 @@ def convert(ctx, addr, lines):
                 lo = ctx.secs[0][1] if ctx.secs else 0
                 if h < min(lo, ctx.text[0]) or h > max(s[1] + s[2] for s in ctx.secs):
                     return mm.group(0)
+                if h in ctx.slots and mm.string[:mm.start()].count("[") > mm.string[:mm.start()].count("]"):
+                    # an import address table slot read as data (`MOV ESI,[slot]` ... `CALL ESI`): the
+                    # dumped IAT holds import-name entries, the linker's import symbol holds the address
+                    name = ctx.slots[h]
+                    return "__imp_" + ctx.dec.get(name, "_" + name)
                 e = addr_expr(ctx, h, fstart, fend, tables, True)
                 if e is None:
                     return mm.group(0)
@@ -189,12 +201,41 @@ def select(prog):
         p = os.path.join(raw, "functions", f["address"] + ".c")
         if os.path.exists(p) and SELECT_RE.search(open(p, encoding="utf-8", errors="replace").read()):
             out.append(f["address"])
+    # COM calls through a vtable (`code_std` in the generated C): Ghidra drops the pushed arguments
+    # when it cannot type the interface, so only the disassembly has the real call
+    # (decided from the original decompile in raw/, restricted to the DirectX modules, so the choice
+    # does not depend on what the previous generator run did to src/)
+    banner = re.compile(r"(?m)^/\* ---- 0x([0-9a-f]+)  (\S+) ---- \*/")
+    com_call = re.compile(r"\(\*\*?\(code \*\*?\)")
+    com_modules = {"std3d.c", "stddisplay.c", "stdinput.c", "mixer.c", "rdmaterial.c"}
+    import build_src  # OVERRIDES: functions hand-written in build/overrides.c stay C
+    for sp in sorted(glob.glob(os.path.join(ROOT, "src", prog, "*.c"))):
+        if os.path.basename(sp) not in com_modules:
+            continue
+        for a in banner.findall(open(sp, encoding="utf-8", errors="replace").read()):
+            rp = os.path.join(raw, "functions", a[0] + ".c")
+            if a[1] not in build_src.OVERRIDES and os.path.exists(rp) \
+                    and com_call.search(open(rp, encoding="utf-8", errors="replace").read()):
+                out.append(a[0])
+    # decompiler artifacts that only exist because a register or flag value crosses a call or an
+    # instruction boundary (multi-word arithmetic, x87 state, return values read from EAX/EDX/ST0)
+    arti = re.compile(r"\b(CARRY[124]|SBORROW[124]|SCARRY[124]|in_FPUStatusWord|in_ST[0-7]|extraout_ST[0-7]|extraout_E[ABCD]X|unaff_E[A-Z]+|unaff_retaddr)\b")
+    import build_src  # OVERRIDES: functions hand-written in build/overrides.c stay C
+    for f in json.load(open(os.path.join(raw, "functions.json"))):
+        if f.get("isThunk") or f.get("isExternal") or f["name"] in build_src.OVERRIDES:
+            continue
+        p = os.path.join(raw, "functions", f["address"] + ".c")
+        if os.path.exists(p) and arti.search(open(p, encoding="utf-8", errors="replace").read()):
+            out.append(f["address"])
     # hand-picked: the decompiler mishandles them for other reasons (stack objects, register
     # values); names/asm_extra.json {prog: [addresses]}
     xp = os.path.join(ROOT, "names", "asm_extra.json")
     if os.path.exists(xp):
         out += json.load(open(xp)).get(prog, [])
     return sorted(set(out))
+
+
+PATCHES = json.load(open(os.path.join(ROOT, "names", "asm_patches.json"))) if os.path.exists(os.path.join(ROOT, "names", "asm_patches.json")) else {}
 
 
 def main():
@@ -219,9 +260,35 @@ def main():
             if not sym:
                 print("  no symbol for", addr)
                 continue
-            body += ["", "\t.globl %s" % sym, "%s:  # %s" % (sym, ctx.funcs[fstart]["name"])]
+            # every local label the code refers to must be an instruction of this listing; Ghidra
+            # splits functions with computed-jump bodies, and those cannot be assembled from the listing
+            defined = {ia for ia, _ in insns}
+            refs = set()
+            for _, text in insns:
+                refs |= {int(x, 16) for x in re.findall(r"\.L([0-9a-f]+)\b", text)}
+            ents_ok = True
+            for taddr in jt:
+                raw = read_text(path, taddr, 4 * 128)
+                for k in range(128 if raw else 0):
+                    v = int.from_bytes(raw[4 * k:4 * k + 4], "little")
+                    if not (fstart <= v < fend):
+                        break
+                    if v not in defined:
+                        ents_ok = False
+            if (refs - defined) or not ents_ok:
+                print("  skipped %s %s: refers to code outside its listing" % (addr, ctx.funcs[fstart]["name"]))
+                sel[prog] = [a for a in sel[prog] if a != addr]
+                json.dump(sel, open(sel_path, "w"), indent=1)
+                continue
+            # COFF function type, so `ld --export-all-symbols` exports a code symbol (import libraries
+            # get a call thunk) instead of treating the label as data
+            body += ["", "\t.def %s; .scl 2; .type 32; .endef" % sym, "\t.globl %s" % sym,
+                     "%s:  # %s" % (sym, ctx.funcs[fstart]["name"])]
+            patches = PATCHES.get(prog, {}).get(addr, {})
             for ia, text in insns:
                 body.append(".L%x:\t%s" % (ia, text))
+                for extra in patches.get("%08x" % ia, patches.get("%x" % ia, [])):
+                    body.append("\t" + extra)
             for taddr in jt:
                 raw = read_text(path, taddr, 4 * 128)
                 ents = []

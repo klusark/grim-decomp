@@ -417,7 +417,7 @@ void FUN_10005940(void)
   #define abStack_200 (*(byte (*)[512])(_frame + (0x220 - 0x200)))
   
   pbVar1 = (byte *)luaL_opt_string(1,&DAT_10026cac);
-  time();
+  time(&iStack_204);
   piVar2 = localtime(&iStack_204);
   iVar3 = ((code *)strftime)(abStack_200,0x200,pbVar1,piVar2);
   if (iVar3 != 0) {

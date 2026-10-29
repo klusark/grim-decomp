@@ -503,6 +503,8 @@ void rdCamera_ResetStats(void)
 }
 
 /* ---- 0x0040dc30  rdCamera_ProjectPoint ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua WorldToScreen; returns 0 when the point is behind the camera */
 
 int __cdecl rdCamera_ProjectPoint(float *world,float *outScreen)
@@ -534,4 +536,6 @@ int __cdecl rdCamera_ProjectPoint(float *world,float *outScreen)
 }
 #undef fStack_10
 #undef local_c
+
+#endif
 

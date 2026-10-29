@@ -103,7 +103,7 @@ void FUN_00402290(undefined4 param_1,int param_2)
       Display_InitFromConfig();
     }
 switchD_00402299_caseD_0:
-    ((code *)Engine_PushSelectedActorCostume)(param_1);
+    Engine_PushSelectedActorCostume(param_1);
     return;
   case 6:
     return;

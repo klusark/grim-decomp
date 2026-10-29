@@ -95,6 +95,8 @@ PositionedSound_Add(uint param_1,undefined **param_2,uint param_3,uint param_4,u
 }
 
 /* ---- 0x004a4e80  PositionedSound_Apply ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Moves the volume and pan of one positioned sound (entry: +8..0x10 pos, +0x14 min, +0x18 max,
    +0x1c scale, +0x20 near distance 0.8). d = pos - camera pos (current setup, set+0xac, setup
    stride 300), normalised by Vec3_NormalizeApprox (which returns the rough length). If len - near
@@ -154,6 +156,8 @@ undefined4 PositionedSound_Apply(int param_1)
 #undef local_4
 #undef local_8
 #undef local_c
+
+#endif
 
 
 /* ---- 0x004d0c20  Sound_DriverQuery ---- */

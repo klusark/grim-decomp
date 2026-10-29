@@ -653,7 +653,8 @@ void Resource_RebuildColormaps(void)
   Res_FindByHandleOrNull(local_3c,&local_40,0x50414d43);
   while (local_40 != 0) {
     puVar1 = (undefined4 *)(local_40 + 0x348);
-    ((code *)rdColormap_Build16bitTables)(*puVar1,local_40 + 0x30,0,0,0,&local_38);
+    rdColormap_Build16bitTables
+              ((undefined2 *)*puVar1,(ushort *)(local_40 + 0x30),0,0,0,(int)&local_38);
     Render_RemapPixels((ushort *)*puVar1,0x4000);
     Res_NextInList(local_3c,&local_40,0x50414d43);
   }

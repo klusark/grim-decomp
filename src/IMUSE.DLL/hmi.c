@@ -6,6 +6,8 @@
 #include "functions.h"
 
 /* ---- 0x1000bae0  hmi__bae0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Unidentified function of HMI SOS FX hooks and helpers - module name inferred */
 
 longlong hmi__bae0(void)
@@ -15,3 +17,5 @@ longlong hmi__bae0(void)
   
   return (longlong)ROUND(in_ST0);
 }
+#endif
+

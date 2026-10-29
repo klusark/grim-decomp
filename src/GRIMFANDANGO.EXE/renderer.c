@@ -110,6 +110,8 @@ undefined4 FUN_0040a980(int param_1,undefined4 param_2)
 }
 
 /* ---- 0x0040aa20  FUN_0040aa20 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4
 FUN_0040aa20(undefined4 param_1,undefined4 param_2,undefined4 param_3,int param_4,uint param_5,
             uint param_6,uint param_7,uint param_8)
@@ -572,6 +574,8 @@ LAB_0040b8c4:
   FUN_0047c8c0();
   return 0;
 }
+#endif
+
 
 /* ---- 0x0040b8e0  FUN_0040b8e0 ---- */
 undefined4 FUN_0040b8e0(int param_1,int param_2)

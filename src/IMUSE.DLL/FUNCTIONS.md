@@ -13,7 +13,7 @@
 | 10001f10 | Im_DispatchInit | imuse.c | 30 |
 | 10002260 | Im_SwitchStreamImpl | imuse.c | 134 |
 | 10002570 | Im_DispatchMixTrack | imuse.c | 152 |
-| 10002a60 | Im_DispatchAllocBuffers | imuse.c | 131 |
+| 10002a60 | Im_DispatchAllocBuffers | imuse.c | 127 |
 | 10002d30 | Im_DispatchFetchNext | imuse.c | 168 |
 | 100036b0 | Im_DSoundInit | imuse.c | 25 |
 | 10003730 | Im_DSoundHeartbeat | imuse.c | 91 |
@@ -48,12 +48,12 @@
 | 10006400 | FUN_10006400 | imuse.c | 29 |
 | 10006470 | FUN_10006470 | imuse.c | 24 |
 | 100064d0 | FUN_100064d0 | imuse.c | 29 |
-| 10006560 | FUN_10006560 | imuse.c | 35 |
-| 10006620 | FUN_10006620 | imuse.c | 66 |
+| 10006560 | FUN_10006560 | imuse.c | 1 |
+| 10006620 | FUN_10006620 | imuse.c | 1 |
 | 100067a0 | FUN_100067a0 | imuse.c | 5 |
 | 100067b0 | FUN_100067b0 | imuse.c | 70 |
-| 100068b0 | FUN_100068b0 | imuse.c | 255 |
-| 100070e0 | FUN_100070e0 | imuse.c | 13 |
+| 100068b0 | FUN_100068b0 | imuse.c | 252 |
+| 100070e0 | FUN_100070e0 | imuse.c | 11 |
 | 10007110 | FUN_10007110 | imuse.c | 11 |
 | 100089b0 | Im_SoundsFindByName | imuse.c | 81 |
 | 10008b60 | Im_SoundsFreeSlot | imuse.c | 19 |
@@ -283,7 +283,7 @@
 | 1000b810 | iMUSE_stream__b810 | imuse_stream.c | 8 |
 | 1000b840 | iMUSE_stream__b840 | imuse_stream.c | 18 |
 | 1000b8d0 | FUN_1000b8d0 | imuse_stream.c | 28 |
-| 1000bae0 | hmi__bae0 | hmi.c | 9 |
+| 1000bae0 | hmi__bae0 | hmi.c | 1 |
 | 1000bf50 | atol | crt.c | 47 |
 | 1000bff0 | atoi | crt.c | 10 |
 | 1000c000 | bsearch | crt.c | 47 |
@@ -375,7 +375,7 @@
 | 1000f560 | FUN_1000f560 | crt_unnamed.c | 29 |
 | 1000f5b0 | FUN_1000f5b0 | crt_unnamed.c | 16 |
 | 1000f610 | FUN_1000f610 | crt_unnamed.c | 22 |
-| 1000f650 | FUN_1000f650 | crt_unnamed.c | 102 |
+| 1000f650 | FUN_1000f650 | crt_unnamed.c | 1 |
 | 1000f830 | FUN_1000f830 | crt_unnamed.c | 6 |
 | 1000f840 | FUN_1000f840 | crt_unnamed.c | 96 |
 | 1000f9a0 | FUN_1000f9a0 | crt_unnamed.c | 16 |
@@ -383,8 +383,8 @@
 | 1000fa20 | FUN_1000fa20 | crt_unnamed.c | 5 |
 | 1000fd50 | FUN_1000fd50 | crt_unnamed.c | 20 |
 | 1000fdc0 | FUN_1000fdc0 | crt_unnamed.c | 29 |
-| 1000fe40 | FUN_1000fe40 | crt_unnamed.c | 41 |
-| 1000feb0 | FUN_1000feb0 | crt_unnamed.c | 43 |
+| 1000fe40 | FUN_1000fe40 | crt_unnamed.c | 1 |
+| 1000feb0 | FUN_1000feb0 | crt_unnamed.c | 1 |
 | 100100e0 | FUN_100100e0 | crt_unnamed.c | 69 |
 | 10010250 | FUN_10010250 | crt_unnamed.c | 34 |
 | 10010490 | FUN_10010490 | crt_unnamed.c | 37 |
@@ -432,8 +432,8 @@
 | 10013c50 | FUN_10013c50 | crt_unnamed.c | 207 |
 | 10013fe0 | FUN_10013fe0 | crt_unnamed.c | 70 |
 | 100142a0 | FUN_100142a0 | crt_unnamed.c | 22 |
-| 10014310 | FUN_10014310 | crt_unnamed.c | 16 |
+| 10014310 | FUN_10014310 | crt_unnamed.c | 1 |
 | 10014340 | FUN_10014340 | crt_unnamed.c | 160 |
 | 10014600 | FUN_10014600 | crt_unnamed.c | 47 |
-| 10014690 | FUN_10014690 | crt_unnamed.c | 61 |
-| 100147c0 | FUN_100147c0 | crt_unnamed.c | 60 |
+| 10014690 | FUN_10014690 | crt_unnamed.c | 1 |
+| 100147c0 | FUN_100147c0 | crt_unnamed.c | 1 |

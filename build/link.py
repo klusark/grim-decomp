@@ -211,7 +211,7 @@ def link(cc, src, obj, prog, env):
             return
         objs.append(os.path.join(d, "startup.o"))
     # hand-written replacements (see overrides.c); compiled per program for its headers
-    ov_flags = {"GRIMFANDANGO.EXE": ["-DGRIM_EXE"], "IMUSE.DLL": ["-DGRIM_IMUSE"]}.get(prog, [])  # per-program sections of overrides.c
+    ov_flags = {"GRIMFANDANGO.EXE": ["-DGRIM_EXE"], "IMUSE.DLL": ["-DGRIM_IMUSE"], "CHORE.DLL": ["-DGRIM_CHORE"]}.get(prog, [])  # per-program sections of overrides.c
     rc, out = run([cc] + cflags + ov_flags + ["-c", os.path.join(here, "overrides.c"), "-o", os.path.join(d, "overrides.o")], env)
     if rc:
         print(f"{prog}: overrides.c does not compile:\n{out[:2000]}")

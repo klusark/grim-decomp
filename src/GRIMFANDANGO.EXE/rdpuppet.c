@@ -6,22 +6,20 @@
 #include "functions.h"
 
 /* ---- 0x0040cee0  rdPuppet_BuildJointMatrices ---- */
-void __cdecl rdPuppet_BuildJointMatrices(void *model,float *frame)
+void __cdecl rdPuppet_BuildJointMatrices(void *model,float *frame,uint param_3,uint param_4)
 
 {
   int iVar1;
   undefined4 *puVar2;
-  uint in_stack_0000000c;
-  undefined4 *in_stack_00000010;
   
-  if (*(uint *)(*(int *)((int)model + 4) + 0x54) <= in_stack_0000000c) {
+  if (*(uint *)(*(int *)((int)model + 4) + 0x54) <= param_3) {
     return;
   }
-  puVar2 = (undefined4 *)(in_stack_0000000c * 0x30 + *(int *)((int)model + 0x20));
+  puVar2 = (undefined4 *)(param_3 * 0x30 + *(int *)((int)model + 0x20));
   for (iVar1 = 0xc; iVar1 != 0; iVar1 = iVar1 + -1) {
-    *in_stack_00000010 = *puVar2;
+    *(undefined4 *)param_4 = *puVar2;
     puVar2 = puVar2 + 1;
-    in_stack_00000010 = in_stack_00000010 + 1;
+    param_4 = (uint)(param_4 + 4);
   }
   return;
 }
@@ -763,7 +761,10 @@ void __cdecl rdPuppet_UpdateFrame(void *model,float *frame)
 /* ---- 0x00451510  rdKeyframe_Interpolate ---- */
 /* Blends keyframe node transforms into the puppet's output matrices (returns the weight) */
 
-float __cdecl rdKeyframe_Interpolate(void)
+float __cdecl
+rdKeyframe_Interpolate
+          (int *param_1,float *param_2,int param_3,uint param_4,int *param_5,uint param_6,
+          float *param_7,float *param_8,uint param_9,float param_10)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -775,16 +776,6 @@ float __cdecl rdKeyframe_Interpolate(void)
   float *pfVar6;
   float *pfVar7;
   float fVar8;
-  int *in_stack_00000004;
-  float *in_stack_00000008;
-  int in_stack_0000000c;
-  uint in_stack_00000010;
-  int *in_stack_00000014;
-  uint in_stack_00000018;
-  float *in_stack_0000001c;
-  float *in_stack_00000020;
-  uint in_stack_00000024;
-  float in_stack_00000028;
   #define local_2c (*(uint *)(_frame + (0x40 - 0x2c)))
   #define local_28 (*(uint *)(_frame + (0x40 - 0x28)))
   #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
@@ -796,30 +787,30 @@ float __cdecl rdKeyframe_Interpolate(void)
   #define local_4 (*(uint *)(_frame + (0x40 - 0x4)))
   
   local_28 = 0;
-  if (in_stack_00000024 != 0) {
-    local_2c = in_stack_00000018;
-    iVar5 = in_stack_00000018 - (int)in_stack_00000014;
-    iVar4 = (int)in_stack_0000001c - (int)in_stack_00000020;
-    pfVar7 = (float *)((int)in_stack_00000014 + 8);
-    local_1c = in_stack_00000024;
+  if (param_9 != 0) {
+    local_2c = param_6;
+    iVar5 = param_6 - (int)param_5;
+    iVar4 = (int)param_7 - (int)param_8;
+    pfVar7 = (float *)(param_5 + 2);
+    local_1c = param_9;
     do {
       local_24 = 0;
-      *in_stack_00000020 = *(float *)(iVar4 + (int)in_stack_00000020);
-      if (in_stack_00000010 != 0) {
-        in_stack_00000014 = in_stack_00000004;
-        in_stack_0000001c = in_stack_00000008;
-        pfVar6 = (float *)(in_stack_0000000c + 8);
+      *param_8 = *(float *)(iVar4 + (int)param_8);
+      if (param_4 != 0) {
+        param_5 = param_1;
+        param_7 = param_2;
+        pfVar6 = (float *)(param_3 + 8);
         do {
-          iVar2 = *in_stack_00000014;
+          iVar2 = *param_5;
           if (*(int *)(iVar2 + 4) < 2) {
             fVar3 = 0.0;
           }
           else {
-            local_c = (uint)(*in_stack_0000001c - *(float *)local_2c);
-            local_8 = (uint)(*(float *)(((int)in_stack_00000008 - in_stack_0000000c) + -4 +
-                                       (int)pfVar6) - *(float *)(iVar5 + -4 + (int)pfVar7));
-            local_4 = (uint)(*(float *)(((int)in_stack_00000008 - in_stack_0000000c) + (int)pfVar6)
-                            - *(float *)(iVar5 + (int)pfVar7));
+            local_c = (uint)(*param_7 - *(float *)local_2c);
+            local_8 = (uint)(*(float *)(((int)param_2 - param_3) + -4 + (int)pfVar6) -
+                            *(float *)(iVar5 + -4 + (int)pfVar7));
+            local_4 = (uint)(*(float *)(((int)param_2 - param_3) + (int)pfVar6) -
+                            *(float *)(iVar5 + (int)pfVar7));
             fVar3 = (float)local_4 * (float)local_4 +
                     (float)local_8 * (float)local_8 + (float)local_c * (float)local_c;
           }
@@ -831,7 +822,7 @@ float __cdecl rdKeyframe_Interpolate(void)
               if (0.0 < fVar3) {
                 fVar3 = *(float *)(iVar2 + 0x18) * fVar3;
 LAB_0045173f:
-                *in_stack_00000020 = fVar3 + *in_stack_00000020;
+                *param_8 = fVar3 + *param_8;
               }
               break;
             case 2:
@@ -839,7 +830,7 @@ LAB_0045173f:
               fVar3 = *pfVar7 * (float)local_4 +
                       pfVar7[-1] * (float)local_8 + pfVar7[-2] * (float)local_c;
               if (0.0 < fVar3) {
-                fVar3 = (*(float *)(iVar2 + 0x18) - fVar8 * in_stack_00000028) * fVar3;
+                fVar3 = (*(float *)(iVar2 + 0x18) - fVar8 * param_10) * fVar3;
                 goto LAB_0045173f;
               }
               break;
@@ -853,30 +844,30 @@ LAB_0045173f:
                   fVar1 = (1.0 - (*(float *)(iVar2 + 0x24) - fVar3) * *(float *)(iVar2 + 0x30)) *
                           fVar1;
                 }
-                fVar3 = (fVar1 - fVar8 * in_stack_00000028) *
+                fVar3 = (fVar1 - fVar8 * param_10) *
                         (*pfVar7 * *pfVar6 + pfVar6[-2] * pfVar7[-2] + pfVar6[-1] * pfVar7[-1]);
                 goto LAB_0045173f;
               }
             }
           }
-          if (1.0 < *in_stack_00000020) {
-            *in_stack_00000020 = 1.0;
+          if (1.0 < *param_8) {
+            *param_8 = 1.0;
           }
-          if (*in_stack_00000020 == 1.0) break;
-          in_stack_00000014 = in_stack_00000014 + 1;
+          if (*param_8 == 1.0) break;
+          param_5 = param_5 + 1;
           local_24 = local_24 + 1;
-          in_stack_0000001c = in_stack_0000001c + 3;
+          param_7 = param_7 + 3;
           pfVar6 = pfVar6 + 3;
-        } while (local_24 < in_stack_00000010);
+        } while (local_24 < param_4);
       }
       pfVar7 = pfVar7 + 3;
-      local_28 = (uint)((float)local_28 + *in_stack_00000020);
+      local_28 = (uint)((float)local_28 + *param_8);
       local_2c = local_2c + 0xc;
-      in_stack_00000020 = in_stack_00000020 + 1;
+      param_8 = param_8 + 1;
       local_1c = local_1c - 1;
     } while (local_1c != 0);
   }
-  return (float)local_28 / (float)in_stack_00000024;
+  return (float)local_28 / (float)param_9;
 }
 #undef local_18
 #undef local_1c
@@ -890,7 +881,10 @@ LAB_0045173f:
 
 
 /* ---- 0x00451800  rdKeyframe_InterpolateNode ---- */
-float __cdecl rdKeyframe_InterpolateNode(void)
+float __cdecl
+rdKeyframe_InterpolateNode
+          (int *param_1,int param_2,uint param_3,uint param_4,int param_5,float *param_6,int param_7
+          ,float param_8)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -900,13 +894,6 @@ float __cdecl rdKeyframe_InterpolateNode(void)
   uint uVar4;
   float *pfVar5;
   float fVar6;
-  int *in_stack_00000004;
-  int in_stack_00000008;
-  uint in_stack_00000010;
-  int in_stack_00000014;
-  float *in_stack_00000018;
-  int in_stack_0000001c;
-  float in_stack_00000020;
   #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
   #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
@@ -914,24 +901,24 @@ float __cdecl rdKeyframe_InterpolateNode(void)
   
   uVar4 = 0;
   local_10 = 0;
-  if (in_stack_00000010 != 0) {
-    pfVar5 = (float *)(in_stack_00000008 + 8);
+  if (param_4 != 0) {
+    pfVar5 = (float *)(param_2 + 8);
     do {
-      iVar1 = *in_stack_00000004;
+      iVar1 = *param_1;
       if (*(int *)(iVar1 + 8) != 0) {
-        piVar2 = *(int **)(in_stack_00000014 + 0x18);
-        local_c = (uint)(pfVar5[-2] - *(float *)(in_stack_0000001c + *piVar2 * 0xc));
-        local_8 = (uint)(pfVar5[-1] - *(float *)(in_stack_0000001c + 4 + *piVar2 * 0xc));
-        local_4 = (uint)(*pfVar5 - *(float *)(in_stack_0000001c + 8 + *piVar2 * 0xc));
+        piVar2 = *(int **)(param_5 + 0x18);
+        local_c = (uint)(pfVar5[-2] - *(float *)(param_7 + *piVar2 * 0xc));
+        local_8 = (uint)(pfVar5[-1] - *(float *)(param_7 + 4 + *piVar2 * 0xc));
+        local_4 = (uint)(*pfVar5 - *(float *)(param_7 + 8 + *piVar2 * 0xc));
         if ((float)local_4 * (float)local_4 +
             (float)local_8 * (float)local_8 + (float)local_c * (float)local_c <
             *(float *)(iVar1 + 0x34) * *(float *)(iVar1 + 0x34)) {
           fVar6 = Vec3_Normalize((float *)&local_c);
-          fVar3 = (float)local_c * *in_stack_00000018 +
-                  in_stack_00000018[1] * (float)local_8 + in_stack_00000018[2] * (float)local_4;
+          fVar3 = (float)local_c * *param_6 +
+                  param_6[1] * (float)local_8 + param_6[2] * (float)local_4;
           if (0.0 < fVar3) {
-            local_10 = (uint)((*(float *)(iVar1 + 0x18) - fVar6 * in_stack_00000020) * fVar3 +
-                             (float)local_10);
+            local_10 = (uint)((*(float *)(iVar1 + 0x18) - fVar6 * param_8) * fVar3 + (float)local_10
+                             );
           }
         }
       }
@@ -939,9 +926,9 @@ float __cdecl rdKeyframe_InterpolateNode(void)
         return (float)local_10;
       }
       uVar4 = uVar4 + 1;
-      in_stack_00000004 = in_stack_00000004 + 1;
+      param_1 = param_1 + 1;
       pfVar5 = pfVar5 + 3;
-    } while (uVar4 < in_stack_00000010);
+    } while (uVar4 < param_4);
   }
   return (float)local_10;
 }

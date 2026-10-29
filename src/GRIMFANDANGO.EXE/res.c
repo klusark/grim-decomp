@@ -785,6 +785,8 @@ void Res_NextInList(int *param_1,int *param_2,int param_3)
 }
 
 /* ---- 0x00482200  Res_TouchByData ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Moves the record owning the data pointer to the front of the LRU list */
 
 undefined * __cdecl Res_TouchByData(void *param_1)
@@ -802,6 +804,8 @@ undefined * __cdecl Res_TouchByData(void *param_1)
   }
   return puVar1;
 }
+#endif
+
 
 /* ---- 0x004824f0  Res_CountChildren ---- */
 int Res_CountChildren(uint param_1,uint param_2)

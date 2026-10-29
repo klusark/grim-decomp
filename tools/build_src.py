@@ -641,6 +641,7 @@ DATA_ELT = {}   # address -> C type for a Ghidra data item of 2 or 4 bytes (raw/
 ELT_TYPES = {"undefined4": "undefined4", "dword": "undefined4", "int": "undefined4", "uint": "undefined4",
              "undefined2": "undefined2", "word": "undefined2", "short": "undefined2", "ushort": "undefined2",
              "undefined1": "undefined", "byte": "undefined", "char": "undefined"}
+ACCESS_ELT = {}  # address -> C type of the narrowest direct access (raw/<prog>/access_sizes.json)
 PTR_TYPES = {}  # PTR_<addr> -> pointee type applied in Ghidra (raw/<prog>/ptr_types.json)
 STDCALL_FUNCS = set()  # C names of callee-pop functions (raw/<prog>/stdcall_funcs.json)
 
@@ -651,7 +652,11 @@ def load_overrides():
     if not os.path.exists(path):
         return set()
     text = open(path, encoding="utf-8").read()
-    return set(re.findall(r"^[A-Za-z_][\w *]*?\b(\w+)\s*\([^;{]*\)\s*\{", text, re.M))
+    names = set(re.findall(r"^[A-Za-z_][\w *]*?\b(\w+)\s*\([^;{]*\)\s*\{", text, re.M))
+    # functions written in top-level asm() blocks are declared by a `/* OVERRIDES: a b c */` line
+    for m in re.finditer(r"^/\* OVERRIDES: ([^*]*?)\s*\*/", text, re.M):
+        names |= set(m.group(1).split())
+    return names
 
 
 OVERRIDES = load_overrides()
@@ -1004,7 +1009,7 @@ def global_decl(g, u, ctx):
         am = re.search(r"_([0-9a-f]{8})$", g)
         # no better evidence: the width of Ghidra's data item (a 1-byte item indexed as
         # `(&DAT_x)[i]` is a byte table, not 4-byte elements)
-        t = DATA_ELT.get(am.group(1), "undefined4") if am else "undefined4"
+        t = DATA_ELT.get(am.group(1)) or ACCESS_ELT.get(am.group(1), "undefined4") if am else "undefined4"
         if ts:
             t = ts.most_common(1)[0][0]
             if "[" in t:
@@ -1040,6 +1045,15 @@ def build(prog):
             m = re.match(r"^\S+ @ ([0-9a-f]{8}) \[([^\]]*)\] \((\d+) bytes?\)", line)
             if m and m.group(2) in ELT_TYPES:
                 DATA_ELT[m.group(1)] = ELT_TYPES[m.group(2)]
+    global ACCESS_ELT
+    ACCESS_ELT = {}
+    ac_path = os.path.join(rawdir, "access_sizes.json")
+    if os.path.exists(ac_path):
+        for k, v in json.load(open(ac_path)).items():
+            if v == 1:
+                ACCESS_ELT[k] = "undefined"
+            elif v == 2:
+                ACCESS_ELT[k] = "undefined2"
     global PTR_TYPES
     PTR_TYPES = {}
     pt_path = os.path.join(rawdir, "ptr_types.json")

@@ -51,7 +51,7 @@ int __cdecl rdColormap_LoadEntry(char *name,void *cmp)
 
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  byte *pbVar1;
+  ushort *puVar1;
   byte bVar2;
   byte bVar3;
   byte bVar4;
@@ -60,8 +60,9 @@ int __cdecl rdColormap_LoadEntry(char *name,void *cmp)
   int iVar7;
   char *pcVar8;
   int iVar9;
-  uint uVar10;
-  undefined4 uVar11;
+  undefined2 *puVar10;
+  uint uVar11;
+  undefined4 uVar12;
   #define auStack_40 (*(undefined1 (*)[8])(_frame + (0x50 - 0x40)))
   #define uStack_38 (*(undefined4 *)(_frame + (0x50 - 0x38)))
   #define uStack_34 (*(undefined4 *)(_frame + (0x50 - 0x34)))
@@ -72,9 +73,9 @@ int __cdecl rdColormap_LoadEntry(char *name,void *cmp)
   if (iVar7 == 0) {
     return 0;
   }
-  uVar11 = 0x1f;
+  uVar12 = 0x1f;
   pcVar8 = Str_FileNameFromPath(name);
-  strncpy(cmp,pcVar8,uVar11);
+  strncpy(cmp,pcVar8,uVar12);
   *(undefined1 *)((int)cmp + 0x1f) = 0;
   (*g_pSvcRdroid->pFread)(iVar7,auStack_40,0x40);
   *(undefined4 *)((int)cmp + 0x24) = uStack_34;
@@ -87,22 +88,22 @@ int __cdecl rdColormap_LoadEntry(char *name,void *cmp)
     rdColormap_BuildGreyRamp(cmp);
     return 1;
   }
-  pbVar1 = (byte *)((int)cmp + 0x30);
-  (*g_pSvcRdroid->pFread)(iVar7,pbVar1,0x300);
-  bVar2 = *pbVar1;
+  puVar1 = (ushort *)((int)cmp + 0x30);
+  (*g_pSvcRdroid->pFread)(iVar7,puVar1,0x300);
+  bVar2 = *(byte *)puVar1;
   bVar3 = *(byte *)((int)cmp + 0x31);
   bVar4 = *(byte *)((int)cmp + 0x32);
   iVar9 = 0xfe;
   do {
-    bVar5 = *pbVar1;
+    bVar5 = *(byte *)puVar1;
     if (bVar5 == bVar2) {
       if (bVar5 < 0xf7) {
-        bVar5 = bVar5 + 8;
+        cVar6 = bVar5 + 8;
       }
       else {
-        bVar5 = bVar5 - 8;
+        cVar6 = bVar5 - 8;
       }
-      *pbVar1 = bVar5;
+      *(char *)puVar1 = cVar6;
     }
     bVar5 = *(byte *)((int)cmp + 0x31);
     if (bVar5 == bVar3) {
@@ -130,25 +131,26 @@ int __cdecl rdColormap_LoadEntry(char *name,void *cmp)
     *(undefined4 *)((int)cmp + 0x348) = 0;
   }
   else {
-    iVar9 = (*g_pSvcRdroid->pAlloc)
-                      (0x8000,s_C__grimjedi_Libs_RDroid_Engine_R_004ddae4,DAT_004ddadc + 0x4b);
-    *(int *)((int)cmp + 0x348) = iVar9;
-    if (iVar9 == 0) goto LAB_00404659;
-    ((code *)rdColormap_Build16bitTables)(iVar9,pbVar1,0,0,0,&UINT_004ddaa0);
+    puVar10 = (undefined2 *)
+              (*g_pSvcRdroid->pAlloc)
+                        (0x8000,s_C__grimjedi_Libs_RDroid_Engine_R_004ddae4,DAT_004ddadc + 0x4b);
+    *(undefined2 **)((int)cmp + 0x348) = puVar10;
+    if (puVar10 == (undefined2 *)0x0) goto LAB_00404659;
+    rdColormap_Build16bitTables(puVar10,puVar1,0,0,0,IMG_ADDR(0x004ddaa0));
   }
   if ((*(byte *)((int)cmp + 0x20) & 1) != 0) {
-    uVar10 = (*g_pSvcRdroid->pAlloc)
+    uVar11 = (*g_pSvcRdroid->pAlloc)
                        (0x10100,s_C__grimjedi_Libs_RDroid_Engine_R_004ddae4,DAT_004ddadc + 0x68);
-    *(uint *)((int)cmp + 0x33c) = uVar10;
-    if (uVar10 == 0) {
+    *(uint *)((int)cmp + 0x33c) = uVar11;
+    if (uVar11 == 0) {
 LAB_00404659:
       (*g_pSvcRdroid->pFclose)(iVar7);
       rdColormap_BuildGreyRamp(cmp);
       return 1;
     }
-    *(uint *)((int)cmp + 0x338) = uVar10;
-    if ((uVar10 & 0xff) != 0) {
-      *(uint *)((int)cmp + 0x338) = (uVar10 - (uVar10 & 0xff)) + 0x100;
+    *(uint *)((int)cmp + 0x338) = uVar11;
+    if ((uVar11 & 0xff) != 0) {
+      *(uint *)((int)cmp + 0x338) = (uVar11 - (uVar11 & 0xff)) + 0x100;
     }
     (*g_pSvcRdroid->pFread)(iVar7,*(undefined4 *)((int)cmp + 0x338),0x10000);
     if ((*(byte *)((int)cmp + 0x20) & 4) == 0) {
@@ -220,16 +222,20 @@ void rdColormap_FreeEntry(int param_1)
 }
 
 /* ---- 0x004047e0  rdColormap_Build16bitTables ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Converts the 256-entry palette into 16-bit pixel values for 64 light levels using the
    pixel-format shifts */
 
-undefined8 rdColormap_Build16bitTables(undefined2 *param_1,ushort *param_2)
+undefined8 __cdecl
+rdColormap_Build16bitTables
+          (undefined2 *param_1,ushort *param_2,uint param_3,uint param_4,uint param_5,int param_6)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   byte bVar1;
-  byte bVar2;
-  byte bVar3;
+  ushort uVar2;
+  ushort uVar3;
   uint uVar4;
   uint unaff_EBX;
   uint uVar5;
@@ -242,8 +248,6 @@ undefined8 rdColormap_Build16bitTables(undefined2 *param_1,ushort *param_2)
   longlong lVar10;
   longlong lVar11;
   longlong lVar12;
-  int iStack0000000c;
-  int in_stack_00000018;
   #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
   #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
@@ -253,23 +257,22 @@ undefined8 rdColormap_Build16bitTables(undefined2 *param_1,ushort *param_2)
   local_10 = 8;
   puVar8 = param_1;
   do {
-    bVar1 = *(byte *)param_2;
-    bVar2 = *(byte *)((int)param_2 + 1);
-    uVar4 = CONCAT31((int3)(uVar4 >> 8),bVar2);
+    uVar2 = *param_2;
+    bVar1 = *(byte *)((int)param_2 + 1);
+    uVar4 = CONCAT31((int3)(uVar4 >> 8),bVar1);
     iVar6 = 0x40;
-    bVar3 = *(byte *)((int)param_2 + 2);
+    uVar3 = param_2[1];
     param_2 = (ushort *)((int)param_2 + 3);
     puVar9 = puVar8;
     do {
       uVar5 = CONCAT22((short)(unaff_EBX >> 0x10),
-                       (ushort)(bVar1 >> (*(byte *)(in_stack_00000018 + 0x20) & 0x1f))) <<
-              ((byte)*(undefined4 *)(in_stack_00000018 + 0x14) & 0x1f);
+                       (ushort)(byte)((byte)uVar2 >> (*(byte *)(param_6 + 0x20) & 0x1f))) <<
+              ((byte)*(undefined4 *)(param_6 + 0x14) & 0x1f);
       unaff_EBX = CONCAT22((short)(uVar5 >> 0x10),
-                           (ushort)(bVar3 >> (*(byte *)(in_stack_00000018 + 0x28) & 0x1f))) <<
-                  ((byte)*(undefined4 *)(in_stack_00000018 + 0x1c) & 0x1f);
-      uVar4 = CONCAT22((short)(uVar4 >> 0x10),
-                       (ushort)(bVar2 >> (*(byte *)(in_stack_00000018 + 0x24) & 0x1f))) <<
-              ((byte)*(undefined4 *)(in_stack_00000018 + 0x18) & 0x1f) | uVar5 | unaff_EBX;
+                           (ushort)(byte)((byte)uVar3 >> (*(byte *)(param_6 + 0x28) & 0x1f))) <<
+                  ((byte)*(undefined4 *)(param_6 + 0x1c) & 0x1f);
+      uVar4 = CONCAT22((short)(uVar4 >> 0x10),(ushort)(bVar1 >> (*(byte *)(param_6 + 0x24) & 0x1f)))
+              << ((byte)*(undefined4 *)(param_6 + 0x18) & 0x1f) | uVar5 | unaff_EBX;
       iVar6 = iVar6 + -1;
       *puVar9 = (short)uVar4;
       puVar9 = puVar9 + 0x100;
@@ -278,7 +281,7 @@ undefined8 rdColormap_Build16bitTables(undefined2 *param_1,ushort *param_2)
     local_10 = local_10 - 1;
   } while (local_10 != 0);
   param_2 = param_1 + 0x3f08;
-  iStack0000000c = 0xf8;
+  param_3 = 0xf8;
   do {
     param_1 = (undefined2 *)0x40;
     puVar7 = param_2;
@@ -287,23 +290,25 @@ undefined8 rdColormap_Build16bitTables(undefined2 *param_1,ushort *param_2)
       lVar11 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
       lVar12 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
       param_1 = (undefined2 *)((int)param_1 + -1);
-      *puVar7 = (ushort)(((int)lVar11 >> ((byte)*(undefined4 *)(in_stack_00000018 + 0x24) & 0x1f))
-                        << ((byte)*(undefined4 *)(in_stack_00000018 + 0x18) & 0x1f)) |
-                (ushort)(((int)lVar12 >> ((byte)*(undefined4 *)(in_stack_00000018 + 0x28) & 0x1f))
-                        << ((byte)*(undefined4 *)(in_stack_00000018 + 0x1c) & 0x1f)) |
-                (ushort)(((int)lVar10 >> ((byte)*(undefined4 *)(in_stack_00000018 + 0x20) & 0x1f))
-                        << ((byte)*(undefined4 *)(in_stack_00000018 + 0x14) & 0x1f));
+      *puVar7 = (ushort)(((int)lVar11 >> ((byte)*(undefined4 *)(param_6 + 0x24) & 0x1f)) <<
+                        ((byte)*(undefined4 *)(param_6 + 0x18) & 0x1f)) |
+                (ushort)(((int)lVar12 >> ((byte)*(undefined4 *)(param_6 + 0x28) & 0x1f)) <<
+                        ((byte)*(undefined4 *)(param_6 + 0x1c) & 0x1f)) |
+                (ushort)(((int)lVar10 >> ((byte)*(undefined4 *)(param_6 + 0x20) & 0x1f)) <<
+                        ((byte)*(undefined4 *)(param_6 + 0x14) & 0x1f));
       puVar7 = puVar7 + -0x100;
     } while (param_1 != (undefined2 *)0x0);
     param_2 = param_2 + 1;
-    iStack0000000c = iStack0000000c + -1;
-  } while (iStack0000000c != 0);
-  return 1;
+    param_3 = param_3 - 1;
+  } while (param_3 != 0);
+  return CONCAT44((int)((ulonglong)lVar12 >> 0x20),1);
 }
 #undef local_10
 #undef local_4
 #undef local_8
 #undef local_c
+
+#endif
 
 
 /* ---- 0x00404a40  rdColormap_BuildGreyRamp ---- */

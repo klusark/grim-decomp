@@ -540,7 +540,7 @@ void rdSprite_FreeContents(int param_1)
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Frustum tests the sprite, builds the quad in the cache and clips it */
 
-undefined4 rdSprite_Draw(int param_1,int param_2)
+undefined4 rdSprite_Draw(int param_1,float *param_2)
 
 {
   unsigned char _frame[0x90] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -578,8 +578,8 @@ undefined4 rdSprite_Draw(int param_1,int param_2)
   #define local_14 (*(uint *)(_frame + (0x90 - 0x14)))
   
   iVar1 = *(int *)(param_1 + 4);
-  Vec3_Sub((float *)&local_64,(float *)(param_2 + 0x24),(float *)((int)g_pRdCurrentCamera + 8));
-  Vec3_Copy((float *)&local_70,(float *)(iVar1 + 0xac));
+  Vec3_Sub((float *)&local_64,param_2 + 9,(float *)((int)g_pRdCurrentCamera + 8));
+  Vec3_Copy((float *)&local_70,(float *)(iVar1 + 0xac),param_2);
   Vec3_Transform((float *)&local_70,(float *)((int)g_pRdCurrentCamera + 8));
   if (0.0 <= (float)local_70) {
     local_78 = (uint)-*(float *)(iVar1 + 0x54);

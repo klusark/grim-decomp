@@ -1112,6 +1112,8 @@ void FUN_10007050(void)
 
 
 /* ---- 0x10007080  FUN_10007080 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_10007080(void)
 
 {
@@ -1124,6 +1126,8 @@ void FUN_10007080(void)
   lua_pushnumber(n);
   return;
 }
+#endif
+
 
 /* ---- 0x100070c0  FUN_100070c0 ---- */
 void FUN_100070c0(void)

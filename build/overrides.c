@@ -110,6 +110,28 @@ undefined4 DSound_Init(void)
     COM(g_pDirectSound, 0x18, hwnd, 3);                  /* SetCooperativeLevel: exclusive */
     return 1;
 }
+
+unsigned long __attribute__((stdcall)) GRIM_GetEnv(const char *, char *, unsigned long) __asm__("_GetEnvironmentVariableA@12");
+
+/* Display_InitFromConfig (0x402930): the game normally restores the last display from the registry
+ * or picks the closest fullscreen DirectDraw device. This build runs in the software renderer: device
+ * 0 is "Window Display Device" (a DIB section in the game window), which works on any machine.
+ * GRIM_DISPLAY_DEVICE=<n> selects another enumerated device (1 is the DirectDraw display). */
+undefined *Display_InitFromConfig(void)
+{
+    char e[8] = "";
+    int dev;
+    GRIM_GetEnv("GRIM_DISPLAY_DEVICE", e, sizeof e);
+    dev = (e[0] >= '0' && e[0] <= '9') ? e[0] - '0' : 0;
+    unsigned mode;
+    if ((unsigned)dev >= (unsigned)g_dwDisplayDeviceCount)
+        dev = 0;
+    mode = Display_FindClosestMode(&UINT_004f4d38,
+                                   (void *)((unsigned *)g_pDisplayModes)[dev * 4 + 1],
+                                   ((unsigned *)g_pDisplayModes)[dev * 4]);
+    return (undefined *)(unsigned)Display_Select(dev, (int)mode, -1);
+}
+
 #endif /* GRIM_EXE */
 
 #ifdef GRIM_IMUSE
@@ -197,3 +219,34 @@ void Im_DSoundCreateBuffer(int n)
     DAT_1002d840 = 0;
 }
 #endif /* GRIM_IMUSE */
+
+#ifdef GRIM_CHORE
+#include "functions.h"
+/* FUN_10006b30 (0x10006b30) is MSVC's _input(FILE *, format, va_list), the scanf engine. Ghidra
+ * splits its jump-table cases into pieces, so it can neither be decompiled nor assembled from its
+ * listing. sscanf calls it on a FILE that wraps a string (_ptr = current position, MSVC layout
+ * {_ptr, _cnt, _base, _flag}), so the host's vsscanf on that string does the same job. */
+extern int vsscanf(const char *, const char *, void *);
+int FUN_10006b30(undefined4 stream, byte *format, undefined4 *args)
+{
+    const char *s = *(const char **)(unsigned)stream;
+    return vsscanf(s, (const char *)format, args);
+}
+#endif /* GRIM_CHORE */
+
+/* MSVC 6 pow family (_CIpow takes its operands on the x87 stack, _pow on the C stack). The CRT's own
+ * versions branch through special-case helpers that live in pieces Ghidra cannot stitch together, so
+ * both go to the host msvcrt's pow instead. */
+/* OVERRIDES: _pow _CIpow */
+__asm__(".text\n"
+        ".globl __pow\n"
+        "__pow:\n"
+        "    jmp *__imp__pow\n"
+        ".globl __CIpow\n"
+        "__CIpow:\n"
+        "    subl $16, %esp\n"
+        "    fstpl 8(%esp)\n"      /* exponent: ST(0) */
+        "    fstpl (%esp)\n"       /* base: ST(1) */
+        "    call *__imp__pow\n"
+        "    addl $16, %esp\n"
+        "    ret\n");

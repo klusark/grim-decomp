@@ -602,6 +602,8 @@ int __cdecl luaD_domain(int *param_1,int param_2)
 }
 
 /* ---- 0x10004a50  luaD_protectedparser ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* ldo.c: runs luaU_undump1 or luaY_parser on the open ZIO */
 
 undefined4 __cdecl luaD_protectedparser(int *param_1,int param_2)
@@ -644,3 +646,5 @@ undefined4 __cdecl luaD_protectedparser(int *param_1,int param_2)
   luaV_closure(0);
   return 0;
 }
+#endif
+

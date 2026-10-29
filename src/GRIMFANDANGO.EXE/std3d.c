@@ -6,6 +6,8 @@
 #include "functions.h"
 
 /* ---- 0x00478230  D3D_Enumerate ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Queries IDirect3D from DirectDraw and enumerates the 3D drivers into g_D3dDrivers (0x22c bytes
    each) */
 
@@ -35,8 +37,12 @@ undefined4 D3D_Enumerate(void)
   UINT_0080696c = 1;
   return 1;
 }
+#endif
+
 
 /* ---- 0x004782b0  D3D_Release ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void D3D_Release(void)
 
 {
@@ -46,6 +52,8 @@ void D3D_Release(void)
   UINT_0080696c = 0;
   return;
 }
+#endif
+
 
 /* ---- 0x004782d0  D3D_IsAvailable ---- */
 uint D3D_IsAvailable(void)
@@ -55,6 +63,8 @@ uint D3D_IsAvailable(void)
 }
 
 /* ---- 0x004782e0  D3D_SelectDriver ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Creates the Direct3D device, z-buffer, viewport, execute buffer and picks the texture formats */
 
@@ -191,8 +201,12 @@ int __cdecl D3D_SelectDriver(uint driverIdx,int useZBuffer)
 #undef uStack_74
 #undef uStack_a4
 
+#endif
+
 
 /* ---- 0x00478660  D3D_ReleaseDriver ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void D3D_ReleaseDriver(void)
 
 {
@@ -224,6 +238,8 @@ void D3D_ReleaseDriver(void)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x00478700  D3D_SetTextureLimits ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
@@ -239,6 +255,8 @@ void __cdecl D3D_SetTextureLimits(int minW,int minH,int maxSize,int d)
 }
 
 /* ---- 0x00478730  D3D_BeginScene ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void D3D_BeginScene(void)
 
 {
@@ -248,8 +266,12 @@ void D3D_BeginScene(void)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x00478750  D3D_EndScene ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void D3D_EndScene(void)
 
 {
@@ -259,8 +281,12 @@ void D3D_EndScene(void)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x00478770  D3D_BeginExecuteBuffer ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 D3D_BeginExecuteBuffer(void)
 
 {
@@ -278,6 +304,8 @@ undefined4 D3D_BeginExecuteBuffer(void)
   PTR_00806918 = (int *)UINT_00806400;
   return 1;
 }
+#endif
+
 
 /* ---- 0x004787d0  D3D_AddVertices ---- */
 /* Copies 32-byte TLVERTEX records into the execute buffer */
@@ -420,6 +448,8 @@ int __cdecl D3D_AddTriangles(void *tris,uint count)
 }
 
 /* ---- 0x00478b40  D3D_ExecuteBuffer ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Terminates and executes the buffer on the device */
 
 bool D3D_ExecuteBuffer(void)
@@ -450,6 +480,8 @@ bool D3D_ExecuteBuffer(void)
   return iVar1 == 0;
 }
 #undef pvStack_38
+
+#endif
 
 
 /* ---- 0x00478c00  D3D_SetRenderFlags ---- */
@@ -620,6 +652,8 @@ void D3D_ClampTextureSize(uint param_1,uint param_2,uint *param_3,uint *param_4)
 }
 
 /* ---- 0x00479110  D3D_ResetTextures ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua ResetTextures: frees every texture record */
 
 void D3D_ResetTextures(void)
@@ -635,8 +669,12 @@ void D3D_ResetTextures(void)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x00479170  D3D_CreateTexture ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Builds a 0x98-byte texture record {sysSurface, vidSurface, ..., +0x74 handle, +0x78 valid, +0x80
    w, +0x88 h, +0x88 size, +0x8c frameStamp, +0x90 prev, +0x94 next}; scales to the driver's size
    limits and converts 8-bit sources to 16-bit */
@@ -1006,8 +1044,12 @@ LAB_0047940a:
 #undef local_f0
 #undef uStack_24
 
+#endif
+
 
 /* ---- 0x00479860  D3D_FreeAllTextures ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void D3D_FreeAllTextures(void)
 
 {
@@ -1040,6 +1082,8 @@ void D3D_FreeAllTextures(void)
   UINT_004dee58 = 1;
   return;
 }
+#endif
+
 
 /* ---- 0x004798e0  D3D_LinkTexture ---- */
 void D3D_LinkTexture(void *param_1)
@@ -1099,6 +1143,8 @@ void D3D_UnlinkTexture(void *param_1)
 }
 
 /* ---- 0x00479a00  D3D_SetVertexLimit ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 D3D_SetVertexLimit(void)
 
 {
@@ -1131,6 +1177,8 @@ undefined4 D3D_SetVertexLimit(void)
 #undef puStack_c
 #undef uStack_4
 
+#endif
+
 
 /* ---- 0x00479a70  D3D_TouchTexture ---- */
 void D3D_TouchTexture(int param_1)
@@ -1143,6 +1191,8 @@ void D3D_TouchTexture(int param_1)
 }
 
 /* ---- 0x00479aa0  D3D_ClearZBuffer ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 D3D_ClearZBuffer(void)
 
 {
@@ -1184,6 +1234,8 @@ undefined4 D3D_ClearZBuffer(void)
 #undef local_6c
 #undef local_70
 #undef local_74
+
+#endif
 
 
 /* ---- 0x00479b50  D3D_FindClosestDriver ---- */
@@ -1328,6 +1380,8 @@ void D3D_SetViewportRect(uint *param_1)
 }
 
 /* ---- 0x00479db0  D3D_InitRenderState ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Fills an execute buffer with the initial STATERENDER list derived from the driver capability bits
     */
 
@@ -1482,8 +1536,12 @@ undefined4 D3D_InitRenderState(void)
 #undef local_44
 #undef local_4c
 
+#endif
+
 
 /* ---- 0x0047a130  D3D_CreateViewport ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 D3D_CreateViewport(void)
 
 {
@@ -1549,8 +1607,12 @@ undefined4 D3D_CreateViewport(void)
 #undef uStack_58
 #undef uStack_c
 
+#endif
+
 
 /* ---- 0x0047a240  D3D_CreateZBuffer ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 undefined4 D3D_CreateZBuffer(int param_1,int param_2)
@@ -1610,6 +1672,8 @@ undefined4 D3D_CreateZBuffer(int param_1,int param_2)
   }
   return 0;
 }
+#endif
+
 
 /* ---- 0x0047a3b0  FUN_0047a3b0 ---- */
 undefined * __stdcall FUN_0047a3b0(int a1,int a2,int a3,int a4,int a5,int a6)
@@ -1921,6 +1985,8 @@ byte D3D_FilterBitsToEnum(byte param_1)
 }
 
 /* ---- 0x0047a930  D3D_EvictTexture ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Frees a texture not used this frame (best size match) to make room, or all idle textures */
 
 int __cdecl D3D_EvictTexture(uint size)
@@ -1976,4 +2042,6 @@ int __cdecl D3D_EvictTexture(uint size)
   return 1;
 }
 #undef local_4
+
+#endif
 

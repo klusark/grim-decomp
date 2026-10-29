@@ -240,7 +240,9 @@ void * FUN_0048dab0(int *param_1)
   if (iVar1 == 1) {
     pvVar2 = rdColormap_Load((char *)param_1[1]);
     if (pvVar2 != (void *)0x0) {
-      ((code *)rdColormap_Build16bitTables)(*(undefined4 *)((int)pvVar2 + 0x348),(int)pvVar2 + 0x30,0,0,0,&local_38);
+      rdColormap_Build16bitTables
+                (*(undefined2 **)((int)pvVar2 + 0x348),(ushort *)((int)pvVar2 + 0x30),0,0,0,
+                 (int)&local_38);
       Render_RemapPixels(*(ushort **)((int)pvVar2 + 0x348),0x4000);
       pvVar2 = Res_Register(param_1[2],(char *)param_1[1],pvVar2);
       return pvVar2;

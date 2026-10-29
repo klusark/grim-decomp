@@ -383,6 +383,8 @@ void lbuiltin__3260(void)
 
 
 /* ---- 0x10003370  FUN_10003370 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_10003370(void)
 
 {
@@ -463,8 +465,12 @@ void FUN_10003370(void)
 #undef uStack_4
 #undef uStack_8
 
+#endif
+
 
 /* ---- 0x100034c0  FUN_100034c0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_100034c0(void)
 
 {
@@ -540,8 +546,12 @@ void FUN_100034c0(void)
 #undef uStack_4
 #undef uStack_8
 
+#endif
+
 
 /* ---- 0x10003610  FUN_10003610 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_10003610(void)
 
 {
@@ -583,8 +593,12 @@ void FUN_10003610(void)
   lua_pushnil();
   return;
 }
+#endif
+
 
 /* ---- 0x100036a0  FUN_100036a0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_100036a0(void)
 
 {
@@ -625,6 +639,8 @@ LAB_10003741:
   lua_pushnil();
   return;
 }
+#endif
+
 
 /* ---- 0x10003770  FUN_10003770 ---- */
 void FUN_10003770(void)

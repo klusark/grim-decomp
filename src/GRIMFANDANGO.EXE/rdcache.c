@@ -149,6 +149,8 @@ void rdCache_Flush(void)
 }
 
 /* ---- 0x00406860  rdCache_AddMesh ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Appends a mesh to the cache list and computes its screen bounds / depth */
 
 int __cdecl rdCache_AddMesh(void *mesh,uint vertexCount,byte flags)
@@ -265,8 +267,12 @@ int __cdecl rdCache_AddMesh(void *mesh,uint vertexCount,byte flags)
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x00406aa0  rdCache_DrawMeshList3D ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Direct3D path: uploads the material textures (rdMaterial_EnsureTexture) and batches the cached
    meshes into execute buffers */
@@ -1238,6 +1244,8 @@ LAB_00407e89:
 #undef local_7c
 #undef local_8
 #undef local_c
+
+#endif
 
 
 /* ---- 0x00407ed0  rdCache_Begin3DBatch ---- */

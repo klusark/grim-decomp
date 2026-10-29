@@ -417,7 +417,9 @@ bool FUN_00497180(undefined4 param_1,undefined4 param_2)
 }
 
 /* ---- 0x004971a0  FUN_004971a0 ---- */
-void FUN_004971a0(int param_1,float param_2,undefined4 param_3,float param_4)
+void __cdecl
+FUN_004971a0(int param_1,float param_2,undefined4 param_3,float param_4,uint param_5,uint param_6,
+            uint param_7,uint param_8)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -430,10 +432,9 @@ void FUN_004971a0(int param_1,float param_2,undefined4 param_3,float param_4)
   void *set;
   undefined4 uVar7;
   uint uVar8;
-  uint in_stack_00000020;
   #define local_4 (*(float *)(_frame + (0x20 - 0x4)))
   
-  iVar5 = Cos_InstGetUserData(in_stack_00000020);
+  iVar5 = Cos_InstGetUserData(param_8);
   fVar3 = param_4;
   fVar2 = param_2;
   pvVar1 = g_pActorTable;
@@ -454,13 +455,13 @@ void FUN_004971a0(int param_1,float param_2,undefined4 param_3,float param_4)
     if (set == (void *)0x0) {
       return;
     }
-    Set_GetSoundParams(set,&param_2,(char *)&STACK0X(0x00000020),(char *)&param_1,&local_4,&param_4);
+    Set_GetSoundParams(set,&param_2,(char *)&param_8,(char *)&param_1,&local_4,&param_4);
     bVar4 = *(byte *)((int)fVar2 + 0x20);
     if ((byte)param_1 < *(byte *)((int)fVar2 + 0x20)) {
       bVar4 = (byte)param_1;
     }
-    uVar8 = in_stack_00000020 & 0xff;
-    if ((int)(in_stack_00000020 & 0xff) <= (int)*(uint *)((int)fVar2 + 0x28)) {
+    uVar8 = param_8 & 0xff;
+    if ((int)(param_8 & 0xff) <= (int)*(uint *)((int)fVar2 + 0x28)) {
       uVar8 = *(uint *)((int)fVar2 + 0x28);
     }
     Sound_SetPosition(uVar7,(int)pvVar1 + iVar5 * 0xa8 + 0xc,uVar8,bVar4,param_2,param_4);

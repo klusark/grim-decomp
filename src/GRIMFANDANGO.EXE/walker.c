@@ -169,251 +169,246 @@ void Walker_ReplanPath(int param_1,int param_2,undefined4 *param_3,undefined4 pa
 
 
 /* ---- 0x004917e0  Walker_AvoidActorPath ---- */
+/* WARNING: Variable defined which should be unmapped: local_124 */
+
 uint Walker_AvoidActorPath
                (void *param_1,void *param_2,undefined4 *param_3,uint param_4,float *param_5)
 
 {
-  unsigned char _frame[0x150] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x140] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _stkneg[336] __attribute__((aligned(16)));  /* the original frame below the return address */
   float fVar1;
   undefined4 *puVar2;
   undefined4 *puVar3;
   float *pfVar4;
   void *this;
   uint uVar5;
-  int iVar6;
+  float *pfVar6;
   int iVar7;
   int iVar8;
-  uint uVar9;
-  uint *puVar10;
-  uint *puVar11;
-  float *pfVar12;
+  float *pfVar9;
+  uint uVar10;
+  uint uVar11;
+  int iVar12;
   uint *puVar13;
-  float **ppfVar14;
-  #define pfStack_134 (*(float **)(_frame + (0x150 - 0x134)))
-  #define auStack_130 (*(uint (*)[3])(_frame + (0x150 - 0x130)))
-  #define local_124 (*(uint *)(_frame + (0x150 - 0x124)))
-  #define local_104 (*(uint *)(_frame + (0x150 - 0x104)))
-  #define local_100 (*(uint *)(_frame + (0x150 - 0x100)))
-  #define local_fc (*(uint *)(_frame + (0x150 - 0xfc)))
-  #define local_f8 (*(uint *)(_frame + (0x150 - 0xf8)))
-  #define local_f4 (*(uint *)(_frame + (0x150 - 0xf4)))
-  #define local_f0 (*(uint *)(_frame + (0x150 - 0xf0)))
-  #define local_ec (*(uint *)(_frame + (0x150 - 0xec)))
-  #define local_e8 (*(uint *)(_frame + (0x150 - 0xe8)))
-  #define local_e4 (*(uint *)(_frame + (0x150 - 0xe4)))
-  #define local_e0 (*(uint *)(_frame + (0x150 - 0xe0)))
-  #define local_dc (*(uint *)(_frame + (0x150 - 0xdc)))
-  #define local_d8 (*(uint *)(_frame + (0x150 - 0xd8)))
-  #define local_d4 (*(uint *)(_frame + (0x150 - 0xd4)))
-  #define local_d0 (*(uint *)(_frame + (0x150 - 0xd0)))
-  #define local_cc (*(uint *)(_frame + (0x150 - 0xcc)))
-  #define local_c8 (*(uint *)(_frame + (0x150 - 0xc8)))
-  #define local_c4 (*(uint *)(_frame + (0x150 - 0xc4)))
-  #define local_c0 (*(uint *)(_frame + (0x150 - 0xc0)))
-  #define local_bc (*(uint *)(_frame + (0x150 - 0xbc)))
-  #define local_b8 (*(uint *)(_frame + (0x150 - 0xb8)))
-  #define local_b4 (*(uint *)(_frame + (0x150 - 0xb4)))
-  #define local_b0 (*(uint *)(_frame + (0x150 - 0xb0)))
-  #define local_ac (*(uint *)(_frame + (0x150 - 0xac)))
-  #define local_a8 (*(uint *)(_frame + (0x150 - 0xa8)))
-  #define local_a4 (*(uint *)(_frame + (0x150 - 0xa4)))
-  #define local_a0 (*(uint *)(_frame + (0x150 - 0xa0)))
-  #define local_9c (*(uint *)(_frame + (0x150 - 0x9c)))
-  #define local_98 (*(uint *)(_frame + (0x150 - 0x98)))
-  #define local_94 (*(uint *)(_frame + (0x150 - 0x94)))
-  #define local_90 (*(uint *)(_frame + (0x150 - 0x90)))
-  #define local_8c (*(uint *)(_frame + (0x150 - 0x8c)))
-  #define local_88 (*(float (*)[3])(_frame + (0x150 - 0x88)))
-  #define local_7c (*(uint *)(_frame + (0x150 - 0x7c)))
-  #define local_78 (*(uint *)(_frame + (0x150 - 0x78)))
-  #define local_74 (*(uint *)(_frame + (0x150 - 0x74)))
-  #define local_70 (*(uint *)(_frame + (0x150 - 0x70)))
-  #define local_6c (*(uint *)(_frame + (0x150 - 0x6c)))
-  #define local_68 (*(uint *)(_frame + (0x150 - 0x68)))
-  #define local_64 (*(uint *)(_frame + (0x150 - 0x64)))
-  #define local_60 (*(uint *)(_frame + (0x150 - 0x60)))
-  #define local_5c (*(uint *)(_frame + (0x150 - 0x5c)))
-  #define local_58 (*(float (*)[2])(_frame + (0x150 - 0x58)))
-  #define local_50 (*(uint *)(_frame + (0x150 - 0x50)))
-  #define local_4c (*(uint *)(_frame + (0x150 - 0x4c)))
-  #define local_48 (*(uint *)(_frame + (0x150 - 0x48)))
-  #define local_44 (*(uint *)(_frame + (0x150 - 0x44)))
-  #define local_1c (*(uint *)(_frame + (0x150 - 0x1c)))
-  #define local_c (*(float (*)[3])(_frame + (0x150 - 0xc)))
+  uint *puVar14;
+  float *pfVar15;
+  uint *puVar16;
+  uint in_stack_fffffed0;
+  uint uVar17;
+  #define local_124 (*(uint *)(_frame + (0x140 - 0x124)))
+  #define local_104 (*(uint *)(_frame + (0x140 - 0x104)))
+  #define local_100 (*(uint *)(_frame + (0x140 - 0x100)))
+  #define local_fc (*(uint *)(_frame + (0x140 - 0xfc)))
+  #define local_f8 (*(uint *)(_frame + (0x140 - 0xf8)))
+  #define local_f4 (*(uint *)(_frame + (0x140 - 0xf4)))
+  #define local_f0 (*(uint *)(_frame + (0x140 - 0xf0)))
+  #define local_ec (*(uint *)(_frame + (0x140 - 0xec)))
+  #define local_e8 (*(uint *)(_frame + (0x140 - 0xe8)))
+  #define local_e4 (*(uint *)(_frame + (0x140 - 0xe4)))
+  #define local_e0 (*(uint *)(_frame + (0x140 - 0xe0)))
+  #define local_dc (*(uint *)(_frame + (0x140 - 0xdc)))
+  #define local_d8 (*(uint *)(_frame + (0x140 - 0xd8)))
+  #define local_d4 (*(uint *)(_frame + (0x140 - 0xd4)))
+  #define local_d0 (*(uint *)(_frame + (0x140 - 0xd0)))
+  #define local_cc (*(uint *)(_frame + (0x140 - 0xcc)))
+  #define local_c8 (*(uint *)(_frame + (0x140 - 0xc8)))
+  #define local_c4 (*(uint *)(_frame + (0x140 - 0xc4)))
+  #define local_c0 (*(uint *)(_frame + (0x140 - 0xc0)))
+  #define local_bc (*(uint *)(_frame + (0x140 - 0xbc)))
+  #define local_b8 (*(uint *)(_frame + (0x140 - 0xb8)))
+  #define local_b4 (*(uint *)(_frame + (0x140 - 0xb4)))
+  #define local_b0 (*(uint *)(_frame + (0x140 - 0xb0)))
+  #define local_ac (*(uint *)(_frame + (0x140 - 0xac)))
+  #define local_a8 (*(uint *)(_frame + (0x140 - 0xa8)))
+  #define local_a4 (*(uint *)(_frame + (0x140 - 0xa4)))
+  #define local_a0 (*(uint *)(_frame + (0x140 - 0xa0)))
+  #define local_9c (*(uint *)(_frame + (0x140 - 0x9c)))
+  #define local_98 (*(uint *)(_frame + (0x140 - 0x98)))
+  #define local_94 (*(uint *)(_frame + (0x140 - 0x94)))
+  #define local_90 (*(uint *)(_frame + (0x140 - 0x90)))
+  #define local_8c (*(uint *)(_frame + (0x140 - 0x8c)))
+  #define local_88 (*(float (*)[3])(_frame + (0x140 - 0x88)))
+  #define local_7c (*(uint *)(_frame + (0x140 - 0x7c)))
+  #define local_78 (*(uint *)(_frame + (0x140 - 0x78)))
+  #define local_74 (*(uint *)(_frame + (0x140 - 0x74)))
+  #define local_70 (*(uint *)(_frame + (0x140 - 0x70)))
+  #define local_6c (*(uint *)(_frame + (0x140 - 0x6c)))
+  #define local_68 (*(uint *)(_frame + (0x140 - 0x68)))
+  #define local_64 (*(uint *)(_frame + (0x140 - 0x64)))
+  #define local_60 (*(uint *)(_frame + (0x140 - 0x60)))
+  #define local_5c (*(uint *)(_frame + (0x140 - 0x5c)))
+  #define local_58 (*(float (*)[2])(_frame + (0x140 - 0x58)))
+  #define local_50 (*(uint *)(_frame + (0x140 - 0x50)))
+  #define local_4c (*(uint *)(_frame + (0x140 - 0x4c)))
+  #define local_48 (*(uint *)(_frame + (0x140 - 0x48)))
+  #define local_44 (*(uint *)(_frame + (0x140 - 0x44)))
+  #define local_1c (*(uint *)(_frame + (0x140 - 0x1c)))
+  #define local_c (*(float (*)[3])(_frame + (0x140 - 0xc)))
   
   local_100 = 0;
   if (param_2 == (void *)0x0) {
     puVar2 = param_3;
-    uVar9 = param_4;
+    uVar10 = param_4;
     if ((int)param_4 < 1) {
       return 0;
     }
     do {
       puVar3 = puVar2 + 3;
-      uVar9 = uVar9 - 1;
+      uVar10 = uVar10 - 1;
       *(undefined4 *)((int)param_5 + (-0xc - (int)param_3) + (int)puVar3) = *puVar2;
       *(undefined4 *)((int)param_5 + (-8 - (int)param_3) + (int)puVar3) = puVar2[1];
       *(undefined4 *)((int)param_5 + (-4 - (int)param_3) + (int)puVar3) = puVar2[2];
       puVar2 = puVar3;
-    } while (uVar9 != 0);
+    } while (uVar10 != 0);
     return param_4;
   }
   iVar7 = *(int *)(*(int *)(*(int *)((int)param_1 + 0xa0) + 4) + 4);
   local_104 = (uint)(*(float *)(*(int *)((int)param_1 + 0xa4) + 0x3f4) * *(float *)(iVar7 + 0x5c));
-  Actor_GetFrame(param_1);
-  local_124 = 0x49188c;
-  Vec3_Copy(local_c,(float *)(iVar7 + 0x78));
-  iVar7 = *(int *)(*(int *)(*(int *)((int)param_2 + 0xa0) + 4) + 4);
+  pfVar4 = Actor_GetFrame(param_1);
+  Vec3_Copy(local_c,(float *)(iVar7 + 0x78),pfVar4);
+  uVar10 = *(uint *)(*(int *)(*(int *)((int)param_2 + 0xa0) + 4) + 4);
   pfVar4 = Actor_GetFrame(param_2);
-  local_124 = 0x4918b6;
-  Vec3_Sub(local_88,(float *)(iVar7 + 0x78),pfVar4);
+  Vec3_Sub(local_88,(float *)(uVar10 + 0x78),pfVar4);
+  pfVar4 = Actor_GetFrame(param_2);
+  Vec3_Copy((float *)&local_e8,(float *)(uVar10 + 0x78),pfVar4);
+  iVar7 = *(int *)((int)param_2 + 0xa4);
+  local_7c = (uint)(*(float *)(uVar10 + 0x60) * *(float *)(iVar7 + 0x3f4) - (float)local_104);
+  puVar13 = param_3 + param_4 * 3 + -3;
+  local_78 = (uint)(*(float *)(uVar10 + 100) * *(float *)(iVar7 + 0x3f4) - (float)local_104);
+  local_74 = (uint)(*(float *)(uVar10 + 0x68) * *(float *)(iVar7 + 0x3f4) - (float)local_104);
+  local_70 = (uint)(*(float *)(uVar10 + 0x6c) * *(float *)(iVar7 + 0x3f4) + (float)local_104);
+  local_6c = (uint)(*(float *)(uVar10 + 0x70) * *(float *)(iVar7 + 0x3f4) + (float)local_104);
+  local_68 = (uint)(*(float *)(uVar10 + 0x74) * *(float *)(iVar7 + 0x3f4) + (float)local_104);
   Actor_GetFrame(param_2);
-  local_124 = 0x4918ce;
-  Vec3_Copy((float *)&local_e8,(float *)(iVar7 + 0x78));
-  iVar6 = *(int *)((int)param_2 + 0xa4);
-  local_7c = (uint)(*(float *)(iVar7 + 0x60) * *(float *)(iVar6 + 0x3f4) - (float)local_104);
-  puVar10 = param_3 + param_4 * 3 + -3;
-  local_78 = (uint)(*(float *)(iVar7 + 100) * *(float *)(iVar6 + 0x3f4) - (float)local_104);
-  local_74 = (uint)(*(float *)(iVar7 + 0x68) * *(float *)(iVar6 + 0x3f4) - (float)local_104);
-  local_70 = (uint)(*(float *)(iVar7 + 0x6c) * *(float *)(iVar6 + 0x3f4) + (float)local_104);
-  local_6c = (uint)(*(float *)(iVar7 + 0x70) * *(float *)(iVar6 + 0x3f4) + (float)local_104);
-  local_68 = (uint)(*(float *)(iVar7 + 0x74) * *(float *)(iVar6 + 0x3f4) + (float)local_104);
-  Actor_GetFrame(param_2);
-  puVar11 = &local_7c;
-  ppfVar14 = &pfStack_134;
-  for (iVar6 = 6; iVar6 != 0; iVar6 = iVar6 + -1) {
-    *ppfVar14 = (float *)*puVar11;
-    puVar11 = puVar11 + 1;
-    ppfVar14 = ppfVar14 + 1;
+  puVar14 = &local_7c;
+  puVar16 = (uint *)(_stkneg + 28);
+  for (iVar7 = 6; iVar7 != 0; iVar7 = iVar7 + -1) {
+    *puVar16 = *puVar14;
+    puVar14 = puVar14 + 1;
+    puVar16 = puVar16 + 1;
   }
-  ((code *)Collision_PushOutOfBox)(puVar10);
+  ((code *)Collision_PushOutOfBox)(puVar13);
   Actor_GetFrame(param_2);
-  puVar11 = &local_7c;
-  ppfVar14 = &pfStack_134;
-  for (iVar6 = 6; iVar6 != 0; iVar6 = iVar6 + -1) {
-    *ppfVar14 = (float *)*puVar11;
-    puVar11 = puVar11 + 1;
-    ppfVar14 = ppfVar14 + 1;
+  puVar14 = &local_7c;
+  puVar16 = (uint *)(_stkneg + 28);
+  for (iVar7 = 6; iVar7 != 0; iVar7 = iVar7 + -1) {
+    *puVar16 = *puVar14;
+    puVar14 = puVar14 + 1;
+    puVar16 = puVar16 + 1;
   }
   ((code *)Collision_PushOutOfBox)(param_3);
-  local_d0 = *puVar10;
-  local_cc = puVar10[1];
-  local_c8 = puVar10[2];
-  iVar6 = ((code *)SectorList_FindByPoint)();
-  if (iVar6 == 0) {
+  local_d0 = *puVar13;
+  local_cc = puVar13[1];
+  local_c8 = puVar13[2];
+  iVar7 = ((code *)SectorList_FindByPoint)();
+  if (iVar7 == 0) {
     return 0;
   }
-  uVar9 = 0;
+  uVar11 = 0;
   local_f8 = param_4 - 1;
   local_f0 = 0;
   if (0 < (int)local_f8) {
-    pfVar12 = (float *)(param_3 + 2);
+    pfVar9 = (float *)(param_3 + 2);
     pfVar4 = param_5;
     do {
-      local_64 = (uint)((float)local_e8 + pfVar12[-2]);
+      local_64 = (uint)((float)local_e8 + pfVar9[-2]);
       local_fc = (uint)(pfVar4 + 3);
-      uVar9 = local_100 + 1;
-      local_60 = (uint)(pfVar12[-1] + (float)local_e4);
-      local_5c = (uint)((float)local_e0 + *pfVar12);
-      local_a0 = (uint)(pfVar12[1] + (float)local_e8);
-      local_9c = (uint)(pfVar12[2] + (float)local_e4);
-      local_98 = (uint)(pfVar12[3] + (float)local_e0);
-      *pfVar4 = pfVar12[-2];
-      pfVar4[1] = pfVar12[-1];
-      pfVar4[2] = *pfVar12;
+      uVar11 = local_100 + 1;
+      local_60 = (uint)(pfVar9[-1] + (float)local_e4);
+      local_5c = (uint)((float)local_e0 + *pfVar9);
+      local_a0 = (uint)(pfVar9[1] + (float)local_e8);
+      local_9c = (uint)(pfVar9[2] + (float)local_e4);
+      local_98 = (uint)(pfVar9[3] + (float)local_e0);
+      *pfVar4 = pfVar9[-2];
+      pfVar4[1] = pfVar9[-1];
+      pfVar4[2] = *pfVar9;
       Actor_GetFrame(param_2);
-      pfStack_134 = local_88;
-      puVar10 = &local_7c;
-      puVar11 = auStack_130;
-      for (iVar6 = 6; iVar6 != 0; iVar6 = iVar6 + -1) {
-        *puVar11 = *puVar10;
-        puVar10 = puVar10 + 1;
-        puVar11 = puVar11 + 1;
+      puVar13 = &local_7c;
+      puVar14 = (uint *)(_stkneg + 32);
+      for (iVar7 = 6; iVar7 != 0; iVar7 = iVar7 + -1) {
+        *puVar14 = *puVar13;
+        puVar13 = puVar13 + 1;
+        puVar14 = puVar14 + 1;
       }
-      iVar6 = ((code *)Collision_SegmentHitsBox)(&local_64,&local_a0);
-      local_100 = uVar9;
-      if (iVar6 != 0) {
+      iVar7 = ((code *)Collision_SegmentHitsBox)(&local_64,&local_a0);
+      local_100 = uVar11;
+      if (iVar7 != 0) {
         pfVar4 = Actor_GetFrame(param_2);
-        local_124 = 0x491b57;
         Vec3_Sub(local_58,(float *)&DAT_008ca320,pfVar4);
         this = (void *)((code *)SectorList_FindNearestPoint)();
         Sector_SnapToPlane(this,local_58);
-        local_124 = 0x491b91;
         Actor_GetFrame(param_2);
-        local_124 = (uint)((float)local_104 - -0.02);
-        auStack_130[1] = 0x491ba9;
-        auStack_130[2] = iVar7;
+        uVar17 = 0x491ba9;
         ((code *)Collision_BoxCorners)();
-        puVar10 = &local_1c;
+        puVar13 = &local_1c;
         pfVar4 = (float *)&local_4c;
         local_f4 = 4;
         do {
-          *puVar10 = 0;
+          *puVar13 = 0;
           local_a0 = (uint)((float)local_e8 + *pfVar4);
           local_9c = (uint)(pfVar4[1] + (float)local_e4);
           local_98 = (uint)((float)local_e0 + pfVar4[2]);
           Actor_GetFrame(param_2);
-          pfStack_134 = local_88;
-          puVar11 = &local_7c;
-          puVar13 = auStack_130;
+          pfVar9 = local_88;
+          puVar14 = &local_7c;
+          puVar16 = (uint *)(_stkneg + 32);
           for (iVar7 = 6; iVar7 != 0; iVar7 = iVar7 + -1) {
-            *puVar13 = *puVar11;
-            puVar11 = puVar11 + 1;
-            puVar13 = puVar13 + 1;
+            *puVar16 = *puVar14;
+            puVar14 = puVar14 + 1;
+            puVar16 = puVar16 + 1;
           }
           iVar7 = ((code *)Collision_SegmentHitsBox)(&local_64,&local_a0);
-          if (iVar7 == 0) {
-            local_124 = 0x491c4c;
-            iVar7 = ((code *)Planner_PlanPath)();
-            if (iVar7 != 0) {
-              *puVar10 = 1;
-            }
+          if ((iVar7 == 0) && (iVar7 = ((code *)Planner_PlanPath)(), iVar7 != 0)) {
+            *puVar13 = 1;
           }
           pfVar4 = pfVar4 + 3;
-          puVar10 = puVar10 + 1;
+          puVar13 = puVar13 + 1;
           local_f4 = local_f4 - 1;
         } while (local_f4 != 0);
-        local_124 = 0x491c89;
         uVar5 = ((code *)Collision_PickDetour)();
         if (uVar5 == 0xffffffff) {
-          return uVar9;
+          return uVar11;
         }
-        local_124 = 0x491cca;
         local_d8 = uVar5;
         ((code *)Planner_PlanPath)();
         iVar7 = ((code *)Planner_GetPath)();
         if (0 < iVar7) {
-          local_100 = uVar9 + iVar7;
-          pfVar4 = param_5 + uVar9 * 3;
-          pfVar12 = (float *)local_fc;
+          local_100 = uVar11 + iVar7;
+          pfVar4 = param_5 + uVar11 * 3;
+          pfVar15 = (float *)local_fc;
           do {
             iVar7 = iVar7 + -1;
-            *pfVar4 = *pfVar12;
-            pfVar4[1] = pfVar12[1];
-            pfVar4[2] = pfVar12[2];
+            *pfVar4 = *pfVar15;
+            pfVar4[1] = pfVar15[1];
+            pfVar4[2] = pfVar15[2];
             pfVar4 = pfVar4 + 3;
-            pfVar12 = pfVar12 + 3;
+            pfVar15 = pfVar15 + 3;
             uVar5 = local_d8;
           } while (iVar7 != 0);
         }
+        pfVar15 = (float *)&local_e8;
         (&local_1c)[uVar5] = 0;
         local_f4 = (uint)(param_5 + local_100 * 3);
         pfVar4 = (float *)(local_f4 + -0xc);
-        Actor_GetFrame(param_2);
-        puVar10 = &local_7c;
-        ppfVar14 = &pfStack_134;
+        uVar11 = 0x491d51;
+        pfVar6 = Actor_GetFrame(param_2);
+        puVar13 = &local_7c;
+        puVar14 = (uint *)(_stkneg + 28);
         for (iVar7 = 6; iVar7 != 0; iVar7 = iVar7 + -1) {
-          *ppfVar14 = (float *)*puVar10;
-          puVar10 = puVar10 + 1;
-          ppfVar14 = ppfVar14 + 1;
+          *puVar14 = *puVar13;
+          puVar13 = puVar13 + 1;
+          puVar14 = puVar14 + 1;
         }
-        iVar7 = Collision_PointInBox(pfVar4,&local_d0,local_88);
+        iVar7 = Collision_PointInBox
+                          (pfVar4,(float *)&local_d0,local_88,(uint)pfVar9,in_stack_fffffed0,uVar17,
+                           uVar10,0x491cca,uVar11,(uint)pfVar6,pfVar15);
         if (iVar7 != 0) {
           iVar7 = ((code *)Planner_GetPath)();
           if (iVar7 < 1) {
             return local_100;
           }
-          uVar9 = local_100 + iVar7;
+          uVar10 = local_100 + iVar7;
           do {
             iVar7 = iVar7 + -1;
             *(float *)local_f4 = *(float *)local_fc;
@@ -422,25 +417,23 @@ uint Walker_AvoidActorPath
             local_f4 = (uint)(local_f4 + 0xc);
             local_fc = (uint)(local_fc + 0xc);
           } while (iVar7 != 0);
-          return uVar9;
+          return uVar10;
         }
-        uVar9 = (int)(local_d8 + 3) >> 0x1f;
-        uVar9 = ((local_d8 + 3 ^ uVar9) - uVar9 & 3 ^ uVar9) - uVar9;
+        uVar11 = (int)(local_d8 + 3) >> 0x1f;
+        uVar11 = ((local_d8 + 3 ^ uVar11) - uVar11 & 3 ^ uVar11) - uVar11;
         uVar5 = (int)(local_d8 + 5) >> 0x1f;
         uVar5 = ((local_d8 + 5 ^ uVar5) - uVar5 & 3 ^ uVar5) - uVar5;
-        local_124 = 0x491e1a;
         local_dc = uVar5;
         local_f0 = ((code *)Planner_PlanPath)();
-        local_124 = 0x491e37;
         iVar7 = ((code *)Planner_PlanPath)();
         if (iVar7 != 0) {
           if (local_f0 == 0) goto LAB_00491fa5;
-          local_104 = (uint)(*pfVar4 - (float)(&local_4c)[uVar9 * 3]);
-          local_bc = (uint)(*(float *)(local_f4 + -8) - (float)(&local_48)[uVar9 * 3]);
-          local_b8 = (uint)(*(float *)(local_f4 + -4) - (float)(&local_44)[uVar9 * 3]);
-          local_c0 = (uint)((float)(&local_4c)[uVar9 * 3] - (float)local_d0);
-          local_c4 = (uint)((float)(&local_48)[uVar9 * 3] - (float)local_cc);
-          local_b0 = (uint)((float)(&local_44)[uVar9 * 3] - (float)local_c8);
+          local_104 = (uint)(*pfVar4 - (float)(&local_4c)[uVar11 * 3]);
+          local_bc = (uint)(*(float *)(local_f4 + -8) - (float)(&local_48)[uVar11 * 3]);
+          local_b8 = (uint)(*(float *)(local_f4 + -4) - (float)(&local_44)[uVar11 * 3]);
+          local_c0 = (uint)((float)(&local_4c)[uVar11 * 3] - (float)local_d0);
+          local_c4 = (uint)((float)(&local_48)[uVar11 * 3] - (float)local_cc);
+          local_b0 = (uint)((float)(&local_44)[uVar11 * 3] - (float)local_c8);
           local_b4 = (uint)(*pfVar4 - (float)(&local_4c)[uVar5 * 3]);
           local_d4 = (uint)(*(float *)(local_f4 + -8) - (float)(&local_48)[uVar5 * 3]);
           local_f8 = (uint)(*(float *)(local_f4 + -4) - (float)(&local_44)[uVar5 * 3]);
@@ -464,7 +457,7 @@ uint Walker_AvoidActorPath
         }
         if (local_f0 != 0) {
           local_f8 = 0xffffffff;
-          local_104 = uVar9;
+          local_104 = uVar11;
         }
 LAB_00491fa5:
         if (iVar7 != 0) {
@@ -475,64 +468,67 @@ LAB_00491fa5:
           return local_100;
         }
         while( true ) {
-          local_124 = 0x491fde;
           ((code *)Planner_PlanPath)();
           pfVar4 = (float *)((code *)Planner_GetPath)();
           local_dc = (int)pfVar4 - 1;
           iVar7 = 0;
           if (0 < (int)local_dc) {
-            iVar6 = 0;
+            iVar12 = 0;
             do {
-              local_ac = (uint)((float)local_e8 + *(float *)(local_fc + iVar6));
-              local_a8 = (uint)(*(float *)(local_fc + 4 + iVar6) + (float)local_e4);
-              local_a4 = (uint)(*(float *)(local_fc + 8 + iVar6) + (float)local_e0);
-              local_94 = (uint)(*(float *)(local_fc + 0xc + iVar6) + (float)local_e8);
-              local_90 = (uint)(*(float *)(local_fc + 0x10 + iVar6) + (float)local_e4);
-              local_8c = (uint)(*(float *)(local_fc + 0x14 + iVar6) + (float)local_e0);
+              local_ac = (uint)((float)local_e8 + *(float *)(local_fc + iVar12));
+              local_a8 = (uint)(*(float *)(local_fc + 4 + iVar12) + (float)local_e4);
+              local_a4 = (uint)(*(float *)(local_fc + 8 + iVar12) + (float)local_e0);
+              local_94 = (uint)(*(float *)(local_fc + 0xc + iVar12) + (float)local_e8);
+              local_90 = (uint)(*(float *)(local_fc + 0x10 + iVar12) + (float)local_e4);
+              local_8c = (uint)(*(float *)(local_fc + 0x14 + iVar12) + (float)local_e0);
               Actor_GetFrame(param_2);
-              puVar10 = &local_7c;
-              puVar11 = auStack_130;
+              puVar13 = &local_7c;
+              puVar14 = (uint *)(_stkneg + 32);
               for (iVar8 = 6; iVar8 != 0; iVar8 = iVar8 + -1) {
-                *puVar11 = *puVar10;
-                puVar10 = puVar10 + 1;
-                puVar11 = puVar11 + 1;
+                *puVar14 = *puVar13;
+                puVar13 = puVar13 + 1;
+                puVar14 = puVar14 + 1;
               }
-              pfStack_134 = local_88;
+              pfVar9 = local_88;
               iVar8 = ((code *)Collision_SegmentHitsBox)(&local_ac,&local_94);
               if (iVar8 != 0) {
                 return 0;
               }
               iVar7 = iVar7 + 1;
-              iVar6 = iVar6 + 0xc;
+              iVar12 = iVar12 + 0xc;
             } while (iVar7 < (int)local_dc);
           }
           if (0 < (int)pfVar4) {
             local_100 = local_100 + (int)pfVar4;
             puVar2 = (undefined4 *)local_fc;
-            pfVar12 = pfVar4;
+            pfVar15 = pfVar4;
             do {
-              pfVar12 = (float *)((int)pfVar12 + -1);
+              pfVar15 = (float *)((int)pfVar15 + -1);
               *(undefined4 *)local_f4 = *puVar2;
               *(undefined4 *)(local_f4 + 4) = puVar2[1];
               *(undefined4 *)(local_f4 + 8) = puVar2[2];
               local_f4 = (uint)(local_f4 + 0xc);
               puVar2 = puVar2 + 3;
-            } while (pfVar12 != (float *)0x0);
+            } while (pfVar15 != (float *)0x0);
           }
+          pfVar15 = (float *)&local_e8;
           local_f4 = (uint)(param_5 + local_100 * 3);
-          Actor_GetFrame(param_2);
-          puVar10 = &local_7c;
-          ppfVar14 = &pfStack_134;
+          uVar11 = 0x492118;
+          pfVar6 = Actor_GetFrame(param_2);
+          puVar13 = &local_7c;
+          puVar14 = (uint *)(_stkneg + 28);
           for (iVar7 = 6; iVar7 != 0; iVar7 = iVar7 + -1) {
-            *ppfVar14 = (float *)*puVar10;
-            puVar10 = puVar10 + 1;
-            ppfVar14 = ppfVar14 + 1;
+            *puVar14 = *puVar13;
+            puVar13 = puVar13 + 1;
+            puVar14 = puVar14 + 1;
           }
-          iVar7 = Collision_PointInBox((float *)(local_f4 + -0xc),&local_d0,local_88);
+          iVar7 = Collision_PointInBox
+                            ((float *)(local_f4 + -0xc),(float *)&local_d0,local_88,(uint)pfVar9,
+                             in_stack_fffffed0,uVar17,uVar10,0x491fde,uVar11,(uint)pfVar6,pfVar15);
           if (iVar7 != 0) break;
-          uVar9 = local_f8 + 4 + local_104;
-          uVar5 = (int)uVar9 >> 0x1f;
-          local_104 = ((uVar9 ^ uVar5) - uVar5 & 3 ^ uVar5) - uVar5;
+          uVar11 = local_f8 + 4 + local_104;
+          uVar5 = (int)uVar11 >> 0x1f;
+          local_104 = ((uVar11 ^ uVar5) - uVar5 & 3 ^ uVar5) - uVar5;
           if (local_104 == local_d8) {
             return local_100;
           }
@@ -550,51 +546,49 @@ LAB_00491fa5:
             local_a8 = (uint)(*(float *)((int)pfVar4 + iVar7 + 0x10) + (float)local_e4);
             local_a4 = (uint)(*(float *)((int)pfVar4 + iVar7 + 0x14) + (float)local_e0);
             Actor_GetFrame(param_2);
-            pfStack_134 = local_88;
-            puVar10 = &local_7c;
-            puVar11 = auStack_130;
-            for (iVar6 = 6; iVar6 != 0; iVar6 = iVar6 + -1) {
-              *puVar11 = *puVar10;
-              puVar10 = puVar10 + 1;
-              puVar11 = puVar11 + 1;
+            puVar13 = &local_7c;
+            puVar14 = (uint *)(_stkneg + 32);
+            for (iVar12 = 6; iVar12 != 0; iVar12 = iVar12 + -1) {
+              *puVar14 = *puVar13;
+              puVar13 = puVar13 + 1;
+              puVar14 = puVar14 + 1;
             }
-            iVar6 = ((code *)Collision_SegmentHitsBox)(&local_94,&local_ac);
-            if (iVar6 != 0) {
+            iVar12 = ((code *)Collision_SegmentHitsBox)(&local_94,&local_ac);
+            if (iVar12 != 0) {
               return 0;
             }
             local_f8 = local_f8 + 1;
             iVar7 = iVar7 + 0xc;
           } while ((int)local_f8 < (int)local_dc);
         }
-        uVar9 = local_100;
+        uVar10 = local_100;
         if (0 < (int)local_d4) {
-          uVar9 = local_100 + local_d4;
-          pfVar12 = param_5 + local_100 * 3;
+          uVar10 = local_100 + local_d4;
+          pfVar9 = param_5 + local_100 * 3;
           do {
             local_d4 = local_d4 - 1;
-            *pfVar12 = *pfVar4;
-            pfVar12[1] = pfVar4[1];
-            pfVar12[2] = pfVar4[2];
-            pfVar12 = pfVar12 + 3;
+            *pfVar9 = *pfVar4;
+            pfVar9[1] = pfVar4[1];
+            pfVar9[2] = pfVar4[2];
+            pfVar9 = pfVar9 + 3;
             pfVar4 = pfVar4 + 3;
           } while (local_d4 != 0);
         }
-        return uVar9;
+        return uVar10;
       }
-      uVar9 = local_f0 + 1;
-      pfVar12 = pfVar12 + 3;
+      uVar11 = local_f0 + 1;
+      pfVar9 = pfVar9 + 3;
       pfVar4 = (float *)local_fc;
-      local_f0 = uVar9;
-    } while ((int)uVar9 < (int)local_f8);
+      local_f0 = uVar11;
+    } while ((int)uVar11 < (int)local_f8);
   }
-  pfVar4 = (float *)(param_3 + uVar9 * 3);
+  pfVar4 = (float *)(param_3 + uVar11 * 3);
   param_5 = param_5 + local_100 * 3;
   *param_5 = *pfVar4;
   param_5[1] = pfVar4[1];
   param_5[2] = pfVar4[2];
   return local_100 + 1;
 }
-#undef auStack_130
 #undef local_100
 #undef local_104
 #undef local_124
@@ -644,7 +638,6 @@ LAB_00491fa5:
 #undef local_f4
 #undef local_f8
 #undef local_fc
-#undef pfStack_134
 
 
 /* ---- 0x00494880  Walker_SetFadeTime ---- */
@@ -779,6 +772,8 @@ void __thiscall Walker_ToLocalSpace(void *this,float *vec)
 
 
 /* ---- 0x004a83c0  Walker_TurnHeading ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined * __thiscall Walker_TurnHeading(void *this,int a1)
 
 {
@@ -803,6 +798,8 @@ undefined * __thiscall Walker_TurnHeading(void *this,int a1)
   return extraout_EAX;
 }
 #undef local_30
+
+#endif
 
 
 /* ---- 0x004a8450  Walker_TurnToPoint ---- */
@@ -840,6 +837,8 @@ float __thiscall Walker_TurnToPoint(void *this,int a1,int a2)
 
 
 /* ---- 0x004a85b0  Walker_SetConstraint ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined * __thiscall Walker_SetConstraint(void *this,int a1)
 
 {
@@ -865,6 +864,8 @@ undefined * __thiscall Walker_SetConstraint(void *this,int a1)
   }
   return in_EAX;
 }
+#endif
+
 
 /* ---- 0x004a8610  Walker_WalkSectors ---- */
 /* WARNING: Variable defined which should be unmapped: local_48 */
@@ -1017,6 +1018,8 @@ undefined * __thiscall Walker_WalkSectors(void *this,int a1,int a2,int a3)
 
 
 /* ---- 0x004a89b0  Walker_SetSectorFrame ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined * __thiscall Walker_SetSectorFrame(void *this,int a1)
 
 {
@@ -1048,6 +1051,8 @@ undefined * __thiscall Walker_SetSectorFrame(void *this,int a1)
   Vec3_Normalize(pfVar2);
   return extraout_EAX;
 }
+#endif
+
 
 /* ---- 0x004a8a90  Walker_RebuildRightVector ---- */
 void __fastcall Walker_RebuildRightVector(int param_1)

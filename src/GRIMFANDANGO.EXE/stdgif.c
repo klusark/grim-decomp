@@ -21,6 +21,8 @@ uint stdGif_Load(undefined4 param_1,undefined4 param_2,undefined4 param_3)
 }
 
 /* ---- 0x0047d2d0  stdGif_LoadInto ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Stdgif.c: GIF87/89 decoder (LZW via the stdGif_Lzw* helpers) */
 
 undefined4 stdGif_LoadInto(char *param_1,undefined4 *param_2,int param_3,int param_4)
@@ -444,6 +446,8 @@ undefined4 stdGif_LoadInto(char *param_1,undefined4 *param_2,int param_3,int par
 #undef uStack_90
 #undef uStack_94
 #undef uStack_ec
+
+#endif
 
 
 /* ---- 0x0047e060  stdGif_Save ---- */
@@ -891,6 +895,8 @@ void stdGif_LzwWriteCode(undefined4 param_1,short param_2)
 }
 
 /* ---- 0x0047ea30  stdGif_LzwEncodePixel ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 uint stdGif_LzwEncodePixel(undefined4 param_1,byte param_2)
@@ -955,6 +961,8 @@ uint stdGif_LzwEncodePixel(undefined4 param_1,byte param_2)
   _DAT_00811b24 = CONCAT22(DAT_00811b24_2,*(undefined2 *)((int)&UINT_00812ed8 + sVar1 * 2));
   return 0;
 }
+#endif
+
 
 /* ---- 0x0047eba0  stdGif_LzwClearTable ---- */
 void stdGif_LzwClearTable(undefined4 param_1)

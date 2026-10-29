@@ -8,14 +8,12 @@
 /* ---- 0x00473630  stdBitmap_Load ---- */
 /* Loads a .bm bitmap file; the frame surfaces hang off +0x78 */
 
-void * __cdecl stdBitmap_Load(char *filename)
+void * __cdecl stdBitmap_Load(char *filename,int param_2,int param_3)
 
 {
   void *pvVar1;
-  int in_stack_00000008;
-  int in_stack_0000000c;
   
-  pvVar1 = stdBitmap_LoadFile(filename,in_stack_00000008,in_stack_0000000c);
+  pvVar1 = stdBitmap_LoadFile(filename,param_2,param_3);
   if (pvVar1 != (void *)0x0) {
     stdBitmap_DecompressAll(pvVar1);
   }

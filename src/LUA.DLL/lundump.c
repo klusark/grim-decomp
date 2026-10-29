@@ -119,7 +119,7 @@ uint __cdecl lundump__cfd0(int *param_1)
     param_1[1] = (int)((byte *)param_1[1] + 1);
   }
   if (uVar2 == 0xffffffff) {
-    luaU_unexpectedEOZ();
+    luaU_unexpectedEOZ((int)param_1);
   }
   return uVar2;
 }
@@ -127,13 +127,10 @@ uint __cdecl lundump__cfd0(int *param_1)
 /* ---- 0x1000d010  luaU_unexpectedEOZ ---- */
 /* Unidentified function of lundump.c (precompiled chunk loader) */
 
-void luaU_unexpectedEOZ(void)
+void __cdecl luaU_unexpectedEOZ(int param_1)
 
 {
-  int in_stack_00000004;
-  
-  ((code *)luaL_verror)(s_unexpected_end_of_binary_file__s_10027fe8,*(undefined4 *)(in_stack_00000004 + 0x10))
-  ;
+  luaL_verror(s_unexpected_end_of_binary_file__s_10027fe8,*(undefined4 *)(param_1 + 0x10));
   return;
 }
 
@@ -162,7 +159,7 @@ uint __cdecl luaU_LoadBlock(uint *param_1,undefined4 *param_2,uint param_3)
   
   uVar1 = luaZ_read(param_1,param_2,param_3);
   if (uVar1 != 0) {
-    luaU_unexpectedEOZ();
+    luaU_unexpectedEOZ((int)param_1);
   }
   return uVar1;
 }

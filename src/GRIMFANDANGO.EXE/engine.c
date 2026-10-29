@@ -45,12 +45,12 @@ void Engine_OpenResourceLog(undefined4 param_1)
 }
 
 /* ---- 0x004825c0  Engine_PushSelectedActorCostume ---- */
-void Engine_PushSelectedActorCostume(void)
+void Engine_PushSelectedActorCostume(int param_1)
 
 {
   if (g_pSelectedActor != (void *)0x0) {
     Lua_CallCostumeOverrideHandler(g_pSelectedActor,1);
-    Actor_PushCostume(g_pSelectedActor,(char *)0x0);
+    Actor_PushCostume(g_pSelectedActor,(char *)0x0,param_1);
   }
   return;
 }
@@ -578,6 +578,8 @@ void Profile_Begin(int param_1)
 
 
 /* ---- 0x00482e80  Profile_End ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Source: Main/sputmain.cpp (line 1462, from __FILE__/__LINE__ passed to the allocator) */
 
 undefined * __cdecl Profile_End(int param_1)
@@ -608,6 +610,8 @@ undefined * __cdecl Profile_End(int param_1)
 #undef dStack_8
 #undef lStack_10
 #undef uStack_14
+
+#endif
 
 
 /* ---- 0x00482f00  Engine_BlitToBackBuffer ---- */

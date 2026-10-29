@@ -502,10 +502,10 @@ undefined4 FUN_0048ecd0(code *param_1)
           }
           name = (char *)CosUtil_PtrFromHandle(auStack_b4[0]);
           if (iStack_164 == 0) {
-            Actor_SetCostume(setName,name);
+            Actor_SetCostume(setName,name,0);
           }
           else {
-            Actor_PushCostume(setName,name);
+            Actor_PushCostume(setName,name,0);
           }
           Cos_RestoreInstance(*(undefined4 *)setName[0x28],param_1);
           *(undefined4 *)(setName[0x28] + 0xc) = uStack_128;

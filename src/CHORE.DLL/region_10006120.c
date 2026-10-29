@@ -585,6 +585,8 @@ uint FUN_10006a30(uint param_1)
 
 
 /* ---- 0x10006b30  FUN_10006b30 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 int FUN_10006b30(undefined4 param_1,byte *param_2,undefined4 *param_3)
@@ -1281,6 +1283,8 @@ LAB_10007733:
 #undef uStack_1bc
 #undef uStack_1cc
 
+#endif
+
 
 /* ---- 0x10007870  FUN_10007870 ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
@@ -1821,6 +1825,8 @@ void FUN_10007f00(void)
 }
 
 /* ---- 0x10007ff0  FUN_10007ff0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 void FUN_10007ff0(void)
@@ -1851,6 +1857,8 @@ void FUN_10007ff0(void)
   return;
 }
 #undef iStack_14
+
+#endif
 
 
 /* ---- 0x10008090  FUN_10008090 ---- */
@@ -2011,6 +2019,8 @@ LAB_10008265:
 }
 
 /* ---- 0x100082a0  FUN_100082a0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 undefined4 FUN_100082a0(undefined4 param_1)
@@ -2140,6 +2150,8 @@ LAB_100083f2:
 #undef abStack_14
 #undef iStack_4
 
+#endif
+
 
 /* ---- 0x100084d0  FUN_100084d0 ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
@@ -2215,6 +2227,8 @@ void FUN_10008580(void)
 }
 
 /* ---- 0x100085c0  FUN_100085c0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 void FUN_100085c0(void)
@@ -2314,6 +2328,8 @@ void FUN_100085c0(void)
 #undef auStack_308
 #undef auStack_408
 #undef auStack_508
+
+#endif
 
 
 /* ---- 0x100087a0  FUN_100087a0 ---- */
@@ -3648,6 +3664,8 @@ void FUN_10009b60(undefined4 *param_1)
 }
 
 /* ---- 0x10009da0  FUN_10009da0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 uint FUN_10009da0(undefined4 param_1,char *param_2,int param_3)
 
 {
@@ -3723,6 +3741,8 @@ LAB_10009e3c:
 }
 #undef iStack_4
 #undef uStack_8
+
+#endif
 
 
 /* ---- 0x10009ea0  FUN_10009ea0 ---- */
@@ -3925,6 +3945,8 @@ void FUN_1000a320(int param_1)
 }
 
 /* ---- 0x1000a390  FUN_1000a390 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 undefined4 FUN_1000a390(void)
@@ -4050,8 +4072,12 @@ undefined4 FUN_1000a390(void)
 #undef puStack_c
 #undef uStack_4
 
+#endif
+
 
 /* ---- 0x1000a710  FUN_1000a710 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 int FUN_1000a710(undefined4 param_1,undefined4 param_2,undefined4 param_3,int param_4,
@@ -4142,6 +4168,8 @@ LAB_1000a918:
   FUN_10009510(iVar1);
   return 0;
 }
+#endif
+
 
 /* ---- 0x1000a940  FUN_1000a940 ---- */
 int FUN_1000a940(char *param_1,int param_2)
@@ -4428,6 +4456,8 @@ LAB_1000ad74:
 }
 
 /* ---- 0x1000adb0  FUN_1000adb0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 int FUN_1000adb0(undefined4 param_1,undefined4 param_2,int param_3,undefined4 param_4,int param_5)
@@ -4506,8 +4536,12 @@ int FUN_1000adb0(undefined4 param_1,undefined4 param_2,int param_3,undefined4 pa
 }
 #undef uStack_4
 
+#endif
+
 
 /* ---- 0x1000af40  FUN_1000af40 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 int FUN_1000af40(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4,
@@ -4567,6 +4601,8 @@ int FUN_1000af40(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefi
   return iVar1;
 }
 #undef auStack_2
+
+#endif
 
 
 /* ---- 0x1000b080  FUN_1000b080 ---- */
@@ -4768,6 +4804,8 @@ void FUN_1000b380(int param_1,int param_2,byte *param_3)
 }
 
 /* ---- 0x1000b3e0  FUN_1000b3e0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 int * FUN_1000b3e0(uint param_1)
@@ -4879,6 +4917,8 @@ int * FUN_1000b3e0(uint param_1)
   *piVar7 = (int)piVar7 + param_1 + 8;
   return piVar7 + 0x40;
 }
+#endif
+
 
 /* ---- 0x1000b620  FUN_1000b620 ---- */
 int FUN_1000b620(int *param_1,uint param_2,uint param_3)
@@ -6059,6 +6099,8 @@ undefined4 FUN_1000caf0(uint param_1,undefined4 param_2,undefined4 param_3)
 }
 
 /* ---- 0x1000cb70  FUN_1000cb70 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 int FUN_1000cb70(uint param_1,char *param_2,int param_3)
 
 {
@@ -6198,6 +6240,8 @@ LAB_1000cd48:
 #undef pcStack_c
 #undef piStack_4
 #undef uStack_20
+
+#endif
 
 
 /* ---- 0x1000cda0  FUN_1000cda0 ---- */
@@ -6647,6 +6691,8 @@ int FUN_1000d320(uint param_1,char *param_2,uint param_3)
 
 
 /* ---- 0x1000d530  FUN_1000d530 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 int FUN_1000d530(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4)
@@ -6706,8 +6752,12 @@ int FUN_1000d530(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefi
   }
   return 0;
 }
+#endif
+
 
 /* ---- 0x1000d660  FUN_1000d660 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 int FUN_1000d660(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4)
@@ -6767,6 +6817,8 @@ int FUN_1000d660(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefi
   }
   return 0;
 }
+#endif
+
 
 /* ---- 0x1000d890  FUN_1000d890 ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
