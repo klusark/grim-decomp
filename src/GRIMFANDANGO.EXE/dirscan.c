@@ -85,8 +85,8 @@ undefined4 DirScan_Next(int param_1,char *param_2)
   uint uVar4;
   char *pcVar5;
   char *pcVar6;
-  #define local_118 (*(uint (*)[3])(_frame + (0x130 - 0x118)))
-  #define local_10c (*(undefined4 *)(_frame + (0x130 - 0x10c)))
+  #define local_118 (*(uint *)(_frame + (0x130 - 0x118)))
+  #define local_10c (*(uint *)(_frame + (0x130 - 0x10c)))
   #define local_104 (*(char (*)[260])(_frame + (0x130 - 0x104)))
   
   if (param_1 == 0) {
@@ -95,11 +95,11 @@ undefined4 DirScan_Next(int param_1,char *param_2)
   iVar2 = *(int *)(param_1 + 4);
   *(int *)(param_1 + 4) = iVar2 + 1;
   if (iVar2 == 0) {
-    iVar2 = _findfirst(param_1 + 8,local_118);
+    iVar2 = _findfirst(param_1 + 8,&local_118);
     *(int *)(param_1 + 0x208) = iVar2;
   }
   else {
-    iVar2 = _findnext(*(undefined4 *)(param_1 + 0x208),local_118);
+    iVar2 = _findnext(*(undefined4 *)(param_1 + 0x208),&local_118);
   }
   if (iVar2 == -1) {
     return 0;
@@ -127,8 +127,8 @@ undefined4 DirScan_Next(int param_1,char *param_2)
     pcVar5 = pcVar5 + 1;
     pcVar6 = pcVar6 + 1;
   }
-  *(undefined4 *)(param_2 + 0x108) = local_10c;
-  *(uint *)(param_2 + 0x104) = local_118[0] & 0x10;
+  *(uint *)(param_2 + 0x108) = local_10c;
+  *(uint *)(param_2 + 0x104) = local_118 & 0x10;
   return 1;
 }
 #undef local_104

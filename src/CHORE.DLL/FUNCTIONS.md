@@ -218,7 +218,7 @@
 | 1000a9f0 | FUN_1000a9f0 | region_10006120.c | 51 |
 | 1000aaf0 | FUN_1000aaf0 | region_10006120.c | 13 |
 | 1000ab20 | FUN_1000ab20 | region_10006120.c | 8 |
-| 1000ab60 | FUN_1000ab60 | region_10006120.c | 14 |
+| 1000ab60 | FUN_1000ab60 | region_10006120.c | 13 |
 | 1000ab80 | FUN_1000ab80 | region_10006120.c | 49 |
 | 1000ac70 | FUN_1000ac70 | region_10006120.c | 38 |
 | 1000ad00 | FUN_1000ad00 | region_10006120.c | 57 |

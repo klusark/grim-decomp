@@ -45,17 +45,17 @@ void __cdecl Control_Disable(int control)
 /* ---- 0x0048d150  Control_Capture ---- */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
-undefined4 Control_Capture(void)
+undefined * Control_Capture(void)
 
 {
   int iVar1;
   
   iVar1 = Input_Enable();
   if (iVar1 == 0) {
-    return 0;
+    return (undefined *)0x0;
   }
   g_nInputCaptured = 1;
-  return 1;
+  return (undefined *)0x1;
 }
 
 /* ---- 0x0048d170  Control_Release ---- */

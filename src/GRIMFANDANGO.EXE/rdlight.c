@@ -31,7 +31,7 @@ void __cdecl rdLight_SetAngles(void *light,float inner,float outer)
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
-  #define local_4 (*(undefined4 *)(_frame + (0x20 - 0x4)))
+  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   local_4 = 0;
   *(float *)((int)light + 0x20) = inner;

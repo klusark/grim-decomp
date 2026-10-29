@@ -6,12 +6,12 @@
 #include "functions.h"
 
 /* ---- 0x00481b00  LabDir_Open ---- */
-/* Source: Temp/Res.c (lines 3171-3175, from __FILE__/__LINE__ passed to the allocator) */
+/* Developer mode: a plain directory presented as an archive (12-byte entries {hash, name, 0}) */
 
 void * __cdecl LabDir_Open(char *dir)
 
 {
-  unsigned char _frame[0x120] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x130] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   char cVar1;
   undefined4 uVar2;
   int iVar3;
@@ -23,8 +23,10 @@ void * __cdecl LabDir_Open(char *dir)
   int iVar9;
   char *pcVar10;
   char *pcVar11;
-  #define local_10c (*(char (*)[260])(_frame + (0x120 - 0x10c)))
-  #define local_8 (*(int *)(_frame + (0x120 - 0x8)))
+  #define local_114 (*(uint *)(_frame + (0x130 - 0x114)))
+  #define local_110 (*(uint *)(_frame + (0x130 - 0x110)))
+  #define local_10c (*(char (*)[260])(_frame + (0x130 - 0x10c)))
+  #define local_8 (*(uint *)(_frame + (0x130 - 0x8)))
   
   iVar9 = 0;
   pvVar6 = (void *)0x0;
@@ -74,15 +76,15 @@ void * __cdecl LabDir_Open(char *dir)
       pcVar11 = pcVar11 + 1;
     }
     *(undefined4 *)((int)pvVar6 + 0x114) = 1;
-    iVar9 = (**(code **)(DAT_008a856c + 0x20))
+    iVar9 = (**(code **)(UINT_008a856c + 0x20))
                       ((iVar9 + 1) * 0xc,s_C__grimsrc_libs_grimlib_Temp_Res_004e7a1c,0xc63);
     *(int *)((int)pvVar6 + 0x118) = iVar9;
     if (iVar9 != 0) {
-      iVar7 = (**(code **)(DAT_008a856c + 0x20))
+      iVar7 = (**(code **)(UINT_008a856c + 0x20))
                         (iVar7,s_C__grimsrc_libs_grimlib_Temp_Res_004e7a1c,0xc67);
       *(int *)((int)pvVar6 + 0x11c) = iVar7;
       if (iVar7 == 0) {
-        (**(code **)(DAT_008a856c + 0x24))(*(undefined4 *)((int)pvVar6 + 0x118));
+        (**(code **)(UINT_008a856c + 0x24))(*(undefined4 *)((int)pvVar6 + 0x118));
         *(undefined4 *)((int)pvVar6 + 0x118) = 0;
       }
       else {
@@ -117,6 +119,8 @@ void * __cdecl LabDir_Open(char *dir)
   return pvVar6;
 }
 #undef local_10c
+#undef local_110
+#undef local_114
 #undef local_8
 
 
@@ -164,9 +168,9 @@ LAB_00481d3e:
       iVar4 = 0;
 LAB_00481d43:
       if (iVar4 == 0) {
-        *(int **)(&DAT_00825f00 + DAT_008a85e0 * 4) = piVar9;
-        *(int *)(&DAT_008a8578 + DAT_008a85e0 * 4) = param_1;
-        DAT_008a85e0 = DAT_008a85e0 + 1 & 0xf;
+        *(int **)(&DAT_00825f00 + UINT_008a85e0 * 4) = piVar9;
+        *(int *)(&DAT_008a8578 + UINT_008a85e0 * 4) = param_1;
+        UINT_008a85e0 = UINT_008a85e0 + 1 & 0xf;
         break;
       }
     }
@@ -203,7 +207,7 @@ LAB_00481d43:
   *param_5 = param_2;
   ((code *)sprintf)((int)param_5 + 0x115,&DAT_004e7af8,param_1 + 8,param_3);
   param_5[1] = 0;
-  uVar5 = (**(code **)(DAT_008a8570 + 0x50))((int)param_5 + 0x115);
+  uVar5 = (**(code **)(UINT_008a8570 + 0x50))((int)param_5 + 0x115);
   param_5[2] = uVar5;
   param_5[3] = 0;
   param_5[4] = 0;

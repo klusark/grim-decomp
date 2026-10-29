@@ -6,9 +6,7 @@
 #include "functions.h"
 
 /* ---- 0x00409f50  rdCamera_New ---- */
-/* WARNING: Unknown calling convention -- yet parameter storage is locked */
-
-void * rdCamera_New(float fov,int type,float aspectX,float aspectY,float zoom)
+void * __cdecl rdCamera_New(float fov,int type,float aspectX,float aspectY,float zoom)
 
 {
   void *camera;
@@ -180,15 +178,20 @@ void __cdecl rdCamera_SetZoom(void *camera,float zoom)
 }
 
 /* ---- 0x0040a280  rdCamera_BuildProjection ---- */
+/* WARNING: Variable defined which should be unmapped: local_14 */
 /* Computes the projection scale from FOV and canvas size and the frustum planes */
 
 undefined4 rdCamera_BuildProjection(int *param_1)
 
 {
+  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   float fVar2;
   float fVar3;
   float10 fVar4;
+  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
+  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
   
   iVar1 = param_1[1];
   if (iVar1 == 0) {
@@ -223,6 +226,10 @@ undefined4 rdCamera_BuildProjection(int *param_1)
   }
   return 1;
 }
+#undef local_14
+#undef local_4
+#undef local_8
+
 
 /* ---- 0x0040a430  rdCamera_SetFrame ---- */
 void __cdecl rdCamera_SetFrame(float *frame)
@@ -232,13 +239,13 @@ void __cdecl rdCamera_SetFrame(float *frame)
   float *pfVar2;
   
   Matrix_Transpose((float *)((int)g_pRdCurrentCamera + 8),frame);
-  pfVar2 = (float *)&DAT_008ddf60;
+  pfVar2 = (float *)&UINT_008ddf60;
   for (iVar1 = 0xc; iVar1 != 0; iVar1 = iVar1 + -1) {
     *pfVar2 = *frame;
     frame = frame + 1;
     pfVar2 = pfVar2 + 1;
   }
-  Matrix_ToAngles(&DAT_008ddf60,&DAT_008ddf50);
+  Matrix_ToAngles(&UINT_008ddf60,&DAT_008ddf50);
   return;
 }
 
@@ -260,10 +267,14 @@ void FUN_0040a470(float *param_1,float *param_2)
 void FUN_0040a4b0(float *param_1,float *param_2,int param_3)
 
 {
+  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   float fVar2;
   float fVar3;
   float fVar4;
+  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
+  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   fVar3 = *(float *)((int)g_pRdCurrentCamera + 0x44);
   fVar1 = *(float *)((int)g_pRdCurrentCamera + 0x40);
@@ -278,6 +289,10 @@ void FUN_0040a4b0(float *param_1,float *param_2,int param_3)
   }
   return;
 }
+#undef local_4
+#undef local_8
+#undef local_c
+
 
 /* ---- 0x0040a530  FUN_0040a530 ---- */
 void FUN_0040a530(float *param_1,float *param_2)
@@ -296,9 +311,13 @@ void FUN_0040a530(float *param_1,float *param_2)
 void FUN_0040a570(float *param_1,float *param_2,int param_3)
 
 {
+  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   float fVar2;
   float fVar3;
+  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
+  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   fVar1 = *(float *)((int)g_pRdCurrentCamera + 0x44);
   fVar2 = *(float *)(*(int *)((int)g_pRdCurrentCamera + 4) + 8);
@@ -312,6 +331,10 @@ void FUN_0040a570(float *param_1,float *param_2,int param_3)
   }
   return;
 }
+#undef local_4
+#undef local_8
+#undef local_c
+
 
 /* ---- 0x0040a5e0  FUN_0040a5e0 ---- */
 void FUN_0040a5e0(float *param_1,float *param_2)
@@ -334,10 +357,13 @@ void FUN_0040a5e0(float *param_1,float *param_2)
 void FUN_0040a620(float *param_1,float *param_2,int param_3)
 
 {
+  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   float fVar2;
   float fVar3;
   float fVar4;
+  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   fVar2 = *(float *)(*(int *)((int)g_pRdCurrentCamera + 4) + 8);
   fVar3 = *(float *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0xc);
@@ -352,6 +378,9 @@ void FUN_0040a620(float *param_1,float *param_2,int param_3)
   }
   return;
 }
+#undef local_4
+#undef local_8
+
 
 /* ---- 0x0040a6a0  FUN_0040a6a0 ---- */
 void FUN_0040a6a0(float *param_1,float *param_2)
@@ -372,9 +401,12 @@ void FUN_0040a6a0(float *param_1,float *param_2)
 void FUN_0040a6e0(float *param_1,float *param_2,int param_3)
 
 {
+  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   float fVar2;
   float fVar3;
+  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   fVar1 = *(float *)(*(int *)((int)g_pRdCurrentCamera + 4) + 8);
   fVar2 = *(float *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0xc);
@@ -388,6 +420,9 @@ void FUN_0040a6e0(float *param_1,float *param_2,int param_3)
   }
   return;
 }
+#undef local_4
+#undef local_8
+
 
 /* ---- 0x0040a750  rdCamera_SetAmbientLight ---- */
 /* Lua SetAmbientLight */
@@ -403,24 +438,24 @@ void __cdecl rdCamera_SetAmbientLight(void *camera,float ambient)
 /* Up to 64 lights per camera; stores the light pointer and position and precomputes the falloff
    terms */
 
-int __cdecl rdCamera_AddLight(void *camera,void *light,float *position)
+void __cdecl rdCamera_AddLight(void *camera,void *light,float *pos)
 
 {
   float *pfVar1;
   
   if (0x40 < *(uint *)((int)camera + 0x58)) {
-    return 0;
+    return;
   }
   *(uint *)light = *(uint *)((int)camera + 0x58);
   *(void **)((int)camera + *(int *)((int)camera + 0x58) * 4 + 0x5c) = light;
   pfVar1 = (float *)((int)camera + (*(int *)((int)camera + 0x58) + 0x1d) * 0xc);
-  *pfVar1 = *position;
-  pfVar1[1] = position[1];
-  pfVar1[2] = position[2];
+  *pfVar1 = *pos;
+  pfVar1[1] = pos[1];
+  pfVar1[2] = pos[2];
   *(float *)((int)light + 0x34) = *(float *)((int)light + 0x18) / *(float *)((int)camera + 0x45c);
   *(float *)((int)light + 0x38) = *(float *)((int)light + 0x18) / *(float *)((int)camera + 0x460);
   *(int *)((int)camera + 0x58) = *(int *)((int)camera + 0x58) + 1;
-  return 1;
+  return;
 }
 
 /* ---- 0x0040a7d0  rdCamera_ClearCanvas ---- */
@@ -431,8 +466,8 @@ void rdCamera_ClearCanvas(void)
   uint *puVar1;
   #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
   #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(int *)(_frame + (0x20 - 0x8)))
-  #define local_4 (*(int *)(_frame + (0x20 - 0x4)))
+  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   if (((g_pRdCurrentCamera != (void *)0x0) &&
       (puVar1 = *(uint **)((int)g_pRdCurrentCamera + 4), (g_dwRdroidFlags & 0x100) != 0)) &&
@@ -463,7 +498,7 @@ void rdCamera_ClearCanvas(void)
 void rdCamera_ResetStats(void)
 
 {
-  DAT_007f31ec = 0;
+  UINT_007f31ec = 0;
   return;
 }
 

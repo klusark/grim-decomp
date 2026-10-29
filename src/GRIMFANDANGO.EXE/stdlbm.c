@@ -239,7 +239,7 @@ void stdLbm_PackBits(undefined4 param_1,undefined1 *param_2,int param_3,char *pa
 {
   undefined1 uVar1;
   
-  DAT_00815614 = 0;
+  UINT_00815614 = 0;
   DAT_00815620 = 3;
   PTR_0081561c = param_4;
   for (; param_3 != 0; param_3 = param_3 + -1) {
@@ -251,9 +251,9 @@ void stdLbm_PackBits(undefined4 param_1,undefined1 *param_2,int param_3,char *pa
     *PTR_0081561c = '\0';
     PTR_0081561c = PTR_0081561c + 1;
     *PTR_0081561c = DAT_00815610;
-    DAT_00815614 = DAT_00815614 + 2;
+    UINT_00815614 = UINT_00815614 + 2;
   }
-  (*g_pSvcMain->pFwrite)(param_1,param_4,DAT_00815614);
+  (*g_pSvcMain->pFwrite)(param_1,param_4,UINT_00815614);
   return;
 }
 
@@ -272,29 +272,29 @@ void stdLbm_PackByte(char param_1)
       DAT_00815624 = 0;
     }
     if (2 < DAT_00815624) {
-      *DAT_00815618 = *DAT_00815618 + -2;
-      DAT_00815618 = PTR_0081561c + -2;
+      *(char *)UINT_00815618 = *(char *)UINT_00815618 + -2;
+      UINT_00815618 = (uint)(PTR_0081561c + -2);
       PTR_0081561c = PTR_0081561c + -1;
-      *DAT_00815618 = -2;
+      *(char *)UINT_00815618 = -2;
       DAT_00815620 = 1;
       *PTR_0081561c = param_1;
       DAT_00815610 = param_1;
       PTR_0081561c = PTR_0081561c + 1;
       return;
     }
-    *DAT_00815618 = *DAT_00815618 + '\x01';
+    *(char *)UINT_00815618 = *(char *)UINT_00815618 + '\x01';
     *PTR_0081561c = param_1;
     PTR_0081561c = PTR_0081561c + 1;
-    if (*DAT_00815618 == '\x7f') {
+    if (*(char *)UINT_00815618 == '\x7f') {
       DAT_00815620 = 3;
     }
     DAT_00815610 = param_1;
-    DAT_00815614 = DAT_00815614 + 1;
+    UINT_00815614 = UINT_00815614 + 1;
     return;
   case 1:
     break;
   case 2:
-    DAT_00815618 = PTR_0081561c;
+    UINT_00815618 = (uint)PTR_0081561c;
     if (param_1 != DAT_00815610) {
       pcVar1 = PTR_0081561c + 1;
       *PTR_0081561c = '\x01';
@@ -304,7 +304,7 @@ void stdLbm_PackByte(char param_1)
       PTR_0081561c = PTR_0081561c + 1;
       *PTR_0081561c = param_1;
       PTR_0081561c = PTR_0081561c + 1;
-      DAT_00815614 = DAT_00815614 + 3;
+      UINT_00815614 = UINT_00815614 + 3;
       DAT_00815624 = 0;
       DAT_00815610 = param_1;
       return;
@@ -315,7 +315,7 @@ void stdLbm_PackByte(char param_1)
     DAT_00815620 = 1;
     *PTR_0081561c = param_1;
     PTR_0081561c = PTR_0081561c + 1;
-    DAT_00815614 = DAT_00815614 + 2;
+    UINT_00815614 = UINT_00815614 + 2;
     DAT_00815610 = param_1;
     return;
   case 3:
@@ -331,8 +331,8 @@ void stdLbm_PackByte(char param_1)
     DAT_00815620 = 2;
     return;
   }
-  *DAT_00815618 = *DAT_00815618 + -1;
-  if (*DAT_00815618 == -0x7f) {
+  *(char *)UINT_00815618 = *(char *)UINT_00815618 + -1;
+  if (*(char *)UINT_00815618 == -0x7f) {
     DAT_00815620 = 3;
     DAT_00815610 = param_1;
     return;

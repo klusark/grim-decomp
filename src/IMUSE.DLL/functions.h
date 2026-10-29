@@ -115,6 +115,9 @@ void Im_ProcessDeferred(void); /* 0x1000b5e0 */
 int __cdecl Im_GetTriggerParam(int param_1); /* 0x1000b630 */
 void __cdecl Im_RunTriggerCommand(undefined4 *param_1,undefined4 param_2); /* 0x1000b6a0 */
 void __cdecl Im_RunDeferredCommand(int param_1); /* 0x1000b710 */
+char * __cdecl Im_StrChr(char *param_1,char param_2); /* 0x1000bd50 */
+uint * __cdecl Im_MemCopy(uint *param_1,uint *param_2,uint param_3); /* 0x1000bd80 */
+uint __cdecl Im_StrCmpNoCase(byte *param_1,byte *param_2); /* 0x1000be80 */
 
 /* ===== imuse_dispatch.c ===== */
 undefined4 iMUSE_Dispatch__1fd0(void); /* 0x10001fd0 */
@@ -237,6 +240,31 @@ undefined4 FUN_10008860(void); /* 0x10008860 */
 undefined4 FUN_100088a0(void); /* 0x100088a0 */
 int __cdecl Sounds_ResolveName_LoadIfNeeded(uint *param_1); /* 0x10008ec0 */
 int Sounds_EvictOldestIdleSlot(void); /* 0x100092f0 */
+int __cdecl ImFile_Read(int *param_1,int param_2,int param_3); /* 0x1000b940 */
+int __cdecl ImFile_ReadImpl(int *param_1,int param_2,int param_3); /* 0x1000b980 */
+undefined4 __cdecl FUN_1000ba20(undefined4 param_1,char *param_2,undefined4 param_3); /* 0x1000ba20 */
+void __cdecl FUN_1000ba60(undefined4 param_1,undefined4 param_2); /* 0x1000ba60 */
+void FUN_1000ba80(void); /* 0x1000ba80 */
+void FUN_1000baa0(void); /* 0x1000baa0 */
+undefined4 __cdecl ImFile_Close(int *param_1); /* 0x1000bb10 */
+undefined4 __cdecl ImFile_CloseImpl(int *param_1); /* 0x1000bb50 */
+uint __cdecl ImFile_Open(char *param_1,uint param_2,uint param_3,int *param_4); /* 0x1000bbc0 */
+uint __cdecl ImFile_OpenImpl(char *param_1,uint param_2,uint param_3,int *param_4); /* 0x1000bc00 */
+void __cdecl ImFile_LockInit(int param_1); /* 0x1000c4f0 */
+void __cdecl ImFile_UnlockInner(int param_1); /* 0x1000c570 */
+void __cdecl ImFile_Lock(uint param_1); /* 0x1000c590 */
+void __cdecl FUN_1000c5d0(int param_1,int param_2); /* 0x1000c5d0 */
+void __cdecl ImFile_Unlock(uint param_1); /* 0x1000c600 */
+void __cdecl FUN_1000c640(int param_1,int param_2); /* 0x1000c640 */
+int __cdecl FUN_1000c670(int *param_1,char *param_2,undefined4 *param_3); /* 0x1000c670 */
+void __cdecl FUN_1000d000(uint param_1,int *param_2,int *param_3); /* 0x1000d000 */
+void __cdecl FUN_1000d050(uint param_1,int param_2,int *param_3,int *param_4); /* 0x1000d050 */
+void __cdecl FUN_1000d090(char *param_1,int param_2,int *param_3,int *param_4); /* 0x1000d090 */
+undefined4 __cdecl FUN_1000d0d0(int *param_1); /* 0x1000d0d0 */
+undefined8 __cdecl FUN_1000d0f0(int *param_1); /* 0x1000d0f0 */
+undefined4 __cdecl FUN_1000d110(undefined4 *param_1); /* 0x1000d110 */
+void FUN_1000d130(void); /* 0x1000d130 */
+int __stdcall FUN_1000d1f0(int a1,int a2,int a3,int a4); /* 0x1000d1f0 */
 
 /* ===== soundstartvoicestream.c ===== */
 undefined4 SoundStartVoiceStream(undefined4 param_1,undefined4 param_2,uint param_3,uint param_4); /* 0x100088d0 */
@@ -271,25 +299,15 @@ undefined4 __cdecl iMUSE_stream__b810(undefined1 *param_1); /* 0x1000b810 */
 undefined4 __cdecl iMUSE_stream__b840(int *param_1,int param_2); /* 0x1000b840 */
 int __cdecl FUN_1000b8d0(undefined1 *param_1,char *param_2,undefined4 *param_3); /* 0x1000b8d0 */
 
+/* ===== hmi.c ===== */
+longlong hmi__bae0(void); /* 0x1000bae0 */
+
 /* ===== crt.c ===== */
-int __cdecl fseek(int *param_1,int param_2,int param_3); /* 0x1000b940 */
-int __cdecl _fseek_lk(int *param_1,int param_2,int param_3); /* 0x1000b980 */
-undefined4 __cdecl fclose(int *param_1); /* 0x1000bb10 */
-undefined4 __cdecl _fclose_lk(int *param_1); /* 0x1000bb50 */
-uint __cdecl fwrite(char *param_1,uint param_2,uint param_3,int *param_4); /* 0x1000bbc0 */
-uint __cdecl _fwrite_lk(char *param_1,uint param_2,uint param_3,int *param_4); /* 0x1000bc00 */
-char * __cdecl strchr(char *param_1,char param_2); /* 0x1000bd50 */
-uint * __cdecl strncpy(uint *param_1,uint *param_2,uint param_3); /* 0x1000bd80 */
-uint __cdecl _stricmp(byte *param_1,byte *param_2); /* 0x1000be80 */
 int __cdecl atol(byte *param_1); /* 0x1000bf50 */
 int __cdecl atoi(byte *param_1); /* 0x1000bff0 */
 uint __cdecl bsearch(undefined4 param_1,uint param_2,uint param_3,int param_4,undefined *param_5); /* 0x1000c000 */
 undefined4 __stdcall entry(int a1,int a2,int a3); /* 0x1000c350 */
 void __cdecl _amsg_exit(int param_1); /* 0x1000c400 */
-void __cdecl _lock(int param_1); /* 0x1000c4f0 */
-void __cdecl _unlock(int param_1); /* 0x1000c570 */
-void __cdecl _lock_file(uint param_1); /* 0x1000c590 */
-void __cdecl _unlock_file(uint param_1); /* 0x1000c600 */
 uint __cdecl _flsbuf(uint param_1,int *param_2); /* 0x1000d210 */
 void __cdecl _dosmaperr(undefined *param_1); /* 0x1000d340 */
 int * _errno(void); /* 0x1000d3c0 */
@@ -339,26 +357,11 @@ undefined4 __cdecl __crtMessageBoxA(undefined4 param_1,undefined4 param_2,undefi
 undefined4 __cdecl _callnewh(undefined4 param_1); /* 0x10012f20 */
 
 /* ===== crt_unnamed.c ===== */
-undefined4 __cdecl FUN_1000ba20(undefined4 param_1,char *param_2,undefined4 param_3); /* 0x1000ba20 */
-void __cdecl FUN_1000ba60(undefined4 param_1,undefined4 param_2); /* 0x1000ba60 */
-void FUN_1000ba80(void); /* 0x1000ba80 */
-void FUN_1000baa0(void); /* 0x1000baa0 */
 int __cdecl FUN_1000c0a0(int param_1); /* 0x1000c0a0 */
 uint __cdecl FUN_1000c130(uint param_1); /* 0x1000c130 */
 undefined4 __stdcall FUN_1000c230(int a1,int a2,int a3); /* 0x1000c230 */
 void FUN_1000c440(void); /* 0x1000c440 */
 void FUN_1000c470(void); /* 0x1000c470 */
-void __cdecl FUN_1000c5d0(int param_1,int param_2); /* 0x1000c5d0 */
-void __cdecl FUN_1000c640(int param_1,int param_2); /* 0x1000c640 */
-int __cdecl FUN_1000c670(int *param_1,char *param_2,undefined4 *param_3); /* 0x1000c670 */
-void __cdecl FUN_1000d000(uint param_1,int *param_2,int *param_3); /* 0x1000d000 */
-void __cdecl FUN_1000d050(uint param_1,int param_2,int *param_3,int *param_4); /* 0x1000d050 */
-void __cdecl FUN_1000d090(char *param_1,int param_2,int *param_3,int *param_4); /* 0x1000d090 */
-undefined4 __cdecl FUN_1000d0d0(int *param_1); /* 0x1000d0d0 */
-undefined8 __cdecl FUN_1000d0f0(int *param_1); /* 0x1000d0f0 */
-undefined4 __cdecl FUN_1000d110(undefined4 *param_1); /* 0x1000d110 */
-void FUN_1000d130(void); /* 0x1000d130 */
-int __stdcall FUN_1000d1f0(int a1,int a2,int a3,int a4); /* 0x1000d1f0 */
 int FUN_1000d4e0(int *param_1); /* 0x1000d4e0 */
 void FUN_1000d590(void); /* 0x1000d590 */
 int FUN_1000d5a0(int param_1); /* 0x1000d5a0 */
@@ -455,9 +458,6 @@ void FUN_10014340(int *param_1,int *param_2); /* 0x10014340 */
 void FUN_10014600(undefined2 *param_1,uint param_2,int param_3); /* 0x10014600 */
 int FUN_10014690(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4); /* 0x10014690 */
 int FUN_100147c0(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4); /* 0x100147c0 */
-
-/* ===== hmi.c ===== */
-longlong hmi__bae0(void); /* 0x1000bae0 */
 
 /* ===== referenced, not decompiled here (thunks, imports, unknown FUN_) ===== */
 int STDCALL CloseHandle() __asm__("_CloseHandle@4"); /* import */

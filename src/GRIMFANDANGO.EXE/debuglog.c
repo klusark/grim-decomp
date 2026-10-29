@@ -15,35 +15,35 @@ void __cdecl DebugLog_Init(int enable)
   undefined4 uVar1;
   
   if (enable != 0) {
-    if (DAT_004f5a54 == 0) {
-      if (((DAT_004f5a18 != 0) && (DAT_004f5a24 != 0)) &&
-         (DAT_004f44e0 = ResFile_Open(s_debug_log_004dd46c,&DAT_004dd478), DAT_004f44e0 == 0)) {
+    if (UINT_004f5a54 == 0) {
+      if (((UINT_004f5a18 != 0) && (INT_004f5a24 != 0)) &&
+         (UINT_004f44e0 = ResFile_Open(s_debug_log_004dd46c,&DAT_004dd478), UINT_004f44e0 == 0)) {
         uVar1 = ((code *)Win_GetMainHwnd)(s_Unable_to_open_debug_log_in_the_c_004dd424,s_Uh_oh__004dd464,0);
         ((code *)Grim_FatalMessageBox)(uVar1);
         return;
       }
-      if (DAT_004f5a1c != 0) {
+      if (UINT_004f5a1c != 0) {
         Engine_OpenResourceLog(s_resource_log_004dd414);
       }
-      DAT_004f5a08 = DebugLog_Load();
+      UINT_004f5a08 = DebugLog_Load();
       _DAT_008ddda8 = FUN_00402330;
       _DAT_008ddda4 = FUN_004023a0;
       _DAT_008dddb0 = FUN_00402410;
-      DAT_008dddac = FUN_00402480;
+      UINT_008dddac = (uint)FUN_00402480;
       _DAT_008dddb4 = FUN_004024f0;
-      DAT_004f5a54 = 1;
+      UINT_004f5a54 = 1;
     }
     if (enable != 0) {
       return;
     }
   }
-  if (DAT_004f5a54 != 0) {
-    if (DAT_004f5a04 != 0) {
-      DAT_004f5a04 = 0;
+  if (UINT_004f5a54 != 0) {
+    if (UINT_004f5a04 != 0) {
+      UINT_004f5a04 = 0;
     }
-    if (DAT_004f44e0 != 0) {
-      ResFile_Close(DAT_004f44e0);
-      DAT_004f44e0 = 0;
+    if (UINT_004f44e0 != 0) {
+      ResFile_Close(UINT_004f44e0);
+      UINT_004f44e0 = 0;
     }
   }
   return;
@@ -57,18 +57,18 @@ undefined4 DebugLog_Load(void)
 {
   undefined4 uVar1;
   
-  if (DAT_004f5a20 == 0) {
-    DAT_004f5a40 = 0;
+  if (g_bWindowedMode == 0) {
+    UINT_004f5a40 = 0;
   }
   else {
-    DAT_004f5a40 = LoadLibraryA(IMG_ADDR(0x004dd6c4));
+    UINT_004f5a40 = LoadLibraryA(IMG_ADDR(0x004dd6c4));
   }
-  if (DAT_004f5a40 != 0) {
-    DAT_004f5a3c = GetProcAddress(DAT_004f5a40,IMG_ADDR(0x004dd6b8));
-    DAT_004f5a68 = (code *)GetProcAddress(DAT_004f5a40,IMG_ADDR(0x004dd6a8));
-    if ((DAT_004f5a3c != 0) && (DAT_004f5a68 != (code *)0x0)) {
+  if (UINT_004f5a40 != 0) {
+    UINT_004f5a3c = GetProcAddress(UINT_004f5a40,IMG_ADDR(0x004dd6b8));
+    UINT_004f5a68 = GetProcAddress(UINT_004f5a40,IMG_ADDR(0x004dd6a8));
+    if ((UINT_004f5a3c != 0) && (UINT_004f5a68 != 0)) {
       uVar1 = Win_GetMainHwnd();
-      (*DAT_004f5a68)(s_Grim_Debug_004dd69c,1,uVar1);
+      (*(code *)UINT_004f5a68)(s_Grim_Debug_004dd69c,1,uVar1);
       return 1;
     }
   }
@@ -79,6 +79,6 @@ undefined4 DebugLog_Load(void)
 void DebugLog_Write(char *param_1,undefined4 param_2)
 
 {
-  ResFile_Printf(DAT_004f44e0,param_1,param_2);
+  ResFile_Printf(UINT_004f44e0,param_1,param_2);
   return;
 }

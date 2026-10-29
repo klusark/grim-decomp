@@ -1,5 +1,5 @@
 /* GRIMFANDANGO.EXE :: set.c
- * functions 0x004824c0 .. 0x004a6160 (35 functions)
+ * functions 0x004824c0 .. 0x004a7150 (36 functions)
  * Decompiled from the shipped binaries with Ghidra; see ../../README.md */
 #include "ghidra_types.h"
 #include "globals.h"
@@ -29,20 +29,20 @@ int Set_GetRefCount(void *param_1)
 void __cdecl Set_MakeCurrent(char *name)
 
 {
-  char *setName;
-  char *pcVar1;
+  void *set;
+  void *pvVar1;
   
   if (name == (char *)0x0) {
     Set_SetCurrent((void *)0x0);
     return;
   }
-  setName = Resource_Load(0x20544553,name);
-  if ((setName != (char *)0x0) && (*(int *)(setName + 0x80) != 0)) {
-    pcVar1 = Set_GetCurrent();
-    if (setName != pcVar1) {
-      Set_SetCurrent(setName);
-      SectorList_SelectForSet(setName);
-      Set_ApplySetupCamera(setName,*(int *)(setName + 0xb4));
+  set = Resource_Load(0x20544553,name);
+  if ((set != (void *)0x0) && (*(int *)((int)set + 0x80) != 0)) {
+    pvVar1 = Set_GetCurrent();
+    if (set != pvVar1) {
+      Set_SetCurrent(set);
+      Set_ActivateSectors(set);
+      Set_ApplySetupCamera(set,*(int *)((int)set + 0xb4));
     }
   }
   return;
@@ -122,10 +122,10 @@ void __cdecl Set_SwitchSetup(void *set,int setupIdx)
   float *pfVar6;
   undefined4 *puVar7;
   undefined4 *puVar8;
-  #define local_10 (*(int *)(_frame + (0x20 - 0x10)))
-  #define local_c (*(undefined4 *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(int *)(_frame + (0x20 - 0x8)))
-  #define local_4 (*(int *)(_frame + (0x20 - 0x4)))
+  #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
+  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
+  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   if (set != (void *)0x0) {
     iVar1 = *(int *)((int)set + 0xac) + setupIdx * 300;
@@ -179,14 +179,14 @@ void __cdecl Set_SwitchSetup(void *set,int setupIdx)
     }
     for (pvVar2 = *(void **)(iVar1 + 0x128); pvVar2 != (void *)0x0;
         pvVar2 = *(void **)((int)pvVar2 + 0xf8)) {
-      ((code *)ObjectState_LoadImages)();
-      ObjectState_CaptureBackground(pvVar2,(int)g_pBackgroundSurface,(int)g_pZBufferSurface);
+      ObjectState_LoadImages((int)pvVar2);
+      ObjectState_CaptureBackground(pvVar2,g_pBackgroundSurface,g_pZBufferSurface);
     }
-    local_10 = *(int *)((int)g_pCanvas + 0x18);
-    local_c = *(undefined4 *)((int)g_pCanvas + 0x1c);
+    local_10 = *(uint *)((int)g_pCanvas + 0x18);
+    local_c = *(uint *)((int)g_pCanvas + 0x1c);
     local_8 = (*(int *)((int)g_pCanvas + 0x20) - *(int *)((int)g_pCanvas + 0x18)) + 1;
     local_4 = (*(int *)((int)g_pCanvas + 0x24) - *(int *)((int)g_pCanvas + 0x1c)) + 1;
-    Render_InvalidateRect(&local_10,1);
+    Render_InvalidateRect((int *)&local_10,1);
   }
   return;
 }
@@ -203,48 +203,49 @@ void __cdecl Set_SwitchSetup(void *set,int setupIdx)
 void Set_DrawDebugLights(int param_1)
 
 {
-  unsigned char _frame[0x80] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x90] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   undefined4 *puVar2;
   float *vec;
-  #define local_70 (*(uint *)(_frame + (0x80 - 0x70)))
-  #define local_6c (*(float *)(_frame + (0x80 - 0x6c)))
-  #define local_68 (*(float *)(_frame + (0x80 - 0x68)))
-  #define local_64 (*(float *)(_frame + (0x80 - 0x64)))
-  #define local_60 (*(float *)(_frame + (0x80 - 0x60)))
-  #define local_5c (*(float *)(_frame + (0x80 - 0x5c)))
-  #define local_58 (*(float *)(_frame + (0x80 - 0x58)))
-  #define local_54 (*(float *)(_frame + (0x80 - 0x54)))
-  #define local_50 (*(float *)(_frame + (0x80 - 0x50)))
-  #define local_4c (*(float *)(_frame + (0x80 - 0x4c)))
-  #define local_48 (*(float *)(_frame + (0x80 - 0x48)))
-  #define local_44 (*(float *)(_frame + (0x80 - 0x44)))
-  #define local_40 (*(float *)(_frame + (0x80 - 0x40)))
-  #define local_3c (*(float *)(_frame + (0x80 - 0x3c)))
-  #define local_38 (*(float *)(_frame + (0x80 - 0x38)))
-  #define local_34 (*(float *)(_frame + (0x80 - 0x34)))
-  #define local_30 (*(float (*)[12])(_frame + (0x80 - 0x30)))
+  #define local_74 (*(uint *)(_frame + (0x90 - 0x74)))
+  #define local_70 (*(uint *)(_frame + (0x90 - 0x70)))
+  #define local_6c (*(uint *)(_frame + (0x90 - 0x6c)))
+  #define local_68 (*(uint *)(_frame + (0x90 - 0x68)))
+  #define local_64 (*(uint *)(_frame + (0x90 - 0x64)))
+  #define local_60 (*(uint *)(_frame + (0x90 - 0x60)))
+  #define local_5c (*(uint *)(_frame + (0x90 - 0x5c)))
+  #define local_58 (*(uint *)(_frame + (0x90 - 0x58)))
+  #define local_54 (*(uint *)(_frame + (0x90 - 0x54)))
+  #define local_50 (*(uint *)(_frame + (0x90 - 0x50)))
+  #define local_4c (*(uint *)(_frame + (0x90 - 0x4c)))
+  #define local_48 (*(uint *)(_frame + (0x90 - 0x48)))
+  #define local_44 (*(uint *)(_frame + (0x90 - 0x44)))
+  #define local_40 (*(uint *)(_frame + (0x90 - 0x40)))
+  #define local_3c (*(uint *)(_frame + (0x90 - 0x3c)))
+  #define local_38 (*(uint *)(_frame + (0x90 - 0x38)))
+  #define local_34 (*(uint *)(_frame + (0x90 - 0x34)))
+  #define local_30 (*(float (*)[12])(_frame + (0x90 - 0x30)))
   
   local_70 = 0;
   if (*(int *)(param_1 + 0xb8) != 0) {
     puVar2 = (undefined4 *)(param_1 + 0x11c);
     do {
       if ((int)puVar2[-0xc] < 3) {
-        local_6c = (float)puVar2[-0x10];
-        local_68 = (float)puVar2[-0xf];
-        local_64 = 0.0;
-        rdPrimit3_DrawLine(puVar2 + -0x10,&local_6c,0,0,0,0,PIECE(DAT_008c97c8,2,2),0xffffffff);
-        rdPrimit3_DrawPoint(puVar2 + -0x10,*puVar2,0x41980000,PIECE(DAT_008c97c8,2,2),0xffffffff);
+        local_6c = puVar2[-0x10];
+        local_68 = puVar2[-0xf];
+        local_64 = 0;
+        rdPrimit3_DrawLine(puVar2 + -0x10,&local_6c,0,0,0,0,PIECE(UINT_008c97c8,2,2),0xffffffff);
+        rdPrimit3_DrawPoint(puVar2 + -0x10,*puVar2,0x41980000,PIECE(UINT_008c97c8,2,2),0xffffffff);
       }
       else {
-        local_68 = (float)puVar2[-9] + (float)puVar2[-0xf];
-        local_64 = (float)puVar2[-8] + (float)puVar2[-0xe];
-        local_6c = (float)puVar2[-10] + (float)puVar2[-0x10];
+        local_68 = (uint)((float)puVar2[-9] + (float)puVar2[-0xf]);
+        local_64 = (uint)((float)puVar2[-8] + (float)puVar2[-0xe]);
+        local_6c = (uint)((float)puVar2[-10] + (float)puVar2[-0x10]);
         Camera_BuildBasis(local_30,puVar2 + -0x10,&local_6c,0);
-        local_5c = (float)puVar2[-7] * 0.1;
-        vec = &local_60;
-        local_60 = (1.0 - (float)puVar2[-2]) * local_5c;
-        local_4c = -local_60;
+        local_5c = (uint)((float)puVar2[-7] * 0.1);
+        vec = (float *)&local_60;
+        local_60 = (uint)((1.0 - (float)puVar2[-2]) * (float)local_5c);
+        local_4c = (uint)-(float)local_60;
         iVar1 = 4;
         local_58 = local_60;
         local_54 = local_60;
@@ -257,14 +258,14 @@ void Set_DrawDebugLights(int param_1)
         local_34 = local_60;
         do {
           Vec3_Rotate3x3(vec,local_30);
-          rdPrimit3_DrawLine(puVar2 + -0x10,vec,0,0,0,0,PIECE(DAT_008c97cc,2,2),0xffffffff);
+          rdPrimit3_DrawLine(puVar2 + -0x10,vec,0,0,0,0,PIECE(UINT_008c97cc,2,2),0xffffffff);
           vec = vec + 3;
           iVar1 = iVar1 + -1;
         } while (iVar1 != 0);
-        rdPrimit3_DrawLine(&local_60,&local_54,0,0,0,0,PIECE(DAT_008c97cc,2,2),0xffffffff);
-        rdPrimit3_DrawLine(&local_54,&local_48,0,0,0,0,PIECE(DAT_008c97cc,2,2),0xffffffff);
-        rdPrimit3_DrawLine(&local_48,&local_3c,0,0,0,0,PIECE(DAT_008c97cc,2,2),0xffffffff);
-        rdPrimit3_DrawLine(&local_3c,&local_60,0,0,0,0,PIECE(DAT_008c97cc,2,2),0xffffffff);
+        rdPrimit3_DrawLine(&local_60,&local_54,0,0,0,0,PIECE(UINT_008c97cc,2,2),0xffffffff);
+        rdPrimit3_DrawLine(&local_54,&local_48,0,0,0,0,PIECE(UINT_008c97cc,2,2),0xffffffff);
+        rdPrimit3_DrawLine(&local_48,&local_3c,0,0,0,0,PIECE(UINT_008c97cc,2,2),0xffffffff);
+        rdPrimit3_DrawLine(&local_3c,&local_60,0,0,0,0,PIECE(UINT_008c97cc,2,2),0xffffffff);
       }
       local_70 = local_70 + 1;
       puVar2 = puVar2 + 0x1a;
@@ -289,6 +290,7 @@ void Set_DrawDebugLights(int param_1)
 #undef local_68
 #undef local_6c
 #undef local_70
+#undef local_74
 
 
 /* ---- 0x004859c0  Set_DrawDebugCameras ---- */
@@ -401,31 +403,31 @@ int __cdecl Set_SaveState(void *writeFn)
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   void *pvVar1;
   code *pcVar2;
-  int iVar3;
+  uint uVar3;
   int iVar4;
   int iVar5;
   int iVar6;
-  #define local_14 (*(int *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(int *)(_frame + (0x30 - 0x10)))
+  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
+  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
   #define pvStack_c (*(void **)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(int *)(_frame + (0x30 - 0x8)))
+  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
   #define iStack_4 (*(int *)(_frame + (0x30 - 0x4)))
   
   local_8 = 0;
   Res_FindByHandleOrNull(&local_14,&local_10,0x20544553);
   pcVar2 = writeFn;
   while (writeFn = pcVar2, local_14 != 0) {
-    iVar3 = Set_GetRefCount(local_10);
-    if (0 < iVar3) {
+    iVar4 = Set_GetRefCount(local_10);
+    if (0 < iVar4) {
       local_8 = local_8 + 1;
     }
     Res_NextInList(&local_14,&local_10,0x20544553);
     pcVar2 = writeFn;
   }
-  iVar3 = (*pcVar2)(&local_8,4);
-  if (iVar3 == 0) {
+  iVar4 = (*pcVar2)(&local_8,4);
+  if (iVar4 == 0) {
     Res_FindByHandleOrNull(&local_14,&local_10,0x20544553);
-    iVar3 = local_10;
+    uVar3 = local_10;
     do {
       if (local_14 == 0) {
         pvStack_c = Set_GetCurrent();
@@ -453,16 +455,16 @@ int __cdecl Set_SaveState(void *writeFn)
         return 0;
       }
       iVar5 = 0;
-      local_10 = iVar3;
-      iVar4 = Set_GetRefCount(iVar3);
+      local_10 = uVar3;
+      iVar4 = Set_GetRefCount(uVar3);
       if (iVar4 != 0) {
         (*pcVar2)(&local_10,4);
-        (*pcVar2)(iVar3 + 0xb4,4);
-        (*pcVar2)(iVar3 + 0x1ac0,4);
+        (*pcVar2)(uVar3 + 0xb4,4);
+        (*pcVar2)(uVar3 + 0x1ac0,4);
         iStack_4 = 0;
-        if (0 < *(int *)(iVar3 + 0xb0)) {
+        if (0 < *(int *)(uVar3 + 0xb0)) {
           do {
-            iVar6 = iVar5 + *(int *)(iVar3 + 0xac);
+            iVar6 = iVar5 + *(int *)(uVar3 + 0xac);
             writeFn = (void *)0x0;
             for (iVar4 = *(int *)(iVar6 + 0x128); iVar4 != 0; iVar4 = *(int *)(iVar4 + 0xf8)) {
               writeFn = (void *)((int)writeFn + 1);
@@ -485,11 +487,11 @@ int __cdecl Set_SaveState(void *writeFn)
             }
             iStack_4 = iStack_4 + 1;
             iVar5 = iVar5 + 300;
-          } while (iStack_4 < *(int *)(iVar3 + 0xb0));
+          } while (iStack_4 < *(int *)(uVar3 + 0xb0));
         }
       }
       Res_NextInList(&local_14,&local_10,0x20544553);
-      iVar3 = local_10;
+      uVar3 = local_10;
     } while( true );
   }
   return 1;
@@ -508,13 +510,13 @@ int __cdecl Set_RestoreState(void *readFn)
 
 {
   unsigned char _frame[0x90] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  float fVar1;
-  int iVar2;
-  void *pvVar3;
-  int iVar4;
-  char *setName;
-  int iVar5;
-  #define iStack_74 (*(int *)(_frame + (0x90 - 0x74)))
+  int iVar1;
+  float fVar2;
+  int iVar3;
+  void *pvVar4;
+  void *pvVar5;
+  int iVar6;
+  #define uStack_74 (*(uint *)(_frame + (0x90 - 0x74)))
   #define iStack_70 (*(int *)(_frame + (0x90 - 0x70)))
   #define iStack_6c (*(int *)(_frame + (0x90 - 0x6c)))
   #define iStack_68 (*(int *)(_frame + (0x90 - 0x68)))
@@ -530,42 +532,42 @@ int __cdecl Set_RestoreState(void *readFn)
   #define acStack_40 (*(char (*)[32])(_frame + (0x90 - 0x40)))
   #define acStack_20 (*(char (*)[32])(_frame + (0x90 - 0x20)))
   
-  iVar2 = (*(code *)readFn)(&local_60,4);
-  if (iVar2 != 0) {
+  iVar3 = (*(code *)readFn)(&local_60,4);
+  if (iVar3 != 0) {
     return 1;
   }
   fStack_64 = 0.0;
   if (0 < local_60) {
     do {
       (*(code *)readFn)(&pvStack_5c,4);
-      pvVar3 = Res_DataFromHandle(pvStack_5c);
-      if (pvVar3 == (void *)0x0) {
+      pvVar4 = Res_DataFromHandle(pvStack_5c);
+      if (pvVar4 == (void *)0x0) {
         return 1;
       }
-      (*(code *)readFn)((int)pvVar3 + 0xb4,4);
+      (*(code *)readFn)((int)pvVar4 + 0xb4,4);
       if (g_CurrentSetRef != 0) {
         ResRef_Remove(&g_CurrentSetRef);
       }
-      ResRef_Add(&g_CurrentSetRef,pvVar3,s_C__grimsrc_libs_grimlib_Engine_s_004ec5e0,0x210);
+      ResRef_Add(&g_CurrentSetRef,pvVar4,s_C__grimsrc_libs_grimlib_Engine_s_004ec5e0,0x210);
       if (g_CurrentSetRef == 0) {
         (*g_pSvcMain->pAssertFail)
                   (s_Bad_room_Reference_004ec62c,s_main_sputResource_h_004e80a8,0xa4);
       }
       Set_LoadResources(g_pCurrentSet);
-      strncpy(g_szCurrentSetName,pvVar3,0x20);
+      strncpy(g_szCurrentSetName,pvVar4,0x20);
       (*(code *)readFn)(&iStack_58,4);
       if (iStack_58 != 0) {
-        ResRef_Add((void *)((int)pvVar3 + 0x1ac0),pvVar3,s_C__grimsrc_libs_grimlib_Engine_s_004ec5e0
+        ResRef_Add((void *)((int)pvVar4 + 0x1ac0),pvVar4,s_C__grimsrc_libs_grimlib_Engine_s_004ec5e0
                    ,0x217);
       }
       iStack_70 = 0;
-      if (0 < *(int *)((int)pvVar3 + 0xb0)) {
+      if (0 < *(int *)((int)pvVar4 + 0xb0)) {
         iStack_6c = 0;
         do {
-          iVar2 = iStack_6c + *(int *)((int)pvVar3 + 0xac);
-          (*(code *)readFn)(&iStack_74,4);
+          iVar3 = iStack_6c + *(int *)((int)pvVar4 + 0xac);
+          (*(code *)readFn)(&uStack_74,4);
           iStack_68 = 0;
-          if (0 < iStack_74) {
+          if (0 < (int)uStack_74) {
             do {
               (*(code *)readFn)(&iStack_50,4);
               (*(code *)readFn)(acStack_20,0x20);
@@ -574,69 +576,68 @@ int __cdecl Set_RestoreState(void *readFn)
               (*(code *)readFn)(&uStack_4c,4);
               (*(code *)readFn)(&iStack_48,4);
               ObjectState_Create(iStack_70,iStack_50,acStack_20,acStack_40,iStack_54);
-              iVar5 = *(int *)(iVar2 + 0x128);
-              iVar4 = *(int *)(iVar5 + 0x40);
-              if (iVar4 != 0) {
-                if (iVar4 == 0) {
+              iVar6 = *(int *)(iVar3 + 0x128);
+              iVar1 = *(int *)(iVar6 + 0x40);
+              if (iVar1 != 0) {
+                if (iVar1 == 0) {
                   (*g_pSvcMain->pAssertFail)
                             (s_Bad_Bitmap_Reference_004e8114,s_main_sputResource_h_004e80a8,0x90);
                 }
-                *(undefined4 *)(*(int *)(iVar5 + 0x44) + 0x68) = uStack_4c;
+                *(undefined4 *)(*(int *)(iVar6 + 0x44) + 0x68) = uStack_4c;
               }
-              iVar5 = *(int *)(iVar2 + 0x128);
-              iVar4 = *(int *)(iVar5 + 0xb4);
-              if (iVar4 != 0) {
-                if (iVar4 == 0) {
+              iVar6 = *(int *)(iVar3 + 0x128);
+              iVar1 = *(int *)(iVar6 + 0xb4);
+              if (iVar1 != 0) {
+                if (iVar1 == 0) {
                   (*g_pSvcMain->pAssertFail)
                             (s_Bad_Bitmap_Reference_004e8114,s_main_sputResource_h_004e80a8,0x90);
                 }
-                *(int *)(*(int *)(iVar5 + 0xb8) + 0x68) = iStack_48;
+                *(int *)(*(int *)(iVar6 + 0xb8) + 0x68) = iStack_48;
               }
               iStack_68 = iStack_68 + 1;
-            } while (iStack_68 < iStack_74);
+            } while (iStack_68 < (int)uStack_74);
           }
-          iVar5 = 0;
-          if (0 < iStack_74) {
+          iVar6 = 0;
+          if (0 < (int)uStack_74) {
             do {
-              iVar4 = ObjectState_SendToBack
-                                (*(void **)(iVar2 + 0x128),(int)*(void **)(iVar2 + 0x128));
-              *(int *)(iVar2 + 0x128) = iVar4;
-              iVar5 = iVar5 + 1;
-            } while (iVar5 < iStack_74);
+              pvVar5 = ObjectState_SendToBack(*(void **)(iVar3 + 0x128),*(void **)(iVar3 + 0x128));
+              *(void **)(iVar3 + 0x128) = pvVar5;
+              iVar6 = iVar6 + 1;
+            } while (iVar6 < (int)uStack_74);
           }
           iStack_70 = iStack_70 + 1;
           iStack_6c = iStack_6c + 300;
-        } while (iStack_70 < *(int *)((int)pvVar3 + 0xb0));
+        } while (iStack_70 < *(int *)((int)pvVar4 + 0xb0));
       }
       fStack_64 = (float)((int)fStack_64 + 1);
     } while ((int)fStack_64 < local_60);
   }
   (*(code *)readFn)(&pvStack_44,4);
-  setName = Res_DataFromHandle(pvStack_44);
-  Set_SetCurrent(setName);
-  if (setName != (char *)0x0) {
-    Set_ChangeSetup(*(undefined4 *)(setName + 0xb4));
-    SectorList_SelectForSet(setName);
-    (*(code *)readFn)(setName + 0x1af8,1);
-    (*(code *)readFn)(setName + 0x1af9,1);
-    (*(code *)readFn)(setName + 0x1afc,4);
-    (*(code *)readFn)(setName + 0x1b00,4);
-    (*(code *)readFn)(setName + 0x1b04,4);
-    for (pvVar3 = g_pSectorList; pvVar3 != (void *)0x0; pvVar3 = *(void **)((int)pvVar3 + 0x70)) {
+  pvVar4 = Res_DataFromHandle(pvStack_44);
+  Set_SetCurrent(pvVar4);
+  if (pvVar4 != (void *)0x0) {
+    Set_ChangeSetup(*(undefined4 *)((int)pvVar4 + 0xb4));
+    Set_ActivateSectors(pvVar4);
+    (*(code *)readFn)((int)pvVar4 + 0x1af8,1);
+    (*(code *)readFn)((int)pvVar4 + 0x1af9,1);
+    (*(code *)readFn)((int)pvVar4 + 0x1afc,4);
+    (*(code *)readFn)((int)pvVar4 + 0x1b00,4);
+    (*(code *)readFn)((int)pvVar4 + 0x1b04,4);
+    for (pvVar4 = g_pSectorList; pvVar4 != (void *)0x0; pvVar4 = *(void **)((int)pvVar4 + 0x70)) {
       (*(code *)readFn)(&iStack_48,4);
-      if (iStack_48 == *(int *)((int)pvVar3 + 0x20)) {
-        (*(code *)readFn)(&iStack_74,4);
-        *(int *)((int)pvVar3 + 0x28) = iStack_74;
-        (*(code *)readFn)(&iStack_74,4);
-        Sector_SetType(pvVar3,iStack_74);
-        (*(code *)readFn)(&iStack_74,4);
-        *(int *)((int)pvVar3 + 0x2c) = iStack_74;
+      if (iStack_48 == *(int *)((int)pvVar4 + 0x20)) {
+        (*(code *)readFn)(&uStack_74,4);
+        *(uint *)((int)pvVar4 + 0x28) = uStack_74;
+        (*(code *)readFn)(&uStack_74,4);
+        Sector_SetSavedType(pvVar4,uStack_74);
+        (*(code *)readFn)(&uStack_74,4);
+        *(uint *)((int)pvVar4 + 0x2c) = uStack_74;
         (*(code *)readFn)(&fStack_64,4);
-        fVar1 = fStack_64;
+        fVar2 = fStack_64;
         if (fStack_64 == 0.0) {
-          fVar1 = 0.005;
+          fVar2 = 0.005;
         }
-        *(float *)((int)pvVar3 + 0x30) = fVar1;
+        *(float *)((int)pvVar4 + 0x30) = fVar2;
       }
     }
   }
@@ -652,11 +653,11 @@ int __cdecl Set_RestoreState(void *readFn)
 #undef iStack_68
 #undef iStack_6c
 #undef iStack_70
-#undef iStack_74
 #undef local_60
 #undef pvStack_44
 #undef pvStack_5c
 #undef uStack_4c
+#undef uStack_74
 
 
 /* ---- 0x004a4b40  Set_ReleaseResources ---- */
@@ -691,9 +692,9 @@ void __cdecl Set_ReleaseResources(void *set)
         while (iVar2 != 0) {
           p = *(void **)(iVar4 + 0x128 + iVar1);
           *(undefined4 *)(iVar4 + 0x128 + iVar1) = *(undefined4 *)((int)p + 0xf8);
-          ((code *)ObjectState_UnloadBitmaps)();
+          ObjectState_UnloadBitmaps((int)p);
           if (p != (void *)0x0) {
-            ((code *)ObjectState_Destruct)();
+            ObjectState_Destruct((int)p);
             Plat_Free(p);
           }
           iVar1 = *(int *)((int)set + 0xac);
@@ -712,7 +713,7 @@ void FUN_004a4c40(undefined4 param_1)
 
 {
   FUN_004a4c60(param_1);
-  (**(code **)(DAT_008cb090 + 0x24))(param_1);
+  (*g_pSvcRoom->pFree)(param_1);
   return;
 }
 
@@ -725,7 +726,7 @@ void FUN_004a4c60(char *param_1)
   
   Set_ReleaseResources(param_1);
   if (*(int *)(param_1 + 0x80) != 0) {
-    (**(code **)(DAT_008cb090 + 0x24))(*(int *)(param_1 + 0x80));
+    (*g_pSvcRoom->pFree)(*(int *)(param_1 + 0x80));
   }
   FUN_004a4d10(param_1);
   FUN_004a7100(param_1);
@@ -762,7 +763,7 @@ void FUN_004a4d10(int param_1)
       iVar1 = iVar1 + 300;
     } while (uVar2 < *(uint *)(param_1 + 0xb0));
     if ((*(uint *)(param_1 + 0xb0) != 0) && (*(int *)(param_1 + 0xac) != 0)) {
-      (**(code **)(DAT_008cb090 + 0x24))(*(int *)(param_1 + 0xac));
+      (*g_pSvcRoom->pFree)(*(int *)(param_1 + 0xac));
     }
   }
   *(undefined4 *)(param_1 + 0xac) = 0;
@@ -808,6 +809,7 @@ int __cdecl Set_LoadResources(void *set)
   char *pcVar11;
   char *pcVar12;
   int *piVar13;
+  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   pvVar2 = set;
@@ -847,7 +849,7 @@ int __cdecl Set_LoadResources(void *set)
   }
   ref = (int *)(iVar5 + 0xc0);
   do {
-    if (DAT_008cb0a0 == 0) {
+    if (g_nSkipSetupBitmaps == 0) {
       if (*ref == 0) {
         iVar5 = _stricmp(ref + -0x10,&DAT_004ec60c);
         if (iVar5 != 0) {
@@ -895,7 +897,7 @@ LAB_004a51bd:
                     (s_Bad_Bitmap_Reference_004e8114,s_main_sputResource_h_004e80a8,0x90);
         }
       }
-      stdBitmap_GetSize((void *)ref[1]);
+      stdBitmap_ConvertToDisplay((void *)ref[1]);
       if ((char)ref[-8] != '\0') {
         piVar9 = ref + 0xd;
         if ((ref[0xd] == 0) &&
@@ -916,7 +918,7 @@ LAB_004a51bd:
       }
       iVar5 = rdThing_New(0);
       ref[-0x1d] = iVar5;
-      rdThing_SetSprite(iVar5,ref[-0x1e]);
+      rdThing_SetCamera(iVar5,ref[-0x1e]);
       Camera_BuildBasis(ref + -0x1c,ref + -0x28,ref + -0x25,ref[-0x22]);
       set = (void *)0x0;
       if (*(int *)((int)pvVar2 + 0xb8) != 0) {
@@ -939,15 +941,16 @@ LAB_004a51bd:
   } while( true );
 }
 #undef local_4
+#undef local_8
 
 
 /* ---- 0x004a5390  FUN_004a5390 ---- */
 void FUN_004a5390(void)
 
 {
-  DAT_008cb090 = 0;
-  if (DAT_008cb098 != 0) {
-    DAT_008cb098 = 0;
+  g_pSvcRoom = (GrimServices *)0x0;
+  if (UINT_008cb098 != 0) {
+    UINT_008cb098 = 0;
   }
   return;
 }
@@ -956,15 +959,15 @@ void FUN_004a5390(void)
 undefined4 FUN_004a53b0(void)
 
 {
-  if (DAT_008cb09c != 0) {
+  if (UINT_008cb09c != 0) {
     return 1;
   }
   Set_RegisterHandle(s_colormaps_004ec734,FUN_004a5b40);
   Set_RegisterHandle(s_setups_004ec72c,FUN_004a5890);
   Set_RegisterHandle(s_lights_004ec724,FUN_004a5600);
   Set_RegisterHandle(s_sectors_004ec71c,FUN_004a5c90);
-  DAT_008cb088 = Pool_Create(0x24,0x10,8);
-  DAT_008cb09c = 1;
+  g_pPositionedSoundPool = (void **)Pool_Create(0x24,0x10,8);
+  UINT_008cb09c = 1;
   return 0;
 }
 
@@ -973,26 +976,27 @@ void FUN_004a5430(void)
 
 {
   int iVar1;
-  int iVar2;
-  int iVar3;
+  void *pvVar2;
+  void *pvVar3;
+  int iVar4;
   
-  iVar3 = DAT_008cb0ac;
-  while (iVar3 != 0) {
-    iVar2 = *(int *)(iVar3 + 0x80);
-    while (iVar2 != 0) {
-      iVar1 = *(int *)(iVar2 + 8);
-      (**(code **)(DAT_008cb090 + 0x24))(iVar2);
-      iVar2 = iVar1;
+  pvVar3 = g_pSetActorLists;
+  while (pvVar3 != (void *)0x0) {
+    iVar4 = *(int *)((int)pvVar3 + 0x80);
+    while (iVar4 != 0) {
+      iVar1 = *(int *)(iVar4 + 8);
+      (*g_pSvcRoom->pFree)(iVar4);
+      iVar4 = iVar1;
     }
-    iVar2 = *(int *)(iVar3 + 0x84);
-    (**(code **)(DAT_008cb090 + 0x24))(iVar3);
-    iVar3 = iVar2;
+    pvVar2 = *(void **)((int)pvVar3 + 0x84);
+    (*g_pSvcRoom->pFree)(pvVar3);
+    pvVar3 = pvVar2;
   }
-  if (DAT_008cb088 != 0) {
-    Pool_Destroy(DAT_008cb088);
-    DAT_008cb088 = 0;
+  if (g_pPositionedSoundPool != (void **)0x0) {
+    Pool_Destroy(g_pPositionedSoundPool);
+    g_pPositionedSoundPool = (void **)0x0;
   }
-  DAT_008cb09c = 0;
+  UINT_008cb09c = 0;
   return;
 }
 
@@ -1000,28 +1004,31 @@ void FUN_004a5430(void)
 /* Adds a set to the 32-entry handle table at g_SetHandles (0x24 bytes each) if not already present
     */
 
-undefined4 Set_RegisterHandle(undefined4 param_1,undefined4 param_2)
+int __cdecl Set_RegisterHandle(char *name,void *fn)
 
 {
-  int iVar1;
+  uint uVar1;
+  int iVar2;
   
-  iVar1 = Set_FindHandle(param_1);
-  if (iVar1 == -1) {
-    if (0x1f < DAT_008cb0a4) {
+  uVar1 = Set_FindHandle(name);
+  if (uVar1 == 0xffffffff) {
+    if (0x1f < (int)UINT_008cb0a4) {
       return 0;
     }
-    iVar1 = DAT_008cb0a4;
-    DAT_008cb0a4 = DAT_008cb0a4 + 1;
+    uVar1 = UINT_008cb0a4;
+    UINT_008cb0a4 = UINT_008cb0a4 + 1;
   }
-  iVar1 = iVar1 * 0x24;
-  strncpy(&DAT_008cac08 + iVar1,param_1,0x1f);
-  (&DAT_008cac27)[iVar1] = 0;
-  *(undefined4 *)(&DAT_008cac28 + iVar1) = param_2;
+  iVar2 = uVar1 * 0x24;
+  strncpy(&DAT_008cac08 + iVar2,name,0x1f);
+  (&DAT_008cac27)[iVar2] = 0;
+  *(void **)(&DAT_008cac28 + iVar2) = fn;
   return 1;
 }
 
 /* ---- 0x004a5500  Set_FindHandle ---- */
-int Set_FindHandle(undefined4 param_1)
+/* WARNING: Unknown calling convention -- yet parameter storage is locked */
+
+int Set_FindHandle(char *name)
 
 {
   int iVar1;
@@ -1029,18 +1036,18 @@ int Set_FindHandle(undefined4 param_1)
   undefined *puVar3;
   
   iVar2 = 0;
-  if (DAT_008cb0a4 < 1) {
+  if ((int)UINT_008cb0a4 < 1) {
     return -1;
   }
   puVar3 = &DAT_008cac08;
   do {
-    iVar1 = _stricmp(puVar3,param_1);
+    iVar1 = _stricmp(puVar3,name);
     if (iVar1 == 0) {
       return iVar2;
     }
     iVar2 = iVar2 + 1;
     puVar3 = puVar3 + 0x24;
-  } while (iVar2 < DAT_008cb0a4);
+  } while (iVar2 < (int)UINT_008cb0a4);
   return -1;
 }
 
@@ -1050,6 +1057,7 @@ undefined4 FUN_004a5550(undefined4 param_1)
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
+  undefined *puVar2;
   #define local_20 (*(undefined1 (*)[32])(_frame + (0x30 - 0x20)))
   
   iVar1 = ((code *)FUN_0047c7c0)(param_1);
@@ -1059,8 +1067,8 @@ undefined4 FUN_004a5550(undefined4 param_1)
   iVar1 = Std_ParseCommandLine();
   if (iVar1 != 0) {
     do {
-      iVar1 = sscanf(DAT_00900520,s_section___s_004ec740);
-      if (iVar1 == 1) {
+      puVar2 = sscanf((char *)UINT_00900520,IMG_ADDR(0x004ec740));
+      if (puVar2 == (undefined *)0x1) {
         iVar1 = Set_IsHandleValid(local_20);
         if (iVar1 == 0) {
           FUN_0047c8c0();
@@ -1079,7 +1087,7 @@ undefined4 FUN_004a5550(undefined4 param_1)
 
 
 /* ---- 0x004a55d0  Set_IsHandleValid ---- */
-bool Set_IsHandleValid(undefined4 param_1)
+bool Set_IsHandleValid(char *param_1)
 
 {
   int iVar1;
@@ -1098,112 +1106,114 @@ undefined4 FUN_004a5600(void)
 {
   unsigned char _frame[0x120] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   byte bVar1;
-  int iVar2;
+  uint uVar2;
   int iVar3;
-  uint uVar4;
+  undefined *puVar4;
   uint uVar5;
-  byte *pbVar6;
+  uint uVar6;
   byte *pbVar7;
-  undefined4 *puVar8;
-  byte *pbVar9;
-  bool bVar10;
+  byte *pbVar8;
+  undefined4 *puVar9;
+  byte *pbVar10;
+  bool bVar11;
   #define local_110 (*(uint *)(_frame + (0x120 - 0x110)))
+  #define local_10c (*(uint *)(_frame + (0x120 - 0x10c)))
   #define local_108 (*(uint *)(_frame + (0x120 - 0x108)))
-  #define local_104 (*(int *)(_frame + (0x120 - 0x104)))
+  #define local_104 (*(uint *)(_frame + (0x120 - 0x104)))
   #define local_100 (*(byte (*)[256])(_frame + (0x120 - 0x100)))
   
-  iVar2 = DAT_008cb0a8;
-  *(undefined4 *)(DAT_008cb0a8 + 0xb8) = 0;
-  pbVar6 = (byte *)0x0;
+  uVar2 = UINT_008cb0a8;
+  *(undefined4 *)(UINT_008cb0a8 + 0xb8) = 0;
+  pbVar7 = (byte *)0x0;
   iVar3 = Std_ParseCommandLine();
   if (iVar3 == 0) {
     return 1;
   }
   do {
-    if (*DAT_00900520 != '\0') {
-      iVar3 = sscanf(DAT_00900520,s_section___s_004ec7e0);
-      if (iVar3 == 0) {
-        iVar3 = sscanf(DAT_00900520,s_numlights__d_004ec7d0);
-        pbVar7 = pbVar6;
-        if (iVar3 == 1) {
-          pbVar7 = (byte *)(iVar2 + 0x54);
-          puVar8 = (undefined4 *)(iVar2 + 0xbc);
+    if (*(char *)UINT_00900520 != '\0') {
+      puVar4 = sscanf((char *)UINT_00900520,IMG_ADDR(0x004ec7e0));
+      if (puVar4 == (undefined *)0x0) {
+        puVar4 = sscanf((char *)UINT_00900520,IMG_ADDR(0x004ec7d0));
+        pbVar8 = pbVar7;
+        if (puVar4 == (undefined *)0x1) {
+          pbVar8 = (byte *)(uVar2 + 0x54);
+          puVar9 = (undefined4 *)(uVar2 + 0xbc);
           for (iVar3 = 0x680; iVar3 != 0; iVar3 = iVar3 + -1) {
-            *puVar8 = 0;
-            puVar8 = puVar8 + 1;
+            *puVar9 = 0;
+            puVar9 = puVar9 + 1;
           }
         }
-        pbVar6 = pbVar7;
-        if (pbVar7 != (byte *)0x0) {
-          iVar3 = sscanf(DAT_00900520,s_light__s_004ec7c4);
-          if (iVar3 == 1) {
-            pbVar6 = pbVar7 + 0x68;
-            rdLight_Init(pbVar7 + 0x94);
-            uVar4 = 0xffffffff;
-            pbVar7 = local_100;
+        pbVar7 = pbVar8;
+        if (pbVar8 != (byte *)0x0) {
+          puVar4 = sscanf((char *)UINT_00900520,IMG_ADDR(0x004ec7c4));
+          if (puVar4 == (undefined *)0x1) {
+            pbVar7 = pbVar8 + 0x68;
+            rdLight_Init(pbVar8 + 0x94);
+            uVar5 = 0xffffffff;
+            pbVar8 = local_100;
             do {
-              pbVar9 = pbVar7;
-              if (uVar4 == 0) break;
-              uVar4 = uVar4 - 1;
-              pbVar9 = pbVar7 + 1;
-              bVar1 = *pbVar7;
-              pbVar7 = pbVar9;
+              pbVar10 = pbVar8;
+              if (uVar5 == 0) break;
+              uVar5 = uVar5 - 1;
+              pbVar10 = pbVar8 + 1;
+              bVar1 = *pbVar8;
+              pbVar8 = pbVar10;
             } while (bVar1 != 0);
-            uVar4 = ~uVar4;
-            pbVar7 = pbVar9 + -uVar4;
-            pbVar9 = pbVar6;
-            for (uVar5 = uVar4 >> 2; uVar5 != 0; uVar5 = uVar5 - 1) {
-              *(undefined4 *)pbVar9 = *(undefined4 *)pbVar7;
-              pbVar7 = pbVar7 + 4;
-              pbVar9 = pbVar9 + 4;
+            uVar5 = ~uVar5;
+            pbVar8 = pbVar10 + -uVar5;
+            pbVar10 = pbVar7;
+            for (uVar6 = uVar5 >> 2; uVar6 != 0; uVar6 = uVar6 - 1) {
+              *(undefined4 *)pbVar10 = *(undefined4 *)pbVar8;
+              pbVar8 = pbVar8 + 4;
+              pbVar10 = pbVar10 + 4;
             }
-            for (uVar4 = uVar4 & 3; uVar4 != 0; uVar4 = uVar4 - 1) {
-              *pbVar9 = *pbVar7;
-              pbVar7 = pbVar7 + 1;
-              pbVar9 = pbVar9 + 1;
+            for (uVar5 = uVar5 & 3; uVar5 != 0; uVar5 = uVar5 - 1) {
+              *pbVar10 = *pbVar8;
+              pbVar8 = pbVar8 + 1;
+              pbVar10 = pbVar10 + 1;
             }
           }
-          iVar3 = sscanf(DAT_00900520,s_type__s_004ec7b8);
-          if (iVar3 == 1) {
+          puVar4 = sscanf((char *)UINT_00900520,IMG_ADDR(0x004ec7b8));
+          if (puVar4 == (undefined *)0x1) {
             iVar3 = _stricmp(local_100,&DAT_004ec5b4);
             if (iVar3 == 0) {
               iVar3 = 2;
             }
             else {
-              pbVar9 = &DAT_004ec598;
-              pbVar7 = local_100;
+              pbVar10 = &DAT_004ec598;
+              pbVar8 = local_100;
               do {
-                bVar1 = *pbVar7;
-                bVar10 = bVar1 < *pbVar9;
-                if (bVar1 != *pbVar9) {
+                bVar1 = *pbVar8;
+                bVar11 = bVar1 < *pbVar10;
+                if (bVar1 != *pbVar10) {
 LAB_004a5762:
-                  iVar3 = (1 - (uint)bVar10) - (uint)(bVar10 != 0);
+                  iVar3 = (1 - (uint)bVar11) - (uint)(bVar11 != 0);
                   goto LAB_004a5767;
                 }
                 if (bVar1 == 0) break;
-                bVar1 = pbVar7[1];
-                bVar10 = bVar1 < pbVar9[1];
-                if (bVar1 != pbVar9[1]) goto LAB_004a5762;
-                pbVar7 = pbVar7 + 2;
-                pbVar9 = pbVar9 + 2;
+                bVar1 = pbVar8[1];
+                bVar11 = bVar1 < pbVar10[1];
+                if (bVar1 != pbVar10[1]) goto LAB_004a5762;
+                pbVar8 = pbVar8 + 2;
+                pbVar10 = pbVar10 + 2;
               } while (bVar1 != 0);
               iVar3 = 0;
 LAB_004a5767:
               iVar3 = (-(uint)(iVar3 != 0) & 0xfffffffd) + 3;
             }
-            *(int *)(pbVar6 + 0x30) = iVar3;
+            *(int *)(pbVar7 + 0x30) = iVar3;
           }
-          iVar3 = sscanf(DAT_00900520,s_direction__f__f__f_004ec7a4);
-          if (iVar3 == 3) {
-            Vec3_Normalize(pbVar6 + 0x38);
+          puVar4 = sscanf((char *)UINT_00900520,IMG_ADDR(0x004ec7a4));
+          if (puVar4 == (undefined *)0x3) {
+            Vec3_Normalize(pbVar7 + 0x38);
           }
-          sscanf(DAT_00900520,s_position__f__f__f_004ec790);
-          sscanf(DAT_00900520,s_intensity__f_004ec780);
-          sscanf(DAT_00900520,s_umbraangle__f_004ec770);
-          sscanf(DAT_00900520,s_penumbraangle__f_004ec75c);
-          iVar3 = sscanf(DAT_00900520,s_color__d__d__d_004ec74c);
-          if (iVar3 == 3) {
-            *(uint *)(pbVar6 + 0x48) = (local_104 << 8 | local_110) << 8 | local_108;
+          sscanf((char *)UINT_00900520,IMG_ADDR(0x004ec790));
+          sscanf((char *)UINT_00900520,IMG_ADDR(0x004ec780));
+          sscanf((char *)UINT_00900520,IMG_ADDR(0x004ec770));
+          sscanf((char *)UINT_00900520,IMG_ADDR(0x004ec75c));
+          puVar4 = sscanf((char *)UINT_00900520,IMG_ADDR(0x004ec74c));
+          if (puVar4 == (undefined *)0x3) {
+            *(uint *)(pbVar7 + 0x48) = (local_104 << 8 | local_110) << 8 | local_108;
           }
         }
       }
@@ -1223,6 +1233,7 @@ LAB_004a5767:
 #undef local_100
 #undef local_104
 #undef local_108
+#undef local_10c
 #undef local_110
 
 
@@ -1230,96 +1241,100 @@ LAB_004a5767:
 undefined4 FUN_004a5890(void)
 
 {
-  unsigned char _frame[0x110] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x120] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int *piVar1;
   char cVar2;
-  char *pcVar3;
+  uint uVar3;
   int iVar4;
-  undefined4 *puVar5;
-  uint uVar6;
+  undefined *puVar5;
+  undefined4 *puVar6;
   uint uVar7;
-  char *pcVar8;
-  uint *puVar9;
-  char *pcVar10;
+  uint uVar8;
+  char *pcVar9;
+  uint *puVar10;
   char *pcVar11;
-  #define local_100 (*(char (*)[256])(_frame + (0x110 - 0x100)))
+  char *pcVar12;
+  #define local_104 (*(uint *)(_frame + (0x120 - 0x104)))
+  #define local_100 (*(char (*)[256])(_frame + (0x120 - 0x100)))
   
-  pcVar3 = DAT_008cb0a8;
-  puVar9 = (uint *)(DAT_008cb0a8 + 0xac);
-  *puVar9 = 0;
+  uVar3 = UINT_008cb0a8;
+  puVar10 = (uint *)(UINT_008cb0a8 + 0xac);
+  *puVar10 = 0;
   iVar4 = Std_ParseCommandLine();
-  pcVar8 = pcVar3;
+  pcVar9 = (char *)uVar3;
   if (iVar4 == 0) {
     return 1;
   }
   do {
-    if (*DAT_00900520 != '\0') {
-      iVar4 = sscanf(DAT_00900520,s_section___s_004ec7e0);
-      if (iVar4 == 0) {
-        piVar1 = (int *)(pcVar3 + 0xb0);
-        iVar4 = sscanf(DAT_00900520,s_numsetups__d_004ec858);
-        if (iVar4 == 1) {
-          puVar5 = (undefined4 *)
-                   (**(code **)(DAT_008cb090 + 0x20))
+    if (*(char *)UINT_00900520 != '\0') {
+      puVar5 = sscanf((char *)UINT_00900520,IMG_ADDR(0x004ec7e0));
+      if (puVar5 == (undefined *)0x0) {
+        piVar1 = (int *)(uVar3 + 0xb0);
+        puVar5 = sscanf((char *)UINT_00900520,IMG_ADDR(0x004ec858));
+        if (puVar5 == (undefined *)0x1) {
+          puVar6 = (undefined4 *)
+                   (*g_pSvcRoom->pAlloc)
                              (*piVar1 * 300,s_C__grimsrc_libs_grimlib_Engine_s_004ec5e0,0x8b5);
           iVar4 = *piVar1;
-          *puVar9 = (uint)puVar5;
-          for (uVar6 = iVar4 * 0x4b & 0x3fffffff; uVar6 != 0; uVar6 = uVar6 - 1) {
-            *puVar5 = 0;
-            puVar5 = puVar5 + 1;
+          *puVar10 = (uint)puVar6;
+          for (uVar7 = iVar4 * 0x4b & 0x3fffffff; uVar7 != 0; uVar7 = uVar7 - 1) {
+            *puVar6 = 0;
+            puVar6 = puVar6 + 1;
           }
           for (iVar4 = 0; iVar4 != 0; iVar4 = iVar4 + -1) {
-            *(undefined1 *)puVar5 = 0;
-            puVar5 = (undefined4 *)((int)puVar5 + 1);
+            *(undefined1 *)puVar6 = 0;
+            puVar6 = (undefined4 *)((int)puVar6 + 1);
           }
-          pcVar8 = (char *)(*puVar9 - 300);
+          pcVar9 = (char *)(*puVar10 - 300);
         }
         else {
-          if (*puVar9 == 0) {
+          if (*puVar10 == 0) {
             return 0;
           }
-          iVar4 = sscanf(DAT_00900520,s_setup__s_004ec84c);
-          if (iVar4 == 1) {
-            pcVar8 = pcVar8 + 300;
-            if ((char *)(*puVar9 + *piVar1 * 300) <= pcVar8) {
+          puVar5 = sscanf((char *)UINT_00900520,IMG_ADDR(0x004ec84c));
+          if (puVar5 == (undefined *)0x1) {
+            pcVar9 = pcVar9 + 300;
+            if ((char *)(*puVar10 + *piVar1 * 300) <= pcVar9) {
               return 0;
             }
-            uVar6 = 0xffffffff;
-            pcVar10 = local_100;
+            uVar7 = 0xffffffff;
+            pcVar11 = local_100;
             do {
-              pcVar11 = pcVar10;
-              if (uVar6 == 0) break;
-              uVar6 = uVar6 - 1;
-              pcVar11 = pcVar10 + 1;
-              cVar2 = *pcVar10;
-              pcVar10 = pcVar11;
+              pcVar12 = pcVar11;
+              if (uVar7 == 0) break;
+              uVar7 = uVar7 - 1;
+              pcVar12 = pcVar11 + 1;
+              cVar2 = *pcVar11;
+              pcVar11 = pcVar12;
             } while (cVar2 != '\0');
-            uVar6 = ~uVar6;
-            pcVar10 = pcVar11 + -uVar6;
-            pcVar11 = pcVar8;
-            for (uVar7 = uVar6 >> 2; uVar7 != 0; uVar7 = uVar7 - 1) {
-              *(undefined4 *)pcVar11 = *(undefined4 *)pcVar10;
-              pcVar10 = pcVar10 + 4;
+            uVar7 = ~uVar7;
+            pcVar11 = pcVar12 + -uVar7;
+            pcVar12 = pcVar9;
+            for (uVar8 = uVar7 >> 2; uVar8 != 0; uVar8 = uVar8 - 1) {
+              *(undefined4 *)pcVar12 = *(undefined4 *)pcVar11;
               pcVar11 = pcVar11 + 4;
+              pcVar12 = pcVar12 + 4;
             }
-            for (uVar6 = uVar6 & 3; uVar6 != 0; uVar6 = uVar6 - 1) {
-              *pcVar11 = *pcVar10;
-              pcVar10 = pcVar10 + 1;
+            for (uVar7 = uVar7 & 3; uVar7 != 0; uVar7 = uVar7 - 1) {
+              *pcVar12 = *pcVar11;
               pcVar11 = pcVar11 + 1;
+              pcVar12 = pcVar12 + 1;
             }
           }
           else {
-            if (pcVar8 < (char *)*puVar9) {
+            if (pcVar9 < (char *)*puVar10) {
               return 0;
             }
-            iVar4 = sscanf(DAT_00900520,s_background__s_004ec83c);
-            if (((((iVar4 != 1) && (iVar4 = sscanf(DAT_00900520,s_zbuffer__s_004ec830), iVar4 != 1))
-                 && (iVar4 = sscanf(DAT_00900520,s_position__f__f__f_004ec790), iVar4 != 3)) &&
-                ((iVar4 = sscanf(DAT_00900520,s_interest__f__f__f_004ec81c), iVar4 != 3 &&
-                 (iVar4 = sscanf(DAT_00900520,s_roll__f_004ec810), iVar4 != 1)))) &&
-               ((iVar4 = sscanf(DAT_00900520,s_fov__f_004ec808), iVar4 != 1 &&
-                ((iVar4 = sscanf(DAT_00900520,s_nclip__f_004ec7fc), iVar4 != 1 &&
-                 (iVar4 = sscanf(DAT_00900520,s_fclip__f_004ec7f0), iVar4 != 1)))))) {
+            puVar5 = sscanf((char *)UINT_00900520,IMG_ADDR(0x004ec83c));
+            if (((((puVar5 != (undefined *)0x1) &&
+                  (puVar5 = sscanf((char *)UINT_00900520,IMG_ADDR(0x004ec830)), puVar5 != (undefined *)0x1)) &&
+                 (puVar5 = sscanf((char *)UINT_00900520,IMG_ADDR(0x004ec790)), puVar5 != (undefined *)0x3)) &&
+                ((puVar5 = sscanf((char *)UINT_00900520,IMG_ADDR(0x004ec81c)), puVar5 != (undefined *)0x3 &&
+                 (puVar5 = sscanf((char *)UINT_00900520,IMG_ADDR(0x004ec810)), puVar5 != (undefined *)0x1)))) &&
+               ((puVar5 = sscanf((char *)UINT_00900520,IMG_ADDR(0x004ec808)), puVar5 != (undefined *)0x1 &&
+                ((puVar5 = sscanf((char *)UINT_00900520,IMG_ADDR(0x004ec7fc)), puVar5 != (undefined *)0x1 &&
+                 (puVar5 = sscanf((char *)UINT_00900520,IMG_ADDR(0x004ec7f0)), puVar5 != (undefined *)0x1))))))
+            {
               return 0;
             }
           }
@@ -1339,6 +1354,7 @@ undefined4 FUN_004a5890(void)
   } while( true );
 }
 #undef local_100
+#undef local_104
 
 
 /* ---- 0x004a5b40  FUN_004a5b40 ---- */
@@ -1347,16 +1363,17 @@ undefined4 FUN_004a5b40(void)
 {
   unsigned char _frame[0x110] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int *piVar1;
-  int iVar2;
+  uint uVar2;
   int iVar3;
-  undefined4 *puVar4;
-  uint uVar5;
+  undefined *puVar4;
+  undefined4 *puVar5;
+  uint uVar6;
   #define local_100 (*(undefined1 (*)[256])(_frame + (0x110 - 0x100)))
   
-  iVar2 = DAT_008cb0a8;
-  piVar1 = (int *)(DAT_008cb0a8 + 0x80);
+  uVar2 = UINT_008cb0a8;
+  piVar1 = (int *)(UINT_008cb0a8 + 0x80);
   if (*piVar1 != 0) {
-    (**(code **)(DAT_008cb090 + 0x18))
+    (*g_pSvcRoom->pAssertFail)
               (s_pRoom__apColormaps____NULL_004ec88c,s_C__grimsrc_libs_grimlib_Engine_s_004ec5e0,
                0x91d);
   }
@@ -1365,30 +1382,30 @@ undefined4 FUN_004a5b40(void)
     return 1;
   }
   do {
-    if (*DAT_00900520 != '\0') {
+    if (*(char *)UINT_00900520 != '\0') {
       local_100[0] = 0;
-      iVar3 = sscanf(DAT_00900520,s_section___s_004ec7e0);
-      if (iVar3 == 0) {
-        iVar3 = sscanf(DAT_00900520,s_numcolormaps__d_004ec878);
-        if (iVar3 == 1) {
-          iVar3 = *(int *)(iVar2 + 0x84);
+      puVar4 = sscanf((char *)UINT_00900520,IMG_ADDR(0x004ec7e0));
+      if (puVar4 == (undefined *)0x0) {
+        puVar4 = sscanf((char *)UINT_00900520,IMG_ADDR(0x004ec878));
+        if (puVar4 == (undefined *)0x1) {
+          iVar3 = *(int *)(uVar2 + 0x84);
           if (iVar3 == 0) goto LAB_004a5c4e;
-          puVar4 = (undefined4 *)
-                   (**(code **)(DAT_008cb090 + 0x20))
+          puVar5 = (undefined4 *)
+                   (*g_pSvcRoom->pAlloc)
                              (iVar3 * 0x34,s_C__grimsrc_libs_grimlib_Engine_s_004ec5e0,0x935);
-          iVar3 = *(int *)(iVar2 + 0x84);
-          *piVar1 = (int)puVar4;
-          for (uVar5 = iVar3 * 0xd & 0x3fffffff; uVar5 != 0; uVar5 = uVar5 - 1) {
-            *puVar4 = 0;
-            puVar4 = puVar4 + 1;
+          iVar3 = *(int *)(uVar2 + 0x84);
+          *piVar1 = (int)puVar5;
+          for (uVar6 = iVar3 * 0xd & 0x3fffffff; uVar6 != 0; uVar6 = uVar6 - 1) {
+            *puVar5 = 0;
+            puVar5 = puVar5 + 1;
           }
           for (iVar3 = 0; iVar3 != 0; iVar3 = iVar3 + -1) {
-            *(undefined1 *)puVar4 = 0;
-            puVar4 = (undefined4 *)((int)puVar4 + 1);
+            *(undefined1 *)puVar5 = 0;
+            puVar5 = (undefined4 *)((int)puVar5 + 1);
           }
         }
         if (*piVar1 != 0) {
-          sscanf(DAT_00900520,s_colormap__s_004ec868);
+          sscanf((char *)UINT_00900520,IMG_ADDR(0x004ec868));
         }
       }
       else {
@@ -1414,7 +1431,7 @@ undefined4 FUN_004a5c90(void)
 {
   int iVar1;
   
-  iVar1 = SetFile_ParseSectors(DAT_008cb0a8);
+  iVar1 = SetFile_ParseSectors(UINT_008cb0a8);
   if (iVar1 != 0) {
     Set_IsHandleValid(iVar1);
   }
@@ -1439,29 +1456,29 @@ void * __cdecl Set_GetActorListByName(char *setName)
 /* ---- 0x004a60c0  Set_FindNameInList ---- */
 /* Case-insensitive lookup in the linked set-name list */
 
-int Set_FindNameInList(int param_1)
+void * Set_FindNameInList(int param_1)
 
 {
   int iVar1;
-  int iVar2;
+  void *pvVar2;
   
-  if ((param_1 != 0) && (iVar2 = DAT_008cb0ac, DAT_008cb0ac != 0)) {
+  if ((param_1 != 0) && (pvVar2 = g_pSetActorLists, g_pSetActorLists != (void *)0x0)) {
     do {
-      iVar1 = _stricmp(iVar2,param_1);
+      iVar1 = _stricmp(pvVar2,param_1);
       if (iVar1 == 0) {
-        return iVar2;
+        return pvVar2;
       }
-      iVar2 = *(int *)(iVar2 + 0x84);
-    } while (iVar2 != 0);
-    return 0;
+      pvVar2 = *(void **)((int)pvVar2 + 0x84);
+    } while (pvVar2 != (void *)0x0);
+    return (void *)0x0;
   }
-  return 0;
+  return (void *)0x0;
 }
 
 /* ---- 0x004a6100  Set_NormalizeName ---- */
 /* sputRoom.cpp: strips the path and extension of a set name into a static buffer */
 
-char * Set_NormalizeName(char *param_1)
+void * __cdecl Set_NormalizeName(char *setName)
 
 {
   char cVar1;
@@ -1472,8 +1489,7 @@ char * Set_NormalizeName(char *param_1)
   char *pcVar6;
   char *pcVar7;
   
-  pcVar2 = (char *)(**(code **)(DAT_008cb090 + 0x20))
-                             (0x88,s_C__grimsrc_libs_grimlib_Engine_s_004ec5e0,0xa32);
+  pcVar2 = (char *)(*g_pSvcRoom->pAlloc)(0x88,s_C__grimsrc_libs_grimlib_Engine_s_004ec5e0,0xa32);
   pcVar6 = pcVar2;
   for (iVar3 = 0x22; iVar3 != 0; iVar3 = iVar3 + -1) {
     pcVar6[0] = '\0';
@@ -1484,12 +1500,12 @@ char * Set_NormalizeName(char *param_1)
   }
   uVar4 = 0xffffffff;
   do {
-    pcVar6 = param_1;
+    pcVar6 = setName;
     if (uVar4 == 0) break;
     uVar4 = uVar4 - 1;
-    pcVar6 = param_1 + 1;
-    cVar1 = *param_1;
-    param_1 = pcVar6;
+    pcVar6 = setName + 1;
+    cVar1 = *setName;
+    setName = pcVar6;
   } while (cVar1 != '\0');
   uVar4 = ~uVar4;
   pcVar6 = pcVar6 + -uVar4;
@@ -1504,38 +1520,96 @@ char * Set_NormalizeName(char *param_1)
     pcVar6 = pcVar6 + 1;
     pcVar7 = pcVar7 + 1;
   }
-  *(char **)(pcVar2 + 0x84) = DAT_008cb0ac;
-  DAT_008cb0ac = pcVar2;
+  *(void **)(pcVar2 + 0x84) = g_pSetActorLists;
+  g_pSetActorLists = pcVar2;
   return pcVar2;
 }
 
 /* ---- 0x004a6160  FUN_004a6160 ---- */
-void FUN_004a6160(int param_1)
+void FUN_004a6160(void *param_1)
 
 {
-  int iVar1;
-  int iVar2;
-  int iVar3;
+  void *pvVar1;
+  void *pvVar2;
+  void *pvVar3;
   
-  iVar3 = 0;
-  iVar2 = DAT_008cb0ac;
-  if (DAT_008cb0ac != 0) {
+  pvVar3 = (void *)0x0;
+  pvVar2 = g_pSetActorLists;
+  if (g_pSetActorLists != (void *)0x0) {
     do {
-      iVar1 = iVar2;
-      iVar2 = iVar1;
-      if (iVar1 == param_1) break;
-      iVar2 = *(int *)(iVar1 + 0x84);
-      iVar3 = iVar1;
-    } while (iVar2 != 0);
-    if (iVar2 != 0) {
-      if (iVar3 == 0) {
-        DAT_008cb0ac = *(undefined4 *)(iVar2 + 0x84);
-        (**(code **)(DAT_008cb090 + 0x24))(iVar2);
+      pvVar1 = pvVar2;
+      pvVar2 = pvVar1;
+      if (pvVar1 == param_1) break;
+      pvVar2 = *(void **)((int)pvVar1 + 0x84);
+      pvVar3 = pvVar1;
+    } while (pvVar2 != (void *)0x0);
+    if (pvVar2 != (void *)0x0) {
+      if (pvVar3 == (void *)0x0) {
+        g_pSetActorLists = *(void **)((int)pvVar2 + 0x84);
+        (*g_pSvcRoom->pFree)(pvVar2);
         return;
       }
-      *(undefined4 *)(iVar3 + 0x84) = *(undefined4 *)(iVar2 + 0x84);
-      (**(code **)(DAT_008cb090 + 0x24))(iVar2);
+      *(undefined4 *)((int)pvVar3 + 0x84) = *(undefined4 *)((int)pvVar2 + 0x84);
+      (*g_pSvcRoom->pFree)(pvVar2);
     }
   }
   return;
+}
+
+/* ---- 0x004a7150  Set_ActivateSectors ---- */
+/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+/* Points g_pSectorList at the sector list cached for the named set (table of 0x28-byte {list, name}
+   entries) */
+
+void __cdecl Set_ActivateSectors(void *set)
+
+{
+  byte bVar1;
+  int iVar2;
+  int iVar3;
+  byte *pbVar4;
+  byte *pbVar5;
+  byte *pbVar6;
+  bool bVar7;
+  
+  iVar3 = 0;
+  pbVar5 = &DAT_008cf28c;
+  pbVar4 = set;
+  pbVar6 = pbVar5;
+LAB_004a7163:
+  do {
+    bVar1 = *pbVar5;
+    bVar7 = bVar1 < *pbVar4;
+    if (bVar1 == *pbVar4) {
+      if (bVar1 != 0) {
+        bVar1 = pbVar5[1];
+        bVar7 = bVar1 < pbVar4[1];
+        if (bVar1 != pbVar4[1]) goto LAB_004a7187;
+        pbVar5 = pbVar5 + 2;
+        pbVar4 = pbVar4 + 2;
+        if (bVar1 != 0) goto LAB_004a7163;
+      }
+      iVar2 = 0;
+    }
+    else {
+LAB_004a7187:
+      iVar2 = (1 - (uint)bVar7) - (uint)(bVar7 != 0);
+    }
+    if (iVar2 == 0) goto LAB_004a719c;
+    pbVar5 = pbVar6 + 0x28;
+    iVar3 = iVar3 + 1;
+    pbVar4 = set;
+    pbVar6 = pbVar5;
+    if (IMG_ADDR(0x008d086b) < (int)pbVar5) {
+LAB_004a719c:
+      if (0x8b < iVar3) {
+        g_pSectorList = (void *)0x0;
+        _DAT_008cf284 = (undefined1 *)0x0;
+        return;
+      }
+      g_pSectorList = (void *)(&UINT_008cf288)[iVar3 * 10];
+      _DAT_008cf284 = &DAT_008cf28c + iVar3 * 0x28;
+      return;
+    }
+  } while( true );
 }

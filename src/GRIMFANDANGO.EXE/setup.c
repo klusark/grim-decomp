@@ -14,34 +14,34 @@ void Setup_DrawDebugCamera(int param_1)
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
-  #define local_18 (*(float *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(float *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(float *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(float *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(float *)(_frame + (0x30 - 0x8)))
-  #define local_4 (*(float *)(_frame + (0x30 - 0x4)))
+  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
+  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
+  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
+  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
+  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
   
-  local_14 = *(float *)(param_1 + 0x30);
-  local_10 = *(float *)(param_1 + 0x34);
-  local_c = *(float *)(param_1 + 0x2c) - -1.0;
-  local_18 = *(float *)(param_1 + 0x2c) - 1.0;
+  local_14 = *(uint *)(param_1 + 0x30);
+  local_10 = *(uint *)(param_1 + 0x34);
+  local_c = (uint)(*(float *)(param_1 + 0x2c) - -1.0);
+  local_18 = (uint)(*(float *)(param_1 + 0x2c) - 1.0);
   local_8 = local_14;
   local_4 = local_10;
-  rdPrimit3_DrawLine(&local_c,&local_18,0,0,0,0,DAT_008c97cc & 0xffff,0xffffffff);
-  local_18 = *(float *)(param_1 + 0x2c);
-  local_10 = *(float *)(param_1 + 0x34);
-  local_8 = *(float *)(param_1 + 0x30) - -1.0;
-  local_14 = *(float *)(param_1 + 0x30) - 1.0;
+  rdPrimit3_DrawLine(&local_c,&local_18,0,0,0,0,UINT_008c97cc & 0xffff,0xffffffff);
+  local_18 = *(uint *)(param_1 + 0x2c);
+  local_10 = *(uint *)(param_1 + 0x34);
+  local_8 = (uint)(*(float *)(param_1 + 0x30) - -1.0);
+  local_14 = (uint)(*(float *)(param_1 + 0x30) - 1.0);
   local_c = local_18;
   local_4 = local_10;
-  rdPrimit3_DrawLine(&local_c,&local_18,0,0,0,0,DAT_008c97cc & 0xffff,0xffffffff);
-  local_18 = *(float *)(param_1 + 0x2c);
-  local_14 = *(float *)(param_1 + 0x30);
-  local_4 = *(float *)(param_1 + 0x34) - -1.0;
-  local_10 = *(float *)(param_1 + 0x34) - 1.0;
+  rdPrimit3_DrawLine(&local_c,&local_18,0,0,0,0,UINT_008c97cc & 0xffff,0xffffffff);
+  local_18 = *(uint *)(param_1 + 0x2c);
+  local_14 = *(uint *)(param_1 + 0x30);
+  local_4 = (uint)(*(float *)(param_1 + 0x34) - -1.0);
+  local_10 = (uint)(*(float *)(param_1 + 0x34) - 1.0);
   local_c = local_18;
   local_8 = local_14;
-  rdPrimit3_DrawLine(&local_c,&local_18,0,0,0,0,DAT_008c97cc & 0xffff,0xffffffff);
+  rdPrimit3_DrawLine(&local_c,&local_18,0,0,0,0,UINT_008c97cc & 0xffff,0xffffffff);
   iVar1 = Actor_FromHandle(g_nCameraActor);
   if (*(int *)(iVar1 + 0xa0) != 0) {
     iVar1 = ((code *)Actor_FromHandle)(g_nCameraActor,param_1 + 0x50);

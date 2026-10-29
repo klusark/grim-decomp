@@ -12,14 +12,17 @@
 int __cdecl Text_ParseLuaTable(void *ctx,void *table,void *textObj)
 
 {
+  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   undefined4 uVar1;
   int iVar2;
   int iVar3;
   int iVar4;
+  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   iVar4 = *(int *)((int)ctx + 4);
   lua_pushobject(table);
-  uVar1 = lua_getref(DAT_008ca0dc);
+  uVar1 = lua_getref(UINT_008ca0dc);
   lua_pushobject(uVar1);
   iVar2 = lua_gettable();
   if (iVar2 != 0) {
@@ -36,7 +39,7 @@ int __cdecl Text_ParseLuaTable(void *ctx,void *table,void *textObj)
     }
   }
   lua_pushobject(table);
-  uVar1 = lua_getref(DAT_008ca0e0);
+  uVar1 = lua_getref(UINT_008ca0e0);
   lua_pushobject(uVar1);
   iVar2 = lua_gettable();
   if (iVar2 != 0) {
@@ -53,7 +56,7 @@ int __cdecl Text_ParseLuaTable(void *ctx,void *table,void *textObj)
     }
   }
   lua_pushobject(table);
-  uVar1 = lua_getref(DAT_008ca104);
+  uVar1 = lua_getref(UINT_008ca104);
   lua_pushobject(uVar1);
   iVar2 = lua_gettable();
   if (iVar2 != 0) {
@@ -67,7 +70,7 @@ int __cdecl Text_ParseLuaTable(void *ctx,void *table,void *textObj)
     }
   }
   lua_pushobject(table);
-  uVar1 = lua_getref(DAT_008ca0f8);
+  uVar1 = lua_getref(UINT_008ca0f8);
   lua_pushobject(uVar1);
   iVar2 = lua_gettable();
   if (iVar2 != 0) {
@@ -79,7 +82,7 @@ int __cdecl Text_ParseLuaTable(void *ctx,void *table,void *textObj)
     }
   }
   lua_pushobject(table);
-  uVar1 = lua_getref(DAT_008ca0d8);
+  uVar1 = lua_getref(UINT_008ca0d8);
   lua_pushobject(uVar1);
   iVar2 = lua_gettable();
   if (iVar2 != 0) {
@@ -91,7 +94,7 @@ int __cdecl Text_ParseLuaTable(void *ctx,void *table,void *textObj)
     }
   }
   lua_pushobject(table);
-  uVar1 = lua_getref(DAT_008ca110);
+  uVar1 = lua_getref(UINT_008ca110);
   lua_pushobject(uVar1);
   iVar4 = lua_gettable();
   if (iVar4 != 0) {
@@ -105,7 +108,7 @@ int __cdecl Text_ParseLuaTable(void *ctx,void *table,void *textObj)
     }
   }
   lua_pushobject(table);
-  uVar1 = lua_getref(DAT_008ca0fc);
+  uVar1 = lua_getref(UINT_008ca0fc);
   lua_pushobject(uVar1);
   iVar4 = lua_gettable();
   if (iVar4 != 0) {
@@ -119,7 +122,7 @@ int __cdecl Text_ParseLuaTable(void *ctx,void *table,void *textObj)
     }
   }
   lua_pushobject(table);
-  uVar1 = lua_getref(DAT_008ca0f0);
+  uVar1 = lua_getref(UINT_008ca0f0);
   lua_pushobject(uVar1);
   iVar4 = lua_gettable();
   if (iVar4 != 0) {
@@ -133,7 +136,7 @@ int __cdecl Text_ParseLuaTable(void *ctx,void *table,void *textObj)
     }
   }
   lua_pushobject(table);
-  uVar1 = lua_getref(DAT_008ca0f4);
+  uVar1 = lua_getref(UINT_008ca0f4);
   lua_pushobject(uVar1);
   iVar4 = lua_gettable();
   if (iVar4 != 0) {
@@ -143,7 +146,7 @@ int __cdecl Text_ParseLuaTable(void *ctx,void *table,void *textObj)
     }
   }
   lua_pushobject(table);
-  uVar1 = lua_getref(DAT_008ca108);
+  uVar1 = lua_getref(UINT_008ca108);
   lua_pushobject(uVar1);
   iVar4 = lua_gettable();
   if (iVar4 != 0) {
@@ -153,7 +156,7 @@ int __cdecl Text_ParseLuaTable(void *ctx,void *table,void *textObj)
     }
   }
   lua_pushobject(table);
-  uVar1 = lua_getref(DAT_008ca10c);
+  uVar1 = lua_getref(UINT_008ca10c);
   lua_pushobject(uVar1);
   iVar4 = lua_gettable();
   if (iVar4 != 0) {
@@ -163,7 +166,7 @@ int __cdecl Text_ParseLuaTable(void *ctx,void *table,void *textObj)
     }
   }
   lua_pushobject(table);
-  uVar1 = lua_getref(DAT_008ca0ec);
+  uVar1 = lua_getref(UINT_008ca0ec);
   lua_pushobject(uVar1);
   iVar4 = lua_gettable();
   if (iVar4 != 0) {
@@ -176,6 +179,9 @@ int __cdecl Text_ParseLuaTable(void *ctx,void *table,void *textObj)
   }
   return -1;
 }
+#undef local_4
+#undef local_8
+
 
 /* ---- 0x0048c8d0  Text_ParseLineId ---- */
 /* Splits a '/id/text' dialogue line: copies the id into outId and returns the text according to
@@ -210,10 +216,10 @@ char * __cdecl Text_ParseLineId(char *line,char *outId)
 }
 
 /* ---- 0x00494740  Text_GetSpeed ---- */
-undefined4 Text_GetSpeed(void)
+int Text_GetSpeed(void)
 
 {
-  return DAT_004e9e00;
+  return g_nTextSpeed;
 }
 
 /* ---- 0x00494750  Text_SetSpeed ---- */
@@ -221,13 +227,13 @@ void __cdecl Text_SetSpeed(int speed)
 
 {
   if (speed < 1) {
-    DAT_004e9e00 = 1;
+    g_nTextSpeed = 1;
     return;
   }
   if (10 < speed) {
     speed = 10;
   }
-  DAT_004e9e00 = speed;
+  g_nTextSpeed = speed;
   return;
 }
 
@@ -239,9 +245,7 @@ void * Text_GetDefaultFont(void)
 }
 
 /* ---- 0x004aa940  Font_LoadFile ---- */
-/* WARNING: Unknown calling convention -- yet parameter storage is locked */
-
-int Font_LoadFile(char *filename,void **outFont)
+int __cdecl Font_LoadFile(char *filename,void **outFont)
 
 {
   int iVar1;
@@ -257,32 +261,32 @@ int Font_LoadFile(char *filename,void **outFont)
 }
 
 /* ---- 0x004aa990  Font_Free ---- */
-void Font_Free(void *param_1)
+void __cdecl Font_Free(void *font)
 
 {
-  if ((param_1 != (void *)0x0) && (param_1 != g_pDefaultFont)) {
-    (*g_pSvcText->pHFree)(param_1);
+  if ((font != (void *)0x0) && (font != g_pDefaultFont)) {
+    (*g_pSvcText->pHFree)(font);
   }
   return;
 }
 
 /* ---- 0x004aa9b0  Text_NextChar ---- */
-/* Text.c: returns the next character of the text cursor (asserts *ppText) */
+/* Returns the next character and advances; the pointer becomes NULL at the end of the string */
 
-char Text_NextChar(uint *param_1)
+char __cdecl Text_NextChar(char **pText)
 
 {
   char cVar1;
-  uint uVar2;
+  char *pcVar2;
   
-  if (*param_1 == 0) {
+  if (*pText == (char *)0x0) {
     (*g_pSvcText->pAssertFail)
               (s__ppText______void___0__004ed03c,s_C__grimsrc_libs_grimlib_Temp_Tex_004ed054,0x1fc);
   }
-  cVar1 = *(char *)*param_1;
-  uVar2 = -(uint)(cVar1 != '\0') & (uint)((char *)*param_1 + 1);
-  *param_1 = uVar2;
-  if ((cVar1 == '\0') && (uVar2 != 0)) {
+  cVar1 = **pText;
+  pcVar2 = (char *)(-(uint)(cVar1 != '\0') & (uint)(*pText + 1));
+  *pText = pcVar2;
+  if ((cVar1 == '\0') && (pcVar2 != (char *)0x0)) {
     (*g_pSvcText->pAssertFail)
               (s_c_____0______c______0______ppTex_004ed008,
                s_C__grimsrc_libs_grimlib_Temp_Tex_004ed054,0x20a);
@@ -290,71 +294,73 @@ char Text_NextChar(uint *param_1)
   return cVar1;
 }
 
-/* ---- 0x004aaa20  Font_GetGlyphWidth ---- */
+/* ---- 0x004aaa20  Text_CharWidth ---- */
 /* Source: Temp/Text.c (line 624, from __FILE__/__LINE__ passed to the allocator) */
 
-undefined4 Font_GetGlyphWidth(int param_1,undefined4 param_2)
+int __cdecl Text_CharWidth(void *ctx,int ch)
 
 {
   int iVar1;
   undefined4 uVar2;
+  int iVar3;
   
-  iVar1 = *(int *)(param_1 + 8);
+  iVar1 = *(int *)((int)ctx + 8);
   if (iVar1 == 0) {
     (*g_pSvcText->pAssertFail)(s_hFont_004ed078,s_C__grimsrc_libs_grimlib_Temp_Tex_004ed054,0x270);
   }
   uVar2 = (*g_pSvcText->pHLock)(iVar1);
-  uVar2 = Font_GlyphWidth(param_1,uVar2,param_2);
+  iVar3 = Font_GlyphWidth(ctx,uVar2,ch);
   (*g_pSvcText->pHUnlock)(iVar1);
-  return uVar2;
+  return iVar3;
 }
 
-/* ---- 0x004aaa80  Text_MeasureString ---- */
-/* Sums the glyph advances of a string */
+/* ---- 0x004aaa80  Text_MeasureWidth ---- */
+/* Widest laid-out line of the text */
 
-int __cdecl Text_MeasureString(void *font,int text)
+int __cdecl Text_MeasureWidth(void *ctx,char *text)
 
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   undefined4 uVar1;
   int iVar2;
-  int iVar3;
+  uint uVar3;
   undefined4 *puVar4;
   undefined4 *puVar5;
-  #define local_34 (*(int *)(_frame + (0x50 - 0x34)))
+  #define local_34 (*(uint *)(_frame + (0x50 - 0x34)))
   #define local_30 (*(undefined4 (*)[12])(_frame + (0x50 - 0x30)))
   
-  iVar3 = 0;
-  puVar4 = font;
+  uVar3 = 0;
+  puVar4 = ctx;
   puVar5 = local_30;
   for (iVar2 = 0xc; iVar2 != 0; iVar2 = iVar2 + -1) {
     *puVar5 = *puVar4;
     puVar4 = puVar4 + 1;
     puVar5 = puVar5 + 1;
   }
-  iVar2 = *(int *)((int)font + 8);
+  iVar2 = *(int *)((int)ctx + 8);
   local_34 = 0;
   if (iVar2 == 0) {
     (*g_pSvcText->pAssertFail)(s_hFont_004ed078,s_C__grimsrc_libs_grimlib_Temp_Tex_004ed054,0x28d);
   }
   uVar1 = (*g_pSvcText->pHLock)(iVar2);
   do {
-    text = Text_LayoutString(local_30,uVar1,text,&local_34,0,1);
-    if (iVar3 <= local_34) {
-      iVar3 = local_34;
+    text = (char *)Text_LayoutString(local_30,uVar1,text,&local_34,0,1);
+    if ((int)uVar3 <= (int)local_34) {
+      uVar3 = local_34;
     }
-  } while (text != 0);
+  } while (text != (char *)0x0);
   (*g_pSvcText->pHUnlock)(iVar2);
-  return iVar3;
+  return uVar3;
 }
 #undef local_30
 #undef local_34
 
 
-/* ---- 0x004aab10  Text_MeasureLine ---- */
+/* ---- 0x004aab10  Text_MeasureHeight ---- */
+/* WARNING: Unknown calling convention -- yet parameter storage is locked */
 /* Source: Temp/Text.c (line 688, from __FILE__/__LINE__ passed to the allocator) */
 
-int Text_MeasureLine(undefined4 *param_1,int param_2)
+int Text_MeasureHeight(void *ctx,char *text)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -365,8 +371,8 @@ int Text_MeasureLine(undefined4 *param_1,int param_2)
   undefined4 *puVar5;
   #define local_30 (*(undefined4 (*)[12])(_frame + (0x40 - 0x30)))
   
-  iVar1 = param_1[2];
-  puVar4 = param_1;
+  iVar1 = *(int *)((int)ctx + 8);
+  puVar4 = ctx;
   puVar5 = local_30;
   for (iVar3 = 0xc; iVar3 != 0; iVar3 = iVar3 + -1) {
     *puVar5 = *puVar4;
@@ -379,9 +385,10 @@ int Text_MeasureLine(undefined4 *param_1,int param_2)
   }
   uVar2 = (*g_pSvcText->pHLock)(iVar1);
   do {
-    param_2 = Text_LayoutString(local_30,uVar2,param_2,0,0,1);
-    iVar3 = iVar3 + (*(int *)(*(int *)param_1[2] + 4) * param_1[9] + 0xffffU >> 0x10);
-  } while (param_2 != 0);
+    text = (char *)Text_LayoutString(local_30,uVar2,text,0,0,1);
+    iVar3 = iVar3 + (*(int *)(**(int **)((int)ctx + 8) + 4) * *(int *)((int)ctx + 0x24) + 0xffffU >>
+                    0x10);
+  } while (text != (char *)0x0);
   (*g_pSvcText->pHUnlock)(iVar1);
   return iVar3;
 }
@@ -419,181 +426,193 @@ undefined4 Text_DrawFormatted(void *param_1,int param_2)
 /* ---- 0x004aac40  Text_WrapLines ---- */
 /* Splits a text object's string into lines at the wrap width */
 
-undefined4 Text_WrapLines(int *param_1)
+undefined4 Text_WrapLines(uint *param_1)
 
 {
   unsigned char _frame[0x460] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   char cVar1;
   uint uVar2;
-  int *piVar3;
-  int iVar4;
-  uint uVar5;
-  int *piVar6;
-  undefined2 *puVar7;
-  int iVar8;
-  int iVar9;
+  int iVar3;
+  uint uVar4;
+  uint *puVar5;
+  int iVar6;
+  uint uVar7;
+  uint *puVar8;
+  undefined2 *puVar9;
   char *pcVar10;
-  int *piVar11;
-  undefined4 *puVar12;
-  #define local_444 (*(int **)(_frame + (0x460 - 0x444)))
+  uint uVar11;
+  uint *puVar12;
+  undefined4 *puVar13;
+  #define local_444 (*(uint *)(_frame + (0x460 - 0x444)))
   #define local_43e (*(undefined1 *)(_frame + (0x460 - 0x43e)))
   #define local_43d (*(undefined1 *)(_frame + (0x460 - 0x43d)))
   #define local_43c (*(uint *)(_frame + (0x460 - 0x43c)))
-  #define iStack_438 (*(int *)(_frame + (0x460 - 0x438)))
+  #define uStack_438 (*(uint *)(_frame + (0x460 - 0x438)))
   #define iStack_434 (*(int *)(_frame + (0x460 - 0x434)))
-  #define local_430 (*(int (*)[7])(_frame + (0x460 - 0x430)))
-  #define local_414 (*(undefined4 *)(_frame + (0x460 - 0x414)))
+  #define local_430 (*(uint *)(_frame + (0x460 - 0x430)))
+  #define local_42c (*(uint *)(_frame + (0x460 - 0x42c)))
+  #define local_428 (*(uint *)(_frame + (0x460 - 0x428)))
+  #define local_424 (*(uint *)(_frame + (0x460 - 0x424)))
+  #define local_420 (*(uint *)(_frame + (0x460 - 0x420)))
+  #define local_414 (*(uint *)(_frame + (0x460 - 0x414)))
   #define local_410 (*(uint *)(_frame + (0x460 - 0x410)))
-  #define local_40c (*(undefined4 *)(_frame + (0x460 - 0x40c)))
-  #define local_408 (*(int *)(_frame + (0x460 - 0x408)))
-  #define local_404 (*(int *)(_frame + (0x460 - 0x404)))
-  #define local_400 (*(int (*)[256])(_frame + (0x460 - 0x400)))
+  #define local_40c (*(uint *)(_frame + (0x460 - 0x40c)))
+  #define local_408 (*(uint *)(_frame + (0x460 - 0x408)))
+  #define local_404 (*(uint *)(_frame + (0x460 - 0x404)))
+  #define local_400 (*(uint *)(_frame + (0x460 - 0x400)))
   
-  piVar6 = local_430;
-  for (iVar4 = 0xc; iVar4 != 0; iVar4 = iVar4 + -1) {
-    *piVar6 = 0;
-    piVar6 = piVar6 + 1;
+  puVar8 = &local_430;
+  for (iVar6 = 0xc; iVar6 != 0; iVar6 = iVar6 + -1) {
+    *puVar8 = 0;
+    puVar8 = puVar8 + 1;
   }
-  local_430[1] = DAT_004eca00 >> 0x10 & 0xff;
+  local_42c = UINT_004eca00 >> 0x10 & 0xff;
   local_43e = 0;
-  local_430[2] = local_430[1] - 1;
-  uVar2 = DAT_004eca00 & 0xffff;
+  local_428 = local_42c - 1;
+  uVar4 = UINT_004eca00 & 0xffff;
   local_43d = 0xff;
-  local_430[3] = 0;
-  local_430[4] = 1;
+  local_424 = 0;
+  local_420 = 1;
   local_414 = 0;
-  local_410 = uVar2;
-  if (uVar2 != 0) {
-    piVar6 = &DAT_004eca04;
-    piVar11 = local_400;
-    for (uVar5 = uVar2; uVar5 != 0; uVar5 = uVar5 - 1) {
-      *piVar11 = *piVar6;
-      piVar6 = piVar6 + 1;
-      piVar11 = piVar11 + 1;
-    }
-  }
-  local_408 = uVar2 * 2 + 0x30;
-  local_43c = uVar2 * 0x5c;
-  iVar4 = local_408 + local_43c;
-  local_40c = 0x30;
-  local_404 = iVar4;
-  if (uVar2 != 0) {
-    piVar6 = local_400;
-    uVar5 = uVar2;
-    do {
-      iVar9 = *piVar6;
-      if (iVar9 != 0) {
-        iVar4 = iVar4 + (uint)*(byte *)((int)&DAT_004eca00 + iVar9 + 1) *
-                        (uint)*(byte *)((int)&DAT_004eca00 + iVar9);
-      }
-      piVar6 = piVar6 + 1;
-      uVar5 = uVar5 - 1;
-    } while (uVar5 != 0);
-  }
-  iStack_438 = (*g_pSvcText->pHAlloc)(iVar4);
-  if (iStack_438 != 0) {
-    piVar3 = (int *)(*g_pSvcText->pHLock)(iStack_438);
-    piVar6 = local_430;
-    piVar11 = piVar3;
-    for (iVar4 = 0xc; iVar4 != 0; iVar4 = iVar4 + -1) {
-      *piVar11 = *piVar6;
-      piVar6 = piVar6 + 1;
-      piVar11 = piVar11 + 1;
-    }
-    *piVar3 = iStack_438;
-    puVar7 = (undefined2 *)(piVar3[9] + (int)piVar3);
-    iVar4 = 0;
-    if (uVar2 != 0) {
-      do {
-        *puVar7 = (short)iVar4;
-        iVar4 = iVar4 + 1;
-        puVar7 = puVar7 + 1;
-      } while (iVar4 < (int)uVar2);
-    }
-    iVar4 = piVar3[10];
-    puVar12 = (undefined4 *)(iVar4 + (int)piVar3);
-    for (uVar5 = local_43c >> 2; uVar5 != 0; uVar5 = uVar5 - 1) {
-      *puVar12 = 0;
+  local_410 = uVar4;
+  if (uVar4 != 0) {
+    puVar8 = &UINT_004eca04;
+    puVar12 = &local_400;
+    for (uVar7 = uVar4; uVar7 != 0; uVar7 = uVar7 - 1) {
+      *puVar12 = *puVar8;
+      puVar8 = puVar8 + 1;
       puVar12 = puVar12 + 1;
     }
-    iVar9 = 0;
-    for (uVar5 = local_43c & 3; uVar5 != 0; uVar5 = uVar5 - 1) {
-      *(undefined1 *)puVar12 = 0;
-      puVar12 = (undefined4 *)((int)puVar12 + 1);
+  }
+  local_408 = uVar4 * 2 + 0x30;
+  local_43c = uVar4 * 0x5c;
+  uVar7 = local_408 + local_43c;
+  local_40c = 0x30;
+  local_404 = uVar7;
+  if (uVar4 != 0) {
+    puVar8 = &local_400;
+    uVar11 = uVar4;
+    do {
+      uVar2 = *puVar8;
+      if (uVar2 != 0) {
+        uVar7 = uVar7 + (uint)*(byte *)((int)&UINT_004eca00 + uVar2 + 1) *
+                        (uint)*(byte *)((int)&UINT_004eca00 + uVar2);
+      }
+      puVar8 = puVar8 + 1;
+      uVar11 = uVar11 - 1;
+    } while (uVar11 != 0);
+  }
+  uStack_438 = (*g_pSvcText->pHAlloc)(uVar7);
+  if (uStack_438 != 0) {
+    puVar5 = (uint *)(*g_pSvcText->pHLock)(uStack_438);
+    puVar8 = &local_430;
+    puVar12 = puVar5;
+    for (iVar6 = 0xc; iVar6 != 0; iVar6 = iVar6 + -1) {
+      *puVar12 = *puVar8;
+      puVar8 = puVar8 + 1;
+      puVar12 = puVar12 + 1;
     }
-    iStack_434 = piVar3[0xb] + (int)piVar3;
-    if (uVar2 != 0) {
-      local_444 = local_400;
-      pcVar10 = (char *)(iVar4 + (int)piVar3 + 6);
-      local_43c = uVar2;
+    *puVar5 = uStack_438;
+    puVar9 = (undefined2 *)(puVar5[9] + (int)puVar5);
+    iVar6 = 0;
+    if (uVar4 != 0) {
       do {
-        iVar4 = *local_444;
-        if (iVar4 != 0) {
-          *(uint *)(pcVar10 + 6) = (uint)*(byte *)((int)&DAT_004eca00 + iVar4);
-          *(uint *)(pcVar10 + 10) = (uint)*(byte *)((int)&DAT_004eca00 + iVar4 + 1);
-          cVar1 = *(char *)((int)&DAT_004eca00 + iVar4 + 2);
+        *puVar9 = (short)iVar6;
+        iVar6 = iVar6 + 1;
+        puVar9 = puVar9 + 1;
+      } while (iVar6 < (int)uVar4);
+    }
+    uVar7 = puVar5[10];
+    puVar13 = (undefined4 *)(uVar7 + (int)puVar5);
+    for (uVar11 = local_43c >> 2; uVar11 != 0; uVar11 = uVar11 - 1) {
+      *puVar13 = 0;
+      puVar13 = puVar13 + 1;
+    }
+    iVar6 = 0;
+    for (uVar11 = local_43c & 3; uVar11 != 0; uVar11 = uVar11 - 1) {
+      *(undefined1 *)puVar13 = 0;
+      puVar13 = (undefined4 *)((int)puVar13 + 1);
+    }
+    iStack_434 = puVar5[0xb] + (int)puVar5;
+    if (uVar4 != 0) {
+      local_444 = (uint)&local_400;
+      pcVar10 = (char *)((int)(uVar7 + (int)puVar5) + 6);
+      local_43c = uVar4;
+      do {
+        iVar3 = *(int *)local_444;
+        if (iVar3 != 0) {
+          *(uint *)(pcVar10 + 6) = (uint)*(byte *)((int)&UINT_004eca00 + iVar3);
+          *(uint *)(pcVar10 + 10) = (uint)*(byte *)((int)&UINT_004eca00 + iVar3 + 1);
+          cVar1 = *(char *)((int)&UINT_004eca00 + iVar3 + 2);
           pcVar10[-1] = cVar1;
           pcVar10[-2] = pcVar10[6] + cVar1;
-          cVar1 = *(char *)((int)&DAT_004eca00 + iVar4 + 3);
-          iVar8 = piVar3[2];
+          cVar1 = *(char *)((int)&UINT_004eca00 + iVar3 + 3);
+          uVar4 = puVar5[2];
           pcVar10[0xe] = '\x01';
           pcVar10[0xf] = '\0';
           pcVar10[0x10] = '\0';
           pcVar10[0x11] = '\0';
-          *pcVar10 = cVar1 - (char)iVar8;
-          *(int *)(pcVar10 + -6) = iVar9;
-          *(int *)(pcVar10 + 2) = iVar9 + iStack_434;
-          iVar8 = (int)*pcVar10;
-          if (piVar3[5] < (int)*pcVar10) {
-            iVar8 = piVar3[5];
+          *pcVar10 = cVar1 - (char)uVar4;
+          *(int *)(pcVar10 + -6) = iVar6;
+          *(int *)(pcVar10 + 2) = iVar6 + iStack_434;
+          uVar4 = (int)*pcVar10;
+          if ((int)puVar5[5] < (int)*pcVar10) {
+            uVar4 = puVar5[5];
           }
-          piVar3[5] = iVar8;
-          uVar2 = *(int *)(pcVar10 + 10) + (int)*pcVar10;
-          if ((uint)(*(int *)(pcVar10 + 10) + (int)*pcVar10) < (uint)piVar3[6]) {
-            uVar2 = piVar3[6];
+          puVar5[5] = uVar4;
+          uVar4 = *(int *)(pcVar10 + 10) + (int)*pcVar10;
+          if ((uint)(*(int *)(pcVar10 + 10) + (int)*pcVar10) < puVar5[6]) {
+            uVar4 = puVar5[6];
           }
-          piVar3[6] = uVar2;
-          Text_CopyRunes((int)&DAT_004eca04 + iVar4,pcVar10 + 2,1,&local_43e);
-          iVar9 = iVar9 + *(int *)(pcVar10 + 6) * *(int *)(pcVar10 + 10);
+          puVar5[6] = uVar4;
+          Text_CopyRunes((int)&UINT_004eca04 + iVar3,pcVar10 + 2,1,&local_43e);
+          iVar6 = iVar6 + *(int *)(pcVar10 + 6) * *(int *)(pcVar10 + 10);
         }
-        local_444 = local_444 + 1;
+        local_444 = local_444 + 4;
         pcVar10 = pcVar10 + 0x5c;
         local_43c = local_43c - 1;
       } while (local_43c != 0);
     }
-    iVar4 = iStack_438;
-    (*g_pSvcText->pHUnlock)(iStack_438);
-    *param_1 = iVar4;
+    uVar4 = uStack_438;
+    (*g_pSvcText->pHUnlock)(uStack_438);
+    *param_1 = uVar4;
     return 0;
   }
   *param_1 = 0;
   return 1;
 }
 #undef iStack_434
-#undef iStack_438
 #undef local_400
 #undef local_404
 #undef local_408
 #undef local_40c
 #undef local_410
 #undef local_414
+#undef local_420
+#undef local_424
+#undef local_428
+#undef local_42c
 #undef local_430
 #undef local_43c
 #undef local_43d
 #undef local_43e
 #undef local_444
+#undef uStack_438
 
 
 /* ---- 0x004aae90  Text_CopyRunes ---- */
 void Text_CopyRunes(byte *param_1,undefined4 *param_2,int param_3,int param_4)
 
 {
+  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   undefined4 *puVar1;
   uint uVar2;
   int iVar3;
   byte *pbVar4;
   undefined1 *puVar5;
   undefined1 *puVar6;
+  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   puVar1 = param_2;
   puVar6 = (undefined1 *)*param_2;
@@ -625,6 +644,9 @@ void Text_CopyRunes(byte *param_1,undefined4 *param_2,int param_3,int param_4)
   }
   return;
 }
+#undef local_4
+#undef local_8
+
 
 /* ---- 0x004aaf30  Text_BuildLineTable ---- */
 undefined4 Text_BuildLineTable(undefined4 param_1,int *param_2)
@@ -756,9 +778,10 @@ undefined4 Text_BuildLineTable(undefined4 param_1,int *param_2)
 
 
 /* ---- 0x004ab210  Text_LayoutString ---- */
-/* Advances through the string computing glyph positions for the given width (ctx at +0x208) */
+/* Measures one line with word wrap (flag 4) within the clip rect and applies centre (1) / right (2)
+   justification; returns the start of the next line */
 
-char * Text_LayoutString(void *param_1,void *param_2,char *param_3,int *param_4,int *param_5,
+char * Text_LayoutString(void *param_1,void *param_2,char *param_3,int *param_4,uint *param_5,
                         int param_6)
 
 {
@@ -766,72 +789,80 @@ char * Text_LayoutString(void *param_1,void *param_2,char *param_3,int *param_4,
   uint uVar1;
   void *ctx;
   char *pcVar2;
-  int iVar3;
-  int iVar4;
+  char cVar3;
+  uint uVar4;
+  undefined3 extraout_var;
+  undefined3 extraout_var_00;
   uint uVar5;
+  undefined3 extraout_var_01;
+  undefined3 extraout_var_02;
   int iVar6;
-  uint uVar7;
-  #define local_1c (*(int *)(_frame + (0x30 - 0x1c)))
-  #define local_18 (*(int *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(int *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(int *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(char **)(_frame + (0x30 - 0xc)))
+  int iVar7;
+  int iVar8;
+  #define local_1c (*(uint *)(_frame + (0x30 - 0x1c)))
+  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
+  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
+  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
+  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
+  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
   
-  local_c = param_3;
+  local_c = (uint)param_3;
   ctx = param_1;
   uVar1 = *(uint *)((int)param_1 + 0x28);
-  iVar3 = **(int **)((int)param_1 + 4);
-  local_10 = *(int *)((int)param_1 + 0xc) - iVar3;
-  iVar3 = ((*(int **)((int)param_1 + 4))[2] + iVar3) - *(int *)((int)param_1 + 0xc);
+  iVar8 = **(int **)((int)param_1 + 4);
+  local_10 = *(int *)((int)param_1 + 0xc) - iVar8;
+  uVar4 = ((*(int **)((int)param_1 + 4))[2] + iVar8) - *(int *)((int)param_1 + 0xc);
   if ((uVar1 & 1) == 0) {
     if ((uVar1 & 2) != 0) goto LAB_004ab257;
   }
   else {
-    if (local_10 < iVar3) {
-      iVar3 = local_10;
+    if ((int)local_10 < (int)uVar4) {
+      uVar4 = local_10;
     }
-    iVar3 = iVar3 * 2;
+    uVar4 = uVar4 * 2;
   }
-  local_10 = iVar3;
+  local_10 = uVar4;
 LAB_004ab257:
-  iVar3 = 0;
-  uVar7 = 0;
+  iVar8 = 0;
+  uVar4 = 0;
   local_14 = 0;
   param_1 = (void *)0x0;
   local_18 = 0;
   local_1c = 0;
-  iVar4 = Text_NextChar(&param_3);
-  iVar6 = (int)param_1;
+  cVar3 = Text_NextChar(&param_3);
+  iVar6 = CONCAT31(extraout_var,cVar3);
+  iVar7 = (int)param_1;
   do {
-    param_1 = (void *)iVar6;
+    param_1 = (void *)iVar7;
     pcVar2 = param_3;
-    if (iVar4 == 0) {
+    if (iVar6 == 0) {
 LAB_004ab425:
       param_3 = pcVar2;
-      if (iVar4 == 0) {
-        iVar4 = (int)param_1 + uVar7 + local_14;
-        if ((local_10 < iVar4) && ((uVar1 & 4) != 0)) {
-          param_3 = local_c;
+      if (iVar6 == 0) {
+        iVar6 = (int)param_1 + uVar4 + local_14;
+        if (((int)local_10 < iVar6) && ((uVar1 & 4) != 0)) {
+          param_3 = (char *)local_c;
           if (local_1c == 0) {
-            local_1c = iVar3 + local_18;
+            local_1c = iVar8 + local_18;
             param_3 = (char *)0x0;
-            param_1 = (void *)iVar4;
+            param_1 = (void *)iVar6;
           }
         }
         else {
-          local_1c = local_1c + iVar3 + local_18;
+          local_1c = local_1c + iVar8 + local_18;
           param_3 = (char *)0x0;
-          param_1 = (void *)iVar4;
+          param_1 = (void *)iVar6;
         }
       }
       if (param_6 != 0) {
         if (param_3 == (char *)0x0) {
           if ((uVar1 & 1) == 0) {
-            iVar3 = (int)param_1;
+            iVar8 = (int)param_1;
             if ((uVar1 & 2) != 0) {
-              iVar3 = -(int)param_1;
+              iVar8 = -(int)param_1;
             }
-            *(int *)((int)ctx + 0xc) = *(int *)((int)ctx + 0xc) + iVar3;
+            *(int *)((int)ctx + 0xc) = *(int *)((int)ctx + 0xc) + iVar8;
           }
           else {
             *(int *)((int)ctx + 0xc) = (int)param_1 / 2 + *(int *)((int)ctx + 0xc);
@@ -843,7 +874,7 @@ LAB_004ab425:
                ) + *(int *)((int)ctx + 0x10);
         }
       }
-      if (param_5 != (int *)0x0) {
+      if (param_5 != (uint *)0x0) {
         *param_5 = local_1c;
       }
       if (param_4 != (int *)0x0) {
@@ -851,70 +882,75 @@ LAB_004ab425:
       }
       return param_3;
     }
-    if (((iVar4 == 0x20) || (iVar4 == 0xfe)) && ((uVar1 & 4) != 0)) {
-      param_1 = (void *)(iVar6 + uVar7 + local_14);
-      if (local_10 < (int)param_1) {
-        param_1 = (void *)iVar6;
-        pcVar2 = local_c;
+    if (((iVar6 == 0x20) || (iVar6 == 0xfe)) && ((uVar1 & 4) != 0)) {
+      param_1 = (void *)(iVar7 + uVar4 + local_14);
+      if ((int)local_10 < (int)param_1) {
+        param_1 = (void *)iVar7;
+        pcVar2 = (char *)local_c;
         if (local_1c == 0) {
-          local_1c = iVar3 + local_18;
-          param_1 = (void *)(iVar6 + uVar7 + local_14);
+          local_1c = iVar8 + local_18;
+          param_1 = (void *)(iVar7 + uVar4 + local_14);
           pcVar2 = param_3;
         }
       }
       else {
-        local_1c = local_1c + iVar3 + local_18;
-        uVar7 = Font_GlyphAdvance(ctx,param_2,iVar4);
+        local_1c = local_1c + iVar8 + local_18;
+        uVar4 = Font_GlyphAdvance(ctx,param_2,iVar6);
         local_14 = 0;
         local_18 = 0;
-        iVar3 = 1;
-        local_c = param_3;
-        iVar4 = Text_NextChar(&param_3);
-        if (iVar4 != 0) {
+        iVar8 = 1;
+        local_c = (uint)param_3;
+        cVar3 = Text_NextChar(&param_3);
+        iVar6 = CONCAT31(extraout_var_00,cVar3);
+        if (iVar6 != 0) {
           do {
-            if ((iVar4 != 0x20) && (iVar4 != 0xfe)) break;
-            uVar5 = Font_GlyphAdvance(ctx,param_2,iVar4);
-            uVar7 = uVar7 + uVar5;
-            iVar3 = iVar3 + 1;
-            local_c = param_3;
-            iVar4 = Text_NextChar(&param_3);
-          } while (iVar4 != 0);
-          if (iVar4 != 0) goto LAB_004ab344;
+            if ((iVar6 != 0x20) && (iVar6 != 0xfe)) break;
+            uVar5 = Font_GlyphAdvance(ctx,param_2,iVar6);
+            uVar4 = uVar4 + uVar5;
+            iVar8 = iVar8 + 1;
+            local_c = (uint)param_3;
+            cVar3 = Text_NextChar(&param_3);
+            iVar6 = CONCAT31(extraout_var_01,cVar3);
+          } while (iVar6 != 0);
+          if (iVar6 != 0) goto LAB_004ab344;
         }
-        local_1c = local_1c + iVar3;
-        param_1 = (void *)((int)param_1 + uVar7);
+        local_1c = local_1c + iVar8;
+        param_1 = (void *)((int)param_1 + uVar4);
         pcVar2 = param_3;
       }
       goto LAB_004ab425;
     }
 LAB_004ab344:
-    if ((iVar4 == 0xd) || (iVar4 == 10)) {
-      iVar6 = (int)param_1 + uVar7 + local_14;
-      if ((local_10 < iVar6) && ((uVar1 & 4) != 0)) {
-        param_3 = local_c;
+    if ((iVar6 == 0xd) || (iVar6 == 10)) {
+      iVar7 = (int)param_1 + uVar4 + local_14;
+      if (((int)local_10 < iVar7) && ((uVar1 & 4) != 0)) {
+        param_3 = (char *)local_c;
         pcVar2 = param_3;
       }
       else {
-        local_1c = local_1c + iVar3 + local_18;
-        param_1 = (void *)iVar6;
+        local_1c = local_1c + iVar8 + local_18;
+        param_1 = (void *)iVar7;
         pcVar2 = param_3;
-        if ((iVar4 == 0xd) && (*param_3 == '\n')) {
+        if ((iVar6 == 0xd) && (*param_3 == '\n')) {
           pcVar2 = param_3 + 1;
         }
       }
       goto LAB_004ab425;
     }
-    uVar5 = Font_GlyphAdvance(ctx,param_2,iVar4);
+    uVar5 = Font_GlyphAdvance(ctx,param_2,iVar6);
     local_14 = local_14 + uVar5;
     local_18 = local_18 + 1;
-    iVar4 = Text_NextChar(&param_3);
-    iVar6 = (int)param_1;
+    cVar3 = Text_NextChar(&param_3);
+    iVar6 = CONCAT31(extraout_var_02,cVar3);
+    iVar7 = (int)param_1;
   } while( true );
 }
 #undef local_10
 #undef local_14
 #undef local_18
 #undef local_1c
+#undef local_4
+#undef local_8
 #undef local_c
 
 
@@ -970,16 +1006,18 @@ void __cdecl Text_DrawString(void *ctx,void *font,char *text)
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   void *ctx_00;
-  int iVar2;
-  void *pvVar3;
+  char cVar2;
+  int iVar3;
+  undefined3 extraout_var;
+  void *pvVar4;
   int ch;
-  uint uVar4;
-  #define local_18 (*(int *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(int *)(_frame + (0x30 - 0x14)))
+  uint uVar5;
+  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
+  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
   #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(char **)(_frame + (0x30 - 0xc)))
+  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
   #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
-  #define local_4 (*(int *)(_frame + (0x30 - 0x4)))
+  #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
   
   ctx_00 = ctx;
   ch = 0;
@@ -993,42 +1031,43 @@ LAB_004ab6fb:
     *(uint *)((int)ctx_00 + 0x28) = local_10;
     return;
   }
-  uVar4 = local_10 & 1;
-  local_8 = uVar4;
+  uVar5 = local_10 & 1;
+  local_8 = uVar5;
   do {
-    local_c = (char *)Text_LayoutString(ctx_00,font,text,&ctx,&local_14,0);
+    local_c = Text_LayoutString(ctx_00,font,text,&ctx,&local_14,0);
     iVar1 = *(int *)((int)ctx_00 + 0xc);
-    local_4 = *(int *)((int)ctx_00 + 0x10);
-    if (uVar4 == 0) {
-      iVar2 = iVar1;
-      pvVar3 = ctx;
+    local_4 = *(uint *)((int)ctx_00 + 0x10);
+    if (uVar5 == 0) {
+      iVar3 = iVar1;
+      pvVar4 = ctx;
       if ((local_10 & 2) != 0) goto LAB_004ab66a;
     }
     else {
-      pvVar3 = (void *)((int)ctx / 2);
+      pvVar4 = (void *)((int)ctx / 2);
 LAB_004ab66a:
-      iVar2 = iVar1 - (int)pvVar3;
+      iVar3 = iVar1 - (int)pvVar4;
     }
-    *(int *)((int)ctx_00 + 0xc) = iVar2;
+    *(int *)((int)ctx_00 + 0xc) = iVar3;
     local_18 = 0;
-    iVar2 = ch;
-    if (0 < local_14) {
+    iVar3 = ch;
+    if (0 < (int)local_14) {
       do {
-        ch = Text_NextChar(&text);
-        if ((iVar2 != 10) || (ch != 0xd)) {
+        cVar2 = Text_NextChar(&text);
+        ch = CONCAT31(extraout_var,cVar2);
+        if ((iVar3 != 10) || (ch != 0xd)) {
           Text_DrawChar(ctx_00,font,ch);
         }
         local_18 = local_18 + 1;
-        iVar2 = ch;
-        uVar4 = local_8;
-      } while (local_18 < local_14);
+        iVar3 = ch;
+        uVar5 = local_8;
+      } while ((int)local_18 < (int)local_14);
     }
-    if (local_c == (char *)0x0) goto LAB_004ab6fb;
+    if (local_c == 0) goto LAB_004ab6fb;
     *(int *)((int)ctx_00 + 0xc) = iVar1;
     *(uint *)((int)ctx_00 + 0x10) =
          (*(int *)(**(int **)((int)ctx_00 + 8) + 4) * *(int *)((int)ctx_00 + 0x24) + 0xffffU >> 0x10
          ) + local_4;
-    text = local_c;
+    text = (char *)local_c;
   } while( true );
 }
 #undef local_10
@@ -1047,86 +1086,93 @@ void __cdecl Text_DrawChar(void *ctx,void *font,int ch)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  int *piVar1;
-  int iVar2;
+  int iVar1;
+  int *piVar2;
   int iVar3;
   int iVar4;
-  void *pvVar5;
-  uint uVar6;
+  int iVar5;
+  void *pvVar6;
   uint uVar7;
   uint uVar8;
   uint uVar9;
-  int *piVar10;
-  #define local_14 (*(int *)(_frame + (0x30 - 0x14)))
+  uint uVar10;
+  int *piVar11;
+  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
+  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
   #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
+  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
   
-  pvVar5 = ctx;
+  pvVar6 = ctx;
   local_c = 0;
-  local_14 = *(int *)((int)ctx + 0x10);
-  piVar1 = *(int **)((int)ctx + 4);
-  iVar2 = *(int *)((int)ctx + 0xc);
-  iVar3 = *(int *)((int)ctx + 0x20);
-  iVar4 = *(int *)((int)ctx + 0x24);
+  iVar1 = *(int *)((int)ctx + 0x10);
+  piVar2 = *(int **)((int)ctx + 4);
+  iVar3 = *(int *)((int)ctx + 0xc);
+  iVar4 = *(int *)((int)ctx + 0x20);
+  iVar5 = *(int *)((int)ctx + 0x24);
   if (*(int *)((int)font + 0x20) < ch) {
-    piVar10 = (int *)0x0;
+    piVar11 = (int *)0x0;
   }
   else {
-    piVar10 = (int *)(*(int *)((int)font + 0x28) +
+    piVar11 = (int *)(*(int *)((int)font + 0x28) +
                       (uint)*(ushort *)
                              (*(int *)((int)font + 0x24) + (ch - *(int *)((int)font + 0x1c)) * 2 +
                              (int)font) * 0x5c + (int)font);
   }
-  if (piVar10 != (int *)0x0) {
-    piVar10[2] = (int)font + *piVar10 + *(int *)((int)font + 0x2c);
-    if ((iVar3 == 0x10000) && (iVar4 == 0x10000)) {
-      uVar8 = (uint)*(char *)((int)piVar10 + 5);
-      uVar6 = piVar10[3];
-      uVar7 = piVar10[4];
-      uVar9 = (uint)*(char *)((int)piVar10 + 6);
+  if (piVar11 != (int *)0x0) {
+    piVar11[2] = (int)font + *piVar11 + *(int *)((int)font + 0x2c);
+    if ((iVar4 == 0x10000) && (iVar5 == 0x10000)) {
+      uVar9 = (uint)*(char *)((int)piVar11 + 5);
+      uVar7 = piVar11[3];
+      uVar8 = piVar11[4];
+      uVar10 = (uint)*(char *)((int)piVar11 + 6);
     }
     else {
-      uVar8 = *(char *)((int)piVar10 + 5) * iVar3 + 0xffffU >> 0x10;
-      uVar9 = *(char *)((int)piVar10 + 6) * iVar4 + 0xffffU >> 0x10;
-      uVar6 = piVar10[3] * iVar3 + 0xffffU >> 0x10;
-      uVar7 = piVar10[4] * iVar4 + 0xffffU >> 0x10;
+      uVar9 = *(char *)((int)piVar11 + 5) * iVar4 + 0xffffU >> 0x10;
+      uVar10 = *(char *)((int)piVar11 + 6) * iVar5 + 0xffffU >> 0x10;
+      uVar7 = piVar11[3] * iVar4 + 0xffffU >> 0x10;
+      uVar8 = piVar11[4] * iVar5 + 0xffffU >> 0x10;
       local_c = 1;
     }
-    local_14 = local_14 + uVar9;
-    ctx = (void *)(iVar2 + uVar8);
-    if (((((int)ctx < *piVar1) || (local_14 < piVar1[1])) ||
-        (piVar1[2] + *piVar1 <= (int)(uVar6 + (int)ctx))) ||
-       (piVar1[3] + piVar1[1] <= (int)(uVar7 + local_14))) {
+    local_14 = iVar1 + uVar10;
+    ctx = (void *)(iVar3 + uVar9);
+    if (((((int)ctx < *piVar2) || ((int)local_14 < piVar2[1])) ||
+        (piVar2[2] + *piVar2 <= (int)(uVar7 + (int)ctx))) ||
+       (piVar2[3] + piVar2[1] <= (int)(uVar8 + local_14))) {
       local_c = local_c | 2;
     }
-    if ((*(byte *)((int)pvVar5 + 0x28) & 8) != 0) {
+    if ((*(byte *)((int)pvVar6 + 0x28) & 8) != 0) {
       local_c = local_c | 4;
     }
     switch(local_c) {
     case 0:
-      Glyph_Blit16(piVar10,font,pvVar5);
+      Glyph_Blit16(piVar11,font,pvVar6);
       break;
     case 1:
     case 3:
-      ((code *)Lua_Stub)(piVar10,font,pvVar5);
+      ((code *)Lua_Stub)(piVar11,font,pvVar6);
       break;
     case 2:
-      Glyph_Blit16Clipped(piVar10,font,pvVar5);
+      Glyph_Blit16Clipped(piVar11,font,pvVar6);
       break;
     case 4:
-      Glyph_Blit8(piVar10,font,pvVar5);
+      Glyph_Blit8(piVar11,font,pvVar6);
       break;
     case 5:
     case 7:
-      ((code *)Lua_Stub)(piVar10,font,pvVar5);
+      ((code *)Lua_Stub)(piVar11,font,pvVar6);
       break;
     case 6:
-      Glyph_Blit8Clipped(piVar10,font,pvVar5);
+      Glyph_Blit8Clipped(piVar11,font,pvVar6);
     }
-    *(uint *)((int)pvVar5 + 0xc) =
-         *(int *)((int)pvVar5 + 0xc) + ((char)piVar10[1] * iVar3 + 0xffffU >> 0x10);
+    *(uint *)((int)pvVar6 + 0xc) =
+         *(int *)((int)pvVar6 + 0xc) + ((char)piVar11[1] * iVar4 + 0xffffU >> 0x10);
   }
   return;
 }
+#undef local_10
 #undef local_14
+#undef local_4
+#undef local_8
 #undef local_c
 

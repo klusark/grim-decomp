@@ -484,8 +484,7 @@ extern undefined4 DAT_1002c5d4; /* used by 8 fn(s), first 0x10015440 */
 extern undefined DAT_1002c5d8; /* used by 2 fn(s), first 0x1001cc00 */
 extern undefined4 DAT_1002c5dc; /* used by 1 fn(s), first 0x100155f0 */
 extern undefined4 * DAT_1002c5e0; /* used by 1 fn(s), first 0x100155f0 */
-extern int * PTR_1002c600; /* used by 16 fn(s), first 0x10014240 */
-extern undefined DAT_1002c600; /* used by 5 fn(s), first 0x1000fde0 */
+extern int * PTR_1002c600; /* used by 21 fn(s), first 0x1000fde0 */
 extern undefined4 DAT_1002c604; /* used by 1 fn(s), first 0x100151d0 */
 extern undefined4 DAT_1002c700; /* used by 10 fn(s), first 0x100151d0 */
 extern undefined4 * DAT_1002c704; /* used by 2 fn(s), first 0x10012cb0 */

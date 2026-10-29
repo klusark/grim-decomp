@@ -16,8 +16,8 @@ void __cdecl Actor_ComputeScreenBox(void *actor)
   float *frame;
   int iVar2;
   
-  g_nDrawBoxMinX = DAT_009055ec;
-  g_nDrawBoxMinY = *(int *)(DAT_008c97a0 + 0x10);
+  g_nDrawBoxMinX = UINT_009055ec;
+  g_nDrawBoxMinY = *(int *)(UINT_008c97a0 + 0x10);
   g_nDrawBoxMaxX = 0;
   g_nDrawBoxMaxY = 0;
   *(undefined4 *)((int)actor + 0x6c) = 0;
@@ -39,21 +39,23 @@ void __cdecl Actor_ComputeScreenBox(void *actor)
 }
 
 /* ---- 0x00485320  Actor_DrawDebugWalker ---- */
+/* WARNING: Variable defined which should be unmapped: local_28 */
 /* Debug overlay: the walker's path segments, its sector outline and the look-at circle */
 
 void Actor_DrawDebugWalker(void *param_1)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   float *b;
   int iVar2;
   int iVar3;
-  #define local_c (*(float (*)[3])(_frame + (0x20 - 0xc)))
+  #define local_28 (*(uint *)(_frame + (0x40 - 0x28)))
+  #define local_c (*(float (*)[3])(_frame + (0x40 - 0xc)))
   
   if (*(int *)((int)param_1 + 0xa4) != 0) {
     if (*(int *)(*(int *)((int)param_1 + 0xa4) + 0x1b4) != 0) {
-      Walker_DrawDebugAxes(DAT_008c97e0 & 0xffff);
+      Walker_DrawDebugAxes(UINT_008c97e0 & 0xffff);
     }
     if ((*(byte *)((int)param_1 + 8) & 1) != 0) {
       iVar1 = *(int *)((int)param_1 + 0xa4);
@@ -61,7 +63,7 @@ void Actor_DrawDebugWalker(void *param_1)
       if (*(int *)(iVar1 + 0x44) != 1 && -1 < *(int *)(iVar1 + 0x44) + -1) {
         iVar2 = 0x48;
         do {
-          rdPrimit3_DrawLine(iVar2 + iVar1,iVar2 + 0xc + iVar1,0,0,0,0,DAT_008c97d4 & 0xffff,
+          rdPrimit3_DrawLine(iVar2 + iVar1,iVar2 + 0xc + iVar1,0,0,0,0,UINT_008c97d4 & 0xffff,
                              0xffffffff);
           iVar1 = *(int *)((int)param_1 + 0xa4);
           iVar3 = iVar3 + 1;
@@ -80,6 +82,7 @@ void Actor_DrawDebugWalker(void *param_1)
   }
   return;
 }
+#undef local_28
 #undef local_c
 
 
@@ -92,59 +95,60 @@ void * __cdecl Actor_CreateSubtitle(void *actor,char *text,int x,int y)
 {
   unsigned char _frame[0x70] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   void *pvVar1;
-  float *pfVar2;
-  char *pcVar3;
-  void *pvVar4;
-  int iVar5;
+  char *pcVar2;
+  void *pvVar3;
+  int iVar4;
   int unaff_ESI;
-  undefined4 *puVar6;
+  uint *puVar5;
   int unaff_EDI;
-  int **ppiVar7;
-  #define local_5c (*(float *)(_frame + (0x70 - 0x5c)))
-  #define local_58 (*(int *)(_frame + (0x70 - 0x58)))
-  #define local_50 (*(float *)(_frame + (0x70 - 0x50)))
-  #define local_4c (*(int *)(_frame + (0x70 - 0x4c)))
-  #define local_48 (*(undefined4 *)(_frame + (0x70 - 0x48)))
-  #define local_44 (*(undefined4 *)(_frame + (0x70 - 0x44)))
-  #define local_40 (*(undefined4 *)(_frame + (0x70 - 0x40)))
-  #define local_3c (*(undefined4 *)(_frame + (0x70 - 0x3c)))
-  #define local_38 (*(int *)(_frame + (0x70 - 0x38)))
-  #define local_34 (*(int *)(_frame + (0x70 - 0x34)))
-  #define local_30 (*(int *(*)[3])(_frame + (0x70 - 0x30)))
-  #define local_24 (*(int *)(_frame + (0x70 - 0x24)))
-  #define local_20 (*(int *)(_frame + (0x70 - 0x20)))
-  #define local_1c (*(undefined4 *)(_frame + (0x70 - 0x1c)))
-  #define local_18 (*(undefined4 *)(_frame + (0x70 - 0x18)))
-  #define local_14 (*(undefined4 *)(_frame + (0x70 - 0x14)))
+  uint *puVar6;
+  #define local_5c (*(uint *)(_frame + (0x70 - 0x5c)))
+  #define local_58 (*(uint *)(_frame + (0x70 - 0x58)))
+  #define local_50 (*(uint *)(_frame + (0x70 - 0x50)))
+  #define local_4c (*(uint *)(_frame + (0x70 - 0x4c)))
+  #define local_48 (*(uint *)(_frame + (0x70 - 0x48)))
+  #define local_44 (*(uint *)(_frame + (0x70 - 0x44)))
+  #define local_40 (*(uint *)(_frame + (0x70 - 0x40)))
+  #define local_3c (*(uint *)(_frame + (0x70 - 0x3c)))
+  #define local_38 (*(uint *)(_frame + (0x70 - 0x38)))
+  #define local_34 (*(uint *)(_frame + (0x70 - 0x34)))
+  #define local_30 (*(uint *)(_frame + (0x70 - 0x30)))
+  #define local_2c (*(uint *)(_frame + (0x70 - 0x2c)))
+  #define local_28 (*(uint *)(_frame + (0x70 - 0x28)))
+  #define local_24 (*(uint *)(_frame + (0x70 - 0x24)))
+  #define local_20 (*(uint *)(_frame + (0x70 - 0x20)))
+  #define local_1c (*(uint *)(_frame + (0x70 - 0x1c)))
+  #define local_18 (*(uint *)(_frame + (0x70 - 0x18)))
+  #define local_14 (*(uint *)(_frame + (0x70 - 0x14)))
   
   pvVar1 = actor;
-  local_38 = DAT_008a94bc;
-  local_50 = (float)g_nSubtitleDefaultX;
-  local_48 = DAT_004e8490;
-  local_34 = DAT_008a94c0;
-  puVar6 = &g_SubtitleTextCtx;
-  ppiVar7 = local_30;
-  for (iVar5 = 0xc; iVar5 != 0; iVar5 = iVar5 + -1) {
-    *ppiVar7 = (int *)*puVar6;
+  local_38 = UINT_008a94bc;
+  local_50 = g_nSubtitleDefaultX;
+  local_48 = UINT_004e8490;
+  local_34 = UINT_008a94c0;
+  puVar5 = &g_SubtitleTextCtx;
+  puVar6 = &local_30;
+  for (iVar4 = 0xc; iVar4 != 0; iVar4 = iVar4 + -1) {
+    *puVar6 = *puVar5;
+    puVar5 = puVar5 + 1;
     puVar6 = puVar6 + 1;
-    ppiVar7 = ppiVar7 + 1;
   }
   local_4c = g_nSubtitleDefaultY;
-  local_44 = DAT_004e8494;
-  local_30[1] = &local_40;
+  local_44 = UINT_004e8494;
+  local_2c = (uint)&local_40;
   local_40 = 0;
   local_3c = 0;
-  local_1c = *(undefined4 *)(*(int *)((int)actor + 0xa4) + 0x418);
+  local_1c = *(uint *)(*(int *)((int)actor + 0xa4) + 0x418);
   local_18 = 0;
   local_14 = 0;
-  if ((*(int *)((int)actor + 0x68) == 0) || (DAT_008a8c40 == 3)) {
-    pfVar2 = &local_50;
+  if ((*(int *)((int)actor + 0x68) == 0) || (UINT_008a8c40 == 3)) {
+    puVar5 = &local_50;
     if ((*(int *)((int)actor + 0xa0) == 0) || ((*(byte *)((int)actor + 4) & 2) != 0)) {
-      pcVar3 = Set_GetCurrentName();
-      iVar5 = _stricmp((int)actor + 0x7c,pcVar3);
-      if (iVar5 == 0) {
-        iVar5 = rdCamera_ProjectPoint((float *)((int)actor + 0xc),&local_5c);
-        if (iVar5 != 0) {
+      pcVar2 = Set_GetCurrentName();
+      iVar4 = _stricmp((int)actor + 0x7c,pcVar2);
+      if (iVar4 == 0) {
+        iVar4 = rdCamera_ProjectPoint((float *)((int)actor + 0xc),(float *)&local_5c);
+        if (iVar4 != 0) {
           local_50 = local_5c;
           local_4c = local_58;
         }
@@ -152,44 +156,46 @@ void * __cdecl Actor_CreateSubtitle(void *actor,char *text,int x,int y)
     }
   }
   else {
-    pfVar2 = (void *)((int)actor + 0x6c);
+    puVar5 = (void *)((int)actor + 0x6c);
   }
-  actor = pfVar2;
-  iVar5 = Text_MeasureString(local_30,(int)text);
-  iVar5 = iVar5 / 2;
+  actor = puVar5;
+  iVar4 = Text_MeasureWidth(&local_30,text);
+  iVar4 = iVar4 / 2;
   if (x == -1) {
     x = *(int *)((int)actor + 8) / 2 + *(int *)actor;
   }
-  if (x - iVar5 < 0x28) {
-    x = iVar5 + 0x28;
+  if (x - iVar4 < 0x28) {
+    x = iVar4 + 0x28;
   }
-  if (DAT_008a94bc + -0x28 < iVar5 + x) {
-    x = (DAT_008a94bc - iVar5) + -0x28;
+  if ((int)(UINT_008a94bc - 0x28) < iVar4 + x) {
+    x = (UINT_008a94bc - iVar4) - 0x28;
   }
-  local_20 = *(undefined4 *)(*local_30[2] + 8);
+  local_20 = *(uint *)(*(int *)local_28 + 8);
   local_24 = x;
-  iVar5 = Text_MeasureLine(local_30,text);
+  iVar4 = Text_MeasureHeight(&local_30,text);
   if (y == -1) {
-    y = *(int *)((int)actor + 4) - iVar5;
+    y = *(int *)((int)actor + 4) - iVar4;
   }
   if (y < 10) {
     y = 10;
   }
-  if (DAT_008a94c0 + -10 < y + iVar5) {
-    y = (DAT_008a94c0 - iVar5) + -10;
+  if ((int)(UINT_008a94c0 - 10) < y + iVar4) {
+    y = (UINT_008a94c0 - iVar4) + -10;
   }
-  local_20 = *(int *)(*local_30[2] + 8) + y;
+  local_20 = *(int *)(*(int *)local_28 + 8) + y;
   local_24 = x;
-  pvVar4 = TextObject_New(local_30,text,unaff_EDI,unaff_ESI);
-  *(void **)((int)pvVar4 + 0x254) = pvVar1;
+  pvVar3 = TextObject_New(&local_30,text,unaff_EDI,unaff_ESI);
+  *(void **)((int)pvVar3 + 0x254) = pvVar1;
   *(uint *)((int)pvVar1 + 4) = *(uint *)((int)pvVar1 + 4) | 4;
-  return pvVar4;
+  return pvVar3;
 }
 #undef local_14
 #undef local_18
 #undef local_1c
 #undef local_20
 #undef local_24
+#undef local_28
+#undef local_2c
 #undef local_30
 #undef local_34
 #undef local_38
@@ -234,6 +240,7 @@ int __cdecl Actor_SetCostume(void *actor,char *name)
 }
 
 /* ---- 0x0048f9d0  Actor_SetHead ---- */
+/* WARNING: Variable defined which should be unmapped: local_14 */
 /* Lua SetActorHead: head-tracking joints and limits */
 
 void __cdecl
@@ -241,9 +248,11 @@ Actor_SetHead(void *actor,int joint1,int joint2,int joint3,float maxRoll,float m
              )
 
 {
+  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   uint uVar2;
   float fVar3;
+  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
   
   iVar1 = *(int *)((int)actor + 0xa0);
   if ((iVar1 != 0) && (*(int *)(iVar1 + 4) != 0)) {
@@ -263,6 +272,8 @@ Actor_SetHead(void *actor,int joint1,int joint2,int joint3,float maxRoll,float m
   }
   return;
 }
+#undef local_14
+
 
 /* ---- 0x0048fa60  Actor_CanSeePoint ---- */
 /* True when the point lies within the head joint's view cone (cosine threshold at costume+0x24 set
@@ -277,35 +288,35 @@ int __cdecl Actor_CanSeePoint(void *actor,float *point,float *outDistance)
   float fVar3;
   float *pfVar4;
   float10 fVar5;
-  #define local_48 (*(float *)(_frame + (0x60 - 0x48)))
-  #define local_44 (*(float *)(_frame + (0x60 - 0x44)))
-  #define local_40 (*(float *)(_frame + (0x60 - 0x40)))
-  #define local_3c (*(float *)(_frame + (0x60 - 0x3c)))
-  #define local_38 (*(float *)(_frame + (0x60 - 0x38)))
-  #define local_34 (*(float *)(_frame + (0x60 - 0x34)))
-  #define local_c (*(float *)(_frame + (0x60 - 0xc)))
-  #define local_8 (*(float *)(_frame + (0x60 - 0x8)))
-  #define local_4 (*(float *)(_frame + (0x60 - 0x4)))
+  #define local_48 (*(uint *)(_frame + (0x60 - 0x48)))
+  #define local_44 (*(uint *)(_frame + (0x60 - 0x44)))
+  #define local_40 (*(uint *)(_frame + (0x60 - 0x40)))
+  #define local_3c (*(uint *)(_frame + (0x60 - 0x3c)))
+  #define local_38 (*(uint *)(_frame + (0x60 - 0x38)))
+  #define local_34 (*(uint *)(_frame + (0x60 - 0x34)))
+  #define local_c (*(uint *)(_frame + (0x60 - 0xc)))
+  #define local_8 (*(uint *)(_frame + (0x60 - 0x8)))
+  #define local_4 (*(uint *)(_frame + (0x60 - 0x4)))
   
   iVar1 = *(int *)((int)actor + 0xa0);
   if (((iVar1 != 0) && (-1 < *(int *)(iVar1 + 0xc))) && (*(int *)(iVar1 + 4) != 0)) {
     pfVar4 = Actor_GetFrame(actor);
     rdPuppet_BuildJointMatrices(*(void **)(iVar1 + 4),pfVar4);
-    local_3c = *point - local_c;
-    local_38 = point[1] - local_8;
-    local_34 = point[2] - local_4;
+    local_3c = (uint)(*point - (float)local_c);
+    local_38 = (uint)(point[1] - (float)local_8);
+    local_34 = (uint)(point[2] - (float)local_4);
     fVar5 = (float10)((code *)Vec3_Normalize)(&local_3c);
     local_48 = local_3c;
     *outDistance = (float)fVar5;
     local_44 = local_38;
-    local_40 = 0.0;
+    local_40 = 0;
     Vec3_Normalize(&local_48);
     pfVar4 = Actor_GetFrame(actor);
-    fVar2 = pfVar4[3] * local_48;
+    fVar2 = pfVar4[3] * (float)local_48;
     pfVar4 = Actor_GetFrame(actor);
-    fVar3 = pfVar4[4] * local_44;
+    fVar3 = pfVar4[4] * (float)local_44;
     pfVar4 = Actor_GetFrame(actor);
-    if (*(float *)(iVar1 + 0x24) <= pfVar4[5] * local_40 + fVar3 + fVar2) {
+    if (*(float *)(iVar1 + 0x24) <= pfVar4[5] * (float)local_40 + fVar3 + fVar2) {
       return 1;
     }
   }
@@ -459,7 +470,11 @@ void __cdecl Actor_UpdateLookAt(void *actor,float dt)
   int iVar8;
   float fVar9;
   #define fStack_c8 (*(float *)(_frame + (0xe0 - 0xc8)))
-  #define local_c0 (*(float (*)[4])(_frame + (0xe0 - 0xc0)))
+  #define local_c4 (*(uint *)(_frame + (0xe0 - 0xc4)))
+  #define local_c0 (*(uint *)(_frame + (0xe0 - 0xc0)))
+  #define local_bc (*(uint *)(_frame + (0xe0 - 0xbc)))
+  #define local_b8 (*(uint *)(_frame + (0xe0 - 0xb8)))
+  #define fStack_b4 (*(float *)(_frame + (0xe0 - 0xb4)))
   #define fStack_b0 (*(float *)(_frame + (0xe0 - 0xb0)))
   #define afStack_a8 (*(float (*)[3])(_frame + (0xe0 - 0xa8)))
   #define afStack_9c (*(float (*)[3])(_frame + (0xe0 - 0x9c)))
@@ -470,14 +485,14 @@ void __cdecl Actor_UpdateLookAt(void *actor,float dt)
   bVar5 = false;
   iVar1 = *(int *)((int)actor + 0xa0);
   if (*(int *)((int)actor + 0xa4) == 0) {
-    (**(code **)(DAT_008ca32c + 0x18))
+    (**(code **)(UINT_008ca32c + 0x18))
               (s_pActor__pExtra_004e9ea8,s_C__grimsrc_libs_grimlib_Engine_s_004e9e40,0x47a);
   }
   if (((iVar1 != 0) && (piVar7 = (int *)(iVar1 + 0xc), -1 < *(int *)(iVar1 + 0xc))) &&
      (*(int *)(iVar1 + 4) != 0)) {
-    local_c0[0] = 0.0;
-    local_c0[1] = 1.0;
-    local_c0[2] = 0.0;
+    local_c0 = 0;
+    local_bc = 0x3f800000;
+    local_b8 = 0;
     if (*(int *)((int)actor + 0x68) == 0) {
       pfVar6 = Actor_GetFrame(actor);
       rdPuppet_UpdateFrame(*(void **)(iVar1 + 4),pfVar6);
@@ -495,10 +510,10 @@ void __cdecl Actor_UpdateLookAt(void *actor,float dt)
       Vec3_Sub(afStack_a8,pfVar6,afStack_90);
       Vec3_Normalize(afStack_a8);
     }
-    Vec3_Cross(afStack_9c,local_c0,afStack_a8);
+    Vec3_Cross(afStack_9c,(float *)&local_c0,afStack_a8);
     Vec3_Normalize(afStack_9c);
     fStack_c8 = *(float *)(iVar1 + 0x18) * dt;
-    fVar9 = Vec3_Dot(local_c0,afStack_a8);
+    fVar9 = Vec3_Dot((float *)&local_c0,afStack_a8);
     fVar9 = Math_AsinDegrees(fVar9);
     fVar9 = 90.0 - fVar9;
     fVar3 = fVar9;
@@ -515,8 +530,8 @@ void __cdecl Actor_UpdateLookAt(void *actor,float dt)
       }
     }
     Matrix_AxisAngle(afStack_30,afStack_9c,fStack_c8);
-    Vec3_Rotate3x3(local_c0,afStack_30);
-    Matrix_GetAngles(local_c0,local_c0 + 3);
+    Vec3_Rotate3x3((float *)&local_c0,afStack_30);
+    Matrix_GetAngles((float *)&local_c0,&fStack_b4);
     if ((*(byte *)((int)actor + 8) & 2) == 0) {
       iVar8 = 3;
       do {
@@ -537,8 +552,8 @@ void __cdecl Actor_UpdateLookAt(void *actor,float dt)
       *(float *)(iVar2 + 4 + *piVar7 * 0xc) =
            fStack_b0 * 0.33333334 + *(float *)(iVar2 + 4 + *piVar7 * 0xc);
       iVar2 = *(int *)(*(int *)(iVar1 + 4) + 0x24);
-      *(float *)(iVar2 + *piVar7 * 0xc) =
-           local_c0[3] * 0.33333334 + *(float *)(iVar2 + *piVar7 * 0xc);
+      *(float *)(iVar2 + *piVar7 * 0xc) = fStack_b4 * 0.33333334 + *(float *)(iVar2 + *piVar7 * 0xc)
+      ;
       *(undefined4 *)(*(int *)(*(int *)(iVar1 + 4) + 0x24) + 8 + *piVar7 * 0xc) = 0;
       iVar2 = *(int *)(*(int *)(iVar1 + 4) + 0x24);
       pfVar6 = (float *)(iVar2 + 4 + *piVar7 * 0xc);
@@ -567,8 +582,12 @@ void __cdecl Actor_UpdateLookAt(void *actor,float dt)
 #undef afStack_9c
 #undef afStack_a8
 #undef fStack_b0
+#undef fStack_b4
 #undef fStack_c8
+#undef local_b8
+#undef local_bc
 #undef local_c0
+#undef local_c4
 
 
 /* ---- 0x00490210  Actor_UpdateTalk ---- */
@@ -673,7 +692,7 @@ int Actor_Create(void)
   undefined4 *puVar3;
   int *piVar4;
   undefined4 *puVar5;
-  #define local_14 (*(int *)(_frame + (0x30 - 0x14)))
+  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
   #define aiStack_10 (*(int (*)[4])(_frame + (0x30 - 0x10)))
   
   iVar2 = 0;
@@ -702,7 +721,7 @@ int Actor_Create(void)
       local_14 = ((int)g_pSelectedActor - (int)g_pActorTable) / 0xa8;
     }
     g_pActorTable =
-         (void *)(**(code **)(DAT_008ca32c + 0x28))
+         (void *)(**(code **)(UINT_008ca32c + 0x28))
                            (g_pActorTable,(g_nActorCapacity + 0x20) * 0xa8,
                             s_C__grimsrc_libs_grimlib_Engine_s_004e9e40,0x5f6);
     puVar5 = (undefined4 *)((int)g_pActorTable + g_nActorCapacity * 0xa8);
@@ -735,7 +754,7 @@ int Actor_Create(void)
   puVar5[0xc] = 0x3f800000;
   puVar5[0x28] = 0;
   puVar3 = (undefined4 *)
-           (**(code **)(DAT_008ca32c + 0x20))
+           (**(code **)(UINT_008ca32c + 0x20))
                      (0x34,s_C__grimsrc_libs_grimlib_Engine_s_004e9e40,0x60e);
   *puVar5 = puVar3;
   for (iVar2 = 0xd; iVar2 != 0; iVar2 = iVar2 + -1) {
@@ -759,15 +778,15 @@ void Actor_CreateExtra(int param_1)
   undefined4 *puVar2;
   
   if ((param_1 == 0) || (*(int *)(param_1 + 0xa4) != 0)) {
-    (**(code **)(DAT_008ca32c + 0x18))
+    (**(code **)(UINT_008ca32c + 0x18))
               (s_pActor_____pActor__pExtra_004e9eb8,s_C__grimsrc_libs_grimlib_Engine_s_004e9e40,
                0x619);
   }
-  iVar1 = (**(code **)(DAT_008ca32c + 0x20))
+  iVar1 = (**(code **)(UINT_008ca32c + 0x20))
                     (0x4a0,s_C__grimsrc_libs_grimlib_Engine_s_004e9e40,0x61b);
   *(int *)(param_1 + 0xa4) = iVar1;
   if (iVar1 == 0) {
-    (**(code **)(DAT_008ca32c + 0x18))
+    (**(code **)(UINT_008ca32c + 0x18))
               (s_pActor__pExtra_004e9ea8,s_C__grimsrc_libs_grimlib_Engine_s_004e9e40,0x61c);
   }
   puVar2 = *(undefined4 **)(param_1 + 0xa4);
@@ -805,7 +824,7 @@ void Actor_SetFollowBoxes(int param_1,int param_2)
   if (param_2 != 0) {
     *(undefined4 *)(*(int *)(param_1 + 0xa4) + 0x1b8) = 1;
     Actor_CreateWalker(param_1,1);
-    ((code *)Walker_ReattachToSet)();
+    Walker_ReattachToSet(*(void **)(*(int *)(param_1 + 0xa4) + 0x1b4));
     return;
   }
   *(undefined4 *)(*(int *)(param_1 + 0xa4) + 0x1b8) = 0;
@@ -825,23 +844,23 @@ void Actor_CreateWalker(void *param_1,int param_2)
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   void *pvVar1;
   float *pfVar2;
-  undefined4 *p;
-  undefined4 *unaff_FS_OFFSET = (undefined4 *)TEB_BASE();
-  #define local_18 (*(float *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(float *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(float *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(undefined4 *)(_frame + (0x30 - 0xc)))
+  void *p;
+  uint *unaff_FS_OFFSET = (uint *)TEB_BASE();
+  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
+  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
+  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
+  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
   #define pcStack_8 (*(code **)(_frame + (0x30 - 0x8)))
-  #define local_4 (*(undefined4 *)(_frame + (0x30 - 0x4)))
+  #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
   
   local_c = *unaff_FS_OFFSET;
   local_4 = 0xffffffff;
   pcStack_8 = FUN_004d605b;
-  *unaff_FS_OFFSET = &local_c;
-  p = (undefined4 *)0x0;
+  *unaff_FS_OFFSET = (uint)&local_c;
+  p = (void *)0x0;
   if ((param_2 == 0) &&
      (pvVar1 = *(void **)(*(int *)((int)param_1 + 0xa4) + 0x1b4), pvVar1 != (void *)0x0)) {
-    ((code *)Walker_Destroy)();
+    Walker_Destroy((int)pvVar1);
     Plat_Free(pvVar1);
     *(undefined4 *)(*(int *)((int)param_1 + 0xa4) + 0x1b4) = 0;
     *unaff_FS_OFFSET = local_c;
@@ -851,17 +870,17 @@ void Actor_CreateWalker(void *param_1,int param_2)
     pvVar1 = Plat_Alloc(0x60);
     local_4 = 0;
     if (pvVar1 != (void *)0x0) {
-      p = Walker_Create(pvVar1,*(int *)(*(int *)((int)param_1 + 0xa4) + 0x1c0));
+      p = Walker_Create(pvVar1,*(float *)(*(int *)((int)param_1 + 0xa4) + 0x1c0));
     }
     local_4 = 0xffffffff;
     Mem_CheckAlloc(p,s_C__grimsrc_libs_grimlib_Engine_s_004e9e40,0x665);
-    Walker_SetPosition(p,(int)param_1 + 0xc);
+    Walker_SetPosition(p,(float *)((int)param_1 + 0xc));
     pfVar2 = Actor_GetFrame(param_1);
-    local_18 = pfVar2[3] + *(float *)((int)param_1 + 0xc);
-    local_14 = *(float *)((int)param_1 + 0x10) + pfVar2[4];
-    local_10 = *(float *)((int)param_1 + 0x14) + pfVar2[5];
+    local_18 = (uint)(pfVar2[3] + *(float *)((int)param_1 + 0xc));
+    local_14 = (uint)(*(float *)((int)param_1 + 0x10) + pfVar2[4]);
+    local_10 = (uint)(*(float *)((int)param_1 + 0x14) + pfVar2[5]);
     Walker_TurnToPoint(p,(int)&local_18,0x7f7fffff);
-    *(undefined4 **)(*(int *)((int)param_1 + 0xa4) + 0x1b4) = p;
+    *(void **)(*(int *)((int)param_1 + 0xa4) + 0x1b4) = p;
   }
   *unaff_FS_OFFSET = local_c;
   return;
@@ -875,10 +894,11 @@ void Actor_CreateWalker(void *param_1,int param_2)
 
 
 /* ---- 0x00490870  Actor_SetPositionClamped ---- */
-void Actor_SetPositionClamped(int param_1,undefined4 *param_2)
+void Actor_SetPositionClamped(int param_1,float *param_2)
 
 {
   undefined4 uVar1;
+  float fVar2;
   undefined4 *this;
   
   this = (undefined4 *)0x0;
@@ -887,9 +907,9 @@ void Actor_SetPositionClamped(int param_1,undefined4 *param_2)
   }
   *(uint *)(param_1 + 8) = *(uint *)(param_1 + 8) & 0xfffffffe;
   if (this != (undefined4 *)0x0) {
-    Walker_SetPosition(this,(int)param_2);
+    Walker_SetPosition(this,param_2);
     if (*(int *)(*(int *)(param_1 + 0xa4) + 0x1b8) != 0) {
-      ((code *)Walker_ReattachToSet)();
+      Walker_ReattachToSet(this);
     }
     *(undefined4 *)(param_1 + 0xc) = *this;
     *(undefined4 *)(param_1 + 0x10) = this[1];
@@ -898,15 +918,16 @@ void Actor_SetPositionClamped(int param_1,undefined4 *param_2)
     *(undefined4 *)(param_1 + 0x14) = uVar1;
     return;
   }
-  *(undefined4 *)(param_1 + 0xc) = *param_2;
-  *(undefined4 *)(param_1 + 0x10) = param_2[1];
-  uVar1 = param_2[2];
+  *(float *)(param_1 + 0xc) = *param_2;
+  *(float *)(param_1 + 0x10) = param_2[1];
+  fVar2 = param_2[2];
   *(undefined4 *)(param_1 + 0x34) = 0;
-  *(undefined4 *)(param_1 + 0x14) = uVar1;
+  *(float *)(param_1 + 0x14) = fVar2;
   return;
 }
 
 /* ---- 0x00490900  Actor_SetRot ---- */
+/* WARNING: Variable defined which should be unmapped: local_40 */
 /* Actor_SetRot(actor, angles, snap): clears actor+8 bit 0 first, which ends a WalkActorTo path walk
    (Actor_UpdateMovement only calls Actor_FollowPath while it is set). Pitch (+0x24) and roll
    (+0x2c) are always set at once. With a walker, the walker heading is turned to the yaw
@@ -917,35 +938,35 @@ void Actor_SetPositionClamped(int param_1,undefined4 *param_2)
 void Actor_SetRot(int param_1,undefined4 *param_2,int param_3)
 
 {
-  unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   float *this;
   int iVar2;
   undefined4 uVar3;
   float10 fVar4;
-  float a1;
-  #define local_30 (*(undefined1 (*)[12])(_frame + (0x40 - 0x30)))
-  #define local_24 (*(float *)(_frame + (0x40 - 0x24)))
-  #define local_20 (*(float *)(_frame + (0x40 - 0x20)))
-  #define local_1c (*(float *)(_frame + (0x40 - 0x1c)))
+  #define local_40 (*(uint *)(_frame + (0x50 - 0x40)))
+  #define local_30 (*(undefined1 (*)[12])(_frame + (0x50 - 0x30)))
+  #define local_24 (*(uint *)(_frame + (0x50 - 0x24)))
+  #define local_20 (*(uint *)(_frame + (0x50 - 0x20)))
+  #define local_1c (*(uint *)(_frame + (0x50 - 0x1c)))
   
   *(uint *)(param_1 + 8) = *(uint *)(param_1 + 8) & 0xfffffffe;
   if ((*(int *)(param_1 + 0xa4) != 0) &&
      (this = *(float **)(*(int *)(param_1 + 0xa4) + 0x1b4), this != (float *)0x0)) {
     Angles_ToMatrixNoPos(local_30,param_2);
-    local_24 = local_24 + *this;
-    local_20 = this[1] + local_20;
-    local_1c = this[2] + local_1c;
-    Walker_ToLocalSpace(this,(int)&local_24);
-    local_1c = 0.0;
+    local_24 = (uint)((float)local_24 + *this);
+    local_20 = (uint)(this[1] + (float)local_20);
+    local_1c = (uint)(this[2] + (float)local_1c);
+    Walker_ToLocalSpace(this,(float *)&local_24);
+    local_1c = 0;
     Vec3_Normalize(&local_24);
     fVar4 = (float10)Math_AsinDegreesSeries(local_20);
     fVar1 = (float)((float10)90.0 - fVar4);
-    a1 = fVar1;
-    if (0.0 < local_24) {
-      a1 = -fVar1;
+    local_40 = (uint)fVar1;
+    if (0.0 < (float)local_24) {
+      local_40 = (uint)-fVar1;
     }
-    Walker_TurnHeading(this,(int)a1);
+    Walker_TurnHeading(this,local_40);
     iVar2 = *(int *)(param_1 + 0xa4);
     if ((0.0 < *(float *)(iVar2 + 0x1c)) && (param_3 != 0)) {
       *(float *)(iVar2 + 0x1c) = *(float *)(iVar2 + 0x1c) * -1.0;
@@ -967,6 +988,7 @@ void Actor_SetRot(int param_1,undefined4 *param_2,int param_3)
 #undef local_20
 #undef local_24
 #undef local_30
+#undef local_40
 
 
 /* ---- 0x00490a40  Actor_SetReflection ---- */
@@ -1145,6 +1167,7 @@ void __cdecl Actor_PopCostume(void *actor,int free)
 }
 
 /* ---- 0x00490f50  Actor_PuckOrient ---- */
+/* WARNING: Variable defined which should be unmapped: local_68 */
 /* Actor_PuckOrient: at the end of the actor update when actor+4 & 0x10 (ActorPuckOrient). Rebuilds
    the actor matrix, takes the angle between its up row and the up vector of the walker frame; over
    2 degrees it turns about up x normal by min(angle, frame seconds * turn rate), multiplies
@@ -1153,23 +1176,24 @@ void __cdecl Actor_PopCostume(void *actor,int free)
 void Actor_PuckOrient(float param_1)
 
 {
-  unsigned char _frame[0x70] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x80] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   int iVar2;
   int iVar3;
   int iVar4;
   float10 fVar5;
   float fVar6;
-  #define local_54 (*(float *)(_frame + (0x70 - 0x54)))
-  #define local_50 (*(float *)(_frame + (0x70 - 0x50)))
-  #define local_4c (*(float *)(_frame + (0x70 - 0x4c)))
-  #define local_48 (*(float *)(_frame + (0x70 - 0x48)))
-  #define local_44 (*(float *)(_frame + (0x70 - 0x44)))
-  #define local_40 (*(float *)(_frame + (0x70 - 0x40)))
-  #define local_3c (*(float *)(_frame + (0x70 - 0x3c)))
-  #define local_38 (*(float *)(_frame + (0x70 - 0x38)))
-  #define local_34 (*(float *)(_frame + (0x70 - 0x34)))
-  #define local_30 (*(undefined1 (*)[48])(_frame + (0x70 - 0x30)))
+  #define local_68 (*(uint *)(_frame + (0x80 - 0x68)))
+  #define local_54 (*(uint *)(_frame + (0x80 - 0x54)))
+  #define local_50 (*(uint *)(_frame + (0x80 - 0x50)))
+  #define local_4c (*(uint *)(_frame + (0x80 - 0x4c)))
+  #define local_48 (*(uint *)(_frame + (0x80 - 0x48)))
+  #define local_44 (*(uint *)(_frame + (0x80 - 0x44)))
+  #define local_40 (*(uint *)(_frame + (0x80 - 0x40)))
+  #define local_3c (*(uint *)(_frame + (0x80 - 0x3c)))
+  #define local_38 (*(uint *)(_frame + (0x80 - 0x38)))
+  #define local_34 (*(uint *)(_frame + (0x80 - 0x34)))
+  #define local_30 (*(undefined1 (*)[48])(_frame + (0x80 - 0x30)))
   
   if (((param_1 != 0.0) && (*(int *)((int)param_1 + 0xa4) != 0)) &&
      (iVar4 = *(int *)(*(int *)((int)param_1 + 0xa4) + 0x1b4), iVar4 != 0)) {
@@ -1177,13 +1201,13 @@ void Actor_PuckOrient(float param_1)
     iVar2 = (int)param_1 + 0x24;
     iVar3 = (int)param_1 + 0x38;
     Angles_ToMatrix(iVar3,iVar2,iVar1);
-    local_48 = *(float *)((int)param_1 + 0x50);
-    local_44 = *(float *)((int)param_1 + 0x54);
-    local_40 = *(float *)((int)param_1 + 0x58);
-    local_54 = *(float *)(iVar4 + 0x24);
-    local_50 = *(float *)(iVar4 + 0x28);
-    local_4c = *(float *)(iVar4 + 0x2c);
-    fVar6 = Vec3_Dot2(&local_48,&local_54);
+    local_48 = *(uint *)((int)param_1 + 0x50);
+    local_44 = *(uint *)((int)param_1 + 0x54);
+    local_40 = *(uint *)((int)param_1 + 0x58);
+    local_54 = *(uint *)(iVar4 + 0x24);
+    local_50 = *(uint *)(iVar4 + 0x28);
+    local_4c = *(uint *)(iVar4 + 0x2c);
+    fVar6 = Vec3_Dot2((float *)&local_48,(float *)&local_54);
     fVar5 = (float10)Math_AsinDegreesSeries(fVar6);
     fVar5 = (float10)90.0 - fVar5;
     fVar6 = (float)fVar5;
@@ -1200,9 +1224,9 @@ void Actor_PuckOrient(float param_1)
       if ((param_1 < 0.0) && ((float10)param_1 < -fVar5)) {
         param_1 = (float)-fVar5;
       }
-      local_3c = local_4c * local_44 - local_50 * local_40;
-      local_38 = local_54 * local_40 - local_4c * local_48;
-      local_34 = local_50 * local_48 - local_54 * local_44;
+      local_3c = (uint)((float)local_4c * (float)local_44 - (float)local_50 * (float)local_40);
+      local_38 = (uint)((float)local_54 * (float)local_40 - (float)local_4c * (float)local_48);
+      local_34 = (uint)((float)local_50 * (float)local_48 - (float)local_54 * (float)local_44);
       Vec3_Normalize(&local_3c);
       Matrix_AxisAngle(local_30,&local_3c,param_1);
       Matrix_Multiply(iVar3,local_30);
@@ -1222,6 +1246,7 @@ void Actor_PuckOrient(float param_1)
 #undef local_4c
 #undef local_50
 #undef local_54
+#undef local_68
 
 
 /* ---- 0x00491110  Actor_UpdateWalker ---- */
@@ -1230,23 +1255,24 @@ void Actor_UpdateWalker(int param_1)
 {
   undefined4 *puVar1;
   int iVar2;
-  undefined4 uVar3;
-  float10 fVar4;
+  undefined *puVar3;
+  undefined4 uVar4;
+  float10 fVar5;
   uint a2;
   uint a3;
   
   puVar1 = *(undefined4 **)(*(int *)(param_1 + 0xa4) + 0x1b4);
   if ((*(int *)(*(int *)(param_1 + 0xa4) + 0x10) != 0) && ((*(byte *)(param_1 + 8) & 1) == 0)) {
     iVar2 = *(int *)(param_1 + 0xa4);
-    fVar4 = (float10)Timer_GetFrameSeconds();
+    fVar5 = (float10)Timer_GetFrameSeconds();
     Walker_TurnHeading(*(void **)(iVar2 + 0x1b4),
                        (int)((float)*(int *)(iVar2 + 0x10) *
                             *(float *)(iVar2 + 0x1c) *
-                            (float)(fVar4 * (float10)*(float *)(iVar2 + 0x41c))));
+                            (float)(fVar5 * (float10)*(float *)(iVar2 + 0x41c))));
   }
   iVar2 = *(int *)(param_1 + 0xa4);
   if (*(int *)(iVar2 + 0xc) != 0) {
-    fVar4 = (float10)Timer_GetFrameSeconds();
+    fVar5 = (float10)Timer_GetFrameSeconds();
     if (*(int *)(iVar2 + 0x1bc) == 0) {
       a3 = (uint)(*(int *)(iVar2 + 0x10) != 1);
       a2 = (uint)(*(int *)(iVar2 + 0x10) != -1);
@@ -1255,28 +1281,28 @@ void Actor_UpdateWalker(int param_1)
       a3 = 1;
       a2 = 1;
     }
-    uVar3 = Walker_WalkSectors(*(void **)(iVar2 + 0x1b4),
-                               (int)(float)(fVar4 * (float10)*(float *)(iVar2 + 0x41c) *
-                                           (float10)*(float *)(iVar2 + 0x18)),a2,a3);
-    *(undefined4 *)(*(int *)(param_1 + 0xa4) + 0xc) = uVar3;
+    puVar3 = Walker_WalkSectors(*(void **)(iVar2 + 0x1b4),
+                                (int)(float)(fVar5 * (float10)*(float *)(iVar2 + 0x41c) *
+                                            (float10)*(float *)(iVar2 + 0x18)),a2,a3);
+    *(undefined **)(*(int *)(param_1 + 0xa4) + 0xc) = puVar3;
   }
-  uVar3 = Walker_UpdateYaw(param_1,puVar1);
-  *(undefined4 *)(*(int *)(param_1 + 0xa4) + 0x20) = uVar3;
+  uVar4 = Walker_UpdateYaw(param_1,puVar1);
+  *(undefined4 *)(*(int *)(param_1 + 0xa4) + 0x20) = uVar4;
   iVar2 = *(int *)(param_1 + 0xa4);
   if ((*(int *)(iVar2 + 0x10) == 0) && (*(int *)(iVar2 + 0x20) == 0)) {
     if (*(float *)(iVar2 + 0x28) <= 0.0) {
-      uVar3 = 1;
+      uVar4 = 1;
     }
     else {
-      uVar3 = 0xffffffff;
+      uVar4 = 0xffffffff;
     }
-    *(undefined4 *)(iVar2 + 0x10) = uVar3;
+    *(undefined4 *)(iVar2 + 0x10) = uVar4;
   }
   *(undefined4 *)(param_1 + 0xc) = *puVar1;
   *(undefined4 *)(param_1 + 0x10) = puVar1[1];
-  uVar3 = puVar1[2];
+  uVar4 = puVar1[2];
   *(undefined4 *)(param_1 + 0x34) = 0;
-  *(undefined4 *)(param_1 + 0x14) = uVar3;
+  *(undefined4 *)(param_1 + 0x14) = uVar4;
   return;
 }
 
@@ -1438,22 +1464,22 @@ void __cdecl Actor_SayLine(void *actor,char *text,int background,int volume,int 
   if (*(int *)((int)actor + 0xa4) == 0) {
     Actor_CreateExtra(actor);
   }
-  uVar5 = DAT_004e9dfc & 1;
-  uVar17 = DAT_004e9dfc & 2;
+  uVar5 = g_dwSpeechMode & 1;
+  uVar17 = g_dwSpeechMode & 2;
   text_00 = Text_ParseLineId(text,(char *)local_44);
   local_24[0] = '\0';
   if (local_44[0] != 0) {
     ((code *)sprintf)(local_24,s__s_wvc_004e9eec,local_44);
-    iVar6 = (**(code **)(DAT_008ca32c + 0x30))(local_24,&DAT_004ddb18);
+    iVar6 = (**(code **)(UINT_008ca32c + 0x30))(local_24,&DAT_004ddb18);
     if (iVar6 == 0) {
       ((code *)sprintf)(local_24,s__s_wav_004e9ee4,local_44);
-      iVar6 = (**(code **)(DAT_008ca32c + 0x30))(local_24,&DAT_004ddb18);
+      iVar6 = (**(code **)(UINT_008ca32c + 0x30))(local_24,&DAT_004ddb18);
       if (iVar6 == 0) {
         ((code *)sprintf)(local_24,s__s_imc_004e9edc,local_44);
-        iVar6 = (**(code **)(DAT_008ca32c + 0x30))(local_24,&DAT_004ddb18);
+        iVar6 = (**(code **)(UINT_008ca32c + 0x30))(local_24,&DAT_004ddb18);
         if (iVar6 == 0) {
           ((code *)sprintf)(local_24,s__s_imu_004e9ed4,local_44);
-          iVar6 = (**(code **)(DAT_008ca32c + 0x30))(local_24,&DAT_004ddb18);
+          iVar6 = (**(code **)(UINT_008ca32c + 0x30))(local_24,&DAT_004ddb18);
           if (iVar6 == 0) {
             local_24[0] = '\0';
             goto LAB_00492c61;
@@ -1461,7 +1487,7 @@ void __cdecl Actor_SayLine(void *actor,char *text,int background,int volume,int 
         }
       }
     }
-    (**(code **)(DAT_008ca32c + 0x34))(iVar6);
+    (**(code **)(UINT_008ca32c + 0x34))(iVar6);
   }
 LAB_00492c61:
   if (*(int *)(*(int *)((int)actor + 0xa4) + 0x1c4) != 0) {
@@ -1494,7 +1520,7 @@ LAB_00492cab:
   *(undefined4 *)(*(int *)((int)actor + 0xa4) + 0x1cc) = 0;
   *(undefined4 *)(*(int *)((int)actor + 0xa4) + 0x1c4) = 1;
   strncpy(*(int *)((int)actor + 0xa4) + 0x1d0,local_44,0xc);
-  DAT_008ca764 = DAT_008ca764 + 1;
+  g_nTalkingActorCount = g_nTalkingActorCount + 1;
   iVar6 = 0;
   ppvVar8 = &g_pTalkingActors;
   do {
@@ -1576,7 +1602,7 @@ LAB_00492e6b:
         text_00 = text_00 + 1;
       } while (cVar3 != '\0');
       *(uint *)(*(int *)((int)actor + 0xa4) + 0x1cc) =
-           (~uVar5 - 1) * (0xb - DAT_004e9e00) * 0xf + 0x280;
+           (~uVar5 - 1) * (0xb - g_nTextSpeed) * 0xf + 0x280;
     }
     TextObject_Activate(pvVar9,-1,0xd);
     ppvVar8 = &g_pTalkingActors;
@@ -1649,6 +1675,7 @@ void __cdecl Actor_ShutUp(void *actor)
 
 {
   int *piVar1;
+  void *obj;
   int iVar2;
   undefined4 *puVar3;
   void **ppvVar4;
@@ -1662,9 +1689,9 @@ void __cdecl Actor_ShutUp(void *actor)
         SoundsStopSound(*(int *)(iVar2 + 0x1c8));
       }
     }
-    iVar2 = *(int *)(*(int *)((int)actor + 0xa4) + 0x1ec);
-    if (iVar2 != 0) {
-      List_Unlink(iVar2);
+    obj = *(void **)(*(int *)((int)actor + 0xa4) + 0x1ec);
+    if (obj != (void *)0x0) {
+      List_Unlink(obj);
     }
     puVar3 = *(undefined4 **)((int)actor + 0xa0);
     if (puVar3 != (undefined4 *)0x0) {
@@ -1705,8 +1732,8 @@ void __cdecl Actor_ShutUp(void *actor)
     *(undefined4 *)(*(int *)((int)actor + 0xa4) + 0x1ec) = 0;
     *(undefined1 *)(*(int *)((int)actor + 0xa4) + 0x1d0) = 0;
     *(undefined4 *)(*(int *)((int)actor + 0xa4) + 0x1c4) = 0;
-    if (0 < DAT_008ca764) {
-      DAT_008ca764 = DAT_008ca764 + -1;
+    if (0 < g_nTalkingActorCount) {
+      g_nTalkingActorCount = g_nTalkingActorCount + -1;
     }
   }
   return;
@@ -1718,11 +1745,12 @@ void __cdecl Actor_ShutUp(void *actor)
 void __cdecl Actor_PushSectorOppositeEdge(int a1,int a2)
 
 {
-  int a1_00;
+  float *walker;
   
-  if (((a2 != 0) && (a1 != 0)) && (a1_00 = *(int *)(*(int *)(a1 + 0xa4) + 0x1b4), a1_00 != 0)) {
-    Sector_MoveWalkerToOppositeEdge((void *)a2,a1_00);
-    Actor_SetPositionClamped(a1,a1_00);
+  if (((a2 != 0) && (a1 != 0)) &&
+     (walker = *(float **)(*(int *)(a1 + 0xa4) + 0x1b4), walker != (float *)0x0)) {
+    Sector_MoveWalkerToOppositeEdge((void *)a2,walker);
+    Actor_SetPositionClamped(a1,walker);
   }
   return;
 }
@@ -1735,6 +1763,7 @@ void __cdecl Actor_PushSectorOppositeEdge(int a1,int a2)
 void Actor_FollowPath(int param_1)
 
 {
+  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   undefined4 *puVar1;
   float fVar2;
   float fVar3;
@@ -1742,6 +1771,9 @@ void Actor_FollowPath(int param_1)
   float fVar5;
   int iVar6;
   float10 fVar7;
+  #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
+  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
+  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   
   iVar6 = *(int *)(param_1 + 0xa4);
   fVar5 = *(float *)(param_1 + 0xc) - *(float *)(iVar6 + 0x2c);
@@ -1780,6 +1812,10 @@ void Actor_FollowPath(int param_1)
   Actor_WalkForward(param_1);
   return;
 }
+#undef local_10
+#undef local_8
+#undef local_c
+
 
 /* ---- 0x004933c0  Actor_SetWalkDominate ---- */
 void __cdecl Actor_SetWalkDominate(void *actor,int dominate)
@@ -1956,24 +1992,24 @@ void Actor_DrawShadows(int param_1)
 {
   int iVar1;
   float fVar2;
-  int *piVar3;
-  int iVar4;
+  int *shadow;
+  int iVar3;
   
   if (*(int *)(param_1 + 0xa4) != 0) {
     Profile_Begin(0xb);
-    iVar4 = 0x1f8;
+    iVar3 = 0x1f8;
     do {
-      piVar3 = (int *)(*(int *)(param_1 + 0xa4) + iVar4);
-      if ((*piVar3 != 0) &&
-         ((iVar1 = piVar3[1], iVar1 == 0 ||
-          (((fVar2 = *(float *)(param_1 + 0x10) * (float)piVar3[3] +
-                     *(float *)(param_1 + 0x14) * (float)piVar3[4] +
-                     *(float *)(param_1 + 0xc) * (float)piVar3[2] + (float)piVar3[5], iVar1 != -1 ||
+      shadow = (int *)(*(int *)(param_1 + 0xa4) + iVar3);
+      if ((*shadow != 0) &&
+         ((iVar1 = shadow[1], iVar1 == 0 ||
+          (((fVar2 = *(float *)(param_1 + 0x10) * (float)shadow[3] +
+                     *(float *)(param_1 + 0x14) * (float)shadow[4] +
+                     *(float *)(param_1 + 0xc) * (float)shadow[2] + (float)shadow[5], iVar1 != -1 ||
             (fVar2 <= 0.0)) && ((iVar1 != 1 || (0.0 <= fVar2)))))))) {
-        Actor_DrawShadowPlane(*(undefined4 *)(param_1 + 0xa0),piVar3);
+        Actor_DrawShadowPlane(*(void **)(param_1 + 0xa0),shadow);
       }
-      iVar4 = iVar4 + 0x54;
-    } while (iVar4 < 0x3f0);
+      iVar3 = iVar3 + 0x54;
+    } while (iVar3 < 0x3f0);
     Profile_End(0xb);
   }
   return;
@@ -2010,6 +2046,7 @@ void __cdecl Actor_ToClean(void *actor)
   code *pcVar8;
   float *pfVar9;
   int *piVar10;
+  #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
   #define iStack_c (*(int *)(_frame + (0x20 - 0xc)))
   #define iStack_8 (*(int *)(_frame + (0x20 - 0x8)))
   #define iStack_4 (*(int *)(_frame + (0x20 - 0x4)))
@@ -2084,6 +2121,7 @@ void __cdecl Actor_ToClean(void *actor)
 #undef iStack_4
 #undef iStack_8
 #undef iStack_c
+#undef local_10
 
 
 /* ---- 0x00494690  Actor_CountCostumes ---- */
@@ -2174,16 +2212,16 @@ void __cdecl Actor_Destroy(void *actor)
   if (*(int *)((int)actor + 0xa4) != 0) {
     p = *(void **)(*(int *)((int)actor + 0xa4) + 0x1b4);
     if (p != (void *)0x0) {
-      ((code *)Walker_Destroy)();
+      Walker_Destroy((int)p);
       Plat_Free(p);
       *(undefined4 *)(*(int *)((int)actor + 0xa4) + 0x1b4) = 0;
     }
-    (**(code **)(DAT_008ca32c + 0x24))(*(undefined4 *)((int)actor + 0xa4));
+    (**(code **)(UINT_008ca32c + 0x24))(*(undefined4 *)((int)actor + 0xa4));
     *(undefined4 *)((int)actor + 0xa4) = 0;
   }
   if (*(void **)actor != (void *)0x0) {
     ResRef_Remove(*(void **)actor);
-    (**(code **)(DAT_008ca32c + 0x24))(*(undefined4 *)actor);
+    (**(code **)(UINT_008ca32c + 0x24))(*(undefined4 *)actor);
     *(undefined4 *)actor = 0;
   }
   *(undefined4 *)((int)actor + 0x9c) = 0;
@@ -2192,11 +2230,12 @@ void __cdecl Actor_Destroy(void *actor)
 }
 
 /* ---- 0x00494940  Actor_DrawShadowPlane ---- */
+/* WARNING: Unknown calling convention -- yet parameter storage is locked */
 /* Draws the actor's shadow onto one shadow plane: every mesh face of each model is projected
    through the plane, clipped to each of the plane's sectors and drawn with shadow.mat / shadow.cmp
     */
 
-void Actor_DrawShadowPlane(int param_1,void *param_2)
+void Actor_DrawShadowPlane(void *costumeList,void *shadow)
 
 {
   unsigned char _frame[0x110] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -2204,90 +2243,92 @@ void Actor_DrawShadowPlane(int param_1,void *param_2)
   int iVar1;
   int iVar2;
   int iVar3;
-  int iVar4;
-  #define local_fc (*(float *)(_frame + (0x110 - 0xfc)))
-  #define local_f8 (*(undefined4 *)(_frame + (0x110 - 0xf8)))
-  #define local_f4 (*(int *)(_frame + (0x110 - 0xf4)))
-  #define local_f0 (*(int *)(_frame + (0x110 - 0xf0)))
-  #define local_ec (*(int *)(_frame + (0x110 - 0xec)))
-  #define local_e8 (*(int *)(_frame + (0x110 - 0xe8)))
-  #define local_e4 (*(float (*)[2])(_frame + (0x110 - 0xe4)))
-  #define local_dc (*(undefined4 *)(_frame + (0x110 - 0xdc)))
-  #define local_d8 (*(int *)(_frame + (0x110 - 0xd8)))
-  #define local_d4 (*(int *)(_frame + (0x110 - 0xd4)))
-  #define local_d0 (*(int *)(_frame + (0x110 - 0xd0)))
-  #define local_cc (*(undefined4 *)(_frame + (0x110 - 0xcc)))
-  #define local_c8 (*(undefined4 *)(_frame + (0x110 - 0xc8)))
-  #define local_c4 (*(undefined4 *)(_frame + (0x110 - 0xc4)))
+  uint uVar4;
+  int iVar5;
+  #define local_fc (*(uint *)(_frame + (0x110 - 0xfc)))
+  #define local_f8 (*(uint *)(_frame + (0x110 - 0xf8)))
+  #define local_f4 (*(uint *)(_frame + (0x110 - 0xf4)))
+  #define local_f0 (*(uint *)(_frame + (0x110 - 0xf0)))
+  #define local_ec (*(uint *)(_frame + (0x110 - 0xec)))
+  #define local_e8 (*(uint *)(_frame + (0x110 - 0xe8)))
+  #define local_e4 (*(uint *)(_frame + (0x110 - 0xe4)))
+  #define local_e0 (*(uint *)(_frame + (0x110 - 0xe0)))
+  #define local_dc (*(uint *)(_frame + (0x110 - 0xdc)))
+  #define local_d8 (*(uint *)(_frame + (0x110 - 0xd8)))
+  #define local_d4 (*(uint *)(_frame + (0x110 - 0xd4)))
+  #define local_d0 (*(uint *)(_frame + (0x110 - 0xd0)))
+  #define local_cc (*(uint *)(_frame + (0x110 - 0xcc)))
+  #define local_c8 (*(uint *)(_frame + (0x110 - 0xc8)))
+  #define local_c4 (*(uint *)(_frame + (0x110 - 0xc4)))
   #define local_c0 (*(float (*)[12])(_frame + (0x110 - 0xc0)))
   #define local_90 (*(float (*)[12])(_frame + (0x110 - 0x90)))
   #define local_60 (*(float (*)[12])(_frame + (0x110 - 0x60)))
   #define local_30 (*(float (*)[12])(_frame + (0x110 - 0x30)))
   
-  if (param_1 != 0) {
-    local_f0 = *(int *)(param_1 + 8);
-    local_fc = 640.0;
+  if (costumeList != (void *)0x0) {
+    local_f0 = *(uint *)((int)costumeList + 8);
+    local_fc = 0x44200000;
     local_f8 = 0x43f00000;
-    local_e4[0] = 0.0;
+    local_e4 = 0;
     local_dc = 0;
-    for (; local_f0 != 0; local_f0 = *(int *)(local_f0 + 400)) {
-      local_d4 = *(int *)(local_f0 + 0x40);
-      iVar4 = *(int *)(local_d4 + 4);
-      local_e8 = iVar4;
+    for (; local_f0 != 0; local_f0 = *(uint *)(local_f0 + 400)) {
+      local_d4 = *(uint *)(local_f0 + 0x40);
+      uVar4 = *(uint *)(local_d4 + 4);
+      local_e8 = uVar4;
       if (((*(int *)(local_f0 + 0x38) != 0) && (*(int *)(local_f0 + 0x34) == 0)) &&
-         (local_d8 = 0, 0 < *(int *)(iVar4 + 0x54))) {
+         (local_d8 = 0, 0 < *(int *)(uVar4 + 0x54))) {
         local_f4 = 0;
         local_ec = 0;
         do {
-          iVar1 = *(int *)(local_ec + 0x4c + *(int *)(iVar4 + 0x58));
+          iVar1 = *(int *)(local_ec + 0x4c + *(int *)(uVar4 + 0x58));
           if (((iVar1 != -1) &&
-              (iVar2 = *(int *)(iVar4 + 0x28), *(int *)(iVar2 + 0x54 + iVar1 * 0x7c) != 0)) &&
+              (iVar2 = *(int *)(uVar4 + 0x28), *(int *)(iVar2 + 0x54 + iVar1 * 0x7c) != 0)) &&
              (*(int *)(*(int *)(local_d4 + 0x2c) + iVar1 * 4) != 0)) {
-            iVar4 = 0;
+            iVar5 = 0;
             do {
-              out = (float *)((int)local_c0 + iVar4);
-              Vec3_Sub(out,(float *)(iVar4 + *(int *)(iVar2 + iVar1 * 0x7c + 0x58)),
+              out = (float *)((int)local_c0 + iVar5);
+              Vec3_Sub(out,(float *)(iVar5 + *(int *)(iVar2 + iVar1 * 0x7c + 0x58)),
                        (float *)(local_f4 + *(int *)(local_d4 + 0x20)));
               iVar3 = Plane_IntersectSegment
-                                (out,(float *)((int)param_2 + 0x18),out,*(float *)((int)param_2 + 8)
-                                 ,*(float *)((int)param_2 + 0xc),*(float *)((int)param_2 + 0x10),
-                                 *(float *)((int)param_2 + 0x14));
+                                (out,(float *)((int)shadow + 0x18),out,*(float *)((int)shadow + 8),
+                                 *(float *)((int)shadow + 0xc),*(float *)((int)shadow + 0x10),
+                                 *(float *)((int)shadow + 0x14));
               if (iVar3 == 0) {
                 return;
               }
-              iVar4 = iVar4 + 0xc;
-            } while (iVar4 < 0xc0);
+              iVar5 = iVar5 + 0xc;
+            } while (iVar5 < 0xc0);
             if (g_pShadowMaterial == (void *)0x0) {
               g_pShadowMaterial = rdMaterial_Load(s_shadow_mat_004ea19c,0,0);
             }
             if (g_pShadowColormap == (void *)0x0) {
               g_pShadowColormap = rdColormap_Load(s_shadow_cmp_004ea190);
             }
-            iVar4 = local_e8;
+            uVar4 = local_e8;
             if (g_pShadowMaterial != (void *)0x0) {
               rdroid_SetColormap(g_pShadowColormap);
               if (g_nZBufferEnabled != 0) {
                 Display_SetPalette3D((void *)((int)g_pShadowColormap + 0x30),0);
               }
-              Shadow_DrawClippedPoly(local_c0,4,&local_fc,local_e4,param_2);
-              Shadow_DrawClippedPoly(local_90,4,&local_fc,local_e4,param_2);
-              Shadow_DrawClippedPoly(local_60,4,&local_fc,local_e4,param_2);
-              Shadow_DrawClippedPoly(local_30,4,&local_fc,local_e4,param_2);
-              iVar4 = local_e8;
+              Shadow_DrawClippedPoly(local_c0,4,(float *)&local_fc,(float *)&local_e4,shadow);
+              Shadow_DrawClippedPoly(local_90,4,(float *)&local_fc,(float *)&local_e4,shadow);
+              Shadow_DrawClippedPoly(local_60,4,(float *)&local_fc,(float *)&local_e4,shadow);
+              Shadow_DrawClippedPoly(local_30,4,(float *)&local_fc,(float *)&local_e4,shadow);
+              uVar4 = local_e8;
             }
           }
           local_d8 = local_d8 + 1;
           local_ec = local_ec + 0xb8;
           local_f4 = local_f4 + 0x30;
-        } while (local_d8 < *(int *)(iVar4 + 0x54));
+        } while ((int)local_d8 < *(int *)(uVar4 + 0x54));
       }
     }
-    if (local_fc <= local_e4[0]) {
+    if ((float)local_fc <= (float)local_e4) {
       local_d0 = _ftol();
       local_cc = _ftol();
       local_c8 = _ftol();
       local_c4 = _ftol();
-      Render_InvalidateRectLastBuffer(&local_d0,1);
+      Render_InvalidateRectLastBuffer((int *)&local_d0,1);
     }
   }
   return;
@@ -2303,6 +2344,7 @@ void Actor_DrawShadowPlane(int param_1,void *param_2)
 #undef local_d4
 #undef local_d8
 #undef local_dc
+#undef local_e0
 #undef local_e4
 #undef local_e8
 #undef local_ec
@@ -2342,6 +2384,7 @@ void Actor_DrawCostumeMeshes(undefined4 *param_1,float *param_2)
   void *pvVar6;
   int iVar7;
   int iVar8;
+  #define local_20 (*(uint *)(_frame + (0x30 - 0x20)))
   #define uStack_1c (*(undefined4 *)(_frame + (0x30 - 0x1c)))
   #define uStack_18 (*(undefined4 *)(_frame + (0x30 - 0x18)))
   #define uStack_14 (*(undefined4 *)(_frame + (0x30 - 0x14)))
@@ -2500,6 +2543,7 @@ LAB_004951b3:
 #undef iStack_4
 #undef iStack_8
 #undef iStack_c
+#undef local_20
 #undef uStack_14
 #undef uStack_18
 #undef uStack_1c
@@ -2536,7 +2580,7 @@ void __cdecl Actor_RemoveFromSet(char *setName,void *actor)
         if (*(int **)(iVar2 + 0x80) == piVar3) {
           *(int *)(iVar2 + 0x80) = piVar3[2];
         }
-        (**(code **)(DAT_008cb090 + 0x24))(piVar3);
+        (*g_pSvcRoom->pFree)(piVar3);
         *(undefined1 *)((int)actor + 0x7c) = 0;
       }
     }
@@ -2552,33 +2596,33 @@ void __cdecl Actor_PutInSet(void *actor,char *setName)
 {
   char *setName_00;
   byte bVar1;
-  int iVar2;
-  byte *pbVar3;
-  int iVar4;
+  byte *pbVar2;
+  int iVar3;
+  void *pvVar4;
   int *piVar5;
   byte *pbVar6;
   bool bVar7;
   
   if ((actor != (void *)0x0) &&
-     (pbVar6 = (byte *)(setName + 0x7c), pbVar3 = actor, pbVar6 != (byte *)0x0)) {
+     (pbVar6 = (byte *)(setName + 0x7c), pbVar2 = actor, pbVar6 != (byte *)0x0)) {
     do {
-      bVar1 = *pbVar3;
+      bVar1 = *pbVar2;
       bVar7 = bVar1 < *pbVar6;
       if (bVar1 != *pbVar6) {
 LAB_004a5fa1:
-        iVar4 = (1 - (uint)bVar7) - (uint)(bVar7 != 0);
+        iVar3 = (1 - (uint)bVar7) - (uint)(bVar7 != 0);
         goto LAB_004a5fa6;
       }
       if (bVar1 == 0) break;
-      bVar1 = pbVar3[1];
+      bVar1 = pbVar2[1];
       bVar7 = bVar1 < pbVar6[1];
       if (bVar1 != pbVar6[1]) goto LAB_004a5fa1;
       pbVar6 = pbVar6 + 2;
-      pbVar3 = pbVar3 + 2;
+      pbVar2 = pbVar2 + 2;
     } while (bVar1 != 0);
-    iVar4 = 0;
+    iVar3 = 0;
 LAB_004a5fa6:
-    if (iVar4 == 0) {
+    if (iVar3 == 0) {
       return;
     }
   }
@@ -2594,27 +2638,26 @@ LAB_004a5fa6:
       setName[0x6b] = '\0';
       return;
     }
-    iVar4 = Set_FindNameInList(actor);
-    if (iVar4 == 0) {
-      iVar4 = Set_NormalizeName(actor);
+    pvVar4 = (void *)Set_FindNameInList(actor);
+    if (pvVar4 == (void *)0x0) {
+      pvVar4 = Set_NormalizeName(actor);
     }
-    for (piVar5 = *(int **)(iVar4 + 0x80); piVar5 != (int *)0x0; piVar5 = (int *)piVar5[2]) {
+    for (piVar5 = *(int **)((int)pvVar4 + 0x80); piVar5 != (int *)0x0; piVar5 = (int *)piVar5[2]) {
       if ((char *)((int)g_pActorTable + *piVar5 * 0xa8) == setName) {
         return;
       }
     }
-    piVar5 = (int *)(**(code **)(DAT_008cb090 + 0x20))
-                              (0xc,s_C__grimsrc_libs_grimlib_Engine_s_004ec5e0,0xa09);
+    piVar5 = (int *)(*g_pSvcRoom->pAlloc)(0xc,s_C__grimsrc_libs_grimlib_Engine_s_004ec5e0,0xa09);
     *piVar5 = 0;
     piVar5[1] = 0;
     piVar5[2] = 0;
     *piVar5 = ((int)setName - (int)g_pActorTable) / 0xa8;
-    iVar2 = *(int *)(iVar4 + 0x80);
-    piVar5[2] = iVar2;
-    if (iVar2 != 0) {
-      *(int **)(iVar2 + 4) = piVar5;
+    iVar3 = *(int *)((int)pvVar4 + 0x80);
+    piVar5[2] = iVar3;
+    if (iVar3 != 0) {
+      *(int **)(iVar3 + 4) = piVar5;
     }
-    *(int **)(iVar4 + 0x80) = piVar5;
+    *(int **)((int)pvVar4 + 0x80) = piVar5;
     if (setName != (char *)0x0) {
       strncpy(setName_00,actor,0x20);
     }
@@ -2623,28 +2666,34 @@ LAB_004a5fa6:
 }
 
 /* ---- 0x004a8500  Actor_GetYawToPoint ---- */
-undefined4 __thiscall Actor_GetYawToPoint(void *this,int a1)
+undefined * __thiscall Actor_GetYawToPoint(void *this,int a1)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  int iVar1;
-  #define local_18 (*(float *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(undefined4 *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(undefined4 *)(_frame + (0x30 - 0x10)))
+  undefined *puVar1;
+  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
+  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
+  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
+  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
+  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
   
-  local_18 = *(float *)a1;
-  local_14 = *(undefined4 *)(a1 + 4);
-  local_10 = *(undefined4 *)(a1 + 8);
+  local_18 = *(uint *)a1;
+  local_14 = *(uint *)(a1 + 4);
+  local_10 = *(uint *)(a1 + 8);
   if (*(void **)((int)this + 0x5c) != (void *)0x0) {
     Sector_FixPlaneCoordinate(*(void **)((int)this + 0x5c),(int)&local_18);
   }
-  Walker_ToLocalSpace(this,(int)&local_18);
+  Walker_ToLocalSpace(this,(float *)&local_18);
   Vec3_Normalize(&local_18);
   Math_AsinDegreesSeries(local_14);
-  iVar1 = ((code *)Walker_GetAngles)();
-  return *(undefined4 *)(iVar1 + 8);
+  puVar1 = Walker_GetAngles((int)this);
+  return *(undefined **)(puVar1 + 8);
 }
 #undef local_10
 #undef local_14
 #undef local_18
+#undef local_4
+#undef local_8
+#undef local_c
 

@@ -8,16 +8,16 @@
 /* ---- 0x00480010  Resource_RegisterFilioModule ---- */
 /* Registers the resource file io as a LecShare module and fills the caller's vtable */
 
-undefined4 Resource_RegisterFilioModule(undefined4 param_1,undefined4 *param_2)
+undefined4 Resource_RegisterFilioModule(uint param_1,undefined4 *param_2)
 
 {
   undefined4 uVar1;
   
-  DAT_008a856c = param_1;
-  DAT_008a8570 = param_1;
+  UINT_008a856c = param_1;
+  UINT_008a8570 = param_1;
   uVar1 = 1;
-  if (DAT_008a85b8 == 0) {
-    DAT_008a85b8 = 1;
+  if (UINT_008a85b8 == 0) {
+    UINT_008a85b8 = 1;
     if (param_2 != (undefined4 *)0x0) {
       *param_2 = Resource_RegisterFilioModule;
       param_2[1] = FUN_004800a0;
@@ -28,29 +28,28 @@ undefined4 Resource_RegisterFilioModule(undefined4 param_1,undefined4 *param_2)
       param_2[6] = 0;
       param_2[7] = 0;
     }
-    DAT_008a85d0 = 0;
-    DAT_008a85c8 = 0;
-    DAT_008a85c0 = 0;
-    DAT_008a85c4 = 0;
-    DAT_008a85cc = 0;
-    DAT_008a85d8 = 0;
-    DAT_008a85d4 = 0;
+    UINT_008a85d0 = 0;
+    UINT_008a85c8 = 0;
+    UINT_008a85c0 = 0;
+    PTR_008a85c4 = (int *)0x0;
+    UINT_008a85cc = 0;
+    UINT_008a85d8 = 0;
+    PTR_008a85d4 = (int *)0x0;
     uVar1 = 0;
   }
   return uVar1;
 }
 
 /* ---- 0x00480020  FUN_00480020 ---- */
-undefined4 __fastcall
-FUN_00480020(undefined4 param_1,int param_2,undefined4 param_3,undefined4 *param_4)
+undefined4 __fastcall FUN_00480020(uint param_1,int param_2,undefined4 param_3,undefined4 *param_4)
 
 {
   undefined4 uVar1;
   
   uVar1 = 1;
-  DAT_008a8570 = param_1;
+  UINT_008a8570 = param_1;
   if (param_2 == 0) {
-    DAT_008a85b8 = 1;
+    UINT_008a85b8 = 1;
     if (param_4 != (undefined4 *)0x0) {
       *param_4 = Resource_RegisterFilioModule;
       param_4[1] = FUN_004800a0;
@@ -61,12 +60,12 @@ FUN_00480020(undefined4 param_1,int param_2,undefined4 param_3,undefined4 *param
       param_4[6] = 0;
       param_4[7] = 0;
     }
-    DAT_008a85d0 = 0;
-    DAT_008a85c8 = 0;
-    DAT_008a85c0 = 0;
+    UINT_008a85d0 = 0;
+    UINT_008a85c8 = 0;
+    UINT_008a85c0 = 0;
     PTR_008a85c4 = (int *)0x0;
-    DAT_008a85cc = 0;
-    DAT_008a85d8 = 0;
+    UINT_008a85cc = 0;
+    UINT_008a85d8 = 0;
     PTR_008a85d4 = (int *)0x0;
     uVar1 = 0;
   }
@@ -77,7 +76,7 @@ FUN_00480020(undefined4 param_1,int param_2,undefined4 param_3,undefined4 *param
 void FUN_004800a0(void)
 
 {
-  DAT_008a85b8 = 0;
+  UINT_008a85b8 = 0;
   return;
 }
 
@@ -88,11 +87,11 @@ undefined4 FUN_004800b0(void)
   undefined4 uVar1;
   
   uVar1 = 1;
-  if ((DAT_008a85b8 != 0) && (DAT_008a85bc == 0)) {
-    DAT_008a85bc = 1;
-    DAT_008a85c8 = Pool_Create(0x10,0x20,8);
-    DAT_008a85c0 = Pool_Create(0x120,0x20,8);
-    DAT_008a85d0 = Pool_Create(0x120,0x200,0x200);
+  if ((UINT_008a85b8 != 0) && (UINT_008a85bc == 0)) {
+    UINT_008a85bc = 1;
+    UINT_008a85c8 = Pool_Create(0x10,0x20,8);
+    UINT_008a85c0 = Pool_Create(0x120,0x20,8);
+    UINT_008a85d0 = Pool_Create(0x120,0x200,0x200);
     uVar1 = 0;
   }
   return uVar1;
@@ -116,18 +115,18 @@ void * __cdecl Resource_Load(int fourcc,char *name)
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   void *data;
   int iVar1;
-  #define local_34 (*(undefined4 (*)[13])(_frame + (0x50 - 0x34)))
+  #define local_34 (*(uint *)(_frame + (0x50 - 0x34)))
   
   data = Res_Load(fourcc,name);
   if (data != (void *)0x0) {
     iVar1 = Res_GetMemoryUsed();
     if ((g_nResMemoryBudget < iVar1) && (g_nResNoPurge == 0)) {
       Res_GetMemoryUsed();
-      local_34[0] = 0;
-      ResRef_Add(local_34,data,s_C__grimsrc_libs_grimlib_Main_spu_004e9c30,0xfb);
-      Res_FreeUnreferenced(DAT_004e9a30,(uint *)&name);
+      local_34 = 0;
+      ResRef_Add(&local_34,data,s_C__grimsrc_libs_grimlib_Main_spu_004e9c30,0xfb);
+      Res_FreeUnreferenced(UINT_004e9a30,(uint *)&name);
       Res_GetMemoryUsed();
-      ResRef_Remove(local_34);
+      ResRef_Remove(&local_34);
     }
   }
   return data;
@@ -417,8 +416,8 @@ int __cdecl Resource_OpenArchivesInDir(char *dir)
 void FUN_0048d770(void)
 
 {
-  (*DAT_008ca1dc)();
-  DAT_008ca1d0 = 0;
+  (*(code *)UINT_008ca1dc)();
+  UINT_008ca1d0 = 0;
   _DAT_008ca1f8 = 0;
   return;
 }
@@ -429,19 +428,19 @@ bool FUN_0048d790(void)
 {
   int iVar1;
   
-  if (DAT_008ca1fc != 0) {
+  if (UINT_008ca1fc != 0) {
     return true;
   }
-  iVar1 = (*DAT_008ca1e0)();
+  iVar1 = (*(code *)UINT_008ca1e0)();
   if (iVar1 == 0) {
-    DAT_008ca1fc = Resource_RegisterTypes();
+    UINT_008ca1fc = Resource_RegisterTypes();
   }
-  Res_InstallFileServices(DAT_008ca1d0);
-  DAT_008ca200 = rdMaterial_SetLoadHook(FUN_0048e170);
-  DAT_008ca204 = rdMaterial_SetFreeHook(FUN_0048e1b0);
-  DAT_008a85e8 = SoundsPeriodic;
+  Res_InstallFileServices((GrimServices *)UINT_008ca1d0);
+  UINT_008ca200 = rdMaterial_SetLoadHook(FUN_0048e170);
+  UINT_008ca204 = rdMaterial_SetFreeHook(FUN_0048e1b0);
+  UINT_008a85e8 = (uint)SoundsPeriodic;
   Cos_RegisterSaveVerify(FUN_0048d810);
-  return DAT_008ca1fc == 0;
+  return UINT_008ca1fc == 0;
 }
 
 /* ---- 0x0048d810  FUN_0048d810 ---- */
@@ -456,11 +455,11 @@ void FUN_0048d810(undefined4 param_1)
 void FUN_0048d830(void)
 
 {
-  (*DAT_008ca1e4)();
-  rdMaterial_SetLoadHook(DAT_008ca200);
-  rdMaterial_SetFreeHook(DAT_008ca204);
-  Res_RestoreFileServices(DAT_008ca1d0);
-  DAT_008ca1fc = 0;
+  (*(code *)UINT_008ca1e4)();
+  rdMaterial_SetLoadHook(UINT_008ca200);
+  rdMaterial_SetFreeHook(UINT_008ca204);
+  Res_RestoreFileServices((GrimServices *)UINT_008ca1d0);
+  UINT_008ca1fc = 0;
   return;
 }
 
@@ -471,16 +470,16 @@ undefined4 Resource_RegisterTypes(void)
 
 {
   int iVar1;
-  int *piVar2;
+  uint *puVar2;
   
-  piVar2 = &g_ResTypeTable;
+  puVar2 = &g_ResTypeTable;
   do {
-    iVar1 = ResType_Register(*piVar2,(void *)piVar2[1]);
+    iVar1 = ResType_Register(*puVar2,(void *)puVar2[1]);
     if (iVar1 != 1) {
       return 0;
     }
-    piVar2 = piVar2 + 2;
-  } while (piVar2 < s_DEBUG_Loops__004e9a98);
+    puVar2 = puVar2 + 2;
+  } while (puVar2 < s_DEBUG_Loops__004e9a98);
   return 1;
 }
 
@@ -494,7 +493,7 @@ void __cdecl Resource_SetMemoryUsage(int budget,int b)
     g_nResMemoryBudget = budget;
   }
   if (b != 0) {
-    DAT_004e9a30 = b;
+    UINT_004e9a30 = b;
   }
   return;
 }
@@ -544,15 +543,15 @@ void Resource_ReloadBitmaps(void)
   void *pvVar3;
   int iVar4;
   int iVar5;
-  #define local_c (*(char **)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(int *)(_frame + (0x20 - 0x8)))
+  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
+  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(undefined1 (*)[4])(_frame + (0x20 - 0x4)))
   
   local_8 = 0;
   Res_FindByHandleOrNull(local_4,&local_c,0x444e4b42);
-  name = local_c;
+  name = (char *)local_c;
   while (name != (char *)0x0) {
-    local_c = name;
+    local_c = (uint)name;
     if (*(int *)(name + 0x20) == 0) {
       pvVar3 = stdBitmap_LoadFile(name,0,0);
       if (pvVar3 != (void *)0x0) {
@@ -603,7 +602,7 @@ void Resource_ReloadBitmaps(void)
     }
     local_8 = local_8 + *(int *)(name + 100);
     Res_NextInList(local_4,&local_c,0x444e4b42);
-    name = local_c;
+    name = (char *)local_c;
   }
   return;
 }
@@ -620,22 +619,22 @@ void Resource_RebuildColormaps(void)
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   undefined4 *puVar1;
-  #define local_40 (*(int *)(_frame + (0x50 - 0x40)))
+  #define local_40 (*(uint *)(_frame + (0x50 - 0x40)))
   #define local_3c (*(undefined1 (*)[4])(_frame + (0x50 - 0x3c)))
-  #define local_38 (*(undefined4 *)(_frame + (0x50 - 0x38)))
-  #define local_34 (*(undefined4 *)(_frame + (0x50 - 0x34)))
-  #define local_30 (*(undefined4 *)(_frame + (0x50 - 0x30)))
-  #define local_2c (*(undefined4 *)(_frame + (0x50 - 0x2c)))
-  #define local_28 (*(undefined4 *)(_frame + (0x50 - 0x28)))
-  #define local_24 (*(undefined4 *)(_frame + (0x50 - 0x24)))
-  #define local_20 (*(undefined4 *)(_frame + (0x50 - 0x20)))
-  #define local_1c (*(undefined4 *)(_frame + (0x50 - 0x1c)))
-  #define local_18 (*(undefined4 *)(_frame + (0x50 - 0x18)))
-  #define local_14 (*(undefined4 *)(_frame + (0x50 - 0x14)))
-  #define local_10 (*(undefined4 *)(_frame + (0x50 - 0x10)))
-  #define local_c (*(undefined4 *)(_frame + (0x50 - 0xc)))
-  #define local_8 (*(undefined4 *)(_frame + (0x50 - 0x8)))
-  #define local_4 (*(undefined4 *)(_frame + (0x50 - 0x4)))
+  #define local_38 (*(uint *)(_frame + (0x50 - 0x38)))
+  #define local_34 (*(uint *)(_frame + (0x50 - 0x34)))
+  #define local_30 (*(uint *)(_frame + (0x50 - 0x30)))
+  #define local_2c (*(uint *)(_frame + (0x50 - 0x2c)))
+  #define local_28 (*(uint *)(_frame + (0x50 - 0x28)))
+  #define local_24 (*(uint *)(_frame + (0x50 - 0x24)))
+  #define local_20 (*(uint *)(_frame + (0x50 - 0x20)))
+  #define local_1c (*(uint *)(_frame + (0x50 - 0x1c)))
+  #define local_18 (*(uint *)(_frame + (0x50 - 0x18)))
+  #define local_14 (*(uint *)(_frame + (0x50 - 0x14)))
+  #define local_10 (*(uint *)(_frame + (0x50 - 0x10)))
+  #define local_c (*(uint *)(_frame + (0x50 - 0xc)))
+  #define local_8 (*(uint *)(_frame + (0x50 - 0x8)))
+  #define local_4 (*(uint *)(_frame + (0x50 - 0x4)))
   
   local_30 = 5;
   local_28 = 5;
@@ -716,8 +715,8 @@ undefined4 FUN_0048e1e0(int *param_1)
   if (iVar1 != 1) {
     if (iVar1 == 2) {
       puVar2 = (undefined4 *)param_1[3];
-      (**(code **)(DAT_008ca1d0 + 0x24))(*puVar2);
-      (**(code **)(DAT_008ca1d0 + 0x24))(puVar2);
+      (**(code **)(UINT_008ca1d0 + 0x24))(*puVar2);
+      (**(code **)(UINT_008ca1d0 + 0x24))(puVar2);
     }
     else if (iVar1 == 3) {
       param_1[4] = *(int *)(param_1[3] + 4);

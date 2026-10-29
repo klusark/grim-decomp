@@ -8,20 +8,20 @@
 /* ---- 0x0048ac00  List_Unlink ---- */
 /* Removes a {prev,next} doubly linked node */
 
-void List_Unlink(int *param_1)
+void __cdecl List_Unlink(void *obj)
 
 {
-  if (param_1 != (int *)0x0) {
-    if (*param_1 != 0) {
-      *(int *)(*param_1 + 4) = param_1[1];
+  if (obj != (void *)0x0) {
+    if (*(int *)obj != 0) {
+      *(undefined4 *)(*(int *)obj + 4) = *(undefined4 *)((int)obj + 4);
     }
-    if ((int *)param_1[1] != (int *)0x0) {
-      *(int *)param_1[1] = *param_1;
+    if (*(undefined4 **)((int)obj + 4) != (undefined4 *)0x0) {
+      **(undefined4 **)((int)obj + 4) = *(undefined4 *)obj;
     }
-    if (param_1 == g_pTextObjectList) {
-      g_pTextObjectList = (void *)*param_1;
+    if (obj == g_pTextObjectList) {
+      g_pTextObjectList = *(void **)obj;
     }
-    Pool_Free(param_1);
+    Pool_Free(obj);
   }
   return;
 }

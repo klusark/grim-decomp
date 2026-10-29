@@ -22,7 +22,7 @@ undefined4 sputTime_Initialize(undefined4 param_1,undefined4 *param_2)
   param_2[5] = 0;
   param_2[6] = 0;
   param_2[7] = 0;
-  DAT_008cab98 = 1;
+  UINT_008cab98 = 1;
   return 0;
 }
 
@@ -33,8 +33,8 @@ void FUN_004a3d50(void)
 
 {
   _DAT_008cab94 = 0;
-  if (DAT_008cab98 != 0) {
-    DAT_008cab98 = 0;
+  if (UINT_008cab98 != 0) {
+    UINT_008cab98 = 0;
   }
   return;
 }
@@ -43,10 +43,10 @@ void FUN_004a3d50(void)
 undefined4 FUN_004a3d70(void)
 
 {
-  if (DAT_008cab9c != 0) {
+  if (UINT_008cab9c != 0) {
     return 1;
   }
-  DAT_008cab9c = 1;
+  UINT_008cab9c = 1;
   Timer_Reset();
   return 0;
 }
@@ -55,6 +55,6 @@ undefined4 FUN_004a3d70(void)
 void FUN_004a3da0(void)
 
 {
-  DAT_008cab9c = 0;
+  UINT_008cab9c = 0;
   return;
 }

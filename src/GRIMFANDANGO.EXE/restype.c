@@ -10,14 +10,14 @@ int __cdecl ResType_Register(int fourcc,void *handler)
 
 {
   int *piVar1;
-  undefined4 *puVar2;
+  uint *puVar2;
   
   if (fourcc == 0x44454648) {
     PTR_ResType_DefaultHandler_004e79ac = handler;
     return 1;
   }
-  piVar1 = DAT_008a85cc;
-  if (DAT_008a85cc != (int *)0x0) {
+  piVar1 = (int *)UINT_008a85cc;
+  if (UINT_008a85cc != 0) {
     do {
       if (piVar1[2] == fourcc) break;
       piVar1 = (int *)*piVar1;
@@ -26,18 +26,18 @@ int __cdecl ResType_Register(int fourcc,void *handler)
       return 2;
     }
   }
-  puVar2 = (undefined4 *)Pool_Alloc(DAT_008a85c8);
-  if (puVar2 == (undefined4 *)0x0) {
+  puVar2 = (uint *)Pool_Alloc(UINT_008a85c8);
+  if (puVar2 == (uint *)0x0) {
     return 3;
   }
   puVar2[2] = fourcc;
-  puVar2[3] = handler;
-  *puVar2 = DAT_008a85cc;
-  if (DAT_008a85cc != (int *)0x0) {
-    DAT_008a85cc[1] = (int)puVar2;
+  puVar2[3] = (uint)handler;
+  *puVar2 = UINT_008a85cc;
+  if (UINT_008a85cc != 0) {
+    *(uint **)(UINT_008a85cc + 4) = puVar2;
   }
   puVar2[1] = 0;
-  DAT_008a85cc = puVar2;
+  UINT_008a85cc = (uint)puVar2;
   return 1;
 }
 
@@ -49,7 +49,7 @@ void * __cdecl ResType_Find(int fourcc)
 {
   undefined4 *puVar1;
   
-  puVar1 = DAT_008a85cc;
+  puVar1 = (undefined4 *)UINT_008a85cc;
   while( true ) {
     if (puVar1 == (undefined4 *)0x0) {
       return (void *)0x0;
@@ -80,11 +80,11 @@ int __cdecl ResType_DefaultHandler(void *msg)
       fh = ResFile_Open(*(char **)((int)msg + 4),&DAT_004ddb18);
       if (fh != 0) {
         n = ResFile_Size(*(char **)((int)msg + 4));
-        data = (void *)(**(code **)(DAT_008a856c + 0x5c))(n);
+        data = (void *)(**(code **)(UINT_008a856c + 0x5c))(n);
         if (data != (void *)0x0) {
-          buf = (void *)(**(code **)(DAT_008a856c + 0x68))(data);
+          buf = (void *)(**(code **)(UINT_008a856c + 0x68))(data);
           ResFile_Read(fh,buf,n);
-          (**(code **)(DAT_008a856c + 0x6c))(data);
+          (**(code **)(UINT_008a856c + 0x6c))(data);
           Res_Register(*(int *)((int)msg + 8),*(char **)((int)msg + 4),data);
         }
         local_4 = (uint)(data != (void *)0x0);
@@ -95,7 +95,7 @@ int __cdecl ResType_DefaultHandler(void *msg)
     }
   }
   else if (*(int *)msg == 2) {
-    (**(code **)(DAT_008a856c + 0x60))(*(undefined4 *)((int)msg + 0xc));
+    (**(code **)(UINT_008a856c + 0x60))(*(undefined4 *)((int)msg + 0xc));
     return 0;
   }
   return local_4;
@@ -155,7 +155,7 @@ int __cdecl ResType_BitmapHandler(void *msg)
       return 1;
     }
     if (iVar1 == 3) {
-      iVar1 = stdBitmap_GetSize(*(void **)((int)msg + 0xc));
+      iVar1 = stdBitmap_ConvertToDisplay(*(void **)((int)msg + 0xc));
       *(int *)((int)msg + 0x10) = iVar1;
       return 1;
     }
@@ -204,20 +204,20 @@ void * FUN_0048dab0(int *param_1)
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   void *pvVar2;
-  #define local_38 (*(undefined4 *)(_frame + (0x50 - 0x38)))
-  #define local_34 (*(undefined4 *)(_frame + (0x50 - 0x34)))
-  #define local_30 (*(undefined4 *)(_frame + (0x50 - 0x30)))
-  #define local_2c (*(undefined4 *)(_frame + (0x50 - 0x2c)))
-  #define local_28 (*(undefined4 *)(_frame + (0x50 - 0x28)))
-  #define local_24 (*(undefined4 *)(_frame + (0x50 - 0x24)))
-  #define local_20 (*(undefined4 *)(_frame + (0x50 - 0x20)))
-  #define local_1c (*(undefined4 *)(_frame + (0x50 - 0x1c)))
-  #define local_18 (*(undefined4 *)(_frame + (0x50 - 0x18)))
-  #define local_14 (*(undefined4 *)(_frame + (0x50 - 0x14)))
-  #define local_10 (*(undefined4 *)(_frame + (0x50 - 0x10)))
-  #define local_c (*(undefined4 *)(_frame + (0x50 - 0xc)))
-  #define local_8 (*(undefined4 *)(_frame + (0x50 - 0x8)))
-  #define local_4 (*(undefined4 *)(_frame + (0x50 - 0x4)))
+  #define local_38 (*(uint *)(_frame + (0x50 - 0x38)))
+  #define local_34 (*(uint *)(_frame + (0x50 - 0x34)))
+  #define local_30 (*(uint *)(_frame + (0x50 - 0x30)))
+  #define local_2c (*(uint *)(_frame + (0x50 - 0x2c)))
+  #define local_28 (*(uint *)(_frame + (0x50 - 0x28)))
+  #define local_24 (*(uint *)(_frame + (0x50 - 0x24)))
+  #define local_20 (*(uint *)(_frame + (0x50 - 0x20)))
+  #define local_1c (*(uint *)(_frame + (0x50 - 0x1c)))
+  #define local_18 (*(uint *)(_frame + (0x50 - 0x18)))
+  #define local_14 (*(uint *)(_frame + (0x50 - 0x14)))
+  #define local_10 (*(uint *)(_frame + (0x50 - 0x10)))
+  #define local_c (*(uint *)(_frame + (0x50 - 0xc)))
+  #define local_8 (*(uint *)(_frame + (0x50 - 0x8)))
+  #define local_4 (*(uint *)(_frame + (0x50 - 0x4)))
   
   local_30 = 5;
   local_28 = 5;
@@ -298,7 +298,7 @@ void * FUN_0048dbd0(int *param_1)
   }
   else {
     if (iVar2 == 2) {
-      Font_Free(param_1[3]);
+      Font_Free((void *)param_1[3]);
       return (void *)0x1;
     }
     if (iVar2 == 3) {
@@ -371,14 +371,14 @@ void * FUN_0048dd20(int *param_1)
   }
   iVar1 = *param_1;
   if (iVar1 == 1) {
-    material = (void *)(**(code **)(DAT_008ca1d0 + 0x20))
+    material = (void *)(**(code **)(UINT_008ca1d0 + 0x20))
                                  (0xb0,s_C__grimsrc_libs_grimlib_Main_spu_004e9c30,0x49f);
     iVar1 = rdMaterial_LoadFile((char *)param_1[1],material,0,0);
     if (iVar1 == 0) {
       iVar1 = rdMaterial_LoadFile(s_dflt_mat_004e9c68,material,0,0);
       if (iVar1 == 0) {
         rdMaterial_FreeContents(material);
-        (**(code **)(DAT_008ca1d0 + 0x24))(material);
+        (**(code **)(UINT_008ca1d0 + 0x24))(material);
         return (void *)0x0;
       }
     }
@@ -388,7 +388,7 @@ void * FUN_0048dd20(int *param_1)
   else {
     if (iVar1 == 2) {
       rdMaterial_FreeContents(param_1[3]);
-      (**(code **)(DAT_008ca1d0 + 0x24))(param_1[3]);
+      (**(code **)(UINT_008ca1d0 + 0x24))(param_1[3]);
       return (void *)0x1;
     }
     if (iVar1 == 3) {

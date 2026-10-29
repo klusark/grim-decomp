@@ -70,7 +70,7 @@ void Engine_PopSelectedActorCostume(void)
 int __cdecl Engine_OpenRenderer(void *mode,int flags)
 
 {
-  Render_SetBufferCount(DAT_00803fa0);
+  Render_SetBufferCount(UINT_00803fa0);
   Render_Open(mode,flags,0,0,*(int *)((int)mode + 0xc) + -1,*(int *)((int)mode + 0x10) + -1,
               &DAT_004e7da0);
   return 0;
@@ -90,12 +90,12 @@ undefined4 Engine_CloseRenderer(void)
 void Engine_ShutdownGame(void)
 
 {
-  if (DAT_008a8c78 != 0) {
-    DAT_008a8c40 = 0;
+  if (UINT_008a8c78 != 0) {
+    UINT_008a8c40 = 0;
     Control_Release();
     Render_Close();
     Set_SetCurrent((void *)0x0);
-    DAT_008a8c78 = 0;
+    UINT_008a8c78 = 0;
   }
   return;
 }
@@ -117,10 +117,10 @@ void Engine_SetRenderUserCallback(undefined4 param_1)
 }
 
 /* ---- 0x00482740  Engine_SetIdleCallback ---- */
-void Engine_SetIdleCallback(undefined4 param_1)
+void Engine_SetIdleCallback(uint param_1)
 
 {
-  DAT_008a8c70 = param_1;
+  UINT_008a8c70 = param_1;
   return;
 }
 
@@ -163,21 +163,22 @@ undefined4 Engine_CallSystemFunction(int param_1,char *param_2)
 
 {
   int iVar1;
+  undefined *puVar2;
   
-  if (DAT_008a8c78 != 0) {
+  if (UINT_008a8c78 != 0) {
     return 1;
   }
   iVar1 = Lua_CallSystemFunction(param_1,param_2);
   if (iVar1 == 0) {
     return 1;
   }
-  DAT_008a8c40 = 2;
+  UINT_008a8c40 = 2;
   Engine_CreateCameraActor();
-  iVar1 = Control_Capture();
-  if (iVar1 == 0) {
+  puVar2 = Control_Capture();
+  if (puVar2 == (undefined *)0x0) {
     return 1;
   }
-  DAT_008a8c78 = 1;
+  UINT_008a8c78 = 1;
   return 0;
 }
 
@@ -205,8 +206,8 @@ bool Engine_CallExitHandler(void)
 void __cdecl Engine_Quit(int exitCode)
 
 {
-  if (DAT_008a8c70 != (code *)0x0) {
-    (*DAT_008a8c70)(exitCode);
+  if (UINT_008a8c70 != 0) {
+    (*(code *)UINT_008a8c70)(exitCode);
   }
   return;
 }
@@ -217,12 +218,12 @@ void __cdecl Engine_Quit(int exitCode)
 void __cdecl Engine_SetPaused(int paused)
 
 {
-  if (DAT_008a8c40 != 0) {
+  if (UINT_008a8c40 != 0) {
     if (paused != 0) {
-      if (DAT_008a8c40 != 1) {
-        DAT_008a8c90 = DAT_008a8c40;
-        DAT_008a8c94 = DAT_008a8c44;
-        DAT_008a8c40 = 1;
+      if (UINT_008a8c40 != 1) {
+        UINT_008a8c90 = UINT_008a8c40;
+        UINT_008a8c94 = UINT_008a8c44;
+        UINT_008a8c40 = 1;
         ImPause();
         Movie_SetPaused(1);
         return;
@@ -231,9 +232,9 @@ void __cdecl Engine_SetPaused(int paused)
         return;
       }
     }
-    if (DAT_008a8c40 == 1) {
-      DAT_008a8c40 = DAT_008a8c90;
-      DAT_008a8c44 = DAT_008a8c94;
+    if (UINT_008a8c40 == 1) {
+      UINT_008a8c40 = UINT_008a8c90;
+      UINT_008a8c44 = UINT_008a8c94;
       ImResume();
       Movie_SetPaused(0);
     }
@@ -242,16 +243,18 @@ void __cdecl Engine_SetPaused(int paused)
 }
 
 /* ---- 0x00482980  Engine_CallCharacterHandler ---- */
-int __cdecl Engine_CallCharacterHandler(int param_1)
+undefined * __cdecl Engine_CallCharacterHandler(int param_1)
 
 {
-  int iVar1;
+  undefined *puVar1;
   
-  iVar1 = Lua_CallCharacterHandler(param_1);
-  return iVar1;
+  puVar1 = (undefined *)Lua_CallCharacterHandler(param_1);
+  return puVar1;
 }
 
 /* ---- 0x00482990  Engine_UpdateFrame ---- */
+/* WARNING: Variable defined which should be unmapped: local_8 */
+/* WARNING: Variable defined which should be unmapped: local_c */
 /* Engine_UpdateFrame(draw, fixedMs). Runs the frame: sound (SoundsPeriodic), then the timer
    (Timer_UpdateFromWallClock when fixedMs==0, Timer_UpdateFixedStep(fixedMs) otherwise), the Lua
    tasks (FUN_0049c8f0) and the actor update (FUN_0048fcf0 with the frame seconds). */
@@ -259,57 +262,63 @@ int __cdecl Engine_CallCharacterHandler(int param_1)
 void Engine_UpdateFrame(int param_1,int param_2)
 
 {
+  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   undefined4 uVar1;
   float10 fVar2;
+  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
+  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   
-  if (DAT_008a8c7c != 0) {
+  if (UINT_008a8c7c != 0) {
     Engine_SaveGame();
   }
-  if (DAT_008a8c80 != 0) {
+  if (UINT_008a8c80 != 0) {
     Engine_LoadGame();
   }
   Profile_Begin(0);
   Profile_Begin(10);
   SoundsPeriodic();
   Profile_End(10);
-  if (DAT_008a8c40 != 0) {
+  if (UINT_008a8c40 != 0) {
     Profile_Begin(1);
     uVar1 = Timer_GetFrameMs();
     fVar2 = (float10)((code *)Timer_GetFrameSeconds)(uVar1);
     Engine_RunShutdownHooks((float)fVar2);
     Profile_End(1);
-    if ((DAT_008a8c40 != 1) || (param_2 != 0)) {
-      DAT_008a8c3c = DAT_008a8c3c + 1;
+    if ((UINT_008a8c40 != 1) || (param_2 != 0)) {
+      UINT_008a8c3c = UINT_008a8c3c + 1;
       if (param_2 == 0) {
         Timer_UpdateFromWallClock();
       }
       else {
         Timer_UpdateFixedStep(param_2);
       }
-      if (DAT_004e7d98 != 0) {
+      if (UINT_004e7d98 != 0) {
         Profile_Begin(2);
         Lua_UpdateFrame();
         Profile_End(2);
       }
-      if ((DAT_008a8c40 != 3) && (DAT_008a8c40 != 4)) {
+      if ((UINT_008a8c40 != 3) && (UINT_008a8c40 != 4)) {
         Profile_Begin(3);
         fVar2 = (float10)Timer_GetFrameSeconds();
         Actors_UpdateAll((float)fVar2);
         Profile_End(3);
       }
     }
-    if ((param_1 != 0) && ((DAT_008a8c40 != 1 || (param_2 != 0)))) {
+    if ((param_1 != 0) && ((UINT_008a8c40 != 1 || (param_2 != 0)))) {
       Engine_RenderFrame();
-      DAT_008a8c60 = 1;
+      UINT_008a8c60 = 1;
     }
     Profile_End(0);
-    if (DAT_004e7e30 != -1) {
-      ImSetState(DAT_004e7e30);
-      DAT_004e7e30 = -1;
+    if (UINT_004e7e30 != 0xffffffff) {
+      ImSetState(UINT_004e7e30);
+      UINT_004e7e30 = 0xffffffff;
     }
   }
   return;
 }
+#undef local_8
+#undef local_c
+
 
 /* ---- 0x00482ae0  Engine_SetIMuseState ---- */
 /* Lua ImSetState */
@@ -317,7 +326,7 @@ void Engine_UpdateFrame(int param_1,int param_2)
 void __cdecl Engine_SetIMuseState(int state)
 
 {
-  DAT_004e7e30 = state;
+  UINT_004e7e30 = state;
   return;
 }
 
@@ -330,7 +339,7 @@ void Engine_PresentFrame(void)
   int iVar1;
   
   Profile_Begin(8);
-  if (DAT_008a8c40 == 3) {
+  if (UINT_008a8c40 == 3) {
     iVar1 = Render_CanvasIsPaletted();
     if (iVar1 == 0) {
       Render_Present();
@@ -339,14 +348,14 @@ void Engine_PresentFrame(void)
     }
   }
   else {
-    if (DAT_008a8c40 == 2) {
+    if (UINT_008a8c40 == 2) {
       Render_Present();
       Profile_End(8);
       return;
     }
-    if ((DAT_008a8c40 == 1) && (DAT_008a8c60 != 0)) {
+    if ((UINT_008a8c40 == 1) && (UINT_008a8c60 != 0)) {
       Render_Present();
-      DAT_008a8c60 = 0;
+      UINT_008a8c60 = 0;
     }
   }
   Profile_End(8);
@@ -356,19 +365,19 @@ void Engine_PresentFrame(void)
 /* ---- 0x00482b60  FUN_00482b60 ---- */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
-undefined4 FUN_00482b60(void)
+undefined * FUN_00482b60(void)
 
 {
-  undefined4 uVar1;
+  undefined *puVar1;
   
   g_pSvcEngineModule = (GrimServices *)0x0;
-  uVar1 = 0;
-  if (DAT_008a8c58 != 0) {
+  puVar1 = (undefined *)0x0;
+  if (UINT_008a8c58 != 0) {
     Engine_ResetSubsystems(&DAT_008a8778,6);
-    uVar1 = Engine_ResetSubsystems(&DAT_008a85f0,8);
-    DAT_008a8c58 = 0;
+    puVar1 = (undefined *)Engine_ResetSubsystems(&DAT_008a85f0,8);
+    UINT_008a8c58 = 0;
   }
-  return uVar1;
+  return puVar1;
 }
 
 /* ---- 0x00482ba0  FUN_00482ba0 ---- */
@@ -376,9 +385,9 @@ int FUN_00482ba0(void)
 
 {
   int iVar1;
-  int iVar2;
+  uint budget;
   
-  if (DAT_008a8c5c != 0) {
+  if (UINT_008a8c5c != 0) {
     return 1;
   }
   iVar1 = Engine_InitSubsystems(&DAT_008a85f0,8);
@@ -391,45 +400,45 @@ int FUN_00482ba0(void)
     if (iVar1 < 0x1000001) {
       iMUSE_DeclareBufferSizes
                 (88000,44000,88000,440000,44000,0x55f00,100000,1,0xac44,2,300000,6,150000);
-      iVar1 = 0xa00000;
+      budget = 0xa00000;
     }
     else {
       iMUSE_DeclareBufferSizes
                 (88000,44000,88000,440000,44000,0x55f00,100000,1,0xac44,2,300000,9,150000);
-      iVar2 = Plat_GetPhysicalMemory();
-      iVar1 = DAT_004e7b20;
-      if (iVar2 + -0x800000 <= DAT_004e7b20) {
+      iVar1 = Plat_GetPhysicalMemory();
+      budget = UINT_004e7b20;
+      if (iVar1 + -0x800000 <= (int)UINT_004e7b20) {
         iVar1 = Plat_GetPhysicalMemory();
-        iVar1 = iVar1 + -0x800000;
+        budget = iVar1 - 0x800000;
       }
     }
-    Resource_SetMemoryUsage(iVar1,0);
+    Resource_SetMemoryUsage(budget,0);
     Sounds_PlatformDevice(g_pDirectSound);
     iVar1 = Engine_InitSubsystems(&DAT_008a8778,6);
   }
-  DAT_008a8c5c = (uint)(iVar1 == 0);
+  UINT_008a8c5c = (uint)(iVar1 == 0);
   return iVar1;
 }
 
 /* ---- 0x00482cc0  FUN_00482cc0 ---- */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
-undefined4 FUN_00482cc0(void)
+undefined * FUN_00482cc0(void)
 
 {
-  undefined4 uVar1;
+  undefined *puVar1;
   
   Engine_ShutdownSubsystems(&DAT_008a8778,6);
   DSound_Shutdown();
-  uVar1 = Engine_ShutdownSubsystems(&DAT_008a85f0,8);
-  DAT_008a8c5c = 0;
-  return uVar1;
+  puVar1 = (undefined *)Engine_ShutdownSubsystems(&DAT_008a85f0,8);
+  UINT_008a8c5c = 0;
+  return puVar1;
 }
 
 /* ---- 0x00482cf0  Engine_RegisterSubsystems ---- */
 /* Walks the {fn,name} subsystem table and calls each init, stopping at the first failure */
 
-undefined4 Engine_RegisterSubsystems(undefined4 param_1,undefined4 *param_2,int param_3,int param_4)
+uint Engine_RegisterSubsystems(undefined4 param_1,undefined4 *param_2,int param_3,int param_4)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -437,7 +446,7 @@ undefined4 Engine_RegisterSubsystems(undefined4 param_1,undefined4 *param_2,int 
   int iVar2;
   int iVar3;
   undefined4 *puVar4;
-  #define local_4 (*(undefined4 *)(_frame + (0x20 - 0x4)))
+  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   iVar3 = 0;
   local_4 = 0;
@@ -472,9 +481,11 @@ undefined4 Engine_RegisterSubsystems(undefined4 param_1,undefined4 *param_2,int 
 undefined4 Engine_InitSubsystems(int param_1,int param_2)
 
 {
+  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   int iVar2;
   undefined4 *puVar3;
+  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   iVar2 = 0;
   if (param_2 < 1) {
@@ -500,6 +511,8 @@ undefined4 Engine_InitSubsystems(int param_1,int param_2)
   }
   return 1;
 }
+#undef local_4
+
 
 /* ---- 0x00482dd0  Engine_ShutdownSubsystems ---- */
 /* Calls the +0xc entry of each 0x20-byte subsystem record in reverse order */
@@ -567,11 +580,11 @@ void Profile_Begin(int param_1)
 /* ---- 0x00482e80  Profile_End ---- */
 /* Source: Main/sputmain.cpp (line 1462, from __FILE__/__LINE__ passed to the allocator) */
 
-undefined4 __cdecl Profile_End(int param_1)
+undefined * __cdecl Profile_End(int param_1)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  undefined4 uVar1;
+  undefined *puVar1;
   #define local_18 (*(longlong *)(_frame + (0x30 - 0x18)))
   #define lStack_10 (*(longlong *)(_frame + (0x30 - 0x10)))
   #define dStack_8 (*(double *)(_frame + (0x30 - 0x8)))
@@ -584,10 +597,10 @@ undefined4 __cdecl Profile_End(int param_1)
   QueryPerformanceFrequency((int)&local_18);
   dStack_8 = (double)local_18;
   QueryPerformanceCounter((int)&lStack_10);
-  *(double *)(&DAT_004e7b50 + param_1 * 0xc) =
+  *(double *)(&UINT_004e7b50 + param_1 * 0xc) =
        (((double)lStack_10 - *(double *)(&DAT_004e7b48 + param_1 * 0x30)) / dStack_8) * 1000.0;
-  uVar1 = _ftol();
-  return uVar1;
+  puVar1 = (undefined *)_ftol();
+  return puVar1;
 }
 #undef dStack_8
 #undef lStack_10
@@ -601,10 +614,10 @@ Engine_BlitToBackBuffer
 
 {
   int iVar1;
-  undefined4 *surface;
+  uint *surface;
   
   if (param_2 == 0) {
-    surface = (undefined4 *)Render_GetBackBuffer();
+    surface = (uint *)Render_GetBackBuffer();
   }
   else {
     surface = &g_PrimarySurface;
@@ -613,11 +626,11 @@ Engine_BlitToBackBuffer
   iVar1 = Movie_Start(param_1,param_3,param_4,param_5);
   if (iVar1 == 0) {
     if (param_2 != 0) {
-      DAT_008a8c40 = 3;
+      UINT_008a8c40 = 3;
       return 1;
     }
-    if (DAT_008a8c40 == 3) {
-      DAT_008a8c40 = 2;
+    if (UINT_008a8c40 == 3) {
+      UINT_008a8c40 = 2;
     }
     return 1;
   }
@@ -628,7 +641,7 @@ Engine_BlitToBackBuffer
 void Engine_CallUserPaint(void)
 
 {
-  if (DAT_008a8c40 == 4) {
+  if (UINT_008a8c40 == 4) {
     Lua_CallUserPaintHandler();
     return;
   }
@@ -641,7 +654,7 @@ void Engine_CallUserPaint(void)
 void Engine_RequestSave(char *param_1)
 
 {
-  DAT_008a8c7c = 1;
+  UINT_008a8c7c = 1;
   g_pSaveFileName = param_1;
   return;
 }
@@ -650,19 +663,19 @@ void Engine_RequestSave(char *param_1)
 void Engine_RequestLoad(char *param_1)
 
 {
-  DAT_008a8c80 = 1;
+  UINT_008a8c80 = 1;
   g_pSaveFileName = param_1;
   return;
 }
 
 /* ---- 0x00482fd0  Engine_TakeRestoreFlag ---- */
-undefined4 Engine_TakeRestoreFlag(void)
+uint Engine_TakeRestoreFlag(void)
 
 {
-  undefined4 uVar1;
+  uint uVar1;
   
-  uVar1 = DAT_008a8c84;
-  DAT_008a8c84 = 0;
+  uVar1 = UINT_008a8c84;
+  UINT_008a8c84 = 0;
   return uVar1;
 }
 
@@ -675,20 +688,20 @@ void Engine_SaveGame(void)
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   char *name;
   void *pvVar1;
-  #define local_38 (*(undefined4 *)(_frame + (0x50 - 0x38)))
-  #define local_34 (*(undefined4 *)(_frame + (0x50 - 0x34)))
-  #define local_30 (*(undefined4 *)(_frame + (0x50 - 0x30)))
-  #define local_2c (*(undefined4 *)(_frame + (0x50 - 0x2c)))
-  #define local_28 (*(undefined4 *)(_frame + (0x50 - 0x28)))
-  #define local_24 (*(undefined4 *)(_frame + (0x50 - 0x24)))
-  #define local_20 (*(undefined4 *)(_frame + (0x50 - 0x20)))
-  #define local_1c (*(undefined4 *)(_frame + (0x50 - 0x1c)))
-  #define local_18 (*(undefined4 *)(_frame + (0x50 - 0x18)))
-  #define local_14 (*(undefined4 *)(_frame + (0x50 - 0x14)))
-  #define local_10 (*(undefined4 *)(_frame + (0x50 - 0x10)))
-  #define local_c (*(undefined4 *)(_frame + (0x50 - 0xc)))
-  #define local_8 (*(undefined4 *)(_frame + (0x50 - 0x8)))
-  #define local_4 (*(undefined4 *)(_frame + (0x50 - 0x4)))
+  #define local_38 (*(uint *)(_frame + (0x50 - 0x38)))
+  #define local_34 (*(uint *)(_frame + (0x50 - 0x34)))
+  #define local_30 (*(uint *)(_frame + (0x50 - 0x30)))
+  #define local_2c (*(uint *)(_frame + (0x50 - 0x2c)))
+  #define local_28 (*(uint *)(_frame + (0x50 - 0x28)))
+  #define local_24 (*(uint *)(_frame + (0x50 - 0x24)))
+  #define local_20 (*(uint *)(_frame + (0x50 - 0x20)))
+  #define local_1c (*(uint *)(_frame + (0x50 - 0x1c)))
+  #define local_18 (*(uint *)(_frame + (0x50 - 0x18)))
+  #define local_14 (*(uint *)(_frame + (0x50 - 0x14)))
+  #define local_10 (*(uint *)(_frame + (0x50 - 0x10)))
+  #define local_c (*(uint *)(_frame + (0x50 - 0xc)))
+  #define local_8 (*(uint *)(_frame + (0x50 - 0x8)))
+  #define local_4 (*(uint *)(_frame + (0x50 - 0x4)))
   
   local_30 = 5;
   local_28 = 5;
@@ -704,15 +717,15 @@ void Engine_SaveGame(void)
   local_c = 0;
   local_8 = 0;
   local_4 = 0;
-  DAT_008a8c7c = 0;
+  UINT_008a8c7c = 0;
   Render_SetWaitCursorEnabled(0);
   Render_DrawProgressBar(0.1);
   name = g_pSaveFileName;
   if (g_pSaveFileName == (char *)0x0) {
     name = s_grim_sav_004e7fc8;
   }
-  DAT_008a8770 = SaveFile_Open(name,&DAT_004ddd78);
-  if (DAT_008a8770 != (void *)0x0) {
+  UINT_008a8770 = (uint)SaveFile_Open(name,&DAT_004ddd78);
+  if ((void *)UINT_008a8770 != (void *)0x0) {
     Lua_CallSaveGameCallback(SaveGame_Write);
     pvVar1 = Render_CaptureThumbnail(0xfa,0xbc);
     pvVar1 = (void *)Surface_CreateFromBitmap(&local_38,pvVar1);
@@ -722,23 +735,23 @@ void Engine_SaveGame(void)
     Render_DrawProgressBar(0.2);
     Cos_Save(SaveGame_Write);
     Render_DrawProgressBar(0.3);
-    (*DAT_008a86e0)(SaveGame_Write);
+    (*(code *)UINT_008a86e0)(SaveGame_Write);
     Render_DrawProgressBar(0.4);
-    (*DAT_008a87e8)(SaveGame_Write);
-    (*DAT_008a8640)(SaveGame_Write);
+    (*(code *)UINT_008a87e8)(SaveGame_Write);
+    (*(code *)UINT_008a8640)(SaveGame_Write);
     Render_DrawProgressBar(0.5);
-    (*DAT_008a86c0)(SaveGame_Write);
-    (*DAT_008a87c8)(SaveGame_Write);
-    (*DAT_008a8808)(SaveGame_Write);
-    (*DAT_008a8828)(SaveGame_Write);
-    SaveGame_Write(&DAT_008a8c48,4);
+    (*(code *)UINT_008a86c0)(SaveGame_Write);
+    (*(code *)UINT_008a87c8)(SaveGame_Write);
+    (*(code *)UINT_008a8808)(SaveGame_Write);
+    (*(code *)UINT_008a8828)(SaveGame_Write);
+    SaveGame_Write(&UINT_008a8c48,4);
     Render_DrawProgressBar(0.75);
     lua_Save(SaveGame_Write);
     Render_DrawProgressBar(1.0);
     if (g_pfnIMuseSaveHook != (void *)0x0) {
       (*(code *)g_pfnIMuseSaveHook)(SaveGame_Write);
     }
-    gzclose(DAT_008a8770);
+    gzclose(UINT_008a8770);
     Render_SetWaitCursorEnabled(1);
   }
   return;
@@ -767,17 +780,17 @@ void Engine_LoadGame(void)
   char *name;
   void *set;
   int setupIdx;
-  #define local_18 (*(undefined4 *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(undefined4 *)(_frame + (0x30 - 0x14)))
+  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
+  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
   #define aiStack_10 (*(int (*)[4])(_frame + (0x30 - 0x10)))
   
-  DAT_008a8c80 = 0;
+  UINT_008a8c80 = 0;
   name = g_pSaveFileName;
   if (g_pSaveFileName == (char *)0x0) {
     name = s_grim_sav_004e7fc8;
   }
-  DAT_008a8770 = SaveFile_Open(name,&DAT_004ddb18);
-  if (DAT_008a8770 != (void *)0x0) {
+  UINT_008a8770 = (uint)SaveFile_Open(name,&DAT_004ddb18);
+  if ((void *)UINT_008a8770 != (void *)0x0) {
     Render_SetWaitCursorEnabled(0);
     Render_DrawProgressBar(0.1);
     ImStopAllSounds();
@@ -787,22 +800,22 @@ void Engine_LoadGame(void)
     g_pShadowMaterial = (void *)0x0;
     Resource_SetNoPurge(1);
     SaveGame_Read(&local_18,4);
-    gzseek(DAT_008a8770,local_18,1);
+    gzseek(UINT_008a8770,local_18,1);
     SaveGame_Read(&local_14,4);
-    gzseek(DAT_008a8770,local_14,1);
+    gzseek(UINT_008a8770,local_14,1);
     Render_DrawProgressBar(0.2);
     Cos_Restore(SaveGame_Read);
     Render_DrawProgressBar(0.3);
-    (*DAT_008a86e4)(SaveGame_Read);
-    (*DAT_008a87ec)(SaveGame_Read);
+    (*(code *)UINT_008a86e4)(SaveGame_Read);
+    (*(code *)UINT_008a87ec)(SaveGame_Read);
     Render_DrawProgressBar(0.4);
-    (*DAT_008a8644)(SaveGame_Read);
-    (*DAT_008a86c4)(SaveGame_Read);
-    (*DAT_008a87cc)(SaveGame_Read);
-    (*DAT_008a880c)(SaveGame_Read);
-    (*DAT_008a882c)(SaveGame_Read);
-    DAT_008a8c40 = 4;
-    SaveGame_Read(&DAT_008a8c48,4);
+    (*(code *)UINT_008a8644)(SaveGame_Read);
+    (*(code *)UINT_008a86c4)(SaveGame_Read);
+    (*(code *)UINT_008a87cc)(SaveGame_Read);
+    (*(code *)UINT_008a880c)(SaveGame_Read);
+    (*(code *)UINT_008a882c)(SaveGame_Read);
+    UINT_008a8c40 = 4;
+    SaveGame_Read(&UINT_008a8c48,4);
     Render_DrawProgressBar(0.75);
     lua_Restore(SaveGame_Read);
     Render_DrawProgressBar(1.0);
@@ -818,9 +831,9 @@ void Engine_LoadGame(void)
       setupIdx = *(int *)((int)set + 0xb4);
     }
     Set_SwitchSetup(set,setupIdx);
-    gzclose(DAT_008a8770);
+    gzclose(UINT_008a8770);
     lua_dofile(s_patch05_bin_004e7fe8);
-    DAT_008a8c84 = 1;
+    UINT_008a8c84 = 1;
     Render_SetWaitCursorEnabled(1);
     aiStack_10[0] = 0;
     aiStack_10[1] = 0;
@@ -838,18 +851,18 @@ void Engine_LoadGame(void)
 /* ---- 0x004835f0  Engine_SetSavedValue ---- */
 /* Stores the dword that Engine_SaveGame writes after the module hooks */
 
-void Engine_SetSavedValue(undefined4 param_1)
+void Engine_SetSavedValue(uint param_1)
 
 {
-  DAT_008a8c48 = param_1;
+  UINT_008a8c48 = param_1;
   return;
 }
 
 /* ---- 0x00483600  Engine_GetSavedValue ---- */
-undefined4 Engine_GetSavedValue(void)
+uint Engine_GetSavedValue(void)
 
 {
-  return DAT_008a8c48;
+  return UINT_008a8c48;
 }
 
 /* ---- 0x00484000  Engine_CreateCameraActor ---- */
@@ -876,56 +889,56 @@ void Engine_RenderFrame(void)
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int *actor;
-  int *piVar1;
-  int iVar2;
+  float fVar1;
+  int *piVar2;
   int iVar3;
   int iVar4;
-  void *pvVar5;
-  float *pfVar6;
+  int iVar5;
+  void *pvVar6;
   float *pfVar7;
-  float fVar8;
-  int *piVar9;
-  undefined4 *puVar10;
+  float *pfVar8;
+  uint uVar9;
+  uint *puVar10;
   float10 fVar11;
-  #define local_1c (*(float *)(_frame + (0x30 - 0x1c)))
-  #define local_18 (*(undefined4 *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(undefined4 *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(undefined4 *)(_frame + (0x30 - 0x10)))
+  #define local_1c (*(uint *)(_frame + (0x30 - 0x1c)))
+  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
+  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
+  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
   #define fStack_c (*(float *)(_frame + (0x30 - 0xc)))
   #define fStack_8 (*(float *)(_frame + (0x30 - 0x8)))
   #define fStack_4 (*(float *)(_frame + (0x30 - 0x4)))
   
-  if (DAT_008a8c40 != 0) {
-    if (DAT_008a8c40 == 3) {
-      Movie_SetTarget(&DAT_009055e0);
-      iVar4 = Movie_PollPlayback();
-      if (iVar4 != 0) {
-        iVar4 = 0;
-        DAT_008a8c40 = 2;
-        local_1c = 0.0;
+  if (UINT_008a8c40 != 0) {
+    if (UINT_008a8c40 == 3) {
+      Movie_SetTarget(&g_BackBuffer);
+      iVar5 = Movie_PollPlayback();
+      if (iVar5 != 0) {
+        iVar5 = 0;
+        UINT_008a8c40 = 2;
+        local_1c = 0;
         local_18 = 0;
         local_14 = 0x280;
         local_10 = 0x1e0;
         if (0 < g_nBufferCount) {
           do {
-            DirtyRect_Add((int *)&local_1c,1,iVar4);
-            iVar4 = iVar4 + 1;
-          } while (iVar4 < g_nBufferCount);
+            DirtyRect_Add((int *)&local_1c,1,iVar5);
+            iVar5 = iVar5 + 1;
+          } while (iVar5 < g_nBufferCount);
         }
         Render_RequestFullRedraw();
-        DAT_008c97f8 = 1;
+        UINT_008c97f8 = 1;
       }
       fVar11 = (float10)Timer_GetFrameSeconds();
-      local_1c = (float)fVar11;
-      Actors_UpdateTalking(local_1c);
-      Surface_Lock(&DAT_009055e0);
-      DAT_008a94b8 = DAT_0090563c;
+      local_1c = (uint)(float)fVar11;
+      Actors_UpdateTalking((float)local_1c);
+      Surface_Lock(&g_BackBuffer);
+      UINT_008a94b8 = UINT_0090563c;
       TextObjects_Update(0);
-      Surface_Unlock(&DAT_009055e0);
+      Surface_Unlock(&g_BackBuffer);
       Render_Present();
       return;
     }
-    if (DAT_008a8c40 == 4) {
+    if (UINT_008a8c40 == 4) {
       if (g_nFullRedrawPending != 0) {
         Engine_CallUserPaint();
         g_nFullRedrawPending = 0;
@@ -933,16 +946,16 @@ void Engine_RenderFrame(void)
       }
     }
     else {
-      if (DAT_008c9804 != 0) {
+      if (UINT_008c9804 != 0) {
         lua_printstack(0);
       }
-      pvVar5 = Set_GetCurrent();
-      if (pvVar5 == (void *)0x0) {
+      pvVar6 = Set_GetCurrent();
+      if (pvVar6 == (void *)0x0) {
         return;
       }
-      pvVar5 = Set_GetCurrent();
-      if (((g_pRenderedSet != pvVar5) ||
-          (pvVar5 = Set_GetCurrent(), *(int *)((int)pvVar5 + 0xb4) != g_nRenderedSetup)) ||
+      pvVar6 = Set_GetCurrent();
+      if (((g_pRenderedSet != pvVar6) ||
+          (pvVar6 = Set_GetCurrent(), *(int *)((int)pvVar6 + 0xb4) != g_nRenderedSetup)) ||
          (g_nFullRedrawPending != 0)) {
         DirtyRect_Clear();
         g_pRenderedSet = Set_GetCurrent();
@@ -950,47 +963,47 @@ void Engine_RenderFrame(void)
         Set_SwitchSetup(g_pRenderedSet,g_nRenderedSetup);
         Lua_CallPostCamChangeHandler(g_nRenderedSetup);
       }
-      fVar8 = (float)(*(int *)((int)g_pRenderedSet + 0xac) + g_nRenderedSetup * 300);
-      local_1c = fVar8;
+      uVar9 = *(int *)((int)g_pRenderedSet + 0xac) + g_nRenderedSetup * 300;
+      local_1c = uVar9;
       Set_ApplySetupCamera(g_pRenderedSet,g_nRenderedSetup);
-      for (pvVar5 = *(void **)((int)fVar8 + 0x128); pvVar5 != (void *)0x0;
-          pvVar5 = *(void **)((int)pvVar5 + 0xf8)) {
-        ObjectState_Draw(pvVar5,3,(int)g_pBackgroundSurface,(int)g_pZBufferSurface);
+      for (pvVar6 = *(void **)(uVar9 + 0x128); pvVar6 != (void *)0x0;
+          pvVar6 = *(void **)((int)pvVar6 + 0xf8)) {
+        ObjectState_Draw(pvVar6,3,g_pBackgroundSurface,g_pZBufferSurface);
       }
       Profile_Begin(4);
       if (g_nDrawEnabled != 0) {
-        DirtyRect_Flush(&DAT_009055e0,DAT_008c97a4);
+        DirtyRect_Flush(&g_BackBuffer,(void *)UINT_008c97a4);
       }
       Profile_End(4);
-      Movie_SetTarget(&DAT_009055e0);
+      Movie_SetTarget(&g_BackBuffer);
       Movie_PollPlayback();
-      Surface_Lock(&DAT_009055e0);
+      Surface_Lock(&g_BackBuffer);
       Primitives_DrawAll(1);
-      Surface_Unlock(&DAT_009055e0);
-      for (pvVar5 = *(void **)((int)fVar8 + 0x128); pvVar5 != (void *)0x0;
-          pvVar5 = *(void **)((int)pvVar5 + 0xf8)) {
-        ObjectState_Draw(pvVar5,1,IMG_ADDR(0x009055e0),(int)DAT_008c97a4);
+      Surface_Unlock(&g_BackBuffer);
+      for (pvVar6 = *(void **)(uVar9 + 0x128); pvVar6 != (void *)0x0;
+          pvVar6 = *(void **)((int)pvVar6 + 0xf8)) {
+        ObjectState_Draw(pvVar6,1,&g_BackBuffer,(void *)UINT_008c97a4);
       }
       rdroid_BeginFrame();
       Render_BuildActorDrawList();
-      if ((DAT_008a952c != 0) || (((byte)g_dwRenderDebugFlags & 1) != 0)) {
+      if ((UINT_008a952c != 0) || (((byte)g_dwRenderDebugFlags & 1) != 0)) {
         Profile_Begin(5);
-        iVar4 = 0;
-        if (0 < DAT_008a952c) {
-          puVar10 = &DAT_008c9568;
+        iVar5 = 0;
+        if (0 < (int)UINT_008a952c) {
+          puVar10 = &UINT_008c9568;
           do {
             if (*(char *)*puVar10 == '\0') {
               Costume_TouchComponents
                         (**(undefined4 **)
                            ((int)g_pActorTable + *(int *)((char *)*puVar10 + 8) * 0xa8 + 0xa0));
             }
-            iVar4 = iVar4 + 1;
+            iVar5 = iVar5 + 1;
             puVar10 = puVar10 + 1;
-          } while (iVar4 < DAT_008a952c);
+          } while (iVar5 < (int)UINT_008a952c);
         }
         Profile_End(5);
         if (((byte)g_dwRenderDebugFlags & 1) != 0) {
-          Surface_Lock(&DAT_009055e0);
+          Surface_Lock(&g_BackBuffer);
           if (((byte)g_dwRenderDebugFlags & 8) == 0) {
             Render_DrawDebugGrid();
           }
@@ -998,117 +1011,117 @@ void Engine_RenderFrame(void)
             Set_GetCurrent();
             Sector_DrawAllDebug();
           }
-          Surface_Unlock(&DAT_009055e0);
+          Surface_Unlock(&g_BackBuffer);
         }
         Profile_Begin(6);
-        if (iVar4 != 0) {
-          piVar9 = &DAT_008c9568 + iVar4 + -1;
+        if (iVar5 != 0) {
+          puVar10 = &UINT_008c9568 + iVar5 + -1;
           do {
-            actor = (int *)((int)g_pActorTable + *(int *)(*piVar9 + 8) * 0xa8);
-            fVar8 = *(float *)((int)g_pActorTable + *(int *)(*piVar9 + 8) * 0xa8 + 0x30);
-            if (fVar8 != 1.0) {
+            actor = (int *)((int)g_pActorTable + *(int *)(*puVar10 + 8) * 0xa8);
+            fVar1 = *(float *)((int)g_pActorTable + *(int *)(*puVar10 + 8) * 0xa8 + 0x30);
+            if (fVar1 != 1.0) {
               fStack_8 = (float)actor[0xc];
-              pfVar7 = &fStack_c;
+              pfVar8 = &fStack_c;
               fStack_4 = (float)actor[0xc];
-              fStack_c = fVar8;
-              pfVar6 = Actor_GetFrame(actor);
-              Matrix_BuildTransform2(pfVar6,pfVar7);
+              fStack_c = fVar1;
+              pfVar7 = Actor_GetFrame(actor);
+              Matrix_BuildTransform2(pfVar7,pfVar8);
             }
-            if (*(char *)*piVar9 == '\0') {
-              piVar1 = (int *)*actor;
-              iVar2 = *piVar1;
-              if (iVar2 == 0) {
-                iVar2 = *(int *)((int)g_pRenderedSet + 0x88);
-                iVar3 = *(int *)((int)g_pRenderedSet + 0x80);
-                if (*(int *)(iVar3 + iVar2 * 0x34) == 0) {
+            if (*(char *)*puVar10 == '\0') {
+              piVar2 = (int *)*actor;
+              iVar3 = *piVar2;
+              if (iVar3 == 0) {
+                iVar3 = *(int *)((int)g_pRenderedSet + 0x88);
+                iVar4 = *(int *)((int)g_pRenderedSet + 0x80);
+                if (*(int *)(iVar4 + iVar3 * 0x34) == 0) {
                   (*g_pSvcMain->pAssertFail)
                             (s_Bad_Colormap_Reference_004e8090,s_main_sputResource_h_004e80a8,0x9f);
                 }
-                rdroid_SetColormap(*(undefined4 *)(iVar3 + iVar2 * 0x34 + 4));
-                iVar2 = *(int *)((int)g_pRenderedSet + 0x88);
-                iVar3 = *(int *)((int)g_pRenderedSet + 0x80);
-                if (*(int *)(iVar3 + iVar2 * 0x34) == 0) {
+                rdroid_SetColormap(*(undefined4 *)(iVar4 + iVar3 * 0x34 + 4));
+                iVar3 = *(int *)((int)g_pRenderedSet + 0x88);
+                iVar4 = *(int *)((int)g_pRenderedSet + 0x80);
+                if (*(int *)(iVar4 + iVar3 * 0x34) == 0) {
                   (*g_pSvcMain->pAssertFail)
                             (s_Bad_Colormap_Reference_004e8090,s_main_sputResource_h_004e80a8,0x9f);
                 }
-                iVar2 = *(int *)(iVar3 + iVar2 * 0x34 + 4);
+                iVar3 = *(int *)(iVar4 + iVar3 * 0x34 + 4);
               }
               else {
-                if (iVar2 == 0) {
+                if (iVar3 == 0) {
                   (*g_pSvcMain->pAssertFail)
                             (s_Bad_Colormap_Reference_004e8090,s_main_sputResource_h_004e80a8,0x9f);
                 }
-                rdroid_SetColormap(piVar1[1]);
-                piVar1 = (int *)*actor;
-                if (*piVar1 == 0) {
+                rdroid_SetColormap(piVar2[1]);
+                piVar2 = (int *)*actor;
+                if (*piVar2 == 0) {
                   (*g_pSvcMain->pAssertFail)
                             (s_Bad_Colormap_Reference_004e8090,s_main_sputResource_h_004e80a8,0x9f);
                 }
-                iVar2 = piVar1[1];
+                iVar3 = piVar2[1];
               }
-              (*DAT_008c97b8)(iVar2 + 0x30,0);
-              pfVar7 = Actor_GetFrame(actor);
-              Actor_DrawCostumes(actor[0x28],pfVar7);
+              (*(code *)UINT_008c97b8)(iVar3 + 0x30,0);
+              pfVar8 = Actor_GetFrame(actor);
+              Actor_DrawCostumes(actor[0x28],pfVar8);
               if (((byte)g_dwRenderDebugFlags & 1) != 0) {
                 Actor_DrawDebugWalker(actor);
               }
             }
-            else if (*(char *)*piVar9 == '\x01') {
+            else if (*(char *)*puVar10 == '\x01') {
               if (g_nZBufferEnabled == 0) {
-                Surface_Lock(&DAT_009055e0);
+                Surface_Lock(&g_BackBuffer);
               }
               Actor_ComputeScreenBox(actor);
               if (g_nZBufferEnabled == 0) {
-                Surface_Unlock(&DAT_009055e0);
+                Surface_Unlock(&g_BackBuffer);
               }
               Render_InvalidateRectLastBuffer(actor + 0x1b,1);
             }
             if (actor[0xc] != 0x3f800000) {
               fStack_c = 1.0 / (float)actor[0xc];
-              pfVar7 = &fStack_c;
+              pfVar8 = &fStack_c;
               fStack_8 = fStack_c;
               fStack_4 = fStack_c;
-              pfVar6 = Actor_GetFrame(actor);
-              Matrix_BuildTransform2(pfVar6,pfVar7);
+              pfVar7 = Actor_GetFrame(actor);
+              Matrix_BuildTransform2(pfVar7,pfVar8);
             }
-            iVar4 = iVar4 + -1;
-            piVar9 = piVar9 + -1;
-            fVar8 = local_1c;
-          } while (iVar4 != 0);
+            iVar5 = iVar5 + -1;
+            puVar10 = puVar10 + -1;
+            uVar9 = local_1c;
+          } while (iVar5 != 0);
         }
         Profile_End(6);
         Profile_Begin(7);
         rdroid_EndFrame();
         Profile_End(7);
-        for (pvVar5 = *(void **)((int)fVar8 + 0x128); pvVar5 != (void *)0x0;
-            pvVar5 = *(void **)((int)pvVar5 + 0xf8)) {
-          ObjectState_Draw(pvVar5,2,IMG_ADDR(0x009055e0),(int)DAT_008c97a4);
+        for (pvVar6 = *(void **)(uVar9 + 0x128); pvVar6 != (void *)0x0;
+            pvVar6 = *(void **)((int)pvVar6 + 0xf8)) {
+          ObjectState_Draw(pvVar6,2,&g_BackBuffer,(void *)UINT_008c97a4);
         }
       }
-      Surface_Lock(&DAT_009055e0);
+      Surface_Lock(&g_BackBuffer);
       Primitives_DrawAll(2);
-      Surface_Unlock(&DAT_009055e0);
+      Surface_Unlock(&g_BackBuffer);
       if (((byte)g_dwRenderDebugFlags & 1) != 0) {
-        pvVar5 = Set_GetCurrent();
+        pvVar6 = Set_GetCurrent();
         if (((byte)g_dwRenderDebugFlags & 2) != 0) {
-          Set_DrawDebugLights(pvVar5);
+          Set_DrawDebugLights(pvVar6);
         }
         if (((byte)g_dwRenderDebugFlags & 4) != 0) {
-          Set_DrawDebugCameras(pvVar5,0xffffffff);
+          Set_DrawDebugCameras(pvVar6,0xffffffff);
         }
       }
       if ((g_dwRenderFlags & 4) != 0) {
-        iVar4 = Timer_GetTotalMs();
+        iVar5 = Timer_GetTotalMs();
         local_18 = 0;
-        local_1c = (float)(iVar4 - g_dwIrisStartMs) / g_flIrisDurationMs;
-        if (local_1c < 0.0) {
-          local_1c = -local_1c;
+        local_1c = (uint)((float)(iVar5 - g_dwIrisStartMs) / g_flIrisDurationMs);
+        if ((float)local_1c < 0.0) {
+          local_1c = (uint)-(float)local_1c;
         }
-        if (local_1c <= 1.0) {
+        if ((float)local_1c <= 1.0) {
           g_dwRenderFlags = g_dwRenderFlags & 0xfffffff7;
         }
         else {
-          local_1c = 1.0;
+          local_1c = 0x3f800000;
           if (0.0 <= g_flIrisDurationMs) {
             g_dwRenderFlags = g_dwRenderFlags | 8;
           }
@@ -1117,21 +1130,21 @@ void Engine_RenderFrame(void)
           }
         }
         if (g_flIrisDurationMs <= 0.0) {
-          local_1c = 1.0 - local_1c;
+          local_1c = (uint)(1.0 - (float)local_1c);
         }
-        Render_DrawIris(local_1c,g_nIrisX,g_nIrisY);
+        Render_DrawIris((float)local_1c,g_nIrisX,g_nIrisY);
         if (g_flIrisDurationMs < 0.0) {
           local_18 = 0;
-          local_1c = 0.0;
+          local_1c = 0;
           local_14 = 0x280;
           local_10 = 0x1e0;
           Render_InvalidateRect((int *)&local_1c,0);
         }
       }
-      Surface_Lock(&DAT_009055e0);
-      DAT_008a94b8 = DAT_0090563c;
+      Surface_Lock(&g_BackBuffer);
+      UINT_008a94b8 = UINT_0090563c;
       TextObjects_Update(1);
-      Surface_Unlock(&DAT_009055e0);
+      Surface_Unlock(&g_BackBuffer);
     }
     g_nFullRedrawPending = 0;
   }

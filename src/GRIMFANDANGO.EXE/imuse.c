@@ -11,12 +11,12 @@
 void IMuse_SaveToTemp(void)
 
 {
-  DAT_008a8770 = SaveFile_Open(s_grim_tmp_004e8018,&DAT_004ddd78);
-  if (DAT_008a8770 != (void *)0x0) {
+  UINT_008a8770 = (uint)SaveFile_Open(s_grim_tmp_004e8018,&DAT_004ddd78);
+  if ((void *)UINT_008a8770 != (void *)0x0) {
     if (g_pfnIMuseSaveHook != (void *)0x0) {
       (*(code *)g_pfnIMuseSaveHook)(SaveGame_Write);
     }
-    gzclose(DAT_008a8770);
+    gzclose(UINT_008a8770);
   }
   return;
 }
@@ -28,13 +28,13 @@ void IMuse_SaveToTemp(void)
 void IMuse_RestoreFromTemp(void)
 
 {
-  DAT_008a8770 = SaveFile_Open(s_grim_tmp_004e8018,&DAT_004ddb18);
-  if (DAT_008a8770 != (void *)0x0) {
+  UINT_008a8770 = (uint)SaveFile_Open(s_grim_tmp_004e8018,&DAT_004ddb18);
+  if ((void *)UINT_008a8770 != (void *)0x0) {
     if (g_pfnIMuseRestoreHook != (void *)0x0) {
       ImStopAllSounds();
       (*(code *)g_pfnIMuseRestoreHook)(SaveGame_Read);
     }
-    gzclose(DAT_008a8770);
+    gzclose(UINT_008a8770);
     DeleteFileA(IMG_ADDR(0x004e8018));
   }
   return;

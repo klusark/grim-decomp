@@ -6,15 +6,13 @@
 #include "functions.h"
 
 /* ---- 0x00473430  stdFile_Open ---- */
-/* WARNING: Unknown calling convention -- yet parameter storage is locked */
-
-undefined4 stdFile_Open(undefined4 param_1,undefined4 param_2)
+undefined * __cdecl stdFile_Open(uint param_1,uint param_2)
 
 {
-  undefined4 uVar1;
+  undefined *puVar1;
   
-  uVar1 = fopen(param_1,param_2);
-  return uVar1;
+  puVar1 = fopen(param_1,param_2);
+  return puVar1;
 }
 
 /* ---- 0x00473450  stdFile_Close ---- */
@@ -65,15 +63,13 @@ uint FUN_004734e0(int param_1)
 }
 
 /* ---- 0x004734f0  stdFile_Tell ---- */
-/* WARNING: Unknown calling convention -- yet parameter storage is locked */
-
-undefined4 stdFile_Tell(undefined4 param_1)
+undefined * __cdecl stdFile_Tell(uint param_1)
 
 {
-  undefined4 uVar1;
+  undefined *puVar1;
   
-  uVar1 = ftell(param_1);
-  return uVar1;
+  puVar1 = (undefined *)ftell(param_1);
+  return puVar1;
 }
 
 /* ---- 0x00473500  stdFile_Seek ---- */
@@ -85,20 +81,20 @@ void stdFile_Seek(undefined4 param_1,undefined4 param_2,undefined4 param_3)
 }
 
 /* ---- 0x00473520  FUN_00473520 ---- */
-undefined4 FUN_00473520(undefined4 param_1)
+undefined * FUN_00473520(uint param_1)
 
 {
-  int iVar1;
-  undefined4 uVar2;
+  undefined *puVar1;
+  undefined *puVar2;
   
-  iVar1 = stdFile_Open(param_1,&DAT_004ddb18);
-  if (iVar1 == 0) {
-    return 0;
+  puVar1 = stdFile_Open(param_1,IMG_ADDR(0x004ddb18));
+  if (puVar1 == (undefined *)0x0) {
+    return (undefined *)0x0;
   }
-  stdFile_Seek(iVar1,0,2);
-  uVar2 = stdFile_Tell(iVar1);
-  stdFile_Close(iVar1);
-  return uVar2;
+  stdFile_Seek(puVar1,0,2);
+  puVar2 = stdFile_Tell((uint)puVar1);
+  stdFile_Close(puVar1);
+  return puVar2;
 }
 
 /* ---- 0x00473570  FUN_00473570 ---- */
@@ -137,11 +133,11 @@ int __cdecl stdCompress_Decompress(void *dst,void *src,int srcSize)
 {
   PTR_007fead8 = src;
   _DAT_007feb58 = 0;
-  DAT_007fa7ac = 0;
+  UINT_007fa7ac = 0;
   _DAT_007feb54 = srcSize;
-  DAT_007feae4 = dst;
+  UINT_007feae4 = (uint)dst;
   stdCompress_DecompressLoop();
-  return DAT_007fa7ac;
+  return UINT_007fa7ac;
 }
 
 /* ---- 0x00473b60  stdCompress_DecompressLoop ---- */
@@ -163,7 +159,7 @@ void stdCompress_DecompressLoop(void)
   uVar3 = (uint)(ushort)*PTR_007fead8;
   puVar1 = (ushort *)((int)PTR_007fead8 + 2);
   iVar7 = 0x10;
-  pbVar6 = DAT_007feae4;
+  pbVar6 = (byte *)UINT_007feae4;
   do {
     while( true ) {
       uVar4 = uVar3 & 1;
@@ -216,7 +212,7 @@ void stdCompress_DecompressLoop(void)
         iVar8 = (byte)*puVar1 + 1;
         puVar1 = (ushort *)((int)puVar2 + 3);
         if (iVar8 == 1) {
-          DAT_007fa7ac = (int)pbVar6 - (int)DAT_007feae4;
+          UINT_007fa7ac = (int)pbVar6 - UINT_007feae4;
           _DAT_007feb58 = (int)puVar1 - (int)PTR_007fead8;
           return;
         }

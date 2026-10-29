@@ -10,13 +10,13 @@ void DrawList_Reset(void)
 
 {
   undefined *puVar1;
-  undefined4 *puVar2;
+  uint *puVar2;
   
-  DAT_008a952c = 0;
-  puVar2 = &DAT_008c9568;
+  UINT_008a952c = 0;
+  puVar2 = &UINT_008c9568;
   puVar1 = &DAT_008a8ca8;
   do {
-    *puVar2 = puVar1;
+    *puVar2 = (uint)puVar1;
     puVar1 = puVar1 + 0xc;
     puVar2 = puVar2 + 1;
   } while ((int)puVar1 < IMG_ADDR(0x008a92a8));
@@ -29,12 +29,12 @@ void DrawList_Reset(void)
 undefined * DrawList_Alloc(void)
 
 {
-  int iVar1;
+  uint uVar1;
   
-  iVar1 = DAT_008a952c;
-  if (DAT_008a952c < 0x80) {
-    DAT_008a952c = DAT_008a952c + 1;
-    return &DAT_008a8ca8 + iVar1 * 0xc;
+  uVar1 = UINT_008a952c;
+  if ((int)UINT_008a952c < 0x80) {
+    UINT_008a952c = UINT_008a952c + 1;
+    return &DAT_008a8ca8 + uVar1 * 0xc;
   }
   return (undefined *)0x0;
 }

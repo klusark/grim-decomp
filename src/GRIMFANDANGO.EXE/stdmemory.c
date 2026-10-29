@@ -34,22 +34,22 @@ void * __cdecl stdMemory_Alloc(uint size,char *file,int line)
     (*g_pSvcMain->pAssertFail)
               (s_allocation_004e7994,s_C__grimjedi_Libs_Std_General_Std_004e7968,DAT_004e7944 + 8);
   }
-  DAT_00825e78 = DAT_00825e78 + 1;
-  DAT_00825e7c = DAT_00825e7c + size;
-  if (DAT_00825e80 <= DAT_00825e7c) {
-    DAT_00825e80 = DAT_00825e7c;
+  UINT_00825e78 = UINT_00825e78 + 1;
+  UINT_00825e7c = UINT_00825e7c + size;
+  if ((int)UINT_00825e80 <= (int)UINT_00825e7c) {
+    UINT_00825e80 = UINT_00825e7c;
   }
   *puVar1 = 0;
-  puVar1[1] = DAT_00825e84;
-  puVar1[3] = DAT_00825e78;
+  puVar1[1] = UINT_00825e84;
+  puVar1[3] = UINT_00825e78;
   puVar1[2] = file;
   puVar1[4] = line;
   puVar1[5] = size;
   puVar1[6] = 0x12345678;
-  if (DAT_00825e84 != (undefined4 *)0x0) {
-    *DAT_00825e84 = puVar1;
+  if (UINT_00825e84 != 0) {
+    *(undefined4 **)UINT_00825e84 = puVar1;
   }
-  DAT_00825e84 = puVar1;
+  UINT_00825e84 = (uint)puVar1;
   return puVar1 + 7;
 }
 
@@ -62,10 +62,10 @@ void __cdecl stdMemory_Free(void *p)
   if (p != (void *)0x0) {
     piVar1 = (int *)((int)p + -0x1c);
     stdMemory_CheckMagic(p);
-    DAT_00825e78 = DAT_00825e78 + -1;
-    DAT_00825e7c = DAT_00825e7c - *(int *)((int)p + -8);
-    if (piVar1 == DAT_00825e84) {
-      DAT_00825e84 = *(int **)((int)p + -0x18);
+    UINT_00825e78 = UINT_00825e78 - 1;
+    UINT_00825e7c = UINT_00825e7c - *(int *)((int)p + -8);
+    if (piVar1 == (int *)UINT_00825e84) {
+      UINT_00825e84 = *(uint *)((int)p + -0x18);
     }
     if (*piVar1 != 0) {
       *(undefined4 *)(*piVar1 + 4) = *(undefined4 *)((int)p + -0x18);

@@ -13,11 +13,11 @@ int Clock_ElapsedMs(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  #define local_c (*(int *)(_frame + (0x20 - 0xc)))
+  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   
   time(&local_c);
-  return ((local_8 & 0xffff) + (local_c - DAT_008d0af8) * 1000) - (DAT_008d0afc & 0xffff);
+  return ((local_8 & 0xffff) + (local_c - UINT_008d0af8) * 1000) - (UINT_008d0afc & 0xffff);
 }
 #undef local_8
 #undef local_c

@@ -15,12 +15,12 @@ undefined4 ModelComponent_EditParentOffset(int *param_1,undefined4 param_2)
   int iVar1;
   undefined4 uVar2;
   int iVar3;
-  #define local_24 (*(char **)(_frame + (0x40 - 0x24)))
+  #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
   #define local_20 (*(undefined1 (*)[32])(_frame + (0x40 - 0x20)))
   
   uVar2 = param_2;
   iVar1 = *param_1;
-  local_24 = s_Resolve_parent_offset__0___off__004ea5e0;
+  local_24 = (uint)s_Resolve_parent_offset__0___off__004ea5e0;
   param_1 = (int *)(uint)(*(int *)(iVar1 + 0x34) != 0);
   iVar3 = Plat_PromptDialog(param_2,&local_24,&param_1,1);
   if (iVar3 != 0) {
@@ -63,8 +63,8 @@ void * __cdecl ModelComponent_NewInstance(void *cosInst,int componentIdx,int cre
   void *thing;
   undefined4 *puVar6;
   int iVar7;
-  #define local_c (*(int *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(undefined4 *)(_frame + (0x20 - 0x8)))
+  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
+  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(int *)(_frame + (0x20 - 0x4)))
   
   if (create == 0) {
@@ -150,27 +150,28 @@ bool FUN_00496b60(undefined4 param_1,undefined4 param_2,int param_3,int param_4,
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   char *name;
+  uint uVar1;
   void *data;
-  undefined4 uVar1;
+  undefined4 uVar2;
   undefined4 *ref;
-  int iVar2;
-  char *pcVar3;
-  undefined4 *puVar4;
-  #define local_24 (*(undefined4 *)(_frame + (0x40 - 0x24)))
+  int iVar3;
+  char *pcVar4;
+  undefined4 *puVar5;
+  #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
   #define local_20 (*(undefined1 *)(_frame + (0x40 - 0x20)))
   #define local_1f (*(undefined4 *)(_frame + (0x40 - 0x1f)))
   #define local_1 (*(undefined1 *)(_frame + (0x40 - 0x1)))
   
-  pcVar3 = param_5;
+  pcVar4 = param_5;
   local_20 = DAT_004f5a98;
   local_24 = 1;
-  puVar4 = &local_1f;
-  for (iVar2 = 7; iVar2 != 0; iVar2 = iVar2 + -1) {
-    *puVar4 = 0;
-    puVar4 = puVar4 + 1;
+  puVar5 = &local_1f;
+  for (iVar3 = 7; iVar3 != 0; iVar3 = iVar3 + -1) {
+    *puVar5 = 0;
+    puVar5 = puVar5 + 1;
   }
-  *(undefined2 *)puVar4 = 0;
-  *(undefined1 *)((int)puVar4 + 2) = 0;
+  *(undefined2 *)puVar5 = 0;
+  *(undefined1 *)((int)puVar5 + 2) = 0;
   if ((param_3 != 0) && (param_4 != 0x4853454d)) {
     return false;
   }
@@ -178,13 +179,13 @@ bool FUN_00496b60(undefined4 param_1,undefined4 param_2,int param_3,int param_4,
     if (DAT_008ca9b8 != '\0') {
       Plat_SetDialogDirectory(&DAT_008ca9b8);
     }
-    iVar2 = Plat_OpenFileDialog(s_Select_model_file_to_add____004ea600,
+    iVar3 = Plat_OpenFileDialog(s_Select_model_file_to_add____004ea600,
                                 s_Model_files____3do__004ea61c);
-    if (iVar2 == 0) {
+    if (iVar3 == 0) {
       return false;
     }
-    uVar1 = ((code *)Plat_GetDialogFileName)(0x7f);
-    ((code *)strncpy)(&DAT_008ca9b8,uVar1);
+    uVar2 = ((code *)Plat_GetDialogFileName)(0x7f);
+    ((code *)strncpy)(&DAT_008ca9b8,uVar2);
     DAT_008caa37 = 0;
     param_5 = Str_Basename(g_szDialogFileName);
     data = Resource_Load(0x4c444f4d,g_szDialogFileName);
@@ -193,10 +194,10 @@ bool FUN_00496b60(undefined4 param_1,undefined4 param_2,int param_3,int param_4,
     strncpy(&local_20,param_5,0x1f);
     local_1 = 0;
     name = (char *)strtok(&local_20,&DAT_004ea52c);
-    iVar2 = strtok(0,&DAT_004ea52c);
+    uVar1 = strtok(0,&DAT_004ea52c);
     data = Resource_Load(0x4c444f4d,name);
-    if (iVar2 != 0) {
-      local_24 = atoi(iVar2);
+    if (uVar1 != 0) {
+      local_24 = (uint)atoi(uVar1);
     }
   }
   if (data == (void *)0x0) {
@@ -204,18 +205,18 @@ bool FUN_00496b60(undefined4 param_1,undefined4 param_2,int param_3,int param_4,
   }
   ref = (undefined4 *)
         (*g_pSvcCostume->pAlloc)(0x38,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0xaf9);
-  puVar4 = ref;
-  for (iVar2 = 0xe; iVar2 != 0; iVar2 = iVar2 + -1) {
-    *puVar4 = 0;
-    puVar4 = puVar4 + 1;
+  puVar5 = ref;
+  for (iVar3 = 0xe; iVar3 != 0; iVar3 = iVar3 + -1) {
+    *puVar5 = 0;
+    puVar5 = puVar5 + 1;
   }
   ResRef_Add(ref,data,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0xafc);
   ref[0xd] = local_24;
-  if (pcVar3 == (char *)0x0) {
-    pcVar3 = param_5;
+  if (pcVar4 == (char *)0x0) {
+    pcVar4 = param_5;
   }
-  iVar2 = Cos_RegisterComponent(param_1,pcVar3,ref,param_2,param_3,param_4,&DAT_004e9f08);
-  return iVar2 != 0;
+  iVar3 = Cos_RegisterComponent(param_1,pcVar4,ref,param_2,param_3,param_4,&DAT_004e9f08);
+  return iVar3 != 0;
 }
 #undef local_1
 #undef local_1f
@@ -256,20 +257,21 @@ ModelComponent_Create(undefined4 param_1,undefined4 param_2,int *param_3,int par
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   char cVar1;
-  int iVar2;
-  bool bVar3;
-  char *pcVar4;
-  int iVar5;
+  bool bVar2;
+  char *pcVar3;
+  int iVar4;
+  undefined *puVar5;
   char **items;
   int iVar6;
-  uint uVar7;
-  char *pcVar8;
-  char **ppcVar9;
-  int iVar10;
+  int iVar7;
+  uint uVar8;
+  char *pcVar9;
+  char **ppcVar10;
   uint uVar11;
   char *pcVar12;
+  undefined *puVar13;
   #define uStack_c (*(uint *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(int *)(_frame + (0x20 - 0x8)))
+  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define iStack_4 (*(int *)(_frame + (0x20 - 0x4)))
   
   local_8 = 1;
@@ -279,121 +281,124 @@ ModelComponent_Create(undefined4 param_1,undefined4 param_2,int *param_3,int par
   if (*param_3 == 0) {
     (*g_pSvcMain->pAssertFail)(s_Bad_model_Reference_004e9e08,s_main_sputResource_h_004e80a8,0xae);
   }
-  iVar6 = param_3[1];
-  pcVar4 = (char *)(*g_pSvcCostume->pAlloc)(0x2d,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0xb94);
+  iVar7 = param_3[1];
+  pcVar3 = (char *)(*g_pSvcCostume->pAlloc)(0x2d,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0xb94);
   if (param_5 == (char *)0x0) {
     items = (char **)(*g_pSvcCostume->pAlloc)
-                               (*(int *)(iVar6 + 0x54) << 2,
+                               (*(int *)(iVar7 + 0x54) << 2,
                                 s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0xbb1);
     uStack_c = 0;
-    if (*(int *)(iVar6 + 0x54) != 0) {
-      iVar5 = 0;
-      ppcVar9 = items;
+    if (*(int *)(iVar7 + 0x54) != 0) {
+      iVar4 = 0;
+      ppcVar10 = items;
       do {
-        pcVar8 = (char *)(*g_pSvcCostume->pAlloc)
+        pcVar9 = (char *)(*g_pSvcCostume->pAlloc)
                                    (0x2a,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,2999);
-        *ppcVar9 = pcVar8;
-        iVar10 = 1;
-        if (0 < *(int *)(iVar5 + 0x50 + *(int *)(iVar6 + 0x58))) {
+        *ppcVar10 = pcVar9;
+        iVar6 = 1;
+        if (0 < *(int *)(iVar4 + 0x50 + *(int *)(iVar7 + 0x58))) {
           do {
-            *pcVar8 = '\t';
-            pcVar8 = pcVar8 + 1;
-            bVar3 = iVar10 < *(int *)(iVar5 + 0x50 + *(int *)(iVar6 + 0x58));
-            iVar10 = iVar10 + 1;
-          } while (bVar3);
+            *pcVar9 = '\t';
+            pcVar9 = pcVar9 + 1;
+            bVar2 = iVar6 < *(int *)(iVar4 + 0x50 + *(int *)(iVar7 + 0x58));
+            iVar6 = iVar6 + 1;
+          } while (bVar2);
         }
-        strncpy(pcVar8,iVar5 + *(int *)(iVar6 + 0x58),
-                0x1f - *(int *)(iVar5 + 0x50 + *(int *)(iVar6 + 0x58)));
-        ppcVar9 = ppcVar9 + 1;
-        iVar10 = iVar5 + 0x50;
-        iVar5 = iVar5 + 0xb8;
+        strncpy(pcVar9,iVar4 + *(int *)(iVar7 + 0x58),
+                0x1f - *(int *)(iVar4 + 0x50 + *(int *)(iVar7 + 0x58)));
+        ppcVar10 = ppcVar10 + 1;
+        iVar6 = iVar4 + 0x50;
+        iVar4 = iVar4 + 0xb8;
         uStack_c = uStack_c + 1;
-        pcVar8[0x1f - *(int *)(iVar10 + *(int *)(iVar6 + 0x58))] = '\0';
-      } while (uStack_c < *(uint *)(iVar6 + 0x54));
+        pcVar9[0x1f - *(int *)(iVar6 + *(int *)(iVar7 + 0x58))] = '\0';
+      } while (uStack_c < *(uint *)(iVar7 + 0x54));
     }
-    iVar5 = Plat_TreeSelectDialog
-                      (s_Select_mesh_node_to_add____004ea65c,items,*(int *)(iVar6 + 0x54),&local_8);
-    if (((local_8 != 0) && (-1 < iVar5)) && (uVar7 = iVar5 + 1, uVar7 < *(uint *)(iVar6 + 0x54))) {
-      iStack_4 = iVar5 * 0xb8;
-      iVar10 = uVar7 * 0xb8;
+    puVar5 = (undefined *)
+             Plat_TreeSelectDialog
+                       (s_Select_mesh_node_to_add____004ea65c,items,*(int *)(iVar7 + 0x54),
+                        (int *)&local_8);
+    if (((local_8 != 0) && (-1 < (int)puVar5)) &&
+       (puVar13 = puVar5 + 1, puVar13 < *(undefined **)(iVar7 + 0x54))) {
+      iStack_4 = (int)puVar5 * 0xb8;
+      iVar4 = (int)puVar13 * 0xb8;
       do {
-        iVar2 = *(int *)(iVar6 + 0x58);
-        if (*(int *)(iVar10 + 0x50 + iVar2) <= *(int *)(iStack_4 + 0x50 + iVar2)) break;
-        ((code *)sprintf)(pcVar4,s_Mesh__d___s__004ea64c,uVar7,iVar10 + iVar2);
-        ModelComponent_Create(param_1,param_2,param_3,param_4,pcVar4);
-        uVar7 = uVar7 + 1;
-        iVar10 = iVar10 + 0xb8;
-      } while (uVar7 < *(uint *)(iVar6 + 0x54));
+        iVar6 = *(int *)(iVar7 + 0x58);
+        if (*(int *)(iVar4 + 0x50 + iVar6) <= *(int *)(iStack_4 + 0x50 + iVar6)) break;
+        ((code *)sprintf)(pcVar3,s_Mesh__d___s__004ea64c,puVar13,iVar4 + iVar6);
+        ModelComponent_Create(param_1,param_2,param_3,param_4,pcVar3);
+        puVar13 = puVar13 + 1;
+        iVar4 = iVar4 + 0xb8;
+      } while (puVar13 < *(undefined **)(iVar7 + 0x54));
     }
-    uVar7 = 0;
-    ppcVar9 = items;
-    if (*(int *)(iVar6 + 0x54) != 0) {
+    uVar8 = 0;
+    ppcVar10 = items;
+    if (*(int *)(iVar7 + 0x54) != 0) {
       do {
-        (*g_pSvcCostume->pFree)(*ppcVar9);
-        uVar7 = uVar7 + 1;
-        ppcVar9 = ppcVar9 + 1;
-      } while (uVar7 < *(uint *)(iVar6 + 0x54));
+        (*g_pSvcCostume->pFree)(*ppcVar10);
+        uVar8 = uVar8 + 1;
+        ppcVar10 = ppcVar10 + 1;
+      } while (uVar8 < *(uint *)(iVar7 + 0x54));
     }
     (*g_pSvcCostume->pFree)(items);
-    if (iVar5 < 0) goto LAB_004970d4;
-    ((code *)sprintf)(pcVar4,s_Mesh__d___s__004ea64c,iVar5,*(int *)(iVar6 + 0x58) + iVar5 * 0xb8);
+    if ((int)puVar5 < 0) goto LAB_004970d4;
+    ((code *)sprintf)(pcVar3,s_Mesh__d___s__004ea64c,puVar5,*(int *)(iVar7 + 0x58) + (int)puVar5 * 0xb8);
   }
   else {
-    uVar7 = 0xffffffff;
-    pcVar8 = param_5;
+    uVar8 = 0xffffffff;
+    pcVar9 = param_5;
     do {
-      if (uVar7 == 0) break;
-      uVar7 = uVar7 - 1;
-      cVar1 = *pcVar8;
-      pcVar8 = pcVar8 + 1;
+      if (uVar8 == 0) break;
+      uVar8 = uVar8 - 1;
+      cVar1 = *pcVar9;
+      pcVar9 = pcVar9 + 1;
     } while (cVar1 != '\0');
-    iVar5 = isdigit((int)*param_5);
-    pcVar8 = param_5;
-    for (uVar11 = 0; (iVar5 == 0 && (uVar11 <= ~uVar7 - 1)); uVar11 = uVar11 + 1) {
-      pcVar12 = pcVar8 + 1;
-      pcVar8 = pcVar8 + 1;
-      iVar5 = isdigit((int)*pcVar12);
+    iVar4 = isdigit((int)*param_5);
+    pcVar9 = param_5;
+    for (uVar11 = 0; (iVar4 == 0 && (uVar11 <= ~uVar8 - 1)); uVar11 = uVar11 + 1) {
+      pcVar12 = pcVar9 + 1;
+      pcVar9 = pcVar9 + 1;
+      iVar4 = isdigit((int)*pcVar12);
     }
-    iVar5 = isdigit((int)*pcVar8);
-    if (iVar5 == 0) {
+    iVar4 = isdigit((int)*pcVar9);
+    if (iVar4 == 0) {
 LAB_004970d4:
-      (*g_pSvcCostume->pFree)(pcVar4);
+      (*g_pSvcCostume->pFree)(pcVar3);
       return 0;
     }
-    iVar5 = atoi(pcVar8);
-    if ((-1 < iVar5) && (iVar5 < *(int *)(iVar6 + 0x54))) {
-      uVar7 = 0xffffffff;
+    puVar5 = atoi((uint)pcVar9);
+    if ((-1 < (int)puVar5) && ((int)puVar5 < *(int *)(iVar7 + 0x54))) {
+      uVar8 = 0xffffffff;
       do {
-        pcVar8 = param_5;
-        if (uVar7 == 0) break;
-        uVar7 = uVar7 - 1;
-        pcVar8 = param_5 + 1;
+        pcVar9 = param_5;
+        if (uVar8 == 0) break;
+        uVar8 = uVar8 - 1;
+        pcVar9 = param_5 + 1;
         cVar1 = *param_5;
-        param_5 = pcVar8;
+        param_5 = pcVar9;
       } while (cVar1 != '\0');
-      uVar7 = ~uVar7;
-      pcVar8 = pcVar8 + -uVar7;
-      pcVar12 = pcVar4;
-      for (uVar11 = uVar7 >> 2; uVar11 != 0; uVar11 = uVar11 - 1) {
-        *(undefined4 *)pcVar12 = *(undefined4 *)pcVar8;
-        pcVar8 = pcVar8 + 4;
+      uVar8 = ~uVar8;
+      pcVar9 = pcVar9 + -uVar8;
+      pcVar12 = pcVar3;
+      for (uVar11 = uVar8 >> 2; uVar11 != 0; uVar11 = uVar11 - 1) {
+        *(undefined4 *)pcVar12 = *(undefined4 *)pcVar9;
+        pcVar9 = pcVar9 + 4;
         pcVar12 = pcVar12 + 4;
       }
-      for (uVar7 = uVar7 & 3; uVar7 != 0; uVar7 = uVar7 - 1) {
-        *pcVar12 = *pcVar8;
-        pcVar8 = pcVar8 + 1;
+      for (uVar8 = uVar8 & 3; uVar8 != 0; uVar8 = uVar8 - 1) {
+        *pcVar12 = *pcVar9;
+        pcVar9 = pcVar9 + 1;
         pcVar12 = pcVar12 + 1;
       }
     }
   }
-  iVar6 = Cos_RegisterComponent
-                    (param_1,pcVar4,iVar5 << 0x10 | (uint)param_3 & 0xffff,param_2,param_3,param_4,
-                     &DAT_004e9f48);
-  if (iVar6 == 0) {
+  iVar7 = Cos_RegisterComponent
+                    (param_1,pcVar3,(int)puVar5 << 0x10 | (uint)param_3 & 0xffff,param_2,param_3,
+                     param_4,&DAT_004e9f48);
+  if (iVar7 == 0) {
     (*g_pSvcCostume->pFree)();
     return 0;
   }
-  (*g_pSvcCostume->pFree)(pcVar4);
+  (*g_pSvcCostume->pFree)(pcVar3);
   return 1;
 }
 #undef iStack_4
@@ -486,31 +491,31 @@ undefined4 FUN_00497320(int *param_1,undefined4 param_2)
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   int iVar2;
-  int iVar3;
+  uint uVar3;
   uint uVar4;
-  int iVar5;
+  uint uVar5;
   char cVar6;
   #define local_40 (*(uint *)(_frame + (0x50 - 0x40)))
-  #define local_3c (*(int *)(_frame + (0x50 - 0x3c)))
-  #define local_38 (*(int *)(_frame + (0x50 - 0x38)))
-  #define local_34 (*(int *)(_frame + (0x50 - 0x34)))
-  #define local_30 (*(char **)(_frame + (0x50 - 0x30)))
-  #define local_2c (*(undefined **)(_frame + (0x50 - 0x2c)))
-  #define local_28 (*(char **)(_frame + (0x50 - 0x28)))
-  #define local_24 (*(char **)(_frame + (0x50 - 0x24)))
+  #define local_3c (*(uint *)(_frame + (0x50 - 0x3c)))
+  #define local_38 (*(uint *)(_frame + (0x50 - 0x38)))
+  #define local_34 (*(uint *)(_frame + (0x50 - 0x34)))
+  #define local_30 (*(uint *)(_frame + (0x50 - 0x30)))
+  #define local_2c (*(uint *)(_frame + (0x50 - 0x2c)))
+  #define local_28 (*(uint *)(_frame + (0x50 - 0x28)))
+  #define local_24 (*(uint *)(_frame + (0x50 - 0x24)))
   #define local_20 (*(undefined1 (*)[32])(_frame + (0x50 - 0x20)))
   
   iVar1 = *param_1;
-  local_30 = s_Maximum_Volume_004ea6a8;
-  local_2c = &DAT_004ea6a4;
-  local_28 = s_Priority_004ea698;
-  local_24 = s_Minimum_Volume_004ea688;
+  local_30 = (uint)s_Maximum_Volume_004ea6a8;
+  local_2c = (uint)&DAT_004ea6a4;
+  local_28 = (uint)s_Priority_004ea698;
+  local_24 = (uint)s_Minimum_Volume_004ea688;
   local_40 = (uint)*(byte *)(iVar1 + 0x20);
-  local_3c = (int)*(char *)(iVar1 + 0x21);
-  local_38 = *(int *)(iVar1 + 0x24);
-  local_34 = *(int *)(iVar1 + 0x28);
+  local_3c = (uint)*(char *)(iVar1 + 0x21);
+  local_38 = *(uint *)(iVar1 + 0x24);
+  local_34 = *(uint *)(iVar1 + 0x28);
   iVar2 = Plat_PromptDialog(param_2,&local_30,&local_40,4);
-  if ((iVar2 != 0) && (local_34 <= (int)local_40)) {
+  if ((iVar2 != 0) && ((int)local_34 <= (int)local_40)) {
     iVar2 = strtok(param_2,&DAT_004ea52c);
     if ((int)local_40 < 0) {
       uVar4 = 0;
@@ -522,37 +527,37 @@ undefined4 FUN_00497320(int *param_1,undefined4 param_2)
       }
     }
     *(char *)(iVar1 + 0x20) = (char)uVar4;
-    if (local_3c < 0) {
+    if ((int)local_3c < 0) {
       cVar6 = '\0';
     }
-    else if (local_3c < 0x80) {
+    else if ((int)local_3c < 0x80) {
       cVar6 = (char)local_3c;
     }
     else {
       cVar6 = '\x7f';
     }
     *(char *)(iVar1 + 0x21) = cVar6;
-    if (local_38 < 0) {
-      iVar5 = 0;
+    if ((int)local_38 < 0) {
+      uVar5 = 0;
     }
     else {
-      iVar5 = local_38;
-      if (0x7f < local_38) {
-        iVar5 = 0x7f;
+      uVar5 = local_38;
+      if (0x7f < (int)local_38) {
+        uVar5 = 0x7f;
       }
     }
-    *(int *)(iVar1 + 0x24) = iVar5;
-    if (local_34 < 0) {
-      iVar3 = 0;
+    *(uint *)(iVar1 + 0x24) = uVar5;
+    if ((int)local_34 < 0) {
+      uVar3 = 0;
     }
     else {
-      iVar3 = local_34;
-      if (0x7f < local_34) {
-        iVar3 = 0x7f;
+      uVar3 = local_34;
+      if (0x7f < (int)local_34) {
+        uVar3 = 0x7f;
       }
     }
-    *(int *)(iVar1 + 0x28) = iVar3;
-    ((code *)sprintf)(local_20,s__s__d__d__d__d_004ea678,iVar2,uVar4 & 0xff,(int)cVar6,iVar5,iVar3);
+    *(uint *)(iVar1 + 0x28) = uVar3;
+    ((code *)sprintf)(local_20,s__s__d__d__d__d_004ea678,iVar2,uVar4 & 0xff,(int)cVar6,uVar5,uVar3);
     strncpy(iVar2,local_20,0x1f);
     *(undefined1 *)(iVar2 + 0x1f) = 0;
     return 1;
@@ -576,29 +581,30 @@ bool FUN_00497460(undefined4 param_1,undefined4 param_2,int param_3,undefined4 p
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  undefined4 uVar1;
-  char *pcVar2;
-  int iVar3;
-  undefined1 uVar4;
-  undefined4 uVar5;
-  undefined4 *puVar6;
+  uint uVar1;
+  undefined4 uVar2;
+  char *pcVar3;
+  int iVar4;
+  undefined1 uVar5;
+  undefined *puVar6;
+  undefined4 *puVar7;
   #define local_25 (*(undefined1 *)(_frame + (0x40 - 0x25)))
-  #define local_24 (*(undefined4 *)(_frame + (0x40 - 0x24)))
+  #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
   #define local_20 (*(char *)(_frame + (0x40 - 0x20)))
   #define local_1f (*(undefined4 *)(_frame + (0x40 - 0x1f)))
   #define local_1 (*(undefined1 *)(_frame + (0x40 - 0x1)))
   
   local_20 = DAT_004f5a98;
-  uVar4 = 0x7f;
-  puVar6 = &local_1f;
-  for (iVar3 = 7; iVar3 != 0; iVar3 = iVar3 + -1) {
-    *puVar6 = 0;
-    puVar6 = puVar6 + 1;
+  uVar5 = 0x7f;
+  puVar7 = &local_1f;
+  for (iVar4 = 7; iVar4 != 0; iVar4 = iVar4 + -1) {
+    *puVar7 = 0;
+    puVar7 = puVar7 + 1;
   }
-  *(undefined2 *)puVar6 = 0;
-  *(undefined1 *)((int)puVar6 + 2) = 0;
+  *(undefined2 *)puVar7 = 0;
+  *(undefined1 *)((int)puVar7 + 2) = 0;
   local_25 = 0x40;
-  uVar5 = 100;
+  puVar6 = (undefined *)0x64;
   local_24 = 1;
   if (param_3 != 0) {
     return false;
@@ -607,13 +613,13 @@ bool FUN_00497460(undefined4 param_1,undefined4 param_2,int param_3,undefined4 p
     if (DAT_008caa38 != '\0') {
       Plat_SetDialogDirectory(&DAT_008caa38);
     }
-    iVar3 = Plat_OpenFileDialog(s_Select_sound_file_to_add____004ea6b8,
+    iVar4 = Plat_OpenFileDialog(s_Select_sound_file_to_add____004ea6b8,
                                 s_Sound_files____imu____imc____wvc_004ea6d4);
-    if (iVar3 == 0) {
+    if (iVar4 == 0) {
       return false;
     }
-    uVar1 = ((code *)Plat_GetDialogFileName)(0x7f);
-    ((code *)strncpy)(&DAT_008caa38,uVar1);
+    uVar2 = ((code *)Plat_GetDialogFileName)(0x7f);
+    ((code *)strncpy)(&DAT_008caa38,uVar2);
     DAT_008caab7 = 0;
     param_5 = Str_Basename(g_szDialogFileName);
   }
@@ -621,35 +627,35 @@ bool FUN_00497460(undefined4 param_1,undefined4 param_2,int param_3,undefined4 p
     strncpy(&local_20,param_5,0x1f);
     local_1 = 0;
     strtok(&local_20,&DAT_004ea52c);
-    iVar3 = strtok(0,&DAT_004ea52c);
-    if (iVar3 != 0) {
-      uVar5 = atoi(iVar3);
-      uVar4 = (undefined1)uVar5;
-      uVar5 = strtok(0,&DAT_004ea52c);
-      uVar5 = atoi(uVar5);
-      local_25 = (undefined1)uVar5;
-      uVar5 = strtok(0,&DAT_004ea52c);
-      uVar5 = atoi(uVar5);
+    uVar1 = strtok(0,&DAT_004ea52c);
+    if (uVar1 != 0) {
+      puVar6 = atoi(uVar1);
+      uVar5 = SUB41(puVar6,0);
       uVar1 = strtok(0,&DAT_004ea52c);
-      local_24 = atoi(uVar1);
+      puVar6 = atoi(uVar1);
+      local_25 = SUB41(puVar6,0);
+      uVar1 = strtok(0,&DAT_004ea52c);
+      puVar6 = atoi(uVar1);
+      uVar1 = strtok(0,&DAT_004ea52c);
+      local_24 = (uint)atoi(uVar1);
     }
   }
-  iVar3 = (*g_pSvcCostume->pAlloc)(0x2c,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0xcee);
-  if (iVar3 == 0) {
+  iVar4 = (*g_pSvcCostume->pAlloc)(0x2c,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0xcee);
+  if (iVar4 == 0) {
     return false;
   }
-  pcVar2 = &local_20;
+  pcVar3 = &local_20;
   if (local_20 == '\0') {
-    pcVar2 = param_5;
+    pcVar3 = param_5;
   }
-  strncpy(iVar3,pcVar2,0x1f);
-  *(undefined1 *)(iVar3 + 0x21) = local_25;
-  *(undefined4 *)(iVar3 + 0x28) = local_24;
-  *(undefined1 *)(iVar3 + 0x1f) = 0;
-  *(undefined1 *)(iVar3 + 0x20) = uVar4;
-  *(undefined4 *)(iVar3 + 0x24) = uVar5;
-  iVar3 = Cos_RegisterComponent(param_1,param_5,iVar3,param_2,0,param_4,&DAT_004ea018);
-  return iVar3 != 0;
+  strncpy(iVar4,pcVar3,0x1f);
+  *(undefined1 *)(iVar4 + 0x21) = local_25;
+  *(uint *)(iVar4 + 0x28) = local_24;
+  *(undefined1 *)(iVar4 + 0x1f) = 0;
+  *(undefined1 *)(iVar4 + 0x20) = uVar5;
+  *(undefined **)(iVar4 + 0x24) = puVar6;
+  iVar4 = Cos_RegisterComponent(param_1,param_5,iVar4,param_2,0,param_4,&DAT_004ea018);
+  return iVar4 != 0;
 }
 #undef local_1
 #undef local_1f
@@ -675,13 +681,20 @@ undefined4 FUN_00497660(undefined4 param_1)
 }
 
 /* ---- 0x00497680  FUN_00497680 ---- */
+/* WARNING: Variable defined which should be unmapped: local_4 */
+
 void FUN_00497680(undefined4 param_1,undefined4 param_2,undefined4 param_3,int param_4)
 
 {
+  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
+  
   lua_pushnumber((float)param_4);
   lua_setglobal(param_2);
   return;
 }
+#undef local_4
+
 
 /* ---- 0x004976a0  FUN_004976a0 ---- */
 undefined4 FUN_004976a0(undefined4 *param_1,int param_2,int param_3)

@@ -19,20 +19,20 @@ void Lab_CloseAll(void)
 void FUN_00480140(void)
 
 {
-  if (DAT_008a85bc != 0) {
+  if (UINT_008a85bc != 0) {
     Lab_CloseAll();
     Engine_ResetState();
-    if (DAT_008a85c8 != 0) {
-      Pool_Destroy(DAT_008a85c8);
+    if (UINT_008a85c8 != 0) {
+      Pool_Destroy(UINT_008a85c8);
     }
-    if (DAT_008a85c0 != 0) {
-      Pool_Destroy(DAT_008a85c0);
+    if (UINT_008a85c0 != 0) {
+      Pool_Destroy(UINT_008a85c0);
     }
-    if (DAT_008a85d0 != 0) {
-      Pool_Destroy(DAT_008a85d0);
+    if (UINT_008a85d0 != 0) {
+      Pool_Destroy(UINT_008a85d0);
     }
   }
-  DAT_008a85bc = 0;
+  UINT_008a85bc = 0;
   return;
 }
 
@@ -64,7 +64,8 @@ int __cdecl Lab_OpenByName(char *path)
 }
 
 /* ---- 0x004803a0  Lab_Close ---- */
-/* Source: Temp/Res.c (line 766, from __FILE__/__LINE__ passed to the allocator) */
+/* Closes an archive: unreferenced resources from it are freed, referenced ones get a private copy
+   of their name and are detached */
 
 int __cdecl Lab_Close(char *name)
 
@@ -98,7 +99,7 @@ int __cdecl Lab_Close(char *name)
             cVar1 = *pcVar7;
             pcVar7 = pcVar7 + 1;
           } while (cVar1 != '\0');
-          pcVar4 = (char *)(**(code **)(DAT_008a856c + 0x20))
+          pcVar4 = (char *)(**(code **)(UINT_008a856c + 0x20))
                                      (~uVar5,s_C__grimsrc_libs_grimlib_Temp_Res_004e7a1c,0x2fe);
           uVar5 = 0xffffffff;
           pcVar7 = (char *)res[2];
@@ -133,10 +134,10 @@ int __cdecl Lab_Close(char *name)
       ResFile_Close(*(int *)((int)pvVar3 + 0x10c));
     }
     if (*(int *)((int)pvVar3 + 0x118) != 0) {
-      (**(code **)(DAT_008a856c + 0x24))(*(int *)((int)pvVar3 + 0x118));
+      (**(code **)(UINT_008a856c + 0x24))(*(int *)((int)pvVar3 + 0x118));
     }
     if (*(int *)((int)pvVar3 + 0x11c) != 0) {
-      (**(code **)(DAT_008a856c + 0x24))(*(int *)((int)pvVar3 + 0x11c));
+      (**(code **)(UINT_008a856c + 0x24))(*(int *)((int)pvVar3 + 0x11c));
     }
     Lab_Unlink(pvVar3);
   }
@@ -309,7 +310,7 @@ void * __cdecl Lab_Open(char *name)
       pcVar7 = pcVar7 + 1;
     }
     *(int *)((int)lab + 0x10c) = iVar2;
-    uVar3 = (**(code **)(DAT_008a856c + 0x50))(name);
+    uVar3 = (**(code **)(UINT_008a856c + 0x50))(name);
     *(undefined4 *)((int)lab + 0x110) = uVar3;
     *(undefined4 *)((int)lab + 0x114) = 2;
     *(undefined4 *)((int)lab + 0x118) = 0;
@@ -333,7 +334,7 @@ int * Lab_AllocRecord(void)
   int iVar2;
   int *piVar3;
   
-  piVar1 = (int *)Pool_Alloc(DAT_008a85c0);
+  piVar1 = (int *)Pool_Alloc(UINT_008a85c0);
   if (piVar1 == (int *)0x0) {
     return (int *)0x0;
   }
@@ -352,7 +353,8 @@ int * Lab_AllocRecord(void)
 }
 
 /* ---- 0x004817a0  Lab_ReadDirectory ---- */
-/* Source: Temp/Res.c (lines 3036-3039, from __FILE__/__LINE__ passed to the allocator) */
+/* Parses the LABN header (version, entry count, name table size) and the 16-byte entries into
+   0x1c-byte records {nameHash, name, ?, fourcc, a, b, 0}; names are hashed with Res_HashName */
 
 int __cdecl Lab_ReadDirectory(void *lab)
 
@@ -366,6 +368,7 @@ int __cdecl Lab_ReadDirectory(void *lab)
   uint *puVar5;
   undefined4 *puVar6;
   void *pvVar7;
+  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
   #define local_8 (*(undefined1 (*)[8])(_frame + (0x20 - 0x8)))
   
   pvVar1 = lab;
@@ -375,11 +378,11 @@ int __cdecl Lab_ReadDirectory(void *lab)
      (((lab < (void *)0x10001 &&
        (uVar2 = ResFile_Read(*(int *)((int)pvVar1 + 0x10c),&lab,4), pvVar7 = lab, uVar2 == 4)) &&
       (uVar2 = ResFile_Read(*(int *)((int)pvVar1 + 0x10c),&lab,4), n = lab, uVar2 == 4)))) {
-    iVar3 = (**(code **)(DAT_008a856c + 0x20))
+    iVar3 = (**(code **)(UINT_008a856c + 0x20))
                       (((int)pvVar7 + 1) * 0x1c,s_C__grimsrc_libs_grimlib_Temp_Res_004e7a1c,0xbdc);
     *(int *)((int)pvVar1 + 0x118) = iVar3;
     if (iVar3 != 0) {
-      iVar3 = (**(code **)(DAT_008a856c + 0x20))
+      iVar3 = (**(code **)(UINT_008a856c + 0x20))
                         (n,s_C__grimsrc_libs_grimlib_Temp_Res_004e7a1c,0xbdf);
       *(int *)((int)pvVar1 + 0x11c) = iVar3;
       if (iVar3 != 0) {
@@ -424,14 +427,15 @@ int __cdecl Lab_ReadDirectory(void *lab)
   }
 LAB_00481994:
   if (*(int *)((int)pvVar1 + 0x118) != 0) {
-    (**(code **)(DAT_008a856c + 0x24))(*(int *)((int)pvVar1 + 0x118));
+    (**(code **)(UINT_008a856c + 0x24))(*(int *)((int)pvVar1 + 0x118));
   }
   if (*(int *)((int)pvVar1 + 0x11c) != 0) {
-    (**(code **)(DAT_008a856c + 0x24))(*(int *)((int)pvVar1 + 0x11c));
+    (**(code **)(UINT_008a856c + 0x24))(*(int *)((int)pvVar1 + 0x11c));
   }
   return 0;
 }
 #undef local_8
+#undef local_c
 
 
 /* ---- 0x00481a00  Lab_FindEntry ---- */
@@ -478,10 +482,10 @@ LAB_00481a61:
       iVar4 = 0;
 LAB_00481a66:
       if (iVar4 == 0) {
-        *(uint **)(&DAT_00825f00 + DAT_008a85e0 * 4) = puVar7;
-        *(void **)(&DAT_008a8578 + DAT_008a85e0 * 4) = lab;
+        *(uint **)(&DAT_00825f00 + UINT_008a85e0 * 4) = puVar7;
+        *(void **)(&DAT_008a8578 + UINT_008a85e0 * 4) = lab;
         uVar5 = 0xffffffff;
-        DAT_008a85e0 = DAT_008a85e0 + 1 & 0xf;
+        UINT_008a85e0 = UINT_008a85e0 + 1 & 0xf;
         pcVar9 = (char *)puVar7[1];
         break;
       }

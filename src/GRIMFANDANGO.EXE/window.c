@@ -8,11 +8,11 @@
 /* ---- 0x00401010  Win_WinMain ---- */
 /* WinMain: the real program entry after the MSVC CRT start-up (entry at 0x4aca30) */
 
-undefined4 __stdcall Win_WinMain(int a1,int a2,int a3,int a4)
+undefined * __stdcall Win_WinMain(int a1,int a2,int a3,int a4)
 
 {
-  Win_Main((void *)a1,(void *)a2,(char *)a3,a4,s_Grim_Fandango_004dd404);
-  return 0;
+  Win_AbortIfAlreadyRunning((void *)a1,(void *)a2,(char *)a3,a4,s_Grim_Fandango_004dd404);
+  return (undefined *)0x0;
 }
 
 /* ---- 0x00402fd0  Win_WndProc ---- */
@@ -21,54 +21,56 @@ undefined4 __stdcall Win_WinMain(int a1,int a2,int a3,int a4)
    Backspace-chord debug keys (C choreface, F fps, P profile, S screenshot, T reset textures, Z
    z-buffer dump, F12 grimpatch.bin, NumLock spew). */
 
-uint Win_WndProc(undefined4 param_1,uint param_2,int param_3)
+undefined * Win_WndProc(undefined4 param_1,uint param_2,int param_3)
 
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  int iVar1;
+  uint uVar1;
   uint uVar2;
-  short sVar3;
-  int iVar4;
+  int iVar3;
+  undefined *puVar4;
+  short sVar5;
+  int iVar6;
   #define local_40 (*(char (*)[64])(_frame + (0x50 - 0x40)))
   
-  iVar4 = DAT_004f5a94;
-  iVar1 = DAT_004f5a90;
+  uVar2 = UINT_004f5a94;
+  uVar1 = UINT_004f5a90;
   if (0x10 < param_2) {
     if (param_2 < 0x1d) {
       if (param_2 == 0x1c) {
-        if ((param_3 == 0) && (DAT_004dd38c != 0)) {
-          if (DAT_004f5a20 == 0) {
+        if ((param_3 == 0) && (INT_004dd38c != 0)) {
+          if (g_bWindowedMode == 0) {
             Engine_SetPaused(1);
             Grim_ShutdownDisplay();
-            iVar4 = 6;
-            iVar1 = Win_GetMainHwnd();
-            ShowWindow(iVar1,iVar4);
+            iVar6 = 6;
+            iVar3 = Win_GetMainHwnd();
+            ShowWindow(iVar3,iVar6);
           }
           Input_SetAcquired(0);
-          DAT_004dd38c = 0;
-          return 0;
+          INT_004dd38c = 0;
+          return (undefined *)0x0;
         }
         if (param_3 == 0) {
-          return 0;
+          return (undefined *)0x0;
         }
-        if (DAT_004dd38c != 0) {
-          return 0;
+        if (INT_004dd38c != 0) {
+          return (undefined *)0x0;
         }
-        if (DAT_004f5a20 == 0) {
+        if (g_bWindowedMode == 0) {
           Engine_SetPaused(0);
-          iVar4 = 9;
-          iVar1 = Win_GetMainHwnd();
-          ShowWindow(iVar1,iVar4);
+          iVar6 = 9;
+          iVar3 = Win_GetMainHwnd();
+          ShowWindow(iVar3,iVar6);
           Display_InitFromConfig();
         }
-        DAT_004dd38c = 1;
+        INT_004dd38c = 1;
         Input_SetAcquired(1);
         Render_RequestFullRedraw();
-        Input_ShowCursor(DAT_004f5a20);
-        return 0;
+        Input_ShowCursor(g_bWindowedMode);
+        return (undefined *)0x0;
       }
       if (param_2 == 0x14) {
-        return 1;
+        return (undefined *)0x1;
       }
     }
     else if (param_2 < 0x101) {
@@ -76,137 +78,137 @@ uint Win_WndProc(undefined4 param_1,uint param_2,int param_3)
         switch(param_3) {
         case 8:
           if (g_nDebugKeysEnabled != 0) {
-            DAT_004f5a88 = 1;
-            return 0;
+            g_bDebugChordHeld = 1;
+            return (undefined *)0x0;
           }
           break;
         case 0x13:
           Lua_CallPauseHandler();
-          return 1;
+          return (undefined *)0x1;
         case 0x43:
-          if (DAT_004f5a88 != 0) {
+          if (g_bDebugChordHeld != 0) {
             ChoreFace_Toggle(1);
-            return 1;
+            return (undefined *)0x1;
           }
           break;
         case 0x46:
-          if (DAT_004f5a88 != 0) {
+          if (g_bDebugChordHeld != 0) {
             _g_bShowFps = (uint)(_g_bShowFps == 0);
-            return 1;
+            return (undefined *)0x1;
           }
           break;
         case 0x50:
-          if (DAT_004f5a88 != 0) {
-            DAT_004f5a30 = (uint)(DAT_004f5a30 == 0);
-            return 1;
+          if (g_bDebugChordHeld != 0) {
+            g_bShowProfile = (uint)(g_bShowProfile == 0);
+            return (undefined *)0x1;
           }
           break;
         case 0x53:
-          if (DAT_004f5a88 != 0) {
-            DAT_004f5a90 = DAT_004f5a90 + 1;
-            ((code *)sprintf)(local_40,s__s_d_bmp_004dd928,&DAT_004dd934,iVar1);
+          if (g_bDebugChordHeld != 0) {
+            UINT_004f5a90 = UINT_004f5a90 + 1;
+            ((code *)sprintf)(local_40,s__s_d_bmp_004dd928,&DAT_004dd934,uVar1);
             Render_SaveScreenshotBmp(local_40);
-            return 0;
+            return (undefined *)0x0;
           }
           break;
         case 0x54:
-          if (DAT_004f5a88 != 0) {
+          if (g_bDebugChordHeld != 0) {
             D3D_ResetTextures();
-            return 1;
+            return (undefined *)0x1;
           }
           break;
         case 0x5a:
-          if (DAT_004f5a88 != 0) {
-            DAT_004f5a94 = DAT_004f5a94 + 1;
-            ((code *)sprintf)(local_40,s__s_d_zbm_004dd91c,&DAT_004dd934,iVar4);
+          if (g_bDebugChordHeld != 0) {
+            UINT_004f5a94 = UINT_004f5a94 + 1;
+            ((code *)sprintf)(local_40,s__s_d_zbm_004dd91c,&DAT_004dd934,uVar2);
             Render_SaveZBufferBmp(local_40);
-            return 0;
+            return (undefined *)0x0;
           }
           break;
         case 0x7b:
-          iVar1 = GetKeyState(8);
-          if ((short)iVar1 != 0) {
+          iVar3 = GetKeyState(8);
+          if ((short)iVar3 != 0) {
             lua_dofile(s_grimpatch_bin_004dd93c);
-            return 1;
+            return (undefined *)0x1;
           }
           break;
         case 0x90:
           Spew_Startup();
-          return 1;
+          return (undefined *)0x1;
         }
       }
-      else if ((param_2 == 0x20) && (DAT_004f5a20 == 0)) {
+      else if ((param_2 == 0x20) && (g_bWindowedMode == 0)) {
         SetCursor(0);
-        return 1;
+        return (undefined *)0x1;
       }
     }
     else if (param_2 < 0x219) {
       if (param_2 == 0x218) {
         if (param_3 == 0) {
-          return 0;
+          return (undefined *)0x0;
         }
       }
       else {
         switch(param_2) {
         case 0x101:
           if (param_3 == 8) {
-            DAT_004f5a88 = 0;
-            return 0;
+            g_bDebugChordHeld = 0;
+            return (undefined *)0x0;
           }
-          if ((param_3 == 0x43) && (DAT_004f5a88 != 0)) {
-            return 1;
+          if ((param_3 == 0x43) && (g_bDebugChordHeld != 0)) {
+            return (undefined *)0x1;
           }
           break;
         case 0x102:
-          uVar2 = Engine_CallCharacterHandler(param_3);
-          return uVar2;
+          puVar4 = Engine_CallCharacterHandler(param_3);
+          return puVar4;
         case 0x104:
-          return 1;
+          return (undefined *)0x1;
         case 0x105:
           goto switchD_0040336f_caseD_105;
         }
       }
     }
-    return 0;
+    return (undefined *)0x0;
   }
   if (param_2 == 0x10) {
-    iVar1 = ChoreFace_Toggle(0);
-    if (iVar1 != 0) {
-      iVar1 = Win_GetMainHwnd();
-      iVar1 = IsIconic(iVar1);
-      if (iVar1 != 0) {
-        return 0;
+    iVar3 = ChoreFace_Toggle(0);
+    if (iVar3 != 0) {
+      iVar3 = Win_GetMainHwnd();
+      iVar3 = IsIconic(iVar3);
+      if (iVar3 != 0) {
+        return (undefined *)0x0;
       }
-      iVar1 = Engine_CallExitHandler();
-      return (uint)(iVar1 == 0);
+      iVar3 = Engine_CallExitHandler();
+      return (undefined *)(uint)(iVar3 == 0);
     }
 switchD_0040336f_caseD_105:
-    return 1;
+    return (undefined *)0x1;
   }
   if (param_2 != 6) {
-    return 0;
+    return (undefined *)0x0;
   }
-  if (DAT_008d0a70 == 0) {
-    return 0;
+  if (UINT_008d0a70 == 0) {
+    return (undefined *)0x0;
   }
-  sVar3 = (short)param_3;
+  sVar5 = (short)param_3;
   if (g_nInputEnabled != 0) {
-    Input_SetAcquired((uint)(sVar3 != 0));
-    if (sVar3 == 0) goto LAB_0040303f;
+    Input_SetAcquired((uint)(sVar5 != 0));
+    if (sVar5 == 0) goto LAB_0040303f;
     Input_Flush();
-    Input_ShowCursor(DAT_004f5a20);
+    Input_ShowCursor(g_bWindowedMode);
   }
-  if (sVar3 != 0) {
-    return 0;
+  if (sVar5 != 0) {
+    return (undefined *)0x0;
   }
 LAB_0040303f:
-  if ((DAT_004f5a20 == 0) && (DAT_004e814c != 0)) {
-    iVar4 = 6;
-    iVar1 = Win_GetMainHwnd();
-    ShowWindow(iVar1,iVar4);
-    return 0;
+  if ((g_bWindowedMode == 0) && (UINT_004e814c != 0)) {
+    iVar6 = 6;
+    iVar3 = Win_GetMainHwnd();
+    ShowWindow(iVar3,iVar6);
+    return (undefined *)0x0;
   }
-  return 0;
+  return (undefined *)0x0;
 }
 #undef local_40
 
@@ -227,28 +229,29 @@ void * Win_GetMainHwnd(void)
 }
 
 /* ---- 0x00473380  Win_SetInstance ---- */
-void Win_SetInstance(undefined4 param_1)
+void Win_SetInstance(uint param_1)
 
 {
-  DAT_007f608c = param_1;
+  UINT_007f608c = param_1;
   return;
 }
 
 /* ---- 0x00473390  Win_GetInstance ---- */
 /* Returns the HINSTANCE of the executable */
 
-undefined4 Win_GetInstance(void)
+uint Win_GetInstance(void)
 
 {
-  return DAT_007f608c;
+  return UINT_007f608c;
 }
 
-/* ---- 0x004abf40  Win_Main ---- */
+/* ---- 0x004abf40  Win_AbortIfAlreadyRunning ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
-/* WinMain body (grimplat.cpp): aborts if a wKernel window already exists, then Grim_Init,
-   Win_CreateMainWindow and the message pump */
+/* WinMain helper: brings an existing 'wKernel' window to the front and exits */
 
-void __cdecl Win_Main(void *hInstance,void *hPrevInstance,char *cmdLine,int nCmdShow,char *appName)
+void __cdecl
+Win_AbortIfAlreadyRunning
+          (void *hInstance,void *hPrevInstance,char *cmdLine,int nCmdShow,char *appName)
 
 {
   int iVar1;
@@ -260,24 +263,24 @@ void __cdecl Win_Main(void *hInstance,void *hPrevInstance,char *cmdLine,int nCmd
     ShowWindow(iVar1,9);
     exit(0xffffffff);
   }
-  DAT_008d0a7c = 0;
+  UINT_008d0a7c = 0;
   g_dwWinDialogCount = 0;
   g_nWinQuit = 0;
-  DAT_008d0a8c = 0;
-  DAT_008d09e4 = hInstance;
+  UINT_008d0a8c = 0;
+  UINT_008d09e4 = (uint)hInstance;
   _DAT_008d09e0 = nCmdShow;
   Win_CreateMainWindow(hInstance,nCmdShow,appName);
   Win_SetMainHwnd(g_pWinMainHwnd);
-  Win_SetInstance(DAT_008d09e4);
+  Win_SetInstance(UINT_008d09e4);
   InitCommonControls();
   iVar1 = GetSystemMetrics(0x20);
-  DAT_008d0a84 = iVar1 << 1;
+  UINT_008d0a84 = iVar1 << 1;
   iVar1 = GetSystemMetrics(0x20);
   iVar2 = GetSystemMetrics(0xf);
-  DAT_008d0a88 = iVar2 + iVar1 * 2;
+  UINT_008d0a88 = iVar2 + iVar1 * 2;
   iVar1 = Grim_Init(cmdLine);
   if (iVar1 != 0) {
-    DAT_008d0a8c = 1;
+    UINT_008d0a8c = 1;
     do {
       Win_PumpMessages();
     } while (g_nWinQuit == 0);
@@ -289,7 +292,7 @@ void __cdecl Win_Main(void *hInstance,void *hPrevInstance,char *cmdLine,int nCmd
 /* One message-loop iteration: runs Game_FrameUpdate when idle, routes messages to registered
    dialogs */
 
-undefined4 Win_PumpMessages(void)
+uint Win_PumpMessages(void)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -297,7 +300,7 @@ undefined4 Win_PumpMessages(void)
   uint uVar2;
   void **ppvVar3;
   #define local_1c (*(undefined1 (*)[8])(_frame + (0x30 - 0x1c)))
-  #define local_14 (*(undefined4 *)(_frame + (0x30 - 0x14)))
+  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
   
   iVar1 = PeekMessageA((int)local_1c,0,0,0,0);
   if (iVar1 == 0) {
@@ -339,10 +342,10 @@ undefined4 Win_PumpMessages(void)
 int __cdecl Win_SetWindowedSize(int fullscreen,int w,int h)
 
 {
-  DAT_008d09dc = fullscreen;
+  UINT_008d09dc = fullscreen;
   if (fullscreen == 0) {
     SetWindowLongA((int)g_pWinMainHwnd,-0x10,0x10cf0000);
-    SetWindowPos((int)g_pWinMainHwnd,0,0,0,w + DAT_008d0a84,h + DAT_008d0a88,6);
+    SetWindowPos((int)g_pWinMainHwnd,0,0,0,w + UINT_008d0a84,h + UINT_008d0a88,6);
   }
   return 1;
 }
@@ -363,7 +366,7 @@ void Win_AddMessageHook(void *param_1)
   } while ((int)piVar1 < IMG_ADDR(0x008d0a6c));
   (&g_pWinMessageHooks)[iVar2 * 2] = param_1;
   (&g_nWinMessageHookOn)[iVar2 * 2] = 1;
-  DAT_008d0a7c = DAT_008d0a7c + 1;
+  UINT_008d0a7c = UINT_008d0a7c + 1;
   return;
 }
 
@@ -383,39 +386,39 @@ undefined4 Win_RemoveMessageHook(void *param_1)
   } while ((int)ppvVar1 < IMG_ADDR(0x008d0a68));
   (&g_pWinMessageHooks)[iVar2 * 2] = (void *)0x0;
   (&g_nWinMessageHookOn)[iVar2 * 2] = 0;
-  DAT_008d0a7c = DAT_008d0a7c + -1;
+  UINT_008d0a7c = UINT_008d0a7c - 1;
   return 1;
 }
 
 /* ---- 0x004ac1f0  Win_CreateMainWindow ---- */
-undefined4 Win_CreateMainWindow(int param_1,undefined4 param_2,int param_3)
+undefined4 Win_CreateMainWindow(uint param_1,undefined4 param_2,int param_3)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
-  int a8;
   int a7;
   int a9;
   int a10;
+  uint a11;
   int a12;
-  #define local_30 (*(undefined4 *)(_frame + (0x40 - 0x30)))
-  #define local_2c (*(undefined4 *)(_frame + (0x40 - 0x2c)))
-  #define local_28 (*(code **)(_frame + (0x40 - 0x28)))
-  #define local_24 (*(undefined4 *)(_frame + (0x40 - 0x24)))
-  #define local_20 (*(undefined4 *)(_frame + (0x40 - 0x20)))
-  #define local_1c (*(int *)(_frame + (0x40 - 0x1c)))
-  #define local_18 (*(int *)(_frame + (0x40 - 0x18)))
-  #define local_14 (*(int *)(_frame + (0x40 - 0x14)))
-  #define local_10 (*(int *)(_frame + (0x40 - 0x10)))
-  #define local_c (*(undefined4 *)(_frame + (0x40 - 0xc)))
-  #define local_8 (*(char **)(_frame + (0x40 - 0x8)))
-  #define local_4 (*(int *)(_frame + (0x40 - 0x4)))
+  #define local_30 (*(uint *)(_frame + (0x40 - 0x30)))
+  #define local_2c (*(uint *)(_frame + (0x40 - 0x2c)))
+  #define local_28 (*(uint *)(_frame + (0x40 - 0x28)))
+  #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
+  #define local_20 (*(uint *)(_frame + (0x40 - 0x20)))
+  #define local_1c (*(uint *)(_frame + (0x40 - 0x1c)))
+  #define local_18 (*(uint *)(_frame + (0x40 - 0x18)))
+  #define local_14 (*(uint *)(_frame + (0x40 - 0x14)))
+  #define local_10 (*(uint *)(_frame + (0x40 - 0x10)))
+  #define local_c (*(uint *)(_frame + (0x40 - 0xc)))
+  #define local_8 (*(uint *)(_frame + (0x40 - 0x8)))
+  #define local_4 (*(uint *)(_frame + (0x40 - 0x4)))
   
   local_30 = 0x30;
   local_1c = param_1;
-  local_8 = s_wKernel_004ed080;
+  local_8 = (uint)s_wKernel_004ed080;
   local_c = 0;
-  local_28 = Win_KernelWndProc;
+  local_28 = (uint)Win_KernelWndProc;
   local_2c = 3;
   local_18 = LoadIconA(param_1,IMG_ADDR(0x004ed088));
   if (local_18 == 0) {
@@ -440,15 +443,15 @@ undefined4 Win_CreateMainWindow(int param_1,undefined4 param_2,int param_3)
   a12 = 0;
   a10 = 0;
   a9 = 0;
-  iVar1 = param_1;
-  a8 = GetSystemMetrics(1);
+  a11 = param_1;
+  iVar1 = GetSystemMetrics(1);
   a7 = GetSystemMetrics(0);
   g_pWinMainHwnd =
-       (void *)CreateWindowExA(0x40000,IMG_ADDR(0x004ed080),param_3,-0x70000000,0,0,a7,a8,a9,a10,iVar1,a12);
+       (void *)CreateWindowExA(0x40000,IMG_ADDR(0x004ed080),param_3,-0x70000000,0,0,a7,iVar1,a9,a10,a11,a12);
   if (g_pWinMainHwnd == (void *)0x0) {
     return 0;
   }
-  DAT_008d09e4 = param_1;
+  UINT_008d09e4 = param_1;
   ShowWindow((int)g_pWinMainHwnd,1);
   UpdateWindow((int)g_pWinMainHwnd);
   return 1;
@@ -472,80 +475,81 @@ undefined4 Win_CreateMainWindow(int param_1,undefined4 param_2,int param_3)
 /* Window procedure of the wKernel window class; forwards to the registered message hooks
    (Win_WndProc) */
 
-int __stdcall Win_KernelWndProc(int a1,int a2,int a3,int a4)
+undefined * __stdcall Win_KernelWndProc(int a1,int a2,int a3,int a4)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   bool bVar1;
-  int iVar2;
+  int a1_00;
+  undefined *puVar2;
   int iVar3;
   void **ppvVar4;
   int iVar5;
   bool bVar6;
-  #define local_8 (*(int *)(_frame + (0x20 - 0x8)))
-  #define local_4 (*(undefined4 *)(_frame + (0x20 - 0x4)))
+  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  #define local_4 (*(undefined **)(_frame + (0x20 - 0x4)))
   
-  iVar2 = a4;
+  a1_00 = a4;
   iVar5 = 0;
   bVar1 = true;
   switch(a2) {
   case 1:
-    DAT_008d0a70 = 0;
-    DAT_008d0a6c = 0;
+    UINT_008d0a70 = 0;
+    UINT_008d0a6c = 0;
     break;
   case 2:
-    DAT_008d0a8c = 0;
+    UINT_008d0a8c = 0;
     Grim_Shutdown();
     PostQuitMessage(0);
     bVar1 = false;
     break;
   case 6:
     if (((short)a3 == 2) || ((short)a3 == 1)) {
-      DAT_008d0a6c = 1;
-      if ((DAT_008d0a90 != 0) && (DAT_008d0a90 = 0, DAT_008d0a98 != (code *)0x0)) {
-        (*DAT_008d0a98)();
+      UINT_008d0a6c = 1;
+      if ((UINT_008d0a90 != 0) && (UINT_008d0a90 = 0, UINT_008d0a98 != 0)) {
+        (*(code *)UINT_008d0a98)();
       }
       SetFocus((int)g_pWinMainHwnd);
     }
     else {
-      if ((((DAT_008d09dc == 1) && (DAT_008d0a8c != 0)) && (DAT_008d0a70 != 0)) &&
-         (DAT_008d0a90 == 0)) {
+      if ((((UINT_008d09dc == 1) && (UINT_008d0a8c != 0)) && (UINT_008d0a70 != 0)) &&
+         (UINT_008d0a90 == 0)) {
         bVar6 = a4 != 0;
         local_8 = 0;
         a4 = 1;
         if (bVar6) {
-          GetWindowThreadProcessId(iVar2,(int)&a4);
+          GetWindowThreadProcessId(a1_00,(int)&a4);
           GetWindowThreadProcessId(a1,(int)&local_8);
         }
-        if ((local_8 == a4) && (DAT_008d0a90 = 1, DAT_008d0a94 != (code *)0x0)) {
-          (*DAT_008d0a94)();
+        if ((local_8 == a4) && (UINT_008d0a90 = 1, UINT_008d0a94 != 0)) {
+          (*(code *)UINT_008d0a94)();
         }
       }
-      DAT_008d0a6c = 0;
+      UINT_008d0a6c = 0;
     }
     break;
   case 0x1c:
-    DAT_008d0a70 = (uint)(a3 != 0);
+    UINT_008d0a70 = (uint)(a3 != 0);
   }
-  if ((DAT_008d0a70 == 0) || (_DAT_008d0a68 = 1, DAT_008d0a6c == 0)) {
+  if ((UINT_008d0a70 == 0) || (_DAT_008d0a68 = 1, UINT_008d0a6c == 0)) {
     _DAT_008d0a68 = 0;
   }
-  if ((bVar1) && (iVar3 = 0, 0 < DAT_008d0a7c)) {
+  if ((bVar1) && (iVar3 = 0, 0 < (int)UINT_008d0a7c)) {
     ppvVar4 = &g_pWinMessageHooks;
     do {
-      if ((ppvVar4[1] != (void *)0x0) && (iVar5 = (*(code *)*ppvVar4)(a1,a2,a3,iVar2,&local_4), iVar5 != 0))
+      if ((ppvVar4[1] != (void *)0x0) && (iVar5 = (*(code *)*ppvVar4)(a1,a2,a3,a1_00,&local_4), iVar5 != 0))
       {
         return local_4;
       }
       iVar3 = iVar3 + 1;
       ppvVar4 = ppvVar4 + 2;
-    } while (iVar3 < DAT_008d0a7c);
+    } while (iVar3 < (int)UINT_008d0a7c);
   }
   if (iVar5 == 0) {
-    iVar2 = DefWindowProcA(a1,a2,a3,iVar2);
-    return iVar2;
+    puVar2 = (undefined *)DefWindowProcA(a1,a2,a3,a1_00);
+    return puVar2;
   }
-  return 1;
+  return (undefined *)0x1;
 }
 #undef local_4
 #undef local_8

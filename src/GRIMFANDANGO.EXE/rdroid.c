@@ -11,14 +11,14 @@
 int __cdecl rdroid_Startup(GrimServices *svc)
 
 {
-  if (DAT_004f5eb8 != 0) {
+  if (UINT_004f5eb8 != 0) {
     return 1;
   }
   g_pSvcRdroid = svc;
   Plat_ReturnTrue();
   Plat_ReturnTrue();
   rdroid_BuildMathTables();
-  DAT_004f5eb8 = 1;
+  UINT_004f5eb8 = 1;
   return 1;
 }
 
@@ -26,8 +26,8 @@ int __cdecl rdroid_Startup(GrimServices *svc)
 void rdroid_Shutdown(void)
 
 {
-  if (DAT_004f5eb8 == 1) {
-    DAT_004f5eb8 = 0;
+  if (UINT_004f5eb8 == 1) {
+    UINT_004f5eb8 = 0;
   }
   return;
 }
@@ -39,7 +39,7 @@ void rdroid_Shutdown(void)
 int __cdecl rdroid_Open(int flags)
 
 {
-  if (DAT_004f5ebc == 0) {
+  if (UINT_004f5ebc == 0) {
     g_nRdroidGeometryMode = 5;
     g_nRdroidLightingMode = 5;
     g_nRdroidTextureMode = 3;
@@ -47,12 +47,12 @@ int __cdecl rdroid_Open(int flags)
     g_nRdroidSortMode = 0;
     g_nRdroidOcclusionMode = 0;
     _DAT_00900068 = 1;
-    DAT_00900054 = 0;
-    stdBitmap_InitHeader(&DAT_00900020);
-    DAT_0090004c = 0;
-    DAT_004f5eb4 = 0;
+    UINT_00900054 = 0;
+    stdBitmap_InitHeader(&UINT_00900020);
+    UINT_0090004c = 0;
+    UINT_004f5eb4 = 0;
     rdroid_InitCaches();
-    DAT_004f5ebc = 1;
+    UINT_004f5ebc = 1;
     g_nRdroid3DAccel = flags;
   }
   return 1;
@@ -62,8 +62,8 @@ int __cdecl rdroid_Open(int flags)
 void rdroid_Close(void)
 
 {
-  if (DAT_004f5ebc != 0) {
-    DAT_004f5ebc = 0;
+  if (UINT_004f5ebc != 0) {
+    UINT_004f5ebc = 0;
   }
   return;
 }
@@ -141,7 +141,7 @@ void rdroid_BeginFrame(void)
 
 {
   rdroid_InitCaches();
-  DAT_004f5eb4 = DAT_004f5eb4 + 1;
+  UINT_004f5eb4 = UINT_004f5eb4 + 1;
   rdCamera_ClearCanvas();
   rdCache_BeginScene3D();
   return;
@@ -170,13 +170,13 @@ void rdroid_InitCaches(void)
 }
 
 /* ---- 0x00404350  rdroid_SetColormap ---- */
-undefined4 rdroid_SetColormap(int param_1)
+undefined4 rdroid_SetColormap(uint param_1)
 
 {
-  if (DAT_004f5ec0 != param_1) {
-    DAT_004f5ec0 = param_1;
+  if (UINT_004f5ec0 != param_1) {
+    UINT_004f5ec0 = param_1;
   }
-  if (DAT_004f5ec4 == 0) {
+  if (UINT_004f5ec4 == 0) {
     rdColormap_SetCurrent(param_1);
   }
   return 1;
@@ -193,23 +193,24 @@ void rdroid_BuildMathTables(void)
   undefined4 uVar1;
   int iVar2;
   int iVar3;
-  #define local_4 (*(int *)(_frame + (0x20 - 0x4)))
+  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
-  DAT_008fe000 = 0x7f7fc99e;
+  UINT_008fe000 = 0x7f7fc99e;
   _DAT_008fbfc0 = 0x7fffffff;
   local_4 = 1;
   iVar3 = 0;
   do {
-    *(float *)((int)&DAT_008fe004 + iVar3) = 1.0 / (float)local_4;
+    *(float *)((int)&UINT_008fe004 + iVar3) = 1.0 / (float)(int)local_4;
     uVar1 = _ftol();
-    *(undefined4 *)((int)&DAT_008fbfc4 + iVar3) = uVar1;
+    *(undefined4 *)((int)&UINT_008fbfc4 + iVar3) = uVar1;
     iVar3 = iVar3 + 4;
     local_4 = local_4 + 1;
   } while (iVar3 < 0x1ffc);
   iVar3 = 0;
   do {
     iVar2 = iVar3 + 4;
-    *(float *)((int)&DAT_008fdfc0 + iVar3) = *(float *)((int)&DAT_008fe000 + iVar3) * _DAT_004ddb30;
+    *(float *)((int)&UINT_008fdfc0 + iVar3) =
+         *(float *)((int)&UINT_008fe000 + iVar3) * _DAT_004ddb30;
     iVar3 = iVar2;
   } while (iVar2 < 0x40);
   return;

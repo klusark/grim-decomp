@@ -231,7 +231,7 @@ void * __cdecl stdBitmap_LoadResource(char *name,int a,int b)
   a_00 = (void *)(*g_pSvcMain->pAlloc)
                            (0x7c,s_C__grimjedi_Libs_Std_General_Std_004df574,DAT_004df550 + 4);
   if (a_00 != (void *)0x0) {
-    pvVar1 = ((code *)stdBitmap_LoadFile)(name,(int)a_00,a,b);
+    pvVar1 = ((code *)stdBitmap_Load)(name,(int)a_00,a,b);
     if (pvVar1 != (void *)0x0) {
       return a_00;
     }
@@ -240,10 +240,10 @@ void * __cdecl stdBitmap_LoadResource(char *name,int a,int b)
   return (void *)0x0;
 }
 
-/* ---- 0x0047aab0  stdBitmap_LoadFile  (renamed stdBitmap_LoadFile_0047aab0: duplicate name) ---- */
-/* Opens the file through the main services and reads a BM bitmap */
+/* ---- 0x0047aab0  stdBitmap_Load  (renamed stdBitmap_Load_0047aab0: duplicate name) ---- */
+/* Stdbitmap.c: opens the file through the main services and reads a BM bitmap */
 
-void * __cdecl stdBitmap_LoadFile_0047aab0(char *filename,int a,int b,int c)
+void * __cdecl stdBitmap_Load_0047aab0(char *filename,int a,int b,int c)
 
 {
   int iVar1;
@@ -494,26 +494,29 @@ undefined4 stdBitmap_WriteBM(undefined4 param_1,int param_2)
   #define uStack_8c (*(uint *)(_frame + (0xc0 - 0x8c)))
   #define iStack_88 (*(int *)(_frame + (0xc0 - 0x88)))
   #define uStack_84 (*(uint *)(_frame + (0xc0 - 0x84)))
-  #define local_80 (*(int (*)[4])(_frame + (0xc0 - 0x80)))
-  #define local_70 (*(undefined4 *)(_frame + (0xc0 - 0x70)))
-  #define local_6c (*(undefined4 *)(_frame + (0xc0 - 0x6c)))
-  #define local_68 (*(undefined4 *)(_frame + (0xc0 - 0x68)))
-  #define local_64 (*(undefined4 *)(_frame + (0xc0 - 0x64)))
+  #define local_80 (*(undefined4 *)(_frame + (0xc0 - 0x80)))
+  #define local_7c (*(uint *)(_frame + (0xc0 - 0x7c)))
+  #define local_78 (*(uint *)(_frame + (0xc0 - 0x78)))
+  #define local_74 (*(uint *)(_frame + (0xc0 - 0x74)))
+  #define local_70 (*(uint *)(_frame + (0xc0 - 0x70)))
+  #define local_6c (*(uint *)(_frame + (0xc0 - 0x6c)))
+  #define local_68 (*(uint *)(_frame + (0xc0 - 0x68)))
+  #define local_64 (*(uint *)(_frame + (0xc0 - 0x64)))
   #define local_60 (*(undefined4 (*)[24])(_frame + (0xc0 - 0x60)))
   
-  piVar3 = local_80;
+  puVar10 = &local_80;
   for (iVar7 = 0x20; iVar7 != 0; iVar7 = iVar7 + -1) {
-    *piVar3 = 0;
-    piVar3 = piVar3 + 1;
+    *puVar10 = 0;
+    puVar10 = puVar10 + 1;
   }
-  strncpy(local_80,&DAT_004df5a0,4);
-  local_80[1] = 0x46;
-  local_80[2] = *(int *)(param_2 + 0x20);
-  local_80[3] = *(undefined4 *)(param_2 + 0x24);
-  local_70 = *(undefined4 *)(param_2 + 100);
-  local_6c = *(undefined4 *)(param_2 + 0x6c);
-  local_68 = *(undefined4 *)(param_2 + 0x70);
-  local_64 = *(undefined4 *)(param_2 + 0x74);
+  strncpy(&local_80,&DAT_004df5a0,4);
+  local_7c = 0x46;
+  local_78 = *(uint *)(param_2 + 0x20);
+  local_74 = *(uint *)(param_2 + 0x24);
+  local_70 = *(uint *)(param_2 + 100);
+  local_6c = *(uint *)(param_2 + 0x6c);
+  local_68 = *(uint *)(param_2 + 0x70);
+  local_64 = *(uint *)(param_2 + 0x74);
   puVar10 = (undefined4 *)(param_2 + 0x28);
   puVar11 = local_60;
   for (iVar7 = 0xe; iVar7 != 0; iVar7 = iVar7 + -1) {
@@ -521,7 +524,7 @@ undefined4 stdBitmap_WriteBM(undefined4 param_1,int param_2)
     puVar10 = puVar10 + 1;
     puVar11 = puVar11 + 1;
   }
-  iVar7 = (*g_pSvcMain->pFwrite)(param_1,local_80,0x80);
+  iVar7 = (*g_pSvcMain->pFwrite)(param_1,&local_80,0x80);
   if (iVar7 != 0x80) {
     return 0;
   }
@@ -536,7 +539,7 @@ undefined4 stdBitmap_WriteBM(undefined4 param_1,int param_2)
       if (iVar4 != 8) {
         return 0;
       }
-      if (local_80[2] == 0) {
+      if (local_78 == 0) {
         Surface_Lock(*(void **)(iVar7 + *(int *)(param_2 + 0x78)));
         uStack_a4 = 0;
         iVar4 = *(int *)(iVar7 + *(int *)(param_2 + 0x78));
@@ -554,7 +557,7 @@ undefined4 stdBitmap_WriteBM(undefined4 param_1,int param_2)
         }
         Surface_Unlock(*(void **)(iVar7 + *(int *)(param_2 + 0x78)));
       }
-      else if (local_80[2] == 1) {
+      else if (local_78 == 1) {
         iVar4 = *(int *)(param_2 + 0x78);
         uStack_8c = 0;
         iStack_88 = *(int *)(*(int *)(iVar7 + iVar4) + 0x5c);
@@ -595,7 +598,7 @@ undefined4 stdBitmap_WriteBM(undefined4 param_1,int param_2)
           } while (uStack_8c < *(uint *)(*(int *)(iVar4 + iVar7) + 0x10));
         }
       }
-      else if (local_80[2] == 3) {
+      else if (local_78 == 3) {
         Surface_Lock(*(void **)(iVar7 + *(int *)(param_2 + 0x78)));
         uStack_9c = *(undefined4 *)(*(int *)(iVar7 + *(int *)(param_2 + 0x78)) + 0x14);
         (*g_pSvcMain->pFwrite)(param_1,&uStack_9c,4);
@@ -622,6 +625,9 @@ undefined4 stdBitmap_WriteBM(undefined4 param_1,int param_2)
 #undef local_68
 #undef local_6c
 #undef local_70
+#undef local_74
+#undef local_78
+#undef local_7c
 #undef local_80
 #undef uStack_84
 #undef uStack_8c
@@ -830,8 +836,8 @@ void stdBitmap_SetSurface(int param_1,int param_2,undefined4 param_3)
   return;
 }
 
-/* ---- 0x0047b560  stdBitmap_GetSize ---- */
-int __cdecl stdBitmap_GetSize(void *bitmap)
+/* ---- 0x0047b560  stdBitmap_ConvertToDisplay ---- */
+int __cdecl stdBitmap_ConvertToDisplay(void *bitmap)
 
 {
   int *piVar1;

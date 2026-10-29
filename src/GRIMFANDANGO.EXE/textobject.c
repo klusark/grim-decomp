@@ -37,10 +37,10 @@ void FUN_0048c4d0(void)
 
 {
   _DAT_008ca144 = 0;
-  (*DAT_008ca11c)();
-  (*DAT_008ca0bc)();
-  if (DAT_008ca138 != 0) {
-    DAT_008ca138 = 0;
+  (*(code *)UINT_008ca11c)();
+  (*(code *)UINT_008ca0bc)();
+  if (UINT_008ca138 != 0) {
+    UINT_008ca138 = 0;
   }
   return;
 }
@@ -51,50 +51,50 @@ undefined4 FUN_0048c500(void)
 {
   int iVar1;
   
-  if (DAT_008ca13c == 0) {
-    iVar1 = (*DAT_008ca120)();
+  if (UINT_008ca13c == 0) {
+    iVar1 = (*(code *)UINT_008ca120)();
     if (iVar1 == 0) {
-      iVar1 = (*DAT_008ca0c0)();
+      iVar1 = (*(code *)UINT_008ca0c0)();
       if (iVar1 == 0) {
-        DAT_004e84a0 = Text_GetDefaultFont();
-        DAT_004e84d0 = DAT_004e84a0;
-        DAT_004e8500 = DAT_004e84a0;
-        DAT_008ca148 = DAT_004e84a0;
-        Lua_OpenEngineLib(&PTR_s_IsMessageGoing_004e8528,DAT_004e85d8);
+        UINT_004e84a0 = Text_GetDefaultFont();
+        UINT_004e84d0 = UINT_004e84a0;
+        UINT_004e8500 = UINT_004e84a0;
+        UINT_008ca148 = UINT_004e84a0;
+        Lua_OpenEngineLib(&PTR_s_IsMessageGoing_004e8528,UINT_004e85d8);
         lua_pushstring(&DAT_004e8454);
-        DAT_008ca0dc = lua_ref(1);
+        UINT_008ca0dc = lua_ref(1);
         lua_pushstring(&DAT_004e8450);
-        DAT_008ca0e0 = lua_ref(1);
+        UINT_008ca0e0 = lua_ref(1);
         lua_pushstring(&DAT_004e87c0);
-        DAT_008ca104 = lua_ref(1);
+        UINT_008ca104 = lua_ref(1);
         lua_pushstring(s_width_004e8440);
-        DAT_008ca0f8 = lua_ref(1);
+        UINT_008ca0f8 = lua_ref(1);
         lua_pushstring(s_height_004e8438);
-        DAT_008ca0d8 = lua_ref(1);
+        UINT_008ca0d8 = lua_ref(1);
         lua_pushstring(s_fgcolor_004e87b8);
-        DAT_008ca110 = lua_ref(1);
+        UINT_008ca110 = lua_ref(1);
         lua_pushstring(s_bgcolor_004e87b0);
-        DAT_008ca0fc = lua_ref(1);
+        UINT_008ca0fc = lua_ref(1);
         lua_pushstring(s_fxcolor_004e87a8);
-        DAT_008ca0f0 = lua_ref(1);
+        UINT_008ca0f0 = lua_ref(1);
         lua_pushstring(s_hicolor_004e87a0);
-        DAT_008ca0e8 = lua_ref(1);
+        UINT_008ca0e8 = lua_ref(1);
         lua_pushstring(s_duration_004e8794);
-        DAT_008ca0ec = lua_ref(1);
+        UINT_008ca0ec = lua_ref(1);
         lua_pushstring(s_center_004e878c);
-        DAT_008ca0f4 = lua_ref(1);
+        UINT_008ca0f4 = lua_ref(1);
         lua_pushstring(s_ljustify_004e8780);
-        DAT_008ca108 = lua_ref(1);
+        UINT_008ca108 = lua_ref(1);
         lua_pushstring(s_rjustify_004e8774);
-        DAT_008ca10c = lua_ref(1);
+        UINT_008ca10c = lua_ref(1);
         lua_pushstring(s_volume_004e876c);
-        DAT_008ca100 = lua_ref(1);
+        UINT_008ca100 = lua_ref(1);
         lua_pushstring(&DAT_004e8768);
-        DAT_008ca114 = lua_ref(1);
+        UINT_008ca114 = lua_ref(1);
         lua_pushstring(s_background_004e875c);
-        DAT_008ca0e4 = lua_ref(1);
+        UINT_008ca0e4 = lua_ref(1);
         g_pTextObjectPool = (void **)Pool_Create(0x260,0x10,8);
-        DAT_008ca13c = 1;
+        UINT_008ca13c = 1;
         return 0;
       }
     }
@@ -106,29 +106,29 @@ undefined4 FUN_0048c500(void)
 void FUN_0048c6f0(void)
 
 {
-  (*DAT_008ca124)();
-  (*DAT_008ca0c4)();
-  lua_unref(DAT_008ca0dc);
-  lua_unref(DAT_008ca0e0);
-  lua_unref(DAT_008ca104);
-  lua_unref(DAT_008ca0f8);
-  lua_unref(DAT_008ca0d8);
-  lua_unref(DAT_008ca110);
-  lua_unref(DAT_008ca0fc);
-  lua_unref(DAT_008ca0f0);
-  lua_unref(DAT_008ca0e8);
-  lua_unref(DAT_008ca0ec);
-  lua_unref(DAT_008ca0f4);
-  lua_unref(DAT_008ca108);
-  lua_unref(DAT_008ca10c);
-  lua_unref(DAT_008ca100);
-  lua_unref(DAT_008ca114);
-  lua_unref(DAT_008ca0e4);
+  (*(code *)UINT_008ca124)();
+  (*(code *)UINT_008ca0c4)();
+  lua_unref(UINT_008ca0dc);
+  lua_unref(UINT_008ca0e0);
+  lua_unref(UINT_008ca104);
+  lua_unref(UINT_008ca0f8);
+  lua_unref(UINT_008ca0d8);
+  lua_unref(UINT_008ca110);
+  lua_unref(UINT_008ca0fc);
+  lua_unref(UINT_008ca0f0);
+  lua_unref(UINT_008ca0e8);
+  lua_unref(UINT_008ca0ec);
+  lua_unref(UINT_008ca0f4);
+  lua_unref(UINT_008ca108);
+  lua_unref(UINT_008ca10c);
+  lua_unref(UINT_008ca100);
+  lua_unref(UINT_008ca114);
+  lua_unref(UINT_008ca0e4);
   if (g_pTextObjectPool != (void **)0x0) {
     Pool_Destroy(g_pTextObjectPool);
     g_pTextObjectPool = (void **)0x0;
   }
-  DAT_008ca13c = 0;
+  UINT_008ca13c = 0;
   return;
 }
 
@@ -174,8 +174,8 @@ void * __cdecl TextObject_New(void *ctx,char *text,int durationMs,int flags)
     }
     *puVar3 = 0;
     puVar1[0x91] = 0;
-    puVar1[0x92] = DAT_008a94bc;
-    puVar1[0x93] = DAT_008a94c0;
+    puVar1[0x92] = UINT_008a94bc;
+    puVar1[0x93] = UINT_008a94c0;
     puVar1[0x95] = 0;
     puVar1[0x97] = puVar1;
   }
@@ -190,21 +190,22 @@ void __cdecl TextObject_Draw(void *obj,int invalidate)
   uint uVar1;
   uint uVar2;
   uint uVar3;
-  #define local_10 (*(int *)(_frame + (0x20 - 0x10)))
-  #define local_c (*(int *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(int *)(_frame + (0x20 - 0x8)))
-  #define local_4 (*(undefined4 *)(_frame + (0x20 - 0x4)))
+  int iVar4;
+  #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
+  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
+  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   if (obj != (void *)0x0) {
-    local_10 = *(int *)((int)obj + 0x238);
-    *(int *)((int)obj + 0x214) = local_10;
-    local_c = *(int *)(**(int **)((int)obj + 0x210) + 8) + *(int *)((int)obj + 0x23c);
-    *(int *)((int)obj + 0x218) = local_c;
-    local_c = local_c - *(int *)(**(int **)((int)obj + 0x210) + 8);
-    local_8 = Text_MeasureString((void *)((int)obj + 0x208),(int)obj + 8);
-    local_4 = Text_MeasureLine((void *)((int)obj + 0x208),(int)obj + 8);
+    local_10 = *(uint *)((int)obj + 0x238);
+    *(uint *)((int)obj + 0x214) = local_10;
+    iVar4 = *(int *)(**(int **)((int)obj + 0x210) + 8) + *(int *)((int)obj + 0x23c);
+    *(int *)((int)obj + 0x218) = iVar4;
+    local_c = iVar4 - *(int *)(**(int **)((int)obj + 0x210) + 8);
+    local_8 = Text_MeasureWidth((void *)((int)obj + 0x208),(char *)((int)obj + 8));
+    local_4 = Text_MeasureHeight((void *)((int)obj + 0x208),(char *)((int)obj + 8));
     if ((*(byte *)((int)obj + 0x230) & 1) != 0) {
-      local_10 = local_10 - local_8 / 2;
+      local_10 = local_10 - (int)local_8 / 2;
     }
     uVar1 = *(uint *)((int)obj + 0x21c);
     g_wTextColors[0] =
@@ -227,7 +228,7 @@ void __cdecl TextObject_Draw(void *obj,int invalidate)
     *(int *)((int)obj + 0x218) =
          *(int *)(**(int **)((int)obj + 0x210) + 8) + *(int *)((int)obj + 0x23c);
     if (invalidate != 0) {
-      Render_InvalidateRectLastBuffer(&local_10,0);
+      Render_InvalidateRectLastBuffer((int *)&local_10,0);
     }
     *(uint *)((int)obj + 0x224) = uVar3;
     *(uint *)((int)obj + 0x220) = uVar2;
@@ -265,7 +266,7 @@ undefined4 FUN_0048cbc0(code *param_1)
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   undefined4 *puVar1;
   int iVar2;
-  #define local_4 (*(int *)(_frame + (0x20 - 0x4)))
+  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   local_4 = 0;
   for (puVar1 = g_pTextObjectList; puVar1 != (undefined4 *)0x0; puVar1 = (undefined4 *)*puVar1) {
@@ -301,9 +302,9 @@ undefined4 FUN_0048cbc0(code *param_1)
     (*param_1)(puVar1 + 0x96,4);
     (*param_1)(puVar1 + 0x97,4);
   }
-  (*param_1)(&DAT_004e84a0,4);
-  (*param_1)(&DAT_004e84d0,4);
-  (*param_1)(&DAT_004e8500,4);
+  (*param_1)(&UINT_004e84a0,4);
+  (*param_1)(&UINT_004e84d0,4);
+  (*param_1)(&UINT_004e8500,4);
   return 0;
 }
 #undef local_4
@@ -359,7 +360,7 @@ undefined4 FUN_0048cd80(code *param_1)
         pvVar6 = Res_DataFromHandle((void *)*puVar2);
         *puVar2 = pvVar6;
         if (*piVar1 != 0) {
-          *piVar1 = (int)&DAT_008a94b8;
+          *piVar1 = (int)&UINT_008a94b8;
         }
         if (puVar5[0x83] != 0) {
           puVar5[0x83] = puVar5 + 0x90;
@@ -374,21 +375,21 @@ undefined4 FUN_0048cd80(code *param_1)
         g_pTextObjectList = puVar5;
       } while ((int)param_1 < local_4);
     }
-    (*pcVar3)(&DAT_004e84a0,4);
-    (*pcVar3)(&DAT_004e84d0,4);
-    (*pcVar3)(&DAT_004e8500,4);
-    DAT_008ca148 = (void *)Text_GetDefaultFont();
-    DAT_004e84a0 = Res_DataFromHandle(DAT_004e84a0);
-    DAT_004e84d0 = Res_DataFromHandle(DAT_004e84d0);
-    DAT_004e8500 = Res_DataFromHandle(DAT_004e8500);
-    if (DAT_004e84a0 == (void *)0x0) {
-      DAT_004e84a0 = DAT_008ca148;
+    (*pcVar3)(&UINT_004e84a0,4);
+    (*pcVar3)(&UINT_004e84d0,4);
+    (*pcVar3)(&UINT_004e8500,4);
+    UINT_008ca148 = Text_GetDefaultFont();
+    UINT_004e84a0 = (uint)Res_DataFromHandle((void *)UINT_004e84a0);
+    UINT_004e84d0 = (uint)Res_DataFromHandle((void *)UINT_004e84d0);
+    UINT_004e8500 = (uint)Res_DataFromHandle((void *)UINT_004e8500);
+    if (UINT_004e84a0 == 0) {
+      UINT_004e84a0 = UINT_008ca148;
     }
-    if (DAT_004e84d0 == (void *)0x0) {
-      DAT_004e84d0 = DAT_008ca148;
+    if (UINT_004e84d0 == 0) {
+      UINT_004e84d0 = UINT_008ca148;
     }
-    if (DAT_004e8500 == (void *)0x0) {
-      DAT_004e8500 = DAT_008ca148;
+    if ((void *)UINT_004e8500 == (void *)0x0) {
+      UINT_004e8500 = UINT_008ca148;
     }
     return 0;
   }

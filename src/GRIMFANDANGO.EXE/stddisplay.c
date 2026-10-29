@@ -22,7 +22,8 @@ void Display_Shutdown3D(void)
 }
 
 /* ---- 0x004025b0  Display_Select ---- */
-/* Source: grimdemo.c (line 1547, from __FILE__/__LINE__ passed to the allocator) */
+/* Tears down the current display, selects device/mode (falling back to the closest mode), creates
+   the back buffer and stores LastDisplayDevice in the registry */
 
 int __cdecl Display_Select(int deviceIdx,int modeIdx,int threeDIdx)
 
@@ -31,65 +32,67 @@ int __cdecl Display_Select(int deviceIdx,int modeIdx,int threeDIdx)
   int iVar1;
   uint uVar2;
   int iVar3;
-  undefined4 *puVar4;
+  uint *puVar4;
   undefined4 *puVar5;
+  uint *puVar6;
+  undefined4 *puVar7;
   #define auStack_a0 (*(undefined4 (*)[6])(_frame + (0xb0 - 0xa0)))
   #define uStack_88 (*(undefined4 *)(_frame + (0xb0 - 0x88)))
   #define local_54 (*(undefined4 (*)[21])(_frame + (0xb0 - 0x54)))
   
-  DAT_004e814c = 0;
+  UINT_004e814c = 0;
   Grim_ShutdownDisplay();
   if (g_nDisplayDeviceOpen != 0) {
     return 0;
   }
-  Input_ShowCursor((&DAT_00902d70)[deviceIdx * 0xa6] == 0);
+  Input_ShowCursor((&UINT_00902d70)[deviceIdx * 0xa6] == 0);
   Reg_SetInt(s_ExperimentalDisplay_004dd5e4,1);
   iVar1 = Display_SelectDevice(deviceIdx);
   if ((iVar1 != 0) && (iVar1 = Display_OpenMode(modeIdx,&DAT_004f41e0,1), iVar1 != 0)) {
-    if ((*(int *)((int)g_pDisplayDevice + 0x110) == 0) || (DAT_004f5a84 != 0)) {
+    if ((*(int *)((int)g_pDisplayDevice + 0x110) == 0) || (UINT_004f5a84 != 0)) {
 LAB_00402747:
-      puVar4 = (undefined4 *)((int)g_pVideoMode + 0x1c);
-      puVar5 = &DAT_004ddaa0;
+      puVar4 = (uint *)((int)g_pVideoMode + 0x1c);
+      puVar6 = &UINT_004ddaa0;
       for (iVar1 = 0xe; iVar1 != 0; iVar1 = iVar1 + -1) {
-        *puVar5 = *puVar4;
+        *puVar6 = *puVar4;
         puVar4 = puVar4 + 1;
-        puVar5 = puVar5 + 1;
+        puVar6 = puVar6 + 1;
       }
-      Surface_Fill(&DAT_009055e0,0,(int *)0x0);
+      Surface_Fill(&g_BackBuffer,0,(int *)0x0);
       Display_Flip();
-      Surface_Fill(&DAT_009055e0,0,(int *)0x0);
+      Surface_Fill(&g_BackBuffer,0,(int *)0x0);
       iVar1 = Display_Select3DDevice(threeDIdx);
       if (iVar1 == 0) {
-        puVar4 = (undefined4 *)((int)g_pVideoMode + 8);
-        puVar5 = auStack_a0;
+        puVar5 = (undefined4 *)((int)g_pVideoMode + 8);
+        puVar7 = auStack_a0;
         for (iVar1 = 0x13; iVar1 != 0; iVar1 = iVar1 + -1) {
-          *puVar5 = *puVar4;
-          puVar4 = puVar4 + 1;
+          *puVar7 = *puVar5;
           puVar5 = puVar5 + 1;
+          puVar7 = puVar7 + 1;
         }
         uStack_88 = 0x10;
-        DAT_004f5a34 = Surface_Create(auStack_a0,0,0,0);
+        UINT_004f5a34 = (uint)Surface_Create(auStack_a0,0,0,0);
       }
       else {
-        DAT_004f5a34 = &DAT_00901400;
+        UINT_004f5a34 = (uint)&DAT_00901400;
       }
-      Engine_OpenRenderer(&DAT_009055e0,(int)DAT_004f5a34);
+      Engine_OpenRenderer(&g_BackBuffer,UINT_004f5a34);
       Win_SetWindowedSize((uint)(*(int *)((int)g_pDisplayDevice + 0x110) != 0),
                           *(int *)((int)g_pVideoMode + 8),*(int *)((int)g_pVideoMode + 0xc));
       Reg_SetBinary(s_LastDisplayDevice_004dd738,(void *)((int)g_pDisplayDevice + 0x288),0x10);
       Input_ShowCursor(0);
-      DAT_004f5a20 = (uint)(*(int *)((int)g_pDisplayDevice + 0x110) == 0);
-      DAT_004e814c = 1;
+      g_bWindowedMode = (uint)(*(int *)((int)g_pDisplayDevice + 0x110) == 0);
+      UINT_004e814c = 1;
       return 1;
     }
-    DAT_004f5a84 = 1;
+    UINT_004f5a84 = 1;
     iVar3 = deviceIdx * 0x10;
-    puVar4 = (undefined4 *)(*(int *)((int)g_pDisplayModes + iVar3 + 4) + modeIdx * 0x54);
-    puVar5 = local_54;
+    puVar5 = (undefined4 *)(*(int *)((int)g_pDisplayModes + iVar3 + 4) + modeIdx * 0x54);
+    puVar7 = local_54;
     for (iVar1 = 0x15; iVar1 != 0; iVar1 = iVar1 + -1) {
-      *puVar5 = *puVar4;
-      puVar4 = puVar4 + 1;
+      *puVar7 = *puVar5;
       puVar5 = puVar5 + 1;
+      puVar7 = puVar7 + 1;
     }
     Grim_ShutdownDisplay();
     iVar1 = Display_SelectDevice(deviceIdx);
@@ -99,17 +102,17 @@ LAB_00402747:
                   (s_stdDisplay_numVideoModes____grim_004dd74c,
                    s_C__grimsrc_tools_grimdemo_grimde_004dd50c,0x60b);
       }
-      puVar4 = &DAT_00901760;
-      puVar5 = *(undefined4 **)((int)g_pDisplayModes + iVar3 + 4);
+      puVar4 = &UINT_00901760;
+      puVar6 = *(uint **)((int)g_pDisplayModes + iVar3 + 4);
       for (uVar2 = g_dwVideoModeCount * 0x15 & 0x3fffffff; uVar2 != 0; uVar2 = uVar2 - 1) {
-        *puVar5 = *puVar4;
+        *puVar6 = *puVar4;
         puVar4 = puVar4 + 1;
-        puVar5 = puVar5 + 1;
+        puVar6 = puVar6 + 1;
       }
       for (iVar1 = 0; iVar1 != 0; iVar1 = iVar1 + -1) {
-        *(undefined1 *)puVar5 = *(undefined1 *)puVar4;
-        puVar4 = (undefined4 *)((int)puVar4 + 1);
-        puVar5 = (undefined4 *)((int)puVar5 + 1);
+        *(char *)puVar6 = (char)*puVar4;
+        puVar4 = (uint *)((int)puVar4 + 1);
+        puVar6 = (uint *)((int)puVar6 + 1);
       }
       uVar2 = Display_FindClosestMode
                         (local_54,*(void **)((int)g_pDisplayModes + iVar3 + 4),
@@ -118,7 +121,7 @@ LAB_00402747:
       if (iVar1 != 0) goto LAB_00402747;
     }
   }
-  DAT_004e814c = 0;
+  UINT_004e814c = 0;
   return 0;
 }
 #undef auStack_a0
@@ -127,24 +130,25 @@ LAB_00402747:
 
 
 /* ---- 0x00402860  Display_Select3DDevice ---- */
-/* Source: grimdemo.c (line 1357, from __FILE__/__LINE__ passed to the allocator) */
+/* Activates the 3D driver record threeDNum (-1 = software) and records Last3DDevice in the registry
+    */
 
 int __cdecl Display_Select3DDevice(int threeDNum)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
-  #define local_10 (*(undefined4 *)(_frame + (0x20 - 0x10)))
-  #define local_c (*(undefined4 *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(undefined4 *)(_frame + (0x20 - 0x8)))
-  #define local_4 (*(undefined4 *)(_frame + (0x20 - 0x4)))
+  #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
+  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
+  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   Display_Shutdown3D();
   if (threeDNum != -1) {
     iVar1 = D3D_Enumerate();
     if (iVar1 != 0) {
-      if ((threeDNum < 0) || (*(int *)(DAT_00901758 * 0x10 + 8 + (int)g_pDisplayModes) <= threeDNum)
-         ) {
+      if ((threeDNum < 0) ||
+         (*(int *)(UINT_00901758 * 0x10 + 8 + (int)g_pDisplayModes) <= threeDNum)) {
         (*g_pSvcMain->pAssertFail)
                   (s_threeDNum____0____threeDNum____i_004dd7a4,
                    s_C__grimsrc_tools_grimdemo_grimde_004dd50c,0x54d);
@@ -175,27 +179,28 @@ int __cdecl Display_Select3DDevice(int threeDNum)
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 /* Uses the registry's last display, else picks a default, then Display_Select */
 
-int Display_InitFromConfig(void)
+undefined * Display_InitFromConfig(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
+  undefined *puVar2;
   #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   iVar1 = Display_GetLastFromRegistry(&local_4,&local_8,&local_c);
   if (iVar1 == 0) {
-    if ((DAT_004f5a20 == 0) || (DAT_004f5a24 == 0)) {
+    if ((g_bWindowedMode == 0) || (INT_004f5a24 == 0)) {
       iVar1 = 0;
     }
     else {
       iVar1 = 1;
     }
-    Display_PickDefault(iVar1,DAT_004f5a28,(int *)&local_4,(int *)&local_8,(int *)&local_c);
+    Display_PickDefault(iVar1,UINT_004f5a28,(int *)&local_4,(int *)&local_8,(int *)&local_c);
   }
-  iVar1 = Display_Select(local_4,local_8,local_c);
-  return iVar1;
+  puVar2 = (undefined *)Display_Select(local_4,local_8,local_c);
+  return puVar2;
 }
 #undef local_4
 #undef local_8
@@ -217,58 +222,40 @@ int __cdecl Display_GetLastFromRegistry(uint *deviceIdx,uint *modeIdx,uint *thre
   int iVar5;
   char *pcVar6;
   char *pcVar7;
-  char *pcVar8;
+  uint *puVar8;
   bool bVar9;
-  #define local_30 (*(char (*)[16])(_frame + (0x40 - 0x30)))
-  #define local_20 (*(undefined4 *)(_frame + (0x40 - 0x20)))
-  #define local_1c (*(undefined4 *)(_frame + (0x40 - 0x1c)))
-  #define local_18 (*(undefined4 *)(_frame + (0x40 - 0x18)))
-  #define local_14 (*(undefined4 *)(_frame + (0x40 - 0x14)))
-  #define local_10 (*(char (*)[16])(_frame + (0x40 - 0x10)))
+  #define local_30 (*(uint *)(_frame + (0x40 - 0x30)))
+  #define local_2c (*(uint *)(_frame + (0x40 - 0x2c)))
+  #define local_28 (*(uint *)(_frame + (0x40 - 0x28)))
+  #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
+  #define local_20 (*(uint *)(_frame + (0x40 - 0x20)))
+  #define local_1c (*(uint *)(_frame + (0x40 - 0x1c)))
+  #define local_18 (*(uint *)(_frame + (0x40 - 0x18)))
+  #define local_14 (*(uint *)(_frame + (0x40 - 0x14)))
+  #define local_10 (*(uint *)(_frame + (0x40 - 0x10)))
+  #define local_c (*(uint *)(_frame + (0x40 - 0xc)))
+  #define local_8 (*(uint *)(_frame + (0x40 - 0x8)))
+  #define local_4 (*(uint *)(_frame + (0x40 - 0x4)))
   
   iVar1 = Reg_GetInt(s_ExperimentalDisplay_004dd5e4,1);
   if (iVar1 != 0) {
     OutputDebugStringA(IMG_ADDR(0x004dd874));
     return 0;
   }
-  local_10[0] = '\0';
-  local_10[1] = '\0';
-  local_10[2] = '\0';
-  local_10[3] = '\0';
-  local_10[4] = '\0';
-  local_10[5] = '\0';
-  local_10[6] = '\0';
-  local_10[7] = '\0';
+  local_10 = 0;
+  local_c = 0;
   local_20 = 0;
-  local_10[8] = '\0';
-  local_10[9] = '\0';
-  local_10[10] = '\0';
-  local_10[0xb] = '\0';
-  local_30[0] = '\0';
-  local_30[1] = '\0';
-  local_30[2] = '\0';
-  local_30[3] = '\0';
-  local_10[0xc] = '\0';
-  local_10[0xd] = '\0';
-  local_10[0xe] = '\0';
-  local_10[0xf] = '\0';
+  local_8 = 0;
+  local_30 = 0;
+  local_4 = 0;
   local_1c = 0;
-  local_30[4] = '\0';
-  local_30[5] = '\0';
-  local_30[6] = '\0';
-  local_30[7] = '\0';
+  local_2c = 0;
   local_18 = 0;
-  local_30[8] = '\0';
-  local_30[9] = '\0';
-  local_30[10] = '\0';
-  local_30[0xb] = '\0';
+  local_28 = 0;
   local_14 = 0;
-  local_30[0xc] = '\0';
-  local_30[0xd] = '\0';
-  local_30[0xe] = '\0';
-  local_30[0xf] = '\0';
+  local_24 = 0;
   Reg_GetBinary(s_LastDisplayDevice_004dd738,&local_20,0x10);
-  Reg_GetBinary(s_Last3DDevice_004dd794,local_30,0x10);
+  Reg_GetBinary(s_Last3DDevice_004dd794,&local_30,0x10);
   uVar2 = 0;
   if (g_dwDisplayDeviceCount != 0) {
     pcVar6 = &DAT_00902ee8;
@@ -276,13 +263,13 @@ int __cdecl Display_GetLastFromRegistry(uint *deviceIdx,uint *modeIdx,uint *thre
       iVar1 = 0x10;
       bVar9 = true;
       pcVar7 = pcVar6;
-      pcVar8 = (char *)&local_20;
+      puVar3 = &local_20;
       do {
         if (iVar1 == 0) break;
         iVar1 = iVar1 + -1;
-        bVar9 = *pcVar7 == *pcVar8;
+        bVar9 = *pcVar7 == (char)*puVar3;
         pcVar7 = pcVar7 + 1;
-        pcVar8 = pcVar8 + 1;
+        puVar3 = (uint *)((int)puVar3 + 1);
       } while (bVar9);
       if (bVar9) break;
       uVar2 = uVar2 + 1;
@@ -295,18 +282,18 @@ int __cdecl Display_GetLastFromRegistry(uint *deviceIdx,uint *modeIdx,uint *thre
   }
   *deviceIdx = uVar2;
   puVar3 = (uint *)(uVar2 * 0x10 + (int)g_pDisplayModes);
-  uVar2 = Display_FindClosestMode(&DAT_004f4d38,(void *)puVar3[1],*puVar3);
+  uVar2 = Display_FindClosestMode(&UINT_004f4d38,(void *)puVar3[1],*puVar3);
   *modeIdx = uVar2;
   iVar1 = 0x10;
   bVar9 = true;
-  pcVar6 = local_30;
-  pcVar7 = local_10;
+  puVar3 = &local_30;
+  puVar8 = &local_10;
   do {
     if (iVar1 == 0) break;
     iVar1 = iVar1 + -1;
-    bVar9 = *pcVar6 == *pcVar7;
-    pcVar6 = pcVar6 + 1;
-    pcVar7 = pcVar7 + 1;
+    bVar9 = (char)*puVar3 == (char)*puVar8;
+    puVar3 = (uint *)((int)puVar3 + 1);
+    puVar8 = (uint *)((int)puVar8 + 1);
   } while (bVar9);
   if (bVar9) {
     *threeDIdx = 0xffffffff;
@@ -320,13 +307,13 @@ int __cdecl Display_GetLastFromRegistry(uint *deviceIdx,uint *modeIdx,uint *thre
       iVar5 = 0x10;
       bVar9 = true;
       pcVar6 = (char *)(*(int *)((int)pvVar4 + 0xc) + 0x21c + iVar1);
-      pcVar7 = local_30;
+      puVar3 = &local_30;
       do {
         if (iVar5 == 0) break;
         iVar5 = iVar5 + -1;
-        bVar9 = *pcVar6 == *pcVar7;
+        bVar9 = *pcVar6 == (char)*puVar3;
         pcVar6 = pcVar6 + 1;
-        pcVar7 = pcVar7 + 1;
+        puVar3 = (uint *)((int)puVar3 + 1);
       } while (bVar9);
       if (bVar9) break;
       pvVar4 = (void *)((int)g_pDisplayModes + *deviceIdx * 0x10);
@@ -346,7 +333,13 @@ int __cdecl Display_GetLastFromRegistry(uint *deviceIdx,uint *modeIdx,uint *thre
 #undef local_18
 #undef local_1c
 #undef local_20
+#undef local_24
+#undef local_28
+#undef local_2c
 #undef local_30
+#undef local_4
+#undef local_8
+#undef local_c
 
 
 /* ---- 0x00402b60  Display_PickDefault ---- */
@@ -359,20 +352,20 @@ Display_PickDefault(int wantFullscreen,int want3D,int *deviceIdx,int *modeIdx,in
   uint *puVar2;
   uint uVar3;
   #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(undefined4 *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(int *)(_frame + (0x30 - 0xc)))
+  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
+  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
   #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
   
   local_8 = (uint)(want3D == 0);
   local_4 = (uint)(wantFullscreen == 0);
-  local_10 = DAT_004dd33c;
+  local_10 = UINT_004dd33c;
   local_14 = (uint)(wantFullscreen == 0);
   local_c = want3D;
   iVar1 = Display_FindClosestDevice(&local_14);
   *deviceIdx = iVar1;
   puVar2 = (uint *)(iVar1 * 0x10 + (int)g_pDisplayModes);
-  uVar3 = Display_FindClosestMode(&DAT_004f4d38,(void *)puVar2[1],*puVar2);
+  uVar3 = Display_FindClosestMode(&UINT_004f4d38,(void *)puVar2[1],*puVar2);
   *modeIdx = uVar3;
   iVar1 = *(int *)((int)g_pDisplayModes + *deviceIdx * 0x10 + 8);
   if ((iVar1 == 0) || (want3D == 0)) {
@@ -380,8 +373,8 @@ Display_PickDefault(int wantFullscreen,int want3D,int *deviceIdx,int *modeIdx,in
   }
   else {
     iVar1 = D3D_FindClosestDriver
-                      (&DAT_004f44e8,*(undefined4 *)((int)g_pDisplayModes + *deviceIdx * 0x10 + 0xc)
-                       ,iVar1);
+                      (&UINT_004f44e8,
+                       *(undefined4 *)((int)g_pDisplayModes + *deviceIdx * 0x10 + 0xc),iVar1);
     *threeDIdx = iVar1;
     if (*(int *)(*(int *)(*deviceIdx * 0x10 + 0xc + (int)g_pDisplayModes) + iVar1 * 0x22c) == 0) {
       *threeDIdx = -1;
@@ -401,24 +394,24 @@ Display_PickDefault(int wantFullscreen,int want3D,int *deviceIdx,int *modeIdx,in
 /* Fills a BITMAPINFO (0x28 header, negative height) with a 256-entry palette */
 
 void stdDisplay_BuildBitmapInfo8
-               (int param_1,undefined4 param_2,int param_3,int param_4,undefined1 *param_5)
+               (int param_1,uint param_2,int param_3,int param_4,undefined1 *param_5)
 
 {
   unsigned char _frame[0x440] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   undefined1 *puVar1;
   undefined1 *puVar2;
   int iVar3;
-  #define local_428 (*(undefined4 *)(_frame + (0x440 - 0x428)))
-  #define local_424 (*(undefined4 *)(_frame + (0x440 - 0x424)))
-  #define local_420 (*(int *)(_frame + (0x440 - 0x420)))
+  #define local_428 (*(uint *)(_frame + (0x440 - 0x428)))
+  #define local_424 (*(uint *)(_frame + (0x440 - 0x424)))
+  #define local_420 (*(uint *)(_frame + (0x440 - 0x420)))
   #define local_41c (*(undefined2 *)(_frame + (0x440 - 0x41c)))
   #define local_41a (*(undefined2 *)(_frame + (0x440 - 0x41a)))
-  #define local_418 (*(undefined4 *)(_frame + (0x440 - 0x418)))
-  #define local_414 (*(undefined4 *)(_frame + (0x440 - 0x414)))
-  #define local_410 (*(undefined4 *)(_frame + (0x440 - 0x410)))
-  #define local_40c (*(undefined4 *)(_frame + (0x440 - 0x40c)))
-  #define local_408 (*(undefined4 *)(_frame + (0x440 - 0x408)))
-  #define local_404 (*(undefined4 *)(_frame + (0x440 - 0x404)))
+  #define local_418 (*(uint *)(_frame + (0x440 - 0x418)))
+  #define local_414 (*(uint *)(_frame + (0x440 - 0x414)))
+  #define local_410 (*(uint *)(_frame + (0x440 - 0x410)))
+  #define local_40c (*(uint *)(_frame + (0x440 - 0x40c)))
+  #define local_408 (*(uint *)(_frame + (0x440 - 0x408)))
+  #define local_404 (*(uint *)(_frame + (0x440 - 0x404)))
   #define local_400 (*(undefined1 (*)[1024])(_frame + (0x440 - 0x400)))
   
   local_420 = -param_3;
@@ -462,21 +455,21 @@ void stdDisplay_BuildBitmapInfo8
 
 
 /* ---- 0x00473180  stdDisplay_BuildBitmapInfo16 ---- */
-void stdDisplay_BuildBitmapInfo16(int param_1,undefined4 param_2,int param_3,int param_4)
+void stdDisplay_BuildBitmapInfo16(int param_1,uint param_2,int param_3,int param_4)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  #define local_2c (*(undefined4 *)(_frame + (0x40 - 0x2c)))
-  #define local_28 (*(undefined4 *)(_frame + (0x40 - 0x28)))
-  #define local_24 (*(int *)(_frame + (0x40 - 0x24)))
+  #define local_2c (*(uint *)(_frame + (0x40 - 0x2c)))
+  #define local_28 (*(uint *)(_frame + (0x40 - 0x28)))
+  #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
   #define local_20 (*(undefined2 *)(_frame + (0x40 - 0x20)))
   #define local_1e (*(undefined2 *)(_frame + (0x40 - 0x1e)))
-  #define local_1c (*(undefined4 *)(_frame + (0x40 - 0x1c)))
-  #define local_18 (*(undefined4 *)(_frame + (0x40 - 0x18)))
-  #define local_14 (*(undefined4 *)(_frame + (0x40 - 0x14)))
-  #define local_10 (*(undefined4 *)(_frame + (0x40 - 0x10)))
-  #define local_c (*(undefined4 *)(_frame + (0x40 - 0xc)))
-  #define local_8 (*(undefined4 *)(_frame + (0x40 - 0x8)))
+  #define local_1c (*(uint *)(_frame + (0x40 - 0x1c)))
+  #define local_18 (*(uint *)(_frame + (0x40 - 0x18)))
+  #define local_14 (*(uint *)(_frame + (0x40 - 0x14)))
+  #define local_10 (*(uint *)(_frame + (0x40 - 0x10)))
+  #define local_c (*(uint *)(_frame + (0x40 - 0xc)))
+  #define local_8 (*(uint *)(_frame + (0x40 - 0x8)))
   
   local_28 = param_2;
   local_2c = 0x28;
@@ -506,25 +499,25 @@ void stdDisplay_BuildBitmapInfo16(int param_1,undefined4 param_2,int param_3,int
 
 
 /* ---- 0x004731f0  FUN_004731f0 ---- */
-int __cdecl FUN_004731f0(int param_1,undefined4 param_2,int param_3,int param_4)
+undefined * __cdecl FUN_004731f0(uint param_1,uint param_2,int param_3,uint param_4)
 
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  int iVar1;
-  #define local_34 (*(undefined4 *)(_frame + (0x50 - 0x34)))
-  #define local_30 (*(undefined4 *)(_frame + (0x50 - 0x30)))
-  #define local_2c (*(int *)(_frame + (0x50 - 0x2c)))
+  undefined *puVar1;
+  #define local_34 (*(uint *)(_frame + (0x50 - 0x34)))
+  #define local_30 (*(uint *)(_frame + (0x50 - 0x30)))
+  #define local_2c (*(uint *)(_frame + (0x50 - 0x2c)))
   #define local_28 (*(undefined2 *)(_frame + (0x50 - 0x28)))
   #define local_26 (*(undefined2 *)(_frame + (0x50 - 0x26)))
-  #define local_24 (*(undefined4 *)(_frame + (0x50 - 0x24)))
-  #define local_20 (*(undefined4 *)(_frame + (0x50 - 0x20)))
-  #define local_1c (*(undefined4 *)(_frame + (0x50 - 0x1c)))
-  #define local_18 (*(undefined4 *)(_frame + (0x50 - 0x18)))
-  #define local_14 (*(undefined4 *)(_frame + (0x50 - 0x14)))
-  #define local_10 (*(undefined4 *)(_frame + (0x50 - 0x10)))
-  #define local_c (*(undefined4 *)(_frame + (0x50 - 0xc)))
-  #define local_8 (*(undefined4 *)(_frame + (0x50 - 0x8)))
-  #define local_4 (*(undefined4 *)(_frame + (0x50 - 0x4)))
+  #define local_24 (*(uint *)(_frame + (0x50 - 0x24)))
+  #define local_20 (*(uint *)(_frame + (0x50 - 0x20)))
+  #define local_1c (*(uint *)(_frame + (0x50 - 0x1c)))
+  #define local_18 (*(uint *)(_frame + (0x50 - 0x18)))
+  #define local_14 (*(uint *)(_frame + (0x50 - 0x14)))
+  #define local_10 (*(uint *)(_frame + (0x50 - 0x10)))
+  #define local_c (*(uint *)(_frame + (0x50 - 0xc)))
+  #define local_8 (*(uint *)(_frame + (0x50 - 0x8)))
+  #define local_4 (*(uint *)(_frame + (0x50 - 0x4)))
   
   local_30 = param_2;
   local_34 = 0x28;
@@ -540,8 +533,8 @@ int __cdecl FUN_004731f0(int param_1,undefined4 param_2,int param_3,int param_4)
   local_c = 0xf800;
   local_8 = 0x7e0;
   local_4 = 0x1f;
-  iVar1 = CreateDIBSection(param_1,(int)&local_34,0,param_4,0,0);
-  return iVar1;
+  puVar1 = (undefined *)CreateDIBSection(param_1,(int)&local_34,0,param_4,0,0);
+  return puVar1;
 }
 #undef local_10
 #undef local_14
@@ -642,13 +635,13 @@ bool Display_EnumDevices(void)
   (&DAT_00902cdf)[iVar1] = 0;
   strncpy(&DAT_00902ce0 + iVar1,s_DIBsection_windowed_display_004de9dc,0x7f);
   (&DAT_00902d5f)[g_dwDisplayDeviceCount * 0x298] = 0;
-  (&DAT_00902d60)[g_dwDisplayDeviceCount * 0xa6] = 0;
-  (&DAT_00902d64)[g_dwDisplayDeviceCount * 0xa6] = 0;
-  (&DAT_00902d68)[g_dwDisplayDeviceCount * 0xa6] = 0;
-  (&DAT_00902d6c)[g_dwDisplayDeviceCount * 0xa6] = 1;
-  (&DAT_00902d70)[g_dwDisplayDeviceCount * 0xa6] = 0;
-  (&DAT_00902d74)[g_dwDisplayDeviceCount * 0xa6] = 2000000;
-  (&DAT_00902d78)[g_dwDisplayDeviceCount * 0xa6] = 2000000;
+  (&UINT_00902d60)[g_dwDisplayDeviceCount * 0xa6] = 0;
+  (&UINT_00902d64)[g_dwDisplayDeviceCount * 0xa6] = 0;
+  (&UINT_00902d68)[g_dwDisplayDeviceCount * 0xa6] = 0;
+  (&UINT_00902d6c)[g_dwDisplayDeviceCount * 0xa6] = 1;
+  (&UINT_00902d70)[g_dwDisplayDeviceCount * 0xa6] = 0;
+  (&UINT_00902d74)[g_dwDisplayDeviceCount * 0xa6] = 2000000;
+  (&UINT_00902d78)[g_dwDisplayDeviceCount * 0xa6] = 2000000;
   g_dwDisplayDeviceCount = g_dwDisplayDeviceCount + 1;
   iVar1 = DirectDrawEnumerateA(((unsigned)(uintptr_t)FUN_004761b0),0);
   return iVar1 == 0;
@@ -683,9 +676,9 @@ int __cdecl Display_SelectDevice(int deviceIdx)
   if (g_dwDisplayDeviceCount <= (uint)deviceIdx) {
     return 0;
   }
-  DAT_00901758 = deviceIdx;
+  UINT_00901758 = deviceIdx;
   g_pDisplayDevice = &DAT_00902c60 + deviceIdx * 0x298;
-  if ((&DAT_00902d60)[deviceIdx * 0xa6] == 0) {
+  if ((&UINT_00902d60)[deviceIdx * 0xa6] == 0) {
     _DAT_00901810 = 400;
     _DAT_00901814 = 400;
     _DAT_0090181c = 400;
@@ -693,7 +686,7 @@ int __cdecl Display_SelectDevice(int deviceIdx)
     _DAT_00901864 = 0x200;
     _DAT_00901870 = 0x200;
     _DAT_00901874 = 0x200;
-    DAT_00901760 = 0;
+    UINT_00901760 = 0;
     _DAT_00901768 = 0x140;
     _DAT_0090176c = 200;
     _DAT_00901770 = 64000;
@@ -826,14 +819,14 @@ int __cdecl Display_SelectDevice(int deviceIdx)
     _DAT_00901a58 = 0x3f800000;
     g_dwVideoModeCount = 10;
   }
-  else if ((&DAT_00902d60)[deviceIdx * 0xa6] == 1) {
+  else if ((&UINT_00902d60)[deviceIdx * 0xa6] == 1) {
     uVar1 = Win_GetMainHwnd();
     iVar2 = DDraw_Create(uVar1);
     if (iVar2 == 0) {
       return 0;
     }
   }
-  qsort(&DAT_00901760,g_dwVideoModeCount,0x54,FUN_00475140);
+  qsort(&UINT_00901760,g_dwVideoModeCount,0x54,FUN_00475140);
   g_nDisplayDeviceOpen = 1;
   return 1;
 }
@@ -872,13 +865,13 @@ int __cdecl Display_OpenMode(uint modeIdx,void *palette,int use3D)
   if (g_nDisplayModeOpen != 0) {
     Display_CloseMode();
   }
-  DAT_00803f9c = use3D;
+  UINT_00803f9c = use3D;
   _DAT_0090175c = modeIdx;
-  DAT_00803fa0 = 1;
-  g_pVideoMode = &DAT_00901760 + modeIdx * 0x15;
+  UINT_00803fa0 = 1;
+  g_pVideoMode = &UINT_00901760 + modeIdx * 0x15;
   if (*(int *)((int)g_pDisplayDevice + 0x100) == 0) {
     pvVar3 = (void *)Win_GetMainHwnd();
-    pvVar3 = DIB_CreateSurface(g_pVideoMode,&DAT_007feae0,palette,pvVar3);
+    pvVar3 = DIB_CreateSurface(g_pVideoMode,&UINT_007feae0,palette,pvVar3);
     if (pvVar3 == (void *)0x0) {
       return 0;
     }
@@ -887,12 +880,12 @@ int __cdecl Display_OpenMode(uint modeIdx,void *palette,int use3D)
     _DAT_00901688 = 0;
     Mem_Copy(&DAT_0090168c,(void *)((int)g_pVideoMode + 8),0x4c);
     _DAT_009016d8 = palette;
-    DAT_009016dc = DAT_007feae0;
-    DAT_009055e0 = 0;
+    UINT_009016dc = UINT_007feae0;
+    g_BackBuffer = 0;
     _DAT_009055e8 = 0;
-    Mem_Copy(&DAT_009055ec,(void *)((int)g_pVideoMode + 8),0x4c);
+    Mem_Copy(&UINT_009055ec,(void *)((int)g_pVideoMode + 8),0x4c);
     _DAT_00905638 = palette;
-    DAT_0090563c = DAT_007feae0;
+    UINT_0090563c = UINT_007feae0;
   }
   else if (*(int *)((int)g_pDisplayDevice + 0x100) == 1) {
     uVar1 = ((code *)Win_GetMainHwnd)(g_pVideoMode,palette);
@@ -901,10 +894,10 @@ int __cdecl Display_OpenMode(uint modeIdx,void *palette,int use3D)
       return 0;
     }
   }
-  Surface_Fill(&DAT_009055e0,0,(int *)0x0);
+  Surface_Fill(&g_BackBuffer,0,(int *)0x0);
   Display_Flip();
   if (use3D != 0) {
-    Surface_Fill(&DAT_009055e0,0,(int *)0x0);
+    Surface_Fill(&g_BackBuffer,0,(int *)0x0);
   }
   Display_SetPalette(palette);
   g_pDebugFont = (void *)CreateFontA((-(uint)(*(uint *)((int)g_pVideoMode + 8) < 0x280) & 0xfffffff4
@@ -923,10 +916,10 @@ void Display_CloseMode(void)
 {
   if (g_nDisplayModeOpen != 0) {
     if (*(int *)((int)g_pDisplayDevice + 0x100) == 0) {
-      DAT_009016dc = 0;
-      DAT_0090563c = 0;
+      UINT_009016dc = 0;
+      UINT_0090563c = 0;
       Surface_Release(&g_PrimarySurface);
-      Surface_Release(&DAT_009055e0);
+      Surface_Release(&g_BackBuffer);
       DIB_ReleaseSurface();
     }
     else if (*(int *)((int)g_pDisplayDevice + 0x100) == 1) {
@@ -970,7 +963,7 @@ void Display_ResumeAfterDialog(void)
   if (((g_nDisplayDeviceOpen != 0) && (g_nDisplayModeOpen != 0)) &&
      (*(int *)((int)g_pDisplayDevice + 0x100) == 1)) {
     iVar2 = *(int *)g_pDirectDraw;
-    uVar1 = ((code *)Win_GetMainHwnd)(DAT_00803fb0);
+    uVar1 = ((code *)Win_GetMainHwnd)(UINT_00803fb0);
     iVar2 = (**(code_std **)(iVar2 + 0x50))(g_pDirectDraw,uVar1);
     if (iVar2 == 0) {
       D3D_ResetTextures();
@@ -989,15 +982,15 @@ int Display_Flip(void)
   
   if (*(int *)((int)g_pDisplayDevice + 0x100) == 0) {
     GdiFlush();
-    BitBlt(DAT_00803f7c,0,0,*(int *)((int)g_pVideoMode + 8),*(int *)((int)g_pVideoMode + 0xc),
-           DAT_007f6498,0,0,0xcc0020);
+    BitBlt(UINT_00803f7c,0,0,*(int *)((int)g_pVideoMode + 8),*(int *)((int)g_pVideoMode + 0xc),
+           UINT_007f6498,0,0,0xcc0020);
   }
   else {
     iVar1 = *(int *)((int)g_pDisplayDevice + 0x100) + -1;
     if (iVar1 != 0) {
       return iVar1;
     }
-    if (DAT_00803f9c != 0) {
+    if (UINT_00803f9c != 0) {
       iVar1 = DDraw_Flip();
       return iVar1;
     }
@@ -1226,7 +1219,7 @@ int __cdecl Surface_Fill(void *surface,int color,int *rect)
   undefined4 *puVar6;
   int *piVar7;
   undefined4 *puVar8;
-  #define local_8 (*(int *)(_frame + (0x20 - 0x8)))
+  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   
   if (*(int *)surface == 0) {
     iVar2 = *(int *)((int)surface + 0x24);
@@ -1262,7 +1255,7 @@ int __cdecl Surface_Fill(void *surface,int color,int *rect)
           }
           puVar6 = (undefined4 *)((int)puVar6 + *(int *)((int)surface + 0x18));
           local_8 = local_8 + 1;
-        } while (local_8 < rect[3]);
+        } while ((int)local_8 < rect[3]);
       }
     }
     else if (iVar2 == 0x10) {
@@ -1305,7 +1298,7 @@ int __cdecl Surface_Fill(void *surface,int color,int *rect)
           }
           puVar6 = (undefined4 *)((int)puVar6 + *(int *)((int)surface + 0x18));
           local_8 = local_8 + 1;
-        } while (local_8 < rect[3]);
+        } while ((int)local_8 < rect[3]);
         return 1;
       }
     }
@@ -1330,7 +1323,7 @@ int __cdecl Surface_Fill(void *surface,int color,int *rect)
           }
           piVar5 = (int *)((int)piVar5 + *(int *)((int)surface + 0x18));
           local_8 = local_8 + 1;
-        } while (local_8 < rect[3]);
+        } while ((int)local_8 < rect[3]);
         return 1;
       }
     }
@@ -1373,8 +1366,8 @@ int __cdecl Surface_SetColorKey(void *surface,int color)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  #define local_8 (*(int *)(_frame + (0x20 - 0x8)))
-  #define local_4 (*(int *)(_frame + (0x20 - 0x4)))
+  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   if (*(int *)surface == 0) {
     *(int *)((int)surface + 0x60) = color;
@@ -1526,13 +1519,13 @@ int Display_SetDIBPalette(undefined4 param_1)
     return 0;
   }
   if (*(int *)((int)g_pDisplayDevice + 0x100) == 0) {
-    iVar1 = Palette_SwapRedBlue(DAT_007f6498,param_1);
+    iVar1 = Palette_SwapRedBlue(UINT_007f6498,param_1);
     if (iVar1 == 0) {
       return 0;
     }
     GdiFlush();
-    iVar1 = BitBlt(DAT_00803f7c,0,0,*(int *)((int)g_pVideoMode + 8),
-                   *(int *)((int)g_pVideoMode + 0xc),DAT_007f6498,0,0,0xcc0020);
+    iVar1 = BitBlt(UINT_00803f7c,0,0,*(int *)((int)g_pVideoMode + 8),
+                   *(int *)((int)g_pVideoMode + 0xc),UINT_007f6498,0,0,0xcc0020);
   }
   else {
     iVar1 = *(int *)((int)g_pDisplayDevice + 0x100) + -1;
@@ -1549,7 +1542,7 @@ void __cdecl Display_SetPalette(void *palette)
 
 {
   Mem_Copy(&DAT_007fa7b8,palette,0x300);
-  Palette_ApplyGamma(&DAT_007f64a0,&DAT_007fa7b8,0x100,DAT_00803fb8);
+  Palette_ApplyGamma(&DAT_007f64a0,&DAT_007fa7b8,0x100,UINT_00803fb8);
   return;
 }
 
@@ -1557,13 +1550,13 @@ void __cdecl Display_SetPalette(void *palette)
 int __cdecl Palette_ApplyGamma(void *dst,void *src,int count,int gammaIdx)
 
 {
-  if (DAT_00803fc0 == 0) {
+  if (UINT_00803fc0 == 0) {
     Mem_Copy(dst,src,0x300);
     return 0;
   }
   if (gammaIdx != 0) {
-    ((code *)Palette_FromFloatTable)(dst,src,0x100,*(undefined4 *)(DAT_00803fc0 + -8 + gammaIdx * 8),
-               *(undefined4 *)(DAT_00803fc0 + -4 + gammaIdx * 8));
+    ((code *)Palette_FromFloatTable)(dst,src,0x100,*(undefined4 *)((UINT_00803fc0 - 8) + gammaIdx * 8),
+               *(undefined4 *)((UINT_00803fc0 - 4) + gammaIdx * 8));
     return 1;
   }
   Mem_Copy(dst,src,0x300);
@@ -1586,9 +1579,9 @@ int __cdecl Display_DrawText(char *text,int x,int y)
   #define local_4 (*(char **)(_frame + (0x20 - 0x4)))
   
   if (*(int *)((int)g_pDisplayDevice + 0x100) == 0) {
-    iVar2 = SelectObject(DAT_007f6498,(int)g_pDebugFont);
-    SetBkMode(DAT_007f6498,1);
-    SetTextColor(DAT_007f6498,0xffff);
+    iVar2 = SelectObject(UINT_007f6498,(int)g_pDebugFont);
+    SetBkMode(UINT_007f6498,1);
+    SetTextColor(UINT_007f6498,0xffff);
     uVar3 = 0xffffffff;
     pcVar4 = text;
     do {
@@ -1597,12 +1590,12 @@ int __cdecl Display_DrawText(char *text,int x,int y)
       cVar1 = *pcVar4;
       pcVar4 = pcVar4 + 1;
     } while (cVar1 != '\0');
-    TextOutA(DAT_007f6498,x,y,(int)text,~uVar3 - 1);
-    SelectObject(DAT_007f6498,iVar2);
+    TextOutA(UINT_007f6498,x,y,(int)text,~uVar3 - 1);
+    SelectObject(UINT_007f6498,iVar2);
     return 1;
   }
   if (*(int *)((int)g_pDisplayDevice + 0x100) == 1) {
-    if (DAT_00803f9c == 0) {
+    if (UINT_00803f9c == 0) {
       iVar2 = (**(code_std **)(**(int **)g_pDDrawPrimary + 0x44))(*(int **)g_pDDrawPrimary,&local_4);
       if (iVar2 == 0) {
         SetBkMode(unaff_ESI,1);
@@ -1647,13 +1640,13 @@ int __cdecl Display_DrawText(char *text,int x,int y)
 
 
 /* ---- 0x00475000  Display_FindClosestDevice ---- */
-uint Display_FindClosestDevice(int *param_1)
+uint Display_FindClosestDevice(uint *param_1)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint uVar1;
   uint uVar2;
-  int *piVar3;
+  uint *puVar3;
   uint uVar4;
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
@@ -1664,19 +1657,19 @@ uint Display_FindClosestDevice(int *param_1)
   uVar4 = 0;
   local_4 = 0;
   if (g_dwDisplayDeviceCount != 0) {
-    piVar3 = &DAT_00902d60;
+    puVar3 = &UINT_00902d60;
     do {
       uVar2 = 0;
-      if ((((piVar3[4] == param_1[4]) && (uVar2 = 1, *piVar3 == *param_1)) &&
-          (uVar2 = 2, piVar3[3] == param_1[3])) &&
-         ((uVar2 = 3, piVar3[2] == param_1[2] && (uVar2 = 4, piVar3[1] == param_1[1])))) {
+      if ((((puVar3[4] == param_1[4]) && (uVar2 = 1, *puVar3 == *param_1)) &&
+          (uVar2 = 2, puVar3[3] == param_1[3])) &&
+         ((uVar2 = 3, puVar3[2] == param_1[2] && (uVar2 = 4, puVar3[1] == param_1[1])))) {
         return uVar1;
       }
       if (uVar4 < uVar2) {
         uVar4 = uVar2;
         local_4 = uVar1;
       }
-      piVar3 = piVar3 + 0xa6;
+      puVar3 = puVar3 + 0xa6;
       uVar1 = uVar1 + 1;
     } while (uVar1 < g_dwDisplayDeviceCount);
   }
@@ -1966,23 +1959,25 @@ int __cdecl Surface_BlitSoftware(void *dst,void *src,uint x,uint y,int *srcRect,
 
 /* ---- 0x004755e0  Surface_BlitDDraw ---- */
 undefined4
-Surface_BlitDDraw(int param_1,int param_2,int param_3,int param_4,int *param_5,byte param_6)
+Surface_BlitDDraw(int param_1,int param_2,uint param_3,uint param_4,uint *param_5,byte param_6)
 
 {
   unsigned char _frame[0xa0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  int iVar1;
-  int iVar2;
-  undefined4 *puVar3;
-  undefined4 uVar4;
-  #define local_84 (*(int *)(_frame + (0xa0 - 0x84)))
-  #define local_80 (*(int *)(_frame + (0xa0 - 0x80)))
-  #define local_7c (*(int *)(_frame + (0xa0 - 0x7c)))
-  #define local_78 (*(int *)(_frame + (0xa0 - 0x78)))
-  #define local_74 (*(int *)(_frame + (0xa0 - 0x74)))
-  #define local_70 (*(int *)(_frame + (0xa0 - 0x70)))
-  #define local_6c (*(int *)(_frame + (0xa0 - 0x6c)))
-  #define local_68 (*(int *)(_frame + (0xa0 - 0x68)))
-  #define local_64 (*(undefined4 (*)[25])(_frame + (0xa0 - 0x64)))
+  uint uVar1;
+  uint uVar2;
+  int iVar3;
+  int iVar4;
+  uint *puVar5;
+  undefined4 uVar6;
+  #define local_84 (*(uint *)(_frame + (0xa0 - 0x84)))
+  #define local_80 (*(uint *)(_frame + (0xa0 - 0x80)))
+  #define local_7c (*(uint *)(_frame + (0xa0 - 0x7c)))
+  #define local_78 (*(uint *)(_frame + (0xa0 - 0x78)))
+  #define local_74 (*(uint *)(_frame + (0xa0 - 0x74)))
+  #define local_70 (*(uint *)(_frame + (0xa0 - 0x70)))
+  #define local_6c (*(uint *)(_frame + (0xa0 - 0x6c)))
+  #define local_68 (*(uint *)(_frame + (0xa0 - 0x68)))
+  #define local_64 (*(uint *)(_frame + (0xa0 - 0x64)))
   
   if ((*(int *)(param_1 + 4) != 0) || (*(int *)(param_2 + 4) != 0)) {
     return 0;
@@ -1990,75 +1985,75 @@ Surface_BlitDDraw(int param_1,int param_2,int param_3,int param_4,int *param_5,b
   if ((*(int *)(param_1 + 8) == 0) || (*(int *)(param_2 + 8) == 0)) {
     local_74 = param_3;
     local_70 = param_4;
-    if (param_5 == (int *)0x0) {
-      local_7c = *(int *)(param_2 + 0xc);
+    if (param_5 == (uint *)0x0) {
+      local_7c = *(uint *)(param_2 + 0xc);
       local_84 = 0;
       local_80 = 0;
-      local_68 = *(int *)(param_2 + 0x10);
-      local_78 = local_68;
-      local_6c = local_7c;
+      uVar2 = *(uint *)(param_2 + 0x10);
+      local_78 = uVar2;
+      uVar1 = local_7c;
     }
     else {
-      local_6c = param_5[2];
-      if (local_6c == 0) {
+      uVar1 = param_5[2];
+      if (uVar1 == 0) {
         return 0;
       }
-      local_68 = param_5[3];
-      if (local_68 == 0) {
+      uVar2 = param_5[3];
+      if (uVar2 == 0) {
         return 0;
       }
       local_84 = *param_5;
       local_80 = param_5[1];
-      local_7c = local_84 + local_6c;
-      local_78 = local_80 + local_68;
+      local_7c = local_84 + uVar1;
+      local_78 = local_80 + uVar2;
     }
-    local_6c = param_3 + local_6c;
-    local_68 = param_4 + local_68;
-    puVar3 = local_64;
-    for (iVar2 = 0x19; iVar2 != 0; iVar2 = iVar2 + -1) {
-      *puVar3 = 0;
-      puVar3 = puVar3 + 1;
+    local_6c = param_3 + uVar1;
+    local_68 = param_4 + uVar2;
+    puVar5 = &local_64;
+    for (iVar4 = 0x19; iVar4 != 0; iVar4 = iVar4 + -1) {
+      *puVar5 = 0;
+      puVar5 = puVar5 + 1;
     }
-    local_64[0] = 100;
-    uVar4 = 0x1000000;
+    local_64 = 100;
+    uVar6 = 0x1000000;
     if ((param_6 & 1) != 0) {
-      uVar4 = 0x1008000;
+      uVar6 = 0x1008000;
     }
-    while (iVar2 = (**(code_std **)(**(int **)(param_1 + 100) + 0x14))
+    while (iVar4 = (**(code_std **)(**(int **)(param_1 + 100) + 0x14))
                              (*(int **)(param_1 + 100),&local_74,*(undefined4 *)(param_2 + 100),
-                              &local_84,uVar4,local_64), iVar2 != 0) {
-      if (iVar2 == -0x7789fe3e) {
+                              &local_84,uVar6,&local_64), iVar4 != 0) {
+      if (iVar4 == -0x7789fe3e) {
         if ((*(byte *)(param_1 + 0xd4) & 4) == 0) {
-          iVar2 = (**(code_std **)(**(int **)(param_1 + 100) + 0x6c))(*(int **)(param_1 + 100));
+          iVar4 = (**(code_std **)(**(int **)(param_1 + 100) + 0x6c))(*(int **)(param_1 + 100));
         }
         else {
-          iVar2 = (**(code_std **)(**(int **)g_pDDrawPrimary + 0x6c))(*(int **)g_pDDrawPrimary);
+          iVar4 = (**(code_std **)(**(int **)g_pDDrawPrimary + 0x6c))(*(int **)g_pDDrawPrimary);
         }
-        if (iVar2 != 0) {
+        if (iVar4 != 0) {
           return 0;
         }
         if ((*(byte *)(param_2 + 0xd4) & 4) == 0) {
-          iVar1 = (**(code_std **)(**(int **)(param_2 + 100) + 0x6c))(*(int **)(param_2 + 100));
+          iVar3 = (**(code_std **)(**(int **)(param_2 + 100) + 0x6c))(*(int **)(param_2 + 100));
         }
         else {
-          iVar1 = (**(code_std **)(**(int **)g_pDDrawPrimary + 0x6c))(*(int **)g_pDDrawPrimary);
+          iVar3 = (**(code_std **)(**(int **)g_pDDrawPrimary + 0x6c))(*(int **)g_pDDrawPrimary);
         }
-        iVar2 = 0;
-        if (iVar1 != 0) {
+        iVar4 = 0;
+        if (iVar3 != 0) {
           return 0;
         }
       }
-      if (iVar2 != 0) {
+      if (iVar4 != 0) {
         return 0;
       }
     }
   }
   else {
-    if (param_5 == (int *)0x0) {
-      local_7c = *(int *)(param_2 + 0xc);
+    if (param_5 == (uint *)0x0) {
+      local_7c = *(uint *)(param_2 + 0xc);
       local_84 = 0;
       local_80 = 0;
-      local_78 = *(int *)(param_2 + 0x10);
+      local_78 = *(uint *)(param_2 + 0x10);
     }
     else {
       if (param_5[2] == 0) {
@@ -2072,41 +2067,41 @@ Surface_BlitDDraw(int param_1,int param_2,int param_3,int param_4,int *param_5,b
       local_7c = local_84 + param_5[2];
       local_78 = local_80 + param_5[3];
     }
-    puVar3 = local_64;
-    for (iVar2 = 0x19; iVar2 != 0; iVar2 = iVar2 + -1) {
-      *puVar3 = 0;
-      puVar3 = puVar3 + 1;
+    puVar5 = &local_64;
+    for (iVar4 = 0x19; iVar4 != 0; iVar4 = iVar4 + -1) {
+      *puVar5 = 0;
+      puVar5 = puVar5 + 1;
     }
-    local_64[0] = 100;
-    uVar4 = 0x10;
+    local_64 = 100;
+    uVar6 = 0x10;
     if ((param_6 & 1) != 0) {
-      uVar4 = 0x11;
+      uVar6 = 0x11;
     }
-    while (iVar2 = (**(code_std **)(**(int **)(param_1 + 100) + 0x1c))
+    while (iVar4 = (**(code_std **)(**(int **)(param_1 + 100) + 0x1c))
                              (*(int **)(param_1 + 100),param_3,param_4,
-                              *(undefined4 *)(param_2 + 100),&local_84,uVar4), iVar2 != 0) {
-      if (iVar2 == -0x7789fe3e) {
+                              *(undefined4 *)(param_2 + 100),&local_84,uVar6), iVar4 != 0) {
+      if (iVar4 == -0x7789fe3e) {
         if ((*(byte *)(param_1 + 0xd4) & 4) == 0) {
-          iVar2 = (**(code_std **)(**(int **)(param_1 + 100) + 0x6c))(*(int **)(param_1 + 100));
+          iVar4 = (**(code_std **)(**(int **)(param_1 + 100) + 0x6c))(*(int **)(param_1 + 100));
         }
         else {
-          iVar2 = (**(code_std **)(**(int **)g_pDDrawPrimary + 0x6c))(*(int **)g_pDDrawPrimary);
+          iVar4 = (**(code_std **)(**(int **)g_pDDrawPrimary + 0x6c))(*(int **)g_pDDrawPrimary);
         }
-        if (iVar2 != 0) {
+        if (iVar4 != 0) {
           return 0;
         }
         if ((*(byte *)(param_2 + 0xd4) & 4) == 0) {
-          iVar1 = (**(code_std **)(**(int **)(param_2 + 100) + 0x6c))(*(int **)(param_2 + 100));
+          iVar3 = (**(code_std **)(**(int **)(param_2 + 100) + 0x6c))(*(int **)(param_2 + 100));
         }
         else {
-          iVar1 = (**(code_std **)(**(int **)g_pDDrawPrimary + 0x6c))(*(int **)g_pDDrawPrimary);
+          iVar3 = (**(code_std **)(**(int **)g_pDDrawPrimary + 0x6c))(*(int **)g_pDDrawPrimary);
         }
-        iVar2 = 0;
-        if (iVar1 != 0) {
+        iVar4 = 0;
+        if (iVar3 != 0) {
           return 0;
         }
       }
-      if (iVar2 != 0) {
+      if (iVar4 != 0) {
         return 0;
       }
     }
@@ -2130,6 +2125,7 @@ Surface_BlitLockedSrc
           (void *param_1,int param_2,void *param_3,uint param_4,int *param_5,void *param_6)
 
 {
+  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint uVar1;
   int iVar2;
   int iVar3;
@@ -2147,6 +2143,7 @@ Surface_BlitLockedSrc
   short *psVar15;
   char *pcVar16;
   int iVar17;
+  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   iVar3 = param_2;
   if (*(int *)((int)param_1 + 4) == 0) {
@@ -2328,6 +2325,8 @@ Surface_BlitLockedSrc
   }
   return 0;
 }
+#undef local_4
+
 
 /* ---- 0x00475c90  Surface_BlitLockedDst ---- */
 undefined4
@@ -2335,6 +2334,7 @@ Surface_BlitLockedDst
           (int param_1,void *param_2,void *param_3,uint param_4,int *param_5,void *param_6)
 
 {
+  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   void *surface;
   int iVar2;
@@ -2350,6 +2350,7 @@ Surface_BlitLockedDst
   void *pvVar11;
   short *psVar12;
   char *pcVar13;
+  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   surface = param_2;
   iVar7 = param_1;
@@ -2542,6 +2543,8 @@ Surface_BlitLockedDst
   }
   return 0;
 }
+#undef local_4
+
 
 /* ---- 0x004760d0  DDraw_Create ---- */
 bool DDraw_Create(undefined4 param_1)
@@ -2592,7 +2595,7 @@ void DDraw_Release(void)
 }
 
 /* ---- 0x004761b0  FUN_004761b0 ---- */
-undefined4 __stdcall FUN_004761b0(int a1,int a2,int a3,int a4)
+undefined * __stdcall FUN_004761b0(int a1,int a2,int a3,int a4)
 
 {
   unsigned char _frame[0x2f0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -2604,45 +2607,45 @@ undefined4 __stdcall FUN_004761b0(int a1,int a2,int a3,int a4)
   uint unaff_EDI;
   undefined4 *puVar5;
   int *piVar6;
-  #define local_2dc (*(int *(*)[10])(_frame + (0x2f0 - 0x2dc)))
-  #define uStack_2b4 (*(undefined4 *)(_frame + (0x2f0 - 0x2b4)))
-  #define uStack_2b0 (*(undefined4 *)(_frame + (0x2f0 - 0x2b0)))
+  #define local_2dc (*(uint *)(_frame + (0x2f0 - 0x2dc)))
+  #define uStack_2b4 (*(uint *)(_frame + (0x2f0 - 0x2b4)))
+  #define uStack_2b0 (*(uint *)(_frame + (0x2f0 - 0x2b0)))
   #define auStack_178 (*(undefined4 (*)[94])(_frame + (0x2f0 - 0x178)))
   
   uVar1 = g_dwDisplayDeviceCount;
-  local_2dc[0] = (int *)0x0;
+  local_2dc = 0;
   if (g_dwDisplayDeviceCount < 0x10) {
     iVar2 = g_dwDisplayDeviceCount * 0x298;
-    (&DAT_00902d60)[g_dwDisplayDeviceCount * 0xa6] = 1;
-    (&DAT_00902d70)[uVar1 * 0xa6] = 1;
+    (&UINT_00902d60)[g_dwDisplayDeviceCount * 0xa6] = 1;
+    (&UINT_00902d70)[uVar1 * 0xa6] = 1;
     if (a1 == 0) {
       *(undefined4 *)(&DAT_00902ee8 + iVar2) = 0;
       *(undefined4 *)(&DAT_00902eec + iVar2) = 0;
       *(undefined4 *)(&DAT_00902ef0 + iVar2) = 0;
       *(undefined4 *)(&DAT_00902ef4 + iVar2) = 0;
-      (&DAT_00902d6c)[uVar1 * 0xa6] = 1;
+      (&UINT_00902d6c)[uVar1 * 0xa6] = 1;
     }
     else {
       Mem_Copy(&DAT_00902ee8 + iVar2,(void *)a1,0x10);
-      (&DAT_00902d6c)[uVar1 * 0xa6] = 0;
+      (&UINT_00902d6c)[uVar1 * 0xa6] = 0;
     }
     strncpy(&DAT_00902ce0 + iVar2,a2,0x7f);
     (&DAT_00902d5f)[iVar2] = 0;
     strncpy(&DAT_00902c60 + iVar2,a3,0x7f);
     (&DAT_00902cdf)[iVar2] = 0;
     if (a1 == 0) {
-      (&DAT_00902d64)[uVar1 * 0xa6] = 0;
+      (&UINT_00902d64)[uVar1 * 0xa6] = 0;
     }
     else {
-      (&DAT_00902d64)[uVar1 * 0xa6] = 1;
+      (&UINT_00902d64)[uVar1 * 0xa6] = 1;
     }
-    iVar2 = DirectDrawCreate(a1,(int)local_2dc,0);
+    iVar2 = DirectDrawCreate(a1,(int)&local_2dc,0);
     if (iVar2 != 0) {
-      return 1;
+      return (undefined *)0x1;
     }
-    iVar2 = *local_2dc[0];
+    iVar2 = *(int *)local_2dc;
     piVar3 = (int *)((code *)Win_GetMainHwnd)(0x11);
-    iVar2 = (**(code_std **)(iVar2 + 0x50))(local_2dc[0]);
+    iVar2 = (**(code_std **)(iVar2 + 0x50))(local_2dc);
     if (iVar2 == 0) {
       puVar5 = (undefined4 *)&STACK0X(0xfffffd1c);
       for (iVar2 = 0x5b; iVar2 != 0; iVar2 = iVar2 + -1) {
@@ -2659,27 +2662,27 @@ undefined4 __stdcall FUN_004761b0(int a1,int a2,int a3,int a4)
       iVar2 = (**(code_std **)(*unaff_ESI + 0x2c))(unaff_ESI,piVar6,auStack_178);
       if (iVar2 != 0) {
         (**(code_std **)(*piVar3 + 8))(piVar3);
-        return 1;
+        return (undefined *)0x1;
       }
       if ((unaff_EDI & 1) == 0) {
-        (&DAT_00902d68)[uVar1 * 0xa6] = 0;
+        (&UINT_00902d68)[uVar1 * 0xa6] = 0;
       }
       else {
-        (&DAT_00902d68)[uVar1 * 0xa6] = 1;
+        (&UINT_00902d68)[uVar1 * 0xa6] = 1;
       }
-      (&DAT_00902d74)[uVar1 * 0xa6] = uStack_2b4;
-      (&DAT_00902d78)[uVar1 * 0xa6] = uStack_2b0;
+      (&UINT_00902d74)[uVar1 * 0xa6] = uStack_2b4;
+      (&UINT_00902d78)[uVar1 * 0xa6] = uStack_2b0;
       iVar2 = *piVar3;
       uVar4 = ((code *)Win_GetMainHwnd)(8);
       iVar2 = (**(code_std **)(iVar2 + 0x50))(piVar3,uVar4);
       if (iVar2 == 0) {
         (**(code_std **)(*piVar6 + 8))(piVar6);
         g_dwDisplayDeviceCount = g_dwDisplayDeviceCount + 1;
-        return 1;
+        return (undefined *)0x1;
       }
     }
   }
-  return 0;
+  return (undefined *)0x0;
 }
 #undef auStack_178
 #undef local_2dc
@@ -2688,7 +2691,7 @@ undefined4 __stdcall FUN_004761b0(int a1,int a2,int a3,int a4)
 
 
 /* ---- 0x00476390  FUN_00476390 ---- */
-undefined4 __stdcall FUN_00476390(int a1,int a2)
+undefined * __stdcall FUN_00476390(int a1,int a2)
 
 {
   int iVar1;
@@ -2697,10 +2700,10 @@ undefined4 __stdcall FUN_00476390(int a1,int a2)
   uint uVar4;
   
   if (0x3f < g_dwVideoModeCount) {
-    return 0;
+    return (undefined *)0x0;
   }
   iVar1 = g_dwVideoModeCount * 0x54;
-  (&DAT_00901760)[g_dwVideoModeCount * 0x15] = 0;
+  (&UINT_00901760)[g_dwVideoModeCount * 0x15] = 0;
   iVar3 = *(int *)(a1 + 0xc);
   *(int *)(&DAT_00901768 + iVar1) = iVar3;
   iVar2 = *(int *)(a1 + 8);
@@ -2780,11 +2783,11 @@ LAB_00476535:
        (*(uint *)(&DAT_00901780 + iVar1) >> 3) * *(int *)(&DAT_0090176c + iVar1) *
        *(int *)(&DAT_00901768 + iVar1);
   g_dwVideoModeCount = g_dwVideoModeCount + 1;
-  return 1;
+  return (undefined *)0x1;
 }
 
 /* ---- 0x004765a0  FUN_004765a0 ---- */
-undefined4 __stdcall FUN_004765a0(int a1,int a2)
+undefined * __stdcall FUN_004765a0(int a1,int a2)
 
 {
   int iVar1;
@@ -2792,13 +2795,13 @@ undefined4 __stdcall FUN_004765a0(int a1,int a2)
   uint uVar3;
   
   if (0x3f < g_dwVideoModeCount) {
-    return 0;
+    return (undefined *)0x0;
   }
   iVar1 = g_dwVideoModeCount * 0x54;
   if (*(int *)(a1 + 0xc) != 0x140) {
-    return 1;
+    return (undefined *)0x1;
   }
-  (&DAT_00901760)[g_dwVideoModeCount * 0x15] = 1;
+  (&UINT_00901760)[g_dwVideoModeCount * 0x15] = 1;
   *(undefined4 *)(&DAT_00901768 + iVar1) = *(undefined4 *)(a1 + 0xc);
   iVar2 = *(int *)(a1 + 8);
   *(int *)(&DAT_0090176c + iVar1) = iVar2;
@@ -2877,7 +2880,7 @@ LAB_0047675b:
        (*(uint *)(&DAT_00901780 + iVar1) >> 3) * *(int *)(&DAT_00901768 + iVar1) *
        *(int *)(&DAT_0090176c + iVar1);
   g_dwVideoModeCount = g_dwVideoModeCount + 1;
-  return 1;
+  return (undefined *)0x1;
 }
 
 /* ---- 0x004767c0  DDraw_Get ---- */
@@ -2901,14 +2904,14 @@ undefined4 DDraw_CreateSurfaces(undefined4 param_1,int *param_2)
   int iVar2;
   undefined1 *puVar3;
   undefined1 *puVar4;
-  undefined4 uVar5;
-  undefined4 *puVar6;
+  uint uVar5;
+  uint *puVar6;
   void *pvVar7;
   #define puStack_28 (*(undefined1 **)(_frame + (0x40 - 0x28)))
   #define uStack_10 (*(undefined4 *)(_frame + (0x40 - 0x10)))
   
   uVar5 = 0x11;
-  if ((DAT_00803f9c != 0) && (*param_2 != 0)) {
+  if ((UINT_00803f9c != 0) && (*param_2 != 0)) {
     uVar5 = 0x51;
   }
   iVar2 = (**(code_std **)(*(int *)g_pDirectDraw + 0x50))();
@@ -2916,7 +2919,7 @@ undefined4 DDraw_CreateSurfaces(undefined4 param_1,int *param_2)
     return 0;
   }
   src = param_2 + 2;
-  DAT_00803fb0 = uVar5;
+  UINT_00803fb0 = uVar5;
   iVar2 = (**(code_std **)(*(int *)g_pDirectDraw + 0x54))();
   if (iVar2 != 0) {
     return 0;
@@ -2926,9 +2929,9 @@ undefined4 DDraw_CreateSurfaces(undefined4 param_1,int *param_2)
   _DAT_00901688 = 0;
   Mem_Copy(&DAT_0090168c,src,0x4c);
   _DAT_009016d8 = uStack_10;
-  DAT_009016dc = 0;
-  g_pDDrawPrimary = &DAT_009016e4;
-  puVar6 = &DAT_009016ec;
+  UINT_009016dc = 0;
+  g_pDDrawPrimary = &UINT_009016e4;
+  puVar6 = &UINT_009016ec;
   for (iVar2 = 0x1b; iVar2 != 0; iVar2 = iVar2 + -1) {
     *puVar6 = 0;
     puVar6 = puVar6 + 1;
@@ -2937,7 +2940,7 @@ undefined4 DDraw_CreateSurfaces(undefined4 param_1,int *param_2)
   *(int *)((int)g_pDDrawPrimary + 0x10) = param_2[3];
   *(undefined4 *)((int)g_pDDrawPrimary + 8) = 0x6c;
   *(undefined4 *)((int)g_pDDrawPrimary + 4) = 0;
-  if (DAT_00803f9c == 0) {
+  if (UINT_00803f9c == 0) {
     *(undefined4 *)((int)g_pDDrawPrimary + 0xc) = 1;
     *(undefined4 *)((int)g_pDDrawPrimary + 0x70) = 0x2200;
   }
@@ -2956,21 +2959,21 @@ undefined4 DDraw_CreateSurfaces(undefined4 param_1,int *param_2)
   if (iVar2 != 0) {
     return 0;
   }
-  DAT_00803fa0 = *(int *)((int)g_pDDrawPrimary + 0x1c) + 1;
-  DAT_00901698 = *(uint *)((int)g_pDDrawPrimary + 0x18);
-  _DAT_0090169c = DAT_00901698 / (uint)pvVar7;
+  UINT_00803fa0 = *(int *)((int)g_pDDrawPrimary + 0x1c) + 1;
+  UINT_00901698 = *(uint *)((int)g_pDDrawPrimary + 0x18);
+  _DAT_0090169c = UINT_00901698 / (uint)pvVar7;
   if ((*(uint *)((int)g_pDDrawPrimary + 0x70) & 0x4000) != 0) {
     _DAT_00901688 = 1;
   }
-  if (DAT_00803f9c != 0) {
-    DAT_009055e0 = 1;
+  if (UINT_00803f9c != 0) {
+    g_BackBuffer = 1;
     _DAT_009055e4 = 0;
     _DAT_009055e8 = 0;
-    Mem_Copy(&DAT_009055ec,src,0x4c);
+    Mem_Copy(&UINT_009055ec,src,0x4c);
     _DAT_00905638 = puStack_28;
-    DAT_0090563c = 0;
+    UINT_0090563c = 0;
     g_pDDrawBack = &PTR_00905644;
-    puVar6 = &DAT_0090564c;
+    puVar6 = &UINT_0090564c;
     for (iVar2 = 0x1b; iVar2 != 0; iVar2 = iVar2 + -1) {
       *puVar6 = 0;
       puVar6 = puVar6 + 1;
@@ -2994,8 +2997,8 @@ undefined4 DDraw_CreateSurfaces(undefined4 param_1,int *param_2)
     if ((*(uint *)((int)g_pDDrawBack + 0x70) & 0x4000) != 0) {
       _DAT_009055e8 = 1;
     }
-    DAT_009055f8 = *(uint *)((int)g_pDDrawBack + 0x18);
-    _DAT_009055fc = DAT_009055f8 / (uint)pvVar7;
+    UINT_009055f8 = *(uint *)((int)g_pDDrawBack + 0x18);
+    _DAT_009055fc = UINT_009055f8 / (uint)pvVar7;
     *(undefined4 *)((int)g_pDDrawBack + 4) = 0;
   }
   if (param_2[7] == 0) {
@@ -3025,18 +3028,18 @@ undefined4 DDraw_CreateSurfaces(undefined4 param_1,int *param_2)
     if (iVar2 != 0) {
       return 0;
     }
-    if (DAT_00803f9c == 0) goto LAB_00476b98;
+    if (UINT_00803f9c == 0) goto LAB_00476b98;
     iVar2 = (**(code_std **)(**(int **)g_pDDrawBack + 0x7c))
                       (*(int **)g_pDDrawBack,*(undefined4 *)((int)g_pDDrawPrimary + 4));
     if (iVar2 != 0) {
       return 0;
     }
   }
-  if (DAT_00803f9c != 0) {
+  if (UINT_00803f9c != 0) {
     return 1;
   }
 LAB_00476b98:
-  Mem_Copy(&DAT_009055e0,&g_PrimarySurface,0xd8);
+  Mem_Copy(&g_BackBuffer,&g_PrimarySurface,0xd8);
   return 1;
 }
 #undef puStack_28
@@ -3047,9 +3050,9 @@ LAB_00476b98:
 void DDraw_ReleaseSurfaces(void)
 
 {
-  if (DAT_00803f9c != 0) {
-    DAT_00905648 = 0;
-    Surface_Release(&DAT_009055e0);
+  if (UINT_00803f9c != 0) {
+    UINT_00905648 = 0;
+    Surface_Release(&g_BackBuffer);
   }
   Surface_Release(&g_PrimarySurface);
   return;
@@ -3123,27 +3126,27 @@ undefined4 DDraw_Flip(void)
 }
 
 /* ---- 0x00476cd0  DDraw_FillSurface ---- */
-undefined4 DDraw_FillSurface(undefined4 *param_1,undefined4 param_2,int *param_3)
+undefined4 DDraw_FillSurface(undefined4 *param_1,uint param_2,uint *param_3)
 
 {
   unsigned char _frame[0x90] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
-  undefined4 *puVar2;
-  #define local_74 (*(int *)(_frame + (0x90 - 0x74)))
-  #define local_70 (*(int *)(_frame + (0x90 - 0x70)))
-  #define local_6c (*(int *)(_frame + (0x90 - 0x6c)))
-  #define local_68 (*(int *)(_frame + (0x90 - 0x68)))
-  #define local_64 (*(undefined4 (*)[20])(_frame + (0x90 - 0x64)))
-  #define local_14 (*(undefined4 *)(_frame + (0x90 - 0x14)))
+  uint *puVar2;
+  #define local_74 (*(uint *)(_frame + (0x90 - 0x74)))
+  #define local_70 (*(uint *)(_frame + (0x90 - 0x70)))
+  #define local_6c (*(uint *)(_frame + (0x90 - 0x6c)))
+  #define local_68 (*(uint *)(_frame + (0x90 - 0x68)))
+  #define local_64 (*(uint *)(_frame + (0x90 - 0x64)))
+  #define local_14 (*(uint *)(_frame + (0x90 - 0x14)))
   
-  puVar2 = local_64;
+  puVar2 = &local_64;
   for (iVar1 = 0x19; iVar1 != 0; iVar1 = iVar1 + -1) {
     *puVar2 = 0;
     puVar2 = puVar2 + 1;
   }
-  local_64[0] = 100;
+  local_64 = 100;
   local_14 = param_2;
-  if (param_3 == (int *)0x0) {
+  if (param_3 == (uint *)0x0) {
     local_6c = param_1[5];
     local_68 = param_1[4];
     local_74 = 0;
@@ -3162,8 +3165,8 @@ undefined4 DDraw_FillSurface(undefined4 *param_1,undefined4 param_2,int *param_3
     local_68 = local_70 + param_3[3];
   }
   do {
-    iVar1 = (**(code_std **)(*(int *)*param_1 + 0x14))((int *)*param_1,&local_74,0,0,0x1000400,local_64)
-    ;
+    iVar1 = (**(code_std **)(*(int *)*param_1 + 0x14))
+                      ((int *)*param_1,&local_74,0,0,0x1000400,&local_64);
     if (iVar1 == 0) {
       return 1;
     }
@@ -3223,28 +3226,30 @@ undefined4 DDraw_SetPalette(undefined1 *param_1)
 void * __cdecl DIB_CreateSurface(void *mode,void *surface,void *palette,void *hwnd)
 
 {
-  DAT_00803f7c = GetDC((int)hwnd);
+  UINT_00803f7c = GetDC((int)hwnd);
   if (*(int *)((int)mode + 0x1c) == 0) {
-    DAT_00803fb4 = ((code *)stdDisplay_BuildBitmapInfo8)(DAT_00803f7c,*(undefined4 *)((int)mode + 8),
-                              *(undefined4 *)((int)mode + 0xc),surface,palette);
-    if (DAT_00803fb4 == 0) {
+    UINT_00803fb4 =
+         ((code *)stdDisplay_BuildBitmapInfo8)(UINT_00803f7c,*(undefined4 *)((int)mode + 8),*(undefined4 *)((int)mode + 0xc),
+                    surface,palette);
+    if (UINT_00803fb4 == 0) {
       return (void *)0x0;
     }
   }
   else if ((*(int *)((int)mode + 0x1c) == 1) && (*(int *)((int)mode + 0x20) == 0x10)) {
     if (*(int *)((int)mode + 0x28) == 6) {
-      DAT_00803fb4 = FUN_004731f0(DAT_00803f7c,*(undefined4 *)((int)mode + 8),
-                                  *(int *)((int)mode + 0xc),surface);
+      UINT_00803fb4 =
+           (uint)FUN_004731f0(UINT_00803f7c,*(uint *)((int)mode + 8),*(int *)((int)mode + 0xc),
+                              (uint)surface);
     }
     else {
-      DAT_00803fb4 = ((code *)stdDisplay_BuildBitmapInfo16)();
+      UINT_00803fb4 = ((code *)stdDisplay_BuildBitmapInfo16)();
     }
-    if (DAT_00803fb4 == 0) {
+    if ((undefined *)UINT_00803fb4 == (undefined *)0x0) {
       return (void *)0x0;
     }
   }
-  DAT_007f6498 = CreateCompatibleDC(DAT_00803f7c);
-  SelectObject(DAT_007f6498,DAT_00803fb4);
+  UINT_007f6498 = CreateCompatibleDC(UINT_00803f7c);
+  SelectObject(UINT_007f6498,UINT_00803fb4);
   return (void *)0x1;
 }
 
@@ -3253,13 +3258,13 @@ void DIB_ReleaseSurface(void)
 
 {
   int a1;
-  int a2;
+  uint a2;
   
-  DeleteObject(DAT_00803fb4);
-  a2 = DAT_00803f7c;
+  DeleteObject(UINT_00803fb4);
+  a2 = UINT_00803f7c;
   a1 = Win_GetMainHwnd();
   ReleaseDC(a1,a2);
-  DeleteDC(DAT_007f6498);
+  DeleteDC(UINT_007f6498);
   return;
 }
 
@@ -3268,16 +3273,16 @@ void __cdecl Display_SetPalette3D(void *palette,int flags)
 
 {
   Mem_Copy(&DAT_00806618,palette,0x300);
-  if ((*DAT_00806934 == 1) && (DAT_00806934[1] == 0x10)) {
-    stdPcx_DecodeRun16(palette,&DAT_00806408,DAT_00806934);
+  if ((*(int *)UINT_00806934 == 1) && (*(int *)(UINT_00806934 + 4) == 0x10)) {
+    stdPcx_DecodeRun16(palette,&UINT_00806408,UINT_00806934);
   }
   if (*(int *)((int)g_pD3dDriver + 0x10) != 0) {
-    if ((*DAT_00806938 == 2) && (DAT_00806938[1] == 0x10)) {
-      stdPcx_DecodeRun8(palette,&DAT_008061e8,DAT_00806938);
+    if ((*(int *)UINT_00806938 == 2) && (*(int *)(UINT_00806938 + 4) == 0x10)) {
+      stdPcx_DecodeRun8(palette,&DAT_008061e8,UINT_00806938);
     }
-    if (((*(int *)((int)g_pD3dDriver + 0x18) == 0) && (*DAT_0080693c == 2)) &&
-       (DAT_0080693c[1] == 0x10)) {
-      stdPcx_DecodeRunMasked(palette,&DAT_00805fd8,DAT_0080693c,flags);
+    if (((*(int *)((int)g_pD3dDriver + 0x18) == 0) && (*(int *)UINT_0080693c == 2)) &&
+       (*(int *)(UINT_0080693c + 4) == 0x10)) {
+      stdPcx_DecodeRunMasked(palette,&DAT_00805fd8,UINT_0080693c,flags);
     }
   }
   return;
@@ -3315,7 +3320,7 @@ void Palette_FromFloatTable(undefined1 *param_1,undefined4 param_2,int param_3)
 void __cdecl Pixel_Convert(ushort *dst,int dstFormat,ushort *src,int srcFormat,uint count)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   ushort uVar1;
   int iVar2;
   undefined4 uVar3;
@@ -3330,11 +3335,16 @@ void __cdecl Pixel_Convert(ushort *dst,int dstFormat,ushort *src,int srcFormat,u
   uint uVar12;
   char cVar13;
   byte bVar14;
-  #define local_c (*(byte *)(_frame + (0x20 - 0xc)))
-  #define local_4 (*(byte *)(_frame + (0x20 - 0x4)))
+  #define local_1c (*(uint *)(_frame + (0x30 - 0x1c)))
+  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
+  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
+  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
+  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
+  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
   byte bVar15;
   
-  DAT_00806c80 = DAT_00806c80 + 1;
+  UINT_00806c80 = UINT_00806c80 + 1;
   cVar13 = (char)*(undefined4 *)(srcFormat + 8);
   iVar9 = _ftol();
   iVar10 = _ftol();
@@ -3342,7 +3352,7 @@ void __cdecl Pixel_Convert(ushort *dst,int dstFormat,ushort *src,int srcFormat,u
   bVar14 = (byte)*(undefined4 *)(dstFormat + 0x14);
   bVar15 = (byte)*(undefined4 *)(dstFormat + 0x18);
   if ((*(int *)(srcFormat + 4) == 0x18) && (*(int *)(dstFormat + 4) == 0x10)) {
-    uVar12 = DAT_00806c80 & 3;
+    uVar12 = UINT_00806c80 & 3;
     do {
       iVar2 = *(int *)(&DAT_004d86a0 + (count & 3) * 4 + uVar12 * 0x10);
       *dst = (ushort)(((int)((uint)(byte)*src * iVar9 + iVar2) >> 0x10) << (bVar14 & 0x1f)) |
@@ -3385,15 +3395,15 @@ void __cdecl Pixel_Convert(ushort *dst,int dstFormat,ushort *src,int srcFormat,u
         uVar1 = *src;
         src = src + 1;
         uVar7 = *(undefined4 *)(srcFormat + 0x24);
-        local_4 = (byte)(0xffffffff >> (0x20U - (char)uVar3 & 0x1f));
+        PIECE(local_4,0,1) = (byte)(0xffffffff >> (0x20U - (char)uVar3 & 0x1f));
         uVar8 = *(undefined4 *)(srcFormat + 0x28);
-        local_c = (byte)(0xffffffff >> (0x20U - cVar13 & 0x1f));
-        *(byte *)dst = ((byte)(uVar1 >> ((byte)uVar6 & 0x1f)) & local_c) <<
+        PIECE(local_c,0,1) = (byte)(0xffffffff >> (0x20U - cVar13 & 0x1f));
+        *(byte *)dst = ((byte)(uVar1 >> ((byte)uVar6 & 0x1f)) & (byte)local_c) <<
                        ((byte)*(undefined4 *)(srcFormat + 0x20) & 0x1f);
         *(byte *)((int)dst + 1) =
              ((byte)(uVar1 >> ((byte)uVar4 & 0x1f)) &
              (byte)(0xffffffff >> (0x20U - (char)uVar5 & 0x1f))) << ((byte)uVar7 & 0x1f);
-        *(byte *)(dst + 1) = ((byte)uVar1 & local_4) << ((byte)uVar8 & 0x1f);
+        *(byte *)(dst + 1) = ((byte)uVar1 & (byte)local_4) << ((byte)uVar8 & 0x1f);
         dst = (ushort *)((int)dst + 3);
         count = count - 1;
       } while (count != 0);
@@ -3401,7 +3411,12 @@ void __cdecl Pixel_Convert(ushort *dst,int dstFormat,ushort *src,int srcFormat,u
   }
   return;
 }
+#undef local_10
+#undef local_14
+#undef local_18
+#undef local_1c
 #undef local_4
+#undef local_8
 #undef local_c
 
 

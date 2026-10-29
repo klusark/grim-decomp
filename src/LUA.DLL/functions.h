@@ -44,7 +44,7 @@ float10 __cdecl lua_getnumber(int param_1); /* 0x10001860 */
 int __cdecl lua_getstring(int param_1); /* 0x100018c0 */
 undefined4 __cdecl lua_getuserdata(int param_1); /* 0x10001910 */
 int __cdecl lua_getcfunction(int param_1); /* 0x10001940 */
-int * __cdecl lapi__1970(int *param_1); /* 0x10001970 */
+int * __cdecl luaA_normalizeObj(int *param_1); /* 0x10001970 */
 longlong __fastcall lua_gettask(undefined4 param_1,int param_2,int param_3); /* 0x10001990 */
 undefined4 __cdecl lua_pushtask(int param_1); /* 0x100019c0 */
 undefined4 __cdecl lua_pushnil(void); /* 0x10001a10 */
@@ -73,7 +73,7 @@ undefined4 __cdecl lua_endblock(void); /* 0x10002510 */
 uint __cdecl lua_ref(int param_1); /* 0x10002560 */
 undefined4 __cdecl lua_getref(uint param_1); /* 0x10002590 */
 undefined4 __cdecl lua_setfallback(byte *param_1,undefined4 param_2,int param_3); /* 0x100025b0 */
-void __cdecl lapi__25f0(undefined4 param_1,int param_2,void *param_3); /* 0x100025f0 */
+void __cdecl luaA_callObject(undefined4 param_1,int param_2,void *param_3); /* 0x100025f0 */
 void lapi__2660(void); /* 0x10002660 */
 undefined4 __cdecl lua_Save(undefined *param_1); /* 0x10002670 */
 void __cdecl FUN_10002730(undefined4 param_1,int param_2); /* 0x10002730 */
@@ -87,6 +87,7 @@ int __cdecl lua_dostring(char *param_1); /* 0x10004b20 */
 uint __cdecl lua_unref(uint param_1); /* 0x10004e00 */
 int __cdecl lua_collectgarbage(int param_1); /* 0x10004ee0 */
 undefined4 __cdecl lua_iolibopen(void); /* 0x10005ae0 */
+void lua_iolibopen_10005b20(void); /* 0x10005b20 */
 undefined4 __cdecl lua_mathlibopen(void); /* 0x10007320 */
 void lua_initstate(void); /* 0x10008a00 */
 int * __cdecl lua_open(void); /* 0x10008b40 */
@@ -203,18 +204,18 @@ void __cdecl luaC_closuremark(int param_1); /* 0x100052b0 */
 void lgc__5300(void); /* 0x10005300 */
 void FUN_10005320(void); /* 0x10005320 */
 
-/* ===== liolib.c ===== */
-longlong __cdecl liolib__53d0(int param_1); /* 0x100053d0 */
-void __cdecl liolib__53f0(int param_1); /* 0x100053f0 */
-void __cdecl liolib__5430(byte *param_1); /* 0x10005430 */
-void __cdecl liolib__5480(byte *param_1); /* 0x10005480 */
-bool __cdecl liolib__54c0(int param_1); /* 0x100054c0 */
-void __cdecl liolib__5520(byte *param_1,byte *param_2); /* 0x10005520 */
-void __cdecl liolib__5550(byte *param_1,byte *param_2,uint param_3); /* 0x10005550 */
+/* ===== io.c ===== */
+longlong __cdecl io_getint(int param_1); /* 0x100053d0 */
+void __cdecl io_pushresult(int param_1); /* 0x100053f0 */
+void __cdecl io_setfile(byte *param_1); /* 0x10005430 */
+void __cdecl io_getfilebyname(byte *param_1); /* 0x10005480 */
+bool __cdecl io_gethandle(int param_1); /* 0x100054c0 */
+void __cdecl io_setreturn(byte *param_1,byte *param_2); /* 0x10005520 */
+void __cdecl io_setfilebyname(byte *param_1,byte *param_2,uint param_3); /* 0x10005550 */
 void FUN_10005570(void); /* 0x10005570 */
 void FUN_10005620(void); /* 0x10005620 */
 void FUN_10005660(void); /* 0x10005660 */
-void __cdecl liolib__5780(byte *param_1,int *param_2); /* 0x10005780 */
+void __cdecl io_getfileparam(byte *param_1,int *param_2); /* 0x10005780 */
 void FUN_100057d0(void); /* 0x100057d0 */
 void FUN_10005870(void); /* 0x10005870 */
 void FUN_100058a0(void); /* 0x100058a0 */
@@ -226,7 +227,6 @@ void FUN_100059c0(void); /* 0x100059c0 */
 void FUN_10005a20(void); /* 0x10005a20 */
 void FUN_10005a50(void); /* 0x10005a50 */
 void FUN_10005ad0(void); /* 0x10005ad0 */
-void liolib__5b20(void); /* 0x10005b20 */
 
 /* ===== llex.c ===== */
 void luaX_init(void); /* 0x10005c00 */
@@ -316,29 +316,29 @@ int * __cdecl lstring__9510(undefined *param_1); /* 0x10009510 */
 bool __cdecl lstring__9550(byte *param_1); /* 0x10009550 */
 void FUN_10009570(void); /* 0x10009570 */
 
-/* ===== lstrlib.c ===== */
-void lstrlib__95b0(void); /* 0x100095b0 */
-void __cdecl lstrlib__9650(uint *param_1,uint param_2); /* 0x10009650 */
-void lstrlib__9680(void); /* 0x10009680 */
+/* ===== str.c ===== */
+void str_sub(void); /* 0x100095b0 */
+void __cdecl str_addnchar(uint *param_1,uint param_2); /* 0x10009650 */
+void str_closeandpush(void); /* 0x10009680 */
 void FUN_100096a0(void); /* 0x100096a0 */
 void FUN_100096e0(void); /* 0x100096e0 */
 void FUN_10009720(void); /* 0x10009720 */
-void __cdecl lstrlib__9760(uint *param_1); /* 0x10009760 */
+void __cdecl str_addstr(uint *param_1); /* 0x10009760 */
 void FUN_10009780(void); /* 0x10009780 */
-uint __cdecl lstrlib__97f0(uint param_1,char *param_2,int *param_3); /* 0x100097f0 */
-uint * __cdecl lstrlib__99e0(char *param_1); /* 0x100099e0 */
-uint __cdecl lstrlib__9a10(uint param_1,uint param_2); /* 0x10009a10 */
+uint __cdecl str_singlematch(uint param_1,char *param_2,int *param_3); /* 0x100097f0 */
+uint * __cdecl str_bracket_end(char *param_1); /* 0x100099e0 */
+uint __cdecl str_matchclass(uint param_1,uint param_2); /* 0x10009a10 */
 void FUN_10009cb0(void); /* 0x10009cb0 */
-void __cdecl lstrlib__9e40(int *param_1,int *param_2); /* 0x10009e40 */
-char * __cdecl lstrlib__9ea0(char *param_1,int *param_2,int *param_3); /* 0x10009ea0 */
-int __cdecl lstrlib__a030(int *param_1); /* 0x1000a030 */
-char * __cdecl lstrlib__a060(char *param_1,char *param_2,int *param_3,int *param_4); /* 0x1000a060 */
-int __cdecl lstrlib__a150(int param_1,int *param_2); /* 0x1000a150 */
-char * __cdecl lstrlib__a180(char *param_1,int param_2,int param_3); /* 0x1000a180 */
+void __cdecl str_push_captures(int *param_1,int *param_2); /* 0x10009e40 */
+char * __cdecl str_match(char *param_1,int *param_2,int *param_3); /* 0x10009ea0 */
+int __cdecl str_capture_to_close(int *param_1); /* 0x1000a030 */
+char * __cdecl str_matchbalance(char *param_1,char *param_2,int *param_3,int *param_4); /* 0x1000a060 */
+int __cdecl str_check_capture(int param_1,int *param_2); /* 0x1000a150 */
+char * __cdecl str_expand(char *param_1,int param_2,int param_3); /* 0x1000a180 */
 void FUN_1000a1d0(void); /* 0x1000a1d0 */
-void __cdecl lstrlib__a2e0(int param_1,int *param_2); /* 0x1000a2e0 */
+void __cdecl str_add_value(int param_1,int *param_2); /* 0x1000a2e0 */
 void FUN_1000a440(void); /* 0x1000a440 */
-void __cdecl lstrlib__a680(char *param_1); /* 0x1000a680 */
+void __cdecl str_add_s(char *param_1); /* 0x1000a680 */
 
 /* ===== lparser.c ===== */
 void luaY_error(void); /* 0x1000a6f0 */
@@ -855,7 +855,7 @@ uint __cdecl FUN_1001ef20(char *param_1,char *param_2,int param_3); /* 0x1001ef2
 undefined4 FUN_1001f5d0(uint param_1); /* 0x1001f5d0 */
 undefined4 __cdecl FUN_10020090(int param_1,undefined4 param_2,undefined4 param_3,char *param_4); /* 0x10020090 */
 int __cdecl FUN_10020470(int param_1,uint param_2); /* 0x10020470 */
-longlong __fastcall FUN_100206d0(byte param_1,int param_2); /* 0x100206d0 */
+int __fastcall FUN_100206d0(byte param_1,int param_2); /* 0x100206d0 */
 void FUN_10021a10(undefined4 *param_1); /* 0x10021a10 */
 void FUN_10021f90(void); /* 0x10021f90 */
 void FUN_10021f9b(void); /* 0x10021f9b */

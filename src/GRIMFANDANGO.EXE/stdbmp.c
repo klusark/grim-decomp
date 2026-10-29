@@ -29,8 +29,8 @@ undefined4 stdBmp_LoadInto(char *param_1,undefined4 *param_2,int param_3,int par
 
 {
   unsigned char _frame[0xb0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  byte *pbVar1;
-  int iVar2;
+  uint uVar1;
+  byte *pbVar2;
   int iVar3;
   int iVar4;
   int iVar5;
@@ -45,7 +45,7 @@ undefined4 stdBmp_LoadInto(char *param_1,undefined4 *param_2,int param_3,int par
   byte *pbVar14;
   bool bVar15;
   undefined4 uVar16;
-  #define local_98 (*(int *)(_frame + (0xb0 - 0x98)))
+  #define local_98 (*(uint *)(_frame + (0xb0 - 0x98)))
   #define aiStack_84 (*(int (*)[19])(_frame + (0xb0 - 0x84)))
   #define iStack_38 (*(int *)(_frame + (0xb0 - 0x38)))
   #define iStack_34 (*(int *)(_frame + (0xb0 - 0x34)))
@@ -173,12 +173,12 @@ undefined4 stdBmp_LoadInto(char *param_1,undefined4 *param_2,int param_3,int par
                  s_C__grimjedi_Libs_Std_General_Std_004e7644,DAT_004e763c + 0x8d);
     }
     iVar4 = *(int *)param_2[0x1e];
-    iVar5 = *(int *)(iVar4 + 0x10);
-    pbVar1 = *(byte **)(iVar4 + 0x5c);
-    iVar2 = *(int *)(iVar4 + 0x18);
-    if (0 < iVar5) {
-      pbVar14 = pbVar1;
-      local_98 = iVar5;
+    uVar1 = *(uint *)(iVar4 + 0x10);
+    pbVar2 = *(byte **)(iVar4 + 0x5c);
+    iVar5 = *(int *)(iVar4 + 0x18);
+    if (0 < (int)uVar1) {
+      pbVar14 = pbVar2;
+      local_98 = uVar1;
       do {
         iVar4 = (*g_pSvcMain->pFread)(iVar3,pbVar14,*(undefined4 *)(iVar4 + 0x18));
         if (iVar4 != *(int *)(*(int *)param_2[0x1e] + 0x18)) {
@@ -186,7 +186,7 @@ undefined4 stdBmp_LoadInto(char *param_1,undefined4 *param_2,int param_3,int par
                     (s_Unable_to_read_all_the_data_from_004e766c,
                      s_C__grimjedi_Libs_Std_General_Std_004e7644,DAT_004e763c + 0xa2);
         }
-        (*g_pSvcMain->pFseek)(iVar3,(iVar2 + 3U & 0xfffffffc) - iVar2,1);
+        (*g_pSvcMain->pFseek)(iVar3,(iVar5 + 3U & 0xfffffffc) - iVar5,1);
         iVar4 = *(int *)param_2[0x1e];
         if ((*(int *)(iVar4 + 0x24) == 0x18) &&
            (iVar10 = 0, pbVar8 = pbVar14, 0 < *(int *)(iVar4 + 0xc))) {
@@ -199,29 +199,29 @@ undefined4 stdBmp_LoadInto(char *param_1,undefined4 *param_2,int param_3,int par
             iVar4 = *(int *)param_2[0x1e];
           } while (iVar10 < *(int *)(iVar4 + 0xc));
         }
-        pbVar14 = pbVar14 + iVar2;
-        local_98 = local_98 + -1;
+        pbVar14 = pbVar14 + iVar5;
+        local_98 = local_98 - 1;
       } while (local_98 != 0);
     }
-    if ((0 < iStack_30) && (local_98 = iVar5 / 2, 0 < local_98)) {
-      iVar5 = iVar2 * iVar5;
-      pbVar14 = pbVar1;
+    if ((0 < iStack_30) && (local_98 = (int)uVar1 / 2, 0 < (int)local_98)) {
+      iVar4 = iVar5 * uVar1;
+      pbVar14 = pbVar2;
       do {
-        if (0 < iVar2) {
-          pbVar9 = pbVar1 + ((iVar5 - iVar2) - (int)pbVar14);
+        if (0 < iVar5) {
+          pbVar9 = pbVar2 + ((iVar4 - iVar5) - (int)pbVar14);
           pbVar8 = pbVar14;
-          iVar4 = iVar2;
+          iVar10 = iVar5;
           do {
             *pbVar8 = *pbVar8 ^ pbVar8[(int)pbVar9];
             pbVar8[(int)pbVar9] = pbVar8[(int)pbVar9] ^ *pbVar8;
             *pbVar8 = *pbVar8 ^ pbVar8[(int)pbVar9];
             pbVar8 = pbVar8 + 1;
-            iVar4 = iVar4 + -1;
-          } while (iVar4 != 0);
+            iVar10 = iVar10 + -1;
+          } while (iVar10 != 0);
         }
-        iVar5 = iVar5 - iVar2;
-        pbVar14 = pbVar14 + iVar2;
-        local_98 = local_98 + -1;
+        iVar4 = iVar4 - iVar5;
+        pbVar14 = pbVar14 + iVar5;
+        local_98 = local_98 - 1;
       } while (local_98 != 0);
     }
     Surface_Unlock(*(void **)param_2[0x1e]);
@@ -246,25 +246,26 @@ undefined4 stdBmp_Save(undefined4 param_1,int param_2)
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   int iVar2;
-  byte *pbVar3;
-  uint uVar4;
-  int iVar5;
+  int iVar3;
+  byte *pbVar4;
+  uint uVar5;
   uint uVar6;
   int iVar7;
-  undefined4 *puVar8;
+  uint *puVar8;
   byte *pbVar9;
-  #define local_38 (*(undefined2 *)(_frame + (0x50 - 0x38)))
-  #define iStack_36 (*(int *)(_frame + (0x50 - 0x36)))
-  #define uStack_32 (*(undefined2 *)(_frame + (0x50 - 0x32)))
-  #define local_30 (*(undefined2 *)(_frame + (0x50 - 0x30)))
-  #define iStack_2e (*(int *)(_frame + (0x50 - 0x2e)))
-  #define local_28 (*(undefined4 (*)[3])(_frame + (0x50 - 0x28)))
+  #define local_38 (*(uint *)(_frame + (0x50 - 0x38)))
+  #define local_34 (*(uint *)(_frame + (0x50 - 0x34)))
+  #define local_30 (*(uint *)(_frame + (0x50 - 0x30)))
+  #define local_2c (*(undefined2 *)(_frame + (0x50 - 0x2c)))
+  #define local_28 (*(uint *)(_frame + (0x50 - 0x28)))
+  #define local_24 (*(uint *)(_frame + (0x50 - 0x24)))
+  #define local_20 (*(uint *)(_frame + (0x50 - 0x20)))
   #define local_1c (*(undefined2 *)(_frame + (0x50 - 0x1c)))
   #define local_1a (*(undefined2 *)(_frame + (0x50 - 0x1a)))
-  #define local_18 (*(undefined4 *)(_frame + (0x50 - 0x18)))
+  #define local_18 (*(uint *)(_frame + (0x50 - 0x18)))
   #define local_14 (*(uint *)(_frame + (0x50 - 0x14)))
-  #define local_10 (*(undefined4 *)(_frame + (0x50 - 0x10)))
-  #define local_c (*(undefined4 *)(_frame + (0x50 - 0xc)))
+  #define local_10 (*(uint *)(_frame + (0x50 - 0x10)))
+  #define local_c (*(uint *)(_frame + (0x50 - 0xc)))
   
   iVar1 = **(int **)(param_2 + 0x78);
   if (*(int *)(iVar1 + 0x20) == 0) {
@@ -278,81 +279,85 @@ undefined4 stdBmp_Save(undefined4 param_1,int param_2)
     }
     iVar7 = 0;
   }
-  iStack_2e = iVar7 + 0x36;
-  uStack_32 = 0;
-  local_30 = 0;
-  local_38 = 0x4d42;
+  iVar2 = iVar7 + 0x36;
+  PIECE(local_34,2,2) = 0;
+  PIECE(local_30,0,2) = 0;
+  PIECE(local_38,0,2) = 0x4d42;
   uVar6 = (uint)(*(int *)(iVar1 + 0xc) * *(int *)(iVar1 + 0x10) * *(int *)(iVar1 + 0x24)) >> 3;
-  iStack_36 = iStack_2e + uVar6;
-  puVar8 = local_28;
-  for (iVar5 = 10; iVar5 != 0; iVar5 = iVar5 + -1) {
+  PIECE(local_30,2,2) = (undefined2)iVar2;
+  local_2c = (undefined2)((uint)iVar2 >> 0x10);
+  iVar2 = iVar2 + uVar6;
+  PIECE(local_38,2,2) = (undefined2)iVar2;
+  PIECE(local_34,0,2) = (undefined2)((uint)iVar2 >> 0x10);
+  puVar8 = &local_28;
+  for (iVar2 = 10; iVar2 != 0; iVar2 = iVar2 + -1) {
     *puVar8 = 0;
     puVar8 = puVar8 + 1;
   }
-  local_28[0] = 0x28;
-  local_28[1] = *(undefined4 *)(iVar1 + 0xc);
-  local_28[2] = *(undefined4 *)(iVar1 + 0x10);
+  local_28 = 0x28;
+  local_24 = *(uint *)(iVar1 + 0xc);
+  local_20 = *(uint *)(iVar1 + 0x10);
   local_1c = 1;
   local_1a = *(undefined2 *)(iVar1 + 0x24);
   local_18 = 0;
   local_10 = 0xb12;
   local_c = 0xb12;
   local_14 = uVar6;
-  iVar5 = (*g_pSvcMain->pFopen)(param_1,&DAT_004ddd78);
-  if (iVar5 == 0) {
+  iVar2 = (*g_pSvcMain->pFopen)(param_1,&DAT_004ddd78);
+  if (iVar2 == 0) {
     return 0;
   }
-  iVar2 = (*g_pSvcMain->pFwrite)(iVar5,&local_38,0xe);
-  if (iVar2 != 0xe) {
-    (*g_pSvcMain->pFclose)(iVar5);
+  iVar3 = (*g_pSvcMain->pFwrite)(iVar2,&local_38,0xe);
+  if (iVar3 != 0xe) {
+    (*g_pSvcMain->pFclose)(iVar2);
     return 0;
   }
-  iVar2 = (*g_pSvcMain->pFwrite)(iVar5,local_28,0x28);
-  if (iVar2 == 0x28) {
-    if (0 < iVar7) {
-      iVar2 = (*g_pSvcMain->pFwrite)(iVar5,*(undefined4 *)(param_2 + 0x60),iVar7);
-      if (iVar2 != iVar7) {
-        (*g_pSvcMain->pFclose)(iVar5);
-        return 0;
-      }
+  iVar3 = (*g_pSvcMain->pFwrite)(iVar2,&local_28,0x28);
+  if (iVar3 == 0x28) {
+    if ((0 < iVar7) &&
+       (iVar3 = (*g_pSvcMain->pFwrite)(iVar2,*(undefined4 *)(param_2 + 0x60),iVar7), iVar3 != iVar7)
+       ) {
+      (*g_pSvcMain->pFclose)(iVar2);
+      return 0;
     }
     iVar7 = *(int *)(iVar1 + 0x10);
     uVar6 = (uint)(*(int *)(iVar1 + 0xc) * *(int *)(iVar1 + 0x24)) >> 3;
     do {
       iVar7 = iVar7 + -1;
       if (iVar7 < 0) {
-        (*g_pSvcMain->pFclose)(iVar5);
+        (*g_pSvcMain->pFclose)(iVar2);
         return 1;
       }
       pbVar9 = (byte *)(iVar7 * *(int *)(iVar1 + 0x18) + *(int *)(iVar1 + 0x5c));
       if ((*(int *)(iVar1 + 0x24) == 0x18) &&
-         (iVar2 = 0, pbVar3 = pbVar9, 0 < *(int *)(iVar1 + 0xc))) {
+         (iVar3 = 0, pbVar4 = pbVar9, 0 < *(int *)(iVar1 + 0xc))) {
         do {
-          *pbVar3 = *pbVar3 ^ pbVar3[2];
-          pbVar3[2] = pbVar3[2] ^ *pbVar3;
-          *pbVar3 = *pbVar3 ^ pbVar3[2];
-          pbVar3 = pbVar3 + 3;
-          iVar2 = iVar2 + 1;
-        } while (iVar2 < *(int *)(iVar1 + 0xc));
+          *pbVar4 = *pbVar4 ^ pbVar4[2];
+          pbVar4[2] = pbVar4[2] ^ *pbVar4;
+          *pbVar4 = *pbVar4 ^ pbVar4[2];
+          pbVar4 = pbVar4 + 3;
+          iVar3 = iVar3 + 1;
+        } while (iVar3 < *(int *)(iVar1 + 0xc));
       }
-      uVar4 = (*g_pSvcMain->pFwrite)(iVar5,pbVar9,uVar6);
-    } while (uVar4 == uVar6);
-    (*g_pSvcMain->pFclose)(iVar5);
+      uVar5 = (*g_pSvcMain->pFwrite)(iVar2,pbVar9,uVar6);
+    } while (uVar5 == uVar6);
+    (*g_pSvcMain->pFclose)(iVar2);
     return 0;
   }
-  (*g_pSvcMain->pFclose)(iVar5);
+  (*g_pSvcMain->pFclose)(iVar2);
   return 0;
 }
-#undef iStack_2e
-#undef iStack_36
 #undef local_10
 #undef local_14
 #undef local_18
 #undef local_1a
 #undef local_1c
+#undef local_20
+#undef local_24
 #undef local_28
+#undef local_2c
 #undef local_30
+#undef local_34
 #undef local_38
 #undef local_c
-#undef uStack_32
 

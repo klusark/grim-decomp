@@ -94,8 +94,8 @@ undefined4 Memory_SysInitialize(GrimServices *param_1,undefined4 *param_2)
   
   g_pSvcMemory = param_1;
   uVar1 = 1;
-  if (DAT_008c9a74 == 0) {
-    DAT_008c9a74 = 1;
+  if (UINT_008c9a74 == 0) {
+    UINT_008c9a74 = 1;
     if (param_2 != (undefined4 *)0x0) {
       *param_2 = Memory_SysInitialize;
       param_2[1] = FUN_00488930;
@@ -115,7 +115,7 @@ undefined4 Memory_SysInitialize(GrimServices *param_1,undefined4 *param_2)
 void FUN_00488930(void)
 
 {
-  DAT_008c9a74 = 0;
+  UINT_008c9a74 = 0;
   return;
 }
 
@@ -126,8 +126,8 @@ undefined4 FUN_00488940(void)
   undefined4 uVar1;
   
   uVar1 = 1;
-  if ((DAT_008c9a74 != 0) && (DAT_008c9a78 == 0)) {
-    DAT_008c9a78 = 1;
+  if ((UINT_008c9a74 != 0) && (UINT_008c9a78 == 0)) {
+    UINT_008c9a78 = 1;
     uVar1 = 0;
   }
   return uVar1;
@@ -137,7 +137,7 @@ undefined4 FUN_00488940(void)
 void FUN_00488970(void)
 
 {
-  DAT_008c9a78 = 0;
+  UINT_008c9a78 = 0;
   return;
 }
 
@@ -145,81 +145,81 @@ void FUN_00488970(void)
 /* Temp/Memory.c: fixed-size item pool. Items are 8-byte-headed (next, pool) blocks carved from
    grown chunks; pools are kept in the g_poolList singly linked list. */
 
-undefined4 * Pool_Create(int param_1,int param_2,int param_3)
+void ** Pool_Create(int param_1,void *param_2,void *param_3)
 
 {
-  undefined4 *puVar1;
+  void **ppvVar1;
   int iVar2;
-  undefined4 *puVar3;
+  void **ppvVar3;
   
   if (param_1 == 0) {
     (*g_pSvcMemory->pAssertFail)
               (s_itemSize___0_004e82cc,s_C__grimsrc_libs_grimlib_Temp_Mem_004e8264,0x349);
   }
-  if (param_3 == 0) {
+  if (param_3 == (void *)0x0) {
     (*g_pSvcMemory->pAssertFail)
               (s_itemGrowBy___0_004e82bc,s_C__grimsrc_libs_grimlib_Temp_Mem_004e8264,0x34b);
   }
-  puVar1 = (undefined4 *)
-           (*g_pSvcMemory->pAlloc)(0x24,s_C__grimsrc_libs_grimlib_Temp_Mem_004e8264,0x34f);
-  if (puVar1 == (undefined4 *)0x0) {
+  ppvVar1 = (void **)(*g_pSvcMemory->pAlloc)(0x24,s_C__grimsrc_libs_grimlib_Temp_Mem_004e8264,0x34f)
+  ;
+  if (ppvVar1 == (void **)0x0) {
     (*g_pSvcMemory->pAssertFail)(s_pPool_004e82b4,s_C__grimsrc_libs_grimlib_Temp_Mem_004e8264,0x350)
     ;
   }
-  puVar3 = puVar1;
+  ppvVar3 = ppvVar1;
   for (iVar2 = 9; iVar2 != 0; iVar2 = iVar2 + -1) {
-    *puVar3 = 0;
-    puVar3 = puVar3 + 1;
+    *ppvVar3 = (void *)0x0;
+    ppvVar3 = ppvVar3 + 1;
   }
-  puVar1[1] = DAT_008c9a80;
-  DAT_008c9a80 = puVar1;
-  *puVar1 = puVar1;
-  puVar1[2] = param_1 + 7U & 0xfffffff8;
-  puVar1[3] = 0;
-  puVar1[5] = 0;
-  puVar1[6] = param_3;
-  puVar1[7] = 0;
-  if (param_2 != 0) {
-    Pool_Grow(puVar1,param_2);
+  ppvVar1[1] = g_poolList;
+  g_poolList = ppvVar1;
+  *ppvVar1 = ppvVar1;
+  ppvVar1[2] = (void *)(param_1 + 7U & 0xfffffff8);
+  ppvVar1[3] = (void *)0x0;
+  ppvVar1[5] = (void *)0x0;
+  ppvVar1[6] = param_3;
+  ppvVar1[7] = (void *)0x0;
+  if (param_2 != (void *)0x0) {
+    Pool_Grow(ppvVar1,param_2);
   }
-  if (puVar1[5] != param_2) {
+  if (ppvVar1[5] != param_2) {
     (*g_pSvcMemory->pAssertFail)
               (s_pPool__poolItems____itemCount_004e8294,s_C__grimsrc_libs_grimlib_Temp_Mem_004e8264,
                0x362);
   }
-  return puVar1;
+  return ppvVar1;
 }
 
 /* ---- 0x00488a70  Pool_Destroy ---- */
 /* Source: Temp/Memory.c (lines 896-897, from __FILE__/__LINE__ passed to the allocator) */
 
-void Pool_Destroy(int *param_1)
+void Pool_Destroy(void **param_1)
 
 {
   undefined4 *puVar1;
-  int *piVar2;
-  int *piVar3;
+  void **ppvVar2;
+  void **ppvVar3;
   undefined4 *puVar4;
   
-  if (param_1 == (int *)0x0) {
+  if (param_1 == (void **)0x0) {
     (*g_pSvcMemory->pAssertFail)(&DAT_004e82f4,s_C__grimsrc_libs_grimlib_Temp_Mem_004e8264,0x380);
   }
-  if ((int *)*param_1 != param_1) {
+  if (*param_1 != param_1) {
     (*g_pSvcMemory->pAssertFail)
               (s_pPool__pPool____pPool_004e82dc,s_C__grimsrc_libs_grimlib_Temp_Mem_004e8264,0x381);
   }
-  piVar2 = (int *)0x0;
-  for (piVar3 = DAT_008c9a80; (piVar3 != (int *)0x0 && (piVar3 != param_1));
-      piVar3 = (int *)piVar3[1]) {
-    piVar2 = piVar3;
+  ppvVar2 = (void **)0x0;
+  for (ppvVar3 = g_poolList; (ppvVar3 != (void **)0x0 && (ppvVar3 != param_1)); ppvVar3 = ppvVar3[1]
+      ) {
+    ppvVar2 = ppvVar3;
   }
-  if (piVar2 == (int *)0x0) {
-    DAT_008c9a80 = (int *)param_1[1];
+  if (ppvVar2 == (void **)0x0) {
+    g_poolList = param_1[1];
   }
   else {
-    piVar2[1] = param_1[1];
+    ppvVar2[1] = param_1[1];
   }
-  puVar4 = (undefined4 *)param_1[8];
+  puVar4 = param_1[8];
   while (puVar4 != (undefined4 *)0x0) {
     puVar1 = (undefined4 *)*puVar4;
     (*g_pSvcMemory->pFree)(puVar4);

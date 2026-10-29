@@ -225,7 +225,7 @@ undefined4 FUN_1000a970(undefined4 param_1,undefined4 param_2,undefined4 param_3
 uint FUN_1000a9f0(ushort *param_1,byte *param_2,uint param_3); /* 0x1000a9f0 */
 uint FUN_1000aaf0(int param_1); /* 0x1000aaf0 */
 int __stdcall FUN_1000ab20(int a1,int a2,int a3,int a4); /* 0x1000ab20 */
-longlong __fastcall FUN_1000ab60(byte param_1,int param_2); /* 0x1000ab60 */
+int __fastcall FUN_1000ab60(byte param_1,int param_2); /* 0x1000ab60 */
 uint FUN_1000ab80(undefined4 *param_1); /* 0x1000ab80 */
 uint FUN_1000ac70(uint param_1,int *param_2); /* 0x1000ac70 */
 undefined4 * FUN_1000ad00(int param_1,int param_2); /* 0x1000ad00 */

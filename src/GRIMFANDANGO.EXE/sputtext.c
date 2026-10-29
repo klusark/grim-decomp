@@ -28,7 +28,7 @@ undefined4 sputText_Initialize(GrimServices *param_1,undefined4 *param_2)
   if (iVar1 == 0) {
     iVar1 = TextModule_Init(param_1,&DAT_008ca0b8);
     if (iVar1 == 0) {
-      DAT_008ca138 = 1;
+      UINT_008ca138 = 1;
       return 0;
     }
   }

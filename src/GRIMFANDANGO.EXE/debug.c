@@ -6,14 +6,17 @@
 #include "functions.h"
 
 /* ---- 0x0048d210  Debug_CameraFovKeys ---- */
+/* WARNING: Variable defined which should be unmapped: local_4 */
 /* With debug keys on, Ctrl+N / Ctrl+J change the current camera's field of view by 0.5 */
 
 undefined4 Debug_CameraFovKeys(void)
 
 {
+  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fov;
   int iVar1;
   void *pvVar2;
+  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   if ((g_nDebugKeysEnabled != 0) &&
      (iVar1 = Input_GetButtonState(0x1d,(int *)0x0,(int *)0x0), iVar1 != 0)) {
@@ -37,6 +40,8 @@ undefined4 Debug_CameraFovKeys(void)
   }
   return 0;
 }
+#undef local_4
+
 
 /* ---- 0x0048d2c0  FUN_0048d2c0 ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
@@ -45,8 +50,8 @@ void FUN_0048d2c0(void)
 
 {
   _DAT_008ca1b8 = 0;
-  if (DAT_008ca1bc != 0) {
-    DAT_008ca1bc = 0;
+  if (UINT_008ca1bc != 0) {
+    UINT_008ca1bc = 0;
   }
   return;
 }
@@ -55,20 +60,20 @@ void FUN_0048d2c0(void)
 undefined4 FUN_0048d2e0(void)
 
 {
-  int iVar1;
+  undefined *puVar1;
   
-  if (DAT_008ca1c0 != 0) {
+  if (UINT_008ca1c0 != 0) {
     return 1;
   }
-  if (DAT_00805f98 == 0) {
-    iVar1 = Input_Init();
-    if (iVar1 == 0) {
+  if (UINT_00805f98 == 0) {
+    puVar1 = Input_Init();
+    if (puVar1 == (undefined *)0x0) {
       return 1;
     }
   }
   Controls_ResetAll();
   Engine_RegisterShutdownHook(FUN_0048d030);
-  DAT_008ca1c0 = 1;
+  UINT_008ca1c0 = 1;
   return 0;
 }
 
@@ -77,6 +82,6 @@ void FUN_0048d330(void)
 
 {
   Input_Shutdown();
-  DAT_008ca1c0 = 0;
+  UINT_008ca1c0 = 0;
   return;
 }

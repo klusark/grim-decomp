@@ -16,7 +16,7 @@ undefined4 DSound_Init(void)
 {
   unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
-  undefined4 uVar2;
+  uint uVar2;
   #define pvStack_4c (*(void **)(_frame + (0x60 - 0x4c)))
   #define puStack_48 (*(undefined4 **)(_frame + (0x60 - 0x48)))
   #define ppvStack_44 (*(void ***)(_frame + (0x60 - 0x44)))
@@ -30,7 +30,7 @@ undefined4 DSound_Init(void)
   if (g_pDirectSound != (void *)0x0) {
     return 0;
   }
-  DAT_008d3664 = 0;
+  UINT_008d3664 = 0;
   uStack_40 = 0x4c0efa;
   iVar1 = DirectSoundCreate(0,IMG_ADDR(0x008d365c),0);
   if (iVar1 < 0) {
@@ -46,36 +46,36 @@ undefined4 DSound_Init(void)
     uStack_1c = 0x81;
     uStack_14 = 0;
     uStack_10 = 0;
-    if (DAT_008d3664 != 0) {
+    if (UINT_008d3664 != 0) {
       uStack_1c = 0x91;
     }
     uStack_40 = 0;
     puStack_48 = &uStack_20;
     ppvStack_44 = &g_pDSoundPrimary;
     pvStack_4c = g_pDirectSound;
-    DAT_008d3654 = uVar2;
+    UINT_008d3654 = uVar2;
     iVar1 = (**(code_std **)(*(int *)g_pDirectSound + 0xc))();
     if (iVar1 < 0) {
       g_pDSoundPrimary = (void *)0x0;
       return 1;
     }
-    (**(code_std **)(*(int *)g_pDSoundPrimary + 0x18))(g_pDSoundPrimary,&DAT_008d3658);
+    (**(code_std **)(*(int *)g_pDSoundPrimary + 0x18))(g_pDSoundPrimary,&UINT_008d3658);
     iVar1 = 0x5622;
     pvStack_4c = (void *)0x20001;
     puStack_48 = (undefined4 *)0x5622;
-    if (DAT_008d3660 != 0) {
+    if (UINT_008d3660 != 0) {
       iVar1 = 0x2b11;
       puStack_48 = (undefined4 *)0x2b11;
     }
     ppvStack_44 = (void **)(iVar1 << 2);
     uStack_40 = 0x100004;
     (**(code_std **)(*(int *)g_pDSoundPrimary + 0x38))(g_pDSoundPrimary,&pvStack_4c);
-    DSound_SetPrimaryVolume(DAT_004f1000);
-    if (DAT_008d3664 != 0) {
+    DSound_SetPrimaryVolume(UINT_004f1000);
+    if (UINT_008d3664 != 0) {
       iVar1 = (*(code_std *)**(undefined4 **)g_pDSoundPrimary)
                         (g_pDSoundPrimary,&DAT_004d8510,&PTR_008d3674);
       if (iVar1 < 0) {
-        DAT_008d3664 = 0;
+        UINT_008d3664 = 0;
         PTR_008d3674 = (int *)0x0;
       }
       else {
@@ -110,8 +110,8 @@ void DSound_Shutdown(void)
     PTR_008d3674 = (int *)0x0;
   }
   if (g_pDSoundPrimary != (void *)0x0) {
-    (**(code_std **)(*(int *)g_pDirectSound + 0x18))(g_pDirectSound,DAT_008d3654,2);
-    (**(code_std **)(*(int *)g_pDSoundPrimary + 0x3c))(g_pDSoundPrimary,DAT_008d3658);
+    (**(code_std **)(*(int *)g_pDirectSound + 0x18))(g_pDirectSound,UINT_008d3654,2);
+    (**(code_std **)(*(int *)g_pDSoundPrimary + 0x3c))(g_pDSoundPrimary,UINT_008d3658);
     (**(code_std **)(*(int *)g_pDSoundPrimary + 8))(g_pDSoundPrimary);
     g_pDSoundPrimary = (void *)0x0;
   }
@@ -148,21 +148,21 @@ void __cdecl DSound_SetPrimaryVolume(int volume)
 /* Software sound mixer thread: wakes every 16 ms (timeGetTime) while g_nMixerRunning and refills
    the DirectSound stream buffer */
 
-undefined4 __stdcall Mixer_TimerThread(int a1)
+undefined * __stdcall Mixer_TimerThread(int a1)
 
 {
   int a1_00;
   int iVar1;
   
   a1_00 = CreateEventA(0,1,0,0);
-  DAT_008da864 = timeGetTime();
-  while (DAT_008da874 != 0) {
+  UINT_008da864 = timeGetTime();
+  while (UINT_008da874 != 0) {
     iVar1 = timeGetTime();
-    if (iVar1 - DAT_008da864 < 0x11) {
-      iVar1 = 0x10 - (iVar1 - DAT_008da864);
+    if ((int)(iVar1 - UINT_008da864) < 0x11) {
+      iVar1 = 0x10 - (iVar1 - UINT_008da864);
     }
     else {
-      DAT_008da864 = DAT_008da864 + 0x10;
+      UINT_008da864 = UINT_008da864 + 0x10;
       Mixer_Update();
       iVar1 = 10;
     }
@@ -175,7 +175,7 @@ undefined4 __stdcall Mixer_TimerThread(int a1)
     WaitForSingleObject(a1_00,iVar1);
   }
   CloseHandle(a1_00);
-  return 0;
+  return (undefined *)0x0;
 }
 
 /* ---- 0x004ce060  Mixer_Update ---- */
@@ -185,73 +185,73 @@ undefined4 __stdcall Mixer_TimerThread(int a1)
 void Mixer_Update(void)
 
 {
-  int iVar1;
-  int iVar2;
-  int *piVar3;
+  uint uVar1;
+  uint uVar2;
+  uint *puVar3;
   int iVar4;
   
-  DAT_008da5c8 = DAT_008da5c8 + DAT_008da860;
-  if (DAT_008da878 == 0) {
+  UINT_008da5c8 = UINT_008da5c8 + UINT_008da860;
+  if (UINT_008da878 == 0) {
     iVar4 = 1;
     _DAT_008da86c = 1;
-    DAT_008da870 = DAT_008da868;
-    DAT_008da868 = 0;
-    piVar3 = &DAT_008da60c;
+    UINT_008da870 = UINT_008da868;
+    UINT_008da868 = 0;
+    puVar3 = &UINT_008da60c;
     do {
-      iVar2 = DAT_008da860;
-      if (piVar3[-5] != 0) {
-        *piVar3 = *piVar3 + DAT_008da860;
-        piVar3[2] = piVar3[2] + iVar2;
-        if (((((byte)piVar3[-3] & 5) == 1) && (iVar2 = piVar3[-4], iVar2 != 0)) &&
-           (iVar1 = *piVar3, iVar2 <= iVar1)) {
+      uVar2 = UINT_008da860;
+      if (puVar3[-5] != 0) {
+        *puVar3 = *puVar3 + UINT_008da860;
+        puVar3[2] = puVar3[2] + uVar2;
+        if (((((byte)puVar3[-3] & 5) == 1) && (uVar2 = puVar3[-4], uVar2 != 0)) &&
+           (uVar1 = *puVar3, (int)uVar2 <= (int)uVar1)) {
           do {
-            *piVar3 = iVar1 - iVar2;
-            if ((*(byte *)(piVar3 + -3) & 2) != 0) {
-              piVar3[-4] = 0;
-              (*(code_std *)piVar3[-5])(iVar4,piVar3[-2]);
+            *puVar3 = uVar1 - uVar2;
+            if ((puVar3[-3] & 2) != 0) {
+              puVar3[-4] = 0;
+              (*(code_std *)puVar3[-5])(iVar4,puVar3[-2]);
               break;
             }
-            (*(code_std *)piVar3[-5])(iVar4,piVar3[-2]);
-            iVar1 = *piVar3;
-            iVar2 = piVar3[-4];
-          } while (iVar2 <= iVar1);
+            (*(code_std *)puVar3[-5])(iVar4,puVar3[-2]);
+            uVar1 = *puVar3;
+            uVar2 = puVar3[-4];
+          } while ((int)uVar2 <= (int)uVar1);
         }
       }
-      piVar3 = piVar3 + 8;
+      puVar3 = puVar3 + 8;
       iVar4 = iVar4 + 1;
-    } while ((int)piVar3 < IMG_ADDR(0x008da86c));
+    } while ((int)puVar3 < IMG_ADDR(0x008da86c));
     iVar4 = 1;
-    piVar3 = &DAT_008da60c;
+    puVar3 = &UINT_008da60c;
     do {
-      if (((piVar3[-5] != 0) && ((*(byte *)(piVar3 + -3) & 5) == 0)) &&
-         ((piVar3[-4] != 0 && (piVar3[-1] == 0)))) {
-        piVar3[-1] = 1;
-        iVar2 = *piVar3;
-        iVar1 = piVar3[-4];
-        if (iVar1 <= iVar2) {
+      if (((puVar3[-5] != 0) && ((puVar3[-3] & 5) == 0)) && ((puVar3[-4] != 0 && (puVar3[-1] == 0)))
+         ) {
+        puVar3[-1] = 1;
+        uVar2 = *puVar3;
+        uVar1 = puVar3[-4];
+        if ((int)uVar1 <= (int)uVar2) {
           do {
-            *piVar3 = iVar2 - iVar1;
-            if ((*(byte *)(piVar3 + -3) & 2) != 0) {
-              piVar3[-4] = 0;
-              (*(code_std *)piVar3[-5])(iVar4,piVar3[-2]);
+            *puVar3 = uVar2 - uVar1;
+            if ((puVar3[-3] & 2) != 0) {
+              puVar3[-4] = 0;
+              (*(code_std *)puVar3[-5])(iVar4,puVar3[-2]);
               break;
             }
-            (*(code_std *)piVar3[-5])(iVar4,piVar3[-2]);
-            iVar2 = *piVar3;
-            iVar1 = piVar3[-4];
-          } while (iVar1 <= iVar2);
+            (*(code_std *)puVar3[-5])(iVar4,puVar3[-2]);
+            uVar2 = *puVar3;
+            uVar1 = puVar3[-4];
+          } while ((int)uVar1 <= (int)uVar2);
         }
-        piVar3[-1] = 0;
+        puVar3[-1] = 0;
       }
-      piVar3 = piVar3 + 8;
+      puVar3 = puVar3 + 8;
       iVar4 = iVar4 + 1;
-    } while ((int)piVar3 < IMG_ADDR(0x008da86c));
-    DAT_008da868 = DAT_008da870;
+    } while ((int)puVar3 < IMG_ADDR(0x008da86c));
+    UINT_008da868 = UINT_008da870;
     _DAT_008da86c = 0;
-    if ((DAT_008da880 == 0) && (DAT_008da87c == 0)) {
-      DAT_008da880 = 1;
+    if ((UINT_008da880 == 0) && (UINT_008da87c == 0)) {
+      UINT_008da880 = 1;
       Mixer_ServiceVoices();
-      DAT_008da880 = 0;
+      UINT_008da880 = 0;
     }
   }
   return;
@@ -266,22 +266,22 @@ void Mixer_ServiceVoices(void)
 {
   int iVar1;
   
-  if ((DAT_008da88c == 0) || (DAT_008da88c = DAT_008da88c + -1, DAT_008da88c == 0)) {
+  if ((UINT_008da88c == 0) || (UINT_008da88c = UINT_008da88c - 1, UINT_008da88c == 0)) {
     iVar1 = ((code *)_setjmp3)(&DAT_008da548,0);
     if (iVar1 == 0) {
-      if (DAT_008da884 != 0) {
-        DAT_008da884 = 0;
+      if (UINT_008da884 != 0) {
+        UINT_008da884 = 0;
         _DAT_008da888 = 1;
         ((code *)_except_handler3)(&DAT_008da588,1);
       }
-      DAT_008da884 = 0;
+      UINT_008da884 = 0;
       _DAT_008da888 = 1;
       Mixer_ScheduleVoices();
       _DAT_008da888 = 0;
-      _DAT_008da5d0 = DAT_008da5d4;
+      _DAT_008da5d0 = UINT_008da5d4;
       ((code *)_except_handler3)(&DAT_008da548,2);
     }
-    DAT_008da868 = 0;
+    UINT_008da868 = 0;
   }
   return;
 }
@@ -290,33 +290,33 @@ void Mixer_ServiceVoices(void)
 void Mixer_ScheduleVoices(void)
 
 {
-  int iVar1;
-  int iVar2;
-  int *piVar3;
+  uint uVar1;
+  uint uVar2;
+  uint *puVar3;
   int iVar4;
   
   iVar4 = 1;
-  piVar3 = &DAT_008da60c;
+  puVar3 = &UINT_008da60c;
   do {
-    piVar3[1] = 1;
-    if ((((piVar3[-5] != 0) && (((byte)piVar3[-3] & 5) == 4)) && (iVar2 = piVar3[-4], iVar2 != 0))
-       && (iVar1 = *piVar3, iVar2 <= iVar1)) {
+    puVar3[1] = 1;
+    if ((((puVar3[-5] != 0) && (((byte)puVar3[-3] & 5) == 4)) && (uVar2 = puVar3[-4], uVar2 != 0))
+       && (uVar1 = *puVar3, (int)uVar2 <= (int)uVar1)) {
       do {
-        *piVar3 = iVar1 - iVar2;
-        if ((*(byte *)(piVar3 + -3) & 2) != 0) {
-          piVar3[-4] = 0;
-          (*(code_std *)piVar3[-5])(iVar4,piVar3[-2]);
+        *puVar3 = uVar1 - uVar2;
+        if ((puVar3[-3] & 2) != 0) {
+          puVar3[-4] = 0;
+          (*(code_std *)puVar3[-5])(iVar4,puVar3[-2]);
           break;
         }
-        (*(code_std *)piVar3[-5])(iVar4,piVar3[-2]);
-        iVar1 = *piVar3;
-        iVar2 = piVar3[-4];
-      } while (iVar2 <= iVar1);
+        (*(code_std *)puVar3[-5])(iVar4,puVar3[-2]);
+        uVar1 = *puVar3;
+        uVar2 = puVar3[-4];
+      } while ((int)uVar2 <= (int)uVar1);
     }
-    piVar3[1] = 0;
-    piVar3 = piVar3 + 8;
+    puVar3[1] = 0;
+    puVar3 = puVar3 + 8;
     iVar4 = iVar4 + 1;
-    if (IMG_ADDR(0x008da86b) < (int)piVar3) {
+    if (IMG_ADDR(0x008da86b) < (int)puVar3) {
       return;
     }
   } while( true );
@@ -330,61 +330,63 @@ void DSound_FillStreamBuffer(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  int iVar1;
-  uint uVar2;
-  undefined4 *puVar3;
+  uint uVar1;
+  int iVar2;
+  uint *puVar3;
   undefined4 *puVar4;
+  uint *puVar5;
+  undefined4 *puVar6;
   #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
   #define local_c (*(undefined4 **)(_frame + (0x20 - 0xc)))
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
-  #define local_4 (*(undefined4 **)(_frame + (0x20 - 0x4)))
+  #define local_4 (*(uint **)(_frame + (0x20 - 0x4)))
   
-  iVar1 = DSound_GetPlayBlock();
-  if (iVar1 != -1) {
-    if (iVar1 != (DAT_004f3f94 + 1) % DAT_008db420) {
-      if (DAT_004f3f94 < 0) {
-        DAT_004f3f94 = iVar1;
+  uVar1 = DSound_GetPlayBlock();
+  if (uVar1 != 0xffffffff) {
+    if (uVar1 != (int)(UINT_004f3f94 + 1) % (int)UINT_008db420) {
+      if ((int)UINT_004f3f94 < 0) {
+        UINT_004f3f94 = uVar1;
       }
-      DAT_004f3f94 = (DAT_004f3f94 + 1) % DAT_008db420;
-      iVar1 = (**(code_std **)(*PTR_008dcc48 + 0x2c))
-                        (PTR_008dcc48,DAT_004f3f94 * 0x1800,0x1800,&local_4,&local_8,&local_c,
+      UINT_004f3f94 = (int)(UINT_004f3f94 + 1) % (int)UINT_008db420;
+      iVar2 = (**(code_std **)(*PTR_008dcc48 + 0x2c))
+                        (PTR_008dcc48,UINT_004f3f94 * 0x1800,0x1800,&local_4,&local_8,&local_c,
                          &local_10,0);
-      if (iVar1 == 0) {
+      if (iVar2 == 0) {
         if ((local_c == (undefined4 *)0x0) || (local_10 == 0)) {
-          iVar1 = (int)(local_8 + ((int)local_8 >> 0x1f & 3U)) >> 2;
+          iVar2 = (int)(local_8 + ((int)local_8 >> 0x1f & 3U)) >> 2;
           puVar3 = local_4;
         }
         else {
-          iVar1 = 0x600;
-          puVar3 = &DAT_008db438;
+          iVar2 = 0x600;
+          puVar3 = &UINT_008db438;
         }
-        ((code *)Mixer_ClearAccumulator)(iVar1);
-        (*DAT_008db410)(iVar1,FUN_004d2d90);
-        Mixer_Output(puVar3,iVar1);
+        ((code *)Mixer_ClearAccumulator)(iVar2);
+        (*(code_std *)UINT_008db410)(iVar2,FUN_004d2d90);
+        Mixer_Output(puVar3,iVar2);
         if ((local_c != (undefined4 *)0x0) && (local_10 != 0)) {
-          puVar3 = &DAT_008db438;
-          puVar4 = local_4;
-          for (uVar2 = local_8 >> 2; uVar2 != 0; uVar2 = uVar2 - 1) {
-            *puVar4 = *puVar3;
+          puVar3 = &UINT_008db438;
+          puVar5 = local_4;
+          for (uVar1 = local_8 >> 2; uVar1 != 0; uVar1 = uVar1 - 1) {
+            *puVar5 = *puVar3;
             puVar3 = puVar3 + 1;
+            puVar5 = puVar5 + 1;
+          }
+          for (uVar1 = local_8 & 3; uVar1 != 0; uVar1 = uVar1 - 1) {
+            *(char *)puVar5 = (char)*puVar3;
+            puVar3 = (uint *)((int)puVar3 + 1);
+            puVar5 = (uint *)((int)puVar5 + 1);
+          }
+          puVar4 = (undefined4 *)((int)&UINT_008db438 + local_8);
+          puVar6 = local_c;
+          for (uVar1 = local_10 >> 2; uVar1 != 0; uVar1 = uVar1 - 1) {
+            *puVar6 = *puVar4;
             puVar4 = puVar4 + 1;
+            puVar6 = puVar6 + 1;
           }
-          for (uVar2 = local_8 & 3; uVar2 != 0; uVar2 = uVar2 - 1) {
-            *(undefined1 *)puVar4 = *(undefined1 *)puVar3;
-            puVar3 = (undefined4 *)((int)puVar3 + 1);
+          for (uVar1 = local_10 & 3; uVar1 != 0; uVar1 = uVar1 - 1) {
+            *(undefined1 *)puVar6 = *(undefined1 *)puVar4;
             puVar4 = (undefined4 *)((int)puVar4 + 1);
-          }
-          puVar3 = (undefined4 *)((int)&DAT_008db438 + local_8);
-          puVar4 = local_c;
-          for (uVar2 = local_10 >> 2; uVar2 != 0; uVar2 = uVar2 - 1) {
-            *puVar4 = *puVar3;
-            puVar3 = puVar3 + 1;
-            puVar4 = puVar4 + 1;
-          }
-          for (uVar2 = local_10 & 3; uVar2 != 0; uVar2 = uVar2 - 1) {
-            *(undefined1 *)puVar4 = *(undefined1 *)puVar3;
-            puVar3 = (undefined4 *)((int)puVar3 + 1);
-            puVar4 = (undefined4 *)((int)puVar4 + 1);
+            puVar6 = (undefined4 *)((int)puVar6 + 1);
           }
         }
         (**(code_std **)(*PTR_008dcc48 + 0x4c))(PTR_008dcc48,local_4,local_8,local_c,local_10);
@@ -392,9 +394,9 @@ void DSound_FillStreamBuffer(void)
     }
   }
   (*(code_std *)PTR_008db424[4])
-            (DAT_008dcc54,
+            (UINT_008dcc54,
              (int)(0x1234dc /
-                  (longlong)((int)(DAT_004f3f98 + (DAT_004f3f98 >> 0x1f & 0x3ffU)) >> 10)));
+                  (longlong)((int)(UINT_004f3f98 + ((int)UINT_004f3f98 >> 0x1f & 0x3ffU)) >> 10)));
   return;
 }
 #undef local_10
@@ -412,9 +414,9 @@ int DSound_GetPlayBlock(void)
   int iVar1;
   
   if (PTR_008dcc48 != (int *)0x0) {
-    iVar1 = (**(code_std **)(*PTR_008dcc48 + 0x10))(PTR_008dcc48,&DAT_008db428,&DAT_008db418);
+    iVar1 = (**(code_std **)(*PTR_008dcc48 + 0x10))(PTR_008dcc48,&UINT_008db428,&DAT_008db418);
     if (iVar1 == 0) {
-      return (DAT_008db428 / 0x1800) % DAT_008db420;
+      return ((int)UINT_008db428 / 0x1800) % (int)UINT_008db420;
     }
   }
   return -1;
@@ -438,9 +440,9 @@ undefined4 Mixer_ClearAccumulator(void)
   uint uVar2;
   int *piVar3;
   
-  uVar2 = DAT_008dcd9c;
+  uVar2 = UINT_008dcd9c;
   piVar3 = g_pMixAccum;
-  for (uVar1 = DAT_008dcd9c >> 2; uVar1 != 0; uVar1 = uVar1 - 1) {
+  for (uVar1 = UINT_008dcd9c >> 2; uVar1 != 0; uVar1 = uVar1 - 1) {
     *piVar3 = 0;
     piVar3 = piVar3 + 1;
   }
@@ -520,7 +522,7 @@ undefined4 Mixer_ConvertTo16(undefined2 *param_1,int param_2)
   
   if (((g_pMixAccum != (int *)0x0) && (param_1 != (undefined2 *)0x0)) && (param_2 != 0)) {
     piVar1 = g_pMixAccum;
-    if (DAT_008dcc60 == 2) {
+    if (UINT_008dcc60 == 2) {
       param_2 = param_2 << 1;
     }
     for (; param_2 != 0; param_2 = param_2 + -1) {

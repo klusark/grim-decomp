@@ -19,7 +19,7 @@ undefined4 D3D_Enumerate(void)
     return 0;
   }
   g_dwD3dRenderFlags = 0x19b3;
-  DAT_004dee60 = 1;
+  UINT_004dee60 = 1;
   iVar1 = (**(code_std **)*PTR_00806968)(PTR_00806968,&DAT_004d8570,&g_pDirect3D);
   if (iVar1 != 0) {
     return 0;
@@ -32,7 +32,7 @@ undefined4 D3D_Enumerate(void)
   if (g_dwD3dDriverCount == 0) {
     return 0;
   }
-  DAT_0080696c = 1;
+  UINT_0080696c = 1;
   return 1;
 }
 
@@ -43,15 +43,15 @@ void D3D_Release(void)
   if (g_pDirect3D != (void *)0x0) {
     (**(code_std **)(*(int *)g_pDirect3D + 8))(g_pDirect3D);
   }
-  DAT_0080696c = 0;
+  UINT_0080696c = 0;
   return;
 }
 
 /* ---- 0x004782d0  D3D_IsAvailable ---- */
-undefined4 D3D_IsAvailable(void)
+uint D3D_IsAvailable(void)
 
 {
-  return DAT_0080696c;
+  return UINT_0080696c;
 }
 
 /* ---- 0x004782e0  D3D_SelectDriver ---- */
@@ -75,20 +75,20 @@ int __cdecl D3D_SelectDriver(uint driverIdx,int useZBuffer)
   #define uStack_70 (*(undefined4 *)(_frame + (0xc0 - 0x70)))
   #define auStack_60 (*(undefined4 (*)[24])(_frame + (0xc0 - 0x60)))
   
-  if (DAT_00806970 != 0) {
+  if (UINT_00806970 != 0) {
     return 0;
   }
   if (g_dwD3dDriverCount <= driverIdx) {
     return 0;
   }
-  DAT_00900530 = driverIdx;
-  g_pD3dDriver = &DAT_00900b40 + driverIdx * 0x8b;
+  UINT_00900530 = driverIdx;
+  g_pD3dDriver = &UINT_00900b40 + driverIdx * 0x8b;
   if (((useZBuffer == 0) || (*(int *)(&DAT_00900b48 + driverIdx * 0x22c) == 0)) ||
      ((g_dwD3dRenderFlags & 0x1800) == 0)) {
-    DAT_004dee60 = 0;
+    UINT_004dee60 = 0;
   }
   else {
-    DAT_004dee60 = 1;
+    UINT_004dee60 = 1;
     ppvStack_98 = *(void ***)((int)g_pVideoMode + 0xc);
     iStack_9c = *(undefined4 *)((int)g_pVideoMode + 8);
     piStack_a0 = (int *)0x478388;
@@ -96,7 +96,7 @@ int __cdecl D3D_SelectDriver(uint driverIdx,int useZBuffer)
     if (iVar1 == 0) {
       return 0;
     }
-    DAT_00900534 = (-(uint)((*(uint *)((int)g_pD3dDriver + 0x2c) & 0x10) != 0) & 0xe) + 2;
+    UINT_00900534 = (-(uint)((*(uint *)((int)g_pD3dDriver + 0x2c) & 0x10) != 0) & 0xe) + 2;
   }
   iStack_9c = (int)g_pD3dDriver + 0x21c;
   ppvStack_98 = &g_pD3dDevice;
@@ -106,7 +106,7 @@ int __cdecl D3D_SelectDriver(uint driverIdx,int useZBuffer)
   if (iVar1 != 0) {
     return 0;
   }
-  DAT_00806930 = 0;
+  UINT_00806930 = 0;
   uStack_a4 = 0;
   pcStack_a8 = FUN_0047a590;
   pvStack_ac = g_pD3dDevice;
@@ -114,7 +114,7 @@ int __cdecl D3D_SelectDriver(uint driverIdx,int useZBuffer)
   if (iVar1 != 0) {
     return 0;
   }
-  if (DAT_00806930 == 0) {
+  if (UINT_00806930 == 0) {
     return 0;
   }
   iVar1 = ((code *)D3D_CreateViewport)(*(undefined4 *)((int)g_pVideoMode + 8),
@@ -133,52 +133,52 @@ int __cdecl D3D_SelectDriver(uint driverIdx,int useZBuffer)
   _DAT_008063f0 = 0x14;
   _DAT_008063f4 = 1;
   _DAT_008063f8 = 0;
-  DAT_00806400 = 0;
-  DAT_00806940 = *(uint *)((int)g_pD3dDriver + 0x44);
-  if ((DAT_00806940 == 0) || (0x1ff < DAT_00806940)) {
-    DAT_00806940 = 0x200;
+  UINT_00806400 = 0;
+  UINT_00806940 = *(uint *)((int)g_pD3dDriver + 0x44);
+  if ((UINT_00806940 == 0) || (0x1ff < UINT_00806940)) {
+    UINT_00806940 = 0x200;
   }
   _DAT_00806958 = _DAT_008063fc;
   (**(code_std **)(*(int *)g_pD3dDevice + 0x18))(g_pD3dDevice,&DAT_008063f0,&g_pD3dExecuteBuffer,0);
-  DAT_004dee58 = 1;
-  DAT_00806944 = 0;
+  UINT_004dee58 = 1;
+  UINT_00806944 = 0;
   D3D_SetTextureLimits
             (*(int *)((int)g_pD3dDriver + 0x30),*(int *)((int)g_pD3dDriver + 0x34),
              *(int *)((int)g_pD3dDriver + 0x38),*(int *)((int)g_pD3dDriver + 0x3c));
   g_pD3dTextureList = (void *)0x0;
   PTR_0080694c = (void *)0x0;
-  _DAT_00900568 = D3D_FindTextureFormat((int)g_pVideoMode + 0x1c,&DAT_00900620,DAT_00806930);
-  DAT_00806934 = &DAT_00900620 + _DAT_00900568 * 0xa4;
+  _DAT_00900568 = D3D_FindTextureFormat((int)g_pVideoMode + 0x1c,&DAT_00900620,UINT_00806930);
+  UINT_00806934 = (uint)(&DAT_00900620 + _DAT_00900568 * 0xa4);
   if (*(int *)((int)g_pD3dDriver + 0x10) != 0) {
     pvStack_ac = (void *)0x2;
     pcStack_a8 = (code *)0x10;
     uStack_a4 = 5;
     piStack_a0 = (int *)0x5;
     iStack_9c = 5;
-    _DAT_009014d8 = D3D_FindTextureFormat(&pvStack_ac,&DAT_00900620,DAT_00806930);
-    DAT_00806938 = &DAT_00900620 + _DAT_009014d8 * 0xa4;
+    _DAT_009014d8 = D3D_FindTextureFormat(&pvStack_ac,&DAT_00900620,UINT_00806930);
+    UINT_00806938 = (uint)(&DAT_00900620 + _DAT_009014d8 * 0xa4);
     if (*(int *)((int)g_pD3dDriver + 0x18) == 0) {
       pvStack_ac = (void *)0x2;
       pcStack_a8 = (code *)0x10;
       uStack_a4 = 4;
       piStack_a0 = (int *)0x4;
       iStack_9c = 4;
-      _DAT_0090052c = D3D_FindTextureFormat(&pvStack_ac,&DAT_00900620,DAT_00806930);
+      _DAT_0090052c = D3D_FindTextureFormat(&pvStack_ac,&DAT_00900620,UINT_00806930);
       uStack_74 = 0x20;
       uStack_70 = 0x20;
-      DAT_0080693c = (undefined4 *)(&DAT_00900620 + _DAT_0090052c * 0xa4);
-      puVar2 = DAT_0080693c;
+      UINT_0080693c = (uint)(&DAT_00900620 + _DAT_0090052c * 0xa4);
+      puVar2 = (undefined4 *)UINT_0080693c;
       puVar3 = auStack_60;
       for (iVar1 = 0xe; iVar1 != 0; iVar1 = iVar1 + -1) {
         *puVar3 = *puVar2;
         puVar2 = puVar2 + 1;
         puVar3 = puVar3 + 1;
       }
-      DAT_00806950 = Surface_Create(&uStack_74,1,0,0);
+      UINT_00806950 = (uint)Surface_Create(&uStack_74,1,0,0);
     }
   }
   ((code *)D3D_SetVertexLimit)((int)g_pD3dDriver + 0x148,(int)g_pD3dDriver + 0x14c);
-  DAT_00806970 = 1;
+  UINT_00806970 = 1;
   return 1;
 }
 #undef auStack_60
@@ -196,10 +196,10 @@ int __cdecl D3D_SelectDriver(uint driverIdx,int useZBuffer)
 void D3D_ReleaseDriver(void)
 
 {
-  if (DAT_00806970 != 0) {
-    if (DAT_00806950 != (void *)0x0) {
-      Surface_Free(DAT_00806950);
-      DAT_00806950 = (void *)0x0;
+  if (UINT_00806970 != 0) {
+    if (UINT_00806950 != 0) {
+      Surface_Free((void *)UINT_00806950);
+      UINT_00806950 = 0;
     }
     (**(code_std **)(*(int *)g_pD3dExecuteBuffer + 8))(g_pD3dExecuteBuffer);
     D3D_FreeAllTextures();
@@ -220,7 +220,7 @@ void D3D_ReleaseDriver(void)
       g_pD3dDevice = (void *)0x0;
     }
     g_pD3dDriver = (void *)0x0;
-    DAT_00806970 = 0;
+    UINT_00806970 = 0;
   }
   return;
 }
@@ -231,9 +231,9 @@ void D3D_ReleaseDriver(void)
 void __cdecl D3D_SetTextureLimits(int minW,int minH,int maxSize,int d)
 
 {
-  DAT_004dee48 = minW;
-  DAT_004dee4c = minH;
-  DAT_004dee50 = maxSize;
+  UINT_004dee48 = minW;
+  UINT_004dee4c = minH;
+  UINT_004dee50 = maxSize;
   _DAT_004dee54 = d;
   return;
 }
@@ -242,9 +242,9 @@ void __cdecl D3D_SetTextureLimits(int minW,int minH,int maxSize,int d)
 void D3D_BeginScene(void)
 
 {
-  if (DAT_00806974 == 0) {
+  if (UINT_00806974 == 0) {
     (**(code_std **)(*(int *)g_pD3dDevice + 0x4c))(g_pD3dDevice);
-    DAT_00806974 = 1;
+    UINT_00806974 = 1;
   }
   return;
 }
@@ -253,9 +253,9 @@ void D3D_BeginScene(void)
 void D3D_EndScene(void)
 
 {
-  if (DAT_00806974 != 0) {
+  if (UINT_00806974 != 0) {
     (**(code_std **)(*(int *)g_pD3dDevice + 0x50))(g_pD3dDevice);
-    DAT_00806974 = 0;
+    UINT_00806974 = 0;
   }
   return;
 }
@@ -266,16 +266,16 @@ undefined4 D3D_BeginExecuteBuffer(void)
 {
   int iVar1;
   
-  DAT_0080695c = 0;
-  DAT_004dee58 = DAT_004dee58 + 1;
-  DAT_00806960 = 0;
-  DAT_004dee5c = 1;
+  UINT_0080695c = 0;
+  UINT_004dee58 = UINT_004dee58 + 1;
+  UINT_00806960 = 0;
+  UINT_004dee5c = 1;
   iVar1 = (**(code_std **)(*(int *)g_pD3dExecuteBuffer + 0x10))(g_pD3dExecuteBuffer,&DAT_008063f0);
   if (iVar1 != 0) {
     return 0;
   }
-  DAT_008063ec = DAT_00806400;
-  PTR_00806918 = DAT_00806400;
+  UINT_008063ec = UINT_00806400;
+  PTR_00806918 = (int *)UINT_00806400;
   return 1;
 }
 
@@ -288,7 +288,7 @@ int __cdecl D3D_AddVertices(void *verts,uint count)
   int iVar1;
   int *piVar2;
   
-  if (DAT_00806940 < count + DAT_0080695c) {
+  if (UINT_00806940 < count + UINT_0080695c) {
     return 0;
   }
   if (PTR_00806918 != verts) {
@@ -305,7 +305,7 @@ int __cdecl D3D_AddVertices(void *verts,uint count)
     }
   }
   PTR_00806918 = PTR_00806918 + count * 8;
-  DAT_0080695c = DAT_0080695c + count;
+  UINT_0080695c = UINT_0080695c + count;
   return 1;
 }
 
@@ -315,7 +315,7 @@ int __cdecl D3D_AddVertices(void *verts,uint count)
 undefined4 D3D_BeginInstructions(void)
 
 {
-  DAT_0080691c = PTR_00806918;
+  UINT_0080691c = (uint)PTR_00806918;
   *(undefined1 *)PTR_00806918 = 9;
   *(undefined1 *)((int)PTR_00806918 + 1) = 0x10;
   *(undefined2 *)((int)PTR_00806918 + 2) = 1;
@@ -323,7 +323,7 @@ undefined4 D3D_BeginInstructions(void)
   *PTR_00806918 = 2;
   *(undefined2 *)(PTR_00806918 + 1) = 0;
   *(undefined2 *)((int)PTR_00806918 + 6) = 0;
-  PTR_00806918[2] = DAT_0080695c;
+  PTR_00806918[2] = UINT_0080695c;
   PTR_00806918[3] = 0;
   PTR_00806918 = PTR_00806918 + 4;
   return 1;
@@ -359,7 +359,7 @@ int __cdecl D3D_AddTriangles(void *tris,uint count)
           pvVar2 = (void *)((int)pvVar2 + 1);
         }
         D3D_SetRenderFlags(flags);
-        if (DAT_004dee5c != 0) {
+        if (UINT_004dee5c != 0) {
           *(undefined1 *)PTR_00806918 = 8;
           *(undefined1 *)((int)PTR_00806918 + 1) = 8;
           *(undefined2 *)((int)PTR_00806918 + 2) = 1;
@@ -367,7 +367,7 @@ int __cdecl D3D_AddTriangles(void *tris,uint count)
           *PTR_00806918 = 1;
           PTR_00806918[1] = 0;
           PTR_00806918 = PTR_00806918 + 2;
-          DAT_004dee5c = 0;
+          UINT_004dee5c = 0;
         }
         *(undefined1 *)PTR_00806918 = 3;
         *(undefined1 *)((int)PTR_00806918 + 1) = 8;
@@ -389,7 +389,7 @@ int __cdecl D3D_AddTriangles(void *tris,uint count)
           pvVar2 = (void *)((int)pvVar2 + 1);
         }
         D3D_SetRenderFlags(flags);
-        if (*(uint *)(puVar5 + 8) != DAT_004dee5c) {
+        if (*(uint *)(puVar5 + 8) != UINT_004dee5c) {
           *(undefined1 *)PTR_00806918 = 8;
           *(undefined1 *)((int)PTR_00806918 + 1) = 8;
           *(undefined2 *)((int)PTR_00806918 + 2) = 1;
@@ -397,7 +397,7 @@ int __cdecl D3D_AddTriangles(void *tris,uint count)
           *PTR_00806918 = 1;
           PTR_00806918[1] = *(int *)(uVar1 + 0x74);
           PTR_00806918 = PTR_00806918 + 2;
-          DAT_004dee5c = uVar1;
+          UINT_004dee5c = uVar1;
         }
         *(undefined1 *)PTR_00806918 = 3;
         *(undefined1 *)((int)PTR_00806918 + 1) = 8;
@@ -415,7 +415,7 @@ int __cdecl D3D_AddTriangles(void *tris,uint count)
       tris = (void *)((int)tris + iVar6);
     } while (tris < count);
   }
-  DAT_00806960 = DAT_00806960 + count;
+  UINT_00806960 = UINT_00806960 + count;
   return 1;
 }
 
@@ -460,8 +460,8 @@ void __cdecl D3D_SetRenderFlags(uint flags)
 {
   int iVar1;
   
-  if (DAT_00806924 != flags) {
-    if (((flags ^ DAT_00806924) & 0x8000) != 0) {
+  if (UINT_00806924 != flags) {
+    if (((flags ^ UINT_00806924) & 0x8000) != 0) {
       *(undefined1 *)PTR_00806918 = 8;
       *(undefined1 *)((int)PTR_00806918 + 1) = 8;
       *(undefined2 *)((int)PTR_00806918 + 2) = 1;
@@ -476,7 +476,7 @@ void __cdecl D3D_SetRenderFlags(uint flags)
         PTR_00806918 = PTR_00806918 + 2;
       }
     }
-    if (((flags ^ DAT_00806924) & 0x600) != 0) {
+    if (((flags ^ UINT_00806924) & 0x600) != 0) {
       *(undefined1 *)PTR_00806918 = 8;
       *(undefined1 *)((int)PTR_00806918 + 1) = 8;
       *(undefined2 *)((int)PTR_00806918 + 2) = 4;
@@ -520,7 +520,7 @@ void __cdecl D3D_SetRenderFlags(uint flags)
       }
       PTR_00806918 = PTR_00806918 + 2;
     }
-    if (((flags ^ DAT_00806924) & 0x1800) != 0) {
+    if (((flags ^ UINT_00806924) & 0x1800) != 0) {
       *(undefined1 *)PTR_00806918 = 8;
       *(undefined1 *)((int)PTR_00806918 + 1) = 8;
       *(undefined2 *)((int)PTR_00806918 + 2) = 2;
@@ -530,7 +530,7 @@ void __cdecl D3D_SetRenderFlags(uint flags)
         PTR_00806918[1] = 8;
       }
       else {
-        iVar1 = D3D_FilterBitsToEnum(DAT_00900534);
+        iVar1 = D3D_FilterBitsToEnum(UINT_00900534);
         PTR_00806918[1] = iVar1;
       }
       PTR_00806918 = PTR_00806918 + 2;
@@ -544,7 +544,7 @@ void __cdecl D3D_SetRenderFlags(uint flags)
         PTR_00806918 = PTR_00806918 + 2;
       }
     }
-    if (((flags ^ DAT_00806924) & 0x40) != 0) {
+    if (((flags ^ UINT_00806924) & 0x40) != 0) {
       if ((flags & 0x40) == 0) {
         *(undefined1 *)PTR_00806918 = 8;
         *(undefined1 *)((int)PTR_00806918 + 1) = 8;
@@ -562,20 +562,20 @@ void __cdecl D3D_SetRenderFlags(uint flags)
         PTR_00806918[1] = 1;
         PTR_00806918 = PTR_00806918 + 2;
         *PTR_00806918 = 0x22;
-        PTR_00806918[1] = (DAT_008063e8 << 8 | DAT_00806610) << 8 | DAT_008061dc;
+        PTR_00806918[1] = (UINT_008063e8 << 8 | UINT_00806610) << 8 | UINT_008061dc;
         PTR_00806918 = PTR_00806918 + 2;
         *PTR_00806918 = 0x23;
         PTR_00806918[1] = 3;
         PTR_00806918 = PTR_00806918 + 2;
         *PTR_00806918 = 0x24;
-        PTR_00806918[1] = DAT_008061e0;
+        PTR_00806918[1] = UINT_008061e0;
         PTR_00806918 = PTR_00806918 + 2;
         *PTR_00806918 = 0x25;
-        PTR_00806918[1] = DAT_008061d8;
+        PTR_00806918[1] = UINT_008061d8;
       }
       PTR_00806918 = PTR_00806918 + 2;
     }
-    DAT_00806924 = flags;
+    UINT_00806924 = flags;
   }
   return;
 }
@@ -587,16 +587,16 @@ void D3D_ClampTextureSize(uint param_1,uint param_2,uint *param_3,uint *param_4)
   if (param_1 == 0) {
     param_1 = 1;
   }
-  else if (DAT_004dee50 < param_1) {
-    param_1 = DAT_004dee50;
+  else if (UINT_004dee50 < param_1) {
+    param_1 = UINT_004dee50;
   }
   if (param_2 == 0) {
     param_2 = 1;
   }
-  else if (DAT_004dee50 < param_2) {
-    param_2 = DAT_004dee50;
+  else if (UINT_004dee50 < param_2) {
+    param_2 = UINT_004dee50;
   }
-  if (((param_1 < DAT_004dee48) || (param_2 < DAT_004dee4c)) ||
+  if (((param_1 < UINT_004dee48) || (param_2 < UINT_004dee4c)) ||
      ((*(int *)((int)g_pD3dDriver + 0x1c) != 0 && (param_1 != param_2)))) {
     if ((*(int *)((int)g_pD3dDriver + 0x1c) != 0) && (param_1 != param_2)) {
       if (param_1 <= param_2) {
@@ -606,11 +606,11 @@ void D3D_ClampTextureSize(uint param_1,uint param_2,uint *param_3,uint *param_4)
       *param_4 = param_1;
       return;
     }
-    if (param_1 < DAT_004dee48) {
-      param_1 = DAT_004dee48;
+    if (param_1 < UINT_004dee48) {
+      param_1 = UINT_004dee48;
     }
-    if (param_2 < DAT_004dee4c) {
-      param_2 = DAT_004dee4c;
+    if (param_2 < UINT_004dee4c) {
+      param_2 = UINT_004dee4c;
     }
   }
   *param_3 = param_1;
@@ -651,39 +651,40 @@ int __cdecl D3D_CreateTexture(void *surface,void *texture,int usePalette,int col
   byte *pbVar5;
   void *pvVar6;
   void *pvVar7;
-  undefined4 *puVar8;
-  void *pvVar9;
-  void **ppvVar10;
-  int x;
-  #define local_15c (*(undefined4 (*)[4])(_frame + (0x170 - 0x15c)))
-  #define local_14c (*(int *)(_frame + (0x170 - 0x14c)))
-  #define local_138 (*(int *)(_frame + (0x170 - 0x138)))
-  #define local_f0 (*(void *(*)[19])(_frame + (0x170 - 0xf0)))
-  #define local_a4 (*(undefined4 *)(_frame + (0x170 - 0xa4)))
-  #define local_a0 (*(undefined4 *)(_frame + (0x170 - 0xa0)))
-  #define local_9c (*(void **)(_frame + (0x170 - 0x9c)))
-  #define local_98 (*(void **)(_frame + (0x170 - 0x98)))
-  #define local_3c (*(undefined4 *)(_frame + (0x170 - 0x3c)))
-  #define local_38 (*(int *)(_frame + (0x170 - 0x38)))
-  #define local_34 (*(int *)(_frame + (0x170 - 0x34)))
-  #define local_30 (*(void **)(_frame + (0x170 - 0x30)))
-  #define local_2c (*(undefined4 *)(_frame + (0x170 - 0x2c)))
-  #define local_28 (*(void **)(_frame + (0x170 - 0x28)))
-  #define pvStack_24 (*(void **)(_frame + (0x170 - 0x24)))
+  uint *puVar8;
+  uint uVar9;
+  uint uVar10;
+  uint *puVar11;
+  #define local_15c (*(uint *)(_frame + (0x170 - 0x15c)))
+  #define local_14c (*(uint *)(_frame + (0x170 - 0x14c)))
+  #define local_138 (*(uint *)(_frame + (0x170 - 0x138)))
+  #define local_f0 (*(uint *)(_frame + (0x170 - 0xf0)))
+  #define local_ec (*(uint *)(_frame + (0x170 - 0xec)))
+  #define local_a4 (*(uint *)(_frame + (0x170 - 0xa4)))
+  #define local_a0 (*(uint *)(_frame + (0x170 - 0xa0)))
+  #define local_9c (*(uint *)(_frame + (0x170 - 0x9c)))
+  #define local_98 (*(uint *)(_frame + (0x170 - 0x98)))
+  #define local_3c (*(uint *)(_frame + (0x170 - 0x3c)))
+  #define local_38 (*(uint *)(_frame + (0x170 - 0x38)))
+  #define local_34 (*(uint *)(_frame + (0x170 - 0x34)))
+  #define local_30 (*(uint *)(_frame + (0x170 - 0x30)))
+  #define local_2c (*(uint *)(_frame + (0x170 - 0x2c)))
+  #define local_28 (*(uint *)(_frame + (0x170 - 0x28)))
+  #define uStack_24 (*(uint *)(_frame + (0x170 - 0x24)))
   #define local_20 (*(void **)(_frame + (0x170 - 0x20)))
   #define fStack_1c (*(float *)(_frame + (0x170 - 0x1c)))
-  #define local_18 (*(int **)(_frame + (0x170 - 0x18)))
-  #define local_14 (*(int **)(_frame + (0x170 - 0x14)))
-  #define local_10 (*(int **)(_frame + (0x170 - 0x10)))
-  #define local_c (*(void **)(_frame + (0x170 - 0xc)))
-  #define local_8 (*(int **)(_frame + (0x170 - 0x8)))
+  #define local_18 (*(uint *)(_frame + (0x170 - 0x18)))
+  #define local_14 (*(uint *)(_frame + (0x170 - 0x14)))
+  #define local_10 (*(uint *)(_frame + (0x170 - 0x10)))
+  #define local_c (*(uint *)(_frame + (0x170 - 0xc)))
+  #define local_8 (*(uint *)(_frame + (0x170 - 0x8)))
   
   pvVar3 = *(void **)((int)surface + 0xc);
-  local_8 = (int *)0x0;
-  local_18 = (int *)0x0;
-  local_10 = (int *)0x0;
-  local_14 = (int *)0x0;
-  local_30 = (void *)0x0;
+  local_8 = 0;
+  local_18 = 0;
+  local_10 = 0;
+  local_14 = 0;
+  local_30 = 0;
   if (pvVar3 == (void *)0x0) {
     pvVar3 = (void *)0x1;
   }
@@ -697,23 +698,23 @@ int __cdecl D3D_CreateTexture(void *surface,void *texture,int usePalette,int col
   else if ((void *)0x100 < pvVar6) {
     pvVar6 = (void *)0x100;
   }
-  local_c = pvVar3;
-  if (((pvVar3 < DAT_004dee48) || (pvVar6 < DAT_004dee4c)) ||
+  local_c = (uint)pvVar3;
+  if (((pvVar3 < UINT_004dee48) || (pvVar6 < UINT_004dee4c)) ||
      ((pvVar7 = surface, *(int *)((int)g_pD3dDriver + 0x1c) != 0 && (pvVar3 != pvVar6)))) {
-    puVar8 = (undefined4 *)((int)surface + 0xc);
-    ppvVar10 = local_f0;
+    puVar8 = (uint *)((int)surface + 0xc);
+    puVar11 = &local_f0;
     for (iVar4 = 0x13; iVar4 != 0; iVar4 = iVar4 + -1) {
-      *ppvVar10 = (void *)*puVar8;
+      *puVar11 = *puVar8;
       puVar8 = puVar8 + 1;
-      ppvVar10 = ppvVar10 + 1;
+      puVar11 = puVar11 + 1;
     }
     if ((*(int *)((int)g_pD3dDriver + 0x1c) == 0) || (pvVar3 == pvVar6)) {
-      if (pvVar3 < DAT_004dee48) {
-        pvVar3 = DAT_004dee48;
+      if (pvVar3 < UINT_004dee48) {
+        pvVar3 = (void *)UINT_004dee48;
       }
       pvVar7 = pvVar6;
-      if (pvVar6 < DAT_004dee4c) {
-        pvVar7 = DAT_004dee4c;
+      if (pvVar6 < UINT_004dee4c) {
+        pvVar7 = (void *)UINT_004dee4c;
       }
     }
     else {
@@ -724,155 +725,155 @@ int __cdecl D3D_CreateTexture(void *surface,void *texture,int usePalette,int col
       }
     }
     local_28 = local_c;
-    pvStack_24 = (void *)0x0;
-    local_38 = (int)ROUND(PUN(float,pvVar3) / (float)(int)local_c - -0.5);
+    uStack_24 = 0;
+    local_38 = (uint)ROUND(PUN(float,pvVar3) / (float)(int)local_c - -0.5);
     fStack_1c = PUN(float,pvVar7) / (float)(int)pvVar6 - -0.5;
-    iVar4 = (int)ROUND(fStack_1c);
-    local_f0[0] = (void *)((int)local_f0[0] * local_38);
-    local_f0[1] = (void *)((int)local_f0[1] * iVar4);
-    local_34 = iVar4;
+    uVar9 = (uint)ROUND(fStack_1c);
+    local_f0 = local_f0 * local_38;
+    local_ec = local_ec * uVar9;
+    local_34 = uVar9;
     local_20 = pvVar6;
-    local_30 = Surface_Create(local_f0,0,0,0);
-    if (iVar4 != 0) {
+    local_30 = (uint)Surface_Create(&local_f0,0,0,0);
+    if (uVar9 != 0) {
       local_34 = 0;
-      fStack_1c = (float)iVar4;
+      fStack_1c = (float)uVar9;
       do {
         if (local_38 != 0) {
-          x = 0;
-          iVar4 = local_38;
+          iVar4 = 0;
+          uVar9 = local_38;
           do {
-            Surface_Blit(local_30,surface,x,local_34,(int *)0x0,0);
-            x = x + (int)local_c;
-            iVar4 = iVar4 + -1;
-          } while (iVar4 != 0);
+            Surface_Blit((void *)local_30,surface,iVar4,local_34,(int *)0x0,0);
+            iVar4 = iVar4 + local_c;
+            uVar9 = uVar9 - 1;
+          } while (uVar9 != 0);
         }
         local_34 = local_34 + (int)pvVar6;
-        fStack_1c = (float)((int)fStack_1c + -1);
+        fStack_1c = (float)((int)fStack_1c - 1);
       } while (fStack_1c != 0.0);
     }
-    local_c = local_f0[0];
-    surface = local_f0[1];
-    pvVar7 = local_30;
+    local_c = local_f0;
+    surface = (void *)local_ec;
+    pvVar7 = (void *)local_30;
     pvVar6 = surface;
   }
   surface = pvVar6;
-  fStack_1c = (float)((int)surface * (int)local_c);
+  fStack_1c = (float)((int)surface * local_c);
   if ((usePalette == 0) || (*(int *)((int)g_pD3dDriver + 0x10) == 0)) {
     if (colorKey == 0) {
       *(undefined4 *)((int)texture + 0x7c) = 0;
-      iVar4 = DAT_00806934;
+      uVar9 = UINT_00806934;
     }
     else {
       *(undefined4 *)((int)texture + 0x7c) = 1;
-      iVar4 = DAT_0080693c;
+      uVar9 = UINT_0080693c;
     }
   }
   else {
     *(undefined4 *)((int)texture + 0x7c) = 1;
-    iVar4 = DAT_00806938;
+    uVar9 = UINT_00806938;
     if (colorKey != 0) {
-      iVar4 = DAT_0080693c;
+      uVar9 = UINT_0080693c;
     }
   }
-  Mem_Copy(&local_a4,(void *)(iVar4 + 0x38),0x6c);
-  pvVar3 = local_c;
-  local_9c = surface;
+  Mem_Copy(&local_a4,(void *)(uVar9 + 0x38),0x6c);
+  uVar9 = local_c;
+  local_9c = (uint)surface;
   local_a4 = 0x6c;
   local_a0 = 0x1007;
   local_3c = 0x1800;
   local_98 = local_c;
   iVar4 = (**(code_std **)(*PTR_00806968 + 0x18))(PTR_00806968,&local_a4,&local_8,0);
   if (iVar4 != 0) {
-    local_8 = (int *)0x0;
+    local_8 = 0;
     goto LAB_0047940a;
   }
-  puVar8 = local_15c;
+  puVar8 = &local_15c;
   for (iVar4 = 0x1b; iVar4 != 0; iVar4 = iVar4 + -1) {
     *puVar8 = 0;
     puVar8 = puVar8 + 1;
   }
-  local_15c[0] = 0x6c;
-  iVar4 = (**(code_std **)(*local_8 + 100))(local_8,0,local_15c,1,0);
+  local_15c = 0x6c;
+  iVar4 = (**(code_std **)(*(int *)local_8 + 100))(local_8,0,&local_15c,1,0);
   if (iVar4 != 0) goto LAB_0047940a;
   iVar4 = *(int *)((int)pvVar7 + 0x20);
   if (iVar4 == 0) {
     Surface_Lock(pvVar7);
     if ((usePalette == 0) || (*(int *)((int)g_pD3dDriver + 0x10) == 0)) {
       if (colorKey == 0) {
-        pvVar6 = (void *)0x0;
+        pvVar3 = (void *)0x0;
         if (surface != (void *)0x0) {
           do {
-            pbVar5 = (byte *)((int)pvVar6 * *(int *)((int)pvVar7 + 0x18) +
+            pbVar5 = (byte *)((int)pvVar3 * *(int *)((int)pvVar7 + 0x18) +
                              *(int *)((int)pvVar7 + 0x5c));
-            puVar2 = (undefined2 *)((int)pvVar6 * local_14c + local_138);
-            pvVar9 = pvVar3;
-            for (; pvVar9 != (void *)0x0; pvVar9 = (void *)((int)pvVar9 - 1)) {
+            puVar2 = (undefined2 *)((int)pvVar3 * local_14c + local_138);
+            uVar10 = uVar9;
+            for (; uVar10 != 0; uVar10 = uVar10 - 1) {
               bVar1 = *pbVar5;
               pbVar5 = pbVar5 + 1;
-              *puVar2 = *(undefined2 *)((int)&DAT_00806408 + (uint)bVar1 * 2);
+              *puVar2 = *(undefined2 *)((int)&UINT_00806408 + (uint)bVar1 * 2);
               puVar2 = puVar2 + 1;
-              pvVar3 = local_c;
+              uVar9 = local_c;
             }
-            pvVar6 = (void *)((int)pvVar6 + 1);
-          } while (pvVar6 < surface);
+            pvVar3 = (void *)((int)pvVar3 + 1);
+          } while (pvVar3 < surface);
         }
       }
       else {
-        pvVar6 = (void *)0x0;
+        pvVar3 = (void *)0x0;
         if (surface != (void *)0x0) {
           do {
-            pbVar5 = (byte *)((int)pvVar6 * *(int *)((int)pvVar7 + 0x18) +
+            pbVar5 = (byte *)((int)pvVar3 * *(int *)((int)pvVar7 + 0x18) +
                              *(int *)((int)pvVar7 + 0x5c));
-            puVar2 = (undefined2 *)((int)pvVar6 * local_14c + local_138);
-            pvVar9 = pvVar3;
-            for (; pvVar9 != (void *)0x0; pvVar9 = (void *)((int)pvVar9 - 1)) {
+            puVar2 = (undefined2 *)((int)pvVar3 * local_14c + local_138);
+            uVar10 = uVar9;
+            for (; uVar10 != 0; uVar10 = uVar10 - 1) {
               bVar1 = *pbVar5;
               pbVar5 = pbVar5 + 1;
               *puVar2 = *(undefined2 *)(&DAT_00805fd8 + (uint)bVar1 * 2);
               puVar2 = puVar2 + 1;
-              pvVar3 = local_c;
+              uVar9 = local_c;
             }
-            pvVar6 = (void *)((int)pvVar6 + 1);
-          } while (pvVar6 < surface);
+            pvVar3 = (void *)((int)pvVar3 + 1);
+          } while (pvVar3 < surface);
         }
       }
     }
     else if (colorKey == 0) {
-      pvVar6 = (void *)0x0;
+      pvVar3 = (void *)0x0;
       if (surface != (void *)0x0) {
         do {
-          pbVar5 = (byte *)((int)pvVar6 * *(int *)((int)pvVar7 + 0x18) +
+          pbVar5 = (byte *)((int)pvVar3 * *(int *)((int)pvVar7 + 0x18) +
                            *(int *)((int)pvVar7 + 0x5c));
-          puVar2 = (undefined2 *)((int)pvVar6 * local_14c + local_138);
-          pvVar9 = pvVar3;
-          for (; pvVar9 != (void *)0x0; pvVar9 = (void *)((int)pvVar9 - 1)) {
+          puVar2 = (undefined2 *)((int)pvVar3 * local_14c + local_138);
+          uVar10 = uVar9;
+          for (; uVar10 != 0; uVar10 = uVar10 - 1) {
             bVar1 = *pbVar5;
             pbVar5 = pbVar5 + 1;
             *puVar2 = *(undefined2 *)(&DAT_008061e8 + (uint)bVar1 * 2);
             puVar2 = puVar2 + 1;
-            pvVar3 = local_c;
+            uVar9 = local_c;
           }
-          pvVar6 = (void *)((int)pvVar6 + 1);
-        } while (pvVar6 < surface);
+          pvVar3 = (void *)((int)pvVar3 + 1);
+        } while (pvVar3 < surface);
       }
     }
     else {
-      pvVar6 = (void *)0x0;
+      pvVar3 = (void *)0x0;
       if (surface != (void *)0x0) {
         do {
-          pbVar5 = (byte *)((int)pvVar6 * *(int *)((int)pvVar7 + 0x18) +
+          pbVar5 = (byte *)((int)pvVar3 * *(int *)((int)pvVar7 + 0x18) +
                            *(int *)((int)pvVar7 + 0x5c));
-          puVar2 = (undefined2 *)((int)pvVar6 * local_14c + local_138);
-          pvVar9 = pvVar3;
-          for (; pvVar9 != (void *)0x0; pvVar9 = (void *)((int)pvVar9 - 1)) {
+          puVar2 = (undefined2 *)((int)pvVar3 * local_14c + local_138);
+          uVar10 = uVar9;
+          for (; uVar10 != 0; uVar10 = uVar10 - 1) {
             bVar1 = *pbVar5;
             pbVar5 = pbVar5 + 1;
             *puVar2 = *(undefined2 *)(&DAT_00805fd8 + (uint)bVar1 * 2);
             puVar2 = puVar2 + 1;
-            pvVar3 = local_c;
+            uVar9 = local_c;
           }
-          pvVar6 = (void *)((int)pvVar6 + 1);
-        } while (pvVar6 < surface);
+          pvVar3 = (void *)((int)pvVar3 + 1);
+        } while (pvVar3 < surface);
       }
     }
 LAB_00479709:
@@ -880,33 +881,33 @@ LAB_00479709:
   }
   else if ((0 < iVar4) && (iVar4 < 3)) {
     Surface_Lock(pvVar7);
-    pvVar6 = (void *)0x0;
+    pvVar3 = (void *)0x0;
     if (surface != (void *)0x0) {
       do {
-        Mem_Copy((void *)((int)pvVar6 * local_14c + local_138),
-                 (void *)((int)pvVar6 * *(int *)((int)pvVar7 + 0x18) + *(int *)((int)pvVar7 + 0x5c))
-                 ,(int)pvVar3 * 2);
-        pvVar6 = (void *)((int)pvVar6 + 1);
-      } while (pvVar6 < surface);
+        Mem_Copy((void *)((int)pvVar3 * local_14c + local_138),
+                 (void *)((int)pvVar3 * *(int *)((int)pvVar7 + 0x18) + *(int *)((int)pvVar7 + 0x5c))
+                 ,uVar9 * 2);
+        pvVar3 = (void *)((int)pvVar3 + 1);
+      } while (pvVar3 < surface);
     }
     goto LAB_00479709;
   }
-  iVar4 = (**(code_std **)(*local_8 + 0x80))(local_8,0);
+  iVar4 = (**(code_std **)(*(int *)local_8 + 0x80))(local_8,0);
   if (iVar4 == 0) {
     if ((usePalette != 0) && (*(int *)((int)g_pD3dDriver + 0x10) == 0)) {
       if (*(int *)((int)pvVar7 + 0x20) == 0) {
-        local_28 = (void *)(DAT_00806408 & 0xffff);
-        pvStack_24 = local_28;
+        local_28 = UINT_00806408 & 0xffff;
+        uStack_24 = local_28;
       }
       else if (*(int *)((int)pvVar7 + 0x20) == 1) {
-        local_28 = *(void **)((int)pvVar7 + 0x60);
-        pvStack_24 = *(void **)((int)pvVar7 + 0x60);
+        local_28 = *(uint *)((int)pvVar7 + 0x60);
+        uStack_24 = *(uint *)((int)pvVar7 + 0x60);
       }
-      (**(code_std **)(*local_8 + 0x74))(local_8,8,&local_28);
+      (**(code_std **)(*(int *)local_8 + 0x74))(local_8,8,&local_28);
     }
-    iVar4 = (**(code_std **)*local_8)(local_8,&DAT_004d85f0,&local_10);
+    iVar4 = (*(code_std *)**(undefined4 **)local_8)(local_8,&DAT_004d85f0,&local_10);
     if (iVar4 == 0) {
-      iVar4 = (**(code_std **)(*local_8 + 0x58))(local_8,&local_a4);
+      iVar4 = (**(code_std **)(*(int *)local_8 + 0x58))(local_8,&local_a4);
       if (iVar4 == 0) {
         Mem_Copy((void *)((int)texture + 8),&local_a4,0x6c);
         local_a0 = 0x1007;
@@ -918,60 +919,60 @@ LAB_00479709:
           iVar4 = (**(code_std **)(*PTR_00806968 + 0x18))(PTR_00806968,&local_a4,&local_18,0);
           if (iVar4 != 0) goto LAB_0047940a;
         }
-        iVar4 = (**(code_std **)*local_18)(local_18,&DAT_004d85f0,&local_14);
+        iVar4 = (*(code_std *)**(undefined4 **)local_18)(local_18,&DAT_004d85f0,&local_14);
         if (iVar4 == 0) {
-          iVar4 = (**(code_std **)(*local_14 + 0x18))(local_14,local_10);
+          iVar4 = (**(code_std **)(*(int *)local_14 + 0x18))(local_14,local_10);
           if (iVar4 == 0) {
-            iVar4 = (**(code_std **)(*local_14 + 0x10))(local_14,g_pD3dDevice,&local_2c);
+            iVar4 = (**(code_std **)(*(int *)local_14 + 0x10))(local_14,g_pD3dDevice,&local_2c);
             if (iVar4 != 0) {
               local_2c = 0;
             }
-            (**(code_std **)(*local_10 + 8))(local_10);
-            local_10 = (int *)0x0;
-            (**(code_std **)(*local_8 + 8))(local_8);
-            local_8 = (int *)0x0;
-            if (local_30 != (void *)0x0) {
-              Surface_Free(local_30);
+            (**(code_std **)(*(int *)local_10 + 8))(local_10);
+            local_10 = 0;
+            (**(code_std **)(*(int *)local_8 + 8))(local_8);
+            local_8 = 0;
+            if (local_30 != 0) {
+              Surface_Free((void *)local_30);
             }
-            *(int **)texture = local_14;
-            *(int **)((int)texture + 4) = local_18;
-            *(undefined4 *)((int)texture + 0x74) = local_2c;
-            *(void **)((int)texture + 0x80) = pvVar3;
+            *(uint *)texture = local_14;
+            *(uint *)((int)texture + 4) = local_18;
+            *(uint *)((int)texture + 0x74) = local_2c;
+            *(uint *)((int)texture + 0x80) = uVar9;
             *(void **)((int)texture + 0x84) = surface;
             *(float *)((int)texture + 0x88) = fStack_1c;
             *(undefined4 *)((int)texture + 0x78) = 1;
-            *(undefined4 *)((int)texture + 0x8c) = DAT_004dee58;
+            *(uint *)((int)texture + 0x8c) = UINT_004dee58;
             D3D_LinkTexture(texture);
             return 1;
           }
         }
         else {
-          local_14 = (int *)0x0;
+          local_14 = 0;
         }
       }
       else {
-        local_10 = (int *)0x0;
+        local_10 = 0;
       }
     }
     else {
-      local_10 = (int *)0x0;
+      local_10 = 0;
     }
   }
 LAB_0047940a:
-  if (local_8 != (int *)0x0) {
-    (**(code_std **)(*local_8 + 8))(local_8);
+  if (local_8 != 0) {
+    (**(code_std **)(*(int *)local_8 + 8))(local_8);
   }
-  if (local_10 != (int *)0x0) {
-    (**(code_std **)(*local_10 + 8))(local_10);
+  if (local_10 != 0) {
+    (**(code_std **)(*(int *)local_10 + 8))(local_10);
   }
-  if (local_30 != (void *)0x0) {
-    Surface_Free(local_30);
+  if (local_30 != 0) {
+    Surface_Free((void *)local_30);
   }
-  if (local_18 != (int *)0x0) {
-    (**(code_std **)(*local_18 + 8))(local_18);
+  if (local_18 != 0) {
+    (**(code_std **)(*(int *)local_18 + 8))(local_18);
   }
-  if (local_14 != (int *)0x0) {
-    (**(code_std **)(*local_14 + 8))(local_14);
+  if (local_14 != 0) {
+    (**(code_std **)(*(int *)local_14 + 8))(local_14);
   }
   *(undefined4 *)texture = 0;
   *(undefined4 *)((int)texture + 4) = 0;
@@ -1000,8 +1001,9 @@ LAB_0047940a:
 #undef local_a0
 #undef local_a4
 #undef local_c
+#undef local_ec
 #undef local_f0
-#undef pvStack_24
+#undef uStack_24
 
 
 /* ---- 0x00479860  D3D_FreeAllTextures ---- */
@@ -1032,9 +1034,9 @@ void D3D_FreeAllTextures(void)
   }
   g_pD3dTextureList = (void *)0x0;
   PTR_0080694c = (void *)0x0;
-  DAT_00806944 = 0;
+  UINT_00806944 = 0;
   *(undefined4 *)((int)g_pD3dDriver + 0x14c) = *(undefined4 *)((int)g_pD3dDriver + 0x148);
-  DAT_004dee58 = 1;
+  UINT_004dee58 = 1;
   return;
 }
 
@@ -1054,7 +1056,7 @@ void D3D_LinkTexture(void *param_1)
     *(undefined4 *)((int)param_1 + 0x94) = 0;
     PTR_0080694c = param_1;
   }
-  DAT_00806944 = DAT_00806944 + 1;
+  UINT_00806944 = UINT_00806944 + 1;
   *(int *)((int)g_pD3dDriver + 0x14c) =
        *(int *)((int)g_pD3dDriver + 0x14c) - *(int *)((int)param_1 + 0x88);
   return;
@@ -1089,7 +1091,7 @@ void D3D_UnlinkTexture(void *param_1)
       *(undefined4 *)(*(int *)((int)param_1 + 0x94) + 0x90) = *(undefined4 *)((int)param_1 + 0x90);
     }
   }
-  DAT_00806944 = DAT_00806944 + -1;
+  UINT_00806944 = UINT_00806944 - 1;
   *(int *)((int)g_pD3dDriver + 0x14c) =
        *(int *)((int)g_pD3dDriver + 0x14c) + *(int *)((int)param_1 + 0x88);
   return;
@@ -1104,7 +1106,7 @@ undefined4 D3D_SetVertexLimit(void)
   int *piVar2;
   #define puStack_10 (*(undefined **)(_frame + (0x20 - 0x10)))
   #define puStack_c (*(undefined1 **)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(undefined4 *)(_frame + (0x20 - 0x8)))
+  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define uStack_4 (*(undefined4 *)(_frame + (0x20 - 0x4)))
   
   piVar2 = PTR_00806968;
@@ -1133,7 +1135,7 @@ undefined4 D3D_SetVertexLimit(void)
 void D3D_TouchTexture(int param_1)
 
 {
-  *(undefined4 *)(param_1 + 0x8c) = DAT_004dee58;
+  *(uint *)(param_1 + 0x8c) = UINT_004dee58;
   D3D_UnlinkTexture(param_1);
   D3D_LinkTexture(param_1);
   return;
@@ -1145,27 +1147,27 @@ undefined4 D3D_ClearZBuffer(void)
 {
   unsigned char _frame[0x90] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
-  undefined4 *puVar2;
-  #define local_74 (*(int *)(_frame + (0x90 - 0x74)))
-  #define local_70 (*(int *)(_frame + (0x90 - 0x70)))
-  #define local_6c (*(int *)(_frame + (0x90 - 0x6c)))
-  #define local_68 (*(int *)(_frame + (0x90 - 0x68)))
-  #define local_64 (*(undefined4 (*)[20])(_frame + (0x90 - 0x64)))
+  uint *puVar2;
+  #define local_74 (*(uint *)(_frame + (0x90 - 0x74)))
+  #define local_70 (*(uint *)(_frame + (0x90 - 0x70)))
+  #define local_6c (*(uint *)(_frame + (0x90 - 0x6c)))
+  #define local_68 (*(uint *)(_frame + (0x90 - 0x68)))
+  #define local_64 (*(uint *)(_frame + (0x90 - 0x64)))
   #define local_14 (*(uint *)(_frame + (0x90 - 0x14)))
   
-  puVar2 = local_64;
+  puVar2 = &local_64;
   for (iVar1 = 0x19; iVar1 != 0; iVar1 = iVar1 + -1) {
     *puVar2 = 0;
     puVar2 = puVar2 + 1;
   }
-  local_70 = DAT_00900604;
-  local_14 = -(uint)(DAT_00900534 != 0x10) & 0xffff;
-  local_64[0] = 100;
-  local_74 = DAT_00900600;
-  local_6c = DAT_00900600 + DAT_00900608;
-  local_68 = DAT_00900604 + DAT_0090060c;
+  local_70 = UINT_00900604;
+  local_14 = -(uint)(UINT_00900534 != 0x10) & 0xffff;
+  local_64 = 100;
+  local_74 = UINT_00900600;
+  local_6c = UINT_00900600 + UINT_00900608;
+  local_68 = UINT_00900604 + UINT_0090060c;
   do {
-    iVar1 = (**(code_std **)(*PTR_00901464 + 0x14))(PTR_00901464,&local_74,0,0,0x3000000,local_64);
+    iVar1 = (**(code_std **)(*PTR_00901464 + 0x14))(PTR_00901464,&local_74,0,0,0x3000000,&local_64);
     if (iVar1 == 0) {
       return 1;
     }
@@ -1284,36 +1286,36 @@ uint D3D_FindTextureFormat(int *param_1,int param_2,uint param_3)
 /* ---- 0x00479cc0  D3D_SetViewportRect ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-void D3D_SetViewportRect(int *param_1)
+void D3D_SetViewportRect(uint *param_1)
 
 {
-  int iVar1;
+  uint uVar1;
   int iVar2;
   int iVar3;
-  undefined4 *puVar4;
+  uint *puVar4;
   
-  DAT_00900600 = *param_1;
-  iVar1 = param_1[1];
-  DAT_00900580 = (float)DAT_00900600;
-  DAT_00900608 = param_1[2];
-  iVar3 = DAT_00900600 + DAT_00900608;
-  DAT_0090060c = param_1[3];
-  puVar4 = &DAT_00900580;
-  DAT_00900604 = iVar1;
+  UINT_00900600 = *param_1;
+  uVar1 = param_1[1];
+  UINT_00900580 = (uint)(float)(int)UINT_00900600;
+  UINT_00900608 = param_1[2];
+  iVar3 = UINT_00900600 + UINT_00900608;
+  UINT_0090060c = param_1[3];
+  puVar4 = &UINT_00900580;
+  UINT_00900604 = uVar1;
   for (iVar2 = 0x20; iVar2 != 0; iVar2 = iVar2 + -1) {
     *puVar4 = 0;
     puVar4 = puVar4 + 1;
   }
-  DAT_00900584 = (float)DAT_00900604;
+  UINT_00900584 = (uint)(float)(int)UINT_00900604;
   _DAT_00900540 = 0;
   _DAT_00900544 = 1;
   _DAT_009005a0 = (float)iVar3;
-  _DAT_009005a4 = (float)DAT_00900604;
-  _DAT_009005c4 = (float)(iVar1 + DAT_0090060c);
+  _DAT_009005a4 = (float)(int)UINT_00900604;
+  _DAT_009005c4 = (float)(int)(uVar1 + UINT_0090060c);
   _DAT_009005c0 = (float)iVar3;
   _DAT_00900550 = 0;
   _DAT_009005e4 = _DAT_009005c4;
-  _DAT_009005e0 = DAT_00900580;
+  _DAT_009005e0 = (float)UINT_00900580;
   _DAT_00900548 = 2;
   _DAT_0090054c = 0x8200;
   _DAT_00900554 = 0;
@@ -1333,140 +1335,148 @@ undefined4 D3D_InitRenderState(void)
 {
   unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint uVar1;
-  undefined4 *puVar2;
+  uint uVar2;
   undefined4 uVar3;
   int iVar4;
   int *unaff_EDI;
   undefined4 *puVar5;
-  undefined4 **ppuVar6;
+  uint *puVar6;
   bool bVar7;
-  int *piVar8;
-  undefined4 **ppuVar9;
-  #define local_4c (*(undefined4 *(*)[2])(_frame + (0x60 - 0x4c)))
-  #define local_44 (*(int (*)[17])(_frame + (0x60 - 0x44)))
+  uint *puVar8;
+  uint *puVar9;
+  #define local_4c (*(uint *)(_frame + (0x60 - 0x4c)))
+  #define local_44 (*(uint *)(_frame + (0x60 - 0x44)))
+  #define local_40 (*(uint *)(_frame + (0x60 - 0x40)))
+  #define local_3c (*(uint *)(_frame + (0x60 - 0x3c)))
+  #define local_38 (*(uint *)(_frame + (0x60 - 0x38)))
+  #define local_34 (*(uint *)(_frame + (0x60 - 0x34)))
   
-  local_44[2] = 0;
-  ppuVar9 = local_4c;
-  local_44[4] = 0;
-  piVar8 = local_44;
-  local_4c[0] = (undefined4 *)0x0;
-  local_44[0] = 0x14;
-  local_44[1] = 1;
-  local_44[3] = 0x1000;
-  (**(code_std **)(*(int *)g_pD3dDevice + 0x18))(g_pD3dDevice,piVar8,ppuVar9,0);
+  local_3c = 0;
+  puVar9 = &local_4c;
+  local_34 = 0;
+  puVar8 = &local_44;
+  local_4c = 0;
+  local_44 = 0x14;
+  local_40 = 1;
+  local_38 = 0x1000;
+  (**(code_std **)(*(int *)g_pD3dDevice + 0x18))(g_pD3dDevice,puVar8,puVar9,0);
   (**(code_std **)(*unaff_EDI + 0x10))(unaff_EDI,&STACK0X(0xffffffac));
-  puVar2 = local_4c[0];
-  puVar5 = local_4c[0];
+  uVar2 = local_4c;
+  puVar5 = (undefined4 *)local_4c;
   for (iVar4 = 0x400; iVar4 != 0; iVar4 = iVar4 + -1) {
     *puVar5 = 0;
     puVar5 = puVar5 + 1;
   }
-  *(undefined1 *)local_4c[0] = 8;
-  *(undefined1 *)((int)local_4c[0] + 1) = 8;
-  *(undefined2 *)((int)local_4c[0] + 2) = 0x19;
-  local_4c[0][1] = 4;
-  local_4c[0][2] = g_dwD3dRenderFlags & 1;
-  local_4c[0][3] = 0x11;
-  local_4c[0][4] = ((g_dwD3dRenderFlags & 0x80) != 0) + 1;
-  local_4c[0][5] = 0x12;
-  local_4c[0][6] = ((g_dwD3dRenderFlags & 0x100) != 0) + 1;
-  local_4c[0][7] = 0x1f;
-  local_4c[0][8] = g_dwD3dRenderFlags >> 4 & 1;
-  local_4c[0][9] = 0x20;
-  local_4c[0][10] = g_dwD3dRenderFlags >> 5 & 1;
-  local_4c[0][0xb] = 5;
-  local_4c[0][0xc] = 0;
-  local_4c[0][0xd] = 6;
-  local_4c[0][0xe] = 0;
-  local_4c[0][0xf] = 0x1b;
-  local_4c[0][0x10] = (uint)((g_dwD3dRenderFlags & 0x600) != 0);
+  *(undefined1 *)local_4c = 8;
+  *(undefined1 *)(local_4c + 1) = 8;
+  *(undefined2 *)(local_4c + 2) = 0x19;
+  *(undefined4 *)(local_4c + 4) = 4;
+  *(uint *)(local_4c + 8) = g_dwD3dRenderFlags & 1;
+  *(undefined4 *)(local_4c + 0xc) = 0x11;
+  *(uint *)(local_4c + 0x10) = ((g_dwD3dRenderFlags & 0x80) != 0) + 1;
+  *(undefined4 *)(local_4c + 0x14) = 0x12;
+  *(uint *)(local_4c + 0x18) = ((g_dwD3dRenderFlags & 0x100) != 0) + 1;
+  *(undefined4 *)(local_4c + 0x1c) = 0x1f;
+  *(uint *)(local_4c + 0x20) = g_dwD3dRenderFlags >> 4 & 1;
+  *(undefined4 *)(local_4c + 0x24) = 0x20;
+  *(uint *)(local_4c + 0x28) = g_dwD3dRenderFlags >> 5 & 1;
+  *(undefined4 *)(local_4c + 0x2c) = 5;
+  *(undefined4 *)(local_4c + 0x30) = 0;
+  *(undefined4 *)(local_4c + 0x34) = 6;
+  *(undefined4 *)(local_4c + 0x38) = 0;
+  *(undefined4 *)(local_4c + 0x3c) = 0x1b;
+  *(uint *)(local_4c + 0x40) = (uint)((g_dwD3dRenderFlags & 0x600) != 0);
   if ((g_dwD3dRenderFlags & 0x600) == 0) {
-    local_4c[0][0x11] = 0x15;
-    local_4c[0][0x12] = 2;
-    local_4c[0][0x13] = 0x13;
-    local_4c[0][0x14] = 2;
-    local_4c[0][0x15] = 0x14;
-    local_4c[0][0x16] = 1;
+    *(undefined4 *)(local_4c + 0x44) = 0x15;
+    *(undefined4 *)(local_4c + 0x48) = 2;
+    *(undefined4 *)(local_4c + 0x4c) = 0x13;
+    *(undefined4 *)(local_4c + 0x50) = 2;
+    *(undefined4 *)(local_4c + 0x54) = 0x14;
+    *(undefined4 *)(local_4c + 0x58) = 1;
   }
   else {
     uVar1 = g_dwD3dRenderFlags & 0x400;
-    local_4c[0][0x11] = 0x15;
+    *(undefined4 *)(local_4c + 0x44) = 0x15;
     if (uVar1 == 0) {
-      local_4c[0][0x12] = 2;
+      *(undefined4 *)(local_4c + 0x48) = 2;
     }
     else {
-      local_4c[0][0x12] = 4;
+      *(undefined4 *)(local_4c + 0x48) = 4;
     }
-    local_4c[0][0x13] = 0x13;
-    local_4c[0][0x14] = 5;
-    local_4c[0][0x15] = 0x14;
-    local_4c[0][0x16] = 6;
+    *(undefined4 *)(local_4c + 0x4c) = 0x13;
+    *(undefined4 *)(local_4c + 0x50) = 5;
+    *(undefined4 *)(local_4c + 0x54) = 0x14;
+    *(undefined4 *)(local_4c + 0x58) = 6;
   }
-  local_4c[0][0x17] = 0xf;
-  local_4c[0][0x18] = 1;
-  local_4c[0][0x19] = 0x19;
-  uVar3 = D3D_FilterBitsToEnum(DAT_00900534);
-  puVar2[0x1a] = uVar3;
+  *(undefined4 *)(local_4c + 0x5c) = 0xf;
+  *(undefined4 *)(local_4c + 0x60) = 1;
+  *(undefined4 *)(local_4c + 100) = 0x19;
+  uVar3 = D3D_FilterBitsToEnum(UINT_00900534);
+  *(undefined4 *)(uVar2 + 0x68) = uVar3;
   iVar4 = *(int *)((int)g_pD3dDriver + 0x14);
-  puVar2[0x1b] = 0x21;
+  *(undefined4 *)(uVar2 + 0x6c) = 0x21;
   if (iVar4 == 0) {
-    puVar2[0x1c] = 0;
+    *(undefined4 *)(uVar2 + 0x70) = 0;
   }
   else {
-    puVar2[0x1c] = 1;
+    *(undefined4 *)(uVar2 + 0x70) = 1;
   }
-  puVar2[0x1d] = 9;
-  puVar2[0x1e] = 2;
-  puVar2[0x1f] = 0xb;
-  puVar2[0x20] = ~g_dwD3dRenderFlags >> 0xf & 1;
-  puVar2[0x21] = 0x1d;
-  puVar2[0x22] = g_dwD3dRenderFlags >> 2 & 1;
-  puVar2[0x23] = 0x1c;
-  puVar2[0x24] = g_dwD3dRenderFlags >> 6 & 1;
-  puVar2[0x25] = 8;
-  puVar2[0x26] = 3;
-  puVar2[0x27] = 0x1a;
-  puVar2[0x28] = g_dwD3dRenderFlags >> 1 & 1;
-  puVar2[0x29] = 2;
-  puVar2[0x2a] = g_dwD3dRenderFlags >> 3 & 1;
-  bVar7 = DAT_004dee60 == 0;
-  puVar2[0x2b] = 7;
+  *(undefined4 *)(uVar2 + 0x74) = 9;
+  *(undefined4 *)(uVar2 + 0x78) = 2;
+  *(undefined4 *)(uVar2 + 0x7c) = 0xb;
+  *(uint *)(uVar2 + 0x80) = ~g_dwD3dRenderFlags >> 0xf & 1;
+  *(undefined4 *)(uVar2 + 0x84) = 0x1d;
+  *(uint *)(uVar2 + 0x88) = g_dwD3dRenderFlags >> 2 & 1;
+  *(undefined4 *)(uVar2 + 0x8c) = 0x1c;
+  *(uint *)(uVar2 + 0x90) = g_dwD3dRenderFlags >> 6 & 1;
+  *(undefined4 *)(uVar2 + 0x94) = 8;
+  *(undefined4 *)(uVar2 + 0x98) = 3;
+  *(undefined4 *)(uVar2 + 0x9c) = 0x1a;
+  *(uint *)(uVar2 + 0xa0) = g_dwD3dRenderFlags >> 1 & 1;
+  *(undefined4 *)(uVar2 + 0xa4) = 2;
+  *(uint *)(uVar2 + 0xa8) = g_dwD3dRenderFlags >> 3 & 1;
+  bVar7 = UINT_004dee60 == 0;
+  *(undefined4 *)(uVar2 + 0xac) = 7;
   if (bVar7) {
-    puVar2[0x2c] = 0;
-    puVar2[0x2d] = 0xe;
-    puVar2[0x2e] = 0;
-    puVar2[0x2f] = 0x17;
+    *(undefined4 *)(uVar2 + 0xb0) = 0;
+    *(undefined4 *)(uVar2 + 0xb4) = 0xe;
+    *(undefined4 *)(uVar2 + 0xb8) = 0;
+    *(undefined4 *)(uVar2 + 0xbc) = 0x17;
   }
   else {
-    puVar2[0x2c] = 1;
-    puVar2[0x2d] = 0xe;
-    puVar2[0x2e] = 1;
-    puVar2[0x2f] = 0x17;
+    *(undefined4 *)(uVar2 + 0xb0) = 1;
+    *(undefined4 *)(uVar2 + 0xb4) = 0xe;
+    *(undefined4 *)(uVar2 + 0xb8) = 1;
+    *(undefined4 *)(uVar2 + 0xbc) = 0x17;
   }
-  uVar3 = D3D_FilterBitsToEnum(DAT_00900534);
-  puVar2[0x30] = uVar3;
-  puVar2[0x31] = 0x16;
-  puVar2[0x32] = 1;
-  *(undefined1 *)(puVar2 + 0x33) = 0xb;
-  *(undefined1 *)((int)puVar2 + 0xcd) = 0;
-  *(undefined2 *)((int)puVar2 + 0xce) = 0;
-  (*(code_std *)(*ppuVar9)[5])(ppuVar9);
-  ppuVar6 = local_4c;
+  uVar3 = D3D_FilterBitsToEnum(UINT_00900534);
+  *(undefined4 *)(uVar2 + 0xc0) = uVar3;
+  *(undefined4 *)(uVar2 + 0xc4) = 0x16;
+  *(undefined4 *)(uVar2 + 200) = 1;
+  *(undefined1 *)(uVar2 + 0xcc) = 0xb;
+  *(undefined1 *)(uVar2 + 0xcd) = 0;
+  *(undefined2 *)(uVar2 + 0xce) = 0;
+  (**(code_std **)(*puVar9 + 0x14))(puVar9);
+  puVar6 = &local_4c;
   for (iVar4 = 0xc; iVar4 != 0; iVar4 = iVar4 + -1) {
-    *ppuVar6 = (undefined4 *)0x0;
-    ppuVar6 = ppuVar6 + 1;
+    *puVar6 = 0;
+    puVar6 = puVar6 + 1;
   }
-  local_44[2] = (int)puVar2 + (0xd0 - (int)ppuVar9);
-  local_4c[0] = (undefined4 *)0x30;
-  local_44[1] = 0;
-  (**(code_std **)(*piVar8 + 0x18))(piVar8,local_4c);
+  local_3c = (uVar2 + 0xd0) - (int)puVar9;
+  local_4c = 0x30;
+  local_40 = 0;
+  (**(code_std **)(*puVar8 + 0x18))(puVar8,&local_4c);
   (**(code_std **)(*(int *)g_pD3dDevice + 0x4c))(g_pD3dDevice);
   (**(code_std **)(*(int *)g_pD3dDevice + 0x20))(g_pD3dDevice,unaff_EDI,PTR_0080660c);
   (**(code_std **)(*(int *)g_pD3dDevice + 0x50))(g_pD3dDevice);
   (**(code_std **)((*(int *)0x00000002) + 8))(2);
-  DAT_00806924 = g_dwD3dRenderFlags;
+  UINT_00806924 = g_dwD3dRenderFlags;
   return 1;
 }
+#undef local_34
+#undef local_38
+#undef local_3c
+#undef local_40
 #undef local_44
 #undef local_4c
 
@@ -1546,7 +1556,7 @@ undefined4 D3D_CreateZBuffer(int param_1,int param_2)
 {
   int iVar1;
   uint uVar2;
-  undefined4 *puVar3;
+  uint *puVar3;
   
   _DAT_00901400 = 1;
   _DAT_00901408 = 0;
@@ -1554,7 +1564,7 @@ undefined4 D3D_CreateZBuffer(int param_1,int param_2)
   _DAT_00901458 = 0;
   _DAT_0090145c = 0;
   PTR_00806964 = (int *)&PTR_00901464;
-  puVar3 = &DAT_0090146c;
+  puVar3 = &UINT_0090146c;
   for (iVar1 = 0x1b; iVar1 != 0; iVar1 = iVar1 + -1) {
     *puVar3 = 0;
     puVar3 = puVar3 + 1;
@@ -1600,7 +1610,7 @@ undefined4 D3D_CreateZBuffer(int param_1,int param_2)
 }
 
 /* ---- 0x0047a3b0  FUN_0047a3b0 ---- */
-undefined4 __stdcall FUN_0047a3b0(int a1,int a2,int a3,int a4,int a5,int a6)
+undefined * __stdcall FUN_0047a3b0(int a1,int a2,int a3,int a4,int a5,int a6)
 
 {
   int iVar1;
@@ -1618,11 +1628,11 @@ undefined4 __stdcall FUN_0047a3b0(int a1,int a2,int a3,int a4,int a5,int a6)
     strncpy(iVar1 + 0x900b88,a3,0x7f);
     (&DAT_00900c07)[iVar1] = 0;
     if (*(int *)(a4 + 8) == 0) {
-      (&DAT_00900b40)[iVar4] = 0;
+      (&UINT_00900b40)[iVar4] = 0;
       a4 = a5;
     }
     else {
-      (&DAT_00900b40)[iVar4] = 1;
+      (&UINT_00900b40)[iVar4] = 1;
     }
     Mem_Copy((void *)(iVar1 + 0x900c90),(void *)a4,0xcc);
     *(undefined4 *)(&DAT_00900b64 + iVar1) = 0;
@@ -1680,13 +1690,13 @@ undefined4 __stdcall FUN_0047a3b0(int a1,int a2,int a3,int a4,int a5,int a6)
     *(undefined4 *)(&DAT_00900b80 + iVar1) = *(undefined4 *)(&DAT_00900d34 + iVar1);
     *(undefined4 *)(&DAT_00900b84 + iVar1) = *(undefined4 *)(&DAT_00900d38 + iVar1);
     g_dwD3dDriverCount = g_dwD3dDriverCount + 1;
-    return 1;
+    return (undefined *)0x1;
   }
-  return 0;
+  return (undefined *)0x0;
 }
 
 /* ---- 0x0047a590  FUN_0047a590 ---- */
-undefined4 __stdcall FUN_0047a590(int a1,int a2)
+undefined * __stdcall FUN_0047a590(int a1,int a2)
 
 {
   int iVar1;
@@ -1694,16 +1704,16 @@ undefined4 __stdcall FUN_0047a590(int a1,int a2)
   int iVar3;
   uint uVar4;
   
-  if (7 < DAT_00806930) {
-    return 0;
+  if (7 < UINT_00806930) {
+    return (undefined *)0x0;
   }
-  iVar1 = DAT_00806930 * 0xa4;
+  iVar1 = UINT_00806930 * 0xa4;
   puVar2 = (undefined4 *)(&DAT_00900620 + iVar1);
   Mem_Copy((void *)(iVar1 + 0x900658),(void *)a1,0x6c);
   uVar4 = *(uint *)(a1 + 0x4c);
   if ((uVar4 & 0x20) == 0) {
     if ((uVar4 & 8) != 0) {
-      return 1;
+      return (undefined *)0x1;
     }
     if ((uVar4 & 1) != 0) {
       *puVar2 = 2;
@@ -1814,8 +1824,8 @@ undefined4 __stdcall FUN_0047a590(int a1,int a2)
   *(undefined4 *)(&DAT_00900654 + iVar1) = 0;
   *(undefined4 *)(&DAT_0090064c + iVar1) = 0;
 LAB_0047a825:
-  DAT_00806930 = DAT_00806930 + 1;
-  return 1;
+  UINT_00806930 = UINT_00806930 + 1;
+  return (undefined *)0x1;
 }
 
 /* ---- 0x0047a850  D3D_CapsToFilterBits ---- */
@@ -1914,16 +1924,18 @@ byte D3D_FilterBitsToEnum(byte param_1)
 int __cdecl D3D_EvictTexture(uint size)
 
 {
+  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint uVar1;
   undefined4 *puVar2;
   uint uVar3;
   undefined4 *puVar4;
+  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   uVar3 = 0xffffffff;
   puVar4 = (undefined4 *)0x0;
   for (puVar2 = g_pD3dTextureList; puVar2 != (undefined4 *)0x0; puVar2 = (undefined4 *)puVar2[0x25])
   {
-    if (puVar2[0x23] != DAT_004dee58) {
+    if (puVar2[0x23] != UINT_004dee58) {
       uVar1 = puVar2[0x22];
       if (uVar1 == size) {
         (**(code_std **)(*(int *)puVar2[1] + 8))((int *)puVar2[1]);
@@ -1943,7 +1955,7 @@ int __cdecl D3D_EvictTexture(uint size)
   if (puVar4 == (undefined4 *)0x0) {
     while (puVar4 = puVar2, puVar4 != (undefined4 *)0x0) {
       puVar2 = (undefined4 *)puVar4[0x25];
-      if (puVar4[0x23] != DAT_004dee58) {
+      if (puVar4[0x23] != UINT_004dee58) {
         (**(code_std **)(*(int *)puVar4[1] + 8))((int *)puVar4[1]);
         (**(code_std **)(*(int *)*puVar4 + 8))((int *)*puVar4);
         puVar4[0x1e] = 0;
@@ -1961,3 +1973,5 @@ int __cdecl D3D_EvictTexture(uint size)
   D3D_UnlinkTexture(puVar4);
   return 1;
 }
+#undef local_4
+

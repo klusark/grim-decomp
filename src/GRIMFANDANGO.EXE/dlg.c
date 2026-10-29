@@ -216,7 +216,7 @@ uint * Dlg_MakeDialogTemplate
 
 
 /* ---- 0x00488370  FUN_00488370 ---- */
-undefined4 __stdcall FUN_00488370(int a1,int a2,int a3,int a4)
+undefined * __stdcall FUN_00488370(int a1,int a2,int a3,int a4)
 
 {
   int iVar1;
@@ -224,121 +224,124 @@ undefined4 __stdcall FUN_00488370(int a1,int a2,int a3,int a4)
   int iVar3;
   
   if (a2 == 0x110) {
-    if (0 < DAT_008c9854) {
+    if (0 < (int)UINT_008c9854) {
       iVar2 = 0;
       iVar3 = 0x450;
       do {
-        SetDlgItemInt(a1,iVar3 + -100,*(int *)(DAT_008c9850 + iVar2),1);
+        SetDlgItemInt(a1,iVar3 + -100,*(int *)(UINT_008c9850 + iVar2),1);
         SendDlgItemMessageA(a1,iVar3,0x465,0,0x7f);
         iVar2 = iVar2 + 4;
         iVar1 = iVar3 + -0x44f;
         iVar3 = iVar3 + 1;
-      } while (iVar1 < DAT_008c9854);
+      } while (iVar1 < (int)UINT_008c9854);
     }
   }
   else if (a2 == 0x111) {
     if ((a3 & 0xffffU) == 1) {
       iVar3 = 0;
-      if (0 < DAT_008c9854) {
+      if (0 < (int)UINT_008c9854) {
         do {
           iVar2 = GetDlgItemInt(a1,iVar3 + 0x3ec,0,1);
           iVar3 = iVar3 + 1;
-          *(int *)(DAT_008c9850 + -4 + iVar3 * 4) = iVar2;
-        } while (iVar3 < DAT_008c9854);
+          *(int *)((UINT_008c9850 - 4) + iVar3 * 4) = iVar2;
+        } while (iVar3 < (int)UINT_008c9854);
       }
       EndDialog(a1,1);
-      return 1;
+      return (undefined *)0x1;
     }
     if ((a3 & 0xffffU) == 2) {
       EndDialog(a1,2);
-      return 1;
+      return (undefined *)0x1;
     }
   }
-  return 0;
+  return (undefined *)0x0;
 }
 
 /* ---- 0x00488460  FUN_00488460 ---- */
-undefined4 __stdcall FUN_00488460(int a1,int a2,int a3,int a4)
+undefined * __stdcall FUN_00488460(int a1,int a2,int a3,int a4)
 
 {
   unsigned char _frame[0x70] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   char cVar1;
   int iVar2;
+  int a1_00;
   int iVar3;
-  int iVar4;
+  uint uVar4;
   uint uVar5;
-  uint uVar6;
-  undefined4 *puVar7;
-  int iVar8;
+  undefined4 *puVar6;
+  int iVar7;
+  uint uVar8;
   char *pcVar9;
-  #define local_58 (*(undefined4 *)(_frame + (0x70 - 0x58)))
-  #define local_54 (*(int *)(_frame + (0x70 - 0x54)))
-  #define local_48 (*(undefined4 *)(_frame + (0x70 - 0x48)))
+  #define local_58 (*(uint *)(_frame + (0x70 - 0x58)))
+  #define local_54 (*(uint *)(_frame + (0x70 - 0x54)))
+  #define local_48 (*(uint *)(_frame + (0x70 - 0x48)))
   #define local_44 (*(uint *)(_frame + (0x70 - 0x44)))
-  #define local_30 (*(int (*)[6])(_frame + (0x70 - 0x30)))
-  #define local_18 (*(int *)(_frame + (0x70 - 0x18)))
+  #define local_30 (*(uint *)(_frame + (0x70 - 0x30)))
+  #define local_2c (*(uint *)(_frame + (0x70 - 0x2c)))
+  #define local_28 (*(uint *)(_frame + (0x70 - 0x28)))
+  #define local_18 (*(uint *)(_frame + (0x70 - 0x18)))
   
   if (a2 == 0x110) {
-    uVar6 = 0;
-    DAT_008c9828 = 0;
-    puVar7 = DAT_004e813c;
-    iVar2 = DAT_004e8140;
-    if (0 < DAT_004e8140) {
+    uVar5 = 0;
+    UINT_008c9828 = 0;
+    puVar6 = (undefined4 *)UINT_004e813c;
+    uVar8 = UINT_004e8140;
+    if (0 < (int)UINT_004e8140) {
       do {
-        uVar5 = 0xffffffff;
-        pcVar9 = (char *)*puVar7;
+        uVar4 = 0xffffffff;
+        pcVar9 = (char *)*puVar6;
         do {
-          if (uVar5 == 0) break;
-          uVar5 = uVar5 - 1;
+          if (uVar4 == 0) break;
+          uVar4 = uVar4 - 1;
           cVar1 = *pcVar9;
           pcVar9 = pcVar9 + 1;
         } while (cVar1 != '\0');
-        if (uVar6 <= ~uVar5) {
-          uVar6 = 0xffffffff;
-          pcVar9 = (char *)*puVar7;
+        if (uVar5 <= ~uVar4) {
+          uVar5 = 0xffffffff;
+          pcVar9 = (char *)*puVar6;
           do {
-            if (uVar6 == 0) break;
-            uVar6 = uVar6 - 1;
+            if (uVar5 == 0) break;
+            uVar5 = uVar5 - 1;
             cVar1 = *pcVar9;
             pcVar9 = pcVar9 + 1;
           } while (cVar1 != '\0');
-          uVar6 = ~uVar6;
-          DAT_008c9828 = uVar6;
+          uVar5 = ~uVar5;
+          UINT_008c9828 = uVar5;
         }
-        iVar2 = iVar2 + -1;
-        puVar7 = puVar7 + 1;
-      } while (iVar2 != 0);
+        uVar8 = uVar8 - 1;
+        puVar6 = puVar6 + 1;
+      } while (uVar8 != 0);
     }
-    DAT_008c982c = malloc(uVar6);
-    if (DAT_004e8138 != 0) {
-      SendMessageA(a1,0xc,0,DAT_004e8138);
+    UINT_008c982c = (uint)malloc(uVar5);
+    if (UINT_004e8138 != 0) {
+      SendMessageA(a1,0xc,0,UINT_004e8138);
     }
-    iVar3 = GetDlgItem(a1,0x3ea);
-    iVar8 = 0;
-    local_30[0] = -0x10000;
-    local_30[1] = 0xffff0002;
+    a1_00 = GetDlgItem(a1,0x3ea);
+    iVar7 = 0;
+    local_30 = 0xffff0000;
+    local_2c = 0xffff0002;
     iVar2 = 0;
-    if (0 < DAT_004e8140) {
+    if (0 < (int)UINT_004e8140) {
       do {
-        iVar4 = strpbrk_or_strspn(DAT_004e813c[iVar8],&DAT_004e81c4);
-        if (iVar2 < iVar4) {
-          local_30[0] = a1;
+        iVar3 = strpbrk_or_strspn(*(undefined4 *)(UINT_004e813c + iVar7 * 4),&DAT_004e81c4);
+        if (iVar2 < iVar3) {
+          local_30 = a1;
         }
-        if (iVar4 < iVar2) {
-          iVar2 = iVar2 - iVar4;
+        if (iVar3 < iVar2) {
+          iVar2 = iVar2 - iVar3;
           do {
-            local_30[0] = SendMessageA(iVar3,0x110a,3,local_30[0]);
+            local_30 = SendMessageA(a1_00,0x110a,3,local_30);
             iVar2 = iVar2 + -1;
           } while (iVar2 != 0);
         }
-        local_18 = DAT_004e813c[iVar8] + iVar4;
-        local_30[2] = 1;
-        a1 = SendMessageA(iVar3,0x1100,0,(int)local_30);
-        iVar8 = iVar8 + 1;
-        iVar2 = iVar4;
-      } while (iVar8 < DAT_004e8140);
+        local_18 = *(int *)(UINT_004e813c + iVar7 * 4) + iVar3;
+        local_28 = 1;
+        a1 = SendMessageA(a1_00,0x1100,0,(int)&local_30);
+        iVar7 = iVar7 + 1;
+        iVar2 = iVar3;
+      } while (iVar7 < (int)UINT_004e8140);
     }
-    SetFocus(iVar3);
+    SetFocus(a1_00);
   }
   else if (a2 == 0x111) {
     if ((a3 & 0xffffU) == 1) {
@@ -346,39 +349,42 @@ undefined4 __stdcall FUN_00488460(int a1,int a2,int a3,int a4)
       local_54 = SendMessageA(iVar2,0x110a,9,0);
       if (local_54 == 0) {
         Plat_MessageBox(s_Not_so_fast__004e81c8,s_No_item_was_picked__004e81d8,0);
-        return 1;
+        return (undefined *)0x1;
       }
-      local_48 = DAT_008c982c;
-      local_44 = DAT_008c9828;
+      local_48 = UINT_008c982c;
+      local_44 = UINT_008c9828;
       local_58 = 0x11;
       SendMessageA(iVar2,0x110c,0,(int)&local_58);
-      iVar2 = 0;
-      if (0 < DAT_004e8140) {
+      uVar8 = 0;
+      if (0 < (int)UINT_004e8140) {
         do {
-          iVar3 = String_ContainsSubstring(DAT_004e813c[iVar2],DAT_008c982c);
-          if (iVar3 != 0) break;
-          iVar2 = iVar2 + 1;
-        } while (iVar2 < DAT_004e8140);
+          iVar2 = String_ContainsSubstring(*(undefined4 *)(UINT_004e813c + uVar8 * 4),UINT_008c982c)
+          ;
+          if (iVar2 != 0) break;
+          uVar8 = uVar8 + 1;
+        } while ((int)uVar8 < (int)UINT_004e8140);
       }
-      DAT_004e8144 = iVar2;
+      UINT_004e8144 = uVar8;
       iVar2 = GetDlgItem(a1,0x3eb);
       if (iVar2 != 0) {
         iVar2 = SendMessageA(iVar2,0xf0,0,0);
-        DAT_004e8148 = (uint)(iVar2 == 1);
+        UINT_004e8148 = (uint)(iVar2 == 1);
       }
-      free(DAT_008c982c);
+      free(UINT_008c982c);
       EndDialog(a1,1);
-      return 1;
+      return (undefined *)0x1;
     }
     if ((a3 & 0xffffU) == 2) {
-      free(DAT_008c982c);
+      free(UINT_008c982c);
       EndDialog(a1,2);
-      return 1;
+      return (undefined *)0x1;
     }
   }
-  return 0;
+  return (undefined *)0x0;
 }
 #undef local_18
+#undef local_28
+#undef local_2c
 #undef local_30
 #undef local_44
 #undef local_48
@@ -387,26 +393,26 @@ undefined4 __stdcall FUN_00488460(int a1,int a2,int a3,int a4)
 
 
 /* ---- 0x004886f0  FUN_004886f0 ---- */
-undefined4 __stdcall FUN_004886f0(int a1,int a2,int a3,int a4)
+undefined * __stdcall FUN_004886f0(int a1,int a2,int a3,int a4)
 
 {
   undefined1 *puVar1;
   int a1_00;
   
   if (a2 == 0x110) {
-    if (DAT_008c9830 != 0) {
-      SendMessageA(a1,0xc,0,DAT_008c9830);
+    if (UINT_008c9830 != 0) {
+      SendMessageA(a1,0xc,0,UINT_008c9830);
     }
-    puVar1 = DAT_008c9834;
-    if (DAT_008c9834 == (undefined1 *)0x0) {
+    puVar1 = (undefined1 *)UINT_008c9834;
+    if (UINT_008c9834 == 0) {
       puVar1 = &DAT_004f5a98;
     }
     SetDlgItemTextA(a1,0x3e9,(int)puVar1);
-    if (1 < DAT_008c983c) {
-      SendDlgItemMessageA(a1,1000,0xc5,DAT_008c983c + -1,0);
+    if (1 < (int)UINT_008c983c) {
+      SendDlgItemMessageA(a1,1000,0xc5,UINT_008c983c - 1,0);
     }
-    puVar1 = DAT_008c9840;
-    if (DAT_008c9840 == (undefined1 *)0x0) {
+    puVar1 = (undefined1 *)UINT_008c9840;
+    if (UINT_008c9840 == 0) {
       puVar1 = &DAT_004f5a98;
     }
     SetDlgItemTextA(a1,1000,(int)puVar1);
@@ -416,14 +422,14 @@ undefined4 __stdcall FUN_004886f0(int a1,int a2,int a3,int a4)
   }
   else if (a2 == 0x111) {
     if ((a3 & 0xffffU) == 1) {
-      GetDlgItemTextA(a1,1000,DAT_008c9838,DAT_008c983c + -1);
+      GetDlgItemTextA(a1,1000,UINT_008c9838,UINT_008c983c - 1);
       EndDialog(a1,1);
-      return 1;
+      return (undefined *)0x1;
     }
     if ((a3 & 0xffffU) == 2) {
       EndDialog(a1,2);
-      return 1;
+      return (undefined *)0x1;
     }
   }
-  return 0;
+  return (undefined *)0x0;
 }

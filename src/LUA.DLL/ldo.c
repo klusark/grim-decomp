@@ -216,6 +216,7 @@ undefined4 luaD_call(code *param_1,void *param_2)
   int iVar2;
   void *pvVar3;
   int iVar4;
+  void *extraout_EAX;
   int iVar5;
   uint uVar6;
   int iVar7;
@@ -300,8 +301,9 @@ switchD_1000422b_caseD_fffffff9:
       lvm__ddf0((void *)*PTR_1002bf6c,0,puVar1[1],iVar4);
       piVar9 = (int *)*PTR_1002bf6c;
 LAB_100042fe:
-      pvVar3 = (void *)((code *)lvm__de30)(piVar9);
-      param_2 = pvVar3;
+      lvm__de30(piVar9);
+      pvVar3 = extraout_EAX;
+      param_2 = extraout_EAX;
     }
     if ((int)pvVar3 < 1) {
       iVar4 = -(int)pvVar3;

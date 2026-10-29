@@ -14,7 +14,7 @@ void Polyglot_LoadTable(undefined *param_1)
   int iVar1;
   int iVar2;
   char *pcVar3;
-  undefined1 *puVar4;
+  undefined *puVar4;
   undefined1 *puVar5;
   
   PTR_s_language_tab_004e8024 = param_1;
@@ -42,27 +42,28 @@ void Polyglot_LoadTable(undefined *param_1)
       }
     }
     do {
-      iVar1 = Str_FindChar(pcVar3,0xd);
-      DAT_008a8ca4 = DAT_008a8ca4 + 1;
-      pcVar3 = (char *)(iVar1 + 2);
-    } while ((char *)(iVar1 + 2) < g_pPolyglotText + iVar2 + -1);
-    DAT_008a8c9c = (*g_pSvcIMuseModule->pAlloc)
-                             (DAT_008a8ca4 * 4,s_C__grimsrc_libs_grimlib_Engine_p_004e8038,0xa2);
+      puVar4 = Str_FindChar(pcVar3,0xd);
+      UINT_008a8ca4 = UINT_008a8ca4 + 1;
+      pcVar3 = puVar4 + 2;
+    } while (puVar4 + 2 < g_pPolyglotText + iVar2 + -1);
+    UINT_008a8c9c =
+         (*g_pSvcIMuseModule->pAlloc)
+                   (UINT_008a8ca4 * 4,s_C__grimsrc_libs_grimlib_Engine_p_004e8038,0xa2);
     iVar1 = 0;
     pcVar3 = g_pPolyglotText;
     do {
-      puVar4 = (undefined1 *)Str_FindChar(pcVar3,0xd);
+      puVar4 = Str_FindChar(pcVar3,0xd);
       *puVar4 = 0;
       puVar5 = (undefined1 *)strchr(pcVar3,9);
       if (puVar5 != (undefined1 *)0x0) {
         *puVar5 = 0;
       }
       _strupr(pcVar3);
-      *(char **)(DAT_008a8c9c + iVar1) = pcVar3;
+      *(char **)(UINT_008a8c9c + iVar1) = pcVar3;
       pcVar3 = puVar4 + 2;
       iVar1 = iVar1 + 4;
     } while (pcVar3 < g_pPolyglotText + iVar2 + -1);
-    qsort(DAT_008a8c9c,DAT_008a8ca4,4,FUN_00403ae0);
+    qsort(UINT_008a8c9c,UINT_008a8ca4,4,FUN_00403ae0);
   }
   return;
 }
@@ -82,10 +83,10 @@ char * __cdecl Polyglot_Lookup(char *textId)
   uint uVar6;
   char *pcVar7;
   char *pcVar8;
-  #define local_104 (*(char **)(_frame + (0x120 - 0x104)))
+  #define local_104 (*(uint *)(_frame + (0x120 - 0x104)))
   #define local_100 (*(char (*)[256])(_frame + (0x120 - 0x100)))
   
-  local_104 = local_100;
+  local_104 = (uint)local_100;
   if (textId == (char *)0x0) {
     return (char *)0x0;
   }
@@ -122,7 +123,7 @@ char * __cdecl Polyglot_Lookup(char *textId)
       *puVar3 = 0;
     }
     _strupr(local_100);
-    puVar4 = (undefined4 *)bsearch(&local_104,DAT_008a8c9c,DAT_008a8ca4,4,FUN_00403ae0);
+    puVar4 = (undefined4 *)bsearch(&local_104,UINT_008a8c9c,UINT_008a8ca4,4,FUN_00403ae0);
     if (puVar4 == (undefined4 *)0x0) {
       return (char *)(iVar2 + 1);
     }

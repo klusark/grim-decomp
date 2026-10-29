@@ -11,9 +11,9 @@
 void Spew_Startup(void)
 
 {
-  if (g_pSpewDll == (void *)0x0) {
+  if (g_hSpewDll == (void *)0x0) {
     Spew_LoadDll();
-    if (g_pSpewDll == (void *)0x0) {
+    if (g_hSpewDll == (void *)0x0) {
       return;
     }
   }
@@ -27,10 +27,10 @@ void Spew_Startup(void)
 void Spew_Shutdown(void)
 
 {
-  if (g_pSpewDll != (void *)0x0) {
+  if (g_hSpewDll != (void *)0x0) {
     (*(code *)g_pfnSpewShutdown)();
-    FreeLibrary((int)g_pSpewDll);
-    g_pSpewDll = (void *)0x0;
+    FreeLibrary((int)g_hSpewDll);
+    g_hSpewDll = (void *)0x0;
   }
   return;
 }
@@ -39,10 +39,10 @@ void Spew_Shutdown(void)
 void Spew_LoadDll(void)
 
 {
-  g_pSpewDll = (void *)LoadLibraryA(IMG_ADDR(0x004e8238));
-  if (g_pSpewDll != (void *)0x0) {
-    g_pfnSpewStartup = (void *)GetProcAddress((int)g_pSpewDll,IMG_ADDR(0x004e8228));
-    g_pfnSpewShutdown = (void *)GetProcAddress((int)g_pSpewDll,IMG_ADDR(0x004e8218));
+  g_hSpewDll = (void *)LoadLibraryA(IMG_ADDR(0x004e8238));
+  if (g_hSpewDll != (void *)0x0) {
+    g_pfnSpewStartup = (void *)GetProcAddress((int)g_hSpewDll,IMG_ADDR(0x004e8228));
+    g_pfnSpewShutdown = (void *)GetProcAddress((int)g_hSpewDll,IMG_ADDR(0x004e8218));
   }
   return;
 }

@@ -8,10 +8,10 @@
 /* ---- 0x004839f0  Render_GetBackBuffer ---- */
 /* Returns the back buffer surface g_BackBuffer */
 
-undefined4 * Render_GetBackBuffer(void)
+uint * Render_GetBackBuffer(void)
 
 {
-  return &DAT_009055e0;
+  return &g_BackBuffer;
 }
 
 /* ---- 0x00483a00  Render_ToggleDebugOverlay ---- */
@@ -22,10 +22,10 @@ void Render_ToggleDebugOverlay(void)
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int bufferIdx;
-  #define local_10 (*(int *)(_frame + (0x20 - 0x10)))
-  #define local_c (*(undefined4 *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(int *)(_frame + (0x20 - 0x8)))
-  #define local_4 (*(int *)(_frame + (0x20 - 0x4)))
+  #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
+  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
+  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   if ((g_dwRenderDebugFlags & 1) == 0) {
     g_dwRenderDebugFlags = g_dwRenderDebugFlags | 1;
@@ -34,8 +34,8 @@ void Render_ToggleDebugOverlay(void)
     g_dwRenderDebugFlags = g_dwRenderDebugFlags & 0xfffffffe;
   }
   if ((g_dwRenderDebugFlags & 1) == 0) {
-    local_10 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x18);
-    local_c = *(undefined4 *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x1c);
+    local_10 = *(uint *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x18);
+    local_c = *(uint *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x1c);
     local_8 = (*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x20) -
               *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x18)) + 1;
     local_4 = (*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x24) -
@@ -43,7 +43,7 @@ void Render_ToggleDebugOverlay(void)
     bufferIdx = 0;
     if (0 < g_nBufferCount) {
       do {
-        DirtyRect_Add(&local_10,1,bufferIdx);
+        DirtyRect_Add((int *)&local_10,1,bufferIdx);
         bufferIdx = bufferIdx + 1;
       } while (bufferIdx < g_nBufferCount);
     }
@@ -57,10 +57,10 @@ void Render_ToggleDebugOverlay(void)
 
 
 /* ---- 0x00483a80  Render_SetUserCallback ---- */
-void Render_SetUserCallback(undefined4 param_1)
+void Render_SetUserCallback(uint param_1)
 
 {
-  DAT_008c97b8 = param_1;
+  UINT_008c97b8 = param_1;
   return;
 }
 
@@ -86,7 +86,7 @@ int __cdecl Render_SaveState(void *writeFn)
   (*(code *)writeFn)(&g_dwRenderFlags,4);
   (*(code *)writeFn)(&g_nDrawEnabled,4);
   (*(code *)writeFn)(&g_nCameraActor,4);
-  (*(code *)writeFn)(&DAT_008c97f8,4);
+  (*(code *)writeFn)(&UINT_008c97f8,4);
   return 0;
 }
 
@@ -102,7 +102,7 @@ int __cdecl Render_RestoreState(void *readFn)
   (*(code *)readFn)(&g_dwRenderFlags,4);
   (*(code *)readFn)(&g_nDrawEnabled,4);
   (*(code *)readFn)(&g_nCameraActor,4);
-  (*(code *)readFn)(&DAT_008c97f8,4);
+  (*(code *)readFn)(&UINT_008c97f8,4);
   return 0;
 }
 
@@ -194,7 +194,7 @@ void __cdecl Render_InvalidateRect(int *rect,int flag)
    RDroid and draws the current set */
 
 undefined4
-Render_Open(int param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4,undefined4 param_5,
+Render_Open(uint param_1,uint param_2,undefined4 param_3,undefined4 param_4,undefined4 param_5,
            undefined4 param_6,int param_7)
 
 {
@@ -208,8 +208,8 @@ Render_Open(int param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4
   
   Render_Close();
   g_pCanvas = (void *)rdCanvas_New(1,param_1,param_2,param_3,param_4,param_5,param_6,0);
-  DAT_008c97a4 = param_2;
-  DAT_008c97a0 = param_1;
+  UINT_008c97a4 = param_2;
+  UINT_008c97a0 = param_1;
   puVar3 = (undefined4 *)(param_1 + 0xc);
   puVar4 = local_4c;
   for (iVar2 = 0x13; iVar2 != 0; iVar2 = iVar2 + -1) {
@@ -220,7 +220,7 @@ Render_Open(int param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4
   g_pTempSurface = Surface_Create(local_4c,0,0,0);
   bVar5 = *(int *)(param_1 + 8) != 0;
   g_pBackgroundSurface = Surface_Create(local_4c,(uint)bVar5,(uint)bVar5,0);
-  if ((g_nZBufferEnabled == 0) || (DAT_004e806c != 0)) {
+  if ((g_nZBufferEnabled == 0) || (UINT_004e806c != 0)) {
     iVar2 = 0;
   }
   else {
@@ -228,11 +228,11 @@ Render_Open(int param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4
   }
   g_pZBufferSurface = Surface_Create(local_4c,iVar2,iVar2,0);
   if ((g_pBackgroundSurface != (void *)0x0) && (g_pZBufferSurface != (void *)0x0)) {
-    DAT_008a94b8 = DAT_0090563c;
-    _DAT_008a94c4 = DAT_00905604 >> 3;
-    DAT_008a94c0 = DAT_009055f0;
-    DAT_008a94bc = *(undefined4 *)(DAT_008c97a0 + 0xc);
-    _DAT_008a94cc = DAT_009055f8;
+    UINT_008a94b8 = UINT_0090563c;
+    _DAT_008a94c4 = UINT_00905604 >> 3;
+    UINT_008a94c0 = UINT_009055f0;
+    UINT_008a94bc = *(uint *)(UINT_008c97a0 + 0xc);
+    _DAT_008a94cc = UINT_009055f8;
     *(uint *)(param_7 + 0xc) = *(uint *)(param_7 + 0xc) | 2;
     Render_SetPixelFormat(param_7);
     pvVar1 = Set_GetCurrent();
@@ -241,8 +241,8 @@ Render_Open(int param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4
                 (*(void **)(*(int *)((int)pvVar1 + 0xac) + 0x48 + *(int *)((int)pvVar1 + 0xb4) * 300
                            ),g_flAmbientLight);
     }
-    DAT_008c9780 = &DAT_00905600;
-    Render_InitColorConstants(&DAT_004ddaa0);
+    UINT_008c9780 = (uint)&DAT_00905600;
+    Render_InitColorConstants(&UINT_004ddaa0);
     _DAT_008c9790 = 1;
     pvVar1 = Set_GetCurrent();
     if (pvVar1 != (void *)0x0) {
@@ -291,35 +291,35 @@ void Render_Close(void)
 void Render_Present(void)
 
 {
-  if ((g_nDrawEnabled != 0) && (DAT_008c97f8 == 0)) {
+  if ((g_nDrawEnabled != 0) && (UINT_008c97f8 == 0)) {
     (*(code *)g_pfnFlipCallback)();
   }
-  DAT_008c97f8 = 0;
+  UINT_008c97f8 = 0;
   return;
 }
 
 /* ---- 0x004849d0  Render_SetPixelFormat ---- */
 /* Copies the 7-dword pixel format and pushes each component shift/mask into RDroid */
 
-void Render_SetPixelFormat(undefined4 *param_1)
+void Render_SetPixelFormat(uint *param_1)
 
 {
   int iVar1;
-  undefined4 *puVar2;
+  uint *puVar2;
   
-  puVar2 = &DAT_008a9510;
+  puVar2 = &UINT_008a9510;
   for (iVar1 = 7; iVar1 != 0; iVar1 = iVar1 + -1) {
     *puVar2 = *param_1;
     param_1 = param_1 + 1;
     puVar2 = puVar2 + 1;
   }
-  rdroid_SetGeometryMode(DAT_008a9510);
-  rdroid_SetLightingMode(DAT_008a9514);
-  rdroid_SetTextureMode(DAT_008a9518);
-  rdroid_SetRenderFlags(DAT_008a951c);
-  rdroid_SetSortMode(DAT_008a9520);
-  rdroid_SetOcclusionMode(DAT_008a9524);
-  rdroid_SetZBufferMode(DAT_008a9528);
+  rdroid_SetGeometryMode(UINT_008a9510);
+  rdroid_SetLightingMode(UINT_008a9514);
+  rdroid_SetTextureMode(UINT_008a9518);
+  rdroid_SetRenderFlags(UINT_008a951c);
+  rdroid_SetSortMode(UINT_008a9520);
+  rdroid_SetOcclusionMode(UINT_008a9524);
+  rdroid_SetZBufferMode(UINT_008a9528);
   return;
 }
 
@@ -341,66 +341,66 @@ undefined4 FUN_00484a50(void)
       uVar2 = 1;
       iVar1 = Input_GetButtonState(0x39,(int *)0x0,(int *)0x0);
       if (iVar1 == 0) {
-        DAT_008c9818 = 0;
+        UINT_008c9818 = 0;
       }
-      else if (DAT_008c9818 == 0) {
+      else if (UINT_008c9818 == 0) {
         Render_ToggleDebugOverlay();
-        DAT_008c9818 = 1;
+        UINT_008c9818 = 1;
       }
       if ((g_dwRenderDebugFlags & 1) != 0) {
         iVar1 = Input_GetButtonState(0x30,(int *)0x0,(int *)0x0);
         if (iVar1 == 0) {
-          DAT_008c9810 = 0;
+          UINT_008c9810 = 0;
         }
-        else if (DAT_008c9810 == 0) {
+        else if (UINT_008c9810 == 0) {
           if ((g_dwRenderDebugFlags & 8) == 0) {
-            DAT_008c9810 = 1;
+            UINT_008c9810 = 1;
             g_dwRenderDebugFlags = g_dwRenderDebugFlags | 8;
           }
           else {
-            DAT_008c9810 = 1;
+            UINT_008c9810 = 1;
             g_dwRenderDebugFlags = g_dwRenderDebugFlags & 0xfffffff7;
           }
         }
         iVar1 = Input_GetButtonState(0x26,(int *)0x0,(int *)0x0);
         if (iVar1 == 0) {
-          DAT_008c9808 = 0;
+          UINT_008c9808 = 0;
         }
-        else if (DAT_008c9808 == 0) {
+        else if (UINT_008c9808 == 0) {
           if ((g_dwRenderDebugFlags & 2) == 0) {
-            DAT_008c9808 = 1;
+            UINT_008c9808 = 1;
             g_dwRenderDebugFlags = g_dwRenderDebugFlags | 2;
           }
           else {
-            DAT_008c9808 = 1;
+            UINT_008c9808 = 1;
             g_dwRenderDebugFlags = g_dwRenderDebugFlags & 0xfffffffd;
           }
         }
         iVar1 = Input_GetButtonState(0x2e,(int *)0x0,(int *)0x0);
         if (iVar1 == 0) {
-          DAT_008c980c = 0;
+          UINT_008c980c = 0;
         }
-        else if (DAT_008c980c == 0) {
+        else if (UINT_008c980c == 0) {
           if ((g_dwRenderDebugFlags & 4) == 0) {
-            DAT_008c980c = 1;
+            UINT_008c980c = 1;
             g_dwRenderDebugFlags = g_dwRenderDebugFlags | 4;
           }
           else {
-            DAT_008c980c = 1;
+            UINT_008c980c = 1;
             g_dwRenderDebugFlags = g_dwRenderDebugFlags & 0xfffffffb;
           }
         }
         iVar1 = Input_GetButtonState(0x13,(int *)0x0,(int *)0x0);
         if (iVar1 == 0) {
-          DAT_008c9814 = 0;
+          UINT_008c9814 = 0;
         }
-        else if (DAT_008c9814 == 0) {
+        else if (UINT_008c9814 == 0) {
           if ((g_dwRenderDebugFlags & 0x10) != 0) {
-            DAT_008c9814 = 1;
+            UINT_008c9814 = 1;
             g_dwRenderDebugFlags = g_dwRenderDebugFlags & 0xffffffef;
             return 1;
           }
-          DAT_008c9814 = 1;
+          UINT_008c9814 = 1;
           g_dwRenderDebugFlags = g_dwRenderDebugFlags | 0x10;
           return 1;
         }
@@ -418,7 +418,7 @@ undefined4 FUN_00484a50(void)
 void Render_InitColorConstants(int param_1)
 
 {
-  Render_BuildColorTable(DAT_008c9780,g_flGamma);
+  Render_BuildColorTable(UINT_008c9780,g_flGamma);
   g_wTextColors[2] =
        (&g_wColorTable)
        [(0 >> ((byte)*(undefined4 *)(param_1 + 0x24) & 0x1f)) <<
@@ -427,7 +427,7 @@ void Render_InitColorConstants(int param_1)
         ((byte)*(undefined4 *)(param_1 + 0x1c) & 0x1f) & 0xffffU |
         (0 >> ((byte)*(undefined4 *)(param_1 + 0x20) & 0x1f)) <<
         ((byte)*(undefined4 *)(param_1 + 0x14) & 0x1f) & 0xffffU];
-  PIECE(DAT_008c97c8,0,2) =
+  PIECE(UINT_008c97c8,0,2) =
        (&g_wColorTable)
        [(0x80 >> ((byte)*(undefined4 *)(param_1 + 0x24) & 0x1f)) <<
         ((byte)*(undefined4 *)(param_1 + 0x18) & 0x1f) & 0xffffU |
@@ -442,7 +442,7 @@ void Render_InitColorConstants(int param_1)
                   ((byte)*(undefined4 *)(param_1 + 0x14) & 0x1f) & 0xffffU |
                   (0xff >> ((byte)*(undefined4 *)(param_1 + 0x24) & 0x1f)) <<
                   ((byte)*(undefined4 *)(param_1 + 0x18) & 0x1f) & 0xffffU];
-  PIECE(DAT_008c97c8,2,2) =
+  PIECE(UINT_008c97c8,2,2) =
        (&g_wColorTable)
        [(0xff >> ((byte)*(undefined4 *)(param_1 + 0x20) & 0x1f)) <<
         ((byte)*(undefined4 *)(param_1 + 0x14) & 0x1f) & 0xffffU |
@@ -450,7 +450,7 @@ void Render_InitColorConstants(int param_1)
         ((byte)*(undefined4 *)(param_1 + 0x18) & 0x1f) & 0xffffU |
         (0 >> ((byte)*(undefined4 *)(param_1 + 0x28) & 0x1f)) <<
         ((byte)*(undefined4 *)(param_1 + 0x1c) & 0x1f) & 0xffffU];
-  PIECE(DAT_008c97cc,0,2) =
+  PIECE(UINT_008c97cc,0,2) =
        (&g_wColorTable)
        [(0xff >> ((byte)*(undefined4 *)(param_1 + 0x20) & 0x1f)) <<
         ((byte)*(undefined4 *)(param_1 + 0x14) & 0x1f) & 0xffffU |
@@ -458,7 +458,7 @@ void Render_InitColorConstants(int param_1)
         ((byte)*(undefined4 *)(param_1 + 0x18) & 0x1f) & 0xffffU |
         (0 >> ((byte)*(undefined4 *)(param_1 + 0x28) & 0x1f)) <<
         ((byte)*(undefined4 *)(param_1 + 0x1c) & 0x1f) & 0xffffU];
-  PIECE(DAT_008c97cc,2,2) =
+  PIECE(UINT_008c97cc,2,2) =
        (&g_wColorTable)
        [(0xff >> ((byte)*(undefined4 *)(param_1 + 0x24) & 0x1f)) <<
         ((byte)*(undefined4 *)(param_1 + 0x18) & 0x1f) & 0xffffU |
@@ -466,7 +466,7 @@ void Render_InitColorConstants(int param_1)
         ((byte)*(undefined4 *)(param_1 + 0x1c) & 0x1f) & 0xffffU |
         (0 >> ((byte)*(undefined4 *)(param_1 + 0x20) & 0x1f)) <<
         ((byte)*(undefined4 *)(param_1 + 0x14) & 0x1f) & 0xffffU];
-  PIECE(DAT_008c97d0,0,2) =
+  PIECE(UINT_008c97d0,0,2) =
        (&g_wColorTable)
        [(0xff >> ((byte)*(undefined4 *)(param_1 + 0x28) & 0x1f)) <<
         ((byte)*(undefined4 *)(param_1 + 0x1c) & 0x1f) & 0xffffU |
@@ -474,7 +474,7 @@ void Render_InitColorConstants(int param_1)
         ((byte)*(undefined4 *)(param_1 + 0x18) & 0x1f) & 0xffffU |
         (0 >> ((byte)*(undefined4 *)(param_1 + 0x20) & 0x1f)) <<
         ((byte)*(undefined4 *)(param_1 + 0x14) & 0x1f) & 0xffffU];
-  PIECE(DAT_008c97d4,0,2) =
+  PIECE(UINT_008c97d4,0,2) =
        (&g_wColorTable)
        [(0x80 >> ((byte)*(undefined4 *)(param_1 + 0x20) & 0x1f)) <<
         ((byte)*(undefined4 *)(param_1 + 0x14) & 0x1f) & 0xffffU |
@@ -482,7 +482,7 @@ void Render_InitColorConstants(int param_1)
         ((byte)*(undefined4 *)(param_1 + 0x18) & 0x1f) & 0xffffU |
         (0 >> ((byte)*(undefined4 *)(param_1 + 0x28) & 0x1f)) <<
         ((byte)*(undefined4 *)(param_1 + 0x1c) & 0x1f) & 0xffffU];
-  PIECE(DAT_008c97d4,2,2) =
+  PIECE(UINT_008c97d4,2,2) =
        (&g_wColorTable)
        [(0x80 >> ((byte)*(undefined4 *)(param_1 + 0x24) & 0x1f)) <<
         ((byte)*(undefined4 *)(param_1 + 0x18) & 0x1f) & 0xffffU |
@@ -506,7 +506,7 @@ void Render_InitColorConstants(int param_1)
         ((byte)*(undefined4 *)(param_1 + 0x18) & 0x1f) & 0xffffU |
         (0 >> ((byte)*(undefined4 *)(param_1 + 0x20) & 0x1f)) <<
         ((byte)*(undefined4 *)(param_1 + 0x14) & 0x1f) & 0xffffU];
-  PIECE(DAT_008c97d0,2,2) =
+  PIECE(UINT_008c97d0,2,2) =
        (&g_wColorTable)
        [(0x80 >> ((byte)*(undefined4 *)(param_1 + 0x28) & 0x1f)) <<
         ((byte)*(undefined4 *)(param_1 + 0x1c) & 0x1f) & 0xffffU |
@@ -530,7 +530,7 @@ void Render_InitColorConstants(int param_1)
         ((byte)*(undefined4 *)(param_1 + 0x1c) & 0x1f) & 0xffffU |
         (0xc0 >> ((byte)*(undefined4 *)(param_1 + 0x20) & 0x1f)) <<
         ((byte)*(undefined4 *)(param_1 + 0x14) & 0x1f) & 0xffffU];
-  PIECE(DAT_008c97e0,0,2) =
+  PIECE(UINT_008c97e0,0,2) =
        (&g_wColorTable)
        [(0xdc >> ((byte)*(undefined4 *)(param_1 + 0x24) & 0x1f)) <<
         ((byte)*(undefined4 *)(param_1 + 0x18) & 0x1f) & 0xffffU |
@@ -538,7 +538,7 @@ void Render_InitColorConstants(int param_1)
         ((byte)*(undefined4 *)(param_1 + 0x1c) & 0x1f) & 0xffffU |
         (0xc0 >> ((byte)*(undefined4 *)(param_1 + 0x20) & 0x1f)) <<
         ((byte)*(undefined4 *)(param_1 + 0x14) & 0x1f) & 0xffffU];
-  PIECE(DAT_008c97e0,2,2) =
+  PIECE(UINT_008c97e0,2,2) =
        (&g_wColorTable)
        [(0xf0 >> ((byte)*(undefined4 *)(param_1 + 0x28) & 0x1f)) <<
         ((byte)*(undefined4 *)(param_1 + 0x1c) & 0x1f) & 0xffffU |
@@ -546,7 +546,7 @@ void Render_InitColorConstants(int param_1)
         ((byte)*(undefined4 *)(param_1 + 0x18) & 0x1f) & 0xffffU |
         (0xa6 >> ((byte)*(undefined4 *)(param_1 + 0x20) & 0x1f)) <<
         ((byte)*(undefined4 *)(param_1 + 0x14) & 0x1f) & 0xffffU];
-  PIECE(DAT_008c97e4,0,2) =
+  PIECE(UINT_008c97e4,0,2) =
        (&g_wColorTable)
        [(0xb4 >> ((byte)*(undefined4 *)(param_1 + 0x24) & 0x1f)) <<
         ((byte)*(undefined4 *)(param_1 + 0x18) & 0x1f) & 0xffffU |
@@ -554,7 +554,7 @@ void Render_InitColorConstants(int param_1)
         ((byte)*(undefined4 *)(param_1 + 0x1c) & 0x1f) & 0xffffU |
         (0xb4 >> ((byte)*(undefined4 *)(param_1 + 0x20) & 0x1f)) <<
         ((byte)*(undefined4 *)(param_1 + 0x14) & 0x1f) & 0xffffU];
-  PIECE(DAT_008c97e4,2,2) =
+  PIECE(UINT_008c97e4,2,2) =
        (&g_wColorTable)
        [(100 >> ((byte)*(undefined4 *)(param_1 + 0x24) & 0x1f)) <<
         ((byte)*(undefined4 *)(param_1 + 0x18) & 0x1f) & 0xffffU |
@@ -562,7 +562,7 @@ void Render_InitColorConstants(int param_1)
         ((byte)*(undefined4 *)(param_1 + 0x1c) & 0x1f) & 0xffffU |
         (100 >> ((byte)*(undefined4 *)(param_1 + 0x20) & 0x1f)) <<
         ((byte)*(undefined4 *)(param_1 + 0x14) & 0x1f) & 0xffffU];
-  PIECE(DAT_008c97e8,0,2) =
+  PIECE(UINT_008c97e8,0,2) =
        (&g_wColorTable)
        [(0xff >> ((byte)*(undefined4 *)(param_1 + 0x28) & 0x1f)) <<
         ((byte)*(undefined4 *)(param_1 + 0x1c) & 0x1f) & 0xffffU |
@@ -570,7 +570,7 @@ void Render_InitColorConstants(int param_1)
         ((byte)*(undefined4 *)(param_1 + 0x14) & 0x1f) & 0xffffU |
         (0 >> ((byte)*(undefined4 *)(param_1 + 0x24) & 0x1f)) <<
         ((byte)*(undefined4 *)(param_1 + 0x18) & 0x1f) & 0xffffU];
-  PIECE(DAT_008c97e8,2,2) =
+  PIECE(UINT_008c97e8,2,2) =
        (&g_wColorTable)
        [(0xff >> ((byte)*(undefined4 *)(param_1 + 0x28) & 0x1f)) <<
         ((byte)*(undefined4 *)(param_1 + 0x1c) & 0x1f) & 0xffffU |
@@ -589,59 +589,59 @@ void Render_DrawDebugGrid(void)
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
-  #define local_1c (*(float *)(_frame + (0x30 - 0x1c)))
-  #define local_18 (*(float *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(float *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(undefined4 *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(float *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(float *)(_frame + (0x30 - 0x8)))
-  #define local_4 (*(undefined4 *)(_frame + (0x30 - 0x4)))
+  #define local_1c (*(uint *)(_frame + (0x30 - 0x1c)))
+  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
+  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
+  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
+  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
+  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
   
   iVar1 = 0x14;
-  local_1c = -1.0;
+  local_1c = 0xbf800000;
   do {
-    local_c = -1.0;
+    local_c = 0xbf800000;
     local_4 = 0;
-    local_18 = 1.0;
+    local_18 = 0x3f800000;
     local_10 = 0;
     local_14 = local_1c;
     local_8 = local_1c;
-    rdPrimit3_DrawLine(&local_c,&local_18,0,0,0,0,DAT_008c97c8 & 0xffff,0xff00ff00);
-    local_1c = local_1c - -0.1;
+    rdPrimit3_DrawLine(&local_c,&local_18,0,0,0,0,UINT_008c97c8 & 0xffff,0xff00ff00);
+    local_1c = (uint)((float)local_1c - -0.1);
     iVar1 = iVar1 + -1;
   } while (iVar1 != 0);
   iVar1 = 0x14;
-  local_1c = -1.0;
+  local_1c = 0xbf800000;
   do {
-    local_8 = -1.0;
+    local_8 = 0xbf800000;
     local_4 = 0;
-    local_14 = 1.0;
+    local_14 = 0x3f800000;
     local_10 = 0;
     local_18 = local_1c;
     local_c = local_1c;
-    rdPrimit3_DrawLine(&local_c,&local_18,0,0,0,0,DAT_008c97c8 & 0xffff,0xff00ff00);
-    local_1c = local_1c - -0.1;
+    rdPrimit3_DrawLine(&local_c,&local_18,0,0,0,0,UINT_008c97c8 & 0xffff,0xff00ff00);
+    local_1c = (uint)((float)local_1c - -0.1);
     iVar1 = iVar1 + -1;
   } while (iVar1 != 0);
-  local_c = 0.0;
-  local_8 = 0.0;
+  local_c = 0;
+  local_8 = 0;
   local_4 = 0;
-  local_18 = 2.0;
-  local_14 = 0.0;
+  local_18 = 0x40000000;
+  local_14 = 0;
   local_10 = 0;
   rdPrimit3_DrawLine(&local_c,&local_18,0,0,0,0,DAT_008c97c6,0xffffffff);
-  local_c = 0.0;
-  local_8 = 0.0;
+  local_c = 0;
+  local_8 = 0;
   local_4 = 0;
-  local_18 = 0.0;
-  local_14 = 2.0;
+  local_18 = 0;
+  local_14 = 0x40000000;
   local_10 = 0;
   rdPrimit3_DrawLine(&local_c,&local_18,0,0,0,0,DAT_008c97c6,0xffffffff);
-  local_c = 0.0;
-  local_8 = 0.0;
+  local_c = 0;
+  local_8 = 0;
   local_4 = 0;
-  local_18 = 0.0;
-  local_14 = 0.0;
+  local_18 = 0;
+  local_14 = 0;
   local_10 = 0x40000000;
   rdPrimit3_DrawLine(&local_c,&local_18,0,0,0,0,DAT_008c97c6,0xffffffff);
   return;
@@ -673,18 +673,18 @@ void Render_BuildActorDrawList(void)
   int *piVar1;
   void *pvVar2;
   undefined1 *puVar3;
-  #define local_18 (*(float *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(float *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(float *)(_frame + (0x30 - 0x10)))
+  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
+  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
+  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
   #define local_c (*(float *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(undefined4 *)(_frame + (0x30 - 0x8)))
+  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
   
   DrawList_Reset();
   pvVar2 = Set_GetCurrent();
   piVar1 = *(int **)(*(int *)((int)pvVar2 + 0x1abc) + 0x80);
   do {
     if (piVar1 == (int *)0x0) {
-      qsort(&DAT_008c9568,DAT_008a952c,4,FUN_004862b0);
+      qsort(&UINT_008c9568,UINT_008a952c,4,FUN_004862b0);
       return;
     }
     pvVar2 = (void *)((int)g_pActorTable + *piVar1 * 0xa8);
@@ -694,11 +694,11 @@ void Render_BuildActorDrawList(void)
       if (puVar3 == (undefined1 *)0x0) {
         return;
       }
-      local_18 = *(float *)((int)pvVar2 + 0xc) - *g_pCameraSetup;
-      local_14 = *(float *)((int)pvVar2 + 0x10) - g_pCameraSetup[1];
-      local_10 = *(float *)((int)pvVar2 + 0x14) - g_pCameraSetup[2];
-      Vec3_TransformTo(&local_c,&local_18,g_pCameraSetup + 0xc);
-      *(undefined4 *)(puVar3 + 4) = local_8;
+      local_18 = (uint)(*(float *)((int)pvVar2 + 0xc) - *g_pCameraSetup);
+      local_14 = (uint)(*(float *)((int)pvVar2 + 0x10) - g_pCameraSetup[1]);
+      local_10 = (uint)(*(float *)((int)pvVar2 + 0x14) - g_pCameraSetup[2]);
+      Vec3_TransformTo(&local_c,(float *)&local_18,g_pCameraSetup + 0xc);
+      *(uint *)(puVar3 + 4) = local_8;
       if (*(int *)((int)pvVar2 + 0xa0) == 0) {
         *(int *)(puVar3 + 8) = ((int)pvVar2 - (int)g_pActorTable) / 0xa8;
         if ((*(int *)((int)pvVar2 + 0xa0) == 0) || (*(int *)(*(int *)((int)pvVar2 + 0xa0) + 4) == 0)
@@ -733,21 +733,23 @@ void __cdecl Render_ScreenToWorld(int x,int y,float *outPos)
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   float fVar2;
-  #define local_c (*(float *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(float *)(_frame + (0x20 - 0x8)))
-  #define local_4 (*(float *)(_frame + (0x20 - 0x4)))
+  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
+  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   if ((g_pRdCurrentCamera != (void *)0x0) && (*(int *)((int)g_pRdCurrentCamera + 4) != 0)) {
     fVar2 = (float)(int)((uint)*(ushort *)
-                                (*(int *)(DAT_008c97a4 + 0x5c) +
-                                (*(int *)(DAT_008c97a4 + 0xc) * y + x) * 2) <<
+                                (*(int *)(UINT_008c97a4 + 0x5c) +
+                                (*(int *)(UINT_008c97a4 + 0xc) * y + x) * 2) <<
                         ((byte)*(undefined4 *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x14) & 0x1f)
                         ) * 1.5258789e-05;
     fVar1 = *(float *)((int)g_pRdCurrentCamera + 0x3c) * fVar2;
-    local_8 = 1.0 / fVar2 - 1.0;
-    local_c = (1.0 / fVar1) * ((float)x - *(float *)(*(int *)((int)g_pRdCurrentCamera + 4) + 8));
-    local_4 = (-1.0 / fVar1) * ((float)y - *(float *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0xc));
-    Vec3_Sub(outPos,&local_c,g_pCameraSetup + 0xc);
+    local_8 = (uint)(1.0 / fVar2 - 1.0);
+    local_c = (uint)((1.0 / fVar1) *
+                    ((float)x - *(float *)(*(int *)((int)g_pRdCurrentCamera + 4) + 8)));
+    local_4 = (uint)((-1.0 / fVar1) *
+                    ((float)y - *(float *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0xc)));
+    Vec3_Sub(outPos,(float *)&local_c,g_pCameraSetup + 0xc);
   }
   return;
 }
@@ -763,10 +765,10 @@ void __cdecl Render_InvalidateBackground(int redrawBackground,int redrawDepth)
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   void *pvVar1;
   int iVar2;
-  #define local_10 (*(int *)(_frame + (0x20 - 0x10)))
-  #define local_c (*(undefined4 *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(int *)(_frame + (0x20 - 0x8)))
-  #define local_4 (*(int *)(_frame + (0x20 - 0x4)))
+  #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
+  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
+  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   g_dwRenderFlags = g_dwRenderFlags | 3;
   pvVar1 = Set_GetCurrent();
@@ -782,8 +784,8 @@ void __cdecl Render_InvalidateBackground(int redrawBackground,int redrawDepth)
       if ((redrawDepth != 0) && (*(int *)(iVar2 + 0xf4) != 0)) {
         g_dwRenderFlags = g_dwRenderFlags & 0xfffffffd;
       }
-      local_10 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x18);
-      local_c = *(undefined4 *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x1c);
+      local_10 = *(uint *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x18);
+      local_c = *(uint *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x1c);
       local_8 = (*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x20) -
                 *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x18)) + 1;
       local_4 = (*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x24) -
@@ -791,7 +793,7 @@ void __cdecl Render_InvalidateBackground(int redrawBackground,int redrawDepth)
       iVar2 = 0;
       if (0 < g_nBufferCount) {
         do {
-          DirtyRect_Add(&local_10,1,iVar2);
+          DirtyRect_Add((int *)&local_10,1,iVar2);
           iVar2 = iVar2 + 1;
         } while (iVar2 < g_nBufferCount);
       }
@@ -811,13 +813,26 @@ void __cdecl Render_InvalidateBackground(int redrawBackground,int redrawDepth)
 void Render_BuildColorTable(int param_1,float param_2)
 
 {
-  unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   undefined4 uVar1;
   undefined4 uVar2;
   int iVar3;
   int iVar4;
   int iVar5;
-  #define local_24 (*(int *)(_frame + (0x40 - 0x24)))
+  #define local_40 (*(uint *)(_frame + (0x50 - 0x40)))
+  #define local_3c (*(uint *)(_frame + (0x50 - 0x3c)))
+  #define local_38 (*(uint *)(_frame + (0x50 - 0x38)))
+  #define local_34 (*(uint *)(_frame + (0x50 - 0x34)))
+  #define local_30 (*(uint *)(_frame + (0x50 - 0x30)))
+  #define local_2c (*(uint *)(_frame + (0x50 - 0x2c)))
+  #define local_28 (*(uint *)(_frame + (0x50 - 0x28)))
+  #define local_24 (*(uint *)(_frame + (0x50 - 0x24)))
+  #define local_1c (*(uint *)(_frame + (0x50 - 0x1c)))
+  #define local_18 (*(uint *)(_frame + (0x50 - 0x18)))
+  #define local_14 (*(uint *)(_frame + (0x50 - 0x14)))
+  #define local_10 (*(uint *)(_frame + (0x50 - 0x10)))
+  #define local_c (*(uint *)(_frame + (0x50 - 0xc)))
+  #define local_8 (*(uint *)(_frame + (0x50 - 0x8)))
   
   local_24 = 0;
   do {
@@ -833,11 +848,24 @@ void Render_BuildColorTable(int param_1,float param_2)
          (ushort)(iVar3 << ((byte)uVar1 & 0x1f)) | (ushort)(iVar4 << ((byte)uVar2 & 0x1f)) |
          (ushort)(iVar5 << ((byte)*(undefined4 *)(param_1 + 0x1c) & 0x1f));
     local_24 = local_24 + 1;
-  } while (local_24 < 0x10000);
+  } while ((int)local_24 < 0x10000);
   g_flGamma = param_2;
   return;
 }
+#undef local_10
+#undef local_14
+#undef local_18
+#undef local_1c
 #undef local_24
+#undef local_28
+#undef local_2c
+#undef local_30
+#undef local_34
+#undef local_38
+#undef local_3c
+#undef local_40
+#undef local_8
+#undef local_c
 
 
 /* ---- 0x00486620  Render_RemapPixels ---- */
@@ -888,7 +916,7 @@ void __cdecl Render_SetGamma(float gamma)
   
   if (g_flGamma != gamma) {
     g_flGamma = gamma;
-    Render_InitColorConstants(DAT_008c9780);
+    Render_InitColorConstants(UINT_008c9780);
     pvVar1 = Set_GetCurrent();
     if (pvVar1 != (void *)0x0) {
       pvVar1 = Set_GetCurrent();
@@ -949,14 +977,18 @@ void Render_DimBackground(ushort *param_1,byte param_2)
   uint uVar8;
   uint uVar9;
   uint uVar10;
-  #define local_20 (*(int *)(_frame + (0x30 - 0x20)))
-  #define local_1c (*(int *)(_frame + (0x30 - 0x1c)))
-  #define local_10 (*(int (*)[3])(_frame + (0x30 - 0x10)))
-  #define local_4 (*(undefined4 *)(_frame + (0x30 - 0x4)))
+  #define local_20 (*(uint *)(_frame + (0x30 - 0x20)))
+  #define local_1c (*(uint *)(_frame + (0x30 - 0x1c)))
+  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
+  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
+  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
+  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
+  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
   
-  if ((DAT_008a8c40 != 4) || (param_1 != (ushort *)0x0)) {
-    if (DAT_008a8c40 == 3) {
-      Movie_SetTarget(&DAT_009055e0);
+  if ((UINT_008a8c40 != 4) || (param_1 != (ushort *)0x0)) {
+    if (UINT_008a8c40 == 3) {
+      Movie_SetTarget(&g_BackBuffer);
     }
     else {
       TextObjects_Freeze();
@@ -1008,31 +1040,35 @@ void Render_DimBackground(ushort *param_1,byte param_2)
                        (ushort)(iVar5 >> ((byte)*(undefined4 *)((int)surface + 0x48) & 0x1f));
             local_20 = local_20 + 1;
             param_1 = param_1 + 1;
-          } while (local_20 < *(int *)((int)surface + 0xc));
+          } while ((int)local_20 < *(int *)((int)surface + 0xc));
         }
         local_1c = local_1c + 1;
-      } while (local_1c < *(int *)((int)surface + 0x10));
+      } while ((int)local_1c < *(int *)((int)surface + 0x10));
     }
     Surface_Unlock(surface);
-    local_10[0] = 0;
-    local_10[1] = 0;
-    local_10[2] = *(undefined4 *)((int)surface + 0xc);
-    local_4 = *(undefined4 *)((int)surface + 0x10);
-    Render_InvalidateRect(local_10,0);
+    local_10 = 0;
+    local_c = 0;
+    local_8 = *(uint *)((int)surface + 0xc);
+    local_4 = *(uint *)((int)surface + 0x10);
+    Render_InvalidateRect((int *)&local_10,0);
   }
   return;
 }
 #undef local_10
+#undef local_14
+#undef local_18
 #undef local_1c
 #undef local_20
 #undef local_4
+#undef local_8
+#undef local_c
 
 
 /* ---- 0x00486990  Render_CopyBackBufferToBackground ---- */
 void Render_CopyBackBufferToBackground(void)
 
 {
-  Surface_Blit(g_pBackgroundSurface,&DAT_009055e0,0,0,(int *)0x0,0);
+  Surface_Blit(g_pBackgroundSurface,&g_BackBuffer,0,0,(int *)0x0,0);
   return;
 }
 
@@ -1043,18 +1079,24 @@ void Render_CleanBuffer(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  #define local_10 (*(int (*)[4])(_frame + (0x20 - 0x10)))
+  #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
+  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
+  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
-  if (DAT_008a8c40 == 4) {
-    local_10[0] = 0;
-    local_10[1] = 0;
-    local_10[2] = 0x280;
-    local_10[3] = 0x1e0;
-    Surface_Blit(&DAT_009055e0,g_pBackgroundSurface,0,0,local_10,0);
+  if (UINT_008a8c40 == 4) {
+    local_10 = 0;
+    local_c = 0;
+    local_8 = 0x280;
+    local_4 = 0x1e0;
+    Surface_Blit(&g_BackBuffer,g_pBackgroundSurface,0,0,(int *)&local_10,0);
   }
   return;
 }
 #undef local_10
+#undef local_4
+#undef local_8
+#undef local_c
 
 
 /* ---- 0x00486a00  Render_RequestFullRedraw ---- */
@@ -1082,10 +1124,10 @@ void * Render_GetZBufferSurface(void)
 }
 
 /* ---- 0x00486b20  Render_GetUserCallback ---- */
-undefined4 Render_GetUserCallback(void)
+uint Render_GetUserCallback(void)
 
 {
-  return DAT_008c97b8;
+  return UINT_008c97b8;
 }
 
 /* ---- 0x00486b30  Render_SetDrawEnabled ---- */
@@ -1103,14 +1145,14 @@ void Render_SetDrawEnabled(int param_1)
 void __cdecl Render_DrawIris(float percent,int x,int y)
 
 {
-  int iVar1;
-  int iVar2;
-  uint uVar3;
-  int iVar4;
-  uint uVar5;
-  int iVar6;
-  uint uVar7;
-  undefined4 *puVar8;
+  uint uVar1;
+  uint uVar2;
+  int iVar3;
+  uint uVar4;
+  int iVar5;
+  uint uVar6;
+  int iVar7;
+  uint uVar8;
   undefined4 *puVar9;
   int iVar10;
   undefined4 *puVar11;
@@ -1121,71 +1163,71 @@ void __cdecl Render_DrawIris(float percent,int x,int y)
               (s__percent____0_0f______percent____004e80ec,
                s_C__grimsrc_libs_grimlib_Engine_s_004e80bc,0x9f2);
   }
-  iVar2 = _ftol();
-  uVar3 = _ftol();
-  iVar4 = _ftol();
-  uVar5 = _ftol();
-  puVar9 = DAT_0090563c;
-  iVar1 = DAT_009055f8;
-  Surface_Lock(&DAT_009055e0);
-  puVar8 = puVar9;
-  iVar10 = iVar2;
-  iVar6 = 0;
-  if (0 < iVar2) {
+  iVar3 = _ftol();
+  uVar4 = _ftol();
+  iVar5 = _ftol();
+  uVar6 = _ftol();
+  uVar2 = UINT_0090563c;
+  uVar1 = UINT_009055f8;
+  Surface_Lock(&g_BackBuffer);
+  puVar9 = (undefined4 *)uVar2;
+  iVar10 = iVar3;
+  iVar7 = 0;
+  if (0 < iVar3) {
     do {
       iVar10 = iVar10 + -1;
-      puVar11 = puVar8;
-      for (iVar6 = 0x140; iVar6 != 0; iVar6 = iVar6 + -1) {
+      puVar11 = puVar9;
+      for (iVar7 = 0x140; iVar7 != 0; iVar7 = iVar7 + -1) {
         *puVar11 = 0;
         puVar11 = puVar11 + 1;
       }
-      puVar8 = (undefined4 *)((int)puVar8 + iVar1);
-      iVar6 = iVar2;
+      puVar9 = (undefined4 *)((int)puVar9 + uVar1);
+      iVar7 = iVar3;
     } while (iVar10 != 0);
   }
-  if (iVar6 < 0x1e0 - iVar4) {
-    y = (0x1e0 - iVar4) - iVar6;
-    puVar11 = (undefined4 *)((int)puVar9 + iVar1 * iVar6);
-    puVar8 = (undefined4 *)((int)puVar9 + iVar1 * iVar6 + (0x280 - uVar5) * 2);
-    iVar6 = iVar6 + y;
+  if (iVar7 < 0x1e0 - iVar5) {
+    y = (0x1e0 - iVar5) - iVar7;
+    puVar11 = (undefined4 *)(uVar2 + uVar1 * iVar7);
+    puVar9 = (undefined4 *)(uVar2 + (0x280 - uVar6) * 2 + uVar1 * iVar7);
+    iVar7 = iVar7 + y;
     do {
       puVar12 = puVar11;
-      for (uVar7 = (uVar3 & 0x7fffffff) >> 1; uVar7 != 0; uVar7 = uVar7 - 1) {
+      for (uVar8 = (uVar4 & 0x7fffffff) >> 1; uVar8 != 0; uVar8 = uVar8 - 1) {
         *puVar12 = 0;
         puVar12 = puVar12 + 1;
       }
-      puVar11 = (undefined4 *)((int)puVar11 + iVar1);
-      for (uVar7 = uVar3 * 2 & 3; uVar7 != 0; uVar7 = uVar7 - 1) {
+      puVar11 = (undefined4 *)((int)puVar11 + uVar1);
+      for (uVar8 = uVar4 * 2 & 3; uVar8 != 0; uVar8 = uVar8 - 1) {
         *(undefined1 *)puVar12 = 0;
         puVar12 = (undefined4 *)((int)puVar12 + 1);
       }
-      puVar12 = puVar8;
-      for (uVar7 = (uVar5 & 0x7fffffff) >> 1; uVar7 != 0; uVar7 = uVar7 - 1) {
+      puVar12 = puVar9;
+      for (uVar8 = (uVar6 & 0x7fffffff) >> 1; uVar8 != 0; uVar8 = uVar8 - 1) {
         *puVar12 = 0;
         puVar12 = puVar12 + 1;
       }
-      puVar8 = (undefined4 *)((int)puVar8 + iVar1);
-      for (uVar7 = uVar5 * 2 & 3; uVar7 != 0; uVar7 = uVar7 - 1) {
+      puVar9 = (undefined4 *)((int)puVar9 + uVar1);
+      for (uVar8 = uVar6 * 2 & 3; uVar8 != 0; uVar8 = uVar8 - 1) {
         *(undefined1 *)puVar12 = 0;
         puVar12 = (undefined4 *)((int)puVar12 + 1);
       }
       y = y + -1;
     } while (y != 0);
   }
-  if (iVar6 < 0x1e0) {
-    iVar10 = 0x1e0 - iVar6;
-    puVar9 = (undefined4 *)(iVar1 * iVar6 + (int)puVar9);
+  if (iVar7 < 0x1e0) {
+    iVar10 = 0x1e0 - iVar7;
+    puVar9 = (undefined4 *)(uVar1 * iVar7 + uVar2);
     do {
       iVar10 = iVar10 + -1;
-      puVar8 = puVar9;
-      for (iVar6 = 0x140; iVar6 != 0; iVar6 = iVar6 + -1) {
-        *puVar8 = 0;
-        puVar8 = puVar8 + 1;
+      puVar11 = puVar9;
+      for (iVar7 = 0x140; iVar7 != 0; iVar7 = iVar7 + -1) {
+        *puVar11 = 0;
+        puVar11 = puVar11 + 1;
       }
-      puVar9 = (undefined4 *)((int)puVar9 + iVar1);
+      puVar9 = (undefined4 *)((int)puVar9 + uVar1);
     } while (iVar10 != 0);
   }
-  Surface_Unlock(&DAT_009055e0);
+  Surface_Unlock(&g_BackBuffer);
   return;
 }
 
@@ -1236,35 +1278,38 @@ void * __cdecl Render_CaptureThumbnail(int w,int h)
 {
   unsigned char _frame[0x70] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
-  undefined4 uVar2;
+  uint uVar2;
   void *surface;
   void *surface_00;
   int iVar3;
   undefined2 *puVar4;
   int iVar5;
   int iVar6;
-  int *piVar7;
-  int *piVar8;
-  #define local_5c (*(int *)(_frame + (0x70 - 0x5c)))
-  #define local_58 (*(int *)(_frame + (0x70 - 0x58)))
-  #define local_4c (*(int (*)[19])(_frame + (0x70 - 0x4c)))
+  uint *puVar7;
+  uint *puVar8;
+  #define local_5c (*(uint *)(_frame + (0x70 - 0x5c)))
+  #define local_58 (*(uint *)(_frame + (0x70 - 0x58)))
+  #define local_54 (*(uint *)(_frame + (0x70 - 0x54)))
+  #define local_50 (*(uint *)(_frame + (0x70 - 0x50)))
+  #define local_4c (*(uint *)(_frame + (0x70 - 0x4c)))
+  #define local_48 (*(uint *)(_frame + (0x70 - 0x48)))
   
-  uVar2 = DAT_008a8c40;
-  DAT_008a8c40 = 2;
+  uVar2 = UINT_008a8c40;
+  UINT_008a8c40 = 2;
   g_nFullRedrawPending = 1;
   Render_DimBackground(1,0);
   surface = g_pBackgroundSurface;
-  piVar7 = (int *)((int)g_pBackgroundSurface + 0xc);
-  piVar8 = local_4c;
+  puVar7 = (uint *)((int)g_pBackgroundSurface + 0xc);
+  puVar8 = &local_4c;
   for (iVar6 = 0x13; iVar6 != 0; iVar6 = iVar6 + -1) {
-    *piVar8 = *piVar7;
-    piVar7 = piVar7 + 1;
-    piVar8 = piVar8 + 1;
+    *puVar8 = *puVar7;
+    puVar7 = puVar7 + 1;
+    puVar8 = puVar8 + 1;
   }
-  local_4c[0] = w;
-  local_4c[1] = h;
-  DAT_008a8c40 = uVar2;
-  surface_00 = Surface_Create(local_4c,0,0,0);
+  local_4c = w;
+  local_48 = h;
+  UINT_008a8c40 = uVar2;
+  surface_00 = Surface_Create(&local_4c,0,0,0);
   Surface_Lock(surface_00);
   Surface_Lock(surface);
   local_58 = 0;
@@ -1281,18 +1326,21 @@ void * __cdecl Render_CaptureThumbnail(int w,int h)
           iVar5 = _ftol();
           *puVar4 = *(undefined2 *)(iVar3 * iVar1 + iVar6 + iVar5 * 2);
           puVar4 = puVar4 + 1;
-          local_5c = local_5c + -1;
+          local_5c = local_5c - 1;
         } while (local_5c != 0);
       }
       local_58 = local_58 + 1;
-    } while (local_58 < h);
+    } while ((int)local_58 < h);
   }
   Surface_Unlock(surface_00);
   Surface_Unlock(surface);
   g_nFullRedrawPending = 1;
   return surface_00;
 }
+#undef local_48
 #undef local_4c
+#undef local_50
+#undef local_54
 #undef local_58
 #undef local_5c
 
@@ -1309,11 +1357,16 @@ void __cdecl Render_FillRect(int x,int y,int w,int h,float r,float g,float b)
   int iVar3;
   ushort *puVar4;
   ushort *puVar5;
-  #define local_1c (*(int *)(_frame + (0x30 - 0x1c)))
-  #define local_14 (*(int *)(_frame + (0x30 - 0x14)))
+  #define local_1c (*(uint *)(_frame + (0x30 - 0x1c)))
+  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
+  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
+  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
+  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
+  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
   
-  Surface_Lock(&DAT_009055e0);
-  puVar5 = (ushort *)(DAT_0090563c + y * DAT_009055f8 + x * 2);
+  Surface_Lock(&g_BackBuffer);
+  puVar5 = (ushort *)(UINT_0090563c + y * UINT_009055f8 + x * 2);
   if (0 < h) {
     local_14 = h;
     do {
@@ -1324,22 +1377,27 @@ void __cdecl Render_FillRect(int x,int y,int w,int h,float r,float g,float b)
           iVar1 = _ftol();
           iVar2 = _ftol();
           iVar3 = _ftol();
-          *puVar4 = (ushort)(iVar3 << ((byte)DAT_0090561c & 0x1f)) |
-                    (ushort)(iVar2 << ((byte)DAT_00905618 & 0x1f)) |
+          *puVar4 = (ushort)(iVar3 << ((byte)UINT_0090561c & 0x1f)) |
+                    (ushort)(iVar2 << ((byte)UINT_00905618 & 0x1f)) |
                     (ushort)(iVar1 << ((byte)_DAT_00905614 & 0x1f));
-          local_1c = local_1c + -1;
+          local_1c = local_1c - 1;
           puVar4 = puVar4 + 1;
         } while (local_1c != 0);
       }
-      puVar5 = (ushort *)((int)puVar5 + DAT_009055f8);
-      local_14 = local_14 + -1;
+      puVar5 = (ushort *)((int)puVar5 + UINT_009055f8);
+      local_14 = local_14 - 1;
     } while (local_14 != 0);
   }
-  Surface_Unlock(&DAT_009055e0);
+  Surface_Unlock(&g_BackBuffer);
   return;
 }
+#undef local_10
 #undef local_14
+#undef local_18
 #undef local_1c
+#undef local_4
+#undef local_8
+#undef local_c
 
 
 /* ---- 0x00487260  Render_SaveScreen ---- */
@@ -1350,20 +1408,20 @@ void __cdecl Render_SaveScreen(char *filename)
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   void *bitmap;
-  #define local_38 (*(undefined4 *)(_frame + (0x50 - 0x38)))
-  #define local_34 (*(undefined4 *)(_frame + (0x50 - 0x34)))
-  #define local_30 (*(undefined4 *)(_frame + (0x50 - 0x30)))
-  #define local_2c (*(undefined4 *)(_frame + (0x50 - 0x2c)))
-  #define local_28 (*(undefined4 *)(_frame + (0x50 - 0x28)))
-  #define local_24 (*(undefined4 *)(_frame + (0x50 - 0x24)))
-  #define local_20 (*(undefined4 *)(_frame + (0x50 - 0x20)))
-  #define local_1c (*(undefined4 *)(_frame + (0x50 - 0x1c)))
-  #define local_18 (*(undefined4 *)(_frame + (0x50 - 0x18)))
-  #define local_14 (*(undefined4 *)(_frame + (0x50 - 0x14)))
-  #define local_10 (*(undefined4 *)(_frame + (0x50 - 0x10)))
-  #define local_c (*(undefined4 *)(_frame + (0x50 - 0xc)))
-  #define local_8 (*(undefined4 *)(_frame + (0x50 - 0x8)))
-  #define local_4 (*(undefined4 *)(_frame + (0x50 - 0x4)))
+  #define local_38 (*(uint *)(_frame + (0x50 - 0x38)))
+  #define local_34 (*(uint *)(_frame + (0x50 - 0x34)))
+  #define local_30 (*(uint *)(_frame + (0x50 - 0x30)))
+  #define local_2c (*(uint *)(_frame + (0x50 - 0x2c)))
+  #define local_28 (*(uint *)(_frame + (0x50 - 0x28)))
+  #define local_24 (*(uint *)(_frame + (0x50 - 0x24)))
+  #define local_20 (*(uint *)(_frame + (0x50 - 0x20)))
+  #define local_1c (*(uint *)(_frame + (0x50 - 0x1c)))
+  #define local_18 (*(uint *)(_frame + (0x50 - 0x18)))
+  #define local_14 (*(uint *)(_frame + (0x50 - 0x14)))
+  #define local_10 (*(uint *)(_frame + (0x50 - 0x10)))
+  #define local_c (*(uint *)(_frame + (0x50 - 0xc)))
+  #define local_8 (*(uint *)(_frame + (0x50 - 0x8)))
+  #define local_4 (*(uint *)(_frame + (0x50 - 0x4)))
   
   local_30 = 8;
   local_2c = 8;
@@ -1380,7 +1438,7 @@ void __cdecl Render_SaveScreen(char *filename)
   local_8 = 0;
   local_4 = 0;
   if (filename != (char *)0x0) {
-    bitmap = (void *)stdBitmap_Convert(&DAT_009055e0,0,0);
+    bitmap = (void *)stdBitmap_Convert(&g_BackBuffer,0,0);
     stdBitmap_CopyFrom(&local_38,bitmap);
     stdBitmap_SaveByExtension(filename,bitmap);
     stdBitmap_Free(bitmap);
@@ -1409,9 +1467,9 @@ void __cdecl Render_SaveZBufferBmp(char *filename)
 {
   void *bitmap;
   
-  Surface_Lock(DAT_008c97a4);
-  Surface_Unlock(DAT_008c97a4);
-  bitmap = (void *)stdBitmap_Convert(DAT_008c97a4,0,0);
+  Surface_Lock((void *)UINT_008c97a4);
+  Surface_Unlock((void *)UINT_008c97a4);
+  bitmap = (void *)stdBitmap_Convert((void *)UINT_008c97a4,0,0);
   stdBitmap_SaveBM(filename,bitmap);
   stdBitmap_Free(bitmap);
   return;
@@ -1425,20 +1483,20 @@ void __cdecl Render_SaveScreenshotBmp(char *filename)
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   void *bitmap;
-  #define local_38 (*(undefined4 *)(_frame + (0x50 - 0x38)))
-  #define local_34 (*(undefined4 *)(_frame + (0x50 - 0x34)))
-  #define local_30 (*(undefined4 *)(_frame + (0x50 - 0x30)))
-  #define local_2c (*(undefined4 *)(_frame + (0x50 - 0x2c)))
-  #define local_28 (*(undefined4 *)(_frame + (0x50 - 0x28)))
-  #define local_24 (*(undefined4 *)(_frame + (0x50 - 0x24)))
-  #define local_20 (*(undefined4 *)(_frame + (0x50 - 0x20)))
-  #define local_1c (*(undefined4 *)(_frame + (0x50 - 0x1c)))
-  #define local_18 (*(undefined4 *)(_frame + (0x50 - 0x18)))
-  #define local_14 (*(undefined4 *)(_frame + (0x50 - 0x14)))
-  #define local_10 (*(undefined4 *)(_frame + (0x50 - 0x10)))
-  #define local_c (*(undefined4 *)(_frame + (0x50 - 0xc)))
-  #define local_8 (*(undefined4 *)(_frame + (0x50 - 0x8)))
-  #define local_4 (*(undefined4 *)(_frame + (0x50 - 0x4)))
+  #define local_38 (*(uint *)(_frame + (0x50 - 0x38)))
+  #define local_34 (*(uint *)(_frame + (0x50 - 0x34)))
+  #define local_30 (*(uint *)(_frame + (0x50 - 0x30)))
+  #define local_2c (*(uint *)(_frame + (0x50 - 0x2c)))
+  #define local_28 (*(uint *)(_frame + (0x50 - 0x28)))
+  #define local_24 (*(uint *)(_frame + (0x50 - 0x24)))
+  #define local_20 (*(uint *)(_frame + (0x50 - 0x20)))
+  #define local_1c (*(uint *)(_frame + (0x50 - 0x1c)))
+  #define local_18 (*(uint *)(_frame + (0x50 - 0x18)))
+  #define local_14 (*(uint *)(_frame + (0x50 - 0x14)))
+  #define local_10 (*(uint *)(_frame + (0x50 - 0x10)))
+  #define local_c (*(uint *)(_frame + (0x50 - 0xc)))
+  #define local_8 (*(uint *)(_frame + (0x50 - 0x8)))
+  #define local_4 (*(uint *)(_frame + (0x50 - 0x4)))
   
   local_30 = 8;
   local_2c = 8;
@@ -1454,7 +1512,7 @@ void __cdecl Render_SaveScreenshotBmp(char *filename)
   local_c = 0;
   local_8 = 0;
   local_4 = 0;
-  bitmap = (void *)stdBitmap_Convert(&DAT_009055e0,0,0);
+  bitmap = (void *)stdBitmap_Convert(&g_BackBuffer,0,0);
   stdBitmap_CopyFrom(&local_38,bitmap);
   stdBitmap_SaveByExtension(filename,bitmap);
   stdBitmap_Free(bitmap);
@@ -1485,44 +1543,43 @@ void __cdecl Render_DrawProgressBar(float fraction)
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   int iVar2;
-  ushort *puVar3;
+  undefined2 *puVar3;
   int iVar4;
   int iVar5;
-  #define local_4 (*(ushort (*)[2])(_frame + (0x20 - 0x4)))
+  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
-  local_4[0] = 0xffe0;
-  local_4[1] = 0;
+  local_4 = 0xffe0;
   iVar1 = _ftol();
-  Render_RemapPixels(local_4,1);
+  Render_RemapPixels((ushort *)&local_4,1);
   Surface_Lock(&g_PrimarySurface);
   iVar4 = 0x21c;
-  iVar2 = DAT_00901698 * 0x1c7 + DAT_009016dc;
-  puVar3 = (ushort *)(iVar2 + 100);
+  iVar2 = UINT_00901698 * 0x1c7 + UINT_009016dc;
+  puVar3 = (undefined2 *)(iVar2 + 100);
   do {
-    *puVar3 = local_4[0];
+    *puVar3 = (undefined2)local_4;
     puVar3 = puVar3 + 1;
     iVar4 = iVar4 + -1;
   } while (iVar4 != 0);
   iVar4 = 0xc;
   do {
-    iVar2 = iVar2 + (DAT_00901698 & 0xfffffffe);
-    puVar3 = (ushort *)(iVar2 + 100);
+    iVar2 = iVar2 + (UINT_00901698 & 0xfffffffe);
+    puVar3 = (undefined2 *)(iVar2 + 100);
     *(undefined2 *)(iVar2 + 0x49a) = 0xffe0;
     *puVar3 = 0xffe0;
     iVar5 = iVar1;
     if (0x32 < iVar1 + 0x32) {
       do {
-        *puVar3 = local_4[0];
+        *puVar3 = (undefined2)local_4;
         puVar3 = puVar3 + 1;
         iVar5 = iVar5 + -1;
       } while (iVar5 != 0);
     }
     iVar4 = iVar4 + -1;
   } while (iVar4 != 0);
-  puVar3 = (ushort *)(iVar2 + 100);
+  puVar3 = (undefined2 *)(iVar2 + 100);
   iVar2 = 0x21c;
   do {
-    *puVar3 = local_4[0];
+    *puVar3 = (undefined2)local_4;
     puVar3 = puVar3 + 1;
     iVar2 = iVar2 + -1;
   } while (iVar2 != 0);
@@ -1533,10 +1590,10 @@ void __cdecl Render_DrawProgressBar(float fraction)
 
 
 /* ---- 0x004874c0  Render_SetWaitCursorEnabled ---- */
-void Render_SetWaitCursorEnabled(undefined4 param_1)
+void Render_SetWaitCursorEnabled(uint param_1)
 
 {
-  DAT_004e8088 = param_1;
+  UINT_004e8088 = param_1;
   return;
 }
 
@@ -1551,45 +1608,45 @@ void Render_UpdateWaitCursor(void)
   int *piVar1;
   int *piVar2;
   int *piVar3;
-  int iVar4;
+  undefined *puVar4;
   void *data;
   #define iStack_10 (*(int *)(_frame + (0x20 - 0x10)))
   #define iStack_c (*(int *)(_frame + (0x20 - 0xc)))
   #define uStack_8 (*(undefined4 *)(_frame + (0x20 - 0x8)))
   #define uStack_4 (*(undefined4 *)(_frame + (0x20 - 0x4)))
   
-  if ((DAT_004e808c != 0) && (DAT_004e8088 != 0)) {
-    iVar4 = Profile_End(0xc);
+  if ((UINT_004e808c != 0) && (UINT_004e8088 != 0)) {
+    puVar4 = Profile_End(0xc);
     Profile_Begin(0xc);
-    DAT_008a92c8 = DAT_008a92c8 + iVar4;
-    if (5000 < DAT_008a92c8) {
-      DAT_008a92c8 = 0;
-      DAT_008c9770 = 0;
+    UINT_008a92c8 = (uint)(puVar4 + UINT_008a92c8);
+    if (5000 < (int)UINT_008a92c8) {
+      UINT_008a92c8 = 0;
+      UINT_008c9770 = 0;
       return;
     }
-    if (0xdac < DAT_008a92c8) {
-      DAT_008a92c8 = 0xdad;
-      DAT_008c9770 = DAT_008c9770 + iVar4;
-      if (0xf9 < DAT_008c9770) {
-        DAT_008c9770 = 0;
-        if (DAT_008a92d0 == 0) {
-          DAT_004e808c = 0;
+    if (0xdac < (int)UINT_008a92c8) {
+      UINT_008a92c8 = 0xdad;
+      UINT_008c9770 = (uint)(puVar4 + UINT_008c9770);
+      if (0xf9 < (int)UINT_008c9770) {
+        UINT_008c9770 = 0;
+        if (UINT_008a92d0 == 0) {
+          UINT_004e808c = 0;
           data = Resource_Load(0x444e4b42,s_wait_bm_004e812c);
           if (data == (void *)0x0) {
             return;
           }
-          ResRef_Add(&DAT_008a92d0,data,s_C__grimsrc_libs_grimlib_Engine_s_004e80bc,0xb35);
-          DAT_004e808c = 1;
-          if (DAT_008a92d0 == 0) {
+          ResRef_Add(&UINT_008a92d0,data,s_C__grimsrc_libs_grimlib_Engine_s_004e80bc,0xb35);
+          UINT_004e808c = 1;
+          if (UINT_008a92d0 == 0) {
             (*g_pSvcMain->pAssertFail)
                       (s_Bad_Bitmap_Reference_004e8114,s_main_sputResource_h_004e80a8,0x90);
           }
         }
-        DAT_008c9824 = (DAT_008c9824 + 1) % *(uint *)(DAT_008a92d4 + 100);
-        piVar1 = (int *)(DAT_008a92d4 + 0x70);
-        piVar2 = (int *)(DAT_008a92d4 + 0x6c);
-        piVar3 = (int *)(DAT_008a92d4 + 0x78);
-        Surface_Blit(&g_PrimarySurface,*(void **)(*piVar3 + DAT_008c9824 * 4),*piVar2,*piVar1,
+        UINT_008c9824 = (UINT_008c9824 + 1) % *(uint *)(UINT_008a92d4 + 100);
+        piVar1 = (int *)(UINT_008a92d4 + 0x70);
+        piVar2 = (int *)(UINT_008a92d4 + 0x6c);
+        piVar3 = (int *)(UINT_008a92d4 + 0x78);
+        Surface_Blit(&g_PrimarySurface,*(void **)(*piVar3 + UINT_008c9824 * 4),*piVar2,*piVar1,
                      (int *)0x0,1);
         iStack_10 = *piVar2;
         iStack_c = *piVar1;
@@ -1608,8 +1665,8 @@ void Render_UpdateWaitCursor(void)
 
 
 /* ---- 0x0048f920  Render_GetFrameCounter ---- */
-undefined4 Render_GetFrameCounter(void)
+int Render_GetFrameCounter(void)
 
 {
-  return DAT_008ca764;
+  return g_nTalkingActorCount;
 }

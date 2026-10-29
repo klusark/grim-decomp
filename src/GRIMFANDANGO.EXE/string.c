@@ -110,7 +110,7 @@ void __cdecl Str_CopyBasenameNoExt(char *dst,int size,char *path)
 }
 
 /* ---- 0x004838c0  Str_FindChar ---- */
-undefined4 __cdecl Str_FindChar(char *param_1,int param_2)
+undefined * __cdecl Str_FindChar(char *param_1,int param_2)
 
 {
   char *pcVar1;
@@ -246,7 +246,7 @@ byte * __cdecl Str_WildcardMatch(char *str,char *pattern)
   byte *pbVar8;
   byte *pbVar9;
   char *pcVar10;
-  #define local_4 (*(byte **)(_frame + (0x20 - 0x4)))
+  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   uVar6 = 0xffffffff;
   bVar3 = false;
@@ -257,7 +257,7 @@ byte * __cdecl Str_WildcardMatch(char *str,char *pattern)
     cVar5 = *pcVar10;
     pcVar10 = pcVar10 + 1;
   } while (cVar5 != '\0');
-  local_4 = (byte *)0x0;
+  local_4 = 0;
   if (~uVar6 - 1 < 0x1fff) {
     uVar6 = 0xffffffff;
     pcVar10 = pattern;
@@ -299,7 +299,7 @@ byte * __cdecl Str_WildcardMatch(char *str,char *pattern)
   bVar1 = DAT_008d36e8;
   do {
     if (bVar1 == 0) {
-      return local_4;
+      return (byte *)local_4;
     }
     bVar1 = *pbVar8;
     while ((bVar1 != 0 &&
@@ -339,7 +339,7 @@ LAB_004c1d16:
       bVar1 = *pbVar9;
     }
     if (*pbVar8 == 0) {
-      return local_4;
+      return (byte *)local_4;
     }
     bVar1 = pbVar8[1];
     pbVar9 = pbVar8;
@@ -350,13 +350,13 @@ LAB_004c1d16:
     }
     if ((bVar2) && (*pcVar10 == '\0')) {
       cVar5 = '\0';
-      local_4 = pbVar8;
+      local_4 = (uint)pbVar8;
     }
     else {
       cVar5 = *pcVar10;
       if (cVar5 == '.') {
         bVar3 = true;
-        local_4 = pbVar8;
+        local_4 = (uint)pbVar8;
       }
     }
     bVar1 = *pbVar8;
@@ -375,7 +375,7 @@ LAB_004c1d16:
         pbVar8 = pbVar8 + 1;
       }
       if (!bVar3) {
-        return local_4;
+        return (byte *)local_4;
       }
       bVar3 = false;
     }

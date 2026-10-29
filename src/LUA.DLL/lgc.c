@@ -326,15 +326,15 @@ void FUN_10005320(void)
   
   iVar1 = lua_lua2C(3);
   if (iVar1 == 0) {
-    liolib__5430((byte *)s__INPUT_10026c00);
-    liolib__5520((byte *)&PTR_DAT_100282d0,(byte *)s__INPUT_10026c00);
+    io_setfile((byte *)s__INPUT_10026c00);
+    io_setreturn((byte *)&PTR_DAT_100282d0,(byte *)s__INPUT_10026c00);
     return;
   }
   iVar2 = lua_tag(iVar1);
-  lVar5 = liolib__53d0(1);
+  lVar5 = io_getint(1);
   if (iVar2 == (int)lVar5) {
     pbVar3 = (byte *)lua_getuserdata(iVar1);
-    liolib__5520(pbVar3,(byte *)s__INPUT_10026c00);
+    io_setreturn(pbVar3,(byte *)s__INPUT_10026c00);
     return;
   }
   pcVar4 = (char *)luaL_check_string(3);
@@ -345,9 +345,9 @@ void FUN_10005320(void)
     pbVar3 = (byte *)(**(code **)(DAT_1002beb8 + 0x30))(pcVar4,&DAT_10026a80);
   }
   if (pbVar3 == (byte *)0x0) {
-    liolib__53f0(0);
+    io_pushresult(0);
     return;
   }
-  liolib__5520(pbVar3,(byte *)s__INPUT_10026c00);
+  io_setreturn(pbVar3,(byte *)s__INPUT_10026c00);
   return;
 }

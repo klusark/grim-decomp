@@ -31,8 +31,8 @@ void FUN_004836f0(void)
   if (g_pPolyglotText != (char *)0x0) {
     (*g_pSvcIMuseModule->pFree)(g_pPolyglotText);
   }
-  if (DAT_008a8c9c != 0) {
-    (*g_pSvcIMuseModule->pFree)(DAT_008a8c9c);
+  if (UINT_008a8c9c != 0) {
+    (*g_pSvcIMuseModule->pFree)(UINT_008a8c9c);
   }
   return;
 }

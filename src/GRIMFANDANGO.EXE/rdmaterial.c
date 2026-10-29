@@ -8,24 +8,24 @@
 /* ---- 0x00417e90  rdMaterial_SetLoadHook ---- */
 /* Installs the engine's material loader callback and returns the previous one */
 
-undefined4 rdMaterial_SetLoadHook(undefined4 param_1)
+uint rdMaterial_SetLoadHook(uint param_1)
 
 {
-  undefined4 uVar1;
+  uint uVar1;
   
-  uVar1 = DAT_007f4238;
-  DAT_007f4238 = param_1;
+  uVar1 = UINT_007f4238;
+  UINT_007f4238 = param_1;
   return uVar1;
 }
 
 /* ---- 0x00417ea0  rdMaterial_SetFreeHook ---- */
-undefined4 rdMaterial_SetFreeHook(undefined4 param_1)
+uint rdMaterial_SetFreeHook(uint param_1)
 
 {
-  undefined4 uVar1;
+  uint uVar1;
   
-  uVar1 = DAT_007f423c;
-  DAT_007f423c = param_1;
+  uVar1 = UINT_007f423c;
+  UINT_007f423c = param_1;
   return uVar1;
 }
 
@@ -36,8 +36,8 @@ void * __cdecl rdMaterial_Load(char *name,int a,int b)
   void *pvVar1;
   int iVar2;
   
-  if (DAT_007f4238 != (code *)0x0) {
-    pvVar1 = (void *)(*DAT_007f4238)(name,a,b);
+  if (UINT_007f4238 != 0) {
+    pvVar1 = (void *)(*(code_std *)UINT_007f4238)(name,a,b);
     return pvVar1;
   }
   pvVar1 = (void *)(*g_pSvcRdroid->pAlloc)
@@ -281,8 +281,8 @@ LAB_0041833a:
 void rdMaterial_Free(undefined4 param_1)
 
 {
-  if (DAT_007f423c != (code *)0x0) {
-    (*DAT_007f423c)(param_1);
+  if (UINT_007f423c != 0) {
+    (*(code_std *)UINT_007f423c)(param_1);
     return;
   }
   rdMaterial_FreeContents(param_1);
@@ -301,7 +301,7 @@ void rdMaterial_FreeContents(int param_1)
   uint *puVar2;
   uint uVar3;
   uint *puVar4;
-  #define local_8 (*(uint **)(_frame + (0x20 - 0x8)))
+  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   uVar3 = 0;
@@ -320,10 +320,10 @@ void rdMaterial_FreeContents(int param_1)
       uVar3 = 0;
       if (*puVar2 != 0) {
         puVar4 = puVar2 + 6;
-        local_8 = puVar2;
+        local_8 = (uint)puVar2;
         do {
-          local_8 = local_8 + 1;
-          Surface_Free((void *)*local_8);
+          local_8 = local_8 + 4;
+          Surface_Free(*(void **)local_8);
           if (puVar4[0x1d] != 0) {
             (**(code_std **)(*(int *)*puVar4 + 8))((int *)*puVar4);
             (**(code_std **)(*(int *)puVar4[-1] + 8))((int *)puVar4[-1]);

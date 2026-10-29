@@ -15,9 +15,10 @@ void __cdecl Chore_FadeIn(void *cosInst,int chore,int ms)
   int *piVar3;
   int track;
   int iVar4;
-  #define local_c (*(int *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(undefined4 *)(_frame + (0x20 - 0x8)))
-  #define local_4 (*(int *)(_frame + (0x20 - 0x4)))
+  #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
+  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
+  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   Cos_InstGetCostume(cosInst,&local_8);
   iVar2 = CosUtil_PtrFromHandle(local_8);
@@ -53,11 +54,12 @@ void __cdecl Chore_FadeIn(void *cosInst,int chore,int ms)
         }
         local_c = local_c + 1;
         chore = chore + 0x10;
-      } while (local_c < *(int *)(iVar2 + 0x20));
+      } while ((int)local_c < *(int *)(iVar2 + 0x20));
     }
   }
   return;
 }
+#undef local_10
 #undef local_4
 #undef local_8
 #undef local_c
@@ -73,9 +75,10 @@ void __cdecl Chore_FadeOut(void *cosInst,int chore,int ms)
   int *piVar3;
   int track;
   int iVar4;
-  #define local_c (*(int *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(undefined4 *)(_frame + (0x20 - 0x8)))
-  #define local_4 (*(int *)(_frame + (0x20 - 0x4)))
+  #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
+  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
+  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   Cos_InstGetCostume(cosInst,&local_8);
   iVar2 = CosUtil_PtrFromHandle(local_8);
@@ -108,11 +111,12 @@ void __cdecl Chore_FadeOut(void *cosInst,int chore,int ms)
         }
         local_c = local_c + 1;
         chore = chore + 0x10;
-      } while (local_c < *(int *)(iVar2 + 0x20));
+      } while ((int)local_c < *(int *)(iVar2 + 0x20));
     }
   }
   return;
 }
+#undef local_10
 #undef local_4
 #undef local_8
 #undef local_c

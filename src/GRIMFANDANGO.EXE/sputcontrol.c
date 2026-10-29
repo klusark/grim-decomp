@@ -13,7 +13,7 @@
 undefined4 sputControl_Initialize(undefined4 param_1,undefined4 *param_2)
 
 {
-  if (DAT_008ca1bc == 0) {
+  if (UINT_008ca1bc == 0) {
     _DAT_008ca1b8 = param_1;
     *param_2 = sputControl_Initialize;
     param_2[1] = FUN_0048d2c0;
@@ -23,7 +23,7 @@ undefined4 sputControl_Initialize(undefined4 param_1,undefined4 *param_2)
     param_2[5] = 0;
     param_2[6] = 0;
     param_2[7] = 0;
-    DAT_008ca1bc = 1;
+    UINT_008ca1bc = 1;
   }
   return 0;
 }

@@ -22,41 +22,43 @@ void Cos_StartChoreFaded(void *param_1,int param_2,int param_3)
 /* Cos_StopChoreFaded(inst, chore, ms): fade the chore's keyframes out over ms, then stop the chore
    (chore -1: all). */
 
-undefined4 __cdecl Cos_StopChoreFaded(void *param_1,int param_2,int param_3)
+undefined * __cdecl Cos_StopChoreFaded(void *param_1,int param_2,int param_3)
 
 {
-  int iVar1;
-  undefined4 uVar2;
+  undefined *puVar1;
+  undefined *puVar2;
   int iVar3;
   
   if (param_2 == -1) {
-    iVar1 = Cos_InstCountChores(param_1);
+    puVar1 = (undefined *)Cos_InstCountChores(param_1);
     iVar3 = 0;
-    if (0 < iVar1) {
+    if (0 < (int)puVar1) {
       do {
-        uVar2 = Cos_StopChoreFaded(param_1,iVar3,param_3);
+        puVar2 = Cos_StopChoreFaded(param_1,iVar3,param_3);
         iVar3 = iVar3 + 1;
-      } while (iVar3 < iVar1);
-      return uVar2;
+      } while (iVar3 < (int)puVar1);
+      return puVar2;
     }
   }
   else {
     Chore_FadeOut(param_1,param_2,param_3);
-    iVar1 = Cos_InstStopChore(param_1,param_2);
+    puVar1 = (undefined *)Cos_InstStopChore(param_1,param_2);
   }
-  return iVar1;
+  return puVar1;
 }
 
 /* ---- 0x00494d10  Costume_PrintList ---- */
 void __cdecl Costume_PrintList(void *costume)
 
 {
+  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   undefined4 *puVar1;
   int iVar2;
   int iVar3;
   int iVar4;
   undefined4 *puVar5;
   uint uVar6;
+  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   puVar5 = costume;
   if (costume != (void *)0x0) {
@@ -89,6 +91,8 @@ void __cdecl Costume_PrintList(void *costume)
   }
   return;
 }
+#undef local_4
+
 
 /* ---- 0x00494dc0  Costume_FreeList ---- */
 void __cdecl Costume_FreeList(void *list,int free)
@@ -150,7 +154,7 @@ void * __cdecl Costume_Push(void *list,void *costumeRes,int flags)
   void *pvVar4;
   uint uVar5;
   uint uVar6;
-  #define local_4 (*(int *)(_frame + (0x20 - 0x4)))
+  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   piVar1 = (int *)Costume_AllocRecord();
   piVar1[0x2c] = (int)list;
@@ -254,10 +258,12 @@ void Costume_InitRecord(undefined4 *param_1)
 void * __cdecl Costume_GetMainModel(void *cosInst)
 
 {
+  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   void *pvVar1;
   uint uVar2;
   int iVar3;
   uint uVar4;
+  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   pvVar1 = cosInst;
   uVar2 = Cos_InstCountComponents(cosInst);
@@ -274,6 +280,8 @@ void * __cdecl Costume_GetMainModel(void *cosInst)
   } while (uVar4 < uVar2);
   return (void *)0x0;
 }
+#undef local_4
+
 
 /* ---- 0x00495510  Costume_ApplyScale ---- */
 /* Scales every model radius by actor+0x30 and stores the reciprocal so the second call undoes it */
@@ -337,12 +345,14 @@ void __cdecl Costume_ApplyScale(void *actor,void *componentList)
 void __cdecl Costume_ApplyComponentState(void *cosInst)
 
 {
+  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   void *pvVar2;
   int iVar3;
   int *piVar4;
   uint uVar5;
   int iVar6;
+  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   pvVar2 = cosInst;
   iVar3 = Cos_InstCountComponents(cosInst);
@@ -370,6 +380,8 @@ void __cdecl Costume_ApplyComponentState(void *cosInst)
   }
   return;
 }
+#undef local_4
+
 
 /* ---- 0x004956a0  Costume_UpdateAttachedFrame ---- */
 /* Recursively positions a model hung on a parent model's node */

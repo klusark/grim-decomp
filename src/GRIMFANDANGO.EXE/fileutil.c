@@ -16,8 +16,8 @@ undefined4 FileUtil_SysInitialize(GrimServices *param_1,undefined4 *param_2)
   
   uVar1 = 1;
   g_pSvcFileutil = param_1;
-  if (DAT_008c9a94 == 0) {
-    DAT_008c9a94 = 1;
+  if (UINT_008c9a94 == 0) {
+    UINT_008c9a94 = 1;
     if (param_2 != (undefined4 *)0x0) {
       *param_2 = FileUtil_SysInitialize;
       param_2[1] = FUN_00488ce0;
@@ -25,8 +25,8 @@ undefined4 FileUtil_SysInitialize(GrimServices *param_1,undefined4 *param_2)
       param_2[3] = FUN_00488d20;
       param_2[4] = FUN_00488d30;
       param_2[5] = SaveFile_CheckFUTBHeader;
-      param_2[6] = _matherr;
-      param_2[7] = _matherr;
+      param_2[6] = zlibVersion;
+      param_2[7] = zlibVersion;
     }
     uVar1 = 0;
   }
@@ -37,7 +37,7 @@ undefined4 FileUtil_SysInitialize(GrimServices *param_1,undefined4 *param_2)
 void FUN_00488ce0(void)
 
 {
-  DAT_008c9a94 = 0;
+  UINT_008c9a94 = 0;
   return;
 }
 
@@ -48,8 +48,8 @@ undefined4 FUN_00488cf0(void)
   undefined4 uVar1;
   
   uVar1 = 1;
-  if ((DAT_008c9a94 != 0) && (DAT_008c9a98 == 0)) {
-    DAT_008c9a98 = 1;
+  if ((UINT_008c9a94 != 0) && (UINT_008c9a98 == 0)) {
+    UINT_008c9a98 = 1;
     uVar1 = 0;
   }
   return uVar1;
@@ -59,7 +59,7 @@ undefined4 FUN_00488cf0(void)
 void FUN_00488d20(void)
 
 {
-  DAT_008c9a98 = 0;
+  UINT_008c9a98 = 0;
   return;
 }
 
@@ -68,7 +68,7 @@ undefined4 FUN_00488d30(code *param_1)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  #define local_4 (*(undefined4 *)(_frame + (0x20 - 0x4)))
+  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   local_4 = 0x42545546;
   (*param_1)(&local_4,4);

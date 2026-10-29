@@ -9,23 +9,23 @@
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 /* Creates DirectInput, the keyboard and mouse devices and scans the joysticks */
 
-undefined4 Input_Init(void)
+undefined * Input_Init(void)
 
 {
   int iVar1;
-  undefined4 *puVar2;
+  uint *puVar2;
   int a2;
   void **a3;
   int a4;
   
-  puVar2 = &DAT_00901500;
+  puVar2 = &UINT_00901500;
   for (iVar1 = 0x5a; iVar1 != 0; iVar1 = iVar1 + -1) {
     *puVar2 = 0;
     puVar2 = puVar2 + 1;
   }
   a4 = 0;
   a3 = &g_pDirectInput;
-  puVar2 = &DAT_00803fd0;
+  puVar2 = &UINT_00803fd0;
   for (iVar1 = 0xf; iVar1 != 0; iVar1 = iVar1 + -1) {
     *puVar2 = 0;
     puVar2 = puVar2 + 1;
@@ -37,16 +37,16 @@ undefined4 Input_Init(void)
   Input_InitJoysticks();
   Input_CreateMouse();
   Input_ResetState();
-  DAT_00805f98 = 1;
-  return 1;
+  UINT_00805f98 = 1;
+  return (undefined *)0x1;
 }
 
 /* ---- 0x00476f70  Input_Shutdown ---- */
 void Input_Shutdown(void)
 
 {
-  if (DAT_00805f98 != 0) {
-    DAT_00805f98 = 0;
+  if (UINT_00805f98 != 0) {
+    UINT_00805f98 = 0;
     if (g_pDInputMouse != (void *)0x0) {
       (**(code_std **)(*(int *)g_pDInputMouse + 8))(g_pDInputMouse);
     }
@@ -87,7 +87,7 @@ undefined4 Input_Disable(void)
 void Input_Flush(void)
 
 {
-  DAT_00805fbc = timeGetTime();
+  UINT_00805fbc = timeGetTime();
   if (g_pDInputKeyboard != (void *)0x0) {
     Input_FlushKeyboard();
   }
@@ -107,18 +107,18 @@ void Input_ResetState(void)
   uint *puVar1;
   uint *puVar2;
   
-  DAT_004dea40 = 0;
-  DAT_00805fb8 = 0;
-  DAT_00803fc8 = 0;
-  DAT_00804010 = 0x680;
+  UINT_004dea40 = 0;
+  UINT_00805fb8 = 0;
+  UINT_00803fc8 = 0;
+  UINT_00804010 = 0x680;
   _DAT_00803fcc = 0;
   _DAT_00804014 = 0x680;
-  puVar1 = &DAT_00901500;
+  puVar1 = &UINT_00901500;
   do {
     puVar2 = puVar1 + 6;
     *puVar1 = *puVar1 & 0xfffffffd;
     puVar1 = puVar2;
-  } while (puVar2 < &DAT_00901668);
+  } while (puVar2 < &UINT_00901668);
   return;
 }
 
@@ -131,10 +131,10 @@ int __cdecl Input_EnableAxis(uint axis)
   if (0xe < axis) {
     return 0;
   }
-  if (((&DAT_00901500)[axis * 6] & 1) == 0) {
+  if (((&UINT_00901500)[axis * 6] & 1) == 0) {
     return 0;
   }
-  (&DAT_00901500)[axis * 6] = (&DAT_00901500)[axis * 6] | 2;
+  (&UINT_00901500)[axis * 6] = (&UINT_00901500)[axis * 6] | 2;
   Input_MarkAxisUsed(axis);
   return 1;
 }
@@ -148,27 +148,27 @@ void Input_Update(void)
 {
   uint uVar1;
   int iVar2;
-  undefined4 *puVar3;
+  uint *puVar3;
   
   if (g_nInputAcquired != 0) {
-    DAT_00805fa4 = 1;
-    DAT_00805fbc = timeGetTime();
-    uVar1 = DAT_00805fbc - DAT_00805fc0;
+    UINT_00805fa4 = 1;
+    UINT_00805fbc = timeGetTime();
+    uVar1 = UINT_00805fbc - UINT_00805fc0;
     if (uVar1 != 0) {
       _DAT_004dea44 = 1.0 / (float)uVar1;
-      puVar3 = &DAT_00803fd0;
-      DAT_00805fc8 = uVar1;
+      puVar3 = &UINT_00803fd0;
+      UINT_00805fc8 = uVar1;
       for (iVar2 = 0xf; iVar2 != 0; iVar2 = iVar2 + -1) {
         *puVar3 = 0;
         puVar3 = puVar3 + 1;
       }
       _DAT_004dea48 = _DAT_004dea44 * 1000.0;
       Input_PollKeyboard();
-      if (DAT_00805fb8 != 0) {
+      if (UINT_00805fb8 != 0) {
         Input_PollJoysticks();
       }
       Input_PollMouse();
-      DAT_00805fc0 = DAT_00805fbc;
+      UINT_00805fc0 = UINT_00805fbc;
     }
   }
   return;
@@ -188,14 +188,14 @@ float __cdecl Input_GetAxis(int inputId)
     return 0.0;
   }
   iVar5 = inputId * 0x18;
-  if (((&DAT_00901500)[inputId * 6] & 2) == 0) {
+  if (((&UINT_00901500)[inputId * 6] & 2) == 0) {
     return 0.0;
   }
-  iVar3 = (&DAT_00803fd0)[inputId] - *(int *)(&DAT_0090150c + iVar5);
+  iVar3 = (&UINT_00803fd0)[inputId] - *(int *)(&DAT_0090150c + iVar5);
   if (iVar3 == 0) {
     return 0.0;
   }
-  if ((((&DAT_00901500)[inputId * 6] & 8) == 0) && (*(int *)(&DAT_00901510 + iVar5) != 0)) {
+  if ((((&UINT_00901500)[inputId * 6] & 8) == 0) && (*(int *)(&DAT_00901510 + iVar5) != 0)) {
     iVar4 = iVar3;
     if (iVar3 < 0) {
       iVar4 = -iVar3;
@@ -212,8 +212,8 @@ float __cdecl Input_GetAxis(int inputId)
   if (fVar2 <= 1e-05) {
     fVar1 = 0.0;
   }
-  if ((DAT_00805fa4 != 0) && (fVar1 != 0.0)) {
-    DAT_00805fa4 = 0;
+  if ((UINT_00805fa4 != 0) && (fVar1 != 0.0)) {
+    UINT_00805fa4 = 0;
   }
   return fVar1;
 }
@@ -222,17 +222,17 @@ float __cdecl Input_GetAxis(int inputId)
 int __cdecl Input_GetButtonState(int inputId,int *down,int *justPressed)
 
 {
-  if ((g_nInputAcquired != 0) && (DAT_00805fa0 == 0)) {
-    if ((DAT_00805fa4 != 0) && ((&DAT_00804018)[inputId * 7] != 0)) {
-      DAT_00805fa4 = 0;
+  if ((g_nInputAcquired != 0) && (UINT_00805fa0 == 0)) {
+    if ((UINT_00805fa4 != 0) && ((&UINT_00804018)[inputId * 7] != 0)) {
+      UINT_00805fa4 = 0;
     }
     if (down != (int *)0x0) {
-      *down = (&DAT_0080402c)[inputId * 7];
+      *down = (&UINT_0080402c)[inputId * 7];
     }
     if (justPressed != (int *)0x0) {
-      *justPressed = (&DAT_00804030)[inputId * 7];
+      *justPressed = (&UINT_00804030)[inputId * 7];
     }
-    return (&DAT_00804018)[inputId * 7];
+    return (&UINT_00804018)[inputId * 7];
   }
   if (down != (int *)0x0) {
     *down = 0;
@@ -262,7 +262,7 @@ void __cdecl Input_SetAcquired(int acquire)
 {
   if (g_nInputEnabled != 0) {
     if (acquire != 0) {
-      if ((g_pDInputMouse != (void *)0x0) && (DAT_004dea40 != 0)) {
+      if ((g_pDInputMouse != (void *)0x0) && (UINT_004dea40 != 0)) {
         (**(code_std **)(*(int *)g_pDInputMouse + 0x1c))(g_pDInputMouse);
         ShowCursor(0);
       }
@@ -303,29 +303,29 @@ void Input_InitJoysticks(void)
   uint uVar1;
   int iVar2;
   uint uVar3;
-  undefined4 *puVar4;
+  uint *puVar4;
   int axis;
   uint a1;
   #define local_1a4 (*(undefined1 (*)[16])(_frame + (0x1c0 - 0x1a4)))
   #define local_194 (*(undefined1 (*)[36])(_frame + (0x1c0 - 0x194)))
-  #define local_170 (*(int *)(_frame + (0x1c0 - 0x170)))
-  #define local_16c (*(int *)(_frame + (0x1c0 - 0x16c)))
-  #define local_168 (*(int *)(_frame + (0x1c0 - 0x168)))
-  #define local_164 (*(int *)(_frame + (0x1c0 - 0x164)))
-  #define local_160 (*(int *)(_frame + (0x1c0 - 0x160)))
-  #define local_15c (*(int *)(_frame + (0x1c0 - 0x15c)))
-  #define local_14c (*(int *)(_frame + (0x1c0 - 0x14c)))
-  #define local_148 (*(int *)(_frame + (0x1c0 - 0x148)))
-  #define local_144 (*(int *)(_frame + (0x1c0 - 0x144)))
-  #define local_140 (*(int *)(_frame + (0x1c0 - 0x140)))
-  #define local_13c (*(int *)(_frame + (0x1c0 - 0x13c)))
-  #define local_138 (*(int *)(_frame + (0x1c0 - 0x138)))
+  #define local_170 (*(uint *)(_frame + (0x1c0 - 0x170)))
+  #define local_16c (*(uint *)(_frame + (0x1c0 - 0x16c)))
+  #define local_168 (*(uint *)(_frame + (0x1c0 - 0x168)))
+  #define local_164 (*(uint *)(_frame + (0x1c0 - 0x164)))
+  #define local_160 (*(uint *)(_frame + (0x1c0 - 0x160)))
+  #define local_15c (*(uint *)(_frame + (0x1c0 - 0x15c)))
+  #define local_14c (*(uint *)(_frame + (0x1c0 - 0x14c)))
+  #define local_148 (*(uint *)(_frame + (0x1c0 - 0x148)))
+  #define local_144 (*(uint *)(_frame + (0x1c0 - 0x144)))
+  #define local_140 (*(uint *)(_frame + (0x1c0 - 0x140)))
+  #define local_13c (*(uint *)(_frame + (0x1c0 - 0x13c)))
+  #define local_138 (*(uint *)(_frame + (0x1c0 - 0x138)))
   #define local_134 (*(byte *)(_frame + (0x1c0 - 0x134)))
   #define local_128 (*(uint *)(_frame + (0x1c0 - 0x128)))
   
-  DAT_009014e8 = 0;
-  DAT_00901668 = 0;
-  DAT_009014e0 = 0;
+  UINT_009014e8 = 0;
+  UINT_00901668 = 0;
+  UINT_009014e0 = 0;
   _DAT_009014ec = 0;
   _DAT_0090166c = 0;
   _DAT_009014e4 = 0;
@@ -335,19 +335,19 @@ void Input_InitJoysticks(void)
   }
   a1 = 0;
   if (uVar1 != 0) {
-    puVar4 = &DAT_009014e0;
+    puVar4 = &UINT_009014e0;
     axis = 2;
     do {
       iVar2 = joyGetPos(a1,(int)local_1a4);
       if (iVar2 == 0) {
         iVar2 = joyGetDevCapsA(a1,(int)local_194,0x194);
         if (iVar2 == 0) {
-          (&DAT_009014e8)[a1] = 1;
+          (&UINT_009014e8)[a1] = 1;
           uVar3 = local_128;
           if (0xd < local_128) {
             uVar3 = 0xe;
           }
-          (&DAT_00901668)[a1] = uVar3;
+          (&UINT_00901668)[a1] = uVar3;
           Input_SetAxisRange(axis + -2,local_170,local_16c,0.1);
           Input_SetAxisRange(axis + -1,local_168,local_164,0.1);
           if ((local_134 & 1) != 0) {
@@ -508,31 +508,31 @@ void Input_MarkAxisUsed(uint param_1)
   uint uVar1;
   
   if ((0xb < param_1) && (param_1 < 0xf)) {
-    DAT_004dea40 = 1;
+    UINT_004dea40 = 1;
     return;
   }
   if (param_1 < 0xc) {
-    DAT_00805fb8 = 1;
+    UINT_00805fb8 = 1;
     uVar1 = (uint)(5 < param_1);
-    (&DAT_00803fc8)[uVar1] = 1;
+    (&UINT_00803fc8)[uVar1] = 1;
     switch(param_1 + uVar1 * -6) {
     case 0:
-      (&DAT_00804010)[uVar1] = (&DAT_00804010)[uVar1] | 1;
+      (&UINT_00804010)[uVar1] = (&UINT_00804010)[uVar1] | 1;
       return;
     case 1:
-      (&DAT_00804010)[uVar1] = (&DAT_00804010)[uVar1] | 2;
+      (&UINT_00804010)[uVar1] = (&UINT_00804010)[uVar1] | 2;
       return;
     case 2:
-      (&DAT_00804010)[uVar1] = (&DAT_00804010)[uVar1] | 4;
+      (&UINT_00804010)[uVar1] = (&UINT_00804010)[uVar1] | 4;
       return;
     case 3:
-      (&DAT_00804010)[uVar1] = (&DAT_00804010)[uVar1] | 8;
+      (&UINT_00804010)[uVar1] = (&UINT_00804010)[uVar1] | 8;
       return;
     case 4:
-      (&DAT_00804010)[uVar1] = (&DAT_00804010)[uVar1] | 0x10;
+      (&UINT_00804010)[uVar1] = (&UINT_00804010)[uVar1] | 0x10;
       return;
     case 5:
-      (&DAT_00804010)[uVar1] = (&DAT_00804010)[uVar1] | 0x20;
+      (&UINT_00804010)[uVar1] = (&UINT_00804010)[uVar1] | 0x20;
     }
   }
   return;
@@ -546,103 +546,99 @@ void Input_PollKeyboard(void)
 
 {
   unsigned char _frame[0x330] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  int iVar1;
-  int iVar2;
-  int iVar3;
-  void *pvVar4;
-  uint uVar5;
-  undefined4 *puVar6;
-  int iVar7;
-  int iVar8;
-  uint *puVar9;
-  uint uVar10;
-  int *piVar11;
+  uint uVar1;
+  uint uVar2;
+  void *pvVar3;
+  uint *puVar4;
+  int iVar5;
+  int iVar6;
+  uint uVar7;
   #define puStack_320 (*(undefined1 **)(_frame + (0x330 - 0x320)))
-  #define puStack_31c (*(undefined4 **)(_frame + (0x330 - 0x31c)))
+  #define puStack_31c (*(uint **)(_frame + (0x330 - 0x31c)))
   #define iStack_318 (*(int *)(_frame + (0x330 - 0x318)))
-  #define local_304 (*(undefined4 (*)[60])(_frame + (0x330 - 0x304)))
-  #define aiStack_214 (*(int (*)[5])(_frame + (0x330 - 0x214)))
+  #define local_304 (*(uint *)(_frame + (0x330 - 0x304)))
+  #define auStack_214 (*(uint (*)[5])(_frame + (0x330 - 0x214)))
   #define local_200 (*(undefined1 (*)[512])(_frame + (0x330 - 0x200)))
   
-  uVar5 = DAT_00805fbc;
-  pvVar4 = g_pDInputKeyboard;
-  local_304[0] = 0x20;
-  if ((g_pDInputKeyboard != (void *)0x0) && (DAT_00805fa0 == 0)) {
-    puVar6 = &DAT_00804020;
+  uVar1 = UINT_00805fbc;
+  pvVar3 = g_pDInputKeyboard;
+  local_304 = 0x20;
+  if ((g_pDInputKeyboard != (void *)0x0) && (UINT_00805fa0 == 0)) {
+    puVar4 = &UINT_00804020;
     do {
-      puVar6[-1] = uVar5;
-      puVar6[-2] = *puVar6;
-      puVar6[4] = 0;
-      puVar6[3] = 0;
-      puVar6 = puVar6 + 7;
-    } while (puVar6 < &DAT_00805fa0);
-    puStack_31c = local_304;
+      puVar4[-1] = uVar1;
+      puVar4[-2] = *puVar4;
+      puVar4[4] = 0;
+      puVar4[3] = 0;
+      puVar4 = puVar4 + 7;
+    } while (puVar4 < &UINT_00805fa0);
+    puStack_31c = &local_304;
     iStack_318 = 0;
     puStack_320 = local_200;
-    iVar7 = (**(code_std **)(*(int *)pvVar4 + 0x28))(pvVar4,0x10);
+    iVar5 = (**(code_std **)(*(int *)pvVar3 + 0x28))(pvVar3,0x10);
     if (iStack_318 != 0) {
-      piVar11 = aiStack_214 + 1;
-      iVar8 = iStack_318;
+      puVar4 = auStack_214 + 1;
+      iVar6 = iStack_318;
       do {
-        iVar1 = piVar11[-1];
-        iVar2 = *piVar11;
-        iVar3 = piVar11[1];
-        if (iVar2 == (&DAT_00804020)[iVar1 * 7]) {
-          if (iVar2 != 0) {
+        uVar1 = puVar4[-1];
+        uVar7 = *puVar4;
+        uVar2 = puVar4[1];
+        if (uVar7 == (&UINT_00804020)[uVar1 * 7]) {
+          if (uVar7 != 0) {
 LAB_0047780b:
-            (&DAT_00804028)[iVar1 * 7] = iVar3;
+            (&UINT_00804028)[uVar1 * 7] = uVar2;
           }
         }
         else {
-          if ((iVar2 != 0) && ((uint)(iVar3 - (&DAT_00804028)[iVar1 * 7]) < 200)) {
-            (&DAT_00804030)[iVar1 * 7] = 1;
+          if ((uVar7 != 0) && (uVar2 - (&UINT_00804028)[uVar1 * 7] < 200)) {
+            (&UINT_00804030)[uVar1 * 7] = 1;
           }
-          (&DAT_00804020)[iVar1 * 7] = iVar2;
-          (&DAT_00804024)[iVar1 * 7] = iVar3;
-          if (iVar2 != 0) {
-            (&DAT_0080402c)[iVar1 * 7] = (&DAT_0080402c)[iVar1 * 7] + 1;
-            (&DAT_00804018)[iVar1 * 7] = iVar2;
+          (&UINT_00804020)[uVar1 * 7] = uVar7;
+          (&UINT_00804024)[uVar1 * 7] = uVar2;
+          if (uVar7 != 0) {
+            (&UINT_0080402c)[uVar1 * 7] = (&UINT_0080402c)[uVar1 * 7] + 1;
+            (&UINT_00804018)[uVar1 * 7] = uVar7;
             goto LAB_0047780b;
           }
         }
-        piVar11 = piVar11 + 4;
-        iVar8 = iVar8 + -1;
-      } while (iVar8 != 0);
+        puVar4 = puVar4 + 4;
+        iVar6 = iVar6 + -1;
+      } while (iVar6 != 0);
     }
-    if ((iVar7 == 1) &&
-       (iVar7 = (**(code_std **)(*(int *)g_pDInputKeyboard + 0x24))
-                          (g_pDInputKeyboard,0x100,&STACK0X(0xfffffcec)), uVar5 = DAT_00805fbc,
-       -1 < iVar7)) {
-      iVar7 = 0;
-      puVar9 = &DAT_00804020;
+    if ((iVar5 == 1) &&
+       (iVar5 = (**(code_std **)(*(int *)g_pDInputKeyboard + 0x24))
+                          (g_pDInputKeyboard,0x100,&STACK0X(0xfffffcec)), uVar1 = UINT_00805fbc,
+       -1 < iVar5)) {
+      iVar5 = 0;
+      puVar4 = &UINT_00804020;
       do {
-        uVar10 = (uint)*(byte *)((int)&puStack_320 + iVar7);
-        if (uVar10 == *puVar9) {
-          if (uVar10 != 0) {
+        uVar7 = (uint)*(byte *)((int)&puStack_320 + iVar5);
+        if (uVar7 == *puVar4) {
+          if (uVar7 != 0) {
 LAB_00477881:
-            puVar9[2] = uVar5;
+            puVar4[2] = uVar1;
           }
         }
         else {
-          if ((uVar10 != 0) && (uVar5 - puVar9[2] < 200)) {
-            puVar9[4] = 1;
+          if ((uVar7 != 0) && (uVar1 - puVar4[2] < 200)) {
+            puVar4[4] = 1;
           }
-          *puVar9 = uVar10;
-          puVar9[1] = uVar5;
-          if (uVar10 != 0) {
-            puVar9[3] = puVar9[3] + 1;
-            puVar9[-2] = uVar10;
+          *puVar4 = uVar7;
+          puVar4[1] = uVar1;
+          if (uVar7 != 0) {
+            puVar4[3] = puVar4[3] + 1;
+            puVar4[-2] = uVar7;
             goto LAB_00477881;
           }
         }
-        puVar9 = puVar9 + 7;
-        iVar7 = iVar7 + 1;
-      } while (puVar9 < &DAT_00805c20);
+        puVar4 = puVar4 + 7;
+        iVar5 = iVar5 + 1;
+      } while (puVar4 < &UINT_00805c20);
     }
   }
   return;
 }
-#undef aiStack_214
+#undef auStack_214
 #undef iStack_318
 #undef local_200
 #undef local_304
@@ -655,22 +651,22 @@ void Input_FlushKeyboard(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  int iVar1;
-  int *piVar2;
-  #define local_4 (*(undefined4 *)(_frame + (0x20 - 0x4)))
+  uint uVar1;
+  uint *puVar2;
+  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   local_4 = 0xffffffff;
   if (g_pDInputKeyboard != (void *)0x0) {
     (**(code_std **)(*(int *)g_pDInputKeyboard + 0x28))(g_pDInputKeyboard,0x10,0,&local_4,0);
-    iVar1 = DAT_00805fbc;
-    piVar2 = &DAT_00804020;
+    uVar1 = UINT_00805fbc;
+    puVar2 = &UINT_00804020;
     do {
-      if (*piVar2 != 0) {
-        *piVar2 = 0;
-        piVar2[1] = iVar1;
+      if (*puVar2 != 0) {
+        *puVar2 = 0;
+        puVar2[1] = uVar1;
       }
-      piVar2 = piVar2 + 7;
-    } while (piVar2 < &DAT_00805c20);
+      puVar2 = puVar2 + 7;
+    } while (puVar2 < &UINT_00805c20);
   }
   return;
 }
@@ -689,52 +685,55 @@ void Input_PollJoysticks(void)
   int iVar3;
   uint uVar4;
   uint uVar5;
-  #define local_44 (*(undefined4 **)(_frame + (0x60 - 0x44)))
+  #define local_44 (*(uint *)(_frame + (0x60 - 0x44)))
   #define local_40 (*(uint *)(_frame + (0x60 - 0x40)))
-  #define local_3c (*(uint **)(_frame + (0x60 - 0x3c)))
-  #define local_38 (*(int *)(_frame + (0x60 - 0x38)))
-  #define local_34 (*(uint (*)[4])(_frame + (0x60 - 0x34)))
-  #define local_24 (*(undefined4 *)(_frame + (0x60 - 0x24)))
-  #define local_20 (*(undefined4 *)(_frame + (0x60 - 0x20)))
-  #define local_1c (*(undefined4 *)(_frame + (0x60 - 0x1c)))
-  #define local_18 (*(undefined4 *)(_frame + (0x60 - 0x18)))
+  #define local_3c (*(uint *)(_frame + (0x60 - 0x3c)))
+  #define local_38 (*(uint *)(_frame + (0x60 - 0x38)))
+  #define local_34 (*(uint *)(_frame + (0x60 - 0x34)))
+  #define local_30 (*(uint *)(_frame + (0x60 - 0x30)))
+  #define local_2c (*(uint *)(_frame + (0x60 - 0x2c)))
+  #define local_28 (*(uint *)(_frame + (0x60 - 0x28)))
+  #define local_24 (*(uint *)(_frame + (0x60 - 0x24)))
+  #define local_20 (*(uint *)(_frame + (0x60 - 0x20)))
+  #define local_1c (*(uint *)(_frame + (0x60 - 0x1c)))
+  #define local_18 (*(uint *)(_frame + (0x60 - 0x18)))
   #define local_14 (*(uint *)(_frame + (0x60 - 0x14)))
-  #define local_c (*(int *)(_frame + (0x60 - 0xc)))
+  #define local_c (*(uint *)(_frame + (0x60 - 0xc)))
   
   local_40 = 1;
   local_38 = 0;
-  local_3c = &DAT_00804010;
-  local_44 = &DAT_00803fd4;
+  local_3c = (uint)&UINT_00804010;
+  local_44 = (uint)&UINT_00803fd4;
   uVar5 = 0x1c00;
   do {
-    if (((&DAT_00803fc8)[local_38] != 0) && ((&DAT_009014e8)[local_38] != 0)) {
-      puVar2 = local_34;
+    if (((&UINT_00803fc8)[local_38] != 0) && ((&UINT_009014e8)[local_38] != 0)) {
+      puVar2 = &local_34;
       for (iVar3 = 0xd; iVar3 != 0; iVar3 = iVar3 + -1) {
         *puVar2 = 0;
         puVar2 = puVar2 + 1;
       }
-      local_34[0] = 0x34;
-      local_34[1] = *local_3c;
-      iVar3 = joyGetPosEx(local_38,(int)local_34);
+      local_34 = 0x34;
+      local_30 = *(uint *)local_3c;
+      iVar3 = joyGetPosEx(local_38,(int)&local_34);
       if (iVar3 != 0) {
         return;
       }
-      local_44[-1] = local_34[2];
-      *local_44 = local_34[3];
-      if ((local_34[1] & 4) != 0) {
-        local_44[1] = local_24;
+      *(uint *)(local_44 - 4) = local_2c;
+      *(uint *)local_44 = local_28;
+      if ((local_30 & 4) != 0) {
+        *(uint *)(local_44 + 4) = local_24;
       }
-      if ((local_34[1] & 8) != 0) {
-        local_44[2] = local_20;
+      if ((local_30 & 8) != 0) {
+        *(uint *)(local_44 + 8) = local_20;
       }
-      if ((local_34[1] & 0x10) != 0) {
-        local_44[3] = local_1c;
+      if ((local_30 & 0x10) != 0) {
+        *(uint *)(local_44 + 0xc) = local_1c;
       }
-      if ((local_34[1] & 0x20) != 0) {
-        local_44[4] = local_18;
+      if ((local_30 & 0x20) != 0) {
+        *(uint *)(local_44 + 0x10) = local_18;
       }
-      uVar1 = DAT_00805fbc;
-      puVar2 = (uint *)((int)&DAT_00804020 + uVar5);
+      uVar1 = UINT_00805fbc;
+      puVar2 = (uint *)((int)&UINT_00804020 + uVar5);
       iVar3 = 10;
       do {
         uVar4 = local_14 & local_40;
@@ -760,8 +759,8 @@ LAB_004779fd:
         local_40 = local_40 << 1;
         iVar3 = iVar3 + -1;
       } while (iVar3 != 0);
-      if ((local_34[1] & 0x200) != 0) {
-        if ((local_c < 0x57e4) || (0x7b0c < local_c)) {
+      if ((local_30 & 0x200) != 0) {
+        if (((int)local_c < 0x57e4) || (0x7b0c < (int)local_c)) {
           iVar3 = 0;
         }
         else {
@@ -785,7 +784,8 @@ LAB_00477a8e:
             goto LAB_00477a8e;
           }
         }
-        if ((((local_c < 0x7b0c) && (0x1194 < local_c)) || (local_c < 0)) || (local_c == 0xffff)) {
+        if (((((int)local_c < 0x7b0c) && (0x1194 < (int)local_c)) || ((int)local_c < 0)) ||
+           (local_c == 0xffff)) {
           iVar3 = 0;
         }
         else {
@@ -809,7 +809,7 @@ LAB_00477b03:
             goto LAB_00477b03;
           }
         }
-        if ((local_c < 0x1194) || (0x34bc < local_c)) {
+        if (((int)local_c < 0x1194) || (0x34bc < (int)local_c)) {
           iVar3 = 0;
         }
         else {
@@ -833,7 +833,7 @@ LAB_00477b6c:
             goto LAB_00477b6c;
           }
         }
-        if ((local_c < 0x34bc) || (0x57e4 < local_c)) {
+        if (((int)local_c < 0x34bc) || (0x57e4 < (int)local_c)) {
           iVar3 = 0;
         }
         else {
@@ -861,8 +861,8 @@ LAB_00477bd5:
     }
     uVar5 = uVar5 + 0x188;
     local_38 = local_38 + 1;
-    local_44 = local_44 + 6;
-    local_3c = local_3c + 1;
+    local_44 = local_44 + 0x18;
+    local_3c = local_3c + 4;
     if (0x1f0f < uVar5) {
       return;
     }
@@ -873,6 +873,9 @@ LAB_00477bd5:
 #undef local_1c
 #undef local_20
 #undef local_24
+#undef local_28
+#undef local_2c
+#undef local_30
 #undef local_34
 #undef local_38
 #undef local_3c
@@ -900,34 +903,35 @@ LAB_00477bd5:
 void Input_PollMouse(void)
 
 {
-  unsigned char _frame[0x220] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x230] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint uVar1;
   int iVar2;
   uint *puVar3;
   uint uVar4;
-  int unaff_EBX;
-  int unaff_EBP;
-  #define local_210 (*(undefined1 (*)[4])(_frame + (0x220 - 0x210)))
-  #define auStack_20c (*(undefined1 (*)[524])(_frame + (0x220 - 0x20c)))
+  uint unaff_EBX;
+  uint unaff_EBP;
+  #define local_214 (*(uint *)(_frame + (0x230 - 0x214)))
+  #define local_210 (*(undefined1 (*)[4])(_frame + (0x230 - 0x210)))
+  #define auStack_20c (*(undefined1 (*)[524])(_frame + (0x230 - 0x20c)))
   
-  if ((DAT_004dea40 != 0) &&
+  if ((UINT_004dea40 != 0) &&
      (iVar2 = (**(code_std **)(*(int *)g_pDInputMouse + 0x24))(g_pDInputMouse,0x10,local_210),
      iVar2 == 0)) {
     _DAT_00804008 = 0x20;
     _DAT_00804000 = unaff_EBP;
     _DAT_00804004 = unaff_EBX;
-    if (DAT_00805fc8 < 0x19) {
-      _DAT_00804000 = DAT_00805fcc + unaff_EBP >> 1;
-      _DAT_00804004 = DAT_00805fd0 + unaff_EBX >> 1;
+    if (UINT_00805fc8 < 0x19) {
+      _DAT_00804000 = (int)(UINT_00805fcc + unaff_EBP) >> 1;
+      _DAT_00804004 = (int)(UINT_00805fd0 + unaff_EBX) >> 1;
     }
-    DAT_00805fcc = unaff_EBP;
-    DAT_00805fd0 = unaff_EBX;
+    UINT_00805fcc = unaff_EBP;
+    UINT_00805fd0 = unaff_EBX;
     iVar2 = (**(code_std **)(*(int *)g_pDInputMouse + 0x28))
                       (g_pDInputMouse,0x10,auStack_20c,&STACK0X(0xfffffde0));
-    uVar1 = DAT_00805fbc;
+    uVar1 = UINT_00805fbc;
     if (iVar2 == 1) {
       iVar2 = 0;
-      puVar3 = &DAT_00805f30;
+      puVar3 = &UINT_00805f30;
       do {
         uVar4 = (uint)(byte)auStack_20c[iVar2 + -0x18];
         if (uVar4 == *puVar3) {
@@ -950,32 +954,34 @@ LAB_00477da3:
         }
         puVar3 = puVar3 + 7;
         iVar2 = iVar2 + 1;
-      } while (puVar3 < &DAT_00805fa0);
+      } while (puVar3 < &UINT_00805fa0);
     }
   }
   return;
 }
 #undef auStack_20c
 #undef local_210
+#undef local_214
 
 
 /* ---- 0x00477dc0  Input_FlushJoystick ---- */
 void Input_FlushJoystick(void)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint uVar1;
   uint *puVar2;
   uint uVar3;
   int iVar4;
-  #define local_10 (*(undefined1 (*)[16])(_frame + (0x20 - 0x10)))
+  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
+  #define local_10 (*(undefined1 (*)[16])(_frame + (0x30 - 0x10)))
   
-  if (DAT_004dea40 != 0) {
+  if (UINT_004dea40 != 0) {
     (**(code_std **)(*(int *)g_pDInputMouse + 0x24))(g_pDInputMouse,0x10,local_10);
     (**(code_std **)(*(int *)g_pDInputMouse + 0x28))(g_pDInputMouse,0x10,0,&STACK0X(0xffffffe0),0);
-    uVar1 = DAT_00805fbc;
+    uVar1 = UINT_00805fbc;
     iVar4 = 0;
-    puVar2 = &DAT_00805f30;
+    puVar2 = &UINT_00805f30;
     do {
       uVar3 = (uint)(byte)local_10[iVar4 + -0x14];
       if (uVar3 == *puVar2) {
@@ -998,11 +1004,12 @@ LAB_00477e51:
       }
       puVar2 = puVar2 + 7;
       iVar4 = iVar4 + 1;
-    } while (puVar2 < &DAT_00805fa0);
+    } while (puVar2 < &UINT_00805fa0);
   }
   return;
 }
 #undef local_10
+#undef local_14
 
 
 /* ---- 0x00477e70  Input_SetAxisRange ---- */
@@ -1015,8 +1022,8 @@ void __cdecl Input_SetAxisRange(int axis,int min,int max,float deadZone)
   
   iVar1 = ((max - min) + 1) / 2 + min;
   iVar3 = axis * 0x18;
-  (&DAT_00901500)[axis * 6] = (&DAT_00901500)[axis * 6] | 1;
-  (&DAT_00901504)[axis * 6] = min;
+  (&UINT_00901500)[axis * 6] = (&UINT_00901500)[axis * 6] | 1;
+  (&UINT_00901504)[axis * 6] = min;
   *(int *)(&DAT_00901508 + iVar3) = max;
   *(int *)(&DAT_0090150c + iVar3) = iVar1;
   *(float *)(&DAT_00901514 + iVar3) = 1.0 / (float)(max - iVar1);
