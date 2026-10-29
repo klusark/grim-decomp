@@ -255,8 +255,8 @@ under gdb: `cd "C:/GOG Games/GRIMDATA" && gdb -batch -ex run -ex bt --args
 
 The rebuilt EXE runs the opening scene in the software renderer (windowed, `build/run/`, working
 directory `C:\GOG Games\GRIMDATA`): Manny stands in his office (`docs/manny.png`), the arrow keys walk
-him (Up = forward, Left/Right = turn, like the original), the rest chore plays. Movies are off (the
-Smush/LecShare chain is not reproduced), sound has not been verified by ear.
+him (Up = forward, Left/Right = turn, like the original), the rest chore plays. Movies play (see
+"Movies, LecShare and the repne bug" below); sound has not been verified by ear.
 
 What it took, in the order the bugs showed up (each is a class that will recur):
 
@@ -286,3 +286,34 @@ What it took, in the order the bugs showed up (each is a class that will recur):
   (0x496e20), `luaS_newlstr`/`lstring__9180`, two EXE CRT functions. Whole-EXE assembly (`--all`)
   still hangs at start-up (black window); the working set is the rendering/math/actor/walker modules
   plus the artifact-driven picks.
+
+
+## Movies, LecShare and the repne bug (2026-10-29, later)
+
+The LucasArts logo and the intro movie (`.snm`, Smush) now play with the rebuilt EXE. Root causes, all
+of them general classes:
+
+* **`gen_asm.py` turned every `repne scasb` (inlined `strlen`) into `rep scasb`** (the prefix regex
+  matched `REP` before `REPNE`). Every assembled `strcat`/`strlen` computed length 1; LecShare's
+  `LecShare_Resolve` built `"iILIO"` instead of `"FILIO=insane_zfilio"`, so the StdFile/zfile modules
+  never started (this was also the cause of the Save Game crash through `gz_open`).
+* **Void-declared functions whose result is used** (`FUN_004c36b0` ...): found by scanning callers of
+  `void` definitions; assemble them.
+* **Register-convention helpers** (`in_EAX`): memcpy/memset-style helpers (`FUN_004c3e10`,
+  `FUN_004d5fd0`, ...) and their wrappers (`FUN_004c3df0`, `FUN_004d5e50`/`70`) must all be assembled
+  together, a C wrapper calling an assembled helper passes registers the helper does not expect.
+* **Varargs readers** (`REGISTER0X(0x10)` in the C source: `FUN_004cc250`, `FUN_004cc7d0`) read their
+  extra arguments through the stack pointer; assemble them.
+* **Jump tables Ghidra could not recover** (`FUN_004ce3e0`: `jmp [ecx*4+table]`): in Ghidra add
+  `COMPUTED_JUMP` references from the jump to each target (`add_memory_reference`), disassemble the
+  blocks, delete and re-create the function, then `gen_asm.py GRIMFANDANGO.EXE --select`. Ghidra is the
+  system of record, so the fix belongs there.
+* Regenerating after any change to `names/asm_extra.json`: `python -I tools/gen_asm.py <PROG> --select
+  && python -I tools/build_src.py && make -C build link`.
+* `GRIM_MULTI=1` lets several instances run side by side (the original quits if a "Grim Fandango"
+  window exists; with the variable the window is titled "Grim Fandango (test)").
+* Test hook: `GRIM_LUA_FILE` (file whose appended lines run as Lua once per frame) and
+  `GRIM_LUA_LOG` (target of `grimlog()`); pass Windows paths with backslashes, forward-slash msys
+  paths made the hook silently skip the file.
+* After the logo there is a long pause (about a minute) before the intro movie starts; the main thread
+  is inside the Lua VM (`Lua_GetVisibleThings`, `Lua_TurnActor`, ...), cause not yet analysed.
