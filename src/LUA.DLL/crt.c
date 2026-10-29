@@ -197,27 +197,27 @@ undefined4 __stdcall _NLG_Notify(int a1)
   return in_EAX;
 }
 
-/* ---- 0x1000f480  _snprintf ---- */
+/* ---- 0x1000f480  vsprintf ---- */
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
 
-int __cdecl _snprintf(undefined1 *param_1,char *param_2,undefined4 *param_3)
+int __cdecl vsprintf(char *buf,char *fmt,void *args)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
-  #define local_20 (*(undefined1 **)(_frame + (0x30 - 0x20)))
+  #define local_20 (*(char **)(_frame + (0x30 - 0x20)))
   #define local_1c (*(int *)(_frame + (0x30 - 0x1c)))
-  #define local_18 (*(undefined1 **)(_frame + (0x30 - 0x18)))
+  #define local_18 (*(char **)(_frame + (0x30 - 0x18)))
   #define local_14 (*(undefined4 *)(_frame + (0x30 - 0x14)))
   
-  local_18 = param_1;
-  local_20 = param_1;
+  local_18 = buf;
+  local_20 = buf;
   local_14 = 0x42;
   local_1c = 0x7fffffff;
-  iVar1 = _output((int *)&local_20,param_2,param_3);
+  iVar1 = _output((int *)&local_20,fmt,args);
   local_1c = local_1c + -1;
   if (-1 < local_1c) {
-    *local_20 = 0;
+    *local_20 = '\0';
     return iVar1;
   }
   _flsbuf(0,(int *)&local_20);

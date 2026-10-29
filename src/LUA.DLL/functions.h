@@ -396,7 +396,7 @@ void __cdecl ltable__c1d0(int param_1); /* 0x1000c1d0 */
 void __cdecl luaH_save(undefined *param_1,int param_2); /* 0x1000c200 */
 undefined4 * __cdecl luaH_new(undefined *param_1); /* 0x1000c2e0 */
 undefined4 * __cdecl luaH_free(int param_1); /* 0x1000c390 */
-undefined4 * luaH_init(void); /* 0x1000c3d0 */
+undefined4 * __cdecl luaH_init(int a1); /* 0x1000c3d0 */
 void __cdecl ltable__c450(int param_1); /* 0x1000c450 */
 int __cdecl luaH_present(int param_1,int *param_2); /* 0x1000c4d0 */
 int __cdecl luaH_hashindex(undefined4 *param_1); /* 0x1000c580 */
@@ -492,7 +492,7 @@ void __cdecl _global_unwind2(int param_1); /* 0x1000f390 */
 void __cdecl _local_unwind2(int param_1,int param_2); /* 0x1000f3d2 */
 undefined4 _unwind_handler(void); /* 0x1000f43a */
 undefined4 __stdcall _NLG_Notify(int a1); /* 0x1000f466 */
-int __cdecl _snprintf(undefined1 *param_1,char *param_2,undefined4 *param_3); /* 0x1000f480 */
+int __cdecl vsprintf(char *buf,char *fmt,void *args); /* 0x1000f480 */
 int __cdecl sprintf(char *buf,char *fmt,...); /* 0x1000f4f0 */
 int __cdecl printf(char *fmt,...); /* 0x1000f560 */
 void __cdecl strtol(byte *param_1,undefined4 *param_2,uint param_3); /* 0x1000f680 */

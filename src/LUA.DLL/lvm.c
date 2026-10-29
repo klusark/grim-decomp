@@ -239,7 +239,7 @@ void __cdecl luaV_pack(int param_1,int param_2,undefined4 *param_3)
   if (param_2 < 0) {
     param_2 = 0;
   }
-  puVar3 = luaH_init();
+  puVar3 = luaH_init(param_2 + 1);
   param_3[1] = puVar3;
   *param_3 = 0xfffffffd;
   param_1 = 0;
@@ -760,7 +760,7 @@ LAB_1000e13f:
     param_1[9] = (uint)pbVar2[1] + (uint)pbVar2[2] * 0x100;
 LAB_1000e420:
     lgc__5300();
-    puVar10 = luaH_init();
+    puVar10 = luaH_init(param_1[9]);
     *(undefined4 **)(*(int *)param_1[7] + 4) = puVar10;
     **(undefined4 **)param_1[7] = 0xfffffffd;
     *(int *)param_1[7] = *(int *)param_1[7] + 8;
