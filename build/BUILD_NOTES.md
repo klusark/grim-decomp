@@ -286,3 +286,23 @@ What it took, in the order the bugs showed up (each is a class that will recur):
   (0x496e20), `luaS_newlstr`/`lstring__9180`, two EXE CRT functions. Whole-EXE assembly (`--all`)
   still hangs at start-up (black window); the working set is the rendering/math/actor/walker modules
   plus the artifact-driven picks.
+
+## Save / Load (2026-10-29)
+
+`Save("name.gsv")` / `Load("name.gsv")` (Lua, also what the menu calls) write and restore a complete game
+(thumbnail, costumes, module hooks, Lua state) with the rebuilt EXE: verified by saving, changing a Lua
+global and Manny's position, loading, and getting both back (`GetSaveGameData` returns the header table).
+Three bugs were in the way:
+
+* **Void function whose result is used.** `lstring__9410` (list of dead strings) returns the list head in
+  EAX but is declared void, so the assembled `lua_close` walked garbage in `luaC_strcallIM` (Load calls
+  `lua_close` on the running state). Fixed by assembling it; the whole of `lstate.c` (pointer-id tables,
+  `lua_Restore`) is assembled as well.
+* **Data pointers to internal thunks.** `gendata.py` refused to relocate pointers to `thunk_*` functions,
+  so the LecShare file-ops table held the original address 0x004cc3b0 and the first gz call after Save
+  jumped into the middle of an unrelated function. Thunks defined in `thunks.c` are valid targets now.
+* The Lua test hook defines `grimlog` again before each command (Load replaces the whole Lua state).
+
+Known limit: saves made by the original game (`saves_old_numbering/`) contain raw pointers into the original
+IMUSE.DLL image (e.g. `&DAT_1001e900`) and crash the rebuilt iMUSE restore; saves written by the rebuilt
+game load fine.
