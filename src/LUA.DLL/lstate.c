@@ -6,6 +6,8 @@
 #include "functions.h"
 
 /* ---- 0x100075e0  lstate__75e0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Unidentified function of lstate.c (Grim execution states / tasks) */
 
 undefined4 * __fastcall lstate__75e0(undefined4 *param_1)
@@ -36,6 +38,8 @@ undefined4 * __fastcall lstate__75e0(undefined4 *param_1)
   param_1[9] = iVar1 + 0x3f8;
   return param_1;
 }
+#endif
+
 
 /* ---- 0x10007660  lstate__7660 ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -115,6 +119,8 @@ LAB_100077c9:
 
 
 /* ---- 0x10007810  FUN_10007810 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 uint __cdecl FUN_10007810(int param_1,int param_2)
 
 {
@@ -123,8 +129,12 @@ uint __cdecl FUN_10007810(int param_1,int param_2)
   }
   return (uint)(*(uint *)(param_2 + 4) < *(uint *)(param_1 + 4));
 }
+#endif
+
 
 /* ---- 0x10007830  lstate__7830 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Unidentified function of lstate.c (Grim execution states / tasks) */
 
 undefined4 __stdcall lstate__7830(int a1,int a2)
@@ -145,8 +155,12 @@ undefined4 __stdcall lstate__7830(int a1,int a2)
   uVar3 = (*(code *)iVar2)(&a1,4);
   return uVar3;
 }
+#endif
+
 
 /* ---- 0x10007880  lstate__7880 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Unidentified function of lstate.c (Grim execution states / tasks) */
 
 undefined4 __stdcall lstate__7880(int a1,int a2)
@@ -158,8 +172,12 @@ undefined4 __stdcall lstate__7880(int a1,int a2)
   uVar1 = (*(code *)a2)(a1 + 4,4);
   return uVar1;
 }
+#endif
+
 
 /* ---- 0x100078b0  lstate__78b0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Unidentified function of lstate.c (Grim execution states / tasks) */
 
 int __stdcall lstate__78b0(int a1)
@@ -185,8 +203,12 @@ switchD_100078c7_caseD_fffffff4:
     return uVar2;
   }
 }
+#endif
+
 
 /* ---- 0x10007910  lstate__7910 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Unidentified function of lstate.c (Grim execution states / tasks) */
 
 undefined4 __stdcall lstate__7910(int a1,int a2)
@@ -198,8 +220,12 @@ undefined4 __stdcall lstate__7910(int a1,int a2)
   uVar1 = lstate__78b0(a1);
   return uVar1;
 }
+#endif
+
 
 /* ---- 0x10007930  lstate__7930 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Unidentified function of lstate.c (Grim execution states / tasks) */
 
 undefined4 __stdcall lstate__7930(int a1)
@@ -228,8 +254,12 @@ undefined4 __stdcall lstate__7930(int a1)
   DAT_1002bf7c = 0;
   return 0;
 }
+#endif
+
 
 /* ---- 0x100079d0  lstate__79d0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Unidentified function of lstate.c (Grim execution states / tasks) */
 
 undefined4 __stdcall lstate__79d0(int a1)
@@ -532,8 +562,12 @@ undefined4 __stdcall lstate__79d0(int a1)
 #undef uStack_18
 #undef uStack_c
 
+#endif
+
 
 /* ---- 0x100081c0  lstate__81c0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Unidentified function of lstate.c (Grim execution states / tasks) */
 
@@ -704,8 +738,12 @@ undefined4 __stdcall lstate__81c0(int a1)
 #undef puStack_30
 #undef puStack_34
 
+#endif
+
 
 /* ---- 0x100085e0  lstate__85e0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Unidentified function of lstate.c (Grim execution states / tasks) */
 
 byte * __cdecl lstate__85e0(int param_1)
@@ -728,8 +766,12 @@ byte * __cdecl lstate__85e0(int param_1)
   } while (uVar1 != 0);
   return pbVar3 + (2 - (int)pbVar2);
 }
+#endif
+
 
 /* ---- 0x10008640  lstate__8640 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Unidentified function of lstate.c (Grim execution states / tasks) */
 
 undefined4 __thiscall lstate__8640(void *this,int a1)
@@ -802,6 +844,8 @@ undefined4 __thiscall lstate__8640(void *this,int a1)
 #undef iStack_c
 #undef local_4
 #undef local_8
+
+#endif
 
 
 /* ---- 0x100087f0  lstate__87f0 ---- */
@@ -985,6 +1029,8 @@ int __thiscall lstate__8b70(void *this,int a1)
 
 
 /* ---- 0x10008bb0  lstate__8bb0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Unidentified function of lstate.c (Grim execution states / tasks) */
 
 void __fastcall lstate__8bb0(int param_1)
@@ -1000,8 +1046,12 @@ void __fastcall lstate__8bb0(int param_1)
   *(undefined4 *)(param_1 + 0xd0) = 0;
   return;
 }
+#endif
+
 
 /* ---- 0x10008bf0  lstate__8bf0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Unidentified function of lstate.c (Grim execution states / tasks) */
 
 undefined4 __fastcall lstate__8bf0(int param_1)
@@ -1009,8 +1059,12 @@ undefined4 __fastcall lstate__8bf0(int param_1)
 {
   return *(undefined4 *)(param_1 + 0xcc);
 }
+#endif
+
 
 /* ---- 0x10008c00  lstate__8c00 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Unidentified function of lstate.c (Grim execution states / tasks) */
 
 void __fastcall lstate__8c00(int *param_1)
@@ -1023,3 +1077,5 @@ void __fastcall lstate__8c00(int *param_1)
   (**(code **)(DAT_1002beb8 + 0x24))(param_1[8]);
   return;
 }
+#endif
+
