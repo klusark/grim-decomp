@@ -1,0 +1,6 @@
+# generated or derived from the game binaries; regenerate with tools/ and build/
+raw/
+build/obj/
+build/run/
+__pycache__/
+*.pyc
