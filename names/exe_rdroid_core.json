@@ -76,7 +76,7 @@
  {"addr": "004507e0", "name": "rdPuppet_AdvanceTrack", "proto": "void rdPuppet_AdvanceTrack(void * puppet, int track, float dt)", "comment": "Advances the track time, handles fades and loops, stops finished tracks", "tags": "rdroid,puppet"},
  {"addr": "00450b50", "name": "rdPuppet_ClearTrackNodes", "comment": "Zeroes the 64 node weights of a track and marks it status 3", "tags": "rdroid,puppet"},
  {"addr": "00451460", "name": "rdLight_Init", "comment": "Defaults: type 2, on, white (0xffffff), intensity 1.0", "tags": "rdroid"},
- {"addr": "00451510", "name": "rdKeyframe_Interpolate", "comment": "Blends keyframe node transforms into the puppet's output matrices (returns the weight)", "tags": "rdroid,puppet"},
+ {"addr": "00451510", "name": "rdLight_CalcVertexIntensities", "comment": "Accumulates the intensity of every light (type, radius, direction) at each vertex position", "tags": "rdroid,puppet"},
  {"addr": "00451800", "name": "rdKeyframe_InterpolateNode", "tags": "rdroid,puppet"},
  {"addr": "00451950", "name": "rdCanvas_DrawLine", "proto": "void rdCanvas_DrawLine(void * canvas, int x0, int y0, int x1, int y1, ushort color, uint pattern)", "comment": "Bresenham line, 8 and 16 bpp, with a 32-bit stipple pattern", "tags": "rdroid,canvas"},
  {"addr": "00451dd0", "name": "rdCanvas_DrawPoint", "comment": "Clips a point with radius against the canvas rect and draws it", "tags": "rdroid,canvas"},

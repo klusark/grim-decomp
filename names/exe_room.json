@@ -5,6 +5,7 @@
  {"addr": "008cabac", "global": "g_flTimerFrameSeconds", "type": "float", "comment": "Length of the current frame in seconds"},
  {"addr": "004a3db0", "name": "Setup_GetBackgroundBitmap", "proto": "void * Setup_GetBackgroundBitmap(void * set, int setupIdx)", "comment": "sputRoom.cpp: loads the setup's BKND bitmap (name at setup+0x80, ResRef at +0xc0, dfltroom.bm when missing) and returns the current frame surface", "tags": "set"},
  {"addr": "004a3ef0", "name": "Setup_GetZBufferBitmap", "proto": "void * Setup_GetZBufferBitmap(void * set, int setupIdx)", "comment": "Loads the setup's ZBUF depth bitmap (name at setup+0xa0, ResRef at +0xf4)", "tags": "set"},
+ {"addr": "004a5600", "name": "SetFile_ParseLights", "tags": "set"},
  {"addr": "004a40f0", "name": "Set_SetCurrent", "proto": "void Set_SetCurrent(void * set)", "comment": "Releases the previous set's resources (unless locked), references the new one, loads its resources and resets the sound parameters", "tags": "set"},
  {"addr": "008cabb0", "global": "g_CurrentSetRef", "type": "undefined4", "comment": "ResRef (0x34 bytes) holding the current set; data pointer at +4 is g_pCurrentSet"},
  {"addr": "008cabb4", "global": "g_pCurrentSet", "type": "void *", "comment": "Set record currently loaded (valid while g_CurrentSetRef is set)"},
