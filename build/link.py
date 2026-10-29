@@ -235,6 +235,10 @@ def link(cc, src, obj, prog, env):
     # binds the undecorated `_CreateFileA` of the decompiled code to `_CreateFileA@28`
     libs += WIN32_LIBS
     hmi = os.path.join(here, "hmi")  # import libraries built from the game's HMIFX*.DLL
+    for stem in ("hmifxlib", "hmifxfp"):  # the .a files are not tracked; rebuild them from the .def files
+        a, deffile = os.path.join(hmi, "lib%s.a" % stem), os.path.join(hmi, stem.upper() + ".def")
+        if not os.path.exists(a) and os.path.exists(deffile):
+            subprocess.run(["C:/msys64/mingw32/bin/dlltool.exe", "-m", "i386", "-d", deffile, "-l", a, "-k", "-U"], check=True)
     if os.path.exists(os.path.join(hmi, "libhmifxlib.a")):
         libs += ["-L" + hmi, "-lhmifxlib", "-lhmifxfp"]
     stub_path = os.path.join(d, "stubs.c")
