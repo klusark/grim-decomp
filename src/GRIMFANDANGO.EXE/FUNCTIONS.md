@@ -2045,7 +2045,7 @@
 | 004d5430 | atof | crt.c | 34 |
 | 004d54e0 | _fdopen | crt.c | 72 |
 | 004d5670 | rewind | crt.c | 24 |
-| 004d59d0 | _except_handler3 | crt.c | 28 |
+| 004d59d0 | longjmp | crt.c | 28 |
 | 004d5a4c | _setjmp3 | crt.c | 48 |
 | 004d5ad0 | _fltin | crt.c | 39 |
 | 004ac690 | FUN_004ac690 | crt_unnamed.c | 8 |

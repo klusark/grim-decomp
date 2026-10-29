@@ -243,7 +243,7 @@ extern undefined *PTR_DAT_10028950; /* used by 23 fn(s), first 0x10009a10 */
 extern undefined *PTR_DAT_10028954; /* used by 2 fn(s), first 0x100178e0 */
 extern undefined DAT_1002895a; /* used by 1 fn(s), first 0x100178e0 */
 extern undefined4 DAT_10028b5c; /* used by 21 fn(s), first 0x10009a10 */
-extern undefined4 DAT_10028b60; /* used by 7 fn(s), first 0x10012f60 */
+extern undefined DAT_10028b60; /* used by 7 fn(s), first 0x10012f60 */
 extern undefined DAT_10028b64; /* used by 1 fn(s), first 0x100173f0 */
 extern undefined *PTR_exit_10028b70; /* used by 1 fn(s), first 0x10012e80 */
 extern undefined *PTR_FUN_10028b78; /* used by 2 fn(s), first 0x1000ef40 */
@@ -367,20 +367,20 @@ extern undefined4 DAT_1002bf88; /* used by 3 fn(s), first 0x10011d6d */
 extern undefined DAT_1002bf8c; /* used by 2 fn(s), first 0x1000ef20 */
 extern undefined4 DAT_1002bf90; /* used by 2 fn(s), first 0x10015060 */
 extern undefined DAT_1002bf98; /* used by 1 fn(s), first 0x1000fec0 */
-extern undefined4 DAT_1002bfc0; /* used by 2 fn(s), first 0x10010100 */
+extern undefined DAT_1002bfc0; /* used by 2 fn(s), first 0x10010100 */
 extern undefined DAT_1002bfd0; /* used by 1 fn(s), first 0x10010220 */
 extern undefined4 DAT_1002bfe0; /* used by 2 fn(s), first 0x100103f0 */
 extern undefined4 DAT_1002bfe4; /* used by 3 fn(s), first 0x10010540 */
 extern undefined4 DAT_1002bfe8; /* used by 1 fn(s), first 0x10011160 */
-extern undefined4 DAT_1002bff0; /* used by 1 fn(s), first 0x10011160 */
-extern undefined4 DAT_1002bff2; /* used by 1 fn(s), first 0x10011160 */
+extern undefined2 DAT_1002bff0; /* used by 1 fn(s), first 0x10011160 */
+extern undefined2 DAT_1002bff2; /* used by 1 fn(s), first 0x10011160 */
 extern undefined DAT_1002bff4; /* used by 1 fn(s), first 0x10011160 */
-extern undefined4 DAT_1002bff6; /* used by 1 fn(s), first 0x10011160 */
-extern undefined4 DAT_1002bff8; /* used by 1 fn(s), first 0x10011160 */
-extern undefined4 DAT_1002bffa; /* used by 1 fn(s), first 0x10011160 */
+extern undefined2 DAT_1002bff6; /* used by 1 fn(s), first 0x10011160 */
+extern undefined2 DAT_1002bff8; /* used by 1 fn(s), first 0x10011160 */
+extern undefined2 DAT_1002bffa; /* used by 1 fn(s), first 0x10011160 */
 extern undefined DAT_1002bffc; /* used by 1 fn(s), first 0x10011160 */
 extern undefined4 DAT_1002c000; /* used by 1 fn(s), first 0x100117e0 */
-extern undefined4 DAT_1002c004; /* used by 1 fn(s), first 0x100117e0 */
+extern undefined2 DAT_1002c004; /* used by 1 fn(s), first 0x100117e0 */
 extern undefined4 DAT_1002c008; /* used by 1 fn(s), first 0x100117e0 */
 extern undefined4 DAT_1002c00c; /* used by 2 fn(s), first 0x10012cb0 */
 extern undefined4 * DAT_1002c010; /* used by 3 fn(s), first 0x10012cb0 */
@@ -403,15 +403,15 @@ extern undefined4 DAT_1002c0c8; /* used by 1 fn(s), first 0x100155f0 */
 extern undefined4 DAT_1002c0d8; /* used by 2 fn(s), first 0x10016230 */
 extern undefined4 DAT_1002c0e0; /* used by 1 fn(s), first 0x10016230 */
 extern undefined DAT_1002c0e4; /* used by 1 fn(s), first 0x10016230 */
-extern undefined4 DAT_1002c124; /* used by 1 fn(s), first 0x10016540 */
-extern undefined4 DAT_1002c126; /* used by 2 fn(s), first 0x10016230 */
+extern undefined2 DAT_1002c124; /* used by 1 fn(s), first 0x10016540 */
+extern undefined2 DAT_1002c126; /* used by 2 fn(s), first 0x10016230 */
 extern undefined4 DAT_1002c128; /* used by 1 fn(s), first 0x10016540 */
 extern undefined4 DAT_1002c12c; /* used by 1 fn(s), first 0x10016540 */
 extern undefined4 DAT_1002c130; /* used by 1 fn(s), first 0x10016540 */
 extern undefined4 DAT_1002c134; /* used by 1 fn(s), first 0x10016230 */
 extern undefined DAT_1002c138; /* used by 1 fn(s), first 0x10016230 */
-extern undefined4 DAT_1002c178; /* used by 1 fn(s), first 0x10016540 */
-extern undefined4 DAT_1002c17a; /* used by 2 fn(s), first 0x10016230 */
+extern undefined2 DAT_1002c178; /* used by 1 fn(s), first 0x10016540 */
+extern undefined2 DAT_1002c17a; /* used by 2 fn(s), first 0x10016230 */
 extern undefined4 DAT_1002c17c; /* used by 1 fn(s), first 0x10016540 */
 extern undefined4 DAT_1002c180; /* used by 1 fn(s), first 0x10016540 */
 extern undefined4 DAT_1002c184; /* used by 1 fn(s), first 0x10016540 */
@@ -428,9 +428,9 @@ extern undefined4 DAT_1002c1d0; /* used by 1 fn(s), first 0x100178e0 */
 extern undefined4 DAT_1002c1d4; /* used by 1 fn(s), first 0x100178e0 */
 extern undefined DAT_1002c1d8; /* used by 1 fn(s), first 0x10011560 */
 extern undefined DAT_1002c1dc; /* used by 1 fn(s), first 0x10011560 */
-extern undefined4 DAT_1002c1e4; /* used by 1 fn(s), first 0x100178e0 */
-extern undefined4 DAT_1002c1ec; /* used by 1 fn(s), first 0x100176e0 */
-extern undefined4 DAT_1002c1f2; /* used by 1 fn(s), first 0x100173f0 */
+extern undefined2 DAT_1002c1e4; /* used by 1 fn(s), first 0x100178e0 */
+extern undefined2 DAT_1002c1ec; /* used by 1 fn(s), first 0x100176e0 */
+extern undefined2 DAT_1002c1f2; /* used by 1 fn(s), first 0x100173f0 */
 extern undefined DAT_1002c1f6; /* used by 1 fn(s), first 0x10016d30 */
 extern undefined DAT_1002c1f8; /* used by 1 fn(s), first 0x10016d30 */
 extern undefined DAT_1002c200; /* used by 1 fn(s), first 0x10011560 */
@@ -506,11 +506,11 @@ extern undefined4 in_stack_ffffffbc; /* used by 1 fn(s), first 0x1001dc70 */
 #define _DAT_1002bf24 (*(undefined4 *)&DAT_1002bf24) /* same address as DAT_1002bf24, other width */
 #define _DAT_1002bf3c (*(undefined4 *)&DAT_1002bf3c) /* same address as DAT_1002bf3c, other width */
 #define _DAT_1002bf8c (*(undefined4 *)&DAT_1002bf8c) /* same address as DAT_1002bf8c, other width */
-#define _DAT_1002bff0 (*(undefined4 *)&DAT_1002bff0) /* same address as DAT_1002bff0, other width */
+#define _DAT_1002bff0 (*(undefined2 *)&DAT_1002bff0) /* same address as DAT_1002bff0, other width */
 #define _DAT_1002bff4 (*(undefined4 *)&DAT_1002bff4) /* same address as DAT_1002bff4, other width */
-#define _DAT_1002bff8 (*(undefined4 *)&DAT_1002bff8) /* same address as DAT_1002bff8, other width */
+#define _DAT_1002bff8 (*(undefined2 *)&DAT_1002bff8) /* same address as DAT_1002bff8, other width */
 #define _DAT_1002bffc (*(undefined4 *)&DAT_1002bffc) /* same address as DAT_1002bffc, other width */
-#define _DAT_1002c004 (*(undefined4 *)&DAT_1002c004) /* same address as DAT_1002c004, other width */
+#define _DAT_1002c004 (*(undefined2 *)&DAT_1002c004) /* same address as DAT_1002c004, other width */
 #define _DAT_1002c090 (*(undefined4 *)&DAT_1002c090) /* same address as DAT_1002c090, other width */
 #define _DAT_1002c094 (*(undefined4 *)&DAT_1002c094) /* same address as DAT_1002c094, other width */
 #define _DAT_1002c098 (*(undefined4 *)&DAT_1002c098) /* same address as DAT_1002c098, other width */

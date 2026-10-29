@@ -272,14 +272,14 @@ void Mixer_ServiceVoices(void)
       if (UINT_008da884 != 0) {
         UINT_008da884 = 0;
         _DAT_008da888 = 1;
-        ((code *)_except_handler3)(&DAT_008da588,1);
+        ((code *)longjmp)(&DAT_008da588,1);
       }
       UINT_008da884 = 0;
       _DAT_008da888 = 1;
       Mixer_ScheduleVoices();
       _DAT_008da888 = 0;
       _DAT_008da5d0 = UINT_008da5d4;
-      ((code *)_except_handler3)(&DAT_008da548,2);
+      ((code *)longjmp)(&DAT_008da548,2);
     }
     UINT_008da868 = 0;
   }
