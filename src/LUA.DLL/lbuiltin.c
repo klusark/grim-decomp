@@ -271,6 +271,8 @@ void FUN_10003150(void)
 }
 
 /* ---- 0x10003170  luaB_tostring ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* lbuiltin.c: userdata: %p / task: %d / table: %p formatting */
 
 undefined1 * __cdecl luaB_tostring(int param_1)
@@ -317,6 +319,8 @@ undefined1 * __cdecl luaB_tostring(int param_1)
   sprintf(buf,s_function___p_10026718,uVar4);
   return buf;
 }
+#endif
+
 
 /* ---- 0x10003260  lbuiltin__3260 ---- */
 /* Unidentified function of lbuiltin.c (built-in functions) */
@@ -665,6 +669,8 @@ void FUN_100037d0(void)
 }
 
 /* ---- 0x10003820  FUN_10003820 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_10003820(void)
 
 {
@@ -713,6 +719,8 @@ void FUN_10003820(void)
 #undef pbStack_c
 #undef uStack_4
 #undef uStack_8
+
+#endif
 
 
 /* ---- 0x10003910  FUN_10003910 ---- */
@@ -875,6 +883,8 @@ void FUN_10003a60(void)
 
 
 /* ---- 0x10003ba0  lbuiltin__3ba0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Unidentified function of lbuiltin.c (built-in functions) */
 
 longlong __cdecl lbuiltin__3ba0(int param_1)
@@ -896,8 +906,12 @@ longlong __cdecl lbuiltin__3ba0(int param_1)
   }
   return CONCAT44(extraout_EDX,0xfffe);
 }
+#endif
+
 
 /* ---- 0x10003bf0  FUN_10003bf0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_10003bf0(void)
 
 {
@@ -911,6 +925,8 @@ void FUN_10003bf0(void)
   lua_settag((int)lVar2);
   return;
 }
+#endif
+
 
 /* ---- 0x10003c20  FUN_10003c20 ---- */
 void FUN_10003c20(void)
@@ -924,6 +940,8 @@ void FUN_10003c20(void)
 }
 
 /* ---- 0x10003c40  FUN_10003c40 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_10003c40(void)
 
 {
@@ -939,6 +957,8 @@ void FUN_10003c40(void)
   lua_pushnumber((float)iVar1);
   return;
 }
+#endif
+
 
 /* ---- 0x10003c80  FUN_10003c80 ---- */
 void FUN_10003c80(void)
@@ -977,6 +997,8 @@ void luaB_rawsettable(void)
 }
 
 /* ---- 0x10003d10  FUN_10003d10 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_10003d10(void)
 
 {
@@ -993,8 +1015,12 @@ void FUN_10003d10(void)
   lua_pushobject(iVar1);
   return;
 }
+#endif
+
 
 /* ---- 0x10003d50  FUN_10003d50 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_10003d50(void)
 
 {
@@ -1009,6 +1035,8 @@ void FUN_10003d50(void)
   lua_pushobject(iVar2);
   return;
 }
+#endif
+
 
 /* ---- 0x10003d80  FUN_10003d80 ---- */
 void FUN_10003d80(void)
@@ -1024,6 +1052,8 @@ void FUN_10003d80(void)
 }
 
 /* ---- 0x10003db0  FUN_10003db0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_10003db0(void)
 
 {
@@ -1036,6 +1066,8 @@ void FUN_10003db0(void)
   lua_pushnumber((float)iVar1);
   return;
 }
+#endif
+
 
 /* ---- 0x10003df0  luaB_predefine ---- */
 /* lbuiltin.c: registers the built-in functions and the setfallback compatibility entry */

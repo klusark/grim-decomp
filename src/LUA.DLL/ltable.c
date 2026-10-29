@@ -145,6 +145,8 @@ undefined4 * __cdecl luaH_free(int param_1)
 }
 
 /* ---- 0x1000c3d0  luaH_init ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Unidentified function of ltable.c (hash tables, with Grim save support) */
 
 undefined4 * luaH_init(void)
@@ -169,6 +171,8 @@ undefined4 * luaH_init(void)
   DAT_1002beec = DAT_1002beec + 1 + ((int)(iVar2 + (iVar2 >> 0x1f & 0xfU)) >> 4);
   return puVar1;
 }
+#endif
+
 
 /* ---- 0x1000c450  ltable__c450 ---- */
 /* Unidentified function of ltable.c (hash tables, with Grim save support) */
@@ -244,6 +248,8 @@ int __cdecl luaH_present(int param_1,int *param_2)
 }
 
 /* ---- 0x1000c580  luaH_hashindex ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Unidentified function of ltable.c (hash tables, with Grim save support) */
 
 int __cdecl luaH_hashindex(undefined4 *param_1)
@@ -275,6 +281,8 @@ int __cdecl luaH_hashindex(undefined4 *param_1)
   }
   return -1 - iVar1;
 }
+#endif
+
 
 /* ---- 0x1000c5f0  luaH_get ---- */
 /* Unidentified function of ltable.c (hash tables, with Grim save support) */

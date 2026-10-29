@@ -285,7 +285,7 @@ void __fastcall Lua_ImGetMusicVol(undefined4 param_1); /* 0x004a1520 */
 void Lua_ImSetMusicVol(void); /* 0x004a1550 */
 void Lua_ImStartVoice(void); /* 0x004a1590 */
 void Lua_ImSetState(void); /* 0x004a1640 */
-void Lua_ImSetSequence(void); /* 0x004a1680 */
+void __fastcall Lua_ImSetSequence(undefined4 param_1); /* 0x004a1680 */
 void Lua_ImSetCuePoint(void); /* 0x004a16d0 */
 void Lua_ImSetAttribute(void); /* 0x004a1710 */
 void Lua_ImSetVoiceEffect(void); /* 0x004a17b0 */
@@ -500,7 +500,7 @@ void * __cdecl rdColormap_Load(char *name); /* 0x004043c0 */
 int __cdecl rdColormap_LoadEntry(char *name,void *cmp); /* 0x00404420 */
 void rdColormap_Free(undefined4 param_1); /* 0x00404730 */
 void rdColormap_FreeEntry(int param_1); /* 0x00404750 */
-undefined4 rdColormap_Build16bitTables(undefined2 *param_1,ushort *param_2); /* 0x004047e0 */
+undefined8 rdColormap_Build16bitTables(undefined2 *param_1,ushort *param_2); /* 0x004047e0 */
 undefined4 rdColormap_BuildGreyRamp(undefined4 *param_1); /* 0x00404a40 */
 int FUN_00404b30(int param_1); /* 0x00404b30 */
 
@@ -544,7 +544,7 @@ undefined4 rdModel_AddMeshToCache(int param_1,undefined4 param_2); /* 0x0040d880
 /* ===== rdprimit3.c ===== */
 void * __cdecl rdPrimit3_DrawPolygon(float *verts,int count,void *material); /* 0x00409d50 */
 undefined4 rdPrimit3_DrawLine(float *param_1,float *param_2,int *param_3,int *param_4,int *param_5,int *param_6 ,ushort param_7,uint param_8); /* 0x0040dcc0 */
-void rdPrimit3_DrawPoint(float *param_1,float param_2,undefined4 param_3,undefined4 param_4, undefined4 param_5); /* 0x0040dde0 */
+void rdPrimit3_DrawPoint(float *param_1,float param_2,undefined4 param_3); /* 0x0040dde0 */
 void rdPrimit3_ClipFace(undefined4 param_1,undefined4 param_2,int param_3,undefined4 param_4, uint *param_5,undefined4 *param_6,float *param_7); /* 0x0040deb0 */
 void rdPrimit3_CopyFaceVerts (undefined4 param_1,int param_2,undefined4 param_3,uint *param_4,uint *param_5, float *param_6); /* 0x0040e500 */
 
@@ -2055,7 +2055,7 @@ void FUN_004abf30(void); /* 0x004abf30 */
 /* ===== crt.c ===== */
 char _stricmp(byte *param_1,byte *param_2); /* 0x004ac550 */
 int __cdecl sprintf(char *buf,char *fmt,...); /* 0x004ac620 */
-undefined4 __cdecl _ftol(void); /* 0x004ac6f0 */
+longlong __cdecl _ftol(double x); /* 0x004ac6f0 */
 int __cdecl _snprintf(char *buf,uint n,char *fmt,...); /* 0x004ac720 */
 int atol(byte *param_1); /* 0x004ac790 */
 undefined * __cdecl atoi(uint param_1); /* 0x004ac830 */
@@ -2645,7 +2645,7 @@ void FUN_004d0ed0(byte param_1,byte param_2); /* 0x004d0ed0 */
 void FUN_004d0f00(undefined4 param_1,uint param_2,uint param_3,undefined1 param_4,undefined1 param_5 ,uint param_6); /* 0x004d0f00 */
 void FUN_004d1180(int param_1,int param_2,uint param_3,int param_4,int param_5,uint param_6, int param_7,int param_8,int param_9,int param_10); /* 0x004d1180 */
 void FUN_004d1690(void); /* 0x004d1690 */
-void FUN_004d2340(undefined4 param_1,undefined4 param_2); /* 0x004d2340 */
+void FUN_004d2340(int param_1,undefined4 param_2); /* 0x004d2340 */
 void FUN_004d23e0(undefined4 param_1,undefined4 param_2,undefined4 param_3); /* 0x004d23e0 */
 void FUN_004d2400(undefined4 param_1,undefined4 param_2,undefined4 param_3); /* 0x004d2400 */
 undefined4 FUN_004d2420(int *param_1,uint param_2); /* 0x004d2420 */

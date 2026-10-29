@@ -258,8 +258,10 @@ undefined * __cdecl Smush_SetFile(uint param_1)
 {
   unsigned char _frame[0x440] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
-  undefined *puVar2;
-  #define auStack_428 (*(undefined1 (*)[1064])(_frame + (0x440 - 0x428)))
+  undefined4 unaff_ESI;
+  longlong lVar2;
+  #define auStack_428 (*(undefined1 (*)[2])(_frame + (0x440 - 0x428)))
+  #define sStack_426 (*(short *)(_frame + (0x440 - 0x426)))
   
   iVar1 = (*(code *)*PTR_008d10c8)(param_1,&DAT_004dda54);
   if (iVar1 == 0) {
@@ -267,8 +269,9 @@ undefined * __cdecl Smush_SetFile(uint param_1)
   }
   Insane_ReadFrameHeader(iVar1,auStack_428);
   (*(code *)PTR_008d10c8[1])(iVar1);
-  puVar2 = (undefined *)_ftol();
-  return puVar2;
+  lVar2 = _ftol((double)CONCAT44((int)sStack_426,unaff_ESI));
+  return (undefined *)lVar2;
 }
 #undef auStack_428
+#undef sStack_426
 

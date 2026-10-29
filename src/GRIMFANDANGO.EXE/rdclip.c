@@ -17,8 +17,9 @@ rdClip_Line2D(undefined4 param_1,undefined4 *param_2,undefined4 *param_3,undefin
   uint uVar1;
   uint uVar2;
   uint uVar3;
-  undefined4 uVar4;
-  undefined4 uVar5;
+  undefined4 unaff_ESI;
+  undefined4 unaff_EDI;
+  longlong lVar4;
   #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
   #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
   #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
@@ -40,26 +41,26 @@ rdClip_Line2D(undefined4 param_1,undefined4 *param_2,undefined4 *param_3,undefin
       uVar3 = uVar2;
     }
     if (uVar3 == uVar1) {
-      uVar4 = _ftol();
-      uVar5 = _ftol();
-      uVar1 = rdClip_Outcode2D(param_1,uVar5,uVar4);
+      lVar4 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+      lVar4 = _ftol((double)CONCAT44(unaff_EDI,(int)lVar4));
+      uVar1 = ((code *)rdClip_Outcode2D)(param_1,(int)lVar4);
     }
     else {
-      uVar4 = _ftol();
-      uVar5 = _ftol();
-      uVar2 = rdClip_Outcode2D(param_1,uVar5,uVar4);
+      lVar4 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+      lVar4 = _ftol((double)CONCAT44(unaff_EDI,(int)lVar4));
+      uVar2 = ((code *)rdClip_Outcode2D)(param_1,(int)lVar4);
     }
     if ((uVar1 == 0) && (uVar2 == 0)) break;
     uVar3 = uVar1 & uVar2;
   }
-  uVar4 = _ftol();
-  *param_2 = uVar4;
-  uVar4 = _ftol();
-  *param_3 = uVar4;
-  uVar4 = _ftol();
-  *param_4 = uVar4;
-  uVar4 = _ftol();
-  *param_5 = uVar4;
+  lVar4 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+  *param_2 = (int)lVar4;
+  lVar4 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+  *param_3 = (int)lVar4;
+  lVar4 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+  *param_4 = (int)lVar4;
+  lVar4 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+  *param_5 = (int)lVar4;
   return 1;
 }
 #undef local_10

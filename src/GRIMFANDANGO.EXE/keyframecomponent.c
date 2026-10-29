@@ -362,6 +362,9 @@ undefined4 FUN_004986e0(undefined4 *param_1,undefined4 param_2)
   unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int *piVar1;
   int iVar2;
+  undefined4 unaff_ESI;
+  undefined4 unaff_EDI;
+  longlong lVar3;
   #define local_48 (*(uint *)(_frame + (0x60 - 0x48)))
   #define local_44 (*(uint *)(_frame + (0x60 - 0x44)))
   #define local_40 (*(uint *)(_frame + (0x60 - 0x40)))
@@ -380,11 +383,16 @@ undefined4 FUN_004986e0(undefined4 *param_1,undefined4 param_2)
   local_2c = (uint)&DAT_004ea870;
   local_28 = (uint)&DAT_004ea86c;
   local_24 = (uint)&DAT_004ea868;
-  local_48 = _ftol();
-  local_44 = _ftol();
-  local_40 = _ftol();
-  local_3c = _ftol();
-  local_38 = _ftol();
+  lVar3 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+  local_48 = (uint)lVar3;
+  lVar3 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+  local_44 = (uint)lVar3;
+  lVar3 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+  local_40 = (uint)lVar3;
+  lVar3 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+  local_3c = (uint)lVar3;
+  lVar3 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+  local_38 = (uint)lVar3;
   iVar2 = Plat_PromptDialog(param_2,&local_34,&local_48,5);
   if (iVar2 != 0) {
     *(float *)(*piVar1 + 0x4c) = (float)(int)local_48 * 0.01;

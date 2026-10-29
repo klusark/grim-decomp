@@ -17,6 +17,9 @@ int __cdecl Text_ParseLuaTable(void *ctx,void *table,void *textObj)
   int iVar2;
   int iVar3;
   int iVar4;
+  undefined4 unaff_ESI;
+  undefined4 unaff_EDI;
+  longlong lVar5;
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
@@ -29,12 +32,12 @@ int __cdecl Text_ParseLuaTable(void *ctx,void *table,void *textObj)
     iVar3 = lua_isnumber(iVar2);
     if (iVar3 != 0) {
       lua_getnumber(iVar2);
-      uVar1 = _ftol();
-      *(undefined4 *)((int)ctx + 0xc) = uVar1;
+      lVar5 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+      *(int *)((int)ctx + 0xc) = (int)lVar5;
       if (textObj != (void *)0x0) {
         lua_getnumber(iVar2);
-        uVar1 = _ftol();
-        *(undefined4 *)((int)textObj + 0x238) = uVar1;
+        lVar5 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+        *(int *)((int)textObj + 0x238) = (int)lVar5;
       }
     }
   }
@@ -46,12 +49,12 @@ int __cdecl Text_ParseLuaTable(void *ctx,void *table,void *textObj)
     iVar3 = lua_isnumber(iVar2);
     if (iVar3 != 0) {
       lua_getnumber(iVar2);
-      iVar3 = _ftol();
-      *(int *)((int)ctx + 0x10) = iVar3 + *(int *)(**(int **)((int)ctx + 8) + 8);
+      lVar5 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+      *(int *)((int)ctx + 0x10) = (int)lVar5 + *(int *)(**(int **)((int)ctx + 8) + 8);
       if (textObj != (void *)0x0) {
         lua_getnumber(iVar2);
-        uVar1 = _ftol();
-        *(undefined4 *)((int)textObj + 0x23c) = uVar1;
+        lVar5 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+        *(int *)((int)textObj + 0x23c) = (int)lVar5;
       }
     }
   }
@@ -77,8 +80,8 @@ int __cdecl Text_ParseLuaTable(void *ctx,void *table,void *textObj)
     iVar3 = lua_isnumber(iVar2);
     if ((iVar3 != 0) && (iVar4 != 0)) {
       lua_getnumber(iVar2);
-      uVar1 = _ftol();
-      *(undefined4 *)(iVar4 + 8) = uVar1;
+      lVar5 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+      *(int *)(iVar4 + 8) = (int)lVar5;
     }
   }
   lua_pushobject(table);
@@ -89,8 +92,8 @@ int __cdecl Text_ParseLuaTable(void *ctx,void *table,void *textObj)
     iVar3 = lua_isnumber(iVar2);
     if ((iVar3 != 0) && (iVar4 != 0)) {
       lua_getnumber(iVar2);
-      uVar1 = _ftol();
-      *(undefined4 *)(iVar4 + 0xc) = uVar1;
+      lVar5 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+      *(int *)(iVar4 + 0xc) = (int)lVar5;
     }
   }
   lua_pushobject(table);
@@ -173,8 +176,8 @@ int __cdecl Text_ParseLuaTable(void *ctx,void *table,void *textObj)
     iVar2 = lua_isnumber(iVar4);
     if (iVar2 != 0) {
       lua_getnumber(iVar4);
-      iVar4 = _ftol();
-      return iVar4;
+      lVar5 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+      return (int)lVar5;
     }
   }
   return -1;

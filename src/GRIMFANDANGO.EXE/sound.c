@@ -112,7 +112,10 @@ undefined4 PositionedSound_Apply(int param_1)
   uint uVar3;
   uint uVar4;
   uint uVar5;
-  float fVar6;
+  undefined4 unaff_EBP;
+  undefined4 unaff_ESI;
+  longlong lVar6;
+  float fVar7;
   #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
   #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
   #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
@@ -126,17 +129,19 @@ undefined4 PositionedSound_Apply(int param_1)
     iVar1 = *(int *)((int)pvVar2 + 0xac) + 0x20 + *(int *)((int)pvVar2 + 0xb4) * 300;
     local_8 = (uint)(*(float *)(param_1 + 0xc) - *(float *)(iVar1 + 4));
     local_4 = (uint)(*(float *)(param_1 + 0x10) - *(float *)(iVar1 + 8));
-    fVar6 = Vec3_NormalizeApprox((float *)&local_c);
-    if (0.0 <= fVar6 - *(float *)(param_1 + 0x20)) {
+    fVar7 = Vec3_NormalizeApprox((float *)&local_c);
+    if (0.0 <= fVar7 - *(float *)(param_1 + 0x20)) {
       uVar5 = *(uint *)(param_1 + 0x18);
       uVar4 = *(uint *)(param_1 + 0x14);
-      uVar3 = _ftol();
+      lVar6 = _ftol((double)CONCAT44(unaff_ESI,unaff_EBP));
+      uVar3 = (uint)lVar6;
       if ((uVar4 <= uVar3) && (uVar4 = uVar3, uVar5 < uVar3)) {
         uVar4 = uVar5;
       }
       SoundsSetParam(*(undefined4 *)(param_1 + 4),0x600,uVar4);
     }
-    uVar5 = _ftol();
+    lVar6 = _ftol((double)CONCAT44(unaff_ESI,unaff_EBP));
+    uVar5 = (uint)lVar6;
     if (0x7f < uVar5) {
       uVar5 = 0x7f;
     }
@@ -175,28 +180,30 @@ undefined4 Sound_DriverQuery(void)
 undefined * __cdecl Sound_VoiceSampleCount(int param_1)
 
 {
-  undefined *puVar1;
-  uint uVar2;
+  uint uVar1;
+  longlong lVar2;
+  double x;
   
-  uVar2 = (&UINT_008dad84)[param_1 * 0xd];
+  uVar1 = (&UINT_008dad84)[param_1 * 0xd];
   switch((&DAT_008dad6f)[param_1 * 0x34]) {
   case 0:
     break;
   case 1:
   case 2:
   case 4:
-    uVar2 = (int)uVar2 >> 1;
+    uVar1 = (int)uVar1 >> 1;
     break;
   case 3:
   case 5:
-    uVar2 = (int)uVar2 >> 2;
+    uVar1 = (int)uVar1 >> 2;
     break;
   default:
     goto switchD_004d0d15_default;
   }
-  param_1 = uVar2;
+  param_1 = uVar1;
 switchD_004d0d15_default:
-  ((undefined4 (*)(float))Sound_DriverQuery)((double)param_1);
-  puVar1 = (undefined *)_ftol();
-  return puVar1;
+  x = (double)param_1;
+  Sound_DriverQuery();
+  lVar2 = _ftol(x);
+  return (undefined *)lVar2;
 }

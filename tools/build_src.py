@@ -630,6 +630,7 @@ ARRAY_RET_RE = re.compile(r"^(\w[\w ]*?)\s*\[(\d+)\]\s+(\w+\()", re.M)
 
 IMG_SECTIONS = []  # [(name, start, size)] of the program being built (raw/<prog>/sections.json)
 FUNC_AT = {}       # address int -> C name of every function of the program being built
+ASM_ADDRS = set()  # functions replaced by src/<prog>/asm_funcs.s (tools/gen_asm.py)
 DATA_ELT = {}   # address -> C type for a Ghidra data item of 2 or 4 bytes (raw/<prog>/data_items.txt)
 ELT_TYPES = {"undefined4": "undefined4", "dword": "undefined4", "int": "undefined4", "uint": "undefined4",
              "undefined2": "undefined2", "word": "undefined2", "short": "undefined2", "ushort": "undefined2",
@@ -998,6 +999,11 @@ def build(prog):
         # section are addresses; masks such as 0x7fff00 fall in the zero tail of .data
         IMG_SECTIONS = [(s["name"], int(s["start"], 16), s["size"]) for s in json.load(open(os.path.join(rawdir, "sections.json")))]
     funcs = json.load(open(os.path.join(rawdir, "functions.json")))
+    global ASM_ADDRS
+    ASM_ADDRS = set()
+    ap = os.path.join(ROOT, "names", "asm_funcs.json")
+    if os.path.exists(ap):
+        ASM_ADDRS = set(json.load(open(ap)).get(prog, []))
     global DATA_ELT
     DATA_ELT = {}
     di_path = os.path.join(rawdir, "data_items.txt")
@@ -1186,7 +1192,7 @@ def build(prog):
                     globals_seen[g].add(f["address"])
             title = f["name"] + (f"  (renamed {renamed[f['address']]}: duplicate name)" if f["address"] in renamed else "")
             lines.append(f"/* ---- 0x{f['address']}  {title} ---- */")
-            if f["name"] in OVERRIDES:
+            if f["name"] in OVERRIDES or f["address"] in ASM_ADDRS:
                 lines.append("/* replaced by the hand-written version in build/overrides.c */")
                 lines.append("#if 0")
                 lines.append(code)

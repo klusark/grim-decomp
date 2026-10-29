@@ -584,8 +584,11 @@ undefined * __cdecl Profile_End(int param_1)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  undefined *puVar1;
-  #define local_18 (*(longlong *)(_frame + (0x30 - 0x18)))
+  unsigned char _stkneg[48] __attribute__((aligned(16)));  /* the original frame below the return address */
+  undefined4 unaff_ESI;
+  longlong lVar1;
+  undefined4 in_stack_ffffffe8;
+  #define uStack_14 (*(undefined4 *)(_frame + (0x30 - 0x14)))
   #define lStack_10 (*(longlong *)(_frame + (0x30 - 0x10)))
   #define dStack_8 (*(double *)(_frame + (0x30 - 0x8)))
   
@@ -594,17 +597,17 @@ undefined * __cdecl Profile_End(int param_1)
               (s_slot____1____slot___PerfTotalEnt_004e7f74,
                s_C__grimsrc_libs_grimlib_Main_spu_004e7f9c,0x5b6);
   }
-  QueryPerformanceFrequency((int)&local_18);
-  dStack_8 = (double)local_18;
+  QueryPerformanceFrequency((int)(_stkneg + 24));
+  dStack_8 = (double)CONCAT44(uStack_14,in_stack_ffffffe8);
   QueryPerformanceCounter((int)&lStack_10);
   *(double *)(&UINT_004e7b50 + param_1 * 0xc) =
        (((double)lStack_10 - *(double *)(&DAT_004e7b48 + param_1 * 0x30)) / dStack_8) * 1000.0;
-  puVar1 = (undefined *)_ftol();
-  return puVar1;
+  lVar1 = _ftol((double)CONCAT44(in_stack_ffffffe8,unaff_ESI));
+  return (undefined *)lVar1;
 }
 #undef dStack_8
 #undef lStack_10
-#undef local_18
+#undef uStack_14
 
 
 /* ---- 0x00482f00  Engine_BlitToBackBuffer ---- */

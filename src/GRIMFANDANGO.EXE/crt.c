@@ -111,18 +111,13 @@ int __cdecl sprintf(char *buf,char *fmt,...)
 
 
 /* ---- 0x004ac6f0  _ftol ---- */
-undefined4 __cdecl _ftol(void)
+longlong __cdecl _ftol(double x)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float10 in_ST0;
-  #define local_10 (*(undefined4 *)(_frame + (0x20 - 0x10)))
   
-  local_10 = (undefined4)(longlong)ROUND(in_ST0);
-  return local_10;
+  return (longlong)ROUND(in_ST0);
 }
-#undef local_10
-
 
 /* ---- 0x004ac720  _snprintf ---- */
 int __cdecl _snprintf(char *buf,uint n,char *fmt,...)
