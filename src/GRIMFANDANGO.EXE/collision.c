@@ -90,6 +90,8 @@ void Collision_PushOutOfBox
 
 
 /* ---- 0x00492510  Collision_PointInBox ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 __cdecl
 Collision_PointInBox
           (float *param_1,float *param_2,undefined4 param_3,uint param_4,uint param_5,uint param_6,
@@ -140,6 +142,8 @@ Collision_PointInBox
 #undef pfStack_24
 #undef pfStack_28
 #undef uStack_20
+
+#endif
 
 
 /* ---- 0x004925c0  Collision_BoxCorners ---- */
@@ -366,6 +370,8 @@ undefined4 Collision_UpdateMovedActors(void)
 }
 
 /* ---- 0x004939f0  Collision_TestActorAgainstOthers ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 undefined4 Collision_TestActorAgainstOthers(void *param_1)
@@ -638,6 +644,8 @@ LAB_004940c6:
 #undef puStack_e0
 #undef pvStack_d0
 #undef pvStack_d4
+
+#endif
 
 
 /* ---- 0x00494100  Collision_BoxSlide ---- */

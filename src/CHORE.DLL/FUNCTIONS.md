@@ -80,7 +80,7 @@
 | 100056d0 | FUN_100056d0 | costume.c | 10 |
 | 100056f0 | FUN_100056f0 | costume.c | 5 |
 | 10005700 | FUN_10005700 | costume.c | 13 |
-| 10005740 | FUN_10005740 | costume.c | 70 |
+| 10005740 | FUN_10005740 | costume.c | 1 |
 | 10005810 | FUN_10005810 | costume.c | 31 |
 | 10005860 | FUN_10005860 | costume.c | 300 |
 | 10005ba0 | FUN_10005ba0 | costume.c | 90 |
@@ -89,7 +89,7 @@
 | 10005de0 | FUN_10005de0 | costume.c | 45 |
 | 10005e90 | FUN_10005e90 | costume.c | 66 |
 | 10005f50 | FUN_10005f50 | costume.c | 55 |
-| 10001110 | CosUtil_Write | cosutil.c | 241 |
+| 10001110 | CosUtil_Write | cosutil.c | 1 |
 | 10002020 | CosUtil_CompPtrFromHandle | cosutil.c | 9 |
 | 10002040 | CosUtil_PtrFromHandle | cosutil.c | 9 |
 | 10002060 | CosUtil_RegisterCompNotifier | cosutil.c | 12 |
@@ -123,7 +123,7 @@
 | 10006260 | FUN_10006260 | region_10006120.c | 43 |
 | 100062d0 | FUN_100062d0 | region_10006120.c | 8 |
 | 100062f0 | FUN_100062f0 | region_10006120.c | 20 |
-| 10006350 | FUN_10006350 | region_10006120.c | 16 |
+| 10006350 | FUN_10006350 | region_10006120.c | 1 |
 | 100063d0 | FUN_100063d0 | region_10006120.c | 50 |
 | 100064d0 | FUN_100064d0 | region_10006120.c | 17 |
 | 10006540 | FUN_10006540 | region_10006120.c | 50 |
@@ -174,15 +174,15 @@
 | 10008950 | FUN_10008950 | region_10006120.c | 17 |
 | 10008990 | FUN_10008990 | region_10006120.c | 5 |
 | 100089a0 | FUN_100089a0 | region_10006120.c | 14 |
-| 100089e0 | FUN_100089e0 | region_10006120.c | 197 |
-| 10008bc0 | FUN_10008bc0 | region_10006120.c | 10 |
+| 100089e0 | FUN_100089e0 | region_10006120.c | 1 |
+| 10008bc0 | FUN_10008bc0 | region_10006120.c | 1 |
 | 10008c00 | FUN_10008c00 | region_10006120.c | 6 |
 | 10008c20 | FUN_10008c20 | region_10006120.c | 48 |
 | 10008cc0 | FUN_10008cc0 | region_10006120.c | 5 |
 | 10008d50 | FUN_10008d50 | region_10006120.c | 32 |
 | 10008df0 | FUN_10008df0 | region_10006120.c | 27 |
 | 10008e60 | FUN_10008e60 | region_10006120.c | 27 |
-| 10008ed0 | FUN_10008ed0 | region_10006120.c | 31 |
+| 10008ed0 | FUN_10008ed0 | region_10006120.c | 1 |
 | 10008f70 | FUN_10008f70 | region_10006120.c | 14 |
 | 10008f90 | FUN_10008f90 | region_10006120.c | 8 |
 | 10008fa0 | FUN_10008fa0 | region_10006120.c | 15 |
@@ -203,7 +203,7 @@
 | 10009650 | FUN_10009650 | region_10006120.c | 43 |
 | 10009710 | FUN_10009710 | region_10006120.c | 36 |
 | 10009730 | FUN_10009730 | region_10006120.c | 31 |
-| 100097e0 | FUN_100097e0 | region_10006120.c | 105 |
+| 100097e0 | FUN_100097e0 | region_10006120.c | 1 |
 | 10009b60 | FUN_10009b60 | region_10006120.c | 50 |
 | 10009da0 | FUN_10009da0 | region_10006120.c | 1 |
 | 10009ea0 | FUN_10009ea0 | region_10006120.c | 64 |
@@ -219,8 +219,8 @@
 | 1000aaf0 | FUN_1000aaf0 | region_10006120.c | 13 |
 | 1000ab20 | FUN_1000ab20 | region_10006120.c | 8 |
 | 1000ab60 | FUN_1000ab60 | region_10006120.c | 13 |
-| 1000ab80 | FUN_1000ab80 | region_10006120.c | 49 |
-| 1000ac70 | FUN_1000ac70 | region_10006120.c | 38 |
+| 1000ab80 | FUN_1000ab80 | region_10006120.c | 1 |
+| 1000ac70 | FUN_1000ac70 | region_10006120.c | 1 |
 | 1000ad00 | FUN_1000ad00 | region_10006120.c | 57 |
 | 1000adb0 | FUN_1000adb0 | region_10006120.c | 1 |
 | 1000af40 | FUN_1000af40 | region_10006120.c | 1 |
@@ -244,7 +244,7 @@
 | 1000c650 | FUN_1000c650 | region_10006120.c | 32 |
 | 1000c6c0 | FUN_1000c6c0 | region_10006120.c | 6 |
 | 1000c6d0 | FUN_1000c6d0 | region_10006120.c | 46 |
-| 1000c790 | FUN_1000c790 | region_10006120.c | 72 |
+| 1000c790 | FUN_1000c790 | region_10006120.c | 1 |
 | 1000ca50 | FUN_1000ca50 | region_10006120.c | 34 |
 | 1000cad0 | FUN_1000cad0 | region_10006120.c | 8 |
 | 1000cae0 | FUN_1000cae0 | region_10006120.c | 8 |

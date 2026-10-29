@@ -1086,6 +1086,8 @@ LAB_004ab66a:
 
 
 /* ---- 0x004ab710  Text_DrawChar ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Picks the glyph blitter: 16-bit vs paletted 8-bit (flag 8), clipped vs unclipped; scaled glyphs
    are not implemented (Lua_Stub) */
 
@@ -1182,4 +1184,6 @@ void __cdecl Text_DrawChar(void *ctx,void *font,int ch)
 #undef local_4
 #undef local_8
 #undef local_c
+
+#endif
 

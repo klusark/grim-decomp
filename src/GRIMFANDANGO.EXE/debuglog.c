@@ -6,6 +6,8 @@
 #include "functions.h"
 
 /* ---- 0x00401040  DebugLog_Init ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Opens debug.log / resource.log and installs the debug-print callbacks into the service table */
 
@@ -48,6 +50,8 @@ void __cdecl DebugLog_Init(int enable)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x004020a0  DebugLog_Load ---- */
 /* Loads DebugLog.dll (_logPrintf/_ShowDebugLog) when running in developer mode */

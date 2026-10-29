@@ -272,6 +272,8 @@ void Mixer_Update(void)
 
 
 /* ---- 0x004ce1d0  Mixer_ServiceVoices ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* setjmp-protected per-tick voice servicing */
 
@@ -299,6 +301,8 @@ void Mixer_ServiceVoices(void)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x004ce260  Mixer_ScheduleVoices ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -480,6 +484,8 @@ undefined4 Mixer_ClearAccumulator(void)
 }
 
 /* ---- 0x004d3040  Mixer_MixVoice ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Dispatches to the Mixer_Mix* resamplers by sample format, channel count and volume mode */
 
 void Mixer_MixVoice(byte *param_1,int param_2,int param_3,int param_4,uint param_5,int param_6,
@@ -536,6 +542,8 @@ void Mixer_MixVoice(byte *param_1,int param_2,int param_3,int param_4,uint param
   }
   return;
 }
+#endif
+
 
 /* ---- 0x004d31d0  Mixer_ConvertTo16 ---- */
 /* Accumulator >> 7 clamped to 16 bits into the output block */

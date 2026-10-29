@@ -6,6 +6,8 @@
 #include "functions.h"
 
 /* ---- 0x00496460  CmapComponent_Create ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Registers a 'cmap' colormap component (CMAP resource, 0x34-byte ResRef); with no name a file
    dialog asks for one (editor) */
 
@@ -59,6 +61,8 @@ bool CmapComponent_Create
   }
   return false;
 }
+#endif
+
 
 /* ---- 0x00496580  CmapComponent_Destroy ---- */
 undefined4 CmapComponent_Destroy(undefined4 param_1,undefined4 param_2,void *param_3)
@@ -116,6 +120,8 @@ void * __cdecl CmapComponent_NewInstance(void *cosInst,int componentIdx,int crea
 
 
 /* ---- 0x00496670  FUN_00496670 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 bool FUN_00496670(undefined4 param_1,undefined4 param_2,int *param_3,int param_4,char *param_5)
 
 {
@@ -217,4 +223,6 @@ bool FUN_00496670(undefined4 param_1,undefined4 param_2,int *param_3,int param_4
 #undef local_c
 #undef pcStack_18
 #undef uStack_1c
+
+#endif
 

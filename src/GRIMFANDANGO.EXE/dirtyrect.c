@@ -201,6 +201,8 @@ LAB_0048555c:
 
 
 /* ---- 0x00485e50  DirtyRect_Flush ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Restores every dirty rectangle from the background and depth images, dropping records whose
    per-buffer countdown expired; debug flag 0x10 outlines them */
 
@@ -282,6 +284,8 @@ void __cdecl DirtyRect_Flush(void *dst,void *zdst)
 #undef local_4
 #undef local_8
 #undef local_c
+
+#endif
 
 
 /* ---- 0x00486020  DirtyRect_Clear ---- */

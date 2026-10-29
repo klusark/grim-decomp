@@ -82,6 +82,8 @@ undefined4 * FUN_0040a8f0(undefined4 param_1)
 }
 
 /* ---- 0x0040a980  FUN_0040a980 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 FUN_0040a980(int param_1,undefined4 param_2)
 
 {
@@ -108,6 +110,8 @@ undefined4 FUN_0040a980(int param_1,undefined4 param_2)
   uVar3 = ((code *)FUN_0040aa20)(iVar2,param_2);
   return uVar3;
 }
+#endif
+
 
 /* ---- 0x0040aa20  FUN_0040aa20 ---- */
 /* replaced by the hand-written version in build/overrides.c */

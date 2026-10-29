@@ -204,6 +204,8 @@ void __cdecl ldo__4160(int param_1)
 }
 
 /* ---- 0x10004180  luaD_call ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Dispatches a call at the given stack position: C function, Lua closure or task mark ('unexpected
    cmark' otherwise) */
 
@@ -365,6 +367,8 @@ LAB_10004474:
 #undef pcStack_8
 #undef uStack_4
 #undef uStack_c
+
+#endif
 
 
 /* ---- 0x100044e0  ldo__44e0 ---- */

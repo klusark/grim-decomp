@@ -149,6 +149,8 @@ void FUN_10002e70(void)
 
 
 /* ---- 0x10002f80  FUN_10002f80 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_10002f80(void)
 
 {
@@ -168,6 +170,8 @@ void FUN_10002f80(void)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x10002fd0  FUN_10002fd0 ---- */
 void FUN_10002fd0(void)

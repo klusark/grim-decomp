@@ -15,6 +15,8 @@ undefined4 Plat_ReturnTrue(void)
 }
 
 /* ---- 0x00477f10  FUN_00477f10 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_00477f10(undefined4 param_1,char *param_2,undefined4 param_3)
 
 {
@@ -60,6 +62,8 @@ void FUN_00477f10(undefined4 param_1,char *param_2,undefined4 param_3)
   return;
 }
 #undef acStack_200
+
+#endif
 
 
 /* ---- 0x00478150  Plat_GetPhysicalMemory ---- */

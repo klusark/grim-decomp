@@ -61,6 +61,8 @@ undefined4 FUN_00498180(void)
 }
 
 /* ---- 0x00498190  FUN_00498190 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 bool FUN_00498190(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4,
                  char *param_5)
 
@@ -128,8 +130,12 @@ bool FUN_00498190(undefined4 param_1,undefined4 param_2,undefined4 param_3,undef
   iVar2 = Cos_RegisterComponent(param_1,pcVar4,pcVar5,param_2,param_3,param_4,&DAT_004ea040);
   return iVar2 != 0;
 }
+#endif
+
 
 /* ---- 0x00498280  FUN_00498280 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4
 FUN_00498280(undefined4 param_1,undefined4 param_2,int param_3,float param_4,char *param_5)
 
@@ -282,6 +288,8 @@ FUN_00498280(undefined4 param_1,undefined4 param_2,int param_3,float param_4,cha
 #undef local_48
 #undef local_4c
 #undef local_50
+
+#endif
 
 
 /* ---- 0x00498550  FUN_00498550 ---- */

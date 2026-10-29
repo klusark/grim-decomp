@@ -2138,6 +2138,8 @@ LAB_004a903f:
 
 
 /* ---- 0x004a9070  Sector_EdgeDistance ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Source: Engine/WalkPlane.cpp (line 1736, from __FILE__/__LINE__ passed to the allocator) */
 
 float __thiscall Sector_EdgeDistance(void *this,int a1,int a2)
@@ -2195,6 +2197,8 @@ float __thiscall Sector_EdgeDistance(void *this,int a1,int a2)
 #undef fStack_8
 #undef local_30
 #undef local_c
+
+#endif
 
 
 /* ---- 0x004a9180  Sector_CollapseShortestEdge ---- */
@@ -2353,6 +2357,8 @@ undefined4 __fastcall Sector_CollapseShortestEdge(void *param_1)
 
 
 /* ---- 0x004a9d00  SectorList_ShrinkWalkSectors ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Variable defined which should be unmapped: local_18 */
 /* WARNING: Variable defined which should be unmapped: local_4 */
 /* SectorList_ShrinkWalkSectors(radius), called by Lua ShrinkBoxes after SectorList_SaveForShrink.
@@ -2535,4 +2541,6 @@ LAB_004a9ffa:
 #undef local_18
 #undef local_4
 #undef local_8
+
+#endif
 

@@ -38,6 +38,8 @@ undefined4 FUN_00489090(code *param_1)
 }
 
 /* ---- 0x00489130  FUN_00489130 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 FUN_00489130(void)
 
 {
@@ -57,6 +59,8 @@ undefined4 FUN_00489130(void)
   return 1;
 }
 #undef local_c
+
+#endif
 
 
 /* ---- 0x00489190  FUN_00489190 ---- */

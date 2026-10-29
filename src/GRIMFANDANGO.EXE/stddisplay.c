@@ -856,6 +856,8 @@ void Display_CloseDevice(void)
 }
 
 /* ---- 0x00474140  Display_OpenMode ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Stddisplay.c: selects the video mode, creates the primary and back surfaces (DIB section windowed
    or DirectDraw) and the Arial debug font */
@@ -917,6 +919,8 @@ int __cdecl Display_OpenMode(uint modeIdx,void *palette,int use3D)
   g_nDisplayModeOpen = 1;
   return 1;
 }
+#endif
+
 
 /* ---- 0x00474310  Display_CloseMode ---- */
 void Display_CloseMode(void)
@@ -1367,6 +1371,8 @@ int __cdecl Surface_Fill(void *surface,int color,int *rect)
 
 
 /* ---- 0x00474a60  Surface_Blit ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 int __cdecl Surface_Blit(void *dst,void *src,int x,int y,int *srcRect,int colorKey)
 
 {
@@ -1385,6 +1391,8 @@ int __cdecl Surface_Blit(void *dst,void *src,int x,int y,int *srcRect,int colorK
   ((code *)Surface_BlitLockedSrc)();
   return 1;
 }
+#endif
+
 
 /* ---- 0x00474ae0  Surface_SetColorKey ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -1576,6 +1584,8 @@ void __cdecl Display_SetPalette(void *palette)
 }
 
 /* ---- 0x00474dd0  Palette_ApplyGamma ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 int __cdecl Palette_ApplyGamma(void *dst,void *src,int count,int gammaIdx)
 
 {
@@ -1591,6 +1601,8 @@ int __cdecl Palette_ApplyGamma(void *dst,void *src,int count,int gammaIdx)
   Mem_Copy(dst,src,0x300);
   return 1;
 }
+#endif
+
 
 /* ---- 0x00474e40  Display_DrawText ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -3298,6 +3310,8 @@ undefined4 DDraw_SetPalette(undefined1 *param_1)
 
 
 /* ---- 0x00476e40  DIB_CreateSurface ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void * __cdecl DIB_CreateSurface(void *mode,void *surface,void *palette,void *hwnd)
 
 {
@@ -3327,6 +3341,8 @@ void * __cdecl DIB_CreateSurface(void *mode,void *surface,void *palette,void *hw
   SelectObject(UINT_007f6498,UINT_00803fb4);
   return (void *)0x1;
 }
+#endif
+
 
 /* ---- 0x00476ee0  DIB_ReleaseSurface ---- */
 void DIB_ReleaseSurface(void)

@@ -1253,6 +1253,8 @@ void __cdecl lparser__bde0(int param_1,int param_2)
 }
 
 /* ---- 0x1000be60  lparser__be60 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Unidentified function of lua.stx (yacc parser) and code generation */
 
 void __cdecl lparser__be60(int param_1)
@@ -1273,6 +1275,8 @@ void __cdecl lparser__be60(int param_1)
   ((code *)luaY_code_opcode_arg)(')',8,-param_1 - 1,0);
   return;
 }
+#endif
+
 
 /* ---- 0x1000bec0  lparser__bec0 ---- */
 /* Unidentified function of lua.stx (yacc parser) and code generation */
@@ -1369,6 +1373,8 @@ void __cdecl lparser__c000(int param_1,char param_2)
 }
 
 /* ---- 0x1000c020  lparser__c020 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Unidentified function of lua.stx (yacc parser) and code generation */
 
 void lparser__c020(void)
@@ -1378,6 +1384,8 @@ void lparser__c020(void)
   *(undefined4 *)(PTR_1002bf6c[0xf] + 0x88) = *(undefined4 *)(PTR_1002bf6c[0xf] + 0x90);
   return;
 }
+#endif
+
 
 /* ---- 0x1000c060  lparser__c060 ---- */
 /* Unidentified function of lua.stx (yacc parser) and code generation */

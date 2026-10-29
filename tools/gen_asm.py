@@ -77,7 +77,23 @@ class Ctx:
                 return "@%s@%d" % (name, 4 * n)
             return "_" + name
         f = self.funcs.get(addr)
+        if f and f.get("isThunk") and f["name"] in self.dec:
+            return self.dec[f["name"]]  # a Win32 import thunk: the import library's decorated label
         return ("_" + f["name"]) if f else None
+
+# imports that build/win32_shims.c replaces (the C code binds to the decorated symbol, which the shim
+# defines); assembled code reads the import slot, so it gets a pointer cell that holds the shim
+SHIMMED = {"InterlockedIncrement": "_InterlockedIncrement@4", "InterlockedDecrement": "_InterlockedDecrement@4",
+           "InterlockedExchange": "_InterlockedExchange@8", "RegOpenKeyExA": "_RegOpenKeyExA@20",
+           "RegCreateKeyExA": "_RegCreateKeyExA@36"}
+SHIM_USED = set()
+
+
+def imp_ref(ctx, name):
+    if name in SHIMMED:
+        SHIM_USED.add(name)
+        return "__shimimp_" + name
+    return "__imp_" + ctx.dec.get(name, "_" + name)
 
 
 def convert_operand_text(ctx, text, fstart, fend, labels, tables):
@@ -93,7 +109,7 @@ def convert_operand_text(ctx, text, fstart, fend, labels, tables):
 def addr_expr(ctx, v, fstart, fend, tables, in_mem, size_hint=4):
     """Symbolic form of an absolute address, or None when it is a plain number."""
     if fstart <= v < fend:
-        return ".L%x" % v
+        return ".L%x_%x" % (fstart, v)
     sec = ctx.section_of(v)
     if sec:
         return "_sect_%s+0x%x" % sec
@@ -121,8 +137,10 @@ def convert(ctx, addr, lines):
     out = []
     for a, mn, ops in insns:
         ia = int(a, 16)
+        lock = ""
+        if mn.upper().endswith(".LOCK"):  # Ghidra prints `DEC.LOCK [..]`; gas wants `lock dec [..]`
+            mn, lock = mn[:-5], "lock "
         up = mn.upper()
-        lab = ".L%x:" % ia if ia in targets or True else ""
         text = None
         m = re.fullmatch(r"(\w+)\.(REP|REPE|REPNE)\s*.*", mn, re.I)
         if m:
@@ -138,24 +156,24 @@ def convert(ctx, addr, lines):
             if m1:
                 tgt = int(m1.group(1), 16)
                 if fstart <= tgt < fend:
-                    text = "%s .L%x" % (mn.lower(), tgt)
+                    text = "%s .L%x_%x" % (mn.lower(), fstart, tgt)
                 else:
                     sym = ctx.symbol_of(tgt)
                     f = ctx.funcs.get(tgt)
                     if f is not None and f.get("isThunk") and f["name"] in ctx.dec:
-                        text = "%s dword ptr [__imp_%s]" % (mn.lower(), ctx.dec[f["name"]])
+                        text = "%s dword ptr [%s]" % (mn.lower(), imp_ref(ctx, f["name"]))
                     elif sym:
                         text = "%s %s" % (mn.lower(), sym)
                     else:
                         text = "ud2  # %s %s: target is not a known function" % (mn, ops)
             elif ms and int(ms.group(1), 16) in ctx.slots:
                 name = ctx.slots[int(ms.group(1), 16)]
-                text = "%s dword ptr [__imp_%s]" % (mn.lower(), ctx.dec.get(name, "_" + name))
+                text = "%s dword ptr [%s]" % (mn.lower(), imp_ref(ctx, name))
             elif re.search(r"\*0x4\s*\+\s*0x([0-9a-f]+)\]", ops) and up == "JMP":
                 mt = re.search(r"\[(\w+)\*0x4\s*\+\s*0x([0-9a-f]+)\]", ops)
                 taddr = int(mt.group(2), 16)
                 jt[taddr] = None
-                text = "jmp dword ptr [%s*4+.Ljt_%x]" % (mt.group(1).lower(), taddr)
+                text = "jmp dword ptr [%s*4+.Ljt_%x_%x]" % (mt.group(1).lower(), fstart, taddr)
         if text is None:
             # generic: rewrite hex literals that are addresses
             def rep(mm):
@@ -169,7 +187,7 @@ def convert(ctx, addr, lines):
                     # an import address table slot read as data (`MOV ESI,[slot]` ... `CALL ESI`): the
                     # dumped IAT holds import-name entries, the linker's import symbol holds the address
                     name = ctx.slots[h]
-                    return "__imp_" + ctx.dec.get(name, "_" + name)
+                    return imp_ref(ctx, name)
                 e = addr_expr(ctx, h, fstart, fend, tables, True)
                 if e is None:
                     return mm.group(0)
@@ -177,7 +195,7 @@ def convert(ctx, addr, lines):
             t = ops
             t = HEX.sub(rep, t)
             t = convert_operand_text(ctx, t, fstart, fend, targets, tables)
-            text = ("%s %s" % (mn.lower(), t)).strip()
+            text = lock + ("%s %s" % (mn.lower(), t)).strip()
             text = text.replace("fs:[0x0]", "fs:[0]").replace("FS:[0x0]", "fs:[0]")
         out.append((ia, text))
     return out, tables, jt, fend
@@ -235,12 +253,24 @@ def select(prog):
     # --all: assemble every function (the decompiled C stays in src/ under #if 0 for reading);
     # names/asm_exclude.json {prog: [addresses]} keeps individual functions as C
     if "--all" in sys.argv:
+        # the MSVC runtime (heap, locks, stdio) expects its own start-up; the host runtime provides
+        # those, so the CRT modules stay C (only the artifact-driven picks above are assembled)
+        crt_addrs = set()
+        for sp in glob.glob(os.path.join(ROOT, "src", prog, "*.c")):
+            if re.match(r"(crt|tmpnam|getlcid|translatename|parse|getsystemcp|setsbcs|setsbuplow)", os.path.basename(sp)):
+                crt_addrs |= set(re.findall(r"(?m)^/\* ---- 0x([0-9a-f]+)  ", open(sp, encoding="utf-8", errors="replace").read()))
+        keep = set(out)
         out += [f["address"] for f in json.load(open(os.path.join(raw, "functions.json")))
-                if not (f.get("isThunk") or f.get("isExternal") or f["name"] in build_src.OVERRIDES)]
-        ep = os.path.join(ROOT, "names", "asm_exclude.json")
-        if os.path.exists(ep):
-            skip = set(json.load(open(ep)).get(prog, []))
-            out = [a for a in out if a not in skip]
+                if not (f.get("isThunk") or f.get("isExternal") or f["name"] in build_src.OVERRIDES)
+                and f["address"] not in crt_addrs]
+        out = [a for a in out if a not in crt_addrs or a in keep]
+    ep = os.path.join(ROOT, "names", "asm_exclude.json")  # applies to every selection mode
+    if os.path.exists(ep):
+        skip = set(json.load(open(ep)).get(prog, []))
+        out = [a for a in out if a not in skip]
+    # a function written by hand in build/overrides.c must not also be assembled (duplicate symbol)
+    hand = {f["address"] for f in json.load(open(os.path.join(raw, "functions.json"))) if f["name"] in build_src.OVERRIDES}
+    out = [a for a in out if a not in hand]
     return sorted(set(out))
 
 
@@ -261,6 +291,7 @@ def main():
                 "\t.intel_syntax noprefix", "\t.intel_mnemonic", "\t.text"]
         rodata = ["\t.section .rdata,\"dr\"", "\t.p2align 2"]
         done = 0
+        emitted_consts = set()
         for addr in sel[prog]:
             lines = g.get("disassemble_function", program=path, address=addr).splitlines()
             insns, tables, jt, fend = convert(ctx, addr, lines)
@@ -274,7 +305,7 @@ def main():
             defined = {ia for ia, _ in insns}
             refs = set()
             for _, text in insns:
-                refs |= {int(x, 16) for x in re.findall(r"\.L([0-9a-f]+)\b", text)}
+                refs |= {int(x, 16) for x in re.findall(r"\.L[0-9a-f]+_([0-9a-f]+)\b", text)}
             ents_ok = True
             for taddr in jt:
                 raw = read_text(path, taddr, 4 * 128)
@@ -295,7 +326,7 @@ def main():
                      "%s:  # %s" % (sym, ctx.funcs[fstart]["name"])]
             patches = PATCHES.get(prog, {}).get(addr, {})
             for ia, text in insns:
-                body.append(".L%x:\t%s" % (ia, text))
+                body.append(".L%x_%x:\t%s" % (fstart, ia, text))
                 for extra in patches.get("%08x" % ia, patches.get("%x" % ia, [])):
                     body.append("\t" + extra)
             for taddr in jt:
@@ -308,14 +339,19 @@ def main():
                             ents.append(v)
                         else:
                             break
-                rodata.append(".Ljt_%x:" % taddr)
-                rodata += ["\t.long .L%x" % v for v in ents] or ["\t.long 0"]
+                rodata.append(".Ljt_%x_%x:" % (fstart, taddr))
+                rodata += ["\t.long .L%x_%x" % (fstart, v) for v in ents] or ["\t.long 0"]
             for caddr, size in tables.items():
+                if caddr in emitted_consts:
+                    continue
+                emitted_consts.add(caddr)
                 raw = read_text(path, caddr, 64)
                 rodata.append(".Lc_%x:" % caddr)
                 rodata.append("\t.byte " + ",".join(str(b) for b in (raw or bytes(64))))
             done += 1
-        open(os.path.join(ROOT, "src", prog, "asm_funcs.s"), "w", newline="\n").write("\n".join(body + [""] + rodata) + "\n")
+        cells = ["\t.data", "\t.p2align 2"] + ["__shimimp_%s:\t.long %s" % (n, SHIMMED[n]) for n in sorted(SHIM_USED)]
+        SHIM_USED.clear()
+        open(os.path.join(ROOT, "src", prog, "asm_funcs.s"), "w", newline="\n").write("\n".join(body + [""] + rodata + cells) + "\n")
         print(f"{prog}: {done} functions written to src/{prog}/asm_funcs.s")
 
 

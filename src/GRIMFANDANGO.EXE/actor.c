@@ -2049,6 +2049,8 @@ float * __cdecl Actor_GetFrame(void *actor)
 }
 
 /* ---- 0x004937c0  Actor_ToClean ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua ActorToClean: marks the actor's rectangle to be restored from the clean background */
 
 void __cdecl Actor_ToClean(void *actor)
@@ -2141,6 +2143,8 @@ void __cdecl Actor_ToClean(void *actor)
 #undef iStack_8
 #undef iStack_c
 #undef local_10
+
+#endif
 
 
 /* ---- 0x00494690  Actor_CountCostumes ---- */
@@ -2385,12 +2389,16 @@ void Actor_DrawShadowPlane(void *costumeList,void *shadow)
 
 
 /* ---- 0x00495080  Actor_DrawCostumes ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void Actor_DrawCostumes(undefined4 param_1,undefined4 param_2)
 
 {
   ((code *)Actor_DrawCostumeMeshes)(param_1,param_2,0,0);
   return;
 }
+#endif
+
 
 /* ---- 0x004950a0  Actor_DrawCostumeMeshes ---- */
 /* Draws the meshes of an actor's costume. Enables the user clip plane when extra+0x3fc != 0 (normal

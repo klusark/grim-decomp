@@ -194,6 +194,8 @@ int lapi__1240(void)
 }
 
 /* ---- 0x100012a0  lua_pop ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 lua_pop(void)
 
 {
@@ -204,6 +206,8 @@ undefined4 lua_pop(void)
   uVar1 = lapi__12e0();
   return uVar1;
 }
+#endif
+
 
 /* ---- 0x100012b0  luaA_checkCparams ---- */
 /* Unidentified function of lapi.c (Lua 3.1 C API) */
@@ -335,6 +339,8 @@ int __cdecl lapi__1430(undefined4 *param_1)
 }
 
 /* ---- 0x10001490  lua_settagmethod ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 __cdecl lua_settagmethod(int param_1,byte *param_2)
 
 {
@@ -346,6 +352,8 @@ undefined4 __cdecl lua_settagmethod(int param_1,byte *param_2)
   uVar1 = lapi__12e0();
   return uVar1;
 }
+#endif
+
 
 /* ---- 0x100014c0  lua_seterrormethod ---- */
 undefined4 __cdecl lua_seterrormethod(void)
@@ -371,6 +379,8 @@ undefined4 __cdecl lua_seterrormethod(void)
 
 
 /* ---- 0x10001520  lua_gettable ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 __cdecl lua_gettable(void)
 
 {
@@ -382,8 +392,12 @@ undefined4 __cdecl lua_gettable(void)
   uVar1 = lapi__12e0();
   return uVar1;
 }
+#endif
+
 
 /* ---- 0x10001540  lua_rawgettable ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 lua_rawgettable(void)
 
 {
@@ -412,8 +426,12 @@ undefined4 lua_rawgettable(void)
   uVar3 = lapi__12e0();
   return uVar3;
 }
+#endif
+
 
 /* ---- 0x100015b0  lua_settable ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 __cdecl lua_settable(void)
 
 {
@@ -424,8 +442,12 @@ undefined4 __cdecl lua_settable(void)
   uVar1 = ((code *)luaV_settable)((uint *)(PTR_1002bf6c[7] + -0x18),1);
   return uVar1;
 }
+#endif
+
 
 /* ---- 0x100015e0  lua_rawsettable ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 __cdecl lua_rawsettable(void)
 
 {
@@ -436,8 +458,12 @@ undefined4 __cdecl lua_rawsettable(void)
   uVar1 = ((code *)luaV_settable)((uint *)(PTR_1002bf6c[7] + -0x18),0);
   return uVar1;
 }
+#endif
+
 
 /* ---- 0x10001610  lua_createtable ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 __cdecl lua_createtable(void)
 
 {
@@ -456,8 +482,12 @@ undefined4 __cdecl lua_createtable(void)
 #undef local_4
 #undef local_8
 
+#endif
+
 
 /* ---- 0x10001640  lua_getglobal ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 __cdecl lua_getglobal(byte *param_1)
 
 {
@@ -471,6 +501,8 @@ undefined4 __cdecl lua_getglobal(byte *param_1)
   uVar2 = lapi__12e0();
   return uVar2;
 }
+#endif
+
 
 /* ---- 0x10001670  lua_rawgetglobal ---- */
 undefined4 __cdecl lua_rawgetglobal(byte *param_1)
@@ -486,6 +518,8 @@ undefined4 __cdecl lua_rawgetglobal(byte *param_1)
 }
 
 /* ---- 0x10001690  lua_setglobal ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 __cdecl lua_setglobal(byte *param_1)
 
 {
@@ -499,8 +533,12 @@ undefined4 __cdecl lua_setglobal(byte *param_1)
   uVar2 = ((code *)luaV_setglobal)(piVar1);
   return uVar2;
 }
+#endif
+
 
 /* ---- 0x100016c0  lua_rawsetglobal ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 __cdecl lua_rawsetglobal(byte *param_1)
 
 {
@@ -514,6 +552,8 @@ undefined4 __cdecl lua_rawsetglobal(byte *param_1)
   uVar2 = ((code *)lstring__94e0)(piVar1,(int *)PTR_1002bf6c[7]);
   return uVar2;
 }
+#endif
+
 
 /* ---- 0x10001700  lua_isnil ---- */
 undefined4 __cdecl lua_isnil(int param_1)
@@ -765,6 +805,8 @@ void __cdecl lua_pushnumber(float n)
 }
 
 /* ---- 0x10001aa0  lua_pushstring ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 __cdecl lua_pushstring(byte *param_1)
 
 {
@@ -786,8 +828,12 @@ undefined4 __cdecl lua_pushstring(byte *param_1)
   uVar1 = ((code *)lgc__5300)();
   return uVar1;
 }
+#endif
+
 
 /* ---- 0x10001b10  lua_pushCclosure ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 __cdecl lua_pushCclosure(int param_1,uint param_2)
 
 {
@@ -807,8 +853,12 @@ undefined4 __cdecl lua_pushCclosure(int param_1,uint param_2)
   uVar1 = ((code *)luaV_closure)(param_2);
   return uVar1;
 }
+#endif
+
 
 /* ---- 0x10001b90  lua_pushusertag ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 __cdecl lua_pushusertag(byte *param_1,uint param_2)
 
 {
@@ -828,6 +878,8 @@ undefined4 __cdecl lua_pushusertag(byte *param_1,uint param_2)
   uVar1 = ((code *)lgc__5300)();
   return uVar1;
 }
+#endif
+
 
 /* ---- 0x10001c00  luaA_pushobject ---- */
 /* Unidentified function of lapi.c (Lua 3.1 C API) */
@@ -899,6 +951,8 @@ undefined4 __cdecl lua_tag(int param_1)
 }
 
 /* ---- 0x10001d30  lua_settag ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 int * __cdecl lua_settag(int param_1)
 
 {
@@ -928,6 +982,8 @@ int * __cdecl lua_settag(int param_1)
   PTR_1002bf6c[7] = PTR_1002bf6c[7] + -8;
   return piVar3;
 }
+#endif
+
 
 /* ---- 0x10001db0  lua_pausetasks ---- */
 undefined4 __cdecl lua_pausetasks(void)
@@ -1287,6 +1343,8 @@ undefined4 __cdecl lua_funcinfo(int param_1,int *param_2,undefined4 *param_3)
 }
 
 /* ---- 0x10002440  lua_getobjname ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 char * __cdecl lua_getobjname(int param_1,undefined4 *param_2)
 
 {
@@ -1308,6 +1366,8 @@ char * __cdecl lua_getobjname(int param_1,undefined4 *param_2)
   }
   return pcVar1;
 }
+#endif
+
 
 /* ---- 0x100024a0  FUN_100024a0 ---- */
 void __cdecl FUN_100024a0(int *param_1)
@@ -1339,6 +1399,8 @@ int * __cdecl lua_beginblock(void)
 }
 
 /* ---- 0x10002510  lua_endblock ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 __cdecl lua_endblock(void)
 
 {
@@ -1356,8 +1418,12 @@ undefined4 __cdecl lua_endblock(void)
   uVar3 = ((code *)luaD_adjusttop)(PTR_1002bf6c[10]);
   return uVar3;
 }
+#endif
+
 
 /* ---- 0x10002560  lua_ref ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 uint __cdecl lua_ref(int param_1)
 
 {
@@ -1369,6 +1435,8 @@ uint __cdecl lua_ref(int param_1)
   PTR_1002bf6c[7] = PTR_1002bf6c[7] + -8;
   return uVar1;
 }
+#endif
+
 
 /* ---- 0x10002590  lua_getref ---- */
 undefined4 __cdecl lua_getref(uint param_1)
@@ -1597,6 +1665,8 @@ void FUN_10002940(void)
 }
 
 /* ---- 0x10004650  lua_error ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 __cdecl lua_error(byte *param_1)
 
 {
@@ -1615,6 +1685,8 @@ undefined4 __cdecl lua_error(byte *param_1)
                      0x1bb);
   return uVar1;
 }
+#endif
+
 
 /* ---- 0x10004890  lua_dofile ---- */
 int __cdecl lua_dofile(char *param_1)
@@ -1716,6 +1788,8 @@ uint __cdecl lua_unref(uint param_1)
 }
 
 /* ---- 0x10004ee0  lua_collectgarbage ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 int __cdecl lua_collectgarbage(int param_1)
 
 {
@@ -1748,8 +1822,12 @@ int __cdecl lua_collectgarbage(int param_1)
   DAT_1002bf64 = param_1 + DAT_1002beec;
   return iVar1 - DAT_1002beec;
 }
+#endif
+
 
 /* ---- 0x10005ae0  lua_iolibopen ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 __cdecl lua_iolibopen(void)
 
 {
@@ -1763,6 +1841,8 @@ undefined4 __cdecl lua_iolibopen(void)
   uVar1 = lua_seterrormethod();
   return uVar1;
 }
+#endif
+
 
 /* ---- 0x10005b20  lua_ioregister ---- */
 /* Registers readfrom/writeto/... and the _INPUT/_OUTPUT globals */
@@ -1793,6 +1873,8 @@ void lua_ioregister(void)
 }
 
 /* ---- 0x10007320  lua_mathlibopen ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 __cdecl lua_mathlibopen(void)
 
 {
@@ -1815,6 +1897,8 @@ undefined4 __cdecl lua_mathlibopen(void)
   uVar2 = lua_setglobal(&DAT_1002706c);
   return uVar2;
 }
+#endif
+
 
 /* ---- 0x10008a00  lua_initstate ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
@@ -1878,6 +1962,8 @@ int * __cdecl lua_open(void)
 }
 
 /* ---- 0x10008c30  lua_close ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 __cdecl lua_close(void)
 
 {
@@ -1921,8 +2007,12 @@ undefined4 __cdecl lua_close(void)
   DAT_1002bf74 = 0;
   return uVar4;
 }
+#endif
+
 
 /* ---- 0x1000a6e0  lua_strlibopen ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 __cdecl lua_strlibopen(void)
 
 {
@@ -1932,6 +2022,8 @@ undefined4 __cdecl lua_strlibopen(void)
   uVar1 = ((code *)luaL_openlib)(&PTR_s_strlen_100278d8,9);
   return uVar1;
 }
+#endif
+
 
 /* ---- 0x1000c8d0  lua_newtag ---- */
 int lua_newtag(void)
@@ -1948,6 +2040,8 @@ int lua_newtag(void)
 }
 
 /* ---- 0x1000c950  lua_copytagmethods ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 int __cdecl lua_copytagmethods(int param_1,int param_2)
 
 {
@@ -1971,3 +2065,5 @@ int __cdecl lua_copytagmethods(int param_1,int param_2)
   } while (iVar3 < 0x12);
   return param_1;
 }
+#endif
+

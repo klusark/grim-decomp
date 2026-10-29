@@ -132,6 +132,16 @@ undefined *Display_InitFromConfig(void)
     return (undefined *)(unsigned)Display_Select(dev, (int)mode, -1);
 }
 
+
+/* FUN_00489130 (0x489130), the movie subsystem start-up: reads StartSmush from the registry and, unless it
+ * is FALSE, brings up the Smush/LecShare module chain (zfilio, bitmap, animplay, ...). That chain is not
+ * yet reproduced faithfully, so movies are switched off the way the game itself does it for
+ * StartSmush=FALSE: report success and leave g_nMovieAvailable at 0, which makes every Movie_* call a no-op. */
+undefined4 FUN_00489130(void)
+{
+    return 0;
+}
+
 #endif /* GRIM_EXE */
 
 #ifdef GRIM_IMUSE

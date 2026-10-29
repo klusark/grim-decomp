@@ -145,6 +145,8 @@ undefined4 FUN_00496b40(int param_1)
 }
 
 /* ---- 0x00496b60  FUN_00496b60 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 bool FUN_00496b60(undefined4 param_1,undefined4 param_2,int param_3,int param_4,char *param_5)
 
 {
@@ -222,6 +224,8 @@ bool FUN_00496b60(undefined4 param_1,undefined4 param_2,int param_3,int param_4,
 #undef local_1f
 #undef local_20
 #undef local_24
+
+#endif
 
 
 /* ---- 0x00496d10  ModelComponent_Destroy ---- */
@@ -577,6 +581,8 @@ undefined4 FUN_00497320(int *param_1,undefined4 param_2)
 
 
 /* ---- 0x00497460  FUN_00497460 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 bool FUN_00497460(undefined4 param_1,undefined4 param_2,int param_3,undefined4 param_4,char *param_5
                  )
 
@@ -663,6 +669,8 @@ bool FUN_00497460(undefined4 param_1,undefined4 param_2,int param_3,undefined4 p
 #undef local_20
 #undef local_24
 #undef local_25
+
+#endif
 
 
 /* ---- 0x00497640  FUN_00497640 ---- */
