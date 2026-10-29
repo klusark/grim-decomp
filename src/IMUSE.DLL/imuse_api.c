@@ -3344,6 +3344,8 @@ void __cdecl FUN_1000c640(int param_1,int param_2)
 
 
 /* ---- 0x1000c670  FUN_1000c670 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 int __cdecl FUN_1000c670(int *param_1,char *param_2,undefined4 *param_3)
 
 {
@@ -3788,6 +3790,8 @@ code_r0x1000cdcf:
 #undef uStack_210
 #undef uStack_218
 #undef uStack_24c
+
+#endif
 
 
 /* ---- 0x1000d000  FUN_1000d000 ---- */

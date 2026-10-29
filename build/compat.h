@@ -73,3 +73,8 @@ _Static_assert(sizeof(GrimServices) == 0x70, "GrimServices is 0x70 bytes");
 
 /* float constant given as its IEEE bit pattern (Ghidra prints float arguments as hex) */
 #define FBITS(b) (((union { unsigned u; float f; }){ (unsigned)(b) }).f)
+
+/* Win_CreateMainWindow also looks for an existing "Grim Fandango" window: GRIM_MULTI=1 skips that check
+ * (tools/build_src.py renames that FindWindowA call) so several test instances can run side by side. */
+extern char *GRIM_getenv(const char *) __asm__("_getenv");
+#define GRIM_FindWindowA(c, t) (GRIM_getenv("GRIM_MULTI") ? 0 : FindWindowA((c), (t)))

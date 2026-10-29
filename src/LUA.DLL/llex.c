@@ -331,7 +331,7 @@ LAB_10006398:
         }
         *puVar2 = uVar4;
       }
-      uVar4 = tolower(*puVar2);
+      uVar4 = toupper(*puVar2);
       if (uVar4 != 0x45) {
 LAB_10006563:
         *param_1 = (float)local_8;

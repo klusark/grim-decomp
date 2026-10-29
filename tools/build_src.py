@@ -10,6 +10,7 @@ import json, os, re, sys
 from collections import Counter, OrderedDict, defaultdict
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import frame_locals
+import namefix
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 RAW = os.path.join(ROOT, "raw")
@@ -105,9 +106,13 @@ def module_for(name):
     return PREFIX_MAP.get(p, p.lower())
 
 
+CUR_PROG = None
+NAMEFIX_ACTIVE = False
+
+
 def read_text(path):
     with open(path, encoding="utf-8", errors="replace") as f:
-        text = f.read()
+        text = namefix.fix_file_text(CUR_PROG, path, f.read(), NAMEFIX_ACTIVE)
     if text.startswith('{"error"'):
         # the decompiler gave up on this one (e.g. "Overlapping input varnodes"); keep a
         # trap body so the module still builds and the failure is visible in the source
@@ -866,6 +871,8 @@ def fix_function(code, ctx, stats):
     # last: offset-named locals become views into one frame array (keeps Ghidra's layout)
     body, trailer = frame_locals.rewrite(body)
     body = float_frame_locals(body)
+    # several test instances may run side by side (see Win_AbortIfAlreadyRunning in build/overrides.c)
+    body = body.replace("FindWindowA(IMG_ADDR(0x004ed080),", "GRIM_FindWindowA(IMG_ADDR(0x004ed080),")
     # STACK0X(0x..) is __builtin_frame_address(0) + offset: an aligned local makes gcc realign the
     # stack and move the frame pointer away from the argument area, so those functions get no alignment
     if re.search(r"STACK0X\(0x0", body):
@@ -1035,7 +1042,9 @@ def build(prog):
         # (name, start, initialised bytes): only literals inside the file-backed part of a
         # section are addresses; masks such as 0x7fff00 fall in the zero tail of .data
         IMG_SECTIONS = [(s["name"], int(s["start"], 16), s["size"]) for s in json.load(open(os.path.join(rawdir, "sections.json")))]
-    funcs = json.load(open(os.path.join(rawdir, "functions.json")))
+    global CUR_PROG, NAMEFIX_ACTIVE
+    funcs, NAMEFIX_ACTIVE = namefix.load_functions(rawdir, prog)
+    CUR_PROG = prog
     global ASM_ADDRS
     ASM_ADDRS = set()
     ap = os.path.join(ROOT, "names", "asm_funcs.json")

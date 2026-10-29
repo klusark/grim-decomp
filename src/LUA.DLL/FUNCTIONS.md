@@ -489,8 +489,8 @@
 | 100117e0 | _expandlocale | crt.c | 168 |
 | 10011a40 | __lc_strtolc | crt.c | 81 |
 | 10011b50 | __lc_lctostr | crt.c | 42 |
-| 10011bc0 | tolower | crt.c | 28 |
-| 10011c50 | _tolower_lk | crt.c | 53 |
+| 10011bc0 | toupper | crt.c | 28 |
+| 10011c50 | _toupper_lk | crt.c | 53 |
 | 10011d50 | _CIsqrt | crt.c | 1 |
 | 10011d6d | _sqrt | crt.c | 1 |
 | 10011ef0 | floor | crt.c | 47 |
@@ -503,8 +503,8 @@
 | 100125e0 | shortsort | crt.c | 20 |
 | 10012640 | qsort_swap | crt.c | 18 |
 | 10012670 | strncpy | crt.c | 106 |
-| 10012770 | toupper | crt.c | 28 |
-| 10012800 | _toupper_lk | crt.c | 53 |
+| 10012770 | tolower | crt.c | 28 |
+| 10012800 | _tolower_lk | crt.c | 53 |
 | 10012900 | _isctype | crt.c | 32 |
 | 10012a20 | strcmp | crt.c | 60 |
 | 10012a60 | strncmp | crt.c | 46 |
@@ -662,8 +662,8 @@
 | 10020690 | _allmul | crt.c | 10 |
 | 100206f0 | _filbuf | crt.c | 51 |
 | 100207e0 | _ungetc_lk | crt.c | 40 |
-| 10020870 | toupper | crt.c | 32 |
-| 10020900 | _toupper_lk | crt.c | 39 |
+| 10020870 | wtoupper | crt.c | 32 |
+| 10020900 | _wtoupper_lk | crt.c | 39 |
 | 10020980 | iswctype | crt.c | 28 |
 | 100209f0 | wcslen | crt.c | 15 |
 | 10020a10 | __crtMessageBoxA | crt.c | 32 |
