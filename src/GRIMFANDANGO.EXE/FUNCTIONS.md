@@ -372,7 +372,7 @@
 | 00474310 | Display_CloseMode | stddisplay.c | 22 |
 | 00474380 | Display_SuspendForDialog | stddisplay.c | 1 |
 | 004743d0 | Display_ResumeAfterDialog | stddisplay.c | 1 |
-| 00474420 | Display_Flip | stddisplay.c | 24 |
+| 00474420 | Display_Flip | stddisplay.c | 1 |
 | 00474480 | Surface_Create | stddisplay.c | 1 |
 | 004746d0 | Surface_Free | stddisplay.c | 9 |
 | 004746f0 | Surface_Release | stddisplay.c | 1 |

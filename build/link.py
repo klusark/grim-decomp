@@ -217,6 +217,12 @@ def link(cc, src, obj, prog, env):
         print(f"{prog}: overrides.c does not compile:\n{out[:2000]}")
         return
     objs.append(os.path.join(d, "overrides.o"))
+    # hand-written fast paths (fastpaths.c): optimised, SSE2
+    rc, out = run([cc] + cflags + ov_flags + ["-O2", "-msse2", "-c", os.path.join(here, "fastpaths.c"), "-o", os.path.join(d, "fastpaths.o")], env)
+    if rc:
+        print(f"{prog}: fastpaths.c does not compile:\n{out[:2000]}")
+        return
+    objs.append(os.path.join(d, "fastpaths.o"))
     # functions reassembled from the disassembly (tools/gen_asm.py)
     asm_src = os.path.join(src, prog, "asm_funcs.s")
     if os.path.exists(asm_src):
