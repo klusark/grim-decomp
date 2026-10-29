@@ -285,9 +285,8 @@ int __cdecl Actor_CanSeePoint(void *actor,float *point,float *outDistance)
   unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   float fVar2;
-  float fVar3;
-  float *pfVar4;
-  float10 fVar5;
+  float *pfVar3;
+  float fVar4;
   #define local_48 (*(uint *)(_frame + (0x60 - 0x48)))
   #define local_44 (*(uint *)(_frame + (0x60 - 0x44)))
   #define local_40 (*(uint *)(_frame + (0x60 - 0x40)))
@@ -300,23 +299,23 @@ int __cdecl Actor_CanSeePoint(void *actor,float *point,float *outDistance)
   
   iVar1 = *(int *)((int)actor + 0xa0);
   if (((iVar1 != 0) && (-1 < *(int *)(iVar1 + 0xc))) && (*(int *)(iVar1 + 4) != 0)) {
-    pfVar4 = Actor_GetFrame(actor);
-    rdPuppet_BuildJointMatrices(*(void **)(iVar1 + 4),pfVar4);
+    pfVar3 = Actor_GetFrame(actor);
+    rdPuppet_BuildJointMatrices(*(void **)(iVar1 + 4),pfVar3);
     local_3c = (uint)(*point - (float)local_c);
     local_38 = (uint)(point[1] - (float)local_8);
     local_34 = (uint)(point[2] - (float)local_4);
-    fVar5 = (float10)((code *)Vec3_Normalize)(&local_3c);
+    fVar4 = Vec3_Normalize((float *)&local_3c);
     local_48 = local_3c;
-    *outDistance = (float)fVar5;
+    *outDistance = fVar4;
     local_44 = local_38;
     local_40 = 0;
-    Vec3_Normalize(&local_48);
-    pfVar4 = Actor_GetFrame(actor);
-    fVar2 = pfVar4[3] * (float)local_48;
-    pfVar4 = Actor_GetFrame(actor);
-    fVar3 = pfVar4[4] * (float)local_44;
-    pfVar4 = Actor_GetFrame(actor);
-    if (*(float *)(iVar1 + 0x24) <= pfVar4[5] * (float)local_40 + fVar3 + fVar2) {
+    Vec3_Normalize((float *)&local_48);
+    pfVar3 = Actor_GetFrame(actor);
+    fVar4 = pfVar3[3] * (float)local_48;
+    pfVar3 = Actor_GetFrame(actor);
+    fVar2 = pfVar3[4] * (float)local_44;
+    pfVar3 = Actor_GetFrame(actor);
+    if (*(float *)(iVar1 + 0x24) <= pfVar3[5] * (float)local_40 + fVar2 + fVar4) {
       return 1;
     }
   }
@@ -368,11 +367,10 @@ void Actor_TurnKey(int param_1,float param_2)
   float fVar1;
   int iVar2;
   float fVar3;
-  float10 fVar4;
   
   iVar2 = *(int *)(param_1 + 0xa4);
-  fVar4 = (float10)Timer_GetFrameSeconds();
-  fVar3 = *(float *)(iVar2 + 0x1c) * (float)(fVar4 * (float10)*(float *)(iVar2 + 0x41c)) * param_2;
+  fVar3 = Timer_GetFrameSeconds();
+  fVar3 = *(float *)(iVar2 + 0x1c) * fVar3 * *(float *)(iVar2 + 0x41c) * param_2;
   if (*(int *)(iVar2 + 0x1b4) == 0) {
     Actor_CreateWalker(param_1,1);
   }
@@ -601,8 +599,8 @@ void __cdecl Actor_UpdateTalk(void *actor,float dt)
   ushort uVar2;
   int iVar3;
   undefined2 extraout_var;
-  int iVar4;
-  undefined4 *puVar5;
+  int extraout_EAX;
+  undefined4 *puVar4;
   
   iVar3 = *(int *)((int)actor + 0xa4);
   if (*(int *)(iVar3 + 0x1c4) == 0) {
@@ -616,23 +614,23 @@ void __cdecl Actor_UpdateTalk(void *actor,float dt)
     }
     else {
       uVar2 = Phoneme_ToTalkChore(actor,iVar3);
-      puVar5 = *(undefined4 **)((int)actor + 0xa0);
-      piVar1 = puVar5 + 1;
-      if (puVar5 != (undefined4 *)0x0) {
+      puVar4 = *(undefined4 **)((int)actor + 0xa0);
+      piVar1 = puVar4 + 1;
+      if (puVar4 != (undefined4 *)0x0) {
         do {
-          if ((puVar5[1] != *piVar1) || (-1 < (int)puVar5[CONCAT22(extraout_var,uVar2) + 0xe]))
+          if ((puVar4[1] != *piVar1) || (-1 < (int)puVar4[CONCAT22(extraout_var,uVar2) + 0xe]))
           break;
-          puVar5 = (undefined4 *)puVar5[0x2c];
-        } while (puVar5 != (undefined4 *)0x0);
-        if ((puVar5 != (undefined4 *)0x0) && (puVar5[1] == *piVar1)) {
-          Cos_InstCompleteChore(*puVar5,puVar5[CONCAT22(extraout_var,uVar2) + 0xe]);
+          puVar4 = (undefined4 *)puVar4[0x2c];
+        } while (puVar4 != (undefined4 *)0x0);
+        if ((puVar4 != (undefined4 *)0x0) && (puVar4[1] == *piVar1)) {
+          Cos_InstCompleteChore(*puVar4,puVar4[CONCAT22(extraout_var,uVar2) + 0xe]);
         }
       }
     }
   }
   iVar3 = *(int *)((int)actor + 0xa4);
-  iVar4 = _ftol();
-  *(int *)(iVar3 + 0x1cc) = *(int *)(iVar3 + 0x1cc) + iVar4;
+  _ftol();
+  *(int *)(iVar3 + 0x1cc) = *(int *)(iVar3 + 0x1cc) + extraout_EAX;
   if ((*(char *)(*(int *)((int)actor + 0xa4) + 0x1dc) == '\0') ||
      (iVar3 = Actor_IsVoicePlaying(actor), iVar3 != 0)) {
     if (*(char *)(*(int *)((int)actor + 0xa4) + 0x1dc) != '\0') {
@@ -939,11 +937,10 @@ void Actor_SetRot(int param_1,undefined4 *param_2,int param_3)
 
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  float fVar1;
   float *this;
-  int iVar2;
-  undefined4 uVar3;
-  float10 fVar4;
+  int iVar1;
+  undefined4 uVar2;
+  float fVar3;
   #define local_40 (*(uint *)(_frame + (0x50 - 0x40)))
   #define local_30 (*(undefined1 (*)[12])(_frame + (0x50 - 0x30)))
   #define local_24 (*(uint *)(_frame + (0x50 - 0x24)))
@@ -959,19 +956,19 @@ void Actor_SetRot(int param_1,undefined4 *param_2,int param_3)
     local_1c = (uint)(this[2] + (float)local_1c);
     Walker_ToLocalSpace(this,(float *)&local_24);
     local_1c = 0;
-    Vec3_Normalize(&local_24);
-    fVar4 = (float10)Math_AsinDegreesSeries(local_20);
-    fVar1 = (float)((float10)90.0 - fVar4);
-    local_40 = (uint)fVar1;
+    Vec3_Normalize((float *)&local_24);
+    fVar3 = Math_AsinDegreesSeries((float)local_20);
+    fVar3 = 90.0 - fVar3;
+    local_40 = (uint)fVar3;
     if (0.0 < (float)local_24) {
-      local_40 = (uint)-fVar1;
+      local_40 = (uint)-fVar3;
     }
     Walker_TurnHeading(this,local_40);
-    iVar2 = *(int *)(param_1 + 0xa4);
-    if ((0.0 < *(float *)(iVar2 + 0x1c)) && (param_3 != 0)) {
-      *(float *)(iVar2 + 0x1c) = *(float *)(iVar2 + 0x1c) * -1.0;
+    iVar1 = *(int *)(param_1 + 0xa4);
+    if ((0.0 < *(float *)(iVar1 + 0x1c)) && (param_3 != 0)) {
+      *(float *)(iVar1 + 0x1c) = *(float *)(iVar1 + 0x1c) * -1.0;
     }
-    *(float *)(*(int *)(param_1 + 0xa4) + 0x28) = fVar1;
+    *(float *)(*(int *)(param_1 + 0xa4) + 0x28) = fVar3;
     *(undefined4 *)(param_1 + 0x2c) = param_2[2];
     *(undefined4 *)(param_1 + 0x24) = *param_2;
     *(undefined4 *)(param_1 + 0x34) = 0;
@@ -979,9 +976,9 @@ void Actor_SetRot(int param_1,undefined4 *param_2,int param_3)
   }
   *(undefined4 *)(param_1 + 0x24) = *param_2;
   *(undefined4 *)(param_1 + 0x28) = param_2[1];
-  uVar3 = param_2[2];
+  uVar2 = param_2[2];
   *(undefined4 *)(param_1 + 0x34) = 0;
-  *(undefined4 *)(param_1 + 0x2c) = uVar3;
+  *(undefined4 *)(param_1 + 0x2c) = uVar2;
   return;
 }
 #undef local_1c
@@ -1181,7 +1178,7 @@ void Actor_PuckOrient(float param_1)
   int iVar2;
   int iVar3;
   int iVar4;
-  float10 fVar5;
+  float fVar5;
   float fVar6;
   #define local_68 (*(uint *)(_frame + (0x80 - 0x68)))
   #define local_54 (*(uint *)(_frame + (0x80 - 0x54)))
@@ -1207,27 +1204,27 @@ void Actor_PuckOrient(float param_1)
     local_54 = *(uint *)(iVar4 + 0x24);
     local_50 = *(uint *)(iVar4 + 0x28);
     local_4c = *(uint *)(iVar4 + 0x2c);
-    fVar6 = Vec3_Dot2((float *)&local_48,(float *)&local_54);
-    fVar5 = (float10)Math_AsinDegreesSeries(fVar6);
-    fVar5 = (float10)90.0 - fVar5;
-    fVar6 = (float)fVar5;
-    if (fVar5 < (float10)0.0) {
-      fVar5 = -fVar5;
+    fVar5 = Vec3_Dot2((float *)&local_48,(float *)&local_54);
+    fVar5 = Math_AsinDegreesSeries(fVar5);
+    fVar5 = 90.0 - fVar5;
+    fVar6 = fVar5;
+    if (fVar5 < 0.0) {
+      fVar6 = -fVar5;
     }
-    if ((float10)2.0 < fVar5) {
-      fVar5 = (float10)Timer_GetFrameSeconds();
-      fVar5 = fVar5 * (float10)*(float *)(*(int *)((int)param_1 + 0xa4) + 0x1c);
-      param_1 = fVar6;
-      if ((0.0 < fVar6) && (fVar5 < (float10)fVar6)) {
-        param_1 = (float)fVar5;
+    if (2.0 < fVar6) {
+      fVar6 = Timer_GetFrameSeconds();
+      fVar6 = fVar6 * *(float *)(*(int *)((int)param_1 + 0xa4) + 0x1c);
+      param_1 = fVar5;
+      if ((0.0 < fVar5) && (fVar6 < fVar5)) {
+        param_1 = fVar6;
       }
-      if ((param_1 < 0.0) && ((float10)param_1 < -fVar5)) {
-        param_1 = (float)-fVar5;
+      if ((param_1 < 0.0) && (param_1 < -fVar6)) {
+        param_1 = -fVar6;
       }
       local_3c = (uint)((float)local_4c * (float)local_44 - (float)local_50 * (float)local_40);
       local_38 = (uint)((float)local_54 * (float)local_40 - (float)local_4c * (float)local_48);
       local_34 = (uint)((float)local_50 * (float)local_48 - (float)local_54 * (float)local_44);
-      Vec3_Normalize(&local_3c);
+      Vec3_Normalize((float *)&local_3c);
       Matrix_AxisAngle(local_30,&local_3c,param_1);
       Matrix_Multiply(iVar3,local_30);
       Matrix_ToAngles(iVar3,iVar2);
@@ -1257,22 +1254,21 @@ void Actor_UpdateWalker(int param_1)
   int iVar2;
   undefined *puVar3;
   undefined4 uVar4;
-  float10 fVar5;
+  float fVar5;
   uint a2;
   uint a3;
   
   puVar1 = *(undefined4 **)(*(int *)(param_1 + 0xa4) + 0x1b4);
   if ((*(int *)(*(int *)(param_1 + 0xa4) + 0x10) != 0) && ((*(byte *)(param_1 + 8) & 1) == 0)) {
     iVar2 = *(int *)(param_1 + 0xa4);
-    fVar5 = (float10)Timer_GetFrameSeconds();
+    fVar5 = Timer_GetFrameSeconds();
     Walker_TurnHeading(*(void **)(iVar2 + 0x1b4),
                        (int)((float)*(int *)(iVar2 + 0x10) *
-                            *(float *)(iVar2 + 0x1c) *
-                            (float)(fVar5 * (float10)*(float *)(iVar2 + 0x41c))));
+                            *(float *)(iVar2 + 0x1c) * fVar5 * *(float *)(iVar2 + 0x41c)));
   }
   iVar2 = *(int *)(param_1 + 0xa4);
   if (*(int *)(iVar2 + 0xc) != 0) {
-    fVar5 = (float10)Timer_GetFrameSeconds();
+    fVar5 = Timer_GetFrameSeconds();
     if (*(int *)(iVar2 + 0x1bc) == 0) {
       a3 = (uint)(*(int *)(iVar2 + 0x10) != 1);
       a2 = (uint)(*(int *)(iVar2 + 0x10) != -1);
@@ -1282,8 +1278,8 @@ void Actor_UpdateWalker(int param_1)
       a2 = 1;
     }
     puVar3 = Walker_WalkSectors(*(void **)(iVar2 + 0x1b4),
-                                (int)(float)(fVar5 * (float10)*(float *)(iVar2 + 0x41c) *
-                                            (float10)*(float *)(iVar2 + 0x18)),a2,a3);
+                                (int)(fVar5 * *(float *)(iVar2 + 0x41c) * *(float *)(iVar2 + 0x18)),
+                                a2,a3);
     *(undefined **)(*(int *)(param_1 + 0xa4) + 0xc) = puVar3;
   }
   uVar4 = Walker_UpdateYaw(param_1,puVar1);
@@ -1770,7 +1766,7 @@ void Actor_FollowPath(int param_1)
   float fVar4;
   float fVar5;
   int iVar6;
-  float10 fVar7;
+  float fVar7;
   #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
   #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
@@ -1784,8 +1780,8 @@ void Actor_FollowPath(int param_1)
     fVar2 = -fVar2;
   }
   iVar6 = *(int *)(param_1 + 0xa4);
-  fVar7 = (float10)Timer_GetFrameSeconds();
-  fVar2 = (float)(fVar7 * (float10)*(float *)(iVar6 + 0x41c) * (float10)fVar2 * (float10)1.25);
+  fVar7 = Timer_GetFrameSeconds();
+  fVar2 = fVar7 * *(float *)(iVar6 + 0x41c) * fVar2 * 1.25;
   if (SQRT(fVar4 * fVar4 + fVar3 * fVar3 + fVar5 * fVar5) < fVar2) {
     do {
       if (*(int *)(iVar6 + 0x44) <= *(int *)(iVar6 + 0x1b0)) break;
@@ -2324,10 +2320,10 @@ void Actor_DrawShadowPlane(void *costumeList,void *shadow)
       }
     }
     if ((float)local_fc <= (float)local_e4) {
-      local_d0 = _ftol();
-      local_cc = _ftol();
-      local_c8 = _ftol();
-      local_c4 = _ftol();
+      _ftol();
+      _ftol();
+      _ftol();
+      _ftol();
       Render_InvalidateRectLastBuffer((int *)&local_d0,1);
     }
   }
@@ -2666,11 +2662,12 @@ LAB_004a5fa6:
 }
 
 /* ---- 0x004a8500  Actor_GetYawToPoint ---- */
-undefined * __thiscall Actor_GetYawToPoint(void *this,int a1)
+float __thiscall Actor_GetYawToPoint(void *this,int a1)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   undefined *puVar1;
+  float fVar2;
   #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
   #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
   #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
@@ -2685,10 +2682,14 @@ undefined * __thiscall Actor_GetYawToPoint(void *this,int a1)
     Sector_FixPlaneCoordinate(*(void **)((int)this + 0x5c),(int)&local_18);
   }
   Walker_ToLocalSpace(this,(float *)&local_18);
-  Vec3_Normalize(&local_18);
-  Math_AsinDegreesSeries(local_14);
+  Vec3_Normalize((float *)&local_18);
+  fVar2 = Math_AsinDegreesSeries((float)local_14);
+  a1 = (int)(90.0 - fVar2);
+  if (0.0 < (float)local_18) {
+    a1 = (int)((float)a1 * -1.0);
+  }
   puVar1 = Walker_GetAngles((int)this);
-  return *(undefined **)(puVar1 + 8);
+  return *(float *)(puVar1 + 4) + (float)a1;
 }
 #undef local_10
 #undef local_14

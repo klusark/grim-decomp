@@ -111,12 +111,12 @@ undefined4 sprintf(uint param_1,undefined4 param_2)
 
 
 /* ---- 0x004ac6f0  _ftol ---- */
-longlong _ftol(void)
+float __cdecl _ftol(void)
 
 {
-  float10 in_ST0;
+  float10 in_ST1;
   
-  return (longlong)ROUND(in_ST0);
+  return (float)in_ST1;
 }
 
 /* ---- 0x004ac720  _snprintf ---- */
@@ -1933,114 +1933,113 @@ uint _tolower_lk(uint param_1)
 
 
 /* ---- 0x004ae540  _CIpow ---- */
-void _CIpow(void)
+float __cdecl _CIpow(void)
 
 {
   float10 in_ST0;
+  float10 fVar1;
   float10 in_ST1;
   
-  ((undefined * (*)(float, float))_pow)((double)in_ST1,(double)in_ST0);
-  return;
+  fVar1 = (float10)((float10 (*)(float, float))_pow)((double)in_ST1,(double)in_ST0);
+  return (float)fVar1;
 }
 
 /* ---- 0x004ae562  _pow ---- */
-undefined * _pow(int param_1,uint param_2,int param_3,uint param_4)
+/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+
+float10 _pow(int param_1,uint param_2,int param_3,uint param_4)
 
 {
   unsigned char _frame[0x90] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   undefined *in_EAX;
   uint uVar1;
-  undefined *puVar2;
-  byte extraout_CL;
-  char extraout_CL_00;
+  char extraout_CL;
+  byte extraout_CL_00;
+  char extraout_CL_01;
   undefined *extraout_ECX;
+  undefined *puVar2;
   int extraout_ECX_00;
   int iVar3;
   int extraout_ECX_01;
   bool bVar4;
   short in_FPUControlWord;
   float10 extraout_ST0;
-  float10 extraout_ST0_00;
   float10 fVar5;
+  float10 extraout_ST0_00;
+  float10 extraout_ST0_01;
+  float10 extraout_ST0_02;
+  float10 extraout_ST0_03;
+  float10 fVar6;
   float10 extraout_ST1;
   float10 extraout_ST1_00;
   float10 extraout_ST1_01;
-  float10 fVar6;
-  unkbyte10 in_ST7;
-  #define local_78 (*(undefined1 (*)[20])(_frame + (0x90 - 0x78)))
-  #define uStack_64 (*(undefined4 *)(_frame + (0x90 - 0x64)))
-  #define auStack_e (*(undefined1 (*)[10])(_frame + (0x90 - 0xe)))
-  #define local_4 (*(short *)(_frame + (0x90 - 0x4)))
-  #define uStack_2 (*(undefined2 *)(_frame + (0x90 - 0x2)))
+  float fVar7;
+  #define local_78 (*(double *)(_frame + (0x90 - 0x78)))
   
-  PIECE(local_4,0,4) = CONCAT22((short)((uint)in_EAX >> 0x10),in_FPUControlWord);
   puVar2 = in_EAX;
   if (in_FPUControlWord != 0x27f) {
-    PIECE(auStack_e,6,4) = 0x4ae576;
     in_EAX = FUN_004b4c15();
     puVar2 = extraout_ECX;
   }
   bVar4 = ((uint)puVar2 & 0x7ff00000) == 0x7ff00000;
   if (bVar4) {
     if (((uint)in_EAX & 0xfffff) == 0 && param_3 == 0) {
-      PIECE(auStack_e,6,4) = 0x4ae63f;
       fVar5 = (float10)((code *)FUN_004b4c45)();
       iVar3 = extraout_ECX_01;
       fVar6 = extraout_ST1_01;
       goto LAB_004ae63f;
     }
-    PIECE(auStack_e,6,4) = 0x4ae602;
     fVar5 = (float10)((code *)FUN_004b4c45)();
+    fVar6 = extraout_ST1_00;
     if ((param_4 & 0x80000) == 0) {
       iVar3 = extraout_ECX_00 + 1;
-      fVar6 = extraout_ST1_00;
       goto LAB_004ae63f;
     }
 LAB_004ae60c:
-    puVar2 = (undefined *)0x1;
+    fVar5 = fVar5 + fVar6;
   }
   else {
-    PIECE(auStack_e,6,4) = 0x4ae591;
     uVar1 = ((code *)FUN_004b4c45)();
     if (!bVar4) {
       if (((uVar1 & 0x7ff00000) != 0) || ((param_2 & 0xfffff) != 0 || param_1 != 0)) {
-        fVar5 = extraout_ST0;
+        fVar6 = extraout_ST0;
         if ((param_2 & 0x80000000) != 0) {
-          PIECE(auStack_e,6,4) = 0x4ae717;
-          FUN_004ae735();
-          fVar5 = -extraout_ST0_00;
-          if (extraout_CL_00 == '\0') {
-            puVar2 = (undefined *)0x1;
-            goto LAB_004ae5da;
-          }
+          fVar7 = FUN_004ae735();
+          fVar6 = -(float10)fVar7;
+          fVar5 = _DAT_004efc00;
+          if (extraout_CL_01 == '\0') goto LAB_004ae5da;
         }
-        log2(fVar5);
-        PIECE(auStack_e,6,4) = 0x4ae5b6;
-        puVar2 = PUN(undefined *,(float)FUN_004b4c00());
+        log2(fVar6);
+        fVar5 = (float10)FUN_004b4c00();
+        if (extraout_CL == '\x01') {
+          fVar5 = -fVar5;
+        }
         if (UINT_008d0a9c != 0) {
-          return puVar2;
+          return fVar5;
         }
-        puVar2 = FUN_004b4ce9(IMG_ADDR(0x004ed0c8),0x1d);
-        return puVar2;
+        FUN_004b4ce9(IMG_ADDR(0x004ed0c8),0x1d);
+        return extraout_ST0_00;
       }
       if ((param_4 & 0x7ff00000) == 0) {
         if ((param_4 & 0xfffff) != 0 || param_3 != 0) {
-          puVar2 = FUN_004b4c9e();
-          return puVar2;
+          FUN_004b4c9e();
+          return extraout_ST0_03;
         }
-        puVar2 = FUN_004b4c9e();
-        return puVar2;
+        FUN_004b4c9e();
+        return extraout_ST0_02;
       }
-      PIECE(auStack_e,6,4) = 0x4ae6bd;
-      puVar2 = FUN_004ae735();
+      FUN_004ae735();
       if ((param_4 & 0x80000000) == 0) {
-        if ((PIECE(param_2,3,1) >> 7 & extraout_CL) == 0) {
-          return puVar2;
+        if ((PIECE(param_2,3,1) >> 7 & extraout_CL_00) == 0) {
+          return (float10)0;
         }
-        puVar2 = FUN_004b4c9e();
-        return puVar2;
+        FUN_004b4c9e();
+        return extraout_ST0_01;
       }
-      puVar2 = (undefined *)0x2;
+      fVar5 = _DAT_004efba0;
+      if ((PIECE(param_2,3,1) >> 7 & extraout_CL_00) != 0) {
+        fVar5 = -_DAT_004efba0;
+      }
       goto LAB_004ae5da;
     }
     iVar3 = 0;
@@ -2051,30 +2050,23 @@ LAB_004ae63f:
       if ((param_2 & 0x80000) != 0) goto LAB_004ae60c;
     }
     else if (iVar3 == 0) {
-      uStack_64 = 0x4ae66d;
-      auStack_e = (undefined1  [10])in_ST7;
-      iVar3 = _pow_special_cases((double)fVar5,(double)fVar6,local_78);
+      iVar3 = ((undefined4 (*)(float, float))_pow_special_cases)((double)fVar5,(double)fVar6);
+      fVar5 = (float10)local_78;
       if (iVar3 == 0) {
-        return (undefined *)0x0;
+        return (float10)local_78;
       }
-      puVar2 = (undefined *)0x1;
       goto LAB_004ae5da;
     }
-    puVar2 = (undefined *)0x7;
+    fVar5 = fVar5 + fVar6;
   }
 LAB_004ae5da:
   if (UINT_008d0a9c != 0) {
-    return puVar2;
+    return fVar5;
   }
-  PIECE(auStack_e,6,4) = 0x4ae5f7;
-  puVar2 = (undefined *)((code *)_pow_except1)();
-  return puVar2;
+  fVar5 = (float10)((code *)_pow_except1)();
+  return fVar5;
 }
-#undef auStack_e
-#undef local_4
 #undef local_78
-#undef uStack_2
-#undef uStack_64
 
 
 /* ---- 0x004ae760  _strlwr ---- */
@@ -6339,14 +6331,14 @@ undefined4 _is_integer_double(double param_1)
 
 {
   uint uVar1;
-  float10 fVar2;
+  float fVar2;
   
   uVar1 = FUN_004ba190(PIECE(param_1,0,4),PIECE(param_1,4,4));
   if ((uVar1 & 0x90) == 0) {
-    fVar2 = (float10)((float10 (*)(double, int))FUN_004ba170)(PIECE(param_1,0,4),PIECE(param_1,4,4));
+    fVar2 = FUN_004ba170(param_1);
     if ((double)fVar2 == param_1) {
-      fVar2 = (float10)FUN_004ba170(param_1 / 2.0);
-      if (fVar2 == (float10)(param_1 / 2.0)) {
+      fVar2 = FUN_004ba170(param_1 / 2.0);
+      if (fVar2 == (float)(param_1 / 2.0)) {
         return 2;
       }
       return 1;
@@ -9765,7 +9757,7 @@ bool _handle_exc(uint param_1,double *param_2,uint param_3)
   int iVar4;
   uint uVar5;
   bool bVar6;
-  float10 fVar7;
+  float fVar7;
   #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
   #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
   #define local_10 (*(undefined8 *)(_frame + (0x30 - 0x10)))
@@ -9781,8 +9773,7 @@ bool _handle_exc(uint param_1,double *param_2,uint param_3)
             bVar6 = true;
           }
           else {
-            fVar7 = (float10)FUN_004ba060(*(undefined4 *)param_2,*(undefined4 *)((int)param_2 + 4),
-                                          &local_14);
+            fVar7 = FUN_004ba060(*(uint *)param_2,*(uint *)((int)param_2 + 4),(int *)&local_14);
             iVar4 = local_14 - 0x600;
             if (iVar4 < -0x432) {
               bVar6 = true;
@@ -10569,7 +10560,7 @@ char * _strdup(char *param_1)
 }
 
 /* ---- 0x004d5430  atof ---- */
-float10 atof(byte *param_1)
+float __cdecl atof(byte *param_1)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -10599,7 +10590,7 @@ float10 atof(byte *param_1)
     pbVar5 = pbVar5 + 1;
   } while (bVar1 != 0);
   puVar3 = _fltin(local_18,(int)param_1);
-  return (float10)*(double *)(puVar3 + 0x10);
+  return (float)*(double *)(puVar3 + 0x10);
 }
 #undef local_18
 

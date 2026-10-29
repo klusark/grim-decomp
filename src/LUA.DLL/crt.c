@@ -2558,16 +2558,17 @@ uint __cdecl _tolower_lk(uint param_1)
 /* ---- 0x10011d50  _CIsqrt ---- */
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
 
-void _CIsqrt(void)
+float __cdecl _CIsqrt(void)
 
 {
   float10 in_ST0;
-  double dVar1;
+  float10 fVar1;
+  double dVar2;
   
-  dVar1 = (double)in_ST0;
-  FUN_10018ec8(SUB84(dVar1,0),(uint)((ulonglong)dVar1 >> 0x20));
-  _sqrt(SUB84(dVar1,0),(uint)((ulonglong)dVar1 >> 0x20));
-  return;
+  dVar2 = (double)in_ST0;
+  FUN_10018ec8(SUB84(dVar2,0),(uint)((ulonglong)dVar2 >> 0x20));
+  fVar1 = (float10)((code *)_sqrt)(SUB84(dVar2,0),(uint)((ulonglong)dVar2 >> 0x20));
+  return (float)fVar1;
 }
 
 /* ---- 0x10011d6d  _sqrt ---- */
@@ -2614,7 +2615,7 @@ LAB_10011dfc:
 /* MSVC 6 C runtime (matched against the EXE runtime by structure); floor/ceil pair, order not
    verified */
 
-float10 __cdecl floor(uint param_1,uint param_2)
+float __cdecl floor(uint param_1,uint param_2)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -2622,37 +2623,38 @@ float10 __cdecl floor(uint param_1,uint param_2)
   uint uVar2;
   int iVar3;
   float10 fVar4;
+  float fVar5;
   #define local_8 (*(undefined4 *)(_frame + (0x20 - 0x8)))
   #define uStack_4 (*(undefined4 *)(_frame + (0x20 - 0x4)))
   
   uVar2 = FUN_10019aa0();
   if ((PIECE(param_2,2,2) & 0x7ff0) != 0x7ff0) {
-    fVar4 = _frnd((double)CONCAT44(param_2,param_1));
-    dVar1 = (double)fVar4;
+    fVar5 = _frnd((double)CONCAT44(param_2,param_1));
+    dVar1 = (double)fVar5;
     if ((dVar1 != (double)CONCAT26(PIECE(param_2,2,2),CONCAT24((undefined2)param_2,param_1))) &&
        ((uVar2 & 0x20) == 0)) {
       uStack_4 = (undefined4)((ulonglong)dVar1 >> 0x20);
       local_8 = SUB84(dVar1,0);
       fVar4 = FUN_10019040(0x10,0xc,param_1,param_2,local_8,uStack_4,uVar2);
-      return fVar4;
+      return (float)fVar4;
     }
     FUN_10019aa0();
-    return (float10)dVar1;
+    return fVar5;
   }
   iVar3 = FUN_10019900(param_1,param_2);
   if (0 < iVar3) {
     if (iVar3 < 3) {
       FUN_10019aa0();
-      return (float10)(double)CONCAT26(PIECE(param_2,2,2),CONCAT24((undefined2)param_2,param_1));
+      return (float)(double)CONCAT26(PIECE(param_2,2,2),CONCAT24((undefined2)param_2,param_1));
     }
     if (iVar3 == 3) {
       fVar4 = FUN_10018ff0(0xc,param_1,param_2);
-      return fVar4;
+      return (float)fVar4;
     }
   }
   dVar1 = (double)CONCAT26(PIECE(param_2,2,2),CONCAT24((undefined2)param_2,param_1)) - -1.0;
   fVar4 = FUN_10019040(8,0xc,param_1,param_2,SUB84(dVar1,0),(int)((ulonglong)dVar1 >> 0x20),uVar2);
-  return fVar4;
+  return (float)fVar4;
 }
 #undef local_8
 #undef uStack_4
@@ -2662,7 +2664,7 @@ float10 __cdecl floor(uint param_1,uint param_2)
 /* MSVC 6 C runtime (matched against the EXE runtime by structure); floor/ceil pair, order not
    verified */
 
-float10 __cdecl ceil(uint param_1,uint param_2)
+float __cdecl ceil(uint param_1,uint param_2)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -2670,37 +2672,38 @@ float10 __cdecl ceil(uint param_1,uint param_2)
   uint uVar2;
   int iVar3;
   float10 fVar4;
+  float fVar5;
   #define local_8 (*(undefined4 *)(_frame + (0x20 - 0x8)))
   #define uStack_4 (*(undefined4 *)(_frame + (0x20 - 0x4)))
   
   uVar2 = FUN_10019aa0();
   if ((PIECE(param_2,2,2) & 0x7ff0) != 0x7ff0) {
-    fVar4 = _frnd((double)CONCAT44(param_2,param_1));
-    dVar1 = (double)fVar4;
+    fVar5 = _frnd((double)CONCAT44(param_2,param_1));
+    dVar1 = (double)fVar5;
     if ((dVar1 != (double)CONCAT26(PIECE(param_2,2,2),CONCAT24((undefined2)param_2,param_1))) &&
        ((uVar2 & 0x20) == 0)) {
       uStack_4 = (undefined4)((ulonglong)dVar1 >> 0x20);
       local_8 = SUB84(dVar1,0);
       fVar4 = FUN_10019040(0x10,0xb,param_1,param_2,local_8,uStack_4,uVar2);
-      return fVar4;
+      return (float)fVar4;
     }
     FUN_10019aa0();
-    return (float10)dVar1;
+    return fVar5;
   }
   iVar3 = FUN_10019900(param_1,param_2);
   if (0 < iVar3) {
     if (iVar3 < 3) {
       FUN_10019aa0();
-      return (float10)(double)CONCAT26(PIECE(param_2,2,2),CONCAT24((undefined2)param_2,param_1));
+      return (float)(double)CONCAT26(PIECE(param_2,2,2),CONCAT24((undefined2)param_2,param_1));
     }
     if (iVar3 == 3) {
       fVar4 = FUN_10018ff0(0xb,param_1,param_2);
-      return fVar4;
+      return (float)fVar4;
     }
   }
   dVar1 = (double)CONCAT26(PIECE(param_2,2,2),CONCAT24((undefined2)param_2,param_1)) - -1.0;
   fVar4 = FUN_10019040(8,0xb,param_1,param_2,SUB84(dVar1,0),(int)((ulonglong)dVar1 >> 0x20),uVar2);
-  return fVar4;
+  return (float)fVar4;
 }
 #undef local_8
 #undef uStack_4
@@ -2709,15 +2712,16 @@ float10 __cdecl ceil(uint param_1,uint param_2)
 /* ---- 0x10012130  _CIpow ---- */
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
 
-void _CIpow(void)
+float __cdecl _CIpow(void)
 
 {
   float10 in_ST0;
+  undefined1 auVar1 [10];
   float10 in_ST1;
   
-  _pow(SUB84((double)in_ST1,0),(uint)((ulonglong)(double)in_ST1 >> 0x20),SUB84((double)in_ST0,0),
-       (uint)((ulonglong)(double)in_ST0 >> 0x20));
-  return;
+  auVar1 = _pow(SUB84((double)in_ST1,0),(uint)((ulonglong)(double)in_ST1 >> 0x20),
+                SUB84((double)in_ST0,0),(uint)((ulonglong)(double)in_ST0 >> 0x20));
+  return (float)(float10)PUN(float,auVar1);
 }
 
 /* ---- 0x10012152  _pow ---- */
@@ -2732,15 +2736,16 @@ void FUN_10012152(void)
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
 
-void _ftol_10012325(void)
+float __cdecl _ftol_10012325(void)
 
 {
   float10 in_ST0;
+  float10 in_ST1;
   
   if (ROUND(in_ST0) == in_ST0) {
-    return;
+    return (float)in_ST1;
   }
-  return;
+  return (float)in_ST1;
 }
 
 /* ---- 0x10012390  bsearch ---- */
@@ -6932,10 +6937,10 @@ LAB_10018be8:
 /* ---- 0x10018fd0  _frnd ---- */
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
 
-float10 __cdecl _frnd(double param_1)
+float __cdecl _frnd(double param_1)
 
 {
-  return (float10)ROUND(param_1);
+  return (float)ROUND(param_1);
 }
 
 /* ---- 0x10019100  _raise_exc ---- */
@@ -7101,7 +7106,7 @@ bool __cdecl _handle_exc(uint param_1,double *param_2,uint param_3)
   undefined4 uVar3;
   uint uVar4;
   bool bVar5;
-  float10 fVar6;
+  float fVar6;
   #define local_14 (*(int *)(_frame + (0x30 - 0x14)))
   #define local_10 (*(undefined8 *)(_frame + (0x30 - 0x10)))
   
@@ -7330,14 +7335,14 @@ undefined4 __cdecl _is_integer_double(double param_1)
 
 {
   uint uVar1;
-  float10 fVar2;
+  float fVar2;
   
   uVar1 = FUN_10020470(PIECE(param_1,0,4),PIECE(param_1,4,4));
   if ((uVar1 & 0x90) == 0) {
     fVar2 = _frnd(param_1);
     if ((double)fVar2 == param_1) {
       fVar2 = _frnd(param_1 / 2.0);
-      if (fVar2 == (float10)(param_1 / 2.0)) {
+      if (fVar2 == (float)(param_1 / 2.0)) {
         return 2;
       }
       return 1;

@@ -230,15 +230,16 @@ undefined4 rdColormap_Build16bitTables(undefined2 *param_1,ushort *param_2)
   byte bVar1;
   byte bVar2;
   byte bVar3;
-  int iVar4;
-  int iVar5;
-  uint uVar6;
+  int extraout_EAX;
+  int extraout_EAX_00;
+  int extraout_EAX_01;
+  uint uVar4;
   uint unaff_EBX;
-  uint uVar7;
-  int iVar8;
-  ushort *puVar9;
-  undefined2 *puVar10;
-  undefined2 *puVar11;
+  uint uVar5;
+  int iVar6;
+  ushort *puVar7;
+  undefined2 *puVar8;
+  undefined2 *puVar9;
   int iStack0000000c;
   int in_stack_00000018;
   #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
@@ -246,51 +247,53 @@ undefined4 rdColormap_Build16bitTables(undefined2 *param_1,ushort *param_2)
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
-  uVar6 = 0;
+  uVar4 = 0;
   local_10 = 8;
-  puVar10 = param_1;
+  puVar8 = param_1;
   do {
     bVar1 = *(byte *)param_2;
     bVar2 = *(byte *)((int)param_2 + 1);
-    uVar6 = CONCAT31((int3)(uVar6 >> 8),bVar2);
-    iVar8 = 0x40;
+    uVar4 = CONCAT31((int3)(uVar4 >> 8),bVar2);
+    iVar6 = 0x40;
     bVar3 = *(byte *)((int)param_2 + 2);
     param_2 = (ushort *)((int)param_2 + 3);
-    puVar11 = puVar10;
+    puVar9 = puVar8;
     do {
-      uVar7 = CONCAT22((short)(unaff_EBX >> 0x10),
+      uVar5 = CONCAT22((short)(unaff_EBX >> 0x10),
                        (ushort)(bVar1 >> (*(byte *)(in_stack_00000018 + 0x20) & 0x1f))) <<
               ((byte)*(undefined4 *)(in_stack_00000018 + 0x14) & 0x1f);
-      unaff_EBX = CONCAT22((short)(uVar7 >> 0x10),
+      unaff_EBX = CONCAT22((short)(uVar5 >> 0x10),
                            (ushort)(bVar3 >> (*(byte *)(in_stack_00000018 + 0x28) & 0x1f))) <<
                   ((byte)*(undefined4 *)(in_stack_00000018 + 0x1c) & 0x1f);
-      uVar6 = CONCAT22((short)(uVar6 >> 0x10),
+      uVar4 = CONCAT22((short)(uVar4 >> 0x10),
                        (ushort)(bVar2 >> (*(byte *)(in_stack_00000018 + 0x24) & 0x1f))) <<
-              ((byte)*(undefined4 *)(in_stack_00000018 + 0x18) & 0x1f) | uVar7 | unaff_EBX;
-      iVar8 = iVar8 + -1;
-      *puVar11 = (short)uVar6;
-      puVar11 = puVar11 + 0x100;
-    } while (iVar8 != 0);
-    puVar10 = puVar10 + 1;
+              ((byte)*(undefined4 *)(in_stack_00000018 + 0x18) & 0x1f) | uVar5 | unaff_EBX;
+      iVar6 = iVar6 + -1;
+      *puVar9 = (short)uVar4;
+      puVar9 = puVar9 + 0x100;
+    } while (iVar6 != 0);
+    puVar8 = puVar8 + 1;
     local_10 = local_10 - 1;
   } while (local_10 != 0);
   param_2 = param_1 + 0x3f08;
   iStack0000000c = 0xf8;
   do {
     param_1 = (undefined2 *)0x40;
-    puVar9 = param_2;
+    puVar7 = param_2;
     do {
-      iVar8 = _ftol();
-      iVar4 = _ftol();
-      iVar5 = _ftol();
+      _ftol();
+      _ftol();
+      _ftol();
       param_1 = (undefined2 *)((int)param_1 + -1);
-      *puVar9 = (ushort)((iVar4 >> ((byte)*(undefined4 *)(in_stack_00000018 + 0x24) & 0x1f)) <<
+      *puVar7 = (ushort)((extraout_EAX_00 >>
+                         ((byte)*(undefined4 *)(in_stack_00000018 + 0x24) & 0x1f)) <<
                         ((byte)*(undefined4 *)(in_stack_00000018 + 0x18) & 0x1f)) |
-                (ushort)((iVar5 >> ((byte)*(undefined4 *)(in_stack_00000018 + 0x28) & 0x1f)) <<
+                (ushort)((extraout_EAX_01 >>
+                         ((byte)*(undefined4 *)(in_stack_00000018 + 0x28) & 0x1f)) <<
                         ((byte)*(undefined4 *)(in_stack_00000018 + 0x1c) & 0x1f)) |
-                (ushort)((iVar8 >> ((byte)*(undefined4 *)(in_stack_00000018 + 0x20) & 0x1f)) <<
-                        ((byte)*(undefined4 *)(in_stack_00000018 + 0x14) & 0x1f));
-      puVar9 = puVar9 + -0x100;
+                (ushort)((extraout_EAX >> ((byte)*(undefined4 *)(in_stack_00000018 + 0x20) & 0x1f))
+                        << ((byte)*(undefined4 *)(in_stack_00000018 + 0x14) & 0x1f));
+      puVar7 = puVar7 + -0x100;
     } while (param_1 != (undefined2 *)0x0);
     param_2 = param_2 + 1;
     iStack0000000c = iStack0000000c + -1;

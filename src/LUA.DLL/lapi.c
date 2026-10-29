@@ -617,7 +617,7 @@ undefined4 __cdecl lua_istask(int param_1)
 }
 
 /* ---- 0x10001860  lua_getnumber ---- */
-float10 __cdecl lua_getnumber(int param_1)
+float __cdecl lua_getnumber(int param_1)
 
 {
   int iVar1;
@@ -625,16 +625,16 @@ float10 __cdecl lua_getnumber(int param_1)
   
                     /* 0x1860  31  lua_getnumber */
   if (param_1 == 0) {
-    return (float10)0.0;
+    return 0.0;
   }
   iVar1 = param_1 * 8;
   if (*(int *)(PTR_1002bf6c[8] + -8 + iVar1) != -1) {
     iVar2 = luaU_str2number((int *)(PTR_1002bf6c[8] + -8 + iVar1));
     if (iVar2 != 0) {
-      return (float10)0.0;
+      return 0.0;
     }
   }
-  return (float10)*(float *)(PTR_1002bf6c[8] + -4 + iVar1);
+  return *(float *)(PTR_1002bf6c[8] + -4 + iVar1);
 }
 
 /* ---- 0x100018c0  lua_getstring ---- */

@@ -1446,31 +1446,35 @@ void rdCanvas_DrawPoint(void *param_1,int param_2,int param_3,undefined4 param_4
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
-  int iVar2;
-  int iVar3;
-  int iVar4;
-  int iVar5;
+  int x1;
+  int y1;
+  int extraout_EAX;
+  int extraout_EAX_00;
+  int extraout_EAX_01;
+  int extraout_EAX_02;
+  int extraout_EAX_03;
   #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
-  iVar2 = _ftol();
-  if ((((*(int *)((int)param_1 + 0x18) <= iVar2 + param_2) &&
-       (param_2 - iVar2 <= *(int *)((int)param_1 + 0x20))) &&
-      (*(int *)((int)param_1 + 0x1c) <= iVar2 + param_3)) &&
-     (param_3 - iVar2 <= *(int *)((int)param_1 + 0x24))) {
+  _ftol();
+  if ((((*(int *)((int)param_1 + 0x18) <= extraout_EAX + param_2) &&
+       (param_2 - extraout_EAX <= *(int *)((int)param_1 + 0x20))) &&
+      (*(int *)((int)param_1 + 0x1c) <= extraout_EAX + param_3)) &&
+     (param_3 - extraout_EAX <= *(int *)((int)param_1 + 0x24))) {
     Math_SinCosTable(0,&local_4,&local_8);
-    iVar2 = _ftol();
-    iVar3 = _ftol();
-    iVar2 = iVar2 + param_2;
-    iVar3 = iVar3 + param_3;
+    _ftol();
+    _ftol();
+    x1 = extraout_EAX_00 + param_2;
+    y1 = extraout_EAX_01 + param_3;
     for (fVar1 = param_5; fVar1 <= 360.0; fVar1 = fVar1 + param_5) {
       Math_SinCosTable(fVar1,&local_4,&local_8);
-      iVar4 = _ftol();
-      iVar5 = _ftol();
-      rdPrimit2_DrawLine(param_1,iVar2,iVar3,iVar4 + param_2,iVar5 + param_3,param_6,param_7);
-      iVar2 = iVar4 + param_2;
-      iVar3 = iVar5 + param_3;
+      _ftol();
+      _ftol();
+      rdPrimit2_DrawLine(param_1,x1,y1,extraout_EAX_02 + param_2,extraout_EAX_03 + param_3,param_6,
+                         param_7);
+      x1 = extraout_EAX_02 + param_2;
+      y1 = extraout_EAX_03 + param_3;
     }
   }
   return;

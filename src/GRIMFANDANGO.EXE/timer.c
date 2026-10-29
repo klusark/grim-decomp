@@ -20,10 +20,10 @@ uint Timer_GetFrameMs(void)
 }
 
 /* ---- 0x004a3c00  Timer_GetFrameSeconds ---- */
-float10 Timer_GetFrameSeconds(void)
+float __cdecl Timer_GetFrameSeconds(void)
 
 {
-  return (float10)g_flTimerFrameSeconds;
+  return g_flTimerFrameSeconds;
 }
 
 /* ---- 0x004a3c10  Timer_UpdateFromWallClock ---- */

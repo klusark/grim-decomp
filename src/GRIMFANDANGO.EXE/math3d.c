@@ -53,21 +53,22 @@ void Vec3_NormalizeTo(float *param_1,float *param_2)
 
 
 /* ---- 0x004469a0  Vec3_Normalize ---- */
-void Vec3_Normalize(float *param_1)
+float __cdecl Vec3_Normalize(float *param_1)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
+  float fVar2;
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   fVar1 = SQRT(*param_1 * *param_1 + param_1[2] * param_1[2] + param_1[1] * param_1[1]);
   if (fVar1 != 0.0) {
-    fVar1 = 1.0 / fVar1;
-    *param_1 = fVar1 * *param_1;
-    param_1[1] = param_1[1] * fVar1;
-    param_1[2] = param_1[2] * fVar1;
+    fVar2 = 1.0 / fVar1;
+    *param_1 = fVar2 * *param_1;
+    param_1[1] = param_1[1] * fVar2;
+    param_1[2] = param_1[2] * fVar2;
   }
-  return;
+  return fVar1;
 }
 #undef local_4
 
@@ -76,7 +77,7 @@ void Vec3_Normalize(float *param_1)
 /* Rough vector length: with the absolute values sorted max >= mid >= min, len = max + 0.34375 * mid
    + 0.25 * min. Also divides the vector by it (in place, in floats) and returns the length. */
 
-float10 Vec3_NormalizeApprox(float *param_1)
+float __cdecl Vec3_NormalizeApprox(float *param_1)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -140,7 +141,7 @@ float10 Vec3_NormalizeApprox(float *param_1)
   *param_1 = *param_1 * fVar2;
   param_1[1] = param_1[1] * fVar2;
   param_1[2] = param_1[2] * fVar2;
-  return (float10)fVar1;
+  return fVar1;
 }
 #undef local_10
 #undef local_14
@@ -173,14 +174,13 @@ void __cdecl Vec3_Rotate(float *vec,float *rot)
 void __cdecl Matrix_GetAngles(float *matrix,float *outAngles)
 
 {
-  float10 fVar1;
-  float fVar2;
+  float fVar1;
   
   outAngles[2] = 0.0;
-  fVar1 = (float10)Math_AsinDegreesSeries(matrix[2]);
-  *outAngles = (float)fVar1;
-  fVar2 = Math_Atan2Deg(matrix[1],*matrix);
-  outAngles[1] = fVar2;
+  fVar1 = Math_AsinDegreesSeries(matrix[2]);
+  *outAngles = fVar1;
+  fVar1 = Math_Atan2Deg(matrix[1],*matrix);
+  outAngles[1] = fVar1;
   return;
 }
 
@@ -816,7 +816,7 @@ void Matrix_ToAngles(float *param_1,float *param_2)
   float fVar6;
   float fVar7;
   float fVar8;
-  float10 fVar9;
+  float fVar9;
   #define local_28 (*(uint *)(_frame + (0x40 - 0x28)))
   #define local_20 (*(uint *)(_frame + (0x40 - 0x20)))
   #define local_1c (*(uint *)(_frame + (0x40 - 0x1c)))
@@ -827,36 +827,36 @@ void Matrix_ToAngles(float *param_1,float *param_2)
   #define local_8 (*(uint *)(_frame + (0x40 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x40 - 0x4)))
   
-  fVar4 = param_1[3];
-  fVar5 = param_1[4];
-  fVar1 = *param_1;
-  fVar6 = fVar5 * fVar5 + fVar4 * fVar4;
-  fVar2 = param_1[2];
-  fVar3 = param_1[5];
-  fVar7 = SQRT(fVar6);
-  fVar8 = -param_1[1];
-  if (0.001 <= fVar7) {
-    fVar9 = (float10)Math_AsinDegreesSeries(fVar5 / fVar7);
-    fVar9 = (float10)90.0 - fVar9;
-    if (0.0 < fVar4) {
-      fVar9 = -fVar9;
+  fVar3 = param_1[3];
+  fVar4 = param_1[4];
+  fVar9 = *param_1;
+  fVar8 = fVar4 * fVar4 + fVar3 * fVar3;
+  fVar1 = param_1[2];
+  fVar2 = param_1[5];
+  fVar5 = SQRT(fVar8);
+  fVar6 = -param_1[1];
+  if (0.001 <= fVar5) {
+    fVar7 = Math_AsinDegreesSeries(fVar4 / fVar5);
+    fVar7 = 90.0 - fVar7;
+    if (0.0 < fVar3) {
+      fVar7 = -fVar7;
     }
-    param_2[1] = (float)fVar9;
+    param_2[1] = fVar7;
   }
   else {
-    fVar9 = (float10)Math_AsinDegreesSeries(--fVar1);
-    fVar9 = (float10)90.0 - fVar9;
-    if (((0.0 < fVar8) && (0.0 < fVar3)) || ((fVar8 < 0.0 && (fVar3 < 0.0)))) {
-      fVar9 = -fVar9;
+    fVar7 = Math_AsinDegreesSeries(--fVar9);
+    fVar7 = 90.0 - fVar7;
+    if (((0.0 < fVar6) && (0.0 < fVar2)) || ((fVar6 < 0.0 && (fVar2 < 0.0)))) {
+      fVar7 = -fVar7;
     }
-    param_2[2] = (float)fVar9;
+    param_2[2] = fVar7;
     param_2[1] = 0.0;
   }
-  if (0.001 <= fVar7) {
-    fVar6 = fVar6 / fVar7;
-    if (fVar6 < 1.0) {
-      fVar9 = (float10)Math_AsinDegreesSeries(fVar6);
-      *param_2 = (float)((float10)90.0 - fVar9);
+  if (0.001 <= fVar5) {
+    fVar8 = fVar8 / fVar5;
+    if (fVar8 < 1.0) {
+      fVar8 = Math_AsinDegreesSeries(fVar8);
+      *param_2 = 90.0 - fVar8;
     }
     else {
       *param_2 = 0.0;
@@ -865,16 +865,16 @@ void Matrix_ToAngles(float *param_1,float *param_2)
   else {
     *param_2 = 90.0;
   }
-  if (fVar3 < 0.0) {
+  if (fVar2 < 0.0) {
     *param_2 = -*param_2;
   }
-  fVar5 = -fVar5;
-  if (0.001 <= fVar7) {
-    fVar1 = (fVar8 * fVar4 + fVar5 * -fVar1) / SQRT(fVar5 * fVar5 + fVar4 * fVar4);
-    if (fVar1 < 1.0) {
-      if (-1.0 < fVar1) {
-        fVar9 = (float10)Math_AsinDegreesSeries(fVar1);
-        param_2[2] = (float)((float10)90.0 - fVar9);
+  fVar4 = -fVar4;
+  if (0.001 <= fVar5) {
+    fVar9 = (fVar6 * fVar3 + fVar4 * -fVar9) / SQRT(fVar4 * fVar4 + fVar3 * fVar3);
+    if (fVar9 < 1.0) {
+      if (-1.0 < fVar9) {
+        fVar9 = Math_AsinDegreesSeries(fVar9);
+        param_2[2] = 90.0 - fVar9;
       }
       else {
         param_2[2] = 180.0;
@@ -883,7 +883,7 @@ void Matrix_ToAngles(float *param_1,float *param_2)
     else {
       param_2[2] = 0.0;
     }
-    if (-fVar2 < 0.0) {
+    if (-fVar1 < 0.0) {
       param_2[2] = -param_2[2];
       return;
     }
@@ -1293,8 +1293,8 @@ void FUN_00450290(float *param_1,float *param_2,float *param_3,float *param_4)
   local_4 = (uint)(param_3[2] - param_2[2]);
   local_14 = (uint)(param_4[1] - param_2[1]);
   local_10 = (uint)(param_4[2] - param_2[2]);
-  Vec3_Normalize(&local_c);
-  Vec3_Normalize(&local_18);
+  Vec3_Normalize((float *)&local_c);
+  Vec3_Normalize((float *)&local_18);
   *param_1 = (float)local_10 * (float)local_8 - (float)local_14 * (float)local_4;
   param_1[1] = (float)local_18 * (float)local_4 - (float)local_10 * (float)local_c;
   param_1[2] = (float)local_14 * (float)local_c - (float)local_18 * (float)local_8;
@@ -1369,8 +1369,8 @@ undefined4 FUN_00450410(float *param_1,float *param_2,float *param_3)
   local_4 = (uint)(param_2[2] - param_1[2]);
   local_14 = (uint)(param_3[1] - param_1[1]);
   local_10 = (uint)(param_3[2] - param_1[2]);
-  Vec3_Normalize(&local_c);
-  Vec3_Normalize(&local_18);
+  Vec3_Normalize((float *)&local_c);
+  Vec3_Normalize((float *)&local_18);
   fVar1 = (float)local_10 * (float)local_4 +
           (float)local_14 * (float)local_8 + (float)local_18 * (float)local_c;
   if (fVar1 < 0.0) {

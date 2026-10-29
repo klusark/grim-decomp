@@ -16,7 +16,6 @@ undefined4 rdPolyline_Draw(int param_1,float *param_2)
   int iVar1;
   float fVar2;
   float fVar3;
-  float10 fVar4;
   #define local_b0 (*(uint *)(_frame + (0xc0 - 0xb0)))
   #define local_a0 (*(uint *)(_frame + (0xc0 - 0xa0)))
   #define local_9c (*(uint *)(_frame + (0xc0 - 0x9c)))
@@ -81,8 +80,7 @@ undefined4 rdPolyline_Draw(int param_1,float *param_2)
   local_90 = (uint)((float)local_84 - (float)local_54);
   fVar2 = (float)local_7c - (float)local_4c;
   fVar3 = SQRT(fVar2 * fVar2 + (float)local_90 * (float)local_90);
-  fVar4 = (float10)Math_AsinDegreesSeries(-(float)local_90 / fVar3);
-  local_9c = (uint)(float)fVar4;
+  local_9c = (uint)Math_AsinDegreesSeries(-(float)local_90 / fVar3);
   if (fVar2 < 0.0) {
     if ((float)local_90 <= 0.0) {
       local_9c = (uint)-((float)local_9c - -180.0);

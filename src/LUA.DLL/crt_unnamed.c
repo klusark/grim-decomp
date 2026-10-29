@@ -393,16 +393,17 @@ void __cdecl FUN_100119f0(char *param_1,int param_2)
 }
 
 /* ---- 0x10011e20  FUN_10011e20 ---- */
-void FUN_10011e20(void)
+float __cdecl FUN_10011e20(void)
 
 {
   float10 in_ST0;
-  double dVar1;
+  float10 fVar1;
+  double dVar2;
   
-  dVar1 = (double)in_ST0;
-  FUN_10018ec8(SUB84(dVar1,0),(uint)((ulonglong)dVar1 >> 0x20));
-  FUN_10011e3d(SUB84(dVar1,0),(uint)((ulonglong)dVar1 >> 0x20));
-  return;
+  dVar2 = (double)in_ST0;
+  FUN_10018ec8(SUB84(dVar2,0),(uint)((ulonglong)dVar2 >> 0x20));
+  fVar1 = (float10)((code *)FUN_10011e3d)(SUB84(dVar2,0),(uint)((ulonglong)dVar2 >> 0x20));
+  return (float)fVar1;
 }
 
 /* ---- 0x10011e3d  FUN_10011e3d ---- */
@@ -444,11 +445,13 @@ LAB_10011ecc:
 }
 
 /* ---- 0x100120fa  FUN_100120fa ---- */
-void __fastcall FUN_100120fa(undefined4 param_1)
+float __fastcall FUN_100120fa(undefined4 param_1)
 
 {
-  FUN_10019b30(param_1,IMG_ADDR(0x100288f0));
-  return;
+  float10 fVar1;
+  
+  fVar1 = (float10)((code *)FUN_10019b30)(param_1,IMG_ADDR(0x100288f0));
+  return (float)fVar1;
 }
 
 /* ---- 0x10012104  FUN_10012104 ---- */
@@ -2492,15 +2495,15 @@ int __cdecl FUN_10019880(uint param_1)
 }
 
 /* ---- 0x100198c0  FUN_100198c0 ---- */
-float10 __cdecl FUN_100198c0(undefined4 param_1,undefined4 param_2,short param_3)
+float __cdecl FUN_100198c0(undefined4 param_1,undefined4 param_2,short param_3)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   #define uStack_4 (*(undefined2 *)(_frame + (0x20 - 0x4)))
   
   uStack_4 = (undefined2)param_2;
-  return (float10)(double)CONCAT26(PIECE(param_2,2,2) & 0x800f | (param_3 + 0x3fe) * 0x10,
-                                   CONCAT24(uStack_4,param_1));
+  return (float)(double)CONCAT26(PIECE(param_2,2,2) & 0x800f | (param_3 + 0x3fe) * 0x10,
+                                 CONCAT24(uStack_4,param_1));
 }
 #undef uStack_4
 
@@ -2525,7 +2528,7 @@ undefined4 __cdecl FUN_10019900(int param_1,uint param_2)
 }
 
 /* ---- 0x10019960  FUN_10019960 ---- */
-float10 __cdecl FUN_10019960(uint param_1,uint param_2,int *param_3)
+float __cdecl FUN_10019960(uint param_1,uint param_2,int *param_3)
 
 {
   ushort uVar1;
@@ -2533,12 +2536,12 @@ float10 __cdecl FUN_10019960(uint param_1,uint param_2,int *param_3)
   uint uVar3;
   uint uVar4;
   int iVar5;
-  float10 fVar6;
+  float fVar6;
   
   if ((double)CONCAT17(PIECE(param_2,3,1),CONCAT16(PIECE(param_2,2,1),CONCAT24((undefined2)param_2,param_1)))
       == 0.0) {
     *param_3 = 0;
-    return (float10)0.0;
+    return 0.0;
   }
   if (((param_2 & 0x7ff00000) == 0) && (((param_2 & 0xfffff) != 0 || (param_1 != 0)))) {
     dVar2 = (double)CONCAT17(PIECE(param_2,3,1),
@@ -2568,11 +2571,11 @@ float10 __cdecl FUN_10019960(uint param_1,uint param_2,int *param_3)
     fVar6 = FUN_100198c0(param_1,CONCAT13(PIECE(param_2,3,1),CONCAT12(PIECE(param_2,2,1),(undefined2)param_2))
                          ,0);
     *param_3 = iVar5;
-    return (float10)(double)fVar6;
+    return fVar6;
   }
   fVar6 = FUN_100198c0(param_1,param_2,0);
   *param_3 = (short)((ushort)(param_2 >> 0x14) & 0x7ff) + -0x3fe;
-  return (float10)(double)fVar6;
+  return fVar6;
 }
 
 /* ---- 0x10019a70  FUN_10019a70 ---- */
