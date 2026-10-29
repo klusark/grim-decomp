@@ -129,13 +129,17 @@ bool FUN_00496670(undefined4 param_1,undefined4 param_2,int *param_3,int param_4
   uint uVar7;
   #define uStack_1c (*(uint *)(_frame + (0x30 - 0x1c)))
   #define pcStack_18 (*(char **)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(int (*)[5])(_frame + (0x30 - 0x14)))
+  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
+  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
+  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
+  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
   
-  local_14[0] = 1;
-  local_14[1] = 0;
-  local_14[2] = 0;
-  local_14[3] = 0;
-  local_14[4] = 0;
+  local_14 = 1;
+  local_10 = 0;
+  local_c = 0;
+  local_8 = 0;
+  local_4 = 0;
   if (((param_4 != 0x4c444f4d) && (param_4 != 0x4c444d4d)) && (param_4 != 0x74727073)) {
     return false;
   }
@@ -173,14 +177,14 @@ bool FUN_00496670(undefined4 param_1,undefined4 param_2,int *param_3,int param_4
   if (uStack_1c != *(uint *)(iVar5 + 0x4c)) {
     uVar7 = 0;
     iVar5 = *(int *)(*(int *)(iVar5 + 0x48) + uStack_1c * 4);
-    local_14[0] = *(int *)(iVar5 + 0x60);
-    local_14[1] = 0;
-    local_14[2] = 0;
-    if (DAT_008ca7a4 != 0) {
-      (*g_pSvcCostume->pFree)(DAT_008ca7a4);
+    local_14 = *(uint *)(iVar5 + 0x60);
+    local_10 = 0;
+    local_c = 0;
+    if (UINT_008ca7a4 != 0) {
+      (*g_pSvcCostume->pFree)(UINT_008ca7a4);
     }
-    DAT_008ca7a4 = (*g_pSvcCostume->pAlloc)
-                             (local_14[0] << 4,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0x9ee);
+    UINT_008ca7a4 =
+         (*g_pSvcCostume->pAlloc)(local_14 << 4,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0x9ee);
     if (*(int *)(iVar5 + 0x60) != 0) {
       iVar2 = 0;
       piVar6 = (int *)(iVar5 + 0x68);
@@ -190,23 +194,27 @@ bool FUN_00496670(undefined4 param_1,undefined4 param_2,int *param_3,int param_4
         piVar6 = piVar6 + 1;
         iVar2 = iVar2 + 0x10;
         iVar1 = *(int *)(*(int *)(iVar1 + 0x1c) + 0x1c);
-        *(undefined4 *)(DAT_008ca7a4 + -0xc + iVar2) = *(undefined4 *)(iVar1 + 0xc);
-        *(undefined4 *)(DAT_008ca7a4 + -8 + iVar2) = *(undefined4 *)(iVar1 + 0x10);
-        *(undefined4 *)(DAT_008ca7a4 + -0x10 + iVar2) = *(undefined4 *)(iVar1 + 0x5c);
-        *(undefined4 *)(DAT_008ca7a4 + -4 + iVar2) = 1;
+        *(undefined4 *)((UINT_008ca7a4 - 0xc) + iVar2) = *(undefined4 *)(iVar1 + 0xc);
+        *(undefined4 *)((UINT_008ca7a4 - 8) + iVar2) = *(undefined4 *)(iVar1 + 0x10);
+        *(undefined4 *)((UINT_008ca7a4 - 0x10) + iVar2) = *(undefined4 *)(iVar1 + 0x5c);
+        *(undefined4 *)((UINT_008ca7a4 - 4) + iVar2) = 1;
       } while (uVar7 < *(uint *)(iVar5 + 0x60));
     }
-    local_14[4] = 0;
-    local_14[3] = DAT_008ca7a4;
+    local_4 = 0;
+    local_8 = UINT_008ca7a4;
     if (param_5 == (char *)0x0) {
       param_5 = pcStack_18;
     }
-    iVar5 = Cos_RegisterComponent(param_1,param_5,uStack_1c,param_2,param_3,param_4,local_14);
+    iVar5 = Cos_RegisterComponent(param_1,param_5,uStack_1c,param_2,param_3,param_4,&local_14);
     return iVar5 != 0;
   }
   return false;
 }
+#undef local_10
 #undef local_14
+#undef local_4
+#undef local_8
+#undef local_c
 #undef pcStack_18
 #undef uStack_1c
 

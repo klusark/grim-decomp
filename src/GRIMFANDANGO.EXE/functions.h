@@ -3,19 +3,19 @@
 #include "ghidra_types.h"
 
 /* ===== window.c ===== */
-undefined4 __stdcall Win_WinMain(int a1,int a2,int a3,int a4); /* 0x00401010 */
-uint Win_WndProc(undefined4 param_1,uint param_2,int param_3); /* 0x00402fd0 */
+undefined * __stdcall Win_WinMain(int a1,int a2,int a3,int a4); /* 0x00401010 */
+undefined * Win_WndProc(undefined4 param_1,uint param_2,int param_3); /* 0x00402fd0 */
 void Win_SetMainHwnd(void *param_1); /* 0x00473360 */
 void * Win_GetMainHwnd(void); /* 0x00473370 */
-void Win_SetInstance(undefined4 param_1); /* 0x00473380 */
-undefined4 Win_GetInstance(void); /* 0x00473390 */
-void __cdecl Win_Main(void *hInstance,void *hPrevInstance,char *cmdLine,int nCmdShow,char *appName); /* 0x004abf40 */
-undefined4 Win_PumpMessages(void); /* 0x004ac020 */
+void Win_SetInstance(uint param_1); /* 0x00473380 */
+uint Win_GetInstance(void); /* 0x00473390 */
+void __cdecl Win_AbortIfAlreadyRunning (void *hInstance,void *hPrevInstance,char *cmdLine,int nCmdShow,char *appName); /* 0x004abf40 */
+uint Win_PumpMessages(void); /* 0x004ac020 */
 int __cdecl Win_SetWindowedSize(int fullscreen,int w,int h); /* 0x004ac100 */
 void Win_AddMessageHook(void *param_1); /* 0x004ac160 */
 undefined4 Win_RemoveMessageHook(void *param_1); /* 0x004ac1a0 */
-undefined4 Win_CreateMainWindow(int param_1,undefined4 param_2,int param_3); /* 0x004ac1f0 */
-int __stdcall Win_KernelWndProc(int a1,int a2,int a3,int a4); /* 0x004ac340 */
+undefined4 Win_CreateMainWindow(uint param_1,undefined4 param_2,int param_3); /* 0x004ac1f0 */
+undefined * __stdcall Win_KernelWndProc(int a1,int a2,int a3,int a4); /* 0x004ac340 */
 int __cdecl Win_IsFocusWithin(void *hwnd); /* 0x004bff70 */
 
 /* ===== debuglog.c ===== */
@@ -89,7 +89,7 @@ void Lua_Stub(void); /* 0x00497830 */
 bool FUN_00497840(undefined4 param_1,int param_2,int param_3,undefined4 param_4); /* 0x00497840 */
 void FUN_00497890(undefined4 param_1,int *param_2,undefined4 param_3,int param_4,uint param_5, undefined4 param_6,undefined4 param_7,undefined4 param_8); /* 0x00497890 */
 undefined4 * FUN_00497d10(undefined4 param_1,int *param_2,int param_3); /* 0x00497d10 */
-bool FUN_00497e10(undefined4 param_1,undefined4 param_2,int param_3,int param_4,char *param_5); /* 0x00497e10 */
+bool FUN_00497e10(undefined4 param_1,undefined4 param_2,int param_3,int param_4,uint param_5); /* 0x00497e10 */
 undefined4 FUN_00498000(int *param_1,undefined4 param_2); /* 0x00498000 */
 void Lua_GetMemoryUsage(void); /* 0x00498d80 */
 void Lua_GetDiskFreeSpace(void); /* 0x00498da0 */
@@ -99,7 +99,7 @@ void Lua_UnShrinkBoxes(void); /* 0x00498e90 */
 void Lua_GetShrinkPos(void); /* 0x00498ea0 */
 void Lua_SetSoundParameters(void); /* 0x00499000 */
 void Lua_GetSoundParameters(void); /* 0x004991c0 */
-void Lua_SetDebugKeysCallback(undefined4 param_1); /* 0x00499250 */
+void Lua_SetDebugKeysCallback(uint param_1); /* 0x00499250 */
 void Lua_EnginePause(void); /* 0x00499260 */
 void Lua_EngineResume(void); /* 0x00499270 */
 void Lua_EngineDisplay(void); /* 0x00499280 */
@@ -194,8 +194,8 @@ void Lua_GetControlState(void); /* 0x0049d470 */
 void __cdecl Lua_CallCostumeOverrideHandler(void *actor,int flag); /* 0x0049d550 */
 void __cdecl Lua_CallCostumeMarkerHandler(void *actor,uint marker); /* 0x0049d670 */
 void Lua_CallUserPaintHandler(void); /* 0x0049d7b0 */
-int Lua_CallExitHandler(void); /* 0x0049d890 */
-int Lua_CallPauseHandler(void); /* 0x0049d970 */
+uint Lua_CallExitHandler(void); /* 0x0049d890 */
+uint Lua_CallPauseHandler(void); /* 0x0049d970 */
 int __cdecl Lua_CallCharacterHandler(int ch); /* 0x0049da50 */
 void Lua_MakeCurrentSetup(void); /* 0x0049db70 */
 void Lua_GetCurrentSetup(void); /* 0x0049dbb0 */
@@ -367,12 +367,12 @@ undefined4 FUN_004024f0(undefined4 param_1); /* 0x004024f0 */
 void Display_Shutdown3D(void); /* 0x00402580 */
 int __cdecl Display_Select(int deviceIdx,int modeIdx,int threeDIdx); /* 0x004025b0 */
 int __cdecl Display_Select3DDevice(int threeDNum); /* 0x00402860 */
-int Display_InitFromConfig(void); /* 0x00402930 */
+undefined * Display_InitFromConfig(void); /* 0x00402930 */
 int __cdecl Display_GetLastFromRegistry(uint *deviceIdx,uint *modeIdx,uint *threeDIdx); /* 0x004029b0 */
 int __cdecl Display_PickDefault(int wantFullscreen,int want3D,int *deviceIdx,int *modeIdx,int *threeDIdx); /* 0x00402b60 */
-void stdDisplay_BuildBitmapInfo8 (int param_1,undefined4 param_2,int param_3,int param_4,undefined1 *param_5); /* 0x004730d0 */
-void stdDisplay_BuildBitmapInfo16(int param_1,undefined4 param_2,int param_3,int param_4); /* 0x00473180 */
-int __cdecl FUN_004731f0(int param_1,undefined4 param_2,int param_3,int param_4); /* 0x004731f0 */
+void stdDisplay_BuildBitmapInfo8 (int param_1,uint param_2,int param_3,int param_4,undefined1 *param_5); /* 0x004730d0 */
+void stdDisplay_BuildBitmapInfo16(int param_1,uint param_2,int param_3,int param_4); /* 0x00473180 */
+undefined * __cdecl FUN_004731f0(uint param_1,uint param_2,int param_3,uint param_4); /* 0x004731f0 */
 undefined4 Palette_SwapRedBlue(int param_1,undefined1 *param_2); /* 0x00473270 */
 bool Display_EnumDevices(void); /* 0x00473a40 */
 void Display_RestoreMode(void); /* 0x00473b30 */
@@ -398,25 +398,25 @@ int Display_SetDIBPalette(undefined4 param_1); /* 0x00474d10 */
 void __cdecl Display_SetPalette(void *palette); /* 0x00474d90 */
 int __cdecl Palette_ApplyGamma(void *dst,void *src,int count,int gammaIdx); /* 0x00474dd0 */
 int __cdecl Display_DrawText(char *text,int x,int y); /* 0x00474e40 */
-uint Display_FindClosestDevice(int *param_1); /* 0x00475000 */
+uint Display_FindClosestDevice(uint *param_1); /* 0x00475000 */
 uint __cdecl Display_FindClosestMode(void *wanted,void *modes,uint count); /* 0x00475090 */
 int FUN_00475140(int *param_1,int *param_2); /* 0x00475140 */
 int __cdecl Surface_BlitSoftware(void *dst,void *src,uint x,uint y,int *srcRect,uint flags); /* 0x004751b0 */
-undefined4 Surface_BlitDDraw(int param_1,int param_2,int param_3,int param_4,int *param_5,byte param_6); /* 0x004755e0 */
+undefined4 Surface_BlitDDraw(int param_1,int param_2,uint param_3,uint param_4,uint *param_5,byte param_6); /* 0x004755e0 */
 undefined4 Surface_BlitLockedSrc (void *param_1,int param_2,void *param_3,uint param_4,int *param_5,void *param_6); /* 0x004758a0 */
 undefined4 Surface_BlitLockedDst (int param_1,void *param_2,void *param_3,uint param_4,int *param_5,void *param_6); /* 0x00475c90 */
 bool DDraw_Create(undefined4 param_1); /* 0x004760d0 */
 void DDraw_Release(void); /* 0x00476190 */
-undefined4 __stdcall FUN_004761b0(int a1,int a2,int a3,int a4); /* 0x004761b0 */
-undefined4 __stdcall FUN_00476390(int a1,int a2); /* 0x00476390 */
-undefined4 __stdcall FUN_004765a0(int a1,int a2); /* 0x004765a0 */
+undefined * __stdcall FUN_004761b0(int a1,int a2,int a3,int a4); /* 0x004761b0 */
+undefined * __stdcall FUN_00476390(int a1,int a2); /* 0x00476390 */
+undefined * __stdcall FUN_004765a0(int a1,int a2); /* 0x004765a0 */
 void * DDraw_Get(void); /* 0x004767c0 */
 undefined4 DDraw_CreateSurfaces(undefined4 param_1,int *param_2); /* 0x004767d0 */
 void DDraw_ReleaseSurfaces(void); /* 0x00476bc0 */
 undefined4 DDraw_LockSurface(undefined4 *param_1); /* 0x00476bf0 */
 undefined4 DDraw_UnlockSurface(undefined4 *param_1); /* 0x00476c40 */
 undefined4 DDraw_Flip(void); /* 0x00476c90 */
-undefined4 DDraw_FillSurface(undefined4 *param_1,undefined4 param_2,int *param_3); /* 0x00476cd0 */
+undefined4 DDraw_FillSurface(undefined4 *param_1,uint param_2,uint *param_3); /* 0x00476cd0 */
 undefined4 DDraw_SetPalette(undefined1 *param_1); /* 0x00476dc0 */
 void * __cdecl DIB_CreateSurface(void *mode,void *surface,void *palette,void *hwnd); /* 0x00476e40 */
 void DIB_ReleaseSurface(void); /* 0x00476ee0 */
@@ -447,19 +447,19 @@ void Svc_Fprintf(undefined4 param_1,undefined4 param_2); /* 0x00403830 */
 void * __cdecl Svc_Malloc(uint size); /* 0x00403850 */
 void __cdecl Svc_Free(void *p); /* 0x00403860 */
 undefined4 Svc_Identity(undefined4 param_1); /* 0x00403870 */
-void Services_InitDefaults(undefined4 *param_1); /* 0x00403880 */
-void Services_SetCurrent(GrimServices *param_1); /* 0x004733a0 */
+void __cdecl Services_InitDefaults(GrimServices *svc); /* 0x00403880 */
+void __cdecl Services_SetCurrent(GrimServices *svc); /* 0x004733a0 */
 void Services_Clear(void); /* 0x00473400 */
 void Services_InitPlatform(GrimServices *param_1); /* 0x00473420 */
 undefined4 Svc_DebugPrintf(undefined4 param_1); /* 0x00478000 */
-void FUN_00478030(undefined4 param_1); /* 0x00478030 */
+void FUN_00478030(uint param_1); /* 0x00478030 */
 void FUN_00478040(undefined4 param_1); /* 0x00478040 */
 void FUN_00478050(undefined4 param_1,undefined4 param_2); /* 0x00478050 */
 undefined4 FUN_00478070(undefined4 param_1); /* 0x00478070 */
 void __cdecl Services_InitPlatformTable(GrimServices *svc); /* 0x00478080 */
 
 /* ===== reg.c ===== */
-void Reg_Open(void *param_1,int param_2,char *param_3); /* 0x004038a0 */
+void Reg_Open(void *param_1,uint param_2,char *param_3); /* 0x004038a0 */
 void Reg_CacheValueNames(void); /* 0x004039a0 */
 int FUN_00403ae0(undefined4 *param_1,undefined4 *param_2); /* 0x00403ae0 */
 void Reg_Close(void); /* 0x00403b20 */
@@ -491,11 +491,11 @@ void rdroid_SetZBufferMode(int param_1); /* 0x004042f0 */
 void rdroid_BeginFrame(void); /* 0x00404300 */
 void rdroid_EndFrame(void); /* 0x00404320 */
 void rdroid_InitCaches(void); /* 0x00404330 */
-undefined4 rdroid_SetColormap(int param_1); /* 0x00404350 */
+undefined4 rdroid_SetColormap(uint param_1); /* 0x00404350 */
 void rdroid_BuildMathTables(void); /* 0x00404b80 */
 
 /* ===== rdcolormap.c ===== */
-undefined4 rdColormap_SetCurrent(int param_1); /* 0x00404380 */
+undefined4 rdColormap_SetCurrent(uint param_1); /* 0x00404380 */
 void * __cdecl rdColormap_Load(char *name); /* 0x004043c0 */
 int __cdecl rdColormap_LoadEntry(char *name,void *cmp); /* 0x00404420 */
 void rdColormap_Free(undefined4 param_1); /* 0x00404730 */
@@ -549,7 +549,7 @@ void rdPrimit3_ClipFace(undefined4 param_1,undefined4 param_2,int param_3,undefi
 void rdPrimit3_CopyFaceVerts (undefined4 param_1,int param_2,undefined4 param_3,uint *param_4,uint *param_5, float *param_6); /* 0x0040e500 */
 
 /* ===== rdcamera.c ===== */
-void * rdCamera_New(float fov,int type,float aspectX,float aspectY,float zoom); /* 0x00409f50 */
+void * __cdecl rdCamera_New(float fov,int type,float aspectX,float aspectY,float zoom); /* 0x00409f50 */
 int __cdecl rdCamera_Init(void *camera,float fov,int a,int b,int c,float zoom); /* 0x00409fb0 */
 void FUN_0040a080(int param_1); /* 0x0040a080 */
 void FUN_0040a0a0(int param_1); /* 0x0040a0a0 */
@@ -569,13 +569,13 @@ void FUN_0040a620(float *param_1,float *param_2,int param_3); /* 0x0040a620 */
 void FUN_0040a6a0(float *param_1,float *param_2); /* 0x0040a6a0 */
 void FUN_0040a6e0(float *param_1,float *param_2,int param_3); /* 0x0040a6e0 */
 void __cdecl rdCamera_SetAmbientLight(void *camera,float ambient); /* 0x0040a750 */
-int __cdecl rdCamera_AddLight(void *camera,void *light,float *position); /* 0x0040a760 */
+void __cdecl rdCamera_AddLight(void *camera,void *light,float *pos); /* 0x0040a760 */
 void rdCamera_ClearCanvas(void); /* 0x0040a7d0 */
 void rdCamera_ResetStats(void); /* 0x0040a860 */
 int __cdecl rdCamera_ProjectPoint(float *world,float *outScreen); /* 0x0040dc30 */
 
 /* ===== renderer.c ===== */
-void Renderer_EnableClipPlane(undefined4 param_1); /* 0x0040a870 */
+void Renderer_EnableClipPlane(uint param_1); /* 0x0040a870 */
 void Renderer_SetClipPlane(undefined4 *param_1,undefined4 *param_2); /* 0x0040a880 */
 void FUN_0040a8c0(undefined4 *param_1); /* 0x0040a8c0 */
 undefined4 * FUN_0040a8f0(undefined4 param_1); /* 0x0040a8f0 */
@@ -609,19 +609,19 @@ void __cdecl rdPuppet_AdvanceTrack(void *puppet,int track,float dt); /* 0x004507
 void __cdecl rdPuppet_Advance(void *puppet,float seconds); /* 0x00450a90 */
 void rdPuppet_ClearTrackNodes(int param_1,int param_2); /* 0x00450b50 */
 void __cdecl rdPuppet_UpdateFrame(void *model,float *frame); /* 0x00450ba0 */
-float10 rdKeyframe_Interpolate (int *param_1,float *param_2,int param_3,uint param_4,int *param_5,float *param_6, float *param_7,float *param_8,uint param_9,float param_10); /* 0x00451510 */
+float10 rdKeyframe_Interpolate (int *param_1,float *param_2,int param_3,uint param_4,int *param_5,uint param_6, float *param_7,float *param_8,uint param_9,float param_10); /* 0x00451510 */
 float10 rdKeyframe_InterpolateNode (int *param_1,int param_2,undefined4 param_3,uint param_4,int param_5, float *param_6,int param_7,float param_8); /* 0x00451800 */
 
 /* ===== rdthing.c ===== */
-int __cdecl rdThing_DrawModel(void *thing,float *position); /* 0x0040cf20 */
+int __cdecl rdThing_Draw(void *thing,float *position); /* 0x0040cf20 */
 uint rdThing_New(undefined4 param_1); /* 0x00471a40 */
 undefined4 rdThing_Init(undefined4 *param_1,undefined4 param_2); /* 0x00471a80 */
 void rdThing_Free(int param_1); /* 0x00471af0 */
 void rdThing_FreeEntry(int *param_1); /* 0x00471b10 */
 void __cdecl rdThing_SetModel(void *thing,void *model); /* 0x00471bd0 */
-undefined4 rdThing_SetSprite(undefined4 *param_1,undefined4 param_2); /* 0x00471d40 */
+undefined4 rdThing_SetCamera(undefined4 *param_1,undefined4 param_2); /* 0x00471d40 */
 undefined4 rdThing_SetPolyline(undefined4 *param_1,undefined4 param_2); /* 0x00471d60 */
-int __cdecl rdThing_Draw(void *thing,float *frame); /* 0x00471d80 */
+int __cdecl rdThing_Draw_00471d80(void *thing,float *frame); /* 0x00471d80 */
 void rdThing_BuildNodeMatrix(int param_1,int param_2,float *param_3); /* 0x00471e00 */
 
 /* ===== rdraster.c ===== */
@@ -999,8 +999,8 @@ void rdRaster_Span16_TexZw_12(uint *param_1,uint *param_2); /* 0x00470780 */
 void rdRaster_Span16_TexZw_13(uint *param_1,uint *param_2); /* 0x004710e0 */
 
 /* ===== rdmaterial.c ===== */
-undefined4 rdMaterial_SetLoadHook(undefined4 param_1); /* 0x00417e90 */
-undefined4 rdMaterial_SetFreeHook(undefined4 param_1); /* 0x00417ea0 */
+uint rdMaterial_SetLoadHook(uint param_1); /* 0x00417e90 */
+uint rdMaterial_SetFreeHook(uint param_1); /* 0x00417ea0 */
 void * __cdecl rdMaterial_Load(char *name,int a,int b); /* 0x00417eb0 */
 int __cdecl rdMaterial_LoadFile(char *filename,void *material,int a,int b); /* 0x00417f30 */
 void rdMaterial_Free(undefined4 param_1); /* 0x00418360 */
@@ -1017,7 +1017,7 @@ float10 Vec3_NormalizeApprox(float *param_1); /* 0x00446a10 */
 void __cdecl Vec3_Rotate(float *vec,float *rot); /* 0x00446ba0 */
 void __cdecl Matrix_GetAngles(float *matrix,float *outAngles); /* 0x00446bd0 */
 undefined1 Frustum_TestSphere(int *param_1,float *param_2,float param_3); /* 0x0044e7d0 */
-int Polygon_ClipToPlane(float *param_1,float *param_2,float *param_3,float *param_4,float *param_5, float *param_6); /* 0x0044ea50 */
+uint Polygon_ClipToPlane(float *param_1,float *param_2,float *param_3,undefined4 *param_4, float *param_5,uint *param_6); /* 0x0044ea50 */
 void Angles_ToMatrix(float *param_1,undefined4 *param_2,float *param_3); /* 0x0044eeb0 */
 void __cdecl Matrix_Transpose(float *out,float *m); /* 0x0044efd0 */
 void Angles_ToMatrixNoPos(float *param_1,undefined4 *param_2); /* 0x0044f080 */
@@ -1050,16 +1050,16 @@ undefined4 rdClip_Line2D(undefined4 param_1,undefined4 *param_2,undefined4 *para
 uint rdClip_Outcode2D(int param_1,int param_2,int param_3); /* 0x00446e80 */
 int __cdecl rdClip_PointInFrustum(void *frustum,float *point); /* 0x00446ec0 */
 int __cdecl rdClip_Line3(void *frustum,float *p0,float *p1,int *clipped0,int *clipped1); /* 0x00446f80 */
-int rdClip_Face3_Pos(int *param_1,float *param_2,int param_3); /* 0x004478c0 */
+uint rdClip_Face3_Pos(int *param_1,float *param_2,uint param_3); /* 0x004478c0 */
 int rdClip_Face3_PosB(int *param_1,float *param_2,int param_3); /* 0x00448260 */
-int rdClip_Face3_Pos_2(int *param_1,float *param_2,int param_3); /* 0x004489b0 */
+uint rdClip_Face3_Pos_2(int *param_1,float *param_2,uint param_3); /* 0x004489b0 */
 int rdClip_Face3_PosB_2(int *param_1,float *param_2,int param_3); /* 0x00449350 */
-int rdClip_Face3_PosUvLit(int *param_1,float *param_2,float *param_3,float *param_4); /* 0x00449aa0 */
-int rdClip_Face3_PosUv(int *param_1,float *param_2,float *param_3,int param_4); /* 0x0044a6d0 */
+uint rdClip_Face3_PosUvLit(int *param_1,float *param_2,float *param_3,float *param_4); /* 0x00449aa0 */
+uint rdClip_Face3_PosUv(int *param_1,float *param_2,float *param_3,uint param_4); /* 0x0044a6d0 */
 uint rdClip_Face3_PosUvLit_2(int *param_1,float *param_2,float *param_3,float *param_4); /* 0x0044b0a0 */
 uint rdClip_Face3_PosUvFlags(int *param_1,float *param_2,float *param_3,uint param_4); /* 0x0044be80 */
-uint rdClip_Face3_PosUvLitColor (int *param_1,float *param_2,float *param_3,float *param_4,float *param_5); /* 0x0044c9d0 */
-uint rdClip_Face3_PosUvLitFlags (int *param_1,float *param_2,float *param_3,float *param_4,uint param_5); /* 0x0044da40 */
+uint rdClip_Face3_PosUvLitColor (int *param_1,float *param_2,float *param_3,undefined4 *param_4,float *param_5); /* 0x0044c9d0 */
+uint rdClip_Face3_PosUvLitFlags (int *param_1,float *param_2,undefined4 *param_3,undefined4 *param_4,uint param_5); /* 0x0044da40 */
 
 /* ===== rdlight.c ===== */
 undefined4 rdLight_Init(int param_1); /* 0x00451460 */
@@ -1077,8 +1077,8 @@ undefined4 Memory_SysInitialize(GrimServices *param_1,undefined4 *param_2); /* 0
 void FUN_00488930(void); /* 0x00488930 */
 undefined4 FUN_00488940(void); /* 0x00488940 */
 void FUN_00488970(void); /* 0x00488970 */
-undefined4 * Pool_Create(int param_1,int param_2,int param_3); /* 0x00488980 */
-void Pool_Destroy(int *param_1); /* 0x00488a70 */
+void ** Pool_Create(int param_1,void *param_2,void *param_3); /* 0x00488980 */
+void Pool_Destroy(void **param_1); /* 0x00488a70 */
 int * Pool_Alloc(int *param_1); /* 0x00488b10 */
 void __cdecl Pool_Free(void *item); /* 0x00488ba0 */
 void Pool_Grow(int param_1,int param_2); /* 0x00488c00 */
@@ -1094,16 +1094,16 @@ void rdSprite_FreeContents(int param_1); /* 0x00472b70 */
 undefined4 rdSprite_Draw(int param_1,int param_2); /* 0x00472bd0 */
 
 /* ===== stdfileutil.c ===== */
-undefined4 stdFile_Open(undefined4 param_1,undefined4 param_2); /* 0x00473430 */
+undefined * __cdecl stdFile_Open(uint param_1,uint param_2); /* 0x00473430 */
 void stdFile_Close(undefined4 param_1); /* 0x00473450 */
 void FUN_00473460(undefined4 param_1,undefined4 param_2,undefined4 param_3); /* 0x00473460 */
 void stdFile_Write(undefined4 param_1,undefined4 param_2,undefined4 param_3); /* 0x00473480 */
 void FUN_004734a0(undefined4 param_1,undefined4 param_2,undefined4 param_3); /* 0x004734a0 */
 void FUN_004734c0(undefined4 param_1,undefined4 param_2,undefined4 param_3); /* 0x004734c0 */
 uint FUN_004734e0(int param_1); /* 0x004734e0 */
-undefined4 stdFile_Tell(undefined4 param_1); /* 0x004734f0 */
+undefined * __cdecl stdFile_Tell(uint param_1); /* 0x004734f0 */
 void stdFile_Seek(undefined4 param_1,undefined4 param_2,undefined4 param_3); /* 0x00473500 */
-undefined4 FUN_00473520(undefined4 param_1); /* 0x00473520 */
+undefined * FUN_00473520(uint param_1); /* 0x00473520 */
 undefined4 FUN_00473570(undefined4 param_1,undefined4 param_2); /* 0x00473570 */
 uint stdFile_ReadByte(uint param_1); /* 0x004735f0 */
 void stdFile_WriteByte(undefined4 param_1,undefined4 param_2); /* 0x00473610 */
@@ -1120,7 +1120,7 @@ char * __cdecl Str_Basename(char *path); /* 0x0047fd20 */
 char * __cdecl Str_FileExtension(char *path); /* 0x0047fd50 */
 void Str_StripExtension(char *param_1); /* 0x0047fda0 */
 void __cdecl Str_CopyBasenameNoExt(char *dst,int size,char *path); /* 0x0047fdc0 */
-undefined4 __cdecl Str_FindChar(char *param_1,int param_2); /* 0x004838c0 */
+undefined * __cdecl Str_FindChar(char *param_1,int param_2); /* 0x004838c0 */
 uint * String_ContainsSubstring(uint *param_1,char *param_2); /* 0x004aef70 */
 byte * __cdecl Str_WildcardMatch(char *str,char *pattern); /* 0x004c1c30 */
 int Str_ModuleNameLength(byte *param_1); /* 0x004c1e00 */
@@ -1149,7 +1149,7 @@ void * __cdecl stdBitmap_Load(char *filename); /* 0x00473630 */
 void * __cdecl stdBitmap_LoadFile(char *name,int a,int b); /* 0x00473660 */
 int __cdecl stdBitmap_SaveByExtension(char *filename,void *bitmap); /* 0x00473810 */
 void * __cdecl stdBitmap_LoadResource(char *name,int a,int b); /* 0x0047aa50 */
-void * __cdecl stdBitmap_LoadFile_0047aab0(char *filename,int a,int b,int c); /* 0x0047aab0 */
+void * __cdecl stdBitmap_Load_0047aab0(char *filename,int a,int b,int c); /* 0x0047aab0 */
 undefined4 stdBitmap_LoadBM(undefined4 param_1,int param_2,int param_3,int param_4); /* 0x0047ab20 */
 void __cdecl stdBitmap_Free(void *bitmap); /* 0x0047ae70 */
 void stdBitmap_FreeSurfaces(int param_1); /* 0x0047ae90 */
@@ -1159,12 +1159,12 @@ void stdBitmap_CopyFrom(int *param_1,int param_2); /* 0x0047b2b0 */
 int __cdecl stdBitmap_Convert(void *bitmap,int format,int flags); /* 0x0047b380 */
 undefined4 stdBitmap_Init(undefined4 *param_1,uint param_2,undefined4 param_3,undefined4 param_4, undefined4 param_5,undefined4 *param_6); /* 0x0047b4b0 */
 void stdBitmap_SetSurface(int param_1,int param_2,undefined4 param_3); /* 0x0047b540 */
-int __cdecl stdBitmap_GetSize(void *bitmap); /* 0x0047b560 */
+int __cdecl stdBitmap_ConvertToDisplay(void *bitmap); /* 0x0047b560 */
 void stdBitmap_DecompressAll(int param_1); /* 0x0047b590 */
 void stdBitmap_InitHeader(undefined4 *param_1); /* 0x0047b5f0 */
 
 /* ===== stdinput.c ===== */
-undefined4 Input_Init(void); /* 0x00476f10 */
+undefined * Input_Init(void); /* 0x00476f10 */
 void Input_Shutdown(void); /* 0x00476f70 */
 undefined4 Input_Enable(void); /* 0x00476fc0 */
 undefined4 Input_Disable(void); /* 0x00476fe0 */
@@ -1191,13 +1191,13 @@ void __cdecl Input_SetAxisRange(int axis,int min,int max,float deadZone); /* 0x0
 /* ===== plat.c ===== */
 undefined4 Plat_ReturnTrue(void); /* 0x00477f00 */
 void FUN_00477f10(undefined4 param_1,char *param_2,undefined4 param_3); /* 0x00477f10 */
-undefined4 Plat_GetPhysicalMemory(void); /* 0x00478150 */
+uint Plat_GetPhysicalMemory(void); /* 0x00478150 */
 int __cdecl Plat_MessageBox(char *text,char *caption,uint flags); /* 0x00487650 */
 void Plat_SetDialogDirectory(undefined4 param_1); /* 0x00487690 */
 char * Plat_GetDialogFileName(void); /* 0x004876b0 */
 int __cdecl Plat_OpenFileDialog(char *title,char *filter); /* 0x004876c0 */
 int __cdecl Plat_SaveFileDialog(char *title,char *filter); /* 0x004877d0 */
-bool Plat_PromptDialog(int param_1,int param_2,undefined4 *param_3,int param_4); /* 0x004878c0 */
+bool Plat_PromptDialog(int param_1,int param_2,undefined4 *param_3,uint param_4); /* 0x004878c0 */
 int __cdecl Plat_TreeSelectDialog(char *title,char **items,int count,int *recursive); /* 0x00487c10 */
 int __cdecl Plat_InputDialog(char *title,char *prompt,char *buf,int bufSize,char *defaultText); /* 0x00487e30 */
 void * __cdecl Plat_Alloc(uint size); /* 0x00488800 */
@@ -1206,7 +1206,7 @@ void __cdecl Plat_Free(void *p); /* 0x00488820 */
 /* ===== std3d.c ===== */
 undefined4 D3D_Enumerate(void); /* 0x00478230 */
 void D3D_Release(void); /* 0x004782b0 */
-undefined4 D3D_IsAvailable(void); /* 0x004782d0 */
+uint D3D_IsAvailable(void); /* 0x004782d0 */
 int __cdecl D3D_SelectDriver(uint driverIdx,int useZBuffer); /* 0x004782e0 */
 void D3D_ReleaseDriver(void); /* 0x00478660 */
 void __cdecl D3D_SetTextureLimits(int minW,int minH,int maxSize,int d); /* 0x00478700 */
@@ -1229,12 +1229,12 @@ void D3D_TouchTexture(int param_1); /* 0x00479a70 */
 undefined4 D3D_ClearZBuffer(void); /* 0x00479aa0 */
 uint D3D_FindClosestDriver(int *param_1,int param_2,uint param_3); /* 0x00479b50 */
 uint D3D_FindTextureFormat(int *param_1,int param_2,uint param_3); /* 0x00479be0 */
-void D3D_SetViewportRect(int *param_1); /* 0x00479cc0 */
+void D3D_SetViewportRect(uint *param_1); /* 0x00479cc0 */
 undefined4 D3D_InitRenderState(void); /* 0x00479db0 */
 undefined4 D3D_CreateViewport(void); /* 0x0047a130 */
 undefined4 D3D_CreateZBuffer(int param_1,int param_2); /* 0x0047a240 */
-undefined4 __stdcall FUN_0047a3b0(int a1,int a2,int a3,int a4,int a5,int a6); /* 0x0047a3b0 */
-undefined4 __stdcall FUN_0047a590(int a1,int a2); /* 0x0047a590 */
+undefined * __stdcall FUN_0047a3b0(int a1,int a2,int a3,int a4,int a5,int a6); /* 0x0047a3b0 */
+undefined * __stdcall FUN_0047a590(int a1,int a2); /* 0x0047a590 */
 byte D3D_CapsToFilterBits(uint param_1); /* 0x0047a850 */
 byte D3D_FilterBitsToMask(byte param_1); /* 0x0047a890 */
 byte D3D_FilterBitsToEnum(byte param_1); /* 0x0047a8e0 */
@@ -1305,7 +1305,7 @@ void * __cdecl Res_FindByHandle(void *handle); /* 0x00481120 */
 void * __cdecl Res_Find(int type,char *name); /* 0x00481140 */
 void * __cdecl Res_FindByName(int type,char *name); /* 0x00481160 */
 void * __cdecl Res_LoadInternal(int type,char *name,int *status); /* 0x00481210 */
-undefined4 Res_FindByNameFrom(undefined4 param_1,undefined4 param_2); /* 0x00481300 */
+undefined * __cdecl Res_FindByNameFrom(uint param_1,uint param_2); /* 0x00481300 */
 int * Res_FindByNameInList(int param_1,char *param_2,int *param_3); /* 0x00481320 */
 void * __cdecl Res_CreateRecord(int type,char *name,void *data); /* 0x00481400 */
 void __cdecl Res_CallUnload(void *res); /* 0x00481510 */
@@ -1315,14 +1315,14 @@ void __cdecl Res_MoveToFront(void *res); /* 0x00481f00 */
 uint __cdecl Res_HashName(char *name,char *outLower); /* 0x00481f60 */
 void Res_FindByHandleOrNull(int *param_1,int *param_2,int param_3); /* 0x00482170 */
 void Res_NextInList(int *param_1,int *param_2,int param_3); /* 0x004821b0 */
-undefined4 __cdecl Res_TouchByData(void *param_1); /* 0x00482200 */
-int Res_CountChildren(undefined4 param_1,undefined4 param_2); /* 0x004824f0 */
+undefined * __cdecl Res_TouchByData(void *param_1); /* 0x00482200 */
+int Res_CountChildren(uint param_1,uint param_2); /* 0x004824f0 */
 void Res_SetCacheSizeMB(int param_1); /* 0x00482520 */
 void Res_PrintReport(void); /* 0x0048e230 */
 
 /* ===== resource.c ===== */
-undefined4 Resource_RegisterFilioModule(undefined4 param_1,undefined4 *param_2); /* 0x00480010 */
-undefined4 __fastcall FUN_00480020(undefined4 param_1,int param_2,undefined4 param_3,undefined4 *param_4); /* 0x00480020 */
+undefined4 Resource_RegisterFilioModule(uint param_1,undefined4 *param_2); /* 0x00480010 */
+undefined4 __fastcall FUN_00480020(uint param_1,int param_2,undefined4 param_3,undefined4 *param_4); /* 0x00480020 */
 void FUN_004800a0(void); /* 0x004800a0 */
 undefined4 FUN_004800b0(void); /* 0x004800b0 */
 void __cdecl Resource_SetNoPurge(int noPurge); /* 0x0048d340 */
@@ -1408,7 +1408,7 @@ undefined4 Engine_CloseRenderer(void); /* 0x00482660 */
 void Engine_ShutdownGame(void); /* 0x004826e0 */
 void Engine_SetDebugKeysCallback(undefined4 param_1); /* 0x00482720 */
 void Engine_SetRenderUserCallback(undefined4 param_1); /* 0x00482730 */
-void Engine_SetIdleCallback(undefined4 param_1); /* 0x00482740 */
+void Engine_SetIdleCallback(uint param_1); /* 0x00482740 */
 void Engine_SetFlipCallback(undefined4 param_1); /* 0x00482750 */
 void Engine_SetZBufferEnabled(undefined4 param_1); /* 0x00482760 */
 void Engine_SetExtraDataDir(char *param_1); /* 0x00482770 */
@@ -1418,28 +1418,28 @@ void Engine_InvalidateRect(int *param_1,int param_2); /* 0x00482800 */
 bool Engine_CallExitHandler(void); /* 0x004828d0 */
 void __cdecl Engine_Quit(int exitCode); /* 0x004828e0 */
 void __cdecl Engine_SetPaused(int paused); /* 0x00482900 */
-int __cdecl Engine_CallCharacterHandler(int param_1); /* 0x00482980 */
+undefined * __cdecl Engine_CallCharacterHandler(int param_1); /* 0x00482980 */
 void Engine_UpdateFrame(int param_1,int param_2); /* 0x00482990 */
 void __cdecl Engine_SetIMuseState(int state); /* 0x00482ae0 */
 void Engine_PresentFrame(void); /* 0x00482af0 */
-undefined4 FUN_00482b60(void); /* 0x00482b60 */
+undefined * FUN_00482b60(void); /* 0x00482b60 */
 int FUN_00482ba0(void); /* 0x00482ba0 */
-undefined4 FUN_00482cc0(void); /* 0x00482cc0 */
-undefined4 Engine_RegisterSubsystems(undefined4 param_1,undefined4 *param_2,int param_3,int param_4); /* 0x00482cf0 */
+undefined * FUN_00482cc0(void); /* 0x00482cc0 */
+uint Engine_RegisterSubsystems(undefined4 param_1,undefined4 *param_2,int param_3,int param_4); /* 0x00482cf0 */
 undefined4 Engine_InitSubsystems(int param_1,int param_2); /* 0x00482d60 */
 undefined4 Engine_ShutdownSubsystems(int param_1,int param_2); /* 0x00482dd0 */
 undefined4 Engine_ResetSubsystems(int param_1,int param_2); /* 0x00482e00 */
 void Profile_Begin(int param_1); /* 0x00482e30 */
-undefined4 __cdecl Profile_End(int param_1); /* 0x00482e80 */
+undefined * __cdecl Profile_End(int param_1); /* 0x00482e80 */
 undefined4 Engine_BlitToBackBuffer (undefined4 param_1,int param_2,undefined4 param_3,undefined4 param_4,undefined4 param_5); /* 0x00482f00 */
 void Engine_CallUserPaint(void); /* 0x00482f80 */
 void Engine_RequestSave(char *param_1); /* 0x00482f90 */
 void Engine_RequestLoad(char *param_1); /* 0x00482fb0 */
-undefined4 Engine_TakeRestoreFlag(void); /* 0x00482fd0 */
+uint Engine_TakeRestoreFlag(void); /* 0x00482fd0 */
 void Engine_SaveGame(void); /* 0x00482fe0 */
 void Engine_LoadGame(void); /* 0x00483240 */
-void Engine_SetSavedValue(undefined4 param_1); /* 0x004835f0 */
-undefined4 Engine_GetSavedValue(void); /* 0x00483600 */
+void Engine_SetSavedValue(uint param_1); /* 0x004835f0 */
+uint Engine_GetSavedValue(void); /* 0x00483600 */
 undefined4 Engine_CreateCameraActor(void); /* 0x00484000 */
 void Engine_RenderFrame(void); /* 0x00484260 */
 void __cdecl Engine_RegisterShutdownHook(void *fn); /* 0x0048d1a0 */
@@ -1469,26 +1469,27 @@ int __cdecl Set_LoadResources(void *set); /* 0x004a4fe0 */
 void FUN_004a5390(void); /* 0x004a5390 */
 undefined4 FUN_004a53b0(void); /* 0x004a53b0 */
 void FUN_004a5430(void); /* 0x004a5430 */
-undefined4 Set_RegisterHandle(undefined4 param_1,undefined4 param_2); /* 0x004a54a0 */
-int Set_FindHandle(undefined4 param_1); /* 0x004a5500 */
+int __cdecl Set_RegisterHandle(char *name,void *fn); /* 0x004a54a0 */
+int Set_FindHandle(char *name); /* 0x004a5500 */
 undefined4 FUN_004a5550(undefined4 param_1); /* 0x004a5550 */
-bool Set_IsHandleValid(undefined4 param_1); /* 0x004a55d0 */
+bool Set_IsHandleValid(char *param_1); /* 0x004a55d0 */
 undefined4 FUN_004a5600(void); /* 0x004a5600 */
 undefined4 FUN_004a5890(void); /* 0x004a5890 */
 undefined4 FUN_004a5b40(void); /* 0x004a5b40 */
 undefined4 FUN_004a5c90(void); /* 0x004a5c90 */
 void * __cdecl Set_GetActorListByName(char *setName); /* 0x004a60a0 */
-int Set_FindNameInList(int param_1); /* 0x004a60c0 */
-char * Set_NormalizeName(char *param_1); /* 0x004a6100 */
-void FUN_004a6160(int param_1); /* 0x004a6160 */
+void * Set_FindNameInList(int param_1); /* 0x004a60c0 */
+void * __cdecl Set_NormalizeName(char *setName); /* 0x004a6100 */
+void FUN_004a6160(void *param_1); /* 0x004a6160 */
+void __cdecl Set_ActivateSectors(void *set); /* 0x004a7150 */
 
 /* ===== enginemodule.c ===== */
-int __cdecl EngineModule_Init(GrimServices *param_1,undefined4 *param_2); /* 0x00482540 */
+undefined * __cdecl EngineModule_Init(GrimServices *param_1,undefined **param_2); /* 0x00482540 */
 
 /* ===== savegame.c ===== */
 int __cdecl SaveGame_Write(void *data,int bytes); /* 0x004831f0 */
-int __cdecl SaveGame_Read(void *data,int bytes); /* 0x00483470 */
-void * SaveGame_Open(char *param_1); /* 0x00483490 */
+int __cdecl SaveGame_Read(void *buf,int n); /* 0x00483470 */
+void * __cdecl SaveGame_LoadThumbnail(char *filename); /* 0x00483490 */
 
 /* ===== imuse.c ===== */
 void IMuse_SaveToTemp(void); /* 0x00483610 */
@@ -1503,9 +1504,9 @@ void Polyglot_LoadTable(undefined *param_1); /* 0x00483720 */
 char * __cdecl Polyglot_Lookup(char *textId); /* 0x004838e0 */
 
 /* ===== render.c ===== */
-undefined4 * Render_GetBackBuffer(void); /* 0x004839f0 */
+uint * Render_GetBackBuffer(void); /* 0x004839f0 */
 void Render_ToggleDebugOverlay(void); /* 0x00483a00 */
-void Render_SetUserCallback(undefined4 param_1); /* 0x00483a80 */
+void Render_SetUserCallback(uint param_1); /* 0x00483a80 */
 void Render_SetFlipCallback(void *param_1); /* 0x00483a90 */
 int __cdecl Render_SaveState(void *writeFn); /* 0x00483da0 */
 int __cdecl Render_RestoreState(void *readFn); /* 0x00483e20 */
@@ -1513,10 +1514,10 @@ void Render_SetZBufferEnabled(int param_1); /* 0x00483ea0 */
 void __cdecl Render_SetBufferCount(int n); /* 0x00483eb0 */
 void __cdecl Render_InvalidateRectLastBuffer(int *rect,int flag); /* 0x00483ed0 */
 void __cdecl Render_InvalidateRect(int *rect,int flag); /* 0x00483f60 */
-undefined4 Render_Open(int param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4,undefined4 param_5, undefined4 param_6,int param_7); /* 0x00484030 */
+undefined4 Render_Open(uint param_1,uint param_2,undefined4 param_3,undefined4 param_4,undefined4 param_5, undefined4 param_6,int param_7); /* 0x00484030 */
 void Render_Close(void); /* 0x004841f0 */
 void Render_Present(void); /* 0x004849a0 */
-void Render_SetPixelFormat(undefined4 *param_1); /* 0x004849d0 */
+void Render_SetPixelFormat(uint *param_1); /* 0x004849d0 */
 undefined4 FUN_00484a50(void); /* 0x00484a50 */
 void Render_InitColorConstants(int param_1); /* 0x00484c40 */
 void Render_DrawDebugGrid(void); /* 0x00485bd0 */
@@ -1534,7 +1535,7 @@ void Render_CleanBuffer(void); /* 0x004869b0 */
 void Render_RequestFullRedraw(void); /* 0x00486a00 */
 void * Render_GetBackgroundSurface(void); /* 0x00486b00 */
 void * Render_GetZBufferSurface(void); /* 0x00486b10 */
-undefined4 Render_GetUserCallback(void); /* 0x00486b20 */
+uint Render_GetUserCallback(void); /* 0x00486b20 */
 void Render_SetDrawEnabled(int param_1); /* 0x00486b30 */
 void __cdecl Render_DrawIris(float percent,int x,int y); /* 0x00486d00 */
 void __cdecl Render_StartIrisClose(int x,int y,int durationMs); /* 0x00486eb0 */
@@ -1546,9 +1547,9 @@ void __cdecl Render_SaveScreen(char *filename); /* 0x00487260 */
 void __cdecl Render_SaveZBufferBmp(char *filename); /* 0x004872f0 */
 void __cdecl Render_SaveScreenshotBmp(char *filename); /* 0x00487340 */
 void __cdecl Render_DrawProgressBar(float fraction); /* 0x004873d0 */
-void Render_SetWaitCursorEnabled(undefined4 param_1); /* 0x004874c0 */
+void Render_SetWaitCursorEnabled(uint param_1); /* 0x004874c0 */
 void Render_UpdateWaitCursor(void); /* 0x004874d0 */
-undefined4 Render_GetFrameCounter(void); /* 0x0048f920 */
+int Render_GetFrameCounter(void); /* 0x0048f920 */
 
 /* ===== sputrender.c ===== */
 undefined4 sputRender_Initialize(GrimServices *param_1,undefined4 *param_2); /* 0x00483d40 */
@@ -1573,7 +1574,7 @@ int Actor_Create(void); /* 0x004903a0 */
 void Actor_CreateExtra(int param_1); /* 0x00490580 */
 void Actor_SetFollowBoxes(int param_1,int param_2); /* 0x004906b0 */
 void Actor_CreateWalker(void *param_1,int param_2); /* 0x00490730 */
-void Actor_SetPositionClamped(int param_1,undefined4 *param_2); /* 0x00490870 */
+void Actor_SetPositionClamped(int param_1,float *param_2); /* 0x00490870 */
 void Actor_SetRot(int param_1,undefined4 *param_2,int param_3); /* 0x00490900 */
 void __cdecl Actor_SetReflection(void *actor,float angle); /* 0x00490a40 */
 void __cdecl Actor_SetWalkChore(void *actor,int chore,void *costume); /* 0x00490a60 */
@@ -1606,12 +1607,12 @@ void Actor_SetClipPlane(int param_1,undefined4 *param_2,undefined4 *param_3); /*
 void Actor_SetClipActive(int param_1,undefined4 param_2); /* 0x00494710 */
 void Actor_SetFrustumCull(int param_1,int param_2); /* 0x00494780 */
 void __cdecl Actor_Destroy(void *actor); /* 0x004947c0 */
-void Actor_DrawShadowPlane(int param_1,void *param_2); /* 0x00494940 */
+void Actor_DrawShadowPlane(void *costumeList,void *shadow); /* 0x00494940 */
 void Actor_DrawCostumes(undefined4 param_1,undefined4 param_2); /* 0x00495080 */
 void Actor_DrawCostumeMeshes(undefined4 *param_1,float *param_2); /* 0x004950a0 */
 void __cdecl Actor_RemoveFromSet(char *setName,void *actor); /* 0x004a5eb0 */
 void __cdecl Actor_PutInSet(void *actor,char *setName); /* 0x004a5f60 */
-undefined4 __thiscall Actor_GetYawToPoint(void *this,int a1); /* 0x004a8500 */
+undefined * __thiscall Actor_GetYawToPoint(void *this,int a1); /* 0x004a8500 */
 
 /* ===== dirtyrect.c ===== */
 void __cdecl DirtyRect_Add(int *rect,int flag,int bufferIdx); /* 0x00485420 */
@@ -1634,28 +1635,27 @@ void SectorList_FreeShrinkSave(void); /* 0x004a6330 */
 void SectorList_RestoreAfterShrink(void); /* 0x004a6380 */
 undefined1 * __thiscall Sector_Construct(void *this,int a1,int a2,int a3); /* 0x004a6490 */
 void __fastcall FUN_004a66e0(void *param_1); /* 0x004a66e0 */
-uint __thiscall Sector_SetName(void *this,int a1); /* 0x004a6760 */
-int __thiscall Sector_SetType(void *this,int a1); /* 0x004a6790 */
-undefined4 Sector_ContainsPoint(int a1,int a2); /* 0x004a6980 */
+void __thiscall Sector_SetName(void *this,char *name); /* 0x004a6760 */
+void __thiscall Sector_SetSavedType(void *this,uint type); /* 0x004a6790 */
+undefined * Sector_ContainsPoint(int a1,int a2); /* 0x004a6980 */
 int __thiscall Sector_ClampPoint(void *this,int a1); /* 0x004a6b30 */
-undefined4 __thiscall Sector_FindExitPoint(void *this,int a1,int a2,int a3); /* 0x004a6d10 */
-int __thiscall Sector_SnapToPlane(void *this,int a1); /* 0x004a6fa0 */
+undefined * __thiscall Sector_FindExitPoint(void *this,int a1,int a2,int a3); /* 0x004a6d10 */
+void __thiscall Sector_SnapToPlane(void *this,float *pos); /* 0x004a6fa0 */
 int __thiscall Sector_FixPlaneCoordinate(void *this,int a1); /* 0x004a7000 */
-int __thiscall Sector_DrawOutline(void *this,int a1); /* 0x004a70a0 */
-void FUN_004a7100(char *param_1); /* 0x004a7100 */
-void __cdecl SectorList_SelectForSet(char *setName); /* 0x004a7150 */
+void __thiscall Sector_DrawOutline(void *this,int color); /* 0x004a70a0 */
+void FUN_004a7100(void *param_1); /* 0x004a7100 */
 void * SectorList_FindByPoint(int param_1,uint param_2); /* 0x004a71e0 */
 void * __cdecl Sector_FindByName(char *name); /* 0x004a7230 */
 void * __cdecl Sector_FindById(int id); /* 0x004a7290 */
 void * SectorList_FindNearestPoint(float *param_1,uint param_2); /* 0x004a72b0 */
-undefined4 __thiscall Sector_MoveWalkerToOppositeEdge(void *this,int a1); /* 0x004a7390 */
-undefined4 __thiscall Sector_EdgeFollowDirection(void *this,int a1); /* 0x004a7520 */
+void __thiscall Sector_MoveWalkerToOppositeEdge(void *this,float *walker); /* 0x004a7390 */
+float * __thiscall Sector_EdgeFollowDirection(void *this,float *walker); /* 0x004a7520 */
 void SectorList_ResetFree(void); /* 0x004a7a90 */
-int * SectorVertexPool_GetOrAdd(undefined4 param_1,float *param_2); /* 0x004a7ab0 */
+float * SectorVertexPool_GetOrAdd(undefined4 param_1,float *param_2); /* 0x004a7ab0 */
 void SectorVertexPool_Release(int *param_1); /* 0x004a7ba0 */
 undefined * SetFile_ParseSectors(int param_1); /* 0x004a7bc0 */
-int __thiscall Sector_ClipPolygon(void *this,int a1,int a2,int a3); /* 0x004a8cb0 */
-undefined4 __thiscall Sector_EdgeDistance(void *this,int a1,int a2); /* 0x004a9070 */
+int __thiscall Sector_ClipPolygon(void *this,float *verts,int count,float *out); /* 0x004a8cb0 */
+undefined * __thiscall Sector_EdgeDistance(void *this,int a1,int a2); /* 0x004a9070 */
 undefined4 __fastcall Sector_CollapseShortestEdge(void *param_1); /* 0x004a9180 */
 void SectorList_ShrinkWalkSectors(float param_1); /* 0x004a9d00 */
 
@@ -1675,9 +1675,9 @@ void CacheRect_FreeAll(void); /* 0x00486cb0 */
 /* ===== dlg.c ===== */
 undefined4 * Dlg_MakeItemTemplate (undefined4 param_1,undefined2 param_2,undefined2 param_3,undefined2 param_4, undefined2 param_5,undefined2 param_6,int param_7,int param_8,uint *param_9); /* 0x00488010 */
 uint * Dlg_MakeDialogTemplate (undefined4 *param_1,undefined2 param_2,undefined2 param_3,undefined2 param_4, undefined2 param_5,undefined2 param_6,int param_7,int param_8,undefined2 param_9, uint *param_10); /* 0x004881a0 */
-undefined4 __stdcall FUN_00488370(int a1,int a2,int a3,int a4); /* 0x00488370 */
-undefined4 __stdcall FUN_00488460(int a1,int a2,int a3,int a4); /* 0x00488460 */
-undefined4 __stdcall FUN_004886f0(int a1,int a2,int a3,int a4); /* 0x004886f0 */
+undefined * __stdcall FUN_00488370(int a1,int a2,int a3,int a4); /* 0x00488370 */
+undefined * __stdcall FUN_00488460(int a1,int a2,int a3,int a4); /* 0x00488460 */
+undefined * __stdcall FUN_004886f0(int a1,int a2,int a3,int a4); /* 0x004886f0 */
 
 /* ===== spew.c ===== */
 void Spew_Startup(void); /* 0x00488840 */
@@ -1711,9 +1711,9 @@ undefined4 FUN_00489130(void); /* 0x00489130 */
 void FUN_00489190(void); /* 0x00489190 */
 undefined4 Movie_PollPlayback(void); /* 0x004891b0 */
 int __cdecl Movie_SetTarget(void *surface); /* 0x00489280 */
-undefined4 Movie_Start(char *param_1,int param_2,int param_3,int param_4); /* 0x004892a0 */
+undefined4 Movie_Start(char *param_1,int param_2,uint param_3,uint param_4); /* 0x004892a0 */
 void Movie_Stop(void); /* 0x00489370 */
-undefined4 Movie_SetFile(char *param_1); /* 0x00489390 */
+undefined * Movie_SetFile(char *param_1); /* 0x00489390 */
 undefined4 FUN_004893d0(int param_1,int param_2,int param_3); /* 0x004893d0 */
 bool FUN_00489410(void); /* 0x00489410 */
 undefined4 FUN_00489420(undefined4 *param_1,undefined4 *param_2); /* 0x00489420 */
@@ -1734,20 +1734,20 @@ undefined4 FUN_004896b0(code *param_1); /* 0x004896b0 */
 void FUN_004897d0(void); /* 0x004897d0 */
 undefined4 FUN_004897f0(void); /* 0x004897f0 */
 void FUN_00489820(void); /* 0x00489820 */
-undefined4 * __thiscall Primitive_Construct(void *this,int a1,int a2); /* 0x0048a4b0 */
+void __thiscall Primitive_Construct(void *this,int id,int unused); /* 0x0048a4b0 */
 void __fastcall FUN_0048a500(undefined4 *param_1); /* 0x0048a500 */
-undefined4 __stdcall Primitive_AddLine(int a1,int a2,int a3,int a4,int a5,int a6); /* 0x0048a560 */
-undefined4 __stdcall Primitive_AddRect(int a1,int a2,int a3,int a4,int a5,int a6,int a7); /* 0x0048a5b0 */
-int __stdcall Primitive_AddPolyline(int a1,int a2,int a3,int a4); /* 0x0048a600 */
-undefined4 __thiscall Primitive_Kill(void *this,int a1); /* 0x0048a740 */
-undefined4 __stdcall Primitive_SetColor(int a1,int a2); /* 0x0048a7b0 */
-undefined4 __stdcall Primitive_SetLayer(int a1,int a2); /* 0x0048a7e0 */
-undefined4 __stdcall Primitive_Offset(int a1,int a2,int a3); /* 0x0048a830 */
-undefined4 __stdcall Primitive_MoveTo(int a1,int a2,int a3); /* 0x0048a8a0 */
-int __stdcall Primitive_SetEnd(int a1,int a2,int a3); /* 0x0048a960 */
-int __stdcall Primitive_SetSize(int a1,int a2,int a3); /* 0x0048a9a0 */
-int __stdcall Primitive_Draw(int a1,int a2); /* 0x0048aa20 */
-undefined4 __stdcall Primitive_Invalidate(int a1); /* 0x0048ab50 */
+int __stdcall Primitive_AddLine(int x1,int y1,int x2,int y2,int color,int layer); /* 0x0048a560 */
+int __stdcall Primitive_AddRect(int x1,int y1,int x2,int y2,int color,int filled,int layer); /* 0x0048a5b0 */
+int __stdcall Primitive_AddPolyline(int count,int *points,int color,int layer); /* 0x0048a600 */
+void __thiscall Primitive_Kill(void *this,int id); /* 0x0048a740 */
+undefined * __stdcall Primitive_SetColor(int a1,int a2); /* 0x0048a7b0 */
+undefined * __stdcall Primitive_SetLayer(int a1,int a2); /* 0x0048a7e0 */
+undefined * __stdcall Primitive_Offset(int a1,int a2,int a3); /* 0x0048a830 */
+undefined * __stdcall Primitive_MoveTo(int a1,int a2,int a3); /* 0x0048a8a0 */
+undefined * __stdcall Primitive_SetEnd(int a1,int a2,int a3); /* 0x0048a960 */
+undefined * __stdcall Primitive_SetSize(int a1,int a2,int a3); /* 0x0048a9a0 */
+void __stdcall Primitive_Draw(void *prim,void *canvas); /* 0x0048aa20 */
+undefined * __stdcall Primitive_Invalidate(int a1); /* 0x0048ab50 */
 void Primitive_ResetIds(void); /* 0x0048abc0 */
 
 /* ===== sputprimitive.c ===== */
@@ -1755,13 +1755,13 @@ undefined4 sputPrimitive_Initialize(undefined4 param_1,undefined4 *param_2); /* 
 
 /* ===== primitivelist.c ===== */
 void __fastcall PrimitiveList_Clear(int *param_1); /* 0x0048a520 */
-undefined4 __thiscall PrimitiveList_Append(void *this,int a1,int a2); /* 0x0048a670 */
-undefined4 __thiscall PrimitiveList_Draw(void *this,int a1,int a2); /* 0x0048a9f0 */
-undefined4 __thiscall PrimitiveList_Invalidate(void *this,int a1); /* 0x0048ab20 */
-undefined4 __stdcall PrimitiveList_FindById(int a1,int a2); /* 0x0048abd0 */
+void * __thiscall PrimitiveList_Append(void *this,int id,int layer); /* 0x0048a670 */
+void __thiscall PrimitiveList_Draw(void *this,void *canvas,uint layerMask); /* 0x0048a9f0 */
+undefined * __thiscall PrimitiveList_Invalidate(void *this,int a1); /* 0x0048ab20 */
+undefined * __stdcall PrimitiveList_FindById(int a1,int a2); /* 0x0048abd0 */
 
 /* ===== list.c ===== */
-void List_Unlink(int *param_1); /* 0x0048ac00 */
+void __cdecl List_Unlink(void *obj); /* 0x0048ac00 */
 
 /* ===== textobjects.c ===== */
 void __cdecl TextObjects_Update(int drawAll); /* 0x0048ac40 */
@@ -1774,20 +1774,20 @@ undefined4 sputText_Initialize(GrimServices *param_1,undefined4 *param_2); /* 0x
 /* ===== text.c ===== */
 int __cdecl Text_ParseLuaTable(void *ctx,void *table,void *textObj); /* 0x0048c050 */
 char * __cdecl Text_ParseLineId(char *line,char *outId); /* 0x0048c8d0 */
-undefined4 Text_GetSpeed(void); /* 0x00494740 */
+int Text_GetSpeed(void); /* 0x00494740 */
 void __cdecl Text_SetSpeed(int speed); /* 0x00494750 */
 void * Text_GetDefaultFont(void); /* 0x004aa930 */
-int Font_LoadFile(char *filename,void **outFont); /* 0x004aa940 */
-void Font_Free(void *param_1); /* 0x004aa990 */
-char Text_NextChar(uint *param_1); /* 0x004aa9b0 */
-undefined4 Font_GetGlyphWidth(int param_1,undefined4 param_2); /* 0x004aaa20 */
-int __cdecl Text_MeasureString(void *font,int text); /* 0x004aaa80 */
-int Text_MeasureLine(undefined4 *param_1,int param_2); /* 0x004aab10 */
+int __cdecl Font_LoadFile(char *filename,void **outFont); /* 0x004aa940 */
+void __cdecl Font_Free(void *font); /* 0x004aa990 */
+char __cdecl Text_NextChar(char **pText); /* 0x004aa9b0 */
+int __cdecl Text_CharWidth(void *ctx,int ch); /* 0x004aaa20 */
+int __cdecl Text_MeasureWidth(void *ctx,char *text); /* 0x004aaa80 */
+int Text_MeasureHeight(void *ctx,char *text); /* 0x004aab10 */
 undefined4 Text_DrawFormatted(void *param_1,int param_2); /* 0x004aabb0 */
-undefined4 Text_WrapLines(int *param_1); /* 0x004aac40 */
+undefined4 Text_WrapLines(uint *param_1); /* 0x004aac40 */
 void Text_CopyRunes(byte *param_1,undefined4 *param_2,int param_3,int param_4); /* 0x004aae90 */
 undefined4 Text_BuildLineTable(undefined4 param_1,int *param_2); /* 0x004aaf30 */
-char * Text_LayoutString(void *param_1,void *param_2,char *param_3,int *param_4,int *param_5, int param_6); /* 0x004ab210 */
+char * Text_LayoutString(void *param_1,void *param_2,char *param_3,int *param_4,uint *param_5, int param_6); /* 0x004ab210 */
 uint __cdecl Font_GlyphAdvance(void *ctx,void *font,int ch); /* 0x004ab510 */
 uint Font_GlyphWidth(int param_1,int param_2,uint param_3); /* 0x004ab570 */
 void __cdecl Text_DrawString(void *ctx,void *font,char *text); /* 0x004ab5d0 */
@@ -1811,7 +1811,7 @@ void Controls_ResetAll(void); /* 0x0048d050 */
 /* ===== control.c ===== */
 void __cdecl Control_Enable(int control); /* 0x0048d090 */
 void __cdecl Control_Disable(int control); /* 0x0048d0d0 */
-undefined4 Control_Capture(void); /* 0x0048d150 */
+undefined * Control_Capture(void); /* 0x0048d150 */
 undefined4 Control_Release(void); /* 0x0048d170 */
 
 /* ===== sputcontrol.c ===== */
@@ -1824,7 +1824,7 @@ undefined4 FUN_0048d2e0(void); /* 0x0048d2e0 */
 void FUN_0048d330(void); /* 0x0048d330 */
 
 /* ===== sputresource.c ===== */
-int __cdecl sputResource_Initialize(undefined4 param_1,undefined4 *param_2); /* 0x0048d4e0 */
+undefined * __cdecl sputResource_Initialize(uint param_1,undefined **param_2); /* 0x0048d4e0 */
 
 /* ===== actors.c ===== */
 void Actors_FreeAllCostumes(void); /* 0x0048e240 */
@@ -1832,7 +1832,7 @@ void __cdecl Actors_UpdateTalking(float dt); /* 0x0048fcc0 */
 void __cdecl Actors_UpdateAll(float dt); /* 0x0048fcf0 */
 
 /* ===== sputactor.c ===== */
-undefined4 sputActor_Initialize(undefined4 param_1,undefined4 *param_2); /* 0x0048e2c0 */
+undefined4 sputActor_Initialize(uint param_1,undefined4 *param_2); /* 0x0048e2c0 */
 undefined4 FUN_0048e330(code *param_1); /* 0x0048e330 */
 undefined4 FUN_0048ecd0(code *param_1); /* 0x0048ecd0 */
 
@@ -1846,26 +1846,26 @@ void FUN_00490ef0(void); /* 0x00490ef0 */
 /* ===== walker.c ===== */
 undefined4 Walker_UpdateYaw(void *param_1,float *param_2); /* 0x00491230 */
 void Walker_ReplanPath(int param_1,int param_2,undefined4 *param_3,undefined4 param_4); /* 0x00491650 */
-int Walker_AvoidActorPath (void *param_1,void *param_2,undefined4 *param_3,int param_4,float *param_5); /* 0x004917e0 */
+uint Walker_AvoidActorPath (void *param_1,void *param_2,undefined4 *param_3,uint param_4,float *param_5); /* 0x004917e0 */
 void __cdecl Walker_SetFadeTime(int ms); /* 0x00494880 */
-undefined4 * __thiscall Walker_Create(void *this,int a1); /* 0x004a8200 */
+void * __thiscall Walker_Create(void *this,float radius); /* 0x004a8200 */
 void __fastcall Walker_Destroy(int param_1); /* 0x004a8270 */
 undefined * __fastcall Walker_GetAngles(int param_1); /* 0x004a82a0 */
 void __fastcall Walker_ReattachToSet(void *param_1); /* 0x004a82c0 */
-undefined4 __thiscall Walker_SetPosition(void *this,int a1); /* 0x004a8310 */
-undefined4 __thiscall Walker_RotateVector(void *this,int a1); /* 0x004a8350 */
-undefined4 __thiscall Walker_ToLocalSpace(void *this,int a1); /* 0x004a8370 */
-undefined4 __thiscall Walker_TurnHeading(void *this,int a1); /* 0x004a83c0 */
-undefined4 __thiscall Walker_TurnToPoint(void *this,int a1,int a2); /* 0x004a8450 */
-undefined4 __thiscall Walker_SetConstraint(void *this,int a1); /* 0x004a85b0 */
-undefined4 __thiscall Walker_WalkSectors(void *this,int a1,int a2,int a3); /* 0x004a8610 */
-undefined4 __thiscall Walker_SetSectorFrame(void *this,int a1); /* 0x004a89b0 */
+void __thiscall Walker_SetPosition(void *this,float *pos); /* 0x004a8310 */
+void __thiscall Walker_RotateVector(void *this,float *vec); /* 0x004a8350 */
+void __thiscall Walker_ToLocalSpace(void *this,float *vec); /* 0x004a8370 */
+undefined * __thiscall Walker_TurnHeading(void *this,int a1); /* 0x004a83c0 */
+undefined * __thiscall Walker_TurnToPoint(void *this,int a1,int a2); /* 0x004a8450 */
+undefined * __thiscall Walker_SetConstraint(void *this,int a1); /* 0x004a85b0 */
+undefined * __thiscall Walker_WalkSectors(void *this,int a1,int a2,int a3); /* 0x004a8610 */
+undefined * __thiscall Walker_SetSectorFrame(void *this,int a1); /* 0x004a89b0 */
 void __fastcall Walker_RebuildRightVector(int param_1); /* 0x004a8a90 */
-undefined4 __stdcall Walker_DrawDebugAxes(int a1); /* 0x004a8b00 */
-undefined4 Planner_GetPath(undefined4 *param_1); /* 0x004a9420 */
-undefined4 Planner_PlanPath(undefined4 param_1,undefined4 *param_2,int param_3); /* 0x004a9430 */
+void __stdcall Walker_DrawDebugAxes(int color); /* 0x004a8b00 */
+uint Planner_GetPath(undefined4 *param_1); /* 0x004a9420 */
+undefined4 Planner_PlanPath(undefined4 param_1,uint *param_2,int param_3); /* 0x004a9430 */
 undefined4 Planner_SearchSectors(float *param_1,int param_2,void *param_3); /* 0x004a94d0 */
-int Planner_CollectSharedCorners(void *param_1,float *param_2,float *param_3); /* 0x004a96f0 */
+uint Planner_CollectSharedCorners(void *param_1,float *param_2,uint *param_3); /* 0x004a96f0 */
 undefined4 Planner_PortalPoint(int param_1,int param_2,float *param_3,undefined4 *param_4); /* 0x004a9920 */
 undefined4 Planner_SmoothPath(void); /* 0x004a9aa0 */
 int Planner_SharedSector(undefined4 param_1,int param_2); /* 0x004a9ca0 */
@@ -1882,11 +1882,11 @@ undefined4 Collision_BoxSlide(float *param_1,float *param_2,float param_3,float 
 
 /* ===== speech.c ===== */
 void __cdecl Speech_SetMode(int mode); /* 0x004931c0 */
-undefined4 Speech_GetMode(void); /* 0x004931e0 */
+uint Speech_GetMode(void); /* 0x004931e0 */
 
 /* ===== costume.c ===== */
 void Cos_StartChoreFaded(void *param_1,int param_2,int param_3); /* 0x00493410 */
-undefined4 __cdecl Cos_StopChoreFaded(void *param_1,int param_2,int param_3); /* 0x00493450 */
+undefined * __cdecl Cos_StopChoreFaded(void *param_1,int param_2,int param_3); /* 0x00493450 */
 void __cdecl Costume_PrintList(void *costume); /* 0x00494d10 */
 void __cdecl Costume_FreeList(void *list,int free); /* 0x00494dc0 */
 void * __cdecl Costume_Pop(void *list,int free); /* 0x00494e10 */
@@ -1990,22 +1990,22 @@ void FUN_004a3da0(void); /* 0x004a3da0 */
 
 /* ===== sound.c ===== */
 void PositionedSounds_UpdateAll(void); /* 0x004a3fe0 */
-void Sound_SetPosition(undefined4 param_1,undefined4 *param_2,undefined4 param_3,undefined4 param_4, undefined4 param_5,undefined4 param_6); /* 0x004a40a0 */
+void Sound_SetPosition(uint param_1,undefined **param_2,uint param_3,uint param_4,uint param_5, uint param_6); /* 0x004a40a0 */
 void PositionedSounds_DropFinished(void); /* 0x004a4dc0 */
-undefined4 * __cdecl PositionedSound_Add(undefined4 param_1,undefined4 *param_2,undefined4 param_3,undefined4 param_4, undefined4 param_5,undefined4 param_6); /* 0x004a4e20 */
+undefined * __cdecl PositionedSound_Add(uint param_1,undefined **param_2,uint param_3,uint param_4,uint param_5, uint param_6); /* 0x004a4e20 */
 undefined4 PositionedSound_Apply(int param_1); /* 0x004a4e80 */
 undefined4 Sound_DriverQuery(void); /* 0x004d0c20 */
-undefined4 __cdecl Sound_VoiceSampleCount(int param_1); /* 0x004d0cf0 */
+undefined * __cdecl Sound_VoiceSampleCount(int param_1); /* 0x004d0cf0 */
 
 /* ===== sputroom.c ===== */
-undefined4 __cdecl sputRoom_Initialize(undefined4 param_1,undefined4 *param_2); /* 0x004a48c0 */
+undefined * __cdecl sputRoom_Initialize(uint param_1,undefined **param_2); /* 0x004a48c0 */
 void FUN_004a4920(undefined4 param_1); /* 0x004a4920 */
 undefined4 FUN_004a4930(char *param_1); /* 0x004a4930 */
 void FUN_004a4980(undefined4 param_1); /* 0x004a4980 */
 void FUN_004a4990(void *param_1); /* 0x004a4990 */
-undefined4 * FUN_004a49a0(undefined4 param_1); /* 0x004a49a0 */
+undefined4 * FUN_004a49a0(char *param_1); /* 0x004a49a0 */
 void FUN_004a4a70(undefined4 *param_1); /* 0x004a4a70 */
-bool FUN_004a4b00(char *param_1,int param_2); /* 0x004a4b00 */
+bool FUN_004a4b00(char *param_1,uint param_2); /* 0x004a4b00 */
 
 /* ===== light.c ===== */
 void * __cdecl Light_Get(void *set,int index); /* 0x004a5cc0 */
@@ -2016,21 +2016,21 @@ void * __cdecl ObjectState_Create(int setupIdx,int type,char *bitmap,char *zbitm
 void __cdecl ObjectState_Free(void *state); /* 0x004a5e50 */
 undefined4 * __fastcall StateImage_Construct(undefined4 *param_1); /* 0x004aa070 */
 void __fastcall StateImage_Release(int param_1); /* 0x004aa0b0 */
-undefined4 __thiscall StateImage_Init(void *this,int a1); /* 0x004aa100 */
-int __thiscall StateImage_Load(void *this,int a1); /* 0x004aa130 */
+void __thiscall StateImage_Init(void *this,char *name); /* 0x004aa100 */
+void __thiscall StateImage_Load(void *this,int load); /* 0x004aa130 */
 undefined4 __fastcall StateImage_GetFrameSurface(int param_1); /* 0x004aa1f0 */
-int __thiscall StateImage_CaptureFrom(void *this,int a1); /* 0x004aa290 */
-int __thiscall StateImage_Draw(void *this,int a1); /* 0x004aa310 */
+void __thiscall StateImage_CaptureFrom(void *this,void *surface); /* 0x004aa290 */
+void __thiscall StateImage_Draw(void *this,void *dst); /* 0x004aa310 */
 bool __fastcall StateImage_IsCurrentFrame(int param_1); /* 0x004aa3e0 */
-undefined4 * __thiscall ObjectState_Construct(void *this,int a1,int a2,int a3,int a4); /* 0x004aa410 */
+void * __thiscall ObjectState_Construct(void *this,int type,char *bitmapName,char *zbufName,int setupIdx); /* 0x004aa410 */
 void __fastcall ObjectState_Destruct(int param_1); /* 0x004aa4c0 */
 void __fastcall ObjectState_LoadImages(int param_1); /* 0x004aa540 */
 void __fastcall ObjectState_UnloadBitmaps(int param_1); /* 0x004aa560 */
-int __thiscall ObjectState_CaptureBackground(void *this,int a1,int a2); /* 0x004aa580 */
-undefined4 __thiscall ObjectState_Draw(void *this,int a1,int a2,int a3); /* 0x004aa5c0 */
+void __thiscall ObjectState_CaptureBackground(void *this,void *bg,void *zbuf); /* 0x004aa580 */
+void __thiscall ObjectState_Draw(void *this,int type,void *dst,void *zdst); /* 0x004aa5c0 */
 int __thiscall ObjectState_SetFrame(void *this,int a1); /* 0x004aa6b0 */
-int __thiscall ObjectState_SendToBack(void *this,int a1); /* 0x004aa6c0 */
-int __thiscall ObjectState_SendToFront(void *this,int a1); /* 0x004aa720 */
+void * __thiscall ObjectState_SendToBack(void *this,void *list); /* 0x004aa6c0 */
+void * __thiscall ObjectState_SendToFront(void *this,void *list); /* 0x004aa720 */
 
 /* ===== textmodule.c ===== */
 int __cdecl TextModule_Init(GrimServices *svc,void *iface); /* 0x004aa7b0 */
@@ -2054,17 +2054,17 @@ void FUN_004abf30(void); /* 0x004abf30 */
 
 /* ===== crt.c ===== */
 char _stricmp(byte *param_1,byte *param_2); /* 0x004ac550 */
-undefined4 sprintf(undefined1 *param_1,undefined4 param_2); /* 0x004ac620 */
+undefined4 sprintf(uint param_1,undefined4 param_2); /* 0x004ac620 */
 longlong _ftol(void); /* 0x004ac6f0 */
-undefined4 _snprintf(undefined1 *param_1,int param_2,undefined4 param_3,undefined4 param_4); /* 0x004ac720 */
+undefined4 _snprintf(uint param_1,uint param_2,undefined4 param_3,undefined4 param_4); /* 0x004ac720 */
 int atol(byte *param_1); /* 0x004ac790 */
-undefined4 atoi(undefined4 param_1); /* 0x004ac830 */
+undefined * __cdecl atoi(uint param_1); /* 0x004ac830 */
 uint * strncpy(uint *param_1,uint *param_2,uint param_3); /* 0x004ac840 */
 uint strtok(byte *param_1,byte *param_2); /* 0x004ac940 */
 void entry(void); /* 0x004aca30 */
 void _amsg_exit(undefined4 param_1); /* 0x004acbe0 */
 undefined4 printf(undefined4 param_1); /* 0x004acc40 */
-undefined4 vsprintf(undefined1 *param_1,undefined4 param_2,undefined4 param_3); /* 0x004acca0 */
+undefined4 vsprintf(uint param_1,undefined4 param_2,undefined4 param_3); /* 0x004acca0 */
 void exit(undefined4 param_1); /* 0x004acd40 */
 void _exit(undefined4 param_1); /* 0x004acd60 */
 void doexit(int param_1,int param_2,int param_3); /* 0x004acd80 */
@@ -2073,13 +2073,13 @@ void _unlockexit(void); /* 0x004ace50 */
 void _initterm(undefined4 *param_1,undefined4 *param_2); /* 0x004ace60 */
 void * _onexit(void *param_1); /* 0x004ace80 */
 int atexit(undefined4 param_1); /* 0x004acf10 */
-undefined4 malloc(undefined4 param_1); /* 0x004acf70 */
+undefined * __cdecl malloc(uint param_1); /* 0x004acf70 */
 int _nh_malloc(uint param_1,int param_2); /* 0x004acf90 */
 int _heap_alloc(int param_1); /* 0x004acfe0 */
 void free(int param_1); /* 0x004ad040 */
 undefined4 * realloc(undefined4 *param_1,uint param_2); /* 0x004ad0b0 */
 undefined4 _fsopen(undefined4 param_1,undefined4 param_2,undefined4 param_3); /* 0x004ad2c0 */
-undefined4 fopen(undefined4 param_1,undefined4 param_2); /* 0x004ad300 */
+undefined * __cdecl fopen(uint param_1,uint param_2); /* 0x004ad300 */
 undefined4 fclose(int param_1); /* 0x004ad320 */
 undefined4 _fclose_lk(int param_1); /* 0x004ad360 */
 undefined4 fread(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4); /* 0x004ad3d0 */
@@ -2088,7 +2088,7 @@ char * fgets(char *param_1,int param_2,undefined4 *param_3); /* 0x004ad550 */
 undefined4 fwrite(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4); /* 0x004ad5e0 */
 uint _fwrite_lk(char *param_1,uint param_2,uint param_3,int *param_4); /* 0x004ad620 */
 undefined4 ftell(undefined4 param_1); /* 0x004ad770 */
-int _ftell_lk(undefined4 *param_1); /* 0x004ad7a0 */
+uint _ftell_lk(undefined4 *param_1); /* 0x004ad7a0 */
 undefined4 fseek(undefined4 param_1,undefined4 param_2,undefined4 param_3); /* 0x004ad950 */
 int _fseek_lk(int param_1,int param_2,int param_3); /* 0x004ad990 */
 undefined4 vfprintf(undefined4 param_1,undefined4 param_2,undefined4 param_3); /* 0x004ada30 */
@@ -2097,9 +2097,9 @@ void shortsort(uint param_1,uint param_2,int param_3,code *param_4); /* 0x004adc
 void qsort_swap(undefined1 *param_1,undefined1 *param_2,int param_3); /* 0x004adc90 */
 uint bsearch(undefined4 param_1,uint param_2,uint param_3,int param_4,code *param_5); /* 0x004adcc0 */
 uint memcmp(char *param_1,char *param_2,int param_3); /* 0x004add60 */
-undefined4 __cdecl sscanf(char *param_1,undefined4 param_2); /* 0x004adda0 */
+undefined * __cdecl sscanf(char *param_1,uint param_2); /* 0x004adda0 */
 uint * strchr(uint *param_1,char param_2); /* 0x004ade30 */
-undefined4 _vsnprintf(undefined1 *param_1,int param_2,undefined4 param_3); /* 0x004adf70 */
+undefined4 _vsnprintf(uint param_1,uint param_2,undefined4 param_3); /* 0x004adf70 */
 char * _strupr(char *param_1); /* 0x004adfe0 */
 char * strrchr(char *param_1,char param_2); /* 0x004ae160 */
 undefined4 fprintf(undefined4 param_1,undefined4 param_2); /* 0x004ae190 */
@@ -2107,26 +2107,26 @@ int wcslen(short *param_1); /* 0x004ae260 */
 int tolower(int param_1); /* 0x004ae280 */
 uint _tolower_lk(uint param_1); /* 0x004ae310 */
 void _CIpow(void); /* 0x004ae540 */
-undefined4 _pow(int param_1,uint param_2,int param_3,uint param_4); /* 0x004ae562 */
+undefined * _pow(int param_1,uint param_2,int param_3,uint param_4); /* 0x004ae562 */
 char * _strlwr(char *param_1); /* 0x004ae760 */
 int toupper(int param_1); /* 0x004ae8e0 */
 uint _toupper_lk(uint param_1); /* 0x004ae970 */
 undefined4 fflush(int param_1); /* 0x004aea70 */
 int _fflush_lk(int param_1); /* 0x004aeab0 */
 undefined4 _flush(int *param_1); /* 0x004aeaf0 */
-int _flushall(int param_1); /* 0x004aeb70 */
-undefined4 * memcpy(undefined4 *param_1,undefined4 *param_2,uint param_3); /* 0x004aec30 */
+uint _flushall(int param_1); /* 0x004aeb70 */
+undefined4 * memmove(undefined4 *param_1,undefined4 *param_2,uint param_3); /* 0x004aec30 */
 int _findfirst(int param_1,uint *param_2); /* 0x004aeff0 */
 undefined4 _findnext(int param_1,uint *param_2); /* 0x004af120 */
 undefined4 _findclose(int param_1); /* 0x004af240 */
 undefined4 _FileTimeToTime_t(int *param_1); /* 0x004af270 */
 void _CallSettingFrame(code *UNRECOVERED_JUMPTABLE); /* 0x004af300 */
-undefined4 __stdcall _UnwindNestedFrames(int a1,int a2); /* 0x004af350 */
+undefined * __stdcall _UnwindNestedFrames(int a1,int a2); /* 0x004af350 */
 undefined4 __CxxFrameHandler(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4); /* 0x004af3b0 */
 void _global_unwind2(int param_1); /* 0x004af660 */
 void _local_unwind2(int param_1,int param_2); /* 0x004af6a2 */
 undefined4 _unwind_handler(void); /* 0x004af70a */
-undefined4 __stdcall _NLG_Notify(int a1); /* 0x004af736 */
+undefined * __stdcall _NLG_Notify(int a1); /* 0x004af736 */
 uint isdigit(int param_1); /* 0x004af750 */
 uint isspace(int param_1); /* 0x004af780 */
 void _lock(int param_1); /* 0x004af7e0 */
@@ -2136,7 +2136,7 @@ void _lock_file2(int param_1,int param_2); /* 0x004af8c0 */
 void _unlock_file(uint param_1); /* 0x004af8f0 */
 void _unlock_file2(int param_1,int param_2); /* 0x004af930 */
 uint _flsbuf(uint param_1,int *param_2); /* 0x004af960 */
-int _output(undefined4 param_1,char *param_2,undefined4 *param_3); /* 0x004afa90 */
+uint _output(undefined4 param_1,char *param_2,uint *param_3); /* 0x004afa90 */
 void write_char(uint param_1,int *param_2,int *param_3); /* 0x004b0420 */
 void write_multi_char(undefined4 param_1,int param_2,undefined4 param_3,int *param_4); /* 0x004b0470 */
 void write_string(char *param_1,int param_2,undefined4 param_3,int *param_4); /* 0x004b04b0 */
@@ -2144,12 +2144,12 @@ undefined4 get_int_arg(int *param_1); /* 0x004b04f0 */
 undefined8 get_short_arg(int *param_1); /* 0x004b0510 */
 undefined4 get_int64_arg(undefined4 *param_1); /* 0x004b0530 */
 uint _isctype(int param_1,uint param_2); /* 0x004b0b50 */
-int __stdcall _allmul(int a1,int a2,int a3,int a4); /* 0x004b0bf0 */
+undefined * __stdcall _allmul(int a1,int a2,int a3,int a4); /* 0x004b0bf0 */
 void _initptd(int param_1); /* 0x004b0c90 */
 int * _getptd(void); /* 0x004b0cb0 */
 void _FF_MSGBANNER(void); /* 0x004b1d20 */
 void _NMSG_WRITE(undefined *param_1); /* 0x004b1d60 */
-undefined4 _stbuf(undefined4 *param_1); /* 0x004b1f40 */
+undefined4 _stbuf(uint *param_1); /* 0x004b1f40 */
 void _ftbuf(int param_1,undefined4 *param_2); /* 0x004b2000 */
 int _msize(int param_1); /* 0x004b2120 */
 undefined4 _callnewh(undefined4 param_1); /* 0x004b2190 */
@@ -2177,19 +2177,19 @@ int _errno(void); /* 0x004b3500 */
 int __doserrno(void); /* 0x004b3510 */
 undefined4 _lseek(uint param_1,undefined4 param_2,undefined4 param_3); /* 0x004b3520 */
 int _lseek_lk(uint param_1,int param_2,int param_3); /* 0x004b35a0 */
-int _input(undefined4 param_1,byte *param_2,undefined4 *param_3); /* 0x004b3620 */
+uint _input(undefined4 param_1,byte *param_2,uint *param_3); /* 0x004b3620 */
 uint _hextodec(uint param_1); /* 0x004b4360 */
 uint _inc(undefined4 *param_1); /* 0x004b43a0 */
 void _un_inc(int param_1,undefined4 param_2); /* 0x004b43d0 */
 undefined4 _whiteout(int *param_1,undefined4 param_2); /* 0x004b43f0 */
-int __crtLCMapStringA(int param_1,uint param_2,int param_3,int param_4,int param_5,int param_6, int param_7,int param_8); /* 0x004b4560 */
+uint __crtLCMapStringA(int param_1,uint param_2,int param_3,undefined *param_4,int param_5, int param_6,uint param_7,int param_8); /* 0x004b4560 */
 int _strncnt(char *param_1,int param_2); /* 0x004b4790 */
-float10 __fastcall _pow_except1(undefined4 param_1,undefined4 param_2,undefined2 param_3,undefined4 param_4, undefined4 param_5,undefined4 param_6,undefined4 param_7,undefined4 param_8); /* 0x004b4ba0 */
-float10 __fastcall _pow_except2(undefined4 param_1,undefined4 param_2,undefined2 param_3,undefined4 param_4, undefined4 param_5,undefined4 param_6); /* 0x004b4bb7 */
+float10 __fastcall _pow_except1(undefined4 param_1,undefined4 param_2,undefined2 param_3,undefined4 param_4, undefined4 param_5,undefined4 param_6,uint param_7,uint param_8); /* 0x004b4ba0 */
+float10 __fastcall _pow_except2(undefined4 param_1,undefined4 param_2,undefined2 param_3,undefined4 param_4, uint param_5,uint param_6); /* 0x004b4bb7 */
 undefined4 _pow_special_cases(double param_1,double param_2,double *param_3); /* 0x004b4d90 */
 undefined4 _is_integer_double(double param_1); /* 0x004b4fc0 */
 undefined4 _commit(uint param_1); /* 0x004b5050 */
-int __loctotime_t(int param_1,int param_2,int param_3,int param_4,int param_5,int param_6, int param_7); /* 0x004b50f0 */
+int __loctotime_t(int param_1,int param_2,int param_3,uint param_4,int param_5,int param_6, int param_7); /* 0x004b50f0 */
 undefined4 __InternalCxxFrameHandler (int *param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4,int *param_5, int param_6,undefined4 param_7,uint param_8); /* 0x004b51e0 */
 void FindHandler(int *param_1,int param_2,undefined4 param_3,undefined4 param_4,int param_5, char param_6,undefined4 param_7,undefined4 param_8); /* 0x004b52b0 */
 void Eh_FindForeignHandler (undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4, undefined4 param_5,int param_6,undefined4 param_7,undefined4 param_8); /* 0x004b5570 */
@@ -2203,14 +2203,14 @@ void _getbuf(int *param_1); /* 0x004b6ce0 */
 byte _isatty(uint param_1); /* 0x004b6d40 */
 undefined4 wctomb(undefined4 param_1,undefined4 param_2); /* 0x004b6d70 */
 int _wctomb_lk(undefined1 *param_1,ushort param_2); /* 0x004b6de0 */
-int __stdcall _aulldiv(int a1,int a2,int a3,int a4); /* 0x004b6e60 */
-int __stdcall _aullrem(int a1,int a2,int a3,int a4); /* 0x004b6ed0 */
+undefined * __stdcall _aulldiv(int a1,int a2,int a3,int a4); /* 0x004b6e60 */
+undefined * __stdcall _aullrem(int a1,int a2,int a3,int a4); /* 0x004b6ed0 */
 undefined4 _ld12tocvt(ushort *param_1,uint *param_2,int *param_3); /* 0x004b7370 */
-undefined4 _ld12tod(undefined4 param_1,undefined4 param_2); /* 0x004b7540 */
-int __crtGetStringTypeA(int param_1,int param_2,int param_3,int param_4,int param_5,int param_6, int param_7); /* 0x004b7990 */
+undefined * __cdecl _ld12tod(uint param_1,uint param_2); /* 0x004b7540 */
+uint __crtGetStringTypeA(int param_1,int param_2,int param_3,int param_4,uint param_5,uint param_6, int param_7); /* 0x004b7990 */
 undefined4 * calloc(int param_1,int param_2); /* 0x004b7ad0 */
 undefined4 __crtMessageBoxA(undefined4 param_1,undefined4 param_2,undefined4 param_3); /* 0x004b7b80 */
-undefined4 mktime(undefined4 param_1); /* 0x004b7cb0 */
+undefined * __cdecl mktime(uint param_1); /* 0x004b7cb0 */
 int _make_time_t(int *param_1,int param_2); /* 0x004b7cc0 */
 void __tzset(void); /* 0x004b7f00 */
 void _tzset_lk(void); /* 0x004b7f40 */
@@ -2218,7 +2218,7 @@ undefined4 _isindst(undefined4 param_1); /* 0x004b8220 */
 bool _isindst_lk(int *param_1); /* 0x004b8250 */
 void _cvtdate(int param_1,int param_2,uint param_3,int param_4,int param_5,int param_6,int param_7, int param_8,int param_9,int param_10,int param_11); /* 0x004b84c0 */
 uint _sopen(int param_1,uint param_2,uint param_3,undefined4 param_4); /* 0x004b8660 */
-int _alloc_osfhnd(void); /* 0x004b8a00 */
+uint _alloc_osfhnd(void); /* 0x004b8a00 */
 undefined4 _set_osfhnd(uint param_1,int param_2); /* 0x004b8b70 */
 undefined4 _free_osfhnd(uint param_1); /* 0x004b8c20 */
 int _get_osfhandle(uint param_1); /* 0x004b8cc0 */
@@ -2241,7 +2241,7 @@ void __add_12(undefined4 *param_1,undefined4 *param_2); /* 0x004ba880 */
 void __shl_12(uint *param_1); /* 0x004ba8f0 */
 void __shr_12(uint *param_1); /* 0x004ba920 */
 void __mtold12(char *param_1,int param_2,uint *param_3); /* 0x004ba950 */
-undefined4 __strgtold12(ushort *param_1,int *param_2,byte *param_3,undefined4 param_4,int param_5,int param_6, int param_7); /* 0x004baa50 */
+uint __strgtold12(ushort *param_1,int *param_2,byte *param_3,undefined4 param_4,int param_5, int param_6,int param_7); /* 0x004baa50 */
 int * gmtime(int *param_1); /* 0x004bb570 */
 int * localtime(int *param_1); /* 0x004bb6e0 */
 undefined4 wcstombs(undefined4 param_1,undefined4 param_2,undefined4 param_3); /* 0x004bb8d0 */
@@ -2255,19 +2255,18 @@ void __ld12mul(int *param_1,int *param_2); /* 0x004bc730 */
 void __multtenpow12(undefined2 *param_1,uint param_2,int param_3); /* 0x004bc9f0 */
 int _strnicoll(undefined4 param_1,undefined4 param_2,int param_3); /* 0x004bca80 */
 undefined4 __crtsetenv_from_wenviron(void); /* 0x004bcac0 */
-int __crtCompareStringA(int param_1,int param_2,byte *param_3,int param_4,byte *param_5,int param_6, int param_7); /* 0x004bcbb0 */
+uint __crtCompareStringA(int param_1,int param_2,byte *param_3,undefined *param_4,byte *param_5, int param_6,uint param_7); /* 0x004bcbb0 */
 undefined4 __crtsetenv(char *param_1,int param_2); /* 0x004bce80 */
 int findenv(undefined4 param_1,int param_2); /* 0x004bd090 */
 undefined4 * copy_environ(int *param_1); /* 0x004bd110 */
 byte * _mbschr(byte *param_1,uint param_2); /* 0x004bd180 */
 char * _strdup(char *param_1); /* 0x004bd250 */
-undefined4 _matherr(void); /* 0x004c4c40 */
 float10 atof(byte *param_1); /* 0x004d5430 */
 int _fdopen(uint param_1,char *param_2); /* 0x004d54e0 */
 void rewind(int param_1); /* 0x004d5670 */
 void _except_handler3(int param_1); /* 0x004d59d0 */
 undefined4 _setjmp3(undefined4 *param_1,int param_2,int param_3,undefined4 param_4); /* 0x004d5a4c */
-uint * __cdecl _fltin(uint *param_1,int param_2); /* 0x004d5ad0 */
+undefined * __cdecl _fltin(uint *param_1,int param_2); /* 0x004d5ad0 */
 
 /* ===== crt_unnamed.c ===== */
 void FUN_004ac690(void); /* 0x004ac690 */
@@ -2281,19 +2280,19 @@ void FUN_004ad2b0(void); /* 0x004ad2b0 */
 void FUN_004addf0(void); /* 0x004addf0 */
 short * FUN_004adef0(short *param_1,int param_2,undefined4 param_3); /* 0x004adef0 */
 uint * FUN_004ae410(uint *param_1,uint *param_2,uint param_3); /* 0x004ae410 */
-undefined4 FUN_004ae735(void); /* 0x004ae735 */
+undefined * FUN_004ae735(void); /* 0x004ae735 */
 void FUN_004aeb60(void); /* 0x004aeb60 */
 void FUN_004af340(undefined4 param_1,code *UNRECOVERED_JUMPTABLE); /* 0x004af340 */
-undefined4 FUN_004af3f0(int param_1,undefined4 param_2,int param_3,int param_4,int param_5); /* 0x004af3f0 */
+undefined * FUN_004af3f0(uint param_1,uint param_2,int param_3,int param_4,int param_5); /* 0x004af3f0 */
 void FUN_004af450(undefined4 param_1,int param_2,undefined4 param_3); /* 0x004af450 */
-undefined4 FUN_004af480(undefined4 *param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4, undefined4 param_5,undefined4 param_6,undefined4 param_7); /* 0x004af480 */
+undefined4 FUN_004af480(undefined4 *param_1,uint param_2,uint param_3,undefined4 param_4,uint param_5, uint param_6,uint param_7); /* 0x004af480 */
 undefined4 FUN_004af550(int param_1,int param_2,undefined4 param_3); /* 0x004af550 */
 int FUN_004af5e0(int param_1,int param_2,int param_3,uint *param_4,uint *param_5); /* 0x004af5e0 */
-void __fastcall FUN_004af72d(undefined4 param_1); /* 0x004af72d */
+void __fastcall FUN_004af72d(uint param_1); /* 0x004af72d */
 void FUN_004af7b0(void); /* 0x004af7b0 */
 void FUN_004b0550(void); /* 0x004b0550 */
 undefined4 FUN_004b0570(void); /* 0x004b0570 */
-undefined4 FUN_004b05c0(void); /* 0x004b05c0 */
+undefined * FUN_004b05c0(void); /* 0x004b05c0 */
 void FUN_004b05f0(char *param_1); /* 0x004b05f0 */
 int FUN_004b0740(undefined4 *param_1,int param_2,int param_3,undefined4 param_4); /* 0x004b0740 */
 undefined1 * FUN_004b07c0(undefined1 *param_1,int param_2,int param_3,int *param_4,char param_5); /* 0x004b07c0 */
@@ -2304,14 +2303,14 @@ void FUN_004b0b20(char *param_1,int param_2); /* 0x004b0b20 */
 undefined4 FUN_004b0c30(void); /* 0x004b0c30 */
 undefined4 FUN_004b0d30(undefined4 param_1,undefined4 param_2); /* 0x004b0d30 */
 int * FUN_004b0f40(int param_1,int *param_2); /* 0x004b0f40 */
-undefined4 FUN_004b0f80(undefined4 param_1); /* 0x004b0f80 */
+undefined * __cdecl FUN_004b0f80(uint param_1); /* 0x004b0f80 */
 undefined4 FUN_004b0fa0(uint param_1,uint param_2,byte param_3); /* 0x004b0fa0 */
 void FUN_004b0fe0(void); /* 0x004b0fe0 */
 void FUN_004b10d0(void); /* 0x004b10d0 */
 void FUN_004b1170(byte *param_1,undefined4 *param_2,byte *param_3,int *param_4,int *param_5); /* 0x004b1170 */
 char * FUN_004b1380(void); /* 0x004b1380 */
 undefined4 FUN_004b14e0(undefined4 param_1); /* 0x004b14e0 */
-int FUN_004b1710(int param_1); /* 0x004b1710 */
+uint FUN_004b1710(uint param_1); /* 0x004b1710 */
 undefined4 FUN_004b1760(undefined4 param_1); /* 0x004b1760 */
 void FUN_004b17c0(void); /* 0x004b17c0 */
 void FUN_004b1800(void); /* 0x004b1800 */
@@ -2325,10 +2324,10 @@ float10 FUN_004b4ad4(void); /* 0x004b4ad4 */
 float10 FUN_004b4b0d(void); /* 0x004b4b0d */
 float10 FUN_004b4b0f(void); /* 0x004b4b0f */
 unkbyte10 FUN_004b4c00(void); /* 0x004b4c00 */
-undefined4 FUN_004b4c15(void); /* 0x004b4c15 */
+undefined * FUN_004b4c15(void); /* 0x004b4c15 */
 uint __fastcall FUN_004b4c45(undefined4 param_1,int param_2); /* 0x004b4c45 */
-undefined4 FUN_004b4c9e(void); /* 0x004b4c9e */
-undefined4 __fastcall FUN_004b4ce9(undefined4 param_1,int param_2); /* 0x004b4ce9 */
+undefined * FUN_004b4c9e(void); /* 0x004b4c9e */
+undefined * __fastcall FUN_004b4ce9(uint param_1,int param_2); /* 0x004b4ce9 */
 void FUN_004b56c6(void); /* 0x004b56c6 */
 void FUN_004b56d3(void); /* 0x004b56d3 */
 undefined4 FUN_004b5710(undefined4 *param_1); /* 0x004b5710 */
@@ -2338,7 +2337,7 @@ void FUN_004b5b60(int param_1); /* 0x004b5b60 */
 bool FUN_004b5baa(void); /* 0x004b5baa */
 void FUN_004b5bb5(void); /* 0x004b5bb5 */
 int FUN_004b5be0(int param_1,int *param_2); /* 0x004b5be0 */
-undefined4 __stdcall FUN_004b5c10(int a1,int a2,int a3); /* 0x004b5c10 */
+undefined * __stdcall FUN_004b5c10(int a1,int a2,int a3); /* 0x004b5c10 */
 undefined4 FUN_004b5caa(void); /* 0x004b5caa */
 void FUN_004b5cb0(void); /* 0x004b5cb0 */
 void FUN_004b5cd7(void); /* 0x004b5cd7 */
@@ -2359,22 +2358,22 @@ void FUN_004b6f90(undefined4 param_1,uint param_2); /* 0x004b6f90 */
 uint FUN_004b6fb0(uint param_1); /* 0x004b6fb0 */
 void FUN_004b7050(void); /* 0x004b7050 */
 undefined4 FUN_004b70e0(int param_1,int param_2); /* 0x004b70e0 */
-int __cdecl FUN_004b7150(int param_1,int param_2); /* 0x004b7150 */
-undefined4 FUN_004b71c0(int param_1,int param_2); /* 0x004b71c0 */
+undefined * __cdecl FUN_004b7150(int param_1,int param_2); /* 0x004b7150 */
+undefined * FUN_004b71c0(int param_1,int param_2); /* 0x004b71c0 */
 void FUN_004b7260(int param_1,undefined4 *param_2); /* 0x004b7260 */
 void FUN_004b7280(undefined4 *param_1); /* 0x004b7280 */
 undefined4 FUN_004b7290(int *param_1); /* 0x004b7290 */
 void FUN_004b72b0(uint *param_1,int param_2); /* 0x004b72b0 */
 void FUN_004b7560(undefined4 param_1,undefined4 param_2); /* 0x004b7560 */
-void FUN_004b7580(undefined4 param_1,undefined4 param_2); /* 0x004b7580 */
+void FUN_004b7580(uint param_1,undefined4 param_2); /* 0x004b7580 */
 void FUN_004b75c0(undefined4 param_1,undefined4 param_2); /* 0x004b75c0 */
 void FUN_004b7600(char *param_1,int param_2,int param_3); /* 0x004b7600 */
 int * FUN_004b76a0(undefined4 param_1,undefined4 param_2,int *param_3,char *param_4); /* 0x004b76a0 */
 void FUN_004b7730(uint *param_1,uint *param_2); /* 0x004b7730 */
 void FUN_004b77f0(void); /* 0x004b77f0 */
-int FUN_004b7800(int param_1,int param_2,int param_3,int param_4,int param_5,int param_6); /* 0x004b7800 */
+uint FUN_004b7800(int param_1,int param_2,int param_3,int param_4,uint param_5,uint param_6); /* 0x004b7800 */
 int FUN_004b7c10(void); /* 0x004b7c10 */
-longlong __fastcall FUN_004b8f30(byte param_1,int param_2); /* 0x004b8f30 */
+int __fastcall FUN_004b8f30(byte param_1,int param_2); /* 0x004b8f30 */
 undefined4 FUN_004b9916(undefined4 param_1,uint param_2,ushort param_3); /* 0x004b9916 */
 float10 FUN_004b9b1c(void); /* 0x004b9b1c */
 float10 FUN_004b9fc0(undefined4 param_1,undefined4 param_2,short param_3); /* 0x004b9fc0 */
@@ -2382,18 +2381,18 @@ undefined4 FUN_004ba000(int param_1,uint param_2); /* 0x004ba000 */
 float10 FUN_004ba060(uint param_1,uint param_2,int *param_3); /* 0x004ba060 */
 float10 FUN_004ba170(double param_1); /* 0x004ba170 */
 int FUN_004ba190(int param_1,uint param_2); /* 0x004ba190 */
-undefined4 __stdcall FUN_004ba230(int a1); /* 0x004ba230 */
+undefined * __stdcall FUN_004ba230(int a1); /* 0x004ba230 */
 void FUN_004ba290(void); /* 0x004ba290 */
 void FUN_004ba2b0(void); /* 0x004ba2b0 */
-undefined4 FUN_004ba340(int param_1,undefined4 param_2,undefined4 param_3,int *param_4); /* 0x004ba340 */
+undefined4 FUN_004ba340(int param_1,undefined4 param_2,undefined4 param_3,char *param_4); /* 0x004ba340 */
 undefined4 FUN_004bb1e0(int param_1,uint param_2,uint param_3,int param_4,byte param_5,short *param_6); /* 0x004bb1e0 */
 void FUN_004bc3d0(int param_1); /* 0x004bc3d0 */
 int FUN_004bc400(void); /* 0x004bc400 */
 int FUN_004bc410(void); /* 0x004bc410 */
 int FUN_004bc430(void); /* 0x004bc430 */
 void FUN_004bc460(void); /* 0x004bc460 */
-int FUN_004bc4c0(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4); /* 0x004bc4c0 */
-int FUN_004bc5f0(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4); /* 0x004bc5f0 */
+uint FUN_004bc4c0(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4); /* 0x004bc4c0 */
+uint FUN_004bc5f0(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4); /* 0x004bc5f0 */
 int FUN_004bcb40(uint param_1,int param_2); /* 0x004bcb40 */
 void FUN_004bd430(void); /* 0x004bd430 */
 undefined4 FUN_004bd440(void); /* 0x004bd440 */
@@ -2412,8 +2411,8 @@ void FUN_004be100(undefined4 param_1,undefined4 param_2,undefined4 param_3); /* 
 void FUN_004be120(undefined4 param_1,undefined4 param_2,undefined4 param_3); /* 0x004be120 */
 void FUN_004be140(undefined4 param_1); /* 0x004be140 */
 void FUN_004be160(undefined4 param_1,undefined4 param_2,undefined4 param_3); /* 0x004be160 */
-undefined4 __stdcall FUN_004bf950(int a1,int a2,int a3,int a4); /* 0x004bf950 */
-int __stdcall FUN_004bffb0(int a1,int a2,int a3); /* 0x004bffb0 */
+undefined * __stdcall FUN_004bf950(int a1,int a2,int a3,int a4); /* 0x004bf950 */
+undefined * __stdcall FUN_004bffb0(int a1,int a2,int a3); /* 0x004bffb0 */
 void FUN_004c0630(undefined4 *param_1); /* 0x004c0630 */
 int FUN_004c0660(char *param_1); /* 0x004c0660 */
 undefined4 FUN_004c0770(char *param_1,int param_2); /* 0x004c0770 */
@@ -2421,7 +2420,7 @@ undefined4 FUN_004c0ce0(undefined4 param_1,int param_2); /* 0x004c0ce0 */
 void FUN_004c0e40(int param_1); /* 0x004c0e40 */
 void FUN_004c0e70(int param_1); /* 0x004c0e70 */
 undefined4 FUN_004c1900(int *param_1); /* 0x004c1900 */
-undefined4 FUN_004c1f40(int *param_1,undefined4 param_2); /* 0x004c1f40 */
+undefined4 FUN_004c1f40(int *param_1,uint param_2); /* 0x004c1f40 */
 void FUN_004c1fb0(void); /* 0x004c1fb0 */
 undefined4 FUN_004c1ff0(void); /* 0x004c1ff0 */
 void FUN_004c2150(void); /* 0x004c2150 */
@@ -2437,9 +2436,9 @@ undefined4 FUN_004c2780(int param_1); /* 0x004c2780 */
 int FUN_004c27a0(undefined4 *param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4, undefined4 param_5,undefined4 param_6,undefined4 param_7,undefined4 param_8, undefined4 param_9,undefined4 param_10); /* 0x004c27a0 */
 void FUN_004c2a80(undefined4 param_1,int param_2); /* 0x004c2a80 */
 char * FUN_004c2b00(int param_1); /* 0x004c2b00 */
-void FUN_004c2b30(undefined4 param_1); /* 0x004c2b30 */
-undefined4 FUN_004c2b40(void); /* 0x004c2b40 */
-undefined4 FUN_004c2b50(int *param_1,undefined4 param_2); /* 0x004c2b50 */
+void FUN_004c2b30(uint param_1); /* 0x004c2b30 */
+uint FUN_004c2b40(void); /* 0x004c2b40 */
+undefined4 FUN_004c2b50(int *param_1,uint param_2); /* 0x004c2b50 */
 void FUN_004c2ba0(void); /* 0x004c2ba0 */
 int FUN_004c2be0(void); /* 0x004c2be0 */
 void FUN_004c2dc0(void); /* 0x004c2dc0 */
@@ -2450,8 +2449,8 @@ void FUN_004c34d0(short *param_1,int param_2); /* 0x004c34d0 */
 int FUN_004c3560(int param_1); /* 0x004c3560 */
 void FUN_004c35c0(int param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4, undefined4 param_5,byte param_6,byte param_7,uint param_8); /* 0x004c35c0 */
 char * FUN_004c3660(int param_1); /* 0x004c3660 */
-void FUN_004c3690(undefined4 param_1); /* 0x004c3690 */
-undefined4 FUN_004c36a0(void); /* 0x004c36a0 */
+void FUN_004c3690(uint param_1); /* 0x004c3690 */
+uint FUN_004c36a0(void); /* 0x004c36a0 */
 void FUN_004c36b0(int param_1); /* 0x004c36b0 */
 uint FUN_004c36f0(int param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4, undefined4 param_5,undefined4 param_6,undefined4 param_7,undefined4 param_8, undefined4 param_9,undefined4 param_10,undefined4 param_11); /* 0x004c36f0 */
 void FUN_004c3b30(int param_1,undefined4 param_2); /* 0x004c3b30 */
@@ -2467,7 +2466,7 @@ void FUN_004c3df0(undefined4 param_1,undefined4 param_2,undefined4 param_3); /* 
 undefined8 __fastcall FUN_004c3e10(undefined4 param_1,undefined4 param_2,undefined4 *param_3,undefined4 *param_4, uint param_5); /* 0x004c3e10 */
 uint FUN_004c4650(int param_1,undefined4 param_2); /* 0x004c4650 */
 undefined * FUN_004c4a00(int param_1,int *param_2); /* 0x004c4a00 */
-undefined4 FUN_004c4b20(int *param_1,undefined4 param_2); /* 0x004c4b20 */
+undefined4 FUN_004c4b20(int *param_1,uint param_2); /* 0x004c4b20 */
 void FUN_004c4b60(void); /* 0x004c4b60 */
 undefined4 FUN_004c4b90(void); /* 0x004c4b90 */
 void FUN_004c4c10(void); /* 0x004c4c10 */
@@ -2482,7 +2481,7 @@ int FUN_004c50a0(undefined4 *param_1,int param_2); /* 0x004c50a0 */
 undefined4 FUN_004c51b0(int param_1); /* 0x004c51b0 */
 undefined4 FUN_004c51e0(int param_1,int param_2); /* 0x004c51e0 */
 int FUN_004c5220(int param_1); /* 0x004c5220 */
-undefined4 FUN_004c5280(int *param_1,undefined4 param_2); /* 0x004c5280 */
+undefined4 FUN_004c5280(int *param_1,uint param_2); /* 0x004c5280 */
 void FUN_004c52c0(void); /* 0x004c52c0 */
 undefined4 FUN_004c52f0(void); /* 0x004c52f0 */
 void FUN_004c5330(void); /* 0x004c5330 */
@@ -2496,7 +2495,7 @@ bool FUN_004c54f0(char *param_1,int param_2); /* 0x004c54f0 */
 undefined4 FUN_004c5570(int param_1,char *param_2); /* 0x004c5570 */
 undefined4 FUN_004c55d0(char *param_1,char *param_2,char *param_3,undefined4 param_4); /* 0x004c55d0 */
 int FUN_004c5720(int param_1,int param_2); /* 0x004c5720 */
-undefined4 FUN_004c5790(int *param_1,undefined4 param_2); /* 0x004c5790 */
+undefined4 FUN_004c5790(int *param_1,uint param_2); /* 0x004c5790 */
 void FUN_004c5840(void); /* 0x004c5840 */
 undefined4 FUN_004c5870(void); /* 0x004c5870 */
 void FUN_004c5910(void); /* 0x004c5910 */
@@ -2507,7 +2506,7 @@ undefined4 FUN_004c5bc0(int *param_1,undefined4 param_2,int param_3); /* 0x004c5
 int FUN_004c5c20(int *param_1); /* 0x004c5c20 */
 void FUN_004c5c50(int *param_1,int param_2,int param_3); /* 0x004c5c50 */
 void FUN_004c5cb0(int *param_1); /* 0x004c5cb0 */
-undefined4 FUN_004c5ce0(int *param_1,undefined4 param_2); /* 0x004c5ce0 */
+undefined4 FUN_004c5ce0(int *param_1,uint param_2); /* 0x004c5ce0 */
 void FUN_004c5d20(void); /* 0x004c5d20 */
 undefined4 FUN_004c5d50(void); /* 0x004c5d50 */
 void FUN_004c5d90(void); /* 0x004c5d90 */
@@ -2545,7 +2544,7 @@ void FUN_004c9a20(int param_1,int param_2,ushort *param_3); /* 0x004c9a20 */
 void FUN_004c9fa0(int param_1,int param_2,int param_3); /* 0x004c9fa0 */
 void FUN_004ca3f0(int param_1); /* 0x004ca3f0 */
 uint FUN_004ca460(uint param_1,int param_2); /* 0x004ca460 */
-undefined4 FUN_004cba30(int *param_1,undefined4 param_2); /* 0x004cba30 */
+undefined4 FUN_004cba30(int *param_1,uint param_2); /* 0x004cba30 */
 void FUN_004cba70(void); /* 0x004cba70 */
 int FUN_004cbaa0(void); /* 0x004cbaa0 */
 void FUN_004cbb30(void); /* 0x004cbb30 */
@@ -2556,31 +2555,31 @@ void FUN_004cbbd0(void); /* 0x004cbbd0 */
 undefined4 FUN_004cbbe0(int param_1); /* 0x004cbbe0 */
 undefined4 FUN_004cbc00(void); /* 0x004cbc00 */
 undefined4 FUN_004cbf40(void); /* 0x004cbf40 */
-void FUN_004cbf50(int param_1,undefined1 *param_2,int param_3,uint param_4); /* 0x004cbf50 */
-undefined4 FUN_004cc210(int *param_1,undefined4 param_2); /* 0x004cc210 */
-undefined4 FUN_004cc250(int param_1); /* 0x004cc250 */
+void FUN_004cbf50(int param_1,undefined1 *param_2,uint param_3,uint param_4); /* 0x004cbf50 */
+undefined4 FUN_004cc210(int *param_1,uint param_2); /* 0x004cc210 */
+undefined4 FUN_004cc250(uint param_1); /* 0x004cc250 */
 void FUN_004cc290(void); /* 0x004cc290 */
 undefined4 FUN_004cc2c0(void); /* 0x004cc2c0 */
 void FUN_004cc340(void); /* 0x004cc340 */
 char * FUN_004cc370(int param_1); /* 0x004cc370 */
 undefined4 FUN_004cc3a0(void); /* 0x004cc3a0 */
 undefined4 FUN_004cc3c0(int param_1); /* 0x004cc3c0 */
-int FUN_004cc410(int param_1,int param_2,undefined4 param_3); /* 0x004cc410 */
+int FUN_004cc410(int param_1,int param_2,uint param_3); /* 0x004cc410 */
 void FUN_004cc590(void); /* 0x004cc590 */
 void FUN_004cc620(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4, undefined4 param_5,undefined4 param_6,undefined4 param_7,undefined4 param_8); /* 0x004cc620 */
 undefined4 FUN_004cc650(short *param_1,int param_2,int *param_3,int *param_4,int *param_5,int *param_6); /* 0x004cc650 */
-void FUN_004cc6a0(int param_1); /* 0x004cc6a0 */
+void FUN_004cc6a0(uint param_1); /* 0x004cc6a0 */
 void FUN_004cc7d0(int param_1); /* 0x004cc7d0 */
 undefined4 FUN_004ccd00(int param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4,undefined4 param_5 ,int param_6,byte param_7); /* 0x004ccd00 */
 void FUN_004cd1e0(int param_1); /* 0x004cd1e0 */
 void FUN_004cd300(int param_1,ushort *param_2,int param_3,int param_4); /* 0x004cd300 */
 int FUN_004cd3f0(uint param_1,uint param_2); /* 0x004cd3f0 */
 void FUN_004cd450(int param_1,byte *param_2,int param_3,int param_4,int param_5); /* 0x004cd450 */
-undefined8 __fastcall FUN_004cd550(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4,int param_5 ,int param_6,int param_7,undefined4 param_8,int param_9,int param_10,undefined4 param_11 ,undefined4 param_12,undefined4 param_13,undefined4 param_14); /* 0x004cd550 */
+undefined8 __fastcall FUN_004cd550(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4,int param_5 ,int param_6,int param_7,uint param_8,int param_9,int param_10,undefined4 param_11, undefined4 param_12,undefined4 param_13,uint param_14); /* 0x004cd550 */
 void FUN_004cd610(void); /* 0x004cd610 */
 void FUN_004cd9b0(void); /* 0x004cd9b0 */
 void FUN_004cdb80(void); /* 0x004cdb80 */
-undefined4 FUN_004cdc90(int *param_1,undefined4 param_2); /* 0x004cdc90 */
+undefined4 FUN_004cdc90(int *param_1,uint param_2); /* 0x004cdc90 */
 void FUN_004cdce0(void); /* 0x004cdce0 */
 undefined4 FUN_004cdd10(void); /* 0x004cdd10 */
 void FUN_004cdd60(void); /* 0x004cdd60 */
@@ -2592,10 +2591,10 @@ int FUN_004cdf10(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefi
 void FUN_004cdf80(int param_1); /* 0x004cdf80 */
 void FUN_004cdfa0(int param_1,undefined4 param_2); /* 0x004cdfa0 */
 void FUN_004cdfd0(int param_1); /* 0x004cdfd0 */
-undefined4 FUN_004ce000(void); /* 0x004ce000 */
-undefined4 FUN_004ce010(void); /* 0x004ce010 */
+uint FUN_004ce000(void); /* 0x004ce000 */
+uint FUN_004ce010(void); /* 0x004ce010 */
 void FUN_004ce020(int param_1); /* 0x004ce020 */
-undefined4 FUN_004ce2e0(int *param_1,undefined4 param_2); /* 0x004ce2e0 */
+undefined4 FUN_004ce2e0(int *param_1,uint param_2); /* 0x004ce2e0 */
 void FUN_004ce320(void); /* 0x004ce320 */
 undefined4 FUN_004ce350(void); /* 0x004ce350 */
 void FUN_004ce3b0(void); /* 0x004ce3b0 */
@@ -2603,7 +2602,7 @@ undefined4 FUN_004ce3e0(int *param_1,int param_2,int param_3,int param_4); /* 0x
 undefined4 FUN_004ce840(int *param_1,int param_2,int param_3,int param_4,int param_5,undefined4 param_6, undefined4 *param_7); /* 0x004ce840 */
 void FUN_004ce980(int *param_1); /* 0x004ce980 */
 void FUN_004ce9b0(undefined4 *param_1,undefined4 param_2); /* 0x004ce9b0 */
-void FUN_004cea30(int *param_1,int *param_2,int param_3,int param_4,int *param_5,undefined4 param_6, undefined1 *param_7); /* 0x004cea30 */
+void FUN_004cea30(int *param_1,uint *param_2,int param_3,int param_4,int *param_5,undefined4 param_6 ,undefined1 *param_7); /* 0x004cea30 */
 void FUN_004cec40(char *param_1,int param_2,int param_3,char *param_4); /* 0x004cec40 */
 undefined4 FUN_004ced70(int param_1,int param_2,undefined4 param_3,int param_4); /* 0x004ced70 */
 undefined4 FUN_004cedc0(int param_1,int param_2,int param_3,undefined4 param_4,int param_5,int param_6, int param_7); /* 0x004cedc0 */
@@ -2619,54 +2618,54 @@ undefined8 __fastcall FUN_004d00f0(undefined4 param_1,uint param_2,uint *param_3
 undefined8 __fastcall FUN_004d0180(undefined4 param_1,undefined4 param_2,undefined4 *param_3,uint *param_4,uint param_5); /* 0x004d0180 */
 undefined8 __fastcall FUN_004d01f0(undefined4 param_1,undefined4 param_2,int *param_3,ushort *param_4,uint param_5); /* 0x004d01f0 */
 undefined8 __fastcall FUN_004d0260(undefined4 param_1,undefined4 param_2,int param_3,int param_4,int param_5,uint param_6, int param_7,uint param_8,uint param_9,int param_10,uint param_11,uint param_12); /* 0x004d0260 */
-undefined4 FUN_004d0300(int *param_1,undefined4 param_2); /* 0x004d0300 */
+undefined4 FUN_004d0300(int *param_1,uint param_2); /* 0x004d0300 */
 void FUN_004d03a0(void); /* 0x004d03a0 */
 undefined4 FUN_004d03d0(void); /* 0x004d03d0 */
 void FUN_004d0510(void); /* 0x004d0510 */
 undefined4 FUN_004d0550(undefined4 param_1,undefined4 param_2,uint param_3); /* 0x004d0550 */
-undefined4 FUN_004d0610(void); /* 0x004d0610 */
+uint FUN_004d0610(void); /* 0x004d0610 */
 undefined4 FUN_004d06a0(uint param_1,int param_2); /* 0x004d06a0 */
 void FUN_004d0860(undefined1 *param_1,undefined4 param_2,int param_3,int param_4,uint param_5); /* 0x004d0860 */
-void FUN_004d0a50(int param_1); /* 0x004d0a50 */
+void FUN_004d0a50(uint param_1); /* 0x004d0a50 */
 void FUN_004d0a80(void); /* 0x004d0a80 */
 void FUN_004d0a90(void); /* 0x004d0a90 */
 void FUN_004d0aa0(void); /* 0x004d0aa0 */
-void FUN_004d0ad0(int param_1,undefined4 param_2); /* 0x004d0ad0 */
-int FUN_004d0b10(int param_1); /* 0x004d0b10 */
+void FUN_004d0ad0(int param_1,uint param_2); /* 0x004d0ad0 */
+uint FUN_004d0b10(uint param_1); /* 0x004d0b10 */
 void FUN_004d0b60(int param_1,undefined1 param_2); /* 0x004d0b60 */
-int FUN_004d0b90(int param_1); /* 0x004d0b90 */
+int FUN_004d0b90(uint param_1); /* 0x004d0b90 */
 void FUN_004d0bd0(undefined4 param_1); /* 0x004d0bd0 */
 undefined4 FUN_004d0bf0(void); /* 0x004d0bf0 */
-void FUN_004d0c00(undefined4 param_1); /* 0x004d0c00 */
-int FUN_004d0c30(int param_1); /* 0x004d0c30 */
-undefined4 FUN_004d0d70(undefined4 param_1,undefined4 param_2,int param_3,int param_4); /* 0x004d0d70 */
-undefined4 FUN_004d0e00(undefined4 param_1,undefined4 param_2,uint *param_3,undefined4 *param_4); /* 0x004d0e00 */
+void FUN_004d0c00(uint param_1); /* 0x004d0c00 */
+int FUN_004d0c30(uint param_1); /* 0x004d0c30 */
+undefined4 FUN_004d0d70(undefined4 param_1,undefined4 param_2,uint param_3,uint param_4); /* 0x004d0d70 */
+undefined4 FUN_004d0e00(undefined4 param_1,undefined4 param_2,uint *param_3,uint *param_4); /* 0x004d0e00 */
 undefined1 FUN_004d0eb0(byte param_1); /* 0x004d0eb0 */
 void FUN_004d0ed0(byte param_1,byte param_2); /* 0x004d0ed0 */
-void FUN_004d0f00(undefined4 param_1,int param_2,undefined4 param_3,undefined1 param_4, undefined1 param_5,int param_6); /* 0x004d0f00 */
-void FUN_004d1180(int param_1,int param_2,undefined4 param_3,int param_4,int param_5,uint param_6, int param_7,int param_8,int param_9,int param_10); /* 0x004d1180 */
+void FUN_004d0f00(undefined4 param_1,uint param_2,uint param_3,undefined1 param_4,undefined1 param_5 ,uint param_6); /* 0x004d0f00 */
+void FUN_004d1180(int param_1,int param_2,uint param_3,int param_4,int param_5,uint param_6, int param_7,int param_8,int param_9,int param_10); /* 0x004d1180 */
 void FUN_004d1690(void); /* 0x004d1690 */
 void FUN_004d2340(undefined4 param_1,undefined4 param_2); /* 0x004d2340 */
 void FUN_004d23e0(undefined4 param_1,undefined4 param_2,undefined4 param_3); /* 0x004d23e0 */
 void FUN_004d2400(undefined4 param_1,undefined4 param_2,undefined4 param_3); /* 0x004d2400 */
-undefined4 FUN_004d2420(int *param_1,undefined4 param_2); /* 0x004d2420 */
+undefined4 FUN_004d2420(int *param_1,uint param_2); /* 0x004d2420 */
 void FUN_004d2480(void); /* 0x004d2480 */
 undefined4 FUN_004d24b0(void); /* 0x004d24b0 */
 void FUN_004d2520(void); /* 0x004d2520 */
-undefined4 FUN_004d2550(int param_1,undefined4 param_2,undefined4 param_3); /* 0x004d2550 */
+undefined4 FUN_004d2550(uint param_1,undefined4 param_2,uint param_3); /* 0x004d2550 */
 void FUN_004d25f0(void); /* 0x004d25f0 */
 void FUN_004d2630(uint param_1); /* 0x004d2630 */
-undefined4 FUN_004d27b0(void); /* 0x004d27b0 */
+uint FUN_004d27b0(void); /* 0x004d27b0 */
 undefined4 FUN_004d27c0(void); /* 0x004d27c0 */
 undefined4 FUN_004d2940(void); /* 0x004d2940 */
-void FUN_004d2aa0(int param_1); /* 0x004d2aa0 */
+void FUN_004d2aa0(uint param_1); /* 0x004d2aa0 */
 void FUN_004d2bf0(void); /* 0x004d2bf0 */
 undefined8 __fastcall FUN_004d2cb0(undefined4 param_1,undefined4 param_2,undefined4 *param_3,undefined4 *param_4, uint param_5); /* 0x004d2cb0 */
 undefined8 __fastcall FUN_004d2ce0(undefined4 param_1,undefined4 param_2,undefined4 *param_3,undefined1 param_4, uint param_5); /* 0x004d2ce0 */
-void FUN_004d2d40(undefined4 param_1,undefined4 param_2,int param_3); /* 0x004d2d40 */
+void FUN_004d2d40(undefined4 param_1,uint param_2,int param_3); /* 0x004d2d40 */
 void FUN_004d2d70(undefined4 param_1); /* 0x004d2d70 */
 void FUN_004d2d90(undefined4 param_1,undefined4 param_2,undefined4 param_3,int param_4, undefined4 param_5,undefined4 param_6,int param_7,int param_8); /* 0x004d2d90 */
-undefined4 FUN_004d2e80(undefined4 *param_1,undefined4 param_2,int param_3,undefined4 param_4); /* 0x004d2e80 */
+undefined4 FUN_004d2e80(undefined4 *param_1,uint param_2,int param_3,undefined4 param_4); /* 0x004d2e80 */
 undefined4 FUN_004d2fb0(int param_1); /* 0x004d2fb0 */
 float10 FUN_004d54b4(void); /* 0x004d54b4 */
 int FUN_004d56f0(void); /* 0x004d56f0 */
@@ -2676,10 +2675,10 @@ undefined4 FUN_004d5800(int param_1); /* 0x004d5800 */
 undefined4 FUN_004d5830(undefined4 param_1,undefined4 param_2); /* 0x004d5830 */
 char * FUN_004d5860(int param_1,char *param_2,uint param_3); /* 0x004d5860 */
 undefined4 FUN_004d5990(uint param_1); /* 0x004d5990 */
-undefined4 FUN_004d5de0(int a1); /* 0x004d5de0 */
+undefined * FUN_004d5de0(int a1); /* 0x004d5de0 */
 bool FUN_004d5e1c(void); /* 0x004d5e1c */
 undefined4 FUN_004d5e30(void); /* 0x004d5e30 */
-undefined4 __stdcall FUN_004d5e35(int a1); /* 0x004d5e35 */
+undefined * __stdcall FUN_004d5e35(int a1); /* 0x004d5e35 */
 void FUN_004d5e50(undefined4 param_1,undefined4 param_2,undefined4 param_3); /* 0x004d5e50 */
 void FUN_004d5e70(undefined1 *param_1,undefined4 param_2,int param_3); /* 0x004d5e70 */
 void FUN_004d5eb0(int *param_1); /* 0x004d5eb0 */
@@ -2709,11 +2708,11 @@ int Clock_ElapsedMs(void); /* 0x004ad260 */
 int strpbrk_or_strspn(byte *param_1,byte *param_2); /* 0x004ae220 */
 
 /* ===== insane.c ===== */
-undefined4 Insane_Poll(void); /* 0x004bd370 */
-undefined4 Insane_RegisterFilio(undefined4 param_1,undefined4 *param_2); /* 0x004bd3a0 */
-void Insane_SetOutputParams(undefined4 *param_1); /* 0x004bd540 */
+undefined * Insane_Poll(void); /* 0x004bd370 */
+undefined4 Insane_RegisterFilio(uint param_1,undefined4 *param_2); /* 0x004bd3a0 */
+void Insane_SetOutputParams(uint *param_1); /* 0x004bd540 */
 undefined4 Insane_ReadFrameHeader(int param_1,int param_2); /* 0x004bd7c0 */
-undefined4 Insane_PrepareFrame(int *param_1,undefined4 *param_2,int *param_3); /* 0x004bdb00 */
+undefined4 Insane_PrepareFrame(int *param_1,undefined4 *param_2,uint *param_3); /* 0x004bdb00 */
 undefined8 __fastcall Insane_Blit8To16Doubled (undefined4 param_1,undefined4 param_2,uint *param_3,int param_4,uint *param_5,int param_6 ,int param_7,int param_8); /* 0x004bdca0 */
 void Insane_BlitRowsDual(int param_1,int param_2,undefined4 *param_3,int param_4,int param_5, int param_6); /* 0x004bdd50 */
 void Insane_BlitRows16(ushort *param_1,int param_2,int param_3,int param_4,int param_5,int param_6); /* 0x004bddb0 */
@@ -2725,9 +2724,9 @@ void Smush_Idle(undefined4 param_1); /* 0x004bd560 */
 int __cdecl Smush_Open(char *name,int flags,int bufferSize,int x,int y,int w,int h,int a,int sixteenBit); /* 0x004bd570 */
 undefined4 Smush_Close(void); /* 0x004bd930 */
 int __cdecl Smush_Advance(int *outDone); /* 0x004bd970 */
-void Smush_SetColorTable(undefined4 param_1); /* 0x004bde90 */
-undefined4 Smush_GetFrameRect(undefined4 *param_1,undefined4 *param_2); /* 0x004bdea0 */
-undefined4 Smush_SetFile(undefined4 param_1); /* 0x004bdf00 */
+void Smush_SetColorTable(uint param_1); /* 0x004bde90 */
+undefined4 Smush_GetFrameRect(uint *param_1,uint *param_2); /* 0x004bdea0 */
+undefined * __cdecl Smush_SetFile(uint param_1); /* 0x004bdf00 */
 
 /* ===== lightmgr.c ===== */
 void LightMgr_Refresh(void); /* 0x004be310 */
@@ -2748,7 +2747,7 @@ void LightEd_SetDlgFloat(int param_1,int param_2,float param_3,int param_4); /* 
 void LightEd_RefreshControl(int param_1,float param_2,undefined4 param_3,int param_4); /* 0x004bf460 */
 void LightEd_ReadControl(int param_1,int param_2); /* 0x004bf560 */
 void LightEd_SetLightPosComponent(int param_1,short param_2,undefined4 param_3); /* 0x004bf760 */
-void LightEd_SetLightAngle(int param_1,short param_2,undefined4 param_3); /* 0x004bf7d0 */
+void LightEd_SetLightAngle(int param_1,short param_2,uint param_3); /* 0x004bf7d0 */
 void LightEd_SetAllEnabled(int param_1); /* 0x004bf850 */
 void LightEd_MoveMarkerActor(void); /* 0x004bf8b0 */
 void LightEd_GetLightAngles(int param_1,float *param_2); /* 0x004bf930 */
@@ -2757,7 +2756,7 @@ void LightEd_GetLightAngles(int param_1,float *param_2); /* 0x004bf930 */
 undefined4 DSound_Init(void); /* 0x004c0ed0 */
 void DSound_Shutdown(void); /* 0x004c1090 */
 void __cdecl DSound_SetPrimaryVolume(int volume); /* 0x004c1110 */
-undefined4 __stdcall Mixer_TimerThread(int a1); /* 0x004cddf0 */
+undefined * __stdcall Mixer_TimerThread(int a1); /* 0x004cddf0 */
 void Mixer_Update(void); /* 0x004ce060 */
 void Mixer_ServiceVoices(void); /* 0x004ce1d0 */
 void Mixer_ScheduleVoices(void); /* 0x004ce260 */
@@ -2781,15 +2780,15 @@ undefined ** LecShare_Startup(undefined *param_1,undefined4 *param_2,undefined4 
 undefined4 LecShare_Shutdown(void); /* 0x004c13f0 */
 int LecShare_StartupModules(void); /* 0x004c1460 */
 undefined4 LecShare_UnwindStartup(void); /* 0x004c1500 */
-void LecShare_Reset(undefined4 param_1,undefined4 param_2); /* 0x004c1590 */
+void LecShare_Reset(uint param_1,uint param_2); /* 0x004c1590 */
 int __cdecl LecShare_Register(char *name,void *vtable); /* 0x004c15c0 */
-int LecShare_Unregister(undefined4 param_1); /* 0x004c1650 */
+uint LecShare_Unregister(undefined4 param_1); /* 0x004c1650 */
 undefined4 LecShare_Resolve(char *param_1,char *param_2); /* 0x004c16c0 */
-undefined4 LecShare_Release(int param_1); /* 0x004c1800 */
+undefined4 LecShare_Release(uint param_1); /* 0x004c1800 */
 undefined4 LecShare_BatchSubscribe(int *param_1,char *param_2); /* 0x004c1850 */
-int LecShare_Subscribe(char *param_1,int param_2); /* 0x004c1990 */
-int LecShare_CountMatching(char *param_1); /* 0x004c1b60 */
-undefined4 * LecShare_FindEntry(undefined4 param_1); /* 0x004c1be0 */
+uint LecShare_Subscribe(char *param_1,uint param_2); /* 0x004c1990 */
+uint LecShare_CountMatching(char *param_1); /* 0x004c1b60 */
+uint * LecShare_FindEntry(undefined4 param_1); /* 0x004c1be0 */
 undefined4 LecShare_Nop(void); /* 0x004c1e50 */
 
 /* ===== zlib.c ===== */
@@ -2805,11 +2804,12 @@ undefined4 gzrewind(undefined4 *param_1); /* 0x004c48a0 */
 int gz_getLong(int param_1); /* 0x004c4920 */
 undefined4 gzclose(int param_1); /* 0x004c4970 */
 void gz_putLong(undefined4 param_1,uint param_2); /* 0x004c49c0 */
+undefined4 zlibVersion(void); /* 0x004c4c40 */
 undefined4 deflateParams_or_SetDictionary(int param_1); /* 0x004c57d0 */
 undefined4 inflateReset(int param_1); /* 0x004c6040 */
 undefined4 inflateEnd(int param_1); /* 0x004c6090 */
 undefined4 inflateInit2_(int param_1,int param_2,char *param_3,int param_4); /* 0x004c60e0 */
-uint inflate(int *param_1,int param_2); /* 0x004c61f0 */
+undefined * inflate(int *param_1,int param_2); /* 0x004c61f0 */
 undefined4 deflateInit2_(int param_1,int param_2,int param_3,int param_4,int param_5,int param_6,char *param_7, int param_8); /* 0x004c6640 */
 undefined4 deflateReset(int param_1); /* 0x004c6870 */
 uint deflate(int *param_1,int param_2); /* 0x004c68f0 */
@@ -2821,7 +2821,7 @@ uint crc32(uint param_1,byte *param_2,uint param_3); /* 0x004c79b0 */
 void zcalloc(undefined4 param_1,undefined4 param_2,undefined4 param_3); /* 0x004c7af0 */
 void inflate_blocks_reset(int *param_1,int param_2,int *param_3); /* 0x004c7b20 */
 undefined4 * inflate_blocks_new(int param_1,undefined4 param_2,int param_3); /* 0x004c7ba0 */
-undefined4 __cdecl inflate_blocks(uint *param_1,int *param_2,int param_3); /* 0x004c7c50 */
+undefined * __cdecl inflate_blocks(uint *param_1,int *param_2,uint param_3); /* 0x004c7c50 */
 undefined4 inflate_blocks_free(int param_1,int param_2); /* 0x004c8940 */
 void _tr_init(int param_1); /* 0x004c8ac0 */
 void init_block(int param_1); /* 0x004c8b30 */
@@ -2829,13 +2829,13 @@ void _tr_align(int param_1); /* 0x004c8c40 */
 void bi_flush(int param_1); /* 0x004ca480 */
 void bi_windup(int param_1); /* 0x004ca510 */
 void copy_block(int param_1,undefined1 *param_2,int param_3,int param_4); /* 0x004ca580 */
-undefined4 * __cdecl inflate_codes_new(undefined1 param_1,undefined1 param_2,undefined4 param_3,undefined4 param_4, int param_5); /* 0x004ca620 */
-undefined4 __cdecl inflate_codes(uint param_1,byte *param_2,int param_3); /* 0x004ca660 */
+undefined * __cdecl inflate_codes_new(undefined1 param_1,undefined1 param_2,uint param_3,uint param_4,int param_5); /* 0x004ca620 */
+undefined * __cdecl inflate_codes(uint param_1,byte *param_2,int param_3); /* 0x004ca660 */
 void inflate_codes_free(undefined4 param_1,int param_2); /* 0x004cae10 */
 int inflate_trees_bits(undefined4 param_1,int *param_2,undefined4 param_3,undefined4 param_4, int param_5); /* 0x004cae30 */
-undefined4 huft_build(int *param_1,uint param_2,uint param_3,int param_4,int param_5,uint *param_6, uint *param_7,int param_8,uint *param_9,uint *param_10); /* 0x004caee0 */
+undefined4 huft_build(int *param_1,uint param_2,uint param_3,int param_4,int param_5,uint *param_6, uint *param_7,int param_8,uint *param_9,uint param_10); /* 0x004caee0 */
 int inflate_trees_dynamic (uint param_1,undefined4 param_2,int param_3,int *param_4,int *param_5, undefined4 param_6,undefined4 param_7,undefined4 param_8,int param_9); /* 0x004cb390 */
-undefined4 inflate_trees_fixed(undefined4 *param_1,undefined4 *param_2,undefined4 *param_3,undefined4 *param_4); /* 0x004cb520 */
+undefined4 inflate_trees_fixed(uint *param_1,uint *param_2,undefined4 *param_3,undefined4 *param_4); /* 0x004cb520 */
 int inflate_flush(int param_1,int param_2,int param_3); /* 0x004cb550 */
 undefined4 inflate_fast(int param_1,uint param_2,int param_3,int param_4,int param_5,int *param_6); /* 0x004cb690 */
 

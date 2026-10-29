@@ -16,8 +16,8 @@ int PlatModule_Init(GrimServices *svc,void *iface)
   
   _DAT_008d098c = svc;
   iVar1 = 1;
-  if (DAT_008d0990 == 0) {
-    DAT_008d0990 = 1;
+  if (UINT_008d0990 == 0) {
+    UINT_008d0990 = 1;
     if (iface != (void *)0x0) {
       *(code **)iface = PlatModule_Init;
       *(code **)((int)iface + 4) = FUN_004abef0;
@@ -37,7 +37,7 @@ int PlatModule_Init(GrimServices *svc,void *iface)
 void FUN_004abef0(void)
 
 {
-  DAT_008d0990 = 0;
+  UINT_008d0990 = 0;
   return;
 }
 
@@ -48,8 +48,8 @@ undefined4 FUN_004abf00(void)
   undefined4 uVar1;
   
   uVar1 = 1;
-  if ((DAT_008d0990 != 0) && (DAT_008d0994 == 0)) {
-    DAT_008d0994 = 1;
+  if ((UINT_008d0990 != 0) && (UINT_008d0994 == 0)) {
+    UINT_008d0994 = 1;
     uVar1 = 0;
   }
   return uVar1;
@@ -59,6 +59,6 @@ undefined4 FUN_004abf00(void)
 void FUN_004abf30(void)
 
 {
-  DAT_008d0994 = 0;
+  UINT_008d0994 = 0;
   return;
 }

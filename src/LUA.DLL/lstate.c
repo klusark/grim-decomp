@@ -951,9 +951,11 @@ undefined4 * lstate__8ad0(void)
 int __thiscall lstate__8b70(void *this,int a1)
 
 {
+  int extraout_EAX;
   int iVar1;
   
-  iVar1 = ((code *)lstate__8bb0)((int)this);
+  lstate__8bb0((int)this);
+  iVar1 = extraout_EAX;
   if (a1 != 0) {
     iVar1 = *(int *)(a1 + 0xcc);
     *(int *)((int)this + 0xcc) = iVar1;

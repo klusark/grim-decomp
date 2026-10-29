@@ -6,10 +6,10 @@
 #include "functions.h"
 
 /* ---- 0x00404380  rdColormap_SetCurrent ---- */
-undefined4 rdColormap_SetCurrent(int param_1)
+undefined4 rdColormap_SetCurrent(uint param_1)
 
 {
-  if ((DAT_004f5ec4 != param_1) && (DAT_004f5ec4 = param_1, 0 < g_nRdroid3DAccel)) {
+  if ((UINT_004f5ec4 != param_1) && (UINT_004f5ec4 = param_1, 0 < g_nRdroid3DAccel)) {
     Display_SetPalette3D((void *)(param_1 + 0x30),0x5a);
   }
   return 1;
@@ -134,7 +134,7 @@ int __cdecl rdColormap_LoadEntry(char *name,void *cmp)
                       (0x8000,s_C__grimjedi_Libs_RDroid_Engine_R_004ddae4,DAT_004ddadc + 0x4b);
     *(int *)((int)cmp + 0x348) = iVar9;
     if (iVar9 == 0) goto LAB_00404659;
-    ((code *)rdColormap_Build16bitTables)(iVar9,pbVar1,0,0,0,&DAT_004ddaa0);
+    ((code *)rdColormap_Build16bitTables)(iVar9,pbVar1,0,0,0,&UINT_004ddaa0);
   }
   if ((*(byte *)((int)cmp + 0x20) & 1) != 0) {
     uVar10 = (*g_pSvcRdroid->pAlloc)
@@ -161,7 +161,7 @@ LAB_00404659:
                         (0x10000,s_C__grimjedi_Libs_RDroid_Engine_R_004ddae4,DAT_004ddadc + 0x76);
       *(int *)((int)cmp + 0x34c) = iVar9;
       if (iVar9 == 0) goto LAB_00404659;
-      if (DAT_004ddaac == 5) {
+      if (UINT_004ddaac == 5) {
         (*g_pSvcRdroid->pFseek)(iVar7,0x10000,1);
         (*g_pSvcRdroid->pFread)(iVar7,*(undefined4 *)((int)cmp + 0x34c),0x10000);
         *(undefined4 *)((int)cmp + 0x340) = 0;
@@ -241,7 +241,10 @@ undefined4 rdColormap_Build16bitTables(undefined2 *param_1,ushort *param_2)
   undefined2 *puVar11;
   int iStack0000000c;
   int in_stack_00000018;
-  #define local_10 (*(int *)(_frame + (0x20 - 0x10)))
+  #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
+  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
+  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   uVar6 = 0;
   local_10 = 8;
@@ -269,7 +272,7 @@ undefined4 rdColormap_Build16bitTables(undefined2 *param_1,ushort *param_2)
       puVar11 = puVar11 + 0x100;
     } while (iVar8 != 0);
     puVar10 = puVar10 + 1;
-    local_10 = local_10 + -1;
+    local_10 = local_10 - 1;
   } while (local_10 != 0);
   param_2 = param_1 + 0x3f08;
   iStack0000000c = 0xf8;
@@ -295,6 +298,9 @@ undefined4 rdColormap_Build16bitTables(undefined2 *param_1,ushort *param_2)
   return 1;
 }
 #undef local_10
+#undef local_4
+#undef local_8
+#undef local_c
 
 
 /* ---- 0x00404a40  rdColormap_BuildGreyRamp ---- */

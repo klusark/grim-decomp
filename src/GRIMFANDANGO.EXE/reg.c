@@ -10,7 +10,7 @@
 /* W32Util/wuregistry: creates/opens the game key; if its Version value differs from ours the key is
    deleted and recreated. Then caches all value names. */
 
-void Reg_Open(void *param_1,int param_2,char *param_3)
+void Reg_Open(void *param_1,uint param_2,char *param_3)
 
 {
   unsigned char _frame[0xa0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -21,7 +21,7 @@ void Reg_Open(void *param_1,int param_2,char *param_3)
   #define acStack_80 (*(char (*)[128])(_frame + (0xa0 - 0x80)))
   
   _DAT_004f5ea8 = 1;
-  DAT_004f5eac = param_2;
+  UINT_004f5eac = param_2;
   g_pRegRootKey = param_1;
   iVar1 = RegCreateKeyExA((int)param_1,param_2,0,IMG_ADDR(0x004f5a98),0,0xf003f,0,(int)&local_88,(int)local_84);
   if (iVar1 == 0) {
@@ -29,8 +29,8 @@ void Reg_Open(void *param_1,int param_2,char *param_3)
     if (iVar2 != 0) {
       iVar2 = _stricmp(acStack_80,param_3);
       if (iVar2 != 0) {
-        RegDeleteKeyA((int)g_pRegRootKey,DAT_004f5eac);
-        iVar1 = RegCreateKeyExA((int)g_pRegRootKey,DAT_004f5eac,0,IMG_ADDR(0x004f5a98),0,0xf003f,0,
+        RegDeleteKeyA((int)g_pRegRootKey,UINT_004f5eac);
+        iVar1 = RegCreateKeyExA((int)g_pRegRootKey,UINT_004f5eac,0,IMG_ADDR(0x004f5a98),0,0xf003f,0,
                                 (int)&local_88,(int)local_84);
       }
     }
@@ -61,7 +61,7 @@ void Reg_CacheValueNames(void)
   #define iStack_8 (*(int *)(_frame + (0x20 - 0x8)))
   #define iStack_4 (*(int *)(_frame + (0x20 - 0x4)))
   
-  RegOpenKeyExA(g_pRegRootKey,DAT_004f5eac,0,0xf003f,&local_c);
+  RegOpenKeyExA(g_pRegRootKey,(char *)UINT_004f5eac,0,0xf003f,&local_c);
   RegQueryInfoKeyA((int)local_c,0,0,0,0,0,0,IMG_ADDR(0x004f5ea4),(int)&iStack_8,0,0,0);
   g_ppRegValueNames =
        (char **)(*g_pSvcMain->pAlloc)
@@ -162,7 +162,7 @@ int __cdecl Reg_SetInt(char *name,int value)
   int iVar1;
   #define local_4 (*(void **)(_frame + (0x20 - 0x4)))
   
-  iVar1 = RegOpenKeyExA(g_pRegRootKey,DAT_004f5eac,0,0xf003f,&local_4);
+  iVar1 = RegOpenKeyExA(g_pRegRootKey,(char *)UINT_004f5eac,0,0xf003f,&local_4);
   if (iVar1 != 0) {
     return 0;
   }
@@ -243,10 +243,10 @@ int __cdecl Reg_HasValue(char *name)
   uint uVar4;
   char *pcVar5;
   char *pcVar6;
-  #define local_84 (*(char **)(_frame + (0xa0 - 0x84)))
+  #define local_84 (*(uint *)(_frame + (0xa0 - 0x84)))
   #define local_80 (*(char (*)[128])(_frame + (0xa0 - 0x80)))
   
-  local_84 = local_80;
+  local_84 = (uint)local_80;
   if (g_ppRegValueNames == (char **)0x0) {
     return 1;
   }
@@ -291,7 +291,7 @@ int __cdecl Reg_SetFloat(char *name,float value)
   int iVar1;
   #define local_4 (*(void **)(_frame + (0x20 - 0x4)))
   
-  iVar1 = RegOpenKeyExA(g_pRegRootKey,DAT_004f5eac,0,0xf003f,&local_4);
+  iVar1 = RegOpenKeyExA(g_pRegRootKey,(char *)UINT_004f5eac,0,0xf003f,&local_4);
   if (iVar1 != 0) {
     return 0;
   }
@@ -317,7 +317,7 @@ int __cdecl Reg_GetInt(char *name,int defaultValue)
   a2 = name;
   iVar1 = Reg_HasValue(name);
   if (iVar1 != 0) {
-    iVar1 = RegOpenKeyExA(g_pRegRootKey,DAT_004f5eac,0,0xf003f,&name);
+    iVar1 = RegOpenKeyExA(g_pRegRootKey,(char *)UINT_004f5eac,0,0xf003f,&name);
     if (iVar1 == 0) {
       uStack_c = 4;
       iVar1 = RegQueryValueExA((int)name,(int)a2,0,(int)auStack_4,(int)&iStack_8,(int)&uStack_c);
@@ -349,7 +349,7 @@ float __cdecl Reg_GetFloat(char *name,float defaultValue)
   a2 = name;
   iVar1 = Reg_HasValue(name);
   if (iVar1 != 0) {
-    iVar1 = RegOpenKeyExA(g_pRegRootKey,DAT_004f5eac,0,0xf003f,&name);
+    iVar1 = RegOpenKeyExA(g_pRegRootKey,(char *)UINT_004f5eac,0,0xf003f,&name);
     if (iVar1 == 0) {
       uStack_c = 4;
       iVar1 = RegQueryValueExA((int)name,(int)a2,0,(int)auStack_4,(int)&fStack_8,(int)&uStack_c);
@@ -375,7 +375,7 @@ int __cdecl Reg_SetBinary(char *name,void *data,int size)
   int iVar1;
   #define local_4 (*(void **)(_frame + (0x20 - 0x4)))
   
-  iVar1 = RegOpenKeyExA(g_pRegRootKey,DAT_004f5eac,0,0xf003f,&local_4);
+  iVar1 = RegOpenKeyExA(g_pRegRootKey,(char *)UINT_004f5eac,0,0xf003f,&local_4);
   if (iVar1 == 0) {
     RegSetValueExA((int)local_4,(int)name,0,3,(int)data,size);
     RegCloseKey((int)local_4);
@@ -397,7 +397,7 @@ int __cdecl Reg_GetBinary(char *name,void *data,int size)
   a2 = name;
   iVar1 = Reg_HasValue(name);
   if (iVar1 != 0) {
-    iVar1 = RegOpenKeyExA(g_pRegRootKey,DAT_004f5eac,0,0xf003f,&name);
+    iVar1 = RegOpenKeyExA(g_pRegRootKey,(char *)UINT_004f5eac,0,0xf003f,&name);
     if (iVar1 == 0) {
       iVar1 = RegQueryValueExA((int)name,(int)a2,0,(int)&data,(int)data,(int)&size);
       if (iVar1 == 0) {
@@ -420,7 +420,7 @@ void __cdecl Reg_SetString(char *name,char *value)
   char *pcVar3;
   #define local_4 (*(void **)(_frame + (0x20 - 0x4)))
   
-  RegOpenKeyExA(g_pRegRootKey,DAT_004f5eac,0,0xf003f,&local_4);
+  RegOpenKeyExA(g_pRegRootKey,(char *)UINT_004f5eac,0,0xf003f,&local_4);
   uVar2 = 0xffffffff;
   pcVar3 = value;
   do {
@@ -454,7 +454,7 @@ int __cdecl Reg_GetString(char *name,char *buf,int size,char *defaultValue)
   if (iVar2 == 0) {
     return 0;
   }
-  RegOpenKeyExA(g_pRegRootKey,DAT_004f5eac,0,0xf003f,&name);
+  RegOpenKeyExA(g_pRegRootKey,(char *)UINT_004f5eac,0,0xf003f,&name);
   iVar2 = size;
   pcVar1 = buf;
   iStack_8 = size;
@@ -482,10 +482,10 @@ int __cdecl Reg_GetValueType(char *name)
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   #define local_8 (*(void **)(_frame + (0x20 - 0x8)))
-  #define local_4 (*(int *)(_frame + (0x20 - 0x4)))
+  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   local_4 = 0;
-  RegOpenKeyExA(g_pRegRootKey,DAT_004f5eac,0,1,&local_8);
+  RegOpenKeyExA(g_pRegRootKey,(char *)UINT_004f5eac,0,1,&local_8);
   RegQueryValueExA((int)local_8,(int)name,0,(int)&local_4,0,0);
   RegCloseKey((int)local_8);
   return local_4;

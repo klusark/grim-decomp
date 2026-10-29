@@ -11,8 +11,8 @@
 void __cdecl Speech_SetMode(int mode)
 
 {
-  if ((mode != DAT_004e9dfc) && ((mode & 3U) != 0)) {
-    DAT_004e9dfc = mode;
+  if ((mode != g_dwSpeechMode) && ((mode & 3U) != 0)) {
+    g_dwSpeechMode = mode;
   }
   return;
 }
@@ -20,8 +20,8 @@ void __cdecl Speech_SetMode(int mode)
 /* ---- 0x004931e0  Speech_GetMode ---- */
 /* Returns bits: 1 text, 2 voice */
 
-undefined4 Speech_GetMode(void)
+uint Speech_GetMode(void)
 
 {
-  return DAT_004e9dfc;
+  return g_dwSpeechMode;
 }

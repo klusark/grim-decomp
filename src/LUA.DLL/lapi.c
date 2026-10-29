@@ -1,5 +1,5 @@
 /* LUA.DLL :: lapi.c
- * functions 0x10001000 .. 0x1000c950 (91 functions)
+ * functions 0x10001000 .. 0x1000c950 (92 functions)
  * Decompiled from the shipped binaries with Ghidra; see ../../README.md */
 #include "ghidra_types.h"
 #include "globals.h"
@@ -680,14 +680,14 @@ int __cdecl lua_getcfunction(int param_1)
   if (CONCAT31(extraout_var,bVar1) == 0) {
     return 0;
   }
-  piVar2 = lapi__1970((int *)(PTR_1002bf6c[8] + -8 + param_1 * 8));
+  piVar2 = luaA_normalizeObj((int *)(PTR_1002bf6c[8] + -8 + param_1 * 8));
   return piVar2[1];
 }
 
-/* ---- 0x10001970  lapi__1970 ---- */
+/* ---- 0x10001970  luaA_normalizeObj ---- */
 /* Unidentified function of lapi.c (Lua 3.1 C API) */
 
-int * __cdecl lapi__1970(int *param_1)
+int * __cdecl luaA_normalizeObj(int *param_1)
 
 {
   int iVar1;
@@ -1211,7 +1211,7 @@ int __cdecl lua_getlocal(int param_1,int param_2,int *param_3)
   iVar2 = lua_tag(param_1);
   if (iVar2 == -4) {
     piVar1 = (int *)(PTR_1002bf6c[8] + -8 + param_1 * 8);
-    piVar3 = lapi__1970(piVar1);
+    piVar3 = luaA_normalizeObj(piVar1);
     iVar2 = piVar3[1];
     uVar4 = lua_currentline(param_1);
     iVar2 = luaF_getlocalname(iVar2,param_2,uVar4);
@@ -1236,7 +1236,7 @@ undefined4 __cdecl lua_setlocal(int param_1,int param_2)
   iVar2 = lua_tag(param_1);
   if (iVar2 == -4) {
     piVar1 = (int *)(PTR_1002bf6c[8] + -8 + param_1 * 8);
-    piVar3 = lapi__1970(piVar1);
+    piVar3 = luaA_normalizeObj(piVar1);
     iVar2 = piVar3[1];
     uVar4 = lua_currentline(param_1);
     iVar2 = luaF_getlocalname(iVar2,param_2,uVar4);
@@ -1266,7 +1266,7 @@ undefined4 __cdecl lua_funcinfo(int param_1,int *param_2,undefined4 *param_3)
     uVar2 = lua_error((byte *)s_API____funcinfo__called_with_a_n_10026268);
     return uVar2;
   }
-  piVar3 = lapi__1970((int *)(PTR_1002bf6c[8] + -8 + param_1 * 8));
+  piVar3 = luaA_normalizeObj((int *)(PTR_1002bf6c[8] + -8 + param_1 * 8));
   iVar1 = luaA_normalizedtype(piVar3);
   if (iVar1 == -4) {
     *param_2 = *(int *)(piVar3[1] + 0x18) + 0x18;
@@ -1388,15 +1388,15 @@ undefined4 __cdecl lua_setfallback(byte *param_1,undefined4 param_2,int param_3)
                     /* 0x25b0  73  lua_setfallback */
   lua_pushstring(param_1);
   lua_pushCclosure(param_3,0);
-  lapi__25f0(FUN_1000cc30,2,(void *)0x1);
+  luaA_callObject(FUN_1000cc30,2,(void *)0x1);
   uVar1 = lapi__12e0();
   return uVar1;
 }
 
-/* ---- 0x100025f0  lapi__25f0 ---- */
-/* Unidentified function of lapi.c (Lua 3.1 C API) */
+/* ---- 0x100025f0  luaA_callObject ---- */
+/* Opens stack space and runs luaD_call for the C API */
 
-void __cdecl lapi__25f0(undefined4 param_1,int param_2,void *param_3)
+void __cdecl luaA_callObject(undefined4 param_1,int param_2,void *param_3)
 
 {
   int iVar1;
@@ -1755,6 +1755,34 @@ undefined4 __cdecl lua_iolibopen(void)
   lua_pushCclosure(((unsigned)(uintptr_t)FUN_10005ad0),0);
   uVar1 = lua_seterrormethod();
   return uVar1;
+}
+
+/* ---- 0x10005b20  lua_iolibopen  (renamed lua_iolibopen_10005b20: duplicate name) ---- */
+/* Registers readfrom/writeto/... and the _INPUT/_OUTPUT globals */
+
+void lua_iolibopen_10005b20(void)
+
+{
+  uint uVar1;
+  int iVar2;
+  undefined **ppuVar3;
+  
+  uVar1 = lua_newtag();
+  iVar2 = lua_newtag();
+  ppuVar3 = &PTR_s_readfrom_10026b50;
+  do {
+    lua_pushnumber((float)(int)uVar1);
+    lua_pushnumber((float)iVar2);
+    lua_pushCclosure((int)ppuVar3[1],2);
+    lua_setglobal(*ppuVar3);
+    ppuVar3 = ppuVar3 + 2;
+  } while (ppuVar3 < s_write_10026b78);
+  io_setfilebyname((byte *)&PTR_DAT_100282d0,(byte *)s__INPUT_10026c00,uVar1);
+  io_setfilebyname(&DAT_100282f0,(byte *)s__OUTPUT_10026c58,uVar1);
+  io_setfilebyname((byte *)&PTR_DAT_100282d0,(byte *)s__STDIN_10026d04,uVar1);
+  io_setfilebyname(&DAT_100282f0,(byte *)s__STDOUT_10026cfc,uVar1);
+  io_setfilebyname(&DAT_10028310,(byte *)s__STDERR_10026cf4,uVar1);
+  return;
 }
 
 /* ---- 0x10007320  lua_mathlibopen ---- */

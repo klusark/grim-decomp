@@ -4282,19 +4282,18 @@ int __stdcall FUN_1000ab20(int a1,int a2,int a3,int a4)
 }
 
 /* ---- 0x1000ab60  FUN_1000ab60 ---- */
-longlong __fastcall FUN_1000ab60(byte param_1,int param_2)
+int __fastcall FUN_1000ab60(byte param_1,int param_2)
 
 {
-  uint in_EAX;
+  int in_EAX;
   
   if (0x3f < param_1) {
     return 0;
   }
   if (param_1 < 0x20) {
-    return CONCAT44(param_2 << (param_1 & 0x1f) | in_EAX >> 0x20 - (param_1 & 0x1f),
-                    in_EAX << (param_1 & 0x1f));
+    return in_EAX << (param_1 & 0x1f);
   }
-  return (ulonglong)(in_EAX << (param_1 & 0x1f)) << 0x20;
+  return 0;
 }
 
 /* ---- 0x1000ab80  FUN_1000ab80 ---- */

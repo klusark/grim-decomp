@@ -47,7 +47,7 @@ void __cdecl Shadow_DrawClippedPoly(float *verts,int count,float *minXY,float *m
   int count_00;
   void *pvVar2;
   undefined4 *puVar3;
-  #define local_b4 (*(int *)(_frame + (0xd0 - 0xb4)))
+  #define local_b4 (*(uint *)(_frame + (0xd0 - 0xb4)))
   #define local_90 (*(float (*)[36])(_frame + (0xd0 - 0x90)))
   
   local_b4 = 0;
@@ -56,7 +56,7 @@ void __cdecl Shadow_DrawClippedPoly(float *verts,int count,float *minXY,float *m
     if ((void *)*puVar3 == (void *)0x0) {
       return;
     }
-    count_00 = Sector_ClipPolygon((void *)*puVar3,(int)verts,count,(int)local_90);
+    count_00 = Sector_ClipPolygon((void *)*puVar3,verts,count,local_90);
     if ((2 < count_00) &&
        (pvVar2 = rdPrimit3_DrawPolygon(local_90,count_00,g_pShadowMaterial), pvVar2 != (void *)0x0))
     {
@@ -83,7 +83,7 @@ void __cdecl Shadow_DrawClippedPoly(float *verts,int count,float *minXY,float *m
     }
     puVar3 = puVar3 + 1;
     local_b4 = local_b4 + 1;
-  } while (local_b4 < 0xc);
+  } while ((int)local_b4 < 0xc);
   return;
 }
 #undef local_90

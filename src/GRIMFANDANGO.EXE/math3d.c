@@ -33,7 +33,9 @@ void __cdecl Vec3_Cross(float *out,float *a,float *b)
 void Vec3_NormalizeTo(float *param_1,float *param_2)
 
 {
+  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
+  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   fVar1 = SQRT(*param_2 * *param_2 + param_2[2] * param_2[2] + param_2[1] * param_2[1]);
   if (fVar1 != 0.0) {
@@ -47,12 +49,16 @@ void Vec3_NormalizeTo(float *param_1,float *param_2)
   param_1[2] = param_2[2];
   return;
 }
+#undef local_4
+
 
 /* ---- 0x004469a0  Vec3_Normalize ---- */
 void Vec3_Normalize(float *param_1)
 
 {
+  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
+  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   fVar1 = SQRT(*param_1 * *param_1 + param_1[2] * param_1[2] + param_1[1] * param_1[1]);
   if (fVar1 != 0.0) {
@@ -63,6 +69,8 @@ void Vec3_Normalize(float *param_1)
   }
   return;
 }
+#undef local_4
+
 
 /* ---- 0x00446a10  Vec3_NormalizeApprox ---- */
 /* Rough vector length: with the absolute values sorted max >= mid >= min, len = max + 0.34375 * mid
@@ -73,63 +81,70 @@ float10 Vec3_NormalizeApprox(float *param_1)
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
-  #define local_28 (*(float *)(_frame + (0x40 - 0x28)))
-  #define local_24 (*(float *)(_frame + (0x40 - 0x24)))
-  #define local_20 (*(float *)(_frame + (0x40 - 0x20)))
-  #define local_1c (*(float *)(_frame + (0x40 - 0x1c)))
-  #define local_c (*(float *)(_frame + (0x40 - 0xc)))
-  #define local_8 (*(float *)(_frame + (0x40 - 0x8)))
+  float fVar2;
+  #define local_28 (*(uint *)(_frame + (0x40 - 0x28)))
+  #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
+  #define local_20 (*(uint *)(_frame + (0x40 - 0x20)))
+  #define local_1c (*(uint *)(_frame + (0x40 - 0x1c)))
+  #define local_18 (*(uint *)(_frame + (0x40 - 0x18)))
+  #define local_14 (*(uint *)(_frame + (0x40 - 0x14)))
+  #define local_10 (*(uint *)(_frame + (0x40 - 0x10)))
+  #define local_c (*(uint *)(_frame + (0x40 - 0xc)))
+  #define local_8 (*(uint *)(_frame + (0x40 - 0x8)))
   
   if (0.0 <= *param_1) {
-    local_20 = *param_1;
+    local_20 = (uint)*param_1;
   }
   else {
-    local_20 = -*param_1;
+    local_20 = (uint)-*param_1;
   }
   local_c = local_20;
   if (0.0 <= param_1[1]) {
-    local_24 = param_1[1];
+    local_24 = (uint)param_1[1];
   }
   else {
-    local_24 = -param_1[1];
+    local_24 = (uint)-param_1[1];
   }
   local_8 = local_24;
   if (0.0 <= param_1[2]) {
-    local_28 = param_1[2];
+    local_28 = (uint)param_1[2];
   }
   else {
-    local_28 = -param_1[2];
+    local_28 = (uint)-param_1[2];
   }
   local_1c = local_28;
-  if (local_28 <= local_24) {
-    if (local_20 < local_24) {
+  if ((float)local_28 <= (float)local_24) {
+    if ((float)local_20 < (float)local_24) {
       local_8 = local_20;
       local_c = local_24;
-      if (local_20 < local_28) {
+      if ((float)local_20 < (float)local_28) {
         local_1c = local_20;
         local_8 = local_28;
       }
     }
   }
-  else if (local_28 <= local_20) {
+  else if ((float)local_28 <= (float)local_20) {
     local_1c = local_24;
     local_8 = local_28;
   }
   else {
     local_1c = local_20;
     local_c = local_28;
-    if (local_24 < local_20) {
+    if ((float)local_24 < (float)local_20) {
       local_1c = local_24;
       local_8 = local_20;
     }
   }
-  local_c = local_1c * 0.25 + local_8 * 0.34375 + local_c;
-  fVar1 = 1.0 / local_c;
-  *param_1 = *param_1 * fVar1;
-  param_1[1] = param_1[1] * fVar1;
-  param_1[2] = param_1[2] * fVar1;
-  return (float10)local_c;
+  fVar1 = (float)local_1c * 0.25 + (float)local_8 * 0.34375 + (float)local_c;
+  fVar2 = 1.0 / fVar1;
+  *param_1 = *param_1 * fVar2;
+  param_1[1] = param_1[1] * fVar2;
+  param_1[2] = param_1[2] * fVar2;
+  return (float10)fVar1;
 }
+#undef local_10
+#undef local_14
+#undef local_18
 #undef local_1c
 #undef local_20
 #undef local_24
@@ -173,6 +188,7 @@ void __cdecl Matrix_GetAngles(float *matrix,float *outAngles)
 undefined1 Frustum_TestSphere(int *param_1,float *param_2,float param_3)
 
 {
+  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   float fVar2;
   int iVar3;
@@ -181,6 +197,9 @@ undefined1 Frustum_TestSphere(int *param_1,float *param_2,float param_3)
   float fVar6;
   float fVar7;
   float *pfVar8;
+  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
+  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   pfVar8 = param_2;
   fVar5 = param_3 + param_2[1];
@@ -260,10 +279,14 @@ undefined1 Frustum_TestSphere(int *param_1,float *param_2,float param_3)
   }
   return !bVar4;
 }
+#undef local_4
+#undef local_8
+#undef local_c
+
 
 /* ---- 0x0044ea50  Polygon_ClipToPlane ---- */
-int Polygon_ClipToPlane(float *param_1,float *param_2,float *param_3,float *param_4,float *param_5,
-                       float *param_6)
+uint Polygon_ClipToPlane(float *param_1,float *param_2,float *param_3,undefined4 *param_4,
+                        float *param_5,uint *param_6)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -271,166 +294,167 @@ int Polygon_ClipToPlane(float *param_1,float *param_2,float *param_3,float *para
   float fVar2;
   int iVar3;
   int iVar4;
-  float *pfVar5;
+  undefined4 *puVar5;
   float *pfVar6;
   float *pfVar7;
   float *pfVar8;
-  int iVar9;
-  float *pfVar10;
+  uint *puVar9;
+  int iVar10;
   float *pfVar11;
-  float *pfVar12;
-  float *pfVar13;
-  #define local_24 (*(float **)(_frame + (0x40 - 0x24)))
-  #define local_20 (*(int *)(_frame + (0x40 - 0x20)))
-  #define local_1c (*(float **)(_frame + (0x40 - 0x1c)))
-  #define local_18 (*(float *)(_frame + (0x40 - 0x18)))
-  #define local_14 (*(float **)(_frame + (0x40 - 0x14)))
-  #define local_10 (*(float **)(_frame + (0x40 - 0x10)))
-  #define local_c (*(float **)(_frame + (0x40 - 0xc)))
-  #define local_8 (*(float **)(_frame + (0x40 - 0x8)))
-  #define local_4 (*(int *)(_frame + (0x40 - 0x4)))
+  uint *puVar12;
+  undefined4 *puVar13;
+  uint *puVar14;
+  #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
+  #define local_20 (*(uint *)(_frame + (0x40 - 0x20)))
+  #define local_1c (*(uint *)(_frame + (0x40 - 0x1c)))
+  #define local_18 (*(uint *)(_frame + (0x40 - 0x18)))
+  #define local_14 (*(uint *)(_frame + (0x40 - 0x14)))
+  #define local_10 (*(uint *)(_frame + (0x40 - 0x10)))
+  #define local_c (*(uint *)(_frame + (0x40 - 0xc)))
+  #define local_8 (*(uint *)(_frame + (0x40 - 0x8)))
+  #define local_4 (*(uint *)(_frame + (0x40 - 0x4)))
   
-  local_4 = (int)param_6;
-  pfVar5 = param_4;
+  local_4 = (uint)param_6;
+  puVar5 = param_4;
   iVar3 = (int)param_6 * 3;
-  iVar9 = (int)param_6 * 3;
+  iVar10 = (int)param_6 * 3;
   iVar4 = (int)param_6 * 3;
   local_20 = 0;
-  pfVar6 = param_4 + (int)param_6 * 2 + -2;
-  if (param_4 == (float *)0x0) {
+  pfVar6 = (float *)(param_4 + (int)param_6 * 2 + -2);
+  if (param_4 == (undefined4 *)0x0) {
     pfVar6 = param_5;
   }
   if (param_5 != (float *)0x0) {
-    local_10 = PUN(float *,(float)param_5[(int)param_6 + -1]);
+    local_10 = (uint)param_5[(int)param_6 - 1];
   }
   if (0 < (int)param_6) {
-    local_24 = (float *)&DAT_007f47c0;
-    local_8 = param_5;
-    local_c = param_4;
-    param_6 = (float *)&DAT_007f46b8;
-    pfVar11 = (float *)&DAT_007f48c0;
-    local_1c = (float *)&DAT_007f46bc;
-    pfVar8 = (float *)&DAT_007f48c8;
-    pfVar13 = (float *)&DAT_007f48c4;
-    pfVar10 = param_3 + iVar4 + -3;
-    pfVar7 = param_3;
-    pfVar12 = param_5;
-    local_18 = ((param_3 + iVar4 + -3)[1] - param_2[1]) * param_1[1] +
-               (param_3[iVar3 + -1] - param_2[2]) * param_1[2] +
-               (param_3[iVar9 + -3] - *param_2) * *param_1;
+    local_24 = (uint)&UINT_007f47c0;
+    local_8 = (uint)param_5;
+    local_c = (uint)param_4;
+    param_6 = &UINT_007f46b8;
+    puVar12 = &UINT_007f48c0;
+    local_1c = (uint)&UINT_007f46bc;
+    puVar9 = &UINT_007f48c8;
+    puVar14 = &UINT_007f48c4;
+    pfVar7 = param_3 + iVar4 + -3;
+    pfVar8 = param_3;
+    pfVar11 = param_5;
+    local_18 = (uint)(((param_3 + iVar4 + -3)[1] - param_2[1]) * param_1[1] +
+                     (param_3[iVar3 + -1] - param_2[2]) * param_1[2] +
+                     (param_3[iVar10 + -3] - *param_2) * *param_1);
     do {
-      if (param_4 != (float *)0x0) {
+      if (param_4 != (undefined4 *)0x0) {
         local_14 = local_c;
       }
       if (param_5 != (float *)0x0) {
-        pfVar12 = PUN(float *,(float)*local_8);
+        pfVar11 = *(float **)local_8;
       }
-      fVar2 = (pfVar7[1] - param_2[1]) * param_1[1] +
-              (*pfVar7 - *param_2) * *param_1 + (pfVar7[2] - param_2[2]) * param_1[2];
-      if ((local_18 < 0.0) || (fVar2 < 0.0)) {
-        if ((0.0 <= local_18) && (fVar2 < 0.0)) {
-          fVar1 = -(local_18 / (fVar2 - local_18));
-          *pfVar11 = (*pfVar7 - *pfVar10) * fVar1 + *pfVar10;
-          *pfVar13 = (pfVar7[1] - pfVar10[1]) * fVar1 + pfVar10[1];
-          *pfVar8 = (pfVar7[2] - pfVar10[2]) * fVar1 + pfVar10[2];
-          if (param_4 != (float *)0x0) {
-            *param_6 = (*local_14 - *pfVar6) * fVar1 + *pfVar6;
-            *local_1c = (local_14[1] - pfVar6[1]) * fVar1 + pfVar6[1];
+      fVar2 = (pfVar8[1] - param_2[1]) * param_1[1] +
+              (*pfVar8 - *param_2) * *param_1 + (pfVar8[2] - param_2[2]) * param_1[2];
+      if (((float)local_18 < 0.0) || (fVar2 < 0.0)) {
+        if ((0.0 <= (float)local_18) && (fVar2 < 0.0)) {
+          fVar1 = -((float)local_18 / (fVar2 - (float)local_18));
+          *puVar12 = (uint)((*pfVar8 - *pfVar7) * fVar1 + *pfVar7);
+          *puVar14 = (uint)((pfVar8[1] - pfVar7[1]) * fVar1 + pfVar7[1]);
+          *puVar9 = (uint)((pfVar8[2] - pfVar7[2]) * fVar1 + pfVar7[2]);
+          if (param_4 != (undefined4 *)0x0) {
+            *param_6 = (uint)((*(float *)local_14 - *pfVar6) * fVar1 + *pfVar6);
+            *(float *)local_1c = (*(float *)(local_14 + 4) - pfVar6[1]) * fVar1 + pfVar6[1];
           }
           if (param_5 != (float *)0x0) {
-            *local_24 = (PUN(float,pfVar12) - PUN(float,local_10)) * fVar1 + PUN(float,local_10);
+            *(float *)local_24 = (PUN(float,pfVar11) - (float)local_10) * fVar1 + (float)local_10;
           }
           goto LAB_0044ed90;
         }
-        if ((local_18 < 0.0) && (0.0 <= fVar2)) {
-          fVar1 = -(local_18 / (fVar2 - local_18));
-          *pfVar11 = (*pfVar7 - *pfVar10) * fVar1 + *pfVar10;
-          *pfVar13 = (pfVar7[1] - pfVar10[1]) * fVar1 + pfVar10[1];
-          *pfVar8 = (pfVar7[2] - pfVar10[2]) * fVar1 + pfVar10[2];
-          if (param_4 != (float *)0x0) {
-            *param_6 = (*local_14 - *pfVar6) * fVar1 + *pfVar6;
-            *local_1c = (local_14[1] - pfVar6[1]) * fVar1 + pfVar6[1];
+        if (((float)local_18 < 0.0) && (0.0 <= fVar2)) {
+          fVar1 = -((float)local_18 / (fVar2 - (float)local_18));
+          *puVar12 = (uint)((*pfVar8 - *pfVar7) * fVar1 + *pfVar7);
+          *puVar14 = (uint)((pfVar8[1] - pfVar7[1]) * fVar1 + pfVar7[1]);
+          *puVar9 = (uint)((pfVar8[2] - pfVar7[2]) * fVar1 + pfVar7[2]);
+          if (param_4 != (undefined4 *)0x0) {
+            *param_6 = (uint)((*(float *)local_14 - *pfVar6) * fVar1 + *pfVar6);
+            *(float *)local_1c = (*(float *)(local_14 + 4) - pfVar6[1]) * fVar1 + pfVar6[1];
           }
           if (param_5 != (float *)0x0) {
-            *local_24 = (PUN(float,pfVar12) - PUN(float,local_10)) * fVar1 + PUN(float,local_10);
+            *(float *)local_24 = (PUN(float,pfVar11) - (float)local_10) * fVar1 + (float)local_10;
           }
           local_20 = local_20 + 1;
-          local_1c = local_1c + 2;
-          pfVar6 = param_6 + 2;
-          local_24 = local_24 + 1;
-          pfVar10 = pfVar11 + 3;
-          pfVar13 = pfVar13 + 3;
-          *pfVar10 = *pfVar7;
-          pfVar8 = pfVar8 + 3;
-          pfVar11[4] = pfVar7[1];
-          pfVar11[5] = pfVar7[2];
-          if (param_4 != (float *)0x0) {
-            *pfVar6 = *local_14;
-            param_6[3] = local_14[1];
-            param_6[4] = local_14[2];
+          local_1c = local_1c + 8;
+          pfVar6 = (float *)(param_6 + 2);
+          local_24 = local_24 + 4;
+          pfVar7 = (float *)(puVar12 + 3);
+          puVar14 = puVar14 + 3;
+          *pfVar7 = *pfVar8;
+          puVar9 = puVar9 + 3;
+          puVar12[4] = (uint)pfVar8[1];
+          puVar12[5] = (uint)pfVar8[2];
+          if (param_4 != (undefined4 *)0x0) {
+            *pfVar6 = *(float *)local_14;
+            param_6[3] = (uint)*(float *)(local_14 + 4);
+            param_6[4] = (uint)*(float *)(local_14 + 8);
           }
-          pfVar11 = pfVar10;
-          param_6 = pfVar6;
+          puVar12 = (uint *)pfVar7;
+          param_6 = (uint *)pfVar6;
           if (param_5 != (float *)0x0) {
-            *local_24 = PUN(float,pfVar12);
+            *(float **)local_24 = pfVar11;
           }
           goto LAB_0044ed90;
         }
       }
       else {
-        *pfVar11 = *pfVar7;
-        pfVar11[1] = pfVar7[1];
-        pfVar11[2] = pfVar7[2];
-        if (param_4 != (float *)0x0) {
-          *param_6 = *local_14;
-          param_6[1] = local_14[1];
-          param_6[2] = local_14[2];
+        *puVar12 = (uint)*pfVar8;
+        puVar12[1] = (uint)pfVar8[1];
+        puVar12[2] = (uint)pfVar8[2];
+        if (param_4 != (undefined4 *)0x0) {
+          *param_6 = (uint)*(float *)local_14;
+          param_6[1] = (uint)*(float *)(local_14 + 4);
+          param_6[2] = (uint)*(float *)(local_14 + 8);
         }
         if (param_5 != (float *)0x0) {
-          *local_24 = PUN(float,pfVar12);
+          *(float **)local_24 = pfVar11;
         }
 LAB_0044ed90:
         local_20 = local_20 + 1;
-        local_1c = local_1c + 2;
+        local_1c = local_1c + 8;
         param_6 = param_6 + 2;
-        pfVar13 = pfVar13 + 3;
-        pfVar8 = pfVar8 + 3;
-        pfVar11 = pfVar11 + 3;
-        local_24 = local_24 + 1;
+        puVar14 = puVar14 + 3;
+        puVar9 = puVar9 + 3;
+        puVar12 = puVar12 + 3;
+        local_24 = local_24 + 4;
       }
-      local_c = local_c + 2;
-      local_8 = local_8 + 1;
-      local_4 = local_4 + -1;
-      pfVar10 = pfVar7;
-      pfVar7 = pfVar7 + 3;
-      pfVar6 = local_14;
-      local_18 = fVar2;
-      local_10 = pfVar12;
+      local_c = local_c + 8;
+      local_8 = local_8 + 4;
+      local_4 = local_4 - 1;
+      pfVar7 = pfVar8;
+      pfVar8 = pfVar8 + 3;
+      pfVar6 = (float *)local_14;
+      local_18 = (uint)fVar2;
+      local_10 = (uint)pfVar11;
     } while (local_4 != 0);
   }
-  if (0 < local_20) {
-    iVar9 = (int)&DAT_007f48c0 - (int)param_3;
+  if (0 < (int)local_20) {
+    iVar10 = (int)&UINT_007f48c0 - (int)param_3;
     iVar3 = -(int)param_4;
-    param_4 = (float *)local_20;
+    param_4 = (undefined4 *)local_20;
     pfVar6 = param_5;
-    pfVar12 = pfVar5;
+    puVar13 = puVar5;
     do {
-      pfVar10 = (float *)(iVar9 + (int)param_3);
-      *param_3 = *pfVar10;
-      param_3[1] = pfVar10[1];
-      param_3[2] = pfVar10[2];
-      if (pfVar5 != (float *)0x0) {
-        *pfVar12 = *(float *)((int)&DAT_007f46b8 + iVar3 + (int)pfVar12);
-        pfVar12[1] = *(float *)((int)&DAT_007f46bc + iVar3 + (int)pfVar12);
+      pfVar11 = (float *)(iVar10 + (int)param_3);
+      *param_3 = *pfVar11;
+      param_3[1] = pfVar11[1];
+      param_3[2] = pfVar11[2];
+      if (puVar5 != (undefined4 *)0x0) {
+        *puVar13 = *(undefined4 *)((int)&UINT_007f46b8 + iVar3 + (int)puVar13);
+        puVar13[1] = *(undefined4 *)((int)&UINT_007f46bc + iVar3 + (int)puVar13);
       }
       if (param_5 != (float *)0x0) {
-        *pfVar6 = *(float *)(((int)&DAT_007f47c0 - (int)param_5) + (int)pfVar6);
+        *pfVar6 = *(float *)(((int)&UINT_007f47c0 - (int)param_5) + (int)pfVar6);
       }
       param_3 = param_3 + 3;
-      pfVar12 = pfVar12 + 2;
+      puVar13 = puVar13 + 2;
       pfVar6 = pfVar6 + 1;
-      param_4 = (float *)((int)param_4 + -1);
-    } while (param_4 != (float *)0x0);
+      param_4 = (undefined4 *)((int)param_4 - 1);
+    } while (param_4 != (undefined4 *)0x0);
   }
   return local_20;
 }
@@ -451,25 +475,31 @@ void Angles_ToMatrix(float *param_1,undefined4 *param_2,float *param_3)
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   undefined4 *puVar1;
-  #define local_1c (*(float *)(_frame + (0x30 - 0x1c)))
-  #define local_18 (*(float *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(float *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(float *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(float (*)[3])(_frame + (0x30 - 0xc)))
+  #define local_1c (*(uint *)(_frame + (0x30 - 0x1c)))
+  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
+  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
+  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
+  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
+  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
   
   puVar1 = param_2;
   Math_SinCosTable(*param_2,&param_2,&local_1c);
   Math_SinCosTable(puVar1[1],&local_14,&local_10);
-  Math_SinCosTable(puVar1[2],&local_18,local_c);
-  *param_1 = -(local_18 * local_14) * PUN(float,param_2) + local_c[0] * local_10;
-  param_1[1] = local_18 * local_10 * PUN(float,param_2) + local_c[0] * local_14;
-  param_1[2] = -local_18 * local_1c;
-  param_1[3] = -local_14 * local_1c;
-  param_1[4] = local_10 * local_1c;
+  Math_SinCosTable(puVar1[2],&local_18,&local_c);
+  *param_1 = -((float)local_18 * (float)local_14) * PUN(float,param_2) +
+             (float)local_c * (float)local_10;
+  param_1[1] = (float)local_18 * (float)local_10 * PUN(float,param_2) + (float)local_c * (float)local_14
+  ;
+  param_1[2] = -(float)local_18 * (float)local_1c;
+  param_1[3] = -(float)local_14 * (float)local_1c;
+  param_1[4] = (float)local_10 * (float)local_1c;
   param_1[5] = PUN(float,param_2);
-  param_1[6] = local_c[0] * local_14 * PUN(float,param_2) + local_18 * local_10;
-  param_1[7] = -PUN(float,param_2) * local_c[0] * local_10 + local_18 * local_14;
-  param_1[8] = local_c[0] * local_1c;
+  param_1[6] = (float)local_c * (float)local_14 * PUN(float,param_2) + (float)local_18 * (float)local_10
+  ;
+  param_1[7] = -PUN(float,param_2) * (float)local_c * (float)local_10 +
+               (float)local_18 * (float)local_14;
+  param_1[8] = (float)local_c * (float)local_1c;
   param_1[9] = *param_3;
   param_1[10] = param_3[1];
   param_1[0xb] = param_3[2];
@@ -479,6 +509,8 @@ void Angles_ToMatrix(float *param_1,undefined4 *param_2,float *param_3)
 #undef local_14
 #undef local_18
 #undef local_1c
+#undef local_4
+#undef local_8
 #undef local_c
 
 
@@ -514,25 +546,31 @@ void Angles_ToMatrixNoPos(float *param_1,undefined4 *param_2)
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   undefined4 *puVar1;
-  #define local_1c (*(float *)(_frame + (0x30 - 0x1c)))
-  #define local_18 (*(float *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(float *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(float *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(float (*)[3])(_frame + (0x30 - 0xc)))
+  #define local_1c (*(uint *)(_frame + (0x30 - 0x1c)))
+  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
+  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
+  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
+  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
+  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
   
   puVar1 = param_2;
   Math_SinCosTable(*param_2,&param_2,&local_1c);
   Math_SinCosTable(puVar1[1],&local_14,&local_10);
-  Math_SinCosTable(puVar1[2],&local_18,local_c);
-  *param_1 = -(local_18 * local_14) * PUN(float,param_2) + local_c[0] * local_10;
-  param_1[1] = local_18 * local_10 * PUN(float,param_2) + local_c[0] * local_14;
-  param_1[2] = -local_18 * local_1c;
-  param_1[3] = -local_14 * local_1c;
-  param_1[4] = local_10 * local_1c;
+  Math_SinCosTable(puVar1[2],&local_18,&local_c);
+  *param_1 = -((float)local_18 * (float)local_14) * PUN(float,param_2) +
+             (float)local_c * (float)local_10;
+  param_1[1] = (float)local_18 * (float)local_10 * PUN(float,param_2) + (float)local_c * (float)local_14
+  ;
+  param_1[2] = -(float)local_18 * (float)local_1c;
+  param_1[3] = -(float)local_14 * (float)local_1c;
+  param_1[4] = (float)local_10 * (float)local_1c;
   param_1[5] = PUN(float,param_2);
-  param_1[6] = local_c[0] * local_14 * PUN(float,param_2) + local_18 * local_10;
-  param_1[7] = -PUN(float,param_2) * local_c[0] * local_10 + local_18 * local_14;
-  param_1[8] = local_c[0] * local_1c;
+  param_1[6] = (float)local_c * (float)local_14 * PUN(float,param_2) + (float)local_18 * (float)local_10
+  ;
+  param_1[7] = -PUN(float,param_2) * (float)local_c * (float)local_10 +
+               (float)local_18 * (float)local_14;
+  param_1[8] = (float)local_c * (float)local_1c;
   param_1[9] = 0.0;
   param_1[10] = 0.0;
   param_1[0xb] = 0.0;
@@ -542,6 +580,8 @@ void Angles_ToMatrixNoPos(float *param_1,undefined4 *param_2)
 #undef local_14
 #undef local_18
 #undef local_1c
+#undef local_4
+#undef local_8
 #undef local_c
 
 
@@ -604,9 +644,18 @@ void Matrix_AxisAngle(float *param_1,float *param_2,float param_3)
   float fVar10;
   float fVar11;
   float fVar12;
-  #define local_28 (*(float (*)[10])(_frame + (0x40 - 0x28)))
+  #define local_28 (*(uint *)(_frame + (0x40 - 0x28)))
+  #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
+  #define local_20 (*(uint *)(_frame + (0x40 - 0x20)))
+  #define local_1c (*(uint *)(_frame + (0x40 - 0x1c)))
+  #define local_18 (*(uint *)(_frame + (0x40 - 0x18)))
+  #define local_14 (*(uint *)(_frame + (0x40 - 0x14)))
+  #define local_10 (*(uint *)(_frame + (0x40 - 0x10)))
+  #define local_c (*(uint *)(_frame + (0x40 - 0xc)))
+  #define local_8 (*(uint *)(_frame + (0x40 - 0x8)))
+  #define local_4 (*(uint *)(_frame + (0x40 - 0x4)))
   
-  Math_SinCosTable(param_3,local_28,&param_3);
+  Math_SinCosTable(param_3,&local_28,&param_3);
   fVar1 = 1.0 - param_2[2];
   fVar2 = fVar1;
   if (fVar1 < 0.0) {
@@ -618,8 +667,8 @@ void Matrix_AxisAngle(float *param_1,float *param_2,float param_3)
   if (fVar1 == 0.0) {
     *param_1 = param_3;
     param_1[4] = param_3;
-    param_1[3] = -local_28[0];
-    param_1[1] = local_28[0];
+    param_1[3] = -(float)local_28;
+    param_1[1] = (float)local_28;
   }
   else {
     fVar1 = param_2[2] - -1.0;
@@ -650,19 +699,19 @@ void Matrix_AxisAngle(float *param_1,float *param_2,float param_3)
       param_1[10] = 0.0;
       param_1[4] = (fVar10 * fVar9 + fVar7) / (1.0 - fVar9) + fVar8;
       param_1[8] = fVar10 + fVar7 + fVar9;
-      param_1[1] = fVar4 * local_28[0] + param_3;
-      param_1[3] = param_3 - fVar4 * local_28[0];
-      param_1[2] = fVar11 - fVar2 * local_28[0];
-      param_1[5] = fVar12 + local_28[0] * fVar5;
-      param_1[6] = fVar11 + fVar2 * local_28[0];
-      param_1[7] = fVar12 - local_28[0] * fVar5;
+      param_1[1] = fVar4 * (float)local_28 + param_3;
+      param_1[3] = param_3 - fVar4 * (float)local_28;
+      param_1[2] = fVar11 - fVar2 * (float)local_28;
+      param_1[5] = fVar12 + (float)local_28 * fVar5;
+      param_1[6] = fVar11 + fVar2 * (float)local_28;
+      param_1[7] = fVar12 - (float)local_28 * fVar5;
       param_1[0xb] = 0.0;
       return;
     }
     *param_1 = param_3;
     param_1[4] = param_3;
-    param_1[1] = -local_28[0];
-    param_1[3] = local_28[0];
+    param_1[1] = -(float)local_28;
+    param_1[3] = (float)local_28;
   }
   param_1[2] = 0.0;
   param_1[5] = 0.0;
@@ -674,7 +723,16 @@ void Matrix_AxisAngle(float *param_1,float *param_2,float param_3)
   param_1[0xb] = 0.0;
   return;
 }
+#undef local_10
+#undef local_14
+#undef local_18
+#undef local_1c
+#undef local_20
+#undef local_24
 #undef local_28
+#undef local_4
+#undef local_8
+#undef local_c
 
 
 /* ---- 0x0044f490  Camera_BuildBasis ---- */
@@ -690,10 +748,12 @@ void Camera_BuildBasis(float *param_1,float *param_2,float *param_3,undefined4 p
   float *pfVar1;
   float fVar2;
   float *v;
-  #define local_48 (*(float *)(_frame + (0x60 - 0x48)))
-  #define local_44 (*(float *)(_frame + (0x60 - 0x44)))
-  #define local_40 (*(float *)(_frame + (0x60 - 0x40)))
-  #define local_3c (*(float (*)[3])(_frame + (0x60 - 0x3c)))
+  #define local_48 (*(uint *)(_frame + (0x60 - 0x48)))
+  #define local_44 (*(uint *)(_frame + (0x60 - 0x44)))
+  #define local_40 (*(uint *)(_frame + (0x60 - 0x40)))
+  #define local_3c (*(uint *)(_frame + (0x60 - 0x3c)))
+  #define local_38 (*(uint *)(_frame + (0x60 - 0x38)))
+  #define local_34 (*(uint *)(_frame + (0x60 - 0x34)))
   #define local_30 (*(undefined1 (*)[48])(_frame + (0x60 - 0x30)))
   
   pfVar1 = param_1 + 3;
@@ -713,15 +773,15 @@ void Camera_BuildBasis(float *param_1,float *param_2,float *param_3,undefined4 p
     v = (float *)&DAT_004d7530;
   }
   else {
-    local_3c[0] = -0.0;
-    local_3c[1] = -1.0;
-    v = local_3c;
-    local_3c[2] = -0.0;
+    local_3c = 0x80000000;
+    local_38 = 0xbf800000;
+    v = (float *)&local_3c;
+    local_34 = 0x80000000;
   }
-  Vec3_Copy(&local_48,v);
-  *param_1 = param_1[4] * local_40 - param_1[5] * local_44;
-  param_1[1] = param_1[5] * local_48 - *pfVar1 * local_40;
-  param_1[2] = *pfVar1 * local_44 - param_1[4] * local_48;
+  Vec3_Copy((float *)&local_48,v);
+  *param_1 = param_1[4] * (float)local_40 - param_1[5] * (float)local_44;
+  param_1[1] = param_1[5] * (float)local_48 - *pfVar1 * (float)local_40;
+  param_1[2] = *pfVar1 * (float)local_44 - param_1[4] * (float)local_48;
   Vec3_Normalize(param_1);
   param_1[6] = param_1[5] * param_1[1] - param_1[4] * param_1[2];
   param_1[7] = param_1[2] * *pfVar1 - param_1[5] * *param_1;
@@ -733,6 +793,8 @@ void Camera_BuildBasis(float *param_1,float *param_2,float *param_3,undefined4 p
   return;
 }
 #undef local_30
+#undef local_34
+#undef local_38
 #undef local_3c
 #undef local_40
 #undef local_44
@@ -740,9 +802,12 @@ void Camera_BuildBasis(float *param_1,float *param_2,float *param_3,undefined4 p
 
 
 /* ---- 0x0044f650  Matrix_ToAngles ---- */
+/* WARNING: Variable defined which should be unmapped: local_28 */
+
 void Matrix_ToAngles(float *param_1,float *param_2)
 
 {
+  unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   float fVar2;
   float fVar3;
@@ -752,6 +817,15 @@ void Matrix_ToAngles(float *param_1,float *param_2)
   float fVar7;
   float fVar8;
   float10 fVar9;
+  #define local_28 (*(uint *)(_frame + (0x40 - 0x28)))
+  #define local_20 (*(uint *)(_frame + (0x40 - 0x20)))
+  #define local_1c (*(uint *)(_frame + (0x40 - 0x1c)))
+  #define local_18 (*(uint *)(_frame + (0x40 - 0x18)))
+  #define local_14 (*(uint *)(_frame + (0x40 - 0x14)))
+  #define local_10 (*(uint *)(_frame + (0x40 - 0x10)))
+  #define local_c (*(uint *)(_frame + (0x40 - 0xc)))
+  #define local_8 (*(uint *)(_frame + (0x40 - 0x8)))
+  #define local_4 (*(uint *)(_frame + (0x40 - 0x4)))
   
   fVar4 = param_1[3];
   fVar5 = param_1[4];
@@ -816,6 +890,16 @@ void Matrix_ToAngles(float *param_1,float *param_2)
   }
   return;
 }
+#undef local_10
+#undef local_14
+#undef local_18
+#undef local_1c
+#undef local_20
+#undef local_28
+#undef local_4
+#undef local_8
+#undef local_c
+
 
 /* ---- 0x0044f880  Matrix_Identity ---- */
 void __cdecl Matrix_Identity(float *m)
@@ -866,37 +950,43 @@ void __cdecl Matrix_BuildRotation(float *m,float *angles)
   int iVar3;
   float *pfVar4;
   float *pfVar5;
-  #define local_30 (*(float (*)[4])(_frame + (0x40 - 0x30)))
-  #define local_20 (*(float *)(_frame + (0x40 - 0x20)))
-  #define local_1c (*(float *)(_frame + (0x40 - 0x1c)))
-  #define local_18 (*(float *)(_frame + (0x40 - 0x18)))
-  #define local_14 (*(float *)(_frame + (0x40 - 0x14)))
-  #define local_10 (*(float *)(_frame + (0x40 - 0x10)))
-  #define local_c (*(float *)(_frame + (0x40 - 0xc)))
-  #define local_8 (*(float *)(_frame + (0x40 - 0x8)))
-  #define local_4 (*(float *)(_frame + (0x40 - 0x4)))
+  #define local_30 (*(uint *)(_frame + (0x40 - 0x30)))
+  #define local_2c (*(uint *)(_frame + (0x40 - 0x2c)))
+  #define local_28 (*(uint *)(_frame + (0x40 - 0x28)))
+  #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
+  #define local_20 (*(uint *)(_frame + (0x40 - 0x20)))
+  #define local_1c (*(uint *)(_frame + (0x40 - 0x1c)))
+  #define local_18 (*(uint *)(_frame + (0x40 - 0x18)))
+  #define local_14 (*(uint *)(_frame + (0x40 - 0x14)))
+  #define local_10 (*(uint *)(_frame + (0x40 - 0x10)))
+  #define local_c (*(uint *)(_frame + (0x40 - 0xc)))
+  #define local_8 (*(uint *)(_frame + (0x40 - 0x8)))
+  #define local_4 (*(uint *)(_frame + (0x40 - 0x4)))
   
   fVar1 = angles[1];
   fVar2 = angles[2];
   pfVar4 = m;
-  pfVar5 = local_30;
+  pfVar5 = (float *)&local_30;
   for (iVar3 = 0xc; iVar3 != 0; iVar3 = iVar3 + -1) {
     *pfVar5 = *pfVar4;
     pfVar4 = pfVar4 + 1;
     pfVar5 = pfVar5 + 1;
   }
-  *m = local_30[0] * *angles + fVar2 * local_18 + fVar1 * local_30[3];
-  m[1] = local_30[1] * *angles + angles[2] * local_14 + angles[1] * local_20;
-  m[2] = local_30[2] * *angles + angles[2] * local_10 + angles[1] * local_1c;
-  m[3] = angles[5] * local_18 + angles[3] * local_30[0] + angles[4] * local_30[3];
-  m[4] = angles[5] * local_14 + angles[3] * local_30[1] + angles[4] * local_20;
-  m[5] = angles[5] * local_10 + angles[3] * local_30[2] + angles[4] * local_1c;
-  m[6] = angles[8] * local_18 + angles[6] * local_30[0] + angles[7] * local_30[3];
-  m[7] = angles[8] * local_14 + angles[6] * local_30[1] + angles[7] * local_20;
-  m[8] = angles[8] * local_10 + angles[6] * local_30[2] + angles[7] * local_1c;
-  m[9] = angles[0xb] * local_18 + angles[9] * local_30[0] + angles[10] * local_30[3] + local_c;
-  m[10] = angles[0xb] * local_14 + angles[9] * local_30[1] + angles[10] * local_20 + local_8;
-  m[0xb] = angles[0xb] * local_10 + angles[9] * local_30[2] + angles[10] * local_1c + local_4;
+  *m = (float)local_30 * *angles + fVar2 * (float)local_18 + fVar1 * (float)local_24;
+  m[1] = (float)local_2c * *angles + angles[2] * (float)local_14 + angles[1] * (float)local_20;
+  m[2] = (float)local_28 * *angles + angles[2] * (float)local_10 + angles[1] * (float)local_1c;
+  m[3] = angles[5] * (float)local_18 + angles[3] * (float)local_30 + angles[4] * (float)local_24;
+  m[4] = angles[5] * (float)local_14 + angles[3] * (float)local_2c + angles[4] * (float)local_20;
+  m[5] = angles[5] * (float)local_10 + angles[3] * (float)local_28 + angles[4] * (float)local_1c;
+  m[6] = angles[8] * (float)local_18 + angles[6] * (float)local_30 + angles[7] * (float)local_24;
+  m[7] = angles[8] * (float)local_14 + angles[6] * (float)local_2c + angles[7] * (float)local_20;
+  m[8] = angles[8] * (float)local_10 + angles[6] * (float)local_28 + angles[7] * (float)local_1c;
+  m[9] = angles[0xb] * (float)local_18 + angles[9] * (float)local_30 + angles[10] * (float)local_24
+         + (float)local_c;
+  m[10] = angles[0xb] * (float)local_14 + angles[9] * (float)local_2c + angles[10] * (float)local_20
+          + (float)local_8;
+  m[0xb] = angles[0xb] * (float)local_10 +
+           angles[9] * (float)local_28 + angles[10] * (float)local_1c + (float)local_4;
   return;
 }
 #undef local_10
@@ -904,6 +994,9 @@ void __cdecl Matrix_BuildRotation(float *m,float *angles)
 #undef local_18
 #undef local_1c
 #undef local_20
+#undef local_24
+#undef local_28
+#undef local_2c
 #undef local_30
 #undef local_4
 #undef local_8
@@ -920,37 +1013,51 @@ void Matrix_Multiply(float *param_1,float *param_2)
   int iVar3;
   float *pfVar4;
   float *pfVar5;
-  #define local_30 (*(float (*)[4])(_frame + (0x40 - 0x30)))
-  #define local_20 (*(float *)(_frame + (0x40 - 0x20)))
-  #define local_1c (*(float *)(_frame + (0x40 - 0x1c)))
-  #define local_18 (*(float *)(_frame + (0x40 - 0x18)))
-  #define local_14 (*(float *)(_frame + (0x40 - 0x14)))
-  #define local_10 (*(float *)(_frame + (0x40 - 0x10)))
-  #define local_c (*(float *)(_frame + (0x40 - 0xc)))
-  #define local_8 (*(float *)(_frame + (0x40 - 0x8)))
-  #define local_4 (*(float *)(_frame + (0x40 - 0x4)))
+  #define local_30 (*(uint *)(_frame + (0x40 - 0x30)))
+  #define local_2c (*(uint *)(_frame + (0x40 - 0x2c)))
+  #define local_28 (*(uint *)(_frame + (0x40 - 0x28)))
+  #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
+  #define local_20 (*(uint *)(_frame + (0x40 - 0x20)))
+  #define local_1c (*(uint *)(_frame + (0x40 - 0x1c)))
+  #define local_18 (*(uint *)(_frame + (0x40 - 0x18)))
+  #define local_14 (*(uint *)(_frame + (0x40 - 0x14)))
+  #define local_10 (*(uint *)(_frame + (0x40 - 0x10)))
+  #define local_c (*(uint *)(_frame + (0x40 - 0xc)))
+  #define local_8 (*(uint *)(_frame + (0x40 - 0x8)))
+  #define local_4 (*(uint *)(_frame + (0x40 - 0x4)))
   
   fVar1 = param_2[3];
   fVar2 = param_2[6];
   pfVar4 = param_1;
-  pfVar5 = local_30;
+  pfVar5 = (float *)&local_30;
   for (iVar3 = 0xc; iVar3 != 0; iVar3 = iVar3 + -1) {
     *pfVar5 = *pfVar4;
     pfVar4 = pfVar4 + 1;
     pfVar5 = pfVar5 + 1;
   }
-  *param_1 = local_30[0] * *param_2 + fVar2 * local_30[2] + fVar1 * local_30[1];
-  param_1[1] = param_2[4] * local_30[1] + param_2[1] * local_30[0] + param_2[7] * local_30[2];
-  param_1[2] = param_2[8] * local_30[2] + param_2[2] * local_30[0] + param_2[5] * local_30[1];
-  param_1[3] = local_30[3] * *param_2 + param_2[6] * local_1c + param_2[3] * local_20;
-  param_1[4] = param_2[4] * local_20 + param_2[1] * local_30[3] + param_2[7] * local_1c;
-  param_1[5] = param_2[8] * local_1c + param_2[2] * local_30[3] + param_2[5] * local_20;
-  param_1[6] = local_18 * *param_2 + param_2[6] * local_10 + param_2[3] * local_14;
-  param_1[7] = param_2[4] * local_14 + param_2[1] * local_18 + param_2[7] * local_10;
-  param_1[8] = param_2[8] * local_10 + param_2[2] * local_18 + param_2[5] * local_14;
-  param_1[9] = local_c * *param_2 + param_2[6] * local_4 + param_2[3] * local_8 + param_2[9];
-  param_1[10] = param_2[4] * local_8 + param_2[1] * local_c + param_2[7] * local_4 + param_2[10];
-  param_1[0xb] = param_2[8] * local_4 + param_2[2] * local_c + param_2[5] * local_8 + param_2[0xb];
+  *param_1 = (float)local_30 * *param_2 + fVar2 * (float)local_28 + fVar1 * (float)local_2c;
+  param_1[1] = param_2[4] * (float)local_2c +
+               param_2[1] * (float)local_30 + param_2[7] * (float)local_28;
+  param_1[2] = param_2[8] * (float)local_28 +
+               param_2[2] * (float)local_30 + param_2[5] * (float)local_2c;
+  param_1[3] = (float)local_24 * *param_2 +
+               param_2[6] * (float)local_1c + param_2[3] * (float)local_20;
+  param_1[4] = param_2[4] * (float)local_20 +
+               param_2[1] * (float)local_24 + param_2[7] * (float)local_1c;
+  param_1[5] = param_2[8] * (float)local_1c +
+               param_2[2] * (float)local_24 + param_2[5] * (float)local_20;
+  param_1[6] = (float)local_18 * *param_2 +
+               param_2[6] * (float)local_10 + param_2[3] * (float)local_14;
+  param_1[7] = param_2[4] * (float)local_14 +
+               param_2[1] * (float)local_18 + param_2[7] * (float)local_10;
+  param_1[8] = param_2[8] * (float)local_10 +
+               param_2[2] * (float)local_18 + param_2[5] * (float)local_14;
+  param_1[9] = (float)local_c * *param_2 + param_2[6] * (float)local_4 + param_2[3] * (float)local_8
+               + param_2[9];
+  param_1[10] = param_2[4] * (float)local_8 +
+                param_2[1] * (float)local_c + param_2[7] * (float)local_4 + param_2[10];
+  param_1[0xb] = param_2[8] * (float)local_4 +
+                 param_2[2] * (float)local_c + param_2[5] * (float)local_8 + param_2[0xb];
   return;
 }
 #undef local_10
@@ -958,6 +1065,9 @@ void Matrix_Multiply(float *param_1,float *param_2)
 #undef local_18
 #undef local_1c
 #undef local_20
+#undef local_24
+#undef local_28
+#undef local_2c
 #undef local_30
 #undef local_4
 #undef local_8
@@ -1032,6 +1142,7 @@ void __cdecl Vec3_TransformTo(float *out,float *v,float *m)
 void __cdecl Vec3_Transform(float *vec,float *m)
 
 {
+  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   float fVar2;
   float fVar3;
@@ -1041,6 +1152,9 @@ void __cdecl Vec3_Transform(float *vec,float *m)
   float fVar7;
   float fVar8;
   float fVar9;
+  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
+  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   fVar1 = m[7];
   fVar2 = m[4];
@@ -1056,6 +1170,10 @@ void __cdecl Vec3_Transform(float *vec,float *m)
   vec[2] = fVar7 * fVar9 + vec[2] * fVar4 + fVar3 * fVar8;
   return;
 }
+#undef local_4
+#undef local_8
+#undef local_c
+
 
 /* ---- 0x00450060  Vec3_Sub ---- */
 void __cdecl Vec3_Sub(float *out,float *a,float *b)
@@ -1073,6 +1191,7 @@ void __cdecl Vec3_Sub(float *out,float *a,float *b)
 void __cdecl Vec3_Rotate3x3(float *vec,float *m)
 
 {
+  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   float fVar2;
   float fVar3;
@@ -1084,6 +1203,9 @@ void __cdecl Vec3_Rotate3x3(float *vec,float *m)
   float fVar9;
   float fVar10;
   float fVar11;
+  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
+  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   fVar1 = m[7];
   fVar2 = m[4];
@@ -1101,6 +1223,10 @@ void __cdecl Vec3_Rotate3x3(float *vec,float *m)
   vec[2] = fVar8 * fVar10 + vec[2] * fVar4 + fVar3 * fVar9 + fVar11;
   return;
 }
+#undef local_4
+#undef local_8
+#undef local_c
+
 
 /* ---- 0x00450170  Matrix_TransformPoints ---- */
 void __cdecl Matrix_TransformPoints(float *m,float *in,float *out,int count)
@@ -1154,24 +1280,24 @@ void FUN_00450290(float *param_1,float *param_2,float *param_3,float *param_4)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  #define local_18 (*(float *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(float *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(float *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(float *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(float *)(_frame + (0x30 - 0x8)))
-  #define local_4 (*(float *)(_frame + (0x30 - 0x4)))
+  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
+  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
+  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
+  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
+  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
   
-  local_c = *param_3 - *param_2;
-  local_18 = *param_4 - *param_2;
-  local_8 = param_3[1] - param_2[1];
-  local_4 = param_3[2] - param_2[2];
-  local_14 = param_4[1] - param_2[1];
-  local_10 = param_4[2] - param_2[2];
+  local_c = (uint)(*param_3 - *param_2);
+  local_18 = (uint)(*param_4 - *param_2);
+  local_8 = (uint)(param_3[1] - param_2[1]);
+  local_4 = (uint)(param_3[2] - param_2[2]);
+  local_14 = (uint)(param_4[1] - param_2[1]);
+  local_10 = (uint)(param_4[2] - param_2[2]);
   Vec3_Normalize(&local_c);
   Vec3_Normalize(&local_18);
-  *param_1 = local_10 * local_8 - local_14 * local_4;
-  param_1[1] = local_18 * local_4 - local_10 * local_c;
-  param_1[2] = local_14 * local_c - local_18 * local_8;
+  *param_1 = (float)local_10 * (float)local_8 - (float)local_14 * (float)local_4;
+  param_1[1] = (float)local_18 * (float)local_4 - (float)local_10 * (float)local_c;
+  param_1[2] = (float)local_14 * (float)local_c - (float)local_18 * (float)local_8;
   Vec3_Normalize(param_1);
   FUN_00450380(param_1,0x358637bd);
   return;
@@ -1230,22 +1356,23 @@ undefined4 FUN_00450410(float *param_1,float *param_2,float *param_3)
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
-  #define local_18 (*(float *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(float *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(float *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(float *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(float *)(_frame + (0x30 - 0x8)))
-  #define local_4 (*(float *)(_frame + (0x30 - 0x4)))
+  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
+  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
+  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
+  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
+  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
   
-  local_c = *param_2 - *param_1;
-  local_18 = *param_3 - *param_1;
-  local_8 = param_2[1] - param_1[1];
-  local_4 = param_2[2] - param_1[2];
-  local_14 = param_3[1] - param_1[1];
-  local_10 = param_3[2] - param_1[2];
+  local_c = (uint)(*param_2 - *param_1);
+  local_18 = (uint)(*param_3 - *param_1);
+  local_8 = (uint)(param_2[1] - param_1[1]);
+  local_4 = (uint)(param_2[2] - param_1[2]);
+  local_14 = (uint)(param_3[1] - param_1[1]);
+  local_10 = (uint)(param_3[2] - param_1[2]);
   Vec3_Normalize(&local_c);
   Vec3_Normalize(&local_18);
-  fVar1 = local_10 * local_4 + local_14 * local_8 + local_18 * local_c;
+  fVar1 = (float)local_10 * (float)local_4 +
+          (float)local_14 * (float)local_8 + (float)local_18 * (float)local_c;
   if (fVar1 < 0.0) {
     fVar1 = -fVar1;
   }

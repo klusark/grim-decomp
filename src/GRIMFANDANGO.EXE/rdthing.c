@@ -5,21 +5,22 @@
 #include "globals.h"
 #include "functions.h"
 
-/* ---- 0x0040cf20  rdThing_DrawModel ---- */
-/* Model branch of rdThing_Draw: frustum-tests the bounding sphere, picks the geometry set, updates
-   the puppet and draws the node hierarchy */
+/* ---- 0x0040cf20  rdThing_Draw ---- */
+/* Rdthing.c: frustum-tests the model's bounding sphere, picks the geometry set, updates the puppet
+   and draws the node hierarchy */
 
-int __cdecl rdThing_DrawModel(void *thing,float *position)
+int __cdecl rdThing_Draw(void *thing,float *position)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  float fVar1;
+  uint uVar1;
   float fVar2;
-  void *pvVar3;
-  int iVar4;
-  float *pfVar5;
-  uint uVar6;
-  int *piVar7;
+  float fVar3;
+  void *pvVar4;
+  int iVar5;
+  float *pfVar6;
+  uint uVar7;
+  uint *puVar8;
   #define local_c (*(float (*)[3])(_frame + (0x20 - 0xc)))
   
   g_pRdCurrentThing = thing;
@@ -27,71 +28,72 @@ int __cdecl rdThing_DrawModel(void *thing,float *position)
   Vec3_Sub(local_c,(float *)((int)g_pRdCurrentModel + 0x78),position);
   Vec3_Rotate3x3(local_c,(float *)((int)g_pRdCurrentCamera + 8));
   if (*(int *)((int)thing + 0x44) == 0) {
-    DAT_007f30a4 = 1;
+    UINT_007f30a4 = 1;
   }
   else {
-    DAT_007f30a4 = Frustum_TestSphere(*(undefined4 *)((int)g_pRdCurrentCamera + 0x48),local_c,
-                                      *(undefined4 *)((int)g_pRdCurrentModel + 0x5c));
+    UINT_007f30a4 =
+         Frustum_TestSphere(*(undefined4 *)((int)g_pRdCurrentCamera + 0x48),local_c,
+                            *(undefined4 *)((int)g_pRdCurrentModel + 0x5c));
   }
-  if (DAT_007f30a4 != 2) {
-    DAT_007f30a4 = 1;
+  if (UINT_007f30a4 != 2) {
+    UINT_007f30a4 = 1;
     if (*(int *)((int)thing + 0x34) == -1) {
-      iVar4 = *(int *)((int)g_pRdCurrentModel + 0x50);
+      iVar5 = *(int *)((int)g_pRdCurrentModel + 0x50);
     }
     else {
-      iVar4 = *(int *)((int)g_pRdCurrentThing + 0x34);
+      iVar5 = *(int *)((int)g_pRdCurrentThing + 0x34);
     }
-    DAT_007f0fd0 = (int)g_pRdCurrentModel + iVar4 * 8 + 0x24;
+    UINT_007f0fd0 = (int)g_pRdCurrentModel + iVar5 * 8 + 0x24;
     rdPuppet_UpdateFrame(g_pRdCurrentThing,position);
-    pvVar3 = g_pRdCurrentCamera;
-    DAT_007f1494 = *(int *)((int)g_pRdCurrentThing + 0x38);
-    if (g_nRdroidGeometryMode <= DAT_007f1494) {
-      DAT_007f1494 = g_nRdroidGeometryMode;
+    pvVar4 = g_pRdCurrentCamera;
+    UINT_007f1494 = *(uint *)((int)g_pRdCurrentThing + 0x38);
+    if (g_nRdroidGeometryMode <= (int)UINT_007f1494) {
+      UINT_007f1494 = g_nRdroidGeometryMode;
     }
     if ((((byte)g_dwRdroidFlags & 2) == 0) || (*(float *)((int)g_pRdCurrentCamera + 0x54) < 1.0)) {
-      DAT_007f30dc = *(int *)((int)g_pRdCurrentThing + 0x3c);
-      if (g_nRdroidLightingMode <= *(int *)((int)g_pRdCurrentThing + 0x3c)) {
-        DAT_007f30dc = g_nRdroidLightingMode;
+      UINT_007f30dc = *(uint *)((int)g_pRdCurrentThing + 0x3c);
+      if (g_nRdroidLightingMode <= (int)*(uint *)((int)g_pRdCurrentThing + 0x3c)) {
+        UINT_007f30dc = g_nRdroidLightingMode;
       }
     }
     else {
-      DAT_007f30dc = 0;
+      UINT_007f30dc = 0;
     }
-    DAT_007f189c = *(int *)((int)g_pRdCurrentThing + 0x40);
-    if (g_nRdroidTextureMode <= DAT_007f189c) {
-      DAT_007f189c = g_nRdroidTextureMode;
+    UINT_007f189c = *(uint *)((int)g_pRdCurrentThing + 0x40);
+    if (g_nRdroidTextureMode <= (int)UINT_007f189c) {
+      UINT_007f189c = g_nRdroidTextureMode;
     }
-    if (1 < DAT_007f30dc) {
-      DAT_007f31f8 = 0;
-      uVar6 = 0;
+    if (1 < (int)UINT_007f30dc) {
+      UINT_007f31f8 = 0;
+      uVar7 = 0;
       if (*(int *)((int)g_pRdCurrentCamera + 0x58) != 0) {
-        pfVar5 = (float *)((int)g_pRdCurrentCamera + 0x160);
-        piVar7 = (int *)((int)g_pRdCurrentCamera + 0x5c);
+        pfVar6 = (float *)((int)g_pRdCurrentCamera + 0x160);
+        puVar8 = (uint *)((int)g_pRdCurrentCamera + 0x5c);
         do {
-          iVar4 = *piVar7;
-          if (*(int *)(iVar4 + 8) != 0) {
-            if (*(int *)(iVar4 + 4) < 2) {
-              fVar1 = 0.0;
+          uVar1 = *puVar8;
+          if (*(int *)(uVar1 + 8) != 0) {
+            if (*(int *)(uVar1 + 4) < 2) {
+              fVar2 = 0.0;
             }
             else {
-              fVar1 = (position[0xb] - pfVar5[1]) * (position[0xb] - pfVar5[1]) +
-                      (position[10] - *pfVar5) * (position[10] - *pfVar5) +
-                      (position[9] - pfVar5[-1]) * (position[9] - pfVar5[-1]);
+              fVar2 = (position[0xb] - pfVar6[1]) * (position[0xb] - pfVar6[1]) +
+                      (position[10] - *pfVar6) * (position[10] - *pfVar6) +
+                      (position[9] - pfVar6[-1]) * (position[9] - pfVar6[-1]);
             }
-            fVar2 = *(float *)(iVar4 + 0x34) + *(float *)((int)g_pRdCurrentModel + 0x5c);
-            if (fVar1 < fVar2 * fVar2) {
-              (&DAT_007f1498)[DAT_007f31f8] = iVar4;
-              DAT_007f31f8 = DAT_007f31f8 + 1;
+            fVar3 = *(float *)(uVar1 + 0x34) + *(float *)((int)g_pRdCurrentModel + 0x5c);
+            if (fVar2 < fVar3 * fVar3) {
+              (&UINT_007f1498)[UINT_007f31f8] = uVar1;
+              UINT_007f31f8 = UINT_007f31f8 + 1;
             }
           }
-          uVar6 = uVar6 + 1;
-          piVar7 = piVar7 + 1;
-          pfVar5 = pfVar5 + 3;
-        } while (uVar6 < *(uint *)((int)pvVar3 + 0x58));
+          uVar7 = uVar7 + 1;
+          puVar8 = puVar8 + 1;
+          pfVar6 = pfVar6 + 3;
+        } while (uVar7 < *(uint *)((int)pvVar4 + 0x58));
       }
     }
     rdModel_DrawNode(*(undefined4 *)((int)g_pRdCurrentModel + 0x58));
-    DAT_007f31ec = DAT_007f31ec + 1;
+    UINT_007f31ec = UINT_007f31ec + 1;
     return 1;
   }
   return 0;
@@ -270,10 +272,10 @@ void __cdecl rdThing_SetModel(void *thing,void *model)
   return;
 }
 
-/* ---- 0x00471d40  rdThing_SetSprite ---- */
+/* ---- 0x00471d40  rdThing_SetCamera ---- */
 /* Thing type 2 pointing at a sprite */
 
-undefined4 rdThing_SetSprite(undefined4 *param_1,undefined4 param_2)
+undefined4 rdThing_SetCamera(undefined4 *param_1,undefined4 param_2)
 
 {
   *param_1 = 2;
@@ -293,8 +295,8 @@ undefined4 rdThing_SetPolyline(undefined4 *param_1,undefined4 param_2)
   return 1;
 }
 
-/* ---- 0x00471d80  rdThing_Draw ---- */
-int __cdecl rdThing_Draw(void *thing,float *frame)
+/* ---- 0x00471d80  rdThing_Draw  (renamed rdThing_Draw_00471d80: duplicate name) ---- */
+int __cdecl rdThing_Draw_00471d80(void *thing,float *frame)
 
 {
   int iVar1;
@@ -306,7 +308,7 @@ int __cdecl rdThing_Draw(void *thing,float *frame)
     case 3:
       return 0;
     case 1:
-      iVar1 = rdThing_DrawModel(thing,frame);
+      iVar1 = rdThing_Draw(thing,frame);
       return iVar1;
     case 4:
       iVar1 = rdSprite_Draw(thing,frame);
@@ -331,18 +333,18 @@ void rdThing_BuildNodeMatrix(int param_1,int param_2,float *param_3)
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint uVar1;
   int iVar2;
-  #define local_3c (*(float *)(_frame + (0x50 - 0x3c)))
-  #define local_38 (*(float *)(_frame + (0x50 - 0x38)))
-  #define local_34 (*(float *)(_frame + (0x50 - 0x34)))
+  #define local_3c (*(uint *)(_frame + (0x50 - 0x3c)))
+  #define local_38 (*(uint *)(_frame + (0x50 - 0x38)))
+  #define local_34 (*(uint *)(_frame + (0x50 - 0x34)))
   #define local_30 (*(float (*)[12])(_frame + (0x50 - 0x30)))
   
   Matrix_BuildTranslation(local_30,(float *)(param_2 + 100));
   Matrix_Multiply(local_30,*(int *)(param_2 + 0x44) * 0x30 + *(int *)(param_1 + 0x20));
   iVar2 = *(int *)(param_2 + 0x54);
   if (iVar2 != 0) {
-    local_3c = -*(float *)(iVar2 + 100);
-    local_38 = -*(float *)(iVar2 + 0x68);
-    local_34 = -*(float *)(iVar2 + 0x6c);
+    local_3c = (uint)-*(float *)(iVar2 + 100);
+    local_38 = (uint)-*(float *)(iVar2 + 0x68);
+    local_34 = (uint)-*(float *)(iVar2 + 0x6c);
     Matrix_SetTranslation(local_30,&local_3c);
   }
   Matrix_Mul34((float *)(*(int *)(param_2 + 0x44) * 0x30 + *(int *)(param_1 + 0x20)),param_3,

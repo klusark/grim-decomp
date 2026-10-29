@@ -9,6 +9,7 @@
 int __cdecl Plane_IntersectSegment(float *out,float *p1,float *p2,float a,float b,float c,float d)
 
 {
+  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   float fVar2;
   float fVar3;
@@ -16,6 +17,8 @@ int __cdecl Plane_IntersectSegment(float *out,float *p1,float *p2,float a,float 
   float fVar5;
   float fVar6;
   float fVar7;
+  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   fVar1 = p2[1];
   fVar2 = p1[1];
@@ -36,3 +39,6 @@ int __cdecl Plane_IntersectSegment(float *out,float *p1,float *p2,float a,float 
   out[2] = fVar5 * (fVar3 - fVar4) + p1[2];
   return 1;
 }
+#undef local_4
+#undef local_8
+

@@ -6,7 +6,8 @@
 #include "functions.h"
 
 /* ---- 0x00482070  ResRef_Add ---- */
-/* Source: Temp/Res.c (line 3660, from __FILE__/__LINE__ passed to the allocator) */
+/* Registers a 0x34-byte reference {valid, data, tag[0x20], line, prev, next} on the resource so it
+   cannot be freed */
 
 void __cdecl ResRef_Add(void *ref,void *data,char *file,int line)
 
@@ -16,7 +17,7 @@ void __cdecl ResRef_Add(void *ref,void *data,char *file,int line)
   
   res = Res_FindByData(data);
   if ((ref == (void *)0x0) || (*(int *)ref != 0)) {
-    (**(code **)(DAT_008a856c + 0x18))
+    (**(code **)(UINT_008a856c + 0x18))
               (s_ref_____ref__valid_004e7b00,s_C__grimsrc_libs_grimlib_Temp_Res_004e7a1c,0xe4c);
   }
   if (res != (void *)0x0) {
@@ -98,7 +99,7 @@ undefined4 FUN_00482260(code *param_1)
   uint uVar4;
   int *piVar5;
   char *pcVar6;
-  #define local_4 (*(int *)(_frame + (0x20 - 0x4)))
+  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   local_4 = 0;
   pcVar2 = param_1;

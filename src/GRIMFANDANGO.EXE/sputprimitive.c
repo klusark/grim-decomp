@@ -22,6 +22,6 @@ undefined4 sputPrimitive_Initialize(undefined4 param_1,undefined4 *param_2)
   param_2[5] = FUN_004896b0;
   param_2[6] = 0;
   param_2[7] = 0;
-  DAT_008ca0a8 = 1;
+  UINT_008ca0a8 = 1;
   return 0;
 }

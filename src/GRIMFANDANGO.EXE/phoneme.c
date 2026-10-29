@@ -13,13 +13,13 @@ ushort __cdecl Phoneme_ToTalkChore(void *unused,int phoneme)
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
-  #define local_8 (*(int (*)[2])(_frame + (0x20 - 0x8)))
+  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   
   if (phoneme == 0x5f) {
     return 0;
   }
-  local_8[0] = phoneme;
-  iVar1 = bsearch(local_8,&g_PhonemeTable,g_nPhonemeCount,8,FUN_00490e50);
+  local_8 = phoneme;
+  iVar1 = bsearch(&local_8,&g_PhonemeTable,g_nPhonemeCount,8,FUN_00490e50);
   if (iVar1 != 0) {
     return *(ushort *)(iVar1 + 4);
   }
@@ -39,9 +39,9 @@ int FUN_00490e50(int *param_1,int *param_2)
 void FUN_00490e60(void)
 
 {
-  DAT_008ca32c = 0;
-  if (DAT_008ca768 != 0) {
-    DAT_008ca768 = 0;
+  UINT_008ca32c = 0;
+  if (UINT_008ca768 != 0) {
+    UINT_008ca768 = 0;
   }
   return;
 }
@@ -53,11 +53,11 @@ undefined4 FUN_00490e80(void)
   int iVar1;
   undefined4 *puVar2;
   
-  if (DAT_008ca76c != 0) {
+  if (UINT_008ca76c != 0) {
     return 1;
   }
   g_pActorTable =
-       (void *)(**(code **)(DAT_008ca32c + 0x20))
+       (void *)(**(code **)(UINT_008ca32c + 0x20))
                          (0x2a000,s_C__grimsrc_libs_grimlib_Engine_s_004e9e40,0x81b);
   puVar2 = g_pActorTable;
   for (iVar1 = 0xa800; iVar1 != 0; iVar1 = iVar1 + -1) {
@@ -65,7 +65,7 @@ undefined4 FUN_00490e80(void)
     puVar2 = puVar2 + 1;
   }
   qsort(&g_PhonemeTable,g_nPhonemeCount,8,FUN_00490e50);
-  DAT_008ca76c = 1;
+  UINT_008ca76c = 1;
   return 0;
 }
 
@@ -86,8 +86,8 @@ void FUN_00490ef0(void)
     } while (iVar2 < g_nActorCapacity);
   }
   if (g_pActorTable != (void *)0x0) {
-    (**(code **)(DAT_008ca32c + 0x24))(g_pActorTable);
+    (**(code **)(UINT_008ca32c + 0x24))(g_pActorTable);
   }
-  DAT_008ca76c = 0;
+  UINT_008ca76c = 0;
   return;
 }

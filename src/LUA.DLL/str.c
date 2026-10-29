@@ -1,14 +1,14 @@
-/* LUA.DLL :: lstrlib.c
+/* LUA.DLL :: str.c
  * functions 0x100095b0 .. 0x1000a680 (22 functions)
  * Decompiled from the shipped binaries with Ghidra; see ../../README.md */
 #include "ghidra_types.h"
 #include "globals.h"
 #include "functions.h"
 
-/* ---- 0x100095b0  lstrlib__95b0 ---- */
-/* Unidentified function of lstrlib.c (string library) */
+/* ---- 0x100095b0  str_sub ---- */
+/* lstrlib.c strsub */
 
-void lstrlib__95b0(void)
+void str_sub(void)
 
 {
   char cVar1;
@@ -44,18 +44,18 @@ void lstrlib__95b0(void)
   }
   if (((0 < iVar3) && (iVar3 <= iVar4)) && (iVar4 <= iVar6)) {
     luaL_resetbuffer();
-    lstrlib__9650((uint *)(pcVar2 + iVar3 + -1),(iVar4 - iVar3) + 1);
-    lstrlib__9680();
+    str_addnchar((uint *)(pcVar2 + iVar3 + -1),(iVar4 - iVar3) + 1);
+    str_closeandpush();
     return;
   }
   lua_pushstring(&DAT_1002bedc);
   return;
 }
 
-/* ---- 0x10009650  lstrlib__9650 ---- */
+/* ---- 0x10009650  str_addnchar ---- */
 /* Unidentified function of lstrlib.c (string library) */
 
-void __cdecl lstrlib__9650(uint *param_1,uint param_2)
+void __cdecl str_addnchar(uint *param_1,uint param_2)
 
 {
   uint *puVar1;
@@ -66,10 +66,10 @@ void __cdecl lstrlib__9650(uint *param_1,uint param_2)
   return;
 }
 
-/* ---- 0x10009680  lstrlib__9680 ---- */
+/* ---- 0x10009680  str_closeandpush ---- */
 /* Unidentified function of lstrlib.c (string library) */
 
-void lstrlib__9680(void)
+void str_closeandpush(void)
 
 {
   byte *pbVar1;
@@ -99,7 +99,7 @@ void FUN_100096a0(void)
     pbVar3 = pbVar3 + 1;
     bVar2 = *pbVar1;
   }
-  lstrlib__9680();
+  str_closeandpush();
   return;
 }
 
@@ -122,7 +122,7 @@ void FUN_100096e0(void)
     pbVar3 = pbVar3 + 1;
     bVar2 = *pbVar1;
   }
-  lstrlib__9680();
+  str_closeandpush();
   return;
 }
 
@@ -141,18 +141,18 @@ void FUN_10009720(void)
   luaL_resetbuffer();
   if (0 < iVar2) {
     do {
-      lstrlib__9760(puVar1);
+      str_addstr(puVar1);
       iVar2 = iVar2 + -1;
     } while (iVar2 != 0);
   }
-  lstrlib__9680();
+  str_closeandpush();
   return;
 }
 
-/* ---- 0x10009760  lstrlib__9760 ---- */
+/* ---- 0x10009760  str_addstr ---- */
 /* Unidentified function of lstrlib.c (string library) */
 
-void __cdecl lstrlib__9760(uint *param_1)
+void __cdecl str_addstr(uint *param_1)
 
 {
   uint uVar1;
@@ -167,7 +167,7 @@ void __cdecl lstrlib__9760(uint *param_1)
     uVar1 = *puVar3;
     puVar3 = (uint *)((int)puVar3 + 1);
   } while ((char)uVar1 != '\0');
-  lstrlib__9650(param_1,~uVar2 - 1);
+  str_addnchar(param_1,~uVar2 - 1);
   return;
 }
 
@@ -203,10 +203,10 @@ LAB_100097c8:
   return;
 }
 
-/* ---- 0x100097f0  lstrlib__97f0 ---- */
-/* Unidentified function of lstrlib.c (string library) */
+/* ---- 0x100097f0  str_singlematch ---- */
+/* luaI_singlematch: one pattern item against one char */
 
-uint __cdecl lstrlib__97f0(uint param_1,char *param_2,int *param_3)
+uint __cdecl str_singlematch(uint param_1,char *param_2,int *param_3)
 
 {
   char *pcVar1;
@@ -229,7 +229,7 @@ uint __cdecl lstrlib__97f0(uint param_1,char *param_2,int *param_3)
       luaL_verror(s_incorrect_pattern__ends_with___c_100279a0);
     }
     *param_3 = (int)(param_2 + 2);
-    uVar3 = lstrlib__9a10(param_1,(int)param_2[1]);
+    uVar3 = str_matchclass(param_1,(int)param_2[1]);
     return uVar3;
   case '.':
     *param_3 = (int)(param_2 + 1);
@@ -238,7 +238,7 @@ uint __cdecl lstrlib__97f0(uint param_1,char *param_2,int *param_3)
     break;
   }
   pcVar1 = param_2 + 1;
-  puVar2 = lstrlib__99e0(pcVar1);
+  puVar2 = str_bracket_end(pcVar1);
   pcVar5 = param_2;
   if (*pcVar1 == '^') {
     pcVar5 = pcVar1;
@@ -260,7 +260,7 @@ uint __cdecl lstrlib__97f0(uint param_1,char *param_2,int *param_3)
             puVar6 = (uint *)((int)puVar6 + 1);
             puVar7 = (uint *)((int)puVar7 + 1);
             puVar4 = (uint *)((int)puVar4 + 1);
-            uVar3 = lstrlib__9a10(param_1,(int)*pcVar1);
+            uVar3 = str_matchclass(param_1,(int)*pcVar1);
             if (uVar3 != 0) {
               return (uint)param_2;
             }
@@ -288,10 +288,10 @@ uint __cdecl lstrlib__97f0(uint param_1,char *param_2,int *param_3)
   return 0;
 }
 
-/* ---- 0x100099e0  lstrlib__99e0 ---- */
+/* ---- 0x100099e0  str_bracket_end ---- */
 /* Unidentified function of lstrlib.c (string library) */
 
-uint * __cdecl lstrlib__99e0(char *param_1)
+uint * __cdecl str_bracket_end(char *param_1)
 
 {
   uint *puVar1;
@@ -307,10 +307,10 @@ uint * __cdecl lstrlib__99e0(char *param_1)
   return puVar1;
 }
 
-/* ---- 0x10009a10  lstrlib__9a10 ---- */
-/* Unidentified function of lstrlib.c (string library) */
+/* ---- 0x10009a10  str_matchclass ---- */
+/* %a %d %s ... character classes */
 
-uint __cdecl lstrlib__9a10(uint param_1,uint param_2)
+uint __cdecl str_matchclass(uint param_1,uint param_2)
 
 {
   uint uVar1;
@@ -447,19 +447,19 @@ LAB_10009d07:
     }
     pcVar11 = pcVar3 + uVar10;
     aiStack_4c[0] = 0;
-    pcVar7 = lstrlib__9ea0(pcVar11,(int *)pbVar4,aiStack_4c);
+    pcVar7 = str_match(pcVar11,(int *)pbVar4,aiStack_4c);
     while( true ) {
       if (pcVar7 != (char *)0x0) {
         lua_pushnumber((float)(int)(pcVar11 + (1 - (int)pcVar3)));
         lua_pushnumber((float)((int)pcVar7 - (int)pcVar3));
-        lstrlib__9e40(aiStack_4c,unaff_EDI);
+        str_push_captures(aiStack_4c,unaff_EDI);
         return;
       }
       cVar1 = *pcVar11;
       pcVar11 = pcVar11 + 1;
       if ((cVar1 == '\0') || (bVar2 == 0x5e)) break;
       aiStack_4c[0] = 0;
-      pcVar7 = lstrlib__9ea0(pcVar11,(int *)pbVar4,aiStack_4c);
+      pcVar7 = str_match(pcVar11,(int *)pbVar4,aiStack_4c);
     }
   }
   else {
@@ -481,10 +481,10 @@ LAB_10009d07:
 #undef aiStack_4c
 
 
-/* ---- 0x10009e40  lstrlib__9e40 ---- */
-/* Unidentified function of lstrlib.c (string library) */
+/* ---- 0x10009e40  str_push_captures ---- */
+/* errors 'unfinished capture' */
 
-void __cdecl lstrlib__9e40(int *param_1,int *param_2)
+void __cdecl str_push_captures(int *param_1,int *param_2)
 
 {
   uint uVar1;
@@ -511,10 +511,10 @@ void __cdecl lstrlib__9e40(int *param_1,int *param_2)
   return;
 }
 
-/* ---- 0x10009ea0  lstrlib__9ea0 ---- */
-/* Unidentified function of lstrlib.c (string library) */
+/* ---- 0x10009ea0  str_match ---- */
+/* recursive pattern matcher; errors 'too many captures' */
 
-char * __cdecl lstrlib__9ea0(char *param_1,int *param_2,int *param_3)
+char * __cdecl str_match(char *param_1,int *param_2,int *param_3)
 
 {
   char cVar1;
@@ -541,28 +541,28 @@ char * __cdecl lstrlib__9ea0(char *param_1,int *param_2,int *param_3)
         piVar2[*piVar2 * 2 + 1] = (int)param_1;
         piVar2[*piVar2 * 2 + 2] = -1;
         *piVar2 = *piVar2 + 1;
-        pcVar3 = lstrlib__9ea0(param_1,(int *)((int)param_2 + 1),piVar2);
+        pcVar3 = str_match(param_1,(int *)((int)param_2 + 1),piVar2);
         if (pcVar3 != (char *)0x0) {
           return pcVar3;
         }
         *piVar2 = *piVar2 + -1;
         return (char *)0x0;
       case ')':
-        iVar5 = lstrlib__a030(piVar2);
+        iVar5 = str_capture_to_close(piVar2);
         piVar2[iVar5 * 2 + 2] = (int)param_1 - piVar2[iVar5 * 2 + 1];
-        pcVar3 = lstrlib__9ea0(param_1,(int *)((int)param_2 + 1),piVar2);
+        pcVar3 = str_match(param_1,(int *)((int)param_2 + 1),piVar2);
         if (pcVar3 != (char *)0x0) {
           return pcVar3;
         }
         piVar2[iVar5 * 2 + 2] = -1;
         return (char *)0x0;
       }
-      pcVar3 = lstrlib__a060(param_1,(char *)param_2,piVar2,(int *)&param_3);
+      pcVar3 = str_matchbalance(param_1,(char *)param_2,piVar2,(int *)&param_3);
       cVar1 = (char)*param_3;
       if (cVar1 != '*') break;
       if (pcVar3 != (char *)0x0) {
 LAB_10009f49:
-        pcVar3 = lstrlib__9ea0(pcVar3,param_2,piVar2);
+        pcVar3 = str_match(pcVar3,param_2,piVar2);
         if (pcVar3 != (char *)0x0) {
           return pcVar3;
         }
@@ -571,7 +571,7 @@ LAB_10009f5e:
       param_2 = (int *)((int)param_3 + 1);
     }
     if (cVar1 == '-') {
-      pcVar4 = lstrlib__9ea0(param_1,(int *)((int)param_3 + 1),piVar2);
+      pcVar4 = str_match(param_1,(int *)((int)param_3 + 1),piVar2);
       if (pcVar4 != (char *)0x0) {
         return pcVar4;
       }
@@ -593,10 +593,10 @@ LAB_10009f5e:
   } while( true );
 }
 
-/* ---- 0x1000a030  lstrlib__a030 ---- */
+/* ---- 0x1000a030  str_capture_to_close ---- */
 /* Unidentified function of lstrlib.c (string library) */
 
-int __cdecl lstrlib__a030(int *param_1)
+int __cdecl str_capture_to_close(int *param_1)
 
 {
   int iVar1;
@@ -617,10 +617,10 @@ int __cdecl lstrlib__a030(int *param_1)
   return 0;
 }
 
-/* ---- 0x1000a060  lstrlib__a060 ---- */
-/* Unidentified function of lstrlib.c (string library) */
+/* ---- 0x1000a060  str_matchbalance ---- */
+/* errors 'unbalanced pattern' */
 
-char * __cdecl lstrlib__a060(char *param_1,char *param_2,int *param_3,int *param_4)
+char * __cdecl str_matchbalance(char *param_1,char *param_2,int *param_3,int *param_4)
 
 {
   uint uVar1;
@@ -637,7 +637,7 @@ char * __cdecl lstrlib__a060(char *param_1,char *param_2,int *param_3,int *param
       uVar1 = _isctype((uint)*pbVar4,4);
     }
     if (uVar1 != 0) {
-      iVar2 = lstrlib__a150((int)(char)*pbVar4,param_3);
+      iVar2 = str_check_capture((int)(char)*pbVar4,param_3);
       *param_4 = (int)(param_2 + 2);
       uVar1 = strncmp((char *)param_3[iVar2 * 2 + 1],param_1,param_3[iVar2 * 2 + 2]);
       if (uVar1 != 0) {
@@ -650,21 +650,21 @@ char * __cdecl lstrlib__a060(char *param_1,char *param_2,int *param_3,int *param
         lua_error((byte *)s_unbalanced_pattern_10027a10);
       }
       *param_4 = (int)(param_2 + 4);
-      pcVar3 = lstrlib__a180(param_1,(int)param_2[2],(int)param_2[3]);
+      pcVar3 = str_expand(param_1,(int)param_2[2],(int)param_2[3]);
       return pcVar3;
     }
   }
-  uVar1 = lstrlib__97f0((int)*param_1,param_2,param_4);
+  uVar1 = str_singlematch((int)*param_1,param_2,param_4);
   if (uVar1 == 0) {
     return (char *)0x0;
   }
   return param_1 + 1;
 }
 
-/* ---- 0x1000a150  lstrlib__a150 ---- */
-/* Unidentified function of lstrlib.c (string library) */
+/* ---- 0x1000a150  str_check_capture ---- */
+/* errors 'invalid capture index' */
 
-int __cdecl lstrlib__a150(int param_1,int *param_2)
+int __cdecl str_check_capture(int param_1,int *param_2)
 
 {
   int iVar1;
@@ -676,10 +676,10 @@ int __cdecl lstrlib__a150(int param_1,int *param_2)
   return iVar1;
 }
 
-/* ---- 0x1000a180  lstrlib__a180 ---- */
-/* Unidentified function of lstrlib.c (string library) */
+/* ---- 0x1000a180  str_expand ---- */
+/* max/min expansion of a repeated pattern item */
 
-char * __cdecl lstrlib__a180(char *param_1,int param_2,int param_3)
+char * __cdecl str_expand(char *param_1,int param_2,int param_3)
 
 {
   char cVar1;
@@ -745,14 +745,14 @@ void FUN_1000a1d0(void)
   luaL_resetbuffer();
   if ((int)lVar8 < 1) {
 LAB_1000a2b7:
-    lstrlib__9760(puVar2);
-    lstrlib__9680();
+    str_addstr(puVar2);
+    str_closeandpush();
     lua_pushnumber((float)iStack_60);
     return;
   }
   do {
     aiStack_4c[0] = 0;
-    puVar5 = (uint *)lstrlib__9ea0((char *)puVar2,piVar3,aiStack_4c);
+    puVar5 = (uint *)str_match((char *)puVar2,piVar3,aiStack_4c);
     if (puVar5 == (uint *)0x0) {
 LAB_1000a291:
       if ((char)*puVar2 == '\0') goto LAB_1000a2b7;
@@ -761,7 +761,7 @@ LAB_1000a291:
     }
     else {
       iStack_60 = iStack_60 + 1;
-      lstrlib__a2e0(iVar4,aiStack_4c);
+      str_add_value(iVar4,aiStack_4c);
       if ((puVar5 == (uint *)0x0) || (puVar5 <= puVar2)) goto LAB_1000a291;
     }
     puVar2 = puVar5;
@@ -772,10 +772,10 @@ LAB_1000a291:
 #undef iStack_60
 
 
-/* ---- 0x1000a2e0  lstrlib__a2e0 ---- */
-/* Unidentified function of lstrlib.c (string library) */
+/* ---- 0x1000a2e0  str_add_value ---- */
+/* gsub replacement: string or function result */
 
-void __cdecl lstrlib__a2e0(int param_1,int *param_2)
+void __cdecl str_add_value(int param_1,int *param_2)
 
 {
   char cVar1;
@@ -792,7 +792,7 @@ void __cdecl lstrlib__a2e0(int param_1,int *param_2)
     iVar2 = lua_isfunction(param_1);
     if (iVar2 != 0) {
       lua_beginblock();
-      lstrlib__9e40(param_2,unaff_EDI);
+      str_push_captures(param_2,unaff_EDI);
       iVar2 = lbuiltin__2d30(0);
       iVar5 = lua_callfunction(param_1);
       lbuiltin__2d80(iVar2);
@@ -803,12 +803,12 @@ void __cdecl lstrlib__a2e0(int param_1,int *param_2)
       iVar2 = lua_lua2C(1);
       iVar5 = lua_isstring(iVar2);
       if (iVar5 == 0) {
-        lstrlib__9760((uint *)&DAT_1002bedc);
+        str_addstr((uint *)&DAT_1002bedc);
         lua_endblock();
         return;
       }
       puVar6 = (uint *)lua_getstring(iVar2);
-      lstrlib__9760(puVar6);
+      str_addstr(puVar6);
       lua_endblock();
       return;
     }
@@ -830,8 +830,8 @@ void __cdecl lstrlib__a2e0(int param_1,int *param_2)
           pcVar7 = pcVar3 + 1;
           if (uVar4 == 0) goto LAB_1000a36b;
           pcVar3 = pcVar3 + 2;
-          iVar2 = lstrlib__a150((int)*pcVar7,param_2);
-          lstrlib__9650((uint *)param_2[iVar2 * 2 + 1],param_2[iVar2 * 2 + 2]);
+          iVar2 = str_check_capture((int)*pcVar7,param_2);
+          str_addnchar((uint *)param_2[iVar2 * 2 + 1],param_2[iVar2 * 2 + 2]);
         }
         else {
 LAB_1000a36b:
@@ -872,7 +872,7 @@ void FUN_1000a440(void)
   cVar1 = *pcVar2;
   do {
     if (cVar1 == '\0') {
-      lstrlib__9680();
+      str_closeandpush();
       return;
     }
     if (cVar1 == '%') {
@@ -884,8 +884,7 @@ void FUN_1000a440(void)
       else {
         cStack_c8 = '%';
         aiStack_114[0] = 0;
-        pcVar3 = lstrlib__9ea0((char *)puVar7,(int *)s__d_____________d_______d___10027aa4,
-                               aiStack_114);
+        pcVar3 = str_match((char *)puVar7,(int *)s__d_____________d_______d___10027aa4,aiStack_114);
         if ((3 < iStack_10c) || (3 < iStack_104)) {
           lua_error((byte *)s_invalid_format__width_or_precisi_10027a74);
         }
@@ -929,7 +928,7 @@ void FUN_1000a440(void)
           break;
         case 'q':
           pcVar3 = (char *)luaL_check_string(iVar6);
-          lstrlib__a680(pcVar3);
+          str_add_s(pcVar3);
           goto LAB_1000a5fe;
         case 's':
           pcVar3 = (char *)luaL_check_string(iVar6);
@@ -968,10 +967,10 @@ LAB_1000a5fe:
 #undef uStack_c7
 
 
-/* ---- 0x1000a680  lstrlib__a680 ---- */
-/* Unidentified function of lstrlib.c (string library) */
+/* ---- 0x1000a680  str_add_s ---- */
+/* gsub replacement string with %n captures */
 
-void __cdecl lstrlib__a680(char *param_1)
+void __cdecl str_add_s(char *param_1)
 
 {
   char *pcVar1;

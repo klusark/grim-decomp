@@ -69,7 +69,11 @@ undefined4 stdGif_LoadInto(char *param_1,undefined4 *param_2,int param_3,int par
   #define uStack_10a (*(ushort *)(_frame + (0x160 - 0x10a)))
   #define iStack_104 (*(int *)(_frame + (0x160 - 0x104)))
   #define auStack_100 (*(undefined1 (*)[4])(_frame + (0x160 - 0x100)))
-  #define local_fc (*(uint (*)[5])(_frame + (0x160 - 0xfc)))
+  #define local_fc (*(uint *)(_frame + (0x160 - 0xfc)))
+  #define local_f8 (*(uint *)(_frame + (0x160 - 0xf8)))
+  #define local_f4 (*(uint *)(_frame + (0x160 - 0xf4)))
+  #define local_f0 (*(uint *)(_frame + (0x160 - 0xf0)))
+  #define uStack_ec (*(uint *)(_frame + (0x160 - 0xec)))
   #define fStack_e8 (*(float *)(_frame + (0x160 - 0xe8)))
   #define uStack_94 (*(uint *)(_frame + (0x160 - 0x94)))
   #define uStack_90 (*(undefined1 *)(_frame + (0x160 - 0x90)))
@@ -79,39 +83,53 @@ undefined4 stdGif_LoadInto(char *param_1,undefined4 *param_2,int param_3,int par
   #define fStack_8c (*(float *)(_frame + (0x160 - 0x8c)))
   #define uStack_88 (*(undefined2 *)(_frame + (0x160 - 0x88)))
   #define uStack_86 (*(undefined2 *)(_frame + (0x160 - 0x86)))
-  #define local_84 (*(uint (*)[15])(_frame + (0x160 - 0x84)))
+  #define local_84 (*(uint *)(_frame + (0x160 - 0x84)))
+  #define local_80 (*(uint *)(_frame + (0x160 - 0x80)))
+  #define local_7c (*(uint *)(_frame + (0x160 - 0x7c)))
+  #define local_78 (*(uint *)(_frame + (0x160 - 0x78)))
+  #define local_74 (*(uint *)(_frame + (0x160 - 0x74)))
+  #define local_70 (*(uint *)(_frame + (0x160 - 0x70)))
+  #define local_6c (*(uint *)(_frame + (0x160 - 0x6c)))
+  #define local_68 (*(uint *)(_frame + (0x160 - 0x68)))
+  #define local_64 (*(uint *)(_frame + (0x160 - 0x64)))
+  #define local_60 (*(uint *)(_frame + (0x160 - 0x60)))
+  #define local_5c (*(uint *)(_frame + (0x160 - 0x5c)))
+  #define local_58 (*(uint *)(_frame + (0x160 - 0x58)))
+  #define local_54 (*(uint *)(_frame + (0x160 - 0x54)))
+  #define local_50 (*(uint *)(_frame + (0x160 - 0x50)))
+  #define uStack_4c (*(uint *)(_frame + (0x160 - 0x4c)))
   #define uStack_48 (*(uint *)(_frame + (0x160 - 0x48)))
   #define auStack_38 (*(uint (*)[14])(_frame + (0x160 - 0x38)))
   
-  local_84[2] = 8;
-  local_84[3] = 8;
-  local_84[4] = 8;
-  local_84[6] = 8;
-  local_fc[0] = 0;
-  local_fc[1] = 0;
-  local_fc[2] = 0;
-  local_fc[3] = 0;
-  local_84[0] = 1;
-  local_84[1] = 0x18;
-  local_84[5] = 0x10;
-  local_84[7] = 0;
-  local_84[8] = 0;
-  local_84[9] = 0;
-  local_84[10] = 0;
-  local_84[0xb] = 0;
-  local_84[0xc] = 0;
-  local_84[0xd] = 0;
+  local_7c = 8;
+  local_78 = 8;
+  local_74 = 8;
+  local_6c = 8;
+  local_fc = 0;
+  local_f8 = 0;
+  local_f4 = 0;
+  local_f0 = 0;
+  local_84 = 1;
+  local_80 = 0x18;
+  local_70 = 0x10;
+  local_68 = 0;
+  local_64 = 0;
+  local_60 = 0;
+  local_5c = 0;
+  local_58 = 0;
+  local_54 = 0;
+  local_50 = 0;
   iVar5 = (*g_pSvcMain->pFopen)(param_1,&DAT_004ddb18);
   if (iVar5 == 0) {
     return 0;
   }
-  iVar6 = (*g_pSvcMain->pFread)(iVar5,local_fc + 4,0x68);
+  iVar6 = (*g_pSvcMain->pFread)(iVar5,&uStack_ec,0x68);
   if (iVar6 != 0x68) {
     return 0;
   }
-  uVar12 = (local_fc[4] << 0x10 | local_fc[4] & 0xff00) << 8 |
-           (local_fc[4] >> 0x10 | local_fc[4] & 0xff0000) >> 8;
-  local_fc[4] = uVar12;
+  uVar12 = (uStack_ec << 0x10 | uStack_ec & 0xff00) << 8 |
+           (uStack_ec >> 0x10 | uStack_ec & 0xff0000) >> 8;
+  uStack_ec = uVar12;
   uVar7 = _ftol();
   uVar3 = uStack_8e;
   uVar2 = uStack_90;
@@ -142,7 +160,7 @@ undefined4 stdGif_LoadInto(char *param_1,undefined4 *param_2,int param_3,int par
     iVar13 = 0;
     iVar6 = (*g_pSvcMain->pFread)(iVar5,&cStack_10c,4);
     if (iVar6 == 4) {
-      puVar14 = local_fc;
+      puVar14 = &local_fc;
       while( true ) {
         bStack_14a = (byte)(uStack_10a >> 8);
         if ((uStack_10a & 0x8000) != 0) {
@@ -192,7 +210,7 @@ undefined4 stdGif_LoadInto(char *param_1,undefined4 *param_2,int param_3,int par
           param_2[0x18] = 0;
           param_2[0x19] = 1;
           param_2[0x1a] = 0;
-          puVar14 = local_84;
+          puVar14 = &local_84;
           puVar17 = param_2 + 10;
           for (iVar6 = 0xe; iVar6 != 0; iVar6 = iVar6 + -1) {
             *puVar17 = *puVar14;
@@ -207,7 +225,7 @@ undefined4 stdGif_LoadInto(char *param_1,undefined4 *param_2,int param_3,int par
                       (s_Unable_to_allocate_memory__004e76d4,
                        s_C__grimjedi_Libs_Std_General_std_004e77d8,DAT_004e77d0 + 0x6e);
           }
-          local_84[0xe] = CONCAT12(uStack_8e,CONCAT11(uStack_8f,uStack_90)) & 0xffff;
+          uStack_4c = CONCAT12(uStack_8e,CONCAT11(uStack_8f,uStack_90)) & 0xffff;
           puVar14 = param_2 + 10;
           puVar17 = auStack_38;
           for (iVar6 = 0xe; iVar6 != 0; iVar6 = iVar6 + -1) {
@@ -216,7 +234,7 @@ undefined4 stdGif_LoadInto(char *param_1,undefined4 *param_2,int param_3,int par
             puVar17 = puVar17 + 1;
           }
           uStack_48 = (uint)CONCAT11(uStack_8d,uStack_8e);
-          pvVar9 = Surface_Create(local_84 + 0xe,param_3,param_4,0);
+          pvVar9 = Surface_Create(&uStack_4c,param_3,param_4,0);
           *(void **)param_2[0x1e] = pvVar9;
           if (*(int *)param_2[0x1e] == 0) {
             (*g_pSvcMain->pAssertFail)
@@ -238,7 +256,7 @@ undefined4 stdGif_LoadInto(char *param_1,undefined4 *param_2,int param_3,int par
               iStack_13c = iVar6;
               iVar6 = 0;
               if (0 < iStack_12c) {
-                puStack_120 = local_fc;
+                puStack_120 = &local_fc;
                 do {
                   if (*puStack_120 == 0) {
                     iVar13 = 0;
@@ -383,7 +401,23 @@ undefined4 stdGif_LoadInto(char *param_1,undefined4 *param_2,int param_3,int par
 #undef iStack_138
 #undef iStack_13c
 #undef iStack_140
+#undef local_50
+#undef local_54
+#undef local_58
+#undef local_5c
+#undef local_60
+#undef local_64
+#undef local_68
+#undef local_6c
+#undef local_70
+#undef local_74
+#undef local_78
+#undef local_7c
+#undef local_80
 #undef local_84
+#undef local_f0
+#undef local_f4
+#undef local_f8
 #undef local_fc
 #undef puStack_120
 #undef puStack_148
@@ -396,6 +430,7 @@ undefined4 stdGif_LoadInto(char *param_1,undefined4 *param_2,int param_3,int par
 #undef uStack_128
 #undef uStack_141
 #undef uStack_48
+#undef uStack_4c
 #undef uStack_86
 #undef uStack_88
 #undef uStack_8d
@@ -403,6 +438,7 @@ undefined4 stdGif_LoadInto(char *param_1,undefined4 *param_2,int param_3,int par
 #undef uStack_8f
 #undef uStack_90
 #undef uStack_94
+#undef uStack_ec
 
 
 /* ---- 0x0047e060  stdGif_Save ---- */
@@ -563,13 +599,13 @@ uint stdGif_LzwInitDecoder(short param_1)
   undefined4 *puVar3;
   
   _DAT_00811b2c = 1 << ((byte)param_1 & 0x1f);
-  PIECE(DAT_0080cbe4,0,2) = param_1 + 1;
-  DAT_00812ecc = 0;
+  PIECE(UINT_0080cbe4,0,2) = param_1 + 1;
+  UINT_00812ecc = 0;
   _DAT_00812ebc = _DAT_00811b2c + 1;
   _DAT_0080cbe8 = _DAT_00811b2c + 2;
-  DAT_008155f4 = (short)(1 << ((byte)DAT_0080cbe4 & 0x1f)) + -1;
-  puVar3 = (undefined4 *)PTR_DAT_004e7874;
-  _DAT_00812ec4 = (short)DAT_0080cbe4;
+  DAT_008155f4 = (short)(1 << ((byte)UINT_0080cbe4 & 0x1f)) + -1;
+  puVar3 = (undefined4 *)PTR_UINT_004e7874;
+  _DAT_00812ec4 = (short)UINT_0080cbe4;
   for (iVar2 = 0x100; iVar2 != 0; iVar2 = iVar2 + -1) {
     *puVar3 = 0;
     puVar3 = puVar3 + 1;
@@ -577,7 +613,7 @@ uint stdGif_LzwInitDecoder(short param_1)
   uVar1 = 0xff;
   iVar2 = 0xff;
   do {
-    PTR_DAT_004e7878[iVar2] = (char)uVar1;
+    PTR_UINT_004e7878[iVar2] = (char)uVar1;
     uVar1 = uVar1 - 1;
     iVar2 = iVar2 + -1;
   } while (-1 < (short)uVar1);
@@ -608,12 +644,12 @@ uint stdGif_LzwDecodeNext(undefined4 param_1)
   uVar2 = stdGif_LzwReadCode(param_1);
   if (-1 < (short)uVar2) {
     if ((short)uVar2 == _DAT_00811b2c) {
-      puVar5 = (undefined4 *)PTR_DAT_004e7874;
+      puVar5 = (undefined4 *)PTR_UINT_004e7874;
       for (iVar4 = 0x100; iVar4 != 0; iVar4 = iVar4 + -1) {
         *puVar5 = 0;
         puVar5 = puVar5 + 1;
       }
-      DAT_00812ecc = 1;
+      UINT_00812ecc = 1;
       _DAT_0080cbec = CONCAT22(DAT_0080cbec_2,(short)_DAT_0080cbe8 + -1);
       uVar2 = stdGif_LzwReadCode(param_1);
       if ((short)uVar2 == -1) {
@@ -633,20 +669,20 @@ uint stdGif_LzwDecodeNext(undefined4 param_1)
     iVar4 = (int)sVar3;
     if (_DAT_00812ebc <= iVar4) {
       do {
-        *(undefined *)PTR_00812ec0 = PTR_DAT_004e7878[iVar4];
+        *(undefined *)PTR_00812ec0 = PTR_UINT_004e7878[iVar4];
         PTR_00812ec0 = (int *)((int)PTR_00812ec0 + 1);
-        sVar3 = *(short *)(PTR_DAT_004e7874 + iVar4 * 2);
+        sVar3 = *(short *)(PTR_UINT_004e7874 + iVar4 * 2);
         iVar4 = (int)sVar3;
       } while (_DAT_00812ebc <= iVar4);
     }
-    _DAT_00812ec8 = (ushort)(byte)PTR_DAT_004e7878[sVar3];
-    *(undefined *)PTR_00812ec0 = PTR_DAT_004e7878[sVar3];
+    _DAT_00812ec8 = (ushort)(byte)PTR_UINT_004e7878[sVar3];
+    *(undefined *)PTR_00812ec0 = PTR_UINT_004e7878[sVar3];
     PTR_00812ec0 = (int *)((int)PTR_00812ec0 + 1);
     if (DAT_0080cbec < DAT_004e7800) {
       iVar4 = (int)DAT_0080cbec;
       sVar3 = DAT_0080cbec + 1;
-      *(undefined2 *)(PTR_DAT_004e7874 + iVar4 * 2) = DAT_0080cbe0;
-      PTR_DAT_004e7878[iVar4] = DAT_00812ec8;
+      *(undefined2 *)(PTR_UINT_004e7874 + iVar4 * 2) = DAT_0080cbe0;
+      PTR_UINT_004e7878[iVar4] = DAT_00812ec8;
       _DAT_0080cbec = CONCAT22(DAT_0080cbec_2,sVar3);
     }
     _DAT_0080cbe0 = CONCAT22(DAT_0080cbe0_2,sVar1);
@@ -682,10 +718,10 @@ uint stdGif_LzwReadCode(undefined4 param_1)
       DAT_008155f4 = (short)(1 << (DAT_00812ec4 & 0x1f)) + -1;
     }
   }
-  if (0 < DAT_00812ecc) {
-    _DAT_00812ec4 = CONCAT22(DAT_00812ec4_2,(short)DAT_0080cbe4);
-    DAT_00812ecc = 0;
-    DAT_008155f4 = (short)(1 << ((byte)DAT_0080cbe4 & 0x1f)) + -1;
+  if (0 < (int)UINT_00812ecc) {
+    _DAT_00812ec4 = CONCAT22(DAT_00812ec4_2,(short)UINT_0080cbe4);
+    UINT_00812ecc = 0;
+    DAT_008155f4 = (short)(1 << ((byte)UINT_0080cbe4 & 0x1f)) + -1;
   }
   if (DAT_00812ed0 == 0) {
     sVar2 = stdGif_ReadByte(param_1);
@@ -758,19 +794,19 @@ uint stdGif_LzwInitEncoder(undefined4 param_1,undefined4 param_2)
 {
   int iVar1;
   undefined2 extraout_var;
-  undefined4 *puVar2;
+  uint *puVar2;
   
   _DAT_008155f8 = 0;
   DAT_00812ed0 = 0;
-  DAT_00812ecc = 0;
-  PIECE(DAT_0080cbe4,0,2) = (short)param_2 + 1;
+  UINT_00812ecc = 0;
+  PIECE(UINT_0080cbe4,0,2) = (short)param_2 + 1;
   _DAT_00811b2c = 1 << ((byte)param_2 & 0x1f);
   _DAT_00812ebc = _DAT_00811b2c + 1;
   _DAT_0080cbe8 = _DAT_00811b2c + 2;
-  DAT_008155f4 = (short)(1 << ((byte)DAT_0080cbe4 & 0x1f)) + -1;
+  DAT_008155f4 = (short)(1 << ((byte)UINT_0080cbe4 & 0x1f)) + -1;
   DAT_0080cbec = (undefined2)_DAT_0080cbe8;
-  puVar2 = &DAT_0080ccf8;
-  _DAT_00812ec4 = (short)DAT_0080cbe4;
+  puVar2 = &UINT_0080ccf8;
+  _DAT_00812ec4 = (short)UINT_0080cbe4;
   for (iVar1 = 0x138b; iVar1 != 0; iVar1 = iVar1 + -1) {
     *puVar2 = 0xffffffff;
     puVar2 = puVar2 + 1;
@@ -830,11 +866,11 @@ void stdGif_LzwWriteCode(undefined4 param_1,short param_2)
     stdGif_WriteSubBlock(param_1,0xfe);
     DAT_00812ed0 = 0;
   }
-  if ((DAT_008155f4 < DAT_0080cbec) || (0 < DAT_00812ecc)) {
-    if (DAT_00812ecc != 0) {
-      _DAT_00812ec4 = CONCAT22(DAT_00812ec4_2,(short)DAT_0080cbe4);
-      DAT_00812ecc = 0;
-      DAT_008155f4 = (short)(1 << ((byte)DAT_0080cbe4 & 0x1f)) + -1;
+  if ((DAT_008155f4 < DAT_0080cbec) || (0 < (int)UINT_00812ecc)) {
+    if (UINT_00812ecc != 0) {
+      _DAT_00812ec4 = CONCAT22(DAT_00812ec4_2,(short)UINT_0080cbe4);
+      UINT_00812ecc = 0;
+      DAT_008155f4 = (short)(1 << ((byte)UINT_0080cbe4 & 0x1f)) + -1;
       return;
     }
     _DAT_00812ec4 = _DAT_00812ec4 + 1;
@@ -856,7 +892,7 @@ uint stdGif_LzwEncodePixel(undefined4 param_1,byte param_2)
 
 {
   short sVar1;
-  int iVar2;
+  uint uVar2;
   int iVar3;
   undefined4 unaff_EBX;
   uint uVar4;
@@ -866,22 +902,22 @@ uint stdGif_LzwEncodePixel(undefined4 param_1,byte param_2)
   if (DAT_0080cbf0 != 0) {
     _DAT_00811b24 = CONCAT22(DAT_00811b24_2,(ushort)param_2);
     sVar1 = 0;
-    DAT_0081560c = 0x138b;
+    UINT_0081560c = 0x138b;
     do {
-      DAT_0081560c = DAT_0081560c * 2;
+      UINT_0081560c = UINT_0081560c * 2;
       sVar1 = sVar1 + 1;
-    } while (DAT_0081560c < 0x10000);
+    } while ((int)UINT_0081560c < 0x10000);
     DAT_0080cbf0 = 0;
     _DAT_00815608 = CONCAT22(DAT_00815608_2,8 - sVar1);
     return 0;
   }
   uVar4 = CONCAT31((int3)((uint)unaff_EBX >> 8),param_2) & 0xffff00ff;
-  DAT_0081560c = (uint)param_2 * 0x1000 + (_DAT_00811b24 & 0xffff);
+  UINT_0081560c = (uint)param_2 * 0x1000 + (_DAT_00811b24 & 0xffff);
   uVar5 = uVar4 << (DAT_00815608 & 0x1f) ^ _DAT_00811b24;
   sVar1 = (short)uVar5;
-  iVar2 = (&DAT_0080ccf8)[sVar1];
-  if (iVar2 != DAT_0081560c) {
-    if (-1 < iVar2) {
+  uVar2 = (&UINT_0080ccf8)[sVar1];
+  if (uVar2 != UINT_0081560c) {
+    if (-1 < (int)uVar2) {
       iVar3 = 0x138b - uVar5;
       if (sVar1 == 0) {
         iVar3 = 1;
@@ -892,26 +928,26 @@ uint stdGif_LzwEncodePixel(undefined4 param_1,byte param_2)
           uVar5 = uVar5 + 0x138b;
         }
         sVar1 = (short)uVar5;
-        iVar2 = (&DAT_0080ccf8)[sVar1];
-        if (iVar2 == DAT_0081560c) {
-          _DAT_00811b24 = CONCAT22(DAT_00811b24_2,*(undefined2 *)((int)&DAT_00812ed8 + sVar1 * 2));
+        uVar2 = (&UINT_0080ccf8)[sVar1];
+        if (uVar2 == UINT_0081560c) {
+          _DAT_00811b24 = CONCAT22(DAT_00811b24_2,*(undefined2 *)((int)&UINT_00812ed8 + sVar1 * 2));
           return 0;
         }
-      } while (0 < iVar2);
+      } while (0 < (int)uVar2);
     }
-    stdGif_LzwWriteCode(param_1,CONCAT22((short)((uint)iVar2 >> 0x10),DAT_00811b24));
-    iVar2 = DAT_0081560c;
+    stdGif_LzwWriteCode(param_1,CONCAT22((short)(uVar2 >> 0x10),DAT_00811b24));
+    uVar2 = UINT_0081560c;
     _DAT_00811b24 = CONCAT22(DAT_00811b24_2,(short)uVar4);
     if (DAT_004e7800 <= DAT_0080cbec) {
       stdGif_LzwClearTable(param_1);
       return _DAT_008155f8 & 0xffff;
     }
-    *(short *)((int)&DAT_00812ed8 + sVar1 * 2) = DAT_0080cbec;
-    (&DAT_0080ccf8)[sVar1] = iVar2;
+    *(short *)((int)&UINT_00812ed8 + sVar1 * 2) = DAT_0080cbec;
+    (&UINT_0080ccf8)[sVar1] = uVar2;
     DAT_0080cbec = DAT_0080cbec + 1;
     return _DAT_008155f8 & 0xffff;
   }
-  _DAT_00811b24 = CONCAT22(DAT_00811b24_2,*(undefined2 *)((int)&DAT_00812ed8 + sVar1 * 2));
+  _DAT_00811b24 = CONCAT22(DAT_00811b24_2,*(undefined2 *)((int)&UINT_00812ed8 + sVar1 * 2));
   return 0;
 }
 
@@ -920,10 +956,10 @@ void stdGif_LzwClearTable(undefined4 param_1)
 
 {
   int iVar1;
-  undefined4 *puVar2;
+  uint *puVar2;
   
-  DAT_00812ecc = 1;
-  puVar2 = &DAT_0080ccf8;
+  UINT_00812ecc = 1;
+  puVar2 = &UINT_0080ccf8;
   for (iVar1 = 0x138b; iVar1 != 0; iVar1 = iVar1 + -1) {
     *puVar2 = 0xffffffff;
     puVar2 = puVar2 + 1;

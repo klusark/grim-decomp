@@ -13,8 +13,8 @@ int __cdecl TextModule_Init(GrimServices *svc,void *iface)
   
   g_pSvcText = svc;
   iVar1 = 1;
-  if (DAT_008d0980 == 0) {
-    DAT_008d0980 = 1;
+  if (UINT_008d0980 == 0) {
+    UINT_008d0980 = 1;
     if (iface != (void *)0x0) {
       *(code **)iface = TextModule_Init;
       *(code **)((int)iface + 4) = FUN_004aa810;
@@ -34,7 +34,7 @@ int __cdecl TextModule_Init(GrimServices *svc,void *iface)
 void FUN_004aa810(void)
 
 {
-  DAT_008d0980 = 0;
+  UINT_008d0980 = 0;
   return;
 }
 
@@ -44,8 +44,8 @@ void FUN_004aa820(void)
 {
   int iVar1;
   
-  if ((DAT_008d0980 != 0) && (DAT_008d0984 == 0)) {
-    DAT_008d0984 = 1;
+  if ((UINT_008d0980 != 0) && (UINT_008d0984 == 0)) {
+    UINT_008d0984 = 1;
     iVar1 = 0;
     do {
       (&DAT_008d0880)[iVar1] = (char)iVar1;
@@ -61,7 +61,7 @@ void FUN_004aa860(void)
 
 {
   (*g_pSvcText->pHFree)(g_pDefaultFont);
-  DAT_008d0984 = 0;
+  UINT_008d0984 = 0;
   return;
 }
 
@@ -70,7 +70,7 @@ undefined4 FUN_004aa880(code *param_1)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  #define local_4 (*(undefined4 *)(_frame + (0x20 - 0x4)))
+  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   local_4 = 0x42747854;
   (*param_1)(&local_4,4);

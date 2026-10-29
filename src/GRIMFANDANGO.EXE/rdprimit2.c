@@ -15,9 +15,11 @@ void __cdecl rdPrimit2_DrawLine(void *canvas,int x1,int y1,int x2,int y2,int col
   int iVar3;
   int iVar4;
   uint uVar5;
-  #define local_14 (*(int *)(_frame + (0x30 - 0x14)))
+  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
   #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(int *)(_frame + (0x30 - 0xc)))
+  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
+  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
   
   iVar2 = rdClip_Line2D(canvas,&x1,&y1,&x2,&y2);
   if (iVar2 != 0) {
@@ -26,8 +28,8 @@ void __cdecl rdPrimit2_DrawLine(void *canvas,int x1,int y1,int x2,int y2,int col
     if (*(int *)(iVar2 + 0x24) == 8) {
       local_14 = y2 - y1;
       local_c = x2 - x1;
-      iVar3 = ((local_c < 1) - 1 & 2) - 1;
-      iVar4 = ((local_14 < 1) - 1 & 2) - 1;
+      iVar3 = (((int)local_c < 1) - 1 & 2) - 1;
+      iVar4 = (((int)local_14 < 1) - 1 & 2) - 1;
       if (iVar3 < 0) {
         local_14 = -local_14;
       }
@@ -64,8 +66,8 @@ void __cdecl rdPrimit2_DrawLine(void *canvas,int x1,int y1,int x2,int y2,int col
     else {
       local_14 = y2 - y1;
       local_c = x2 - x1;
-      iVar3 = ((local_c < 1) - 1 & 2) - 1;
-      iVar4 = ((local_14 < 1) - 1 & 2) - 1;
+      iVar3 = (((int)local_c < 1) - 1 & 2) - 1;
+      iVar4 = (((int)local_14 < 1) - 1 & 2) - 1;
       if (iVar3 < 0) {
         local_14 = -local_14;
       }
@@ -105,6 +107,8 @@ void __cdecl rdPrimit2_DrawLine(void *canvas,int x1,int y1,int x2,int y2,int col
 }
 #undef local_10
 #undef local_14
+#undef local_4
+#undef local_8
 #undef local_c
 
 

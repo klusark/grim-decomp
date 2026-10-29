@@ -10,10 +10,10 @@
 /* Subsystem init entry registered through EngineModule_Init; fills the module's 8-entry interface
    {init, shutdown, save, restore, ...} */
 
-undefined4 sputActor_Initialize(undefined4 param_1,undefined4 *param_2)
+undefined4 sputActor_Initialize(uint param_1,undefined4 *param_2)
 
 {
-  DAT_008ca32c = param_1;
+  UINT_008ca32c = param_1;
   *param_2 = sputActor_Initialize;
   param_2[1] = FUN_00490e60;
   param_2[2] = FUN_00490e80;
@@ -23,8 +23,8 @@ undefined4 sputActor_Initialize(undefined4 param_1,undefined4 *param_2)
   param_2[6] = 0;
   param_2[7] = 0;
   g_pTalkingActors = (void *)0x0;
-  DAT_008ca768 = 1;
-  DAT_008ca314 = 0;
+  UINT_008ca768 = 1;
+  UINT_008ca314 = 0;
   _DAT_008ca318 = 0;
   _DAT_008ca31c = 0;
   return 0;
@@ -52,7 +52,7 @@ undefined4 FUN_0048e330(code *param_1)
   #define iStack_90 (*(int *)(_frame + (0xc0 - 0x90)))
   #define iStack_8c (*(int *)(_frame + (0xc0 - 0x8c)))
   #define uStack_88 (*(uint *)(_frame + (0xc0 - 0x88)))
-  #define local_84 (*(int *)(_frame + (0xc0 - 0x84)))
+  #define local_84 (*(uint *)(_frame + (0xc0 - 0x84)))
   #define aiStack_80 (*(int (*)[32])(_frame + (0xc0 - 0x80)))
   
   local_84 = g_nActorCount;
@@ -132,7 +132,7 @@ undefined4 FUN_0048e330(code *param_1)
             (*param_1)(puVar1 + 0xe,0x40);
             (*param_1)(puVar1 + 0x1e,4);
             if (puVar1[0x1f] == 0) {
-              (**(code **)(DAT_008ca32c + 0x18))
+              (**(code **)(UINT_008ca32c + 0x18))
                         (s_Valid_Ref___pCosNode__rCostume___004e9e1c,
                          s_C__grimsrc_libs_grimlib_Engine_s_004e9e40,0x1c1);
             }
@@ -366,11 +366,11 @@ undefined4 FUN_0048ecd0(code *param_1)
   #define auStack_40 (*(undefined4 (*)[16])(_frame + (0x180 - 0x40)))
   
   g_pTalkingActors = (void *)0x0;
-  DAT_008ca314 = 0;
+  UINT_008ca314 = 0;
   _DAT_008ca318 = 0;
   _DAT_008ca31c = 0;
   iVar9 = 0;
-  DAT_008ca764 = 0;
+  g_nTalkingActorCount = 0;
   if (0 < g_nActorCapacity) {
     iVar8 = 0;
     do {
@@ -382,7 +382,7 @@ undefined4 FUN_0048ecd0(code *param_1)
   (*param_1)(&local_15c,4);
   if (g_nActorCapacity < local_15c) {
     g_pActorTable =
-         (void *)(**(code **)(DAT_008ca32c + 0x28))
+         (void *)(**(code **)(UINT_008ca32c + 0x28))
                            (g_pActorTable,local_15c * 0xa8,
                             s_C__grimsrc_libs_grimlib_Engine_s_004e9e40,0x28a);
     puVar2 = (undefined4 *)((int)g_pActorTable + g_nActorCapacity * 0xa8);
@@ -407,7 +407,7 @@ undefined4 FUN_0048ecd0(code *param_1)
       setName[0x27] = 1;
       if (iVar9 == 0) {
         puVar2 = (undefined4 *)
-                 (**(code **)(DAT_008ca32c + 0x20))
+                 (**(code **)(UINT_008ca32c + 0x20))
                            (0x34,s_C__grimsrc_libs_grimlib_Engine_s_004e9e40,0x29f);
         *setName = (int)puVar2;
         for (iVar9 = 0xd; iVar9 != 0; iVar9 = iVar9 + -1) {
@@ -629,7 +629,7 @@ undefined4 FUN_0048ecd0(code *param_1)
           *(undefined4 *)(setName[0x29] + 0x1b4) = 0;
           Actor_CreateWalker(setName,1);
           if (*(int *)(setName[0x29] + 0x1b8) != 0) {
-            ((code *)Walker_ReattachToSet)();
+            Walker_ReattachToSet(*(void **)(setName[0x29] + 0x1b4));
           }
         }
         if (*(int *)(setName[0x29] + 0x1c4) != 0) {
@@ -638,7 +638,7 @@ undefined4 FUN_0048ecd0(code *param_1)
           do {
             if (*ppvVar4 == (void *)0x0) {
               (&g_pTalkingActors)[iVar9] = setName;
-              DAT_008ca764 = DAT_008ca764 + 1;
+              g_nTalkingActorCount = g_nTalkingActorCount + 1;
               break;
             }
             ppvVar4 = ppvVar4 + 1;
@@ -666,7 +666,7 @@ undefined4 FUN_0048ecd0(code *param_1)
           (*param_1)(iVar8 + 0x20,4);
           (*param_1)(&iStack_164,4);
           if (0xb < iStack_164) {
-            (**(code **)(DAT_008ca32c + 0x18))
+            (**(code **)(UINT_008ca32c + 0x18))
                       (s_tot_clips___MAX_SHADOW_CLIPS_004e9e70,
                        s_C__grimsrc_libs_grimlib_Engine_s_004e9e40,0x3a5);
           }

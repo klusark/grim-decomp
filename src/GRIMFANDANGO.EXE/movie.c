@@ -14,8 +14,8 @@ int __cdecl Movie_SaveState(void *fn)
   (*(code *)fn)(&g_nMovieStopRequested,4);
   (*(code *)fn)(g_szMovieName,0x80);
   (*(code *)fn)(&g_nMovieFullscreen,4);
-  (*(code *)fn)(&DAT_008c9fb0,4);
-  (*(code *)fn)(&DAT_008c9fb4,4);
+  (*(code *)fn)(&UINT_008c9fb0,4);
+  (*(code *)fn)(&UINT_008c9fb4,4);
   return 0;
 }
 
@@ -29,10 +29,10 @@ undefined4 FUN_00489090(code *param_1)
   (*param_1)(&g_nMovieStopRequested,4);
   (*param_1)(g_szMovieName,0x80);
   (*param_1)(&g_nMovieFullscreen,4);
-  (*param_1)(&DAT_008c9fb0,4);
-  (*param_1)(&DAT_008c9fb4,4);
+  (*param_1)(&UINT_008c9fb0,4);
+  (*param_1)(&UINT_008c9fb4,4);
   if (g_nMoviePlaying != 0) {
-    Movie_Start(g_szMovieName,g_nMovieFullscreen,DAT_008c9fb0,DAT_008c9fb4);
+    Movie_Start(g_szMovieName,g_nMovieFullscreen,UINT_008c9fb0,UINT_008c9fb4);
   }
   return 0;
 }
@@ -49,7 +49,7 @@ undefined4 FUN_00489130(void)
   if ((iVar1 != 0) && (iVar1 = _stricmp(local_c,s_FALSE_004e8350), iVar1 == 0)) {
     return 0;
   }
-  iVar1 = (*DAT_008c9fc0)();
+  iVar1 = (*(code *)UINT_008c9fc0)();
   if (iVar1 == 0) {
     g_nMovieAvailable = 1;
     return 0;
@@ -83,7 +83,7 @@ undefined4 Movie_PollPlayback(void)
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   undefined4 uVar2;
-  #define local_14 (*(int *)(_frame + (0x30 - 0x14)))
+  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
   #define aiStack_10 (*(int (*)[4])(_frame + (0x30 - 0x10)))
   
   local_14 = 0;
@@ -97,7 +97,7 @@ undefined4 Movie_PollPlayback(void)
   Smush_SetColorTable(&g_wColorTable);
   timeGetTime();
   if (g_nMovieStopRequested == 0) {
-    iVar1 = Smush_Advance(&local_14);
+    iVar1 = Smush_Advance((int *)&local_14);
     if (iVar1 != 0) goto LAB_00489259;
   }
   if ((local_14 == 0) && (g_nMovieStopRequested == 0)) {
@@ -132,7 +132,7 @@ int __cdecl Movie_SetTarget(void *surface)
 /* ---- 0x004892a0  Movie_Start ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-undefined4 Movie_Start(char *param_1,int param_2,int param_3,int param_4)
+undefined4 Movie_Start(char *param_1,int param_2,uint param_3,uint param_4)
 
 {
   int iVar1;
@@ -144,11 +144,11 @@ undefined4 Movie_Start(char *param_1,int param_2,int param_3,int param_4)
     }
     Smush_SetColorTable(&g_wColorTable);
     g_nMovieFullscreen = param_2;
-    DAT_008c9fb0 = param_3;
-    DAT_008c9fb4 = param_4;
+    UINT_008c9fb0 = param_3;
+    UINT_008c9fb4 = param_4;
     iVar1 = Smush_Open(param_1,-(uint)(param_2 != 0) & 0x10,100000,param_3,param_4,
                        *(int *)((int)g_pMovieSurface + 0xc),*(int *)((int)g_pMovieSurface + 0x10),0,
-                       (uint)(DAT_009016ac != 6));
+                       (uint)(UINT_009016ac != 6));
     if (iVar1 == 0) {
       g_nMoviePlaying = 1;
       g_nMoviePaused = iVar1;
@@ -175,20 +175,20 @@ void Movie_Stop(void)
 /* ---- 0x00489390  Movie_SetFile ---- */
 /* Resolves the movie name through the resource system and hands the path to the SMUSH player */
 
-undefined4 Movie_SetFile(char *param_1)
+undefined * Movie_SetFile(char *param_1)
 
 {
   unsigned char _frame[0x90] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
-  undefined4 uVar2;
+  undefined *puVar2;
   #define local_80 (*(char (*)[128])(_frame + (0x90 - 0x80)))
   
   iVar1 = Res_GetFilePath(param_1,local_80,0x80);
   if (iVar1 != 1) {
-    return 0;
+    return (undefined *)0x0;
   }
-  uVar2 = Smush_SetFile(local_80);
-  return uVar2;
+  puVar2 = Smush_SetFile((uint)local_80);
+  return puVar2;
 }
 #undef local_80
 
@@ -283,7 +283,7 @@ void FUN_00489510(void)
 void FUN_00489520(void)
 
 {
-  ((code *)FUN_0048a500)();
+  FUN_0048a500(&UINT_008ca0a0);
   return;
 }
 

@@ -1,428 +1,9 @@
 /* IMUSE.DLL :: crt.c
- * functions 0x1000b940 .. 0x10012f20 (65 functions)
+ * functions 0x1000bf50 .. 0x10012f20 (52 functions)
  * Decompiled from the shipped binaries with Ghidra; see ../../README.md */
 #include "ghidra_types.h"
 #include "globals.h"
 #include "functions.h"
-
-/* ---- 0x1000b940  fseek ---- */
-/* MSVC 6 C runtime (matched against the EXE runtime by structure) */
-
-int __cdecl fseek(int *param_1,int param_2,int param_3)
-
-{
-  int iVar1;
-  
-  _lock_file((uint)param_1);
-  iVar1 = _fseek_lk(param_1,param_2,param_3);
-  _unlock_file((uint)param_1);
-  return iVar1;
-}
-
-/* ---- 0x1000b980  _fseek_lk ---- */
-/* MSVC 6 C runtime (matched against the EXE runtime by structure) */
-
-int __cdecl _fseek_lk(int *param_1,int param_2,int param_3)
-
-{
-  uint uVar1;
-  int iVar2;
-  int *piVar3;
-  
-  if (((param_1[3] & 0x83U) != 0) && (((param_3 == 0 || (param_3 == 1)) || (param_3 == 2)))) {
-    param_1[3] = param_1[3] & 0xffffffef;
-    if (param_3 == 1) {
-      iVar2 = _ftell_lk(param_1);
-      param_2 = param_2 + iVar2;
-      param_3 = 0;
-    }
-    _flush(param_1);
-    uVar1 = param_1[3];
-    if ((uVar1 & 0x80) == 0) {
-      if ((((uVar1 & 1) != 0) && ((uVar1 & 8) != 0)) && ((uVar1 & 0x400) == 0)) {
-        param_1[6] = 0x200;
-      }
-    }
-    else {
-      param_1[3] = uVar1 & 0xfffffffc;
-    }
-    iVar2 = _lseek(param_1[4],param_2,param_3);
-    return (iVar2 != -1) - 1;
-  }
-  piVar3 = _errno();
-  *piVar3 = 0x16;
-  return -1;
-}
-
-/* ---- 0x1000bb10  fclose ---- */
-/* MSVC 6 C runtime (matched against the EXE runtime by structure) */
-
-undefined4 __cdecl fclose(int *param_1)
-
-{
-  undefined4 uVar1;
-  
-  if ((*(byte *)(param_1 + 3) & 0x40) != 0) {
-    param_1[3] = 0;
-    return 0xffffffff;
-  }
-  _lock_file((uint)param_1);
-  uVar1 = _fclose_lk(param_1);
-  _unlock_file((uint)param_1);
-  return uVar1;
-}
-
-/* ---- 0x1000bb50  _fclose_lk ---- */
-/* MSVC 6 C runtime (matched against the EXE runtime by structure) */
-
-undefined4 __cdecl _fclose_lk(int *param_1)
-
-{
-  int iVar1;
-  undefined4 uVar2;
-  
-  uVar2 = 0xffffffff;
-  if ((*(byte *)(param_1 + 3) & 0x83) != 0) {
-    uVar2 = _flush(param_1);
-    _freebuf(param_1);
-    iVar1 = _close(param_1[4]);
-    if (iVar1 < 0) {
-      param_1[3] = 0;
-      return 0xffffffff;
-    }
-    if ((undefined *)param_1[7] != (undefined *)0x0) {
-      free((undefined *)param_1[7]);
-      param_1[7] = 0;
-    }
-  }
-  param_1[3] = 0;
-  return uVar2;
-}
-
-/* ---- 0x1000bbc0  fwrite ---- */
-/* MSVC 6 C runtime (matched against the EXE runtime by structure) */
-
-uint __cdecl fwrite(char *param_1,uint param_2,uint param_3,int *param_4)
-
-{
-  uint uVar1;
-  
-  _lock_file((uint)param_4);
-  uVar1 = _fwrite_lk(param_1,param_2,param_3,param_4);
-  _unlock_file((uint)param_4);
-  return uVar1;
-}
-
-/* ---- 0x1000bc00  _fwrite_lk ---- */
-/* MSVC 6 C runtime (matched against the EXE runtime by structure) */
-
-uint __cdecl _fwrite_lk(char *param_1,uint param_2,uint param_3,int *param_4)
-
-{
-  int *piVar1;
-  int *piVar2;
-  int iVar3;
-  int *piVar4;
-  uint uVar5;
-  int *piVar6;
-  int *piVar7;
-  char *pcVar8;
-  char *pcVar9;
-  
-  piVar1 = param_4;
-  piVar6 = (int *)(param_3 * param_2);
-  if (piVar6 == (int *)0x0) {
-    return 0;
-  }
-  piVar7 = piVar6;
-  if ((param_4[3] & 0x10cU) == 0) {
-    param_4 = (int *)0x1000;
-  }
-  else {
-    param_4 = (int *)param_4[6];
-  }
-  do {
-    if (((piVar1[3] & 0x108U) == 0) || (piVar2 = (int *)piVar1[1], piVar2 == (int *)0x0)) {
-      if (piVar7 < param_4) {
-        uVar5 = _flsbuf((int)*param_1,piVar1);
-        if (uVar5 == 0xffffffff) goto LAB_1000bd34;
-        param_4 = (int *)piVar1[6];
-        param_1 = param_1 + 1;
-        piVar7 = (int *)((int)piVar7 - 1);
-        if ((int)param_4 < 1) {
-          param_4 = (int *)0x1;
-        }
-      }
-      else {
-        if (((piVar1[3] & 0x108U) != 0) && (iVar3 = _flush(piVar1), iVar3 != 0)) {
-LAB_1000bd34:
-          return (uint)((int)piVar6 - (int)piVar7) / param_2;
-        }
-        piVar2 = piVar7;
-        if (param_4 != (int *)0x0) {
-          piVar2 = (int *)((int)piVar7 - (uint)piVar7 % (uint)param_4);
-        }
-        piVar4 = (int *)_write(piVar1[4],param_1,(uint)piVar2);
-        if (piVar4 == (int *)0xffffffff) {
-LAB_1000bd19:
-          piVar1[3] = piVar1[3] | 0x20;
-          return (uint)((int)piVar6 - (int)piVar7) / param_2;
-        }
-        piVar7 = (int *)((int)piVar7 - (int)piVar4);
-        param_1 = param_1 + (int)piVar4;
-        if (piVar4 < piVar2) goto LAB_1000bd19;
-      }
-    }
-    else {
-      if (piVar7 < piVar2) {
-        piVar2 = piVar7;
-      }
-      piVar7 = (int *)((int)piVar7 - (int)piVar2);
-      pcVar8 = param_1;
-      pcVar9 = (char *)*piVar1;
-      for (uVar5 = (uint)piVar2 >> 2; uVar5 != 0; uVar5 = uVar5 - 1) {
-        *(undefined4 *)pcVar9 = *(undefined4 *)pcVar8;
-        pcVar8 = pcVar8 + 4;
-        pcVar9 = pcVar9 + 4;
-      }
-      for (uVar5 = (uint)piVar2 & 3; uVar5 != 0; uVar5 = uVar5 - 1) {
-        *pcVar9 = *pcVar8;
-        pcVar8 = pcVar8 + 1;
-        pcVar9 = pcVar9 + 1;
-      }
-      param_1 = param_1 + (int)piVar2;
-      piVar1[1] = piVar1[1] - (int)piVar2;
-      *piVar1 = *piVar1 + (int)piVar2;
-    }
-    if (piVar7 == (int *)0x0) {
-      return param_3;
-    }
-  } while( true );
-}
-
-/* ---- 0x1000bd50  strchr ---- */
-/* MSVC 6 C runtime (matched against the EXE runtime by structure) */
-
-char * __cdecl strchr(char *param_1,char param_2)
-
-{
-  char cVar1;
-  int iVar2;
-  char *pcVar3;
-  char *pcVar4;
-  
-  iVar2 = -1;
-  do {
-    pcVar4 = param_1;
-    if (iVar2 == 0) break;
-    iVar2 = iVar2 + -1;
-    pcVar4 = param_1 + 1;
-    cVar1 = *param_1;
-    param_1 = pcVar4;
-  } while (cVar1 != '\0');
-  iVar2 = -(iVar2 + 1);
-  pcVar4 = pcVar4 + -1;
-  do {
-    pcVar3 = pcVar4;
-    if (iVar2 == 0) break;
-    iVar2 = iVar2 + -1;
-    pcVar3 = pcVar4 + -1;
-    cVar1 = *pcVar4;
-    pcVar4 = pcVar3;
-  } while (param_2 != cVar1);
-  pcVar3 = pcVar3 + 1;
-  if (*pcVar3 != param_2) {
-    pcVar3 = (char *)0x0;
-  }
-  return pcVar3;
-}
-
-/* ---- 0x1000bd80  strncpy ---- */
-/* MSVC 6 C runtime (matched against the EXE runtime by structure) */
-
-uint * __cdecl strncpy(uint *param_1,uint *param_2,uint param_3)
-
-{
-  uint uVar1;
-  uint uVar2;
-  char cVar3;
-  uint uVar4;
-  uint *puVar5;
-  
-  if (param_3 == 0) {
-    return param_1;
-  }
-  puVar5 = param_1;
-  if (((uint)param_2 & 3) != 0) {
-    while( true ) {
-      uVar4 = *param_2;
-      param_2 = (uint *)((int)param_2 + 1);
-      *(char *)puVar5 = (char)uVar4;
-      puVar5 = (uint *)((int)puVar5 + 1);
-      param_3 = param_3 - 1;
-      if (param_3 == 0) {
-        return param_1;
-      }
-      if ((char)uVar4 == '\0') break;
-      if (((uint)param_2 & 3) == 0) {
-        uVar4 = param_3 >> 2;
-        goto joined_r0x1000bdbe;
-      }
-    }
-    do {
-      if (((uint)puVar5 & 3) == 0) {
-        uVar4 = param_3 >> 2;
-        cVar3 = '\0';
-        if (uVar4 == 0) goto LAB_1000bdfb;
-        goto LAB_1000be69;
-      }
-      *(char *)puVar5 = '\0';
-      puVar5 = (uint *)((int)puVar5 + 1);
-      param_3 = param_3 - 1;
-    } while (param_3 != 0);
-    return param_1;
-  }
-  uVar4 = param_3 >> 2;
-  if (uVar4 != 0) {
-    do {
-      uVar1 = *param_2;
-      uVar2 = *param_2;
-      param_2 = param_2 + 1;
-      if (((uVar1 ^ 0xffffffff ^ uVar1 + 0x7efefeff) & 0x81010100) != 0) {
-        if ((char)uVar2 == '\0') {
-          *puVar5 = 0;
-joined_r0x1000be65:
-          while( true ) {
-            uVar4 = uVar4 - 1;
-            puVar5 = puVar5 + 1;
-            if (uVar4 == 0) break;
-LAB_1000be69:
-            *puVar5 = 0;
-          }
-          cVar3 = '\0';
-          param_3 = param_3 & 3;
-          if (param_3 != 0) goto LAB_1000bdfb;
-          return param_1;
-        }
-        if ((char)(uVar2 >> 8) == '\0') {
-          *puVar5 = uVar2 & 0xff;
-          goto joined_r0x1000be65;
-        }
-        if ((uVar2 & 0xff0000) == 0) {
-          *puVar5 = uVar2 & 0xffff;
-          goto joined_r0x1000be65;
-        }
-        if ((uVar2 & 0xff000000) == 0) {
-          *puVar5 = uVar2;
-          goto joined_r0x1000be65;
-        }
-      }
-      *puVar5 = uVar2;
-      puVar5 = puVar5 + 1;
-      uVar4 = uVar4 - 1;
-joined_r0x1000bdbe:
-    } while (uVar4 != 0);
-    param_3 = param_3 & 3;
-    if (param_3 == 0) {
-      return param_1;
-    }
-  }
-  do {
-    cVar3 = (char)*param_2;
-    param_2 = (uint *)((int)param_2 + 1);
-    *(char *)puVar5 = cVar3;
-    puVar5 = (uint *)((int)puVar5 + 1);
-    if (cVar3 == '\0') {
-      while (param_3 = param_3 - 1, param_3 != 0) {
-LAB_1000bdfb:
-        *(char *)puVar5 = cVar3;
-        puVar5 = (uint *)((int)puVar5 + 1);
-      }
-      return param_1;
-    }
-    param_3 = param_3 - 1;
-  } while (param_3 != 0);
-  return param_1;
-}
-
-/* ---- 0x1000be80  _stricmp ---- */
-/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
-/* MSVC 6 C runtime (matched against the EXE runtime by structure) */
-
-uint __cdecl _stricmp(byte *param_1,byte *param_2)
-
-{
-  bool bVar1;
-  int iVar2;
-  byte bVar3;
-  byte bVar4;
-  byte bVar5;
-  char cVar6;
-  uint uVar8;
-  uint uVar9;
-  uint uVar7;
-  
-  iVar2 = _DAT_100337f0;
-  if (DAT_10032fe0 == 0) {
-    bVar5 = 0xff;
-    do {
-      do {
-        cVar6 = '\0';
-        if (bVar5 == 0) goto LAB_1000bece;
-        bVar5 = *param_2;
-        param_2 = param_2 + 1;
-        bVar4 = *param_1;
-        param_1 = param_1 + 1;
-      } while (bVar4 == bVar5);
-      bVar3 = bVar5 + 0xbf + (-((byte)(bVar5 + 0xbf) < 0x1a) & 0x20U) + 0x41;
-      bVar4 = bVar4 + 0xbf;
-      bVar5 = bVar4 + (-(bVar4 < 0x1a) & 0x20U) + 0x41;
-    } while (bVar5 == bVar3);
-    cVar6 = (bVar5 < bVar3) * -2 + '\x01';
-LAB_1000bece:
-    uVar7 = (uint)cVar6;
-  }
-  else {
-    LOCK();
-    _DAT_100337f0 = _DAT_100337f0 + 1;
-    UNLOCK();
-    bVar1 = 0 < DAT_100337ec;
-    if (bVar1) {
-      LOCK();
-      UNLOCK();
-      _DAT_100337f0 = iVar2;
-      _lock(0x13);
-    }
-    uVar9 = (uint)bVar1;
-    uVar7 = 0xff;
-    uVar8 = 0;
-    do {
-      do {
-        if ((char)uVar7 == '\0') goto LAB_1000bf2f;
-        bVar5 = *param_2;
-        uVar7 = CONCAT31((int3)(uVar7 >> 8),bVar5);
-        param_2 = param_2 + 1;
-        bVar4 = *param_1;
-        uVar8 = CONCAT31((int3)(uVar8 >> 8),bVar4);
-        param_1 = param_1 + 1;
-      } while (bVar5 == bVar4);
-      uVar8 = _tolower_lk(uVar8);
-      uVar7 = _tolower_lk(uVar7);
-    } while ((byte)uVar8 == (byte)uVar7);
-    uVar8 = (uint)((byte)uVar8 < (byte)uVar7);
-    uVar7 = (1 - uVar8) - (uint)(uVar8 != 0);
-LAB_1000bf2f:
-    if (uVar9 == 0) {
-      LOCK();
-      _DAT_100337f0 = _DAT_100337f0 + -1;
-      UNLOCK();
-    }
-    else {
-      _unlock(0x13);
-    }
-  }
-  return uVar7;
-}
 
 /* ---- 0x1000bf50  atol ---- */
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
@@ -585,71 +166,6 @@ void __cdecl _amsg_exit(int param_1)
   }
   _NMSG_WRITE(param_1);
   (*(code *)PTR_exit_1001e9e0)(0xff);
-  return;
-}
-
-/* ---- 0x1000c4f0  _lock ---- */
-/* MSVC 6 C runtime (matched against the EXE runtime by structure) */
-
-void __cdecl _lock(int param_1)
-
-{
-  undefined *a1;
-  
-  if (*(int *)(&DAT_1001e9e8 + param_1 * 4) == 0) {
-    a1 = (undefined *)malloc(0x18);
-    if (a1 == (undefined *)0x0) {
-      _amsg_exit(0x11);
-    }
-    _lock(0x11);
-    if (*(int *)(&DAT_1001e9e8 + param_1 * 4) == 0) {
-      InitializeCriticalSection((int)a1);
-      *(undefined **)(&DAT_1001e9e8 + param_1 * 4) = a1;
-    }
-    else {
-      free(a1);
-    }
-    _unlock(0x11);
-  }
-  EnterCriticalSection(*(int *)(&DAT_1001e9e8 + param_1 * 4));
-  return;
-}
-
-/* ---- 0x1000c570  _unlock ---- */
-/* MSVC 6 C runtime (matched against the EXE runtime by structure) */
-
-void __cdecl _unlock(int param_1)
-
-{
-  LeaveCriticalSection(*(int *)(&DAT_1001e9e8 + param_1 * 4));
-  return;
-}
-
-/* ---- 0x1000c590  _lock_file ---- */
-/* MSVC 6 C runtime (matched against the EXE runtime by structure) */
-
-void __cdecl _lock_file(uint param_1)
-
-{
-  if ((IMG_ADDR(0x1001eaaf) < param_1) && (param_1 < IMG_ADDR(0x1001ed11))) {
-    _lock(((int)(param_1 + 0xeffe1550) >> 5) + 0x1c);
-    return;
-  }
-  EnterCriticalSection(param_1 + 0x20);
-  return;
-}
-
-/* ---- 0x1000c600  _unlock_file ---- */
-/* MSVC 6 C runtime (matched against the EXE runtime by structure) */
-
-void __cdecl _unlock_file(uint param_1)
-
-{
-  if ((IMG_ADDR(0x1001eaaf) < param_1) && (param_1 < IMG_ADDR(0x1001ed11))) {
-    _unlock(((int)(param_1 + 0xeffe1550) >> 5) + 0x1c);
-    return;
-  }
-  LeaveCriticalSection(param_1 + 0x20);
   return;
 }
 
@@ -985,14 +501,14 @@ void __cdecl free(undefined *param_1)
   
   a3 = param_1;
   if (param_1 != (undefined *)0x0) {
-    _lock(9);
+    ImFile_LockInit(9);
     pbVar1 = (byte *)__sbh_find_block(a3,&local_4,(uint *)&param_1);
     if (pbVar1 != (byte *)0x0) {
       __sbh_free_block(local_4,(int)param_1,pbVar1);
-      _unlock(9);
+      ImFile_UnlockInner(9);
       return;
     }
-    _unlock(9);
+    ImFile_UnlockInner(9);
     HeapFree(DAT_100336c0,0,(int)a3);
   }
   return;
@@ -1451,7 +967,7 @@ void __cdecl doexit(int param_1,int param_2,int param_3)
 void _lockexit(void)
 
 {
-  _lock(0xd);
+  ImFile_LockInit(0xd);
   return;
 }
 
@@ -1461,7 +977,7 @@ void _lockexit(void)
 void _unlockexit(void)
 
 {
-  _unlock(0xd);
+  ImFile_UnlockInner(0xd);
   return;
 }
 
@@ -1617,7 +1133,7 @@ void __cdecl _NMSG_WRITE(int param_1)
           pcVar9 = pcVar9 + 1;
         } while (cVar1 != '\0');
         puVar6 = (uint *)((int)auStack_140 + ~uVar4);
-        strncpy(puVar6,(uint *)&DAT_100171b0,3);
+        Im_MemCopy(puVar6,(uint *)&DAT_100171b0,3);
       }
       puVar8 = &DAT_10015774;
       pcVar9 = acStack_1a4;
@@ -1792,9 +1308,9 @@ int * __cdecl _heap_alloc(int param_1)
   
   a3 = param_1 + 0xfU & 0xfffffff0;
   if (a3 <= DAT_10021444) {
-    _lock(9);
+    ImFile_LockInit(9);
     piVar1 = __sbh_alloc_block(param_1 + 0xfU >> 4);
-    _unlock(9);
+    ImFile_UnlockInner(9);
     if (piVar1 != (int *)0x0) {
       return piVar1;
     }
@@ -1846,9 +1362,9 @@ LAB_1000ffa4:
         }
       }
       else {
-        _lock(9);
+        ImFile_LockInit(9);
         piVar3 = __sbh_alloc_block(a3 >> 4);
-        _unlock(9);
+        ImFile_UnlockInner(9);
         if (piVar3 != (int *)0x0) {
           piVar4 = piVar3;
           for (uVar2 = a3 >> 2; uVar2 != 0; uVar2 = uVar2 - 1) {
@@ -1970,12 +1486,12 @@ void __cdecl _lock_fhandle(uint param_1)
   uVar2 = param_1 & 0x1f;
   piVar1 = (&PTR_100336e0)[(int)param_1 >> 5];
   if (piVar1[uVar2 * 9 + 2] == 0) {
-    _lock(0x11);
+    ImFile_LockInit(0x11);
     if (piVar1[uVar2 * 9 + 2] == 0) {
       InitializeCriticalSection((int)(piVar1 + uVar2 * 9 + 3));
       piVar1[uVar2 * 9 + 2] = piVar1[uVar2 * 9 + 2] + 1;
     }
-    _unlock(0x11);
+    ImFile_UnlockInner(0x11);
   }
   EnterCriticalSection((int)((&PTR_100336e0)[(int)param_1 >> 5] + uVar2 * 9 + 3));
   return;

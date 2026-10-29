@@ -6,7 +6,8 @@
 #include "functions.h"
 
 /* ---- 0x00401140  Grim_FindDataOnDrives ---- */
-/* Source: grimdemo.c (line 353, from __FILE__/__LINE__ passed to the allocator) */
+/* grimdemo.c: scans CD-ROM drives (and network drives when g_devMode) for <drive>\<subdir>; shows
+   the _engn006/_engn007 'could not find data' message and returns 0 if none has it. */
 
 int __cdecl Grim_FindDataOnDrives(char *subdir)
 
@@ -35,7 +36,7 @@ int __cdecl Grim_FindDataOnDrives(char *subdir)
     pcVar5 = pcVar4;
     while (((pcVar5 != (char *)0x0 && (*pcVar5 != '\0')) && (!bVar2))) {
       iVar3 = GetDriveTypeA((int)pcVar5);
-      if ((iVar3 == 5) || ((DAT_004f5a24 != 0 && (iVar3 == 4)))) {
+      if ((iVar3 == 5) || ((INT_004f5a24 != 0 && (iVar3 == 4)))) {
         uVar6 = 0xffffffff;
         pcVar8 = pcVar5;
         do {
@@ -136,98 +137,99 @@ undefined4 Grim_Init(char *param_1)
   int iVar1;
   char *pcVar2;
   char *pcVar3;
-  int iVar4;
-  undefined4 *puVar5;
-  undefined4 uVar6;
-  #define local_80 (*(undefined4 *)(_frame + (0x90 - 0x80)))
-  #define local_7c (*(undefined4 *)(_frame + (0x90 - 0x7c)))
+  undefined *puVar4;
+  int iVar5;
+  undefined4 *puVar6;
+  undefined4 uVar7;
+  #define local_80 (*(uint *)(_frame + (0x90 - 0x80)))
+  #define local_7c (*(uint *)(_frame + (0x90 - 0x7c)))
   #define local_78 (*(undefined2 *)(_frame + (0x90 - 0x78)))
   #define local_76 (*(undefined1 *)(_frame + (0x90 - 0x76)))
   #define local_75 (*(undefined4 (*)[13])(_frame + (0x90 - 0x75)))
   #define acStack_40 (*(char (*)[64])(_frame + (0x90 - 0x40)))
   
-  local_80 = DAT_004dd668;
-  local_7c = DAT_004dd66c;
+  local_80 = UINT_004dd668;
+  local_7c = UINT_004dd66c;
   local_76 = DAT_004dd672;
   local_78 = DAT_004dd670;
-  puVar5 = local_75;
-  for (iVar4 = 0xd; iVar4 != 0; iVar4 = iVar4 + -1) {
-    *puVar5 = 0;
-    puVar5 = puVar5 + 1;
+  puVar6 = local_75;
+  for (iVar5 = 0xd; iVar5 != 0; iVar5 = iVar5 + -1) {
+    *puVar6 = 0;
+    puVar6 = puVar6 + 1;
   }
-  *(undefined1 *)puVar5 = 0;
-  Services_InitDefaults(&DAT_008ddda0);
-  iVar4 = Grim_ParseCommandLine(param_1);
-  if (iVar4 == 0) {
+  *(undefined1 *)puVar6 = 0;
+  Services_InitDefaults((GrimServices *)&DAT_008ddda0);
+  iVar5 = Grim_ParseCommandLine(param_1);
+  if (iVar5 == 0) {
     return 0;
   }
   Services_InitPlatform(&DAT_008ddda0);
-  _DAT_008dddb4 = DAT_008dddac;
-  Services_SetCurrent(&DAT_008ddda0);
+  _DAT_008dddb4 = UINT_008dddac;
+  Services_SetCurrent((GrimServices *)&DAT_008ddda0);
   IMuseModule_Init(&DAT_008ddda0,&DAT_008ddd80);
-  (*DAT_008ddd88)();
+  (*(code *)UINT_008ddd88)();
   Polyglot_LoadTable(s_grim_tab_004dd238);
   Grim_OpenRegistry();
   Grim_DecodeRegKeyName((char *)&local_80);
   Reg_GetString((char *)&local_80,acStack_40,0x40,(char *)0x0);
-  iVar4 = _stricmp(acStack_40,&DAT_004dd660);
-  if (iVar4 == 0) {
-    DAT_004f5a24 = 1;
+  iVar5 = _stricmp(acStack_40,&DAT_004dd660);
+  if (iVar5 == 0) {
+    INT_004f5a24 = 1;
   }
-  iVar4 = _stricmp(acStack_40,&DAT_004dd65c);
-  if (iVar4 == 0) {
-    DAT_004f5a24 = 1;
+  iVar5 = _stricmp(acStack_40,&DAT_004dd65c);
+  if (iVar5 == 0) {
+    INT_004f5a24 = 1;
   }
-  if (DAT_004f5a24 == 0) {
-    iVar4 = Grim_FindDataOnDrives(s_GrimData_004dd650);
-    if (iVar4 == 0) {
+  if (INT_004f5a24 == 0) {
+    iVar5 = Grim_FindDataOnDrives(s_GrimData_004dd650);
+    if (iVar5 == 0) {
       return 0;
     }
   }
   rdroid_Startup((GrimServices *)&DAT_008ddda0);
-  iVar4 = rdroid_Open(0);
-  if (iVar4 == 0) {
+  iVar5 = rdroid_Open(0);
+  if (iVar5 == 0) {
     return 0;
   }
   Win_AddMessageHook(Win_WndProc);
   Win_AddMessageHook(FUN_004772d0);
-  iVar4 = GetDC(0);
-  iVar1 = GetDeviceCaps(iVar4,0xc);
-  ReleaseDC(0,iVar4);
+  iVar5 = GetDC(0);
+  iVar1 = GetDeviceCaps(iVar5,0xc);
+  ReleaseDC(0,iVar5);
   if (iVar1 < 8) {
-    uVar6 = 0;
+    uVar7 = 0;
     pcVar2 = Polyglot_Lookup(s__engn001_Grim_Fandango_004dd638);
     pcVar3 = Polyglot_Lookup(s__engn002_System_must_be_in_256_c_004dd5f8);
-    uVar6 = ((code *)Win_GetMainHwnd)(pcVar3,pcVar2,uVar6);
-    ((code *)Grim_FatalMessageBox)(uVar6);
+    uVar7 = ((code *)Win_GetMainHwnd)(pcVar3,pcVar2,uVar7);
+    ((code *)Grim_FatalMessageBox)(uVar7);
     return 0;
   }
-  iVar4 = Display_EnumDevices();
-  if (iVar4 == 0) {
+  iVar5 = Display_EnumDevices();
+  if (iVar5 == 0) {
     return 0;
   }
   Grim_EnumDisplayModes();
-  if ((DAT_004f5a24 != 0) && (DAT_004f5a20 != 0)) {
+  if ((INT_004f5a24 != 0) && (g_bWindowedMode != 0)) {
     Reg_SetInt(s_ExperimentalDisplay_004dd5e4,1);
   }
-  iVar4 = Display_InitFromConfig();
-  if (iVar4 == 0) {
+  puVar4 = Display_InitFromConfig();
+  if (puVar4 == (undefined *)0x0) {
     return 0;
   }
-  iVar4 = EngineModule_Init((GrimServices *)&DAT_008ddda0,(undefined4 *)&DAT_008dde20);
-  if (iVar4 != 0) {
+  puVar4 = EngineModule_Init((GrimServices *)&DAT_008ddda0,(undefined **)&DAT_008dde20);
+  if (puVar4 != (undefined *)0x0) {
     return 0;
   }
-  iVar4 = (*DAT_008dde28)();
-  if (iVar4 != 0) {
-    uVar6 = 0;
+  iVar5 = (*(code *)UINT_008dde28)();
+  if (iVar5 != 0) {
+    uVar7 = 0;
     pcVar2 = Polyglot_Lookup(s__engn005_Grim_Fandango_could_not_004dd5a8);
     pcVar3 = Polyglot_Lookup(s__engn004_Please_make_sure_you_ar_004dd534);
-    uVar6 = ((code *)Win_GetMainHwnd)(pcVar3,pcVar2,uVar6);
-    ((code *)Grim_FatalMessageBox)(uVar6);
+    uVar7 = ((code *)Win_GetMainHwnd)(pcVar3,pcVar2,uVar7);
+    ((code *)Grim_FatalMessageBox)(uVar7);
     return 0;
   }
-  lua_openlib(&PTR_s_Is3DHardwareEnabled_004dd350,DAT_004dd380);
+  lua_openlib(&PTR_s_Is3DHardwareEnabled_004dd350,UINT_004dd380);
   Engine_SetIdleCallback(FUN_00402050);
   Engine_SetRenderUserCallback(Grim_OnDisplayModeChange);
   Engine_SetFlipCallback(Display_Flip);
@@ -235,24 +237,24 @@ undefined4 Grim_Init(char *param_1)
   Resource_OpenArchives();
   Grim_ShowSplash();
   DebugLog_Init(1);
-  iVar4 = Engine_RunSystemScript();
-  if (iVar4 != 0) {
-    uVar6 = 0;
+  iVar5 = Engine_RunSystemScript();
+  if (iVar5 != 0) {
+    uVar7 = 0;
     pcVar2 = Polyglot_Lookup(s__engn007_Grim_Fandango_could_not_004dd4dc);
     pcVar3 = Polyglot_Lookup(s__engn006_Please_make_sure_that_t_004dd47c);
-    uVar6 = ((code *)Win_GetMainHwnd)(pcVar3,pcVar2,uVar6);
-    ((code *)Grim_FatalMessageBox)(uVar6);
+    uVar7 = ((code *)Win_GetMainHwnd)(pcVar3,pcVar2,uVar7);
+    ((code *)Grim_FatalMessageBox)(uVar7);
     return 0;
   }
-  iVar4 = Engine_CallSystemFunction(DAT_004f5a10,-(uint)(DAT_004f5a14 != 0) & 0x4f59b0);
-  if (iVar4 != 0) {
+  iVar5 = Engine_CallSystemFunction(UINT_004f5a10,-(uint)(UINT_004f5a14 != 0) & 0x4f59b0);
+  if (iVar5 != 0) {
     return 0;
   }
-  if (DAT_004f5a44 != 0) {
+  if (UINT_004f5a44 != 0) {
     ChoreFace_Toggle(1);
   }
-  iVar4 = Win_GetMainHwnd();
-  SetActiveWindow(iVar4);
+  iVar5 = Win_GetMainHwnd();
+  SetActiveWindow(iVar5);
   _DAT_004f5a00 = 1;
   return 1;
 }
@@ -291,12 +293,12 @@ int Grim_FatalMessageBox(int param_1,int param_2,int param_3,int param_4)
 {
   int iVar1;
   
-  DAT_004e814c = 0;
+  UINT_004e814c = 0;
   iVar1 = MessageBoxA(param_1,param_2,param_3,param_4);
   Grim_ShutdownDisplay();
   CloseWindow(param_1);
   Input_ShowCursor(1);
-  DAT_004e814c = 1;
+  UINT_004e814c = 1;
   return iVar1;
 }
 
@@ -307,12 +309,12 @@ void Grim_ShutdownDisplay(void)
   if (g_nDisplayDeviceOpen != 0) {
     Engine_CloseRenderer();
     if (g_pD3dDriver == (void *)0x0) {
-      Surface_Free(DAT_004f5a34);
+      Surface_Free((void *)UINT_004f5a34);
     }
     else {
       Display_Shutdown3D();
     }
-    DAT_004f5a34 = (void *)0x0;
+    UINT_004f5a34 = 0;
     Display_CloseMode();
     Display_CloseDevice();
     Reg_SetInt(s_ExperimentalDisplay_004dd5e4,0);
@@ -331,10 +333,10 @@ void Grim_Shutdown(void)
   int iVar2;
   uint uVar3;
   
-  if (DAT_004f44e0 != 0) {
-    ResFile_Close(DAT_004f44e0);
-    DAT_004f44e0 = 0;
-    DAT_004f5a18 = 0;
+  if (UINT_004f44e0 != 0) {
+    ResFile_Close(UINT_004f44e0);
+    UINT_004f44e0 = 0;
+    UINT_004f5a18 = 0;
   }
   uVar3 = 0;
   if (g_dwDisplayDeviceCount != 0) {
@@ -357,21 +359,21 @@ void Grim_Shutdown(void)
   }
   Spew_Shutdown();
   Engine_ShutdownGame();
-  (*DAT_008dde2c)();
-  (*DAT_008dde24)();
+  (*(code *)UINT_008dde2c)();
+  (*(code *)UINT_008dde24)();
   rdroid_Close();
   rdroid_Shutdown();
   Grim_ShutdownDisplay();
   Display_RestoreMode();
-  if (DAT_004f5a20 == 0) {
+  if (g_bWindowedMode == 0) {
     Input_ShowCursor(1);
   }
   Reg_Close();
-  if (DAT_008ddd8c != (code *)0x0) {
-    (*DAT_008ddd8c)();
+  if (UINT_008ddd8c != 0) {
+    (*(code *)UINT_008ddd8c)();
   }
-  if (DAT_008ddd84 != (code *)0x0) {
-    (*DAT_008ddd84)();
+  if (UINT_008ddd84 != 0) {
+    (*(code *)UINT_008ddd84)();
   }
   Services_Clear();
   DebugLog_Init(0);
@@ -380,7 +382,8 @@ void Grim_Shutdown(void)
 
 /* ---- 0x00401a50  Grim_EnumDisplayModes ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
-/* Source: grimdemo.c (lines 787-810, from __FILE__/__LINE__ passed to the allocator) */
+/* Builds g_displayModes: per display device, copies the 0x54-byte mode records and (when the device
+   has 3D hardware) the 0x22c-byte 3D driver records */
 
 void Grim_EnumDisplayModes(void)
 
@@ -391,59 +394,73 @@ void Grim_EnumDisplayModes(void)
   uint uVar3;
   int iVar4;
   uint uVar5;
-  undefined4 *puVar6;
+  uint *puVar6;
   undefined4 *puVar7;
-  #define local_38 (*(undefined4 (*)[14])(_frame + (0x50 - 0x38)))
+  uint *puVar8;
+  #define local_38 (*(uint *)(_frame + (0x50 - 0x38)))
+  #define local_34 (*(uint *)(_frame + (0x50 - 0x34)))
+  #define local_30 (*(uint *)(_frame + (0x50 - 0x30)))
+  #define local_2c (*(uint *)(_frame + (0x50 - 0x2c)))
+  #define local_28 (*(uint *)(_frame + (0x50 - 0x28)))
+  #define local_24 (*(uint *)(_frame + (0x50 - 0x24)))
+  #define local_20 (*(uint *)(_frame + (0x50 - 0x20)))
+  #define local_1c (*(uint *)(_frame + (0x50 - 0x1c)))
+  #define local_18 (*(uint *)(_frame + (0x50 - 0x18)))
+  #define local_14 (*(uint *)(_frame + (0x50 - 0x14)))
+  #define local_10 (*(uint *)(_frame + (0x50 - 0x10)))
+  #define local_c (*(uint *)(_frame + (0x50 - 0xc)))
+  #define local_8 (*(uint *)(_frame + (0x50 - 0x8)))
+  #define local_4 (*(uint *)(_frame + (0x50 - 0x4)))
   
-  local_38[2] = 5;
-  local_38[4] = 5;
-  local_38[6] = 5;
-  puVar6 = &DAT_004f44e8;
+  local_30 = 5;
+  local_28 = 5;
+  local_20 = 5;
+  puVar6 = &UINT_004f44e8;
   for (iVar2 = 0x12; iVar2 != 0; iVar2 = iVar2 + -1) {
     *puVar6 = 0;
     puVar6 = puVar6 + 1;
   }
-  puVar6 = &DAT_004f4d38;
+  puVar6 = &UINT_004f4d38;
   for (iVar2 = 0x13; uVar5 = g_dwDisplayDeviceCount, iVar2 != 0; iVar2 = iVar2 + -1) {
     *puVar6 = 0;
     puVar6 = puVar6 + 1;
   }
   iVar4 = 0;
-  local_38[9] = 2;
+  local_14 = 2;
   _DAT_004f450c = 2;
-  local_38[0] = 1;
-  local_38[1] = 0x10;
-  local_38[3] = 6;
-  local_38[5] = 0xb;
-  local_38[7] = 0;
-  local_38[8] = 3;
-  local_38[10] = 3;
-  local_38[0xb] = 0;
-  local_38[0xc] = 0;
-  local_38[0xd] = 0;
-  puVar6 = local_38;
-  puVar7 = &DAT_004f4d54;
+  local_38 = 1;
+  local_34 = 0x10;
+  local_2c = 6;
+  local_24 = 0xb;
+  local_1c = 0;
+  local_18 = 3;
+  local_10 = 3;
+  local_c = 0;
+  local_8 = 0;
+  local_4 = 0;
+  puVar6 = &local_38;
+  puVar8 = &UINT_004f4d54;
   for (iVar2 = 0xe; iVar2 != 0; iVar2 = iVar2 + -1) {
-    *puVar7 = *puVar6;
+    *puVar8 = *puVar6;
     puVar6 = puVar6 + 1;
-    puVar7 = puVar7 + 1;
+    puVar8 = puVar8 + 1;
   }
-  DAT_004f44e8 = 1;
-  DAT_004f44ec = 1;
+  UINT_004f44e8 = 1;
+  UINT_004f44ec = 1;
   _DAT_004f44f0 = 1;
   _DAT_004f4d40 = 0x280;
   _DAT_004f4d44 = 0x1e0;
   g_pDisplayModes =
        (void *)(*g_pSvcMain->pAlloc)(uVar5 << 4,s_C__grimsrc_tools_grimdemo_grimde_004dd50c,0x313);
-  puVar6 = g_pDisplayModes;
+  puVar7 = g_pDisplayModes;
   for (iVar2 = (g_dwDisplayDeviceCount & 0xfffffff) << 2; iVar2 != 0; iVar2 = iVar2 + -1) {
-    *puVar6 = 0;
-    puVar6 = puVar6 + 1;
+    *puVar7 = 0;
+    puVar7 = puVar7 + 1;
   }
   uVar5 = 0;
   for (iVar2 = 0; iVar2 != 0; iVar2 = iVar2 + -1) {
-    *(undefined1 *)puVar6 = 0;
-    puVar6 = (undefined4 *)((int)puVar6 + 1);
+    *(undefined1 *)puVar7 = 0;
+    puVar7 = (undefined4 *)((int)puVar7 + 1);
   }
   if (g_dwDisplayDeviceCount != 0) {
     do {
@@ -453,17 +470,17 @@ void Grim_EnumDisplayModes(void)
                         (g_dwVideoModeCount * 0x54,s_C__grimsrc_tools_grimdemo_grimde_004dd50c,0x31e
                         );
       *(undefined4 *)((int)g_pDisplayModes + iVar4 + 4) = uVar1;
-      puVar6 = &DAT_00901760;
-      puVar7 = *(undefined4 **)((int)g_pDisplayModes + iVar4 + 4);
+      puVar6 = &UINT_00901760;
+      puVar8 = *(uint **)((int)g_pDisplayModes + iVar4 + 4);
       for (uVar3 = g_dwVideoModeCount * 0x15 & 0x3fffffff; uVar3 != 0; uVar3 = uVar3 - 1) {
-        *puVar7 = *puVar6;
+        *puVar8 = *puVar6;
         puVar6 = puVar6 + 1;
-        puVar7 = puVar7 + 1;
+        puVar8 = puVar8 + 1;
       }
       for (iVar2 = 0; iVar2 != 0; iVar2 = iVar2 + -1) {
-        *(undefined1 *)puVar7 = *(undefined1 *)puVar6;
-        puVar6 = (undefined4 *)((int)puVar6 + 1);
-        puVar7 = (undefined4 *)((int)puVar7 + 1);
+        *(char *)puVar8 = (char)*puVar6;
+        puVar6 = (uint *)((int)puVar6 + 1);
+        puVar8 = (uint *)((int)puVar8 + 1);
       }
       *(undefined4 *)((int)g_pDisplayModes + iVar4 + 8) = 0;
       *(undefined4 *)((int)g_pDisplayModes + iVar4 + 0xc) = 0;
@@ -476,17 +493,17 @@ void Grim_EnumDisplayModes(void)
                              0x32a);
           *(undefined4 *)((int)g_pDisplayModes + iVar4 + 0xc) = uVar1;
         }
-        puVar6 = &DAT_00900b40;
-        puVar7 = *(undefined4 **)((int)g_pDisplayModes + iVar4 + 0xc);
+        puVar6 = &UINT_00900b40;
+        puVar8 = *(uint **)((int)g_pDisplayModes + iVar4 + 0xc);
         for (uVar3 = g_dwD3dDriverCount * 0x8b & 0x3fffffff; uVar3 != 0; uVar3 = uVar3 - 1) {
-          *puVar7 = *puVar6;
+          *puVar8 = *puVar6;
           puVar6 = puVar6 + 1;
-          puVar7 = puVar7 + 1;
+          puVar8 = puVar8 + 1;
         }
         for (iVar2 = 0; iVar2 != 0; iVar2 = iVar2 + -1) {
-          *(undefined1 *)puVar7 = *(undefined1 *)puVar6;
-          puVar6 = (undefined4 *)((int)puVar6 + 1);
-          puVar7 = (undefined4 *)((int)puVar7 + 1);
+          *(char *)puVar8 = (char)*puVar6;
+          puVar6 = (uint *)((int)puVar6 + 1);
+          puVar8 = (uint *)((int)puVar8 + 1);
         }
         D3D_Release();
       }
@@ -497,7 +514,20 @@ void Grim_EnumDisplayModes(void)
   }
   return;
 }
+#undef local_10
+#undef local_14
+#undef local_18
+#undef local_1c
+#undef local_20
+#undef local_24
+#undef local_28
+#undef local_2c
+#undef local_30
+#undef local_34
 #undef local_38
+#undef local_4
+#undef local_8
+#undef local_c
 
 
 /* ---- 0x00402060  Grim_OnDisplayModeChange ---- */
@@ -522,7 +552,8 @@ int __cdecl Grim_ParseCommandLine(char *cmdline)
 {
   int iVar1;
   int iVar2;
-  undefined4 uVar3;
+  uint uVar3;
+  undefined4 uVar4;
   
   iVar1 = strtok(cmdline,&DAT_004dd918);
   if (iVar1 == 0) {
@@ -531,8 +562,8 @@ int __cdecl Grim_ParseCommandLine(char *cmdline)
   do {
     iVar2 = _stricmp(iVar1,&DAT_004dd914);
     if ((iVar2 == 0) || (iVar2 = _stricmp(iVar1,&DAT_004dd910), iVar2 == 0)) {
-      uVar3 = strtok(0,&DAT_004dd918);
-      strncpy(s_grim_tab_004dd238,uVar3,0x103);
+      uVar4 = strtok(0,&DAT_004dd918);
+      strncpy(s_grim_tab_004dd238,uVar4,0x103);
       DAT_004dd33b = 0;
 LAB_00402f60:
       iVar1 = strtok(0,&DAT_004dd918);
@@ -547,46 +578,46 @@ LAB_00402f60:
       }
       iVar2 = _stricmp(iVar1,&DAT_004dd904);
       if ((iVar2 == 0) || (iVar2 = _stricmp(iVar1,&DAT_004dd900), iVar2 == 0)) {
-        DAT_004f5a44 = 1;
+        UINT_004f5a44 = 1;
         goto LAB_00402f60;
       }
       iVar2 = _stricmp(iVar1,&DAT_004dd8fc);
       if ((iVar2 == 0) || (iVar2 = _stricmp(iVar1,&DAT_004dd8f8), iVar2 == 0)) {
-        DAT_004f5a18 = 1;
+        UINT_004f5a18 = 1;
         goto LAB_00402f60;
       }
       iVar2 = _stricmp(iVar1,&DAT_004dd8f4);
       if ((iVar2 == 0) || (iVar2 = _stricmp(iVar1,&DAT_004dd8f0), iVar2 == 0)) {
-        DAT_004f5a28 = 1;
+        UINT_004f5a28 = 1;
         goto LAB_00402f60;
       }
       iVar2 = _stricmp(iVar1,&DAT_004dd8ec);
       if ((iVar2 == 0) || (iVar2 = _stricmp(iVar1,&DAT_004dd8e8), iVar2 == 0)) {
-        DAT_004f5a1c = 1;
+        UINT_004f5a1c = 1;
         goto LAB_00402f60;
       }
       iVar2 = _stricmp(iVar1,&DAT_004dd8e4);
       if ((iVar2 == 0) || (iVar2 = _stricmp(iVar1,&DAT_004dd8e0), iVar2 == 0)) {
-        DAT_004f5a20 = 1;
+        g_bWindowedMode = 1;
         goto LAB_00402f60;
       }
       iVar2 = _stricmp(iVar1,&DAT_004dd8dc);
       if ((iVar2 == 0) || (iVar2 = _stricmp(iVar1,&DAT_004dd8d8), iVar2 == 0)) {
-        DAT_004f5a10 = 1;
+        UINT_004f5a10 = 1;
         goto LAB_00402f60;
       }
       iVar2 = _stricmp(iVar1,&DAT_004dd8d4);
       if ((iVar2 == 0) || (iVar2 = _stricmp(iVar1,&DAT_004dd8d0), iVar2 == 0)) {
-        DAT_004f5a14 = 1;
-        uVar3 = strtok(0,&DAT_004dd918);
-        strncpy(&DAT_004f59b0,uVar3,0x4f);
+        UINT_004f5a14 = 1;
+        uVar4 = strtok(0,&DAT_004dd918);
+        strncpy(&DAT_004f59b0,uVar4,0x4f);
         DAT_004f59ff = 0;
         goto LAB_00402f60;
       }
       iVar2 = _stricmp(iVar1,&DAT_004dd8cc);
       if ((iVar2 == 0) || (iVar2 = _stricmp(iVar1,&DAT_004dd8c8), iVar2 == 0)) {
-        uVar3 = strtok(0,&DAT_004dd918);
-        Engine_SetExtraDataDir(uVar3);
+        uVar4 = strtok(0,&DAT_004dd918);
+        Engine_SetExtraDataDir(uVar4);
         goto LAB_00402f60;
       }
       iVar2 = _stricmp(iVar1,&DAT_004dd8c4);
@@ -595,12 +626,12 @@ LAB_00402f60:
         if ((iVar2 == 0) || (iVar1 = _stricmp(iVar1,&DAT_004dd8b8), iVar1 == 0)) {
           cmdline = s_Usage_004dd8b0;
         }
-        uVar3 = ((code *)Win_GetMainHwnd)(s_GRIME__Grim_Fandango_Executable_U_004dd048,cmdline,0);
-        ((code *)Grim_FatalMessageBox)(uVar3);
+        uVar4 = ((code *)Win_GetMainHwnd)(s_GRIME__Grim_Fandango_Executable_U_004dd048,cmdline,0);
+        ((code *)Grim_FatalMessageBox)(uVar4);
         return 0;
       }
       iVar1 = strtok(0,&DAT_004dd918);
-      DAT_004e806c = 0;
+      UINT_004e806c = 0;
     }
     if (iVar1 == 0) {
       return 1;

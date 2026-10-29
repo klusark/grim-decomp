@@ -12,26 +12,27 @@ void PositionedSounds_UpdateAll(void)
   undefined4 *puVar1;
   
   PositionedSounds_DropFinished();
-  for (puVar1 = DAT_008cb08c; puVar1 != (undefined4 *)0x0; puVar1 = (undefined4 *)*puVar1) {
+  for (puVar1 = g_pPositionedSoundList; puVar1 != (undefined4 *)0x0; puVar1 = (undefined4 *)*puVar1)
+  {
     PositionedSound_Apply(puVar1);
   }
   return;
 }
 
 /* ---- 0x004a40a0  Sound_SetPosition ---- */
-void Sound_SetPosition(undefined4 param_1,undefined4 *param_2,undefined4 param_3,undefined4 param_4,
-                      undefined4 param_5,undefined4 param_6)
+void Sound_SetPosition(uint param_1,undefined **param_2,uint param_3,uint param_4,uint param_5,
+                      uint param_6)
 
 {
   int iVar1;
-  undefined4 uVar2;
+  undefined *puVar2;
   
   iVar1 = SoundsIsSoundPlaying(param_1);
   if (iVar1 == 0) {
     return;
   }
-  uVar2 = PositionedSound_Add(param_1,param_2,param_3,param_4,param_5,param_6);
-  PositionedSound_Apply(uVar2);
+  puVar2 = PositionedSound_Add(param_1,param_2,param_3,param_4,param_5,param_6);
+  PositionedSound_Apply(puVar2);
   return;
 }
 
@@ -45,13 +46,13 @@ void PositionedSounds_DropFinished(void)
   int iVar3;
   
   puVar2 = (undefined4 *)0x0;
-  item = DAT_008cb08c;
+  item = g_pPositionedSoundList;
   while (item != (undefined4 *)0x0) {
     iVar3 = SoundsIsSoundPlaying(item[1]);
     if (iVar3 == 0) {
       puVar1 = (undefined4 *)*item;
-      if (item == DAT_008cb08c) {
-        DAT_008cb08c = puVar1;
+      if (item == g_pPositionedSoundList) {
+        g_pPositionedSoundList = puVar1;
         Pool_Free(item);
         puVar2 = (undefined4 *)0x0;
         item = puVar1;
@@ -71,17 +72,17 @@ void PositionedSounds_DropFinished(void)
 }
 
 /* ---- 0x004a4e20  PositionedSound_Add ---- */
-undefined4 * __cdecl
-PositionedSound_Add(undefined4 param_1,undefined4 *param_2,undefined4 param_3,undefined4 param_4,
-                   undefined4 param_5,undefined4 param_6)
+undefined * __cdecl
+PositionedSound_Add(uint param_1,undefined **param_2,uint param_3,uint param_4,uint param_5,
+                   uint param_6)
 
 {
   undefined4 *puVar1;
   
   PositionedSounds_DropFinished();
-  puVar1 = (undefined4 *)Pool_Alloc(DAT_008cb088);
+  puVar1 = (undefined4 *)Pool_Alloc(g_pPositionedSoundPool);
   puVar1[1] = param_1;
-  *puVar1 = DAT_008cb08c;
+  *puVar1 = g_pPositionedSoundList;
   puVar1[2] = *param_2;
   puVar1[3] = param_2[1];
   puVar1[4] = param_2[2];
@@ -89,8 +90,8 @@ PositionedSound_Add(undefined4 param_1,undefined4 *param_2,undefined4 param_3,un
   puVar1[6] = param_4;
   puVar1[7] = param_5;
   puVar1[8] = param_6;
-  DAT_008cb08c = puVar1;
-  return puVar1;
+  g_pPositionedSoundList = puVar1;
+  return (undefined *)puVar1;
 }
 
 /* ---- 0x004a4e80  PositionedSound_Apply ---- */
@@ -105,24 +106,26 @@ PositionedSound_Add(undefined4 param_1,undefined4 *param_2,undefined4 param_3,un
 undefined4 PositionedSound_Apply(int param_1)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   void *pvVar2;
   uint uVar3;
   uint uVar4;
   uint uVar5;
   float10 fVar6;
-  #define local_c (*(float *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(float *)(_frame + (0x20 - 0x8)))
-  #define local_4 (*(float *)(_frame + (0x20 - 0x4)))
+  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
+  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
+  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
   
   pvVar2 = Set_GetCurrent();
   if (pvVar2 != (void *)0x0) {
-    local_c = *(float *)(param_1 + 8) -
-              *(float *)(*(int *)((int)pvVar2 + 0xac) + 0x20 + *(int *)((int)pvVar2 + 0xb4) * 300);
+    local_c = (uint)(*(float *)(param_1 + 8) -
+                    *(float *)(*(int *)((int)pvVar2 + 0xac) + 0x20 +
+                              *(int *)((int)pvVar2 + 0xb4) * 300));
     iVar1 = *(int *)((int)pvVar2 + 0xac) + 0x20 + *(int *)((int)pvVar2 + 0xb4) * 300;
-    local_8 = *(float *)(param_1 + 0xc) - *(float *)(iVar1 + 4);
-    local_4 = *(float *)(param_1 + 0x10) - *(float *)(iVar1 + 8);
+    local_8 = (uint)(*(float *)(param_1 + 0xc) - *(float *)(iVar1 + 4));
+    local_4 = (uint)(*(float *)(param_1 + 0x10) - *(float *)(iVar1 + 8));
     fVar6 = (float10)Vec3_NormalizeApprox(&local_c);
     if ((float10)0.0 <= fVar6 - (float10)*(float *)(param_1 + 0x20)) {
       uVar5 = *(uint *)(param_1 + 0x18);
@@ -142,6 +145,7 @@ undefined4 PositionedSound_Apply(int param_1)
   }
   return 0;
 }
+#undef local_18
 #undef local_4
 #undef local_8
 #undef local_c
@@ -168,31 +172,31 @@ undefined4 Sound_DriverQuery(void)
 /* Converts the byte count of a 0x34-byte voice record to samples depending on its format code
    (halved for 8/16-bit mono formats 1,2,4) */
 
-undefined4 __cdecl Sound_VoiceSampleCount(int param_1)
+undefined * __cdecl Sound_VoiceSampleCount(int param_1)
 
 {
-  undefined4 uVar1;
-  int iVar2;
+  undefined *puVar1;
+  uint uVar2;
   
-  iVar2 = *(int *)(&DAT_008dad84 + param_1 * 0x34);
+  uVar2 = (&UINT_008dad84)[param_1 * 0xd];
   switch((&DAT_008dad6f)[param_1 * 0x34]) {
   case 0:
     break;
   case 1:
   case 2:
   case 4:
-    iVar2 = iVar2 >> 1;
+    uVar2 = (int)uVar2 >> 1;
     break;
   case 3:
   case 5:
-    iVar2 = iVar2 >> 2;
+    uVar2 = (int)uVar2 >> 2;
     break;
   default:
     goto switchD_004d0d15_default;
   }
-  param_1 = iVar2;
+  param_1 = uVar2;
 switchD_004d0d15_default:
   ((undefined4 (*)(float))Sound_DriverQuery)((double)param_1);
-  uVar1 = _ftol();
-  return uVar1;
+  puVar1 = (undefined *)_ftol();
+  return puVar1;
 }

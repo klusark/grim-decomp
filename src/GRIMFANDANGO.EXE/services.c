@@ -101,10 +101,10 @@ void * __cdecl Svc_Realloc(void *p,uint size)
 void * __cdecl Svc_Fopen(char *name,char *mode)
 
 {
-  void *pvVar1;
+  undefined *puVar1;
   
-  pvVar1 = (void *)fopen(name,mode);
-  return pvVar1;
+  puVar1 = fopen((uint)name,(uint)mode);
+  return puVar1;
 }
 
 /* ---- 0x00403730  Svc_Fclose ---- */
@@ -174,14 +174,14 @@ int __cdecl Svc_Fseek(void *file,int offset,int whence)
 int __cdecl Svc_FileSize(char *name)
 
 {
-  int iVar1;
+  undefined *puVar1;
   int iVar2;
   
-  iVar1 = fopen(name,&DAT_004dda54);
-  if (iVar1 != 0) {
-    fseek(iVar1,0,2);
-    iVar2 = ftell(iVar1);
-    fclose(iVar1);
+  puVar1 = fopen((uint)name,IMG_ADDR(0x004dda54));
+  if (puVar1 != (undefined *)0x0) {
+    fseek(puVar1,0,2);
+    iVar2 = ftell(puVar1);
+    fclose(puVar1);
     return iVar2;
   }
   return 0;
@@ -199,10 +199,10 @@ void Svc_Fprintf(undefined4 param_1,undefined4 param_2)
 void * __cdecl Svc_Malloc(uint size)
 
 {
-  void *pvVar1;
+  undefined *puVar1;
   
-  pvVar1 = (void *)malloc(size);
-  return pvVar1;
+  puVar1 = malloc(size);
+  return puVar1;
 }
 
 /* ---- 0x00403860  Svc_Free ---- */
@@ -225,17 +225,17 @@ undefined4 Svc_Identity(undefined4 param_1)
 /* ---- 0x00403880  Services_InitDefaults ---- */
 /* Copies the 28-entry default service table (mostly stubs) from 0x004dd9a8 */
 
-void Services_InitDefaults(undefined4 *param_1)
+void __cdecl Services_InitDefaults(GrimServices *svc)
 
 {
   int iVar1;
-  undefined4 *puVar2;
+  GrimServices *pGVar2;
   
-  puVar2 = &DAT_004dd9a8;
+  pGVar2 = &GrimServices_004dd9a8;
   for (iVar1 = 0x1c; iVar1 != 0; iVar1 = iVar1 + -1) {
-    *param_1 = *puVar2;
-    puVar2 = puVar2 + 1;
-    param_1 = param_1 + 1;
+    svc->flVersion = pGVar2->flVersion;
+    pGVar2 = (GrimServices *)&pGVar2->pPrintf;
+    svc = (GrimServices *)&svc->pPrintf;
   }
   return;
 }
@@ -245,14 +245,14 @@ void Services_InitDefaults(undefined4 *param_1)
 /* Stores the module service table in g_pServices and captures the FPU control words used for
    rounding modes */
 
-void Services_SetCurrent(GrimServices *param_1)
+void __cdecl Services_SetCurrent(GrimServices *svc)
 
 {
   undefined1 uVar1;
   int iVar2;
   undefined2 in_FPUControlWord;
   
-  g_pSvcMain = param_1;
+  g_pSvcMain = svc;
   iVar2 = Plat_ReturnTrue();
   if (iVar2 == 0) {
     return;
@@ -296,7 +296,7 @@ undefined4 Svc_DebugPrintf(undefined4 param_1)
 }
 
 /* ---- 0x00478030  FUN_00478030 ---- */
-void FUN_00478030(undefined4 param_1)
+void FUN_00478030(uint param_1)
 
 {
   malloc(param_1);

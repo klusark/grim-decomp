@@ -1,14 +1,14 @@
-/* LUA.DLL :: liolib.c
- * functions 0x100053d0 .. 0x10005b20 (23 functions)
+/* LUA.DLL :: io.c
+ * functions 0x100053d0 .. 0x10005ad0 (22 functions)
  * Decompiled from the shipped binaries with Ghidra; see ../../README.md */
 #include "ghidra_types.h"
 #include "globals.h"
 #include "functions.h"
 
-/* ---- 0x100053d0  liolib__53d0 ---- */
-/* Unidentified function of liolib.c (file/system library) */
+/* ---- 0x100053d0  io_getint ---- */
+/* liolib.c helper: numeric argument through lua2C */
 
-longlong __cdecl liolib__53d0(int param_1)
+longlong __cdecl io_getint(int param_1)
 
 {
   int iVar1;
@@ -20,10 +20,10 @@ longlong __cdecl liolib__53d0(int param_1)
   return lVar2;
 }
 
-/* ---- 0x100053f0  liolib__53f0 ---- */
-/* Unidentified function of liolib.c (file/system library) */
+/* ---- 0x100053f0  io_pushresult ---- */
+/* Pushes userdata/nil plus strerror(errno) like Lua 3.1 pushresult */
 
-void __cdecl liolib__53f0(int param_1)
+void __cdecl io_pushresult(int param_1)
 
 {
   int *piVar1;
@@ -40,31 +40,31 @@ void __cdecl liolib__53f0(int param_1)
   return;
 }
 
-/* ---- 0x10005430  liolib__5430 ---- */
-/* Unidentified function of liolib.c (file/system library) */
+/* ---- 0x10005430  io_setfile ---- */
+/* Stores a file handle in a global (_INPUT/_OUTPUT) with the file tag */
 
-void __cdecl liolib__5430(byte *param_1)
+void __cdecl io_setfile(byte *param_1)
 
 {
   undefined **ppuVar1;
   int iVar2;
   longlong lVar3;
   
-  ppuVar1 = (undefined **)((code *)liolib__5480)(param_1);
+  ppuVar1 = (undefined **)((code *)io_getfilebyname)(param_1);
   if ((ppuVar1 != &PTR_DAT_100282d0) && (ppuVar1 != (undefined **)&DAT_100282f0)) {
     (**(code **)(DAT_1002beb8 + 0x34))(ppuVar1);
     iVar2 = lua_getglobal(param_1);
     lua_pushobject(iVar2);
-    lVar3 = liolib__53d0(2);
+    lVar3 = io_getint(2);
     lua_settag((int)lVar3);
   }
   return;
 }
 
-/* ---- 0x10005480  liolib__5480 ---- */
-/* Unidentified function of liolib.c (file/system library) */
+/* ---- 0x10005480  io_getfilebyname ---- */
+/* errors '%s is not a file' */
 
-void __cdecl liolib__5480(byte *param_1)
+void __cdecl io_getfilebyname(byte *param_1)
 
 {
   bool bVar1;
@@ -72,7 +72,7 @@ void __cdecl liolib__5480(byte *param_1)
   undefined3 extraout_var;
   
   iVar2 = lua_getglobal(param_1);
-  bVar1 = liolib__54c0(iVar2);
+  bVar1 = io_gethandle(iVar2);
   if (CONCAT31(extraout_var,bVar1) == 0) {
     luaL_verror(s_global_variable____50s__is_not_a_10026c08);
   }
@@ -80,10 +80,10 @@ void __cdecl liolib__5480(byte *param_1)
   return;
 }
 
-/* ---- 0x100054c0  liolib__54c0 ---- */
-/* Unidentified function of liolib.c (file/system library) */
+/* ---- 0x100054c0  io_gethandle ---- */
+/* checks the userdata tag and errors 'a closed file' */
 
-bool __cdecl liolib__54c0(int param_1)
+bool __cdecl io_gethandle(int param_1)
 
 {
   int iVar1;
@@ -92,35 +92,35 @@ bool __cdecl liolib__54c0(int param_1)
   iVar1 = lua_isuserdata(param_1);
   if (iVar1 != 0) {
     iVar1 = lua_tag(param_1);
-    lVar2 = liolib__53d0(2);
+    lVar2 = io_getint(2);
     if (iVar1 == (int)lVar2) {
       lua_error((byte *)s_cannot_access_a_closed_file_10026c38);
     }
     iVar1 = lua_tag(param_1);
-    lVar2 = liolib__53d0(1);
+    lVar2 = io_getint(1);
     return iVar1 == (int)lVar2;
   }
   return false;
 }
 
-/* ---- 0x10005520  liolib__5520 ---- */
+/* ---- 0x10005520  io_setreturn ---- */
 /* Unidentified function of liolib.c (file/system library) */
 
-void __cdecl liolib__5520(byte *param_1,byte *param_2)
+void __cdecl io_setreturn(byte *param_1,byte *param_2)
 
 {
   longlong lVar1;
   
-  lVar1 = liolib__53d0(1);
-  liolib__5550(param_1,param_2,(uint)lVar1);
+  lVar1 = io_getint(1);
+  io_setfilebyname(param_1,param_2,(uint)lVar1);
   lua_pushusertag(param_1,(uint)lVar1);
   return;
 }
 
-/* ---- 0x10005550  liolib__5550 ---- */
+/* ---- 0x10005550  io_setfilebyname ---- */
 /* Unidentified function of liolib.c (file/system library) */
 
-void __cdecl liolib__5550(byte *param_1,byte *param_2,uint param_3)
+void __cdecl io_setfilebyname(byte *param_1,byte *param_2,uint param_3)
 
 {
   lua_pushusertag(param_1,param_3);
@@ -140,15 +140,15 @@ void FUN_10005570(void)
   
   iVar1 = lua_lua2C(3);
   if (iVar1 == 0) {
-    liolib__5430((byte *)s__OUTPUT_10026c58);
-    liolib__5520(&DAT_100282f0,(byte *)s__OUTPUT_10026c58);
+    io_setfile((byte *)s__OUTPUT_10026c58);
+    io_setreturn(&DAT_100282f0,(byte *)s__OUTPUT_10026c58);
     return;
   }
   iVar2 = lua_tag(iVar1);
-  lVar5 = liolib__53d0(1);
+  lVar5 = io_getint(1);
   if (iVar2 == (int)lVar5) {
     pbVar3 = (byte *)lua_getuserdata(iVar1);
-    liolib__5520(pbVar3,(byte *)s__OUTPUT_10026c58);
+    io_setreturn(pbVar3,(byte *)s__OUTPUT_10026c58);
     return;
   }
   pcVar4 = (char *)luaL_check_string(3);
@@ -159,10 +159,10 @@ void FUN_10005570(void)
     pbVar3 = (byte *)(**(code **)(DAT_1002beb8 + 0x30))(pcVar4,&DAT_10026c54);
   }
   if (pbVar3 == (byte *)0x0) {
-    liolib__53f0(0);
+    io_pushresult(0);
     return;
   }
-  liolib__5520(pbVar3,(byte *)s__OUTPUT_10026c58);
+  io_setreturn(pbVar3,(byte *)s__OUTPUT_10026c58);
   return;
 }
 
@@ -176,10 +176,10 @@ void FUN_10005620(void)
   uVar1 = luaL_check_string(3);
   pbVar2 = (byte *)(**(code **)(DAT_1002beb8 + 0x30))(uVar1,&DAT_10026c60);
   if (pbVar2 != (byte *)0x0) {
-    liolib__5520(pbVar2,(byte *)s__OUTPUT_10026c58);
+    io_setreturn(pbVar2,(byte *)s__OUTPUT_10026c58);
     return;
   }
-  liolib__53f0(0);
+  io_pushresult(0);
   return;
 }
 
@@ -200,7 +200,7 @@ void FUN_10005660(void)
   #define pcStack_4 (*(char **)(_frame + (0x20 - 0x4)))
   
   iStack_c = 3;
-  uStack_8 = ((code *)liolib__5780)((byte *)s__INPUT_10026c00,&iStack_c);
+  uStack_8 = ((code *)io_getfileparam)((byte *)s__INPUT_10026c00,&iStack_c);
   pcVar2 = (char *)luaL_opt_string(iStack_c,s__________10026c88);
   iVar6 = 0;
   iVar5 = -2;
@@ -228,7 +228,7 @@ void FUN_10005660(void)
       else {
         uVar3 = (uint)(char)iVar5;
       }
-      uVar3 = lstrlib__97f0(uVar3,pcVar2,(int *)&pcStack_4);
+      uVar3 = str_singlematch(uVar3,pcVar2,(int *)&pcStack_4);
       if (uVar3 != 0) {
         if (iVar6 == 0) {
           luaL_addchar((char)iVar5);
@@ -266,10 +266,10 @@ LAB_10005731:
 #undef uStack_8
 
 
-/* ---- 0x10005780  liolib__5780 ---- */
+/* ---- 0x10005780  io_getfileparam ---- */
 /* Unidentified function of liolib.c (file/system library) */
 
-void __cdecl liolib__5780(byte *param_1,int *param_2)
+void __cdecl io_getfileparam(byte *param_1,int *param_2)
 
 {
   bool bVar1;
@@ -277,13 +277,13 @@ void __cdecl liolib__5780(byte *param_1,int *param_2)
   undefined3 extraout_var;
   
   iVar2 = lua_lua2C(*param_2);
-  bVar1 = liolib__54c0(iVar2);
+  bVar1 = io_gethandle(iVar2);
   if (CONCAT31(extraout_var,bVar1) != 0) {
     *param_2 = *param_2 + 1;
     lua_getuserdata(iVar2);
     return;
   }
-  liolib__5480(param_1);
+  io_getfilebyname(param_1);
   return;
 }
 
@@ -302,14 +302,14 @@ void FUN_100057d0(void)
   #define iStack_4 (*(int *)(_frame + (0x20 - 0x4)))
   
   iStack_4 = 3;
-  uVar3 = ((code *)liolib__5780)((byte *)s__OUTPUT_10026c58,&iStack_4);
+  uVar3 = ((code *)io_getfileparam)((byte *)s__OUTPUT_10026c58,&iStack_4);
   iVar2 = iStack_4;
   iStack_4 = iStack_4 + 1;
   iVar6 = 1;
   pcVar4 = (char *)luaL_opt_string(iVar2,0);
   do {
     if (pcVar4 == (char *)0x0) {
-      liolib__53f0(iVar6);
+      io_pushresult(iVar6);
       return;
     }
     if (iVar6 == 0) {
@@ -359,7 +359,7 @@ void FUN_100058a0(void)
   
   uVar1 = luaL_check_string(1);
   iVar2 = remove(uVar1);
-  liolib__53f0((uint)(iVar2 == 0));
+  io_pushresult((uint)(iVar2 == 0));
   return;
 }
 
@@ -374,7 +374,7 @@ void FUN_100058d0(void)
   uVar1 = luaL_check_string(2);
   uVar2 = luaL_check_string(1);
   iVar3 = rename(uVar2,uVar1);
-  liolib__53f0((uint)(iVar3 == 0));
+  io_pushresult((uint)(iVar3 == 0));
   return;
 }
 
@@ -508,33 +508,5 @@ void FUN_10005ad0(void)
 
 {
   lua_printstack(0);
-  return;
-}
-
-/* ---- 0x10005b20  liolib__5b20 ---- */
-/* Unidentified function of liolib.c (file/system library) */
-
-void liolib__5b20(void)
-
-{
-  uint uVar1;
-  int iVar2;
-  undefined **ppuVar3;
-  
-  uVar1 = lua_newtag();
-  iVar2 = lua_newtag();
-  ppuVar3 = &PTR_s_readfrom_10026b50;
-  do {
-    lua_pushnumber((float)(int)uVar1);
-    lua_pushnumber((float)iVar2);
-    lua_pushCclosure((int)ppuVar3[1],2);
-    lua_setglobal(*ppuVar3);
-    ppuVar3 = ppuVar3 + 2;
-  } while (ppuVar3 < s_write_10026b78);
-  liolib__5550((byte *)&PTR_DAT_100282d0,(byte *)s__INPUT_10026c00,uVar1);
-  liolib__5550(&DAT_100282f0,(byte *)s__OUTPUT_10026c58,uVar1);
-  liolib__5550((byte *)&PTR_DAT_100282d0,(byte *)s__STDIN_10026d04,uVar1);
-  liolib__5550(&DAT_100282f0,(byte *)s__STDOUT_10026cfc,uVar1);
-  liolib__5550(&DAT_10028310,(byte *)s__STDERR_10026cf4,uVar1);
   return;
 }
