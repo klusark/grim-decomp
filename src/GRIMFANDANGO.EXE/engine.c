@@ -201,6 +201,8 @@ bool Engine_CallExitHandler(void)
 }
 
 /* ---- 0x004828e0  Engine_Quit ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua exit() */
 
 void __cdecl Engine_Quit(int exitCode)
@@ -211,6 +213,8 @@ void __cdecl Engine_Quit(int exitCode)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x00482900  Engine_SetPaused ---- */
 /* Lua EnginePause/EngineResume and WM_ACTIVATEAPP use this to freeze the engine clock */

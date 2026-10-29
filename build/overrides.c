@@ -20,9 +20,84 @@ void stdMemory_CheckMagic(int p)
 #define COM(obj, off, ...) ((int (__stdcall *)())(*(void ***)(obj))[(off) / 4])((obj), ##__VA_ARGS__)
 
 #ifdef GRIM_EXE
+extern int lua_dostring(const char *);   /* LUA.DLL */
+extern char *GRIM_getenv(const char *) __asm__("_getenv");   /* host C runtime */
 #include "globals.h"
 #include "functions.h"
 
+
+/* Test hook: run Lua statements in the game without any keyboard or mouse events. If the environment
+ * variable GRIM_LUA_FILE names a file, every complete line appended to it is executed with
+ * lua_dostring once per frame (at the start of Lua_UpdateFrame); the result (0 = ok) is appended to the file named
+ * by GRIM_LUA_LOG. Nothing is sent to other windows or processes. The call sits at the start of
+ * Lua_UpdateFrame (names/asm_patches.json). */
+static void *lua_cmd_file;
+static int lua_cmd_state;   /* 0 = not looked at yet, 1 = enabled, -1 = disabled */
+
+static void lua_cmd_log(const char *text)
+{
+    const char *path = GRIM_getenv("GRIM_LUA_LOG");
+    void *h;
+    unsigned wrote;
+    if (path == 0)
+        return;
+    h = CreateFileA(path, 4, 3, 0, 4, 0x80, 0);   /* FILE_APPEND_DATA */
+    if (h != (void *)-1) {
+        WriteFile(h, text, __builtin_strlen(text), &wrote, 0);
+        CloseHandle(h);
+    }
+}
+
+/* grimlog("text") from a command line appends the text to the log file */
+static int grim_log_cfn(void)
+{
+    int arg = lua_lua2C(1);
+    if (lua_isstring(arg)) {
+        lua_cmd_log((const char *)lua_getstring(arg));
+        lua_cmd_log("\r\n");
+    }
+    return 0;
+}
+
+void GRIM_lua_cmd_poll(void)
+{
+    static char line[1024];
+    static int len;
+    char buf[256];
+    unsigned got, i;
+    if (lua_cmd_state < 0)
+        return;
+    if (lua_cmd_state == 0) {
+        const char *path = GRIM_getenv("GRIM_LUA_FILE");
+        lua_cmd_state = -1;
+        if (path == 0)
+            return;
+        lua_cmd_file = CreateFileA(path, 0x80000000, 3, 0, 4, 0x80, 0);   /* read, share r/w, OPEN_ALWAYS */
+        if (lua_cmd_file == (void *)-1)
+            return;
+        lua_cmd_state = 1;
+        lua_pushCclosure((void *)grim_log_cfn, 0);
+        lua_setglobal("grimlog");
+        lua_cmd_log("lua hook active\r\n");
+    }
+    while (ReadFile(lua_cmd_file, buf, sizeof buf, &got, 0) && got) {
+        for (i = 0; i < got; i++) {
+            if (buf[i] == '\n' || len >= 1023) {
+                char msg[1100];
+                int rc;
+                line[len] = 0;
+                if (len) {
+                    rc = lua_dostring(line);
+                    wsprintfA(msg, "rc=%d: %s\r\n", rc, line);
+                    lua_cmd_log(msg);
+                }
+                len = 0;
+            } else if (buf[i] != '\r') {
+                line[len++] = buf[i];
+            }
+        }
+    }
+}
 
 /* Input_CreateKeyboard (0x477530): system keyboard, c_dfDIKeyboard format,
  * buffered input of 32 events (DIPROP_BUFFERSIZE). */

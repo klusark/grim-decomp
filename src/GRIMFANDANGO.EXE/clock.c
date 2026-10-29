@@ -6,6 +6,8 @@
 #include "functions.h"
 
 /* ---- 0x004ad260  Clock_ElapsedMs ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Milliseconds since the recorded start time (time() plus a millisecond field); engine helper
    living in the CRT range */
 
@@ -21,4 +23,6 @@ int Clock_ElapsedMs(void)
 }
 #undef local_8
 #undef local_c
+
+#endif
 
