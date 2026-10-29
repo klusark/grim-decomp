@@ -38,7 +38,7 @@ def dump(raw, prog):
             continue
         name, rng = line.split(":", 1)
         name = name.strip()
-        if name in SKIP:
+        if name in SKIP and name != ".text":
             continue
         lo, hi = [int(x, 16) for x in rng.strip().split(" - ")]
         size = hi - lo + 1
@@ -52,6 +52,11 @@ def dump(raw, prog):
         stripped = bytes(data).rstrip(b"\0")
         fn = name.strip(".") + ".bin"
         open(os.path.join(out, fn), "wb").write(stripped)
+        if name == ".text":
+            # the code bytes are kept as a data blob too (build/gendata.py _sect_text): the code section
+            # holds data islands (DirectInput's c_dfDIKeyboard, switch tables) that code addresses
+            json.dump({"start": "%08x" % lo, "size": size, "file": fn}, open(os.path.join(ROOT, "raw", raw, "textblob.json"), "w"))
+            continue
         secs.append({"name": name, "start": "%08x" % lo, "size": size, "file": fn, "initialised": len(stripped)})
         print(f"  {raw} {name}: {size} bytes, {len(stripped)} initialised")
     json.dump(secs, open(os.path.join(ROOT, "raw", raw, "sections.json"), "w"), indent=1)

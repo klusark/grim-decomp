@@ -117,6 +117,8 @@ def addr_expr(ctx, v, fstart, fend, tables, in_mem, size_hint=4):
         sym = ctx.symbol_of(v)
         if sym:
             return sym
+        if os.path.exists(os.path.join(ROOT, "raw", ctx.prog, "textblob.json")):
+            return "_sect_text+0x%x" % (v - ctx.text[0])  # the code bytes are linked in as data (build/gendata.py)
         tables.setdefault(v, size_hint)
         return ".Lc_%x" % v
     return None
