@@ -87,6 +87,9 @@ void GRIM_lua_cmd_poll(void)
                 int rc;
                 line[len] = 0;
                 if (len) {
+                    /* a Load replaces the whole Lua state: define grimlog again for every command */
+                    lua_pushCclosure((void *)grim_log_cfn, 0);
+                    lua_setglobal("grimlog");
                     rc = lua_dostring(line);
                     wsprintfA(msg, "rc=%d: %s\r\n", rc, line);
                     lua_cmd_log(msg);

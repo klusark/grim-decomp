@@ -543,6 +543,8 @@ void __cdecl lstring__93e0(undefined4 *param_1)
 }
 
 /* ---- 0x10009410  lstring__9410 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Unidentified function of lstring.c (string table) */
 
 void lstring__9410(void)
@@ -576,6 +578,8 @@ void lstring__9410(void)
   } while (iVar5 < 0x2dc);
   return;
 }
+#endif
+
 
 /* ---- 0x10009470  lstring__9470 ---- */
 /* Unidentified function of lstring.c (string table) */
