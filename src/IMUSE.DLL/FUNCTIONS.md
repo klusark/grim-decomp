@@ -375,7 +375,7 @@
 | 1000f560 | FUN_1000f560 | crt_unnamed.c | 29 |
 | 1000f5b0 | FUN_1000f5b0 | crt_unnamed.c | 16 |
 | 1000f610 | FUN_1000f610 | crt_unnamed.c | 22 |
-| 1000f650 | FUN_1000f650 | crt_unnamed.c | 101 |
+| 1000f650 | FUN_1000f650 | crt_unnamed.c | 102 |
 | 1000f830 | FUN_1000f830 | crt_unnamed.c | 6 |
 | 1000f840 | FUN_1000f840 | crt_unnamed.c | 96 |
 | 1000f9a0 | FUN_1000f9a0 | crt_unnamed.c | 16 |

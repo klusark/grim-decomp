@@ -1006,6 +1006,7 @@ void * __cdecl Surface_Create(void *info,int videoMem,int b,int c)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _stkneg[1072] __attribute__((aligned(16)));  /* the original frame below the return address */
   undefined4 *puVar1;
   undefined1 uVar2;
   int *piVar3;
@@ -1080,7 +1081,7 @@ void * __cdecl Surface_Create(void *info,int videoMem,int b,int c)
       return puVar4;
     }
     iVar6 = 0xfe;
-    puVar7 = &STACK0X(0xfffffbec);
+    puVar7 = (_stkneg + 28);
     do {
       uVar2 = puStack_8[3];
       puVar7[3] = 1;
@@ -1092,7 +1093,7 @@ void * __cdecl Surface_Create(void *info,int videoMem,int b,int c)
       puStack_8 = puStack_8 + 3;
     } while (iVar6 != 0);
     iVar6 = (**(code_std **)(*(int *)g_pDirectDraw + 0x14))
-                      (g_pDirectDraw,0xc,&STACK0X(0xfffffbe8),puVar4 + 0x1a,0);
+                      (g_pDirectDraw,0xc,(_stkneg + 24),puVar4 + 0x1a,0);
     if (iVar6 != 0) {
       return (void *)0x0;
     }
@@ -2599,6 +2600,7 @@ undefined * __stdcall FUN_004761b0(int a1,int a2,int a3,int a4)
 
 {
   unsigned char _frame[0x2f0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _stkneg[768] __attribute__((aligned(16)));  /* the original frame below the return address */
   uint uVar1;
   int iVar2;
   int *piVar3;
@@ -2647,7 +2649,7 @@ undefined * __stdcall FUN_004761b0(int a1,int a2,int a3,int a4)
     piVar3 = (int *)((code *)Win_GetMainHwnd)(0x11);
     iVar2 = (**(code_std **)(iVar2 + 0x50))(local_2dc);
     if (iVar2 == 0) {
-      puVar5 = (undefined4 *)&STACK0X(0xfffffd1c);
+      puVar5 = (undefined4 *)(_stkneg + 28);
       for (iVar2 = 0x5b; iVar2 != 0; iVar2 = iVar2 + -1) {
         *puVar5 = 0;
         puVar5 = puVar5 + 1;
@@ -2658,7 +2660,7 @@ undefined * __stdcall FUN_004761b0(int a1,int a2,int a3,int a4)
         puVar5 = puVar5 + 1;
       }
       auStack_178[0] = 0x16c;
-      piVar6 = (int *)&STACK0X(0xfffffd1c);
+      piVar6 = (int *)(_stkneg + 28);
       iVar2 = (**(code_std **)(*unaff_ESI + 0x2c))(unaff_ESI,piVar6,auStack_178);
       if (iVar2 != 0) {
         (**(code_std **)(*piVar3 + 8))(piVar3);
@@ -2899,6 +2901,7 @@ undefined4 DDraw_CreateSurfaces(undefined4 param_1,int *param_2)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _stkneg[1104] __attribute__((aligned(16)));  /* the original frame below the return address */
   int *src;
   undefined1 uVar1;
   int iVar2;
@@ -3003,10 +3006,10 @@ undefined4 DDraw_CreateSurfaces(undefined4 param_1,int *param_2)
   }
   if (param_2[7] == 0) {
     iVar2 = GetDC(0);
-    GetSystemPaletteEntries(iVar2,0,0x100,(int)&STACK0X(0xfffffbcc));
+    GetSystemPaletteEntries(iVar2,0,0x100,(int)(_stkneg + 28));
     ReleaseDC(0,iVar2);
     iVar2 = 0x100;
-    puVar4 = &STACK0X(0xfffffbcc);
+    puVar4 = (_stkneg + 28);
     do {
       uVar1 = *puStack_28;
       puVar4[3] = 1;
@@ -3019,7 +3022,7 @@ undefined4 DDraw_CreateSurfaces(undefined4 param_1,int *param_2)
       puVar4 = puVar4 + 4;
     } while (iVar2 != 0);
     iVar2 = (**(code_std **)(*(int *)g_pDirectDraw + 0x14))
-                      (g_pDirectDraw,0x4c,&STACK0X(0xfffffbcc),(int)g_pDDrawPrimary + 4,0);
+                      (g_pDirectDraw,0x4c,(_stkneg + 28),(int)g_pDDrawPrimary + 4,0);
     if (iVar2 != 0) {
       return 0;
     }

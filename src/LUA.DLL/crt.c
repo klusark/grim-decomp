@@ -807,11 +807,11 @@ switchD_1000fa55_caseD_0:
   return param_1;
 }
 
-/* ---- 0x1000fd58  _except_handler3 ---- */
+/* ---- 0x1000fd58  longjmp ---- */
 /* WARNING: Unable to track spacebase fully for stack */
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
 
-void _except_handler3(int param_1)
+void longjmp(int param_1)
 
 {
   int iVar1;

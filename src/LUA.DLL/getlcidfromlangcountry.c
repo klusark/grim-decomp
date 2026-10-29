@@ -53,6 +53,7 @@ undefined4 __stdcall FUN_10017ee0(int a1)
 
 {
   unsigned char _frame[0xa0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _stkneg[176] __attribute__((aligned(16)));  /* the original frame below the return address */
   byte bVar1;
   int iVar2;
   int iVar3;
@@ -113,7 +114,7 @@ undefined4 __stdcall FUN_10017ee0(int a1)
     DAT_1002c234 = iVar3;
     return 1;
   }
-  uVar4 = _stricmp(DAT_1002c22c,&STACK0X(0xffffff68));
+  uVar4 = _stricmp(DAT_1002c22c,(_stkneg + 24));
   if (uVar4 == 0) {
     if (DAT_1002c228 == 0) {
       if (DAT_1002c224 != 0) {
@@ -143,7 +144,7 @@ joined_r0x10018129:
   }
   else {
     if ((((DAT_1002c228 != 0) || (DAT_1002c224 == 0)) ||
-        (iVar3 = _strnicmp(DAT_1002c22c,&STACK0X(0xffffff68),DAT_1002c224), iVar3 != 0)) ||
+        (iVar3 = _strnicmp(DAT_1002c22c,(_stkneg + 24),DAT_1002c224), iVar3 != 0)) ||
        (iVar3 = FUN_10018520(iVar2), iVar3 == 0)) goto LAB_1001819e;
     DAT_1002c234 = DAT_1002c234 | 0x100;
   }

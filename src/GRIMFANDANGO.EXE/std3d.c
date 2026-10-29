@@ -426,6 +426,7 @@ bool D3D_ExecuteBuffer(void)
 
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _stkneg[80] __attribute__((aligned(16)));  /* the original frame below the return address */
   int iVar1;
   void **ppvVar2;
   #define pvStack_38 (*(void **)(_frame + (0x50 - 0x38)))
@@ -443,7 +444,7 @@ bool D3D_ExecuteBuffer(void)
   for (iVar1 = 0xc; ppvVar2 = ppvVar2 + 1, iVar1 != 0; iVar1 = iVar1 + -1) {
     *ppvVar2 = (void *)0x0;
   }
-  (**(code_std **)(*(int *)g_pD3dExecuteBuffer + 0x18))(g_pD3dExecuteBuffer,&STACK0X(0xffffffcc));
+  (**(code_std **)(*(int *)g_pD3dExecuteBuffer + 0x18))(g_pD3dExecuteBuffer,(_stkneg + 28));
   iVar1 = (**(code_std **)(*(int *)g_pD3dDevice + 0x20))
                     (g_pD3dDevice,g_pD3dExecuteBuffer,PTR_0080660c,2);
   return iVar1 == 0;
@@ -1334,6 +1335,7 @@ undefined4 D3D_InitRenderState(void)
 
 {
   unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _stkneg[112] __attribute__((aligned(16)));  /* the original frame below the return address */
   uint uVar1;
   uint uVar2;
   undefined4 uVar3;
@@ -1360,7 +1362,7 @@ undefined4 D3D_InitRenderState(void)
   local_40 = 1;
   local_38 = 0x1000;
   (**(code_std **)(*(int *)g_pD3dDevice + 0x18))(g_pD3dDevice,puVar8,puVar9,0);
-  (**(code_std **)(*unaff_EDI + 0x10))(unaff_EDI,&STACK0X(0xffffffac));
+  (**(code_std **)(*unaff_EDI + 0x10))(unaff_EDI,(_stkneg + 28));
   uVar2 = local_4c;
   puVar5 = (undefined4 *)local_4c;
   for (iVar4 = 0x400; iVar4 != 0; iVar4 = iVar4 + -1) {

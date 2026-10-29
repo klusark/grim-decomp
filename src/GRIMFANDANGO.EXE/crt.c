@@ -375,6 +375,7 @@ void entry(void)
 
 {
   unsigned char _frame[0x80] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _stkneg[144] __attribute__((aligned(16)));  /* the original frame below the return address */
   byte bVar1;
   int iVar2;
   undefined *puVar3;
@@ -399,7 +400,7 @@ void entry(void)
   puStack_10 = &LAB_004b1c48;
   local_14 = *unaff_FS_OFFSET;
   *unaff_FS_OFFSET = (uint)&local_14;
-  local_1c = (uint)&STACK0X(0xffffff88);
+  local_1c = (uint)(_stkneg + 24);
   _DAT_008d0ab4 = GetVersion();
   _DAT_008d0ac0 = _DAT_008d0ab4 >> 8 & 0xff;
   _DAT_008d0abc = _DAT_008d0ab4 & 0xff;

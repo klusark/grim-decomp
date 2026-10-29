@@ -500,7 +500,7 @@ uint __cdecl strtoxl(byte *param_1,undefined4 *param_2,uint param_3,uint param_4
 uint __cdecl strtoul(byte *param_1,undefined4 *param_2,uint param_3); /* 0x1000f930 */
 uint * __cdecl strchr(uint *param_1,char param_2); /* 0x1000f960 */
 undefined4 * __cdecl memcpy(undefined4 *param_1,undefined4 *param_2,uint param_3); /* 0x1000fa20 */
-void _except_handler3(int param_1); /* 0x1000fd58 */
+void longjmp(int param_1); /* 0x1000fd58 */
 char * __cdecl strerror(int param_1); /* 0x1000fec0 */
 void __cdecl _dosmaperr(undefined *param_1); /* 0x1000ff30 */
 int * _errno(void); /* 0x1000ffb0 */

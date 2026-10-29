@@ -372,7 +372,7 @@
 | 00474380 | Display_SuspendForDialog | stddisplay.c | 17 |
 | 004743d0 | Display_ResumeAfterDialog | stddisplay.c | 17 |
 | 00474420 | Display_Flip | stddisplay.c | 24 |
-| 00474480 | Surface_Create | stddisplay.c | 107 |
+| 00474480 | Surface_Create | stddisplay.c | 108 |
 | 004746d0 | Surface_Free | stddisplay.c | 9 |
 | 004746f0 | Surface_Release | stddisplay.c | 34 |
 | 00474750 | Surface_Lock | stddisplay.c | 25 |
@@ -396,11 +396,11 @@
 | 00475c90 | Surface_BlitLockedDst | stddisplay.c | 216 |
 | 004760d0 | DDraw_Create | stddisplay.c | 35 |
 | 00476190 | DDraw_Release | stddisplay.c | 9 |
-| 004761b0 | FUN_004761b0 | stddisplay.c | 94 |
+| 004761b0 | FUN_004761b0 | stddisplay.c | 95 |
 | 00476390 | FUN_00476390 | stddisplay.c | 94 |
 | 004765a0 | FUN_004765a0 | stddisplay.c | 95 |
 | 004767c0 | DDraw_Get | stddisplay.c | 5 |
-| 004767d0 | DDraw_CreateSurfaces | stddisplay.c | 154 |
+| 004767d0 | DDraw_CreateSurfaces | stddisplay.c | 155 |
 | 00476bc0 | DDraw_ReleaseSurfaces | stddisplay.c | 10 |
 | 00476bf0 | DDraw_LockSurface | stddisplay.c | 19 |
 | 00476c40 | DDraw_UnlockSurface | stddisplay.c | 21 |
@@ -1120,11 +1120,11 @@
 | 00477530 | Input_CreateKeyboard | stdinput.c | 1 |
 | 004775a0 | Input_CreateMouse | stdinput.c | 1 |
 | 00477680 | Input_MarkAxisUsed | stdinput.c | 35 |
-| 00477730 | Input_PollKeyboard | stdinput.c | 106 |
+| 00477730 | Input_PollKeyboard | stdinput.c | 107 |
 | 004778a0 | Input_FlushKeyboard | stdinput.c | 25 |
 | 004778f0 | Input_PollJoysticks | stdinput.c | 209 |
-| 00477c20 | Input_PollMouse | stdinput.c | 78 |
-| 00477dc0 | Input_FlushJoystick | stdinput.c | 46 |
+| 00477c20 | Input_PollMouse | stdinput.c | 79 |
+| 00477dc0 | Input_FlushJoystick | stdinput.c | 47 |
 | 00477e70 | Input_SetAxisRange | stdinput.c | 22 |
 | 00477f00 | Plat_ReturnTrue | plat.c | 7 |
 | 00477f10 | FUN_00477f10 | plat.c | 46 |
@@ -1151,7 +1151,7 @@
 | 004787d0 | D3D_AddVertices | std3d.c | 28 |
 | 00478840 | D3D_BeginInstructions | std3d.c | 18 |
 | 004788c0 | D3D_AddTriangles | std3d.c | 88 |
-| 00478b40 | D3D_ExecuteBuffer | std3d.c | 30 |
+| 00478b40 | D3D_ExecuteBuffer | std3d.c | 31 |
 | 00478c00 | D3D_SetRenderFlags | std3d.c | 127 |
 | 00479070 | D3D_ClampTextureSize | std3d.c | 36 |
 | 00479110 | D3D_ResetTextures | std3d.c | 15 |
@@ -1165,7 +1165,7 @@
 | 00479b50 | D3D_FindClosestDriver | std3d.c | 39 |
 | 00479be0 | D3D_FindTextureFormat | std3d.c | 55 |
 | 00479cc0 | D3D_SetViewportRect | std3d.c | 41 |
-| 00479db0 | D3D_InitRenderState | std3d.c | 153 |
+| 00479db0 | D3D_InitRenderState | std3d.c | 154 |
 | 0047a130 | D3D_CreateViewport | std3d.c | 65 |
 | 0047a240 | D3D_CreateZBuffer | std3d.c | 59 |
 | 0047a3b0 | FUN_0047a3b0 | std3d.c | 84 |
@@ -1842,7 +1842,7 @@
 | 004ac830 | atoi | crt.c | 8 |
 | 004ac840 | strncpy | crt.c | 104 |
 | 004ac940 | strtok | crt.c | 54 |
-| 004aca30 | entry | crt.c | 103 |
+| 004aca30 | entry | crt.c | 104 |
 | 004acbe0 | _amsg_exit | crt.c | 10 |
 | 004acc40 | printf | crt.c | 13 |
 | 004acca0 | vsprintf | crt.c | 28 |
@@ -2064,7 +2064,7 @@
 | 004af340 | FUN_004af340 | crt_unnamed.c | 10 |
 | 004af3f0 | FUN_004af3f0 | crt_unnamed.c | 28 |
 | 004af450 | FUN_004af450 | crt_unnamed.c | 8 |
-| 004af480 | FUN_004af480 | crt_unnamed.c | 60 |
+| 004af480 | FUN_004af480 | crt_unnamed.c | 61 |
 | 004af550 | FUN_004af550 | crt_unnamed.c | 20 |
 | 004af5e0 | FUN_004af5e0 | crt_unnamed.c | 38 |
 | 004af72d | FUN_004af72d | crt_unnamed.c | 11 |
@@ -2363,7 +2363,7 @@
 | 004cdd10 | FUN_004cdd10 | crt_unnamed.c | 13 |
 | 004cdd60 | FUN_004cdd60 | crt_unnamed.c | 7 |
 | 004cdd80 | FUN_004cdd80 | crt_unnamed.c | 29 |
-| 004cde80 | FUN_004cde80 | crt_unnamed.c | 21 |
+| 004cde80 | FUN_004cde80 | crt_unnamed.c | 22 |
 | 004cdef0 | FUN_004cdef0 | crt_unnamed.c | 6 |
 | 004cdf00 | FUN_004cdf00 | crt_unnamed.c | 6 |
 | 004cdf10 | FUN_004cdf10 | crt_unnamed.c | 27 |
@@ -2436,11 +2436,11 @@
 | 004d2630 | FUN_004d2630 | crt_unnamed.c | 58 |
 | 004d27b0 | FUN_004d27b0 | crt_unnamed.c | 5 |
 | 004d27c0 | FUN_004d27c0 | crt_unnamed.c | 5 |
-| 004d2940 | FUN_004d2940 | crt_unnamed.c | 46 |
+| 004d2940 | FUN_004d2940 | crt_unnamed.c | 47 |
 | 004d2aa0 | FUN_004d2aa0 | crt_unnamed.c | 86 |
 | 004d2bf0 | FUN_004d2bf0 | crt_unnamed.c | 19 |
 | 004d2cb0 | FUN_004d2cb0 | crt_unnamed.c | 29 |
-| 004d2ce0 | FUN_004d2ce0 | crt_unnamed.c | 37 |
+| 004d2ce0 | FUN_004d2ce0 | crt_unnamed.c | 38 |
 | 004d2d40 | FUN_004d2d40 | crt_unnamed.c | 7 |
 | 004d2d70 | FUN_004d2d70 | crt_unnamed.c | 6 |
 | 004d2d90 | FUN_004d2d90 | crt_unnamed.c | 44 |

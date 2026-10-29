@@ -357,6 +357,7 @@ FUN_004af480(undefined4 *param_1,uint param_2,uint param_3,undefined4 param_4,ui
 
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _stkneg[96] __attribute__((aligned(16)));  /* the original frame below the return address */
   int iVar1;
   uint *unaff_FS_OFFSET = (uint *)TEB_BASE();
   #define local_38 (*(uint *)(_frame + (0x50 - 0x38)))
@@ -373,8 +374,8 @@ FUN_004af480(undefined4 *param_1,uint param_2,uint param_3,undefined4 param_4,ui
   #define local_c (*(uint *)(_frame + (0x50 - 0xc)))
   #define local_8 (*(uint *)(_frame + (0x50 - 0x8)))
   
-  local_c = (uint)&STACK0X(0xfffffffc);
-  local_10 = (uint)&STACK0X(0xffffffbc);
+  local_c = (uint)(_stkneg + 92);
+  local_10 = (uint)(_stkneg + 28);
   local_28 = (uint)FUN_004af550;
   local_24 = param_5;
   local_20 = param_2;
@@ -11672,6 +11673,7 @@ void FUN_004cde80(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _stkneg[32] __attribute__((aligned(16)));  /* the original frame below the return address */
   int iVar1;
   int unaff_ESI;
   #define local_4 (*(undefined1 (*)[4])(_frame + (0x20 - 0x4)))
@@ -11681,7 +11683,7 @@ void FUN_004cde80(void)
     iVar1 = GetExitCodeThread(UINT_008da858,local_4);
     while ((iVar1 != 0 && (unaff_ESI == 0x103))) {
       OutputDebugStringA(IMG_ADDR(0x004f3c88));
-      iVar1 = GetExitCodeThread(UINT_008da858,&STACK0X(0xfffffff4));
+      iVar1 = GetExitCodeThread(UINT_008da858,(_stkneg + 20));
     }
     CloseHandle(UINT_008da858);
   }
@@ -14387,6 +14389,7 @@ undefined4 FUN_004d27c0(void)
 undefined4 FUN_004d2940(void)
 
 {
+  unsigned char _stkneg[48] __attribute__((aligned(16)));  /* the original frame below the return address */
   int iVar1;
   undefined4 uVar2;
   
@@ -14406,7 +14409,7 @@ undefined4 FUN_004d2940(void)
         return 0xffffffff;
       }
     }
-    iVar1 = (**(code_std **)(*PTR_008dcc40 + 0xc))(PTR_008dcc40,&STACK0X(0xffffffe0),&PTR_008dcc44,0);
+    iVar1 = (**(code_std **)(*PTR_008dcc40 + 0xc))(PTR_008dcc40,(_stkneg + 16),&PTR_008dcc44,0);
     if (iVar1 != 0) {
       ((code *)Lua_Stub)(s_DirectSound__Error__08X_while_cr_004f4060,iVar1);
       if (iVar1 != 0) {
@@ -14577,6 +14580,7 @@ FUN_004d2ce0(undefined4 param_1,undefined4 param_2,undefined4 *param_3,undefined
             uint param_5)
 
 {
+  unsigned char _stkneg[32] __attribute__((aligned(16)));  /* the original frame below the return address */
   undefined4 in_EAX;
   undefined4 uVar1;
   int iVar2;
@@ -14601,7 +14605,7 @@ FUN_004d2ce0(undefined4 param_1,undefined4 param_2,undefined4 *param_3,undefined
       *(undefined1 *)param_3 = param_4;
       param_3 = (undefined4 *)((int)param_3 + 1);
     }
-    return CONCAT44(param_2,&STACK0X(0xfffffff0));
+    return CONCAT44(param_2,(_stkneg + 16));
   }
   for (param_5 = param_5 >> 2; param_5 != 0; param_5 = param_5 - 1) {
     *param_3 = uVar1;

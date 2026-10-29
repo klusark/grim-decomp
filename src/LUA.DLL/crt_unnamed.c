@@ -65,6 +65,7 @@ FUN_1000f1b0(undefined4 *param_1,undefined4 param_2,undefined4 param_3,undefined
 
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _stkneg[96] __attribute__((aligned(16)));  /* the original frame below the return address */
   int *piVar1;
   int *unaff_FS_OFFSET = (int *)TEB_BASE();
   undefined4 uVar2;
@@ -82,8 +83,8 @@ FUN_1000f1b0(undefined4 *param_1,undefined4 param_2,undefined4 param_3,undefined
   #define local_c (*(undefined1 **)(_frame + (0x50 - 0xc)))
   #define local_8 (*(int *)(_frame + (0x50 - 0x8)))
   
-  local_c = &STACK0X(0xfffffffc);
-  local_10 = &STACK0X(0xffffffbc);
+  local_c = (_stkneg + 92);
+  local_10 = (_stkneg + 28);
   local_28 = FUN_1000f280;
   local_24 = param_5;
   local_20 = param_2;

@@ -848,9 +848,33 @@ def fix_function(code, ctx, stats):
     body = fix_call_args(body, vt, ctx, stats)
     body = fix_switch(body, vt, ctx)
     body = fix_casts(body, vt, ctx)
+    body = fix_negative_stack(body)
     # last: offset-named locals become views into one frame array (keeps Ghidra's layout)
     body, trailer = frame_locals.rewrite(body)
     return head + body + trailer
+
+
+NEG_STACK_RE = re.compile(r"(&?)STACK0X\((0xffff[0-9a-f]{4})\)")
+
+
+def fix_negative_stack(body):
+    """`&STACK0X(0xffffffa8)` is an address below the return address of the original frame (a
+    jmp_buf for setjmp, an output structure, a scratch buffer). With our compiler that spot is
+    inside its own locals, or below the stack pointer. The function gets a byte array standing
+    for the original region and every negative offset maps into it, keeping the relative layout."""
+    offs = {m.group(2) for m in NEG_STACK_RE.finditer(body)}
+    if not offs:
+        return body
+    kmax = max(0x100000000 - int(o, 16) for o in offs)
+    n = (kmax + 16 + 15) // 16 * 16
+
+    def rep(m):
+        addr = "(_stkneg + %d)" % (n - (0x100000000 - int(m.group(2), 16)))
+        return addr if m.group(1) else "(*(undefined *)%s)" % addr
+
+    body = NEG_STACK_RE.sub(rep, body)
+    decl = "  unsigned char _stkneg[%d] __attribute__((aligned(16)));  /* the original frame below the return address */\n" % n
+    return re.sub(r"^\{\n", "{\n" + decl, body, count=1, flags=re.M)
 
 
 # -- globals: infer a C type for each Ghidra data symbol ----------------------
