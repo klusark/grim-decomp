@@ -632,7 +632,8 @@ IMG_SECTIONS = []  # [(name, start, size)] of the program being built (raw/<prog
 FUNC_AT = {}       # address int -> C name of every function of the program being built
 DATA_ELT = {}   # address -> C type for a Ghidra data item of 2 or 4 bytes (raw/<prog>/data_items.txt)
 ELT_TYPES = {"undefined4": "undefined4", "dword": "undefined4", "int": "undefined4", "uint": "undefined4",
-             "undefined2": "undefined2", "word": "undefined2", "short": "undefined2", "ushort": "undefined2"}
+             "undefined2": "undefined2", "word": "undefined2", "short": "undefined2", "ushort": "undefined2",
+             "undefined1": "undefined", "byte": "undefined", "char": "undefined"}
 PTR_TYPES = {}  # PTR_<addr> -> pointee type applied in Ghidra (raw/<prog>/ptr_types.json)
 STDCALL_FUNCS = set()  # C names of callee-pop functions (raw/<prog>/stdcall_funcs.json)
 
@@ -947,7 +948,10 @@ def global_decl(g, u, ctx):
         return f"extern {c_decl(t, g)};"
     if u["value"]:
         ts = Counter({k[2:]: v for k, v in u.items() if k.startswith("T:")})
-        t = "undefined4"
+        am = re.search(r"_([0-9a-f]{8})$", g)
+        # no better evidence: the width of Ghidra's data item (a 1-byte item indexed as
+        # `(&DAT_x)[i]` is a byte table, not 4-byte elements)
+        t = DATA_ELT.get(am.group(1), "undefined4") if am else "undefined4"
         if ts:
             t = ts.most_common(1)[0][0]
             if "[" in t:

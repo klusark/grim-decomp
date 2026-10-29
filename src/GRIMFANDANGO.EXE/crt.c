@@ -10703,10 +10703,10 @@ void rewind(int param_1)
   return;
 }
 
-/* ---- 0x004d59d0  _except_handler3 ---- */
+/* ---- 0x004d59d0  longjmp ---- */
 /* WARNING: Unable to track spacebase fully for stack */
 
-void _except_handler3(int param_1)
+void longjmp(int param_1)
 
 {
   int iVar1;

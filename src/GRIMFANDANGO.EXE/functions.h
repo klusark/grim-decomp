@@ -2264,7 +2264,7 @@ char * _strdup(char *param_1); /* 0x004bd250 */
 float10 atof(byte *param_1); /* 0x004d5430 */
 int _fdopen(uint param_1,char *param_2); /* 0x004d54e0 */
 void rewind(int param_1); /* 0x004d5670 */
-void _except_handler3(int param_1); /* 0x004d59d0 */
+void longjmp(int param_1); /* 0x004d59d0 */
 undefined4 _setjmp3(undefined4 *param_1,int param_2,int param_3,undefined4 param_4); /* 0x004d5a4c */
 undefined * __cdecl _fltin(uint *param_1,int param_2); /* 0x004d5ad0 */
 
