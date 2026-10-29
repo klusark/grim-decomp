@@ -360,3 +360,44 @@ __asm__(".text\n"
         "    call *__imp__pow\n"
         "    addl $16, %esp\n"
         "    ret\n");
+
+#ifdef GRIM_EXE
+/* OVERRIDES: Win_AbortIfAlreadyRunning */
+/* The original quits when a "Grim Fandango" window already exists. Setting GRIM_MULTI lets several
+ * test instances run side by side (used when more than one session debugs the game). */
+void __cdecl Win_AbortIfAlreadyRunning(void *hInstance, void *hPrevInstance, char *cmdLine,
+                                       int nCmdShow, char *appName)
+{
+    int iVar1;
+    int iVar2;
+
+    iVar1 = GRIM_getenv("GRIM_MULTI") ? 0 : FindWindowA(IMG_ADDR(0x004ed080), (int)appName);
+    if (iVar1 != 0) {
+        SetForegroundWindow(iVar1);
+        ShowWindow(iVar1, 9);
+        exit(0xffffffff);
+    }
+    UINT_008d0a7c = 0;
+    g_dwWinDialogCount = 0;
+    g_nWinQuit = 0;
+    UINT_008d0a8c = 0;
+    UINT_008d09e4 = (uint)hInstance;
+    _DAT_008d09e0 = nCmdShow;
+    Win_CreateMainWindow((uint)hInstance, nCmdShow, (int)appName);
+    Win_SetMainHwnd(g_pWinMainHwnd);
+    Win_SetInstance(UINT_008d09e4);
+    InitCommonControls();
+    iVar1 = GetSystemMetrics(0x20);
+    UINT_008d0a84 = iVar1 << 1;
+    iVar1 = GetSystemMetrics(0x20);
+    iVar2 = GetSystemMetrics(0xf);
+    UINT_008d0a88 = iVar2 + iVar1 * 2;
+    iVar1 = Grim_Init(cmdLine);
+    if (iVar1 != 0) {
+        UINT_008d0a8c = 1;
+        do {
+            Win_PumpMessages();
+        } while (g_nWinQuit == 0);
+    }
+}
+#endif
