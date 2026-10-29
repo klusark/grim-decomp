@@ -16127,6 +16127,8 @@ uint __fastcall FUN_004d5ed0(undefined4 param_1)
 
 
 /* ---- 0x004d5f70  FUN_004d5f70 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_004d5f70(undefined4 param_1)
 
 {
@@ -16142,6 +16144,8 @@ void FUN_004d5f70(undefined4 param_1)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x004d5fd0  FUN_004d5fd0 ---- */
 /* replaced by the hand-written version in build/overrides.c */
