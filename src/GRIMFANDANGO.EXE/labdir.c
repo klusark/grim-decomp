@@ -205,9 +205,9 @@ LAB_00481d43:
     pbVar3 = pbVar3 + 1;
   }
   *param_5 = param_2;
-  ((code *)sprintf)((int)param_5 + 0x115,&DAT_004e7af8,param_1 + 8,param_3);
+  sprintf((char *)((int)param_5 + 0x115),&DAT_004e7af8,param_1 + 8,param_3);
   param_5[1] = 0;
-  uVar5 = (**(code **)(UINT_008a8570 + 0x50))((int)param_5 + 0x115);
+  uVar5 = (**(code **)(UINT_008a8570 + 0x50))((char *)((int)param_5 + 0x115));
   param_5[2] = uVar5;
   param_5[3] = 0;
   param_5[4] = 0;

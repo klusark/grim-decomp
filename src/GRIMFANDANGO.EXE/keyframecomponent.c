@@ -361,11 +361,6 @@ undefined4 FUN_004986e0(undefined4 *param_1,undefined4 param_2)
 {
   unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int *piVar1;
-  uint extraout_EAX;
-  uint extraout_EAX_00;
-  uint extraout_EAX_01;
-  uint extraout_EAX_02;
-  uint extraout_EAX_03;
   int iVar2;
   #define local_48 (*(uint *)(_frame + (0x60 - 0x48)))
   #define local_44 (*(uint *)(_frame + (0x60 - 0x44)))
@@ -377,7 +372,7 @@ undefined4 FUN_004986e0(undefined4 *param_1,undefined4 param_2)
   #define local_2c (*(uint *)(_frame + (0x60 - 0x2c)))
   #define local_28 (*(uint *)(_frame + (0x60 - 0x28)))
   #define local_24 (*(uint *)(_frame + (0x60 - 0x24)))
-  #define local_20 (*(undefined1 (*)[32])(_frame + (0x60 - 0x20)))
+  #define local_20 (*(char (*)[32])(_frame + (0x60 - 0x20)))
   
   local_34 = (uint)s_Width_004ea87c;
   local_30 = (uint)s_Height_004ea874;
@@ -385,16 +380,11 @@ undefined4 FUN_004986e0(undefined4 *param_1,undefined4 param_2)
   local_2c = (uint)&DAT_004ea870;
   local_28 = (uint)&DAT_004ea86c;
   local_24 = (uint)&DAT_004ea868;
-  _ftol();
-  local_48 = extraout_EAX;
-  _ftol();
-  local_44 = extraout_EAX_00;
-  _ftol();
-  local_40 = extraout_EAX_01;
-  _ftol();
-  local_3c = extraout_EAX_02;
-  _ftol();
-  local_38 = extraout_EAX_03;
+  local_48 = _ftol();
+  local_44 = _ftol();
+  local_40 = _ftol();
+  local_3c = _ftol();
+  local_38 = _ftol();
   iVar2 = Plat_PromptDialog(param_2,&local_34,&local_48,5);
   if (iVar2 != 0) {
     *(float *)(*piVar1 + 0x4c) = (float)(int)local_48 * 0.01;
@@ -405,7 +395,7 @@ undefined4 FUN_004986e0(undefined4 *param_1,undefined4 param_2)
     *(float *)(*piVar1 + 0xb0) = (float)(int)local_3c * 0.01;
     *(float *)(*piVar1 + 0xb4) = (float)(int)local_38 * 0.01;
     iVar2 = strtok(param_2,&DAT_004ea52c);
-    ((code *)sprintf)(local_20,s__s__d__d__d__d__d_004ea854,iVar2,local_48,local_44,local_40,local_3c,local_38
+    sprintf(local_20,s__s__d__d__d__d__d_004ea854,iVar2,local_48,local_44,local_40,local_3c,local_38
            );
     strncpy(iVar2,local_20,0x1f);
     *(undefined1 *)(iVar2 + 0x1f) = 0;

@@ -79,7 +79,7 @@ int ImSaveFilelist(int *param_1,uint param_2)
     }
     return iVar2;
   }
-  ImPrintf(IMG_ADDR(0x10017124));
+  ImPrintf((char *)IMG_ADDR(0x10017124));
   return 0;
 }
 
@@ -87,6 +87,7 @@ int ImSaveFilelist(int *param_1,uint param_2)
 int ImRestoreFilelist(int *param_1)
 
 {
+  char *fmt;
   int *piVar1;
   undefined4 *puVar2;
   int iVar3;
@@ -104,44 +105,44 @@ int ImRestoreFilelist(int *param_1)
     puVar2 = puVar2 + 0xd;
   } while ((int)puVar2 < IMG_ADDR(0x1002dcf4));
   iVar6 = *param_1;
-  iVar4 = param_1[1];
-  iVar5 = 8;
+  iVar5 = param_1[1];
+  iVar4 = 8;
   while (iVar6 != 0) {
     iVar6 = iVar6 + -1;
-    iVar3 = ImLoadSound((int)param_1 + iVar5 + 0xc,*(undefined4 *)(iVar5 + 8 + (int)param_1));
+    iVar3 = ImLoadSound((int)param_1 + iVar4 + 0xc,*(undefined4 *)(iVar4 + 8 + (int)param_1));
     if (iVar3 == 0) {
-      ImPrintf(IMG_ADDR(0x10017144));
-      ImPrintf((int)param_1 + iVar5 + 0xc);
+      ImPrintf((char *)IMG_ADDR(0x10017144));
+      ImPrintf((char *)((int)param_1 + iVar4 + 0xc));
       ImPrintf(&DAT_100171b0);
       return 0;
     }
-    if (*(int *)((int)param_1 + iVar5 + 8) != *(int *)(DAT_1002dcf8 + 8)) goto LAB_10003f3a;
-    *(undefined4 *)(DAT_1002dcf8 + 0x30) = *(undefined4 *)((int)param_1 + iVar5 + 0x30);
-    iVar5 = iVar5 + 0x34;
+    if (*(int *)((int)param_1 + iVar4 + 8) != *(int *)(DAT_1002dcf8 + 8)) goto LAB_10003f3a;
+    *(undefined4 *)(DAT_1002dcf8 + 0x30) = *(undefined4 *)((int)param_1 + iVar4 + 0x30);
+    iVar4 = iVar4 + 0x34;
   }
-  param_1 = (int *)iVar4;
-  if (iVar4 == 0) {
-    return iVar5;
+  param_1 = (int *)iVar5;
+  if (iVar5 == 0) {
+    return iVar4;
   }
   while( true ) {
     param_1 = (int *)((int)param_1 + -1);
-    iVar3 = iVar5 + 0x34;
-    iVar6 = (int)piVar1 + iVar5 + 0xc;
-    iVar4 = ImOpenSound(iVar6,*(undefined4 *)(iVar5 + 8 + (int)piVar1));
-    if (iVar4 == 0) {
-      ImPrintf(IMG_ADDR(0x100171b4));
-      ImPrintf(iVar6);
+    iVar5 = iVar4 + 0x34;
+    fmt = (char *)((int)piVar1 + iVar4 + 0xc);
+    iVar6 = ImOpenSound(fmt,*(undefined4 *)(iVar4 + 8 + (int)piVar1));
+    if (iVar6 == 0) {
+      ImPrintf((char *)IMG_ADDR(0x100171b4));
+      ImPrintf(fmt);
       ImPrintf(&DAT_100171b0);
     }
-    if (*(int *)((int)piVar1 + iVar5 + 8) != PTR_1002dcfc[2]) break;
-    PTR_1002dcfc[0xc] = *(int *)((int)piVar1 + iVar5 + 0x30);
-    iVar5 = iVar3;
+    if (*(int *)((int)piVar1 + iVar4 + 8) != PTR_1002dcfc[2]) break;
+    PTR_1002dcfc[0xc] = *(int *)((int)piVar1 + iVar4 + 0x30);
+    iVar4 = iVar5;
     if (param_1 == (int *)0x0) {
-      return iVar3;
+      return iVar5;
     }
   }
 LAB_10003f3a:
-  ImPrintf(IMG_ADDR(0x10017174));
+  ImPrintf((char *)IMG_ADDR(0x10017174));
   return 0;
 }
 
@@ -153,7 +154,7 @@ int ImLoadSound(char *param_1,undefined4 param_2)
   int iVar2;
   int iVar3;
   int *piVar4;
-  undefined4 uVar5;
+  char *fmt;
   
                     /* 0x3f90  17  ImLoadSound */
   if ((((DAT_1002dd00 != 0) && (*param_1 != '\0')) && (DAT_1002dcf0 != (code *)0x0)) &&
@@ -172,13 +173,13 @@ int ImLoadSound(char *param_1,undefined4 param_2)
     while (piVar4[2] != 0) {
       piVar4 = piVar4 + 0xd;
       if (IMG_ADDR(0x1002dcef) < (int)piVar4) {
-        ImPrintf(IMG_ADDR(0x10017210));
+        ImPrintf((char *)IMG_ADDR(0x10017210));
         return 0;
       }
     }
     iVar3 = (*DAT_1002dcf0)(param_1,param_2);
     if (iVar3 == 0) {
-      uVar5 = IMG_ADDR(0x100171f4);
+      fmt = (char *)IMG_ADDR(0x100171f4);
     }
     else {
       cVar1 = *param_1;
@@ -196,9 +197,9 @@ int ImLoadSound(char *param_1,undefined4 param_2)
         cVar1 = param_1[iVar2 + 1];
         iVar2 = iVar2 + 1;
       }
-      uVar5 = IMG_ADDR(0x100171e4);
+      fmt = (char *)IMG_ADDR(0x100171e4);
     }
-    ImPrintf(uVar5);
+    ImPrintf(fmt);
     ImPrintf(param_1);
     ImPrintf(&DAT_100171b0);
     return 0;
@@ -259,7 +260,7 @@ int ImOpenSound(char *param_1,undefined4 param_2)
   int iVar2;
   int iVar3;
   int *piVar4;
-  undefined4 uVar5;
+  char *fmt;
   
                     /* 0x4140  18  ImOpenSound */
   if ((((DAT_1002dd00 != 0) && (*param_1 != '\0')) && (DAT_1002dae0 != (code *)0x0)) &&
@@ -278,13 +279,13 @@ int ImOpenSound(char *param_1,undefined4 param_2)
     while (piVar4[2] != 0) {
       piVar4 = piVar4 + 0xd;
       if (IMG_ADDR(0x1002dcef) < (int)piVar4) {
-        ImPrintf(IMG_ADDR(0x10017210));
+        ImPrintf((char *)IMG_ADDR(0x10017210));
         return 0;
       }
     }
     iVar2 = (*DAT_1002dae0)(param_1,param_2);
     if (iVar2 == 0) {
-      uVar5 = IMG_ADDR(0x10017224);
+      fmt = (char *)IMG_ADDR(0x10017224);
     }
     else {
       cVar1 = *param_1;
@@ -302,9 +303,9 @@ int ImOpenSound(char *param_1,undefined4 param_2)
         cVar1 = param_1[iVar3 + 1];
         iVar3 = iVar3 + 1;
       }
-      uVar5 = IMG_ADDR(0x100171e4);
+      fmt = (char *)IMG_ADDR(0x100171e4);
     }
-    ImPrintf(uVar5);
+    ImPrintf(fmt);
     ImPrintf(param_1);
     ImPrintf(&DAT_100171b0);
     return 0;
@@ -449,7 +450,7 @@ undefined4 __cdecl FUN_10004460(int *param_1,int *param_2)
     *param_1 = (int)param_2;
     return 0;
   }
-  ImPrintf(IMG_ADDR(0x10017240));
+  ImPrintf((char *)IMG_ADDR(0x10017240));
   return 0xfffffffb;
 }
 
@@ -461,7 +462,7 @@ undefined4 __cdecl FUN_100044b0(int *param_1,int *param_2)
   
   piVar1 = (int *)*param_1;
   if ((param_2 == (int *)0x0) || (piVar1 == (int *)0x0)) {
-    ImPrintf(IMG_ADDR(0x10017268));
+    ImPrintf((char *)IMG_ADDR(0x10017268));
     return 0xfffffffb;
   }
   do {
@@ -469,7 +470,7 @@ undefined4 __cdecl FUN_100044b0(int *param_1,int *param_2)
     piVar1 = (int *)piVar1[1];
   } while (piVar1 != (int *)0x0);
   if (piVar1 == (int *)0x0) {
-    ImPrintf(IMG_ADDR(0x10017290));
+    ImPrintf((char *)IMG_ADDR(0x10017290));
     return 0xfffffffd;
   }
   if ((int *)param_2[1] != (int *)0x0) {
@@ -519,11 +520,11 @@ undefined4 ImInitialize(void)
 }
 
 /* ---- 0x10004b20  ImPrintf ---- */
-undefined4 ImPrintf(undefined4 param_1)
+undefined4 __cdecl ImPrintf(char *fmt,...)
 
 {
                     /* 0x4b20  20  ImPrintf */
-  FUN_1000b8d0((undefined1 *)IMG_ADDR(0x1002de00),param_1,&STACK0X(0x00000008));
+  FUN_1000b8d0((undefined1 *)IMG_ADDR(0x1002de00),fmt,&STACK0X(0x00000008));
   return 0;
 }
 

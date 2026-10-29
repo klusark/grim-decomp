@@ -8,13 +8,13 @@
 /* ---- 0x004035b0  Svc_Printf ---- */
 /* Default GrimServices.printf: vsprintf into the shared buffer then printf */
 
-undefined4 Svc_Printf(undefined4 param_1)
+undefined4 __cdecl Svc_Printf(char *fmt,...)
 
 {
   undefined4 uVar1;
   
-  uVar1 = vsprintf(&DAT_004f5aa0,param_1,&STACK0X(0x00000008));
-  ((code *)printf)(&DAT_004dda18,&DAT_004f5aa0);
+  uVar1 = vsprintf(&DAT_004f5aa0,fmt,&STACK0X(0x00000008));
+  printf(&DAT_004dda18,&DAT_004f5aa0);
   return uVar1;
 }
 
@@ -25,7 +25,7 @@ undefined4 Svc_Printf2(undefined4 param_1)
   undefined4 uVar1;
   
   uVar1 = vsprintf(&DAT_004f5aa0,param_1,&STACK0X(0x00000008));
-  ((code *)printf)(&DAT_004dda18,&DAT_004f5aa0);
+  printf(&DAT_004dda18,&DAT_004f5aa0);
   return uVar1;
 }
 
@@ -38,7 +38,7 @@ undefined4 Svc_Warning(undefined4 param_1)
   undefined4 uVar1;
   
   uVar1 = vsprintf(&DAT_004f5aa0,param_1,&STACK0X(0x00000008));
-  ((code *)printf)(s_WARNING___s_004dda1c,&DAT_004f5aa0);
+  printf(s_WARNING___s_004dda1c,&DAT_004f5aa0);
   return uVar1;
 }
 
@@ -51,7 +51,7 @@ undefined4 Svc_Error(undefined4 param_1)
   undefined4 uVar1;
   
   uVar1 = vsprintf(&DAT_004f5aa0,param_1,&STACK0X(0x00000008));
-  ((code *)printf)(s_ERROR___s_004dda28,&DAT_004f5aa0);
+  printf(s_ERROR___s_004dda28,&DAT_004f5aa0);
   return uVar1;
 }
 
@@ -64,7 +64,7 @@ undefined4 Svc_Debug(undefined4 param_1)
   undefined4 uVar1;
   
   uVar1 = vsprintf(&DAT_004f5aa0,param_1,&STACK0X(0x00000008));
-  ((code *)printf)(s_DEBUG___s_004dda34,&DAT_004f5aa0);
+  printf(s_DEBUG___s_004dda34,&DAT_004f5aa0);
   return uVar1;
 }
 
@@ -74,7 +74,7 @@ undefined4 Svc_Debug(undefined4 param_1)
 void __cdecl Svc_AssertFail(char *expr,char *file,int line)
 
 {
-  ((code *)printf)(s_ASSERT____s__d___s_004dda40,file,line,expr);
+  printf(s_ASSERT____s__d___s_004dda40,file,line,expr);
   exit(1);
   return;
 }
@@ -188,10 +188,10 @@ int __cdecl Svc_FileSize(char *name)
 }
 
 /* ---- 0x00403830  Svc_Fprintf ---- */
-void Svc_Fprintf(undefined4 param_1,undefined4 param_2)
+void __cdecl Svc_Fprintf(void *fp,char *fmt,...)
 
 {
-  vfprintf(param_1,param_2,&STACK0X(0x0000000c));
+  vfprintf(fp,fmt,&STACK0X(0x0000000c));
   return;
 }
 
@@ -287,10 +287,10 @@ void Services_InitPlatform(GrimServices *param_1)
 /* ---- 0x00478000  Svc_DebugPrintf ---- */
 /* Platform service printf: formats into g_szDebugBuffer and OutputDebugString */
 
-undefined4 Svc_DebugPrintf(undefined4 param_1)
+undefined4 __cdecl Svc_DebugPrintf(char *fmt,...)
 
 {
-  _snprintf(&DAT_009056c0,0x400,param_1,&STACK0X(0x00000008));
+  _snprintf(&DAT_009056c0,0x400,fmt,&STACK0X(0x00000008));
   OutputDebugStringA(IMG_ADDR(0x009056c0));
   return 1;
 }

@@ -3297,21 +3297,19 @@ void __cdecl Display_SetPalette3D(void *palette,int flags)
 void Palette_FromFloatTable(undefined1 *param_1,undefined4 param_2,int param_3)
 
 {
-  undefined1 extraout_AL;
-  undefined1 extraout_AL_00;
-  undefined1 extraout_AL_01;
+  undefined4 uVar1;
   
   if (0 < param_3) {
     do {
       _CIpow();
-      _ftol();
-      *param_1 = extraout_AL;
+      uVar1 = _ftol();
+      *param_1 = (char)uVar1;
       _CIpow();
-      _ftol();
-      param_1[1] = extraout_AL_00;
+      uVar1 = _ftol();
+      param_1[1] = (char)uVar1;
       _CIpow();
-      _ftol();
-      param_1[2] = extraout_AL_01;
+      uVar1 = _ftol();
+      param_1[2] = (char)uVar1;
       param_1 = param_1 + 3;
       param_3 = param_3 + -1;
     } while (param_3 != 0);
@@ -3334,12 +3332,12 @@ void __cdecl Pixel_Convert(ushort *dst,int dstFormat,ushort *src,int srcFormat,u
   undefined4 uVar6;
   undefined4 uVar7;
   undefined4 uVar8;
-  int extraout_EAX;
-  int extraout_EAX_00;
-  int extraout_EAX_01;
-  uint uVar9;
-  char cVar10;
-  byte bVar11;
+  int iVar9;
+  int iVar10;
+  int iVar11;
+  uint uVar12;
+  char cVar13;
+  byte bVar14;
   #define local_1c (*(uint *)(_frame + (0x30 - 0x1c)))
   #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
   #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
@@ -3347,23 +3345,22 @@ void __cdecl Pixel_Convert(ushort *dst,int dstFormat,ushort *src,int srcFormat,u
   #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
   #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
-  byte bVar12;
+  byte bVar15;
   
   UINT_00806c80 = UINT_00806c80 + 1;
-  cVar10 = (char)*(undefined4 *)(srcFormat + 8);
-  _ftol();
-  _ftol();
-  _ftol();
-  bVar11 = (byte)*(undefined4 *)(dstFormat + 0x14);
-  bVar12 = (byte)*(undefined4 *)(dstFormat + 0x18);
+  cVar13 = (char)*(undefined4 *)(srcFormat + 8);
+  iVar9 = _ftol();
+  iVar10 = _ftol();
+  iVar11 = _ftol();
+  bVar14 = (byte)*(undefined4 *)(dstFormat + 0x14);
+  bVar15 = (byte)*(undefined4 *)(dstFormat + 0x18);
   if ((*(int *)(srcFormat + 4) == 0x18) && (*(int *)(dstFormat + 4) == 0x10)) {
-    uVar9 = UINT_00806c80 & 3;
+    uVar12 = UINT_00806c80 & 3;
     do {
-      iVar2 = *(int *)(&DAT_004d86a0 + (count & 3) * 4 + uVar9 * 0x10);
-      *dst = (ushort)(((int)((uint)(byte)*src * extraout_EAX + iVar2) >> 0x10) << (bVar11 & 0x1f)) |
-             (ushort)(((int)((uint)*(byte *)((int)src + 1) * extraout_EAX_00 + iVar2) >> 0x10) <<
-                     (bVar12 & 0x1f)) |
-             (ushort)((uint)(byte)src[1] * extraout_EAX_01 + iVar2 >> 0x10);
+      iVar2 = *(int *)(&DAT_004d86a0 + (count & 3) * 4 + uVar12 * 0x10);
+      *dst = (ushort)(((int)((uint)(byte)*src * iVar9 + iVar2) >> 0x10) << (bVar14 & 0x1f)) |
+             (ushort)(((int)((uint)*(byte *)((int)src + 1) * iVar10 + iVar2) >> 0x10) <<
+                     (bVar15 & 0x1f)) | (ushort)((uint)(byte)src[1] * iVar11 + iVar2 >> 0x10);
       src = (ushort *)((int)src + 3);
       count = count - 1;
       dst = dst + 1;
@@ -3381,13 +3378,13 @@ void __cdecl Pixel_Convert(ushort *dst,int dstFormat,ushort *src,int srcFormat,u
         src = src + 1;
         count = count - 1;
         *dst = (ushort)(((int)(((uint)(uVar1 >> ((byte)uVar4 & 0x1f)) &
-                               0xffffffffU >> (0x20U - cVar10 & 0x1f)) * extraout_EAX) >> 0x10) <<
-                       (bVar11 & 0x1f)) |
+                               0xffffffffU >> (0x20U - cVar13 & 0x1f)) * iVar9) >> 0x10) <<
+                       (bVar14 & 0x1f)) |
                (ushort)(((int)(((uint)(uVar1 >> ((byte)uVar6 & 0x1f)) &
-                               0xffffffffU >> (0x20U - (char)uVar5 & 0x1f)) * extraout_EAX_00) >>
-                        0x10) << (bVar12 & 0x1f)) |
-               (ushort)(((uint)uVar1 & 0xffffffffU >> (0x20U - (char)uVar3 & 0x1f)) *
-                        extraout_EAX_01 >> 0x10);
+                               0xffffffffU >> (0x20U - (char)uVar5 & 0x1f)) * iVar10) >> 0x10) <<
+                       (bVar15 & 0x1f)) |
+               (ushort)(((uint)uVar1 & 0xffffffffU >> (0x20U - (char)uVar3 & 0x1f)) * iVar11 >> 0x10
+                       );
         dst = dst + 1;
       } while (count != 0);
       return;
@@ -3403,7 +3400,7 @@ void __cdecl Pixel_Convert(ushort *dst,int dstFormat,ushort *src,int srcFormat,u
         uVar7 = *(undefined4 *)(srcFormat + 0x24);
         PIECE(local_4,0,1) = (byte)(0xffffffff >> (0x20U - (char)uVar3 & 0x1f));
         uVar8 = *(undefined4 *)(srcFormat + 0x28);
-        PIECE(local_c,0,1) = (byte)(0xffffffff >> (0x20U - cVar10 & 0x1f));
+        PIECE(local_c,0,1) = (byte)(0xffffffff >> (0x20U - cVar13 & 0x1f));
         *(byte *)dst = ((byte)(uVar1 >> ((byte)uVar6 & 0x1f)) & (byte)local_c) <<
                        ((byte)*(undefined4 *)(srcFormat + 0x20) & 0x1f);
         *(byte *)((int)dst + 1) =

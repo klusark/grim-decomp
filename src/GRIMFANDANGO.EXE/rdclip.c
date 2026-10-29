@@ -17,15 +17,8 @@ rdClip_Line2D(undefined4 param_1,undefined4 *param_2,undefined4 *param_3,undefin
   uint uVar1;
   uint uVar2;
   uint uVar3;
-  undefined4 extraout_EAX;
-  undefined4 extraout_EAX_00;
-  undefined4 extraout_EAX_01;
-  undefined4 extraout_EAX_02;
-  undefined4 extraout_EAX_03;
-  undefined4 extraout_EAX_04;
-  undefined4 extraout_EAX_05;
-  undefined4 extraout_EAX_06;
   undefined4 uVar4;
+  undefined4 uVar5;
   #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
   #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
   #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
@@ -47,28 +40,26 @@ rdClip_Line2D(undefined4 param_1,undefined4 *param_2,undefined4 *param_3,undefin
       uVar3 = uVar2;
     }
     if (uVar3 == uVar1) {
-      _ftol();
-      uVar4 = extraout_EAX;
-      _ftol();
-      uVar1 = rdClip_Outcode2D(param_1,extraout_EAX_00,uVar4);
+      uVar4 = _ftol();
+      uVar5 = _ftol();
+      uVar1 = rdClip_Outcode2D(param_1,uVar5,uVar4);
     }
     else {
-      _ftol();
-      uVar4 = extraout_EAX_01;
-      _ftol();
-      uVar2 = rdClip_Outcode2D(param_1,extraout_EAX_02,uVar4);
+      uVar4 = _ftol();
+      uVar5 = _ftol();
+      uVar2 = rdClip_Outcode2D(param_1,uVar5,uVar4);
     }
     if ((uVar1 == 0) && (uVar2 == 0)) break;
     uVar3 = uVar1 & uVar2;
   }
-  _ftol();
-  *param_2 = extraout_EAX_03;
-  _ftol();
-  *param_3 = extraout_EAX_04;
-  _ftol();
-  *param_4 = extraout_EAX_05;
-  _ftol();
-  *param_5 = extraout_EAX_06;
+  uVar4 = _ftol();
+  *param_2 = uVar4;
+  uVar4 = _ftol();
+  *param_3 = uVar4;
+  uVar4 = _ftol();
+  *param_4 = uVar4;
+  uVar4 = _ftol();
+  *param_5 = uVar4;
   return 1;
 }
 #undef local_10

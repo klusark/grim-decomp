@@ -128,17 +128,17 @@ void DSound_Shutdown(void)
 void __cdecl DSound_SetPrimaryVolume(int volume)
 
 {
-  undefined4 extraout_EAX;
   undefined4 uVar1;
-  int iVar2;
+  undefined4 uVar2;
+  int iVar3;
   
   if (g_pDSoundPrimary != (void *)0x0) {
-    _ftol();
-    uVar1 = Win_GetMainHwnd();
-    iVar2 = (**(code_std **)(*(int *)g_pDirectSound + 0x18))(g_pDirectSound,uVar1,2);
-    if (-1 < iVar2) {
-      (**(code_std **)(*(int *)g_pDSoundPrimary + 0x3c))(g_pDSoundPrimary,extraout_EAX);
-      (**(code_std **)(*(int *)g_pDirectSound + 0x18))(g_pDirectSound,uVar1,3);
+    uVar1 = _ftol();
+    uVar2 = Win_GetMainHwnd();
+    iVar3 = (**(code_std **)(*(int *)g_pDirectSound + 0x18))(g_pDirectSound,uVar2,2);
+    if (-1 < iVar3) {
+      (**(code_std **)(*(int *)g_pDSoundPrimary + 0x3c))(g_pDSoundPrimary,uVar1);
+      (**(code_std **)(*(int *)g_pDirectSound + 0x18))(g_pDirectSound,uVar2,3);
     }
   }
   return;

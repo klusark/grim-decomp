@@ -1057,7 +1057,6 @@ undefined4 FUN_004a5550(undefined4 param_1)
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
-  undefined *puVar2;
   #define local_20 (*(undefined1 (*)[32])(_frame + (0x30 - 0x20)))
   
   iVar1 = ((code *)FUN_0047c7c0)(param_1);
@@ -1067,8 +1066,8 @@ undefined4 FUN_004a5550(undefined4 param_1)
   iVar1 = Std_ParseCommandLine();
   if (iVar1 != 0) {
     do {
-      puVar2 = sscanf((char *)UINT_00900520,IMG_ADDR(0x004ec740));
-      if (puVar2 == (undefined *)0x1) {
+      iVar1 = sscanf((char *)UINT_00900520,s_section___s_004ec740,local_20);
+      if (iVar1 == 1) {
         iVar1 = Set_IsHandleValid(local_20);
         if (iVar1 == 0) {
           FUN_0047c8c0();
@@ -1108,14 +1107,13 @@ undefined4 FUN_004a5600(void)
   byte bVar1;
   uint uVar2;
   int iVar3;
-  undefined *puVar4;
+  uint uVar4;
   uint uVar5;
-  uint uVar6;
-  byte *pbVar7;
+  byte *pbVar6;
+  undefined4 *puVar7;
   byte *pbVar8;
-  undefined4 *puVar9;
-  byte *pbVar10;
-  bool bVar11;
+  byte *pbVar9;
+  bool bVar10;
   #define local_110 (*(uint *)(_frame + (0x120 - 0x110)))
   #define local_10c (*(uint *)(_frame + (0x120 - 0x10c)))
   #define local_108 (*(uint *)(_frame + (0x120 - 0x108)))
@@ -1123,97 +1121,102 @@ undefined4 FUN_004a5600(void)
   #define local_100 (*(byte (*)[256])(_frame + (0x120 - 0x100)))
   
   uVar2 = UINT_008cb0a8;
-  *(undefined4 *)(UINT_008cb0a8 + 0xb8) = 0;
-  pbVar7 = (byte *)0x0;
+  puVar7 = (undefined4 *)(UINT_008cb0a8 + 0xb8);
+  *puVar7 = 0;
+  pbVar6 = (byte *)0x0;
+  local_10c = (uint)puVar7;
   iVar3 = Std_ParseCommandLine();
   if (iVar3 == 0) {
     return 1;
   }
   do {
     if (*(char *)UINT_00900520 != '\0') {
-      puVar4 = sscanf((char *)UINT_00900520,IMG_ADDR(0x004ec7e0));
-      if (puVar4 == (undefined *)0x0) {
-        puVar4 = sscanf((char *)UINT_00900520,IMG_ADDR(0x004ec7d0));
-        pbVar8 = pbVar7;
-        if (puVar4 == (undefined *)0x1) {
+      iVar3 = sscanf((char *)UINT_00900520,s_section___s_004ec7e0,local_100);
+      if (iVar3 == 0) {
+        iVar3 = sscanf((char *)UINT_00900520,s_numlights__d_004ec7d0,puVar7);
+        pbVar8 = pbVar6;
+        if (iVar3 == 1) {
           pbVar8 = (byte *)(uVar2 + 0x54);
-          puVar9 = (undefined4 *)(uVar2 + 0xbc);
+          puVar7 = (undefined4 *)(uVar2 + 0xbc);
           for (iVar3 = 0x680; iVar3 != 0; iVar3 = iVar3 + -1) {
-            *puVar9 = 0;
-            puVar9 = puVar9 + 1;
+            *puVar7 = 0;
+            puVar7 = puVar7 + 1;
           }
         }
-        pbVar7 = pbVar8;
+        pbVar6 = pbVar8;
         if (pbVar8 != (byte *)0x0) {
-          puVar4 = sscanf((char *)UINT_00900520,IMG_ADDR(0x004ec7c4));
-          if (puVar4 == (undefined *)0x1) {
-            pbVar7 = pbVar8 + 0x68;
+          iVar3 = sscanf((char *)UINT_00900520,s_light__s_004ec7c4,local_100);
+          if (iVar3 == 1) {
+            pbVar6 = pbVar8 + 0x68;
             rdLight_Init(pbVar8 + 0x94);
-            uVar5 = 0xffffffff;
+            uVar4 = 0xffffffff;
             pbVar8 = local_100;
             do {
-              pbVar10 = pbVar8;
-              if (uVar5 == 0) break;
-              uVar5 = uVar5 - 1;
-              pbVar10 = pbVar8 + 1;
+              pbVar9 = pbVar8;
+              if (uVar4 == 0) break;
+              uVar4 = uVar4 - 1;
+              pbVar9 = pbVar8 + 1;
               bVar1 = *pbVar8;
-              pbVar8 = pbVar10;
+              pbVar8 = pbVar9;
             } while (bVar1 != 0);
-            uVar5 = ~uVar5;
-            pbVar8 = pbVar10 + -uVar5;
-            pbVar10 = pbVar7;
-            for (uVar6 = uVar5 >> 2; uVar6 != 0; uVar6 = uVar6 - 1) {
-              *(undefined4 *)pbVar10 = *(undefined4 *)pbVar8;
+            uVar4 = ~uVar4;
+            pbVar8 = pbVar9 + -uVar4;
+            pbVar9 = pbVar6;
+            for (uVar5 = uVar4 >> 2; uVar5 != 0; uVar5 = uVar5 - 1) {
+              *(undefined4 *)pbVar9 = *(undefined4 *)pbVar8;
               pbVar8 = pbVar8 + 4;
-              pbVar10 = pbVar10 + 4;
+              pbVar9 = pbVar9 + 4;
             }
-            for (uVar5 = uVar5 & 3; uVar5 != 0; uVar5 = uVar5 - 1) {
-              *pbVar10 = *pbVar8;
+            for (uVar4 = uVar4 & 3; uVar4 != 0; uVar4 = uVar4 - 1) {
+              *pbVar9 = *pbVar8;
               pbVar8 = pbVar8 + 1;
-              pbVar10 = pbVar10 + 1;
+              pbVar9 = pbVar9 + 1;
             }
           }
-          puVar4 = sscanf((char *)UINT_00900520,IMG_ADDR(0x004ec7b8));
-          if (puVar4 == (undefined *)0x1) {
+          iVar3 = sscanf((char *)UINT_00900520,s_type__s_004ec7b8,local_100);
+          if (iVar3 == 1) {
             iVar3 = _stricmp(local_100,&DAT_004ec5b4);
             if (iVar3 == 0) {
               iVar3 = 2;
             }
             else {
-              pbVar10 = &DAT_004ec598;
+              pbVar9 = &DAT_004ec598;
               pbVar8 = local_100;
               do {
                 bVar1 = *pbVar8;
-                bVar11 = bVar1 < *pbVar10;
-                if (bVar1 != *pbVar10) {
+                bVar10 = bVar1 < *pbVar9;
+                if (bVar1 != *pbVar9) {
 LAB_004a5762:
-                  iVar3 = (1 - (uint)bVar11) - (uint)(bVar11 != 0);
+                  iVar3 = (1 - (uint)bVar10) - (uint)(bVar10 != 0);
                   goto LAB_004a5767;
                 }
                 if (bVar1 == 0) break;
                 bVar1 = pbVar8[1];
-                bVar11 = bVar1 < pbVar10[1];
-                if (bVar1 != pbVar10[1]) goto LAB_004a5762;
+                bVar10 = bVar1 < pbVar9[1];
+                if (bVar1 != pbVar9[1]) goto LAB_004a5762;
                 pbVar8 = pbVar8 + 2;
-                pbVar10 = pbVar10 + 2;
+                pbVar9 = pbVar9 + 2;
               } while (bVar1 != 0);
               iVar3 = 0;
 LAB_004a5767:
               iVar3 = (-(uint)(iVar3 != 0) & 0xfffffffd) + 3;
             }
-            *(int *)(pbVar7 + 0x30) = iVar3;
+            *(int *)(pbVar6 + 0x30) = iVar3;
           }
-          puVar4 = sscanf((char *)UINT_00900520,IMG_ADDR(0x004ec7a4));
-          if (puVar4 == (undefined *)0x3) {
-            Vec3_Normalize((float *)(pbVar7 + 0x38));
+          iVar3 = sscanf((char *)UINT_00900520,s_direction__f__f__f_004ec7a4,pbVar6 + 0x38,
+                         pbVar6 + 0x3c,pbVar6 + 0x40);
+          if (iVar3 == 3) {
+            Vec3_Normalize((float *)(pbVar6 + 0x38));
           }
-          sscanf((char *)UINT_00900520,IMG_ADDR(0x004ec790));
-          sscanf((char *)UINT_00900520,IMG_ADDR(0x004ec780));
-          sscanf((char *)UINT_00900520,IMG_ADDR(0x004ec770));
-          sscanf((char *)UINT_00900520,IMG_ADDR(0x004ec75c));
-          puVar4 = sscanf((char *)UINT_00900520,IMG_ADDR(0x004ec74c));
-          if (puVar4 == (undefined *)0x3) {
-            *(uint *)(pbVar7 + 0x48) = (local_104 << 8 | local_110) << 8 | local_108;
+          sscanf((char *)UINT_00900520,s_position__f__f__f_004ec790,pbVar6 + 0x20,pbVar6 + 0x24,
+                 pbVar6 + 0x28);
+          sscanf((char *)UINT_00900520,s_intensity__f_004ec780,pbVar6 + 0x44);
+          sscanf((char *)UINT_00900520,s_umbraangle__f_004ec770,pbVar6 + 0x4c);
+          sscanf((char *)UINT_00900520,s_penumbraangle__f_004ec75c,pbVar6 + 0x54);
+          iVar3 = sscanf((char *)UINT_00900520,s_color__d__d__d_004ec74c,&local_104,&local_110,
+                         &local_108);
+          if (iVar3 == 3) {
+            *(uint *)(pbVar6 + 0x48) = (local_104 << 8 | local_110) << 8 | local_108;
           }
         }
       }
@@ -1225,6 +1228,7 @@ LAB_004a5767:
       }
     }
     iVar3 = Std_ParseCommandLine();
+    puVar7 = (undefined4 *)local_10c;
     if (iVar3 == 0) {
       return 1;
     }
@@ -1246,95 +1250,99 @@ undefined4 FUN_004a5890(void)
   char cVar2;
   uint uVar3;
   int iVar4;
-  undefined *puVar5;
-  undefined4 *puVar6;
+  undefined4 *puVar5;
+  uint uVar6;
   uint uVar7;
-  uint uVar8;
-  char *pcVar9;
-  uint *puVar10;
+  char *pcVar8;
+  uint *puVar9;
+  char *pcVar10;
   char *pcVar11;
-  char *pcVar12;
   #define local_104 (*(uint *)(_frame + (0x120 - 0x104)))
   #define local_100 (*(char (*)[256])(_frame + (0x120 - 0x100)))
   
   uVar3 = UINT_008cb0a8;
-  puVar10 = (uint *)(UINT_008cb0a8 + 0xac);
-  *puVar10 = 0;
+  puVar9 = (uint *)(UINT_008cb0a8 + 0xac);
+  *puVar9 = 0;
   iVar4 = Std_ParseCommandLine();
-  pcVar9 = (char *)uVar3;
+  pcVar8 = (char *)uVar3;
   if (iVar4 == 0) {
     return 1;
   }
   do {
     if (*(char *)UINT_00900520 != '\0') {
-      puVar5 = sscanf((char *)UINT_00900520,IMG_ADDR(0x004ec7e0));
-      if (puVar5 == (undefined *)0x0) {
+      iVar4 = sscanf((char *)UINT_00900520,s_section___s_004ec7e0,local_100);
+      if (iVar4 == 0) {
         piVar1 = (int *)(uVar3 + 0xb0);
-        puVar5 = sscanf((char *)UINT_00900520,IMG_ADDR(0x004ec858));
-        if (puVar5 == (undefined *)0x1) {
-          puVar6 = (undefined4 *)
+        iVar4 = sscanf((char *)UINT_00900520,s_numsetups__d_004ec858,piVar1);
+        if (iVar4 == 1) {
+          puVar5 = (undefined4 *)
                    (*g_pSvcRoom->pAlloc)
                              (*piVar1 * 300,s_C__grimsrc_libs_grimlib_Engine_s_004ec5e0,0x8b5);
           iVar4 = *piVar1;
-          *puVar10 = (uint)puVar6;
-          for (uVar7 = iVar4 * 0x4b & 0x3fffffff; uVar7 != 0; uVar7 = uVar7 - 1) {
-            *puVar6 = 0;
-            puVar6 = puVar6 + 1;
+          *puVar9 = (uint)puVar5;
+          for (uVar6 = iVar4 * 0x4b & 0x3fffffff; uVar6 != 0; uVar6 = uVar6 - 1) {
+            *puVar5 = 0;
+            puVar5 = puVar5 + 1;
           }
           for (iVar4 = 0; iVar4 != 0; iVar4 = iVar4 + -1) {
-            *(undefined1 *)puVar6 = 0;
-            puVar6 = (undefined4 *)((int)puVar6 + 1);
+            *(undefined1 *)puVar5 = 0;
+            puVar5 = (undefined4 *)((int)puVar5 + 1);
           }
-          pcVar9 = (char *)(*puVar10 - 300);
+          pcVar8 = (char *)(*puVar9 - 300);
         }
         else {
-          if (*puVar10 == 0) {
+          if (*puVar9 == 0) {
             return 0;
           }
-          puVar5 = sscanf((char *)UINT_00900520,IMG_ADDR(0x004ec84c));
-          if (puVar5 == (undefined *)0x1) {
-            pcVar9 = pcVar9 + 300;
-            if ((char *)(*puVar10 + *piVar1 * 300) <= pcVar9) {
+          iVar4 = sscanf((char *)UINT_00900520,s_setup__s_004ec84c,local_100);
+          if (iVar4 == 1) {
+            pcVar8 = pcVar8 + 300;
+            if ((char *)(*puVar9 + *piVar1 * 300) <= pcVar8) {
               return 0;
             }
-            uVar7 = 0xffffffff;
-            pcVar11 = local_100;
+            uVar6 = 0xffffffff;
+            pcVar10 = local_100;
             do {
-              pcVar12 = pcVar11;
-              if (uVar7 == 0) break;
-              uVar7 = uVar7 - 1;
-              pcVar12 = pcVar11 + 1;
-              cVar2 = *pcVar11;
-              pcVar11 = pcVar12;
+              pcVar11 = pcVar10;
+              if (uVar6 == 0) break;
+              uVar6 = uVar6 - 1;
+              pcVar11 = pcVar10 + 1;
+              cVar2 = *pcVar10;
+              pcVar10 = pcVar11;
             } while (cVar2 != '\0');
-            uVar7 = ~uVar7;
-            pcVar11 = pcVar12 + -uVar7;
-            pcVar12 = pcVar9;
-            for (uVar8 = uVar7 >> 2; uVar8 != 0; uVar8 = uVar8 - 1) {
-              *(undefined4 *)pcVar12 = *(undefined4 *)pcVar11;
+            uVar6 = ~uVar6;
+            pcVar10 = pcVar11 + -uVar6;
+            pcVar11 = pcVar8;
+            for (uVar7 = uVar6 >> 2; uVar7 != 0; uVar7 = uVar7 - 1) {
+              *(undefined4 *)pcVar11 = *(undefined4 *)pcVar10;
+              pcVar10 = pcVar10 + 4;
               pcVar11 = pcVar11 + 4;
-              pcVar12 = pcVar12 + 4;
             }
-            for (uVar7 = uVar7 & 3; uVar7 != 0; uVar7 = uVar7 - 1) {
-              *pcVar12 = *pcVar11;
+            for (uVar6 = uVar6 & 3; uVar6 != 0; uVar6 = uVar6 - 1) {
+              *pcVar11 = *pcVar10;
+              pcVar10 = pcVar10 + 1;
               pcVar11 = pcVar11 + 1;
-              pcVar12 = pcVar12 + 1;
             }
           }
           else {
-            if (pcVar9 < (char *)*puVar10) {
+            if (pcVar8 < (char *)*puVar9) {
               return 0;
             }
-            puVar5 = sscanf((char *)UINT_00900520,IMG_ADDR(0x004ec83c));
-            if (((((puVar5 != (undefined *)0x1) &&
-                  (puVar5 = sscanf((char *)UINT_00900520,IMG_ADDR(0x004ec830)), puVar5 != (undefined *)0x1)) &&
-                 (puVar5 = sscanf((char *)UINT_00900520,IMG_ADDR(0x004ec790)), puVar5 != (undefined *)0x3)) &&
-                ((puVar5 = sscanf((char *)UINT_00900520,IMG_ADDR(0x004ec81c)), puVar5 != (undefined *)0x3 &&
-                 (puVar5 = sscanf((char *)UINT_00900520,IMG_ADDR(0x004ec810)), puVar5 != (undefined *)0x1)))) &&
-               ((puVar5 = sscanf((char *)UINT_00900520,IMG_ADDR(0x004ec808)), puVar5 != (undefined *)0x1 &&
-                ((puVar5 = sscanf((char *)UINT_00900520,IMG_ADDR(0x004ec7fc)), puVar5 != (undefined *)0x1 &&
-                 (puVar5 = sscanf((char *)UINT_00900520,IMG_ADDR(0x004ec7f0)), puVar5 != (undefined *)0x1))))))
-            {
+            iVar4 = sscanf((char *)UINT_00900520,s_background__s_004ec83c,pcVar8 + 0x80);
+            if (((((iVar4 != 1) &&
+                  (iVar4 = sscanf((char *)UINT_00900520,s_zbuffer__s_004ec830,pcVar8 + 0xa0),
+                  iVar4 != 1)) &&
+                 (iVar4 = sscanf((char *)UINT_00900520,s_position__f__f__f_004ec790,pcVar8 + 0x20,
+                                 pcVar8 + 0x24,pcVar8 + 0x28), iVar4 != 3)) &&
+                ((iVar4 = sscanf((char *)UINT_00900520,s_interest__f__f__f_004ec81c,pcVar8 + 0x2c,
+                                 pcVar8 + 0x30,pcVar8 + 0x34), iVar4 != 3 &&
+                 (iVar4 = sscanf((char *)UINT_00900520,s_roll__f_004ec810,pcVar8 + 0x38), iVar4 != 1
+                 )))) && ((iVar4 = sscanf((char *)UINT_00900520,s_fov__f_004ec808,pcVar8 + 0x3c),
+                          iVar4 != 1 &&
+                          ((iVar4 = sscanf((char *)UINT_00900520,s_nclip__f_004ec7fc,pcVar8 + 0x40),
+                           iVar4 != 1 &&
+                           (iVar4 = sscanf((char *)UINT_00900520,s_fclip__f_004ec7f0,pcVar8 + 0x44),
+                           iVar4 != 1)))))) {
               return 0;
             }
           }
@@ -1363,61 +1371,61 @@ undefined4 FUN_004a5b40(void)
 {
   unsigned char _frame[0x110] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int *piVar1;
-  uint uVar2;
-  int iVar3;
-  undefined *puVar4;
+  int *piVar2;
+  uint uVar3;
+  int iVar4;
   undefined4 *puVar5;
   uint uVar6;
   #define local_100 (*(undefined1 (*)[256])(_frame + (0x110 - 0x100)))
   
-  uVar2 = UINT_008cb0a8;
+  uVar3 = UINT_008cb0a8;
   piVar1 = (int *)(UINT_008cb0a8 + 0x80);
   if (*piVar1 != 0) {
     (*g_pSvcRoom->pAssertFail)
               (s_pRoom__apColormaps____NULL_004ec88c,s_C__grimsrc_libs_grimlib_Engine_s_004ec5e0,
                0x91d);
   }
-  iVar3 = Std_ParseCommandLine();
-  if (iVar3 == 0) {
+  iVar4 = Std_ParseCommandLine();
+  if (iVar4 == 0) {
     return 1;
   }
   do {
     if (*(char *)UINT_00900520 != '\0') {
       local_100[0] = 0;
-      puVar4 = sscanf((char *)UINT_00900520,IMG_ADDR(0x004ec7e0));
-      if (puVar4 == (undefined *)0x0) {
-        puVar4 = sscanf((char *)UINT_00900520,IMG_ADDR(0x004ec878));
-        if (puVar4 == (undefined *)0x1) {
-          iVar3 = *(int *)(uVar2 + 0x84);
-          if (iVar3 == 0) goto LAB_004a5c4e;
+      iVar4 = sscanf((char *)UINT_00900520,s_section___s_004ec7e0,local_100);
+      if (iVar4 == 0) {
+        piVar2 = (int *)(uVar3 + 0x84);
+        iVar4 = sscanf((char *)UINT_00900520,s_numcolormaps__d_004ec878,piVar2);
+        if (iVar4 == 1) {
+          if (*piVar2 == 0) goto LAB_004a5c4e;
           puVar5 = (undefined4 *)
                    (*g_pSvcRoom->pAlloc)
-                             (iVar3 * 0x34,s_C__grimsrc_libs_grimlib_Engine_s_004ec5e0,0x935);
-          iVar3 = *(int *)(uVar2 + 0x84);
+                             (*piVar2 * 0x34,s_C__grimsrc_libs_grimlib_Engine_s_004ec5e0,0x935);
+          iVar4 = *piVar2;
           *piVar1 = (int)puVar5;
-          for (uVar6 = iVar3 * 0xd & 0x3fffffff; uVar6 != 0; uVar6 = uVar6 - 1) {
+          for (uVar6 = iVar4 * 0xd & 0x3fffffff; uVar6 != 0; uVar6 = uVar6 - 1) {
             *puVar5 = 0;
             puVar5 = puVar5 + 1;
           }
-          for (iVar3 = 0; iVar3 != 0; iVar3 = iVar3 + -1) {
+          for (iVar4 = 0; iVar4 != 0; iVar4 = iVar4 + -1) {
             *(undefined1 *)puVar5 = 0;
             puVar5 = (undefined4 *)((int)puVar5 + 1);
           }
         }
         if (*piVar1 != 0) {
-          sscanf((char *)UINT_00900520,IMG_ADDR(0x004ec868));
+          sscanf((char *)UINT_00900520,s_colormap__s_004ec868,uVar3 + 0x8c);
         }
       }
       else {
-        iVar3 = Set_IsHandleValid(local_100);
-        if (iVar3 == 0) {
+        iVar4 = Set_IsHandleValid(local_100);
+        if (iVar4 == 0) {
           return 0;
         }
       }
     }
 LAB_004a5c4e:
-    iVar3 = Std_ParseCommandLine();
-    if (iVar3 == 0) {
+    iVar4 = Std_ParseCommandLine();
+    if (iVar4 == 0) {
       return 1;
     }
   } while( true );

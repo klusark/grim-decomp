@@ -57,10 +57,10 @@ void __cdecl luaL_argerror(undefined4 param_1,int param_2)
     local_4 = &DAT_1002635c;
   }
   if (param_2 == 0) {
-    luaL_verror(s_bad_argument___d_to_function_____10026334);
+    luaL_verror(s_bad_argument___d_to_function_____10026334,param_1,local_4);
     return;
   }
-  luaL_verror(s_bad_argument___d_to_function_____10026304);
+  luaL_verror(s_bad_argument___d_to_function_____10026304,param_1,local_4,param_2);
   return;
 }
 #undef local_4
@@ -200,13 +200,13 @@ void __cdecl luaL_openlib(undefined4 *param_1,int param_2)
 /* ---- 0x10002be0  luaL_verror ---- */
 /* lauxlib.c: formats the message then lua_error */
 
-void __cdecl luaL_verror(char *param_1)
+void __cdecl luaL_verror(char *fmt,...)
 
 {
   unsigned char _frame[0x210] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   #define local_1f4 (*(byte (*)[500])(_frame + (0x210 - 0x1f4)))
   
-  _snprintf(local_1f4,param_1,(undefined4 *)&STACK0X(0x00000008));
+  _snprintf(local_1f4,fmt,(undefined4 *)&STACK0X(0x00000008));
   lua_error(local_1f4);
   return;
 }

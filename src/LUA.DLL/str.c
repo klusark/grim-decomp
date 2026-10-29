@@ -226,7 +226,7 @@ uint __cdecl str_singlematch(uint param_1,char *param_2,int *param_3)
     return (uint)((int)*param_2 == param_1);
   case '%':
     if (param_2[1] == '\0') {
-      luaL_verror(s_incorrect_pattern__ends_with___c_100279a0);
+      luaL_verror(s_incorrect_pattern__ends_with___c_100279a0,0x25);
     }
     *param_3 = (int)(param_2 + 2);
     uVar3 = str_matchclass(param_1,(int)param_2[1]);
@@ -857,16 +857,17 @@ void FUN_1000a440(void)
   char *pcVar2;
   char *pcVar3;
   uint uVar4;
-  char *pcVar5;
-  int iVar6;
-  uint *puVar7;
+  char *buf;
+  int iVar5;
+  uint *puVar6;
+  float fVar7;
   #define aiStack_114 (*(int (*)[2])(_frame + (0x130 - 0x114)))
   #define iStack_10c (*(int *)(_frame + (0x130 - 0x10c)))
   #define iStack_104 (*(int *)(_frame + (0x130 - 0x104)))
   #define cStack_c8 (*(char *)(_frame + (0x130 - 0xc8)))
   #define uStack_c7 (*(undefined4 *)(_frame + (0x130 - 0xc7)))
   
-  iVar6 = 1;
+  iVar5 = 1;
   pcVar2 = (char *)luaL_check_string(1);
   luaL_resetbuffer();
   cVar1 = *pcVar2;
@@ -876,7 +877,7 @@ void FUN_1000a440(void)
       return;
     }
     if (cVar1 == '%') {
-      puVar7 = (uint *)(pcVar2 + 1);
+      puVar6 = (uint *)(pcVar2 + 1);
       if (pcVar2[1] == '%') {
         pcVar2 = pcVar2 + 2;
         luaL_addchar(0x25);
@@ -884,24 +885,24 @@ void FUN_1000a440(void)
       else {
         cStack_c8 = '%';
         aiStack_114[0] = 0;
-        pcVar3 = str_match((char *)puVar7,(int *)s__d_____________d_______d___10027aa4,aiStack_114);
+        pcVar3 = str_match((char *)puVar6,(int *)s__d_____________d_______d___10027aa4,aiStack_114);
         if ((3 < iStack_10c) || (3 < iStack_104)) {
           lua_error((byte *)s_invalid_format__width_or_precisi_10027a74);
         }
         if (DAT_10028b5c < 2) {
-          uVar4 = (byte)PTR_DAT_10028950[(uint)(byte)*puVar7 * 2] & 4;
+          uVar4 = (byte)PTR_DAT_10028950[(uint)(byte)*puVar6 * 2] & 4;
         }
         else {
-          uVar4 = _isctype((uint)(byte)*puVar7,4);
+          uVar4 = _isctype((uint)(byte)*puVar6,4);
         }
         if ((uVar4 != 0) && (pcVar2[2] == '$')) {
-          iVar6 = (char)(byte)*puVar7 + -0x30;
-          puVar7 = (uint *)(pcVar2 + 3);
+          iVar5 = (char)(byte)*puVar6 + -0x30;
+          puVar6 = (uint *)(pcVar2 + 3);
         }
-        iVar6 = iVar6 + 1;
-        strncpy(&uStack_c7,puVar7,(uint)(pcVar3 + (1 - (int)puVar7)));
-        pcVar3[(int)&uStack_c7 + (1 - (int)puVar7)] = '\0';
-        pcVar5 = (char *)luaL_openspace(1000);
+        iVar5 = iVar5 + 1;
+        strncpy(&uStack_c7,puVar6,(uint)(pcVar3 + (1 - (int)puVar6)));
+        pcVar3[(int)&uStack_c7 + (1 - (int)puVar6)] = '\0';
+        buf = (char *)luaL_openspace(1000);
         pcVar2 = pcVar3 + 1;
         switch(*pcVar3) {
         case 'E':
@@ -909,8 +910,8 @@ void FUN_1000a440(void)
         case 'e':
         case 'f':
         case 'g':
-          luaL_check_number(iVar6);
-          sprintf(pcVar5,&cStack_c8);
+          fVar7 = luaL_check_number(iVar5);
+          sprintf(buf,&cStack_c8,(double)fVar7);
           break;
         default:
           lua_error((byte *)s_invalid_option_in__format__10027a58);
@@ -922,16 +923,16 @@ void FUN_1000a440(void)
         case 'o':
         case 'u':
         case 'x':
-          luaL_check_number(iVar6);
+          luaL_check_number(iVar5);
           _ftol();
-          sprintf(pcVar5,&cStack_c8);
+          sprintf(buf,&cStack_c8);
           break;
         case 'q':
-          pcVar3 = (char *)luaL_check_string(iVar6);
+          pcVar3 = (char *)luaL_check_string(iVar5);
           str_add_s(pcVar3);
           goto LAB_1000a5fe;
         case 's':
-          pcVar3 = (char *)luaL_check_string(iVar6);
+          pcVar3 = (char *)luaL_check_string(iVar5);
           uVar4 = 0xffffffff;
           do {
             if (uVar4 == 0) break;
@@ -939,15 +940,15 @@ void FUN_1000a440(void)
             cVar1 = *pcVar3;
             pcVar3 = pcVar3 + 1;
           } while (cVar1 != '\0');
-          pcVar5 = (char *)luaL_openspace(~uVar4 - 1);
-          sprintf(pcVar5,&cStack_c8);
+          buf = (char *)luaL_openspace(~uVar4 - 1);
+          sprintf(buf,&cStack_c8);
         }
         uVar4 = 0xffffffff;
         do {
           if (uVar4 == 0) break;
           uVar4 = uVar4 - 1;
-          cVar1 = *pcVar5;
-          pcVar5 = pcVar5 + 1;
+          cVar1 = *buf;
+          buf = buf + 1;
         } while (cVar1 != '\0');
         lbuiltin__2d10(~uVar4 - 1);
       }

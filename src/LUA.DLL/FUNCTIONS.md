@@ -56,7 +56,7 @@
 | 10001c00 | luaA_pushobject | lapi.c | 16 |
 | 10001c40 | lua_pushobject | lapi.c | 19 |
 | 10001ca0 | lua_tag | lapi.c | 28 |
-| 10001d30 | lua_settag | lapi.c | 27 |
+| 10001d30 | lua_settag | lapi.c | 29 |
 | 10001db0 | lua_pausetasks | lapi.c | 14 |
 | 10001de0 | lua_unpausetasks | lapi.c | 11 |
 | 10001e10 | lua_updatetasks | lapi.c | 108 |
@@ -124,18 +124,18 @@
 | 100030d0 | FUN_100030d0 | lbuiltin.c | 20 |
 | 10003120 | FUN_10003120 | lbuiltin.c | 16 |
 | 10003150 | FUN_10003150 | lbuiltin.c | 11 |
-| 10003170 | luaB_tostring | lbuiltin.c | 40 |
+| 10003170 | luaB_tostring | lbuiltin.c | 46 |
 | 10003260 | lbuiltin__3260 | lbuiltin.c | 58 |
 | 10003370 | FUN_10003370 | lbuiltin.c | 80 |
 | 100034c0 | FUN_100034c0 | lbuiltin.c | 75 |
 | 10003610 | FUN_10003610 | lbuiltin.c | 41 |
 | 100036a0 | FUN_100036a0 | lbuiltin.c | 40 |
 | 10003770 | FUN_10003770 | lbuiltin.c | 5 |
-| 10003780 | FUN_10003780 | lbuiltin.c | 17 |
+| 10003780 | FUN_10003780 | lbuiltin.c | 18 |
 | 100037d0 | FUN_100037d0 | lbuiltin.c | 13 |
 | 10003820 | FUN_10003820 | lbuiltin.c | 49 |
 | 10003910 | FUN_10003910 | lbuiltin.c | 11 |
-| 10003930 | FUN_10003930 | lbuiltin.c | 13 |
+| 10003930 | FUN_10003930 | lbuiltin.c | 14 |
 | 10003970 | FUN_10003970 | lbuiltin.c | 13 |
 | 100039b0 | FUN_100039b0 | lbuiltin.c | 13 |
 | 100039f0 | FUN_100039f0 | lbuiltin.c | 11 |
@@ -314,7 +314,7 @@
 | 1000a180 | str_expand | str.c | 30 |
 | 1000a1d0 | FUN_1000a1d0 | str.c | 62 |
 | 1000a2e0 | str_add_value | str.c | 74 |
-| 1000a440 | FUN_1000a440 | str.c | 117 |
+| 1000a440 | FUN_1000a440 | str.c | 118 |
 | 1000a680 | str_add_s | str.c | 24 |
 | 1000a6f0 | luaY_error | lparser.c | 8 |
 | 1000a730 | lparser__a730 | lparser.c | 9 |
@@ -387,7 +387,7 @@
 | 1000ca20 | luaT_effectivetag | ltm.c | 21 |
 | 1000ca60 | ltm__ca60 | ltm.c | 16 |
 | 1000cab0 | luaI_checkevent | ltm.c | 13 |
-| 1000cae0 | ltm__cae0 | ltm.c | 27 |
+| 1000cae0 | ltm__cae0 | ltm.c | 28 |
 | 1000cb80 | ltm__cb80 | ltm.c | 34 |
 | 1000cbf0 | FUN_1000cbf0 | ltm.c | 9 |
 | 1000cc10 | FUN_1000cc10 | ltm.c | 5 |
@@ -399,7 +399,7 @@
 | 1000cf30 | luaU_LoadFunction | lundump.c | 27 |
 | 1000cfa0 | lundump__cfa0 | lundump.c | 12 |
 | 1000cfd0 | lundump__cfd0 | lundump.c | 22 |
-| 1000d010 | luaU_unexpectedEOZ | lundump.c | 8 |
+| 1000d010 | luaU_unexpectedEOZ | lundump.c | 11 |
 | 1000d030 | lundump__d030 | lundump.c | 13 |
 | 1000d060 | luaU_LoadBlock | lundump.c | 13 |
 | 1000d090 | luaU_LoadCode | lundump.c | 17 |
@@ -414,7 +414,7 @@
 | 1000d3c0 | lundump__d3c0 | lundump.c | 26 |
 | 1000d420 | luaU_loadheader | lundump.c | 51 |
 | 1000d570 | luaU_LoadSignature | lundump.c | 20 |
-| 1000d5c0 | luaU_str2number | lundump.c | 22 |
+| 1000d5c0 | luaU_str2number | lundump.c | 24 |
 | 1000d620 | lundump__d620 | lundump.c | 31 |
 | 1000d6d0 | luaV_closure | lvm.c | 36 |
 | 1000d740 | luaV_gettable | lvm.c | 47 |
@@ -497,7 +497,7 @@
 | 10011ff0 | ceil | crt.c | 47 |
 | 10012130 | _CIpow | crt.c | 13 |
 | 10012152 | _pow | crt.c | 6 |
-| 10012325 | _ftol | crt.c | 14 |
+| 10012325 | _ftol | crt.c | 23 |
 | 10012390 | bsearch | crt.c | 47 |
 | 10012430 | qsort | crt.c | 93 |
 | 100125e0 | shortsort | crt.c | 20 |

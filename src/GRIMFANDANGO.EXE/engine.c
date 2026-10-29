@@ -584,7 +584,7 @@ undefined * __cdecl Profile_End(int param_1)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  undefined *extraout_EAX;
+  undefined *puVar1;
   #define local_18 (*(longlong *)(_frame + (0x30 - 0x18)))
   #define lStack_10 (*(longlong *)(_frame + (0x30 - 0x10)))
   #define dStack_8 (*(double *)(_frame + (0x30 - 0x8)))
@@ -599,8 +599,8 @@ undefined * __cdecl Profile_End(int param_1)
   QueryPerformanceCounter((int)&lStack_10);
   *(double *)(&UINT_004e7b50 + param_1 * 0xc) =
        (((double)lStack_10 - *(double *)(&DAT_004e7b48 + param_1 * 0x30)) / dStack_8) * 1000.0;
-  _ftol();
-  return extraout_EAX;
+  puVar1 = (undefined *)_ftol();
+  return puVar1;
 }
 #undef dStack_8
 #undef lStack_10

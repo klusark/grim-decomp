@@ -106,7 +106,7 @@ undefined * Win_WndProc(undefined4 param_1,uint param_2,int param_3)
         case 0x53:
           if (g_bDebugChordHeld != 0) {
             UINT_004f5a90 = UINT_004f5a90 + 1;
-            ((code *)sprintf)(local_40,s__s_d_bmp_004dd928,&DAT_004dd934,uVar1);
+            sprintf(local_40,s__s_d_bmp_004dd928,&DAT_004dd934,uVar1);
             Render_SaveScreenshotBmp(local_40);
             return (undefined *)0x0;
           }
@@ -120,7 +120,7 @@ undefined * Win_WndProc(undefined4 param_1,uint param_2,int param_3)
         case 0x5a:
           if (g_bDebugChordHeld != 0) {
             UINT_004f5a94 = UINT_004f5a94 + 1;
-            ((code *)sprintf)(local_40,s__s_d_zbm_004dd91c,&DAT_004dd934,uVar2);
+            sprintf(local_40,s__s_d_zbm_004dd91c,&DAT_004dd934,uVar2);
             Render_SaveZBufferBmp(local_40);
             return (undefined *)0x0;
           }

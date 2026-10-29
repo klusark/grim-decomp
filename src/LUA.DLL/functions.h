@@ -108,7 +108,7 @@ int __cdecl luaL_tablearg(int param_1); /* 0x10002b10 */
 int __cdecl luaL_functionarg(int param_1); /* 0x10002b50 */
 int __cdecl luaL_nonnullarg(int param_1); /* 0x10002b90 */
 void __cdecl luaL_openlib(undefined4 *param_1,int param_2); /* 0x10002bc0 */
-void __cdecl luaL_verror(char *param_1); /* 0x10002be0 */
+void __cdecl luaL_verror(char *fmt,...); /* 0x10002be0 */
 int __cdecl luaL_openspace(int param_1); /* 0x10002c20 */
 void __cdecl luaL_growbuffer(int param_1); /* 0x10002c50 */
 void __cdecl luaL_addchar(undefined1 param_1); /* 0x10002cb0 */
@@ -493,8 +493,8 @@ void __cdecl _local_unwind2(int param_1,int param_2); /* 0x1000f3d2 */
 undefined4 _unwind_handler(void); /* 0x1000f43a */
 undefined4 __stdcall _NLG_Notify(int a1); /* 0x1000f466 */
 int __cdecl _snprintf(undefined1 *param_1,char *param_2,undefined4 *param_3); /* 0x1000f480 */
-int __cdecl sprintf(undefined1 *param_1,char *param_2); /* 0x1000f4f0 */
-int __cdecl printf(char *param_1); /* 0x1000f560 */
+int __cdecl sprintf(char *buf,char *fmt,...); /* 0x1000f4f0 */
+int __cdecl printf(char *fmt,...); /* 0x1000f560 */
 void __cdecl strtol(byte *param_1,undefined4 *param_2,uint param_3); /* 0x1000f680 */
 uint __cdecl strtoxl(byte *param_1,undefined4 *param_2,uint param_3,uint param_4); /* 0x1000f6a0 */
 uint __cdecl strtoul(byte *param_1,undefined4 *param_2,uint param_3); /* 0x1000f930 */
@@ -534,7 +534,7 @@ float __cdecl floor(uint param_1,uint param_2); /* 0x10011ef0 */
 float __cdecl ceil(uint param_1,uint param_2); /* 0x10011ff0 */
 float __cdecl _CIpow(void); /* 0x10012130 */
 void FUN_10012152(void); /* 0x10012152 */
-float __cdecl _ftol_10012325(void); /* 0x10012325 */
+undefined4 __cdecl _ftol_10012325(void); /* 0x10012325 */
 uint __cdecl bsearch(undefined4 param_1,uint param_2,uint param_3,int param_4,undefined *param_5); /* 0x10012390 */
 void __cdecl qsort(undefined1 *param_1,uint param_2,uint param_3,undefined *param_4); /* 0x10012430 */
 void __cdecl shortsort(undefined1 *param_1,undefined1 *param_2,int param_3,undefined *param_4); /* 0x100125e0 */
@@ -545,7 +545,7 @@ uint __cdecl _toupper_lk(uint param_1); /* 0x10012800 */
 uint __cdecl _isctype(int param_1,uint param_2); /* 0x10012900 */
 byte * __cdecl strcmp(byte *param_1,byte *param_2); /* 0x10012a20 */
 uint __cdecl strncmp(char *param_1,char *param_2,int param_3); /* 0x10012a60 */
-int __cdecl sscanf(char *param_1,byte *param_2); /* 0x10012aa0 */
+int __cdecl sscanf(char *str,char *fmt,...); /* 0x10012aa0 */
 int __cdecl strcoll(byte *param_1,byte *param_2); /* 0x10012af0 */
 undefined4 __stdcall _CRT_INIT(int a1,int a2,int a3); /* 0x10012cb0 */
 undefined4 __stdcall entry(int a1,int a2,int a3); /* 0x10012dd0 */

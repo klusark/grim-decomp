@@ -98,12 +98,11 @@ float __cdecl Math_NormalizeAngle180(float param_1)
    negative angle turns 0.022 deg less (TurnActorTo right: 1.4229 instead of 1.445 at rate 85, 17
    ms). */
 
-float10 Math_SinCosTable(float param_1,float *param_2,float *param_3)
+void Math_SinCosTable(float param_1,float *param_2,float *param_3)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  float fVar1;
-  int extraout_EAX;
+  int iVar1;
   int iVar2;
   float fVar3;
   float fVar4;
@@ -137,84 +136,84 @@ float10 Math_SinCosTable(float param_1,float *param_2,float *param_3)
   }
   fVar4 = Math_Round(fVar3 * 45.511112);
   fVar4 = fVar3 * 45.511112 - fVar4;
-  fVar3 = _ftol();
-  iVar2 = extraout_EAX + 1;
+  iVar1 = _ftol();
+  iVar2 = iVar1 + 1;
   switch(local_1c) {
   case 0:
     if (iVar2 < 0x1000) {
       local_8 = *(uint *)(&DAT_004df600 + iVar2 * 4);
     }
     else {
-      local_8 = *(uint *)(&DAT_004df600 + (0xfff - (extraout_EAX + -0xfff)) * 4);
+      local_8 = *(uint *)(&DAT_004df600 + (0xfff - (iVar1 + -0xfff)) * 4);
     }
-    *param_2 = ((float)local_8 - *(float *)(&DAT_004df600 + extraout_EAX * 4)) * fVar4 +
-               *(float *)(&DAT_004df600 + extraout_EAX * 4);
+    *param_2 = ((float)local_8 - *(float *)(&DAT_004df600 + iVar1 * 4)) * fVar4 +
+               *(float *)(&DAT_004df600 + iVar1 * 4);
     if (iVar2 < 0x1000) {
       local_8 = *(uint *)(&DAT_004df600 + (0xfff - iVar2) * 4);
     }
     else {
       local_8 = (uint)-*(float *)("DialogBoxIndirectParamA" + iVar2 * 4 + 2);
     }
-    *param_3 = ((float)local_8 - *(float *)(&DAT_004df600 + (0xfff - extraout_EAX) * 4)) * fVar4 +
-               *(float *)(&DAT_004df600 + (0xfff - extraout_EAX) * 4);
+    *param_3 = ((float)local_8 - *(float *)(&DAT_004df600 + (0xfff - iVar1) * 4)) * fVar4 +
+               *(float *)(&DAT_004df600 + (0xfff - iVar1) * 4);
     break;
   case 1:
     if (iVar2 < 0x2000) {
-      local_8 = *(uint *)(&DAT_004df600 + (0xfff - (extraout_EAX + -0xfff)) * 4);
+      local_8 = *(uint *)(&DAT_004df600 + (0xfff - (iVar1 + -0xfff)) * 4);
     }
     else {
       local_8 = (uint)-*(float *)(&DAT_004d7600 + iVar2 * 4);
     }
-    *param_2 = ((float)local_8 - *(float *)(&DAT_004df600 + (0xfff - (extraout_EAX + -0x1000)) * 4))
-               * fVar4 + *(float *)(&DAT_004df600 + (0xfff - (extraout_EAX + -0x1000)) * 4);
+    *param_2 = ((float)local_8 - *(float *)(&DAT_004df600 + (0xfff - (iVar1 + -0x1000)) * 4)) *
+               fVar4 + *(float *)(&DAT_004df600 + (0xfff - (iVar1 + -0x1000)) * 4);
     if (iVar2 < 0x2000) {
-      fVar1 = *(float *)("DialogBoxIndirectParamA" + iVar2 * 4 + 2);
+      fVar3 = *(float *)("DialogBoxIndirectParamA" + iVar2 * 4 + 2);
     }
     else {
-      fVar1 = *(float *)(&DAT_004df600 + (0xfff - (extraout_EAX + -0x1fff)) * 4);
+      fVar3 = *(float *)(&DAT_004df600 + (0xfff - (iVar1 + -0x1fff)) * 4);
     }
-    local_8 = (uint)-fVar1;
-    *param_3 = ((float)local_8 - -*(float *)("DialogBoxIndirectParamA" + extraout_EAX * 4 + 2)) *
-               fVar4 + -*(float *)("DialogBoxIndirectParamA" + extraout_EAX * 4 + 2);
+    local_8 = (uint)-fVar3;
+    *param_3 = ((float)local_8 - -*(float *)("DialogBoxIndirectParamA" + iVar1 * 4 + 2)) * fVar4 +
+               -*(float *)("DialogBoxIndirectParamA" + iVar1 * 4 + 2);
     break;
   case 2:
     if (iVar2 < 0x3000) {
-      fVar1 = *(float *)(&DAT_004d7600 + iVar2 * 4);
+      fVar3 = *(float *)(&DAT_004d7600 + iVar2 * 4);
     }
     else {
-      fVar1 = *(float *)(&DAT_004df600 + (0xfff - (extraout_EAX + -0x2fff)) * 4);
+      fVar3 = *(float *)(&DAT_004df600 + (0xfff - (iVar1 + -0x2fff)) * 4);
     }
-    local_8 = (uint)-fVar1;
-    *param_2 = ((float)local_8 - -*(float *)(&DAT_004d7600 + extraout_EAX * 4)) * fVar4 +
-               -*(float *)(&DAT_004d7600 + extraout_EAX * 4);
+    local_8 = (uint)-fVar3;
+    *param_2 = ((float)local_8 - -*(float *)(&DAT_004d7600 + iVar1 * 4)) * fVar4 +
+               -*(float *)(&DAT_004d7600 + iVar1 * 4);
     if (iVar2 < 0x3000) {
-      local_8 = (uint)-*(float *)(&DAT_004df600 + (0xfff - (extraout_EAX + -0x1fff)) * 4);
+      local_8 = (uint)-*(float *)(&DAT_004df600 + (0xfff - (iVar1 + -0x1fff)) * 4);
     }
     else {
       local_8 = *(uint *)(iVar2 * 4 + 0x4d3600);
     }
-    *param_3 = ((float)local_8 - -*(float *)(&DAT_004df600 + (0xfff - (extraout_EAX + -0x2000)) * 4)
-               ) * fVar4 + -*(float *)(&DAT_004df600 + (0xfff - (extraout_EAX + -0x2000)) * 4);
+    *param_3 = ((float)local_8 - -*(float *)(&DAT_004df600 + (0xfff - (iVar1 + -0x2000)) * 4)) *
+               fVar4 + -*(float *)(&DAT_004df600 + (0xfff - (iVar1 + -0x2000)) * 4);
     break;
   case 3:
     if (iVar2 < 0x4000) {
-      local_8 = (uint)-*(float *)(&DAT_004df600 + (0xfff - (extraout_EAX + -0x2fff)) * 4);
+      local_8 = (uint)-*(float *)(&DAT_004df600 + (0xfff - (iVar1 + -0x2fff)) * 4);
     }
     else {
       local_8 = *(uint *)(iVar2 * 4 + 0x4cf600);
     }
-    *param_2 = ((float)local_8 - -*(float *)(&DAT_004df600 + (0xfff - (extraout_EAX + -0x3000)) * 4)
-               ) * fVar4 + -*(float *)(&DAT_004df600 + (0xfff - (extraout_EAX + -0x3000)) * 4);
-    fVar1 = *(float *)(extraout_EAX * 4 + 0x4d3600);
+    *param_2 = ((float)local_8 - -*(float *)(&DAT_004df600 + (0xfff - (iVar1 + -0x3000)) * 4)) *
+               fVar4 + -*(float *)(&DAT_004df600 + (0xfff - (iVar1 + -0x3000)) * 4);
+    fVar3 = *(float *)(iVar1 * 4 + 0x4d3600);
     if (iVar2 < 0x4000) {
       local_8 = *(uint *)(iVar2 * 4 + 0x4d3600);
     }
     else {
-      local_8 = *(uint *)(&DAT_004df600 + (0xfff - (extraout_EAX + -0x3fff)) * 4);
+      local_8 = *(uint *)(&DAT_004df600 + (0xfff - (iVar1 + -0x3fff)) * 4);
     }
-    *param_3 = ((float)local_8 - fVar1) * fVar4 + fVar1;
+    *param_3 = ((float)local_8 - fVar3) * fVar4 + fVar3;
   }
-  return (float10)fVar3;
+  return;
 }
 #undef local_10
 #undef local_14
@@ -247,10 +246,10 @@ float10 Math_SinDeg(float param_1)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  int extraout_EAX;
   int iVar1;
-  float fVar2;
+  int iVar2;
   float fVar3;
+  float fVar4;
   #define local_30 (*(uint *)(_frame + (0x40 - 0x30)))
   #define local_28 (*(uint *)(_frame + (0x40 - 0x28)))
   #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
@@ -262,10 +261,10 @@ float10 Math_SinDeg(float param_1)
   #define local_c (*(uint *)(_frame + (0x40 - 0xc)))
   #define local_8 (*(uint *)(_frame + (0x40 - 0x8)))
   
-  fVar2 = Math_NormalizeAngle360(param_1);
-  if (90.0 <= fVar2) {
-    if (180.0 <= fVar2) {
-      if (270.0 <= fVar2) {
+  fVar3 = Math_NormalizeAngle360(param_1);
+  if (90.0 <= fVar3) {
+    if (180.0 <= fVar3) {
+      if (270.0 <= fVar3) {
         local_1c = 3;
       }
       else {
@@ -279,53 +278,51 @@ float10 Math_SinDeg(float param_1)
   else {
     local_1c = 0;
   }
-  fVar2 = (fVar2 / 360.0) * 16384.0;
-  fVar3 = Math_Round(fVar2);
-  fVar2 = fVar2 - fVar3;
-  _ftol();
-  iVar1 = extraout_EAX + 1;
+  fVar3 = (fVar3 / 360.0) * 16384.0;
+  fVar4 = Math_Round(fVar3);
+  fVar3 = fVar3 - fVar4;
+  iVar1 = _ftol();
+  iVar2 = iVar1 + 1;
   switch(local_1c) {
   case 0:
-    if (iVar1 < 0x1000) {
-      local_8 = *(uint *)(&DAT_004e3600 + iVar1 * 4);
+    if (iVar2 < 0x1000) {
+      local_8 = *(uint *)(&DAT_004e3600 + iVar2 * 4);
     }
     else {
-      local_8 = (uint)-*(float *)(&DAT_004e3600 + (0xfff - (extraout_EAX + -0xfff)) * 4);
+      local_8 = (uint)-*(float *)(&DAT_004e3600 + (0xfff - (iVar1 + -0xfff)) * 4);
     }
-    local_10 = (uint)(((float)local_8 - *(float *)(&DAT_004e3600 + extraout_EAX * 4)) * fVar2 +
-                     *(float *)(&DAT_004e3600 + extraout_EAX * 4));
+    local_10 = (uint)(((float)local_8 - *(float *)(&DAT_004e3600 + iVar1 * 4)) * fVar3 +
+                     *(float *)(&DAT_004e3600 + iVar1 * 4));
     break;
   case 1:
-    if (iVar1 < 0x2000) {
-      local_8 = (uint)-*(float *)(&DAT_004e3600 + (0xfff - (extraout_EAX + -0xfff)) * 4);
+    if (iVar2 < 0x2000) {
+      local_8 = (uint)-*(float *)(&DAT_004e3600 + (0xfff - (iVar1 + -0xfff)) * 4);
     }
     else {
-      local_8 = *(uint *)("DialogBoxIndirectParamA" + iVar1 * 4 + 2);
+      local_8 = *(uint *)("DialogBoxIndirectParamA" + iVar2 * 4 + 2);
     }
-    local_10 = (uint)(((float)local_8 -
-                      -*(float *)(&DAT_004e3600 + (0xfff - (extraout_EAX + -0x1000)) * 4)) * fVar2 +
-                     -*(float *)(&DAT_004e3600 + (0xfff - (extraout_EAX + -0x1000)) * 4));
+    local_10 = (uint)(((float)local_8 - -*(float *)(&DAT_004e3600 + (0xfff - (iVar1 + -0x1000)) * 4)
+                      ) * fVar3 + -*(float *)(&DAT_004e3600 + (0xfff - (iVar1 + -0x1000)) * 4));
     break;
   case 2:
-    if (iVar1 < 0x3000) {
-      local_8 = *(uint *)("DialogBoxIndirectParamA" + iVar1 * 4 + 2);
+    if (iVar2 < 0x3000) {
+      local_8 = *(uint *)("DialogBoxIndirectParamA" + iVar2 * 4 + 2);
     }
     else {
-      local_8 = (uint)-*(float *)(&DAT_004e3600 + (0xfff - (extraout_EAX + -0x2fff)) * 4);
+      local_8 = (uint)-*(float *)(&DAT_004e3600 + (0xfff - (iVar1 + -0x2fff)) * 4);
     }
-    local_10 = (uint)(((float)local_8 - *(float *)("DialogBoxIndirectParamA" + extraout_EAX * 4 + 2)
-                      ) * fVar2 + *(float *)("DialogBoxIndirectParamA" + extraout_EAX * 4 + 2));
+    local_10 = (uint)(((float)local_8 - *(float *)("DialogBoxIndirectParamA" + iVar1 * 4 + 2)) *
+                      fVar3 + *(float *)("DialogBoxIndirectParamA" + iVar1 * 4 + 2));
     break;
   case 3:
-    if (iVar1 < 0x4000) {
-      local_8 = (uint)-*(float *)(&DAT_004e3600 + (0xfff - (extraout_EAX + -0x2fff)) * 4);
+    if (iVar2 < 0x4000) {
+      local_8 = (uint)-*(float *)(&DAT_004e3600 + (0xfff - (iVar1 + -0x2fff)) * 4);
     }
     else {
-      local_8 = *(uint *)(iVar1 * 4 + 0x4d3600);
+      local_8 = *(uint *)(iVar2 * 4 + 0x4d3600);
     }
-    local_10 = (uint)(((float)local_8 -
-                      -*(float *)(&DAT_004e3600 + (0xfff - (extraout_EAX + -0x3000)) * 4)) * fVar2 +
-                     -*(float *)(&DAT_004e3600 + (0xfff - (extraout_EAX + -0x3000)) * 4));
+    local_10 = (uint)(((float)local_8 - -*(float *)(&DAT_004e3600 + (0xfff - (iVar1 + -0x3000)) * 4)
+                      ) * fVar3 + -*(float *)(&DAT_004e3600 + (0xfff - (iVar1 + -0x3000)) * 4));
   }
   return (float10)(float)local_10;
 }

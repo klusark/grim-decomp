@@ -43,7 +43,7 @@ void Game_FrameUpdate(void); /* 0x004016a0 */
 void Lua_Is3DHardwareEnabled(void); /* 0x00401ca0 */
 void Lua_SetHardwareState(void); /* 0x00401cc0 */
 void Lua_GetVideoDevices(void); /* 0x00401d30 */
-float10 Lua_SetVideoDevices(void); /* 0x00401da0 */
+void Lua_SetVideoDevices(void); /* 0x00401da0 */
 void Lua_Enumerate3DDevices(void); /* 0x00401e90 */
 void Lua_EnumerateVideoDevices(void); /* 0x00401fb0 */
 void FUN_00402050(void); /* 0x00402050 */
@@ -56,7 +56,7 @@ void Lua_DrawRectangle(void); /* 0x00489d70 */
 void Lua_ChangePrimitive(void); /* 0x00489fe0 */
 void __cdecl Lua_KillPrimitive(void); /* 0x0048a460 */
 void Lua_PurgePrimitiveQueue(void); /* 0x0048a4a0 */
-float10 Lua_SetOffscreenTextPos(void); /* 0x0048ad60 */
+void Lua_SetOffscreenTextPos(void); /* 0x0048ad60 */
 void Lua_SetEmergencyFont(void); /* 0x0048ade0 */
 void Lua_LocalizeString(void); /* 0x0048ae60 */
 void Lua_MakeColor(void); /* 0x0048aed0 */
@@ -65,7 +65,7 @@ void Lua_SetActorTalkColor(void); /* 0x0048b190 */
 void Lua_GetActorTalkColor(void); /* 0x0048b230 */
 void Lua_SetSayLineDefaults(void); /* 0x0048b2a0 */
 void Lua_SayLine(void); /* 0x0048b4c0 */
-float10 Lua_ParseSayLineTable (undefined4 param_1,int *param_2,int *param_3,int *param_4,int *param_5, int *param_6); /* 0x0048b6a0 */
+void Lua_ParseSayLineTable (undefined4 param_1,int *param_2,int *param_3,int *param_4,int *param_5,int *param_6); /* 0x0048b6a0 */
 void Lua_PrintLine(void); /* 0x0048b830 */
 void Lua_IsMessageGoing(void); /* 0x0048b9a0 */
 void Lua_ExpireText(void); /* 0x0048ba90 */
@@ -78,7 +78,7 @@ void Lua_ChangeTextObject(void); /* 0x0048bd10 */
 void Lua_MakeTextObject(void); /* 0x0048be30 */
 void Lua_BlastText(void); /* 0x0048bf50 */
 void Lua_GetTranslationMode(void); /* 0x0048c960 */
-float10 Lua_SetTranslationMode(void); /* 0x0048c980 */
+void Lua_SetTranslationMode(void); /* 0x0048c980 */
 void Lua_GetKeyLength(void); /* 0x00495850 */
 void Lua_GetSmushLength(void); /* 0x00495900 */
 void FUN_00495960(void); /* 0x00495960 */
@@ -184,13 +184,13 @@ void Lua_Load(void); /* 0x0049cea0 */
 void Lua_Save(void); /* 0x0049cef0 */
 void Lua_EnableDebugKeys(void); /* 0x0049cf40 */
 void Lua_WorldToScreen(void); /* 0x0049cf60 */
-float10 Lua_ScreenToWorld(void); /* 0x0049d030 */
+void Lua_ScreenToWorld(void); /* 0x0049d030 */
 void Lua_TypeOverride(void); /* 0x0049d140 */
 void Lua_ConcatFallback(void); /* 0x0049d220 */
 void Lua_exit(void); /* 0x0049d3a0 */
 void Lua_EnableControl(void); /* 0x0049d3f0 */
 void Lua_DisableControl(void); /* 0x0049d430 */
-float10 Lua_GetControlState(void); /* 0x0049d470 */
+void Lua_GetControlState(void); /* 0x0049d470 */
 void __cdecl Lua_CallCostumeOverrideHandler(void *actor,int flag); /* 0x0049d550 */
 void __cdecl Lua_CallCostumeMarkerHandler(void *actor,uint marker); /* 0x0049d670 */
 void Lua_CallUserPaintHandler(void); /* 0x0049d7b0 */
@@ -303,7 +303,7 @@ void Lua_ActorShadow(void); /* 0x004a1b80 */
 void Lua_ActivateActorShadow(void); /* 0x004a1bf0 */
 void Lua_SetActorShadowPlane(void); /* 0x004a1c90 */
 void Lua_SetActorShadowPoint(void); /* 0x004a1d10 */
-float10 Lua_SetActiveShadow(void); /* 0x004a1dc0 */
+void Lua_SetActiveShadow(void); /* 0x004a1dc0 */
 void Lua_ActorDistToShadowPlane(void); /* 0x004a1e50 */
 void Lua_AddShadowPlane(void); /* 0x004a1f30 */
 void Lua_SetActorShadowValid(void); /* 0x004a1fd0 */
@@ -313,9 +313,9 @@ void Lua_NewObjectState(void); /* 0x004a2130 */
 void Lua_FreeObjectState(void); /* 0x004a21f0 */
 void Lua_SendObjectToBack(void); /* 0x004a2240 */
 void Lua_SendObjectToFront(void); /* 0x004a22b0 */
-float10 Lua_SetObjectType(void); /* 0x004a2320 */
+void Lua_SetObjectType(void); /* 0x004a2320 */
 void Lua_ActorToClean(void); /* 0x004a2380 */
-float10 Lua_SetActorCollisionMode(void); /* 0x004a23e0 */
+void Lua_SetActorCollisionMode(void); /* 0x004a23e0 */
 void Lua_SetActorCollisionScale(void); /* 0x004a2470 */
 void Lua_SetActorOffsetYaw(void); /* 0x004a2500 */
 void Lua_CacheRect(void); /* 0x004a2590 */
@@ -345,7 +345,7 @@ void Lua_GetSaveGameData(void); /* 0x004a3720 */
 void __fastcall Lua_GetTextSpeed(undefined4 param_1); /* 0x004a3830 */
 void Lua_SetTextSpeed(void); /* 0x004a3850 */
 void Lua_FindFileOnAnyCD(void); /* 0x004a3890 */
-float10 Lua_ActorPuckOrient(void); /* 0x004a3a10 */
+void Lua_ActorPuckOrient(void); /* 0x004a3a10 */
 void Lua_GetTickCount(void); /* 0x004a3aa0 */
 void Lua_SetActorInvClipNode(void); /* 0x004a3ae0 */
 void Lua_SetWalkSystemFadeTime(void); /* 0x004a3b80 */
@@ -357,11 +357,11 @@ void Lua_LightMgrShutdown(void); /* 0x004be2a0 */
 int __cdecl ChoreFace_Toggle(int show); /* 0x00402120 */
 undefined4 FUN_00402200(void); /* 0x00402200 */
 void FUN_00402290(undefined4 param_1,int param_2); /* 0x00402290 */
-undefined4 FUN_00402330(undefined4 param_1); /* 0x00402330 */
-undefined4 FUN_004023a0(undefined4 param_1); /* 0x004023a0 */
-undefined4 FUN_00402410(undefined4 param_1); /* 0x00402410 */
-undefined4 FUN_00402480(undefined4 param_1); /* 0x00402480 */
-undefined4 FUN_004024f0(undefined4 param_1); /* 0x004024f0 */
+char * FUN_00402330(char *param_1); /* 0x00402330 */
+char * FUN_004023a0(char *param_1); /* 0x004023a0 */
+char * FUN_00402410(char *param_1); /* 0x00402410 */
+char * FUN_00402480(char *param_1); /* 0x00402480 */
+char * FUN_004024f0(char *param_1); /* 0x004024f0 */
 
 /* ===== stddisplay.c ===== */
 void Display_Shutdown3D(void); /* 0x00402580 */
@@ -426,7 +426,7 @@ void __cdecl Pixel_Convert(ushort *dst,int dstFormat,ushort *src,int srcFormat,u
 int Pixel_ConvertOne(int param_1,undefined4 param_2,int param_3); /* 0x0047bbb0 */
 
 /* ===== services.c ===== */
-undefined4 Svc_Printf(undefined4 param_1); /* 0x004035b0 */
+undefined4 __cdecl Svc_Printf(char *fmt,...); /* 0x004035b0 */
 undefined4 Svc_Printf2(undefined4 param_1); /* 0x004035e0 */
 undefined4 Svc_Warning(undefined4 param_1); /* 0x00403610 */
 undefined4 Svc_Error(undefined4 param_1); /* 0x00403640 */
@@ -443,7 +443,7 @@ uint Svc_Feof(int param_1); /* 0x004037a0 */
 void Svc_Ftell(undefined4 param_1); /* 0x004037b0 */
 int __cdecl Svc_Fseek(void *file,int offset,int whence); /* 0x004037c0 */
 int __cdecl Svc_FileSize(char *name); /* 0x004037e0 */
-void Svc_Fprintf(undefined4 param_1,undefined4 param_2); /* 0x00403830 */
+void __cdecl Svc_Fprintf(void *fp,char *fmt,...); /* 0x00403830 */
 void * __cdecl Svc_Malloc(uint size); /* 0x00403850 */
 void __cdecl Svc_Free(void *p); /* 0x00403860 */
 undefined4 Svc_Identity(undefined4 param_1); /* 0x00403870 */
@@ -451,7 +451,7 @@ void __cdecl Services_InitDefaults(GrimServices *svc); /* 0x00403880 */
 void __cdecl Services_SetCurrent(GrimServices *svc); /* 0x004733a0 */
 void Services_Clear(void); /* 0x00473400 */
 void Services_InitPlatform(GrimServices *param_1); /* 0x00473420 */
-undefined4 Svc_DebugPrintf(undefined4 param_1); /* 0x00478000 */
+undefined4 __cdecl Svc_DebugPrintf(char *fmt,...); /* 0x00478000 */
 void FUN_00478030(uint param_1); /* 0x00478030 */
 void FUN_00478040(undefined4 param_1); /* 0x00478040 */
 void FUN_00478050(undefined4 param_1,undefined4 param_2); /* 0x00478050 */
@@ -492,7 +492,7 @@ void rdroid_BeginFrame(void); /* 0x00404300 */
 void rdroid_EndFrame(void); /* 0x00404320 */
 void rdroid_InitCaches(void); /* 0x00404330 */
 undefined4 rdroid_SetColormap(uint param_1); /* 0x00404350 */
-float10 rdroid_BuildMathTables(void); /* 0x00404b80 */
+void rdroid_BuildMathTables(void); /* 0x00404b80 */
 
 /* ===== rdcolormap.c ===== */
 undefined4 rdColormap_SetCurrent(uint param_1); /* 0x00404380 */
@@ -1104,7 +1104,7 @@ uint FUN_004734e0(int param_1); /* 0x004734e0 */
 undefined * __cdecl stdFile_Tell(uint param_1); /* 0x004734f0 */
 void stdFile_Seek(undefined4 param_1,undefined4 param_2,undefined4 param_3); /* 0x00473500 */
 undefined * FUN_00473520(uint param_1); /* 0x00473520 */
-undefined4 FUN_00473570(undefined4 param_1,undefined4 param_2); /* 0x00473570 */
+undefined4 FUN_00473570(undefined4 param_1,char *param_2); /* 0x00473570 */
 uint stdFile_ReadByte(uint param_1); /* 0x004735f0 */
 void stdFile_WriteByte(undefined4 param_1,undefined4 param_2); /* 0x00473610 */
 int __cdecl stdCompress_Decompress(void *dst,void *src,int srcSize); /* 0x00473a00 */
@@ -1133,7 +1133,7 @@ int __cdecl Math_Log2Int(int n); /* 0x004735d0 */
 float __cdecl Math_PowInt(float x,int n); /* 0x0047bbe0 */
 float __cdecl Math_NormalizeAngle360(float degrees); /* 0x0047bc20 */
 float __cdecl Math_NormalizeAngle180(float param_1); /* 0x0047bce0 */
-float10 Math_SinCosTable(float param_1,float *param_2,float *param_3); /* 0x0047bd20 */
+void Math_SinCosTable(float param_1,float *param_2,float *param_3); /* 0x0047bd20 */
 float __cdecl Math_Round(float param_1); /* 0x0047c100 */
 float10 Math_SinDeg(float param_1); /* 0x0047c120 */
 float __cdecl Math_AsinDegrees(float x); /* 0x0047c3b0 */
@@ -1525,7 +1525,7 @@ bool Render_CanvasIsPaletted(void); /* 0x00486100 */
 void Render_BuildActorDrawList(void); /* 0x00486120 */
 void __cdecl Render_ScreenToWorld(int x,int y,float *outPos); /* 0x004862e0 */
 void __cdecl Render_InvalidateBackground(int redrawBackground,int redrawDepth); /* 0x004863b0 */
-float10 Render_BuildColorTable(int param_1,float param_2); /* 0x004864a0 */
+void Render_BuildColorTable(int param_1,float param_2); /* 0x004864a0 */
 void __cdecl Render_RemapPixels(ushort *pixels,uint n); /* 0x00486620 */
 void __cdecl Render_SetGamma(float gamma); /* 0x00486710 */
 void Render_ConvertBackground(void *param_1); /* 0x00486760 */
@@ -2054,16 +2054,16 @@ void FUN_004abf30(void); /* 0x004abf30 */
 
 /* ===== crt.c ===== */
 char _stricmp(byte *param_1,byte *param_2); /* 0x004ac550 */
-undefined4 sprintf(uint param_1,undefined4 param_2); /* 0x004ac620 */
-float __cdecl _ftol(void); /* 0x004ac6f0 */
-undefined4 _snprintf(uint param_1,uint param_2,undefined4 param_3,undefined4 param_4); /* 0x004ac720 */
+int __cdecl sprintf(char *buf,char *fmt,...); /* 0x004ac620 */
+undefined4 __cdecl _ftol(void); /* 0x004ac6f0 */
+int __cdecl _snprintf(char *buf,uint n,char *fmt,...); /* 0x004ac720 */
 int atol(byte *param_1); /* 0x004ac790 */
 undefined * __cdecl atoi(uint param_1); /* 0x004ac830 */
 uint * strncpy(uint *param_1,uint *param_2,uint param_3); /* 0x004ac840 */
 uint strtok(byte *param_1,byte *param_2); /* 0x004ac940 */
 void entry(void); /* 0x004aca30 */
 void _amsg_exit(undefined4 param_1); /* 0x004acbe0 */
-undefined4 printf(undefined4 param_1); /* 0x004acc40 */
+int __cdecl printf(char *fmt,...); /* 0x004acc40 */
 undefined4 vsprintf(uint param_1,undefined4 param_2,undefined4 param_3); /* 0x004acca0 */
 void exit(undefined4 param_1); /* 0x004acd40 */
 void _exit(undefined4 param_1); /* 0x004acd60 */
@@ -2097,12 +2097,12 @@ void shortsort(uint param_1,uint param_2,int param_3,code *param_4); /* 0x004adc
 void qsort_swap(undefined1 *param_1,undefined1 *param_2,int param_3); /* 0x004adc90 */
 uint bsearch(undefined4 param_1,uint param_2,uint param_3,int param_4,code *param_5); /* 0x004adcc0 */
 uint memcmp(char *param_1,char *param_2,int param_3); /* 0x004add60 */
-undefined * __cdecl sscanf(char *param_1,uint param_2); /* 0x004adda0 */
+int __cdecl sscanf(char *str,char *fmt,...); /* 0x004adda0 */
 uint * strchr(uint *param_1,char param_2); /* 0x004ade30 */
 undefined4 _vsnprintf(uint param_1,uint param_2,undefined4 param_3); /* 0x004adf70 */
 char * _strupr(char *param_1); /* 0x004adfe0 */
 char * strrchr(char *param_1,char param_2); /* 0x004ae160 */
-undefined4 fprintf(undefined4 param_1,undefined4 param_2); /* 0x004ae190 */
+int __cdecl fprintf(void *fp,char *fmt,...); /* 0x004ae190 */
 int wcslen(short *param_1); /* 0x004ae260 */
 int tolower(int param_1); /* 0x004ae280 */
 uint _tolower_lk(uint param_1); /* 0x004ae310 */
@@ -2645,7 +2645,7 @@ void FUN_004d0ed0(byte param_1,byte param_2); /* 0x004d0ed0 */
 void FUN_004d0f00(undefined4 param_1,uint param_2,uint param_3,undefined1 param_4,undefined1 param_5 ,uint param_6); /* 0x004d0f00 */
 void FUN_004d1180(int param_1,int param_2,uint param_3,int param_4,int param_5,uint param_6, int param_7,int param_8,int param_9,int param_10); /* 0x004d1180 */
 void FUN_004d1690(void); /* 0x004d1690 */
-float10 FUN_004d2340(undefined4 param_1,undefined4 param_2); /* 0x004d2340 */
+void FUN_004d2340(undefined4 param_1,undefined4 param_2); /* 0x004d2340 */
 void FUN_004d23e0(undefined4 param_1,undefined4 param_2,undefined4 param_3); /* 0x004d23e0 */
 void FUN_004d2400(undefined4 param_1,undefined4 param_2,undefined4 param_3); /* 0x004d2400 */
 undefined4 FUN_004d2420(int *param_1,uint param_2); /* 0x004d2420 */
@@ -2736,7 +2736,7 @@ void LightMgr_UpdateDialog(undefined4 param_1); /* 0x004beee0 */
 void LightEd_SyncFromSet(void); /* 0x004be3b0 */
 void __cdecl LightEd_ResetLight(int index,int mode); /* 0x004be4c0 */
 void __cdecl LightEd_DeleteLight(uint index); /* 0x004be560 */
-void LightEd_MakeUniqueName(int param_1,undefined4 param_2); /* 0x004be730 */
+void LightEd_MakeUniqueName(int param_1,char *param_2); /* 0x004be730 */
 void LightEd_AddLight(void); /* 0x004be7b0 */
 void LightEd_SaveSetFile(void); /* 0x004be990 */
 void __cdecl LightEd_WriteLightsSection(void *set,void *file); /* 0x004bed40 */

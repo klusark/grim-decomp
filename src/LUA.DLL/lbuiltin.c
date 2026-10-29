@@ -276,40 +276,46 @@ void FUN_10003150(void)
 undefined1 * __cdecl luaB_tostring(int param_1)
 
 {
-  undefined1 *puVar1;
-  undefined4 *puVar2;
+  char *buf;
+  undefined4 *puVar1;
+  undefined1 *puVar2;
+  longlong lVar3;
+  undefined4 uVar4;
   
-  puVar1 = (undefined1 *)luaL_openspace(0x1e);
-  puVar2 = (undefined4 *)lapi__11e0(param_1);
-  switch(*puVar2) {
+  buf = (char *)luaL_openspace(0x1e);
+  puVar1 = (undefined4 *)lapi__11e0(param_1);
+  switch(*puVar1) {
   case 0:
-    sprintf(puVar1,s_userdata___p_10026708);
-    return puVar1;
+    sprintf(buf,s_userdata___p_10026708,*(undefined4 *)(puVar1[1] + 0x14));
+    return buf;
   case 0xfffffff8:
+    uVar4 = puVar1[1];
     break;
   case 0xfffffff9:
     return &DAT_100266f8;
   case 0xfffffffa:
-    _ftol();
-    sprintf(puVar1,s_task___d_100266fc);
-    return puVar1;
+    lVar3 = _ftol();
+    sprintf(buf,s_task___d_100266fc,(int)lVar3);
+    return buf;
   case 0xfffffffb:
+    uVar4 = puVar1[1];
     break;
   case 0xfffffffc:
+    uVar4 = puVar1[1];
     break;
   case 0xfffffffd:
-    sprintf(puVar1,s_table___p_10026728);
-    return puVar1;
+    sprintf(buf,s_table___p_10026728,puVar1[1]);
+    return buf;
   case 0xfffffffe:
   case 0xffffffff:
-    puVar1 = (undefined1 *)lua_getstring(param_1);
-    return puVar1;
+    puVar2 = (undefined1 *)lua_getstring(param_1);
+    return puVar2;
   default:
     lua_error((byte *)s_internal_error_100266e8);
     return (undefined1 *)0x0;
   }
-  sprintf(puVar1,s_function___p_10026718);
-  return puVar1;
+  sprintf(buf,s_function___p_10026718,uVar4);
+  return buf;
 }
 
 /* ---- 0x10003260  lbuiltin__3260 ---- */
@@ -629,12 +635,13 @@ void FUN_10003780(void)
 {
   int iVar1;
   int iVar2;
+  undefined1 *puVar3;
   
   iVar2 = lua_lua2C(1);
   iVar1 = 2;
   while (iVar2 != 0) {
-    luaB_tostring(iVar2);
-    printf(&DAT_10026960);
+    puVar3 = luaB_tostring(iVar2);
+    printf(&DAT_10026960,puVar3);
     iVar2 = lua_lua2C(iVar1);
     iVar1 = iVar1 + 1;
   }
@@ -726,13 +733,14 @@ void FUN_10003930(void)
 
 {
   int iVar1;
+  undefined4 uVar2;
   
   iVar1 = lua_lua2C(1);
   if ((iVar1 != 0) && (iVar1 = lua_isnil(iVar1), iVar1 == 0)) {
     return;
   }
-  luaL_opt_string(2,&DAT_1002bedc);
-  luaL_verror(s_assertion_failed____100s_10026978);
+  uVar2 = luaL_opt_string(2,&DAT_1002bedc);
+  luaL_verror(s_assertion_failed____100s_10026978,uVar2);
   return;
 }
 

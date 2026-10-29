@@ -257,7 +257,7 @@ undefined4 luaD_call(code *param_1,void *param_2)
     puVar1 = (uint *)(PTR_1002bf6c[8] + -8 + iVar4 * 8);
     switch(*(undefined4 *)(PTR_1002bf6c[8] + -8 + iVar4 * 8)) {
     case 0xfffffff5:
-      printf(s_unexpected_cmark_at__d_10026a50);
+      printf(s_unexpected_cmark_at__d_10026a50,iVar4);
       if (*(int *)(*PTR_1002bf6c + 0x18) == 0) goto switchD_1000422b_caseD_fffffff9;
       break;
     case 0xfffffff6:
