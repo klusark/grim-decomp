@@ -1390,7 +1390,7 @@ undefined4 __cdecl FUN_1000f330(int param_1)
       *(undefined1 *)puVar11 = 0;
       uVar5 = 0;
       iVar8 = iVar8 * 0x30;
-      pbVar9 = (byte *)(iVar8 + 0x1001f278);
+      pbVar9 = (byte *)(iVar8 + IMG_ADDR(0x1001f278));
       do {
         bVar1 = *pbVar9;
         for (pbVar10 = pbVar9; (bVar1 != 0 && (bVar1 = pbVar10[1], bVar1 != 0));

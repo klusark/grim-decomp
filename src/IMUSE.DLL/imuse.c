@@ -3912,11 +3912,11 @@ int * __cdecl Im_SoundsLoad(uint *param_1,char *param_2)
     *(int *)(&DAT_100303a4 + iVar7) = iVar3;
     *(int *)(*(int *)(&DAT_100303c4 + iVar7) + ((uint)param_2 & 0xffff) * 4) = iStack_10;
     (**(code **)(DAT_10033510 + 0x24))(pbStack_4);
-    Im_CodecInit((undefined1 *)(iVar7 + 0x100303d4));
+    Im_CodecInit((undefined1 *)(iVar7 + IMG_ADDR(0x100303d4)));
     *(undefined4 *)(&DAT_100303cc + iVar7) = 0;
     *(undefined4 *)(&DAT_100303d0 + iVar7) = 0;
     *(undefined4 *)(&DAT_100303c8 + iVar7) = 0xffffffff;
-    Im_MemCopy((uint *)(iVar7 + 0x100303da),param_1,0x50);
+    Im_MemCopy((uint *)(iVar7 + IMG_ADDR(0x100303da)),param_1,0x50);
     (&DAT_10030429)[iVar7] = 0;
     return (int *)(&DAT_100303a0 + iVar7);
   }
