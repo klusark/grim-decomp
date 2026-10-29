@@ -929,11 +929,11 @@ undefined4 * lstate__8ad0(void)
   int *piVar3;
   undefined4 *unaff_FS_OFFSET = (undefined4 *)TEB_BASE();
   #define local_c (*(undefined4 *)(_frame + (0x20 - 0xc)))
-  #define puStack_8 (*(undefined **)(_frame + (0x20 - 0x8)))
+  #define pcStack_8 (*(code **)(_frame + (0x20 - 0x8)))
   #define local_4 (*(undefined4 *)(_frame + (0x20 - 0x4)))
   
   local_4 = 0xffffffff;
-  puStack_8 = &DAT_1002201b;
+  pcStack_8 = FUN_1002201b;
   local_c = *unaff_FS_OFFSET;
   *unaff_FS_OFFSET = &local_c;
   piVar1 = PTR_1002bf6c;
@@ -952,7 +952,7 @@ undefined4 * lstate__8ad0(void)
 }
 #undef local_4
 #undef local_c
-#undef puStack_8
+#undef pcStack_8
 
 #endif
 

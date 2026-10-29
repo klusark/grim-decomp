@@ -65,6 +65,13 @@ void GRIM_lua_cmd_poll(void)
     static int len;
     char buf[256];
     unsigned got, i;
+    static int nomovie = -1;
+    /* GRIM_NOMOVIE=1 (test runs): movies are skipped the way StartSmush=FALSE does it; the engine sets the flag
+     * during start-up, so it is cleared again here, in every frame */
+    if (nomovie < 0)
+        nomovie = GRIM_getenv("GRIM_NOMOVIE") != 0;
+    if (nomovie)
+        g_nMovieAvailable = 0;
     if (lua_cmd_state < 0)
         return;
     if (lua_cmd_state == 0) {

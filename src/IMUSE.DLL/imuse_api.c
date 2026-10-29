@@ -1,5 +1,5 @@
 /* IMUSE.DLL :: imuse_api.c
- * functions 0x10003d70 .. 0x1000d1f0 (113 functions)
+ * functions 0x10003d70 .. 0x1000d1f0 (114 functions)
  * Decompiled from the shipped binaries with Ghidra; see ../../README.md */
 #include "ghidra_types.h"
 #include "globals.h"
@@ -1747,6 +1747,8 @@ undefined4 FUN_100077c0(void)
 
 
 /* ---- 0x10007810  SoundsPeriodic ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 void __cdecl SoundsPeriodic(void)
@@ -1777,6 +1779,8 @@ void __cdecl SoundsPeriodic(void)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x10007830  SoundsGetMusicPosition ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -1909,7 +1913,7 @@ undefined4 FUN_10007920(void)
     ImInitialize();
     SoundsAllocateBuffer(2,_DAT_1001e8b4,_DAT_1001e8b8,_DAT_1001e8bc);
     SoundsAllocateBuffer(1,_DAT_1001e8a8,_DAT_1001e8ac,_DAT_1001e8b0);
-    ImInitializeScript(((unsigned)(uintptr_t)FUN_100067a0),((unsigned)(uintptr_t)FUN_100067a0),0x10007a90,((unsigned)(uintptr_t)FUN_10007250),0,0,_DAT_1001e8dc);
+    ImInitializeScript(((unsigned)(uintptr_t)FUN_100067a0),((unsigned)(uintptr_t)FUN_100067a0),((unsigned)(uintptr_t)FUN_10007a90),((unsigned)(uintptr_t)FUN_10007250),0,0,_DAT_1001e8dc);
     _DAT_10031d44 = 1;
   }
   return 0;
@@ -1979,6 +1983,76 @@ int FUN_10007a80(int param_1)
 }
 #endif
 
+
+/* ---- 0x10007a90  FUN_10007a90 ---- */
+int FUN_10007a90(uint *param_1,int param_2)
+
+{
+  byte bVar1;
+  int *piVar2;
+  byte *pbVar3;
+  int iVar4;
+  int iVar5;
+  uint *puVar6;
+  byte *pbVar7;
+  bool bVar8;
+  
+  if (param_2 != 0) {
+    iVar5 = (param_2 + -10000) * 0x28;
+    piVar2 = Im_SoundsLoad(param_1,&DAT_1001e900);
+    *(int **)(&DAT_1002eb10 + iVar5) = piVar2;
+    Im_MemCopy((uint *)(iVar5 + IMG_ADDR(0x1002eb14)),param_1,0x20);
+    *(undefined1 *)(iVar5 + IMG_ADDR(0x1002eb33)) = 0;
+    *(undefined4 *)(iVar5 + IMG_ADDR(0x1002eb34)) = 1;
+    return param_2;
+  }
+  iVar5 = 1;
+  pbVar7 = (byte *)IMG_ADDR(0x1002eb3c);
+  do {
+    if (*(int *)(pbVar7 + -4) == 0) {
+      piVar2 = Im_SoundsLoad(param_1,&DAT_1001e900);
+      iVar4 = iVar5 * 0x28;
+      *(int **)(&DAT_1002eb10 + iVar4) = piVar2;
+      if (piVar2 == (int *)0x0) {
+        return 0;
+      }
+      Im_MemCopy((uint *)(iVar4 + IMG_ADDR(0x1002eb14)),param_1,0x20);
+      *(undefined1 *)(iVar4 + IMG_ADDR(0x1002eb33)) = 0;
+      *(undefined4 *)(iVar4 + IMG_ADDR(0x1002eb34)) = 1;
+      return iVar5 + 10000;
+    }
+    pbVar3 = pbVar7;
+    puVar6 = param_1;
+    if (*pbVar7 != 0) {
+      do {
+        bVar1 = *pbVar3;
+        bVar8 = bVar1 < (byte)*puVar6;
+        if (bVar1 != (byte)*puVar6) {
+LAB_10007b28:
+          iVar4 = (1 - (uint)bVar8) - (uint)(bVar8 != 0);
+          goto LAB_10007b2d;
+        }
+        if (bVar1 == 0) break;
+        bVar1 = pbVar3[1];
+        bVar8 = bVar1 < *(byte *)((int)puVar6 + 1);
+        if (bVar1 != *(byte *)((int)puVar6 + 1)) goto LAB_10007b28;
+        pbVar3 = pbVar3 + 2;
+        puVar6 = (uint *)((int)puVar6 + 2);
+      } while (bVar1 != 0);
+      iVar4 = 0;
+LAB_10007b2d:
+      if (iVar4 == 0) {
+        *(int *)(iVar5 * 0x28 + IMG_ADDR(0x1002eb34)) = *(int *)(iVar5 * 0x28 + IMG_ADDR(0x1002eb34)) + 1;
+        return iVar5 + 10000;
+      }
+    }
+    pbVar7 = pbVar7 + 0x28;
+    iVar5 = iVar5 + 1;
+    if (IMG_ADDR(0x1002ebdb) < (int)pbVar7) {
+      return 0;
+    }
+  } while( true );
+}
 
 /* ---- 0x10007bc0  FUN_10007bc0 ---- */
 /* replaced by the hand-written version in build/overrides.c */

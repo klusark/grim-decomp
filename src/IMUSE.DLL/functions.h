@@ -230,6 +230,7 @@ void FUN_10007a20(void); /* 0x10007a20 */
 void FUN_10007a60(undefined4 param_1); /* 0x10007a60 */
 void FUN_10007a70(undefined4 param_1); /* 0x10007a70 */
 int FUN_10007a80(int param_1); /* 0x10007a80 */
+int FUN_10007a90(uint *param_1,int param_2); /* 0x10007a90 */
 int FUN_10007bc0(int param_1,int param_2,int param_3); /* 0x10007bc0 */
 undefined4 * FUN_10007ca0(undefined4 *param_1,undefined4 *param_2,undefined4 *param_3); /* 0x10007ca0 */
 void FUN_10008140(void); /* 0x10008140 */

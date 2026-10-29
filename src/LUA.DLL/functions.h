@@ -861,12 +861,14 @@ void FUN_10021f90(void); /* 0x10021f90 */
 void FUN_10021f9b(void); /* 0x10021f9b */
 void __cdecl FUN_10021fa6(int *param_1,int param_2,int param_3,undefined4 param_4); /* 0x10021fa6 */
 void FUN_10021fb0(void); /* 0x10021fb0 */
+undefined4 FUN_10021fbb(int *param_1,int param_2,int param_3,undefined4 param_4); /* 0x10021fbb */
 void FUN_10021fd0(void); /* 0x10021fd0 */
 void FUN_10021fdb(void); /* 0x10021fdb */
 void __cdecl FUN_10021fe6(int *param_1,int param_2,int param_3,undefined4 param_4); /* 0x10021fe6 */
 void FUN_10021ff0(void); /* 0x10021ff0 */
 void __cdecl FUN_10021ffb(int *param_1,int param_2,int param_3,undefined4 param_4); /* 0x10021ffb */
 void FUN_10022010(void); /* 0x10022010 */
+undefined4 FUN_1002201b(int *param_1,int param_2,int param_3,undefined4 param_4); /* 0x1002201b */
 void FUN_10022030(void); /* 0x10022030 */
 void __cdecl FUN_1002203b(int *param_1,int param_2,int param_3,undefined4 param_4); /* 0x1002203b */
 void FUN_10022050(void); /* 0x10022050 */

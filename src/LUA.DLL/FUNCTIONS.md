@@ -1,6 +1,6 @@
 # LUA.DLL function index
 
-848 functions, 597 with real names.
+850 functions, 597 with real names.
 
 | address | name | module | lines |
 |---|---|---|---|
@@ -822,12 +822,14 @@
 | 10021f9b | FUN_10021f9b | crt_unnamed.c | 1 |
 | 10021fa6 | FUN_10021fa6 | crt_unnamed.c | 6 |
 | 10021fb0 | FUN_10021fb0 | crt_unnamed.c | 1 |
+| 10021fbb | FUN_10021fbb | crt_unnamed.c | 8 |
 | 10021fd0 | FUN_10021fd0 | crt_unnamed.c | 1 |
 | 10021fdb | FUN_10021fdb | crt_unnamed.c | 1 |
 | 10021fe6 | FUN_10021fe6 | crt_unnamed.c | 6 |
 | 10021ff0 | FUN_10021ff0 | crt_unnamed.c | 1 |
 | 10021ffb | FUN_10021ffb | crt_unnamed.c | 6 |
 | 10022010 | FUN_10022010 | crt_unnamed.c | 1 |
+| 1002201b | FUN_1002201b | crt_unnamed.c | 8 |
 | 10022030 | FUN_10022030 | crt_unnamed.c | 1 |
 | 1002203b | FUN_1002203b | crt_unnamed.c | 6 |
 | 10022050 | FUN_10022050 | crt_unnamed.c | 1 |
