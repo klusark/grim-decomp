@@ -6,3 +6,5 @@ __pycache__/
 *.pyc
 build/run_orig*/
 build/hmi/*.a
+*.log
+names/*.out
