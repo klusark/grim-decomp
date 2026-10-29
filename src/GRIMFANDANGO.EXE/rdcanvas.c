@@ -1446,31 +1446,38 @@ void rdCanvas_DrawPoint(void *param_1,int param_2,int param_3,undefined4 param_4
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
+  int y1;
   int iVar2;
-  int iVar3;
-  int iVar4;
-  int iVar5;
+  undefined4 unaff_ESI;
+  int x2;
+  undefined4 unaff_EDI;
+  int y2;
+  longlong lVar3;
+  longlong lVar4;
   #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
-  iVar2 = _ftol();
+  lVar3 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+  iVar2 = (int)lVar3;
   if ((((*(int *)((int)param_1 + 0x18) <= iVar2 + param_2) &&
        (param_2 - iVar2 <= *(int *)((int)param_1 + 0x20))) &&
       (*(int *)((int)param_1 + 0x1c) <= iVar2 + param_3)) &&
      (param_3 - iVar2 <= *(int *)((int)param_1 + 0x24))) {
     Math_SinCosTable(0,&local_4,&local_8);
-    iVar2 = _ftol();
-    iVar3 = _ftol();
-    iVar2 = iVar2 + param_2;
-    iVar3 = iVar3 + param_3;
+    lVar3 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+    lVar4 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+    iVar2 = (int)lVar3 + param_2;
+    y1 = (int)lVar4 + param_3;
     for (fVar1 = param_5; fVar1 <= 360.0; fVar1 = fVar1 + param_5) {
       Math_SinCosTable(fVar1,&local_4,&local_8);
-      iVar4 = _ftol();
-      iVar5 = _ftol();
-      rdPrimit2_DrawLine(param_1,iVar2,iVar3,iVar4 + param_2,iVar5 + param_3,param_6,param_7);
-      iVar2 = iVar4 + param_2;
-      iVar3 = iVar5 + param_3;
+      lVar3 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+      x2 = (int)lVar3 + param_2;
+      lVar3 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+      y2 = (int)lVar3 + param_3;
+      rdPrimit2_DrawLine(param_1,iVar2,y1,x2,y2,param_6,param_7);
+      iVar2 = x2;
+      y1 = y2;
     }
   }
   return;

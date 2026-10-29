@@ -530,6 +530,8 @@ undefined4 __cdecl luaU_str2number(int *param_1)
 
 
 /* ---- 0x1000d620  lundump__d620 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Unidentified function of lundump.c (precompiled chunk loader) */
 
 undefined4 __cdecl lundump__d620(int *param_1)
@@ -560,4 +562,6 @@ LAB_1000d6ae:
   return 0;
 }
 #undef local_3c
+
+#endif
 

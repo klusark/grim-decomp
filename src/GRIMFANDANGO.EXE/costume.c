@@ -432,22 +432,24 @@ void __cdecl Costume_UpdateAll(void *costumeList,float dt)
 {
   int iVar1;
   void *puppet;
-  uint uVar2;
-  undefined4 *puVar3;
+  undefined4 unaff_ESI;
+  undefined4 *puVar2;
+  undefined4 unaff_EDI;
+  ulonglong uVar3;
   
-  uVar2 = _ftol();
+  uVar3 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
   if (costumeList != (void *)0x0) {
     iVar1 = *(int *)((int)costumeList + 4);
-    puVar3 = costumeList;
+    puVar2 = costumeList;
     do {
-      if (puVar3[1] != iVar1) break;
-      Cos_InstUpdateChores(*puVar3,uVar2);
-      puVar3 = (undefined4 *)puVar3[0x2c];
-    } while (puVar3 != (undefined4 *)0x0);
+      if (puVar2[1] != iVar1) break;
+      Cos_InstUpdateChores(*puVar2,(int)uVar3);
+      puVar2 = (undefined4 *)puVar2[0x2c];
+    } while (puVar2 != (undefined4 *)0x0);
     for (iVar1 = *(int *)((int)costumeList + 8); iVar1 != 0; iVar1 = *(int *)(iVar1 + 400)) {
       puppet = *(void **)(*(int *)(iVar1 + 0x40) + 0x14);
       if (puppet != (void *)0x0) {
-        rdPuppet_Advance(puppet,(float)uVar2 * 0.001);
+        rdPuppet_Advance(puppet,(float)(uVar3 & 0xffffffff) * 0.001);
       }
     }
   }

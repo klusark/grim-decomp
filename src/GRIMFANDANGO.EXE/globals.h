@@ -2788,6 +2788,7 @@ extern undefined DAT_0091f100; /* used by 2 fn(s), first 0x004cc6a0 */
 extern undefined DAT_0091f101; /* used by 1 fn(s), first 0x004cc7d0 */
 extern undefined2 DAT_009270a0; /* used by 2 fn(s), first 0x004cc6a0 */
 extern undefined DAT_009272a0; /* used by 1 fn(s), first 0x004cedc0 */
+extern undefined4 in_stack_ffffffe8; /* used by 2 fn(s), first 0x0040dc30 */
 
 /* ---- re-typed views of the symbols above ---- */
 #define _DAT_004dd34c (*(undefined4 *)&DAT_004dd34c) /* same address as DAT_004dd34c, other width */

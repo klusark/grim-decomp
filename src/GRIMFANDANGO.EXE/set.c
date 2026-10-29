@@ -235,7 +235,7 @@ void Set_DrawDebugLights(int param_1)
         local_68 = puVar2[-0xf];
         local_64 = 0;
         rdPrimit3_DrawLine(puVar2 + -0x10,&local_6c,0,0,0,0,PIECE(UINT_008c97c8,2,2),0xffffffff);
-        rdPrimit3_DrawPoint(puVar2 + -0x10,*puVar2,0x41980000,PIECE(UINT_008c97c8,2,2),0xffffffff);
+        ((void (*)(float *, float, undefined4, int, int))rdPrimit3_DrawPoint)(puVar2 + -0x10,*puVar2,0x41980000,PIECE(UINT_008c97c8,2,2),0xffffffff);
       }
       else {
         local_68 = (uint)((float)puVar2[-9] + (float)puVar2[-0xf]);

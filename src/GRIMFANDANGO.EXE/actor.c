@@ -75,7 +75,7 @@ void Actor_DrawDebugWalker(void *param_1)
       iVar1 = *(int *)(*(int *)(*(int *)((int)param_1 + 0xa0) + 4) + 4);
       b = Actor_GetFrame(param_1);
       Vec3_Sub(local_c,(float *)(iVar1 + 0x78),b);
-      rdPrimit3_DrawPoint(local_c,*(float *)(iVar1 + 0x5c) *
+      ((void (*)(float *, float, undefined4, int, int))rdPrimit3_DrawPoint)(local_c,*(float *)(iVar1 + 0x5c) *
                                   *(float *)(*(int *)((int)param_1 + 0xa4) + 0x3f4),0x41200000,
                           0xffff,0xffffffff);
     }
@@ -599,8 +599,10 @@ void __cdecl Actor_UpdateTalk(void *actor,float dt)
   ushort uVar2;
   int iVar3;
   undefined2 extraout_var;
-  int iVar4;
-  undefined4 *puVar5;
+  undefined4 *puVar4;
+  undefined4 unaff_ESI;
+  undefined4 unaff_EDI;
+  longlong lVar5;
   
   iVar3 = *(int *)((int)actor + 0xa4);
   if (*(int *)(iVar3 + 0x1c4) == 0) {
@@ -614,23 +616,23 @@ void __cdecl Actor_UpdateTalk(void *actor,float dt)
     }
     else {
       uVar2 = Phoneme_ToTalkChore(actor,iVar3);
-      puVar5 = *(undefined4 **)((int)actor + 0xa0);
-      piVar1 = puVar5 + 1;
-      if (puVar5 != (undefined4 *)0x0) {
+      puVar4 = *(undefined4 **)((int)actor + 0xa0);
+      piVar1 = puVar4 + 1;
+      if (puVar4 != (undefined4 *)0x0) {
         do {
-          if ((puVar5[1] != *piVar1) || (-1 < (int)puVar5[CONCAT22(extraout_var,uVar2) + 0xe]))
+          if ((puVar4[1] != *piVar1) || (-1 < (int)puVar4[CONCAT22(extraout_var,uVar2) + 0xe]))
           break;
-          puVar5 = (undefined4 *)puVar5[0x2c];
-        } while (puVar5 != (undefined4 *)0x0);
-        if ((puVar5 != (undefined4 *)0x0) && (puVar5[1] == *piVar1)) {
-          Cos_InstCompleteChore(*puVar5,puVar5[CONCAT22(extraout_var,uVar2) + 0xe]);
+          puVar4 = (undefined4 *)puVar4[0x2c];
+        } while (puVar4 != (undefined4 *)0x0);
+        if ((puVar4 != (undefined4 *)0x0) && (puVar4[1] == *piVar1)) {
+          Cos_InstCompleteChore(*puVar4,puVar4[CONCAT22(extraout_var,uVar2) + 0xe]);
         }
       }
     }
   }
   iVar3 = *(int *)((int)actor + 0xa4);
-  iVar4 = _ftol();
-  *(int *)(iVar3 + 0x1cc) = *(int *)(iVar3 + 0x1cc) + iVar4;
+  lVar5 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+  *(int *)(iVar3 + 0x1cc) = *(int *)(iVar3 + 0x1cc) + (int)lVar5;
   if ((*(char *)(*(int *)((int)actor + 0xa4) + 0x1dc) == '\0') ||
      (iVar3 = Actor_IsVoicePlaying(actor), iVar3 != 0)) {
     if (*(char *)(*(int *)((int)actor + 0xa4) + 0x1dc) != '\0') {
@@ -2241,6 +2243,9 @@ void Actor_DrawShadowPlane(void *costumeList,void *shadow)
   int iVar3;
   uint uVar4;
   int iVar5;
+  undefined4 unaff_ESI;
+  undefined4 unaff_EDI;
+  longlong lVar6;
   #define local_fc (*(uint *)(_frame + (0x110 - 0xfc)))
   #define local_f8 (*(uint *)(_frame + (0x110 - 0xf8)))
   #define local_f4 (*(uint *)(_frame + (0x110 - 0xf4)))
@@ -2320,10 +2325,14 @@ void Actor_DrawShadowPlane(void *costumeList,void *shadow)
       }
     }
     if ((float)local_fc <= (float)local_e4) {
-      local_d0 = _ftol();
-      local_cc = _ftol();
-      local_c8 = _ftol();
-      local_c4 = _ftol();
+      lVar6 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+      local_d0 = (uint)lVar6;
+      lVar6 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+      local_cc = (uint)lVar6;
+      lVar6 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+      local_c8 = (uint)lVar6;
+      lVar6 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+      local_c4 = (uint)lVar6;
       Render_InvalidateRectLastBuffer((int *)&local_d0,1);
     }
   }

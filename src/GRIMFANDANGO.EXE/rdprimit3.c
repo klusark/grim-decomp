@@ -135,9 +135,12 @@ rdPrimit3_DrawLine(float *param_1,float *param_2,int *param_3,int *param_4,int *
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
-  int y0;
-  int x1;
-  int y1;
+  undefined4 unaff_EBX;
+  undefined4 unaff_ESI;
+  longlong lVar2;
+  longlong lVar3;
+  longlong lVar4;
+  longlong lVar5;
   #define local_30 (*(undefined1 (*)[8])(_frame + (0x40 - 0x30)))
   #define iStack_28 (*(int *)(_frame + (0x40 - 0x28)))
   #define auStack_24 (*(undefined1 (*)[8])(_frame + (0x40 - 0x24)))
@@ -151,21 +154,22 @@ rdPrimit3_DrawLine(float *param_1,float *param_2,int *param_3,int *param_4,int *
   if (iVar1 != 0) {
     (**(code **)((int)g_pRdCurrentCamera + 0x4c))(local_30,local_18);
     (**(code **)((int)g_pRdCurrentCamera + 0x4c))(auStack_24,local_c);
-    iVar1 = _ftol();
-    y0 = _ftol();
+    lVar2 = _ftol((double)CONCAT44(unaff_ESI,unaff_EBX));
+    lVar3 = _ftol((double)CONCAT44(unaff_ESI,unaff_EBX));
     if (param_3 != (int *)0x0) {
-      *param_3 = iVar1;
-      param_3[1] = y0;
+      *param_3 = (int)lVar2;
+      param_3[1] = (int)lVar3;
       param_3[2] = iStack_28;
     }
-    x1 = _ftol();
-    y1 = _ftol();
+    lVar4 = _ftol((double)CONCAT44(unaff_ESI,unaff_EBX));
+    lVar5 = _ftol((double)CONCAT44(unaff_ESI,unaff_EBX));
     if (param_4 != (int *)0x0) {
-      *param_4 = x1;
-      param_4[1] = y1;
+      *param_4 = (int)lVar4;
+      param_4[1] = (int)lVar5;
       param_4[2] = iStack_1c;
     }
-    rdCanvas_DrawLine(*(void **)((int)g_pRdCurrentCamera + 4),iVar1,y0,x1,y1,param_7,param_8);
+    rdCanvas_DrawLine(*(void **)((int)g_pRdCurrentCamera + 4),(int)lVar2,(int)lVar3,(int)lVar4,
+                      (int)lVar5,param_7,param_8);
     return 1;
   }
   return 0;
@@ -181,14 +185,12 @@ rdPrimit3_DrawLine(float *param_1,float *param_2,int *param_3,int *param_4,int *
 /* ---- 0x0040dde0  rdPrimit3_DrawPoint ---- */
 /* Projects a world-space point with a radius and draws it as a 2D point */
 
-void rdPrimit3_DrawPoint(float *param_1,float param_2,undefined4 param_3,undefined4 param_4,
-                        undefined4 param_5)
+void rdPrimit3_DrawPoint(float *param_1,float param_2,undefined4 param_3)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  undefined4 uVar1;
-  undefined4 uVar2;
-  float fVar3;
+  longlong lVar1;
+  float fVar2;
   #define local_30 (*(uint *)(_frame + (0x40 - 0x30)))
   #define local_2c (*(uint *)(_frame + (0x40 - 0x2c)))
   #define local_28 (*(uint *)(_frame + (0x40 - 0x28)))
@@ -205,11 +207,10 @@ void rdPrimit3_DrawPoint(float *param_1,float param_2,undefined4 param_3,undefin
   if (0.0 < (float)local_2c) {
     (**(code **)((int)g_pRdCurrentCamera + 0x4c))(local_18,&local_30);
     (**(code **)((int)g_pRdCurrentCamera + 0x4c))(afStack_c,&local_24);
-    fVar3 = afStack_c[0] - local_18[0];
-    uVar1 = _ftol();
-    uVar2 = _ftol();
-    rdCanvas_DrawPoint(*(undefined4 *)((int)g_pRdCurrentCamera + 4),uVar2,uVar1,fVar3,param_3,
-                       param_4,param_5);
+    fVar2 = afStack_c[0] - local_18[0];
+    lVar1 = _ftol((double)CONCAT44(param_3,fVar2));
+    lVar1 = _ftol((double)CONCAT44(fVar2,(int)lVar1));
+    ((code *)rdCanvas_DrawPoint)(*(undefined4 *)((int)g_pRdCurrentCamera + 4),(int)lVar1);
   }
   return;
 }

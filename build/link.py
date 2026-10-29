@@ -216,6 +216,14 @@ def link(cc, src, obj, prog, env):
         print(f"{prog}: overrides.c does not compile:\n{out[:2000]}")
         return
     objs.append(os.path.join(d, "overrides.o"))
+    # functions reassembled from the disassembly (tools/gen_asm.py)
+    asm_src = os.path.join(src, prog, "asm_funcs.s")
+    if os.path.exists(asm_src):
+        rc, out = run([cc, "-m32", "-c", asm_src, "-o", os.path.join(d, "asm_funcs.o")], env)
+        if rc:
+            print(f"{prog}: asm_funcs.s does not assemble:\n{out[:2000]}")
+            return
+        objs.append(os.path.join(d, "asm_funcs.o"))
     libs = []
     for dep in DLL_IMPORTS.get(prog, []):
         imp = os.path.join(obj, dep, "lib" + dep.split(".")[0].lower() + ".a")

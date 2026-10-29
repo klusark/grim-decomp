@@ -95,6 +95,8 @@ void luaX_save(void)
 }
 
 /* ---- 0x10005d00  luaX_lex ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* llex.c: main tokenizer; numbers are returned through the float out-parameter */
 
 uint __cdecl luaX_lex(float *param_1)
@@ -631,6 +633,8 @@ LAB_10006241:
 #undef local_10
 #undef local_8
 
+#endif
+
 
 /* ---- 0x10006890  luaX_pragma ---- */
 /* llex.c: handles the $debug / $nodebug / $if pragmas */
@@ -1020,6 +1024,8 @@ void FUN_10006f20(void)
 }
 
 /* ---- 0x10006f50  FUN_10006f50 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_10006f50(void)
 
 {
@@ -1030,6 +1036,8 @@ void FUN_10006f50(void)
   lua_pushnumber(fVar1 * 57.29578);
   return;
 }
+#endif
+
 
 /* ---- 0x10006f80  FUN_10006f80 ---- */
 void FUN_10006f80(void)
@@ -1121,6 +1129,8 @@ void FUN_100070c0(void)
 }
 
 /* ---- 0x100070e0  FUN_100070e0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_100070e0(void)
 
 {
@@ -1132,6 +1142,8 @@ void FUN_100070e0(void)
   lua_pushnumber(fVar1);
   return;
 }
+#endif
+
 
 /* ---- 0x10007120  FUN_10007120 ---- */
 void FUN_10007120(void)
@@ -1252,6 +1264,8 @@ void FUN_10007230(void)
 
 
 /* ---- 0x10007290  FUN_10007290 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_10007290(void)
 
 {
@@ -1269,8 +1283,12 @@ void FUN_10007290(void)
   lua_pushnumber((float)((int)lVar2 + 1));
   return;
 }
+#endif
+
 
 /* ---- 0x10007300  FUN_10007300 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_10007300(void)
 
 {
@@ -1281,3 +1299,5 @@ void FUN_10007300(void)
   FUN_10012350((int)lVar1);
   return;
 }
+#endif
+

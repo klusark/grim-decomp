@@ -38,14 +38,17 @@ undefined4 stdGif_LoadInto(char *param_1,undefined4 *param_2,int param_3,int par
   void *pvVar9;
   int iVar10;
   undefined1 *puVar11;
+  undefined4 unaff_ESI;
   uint uVar12;
   int iVar13;
   uint *puVar14;
   undefined4 *puVar15;
+  undefined4 unaff_EDI;
   uint uVar16;
   uint *puVar17;
   bool bVar18;
-  undefined4 uVar19;
+  longlong lVar19;
+  undefined4 uVar20;
   #define bStack_14b (*(byte *)(_frame + (0x160 - 0x14b)))
   #define bStack_14a (*(byte *)(_frame + (0x160 - 0x14a)))
   #define bStack_149 (*(byte *)(_frame + (0x160 - 0x149)))
@@ -130,9 +133,10 @@ undefined4 stdGif_LoadInto(char *param_1,undefined4 *param_2,int param_3,int par
   uVar12 = (uStack_ec << 0x10 | uStack_ec & 0xff00) << 8 |
            (uStack_ec >> 0x10 | uStack_ec & 0xff0000) >> 8;
   uStack_ec = uVar12;
-  uVar7 = _ftol();
+  lVar19 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
   uVar3 = uStack_8e;
   uVar2 = uStack_90;
+  uVar7 = (uint)lVar19;
   uStack_110 = 0;
   uStack_114 = (uVar7 & 0xff00 | uVar7 << 0x10) << 8 | (uVar7 >> 0x10 | uVar7 & 0xff0000) >> 8;
   fStack_e8 = (float)uStack_114;
@@ -143,7 +147,8 @@ undefined4 stdGif_LoadInto(char *param_1,undefined4 *param_2,int param_3,int par
   uStack_8e = uStack_8d;
   uStack_8d = uVar3;
   uStack_94 = uVar16;
-  uVar7 = _ftol();
+  lVar19 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+  uVar7 = (uint)lVar19;
   uStack_110 = 0;
   uStack_114 = (uVar7 & 0xff00 | uVar7 << 0x10) << 8 | (uVar7 >> 0x10 | uVar7 & 0xff0000) >> 8;
   fStack_8c = (float)uStack_114;
@@ -195,7 +200,7 @@ undefined4 stdGif_LoadInto(char *param_1,undefined4 *param_2,int param_3,int par
         iVar13 = iVar13 + 1;
         puVar14 = puVar14 + 1;
         if (cStack_10c == '\0') {
-          uVar19 = 0x1f;
+          uVar20 = 0x1f;
           puVar15 = param_2;
           for (iVar6 = 0x1f; iVar6 != 0; iVar6 = iVar6 + -1) {
             *puVar15 = 0;
@@ -203,7 +208,7 @@ undefined4 stdGif_LoadInto(char *param_1,undefined4 *param_2,int param_3,int par
           }
           iStack_12c = iVar13;
           pcVar8 = Str_FileNameFromPath(param_1);
-          strncpy(param_2,pcVar8,uVar19);
+          strncpy(param_2,pcVar8,uVar20);
           *(undefined1 *)((int)param_2 + 0x1f) = 0;
           param_2[8] = 0;
           param_2[9] = 0;

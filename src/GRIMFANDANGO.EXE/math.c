@@ -93,6 +93,7 @@ float __cdecl Math_NormalizeAngle180(float param_1)
 
 
 /* ---- 0x0047bd20  Math_SinCosTable ---- */
+/* WARNING: Variable defined which should be unmapped: local_30 */
 /* Math_SinCosTable(deg, &sin, &cos): 4096-entry quarter table, interpolated, per quadrant. Some
    quadrant indexes are one entry (90/4096 = 0.022 deg) off: a walker heading turned by a small
    negative angle turns 0.022 deg less (TurnActorTo right: 1.4229 instead of 1.445 at rate 85, 17
@@ -104,9 +105,11 @@ void Math_SinCosTable(float param_1,float *param_2,float *param_3)
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   int iVar2;
-  float fVar3;
+  longlong lVar3;
   float fVar4;
+  float fVar5;
   #define local_30 (*(uint *)(_frame + (0x40 - 0x30)))
+  #define uStack_2c (*(undefined4 *)(_frame + (0x40 - 0x2c)))
   #define local_28 (*(uint *)(_frame + (0x40 - 0x28)))
   #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
   #define local_20 (*(uint *)(_frame + (0x40 - 0x20)))
@@ -117,10 +120,10 @@ void Math_SinCosTable(float param_1,float *param_2,float *param_3)
   #define local_c (*(uint *)(_frame + (0x40 - 0xc)))
   #define local_8 (*(uint *)(_frame + (0x40 - 0x8)))
   
-  fVar3 = Math_NormalizeAngle360(param_1);
-  if (90.0 <= fVar3) {
-    if (180.0 <= fVar3) {
-      if (270.0 <= fVar3) {
+  fVar4 = Math_NormalizeAngle360(param_1);
+  if (90.0 <= fVar4) {
+    if (180.0 <= fVar4) {
+      if (270.0 <= fVar4) {
         local_1c = 3;
       }
       else {
@@ -134,9 +137,10 @@ void Math_SinCosTable(float param_1,float *param_2,float *param_3)
   else {
     local_1c = 0;
   }
-  fVar4 = Math_Round(fVar3 * 45.511112);
-  fVar4 = fVar3 * 45.511112 - fVar4;
-  iVar1 = _ftol();
+  fVar5 = Math_Round(fVar4 * 45.511112);
+  fVar5 = fVar4 * 45.511112 - fVar5;
+  lVar3 = _ftol((double)CONCAT44(uStack_2c,local_30));
+  iVar1 = (int)lVar3;
   iVar2 = iVar1 + 1;
   switch(local_1c) {
   case 0:
@@ -146,7 +150,7 @@ void Math_SinCosTable(float param_1,float *param_2,float *param_3)
     else {
       local_8 = *(uint *)(&DAT_004df600 + (0xfff - (iVar1 + -0xfff)) * 4);
     }
-    *param_2 = ((float)local_8 - *(float *)(&DAT_004df600 + iVar1 * 4)) * fVar4 +
+    *param_2 = ((float)local_8 - *(float *)(&DAT_004df600 + iVar1 * 4)) * fVar5 +
                *(float *)(&DAT_004df600 + iVar1 * 4);
     if (iVar2 < 0x1000) {
       local_8 = *(uint *)(&DAT_004df600 + (0xfff - iVar2) * 4);
@@ -154,7 +158,7 @@ void Math_SinCosTable(float param_1,float *param_2,float *param_3)
     else {
       local_8 = (uint)-*(float *)("DialogBoxIndirectParamA" + iVar2 * 4 + 2);
     }
-    *param_3 = ((float)local_8 - *(float *)(&DAT_004df600 + (0xfff - iVar1) * 4)) * fVar4 +
+    *param_3 = ((float)local_8 - *(float *)(&DAT_004df600 + (0xfff - iVar1) * 4)) * fVar5 +
                *(float *)(&DAT_004df600 + (0xfff - iVar1) * 4);
     break;
   case 1:
@@ -165,26 +169,26 @@ void Math_SinCosTable(float param_1,float *param_2,float *param_3)
       local_8 = (uint)-*(float *)(&DAT_004d7600 + iVar2 * 4);
     }
     *param_2 = ((float)local_8 - *(float *)(&DAT_004df600 + (0xfff - (iVar1 + -0x1000)) * 4)) *
-               fVar4 + *(float *)(&DAT_004df600 + (0xfff - (iVar1 + -0x1000)) * 4);
+               fVar5 + *(float *)(&DAT_004df600 + (0xfff - (iVar1 + -0x1000)) * 4);
     if (iVar2 < 0x2000) {
-      fVar3 = *(float *)("DialogBoxIndirectParamA" + iVar2 * 4 + 2);
+      fVar4 = *(float *)("DialogBoxIndirectParamA" + iVar2 * 4 + 2);
     }
     else {
-      fVar3 = *(float *)(&DAT_004df600 + (0xfff - (iVar1 + -0x1fff)) * 4);
+      fVar4 = *(float *)(&DAT_004df600 + (0xfff - (iVar1 + -0x1fff)) * 4);
     }
-    local_8 = (uint)-fVar3;
-    *param_3 = ((float)local_8 - -*(float *)("DialogBoxIndirectParamA" + iVar1 * 4 + 2)) * fVar4 +
+    local_8 = (uint)-fVar4;
+    *param_3 = ((float)local_8 - -*(float *)("DialogBoxIndirectParamA" + iVar1 * 4 + 2)) * fVar5 +
                -*(float *)("DialogBoxIndirectParamA" + iVar1 * 4 + 2);
     break;
   case 2:
     if (iVar2 < 0x3000) {
-      fVar3 = *(float *)(&DAT_004d7600 + iVar2 * 4);
+      fVar4 = *(float *)(&DAT_004d7600 + iVar2 * 4);
     }
     else {
-      fVar3 = *(float *)(&DAT_004df600 + (0xfff - (iVar1 + -0x2fff)) * 4);
+      fVar4 = *(float *)(&DAT_004df600 + (0xfff - (iVar1 + -0x2fff)) * 4);
     }
-    local_8 = (uint)-fVar3;
-    *param_2 = ((float)local_8 - -*(float *)(&DAT_004d7600 + iVar1 * 4)) * fVar4 +
+    local_8 = (uint)-fVar4;
+    *param_2 = ((float)local_8 - -*(float *)(&DAT_004d7600 + iVar1 * 4)) * fVar5 +
                -*(float *)(&DAT_004d7600 + iVar1 * 4);
     if (iVar2 < 0x3000) {
       local_8 = (uint)-*(float *)(&DAT_004df600 + (0xfff - (iVar1 + -0x1fff)) * 4);
@@ -193,7 +197,7 @@ void Math_SinCosTable(float param_1,float *param_2,float *param_3)
       local_8 = *(uint *)(iVar2 * 4 + 0x4d3600);
     }
     *param_3 = ((float)local_8 - -*(float *)(&DAT_004df600 + (0xfff - (iVar1 + -0x2000)) * 4)) *
-               fVar4 + -*(float *)(&DAT_004df600 + (0xfff - (iVar1 + -0x2000)) * 4);
+               fVar5 + -*(float *)(&DAT_004df600 + (0xfff - (iVar1 + -0x2000)) * 4);
     break;
   case 3:
     if (iVar2 < 0x4000) {
@@ -203,15 +207,15 @@ void Math_SinCosTable(float param_1,float *param_2,float *param_3)
       local_8 = *(uint *)(iVar2 * 4 + 0x4cf600);
     }
     *param_2 = ((float)local_8 - -*(float *)(&DAT_004df600 + (0xfff - (iVar1 + -0x3000)) * 4)) *
-               fVar4 + -*(float *)(&DAT_004df600 + (0xfff - (iVar1 + -0x3000)) * 4);
-    fVar3 = *(float *)(iVar1 * 4 + 0x4d3600);
+               fVar5 + -*(float *)(&DAT_004df600 + (0xfff - (iVar1 + -0x3000)) * 4);
+    fVar4 = *(float *)(iVar1 * 4 + 0x4d3600);
     if (iVar2 < 0x4000) {
       local_8 = *(uint *)(iVar2 * 4 + 0x4d3600);
     }
     else {
       local_8 = *(uint *)(&DAT_004df600 + (0xfff - (iVar1 + -0x3fff)) * 4);
     }
-    *param_3 = ((float)local_8 - fVar3) * fVar4 + fVar3;
+    *param_3 = ((float)local_8 - fVar4) * fVar5 + fVar4;
   }
   return;
 }
@@ -225,6 +229,7 @@ void Math_SinCosTable(float param_1,float *param_2,float *param_3)
 #undef local_30
 #undef local_8
 #undef local_c
+#undef uStack_2c
 
 
 /* ---- 0x0047c100  Math_Round ---- */
@@ -240,6 +245,7 @@ float __cdecl Math_Round(float param_1)
 
 
 /* ---- 0x0047c120  Math_SinDeg ---- */
+/* WARNING: Variable defined which should be unmapped: local_30 */
 /* Table/polynomial sine of an angle in degrees */
 
 float10 Math_SinDeg(float param_1)
@@ -248,9 +254,11 @@ float10 Math_SinDeg(float param_1)
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   int iVar2;
-  float fVar3;
+  longlong lVar3;
   float fVar4;
+  float fVar5;
   #define local_30 (*(uint *)(_frame + (0x40 - 0x30)))
+  #define uStack_2c (*(undefined4 *)(_frame + (0x40 - 0x2c)))
   #define local_28 (*(uint *)(_frame + (0x40 - 0x28)))
   #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
   #define local_20 (*(uint *)(_frame + (0x40 - 0x20)))
@@ -261,10 +269,10 @@ float10 Math_SinDeg(float param_1)
   #define local_c (*(uint *)(_frame + (0x40 - 0xc)))
   #define local_8 (*(uint *)(_frame + (0x40 - 0x8)))
   
-  fVar3 = Math_NormalizeAngle360(param_1);
-  if (90.0 <= fVar3) {
-    if (180.0 <= fVar3) {
-      if (270.0 <= fVar3) {
+  fVar4 = Math_NormalizeAngle360(param_1);
+  if (90.0 <= fVar4) {
+    if (180.0 <= fVar4) {
+      if (270.0 <= fVar4) {
         local_1c = 3;
       }
       else {
@@ -278,10 +286,11 @@ float10 Math_SinDeg(float param_1)
   else {
     local_1c = 0;
   }
-  fVar3 = (fVar3 / 360.0) * 16384.0;
-  fVar4 = Math_Round(fVar3);
-  fVar3 = fVar3 - fVar4;
-  iVar1 = _ftol();
+  fVar4 = (fVar4 / 360.0) * 16384.0;
+  fVar5 = Math_Round(fVar4);
+  fVar4 = fVar4 - fVar5;
+  lVar3 = _ftol((double)CONCAT44(uStack_2c,local_30));
+  iVar1 = (int)lVar3;
   iVar2 = iVar1 + 1;
   switch(local_1c) {
   case 0:
@@ -291,7 +300,7 @@ float10 Math_SinDeg(float param_1)
     else {
       local_8 = (uint)-*(float *)(&DAT_004e3600 + (0xfff - (iVar1 + -0xfff)) * 4);
     }
-    local_10 = (uint)(((float)local_8 - *(float *)(&DAT_004e3600 + iVar1 * 4)) * fVar3 +
+    local_10 = (uint)(((float)local_8 - *(float *)(&DAT_004e3600 + iVar1 * 4)) * fVar4 +
                      *(float *)(&DAT_004e3600 + iVar1 * 4));
     break;
   case 1:
@@ -302,7 +311,7 @@ float10 Math_SinDeg(float param_1)
       local_8 = *(uint *)("DialogBoxIndirectParamA" + iVar2 * 4 + 2);
     }
     local_10 = (uint)(((float)local_8 - -*(float *)(&DAT_004e3600 + (0xfff - (iVar1 + -0x1000)) * 4)
-                      ) * fVar3 + -*(float *)(&DAT_004e3600 + (0xfff - (iVar1 + -0x1000)) * 4));
+                      ) * fVar4 + -*(float *)(&DAT_004e3600 + (0xfff - (iVar1 + -0x1000)) * 4));
     break;
   case 2:
     if (iVar2 < 0x3000) {
@@ -312,7 +321,7 @@ float10 Math_SinDeg(float param_1)
       local_8 = (uint)-*(float *)(&DAT_004e3600 + (0xfff - (iVar1 + -0x2fff)) * 4);
     }
     local_10 = (uint)(((float)local_8 - *(float *)("DialogBoxIndirectParamA" + iVar1 * 4 + 2)) *
-                      fVar3 + *(float *)("DialogBoxIndirectParamA" + iVar1 * 4 + 2));
+                      fVar4 + *(float *)("DialogBoxIndirectParamA" + iVar1 * 4 + 2));
     break;
   case 3:
     if (iVar2 < 0x4000) {
@@ -322,7 +331,7 @@ float10 Math_SinDeg(float param_1)
       local_8 = *(uint *)(iVar2 * 4 + 0x4d3600);
     }
     local_10 = (uint)(((float)local_8 - -*(float *)(&DAT_004e3600 + (0xfff - (iVar1 + -0x3000)) * 4)
-                      ) * fVar3 + -*(float *)(&DAT_004e3600 + (0xfff - (iVar1 + -0x3000)) * 4));
+                      ) * fVar4 + -*(float *)(&DAT_004e3600 + (0xfff - (iVar1 + -0x3000)) * 4));
   }
   return (float10)(float)local_10;
 }
@@ -336,6 +345,7 @@ float10 Math_SinDeg(float param_1)
 #undef local_30
 #undef local_8
 #undef local_c
+#undef uStack_2c
 
 
 /* ---- 0x0047c3b0  Math_AsinDegrees ---- */

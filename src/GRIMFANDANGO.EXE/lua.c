@@ -80,6 +80,9 @@ void Lua_SetVideoDevices(void)
   undefined4 uVar3;
   int iVar4;
   uint *puVar5;
+  undefined4 unaff_ESI;
+  undefined4 unaff_EDI;
+  longlong lVar6;
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   uVar2 = lua_lua2C(1);
@@ -96,11 +99,13 @@ void Lua_SetVideoDevices(void)
     lua_isnumber(uVar3);
   }
   lua_getnumber(uVar2);
-  UINT_004dd340 = _ftol();
+  lVar6 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+  UINT_004dd340 = (uint)lVar6;
   puVar5 = (uint *)(UINT_004dd340 * 0x10 + (int)g_pDisplayModes);
   UINT_004dd344 = Display_FindClosestMode(&UINT_004f4d38,(void *)puVar5[1],*puVar5);
   lua_getnumber(uVar3);
-  UINT_004dd348 = _ftol();
+  lVar6 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+  UINT_004dd348 = (uint)lVar6;
   if ((((-1 < (int)UINT_004dd340) && ((int)UINT_004dd340 < (int)g_dwDisplayDeviceCount)) &&
       (-2 < (int)UINT_004dd348)) &&
      (((int)UINT_004dd348 < *(int *)(UINT_004dd340 * 0x10 + 8 + (int)g_pDisplayModes) &&
@@ -123,8 +128,11 @@ void Lua_Enumerate3DDevices(void)
   undefined4 uVar1;
   int iVar2;
   void *pvVar3;
+  undefined4 unaff_EBX;
   uint uVar4;
+  undefined4 unaff_EBP;
   int iVar5;
+  longlong lVar6;
   #define local_1c (*(uint *)(_frame + (0x30 - 0x1c)))
   
   uVar1 = lua_lua2C(1);
@@ -133,7 +141,8 @@ void Lua_Enumerate3DDevices(void)
     return;
   }
   lua_getnumber(uVar1);
-  iVar2 = _ftol();
+  lVar6 = _ftol((double)CONCAT44(unaff_EBP,unaff_EBX));
+  iVar2 = (int)lVar6;
   uVar1 = lua_createtable();
   if (((&UINT_00902d6c)[iVar2 * 0xa6] != 0) || ((&UINT_00902d68)[iVar2 * 0xa6] == 0)) {
     lua_pushobject(uVar1);
@@ -272,11 +281,14 @@ void Lua_DrawLine(void)
   undefined4 uVar3;
   undefined4 uVar4;
   int iVar5;
-  int y1;
-  int x2;
-  int y2;
-  int iVar6;
-  uint uVar7;
+  uint uVar6;
+  undefined4 unaff_ESI;
+  undefined4 unaff_EDI;
+  longlong lVar7;
+  longlong lVar8;
+  longlong lVar9;
+  longlong lVar10;
+  longlong lVar11;
   #define local_30 (*(uint *)(_frame + (0x40 - 0x30)))
   #define local_1c (*(uint *)(_frame + (0x40 - 0x1c)))
   #define local_18 (*(uint *)(_frame + (0x40 - 0x18)))
@@ -299,43 +311,44 @@ void Lua_DrawLine(void)
         iVar5 = lua_isnumber(local_1c);
         if (iVar5 != 0) {
           lua_getnumber(uVar1);
-          iVar5 = _ftol();
+          lVar7 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
           lua_getnumber(uVar2);
-          y1 = _ftol();
+          lVar8 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
           lua_getnumber(uVar3);
-          x2 = _ftol();
+          lVar9 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
           lua_getnumber(local_1c);
-          y2 = _ftol();
-          iVar6 = lua_istable(uVar4);
-          if (iVar6 != 0) {
+          lVar10 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+          iVar5 = lua_istable(uVar4);
+          if (iVar5 != 0) {
             lua_pushobject(uVar4);
             lua_pushstring(PTR_s_color_004e8368);
             uVar1 = lua_gettable();
-            iVar6 = lua_isuserdata(uVar1);
-            if (iVar6 != 0) {
-              iVar6 = lua_tag(uVar1);
-              if (iVar6 == 0x524c4f43) {
-                uVar7 = lua_getuserdata(uVar1);
-                PIECE(local_1c,2,1) = (byte)(uVar7 >> 0x10);
-                local_1c = ((uVar7 >> 8 & 0xff) >> ((byte)UINT_004ddac4 & 0x1f)) <<
+            iVar5 = lua_isuserdata(uVar1);
+            if (iVar5 != 0) {
+              iVar5 = lua_tag(uVar1);
+              if (iVar5 == 0x524c4f43) {
+                uVar6 = lua_getuserdata(uVar1);
+                PIECE(local_1c,2,1) = (byte)(uVar6 >> 0x10);
+                local_1c = ((uVar6 >> 8 & 0xff) >> ((byte)UINT_004ddac4 & 0x1f)) <<
                            ((byte)UINT_004ddab8 & 0x1f) & 0xffff |
                            (uint)(PIECE(local_1c,2,1) >> ((byte)UINT_004ddac8 & 0x1f)) <<
                            ((byte)UINT_004ddabc & 0x1f) & 0xffff |
-                           ((uVar7 & 0xff) >> ((byte)UINT_004ddac0 & 0x1f)) <<
+                           ((uVar6 & 0xff) >> ((byte)UINT_004ddac0 & 0x1f)) <<
                            ((byte)UINT_004ddab4 & 0x1f) & 0xffff;
               }
             }
             lua_pushobject(uVar4);
             lua_pushstring(PTR_s_layer_004e8390);
             uVar1 = lua_gettable();
-            iVar6 = lua_isnumber(uVar1);
-            if (iVar6 != 0) {
+            iVar5 = lua_isnumber(uVar1);
+            if (iVar5 != 0) {
               lua_getnumber(uVar1);
-              local_18 = _ftol();
+              lVar11 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+              local_18 = (uint)lVar11;
             }
           }
-          uVar7 = Primitive_AddLine(iVar5,y1,x2,y2,local_1c,local_18);
-          lua_pushnumber((float)uVar7);
+          uVar6 = Primitive_AddLine((int)lVar7,(int)lVar8,(int)lVar9,(int)lVar10,local_1c,local_18);
+          lua_pushnumber((float)uVar6);
           return;
         }
       }
@@ -367,7 +380,10 @@ void Lua_DrawPolygon(void)
   uint uVar5;
   undefined4 *puVar6;
   uint uVar7;
+  undefined4 unaff_ESI;
   code *pcVar8;
+  undefined4 unaff_EDI;
+  longlong lVar9;
   #define local_38 (*(uint *)(_frame + (0x50 - 0x38)))
   #define local_24 (*(uint *)(_frame + (0x50 - 0x24)))
   #define local_20 (*(uint *)(_frame + (0x50 - 0x20)))
@@ -406,7 +422,8 @@ void Lua_DrawPolygon(void)
       iVar3 = lua_isnumber(uVar2);
       if (iVar3 != 0) {
         lua_getnumber(uVar2);
-        local_c = _ftol();
+        lVar9 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+        local_c = (uint)lVar9;
       }
     }
     uVar5 = 0;
@@ -447,8 +464,8 @@ void Lua_DrawPolygon(void)
           lua_pushnumber((float)(int)local_24);
           uVar2 = (*pcVar8)();
           lua_getnumber(uVar2);
-          uVar2 = _ftol();
-          puVar6[-1] = uVar2;
+          lVar9 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+          puVar6[-1] = (int)lVar9;
           lua_pushobject(uVar1);
           local_24 = local_24 + 2;
           lua_pushnumber((float)iVar3);
@@ -456,8 +473,8 @@ void Lua_DrawPolygon(void)
           iVar3 = lua_isnil(uVar2);
           if (iVar3 == 0) {
             lua_getnumber(uVar2);
-            uVar2 = _ftol();
-            *puVar6 = uVar2;
+            lVar9 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+            *puVar6 = (int)lVar9;
           }
           else {
             *puVar6 = 0;
@@ -499,11 +516,14 @@ void Lua_DrawRectangle(void)
   undefined4 uVar4;
   undefined4 uVar5;
   int iVar6;
-  int y1;
-  int x2;
-  int y2;
-  int iVar7;
-  uint uVar8;
+  uint uVar7;
+  undefined4 unaff_ESI;
+  undefined4 unaff_EDI;
+  longlong lVar8;
+  longlong lVar9;
+  longlong lVar10;
+  longlong lVar11;
+  longlong lVar12;
   #define local_34 (*(uint *)(_frame + (0x50 - 0x34)))
   #define local_20 (*(uint *)(_frame + (0x50 - 0x20)))
   #define local_1c (*(uint *)(_frame + (0x50 - 0x1c)))
@@ -524,45 +544,47 @@ void Lua_DrawRectangle(void)
   if ((((iVar6 != 0) && (iVar6 = lua_isnumber(uVar2), iVar6 != 0)) &&
       (iVar6 = lua_isnumber(uVar3), iVar6 != 0)) && (iVar6 = lua_isnumber(uVar4), iVar6 != 0)) {
     lua_getnumber(uVar1);
-    iVar6 = _ftol();
+    lVar8 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
     lua_getnumber(uVar2);
-    y1 = _ftol();
+    lVar9 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
     lua_getnumber(uVar3);
-    x2 = _ftol();
+    lVar10 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
     lua_getnumber(uVar4);
-    y2 = _ftol();
-    iVar7 = lua_istable(uVar5);
-    if (iVar7 != 0) {
+    lVar11 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+    iVar6 = lua_istable(uVar5);
+    if (iVar6 != 0) {
       lua_pushobject(uVar5);
       lua_pushstring(PTR_s_color_004e8368);
       uVar1 = lua_gettable();
-      iVar7 = lua_isuserdata(uVar1);
-      if ((iVar7 != 0) && (iVar7 = lua_tag(uVar1), iVar7 == 0x524c4f43)) {
-        uVar8 = lua_getuserdata(uVar1);
-        PIECE(local_20,2,1) = (byte)(uVar8 >> 0x10);
-        local_20 = ((uVar8 >> 8 & 0xff) >> ((byte)UINT_004ddac4 & 0x1f)) <<
+      iVar6 = lua_isuserdata(uVar1);
+      if ((iVar6 != 0) && (iVar6 = lua_tag(uVar1), iVar6 == 0x524c4f43)) {
+        uVar7 = lua_getuserdata(uVar1);
+        PIECE(local_20,2,1) = (byte)(uVar7 >> 0x10);
+        local_20 = ((uVar7 >> 8 & 0xff) >> ((byte)UINT_004ddac4 & 0x1f)) <<
                    ((byte)UINT_004ddab8 & 0x1f) & 0xffff |
                    (uint)(PIECE(local_20,2,1) >> ((byte)UINT_004ddac8 & 0x1f)) <<
                    ((byte)UINT_004ddabc & 0x1f) & 0xffff |
-                   ((uVar8 & 0xff) >> ((byte)UINT_004ddac0 & 0x1f)) << ((byte)UINT_004ddab4 & 0x1f)
+                   ((uVar7 & 0xff) >> ((byte)UINT_004ddac0 & 0x1f)) << ((byte)UINT_004ddab4 & 0x1f)
                    & 0xffff;
       }
       lua_pushobject(uVar5);
       lua_pushstring(PTR_s_filled_004e838c);
       uVar1 = lua_gettable();
-      iVar7 = lua_isnil(uVar1);
-      local_14 = (uint)(iVar7 == 0);
+      iVar6 = lua_isnil(uVar1);
+      local_14 = (uint)(iVar6 == 0);
       lua_pushobject(uVar5);
       lua_pushstring(PTR_s_layer_004e8390);
       uVar1 = lua_gettable();
-      iVar7 = lua_isnumber(uVar1);
-      if (iVar7 != 0) {
+      iVar6 = lua_isnumber(uVar1);
+      if (iVar6 != 0) {
         lua_getnumber(uVar1);
-        local_18 = _ftol();
+        lVar12 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+        local_18 = (uint)lVar12;
       }
     }
-    uVar8 = Primitive_AddRect(iVar6,y1,x2,y2,local_20,local_14,local_18);
-    lua_pushnumber((float)uVar8);
+    uVar7 = Primitive_AddRect((int)lVar8,(int)lVar9,(int)lVar10,(int)lVar11,local_20,local_14,
+                              local_18);
+    lua_pushnumber((float)uVar7);
     return;
   }
   lua_pushnil();
@@ -592,6 +614,9 @@ void Lua_ChangePrimitive(void)
   undefined4 uVar6;
   int iVar7;
   int a3;
+  undefined4 unaff_ESI;
+  undefined4 unaff_EDI;
+  longlong lVar8;
   #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
   #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
   #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
@@ -607,7 +632,8 @@ void Lua_ChangePrimitive(void)
   iVar3 = lua_istable(uVar2);
   if (iVar3 != 0) {
     lua_getnumber(uVar1);
-    iVar3 = _ftol();
+    lVar8 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+    iVar3 = (int)lVar8;
     lua_pushobject(uVar2);
     lua_pushstring(PTR_s_color_004e8368);
     uVar1 = lua_gettable();
@@ -628,8 +654,8 @@ void Lua_ChangePrimitive(void)
     iVar4 = lua_isnumber(uVar1);
     if (iVar4 != 0) {
       lua_getnumber(uVar1);
-      iVar4 = _ftol();
-      Primitive_SetLayer(iVar3,iVar4);
+      lVar8 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+      Primitive_SetLayer(iVar3,(int)lVar8);
     }
     lua_pushobject(uVar2);
     lua_pushstring(PTR_s_xoffset_004e836c);
@@ -643,7 +669,8 @@ void Lua_ChangePrimitive(void)
       iVar4 = lua_isnumber(uVar1);
       if (iVar4 != 0) {
         lua_getnumber(uVar1);
-        local_8 = _ftol();
+        lVar8 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+        local_8 = (uint)lVar8;
       }
       iVar4 = lua_isnumber(uVar6);
       if (iVar4 == 0) {
@@ -651,7 +678,8 @@ void Lua_ChangePrimitive(void)
       }
       else {
         lua_getnumber(uVar6);
-        iVar4 = _ftol();
+        lVar8 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+        iVar4 = (int)lVar8;
       }
       Primitive_Offset(iVar3,local_8,iVar4);
     }
@@ -667,7 +695,8 @@ void Lua_ChangePrimitive(void)
       iVar4 = lua_isnumber(uVar1);
       if (iVar4 != 0) {
         lua_getnumber(uVar1);
-        local_8 = _ftol();
+        lVar8 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+        local_8 = (uint)lVar8;
       }
       iVar4 = lua_isnumber(uVar6);
       if (iVar4 == 0) {
@@ -675,7 +704,8 @@ void Lua_ChangePrimitive(void)
       }
       else {
         lua_getnumber(uVar6);
-        iVar4 = _ftol();
+        lVar8 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+        iVar4 = (int)lVar8;
       }
       Primitive_MoveTo(iVar3,local_8,iVar4);
     }
@@ -691,7 +721,8 @@ void Lua_ChangePrimitive(void)
       iVar4 = lua_isnumber(uVar1);
       if (iVar4 != 0) {
         lua_getnumber(uVar1);
-        local_8 = _ftol();
+        lVar8 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+        local_8 = (uint)lVar8;
       }
       iVar4 = lua_isnumber(uVar6);
       if (iVar4 == 0) {
@@ -699,7 +730,8 @@ void Lua_ChangePrimitive(void)
       }
       else {
         lua_getnumber(uVar6);
-        iVar4 = _ftol();
+        lVar8 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+        iVar4 = (int)lVar8;
       }
       Primitive_SetEnd(iVar3,local_8,iVar4);
     }
@@ -720,12 +752,14 @@ void Lua_ChangePrimitive(void)
     }
     else {
       lua_getnumber(uVar1);
-      iVar4 = _ftol();
+      lVar8 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+      iVar4 = (int)lVar8;
     }
     iVar7 = lua_isnumber(uVar2);
     if (iVar7 != 0) {
       lua_getnumber(uVar2);
-      a3 = _ftol();
+      lVar8 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+      a3 = (int)lVar8;
     }
     Primitive_SetSize(iVar3,iVar4,a3);
     return;
@@ -740,6 +774,7 @@ void Lua_ChangePrimitive(void)
 
 
 /* ---- 0x0048a460  Lua_KillPrimitive ---- */
+/* WARNING: This function may have set the stack pointer */
 /* Lua opcode: KillPrimitive */
 
 void __cdecl Lua_KillPrimitive(void)
@@ -747,13 +782,16 @@ void __cdecl Lua_KillPrimitive(void)
 {
   undefined4 uVar1;
   int iVar2;
+  undefined4 unaff_ESI;
+  longlong lVar3;
+  undefined4 unaff_retaddr;
   
   uVar1 = lua_lua2C(1);
   iVar2 = lua_isnumber(uVar1);
   if (iVar2 != 0) {
     lua_getnumber(uVar1);
-    iVar2 = _ftol();
-    Primitive_Kill(&UINT_008ca0a0,iVar2);
+    lVar3 = _ftol((double)CONCAT44(unaff_retaddr,unaff_ESI));
+    Primitive_Kill(&UINT_008ca0a0,(int)lVar3);
   }
   return;
 }
@@ -778,6 +816,9 @@ void Lua_SetOffscreenTextPos(void)
   undefined4 uVar1;
   undefined4 uVar2;
   int iVar3;
+  undefined4 unaff_ESI;
+  undefined4 unaff_EDI;
+  longlong lVar4;
   
   uVar1 = lua_lua2C(1);
   uVar2 = lua_lua2C(2);
@@ -787,12 +828,14 @@ void Lua_SetOffscreenTextPos(void)
   }
   else {
     lua_getnumber(uVar1);
-    g_nSubtitleDefaultX = _ftol();
+    lVar4 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+    g_nSubtitleDefaultX = (int)lVar4;
   }
   iVar3 = lua_isnumber(uVar2);
   if (iVar3 != 0) {
     lua_getnumber(uVar2);
-    g_nSubtitleDefaultY = _ftol();
+    lVar4 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+    g_nSubtitleDefaultY = (int)lVar4;
     return;
   }
   g_nSubtitleDefaultY = 0x1c2;
@@ -873,7 +916,10 @@ void Lua_MakeColor(void)
   undefined4 uVar5;
   undefined4 uVar6;
   int iVar7;
+  undefined4 unaff_ESI;
   uint uVar8;
+  undefined4 unaff_EDI;
+  longlong lVar9;
   #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
@@ -888,7 +934,8 @@ void Lua_MakeColor(void)
   }
   else {
     lua_getnumber(uVar3);
-    iVar7 = _ftol();
+    lVar9 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+    iVar7 = (int)lVar9;
   }
   uVar8 = 0;
   if (iVar7 < 0) {
@@ -902,13 +949,15 @@ LAB_0048af7b:
     }
     else {
       lua_getnumber(uVar3);
-      iVar7 = _ftol();
+      lVar9 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+      iVar7 = (int)lVar9;
     }
     if (iVar7 < 0x100) {
       iVar7 = lua_isnumber(uVar3);
       if (iVar7 == 0) goto LAB_0048af7b;
       lua_getnumber(uVar3);
-      local_c = _ftol();
+      lVar9 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+      local_c = (uint)lVar9;
     }
     else {
       local_c = 0xff;
@@ -920,7 +969,8 @@ LAB_0048af7b:
   }
   else {
     lua_getnumber(uVar4);
-    iVar7 = _ftol();
+    lVar9 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+    iVar7 = (int)lVar9;
   }
   if (-1 < iVar7) {
     iVar7 = lua_isnumber(uVar4);
@@ -929,13 +979,15 @@ LAB_0048af7b:
     }
     else {
       lua_getnumber(uVar4);
-      iVar7 = _ftol();
+      lVar9 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+      iVar7 = (int)lVar9;
     }
     if (iVar7 < 0x100) {
       iVar7 = lua_isnumber(uVar4);
       if (iVar7 != 0) {
         lua_getnumber(uVar4);
-        uVar8 = _ftol();
+        lVar9 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+        uVar8 = (uint)lVar9;
       }
     }
     else {
@@ -948,7 +1000,8 @@ LAB_0048af7b:
   }
   else {
     lua_getnumber(uVar5);
-    iVar7 = _ftol();
+    lVar9 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+    iVar7 = (int)lVar9;
   }
   if (iVar7 < 0) {
 LAB_0048b053:
@@ -961,14 +1014,15 @@ LAB_0048b053:
     }
     else {
       lua_getnumber(uVar5);
-      iVar7 = _ftol();
+      lVar9 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+      iVar7 = (int)lVar9;
     }
     if (iVar7 < 0x100) {
       iVar7 = lua_isnumber(uVar5);
       if (iVar7 == 0) goto LAB_0048b053;
       lua_getnumber(uVar5);
-      uVar3 = _ftol();
-      uVar1 = (undefined1)uVar3;
+      lVar9 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+      uVar1 = (undefined1)lVar9;
     }
     else {
       uVar1 = 0xff;
@@ -980,7 +1034,8 @@ LAB_0048b053:
   }
   else {
     lua_getnumber(uVar6);
-    iVar7 = _ftol();
+    lVar9 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+    iVar7 = (int)lVar9;
   }
   if (-1 < iVar7) {
     iVar7 = lua_isnumber(uVar6);
@@ -989,7 +1044,8 @@ LAB_0048b053:
     }
     else {
       lua_getnumber(uVar6);
-      iVar7 = _ftol();
+      lVar9 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+      iVar7 = (int)lVar9;
     }
     if (0xff < iVar7) {
       uVar2 = 0xff;
@@ -998,8 +1054,8 @@ LAB_0048b053:
     iVar7 = lua_isnumber(uVar6);
     if (iVar7 != 0) {
       lua_getnumber(uVar6);
-      uVar3 = _ftol();
-      uVar2 = (undefined1)uVar3;
+      lVar9 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+      uVar2 = (undefined1)lVar9;
       goto LAB_0048b0c2;
     }
   }
@@ -1210,6 +1266,9 @@ void Lua_ParseSayLineTable
 {
   undefined4 uVar1;
   int iVar2;
+  undefined4 unaff_ESI;
+  undefined4 unaff_EDI;
+  longlong lVar3;
   
   lua_pushobject(param_1);
   uVar1 = lua_getref(UINT_008ca0dc);
@@ -1218,8 +1277,8 @@ void Lua_ParseSayLineTable
   iVar2 = lua_isnumber(uVar1);
   if ((iVar2 != 0) && (*param_5 != 0)) {
     lua_getnumber(uVar1);
-    iVar2 = _ftol();
-    *param_5 = iVar2;
+    lVar3 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+    *param_5 = (int)lVar3;
   }
   lua_pushobject(param_1);
   uVar1 = lua_getref(UINT_008ca0e0);
@@ -1228,8 +1287,8 @@ void Lua_ParseSayLineTable
   iVar2 = lua_isnumber(uVar1);
   if ((iVar2 != 0) && (*param_6 != 0)) {
     lua_getnumber(uVar1);
-    iVar2 = _ftol();
-    *param_6 = iVar2;
+    lVar3 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+    *param_6 = (int)lVar3;
   }
   lua_pushobject(param_1);
   uVar1 = lua_getref(UINT_008ca0e4);
@@ -1246,8 +1305,8 @@ void Lua_ParseSayLineTable
   iVar2 = lua_isnumber(uVar1);
   if ((iVar2 != 0) && (*param_3 != 0)) {
     lua_getnumber(uVar1);
-    iVar2 = _ftol();
-    *param_3 = iVar2;
+    lVar3 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+    *param_3 = (int)lVar3;
   }
   lua_pushobject(param_1);
   uVar1 = lua_getref(UINT_008ca114);
@@ -1256,8 +1315,8 @@ void Lua_ParseSayLineTable
   iVar2 = lua_isnumber(uVar1);
   if ((iVar2 != 0) && (*param_4 != 0)) {
     lua_getnumber(uVar1);
-    iVar2 = _ftol();
-    *param_4 = iVar2;
+    lVar3 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+    *param_4 = (int)lVar3;
   }
   return;
 }
@@ -1275,8 +1334,11 @@ void Lua_PrintLine(void)
   int iVar4;
   char *pcVar5;
   char *pcVar6;
+  undefined4 unaff_ESI;
   uint *puVar7;
+  undefined4 unaff_EDI;
   uint *puVar8;
+  longlong lVar9;
   #define local_5c (*(uint *)(_frame + (0x70 - 0x5c)))
   #define local_58 (*(int *)(_frame + (0x70 - 0x58)))
   #define local_50 (*(char (*)[32])(_frame + (0x70 - 0x50)))
@@ -1326,7 +1388,8 @@ void Lua_PrintLine(void)
           cVar1 = *pcVar5;
           pcVar5 = pcVar5 + 1;
         } while (cVar1 != '\0');
-        local_58 = _ftol();
+        lVar9 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+        local_58 = (int)lVar9;
       }
       iVar4 = 0;
       pvVar3 = TextObject_New((void *)local_5c,pcVar6,local_58,0);
@@ -1505,8 +1568,10 @@ void Lua_GetTextCharPosition(void)
   undefined4 uVar2;
   int iVar3;
   int iVar4;
-  int iVar5;
-  char *pcVar6;
+  undefined4 unaff_EBP;
+  char *pcVar5;
+  undefined4 unaff_EDI;
+  longlong lVar6;
   #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
   #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
   
@@ -1518,16 +1583,16 @@ void Lua_GetTextCharPosition(void)
     if (iVar3 == 0x54584554) {
       iVar3 = lua_getuserdata(uVar1);
       lua_getnumber(uVar2);
-      iVar4 = _ftol();
+      lVar6 = _ftol((double)CONCAT44(unaff_EDI,unaff_EBP));
       local_4 = 0;
-      if (0 < iVar4) {
-        pcVar6 = (char *)(iVar3 + 8);
+      if (0 < (int)lVar6) {
+        pcVar5 = (char *)(iVar3 + 8);
         do {
-          if (*pcVar6 == '\0') break;
-          iVar5 = Text_CharWidth((void *)(iVar3 + 0x208),(int)*pcVar6);
-          local_4 = local_4 + iVar5;
-          pcVar6 = pcVar6 + 1;
-        } while ((int)(pcVar6 + (-8 - iVar3)) < iVar4);
+          if (*pcVar5 == '\0') break;
+          iVar4 = Text_CharWidth((void *)(iVar3 + 0x208),(int)*pcVar5);
+          local_4 = local_4 + iVar4;
+          pcVar5 = pcVar5 + 1;
+        } while ((int)(pcVar5 + (-8 - iVar3)) < (int)lVar6);
       }
       lua_pushnumber((float)(int)local_4);
     }
@@ -1750,6 +1815,7 @@ void Lua_GetTranslationMode(void)
 
 
 /* ---- 0x0048c980  Lua_SetTranslationMode ---- */
+/* WARNING: This function may have set the stack pointer */
 /* Lua opcode: SetTranslationMode */
 
 void Lua_SetTranslationMode(void)
@@ -1757,6 +1823,9 @@ void Lua_SetTranslationMode(void)
 {
   undefined4 uVar1;
   int iVar2;
+  undefined4 unaff_ESI;
+  longlong lVar3;
+  undefined4 unaff_retaddr;
   
   uVar1 = lua_lua2C(1);
   iVar2 = lua_isnil(uVar1);
@@ -1766,7 +1835,8 @@ void Lua_SetTranslationMode(void)
       return;
     }
     lua_getnumber(uVar1);
-    g_nTranslationMode = _ftol();
+    lVar3 = _ftol((double)CONCAT44(unaff_retaddr,unaff_ESI));
+    g_nTranslationMode = (int)lVar3;
     if (-1 < g_nTranslationMode) {
       if (2 < g_nTranslationMode) {
         g_nTranslationMode = 2;
@@ -2630,8 +2700,11 @@ void Lua_SetSoundParameters(void)
   void *set;
   int iVar6;
   uint uVar7;
+  undefined4 unaff_ESI;
+  undefined4 unaff_EDI;
   uint uVar8;
   float10 fVar9;
+  longlong lVar10;
   #define local_28 (*(uint *)(_frame + (0x40 - 0x28)))
   #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
   #define local_20 (*(uint *)(_frame + (0x40 - 0x20)))
@@ -2688,7 +2761,8 @@ void Lua_SetSoundParameters(void)
     iVar6 = lua_isnil(uVar3);
     if (iVar6 == 0) {
       lua_getnumber(uVar3);
-      uVar7 = _ftol();
+      lVar10 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+      uVar7 = (uint)lVar10;
     }
     else {
       uVar7 = local_c & 0xff;
@@ -2696,7 +2770,8 @@ void Lua_SetSoundParameters(void)
     iVar6 = lua_isnil(uVar2);
     if (iVar6 == 0) {
       lua_getnumber(uVar2);
-      uVar8 = _ftol();
+      lVar10 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+      uVar8 = (uint)lVar10;
     }
     else {
       uVar8 = local_8 & 0xff;
@@ -2800,11 +2875,13 @@ void Lua_EngineDisplay(void)
 
 {
   undefined4 uVar1;
+  longlong lVar2;
+  double in_stack_00000000;
   
   uVar1 = lua_lua2C(1);
   lua_getnumber(uVar1);
-  uVar1 = _ftol();
-  Render_SetDrawEnabled(uVar1);
+  lVar2 = _ftol(in_stack_00000000);
+  Render_SetDrawEnabled((int)lVar2);
   return;
 }
 
@@ -3388,6 +3465,8 @@ void Lua_SetActorChoreLooping(void)
   int iVar4;
   uint uVar5;
   uint uVar6;
+  undefined4 unaff_EDI;
+  longlong lVar7;
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   uVar1 = lua_lua2C(1);
@@ -3405,9 +3484,10 @@ void Lua_SetActorChoreLooping(void)
         iVar4 = lua_isnumber(uVar2);
         if (iVar4 != 0) {
           iVar4 = lua_isnil(uVar3);
-          lua_getnumber(uVar2,iVar4 == 0);
-          uVar1 = _ftol();
-          Cos_InstSetChoreLoop(*(undefined4 *)local_4,uVar1);
+          uVar5 = (uint)(iVar4 == 0);
+          lua_getnumber(uVar2);
+          lVar7 = _ftol((double)CONCAT44(unaff_EDI,uVar5));
+          Cos_InstSetChoreLoop(*(undefined4 *)local_4,(int)lVar7);
           return;
         }
         iVar4 = lua_isnil(uVar2);
@@ -3476,7 +3556,10 @@ void Lua_IsActorChoring(void)
   int iVar5;
   uint uVar6;
   uint uVar7;
+  undefined4 unaff_ESI;
   uint uVar8;
+  undefined4 unaff_EDI;
+  longlong lVar9;
   #define local_20 (*(uint *)(_frame + (0x30 - 0x20)))
   #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
   #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
@@ -3526,8 +3609,8 @@ void Lua_IsActorChoring(void)
         }
         else {
           lua_getnumber();
-          uVar1 = _ftol();
-          uVar6 = Cos_InstChoreStatus(*(undefined4 *)local_c,uVar1);
+          lVar9 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+          uVar6 = Cos_InstChoreStatus(*(undefined4 *)local_c,(int)lVar9);
           if ((uVar6 & 1) != 0) {
             if ((iVar4 == 0) && ((uVar6 & 2) != 0)) {
               return;
@@ -3672,7 +3755,10 @@ void Lua_GetActorCostume(void)
   undefined4 uVar1;
   undefined4 uVar2;
   int iVar3;
+  undefined4 unaff_ESI;
   undefined4 *puVar4;
+  undefined4 unaff_EDI;
+  longlong lVar5;
   
   uVar1 = lua_lua2C(1);
   uVar2 = lua_lua2C(2);
@@ -3688,7 +3774,8 @@ void Lua_GetActorCostume(void)
         return;
       }
       lua_getnumber(uVar2);
-      iVar3 = _ftol();
+      lVar5 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+      iVar3 = (int)lVar5;
       if (puVar4 == (undefined4 *)0x0) goto LAB_0049a295;
       do {
         if (iVar3 < 1) break;
@@ -3972,6 +4059,9 @@ void Lua_StopActorChore(void)
   undefined4 uVar2;
   void *luaObj;
   int iVar3;
+  undefined4 unaff_ESI;
+  undefined4 unaff_EDI;
+  longlong lVar4;
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   uVar1 = lua_lua2C(1);
@@ -3988,8 +4078,8 @@ void Lua_StopActorChore(void)
         iVar3 = lua_isnumber(uVar2);
         if (iVar3 != 0) {
           lua_getnumber();
-          uVar1 = _ftol();
-          Cos_InstStopChore(*(undefined4 *)local_4,uVar1);
+          lVar4 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+          Cos_InstStopChore(*(undefined4 *)local_4,(int)lVar4);
           return;
         }
         iVar3 = lua_isnil(uVar2);
@@ -4015,6 +4105,8 @@ void Lua_PlayActorChore(void)
   undefined4 uVar2;
   void *luaObj;
   int iVar3;
+  longlong lVar4;
+  undefined4 uVar5;
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   uVar1 = lua_lua2C(1);
@@ -4031,9 +4123,11 @@ void Lua_PlayActorChore(void)
         if (local_4 != 0) {
           iVar3 = lua_isnumber(uVar2);
           if (iVar3 != 0) {
-            lua_getnumber(uVar2,0,0);
-            uVar1 = _ftol();
-            iVar3 = Cos_InstPlayChore(*(undefined4 *)local_4,uVar1);
+            uVar5 = 0;
+            uVar1 = 0;
+            lua_getnumber(uVar2);
+            lVar4 = _ftol((double)CONCAT44(uVar5,uVar1));
+            iVar3 = Cos_InstPlayChore(*(undefined4 *)local_4,(int)lVar4);
             if (iVar3 != 0) {
               lua_pushnumber(0x3f800000);
               return;
@@ -4060,6 +4154,9 @@ void Lua_CompleteActorChore(void)
   undefined4 uVar2;
   void *luaObj;
   int iVar3;
+  undefined4 unaff_ESI;
+  undefined4 unaff_EDI;
+  longlong lVar4;
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   uVar1 = lua_lua2C(1);
@@ -4077,8 +4174,8 @@ void Lua_CompleteActorChore(void)
           iVar3 = lua_isnumber(uVar2);
           if (iVar3 != 0) {
             lua_getnumber(uVar2);
-            uVar1 = _ftol();
-            iVar3 = Cos_InstCompleteChore(*(undefined4 *)local_4,uVar1);
+            lVar4 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+            iVar3 = Cos_InstCompleteChore(*(undefined4 *)local_4,(int)lVar4);
             if (iVar3 != 0) {
               lua_pushnumber(0x3f800000);
               return;
@@ -4105,6 +4202,8 @@ void Lua_PlayActorChoreLooping(void)
   undefined4 uVar2;
   void *luaObj;
   int iVar3;
+  longlong lVar4;
+  undefined4 uVar5;
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   uVar1 = lua_lua2C(1);
@@ -4121,9 +4220,11 @@ void Lua_PlayActorChoreLooping(void)
         if (local_4 != 0) {
           iVar3 = lua_isnumber(uVar2);
           if (iVar3 != 0) {
-            lua_getnumber(uVar2,1,0);
-            uVar1 = _ftol();
-            iVar3 = Cos_InstPlayChore(*(undefined4 *)local_4,uVar1);
+            uVar5 = 0;
+            uVar1 = 1;
+            lua_getnumber(uVar2);
+            lVar4 = _ftol((double)CONCAT44(uVar5,uVar1));
+            iVar3 = Cos_InstPlayChore(*(undefined4 *)local_4,(int)lVar4);
             if (iVar3 != 0) {
               lua_pushnumber(0x3f800000);
               return;
@@ -4427,6 +4528,9 @@ void Lua_SetActorFrustrumCull(void)
   undefined4 uVar1;
   undefined4 uVar2;
   int iVar3;
+  undefined4 unaff_ESI;
+  undefined4 unaff_EDI;
+  longlong lVar4;
   
   uVar1 = lua_lua2C(1);
   uVar2 = lua_lua2C(2);
@@ -4437,8 +4541,8 @@ void Lua_SetActorFrustrumCull(void)
       uVar1 = lua_getuserdata(uVar1);
       uVar1 = Actor_FromHandle(uVar1);
       lua_getnumber(uVar2);
-      uVar2 = _ftol();
-      Actor_SetFrustumCull(uVar1,uVar2);
+      lVar4 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+      Actor_SetFrustumCull(uVar1,(int)lVar4);
     }
   }
   return;
@@ -4591,6 +4695,9 @@ void Lua_SetActorWalkChore(void)
   void *luaObj;
   int iVar3;
   void *actor;
+  undefined4 unaff_ESI;
+  undefined4 unaff_EDI;
+  longlong lVar4;
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   uVar1 = lua_lua2C(1);
@@ -4612,7 +4719,8 @@ void Lua_SetActorWalkChore(void)
       }
       else {
         lua_getnumber(uVar2);
-        iVar3 = _ftol();
+        lVar4 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+        iVar3 = (int)lVar4;
       }
       Actor_SetWalkChore(actor,iVar3,(void *)local_4);
     }
@@ -4635,7 +4743,8 @@ void Lua_SetActorTurnChores(void)
   void *luaObj;
   int iVar4;
   void *actor;
-  int leftChore;
+  undefined4 unaff_EDI;
+  longlong lVar5;
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
@@ -4656,10 +4765,11 @@ void Lua_SetActorTurnChores(void)
           iVar4 = Lua_ResolveCostumeArg(luaObj,*(void **)((int)actor + 0xa0),(void **)&local_4);
           if (iVar4 != 0) {
             lua_getnumber(uVar3);
-            iVar4 = _ftol();
+            lVar5 = _ftol((double)CONCAT44(unaff_EDI,local_4));
+            iVar4 = (int)lVar5;
             lua_getnumber(uVar2);
-            leftChore = _ftol();
-            Actor_SetTurnChores(actor,leftChore,iVar4,(void *)local_4);
+            lVar5 = _ftol((double)CONCAT44(local_4,iVar4));
+            Actor_SetTurnChores(actor,(int)lVar5,iVar4,(void *)local_4);
           }
         }
       }
@@ -4683,6 +4793,9 @@ void Lua_SetActorRestChore(void)
   void *luaObj;
   int iVar3;
   void *actor;
+  undefined4 unaff_ESI;
+  undefined4 unaff_EDI;
+  longlong lVar4;
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   uVar1 = lua_lua2C(1);
@@ -4701,7 +4814,8 @@ void Lua_SetActorRestChore(void)
       iVar3 = lua_isnil(uVar2);
       if (iVar3 == 0) {
         lua_getnumber(uVar2);
-        iVar3 = _ftol();
+        lVar4 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+        iVar3 = (int)lVar4;
       }
       else {
         iVar3 = -1;
@@ -4725,6 +4839,9 @@ void Lua_SetActorMumblechore(void)
   undefined4 uVar2;
   void *luaObj;
   int iVar3;
+  undefined4 unaff_ESI;
+  undefined4 unaff_EDI;
+  longlong lVar4;
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   uVar1 = lua_lua2C(1);
@@ -4737,12 +4854,12 @@ void Lua_SetActorMumblechore(void)
       iVar3 = lua_isnumber(uVar2);
       if (iVar3 != 0) {
         lua_getnumber(uVar2);
-        uVar2 = _ftol();
+        lVar4 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
         uVar1 = lua_getuserdata(uVar1);
         iVar3 = Actor_FromHandle(uVar1);
         iVar3 = Lua_ResolveCostumeArg(luaObj,*(void **)(iVar3 + 0xa0),(void **)&local_4);
         if ((iVar3 != 0) && (local_4 != 0)) {
-          *(undefined4 *)(local_4 + 0x78) = uVar2;
+          *(int *)(local_4 + 0x78) = (int)lVar4;
         }
       }
     }
@@ -4765,6 +4882,9 @@ void Lua_SetActorTalkChore(void)
   void *luaObj;
   int iVar4;
   int iVar5;
+  undefined4 unaff_ESI;
+  undefined4 unaff_EDI;
+  longlong lVar6;
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   uVar1 = lua_lua2C(1);
@@ -4779,7 +4899,8 @@ void Lua_SetActorTalkChore(void)
       return;
     }
     lua_getnumber(uVar2);
-    iVar4 = _ftol();
+    lVar6 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+    iVar4 = (int)lVar6;
     if ((0 < iVar4) && (iVar4 < 0x11)) {
       uVar1 = lua_getuserdata(uVar1);
       iVar5 = Actor_FromHandle(uVar1);
@@ -4791,7 +4912,8 @@ void Lua_SetActorTalkChore(void)
         }
         else {
           lua_getnumber(uVar3);
-          uVar1 = _ftol();
+          lVar6 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+          uVar1 = (undefined4)lVar6;
         }
         *(undefined4 *)(local_4 + 0x34 + iVar4 * 4) = uVar1;
         lua_isnil(uVar3);
@@ -4813,6 +4935,7 @@ void Lua_SetActorHead(void)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  float maxRoll;
   undefined4 uVar1;
   undefined4 uVar2;
   undefined4 uVar3;
@@ -4823,10 +4946,10 @@ void Lua_SetActorHead(void)
   int iVar8;
   void *actor;
   int joint2;
-  int joint1;
   float10 fVar9;
   float10 fVar10;
   float10 fVar11;
+  longlong lVar12;
   #define local_2c (*(uint *)(_frame + (0x40 - 0x2c)))
   #define local_28 (*(uint *)(_frame + (0x40 - 0x28)))
   #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
@@ -4863,13 +4986,16 @@ void Lua_SetActorHead(void)
                   fVar9 = (float10)lua_getnumber(uVar7);
                   fVar10 = (float10)lua_getnumber(uVar6);
                   fVar11 = (float10)lua_getnumber(uVar5);
+                  maxRoll = (float)fVar11;
                   lua_getnumber(uVar4);
-                  iVar8 = _ftol();
+                  lVar12 = _ftol((double)CONCAT44((float)fVar10,maxRoll));
+                  iVar8 = (int)lVar12;
                   lua_getnumber(uVar3);
-                  joint2 = _ftol();
+                  lVar12 = _ftol((double)CONCAT44(maxRoll,iVar8));
+                  joint2 = (int)lVar12;
                   lua_getnumber(uVar2);
-                  joint1 = _ftol();
-                  Actor_SetHead(actor,joint1,joint2,iVar8,(float)fVar11,(float)fVar10,(float)fVar9);
+                  lVar12 = _ftol((double)CONCAT44(iVar8,joint2));
+                  Actor_SetHead(actor,(int)lVar12,joint2,iVar8,maxRoll,(float)fVar10,(float)fVar9);
                 }
               }
             }
@@ -5440,6 +5566,9 @@ void Lua_GetActorSector(void)
   undefined4 uVar1;
   undefined4 uVar2;
   int iVar3;
+  undefined4 unaff_ESI;
+  undefined4 unaff_EDI;
+  longlong lVar4;
   #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
   
   uVar1 = lua_lua2C(1);
@@ -5453,8 +5582,8 @@ void Lua_GetActorSector(void)
         uVar1 = lua_getuserdata(uVar1);
         iVar3 = Actor_FromHandle(uVar1);
         lua_getnumber(uVar2);
-        uVar1 = _ftol();
-        iVar3 = SectorList_FindByPoint(iVar3 + 0xc,uVar1);
+        lVar4 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+        iVar3 = SectorList_FindByPoint(iVar3 + 0xc,(int)lVar4);
         if (iVar3 != 0) {
           lua_pushnumber((float)*(int *)(iVar3 + 0x20));
           lua_pushstring(iVar3);
@@ -5537,7 +5666,10 @@ void Lua_GetPointSector(void)
   undefined4 uVar3;
   undefined4 uVar4;
   int iVar5;
+  undefined4 unaff_ESI;
+  undefined4 unaff_EDI;
   float10 fVar6;
+  longlong lVar7;
   #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
   #define local_10 (*(uint *)(_frame + (0x40 - 0x10)))
   #define local_c (*(uint *)(_frame + (0x40 - 0xc)))
@@ -5557,7 +5689,8 @@ void Lua_GetPointSector(void)
         iVar5 = lua_isnil(uVar4);
         if (iVar5 == 0) {
           lua_getnumber(uVar4);
-          uVar4 = _ftol();
+          lVar7 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+          uVar4 = (undefined4)lVar7;
         }
         else {
           uVar4 = 0x1000;
@@ -5851,6 +5984,9 @@ int __cdecl Lua_ResolveCostumeArg(void *luaObj,void *costumeList,void **outCostu
   int iVar2;
   undefined4 uVar3;
   undefined4 uVar4;
+  undefined4 unaff_ESI;
+  undefined4 unaff_EDI;
+  longlong lVar5;
   
   *outCostume = costumeList;
   iVar2 = lua_isnil(luaObj);
@@ -5875,7 +6011,8 @@ int __cdecl Lua_ResolveCostumeArg(void *luaObj,void *costumeList,void **outCostu
   }
   else {
     lua_getnumber();
-    iVar2 = _ftol();
+    lVar5 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+    iVar2 = (int)lVar5;
     if (*outCostume != (void *)0x0) {
       while (0 < iVar2) {
         pvVar1 = *(void **)((int)*outCostume + 0xb0);
@@ -6201,7 +6338,9 @@ void Lua_ScreenToWorld(void)
   undefined4 uVar2;
   undefined4 uVar3;
   int iVar4;
-  int x;
+  undefined4 unaff_ESI;
+  undefined4 unaff_EDI;
+  longlong lVar5;
   float *outPos;
   #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
@@ -6214,33 +6353,34 @@ void Lua_ScreenToWorld(void)
     iVar4 = lua_isnumber(uVar3);
     if (iVar4 != 0) {
       lua_getnumber(uVar2);
-      iVar4 = _ftol();
-      if (iVar4 < 0) {
+      lVar5 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+      if ((int)lVar5 < 0) {
         bVar1 = false;
       }
       else {
         lua_getnumber(uVar2);
-        iVar4 = _ftol();
-        bVar1 = iVar4 < 0x280;
+        lVar5 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+        bVar1 = (int)lVar5 < 0x280;
       }
       if (bVar1) {
         lua_getnumber(uVar3);
-        iVar4 = _ftol();
-        if (iVar4 < 0) {
+        lVar5 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+        if ((int)lVar5 < 0) {
           bVar1 = false;
         }
         else {
           lua_getnumber(uVar3);
-          iVar4 = _ftol();
-          bVar1 = iVar4 < 0x1e0;
+          lVar5 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+          bVar1 = (int)lVar5 < 0x1e0;
         }
         if (bVar1) {
           outPos = (float *)&local_c;
           lua_getnumber(uVar3);
-          iVar4 = _ftol();
+          lVar5 = _ftol((double)CONCAT44(unaff_EDI,outPos));
+          iVar4 = (int)lVar5;
           lua_getnumber(uVar2);
-          x = _ftol();
-          Render_ScreenToWorld(x,iVar4,outPos);
+          lVar5 = _ftol((double)CONCAT44(outPos,iVar4));
+          Render_ScreenToWorld((int)lVar5,iVar4,outPos);
           lua_pushnumber(local_c);
           lua_pushnumber(local_8);
           lua_pushnumber(local_4);
@@ -6401,6 +6541,7 @@ LAB_0049d34b:
 
 
 /* ---- 0x0049d3a0  Lua_exit ---- */
+/* WARNING: This function may have set the stack pointer */
 /* Lua opcode: exit */
 
 void Lua_exit(void)
@@ -6408,13 +6549,16 @@ void Lua_exit(void)
 {
   undefined4 uVar1;
   int iVar2;
+  undefined4 unaff_ESI;
+  longlong lVar3;
+  undefined4 unaff_retaddr;
   
   uVar1 = lua_lua2C(1);
   iVar2 = lua_isnumber(uVar1);
   if (iVar2 != 0) {
     lua_getnumber(uVar1);
-    iVar2 = _ftol();
-    Engine_Quit(iVar2);
+    lVar3 = _ftol((double)CONCAT44(unaff_retaddr,unaff_ESI));
+    Engine_Quit((int)lVar3);
     return;
   }
   Engine_Quit(0);
@@ -6422,6 +6566,7 @@ void Lua_exit(void)
 }
 
 /* ---- 0x0049d3f0  Lua_EnableControl ---- */
+/* WARNING: This function may have set the stack pointer */
 /* Lua opcode: EnableControl */
 
 void Lua_EnableControl(void)
@@ -6429,6 +6574,9 @@ void Lua_EnableControl(void)
 {
   undefined4 uVar1;
   int iVar2;
+  undefined4 unaff_ESI;
+  longlong lVar3;
+  undefined4 unaff_retaddr;
   
   uVar1 = lua_lua2C(1);
   iVar2 = lua_isnumber(uVar1);
@@ -6437,12 +6585,13 @@ void Lua_EnableControl(void)
     return;
   }
   lua_getnumber(uVar1);
-  iVar2 = _ftol();
-  Control_Enable(iVar2);
+  lVar3 = _ftol((double)CONCAT44(unaff_retaddr,unaff_ESI));
+  Control_Enable((int)lVar3);
   return;
 }
 
 /* ---- 0x0049d430  Lua_DisableControl ---- */
+/* WARNING: This function may have set the stack pointer */
 /* Lua opcode: DisableControl */
 
 void Lua_DisableControl(void)
@@ -6450,6 +6599,9 @@ void Lua_DisableControl(void)
 {
   undefined4 uVar1;
   int iVar2;
+  undefined4 unaff_ESI;
+  longlong lVar3;
+  undefined4 unaff_retaddr;
   
   uVar1 = lua_lua2C(1);
   iVar2 = lua_isnumber(uVar1);
@@ -6458,8 +6610,8 @@ void Lua_DisableControl(void)
     return;
   }
   lua_getnumber(uVar1);
-  iVar2 = _ftol();
-  Control_Disable(iVar2);
+  lVar3 = _ftol((double)CONCAT44(unaff_retaddr,unaff_ESI));
+  Control_Disable((int)lVar3);
   return;
 }
 
@@ -6473,6 +6625,9 @@ void Lua_GetControlState(void)
   undefined4 uVar1;
   int iVar2;
   uint uVar3;
+  undefined4 unaff_ESI;
+  undefined4 unaff_EDI;
+  longlong lVar4;
   #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(int *)(_frame + (0x20 - 0x4)))
@@ -6481,7 +6636,8 @@ void Lua_GetControlState(void)
   iVar2 = lua_isnumber(uVar1);
   if (iVar2 != 0) {
     lua_getnumber(uVar1);
-    uVar3 = _ftol();
+    lVar4 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+    uVar3 = (uint)lVar4;
     if (uVar3 <= g_nControlCount - 1U) {
       if (((&g_ControlTable)[uVar3 * 4] & 4) != 0) {
         iVar2 = Input_GetButtonState
@@ -6875,6 +7031,7 @@ int __cdecl Lua_CallCharacterHandler(int ch)
 
 
 /* ---- 0x0049db70  Lua_MakeCurrentSetup ---- */
+/* WARNING: This function may have set the stack pointer */
 /* Lua opcode: MakeCurrentSetup */
 
 void Lua_MakeCurrentSetup(void)
@@ -6882,13 +7039,16 @@ void Lua_MakeCurrentSetup(void)
 {
   undefined4 uVar1;
   int iVar2;
+  undefined4 unaff_ESI;
+  longlong lVar3;
+  undefined4 unaff_retaddr;
   
   uVar1 = lua_lua2C(1);
   iVar2 = lua_isnumber(uVar1);
   if (iVar2 != 0) {
     lua_getnumber(uVar1);
-    uVar1 = _ftol();
-    Set_ChangeSetup(uVar1);
+    lVar3 = _ftol((double)CONCAT44(unaff_retaddr,unaff_ESI));
+    ((code *)Set_ChangeSetup)((int)lVar3,unaff_ESI);
   }
   return;
 }
@@ -7458,8 +7618,11 @@ void Lua_SetSoundPosition(void)
   undefined4 uVar4;
   undefined4 uVar5;
   undefined4 uVar6;
+  undefined4 unaff_ESI;
   int iVar7;
+  undefined4 unaff_EDI;
   float10 fVar8;
+  longlong lVar9;
   #define local_28 (*(uint *)(_frame + (0x40 - 0x28)))
   #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
   #define local_20 (*(uint *)(_frame + (0x40 - 0x20)))
@@ -7520,17 +7683,17 @@ void Lua_SetSoundPosition(void)
   iVar3 = lua_isnumber(uVar4);
   if (iVar3 != 0) {
     lua_getnumber(uVar4);
-    uVar4 = _ftol();
-    local_24 = CONCAT31(PIECE(local_24,1,3),(byte)uVar4);
-    if (0x7f < (byte)uVar4) {
+    lVar9 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+    local_24 = CONCAT31(PIECE(local_24,1,3),(byte)lVar9);
+    if (0x7f < (byte)lVar9) {
       local_24 = CONCAT31(PIECE(local_24,1,3),0x7f);
     }
   }
   iVar3 = lua_isnumber(uVar5);
   if (iVar3 != 0) {
     lua_getnumber(uVar5);
-    uVar4 = _ftol();
-    bVar1 = (byte)uVar4;
+    lVar9 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+    bVar1 = (byte)lVar9;
     local_28 = CONCAT31(PIECE(local_28,1,3),bVar1);
     if (bVar1 < 0x80) {
       if (bVar1 < (byte)local_24) {
@@ -7556,7 +7719,8 @@ void Lua_SetSoundPosition(void)
   }
   else {
     lua_getnumber();
-    uVar4 = _ftol();
+    lVar9 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+    uVar4 = (undefined4)lVar9;
   }
   Sound_SetPosition(uVar4,&local_c,local_24 & 0xff,local_28 & 0xff,local_20,0x3f4ccccd);
   return;
@@ -7625,6 +7789,9 @@ void Lua_StartMovie(void)
   undefined4 uVar3;
   undefined4 uVar4;
   int iVar5;
+  undefined4 unaff_ESI;
+  undefined4 unaff_EDI;
+  longlong lVar6;
   
   uVar1 = lua_lua2C(1);
   uVar2 = lua_lua2C(2);
@@ -7639,7 +7806,8 @@ void Lua_StartMovie(void)
     }
     else {
       lua_getnumber(uVar4);
-      uVar4 = _ftol();
+      lVar6 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+      uVar4 = (undefined4)lVar6;
     }
     iVar5 = lua_isnumber(uVar3);
     if (iVar5 == 0) {
@@ -7647,7 +7815,8 @@ void Lua_StartMovie(void)
     }
     else {
       lua_getnumber(uVar3);
-      uVar3 = _ftol();
+      lVar6 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+      uVar3 = (undefined4)lVar6;
     }
     iVar5 = lua_isnil(uVar2,uVar3,uVar4);
     uVar1 = lua_getstring(uVar1,0,iVar5 == 0);
@@ -7985,6 +8154,9 @@ void Lua_IsSectorActive(void)
   int iVar2;
   void *pvVar3;
   char *name;
+  undefined4 unaff_ESI;
+  undefined4 unaff_EDI;
+  longlong lVar4;
   
   uVar1 = lua_lua2C(1);
   iVar2 = lua_isnumber(uVar1);
@@ -7997,8 +8169,8 @@ void Lua_IsSectorActive(void)
     iVar2 = lua_isstring(uVar1);
     if (iVar2 == 0) {
       lua_getnumber(uVar1);
-      iVar2 = _ftol();
-      pvVar3 = Sector_FindById(iVar2);
+      lVar4 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+      pvVar3 = Sector_FindById((int)lVar4);
     }
     else {
       name = (char *)lua_getstring();
@@ -8024,6 +8196,9 @@ void Lua_MakeSectorActive(void)
   undefined4 uVar3;
   char *name;
   void *pvVar4;
+  undefined4 unaff_ESI;
+  undefined4 unaff_EDI;
+  longlong lVar5;
   
   uVar1 = lua_lua2C(1);
   iVar2 = lua_isnumber(uVar1);
@@ -8034,8 +8209,8 @@ void Lua_MakeSectorActive(void)
   iVar2 = lua_isstring(uVar1);
   if (iVar2 == 0) {
     lua_getnumber(uVar1);
-    iVar2 = _ftol();
-    pvVar4 = Sector_FindById(iVar2);
+    lVar5 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+    pvVar4 = Sector_FindById((int)lVar5);
   }
   else {
     name = (char *)lua_getstring();
@@ -8163,15 +8338,18 @@ void Lua_SetMemoryUsage(void)
   undefined4 uVar1;
   undefined4 uVar2;
   int b;
-  int budget;
+  undefined4 unaff_ESI;
+  undefined4 unaff_EDI;
+  longlong lVar3;
   
   uVar1 = lua_lua2C(1);
   uVar2 = lua_lua2C(2);
   lua_getnumber(uVar2);
-  b = _ftol();
+  lVar3 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+  b = (int)lVar3;
   lua_getnumber(uVar1);
-  budget = _ftol();
-  Resource_SetMemoryUsage(budget,b);
+  lVar3 = _ftol((double)CONCAT44(unaff_EDI,b));
+  Resource_SetMemoryUsage((int)lVar3,b);
   return;
 }
 
@@ -8493,6 +8671,9 @@ void Lua_GetActorNodeLocation(void)
   int iVar4;
   void *actor;
   float *pfVar5;
+  undefined4 unaff_ESI;
+  undefined4 unaff_EDI;
+  longlong lVar6;
   #define local_3c (*(uint *)(_frame + (0x50 - 0x3c)))
   #define local_38 (*(uint *)(_frame + (0x50 - 0x38)))
   #define local_34 (*(uint *)(_frame + (0x50 - 0x34)))
@@ -8517,14 +8698,15 @@ void Lua_GetActorNodeLocation(void)
             pfVar5 = Actor_GetFrame(actor);
             rdPuppet_UpdateFrame(*(void **)(*(int *)((int)actor + 0xa0) + 4),pfVar5);
           }
-          lua_getnumber(uVar3,local_30);
-          _ftol();
+          pfVar5 = local_30;
+          lua_getnumber(uVar3);
+          _ftol((double)CONCAT44(unaff_EDI,pfVar5));
           pfVar5 = Actor_GetFrame(actor);
           rdPuppet_BuildJointMatrices(*(void **)(*(int *)((int)actor + 0xa0) + 4),pfVar5);
           lua_getnumber(uVar3);
-          iVar4 = _ftol();
+          lVar6 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
           puVar1 = (uint *)(*(int *)(*(int *)(*(int *)(*(int *)((int)actor + 0xa0) + 4) + 4) + 0x58)
-                            + 100 + iVar4 * 0xb8);
+                            + 100 + (int)lVar6 * 0xb8);
           local_3c = *puVar1;
           local_38 = puVar1[1];
           local_34 = puVar1[2];
@@ -8662,6 +8844,9 @@ void Lua_GetCameraLookVector(void)
   undefined4 uVar2;
   void *pvVar3;
   int iVar4;
+  undefined4 unaff_EBX;
+  undefined4 unaff_EBP;
+  longlong lVar5;
   #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
@@ -8678,7 +8863,8 @@ void Lua_GetCameraLookVector(void)
   }
   else {
     lua_getnumber(uVar2);
-    iVar4 = _ftol();
+    lVar5 = _ftol((double)CONCAT44(unaff_EBP,unaff_EBX));
+    iVar4 = (int)lVar5;
   }
   iVar4 = iVar4 * 300;
   iVar1 = *(int *)((int)pvVar3 + 0xac) + 0x20 + iVar4;
@@ -9156,6 +9342,9 @@ void Lua_TurnLightOn(void)
   int iVar3;
   char *name;
   void *pvVar4;
+  undefined4 unaff_ESI;
+  undefined4 unaff_EDI;
+  longlong lVar5;
   
   uVar1 = lua_lua2C(1);
   uVar2 = lua_lua2C(2);
@@ -9170,7 +9359,8 @@ void Lua_TurnLightOn(void)
   }
   else {
     lua_getnumber();
-    iVar3 = _ftol();
+    lVar5 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+    iVar3 = (int)lVar5;
   }
   pvVar4 = Light_Get((void *)0x0,iVar3);
   if (pvVar4 != (void *)0x0) {
@@ -9181,6 +9371,7 @@ void Lua_TurnLightOn(void)
 }
 
 /* ---- 0x004a0380  Lua_IsLightOn ---- */
+/* WARNING: This function may have set the stack pointer */
 /* Lua opcode: IsLightOn */
 
 void Lua_IsLightOn(void)
@@ -9190,6 +9381,9 @@ void Lua_IsLightOn(void)
   int iVar2;
   char *name;
   void *pvVar3;
+  undefined4 unaff_ESI;
+  longlong lVar4;
+  undefined4 unaff_retaddr;
   
   uVar1 = lua_lua2C(1);
   iVar2 = lua_isnumber(uVar1);
@@ -9201,7 +9395,8 @@ void Lua_IsLightOn(void)
   }
   else {
     lua_getnumber();
-    iVar2 = _ftol();
+    lVar4 = _ftol((double)CONCAT44(unaff_retaddr,unaff_ESI));
+    iVar2 = (int)lVar4;
   }
   pvVar3 = Light_Get((void *)0x0,iVar2);
   if ((pvVar3 != (void *)0x0) && (*(int *)((int)pvVar3 + 0x34) != 0)) {
@@ -9228,6 +9423,9 @@ void Lua_SetLightType(void)
   void *pvVar6;
   int iVar7;
   uint uVar8;
+  undefined4 unaff_ESI;
+  undefined4 unaff_EDI;
+  longlong lVar9;
   
   uVar2 = lua_lua2C(1);
   uVar3 = lua_lua2C(2);
@@ -9243,7 +9441,8 @@ void Lua_SetLightType(void)
   }
   else {
     lua_getnumber();
-    iVar5 = _ftol();
+    lVar9 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+    iVar5 = (int)lVar9;
   }
   pvVar6 = Light_Get((void *)0x0,iVar5);
   if (pvVar6 != (void *)0x0) {
@@ -9282,6 +9481,7 @@ void Lua_SetLightType(void)
 }
 
 /* ---- 0x004a0530  Lua_GetLightType ---- */
+/* WARNING: This function may have set the stack pointer */
 /* Lua opcode: GetLightType */
 
 void Lua_GetLightType(void)
@@ -9291,6 +9491,9 @@ void Lua_GetLightType(void)
   int iVar2;
   char *name;
   void *pvVar3;
+  undefined4 unaff_ESI;
+  longlong lVar4;
+  undefined4 unaff_retaddr;
   
   uVar1 = lua_lua2C(1);
   iVar2 = lua_isnumber(uVar1);
@@ -9302,7 +9505,8 @@ void Lua_GetLightType(void)
   }
   else {
     lua_getnumber();
-    iVar2 = _ftol();
+    lVar4 = _ftol((double)CONCAT44(unaff_retaddr,unaff_ESI));
+    iVar2 = (int)lVar4;
   }
   pvVar3 = Light_Get((void *)0x0,iVar2);
   if (pvVar3 != (void *)0x0) {
@@ -9344,9 +9548,12 @@ void Lua_SetLightPosition(void)
   int iVar9;
   uint uVar10;
   float *pfVar11;
+  undefined4 unaff_ESI;
+  undefined4 unaff_EDI;
   float10 fVar12;
   float10 fVar13;
   float10 fVar14;
+  longlong lVar15;
   #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
   #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
   #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
@@ -9368,7 +9575,8 @@ void Lua_SetLightPosition(void)
   }
   else {
     lua_getnumber();
-    iVar6 = _ftol();
+    lVar15 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+    iVar6 = (int)lVar15;
   }
   pvVar7 = Set_GetCurrent();
   if ((((pvVar7 != (void *)0x0) && (pvVar8 = Light_Get((void *)0x0,iVar6), pvVar8 != (void *)0x0))
@@ -9413,6 +9621,9 @@ void Lua_GetLightPosition(void)
   int iVar2;
   char *name;
   void *pvVar3;
+  undefined4 unaff_ESI;
+  undefined4 unaff_EDI;
+  longlong lVar4;
   
   uVar1 = lua_lua2C(1);
   iVar2 = lua_isnumber(uVar1);
@@ -9424,7 +9635,8 @@ void Lua_GetLightPosition(void)
   }
   else {
     lua_getnumber();
-    iVar2 = _ftol();
+    lVar4 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+    iVar2 = (int)lVar4;
   }
   pvVar3 = Set_GetCurrent();
   if (pvVar3 != (void *)0x0) {
@@ -9460,7 +9672,10 @@ void Lua_SetLightRotation(void)
   void *pvVar9;
   int iVar10;
   uint uVar11;
+  undefined4 unaff_ESI;
+  undefined4 unaff_EDI;
   float10 fVar12;
+  longlong lVar13;
   #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
   #define local_20 (*(uint *)(_frame + (0x40 - 0x20)))
   #define local_1c (*(uint *)(_frame + (0x40 - 0x1c)))
@@ -9487,7 +9702,8 @@ void Lua_SetLightRotation(void)
   }
   else {
     lua_getnumber();
-    iVar8 = _ftol();
+    lVar13 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+    iVar8 = (int)lVar13;
   }
   pvVar9 = Light_Get((void *)0x0,iVar8);
   if (pvVar9 != (void *)0x0) {
@@ -9550,6 +9766,7 @@ void Lua_SetLightRotation(void)
 
 
 /* ---- 0x004a09a0  Lua_GetLightRotation ---- */
+/* WARNING: Variable defined which should be unmapped: local_c */
 /* Lua opcode: GetLightRotation */
 
 void Lua_GetLightRotation(void)
@@ -9560,6 +9777,8 @@ void Lua_GetLightRotation(void)
   int iVar2;
   char *name;
   void *pvVar3;
+  undefined4 unaff_ESI;
+  longlong lVar4;
   #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
@@ -9574,7 +9793,8 @@ void Lua_GetLightRotation(void)
   }
   else {
     lua_getnumber();
-    iVar2 = _ftol();
+    lVar4 = _ftol((double)CONCAT44(local_c,unaff_ESI));
+    iVar2 = (int)lVar4;
   }
   pvVar3 = Light_Get((void *)0x0,iVar2);
   if (pvVar3 != (void *)0x0) {
@@ -9606,7 +9826,10 @@ void Lua_SetLightAngles(void)
   int iVar4;
   char *name;
   void *pvVar5;
+  undefined4 unaff_ESI;
+  undefined4 unaff_EDI;
   float10 fVar6;
+  longlong lVar7;
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
@@ -9624,7 +9847,8 @@ void Lua_SetLightAngles(void)
   }
   else {
     lua_getnumber();
-    iVar4 = _ftol();
+    lVar7 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+    iVar4 = (int)lVar7;
   }
   pvVar5 = Light_Get((void *)0x0,iVar4);
   if (pvVar5 != (void *)0x0) {
@@ -9662,6 +9886,9 @@ void Lua_GetLightAngles(void)
   int iVar2;
   char *name;
   void *pvVar3;
+  undefined4 unaff_ESI;
+  undefined4 unaff_EDI;
+  longlong lVar4;
   
   uVar1 = lua_lua2C(1);
   iVar2 = lua_isnumber(uVar1);
@@ -9673,7 +9900,8 @@ void Lua_GetLightAngles(void)
   }
   else {
     lua_getnumber();
-    iVar2 = _ftol();
+    lVar4 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+    iVar2 = (int)lVar4;
   }
   pvVar3 = Light_Get((void *)0x0,iVar2);
   if (pvVar3 != (void *)0x0) {
@@ -9700,7 +9928,10 @@ void Lua_PointLightAt(void)
   int iVar5;
   char *name;
   void *pvVar6;
+  undefined4 unaff_ESI;
+  undefined4 unaff_EDI;
   float10 fVar7;
+  longlong lVar8;
   #define local_20 (*(uint *)(_frame + (0x30 - 0x20)))
   #define local_1c (*(uint *)(_frame + (0x30 - 0x1c)))
   #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
@@ -9725,7 +9956,8 @@ void Lua_PointLightAt(void)
   }
   else {
     lua_getnumber();
-    iVar5 = _ftol();
+    lVar8 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+    iVar5 = (int)lVar8;
   }
   pvVar6 = Light_Get((void *)0x0,iVar5);
   if (pvVar6 != (void *)0x0) {
@@ -9799,7 +10031,10 @@ void Lua_SetLightIntensity(void)
   void *pvVar6;
   int iVar7;
   uint uVar8;
+  undefined4 unaff_ESI;
+  undefined4 unaff_EDI;
   float10 fVar9;
+  longlong lVar10;
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   uVar2 = lua_lua2C(1);
@@ -9816,7 +10051,8 @@ void Lua_SetLightIntensity(void)
   }
   else {
     lua_getnumber();
-    iVar5 = _ftol();
+    lVar10 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+    iVar5 = (int)lVar10;
   }
   pvVar6 = Light_Get((void *)0x0,iVar5);
   if ((pvVar6 != (void *)0x0) && (iVar7 = lua_isnumber(uVar3), iVar7 != 0)) {
@@ -9849,6 +10085,9 @@ void Lua_GetLightIntensity(void)
   int iVar2;
   char *name;
   void *pvVar3;
+  undefined4 unaff_ESI;
+  undefined4 unaff_EDI;
+  longlong lVar4;
   
   uVar1 = lua_lua2C(1);
   lua_lua2C(2);
@@ -9861,7 +10100,8 @@ void Lua_GetLightIntensity(void)
   }
   else {
     lua_getnumber();
-    iVar2 = _ftol();
+    lVar4 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+    iVar2 = (int)lVar4;
   }
   pvVar3 = Light_Get((void *)0x0,iVar2);
   if (pvVar3 != (void *)0x0) {
@@ -9907,6 +10147,9 @@ void Lua_ImStartSound(void)
   undefined4 uVar2;
   undefined4 uVar3;
   int iVar4;
+  undefined4 unaff_ESI;
+  undefined4 unaff_EDI;
+  longlong lVar5;
   #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
   #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
   
@@ -9920,10 +10163,10 @@ void Lua_ImStartSound(void)
   iVar4 = lua_isnumber(uVar2);
   if ((iVar4 != 0) && (iVar4 = lua_isnumber(uVar3), iVar4 != 0)) {
     lua_getnumber(uVar3);
-    uVar3 = _ftol();
-    lua_getnumber(uVar2,uVar3);
-    uVar2 = _ftol();
-    uVar1 = lua_getstring(uVar1,uVar2);
+    lVar5 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+    lua_getnumber(uVar2);
+    lVar5 = _ftol((double)CONCAT44(unaff_EDI,(int)lVar5));
+    uVar1 = lua_getstring(uVar1,(int)lVar5);
     iVar4 = SoundsLoadStartSound(uVar1);
     lua_pushnumber((float)iVar4);
   }
@@ -9934,6 +10177,7 @@ void Lua_ImStartSound(void)
 
 
 /* ---- 0x004a1030  Lua_ImStopSound ---- */
+/* WARNING: This function may have set the stack pointer */
 /* Lua opcode: ImStopSound */
 
 void Lua_ImStopSound(void)
@@ -9941,13 +10185,16 @@ void Lua_ImStopSound(void)
 {
   undefined4 uVar1;
   int iVar2;
+  undefined4 unaff_ESI;
+  longlong lVar3;
+  undefined4 unaff_retaddr;
   
   uVar1 = lua_lua2C(1);
   iVar2 = lua_isnumber(uVar1);
   if (iVar2 != 0) {
     lua_getnumber();
-    uVar1 = _ftol();
-    SoundsStopSound(uVar1);
+    lVar3 = _ftol((double)CONCAT44(unaff_retaddr,unaff_ESI));
+    SoundsStopSound((int)lVar3,unaff_ESI);
     return;
   }
   uVar1 = lua_getstring(uVar1);
@@ -9966,6 +10213,9 @@ void Lua_ImGetParam(void)
   undefined4 uVar1;
   undefined4 uVar2;
   int iVar3;
+  undefined4 unaff_ESI;
+  undefined4 unaff_EDI;
+  longlong lVar4;
   #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
@@ -9979,14 +10229,15 @@ void Lua_ImGetParam(void)
       return;
     }
     lua_getnumber(uVar2);
-    uVar2 = _ftol();
-    uVar1 = lua_getstring(uVar1,uVar2);
+    lVar4 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+    uVar1 = lua_getstring(uVar1,(int)lVar4);
   }
   else {
     lua_getnumber();
-    uVar2 = _ftol();
-    lua_getnumber(uVar1,uVar2);
-    uVar1 = _ftol();
+    lVar4 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+    lua_getnumber(uVar1);
+    lVar4 = _ftol((double)CONCAT44(unaff_EDI,(int)lVar4));
+    uVar1 = (undefined4)lVar4;
   }
   iVar3 = SoundsGetParam(uVar1);
   lua_pushnumber((float)iVar3);
@@ -10006,6 +10257,9 @@ void Lua_ImSetParam(void)
   undefined4 uVar2;
   undefined4 uVar3;
   int iVar4;
+  undefined4 unaff_ESI;
+  undefined4 unaff_EDI;
+  longlong lVar5;
   
   uVar1 = lua_lua2C(1);
   uVar2 = lua_lua2C(2);
@@ -10019,35 +10273,38 @@ void Lua_ImSetParam(void)
     iVar4 = lua_isnumber(uVar1);
     if (iVar4 != 0) {
       lua_getnumber(uVar3);
-      iVar4 = _ftol();
-      if (iVar4 < 1) {
+      lVar5 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+      if ((int)lVar5 < 1) {
         uVar3 = 0;
       }
       else {
         lua_getnumber(uVar3);
-        uVar3 = _ftol();
+        lVar5 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+        uVar3 = (undefined4)lVar5;
       }
-      lua_getnumber(uVar2,uVar3);
-      uVar2 = _ftol();
-      lua_getnumber(uVar1,uVar2);
-      uVar1 = _ftol();
-      SoundsSetParam(uVar1);
+      lua_getnumber(uVar2);
+      lVar5 = _ftol((double)CONCAT44(unaff_EDI,uVar3));
+      uVar2 = (undefined4)lVar5;
+      lua_getnumber(uVar1);
+      lVar5 = _ftol((double)CONCAT44(uVar3,uVar2));
+      SoundsSetParam((int)lVar5);
       return;
     }
     iVar4 = lua_isstring(uVar1);
     if (iVar4 != 0) {
       lua_getnumber(uVar3);
-      iVar4 = _ftol();
-      if (iVar4 < 1) {
+      lVar5 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+      if ((int)lVar5 < 1) {
         uVar3 = 0;
       }
       else {
         lua_getnumber(uVar3);
-        uVar3 = _ftol();
+        lVar5 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+        uVar3 = (undefined4)lVar5;
       }
-      lua_getnumber(uVar2,uVar3);
-      uVar2 = _ftol();
-      uVar1 = lua_getstring(uVar1,uVar2);
+      lua_getnumber(uVar2);
+      lVar5 = _ftol((double)CONCAT44(unaff_EDI,uVar3));
+      uVar1 = lua_getstring(uVar1,(int)lVar5);
       SoundsSetParam(uVar1);
     }
   }
@@ -10066,6 +10323,9 @@ void Lua_ImFadeParam(void)
   undefined4 uVar3;
   undefined4 uVar4;
   int iVar5;
+  undefined4 unaff_ESI;
+  undefined4 unaff_EDI;
+  longlong lVar6;
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   uVar1 = lua_lua2C(1);
@@ -10089,37 +10349,42 @@ void Lua_ImFadeParam(void)
         iVar5 = lua_isnumber(uVar1);
         if (iVar5 != 0) {
           lua_getnumber(uVar3);
-          iVar5 = _ftol();
-          if (iVar5 < 1) {
+          lVar6 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+          if ((int)lVar6 < 1) {
             uVar3 = 0;
           }
           else {
             lua_getnumber(uVar3);
-            uVar3 = _ftol();
+            lVar6 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+            uVar3 = (undefined4)lVar6;
           }
           lua_getnumber(uVar4);
-          uVar4 = _ftol();
-          lua_getnumber(uVar2,uVar3,uVar4);
-          uVar2 = _ftol();
-          lua_getnumber(uVar1,uVar2);
-          uVar1 = _ftol();
-          SoundsFadeParam(uVar1);
+          lVar6 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+          uVar4 = (undefined4)lVar6;
+          lua_getnumber(uVar2);
+          lVar6 = _ftol((double)CONCAT44(uVar4,uVar3));
+          uVar2 = (undefined4)lVar6;
+          lua_getnumber(uVar1);
+          lVar6 = _ftol((double)CONCAT44(uVar3,uVar2));
+          SoundsFadeParam((int)lVar6);
           return;
         }
         lua_getnumber(uVar3);
-        iVar5 = _ftol();
-        if (iVar5 < 1) {
+        lVar6 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+        if ((int)lVar6 < 1) {
           uVar3 = 0;
         }
         else {
           lua_getnumber(uVar3);
-          uVar3 = _ftol();
+          lVar6 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+          uVar3 = (undefined4)lVar6;
         }
         lua_getnumber(uVar4);
-        uVar4 = _ftol();
-        lua_getnumber(uVar2,uVar3,uVar4);
-        uVar2 = _ftol();
-        uVar1 = lua_getstring(uVar1,uVar2);
+        lVar6 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+        uVar4 = (undefined4)lVar6;
+        lua_getnumber(uVar2);
+        lVar6 = _ftol((double)CONCAT44(uVar4,uVar3));
+        uVar1 = lua_getstring(uVar1,(int)lVar6);
         SoundsFadeParam(uVar1);
       }
     }
@@ -10151,6 +10416,7 @@ void __fastcall Lua_ImGetMasterVol(undefined4 param_1)
 
 
 /* ---- 0x004a1400  Lua_ImSetMasterVol ---- */
+/* WARNING: This function may have set the stack pointer */
 /* Lua opcode: ImSetMasterVol */
 
 void Lua_ImSetMasterVol(void)
@@ -10158,13 +10424,16 @@ void Lua_ImSetMasterVol(void)
 {
   undefined4 uVar1;
   int iVar2;
+  undefined4 unaff_ESI;
+  longlong lVar3;
+  undefined4 unaff_retaddr;
   
   uVar1 = lua_lua2C(1);
   iVar2 = lua_isnumber(uVar1);
   if (iVar2 != 0) {
     lua_getnumber(uVar1);
-    uVar1 = _ftol();
-    ImSetGroupVol(0,uVar1);
+    lVar3 = _ftol((double)CONCAT44(unaff_retaddr,unaff_ESI));
+    ImSetGroupVol(0,(int)lVar3,unaff_ESI);
   }
   return;
 }
@@ -10191,6 +10460,7 @@ void __fastcall Lua_ImGetSfxVol(undefined4 param_1)
 
 
 /* ---- 0x004a1470  Lua_ImSetSfxVol ---- */
+/* WARNING: This function may have set the stack pointer */
 /* Lua opcode: ImSetSfxVol */
 
 void Lua_ImSetSfxVol(void)
@@ -10198,13 +10468,16 @@ void Lua_ImSetSfxVol(void)
 {
   undefined4 uVar1;
   int iVar2;
+  undefined4 unaff_ESI;
+  longlong lVar3;
+  undefined4 unaff_retaddr;
   
   uVar1 = lua_lua2C(1);
   iVar2 = lua_isnumber(uVar1);
   if (iVar2 != 0) {
     lua_getnumber(uVar1);
-    uVar1 = _ftol();
-    ImSetGroupVol(1,uVar1);
+    lVar3 = _ftol((double)CONCAT44(unaff_retaddr,unaff_ESI));
+    ImSetGroupVol(1,(int)lVar3,unaff_ESI);
   }
   return;
 }
@@ -10231,6 +10504,7 @@ void __fastcall Lua_ImGetVoiceVol(undefined4 param_1)
 
 
 /* ---- 0x004a14e0  Lua_ImSetVoiceVol ---- */
+/* WARNING: This function may have set the stack pointer */
 /* Lua opcode: ImSetVoiceVol */
 
 void Lua_ImSetVoiceVol(void)
@@ -10238,13 +10512,16 @@ void Lua_ImSetVoiceVol(void)
 {
   undefined4 uVar1;
   int iVar2;
+  undefined4 unaff_ESI;
+  longlong lVar3;
+  undefined4 unaff_retaddr;
   
   uVar1 = lua_lua2C(1);
   iVar2 = lua_isnumber(uVar1);
   if (iVar2 != 0) {
     lua_getnumber(uVar1);
-    uVar1 = _ftol();
-    ImSetGroupVol(2,uVar1);
+    lVar3 = _ftol((double)CONCAT44(unaff_retaddr,unaff_ESI));
+    ImSetGroupVol(2,(int)lVar3,unaff_ESI);
   }
   return;
 }
@@ -10271,6 +10548,7 @@ void __fastcall Lua_ImGetMusicVol(undefined4 param_1)
 
 
 /* ---- 0x004a1550  Lua_ImSetMusicVol ---- */
+/* WARNING: This function may have set the stack pointer */
 /* Lua opcode: ImSetMusicVol */
 
 void Lua_ImSetMusicVol(void)
@@ -10278,13 +10556,16 @@ void Lua_ImSetMusicVol(void)
 {
   undefined4 uVar1;
   int iVar2;
+  undefined4 unaff_ESI;
+  longlong lVar3;
+  undefined4 unaff_retaddr;
   
   uVar1 = lua_lua2C(1);
   iVar2 = lua_isnumber(uVar1);
   if (iVar2 != 0) {
     lua_getnumber(uVar1);
-    uVar1 = _ftol();
-    ImSetGroupVol(3,uVar1);
+    lVar3 = _ftol((double)CONCAT44(unaff_retaddr,unaff_ESI));
+    ImSetGroupVol(3,(int)lVar3,unaff_ESI);
   }
   return;
 }
@@ -10299,6 +10580,9 @@ void Lua_ImStartVoice(void)
   undefined4 uVar2;
   undefined4 uVar3;
   int iVar4;
+  undefined4 unaff_ESI;
+  undefined4 unaff_EDI;
+  longlong lVar5;
   
   uVar1 = lua_lua2C(1);
   uVar2 = lua_lua2C(2);
@@ -10310,16 +10594,18 @@ void Lua_ImStartVoice(void)
   iVar4 = lua_isnumber(uVar2);
   if ((iVar4 != 0) && (iVar4 = lua_isnumber(uVar3), iVar4 != 0)) {
     lua_getnumber(uVar3);
-    uVar3 = _ftol();
-    lua_getnumber(uVar2,uVar3);
-    uVar2 = _ftol();
-    uVar1 = lua_getstring(uVar1,uVar2);
+    lVar5 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+    uVar3 = (undefined4)lVar5;
+    lua_getnumber(uVar2);
+    lVar5 = _ftol((double)CONCAT44(unaff_EDI,uVar3));
+    uVar1 = lua_getstring(uVar1,(int)lVar5);
     SoundStartVoiceStream(uVar1);
   }
   return;
 }
 
 /* ---- 0x004a1640  Lua_ImSetState ---- */
+/* WARNING: This function may have set the stack pointer */
 /* Lua opcode: ImSetState */
 
 void Lua_ImSetState(void)
@@ -10327,27 +10613,33 @@ void Lua_ImSetState(void)
 {
   undefined4 uVar1;
   int iVar2;
+  undefined4 unaff_ESI;
+  longlong lVar3;
+  undefined4 unaff_retaddr;
   
   uVar1 = lua_lua2C(1);
   iVar2 = lua_isnumber(uVar1);
   if (iVar2 != 0) {
     lua_getnumber(uVar1);
-    iVar2 = _ftol();
-    Engine_SetIMuseState(iVar2);
+    lVar3 = _ftol((double)CONCAT44(unaff_retaddr,unaff_ESI));
+    Engine_SetIMuseState((int)lVar3);
   }
   return;
 }
 
 /* ---- 0x004a1680  Lua_ImSetSequence ---- */
 /* WARNING: Variable defined which should be unmapped: local_c */
+/* WARNING: Variable defined which should be unmapped: local_4 */
 /* Lua opcode: ImSetSequence */
 
-void Lua_ImSetSequence(void)
+void __fastcall Lua_ImSetSequence(undefined4 param_1)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   undefined4 uVar1;
   int iVar2;
+  undefined4 unaff_ESI;
+  longlong lVar3;
   #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
@@ -10355,8 +10647,8 @@ void Lua_ImSetSequence(void)
   iVar2 = lua_isnumber(uVar1);
   if (iVar2 != 0) {
     lua_getnumber(uVar1);
-    uVar1 = _ftol();
-    iVar2 = ImSetSequence(uVar1);
+    lVar3 = _ftol((double)CONCAT44(param_1,unaff_ESI));
+    iVar2 = ImSetSequence((int)lVar3);
     lua_pushnumber((float)iVar2);
   }
   return;
@@ -10366,6 +10658,7 @@ void Lua_ImSetSequence(void)
 
 
 /* ---- 0x004a16d0  Lua_ImSetCuePoint ---- */
+/* WARNING: This function may have set the stack pointer */
 /* Lua opcode: ImSetCuePoint */
 
 void Lua_ImSetCuePoint(void)
@@ -10373,13 +10666,16 @@ void Lua_ImSetCuePoint(void)
 {
   undefined4 uVar1;
   int iVar2;
+  undefined4 unaff_ESI;
+  longlong lVar3;
+  undefined4 unaff_retaddr;
   
   uVar1 = lua_lua2C(1);
   iVar2 = lua_isnumber(uVar1);
   if (iVar2 != 0) {
     lua_getnumber(uVar1);
-    uVar1 = _ftol();
-    ImSetCuePoint(uVar1);
+    lVar3 = _ftol((double)CONCAT44(unaff_retaddr,unaff_ESI));
+    ImSetCuePoint((int)lVar3,unaff_ESI);
   }
   return;
 }
@@ -10395,6 +10691,9 @@ void Lua_ImSetAttribute(void)
   undefined4 uVar1;
   undefined4 uVar2;
   int iVar3;
+  undefined4 unaff_ESI;
+  undefined4 unaff_EDI;
+  longlong lVar4;
   #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
   #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
   
@@ -10405,10 +10704,10 @@ void Lua_ImSetAttribute(void)
     iVar3 = lua_isnumber(uVar2);
     if (iVar3 != 0) {
       lua_getnumber(uVar2);
-      uVar2 = _ftol();
-      lua_getnumber(uVar1,uVar2);
-      uVar1 = _ftol();
-      iVar3 = ImSetAttribute(uVar1);
+      lVar4 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+      lua_getnumber(uVar1);
+      lVar4 = _ftol((double)CONCAT44(unaff_EDI,(int)lVar4));
+      iVar3 = ImSetAttribute((int)lVar4);
       lua_pushnumber((float)iVar3);
     }
   }
@@ -10602,13 +10901,13 @@ void Lua_DimRegion(void)
   undefined4 uVar3;
   undefined4 uVar4;
   undefined4 uVar5;
-  int x;
-  int y;
-  int w;
-  int h;
   float unaff_ESI;
   float unaff_EDI;
   float10 fVar6;
+  longlong lVar7;
+  longlong lVar8;
+  longlong lVar9;
+  longlong lVar10;
   #define local_38 (*(uint *)(_frame + (0x50 - 0x38)))
   #define local_34 (*(uint *)(_frame + (0x50 - 0x34)))
   #define local_30 (*(uint *)(_frame + (0x50 - 0x30)))
@@ -10623,15 +10922,15 @@ void Lua_DimRegion(void)
   uVar4 = lua_lua2C(4);
   uVar5 = lua_lua2C(5);
   lua_getnumber(uVar1);
-  x = _ftol();
+  lVar7 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
   lua_getnumber(uVar2);
-  y = _ftol();
+  lVar8 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
   lua_getnumber(uVar3);
-  w = _ftol();
+  lVar9 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
   lua_getnumber(uVar4);
-  h = _ftol();
+  lVar10 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
   fVar6 = (float10)lua_getnumber(uVar5);
-  Render_FillRect(x,y,w,h,(float)fVar6,unaff_EDI,unaff_ESI);
+  Render_FillRect((int)lVar7,(int)lVar8,(int)lVar9,(int)lVar10,(float)fVar6,unaff_EDI,unaff_ESI);
   return;
 }
 #undef local_14
@@ -10644,6 +10943,7 @@ void Lua_DimRegion(void)
 
 
 /* ---- 0x004a1ae0  Lua_SetSpeechMode ---- */
+/* WARNING: This function may have set the stack pointer */
 /* Lua opcode: SetSpeechMode */
 
 void Lua_SetSpeechMode(void)
@@ -10651,12 +10951,16 @@ void Lua_SetSpeechMode(void)
 {
   undefined4 uVar1;
   int iVar2;
+  undefined4 unaff_ESI;
+  longlong lVar3;
+  undefined4 unaff_retaddr;
   
   uVar1 = lua_lua2C(1);
   iVar2 = lua_isnumber(uVar1);
   if (iVar2 != 0) {
     lua_getnumber(uVar1);
-    iVar2 = _ftol();
+    lVar3 = _ftol((double)CONCAT44(unaff_retaddr,unaff_ESI));
+    iVar2 = (int)lVar3;
     if (iVar2 == 1) {
       Speech_SetMode(1);
     }
@@ -10738,6 +11042,8 @@ void Lua_ActivateActorShadow(void)
   int iVar4;
   undefined4 uVar5;
   void *actor;
+  undefined4 unaff_EDI;
+  longlong lVar6;
   uint active;
   
   iVar1 = lua_lua2C(1);
@@ -10752,8 +11058,8 @@ void Lua_ActivateActorShadow(void)
       iVar1 = lua_isnil(uVar3);
       active = (uint)(iVar1 == 0);
       lua_getnumber(uVar2);
-      iVar1 = _ftol();
-      Actor_ActivateShadow(actor,iVar1,active);
+      lVar6 = _ftol((double)CONCAT44(unaff_EDI,active));
+      Actor_ActivateShadow(actor,(int)lVar6,active);
       return;
     }
   }
@@ -10850,6 +11156,9 @@ void Lua_SetActiveShadow(void)
   undefined4 uVar2;
   int iVar3;
   undefined4 uVar4;
+  undefined4 unaff_ESI;
+  undefined4 unaff_EDI;
+  longlong lVar5;
   
   iVar1 = lua_lua2C(1);
   uVar2 = lua_lua2C(2);
@@ -10863,8 +11172,8 @@ void Lua_SetActiveShadow(void)
         Actor_CreateExtra(iVar1);
       }
       lua_getnumber(uVar2);
-      uVar2 = _ftol();
-      *(undefined4 *)(*(int *)(iVar1 + 0xa4) + 500) = uVar2;
+      lVar5 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+      *(int *)(*(int *)(iVar1 + 0xa4) + 500) = (int)lVar5;
       return;
     }
   }
@@ -10880,37 +11189,40 @@ void Lua_ActorDistToShadowPlane(void)
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
-  float fVar2;
-  int iVar3;
-  undefined4 uVar4;
-  int iVar5;
+  int iVar2;
+  float fVar3;
+  int iVar4;
+  undefined4 uVar5;
   int iVar6;
+  undefined4 unaff_ESI;
+  undefined4 unaff_EDI;
+  longlong lVar7;
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
-  iVar3 = lua_lua2C(1);
-  uVar4 = lua_lua2C(2);
-  lua_getnumber(uVar4);
-  iVar5 = _ftol();
-  iVar6 = lua_isuserdata(iVar3);
+  iVar4 = lua_lua2C(1);
+  uVar5 = lua_lua2C(2);
+  lua_getnumber(uVar5);
+  lVar7 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+  iVar6 = lua_isuserdata(iVar4);
   if (iVar6 != 0) {
-    iVar6 = lua_tag(iVar3);
-    if ((iVar6 == 0x52544341) && (iVar3 != 0)) {
-      uVar4 = lua_getuserdata(iVar3);
-      iVar3 = Actor_FromHandle(uVar4);
-      if (*(int *)(iVar3 + 0xa4) == 0) {
-        Actor_CreateExtra(iVar3);
+    iVar6 = lua_tag(iVar4);
+    if ((iVar6 == 0x52544341) && (iVar4 != 0)) {
+      uVar5 = lua_getuserdata(iVar4);
+      iVar4 = Actor_FromHandle(uVar5);
+      if (*(int *)(iVar4 + 0xa4) == 0) {
+        Actor_CreateExtra(iVar4);
       }
-      iVar5 = iVar5 + 6;
-      iVar1 = *(int *)(iVar3 + 0xa4);
-      iVar6 = iVar1 + iVar5 * 0x54;
-      fVar2 = *(float *)(iVar3 + 0x10) * *(float *)(iVar6 + 0xc) +
-              *(float *)(iVar1 + 0x10 + iVar5 * 0x54) * *(float *)(iVar3 + 0x14) +
-              *(float *)(iVar1 + 8 + iVar5 * 0x54) * *(float *)(iVar3 + 0xc) +
-              *(float *)(iVar6 + 0x14);
-      if (fVar2 < 0.0) {
-        fVar2 = -fVar2;
+      iVar6 = (int)lVar7 + 6;
+      iVar2 = *(int *)(iVar4 + 0xa4);
+      iVar1 = iVar2 + iVar6 * 0x54;
+      fVar3 = *(float *)(iVar4 + 0x10) * *(float *)(iVar1 + 0xc) +
+              *(float *)(iVar2 + 0x10 + iVar6 * 0x54) * *(float *)(iVar4 + 0x14) +
+              *(float *)(iVar2 + 8 + iVar6 * 0x54) * *(float *)(iVar4 + 0xc) +
+              *(float *)(iVar1 + 0x14);
+      if (fVar3 < 0.0) {
+        fVar3 = -fVar3;
       }
-      lua_pushnumber(fVar2);
+      lua_pushnumber(fVar3);
       return;
     }
   }
@@ -10964,6 +11276,9 @@ void Lua_SetActorShadowValid(void)
   int iVar3;
   undefined4 uVar4;
   void *actor;
+  undefined4 unaff_ESI;
+  undefined4 unaff_EDI;
+  longlong lVar5;
   
   iVar1 = lua_lua2C(1);
   uVar2 = lua_lua2C(2);
@@ -10977,8 +11292,8 @@ void Lua_SetActorShadowValid(void)
         Actor_CreateExtra(actor);
       }
       lua_getnumber(uVar2);
-      iVar1 = _ftol();
-      Actor_SetShadowValid(actor,*(int *)(*(int *)((int)actor + 0xa4) + 500),iVar1);
+      lVar5 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+      Actor_SetShadowValid(actor,*(int *)(*(int *)((int)actor + 0xa4) + 500),(int)lVar5);
       return;
     }
   }
@@ -11023,18 +11338,22 @@ void Lua_SetShadowColor(void)
   undefined4 uVar3;
   int b;
   int g;
-  int r;
+  undefined4 unaff_ESI;
+  undefined4 unaff_EDI;
+  longlong lVar4;
   
   uVar1 = lua_lua2C(1);
   uVar2 = lua_lua2C(2);
   uVar3 = lua_lua2C(3);
   lua_getnumber(uVar3);
-  b = _ftol();
+  lVar4 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+  b = (int)lVar4;
   lua_getnumber(uVar2);
-  g = _ftol();
+  lVar4 = _ftol((double)CONCAT44(unaff_EDI,b));
+  g = (int)lVar4;
   lua_getnumber(uVar1);
-  r = _ftol();
-  Shadow_SetColor(r,g,b);
+  lVar4 = _ftol((double)CONCAT44(b,g));
+  Shadow_SetColor((int)lVar4,g,b);
   return;
 }
 
@@ -11053,9 +11372,11 @@ void Lua_NewObjectState(void)
   int iVar6;
   char *zbitmap;
   char *bitmap;
-  int setupIdx;
   void *pvVar7;
+  undefined4 unaff_ESI;
   int visible;
+  undefined4 unaff_EDI;
+  longlong lVar8;
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
@@ -11068,15 +11389,17 @@ void Lua_NewObjectState(void)
   iVar6 = lua_isnil(uVar5);
   if (iVar6 == 0) {
     lua_getnumber(uVar5);
-    visible = _ftol();
+    lVar8 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+    visible = (int)lVar8;
   }
   zbitmap = (char *)lua_getstring(uVar4);
   bitmap = (char *)lua_getstring(uVar3);
   lua_getnumber(uVar2);
-  iVar6 = _ftol();
+  lVar8 = _ftol((double)CONCAT44(zbitmap,bitmap));
+  iVar6 = (int)lVar8;
   lua_getnumber(uVar1);
-  setupIdx = _ftol();
-  pvVar7 = ObjectState_Create(setupIdx,iVar6,bitmap,zbitmap,visible);
+  lVar8 = _ftol((double)CONCAT44(bitmap,iVar6));
+  pvVar7 = ObjectState_Create((int)lVar8,iVar6,bitmap,zbitmap,visible);
   lua_pushusertag(pvVar7,0x54415453);
   return;
 }
@@ -11177,6 +11500,9 @@ void Lua_SetObjectType(void)
   undefined4 uVar1;
   undefined4 uVar2;
   int iVar3;
+  undefined4 unaff_ESI;
+  undefined4 unaff_EDI;
+  longlong lVar4;
   
   uVar1 = lua_lua2C(1);
   uVar2 = lua_lua2C(2);
@@ -11187,8 +11513,8 @@ void Lua_SetObjectType(void)
       iVar3 = lua_getuserdata(uVar1);
       if (iVar3 != 0) {
         lua_getnumber(uVar2);
-        uVar1 = _ftol();
-        *(undefined4 *)(iVar3 + 4) = uVar1;
+        lVar4 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+        *(int *)(iVar3 + 4) = (int)lVar4;
       }
     }
   }
@@ -11231,6 +11557,9 @@ void Lua_SetActorCollisionMode(void)
   undefined4 uVar2;
   int iVar3;
   undefined4 uVar4;
+  undefined4 unaff_ESI;
+  undefined4 unaff_EDI;
+  longlong lVar5;
   
   iVar1 = lua_lua2C(1);
   uVar2 = lua_lua2C(2);
@@ -11244,8 +11573,8 @@ void Lua_SetActorCollisionMode(void)
         Actor_CreateExtra(iVar1);
       }
       lua_getnumber(uVar2);
-      uVar2 = _ftol();
-      *(undefined4 *)(*(int *)(iVar1 + 0xa4) + 0x3f0) = uVar2;
+      lVar5 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+      *(int *)(*(int *)(iVar1 + 0xa4) + 0x3f0) = (int)lVar5;
       return;
     }
   }
@@ -11334,6 +11663,9 @@ void Lua_CacheRect(void)
   undefined4 uVar4;
   int iVar5;
   void *pvVar6;
+  undefined4 unaff_ESI;
+  undefined4 unaff_EDI;
+  longlong lVar7;
   #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
   #define local_20 (*(uint *)(_frame + (0x40 - 0x20)))
   #define local_1c (*(uint *)(_frame + (0x40 - 0x1c)))
@@ -11363,13 +11695,17 @@ void Lua_CacheRect(void)
     }
   }
   lua_getnumber(uVar1);
-  local_24 = _ftol();
+  lVar7 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+  local_24 = (uint)lVar7;
   lua_getnumber(uVar2);
-  local_20 = _ftol();
+  lVar7 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+  local_20 = (uint)lVar7;
   lua_getnumber(uVar3);
-  local_1c = _ftol();
+  lVar7 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+  local_1c = (uint)lVar7;
   lua_getnumber(uVar4);
-  local_18 = _ftol();
+  lVar7 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+  local_18 = (uint)lVar7;
 LAB_004a268a:
   pvVar6 = CacheRect_Create(local_24,local_20,local_1c,local_18);
   lua_pushusertag(pvVar6,0x504f494e);
@@ -11383,6 +11719,7 @@ LAB_004a268a:
 
 
 /* ---- 0x004a26b0  Lua_RestoreCacheRect ---- */
+/* WARNING: This function may have set the stack pointer */
 /* Lua opcode: RestoreCacheRect */
 
 void Lua_RestoreCacheRect(void)
@@ -11390,13 +11727,16 @@ void Lua_RestoreCacheRect(void)
 {
   undefined4 uVar1;
   int *piVar2;
+  undefined4 unaff_ESI;
+  longlong lVar3;
+  undefined4 unaff_retaddr;
   
   uVar1 = lua_lua2C(1);
   piVar2 = (int *)lua_getuserdata(uVar1);
   if ((piVar2 != (int *)0x0) && (*piVar2 == 0x11111111)) {
     lua_getnumber(uVar1);
-    uVar1 = _ftol();
-    ((code *)CacheRect_Restore)(uVar1);
+    lVar3 = _ftol((double)CONCAT44(unaff_retaddr,unaff_ESI));
+    ((code *)CacheRect_Restore)((int)lVar3,unaff_ESI);
   }
   return;
 }
@@ -11446,6 +11786,9 @@ void Lua_SetActorClipActive(void)
   undefined4 uVar1;
   undefined4 uVar2;
   int iVar3;
+  undefined4 unaff_ESI;
+  undefined4 unaff_EDI;
+  longlong lVar4;
   
   uVar1 = lua_lua2C(1);
   uVar2 = lua_lua2C(2);
@@ -11453,8 +11796,8 @@ void Lua_SetActorClipActive(void)
   iVar3 = Actor_FromHandle(uVar1);
   if (iVar3 != 0) {
     lua_getnumber(uVar2);
-    uVar1 = _ftol();
-    Actor_SetClipActive(iVar3,uVar1);
+    lVar4 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+    Actor_SetClipActive(iVar3,(int)lVar4);
   }
   return;
 }
@@ -11556,6 +11899,9 @@ void Lua_MarkDirtyRect(void)
   undefined4 uVar3;
   undefined4 uVar4;
   int iVar5;
+  undefined4 unaff_ESI;
+  undefined4 unaff_EDI;
+  longlong lVar6;
   #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
   #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
@@ -11581,13 +11927,17 @@ void Lua_MarkDirtyRect(void)
     }
   }
   lua_getnumber(uVar1);
-  local_10 = _ftol();
+  lVar6 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+  local_10 = (uint)lVar6;
   lua_getnumber(uVar2);
-  local_c = _ftol();
+  lVar6 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+  local_c = (uint)lVar6;
   lua_getnumber(uVar3);
-  local_8 = _ftol();
+  lVar6 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+  local_8 = (uint)lVar6;
   lua_getnumber(uVar4);
-  local_4 = _ftol();
+  lVar6 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+  local_4 = (uint)lVar6;
   Render_InvalidateRectLastBuffer((int *)&local_10,1);
   return;
 }
@@ -11609,9 +11959,11 @@ void Lua_FadeOutChore(void)
   undefined4 uVar2;
   undefined4 uVar3;
   int iVar4;
-  int chore;
-  int ms;
   int iVar5;
+  undefined4 unaff_ESI;
+  undefined4 unaff_EDI;
+  longlong lVar6;
+  longlong lVar7;
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   uVar1 = lua_lua2C(1);
@@ -11623,16 +11975,16 @@ void Lua_FadeOutChore(void)
     uVar1 = lua_getuserdata(uVar1);
     iVar4 = Actor_FromHandle(uVar1);
     lua_getnumber(uVar2);
-    chore = _ftol();
+    lVar6 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
     lua_getnumber(uVar3);
-    ms = _ftol();
+    lVar7 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
     iVar5 = lua_isstring(luaObj);
     if ((iVar5 == 0) && (iVar5 = lua_isnumber(luaObj), iVar5 == 0)) {
       return;
     }
     iVar4 = Lua_ResolveCostumeArg(luaObj,*(void **)(iVar4 + 0xa0),(void **)&local_4);
     if (iVar4 != 0) {
-      Chore_FadeOut(*(void **)local_4,chore,ms);
+      Chore_FadeOut(*(void **)local_4,(int)lVar6,(int)lVar7);
     }
   }
   return;
@@ -11652,8 +12004,10 @@ void Lua_FadeInChore(void)
   undefined4 uVar2;
   int iVar3;
   int chore;
-  int ms;
   int iVar4;
+  undefined4 unaff_ESI;
+  undefined4 unaff_EDI;
+  longlong lVar5;
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
@@ -11666,9 +12020,10 @@ void Lua_FadeInChore(void)
     uVar1 = lua_getuserdata(uVar1);
     iVar3 = Actor_FromHandle(uVar1);
     lua_getnumber(uVar2);
-    chore = _ftol();
+    lVar5 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+    chore = (int)lVar5;
     lua_getnumber(local_4);
-    ms = _ftol();
+    lVar5 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
     iVar4 = lua_isstring(luaObj);
     if ((iVar4 == 0) && (iVar4 = lua_isnumber(luaObj), iVar4 == 0)) {
       return;
@@ -11677,7 +12032,7 @@ void Lua_FadeInChore(void)
     if (iVar3 != 0) {
       Cos_InstPlayChore(*(undefined4 *)local_8,chore,0,0);
       Cos_InstUpdateChore(*(undefined4 *)local_8,chore,100);
-      Chore_FadeIn(*(void **)local_8,chore,ms);
+      Chore_FadeIn(*(void **)local_8,chore,(int)lVar5);
     }
   }
   return;
@@ -11697,18 +12052,22 @@ void Lua_IrisDown(void)
   undefined4 uVar3;
   int durationMs;
   int y;
-  int x;
+  undefined4 unaff_ESI;
+  undefined4 unaff_EDI;
+  longlong lVar4;
   
   uVar1 = lua_lua2C(1);
   uVar2 = lua_lua2C(2);
   uVar3 = lua_lua2C(3);
   lua_getnumber(uVar3);
-  durationMs = _ftol();
+  lVar4 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+  durationMs = (int)lVar4;
   lua_getnumber(uVar2);
-  y = _ftol();
+  lVar4 = _ftol((double)CONCAT44(unaff_EDI,durationMs));
+  y = (int)lVar4;
   lua_getnumber(uVar1);
-  x = _ftol();
-  Render_StartIrisClose(x,y,durationMs);
+  lVar4 = _ftol((double)CONCAT44(durationMs,y));
+  Render_StartIrisClose((int)lVar4,y,durationMs);
   return;
 }
 
@@ -11723,18 +12082,22 @@ void Lua_IrisUp(void)
   undefined4 uVar3;
   int durationMs;
   int y;
-  int x;
+  undefined4 unaff_ESI;
+  undefined4 unaff_EDI;
+  longlong lVar4;
   
   uVar1 = lua_lua2C(1);
   uVar2 = lua_lua2C(2);
   uVar3 = lua_lua2C(3);
   lua_getnumber(uVar3);
-  durationMs = _ftol();
+  lVar4 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+  durationMs = (int)lVar4;
   lua_getnumber(uVar2);
-  y = _ftol();
+  lVar4 = _ftol((double)CONCAT44(unaff_EDI,durationMs));
+  y = (int)lVar4;
   lua_getnumber(uVar1);
-  x = _ftol();
-  Render_StartIrisOpen(x,y,durationMs);
+  lVar4 = _ftol((double)CONCAT44(durationMs,y));
+  Render_StartIrisOpen((int)lVar4,y,durationMs);
   return;
 }
 
@@ -11827,7 +12190,10 @@ void Lua_TextFileGetLine(void)
   undefined4 uVar2;
   int iVar3;
   uint uVar4;
-  undefined *puVar5;
+  undefined4 unaff_ESI;
+  undefined4 unaff_EDI;
+  longlong lVar5;
+  undefined *puVar6;
   #define local_200 (*(undefined1 (*)[512])(_frame + (0x210 - 0x200)))
   
   uVar1 = lua_lua2C(1);
@@ -11836,16 +12202,16 @@ void Lua_TextFileGetLine(void)
   if (iVar3 == 0) {
     iVar3 = lua_isnil(uVar2);
     if (iVar3 == 0) {
-      puVar5 = &DAT_004ec5bc;
+      puVar6 = &DAT_004ec5bc;
       uVar4 = lua_getstring(uVar1);
-      puVar5 = fopen(uVar4,(uint)puVar5);
-      if (puVar5 != (undefined *)0x0) {
+      puVar6 = fopen(uVar4,(uint)puVar6);
+      if (puVar6 != (undefined *)0x0) {
         lua_getnumber(uVar2);
-        uVar1 = _ftol();
-        fseek(puVar5,uVar1,0);
+        lVar5 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+        fseek(puVar6,(int)lVar5,0);
         local_200[0] = 0;
-        fgets(local_200,0x200,puVar5);
-        fclose(puVar5);
+        fgets(local_200,0x200,puVar6);
+        fclose(puVar6);
         lua_pushstring(local_200);
         return;
       }
@@ -11868,6 +12234,9 @@ void Lua_ScreenShot(void)
   int iVar3;
   int iVar4;
   void *pvVar5;
+  undefined4 unaff_ESI;
+  undefined4 unaff_EDI;
+  longlong lVar6;
   
   uVar1 = lua_lua2C(1);
   uVar2 = lua_lua2C(2);
@@ -11876,7 +12245,8 @@ void Lua_ScreenShot(void)
     iVar3 = lua_isnumber(uVar1);
     if (iVar3 == 0) goto LAB_004a2f2f;
     lua_getnumber(uVar1);
-    iVar3 = _ftol();
+    lVar6 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+    iVar3 = (int)lVar6;
   }
   else {
 LAB_004a2f2f:
@@ -11887,7 +12257,8 @@ LAB_004a2f2f:
     iVar4 = lua_isnumber(uVar2);
     if (iVar4 != 0) {
       lua_getnumber(uVar2);
-      iVar4 = _ftol();
+      lVar6 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+      iVar4 = (int)lVar6;
       goto LAB_004a2f5e;
     }
   }
@@ -12020,6 +12391,7 @@ void Lua_BlastImage(void)
   void *src;
   int x;
   void *dst;
+  longlong lVar6;
   int *srcRect;
   uint colorKey;
   
@@ -12040,9 +12412,11 @@ void Lua_BlastImage(void)
           src = (void *)lua_getuserdata(uVar1);
           srcRect = (int *)0x0;
           lua_getnumber(uVar3);
-          iVar5 = _ftol();
+          lVar6 = _ftol((double)CONCAT44(colorKey,srcRect));
+          iVar5 = (int)lVar6;
           lua_getnumber(uVar2);
-          x = _ftol();
+          lVar6 = _ftol((double)CONCAT44(srcRect,iVar5));
+          x = (int)lVar6;
           dst = (void *)Render_GetBackBuffer();
           Surface_Blit(dst,src,x,iVar5,srcRect,colorKey);
         }
@@ -12069,7 +12443,10 @@ void Lua_BlastRect(void)
   uint uVar8;
   undefined2 *puVar9;
   undefined2 *puVar10;
+  undefined4 unaff_ESI;
+  undefined4 unaff_EDI;
   uint uVar11;
+  longlong lVar12;
   #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
   #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
   #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
@@ -12091,13 +12468,17 @@ void Lua_BlastRect(void)
   }
   else {
     lua_getnumber(uVar1);
-    local_4 = _ftol();
+    lVar12 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+    local_4 = (uint)lVar12;
     lua_getnumber(uVar2);
-    iVar4 = _ftol();
+    lVar12 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+    iVar4 = (int)lVar12;
     lua_getnumber(local_10);
-    iVar5 = _ftol();
+    lVar12 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+    iVar5 = (int)lVar12;
     lua_getnumber(local_c);
-    iVar6 = _ftol();
+    lVar12 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+    iVar6 = (int)lVar12;
     iVar7 = lua_istable(uVar3);
     if (iVar7 != 0) {
       lua_pushobject(uVar3);
@@ -12386,6 +12767,7 @@ void __fastcall Lua_GetTextSpeed(undefined4 param_1)
 
 
 /* ---- 0x004a3850  Lua_SetTextSpeed ---- */
+/* WARNING: This function may have set the stack pointer */
 /* Lua opcode: SetTextSpeed */
 
 void Lua_SetTextSpeed(void)
@@ -12393,13 +12775,16 @@ void Lua_SetTextSpeed(void)
 {
   undefined4 uVar1;
   int iVar2;
+  undefined4 unaff_ESI;
+  longlong lVar3;
+  undefined4 unaff_retaddr;
   
   uVar1 = lua_lua2C(1);
   iVar2 = lua_isnumber(uVar1);
   if (iVar2 != 0) {
     lua_getnumber(uVar1);
-    iVar2 = _ftol();
-    Text_SetSpeed(iVar2);
+    lVar3 = _ftol((double)CONCAT44(unaff_retaddr,unaff_ESI));
+    Text_SetSpeed((int)lVar3);
   }
   return;
 }
@@ -12539,6 +12924,9 @@ void Lua_ActorPuckOrient(void)
   undefined4 uVar2;
   int iVar3;
   int iVar4;
+  undefined4 unaff_ESI;
+  undefined4 unaff_EDI;
+  longlong lVar5;
   
   uVar1 = lua_lua2C(1);
   uVar2 = lua_lua2C(2);
@@ -12551,8 +12939,8 @@ void Lua_ActorPuckOrient(void)
       iVar4 = lua_isnil(uVar2);
       if (iVar4 == 0) {
         lua_getnumber(uVar2);
-        iVar4 = _ftol();
-        if (iVar4 != 0) {
+        lVar5 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+        if ((int)lVar5 != 0) {
           *(uint *)(iVar3 + 4) = *(uint *)(iVar3 + 4) | 0x10;
           return;
         }
@@ -12590,6 +12978,9 @@ void Lua_SetActorInvClipNode(void)
   undefined4 uVar1;
   undefined4 uVar2;
   int iVar3;
+  undefined4 unaff_ESI;
+  undefined4 unaff_EDI;
+  longlong lVar4;
   
   uVar1 = lua_lua2C(1);
   uVar2 = lua_lua2C(2);
@@ -12600,7 +12991,8 @@ void Lua_SetActorInvClipNode(void)
       iVar3 = lua_isnil(uVar2);
       if (iVar3 == 0) {
         lua_getnumber(uVar2);
-        uVar2 = _ftol();
+        lVar4 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+        uVar2 = (undefined4)lVar4;
       }
       else {
         uVar2 = 0xffffffff;
@@ -12617,6 +13009,7 @@ void Lua_SetActorInvClipNode(void)
 }
 
 /* ---- 0x004a3b80  Lua_SetWalkSystemFadeTime ---- */
+/* WARNING: This function may have set the stack pointer */
 /* Lua opcode: SetWalkSystemFadeTime */
 
 void Lua_SetWalkSystemFadeTime(void)
@@ -12624,13 +13017,16 @@ void Lua_SetWalkSystemFadeTime(void)
 {
   undefined4 uVar1;
   int iVar2;
+  undefined4 unaff_ESI;
+  longlong lVar3;
+  undefined4 unaff_retaddr;
   
   uVar1 = lua_lua2C(1);
   iVar2 = lua_isnil(uVar1);
   if (iVar2 == 0) {
     lua_getnumber(uVar1);
-    iVar2 = _ftol();
-    Walker_SetFadeTime(iVar2);
+    lVar3 = _ftol((double)CONCAT44(unaff_retaddr,unaff_ESI));
+    Walker_SetFadeTime((int)lVar3);
   }
   return;
 }

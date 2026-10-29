@@ -865,7 +865,10 @@ void LightEd_ReadControl(int param_1,int param_2)
 
 {
   unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  uint uVar1;
+  uint a5;
+  undefined4 unaff_ESI;
+  undefined4 unaff_EDI;
+  longlong lVar1;
   float outer;
   int a2;
   #define local_4c (*(byte (*)[76])(_frame + (0x60 - 0x4c)))
@@ -884,8 +887,8 @@ void LightEd_ReadControl(int param_1,int param_2)
     if (UINT_008d3640 != 0) {
       return;
     }
-    uVar1 = _ftol();
-    uVar1 = uVar1 & 0xffff;
+    lVar1 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+    a5 = (uint)lVar1 & 0xffff;
     a2 = 0x3fb;
     goto LAB_004bf718;
   case 0x3ed:
@@ -894,8 +897,8 @@ void LightEd_ReadControl(int param_1,int param_2)
     if (UINT_008d3640 != 0) {
       return;
     }
-    uVar1 = _ftol();
-    uVar1 = uVar1 & 0xffff;
+    lVar1 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+    a5 = (uint)lVar1 & 0xffff;
     a2 = 0x3ff;
     goto LAB_004bf718;
   case 0x3ee:
@@ -904,11 +907,11 @@ void LightEd_ReadControl(int param_1,int param_2)
     if (UINT_008d3640 != 0) {
       return;
     }
-    uVar1 = _ftol();
-    uVar1 = uVar1 & 0xffff;
+    lVar1 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+    a5 = (uint)lVar1 & 0xffff;
     a2 = 0x400;
 LAB_004bf718:
-    SendDlgItemMessageA(param_1,a2,0x467,0,uVar1);
+    SendDlgItemMessageA(param_1,a2,0x467,0,a5);
     break;
   case 0x3ef:
     LightEd_SetLightPosComponent(g_nLightEdSelected,0,outer);

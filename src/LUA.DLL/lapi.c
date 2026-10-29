@@ -700,6 +700,8 @@ int * __cdecl luaA_normalizeObj(int *param_1)
 }
 
 /* ---- 0x10001990  lua_gettask ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 longlong __fastcall lua_gettask(undefined4 param_1,int param_2,int param_3)
 
 {
@@ -712,6 +714,8 @@ longlong __fastcall lua_gettask(undefined4 param_1,int param_2,int param_3)
   }
   return CONCAT44(param_2,0xffffffff);
 }
+#endif
+
 
 /* ---- 0x100019c0  lua_pushtask ---- */
 undefined4 __cdecl lua_pushtask(int param_1)

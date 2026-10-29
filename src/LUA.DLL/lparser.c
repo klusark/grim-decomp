@@ -896,6 +896,8 @@ void __cdecl lparser__b8c0(uint param_1)
 }
 
 /* ---- 0x1000b8e0  luaY_code_number ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Unidentified function of lua.stx (yacc parser) and code generation */
 
 void __cdecl luaY_code_number(float param_1)
@@ -915,6 +917,8 @@ void __cdecl luaY_code_number(float param_1)
   lparser__b8c0(uVar1);
   return;
 }
+#endif
+
 
 /* ---- 0x1000b950  luaY_real_constant ---- */
 /* Unidentified function of lua.stx (yacc parser) and code generation */

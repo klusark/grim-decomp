@@ -508,22 +508,24 @@ void rdCamera_ResetStats(void)
 int __cdecl rdCamera_ProjectPoint(float *world,float *outScreen)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _stkneg[48] __attribute__((aligned(16)));  /* the original frame below the return address */
   int iVar1;
-  float fVar2;
-  #define local_18 (*(undefined1 (*)[8])(_frame + (0x30 - 0x18)))
-  #define fStack_10 (*(float *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(float (*)[3])(_frame + (0x30 - 0xc)))
+  undefined4 unaff_ESI;
+  longlong lVar2;
+  undefined4 in_stack_ffffffe8;
+  #define fStack_10 (*(float *)(_frame + (0x20 - 0x10)))
+  #define local_c (*(float (*)[3])(_frame + (0x20 - 0xc)))
   
   Vec3_Sub(local_c,world,(float *)((int)g_pRdCurrentCamera + 8));
   iVar1 = rdClip_PointInFrustum(*(void **)((int)g_pRdCurrentCamera + 0x48),local_c);
   if (iVar1 != 0) {
-    (**(code **)((int)g_pRdCurrentCamera + 0x4c))(local_18,local_c);
+    (**(code **)((int)g_pRdCurrentCamera + 0x4c))((_stkneg + 24),local_c);
     if (outScreen != (float *)0x0) {
-      fVar2 = (float)_ftol();
-      *outScreen = fVar2;
-      fVar2 = (float)_ftol();
-      outScreen[1] = fVar2;
+      lVar2 = _ftol((double)CONCAT44(in_stack_ffffffe8,unaff_ESI));
+      *outScreen = (float)lVar2;
+      lVar2 = _ftol((double)CONCAT44(in_stack_ffffffe8,unaff_ESI));
+      outScreen[1] = (float)lVar2;
       outScreen[2] = fStack_10;
     }
     return 1;
@@ -531,6 +533,5 @@ int __cdecl rdCamera_ProjectPoint(float *world,float *outScreen)
   return 0;
 }
 #undef fStack_10
-#undef local_18
 #undef local_c
 

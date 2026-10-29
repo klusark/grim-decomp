@@ -1020,21 +1020,23 @@ void __cdecl Input_SetAxisRange(int axis,int min,int max,float deadZone)
 
 {
   int iVar1;
-  undefined4 uVar2;
-  int iVar3;
+  undefined4 unaff_ESI;
+  int iVar2;
+  undefined4 unaff_EDI;
+  longlong lVar3;
   
   iVar1 = ((max - min) + 1) / 2 + min;
-  iVar3 = axis * 0x18;
+  iVar2 = axis * 0x18;
   (&UINT_00901500)[axis * 6] = (&UINT_00901500)[axis * 6] | 1;
   (&UINT_00901504)[axis * 6] = min;
-  *(int *)(&DAT_00901508 + iVar3) = max;
-  *(int *)(&DAT_0090150c + iVar3) = iVar1;
-  *(float *)(&DAT_00901514 + iVar3) = 1.0 / (float)(max - iVar1);
+  *(int *)(&DAT_00901508 + iVar2) = max;
+  *(int *)(&DAT_0090150c + iVar2) = iVar1;
+  *(float *)(&DAT_00901514 + iVar2) = 1.0 / (float)(max - iVar1);
   if (deadZone != 0.0) {
-    uVar2 = _ftol();
-    *(undefined4 *)(&DAT_00901510 + iVar3) = uVar2;
+    lVar3 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+    *(int *)(&DAT_00901510 + iVar2) = (int)lVar3;
     return;
   }
-  *(undefined4 *)(&DAT_00901510 + iVar3) = 0;
+  *(undefined4 *)(&DAT_00901510 + iVar2) = 0;
   return;
 }

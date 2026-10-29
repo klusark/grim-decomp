@@ -129,16 +129,18 @@ void __cdecl DSound_SetPrimaryVolume(int volume)
 
 {
   undefined4 uVar1;
-  undefined4 uVar2;
-  int iVar3;
+  int iVar2;
+  undefined4 unaff_ESI;
+  undefined4 unaff_EDI;
+  longlong lVar3;
   
   if (g_pDSoundPrimary != (void *)0x0) {
-    uVar1 = _ftol();
-    uVar2 = Win_GetMainHwnd();
-    iVar3 = (**(code_std **)(*(int *)g_pDirectSound + 0x18))(g_pDirectSound,uVar2,2);
-    if (-1 < iVar3) {
-      (**(code_std **)(*(int *)g_pDSoundPrimary + 0x3c))(g_pDSoundPrimary,uVar1);
-      (**(code_std **)(*(int *)g_pDirectSound + 0x18))(g_pDirectSound,uVar2,3);
+    lVar3 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+    uVar1 = Win_GetMainHwnd();
+    iVar2 = (**(code_std **)(*(int *)g_pDirectSound + 0x18))(g_pDirectSound,uVar1,2);
+    if (-1 < iVar2) {
+      (**(code_std **)(*(int *)g_pDSoundPrimary + 0x3c))(g_pDSoundPrimary,(int)lVar3);
+      (**(code_std **)(*(int *)g_pDirectSound + 0x18))(g_pDirectSound,uVar1,3);
     }
   }
   return;

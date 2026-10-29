@@ -33,8 +33,11 @@ void rdRaster_SetupPoly(float *param_1,int param_2)
   float *pfVar17;
   int iVar18;
   int iVar19;
+  undefined4 unaff_ESI;
+  undefined4 unaff_EDI;
   float *pfVar20;
   float *pfVar21;
+  longlong lVar22;
   #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
   #define local_20 (*(uint *)(_frame + (0x40 - 0x20)))
   #define local_1c (*(uint *)(_frame + (0x40 - 0x1c)))
@@ -84,12 +87,14 @@ void rdRaster_SetupPoly(float *param_1,int param_2)
       iVar19 = *(int *)((int)fVar5 + 0x20);
       pfVar17 = (float *)(iVar19 + (int)pfVar20 * 0xc);
       pfVar2 = (float *)(iVar19 + local_20 * 0xc);
-      iVar18 = _ftol();
+      lVar22 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+      iVar18 = (int)lVar22;
       if (iVar18 < 0) {
         iVar18 = -iVar18;
       }
       if ((float)iVar18 <= 1.0) {
-        iVar18 = _ftol();
+        lVar22 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+        iVar18 = (int)lVar22;
         if (iVar18 < 0) {
           iVar18 = -iVar18;
         }
@@ -268,13 +273,15 @@ void rdRaster_SetupPolyTex(float *param_1,int param_2)
   float fVar20;
   float *pfVar21;
   float *pfVar22;
-  float fVar23;
-  uint uVar24;
-  int iVar25;
-  uint uVar26;
-  int iVar27;
-  float10 fVar28;
+  uint uVar23;
+  int iVar24;
+  uint uVar25;
+  int iVar26;
+  undefined4 unaff_ESI;
+  undefined4 unaff_EDI;
+  float10 fVar27;
   float10 extraout_ST1;
+  longlong lVar28;
   #define local_2c (*(uint *)(_frame + (0x40 - 0x2c)))
   #define local_28 (*(uint *)(_frame + (0x40 - 0x28)))
   #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
@@ -289,8 +296,8 @@ void rdRaster_SetupPolyTex(float *param_1,int param_2)
   
   pfVar21 = param_1;
   fVar13 = *param_1;
-  iVar25 = *(int *)((int)fVar13 + 0x1c);
-  if (iVar25 == 3) {
+  iVar24 = *(int *)((int)fVar13 + 0x1c);
+  if (iVar24 == 3) {
     local_2c = 0;
     param_1 = (float *)0x1;
     local_24 = 2;
@@ -300,50 +307,52 @@ void rdRaster_SetupPolyTex(float *param_1,int param_2)
     param_1 = *(float **)((int)fVar13 + 0x70);
     uVar1 = local_2c + 1;
     if ((int)uVar1 < 0) {
-      uVar24 = iVar25 - 1;
+      uVar23 = iVar24 - 1;
     }
     else {
-      uVar24 = (iVar25 + -1 < (int)uVar1) - 1 & uVar1;
+      uVar23 = (iVar24 + -1 < (int)uVar1) - 1 & uVar1;
     }
-    uVar26 = iVar25 - 1;
-    if ((float *)uVar24 == param_1) {
+    uVar25 = iVar24 - 1;
+    if ((float *)uVar23 == param_1) {
       local_28 = 0xffffffff;
     }
     else {
-      uVar24 = uVar26;
+      uVar23 = uVar25;
       if (-1 < (int)(local_2c - 1)) {
-        uVar24 = ((int)uVar26 < (int)(local_2c - 1)) - 1 & local_2c - 1;
+        uVar23 = ((int)uVar25 < (int)(local_2c - 1)) - 1 & local_2c - 1;
       }
-      if ((float *)uVar24 == param_1) {
+      if ((float *)uVar23 == param_1) {
         local_28 = 1;
       }
       else {
-        local_24 = uVar26;
+        local_24 = uVar25;
         if (-1 < (int)uVar1) {
-          local_24 = ((int)uVar26 < (int)uVar1) - 1 & uVar1;
+          local_24 = ((int)uVar25 < (int)uVar1) - 1 & uVar1;
         }
-        iVar25 = *(int *)((int)fVar13 + 0x20);
-        pfVar3 = (float *)(iVar25 + local_24 * 0xc);
-        pfVar22 = (float *)(iVar25 + (int)param_1 * 0xc);
-        iVar27 = _ftol();
-        if (iVar27 < 0) {
-          iVar27 = -iVar27;
+        iVar24 = *(int *)((int)fVar13 + 0x20);
+        pfVar3 = (float *)(iVar24 + local_24 * 0xc);
+        pfVar22 = (float *)(iVar24 + (int)param_1 * 0xc);
+        lVar28 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+        iVar26 = (int)lVar28;
+        if (iVar26 < 0) {
+          iVar26 = -iVar26;
         }
-        if ((float)iVar27 <= 1.0) {
-          iVar27 = _ftol();
-          if (iVar27 < 0) {
-            iVar27 = -iVar27;
+        if ((float)iVar26 <= 1.0) {
+          lVar28 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+          iVar26 = (int)lVar28;
+          if (iVar26 < 0) {
+            iVar26 = -iVar26;
           }
-          if ((float)iVar27 <= 1.0) {
+          if ((float)iVar26 <= 1.0) {
             local_28 = 0xffffffff;
             goto LAB_0040f132;
           }
         }
-        pfVar4 = (float *)(iVar25 + local_2c * 0xc);
+        pfVar4 = (float *)(iVar24 + local_2c * 0xc);
         fVar5 = pfVar3[1] -
                 ((*pfVar3 - *pfVar4) *
-                 ((pfVar22[1] - *(float *)(iVar25 + 4 + local_2c * 0xc)) /
-                 (*pfVar22 - *(float *)(iVar25 + local_2c * 0xc))) + pfVar4[1]);
+                 ((pfVar22[1] - *(float *)(iVar24 + 4 + local_2c * 0xc)) /
+                 (*pfVar22 - *(float *)(iVar24 + local_2c * 0xc))) + pfVar4[1]);
         if (fVar5 < 0.0) {
           fVar5 = -fVar5;
         }
@@ -354,16 +363,16 @@ void rdRaster_SetupPolyTex(float *param_1,int param_2)
       }
     }
 LAB_0040f132:
-    iVar25 = *(int *)((int)fVar13 + 0x20);
+    iVar24 = *(int *)((int)fVar13 + 0x20);
     local_18 = 0;
-    uVar24 = local_2c + local_28;
-    uVar1 = uVar26;
-    if (-1 < (int)uVar24) {
-      uVar1 = ((int)uVar26 < (int)uVar24) - 1 & uVar24;
+    uVar23 = local_2c + local_28;
+    uVar1 = uVar25;
+    if (-1 < (int)uVar23) {
+      uVar1 = ((int)uVar25 < (int)uVar23) - 1 & uVar23;
     }
     while ((float *)uVar1 != param_1) {
-      fVar5 = *(float *)(iVar25 + uVar1 * 0xc) -
-              (*(float *)(iVar25 + (int)param_1 * 0xc) + *(float *)(iVar25 + local_2c * 0xc)) * 0.5;
+      fVar5 = *(float *)(iVar24 + uVar1 * 0xc) -
+              (*(float *)(iVar24 + (int)param_1 * 0xc) + *(float *)(iVar24 + local_2c * 0xc)) * 0.5;
       if (fVar5 < 0.0) {
         fVar5 = -fVar5;
       }
@@ -371,34 +380,34 @@ LAB_0040f132:
         local_24 = uVar1;
         local_18 = (uint)fVar5;
       }
-      uVar24 = local_28 + uVar1;
-      uVar1 = uVar26;
-      if (-1 < (int)uVar24) {
-        uVar1 = ((int)uVar26 < (int)uVar24) - 1 & uVar24;
+      uVar23 = local_28 + uVar1;
+      uVar1 = uVar25;
+      if (-1 < (int)uVar23) {
+        uVar1 = ((int)uVar25 < (int)uVar23) - 1 & uVar23;
       }
     }
   }
-  iVar25 = 0;
+  iVar24 = 0;
   if (0 < *(int *)((int)fVar13 + 0x1c)) {
-    iVar27 = 0;
+    iVar26 = 0;
     pfVar3 = pfVar21;
     do {
       pfVar22 = pfVar3 + 1;
-      iVar2 = iVar25 * 8;
-      iVar25 = iVar25 + 1;
-      fVar5 = 1.0 / *(float *)(iVar27 + 8 + *(int *)((int)fVar13 + 0x20));
-      iVar27 = iVar27 + 0xc;
+      iVar2 = iVar24 * 8;
+      iVar24 = iVar24 + 1;
+      fVar5 = 1.0 / *(float *)(iVar26 + 8 + *(int *)((int)fVar13 + 0x20));
+      iVar26 = iVar26 + 0xc;
       *pfVar22 = fVar5;
       pfVar3[0x21] = *(float *)(iVar2 + *(int *)((int)fVar13 + 0x24)) * fVar5;
       pfVar3[0x41] = *(float *)(iVar2 + 4 + *(int *)((int)fVar13 + 0x24)) * *pfVar22;
       pfVar3 = pfVar22;
-    } while (iVar25 < *(int *)((int)fVar13 + 0x1c));
+    } while (iVar24 < *(int *)((int)fVar13 + 0x1c));
   }
-  iVar25 = *(int *)((int)fVar13 + 0x20);
-  fVar14 = *(float *)(iVar25 + 4 + local_2c * 0xc) - *(float *)(iVar25 + 4 + local_24 * 0xc);
-  fVar16 = *(float *)(iVar25 + 4 + (int)param_1 * 0xc) - *(float *)(iVar25 + 4 + local_24 * 0xc);
-  fVar17 = *(float *)(iVar25 + local_2c * 0xc) - *(float *)(iVar25 + local_24 * 0xc);
-  fVar18 = *(float *)(iVar25 + (int)param_1 * 0xc) - *(float *)(iVar25 + local_24 * 0xc);
+  iVar24 = *(int *)((int)fVar13 + 0x20);
+  fVar14 = *(float *)(iVar24 + 4 + local_2c * 0xc) - *(float *)(iVar24 + 4 + local_24 * 0xc);
+  fVar16 = *(float *)(iVar24 + 4 + (int)param_1 * 0xc) - *(float *)(iVar24 + 4 + local_24 * 0xc);
+  fVar17 = *(float *)(iVar24 + local_2c * 0xc) - *(float *)(iVar24 + local_24 * 0xc);
+  fVar18 = *(float *)(iVar24 + (int)param_1 * 0xc) - *(float *)(iVar24 + local_24 * 0xc);
   fVar5 = pfVar21[(int)param_1 + 0x21];
   fVar15 = 1.0 / (fVar14 * fVar18 - fVar16 * fVar17);
   fVar6 = pfVar21[local_2c + 0x21];
@@ -415,11 +424,11 @@ LAB_0040f132:
        ((pfVar21[(int)param_1 + 1] - pfVar21[local_24 + 1]) * fVar14 -
        (pfVar21[local_2c + 1] - pfVar21[local_24 + 1]) * fVar16) * fVar15;
   pfVar21[0x62] = fVar19;
-  fVar23 = (float)_ftol();
-  pfVar21[0x67] = fVar23;
-  fVar28 = ((float10)(fVar5 - fVar9) * (float10)fVar14 - (float10)(fVar6 - fVar10) * (float10)fVar16
+  lVar28 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+  pfVar21[0x67] = (float)lVar28;
+  fVar27 = ((float10)(fVar5 - fVar9) * (float10)fVar14 - (float10)(fVar6 - fVar10) * (float10)fVar16
            ) * (float10)fVar15;
-  pfVar21[99] = (float)fVar28;
+  pfVar21[99] = (float)fVar27;
   fVar5 = ((fVar5 - fVar9) * fVar17 - (fVar6 - fVar10) * fVar18) * fVar20;
   fVar15 = ((fVar7 - fVar11) * fVar14 - (fVar8 - fVar12) * fVar16) * fVar15;
   pfVar21[100] = fVar5;
@@ -464,10 +473,10 @@ LAB_0040f132:
   }
   pfVar21[0x70] = 1.4013e-45;
 LAB_0040f4ea:
-  fVar28 = (float10)pfVar21[local_2c + 1] * fVar28 -
+  fVar27 = (float10)pfVar21[local_2c + 1] * fVar27 -
            (float10)pfVar21[local_2c + 0x21] * extraout_ST1;
-  if (fVar28 <= (float10)0.0) {
-    if ((fVar28 < (float10)0.0) ||
+  if (fVar27 <= (float10)0.0) {
+    if ((fVar27 < (float10)0.0) ||
        (pfVar21[local_2c + 1] * fVar5 - pfVar21[local_2c + 0x21] * fVar19 < 0.0)) {
       pfVar21[0x68] = 4.59163e-41;
     }
@@ -478,10 +487,10 @@ LAB_0040f4ea:
   else {
     pfVar21[0x68] = 4.59177e-41;
   }
-  fVar28 = (float10)pfVar21[local_2c + 1] * (float10)fVar15 -
+  fVar27 = (float10)pfVar21[local_2c + 1] * (float10)fVar15 -
            (float10)pfVar21[local_2c + 0x41] * extraout_ST1;
-  if (fVar28 <= (float10)0.0) {
-    if (((float10)0.0 <= fVar28) &&
+  if (fVar27 <= (float10)0.0) {
+    if (((float10)0.0 <= fVar27) &&
        (0.0 <= pfVar21[local_2c + 1] * fVar20 - pfVar21[local_2c + 0x41] * fVar19)) {
       pfVar21[0x69] = 4.59177e-41;
       return;
@@ -4975,8 +4984,11 @@ void rdRaster_Grad_Flat(float param_1)
   int iVar14;
   int iVar15;
   float fVar16;
+  undefined4 unaff_ESI;
   float fVar17;
+  undefined4 unaff_EDI;
   uint uVar18;
+  longlong lVar19;
   #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
   #define local_20 (*(uint *)(_frame + (0x40 - 0x20)))
   #define local_1c (*(uint *)(_frame + (0x40 - 0x1c)))
@@ -5024,12 +5036,14 @@ void rdRaster_Grad_Flat(float param_1)
         }
         pfVar2 = g_pRdRasterVerts + (int)fVar17 * 3;
         pfVar3 = g_pRdRasterVerts + g_nRdRasterEndVertex * 3;
-        iVar14 = _ftol();
+        lVar19 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+        iVar14 = (int)lVar19;
         if (iVar14 < 0) {
           iVar14 = -iVar14;
         }
         if ((float)iVar14 <= 1.0) {
-          iVar14 = _ftol();
+          lVar19 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+          iVar14 = (int)lVar19;
           if (iVar14 < 0) {
             iVar14 = -iVar14;
           }
@@ -5177,9 +5191,12 @@ void rdRaster_Grad_Flat_2(float param_1)
   int iVar10;
   int iVar11;
   int iVar12;
+  undefined4 unaff_ESI;
   float *pfVar13;
+  undefined4 unaff_EDI;
   uint uVar14;
   float *pfVar15;
+  longlong lVar16;
   #define local_28 (*(uint *)(_frame + (0x40 - 0x28)))
   #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
   #define local_20 (*(uint *)(_frame + (0x40 - 0x20)))
@@ -5228,12 +5245,14 @@ void rdRaster_Grad_Flat_2(float param_1)
         }
         pfVar13 = g_pRdRasterVerts + local_24 * 3;
         pfVar9 = g_pRdRasterVerts + g_nRdRasterEndVertex * 3;
-        iVar10 = _ftol();
+        lVar16 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+        iVar10 = (int)lVar16;
         if (iVar10 < 0) {
           iVar10 = -iVar10;
         }
         if ((float)iVar10 <= 1.0) {
-          iVar10 = _ftol();
+          lVar16 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+          iVar10 = (int)lVar16;
           if (iVar10 < 0) {
             iVar10 = -iVar10;
           }
@@ -17431,12 +17450,15 @@ void rdRaster_Grad_Flat_4(float param_1)
   float fVar15;
   int iVar16;
   float fVar17;
+  undefined4 unaff_ESI;
   float fVar18;
   float *pfVar19;
+  undefined4 unaff_EDI;
   int iVar20;
   float *pfVar21;
   float10 extraout_ST0;
   float10 extraout_ST1;
+  longlong lVar22;
   #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
   #define local_20 (*(uint *)(_frame + (0x40 - 0x20)))
   #define local_1c (*(uint *)(_frame + (0x40 - 0x1c)))
@@ -17564,7 +17586,8 @@ void rdRaster_Grad_Flat_4(float param_1)
   _DAT_008dde9c =
        (((float)(&UINT_007f4588)[local_20] - (float)(&UINT_007f4588)[(int)fVar17]) * fVar10 -
        ((float)(&UINT_007f4588)[local_1c] - (float)(&UINT_007f4588)[(int)fVar17]) * fVar9) * fVar11;
-  UINT_008dde88 = _ftol();
+  lVar22 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+  UINT_008dde88 = (uint)lVar22;
   _DAT_008dde60 =
        (float)(((float10)(fVar18 - fVar4) * extraout_ST0 - (float10)(fVar15 - fVar5) * extraout_ST1)
               * (float10)fVar8);

@@ -6,6 +6,8 @@
 #include "functions.h"
 
 /* ---- 0x100053d0  io_getint ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* liolib.c helper: numeric argument through lua2C */
 
 longlong __cdecl io_getint(int param_1)
@@ -19,6 +21,8 @@ longlong __cdecl io_getint(int param_1)
   lVar2 = _ftol();
   return lVar2;
 }
+#endif
+
 
 /* ---- 0x100053f0  io_pushresult ---- */
 /* Pushes userdata/nil plus strerror(errno) like Lua 3.1 pushresult */
@@ -428,6 +432,8 @@ void FUN_10005940(void)
 
 
 /* ---- 0x100059c0  FUN_100059c0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_100059c0(void)
 
 {
@@ -447,6 +453,8 @@ void FUN_100059c0(void)
   lua_pushstring(pbVar3);
   return;
 }
+#endif
+
 
 /* ---- 0x10005a20  FUN_10005a20 ---- */
 void FUN_10005a20(void)

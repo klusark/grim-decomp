@@ -6,6 +6,8 @@
 #include "functions.h"
 
 /* ---- 0x100095b0  str_sub ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* lstrlib.c strsub */
 
 void str_sub(void)
@@ -51,6 +53,8 @@ void str_sub(void)
   lua_pushstring(&DAT_1002bedc);
   return;
 }
+#endif
+
 
 /* ---- 0x10009650  str_addnchar ---- */
 /* Unidentified function of lstrlib.c (string library) */
@@ -127,6 +131,8 @@ void FUN_100096e0(void)
 }
 
 /* ---- 0x10009720  FUN_10009720 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_10009720(void)
 
 {
@@ -148,6 +154,8 @@ void FUN_10009720(void)
   str_closeandpush();
   return;
 }
+#endif
+
 
 /* ---- 0x10009760  str_addstr ---- */
 /* Unidentified function of lstrlib.c (string library) */
@@ -172,6 +180,8 @@ void __cdecl str_addstr(uint *param_1)
 }
 
 /* ---- 0x10009780  FUN_10009780 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_10009780(void)
 
 {
@@ -202,6 +212,8 @@ LAB_100097c8:
   lua_pushnumber((float)(byte)pcVar2[uVar4]);
   return;
 }
+#endif
+
 
 /* ---- 0x100097f0  str_singlematch ---- */
 /* luaI_singlematch: one pattern item against one char */
@@ -401,6 +413,8 @@ uint __cdecl str_matchclass(uint param_1,uint param_2)
 }
 
 /* ---- 0x10009cb0  FUN_10009cb0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_10009cb0(void)
 
 {
@@ -479,6 +493,8 @@ LAB_10009d07:
   return;
 }
 #undef aiStack_4c
+
+#endif
 
 
 /* ---- 0x10009e40  str_push_captures ---- */
@@ -709,6 +725,8 @@ char * __cdecl str_expand(char *param_1,int param_2,int param_3)
 }
 
 /* ---- 0x1000a1d0  FUN_1000a1d0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_1000a1d0(void)
 
 {
@@ -770,6 +788,8 @@ LAB_1000a291:
 }
 #undef aiStack_4c
 #undef iStack_60
+
+#endif
 
 
 /* ---- 0x1000a2e0  str_add_value ---- */
@@ -849,6 +869,8 @@ LAB_1000a36b:
 }
 
 /* ---- 0x1000a440  FUN_1000a440 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_1000a440(void)
 
 {
@@ -966,6 +988,8 @@ LAB_1000a5fe:
 #undef iStack_104
 #undef iStack_10c
 #undef uStack_c7
+
+#endif
 
 
 /* ---- 0x1000a680  str_add_s ---- */

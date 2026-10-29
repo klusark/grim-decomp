@@ -5611,6 +5611,9 @@ int FUN_004c27a0(undefined4 *param_1,undefined4 param_2,undefined4 param_3,undef
   int iVar6;
   uint uVar7;
   undefined4 uVar8;
+  undefined4 unaff_ESI;
+  undefined4 unaff_EDI;
+  longlong lVar9;
   
   if (param_1[0x1a] == 5) {
     iVar3 = FUN_004c36f0(param_1,param_2,param_3,param_4,param_5,param_6,param_7,param_8,param_1[2],
@@ -5632,7 +5635,8 @@ int FUN_004c27a0(undefined4 *param_1,undefined4 param_2,undefined4 param_3,undef
     }
     UINT_008d6f28 = UINT_008d6f28 + param_1[8];
     Sound_VoiceSampleCount(0);
-    iVar3 = _ftol();
+    lVar9 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+    iVar3 = (int)lVar9;
     param_1[6] = param_1[6] + -1;
     param_1[5] = 0;
     if ((((iVar3 < 1) && (iVar6 = param_1[0x1a], iVar6 != 2)) && (iVar6 != 3)) && (iVar6 != 4)) {
@@ -14222,27 +14226,28 @@ void FUN_004d1690(void)
 /* ---- 0x004d2340  FUN_004d2340 ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-void FUN_004d2340(undefined4 param_1,undefined4 param_2)
+void FUN_004d2340(int param_1,undefined4 param_2)
 
 {
   int iVar1;
-  undefined4 uVar2;
+  longlong lVar2;
+  undefined4 unaff_retaddr;
   
   _DAT_008db200 = _DAT_008db200 + (double)CONCAT44(param_2,param_1);
   if (UINT_008db1f8 != 0) {
     iVar1 = (**(code **)(UINT_008dad48 + 0x18))();
     if ((int)UINT_008db1f8 < iVar1) {
-      iVar1 = iVar1 - UINT_008db1f8;
-      if (iVar1 / 5 < 0x1234dc) {
+      param_1 = iVar1 - UINT_008db1f8;
+      if (param_1 / 5 < 0x1234dc) {
         UINT_008db1f8 = 0;
-        _DAT_008db200 = _DAT_008db200 - (double)iVar1;
+        _DAT_008db200 = _DAT_008db200 - (double)param_1;
       }
     }
   }
-  uVar2 = _ftol();
-  (**(code **)(UINT_008dad48 + 0x20))(uVar2);
-  iVar1 = _ftol();
-  _DAT_008db200 = _DAT_008db200 - (double)iVar1;
+  lVar2 = _ftol((double)CONCAT44(param_1,unaff_retaddr));
+  (**(code **)(UINT_008dad48 + 0x20))((int)lVar2);
+  lVar2 = _ftol((double)CONCAT44(param_1,unaff_retaddr));
+  _DAT_008db200 = _DAT_008db200 - (double)(int)lVar2;
   return;
 }
 
@@ -14730,25 +14735,27 @@ undefined4 FUN_004d2e80(undefined4 *param_1,uint param_2,int param_3,undefined4 
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  undefined4 uVar1;
-  undefined2 *puVar2;
-  int iVar3;
-  undefined1 *puVar4;
+  undefined2 *puVar1;
+  int iVar2;
+  undefined4 unaff_ESI;
+  undefined4 unaff_EDI;
+  undefined1 *puVar3;
+  longlong lVar4;
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
-  iVar3 = 0;
-  puVar4 = &DAT_008dcc70;
+  iVar2 = 0;
+  puVar3 = &DAT_008dcc70;
   do {
     local_4 = 0;
     do {
       fsin((float10)(int)local_4 * (float10)3.1415 * (float10)0.03125);
-      uVar1 = _ftol();
-      *puVar4 = (char)uVar1;
-      puVar4 = puVar4 + 1;
+      lVar4 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+      *puVar3 = (char)lVar4;
+      puVar3 = puVar3 + 1;
       local_4 = local_4 + 1;
     } while ((int)local_4 < 0x11);
-    iVar3 = iVar3 + 1;
-  } while (iVar3 < 0x11);
+    iVar2 = iVar2 + 1;
+  } while (iVar2 < 0x11);
   UINT_008dcc60 = param_2;
   UINT_008dcd9c = param_3 * 4;
   g_pMixAccum = (int *)(*(code *)*param_1)(UINT_008dcd9c,s_C__grimsrc_libs_lecsmush_insane__004f4158
@@ -14757,21 +14764,21 @@ undefined4 FUN_004d2e80(undefined4 *param_1,uint param_2,int param_3,undefined4 
     return 0xffffffff;
   }
   _DAT_008dcda0 = param_4;
-  puVar2 = (undefined2 *)
+  puVar1 = (undefined2 *)
            (*(code *)*param_1)(UINT_004f40f8 << 0x10,s_C__grimsrc_libs_lecsmush_insane__004f4158,
                                0x35c);
-  UINT_008dcc64 = (uint)puVar2;
-  if (puVar2 == (undefined2 *)0x0) {
+  UINT_008dcc64 = (uint)puVar1;
+  if (puVar1 == (undefined2 *)0x0) {
     return 0xffffffff;
   }
-  iVar3 = 0;
+  iVar2 = 0;
   if (0 < (int)(UINT_004f40f8 << 0xf)) {
     do {
-      uVar1 = _ftol();
-      *puVar2 = (short)uVar1;
-      puVar2 = puVar2 + 1;
-      iVar3 = iVar3 + 1;
-    } while (iVar3 < (int)(UINT_004f40f8 * 0x8000));
+      lVar4 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+      *puVar1 = (short)lVar4;
+      puVar1 = puVar1 + 1;
+      iVar2 = iVar2 + 1;
+    } while (iVar2 < (int)(UINT_004f40f8 * 0x8000));
   }
   return 0;
 }
