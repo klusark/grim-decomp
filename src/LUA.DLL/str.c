@@ -498,6 +498,8 @@ LAB_10009d07:
 
 
 /* ---- 0x10009e40  str_push_captures ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* errors 'unfinished capture' */
 
 void __cdecl str_push_captures(int *param_1,int *param_2)
@@ -526,6 +528,8 @@ void __cdecl str_push_captures(int *param_1,int *param_2)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x10009ea0  str_match ---- */
 /* replaced by the hand-written version in build/overrides.c */
