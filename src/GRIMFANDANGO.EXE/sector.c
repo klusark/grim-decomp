@@ -157,7 +157,7 @@ void SectorList_SaveForShrink(void)
         puVar1[1] = puVar2[1];
         puVar1[2] = puVar2[2];
         puVar1[3] = puVar2[3];
-        *(int *)((int)g_pShrinkVertexSave + iVar8) = *piVar5 + -0x8cb0b0 >> 4;
+        *(int *)((int)g_pShrinkVertexSave + iVar8) = *piVar5 - (int)IMG_ADDR(0x008cb0b0) >> 4;
         local_4 = local_4 + 1;
         iVar6 = iVar6 + 1;
         iVar8 = iVar8 + 0x14;
@@ -181,7 +181,7 @@ void SectorList_SaveForShrink(void)
         do {
           iVar3 = *piVar5;
           piVar5 = piVar5 + 1;
-          *(int *)((int)g_pShrinkSectorSave + iVar7) = iVar3 + -0x8cb0b0 >> 4;
+          *(int *)((int)g_pShrinkSectorSave + iVar7) = iVar3 - (int)IMG_ADDR(0x008cb0b0) >> 4;
           iVar8 = iVar8 + 1;
           iVar7 = iVar7 + 4;
         } while (iVar8 < *(int *)((int)pvVar4 + 0x34));
@@ -2487,7 +2487,7 @@ LAB_004a9d6a:
               do {
                 iVar9 = *piVar11;
                 piVar11 = piVar11 + 1;
-                iVar9 = iVar9 + -0x8cb0b0 >> 4;
+                iVar9 = iVar9 - (int)IMG_ADDR(0x008cb0b0) >> 4;
                 iVar6 = iVar9 * 0xc;
                 *(float *)(&STACK0X(0x000010b8) + iVar6) =
                      pfVar10[-1] + *(float *)(&STACK0X(0x000010b8) + iVar6);

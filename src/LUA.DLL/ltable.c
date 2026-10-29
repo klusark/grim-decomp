@@ -398,6 +398,8 @@ undefined4 __cdecl luaH_nuse(int param_1)
 }
 
 /* ---- 0x1000c7b0  luaH_next ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Unidentified function of ltable.c (hash tables, with Grim save support) */
 
 void __cdecl luaH_next(int param_1,int *param_2)
@@ -420,6 +422,8 @@ void __cdecl luaH_next(int param_1,int *param_2)
   ltable__c810(iVar1,iVar2 + 1);
   return;
 }
+#endif
+
 
 /* ---- 0x1000c810  ltable__c810 ---- */
 /* Unidentified function of ltable.c (hash tables, with Grim save support) */

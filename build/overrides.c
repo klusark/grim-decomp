@@ -65,6 +65,19 @@ void GRIM_lua_cmd_poll(void)
     static int len;
     char buf[256];
     unsigned got, i;
+    static int nomovie = -1;
+    /* GRIM_NOMOVIE=1 (test runs): movies are skipped the way StartSmush=FALSE does it; the engine sets the flag
+     * during start-up, so it is cleared again here, in every frame */
+    if (nomovie < 0)
+        nomovie = GRIM_getenv("GRIM_NOMOVIE") != 0;
+    if (nomovie)
+        g_nMovieAvailable = 0;
+    /* GRIM_ACTIVE=1: draw and present even when the window is not the foreground window (the engine only
+     * draws while WM_ACTIVATEAPP says the application is active); lets a test run behind other windows */
+    if (GRIM_getenv("GRIM_ACTIVE")) {
+        UINT_008d0a70 = 1;
+        UINT_008d0a6c = 1;
+    }
     if (lua_cmd_state < 0)
         return;
     if (lua_cmd_state == 0) {
@@ -306,6 +319,19 @@ void Im_DSoundCreateBuffer(int n)
     }
     DAT_1002d840 = 0;
 }
+/* FUN_1000c670 is MSVC's _output(FILE *, format, va_list), the printf engine of IMUSE.DLL's own C runtime
+ * (the only callers are the sprintf/vsprintf wrappers, which pass a string stream {ptr, cnt, base, flag}).
+ * Ghidra splits the function at its jump table, the compiled version jumps into data and crashes the first
+ * time iMUSE formats a log line ("opening <file>.IMC"). The host formatter does the same job: format at
+ * the stream pointer and advance ptr/cnt like _output would. */
+extern int host_vsprintf(char *, const char *, char *) __asm__("___mingw_vsprintf");   /* not the CRT port's own vsprintf */
+int FUN_1000c670(int *stream, char *format, undefined4 *args)
+{
+    int n = host_vsprintf((char *)stream[0], format, (char *)args);
+    stream[0] += n;
+    stream[1] -= n;
+    return n;
+}
 #endif /* GRIM_IMUSE */
 
 #if defined(GRIM_CHORE) || defined(GRIM_EXE) || defined(GRIM_LUA)
@@ -374,8 +400,14 @@ void __cdecl Win_AbortIfAlreadyRunning(void *hInstance, void *hPrevInstance, cha
     int iVar1;
     int iVar2;
 
-    if (GRIM_getenv("GRIM_MULTI"))
-        appName = "Grim Fandango (test)";   /* a different title also passes the check in Win_CreateMainWindow */
+    if (GRIM_getenv("GRIM_MULTI")) {
+        /* a different title also passes the check in Win_CreateMainWindow; GRIM_MULTI=<tag> makes it
+         * "Grim Fandango (<tag>)" so that several sessions with different tags can run at once */
+        static char title[64];
+        const char *tag = GRIM_getenv("GRIM_MULTI");
+        wsprintfA(title, "Grim Fandango (%s)", tag[0] == '1' && !tag[1] ? "test" : tag);
+        appName = title;
+    }
     iVar1 = FindWindowA(IMG_ADDR(0x004ed080), (int)appName);
     if (iVar1 != 0) {
         SetForegroundWindow(iVar1);

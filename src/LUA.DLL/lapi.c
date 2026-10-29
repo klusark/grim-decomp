@@ -1459,6 +1459,8 @@ undefined4 __cdecl lua_getref(uint param_1)
 }
 
 /* ---- 0x100025b0  lua_setfallback ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 __cdecl lua_setfallback(byte *param_1,undefined4 param_2,int param_3)
 
 {
@@ -1471,6 +1473,8 @@ undefined4 __cdecl lua_setfallback(byte *param_1,undefined4 param_2,int param_3)
   uVar1 = lapi__12e0();
   return uVar1;
 }
+#endif
+
 
 /* ---- 0x100025f0  luaA_callObject ---- */
 /* Opens stack space and runs luaD_call for the C API */

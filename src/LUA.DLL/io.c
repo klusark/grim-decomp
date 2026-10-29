@@ -70,6 +70,8 @@ void __cdecl io_setfile(byte *param_1)
 
 
 /* ---- 0x10005480  io_getfilebyname ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* errors '%s is not a file' */
 
 void __cdecl io_getfilebyname(byte *param_1)
@@ -87,6 +89,8 @@ void __cdecl io_getfilebyname(byte *param_1)
   lua_getuserdata(iVar2);
   return;
 }
+#endif
+
 
 /* ---- 0x100054c0  io_gethandle ---- */
 /* checks the userdata tag and errors 'a closed file' */
@@ -279,6 +283,8 @@ LAB_10005731:
 
 
 /* ---- 0x10005780  io_getfileparam ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Unidentified function of liolib.c (file/system library) */
 
 void __cdecl io_getfileparam(byte *param_1,int *param_2)
@@ -298,6 +304,8 @@ void __cdecl io_getfileparam(byte *param_1,int *param_2)
   io_getfilebyname(param_1);
   return;
 }
+#endif
+
 
 /* ---- 0x100057d0  FUN_100057d0 ---- */
 /* replaced by the hand-written version in build/overrides.c */

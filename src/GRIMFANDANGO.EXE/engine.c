@@ -415,7 +415,7 @@ int FUN_00482ba0(void)
                 (88000,44000,88000,440000,44000,0x55f00,100000,1,0xac44,2,300000,9,150000);
       iVar1 = Plat_GetPhysicalMemory();
       budget = UINT_004e7b20;
-      if (iVar1 + -0x800000 <= (int)UINT_004e7b20) {
+      if (iVar1 - (int)IMG_ADDR(0x00800000) <= (int)UINT_004e7b20) {
         iVar1 = Plat_GetPhysicalMemory();
         budget = iVar1 - 0x800000;
       }

@@ -526,8 +526,8 @@ char * _setlocale_get_all(void); /* 0x100116c0 */
 char * __cdecl _expandlocale(uint *param_1,char *param_2,undefined4 *param_3,uint *param_4); /* 0x100117e0 */
 undefined4 __cdecl __lc_strtolc(uint *param_1,uint *param_2); /* 0x10011a40 */
 void __cdecl __lc_lctostr(char *param_1,char *param_2); /* 0x10011b50 */
-uint __cdecl tolower(uint param_1); /* 0x10011bc0 */
-uint __cdecl _tolower_lk(uint param_1); /* 0x10011c50 */
+uint __cdecl toupper(uint param_1); /* 0x10011bc0 */
+uint __cdecl _toupper_lk(uint param_1); /* 0x10011c50 */
 float __cdecl _CIsqrt(void); /* 0x10011d50 */
 void __cdecl _sqrt(int param_1,uint param_2); /* 0x10011d6d */
 float __cdecl floor(uint param_1,uint param_2); /* 0x10011ef0 */
@@ -540,8 +540,8 @@ void __cdecl qsort(undefined1 *param_1,uint param_2,uint param_3,undefined *para
 void __cdecl shortsort(undefined1 *param_1,undefined1 *param_2,int param_3,undefined *param_4); /* 0x100125e0 */
 void __cdecl qsort_swap(undefined1 *param_1,undefined1 *param_2,int param_3); /* 0x10012640 */
 uint * __cdecl strncpy(uint *param_1,uint *param_2,uint param_3); /* 0x10012670 */
-uint __cdecl toupper(uint param_1); /* 0x10012770 */
-uint __cdecl _toupper_lk(uint param_1); /* 0x10012800 */
+uint __cdecl tolower(uint param_1); /* 0x10012770 */
+uint __cdecl _tolower_lk(uint param_1); /* 0x10012800 */
 uint __cdecl _isctype(int param_1,uint param_2); /* 0x10012900 */
 byte * __cdecl strcmp(byte *param_1,byte *param_2); /* 0x10012a20 */
 uint __cdecl strncmp(char *param_1,char *param_2,int param_3); /* 0x10012a60 */
@@ -699,8 +699,8 @@ uint __cdecl _mbtowc_lk(ushort *param_1,byte *param_2,uint param_3); /* 0x100205
 int __stdcall _allmul(int a1,int a2,int a3,int a4); /* 0x10020690 */
 uint __cdecl _filbuf(int *param_1); /* 0x100206f0 */
 uint __cdecl _ungetc_lk(uint param_1,int *param_2); /* 0x100207e0 */
-uint __cdecl toupper_10020870(uint param_1); /* 0x10020870 */
-uint __cdecl _toupper_lk_10020900(uint param_1); /* 0x10020900 */
+uint __cdecl wtoupper(uint param_1); /* 0x10020870 */
+uint __cdecl _wtoupper_lk(uint param_1); /* 0x10020900 */
 uint __cdecl iswctype(uint param_1,uint param_2); /* 0x10020980 */
 int __cdecl wcslen(short *param_1); /* 0x100209f0 */
 undefined4 __cdecl __crtMessageBoxA(undefined4 param_1,undefined4 param_2,undefined4 param_3); /* 0x10020a10 */
@@ -861,12 +861,14 @@ void FUN_10021f90(void); /* 0x10021f90 */
 void FUN_10021f9b(void); /* 0x10021f9b */
 void __cdecl FUN_10021fa6(int *param_1,int param_2,int param_3,undefined4 param_4); /* 0x10021fa6 */
 void FUN_10021fb0(void); /* 0x10021fb0 */
+undefined4 FUN_10021fbb(int *param_1,int param_2,int param_3,undefined4 param_4); /* 0x10021fbb */
 void FUN_10021fd0(void); /* 0x10021fd0 */
 void FUN_10021fdb(void); /* 0x10021fdb */
 void __cdecl FUN_10021fe6(int *param_1,int param_2,int param_3,undefined4 param_4); /* 0x10021fe6 */
 void FUN_10021ff0(void); /* 0x10021ff0 */
 void __cdecl FUN_10021ffb(int *param_1,int param_2,int param_3,undefined4 param_4); /* 0x10021ffb */
 void FUN_10022010(void); /* 0x10022010 */
+undefined4 FUN_1002201b(int *param_1,int param_2,int param_3,undefined4 param_4); /* 0x1002201b */
 void FUN_10022030(void); /* 0x10022030 */
 void __cdecl FUN_1002203b(int *param_1,int param_2,int param_3,undefined4 param_4); /* 0x1002203b */
 void FUN_10022050(void); /* 0x10022050 */

@@ -1,6 +1,6 @@
 # LUA.DLL function index
 
-848 functions, 597 with real names.
+850 functions, 597 with real names.
 
 | address | name | module | lines |
 |---|---|---|---|
@@ -73,7 +73,7 @@
 | 10002510 | lua_endblock | lapi.c | 1 |
 | 10002560 | lua_ref | lapi.c | 1 |
 | 10002590 | lua_getref | lapi.c | 14 |
-| 100025b0 | lua_setfallback | lapi.c | 12 |
+| 100025b0 | lua_setfallback | lapi.c | 1 |
 | 100025f0 | luaA_callObject | lapi.c | 16 |
 | 10002660 | lapi__2660 | lapi.c | 8 |
 | 10002670 | lua_Save | lapi.c | 1 |
@@ -183,7 +183,7 @@
 | 10004ea0 | luaC_strcallIM | lgc.c | 21 |
 | 10004fc0 | lgc__4fc0 | lgc.c | 23 |
 | 10005010 | lgc__5010 | lgc.c | 18 |
-| 10005070 | lgc__5070 | lgc.c | 22 |
+| 10005070 | lgc__5070 | lgc.c | 1 |
 | 100050b0 | luaC_markall | lgc.c | 11 |
 | 100050e0 | luaC_travstack | lgc.c | 21 |
 | 10005120 | luaC_travglobal | lgc.c | 15 |
@@ -197,14 +197,14 @@
 | 100053d0 | io_getint | io.c | 1 |
 | 100053f0 | io_pushresult | io.c | 18 |
 | 10005430 | io_setfile | io.c | 1 |
-| 10005480 | io_getfilebyname | io.c | 17 |
+| 10005480 | io_getfilebyname | io.c | 1 |
 | 100054c0 | io_gethandle | io.c | 21 |
 | 10005520 | io_setreturn | io.c | 12 |
 | 10005550 | io_setfilebyname | io.c | 9 |
 | 10005570 | FUN_10005570 | io.c | 36 |
 | 10005620 | FUN_10005620 | io.c | 15 |
 | 10005660 | FUN_10005660 | io.c | 1 |
-| 10005780 | io_getfileparam | io.c | 19 |
+| 10005780 | io_getfileparam | io.c | 1 |
 | 100057d0 | FUN_100057d0 | io.c | 1 |
 | 10005870 | FUN_10005870 | io.c | 11 |
 | 100058a0 | FUN_100058a0 | io.c | 11 |
@@ -306,7 +306,7 @@
 | 100099e0 | str_bracket_end | str.c | 17 |
 | 10009a10 | str_matchclass | str.c | 91 |
 | 10009cb0 | FUN_10009cb0 | str.c | 1 |
-| 10009e40 | str_push_captures | str.c | 28 |
+| 10009e40 | str_push_captures | str.c | 1 |
 | 10009ea0 | str_match | str.c | 1 |
 | 1000a030 | str_capture_to_close | str.c | 22 |
 | 1000a060 | str_matchbalance | str.c | 42 |
@@ -377,7 +377,7 @@
 | 1000c620 | luaH_set | ltable.c | 25 |
 | 1000c6b0 | luaH_rehash | ltable.c | 43 |
 | 1000c770 | luaH_nuse | ltable.c | 22 |
-| 1000c7b0 | luaH_next | ltable.c | 22 |
+| 1000c7b0 | luaH_next | ltable.c | 1 |
 | 1000c810 | ltable__c810 | ltable.c | 19 |
 | 1000c850 | luaT_init | ltm.c | 16 |
 | 1000c8a0 | ltm__c8a0 | ltm.c | 16 |
@@ -489,8 +489,8 @@
 | 100117e0 | _expandlocale | crt.c | 168 |
 | 10011a40 | __lc_strtolc | crt.c | 81 |
 | 10011b50 | __lc_lctostr | crt.c | 42 |
-| 10011bc0 | tolower | crt.c | 28 |
-| 10011c50 | _tolower_lk | crt.c | 53 |
+| 10011bc0 | toupper | crt.c | 28 |
+| 10011c50 | _toupper_lk | crt.c | 53 |
 | 10011d50 | _CIsqrt | crt.c | 1 |
 | 10011d6d | _sqrt | crt.c | 1 |
 | 10011ef0 | floor | crt.c | 47 |
@@ -503,8 +503,8 @@
 | 100125e0 | shortsort | crt.c | 20 |
 | 10012640 | qsort_swap | crt.c | 18 |
 | 10012670 | strncpy | crt.c | 106 |
-| 10012770 | toupper | crt.c | 28 |
-| 10012800 | _toupper_lk | crt.c | 53 |
+| 10012770 | tolower | crt.c | 28 |
+| 10012800 | _tolower_lk | crt.c | 53 |
 | 10012900 | _isctype | crt.c | 32 |
 | 10012a20 | strcmp | crt.c | 60 |
 | 10012a60 | strncmp | crt.c | 46 |
@@ -662,8 +662,8 @@
 | 10020690 | _allmul | crt.c | 10 |
 | 100206f0 | _filbuf | crt.c | 51 |
 | 100207e0 | _ungetc_lk | crt.c | 40 |
-| 10020870 | toupper | crt.c | 32 |
-| 10020900 | _toupper_lk | crt.c | 39 |
+| 10020870 | wtoupper | crt.c | 32 |
+| 10020900 | _wtoupper_lk | crt.c | 39 |
 | 10020980 | iswctype | crt.c | 28 |
 | 100209f0 | wcslen | crt.c | 15 |
 | 10020a10 | __crtMessageBoxA | crt.c | 32 |
@@ -822,12 +822,14 @@
 | 10021f9b | FUN_10021f9b | crt_unnamed.c | 1 |
 | 10021fa6 | FUN_10021fa6 | crt_unnamed.c | 6 |
 | 10021fb0 | FUN_10021fb0 | crt_unnamed.c | 1 |
+| 10021fbb | FUN_10021fbb | crt_unnamed.c | 8 |
 | 10021fd0 | FUN_10021fd0 | crt_unnamed.c | 1 |
 | 10021fdb | FUN_10021fdb | crt_unnamed.c | 1 |
 | 10021fe6 | FUN_10021fe6 | crt_unnamed.c | 6 |
 | 10021ff0 | FUN_10021ff0 | crt_unnamed.c | 1 |
 | 10021ffb | FUN_10021ffb | crt_unnamed.c | 6 |
 | 10022010 | FUN_10022010 | crt_unnamed.c | 1 |
+| 1002201b | FUN_1002201b | crt_unnamed.c | 8 |
 | 10022030 | FUN_10022030 | crt_unnamed.c | 1 |
 | 1002203b | FUN_1002203b | crt_unnamed.c | 6 |
 | 10022050 | FUN_10022050 | crt_unnamed.c | 1 |

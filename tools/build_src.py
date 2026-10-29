@@ -10,6 +10,7 @@ import json, os, re, sys
 from collections import Counter, OrderedDict, defaultdict
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import frame_locals
+import namefix
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 RAW = os.path.join(ROOT, "raw")
@@ -105,9 +106,13 @@ def module_for(name):
     return PREFIX_MAP.get(p, p.lower())
 
 
+CUR_PROG = None
+NAMEFIX_ACTIVE = False
+
+
 def read_text(path):
     with open(path, encoding="utf-8", errors="replace") as f:
-        text = f.read()
+        text = namefix.fix_file_text(CUR_PROG, path, f.read(), NAMEFIX_ACTIVE)
     if text.startswith('{"error"'):
         # the decompiler gave up on this one (e.g. "Overlapping input varnodes"); keep a
         # trap body so the module still builds and the failure is visible in the source
@@ -720,6 +725,11 @@ def ptrdiff(m):
     a byte offset from the relocated section address."""
     k = int(m.group(2), 16) * 4
     if not any(start <= k <= start + size for _, start, size in IMG_SECTIONS):
+        v = int(m.group(2), 16)
+        if any(start <= v <= start + size for _, start, size in IMG_SECTIONS):
+            # `iVar + -0x8cb0b0 >> 4`: an int minus the byte address of a table (an index into it): the
+            # address relocates with the table, a bare literal would be off by the section shift
+            return "%s - (int)IMG_ADDR(0x%08x)" % (m.group(1), v)
         return m.group(0)
     return "(int *)((char *)%s - IMG_ADDR(0x%08x))" % (m.group(1), k)
 
@@ -870,6 +880,9 @@ def fix_function(code, ctx, stats):
     # stack and move the frame pointer away from the argument area, so those functions get no alignment
     if re.search(r"STACK0X\(0x0", body):
         body = body.replace(" __attribute__((aligned(16)))", "")
+    # test knob (build/overrides.c, GRIM_lua_cmd_poll): with GRIM_ACTIVE set the window procedure ignores
+    # WM_ACTIVATEAPP, so a run behind other windows is not paused and its display is not shut down
+    body = body.replace("      if (param_2 == 0x1c) {\n", "      if (param_2 == 0x1c && GRIM_getenv(\"GRIM_ACTIVE\") == 0) {\n")
     return head + body + trailer
 
 
@@ -976,6 +989,18 @@ def infer_global_types(bodies, ctx, sym_re):
                 elif re.search(re.escape(g) + r"\s*[-+*/]\s*-?\d+\.\d|\d\.\d+\s*[-+*/<>]=?\s*" + re.escape(g) + r"\b", line) \
                         or re.fullmatch(re.escape(g) + r" = -?\d+\.\d+;", line):
                     uses[g]["T:float"] += 1
+                else:
+                    # `DAT_x = (T *)alloc(...)` and `p = DAT_x + 1` (p a pointer local): Ghidra scaled
+                    # the arithmetic by T, so DAT_x is a T pointer (an int-typed DAT_x would step by bytes)
+                    am2 = re.fullmatch(r"(\w+) = " + re.escape(g) + r" [-+] -?\w+;", line)
+                    if am2 and CUR_PROG == "LUA.DLL" and g.startswith("DAT_"):
+                        lt = ""
+                        if True:   # (a real pointer local is not enough evidence: Ghidra casts there)
+                            # a frame-local view (`#define puStack_24 (*(undefined4 **)(_frame + ...))`)
+                            dm = re.search(r"#define " + re.escape(am2.group(1)) + r" \(\*\(([\w ]+\*+)\)", body)
+                            lt = dm.group(1)[:-1].replace(" *", "*").replace("*", " *").strip() if dm else ""   # (the cast is a pointer to the local)
+                        if "*" in lt:
+                            uses[g]["P:" + lt] += 1
     return uses
 
 
@@ -1010,6 +1035,9 @@ def global_decl(g, u, ctx):
         return f"extern {c_decl(t, g)};"
     if u["value"]:
         ts = Counter({k[2:]: v for k, v in u.items() if k.startswith("T:")})
+        if not ts:
+            # weaker evidence (see infer_global_types): only when nothing else says what it is
+            ts = Counter({k[2:]: v for k, v in u.items() if k.startswith("P:")})
         am = re.search(r"_([0-9a-f]{8})$", g)
         # no better evidence: the width of Ghidra's data item (a 1-byte item indexed as
         # `(&DAT_x)[i]` is a byte table, not 4-byte elements)
@@ -1035,7 +1063,9 @@ def build(prog):
         # (name, start, initialised bytes): only literals inside the file-backed part of a
         # section are addresses; masks such as 0x7fff00 fall in the zero tail of .data
         IMG_SECTIONS = [(s["name"], int(s["start"], 16), s["size"]) for s in json.load(open(os.path.join(rawdir, "sections.json")))]
-    funcs = json.load(open(os.path.join(rawdir, "functions.json")))
+    global CUR_PROG, NAMEFIX_ACTIVE
+    funcs, NAMEFIX_ACTIVE = namefix.load_functions(rawdir, prog)
+    CUR_PROG = prog
     global ASM_ADDRS
     ASM_ADDRS = set()
     ap = os.path.join(ROOT, "names", "asm_funcs.json")

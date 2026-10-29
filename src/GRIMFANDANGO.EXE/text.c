@@ -278,6 +278,8 @@ void __cdecl Font_Free(void *font)
 }
 
 /* ---- 0x004aa9b0  Text_NextChar ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Returns the next character and advances; the pointer becomes NULL at the end of the string */
 
 char __cdecl Text_NextChar(char **pText)
@@ -300,6 +302,8 @@ char __cdecl Text_NextChar(char **pText)
   }
   return cVar1;
 }
+#endif
+
 
 /* ---- 0x004aaa20  Text_CharWidth ---- */
 /* Source: Temp/Text.c (line 624, from __FILE__/__LINE__ passed to the allocator) */
@@ -1015,6 +1019,8 @@ uint Font_GlyphWidth(int param_1,int param_2,uint param_3)
 }
 
 /* ---- 0x004ab5d0  Text_DrawString ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void __cdecl Text_DrawString(void *ctx,void *font,char *text)
 
 {
@@ -1091,6 +1097,8 @@ LAB_004ab66a:
 #undef local_4
 #undef local_8
 #undef local_c
+
+#endif
 
 
 /* ---- 0x004ab710  Text_DrawChar ---- */
