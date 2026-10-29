@@ -19,5 +19,5 @@ for stem in ("HMIFXLIB", "HMIFXFP"):
         sys.exit("no exports found in " + stem)
     deff = os.path.join(out, stem + ".def")
     open(deff, "w").write("LIBRARY %s.DLL\nEXPORTS\n%s\n" % (stem, "\n".join(names)))
-    subprocess.run(["C:/msys64/mingw32/bin/dlltool.exe", "-m", "i386", "-d", deff, "-l", os.path.join(out, "lib%s.a" % stem.lower()), "-k", "-U"], check=True)
+    subprocess.run(["C:/msys64/mingw32/bin/dlltool.exe", "-m", "i386", "-d", deff, "-l", os.path.join(out, "lib%s.a" % stem.lower()), "-k"], check=True)
     print(stem, len(names), "exports")

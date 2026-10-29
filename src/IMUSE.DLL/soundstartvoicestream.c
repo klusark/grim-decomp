@@ -6,6 +6,8 @@
 #include "functions.h"
 
 /* ---- 0x100088d0  SoundStartVoiceStream ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 SoundStartVoiceStream(undefined4 param_1,undefined4 param_2,uint param_3,uint param_4)
 
 {
@@ -27,3 +29,5 @@ undefined4 SoundStartVoiceStream(undefined4 param_1,undefined4 param_2,uint para
   }
   return 1;
 }
+#endif
+

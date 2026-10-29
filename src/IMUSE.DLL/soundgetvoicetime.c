@@ -6,6 +6,8 @@
 #include "functions.h"
 
 /* ---- 0x10008990  SoundGetVoiceTime ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
 uint SoundGetVoiceTime(void)
@@ -17,3 +19,5 @@ uint SoundGetVoiceTime(void)
   uVar1 = ImGetParam(10000,0x1a00);
   return uVar1;
 }
+#endif
+

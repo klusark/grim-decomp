@@ -6,6 +6,8 @@
 #include "functions.h"
 
 /* ---- 0x10008970  SoundStopVoiceStream ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 __cdecl SoundStopVoiceStream(void)
 
 {
@@ -16,3 +18,5 @@ undefined4 __cdecl SoundStopVoiceStream(void)
   uVar1 = FUN_10007250(10000);
   return uVar1;
 }
+#endif
+
