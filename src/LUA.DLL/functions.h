@@ -341,8 +341,8 @@ void FUN_1000a440(void); /* 0x1000a440 */
 void __cdecl str_add_s(char *param_1); /* 0x1000a680 */
 
 /* ===== lparser.c ===== */
-void luaY_error(void); /* 0x1000a6f0 */
-void lparser__a730(void); /* 0x1000a730 */
+void __cdecl luaY_error(char *msg,char *token); /* 0x1000a6f0 */
+void __cdecl lparser__a730(char *msg); /* 0x1000a730 */
 void __cdecl luaY_code_word(uint param_1); /* 0x1000a750 */
 void __cdecl luaY_code_opcode_arg(char param_1,int param_2,uint param_3,int param_4); /* 0x1000a790 */
 void __cdecl luaY_code_byte(int param_1); /* 0x1000a7d0 */

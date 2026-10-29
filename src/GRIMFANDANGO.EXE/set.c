@@ -33,14 +33,14 @@ void __cdecl Set_MakeCurrent(char *name)
   void *pvVar1;
   
   if (name == (char *)0x0) {
-    Set_SetCurrent((void *)0x0);
+    Set_SetCurrent((void *)0x0,0);
     return;
   }
   set = Resource_Load(0x20544553,name);
   if ((set != (void *)0x0) && (*(int *)((int)set + 0x80) != 0)) {
     pvVar1 = Set_GetCurrent();
     if (set != pvVar1) {
-      Set_SetCurrent(set);
+      Set_SetCurrent(set,(int)name);
       Set_ActivateSectors(set);
       Set_ApplySetupCamera(set,*(int *)((int)set + 0xb4));
     }
@@ -364,7 +364,7 @@ void __cdecl Set_GetSoundParams(void *set,float *minVol,char *maxVol,char *c,flo
 /* Releases the previous set's resources (unless locked), references the new one, loads its
    resources and resets the sound parameters */
 
-void __cdecl Set_SetCurrent(void *set)
+void __cdecl Set_SetCurrent(void *set,int param_2)
 
 {
   if ((g_CurrentSetRef == 0) || (g_pCurrentSet != set)) {
@@ -626,7 +626,7 @@ int __cdecl Set_RestoreState(void *readFn)
   }
   (*(code *)readFn)(&pvStack_44,4);
   pvVar4 = Res_DataFromHandle(pvStack_44);
-  Set_SetCurrent(pvVar4);
+  Set_SetCurrent(pvVar4,(int)pvVar4);
   if (pvVar4 != (void *)0x0) {
     Set_ChangeSetup(*(undefined4 *)((int)pvVar4 + 0xb4));
     Set_ActivateSectors(pvVar4);

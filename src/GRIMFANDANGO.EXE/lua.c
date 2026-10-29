@@ -1499,7 +1499,7 @@ void Lua_PrintLine(void)
         local_58 = (int)lVar9;
       }
       iVar4 = 0;
-      pvVar3 = TextObject_New((void *)local_5c,pcVar6,local_58,0);
+      pvVar3 = TextObject_New((void *)local_5c,pcVar6);
       TextObject_Activate(pvVar3,local_58,iVar4);
     }
   }
@@ -1813,9 +1813,7 @@ void Lua_MakeTextObject(void)
   int iVar2;
   char *pcVar3;
   void *pvVar4;
-  int unaff_EBX;
   uint *puVar5;
-  int unaff_EDI;
   uint *puVar6;
   #define local_78 (*(uint *)(_frame + (0x90 - 0x78)))
   #define local_64 (*(uint *)(_frame + (0x90 - 0x64)))
@@ -1851,7 +1849,7 @@ void Lua_MakeTextObject(void)
       }
     }
     pcVar3 = Text_ParseLineId(pcVar3,local_50);
-    pvVar4 = TextObject_New(&local_30,pcVar3,unaff_EBX,unaff_EDI);
+    pvVar4 = TextObject_New(&local_30,pcVar3);
     lua_pushusertag(pvVar4,0x54584554);
     iVar2 = Text_MeasureWidth((void *)((int)pvVar4 + 0x208),(char *)((int)pvVar4 + 8));
     lua_pushnumber((float)iVar2);
@@ -1888,9 +1886,7 @@ void Lua_BlastText(void)
   char *pcVar3;
   void *pvVar4;
   void *surface;
-  int unaff_EBP;
   uint *puVar5;
-  int unaff_EDI;
   uint *puVar6;
   #define local_60 (*(uint *)(_frame + (0x70 - 0x60)))
   #define local_5c (*(uint *)(_frame + (0x70 - 0x5c)))
@@ -1928,7 +1924,7 @@ void Lua_BlastText(void)
       }
     }
     pcVar3 = Text_ParseLineId(pcVar3,local_50);
-    pvVar4 = TextObject_New(&local_30,pcVar3,unaff_EBP,unaff_EDI);
+    pvVar4 = TextObject_New(&local_30,pcVar3);
     TextObject_Draw(pvVar4,0);
     surface = (void *)Render_GetBackBuffer();
     Surface_Unlock(surface);
@@ -6709,7 +6705,7 @@ void Lua_CheckForFile(void)
 void Lua_NukeResources(void)
 
 {
-  Set_SetCurrent((void *)0x0);
+  Set_SetCurrent((void *)0x0,0);
   Actors_FreeAllCostumes();
   Engine_ResetState();
   g_pShadowMaterial = (void *)0x0;

@@ -268,7 +268,7 @@ void FUN_1000d130(void); /* 0x1000d130 */
 int __stdcall FUN_1000d1f0(int a1,int a2,int a3,int a4); /* 0x1000d1f0 */
 
 /* ===== soundstartvoicestream.c ===== */
-undefined4 SoundStartVoiceStream(undefined4 param_1,undefined4 param_2,uint param_3,uint param_4); /* 0x100088d0 */
+int __cdecl SoundStartVoiceStream(undefined4 param_1,undefined4 param_2,uint param_3); /* 0x100088d0 */
 
 /* ===== soundstopvoicestream.c ===== */
 undefined4 __cdecl SoundStopVoiceStream(void); /* 0x10008970 */

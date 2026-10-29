@@ -1444,7 +1444,7 @@ uint Engine_GetSavedValue(void); /* 0x00483600 */
 undefined4 Engine_CreateCameraActor(void); /* 0x00484000 */
 void Engine_RenderFrame(void); /* 0x00484260 */
 void __cdecl Engine_RegisterShutdownHook(void *fn); /* 0x0048d1a0 */
-void Engine_RunShutdownHooks(undefined4 param_1); /* 0x0048d1c0 */
+void __cdecl Engine_RunShutdownHooks(undefined4 param_1,undefined4 param_2); /* 0x0048d1c0 */
 
 /* ===== set.c ===== */
 int Set_GetRefCount(void *param_1); /* 0x004824c0 */
@@ -1456,7 +1456,7 @@ void Set_DrawDebugLights(int param_1); /* 0x00485780 */
 void __cdecl Set_DrawDebugCameras(void *set,uint setupIdx); /* 0x004859c0 */
 void Set_SetSoundParams(int param_1,undefined4 param_2,undefined1 param_3,undefined1 param_4, undefined4 param_5,undefined4 param_6); /* 0x004a4010 */
 void __cdecl Set_GetSoundParams(void *set,float *minVol,char *maxVol,char *c,float *d,float *e); /* 0x004a4050 */
-void __cdecl Set_SetCurrent(void *set); /* 0x004a40f0 */
+void __cdecl Set_SetCurrent(void *set,int param_2); /* 0x004a40f0 */
 void * Set_GetCurrent(void); /* 0x004a41b0 */
 char * Set_GetCurrentName(void); /* 0x004a41d0 */
 int __cdecl Set_SaveState(void *writeFn); /* 0x004a41e0 */
@@ -1800,7 +1800,7 @@ void __cdecl TextObject_Activate(void *obj,int durationMs,int flags); /* 0x0048c
 void FUN_0048c4d0(void); /* 0x0048c4d0 */
 undefined4 FUN_0048c500(void); /* 0x0048c500 */
 void FUN_0048c6f0(void); /* 0x0048c6f0 */
-void * __cdecl TextObject_New(void *ctx,char *text,int durationMs,int flags); /* 0x0048c7e0 */
+void * __cdecl TextObject_New(void *ctx,char *text); /* 0x0048c7e0 */
 void __cdecl TextObject_Draw(void *obj,int invalidate); /* 0x0048c9f0 */
 undefined4 * TextObject_FindBySelf(int param_1); /* 0x0048cba0 */
 undefined4 FUN_0048cbc0(code *param_1); /* 0x0048cbc0 */

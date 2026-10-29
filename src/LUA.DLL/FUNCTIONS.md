@@ -221,7 +221,7 @@
 | 10005c70 | llex__5c70 | llex.c | 35 |
 | 10005cf0 | luaX_save | llex.c | 9 |
 | 10005d00 | luaX_lex | llex.c | 1 |
-| 10006890 | luaX_pragma | llex.c | 114 |
+| 10006890 | luaX_pragma | llex.c | 122 |
 | 10006b10 | luaX_inclinenumber | llex.c | 24 |
 | 10006b60 | luaX_error | llex.c | 21 |
 | 10006bb0 | llex__6bb0 | llex.c | 36 |
@@ -316,8 +316,8 @@
 | 1000a2e0 | str_add_value | str.c | 1 |
 | 1000a440 | FUN_1000a440 | str.c | 1 |
 | 1000a680 | str_add_s | str.c | 24 |
-| 1000a6f0 | luaY_error | lparser.c | 8 |
-| 1000a730 | lparser__a730 | lparser.c | 9 |
+| 1000a6f0 | luaY_error | lparser.c | 13 |
+| 1000a730 | lparser__a730 | lparser.c | 11 |
 | 1000a750 | luaY_code_word | lparser.c | 11 |
 | 1000a790 | luaY_code_opcode_arg | lparser.c | 14 |
 | 1000a7d0 | luaY_code_byte | lparser.c | 16 |

@@ -147,6 +147,18 @@ extern undefined4 DAT_10026d14; /* used by 1 fn(s), first 0x10005c00 */
 extern undefined *PTR_DAT_10026d90; /* used by 1 fn(s), first 0x10006b60 */
 extern undefined *PTR_DAT_10026d94; /* used by 1 fn(s), first 0x10005c00 */
 extern undefined *PTR_s_debug_10026da0; /* used by 1 fn(s), first 0x10006890 */
+extern char s_input_ends_inside_a__if_10026e44[]; /* used by 2 fn(s), first 0x10005d00 */
+extern char s_ambiguous_syntax__decimal_point_x_10026e5c[]; /* used by 1 fn(s), first 0x10005d00 */
+extern char s_invalid_pragma_format_10026e94[]; /* used by 1 fn(s), first 0x10006890 */
+extern char s_unknown_pragma_10026eac[]; /* used by 1 fn(s), first 0x10006890 */
+extern char s_unmatched__else_10026ebc[]; /* used by 1 fn(s), first 0x10006890 */
+extern char s__else_10026ecc[]; /* used by 1 fn(s), first 0x10006890 */
+extern char s_too_many_nested__ifs_10026ed4[]; /* used by 1 fn(s), first 0x10006890 */
+extern undefined DAT_10026eec; /* used by 1 fn(s), first 0x10006890 */
+extern char s_unmatched__end_10026ef0[]; /* used by 1 fn(s), first 0x10006890 */
+extern undefined DAT_10026f00; /* used by 1 fn(s), first 0x10006890 */
+extern char s_invalid__if_condition_10026f08[]; /* used by 1 fn(s), first 0x10006b60 */
+extern char s_pragma_too_long_10026f20[]; /* used by 1 fn(s), first 0x10006bb0 */
 extern undefined *PTR_DAT_10026f30; /* used by 1 fn(s), first 0x10007320 */
 extern undefined DAT_10027004; /* used by 1 fn(s), first 0x10007320 */
 extern undefined DAT_1002706c; /* used by 1 fn(s), first 0x10007320 */
@@ -179,12 +191,24 @@ extern char s_invalid_format__width_or_precisi_10027a74[]; /* used by 1 fn(s), f
 extern char s__d_____________d_______d___10027aa4[]; /* used by 1 fn(s), first 0x1000a440 */
 extern undefined DAT_10027ac0; /* used by 1 fn(s), first 0x1000a680 */
 extern char s___100s__last_token_read_____50s__10027ac4[]; /* used by 1 fn(s), first 0x1000a6f0 */
+extern char s__eof__10027b00[]; /* used by 1 fn(s), first 0x1000a6f0 */
 extern char s_code_size_overflow_10027b08[]; /* used by 1 fn(s), first 0x1000a7d0 */
-extern char s_parse_error_10027b58[]; /* used by 1 fn(s), first 0x1000a900 */
+extern char s_code_too_long__limit_64K__10027b1c[]; /* used by 1 fn(s), first 0x1000a810 */
+extern char s_function_expression_too_complex_10027b38[]; /* used by 1 fn(s), first 0x1000a8b0 */
+extern char s_parse_error_10027b58[]; /* used by 2 fn(s), first 0x1000a900 */
 extern char s_lua_stx_10027b64[]; /* used by 1 fn(s), first 0x1000aa40 */
+extern char s_parser_stack_overflow_10027b6c[]; /* used by 1 fn(s), first 0x1000abd0 */
+extern char s_invalid_constructor_syntax_10027b84[]; /* used by 1 fn(s), first 0x1000abd0 */
 extern undefined DAT_10027ba0; /* used by 1 fn(s), first 0x1000abd0 */
 extern char s_constant_table_overflow_10027ba8[]; /* used by 1 fn(s), first 0x1000b860 */
+extern char s_too_many_local_variables__limit__10027bc0[]; /* used by 1 fn(s), first 0x1000ba20 */
+extern char s_variable_buffer_overflow__limit__10027be4[]; /* used by 1 fn(s), first 0x1000ba90 */
+extern char s_cannot_access_a_variable_in_oute_10027c08[]; /* used by 1 fn(s), first 0x1000baf0 */
+extern char s_cannot_access_an_upvalue_in_curr_10027c30[]; /* used by 1 fn(s), first 0x1000bbd0 */
+extern char s_cannot_access_upvalue_in_main_10027c5c[]; /* used by 1 fn(s), first 0x1000bbd0 */
+extern char s_too_many_upvalues_in_a_single_fu_10027c7c[]; /* used by 1 fn(s), first 0x1000bc40 */
 extern undefined DAT_10027cb0; /* used by 1 fn(s), first 0x1000bde0 */
+extern char s_too_many_nested_functions__limit_10027cb4[]; /* used by 1 fn(s), first 0x1000c100 */
 extern char s_writtenItems____numItems_10027cd8[]; /* used by 1 fn(s), first 0x1000c200 */
 extern char s_C__grimsrc_libs_lua_src_ltable_c_10027cf4[]; /* used by 4 fn(s), first 0x1000c200 */
 extern char s_unexpected_type_to_index_table_10027d18[]; /* used by 1 fn(s), first 0x1000c580 */
@@ -323,7 +347,7 @@ extern undefined4 DAT_1002beb8; /* used by 55 fn(s), first 0x10001000 */
 extern undefined4 DAT_1002bebc; /* used by 2 fn(s), first 0x10001190 */
 extern undefined4 DAT_1002bec0; /* used by 2 fn(s), first 0x10002920 */
 extern int * DAT_1002bec4; /* used by 4 fn(s), first 0x10001000 */
-extern undefined DAT_1002bedc; /* used by 6 fn(s), first 0x10002440 */
+extern undefined DAT_1002bedc; /* used by 8 fn(s), first 0x10002440 */
 extern int DAT_1002bee8; /* used by 7 fn(s), first 0x100079d0 */
 extern int DAT_1002beec; /* used by 15 fn(s), first 0x100049b0 */
 extern undefined4 DAT_1002bef0; /* used by 5 fn(s), first 0x100079d0 */
@@ -355,7 +379,7 @@ extern undefined4 DAT_1002bf5c; /* used by 4 fn(s), first 0x100014c0 */
 extern undefined4 * DAT_1002bf60; /* used by 4 fn(s), first 0x10007660 */
 extern undefined4 DAT_1002bf64; /* used by 7 fn(s), first 0x100049b0 */
 extern undefined4 * DAT_1002bf68; /* used by 4 fn(s), first 0x10007660 */
-extern int * PTR_1002bf6c; /* used by 116 fn(s), first 0x100011e0 */
+extern int * PTR_1002bf6c; /* used by 117 fn(s), first 0x100011e0 */
 extern int * DAT_1002bf70; /* used by 11 fn(s), first 0x10001db0 */
 extern undefined4 DAT_1002bf74; /* used by 4 fn(s), first 0x100079d0 */
 extern undefined4 DAT_1002bf78; /* used by 4 fn(s), first 0x10002760 */

@@ -8,21 +8,28 @@
 /* ---- 0x1000a6f0  luaY_error ---- */
 /* lua.stx: 'last token read: %50s' error */
 
-void luaY_error(void)
+void __cdecl luaY_error(char *msg,char *token)
 
 {
-  luaL_verror(s___100s__last_token_read_____50s__10027ac4);
+  if (*token == '\0') {
+    token = s__eof__10027b00;
+  }
+  luaL_verror(s___100s__last_token_read_____50s__10027ac4,msg,token,
+              *(undefined4 *)(PTR_1002bf6c[0x10] + 8),
+              *(int *)(*(int *)PTR_1002bf6c[0xe] + 0x18) + 0x18);
   return;
 }
 
 /* ---- 0x1000a730  lparser__a730 ---- */
 /* Unidentified function of lua.stx (yacc parser) and code generation */
 
-void lparser__a730(void)
+void __cdecl lparser__a730(char *msg)
 
 {
-  luaX_save();
-  luaY_error();
+  char *token;
+  
+  token = (char *)((code *)luaX_save)();
+  luaY_error(msg,token);
   return;
 }
 
@@ -100,7 +107,7 @@ undefined4 __cdecl lparser__a810(int param_1,char param_2,int param_3,uint param
     *(char *)(iVar1 + 2 + param_1) = (char)(param_4 >> 8);
     return 3;
   }
-  lparser__a730();
+  lparser__a730(s_code_too_long__limit_64K__10027b1c);
   return 0;
 }
 
@@ -118,7 +125,7 @@ void __cdecl lparser__a8b0(int param_1)
   *(int *)(iVar1 + 0x88) = iVar2;
   if (*(int *)(iVar1 + 0x8c) < iVar2) {
     if (0xff < iVar2) {
-      lparser__a730();
+      lparser__a730(s_function_expression_too_complex_10027b38);
     }
     *(undefined4 *)(iVar1 + 0x8c) = *(undefined4 *)(iVar1 + 0x88);
   }
@@ -323,7 +330,7 @@ undefined4 yyparse(void)
   fVar10 = local_bc8;
   if (&local_7d2 <= local_bd8) {
 LAB_1000b47d:
-    lparser__a730();
+    lparser__a730(s_parser_stack_overflow_10027b6c);
     return 2;
   }
 LAB_1000ac11:
@@ -335,7 +342,7 @@ LAB_1000b4fe:
 LAB_1000b512:
       if (local_bdc == 0) {
         local_bc4 = local_bc4 + 1;
-        lparser__a730();
+        lparser__a730(s_parse_error_10027b58);
       }
       if (local_bdc == 3) {
         if (local_be0 == 0) {
@@ -662,7 +669,7 @@ switchD_1000acd8_caseD_1f:
       break;
     case 0x52:
       if (0 < (int)*pfVar9 * (int)pfVar9[-2]) {
-        lparser__a730();
+        lparser__a730(s_invalid_constructor_syntax_10027b84);
       }
       uVar8 = (int)*pfVar9 >> 0x1f;
       uVar7 = (int)pfVar9[-2] >> 0x1f;
@@ -1013,7 +1020,7 @@ void __cdecl lparser__ba20(undefined4 param_1,int param_2)
     *(undefined4 *)(PTR_1002bf6c[0xf] + 8 + iVar1 * 4) = param_1;
   }
   else {
-    lparser__a730();
+    lparser__a730(s_too_many_local_variables__limit__10027bc0);
   }
   luaY_growvector(param_1,*(undefined4 *)(PTR_1002bf6c[0x10] + 8));
   return;
@@ -1039,7 +1046,7 @@ void __cdecl lparser__ba90(int param_1,int param_2)
   int iVar1;
   
   if (0x1f < param_2) {
-    lparser__a730();
+    lparser__a730(s_variable_buffer_overflow__limit__10027be4);
   }
   iVar1 = lparser__bad0(param_1);
   *(int *)(PTR_1002bf6c[0xf] + 0xa8 + param_2 * 4) = iVar1;
@@ -1079,7 +1086,7 @@ int __cdecl lparser__baf0(int param_1,int *param_2)
     do {
       iVar3 = lparser__bba0(param_1,(int)(piVar1 + -0x5a));
       if (-1 < iVar3) {
-        luaY_error();
+        luaY_error(s_cannot_access_a_variable_in_oute_10027c08,(char *)(param_1 + 0x18));
       }
       iVar2 = iVar2 + 1;
       piVar1 = piVar1 + -0x5a;
@@ -1122,11 +1129,11 @@ void __cdecl lparser__bbd0(int param_1)
   uint uVar2;
   
   if (PTR_1002bf6c[0xf] == PTR_1002bf6c[0xe]) {
-    lparser__a730();
+    lparser__a730(s_cannot_access_upvalue_in_main_10027c5c);
   }
   iVar1 = lparser__bba0(param_1,PTR_1002bf6c[0xf]);
   if (-1 < iVar1) {
-    luaY_error();
+    luaY_error(s_cannot_access_an_upvalue_in_curr_10027c30,(char *)(param_1 + 0x18));
   }
   uVar2 = lparser__bc40(param_1);
   luaY_code_opcode_arg('\x12',2,uVar2,1);
@@ -1161,7 +1168,7 @@ int __cdecl lparser__bc40(int param_1)
   }
   *(int *)(iVar1 + 0x94) = iVar2 + 1;
   if (0x10 < *(int *)(PTR_1002bf6c[0xf] + 0x94)) {
-    lparser__a730();
+    lparser__a730(s_too_many_upvalues_in_a_single_fu_10027c7c);
   }
   *(int *)(PTR_1002bf6c[0xf] + 0x128 + iVar5 * 4) = iVar3;
   return iVar5;
@@ -1432,7 +1439,7 @@ void lparser__c100(void)
 
 {
   if (4 < (PTR_1002bf6c[0xf] - PTR_1002bf6c[0xe]) / 0x168) {
-    lparser__a730();
+    lparser__a730(s_too_many_nested_functions__limit_10027cb4);
   }
   PTR_1002bf6c[0xf] = PTR_1002bf6c[0xf] + 0x168;
   lparser__a980(*(undefined4 *)(*(int *)PTR_1002bf6c[0xe] + 0x18));
