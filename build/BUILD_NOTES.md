@@ -641,7 +641,7 @@ save, load, cutscenes, transcript), Save and Load of a game, and `format`/`strfi
 Bug classes found on the way (each is a pattern to grep for when something else misbehaves):
 
 * **Wrong CRT names** (Ghidra's structural match swapped `toupper`/`tolower` in LUA.DLL; the build links the host CRT, so the
-  name decides the behaviour: `%d` in a pattern never matched): `tools/namefix.py` corrects them when raw/ still carries the old names.
+  name decides the behaviour: `%d` in a pattern never matched): fixed in Ghidra itself now (toupper/tolower, LUA.DLL `strcmp` was `strpbrk`, EXE `memcmp` was `strncmp`; the namefix workaround is gone).
 * **Phantom parameters** (`lua_setfallback` got a third parameter from a stack-offset slip, `str_push_captures` a second one: the
   C body read garbage): assemble the callee.
 * **Sign extension of a byte result**: `Text_NextChar` returns the byte zero-extended in EAX, the C callers used `char`.
@@ -653,3 +653,8 @@ Bug classes found on the way (each is a pattern to grep for when something else 
   of a savegame was read at a byte offset; `infer_global_types` now types such globals from the frame-local they are added to.
 * **Address literals in integer arithmetic** (`iVar + -0x8cb0b0 >> 4`, an index into a static pool): relocated with `IMG_ADDR`.
 * **printf engine of IMUSE's own CRT** (`FUN_1000c670`) jumps into data: replaced by the host formatter.
+
+* **Prototype vs code audit** (`tools/find_arity_asm.py`, `tools/find_lost_args.py`, need `raw/<prog>/disasm.json` from `find_arity_asm.py --fetch`): compares each C
+  prototype / C call site with the original code. Real finding: `luaY_error`/`lparser__a730` took no parameters in Ghidra, so the compiled C passed only the
+  format string to `luaL_verror` (garbage error messages); the remaining reports are assembled callees (harmless), CRT code that is not linked, or split
+  functions/jump tables where the stack-slot scan is blind.
