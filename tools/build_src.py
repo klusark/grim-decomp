@@ -984,6 +984,18 @@ def infer_global_types(bodies, ctx, sym_re):
                 elif re.search(re.escape(g) + r"\s*[-+*/]\s*-?\d+\.\d|\d\.\d+\s*[-+*/<>]=?\s*" + re.escape(g) + r"\b", line) \
                         or re.fullmatch(re.escape(g) + r" = -?\d+\.\d+;", line):
                     uses[g]["T:float"] += 1
+                else:
+                    # `DAT_x = (T *)alloc(...)` and `p = DAT_x + 1` (p a pointer local): Ghidra scaled
+                    # the arithmetic by T, so DAT_x is a T pointer (an int-typed DAT_x would step by bytes)
+                    am2 = re.fullmatch(r"(\w+) = " + re.escape(g) + r" [-+] -?\w+;", line)
+                    if am2 and CUR_PROG == "LUA.DLL" and g.startswith("DAT_"):
+                        lt = ""
+                        if True:   # (a real pointer local is not enough evidence: Ghidra casts there)
+                            # a frame-local view (`#define puStack_24 (*(undefined4 **)(_frame + ...))`)
+                            dm = re.search(r"#define " + re.escape(am2.group(1)) + r" \(\*\(([\w ]+\*+)\)", body)
+                            lt = dm.group(1)[:-1].replace(" *", "*").replace("*", " *").strip() if dm else ""   # (the cast is a pointer to the local)
+                        if "*" in lt:
+                            uses[g]["P:" + lt] += 1
     return uses
 
 
@@ -1018,6 +1030,9 @@ def global_decl(g, u, ctx):
         return f"extern {c_decl(t, g)};"
     if u["value"]:
         ts = Counter({k[2:]: v for k, v in u.items() if k.startswith("T:")})
+        if not ts:
+            # weaker evidence (see infer_global_types): only when nothing else says what it is
+            ts = Counter({k[2:]: v for k, v in u.items() if k.startswith("P:")})
         am = re.search(r"_([0-9a-f]{8})$", g)
         # no better evidence: the width of Ghidra's data item (a 1-byte item indexed as
         # `(&DAT_x)[i]` is a byte table, not 4-byte elements)

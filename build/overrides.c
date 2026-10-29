@@ -100,6 +100,9 @@ void GRIM_lua_cmd_poll(void)
                 int rc;
                 line[len] = 0;
                 if (len) {
+                    /* (a Load replaces the whole Lua state, and a C function of ours cannot be restored from a save) */
+                    lua_pushCclosure((void *)grim_log_cfn, 0);
+                    lua_setglobal("grimlog");
                     rc = lua_dostring(line);
                     wsprintfA(msg, "rc=%d: %s\r\n", rc, line);
                     lua_cmd_log(msg);

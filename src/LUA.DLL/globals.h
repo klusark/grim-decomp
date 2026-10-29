@@ -352,9 +352,9 @@ extern undefined4 DAT_1002bf4c; /* used by 12 fn(s), first 0x10002c20 */
 extern undefined4 DAT_1002bf50; /* used by 4 fn(s), first 0x10007660 */
 extern undefined4 DAT_1002bf58; /* used by 5 fn(s), first 0x100014c0 */
 extern undefined4 DAT_1002bf5c; /* used by 4 fn(s), first 0x100014c0 */
-extern undefined4 DAT_1002bf60; /* used by 4 fn(s), first 0x10007660 */
+extern undefined4 * DAT_1002bf60; /* used by 4 fn(s), first 0x10007660 */
 extern undefined4 DAT_1002bf64; /* used by 7 fn(s), first 0x100049b0 */
-extern undefined4 DAT_1002bf68; /* used by 4 fn(s), first 0x10007660 */
+extern undefined4 * DAT_1002bf68; /* used by 4 fn(s), first 0x10007660 */
 extern int * PTR_1002bf6c; /* used by 116 fn(s), first 0x100011e0 */
 extern int * DAT_1002bf70; /* used by 11 fn(s), first 0x10001db0 */
 extern undefined4 DAT_1002bf74; /* used by 4 fn(s), first 0x100079d0 */

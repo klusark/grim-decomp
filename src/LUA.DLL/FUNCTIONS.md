@@ -183,7 +183,7 @@
 | 10004ea0 | luaC_strcallIM | lgc.c | 21 |
 | 10004fc0 | lgc__4fc0 | lgc.c | 23 |
 | 10005010 | lgc__5010 | lgc.c | 18 |
-| 10005070 | lgc__5070 | lgc.c | 22 |
+| 10005070 | lgc__5070 | lgc.c | 1 |
 | 100050b0 | luaC_markall | lgc.c | 11 |
 | 100050e0 | luaC_travstack | lgc.c | 21 |
 | 10005120 | luaC_travglobal | lgc.c | 15 |
@@ -197,14 +197,14 @@
 | 100053d0 | io_getint | io.c | 1 |
 | 100053f0 | io_pushresult | io.c | 18 |
 | 10005430 | io_setfile | io.c | 1 |
-| 10005480 | io_getfilebyname | io.c | 17 |
+| 10005480 | io_getfilebyname | io.c | 1 |
 | 100054c0 | io_gethandle | io.c | 21 |
 | 10005520 | io_setreturn | io.c | 12 |
 | 10005550 | io_setfilebyname | io.c | 9 |
 | 10005570 | FUN_10005570 | io.c | 36 |
 | 10005620 | FUN_10005620 | io.c | 15 |
 | 10005660 | FUN_10005660 | io.c | 1 |
-| 10005780 | io_getfileparam | io.c | 19 |
+| 10005780 | io_getfileparam | io.c | 1 |
 | 100057d0 | FUN_100057d0 | io.c | 1 |
 | 10005870 | FUN_10005870 | io.c | 11 |
 | 100058a0 | FUN_100058a0 | io.c | 11 |
@@ -288,7 +288,7 @@
 | 100092e0 | lstring__92e0 | lstring.c | 52 |
 | 10009370 | lstring__9370 | lstring.c | 37 |
 | 100093e0 | lstring__93e0 | lstring.c | 16 |
-| 10009410 | lstring__9410 | lstring.c | 33 |
+| 10009410 | lstring__9410 | lstring.c | 1 |
 | 10009470 | lstring__9470 | lstring.c | 29 |
 | 100094e0 | lstring__94e0 | lstring.c | 13 |
 | 10009510 | lstring__9510 | lstring.c | 21 |
@@ -377,7 +377,7 @@
 | 1000c620 | luaH_set | ltable.c | 25 |
 | 1000c6b0 | luaH_rehash | ltable.c | 43 |
 | 1000c770 | luaH_nuse | ltable.c | 22 |
-| 1000c7b0 | luaH_next | ltable.c | 22 |
+| 1000c7b0 | luaH_next | ltable.c | 1 |
 | 1000c810 | ltable__c810 | ltable.c | 19 |
 | 1000c850 | luaT_init | ltm.c | 16 |
 | 1000c8a0 | ltm__c8a0 | ltm.c | 16 |
