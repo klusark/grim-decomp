@@ -8,6 +8,11 @@
     "mov dword ptr [esp+0x10],0",
     "9:"
    ]
+  },
+  "0049c8f0": {
+   "0049c8f6": [
+    "call _GRIM_lua_cmd_poll"
+   ]
   }
  }
 }

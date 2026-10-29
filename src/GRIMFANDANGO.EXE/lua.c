@@ -6,6 +6,8 @@
 #include "functions.h"
 
 /* ---- 0x00401ca0  Lua_Is3DHardwareEnabled ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: Is3DHardwareEnabled */
 
 void Lua_Is3DHardwareEnabled(void)
@@ -20,8 +22,12 @@ void Lua_Is3DHardwareEnabled(void)
   lua_pushnil();
   return;
 }
+#endif
+
 
 /* ---- 0x00401cc0  Lua_SetHardwareState ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: SetHardwareState */
 
 void Lua_SetHardwareState(void)
@@ -46,8 +52,12 @@ void Lua_SetHardwareState(void)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x00401d30  Lua_GetVideoDevices ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Variable defined which should be unmapped: local_10 */
 /* Lua opcode: GetVideoDevices */
 
@@ -66,6 +76,8 @@ void Lua_GetVideoDevices(void)
   return;
 }
 #undef local_10
+
+#endif
 
 
 /* ---- 0x00401da0  Lua_SetVideoDevices ---- */
@@ -184,6 +196,8 @@ LAB_00401f9e:
 
 
 /* ---- 0x00401fb0  Lua_EnumerateVideoDevices ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Variable defined which should be unmapped: local_1c */
 /* Lua opcode: EnumerateVideoDevices */
 
@@ -214,16 +228,24 @@ void Lua_EnumerateVideoDevices(void)
 }
 #undef local_1c
 
+#endif
+
 
 /* ---- 0x00402050  FUN_00402050 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_00402050(void)
 
 {
   g_quitRequested = 1;
   return;
 }
+#endif
+
 
 /* ---- 0x00482880  Lua_NextSetup ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: NextSetup */
 
 void Lua_NextSetup(void)
@@ -235,8 +257,12 @@ void Lua_NextSetup(void)
   Set_ChangeSetup((*(int *)((int)pvVar1 + 0xb4) + 1U) % *(uint *)((int)pvVar1 + 0xb0));
   return;
 }
+#endif
+
 
 /* ---- 0x004828a0  Lua_PreviousSetup ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: PreviousSetup */
 
 void Lua_PreviousSetup(void)
@@ -249,8 +275,12 @@ void Lua_PreviousSetup(void)
                   *(uint *)((int)pvVar1 + 0xb0));
   return;
 }
+#endif
+
 
 /* ---- 0x00486f50  Lua_IrisClear ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: IrisClear */
 
 void Lua_IrisClear(void)
@@ -274,6 +304,8 @@ void Lua_IrisClear(void)
 #undef local_4
 #undef local_8
 #undef local_c
+
+#endif
 
 
 /* ---- 0x00489840  Lua_DrawLine ---- */
@@ -826,6 +858,8 @@ void __cdecl Lua_KillPrimitive(void)
 
 
 /* ---- 0x0048a4a0  Lua_PurgePrimitiveQueue ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: PurgePrimitiveQueue */
 
 void Lua_PurgePrimitiveQueue(void)
@@ -835,6 +869,8 @@ void Lua_PurgePrimitiveQueue(void)
   Primitive_ResetIds();
   return;
 }
+#endif
+
 
 /* ---- 0x0048ad60  Lua_SetOffscreenTextPos ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -876,6 +912,8 @@ void Lua_SetOffscreenTextPos(void)
 
 
 /* ---- 0x0048ade0  Lua_SetEmergencyFont ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: SetEmergencyFont */
 
 void Lua_SetEmergencyFont(void)
@@ -905,8 +943,12 @@ void Lua_SetEmergencyFont(void)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x0048ae60  Lua_LocalizeString ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: LocalizeString */
 
 void Lua_LocalizeString(void)
@@ -933,6 +975,8 @@ void Lua_LocalizeString(void)
 }
 #undef local_280
 #undef local_2a0
+
+#endif
 
 
 /* ---- 0x0048aed0  Lua_MakeColor ---- */
@@ -1108,6 +1152,8 @@ LAB_0048b0c2:
 
 
 /* ---- 0x0048b100  Lua_GetColorComponents ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Variable defined which should be unmapped: local_14 */
 /* Lua opcode: GetColorComponents */
 
@@ -1128,8 +1174,12 @@ void Lua_GetColorComponents(void)
 }
 #undef local_14
 
+#endif
+
 
 /* ---- 0x0048b190  Lua_SetActorTalkColor ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: SetActorTalkColor */
 
 void Lua_SetActorTalkColor(void)
@@ -1163,8 +1213,12 @@ void Lua_SetActorTalkColor(void)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x0048b230  Lua_GetActorTalkColor ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: GetActorTalkColor */
 
 void Lua_GetActorTalkColor(void)
@@ -1189,8 +1243,12 @@ void Lua_GetActorTalkColor(void)
   lua_pushnil();
   return;
 }
+#endif
+
 
 /* ---- 0x0048b2a0  Lua_SetSayLineDefaults ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: SetSayLineDefaults */
 
 void Lua_SetSayLineDefaults(void)
@@ -1208,8 +1266,12 @@ void Lua_SetSayLineDefaults(void)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x0048b4c0  Lua_SayLine ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: SayLine */
 
 void Lua_SayLine(void)
@@ -1292,6 +1354,8 @@ void Lua_SayLine(void)
 #undef local_34
 #undef local_38
 #undef local_3c
+
+#endif
 
 
 /* ---- 0x0048b6a0  Lua_ParseSayLineTable ---- */
@@ -1450,6 +1514,8 @@ void Lua_PrintLine(void)
 
 
 /* ---- 0x0048b9a0  Lua_IsMessageGoing ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: IsMessageGoing */
 
 void Lua_IsMessageGoing(void)
@@ -1490,8 +1556,12 @@ LAB_0048ba30:
   }
   return;
 }
+#endif
+
 
 /* ---- 0x0048ba90  Lua_ExpireText ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: ExpireText */
 
 void Lua_ExpireText(void)
@@ -1509,8 +1579,12 @@ void Lua_ExpireText(void)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x0048baf0  Lua_PurgeText ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: PurgeText */
 
 void Lua_PurgeText(void)
@@ -1524,8 +1598,12 @@ void Lua_PurgeText(void)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x0048bb20  Lua_KillTextObject ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: KillTextObject */
 
 void Lua_KillTextObject(void)
@@ -1547,6 +1625,8 @@ void Lua_KillTextObject(void)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x0048bb70  Lua_GetFontDimensions ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -1574,6 +1654,8 @@ void Lua_GetFontDimensions(void)
 
 
 /* ---- 0x0048bbc0  Lua_GetTextObjectDimensions ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Variable defined which should be unmapped: local_14 */
 /* Lua opcode: GetTextObjectDimensions */
 
@@ -1603,6 +1685,8 @@ void Lua_GetTextObjectDimensions(void)
 }
 #undef local_14
 #undef local_4
+
+#endif
 
 
 /* ---- 0x0048bc50  Lua_GetTextCharPosition ---- */
@@ -1657,6 +1741,8 @@ void Lua_GetTextCharPosition(void)
 
 
 /* ---- 0x0048bd10  Lua_ChangeTextObject ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Variable defined which should be unmapped: local_18 */
 /* Lua opcode: ChangeTextObject */
 
@@ -1709,6 +1795,8 @@ void Lua_ChangeTextObject(void)
 }
 #undef local_18
 #undef local_4
+
+#endif
 
 
 /* ---- 0x0048be30  Lua_MakeTextObject ---- */
@@ -1860,6 +1948,8 @@ void Lua_BlastText(void)
 
 
 /* ---- 0x0048c960  Lua_GetTranslationMode ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Variable defined which should be unmapped: local_4 */
 /* Lua opcode: GetTranslationMode */
 
@@ -1873,6 +1963,8 @@ void Lua_GetTranslationMode(void)
   return;
 }
 #undef local_4
+
+#endif
 
 
 /* ---- 0x0048c980  Lua_SetTranslationMode ---- */
@@ -1948,6 +2040,8 @@ void Lua_GetKeyLength(void)
 
 
 /* ---- 0x00495900  Lua_GetSmushLength ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Variable defined which should be unmapped: local_c */
 /* Lua opcode: GetSmushLength */
 
@@ -1975,8 +2069,12 @@ void Lua_GetSmushLength(void)
 #undef local_4
 #undef local_c
 
+#endif
+
 
 /* ---- 0x00495960  FUN_00495960 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_00495960(void)
 
 {
@@ -1990,8 +2088,12 @@ void FUN_00495960(void)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x004959a0  FUN_004959a0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 FUN_004959a0(void)
 
 {
@@ -2154,8 +2256,12 @@ undefined4 FUN_004959a0(void)
 }
 #undef local_38
 
+#endif
+
 
 /* ---- 0x00495e90  FUN_00495e90 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 FUN_00495e90(char *param_1,undefined4 param_2,undefined4 param_3)
 
 {
@@ -2239,8 +2345,12 @@ undefined4 FUN_00495e90(char *param_1,undefined4 param_2,undefined4 param_3)
 }
 #undef acStack_20
 
+#endif
+
 
 /* ---- 0x00496020  FUN_00496020 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 FUN_00496020(undefined4 param_1,int param_2)
 
 {
@@ -2251,8 +2361,12 @@ undefined4 FUN_00496020(undefined4 param_1,int param_2)
   Cos_InstSetUserData(param_1,0);
   return 1;
 }
+#endif
+
 
 /* ---- 0x00497830  Lua_Stub ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcodes: PutActorAtOrigin, GetClippedPos, DriveActorTo, WalkActorToInterest, UnLockFont,
    LockSound, UnlockSound, LockCostume, UnlockCostume, PlaySound, PlaySoundAt, PlaySoundAttached,
    IsSoundPlaying, GetSectorVertices, LoadBundle, UnloadBundle
@@ -2263,8 +2377,12 @@ void Lua_Stub(void)
 {
   return;
 }
+#endif
+
 
 /* ---- 0x00497840  FUN_00497840 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 bool FUN_00497840(undefined4 param_1,int param_2,int param_3,undefined4 param_4)
 
 {
@@ -2281,8 +2399,12 @@ bool FUN_00497840(undefined4 param_1,int param_2,int param_3,undefined4 param_4)
   iVar2 = Cos_RegisterComponent(param_1,pcVar1,1,param_2,0,param_4,0);
   return iVar2 != 0;
 }
+#endif
+
 
 /* ---- 0x00497890  FUN_00497890 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_00497890(undefined4 param_1,int *param_2,undefined4 param_3,int param_4,uint param_5,
                  undefined4 param_6,undefined4 param_7,undefined4 param_8)
 
@@ -2424,8 +2546,12 @@ LAB_00497bc4:
   }
   return;
 }
+#endif
+
 
 /* ---- 0x00497cb0  FUN_00497cb0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_00497cb0(int param_1,int param_2,uint param_3)
 
 {
@@ -2440,6 +2566,8 @@ void FUN_00497cb0(int param_1,int param_2,uint param_3)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x00497d10  FUN_00497d10 ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -2579,6 +2707,8 @@ bool FUN_00497e10(undefined4 param_1,undefined4 param_2,int param_3,int param_4,
 
 
 /* ---- 0x00498000  FUN_00498000 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 FUN_00498000(int *param_1,undefined4 param_2)
 
 {
@@ -2614,8 +2744,12 @@ undefined4 FUN_00498000(int *param_1,undefined4 param_2)
 #undef local_2c
 #undef local_30
 
+#endif
+
 
 /* ---- 0x00498d80  Lua_GetMemoryUsage ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Variable defined which should be unmapped: local_8 */
 /* Lua opcode: GetMemoryUsage */
 
@@ -2634,8 +2768,12 @@ void Lua_GetMemoryUsage(void)
 #undef local_4
 #undef local_8
 
+#endif
+
 
 /* ---- 0x00498da0  Lua_GetDiskFreeSpace ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: GetDiskFreeSpace */
 
 void Lua_GetDiskFreeSpace(void)
@@ -2661,6 +2799,8 @@ void Lua_GetDiskFreeSpace(void)
 #undef local_18
 #undef local_4
 #undef uStack_8
+
+#endif
 
 
 /* ---- 0x00498e20  Lua_TEST ---- */
@@ -2715,6 +2855,8 @@ void Lua_ShrinkBoxes(uint param_1,float param_2,float param_3,float param_4,floa
 
 
 /* ---- 0x00498e90  Lua_UnShrinkBoxes ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: UnShrinkBoxes */
 
 void Lua_UnShrinkBoxes(void)
@@ -2724,6 +2866,8 @@ void Lua_UnShrinkBoxes(void)
   SectorList_FreeShrinkSave();
   return;
 }
+#endif
+
 
 /* ---- 0x00498ea0  Lua_GetShrinkPos ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -2937,6 +3081,8 @@ void Lua_SetSoundParameters(void)
 
 
 /* ---- 0x004991c0  Lua_GetSoundParameters ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Variable defined which should be unmapped: local_20 */
 /* Lua opcode: GetSoundParameters */
 
@@ -2975,16 +3121,24 @@ void Lua_GetSoundParameters(void)
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x00499250  Lua_SetDebugKeysCallback ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void Lua_SetDebugKeysCallback(uint param_1)
 
 {
   UINT_008cab8c = param_1;
   return;
 }
+#endif
+
 
 /* ---- 0x00499260  Lua_EnginePause ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: EnginePause */
 
 void Lua_EnginePause(void)
@@ -2993,8 +3147,12 @@ void Lua_EnginePause(void)
   Engine_SetPaused(1);
   return;
 }
+#endif
+
 
 /* ---- 0x00499270  Lua_EngineResume ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: EngineResume */
 
 void Lua_EngineResume(void)
@@ -3003,6 +3161,8 @@ void Lua_EngineResume(void)
   Engine_SetPaused(0);
   return;
 }
+#endif
+
 
 /* ---- 0x00499280  Lua_EngineDisplay ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -3026,6 +3186,8 @@ void Lua_EngineDisplay(void)
 
 
 /* ---- 0x004992b0  Lua_LoadActor ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: LoadActor */
 
 void Lua_LoadActor(void)
@@ -3043,8 +3205,12 @@ void Lua_LoadActor(void)
   lua_pushnil();
   return;
 }
+#endif
+
 
 /* ---- 0x004992d0  Lua_PutActorAtInterest ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: PutActorAtInterest */
 
 void Lua_PutActorAtInterest(void)
@@ -3082,8 +3248,12 @@ void Lua_PutActorAtInterest(void)
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x00499360  Lua_SetSelectedActor ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: SetSelectedActor */
 
 void Lua_SetSelectedActor(void)
@@ -3108,6 +3278,8 @@ void Lua_SetSelectedActor(void)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x004993c0  Lua_PutActorAt ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -3168,6 +3340,8 @@ void Lua_PutActorAt(void)
 
 
 /* ---- 0x004994a0  Lua_PutActorInSet ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: PutActorInSet */
 
 void Lua_PutActorInSet(void)
@@ -3205,6 +3379,8 @@ void Lua_PutActorInSet(void)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x00499590  Lua_WalkActorVector ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -3353,6 +3529,8 @@ void Lua_WalkActorVector(void)
 
 
 /* ---- 0x00499800  Lua_WalkActorForward ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: WalkActorForward */
 
 void Lua_WalkActorForward(void)
@@ -3374,6 +3552,8 @@ void Lua_WalkActorForward(void)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x00499860  Lua_WalkActorTo ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -3552,6 +3732,8 @@ void Lua_WalkActorToAvoiding(void)
 
 
 /* ---- 0x00499b80  Lua_IsActorMoving ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: IsActorMoving */
 
 void Lua_IsActorMoving(void)
@@ -3576,8 +3758,12 @@ void Lua_IsActorMoving(void)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x00499be0  Lua_IsActorTurning ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: IsActorTurning(actor). TRUE while extra+0x28 (angle left between visible yaw and
    walker heading) is not 0. That field is written only by Walker_UpdateYaw (0 once under 0.5
    degrees) and Actor_SetRot, so an actor without a walker is never turning. */
@@ -3606,6 +3792,8 @@ void Lua_IsActorTurning(void)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x00499c70  Lua_SetActorChoreLooping ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -3672,6 +3860,8 @@ void Lua_SetActorChoreLooping(void)
 
 
 /* ---- 0x00499da0  Lua_IsActorResting ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: IsActorResting */
 
 void Lua_IsActorResting(void)
@@ -3699,6 +3889,8 @@ void Lua_IsActorResting(void)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x00499e20  Lua_IsActorChoring ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -3799,6 +3991,8 @@ void Lua_IsActorChoring(void)
 
 
 /* ---- 0x00499ff0  Lua_GetActorChores ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Variable defined which should be unmapped: local_2c */
 /* Lua opcode: GetActorChores */
 
@@ -3876,8 +4070,12 @@ void Lua_GetActorChores(void)
 #undef local_c
 #undef uStack_4
 
+#endif
+
 
 /* ---- 0x0049a160  Lua_GetActorCostumeDepth ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Variable defined which should be unmapped: local_10 */
 /* Lua opcode: GetActorCostumeDepth */
 
@@ -3908,6 +4106,8 @@ void Lua_GetActorCostumeDepth(void)
 }
 #undef local_10
 #undef local_4
+
+#endif
 
 
 /* ---- 0x0049a1e0  Lua_GetActorCostume ---- */
@@ -3963,6 +4163,8 @@ LAB_0049a295:
 
 
 /* ---- 0x0049a2a0  Lua_GetActorLoopingChores ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Variable defined which should be unmapped: local_2c */
 /* Lua opcode: GetActorLoopingChores */
 
@@ -4040,8 +4242,12 @@ void Lua_GetActorLoopingChores(void)
 #undef local_c
 #undef uStack_4
 
+#endif
+
 
 /* ---- 0x0049a410  Lua_SetActorColormap ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Source: Scripts/sputLua.cpp (line 2035, from __FILE__/__LINE__ passed to the allocator) */
 
 void Lua_SetActorColormap(void)
@@ -4087,8 +4293,12 @@ void Lua_SetActorColormap(void)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x0049a500  Lua_SetActorCostume ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: SetActorCostume */
 
 void Lua_SetActorCostume(void)
@@ -4133,8 +4343,12 @@ void Lua_SetActorCostume(void)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x0049a5e0  Lua_PrintActorCostumes ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: PrintActorCostumes */
 
 void Lua_PrintActorCostumes(void)
@@ -4156,8 +4370,12 @@ void Lua_PrintActorCostumes(void)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x0049a640  Lua_PushActorCostume ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: PushActorCostume */
 
 void Lua_PushActorCostume(void)
@@ -4187,8 +4405,12 @@ void Lua_PushActorCostume(void)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x0049a6c0  Lua_PopActorCostume ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: PopActorCostume */
 
 void Lua_PopActorCostume(void)
@@ -4217,6 +4439,8 @@ void Lua_PopActorCostume(void)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x0049a750  Lua_StopActorChore ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -4427,6 +4651,8 @@ void Lua_PlayActorChoreLooping(void)
 
 
 /* ---- 0x0049aac0  Lua_ActorLookAt ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: ActorLookAt */
 
 void Lua_ActorLookAt(void)
@@ -4534,8 +4760,12 @@ void Lua_ActorLookAt(void)
 #undef local_4
 #undef local_8
 
+#endif
+
 
 /* ---- 0x0049ad30  Lua_IsActorLooking ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: IsActorLooking */
 
 void Lua_IsActorLooking(void)
@@ -4560,8 +4790,12 @@ void Lua_IsActorLooking(void)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x0049ad90  Lua_SetActorLookRate ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: SetActorLookRate */
 
 void Lua_SetActorLookRate(void)
@@ -4591,8 +4825,12 @@ void Lua_SetActorLookRate(void)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x0049ae10  Lua_GetActorLookRate ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: GetActorLookRate */
 
 void Lua_GetActorLookRate(void)
@@ -4617,8 +4855,12 @@ void Lua_GetActorLookRate(void)
   lua_pushnil();
   return;
 }
+#endif
+
 
 /* ---- 0x0049ae80  Lua_SetActorVisibility ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: SetActorVisibility */
 
 void Lua_SetActorVisibility(void)
@@ -4648,8 +4890,12 @@ void Lua_SetActorVisibility(void)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x0049af00  Lua_SetActorFollowBoxes ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: SetActorFollowBoxes */
 
 void Lua_SetActorFollowBoxes(void)
@@ -4679,8 +4925,12 @@ void Lua_SetActorFollowBoxes(void)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x0049af80  Lua_ShutUpActor ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: ShutUpActor */
 
 void Lua_ShutUpActor(void)
@@ -4704,6 +4954,8 @@ void Lua_ShutUpActor(void)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x0049afd0  Lua_SetActorFrustrumCull ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -4739,6 +4991,8 @@ void Lua_SetActorFrustrumCull(void)
 
 
 /* ---- 0x0049b040  Lua_GetCameraActor ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: GetCameraActor */
 
 void Lua_GetCameraActor(void)
@@ -4747,8 +5001,12 @@ void Lua_GetCameraActor(void)
   lua_pushusertag(g_nCameraActor,0x52544341);
   return;
 }
+#endif
+
 
 /* ---- 0x0049b060  Lua_GetActorWalkRate ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: GetActorWalkRate */
 
 void Lua_GetActorWalkRate(void)
@@ -4772,8 +5030,12 @@ void Lua_GetActorWalkRate(void)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x0049b0d0  Lua_SetActorWalkRate ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: SetActorWalkRate */
 
 void Lua_SetActorWalkRate(void)
@@ -4804,8 +5066,12 @@ void Lua_SetActorWalkRate(void)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x0049b160  Lua_GetActorTurnRate ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: GetActorTurnRate */
 
 void Lua_GetActorTurnRate(void)
@@ -4829,8 +5095,12 @@ void Lua_GetActorTurnRate(void)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x0049b1d0  Lua_SetActorTurnRate ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: SetActorTurnRate(actor, rate). Stores the rate at extra+0x1c, keeping the sign of the
    current rate (a negative rate is the pending snap flag). The value itself is not made absolute
    here; readers take |rate|. */
@@ -4871,6 +5141,8 @@ void Lua_SetActorTurnRate(void)
   return;
 }
 #undef local_4
+
+#endif
 
 
 /* ---- 0x0049b280  Lua_SetActorWalkChore ---- */
@@ -5331,6 +5603,8 @@ void Lua_CanActorSee(void)
 
 
 /* ---- 0x0049b9e0  Lua_GetVisibleThings ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: GetVisibleThings */
 
 void Lua_GetVisibleThings(void)
@@ -5381,6 +5655,8 @@ void Lua_GetVisibleThings(void)
 }
 #undef local_4
 #undef local_8
+
+#endif
 
 
 /* ---- 0x0049bb10  Lua_GetActorRect ---- */
@@ -5556,6 +5832,8 @@ void Lua_GetActorYawToPoint(void)
 
 
 /* ---- 0x0049be40  Lua_SetActorReflection ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Variable defined which should be unmapped: local_c */
 /* Lua opcode: SetActorReflection */
 
@@ -5588,8 +5866,12 @@ void Lua_SetActorReflection(void)
 }
 #undef local_c
 
+#endif
+
 
 /* ---- 0x0049bec0  Lua_GetActorPos ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: GetActorPos */
 
 void Lua_GetActorPos(void)
@@ -5612,8 +5894,12 @@ void Lua_GetActorPos(void)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x0049bf30  Lua_GetActorRot ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: GetActorRot */
 
 void Lua_GetActorRot(void)
@@ -5636,6 +5922,8 @@ void Lua_GetActorRot(void)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x0049bfa0  Lua_SetActorRot ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -5701,6 +5989,8 @@ void Lua_SetActorRot(void)
 
 
 /* ---- 0x0049c0a0  Lua_SetActorPitch ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: SetActorPitch */
 
 void Lua_SetActorPitch(void)
@@ -5726,8 +6016,12 @@ void Lua_SetActorPitch(void)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x0049c110  Lua_SetActorRoll ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: SetActorRoll */
 
 void Lua_SetActorRoll(void)
@@ -5753,8 +6047,12 @@ void Lua_SetActorRoll(void)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x0049c180  Lua_TurnActor ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Variable defined which should be unmapped: local_c */
 /* Lua opcode: TurnActor */
 
@@ -5787,6 +6085,8 @@ void Lua_TurnActor(void)
   return;
 }
 #undef local_c
+
+#endif
 
 
 /* ---- 0x0049c200  Lua_GetActorSector ---- */
@@ -6031,6 +6331,8 @@ void Lua_IsPointInSector(void)
 
 
 /* ---- 0x0049c5e0  Lua_RunSystemScript ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* lua_dofile('_system.lua') */
 
 bool Lua_RunSystemScript(void)
@@ -6041,8 +6343,12 @@ bool Lua_RunSystemScript(void)
   iVar1 = lua_dofile(s__system_lua_004ec3bc);
   return iVar1 == 0;
 }
+#endif
+
 
 /* ---- 0x0049c600  Lua_CallSystemFunction ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Calls the global Lua function named by the string at 0x004ec3c8 with (flag, str) */
 
 int __cdecl Lua_CallSystemFunction(int flag,char *str)
@@ -6067,8 +6373,12 @@ int __cdecl Lua_CallSystemFunction(int flag,char *str)
   iVar2 = lua_callfunction(uVar1);
   return (uint)(iVar2 == 0);
 }
+#endif
+
 
 /* ---- 0x0049c660  Lua_CallCamChangeHandler ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Variable defined which should be unmapped: local_c */
 /* system.camChangeHandler(from, to) */
 
@@ -6096,8 +6406,12 @@ void __cdecl Lua_CallCamChangeHandler(int fromSetup,int toSetup)
 }
 #undef local_c
 
+#endif
+
 
 /* ---- 0x0049c6e0  Lua_CallPostCamChangeHandler ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Variable defined which should be unmapped: local_8 */
 /* system.postCamChangeHandler(setup) */
 
@@ -6124,8 +6438,12 @@ void __cdecl Lua_CallPostCamChangeHandler(int setup)
 }
 #undef local_8
 
+#endif
+
 
 /* ---- 0x0049c8f0  Lua_UpdateFrame ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Variable defined which should be unmapped: local_1c */
 /* Per frame: stores system.frameTime and system.movieTime, collects garbage every 10 s, runs
    lua_updatetasks */
@@ -6162,8 +6480,12 @@ void Lua_UpdateFrame(void)
 }
 #undef local_1c
 
+#endif
+
 
 /* ---- 0x0049ca60  Lua_OpenEngineLib ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* lua_openlib() wrapper used to register the 279-entry engine opcode table at 0x004ea8b0 */
 
 void Lua_OpenEngineLib(undefined4 param_1,undefined4 param_2)
@@ -6172,8 +6494,12 @@ void Lua_OpenEngineLib(undefined4 param_1,undefined4 param_2)
   lua_openlib(param_1,param_2);
   return;
 }
+#endif
+
 
 /* ---- 0x0049ca80  Lua_JustLoaded ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: JustLoaded */
 
 void Lua_JustLoaded(void)
@@ -6191,8 +6517,12 @@ void Lua_JustLoaded(void)
   lua_pushnil();
   return;
 }
+#endif
+
 
 /* ---- 0x0049caa0  Lua_ActorVoiceIs3D ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: ActorVoiceIs3D */
 
 void Lua_ActorVoiceIs3D(void)
@@ -6219,6 +6549,8 @@ void Lua_ActorVoiceIs3D(void)
   *(uint *)(iVar3 + 4) = *(uint *)(iVar3 + 4) | 8;
   return;
 }
+#endif
+
 
 /* ---- 0x0049cb10  Lua_ResolveCostumeArg ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -6279,6 +6611,8 @@ int __cdecl Lua_ResolveCostumeArg(void *luaObj,void *costumeList,void **outCostu
 
 
 /* ---- 0x0049cbe0  Lua_FunctionName ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: FunctionName */
 
 void Lua_FunctionName(void)
@@ -6334,8 +6668,12 @@ void Lua_FunctionName(void)
 #undef local_10c
 #undef local_ff
 
+#endif
+
 
 /* ---- 0x0049cca0  Lua_CheckForFile ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: CheckForFile */
 
 void Lua_CheckForFile(void)
@@ -6360,8 +6698,12 @@ void Lua_CheckForFile(void)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x0049cd10  Lua_NukeResources ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: NukeResources */
 
 void Lua_NukeResources(void)
@@ -6373,8 +6715,12 @@ void Lua_NukeResources(void)
   g_pShadowMaterial = (void *)0x0;
   return;
 }
+#endif
+
 
 /* ---- 0x0049cd40  Lua_DetachFromResources ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: DetachFromResources */
 
 void Lua_DetachFromResources(void)
@@ -6385,8 +6731,12 @@ void Lua_DetachFromResources(void)
   Resource_CloseArchives();
   return;
 }
+#endif
+
 
 /* ---- 0x0049cd50  Lua_AttachToResources ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: AttachToResources */
 
 void Lua_AttachToResources(void)
@@ -6396,8 +6746,12 @@ void Lua_AttachToResources(void)
   Resource_OpenArchives();
   return;
 }
+#endif
+
 
 /* ---- 0x0049cd60  Lua_SearchForFileOrSwapCDs ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: SearchForFileOrSwapCDs */
 
 void Lua_SearchForFileOrSwapCDs(void)
@@ -6462,8 +6816,12 @@ void Lua_SearchForFileOrSwapCDs(void)
 }
 #undef local_4
 
+#endif
+
 
 /* ---- 0x0049cea0  Lua_Load ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: Load */
 
 void Lua_Load(void)
@@ -6485,8 +6843,12 @@ void Lua_Load(void)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x0049cef0  Lua_Save ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: Save */
 
 void Lua_Save(void)
@@ -6508,8 +6870,12 @@ void Lua_Save(void)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x0049cf40  Lua_EnableDebugKeys ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: EnableDebugKeys */
 
 void Lua_EnableDebugKeys(void)
@@ -6521,6 +6887,8 @@ void Lua_EnableDebugKeys(void)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x0049cf60  Lua_WorldToScreen ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -6655,6 +7023,8 @@ void Lua_ScreenToWorld(void)
 
 
 /* ---- 0x0049d140  Lua_TypeOverride ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Variable defined which should be unmapped: local_14 */
 /* Lua opcode: Lua_TypeOverride */
 
@@ -6706,8 +7076,12 @@ LAB_0049d199:
 #undef local_14
 #undef local_4
 
+#endif
+
 
 /* ---- 0x0049d220  Lua_ConcatFallback ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: Lua_ConcatFallback */
 
 void Lua_ConcatFallback(void)
@@ -6797,6 +7171,8 @@ LAB_0049d34b:
 #undef local_80
 #undef local_84
 #undef local_88
+
+#endif
 
 
 /* ---- 0x0049d3a0  Lua_exit ---- */
@@ -7083,6 +7459,8 @@ void __cdecl Lua_CallCostumeMarkerHandler(void *actor,uint marker)
 
 
 /* ---- 0x0049d7b0  Lua_CallUserPaintHandler ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* system.userPaintHandler() after a restore */
 
 void Lua_CallUserPaintHandler(void)
@@ -7137,8 +7515,12 @@ void Lua_CallUserPaintHandler(void)
 }
 #undef local_4
 
+#endif
+
 
 /* ---- 0x0049d890  Lua_CallExitHandler ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* system.exitHandler(); returns 1 when a handler existed */
 
 uint Lua_CallExitHandler(void)
@@ -7192,8 +7574,12 @@ uint Lua_CallExitHandler(void)
 }
 #undef local_4
 
+#endif
+
 
 /* ---- 0x0049d970  Lua_CallPauseHandler ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* system.pauseHandler() (Pause key) */
 
 uint Lua_CallPauseHandler(void)
@@ -7247,8 +7633,12 @@ uint Lua_CallPauseHandler(void)
 }
 #undef local_4
 
+#endif
+
 
 /* ---- 0x0049da50  Lua_CallCharacterHandler ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* system.characterHandler(char); true when the script consumed it */
 
 int __cdecl Lua_CallCharacterHandler(int ch)
@@ -7311,6 +7701,8 @@ int __cdecl Lua_CallCharacterHandler(int ch)
 }
 #undef local_4
 #undef local_6
+
+#endif
 
 
 /* ---- 0x0049db70  Lua_MakeCurrentSetup ---- */
@@ -7391,6 +7783,8 @@ void Lua_GetCurrentSetup(void)
 
 
 /* ---- 0x0049dc70  Lua_MakeCurrentSet ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: MakeCurrentSet */
 
 void Lua_MakeCurrentSet(void)
@@ -7410,8 +7804,12 @@ void Lua_MakeCurrentSet(void)
   Set_MakeCurrent(name);
   return;
 }
+#endif
+
 
 /* ---- 0x0049dcb0  Lua_LockSet ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Source: Scripts/sputLua.cpp (line 5305, from __FILE__/__LINE__ passed to the allocator) */
 
 void Lua_LockSet(void)
@@ -7434,8 +7832,12 @@ void Lua_LockSet(void)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x0049dd10  Lua_UnLockSet ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: UnLockSet */
 
 void Lua_UnLockSet(void)
@@ -7457,8 +7859,12 @@ void Lua_UnLockSet(void)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x0049dd70  Lua_PrintMessage ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: PrintMessage */
 
 void Lua_PrintMessage(void)
@@ -7482,8 +7888,12 @@ void Lua_PrintMessage(void)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x0049ddd0  Lua_Print_NoOp ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcodes: PrintError, PrintWarning, PrintDebug
    PrintError / PrintWarning / PrintDebug: no-op in the release build */
 
@@ -7500,8 +7910,12 @@ void Lua_Print_NoOp(void)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x0049de00  Lua_InitGameLibs ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 Lua_InitGameLibs(void)
 
 {
@@ -7550,8 +7964,12 @@ undefined4 Lua_InitGameLibs(void)
 }
 #undef acStack_20
 
+#endif
+
 
 /* ---- 0x0049dfa0  Lua_SaveUserdataHook ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* lua_savehook: STAT userdata is written as setup<<16 | index in the setup's object state list */
 
 uint Lua_SaveUserdataHook(int param_1,uint param_2)
@@ -7587,8 +8005,12 @@ uint Lua_SaveUserdataHook(int param_1,uint param_2)
   }
   return 0xffffffff;
 }
+#endif
+
 
 /* ---- 0x0049e020  Lua_RestoreUserdataHook ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* lua_restorehook: rebuilds STAT, FONT and TEXT userdata pointers from their saved ids */
 
 void * Lua_RestoreUserdataHook(int param_1,void *param_2)
@@ -7626,8 +8048,12 @@ void * Lua_RestoreUserdataHook(int param_1,void *param_2)
   }
   return param_2;
 }
+#endif
+
 
 /* ---- 0x0049e0b0  Lua_DispatchControlHandlers ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Variable defined which should be unmapped: local_58 */
 /* Calls system.buttonHandler / system.axisHandler for every enabled control whose state changed
    (last value kept at control+8) */
@@ -7795,8 +8221,12 @@ undefined4 Lua_DispatchControlHandlers(void)
 #undef uStack_4
 #undef uStack_c
 
+#endif
+
 
 /* ---- 0x0049e380  Lua_CreateSystemTable ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Creates the global `system` table with the controls table and stub camChange/axis/button
    handlers; returns its ref */
 
@@ -7829,8 +8259,12 @@ undefined4 Lua_CreateSystemTable(void)
   lua_settable();
   return uVar1;
 }
+#endif
+
 
 /* ---- 0x0049e460  Lua_CreateControlsTable ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Variable defined which should be unmapped: local_1c */
 /* system.controls[name] = index for every entry of g_ControlTable (name at control+0xc) */
 
@@ -7866,8 +8300,12 @@ void Lua_CreateControlsTable(undefined4 param_1)
 }
 #undef local_1c
 
+#endif
+
 
 /* ---- 0x0049e500  FUN_0049e500 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_0049e500(void)
 
 {
@@ -7878,8 +8316,12 @@ void FUN_0049e500(void)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x0049e530  FUN_0049e530 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_0049e530(void)
 
 {
@@ -7894,6 +8336,8 @@ void FUN_0049e530(void)
   UINT_008cab80 = 0;
   return;
 }
+#endif
+
 
 /* ---- 0x0049e590  Lua_SetSoundPosition ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -8063,6 +8507,8 @@ void Lua_StartFullscreenMovie(void)
 
 
 /* ---- 0x0049e860  Lua_PauseMovie ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: PauseMovie */
 
 void Lua_PauseMovie(void)
@@ -8076,6 +8522,8 @@ void Lua_PauseMovie(void)
   Movie_SetPaused(paused);
   return;
 }
+#endif
+
 
 /* ---- 0x0049e880  Lua_StartMovie ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -8134,6 +8582,8 @@ void Lua_StartMovie(void)
 
 
 /* ---- 0x0049e960  Lua_IsMoviePlaying ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcodes: IsFullscreenMoviePlaying, IsMoviePlaying
    also registered as IsFullscreenMoviePlaying */
 
@@ -8152,8 +8602,12 @@ void Lua_IsMoviePlaying(void)
   lua_pushnil();
   return;
 }
+#endif
+
 
 /* ---- 0x0049e980  Lua_FileFindFirst ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: FileFindFirst */
 
 void __fastcall Lua_FileFindFirst(char *param_1)
@@ -8192,8 +8646,12 @@ void __fastcall Lua_FileFindFirst(char *param_1)
 }
 #undef local_4
 
+#endif
+
 
 /* ---- 0x0049ea20  Lua_FileFindNext ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: FileFindNext */
 
 void Lua_FileFindNext(void)
@@ -8224,8 +8682,12 @@ void Lua_FileFindNext(void)
 #undef local_10c
 #undef local_8
 
+#endif
+
 
 /* ---- 0x0049ea90  Lua_FileFindDispose ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: FileFindDispose */
 
 void Lua_FileFindDispose(void)
@@ -8237,8 +8699,12 @@ void Lua_FileFindDispose(void)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x0049eab0  Lua_QueryDialog ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: QueryDialog */
 
 void Lua_QueryDialog(void)
@@ -8275,8 +8741,12 @@ void Lua_QueryDialog(void)
   lua_pushnil();
   return;
 }
+#endif
+
 
 /* ---- 0x0049eb60  Lua_InputDialog ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: InputDialog */
 
 void Lua_InputDialog(void)
@@ -8338,8 +8808,12 @@ LAB_0049ec38:
 #undef local_68
 #undef local_6c
 
+#endif
+
 
 /* ---- 0x0049ec50  Lua_WriteRegistryValue ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: WriteRegistryValue */
 
 void Lua_WriteRegistryValue(void)
@@ -8374,8 +8848,12 @@ void Lua_WriteRegistryValue(void)
 }
 #undef local_4
 
+#endif
+
 
 /* ---- 0x0049ece0  Lua_ReadRegistryValue ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: ReadRegistryValue */
 
 void Lua_ReadRegistryValue(void)
@@ -8411,8 +8889,12 @@ void Lua_ReadRegistryValue(void)
 #undef local_100
 #undef local_104
 
+#endif
+
 
 /* ---- 0x0049ed90  Lua_GetSectorOppositeEdge ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: GetSectorOppositeEdge */
 
 void Lua_GetSectorOppositeEdge(void)
@@ -8446,6 +8928,8 @@ void Lua_GetSectorOppositeEdge(void)
   lua_pushnil();
   return;
 }
+#endif
+
 
 /* ---- 0x0049ee20  Lua_IsSectorActive ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -8539,6 +9023,8 @@ void Lua_MakeSectorActive(void)
 
 
 /* ---- 0x0049ef50  Lua_PreRender ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: PreRender */
 
 void Lua_PreRender(void)
@@ -8557,8 +9043,12 @@ void Lua_PreRender(void)
   Render_InvalidateBackground((uint)(iVar3 == 0),redrawDepth);
   return;
 }
+#endif
+
 
 /* ---- 0x0049efc0  Lua_GetCurrentScript ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: GetCurrentScript */
 
 void Lua_GetCurrentScript(void)
@@ -8570,8 +9060,12 @@ void Lua_GetCurrentScript(void)
   lua_pushtask(uVar1);
   return;
 }
+#endif
+
 
 /* ---- 0x0049efe0  Lua_LockFont ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: LockFont */
 
 void Lua_LockFont(void)
@@ -8597,8 +9091,12 @@ void Lua_LockFont(void)
   lua_pushusertag(pvVar3,0x544e4f46);
   return;
 }
+#endif
+
 
 /* ---- 0x0049f040  Lua_LoadCostume ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: LoadCostume */
 
 void Lua_LoadCostume(void)
@@ -8618,6 +9116,8 @@ void Lua_LoadCostume(void)
   Resource_Load(0x54534f43,name);
   return;
 }
+#endif
+
 
 /* ---- 0x0049f080  Lua_GetPhysicalBytes ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -8763,6 +9263,8 @@ void Lua_RotateVector(void)
 
 
 /* ---- 0x0049f2b0  Lua_GetCameraPosition ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: GetCameraPosition */
 
 void Lua_GetCameraPosition(void)
@@ -8776,8 +9278,12 @@ void Lua_GetCameraPosition(void)
   lua_pushnumber(g_pCameraSetup[2]);
   return;
 }
+#endif
+
 
 /* ---- 0x0049f300  Lua_GetCameraInterest ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: GetCameraInterest */
 
 void Lua_GetCameraInterest(void)
@@ -8791,8 +9297,12 @@ void Lua_GetCameraInterest(void)
   lua_pushnumber(g_pCameraSetup[5]);
   return;
 }
+#endif
+
 
 /* ---- 0x0049f350  Lua_GetCameraFOV ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: GetCameraFOV */
 
 void Lua_GetCameraFOV(void)
@@ -8804,8 +9314,12 @@ void Lua_GetCameraFOV(void)
   lua_pushnumber(g_pCameraSetup[7]);
   return;
 }
+#endif
+
 
 /* ---- 0x0049f380  Lua_GetCameraRoll ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: GetCameraRoll */
 
 void Lua_GetCameraRoll(void)
@@ -8817,8 +9331,12 @@ void Lua_GetCameraRoll(void)
   lua_pushnumber(g_pCameraSetup[6]);
   return;
 }
+#endif
+
 
 /* ---- 0x0049f3b0  Lua_SetCameraPosition ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Variable defined which should be unmapped: local_14 */
 /* Lua opcode: SetCameraPosition */
 
@@ -8861,8 +9379,12 @@ LAB_0049f40e:
 }
 #undef local_14
 
+#endif
+
 
 /* ---- 0x0049f480  Lua_SetCameraInterest ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Variable defined which should be unmapped: local_14 */
 /* Lua opcode: SetCameraInterest */
 
@@ -8905,8 +9427,12 @@ LAB_0049f4de:
 }
 #undef local_14
 
+#endif
+
 
 /* ---- 0x0049f550  Lua_SetActorScale ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: SetActorScale */
 
 void Lua_SetActorScale(void)
@@ -8937,8 +9463,12 @@ void Lua_SetActorScale(void)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x0049f5d0  Lua_SetActorTimeScale ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: SetActorTimeScale */
 
 void Lua_SetActorTimeScale(void)
@@ -8980,6 +9510,8 @@ void Lua_SetActorTimeScale(void)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x0049f690  Lua_GetActorNodeLocation ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -9064,6 +9596,8 @@ void Lua_GetActorNodeLocation(void)
 
 
 /* ---- 0x0049f810  Lua_GetActorScale ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: GetActorScale */
 
 void Lua_GetActorScale(void)
@@ -9084,8 +9618,12 @@ void Lua_GetActorScale(void)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x0049f860  Lua_GetActorTimeScale ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: GetActorTimeScale */
 
 void Lua_GetActorTimeScale(void)
@@ -9109,8 +9647,12 @@ void Lua_GetActorTimeScale(void)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x0049f8d0  Lua_SetCameraFOV ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: SetCameraFOV */
 
 void Lua_SetCameraFOV(void)
@@ -9133,8 +9675,12 @@ void Lua_SetCameraFOV(void)
   *(float *)((int)g_pCameraSetup[10] + 0x38) = g_pCameraSetup[7];
   return;
 }
+#endif
+
 
 /* ---- 0x0049f930  Lua_SetCameraRoll ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Variable defined which should be unmapped: local_c */
 /* Lua opcode: SetCameraRoll */
 
@@ -9162,6 +9708,8 @@ void Lua_SetCameraRoll(void)
   return;
 }
 #undef local_c
+
+#endif
 
 
 /* ---- 0x0049f9b0  Lua_GetCameraLookVector ---- */
@@ -9389,6 +9937,8 @@ LAB_0049fde2:
 
 
 /* ---- 0x0049fdf0  Lua_PerSecond ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Variable defined which should be unmapped: local_c */
 /* Lua opcode: PerSecond */
 
@@ -9413,6 +9963,8 @@ void Lua_PerSecond(void)
 }
 #undef local_4
 #undef local_c
+
+#endif
 
 
 /* ---- 0x0049fe40  Lua_SnapToPlane ---- */
@@ -9626,6 +10178,8 @@ void Lua_GetAngleBetweenActors(void)
 
 
 /* ---- 0x004a0230  Lua_SetAmbientLight ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Variable defined which should be unmapped: local_c */
 /* Lua opcode: SetAmbientLight */
 
@@ -9654,8 +10208,12 @@ void Lua_SetAmbientLight(void)
 }
 #undef local_c
 
+#endif
+
 
 /* ---- 0x004a0290  Lua_FindLight ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Variable defined which should be unmapped: local_c */
 /* Lua opcode: FindLight */
 
@@ -9684,6 +10242,8 @@ void Lua_FindLight(void)
 }
 #undef local_4
 #undef local_c
+
+#endif
 
 
 /* ---- 0x004a02f0  Lua_TurnLightOn ---- */
@@ -10521,6 +11081,8 @@ LAB_004a0f08:
 
 
 /* ---- 0x004a0f20  Lua_ImStartRecording ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: ImStartRecording */
 
 void Lua_ImStartRecording(void)
@@ -10540,6 +11102,8 @@ void Lua_ImStartRecording(void)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x004a0f80  Lua_ImStartSound ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -10822,6 +11386,8 @@ void Lua_ImFadeParam(void)
 
 
 /* ---- 0x004a13d0  Lua_ImGetMasterVol ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Variable defined which should be unmapped: local_8 */
 /* WARNING: Variable defined which should be unmapped: local_4 */
 /* Lua opcode: ImGetMasterVol */
@@ -10840,6 +11406,8 @@ void __fastcall Lua_ImGetMasterVol(undefined4 param_1)
 }
 #undef local_4
 #undef local_8
+
+#endif
 
 
 /* ---- 0x004a1400  Lua_ImSetMasterVol ---- */
@@ -10870,6 +11438,8 @@ void Lua_ImSetMasterVol(void)
 
 
 /* ---- 0x004a1440  Lua_ImGetSfxVol ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Variable defined which should be unmapped: local_8 */
 /* WARNING: Variable defined which should be unmapped: local_4 */
 /* Lua opcode: ImGetSfxVol */
@@ -10888,6 +11458,8 @@ void __fastcall Lua_ImGetSfxVol(undefined4 param_1)
 }
 #undef local_4
 #undef local_8
+
+#endif
 
 
 /* ---- 0x004a1470  Lua_ImSetSfxVol ---- */
@@ -10918,6 +11490,8 @@ void Lua_ImSetSfxVol(void)
 
 
 /* ---- 0x004a14b0  Lua_ImGetVoiceVol ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Variable defined which should be unmapped: local_8 */
 /* WARNING: Variable defined which should be unmapped: local_4 */
 /* Lua opcode: ImGetVoiceVol */
@@ -10936,6 +11510,8 @@ void __fastcall Lua_ImGetVoiceVol(undefined4 param_1)
 }
 #undef local_4
 #undef local_8
+
+#endif
 
 
 /* ---- 0x004a14e0  Lua_ImSetVoiceVol ---- */
@@ -10966,6 +11542,8 @@ void Lua_ImSetVoiceVol(void)
 
 
 /* ---- 0x004a1520  Lua_ImGetMusicVol ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Variable defined which should be unmapped: local_8 */
 /* WARNING: Variable defined which should be unmapped: local_4 */
 /* Lua opcode: ImGetMusicVol */
@@ -10984,6 +11562,8 @@ void __fastcall Lua_ImGetMusicVol(undefined4 param_1)
 }
 #undef local_4
 #undef local_8
+
+#endif
 
 
 /* ---- 0x004a1550  Lua_ImSetMusicVol ---- */
@@ -11181,6 +11761,8 @@ void Lua_ImSetAttribute(void)
 
 
 /* ---- 0x004a17b0  Lua_ImSetVoiceEffect ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcodes: vfx, ImSetVoiceEffect
    also registered as `vfx` */
 
@@ -11199,8 +11781,12 @@ void Lua_ImSetVoiceEffect(void)
   iMUSE_SetVoiceEffect(uVar1);
   return;
 }
+#endif
+
 
 /* ---- 0x004a17f0  Lua_ImGetMemoryFootprint ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Variable defined which should be unmapped: local_c */
 /* Lua opcode: ImGetMemoryFootprint */
 
@@ -11217,8 +11803,12 @@ void Lua_ImGetMemoryFootprint(void)
 }
 #undef local_c
 
+#endif
+
 
 /* ---- 0x004a1820  Lua_ImGetSoundCacheSize ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Variable defined which should be unmapped: local_c */
 /* Lua opcode: ImGetSoundCacheSize */
 
@@ -11235,8 +11825,12 @@ void Lua_ImGetSoundCacheSize(void)
 }
 #undef local_c
 
+#endif
+
 
 /* ---- 0x004a1850  Lua_SetGamma ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Variable defined which should be unmapped: local_8 */
 /* Lua opcode: SetGamma */
 
@@ -11259,8 +11853,12 @@ void Lua_SetGamma(void)
 }
 #undef local_8
 
+#endif
+
 
 /* ---- 0x004a1890  Lua_SetActorWalkDominate ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: SetActorWalkDominate */
 
 void Lua_SetActorWalkDominate(void)
@@ -11285,8 +11883,12 @@ void Lua_SetActorWalkDominate(void)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x004a1900  Lua_SetActorConstrain ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: SetActorConstrain */
 
 void Lua_SetActorConstrain(void)
@@ -11310,8 +11912,12 @@ void Lua_SetActorConstrain(void)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x004a1970  Lua_RenderModeUser ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: RenderModeUser */
 
 void Lua_RenderModeUser(void)
@@ -11336,8 +11942,12 @@ void Lua_RenderModeUser(void)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x004a19f0  Lua_DimScreen ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: DimScreen */
 
 void Lua_DimScreen(void)
@@ -11346,6 +11956,8 @@ void Lua_DimScreen(void)
   Render_DimBackground(0,2);
   return;
 }
+#endif
+
 
 /* ---- 0x004a1a00  Lua_DimRegion ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -11450,6 +12062,8 @@ void Lua_SetSpeechMode(void)
 
 
 /* ---- 0x004a1b40  Lua_GetSpeechMode ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: GetSpeechMode */
 
 void Lua_GetSpeechMode(void)
@@ -11471,8 +12085,12 @@ void Lua_GetSpeechMode(void)
   lua_pushnumber(FBITS(0x40000000));
   return;
 }
+#endif
+
 
 /* ---- 0x004a1b80  Lua_ActorShadow ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: ActorShadow */
 
 void Lua_ActorShadow(void)
@@ -11500,6 +12118,8 @@ void Lua_ActorShadow(void)
   lua_pushnil();
   return;
 }
+#endif
+
 
 /* ---- 0x004a1bf0  Lua_ActivateActorShadow ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -11543,6 +12163,8 @@ void Lua_ActivateActorShadow(void)
 
 
 /* ---- 0x004a1c90  Lua_SetActorShadowPlane ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: SetActorShadowPlane */
 
 void Lua_SetActorShadowPlane(void)
@@ -11569,8 +12191,12 @@ void Lua_SetActorShadowPlane(void)
   lua_pushnil();
   return;
 }
+#endif
+
 
 /* ---- 0x004a1d10  Lua_SetActorShadowPoint ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Variable defined which should be unmapped: local_18 */
 /* WARNING: Variable defined which should be unmapped: local_1c */
 /* WARNING: Variable defined which should be unmapped: local_20 */
@@ -11619,6 +12245,8 @@ void Lua_SetActorShadowPoint(void)
 #undef local_1c
 #undef local_20
 #undef local_4
+
+#endif
 
 
 /* ---- 0x004a1dc0  Lua_SetActiveShadow ---- */
@@ -11716,6 +12344,8 @@ void Lua_ActorDistToShadowPlane(void)
 
 
 /* ---- 0x004a1f30  Lua_AddShadowPlane ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: AddShadowPlane */
 
 void Lua_AddShadowPlane(void)
@@ -11747,6 +12377,8 @@ void Lua_AddShadowPlane(void)
   lua_pushnil();
   return;
 }
+#endif
+
 
 /* ---- 0x004a1fd0  Lua_SetActorShadowValid ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -11789,6 +12421,8 @@ void Lua_SetActorShadowValid(void)
 
 
 /* ---- 0x004a2070  Lua_KillActorShadows ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: KillActorShadows */
 
 void Lua_KillActorShadows(void)
@@ -11813,6 +12447,8 @@ void Lua_KillActorShadows(void)
   lua_pushnil();
   return;
 }
+#endif
+
 
 /* ---- 0x004a20d0  Lua_SetShadowColor ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -11903,6 +12539,8 @@ void Lua_NewObjectState(void)
 
 
 /* ---- 0x004a21f0  Lua_FreeObjectState ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: FreeObjectState */
 
 void Lua_FreeObjectState(void)
@@ -11925,8 +12563,12 @@ void Lua_FreeObjectState(void)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x004a2240  Lua_SendObjectToBack ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: SendObjectToBack */
 
 void Lua_SendObjectToBack(void)
@@ -11955,8 +12597,12 @@ void Lua_SendObjectToBack(void)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x004a22b0  Lua_SendObjectToFront ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: SendObjectToFront */
 
 void Lua_SendObjectToFront(void)
@@ -11985,6 +12631,8 @@ void Lua_SendObjectToFront(void)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x004a2320  Lua_SetObjectType ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -12021,6 +12669,8 @@ void Lua_SetObjectType(void)
 
 
 /* ---- 0x004a2380  Lua_ActorToClean ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: ActorToClean */
 
 void Lua_ActorToClean(void)
@@ -12045,6 +12695,8 @@ void Lua_ActorToClean(void)
   lua_pushnil();
   return;
 }
+#endif
+
 
 /* ---- 0x004a23e0  Lua_SetActorCollisionMode ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -12086,6 +12738,8 @@ void Lua_SetActorCollisionMode(void)
 
 
 /* ---- 0x004a2470  Lua_SetActorCollisionScale ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: SetActorCollisionScale */
 
 void Lua_SetActorCollisionScale(void)
@@ -12116,8 +12770,12 @@ void Lua_SetActorCollisionScale(void)
   lua_pushnil();
   return;
 }
+#endif
+
 
 /* ---- 0x004a2500  Lua_SetActorOffsetYaw ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: SetActorOffsetYaw */
 
 void Lua_SetActorOffsetYaw(void)
@@ -12148,6 +12806,8 @@ void Lua_SetActorOffsetYaw(void)
   lua_pushnil();
   return;
 }
+#endif
+
 
 /* ---- 0x004a2590  Lua_CacheRect ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -12279,6 +12939,8 @@ void __fastcall Lua_ResReport(undefined4 param_1)
 
 
 /* ---- 0x004a2720  Lua_HardwareAccelerated ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: HardwareAccelerated */
 
 void Lua_HardwareAccelerated(void)
@@ -12291,6 +12953,8 @@ void Lua_HardwareAccelerated(void)
   lua_pushnumber(0);
   return;
 }
+#endif
+
 
 /* ---- 0x004a2750  Lua_SetActorClipActive ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -12670,6 +13334,8 @@ void __fastcall Lua_IrisComplete(undefined4 param_1)
 
 
 /* ---- 0x004a2d00  Lua_TextFileGetLineCount ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Variable defined which should be unmapped: local_21c */
 /* Lua opcode: TextFileGetLineCount */
 
@@ -12724,6 +13390,8 @@ void Lua_TextFileGetLineCount(void)
 #undef local_204
 #undef local_208
 #undef local_21c
+
+#endif
 
 
 /* ---- 0x004a2e20  Lua_TextFileGetLine ---- */
@@ -12829,6 +13497,8 @@ LAB_004a2f5e:
 
 
 /* ---- 0x004a2f90  Lua_SaveScreen ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: SaveScreen */
 
 void Lua_SaveScreen(void)
@@ -12849,8 +13519,12 @@ void Lua_SaveScreen(void)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x004a2fd0  Lua_GetSaveGameImage ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: GetSaveGameImage */
 
 void Lua_GetSaveGameImage(void)
@@ -12878,8 +13552,12 @@ void Lua_GetSaveGameImage(void)
   lua_pushusertag(pvVar3,0x46554256);
   return;
 }
+#endif
+
 
 /* ---- 0x004a3040  Lua_GetImage ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: GetImage */
 
 void Lua_GetImage(void)
@@ -12912,8 +13590,12 @@ void Lua_GetImage(void)
   lua_pushnil();
   return;
 }
+#endif
+
 
 /* ---- 0x004a30e0  Lua_FreeImage ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: FreeImage */
 
 void Lua_FreeImage(void)
@@ -12934,6 +13616,8 @@ void Lua_FreeImage(void)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x004a3130  Lua_BlastImage ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -13121,6 +13805,8 @@ void Lua_BlastRect(void)
 
 
 /* ---- 0x004a34c0  Lua_CallSaveGameCallback ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* system.saveGameCallback(); the script answers with SubmitSaveGameData */
 
 void __cdecl Lua_CallSaveGameCallback(void *writeFn)
@@ -13180,6 +13866,8 @@ void __cdecl Lua_CallSaveGameCallback(void *writeFn)
   return;
 }
 #undef local_4
+
+#endif
 
 
 /* ---- 0x004a35d0  Lua_SubmitSaveGameData ---- */
@@ -13372,6 +14060,8 @@ void Lua_SetTextSpeed(void)
 
 
 /* ---- 0x004a3890  Lua_FindFileOnAnyCD ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: FindFileOnAnyCD */
 
 void Lua_FindFileOnAnyCD(void)
@@ -13495,6 +14185,8 @@ void Lua_FindFileOnAnyCD(void)
 #undef local_178
 #undef local_180
 
+#endif
+
 
 /* ---- 0x004a3a10  Lua_ActorPuckOrient ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -13538,6 +14230,8 @@ void Lua_ActorPuckOrient(void)
 
 
 /* ---- 0x004a3aa0  Lua_GetTickCount ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Variable defined which should be unmapped: local_c */
 /* Lua opcode: GetTickCount */
 
@@ -13553,6 +14247,8 @@ void Lua_GetTickCount(void)
   return;
 }
 #undef local_c
+
+#endif
 
 
 /* ---- 0x004a3ae0  Lua_SetActorInvClipNode ---- */
@@ -13626,6 +14322,8 @@ void Lua_SetWalkSystemFadeTime(void)
 
 
 /* ---- 0x004be180  Lua_LightMgrStartup ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Debug light manager dialog (Lua LightMgrStartup). Creates the dialog, a keyboard hook and a
    helper actor wearing x_spot.cos */
 
@@ -13673,8 +14371,12 @@ void Lua_LightMgrStartup(void)
   Lua_LightMgrShutdown();
   return;
 }
+#endif
+
 
 /* ---- 0x004be260  Lua_LightMgrSetChange ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: LightMgrSetChange */
 
 void Lua_LightMgrSetChange(void)
@@ -13693,8 +14395,12 @@ void Lua_LightMgrSetChange(void)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x004be2a0  Lua_LightMgrShutdown ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: LightMgrShutdown */
 
 void Lua_LightMgrShutdown(void)
@@ -13715,3 +14421,5 @@ void Lua_LightMgrShutdown(void)
   }
   return;
 }
+#endif
+

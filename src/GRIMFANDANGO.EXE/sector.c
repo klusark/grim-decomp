@@ -49,6 +49,8 @@ void __cdecl Sector_DrawAllDebug(void)
 }
 
 /* ---- 0x0049c750  Sector_IntersectSegment ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Tests a segment against a sector's edges, returning the entry/exit points */
 
 void Sector_IntersectSegment
@@ -115,6 +117,8 @@ void Sector_IntersectSegment
   return;
 }
 #undef local_4
+
+#endif
 
 
 /* ---- 0x004a61c0  SectorList_SaveForShrink ---- */

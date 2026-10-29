@@ -1,9 +1,14 @@
 set pagination off
+set environment _NO_DEBUG_HEAP=1
+break hooked_GetDeviceData
 run
-thread 1
-p *(int*)&UINT_008a8c40
-p *(int*)&UINT_004e7d98
-p (void*)Set_GetCurrent()
-p *(int*)&g_pRenderedSet
-p *(int*)&UINT_008a8c60
-p *(int*)&g_nFullRedrawPending
+python
+import gdb
+for i in range(60):
+    try:
+        out = gdb.execute('next', to_string=True)
+    except gdb.error as e:
+        print('>> err', e); break
+    print('>>', out.strip().splitlines()[-1][:120])
+    if 'received signal' in out: break
+end
