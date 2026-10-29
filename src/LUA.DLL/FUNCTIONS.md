@@ -73,7 +73,7 @@
 | 10002510 | lua_endblock | lapi.c | 1 |
 | 10002560 | lua_ref | lapi.c | 1 |
 | 10002590 | lua_getref | lapi.c | 14 |
-| 100025b0 | lua_setfallback | lapi.c | 12 |
+| 100025b0 | lua_setfallback | lapi.c | 1 |
 | 100025f0 | luaA_callObject | lapi.c | 16 |
 | 10002660 | lapi__2660 | lapi.c | 8 |
 | 10002670 | lua_Save | lapi.c | 1 |

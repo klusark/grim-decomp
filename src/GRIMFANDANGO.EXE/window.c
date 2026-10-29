@@ -37,7 +37,7 @@ undefined * Win_WndProc(undefined4 param_1,uint param_2,int param_3)
   uVar1 = UINT_004f5a90;
   if (0x10 < param_2) {
     if (param_2 < 0x1d) {
-      if (param_2 == 0x1c) {
+      if (param_2 == 0x1c && GRIM_getenv("GRIM_ACTIVE") == 0) {
         if ((param_3 == 0) && (INT_004dd38c != 0)) {
           if (g_bWindowedMode == 0) {
             Engine_SetPaused(1);

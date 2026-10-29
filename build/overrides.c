@@ -72,6 +72,12 @@ void GRIM_lua_cmd_poll(void)
         nomovie = GRIM_getenv("GRIM_NOMOVIE") != 0;
     if (nomovie)
         g_nMovieAvailable = 0;
+    /* GRIM_ACTIVE=1: draw and present even when the window is not the foreground window (the engine only
+     * draws while WM_ACTIVATEAPP says the application is active); lets a test run behind other windows */
+    if (GRIM_getenv("GRIM_ACTIVE")) {
+        UINT_008d0a70 = 1;
+        UINT_008d0a6c = 1;
+    }
     if (lua_cmd_state < 0)
         return;
     if (lua_cmd_state == 0) {

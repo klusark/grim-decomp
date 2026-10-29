@@ -1630,7 +1630,7 @@
 | 004aa930 | Text_GetDefaultFont | text.c | 5 |
 | 004aa940 | Font_LoadFile | text.c | 14 |
 | 004aa990 | Font_Free | text.c | 8 |
-| 004aa9b0 | Text_NextChar | text.c | 22 |
+| 004aa9b0 | Text_NextChar | text.c | 1 |
 | 004aaa20 | Text_CharWidth | text.c | 18 |
 | 004aaa80 | Text_MeasureWidth | text.c | 40 |
 | 004aab10 | Text_MeasureHeight | text.c | 37 |
@@ -1641,7 +1641,7 @@
 | 004ab210 | Text_LayoutString | text.c | 1 |
 | 004ab510 | Font_GlyphAdvance | text.c | 24 |
 | 004ab570 | Font_GlyphWidth | text.c | 17 |
-| 004ab5d0 | Text_DrawString | text.c | 77 |
+| 004ab5d0 | Text_DrawString | text.c | 1 |
 | 004ab710 | Text_DrawChar | text.c | 1 |
 | 0048c470 | TextObject_Activate | textobject.c | 23 |
 | 0048c4d0 | FUN_0048c4d0 | textobject.c | 13 |
