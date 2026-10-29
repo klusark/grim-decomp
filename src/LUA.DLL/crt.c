@@ -2631,6 +2631,8 @@ LAB_10011dfc:
 
 
 /* ---- 0x10011ef0  floor ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* MSVC 6 C runtime (matched against the EXE runtime by structure); floor/ceil pair, order not
    verified */
 
@@ -2678,8 +2680,12 @@ float __cdecl floor(uint param_1,uint param_2)
 #undef local_8
 #undef uStack_4
 
+#endif
+
 
 /* ---- 0x10011ff0  ceil ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* MSVC 6 C runtime (matched against the EXE runtime by structure); floor/ceil pair, order not
    verified */
 
@@ -2726,6 +2732,8 @@ float __cdecl ceil(uint param_1,uint param_2)
 }
 #undef local_8
 #undef uStack_4
+
+#endif
 
 
 /* ---- 0x10012130  _CIpow ---- */
@@ -6980,6 +6988,8 @@ LAB_10018be8:
 }
 
 /* ---- 0x10018fd0  _frnd ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
 
 float __cdecl _frnd(double param_1)
@@ -6987,6 +6997,8 @@ float __cdecl _frnd(double param_1)
 {
   return (float)ROUND(param_1);
 }
+#endif
+
 
 /* ---- 0x10019100  _raise_exc ---- */
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
