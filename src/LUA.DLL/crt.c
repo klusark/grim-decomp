@@ -8754,7 +8754,7 @@ undefined4 __cdecl _setmbcp(int param_1)
       *(undefined1 *)puVar11 = 0;
       uVar5 = 0;
       iVar8 = iVar8 * 0x30;
-      pbVar9 = (byte *)(iVar8 + 0x100298d0);
+      pbVar9 = (byte *)(iVar8 + IMG_ADDR(0x100298d0));
       do {
         bVar2 = *pbVar9;
         for (pbVar10 = pbVar9; (bVar2 != 0 && (bVar2 = pbVar10[1], bVar2 != 0));
@@ -9040,7 +9040,7 @@ void __cdecl _NMSG_WRITE(int param_1)
       if ((PTR_1002c600 == (int *)0x0) || (iVar3 = PTR_1002c600[0x12], iVar3 == -1)) {
         iVar3 = GetStdHandle(-0xc);
       }
-      pcVar9 = *(char **)(iVar7 * 8 + 0x100299bc);
+      pcVar9 = *(char **)(iVar7 * 8 + IMG_ADDR(0x100299bc));
       uVar4 = 0xffffffff;
       pcVar13 = pcVar9;
       do {
@@ -9159,7 +9159,7 @@ void __cdecl _NMSG_WRITE(int param_1)
         pcVar13 = pcVar13 + 1;
       }
       uVar4 = 0xffffffff;
-      pcVar9 = *(char **)(iVar7 * 8 + 0x100299bc);
+      pcVar9 = *(char **)(iVar7 * 8 + IMG_ADDR(0x100299bc));
       do {
         pcVar13 = pcVar9;
         if (uVar4 == 0) break;

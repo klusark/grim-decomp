@@ -178,28 +178,28 @@ int __stdcall FUN_100185f0(int a1,int a2,int a3,int a4)
     if (a1 == uVar1) {
       if ((uint)a2 < 8) {
         if (a2 == 7) {
-          puVar3 = (uint *)(iVar2 * 0x2c + 0x10029110);
+          puVar3 = (uint *)(iVar2 * 0x2c + IMG_ADDR(0x10029110));
         }
         else if (a2 == 1) {
-          puVar3 = (uint *)(iVar2 * 0x2c + 0x100290fc);
+          puVar3 = (uint *)(iVar2 * 0x2c + IMG_ADDR(0x100290fc));
         }
         else if (a2 == 3) {
-          puVar3 = (uint *)(iVar2 * 0x2c + 0x10029108);
+          puVar3 = (uint *)(iVar2 * 0x2c + IMG_ADDR(0x10029108));
         }
       }
       else if ((uint)a2 < 0x1002) {
         if (a2 == 0x1001) {
-          puVar3 = *(uint **)(iVar2 * 0x2c + 0x10029104);
+          puVar3 = *(uint **)(iVar2 * 0x2c + IMG_ADDR(0x10029104));
         }
         else if (a2 == 0xb) {
-          puVar3 = (uint *)(iVar2 * 0x2c + 0x10029114);
+          puVar3 = (uint *)(iVar2 * 0x2c + IMG_ADDR(0x10029114));
         }
       }
       else if (a2 == 0x1002) {
-        puVar3 = *(uint **)(iVar2 * 0x2c + 0x1002910c);
+        puVar3 = *(uint **)(iVar2 * 0x2c + IMG_ADDR(0x1002910c));
       }
       else if (a2 == 0x1004) {
-        puVar3 = (uint *)(iVar2 * 0x2c + 0x1002911c);
+        puVar3 = (uint *)(iVar2 * 0x2c + IMG_ADDR(0x1002911c));
       }
       if ((puVar3 != (uint *)0x0) && (0 < a4)) {
         strncpy((uint *)a3,puVar3,a4 - 1);

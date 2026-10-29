@@ -712,7 +712,7 @@ def ptrdiff(m):
     return "(int *)((char *)%s - IMG_ADDR(0x%08x))" % (m.group(1), k)
 
 
-DEREF_OPEN_RE = re.compile(r"\*\(\s*[A-Za-z_][\w ]*?\s*\*\s*\)\(")
+DEREF_OPEN_RE = re.compile(r"\(\s*[A-Za-z_][\w ]*?\s*\*+\s*\)\(")  # `*(T *)(` and `(T *)(`: a pointer cast of a sum
 ADD_LIT_RE = re.compile(r"(?<![\w*&<>])((?:[+]\s*)0x([0-9a-f]{6,8})\b|\b0x([0-9a-f]{6,8})\s*[+])")
 
 

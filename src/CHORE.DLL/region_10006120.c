@@ -2056,7 +2056,7 @@ undefined4 FUN_100082a0(undefined4 param_1)
       *(undefined1 *)puVar11 = 0;
       uVar5 = 0;
       iVar8 = iVar8 * 0x30;
-      pbVar9 = (byte *)(iVar8 + 0x10010950);
+      pbVar9 = (byte *)(iVar8 + IMG_ADDR(0x10010950));
       do {
         bVar1 = *pbVar9;
         for (pbVar10 = pbVar9; (bVar1 != 0 && (bVar1 = pbVar10[1], bVar1 != 0));
@@ -2518,7 +2518,7 @@ void FUN_100089e0(int param_1)
       if ((_DAT_100159e0 == 0) || (iVar3 = *(int *)(_DAT_100159e0 + 0x48), iVar3 == -1)) {
         iVar3 = GetStdHandle(0xfffffff4);
       }
-      pcVar6 = *(char **)(iVar7 * 8 + 0x10010a3c);
+      pcVar6 = *(char **)(iVar7 * 8 + IMG_ADDR(0x10010a3c));
       uVar4 = 0xffffffff;
       pcVar11 = pcVar6;
       do {
@@ -2637,7 +2637,7 @@ void FUN_100089e0(int param_1)
         pcVar11 = pcVar11 + 1;
       }
       uVar4 = 0xffffffff;
-      pcVar6 = *(char **)(iVar7 * 8 + 0x10010a3c);
+      pcVar6 = *(char **)(iVar7 * 8 + IMG_ADDR(0x10010a3c));
       do {
         pcVar11 = pcVar6;
         if (uVar4 == 0) break;

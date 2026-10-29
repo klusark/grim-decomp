@@ -1369,7 +1369,7 @@ undefined4 FUN_004b14e0(undefined4 param_1)
       *(undefined1 *)puVar4 = 0;
       uVar5 = 0;
       iVar8 = iVar8 * 0x30;
-      pbVar9 = (byte *)(iVar8 + 0x4ed5e8);
+      pbVar9 = (byte *)(iVar8 + IMG_ADDR(0x004ed5e8));
       do {
         bVar2 = *pbVar9;
         for (pbVar10 = pbVar9; (bVar2 != 0 && (bVar2 = pbVar10[1], bVar2 != 0));
@@ -13789,7 +13789,7 @@ void FUN_004d0f00(undefined4 param_1,uint param_2,uint param_3,undefined1 param_
   iVar2 = UINT_004f3e30 - 1;
   local_44 = 0;
   if (-1 < iVar2) {
-    puVar4 = (uint *)(iVar2 * 0x34 + 0x8dad68);
+    puVar4 = (uint *)(iVar2 * 0x34 + IMG_ADDR(0x008dad68));
     uVar6 = UINT_004f3e30;
     do {
       if ((int)local_44 < (int)*puVar4) {
@@ -13801,7 +13801,7 @@ void FUN_004d0f00(undefined4 param_1,uint param_2,uint param_3,undefined1 param_
   }
   iVar8 = 10000000;
   if (-1 < iVar2) {
-    puVar4 = (uint *)(iVar2 * 0x34 + 0x8dad68);
+    puVar4 = (uint *)(iVar2 * 0x34 + IMG_ADDR(0x008dad68));
     uVar6 = UINT_004f3e30;
     do {
       uVar1 = *puVar4;
@@ -13863,7 +13863,7 @@ void FUN_004d0f00(undefined4 param_1,uint param_2,uint param_3,undefined1 param_
   }
   if (-1 < iVar9) {
     if (-1 < iVar2) {
-      piVar3 = (int *)(iVar2 * 0x34 + 0x8dad78);
+      piVar3 = (int *)(iVar2 * 0x34 + IMG_ADDR(0x008dad78));
       uVar6 = UINT_004f3e30;
       do {
         if (*piVar3 < 0x100) {
@@ -13939,7 +13939,7 @@ void FUN_004d1180(int param_1,int param_2,uint param_3,int param_4,int param_5,u
     iVar11 = 0;
     param_8 = 0;
     if (-1 < (int)(UINT_004f3e30 - 1)) {
-      piVar7 = (int *)((UINT_004f3e30 - 1) * 0x34 + 0x8dad68);
+      piVar7 = (int *)((UINT_004f3e30 - 1) * 0x34 + IMG_ADDR(0x008dad68));
       uVar9 = UINT_004f3e30;
       do {
         if (iVar11 < *piVar7) {
@@ -13958,7 +13958,7 @@ void FUN_004d1180(int param_1,int param_2,uint param_3,int param_4,int param_5,u
     }
     else if (-1 < (int)(UINT_004f3e30 - 1)) {
       local_44 = UINT_004f3e30;
-      piVar7 = (int *)((UINT_004f3e30 - 1) * 0x34 + 0x8dad68);
+      piVar7 = (int *)((UINT_004f3e30 - 1) * 0x34 + IMG_ADDR(0x008dad68));
       do {
         iVar13 = *piVar7;
         iVar12 = iVar13 - iVar10;
@@ -14031,7 +14031,7 @@ LAB_004d130e:
     }
     if (-1 < iVar11) {
       if (-1 < iVar10) {
-        piVar7 = (int *)(iVar10 * 0x34 + 0x8dad78);
+        piVar7 = (int *)(iVar10 * 0x34 + IMG_ADDR(0x008dad78));
         uVar9 = UINT_004f3e30;
         do {
           if (*piVar7 < 0xff) {
@@ -14123,7 +14123,7 @@ LAB_004d153e:
   else {
     iVar10 = UINT_004f3e30 - 1;
     if (-1 < iVar10) {
-      piVar7 = (int *)(iVar10 * 4 + 0x8da8b0);
+      piVar7 = (int *)(iVar10 * 4 + IMG_ADDR(0x008da8b0));
       pcVar8 = &DAT_008dad6e + iVar10 * 0x34;
       while ((((*pcVar8 == '\0' || (param_7 != *(int *)(iVar10 * 4 + IMG_ADDR(0x008dad00)))) ||
               (param_8 != *(int *)(iVar10 * 4 + IMG_ADDR(0x008db0a8)) + 1)) || (param_9 != *piVar7))) {

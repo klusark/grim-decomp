@@ -60,7 +60,7 @@ int __cdecl ResFile_Open(char *name,char *mode)
     } while (cVar2 != '\0');
     uVar5 = ~uVar5;
     pcVar8 = pcVar10 + -uVar5;
-    pcVar10 = (char *)(iVar1 + 0x825f64);
+    pcVar10 = (char *)(iVar1 + IMG_ADDR(0x00825f64));
     for (uVar6 = uVar5 >> 2; uVar6 != 0; uVar6 = uVar6 - 1) {
       *(undefined4 *)pcVar10 = *(undefined4 *)pcVar8;
       pcVar8 = pcVar8 + 4;
@@ -173,7 +173,7 @@ uint __cdecl ResFile_Read(int fh,void *buf,uint n)
   }
   uVar3 = *(uint *)(&DAT_00824f20 + iVar1);
   if (n <= uVar3) {
-    puVar6 = (undefined4 *)(iVar1 + 0x824f40 + *(int *)(&DAT_00824f1c + iVar1));
+    puVar6 = (undefined4 *)(iVar1 + IMG_ADDR(0x00824f40) + *(int *)(&DAT_00824f1c + iVar1));
     for (uVar3 = n >> 2; uVar3 != 0; uVar3 = uVar3 - 1) {
       *(undefined4 *)buf = *puVar6;
       puVar6 = puVar6 + 1;
@@ -246,7 +246,7 @@ char * FUN_00480bb0(int param_1,char *param_2,uint param_3)
   if (*(uint *)(&DAT_00824f20 + iVar1) < param_3) {
     param_3 = *(uint *)(&DAT_00824f20 + iVar1) + 1;
   }
-  pcVar3 = (char *)(iVar1 + 0x824f40 + *(int *)(&DAT_00824f1c + iVar1));
+  pcVar3 = (char *)(iVar1 + IMG_ADDR(0x00824f40) + *(int *)(&DAT_00824f1c + iVar1));
   pcVar5 = param_2;
   while (param_3 = param_3 - 1, 0 < (int)param_3) {
     cVar4 = *pcVar3;

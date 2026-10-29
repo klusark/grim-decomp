@@ -1090,7 +1090,7 @@ void __cdecl _NMSG_WRITE(int param_1)
       if ((PTR_100336e0 == (int *)0x0) || (iVar3 = PTR_100336e0[0x12], iVar3 == -1)) {
         iVar3 = GetStdHandle(-0xc);
       }
-      pcVar9 = *(char **)(iVar7 * 8 + 0x1001f364);
+      pcVar9 = *(char **)(iVar7 * 8 + IMG_ADDR(0x1001f364));
       uVar4 = 0xffffffff;
       pcVar13 = pcVar9;
       do {
@@ -1209,7 +1209,7 @@ void __cdecl _NMSG_WRITE(int param_1)
         pcVar13 = pcVar13 + 1;
       }
       uVar4 = 0xffffffff;
-      pcVar9 = *(char **)(iVar7 * 8 + 0x1001f364);
+      pcVar9 = *(char **)(iVar7 * 8 + IMG_ADDR(0x1001f364));
       do {
         pcVar13 = pcVar9;
         if (uVar4 == 0) break;

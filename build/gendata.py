@@ -109,9 +109,11 @@ def main(prog, src, obj):
     spath = os.path.join(ROOT, "raw", prog, "strings.txt")
     if os.path.exists(spath):
         for line in open(spath, encoding="utf-8", errors="replace"):
-            m = re.match(r"^([0-9a-f]{8}):", line)
+            m = re.match(r"^([0-9a-f]{8}): \"(.*)\"\s*$", line)
             if not m:
                 continue
+            if re.fullmatch(r"[0-9a-f]{8}", m.group(2)):
+                continue  # a pointer Ghidra labelled with its target address, not text
             a = int(m.group(1), 16)
             s = section_of(a)
             if s is None:
