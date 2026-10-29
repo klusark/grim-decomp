@@ -114,6 +114,8 @@ void FUN_004ad2b0(void)
 }
 
 /* ---- 0x004addf0  FUN_004addf0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Unable to track spacebase fully for stack */
 
 void FUN_004addf0(void)
@@ -135,6 +137,8 @@ void FUN_004addf0(void)
 }
 #undef local_4
 #undef local_ffc
+
+#endif
 
 
 /* ---- 0x004adef0  FUN_004adef0 ---- */
@@ -2131,6 +2135,8 @@ unkbyte10 FUN_004b4c00(void)
 
 
 /* ---- 0x004b4c15  FUN_004b4c15 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
 undefined * FUN_004b4c15(void)
@@ -2140,6 +2146,8 @@ undefined * FUN_004b4c15(void)
   
   return in_EAX;
 }
+#endif
+
 
 /* ---- 0x004b4c45  FUN_004b4c45 ---- */
 uint __fastcall FUN_004b4c45(undefined4 param_1,int param_2)
@@ -2155,6 +2163,8 @@ uint __fastcall FUN_004b4c45(undefined4 param_1,int param_2)
 }
 
 /* ---- 0x004b4c9e  FUN_004b4c9e ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
 undefined * FUN_004b4c9e(void)
@@ -2164,6 +2174,8 @@ undefined * FUN_004b4c9e(void)
   
   return in_EAX;
 }
+#endif
+
 
 /* ---- 0x004b4ce9  FUN_004b4ce9 ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -3688,6 +3700,8 @@ int FUN_004b7c10(void)
 }
 
 /* ---- 0x004b8f30  FUN_004b8f30 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 int __fastcall FUN_004b8f30(byte param_1,int param_2)
 
 {
@@ -3701,6 +3715,8 @@ int __fastcall FUN_004b8f30(byte param_1,int param_2)
   }
   return 0;
 }
+#endif
+
 
 /* ---- 0x004b9916  FUN_004b9916 ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -6932,6 +6948,8 @@ void FUN_004c3df0(undefined4 param_1,undefined4 param_2,undefined4 param_3)
 
 
 /* ---- 0x004c3e10  FUN_004c3e10 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined8 __fastcall
 FUN_004c3e10(undefined4 param_1,undefined4 param_2,undefined4 *param_3,undefined4 *param_4,
             uint param_5)
@@ -6952,6 +6970,8 @@ FUN_004c3e10(undefined4 param_1,undefined4 param_2,undefined4 *param_3,undefined
   }
   return CONCAT44(param_2,in_EAX);
 }
+#endif
+
 
 /* ---- 0x004c4650  FUN_004c4650 ---- */
 uint FUN_004c4650(int param_1,undefined4 param_2)
@@ -11489,6 +11509,8 @@ void FUN_004cd450(int param_1,byte *param_2,int param_3,int param_4,int param_5)
 
 
 /* ---- 0x004cd550  FUN_004cd550 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 undefined8 __fastcall
@@ -11520,6 +11542,8 @@ FUN_004cd550(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4
   } while (DAT_00906c5c != '\0');
   return CONCAT44(param_2,in_EAX);
 }
+#endif
+
 
 /* ---- 0x004cd610  FUN_004cd610 ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -13084,6 +13108,8 @@ void FUN_004cfdb0(undefined4 param_1,undefined4 param_2,undefined4 param_3,undef
 
 
 /* ---- 0x004cfdf0  FUN_004cfdf0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined8 __fastcall
 FUN_004cfdf0(undefined4 param_1,undefined4 param_2,undefined4 *param_3,ushort *param_4,uint param_5,
             char param_6,int param_7)
@@ -13151,6 +13177,8 @@ FUN_004cfdf0(undefined4 param_1,undefined4 param_2,undefined4 *param_3,ushort *p
   }
   return CONCAT44(param_2,in_EAX);
 }
+#endif
+
 
 /* ---- 0x004cfea0  FUN_004cfea0 ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -13245,6 +13273,8 @@ undefined8 __fastcall FUN_004cfea0(undefined4 param_1,undefined4 param_2,int par
 
 
 /* ---- 0x004cff60  FUN_004cff60 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined8 __fastcall
 FUN_004cff60(undefined4 param_1,undefined4 param_2,undefined4 *param_3,uint *param_4,uint param_5)
 
@@ -13284,6 +13314,8 @@ FUN_004cff60(undefined4 param_1,undefined4 param_2,undefined4 *param_3,uint *par
   } while (uVar3 != 0 && bVar1);
   return CONCAT44(param_2,in_EAX);
 }
+#endif
+
 
 /* ---- 0x004cffe0  FUN_004cffe0 ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -13337,6 +13369,8 @@ FUN_004cffe0(undefined4 param_1,uint param_2,uint *param_3,ushort *param_4,uint 
 
 
 /* ---- 0x004d0070  FUN_004d0070 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined8 __fastcall
 FUN_004d0070(undefined4 param_1,undefined4 param_2,undefined4 *param_3,uint *param_4,uint param_5)
 
@@ -13376,6 +13410,8 @@ FUN_004d0070(undefined4 param_1,undefined4 param_2,undefined4 *param_3,uint *par
   } while (uVar3 != 0 && bVar1);
   return CONCAT44(param_2,in_EAX);
 }
+#endif
+
 
 /* ---- 0x004d00f0  FUN_004d00f0 ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -13424,6 +13460,8 @@ FUN_004d00f0(undefined4 param_1,uint param_2,uint *param_3,ushort *param_4,uint 
 
 
 /* ---- 0x004d0180  FUN_004d0180 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined8 __fastcall
 FUN_004d0180(undefined4 param_1,undefined4 param_2,undefined4 *param_3,uint *param_4,uint param_5)
 
@@ -13464,8 +13502,12 @@ FUN_004d0180(undefined4 param_1,undefined4 param_2,undefined4 *param_3,uint *par
   } while (uVar7 != 0 && bVar1);
   return CONCAT44(param_2,in_EAX);
 }
+#endif
+
 
 /* ---- 0x004d01f0  FUN_004d01f0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined8 __fastcall
 FUN_004d01f0(undefined4 param_1,undefined4 param_2,int *param_3,ushort *param_4,uint param_5)
 
@@ -13500,8 +13542,12 @@ FUN_004d01f0(undefined4 param_1,undefined4 param_2,int *param_3,ushort *param_4,
   } while (uVar5 != 0 && bVar1);
   return CONCAT44(param_2,in_EAX);
 }
+#endif
+
 
 /* ---- 0x004d0260  FUN_004d0260 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined8 __fastcall
 FUN_004d0260(undefined4 param_1,undefined4 param_2,int param_3,int param_4,int param_5,uint param_6,
             int param_7,uint param_8,uint param_9,int param_10,uint param_11,uint param_12)
@@ -13588,6 +13634,8 @@ FUN_004d0260(undefined4 param_1,undefined4 param_2,int param_3,int param_4,int p
 }
 #undef local_34
 #undef local_38
+
+#endif
 
 
 /* ---- 0x004d0300  FUN_004d0300 ---- */
@@ -15452,6 +15500,8 @@ void FUN_004d2bf0(void)
 }
 
 /* ---- 0x004d2cb0  FUN_004d2cb0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined8 __fastcall
 FUN_004d2cb0(undefined4 param_1,undefined4 param_2,undefined4 *param_3,undefined4 *param_4,
             uint param_5)
@@ -15481,8 +15531,12 @@ FUN_004d2cb0(undefined4 param_1,undefined4 param_2,undefined4 *param_3,undefined
   }
   return CONCAT44(param_2,in_EAX);
 }
+#endif
+
 
 /* ---- 0x004d2ce0  FUN_004d2ce0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined8 __fastcall
 FUN_004d2ce0(undefined4 param_1,undefined4 param_2,undefined4 *param_3,undefined1 param_4,
             uint param_5)
@@ -15521,6 +15575,8 @@ FUN_004d2ce0(undefined4 param_1,undefined4 param_2,undefined4 *param_3,undefined
   }
   return CONCAT44(param_2,in_EAX);
 }
+#endif
+
 
 /* ---- 0x004d2d40  FUN_004d2d40 ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -16076,6 +16132,8 @@ void FUN_004d5f70(undefined4 param_1)
 }
 
 /* ---- 0x004d5fd0  FUN_004d5fd0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined8 __fastcall
 FUN_004d5fd0(undefined4 param_1,undefined4 param_2,undefined4 *param_3,undefined1 param_4,
             uint param_5)
@@ -16108,6 +16166,8 @@ FUN_004d5fd0(undefined4 param_1,undefined4 param_2,undefined4 *param_3,undefined
   }
   return CONCAT44(param_2,in_EAX);
 }
+#endif
+
 
 /* ---- 0x004d6030  FUN_004d6030 ---- */
 /* replaced by the hand-written version in build/overrides.c */
