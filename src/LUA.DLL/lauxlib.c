@@ -104,35 +104,36 @@ undefined4 __cdecl luaL_opt_string(int param_1,undefined4 param_2)
 /* ---- 0x10002aa0  luaL_check_number ---- */
 /* lauxlib.c (argument checking helpers) */
 
-void __cdecl luaL_check_number(int param_1)
+float __cdecl luaL_check_number(int param_1)
 
 {
   int iVar1;
   int iVar2;
+  float fVar3;
   
   iVar1 = lua_lua2C(param_1);
   iVar2 = lua_isnumber(iVar1);
   if (iVar2 == 0) {
     luaL_argerror(param_1,IMG_ADDR(0x10026370));
   }
-  lua_getnumber(iVar1);
-  return;
+  fVar3 = lua_getnumber(iVar1);
+  return fVar3;
 }
 
 /* ---- 0x10002ae0  luaL_opt_number ---- */
 /* lauxlib.c (argument checking helpers) */
 
-float10 __cdecl luaL_opt_number(int param_1,float param_2)
+float __cdecl luaL_opt_number(int param_1,float param_2)
 
 {
   int iVar1;
-  float10 fVar2;
+  float fVar2;
   
   iVar1 = lua_lua2C(param_1);
   if (iVar1 == 0) {
-    return (float10)param_2;
+    return param_2;
   }
-  fVar2 = (float10)((code *)luaL_check_number)(param_1);
+  fVar2 = luaL_check_number(param_1);
   return fVar2;
 }
 

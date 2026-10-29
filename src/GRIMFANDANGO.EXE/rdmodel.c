@@ -450,15 +450,14 @@ void __cdecl rdModel_DrawMesh(void *mesh,float *matrix)
   int *piVar3;
   float fVar4;
   float fVar5;
-  float fVar6;
-  uint uVar7;
-  undefined4 uVar8;
-  undefined4 *puVar9;
-  void *pvVar10;
-  uint uVar11;
-  void *pvVar12;
-  int iVar13;
-  float10 fVar14;
+  uint uVar6;
+  undefined4 uVar7;
+  undefined4 *puVar8;
+  void *pvVar9;
+  uint uVar10;
+  void *pvVar11;
+  int iVar12;
+  float fVar13;
   #define local_ac (*(uint *)(_frame + (0xc0 - 0xac)))
   #define local_a8 (*(uint *)(_frame + (0xc0 - 0xa8)))
   #define local_a4 (*(uint *)(_frame + (0xc0 - 0xa4)))
@@ -527,26 +526,26 @@ void __cdecl rdModel_DrawMesh(void *mesh,float *matrix)
       UINT_007f1474 = (uint)&DAT_007f0fe8;
       switch(UINT_007f31e4) {
       case 2:
-        uVar11 = 0;
+        uVar10 = 0;
         UINT_007f31fc = 0;
         local_a8 = 0;
         if (UINT_007f31f8 != 0) {
           local_ac = (uint)&UINT_007f1498;
-          pvVar10 = g_pRdCurrentCamera;
-          pvVar12 = PTR_007f30a0;
+          pvVar9 = g_pRdCurrentCamera;
+          pvVar11 = PTR_007f30a0;
           do {
             piVar3 = *(int **)local_ac;
             if (piVar3[2] != 0) {
-              iVar13 = *piVar3;
-              local_90 = (uint)(*(float *)((int)pvVar10 + iVar13 * 0xc + 0x160) - matrix[10]);
-              fVar4 = *(float *)((int)pvVar10 + (iVar13 + 0x1d) * 0xc) - *a;
-              local_8c = (uint)(*(float *)((int)pvVar10 + iVar13 * 0xc + 0x164) - matrix[0xb]);
+              iVar12 = *piVar3;
+              local_90 = (uint)(*(float *)((int)pvVar9 + iVar12 * 0xc + 0x160) - matrix[10]);
+              fVar13 = *(float *)((int)pvVar9 + (iVar12 + 0x1d) * 0xc) - *a;
+              local_8c = (uint)(*(float *)((int)pvVar9 + iVar12 * 0xc + 0x164) - matrix[0xb]);
               local_88 = (uint)SQRT((float)local_8c * (float)local_8c +
-                                    (float)local_90 * (float)local_90 + fVar4 * fVar4);
-              if ((float)local_88 < (float)piVar3[0xd] + *(float *)((int)pvVar12 + 0x60)) {
-                (&UINT_007f30e0)[uVar11] = (uint)piVar3;
-                Vec3_Sub((float *)(&DAT_007f1598 + uVar11 * 0xc),
-                         (float *)((int)pvVar10 + (*piVar3 + 0x1d) * 0xc),local_84);
+                                    (float)local_90 * (float)local_90 + fVar13 * fVar13);
+              if ((float)local_88 < (float)piVar3[0xd] + *(float *)((int)pvVar11 + 0x60)) {
+                (&UINT_007f30e0)[uVar10] = (uint)piVar3;
+                Vec3_Sub((float *)(&DAT_007f1598 + uVar10 * 0xc),
+                         (float *)((int)pvVar9 + (*piVar3 + 0x1d) * 0xc),local_84);
                 if (piVar3[1] != 2) {
                   local_60 = 0;
                   local_5c = 0;
@@ -559,10 +558,10 @@ void __cdecl rdModel_DrawMesh(void *mesh,float *matrix)
                            local_84);
                   local_58 = local_34;
                 }
-                uVar11 = UINT_007f31fc + 1;
-                pvVar10 = g_pRdCurrentCamera;
-                pvVar12 = PTR_007f30a0;
-                UINT_007f31fc = uVar11;
+                uVar10 = UINT_007f31fc + 1;
+                pvVar9 = g_pRdCurrentCamera;
+                pvVar11 = PTR_007f30a0;
+                UINT_007f31fc = uVar10;
               }
             }
             local_a8 = local_a8 + 1;
@@ -571,32 +570,32 @@ void __cdecl rdModel_DrawMesh(void *mesh,float *matrix)
         }
         break;
       case 3:
-        uVar11 = 0;
+        uVar10 = 0;
         UINT_007f31fc = 0;
         local_a8 = 0;
-        pvVar10 = g_pRdCurrentCamera;
-        pvVar12 = PTR_007f30a0;
         if (UINT_007f31f8 != 0) {
           local_ac = (uint)&UINT_007f1498;
+          pvVar9 = g_pRdCurrentCamera;
+          pvVar11 = PTR_007f30a0;
           do {
             piVar3 = *(int **)local_ac;
             if (piVar3[2] != 0) {
-              iVar13 = *piVar3;
-              fVar4 = *(float *)((int)pvVar10 + (iVar13 + 0x1d) * 0xc) - *a;
-              fVar6 = *(float *)((int)pvVar10 + iVar13 * 0xc + 0x160) - matrix[10];
-              fVar5 = *(float *)((int)pvVar10 + iVar13 * 0xc + 0x164) - matrix[0xb];
+              iVar12 = *piVar3;
+              fVar13 = *(float *)((int)pvVar9 + (iVar12 + 0x1d) * 0xc) - *a;
+              fVar5 = *(float *)((int)pvVar9 + iVar12 * 0xc + 0x160) - matrix[10];
+              fVar4 = *(float *)((int)pvVar9 + iVar12 * 0xc + 0x164) - matrix[0xb];
               if (piVar3[1] < 2) {
-                fVar4 = 0.0;
+                fVar13 = 0.0;
               }
               else {
-                fVar4 = fVar5 * fVar5 + fVar6 * fVar6 + fVar4 * fVar4;
+                fVar13 = fVar4 * fVar4 + fVar5 * fVar5 + fVar13 * fVar13;
               }
-              fVar5 = (float)piVar3[0xd] + *(float *)((int)pvVar12 + 0x60);
-              if (fVar4 < fVar5 * fVar5) {
-                (&UINT_007f30e0)[uVar11] = (uint)piVar3;
-                Vec3_Sub((float *)(&DAT_007f1598 + uVar11 * 0xc),
-                         (float *)((int)pvVar10 + (*piVar3 + 0x1d) * 0xc),local_84);
-                uVar7 = local_58;
+              fVar4 = (float)piVar3[0xd] + *(float *)((int)pvVar11 + 0x60);
+              if (fVar13 < fVar4 * fVar4) {
+                (&UINT_007f30e0)[uVar10] = (uint)piVar3;
+                Vec3_Sub((float *)(&DAT_007f1598 + uVar10 * 0xc),
+                         (float *)((int)pvVar9 + (*piVar3 + 0x1d) * 0xc),local_84);
+                uVar6 = local_58;
                 if (piVar3[1] != 2) {
                   local_60 = 0;
                   local_5c = 0;
@@ -607,64 +606,57 @@ void __cdecl rdModel_DrawMesh(void *mesh,float *matrix)
                   Vec3_Sub((float *)(&DAT_007f1168 + UINT_007f31fc * 0xc),(float *)&local_a0,
                            local_84);
                 }
-                uVar11 = UINT_007f31fc + 1;
-                pvVar10 = g_pRdCurrentCamera;
-                pvVar12 = PTR_007f30a0;
-                UINT_007f31fc = uVar11;
-                local_58 = uVar7;
+                uVar10 = UINT_007f31fc + 1;
+                pvVar9 = g_pRdCurrentCamera;
+                pvVar11 = PTR_007f30a0;
+                UINT_007f31fc = uVar10;
+                local_58 = uVar6;
               }
             }
             local_a8 = local_a8 + 1;
             local_ac = local_ac + 4;
           } while (local_a8 < UINT_007f31f8);
         }
-        fVar14 = (float10)rdKeyframe_Interpolate
-                                    (&UINT_007f30e0,&DAT_007f1598,&DAT_007f1168,uVar11,
-                                     *(undefined4 *)((int)pvVar12 + 0x44),
-                                     *(undefined4 *)((int)pvVar12 + 0x30),
-                                     *(undefined4 *)((int)pvVar12 + 0x38),
-                                     *(undefined4 *)((int)pvVar12 + 0x3c),
-                                     *(undefined4 *)((int)pvVar12 + 0x48),
-                                     *(undefined4 *)((int)pvVar10 + 0x45c));
-        *(float *)((int)mesh + 0x5c) = (float)fVar14;
+        fVar13 = rdKeyframe_Interpolate();
+        *(float *)((int)mesh + 0x5c) = fVar13;
         break;
       case 6:
-        uVar11 = 0;
+        uVar10 = 0;
         if (*(int *)((int)mesh + 0x50) != 0) {
-          puVar9 = (undefined4 *)(*(int *)((int)mesh + 0x40) + 0x30);
+          puVar8 = (undefined4 *)(*(int *)((int)mesh + 0x40) + 0x30);
           do {
-            *puVar9 = *(undefined4 *)((int)mesh + 0x5c);
-            puVar9 = puVar9 + 0x13;
-            uVar11 = uVar11 + 1;
-          } while (uVar11 < *(uint *)((int)mesh + 0x50));
+            *puVar8 = *(undefined4 *)((int)mesh + 0x5c);
+            puVar8 = puVar8 + 0x13;
+            uVar10 = uVar10 + 1;
+          } while (uVar10 < *(uint *)((int)mesh + 0x50));
         }
       }
       local_54 = UINT_008ddf84;
       local_50 = UINT_008ddf88;
       local_4c = UINT_008ddf8c;
       Vec3_Sub((float *)&DAT_007f0fd8,(float *)&local_54,local_84);
-      iVar13 = *(int *)((int)mesh + 0x40);
-      uVar11 = 0;
+      iVar12 = *(int *)((int)mesh + 0x40);
+      uVar10 = 0;
       if (*(int *)((int)mesh + 0x50) != 0) {
         do {
           iVar1 = *(int *)((int)PTR_007f30a0 + 0x30);
-          iVar2 = **(int **)(iVar13 + 0x18);
-          if (*(float *)(iVar13 + 0x44) * (_DAT_007f0fdc - *(float *)(iVar1 + iVar2 * 0xc + 4)) +
-              (_DAT_007f0fd8 - *(float *)(iVar1 + iVar2 * 0xc)) * *(float *)(iVar13 + 0x40) +
-              *(float *)(iVar13 + 0x48) * (_DAT_007f0fe0 - *(float *)(iVar1 + 8 + iVar2 * 0xc)) <=
+          iVar2 = **(int **)(iVar12 + 0x18);
+          if (*(float *)(iVar12 + 0x44) * (_DAT_007f0fdc - *(float *)(iVar1 + iVar2 * 0xc + 4)) +
+              (_DAT_007f0fd8 - *(float *)(iVar1 + iVar2 * 0xc)) * *(float *)(iVar12 + 0x40) +
+              *(float *)(iVar12 + 0x48) * (_DAT_007f0fe0 - *(float *)(iVar1 + 8 + iVar2 * 0xc)) <=
               0.0) {
-            uVar8 = 1;
-            if (((*(byte *)(iVar13 + 4) & 1) != 0) || (((byte)g_dwRdroidFlags & 1) == 0))
+            uVar7 = 1;
+            if (((*(byte *)(iVar12 + 4) & 1) != 0) || (((byte)g_dwRdroidFlags & 1) == 0))
             goto LAB_0040d640;
           }
           else {
-            uVar8 = 0;
+            uVar7 = 0;
 LAB_0040d640:
-            rdModel_AddMeshToCache(iVar13,uVar8);
+            rdModel_AddMeshToCache(iVar12,uVar7);
           }
-          iVar13 = iVar13 + 0x4c;
-          uVar11 = uVar11 + 1;
-        } while (uVar11 < *(uint *)((int)mesh + 0x50));
+          iVar12 = iVar12 + 0x4c;
+          uVar10 = uVar10 + 1;
+        } while (uVar10 < *(uint *)((int)mesh + 0x50));
       }
     }
   }
@@ -694,59 +686,55 @@ LAB_0040d640:
 /* ---- 0x0040d880  rdModel_AddMeshToCache ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-undefined4 rdModel_AddMeshToCache(int param_1,int param_2)
+undefined4 rdModel_AddMeshToCache(int param_1,undefined4 param_2)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
-  float fVar2;
   byte flags;
-  int iVar3;
-  uint uVar4;
-  uint *puVar5;
-  int iVar6;
-  float *pfVar7;
-  bool bVar8;
-  float10 fVar9;
-  undefined4 uVar10;
-  undefined4 uVar11;
+  int iVar2;
+  uint uVar3;
+  int iVar4;
+  float *pfVar5;
+  bool bVar6;
+  float fVar7;
   #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
   #define local_20 (*(uint *)(_frame + (0x40 - 0x20)))
   #define local_1c (*(uint *)(_frame + (0x40 - 0x1c)))
   #define local_18 (*(float (*)[3])(_frame + (0x40 - 0x18)))
   #define local_c (*(float (*)[3])(_frame + (0x40 - 0xc)))
   
-  iVar3 = rdCache_AllocMesh();
-  if (iVar3 == 0) {
+  iVar2 = rdCache_AllocMesh();
+  if (iVar2 == 0) {
     return 0;
   }
-  uVar4 = *(uint *)(param_1 + 8);
+  uVar3 = *(uint *)(param_1 + 8);
   if ((int)UINT_007f31e8 < (int)*(uint *)(param_1 + 8)) {
-    uVar4 = UINT_007f31e8;
+    uVar3 = UINT_007f31e8;
   }
-  *(uint *)(iVar3 + 8) = uVar4;
-  uVar4 = *(uint *)(param_1 + 0xc);
+  *(uint *)(iVar2 + 8) = uVar3;
+  uVar3 = *(uint *)(param_1 + 0xc);
   if ((int)UINT_007f31e4 < (int)*(uint *)(param_1 + 0xc)) {
-    uVar4 = UINT_007f31e4;
+    uVar3 = UINT_007f31e4;
   }
-  *(uint *)(iVar3 + 0xc) = uVar4;
-  uVar4 = *(uint *)(param_1 + 0x10);
+  *(uint *)(iVar2 + 0xc) = uVar3;
+  uVar3 = *(uint *)(param_1 + 0x10);
   if ((int)UINT_007f30d8 < (int)*(uint *)(param_1 + 0x10)) {
-    uVar4 = UINT_007f30d8;
+    uVar3 = UINT_007f30d8;
   }
-  *(uint *)(iVar3 + 0x10) = uVar4;
+  *(uint *)(iVar2 + 0x10) = uVar3;
   if ((*(byte *)(param_1 + 4) & 0x10) != 0) {
-    *(undefined4 *)(iVar3 + 0xc) = 1;
+    *(undefined4 *)(iVar2 + 0xc) = 1;
   }
-  UINT_007f1490 = *(uint *)(iVar3 + 0x20);
-  UINT_007f1478 = *(uint *)(iVar3 + 0x24);
-  UINT_007f147c = *(uint *)(iVar3 + 0x28);
+  UINT_007f1490 = *(uint *)(iVar2 + 0x20);
+  UINT_007f1478 = *(uint *)(iVar2 + 0x24);
+  UINT_007f147c = *(uint *)(iVar2 + 0x28);
   _DAT_007f30a8 = *(undefined4 *)(param_1 + 0x14);
   _DAT_007f30ac = *(undefined4 *)(param_1 + 0x18);
   _DAT_007f30b0 = *(undefined4 *)(param_1 + 0x1c);
   if (UINT_007f1898 == 0) {
     rdPrimit3_CopyFaceVerts
-              (*(undefined4 *)(iVar3 + 8),*(undefined4 *)(iVar3 + 0xc),*(undefined4 *)(iVar3 + 0x10)
+              (*(undefined4 *)(iVar2 + 8),*(undefined4 *)(iVar2 + 0xc),*(undefined4 *)(iVar2 + 0x10)
                ,&DAT_007f30a8,&UINT_007f1468,param_1 + 0x28);
   }
   else {
@@ -758,106 +746,91 @@ undefined4 rdModel_AddMeshToCache(int param_1,int param_2)
   if (UINT_007f3204 != 0) {
     Vec3_Copy(local_c,(float *)&DAT_004ddb70);
     Vec3_Sub(local_18,(float *)&DAT_007f3208,(float *)((int)g_pRdCurrentCamera + 8));
-    uVar4 = Polygon_ClipToPlane(local_c,local_18,UINT_007f1474,UINT_007f1478,UINT_007f147c,
+    uVar3 = Polygon_ClipToPlane(local_c,local_18,UINT_007f1474,UINT_007f1478,UINT_007f147c,
                                 UINT_007f1468);
-    if ((int)uVar4 < 2) {
+    if ((int)uVar3 < 2) {
       return 0;
     }
-    UINT_007f1468 = uVar4;
-    *(uint *)(iVar3 + 0x1c) = uVar4;
+    UINT_007f1468 = uVar3;
+    *(uint *)(iVar2 + 0x1c) = uVar3;
   }
-  if (*(int *)(iVar3 + 0xc) == 2) {
-    if (param_2 == 0) {
-      uVar11 = *(undefined4 *)((int)g_pRdCurrentCamera + 0x45c);
-      uVar10 = *(undefined4 *)((int)PTR_007f30a0 + 0x30);
-      puVar5 = (uint *)(param_1 + 0x40);
-    }
-    else {
-      local_24 = (uint)-*(float *)(param_1 + 0x40);
-      local_20 = (uint)-*(float *)(param_1 + 0x44);
-      local_1c = (uint)-*(float *)(param_1 + 0x48);
-      uVar11 = *(undefined4 *)((int)g_pRdCurrentCamera + 0x45c);
-      uVar10 = *(undefined4 *)((int)PTR_007f30a0 + 0x30);
-      puVar5 = &local_24;
-    }
-    fVar9 = (float10)rdKeyframe_InterpolateNode
-                               (&UINT_007f30e0,&DAT_007f1598,&DAT_007f1168,UINT_007f31fc,param_1,
-                                puVar5,uVar10,uVar11);
-    *(float *)(iVar3 + 0x44) = (float)fVar9;
+  if (*(int *)(iVar2 + 0xc) == 2) {
+    fVar7 = rdKeyframe_InterpolateNode();
+    *(float *)(iVar2 + 0x44) = fVar7;
   }
   (**(code **)((int)g_pRdCurrentCamera + 0x50))(UINT_007f1490,UINT_007f1474,UINT_007f1468);
   if (((byte)g_dwRdroidFlags & 2) == 0) {
-    *(undefined4 *)(iVar3 + 0x40) = 0;
+    *(undefined4 *)(iVar2 + 0x40) = 0;
   }
   else {
-    *(undefined4 *)(iVar3 + 0x40) = *(undefined4 *)((int)g_pRdCurrentCamera + 0x54);
+    *(undefined4 *)(iVar2 + 0x40) = *(undefined4 *)((int)g_pRdCurrentCamera + 0x54);
   }
-  iVar6 = *(int *)(param_1 + 0x24);
-  if ((iVar6 == -1) && (*(int *)(param_1 + 0x20) != 0)) {
-    iVar6 = *(int *)(*(int *)(param_1 + 0x20) + 100);
+  iVar4 = *(int *)(param_1 + 0x24);
+  if ((iVar4 == -1) && (*(int *)(param_1 + 0x20) != 0)) {
+    iVar4 = *(int *)(*(int *)(param_1 + 0x20) + 100);
   }
-  *(int *)(iVar3 + 0x3c) = iVar6;
-  bVar8 = UINT_004f5ec0 != UINT_004f5ec4;
-  if (*(float *)(iVar3 + 0x40) < 1.0) {
-    if (*(int *)(iVar3 + 0xc) == 2) {
-      if ((*(float *)(iVar3 + 0x44) < 1.0) || (bVar8)) {
-        if (*(float *)(iVar3 + 0x44) <= 0.0) {
-          *(undefined4 *)(iVar3 + 0xc) = 1;
+  *(int *)(iVar2 + 0x3c) = iVar4;
+  bVar6 = UINT_004f5ec0 != UINT_004f5ec4;
+  if (*(float *)(iVar2 + 0x40) < 1.0) {
+    if (*(int *)(iVar2 + 0xc) == 2) {
+      if ((*(float *)(iVar2 + 0x44) < 1.0) || (bVar6)) {
+        if (*(float *)(iVar2 + 0x44) <= 0.0) {
+          *(undefined4 *)(iVar2 + 0xc) = 1;
         }
       }
       else {
-        *(undefined4 *)(iVar3 + 0xc) = 0;
+        *(undefined4 *)(iVar2 + 0xc) = 0;
       }
       goto LAB_0040dbd3;
     }
-    if (*(int *)(iVar3 + 0xc) != 3) goto LAB_0040dbd3;
-    pfVar7 = *(float **)(iVar3 + 0x28);
-    fVar1 = *pfVar7;
-    uVar4 = 1;
+    if (*(int *)(iVar2 + 0xc) != 3) goto LAB_0040dbd3;
+    pfVar5 = *(float **)(iVar2 + 0x28);
+    fVar7 = *pfVar5;
+    uVar3 = 1;
     if (1 < UINT_007f1468) {
       do {
-        pfVar7 = pfVar7 + 1;
-        fVar2 = *pfVar7 - fVar1;
-        if (fVar2 < 0.0) {
-          fVar2 = -fVar2;
+        pfVar5 = pfVar5 + 1;
+        fVar1 = *pfVar5 - fVar7;
+        if (fVar1 < 0.0) {
+          fVar1 = -fVar1;
         }
-      } while ((fVar2 <= 0.015625) && (uVar4 = uVar4 + 1, uVar4 < UINT_007f1468));
+      } while ((fVar1 <= 0.015625) && (uVar3 = uVar3 + 1, uVar3 < UINT_007f1468));
     }
-    if (uVar4 != UINT_007f1468) goto LAB_0040dbd3;
-    if (fVar1 != 1.0) {
-      if (fVar1 == 0.0) {
-        *(undefined4 *)(iVar3 + 0xc) = 1;
-        *(undefined4 *)(iVar3 + 0x44) = 0;
+    if (uVar3 != UINT_007f1468) goto LAB_0040dbd3;
+    if (fVar7 != 1.0) {
+      if (fVar7 == 0.0) {
+        *(undefined4 *)(iVar2 + 0xc) = 1;
+        *(undefined4 *)(iVar2 + 0x44) = 0;
       }
       else {
-        *(undefined4 *)(iVar3 + 0xc) = 2;
-        *(float *)(iVar3 + 0x44) = fVar1;
+        *(undefined4 *)(iVar2 + 0xc) = 2;
+        *(float *)(iVar2 + 0x44) = fVar7;
       }
       goto LAB_0040dbd3;
     }
-    if (!bVar8) {
-      *(undefined4 *)(iVar3 + 0xc) = 0;
+    if (!bVar6) {
+      *(undefined4 *)(iVar2 + 0xc) = 0;
       goto LAB_0040dbd3;
     }
   }
-  else if (!bVar8) {
-    *(undefined4 *)(iVar3 + 0xc) = 0;
+  else if (!bVar6) {
+    *(undefined4 *)(iVar2 + 0xc) = 0;
     goto LAB_0040dbd3;
   }
-  *(undefined4 *)(iVar3 + 0xc) = 2;
-  *(undefined4 *)(iVar3 + 0x44) = 0x3f800000;
+  *(undefined4 *)(iVar2 + 0xc) = 2;
+  *(undefined4 *)(iVar2 + 0x44) = 0x3f800000;
 LAB_0040dbd3:
   flags = 1;
-  if (3 < *(int *)(iVar3 + 8)) {
+  if (3 < *(int *)(iVar2 + 8)) {
     flags = 3;
   }
-  if (2 < *(int *)(iVar3 + 0xc)) {
+  if (2 < *(int *)(iVar2 + 0xc)) {
     flags = flags | 4;
   }
-  *(int *)(iVar3 + 0x50) = param_2;
-  *(undefined4 *)(iVar3 + 4) = *(undefined4 *)(param_1 + 4);
-  *(undefined4 *)(iVar3 + 0x48) = *(undefined4 *)(param_1 + 0x30);
-  *(undefined4 *)(iVar3 + 0x38) = *(undefined4 *)(param_1 + 0x20);
+  *(undefined4 *)(iVar2 + 0x50) = param_2;
+  *(undefined4 *)(iVar2 + 4) = *(undefined4 *)(param_1 + 4);
+  *(undefined4 *)(iVar2 + 0x48) = *(undefined4 *)(param_1 + 0x30);
+  *(undefined4 *)(iVar2 + 0x38) = *(undefined4 *)(param_1 + 0x20);
   rdCache_AddMesh((void *)0x0,UINT_007f1468,flags);
   return 1;
 }

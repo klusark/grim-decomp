@@ -40,7 +40,7 @@ undefined4 __cdecl lua_isnumber(int param_1); /* 0x100017b0 */
 undefined4 __cdecl lua_isstring(int param_1); /* 0x100017f0 */
 undefined4 __cdecl lua_isfunction(int param_1); /* 0x10001810 */
 undefined4 __cdecl lua_istask(int param_1); /* 0x10001830 */
-float10 __cdecl lua_getnumber(int param_1); /* 0x10001860 */
+float __cdecl lua_getnumber(int param_1); /* 0x10001860 */
 int __cdecl lua_getstring(int param_1); /* 0x100018c0 */
 undefined4 __cdecl lua_getuserdata(int param_1); /* 0x10001910 */
 int __cdecl lua_getcfunction(int param_1); /* 0x10001940 */
@@ -102,8 +102,8 @@ int __cdecl lauxlib__2990(int param_1,undefined4 param_2); /* 0x10002990 */
 void __cdecl luaL_argerror(undefined4 param_1,int param_2); /* 0x100029d0 */
 int __cdecl luaL_check_string(int param_1); /* 0x10002a30 */
 undefined4 __cdecl luaL_opt_string(int param_1,undefined4 param_2); /* 0x10002a70 */
-void __cdecl luaL_check_number(int param_1); /* 0x10002aa0 */
-float10 __cdecl luaL_opt_number(int param_1,float param_2); /* 0x10002ae0 */
+float __cdecl luaL_check_number(int param_1); /* 0x10002aa0 */
+float __cdecl luaL_opt_number(int param_1,float param_2); /* 0x10002ae0 */
 int __cdecl luaL_tablearg(int param_1); /* 0x10002b10 */
 int __cdecl luaL_functionarg(int param_1); /* 0x10002b50 */
 int __cdecl luaL_nonnullarg(int param_1); /* 0x10002b90 */
@@ -439,7 +439,7 @@ uint * __cdecl lundump__d0f0(uint *param_1); /* 0x1000d0f0 */
 void __cdecl lundump__d130(uint *param_1,uint param_2); /* 0x1000d130 */
 void __cdecl luaU_LoadLocals(int param_1,uint *param_2); /* 0x1000d1a0 */
 void __cdecl luaU_LoadConstants(int param_1,undefined4 *param_2); /* 0x1000d230 */
-float10 __cdecl luaU_LoadNumber(undefined4 *param_1); /* 0x1000d2f0 */
+float __cdecl luaU_LoadNumber(undefined4 *param_1); /* 0x1000d2f0 */
 void __cdecl lundump__d360(undefined1 *param_1); /* 0x1000d360 */
 void __cdecl lundump__d380(undefined1 *param_1); /* 0x1000d380 */
 void __cdecl lundump__d3c0(int param_1,int *param_2); /* 0x1000d3c0 */
@@ -528,13 +528,13 @@ undefined4 __cdecl __lc_strtolc(uint *param_1,uint *param_2); /* 0x10011a40 */
 void __cdecl __lc_lctostr(char *param_1,char *param_2); /* 0x10011b50 */
 uint __cdecl tolower(uint param_1); /* 0x10011bc0 */
 uint __cdecl _tolower_lk(uint param_1); /* 0x10011c50 */
-void _CIsqrt(void); /* 0x10011d50 */
+float __cdecl _CIsqrt(void); /* 0x10011d50 */
 void __cdecl _sqrt(int param_1,uint param_2); /* 0x10011d6d */
-float10 __cdecl floor(uint param_1,uint param_2); /* 0x10011ef0 */
-float10 __cdecl ceil(uint param_1,uint param_2); /* 0x10011ff0 */
-void _CIpow(void); /* 0x10012130 */
+float __cdecl floor(uint param_1,uint param_2); /* 0x10011ef0 */
+float __cdecl ceil(uint param_1,uint param_2); /* 0x10011ff0 */
+float __cdecl _CIpow(void); /* 0x10012130 */
 void FUN_10012152(void); /* 0x10012152 */
-void _ftol_10012325(void); /* 0x10012325 */
+float __cdecl _ftol_10012325(void); /* 0x10012325 */
 uint __cdecl bsearch(undefined4 param_1,uint param_2,uint param_3,int param_4,undefined *param_5); /* 0x10012390 */
 void __cdecl qsort(undefined1 *param_1,uint param_2,uint param_3,undefined *param_4); /* 0x10012430 */
 void __cdecl shortsort(undefined1 *param_1,undefined1 *param_2,int param_3,undefined *param_4); /* 0x100125e0 */
@@ -621,7 +621,7 @@ undefined4 __cdecl __get_qualified_locale(char *param_1); /* 0x10017c50 */
 short * __cdecl __crtLCMapStringW(int param_1,uint param_2,short *param_3,int param_4,uint *param_5,short *param_6, uint *param_7); /* 0x10018790 */
 int __cdecl wcsncnt(short *param_1,int param_2); /* 0x100189a0 */
 int __cdecl __crtLCMapStringA(int param_1,uint param_2,char *param_3,int param_4,int param_5,int param_6, uint param_7,int param_8); /* 0x100189e0 */
-float10 __cdecl _frnd(double param_1); /* 0x10018fd0 */
+float __cdecl _frnd(double param_1); /* 0x10018fd0 */
 void __cdecl _raise_exc(uint *param_1,uint *param_2,byte param_3,uint param_4,uint *param_5,uint *param_6); /* 0x10019100 */
 bool __cdecl _handle_exc(uint param_1,double *param_2,uint param_3); /* 0x10019440 */
 undefined4 __cdecl _pow_special_cases(double param_1,double param_2,double *param_3); /* 0x1001ad40 */
@@ -733,9 +733,9 @@ void FUN_1000fde0(void); /* 0x1000fde0 */
 int __stdcall FUN_1000fea0(int a1,int a2,int a3); /* 0x1000fea0 */
 undefined4 FUN_100119e0(void); /* 0x100119e0 */
 void __cdecl FUN_100119f0(char *param_1,int param_2); /* 0x100119f0 */
-void FUN_10011e20(void); /* 0x10011e20 */
+float __cdecl FUN_10011e20(void); /* 0x10011e20 */
 void __cdecl FUN_10011e3d(int param_1,uint param_2); /* 0x10011e3d */
-void __fastcall FUN_100120fa(undefined4 param_1); /* 0x100120fa */
+float __fastcall FUN_100120fa(undefined4 param_1); /* 0x100120fa */
 float10 FUN_10012104(void); /* 0x10012104 */
 void __cdecl FUN_10012350(int param_1); /* 0x10012350 */
 uint FUN_10012360(void); /* 0x10012360 */
@@ -817,9 +817,9 @@ float10 __cdecl FUN_10019770(int param_1,int param_2); /* 0x10019770 */
 void __cdecl FUN_10019820(int param_1); /* 0x10019820 */
 undefined4 __cdecl FUN_10019850(int param_1); /* 0x10019850 */
 int __cdecl FUN_10019880(uint param_1); /* 0x10019880 */
-float10 __cdecl FUN_100198c0(undefined4 param_1,undefined4 param_2,short param_3); /* 0x100198c0 */
+float __cdecl FUN_100198c0(undefined4 param_1,undefined4 param_2,short param_3); /* 0x100198c0 */
 undefined4 __cdecl FUN_10019900(int param_1,uint param_2); /* 0x10019900 */
-float10 __cdecl FUN_10019960(uint param_1,uint param_2,int *param_3); /* 0x10019960 */
+float __cdecl FUN_10019960(uint param_1,uint param_2,int *param_3); /* 0x10019960 */
 int FUN_10019a70(void); /* 0x10019a70 */
 int FUN_10019a80(void); /* 0x10019a80 */
 int FUN_10019aa0(void); /* 0x10019aa0 */

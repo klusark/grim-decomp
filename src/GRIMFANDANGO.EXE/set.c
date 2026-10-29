@@ -1205,7 +1205,7 @@ LAB_004a5767:
           }
           puVar4 = sscanf((char *)UINT_00900520,IMG_ADDR(0x004ec7a4));
           if (puVar4 == (undefined *)0x3) {
-            Vec3_Normalize(pbVar7 + 0x38);
+            Vec3_Normalize((float *)(pbVar7 + 0x38));
           }
           sscanf((char *)UINT_00900520,IMG_ADDR(0x004ec790));
           sscanf((char *)UINT_00900520,IMG_ADDR(0x004ec780));

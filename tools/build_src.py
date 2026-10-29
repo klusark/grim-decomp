@@ -1234,6 +1234,15 @@ def build(prog):
             for addr, sig in pl:
                 w.write(f"{sig}; /* 0x{addr} */\n")
             w.write("\n")
+        # imports that return in ST(0) (raw/<prog>/x87_returns.json, tools/find_x87_returns.py)
+        x87 = {}
+        xp = os.path.join(rawdir, "x87_returns.json")
+        if os.path.exists(xp):
+            x87 = {k: v["type"] for k, v in json.load(open(xp)).items() if not re.fullmatch(r"[0-9a-f]{8}", k)}
+
+        def x87_ret(name):
+            return x87.get(name, "int")
+
         # functions the code refers to but that are not decompiled here: thunks,
         # imports, and FUN_ addresses Ghidra has no function for
         thunk_names = {f["name"] for f, m in assigned if m == "_thunks"}
@@ -1251,9 +1260,9 @@ def build(prog):
                     # the asm label keeps the symbol undecorated (`_f`, not `_f@0`) so the
                     # linker's --enable-stdcall-fixup can bind it to the import library's `_f@N`
                     asm_name = STDCALL_NAMES.get(n, "_" + n)
-                    w.write(f'int STDCALL {n}() __asm__("{asm_name}"); /* {why} */\n')
+                    w.write(f'{x87_ret(n)} STDCALL {n}() __asm__("{asm_name}"); /* {why} */\n')
                 else:
-                    w.write(f"int {n}(); /* {why} */\n")
+                    w.write(f"{x87_ret(n)} {n}(); /* {why} */\n")
             for n in exrefs:
                 w.write(f"extern int (STDCALL *{n})(); /* import address table slot */\n")
         defined.update(extra)

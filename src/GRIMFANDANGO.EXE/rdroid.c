@@ -186,34 +186,35 @@ undefined4 rdroid_SetColormap(uint param_1)
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Fills the 1/n float table and its fixed-point twin used by the span rasterizer */
 
-void rdroid_BuildMathTables(void)
+float10 rdroid_BuildMathTables(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  undefined4 uVar1;
+  undefined4 extraout_EAX;
+  int iVar1;
   int iVar2;
-  int iVar3;
+  float fVar3;
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   UINT_008fe000 = 0x7f7fc99e;
   _DAT_008fbfc0 = 0x7fffffff;
   local_4 = 1;
-  iVar3 = 0;
+  iVar2 = 0;
   do {
-    *(float *)((int)&UINT_008fe004 + iVar3) = 1.0 / (float)(int)local_4;
-    uVar1 = _ftol();
-    *(undefined4 *)((int)&UINT_008fbfc4 + iVar3) = uVar1;
-    iVar3 = iVar3 + 4;
+    *(float *)((int)&UINT_008fe004 + iVar2) = 1.0 / (float)(int)local_4;
+    fVar3 = _ftol();
+    *(undefined4 *)((int)&UINT_008fbfc4 + iVar2) = extraout_EAX;
+    iVar2 = iVar2 + 4;
     local_4 = local_4 + 1;
-  } while (iVar3 < 0x1ffc);
-  iVar3 = 0;
+  } while (iVar2 < 0x1ffc);
+  iVar2 = 0;
   do {
-    iVar2 = iVar3 + 4;
-    *(float *)((int)&UINT_008fdfc0 + iVar3) =
-         *(float *)((int)&UINT_008fe000 + iVar3) * _DAT_004ddb30;
-    iVar3 = iVar2;
-  } while (iVar2 < 0x40);
-  return;
+    iVar1 = iVar2 + 4;
+    *(float *)((int)&UINT_008fdfc0 + iVar2) =
+         *(float *)((int)&UINT_008fe000 + iVar2) * _DAT_004ddb30;
+    iVar2 = iVar1;
+  } while (iVar1 < 0x40);
+  return (float10)fVar3;
 }
 #undef local_4
 

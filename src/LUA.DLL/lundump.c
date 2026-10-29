@@ -296,7 +296,7 @@ void __cdecl luaU_LoadConstants(int param_1,undefined4 *param_2)
   undefined4 uVar3;
   uint uVar4;
   int iVar5;
-  float10 fVar6;
+  float fVar6;
   
   uVar2 = lundump__cfa0((int *)*param_2);
   *(uint *)(param_1 + 0xc) = uVar2;
@@ -316,7 +316,7 @@ void __cdecl luaU_LoadConstants(int param_1,undefined4 *param_2)
         else if (uVar4 == 0x4e) {
           *puVar1 = 0xffffffff;
           fVar6 = luaU_LoadNumber(param_2);
-          puVar1[1] = (float)fVar6;
+          puVar1[1] = fVar6;
         }
         else if (uVar4 == 0x53) {
           *puVar1 = 0xfffffffe;
@@ -333,7 +333,7 @@ void __cdecl luaU_LoadConstants(int param_1,undefined4 *param_2)
 /* ---- 0x1000d2f0  luaU_LoadNumber ---- */
 /* Unidentified function of lundump.c (precompiled chunk loader) */
 
-float10 __cdecl luaU_LoadNumber(undefined4 *param_1)
+float __cdecl luaU_LoadNumber(undefined4 *param_1)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -346,13 +346,13 @@ float10 __cdecl luaU_LoadNumber(undefined4 *param_1)
     if (puVar1[1] != 0) {
       lundump__d360((undefined1 *)&param_1);
     }
-    return (float10)PUN(float,param_1);
+    return PUN(float,param_1);
   }
   luaU_LoadBlock((uint *)*param_1,(undefined4 *)&local_8,8);
   if (puVar1[1] != 0) {
     lundump__d380((undefined1 *)&local_8);
   }
-  return (float10)local_8;
+  return (float)local_8;
 }
 #undef local_8
 

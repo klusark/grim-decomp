@@ -968,12 +968,10 @@ void FUN_10006ea0(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  float10 fVar1;
   #define uStack_4 (*(undefined4 *)(_frame + (0x20 - 0x4)))
   
-  fVar1 = (float10)((code *)luaL_check_number)(1);
-  uStack_4 = (float)fVar1;
-  if (fVar1 < (float10)0.0) {
+  uStack_4 = luaL_check_number(1);
+  if (uStack_4 < 0.0) {
     uStack_4 = -uStack_4;
   }
   lua_pushnumber(uStack_4);
@@ -987,9 +985,10 @@ void FUN_10006ee0(void)
 
 {
   float10 fVar1;
+  float fVar2;
   
-  fVar1 = (float10)((code *)luaL_check_number)(1);
-  fVar1 = (float10)fsin(fVar1 * (float10)0.017453292519943295);
+  fVar2 = luaL_check_number(1);
+  fVar1 = (float10)fsin((float10)fVar2 * (float10)0.017453292519943295);
   lua_pushnumber((float)fVar1);
   return;
 }
@@ -999,9 +998,10 @@ void FUN_10006f00(void)
 
 {
   float10 fVar1;
+  float fVar2;
   
-  fVar1 = (float10)((code *)luaL_check_number)(1);
-  fVar1 = (float10)fcos(fVar1 * (float10)0.017453292519943295);
+  fVar2 = luaL_check_number(1);
+  fVar1 = (float10)fcos((float10)fVar2 * (float10)0.017453292519943295);
   lua_pushnumber((float)fVar1);
   return;
 }
@@ -1011,9 +1011,10 @@ void FUN_10006f20(void)
 
 {
   float10 fVar1;
+  float fVar2;
   
-  fVar1 = (float10)((code *)luaL_check_number)(1);
-  fVar1 = (float10)fptan(fVar1 * (float10)0.017453292519943295);
+  fVar2 = luaL_check_number(1);
+  fVar1 = (float10)fptan((float10)fVar2 * (float10)0.017453292519943295);
   lua_pushnumber((float)fVar1);
   return;
 }
@@ -1022,11 +1023,11 @@ void FUN_10006f20(void)
 void FUN_10006f50(void)
 
 {
-  float10 fVar1;
+  float fVar1;
   
   luaL_check_number(1);
-  fVar1 = (float10)((code *)_CIsqrt)();
-  lua_pushnumber((float)(fVar1 * (float10)57.29577951308232));
+  fVar1 = _CIsqrt();
+  lua_pushnumber(fVar1 * 57.29578);
   return;
 }
 
@@ -1034,11 +1035,11 @@ void FUN_10006f50(void)
 void FUN_10006f80(void)
 
 {
-  float10 fVar1;
+  float fVar1;
   
   luaL_check_number(1);
-  fVar1 = (float10)((code *)FUN_10011e20)();
-  lua_pushnumber((float)(fVar1 * (float10)57.29577951308232));
+  fVar1 = FUN_10011e20();
+  lua_pushnumber(fVar1 * 57.29578);
   return;
 }
 
@@ -1046,12 +1047,12 @@ void FUN_10006f80(void)
 void FUN_10006fb0(void)
 
 {
-  unkbyte10 Var1;
-  float10 fVar2;
+  float10 fVar1;
+  float fVar2;
   
-  Var1 = ((code *)luaL_check_number)(1);
-  fVar2 = (float10)fpatan(Var1,(float10)1);
-  lua_pushnumber((float)(fVar2 * (float10)57.29577951308232));
+  fVar2 = luaL_check_number(1);
+  fVar1 = (float10)fpatan((float10)fVar2,(float10)1);
+  lua_pushnumber((float)(fVar1 * (float10)57.29577951308232));
   return;
 }
 
@@ -1060,11 +1061,12 @@ void FUN_10006fe0(void)
 
 {
   float10 fVar1;
-  unkbyte10 Var2;
+  float fVar2;
+  float fVar3;
   
-  fVar1 = (float10)((code *)luaL_check_number)(1);
-  Var2 = ((code *)luaL_check_number)(2);
-  fVar1 = (float10)fpatan((float10)(double)fVar1,Var2);
+  fVar2 = luaL_check_number(1);
+  fVar3 = luaL_check_number(2);
+  fVar1 = (float10)fpatan((float10)fVar2,(float10)fVar3);
   lua_pushnumber((float)(fVar1 * (float10)57.29577951308232));
   return;
 }
@@ -1073,11 +1075,11 @@ void FUN_10006fe0(void)
 void FUN_10007020(void)
 
 {
-  float10 fVar1;
+  float fVar1;
   
-  fVar1 = (float10)((code *)luaL_check_number)(1);
+  fVar1 = luaL_check_number(1);
   fVar1 = floor(SUB84((double)fVar1,0),(uint)((ulonglong)(double)fVar1 >> 0x20));
-  lua_pushnumber((float)fVar1);
+  lua_pushnumber(fVar1);
   return;
 }
 
@@ -1085,11 +1087,11 @@ void FUN_10007020(void)
 void FUN_10007050(void)
 
 {
-  float10 fVar1;
+  float fVar1;
   
-  fVar1 = (float10)((code *)luaL_check_number)(1);
+  fVar1 = luaL_check_number(1);
   fVar1 = ceil(SUB84((double)fVar1,0),(uint)((ulonglong)(double)fVar1 >> 0x20));
-  lua_pushnumber((float)fVar1);
+  lua_pushnumber(fVar1);
   return;
 }
 
@@ -1098,12 +1100,12 @@ void FUN_10007080(void)
 
 {
   undefined4 extraout_ECX;
-  float10 fVar1;
+  float fVar1;
   
   luaL_check_number(1);
   luaL_check_number(2);
-  fVar1 = (float10)((code *)FUN_100120fa)(extraout_ECX);
-  lua_pushnumber((float)fVar1);
+  fVar1 = FUN_100120fa(extraout_ECX);
+  lua_pushnumber(fVar1);
   return;
 }
 
@@ -1111,10 +1113,10 @@ void FUN_10007080(void)
 void FUN_100070c0(void)
 
 {
-  float10 fVar1;
+  float fVar1;
   
-  fVar1 = (float10)((code *)luaL_check_number)(1);
-  lua_pushnumber((float)SQRT(fVar1));
+  fVar1 = luaL_check_number(1);
+  lua_pushnumber(SQRT(fVar1));
   return;
 }
 
@@ -1122,12 +1124,12 @@ void FUN_100070c0(void)
 void FUN_100070e0(void)
 
 {
-  float10 fVar1;
+  float fVar1;
   
   luaL_check_number(1);
   luaL_check_number(2);
-  fVar1 = (float10)((code *)_CIpow)();
-  lua_pushnumber((float)fVar1);
+  fVar1 = _CIpow();
+  lua_pushnumber(fVar1);
   return;
 }
 
@@ -1136,10 +1138,10 @@ void FUN_10007120(void)
 
 {
   float10 fVar1;
-  unkbyte10 Var2;
+  float fVar2;
   
-  Var2 = ((code *)luaL_check_number)(1);
-  fVar1 = (float10)log2(Var2);
+  fVar2 = luaL_check_number(1);
+  fVar1 = (float10)log2((float10)fVar2);
   lua_pushnumber((float)((float10)0.6931471805599453 * fVar1));
   return;
 }
@@ -1149,10 +1151,10 @@ void FUN_10007140(void)
 
 {
   float10 fVar1;
-  unkbyte10 Var2;
+  float fVar2;
   
-  Var2 = ((code *)luaL_check_number)(1);
-  fVar1 = (float10)log2(Var2);
+  fVar2 = luaL_check_number(1);
+  fVar1 = (float10)log2((float10)fVar2);
   lua_pushnumber((float)((float10)0.3010299956639812 * fVar1));
   return;
 }
@@ -1163,11 +1165,12 @@ void FUN_10007160(void)
 {
   float10 fVar1;
   float10 fVar2;
+  float fVar3;
   
-  fVar1 = (float10)((code *)luaL_check_number)(1);
-  fVar2 = ROUND((float10)1.4426950408889634 * fVar1);
-  fVar1 = (float10)f2xm1((float10)1.4426950408889634 * fVar1 - fVar2);
-  fVar1 = (float10)fscale((float10)1 + fVar1,fVar2);
+  fVar3 = luaL_check_number(1);
+  fVar1 = ROUND((float10)1.4426950408889634 * (float10)fVar3);
+  fVar2 = (float10)f2xm1((float10)1.4426950408889634 * (float10)fVar3 - fVar1);
+  fVar1 = (float10)fscale((float10)1 + fVar2,fVar1);
   lua_pushnumber((float)fVar1);
   return;
 }
@@ -1176,10 +1179,10 @@ void FUN_10007160(void)
 void FUN_10007190(void)
 
 {
-  float10 fVar1;
+  float fVar1;
   
-  fVar1 = (float10)((code *)luaL_check_number)(1);
-  lua_pushnumber((float)(fVar1 * (float10)57.29577951308232));
+  fVar1 = luaL_check_number(1);
+  lua_pushnumber(fVar1 * 57.29578);
   return;
 }
 
@@ -1187,10 +1190,10 @@ void FUN_10007190(void)
 void FUN_100071b0(void)
 
 {
-  float10 fVar1;
+  float fVar1;
   
-  fVar1 = (float10)((code *)luaL_check_number)(1);
-  lua_pushnumber((float)(fVar1 * (float10)0.017453292519943295));
+  fVar1 = luaL_check_number(1);
+  lua_pushnumber(fVar1 * 0.017453292);
   return;
 }
 
@@ -1201,17 +1204,16 @@ void FUN_100071d0(void)
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   int iVar2;
-  float10 fVar3;
+  float fVar3;
   #define fStack_4 (*(float *)(_frame + (0x20 - 0x4)))
   
-  fVar3 = (float10)((code *)luaL_check_number)(1);
-  fStack_4 = (float)fVar3;
+  fStack_4 = luaL_check_number(1);
   iVar2 = 2;
   iVar1 = lua_lua2C(2);
   while (iVar1 != 0) {
-    fVar3 = (float10)((code *)luaL_check_number)(iVar2);
-    if (fVar3 < (float10)fStack_4) {
-      fStack_4 = (float)fVar3;
+    fVar3 = luaL_check_number(iVar2);
+    if (fVar3 < fStack_4) {
+      fStack_4 = fVar3;
     }
     iVar2 = iVar2 + 1;
     iVar1 = lua_lua2C(iVar2);
@@ -1229,17 +1231,16 @@ void FUN_10007230(void)
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   int iVar2;
-  float10 fVar3;
+  float fVar3;
   #define fStack_4 (*(float *)(_frame + (0x20 - 0x4)))
   
-  fVar3 = (float10)((code *)luaL_check_number)(1);
-  fStack_4 = (float)fVar3;
+  fStack_4 = luaL_check_number(1);
   iVar2 = 2;
   iVar1 = lua_lua2C(2);
   while (iVar1 != 0) {
-    fVar3 = (float10)((code *)luaL_check_number)(iVar2);
-    if ((float10)fStack_4 < fVar3) {
-      fStack_4 = (float)fVar3;
+    fVar3 = luaL_check_number(iVar2);
+    if (fStack_4 < fVar3) {
+      fStack_4 = fVar3;
     }
     iVar2 = iVar2 + 1;
     iVar1 = lua_lua2C(iVar2);
@@ -1255,17 +1256,17 @@ void FUN_10007290(void)
 
 {
   uint uVar1;
-  float10 fVar2;
-  longlong lVar3;
+  longlong lVar2;
+  float fVar3;
   
   uVar1 = FUN_10012360();
-  fVar2 = luaL_opt_number(1,0.0);
-  if (fVar2 == (float10)0.0) {
+  fVar3 = luaL_opt_number(1,0.0);
+  if (fVar3 == 0.0) {
     lua_pushnumber((float)((int)uVar1 % 0x7fff) * 3.051851e-05);
     return;
   }
-  lVar3 = _ftol();
-  lua_pushnumber((float)((int)lVar3 + 1));
+  lVar2 = _ftol();
+  lua_pushnumber((float)((int)lVar2 + 1));
   return;
 }
 

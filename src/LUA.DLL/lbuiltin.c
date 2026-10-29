@@ -666,21 +666,21 @@ void FUN_10003820(void)
   int iVar2;
   uint uVar3;
   uint uVar4;
-  float10 fVar5;
-  longlong lVar6;
+  longlong lVar5;
+  float fVar6;
   #define pbStack_c (*(byte **)(_frame + (0x20 - 0xc)))
   #define uStack_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define uStack_4 (*(undefined4 *)(_frame + (0x20 - 0x4)))
   
   luaL_opt_number(2,10.0);
-  lVar6 = _ftol();
-  uVar3 = (uint)lVar6;
+  lVar5 = _ftol();
+  uVar3 = (uint)lVar5;
   if (uVar3 == 10) {
     iVar1 = lua_lua2C(1);
     iVar2 = lua_isnumber(iVar1);
     if (iVar2 != 0) {
-      fVar5 = lua_getnumber(iVar1);
-      lua_pushnumber((float)fVar5);
+      fVar6 = lua_getnumber(iVar1);
+      lua_pushnumber(fVar6);
       return;
     }
   }

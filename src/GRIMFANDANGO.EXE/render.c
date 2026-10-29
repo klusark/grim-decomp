@@ -810,15 +810,16 @@ void __cdecl Render_InvalidateBackground(int redrawBackground,int redrawDepth)
 /* ---- 0x004864a0  Render_BuildColorTable ---- */
 /* Fills the 65536-entry 16-bit remap table g_wColorTable for the pixel format and gamma */
 
-void Render_BuildColorTable(int param_1,float param_2)
+float10 Render_BuildColorTable(int param_1,float param_2)
 
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   undefined4 uVar1;
   undefined4 uVar2;
-  int iVar3;
-  int iVar4;
-  int iVar5;
+  int extraout_EAX;
+  int extraout_EAX_00;
+  int extraout_EAX_01;
+  float fVar3;
   #define local_40 (*(uint *)(_frame + (0x50 - 0x40)))
   #define local_3c (*(uint *)(_frame + (0x50 - 0x3c)))
   #define local_38 (*(uint *)(_frame + (0x50 - 0x38)))
@@ -839,18 +840,19 @@ void Render_BuildColorTable(int param_1,float param_2)
     _CIpow();
     _CIpow();
     _CIpow();
-    iVar3 = _ftol();
+    _ftol();
     uVar1 = *(undefined4 *)(param_1 + 0x14);
-    iVar4 = _ftol();
+    _ftol();
     uVar2 = *(undefined4 *)(param_1 + 0x18);
-    iVar5 = _ftol();
+    fVar3 = _ftol();
     (&g_wColorTable)[local_24] =
-         (ushort)(iVar3 << ((byte)uVar1 & 0x1f)) | (ushort)(iVar4 << ((byte)uVar2 & 0x1f)) |
-         (ushort)(iVar5 << ((byte)*(undefined4 *)(param_1 + 0x1c) & 0x1f));
+         (ushort)(extraout_EAX << ((byte)uVar1 & 0x1f)) |
+         (ushort)(extraout_EAX_00 << ((byte)uVar2 & 0x1f)) |
+         (ushort)(extraout_EAX_01 << ((byte)*(undefined4 *)(param_1 + 0x1c) & 0x1f));
     local_24 = local_24 + 1;
   } while ((int)local_24 < 0x10000);
   g_flGamma = param_2;
-  return;
+  return (float10)fVar3;
 }
 #undef local_10
 #undef local_14
@@ -1147,85 +1149,85 @@ void __cdecl Render_DrawIris(float percent,int x,int y)
 {
   uint uVar1;
   uint uVar2;
-  int iVar3;
-  uint uVar4;
+  int extraout_EAX;
+  uint extraout_EAX_00;
+  int extraout_EAX_01;
+  uint extraout_EAX_02;
+  uint uVar3;
+  undefined4 *puVar4;
   int iVar5;
-  uint uVar6;
+  undefined4 *puVar6;
   int iVar7;
-  uint uVar8;
-  undefined4 *puVar9;
-  int iVar10;
-  undefined4 *puVar11;
-  undefined4 *puVar12;
+  undefined4 *puVar8;
   
   if ((percent < 0.0) || (1.0 < percent)) {
     (*g_pSvcRender->pAssertFail)
               (s__percent____0_0f______percent____004e80ec,
                s_C__grimsrc_libs_grimlib_Engine_s_004e80bc,0x9f2);
   }
-  iVar3 = _ftol();
-  uVar4 = _ftol();
-  iVar5 = _ftol();
-  uVar6 = _ftol();
+  _ftol();
+  _ftol();
+  _ftol();
+  _ftol();
   uVar2 = UINT_0090563c;
   uVar1 = UINT_009055f8;
   Surface_Lock(&g_BackBuffer);
-  puVar9 = (undefined4 *)uVar2;
-  iVar10 = iVar3;
   iVar7 = 0;
-  if (0 < iVar3) {
+  puVar4 = (undefined4 *)uVar2;
+  iVar5 = extraout_EAX;
+  if (0 < extraout_EAX) {
     do {
-      iVar10 = iVar10 + -1;
-      puVar11 = puVar9;
+      iVar5 = iVar5 + -1;
+      puVar6 = puVar4;
       for (iVar7 = 0x140; iVar7 != 0; iVar7 = iVar7 + -1) {
-        *puVar11 = 0;
-        puVar11 = puVar11 + 1;
+        *puVar6 = 0;
+        puVar6 = puVar6 + 1;
       }
-      puVar9 = (undefined4 *)((int)puVar9 + uVar1);
-      iVar7 = iVar3;
-    } while (iVar10 != 0);
+      puVar4 = (undefined4 *)((int)puVar4 + uVar1);
+      iVar7 = extraout_EAX;
+    } while (iVar5 != 0);
   }
-  if (iVar7 < 0x1e0 - iVar5) {
-    y = (0x1e0 - iVar5) - iVar7;
-    puVar11 = (undefined4 *)(uVar2 + uVar1 * iVar7);
-    puVar9 = (undefined4 *)(uVar2 + (0x280 - uVar6) * 2 + uVar1 * iVar7);
+  if (iVar7 < 0x1e0 - extraout_EAX_01) {
+    y = (0x1e0 - extraout_EAX_01) - iVar7;
+    puVar6 = (undefined4 *)(uVar2 + uVar1 * iVar7);
+    puVar4 = (undefined4 *)(uVar2 + (0x280 - extraout_EAX_02) * 2 + uVar1 * iVar7);
     iVar7 = iVar7 + y;
     do {
-      puVar12 = puVar11;
-      for (uVar8 = (uVar4 & 0x7fffffff) >> 1; uVar8 != 0; uVar8 = uVar8 - 1) {
-        *puVar12 = 0;
-        puVar12 = puVar12 + 1;
+      puVar8 = puVar6;
+      for (uVar3 = (extraout_EAX_00 & 0x7fffffff) >> 1; uVar3 != 0; uVar3 = uVar3 - 1) {
+        *puVar8 = 0;
+        puVar8 = puVar8 + 1;
       }
-      puVar11 = (undefined4 *)((int)puVar11 + uVar1);
-      for (uVar8 = uVar4 * 2 & 3; uVar8 != 0; uVar8 = uVar8 - 1) {
-        *(undefined1 *)puVar12 = 0;
-        puVar12 = (undefined4 *)((int)puVar12 + 1);
+      puVar6 = (undefined4 *)((int)puVar6 + uVar1);
+      for (uVar3 = extraout_EAX_00 * 2 & 3; uVar3 != 0; uVar3 = uVar3 - 1) {
+        *(undefined1 *)puVar8 = 0;
+        puVar8 = (undefined4 *)((int)puVar8 + 1);
       }
-      puVar12 = puVar9;
-      for (uVar8 = (uVar6 & 0x7fffffff) >> 1; uVar8 != 0; uVar8 = uVar8 - 1) {
-        *puVar12 = 0;
-        puVar12 = puVar12 + 1;
+      puVar8 = puVar4;
+      for (uVar3 = (extraout_EAX_02 & 0x7fffffff) >> 1; uVar3 != 0; uVar3 = uVar3 - 1) {
+        *puVar8 = 0;
+        puVar8 = puVar8 + 1;
       }
-      puVar9 = (undefined4 *)((int)puVar9 + uVar1);
-      for (uVar8 = uVar6 * 2 & 3; uVar8 != 0; uVar8 = uVar8 - 1) {
-        *(undefined1 *)puVar12 = 0;
-        puVar12 = (undefined4 *)((int)puVar12 + 1);
+      puVar4 = (undefined4 *)((int)puVar4 + uVar1);
+      for (uVar3 = extraout_EAX_02 * 2 & 3; uVar3 != 0; uVar3 = uVar3 - 1) {
+        *(undefined1 *)puVar8 = 0;
+        puVar8 = (undefined4 *)((int)puVar8 + 1);
       }
       y = y + -1;
     } while (y != 0);
   }
   if (iVar7 < 0x1e0) {
-    iVar10 = 0x1e0 - iVar7;
-    puVar9 = (undefined4 *)(uVar1 * iVar7 + uVar2);
+    iVar5 = 0x1e0 - iVar7;
+    puVar4 = (undefined4 *)(uVar1 * iVar7 + uVar2);
     do {
-      iVar10 = iVar10 + -1;
-      puVar11 = puVar9;
+      iVar5 = iVar5 + -1;
+      puVar6 = puVar4;
       for (iVar7 = 0x140; iVar7 != 0; iVar7 = iVar7 + -1) {
-        *puVar11 = 0;
-        puVar11 = puVar11 + 1;
+        *puVar6 = 0;
+        puVar6 = puVar6 + 1;
       }
-      puVar9 = (undefined4 *)((int)puVar9 + uVar1);
-    } while (iVar10 != 0);
+      puVar4 = (undefined4 *)((int)puVar4 + uVar1);
+    } while (iVar5 != 0);
   }
   Surface_Unlock(&g_BackBuffer);
   return;
@@ -1281,12 +1283,12 @@ void * __cdecl Render_CaptureThumbnail(int w,int h)
   uint uVar2;
   void *surface;
   void *surface_00;
-  int iVar3;
-  undefined2 *puVar4;
-  int iVar5;
-  int iVar6;
-  uint *puVar7;
-  uint *puVar8;
+  int extraout_EAX;
+  undefined2 *puVar3;
+  int extraout_EAX_00;
+  int iVar4;
+  uint *puVar5;
+  uint *puVar6;
   #define local_5c (*(uint *)(_frame + (0x70 - 0x5c)))
   #define local_58 (*(uint *)(_frame + (0x70 - 0x58)))
   #define local_54 (*(uint *)(_frame + (0x70 - 0x54)))
@@ -1299,12 +1301,12 @@ void * __cdecl Render_CaptureThumbnail(int w,int h)
   g_nFullRedrawPending = 1;
   Render_DimBackground(1,0);
   surface = g_pBackgroundSurface;
-  puVar7 = (uint *)((int)g_pBackgroundSurface + 0xc);
-  puVar8 = &local_4c;
-  for (iVar6 = 0x13; iVar6 != 0; iVar6 = iVar6 + -1) {
-    *puVar8 = *puVar7;
-    puVar7 = puVar7 + 1;
-    puVar8 = puVar8 + 1;
+  puVar5 = (uint *)((int)g_pBackgroundSurface + 0xc);
+  puVar6 = &local_4c;
+  for (iVar4 = 0x13; iVar4 != 0; iVar4 = iVar4 + -1) {
+    *puVar6 = *puVar5;
+    puVar5 = puVar5 + 1;
+    puVar6 = puVar6 + 1;
   }
   local_4c = w;
   local_48 = h;
@@ -1315,17 +1317,17 @@ void * __cdecl Render_CaptureThumbnail(int w,int h)
   local_58 = 0;
   if (0 < h) {
     do {
-      iVar3 = _ftol();
-      iVar6 = *(int *)((int)surface + 0x5c);
+      _ftol();
+      iVar4 = *(int *)((int)surface + 0x5c);
       iVar1 = *(int *)((int)surface + 0x18);
-      puVar4 = (undefined2 *)
+      puVar3 = (undefined2 *)
                (local_58 * *(int *)((int)surface_00 + 0x18) + *(int *)((int)surface_00 + 0x5c));
       if (0 < w) {
         local_5c = w;
         do {
-          iVar5 = _ftol();
-          *puVar4 = *(undefined2 *)(iVar3 * iVar1 + iVar6 + iVar5 * 2);
-          puVar4 = puVar4 + 1;
+          _ftol();
+          *puVar3 = *(undefined2 *)(extraout_EAX * iVar1 + iVar4 + extraout_EAX_00 * 2);
+          puVar3 = puVar3 + 1;
           local_5c = local_5c - 1;
         } while (local_5c != 0);
       }
@@ -1352,11 +1354,11 @@ void __cdecl Render_FillRect(int x,int y,int w,int h,float r,float g,float b)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  int iVar1;
-  int iVar2;
-  int iVar3;
-  ushort *puVar4;
-  ushort *puVar5;
+  int extraout_EAX;
+  int extraout_EAX_00;
+  int extraout_EAX_01;
+  ushort *puVar1;
+  ushort *puVar2;
   #define local_1c (*(uint *)(_frame + (0x30 - 0x1c)))
   #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
   #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
@@ -1366,25 +1368,25 @@ void __cdecl Render_FillRect(int x,int y,int w,int h,float r,float g,float b)
   #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
   
   Surface_Lock(&g_BackBuffer);
-  puVar5 = (ushort *)(UINT_0090563c + y * UINT_009055f8 + x * 2);
+  puVar2 = (ushort *)(UINT_0090563c + y * UINT_009055f8 + x * 2);
   if (0 < h) {
     local_14 = h;
     do {
       if (0 < w) {
         local_1c = w;
-        puVar4 = puVar5;
+        puVar1 = puVar2;
         do {
-          iVar1 = _ftol();
-          iVar2 = _ftol();
-          iVar3 = _ftol();
-          *puVar4 = (ushort)(iVar3 << ((byte)UINT_0090561c & 0x1f)) |
-                    (ushort)(iVar2 << ((byte)UINT_00905618 & 0x1f)) |
-                    (ushort)(iVar1 << ((byte)_DAT_00905614 & 0x1f));
+          _ftol();
+          _ftol();
+          _ftol();
+          *puVar1 = (ushort)(extraout_EAX_01 << ((byte)UINT_0090561c & 0x1f)) |
+                    (ushort)(extraout_EAX_00 << ((byte)UINT_00905618 & 0x1f)) |
+                    (ushort)(extraout_EAX << ((byte)_DAT_00905614 & 0x1f));
           local_1c = local_1c - 1;
-          puVar4 = puVar4 + 1;
+          puVar1 = puVar1 + 1;
         } while (local_1c != 0);
       }
-      puVar5 = (ushort *)((int)puVar5 + UINT_009055f8);
+      puVar2 = (ushort *)((int)puVar2 + UINT_009055f8);
       local_14 = local_14 - 1;
     } while (local_14 != 0);
   }
@@ -1541,48 +1543,48 @@ void __cdecl Render_DrawProgressBar(float fraction)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  int extraout_EAX;
   int iVar1;
-  int iVar2;
-  undefined2 *puVar3;
+  undefined2 *puVar2;
+  int iVar3;
   int iVar4;
-  int iVar5;
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   local_4 = 0xffe0;
-  iVar1 = _ftol();
+  _ftol();
   Render_RemapPixels((ushort *)&local_4,1);
   Surface_Lock(&g_PrimarySurface);
-  iVar4 = 0x21c;
-  iVar2 = UINT_00901698 * 0x1c7 + UINT_009016dc;
-  puVar3 = (undefined2 *)(iVar2 + 100);
+  iVar3 = 0x21c;
+  iVar1 = UINT_00901698 * 0x1c7 + UINT_009016dc;
+  puVar2 = (undefined2 *)(iVar1 + 100);
   do {
-    *puVar3 = (undefined2)local_4;
-    puVar3 = puVar3 + 1;
-    iVar4 = iVar4 + -1;
-  } while (iVar4 != 0);
-  iVar4 = 0xc;
+    *puVar2 = (undefined2)local_4;
+    puVar2 = puVar2 + 1;
+    iVar3 = iVar3 + -1;
+  } while (iVar3 != 0);
+  iVar3 = 0xc;
   do {
-    iVar2 = iVar2 + (UINT_00901698 & 0xfffffffe);
-    puVar3 = (undefined2 *)(iVar2 + 100);
-    *(undefined2 *)(iVar2 + 0x49a) = 0xffe0;
-    *puVar3 = 0xffe0;
-    iVar5 = iVar1;
-    if (0x32 < iVar1 + 0x32) {
+    iVar1 = iVar1 + (UINT_00901698 & 0xfffffffe);
+    puVar2 = (undefined2 *)(iVar1 + 100);
+    *(undefined2 *)(iVar1 + 0x49a) = 0xffe0;
+    *puVar2 = 0xffe0;
+    iVar4 = extraout_EAX;
+    if (0x32 < extraout_EAX + 0x32) {
       do {
-        *puVar3 = (undefined2)local_4;
-        puVar3 = puVar3 + 1;
-        iVar5 = iVar5 + -1;
-      } while (iVar5 != 0);
+        *puVar2 = (undefined2)local_4;
+        puVar2 = puVar2 + 1;
+        iVar4 = iVar4 + -1;
+      } while (iVar4 != 0);
     }
-    iVar4 = iVar4 + -1;
-  } while (iVar4 != 0);
-  puVar3 = (undefined2 *)(iVar2 + 100);
-  iVar2 = 0x21c;
+    iVar3 = iVar3 + -1;
+  } while (iVar3 != 0);
+  puVar2 = (undefined2 *)(iVar1 + 100);
+  iVar1 = 0x21c;
   do {
-    *puVar3 = (undefined2)local_4;
-    puVar3 = puVar3 + 1;
-    iVar2 = iVar2 + -1;
-  } while (iVar2 != 0);
+    *puVar2 = (undefined2)local_4;
+    puVar2 = puVar2 + 1;
+    iVar1 = iVar1 + -1;
+  } while (iVar1 != 0);
   Surface_Unlock(&g_PrimarySurface);
   return;
 }

@@ -264,7 +264,7 @@ void Engine_UpdateFrame(int param_1,int param_2)
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   undefined4 uVar1;
-  float10 fVar2;
+  float fVar2;
   #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   
@@ -281,8 +281,8 @@ void Engine_UpdateFrame(int param_1,int param_2)
   if (UINT_008a8c40 != 0) {
     Profile_Begin(1);
     uVar1 = Timer_GetFrameMs();
-    fVar2 = (float10)((code *)Timer_GetFrameSeconds)(uVar1);
-    Engine_RunShutdownHooks((float)fVar2);
+    fVar2 = Timer_GetFrameSeconds();
+    ((code *)Engine_RunShutdownHooks)(fVar2,uVar1);
     Profile_End(1);
     if ((UINT_008a8c40 != 1) || (param_2 != 0)) {
       UINT_008a8c3c = UINT_008a8c3c + 1;
@@ -299,8 +299,8 @@ void Engine_UpdateFrame(int param_1,int param_2)
       }
       if ((UINT_008a8c40 != 3) && (UINT_008a8c40 != 4)) {
         Profile_Begin(3);
-        fVar2 = (float10)Timer_GetFrameSeconds();
-        Actors_UpdateAll((float)fVar2);
+        fVar2 = Timer_GetFrameSeconds();
+        Actors_UpdateAll(fVar2);
         Profile_End(3);
       }
     }
@@ -584,7 +584,7 @@ undefined * __cdecl Profile_End(int param_1)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  undefined *puVar1;
+  undefined *extraout_EAX;
   #define local_18 (*(longlong *)(_frame + (0x30 - 0x18)))
   #define lStack_10 (*(longlong *)(_frame + (0x30 - 0x10)))
   #define dStack_8 (*(double *)(_frame + (0x30 - 0x8)))
@@ -599,8 +599,8 @@ undefined * __cdecl Profile_End(int param_1)
   QueryPerformanceCounter((int)&lStack_10);
   *(double *)(&UINT_004e7b50 + param_1 * 0xc) =
        (((double)lStack_10 - *(double *)(&DAT_004e7b48 + param_1 * 0x30)) / dStack_8) * 1000.0;
-  puVar1 = (undefined *)_ftol();
-  return puVar1;
+  _ftol();
+  return extraout_EAX;
 }
 #undef dStack_8
 #undef lStack_10
@@ -899,7 +899,6 @@ void Engine_RenderFrame(void)
   float *pfVar8;
   uint uVar9;
   uint *puVar10;
-  float10 fVar11;
   #define local_1c (*(uint *)(_frame + (0x30 - 0x1c)))
   #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
   #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
@@ -928,8 +927,7 @@ void Engine_RenderFrame(void)
         Render_RequestFullRedraw();
         UINT_008c97f8 = 1;
       }
-      fVar11 = (float10)Timer_GetFrameSeconds();
-      local_1c = (uint)(float)fVar11;
+      local_1c = (uint)Timer_GetFrameSeconds();
       Actors_UpdateTalking((float)local_1c);
       Surface_Lock(&g_BackBuffer);
       UINT_008a94b8 = UINT_0090563c;

@@ -470,7 +470,7 @@ undefined4 Collision_TestActorAgainstOthers(void *param_1)
             _DAT_008ca348 = *pfVar7;
             _DAT_008ca34c = *(undefined4 *)((int)param_1 + 0x10);
             _DAT_008ca350 = *(undefined4 *)((int)param_1 + 0x14);
-            ((code *)Vec3_Normalize)();
+            Vec3_Normalize((float *)&local_24);
             bVar1 = *(byte *)((int)param_1 + 8);
             fVar4 = (1.0 - (fVar4 - (float)local_8c) / fVar3) * fVar3;
             local_18 = (uint)(((float)local_24 * fVar4 + (float)local_6c) - (float)local_98);
@@ -660,11 +660,10 @@ Collision_BoxSlide(float *param_1,float *param_2,float param_3,float param_4,flo
   float fVar5;
   float fVar6;
   float fVar7;
-  float fVar8;
-  float *pfVar9;
-  int iVar10;
-  float10 fVar11;
-  float fVar12;
+  float *pfVar8;
+  int iVar9;
+  float fVar10;
+  float fVar11;
   #define local_58 (*(uint *)(_frame + (0x70 - 0x58)))
   #define local_50 (*(uint *)(_frame + (0x70 - 0x50)))
   #define local_4c (*(uint *)(_frame + (0x70 - 0x4c)))
@@ -676,186 +675,185 @@ Collision_BoxSlide(float *param_1,float *param_2,float param_3,float param_4,flo
   #define local_34 (*(uint *)(_frame + (0x70 - 0x34)))
   #define local_30 (*(float (*)[12])(_frame + (0x70 - 0x30)))
   
-  pfVar9 = param_9;
-  iVar10 = 0;
-  fVar1 = *param_1 - *param_2;
-  fVar2 = param_1[1] - param_2[1];
-  fVar4 = param_1[2] - param_2[2];
-  fVar12 = fVar1 * -10.0 + *param_2;
-  fVar3 = fVar2 * -10.0 + param_2[1];
-  fVar7 = fVar4 * -10.0 + param_2[2];
-  *param_2 = fVar12;
-  fVar6 = 3.4028235e+38;
-  param_2[1] = fVar3;
-  param_2[2] = fVar7;
-  if (param_6 - 0.002 < fVar12) {
-    fVar5 = fVar1;
-    if (fVar1 < 0.0) {
-      fVar5 = -fVar1;
+  pfVar8 = param_9;
+  iVar9 = 0;
+  fVar10 = *param_1 - *param_2;
+  fVar1 = param_1[1] - param_2[1];
+  fVar3 = param_1[2] - param_2[2];
+  fVar11 = fVar10 * -10.0 + *param_2;
+  fVar2 = fVar1 * -10.0 + param_2[1];
+  fVar6 = fVar3 * -10.0 + param_2[2];
+  *param_2 = fVar11;
+  fVar5 = 3.4028235e+38;
+  param_2[1] = fVar2;
+  param_2[2] = fVar6;
+  if (param_6 - 0.002 < fVar11) {
+    fVar4 = fVar10;
+    if (fVar10 < 0.0) {
+      fVar4 = -fVar10;
     }
-    fVar5 = (param_6 - *param_1) / fVar5;
-    fVar8 = fVar5;
-    if (fVar5 < 0.0) {
-      fVar8 = -fVar5;
+    fVar4 = (param_6 - *param_1) / fVar4;
+    fVar7 = fVar4;
+    if (fVar4 < 0.0) {
+      fVar7 = -fVar4;
     }
-    fVar6 = 3.4028235e+38;
-    if (fVar8 < 3.4028235e+38) {
-      fVar6 = -fVar5;
-      iVar10 = 1;
+    fVar5 = 3.4028235e+38;
+    if (fVar7 < 3.4028235e+38) {
+      fVar5 = -fVar4;
+      iVar9 = 1;
       local_3c = 0x3f800000;
       local_38 = 0;
       local_34 = 0;
     }
   }
-  if (fVar12 < param_3 - -0.002) {
-    fVar12 = fVar1;
-    if (fVar1 < 0.0) {
-      fVar12 = -fVar1;
+  if (fVar11 < param_3 - -0.002) {
+    fVar11 = fVar10;
+    if (fVar10 < 0.0) {
+      fVar11 = -fVar10;
     }
-    fVar12 = (param_3 - *param_1) / fVar12;
-    fVar5 = fVar12;
-    if (fVar12 < 0.0) {
-      fVar5 = -fVar12;
+    fVar11 = (param_3 - *param_1) / fVar11;
+    fVar4 = fVar11;
+    if (fVar11 < 0.0) {
+      fVar4 = -fVar11;
     }
-    fVar8 = fVar6;
-    if (fVar6 < 0.0) {
-      fVar8 = -fVar6;
+    fVar7 = fVar5;
+    if (fVar5 < 0.0) {
+      fVar7 = -fVar5;
     }
-    if (fVar5 < fVar8) {
-      iVar10 = 2;
+    if (fVar4 < fVar7) {
+      iVar9 = 2;
       local_3c = 0xbf800000;
       local_38 = 0;
       local_34 = 0;
-      fVar6 = fVar12;
+      fVar5 = fVar11;
     }
   }
-  if (param_7 - 0.002 < fVar3) {
-    fVar12 = fVar2;
-    if (fVar2 < 0.0) {
-      fVar12 = -fVar2;
+  if (param_7 - 0.002 < fVar2) {
+    fVar11 = fVar1;
+    if (fVar1 < 0.0) {
+      fVar11 = -fVar1;
     }
-    fVar12 = (param_7 - param_1[1]) / fVar12;
-    fVar5 = fVar12;
-    if (fVar12 < 0.0) {
-      fVar5 = -fVar12;
+    fVar11 = (param_7 - param_1[1]) / fVar11;
+    fVar4 = fVar11;
+    if (fVar11 < 0.0) {
+      fVar4 = -fVar11;
     }
-    fVar8 = fVar6;
-    if (fVar6 < 0.0) {
-      fVar8 = -fVar6;
+    fVar7 = fVar5;
+    if (fVar5 < 0.0) {
+      fVar7 = -fVar5;
     }
-    if (fVar5 < fVar8) {
-      fVar6 = -fVar12;
-      iVar10 = 3;
+    if (fVar4 < fVar7) {
+      fVar5 = -fVar11;
+      iVar9 = 3;
       local_3c = 0;
       local_38 = 0x3f800000;
       local_34 = 0;
     }
   }
-  if (fVar3 < param_4 - -0.002) {
-    fVar12 = fVar2;
-    if (fVar2 < 0.0) {
-      fVar12 = -fVar2;
+  if (fVar2 < param_4 - -0.002) {
+    fVar11 = fVar1;
+    if (fVar1 < 0.0) {
+      fVar11 = -fVar1;
     }
-    fVar12 = (param_4 - param_1[1]) / fVar12;
-    fVar3 = fVar12;
-    if (fVar12 < 0.0) {
-      fVar3 = -fVar12;
+    fVar11 = (param_4 - param_1[1]) / fVar11;
+    fVar2 = fVar11;
+    if (fVar11 < 0.0) {
+      fVar2 = -fVar11;
     }
-    fVar5 = fVar6;
-    if (fVar6 < 0.0) {
-      fVar5 = -fVar6;
+    fVar4 = fVar5;
+    if (fVar5 < 0.0) {
+      fVar4 = -fVar5;
     }
-    if (fVar3 < fVar5) {
-      iVar10 = 4;
+    if (fVar2 < fVar4) {
+      iVar9 = 4;
       local_3c = 0;
       local_38 = 0xbf800000;
       local_34 = 0;
-      fVar6 = fVar12;
+      fVar5 = fVar11;
     }
   }
-  if (param_8 - 0.002 < fVar7) {
-    fVar12 = fVar4;
-    if (fVar4 < 0.0) {
-      fVar12 = -fVar4;
+  if (param_8 - 0.002 < fVar6) {
+    fVar11 = fVar3;
+    if (fVar3 < 0.0) {
+      fVar11 = -fVar3;
     }
-    fVar12 = (param_8 - param_1[2]) / fVar12;
-    fVar3 = fVar12;
-    if (fVar12 < 0.0) {
-      fVar3 = -fVar12;
+    fVar11 = (param_8 - param_1[2]) / fVar11;
+    fVar2 = fVar11;
+    if (fVar11 < 0.0) {
+      fVar2 = -fVar11;
     }
-    fVar5 = fVar6;
-    if (fVar6 < 0.0) {
-      fVar5 = -fVar6;
+    fVar4 = fVar5;
+    if (fVar5 < 0.0) {
+      fVar4 = -fVar5;
     }
-    if (fVar3 < fVar5) {
-      fVar6 = -fVar12;
-      iVar10 = 5;
+    if (fVar2 < fVar4) {
+      fVar5 = -fVar11;
+      iVar9 = 5;
       local_3c = 0;
       local_38 = 0;
       local_34 = 0x3f800000;
     }
   }
-  if (fVar7 < param_5 - -0.002) {
-    fVar12 = fVar4;
-    if (fVar4 < 0.0) {
-      fVar12 = -fVar4;
+  if (fVar6 < param_5 - -0.002) {
+    fVar11 = fVar3;
+    if (fVar3 < 0.0) {
+      fVar11 = -fVar3;
     }
-    fVar12 = (param_5 - param_1[2]) / fVar12;
-    fVar3 = fVar12;
-    if (fVar12 < 0.0) {
-      fVar3 = -fVar12;
+    fVar11 = (param_5 - param_1[2]) / fVar11;
+    fVar2 = fVar11;
+    if (fVar11 < 0.0) {
+      fVar2 = -fVar11;
     }
-    fVar7 = fVar6;
-    if (fVar6 < 0.0) {
-      fVar7 = -fVar6;
+    fVar6 = fVar5;
+    if (fVar5 < 0.0) {
+      fVar6 = -fVar5;
     }
-    if (fVar3 < fVar7) {
-      iVar10 = 6;
+    if (fVar2 < fVar6) {
+      iVar9 = 6;
       local_3c = 0;
       local_38 = 0;
       local_34 = 0xbf800000;
-      fVar6 = fVar12;
+      fVar5 = fVar11;
     }
   }
-  if (iVar10 == 0) {
+  if (iVar9 == 0) {
     return 0;
   }
-  *param_9 = fVar6 * fVar1 + *param_1;
-  param_9[1] = fVar6 * fVar2 + param_1[1];
-  param_9[2] = fVar6 * fVar4 + param_1[2];
+  *param_9 = fVar5 * fVar10 + *param_1;
+  param_9[1] = fVar5 * fVar1 + param_1[1];
+  param_9[2] = fVar5 * fVar3 + param_1[2];
   _DAT_008ca320 = *param_9;
   _DAT_008ca324 = param_9[1];
   _DAT_008ca328 = param_9[2];
-  fVar12 = fVar6;
-  if (fVar6 < 0.0) {
-    fVar12 = -fVar6;
+  fVar11 = fVar5;
+  if (fVar5 < 0.0) {
+    fVar11 = -fVar5;
   }
-  local_48 = (uint)(fVar1 * fVar12);
-  fVar1 = fVar6;
-  if (fVar6 < 0.0) {
-    fVar1 = -fVar6;
+  local_48 = (uint)(fVar10 * fVar11);
+  fVar10 = fVar5;
+  if (fVar5 < 0.0) {
+    fVar10 = -fVar5;
   }
-  local_44 = (uint)(fVar2 * fVar1);
-  if (fVar6 < 0.0) {
-    fVar6 = -fVar6;
+  local_44 = (uint)(fVar1 * fVar10);
+  if (fVar5 < 0.0) {
+    fVar5 = -fVar5;
   }
-  local_40 = (uint)(fVar4 * fVar6);
-  fVar11 = (float10)((code *)Vec3_Normalize)(&local_48);
-  fVar1 = (float)fVar11;
-  fVar12 = Vec3_Dot2((float *)&local_48,(float *)&local_3c);
-  fVar11 = (float10)Math_AsinDegreesSeries(fVar12);
-  if ((float10)90.0 - fVar11 < (float10)90.0) {
+  local_40 = (uint)(fVar3 * fVar5);
+  fVar10 = Vec3_Normalize((float *)&local_48);
+  fVar11 = Vec3_Dot2((float *)&local_48,(float *)&local_3c);
+  fVar11 = Math_AsinDegreesSeries(fVar11);
+  if (90.0 - fVar11 < 90.0) {
     return 0;
   }
   param_3 = (float)local_34 * (float)local_44 - (float)local_38 * (float)local_40;
   param_4 = (float)local_3c * (float)local_40 - (float)local_34 * (float)local_48;
   param_5 = (float)local_38 * (float)local_48 - (float)local_3c * (float)local_44;
   Vec3_Normalize(&param_3);
-  Matrix_AxisAngle(local_30,&param_3,(float)((float10)90.0 - fVar11) - 90.0);
+  Matrix_AxisAngle(local_30,&param_3,(90.0 - fVar11) - 90.0);
   Vec3_Transform((float *)&local_48,local_30);
-  *pfVar9 = fVar1 * (float)local_48 + *pfVar9;
-  pfVar9[1] = fVar1 * (float)local_44 + pfVar9[1];
-  pfVar9[2] = fVar1 * (float)local_40 + pfVar9[2];
+  *pfVar8 = fVar10 * (float)local_48 + *pfVar8;
+  pfVar8[1] = fVar10 * (float)local_44 + pfVar8[1];
+  pfVar8[2] = fVar10 * (float)local_40 + pfVar8[2];
   return 1;
 }
 #undef local_30
