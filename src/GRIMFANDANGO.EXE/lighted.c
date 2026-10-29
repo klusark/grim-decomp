@@ -214,7 +214,7 @@ void __cdecl LightEd_DeleteLight(uint index)
 /* ---- 0x004be730  LightEd_MakeUniqueName ---- */
 /* newlight%d, skipping names already used in the set */
 
-void LightEd_MakeUniqueName(int param_1,undefined4 param_2)
+void LightEd_MakeUniqueName(int param_1,char *param_2)
 
 {
   int iVar1;
@@ -227,7 +227,7 @@ void LightEd_MakeUniqueName(int param_1,undefined4 param_2)
     if (0x3f < uVar2) {
       return;
     }
-    ((code *)sprintf)(param_2,s_newlight_d_004f0d6c,uVar2);
+    sprintf(param_2,s_newlight_d_004f0d6c,uVar2);
     uVar3 = 0;
     if (*(int *)(param_1 + 0xb8) != 0) {
       iVar4 = param_1 + 0xbc;
@@ -781,12 +781,12 @@ void LightEd_SetDlgFloat(int param_1,int param_2,float param_3,int param_4)
 {
   unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
-  #define local_4c (*(undefined1 (*)[76])(_frame + (0x60 - 0x4c)))
+  #define local_4c (*(char (*)[76])(_frame + (0x60 - 0x4c)))
   
   iVar1 = GetDlgItem(param_1,param_2);
   iVar1 = IsWindowEnabled(iVar1);
   if (iVar1 != 0) {
-    ((undefined4 (*)(uint, undefined4, float))sprintf)(local_4c,&DAT_004ddc14,(double)param_3);
+    sprintf(local_4c,&DAT_004ddc14,(double)param_3);
     if (param_4 == 0) {
       UINT_008d3640 = 1;
     }
@@ -865,10 +865,7 @@ void LightEd_ReadControl(int param_1,int param_2)
 
 {
   unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  uint extraout_EAX;
-  uint extraout_EAX_00;
-  uint extraout_EAX_01;
-  uint a5;
+  uint uVar1;
   float outer;
   int a2;
   #define local_4c (*(byte (*)[76])(_frame + (0x60 - 0x4c)))
@@ -887,8 +884,8 @@ void LightEd_ReadControl(int param_1,int param_2)
     if (UINT_008d3640 != 0) {
       return;
     }
-    _ftol();
-    a5 = extraout_EAX & 0xffff;
+    uVar1 = _ftol();
+    uVar1 = uVar1 & 0xffff;
     a2 = 0x3fb;
     goto LAB_004bf718;
   case 0x3ed:
@@ -897,8 +894,8 @@ void LightEd_ReadControl(int param_1,int param_2)
     if (UINT_008d3640 != 0) {
       return;
     }
-    _ftol();
-    a5 = extraout_EAX_00 & 0xffff;
+    uVar1 = _ftol();
+    uVar1 = uVar1 & 0xffff;
     a2 = 0x3ff;
     goto LAB_004bf718;
   case 0x3ee:
@@ -907,11 +904,11 @@ void LightEd_ReadControl(int param_1,int param_2)
     if (UINT_008d3640 != 0) {
       return;
     }
-    _ftol();
-    a5 = extraout_EAX_01 & 0xffff;
+    uVar1 = _ftol();
+    uVar1 = uVar1 & 0xffff;
     a2 = 0x400;
 LAB_004bf718:
-    SendDlgItemMessageA(param_1,a2,0x467,0,a5);
+    SendDlgItemMessageA(param_1,a2,0x467,0,uVar1);
     break;
   case 0x3ef:
     LightEd_SetLightPosComponent(g_nLightEdSelected,0,outer);

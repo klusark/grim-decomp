@@ -74,7 +74,7 @@ void __cdecl io_getfilebyname(byte *param_1)
   iVar2 = lua_getglobal(param_1);
   bVar1 = io_gethandle(iVar2);
   if (CONCAT31(extraout_var,bVar1) == 0) {
-    luaL_verror(s_global_variable____50s__is_not_a_10026c08);
+    luaL_verror(s_global_variable____50s__is_not_a_10026c08,param_1);
   }
   lua_getuserdata(iVar2);
   return;

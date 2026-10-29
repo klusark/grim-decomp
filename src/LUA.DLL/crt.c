@@ -232,24 +232,24 @@ int __cdecl _snprintf(undefined1 *param_1,char *param_2,undefined4 *param_3)
 /* ---- 0x1000f4f0  sprintf ---- */
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
 
-int __cdecl sprintf(undefined1 *param_1,char *param_2)
+int __cdecl sprintf(char *buf,char *fmt,...)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
-  #define local_20 (*(undefined1 **)(_frame + (0x30 - 0x20)))
+  #define local_20 (*(char **)(_frame + (0x30 - 0x20)))
   #define local_1c (*(int *)(_frame + (0x30 - 0x1c)))
-  #define local_18 (*(undefined1 **)(_frame + (0x30 - 0x18)))
+  #define local_18 (*(char **)(_frame + (0x30 - 0x18)))
   #define local_14 (*(undefined4 *)(_frame + (0x30 - 0x14)))
   
-  local_18 = param_1;
-  local_20 = param_1;
+  local_18 = buf;
+  local_20 = buf;
   local_14 = 0x42;
   local_1c = 0x7fffffff;
-  iVar1 = _output((int *)&local_20,param_2,(undefined4 *)&STACK0X(0x0000000c));
+  iVar1 = _output((int *)&local_20,fmt,(undefined4 *)&STACK0X(0x0000000c));
   local_1c = local_1c + -1;
   if (-1 < local_1c) {
-    *local_20 = 0;
+    *local_20 = '\0';
     return iVar1;
   }
   _flsbuf(0,(int *)&local_20);
@@ -264,7 +264,7 @@ int __cdecl sprintf(undefined1 *param_1,char *param_2)
 /* ---- 0x1000f560  printf ---- */
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
 
-int __cdecl printf(char *param_1)
+int __cdecl printf(char *fmt,...)
 
 {
   int iVar1;
@@ -272,7 +272,7 @@ int __cdecl printf(char *param_1)
   
   _lock_file2(1,IMG_ADDR(0x100282f0));
   iVar1 = _stbuf((undefined4 *)&DAT_100282f0);
-  iVar2 = _output((int *)&DAT_100282f0,param_1,(undefined4 *)&STACK0X(0x00000008));
+  iVar2 = _output((int *)&DAT_100282f0,fmt,(undefined4 *)&STACK0X(0x00000008));
   _ftbuf(iVar1,(int *)&DAT_100282f0);
   _unlock_file2(1,IMG_ADDR(0x100282f0));
   return iVar2;
@@ -2736,16 +2736,25 @@ void FUN_10012152(void)
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
 
-float __cdecl _ftol_10012325(void)
+undefined4 __cdecl _ftol_10012325(void)
 
 {
+  undefined4 in_EAX;
+  undefined2 uVar1;
   float10 in_ST0;
-  float10 in_ST1;
+  float10 fVar2;
+  float10 fVar3;
   
-  if (ROUND(in_ST0) == in_ST0) {
-    return (float)in_ST1;
+  fVar2 = ROUND(in_ST0);
+  uVar1 = (undefined2)((uint)in_EAX >> 0x10);
+  if ((fVar2 == in_ST0) != 0) {
+    fVar2 = in_ST0 * (float10)_DAT_10028940;
+    fVar3 = ROUND(fVar2);
+    return CONCAT22(uVar1,(ushort)(fVar3 < fVar2) << 8 | (ushort)(ISNAN(fVar3) || ISNAN(fVar2)) << 10 |
+                          (ushort)(fVar3 == fVar2) << 0xe);
   }
-  return (float)in_ST1;
+  return CONCAT22(uVar1,(ushort)(fVar2 < in_ST0) << 8 | (ushort)(ISNAN(fVar2) || ISNAN(in_ST0)) << 10 |
+                        (ushort)(fVar2 == in_ST0) << 0xe);
 }
 
 /* ---- 0x10012390  bsearch ---- */
@@ -3274,7 +3283,7 @@ uint __cdecl strncmp(char *param_1,char *param_2,int param_3)
 /* ---- 0x10012aa0  sscanf ---- */
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
 
-int __cdecl sscanf(char *param_1,byte *param_2)
+int __cdecl sscanf(char *str,char *fmt,...)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -3287,17 +3296,17 @@ int __cdecl sscanf(char *param_1,byte *param_2)
   #define local_14 (*(undefined4 *)(_frame + (0x30 - 0x14)))
   
   uVar3 = 0xffffffff;
-  local_18 = param_1;
-  local_20 = param_1;
+  local_18 = str;
+  local_20 = str;
   do {
     if (uVar3 == 0) break;
     uVar3 = uVar3 - 1;
-    cVar1 = *param_1;
-    param_1 = param_1 + 1;
+    cVar1 = *str;
+    str = str + 1;
   } while (cVar1 != '\0');
   local_1c = ~uVar3 - 1;
   local_14 = 0x49;
-  iVar2 = _input((int *)&local_20,param_2,(undefined4 *)&STACK0X(0x0000000c));
+  iVar2 = _input((int *)&local_20,(byte *)fmt,(undefined4 *)&STACK0X(0x0000000c));
   return iVar2;
 }
 #undef local_14

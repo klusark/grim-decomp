@@ -510,8 +510,7 @@ int __cdecl rdCamera_ProjectPoint(float *world,float *outScreen)
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
-  float extraout_EAX;
-  float extraout_EAX_00;
+  float fVar2;
   #define local_18 (*(undefined1 (*)[8])(_frame + (0x30 - 0x18)))
   #define fStack_10 (*(float *)(_frame + (0x30 - 0x10)))
   #define local_c (*(float (*)[3])(_frame + (0x30 - 0xc)))
@@ -521,10 +520,10 @@ int __cdecl rdCamera_ProjectPoint(float *world,float *outScreen)
   if (iVar1 != 0) {
     (**(code **)((int)g_pRdCurrentCamera + 0x4c))(local_18,local_c);
     if (outScreen != (float *)0x0) {
-      _ftol();
-      *outScreen = extraout_EAX;
-      _ftol();
-      outScreen[1] = extraout_EAX_00;
+      fVar2 = (float)_ftol();
+      *outScreen = fVar2;
+      fVar2 = (float)_ftol();
+      outScreen[1] = fVar2;
       outScreen[2] = fStack_10;
     }
     return 1;

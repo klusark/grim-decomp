@@ -81,28 +81,28 @@ LAB_004ac5ff:
 
 
 /* ---- 0x004ac620  sprintf ---- */
-undefined4 sprintf(uint param_1,undefined4 param_2)
+int __cdecl sprintf(char *buf,char *fmt,...)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  undefined4 uVar1;
+  int iVar1;
   #define local_20 (*(uint *)(_frame + (0x30 - 0x20)))
   #define local_1c (*(uint *)(_frame + (0x30 - 0x1c)))
   #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
   #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
   
-  local_18 = param_1;
-  local_20 = param_1;
+  local_18 = (uint)buf;
+  local_20 = (uint)buf;
   local_14 = 0x42;
   local_1c = 0x7fffffff;
-  uVar1 = _output(&local_20,param_2,&STACK0X(0x0000000c));
+  iVar1 = _output(&local_20,fmt,&STACK0X(0x0000000c));
   local_1c = local_1c - 1;
   if (-1 < (int)local_1c) {
     *(undefined1 *)local_20 = 0;
-    return uVar1;
+    return iVar1;
   }
   _flsbuf(0,&local_20);
-  return uVar1;
+  return iVar1;
 }
 #undef local_14
 #undef local_18
@@ -111,37 +111,43 @@ undefined4 sprintf(uint param_1,undefined4 param_2)
 
 
 /* ---- 0x004ac6f0  _ftol ---- */
-float __cdecl _ftol(void)
+undefined4 __cdecl _ftol(void)
 
 {
-  float10 in_ST1;
+  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  float10 in_ST0;
+  #define local_10 (*(undefined4 *)(_frame + (0x20 - 0x10)))
   
-  return (float)in_ST1;
+  local_10 = (undefined4)(longlong)ROUND(in_ST0);
+  return local_10;
 }
+#undef local_10
+
 
 /* ---- 0x004ac720  _snprintf ---- */
-undefined4 _snprintf(uint param_1,uint param_2,undefined4 param_3,undefined4 param_4)
+int __cdecl _snprintf(char *buf,uint n,char *fmt,...)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  undefined4 uVar1;
+  int iVar1;
+  undefined4 in_stack_00000010;
   #define local_20 (*(uint *)(_frame + (0x30 - 0x20)))
   #define local_1c (*(uint *)(_frame + (0x30 - 0x1c)))
   #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
   #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
   
-  local_18 = param_1;
-  local_20 = param_1;
-  local_1c = param_2;
+  local_18 = (uint)buf;
+  local_20 = (uint)buf;
+  local_1c = n;
   local_14 = 0x42;
-  uVar1 = _output(&local_20,param_3,param_4);
+  iVar1 = _output(&local_20,fmt,in_stack_00000010);
   local_1c = local_1c - 1;
   if (-1 < (int)local_1c) {
     *(undefined1 *)local_20 = 0;
-    return uVar1;
+    return iVar1;
   }
   _flsbuf(0,&local_20);
-  return uVar1;
+  return iVar1;
 }
 #undef local_14
 #undef local_18
@@ -487,18 +493,18 @@ void _amsg_exit(undefined4 param_1)
 }
 
 /* ---- 0x004acc40  printf ---- */
-undefined4 printf(undefined4 param_1)
+int __cdecl printf(char *fmt,...)
 
 {
   undefined4 uVar1;
-  undefined4 uVar2;
+  int iVar2;
   
   _lock_file2(1,&DAT_004ed7a0);
   uVar1 = _stbuf(&DAT_004ed7a0);
-  uVar2 = _output(&DAT_004ed7a0,param_1,&STACK0X(0x00000008));
+  iVar2 = _output(&DAT_004ed7a0,fmt,&STACK0X(0x00000008));
   _ftbuf(uVar1,&DAT_004ed7a0);
   _unlock_file2(1,&DAT_004ed7a0);
-  return uVar2;
+  return iVar2;
 }
 
 /* ---- 0x004acca0  vsprintf ---- */
@@ -1551,12 +1557,12 @@ uint memcmp(char *param_1,char *param_2,int param_3)
 }
 
 /* ---- 0x004adda0  sscanf ---- */
-undefined * __cdecl sscanf(char *param_1,uint param_2)
+int __cdecl sscanf(char *str,char *fmt,...)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   char cVar1;
-  undefined *puVar2;
+  int iVar2;
   uint uVar3;
   #define local_20 (*(uint *)(_frame + (0x30 - 0x20)))
   #define local_1c (*(uint *)(_frame + (0x30 - 0x1c)))
@@ -1564,18 +1570,18 @@ undefined * __cdecl sscanf(char *param_1,uint param_2)
   #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
   
   uVar3 = 0xffffffff;
-  local_18 = (uint)param_1;
-  local_20 = (uint)param_1;
+  local_18 = (uint)str;
+  local_20 = (uint)str;
   do {
     if (uVar3 == 0) break;
     uVar3 = uVar3 - 1;
-    cVar1 = *param_1;
-    param_1 = param_1 + 1;
+    cVar1 = *str;
+    str = str + 1;
   } while (cVar1 != '\0');
   local_1c = ~uVar3 - 1;
   local_14 = 0x49;
-  puVar2 = (undefined *)_input(&local_20,param_2,&STACK0X(0x0000000c));
-  return puVar2;
+  iVar2 = _input(&local_20,fmt,&STACK0X(0x0000000c));
+  return iVar2;
 }
 #undef local_14
 #undef local_18
@@ -1821,18 +1827,18 @@ char * strrchr(char *param_1,char param_2)
 }
 
 /* ---- 0x004ae190  fprintf ---- */
-undefined4 fprintf(undefined4 param_1,undefined4 param_2)
+int __cdecl fprintf(void *fp,char *fmt,...)
 
 {
   undefined4 uVar1;
-  undefined4 uVar2;
+  int iVar2;
   
-  _lock_file(param_1);
-  uVar1 = _stbuf(param_1);
-  uVar2 = _output(param_1,param_2,&STACK0X(0x0000000c));
-  _ftbuf(uVar1,param_1);
-  _unlock_file(param_1);
-  return uVar2;
+  _lock_file(fp);
+  uVar1 = _stbuf(fp);
+  iVar2 = _output(fp,fmt,&STACK0X(0x0000000c));
+  _ftbuf(uVar1,fp);
+  _unlock_file(fp);
+  return iVar2;
 }
 
 /* ---- 0x004ae260  wcslen ---- */

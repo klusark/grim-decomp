@@ -560,7 +560,7 @@ int __fastcall luaV_execute(int *param_1)
   uint uVar15;
   
   if ((PTR_1002bf6c[6] != 0) && (PTR_1002bf6c[2] == 0)) {
-    printf(s_WARNING__Lua_nesting_level_now___1002821c);
+    printf(s_WARNING__Lua_nesting_level_now___1002821c,PTR_1002bf6c[6]);
   }
   PTR_1002bf6c[6] = PTR_1002bf6c[6] + 1;
 switchD_1000dfaf_default:

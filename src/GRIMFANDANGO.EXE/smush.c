@@ -258,7 +258,7 @@ undefined * __cdecl Smush_SetFile(uint param_1)
 {
   unsigned char _frame[0x440] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
-  undefined *extraout_EAX;
+  undefined *puVar2;
   #define auStack_428 (*(undefined1 (*)[1064])(_frame + (0x440 - 0x428)))
   
   iVar1 = (*(code *)*PTR_008d10c8)(param_1,&DAT_004dda54);
@@ -267,8 +267,8 @@ undefined * __cdecl Smush_SetFile(uint param_1)
   }
   Insane_ReadFrameHeader(iVar1,auStack_428);
   (*(code *)PTR_008d10c8[1])(iVar1);
-  _ftol();
-  return extraout_EAX;
+  puVar2 = (undefined *)_ftol();
+  return puVar2;
 }
 #undef auStack_428
 

@@ -599,8 +599,8 @@ void __cdecl Actor_UpdateTalk(void *actor,float dt)
   ushort uVar2;
   int iVar3;
   undefined2 extraout_var;
-  int extraout_EAX;
-  undefined4 *puVar4;
+  int iVar4;
+  undefined4 *puVar5;
   
   iVar3 = *(int *)((int)actor + 0xa4);
   if (*(int *)(iVar3 + 0x1c4) == 0) {
@@ -614,23 +614,23 @@ void __cdecl Actor_UpdateTalk(void *actor,float dt)
     }
     else {
       uVar2 = Phoneme_ToTalkChore(actor,iVar3);
-      puVar4 = *(undefined4 **)((int)actor + 0xa0);
-      piVar1 = puVar4 + 1;
-      if (puVar4 != (undefined4 *)0x0) {
+      puVar5 = *(undefined4 **)((int)actor + 0xa0);
+      piVar1 = puVar5 + 1;
+      if (puVar5 != (undefined4 *)0x0) {
         do {
-          if ((puVar4[1] != *piVar1) || (-1 < (int)puVar4[CONCAT22(extraout_var,uVar2) + 0xe]))
+          if ((puVar5[1] != *piVar1) || (-1 < (int)puVar5[CONCAT22(extraout_var,uVar2) + 0xe]))
           break;
-          puVar4 = (undefined4 *)puVar4[0x2c];
-        } while (puVar4 != (undefined4 *)0x0);
-        if ((puVar4 != (undefined4 *)0x0) && (puVar4[1] == *piVar1)) {
-          Cos_InstCompleteChore(*puVar4,puVar4[CONCAT22(extraout_var,uVar2) + 0xe]);
+          puVar5 = (undefined4 *)puVar5[0x2c];
+        } while (puVar5 != (undefined4 *)0x0);
+        if ((puVar5 != (undefined4 *)0x0) && (puVar5[1] == *piVar1)) {
+          Cos_InstCompleteChore(*puVar5,puVar5[CONCAT22(extraout_var,uVar2) + 0xe]);
         }
       }
     }
   }
   iVar3 = *(int *)((int)actor + 0xa4);
-  _ftol();
-  *(int *)(iVar3 + 0x1cc) = *(int *)(iVar3 + 0x1cc) + extraout_EAX;
+  iVar4 = _ftol();
+  *(int *)(iVar3 + 0x1cc) = *(int *)(iVar3 + 0x1cc) + iVar4;
   if ((*(char *)(*(int *)((int)actor + 0xa4) + 0x1dc) == '\0') ||
      (iVar3 = Actor_IsVoicePlaying(actor), iVar3 != 0)) {
     if (*(char *)(*(int *)((int)actor + 0xa4) + 0x1dc) != '\0') {
@@ -1465,16 +1465,16 @@ void __cdecl Actor_SayLine(void *actor,char *text,int background,int volume,int 
   text_00 = Text_ParseLineId(text,(char *)local_44);
   local_24[0] = '\0';
   if (local_44[0] != 0) {
-    ((code *)sprintf)(local_24,s__s_wvc_004e9eec,local_44);
+    sprintf(local_24,s__s_wvc_004e9eec,local_44);
     iVar6 = (**(code **)(UINT_008ca32c + 0x30))(local_24,&DAT_004ddb18);
     if (iVar6 == 0) {
-      ((code *)sprintf)(local_24,s__s_wav_004e9ee4,local_44);
+      sprintf(local_24,s__s_wav_004e9ee4,local_44);
       iVar6 = (**(code **)(UINT_008ca32c + 0x30))(local_24,&DAT_004ddb18);
       if (iVar6 == 0) {
-        ((code *)sprintf)(local_24,s__s_imc_004e9edc,local_44);
+        sprintf(local_24,s__s_imc_004e9edc,local_44);
         iVar6 = (**(code **)(UINT_008ca32c + 0x30))(local_24,&DAT_004ddb18);
         if (iVar6 == 0) {
-          ((code *)sprintf)(local_24,s__s_imu_004e9ed4,local_44);
+          sprintf(local_24,s__s_imu_004e9ed4,local_44);
           iVar6 = (**(code **)(UINT_008ca32c + 0x30))(local_24,&DAT_004ddb18);
           if (iVar6 == 0) {
             local_24[0] = '\0';
@@ -2320,10 +2320,10 @@ void Actor_DrawShadowPlane(void *costumeList,void *shadow)
       }
     }
     if ((float)local_fc <= (float)local_e4) {
-      _ftol();
-      _ftol();
-      _ftol();
-      _ftol();
+      local_d0 = _ftol();
+      local_cc = _ftol();
+      local_c8 = _ftol();
+      local_c4 = _ftol();
       Render_InvalidateRectLastBuffer((int *)&local_d0,1);
     }
   }

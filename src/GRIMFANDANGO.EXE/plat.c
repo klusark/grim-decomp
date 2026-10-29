@@ -23,11 +23,11 @@ void FUN_00477f10(undefined4 param_1,char *param_2,undefined4 param_3)
   char cVar2;
   bool bVar3;
   int iVar4;
-  undefined *puVar5;
-  int iVar6;
-  #define auStack_200 (*(undefined1 (*)[512])(_frame + (0x210 - 0x200)))
+  undefined *fp;
+  int iVar5;
+  #define acStack_200 (*(char (*)[512])(_frame + (0x210 - 0x200)))
   
-  iVar6 = 0;
+  iVar5 = 0;
   bVar3 = false;
   if (UINT_00805fd4 != 0) {
     DebugBreak();
@@ -39,27 +39,27 @@ void FUN_00477f10(undefined4 param_1,char *param_2,undefined4 param_3)
   while (cVar2 != '\0') {
     if (cVar2 == '\\') {
       bVar3 = true;
-      iVar6 = iVar4;
+      iVar5 = iVar4;
     }
     iVar1 = iVar4 + 1;
     iVar4 = iVar4 + 1;
     cVar2 = param_2[iVar1];
   }
   if (bVar3) {
-    iVar6 = iVar6 + 1;
+    iVar5 = iVar5 + 1;
   }
-  ((code *)_vsnprintf)(auStack_200,0x200,s__s__d____s_004dee38,param_2 + iVar6,param_3,param_1);
-  puVar5 = fopen(IMG_ADDR(0x004dee28),IMG_ADDR(0x004dee34));
-  if (puVar5 != (undefined *)0x0) {
-    fprintf(puVar5,auStack_200);
-    fclose(puVar5);
+  ((code *)_vsnprintf)(acStack_200,0x200,s__s__d____s_004dee38,param_2 + iVar5,param_3,param_1);
+  fp = fopen(IMG_ADDR(0x004dee28),IMG_ADDR(0x004dee34));
+  if (fp != (undefined *)0x0) {
+    fprintf(fp,acStack_200);
+    fclose(fp);
   }
-  MessageBoxA(0,(int)auStack_200,IMG_ADDR(0x004dee18),0x2000);
+  MessageBoxA(0,(int)acStack_200,IMG_ADDR(0x004dee18),0x2000);
   DebugBreak();
   exit(1);
   return;
 }
-#undef auStack_200
+#undef acStack_200
 
 
 /* ---- 0x00478150  Plat_GetPhysicalMemory ---- */
@@ -265,7 +265,7 @@ bool Plat_PromptDialog(int param_1,int param_2,undefined4 *param_3,uint param_4)
   #define local_2c (*(uint *)(_frame + (0x40 - 0x2c)))
   #define local_28 (*(uint *)(_frame + (0x40 - 0x28)))
   #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
-  #define local_20 (*(undefined1 (*)[32])(_frame + (0x40 - 0x20)))
+  #define local_20 (*(char (*)[32])(_frame + (0x40 - 0x20)))
   
   if (((param_2 != 0) && (param_3 != (undefined4 *)0x0)) && (0 < (int)param_4)) {
     UINT_008c9850 = (uint)param_3;
@@ -294,7 +294,7 @@ bool Plat_PromptDialog(int param_1,int param_2,undefined4 *param_3,uint param_4)
                            *(undefined4 *)(param_2 + (int)param_3),s_STATIC_004e817c,piVar11);
         *puVar5 = uVar4;
         iVar14 = *piVar11;
-        ((code *)sprintf)(local_20,&DAT_004ddc18,*param_3);
+        sprintf(local_20,&DAT_004ddc18,*param_3);
         uVar4 = Dlg_MakeItemTemplate
                           (0x50810003,0x41,iVar16,0x32,0xe,iVar13 + 0x3ec,local_20,&DAT_004e8174,
                            piVar11 + 1);

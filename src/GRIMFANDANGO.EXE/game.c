@@ -51,14 +51,14 @@ void Game_FrameUpdate(void)
       UINT_004f5a64 = _DAT_004f5a60;
     }
     if (_g_bShowFps != 0) {
-      ((undefined4 (*)(uint, undefined4, float))sprintf)(&DAT_009056c0,s__02_3f_004dd680,(double)g_measuredFps);
+      sprintf(&DAT_009056c0,s__02_3f_004dd680,(double)g_measuredFps);
       Display_DrawText(&DAT_009056c0,4,4);
       ((code *)Engine_InvalidateRect)(&local_18);
     }
     if (g_bShowProfile != 0) {
       puVar3 = &UINT_004e7b50;
       do {
-        ((code *)sprintf)(&DAT_009056c0,s__s__02_3f_004dd674,puVar3 + -10,*puVar3);
+        sprintf(&DAT_009056c0,s__s__02_3f_004dd674,puVar3 + -10,*puVar3);
         Display_DrawText(&DAT_009056c0,4,y);
         local_18 = 4;
         local_10 = 0xbe;

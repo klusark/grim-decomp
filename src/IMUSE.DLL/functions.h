@@ -166,7 +166,7 @@ uint __cdecl ImFlushSounds(void); /* 0x10004380 */
 undefined4 __cdecl FUN_10004460(int *param_1,int *param_2); /* 0x10004460 */
 undefined4 __cdecl FUN_100044b0(int *param_1,int *param_2); /* 0x100044b0 */
 undefined4 ImInitialize(void); /* 0x10004aa0 */
-undefined4 ImPrintf(undefined4 param_1); /* 0x10004b20 */
+undefined4 __cdecl ImPrintf(char *fmt,...); /* 0x10004b20 */
 int ImPause(void); /* 0x10004b40 */
 int ImResume(void); /* 0x10004b60 */
 int __cdecl ImSave(undefined4 *param_1,int param_2); /* 0x10004ba0 */

@@ -902,28 +902,30 @@ int * __cdecl lua_settag(int param_1)
 
 {
   int iVar1;
-  int *piVar2;
+  int iVar2;
+  int *piVar3;
   
                     /* 0x1d30  77  lua_settag */
   ((code *)luaA_checkCparams)(1);
   luaT_checktag(param_1);
   iVar1 = PTR_1002bf6c[7];
-  if (*(int *)(iVar1 + -8) == -3) {
+  iVar2 = *(int *)(iVar1 + -8);
+  if (iVar2 == -3) {
     *(int *)(*(int *)(iVar1 + -4) + 0x14) = param_1;
-    piVar2 = PTR_1002bf6c;
+    piVar3 = PTR_1002bf6c;
     PTR_1002bf6c[7] = PTR_1002bf6c[7] + -8;
-    return piVar2;
+    return piVar3;
   }
-  if (*(int *)(iVar1 + -8) != 0) {
-    luaL_verror(s_cannot_change_the_tag_of_a___20s_100261b8);
-    piVar2 = PTR_1002bf6c;
+  if (iVar2 != 0) {
+    luaL_verror(s_cannot_change_the_tag_of_a___20s_100261b8,(&PTR_s_userdata_100270a8)[-iVar2]);
+    piVar3 = PTR_1002bf6c;
     PTR_1002bf6c[7] = PTR_1002bf6c[7] + -8;
-    return piVar2;
+    return piVar3;
   }
   *(int *)(*(int *)(iVar1 + -4) + 0x10) = param_1;
-  piVar2 = PTR_1002bf6c;
+  piVar3 = PTR_1002bf6c;
   PTR_1002bf6c[7] = PTR_1002bf6c[7] + -8;
-  return piVar2;
+  return piVar3;
 }
 
 /* ---- 0x10001db0  lua_pausetasks ---- */
@@ -1680,7 +1682,7 @@ int __cdecl lua_dostring(char *param_1)
   if (param_1 == (char *)0x0) {
     return 1;
   }
-  sprintf((undefined1 *)local_144,s__dostring_______20s_10026a90);
+  sprintf((char *)local_144,s__dostring_______20s_10026a90,param_1);
   puVar1 = strchr(local_144,'\n');
   if (puVar1 != (uint *)0x0) {
     *(undefined1 *)puVar1 = 0;

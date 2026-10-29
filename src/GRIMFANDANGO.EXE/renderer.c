@@ -117,10 +117,10 @@ FUN_0040aa20(undefined4 param_1,undefined4 param_2,undefined4 param_3,int param_
 {
   char cVar1;
   int iVar2;
-  undefined *puVar3;
-  void *pvVar4;
-  undefined4 *puVar5;
-  int iVar6;
+  void *pvVar3;
+  undefined4 *puVar4;
+  int iVar5;
+  undefined *puVar6;
   undefined *puVar7;
   uint uVar8;
   uint uVar9;
@@ -129,8 +129,7 @@ FUN_0040aa20(undefined4 param_1,undefined4 param_2,undefined4 param_3,int param_
   undefined *puVar12;
   uint *puVar13;
   char *pcVar14;
-  char *pcVar15;
-  uint *puVar16;
+  uint *puVar15;
   uint unaff_retaddr;
   int *piStack00000024;
   uint uStack00000028;
@@ -156,6 +155,7 @@ FUN_0040aa20(undefined4 param_1,undefined4 param_2,undefined4 param_3,int param_
   uint in_stack_0000007c;
   char *in_stack_0002048c;
   int in_stack_00020490;
+  char *pcVar16;
   
   FUN_004addf0();
   ((code *)FUN_0040a8c0)();
@@ -167,14 +167,13 @@ FUN_0040aa20(undefined4 param_1,undefined4 param_2,undefined4 param_3,int param_
     return 0;
   }
   iVar2 = Std_ParseCommandLine();
-  if (((iVar2 != 0) && (puVar3 = sscanf((char *)UINT_00900520,IMG_ADDR(0x004ddd64)), puVar3 == (undefined *)0x1)
-      ) && (iVar2 = Std_ParseCommandLine(), iVar2 != 0)) {
-    sscanf((char *)UINT_00900520,IMG_ADDR(0x004ddd58));
+  if (((iVar2 != 0) && (iVar2 = sscanf((char *)UINT_00900520,s_section___s_004ddd64), iVar2 == 1))
+     && (iVar2 = Std_ParseCommandLine(), iVar2 != 0)) {
+    sscanf((char *)UINT_00900520,s_3do__d__d_004ddd58);
     iVar2 = Std_ParseCommandLine();
-    if (((iVar2 != 0) &&
-        (puVar3 = sscanf((char *)UINT_00900520,IMG_ADDR(0x004ddd64)), puVar3 == (undefined *)0x1)) &&
-       ((iVar2 = Std_ParseCommandLine(), iVar2 != 0 &&
-        (puVar3 = sscanf((char *)UINT_00900520,IMG_ADDR(0x004ddd48)), puVar3 == (undefined *)0x1)))) {
+    if (((iVar2 != 0) && (iVar2 = sscanf((char *)UINT_00900520,s_section___s_004ddd64), iVar2 == 1))
+       && ((iVar2 = Std_ParseCommandLine(), iVar2 != 0 &&
+           (iVar2 = sscanf((char *)UINT_00900520,s_materials__d_004ddd48), iVar2 == 1)))) {
       if (param_5 != 0) {
         if (0x7f < param_5) {
           (*g_pSvcRdroid->pAssertFail)();
@@ -187,62 +186,62 @@ FUN_0040aa20(undefined4 param_1,undefined4 param_2,undefined4 param_3,int param_
           do {
             iVar2 = Std_ParseCommandLine();
             if ((iVar2 == 0) ||
-               (puVar3 = sscanf((char *)UINT_00900520,IMG_ADDR(0x004ddd28)), puVar3 != (undefined *)0x2))
+               (iVar2 = sscanf((char *)UINT_00900520,s__d___s_004ddd28), iVar2 != 2))
             goto LAB_0040b8c4;
             uVar8 = 0xffffffff;
-            pcVar15 = &STACK0X(0x00000088);
+            pcVar14 = &STACK0X(0x00000088);
             do {
-              pcVar14 = pcVar15;
+              pcVar16 = pcVar14;
               if (uVar8 == 0) break;
               uVar8 = uVar8 - 1;
-              pcVar14 = pcVar15 + 1;
-              cVar1 = *pcVar15;
-              pcVar15 = pcVar14;
+              pcVar16 = pcVar14 + 1;
+              cVar1 = *pcVar14;
+              pcVar14 = pcVar16;
             } while (cVar1 != '\0');
             uVar8 = ~uVar8;
-            pcVar15 = pcVar14 + -uVar8;
-            pcVar14 = &STACK0X(0x00000488) + param_4 * 0x400;
+            pcVar14 = pcVar16 + -uVar8;
+            pcVar16 = &STACK0X(0x00000488) + param_4 * 0x400;
             for (uVar9 = uVar8 >> 2; uVar9 != 0; uVar9 = uVar9 - 1) {
-              *(undefined4 *)pcVar14 = *(undefined4 *)pcVar15;
-              pcVar15 = pcVar15 + 4;
+              *(undefined4 *)pcVar16 = *(undefined4 *)pcVar14;
               pcVar14 = pcVar14 + 4;
+              pcVar16 = pcVar16 + 4;
             }
             uVar10 = uVar10 + 1;
             for (uVar8 = uVar8 & 3; uVar8 != 0; uVar8 = uVar8 - 1) {
-              *pcVar14 = *pcVar15;
-              pcVar15 = pcVar15 + 1;
+              *pcVar16 = *pcVar14;
               pcVar14 = pcVar14 + 1;
+              pcVar16 = pcVar16 + 1;
             }
           } while (uVar10 < param_5);
         }
         uVar10 = 0;
         if (param_5 != 0) {
-          pcVar15 = &STACK0X(0x00000488);
+          pcVar14 = &STACK0X(0x00000488);
           do {
-            pvVar4 = rdMaterial_Load(pcVar15,0,0);
-            *(void **)(*(int *)(in_stack_00020490 + 0x48) + uVar10 * 4) = pvVar4;
+            pvVar3 = rdMaterial_Load(pcVar14,0,0);
+            *(void **)(*(int *)(in_stack_00020490 + 0x48) + uVar10 * 4) = pvVar3;
             if (*(int *)(*(int *)(in_stack_00020490 + 0x48) + uVar10 * 4) == 0) goto LAB_0040b8c4;
             uVar10 = uVar10 + 1;
-            pcVar15 = pcVar15 + 0x400;
+            pcVar14 = pcVar14 + 0x400;
           } while (uVar10 < param_5);
         }
       }
       *(uint *)(in_stack_00020490 + 0x4c) = param_5;
       iVar2 = Std_ParseCommandLine();
       if ((((iVar2 != 0) &&
-           (puVar3 = sscanf((char *)UINT_00900520,IMG_ADDR(0x004ddd64)), puVar3 == (undefined *)0x1)) &&
+           (iVar2 = sscanf((char *)UINT_00900520,s_section___s_004ddd64), iVar2 == 1)) &&
           (iVar2 = Std_ParseCommandLine(), iVar2 != 0)) &&
-         (puVar3 = sscanf((char *)UINT_00900520,IMG_ADDR(0x004ddd1c)), puVar3 == (undefined *)0x1)) {
+         (iVar2 = sscanf((char *)UINT_00900520,s_radius__f_004ddd1c), iVar2 == 1)) {
         *(undefined4 *)(in_stack_00020490 + 0x5c) = in_stack_00000044;
         iVar2 = Std_ParseCommandLine();
         if ((iVar2 != 0) &&
-           (puVar3 = sscanf((char *)UINT_00900520,IMG_ADDR(0x004ddd04)), puVar3 == (undefined *)0x3)) {
+           (iVar2 = sscanf((char *)UINT_00900520,s_insert_offset__f__f__f_004ddd04), iVar2 == 3)) {
           *(undefined4 *)(in_stack_00020490 + 0x84) = param_3;
           *(undefined4 *)(in_stack_00020490 + 0x88) = param_1;
           *(undefined4 *)(in_stack_00020490 + 0x8c) = param_2;
           iVar2 = Std_ParseCommandLine();
           if ((iVar2 != 0) &&
-             (puVar3 = sscanf((char *)UINT_00900520,IMG_ADDR(0x004ddcf8)), puVar3 == (undefined *)0x1)) {
+             (iVar2 = sscanf((char *)UINT_00900520,s_geosets__d_004ddcf8), iVar2 == 1)) {
             uStack0000003c = 0;
             *(uint *)(in_stack_00020490 + 0x44) = in_stack_00000040;
             if (in_stack_00000040 != 0) {
@@ -250,21 +249,21 @@ FUN_0040aa20(undefined4 param_1,undefined4 param_2,undefined4 param_3,int param_
               do {
                 iVar2 = Std_ParseCommandLine();
                 if (((iVar2 == 0) ||
-                    (puVar3 = sscanf((char *)UINT_00900520,IMG_ADDR(0x004ddcec)), puVar3 != (undefined *)0x1))
-                   || ((iVar2 = Std_ParseCommandLine(), iVar2 == 0 ||
-                       (puVar3 = sscanf((char *)UINT_00900520,IMG_ADDR(0x004ddce0)), puVar3 != (undefined *)0x1)
-                       ))) goto LAB_0040b8c4;
-                puVar5 = (undefined4 *)(*g_pSvcRdroid->pAlloc)();
-                *piStack00000024 = (int)puVar5;
-                if (puVar5 == (undefined4 *)0x0) goto LAB_0040b8c4;
+                    (iVar2 = sscanf((char *)UINT_00900520,s_geoset__d_004ddcec), iVar2 != 1)) ||
+                   ((iVar2 = Std_ParseCommandLine(), iVar2 == 0 ||
+                    (iVar2 = sscanf((char *)UINT_00900520,s_meshes__d_004ddce0), iVar2 != 1))))
+                goto LAB_0040b8c4;
+                puVar4 = (undefined4 *)(*g_pSvcRdroid->pAlloc)();
+                *piStack00000024 = (int)puVar4;
+                if (puVar4 == (undefined4 *)0x0) goto LAB_0040b8c4;
                 uStack00000034 = 0;
                 for (uVar10 = param_6 * 0x1f & 0x3fffffff; uVar10 != 0; uVar10 = uVar10 - 1) {
-                  *puVar5 = 0;
-                  puVar5 = puVar5 + 1;
+                  *puVar4 = 0;
+                  puVar4 = puVar4 + 1;
                 }
                 for (iVar2 = 0; iVar2 != 0; iVar2 = iVar2 + -1) {
-                  *(undefined1 *)puVar5 = 0;
-                  puVar5 = (undefined4 *)((int)puVar5 + 1);
+                  *(undefined1 *)puVar4 = 0;
+                  puVar4 = (undefined4 *)((int)puVar4 + 1);
                 }
                 piStack00000024[-1] = param_6;
                 if (param_6 != 0) {
@@ -274,34 +273,31 @@ FUN_0040aa20(undefined4 param_1,undefined4 param_2,undefined4 param_3,int param_
                     *(uint *)(iVar11 + 0x20) = uStack00000034;
                     iVar2 = Std_ParseCommandLine();
                     if ((((iVar2 == 0) ||
-                         (puVar3 = sscanf((char *)UINT_00900520,IMG_ADDR(0x004ddcd4)),
-                         puVar3 != (undefined *)0x1)) ||
+                         (iVar2 = sscanf((char *)UINT_00900520,s_mesh__d_004ddcd4), iVar2 != 1)) ||
                         (iVar2 = Std_ParseCommandLine(), iVar2 == 0)) ||
-                       (puVar3 = sscanf((char *)UINT_00900520,IMG_ADDR(0x004ddcc8)), puVar3 != (undefined *)0x1)
-                       ) goto LAB_0040b8c4;
+                       (iVar2 = sscanf((char *)UINT_00900520,s_name__s_004ddcc8), iVar2 != 1))
+                    goto LAB_0040b8c4;
                     ((code *)strncpy)();
                     *(undefined1 *)(iVar11 + 0x1f) = 0;
                     iVar2 = Std_ParseCommandLine();
                     if (((iVar2 == 0) ||
-                        (puVar3 = sscanf((char *)UINT_00900520,IMG_ADDR(0x004ddd1c)), puVar3 != (undefined *)0x1
-                        )) || (iVar2 = Std_ParseCommandLine(), iVar2 == 0)) goto LAB_0040b8c4;
-                    puVar3 = sscanf((char *)UINT_00900520,IMG_ADDR(0x004ddcbc));
-                    if (puVar3 == (undefined *)0x1) {
+                        (iVar2 = sscanf((char *)UINT_00900520,s_radius__f_004ddd1c), iVar2 != 1)) ||
+                       (iVar2 = Std_ParseCommandLine(), iVar2 == 0)) goto LAB_0040b8c4;
+                    iVar2 = sscanf((char *)UINT_00900520,s_shadow__d_004ddcbc);
+                    if (iVar2 == 1) {
                       *(undefined4 *)(iVar11 + 0x54) = in_stack_00000074;
                       iVar2 = Std_ParseCommandLine();
                       if (iVar2 == 0) goto LAB_0040b8c4;
                     }
-                    puVar3 = sscanf((char *)UINT_00900520,IMG_ADDR(0x004ddca8));
-                    if ((((puVar3 != (undefined *)0x1) ||
-                         (iVar2 = Std_ParseCommandLine(), iVar2 == 0)) ||
-                        ((puVar3 = sscanf((char *)UINT_00900520,IMG_ADDR(0x004ddc94)),
-                         puVar3 != (undefined *)0x1 ||
+                    iVar2 = sscanf((char *)UINT_00900520,s_geometrymode__d_004ddca8);
+                    if ((((iVar2 != 1) || (iVar2 = Std_ParseCommandLine(), iVar2 == 0)) ||
+                        ((iVar2 = sscanf((char *)UINT_00900520,s_lightingmode__d_004ddc94),
+                         iVar2 != 1 ||
                          (((iVar2 = Std_ParseCommandLine(), iVar2 == 0 ||
-                           (puVar3 = sscanf((char *)UINT_00900520,IMG_ADDR(0x004ddc84)),
-                           puVar3 != (undefined *)0x1)) ||
-                          (iVar2 = Std_ParseCommandLine(), iVar2 == 0)))))) ||
-                       ((puVar3 = sscanf((char *)UINT_00900520,IMG_ADDR(0x004ddc74)), puVar3 != (undefined *)0x1
-                        || (0x200 < unaff_retaddr)))) goto LAB_0040b8c4;
+                           (iVar2 = sscanf((char *)UINT_00900520,s_texturemode__d_004ddc84),
+                           iVar2 != 1)) || (iVar2 = Std_ParseCommandLine(), iVar2 == 0)))))) ||
+                       ((iVar2 = sscanf((char *)UINT_00900520,s_vertices__d_004ddc74), iVar2 != 1 ||
+                        (0x200 < unaff_retaddr)))) goto LAB_0040b8c4;
                     *(undefined4 *)(iVar11 + 0x30) = 0;
                     *(undefined4 *)(iVar11 + 0x38) = 0;
                     *(undefined4 *)(iVar11 + 0x3c) = 0;
@@ -312,30 +308,30 @@ FUN_0040aa20(undefined4 param_1,undefined4 param_2,undefined4 param_3,int param_
                       iVar2 = (*g_pSvcRdroid->pAlloc)();
                       *(int *)(iVar11 + 0x38) = iVar2;
                       if (iVar2 == 0) goto LAB_0040b8c4;
-                      puVar5 = (undefined4 *)(*g_pSvcRdroid->pAlloc)();
-                      *(undefined4 **)(iVar11 + 0x3c) = puVar5;
-                      if (puVar5 == (undefined4 *)0x0) goto LAB_0040b8c4;
+                      puVar4 = (undefined4 *)(*g_pSvcRdroid->pAlloc)();
+                      *(undefined4 **)(iVar11 + 0x3c) = puVar4;
+                      if (puVar4 == (undefined4 *)0x0) goto LAB_0040b8c4;
                       for (uVar10 = unaff_retaddr >> 2; uVar10 != 0; uVar10 = uVar10 - 1) {
-                        *puVar5 = 0;
-                        puVar5 = puVar5 + 1;
+                        *puVar4 = 0;
+                        puVar4 = puVar4 + 1;
                       }
                       for (uVar10 = unaff_retaddr & 3; uVar10 != 0; uVar10 = uVar10 - 1) {
-                        *(undefined1 *)puVar5 = 0;
-                        puVar5 = (undefined4 *)((int)puVar5 + 1);
+                        *(undefined1 *)puVar4 = 0;
+                        puVar4 = (undefined4 *)((int)puVar4 + 1);
                       }
                     }
-                    puVar5 = *(undefined4 **)(iVar11 + 0x30);
+                    puVar4 = *(undefined4 **)(iVar11 + 0x30);
                     uVar10 = 0;
                     if (unaff_retaddr != 0) {
                       do {
                         iVar2 = Std_ParseCommandLine();
                         if ((iVar2 == 0) ||
-                           (puVar3 = sscanf((char *)UINT_00900520,IMG_ADDR(0x004ddc60)),
-                           puVar3 != (undefined *)0x5)) goto LAB_0040b8c4;
-                        *puVar5 = param_3;
-                        puVar5[1] = param_1;
-                        puVar5[2] = param_2;
-                        puVar5 = puVar5 + 3;
+                           (iVar2 = sscanf((char *)UINT_00900520,s__d___f__f__f__f_004ddc60),
+                           iVar2 != 5)) goto LAB_0040b8c4;
+                        *puVar4 = param_3;
+                        puVar4[1] = param_1;
+                        puVar4[2] = param_2;
+                        puVar4 = puVar4 + 3;
                         *(undefined4 *)(*(int *)(iVar11 + 0x38) + uVar10 * 4) = in_stack_00000050;
                         uVar10 = uVar10 + 1;
                       } while (uVar10 < unaff_retaddr);
@@ -343,23 +339,23 @@ FUN_0040aa20(undefined4 param_1,undefined4 param_2,undefined4 param_3,int param_
                     *(uint *)(iVar11 + 0x48) = unaff_retaddr;
                     iVar2 = Std_ParseCommandLine();
                     if (((iVar2 == 0) ||
-                        (puVar3 = sscanf((char *)UINT_00900520,IMG_ADDR(0x004ddc48)), puVar3 != (undefined *)0x1
-                        )) || (0x300 < param_7)) goto LAB_0040b8c4;
+                        (iVar2 = sscanf((char *)UINT_00900520,s_texture_vertices__d_004ddc48),
+                        iVar2 != 1)) || (0x300 < param_7)) goto LAB_0040b8c4;
                     *(undefined4 *)(iVar11 + 0x34) = 0;
                     if (param_7 != 0) {
-                      puVar5 = (undefined4 *)(*g_pSvcRdroid->pAlloc)();
-                      *(undefined4 **)(iVar11 + 0x34) = puVar5;
-                      if (puVar5 == (undefined4 *)0x0) goto LAB_0040b8c4;
+                      puVar4 = (undefined4 *)(*g_pSvcRdroid->pAlloc)();
+                      *(undefined4 **)(iVar11 + 0x34) = puVar4;
+                      if (puVar4 == (undefined4 *)0x0) goto LAB_0040b8c4;
                       uVar10 = 0;
                       if (param_7 != 0) {
                         do {
                           iVar2 = Std_ParseCommandLine();
                           if ((iVar2 == 0) ||
-                             (puVar3 = sscanf((char *)UINT_00900520,IMG_ADDR(0x004ddc3c)),
-                             puVar3 != (undefined *)0x3)) goto LAB_0040b8c4;
-                          *puVar5 = in_stack_00000070;
-                          puVar5[1] = in_stack_00000058;
-                          puVar5 = puVar5 + 2;
+                             (iVar2 = sscanf((char *)UINT_00900520,s__d___f__f_004ddc3c), iVar2 != 3
+                             )) goto LAB_0040b8c4;
+                          *puVar4 = in_stack_00000070;
+                          puVar4[1] = in_stack_00000058;
+                          puVar4 = puVar4 + 2;
                           uVar10 = uVar10 + 1;
                         } while (uVar10 < param_7);
                       }
@@ -377,10 +373,10 @@ FUN_0040aa20(undefined4 param_1,undefined4 param_2,undefined4 param_3,int param_
                     if (unaff_retaddr != 0) {
                       iVar2 = 0;
                       do {
-                        iVar6 = Std_ParseCommandLine();
-                        if ((iVar6 == 0) ||
-                           (puVar3 = sscanf((char *)UINT_00900520,IMG_ADDR(0x004ddc2c)),
-                           puVar3 != (undefined *)0x4)) goto LAB_0040b8c4;
+                        iVar5 = Std_ParseCommandLine();
+                        if ((iVar5 == 0) ||
+                           (iVar5 = sscanf((char *)UINT_00900520,s__d___f__f__f_004ddc2c),
+                           iVar5 != 4)) goto LAB_0040b8c4;
                         uVar10 = uVar10 + 1;
                         *(undefined4 *)(iVar2 + *(int *)(iVar11 + 0x44)) = param_3;
                         *(undefined4 *)(iVar2 + 4 + *(int *)(iVar11 + 0x44)) = param_1;
@@ -390,8 +386,8 @@ FUN_0040aa20(undefined4 param_1,undefined4 param_2,undefined4 param_3,int param_
                     }
                     iVar2 = Std_ParseCommandLine();
                     if (((iVar2 == 0) ||
-                        (puVar3 = sscanf((char *)UINT_00900520,IMG_ADDR(0x004ddc20)), puVar3 != (undefined *)0x1
-                        )) || (0x200 < param_8)) goto LAB_0040b8c4;
+                        (iVar2 = sscanf((char *)UINT_00900520,s_faces__d_004ddc20), iVar2 != 1)) ||
+                       (0x200 < param_8)) goto LAB_0040b8c4;
                     *(uint *)(iVar11 + 0x50) = param_8;
                     *(undefined4 *)(iVar11 + 0x40) = 0;
                     if (param_8 != 0) {
@@ -399,65 +395,65 @@ FUN_0040aa20(undefined4 param_1,undefined4 param_2,undefined4 param_3,int param_
                       *(int *)(iVar11 + 0x40) = iVar2;
                       if (iVar2 == 0) goto LAB_0040b8c4;
                     }
-                    puVar16 = *(uint **)(iVar11 + 0x40);
+                    puVar15 = *(uint **)(iVar11 + 0x40);
                     uStack00000028 = 0;
                     if (param_8 != 0) {
-                      puVar13 = puVar16 + 2;
+                      puVar13 = puVar15 + 2;
                       do {
                         iVar2 = Std_ParseCommandLine();
                         if (iVar2 == 0) goto LAB_0040b8c4;
                         ((code *)FUN_00450220)();
                         ((code *)strtok)();
                         uVar10 = ((code *)strtok)();
-                        puVar3 = atoi(uVar10);
-                        *puVar16 = uStack00000028;
-                        if (puVar3 == (undefined *)0xffffffff) {
+                        puVar6 = atoi(uVar10);
+                        *puVar15 = uStack00000028;
+                        if (puVar6 == (undefined *)0xffffffff) {
                           puVar13[6] = 0;
                         }
                         else {
                           puVar13[6] = *(uint *)(*(int *)(in_stack_00020490 + 0x48) +
-                                                (int)puVar3 * 4);
+                                                (int)puVar6 * 4);
                         }
-                        puVar3 = &DAT_004ddc1c;
-                        pcVar15 = (char *)((code *)strtok)();
-                        puVar3 = sscanf(pcVar15,(uint)puVar3);
-                        if (puVar3 != (undefined *)0x1) goto LAB_0040b8c4;
-                        puVar3 = &DAT_004ddc18;
-                        pcVar15 = (char *)((code *)strtok)();
-                        puVar3 = sscanf(pcVar15,(uint)puVar3);
-                        if (puVar3 != (undefined *)0x1) goto LAB_0040b8c4;
-                        puVar3 = &DAT_004ddc18;
-                        pcVar15 = (char *)((code *)strtok)();
-                        puVar3 = sscanf(pcVar15,(uint)puVar3);
-                        if (puVar3 != (undefined *)0x1) goto LAB_0040b8c4;
-                        puVar3 = &DAT_004ddc18;
-                        pcVar15 = (char *)((code *)strtok)();
-                        puVar3 = sscanf(pcVar15,(uint)puVar3);
-                        if (puVar3 != (undefined *)0x1) goto LAB_0040b8c4;
-                        puVar3 = &DAT_004ddc14;
-                        pcVar15 = (char *)((code *)strtok)();
-                        puVar3 = sscanf(pcVar15,(uint)puVar3);
-                        if (puVar3 != (undefined *)0x1) goto LAB_0040b8c4;
+                        pcVar16 = &DAT_004ddc1c;
+                        pcVar14 = (char *)((code *)strtok)();
+                        iVar2 = sscanf(pcVar14,pcVar16);
+                        if (iVar2 != 1) goto LAB_0040b8c4;
+                        pcVar16 = &DAT_004ddc18;
+                        pcVar14 = (char *)((code *)strtok)();
+                        iVar2 = sscanf(pcVar14,pcVar16);
+                        if (iVar2 != 1) goto LAB_0040b8c4;
+                        pcVar16 = &DAT_004ddc18;
+                        pcVar14 = (char *)((code *)strtok)();
+                        iVar2 = sscanf(pcVar14,pcVar16);
+                        if (iVar2 != 1) goto LAB_0040b8c4;
+                        pcVar16 = &DAT_004ddc18;
+                        pcVar14 = (char *)((code *)strtok)();
+                        iVar2 = sscanf(pcVar14,pcVar16);
+                        if (iVar2 != 1) goto LAB_0040b8c4;
+                        pcVar16 = &DAT_004ddc14;
+                        pcVar14 = (char *)((code *)strtok)();
+                        iVar2 = sscanf(pcVar14,pcVar16);
+                        if (iVar2 != 1) goto LAB_0040b8c4;
                         puVar13[10] = in_stack_0000007c;
                         uVar10 = ((code *)strtok)();
-                        puVar3 = atoi(uVar10);
-                        if ((puVar3 == (undefined *)0x0) || ((undefined *)0x18 < puVar3))
+                        puVar6 = atoi(uVar10);
+                        if ((puVar6 == (undefined *)0x0) || ((undefined *)0x18 < puVar6))
                         goto LAB_0040b8c4;
-                        puVar13[3] = (uint)puVar3;
+                        puVar13[3] = (uint)puVar6;
                         uVar10 = (*g_pSvcRdroid->pAlloc)();
                         puVar13[4] = uVar10;
                         if (uVar10 == 0) goto LAB_0040b8c4;
                         if (((byte *)puVar13[6] == (byte *)0x0) || ((*(byte *)puVar13[6] & 2) == 0))
                         {
                           puVar12 = (undefined *)0x0;
-                          if (puVar3 != (undefined *)0x0) {
+                          if (puVar6 != (undefined *)0x0) {
                             do {
                               uVar10 = ((code *)strtok)();
                               puVar7 = atoi(uVar10);
                               *(undefined **)(puVar13[4] + (int)puVar12 * 4) = puVar7;
                               ((code *)strtok)();
                               puVar12 = puVar12 + 1;
-                            } while (puVar12 < puVar3);
+                            } while (puVar12 < puVar6);
                           }
                         }
                         else {
@@ -465,7 +461,7 @@ FUN_0040aa20(undefined4 param_1,undefined4 param_2,undefined4 param_3,int param_
                           puVar13[5] = uVar10;
                           if (uVar10 == 0) goto LAB_0040b8c4;
                           puVar12 = (undefined *)0x0;
-                          if (puVar3 != (undefined *)0x0) {
+                          if (puVar6 != (undefined *)0x0) {
                             do {
                               uVar10 = ((code *)strtok)();
                               puVar7 = atoi(uVar10);
@@ -474,10 +470,10 @@ FUN_0040aa20(undefined4 param_1,undefined4 param_2,undefined4 param_3,int param_
                               puVar7 = atoi(uVar10);
                               *(undefined **)(puVar13[5] + (int)puVar12 * 4) = puVar7;
                               puVar12 = puVar12 + 1;
-                            } while (puVar12 < puVar3);
+                            } while (puVar12 < puVar6);
                           }
                         }
-                        puVar16 = puVar16 + 0x13;
+                        puVar15 = puVar15 + 0x13;
                         puVar13 = puVar13 + 0x13;
                         uStack00000028 = uStack00000028 + 1;
                       } while (uStack00000028 < param_8);
@@ -486,16 +482,16 @@ FUN_0040aa20(undefined4 param_1,undefined4 param_2,undefined4 param_3,int param_
                     if (iVar2 == 0) goto LAB_0040b8c4;
                     uVar10 = 0;
                     if (*(int *)(iVar11 + 0x50) != 0) {
-                      puVar5 = (undefined4 *)(*(int *)(iVar11 + 0x40) + 0x44);
+                      puVar4 = (undefined4 *)(*(int *)(iVar11 + 0x40) + 0x44);
                       do {
                         iVar2 = Std_ParseCommandLine();
                         if ((iVar2 == 0) ||
-                           (puVar3 = sscanf((char *)UINT_00900520,IMG_ADDR(0x004ddc2c)),
-                           puVar3 != (undefined *)0x4)) goto LAB_0040b8c4;
-                        puVar5[-1] = param_3;
-                        *puVar5 = param_1;
-                        puVar5[1] = param_2;
-                        puVar5 = puVar5 + 0x13;
+                           (iVar2 = sscanf((char *)UINT_00900520,s__d___f__f__f_004ddc2c),
+                           iVar2 != 4)) goto LAB_0040b8c4;
+                        puVar4[-1] = param_3;
+                        *puVar4 = param_1;
+                        puVar4[1] = param_2;
+                        puVar4 = puVar4 + 0x13;
                         uVar10 = uVar10 + 1;
                       } while (uVar10 < *(uint *)(iVar11 + 0x50));
                     }
@@ -509,9 +505,9 @@ FUN_0040aa20(undefined4 param_1,undefined4 param_2,undefined4 param_3,int param_
             }
             iVar2 = Std_ParseCommandLine();
             if ((((iVar2 != 0) &&
-                 (puVar3 = sscanf((char *)UINT_00900520,IMG_ADDR(0x004ddd64)), puVar3 == (undefined *)0x1)) &&
+                 (iVar2 = sscanf((char *)UINT_00900520,s_section___s_004ddd64), iVar2 == 1)) &&
                 (iVar2 = Std_ParseCommandLine(), iVar2 != 0)) &&
-               (puVar3 = sscanf((char *)UINT_00900520,IMG_ADDR(0x004ddbfc)), puVar3 == (undefined *)0x1)) {
+               (iVar2 = sscanf((char *)UINT_00900520,s_hierarchy_nodes__d_004ddbfc), iVar2 == 1)) {
               iVar2 = (*g_pSvcRdroid->pAlloc)();
               *(int *)(in_stack_00020490 + 0x58) = iVar2;
               if (iVar2 != 0) {
@@ -523,10 +519,11 @@ FUN_0040aa20(undefined4 param_1,undefined4 param_2,undefined4 param_3,int param_
                     iVar11 = *(int *)(in_stack_00020490 + 0x58);
                     *(uint *)(iVar2 + 0x44 + iVar11) = uVar10;
                     iVar11 = iVar2 + iVar11;
-                    iVar6 = Std_ParseCommandLine();
-                    if ((iVar6 == 0) ||
-                       (puVar3 = sscanf((char *)UINT_00900520,IMG_ADDR(0x004ddbc4)), puVar3 != (undefined *)0x12
-                       )) goto LAB_0040b8c4;
+                    iVar5 = Std_ParseCommandLine();
+                    if ((iVar5 == 0) ||
+                       (iVar5 = sscanf((char *)UINT_00900520,
+                                       s__d___x__x__d__d__d__d__d__f__f___004ddbc4), iVar5 != 0x12))
+                    goto LAB_0040b8c4;
                     if (in_stack_00000060 == -1) {
                       *(undefined4 *)(iVar11 + 0x54) = 0;
                     }

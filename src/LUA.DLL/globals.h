@@ -155,7 +155,7 @@ extern undefined DAT_1002706c; /* used by 1 fn(s), first 0x10007320 */
 extern undefined DAT_10027070; /* used by 1 fn(s), first 0x10007320 */
 extern char s__TRIGMODE_10027074[]; /* used by 1 fn(s), first 0x10007320 */
 extern char s_C__grimsrc_libs_lua_src_lmem_cpp_10027080[]; /* used by 2 fn(s), first 0x100073b0 */
-extern undefined *PTR_s_userdata_100270a8; /* used by 1 fn(s), first 0x100037d0 */
+extern undefined *PTR_s_userdata_100270a8; /* used by 2 fn(s), first 0x10001d30 */
 extern undefined DAT_100270e0; /* used by 4 fn(s), first 0x10004e30 */
 extern int DAT_100270e8; /* used by 1 fn(s), first 0x10007450 */
 extern char s_internal_error_in__lua_equalObj__10027180[]; /* used by 1 fn(s), first 0x100074b0 */
@@ -239,6 +239,7 @@ extern undefined DAT_100287b8; /* used by 1 fn(s), first 0x100117e0 */
 extern undefined DAT_10028840; /* used by 1 fn(s), first 0x100117e0 */
 extern undefined DAT_100288d0; /* used by 1 fn(s), first 0x10011d6d */
 extern undefined DAT_100288e0; /* used by 1 fn(s), first 0x10011e3d */
+extern undefined DAT_10028940; /* used by 1 fn(s), first 0x10012325 */
 extern undefined *PTR_DAT_10028950; /* used by 23 fn(s), first 0x10009a10 */
 extern undefined *PTR_DAT_10028954; /* used by 2 fn(s), first 0x100178e0 */
 extern undefined DAT_1002895a; /* used by 1 fn(s), first 0x100178e0 */
@@ -499,6 +500,7 @@ extern undefined4 in_stack_ffffffb8; /* used by 1 fn(s), first 0x10004a50 */
 extern undefined4 in_stack_ffffffbc; /* used by 1 fn(s), first 0x1001dc70 */
 
 /* ---- re-typed views of the symbols above ---- */
+#define _DAT_10028940 (*(undefined4 *)&DAT_10028940) /* same address as DAT_10028940, other width */
 #define _DAT_10028b64 (*(undefined4 *)&DAT_10028b64) /* same address as DAT_10028b64, other width */
 #define _DAT_100295a0 (*(unkbyte10 *)&DAT_100295a0) /* same address as DAT_100295a0, other width */
 #define _DAT_10029724 (*(undefined4 *)&DAT_10029724) /* same address as DAT_10029724, other width */

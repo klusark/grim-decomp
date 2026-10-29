@@ -26,7 +26,7 @@ undefined4 * gz_open(char *param_1,char *param_2,int param_3)
   char *pcVar11;
   #define local_64 (*(uint *)(_frame + (0x80 - 0x64)))
   #define local_60 (*(uint *)(_frame + (0x80 - 0x60)))
-  #define uStack_5c (*(undefined1 *)(_frame + (0x80 - 0x5c)))
+  #define cStack_5c (*(char *)(_frame + (0x80 - 0x5c)))
   #define local_5b (*(uint *)(_frame + (0x80 - 0x5b)))
   #define local_57 (*(uint *)(_frame + (0x80 - 0x57)))
   #define uStack_53 (*(undefined1 *)(_frame + (0x80 - 0x53)))
@@ -154,11 +154,11 @@ undefined4 * gz_open(char *param_1,char *param_2,int param_3)
         if (*(char *)(puVar2 + 0x17) == 'w') {
           local_5b = 0;
           local_57 = 0;
-          uStack_5c = DAT_004f5a98;
+          cStack_5c = DAT_004f5a98;
           uStack_53 = 0;
-          ((code *)sprintf)(&uStack_5c,s__c_c_c_c_c_c_c_c_c_c_004f1a08,UINT_004f1a00,UINT_004f1a04,8,0,0,0,0,0
+          sprintf(&cStack_5c,s__c_c_c_c_c_c_c_c_c_c_004f1a08,UINT_004f1a00,UINT_004f1a04,8,0,0,0,0,0
                   ,0,0xb);
-          (*(code *)PTR_00906c44[3])(puVar2[0x10],&uStack_5c,10);
+          (*(code *)PTR_00906c44[3])(puVar2[0x10],&cStack_5c,10);
           puVar2[0x18] = 10;
           return puVar2;
         }
@@ -175,13 +175,13 @@ LAB_004c410c:
   gz_destroy(puVar2);
   return (undefined4 *)0x0;
 }
+#undef cStack_5c
 #undef local_50
 #undef local_57
 #undef local_5b
 #undef local_60
 #undef local_64
 #undef uStack_53
-#undef uStack_5c
 
 
 /* ---- 0x004c4120  gz_check_header ---- */

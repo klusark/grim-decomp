@@ -98,13 +98,13 @@ undefined * FUN_00473520(uint param_1)
 }
 
 /* ---- 0x00473570  FUN_00473570 ---- */
-undefined4 FUN_00473570(undefined4 param_1,undefined4 param_2)
+undefined4 FUN_00473570(undefined4 param_1,char *param_2)
 
 {
-  undefined4 uVar1;
+  int iVar1;
   
-  uVar1 = _snprintf(&DAT_007f6090,0x400,param_2,&STACK0X(0x0000000c));
-  stdFile_Write(param_1,&DAT_007f6090,uVar1);
+  iVar1 = _snprintf(&DAT_007f6090,0x400,param_2,&STACK0X(0x0000000c));
+  stdFile_Write(param_1,&DAT_007f6090,iVar1);
   return 0;
 }
 

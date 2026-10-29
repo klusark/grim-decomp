@@ -35,7 +35,7 @@ undefined4 __cdecl luaU_undump1(int *param_1)
     return uVar3;
   }
   if (uVar2 != 0xffffffff) {
-    luaL_verror(s__s_is_not_a_lua_binary_file_10027fcc);
+    luaL_verror(s__s_is_not_a_lua_binary_file_10027fcc,param_1[4]);
   }
   return 0;
 }
@@ -130,7 +130,10 @@ uint __cdecl lundump__cfd0(int *param_1)
 void luaU_unexpectedEOZ(void)
 
 {
-  luaL_verror(s_unexpected_end_of_binary_file__s_10027fe8);
+  int in_stack_00000004;
+  
+  ((code *)luaL_verror)(s_unexpected_end_of_binary_file__s_10027fe8,*(undefined4 *)(in_stack_00000004 + 0x10))
+  ;
   return;
 }
 
@@ -178,7 +181,7 @@ uint __cdecl luaU_LoadCode(int *param_1)
   uVar2 = lundump__cfa0(param_1);
   uVar3 = uVar1 << 0x10 | uVar2;
   if ((uVar1 != 0) && (uVar3 == uVar2)) {
-    luaL_verror(s_code_too_long___ld_bytes__10028030);
+    luaL_verror(s_code_too_long___ld_bytes__10028030,uVar3);
   }
   return uVar3;
 }
@@ -442,10 +445,10 @@ void __cdecl luaU_loadheader(undefined4 *param_1)
   luaU_LoadSignature((int *)puVar1);
   uVar3 = lundump__cfd0((int *)puVar1);
   if (0x31 < (int)uVar3) {
-    luaL_verror(s_binary_file__s_too_new__version__1002810c);
+    luaL_verror(s_binary_file__s_too_new__version__1002810c,puVar1[4],uVar3,0x31);
   }
   if ((int)uVar3 < 0x31) {
-    luaL_verror(s_binary_file__s_too_old__version__100280c8);
+    luaL_verror(s_binary_file__s_too_old__version__100280c8,puVar1[4],uVar3,0x31);
   }
   uVar3 = lundump__cfd0((int *)puVar1);
   if (uVar3 == 4) {
@@ -453,7 +456,7 @@ void __cdecl luaU_loadheader(undefined4 *param_1)
     if (PUN(float,param_1) != 1.2345679e-24) {
       lundump__d360((undefined1 *)&param_1);
       if (PUN(float,param_1) != 1.2345679e-24) {
-        luaL_verror(s_unknown_float_representation_in_b_10028098);
+        luaL_verror(s_unknown_float_representation_in_b_10028098,puVar1[4]);
       }
       puVar2[1] = 1;
     }
@@ -465,14 +468,14 @@ void __cdecl luaU_loadheader(undefined4 *param_1)
     if (local_8 != 1.2345679083165624e-24) {
       lundump__d380((undefined1 *)&local_8);
       if (local_8 != 1.2345679083165624e-24) {
-        luaL_verror(s_unknown_float_representation_in_b_10028098);
+        luaL_verror(s_unknown_float_representation_in_b_10028098,puVar1[4]);
       }
       puVar2[1] = 1;
     }
     puVar2[2] = 0;
     return;
   }
-  luaL_verror(s_floats_in_binary_file__s_have__d_1002804c);
+  luaL_verror(s_floats_in_binary_file__s_have__d_1002804c,puVar1[4],uVar3,4);
   return;
 }
 #undef local_8
@@ -495,7 +498,7 @@ void __cdecl luaU_LoadSignature(int *param_1)
     cVar1 = pcVar3[1];
   }
   if (*pcVar3 != '\0') {
-    luaL_verror(s_bad_signature_in_binary_file__s_1002814c);
+    luaL_verror(s_bad_signature_in_binary_file__s_1002814c,param_1[4]);
   }
   return;
 }
@@ -507,16 +510,18 @@ undefined4 __cdecl luaU_str2number(int *param_1)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  int iVar1;
+  int *piVar1;
+  int iVar2;
   #define local_8 (*(double *)(_frame + (0x20 - 0x8)))
   
+  piVar1 = param_1;
   if (*param_1 != -2) {
     return 1;
   }
-  iVar1 = sscanf((char *)(param_1[1] + 0x18),(byte *)s__lf__c_10028170);
-  if (iVar1 == 1) {
-    *param_1 = -1;
-    param_1[1] = (int)(float)local_8;
+  iVar2 = sscanf((char *)(param_1[1] + 0x18),s__lf__c_10028170,&local_8,&param_1);
+  if (iVar2 == 1) {
+    *piVar1 = -1;
+    piVar1[1] = (int)(float)local_8;
     return 0;
   }
   return 2;
@@ -543,11 +548,11 @@ undefined4 __cdecl lundump__d620(int *param_1)
   if ((-2.1474836e+09 <= fVar1) && (fVar1 <= 2.1474836e+09)) {
     lVar3 = _ftol();
     if ((float)(int)lVar3 == fVar1) {
-      sprintf(local_3c,&DAT_1002817c);
+      sprintf((char *)local_3c,&DAT_1002817c);
       goto LAB_1000d6ae;
     }
   }
-  sprintf(local_3c,&DAT_10028178);
+  sprintf((char *)local_3c,&DAT_10028178,(double)(float)param_1[1]);
 LAB_1000d6ae:
   iVar2 = luaS_new(local_3c);
   param_1[1] = iVar2;

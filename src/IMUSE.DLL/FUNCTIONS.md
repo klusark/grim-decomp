@@ -52,8 +52,8 @@
 | 10006620 | FUN_10006620 | imuse.c | 66 |
 | 100067a0 | FUN_100067a0 | imuse.c | 5 |
 | 100067b0 | FUN_100067b0 | imuse.c | 70 |
-| 100068b0 | FUN_100068b0 | imuse.c | 258 |
-| 100070e0 | FUN_100070e0 | imuse.c | 11 |
+| 100068b0 | FUN_100068b0 | imuse.c | 255 |
+| 100070e0 | FUN_100070e0 | imuse.c | 13 |
 | 10007110 | FUN_10007110 | imuse.c | 11 |
 | 100089b0 | Im_SoundsFindByName | imuse.c | 81 |
 | 10008b60 | Im_SoundsFreeSlot | imuse.c | 19 |
@@ -149,7 +149,7 @@
 | 10004750 | FUN_10004750 | imuse_dsound.c | 40 |
 | 10003d70 | ImInitFilelist | imuse_api.c | 21 |
 | 10003dc0 | ImSaveFilelist | imuse_api.c | 53 |
-| 10003e50 | ImRestoreFilelist | imuse_api.c | 60 |
+| 10003e50 | ImRestoreFilelist | imuse_api.c | 61 |
 | 10003f90 | ImLoadSound | imuse_api.c | 59 |
 | 100040b0 | ImUnloadSound | imuse_api.c | 25 |
 | 10004100 | ImUnloadAll | imuse_api.c | 16 |

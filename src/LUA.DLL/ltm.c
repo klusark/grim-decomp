@@ -48,7 +48,7 @@ void __cdecl luaT_checktag(int param_1)
 
 {
   if ((param_1 < DAT_1002bee8) || (-8 < param_1)) {
-    luaL_verror(s_tag__d_is_not_result_of__newtag__10027ef4);
+    luaL_verror(s_tag__d_is_not_result_of__newtag__10027ef4,param_1);
   }
   return;
 }
@@ -72,7 +72,7 @@ void __cdecl luaT_realtag(int param_1)
 
 {
   if ((param_1 < DAT_1002bee8) || (0 < param_1)) {
-    luaL_verror(s__d_is_not_a_valid_tag_10027f18);
+    luaL_verror(s__d_is_not_a_valid_tag_10027f18,param_1);
   }
   return;
 }
@@ -128,7 +128,7 @@ int __cdecl luaI_checkevent(byte *param_1,undefined4 *param_2)
   
   iVar1 = luaO_findstring(param_1,param_2);
   if (iVar1 < 0) {
-    luaL_verror(s____50s__is_not_a_valid_event_nam_10027f30);
+    luaL_verror(s____50s__is_not_a_valid_event_nam_10027f30,param_1);
   }
   return iVar1;
 }
@@ -151,7 +151,8 @@ void __cdecl ltm__cae0(int param_1,byte *param_2,undefined4 *param_3)
   luaT_realtag(param_1);
   iVar4 = luaT_gettm(param_1,iVar3);
   if (iVar4 == 0) {
-    luaL_verror(s_settagmethod__cannot_change_inte_10027f54);
+    luaL_verror(s_settagmethod__cannot_change_inte_10027f54,(&PTR_s_gettable_10027d48)[iVar3],
+                param_1);
   }
   iVar3 = (iVar3 + param_1 * -0x12) * 8;
   puVar5 = (undefined4 *)(DAT_1002bf48 + iVar3);
@@ -291,7 +292,7 @@ void FUN_1000cc30(void)
   default:
     iVar3 = luaO_findstring(pbVar1,&PTR_s_gettable_10027d48);
     if (iVar3 < 0) {
-      luaL_verror(s____50s__is_not_a_valid_fallback_n_10027fa4);
+      luaL_verror(s____50s__is_not_a_valid_fallback_n_10027fa4,pbVar1);
       pcVar6 = (code *)0x0;
     }
     else {

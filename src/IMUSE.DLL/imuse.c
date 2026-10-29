@@ -2668,7 +2668,7 @@ undefined4 __cdecl FUN_10006070(int cmd,...)
     iVar4 = iVar4 + -1;
   } while (iVar4 != 0);
   if ((_DAT_1002e330 == 0) && (cmd != 0)) {
-    ImPrintf(IMG_ADDR(0x1001e6d8));
+    ImPrintf((char *)IMG_ADDR(0x1001e6d8));
     return 0xffffffff;
   }
   switch(cmd) {
@@ -2700,11 +2700,11 @@ undefined4 __cdecl FUN_10006070(int cmd,...)
     uVar2 = FUN_100067b0((uint)local_28[0],local_28[1]);
     return uVar2;
   default:
-    ImPrintf(IMG_ADDR(0x1001e68c));
+    ImPrintf((char *)IMG_ADDR(0x1001e68c));
     return 0xffffffff;
   }
   if (_DAT_1002e330 != 0) {
-    ImPrintf(IMG_ADDR(0x1001e6b4));
+    ImPrintf((char *)IMG_ADDR(0x1001e6b4));
     return 0xffffffff;
   }
   _DAT_1002e330 = 1;
@@ -2869,7 +2869,7 @@ undefined4 __cdecl FUN_10006560(int param_1)
   piVar2 = &DAT_1001730c;
   do {
     if (param_1 == *piVar2) {
-      ImPrintf(uVar4 * 0x54 + 0x10017310);
+      ImPrintf((char *)(uVar4 * 0x54 + IMG_ADDR(0x10017310)));
       ImPrintf(&DAT_100171b0);
       uVar1 = DAT_1002df70;
       if ((uVar4 != DAT_1002df70) && (uVar1 = uVar4, DAT_1002e308 == 0)) {
@@ -3027,7 +3027,7 @@ undefined4 __cdecl FUN_100067b0(uint param_1,char *param_2)
     }
     if (param_1 < 0xe4) {
       if (param_2 != (char *)0xffffffff) {
-        ((code *)ImPrintf)(s_Set_attr__lu_to__lu____1001e750,param_1,param_2);
+        ImPrintf(s_Set_attr__lu_to__lu____1001e750,param_1,param_2);
         (&DAT_1002df78)[param_1] = param_2;
       }
       return (&DAT_1002df78)[param_1];
@@ -3041,105 +3041,102 @@ undefined4 __cdecl FUN_100067b0(uint param_1,char *param_2)
 void __cdecl FUN_100068b0(char *param_1,uint param_2,int param_3)
 
 {
-  char *pcVar1;
-  char cVar2;
-  char *pcVar3;
+  char cVar1;
+  char *pcVar2;
+  uint uVar3;
   uint uVar4;
   uint uVar5;
-  uint uVar6;
-  undefined1 *puVar7;
+  undefined1 *puVar6;
+  int iVar7;
   int iVar8;
-  int iVar9;
-  undefined1 *puVar10;
-  char *pcVar11;
-  bool bVar12;
+  undefined1 *puVar9;
+  char *pcVar10;
+  undefined4 in_stack_00000010;
+  int in_stack_00000014;
+  uint in_stack_00000018;
+  uint in_stack_0000001c;
+  uint in_stack_00000020;
   
-  pcVar1 = param_1;
   if (DAT_1001e688 == 0) {
     return;
   }
   if (param_1 != (char *)0x0) {
     DAT_1002e310 = *param_1;
-    pcVar3 = &DAT_1002e311;
+    pcVar2 = &DAT_1002e311;
     if (DAT_1002e310 != '\0') {
       do {
-        cVar2 = pcVar3[(int)(param_1 + -0x1002e310)];
-        *pcVar3 = cVar2;
-        pcVar3 = pcVar3 + 1;
-      } while (cVar2 != '\0');
+        cVar1 = pcVar2[(int)(param_1 + -0x1002e310)];
+        *pcVar2 = cVar1;
+        pcVar2 = pcVar2 + 1;
+      } while (cVar1 != '\0');
     }
-    puVar10 = &DAT_1001bbc8;
+    puVar9 = &DAT_1001bbc8;
     if (DAT_1001bbc8 != '\0') {
-      iVar9 = 0x12748;
-      cVar2 = DAT_1001bbc8;
+      iVar8 = 0x12748;
+      cVar1 = DAT_1001bbc8;
 LAB_10006904:
-      iVar8 = 0;
-      for (puVar7 = puVar10; (cVar2 != '\0' && (puVar7[iVar9] == cVar2)); puVar7 = puVar7 + 1) {
-        cVar2 = puVar7[1];
-        iVar8 = iVar8 + 1;
+      iVar7 = 0;
+      for (puVar6 = puVar9; (cVar1 != '\0' && (puVar6[iVar8] == cVar1)); puVar6 = puVar6 + 1) {
+        cVar1 = puVar6[1];
+        iVar7 = iVar7 + 1;
       }
-      if (((iVar8 == 0) || ((&DAT_1002e310)[iVar8] != '\0')) || (puVar10[iVar8] != '\0'))
+      if (((iVar7 == 0) || ((&DAT_1002e310)[iVar7] != '\0')) || (puVar9[iVar7] != '\0'))
       goto LAB_1000692f;
-      DAT_1002e310 = puVar10[0x20];
-      pcVar3 = puVar10 + 0x20;
-      pcVar11 = &DAT_1002e311;
-      cVar2 = DAT_1002e310;
-      while (cVar2 != '\0') {
-        pcVar3 = pcVar3 + 1;
-        cVar2 = *pcVar3;
-        *pcVar11 = cVar2;
-        pcVar11 = pcVar11 + 1;
+      DAT_1002e310 = puVar9[0x20];
+      pcVar2 = puVar9 + 0x20;
+      pcVar10 = &DAT_1002e311;
+      cVar1 = DAT_1002e310;
+      while (cVar1 != '\0') {
+        pcVar2 = pcVar2 + 1;
+        cVar1 = *pcVar2;
+        *pcVar10 = cVar1;
+        pcVar10 = pcVar10 + 1;
       }
     }
   }
 LAB_1000695e:
-  bVar12 = param_1 != (char *)0x0;
-  param_1 = (char *)0x0;
-  if ((bVar12) && (param_2 != 0)) {
-    if (*(uint *)(pcVar1 + 0x40) != 0) {
-      param_2 = *(uint *)(pcVar1 + 0x40);
+  if ((param_1 != (char *)0x0) && (param_2 != 0)) {
+    if (*(uint *)(param_1 + 0x40) != 0) {
+      param_2 = *(uint *)(param_1 + 0x40);
     }
-    param_1 = *(char **)(&DAT_1002df84 + param_2 * 4);
-    if (*(int *)(pcVar1 + 0x44) != 0) {
-      if ((param_1 == (char *)0x0) && (1 < *(int *)(pcVar1 + 0x44))) {
+    if (*(int *)(param_1 + 0x44) != 0) {
+      if ((*(int *)(&DAT_1002df84 + param_2 * 4) == 0) && (1 < *(int *)(param_1 + 0x44))) {
         *(undefined4 *)(&DAT_1002df84 + param_2 * 4) = 2;
       }
       else {
-        *(char **)(&DAT_1002df84 + param_2 * 4) = param_1 + 1;
-        if (*(int *)(pcVar1 + 0x44) < (int)(param_1 + 1)) {
+        iVar8 = *(int *)(&DAT_1002df84 + param_2 * 4) + 1;
+        *(int *)(&DAT_1002df84 + param_2 * 4) = iVar8;
+        if (*(int *)(param_1 + 0x44) < iVar8) {
           *(undefined4 *)(&DAT_1002df84 + param_2 * 4) = 1;
         }
       }
     }
   }
-  if (param_1 == (char *)0x0) {
-    param_1 = (char *)0x64;
-  }
-  for (uVar4 = ImGetNextSound(0); uVar4 != 0; uVar4 = ImGetNextSound(uVar4)) {
-    uVar5 = ImGetParam(uVar4,0x400);
-    if ((uVar5 == 4) && (uVar5 = ImGetParam(uVar4,0x1800), uVar5 == 0)) {
-      ImFadeParam(uVar4,0x600,0,0x78);
+  for (uVar3 = ImGetNextSound(0); uVar3 != 0; uVar3 = ImGetNextSound(uVar3)) {
+    uVar4 = ImGetParam(uVar3,0x400);
+    if ((uVar4 == 4) && (uVar4 = ImGetParam(uVar3,0x1800), uVar4 == 0)) {
+      ImFadeParam(uVar3,0x600,0,0x78);
     }
   }
-  uVar4 = ImGetNextSound(0);
-  while ((uVar5 = 0, uVar4 != 0 &&
-         ((uVar5 = ImGetParam(uVar4,0x1800), uVar5 == 0 ||
-          (uVar6 = ImGetParam(uVar4,0x1900), uVar5 = uVar4, uVar6 != 2))))) {
-    uVar4 = ImGetNextSound(uVar4);
+  uVar3 = ImGetNextSound(0);
+  while ((uVar4 = 0, uVar3 != 0 &&
+         ((uVar4 = ImGetParam(uVar3,0x1800), uVar4 == 0 ||
+          (uVar5 = ImGetParam(uVar3,0x1900), uVar4 = uVar3, uVar5 != 2))))) {
+    uVar3 = ImGetNextSound(uVar3);
   }
-  if (pcVar1 == (char *)0x0) {
-    if (uVar5 == 0) {
+  if (param_1 == (char *)0x0) {
+    if (uVar4 == 0) {
       return;
     }
-    ImFadeParam(uVar5,0x600,0,0x78);
+    ImFadeParam(uVar4,0x600,0,0x78);
     return;
   }
-  param_2 = *(uint *)(pcVar1 + 0x48);
-  if (param_2 == 0) {
-    param_2 = 1000;
+  iVar8 = *(int *)(param_1 + 0x48);
+  if (iVar8 == 0) {
+    iVar8 = 1000;
   }
-  iVar9 = (int)(param_2 * 3) / 0x32;
-  switch(*(undefined4 *)(pcVar1 + 0x20)) {
+  iVar8 = (iVar8 * 3) / 0x32;
+  switch(*(undefined4 *)(param_1 + 0x20)) {
   case 0:
     ImPrintf(s_Trans_null____1001e860);
     return;
@@ -3155,63 +3152,63 @@ LAB_1000695e:
     ImPrintf(s_opening_1001e84c);
     ImPrintf(&DAT_1002e310);
     ImPrintf(&DAT_100171b0);
-    uVar4 = ImOpenSound(&DAT_1002e310,0);
-    if (uVar4 == 0) {
+    uVar3 = ImOpenSound(&DAT_1002e310,0);
+    if (uVar3 == 0) {
       ImPrintf(s_SCRIPT_ERR__Unable_to_open_1001e830);
       ImPrintf(&DAT_1002e310);
       ImPrintf(&DAT_100171b0);
-      if (uVar5 == 0) {
+      if (uVar4 == 0) {
         return;
       }
-      ImFadeParam(uVar5,0x600,0,0x3c);
+      ImFadeParam(uVar4,0x600,0,0x3c);
       return;
     }
-    if (*(int *)(pcVar1 + 0x20) == 4) {
+    if (*(int *)(param_1 + 0x20) == 4) {
       DAT_1002e304 = 0;
-      ImSetTrigger(uVar4,&DAT_1001e858,0);
+      ImSetTrigger(uVar3,&DAT_1001e858,0);
     }
-    ((code *)ImPrintf)(s_HOOK__lu____1001e824,param_1);
-    if (uVar5 == 0) {
+    ImPrintf(s_HOOK__lu____1001e824,in_stack_00000010);
+    if (uVar4 == 0) {
       ImPrintf(s_No_stream_sound____1001e7ac);
-      iVar8 = ImStartStream(uVar4,0x7e,2);
-      if (iVar8 != 0) {
+      iVar7 = ImStartStream(uVar3,0x7e,2);
+      if (iVar7 != 0) {
         ImPrintf(s_SCRIPT_ERR__failed_start_stream__1001e788);
       }
-      ImSetParam(uVar4,0x600,0);
-      ImFadeParam(uVar4,0x600,*(uint *)(pcVar1 + 0x4c),iVar9);
-      ImSetParam(uVar4,0x700,*(uint *)(pcVar1 + 0x50));
-      ImSetParam(uVar4,0x400,4);
-      ImSetHook(uVar4,(uint)param_1);
+      ImSetParam(uVar3,0x600,0);
+      ImFadeParam(uVar3,0x600,*(uint *)(param_1 + 0x4c),iVar8);
+      ImSetParam(uVar3,0x700,*(uint *)(param_1 + 0x50));
+      ImSetParam(uVar3,0x400,4);
+      ImSetHook(uVar3,in_stack_0000001c);
       goto LAB_10007019;
     }
-    if (*(int *)(pcVar1 + 0x20) == 2) {
-      ImSwitchStream(uVar5,uVar4,param_2,0,0);
-      ((code *)ImPrintf)(s_FADE__lu____1001e818,param_2);
-      ((code *)ImPrintf)(s_vol__lu____1001e80c,*(undefined4 *)(pcVar1 + 0x4c));
-      ImFadeParam(uVar4,0x600,*(uint *)(pcVar1 + 0x4c),iVar9);
-      ImFadeParam(uVar4,0x700,*(uint *)(pcVar1 + 0x50),iVar9);
-      ImSetParam(uVar4,0x400,4);
-      ImSetHook(uVar4,(uint)param_1);
+    if (*(int *)(param_1 + 0x20) == 2) {
+      ImSwitchStream(uVar4,uVar3,in_stack_00000018,0,0);
+      ImPrintf(s_FADE__lu____1001e818,in_stack_00000018);
+      ImPrintf(s_vol__lu____1001e80c);
+      ImFadeParam(uVar3,0x600,*(uint *)(param_1 + 0x4c),iVar8);
+      ImFadeParam(uVar3,0x700,*(uint *)(param_1 + 0x50),iVar8);
+      ImSetParam(uVar3,0x400,4);
+      ImSetHook(uVar3,in_stack_0000001c);
       ImProcessStreams();
       goto LAB_10007019;
     }
-    if (uVar5 == uVar4) {
-      ImFadeParam(uVar4,0x600,*(uint *)(pcVar1 + 0x4c),iVar9);
-      ((code *)ImPrintf)(s_fading_VOL__lu____1001e7d0,*(undefined4 *)(pcVar1 + 0x4c));
-      if (*(uint *)(pcVar1 + 0x50) != 0) {
-        ImFadeParam(uVar4,0x700,*(uint *)(pcVar1 + 0x50),iVar9);
-        ((code *)ImPrintf)(s_and_PAN__lu____1001e7c0,*(undefined4 *)(pcVar1 + 0x50));
+    if (uVar4 == uVar3) {
+      ImFadeParam(uVar3,0x600,*(uint *)(param_1 + 0x4c),iVar8);
+      ImPrintf(s_fading_VOL__lu____1001e7d0,*(undefined4 *)(param_1 + 0x4c));
+      if (*(uint *)(param_1 + 0x50) != 0) {
+        ImFadeParam(uVar3,0x700,*(uint *)(param_1 + 0x50),iVar8);
+        ImPrintf(s_and_PAN__lu____1001e7c0);
       }
       goto LAB_10007019;
     }
-    if (((param_3 == 0) && (*(int *)(pcVar1 + 0x40) != 0)) &&
-       (*(int *)(pcVar1 + 0x40) == *(int *)(&DAT_10017328 + DAT_1002df70 * 0x54))) {
-      ImSwitchStream(uVar5,uVar4,param_2,0,1);
-      ImFadeParam(uVar4,0x600,*(uint *)(pcVar1 + 0x4c),iVar9);
-      ImFadeParam(uVar4,0x700,*(uint *)(pcVar1 + 0x50),iVar9);
-      ImSetParam(uVar4,0x400,4);
-      if (param_1 == (char *)0x64) {
-        ImSetHook(uVar4,100);
+    if (((in_stack_0000001c == 0) && (*(int *)(param_1 + 0x40) != 0)) &&
+       (*(int *)(param_1 + 0x40) == *(int *)(&DAT_10017328 + DAT_1002df70 * 0x54))) {
+      ImSwitchStream(uVar4,uVar3,in_stack_00000018,0,1);
+      ImFadeParam(uVar3,0x600,*(uint *)(param_1 + 0x4c),iVar8);
+      ImFadeParam(uVar3,0x700,*(uint *)(param_1 + 0x50),iVar8);
+      ImSetParam(uVar3,0x400,4);
+      if (in_stack_00000014 == 100) {
+        ImSetHook(uVar3,100);
         ImProcessStreams();
         goto LAB_10007019;
       }
@@ -3219,48 +3216,48 @@ LAB_10006f42:
       ImProcessStreams();
     }
     else {
-      iVar8 = *(int *)(pcVar1 + 0x20);
-      if (iVar8 == 10) {
-        ImSetTrigger(uVar5,&DAT_1001e804,0x1a);
-        ImSetTrigger(uVar5,&DAT_1001e804,0xe);
-        ImSetTrigger(uVar5,&DAT_1001e804,0xe);
-        ImSetTrigger(uVar5,&DAT_1001e804,0xc);
+      iVar7 = *(int *)(param_1 + 0x20);
+      if (iVar7 == 10) {
+        ImSetTrigger(uVar4,&DAT_1001e804,0x1a);
+        ImSetTrigger(uVar4,&DAT_1001e804,0xe);
+        ImSetTrigger(uVar4,&DAT_1001e804,0xe);
+        ImSetTrigger(uVar4,&DAT_1001e804,0xc);
       }
       else {
-        if (iVar8 == 0xb) {
-          ImSetTrigger(uVar5,s_exit2_1001e7fc,0x1a);
-          ImSetTrigger(uVar5,s_exit2_1001e7fc,0xe);
-          ImSetTrigger(uVar5,s_exit2_1001e7fc,0xe);
-          ImSetTrigger(uVar5,s_exit2_1001e7fc,0xc);
-          ImSetTrigger(uVar5,s_exit2_1001e7fc,0xf);
+        if (iVar7 == 0xb) {
+          ImSetTrigger(uVar4,s_exit2_1001e7fc,0x1a);
+          ImSetTrigger(uVar4,s_exit2_1001e7fc,0xe);
+          ImSetTrigger(uVar4,s_exit2_1001e7fc,0xe);
+          ImSetTrigger(uVar4,s_exit2_1001e7fc,0xc);
+          ImSetTrigger(uVar4,s_exit2_1001e7fc,0xf);
           ImProcessStreams();
           goto LAB_10007019;
         }
-        if (iVar8 != 0xc) {
-          ImSwitchStream(uVar5,uVar4,param_2,0,0);
-          ((code *)ImPrintf)(s_FADE__lu____1001e818,param_2);
-          ((code *)ImPrintf)(s_vol__lu____1001e80c,*(undefined4 *)(pcVar1 + 0x4c));
-          ImFadeParam(uVar4,0x600,*(uint *)(pcVar1 + 0x4c),iVar9);
-          ImFadeParam(uVar4,0x700,*(uint *)(pcVar1 + 0x50),iVar9);
-          ((code *)ImPrintf)(s_set_pan__lu____1001e7e4,*(undefined4 *)(pcVar1 + 0x50));
-          ImSetParam(uVar4,0x400,4);
-          ImSetHook(uVar4,(uint)param_1);
+        if (iVar7 != 0xc) {
+          ImSwitchStream(uVar4,uVar3,in_stack_00000018,0,0);
+          ImPrintf(s_FADE__lu____1001e818,in_stack_00000018);
+          ImPrintf(s_vol__lu____1001e80c);
+          ImFadeParam(uVar3,0x600,*(uint *)(param_1 + 0x4c),iVar8);
+          ImFadeParam(uVar3,0x700,*(uint *)(param_1 + 0x50),iVar8);
+          ImPrintf(s_set_pan__lu____1001e7e4);
+          ImSetParam(uVar3,0x400,4);
+          ImSetHook(uVar3,in_stack_00000020);
           goto LAB_10006f42;
         }
-        ImSetHook(uVar5,99);
-        ImSetTrigger(uVar5,s_clear_1001e7f4,0xf);
-        ImSetTrigger(uVar5,&DAT_1001e804,0x1a);
-        ImSetTrigger(uVar5,&DAT_1001e804,0xe);
-        ImSetTrigger(uVar5,&DAT_1001e804,0xe);
-        ImSetTrigger(uVar5,&DAT_1001e804,0xc);
-        ((code *)ImPrintf)(s_HOOK__lu____1001e824,param_1);
+        ImSetHook(uVar4,99);
+        ImSetTrigger(uVar4,s_clear_1001e7f4,0xf);
+        ImSetTrigger(uVar4,&DAT_1001e804,0x1a);
+        ImSetTrigger(uVar4,&DAT_1001e804,0xe);
+        ImSetTrigger(uVar4,&DAT_1001e804,0xe);
+        ImSetTrigger(uVar4,&DAT_1001e804,0xc);
+        ImPrintf(s_HOOK__lu____1001e824,in_stack_00000014);
       }
-      ImSetTrigger(uVar5,&DAT_1001e804,0xf);
+      ImSetTrigger(uVar4,&DAT_1001e804,0xf);
       ImProcessStreams();
     }
 LAB_10007019:
-    ImCloseSound(uVar4);
-    ImSetParam(uVar4,0x400,4);
+    ImCloseSound(uVar3);
+    ImSetParam(uVar3,0x400,4);
     return;
   case 5:
     break;
@@ -3269,31 +3266,31 @@ LAB_10007019:
     ImSetTrigger(0xbc6150,&DAT_1001e858,0);
     return;
   case 7:
-    if (uVar5 != 0) {
-      ImFadeParam(uVar5,0x600,0,0x3c);
+    if (uVar4 != 0) {
+      ImFadeParam(uVar4,0x600,0,0x3c);
       return;
     }
     break;
   case 8:
-    if (uVar5 != 0) {
-      ImSetHook(uVar5,100);
+    if (uVar4 != 0) {
+      ImSetHook(uVar4,100);
       return;
     }
     break;
   case 9:
-    if (uVar5 != 0) {
-      ImSetHook(uVar5,99);
+    if (uVar4 != 0) {
+      ImSetHook(uVar4,99);
     }
     DAT_1002e304 = 0;
-    ImSetTrigger(uVar5,&DAT_1001e858,0);
+    ImSetTrigger(uVar4,&DAT_1001e858,0);
     return;
   }
   return;
 LAB_1000692f:
-  cVar2 = puVar10[0x40];
-  puVar10 = puVar10 + 0x40;
-  iVar9 = iVar9 + -0x40;
-  if (cVar2 == '\0') goto LAB_1000695e;
+  cVar1 = puVar9[0x40];
+  puVar9 = puVar9 + 0x40;
+  iVar8 = iVar8 + -0x40;
+  if (cVar1 == '\0') goto LAB_1000695e;
   goto LAB_10006904;
 }
 
@@ -3301,8 +3298,10 @@ LAB_1000692f:
 void __cdecl FUN_100070e0(char *param_1)
 
 {
+  char *in_stack_00000008;
+  
   ImPrintf(s_CALLBACK__1001e898);
-  if (*param_1 == '_') {
+  if (*in_stack_00000008 == '_') {
     DAT_1002e304 = 1;
     return;
   }

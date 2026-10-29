@@ -109,11 +109,10 @@ undefined4 PositionedSound_Apply(int param_1)
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   void *pvVar2;
-  uint extraout_EAX;
   uint uVar3;
-  uint extraout_EAX_00;
   uint uVar4;
-  float fVar5;
+  uint uVar5;
+  float fVar6;
   #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
   #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
   #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
@@ -127,22 +126,21 @@ undefined4 PositionedSound_Apply(int param_1)
     iVar1 = *(int *)((int)pvVar2 + 0xac) + 0x20 + *(int *)((int)pvVar2 + 0xb4) * 300;
     local_8 = (uint)(*(float *)(param_1 + 0xc) - *(float *)(iVar1 + 4));
     local_4 = (uint)(*(float *)(param_1 + 0x10) - *(float *)(iVar1 + 8));
-    fVar5 = Vec3_NormalizeApprox((float *)&local_c);
-    if (0.0 <= fVar5 - *(float *)(param_1 + 0x20)) {
-      uVar4 = *(uint *)(param_1 + 0x18);
-      uVar3 = *(uint *)(param_1 + 0x14);
-      _ftol();
-      if ((uVar3 <= extraout_EAX) && (uVar3 = extraout_EAX, uVar4 < extraout_EAX)) {
-        uVar3 = uVar4;
+    fVar6 = Vec3_NormalizeApprox((float *)&local_c);
+    if (0.0 <= fVar6 - *(float *)(param_1 + 0x20)) {
+      uVar5 = *(uint *)(param_1 + 0x18);
+      uVar4 = *(uint *)(param_1 + 0x14);
+      uVar3 = _ftol();
+      if ((uVar4 <= uVar3) && (uVar4 = uVar3, uVar5 < uVar3)) {
+        uVar4 = uVar5;
       }
-      SoundsSetParam(*(undefined4 *)(param_1 + 4),0x600,uVar3);
+      SoundsSetParam(*(undefined4 *)(param_1 + 4),0x600,uVar4);
     }
-    _ftol();
-    uVar4 = extraout_EAX_00;
-    if (0x7f < extraout_EAX_00) {
-      uVar4 = 0x7f;
+    uVar5 = _ftol();
+    if (0x7f < uVar5) {
+      uVar5 = 0x7f;
     }
-    SoundsSetParam(*(undefined4 *)(param_1 + 4),0x700,uVar4);
+    SoundsSetParam(*(undefined4 *)(param_1 + 4),0x700,uVar5);
     return 1;
   }
   return 0;
@@ -177,28 +175,28 @@ undefined4 Sound_DriverQuery(void)
 undefined * __cdecl Sound_VoiceSampleCount(int param_1)
 
 {
-  undefined *extraout_EAX;
-  uint uVar1;
+  undefined *puVar1;
+  uint uVar2;
   
-  uVar1 = (&UINT_008dad84)[param_1 * 0xd];
+  uVar2 = (&UINT_008dad84)[param_1 * 0xd];
   switch((&DAT_008dad6f)[param_1 * 0x34]) {
   case 0:
     break;
   case 1:
   case 2:
   case 4:
-    uVar1 = (int)uVar1 >> 1;
+    uVar2 = (int)uVar2 >> 1;
     break;
   case 3:
   case 5:
-    uVar1 = (int)uVar1 >> 2;
+    uVar2 = (int)uVar2 >> 2;
     break;
   default:
     goto switchD_004d0d15_default;
   }
-  param_1 = uVar1;
+  param_1 = uVar2;
 switchD_004d0d15_default:
   ((undefined4 (*)(float))Sound_DriverQuery)((double)param_1);
-  _ftol();
-  return extraout_EAX;
+  puVar1 = (undefined *)_ftol();
+  return puVar1;
 }

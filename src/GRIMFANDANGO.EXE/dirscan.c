@@ -28,13 +28,13 @@ undefined4 * DirScan_Create(undefined4 param_1,int param_2,char *param_3)
   }
   if (-1 < param_2) {
     if (param_2 < 3) {
-      ((code *)sprintf)(puVar1 + 2,s__s____004e82fc,param_1);
+      sprintf((char *)(puVar1 + 2),s__s____004e82fc,param_1);
     }
     else if (param_2 == 3) {
       if (*param_3 == '.') {
         param_3 = param_3 + 1;
       }
-      ((code *)sprintf)(puVar1 + 2,s__s___s_004e8304,param_1,param_3);
+      sprintf((char *)(puVar1 + 2),s__s___s_004e8304,param_1,param_3);
       return puVar1;
     }
   }
