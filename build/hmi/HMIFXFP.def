@@ -1,4 +1,3 @@
 LIBRARY HMIFXFP.DLL
 EXPORTS
-RVA
 hmiFXGetInterfaceList
