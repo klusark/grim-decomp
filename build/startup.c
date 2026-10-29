@@ -23,13 +23,19 @@ extern int __stdcall CloseHandle(void *);
 extern int __cdecl wsprintfA(char *, const char *, ...);
 extern void *__stdcall SetUnhandledExceptionFilter(long (__stdcall *)(GRIM_EXC_PTRS *));
 extern int __stdcall IsBadReadPtr(const void *, unsigned);
+extern unsigned __stdcall GetEnvironmentVariableA(const char *, char *, unsigned);
 
 static long __stdcall grim_crash_filter(GRIM_EXC_PTRS *p)
 {
     char buf[256];
     unsigned *c = p->ctx;
     unsigned wrote, i, *sp;
-    void *h = CreateFileA("grim_crash.txt", 4, 3, 0, 4, 0x80, 0);   /* FILE_APPEND_DATA, OPEN_ALWAYS */
+    char name[96] = "grim_crash.txt", tag[48];
+    void *h;
+    /* GRIM_MULTI=<tag> (parallel test instances): grim_crash_<tag>.txt, so sessions do not mix reports */
+    if (GetEnvironmentVariableA("GRIM_MULTI", tag, sizeof tag) && tag[0])
+        wsprintfA(name, "grim_crash_%s.txt", tag);
+    h = CreateFileA(name, 4, 3, 0, 4, 0x80, 0);   /* FILE_APPEND_DATA, OPEN_ALWAYS */
     if (h == (void *)-1)
         return 0;
     wsprintfA(buf, "exception %08x at %08x (info %08x %08x)\r\n", p->rec->code, (unsigned)p->rec->addr, p->rec->info[0], p->rec->info[1]);
