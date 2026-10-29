@@ -40,7 +40,7 @@ ARCH     := -m32 -march=i686
 #                         _errno, malloc, ... itself
 OPT      ?= -O0          # make OPT=-O2 ; extra flags: make EXTRA_CFLAGS=...
 GHIDRA_CFLAGS := $(OPT) $(ARCH) -std=gnu11 -fpermissive -w -Wno-error=incompatible-pointer-types -Wno-error=int-conversion -Wno-error=implicit-function-declaration -fno-builtin -fno-strict-aliasing \
-            -fwrapv -fno-common -ffreestanding -include compat.h -I.
+            -fwrapv -fsingle-precision-constant -fno-common -ffreestanding -include compat.h -I.
 
 # make sees GRIMFANDANGO.EXE etc. as plain directory names; nothing special needed.
 SRCS_ALL := $(foreach p,$(PROGS),$(wildcard $(SRC)/$(p)/*.c))
