@@ -49,7 +49,7 @@
 | 10001990 | lua_gettask | lapi.c | 1 |
 | 100019c0 | lua_pushtask | lapi.c | 15 |
 | 10001a10 | lua_pushnil | lapi.c | 14 |
-| 10001a50 | lua_pushnumber | lapi.c | 15 |
+| 10001a50 | lua_pushnumber | lapi.c | 12 |
 | 10001aa0 | lua_pushstring | lapi.c | 21 |
 | 10001b10 | lua_pushCclosure | lapi.c | 19 |
 | 10001b90 | lua_pushusertag | lapi.c | 19 |

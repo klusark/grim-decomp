@@ -5,6 +5,7 @@ belongs to the module named by its prefix. Unnamed FUN_* functions inherit the m
 of the nearest preceding named function (code from one compilation unit is contiguous
 in the image), except that a long run of unnamed functions becomes its own
 region_<addr> module so we do not pretend to know what it is."""
+import sys
 import json, os, re, sys
 from collections import Counter, OrderedDict, defaultdict
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -74,6 +75,11 @@ try:
     STDCALL_NAMES = json.load(open(os.path.join(ROOT, "build", "stdcall_names.json")))
 except (OSError, ValueError):
     STDCALL_NAMES = {}
+
+
+sys.path.insert(0, os.path.join(ROOT, "build"))
+import dllnames
+DLL_STDCALL = dllnames.load()  # EXE imports that are callee-pop exports of the rebuilt DLLs
 
 
 def module_for(name):
@@ -850,12 +856,29 @@ def fix_function(code, ctx, stats):
     body = fix_switch(body, vt, ctx)
     body = fix_casts(body, vt, ctx)
     body = fix_negative_stack(body)
+    body = FLOAT_BITS_RE.sub(lambda m: m.group(1) + "FBITS(" + m.group(2) + ")", body)
     # last: offset-named locals become views into one frame array (keeps Ghidra's layout)
     body, trailer = frame_locals.rewrite(body)
+    body = float_frame_locals(body)
     return head + body + trailer
 
 
 NEG_STACK_RE = re.compile(r"(&?)STACK0X\((0xffff[0-9a-f]{4})\)")
+
+
+def float_frame_locals(body):
+    """Frame-array locals Ghidra left as undefined4 but the code uses as float
+    (assigned a number-returning call, compared with a float literal, pushed as a number)."""
+    for m in re.finditer(r"#define (\w+) \(\*\(undefined4 \*\)\(_frame", body):
+        n = m.group(1)
+        if re.search(r"%s\s*=\s*(?:luaL_\w*number|lua_getnumber)\(|%s\s*[<>]=?\s*-?\d+\.\d+|lua_pushnumber\(%s\)" % (n, n, n), body):
+            body = body.replace("#define %s (*(undefined4 *)" % n, "#define %s (*(float *)" % n, 1)
+    return body
+
+
+# lua_pushnumber takes a float; Ghidra prints constant arguments as raw bit patterns
+FLOAT_BITS_RE = re.compile(r"(lua_pushnumber\()(0x[0-9a-fA-F]{6,8})(?=\))")
+FLOAT_ARG_IMPORTS = {"lua_pushnumber"}
 
 
 def fix_negative_stack(body):
@@ -1260,13 +1283,15 @@ def build(prog):
             w.write("/* ===== referenced, not decompiled here (thunks, imports, unknown FUN_) ===== */\n")
             for n in extra:
                 why = "import" if n in imp_names else ("thunk" if n in thunk_names else "no function at this address")
-                if n in imp_names and not n.startswith(CDECL_IMPORT_PREFIXES) and n not in CDECL_IMPORTS:
+                if n in imp_names and (n in DLL_STDCALL or (not n.startswith(CDECL_IMPORT_PREFIXES) and n not in CDECL_IMPORTS)):
                     # Win32/DirectX: stdcall, callee pops. Unprototyped on purpose: the
                     # decompiled call sites carry Ghidra's argument lists.
                     # the asm label keeps the symbol undecorated (`_f`, not `_f@0`) so the
                     # linker's --enable-stdcall-fixup can bind it to the import library's `_f@N`
-                    asm_name = STDCALL_NAMES.get(n, "_" + n)
+                    asm_name = DLL_STDCALL.get(n) or STDCALL_NAMES.get(n, "_" + n)
                     w.write(f'{x87_ret(n)} STDCALL {n}() __asm__("{asm_name}"); /* {why} */\n')
+                elif n in FLOAT_ARG_IMPORTS:
+                    w.write(f"void {n}(float); /* {why} */\n")
                 else:
                     w.write(f"{x87_ret(n)} {n}(); /* {why} */\n")
             for n in exrefs:
@@ -1352,7 +1377,10 @@ def build(prog):
     with open(os.path.join(out, "imports.h"), "w", newline="\n") as w:
         w.write(f"/* {prog}: imported symbols (from the PE import table) */\n#pragma once\n")
         for imp in imports:
-            w.write(f"/* {imp.get('address', '')} */ extern int {imp['name']}();\n")
+            if imp["name"] in FLOAT_ARG_IMPORTS:
+                w.write(f"/* {imp.get('address', '')} */ extern void {imp['name']}(float);\n")
+            else:
+                w.write(f"/* {imp.get('address', '')} */ extern int {imp['name']}();\n")
     with open(os.path.join(out, "FUNCTIONS.md"), "w", newline="\n") as w:
         named = sum(1 for r in index_rows if not r[1].startswith("FUN_"))
         w.write(f"# {prog} function index\n\n{len(index_rows)} functions, {named} with real names.\n\n")

@@ -12,7 +12,7 @@ void Lua_Is3DHardwareEnabled(void)
 
 {
   if (g_pD3dDriver != (void *)0x0) {
-    lua_pushnumber(0x3f800000);
+    lua_pushnumber(FBITS(0x3f800000));
     return;
   }
                     /* WARNING: Could not recover jumptable at 0x00401cb8. Too many branches */
@@ -62,7 +62,7 @@ void Lua_GetVideoDevices(void)
     lua_pushnumber((float)UINT_00900530);
     return;
   }
-  lua_pushnumber(0xbf800000);
+  lua_pushnumber(FBITS(0xbf800000));
   return;
 }
 #undef local_10
@@ -146,7 +146,7 @@ void Lua_Enumerate3DDevices(void)
   uVar1 = lua_createtable();
   if (((&UINT_00902d6c)[iVar2 * 0xa6] != 0) || ((&UINT_00902d68)[iVar2 * 0xa6] == 0)) {
     lua_pushobject(uVar1);
-    lua_pushnumber(0xbf800000);
+    lua_pushnumber(FBITS(0xbf800000));
     lua_pushstring(s__engn003_Software_004dd688);
     lua_settable();
     if ((&UINT_00902d68)[iVar2 * 0xa6] == 0) goto LAB_00401f9e;
@@ -1424,7 +1424,7 @@ void Lua_IsMessageGoing(void)
       puVar1 = g_pTextObjectList;
       iVar2 = Render_GetFrameCounter();
       if (iVar2 != 0) {
-        lua_pushnumber(0x3f800000);
+        lua_pushnumber(FBITS(0x3f800000));
         return;
       }
       for (; puVar1 != (undefined4 *)0x0; puVar1 = (undefined4 *)*puVar1) {
@@ -1437,7 +1437,7 @@ void Lua_IsMessageGoing(void)
       if (((iVar2 != 0) && (*(int *)(iVar2 + 0xa4) != 0)) &&
          (*(int *)(*(int *)(iVar2 + 0xa4) + 0x1c4) != 0)) {
 LAB_0048ba30:
-        lua_pushnumber(0x3f800000);
+        lua_pushnumber(FBITS(0x3f800000));
         return;
       }
     }
@@ -3412,7 +3412,7 @@ void Lua_IsActorMoving(void)
       uVar1 = lua_getuserdata(uVar1);
       iVar2 = Actor_FromHandle(uVar1);
       if ((*(byte *)(iVar2 + 8) & 1) != 0) {
-        lua_pushnumber(0x3f800000);
+        lua_pushnumber(FBITS(0x3f800000));
         return;
       }
       lua_pushnil();
@@ -3443,7 +3443,7 @@ void Lua_IsActorTurning(void)
         Actor_CreateExtra(iVar2);
       }
       if (*(float *)(*(int *)(iVar2 + 0xa4) + 0x28) != 0.0) {
-        lua_pushnumber(0x3f800000);
+        lua_pushnumber(FBITS(0x3f800000));
       }
       lua_pushnil();
     }
@@ -3531,7 +3531,7 @@ void Lua_IsActorResting(void)
         Actor_CreateExtra(iVar2);
       }
       if (*(int *)(*(int *)(iVar2 + 0xa4) + 0x14) != 0) {
-        lua_pushnumber(0x3f800000);
+        lua_pushnumber(FBITS(0x3f800000));
         return;
       }
       lua_pushnil();
@@ -3593,7 +3593,7 @@ void Lua_IsActorChoring(void)
                    (((iVar4 != 0 || ((uVar6 & 2) == 0)) && (local_4 = uVar8, (uVar6 & 2) != 0)))) {
                   local_8 = uVar8;
                   lua_pushnumber((float)(int)uVar8);
-                  lua_pushnumber(0x3f800000);
+                  lua_pushnumber(FBITS(0x3f800000));
                   return;
                 }
                 uVar8 = uVar8 + 1;
@@ -3617,7 +3617,7 @@ void Lua_IsActorChoring(void)
             }
             lua_pushobject(uVar2);
             if ((uVar6 & 2) != 0) {
-              lua_pushnumber(0x3f800000);
+              lua_pushnumber(FBITS(0x3f800000));
               return;
             }
           }
@@ -3957,7 +3957,7 @@ void Lua_SetActorCostume(void)
       iVar4 = Actor_SetCostume(actor,name);
     }
     if (iVar4 != 0) {
-      lua_pushnumber(0x3f800000);
+      lua_pushnumber(FBITS(0x3f800000));
       return;
     }
     lua_pushnil();
@@ -4129,7 +4129,7 @@ void Lua_PlayActorChore(void)
             lVar4 = _ftol((double)CONCAT44(uVar5,uVar1));
             iVar3 = Cos_InstPlayChore(*(undefined4 *)local_4,(int)lVar4);
             if (iVar3 != 0) {
-              lua_pushnumber(0x3f800000);
+              lua_pushnumber(FBITS(0x3f800000));
               return;
             }
           }
@@ -4177,7 +4177,7 @@ void Lua_CompleteActorChore(void)
             lVar4 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
             iVar3 = Cos_InstCompleteChore(*(undefined4 *)local_4,(int)lVar4);
             if (iVar3 != 0) {
-              lua_pushnumber(0x3f800000);
+              lua_pushnumber(FBITS(0x3f800000));
               return;
             }
           }
@@ -4226,7 +4226,7 @@ void Lua_PlayActorChoreLooping(void)
             lVar4 = _ftol((double)CONCAT44(uVar5,uVar1));
             iVar3 = Cos_InstPlayChore(*(undefined4 *)local_4,(int)lVar4);
             if (iVar3 != 0) {
-              lua_pushnumber(0x3f800000);
+              lua_pushnumber(FBITS(0x3f800000));
               return;
             }
           }
@@ -4366,7 +4366,7 @@ void Lua_IsActorLooking(void)
       uVar1 = lua_getuserdata(uVar1);
       iVar2 = Actor_FromHandle(uVar1);
       if ((*(byte *)(iVar2 + 8) & 2) != 0) {
-        lua_pushnumber(0x3f800000);
+        lua_pushnumber(FBITS(0x3f800000));
         return;
       }
       lua_pushnil();
@@ -5154,7 +5154,7 @@ void Lua_GetVisibleThings(void)
       lua_pushobject(uVar1);
       iVar2 = Actor_GetHandle(target,0x52544341);
       lua_pushusertag(iVar2);
-      lua_pushnumber(0x3f800000);
+      lua_pushnumber(FBITS(0x3f800000));
       lua_settable();
     }
   }
@@ -5808,7 +5808,7 @@ int __cdecl Lua_CallSystemFunction(int flag,char *str)
     lua_pushnil();
   }
   else {
-    lua_pushnumber(0x3f800000);
+    lua_pushnumber(FBITS(0x3f800000));
   }
   if (str == (char *)0x0) {
     lua_pushnil();
@@ -5936,7 +5936,7 @@ void Lua_JustLoaded(void)
   
   iVar1 = Engine_TakeRestoreFlag();
   if (iVar1 != 0) {
-    lua_pushnumber(0x3f800000);
+    lua_pushnumber(FBITS(0x3f800000));
     return;
   }
                     /* WARNING: Could not recover jumptable at 0x0049ca98. Too many branches */
@@ -6105,7 +6105,7 @@ void Lua_CheckForFile(void)
       return;
     }
     (*g_pSvcLua->pFclose)(iVar3);
-    lua_pushnumber(0x3f800000);
+    lua_pushnumber(FBITS(0x3f800000));
   }
   return;
 }
@@ -6197,12 +6197,12 @@ void Lua_SearchForFileOrSwapCDs(void)
             iVar5 = (*(code *)*ppvVar1)(uVar6);
           } while (iVar5 == 0);
           (*g_pSvcLua->pFclose)(iVar5);
-          lua_pushnumber(0x3f800000);
-          lua_pushnumber(0x3f800000);
+          lua_pushnumber(FBITS(0x3f800000));
+          lua_pushnumber(FBITS(0x3f800000));
           return;
         }
         (*g_pSvcLua->pFclose)(iVar5);
-        lua_pushnumber(0x3f800000);
+        lua_pushnumber(FBITS(0x3f800000));
         lua_pushnil();
       }
     }
@@ -6646,10 +6646,10 @@ void Lua_GetControlState(void)
           lua_pushnil();
         }
         else {
-          lua_pushnumber(0x3f800000);
+          lua_pushnumber(FBITS(0x3f800000));
         }
         if (local_8 != 0) {
-          lua_pushnumber(0x3f800000);
+          lua_pushnumber(FBITS(0x3f800000));
           return;
         }
         lua_pushnil();
@@ -6724,7 +6724,7 @@ void __cdecl Lua_CallCostumeOverrideHandler(void *actor,int flag)
       lua_pushnil();
     }
     else {
-      lua_pushnumber(0x3f800000);
+      lua_pushnumber(FBITS(0x3f800000));
     }
     lua_callfunction(iVar6);
   }
@@ -7241,13 +7241,13 @@ undefined4 Lua_InitGameLibs(void)
   lua_setglobal(&DAT_004ec54c);
   lua_pushnumber(0);
   lua_setglobal(&DAT_004ec544);
-  lua_pushnumber(0x45800000);
+  lua_pushnumber(FBITS(0x45800000));
   lua_setglobal(&DAT_004ec53c);
-  lua_pushnumber(0x46000000);
+  lua_pushnumber(FBITS(0x46000000));
   lua_setglobal(s_CAMERA_004ec534);
-  lua_pushnumber(0x46800000);
+  lua_pushnumber(FBITS(0x46800000));
   lua_setglobal(s_SPECIAL_004ec52c);
-  lua_pushnumber(0x47000000);
+  lua_pushnumber(FBITS(0x47000000));
   lua_setglobal(&DAT_004ec528);
   uVar2 = lua_setfallback(s_concat_004ec520,Lua_ConcatFallback);
   lua_pushobject(uVar2);
@@ -7467,7 +7467,7 @@ undefined4 Lua_DispatchControlHandlers(void)
               lua_pushnil();
             }
             else {
-              lua_pushnumber(0x3f800000);
+              lua_pushnumber(FBITS(0x3f800000));
             }
             uStack_c = 0;
             local_10 = local_30;
@@ -7755,7 +7755,7 @@ void Lua_StartFullscreenMovie(void)
     uVar1 = lua_getstring(uVar1,1,iVar3 == 0);
     iVar3 = ((code *)Engine_BlitToBackBuffer)(uVar1);
     if (iVar3 == 1) {
-      lua_pushnumber(0x3f800000);
+      lua_pushnumber(FBITS(0x3f800000));
       return;
     }
   }
@@ -7822,7 +7822,7 @@ void Lua_StartMovie(void)
     uVar1 = lua_getstring(uVar1,0,iVar5 == 0);
     iVar5 = ((code *)Engine_BlitToBackBuffer)(uVar1);
     if (iVar5 == 1) {
-      lua_pushnumber(0x3f800000);
+      lua_pushnumber(FBITS(0x3f800000));
       return;
     }
   }
@@ -7841,7 +7841,7 @@ void Lua_IsMoviePlaying(void)
   
   iVar1 = Movie_IsPlaying();
   if (iVar1 != 0) {
-    lua_pushnumber(0x3f800000);
+    lua_pushnumber(FBITS(0x3f800000));
     return;
   }
                     /* WARNING: Could not recover jumptable at 0x0049e978. Too many branches */
@@ -7964,7 +7964,7 @@ void Lua_QueryDialog(void)
         return;
       }
       if (iVar4 != 7) {
-        lua_pushnumber(0x3f800000);
+        lua_pushnumber(FBITS(0x3f800000));
         return;
       }
     }
@@ -8177,7 +8177,7 @@ void Lua_IsSectorActive(void)
       pvVar3 = Sector_FindByName(name);
     }
     if ((pvVar3 != (void *)0x0) && (*(int *)((int)pvVar3 + 0x28) != 0)) {
-      lua_pushnumber(0x3f800000);
+      lua_pushnumber(FBITS(0x3f800000));
     }
   }
 LAB_0049eea2:
@@ -9031,7 +9031,7 @@ LAB_0049fd1e:
     fVar10 = -fVar10;
   }
   if (fVar9 * fVar1 <= fVar10) {
-    lua_pushnumber(0x3f800000);
+    lua_pushnumber(FBITS(0x3f800000));
     return;
   }
 LAB_0049fde2:
@@ -9400,7 +9400,7 @@ void Lua_IsLightOn(void)
   }
   pvVar3 = Light_Get((void *)0x0,iVar2);
   if ((pvVar3 != (void *)0x0) && (*(int *)((int)pvVar3 + 0x34) != 0)) {
-    lua_pushnumber(0x3f800000);
+    lua_pushnumber(FBITS(0x3f800000));
     return;
   }
 LAB_004a03f5:
@@ -10225,7 +10225,7 @@ void Lua_ImGetParam(void)
   if (iVar3 == 0) {
     iVar3 = lua_isstring(uVar2);
     if (iVar3 == 0) {
-      lua_pushnumber(0xbf800000);
+      lua_pushnumber(FBITS(0xbf800000));
       return;
     }
     lua_getnumber(uVar2);
@@ -10989,15 +10989,15 @@ void Lua_GetSpeechMode(void)
   bVar1 = Speech_GetMode();
   if ((bVar1 & 2) == 0) {
     if ((bVar1 & 1) != 0) {
-      lua_pushnumber(0x3f800000);
+      lua_pushnumber(FBITS(0x3f800000));
       return;
     }
   }
   else if ((bVar1 & 1) != 0) {
-    lua_pushnumber(0x40400000);
+    lua_pushnumber(FBITS(0x40400000));
     return;
   }
-  lua_pushnumber(0x40000000);
+  lua_pushnumber(FBITS(0x40000000));
   return;
 }
 
@@ -11021,7 +11021,7 @@ void Lua_ActorShadow(void)
       actor = (void *)Actor_FromHandle(uVar3);
       iVar1 = Actor_HasShadow(actor);
       if (iVar1 != 0) {
-        lua_pushnumber(0x3f800000);
+        lua_pushnumber(FBITS(0x3f800000));
         return;
       }
     }
@@ -11770,7 +11770,7 @@ void Lua_HardwareAccelerated(void)
 
 {
   if (g_nZBufferEnabled != 0) {
-    lua_pushnumber(0x3f800000);
+    lua_pushnumber(FBITS(0x3f800000));
     return;
   }
   lua_pushnumber(0);
@@ -12901,7 +12901,7 @@ void Lua_FindFileOnAnyCD(void)
       (*g_pSvcLua->pFree)(a2);
     }
     if (bVar2) {
-      lua_pushnumber(0x3f800000);
+      lua_pushnumber(FBITS(0x3f800000));
       return;
     }
   }

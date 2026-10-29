@@ -3058,7 +3058,7 @@ int SoundsGetParam(); /* import */
 int SoundsIsSoundPlaying(); /* import */
 int SoundsLoadProcessStartSound(); /* import */
 int SoundsLoadStartSound(); /* import */
-int SoundsPeriodic(); /* import */
+int STDCALL SoundsPeriodic() __asm__("_SoundsPeriodic@20"); /* import */
 int SoundsSetParam(); /* import */
 int SoundsStopSound(); /* import */
 int Sounds_PlatformDevice(); /* import */
@@ -3119,7 +3119,7 @@ int lua_openlib(); /* import */
 int lua_printstack(); /* import */
 int lua_pushCclosure(); /* import */
 int lua_pushnil(); /* import */
-int lua_pushnumber(); /* import */
+void lua_pushnumber(float); /* import */
 int lua_pushobject(); /* import */
 int lua_pushstring(); /* import */
 int lua_pushtask(); /* import */

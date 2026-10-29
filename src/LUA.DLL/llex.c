@@ -972,7 +972,7 @@ void FUN_10006ea0(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  #define uStack_4 (*(undefined4 *)(_frame + (0x20 - 0x4)))
+  #define uStack_4 (*(float *)(_frame + (0x20 - 0x4)))
   
   uStack_4 = luaL_check_number(1);
   if (uStack_4 < 0.0) {
@@ -1108,12 +1108,12 @@ void FUN_10007080(void)
 
 {
   undefined4 extraout_ECX;
-  float fVar1;
+  float n;
   
   luaL_check_number(1);
   luaL_check_number(2);
-  fVar1 = FUN_100120fa(extraout_ECX);
-  lua_pushnumber(fVar1);
+  n = FUN_100120fa(extraout_ECX);
+  lua_pushnumber(n);
   return;
 }
 
@@ -1134,12 +1134,12 @@ void FUN_100070c0(void)
 void FUN_100070e0(void)
 
 {
-  float fVar1;
+  float n;
   
   luaL_check_number(1);
   luaL_check_number(2);
-  fVar1 = _CIpow();
-  lua_pushnumber(fVar1);
+  n = _CIpow();
+  lua_pushnumber(n);
   return;
 }
 #endif

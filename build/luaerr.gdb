@@ -17,7 +17,7 @@ while count < 6:
     if (f.name() or '') != 'luaD_message':
         print('>> native fault in', f.name()); gdb.execute('bt 6'); break
     count += 1
-    msg = gdb.execute('x/s param_1', to_string=True).strip()
+    msg = gdb.execute('x/s *(char**)($esp+4)', to_string=True).strip()
     print('>> Lua error #%d: %s' % (count, msg))
     sp = int(gdb.parse_and_eval('(int)$esp')) - 2048
     for lvl in range(1, 5):

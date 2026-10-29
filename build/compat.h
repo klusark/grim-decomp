@@ -70,3 +70,6 @@ _Static_assert(sizeof(GrimServices) == 0x70, "GrimServices is 0x70 bytes");
    luaD_openstack shifts the stack up by one slot with it). The host msvcrt
    memcpy may copy forwards and smear the overlap, so every call goes to memmove. */
 #define memcpy memmove
+
+/* float constant given as its IEEE bit pattern (Ghidra prints float arguments as hex) */
+#define FBITS(b) (((union { unsigned u; float f; }){ (unsigned)(b) }).f)
