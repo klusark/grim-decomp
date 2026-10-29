@@ -215,7 +215,7 @@ def main(prog, src, obj):
                     f = funcs.get(v)
                     # a named thunk (e.g. SoundsInitialize = jmp [IAT]) resolves to the
                     # import library's own thunk, so its symbol is a valid target too
-                    if f and not f.get("isExternal") and (not f.get("isThunk") or not f["name"].startswith(("thunk_", "FUN_"))):
+                    if f and not f.get("isExternal") and (not f.get("isThunk") or not f["name"].startswith("FUN_")):
                         target = DLL_STD.get(f["name"], "_" + f["name"])
                         stats["code_ptr"] += 1
                     else:
