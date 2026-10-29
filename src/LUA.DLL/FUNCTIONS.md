@@ -88,7 +88,7 @@
 | 10004e00 | lua_unref | lapi.c | 13 |
 | 10004ee0 | lua_collectgarbage | lapi.c | 32 |
 | 10005ae0 | lua_iolibopen | lapi.c | 13 |
-| 10005b20 | lua_iolibopen | lapi.c | 26 |
+| 10005b20 | lua_ioregister | lapi.c | 26 |
 | 10007320 | lua_mathlibopen | lapi.c | 22 |
 | 10008a00 | lua_initstate | lapi.c | 43 |
 | 10008b40 | lua_open | lapi.c | 14 |

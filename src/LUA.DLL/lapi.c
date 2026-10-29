@@ -1751,16 +1751,16 @@ undefined4 __cdecl lua_iolibopen(void)
                     /* 0x5ae0  39  lua_iolibopen */
   ((code *)luaL_openlib)(&PTR_s_setlocale_10026b00,10);
   lua_recognizelib(IMG_ADDR(0x10026b50),5);
-  liolib__5b20();
+  lua_ioregister();
   lua_pushCclosure(((unsigned)(uintptr_t)FUN_10005ad0),0);
   uVar1 = lua_seterrormethod();
   return uVar1;
 }
 
-/* ---- 0x10005b20  lua_iolibopen  (renamed lua_iolibopen_10005b20: duplicate name) ---- */
+/* ---- 0x10005b20  lua_ioregister ---- */
 /* Registers readfrom/writeto/... and the _INPUT/_OUTPUT globals */
 
-void lua_iolibopen_10005b20(void)
+void lua_ioregister(void)
 
 {
   uint uVar1;

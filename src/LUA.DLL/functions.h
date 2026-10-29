@@ -87,7 +87,7 @@ int __cdecl lua_dostring(char *param_1); /* 0x10004b20 */
 uint __cdecl lua_unref(uint param_1); /* 0x10004e00 */
 int __cdecl lua_collectgarbage(int param_1); /* 0x10004ee0 */
 undefined4 __cdecl lua_iolibopen(void); /* 0x10005ae0 */
-void lua_iolibopen_10005b20(void); /* 0x10005b20 */
+void lua_ioregister(void); /* 0x10005b20 */
 undefined4 __cdecl lua_mathlibopen(void); /* 0x10007320 */
 void lua_initstate(void); /* 0x10008a00 */
 int * __cdecl lua_open(void); /* 0x10008b40 */

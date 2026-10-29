@@ -45,3 +45,42 @@ long __attribute__((stdcall)) shim_RegCreateKeyExA(void *key, const char *sub, u
     }
     return r;
 }
+
+#ifdef GRIM_FENCE
+/* Debug allocator (build with GRIM_FENCE=1): every malloc gets its own pages with the block
+ * ending flush against an unmapped guard page, so a write past the end faults at the exact
+ * instruction instead of corrupting the heap. free() decommits the pages (use-after-free
+ * faults too). The game's stdMemory wrapper allocates through malloc, so Lua and iMUSE
+ * memory (service table) is covered. Memory is not reused: for short debugging runs only. */
+extern void *__attribute__((stdcall)) VirtualAlloc(void *, unsigned, unsigned, unsigned);
+extern int __attribute__((stdcall)) VirtualFree(void *, unsigned, unsigned);
+
+static char *fence_region;
+static unsigned fence_next;
+
+void *malloc(unsigned n)
+{
+    unsigned n4 = (n + 3) & ~3u, dpages = (n4 + 4 + 4095) / 4096, total = (dpages + 2) * 4096;
+    char *base, *end;
+    if (!fence_region) {
+        fence_region = VirtualAlloc(0, 1u << 30, 0x2000 /* MEM_RESERVE */, 1 /* PAGE_NOACCESS */);
+        if (!fence_region) return 0;
+    }
+    if (fence_next + total > (1u << 30)) return 0;
+    base = fence_region + fence_next;
+    fence_next += total;
+    if (!VirtualAlloc(base, (dpages + 1) * 4096, 0x1000 /* MEM_COMMIT */, 4 /* PAGE_READWRITE */)) return 0;
+    end = base + (dpages + 1) * 4096;
+    *(unsigned *)base = dpages;
+    *(unsigned *)(end - n4 - 4) = (unsigned)base;
+    return end - n4;
+}
+
+void free(void *p)
+{
+    char *base;
+    if (!p) return;
+    base = (char *)*(unsigned *)((char *)p - 4);
+    VirtualFree(base, (*(unsigned *)base + 1) * 4096, 0x4000 /* MEM_DECOMMIT */);
+}
+#endif /* GRIM_FENCE */

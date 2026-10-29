@@ -107,13 +107,10 @@ extern undefined *PTR_DAT_1001eab0; /* used by 1 fn(s), first 0x1000d130 */
 extern undefined DAT_1001ead0; /* used by 1 fn(s), first 0x1000d210 */
 extern undefined DAT_1001eaf0; /* used by 1 fn(s), first 0x1000d210 */
 extern undefined4 DAT_1001ed30; /* used by 1 fn(s), first 0x1000d340 */
-extern undefined *PTR_FUN_1001ee98; /* used by 2 fn(s), first 0x1000baa0 */
-extern undefined *PTR_LAB_1001ee98; /* used by 1 fn(s), first 0x1000c670 */
-extern undefined *PTR_FUN_1001ee9c; /* used by 1 fn(s), first 0x1000baa0 */
-extern undefined *PTR_LAB_1001ee9c; /* used by 1 fn(s), first 0x1000c670 */
+extern undefined *PTR_FUN_1001ee98; /* used by 3 fn(s), first 0x1000baa0 */
+extern undefined *PTR_FUN_1001ee9c; /* used by 2 fn(s), first 0x1000baa0 */
 extern undefined *PTR_FUN_1001eea0; /* used by 1 fn(s), first 0x1000baa0 */
-extern undefined *PTR_FUN_1001eea4; /* used by 1 fn(s), first 0x1000baa0 */
-extern undefined *PTR_LAB_1001eea4; /* used by 1 fn(s), first 0x1000c670 */
+extern undefined *PTR_FUN_1001eea4; /* used by 2 fn(s), first 0x1000baa0 */
 extern undefined *PTR_FUN_1001eea8; /* used by 1 fn(s), first 0x1000baa0 */
 extern undefined *PTR_FUN_1001eeac; /* used by 1 fn(s), first 0x1000baa0 */
 extern undefined *PTR_DAT_1001f010; /* used by 9 fn(s), first 0x1000bf50 */

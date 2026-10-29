@@ -25,7 +25,7 @@ void __cdecl Actor_ComputeScreenBox(void *actor)
   *(undefined4 *)((int)actor + 0x74) = 0;
   *(undefined4 *)((int)actor + 0x78) = 0;
   frame = Actor_GetFrame(actor);
-  iVar2 = rdThing_Draw(*(void **)(*(int *)((int)actor + 0xa0) + 4),frame);
+  iVar2 = rdThing_DrawAlt(*(void **)(*(int *)((int)actor + 0xa0) + 4),frame);
   if (iVar2 != 0) {
     *(undefined4 *)((int)actor + 0x68) = 1;
     iVar2 = g_nDrawBoxMinX;
@@ -2441,7 +2441,7 @@ LAB_004951b3:
           pvVar6 = (void *)Render_GetBackBuffer();
           Surface_Lock(pvVar6);
         }
-        iVar7 = rdThing_Draw(*(void **)(iVar5 + 0x40),param_2);
+        iVar7 = rdThing_DrawAlt(*(void **)(iVar5 + 0x40),param_2);
         if ((iVar7 == 0) || (actor == (int *)0x0)) {
           actor[0x1a] = 0;
         }
@@ -2485,8 +2485,8 @@ LAB_004951b3:
           Renderer_EnableClipPlane(1);
           Renderer_SetClipPlane(actor + 0x11,actor + 3);
         }
-        iVar8 = rdThing_Draw(*(void **)(iVar5 + 0x40),
-                             (float *)(*(int *)(iVar8 + 0x20) + *(int *)(iVar5 + 0x48) * 0x30));
+        iVar8 = rdThing_DrawAlt(*(void **)(iVar5 + 0x40),
+                                (float *)(*(int *)(iVar8 + 0x20) + *(int *)(iVar5 + 0x48) * 0x30));
         if ((iVar8 != 0) && (actor != (int *)0x0)) {
           actor[0x1a] = 1;
         }

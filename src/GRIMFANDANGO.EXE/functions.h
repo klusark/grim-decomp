@@ -621,7 +621,7 @@ void rdThing_FreeEntry(int *param_1); /* 0x00471b10 */
 void __cdecl rdThing_SetModel(void *thing,void *model); /* 0x00471bd0 */
 undefined4 rdThing_SetCamera(undefined4 *param_1,undefined4 param_2); /* 0x00471d40 */
 undefined4 rdThing_SetPolyline(undefined4 *param_1,undefined4 param_2); /* 0x00471d60 */
-int __cdecl rdThing_Draw_00471d80(void *thing,float *frame); /* 0x00471d80 */
+int __cdecl rdThing_DrawAlt(void *thing,float *frame); /* 0x00471d80 */
 void rdThing_BuildNodeMatrix(int param_1,int param_2,float *param_3); /* 0x00471e00 */
 
 /* ===== rdraster.c ===== */
@@ -1149,7 +1149,7 @@ void * __cdecl stdBitmap_Load(char *filename); /* 0x00473630 */
 void * __cdecl stdBitmap_LoadFile(char *name,int a,int b); /* 0x00473660 */
 int __cdecl stdBitmap_SaveByExtension(char *filename,void *bitmap); /* 0x00473810 */
 void * __cdecl stdBitmap_LoadResource(char *name,int a,int b); /* 0x0047aa50 */
-void * __cdecl stdBitmap_Load_0047aab0(char *filename,int a,int b,int c); /* 0x0047aab0 */
+void * __cdecl stdBitmap_LoadFromFile(char *filename,int a,int b,int c); /* 0x0047aab0 */
 undefined4 stdBitmap_LoadBM(undefined4 param_1,int param_2,int param_3,int param_4); /* 0x0047ab20 */
 void __cdecl stdBitmap_Free(void *bitmap); /* 0x0047ae70 */
 void stdBitmap_FreeSurfaces(int param_1); /* 0x0047ae90 */
