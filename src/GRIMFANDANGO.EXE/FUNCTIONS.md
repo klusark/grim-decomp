@@ -1,6 +1,6 @@
 # GRIMFANDANGO.EXE function index
 
-2604 functions, 1926 with real names.
+2604 functions, 1927 with real names.
 
 | address | name | module | lines |
 |---|---|---|---|
@@ -577,7 +577,6 @@
 | 00450a90 | rdPuppet_Advance | rdpuppet.c | 1 |
 | 00450b50 | rdPuppet_ClearTrackNodes | rdpuppet.c | 1 |
 | 00450ba0 | rdPuppet_UpdateFrame | rdpuppet.c | 1 |
-| 00451510 | rdKeyframe_Interpolate | rdpuppet.c | 1 |
 | 00451800 | rdKeyframe_InterpolateNode | rdpuppet.c | 1 |
 | 0040cf20 | rdThing_Draw | rdthing.c | 1 |
 | 00471a40 | rdThing_New | rdthing.c | 1 |
@@ -1020,6 +1019,7 @@
 | 0044da40 | rdClip_Face3_PosUvLitFlags | rdclip.c | 1 |
 | 00451460 | rdLight_Init | rdlight.c | 1 |
 | 004514a0 | rdLight_SetAngles | rdlight.c | 1 |
+| 00451510 | rdLight_CalcVertexIntensities | rdlight.c | 1 |
 | 00451b80 | rdPrimit2_DrawLine | rdprimit2.c | 1 |
 | 00451f20 | rdPrimit2_DrawRect | rdprimit2.c | 1 |
 | 0045ff00 | Mem_DumpLog | memory.c | 7 |
@@ -1379,10 +1379,6 @@
 | 004a5500 | Set_FindHandle | set.c | 24 |
 | 004a5550 | FUN_004a5550 | set.c | 1 |
 | 004a55d0 | Set_IsHandleValid | set.c | 12 |
-| 004a5600 | FUN_004a5600 | set.c | 140 |
-| 004a5890 | FUN_004a5890 | set.c | 122 |
-| 004a5b40 | FUN_004a5b40 | set.c | 66 |
-| 004a5c90 | FUN_004a5c90 | set.c | 11 |
 | 004a60a0 | Set_GetActorListByName | set.c | 13 |
 | 004a60c0 | Set_FindNameInList | set.c | 20 |
 | 004a6100 | Set_NormalizeName | set.c | 48 |
@@ -1514,6 +1510,10 @@
 | 004a3ef0 | Setup_GetZBufferBitmap | setup.c | 57 |
 | 00485dc0 | Sector_DrawAllDebug | sector.c | 41 |
 | 0049c750 | Sector_IntersectSegment | sector.c | 1 |
+| 004a5600 | SetFile_ParseLights | sector.c | 140 |
+| 004a5890 | FUN_004a5890 | sector.c | 122 |
+| 004a5b40 | FUN_004a5b40 | sector.c | 66 |
+| 004a5c90 | FUN_004a5c90 | sector.c | 11 |
 | 004a61c0 | SectorList_SaveForShrink | sector.c | 73 |
 | 004a6330 | SectorList_FreeShrinkSave | sector.c | 16 |
 | 004a6380 | SectorList_RestoreAfterShrink | sector.c | 1 |
@@ -1879,7 +1879,7 @@
 | 004adc30 | shortsort | crt.c | 18 |
 | 004adc90 | qsort_swap | crt.c | 16 |
 | 004adcc0 | bsearch | crt.c | 45 |
-| 004add60 | memcmp | crt.c | 44 |
+| 004add60 | strncmp | crt.c | 44 |
 | 004adda0 | sscanf | crt.c | 31 |
 | 004ade30 | strchr | crt.c | 68 |
 | 004adf70 | _vsnprintf | crt.c | 28 |

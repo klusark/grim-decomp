@@ -1898,7 +1898,7 @@ char * __cdecl setlocale(int param_1,uint *param_2)
   if (param_2 != (uint *)0x0) {
     if ((((char)*param_2 == 'L') && (*(char *)((int)param_2 + 1) == 'C')) &&
        (*(char *)((int)param_2 + 2) == '_')) {
-      pbVar5 = strcmp((byte *)param_2,&DAT_10023dc8);
+      pbVar5 = strpbrk((byte *)param_2,&DAT_10023dc8);
       while (((pbVar5 != (byte *)0x0 && (iVar9 = (int)pbVar5 - (int)param_2, iVar9 != 0)) &&
              (*pbVar5 != 0x3b))) {
         iStack_88 = 1;
@@ -1933,7 +1933,7 @@ char * __cdecl setlocale(int param_1,uint *param_2)
         if ((*(char *)((int)puVar10 + uVar6) == '\0') ||
            (param_2 = (uint *)((int)puVar10 + uVar6 + 1),
            *(char *)((int)puVar10 + uVar6 + 1) == '\0')) goto LAB_10011516;
-        pbVar5 = strcmp((byte *)param_2,&DAT_10023dc8);
+        pbVar5 = strpbrk((byte *)param_2,&DAT_10023dc8);
       }
       _unlock(0x13);
       DAT_1002c70c = DAT_1002c70c + -1;
@@ -3201,10 +3201,10 @@ uint __cdecl _isctype(int param_1,uint param_2)
 #undef local_4
 
 
-/* ---- 0x10012a20  strcmp ---- */
+/* ---- 0x10012a20  strpbrk ---- */
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
 
-byte * __cdecl strcmp(byte *param_1,byte *param_2)
+byte * __cdecl strpbrk(byte *param_1,byte *param_2)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -8543,7 +8543,7 @@ LAB_1001c55b:
         }
         return uVar5;
       }
-      uVar6 = tolower(uVar6);
+      uVar6 = towupper(uVar6);
       uVar6 = (uVar6 & 0xffff) - 0x37;
     }
     else {
@@ -11862,10 +11862,10 @@ uint __cdecl _ungetc_lk(uint param_1,int *param_2)
   return 0xffffffff;
 }
 
-/* ---- 0x10020870  wtoupper ---- */
+/* ---- 0x10020870  towupper ---- */
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
 
-uint __cdecl wtoupper(uint param_1)
+uint __cdecl towupper(uint param_1)
 
 {
   uint uVar1;
@@ -11885,7 +11885,7 @@ uint __cdecl wtoupper(uint param_1)
       InterlockedDecrement(IMG_ADDR(0x1002c710));
       _lock(0x13);
     }
-    uVar1 = _wtoupper_lk(param_1);
+    uVar1 = _towupper_lk(param_1);
     if (bVar3) {
       _unlock(0x13);
       return CONCAT22(extraout_var,(short)uVar1);
@@ -11896,10 +11896,10 @@ uint __cdecl wtoupper(uint param_1)
   return param_1;
 }
 
-/* ---- 0x10020900  _wtoupper_lk ---- */
+/* ---- 0x10020900  _towupper_lk ---- */
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
 
-uint __cdecl _wtoupper_lk(uint param_1)
+uint __cdecl _towupper_lk(uint param_1)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */

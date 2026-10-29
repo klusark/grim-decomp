@@ -299,7 +299,7 @@ undefined4 stdBitmap_LoadBM(undefined4 param_1,int param_2,int param_3,int param
   #define auStack_38 (*(undefined4 (*)[14])(_frame + (0xf0 - 0x38)))
   
   (*g_pSvcMain->pFread)(param_1,local_cc,0x80);
-  iVar4 = memcmp(local_cc,&DAT_004df5a0,4);
+  iVar4 = strncmp(local_cc,&DAT_004df5a0,4);
   if (iVar4 != 0) {
     return 0;
   }

@@ -377,7 +377,7 @@ int __cdecl Lab_ReadDirectory(void *lab)
   
   pvVar1 = lab;
   uVar2 = ResFile_Read(*(int *)((int)lab + 0x10c),local_8,4);
-  if ((((uVar2 == 4) && (iVar3 = memcmp(local_8,&DAT_004e7af0,4), iVar3 == 0)) &&
+  if ((((uVar2 == 4) && (iVar3 = strncmp(local_8,&DAT_004e7af0,4), iVar3 == 0)) &&
       (uVar2 = ResFile_Read(*(int *)((int)pvVar1 + 0x10c),&lab,4), uVar2 == 4)) &&
      (((lab < (void *)0x10001 &&
        (uVar2 = ResFile_Read(*(int *)((int)pvVar1 + 0x10c),&lab,4), pvVar7 = lab, uVar2 == 4)) &&

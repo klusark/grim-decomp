@@ -135,14 +135,14 @@
 {
 "program": "/LUA.DLL",
 "addr": "10011bc0",
-"name": "tolower",
+"name": "toupper",
 "comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
 "tags": "crt"
 },
 {
 "program": "/LUA.DLL",
 "addr": "10011c50",
-"name": "_tolower_lk",
+"name": "_toupper_lk",
 "comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
 "tags": "crt"
 },
@@ -807,14 +807,14 @@
 {
 "program": "/LUA.DLL",
 "addr": "10020870",
-"name": "toupper",
+"name": "towupper",
 "comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
 "tags": "crt"
 },
 {
 "program": "/LUA.DLL",
 "addr": "10020900",
-"name": "_toupper_lk",
+"name": "_towupper_lk",
 "comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
 "tags": "crt"
 },
