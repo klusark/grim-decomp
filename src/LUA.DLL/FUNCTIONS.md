@@ -316,8 +316,8 @@
 | 1000a2e0 | str_add_value | str.c | 1 |
 | 1000a440 | FUN_1000a440 | str.c | 1 |
 | 1000a680 | str_add_s | str.c | 24 |
-| 1000a6f0 | luaY_error | lparser.c | 8 |
-| 1000a730 | lparser__a730 | lparser.c | 9 |
+| 1000a6f0 | luaY_error | lparser.c | 1 |
+| 1000a730 | lparser__a730 | lparser.c | 1 |
 | 1000a750 | luaY_code_word | lparser.c | 11 |
 | 1000a790 | luaY_code_opcode_arg | lparser.c | 14 |
 | 1000a7d0 | luaY_code_byte | lparser.c | 16 |

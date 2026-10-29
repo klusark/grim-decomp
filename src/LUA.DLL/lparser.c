@@ -6,6 +6,8 @@
 #include "functions.h"
 
 /* ---- 0x1000a6f0  luaY_error ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* lua.stx: 'last token read: %50s' error */
 
 void luaY_error(void)
@@ -14,8 +16,12 @@ void luaY_error(void)
   luaL_verror(s___100s__last_token_read_____50s__10027ac4);
   return;
 }
+#endif
+
 
 /* ---- 0x1000a730  lparser__a730 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Unidentified function of lua.stx (yacc parser) and code generation */
 
 void lparser__a730(void)
@@ -25,6 +31,8 @@ void lparser__a730(void)
   luaY_error();
   return;
 }
+#endif
+
 
 /* ---- 0x1000a750  luaY_code_word ---- */
 /* Unidentified function of lua.stx (yacc parser) and code generation */
