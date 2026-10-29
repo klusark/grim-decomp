@@ -453,8 +453,8 @@ void FUN_10009cb0(void)
   luaL_argerror(3,IMG_ADDR(0x10027970));
 LAB_10009d07:
   iVar5 = lua_lua2C(4);
-  if ((iVar5 == 0) && (pbVar6 = strcmp(pbVar4,(byte *)s___________100279c4), pbVar6 != (byte *)0x0))
-  {
+  if ((iVar5 == 0) && (pbVar6 = strpbrk(pbVar4,(byte *)s___________100279c4), pbVar6 != (byte *)0x0)
+     ) {
     bVar2 = *pbVar4;
     if (bVar2 == 0x5e) {
       pbVar4 = pbVar4 + 1;

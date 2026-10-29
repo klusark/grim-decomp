@@ -543,7 +543,7 @@ uint * __cdecl strncpy(uint *param_1,uint *param_2,uint param_3); /* 0x10012670 
 uint __cdecl tolower(uint param_1); /* 0x10012770 */
 uint __cdecl _tolower_lk(uint param_1); /* 0x10012800 */
 uint __cdecl _isctype(int param_1,uint param_2); /* 0x10012900 */
-byte * __cdecl strcmp(byte *param_1,byte *param_2); /* 0x10012a20 */
+byte * __cdecl strpbrk(byte *param_1,byte *param_2); /* 0x10012a20 */
 uint __cdecl strncmp(char *param_1,char *param_2,int param_3); /* 0x10012a60 */
 int __cdecl sscanf(char *str,char *fmt,...); /* 0x10012aa0 */
 int __cdecl strcoll(byte *param_1,byte *param_2); /* 0x10012af0 */
@@ -699,8 +699,8 @@ uint __cdecl _mbtowc_lk(ushort *param_1,byte *param_2,uint param_3); /* 0x100205
 int __stdcall _allmul(int a1,int a2,int a3,int a4); /* 0x10020690 */
 uint __cdecl _filbuf(int *param_1); /* 0x100206f0 */
 uint __cdecl _ungetc_lk(uint param_1,int *param_2); /* 0x100207e0 */
-uint __cdecl wtoupper(uint param_1); /* 0x10020870 */
-uint __cdecl _wtoupper_lk(uint param_1); /* 0x10020900 */
+uint __cdecl towupper(uint param_1); /* 0x10020870 */
+uint __cdecl _towupper_lk(uint param_1); /* 0x10020900 */
 uint __cdecl iswctype(uint param_1,uint param_2); /* 0x10020980 */
 int __cdecl wcslen(short *param_1); /* 0x100209f0 */
 undefined4 __cdecl __crtMessageBoxA(undefined4 param_1,undefined4 param_2,undefined4 param_3); /* 0x10020a10 */

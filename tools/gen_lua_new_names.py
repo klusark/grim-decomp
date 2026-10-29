@@ -46,7 +46,7 @@ T = {
  0x11d50: ('_CIsqrt', 'crt', CRT), 0x11d6d: ('_sqrt', 'crt', CRT), 0x11ef0: ('floor', 'crt', CRT + '; floor/ceil pair, order not verified'),
  0x11ff0: ('ceil', 'crt', CRT + '; floor/ceil pair, order not verified'), 0x12130: ('_CIpow', 'crt', CRT),
  0x12152: ('_pow', 'crt', CRT + '; Ghidra cannot decompile it (overlapping varnodes)'), 0x12325: ('_ftol', 'crt', CRT),
- 0x12770: ('toupper', 'crt', CRT), 0x12800: ('_toupper_lk', 'crt', CRT), 0x12a20: ('strcmp', 'crt', CRT),
+ 0x12770: ('tolower', 'crt', CRT), 0x12800: ('_tolower_lk', 'crt', CRT), 0x12a20: ('strpbrk', 'crt', CRT),
  0x12a60: ('strncmp', 'crt', CRT), 0x12cb0: ('_CRT_INIT', 'crt', CRT + ' (DLL entry work: heap, mt, io, locale)'),
  0x130b0: ('_cftoe', 'crt', CRT), 0x13130: ('_cftoe2', 'crt', CRT), 0x13230: ('_cftof', 'crt', CRT),
  0x132a0: ('_cftof2', 'crt', CRT), 0x13360: ('_cftog', 'crt', CRT), 0x13490: ('_shift', 'crt', CRT),

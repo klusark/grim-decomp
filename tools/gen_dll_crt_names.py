@@ -12,7 +12,7 @@ LUA = {
  0xf180: '__CxxFrameHandler', 0xf390: '_global_unwind2', 0xf3d2: '_local_unwind2',
  0xf43a: '_unwind_handler', 0xf466: '_NLG_Notify', 0xf480: '_snprintf', 0xf4f0: 'sprintf',
  0xf560: 'printf', 0xf680: 'strtol', 0xf6a0: 'strtoxl', 0xfa20: 'memcpy', 0xfd58: '_except_handler3',
- 0xff30: '_dosmaperr', 0xffb0: '_errno', 0xffc0: '__doserrno', 0x11bc0: 'tolower', 0x11c50: '_tolower_lk',
+ 0xff30: '_dosmaperr', 0xffb0: '_errno', 0xffc0: '__doserrno', 0x11bc0: 'toupper', 0x11c50: '_toupper_lk',
  0x12390: 'bsearch', 0x12430: 'qsort', 0x125e0: 'shortsort', 0x12640: 'qsort_swap', 0x12670: 'strncpy',
  0x12900: '_isctype', 0x12aa0: 'sscanf', 0x12af0: 'strcoll', 0x12e80: '_amsg_exit',
  0x134c0: '__InternalCxxFrameHandler', 0x13590: 'FindHandler', 0x13850: 'Eh_FindForeignHandler',
@@ -36,7 +36,7 @@ LUA = {
  0x1e940: '__sbh_alloc_block', 0x1eb80: '__sbh_alloc_new_group', 0x1f670: '_get_osfhandle',
  0x1f6c0: '_lock_fhandle', 0x1f730: '_unlock_fhandle', 0x1f760: '_read', 0x1f7e0: '_read_lk',
  0x20510: 'mbtowc', 0x20590: '_mbtowc_lk', 0x20690: '_allmul', 0x206f0: '_filbuf', 0x207e0: '_ungetc_lk',
- 0x20870: 'toupper', 0x20900: '_toupper_lk', 0x20980: 'iswctype', 0x20a10: '__crtMessageBoxA',
+ 0x20870: 'towupper', 0x20900: '_towupper_lk', 0x20980: 'iswctype', 0x20a10: '__crtMessageBoxA',
  0x20aa0: 'raise', 0x20cb0: 'siglookup',
 }
 IMUSE = {

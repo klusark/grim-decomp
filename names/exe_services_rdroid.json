@@ -44,7 +44,7 @@
  {"addr": "004acc40", "name": "printf", "tags": "crt"},
  {"addr": "004acd40", "name": "exit", "tags": "crt"},
  {"addr": "004ac550", "name": "_stricmp", "tags": "crt"},
- {"addr": "004add60", "name": "memcmp", "tags": "crt"},
+ {"addr": "004add60", "name": "strncmp", "tags": "crt"},
  {"addr": "00477f00", "name": "Plat_ReturnTrue", "comment": "Always returns 1; placeholder platform check called from several init paths", "tags": "platform"},
 
  {"addr": "004043c0", "name": "rdColormap_Load", "proto": "void * rdColormap_Load(char * name)", "comment": "RDroid/Engine/Rdcolormap.c: allocates a 0x350-byte colormap and loads it from the named .CMP file", "tags": "rdroid"},

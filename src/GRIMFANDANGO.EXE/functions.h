@@ -610,7 +610,6 @@ void __cdecl rdPuppet_AdvanceTrack(void *puppet,int track,float dt); /* 0x004507
 void __cdecl rdPuppet_Advance(void *puppet,float seconds); /* 0x00450a90 */
 void rdPuppet_ClearTrackNodes(int param_1,int param_2); /* 0x00450b50 */
 void __cdecl rdPuppet_UpdateFrame(void *model,float *frame); /* 0x00450ba0 */
-float __cdecl rdKeyframe_Interpolate (int *param_1,float *param_2,int param_3,uint param_4,int *param_5,uint param_6, float *param_7,float *param_8,uint param_9,float param_10); /* 0x00451510 */
 float __cdecl rdKeyframe_InterpolateNode (int *param_1,int param_2,uint param_3,uint param_4,int param_5,float *param_6,int param_7 ,float param_8); /* 0x00451800 */
 
 /* ===== rdthing.c ===== */
@@ -1065,6 +1064,7 @@ uint rdClip_Face3_PosUvLitFlags (int *param_1,float *param_2,undefined4 *param_3
 /* ===== rdlight.c ===== */
 undefined4 rdLight_Init(int param_1); /* 0x00451460 */
 void __cdecl rdLight_SetAngles(void *light,float inner,float outer); /* 0x004514a0 */
+float __cdecl rdKeyframe_Interpolate (int *param_1,float *param_2,int param_3,uint param_4,int *param_5,uint param_6, float *param_7,float *param_8,uint param_9,float param_10); /* 0x00451510 */
 
 /* ===== rdprimit2.c ===== */
 void __cdecl rdPrimit2_DrawLine(void *canvas,int x1,int y1,int x2,int y2,int color,int mask); /* 0x00451b80 */
@@ -1474,10 +1474,6 @@ int __cdecl Set_RegisterHandle(char *name,void *fn); /* 0x004a54a0 */
 int Set_FindHandle(char *name); /* 0x004a5500 */
 undefined4 FUN_004a5550(undefined4 param_1); /* 0x004a5550 */
 bool Set_IsHandleValid(char *param_1); /* 0x004a55d0 */
-undefined4 FUN_004a5600(void); /* 0x004a5600 */
-undefined4 FUN_004a5890(void); /* 0x004a5890 */
-undefined4 FUN_004a5b40(void); /* 0x004a5b40 */
-undefined4 FUN_004a5c90(void); /* 0x004a5c90 */
 void * __cdecl Set_GetActorListByName(char *setName); /* 0x004a60a0 */
 void * Set_FindNameInList(int param_1); /* 0x004a60c0 */
 void * __cdecl Set_NormalizeName(char *setName); /* 0x004a6100 */
@@ -1631,6 +1627,10 @@ void * __cdecl Setup_GetZBufferBitmap(void *set,int setupIdx); /* 0x004a3ef0 */
 /* ===== sector.c ===== */
 void __cdecl Sector_DrawAllDebug(void); /* 0x00485dc0 */
 void Sector_IntersectSegment (int param_1,int param_2,undefined4 *param_3,undefined4 *param_4,undefined4 *param_5); /* 0x0049c750 */
+undefined4 FUN_004a5600(void); /* 0x004a5600 */
+undefined4 FUN_004a5890(void); /* 0x004a5890 */
+undefined4 FUN_004a5b40(void); /* 0x004a5b40 */
+undefined4 FUN_004a5c90(void); /* 0x004a5c90 */
 void SectorList_SaveForShrink(void); /* 0x004a61c0 */
 void SectorList_FreeShrinkSave(void); /* 0x004a6330 */
 void SectorList_RestoreAfterShrink(void); /* 0x004a6380 */
@@ -2098,7 +2098,7 @@ void qsort(uint param_1,uint param_2,uint param_3,code *param_4); /* 0x004ada80 
 void shortsort(uint param_1,uint param_2,int param_3,code *param_4); /* 0x004adc30 */
 void qsort_swap(undefined1 *param_1,undefined1 *param_2,int param_3); /* 0x004adc90 */
 uint bsearch(undefined4 param_1,uint param_2,uint param_3,int param_4,code *param_5); /* 0x004adcc0 */
-uint memcmp(char *param_1,char *param_2,int param_3); /* 0x004add60 */
+uint strncmp(char *param_1,char *param_2,int param_3); /* 0x004add60 */
 int __cdecl sscanf(char *str,char *fmt,...); /* 0x004adda0 */
 uint * strchr(uint *param_1,char param_2); /* 0x004ade30 */
 undefined4 _vsnprintf(uint param_1,uint param_2,undefined4 param_3); /* 0x004adf70 */

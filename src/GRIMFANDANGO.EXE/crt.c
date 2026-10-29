@@ -1513,8 +1513,8 @@ uint bsearch(undefined4 param_1,uint param_2,uint param_3,int param_4,code *para
   return 0;
 }
 
-/* ---- 0x004add60  memcmp ---- */
-uint memcmp(char *param_1,char *param_2,int param_3)
+/* ---- 0x004add60  strncmp ---- */
+uint strncmp(char *param_1,char *param_2,int param_3)
 
 {
   char cVar1;

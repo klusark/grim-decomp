@@ -126,7 +126,7 @@ int __cdecl rdMaterial_LoadFile(char *filename,void *material,int a,int b)
     return 0;
   }
   (*g_pSvcRdroid->pFread)(iVar3,auStack_38c,0x4c);
-  iVar1 = memcmp(auStack_38c,&DAT_004dddb0,4);
+  iVar1 = strncmp(auStack_38c,&DAT_004dddb0,4);
   if ((iVar1 == 0) && (iStack_388 == 0x32)) {
     *(undefined4 *)((int)material + 0xa8) = uStack_37c;
     *(undefined4 *)material = uStack_384;

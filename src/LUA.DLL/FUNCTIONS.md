@@ -506,7 +506,7 @@
 | 10012770 | tolower | crt.c | 28 |
 | 10012800 | _tolower_lk | crt.c | 53 |
 | 10012900 | _isctype | crt.c | 32 |
-| 10012a20 | strcmp | crt.c | 60 |
+| 10012a20 | strpbrk | crt.c | 60 |
 | 10012a60 | strncmp | crt.c | 46 |
 | 10012aa0 | sscanf | crt.c | 33 |
 | 10012af0 | strcoll | crt.c | 94 |
@@ -662,8 +662,8 @@
 | 10020690 | _allmul | crt.c | 10 |
 | 100206f0 | _filbuf | crt.c | 51 |
 | 100207e0 | _ungetc_lk | crt.c | 40 |
-| 10020870 | wtoupper | crt.c | 32 |
-| 10020900 | _wtoupper_lk | crt.c | 39 |
+| 10020870 | towupper | crt.c | 32 |
+| 10020900 | _towupper_lk | crt.c | 39 |
 | 10020980 | iswctype | crt.c | 28 |
 | 100209f0 | wcslen | crt.c | 15 |
 | 10020a10 | __crtMessageBoxA | crt.c | 32 |

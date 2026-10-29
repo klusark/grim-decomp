@@ -513,7 +513,7 @@ void * FUN_0047f120(char *param_1,int param_2,int param_3)
                              (0x7c,s_C__grimjedi_Libs_Std_General_Std_004e78ec,DAT_004e78e0 + 0x11);
   if (bitmap != (void *)0x0) {
     (*g_pSvcMain->pFread)(iVar6,auStack_58,0xc);
-    iVar7 = memcmp(auStack_58,&DAT_004e78e4,4);
+    iVar7 = strncmp(auStack_58,&DAT_004e78e4,4);
     if (iVar7 == 0) {
       uStack_54 = Std_Swap32(uStack_54);
       (*g_pSvcMain->pFseek)(iVar6,0,0);

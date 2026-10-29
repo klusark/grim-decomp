@@ -92,7 +92,7 @@ int __cdecl rdColormap_LoadEntry(char *name,void *cmp)
   *(undefined4 *)((int)cmp + 0x20) = uStack_38;
   *(undefined4 *)((int)cmp + 0x28) = uStack_30;
   *(undefined4 *)((int)cmp + 0x2c) = uStack_2c;
-  iVar9 = memcmp(auStack_40,&DAT_004ddb10,4);
+  iVar9 = strncmp(auStack_40,&DAT_004ddb10,4);
   if (iVar9 != 0) {
     (*g_pSvcRdroid->pFclose)(iVar7);
     rdColormap_BuildGreyRamp(cmp);
