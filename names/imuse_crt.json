@@ -1,0 +1,450 @@
+[
+{
+"program": "/v101/IMUSE.DLL",
+"addr": "1000b940",
+"name": "fseek",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/v101/IMUSE.DLL",
+"addr": "1000b980",
+"name": "_fseek_lk",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/v101/IMUSE.DLL",
+"addr": "1000bb10",
+"name": "fclose",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/v101/IMUSE.DLL",
+"addr": "1000bb50",
+"name": "_fclose_lk",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/v101/IMUSE.DLL",
+"addr": "1000bbc0",
+"name": "fwrite",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/v101/IMUSE.DLL",
+"addr": "1000bc00",
+"name": "_fwrite_lk",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/v101/IMUSE.DLL",
+"addr": "1000bd50",
+"name": "strchr",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/v101/IMUSE.DLL",
+"addr": "1000bd80",
+"name": "strncpy",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/v101/IMUSE.DLL",
+"addr": "1000be80",
+"name": "_stricmp",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/v101/IMUSE.DLL",
+"addr": "1000bf50",
+"name": "atol",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/v101/IMUSE.DLL",
+"addr": "1000bff0",
+"name": "atoi",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/v101/IMUSE.DLL",
+"addr": "1000c000",
+"name": "bsearch",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/v101/IMUSE.DLL",
+"addr": "1000c400",
+"name": "_amsg_exit",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/v101/IMUSE.DLL",
+"addr": "1000c4f0",
+"name": "_lock",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/v101/IMUSE.DLL",
+"addr": "1000c570",
+"name": "_unlock",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/v101/IMUSE.DLL",
+"addr": "1000c590",
+"name": "_lock_file",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/v101/IMUSE.DLL",
+"addr": "1000c600",
+"name": "_unlock_file",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/v101/IMUSE.DLL",
+"addr": "1000d210",
+"name": "_flsbuf",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/v101/IMUSE.DLL",
+"addr": "1000d340",
+"name": "_dosmaperr",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/v101/IMUSE.DLL",
+"addr": "1000d3c0",
+"name": "_errno",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/v101/IMUSE.DLL",
+"addr": "1000d3d0",
+"name": "__doserrno",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/v101/IMUSE.DLL",
+"addr": "1000d3e0",
+"name": "_lseek",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/v101/IMUSE.DLL",
+"addr": "1000d460",
+"name": "_lseek_lk",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/v101/IMUSE.DLL",
+"addr": "1000d520",
+"name": "_flush",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/v101/IMUSE.DLL",
+"addr": "1000d660",
+"name": "_ftell_lk",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/v101/IMUSE.DLL",
+"addr": "1000e0c0",
+"name": "free",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/v101/IMUSE.DLL",
+"addr": "1000e130",
+"name": "_close",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/v101/IMUSE.DLL",
+"addr": "1000e1a0",
+"name": "_close_lk",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/v101/IMUSE.DLL",
+"addr": "1000e230",
+"name": "_freebuf",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/v101/IMUSE.DLL",
+"addr": "1000e270",
+"name": "_write",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/v101/IMUSE.DLL",
+"addr": "1000e2f0",
+"name": "_write_lk",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/v101/IMUSE.DLL",
+"addr": "1000e5a0",
+"name": "_tolower_lk",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/v101/IMUSE.DLL",
+"addr": "1000e6a0",
+"name": "_isctype",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/v101/IMUSE.DLL",
+"addr": "1000e780",
+"name": "__crtLCMapStringA",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/v101/IMUSE.DLL",
+"addr": "1000e9b0",
+"name": "_strncnt",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/v101/IMUSE.DLL",
+"addr": "1000ea10",
+"name": "exit",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/v101/IMUSE.DLL",
+"addr": "1000ea40",
+"name": "doexit",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/v101/IMUSE.DLL",
+"addr": "1000eb00",
+"name": "_lockexit",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/v101/IMUSE.DLL",
+"addr": "1000eb10",
+"name": "_unlockexit",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/v101/IMUSE.DLL",
+"addr": "1000eb20",
+"name": "_initterm",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/v101/IMUSE.DLL",
+"addr": "1000ebd0",
+"name": "_initptd",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/v101/IMUSE.DLL",
+"addr": "1000ebf0",
+"name": "_getptd",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/v101/IMUSE.DLL",
+"addr": "1000fa30",
+"name": "_FF_MSGBANNER",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/v101/IMUSE.DLL",
+"addr": "1000fa70",
+"name": "_NMSG_WRITE",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/v101/IMUSE.DLL",
+"addr": "1000fc50",
+"name": "malloc",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/v101/IMUSE.DLL",
+"addr": "1000fc70",
+"name": "_nh_malloc",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/v101/IMUSE.DLL",
+"addr": "1000fcc0",
+"name": "_heap_alloc",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/v101/IMUSE.DLL",
+"addr": "1000fd20",
+"name": "_isatty",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/v101/IMUSE.DLL",
+"addr": "1000ff30",
+"name": "calloc",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/v101/IMUSE.DLL",
+"addr": "10010080",
+"name": "_getbuf",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/v101/IMUSE.DLL",
+"addr": "10010300",
+"name": "_free_osfhnd",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/v101/IMUSE.DLL",
+"addr": "100103a0",
+"name": "_get_osfhandle",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/v101/IMUSE.DLL",
+"addr": "100103f0",
+"name": "_lock_fhandle",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/v101/IMUSE.DLL",
+"addr": "10010460",
+"name": "_unlock_fhandle",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/v101/IMUSE.DLL",
+"addr": "100114c0",
+"name": "__sbh_alloc_new_region",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/v101/IMUSE.DLL",
+"addr": "10011630",
+"name": "__sbh_release_region",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/v101/IMUSE.DLL",
+"addr": "10011690",
+"name": "__sbh_decommit_pages",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/v101/IMUSE.DLL",
+"addr": "10011760",
+"name": "__sbh_find_block",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/v101/IMUSE.DLL",
+"addr": "100117c0",
+"name": "__sbh_free_block",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/v101/IMUSE.DLL",
+"addr": "10011820",
+"name": "__sbh_alloc_block",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/v101/IMUSE.DLL",
+"addr": "10011a60",
+"name": "__sbh_alloc_new_group",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/v101/IMUSE.DLL",
+"addr": "10012d50",
+"name": "__crtGetStringTypeA",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/v101/IMUSE.DLL",
+"addr": "10012e90",
+"name": "__crtMessageBoxA",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+},
+{
+"program": "/v101/IMUSE.DLL",
+"addr": "10012f20",
+"name": "_callnewh",
+"comment": "MSVC 6 C runtime (matched against the EXE runtime by structure)",
+"tags": "crt"
+}
+]

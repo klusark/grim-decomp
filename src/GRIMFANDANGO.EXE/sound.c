@@ -1,0 +1,198 @@
+/* GRIMFANDANGO.EXE :: sound.c
+ * functions 0x004a3fe0 .. 0x004d0cf0 (7 functions)
+ * Decompiled from the shipped binaries with Ghidra; see ../../README.md */
+#include "ghidra_types.h"
+#include "globals.h"
+#include "functions.h"
+
+/* ---- 0x004a3fe0  PositionedSounds_UpdateAll ---- */
+void PositionedSounds_UpdateAll(void)
+
+{
+  undefined4 *puVar1;
+  
+  PositionedSounds_DropFinished();
+  for (puVar1 = DAT_008cb08c; puVar1 != (undefined4 *)0x0; puVar1 = (undefined4 *)*puVar1) {
+    PositionedSound_Apply(puVar1);
+  }
+  return;
+}
+
+/* ---- 0x004a40a0  Sound_SetPosition ---- */
+void Sound_SetPosition(undefined4 param_1,undefined4 *param_2,undefined4 param_3,undefined4 param_4,
+                      undefined4 param_5,undefined4 param_6)
+
+{
+  int iVar1;
+  undefined4 uVar2;
+  
+  iVar1 = SoundsIsSoundPlaying(param_1);
+  if (iVar1 == 0) {
+    return;
+  }
+  uVar2 = PositionedSound_Add(param_1,param_2,param_3,param_4,param_5,param_6);
+  PositionedSound_Apply(uVar2);
+  return;
+}
+
+/* ---- 0x004a4dc0  PositionedSounds_DropFinished ---- */
+void PositionedSounds_DropFinished(void)
+
+{
+  undefined4 *puVar1;
+  undefined4 *puVar2;
+  undefined4 *item;
+  int iVar3;
+  
+  puVar2 = (undefined4 *)0x0;
+  item = DAT_008cb08c;
+  while (item != (undefined4 *)0x0) {
+    iVar3 = SoundsIsSoundPlaying(item[1]);
+    if (iVar3 == 0) {
+      puVar1 = (undefined4 *)*item;
+      if (item == DAT_008cb08c) {
+        DAT_008cb08c = puVar1;
+        Pool_Free(item);
+        puVar2 = (undefined4 *)0x0;
+        item = puVar1;
+      }
+      else {
+        *puVar2 = puVar1;
+        Pool_Free(item);
+        item = puVar1;
+      }
+    }
+    else {
+      puVar2 = item;
+      item = (undefined4 *)*item;
+    }
+  }
+  return;
+}
+
+/* ---- 0x004a4e20  PositionedSound_Add ---- */
+undefined4 * __cdecl
+PositionedSound_Add(undefined4 param_1,undefined4 *param_2,undefined4 param_3,undefined4 param_4,
+                   undefined4 param_5,undefined4 param_6)
+
+{
+  undefined4 *puVar1;
+  
+  PositionedSounds_DropFinished();
+  puVar1 = (undefined4 *)Pool_Alloc(DAT_008cb088);
+  puVar1[1] = param_1;
+  *puVar1 = DAT_008cb08c;
+  puVar1[2] = *param_2;
+  puVar1[3] = param_2[1];
+  puVar1[4] = param_2[2];
+  puVar1[5] = param_3;
+  puVar1[6] = param_4;
+  puVar1[7] = param_5;
+  puVar1[8] = param_6;
+  DAT_008cb08c = puVar1;
+  return puVar1;
+}
+
+/* ---- 0x004a4e80  PositionedSound_Apply ---- */
+/* Moves the volume and pan of one positioned sound (entry: +8..0x10 pos, +0x14 min, +0x18 max,
+   +0x1c scale, +0x20 near distance 0.8). d = pos - camera pos (current setup, set+0xac, setup
+   stride 300), normalised by Vec3_NormalizeApprox (which returns the rough length). If len - near
+   >= 0: volume = ftol((scale - t) * (max - min) / scale + min) with t = len - near, clamped as
+   UNSIGNED values to [min, max] (so a negative result comes out as max); param 0x600. Pan =
+   ftol((clamp(dot(cameraRight(setup+0x50), d) * set+0x1b00 (1.5), -1, 1) + 1) * 64), at most 127;
+   param 0x700. */
+
+undefined4 PositionedSound_Apply(int param_1)
+
+{
+  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  int iVar1;
+  void *pvVar2;
+  uint uVar3;
+  uint uVar4;
+  uint uVar5;
+  float10 fVar6;
+  #define local_c (*(float *)(_frame + (0x20 - 0xc)))
+  #define local_8 (*(float *)(_frame + (0x20 - 0x8)))
+  #define local_4 (*(float *)(_frame + (0x20 - 0x4)))
+  
+  pvVar2 = Set_GetCurrent();
+  if (pvVar2 != (void *)0x0) {
+    local_c = *(float *)(param_1 + 8) -
+              *(float *)(*(int *)((int)pvVar2 + 0xac) + 0x20 + *(int *)((int)pvVar2 + 0xb4) * 300);
+    iVar1 = *(int *)((int)pvVar2 + 0xac) + 0x20 + *(int *)((int)pvVar2 + 0xb4) * 300;
+    local_8 = *(float *)(param_1 + 0xc) - *(float *)(iVar1 + 4);
+    local_4 = *(float *)(param_1 + 0x10) - *(float *)(iVar1 + 8);
+    fVar6 = (float10)Vec3_NormalizeApprox(&local_c);
+    if ((float10)0.0 <= fVar6 - (float10)*(float *)(param_1 + 0x20)) {
+      uVar5 = *(uint *)(param_1 + 0x18);
+      uVar4 = *(uint *)(param_1 + 0x14);
+      uVar3 = _ftol();
+      if ((uVar4 <= uVar3) && (uVar4 = uVar3, uVar5 < uVar3)) {
+        uVar4 = uVar5;
+      }
+      SoundsSetParam(*(undefined4 *)(param_1 + 4),0x600,uVar4);
+    }
+    uVar5 = _ftol();
+    if (0x7f < uVar5) {
+      uVar5 = 0x7f;
+    }
+    SoundsSetParam(*(undefined4 *)(param_1 + 4),0x700,uVar5);
+    return 1;
+  }
+  return 0;
+}
+#undef local_4
+#undef local_8
+#undef local_c
+
+
+/* ---- 0x004d0c20  Sound_DriverQuery ---- */
+/* Calls entry +0x14 of the installed sound driver vtable */
+
+undefined4 Sound_DriverQuery(void)
+
+{
+  undefined4 uVar1;
+  
+  if (PTR_008dacf0 != (int *)0x0) {
+                    /* WARNING: Could not recover jumptable at 0x004d0c29. Too many branches */
+                    /* WARNING: Treating indirect jump as call */
+    uVar1 = (*(code *)PTR_008dacf0[5])();
+    return uVar1;
+  }
+  return 0xffffffff;
+}
+
+/* ---- 0x004d0cf0  Sound_VoiceSampleCount ---- */
+/* Converts the byte count of a 0x34-byte voice record to samples depending on its format code
+   (halved for 8/16-bit mono formats 1,2,4) */
+
+undefined4 __cdecl Sound_VoiceSampleCount(int param_1)
+
+{
+  undefined4 uVar1;
+  int iVar2;
+  
+  iVar2 = *(int *)(&DAT_008dad84 + param_1 * 0x34);
+  switch((&DAT_008dad6f)[param_1 * 0x34]) {
+  case 0:
+    break;
+  case 1:
+  case 2:
+  case 4:
+    iVar2 = iVar2 >> 1;
+    break;
+  case 3:
+  case 5:
+    iVar2 = iVar2 >> 2;
+    break;
+  default:
+    goto switchD_004d0d15_default;
+  }
+  param_1 = iVar2;
+switchD_004d0d15_default:
+  ((undefined4 (*)(float))Sound_DriverQuery)((double)param_1);
+  uVar1 = _ftol();
+  return uVar1;
+}

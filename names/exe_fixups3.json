@@ -1,0 +1,4 @@
+[
+ {"addr": "004ade30", "name": "strchr", "comment": "MSVC 6 C runtime strchr (word-at-a-time scan); _mbschr calls it in SBCS mode", "tags": "crt"},
+ {"addr": "004ae160", "name": "strrchr", "comment": "MSVC 6 C runtime strrchr", "tags": "crt"}
+]
