@@ -357,7 +357,8 @@ void Lua_DrawLine(void)
               local_18 = (uint)lVar11;
             }
           }
-          uVar6 = Primitive_AddLine((int)lVar7,(int)lVar8,(int)lVar9,(int)lVar10,local_1c,local_18);
+          uVar6 = Primitive_AddLine(&UINT_008ca0a0,(int)lVar7,(int)lVar8,(int)lVar9,(int)lVar10,
+                                    local_1c,local_18);
           lua_pushnumber((float)uVar6);
           return;
         }
@@ -498,7 +499,7 @@ void Lua_DrawPolygon(void)
           pcVar8 = lua_gettable_exref;
         } while (local_10 != 0);
       }
-      uVar5 = Primitive_AddPolyline(uVar5,(int *)local_14,local_18,local_c);
+      uVar5 = Primitive_AddPolyline(&UINT_008ca0a0,uVar5,(int *)local_14,local_18,local_c);
       lua_pushnumber((float)uVar5);
       return;
     }
@@ -600,8 +601,8 @@ void Lua_DrawRectangle(void)
         local_18 = (uint)lVar12;
       }
     }
-    uVar7 = Primitive_AddRect((int)lVar8,(int)lVar9,(int)lVar10,(int)lVar11,local_20,local_14,
-                              local_18);
+    uVar7 = Primitive_AddRect(&UINT_008ca0a0,(int)lVar8,(int)lVar9,(int)lVar10,(int)lVar11,local_20,
+                              local_14,local_18);
     lua_pushnumber((float)uVar7);
     return;
   }
@@ -5780,8 +5781,7 @@ void Lua_IsActorInSector(void)
   undefined4 uVar2;
   int iVar3;
   int iVar4;
-  undefined *puVar5;
-  void *pvVar6;
+  void *this;
   #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
   
   uVar1 = lua_lua2C(1);
@@ -5795,21 +5795,21 @@ void Lua_IsActorInSector(void)
         uVar1 = lua_getuserdata(uVar1);
         iVar3 = Actor_FromHandle(uVar1);
         uVar1 = lua_getstring(uVar2);
-        pvVar6 = g_pSectorList;
+        this = g_pSectorList;
         if (g_pSectorList != (void *)0x0) {
           do {
-            iVar4 = String_ContainsSubstring(pvVar6,uVar1);
+            iVar4 = String_ContainsSubstring(this,uVar1);
             if (iVar4 != 0) {
-              puVar5 = Sector_ContainsPoint(iVar3 + 0xc,1);
-              if (puVar5 != (undefined *)0x0) {
-                lua_pushnumber((float)*(int *)((int)pvVar6 + 0x20));
-                lua_pushstring(pvVar6);
-                lua_pushnumber((float)*(int *)((int)pvVar6 + 0x24));
+              iVar4 = Sector_ContainsPoint(this,(float *)(iVar3 + 0xc),1);
+              if (iVar4 != 0) {
+                lua_pushnumber((float)*(int *)((int)this + 0x20));
+                lua_pushstring(this);
+                lua_pushnumber((float)*(int *)((int)this + 0x24));
                 return;
               }
             }
-            pvVar6 = *(void **)((int)pvVar6 + 0x70);
-          } while (pvVar6 != (void *)0x0);
+            this = *(void **)((int)this + 0x70);
+          } while (this != (void *)0x0);
           lua_pushnil();
           return;
         }
@@ -5907,9 +5907,8 @@ void Lua_IsPointInSector(void)
   undefined4 uVar3;
   undefined4 uVar4;
   int iVar5;
-  undefined *puVar6;
-  void *pvVar7;
-  float10 fVar8;
+  void *this;
+  float10 fVar6;
   #define local_20 (*(uint *)(_frame + (0x30 - 0x20)))
   #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
   #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
@@ -5922,27 +5921,26 @@ void Lua_IsPointInSector(void)
   iVar5 = lua_isnumber(uVar1);
   if ((((iVar5 != 0) && (iVar5 = lua_isnumber(uVar2), iVar5 != 0)) &&
       (iVar5 = lua_isnumber(uVar3), iVar5 != 0)) && (iVar5 = lua_isstring(uVar4), iVar5 != 0)) {
-    fVar8 = (float10)lua_getnumber(uVar1);
-    local_c = (uint)(float)fVar8;
-    fVar8 = (float10)lua_getnumber(uVar2);
-    local_8 = (uint)(float)fVar8;
-    fVar8 = (float10)lua_getnumber(uVar3);
-    local_4 = (uint)(float)fVar8;
+    fVar6 = (float10)lua_getnumber(uVar1);
+    local_c = (uint)(float)fVar6;
+    fVar6 = (float10)lua_getnumber(uVar2);
+    local_8 = (uint)(float)fVar6;
+    fVar6 = (float10)lua_getnumber(uVar3);
+    local_4 = (uint)(float)fVar6;
     uVar1 = lua_getstring(uVar4);
-    pvVar7 = g_pSectorList;
+    this = g_pSectorList;
     if (g_pSectorList != (void *)0x0) {
       do {
-        iVar5 = String_ContainsSubstring(pvVar7,uVar1);
-        if ((iVar5 != 0) &&
-           (puVar6 = Sector_ContainsPoint((int)&local_c,1), puVar6 != (undefined *)0x0)) {
-          lua_pushnumber((float)*(int *)((int)pvVar7 + 0x20));
-          lua_pushstring(pvVar7);
-          lua_pushnumber((float)*(int *)((int)pvVar7 + 0x24));
+        iVar5 = String_ContainsSubstring(this,uVar1);
+        if ((iVar5 != 0) && (iVar5 = Sector_ContainsPoint(this,(float *)&local_c,1), iVar5 != 0)) {
+          lua_pushnumber((float)*(int *)((int)this + 0x20));
+          lua_pushstring(this);
+          lua_pushnumber((float)*(int *)((int)this + 0x24));
           break;
         }
-        pvVar7 = *(void **)((int)pvVar7 + 0x70);
-      } while (pvVar7 != (void *)0x0);
-      if (pvVar7 != (void *)0x0) {
+        this = *(void **)((int)this + 0x70);
+      } while (this != (void *)0x0);
+      if (this != (void *)0x0) {
         return;
       }
     }

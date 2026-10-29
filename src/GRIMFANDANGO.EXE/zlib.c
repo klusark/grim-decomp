@@ -6,13 +6,15 @@
 #include "functions.h"
 
 /* ---- 0x004c3e60  gz_open ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* zlib 1.1.3 gzio.c (file access routed through the file service table at g_pZlibFileOps): opens a
    gzip stream for 'r' or 'w' */
 
 undefined4 * gz_open(char *param_1,char *param_2,int param_3)
 
 {
-  unsigned char _frame[0x80] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x80];  /* Ghidra stack frame, see tools/frame_locals.py */
   char cVar1;
   undefined4 *puVar2;
   undefined4 uVar3;
@@ -182,6 +184,8 @@ LAB_004c410c:
 #undef local_60
 #undef local_64
 #undef uStack_53
+
+#endif
 
 
 /* ---- 0x004c4120  gz_check_header ---- */

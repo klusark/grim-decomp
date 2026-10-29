@@ -408,7 +408,7 @@ int Text_MeasureHeight(void *ctx,char *text)
 undefined4 Text_DrawFormatted(void *param_1,int param_2)
 
 {
-  unsigned char _frame[0x400] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x400];  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   undefined4 uVar2;
   void *font;

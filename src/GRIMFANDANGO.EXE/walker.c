@@ -709,14 +709,14 @@ undefined * __fastcall Walker_GetAngles(int param_1)
 void __fastcall Walker_ReattachToSet(void *param_1)
 
 {
+  void *this;
   int iVar1;
-  undefined *puVar2;
   
-  iVar1 = SectorList_FindNearestPoint(param_1,0x1000);
-  *(int *)((int)param_1 + 0x5c) = iVar1;
-  if (iVar1 != 0) {
-    puVar2 = Sector_ContainsPoint((int)param_1,1);
-    if (puVar2 == (undefined *)0x0) {
+  this = (void *)SectorList_FindNearestPoint(param_1,0x1000);
+  *(void **)((int)param_1 + 0x5c) = this;
+  if (this != (void *)0x0) {
+    iVar1 = Sector_ContainsPoint(this,param_1,1);
+    if (iVar1 == 0) {
       Sector_ClampPoint(*(void **)((int)param_1 + 0x5c),(int)param_1);
       Walker_SetPosition(param_1,param_1);
     }
@@ -879,10 +879,9 @@ undefined * __thiscall Walker_WalkSectors(void *this,int a1,int a2,int a3)
 {
   unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   void *this_00;
-  undefined *puVar1;
-  int iVar2;
-  undefined *puVar3;
-  float fVar4;
+  int iVar1;
+  undefined *puVar2;
+  float fVar3;
   #define local_48 (*(uint *)(_frame + (0x60 - 0x48)))
   #define local_34 (*(uint *)(_frame + (0x60 - 0x34)))
   #define local_30 (*(uint *)(_frame + (0x60 - 0x30)))
@@ -898,24 +897,24 @@ undefined * __thiscall Walker_WalkSectors(void *this,int a1,int a2,int a3)
   #define local_8 (*(uint *)(_frame + (0x60 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x60 - 0x4)))
   
-  puVar3 = (undefined *)0x0;
+  puVar2 = (undefined *)0x0;
   if (UINT_008d0870 == 0) {
     *(int *)((int)this + 0x40) = a1;
   }
   UINT_008d0870 = UINT_008d0870 + 1;
   if (*(int *)((int)this + 0x50) != 0) {
-    fVar4 = Vec3_Dot2((float *)((int)this + 0xc),(float *)((int)this + 0x44));
-    fVar4 = Math_AsinDegreesSeries(fVar4);
-    local_48 = (uint)((90.0 - fVar4) - 90.0);
-    fVar4 = (float)local_48;
+    fVar3 = Vec3_Dot2((float *)((int)this + 0xc),(float *)((int)this + 0x44));
+    fVar3 = Math_AsinDegreesSeries(fVar3);
+    local_48 = (uint)((90.0 - fVar3) - 90.0);
+    fVar3 = (float)local_48;
     if ((float)local_48 < 0.0) {
-      fVar4 = -(float)local_48;
+      fVar3 = -(float)local_48;
     }
-    if (*(float *)((int)this + 0x3c) < fVar4) {
+    if (*(float *)((int)this + 0x3c) < fVar3) {
       return (undefined *)0x0;
     }
-    fVar4 = Vec3_Dot2((float *)((int)this + 0x18),(float *)((int)this + 0x44));
-    if (fVar4 <= 0.0) {
+    fVar3 = Vec3_Dot2((float *)((int)this + 0x18),(float *)((int)this + 0x44));
+    if (fVar3 <= 0.0) {
       local_48 = (uint)-(float)local_48;
     }
     Walker_TurnHeading(this,local_48);
@@ -924,8 +923,9 @@ undefined * __thiscall Walker_WalkSectors(void *this,int a1,int a2,int a3)
   local_2c = a1;
   local_28 = 0;
   Walker_RotateVector(this,(float *)&local_30);
-  if ((*(int *)((int)this + 0x5c) == 0) ||
-     (puVar1 = Sector_ContainsPoint((int)&local_30,1), puVar1 != (undefined *)0x0)) {
+  if ((*(void **)((int)this + 0x5c) == (void *)0x0) ||
+     (iVar1 = Sector_ContainsPoint(*(void **)((int)this + 0x5c),(float *)&local_30,1), iVar1 != 0))
+  {
     local_48 = (uint)&local_30;
     Walker_SetPosition(this,(float *)local_48);
     UINT_008d0870 = 0;
@@ -943,22 +943,22 @@ undefined * __thiscall Walker_WalkSectors(void *this,int a1,int a2,int a3)
   local_10 = local_1c;
   Walker_ToLocalSpace(this,(float *)&local_18);
   a1 = (int)((float)a1 - (float)local_14);
-  iVar2 = SectorList_FindByPoint(&local_24,0x1000);
-  if (iVar2 == 0) {
+  iVar1 = SectorList_FindByPoint(&local_24,0x1000);
+  if (iVar1 == 0) {
     Walker_SetPosition(this,(float *)&local_24);
-    iVar2 = *(int *)((int)this + 0x5c);
-    if ((*(uint *)(iVar2 + 0x24) & 0x100) == 0) {
-      fVar4 = (float)local_34;
+    iVar1 = *(int *)((int)this + 0x5c);
+    if ((*(uint *)(iVar1 + 0x24) & 0x100) == 0) {
+      fVar3 = (float)local_34;
       if ((float)local_34 < 0.0) {
-        fVar4 = -(float)local_34;
+        fVar3 = -(float)local_34;
       }
-      if ((*(float *)((int)this + 0x3c) <= fVar4) || (*(int *)((int)this + 0x50) != 0)) {
+      if ((*(float *)((int)this + 0x3c) <= fVar3) || (*(int *)((int)this + 0x50) != 0)) {
         *(float *)((int)this + 0x40) = *(float *)((int)this + 0x40) - (float)a1;
       }
       else if (((0.0 < (float)local_34) && (a2 != 0)) || (((float)local_34 < 0.0 && (a3 != 0)))) {
         Walker_TurnHeading(this,local_34);
         *(undefined4 *)((int)this_00 + 0x2c) = 1;
-        puVar3 = Walker_WalkSectors(this,a1,1,1);
+        puVar2 = Walker_WalkSectors(this,a1,1,1);
       }
       if (*(int *)((int)this + 0x50) != 0) {
         Walker_TurnHeading(this,local_34);
@@ -968,13 +968,13 @@ undefined * __thiscall Walker_WalkSectors(void *this,int a1,int a2,int a3)
         *(undefined4 *)((int)this + 0x4c) = *(undefined4 *)((int)this + 0x20);
       }
       *(undefined4 *)((int)this_00 + 0x2c) = 1;
-      return puVar3;
+      return puVar2;
     }
-    if ((*(int *)(iVar2 + 0x78) + 1) % *(int *)(iVar2 + 0x34) != *(int *)(iVar2 + 0x74)) {
-      iVar2 = *(int *)(iVar2 + 0x38 + *(int *)(iVar2 + 0x78) * 4);
-      local_c = *(uint *)(iVar2 + 4);
-      local_8 = *(uint *)(iVar2 + 8);
-      local_4 = *(uint *)(iVar2 + 0xc);
+    if ((*(int *)(iVar1 + 0x78) + 1) % *(int *)(iVar1 + 0x34) != *(int *)(iVar1 + 0x74)) {
+      iVar1 = *(int *)(iVar1 + 0x38 + *(int *)(iVar1 + 0x78) * 4);
+      local_c = *(uint *)(iVar1 + 4);
+      local_8 = *(uint *)(iVar1 + 8);
+      local_4 = *(uint *)(iVar1 + 0xc);
       Walker_ToLocalSpace(this,(float *)&local_c);
       if ((float)local_c <= 0.0) {
         if ((float)local_34 < 3.0) {
@@ -985,21 +985,21 @@ undefined * __thiscall Walker_WalkSectors(void *this,int a1,int a2,int a3)
         local_34 = (uint)(-90.2 - (90.0 - (float)local_34));
       }
       Walker_TurnHeading(this,local_34);
-      puVar3 = Walker_WalkSectors(this,a1,1,1);
+      puVar2 = Walker_WalkSectors(this,a1,1,1);
       *(undefined4 *)((int)this_00 + 0x2c) = 1;
-      return puVar3;
+      return puVar2;
     }
     return (undefined *)0x0;
   }
   Walker_SetPosition(this,(float *)&local_24);
-  *(int *)((int)this + 0x5c) = iVar2;
-  Walker_SetSectorFrame(this,iVar2);
+  *(int *)((int)this + 0x5c) = iVar1;
+  Walker_SetSectorFrame(this,iVar1);
   if (0.02 <= (float)a1) {
     a1 = 0x3ca3d70a;
   }
-  puVar3 = Walker_WalkSectors(this,a1,1,1);
+  puVar2 = Walker_WalkSectors(this,a1,1,1);
   *(undefined4 *)((int)this_00 + 0x2c) = 1;
-  return puVar3;
+  return puVar2;
 }
 #undef local_10
 #undef local_14
@@ -1179,15 +1179,14 @@ undefined4 Planner_PlanPath(undefined4 param_1,uint *param_2,int param_3)
 }
 
 /* ---- 0x004a94d0  Planner_SearchSectors ---- */
-undefined4 Planner_SearchSectors(float *param_1,int param_2,void *param_3)
+undefined4 Planner_SearchSectors(float *param_1,float *param_2,void *param_3)
 
 {
   unsigned char _frame[0x210] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint uVar1;
-  undefined *puVar2;
+  int iVar2;
   int iVar3;
-  int iVar4;
-  undefined1 *puVar5;
+  undefined1 *puVar4;
   #define local_1fc (*(uint *)(_frame + (0x210 - 0x1fc)))
   #define local_1f8 (*(uint *)(_frame + (0x210 - 0x1f8)))
   #define local_1f4 (*(uint *)(_frame + (0x210 - 0x1f4)))
@@ -1206,17 +1205,17 @@ undefined4 Planner_SearchSectors(float *param_1,int param_2,void *param_3)
   }
   uVar1 = UINT_008cf248;
   if (param_3 != (void *)0x0) {
-    iVar3 = UINT_008cf248 * 3;
+    iVar2 = UINT_008cf248 * 3;
     UINT_008cf248 = UINT_008cf248 + 1;
-    (&UINT_008cf0b0)[iVar3] = (uint)*param_1;
+    (&UINT_008cf0b0)[iVar2] = (uint)*param_1;
     (&UINT_008cf0b4)[uVar1 * 3] = (uint)param_1[1];
     (&UINT_008cf0b8)[uVar1 * 3] = (uint)param_1[2];
-    puVar2 = Sector_ContainsPoint(param_2,1);
-    if (puVar2 != (undefined *)0x0) {
+    iVar2 = Sector_ContainsPoint(param_3,param_2,1);
+    if (iVar2 != 0) {
       return 1;
     }
     local_1e8 = UINT_008cf248;
-    Sector_FindExitPoint(param_3,(int)param_1,param_2,(int)&local_1f4);
+    Sector_FindExitPoint(param_3,(int)param_1,(int)param_2,(int)&local_1f4);
     *(undefined4 *)((int)param_3 + 0x2c) = 0;
     if (((float)local_1f4 - *param_1) * ((float)local_1f4 - *param_1) +
         ((float)local_1ec - param_1[2]) * ((float)local_1ec - param_1[2]) +
@@ -1227,8 +1226,8 @@ undefined4 Planner_SearchSectors(float *param_1,int param_2,void *param_3)
       local_1f8 = SectorList_FindByPoint(&local_1f4,0x1000);
     }
     if (local_1f8 != 0) {
-      iVar3 = Planner_SearchSectors(&local_1f4,param_2,local_1f8);
-      if (iVar3 != 0) {
+      iVar2 = Planner_SearchSectors(&local_1f4,param_2,local_1f8);
+      if (iVar2 != 0) {
         return 1;
       }
       if (local_1f8 != 0) {
@@ -1238,19 +1237,19 @@ undefined4 Planner_SearchSectors(float *param_1,int param_2,void *param_3)
     local_1e4 = Planner_CollectSharedCorners(param_3,param_2,local_1e0);
     local_1fc = 0;
     if (0 < (int)local_1e4) {
-      puVar5 = local_1e0;
+      puVar4 = local_1e0;
       do {
-        iVar3 = SectorList_FindByPoint(puVar5,0x1000);
-        if (iVar3 != 0) {
+        iVar2 = SectorList_FindByPoint(puVar4,0x1000);
+        if (iVar2 != 0) {
           UINT_008cf248 = local_1e8;
-          iVar4 = Planner_PortalPoint(param_3,iVar3,param_2,&local_1f4);
-          if ((iVar4 != 0) && (iVar3 = Planner_SearchSectors(&local_1f4,param_2,iVar3), iVar3 != 0))
+          iVar3 = Planner_PortalPoint(param_3,iVar2,param_2,&local_1f4);
+          if ((iVar3 != 0) && (iVar2 = Planner_SearchSectors(&local_1f4,param_2,iVar2), iVar2 != 0))
           {
             return 1;
           }
         }
         local_1fc = local_1fc + 1;
-        puVar5 = puVar5 + 0x10;
+        puVar4 = puVar4 + 0x10;
       } while ((int)local_1fc < (int)local_1e4);
     }
     *(undefined4 *)((int)param_3 + 0x2c) = 1;
@@ -1279,15 +1278,14 @@ uint Planner_CollectSharedCorners(void *param_1,float *param_2,uint *param_3)
   float fVar2;
   float fVar3;
   void *pvVar4;
-  undefined *puVar5;
+  int iVar5;
   uint uVar6;
   uint *puVar7;
-  int iVar8;
-  uint *puVar9;
-  int *piVar10;
-  uint uVar11;
-  char *pcVar12;
-  bool bVar13;
+  uint *puVar8;
+  int *piVar9;
+  uint uVar10;
+  char *pcVar11;
+  bool bVar12;
   #define local_1f0 (*(uint *)(_frame + (0x200 - 0x1f0)))
   #define local_1ec (*(uint *)(_frame + (0x200 - 0x1ec)))
   #define local_1e8 (*(uint *)(_frame + (0x200 - 0x1e8)))
@@ -1301,93 +1299,93 @@ uint Planner_CollectSharedCorners(void *param_1,float *param_2,uint *param_3)
   #define local_1c8 (*(uint *)(_frame + (0x200 - 0x1c8)))
   #define local_1c4 (*(uint *)(_frame + (0x200 - 0x1c4)))
   
-  uVar11 = 0;
+  uVar10 = 0;
   local_1e8 = 0;
   for (pvVar4 = g_pSectorList; pvVar4 != (void *)0x0; pvVar4 = *(void **)((int)pvVar4 + 0x70)) {
     if ((((pvVar4 != param_1) && (*(int *)((int)pvVar4 + 0x2c) != 0)) &&
         ((*(uint *)((int)pvVar4 + 0x24) & 0x1000) != 0)) &&
        (local_1ec = 0, 0 < *(int *)((int)pvVar4 + 0x34))) {
-      piVar10 = (int *)((int)pvVar4 + 0x38);
+      piVar9 = (int *)((int)pvVar4 + 0x38);
       do {
-        puVar5 = Sector_ContainsPoint(*piVar10 + 4,0);
-        if (puVar5 != (undefined *)0x0) {
+        iVar5 = Sector_ContainsPoint(param_1,(float *)(*piVar9 + 4),0);
+        if (iVar5 != 0) {
           uVar6 = 0;
-          if (0 < (int)uVar11) {
+          if (0 < (int)uVar10) {
             puVar7 = &local_1e0;
             do {
-              iVar8 = 0xc;
-              bVar13 = true;
-              puVar9 = puVar7;
-              pcVar12 = (char *)(*piVar10 + 4);
+              iVar5 = 0xc;
+              bVar12 = true;
+              puVar8 = puVar7;
+              pcVar11 = (char *)(*piVar9 + 4);
               do {
-                if (iVar8 == 0) break;
-                iVar8 = iVar8 + -1;
-                bVar13 = (char)*puVar9 == *pcVar12;
-                puVar9 = (uint *)((int)puVar9 + 1);
-                pcVar12 = pcVar12 + 1;
-              } while (bVar13);
-              uVar11 = local_1e8;
-              if (bVar13) break;
+                if (iVar5 == 0) break;
+                iVar5 = iVar5 + -1;
+                bVar12 = (char)*puVar8 == *pcVar11;
+                puVar8 = (uint *)((int)puVar8 + 1);
+                pcVar11 = pcVar11 + 1;
+              } while (bVar12);
+              uVar10 = local_1e8;
+              if (bVar12) break;
               uVar6 = uVar6 + 1;
               puVar7 = puVar7 + 4;
             } while ((int)uVar6 < (int)local_1e8);
           }
-          if (uVar6 == uVar11) {
-            iVar8 = *piVar10;
+          if (uVar6 == uVar10) {
+            iVar5 = *piVar9;
             fVar1 = *param_2;
             fVar2 = param_2[1];
-            uVar11 = uVar11 + 1;
+            uVar10 = uVar10 + 1;
             fVar3 = param_2[2];
-            (&local_1e0)[uVar6 * 4] = (uint)*(float *)(iVar8 + 4);
-            (&local_1dc)[uVar6 * 4] = *(uint *)(iVar8 + 8);
-            (&local_1d8)[uVar6 * 4] = *(uint *)(iVar8 + 0xc);
+            (&local_1e0)[uVar6 * 4] = (uint)*(float *)(iVar5 + 4);
+            (&local_1dc)[uVar6 * 4] = *(uint *)(iVar5 + 8);
+            (&local_1d8)[uVar6 * 4] = *(uint *)(iVar5 + 0xc);
             fVar1 = fVar1 - (float)(&local_1e0)[uVar6 * 4];
             (&local_1d4)[uVar6 * 4] =
                  (uint)((fVar3 - (float)(&local_1d8)[uVar6 * 4]) *
                         (fVar3 - (float)(&local_1d8)[uVar6 * 4]) +
                        (fVar2 - (float)(&local_1dc)[uVar6 * 4]) *
                        (fVar2 - (float)(&local_1dc)[uVar6 * 4]) + fVar1 * fVar1);
-            local_1e8 = uVar11;
+            local_1e8 = uVar10;
           }
         }
         local_1ec = local_1ec + 1;
-        piVar10 = piVar10 + 1;
+        piVar9 = piVar9 + 1;
       } while ((int)local_1ec < *(int *)((int)pvVar4 + 0x34));
     }
   }
-  iVar8 = 1;
+  iVar5 = 1;
   *param_3 = local_1e0;
   param_3[1] = local_1dc;
   param_3[2] = local_1d8;
   param_3[3] = local_1d4;
-  if (1 < (int)uVar11) {
+  if (1 < (int)uVar10) {
     puVar7 = &local_1d0;
     do {
       fVar1 = (float)puVar7[3];
-      uVar6 = iVar8 - 1;
+      uVar6 = iVar5 - 1;
       if (-1 < (int)uVar6) {
-        puVar9 = param_3 + iVar8 * 4;
+        puVar8 = param_3 + iVar5 * 4;
         do {
-          if ((float)puVar9[-1] <= fVar1) break;
+          if ((float)puVar8[-1] <= fVar1) break;
           uVar6 = uVar6 - 1;
-          *puVar9 = puVar9[-4];
-          puVar9[1] = puVar9[-3];
-          puVar9[2] = puVar9[-2];
-          puVar9[3] = puVar9[-1];
-          puVar9 = puVar9 + -4;
+          *puVar8 = puVar8[-4];
+          puVar8[1] = puVar8[-3];
+          puVar8[2] = puVar8[-2];
+          puVar8[3] = puVar8[-1];
+          puVar8 = puVar8 + -4;
         } while (uVar6 < 0x80000000);
       }
-      puVar9 = param_3 + (uVar6 + 1) * 4;
-      iVar8 = iVar8 + 1;
-      *puVar9 = *puVar7;
-      puVar9[1] = puVar7[1];
+      puVar8 = param_3 + (uVar6 + 1) * 4;
+      iVar5 = iVar5 + 1;
+      *puVar8 = *puVar7;
+      puVar8[1] = puVar7[1];
       uVar6 = puVar7[3];
-      puVar9[2] = puVar7[2];
-      puVar9[3] = uVar6;
+      puVar8[2] = puVar7[2];
+      puVar8[3] = uVar6;
       puVar7 = puVar7 + 4;
-    } while (iVar8 < (int)uVar11);
+    } while (iVar5 < (int)uVar10);
   }
-  return uVar11;
+  return uVar10;
 }
 #undef local_1c4
 #undef local_1c8
@@ -1404,63 +1402,62 @@ uint Planner_CollectSharedCorners(void *param_1,float *param_2,uint *param_3)
 
 
 /* ---- 0x004a9920  Planner_PortalPoint ---- */
-undefined4 Planner_PortalPoint(int param_1,int param_2,float *param_3,undefined4 *param_4)
+undefined4 Planner_PortalPoint(void *param_1,void *param_2,float *param_3,undefined4 *param_4)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  int iVar1;
+  float fVar1;
   float fVar2;
   float fVar3;
-  float fVar4;
-  undefined *puVar5;
-  int iVar6;
-  int *piVar7;
+  int iVar4;
+  int iVar5;
+  int *piVar6;
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
-  iVar6 = 0;
+  iVar5 = 0;
   local_4 = 0x7f7fffff;
-  if (0 < *(int *)(param_1 + 0x34)) {
-    piVar7 = (int *)(param_1 + 0x38);
+  if (0 < *(int *)((int)param_1 + 0x34)) {
+    piVar6 = (int *)((int)param_1 + 0x38);
     do {
-      puVar5 = Sector_ContainsPoint(*piVar7 + 4,0);
-      if (puVar5 != (undefined *)0x0) {
-        iVar1 = *piVar7;
-        fVar4 = *(float *)(iVar1 + 8) - param_3[1];
-        fVar2 = *(float *)(iVar1 + 0xc) - param_3[2];
-        fVar3 = *(float *)(iVar1 + 4) - *param_3;
-        fVar2 = fVar3 * fVar3 + fVar2 * fVar2 + fVar4 * fVar4;
-        if (fVar2 < (float)local_4) {
-          *param_4 = *(undefined4 *)(iVar1 + 4);
-          param_4[1] = *(undefined4 *)(iVar1 + 8);
-          param_4[2] = *(undefined4 *)(iVar1 + 0xc);
-          local_4 = (uint)fVar2;
+      iVar4 = Sector_ContainsPoint(param_2,(float *)(*piVar6 + 4),0);
+      if (iVar4 != 0) {
+        iVar4 = *piVar6;
+        fVar3 = *(float *)(iVar4 + 8) - param_3[1];
+        fVar1 = *(float *)(iVar4 + 0xc) - param_3[2];
+        fVar2 = *(float *)(iVar4 + 4) - *param_3;
+        fVar1 = fVar2 * fVar2 + fVar1 * fVar1 + fVar3 * fVar3;
+        if (fVar1 < (float)local_4) {
+          *param_4 = *(undefined4 *)(iVar4 + 4);
+          param_4[1] = *(undefined4 *)(iVar4 + 8);
+          param_4[2] = *(undefined4 *)(iVar4 + 0xc);
+          local_4 = (uint)fVar1;
         }
       }
-      iVar6 = iVar6 + 1;
-      piVar7 = piVar7 + 1;
-    } while (iVar6 < *(int *)(param_1 + 0x34));
+      iVar5 = iVar5 + 1;
+      piVar6 = piVar6 + 1;
+    } while (iVar5 < *(int *)((int)param_1 + 0x34));
   }
-  iVar6 = 0;
-  if (0 < *(int *)(param_2 + 0x34)) {
-    piVar7 = (int *)(param_2 + 0x38);
+  iVar5 = 0;
+  if (0 < *(int *)((int)param_2 + 0x34)) {
+    piVar6 = (int *)((int)param_2 + 0x38);
     do {
-      puVar5 = Sector_ContainsPoint(*piVar7 + 4,0);
-      if (puVar5 != (undefined *)0x0) {
-        iVar1 = *piVar7;
-        fVar4 = *(float *)(iVar1 + 8) - param_3[1];
-        fVar2 = *(float *)(iVar1 + 0xc) - param_3[2];
-        fVar3 = *(float *)(iVar1 + 4) - *param_3;
-        fVar2 = fVar3 * fVar3 + fVar2 * fVar2 + fVar4 * fVar4;
-        if (fVar2 < (float)local_4) {
-          *param_4 = *(undefined4 *)(iVar1 + 4);
-          param_4[1] = *(undefined4 *)(iVar1 + 8);
-          param_4[2] = *(undefined4 *)(iVar1 + 0xc);
-          local_4 = (uint)fVar2;
+      iVar4 = Sector_ContainsPoint(param_1,(float *)(*piVar6 + 4),0);
+      if (iVar4 != 0) {
+        iVar4 = *piVar6;
+        fVar3 = *(float *)(iVar4 + 8) - param_3[1];
+        fVar1 = *(float *)(iVar4 + 0xc) - param_3[2];
+        fVar2 = *(float *)(iVar4 + 4) - *param_3;
+        fVar1 = fVar2 * fVar2 + fVar1 * fVar1 + fVar3 * fVar3;
+        if (fVar1 < (float)local_4) {
+          *param_4 = *(undefined4 *)(iVar4 + 4);
+          param_4[1] = *(undefined4 *)(iVar4 + 8);
+          param_4[2] = *(undefined4 *)(iVar4 + 0xc);
+          local_4 = (uint)fVar1;
         }
       }
-      iVar6 = iVar6 + 1;
-      piVar7 = piVar7 + 1;
-    } while (iVar6 < *(int *)(param_2 + 0x34));
+      iVar5 = iVar5 + 1;
+      piVar6 = piVar6 + 1;
+    } while (iVar5 < *(int *)((int)param_2 + 0x34));
   }
   if ((float)local_4 == 3.4028235e+38) {
     return 0;
@@ -1567,17 +1564,17 @@ undefined4 Planner_SmoothPath(void)
 
 
 /* ---- 0x004a9ca0  Planner_SharedSector ---- */
-int Planner_SharedSector(undefined4 param_1,int param_2)
+void * Planner_SharedSector(undefined4 param_1,float *param_2)
 
 {
+  void *this;
   int iVar1;
-  undefined *puVar2;
   
-  iVar1 = SectorList_FindByPoint(param_1,0x1000);
-  while ((iVar1 != 0 && (puVar2 = Sector_ContainsPoint(param_2,1), puVar2 == (undefined *)0x0))) {
-    *(undefined4 *)(iVar1 + 0x2c) = 0;
-    iVar1 = SectorList_FindByPoint(param_1,0x1000);
+  this = (void *)SectorList_FindByPoint(param_1,0x1000);
+  while ((this != (void *)0x0 && (iVar1 = Sector_ContainsPoint(this,param_2,1), iVar1 == 0))) {
+    *(undefined4 *)((int)this + 0x2c) = 0;
+    this = (void *)SectorList_FindByPoint(param_1,0x1000);
   }
   SectorList_ResetFree();
-  return iVar1;
+  return this;
 }

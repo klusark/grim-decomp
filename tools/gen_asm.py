@@ -232,6 +232,15 @@ def select(prog):
     xp = os.path.join(ROOT, "names", "asm_extra.json")
     if os.path.exists(xp):
         out += json.load(open(xp)).get(prog, [])
+    # --all: assemble every function (the decompiled C stays in src/ under #if 0 for reading);
+    # names/asm_exclude.json {prog: [addresses]} keeps individual functions as C
+    if "--all" in sys.argv:
+        out += [f["address"] for f in json.load(open(os.path.join(raw, "functions.json")))
+                if not (f.get("isThunk") or f.get("isExternal") or f["name"] in build_src.OVERRIDES)]
+        ep = os.path.join(ROOT, "names", "asm_exclude.json")
+        if os.path.exists(ep):
+            skip = set(json.load(open(ep)).get(prog, []))
+            out = [a for a in out if a not in skip]
     return sorted(set(out))
 
 

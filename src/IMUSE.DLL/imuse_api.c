@@ -2186,7 +2186,7 @@ undefined4 FUN_10008250(code *param_1)
 undefined4 FUN_10008580(code *param_1,uint param_2)
 
 {
-  unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x40];  /* Ghidra stack frame, see tools/frame_locals.py */
   int *a1;
   int iVar1;
   uint uVar2;
@@ -2935,7 +2935,7 @@ void __cdecl FUN_1000c640(int param_1,int param_2)
 int __cdecl FUN_1000c670(int *param_1,char *param_2,undefined4 *param_3)
 
 {
-  unsigned char _frame[0x260] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x260];  /* Ghidra stack frame, see tools/frame_locals.py */
   char *pcVar1;
   ushort uVar2;
   int a3;

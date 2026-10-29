@@ -3952,7 +3952,7 @@ void FUN_1000a320(int param_1)
 undefined4 FUN_1000a390(void)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x30];  /* Ghidra stack frame, see tools/frame_locals.py */
   byte *pbVar1;
   undefined2 *puVar2;
   int iVar3;

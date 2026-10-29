@@ -2642,7 +2642,7 @@ void __cdecl Im_MixLoopD(undefined2 *param_1,int param_2,uint param_3,uint param
 undefined4 __cdecl FUN_10006070(int cmd,...)
 
 {
-  unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x40];  /* Ghidra stack frame, see tools/frame_locals.py */
   undefined4 *puVar1;
   undefined4 uVar2;
   char **ppcVar3;

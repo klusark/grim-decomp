@@ -1638,14 +1638,14 @@ undefined1 * __thiscall Sector_Construct(void *this,int a1,int a2,int a3); /* 0x
 void __fastcall FUN_004a66e0(void *param_1); /* 0x004a66e0 */
 void __thiscall Sector_SetName(void *this,char *name); /* 0x004a6760 */
 void __thiscall Sector_SetSavedType(void *this,uint type); /* 0x004a6790 */
-undefined * Sector_ContainsPoint(int a1,int a2); /* 0x004a6980 */
+int __thiscall Sector_ContainsPoint(void *this,float *point,int checkActive); /* 0x004a6980 */
 int __thiscall Sector_ClampPoint(void *this,int a1); /* 0x004a6b30 */
 float __thiscall Sector_FindExitPoint(void *this,int a1,int a2,int a3); /* 0x004a6d10 */
 void __thiscall Sector_SnapToPlane(void *this,float *pos); /* 0x004a6fa0 */
 int __thiscall Sector_FixPlaneCoordinate(void *this,int a1); /* 0x004a7000 */
 void __thiscall Sector_DrawOutline(void *this,int color); /* 0x004a70a0 */
 void FUN_004a7100(void *param_1); /* 0x004a7100 */
-void * SectorList_FindByPoint(int param_1,uint param_2); /* 0x004a71e0 */
+void * SectorList_FindByPoint(float *param_1,uint param_2); /* 0x004a71e0 */
 void * __cdecl Sector_FindByName(char *name); /* 0x004a7230 */
 void * __cdecl Sector_FindById(int id); /* 0x004a7290 */
 void * SectorList_FindNearestPoint(float *param_1,uint param_2); /* 0x004a72b0 */
@@ -1738,9 +1738,9 @@ undefined4 FUN_004897f0(void); /* 0x004897f0 */
 void FUN_00489820(void); /* 0x00489820 */
 void __thiscall Primitive_Construct(void *this,int id,int unused); /* 0x0048a4b0 */
 void __fastcall FUN_0048a500(undefined4 *param_1); /* 0x0048a500 */
-int __stdcall Primitive_AddLine(int x1,int y1,int x2,int y2,int color,int layer); /* 0x0048a560 */
-int __stdcall Primitive_AddRect(int x1,int y1,int x2,int y2,int color,int filled,int layer); /* 0x0048a5b0 */
-int __stdcall Primitive_AddPolyline(int count,int *points,int color,int layer); /* 0x0048a600 */
+int __thiscall Primitive_AddLine(void *this,int x1,int y1,int x2,int y2,int color,int layer); /* 0x0048a560 */
+int __thiscall Primitive_AddRect(void *this,int x1,int y1,int x2,int y2,int color,int filled,int layer); /* 0x0048a5b0 */
+int __thiscall Primitive_AddPolyline(void *this,int count,int *points,int color,int layer); /* 0x0048a600 */
 void __thiscall Primitive_Kill(void *this,int id); /* 0x0048a740 */
 undefined * __stdcall Primitive_SetColor(int a1,int a2); /* 0x0048a7b0 */
 undefined * __stdcall Primitive_SetLayer(int a1,int a2); /* 0x0048a7e0 */
@@ -1760,7 +1760,7 @@ void __fastcall PrimitiveList_Clear(int *param_1); /* 0x0048a520 */
 void * __thiscall PrimitiveList_Append(void *this,int id,int layer); /* 0x0048a670 */
 void __thiscall PrimitiveList_Draw(void *this,void *canvas,uint layerMask); /* 0x0048a9f0 */
 undefined * __thiscall PrimitiveList_Invalidate(void *this,int a1); /* 0x0048ab20 */
-undefined * __stdcall PrimitiveList_FindById(int a1,int a2); /* 0x0048abd0 */
+void * __thiscall PrimitiveList_FindById(void *this,int id,void *after); /* 0x0048abd0 */
 
 /* ===== list.c ===== */
 void __cdecl List_Unlink(void *obj); /* 0x0048ac00 */
@@ -1866,11 +1866,11 @@ void __fastcall Walker_RebuildRightVector(int param_1); /* 0x004a8a90 */
 void __stdcall Walker_DrawDebugAxes(int color); /* 0x004a8b00 */
 uint Planner_GetPath(undefined4 *param_1); /* 0x004a9420 */
 undefined4 Planner_PlanPath(undefined4 param_1,uint *param_2,int param_3); /* 0x004a9430 */
-undefined4 Planner_SearchSectors(float *param_1,int param_2,void *param_3); /* 0x004a94d0 */
+undefined4 Planner_SearchSectors(float *param_1,float *param_2,void *param_3); /* 0x004a94d0 */
 uint Planner_CollectSharedCorners(void *param_1,float *param_2,uint *param_3); /* 0x004a96f0 */
-undefined4 Planner_PortalPoint(int param_1,int param_2,float *param_3,undefined4 *param_4); /* 0x004a9920 */
+undefined4 Planner_PortalPoint(void *param_1,void *param_2,float *param_3,undefined4 *param_4); /* 0x004a9920 */
 undefined4 Planner_SmoothPath(void); /* 0x004a9aa0 */
-int Planner_SharedSector(undefined4 param_1,int param_2); /* 0x004a9ca0 */
+void * Planner_SharedSector(undefined4 param_1,float *param_2); /* 0x004a9ca0 */
 
 /* ===== collision.c ===== */
 void Collision_PushOutOfBox (float *param_1,float param_2,float param_3,float param_4,float param_5,float param_6 ,float param_7,float *param_8,float *param_9); /* 0x004922d0 */

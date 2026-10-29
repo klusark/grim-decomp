@@ -203,7 +203,7 @@ void __cdecl luaL_openlib(undefined4 *param_1,int param_2)
 void __cdecl luaL_verror(char *fmt,...)
 
 {
-  unsigned char _frame[0x210] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x210];  /* Ghidra stack frame, see tools/frame_locals.py */
   #define local_1f4 (*(byte (*)[500])(_frame + (0x210 - 0x1f4)))
   
   vsprintf((char *)local_1f4,fmt,&STACK0X(0x00000008));

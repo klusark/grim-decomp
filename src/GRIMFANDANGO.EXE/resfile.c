@@ -423,7 +423,7 @@ int __cdecl ResFile_Size(char *name)
 int __cdecl ResFile_Printf(int fh,char *fmt,...)
 
 {
-  unsigned char _frame[0x410] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x410];  /* Ghidra stack frame, see tools/frame_locals.py */
   int *piVar1;
   int iVar2;
   #define local_400 (*(undefined1 (*)[1024])(_frame + (0x410 - 0x400)))
