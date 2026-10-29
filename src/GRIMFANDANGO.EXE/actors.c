@@ -6,6 +6,8 @@
 #include "functions.h"
 
 /* ---- 0x0048e240  Actors_FreeAllCostumes ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua NukeResources: drops every actor's costume list */
 
 void Actors_FreeAllCostumes(void)
@@ -37,8 +39,12 @@ void Actors_FreeAllCostumes(void)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x0048fcc0  Actors_UpdateTalking ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Advances lip sync for the four actors in g_pTalkingActors */
 
 void __cdecl Actors_UpdateTalking(float dt)
@@ -55,8 +61,12 @@ void __cdecl Actors_UpdateTalking(float dt)
   } while ((int)ppvVar1 < IMG_ADDR(0x008ca320));
   return;
 }
+#endif
+
 
 /* ---- 0x0048fcf0  Actors_UpdateAll ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Per-frame update of every actor in the current set: talking, movement, collision */
 
 void __cdecl Actors_UpdateAll(float dt)
@@ -91,3 +101,5 @@ void __cdecl Actors_UpdateAll(float dt)
   }
   return;
 }
+#endif
+

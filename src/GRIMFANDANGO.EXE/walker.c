@@ -87,6 +87,8 @@ undefined4 Walker_UpdateYaw(void *param_1,float *param_2)
 
 
 /* ---- 0x00491650  Walker_ReplanPath ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void Walker_ReplanPath(int param_1,int param_2,undefined4 *param_3,undefined4 param_4)
 
 {
@@ -170,6 +172,8 @@ void Walker_ReplanPath(int param_1,int param_2,undefined4 *param_3,undefined4 pa
 #undef local_2d0
 #undef local_2d4
 #undef local_2d8
+
+#endif
 
 
 /* ---- 0x004917e0  Walker_AvoidActorPath ---- */
@@ -649,6 +653,8 @@ LAB_00491fa5:
 
 
 /* ---- 0x00494880  Walker_SetFadeTime ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua SetWalkSystemFadeTime */
 
 void __cdecl Walker_SetFadeTime(int ms)
@@ -657,8 +663,12 @@ void __cdecl Walker_SetFadeTime(int ms)
   g_nChoreFadeMs = ms;
   return;
 }
+#endif
+
 
 /* ---- 0x004a8200  Walker_Create ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Allocates the 0x60-byte walker record */
 
 void * __thiscall Walker_Create(void *this,float radius)
@@ -684,8 +694,12 @@ void * __thiscall Walker_Create(void *this,float radius)
   UINT_008d086c = (uint)this;
   return this;
 }
+#endif
+
 
 /* ---- 0x004a8270  Walker_Destroy ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void __fastcall Walker_Destroy(int param_1)
 
 {
@@ -700,8 +714,12 @@ void __fastcall Walker_Destroy(int param_1)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x004a82a0  Walker_GetAngles ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Converts the walker's 3x3 frame to pitch/yaw/roll in g_vWalkerAngles */
 
 undefined * __fastcall Walker_GetAngles(int param_1)
@@ -710,8 +728,12 @@ undefined * __fastcall Walker_GetAngles(int param_1)
   Matrix_ToAngles(param_1 + 0xc,&DAT_008cf250);
   return &DAT_008cf250;
 }
+#endif
+
 
 /* ---- 0x004a82c0  Walker_ReattachToSet ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Called after Actor_PutInSet when the actor has a walker so it picks up the new set's sectors */
 
 void __fastcall Walker_ReattachToSet(void *param_1)
@@ -732,8 +754,12 @@ void __fastcall Walker_ReattachToSet(void *param_1)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x004a8310  Walker_SetPosition ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void __thiscall Walker_SetPosition(void *this,float *pos)
 
 {
@@ -745,16 +771,24 @@ void __thiscall Walker_SetPosition(void *this,float *pos)
   *(float *)((int)this + 0x38) = pos[2];
   return;
 }
+#endif
+
 
 /* ---- 0x004a8350  Walker_RotateVector ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void __thiscall Walker_RotateVector(void *this,float *vec)
 
 {
   Vec3_Rotate3x3(vec,(float *)((int)this + 0xc));
   return;
 }
+#endif
+
 
 /* ---- 0x004a8370  Walker_ToLocalSpace ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Rotates a world vector into the current walker's frame */
 
 void __thiscall Walker_ToLocalSpace(void *this,float *vec)
@@ -777,6 +811,8 @@ void __thiscall Walker_ToLocalSpace(void *this,float *vec)
 #undef local_4
 #undef local_8
 #undef local_c
+
+#endif
 
 
 /* ---- 0x004a83c0  Walker_TurnHeading ---- */
@@ -1071,6 +1107,8 @@ undefined * __thiscall Walker_SetSectorFrame(void *this,int a1)
 
 
 /* ---- 0x004a8a90  Walker_RebuildRightVector ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void __fastcall Walker_RebuildRightVector(int param_1)
 
 {
@@ -1090,6 +1128,8 @@ void __fastcall Walker_RebuildRightVector(int param_1)
   Vec3_Normalize((float *)(param_1 + 0xc));
   return;
 }
+#endif
+
 
 /* ---- 0x004a8b00  Walker_DrawDebugAxes ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -1155,14 +1195,20 @@ void __stdcall Walker_DrawDebugAxes(int color)
 
 
 /* ---- 0x004a9420  Planner_GetPath ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 uint Planner_GetPath(undefined4 *param_1)
 
 {
   *param_1 = &UINT_008cf0b0;
   return UINT_008cf248;
 }
+#endif
+
 
 /* ---- 0x004a9430  Planner_PlanPath ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 Planner_PlanPath(undefined4 param_1,uint *param_2,int param_3)
 
 {
@@ -1197,8 +1243,12 @@ undefined4 Planner_PlanPath(undefined4 param_1,uint *param_2,int param_3)
   SectorList_ResetFree();
   return uVar3;
 }
+#endif
+
 
 /* ---- 0x004a94d0  Planner_SearchSectors ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 Planner_SearchSectors(float *param_1,float *param_2,void *param_3)
 
 {
@@ -1287,6 +1337,8 @@ undefined4 Planner_SearchSectors(float *param_1,float *param_2,void *param_3)
 #undef local_1f4
 #undef local_1f8
 #undef local_1fc
+
+#endif
 
 
 /* ---- 0x004a96f0  Planner_CollectSharedCorners ---- */
@@ -1426,6 +1478,8 @@ uint Planner_CollectSharedCorners(void *param_1,float *param_2,uint *param_3)
 
 
 /* ---- 0x004a9920  Planner_PortalPoint ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 Planner_PortalPoint(void *param_1,void *param_2,float *param_3,undefined4 *param_4)
 
 {
@@ -1489,6 +1543,8 @@ undefined4 Planner_PortalPoint(void *param_1,void *param_2,float *param_3,undefi
   return 1;
 }
 #undef local_4
+
+#endif
 
 
 /* ---- 0x004a9aa0  Planner_SmoothPath ---- */
@@ -1592,6 +1648,8 @@ undefined4 Planner_SmoothPath(void)
 
 
 /* ---- 0x004a9ca0  Planner_SharedSector ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void * Planner_SharedSector(undefined4 param_1,float *param_2)
 
 {
@@ -1606,3 +1664,5 @@ void * Planner_SharedSector(undefined4 param_1,float *param_2)
   SectorList_ResetFree();
   return this;
 }
+#endif
+

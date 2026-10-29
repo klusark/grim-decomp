@@ -188,6 +188,16 @@ def convert(ctx, addr, lines):
                     # dumped IAT holds import-name entries, the linker's import symbol holds the address
                     name = ctx.slots[h]
                     return imp_ref(ctx, name)
+                # `[idx*4+0x4d3600]` with the base inside .text (or anywhere outside the dumped sections) is
+                # a biased table base: the index brings it back into .data (Math_SinCosTable's quadrant
+                # tables). Express it relative to the .data blob so the relocation keeps the distance.
+                before = mm.string[:mm.start()]
+                if before.count("[") > before.count("]") and "*" in before[before.rfind("["):] \
+                        and ctx.text[0] <= h <= ctx.text[1] and not ctx.symbol_of(h) and not ctx.section_of(h) \
+                        and not (fstart <= h < fend):
+                    dsec = next((s for s in ctx.secs if s[0] == "data"), None)
+                    if dsec:
+                        return "_sect_data%+d" % (h - dsec[1])
                 e = addr_expr(ctx, h, fstart, fend, tables, True)
                 if e is None:
                     return mm.group(0)
