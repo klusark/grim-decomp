@@ -528,13 +528,13 @@ void FUN_100034c0(void)
     for (iVar4 = lstate__8bf0(DAT_1002bf70); iVar4 != 0; iVar4 = lstate__8bf0(iVar4)) {
       if (*(int *)(iVar4 + 0xc0) == (int)lVar8) {
         lua_pushobject(iVar1);
-        lua_pushnumber(0x3f800000);
+        lua_pushnumber(1.0);
         return;
       }
     }
   }
   lua_pushnil();
-  lua_pushnumber(0);
+  lua_pushnumber(0.0);
   return;
 }
 #undef uStack_4
@@ -680,7 +680,7 @@ void FUN_10003820(void)
   uint uVar3;
   uint uVar4;
   longlong lVar5;
-  float fVar6;
+  float n;
   #define pbStack_c (*(byte **)(_frame + (0x20 - 0xc)))
   #define uStack_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define uStack_4 (*(undefined4 *)(_frame + (0x20 - 0x4)))
@@ -692,8 +692,8 @@ void FUN_10003820(void)
     iVar1 = lua_lua2C(1);
     iVar2 = lua_isnumber(iVar1);
     if (iVar2 != 0) {
-      fVar6 = lua_getnumber(iVar1);
-      lua_pushnumber(fVar6);
+      n = lua_getnumber(iVar1);
+      lua_pushnumber(n);
       return;
     }
   }

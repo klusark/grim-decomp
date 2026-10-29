@@ -21,6 +21,9 @@ import re
 import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import dllnames
+DLL_STD = dllnames.load()
 ADDR_SUFFIX = re.compile(r"_([0-9a-f]{8})$")
 
 
@@ -188,7 +191,7 @@ def main(prog, src, obj):
                     # a named thunk (e.g. SoundsInitialize = jmp [IAT]) resolves to the
                     # import library's own thunk, so its symbol is a valid target too
                     if f and not f.get("isExternal") and (not f.get("isThunk") or not f["name"].startswith(("thunk_", "FUN_"))):
-                        target = "_" + f["name"]
+                        target = DLL_STD.get(f["name"], "_" + f["name"])
                         stats["code_ptr"] += 1
                     else:
                         stats["code_other"] += 1

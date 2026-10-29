@@ -48,7 +48,7 @@ int * __cdecl luaA_normalizeObj(int *param_1); /* 0x10001970 */
 longlong __fastcall lua_gettask(undefined4 param_1,int param_2,int param_3); /* 0x10001990 */
 undefined4 __cdecl lua_pushtask(int param_1); /* 0x100019c0 */
 undefined4 __cdecl lua_pushnil(void); /* 0x10001a10 */
-undefined4 __cdecl lua_pushnumber(undefined4 param_1); /* 0x10001a50 */
+void __cdecl lua_pushnumber(float n); /* 0x10001a50 */
 undefined4 __cdecl lua_pushstring(byte *param_1); /* 0x10001aa0 */
 undefined4 __cdecl lua_pushCclosure(int param_1,uint param_2); /* 0x10001b10 */
 undefined4 __cdecl lua_pushusertag(byte *param_1,uint param_2); /* 0x10001b90 */

@@ -751,20 +751,17 @@ undefined4 __cdecl lua_pushnil(void)
 }
 
 /* ---- 0x10001a50  lua_pushnumber ---- */
-undefined4 __cdecl lua_pushnumber(undefined4 param_1)
+void __cdecl lua_pushnumber(float n)
 
 {
-  int *piVar1;
-  
                     /* 0x1a50  59  lua_pushnumber */
   *(undefined4 *)PTR_1002bf6c[7] = 0xffffffff;
-  *(undefined4 *)(PTR_1002bf6c[7] + 4) = param_1;
+  *(float *)(PTR_1002bf6c[7] + 4) = n;
   if ((uint)PTR_1002bf6c[9] <= (uint)PTR_1002bf6c[7]) {
     luaD_checkstack(1);
   }
-  piVar1 = PTR_1002bf6c;
   PTR_1002bf6c[7] = PTR_1002bf6c[7] + 8;
-  return piVar1;
+  return;
 }
 
 /* ---- 0x10001aa0  lua_pushstring ---- */
@@ -1805,12 +1802,12 @@ undefined4 __cdecl lua_mathlibopen(void)
   lua_pushstring(&DAT_10027004);
   lua_setglobal((byte *)s__TRIGMODE_10027074);
   lua_pushCclosure(((unsigned)(uintptr_t)FUN_100070e0),0);
-  lua_pushnumber(0);
+  lua_pushnumber(0.0);
   pbVar3 = &DAT_10027070;
   iVar1 = lua_pop();
   iVar1 = lua_tag(iVar1);
   lua_settagmethod(iVar1,pbVar3);
-  lua_pushnumber(0x40490fdb);
+  lua_pushnumber(3.1415927);
   uVar2 = lua_setglobal(&DAT_1002706c);
   return uVar2;
 }

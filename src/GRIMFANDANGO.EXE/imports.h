@@ -9,7 +9,7 @@
 /* EXTERNAL:00000007 */ extern int lua_getnumber();
 /* EXTERNAL:00000008 */ extern int lua_lua2C();
 /* EXTERNAL:00000009 */ extern int lua_isnil();
-/* EXTERNAL:0000000a */ extern int lua_pushnumber();
+/* EXTERNAL:0000000a */ extern void lua_pushnumber(float);
 /* EXTERNAL:0000000b */ extern int lua_pushnil();
 /* EXTERNAL:0000000c */ extern int lua_openlib();
 /* EXTERNAL:0000000d */ extern int lua_getref();
