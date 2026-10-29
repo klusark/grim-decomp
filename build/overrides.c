@@ -390,6 +390,22 @@ __asm__(".text\n"
         "    addl $16, %esp\n"
         "    ret\n");
 
+#ifdef GRIM_LUA
+/* LUA.DLL's fmod (math.mod): _CIfmod = FUN_100120fa (fastcall, operands on the x87 stack: ST(0) = y, ST(1) = x)
+ * funnels through the CRT's _ctrlfp/_handle_exc pieces that Ghidra cannot stitch together (it called through
+ * the address -6: crash whenever a script used mod). Host msvcrt's fmod does the job. */
+/* OVERRIDES: FUN_100120fa */
+__asm__(".text\n"
+        ".globl @FUN_100120fa@4\n"
+        "@FUN_100120fa@4:\n"
+        "    subl $16, %esp\n"
+        "    fstpl 8(%esp)\n"     /* y: ST(0) */
+        "    fstpl (%esp)\n"      /* x: ST(1) */
+        "    call *__imp__fmod\n"
+        "    addl $16, %esp\n"
+        "    ret\n");
+#endif
+
 #ifdef GRIM_EXE
 /* OVERRIDES: Win_AbortIfAlreadyRunning */
 /* The original quits when a "Grim Fandango" window already exists. Setting GRIM_MULTI lets several

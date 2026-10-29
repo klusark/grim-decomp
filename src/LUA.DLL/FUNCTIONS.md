@@ -493,8 +493,8 @@
 | 10011c50 | _toupper_lk | crt.c | 53 |
 | 10011d50 | _CIsqrt | crt.c | 1 |
 | 10011d6d | _sqrt | crt.c | 1 |
-| 10011ef0 | floor | crt.c | 47 |
-| 10011ff0 | ceil | crt.c | 47 |
+| 10011ef0 | floor | crt.c | 1 |
+| 10011ff0 | ceil | crt.c | 1 |
 | 10012130 | _CIpow | crt.c | 1 |
 | 10012152 | _pow | crt.c | 1 |
 | 10012325 | _ftol | crt.c | 1 |
@@ -584,7 +584,7 @@
 | 10018790 | __crtLCMapStringW | crt.c | 78 |
 | 100189a0 | wcsncnt | crt.c | 21 |
 | 100189e0 | __crtLCMapStringA | crt.c | 80 |
-| 10018fd0 | _frnd | crt.c | 7 |
+| 10018fd0 | _frnd | crt.c | 1 |
 | 10019100 | _raise_exc | crt.c | 149 |
 | 10019440 | _handle_exc | crt.c | 144 |
 | 1001ad40 | _pow_special_cases | crt.c | 86 |
@@ -696,7 +696,7 @@
 | 100119f0 | FUN_100119f0 | crt_unnamed.c | 54 |
 | 10011e20 | FUN_10011e20 | crt_unnamed.c | 1 |
 | 10011e3d | FUN_10011e3d | crt_unnamed.c | 1 |
-| 100120fa | FUN_100120fa | crt_unnamed.c | 8 |
+| 100120fa | FUN_100120fa | crt_unnamed.c | 1 |
 | 10012104 | FUN_10012104 | crt_unnamed.c | 1 |
 | 10012350 | FUN_10012350 | crt_unnamed.c | 9 |
 | 10012360 | FUN_10012360 | crt_unnamed.c | 11 |
@@ -779,11 +779,11 @@
 | 10019850 | FUN_10019850 | crt_unnamed.c | 17 |
 | 10019880 | FUN_10019880 | crt_unnamed.c | 17 |
 | 100198c0 | FUN_100198c0 | crt_unnamed.c | 12 |
-| 10019900 | FUN_10019900 | crt_unnamed.c | 17 |
+| 10019900 | FUN_10019900 | crt_unnamed.c | 1 |
 | 10019960 | FUN_10019960 | crt_unnamed.c | 49 |
 | 10019a70 | FUN_10019a70 | crt_unnamed.c | 1 |
 | 10019a80 | FUN_10019a80 | crt_unnamed.c | 1 |
-| 10019aa0 | FUN_10019aa0 | crt_unnamed.c | 7 |
+| 10019aa0 | FUN_10019aa0 | crt_unnamed.c | 1 |
 | 10019ad0 | FUN_10019ad0 | crt_unnamed.c | 7 |
 | 10019b30 | FUN_10019b30 | crt_unnamed.c | 7 |
 | 10019bfa | FUN_10019bfa | crt_unnamed.c | 1 |

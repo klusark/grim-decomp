@@ -457,6 +457,8 @@ LAB_10011ecc:
 
 
 /* ---- 0x100120fa  FUN_100120fa ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 float __fastcall FUN_100120fa(undefined4 param_1)
 
 {
@@ -465,6 +467,8 @@ float __fastcall FUN_100120fa(undefined4 param_1)
   fVar1 = (float10)((code *)FUN_10019b30)(param_1,IMG_ADDR(0x100288f0));
   return (float)fVar1;
 }
+#endif
+
 
 /* ---- 0x10012104  FUN_10012104 ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -2627,6 +2631,8 @@ float __cdecl FUN_100198c0(undefined4 param_1,undefined4 param_2,short param_3)
 
 
 /* ---- 0x10019900  FUN_10019900 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 __cdecl FUN_10019900(int param_1,uint param_2)
 
 {
@@ -2644,6 +2650,8 @@ undefined4 __cdecl FUN_10019900(int param_1,uint param_2)
   }
   return 0;
 }
+#endif
+
 
 /* ---- 0x10019960  FUN_10019960 ---- */
 float __cdecl FUN_10019960(uint param_1,uint param_2,int *param_3)
@@ -2723,6 +2731,8 @@ int FUN_10019a80(void)
 
 
 /* ---- 0x10019aa0  FUN_10019aa0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 int FUN_10019aa0(void)
 
 {
@@ -2730,6 +2740,8 @@ int FUN_10019aa0(void)
   
   return (int)in_FPUControlWord;
 }
+#endif
+
 
 /* ---- 0x10019ad0  FUN_10019ad0 ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
