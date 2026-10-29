@@ -481,10 +481,11 @@ void __fastcall lvm__de20(int param_1)
 /* ---- 0x1000de30  lvm__de30 ---- */
 /* Unidentified function of lvm.c (virtual machine) */
 
-void __fastcall lvm__de30(int *param_1)
+int __fastcall lvm__de30(int *param_1)
 
 {
   byte bVar1;
+  int iVar2;
   
   if (param_1[6] == 0) {
     lvm__de20((int)param_1);
@@ -499,8 +500,8 @@ void __fastcall lvm__de30(int *param_1)
       param_1[8] = (int)((byte *)param_1[8] + 1);
       luaD_adjusttop(param_1[2] + (uint)bVar1);
       param_1[6] = 1;
-      luaV_execute(param_1);
-      return;
+      iVar2 = luaV_execute(param_1);
+      return iVar2;
     }
     lgc__5300();
     bVar1 = *(byte *)param_1[8];
@@ -508,8 +509,8 @@ void __fastcall lvm__de30(int *param_1)
     luaV_adjust_varargs(param_1[2] + -0x40 + (uint)bVar1);
     param_1[6] = 1;
   }
-  luaV_execute(param_1);
-  return;
+  iVar2 = luaV_execute(param_1);
+  return iVar2;
 }
 
 /* ---- 0x1000dee0  luaV_adjust_varargs ---- */

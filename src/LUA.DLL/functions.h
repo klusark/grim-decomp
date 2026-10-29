@@ -464,7 +464,7 @@ int __thiscall lvm__ddb0(void *this,int a1,int a2,int a3); /* 0x1000ddb0 */
 undefined4 __fastcall lvm__dde0(int param_1); /* 0x1000dde0 */
 int __thiscall lvm__ddf0(void *this,int a1,int a2,int a3); /* 0x1000ddf0 */
 void __fastcall lvm__de20(int param_1); /* 0x1000de20 */
-void __fastcall lvm__de30(int *param_1); /* 0x1000de30 */
+int __fastcall lvm__de30(int *param_1); /* 0x1000de30 */
 void __cdecl luaV_adjust_varargs(int param_1); /* 0x1000dee0 */
 int __fastcall luaV_execute(int *param_1); /* 0x1000df40 */
 undefined4 __cdecl luaV_strconc(char *param_1,char *param_2); /* 0x1000ebc0 */

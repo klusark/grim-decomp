@@ -161,7 +161,7 @@
 | 100040c0 | ldo__40c0 | ldo.c | 8 |
 | 100040e0 | luaD_callTM | ldo.c | 18 |
 | 10004160 | ldo__4160 | ldo.c | 14 |
-| 10004180 | luaD_call | ldo.c | 164 |
+| 10004180 | luaD_call | ldo.c | 162 |
 | 100044e0 | ldo__44e0 | ldo.c | 36 |
 | 10004580 | luaD_callC | ldo.c | 29 |
 | 10004600 | ldo__4600 | ldo.c | 16 |
@@ -431,7 +431,7 @@
 | 1000dde0 | lvm__dde0 | lvm.c | 7 |
 | 1000ddf0 | lvm__ddf0 | lvm.c | 16 |
 | 1000de20 | lvm__de20 | lvm.c | 8 |
-| 1000de30 | lvm__de30 | lvm.c | 32 |
+| 1000de30 | lvm__de30 | lvm.c | 33 |
 | 1000dee0 | luaV_adjust_varargs | lvm.c | 21 |
 | 1000df40 | luaV_execute | lvm.c | 600 |
 | 1000ebc0 | luaV_strconc | lvm.c | 79 |
