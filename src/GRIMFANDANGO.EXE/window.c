@@ -246,6 +246,8 @@ uint Win_GetInstance(void)
 }
 
 /* ---- 0x004abf40  Win_AbortIfAlreadyRunning ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* WinMain helper: brings an existing 'wKernel' window to the front and exits */
 
@@ -287,6 +289,8 @@ Win_AbortIfAlreadyRunning
   }
   return;
 }
+#endif
+
 
 /* ---- 0x004ac020  Win_PumpMessages ---- */
 /* One message-loop iteration: runs Game_FrameUpdate when idle, routes messages to registered
