@@ -6,7 +6,7 @@
 #include "functions.h"
 
 /* ---- 0x00446c10  rdClip_Line2D ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Cohen-Sutherland line clip against a rectangle using rdClip_Outcode2D */
 
@@ -75,7 +75,7 @@ rdClip_Line2D(undefined4 param_1,undefined4 *param_2,undefined4 *param_3,undefin
 
 
 /* ---- 0x00446e80  rdClip_Outcode2D ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 uint rdClip_Outcode2D(int param_1,int param_2,int param_3)
 
@@ -101,7 +101,7 @@ uint rdClip_Outcode2D(int param_1,int param_2,int param_3)
 
 
 /* ---- 0x00446ec0  rdClip_PointInFrustum ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Near/far, then left/right/top/bottom; perspective frustums scale the side planes by depth */
 
@@ -160,7 +160,7 @@ int __cdecl rdClip_PointInFrustum(void *frustum,float *point)
 
 
 /* ---- 0x00446f80  rdClip_Line3 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 int __cdecl rdClip_Line3(void *frustum,float *p0,float *p1,int *clipped0,int *clipped1)
 
@@ -501,7 +501,7 @@ int __cdecl rdClip_Line3(void *frustum,float *p0,float *p1,int *clipped0,int *cl
 
 
 /* ---- 0x004478c0  rdClip_Face3_Pos ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Frustum clip of a face with position-only vertices (output into the rdClip work buffers at
    g_RdClipVerts). Attribute set inferred from the parameter list */
@@ -901,7 +901,7 @@ uint rdClip_Face3_Pos(int *param_1,float *param_2,uint param_3)
 
 
 /* ---- 0x00448260  rdClip_Face3_PosB ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Second position-only face clipper (likely the orthographic variant) */
 
@@ -1212,7 +1212,7 @@ int rdClip_Face3_PosB(int *param_1,float *param_2,int param_3)
 
 
 /* ---- 0x004489b0  rdClip_Face3_Pos_2 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 uint rdClip_Face3_Pos_2(int *param_1,float *param_2,uint param_3)
 
@@ -1609,7 +1609,7 @@ uint rdClip_Face3_Pos_2(int *param_1,float *param_2,uint param_3)
 
 
 /* ---- 0x00449350  rdClip_Face3_PosB_2 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 int rdClip_Face3_PosB_2(int *param_1,float *param_2,int param_3)
 
@@ -1918,7 +1918,7 @@ int rdClip_Face3_PosB_2(int *param_1,float *param_2,int param_3)
 
 
 /* ---- 0x00449aa0  rdClip_Face3_PosUvLit ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Face clipper interpolating position, texture coordinate and intensity */
 
@@ -2393,7 +2393,7 @@ uint rdClip_Face3_PosUvLit(int *param_1,float *param_2,float *param_3,float *par
 
 
 /* ---- 0x0044a6d0  rdClip_Face3_PosUv ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 uint rdClip_Face3_PosUv(int *param_1,float *param_2,float *param_3,uint param_4)
 
@@ -2783,7 +2783,7 @@ uint rdClip_Face3_PosUv(int *param_1,float *param_2,float *param_3,uint param_4)
 
 
 /* ---- 0x0044b0a0  rdClip_Face3_PosUvLit_2 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 uint rdClip_Face3_PosUvLit_2(int *param_1,float *param_2,float *param_3,float *param_4)
 
@@ -3273,7 +3273,7 @@ uint rdClip_Face3_PosUvLit_2(int *param_1,float *param_2,float *param_3,float *p
 
 
 /* ---- 0x0044be80  rdClip_Face3_PosUvFlags ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 uint rdClip_Face3_PosUvFlags(int *param_1,float *param_2,float *param_3,uint param_4)
 
@@ -3688,7 +3688,7 @@ uint rdClip_Face3_PosUvFlags(int *param_1,float *param_2,float *param_3,uint par
 
 
 /* ---- 0x0044c9d0  rdClip_Face3_PosUvLitColor ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 uint rdClip_Face3_PosUvLitColor
                (int *param_1,float *param_2,float *param_3,undefined4 *param_4,float *param_5)
@@ -4253,7 +4253,7 @@ uint rdClip_Face3_PosUvLitColor
 
 
 /* ---- 0x0044da40  rdClip_Face3_PosUvLitFlags ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 uint rdClip_Face3_PosUvLitFlags
                (int *param_1,float *param_2,undefined4 *param_3,undefined4 *param_4,uint param_5)

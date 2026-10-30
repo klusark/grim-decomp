@@ -6,7 +6,7 @@
 #include "functions.h"
 
 /* ---- 0x10008970  SoundStopVoiceStream ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4 __cdecl SoundStopVoiceStream(void)
 

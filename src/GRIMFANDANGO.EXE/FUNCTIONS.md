@@ -1042,7 +1042,7 @@
 | 00472b50 | rdSprite_Free | rdprimitive.c | 1 |
 | 00472b70 | rdSprite_FreeContents | rdprimitive.c | 1 |
 | 00472bd0 | rdSprite_Draw | rdprimitive.c | 1 |
-| 00473430 | stdFile_Open | stdfileutil.c | 8 |
+| 00473430 | stdFile_Open | stdfileutil.c | 1 |
 | 00473450 | stdFile_Close | stdfileutil.c | 6 |
 | 00473460 | FUN_00473460 | stdfileutil.c | 6 |
 | 00473480 | stdFile_Write | stdfileutil.c | 6 |

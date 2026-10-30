@@ -6,7 +6,7 @@
 #include "functions.h"
 
 /* ---- 0x1000ef80  _ftol ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
 
@@ -21,7 +21,7 @@ longlong _ftol(void)
 
 
 /* ---- 0x1000efa8  _setjmp3 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
 
@@ -191,7 +191,7 @@ undefined4 _unwind_handler(void)
 }
 
 /* ---- 0x1000f466  _NLG_Notify ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
 
@@ -2567,7 +2567,7 @@ uint __cdecl _toupper_lk(uint param_1)
 
 
 /* ---- 0x10011d50  _CIsqrt ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
 
@@ -2587,7 +2587,7 @@ float __cdecl _CIsqrt(void)
 
 
 /* ---- 0x10011d6d  _sqrt ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
 
@@ -2760,7 +2760,7 @@ void FUN_10012152(void)
 
 
 /* ---- 0x10012325  _ftol  (renamed _ftol_10012325: duplicate name) ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
@@ -4100,7 +4100,7 @@ CallCatchBlock(int param_1,undefined4 param_2,int param_3,undefined4 param_4,und
 
 
 /* ---- 0x10013b98  Eh_CallCatchBlockInner ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
 
@@ -4461,7 +4461,7 @@ LAB_100142b3:
 }
 
 /* ---- 0x10014370  _output ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
 
@@ -8452,7 +8452,7 @@ uint __cdecl wcstol(short *param_1,undefined4 *param_2,uint param_3)
 }
 
 /* ---- 0x1001c410  wcstoxl ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
 
@@ -9794,7 +9794,7 @@ int __cdecl _wctomb_lk(undefined1 *param_1,ushort param_2)
 }
 
 /* ---- 0x1001e4d0  _aulldiv ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
 
@@ -9843,7 +9843,7 @@ int __stdcall _aulldiv(int a1,int a2,int a3,int a4)
 
 
 /* ---- 0x1001e540  _aullrem ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
 

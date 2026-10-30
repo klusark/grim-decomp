@@ -106,7 +106,7 @@ undefined4 Insane_ReadFrameHeader(int param_1,int param_2)
 }
 
 /* ---- 0x004bdb00  Insane_PrepareFrame ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Validates the frame against the output size and chooses the blit mode bits in g_dwInsaneBlitFlags
@@ -191,7 +191,7 @@ undefined4 Insane_PrepareFrame(int *param_1,undefined4 *param_2,uint *param_3)
 
 
 /* ---- 0x004bdca0  Insane_Blit8To16Doubled ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Pixel-doubling conversion of 8-bit frame rows into a 16-bit destination */
 

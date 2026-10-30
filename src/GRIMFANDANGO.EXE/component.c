@@ -17,7 +17,7 @@ void Component_SetBitmapFrame(undefined4 param_1,int *param_2,undefined4 param_3
 }
 
 /* ---- 0x004960a0  FUN_004960a0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 

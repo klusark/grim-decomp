@@ -6,7 +6,7 @@
 #include "functions.h"
 
 /* ---- 0x0048c050  Text_ParseLuaTable ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Reads x, y, font, width, height, fgcolor, bgcolor, ... keys from a Lua table into a text context
     */
@@ -278,7 +278,7 @@ void __cdecl Font_Free(void *font)
 }
 
 /* ---- 0x004aa9b0  Text_NextChar ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Returns the next character and advances; the pointer becomes NULL at the end of the string */
 
@@ -660,7 +660,7 @@ void Text_CopyRunes(byte *param_1,undefined4 *param_2,int param_3,int param_4)
 
 
 /* ---- 0x004aaf30  Text_BuildLineTable ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4 Text_BuildLineTable(undefined4 param_1,int *param_2)
 
@@ -793,7 +793,7 @@ undefined4 Text_BuildLineTable(undefined4 param_1,int *param_2)
 
 
 /* ---- 0x004ab210  Text_LayoutString ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Measures one line with word wrap (flag 4) within the clip rect and applies centre (1) / right (2)
    justification; returns the start of the next line */
@@ -1019,7 +1019,7 @@ uint Font_GlyphWidth(int param_1,int param_2,uint param_3)
 }
 
 /* ---- 0x004ab5d0  Text_DrawString ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void __cdecl Text_DrawString(void *ctx,void *font,char *text)
 
@@ -1102,7 +1102,7 @@ LAB_004ab66a:
 
 
 /* ---- 0x004ab710  Text_DrawChar ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Picks the glyph blitter: 16-bit vs paletted 8-bit (flag 8), clipped vs unclipped; scaled glyphs
    are not implemented (Lua_Stub) */

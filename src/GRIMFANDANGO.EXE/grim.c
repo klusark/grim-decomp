@@ -6,7 +6,7 @@
 #include "functions.h"
 
 /* ---- 0x00401140  Grim_FindDataOnDrives ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* grimdemo.c: scans CD-ROM drives (and network drives when g_devMode) for <drive>\<subdir>; shows
    the _engn006/_engn007 'could not find data' message and returns 0 if none has it. */
@@ -130,7 +130,7 @@ int __cdecl Grim_FindDataOnDrives(char *subdir)
 
 
 /* ---- 0x004012b0  Grim_Init ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* grimdemo.c: whole-engine startup: service tables, registry/config, window + 256-colour check,
@@ -551,7 +551,7 @@ undefined4 Grim_OnDisplayModeChange(void *param_1,int param_2)
 }
 
 /* ---- 0x00402c80  Grim_ParseCommandLine ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* grimdemo.c: strtok loop over the command line. Options set g_bAlwaysLog, g_bDevMode,

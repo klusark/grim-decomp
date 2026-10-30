@@ -6,7 +6,7 @@
 #include "functions.h"
 
 /* ---- 0x100095b0  str_sub ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* lstrlib.c strsub */
 
@@ -131,7 +131,7 @@ void FUN_100096e0(void)
 }
 
 /* ---- 0x10009720  FUN_10009720 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_10009720(void)
 
@@ -180,7 +180,7 @@ void __cdecl str_addstr(uint *param_1)
 }
 
 /* ---- 0x10009780  FUN_10009780 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_10009780(void)
 
@@ -413,7 +413,7 @@ uint __cdecl str_matchclass(uint param_1,uint param_2)
 }
 
 /* ---- 0x10009cb0  FUN_10009cb0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_10009cb0(void)
 
@@ -498,7 +498,7 @@ LAB_10009d07:
 
 
 /* ---- 0x10009e40  str_push_captures ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* errors 'unfinished capture' */
 
@@ -532,7 +532,7 @@ void __cdecl str_push_captures(int *param_1,int *param_2)
 
 
 /* ---- 0x10009ea0  str_match ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* recursive pattern matcher; errors 'too many captures' */
 
@@ -733,7 +733,7 @@ char * __cdecl str_expand(char *param_1,int param_2,int param_3)
 }
 
 /* ---- 0x1000a1d0  FUN_1000a1d0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_1000a1d0(void)
 
@@ -801,7 +801,7 @@ LAB_1000a291:
 
 
 /* ---- 0x1000a2e0  str_add_value ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* gsub replacement: string or function result */
 
@@ -881,7 +881,7 @@ LAB_1000a36b:
 
 
 /* ---- 0x1000a440  FUN_1000a440 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_1000a440(void)
 

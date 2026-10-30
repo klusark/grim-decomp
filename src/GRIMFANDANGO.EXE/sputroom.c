@@ -35,7 +35,7 @@ undefined * __cdecl sputRoom_Initialize(uint param_1,undefined **param_2)
 }
 
 /* ---- 0x004a4920  FUN_004a4920 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_004a4920(undefined4 param_1)
 

@@ -241,7 +241,7 @@ void __cdecl Services_InitDefaults(GrimServices *svc)
 }
 
 /* ---- 0x004733a0  Services_SetCurrent ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Stores the module service table in g_pServices and captures the FPU control words used for

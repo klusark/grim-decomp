@@ -6,7 +6,7 @@
 #include "functions.h"
 
 /* ---- 0x00451b80  rdPrimit2_DrawLine ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void __cdecl rdPrimit2_DrawLine(void *canvas,int x1,int y1,int x2,int y2,int color,int mask)
 
@@ -117,7 +117,7 @@ void __cdecl rdPrimit2_DrawLine(void *canvas,int x1,int y1,int x2,int y2,int col
 
 
 /* ---- 0x00451f20  rdPrimit2_DrawRect ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void __cdecl rdPrimit2_DrawRect(void *canvas,int x1,int y1,int x2,int y2,int color,int mask)
 

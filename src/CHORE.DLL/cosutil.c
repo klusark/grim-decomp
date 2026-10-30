@@ -6,7 +6,7 @@
 #include "functions.h"
 
 /* ---- 0x10001110  CosUtil_Write ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -253,7 +253,7 @@ LAB_1000167e:
 
 
 /* ---- 0x10002020  CosUtil_CompPtrFromHandle ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 int CosUtil_CompPtrFromHandle(int param_1,uint param_2)
 
@@ -268,7 +268,7 @@ int CosUtil_CompPtrFromHandle(int param_1,uint param_2)
 
 
 /* ---- 0x10002040  CosUtil_PtrFromHandle ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 int CosUtil_PtrFromHandle(undefined4 param_1)
 
@@ -283,7 +283,7 @@ int CosUtil_PtrFromHandle(undefined4 param_1)
 
 
 /* ---- 0x10002060  CosUtil_RegisterCompNotifier ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -301,7 +301,7 @@ undefined4 CosUtil_RegisterCompNotifier(undefined4 param_1)
 
 
 /* ---- 0x10002070  CosUtil_RegisterBitmapMunger ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -319,7 +319,7 @@ undefined4 CosUtil_RegisterBitmapMunger(undefined4 param_1)
 
 
 /* ---- 0x10002260  CosUtil_DeleteComponent ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -543,7 +543,7 @@ undefined4 CosUtil_DeleteComponent(uint param_1,uint param_2)
 
 
 /* ---- 0x100026a0  CosUtil_AdjustComponent ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 int CosUtil_AdjustComponent(int param_1,uint param_2)
 
@@ -576,7 +576,7 @@ int CosUtil_AdjustComponent(int param_1,uint param_2)
 
 
 /* ---- 0x10002740  CosUtil_ComponentHasAdjuster ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4 CosUtil_ComponentHasAdjuster(int param_1,uint param_2)
 
@@ -604,7 +604,7 @@ undefined4 CosUtil_ComponentHasAdjuster(int param_1,uint param_2)
 
 
 /* ---- 0x100027e0  CosUtil_AddComponent ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -655,7 +655,7 @@ bool CosUtil_AddComponent
 
 
 /* ---- 0x10002880  CosUtil_AddChore ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 int CosUtil_AddChore(int param_1)
 
@@ -679,7 +679,7 @@ int CosUtil_AddChore(int param_1)
 
 
 /* ---- 0x100028f0  CosUtil_DeleteChore ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4 __cdecl CosUtil_DeleteChore(int param_1,uint param_2)
 
@@ -724,7 +724,7 @@ undefined4 __cdecl CosUtil_DeleteChore(int param_1,uint param_2)
 
 
 /* ---- 0x100029e0  CosUtil_SetChoreLength ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 int __cdecl CosUtil_SetChoreLength(int param_1,uint param_2,uint param_3)
 
@@ -777,7 +777,7 @@ int __cdecl CosUtil_SetChoreLength(int param_1,uint param_2,uint param_3)
 
 
 /* ---- 0x10002ab0  CosUtil_NameChore ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined1 * __cdecl CosUtil_NameChore(int param_1,int param_2,char *param_3)
 
@@ -828,7 +828,7 @@ undefined1 * __cdecl CosUtil_NameChore(int param_1,int param_2,char *param_3)
 
 
 /* ---- 0x10002b40  CosUtil_DeleteKey ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4 CosUtil_DeleteKey(int param_1,uint param_2,uint param_3,int param_4)
 
@@ -885,7 +885,7 @@ undefined4 CosUtil_DeleteKey(int param_1,uint param_2,uint param_3,int param_4)
 
 
 /* ---- 0x10002c50  CosUtil_QueryValueAtTime ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 uint * CosUtil_QueryValueAtTime(int param_1,uint param_2,uint param_3,uint param_4)
 
@@ -940,7 +940,7 @@ uint * CosUtil_QueryValueAtTime(int param_1,uint param_2,uint param_3,uint param
 
 
 /* ---- 0x10002cf0  CosUtil_AddFSKey ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4
 CosUtil_AddFSKey(int param_1,undefined4 param_2,int param_3,undefined4 param_4,undefined4 param_5)
@@ -963,7 +963,7 @@ CosUtil_AddFSKey(int param_1,undefined4 param_2,int param_3,undefined4 param_4,u
 
 
 /* ---- 0x10002d50  CosUtil_AddIntKey ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4
 CosUtil_AddIntKey(int param_1,undefined4 param_2,int param_3,undefined4 param_4,undefined4 param_5)
@@ -986,7 +986,7 @@ CosUtil_AddIntKey(int param_1,undefined4 param_2,int param_3,undefined4 param_4,
 
 
 /* ---- 0x10002db0  CosUtil_AddFloatKey ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4
 CosUtil_AddFloatKey(int param_1,undefined4 param_2,int param_3,undefined4 param_4,undefined4 param_5
@@ -1010,7 +1010,7 @@ CosUtil_AddFloatKey(int param_1,undefined4 param_2,int param_3,undefined4 param_
 
 
 /* ---- 0x10002e10  CosUtil_CountComponents ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4 CosUtil_CountComponents(int param_1)
 
@@ -1025,7 +1025,7 @@ undefined4 CosUtil_CountComponents(int param_1)
 
 
 /* ---- 0x10002e40  CosUtil_ComponentInfo ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void CosUtil_ComponentInfo
                (int param_1,uint param_2,int *param_3,undefined4 *param_4,undefined4 *param_5,
@@ -1062,7 +1062,7 @@ void CosUtil_ComponentInfo
 
 
 /* ---- 0x10002fa0  CosUtil_CountChores ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4 CosUtil_CountChores(int param_1)
 
@@ -1074,7 +1074,7 @@ undefined4 CosUtil_CountChores(int param_1)
 
 
 /* ---- 0x100030b0  CosUtil_ChoreName ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 int CosUtil_ChoreName(int param_1,uint param_2)
 
@@ -1089,7 +1089,7 @@ int CosUtil_ChoreName(int param_1,uint param_2)
 
 
 /* ---- 0x100030f0  CosUtil_CountTags ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -1103,7 +1103,7 @@ undefined4 CosUtil_CountTags(void)
 
 
 /* ---- 0x10003100  CosUtil_TagInfo ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 

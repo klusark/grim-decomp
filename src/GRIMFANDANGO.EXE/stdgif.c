@@ -21,7 +21,7 @@ uint stdGif_Load(undefined4 param_1,undefined4 param_2,undefined4 param_3)
 }
 
 /* ---- 0x0047d2d0  stdGif_LoadInto ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Stdgif.c: GIF87/89 decoder (LZW via the stdGif_Lzw* helpers) */
 
@@ -796,7 +796,7 @@ uint stdGif_ReadByte(undefined4 param_1)
 }
 
 /* ---- 0x0047e7f0  stdGif_LzwInitEncoder ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -899,7 +899,7 @@ void stdGif_LzwWriteCode(undefined4 param_1,short param_2)
 }
 
 /* ---- 0x0047ea30  stdGif_LzwEncodePixel ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 

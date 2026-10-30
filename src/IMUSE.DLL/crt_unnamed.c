@@ -1548,7 +1548,7 @@ void FUN_1000f610(void)
 }
 
 /* ---- 0x1000f650  FUN_1000f650 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -1857,7 +1857,7 @@ int __cdecl FUN_1000fdc0(undefined1 *param_1,ushort param_2)
 }
 
 /* ---- 0x1000fe40  FUN_1000fe40 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 int __stdcall FUN_1000fe40(int a1,int a2,int a3,int a4)
 
@@ -1904,7 +1904,7 @@ int __stdcall FUN_1000fe40(int a1,int a2,int a3,int a4)
 
 
 /* ---- 0x1000feb0  FUN_1000feb0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 int __stdcall FUN_1000feb0(int a1,int a2,int a3,int a4)
 
@@ -3797,7 +3797,7 @@ int FUN_10012bc0(int param_1,int param_2,int param_3,int param_4,int param_5,int
 
 
 /* ---- 0x10012f40  FUN_10012f40 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 int FUN_10012f40(void)
 
@@ -4860,7 +4860,7 @@ int __cdecl FUN_100142a0(uint param_1,int param_2)
 }
 
 /* ---- 0x10014310  FUN_10014310 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Unable to track spacebase fully for stack */
 
@@ -5093,7 +5093,7 @@ void FUN_10014600(undefined2 *param_1,uint param_2,int param_3)
 
 
 /* ---- 0x10014690  FUN_10014690 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -5160,7 +5160,7 @@ int FUN_10014690(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefi
 
 
 /* ---- 0x100147c0  FUN_100147c0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 

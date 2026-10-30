@@ -395,7 +395,7 @@ Display_PickDefault(int wantFullscreen,int want3D,int *deviceIdx,int *modeIdx,in
 
 
 /* ---- 0x004730d0  stdDisplay_BuildBitmapInfo8 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Fills a BITMAPINFO (0x28 header, negative height) with a 256-entry palette */
 
@@ -463,7 +463,7 @@ void stdDisplay_BuildBitmapInfo8
 
 
 /* ---- 0x00473180  stdDisplay_BuildBitmapInfo16 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void stdDisplay_BuildBitmapInfo16(int param_1,uint param_2,int param_3,int param_4)
 
@@ -660,7 +660,7 @@ bool Display_EnumDevices(void)
 }
 
 /* ---- 0x00473b30  Display_RestoreMode ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* IDirectDraw::RestoreDisplayMode when a DirectDraw device is active */
@@ -864,7 +864,7 @@ void Display_CloseDevice(void)
 }
 
 /* ---- 0x00474140  Display_OpenMode ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Stddisplay.c: selects the video mode, creates the primary and back surfaces (DIB section windowed
@@ -955,7 +955,7 @@ void Display_CloseMode(void)
 }
 
 /* ---- 0x00474380  Display_SuspendForDialog ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void Display_SuspendForDialog(void)
 
@@ -978,7 +978,7 @@ void Display_SuspendForDialog(void)
 
 
 /* ---- 0x004743d0  Display_ResumeAfterDialog ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void Display_ResumeAfterDialog(void)
 
@@ -1027,7 +1027,7 @@ int Display_Flip(void)
 }
 
 /* ---- 0x00474480  Surface_Create ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Std/Win95/Stddisplay.c: creates a surface record (0xd8 bytes) from a 19-dword format/size
    description */
@@ -1152,7 +1152,7 @@ void __cdecl Surface_Free(void *surface)
 }
 
 /* ---- 0x004746f0  Surface_Release ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Releases DirectDraw surfaces (type 1) or frees the system memory pixels (types 0/2) */
 
@@ -1379,7 +1379,7 @@ int __cdecl Surface_Fill(void *surface,int color,int *rect)
 
 
 /* ---- 0x00474a60  Surface_Blit ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 int __cdecl Surface_Blit(void *dst,void *src,int x,int y,int *srcRect,int colorKey)
 
@@ -1403,7 +1403,7 @@ int __cdecl Surface_Blit(void *dst,void *src,int x,int y,int *srcRect,int colorK
 
 
 /* ---- 0x00474ae0  Surface_SetColorKey ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 int __cdecl Surface_SetColorKey(void *surface,int color)
 
@@ -1592,7 +1592,7 @@ void __cdecl Display_SetPalette(void *palette)
 }
 
 /* ---- 0x00474dd0  Palette_ApplyGamma ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 int __cdecl Palette_ApplyGamma(void *dst,void *src,int count,int gammaIdx)
 
@@ -1613,7 +1613,7 @@ int __cdecl Palette_ApplyGamma(void *dst,void *src,int count,int gammaIdx)
 
 
 /* ---- 0x00474e40  Display_DrawText ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* GDI TextOut of the debug font onto the back buffer (DIB or locked DirectDraw DC) */
 
@@ -2011,7 +2011,7 @@ int __cdecl Surface_BlitSoftware(void *dst,void *src,uint x,uint y,int *srcRect,
 }
 
 /* ---- 0x004755e0  Surface_BlitDDraw ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4
 Surface_BlitDDraw(int param_1,int param_2,uint param_3,uint param_4,uint *param_5,byte param_6)
@@ -2604,7 +2604,7 @@ Surface_BlitLockedDst
 
 
 /* ---- 0x004760d0  DDraw_Create ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 bool DDraw_Create(undefined4 param_1)
 
@@ -2645,7 +2645,7 @@ bool DDraw_Create(undefined4 param_1)
 
 
 /* ---- 0x00476190  DDraw_Release ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void DDraw_Release(void)
 
@@ -2660,7 +2660,7 @@ void DDraw_Release(void)
 
 
 /* ---- 0x004761b0  FUN_004761b0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined * __stdcall FUN_004761b0(int a1,int a2,int a3,int a4)
 
@@ -2961,7 +2961,7 @@ void * DDraw_Get(void)
 }
 
 /* ---- 0x004767d0  DDraw_CreateSurfaces ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Sets the display mode and creates the primary (+ back buffer when triple buffering) surfaces and
@@ -3134,7 +3134,7 @@ void DDraw_ReleaseSurfaces(void)
 }
 
 /* ---- 0x00476bf0  DDraw_LockSurface ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4 DDraw_LockSurface(undefined4 *param_1)
 
@@ -3159,7 +3159,7 @@ undefined4 DDraw_LockSurface(undefined4 *param_1)
 
 
 /* ---- 0x00476c40  DDraw_UnlockSurface ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4 DDraw_UnlockSurface(undefined4 *param_1)
 
@@ -3186,7 +3186,7 @@ undefined4 DDraw_UnlockSurface(undefined4 *param_1)
 
 
 /* ---- 0x00476c90  DDraw_Flip ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4 DDraw_Flip(void)
 
@@ -3213,7 +3213,7 @@ undefined4 DDraw_Flip(void)
 
 
 /* ---- 0x00476cd0  DDraw_FillSurface ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4 DDraw_FillSurface(undefined4 *param_1,uint param_2,uint *param_3)
 
@@ -3281,7 +3281,7 @@ undefined4 DDraw_FillSurface(undefined4 *param_1,uint param_2,uint *param_3)
 
 
 /* ---- 0x00476dc0  DDraw_SetPalette ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4 DDraw_SetPalette(undefined1 *param_1)
 
@@ -3318,7 +3318,7 @@ undefined4 DDraw_SetPalette(undefined1 *param_1)
 
 
 /* ---- 0x00476e40  DIB_CreateSurface ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void * __cdecl DIB_CreateSurface(void *mode,void *surface,void *palette,void *hwnd)
 
@@ -3388,7 +3388,7 @@ void __cdecl Display_SetPalette3D(void *palette,int flags)
 }
 
 /* ---- 0x0047b610  Palette_FromFloatTable ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Writes n RGB byte triplets from a float colour table */
 
@@ -3420,7 +3420,7 @@ void Palette_FromFloatTable(undefined1 *param_1,undefined4 param_2,int param_3)
 
 
 /* ---- 0x0047b8a0  Pixel_Convert ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Converts pixels between the 16-bit RGB layouts described by the format records */
 
@@ -3532,7 +3532,7 @@ void __cdecl Pixel_Convert(ushort *dst,int dstFormat,ushort *src,int srcFormat,u
 
 
 /* ---- 0x0047bbb0  Pixel_ConvertOne ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 int Pixel_ConvertOne(int param_1,undefined4 param_2,int param_3)
 

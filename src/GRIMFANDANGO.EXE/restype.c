@@ -278,7 +278,7 @@ void * FUN_0048dab0(int *param_1)
 
 
 /* ---- 0x0048dbd0  FUN_0048dbd0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void * FUN_0048dbd0(int *param_1)
 
@@ -466,7 +466,7 @@ void * FUN_0048de70(int *param_1)
 }
 
 /* ---- 0x0048dee0  FUN_0048dee0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void * FUN_0048dee0(int *param_1)
 

@@ -6,7 +6,7 @@
 #include "functions.h"
 
 /* ---- 0x0048a520  PrimitiveList_Clear ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void __fastcall PrimitiveList_Clear(int *param_1)
 
@@ -27,7 +27,7 @@ void __fastcall PrimitiveList_Clear(int *param_1)
 
 
 /* ---- 0x0048a670  PrimitiveList_Append ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void * __thiscall PrimitiveList_Append(void *this,int id,int layer)
 
@@ -91,7 +91,7 @@ void * __thiscall PrimitiveList_Append(void *this,int id,int layer)
 
 
 /* ---- 0x0048a9f0  PrimitiveList_Draw ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void __thiscall PrimitiveList_Draw(void *this,void *canvas,uint layerMask)
 
@@ -109,7 +109,7 @@ void __thiscall PrimitiveList_Draw(void *this,void *canvas,uint layerMask)
 
 
 /* ---- 0x0048ab20  PrimitiveList_Invalidate ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined * __thiscall PrimitiveList_Invalidate(void *this,int a1)
 
@@ -128,7 +128,7 @@ undefined * __thiscall PrimitiveList_Invalidate(void *this,int a1)
 
 
 /* ---- 0x0048abd0  PrimitiveList_FindById ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void * __thiscall PrimitiveList_FindById(void *this,int id,void *after)
 

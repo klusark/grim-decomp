@@ -6,7 +6,7 @@
 #include "functions.h"
 
 /* ---- 0x0048e240  Actors_FreeAllCostumes ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua NukeResources: drops every actor's costume list */
 
@@ -43,7 +43,7 @@ void Actors_FreeAllCostumes(void)
 
 
 /* ---- 0x0048fcc0  Actors_UpdateTalking ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Advances lip sync for the four actors in g_pTalkingActors */
 
@@ -65,7 +65,7 @@ void __cdecl Actors_UpdateTalking(float dt)
 
 
 /* ---- 0x0048fcf0  Actors_UpdateAll ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Per-frame update of every actor in the current set: talking, movement, collision */
 
