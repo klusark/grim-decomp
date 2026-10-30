@@ -1515,11 +1515,11 @@
 | 004a66e0 | Sector_Unlink | sector.c | 40 |
 | 004a6760 | Sector_SetName | sector.c | 33 |
 | 004a6790 | Sector_SetSavedType | sector.c | 1 |
-| 004a6980 | Sector_ContainsPoint | sector.c | 96 |
-| 004a6b30 | Sector_ClampPoint | sector.c | 93 |
+| 004a6980 | Sector_ContainsPoint | sector.c | 1 |
+| 004a6b30 | Sector_ClampPoint | sector.c | 1 |
 | 004a6d10 | Sector_FindExitPoint | sector.c | 1 |
-| 004a6fa0 | Sector_SnapToPlane | sector.c | 17 |
-| 004a7000 | Sector_FixPlaneCoordinate | sector.c | 27 |
+| 004a6fa0 | Sector_SnapToPlane | sector.c | 1 |
+| 004a7000 | Sector_FixPlaneCoordinate | sector.c | 1 |
 | 004a70a0 | Sector_DrawOutline | sector.c | 24 |
 | 004a71e0 | SectorList_FindByPoint | sector.c | 1 |
 | 004a7230 | Sector_FindByName | sector.c | 40 |
