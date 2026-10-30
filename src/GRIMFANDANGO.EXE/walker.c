@@ -438,21 +438,21 @@ uint Walker_AvoidActorPath
         iVar7 = ((code *)Planner_PlanPath)();
         if (iVar7 != 0) {
           if (local_f0 == 0) goto LAB_00491fa5;
-          local_104 = PUN(uint,(float)(*pfVar4 - (float)(&local_4c)[uVar11 * 3]));
-          local_bc = PUN(uint,(float)(*(float *)(local_f4 + -8) - (float)(&local_48)[uVar11 * 3]));
-          local_b8 = PUN(uint,(float)(*(float *)(local_f4 + -4) - (float)(&local_44)[uVar11 * 3]));
-          local_c0 = PUN(uint,(float)((float)(&local_4c)[uVar11 * 3] - PUN(float,local_d0)));
-          local_c4 = PUN(uint,(float)((float)(&local_48)[uVar11 * 3] - PUN(float,local_cc)));
-          local_b0 = PUN(uint,(float)((float)(&local_44)[uVar11 * 3] - PUN(float,local_c8)));
-          local_b4 = PUN(uint,(float)(*pfVar4 - (float)(&local_4c)[uVar5 * 3]));
-          local_d4 = PUN(uint,(float)(*(float *)(local_f4 + -8) - (float)(&local_48)[uVar5 * 3]));
-          local_f8 = PUN(uint,(float)(*(float *)(local_f4 + -4) - (float)(&local_44)[uVar5 * 3]));
-          local_fc = PUN(uint,(float)((float)(&local_48)[uVar5 * 3] - PUN(float,local_cc)));
-          fVar1 = (float)(&local_44)[uVar5 * 3] - PUN(float,local_c8);
+          local_104 = PUN(uint,(float)(*pfVar4 - PUN(float,(&local_4c)[uVar11 * 3])));
+          local_bc = PUN(uint,(float)(*(float *)(local_f4 + -8) - PUN(float,(&local_48)[uVar11 * 3])));
+          local_b8 = PUN(uint,(float)(*(float *)(local_f4 + -4) - PUN(float,(&local_44)[uVar11 * 3])));
+          local_c0 = PUN(uint,(float)(PUN(float,(&local_4c)[uVar11 * 3]) - PUN(float,local_d0)));
+          local_c4 = PUN(uint,(float)(PUN(float,(&local_48)[uVar11 * 3]) - PUN(float,local_cc)));
+          local_b0 = PUN(uint,(float)(PUN(float,(&local_44)[uVar11 * 3]) - PUN(float,local_c8)));
+          local_b4 = PUN(uint,(float)(*pfVar4 - PUN(float,(&local_4c)[uVar5 * 3])));
+          local_d4 = PUN(uint,(float)(*(float *)(local_f4 + -8) - PUN(float,(&local_48)[uVar5 * 3])));
+          local_f8 = PUN(uint,(float)(*(float *)(local_f4 + -4) - PUN(float,(&local_44)[uVar5 * 3])));
+          local_fc = PUN(uint,(float)(PUN(float,(&local_48)[uVar5 * 3]) - PUN(float,local_cc)));
+          fVar1 = PUN(float,(&local_44)[uVar5 * 3]) - PUN(float,local_c8);
           if (fVar1 * fVar1 +
               PUN(float,local_fc) * PUN(float,local_fc) +
-              ((float)(&local_4c)[uVar5 * 3] - PUN(float,local_d0)) *
-              ((float)(&local_4c)[uVar5 * 3] - PUN(float,local_d0)) +
+              (PUN(float,(&local_4c)[uVar5 * 3]) - PUN(float,local_d0)) *
+              (PUN(float,(&local_4c)[uVar5 * 3]) - PUN(float,local_d0)) +
               PUN(float,local_f8) * PUN(float,local_f8) +
               PUN(float,local_d4) * PUN(float,local_d4) + PUN(float,local_b4) * PUN(float,local_b4) <=
               PUN(float,local_b0) * PUN(float,local_b0) +
@@ -819,9 +819,9 @@ undefined * __thiscall Walker_TurnHeading(void *this,float angle)
 
 
 /* ---- 0x004a8450  Walker_TurnToPoint ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
-float __thiscall Walker_TurnToPoint(void *this,int a1,int a2)
+float __thiscall Walker_TurnToPoint(void *this,float *point,float maxTurn)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -830,24 +830,24 @@ float __thiscall Walker_TurnToPoint(void *this,int a1,int a2)
   #define local_8 (*(float *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
-  local_c = *(float *)a1;
-  local_8 = *(float *)(a1 + 4);
-  local_4 = *(uint *)(a1 + 8);
+  local_c = *point;
+  local_8 = point[1];
+  local_4 = PUN(uint,(float)point[2]);
   if (*(void **)((int)this + 0x5c) != (void *)0x0) {
     Sector_FixPlaneCoordinate(*(void **)((int)this + 0x5c),(int)&local_c);
   }
   Walker_ToLocalSpace(this,&local_c);
   Vec3_Normalize(&local_c);
   fVar1 = Math_AsinDegreesSeries(local_8);
-  a1 = PUN(int,(float)(90.0 - fVar1));
-  if (PUN(float,a2) < PUN(float,a1)) {
-    a1 = a2;
+  point = PUN(float *,(float)(90.0 - fVar1));
+  if (maxTurn < PUN(float,point)) {
+    point = PUN(float *,(float)maxTurn);
   }
   if (0.0 < local_c) {
-    a1 = PUN(int,(float)(PUN(float,a1) * -1.0));
+    point = PUN(float *,(float)(PUN(float,point) * -1.0));
   }
-  Walker_TurnHeading(this,PUN(float,a1));
-  return PUN(float,a1);
+  Walker_TurnHeading(this,PUN(float,point));
+  return PUN(float,point);
 }
 #undef local_4
 #undef local_8
@@ -1294,8 +1294,6 @@ undefined4 Planner_SearchSectors(float *param_1,float *param_2,void *param_3)
 
 
 /* ---- 0x004a96f0  Planner_CollectSharedCorners ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 uint Planner_CollectSharedCorners(void *param_1,float *param_2,uint *param_3)
 
 {
@@ -1365,12 +1363,12 @@ uint Planner_CollectSharedCorners(void *param_1,float *param_2,uint *param_3)
             (&local_1e0)[uVar6 * 4] = PUN(uint,(float)*(float *)(iVar5 + 4));
             (&local_1dc)[uVar6 * 4] = *(uint *)(iVar5 + 8);
             (&local_1d8)[uVar6 * 4] = *(uint *)(iVar5 + 0xc);
-            fVar1 = fVar1 - (float)(&local_1e0)[uVar6 * 4];
+            fVar1 = fVar1 - PUN(float,(&local_1e0)[uVar6 * 4]);
             (&local_1d4)[uVar6 * 4] =
-                 PUN(uint,(float)((fVar3 - (float)(&local_1d8)[uVar6 * 4]) *
-                        (fVar3 - (float)(&local_1d8)[uVar6 * 4]) +
-                       (fVar2 - (float)(&local_1dc)[uVar6 * 4]) *
-                       (fVar2 - (float)(&local_1dc)[uVar6 * 4]) + fVar1 * fVar1));
+                 PUN(uint,(float)((fVar3 - PUN(float,(&local_1d8)[uVar6 * 4])) *
+                        (fVar3 - PUN(float,(&local_1d8)[uVar6 * 4])) +
+                       (fVar2 - PUN(float,(&local_1dc)[uVar6 * 4])) *
+                       (fVar2 - PUN(float,(&local_1dc)[uVar6 * 4])) + fVar1 * fVar1));
             local_1e8 = uVar10;
           }
         }
@@ -1425,8 +1423,6 @@ uint Planner_CollectSharedCorners(void *param_1,float *param_2,uint *param_3)
 #undef local_1e8
 #undef local_1ec
 #undef local_1f0
-
-#endif
 
 
 /* ---- 0x004a9920  Planner_PortalPoint ---- */

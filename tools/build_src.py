@@ -420,6 +420,10 @@ def type_of(e, vt, ctx, depth=0):
         inner = e[1:j]
         if is_type(inner, ctx.known_types):
             return " ".join(inner.split())
+        # `(&local_1e0)[i]`: an element of a local used as the start of an array
+        m = re.fullmatch(r"&\s*([A-Za-z_]\w*)", inner.strip())
+        if m and e[j + 1:].lstrip().startswith("[") and m.group(1) in vt:
+            return vt[m.group(1)]
         return None
     if e[0] == "*":
         return deref(type_of(e[1:], vt, ctx, depth + 1))

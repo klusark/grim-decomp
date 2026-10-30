@@ -1069,7 +1069,7 @@
 | 0047bc20 | Math_NormalizeAngle360 | math.c | 1 |
 | 0047bce0 | Math_NormalizeAngle180 | math.c | 1 |
 | 0047bd20 | Math_SinCosTable | math.c | 1 |
-| 0047c100 | Math_Round | math.c | 1 |
+| 0047c100 | Math_Floor | math.c | 1 |
 | 0047c120 | Math_SinDeg | math.c | 1 |
 | 0047c3b0 | Math_AsinDegrees | math.c | 1 |
 | 0047c490 | Math_Sqrt | math.c | 1 |
@@ -1689,7 +1689,7 @@
 | 004a9420 | Planner_GetPath | walker.c | 6 |
 | 004a9430 | Planner_PlanPath | walker.c | 34 |
 | 004a94d0 | Planner_SearchSectors | walker.c | 89 |
-| 004a96f0 | Planner_CollectSharedCorners | walker.c | 1 |
+| 004a96f0 | Planner_CollectSharedCorners | walker.c | 130 |
 | 004a9920 | Planner_PortalPoint | walker.c | 64 |
 | 004a9aa0 | Planner_SmoothPath | walker.c | 94 |
 | 004a9ca0 | Planner_SharedSector | walker.c | 14 |

@@ -414,6 +414,86 @@ void GRIM_RegisterModApi(void)
     lua_openlib(mod_api, sizeof mod_api / sizeof mod_api[0]);
 }
 
+/* ==== agentJ: walker / sector functions whose decompilation reuses a parameter slot as a float local ====
+ * Ghidra types `a1` of Walker_TurnToPoint (a pointer on entry, the turn angle later), of Actor_GetYawToPoint and the
+ * x87 result of Vec3_NormalizeTo (a float in ST0 that the code keeps across calls) in ways that compile to garbage, so
+ * these three are written out in C (same operations in the same order as the machine code). */
+
+/* Vec3_NormalizeTo (0x446920) normalises src into dst and returns the original length in ST(0); Ghidra has it as void */
+#define Vec3_NormalizeToLen ((float (*)(float *, float *))Vec3_NormalizeTo)
+
+/* Walker_TurnToPoint (0x4a8450): turns the walker towards a point (in set coordinates) by at most maxTurn degrees.
+ * Returns the signed turn angle that was applied (positive = the point is on the right of the heading). */
+float __thiscall Walker_TurnToPoint(void *this, float *point, float maxTurn)
+{
+    float v[3];
+    float angle;
+    void *sector = *(void **)((int)this + 0x5c);
+
+    v[0] = point[0];
+    v[1] = point[1];
+    v[2] = point[2];
+    if (sector != 0)
+        Sector_FixPlaneCoordinate(sector, (int)v);   /* keeps the point on the plane of the walker's sector */
+    Walker_ToLocalSpace(this, v);
+    Vec3_Normalize(v);
+    angle = 90.0f - Math_AsinDegreesSeries(v[1]);
+    if (maxTurn < angle)
+        angle = maxTurn;
+    if (0.0f < v[0])
+        angle = angle * -1.0f;
+    Walker_TurnHeading(this, angle);
+    return angle;
+}
+
+/* Actor_GetYawToPoint (0x4a8500): the yaw (walker heading + the turn needed) that points the walker at a point */
+float __thiscall Actor_GetYawToPoint(void *this, float *point)
+{
+    float v[3];
+    float angle;
+    void *sector = *(void **)((int)this + 0x5c);
+
+    v[0] = point[0];
+    v[1] = point[1];
+    v[2] = point[2];
+    if (sector != 0)
+        Sector_FixPlaneCoordinate(sector, (int)v);
+    Walker_ToLocalSpace(this, v);
+    Vec3_Normalize(v);
+    angle = 90.0f - Math_AsinDegreesSeries(v[1]);
+    if (0.0f < v[0])
+        angle = angle * -1.0f;
+    return *(float *)(Walker_GetAngles((int)this) + 4) + angle;
+}
+
+/* Sector_EdgeDistance (0x4a9070): distance of a point from the line through edge `edge` of a sector polygon
+ * (sin of the angle between the edge and the direction to the point, times the distance to the edge's start vertex).
+ * Vertex records hold the position at +4. */
+float __thiscall Sector_EdgeDistance(void *this, int edge, float *point)
+{
+    int numVerts = *(int *)((int)this + 0x34);
+    float *v0, *v1;
+    float edgeDir[3], toPoint[3], edgeUnit[3], pointUnit[3];
+    float sinA, cosA, angle, dist;
+
+    if (numVerts <= edge)
+        (*g_pSvcMain->pAssertFail)(s_edge_index___num_verts_004ec9b8, s_C__grimsrc_libs_grimlib_Engine_W_004ec8c8, 0x6c8);
+    v0 = *(float **)((int)this + edge * 4 + 0x38);
+    v1 = *(float **)((int)this + ((edge + 1) % *(int *)((int)this + 0x34)) * 4 + 0x38);
+    edgeDir[0] = v1[1] - v0[1];
+    edgeDir[1] = v1[2] - v0[2];
+    edgeDir[2] = v1[3] - v0[3];
+    toPoint[0] = point[0] - v0[1];
+    toPoint[1] = point[1] - v0[2];
+    toPoint[2] = point[2] - v0[3];
+    Vec3_NormalizeToLen(edgeUnit, edgeDir);
+    dist = Vec3_NormalizeToLen(pointUnit, toPoint);
+    angle = Math_AsinDegreesSeries(pointUnit[2] * edgeUnit[2] + pointUnit[1] * edgeUnit[1] + pointUnit[0] * edgeUnit[0]);
+    Math_SinCosTable(90.0f - angle, &sinA, &cosA);
+    return sinA * dist;
+}
+/* ==== end agentJ walker block ==== */
+
 #endif /* GRIM_EXE */
 
 #ifdef GRIM_IMUSE

@@ -252,7 +252,7 @@ void Math_SinCosTable(float param_1,float *param_2,float *param_3)
 #endif
 
 
-/* ---- 0x0047c100  Math_Round ---- */
+/* ---- 0x0047c100  Math_Floor ---- */
 /* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 float __cdecl Math_Round(float param_1)

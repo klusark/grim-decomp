@@ -2532,11 +2532,11 @@ LAB_004a903f:
 
 
 /* ---- 0x004a9070  Sector_EdgeDistance ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Source: Engine/WalkPlane.cpp (line 1736, from __FILE__/__LINE__ passed to the allocator) */
 
-float __thiscall Sector_EdgeDistance(void *this,int a1,int a2)
+float __thiscall Sector_EdgeDistance(void *this,int edge,float *point)
 
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -2559,18 +2559,18 @@ float __thiscall Sector_EdgeDistance(void *this,int a1,int a2)
   #define fStack_8 (*(float *)(_frame + (0x50 - 0x8)))
   #define fStack_4 (*(float *)(_frame + (0x50 - 0x4)))
   
-  if (*(int *)((int)this + 0x34) <= a1) {
+  if (*(int *)((int)this + 0x34) <= edge) {
     (*g_pSvcMain->pAssertFail)
               (s_edge_index___num_verts_004ec9b8,s_C__grimsrc_libs_grimlib_Engine_W_004ec8c8,0x6c8);
   }
-  iVar1 = *(int *)((int)this + a1 * 4 + 0x38);
-  iVar2 = *(int *)((int)this + ((a1 + 1) % *(int *)((int)this + 0x34)) * 4 + 0x38);
+  iVar1 = *(int *)((int)this + edge * 4 + 0x38);
+  iVar2 = *(int *)((int)this + ((edge + 1) % *(int *)((int)this + 0x34)) * 4 + 0x38);
   local_30 = *(float *)(iVar2 + 4) - *(float *)(iVar1 + 4);
   fStack_2c = *(float *)(iVar2 + 8) - *(float *)(iVar1 + 8);
   fStack_28 = *(float *)(iVar2 + 0xc) - *(float *)(iVar1 + 0xc);
-  fStack_24 = *(float *)a2 - *(float *)(iVar1 + 4);
-  fStack_20 = *(float *)(a2 + 4) - *(float *)(iVar1 + 8);
-  fStack_1c = *(float *)(a2 + 8) - *(float *)(iVar1 + 0xc);
+  fStack_24 = *point - *(float *)(iVar1 + 4);
+  fStack_20 = point[1] - *(float *)(iVar1 + 8);
+  fStack_1c = point[2] - *(float *)(iVar1 + 0xc);
   Vec3_NormalizeTo(&local_c,&local_30);
   fVar3 = (float10)((code *)Vec3_NormalizeTo)(&fStack_18,&fStack_24);
   fVar4 = Math_AsinDegreesSeries(fStack_10 * fStack_4 + fStack_14 * fStack_8 + fStack_18 * local_c);
@@ -2883,7 +2883,7 @@ LAB_004a9f32:
               do {
                 PIECE(param_14,0,4) = (undefined4)((ulonglong)dVar4 >> 0x20);
                 in_stack_00000038 = SUB84(dVar4,0);
-                fVar14 = Sector_EdgeDistance(this,param_4,(int)&param_10);
+                fVar14 = Sector_EdgeDistance(this,param_4,&param_10);
                 dVar4 = (double)CONCAT44(PIECE(param_14,0,4),in_stack_00000038);
                 if (fVar14 < (float)dVar4) goto LAB_004a9f32;
                 param_4 = param_4 + 1;

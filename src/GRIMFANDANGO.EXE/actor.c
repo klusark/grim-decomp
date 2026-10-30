@@ -926,9 +926,7 @@ void Actor_CreateWalker(void *param_1,int param_2)
   float *pfVar2;
   void *p;
   uint *unaff_FS_OFFSET = (uint *)TEB_BASE();
-  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
+  #define local_18 (*(float (*)[3])(_frame + (0x30 - 0x18)))
   #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
   #define pcStack_8 (*(code **)(_frame + (0x30 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
@@ -956,17 +954,15 @@ void Actor_CreateWalker(void *param_1,int param_2)
     Mem_CheckAlloc(p,s_C__grimsrc_libs_grimlib_Engine_s_004e9e40,0x665);
     Walker_SetPosition(p,(float *)((int)param_1 + 0xc));
     pfVar2 = Actor_GetFrame(param_1);
-    local_18 = PUN(uint,(float)(pfVar2[3] + *(float *)((int)param_1 + 0xc)));
-    local_14 = PUN(uint,(float)(*(float *)((int)param_1 + 0x10) + pfVar2[4]));
-    local_10 = PUN(uint,(float)(*(float *)((int)param_1 + 0x14) + pfVar2[5]));
-    Walker_TurnToPoint(p,(int)&local_18,0x7f7fffff);
+    local_18[0] = pfVar2[3] + *(float *)((int)param_1 + 0xc);
+    local_18[1] = *(float *)((int)param_1 + 0x10) + pfVar2[4];
+    local_18[2] = *(float *)((int)param_1 + 0x14) + pfVar2[5];
+    Walker_TurnToPoint(p,local_18,3.4028235e+38);
     *(void **)(*(int *)((int)param_1 + 0xa4) + 0x1b4) = p;
   }
   *unaff_FS_OFFSET = local_c;
   return;
 }
-#undef local_10
-#undef local_14
 #undef local_18
 #undef local_4
 #undef local_c
@@ -1939,7 +1935,7 @@ void Actor_FollowPath(int param_1)
     }
   }
   *(uint *)(param_1 + 8) = *(uint *)(param_1 + 8) | 1;
-  Walker_TurnToPoint(*(void **)(iVar6 + 0x1b4),iVar6 + 0x2c,0x7f7fffff);
+  Walker_TurnToPoint(*(void **)(iVar6 + 0x1b4),(float *)(iVar6 + 0x2c),3.4028235e+38);
   Actor_WalkForward(param_1);
   return;
 }
@@ -2889,9 +2885,9 @@ LAB_004a5fa6:
 }
 
 /* ---- 0x004a8500  Actor_GetYawToPoint ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
-float __thiscall Actor_GetYawToPoint(void *this,int a1)
+float __thiscall Actor_GetYawToPoint(void *this,float *point)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -2904,21 +2900,21 @@ float __thiscall Actor_GetYawToPoint(void *this,int a1)
   #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
   
-  local_18 = *(float *)a1;
-  local_14 = *(float *)(a1 + 4);
-  local_10 = *(uint *)(a1 + 8);
+  local_18 = *point;
+  local_14 = point[1];
+  local_10 = PUN(uint,(float)point[2]);
   if (*(void **)((int)this + 0x5c) != (void *)0x0) {
     Sector_FixPlaneCoordinate(*(void **)((int)this + 0x5c),(int)&local_18);
   }
   Walker_ToLocalSpace(this,&local_18);
   Vec3_Normalize(&local_18);
   fVar2 = Math_AsinDegreesSeries(local_14);
-  a1 = PUN(int,(float)(90.0 - fVar2));
+  point = PUN(float *,(float)(90.0 - fVar2));
   if (0.0 < local_18) {
-    a1 = PUN(int,(float)(PUN(float,a1) * -1.0));
+    point = PUN(float *,(float)(PUN(float,point) * -1.0));
   }
   puVar1 = Walker_GetAngles((int)this);
-  return *(float *)(puVar1 + 4) + PUN(float,a1);
+  return *(float *)(puVar1 + 4) + PUN(float,point);
 }
 #undef local_10
 #undef local_14
