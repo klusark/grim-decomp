@@ -185,6 +185,10 @@ def convert(ctx, addr, lines):
                 lo = ctx.secs[0][1] if ctx.secs else 0
                 if h < min(lo, ctx.text[0]) or h > max(s[1] + s[2] for s in ctx.secs):
                     return mm.group(0)
+                if up in ("AND", "OR", "XOR", "TEST") and h & 0xffff == 0                         and mm.string[:mm.start()].count("[") <= mm.string[:mm.start()].count("]"):
+                    # an immediate mask that happens to lie inside the image (the 128-texel u mask
+                    # 0x7f0000 of the textured span routines), not an address
+                    return mm.group(0)
                 if h in ctx.slots and mm.string[:mm.start()].count("[") > mm.string[:mm.start()].count("]"):
                     # an import address table slot read as data (`MOV ESI,[slot]` ... `CALL ESI`): the
                     # dumped IAT holds import-name entries, the linker's import symbol holds the address
