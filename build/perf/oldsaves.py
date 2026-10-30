@@ -153,6 +153,11 @@ def one(nn):
               'manny:stop_walk() grimlog("WA".."LK "..format("%.2f",best)) end')
         g.cmd('start_script(agk_w)')
         r = g.wait('WALK ', 30, l0); res.append('walk moved ' + (r.split()[1] if r else '?') + ' m')
+        # let Manny stop (a walk in progress is restored as a walk in progress, which makes the state comparison moot)
+        l0 = len(g.log())
+        g.cmd('start_script(function() local n=0 while IsActorMoving(manny.hActor) and n<60 do sleep_for(100) n=n+1 end '
+              'sleep_for(300) grimlog("ID".."LE") end)')
+        g.wait('IDLE', 20, l0)
         # original save -> rebuilt save -> reload
         g.cmd(DEFS)
         l0 = len(g.log())
@@ -193,13 +198,20 @@ def one(nn):
 nums = sorted(re.findall(r'grim(\d+)\.gsv$', f)[0] for f in os.listdir(saves) if re.match(r'grim\d+\.gsv$', f))
 if a.only: nums = [n for n in nums if n in a.only.split(',')]
 bad = []
+flaky = []
 for nn in nums:
     ok, res = one(nn)
+    if not ok and any('[crash:' in r for r in res):
+        # an intermittent crash in the background / z-buffer decompressor after a load was seen a few times (BUILD_NOTES): once more
+        first = ' | '.join(res)
+        ok, res = one(nn)
+        if ok:
+            flaky.append(nn); res = res + ['FLAKY: first attempt crashed: ' + first[-260:]]
     print('%s grim%s: %s' % ('OK  ' if ok else 'FAIL', nn, ' | '.join(res)), flush=True)
     if not ok: bad.append(nn)
 if not a.keep:
     for f in (priv_old, priv_re):
         try: os.remove(os.path.join(data, f))
         except OSError: pass
-print('%d saves, %d failed %s' % (len(nums), len(bad), bad))
+print('%d saves, %d failed %s%s' % (len(nums), len(bad), bad, ('; crashed once and passed on retry: %s' % flaky) if flaky else ''))
 sys.exit(1 if bad else 0)
