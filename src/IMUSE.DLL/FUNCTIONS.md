@@ -337,7 +337,7 @@
 | 10012d50 | __crtGetStringTypeA | crt.c | 57 |
 | 10012e90 | __crtMessageBoxA | crt.c | 32 |
 | 10012f20 | _callnewh | crt.c | 15 |
-| 1000c0a0 | FUN_1000c0a0 | crt_unnamed.c | 26 |
+| 1000c0a0 | FUN_1000c0a0 | crt_unnamed.c | 1 |
 | 1000c130 | FUN_1000c130 | crt_unnamed.c | 51 |
 | 1000c230 | FUN_1000c230 | crt_unnamed.c | 1 |
 | 1000c440 | FUN_1000c440 | crt_unnamed.c | 1 |
@@ -345,8 +345,8 @@
 | 1000d4e0 | FUN_1000d4e0 | crt_unnamed.c | 1 |
 | 1000d590 | FUN_1000d590 | crt_unnamed.c | 1 |
 | 1000d5a0 | FUN_1000d5a0 | crt_unnamed.c | 1 |
-| 1000d810 | FUN_1000d810 | crt_unnamed.c | 115 |
-| 1000d9e0 | FUN_1000d9e0 | crt_unnamed.c | 50 |
+| 1000d810 | FUN_1000d810 | crt_unnamed.c | 1 |
+| 1000d9e0 | FUN_1000d9e0 | crt_unnamed.c | 1 |
 | 1000dac0 | FUN_1000dac0 | crt_unnamed.c | 1 |
 | 1000db30 | FUN_1000db30 | crt_unnamed.c | 1 |
 | 1000db60 | FUN_1000db60 | crt_unnamed.c | 1 |
@@ -386,10 +386,10 @@
 | 1000fdc0 | FUN_1000fdc0 | crt_unnamed.c | 1 |
 | 1000fe40 | FUN_1000fe40 | crt_unnamed.c | 1 |
 | 1000feb0 | FUN_1000feb0 | crt_unnamed.c | 1 |
-| 100100e0 | FUN_100100e0 | crt_unnamed.c | 69 |
-| 10010250 | FUN_10010250 | crt_unnamed.c | 34 |
+| 100100e0 | FUN_100100e0 | crt_unnamed.c | 1 |
+| 10010250 | FUN_10010250 | crt_unnamed.c | 1 |
 | 10010490 | FUN_10010490 | crt_unnamed.c | 1 |
-| 10010530 | FUN_10010530 | crt_unnamed.c | 170 |
+| 10010530 | FUN_10010530 | crt_unnamed.c | 1 |
 | 100108d0 | FUN_100108d0 | crt_unnamed.c | 1 |
 | 10010910 | FUN_10010910 | crt_unnamed.c | 1 |
 | 10010930 | FUN_10010930 | crt_unnamed.c | 1 |
@@ -423,7 +423,7 @@
 | 10012840 | FUN_10012840 | crt_unnamed.c | 1 |
 | 10012bc0 | FUN_10012bc0 | crt_unnamed.c | 1 |
 | 10012f40 | FUN_10012f40 | crt_unnamed.c | 1 |
-| 10013090 | FUN_10013090 | crt_unnamed.c | 137 |
+| 10013090 | FUN_10013090 | crt_unnamed.c | 1 |
 | 100132c0 | FUN_100132c0 | crt_unnamed.c | 1 |
 | 100132f0 | FUN_100132f0 | crt_unnamed.c | 1 |
 | 10013360 | FUN_10013360 | crt_unnamed.c | 1 |
@@ -432,7 +432,7 @@
 | 100134c0 | FUN_100134c0 | crt_unnamed.c | 1 |
 | 10013c50 | FUN_10013c50 | crt_unnamed.c | 1 |
 | 10013fe0 | FUN_10013fe0 | crt_unnamed.c | 1 |
-| 100142a0 | FUN_100142a0 | crt_unnamed.c | 22 |
+| 100142a0 | FUN_100142a0 | crt_unnamed.c | 1 |
 | 10014310 | FUN_10014310 | crt_unnamed.c | 1 |
 | 10014340 | FUN_10014340 | crt_unnamed.c | 1 |
 | 10014600 | FUN_10014600 | crt_unnamed.c | 1 |

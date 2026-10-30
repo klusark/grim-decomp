@@ -3021,7 +3021,7 @@ int Sounds_EvictOldestIdleSlot(void)
 
 
 /* ---- 0x1000b940  ImFile_Read ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (host): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 /* File layer (module name inferred): locked read through the installed callbacks */
 
@@ -3039,7 +3039,7 @@ int __cdecl ImFile_Read(int *param_1,int param_2,int param_3)
 
 
 /* ---- 0x1000b980  ImFile_ReadImpl ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
 
@@ -3078,7 +3078,7 @@ int __cdecl ImFile_ReadImpl(int *param_1,int param_2,int param_3)
 
 
 /* ---- 0x1000ba20  FUN_1000ba20 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 undefined4 __cdecl FUN_1000ba20(undefined4 param_1,char *param_2,undefined4 param_3)
 
@@ -3098,7 +3098,7 @@ undefined4 __cdecl FUN_1000ba20(undefined4 param_1,char *param_2,undefined4 para
 
 
 /* ---- 0x1000ba60  FUN_1000ba60 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (host): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 void __cdecl FUN_1000ba60(undefined4 param_1,undefined4 param_2)
 
@@ -3110,7 +3110,7 @@ void __cdecl FUN_1000ba60(undefined4 param_1,undefined4 param_2)
 
 
 /* ---- 0x1000ba80  FUN_1000ba80 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -3126,7 +3126,7 @@ void FUN_1000ba80(void)
 
 
 /* ---- 0x1000baa0  FUN_1000baa0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 void FUN_1000baa0(void)
 
@@ -3143,7 +3143,7 @@ void FUN_1000baa0(void)
 
 
 /* ---- 0x1000bb10  ImFile_Close ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (host): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
 
@@ -3165,7 +3165,7 @@ undefined4 __cdecl ImFile_Close(int *param_1)
 
 
 /* ---- 0x1000bb50  ImFile_CloseImpl ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
 
@@ -3196,7 +3196,7 @@ undefined4 __cdecl ImFile_CloseImpl(int *param_1)
 
 
 /* ---- 0x1000bbc0  ImFile_Open ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (host): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
 
@@ -3214,7 +3214,7 @@ uint __cdecl ImFile_Open(char *param_1,uint param_2,uint param_3,int *param_4)
 
 
 /* ---- 0x1000bc00  ImFile_OpenImpl ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
 
@@ -3305,7 +3305,7 @@ LAB_1000bd19:
 
 
 /* ---- 0x1000c4f0  ImFile_LockInit ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
 
@@ -3336,7 +3336,7 @@ void __cdecl ImFile_LockInit(int param_1)
 
 
 /* ---- 0x1000c570  ImFile_UnlockInner ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
 
@@ -3350,7 +3350,7 @@ void __cdecl ImFile_UnlockInner(int param_1)
 
 
 /* ---- 0x1000c590  ImFile_Lock ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
 
@@ -3368,7 +3368,7 @@ void __cdecl ImFile_Lock(uint param_1)
 
 
 /* ---- 0x1000c5d0  FUN_1000c5d0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 void __cdecl FUN_1000c5d0(int param_1,int param_2)
 
@@ -3384,7 +3384,7 @@ void __cdecl FUN_1000c5d0(int param_1,int param_2)
 
 
 /* ---- 0x1000c600  ImFile_Unlock ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
 
@@ -3402,7 +3402,7 @@ void __cdecl ImFile_Unlock(uint param_1)
 
 
 /* ---- 0x1000c640  FUN_1000c640 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 void __cdecl FUN_1000c640(int param_1,int param_2)
 
@@ -3985,7 +3985,7 @@ undefined4 __cdecl FUN_1000d110(undefined4 *param_1)
 
 
 /* ---- 0x1000d130  FUN_1000d130 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
