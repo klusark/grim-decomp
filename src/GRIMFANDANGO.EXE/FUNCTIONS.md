@@ -1713,7 +1713,7 @@
 | 00494f90 | Costume_AllocRecord | costume.c | 9 |
 | 00494fb0 | Costume_InitRecord | costume.c | 37 |
 | 00495020 | Costume_GetMainModel | costume.c | 29 |
-| 00495510 | Costume_ApplyScale | costume.c | 53 |
+| 00495510 | Costume_ApplyScale | costume.c | 1 |
 | 004955e0 | Costume_ApplyComponentState | costume.c | 43 |
 | 004956a0 | Costume_UpdateAttachedFrame | costume.c | 18 |
 | 004956f0 | Costume_TouchComponents | costume.c | 21 |
