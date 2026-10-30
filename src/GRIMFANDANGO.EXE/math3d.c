@@ -497,8 +497,6 @@ void Angles_ToMatrix(float *param_1,undefined4 *param_2,float *param_3)
 
 
 /* ---- 0x0044efd0  Matrix_Transpose ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void __cdecl Matrix_Transpose(float *out,float *m)
 
 {
@@ -523,8 +521,6 @@ void __cdecl Matrix_Transpose(float *out,float *m)
   out[0xb] = -(m[7] * fVar1 + m[6] * fVar3 + m[8] * fVar2);
   return;
 }
-#endif
-
 
 /* ---- 0x0044f080  Angles_ToMatrixNoPos ---- */
 /* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
@@ -714,8 +710,6 @@ void Matrix_AxisAngle(float *param_1,float *param_2,float param_3)
 
 
 /* ---- 0x0044f490  Camera_BuildBasis ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Camera basis from (position, interest, roll) into out[0..11]: out+0 right = normalise(forward x
    rolledUp), out+0xc forward = normalise(interest - position), out+0x18 up = right-forward cross,
    out+0x24 position. The up used is (0,0,1) rolled about the forward by roll with Matrix_AxisAngle
@@ -774,12 +768,8 @@ void Camera_BuildBasis(float *param_1,float *param_2,float *param_3,undefined4 p
 #undef local_44
 #undef local_48
 
-#endif
-
 
 /* ---- 0x0044f650  Matrix_ToAngles ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* WARNING: Variable defined which should be unmapped: local_28 */
 
 void Matrix_ToAngles(float *param_1,float *param_2)
@@ -878,8 +868,6 @@ void Matrix_ToAngles(float *param_1,float *param_2)
 #undef local_8
 #undef local_c
 
-#endif
-
 
 /* ---- 0x0044f880  Matrix_Identity ---- */
 void __cdecl Matrix_Identity(float *m)
@@ -919,8 +907,6 @@ void __cdecl Matrix_Mul34(float *out,float *a,float *b)
 }
 
 /* ---- 0x0044fa70  Matrix_BuildRotation ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Rotation 3x4 from pitch/yaw/roll angles in degrees */
 
 void __cdecl Matrix_BuildRotation(float *m,float *angles)
@@ -969,12 +955,8 @@ void __cdecl Matrix_BuildRotation(float *m,float *angles)
 #undef local_30
 #undef local_c
 
-#endif
-
 
 /* ---- 0x0044fc60  Matrix_Multiply ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void Matrix_Multiply(float *param_1,float *param_2)
 
 {
@@ -1021,8 +1003,6 @@ void Matrix_Multiply(float *param_1,float *param_2)
 #undef local_2c
 #undef local_30
 #undef local_c
-
-#endif
 
 
 /* ---- 0x0044fe50  Matrix_BuildTransform ---- */
@@ -1086,8 +1066,6 @@ void __cdecl Vec3_TransformTo(float *out,float *v,float *m)
 }
 
 /* ---- 0x0044ffc0  Vec3_Transform ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Transforms the point in place by the 3x4 matrix */
 
 void __cdecl Vec3_Transform(float *vec,float *m)
@@ -1125,8 +1103,6 @@ void __cdecl Vec3_Transform(float *vec,float *m)
 #undef local_8
 #undef local_c
 
-#endif
-
 
 /* ---- 0x00450060  Vec3_Sub ---- */
 void __cdecl Vec3_Sub(float *out,float *a,float *b)
@@ -1139,8 +1115,6 @@ void __cdecl Vec3_Sub(float *out,float *a,float *b)
 }
 
 /* ---- 0x004500d0  Vec3_Rotate3x3 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Rotates the vector in place by the 3x3 part of the matrix */
 
 void __cdecl Vec3_Rotate3x3(float *vec,float *m)
@@ -1181,8 +1155,6 @@ void __cdecl Vec3_Rotate3x3(float *vec,float *m)
 #undef local_4
 #undef local_8
 #undef local_c
-
-#endif
 
 
 /* ---- 0x00450170  Matrix_TransformPoints ---- */

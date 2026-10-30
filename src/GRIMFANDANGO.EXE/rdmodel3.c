@@ -1074,8 +1074,6 @@ void rdModel3_BuildBoundingBoxCorners(int param_1)
 
 
 /* ---- 0x0040c520  rdModel3_CalcBoundingBoxes ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Computes the min/max box of every mesh, of the whole model (through
    rdModel3_AccumulateNodeBounds), and the model's center and radius. Source file Rdmodel3.c
    (C:\grimjedi\Libs\RDroid\Primitives\Rdmodel3.c). */
@@ -1171,8 +1169,6 @@ void rdModel3_CalcBoundingBoxes(uint param_1)
   return;
 }
 #undef local_4
-
-#endif
 
 
 /* ---- 0x0040c710  rdModel3_AccumulateNodeBounds ---- */
@@ -1305,8 +1301,6 @@ void rdModel3_CalcRadii(int param_1)
 
 
 /* ---- 0x0040c970  rdModel3_AccumulateNodeRadius ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Recursive helper of rdModel3_CalcRadii: composes node matrices and updates the radius. Source
    file Rdmodel3.c (C:\grimjedi\Libs\RDroid\Primitives\Rdmodel3.c). */
@@ -1373,8 +1367,6 @@ void rdModel3_AccumulateNodeRadius(int param_1,int param_2,float *param_3)
 #undef local_90
 #undef local_9c
 #undef local_a8
-
-#endif
 
 
 /* ---- 0x0040cad0  rdModel3_CalcFaceNormals ---- */

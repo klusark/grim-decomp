@@ -2039,8 +2039,6 @@ void Lua_GetShrinkPos(undefined4 param_1,double param_2)
 
 
 /* ---- 0x00499000  Lua_SetSoundParameters ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Lua opcode: SetSoundParameters */
 
 void Lua_SetSoundParameters(void)
@@ -2138,8 +2136,6 @@ void Lua_SetSoundParameters(void)
 #undef local_4
 #undef local_8
 #undef local_c
-
-#endif
 
 
 /* ---- 0x004991c0  Lua_GetSoundParameters ---- */
@@ -2317,8 +2313,6 @@ void Lua_SetSelectedActor(void)
 }
 
 /* ---- 0x004993c0  Lua_PutActorAt ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Lua opcode: PutActorAt */
 
 void Lua_PutActorAt(void)
@@ -2364,8 +2358,6 @@ void Lua_PutActorAt(void)
 #undef local_10
 #undef local_c
 
-#endif
-
 
 /* ---- 0x004994a0  Lua_PutActorInSet ---- */
 /* Lua opcode: PutActorInSet */
@@ -2407,8 +2399,6 @@ void Lua_PutActorInSet(void)
 }
 
 /* ---- 0x00499590  Lua_WalkActorVector ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* WARNING: Variable defined which should be unmapped: local_78 */
 /* Lua opcode: WalkActorVector(actor, cameraActor, x, y, z [, yawOffset]). Transforms the vector by
    the camera actor's frame, adds the actor position, turns the walker heading toward it by at most
@@ -2507,8 +2497,7 @@ void Lua_WalkActorVector(void)
             fVar1 = -fVar1;
           }
           fVar12 = Timer_GetFrameSeconds();
-          Walker_TurnToPoint(*(void **)(*(int *)(iVar2 + 0xa4) + 0x1b4),(int)local_54,
-                             (int)(fVar12 * fVar1 + fVar12 * fVar1));
+          Walker_TurnToPoint(*(void **)(*(int *)(iVar2 + 0xa4) + 0x1b4),(int)local_54,PUN(int,(float)(fVar12 * fVar1 + fVar12 * fVar1)));
           if (90.0 - fVar11 < 90.0) {
             *(uint *)(iVar2 + 8) = *(uint *)(iVar2 + 8) & 0xfffffffe;
             Actor_WalkForward(iVar2);
@@ -2532,8 +2521,6 @@ void Lua_WalkActorVector(void)
 #undef local_78
 #undef local_8
 #undef local_c
-
-#endif
 
 
 /* ---- 0x00499800  Lua_WalkActorForward ---- */
@@ -2560,8 +2547,6 @@ void Lua_WalkActorForward(void)
 }
 
 /* ---- 0x00499860  Lua_WalkActorTo ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Lua opcode: WalkActorTo */
 
 void Lua_WalkActorTo(void)
@@ -2626,12 +2611,8 @@ void Lua_WalkActorTo(void)
 #undef local_24
 #undef local_c
 
-#endif
-
 
 /* ---- 0x004999d0  Lua_WalkActorToAvoiding ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Lua opcode: WalkActorToAvoiding */
 
 void Lua_WalkActorToAvoiding(void)
@@ -2704,8 +2685,6 @@ void Lua_WalkActorToAvoiding(void)
 #undef local_24
 #undef local_28
 #undef local_c
-
-#endif
 
 
 /* ---- 0x00499b80  Lua_IsActorMoving ---- */
@@ -2942,8 +2921,6 @@ void Lua_IsActorChoring(void)
 
 
 /* ---- 0x00499ff0  Lua_GetActorChores ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* WARNING: Variable defined which should be unmapped: local_2c */
 /* Lua opcode: GetActorChores */
 
@@ -3007,8 +2984,6 @@ void Lua_GetActorChores(void)
 #undef local_14
 #undef local_18
 #undef local_2c
-
-#endif
 
 
 /* ---- 0x0049a160  Lua_GetActorCostumeDepth ---- */
@@ -3091,8 +3066,6 @@ LAB_0049a295:
 }
 
 /* ---- 0x0049a2a0  Lua_GetActorLoopingChores ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* WARNING: Variable defined which should be unmapped: local_2c */
 /* Lua opcode: GetActorLoopingChores */
 
@@ -3156,8 +3129,6 @@ void Lua_GetActorLoopingChores(void)
 #undef local_14
 #undef local_18
 #undef local_2c
-
-#endif
 
 
 /* ---- 0x0049a410  Lua_SetActorColormap ---- */
@@ -3521,8 +3492,6 @@ void Lua_PlayActorChoreLooping(void)
 
 
 /* ---- 0x0049aac0  Lua_ActorLookAt ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Lua opcode: ActorLookAt */
 
 void Lua_ActorLookAt(void)
@@ -3628,8 +3597,6 @@ void Lua_ActorLookAt(void)
 }
 #undef local_4
 #undef local_8
-
-#endif
 
 
 /* ---- 0x0049ad30  Lua_IsActorLooking ---- */
@@ -4274,8 +4241,6 @@ void Lua_SetActorHead(void)
 
 
 /* ---- 0x0049b830  Lua_CanActorSee ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Lua opcode: CanActorSee */
 
 void Lua_CanActorSee(void)
@@ -4361,8 +4326,6 @@ void Lua_CanActorSee(void)
 #undef local_10
 #undef local_14
 #undef local_c
-
-#endif
 
 
 /* ---- 0x0049b9e0  Lua_GetVisibleThings ---- */
@@ -4501,8 +4464,6 @@ void Lua_GetActorPuckVector(void)
 
 
 /* ---- 0x0049bcc0  Lua_GetActorYawToPoint ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Lua opcode: GetActorYawToPoint(actor, x, y, z | {x, y, z}). Creates the extra and the walker if
    missing, then returns Actor_GetYawToPoint. */
 
@@ -4567,8 +4528,6 @@ void Lua_GetActorYawToPoint(void)
 #undef local_14
 #undef local_18
 #undef local_c
-
-#endif
 
 
 /* ---- 0x0049be40  Lua_SetActorReflection ---- */
@@ -4654,8 +4613,6 @@ void Lua_GetActorRot(void)
 }
 
 /* ---- 0x0049bfa0  Lua_SetActorRot ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Lua opcode: SetActorRot */
 
 void Lua_SetActorRot(void)
@@ -4705,8 +4662,6 @@ void Lua_SetActorRot(void)
 #undef local_10
 #undef local_14
 #undef local_c
-
-#endif
 
 
 /* ---- 0x0049c0a0  Lua_SetActorPitch ---- */
@@ -4893,8 +4848,6 @@ void Lua_IsActorInSector(void)
 
 
 /* ---- 0x0049c3b0  Lua_GetPointSector ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* WARNING: Variable defined which should be unmapped: local_24 */
 /* Lua opcode: GetPointSector */
 
@@ -4952,12 +4905,8 @@ void Lua_GetPointSector(void)
 #undef local_24
 #undef local_c
 
-#endif
-
 
 /* ---- 0x0049c4c0  Lua_IsPointInSector ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* WARNING: Variable defined which should be unmapped: local_20 */
 /* Lua opcode: IsPointInSector */
 
@@ -5007,8 +4956,6 @@ void Lua_IsPointInSector(void)
 }
 #undef local_20
 #undef local_c
-
-#endif
 
 
 /* ---- 0x0049c5e0  Lua_RunSystemScript ---- */
@@ -5508,8 +5455,6 @@ void Lua_EnableDebugKeys(void)
 }
 
 /* ---- 0x0049cf60  Lua_WorldToScreen ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* WARNING: Variable defined which should be unmapped: local_2c */
 /* Lua opcode: WorldToScreen */
 
@@ -5555,8 +5500,6 @@ void Lua_WorldToScreen(void)
 #undef local_2c
 #undef local_8
 #undef local_c
-
-#endif
 
 
 /* ---- 0x0049d030  Lua_ScreenToWorld ---- */
@@ -5828,8 +5771,6 @@ void Lua_DisableControl(void)
 }
 
 /* ---- 0x0049d470  Lua_GetControlState ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Lua opcode: GetControlState */
 
 void Lua_GetControlState(void)
@@ -5878,8 +5819,6 @@ void Lua_GetControlState(void)
 #undef local_4
 #undef local_8
 #undef local_c
-
-#endif
 
 
 /* ---- 0x0049d550  Lua_CallCostumeOverrideHandler ---- */
@@ -6563,8 +6502,6 @@ void * Lua_RestoreUserdataHook(int param_1,void *param_2)
 }
 
 /* ---- 0x0049e0b0  Lua_DispatchControlHandlers ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* WARNING: Variable defined which should be unmapped: local_58 */
 /* Calls system.buttonHandler / system.axisHandler for every enabled control whose state changed
    (last value kept at control+8) */
@@ -6709,8 +6646,6 @@ undefined4 Lua_DispatchControlHandlers(void)
 #undef local_40
 #undef local_44
 #undef local_58
-
-#endif
 
 
 /* ---- 0x0049e380  Lua_CreateSystemTable ---- */
@@ -7509,8 +7444,6 @@ void Lua_SetMemoryUsage(void)
 }
 
 /* ---- 0x0049f0f0  Lua_RotateVector ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Lua opcode: RotateVector */
 
 void Lua_RotateVector(void)
@@ -7578,8 +7511,6 @@ void Lua_RotateVector(void)
 #undef local_18
 #undef local_1c
 #undef local_c
-
-#endif
 
 
 /* ---- 0x0049f2b0  Lua_GetCameraPosition ---- */
@@ -8026,8 +7957,6 @@ void Lua_GetCameraLookVector(void)
 
 
 /* ---- 0x0049fb00  Lua_PointActorAt ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Lua opcode: PointActorAt(actor, x, y, z | actor). Creates the walker if missing, turns the walker
    heading all the way to the point (Walker_TurnToPoint with FLT_MAX) and negates the turn rate so
    Walker_UpdateYaw snaps the visible yaw next frame. Only the yaw changes; pitch and roll are not
@@ -8085,12 +8014,8 @@ void Lua_PointActorAt(void)
 #undef local_14
 #undef local_c
 
-#endif
-
 
 /* ---- 0x0049fc60  Lua_TurnActorTo ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Lua opcode: TurnActorTo(actor, x, y, z | actor). Creates the walker if missing, turns the heading
    by at most |rate| * frameSeconds (no time scale) and returns TRUE while a whole step was taken
    (angle left >= step), nil once done. With a turn rate of 0 the step is 0 and it returns TRUE
@@ -8146,8 +8071,7 @@ LAB_0049fd1e:
     fVar1 = -fVar1;
   }
   fVar7 = Timer_GetFrameSeconds();
-  fVar8 = Walker_TurnToPoint(*(void **)(*(int *)(iVar2 + 0xa4) + 0x1b4),(int)local_c,
-                             (int)(fVar7 * fVar1));
+  fVar8 = Walker_TurnToPoint(*(void **)(*(int *)(iVar2 + 0xa4) + 0x1b4),(int)local_c,PUN(int,(float)(fVar7 * fVar1)));
   if (fVar8 < 0.0) {
     fVar8 = -fVar8;
   }
@@ -8163,12 +8087,8 @@ LAB_0049fde2:
 #undef local_14
 #undef local_c
 
-#endif
-
 
 /* ---- 0x0049fdf0  Lua_PerSecond ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* WARNING: Variable defined which should be unmapped: local_c */
 /* Lua opcode: PerSecond */
 
@@ -8194,12 +8114,8 @@ void Lua_PerSecond(void)
 #undef local_4
 #undef local_c
 
-#endif
-
 
 /* ---- 0x0049fe40  Lua_SnapToPlane ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Lua opcode: SnapToPlane */
 
 void Lua_SnapToPlane(void)
@@ -8237,12 +8153,8 @@ void Lua_SnapToPlane(void)
 #undef local_10
 #undef local_c
 
-#endif
-
 
 /* ---- 0x0049ff00  Lua_GetAngleBetweenVectors ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* WARNING: Variable defined which should be unmapped: local_30 */
 /* Lua opcode: GetAngleBetweenVectors */
 
@@ -8305,8 +8217,6 @@ void Lua_GetAngleBetweenVectors(void)
 #undef local_1c
 #undef local_30
 #undef local_c
-
-#endif
 
 
 /* ---- 0x004a00a0  Lua_GetAngleBetweenActors ---- */

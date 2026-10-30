@@ -53,8 +53,6 @@ void __cdecl rdLight_SetAngles(void *light,float inner,float outer)
 
 
 /* ---- 0x00451510  rdLight_CalcVertexIntensities ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Per-vertex light level (monochrome, light colour unused). out[v] = base[v] + sum over lights,
    clamped to <= 1 after each light (stops at 1). Returns the mean.
    Lights culled when dist >= light+0x34 (= intensity / 0.2). k = camera+0x45c = 0.2
@@ -172,6 +170,4 @@ LAB_0045173f:
 #undef local_28
 #undef local_2c
 #undef local_c
-
-#endif
 

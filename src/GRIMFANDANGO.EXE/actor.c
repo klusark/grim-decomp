@@ -266,8 +266,6 @@ Actor_SetHead(void *actor,int joint1,int joint2,int joint3,float maxRoll,float m
 
 
 /* ---- 0x0048fa60  Actor_CanSeePoint ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* True when the point lies within the head joint's view cone (cosine threshold at costume+0x24 set
    by Actor_SetHead) */
 
@@ -316,8 +314,6 @@ int __cdecl Actor_CanSeePoint(void *actor,float *point,float *outDistance)
 #undef local_3c
 #undef local_48
 #undef local_c
-
-#endif
 
 
 /* ---- 0x0048fb80  Actor_CanSee ---- */
@@ -443,8 +439,6 @@ void Actor_UpdateMovement(void *param_1,float param_2)
 
 
 /* ---- 0x0048fe80  Actor_UpdateLookAt ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Head tracking: turns the three head joints toward the look-at point (extra+0) limited by the look
    rate and the yaw/pitch limits */
 
@@ -581,8 +575,6 @@ void __cdecl Actor_UpdateLookAt(void *actor,float dt)
 #undef fStack_c8
 #undef local_c0
 #undef local_c4
-
-#endif
 
 
 /* ---- 0x00490210  Actor_UpdateTalk ---- */
@@ -1168,8 +1160,6 @@ void __cdecl Actor_PopCostume(void *actor,int free)
 }
 
 /* ---- 0x00490f50  Actor_PuckOrient ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* WARNING: Variable defined which should be unmapped: local_68 */
 /* Actor_PuckOrient: at the end of the actor update when actor+4 & 0x10 (ActorPuckOrient). Rebuilds
    the actor matrix, takes the angle between its up row and the up vector of the walker frame; over
@@ -1239,8 +1229,6 @@ void Actor_PuckOrient(float param_1)
 #undef local_54
 #undef local_68
 
-#endif
-
 
 /* ---- 0x00491110  Actor_UpdateWalker ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -1260,9 +1248,8 @@ void Actor_UpdateWalker(int param_1)
   if ((*(int *)(*(int *)(param_1 + 0xa4) + 0x10) != 0) && ((*(byte *)(param_1 + 8) & 1) == 0)) {
     iVar2 = *(int *)(param_1 + 0xa4);
     fVar5 = Timer_GetFrameSeconds();
-    Walker_TurnHeading(*(void **)(iVar2 + 0x1b4),
-                       (int)((float)*(int *)(iVar2 + 0x10) *
-                            *(float *)(iVar2 + 0x1c) * fVar5 * *(float *)(iVar2 + 0x41c)));
+    Walker_TurnHeading(*(void **)(iVar2 + 0x1b4),PUN(int,(float)((float)*(int *)(iVar2 + 0x10) *
+                            *(float *)(iVar2 + 0x1c) * fVar5 * *(float *)(iVar2 + 0x41c))));
   }
   iVar2 = *(int *)(param_1 + 0xa4);
   if (*(int *)(iVar2 + 0xc) != 0) {
@@ -1759,8 +1746,6 @@ void __cdecl Actor_PushSectorOppositeEdge(int a1,int a2)
 }
 
 /* ---- 0x00493230  Actor_FollowPath ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Actor_FollowPath(actor): walk to a point along the planned path (walker+0x2c next node); sets
    actor+8 bit 0 while the path lasts, clears it at the end. TurnActor and SetActorRot clear bit 0,
    ending the walk. */
@@ -1820,8 +1805,6 @@ void Actor_FollowPath(int param_1)
 #undef local_10
 #undef local_8
 #undef local_c
-
-#endif
 
 
 /* ---- 0x004933c0  Actor_SetWalkDominate ---- */
