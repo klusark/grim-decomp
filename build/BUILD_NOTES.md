@@ -864,3 +864,19 @@ Verified (Lua hook + PrintWindow, gdb attached, no SIGSEGV): the repro; Manny sc
 legs, arms crossing every edge); scale 1.0 and 0.5 close-ups; 900 frames of walking at scale 1.8 (radii stay constant, 910 polygons outside the
 guard band were all sent through the clipper, none unclipped); Glottis in the garage at scale 1.8 .. 14 (huge, crossing the top and side
 edges); boot to the office, walking (`WalkActorForward`), the F1 menu (`main_menu:run()`).
+
+## Scripted test suite on the rebuilt engine (2026-10-29, agent G)
+
+`grim_tools/autorun/rebuilt_test.sh` / `rebuilt_all.sh` (REBUILT_DIR=<this tree>/build/run) run the user's Lua test tiers
+against the rebuilt exe. The earlier "stalls" of the turn tier of `test_nav.lua` and of the whole of `test_rules.lua` were a
+test-environment problem, not an engine bug: the hand-made sets (`t_flat.set` ...) live in `grim_tools/autorun/tests/sets/DATAUSR.LAB`,
+the install keeps that archive parked as `DATAUSR.LAB.bak`, so `Set:create`/`switch_to_set` found no file (`Ack!  No idea what CD
+t_flat.set is on!` in the log) and the script waited for a set that never came. `rebuilt_test.sh` now installs the archive in GRIMDATA
+for the run. With it: unit 60/60, walk 44/44, rules 393/393 (every recorded value of the original within 3e-4 m), turn 31/31, slide
+9/9 (corner/wall slides within 6 mm of the original, stair-wall slides identical to 4 decimals), coll 157/162 (the 4 diagonal
+head-on box slides go to the other side of the approach line, the same chaos as the cases in `nav_known.lua`).
+The `move` tier fails for the 24 cases that start on the stair of `ly` (72/96): the current `ar_nav.lua` plans a 4 point way
+(an extra point along Manny's heading before the stair link) where the logs recorded on the original have 3; the constrained walker
+is then held up at the stair top 7 times. With the extra point dropped all 96 pass on the rebuilt engine.
+Debug trick: `lua31.exe` of `autorun/tools/lua31` takes the DLL as its first argument, so the original and the rebuilt `lua.dll` can be
+compared on the planner without starting a game (identical results).
