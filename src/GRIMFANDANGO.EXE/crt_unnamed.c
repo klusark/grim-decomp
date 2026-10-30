@@ -167,6 +167,8 @@ int FUN_004addf0(void)
 
 
 /* ---- 0x004adef0  FUN_004adef0 ---- */
+/* NOT COMPILED: names/lib_replace.json (host): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 short * FUN_004adef0(short *param_1,int param_2,undefined4 param_3)
 
 {
@@ -197,8 +199,12 @@ LAB_004adf40:
   _unlock_file(param_3);
   return param_1;
 }
+#endif
+
 
 /* ---- 0x004ae410  FUN_004ae410 ---- */
+/* NOT COMPILED: names/lib_replace.json (host): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 uint * FUN_004ae410(uint *param_1,uint *param_2,uint param_3)
 
 {
@@ -299,6 +305,8 @@ LAB_004ae4ca:
     uVar3 = uVar3 - 1;
   } while( true );
 }
+#endif
+
 
 /* ---- 0x004ae735  FUN_004ae735 ---- */
 /* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
@@ -2179,6 +2187,8 @@ void FUN_004b2100(void)
 
 
 /* ---- 0x004b4440  FUN_004b4440 ---- */
+/* NOT COMPILED: names/lib_replace.json (host): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 uint __thiscall FUN_004b4440(undefined4 param_1,undefined4 *param_2)
 
 {
@@ -2254,16 +2264,22 @@ uint __thiscall FUN_004b4440(undefined4 param_1,undefined4 *param_2)
 }
 #undef local_4
 
+#endif
+
 
 /* ---- 0x004b4ad4  FUN_004b4ad4 ---- */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 float10 FUN_004b4ad4(void)
 
 {
   return (float10)0;
 }
+#endif
+
 
 /* ---- 0x004b4b0d  FUN_004b4b0d ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 float10 FUN_004b4b0d(void)
 
@@ -2285,7 +2301,7 @@ float10 FUN_004b4b0d(void)
 
 
 /* ---- 0x004b4b0f  FUN_004b4b0f ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 float10 FUN_004b4b0f(void)
 
@@ -3922,12 +3938,16 @@ void FUN_004b7730(uint *param_1,uint *param_2)
 
 
 /* ---- 0x004b77f0  FUN_004b77f0 ---- */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 void FUN_004b77f0(void)
 
 {
   _amsg_exit(2);
   return;
 }
+#endif
+
 
 /* ---- 0x004b7800  FUN_004b7800 ---- */
 /* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
@@ -4056,7 +4076,7 @@ int __fastcall FUN_004b8f30(byte param_1,int param_2)
 
 
 /* ---- 0x004b9916  FUN_004b9916 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (host): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -4117,7 +4137,7 @@ FUN_004b9916(undefined4 param_1,uint param_2,ushort param_3,uint param_4,uint pa
 
 
 /* ---- 0x004b9b1c  FUN_004b9b1c ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (host): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -15836,7 +15856,7 @@ undefined4 FUN_004d2fb0(int param_1)
 
 
 /* ---- 0x004d54b4  FUN_004d54b4 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (host): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 float10 FUN_004d54b4(void)
 
