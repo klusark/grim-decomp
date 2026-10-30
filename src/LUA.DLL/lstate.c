@@ -6,8 +6,6 @@
 #include "functions.h"
 
 /* ---- 0x100075e0  lstate__75e0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Unidentified function of lstate.c (Grim execution states / tasks) */
 
 undefined4 * __fastcall lstate__75e0(undefined4 *param_1)
@@ -38,12 +36,8 @@ undefined4 * __fastcall lstate__75e0(undefined4 *param_1)
   param_1[9] = iVar1 + 0x3f8;
   return param_1;
 }
-#endif
-
 
 /* ---- 0x10007660  lstate__7660 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Unidentified function of lstate.c (Grim execution states / tasks) */
 
 undefined4 __stdcall lstate__7660(int a1)
@@ -115,12 +109,8 @@ LAB_100077c9:
 #undef local_4
 #undef local_8
 
-#endif
-
 
 /* ---- 0x10007810  FUN_10007810 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 uint __cdecl FUN_10007810(int param_1,int param_2)
 
 {
@@ -129,11 +119,9 @@ uint __cdecl FUN_10007810(int param_1,int param_2)
   }
   return (uint)(*(uint *)(param_2 + 4) < *(uint *)(param_1 + 4));
 }
-#endif
-
 
 /* ---- 0x10007830  lstate__7830 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Unidentified function of lstate.c (Grim execution states / tasks) */
 
@@ -159,8 +147,6 @@ undefined4 __stdcall lstate__7830(int a1,int a2)
 
 
 /* ---- 0x10007880  lstate__7880 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Unidentified function of lstate.c (Grim execution states / tasks) */
 
 undefined4 __stdcall lstate__7880(int a1,int a2)
@@ -172,12 +158,8 @@ undefined4 __stdcall lstate__7880(int a1,int a2)
   uVar1 = (*(code *)a2)(a1 + 4,4);
   return uVar1;
 }
-#endif
-
 
 /* ---- 0x100078b0  lstate__78b0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Unidentified function of lstate.c (Grim execution states / tasks) */
 
 int __stdcall lstate__78b0(int a1)
@@ -203,12 +185,8 @@ switchD_100078c7_caseD_fffffff4:
     return uVar2;
   }
 }
-#endif
-
 
 /* ---- 0x10007910  lstate__7910 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Unidentified function of lstate.c (Grim execution states / tasks) */
 
 undefined4 __stdcall lstate__7910(int a1,int a2)
@@ -220,12 +198,8 @@ undefined4 __stdcall lstate__7910(int a1,int a2)
   uVar1 = lstate__78b0(a1);
   return uVar1;
 }
-#endif
-
 
 /* ---- 0x10007930  lstate__7930 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Unidentified function of lstate.c (Grim execution states / tasks) */
 
 undefined4 __stdcall lstate__7930(int a1)
@@ -254,12 +228,8 @@ undefined4 __stdcall lstate__7930(int a1)
   DAT_1002bf7c = 0;
   return 0;
 }
-#endif
-
 
 /* ---- 0x100079d0  lstate__79d0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Unidentified function of lstate.c (Grim execution states / tasks) */
 
 undefined4 __stdcall lstate__79d0(int a1)
@@ -562,12 +532,8 @@ undefined4 __stdcall lstate__79d0(int a1)
 #undef uStack_18
 #undef uStack_c
 
-#endif
-
 
 /* ---- 0x100081c0  lstate__81c0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Unidentified function of lstate.c (Grim execution states / tasks) */
 
@@ -738,12 +704,8 @@ undefined4 __stdcall lstate__81c0(int a1)
 #undef puStack_30
 #undef puStack_34
 
-#endif
-
 
 /* ---- 0x100085e0  lstate__85e0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Unidentified function of lstate.c (Grim execution states / tasks) */
 
 byte * __cdecl lstate__85e0(int param_1)
@@ -766,12 +728,8 @@ byte * __cdecl lstate__85e0(int param_1)
   } while (uVar1 != 0);
   return pbVar3 + (2 - (int)pbVar2);
 }
-#endif
-
 
 /* ---- 0x10008640  lstate__8640 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Unidentified function of lstate.c (Grim execution states / tasks) */
 
 undefined4 __thiscall lstate__8640(void *this,int a1)
@@ -845,11 +803,9 @@ undefined4 __thiscall lstate__8640(void *this,int a1)
 #undef local_4
 #undef local_8
 
-#endif
-
 
 /* ---- 0x100087f0  lstate__87f0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Unidentified function of lstate.c (Grim execution states / tasks) */
 
@@ -862,20 +818,12 @@ undefined4 __thiscall lstate__87f0(void *this,int a1)
   void *this_00;
   int iVar2;
   int iVar3;
-  undefined4 *unaff_FS_OFFSET = (undefined4 *)TEB_BASE();
   #define local_1c (*(int *)(_frame + (0x30 - 0x1c)))
   #define iStack_18 (*(int *)(_frame + (0x30 - 0x18)))
   #define iStack_14 (*(int *)(_frame + (0x30 - 0x14)))
   #define pvStack_10 (*(void **)(_frame + (0x30 - 0x10)))
-  #define uStack_c (*(undefined4 *)(_frame + (0x30 - 0xc)))
-  #define pcStack_8 (*(code **)(_frame + (0x30 - 0x8)))
-  #define uStack_4 (*(undefined4 *)(_frame + (0x30 - 0x4)))
   
   a1_00 = a1;
-  uStack_4 = 0xffffffff;
-  pcStack_8 = FUN_10021ffb;
-  uStack_c = *unaff_FS_OFFSET;
-  *unaff_FS_OFFSET = &uStack_c;
   iVar3 = 0;
   local_1c = 0;
   (*(code *)a1)(&local_1c,4);
@@ -884,14 +832,12 @@ undefined4 __thiscall lstate__87f0(void *this,int a1)
   }
   else {
     pvStack_10 = lvm__dd10(0x30);
-    uStack_4 = 0;
     if (pvStack_10 == (void *)0x0) {
       this_00 = (void *)0x0;
     }
     else {
       this_00 = (void *)lvm__ddb0(pvStack_10,0,0,0);
     }
-    uStack_4 = 0xffffffff;
     *(void **)this = this_00;
     lvm__dbd0(this_00,a1_00,(int)this + 0x1c,local_1c + -1);
   }
@@ -945,64 +891,44 @@ undefined4 __thiscall lstate__87f0(void *this,int a1)
   }
   (*(code *)a1_00)((int)this + 0xc0,4);
   lstate__7910((int)this + 0xc4,a1_00);
-  *unaff_FS_OFFSET = uStack_c;
   return 0;
 }
 #undef iStack_14
 #undef iStack_18
 #undef local_1c
-#undef pcStack_8
 #undef pvStack_10
-#undef uStack_4
-#undef uStack_c
 
 #endif
 
 
 /* ---- 0x10008ad0  lstate__8ad0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Unidentified function of lstate.c (Grim execution states / tasks) */
 
 undefined4 * lstate__8ad0(void)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int *piVar1;
   undefined4 *puVar2;
   int *piVar3;
-  undefined4 *unaff_FS_OFFSET = (undefined4 *)TEB_BASE();
-  #define local_c (*(undefined4 *)(_frame + (0x20 - 0xc)))
-  #define pcStack_8 (*(code **)(_frame + (0x20 - 0x8)))
-  #define local_4 (*(undefined4 *)(_frame + (0x20 - 0x4)))
   
-  local_4 = 0xffffffff;
-  pcStack_8 = FUN_1002201b;
-  local_c = *unaff_FS_OFFSET;
-  *unaff_FS_OFFSET = &local_c;
   piVar1 = PTR_1002bf6c;
   puVar2 = luaM_malloc(0xd4);
   piVar3 = (int *)0x0;
-  local_4 = 0;
   if (puVar2 != (undefined4 *)0x0) {
     piVar3 = lstate__75e0(puVar2);
   }
-  local_4 = 0xffffffff;
   PTR_1002bf6c = piVar3;
   lua_initstate();
   PTR_1002bf6c = piVar1;
-  *unaff_FS_OFFSET = local_c;
   return piVar3;
 }
-#undef local_4
-#undef local_c
-#undef pcStack_8
-
 #endif
 
 
 /* ---- 0x10008b70  lstate__8b70 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Unidentified function of lstate.c (Grim execution states / tasks) */
 
@@ -1029,8 +955,6 @@ int __thiscall lstate__8b70(void *this,int a1)
 
 
 /* ---- 0x10008bb0  lstate__8bb0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Unidentified function of lstate.c (Grim execution states / tasks) */
 
 void __fastcall lstate__8bb0(int param_1)
@@ -1046,12 +970,8 @@ void __fastcall lstate__8bb0(int param_1)
   *(undefined4 *)(param_1 + 0xd0) = 0;
   return;
 }
-#endif
-
 
 /* ---- 0x10008bf0  lstate__8bf0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Unidentified function of lstate.c (Grim execution states / tasks) */
 
 undefined4 __fastcall lstate__8bf0(int param_1)
@@ -1059,12 +979,8 @@ undefined4 __fastcall lstate__8bf0(int param_1)
 {
   return *(undefined4 *)(param_1 + 0xcc);
 }
-#endif
-
 
 /* ---- 0x10008c00  lstate__8c00 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Unidentified function of lstate.c (Grim execution states / tasks) */
 
 void __fastcall lstate__8c00(int *param_1)
@@ -1077,5 +993,3 @@ void __fastcall lstate__8c00(int *param_1)
   (**(code **)(DAT_1002beb8 + 0x24))(param_1[8]);
   return;
 }
-#endif
-

@@ -374,7 +374,7 @@ int __cdecl Resource_SetExtraDataDir(char *dir)
 }
 
 /* ---- 0x0048d550  Resource_OpenLog ---- */
-bool Resource_OpenLog(char *param_1)
+int Resource_OpenLog(char *param_1)
 
 {
   int iVar1;

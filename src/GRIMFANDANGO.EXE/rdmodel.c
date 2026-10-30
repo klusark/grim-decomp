@@ -539,7 +539,7 @@ void __cdecl rdModel_DrawMesh(void *mesh,float *matrix)
                fVar4 = *(float *)((int)pvVar9 + (iVar12 + 0x1d) * 0xc) - *a,
                fVar5 = *(float *)((int)pvVar9 + iVar12 * 0xc + 0x164) - matrix[0xb],
                SQRT(fVar5 * fVar5 + fVar13 * fVar13 + fVar4 * fVar4) <
-               (float)piVar3[0xd] + *(float *)((int)pvVar11 + 0x60))) {
+               PUN(float,piVar3[0xd]) + *(float *)((int)pvVar11 + 0x60))) {
               (&UINT_007f30e0)[uVar10] = (uint)piVar3;
               Vec3_Sub((float *)(&DAT_007f1598 + uVar10 * 0xc),
                        (float *)((int)pvVar9 + (*piVar3 + 0x1d) * 0xc),local_84);
@@ -548,9 +548,9 @@ void __cdecl rdModel_DrawMesh(void *mesh,float *matrix)
                 local_5c = 0;
                 local_34 = local_58;
                 local_58 = 0;
-                local_a0[0] = -(float)piVar3[3];
-                local_a0[1] = -(float)piVar3[4];
-                local_a0[2] = -(float)piVar3[5];
+                local_a0[0] = -PUN(float,piVar3[3]);
+                local_a0[1] = -PUN(float,piVar3[4]);
+                local_a0[2] = -PUN(float,piVar3[5]);
                 Vec3_Sub((float *)(&DAT_007f1168 + UINT_007f31fc * 0xc),local_a0,local_84);
                 local_58 = local_34;
               }
@@ -585,7 +585,7 @@ void __cdecl rdModel_DrawMesh(void *mesh,float *matrix)
               else {
                 fVar13 = fVar4 * fVar4 + fVar5 * fVar5 + fVar13 * fVar13;
               }
-              fVar4 = (float)piVar3[0xd] + *(float *)((int)pvVar11 + 0x60);
+              fVar4 = PUN(float,piVar3[0xd]) + *(float *)((int)pvVar11 + 0x60);
               if (fVar13 < fVar4 * fVar4) {
                 (&UINT_007f30e0)[uVar10] = (uint)piVar3;
                 Vec3_Sub((float *)(&DAT_007f1598 + uVar10 * 0xc),
@@ -595,9 +595,9 @@ void __cdecl rdModel_DrawMesh(void *mesh,float *matrix)
                   local_60 = 0;
                   local_5c = 0;
                   local_58 = 0;
-                  local_a0[0] = -(float)piVar3[3];
-                  local_a0[1] = -(float)piVar3[4];
-                  local_a0[2] = -(float)piVar3[5];
+                  local_a0[0] = -PUN(float,piVar3[3]);
+                  local_a0[1] = -PUN(float,piVar3[4]);
+                  local_a0[2] = -PUN(float,piVar3[5]);
                   Vec3_Sub((float *)(&DAT_007f1168 + UINT_007f31fc * 0xc),local_a0,local_84);
                 }
                 uVar10 = UINT_007f31fc + 1;

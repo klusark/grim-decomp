@@ -95,11 +95,9 @@ undefined4 __cdecl lgc__5010(undefined4 *param_1)
 }
 
 /* ---- 0x10005070  lgc__5070 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Unidentified function of lgc.c (garbage collector) */
 
-void __cdecl lgc__5070(undefined4 *param_1)
+int __cdecl lgc__5070(undefined4 *param_1)
 
 {
   undefined4 *puVar1;
@@ -117,10 +115,8 @@ void __cdecl lgc__5070(undefined4 *param_1)
       puVar2 = (undefined4 *)*puVar1;
     }
   }
-  return;
+  return (int)puVar3;
 }
-#endif
-
 
 /* ---- 0x100050b0  luaC_markall ---- */
 /* Unidentified function of lgc.c (garbage collector) */

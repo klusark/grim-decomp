@@ -543,20 +543,18 @@ void __cdecl lstring__93e0(undefined4 *param_1)
 }
 
 /* ---- 0x10009410  lstring__9410 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Unidentified function of lstring.c (string table) */
 
-void lstring__9410(void)
+uint * lstring__9410(void)
 
 {
   int *piVar1;
-  undefined4 *puVar2;
-  undefined4 *puVar3;
+  uint *puVar2;
+  uint *puVar3;
   int iVar4;
   int iVar5;
   
-  puVar3 = (undefined4 *)0x0;
+  puVar3 = (uint *)0x0;
   iVar5 = 0;
   DAT_1002bf00 = 0;
   do {
@@ -564,10 +562,10 @@ void lstring__9410(void)
     piVar1 = (int *)(DAT_1002bef4 + iVar5);
     if (0 < *(int *)(DAT_1002bef4 + iVar5)) {
       do {
-        puVar2 = *(undefined4 **)(piVar1[2] + iVar4 * 4);
-        if (((puVar2 != (undefined4 *)0x0) && (puVar2 != (undefined4 *)&DAT_10027898)) &&
-           (puVar2[2] == -1)) {
-          *puVar2 = puVar3;
+        puVar2 = *(uint **)(piVar1[2] + iVar4 * 4);
+        if (((puVar2 != (uint *)0x0) && (puVar2 != (uint *)&DAT_10027898)) &&
+           (puVar2[2] == 0xffffffff)) {
+          *puVar2 = (uint)puVar3;
           *(undefined **)(piVar1[2] + iVar4 * 4) = &DAT_10027898;
           puVar3 = puVar2;
         }
@@ -576,10 +574,8 @@ void lstring__9410(void)
     }
     iVar5 = iVar5 + 0xc;
   } while (iVar5 < 0x2dc);
-  return;
+  return puVar3;
 }
-#endif
-
 
 /* ---- 0x10009470  lstring__9470 ---- */
 /* Unidentified function of lstring.c (string table) */
@@ -653,7 +649,7 @@ int * __cdecl lstring__9510(undefined *param_1)
 /* ---- 0x10009550  lstring__9550 ---- */
 /* Unidentified function of lstring.c (string table) */
 
-bool __cdecl lstring__9550(byte *param_1)
+int __cdecl lstring__9550(byte *param_1)
 
 {
   int iVar1;

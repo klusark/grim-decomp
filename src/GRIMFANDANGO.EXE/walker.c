@@ -299,9 +299,9 @@ uint Walker_AvoidActorPath
     return 0;
   }
   uVar16 = 0;
-  local_f8 = (float)(param_4 - 1);
+  local_f8 = PUN(float,(param_4 - 1));
   local_f0 = 0;
-  if (0 < (int)local_f8) {
+  if (0 < PUN(int,(float)local_f8)) {
     pfVar14 = (float *)(param_3 + 2);
     pfVar9 = param_5;
     do {
@@ -357,7 +357,7 @@ uint Walker_AvoidActorPath
           }
           pfVar9 = pfVar9 + 3;
           puVar19 = puVar19 + 1;
-          local_f4 = (float)((int)local_f4 + -1);
+          local_f4 = PUN(float,(PUN(int,(float)local_f4) + -1));
         } while (local_f4 != 0.0);
         fVar10 = (float)((code *)Collision_PickDetour)();
         if (fVar10 == -NAN) {
@@ -379,9 +379,9 @@ uint Walker_AvoidActorPath
           } while (iVar12 != 0);
         }
         pfVar21 = &local_e8;
-        (&local_1c)[(int)fVar10] = 0;
+        (&local_1c)[PUN(int,(float)fVar10)] = 0;
         local_f4 = PUN(float,(param_5 + local_100 * 3));
-        pfVar9 = (float *)((int)local_f4 + -0xc);
+        pfVar9 = (float *)(PUN(int,(float)local_f4) + -0xc);
         uVar16 = 0x491d51;
         pfVar11 = Actor_GetFrame(param_2);
         pfVar22 = local_7c;
@@ -392,7 +392,7 @@ uint Walker_AvoidActorPath
           pfVar24 = pfVar24 + 1;
         }
         iVar12 = Collision_PointInBox
-                           (pfVar9,&local_d0,local_88,(uint)pfVar14,(uint)in_stack_fffffed0,uVar25,
+                           (pfVar9,&local_d0,local_88,(uint)pfVar14,PUN(uint,(float)in_stack_fffffed0),uVar25,
                             uVar15,0x491cca,uVar16,(uint)pfVar11,pfVar21);
         if (iVar12 != 0) {
           iVar12 = ((code *)Planner_GetPath)();
@@ -403,40 +403,40 @@ uint Walker_AvoidActorPath
           do {
             iVar12 = iVar12 + -1;
             *PUN(float *,(float)local_f4) = *PUN(float *,(float)local_fc);
-            *(float *)((int)local_f4 + 4) = *(float *)((int)local_fc + 4);
-            *(float *)((int)local_f4 + 8) = *(float *)((int)local_fc + 8);
-            local_f4 = (float)((int)local_f4 + 0xc);
-            local_fc = (float)((int)local_fc + 0xc);
+            *(float *)(PUN(int,(float)local_f4) + 4) = *(float *)(PUN(int,(float)local_fc) + 4);
+            *(float *)(PUN(int,(float)local_f4) + 8) = *(float *)(PUN(int,(float)local_fc) + 8);
+            local_f4 = PUN(float,(PUN(int,(float)local_f4) + 0xc));
+            local_fc = PUN(float,(PUN(int,(float)local_fc) + 0xc));
           } while (iVar12 != 0);
           return uVar15;
         }
-        uVar16 = (int)((int)fVar10 + 3U) >> 0x1f;
-        fVar20 = (float)((((int)fVar10 + 3U ^ uVar16) - uVar16 & 3 ^ uVar16) - uVar16);
-        uVar16 = (int)((int)fVar10 + 5U) >> 0x1f;
-        fVar23 = (float)((((int)fVar10 + 5U ^ uVar16) - uVar16 & 3 ^ uVar16) - uVar16);
+        uVar16 = (int)(PUN(int,(float)fVar10) + 3U) >> 0x1f;
+        fVar20 = PUN(float,(((PUN(int,(float)fVar10) + 3U ^ uVar16) - uVar16 & 3 ^ uVar16) - uVar16));
+        uVar16 = (int)(PUN(int,(float)fVar10) + 5U) >> 0x1f;
+        fVar23 = PUN(float,(((PUN(int,(float)fVar10) + 5U ^ uVar16) - uVar16 & 3 ^ uVar16) - uVar16));
         local_f0 = ((code *)Planner_PlanPath)();
         iVar12 = ((code *)Planner_PlanPath)();
         if (iVar12 != 0) {
           if (local_f0 == 0) goto LAB_00491fa5;
-          local_104 = *pfVar9 - (&local_4c)[(int)fVar20 * 3];
-          fVar2 = *(float *)((int)local_f4 + -8) - (float)(&local_48)[(int)fVar20 * 3];
-          fVar3 = *(float *)((int)local_f4 + -4) - (float)(&local_44)[(int)fVar20 * 3];
-          fVar4 = (float)(&local_48)[(int)fVar20 * 3] - local_cc[0];
-          fVar5 = (float)(&local_44)[(int)fVar20 * 3] - local_cc[1];
-          fVar6 = *(float *)((int)local_f4 + -8) - (float)(&local_48)[(int)fVar23 * 3];
-          local_f8 = *(float *)((int)local_f4 + -4) - (float)(&local_44)[(int)fVar23 * 3];
-          local_fc = (float)(&local_48)[(int)fVar23 * 3] - local_cc[0];
-          fVar1 = (float)(&local_44)[(int)fVar23 * 3] - local_cc[1];
+          local_104 = *pfVar9 - (&local_4c)[PUN(int,(float)fVar20) * 3];
+          fVar2 = *(float *)(PUN(int,(float)local_f4) + -8) - PUN(float,(&local_48)[PUN(int,(float)fVar20) * 3]);
+          fVar3 = *(float *)(PUN(int,(float)local_f4) + -4) - PUN(float,(&local_44)[PUN(int,(float)fVar20) * 3]);
+          fVar4 = PUN(float,(&local_48)[PUN(int,(float)fVar20) * 3]) - local_cc[0];
+          fVar5 = PUN(float,(&local_44)[PUN(int,(float)fVar20) * 3]) - local_cc[1];
+          fVar6 = *(float *)(PUN(int,(float)local_f4) + -8) - PUN(float,(&local_48)[PUN(int,(float)fVar23) * 3]);
+          local_f8 = *(float *)(PUN(int,(float)local_f4) + -4) - PUN(float,(&local_44)[PUN(int,(float)fVar23) * 3]);
+          local_fc = PUN(float,(&local_48)[PUN(int,(float)fVar23) * 3]) - local_cc[0];
+          fVar1 = PUN(float,(&local_44)[PUN(int,(float)fVar23) * 3]) - local_cc[1];
           if (fVar1 * fVar1 +
               local_fc * local_fc +
-              ((&local_4c)[(int)fVar23 * 3] - local_d0) * ((&local_4c)[(int)fVar23 * 3] - local_d0)
+              ((&local_4c)[PUN(int,(float)fVar23) * 3] - local_d0) * ((&local_4c)[PUN(int,(float)fVar23) * 3] - local_d0)
               + local_f8 * local_f8 +
                 fVar6 * fVar6 +
-                (*pfVar9 - (&local_4c)[(int)fVar23 * 3]) * (*pfVar9 - (&local_4c)[(int)fVar23 * 3])
+                (*pfVar9 - (&local_4c)[PUN(int,(float)fVar23) * 3]) * (*pfVar9 - (&local_4c)[PUN(int,(float)fVar23) * 3])
               <= fVar5 * fVar5 +
                  fVar4 * fVar4 +
-                 ((&local_4c)[(int)fVar20 * 3] - local_d0) *
-                 ((&local_4c)[(int)fVar20 * 3] - local_d0) +
+                 ((&local_4c)[PUN(int,(float)fVar20) * 3] - local_d0) *
+                 ((&local_4c)[PUN(int,(float)fVar20) * 3] - local_d0) +
                  fVar3 * fVar3 + fVar2 * fVar2 + local_104 * local_104) {
             local_f0 = 0;
           }
@@ -463,12 +463,12 @@ LAB_00491fa5:
           if (0 < (int)pfVar9 + -1) {
             iVar18 = 0;
             do {
-              local_ac[0] = local_e8 + *(float *)((int)local_fc + iVar18);
-              local_ac[1] = *(float *)((int)local_fc + 4 + iVar18) + local_e4[0];
-              local_ac[2] = *(float *)((int)local_fc + 8 + iVar18) + local_e4[1];
-              local_94[0] = *(float *)((int)local_fc + 0xc + iVar18) + local_e8;
-              local_94[1] = *(float *)((int)local_fc + 0x10 + iVar18) + local_e4[0];
-              local_94[2] = *(float *)((int)local_fc + 0x14 + iVar18) + local_e4[1];
+              local_ac[0] = local_e8 + *(float *)(PUN(int,(float)local_fc) + iVar18);
+              local_ac[1] = *(float *)(PUN(int,(float)local_fc) + 4 + iVar18) + local_e4[0];
+              local_ac[2] = *(float *)(PUN(int,(float)local_fc) + 8 + iVar18) + local_e4[1];
+              local_94[0] = *(float *)(PUN(int,(float)local_fc) + 0xc + iVar18) + local_e8;
+              local_94[1] = *(float *)(PUN(int,(float)local_fc) + 0x10 + iVar18) + local_e4[0];
+              local_94[2] = *(float *)(PUN(int,(float)local_fc) + 0x14 + iVar18) + local_e4[1];
               Actor_GetFrame(param_2);
               pfVar14 = local_7c;
               pfVar21 = (float *)(_stkneg + 32);
@@ -493,9 +493,9 @@ LAB_00491fa5:
             do {
               pfVar21 = (float *)((int)pfVar21 + -1);
               *PUN(undefined4 *,(float)local_f4) = *puVar7;
-              *(undefined4 *)((int)local_f4 + 4) = puVar7[1];
-              *(undefined4 *)((int)local_f4 + 8) = puVar7[2];
-              local_f4 = (float)((int)local_f4 + 0xc);
+              *(undefined4 *)(PUN(int,(float)local_f4) + 4) = puVar7[1];
+              *(undefined4 *)(PUN(int,(float)local_f4) + 8) = puVar7[2];
+              local_f4 = PUN(float,(PUN(int,(float)local_f4) + 0xc));
               puVar7 = puVar7 + 3;
             } while (pfVar21 != (float *)0x0);
           }
@@ -511,13 +511,13 @@ LAB_00491fa5:
             pfVar24 = pfVar24 + 1;
           }
           iVar12 = Collision_PointInBox
-                             ((float *)((int)local_f4 + -0xc),&local_d0,local_88,(uint)pfVar14,
-                              (uint)in_stack_fffffed0,uVar25,uVar15,0x491fde,uVar16,(uint)pfVar11,
+                             ((float *)(PUN(int,(float)local_f4) + -0xc),&local_d0,local_88,(uint)pfVar14,
+                              PUN(uint,(float)in_stack_fffffed0),uVar25,uVar15,0x491fde,uVar16,(uint)pfVar11,
                               pfVar21);
           if (iVar12 != 0) break;
-          uVar16 = (int)local_f8 + 4 + (int)local_104;
+          uVar16 = PUN(int,(float)local_f8) + 4 + PUN(int,(float)local_104);
           uVar17 = (int)uVar16 >> 0x1f;
-          local_104 = (float)(((uVar16 ^ uVar17) - uVar17 & 3 ^ uVar17) - uVar17);
+          local_104 = PUN(float,(((uVar16 ^ uVar17) - uVar17 & 3 ^ uVar17) - uVar17));
           if (local_104 == fVar10) {
             return local_100;
           }
@@ -545,9 +545,9 @@ LAB_00491fa5:
             if (iVar13 != 0) {
               return 0;
             }
-            local_f8 = (float)((int)local_f8 + 1);
+            local_f8 = PUN(float,(PUN(int,(float)local_f8) + 1));
             iVar18 = iVar18 + 0xc;
-          } while ((int)local_f8 < iVar12 + -1);
+          } while (PUN(int,(float)local_f8) < iVar12 + -1);
         }
         uVar15 = local_100;
         if (0 < iVar12) {
@@ -568,7 +568,7 @@ LAB_00491fa5:
       pfVar14 = pfVar14 + 3;
       pfVar9 = PUN(float *,(float)local_fc);
       local_f0 = uVar16;
-    } while ((int)uVar16 < (int)local_f8);
+    } while ((int)uVar16 < PUN(int,(float)local_f8));
   }
   pfVar9 = (float *)(param_3 + uVar16 * 3);
   param_5 = param_5 + local_100 * 3;
@@ -627,8 +627,6 @@ void __cdecl Walker_SetFadeTime(int ms)
 }
 
 /* ---- 0x004a8200  Walker_Create ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Allocates the 0x60-byte walker record */
 
 void * __thiscall Walker_Create(void *this,float radius)
@@ -654,12 +652,8 @@ void * __thiscall Walker_Create(void *this,float radius)
   UINT_008d086c = (uint)this;
   return this;
 }
-#endif
-
 
 /* ---- 0x004a8270  Walker_Destroy ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void __fastcall Walker_Destroy(int param_1)
 
 {
@@ -674,12 +668,8 @@ void __fastcall Walker_Destroy(int param_1)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x004a82a0  Walker_GetAngles ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Converts the walker's 3x3 frame to pitch/yaw/roll in g_vWalkerAngles */
 
 undefined * __fastcall Walker_GetAngles(int param_1)
@@ -688,12 +678,8 @@ undefined * __fastcall Walker_GetAngles(int param_1)
   Matrix_ToAngles(param_1 + 0xc,&DAT_008cf250);
   return &DAT_008cf250;
 }
-#endif
-
 
 /* ---- 0x004a82c0  Walker_ReattachToSet ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Called after Actor_PutInSet when the actor has a walker so it picks up the new set's sectors */
 
 void __fastcall Walker_ReattachToSet(void *param_1)
@@ -714,12 +700,8 @@ void __fastcall Walker_ReattachToSet(void *param_1)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x004a8310  Walker_SetPosition ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void __thiscall Walker_SetPosition(void *this,float *pos)
 
 {
@@ -731,24 +713,16 @@ void __thiscall Walker_SetPosition(void *this,float *pos)
   *(float *)((int)this + 0x38) = pos[2];
   return;
 }
-#endif
-
 
 /* ---- 0x004a8350  Walker_RotateVector ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void __thiscall Walker_RotateVector(void *this,float *vec)
 
 {
   Vec3_Rotate3x3(vec,(float *)((int)this + 0xc));
   return;
 }
-#endif
-
 
 /* ---- 0x004a8370  Walker_ToLocalSpace ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Rotates a world vector into the current walker's frame */
 
 void __thiscall Walker_ToLocalSpace(void *this,float *vec)
@@ -772,18 +746,15 @@ void __thiscall Walker_ToLocalSpace(void *this,float *vec)
 #undef local_8
 #undef local_c
 
-#endif
-
 
 /* ---- 0x004a83c0  Walker_TurnHeading ---- */
 /* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
-undefined * __thiscall Walker_TurnHeading(void *this,float angle)
+void __thiscall Walker_TurnHeading(void *this,float angle)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float *vec;
-  undefined *extraout_EAX;
   #define local_30 (*(float (*)[12])(_frame + (0x40 - 0x30)))
   
   Matrix_AxisAngle(local_30,(int)this + 0x24,angle);
@@ -799,7 +770,7 @@ undefined * __thiscall Walker_TurnHeading(void *this,float angle)
   *(float *)((int)this + 0x1c) = *(float *)((int)this + 0x1c) - *(float *)((int)this + 0x34);
   *(float *)((int)this + 0x20) = *(float *)((int)this + 0x20) - *(float *)((int)this + 0x38);
   Walker_RebuildRightVector((int)this);
-  return extraout_EAX;
+  return;
 }
 #undef local_30
 
@@ -807,7 +778,7 @@ undefined * __thiscall Walker_TurnHeading(void *this,float angle)
 
 
 /* ---- 0x004a8450  Walker_TurnToPoint ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 float __thiscall Walker_TurnToPoint(void *this,float *point,float maxTurn)
 
@@ -820,7 +791,7 @@ float __thiscall Walker_TurnToPoint(void *this,float *point,float maxTurn)
   
   local_c = *point;
   local_8 = point[1];
-  local_4 = (uint)point[2];
+  local_4 = PUN(uint,(float)point[2]);
   if (*(void **)((int)this + 0x5c) != (void *)0x0) {
     Sector_FixPlaneCoordinate(*(void **)((int)this + 0x5c),(int)&local_c);
   }
@@ -847,17 +818,14 @@ float __thiscall Walker_TurnToPoint(void *this,float *point,float maxTurn)
 /* ---- 0x004a85b0  Walker_SetConstraint ---- */
 /* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
-undefined * __thiscall Walker_SetConstraint(void *this,int a1)
+void __thiscall Walker_SetConstraint(void *this,int a1)
 
 {
-  undefined *in_EAX;
   float *pfVar1;
-  undefined *extraout_EAX;
   
   *(undefined4 *)((int)this + 0x50) = 0;
-  if ((*(void **)((int)this + 0x5c) != (void *)0x0) && (in_EAX = (undefined *)0x0, a1 != 0)) {
+  if ((*(void **)((int)this + 0x5c) != (void *)0x0) && (a1 != 0)) {
     pfVar1 = Sector_EdgeFollowDirection(*(void **)((int)this + 0x5c),this);
-    in_EAX = (undefined *)0x0;
     if (pfVar1 != (float *)0x0) {
       *(float *)((int)this + 0x44) = *pfVar1;
       *(float *)((int)this + 0x48) = pfVar1[1];
@@ -867,17 +835,14 @@ undefined * __thiscall Walker_SetConstraint(void *this,int a1)
       *(float *)((int)this + 0x20) = pfVar1[2];
       Walker_RebuildRightVector((int)this);
       *(undefined4 *)((int)this + 0x50) = 1;
-      in_EAX = extraout_EAX;
     }
   }
-  return in_EAX;
+  return;
 }
 #endif
 
 
 /* ---- 0x004a8610  Walker_WalkSectors ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* WARNING: Variable defined which should be unmapped: local_48 */
 /* Walker_WalkSectors: the per-frame walk of an actor over the walk sectors (target-inside test with
    tolerance, exit point of the edge, neighbour lookup with the current sector deactivated, 0.02 cap
@@ -930,7 +895,7 @@ undefined * __thiscall Walker_WalkSectors(void *this,float step,int turnLeftOk,i
     Walker_TurnHeading(this,local_48);
   }
   local_30 = 0.0;
-  local_2c = (uint)step;
+  local_2c = PUN(uint,(float)step);
   local_28 = 0;
   Walker_RotateVector(this,&local_30);
   if ((*(void **)((int)this + 0x5c) == (void *)0x0) ||
@@ -1026,19 +991,16 @@ undefined * __thiscall Walker_WalkSectors(void *this,float step,int turnLeftOk,i
 #undef local_8
 #undef local_c
 
-#endif
-
 
 /* ---- 0x004a89b0  Walker_SetSectorFrame ---- */
 /* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
-undefined * __thiscall Walker_SetSectorFrame(void *this,int a1)
+void __thiscall Walker_SetSectorFrame(void *this,int a1)
 
 {
   float *pfVar1;
   float *pfVar2;
   float *pfVar3;
-  undefined *extraout_EAX;
   
   pfVar1 = (float *)((int)this + 0x24);
   pfVar2 = (float *)((int)this + 0x18);
@@ -1061,14 +1023,12 @@ undefined * __thiscall Walker_SetSectorFrame(void *this,int a1)
   *(float *)((int)this + 0x20) =
        *(float *)((int)this + 0x10) * *pfVar1 - *(float *)((int)this + 0x28) * *pfVar3;
   Vec3_Normalize(pfVar2);
-  return extraout_EAX;
+  return;
 }
 #endif
 
 
 /* ---- 0x004a8a90  Walker_RebuildRightVector ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void __fastcall Walker_RebuildRightVector(int param_1)
 
 {
@@ -1088,8 +1048,6 @@ void __fastcall Walker_RebuildRightVector(int param_1)
   Vec3_Normalize((float *)(param_1 + 0xc));
   return;
 }
-#endif
-
 
 /* ---- 0x004a8b00  Walker_DrawDebugAxes ---- */
 /* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
@@ -1155,20 +1113,14 @@ void __stdcall Walker_DrawDebugAxes(int color)
 
 
 /* ---- 0x004a9420  Planner_GetPath ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 uint Planner_GetPath(undefined4 *param_1)
 
 {
   *param_1 = &UINT_008cf0b0;
   return UINT_008cf248;
 }
-#endif
-
 
 /* ---- 0x004a9430  Planner_PlanPath ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 undefined4 Planner_PlanPath(undefined4 param_1,uint *param_2,int param_3)
 
 {
@@ -1203,12 +1155,8 @@ undefined4 Planner_PlanPath(undefined4 param_1,uint *param_2,int param_3)
   SectorList_ResetFree();
   return uVar3;
 }
-#endif
-
 
 /* ---- 0x004a94d0  Planner_SearchSectors ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 undefined4 Planner_SearchSectors(float *param_1,float *param_2,void *param_3)
 
 {
@@ -1237,9 +1185,9 @@ undefined4 Planner_SearchSectors(float *param_1,float *param_2,void *param_3)
   if (param_3 != (void *)0x0) {
     iVar2 = UINT_008cf248 * 3;
     UINT_008cf248 = UINT_008cf248 + 1;
-    (&UINT_008cf0b0)[iVar2] = (uint)*param_1;
-    (&UINT_008cf0b4)[uVar1 * 3] = (uint)param_1[1];
-    (&UINT_008cf0b8)[uVar1 * 3] = (uint)param_1[2];
+    (&UINT_008cf0b0)[iVar2] = PUN(uint,(float)*param_1);
+    (&UINT_008cf0b4)[uVar1 * 3] = PUN(uint,(float)param_1[1]);
+    (&UINT_008cf0b8)[uVar1 * 3] = PUN(uint,(float)param_1[2]);
     iVar2 = Sector_ContainsPoint(param_3,param_2,1);
     if (iVar2 != 0) {
       return 1;
@@ -1298,12 +1246,8 @@ undefined4 Planner_SearchSectors(float *param_1,float *param_2,void *param_3)
 #undef local_1f8
 #undef local_1fc
 
-#endif
-
 
 /* ---- 0x004a96f0  Planner_CollectSharedCorners ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 uint Planner_CollectSharedCorners(void *param_1,float *param_2,uint *param_3)
 
 {
@@ -1370,15 +1314,15 @@ uint Planner_CollectSharedCorners(void *param_1,float *param_2,uint *param_3)
             fVar2 = param_2[1];
             uVar10 = uVar10 + 1;
             fVar3 = param_2[2];
-            (&local_1e0)[uVar6 * 4] = (uint)*(float *)(iVar5 + 4);
+            (&local_1e0)[uVar6 * 4] = PUN(uint,(float)*(float *)(iVar5 + 4));
             (&local_1dc)[uVar6 * 4] = *(uint *)(iVar5 + 8);
             (&local_1d8)[uVar6 * 4] = *(uint *)(iVar5 + 0xc);
-            fVar1 = fVar1 - (float)(&local_1e0)[uVar6 * 4];
+            fVar1 = fVar1 - PUN(float,(&local_1e0)[uVar6 * 4]);
             (&local_1d4)[uVar6 * 4] =
-                 (uint)((fVar3 - (float)(&local_1d8)[uVar6 * 4]) *
-                        (fVar3 - (float)(&local_1d8)[uVar6 * 4]) +
-                       (fVar2 - (float)(&local_1dc)[uVar6 * 4]) *
-                       (fVar2 - (float)(&local_1dc)[uVar6 * 4]) + fVar1 * fVar1);
+                 PUN(uint,(float)((fVar3 - PUN(float,(&local_1d8)[uVar6 * 4])) *
+                        (fVar3 - PUN(float,(&local_1d8)[uVar6 * 4])) +
+                       (fVar2 - PUN(float,(&local_1dc)[uVar6 * 4])) *
+                       (fVar2 - PUN(float,(&local_1dc)[uVar6 * 4])) + fVar1 * fVar1));
             local_1e8 = uVar10;
           }
         }
@@ -1395,12 +1339,12 @@ uint Planner_CollectSharedCorners(void *param_1,float *param_2,uint *param_3)
   if (1 < (int)uVar10) {
     puVar7 = &local_1d0;
     do {
-      fVar1 = (float)puVar7[3];
+      fVar1 = PUN(float,puVar7[3]);
       uVar6 = iVar5 - 1;
       if (-1 < (int)uVar6) {
         puVar8 = param_3 + iVar5 * 4;
         do {
-          if ((float)puVar8[-1] <= fVar1) break;
+          if (PUN(float,puVar8[-1]) <= fVar1) break;
           uVar6 = uVar6 - 1;
           *puVar8 = puVar8[-4];
           puVar8[1] = puVar8[-3];
@@ -1434,12 +1378,8 @@ uint Planner_CollectSharedCorners(void *param_1,float *param_2,uint *param_3)
 #undef local_1ec
 #undef local_1f0
 
-#endif
-
 
 /* ---- 0x004a9920  Planner_PortalPoint ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 undefined4 Planner_PortalPoint(void *param_1,void *param_2,float *param_3,undefined4 *param_4)
 
 {
@@ -1504,12 +1444,8 @@ undefined4 Planner_PortalPoint(void *param_1,void *param_2,float *param_3,undefi
 }
 #undef local_4
 
-#endif
-
 
 /* ---- 0x004a9aa0  Planner_SmoothPath ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 undefined4 Planner_SmoothPath(void)
 
 {
@@ -1550,12 +1486,12 @@ undefined4 Planner_SmoothPath(void)
       iVar4 = Planner_SharedSector(&local_c,puVar6);
       if (((iVar4 != 0) && (iVar3 != 0)) &&
          (0.0025000002 <
-          (local_4 - (float)puVar6[-1]) * (local_4 - (float)puVar6[-1]) +
-          (local_8 - (float)puVar6[-2]) * (local_8 - (float)puVar6[-2]) +
+          (local_4 - PUN(float,puVar6[-1])) * (local_4 - PUN(float,puVar6[-1])) +
+          (local_8 - PUN(float,puVar6[-2])) * (local_8 - PUN(float,puVar6[-2])) +
           (local_c - *pfVar5) * (local_c - *pfVar5))) {
         *pfVar5 = local_c;
-        puVar6[-2] = (uint)local_8;
-        puVar6[-1] = (uint)local_4;
+        puVar6[-2] = PUN(uint,(float)local_8);
+        puVar6[-1] = PUN(uint,(float)local_4);
         bVar2 = true;
       }
       local_10 = local_10 + 1;
@@ -1567,9 +1503,9 @@ undefined4 Planner_SmoothPath(void)
     local_14 = 1;
     uVar7 = UINT_008cf248;
     do {
-      if ((((float)puVar6[1] - (float)puVar6[4]) * ((float)puVar6[1] - (float)puVar6[4]) +
-           ((float)*puVar6 - (float)puVar6[3]) * ((float)*puVar6 - (float)puVar6[3]) +
-           ((float)puVar6[-1] - (float)puVar6[2]) * ((float)puVar6[-1] - (float)puVar6[2]) < 0.0001)
+      if (((PUN(float,puVar6[1]) - PUN(float,puVar6[4])) * (PUN(float,puVar6[1]) - PUN(float,puVar6[4])) +
+           (PUN(float,*puVar6) - PUN(float,puVar6[3])) * (PUN(float,*puVar6) - PUN(float,puVar6[3])) +
+           (PUN(float,puVar6[-1]) - PUN(float,puVar6[2])) * (PUN(float,puVar6[-1]) - PUN(float,puVar6[2])) < 0.0001)
          && (iVar3 = Planner_SharedSector(puVar6 + -1,puVar6 + 2), uVar7 = UINT_008cf248, iVar3 != 0
             )) {
         bVar2 = true;
@@ -1604,12 +1540,8 @@ undefined4 Planner_SmoothPath(void)
 #undef local_8
 #undef local_c
 
-#endif
-
 
 /* ---- 0x004a9ca0  Planner_SharedSector ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void * Planner_SharedSector(undefined4 param_1,float *param_2)
 
 {
@@ -1624,5 +1556,3 @@ void * Planner_SharedSector(undefined4 param_1,float *param_2)
   SectorList_ResetFree();
   return this;
 }
-#endif
-

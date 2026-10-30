@@ -625,7 +625,7 @@ undefined4 Palette_SwapRedBlue(int param_1,undefined1 *param_2)
 /* Adds the 'Window Display Device' (DIBsection windowed) entry then DirectDrawEnumerate adds the
    DirectDraw devices */
 
-bool Display_EnumDevices(void)
+int Display_EnumDevices(void)
 
 {
   int iVar1;
@@ -2568,7 +2568,7 @@ Surface_BlitLockedDst
 
 
 /* ---- 0x004760d0  DDraw_Create ---- */
-bool DDraw_Create(undefined4 param_1)
+int DDraw_Create(undefined4 param_1)
 
 {
   int iVar1;

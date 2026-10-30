@@ -334,18 +334,18 @@ int __cdecl rdSprite_DrawThing(void *thing,void *sprite)
       if (iVar2 == 0) {
         return 0;
       }
-      _DAT_007f5000 = (float)puVar3[-1] - *(float *)(iVar1 + 0x34);
+      _DAT_007f5000 = PUN(float,puVar3[-1]) - *(float *)(iVar1 + 0x34);
       _DAT_007f5004 = *puVar3;
-      _DAT_007f5008 = (float)puVar3[1] - *(float *)(iVar1 + 0x34);
+      _DAT_007f5008 = PUN(float,puVar3[1]) - *(float *)(iVar1 + 0x34);
       _DAT_007f5010 = *puVar3;
-      _DAT_007f500c = (float)puVar3[-1] + *(float *)(iVar1 + 0x34);
+      _DAT_007f500c = PUN(float,puVar3[-1]) + *(float *)(iVar1 + 0x34);
       _DAT_007f501c = *puVar3;
-      _DAT_007f5014 = (float)puVar3[1] - *(float *)(iVar1 + 0x34);
+      _DAT_007f5014 = PUN(float,puVar3[1]) - *(float *)(iVar1 + 0x34);
       _DAT_007f5028 = *puVar3;
-      _DAT_007f5018 = (float)puVar3[-1] + *(float *)(iVar1 + 0x34);
-      _DAT_007f5020 = (float)puVar3[1] + *(float *)(iVar1 + 0x34);
-      _DAT_007f5024 = (float)puVar3[-1] - *(float *)(iVar1 + 0x34);
-      _DAT_007f502c = (float)puVar3[1] + *(float *)(iVar1 + 0x34);
+      _DAT_007f5018 = PUN(float,puVar3[-1]) + *(float *)(iVar1 + 0x34);
+      _DAT_007f5020 = PUN(float,puVar3[1]) + *(float *)(iVar1 + 0x34);
+      _DAT_007f5024 = PUN(float,puVar3[-1]) - *(float *)(iVar1 + 0x34);
+      _DAT_007f502c = PUN(float,puVar3[1]) + *(float *)(iVar1 + 0x34);
       vertexCount = rdClip_Face3_Pos_2(*(undefined4 *)((int)g_pRdCurrentCamera + 0x48),&DAT_007f5000
                                        ,4);
       if (2 < vertexCount) {

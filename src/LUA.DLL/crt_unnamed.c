@@ -1,5 +1,5 @@
 /* LUA.DLL :: crt_unnamed.c
- * functions 0x1000f070 .. 0x1002205b (155 functions)
+ * functions 0x1000f070 .. 0x1002205b (153 functions)
  * Decompiled from the shipped binaries with Ghidra; see ../../README.md */
 #include "ghidra_types.h"
 #include "globals.h"
@@ -432,66 +432,6 @@ void __cdecl FUN_100119f0(char *param_1,int param_2)
 #endif
 
 
-/* ---- 0x10011e20  FUN_10011e20 ---- */
-/* NOT COMPILED: names/lib_replace.json (host): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
-#if 0
-float __cdecl FUN_10011e20(void)
-
-{
-  float10 in_ST0;
-  float10 fVar1;
-  double dVar2;
-  
-  dVar2 = (double)in_ST0;
-  FUN_10018ec8(SUB84(dVar2,0),(uint)((ulonglong)dVar2 >> 0x20));
-  fVar1 = (float10)((code *)FUN_10011e3d)(SUB84(dVar2,0),(uint)((ulonglong)dVar2 >> 0x20));
-  return (float)fVar1;
-}
-#endif
-
-
-/* ---- 0x10011e3d  FUN_10011e3d ---- */
-/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
-#if 0
-void __cdecl FUN_10011e3d(int param_1,uint param_2)
-
-{
-  uint in_EAX;
-  bool in_ZF;
-  ushort in_FPUControlWord;
-  float10 in_ST0;
-  float10 extraout_ST0;
-  undefined4 unaff_retaddr;
-  
-  if (in_ZF) {
-    if (((in_EAX & 0xfffff) != 0) || (param_1 != 0)) {
-      FUN_10018e6c();
-    }
-LAB_10011ecc:
-    if (DAT_1002bf88 == 0) {
-      FUN_10018df7(&DAT_100288e0,0xd,in_FPUControlWord,unaff_retaddr,param_1,param_2);
-      return;
-    }
-  }
-  else {
-    if (in_FPUControlWord != 0x27f) {
-      in_EAX = FUN_10018e55();
-      in_ST0 = extraout_ST0;
-    }
-    if (in_EAX < 0x3ff00000) {
-      fpatan(SQRT(((float10)1 - in_ST0) * ((float10)1 + in_ST0)),in_ST0);
-    }
-    else if ((0x3ff00000 < in_EAX) || ((param_2 & 0xfffff) != 0 || param_1 != 0)) goto LAB_10011ecc;
-    if (DAT_1002bf88 == 0) {
-      FUN_10018eeb(&DAT_100288e0,0xd,unaff_retaddr,param_1,param_2);
-      return;
-    }
-  }
-  return;
-}
-#endif
-
-
 /* ---- 0x100120fa  FUN_100120fa ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
@@ -525,7 +465,7 @@ float10 FUN_10012104(void)
       in_ST0 = extraout_ST1;
     }
     else {
-      in_ST1 = in_ST1 - (float10)(unkint10)(in_ST1 / in_ST0) * in_ST0;
+      in_ST1 = in_ST1 - PUN(float10,(unkint10)(in_ST1 / in_ST0)) * in_ST0;
     }
   } while ((in_FPUStatusWord & 0x400) != 0);
   return in_ST1;
@@ -1094,7 +1034,7 @@ void __cdecl FUN_10013e40(int param_1)
 /* ---- 0x10013e8a  FUN_10013e8a ---- */
 /* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
-bool FUN_10013e8a(void)
+int FUN_10013e8a(void)
 
 {
   int unaff_EBP;
@@ -1343,7 +1283,7 @@ undefined4 FUN_10015160(int a1)
 /* ---- 0x1001519c  FUN_1001519c ---- */
 /* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
-bool FUN_1001519c(void)
+int FUN_1001519c(void)
 
 {
   int unaff_EBP;
@@ -3147,7 +3087,7 @@ FUN_1001a5a6(undefined4 param_1,uint param_2,ushort param_3,uint param_4,uint pa
         fVar4 = (float10)CONCAT28((param_9 & 0x7fff) - ((param_9 & 0x7fff) - param_3 & 7 | 4) |
                                   param_3 & 0x8000,
                                   CONCAT26(PIECE(param_2,2,2),CONCAT24((undefined2)param_2,param_1)));
-        fVar3 = fVar3 - (float10)(unkint10)(fVar3 / fVar4) * fVar4;
+        fVar3 = fVar3 - PUN(float10,(unkint10)(fVar3 / fVar4)) * fVar4;
         param_7 = SUB104(fVar3,0);
         uVar1 = (uint)((unkuint10)fVar3 >> 0x20);
         param_9 = (ushort)((unkuint10)fVar3 >> 0x40);
@@ -3195,7 +3135,7 @@ float10 FUN_1001a7ac(void)
     return extraout_ST0;
   }
   if (uVar2 == 0 && uVar3 == 0) {
-    return in_ST0 - (float10)(unkint10)(in_ST0 / in_ST1) * in_ST1;
+    return in_ST0 - PUN(float10,(unkint10)(in_ST0 / in_ST1)) * in_ST1;
   }
   if ((uVar7 & 0x7fff) < 0x7fbf) {
     fVar1 = in_ST0 * (float10)_DAT_10029724;

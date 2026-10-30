@@ -274,7 +274,7 @@ void __thiscall StateImage_Draw(void *this,void *dst)
 }
 
 /* ---- 0x004aa3e0  StateImage_IsCurrentFrame ---- */
-bool __fastcall StateImage_IsCurrentFrame(int param_1)
+int __fastcall StateImage_IsCurrentFrame(int param_1)
 
 {
   if (*(char *)(param_1 + 0x14) == '\0') {

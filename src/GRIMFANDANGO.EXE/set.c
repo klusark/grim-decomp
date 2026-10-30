@@ -236,13 +236,13 @@ void Set_DrawDebugLights(int param_1)
         ((void (*)(float *, float, undefined4, int, int))rdPrimit3_DrawPoint)(puVar2 + -0x10,*puVar2,0x41980000,PIECE(UINT_008c97c8,2,2),0xffffffff);
       }
       else {
-        local_68 = (uint)((float)puVar2[-9] + (float)puVar2[-0xf]);
-        local_64 = (uint)((float)puVar2[-8] + (float)puVar2[-0xe]);
-        local_6c = (uint)((float)puVar2[-10] + (float)puVar2[-0x10]);
+        local_68 = PUN(uint,(float)(PUN(float,puVar2[-9]) + PUN(float,puVar2[-0xf])));
+        local_64 = PUN(uint,(float)(PUN(float,puVar2[-8]) + PUN(float,puVar2[-0xe])));
+        local_6c = PUN(uint,(float)(PUN(float,puVar2[-10]) + PUN(float,puVar2[-0x10])));
         Camera_BuildBasis(local_30,puVar2 + -0x10,&local_6c,0);
-        local_5c = (float)puVar2[-7] * 0.1;
+        local_5c = PUN(float,puVar2[-7]) * 0.1;
         vec = &local_60;
-        local_60 = (1.0 - (float)puVar2[-2]) * local_5c;
+        local_60 = (1.0 - PUN(float,puVar2[-2])) * local_5c;
         local_48 = -local_60;
         iVar1 = 4;
         local_58[0] = local_60;
@@ -604,8 +604,8 @@ int __cdecl Set_RestoreState(void *readFn)
           iStack_6c = iStack_6c + 300;
         } while (iStack_70 < *(int *)((int)pvVar4 + 0xb0));
       }
-      fStack_64 = (float)((int)fStack_64 + 1);
-    } while ((int)fStack_64 < local_60);
+      fStack_64 = PUN(float,(PUN(int,(float)fStack_64) + 1));
+    } while (PUN(int,(float)fStack_64) < local_60);
   }
   (*(code *)readFn)(&pvStack_44,4);
   pvVar4 = Res_DataFromHandle(pvStack_44);
@@ -867,8 +867,6 @@ void Set_FreeSetup(undefined4 param_1,int param_2)
 }
 
 /* ---- 0x004a4fe0  Set_LoadResources ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Loads colormaps (set+0x80, 0x34 each), each setup's background/depth bitmaps, creates the
    rdCamera (setup+0x48) and rdThing (+0x4c), builds the camera basis and adds the set's lights */
 
@@ -992,7 +990,7 @@ LAB_004a51bd:
       }
     }
     if (ref[-0x1e] == 0) {
-      pvVar4 = rdCamera_New((float)ref[-0x21],1,(float)ref[-0x20],(float)ref[-0x1f],1.0);
+      pvVar4 = rdCamera_New(PUN(float,ref[-0x21]),1,PUN(float,ref[-0x20]),PUN(float,ref[-0x1f]),1.0);
       ref[-0x1e] = (int)pvVar4;
       if (pvVar4 == (void *)0x0) {
         return 0;
@@ -1023,8 +1021,6 @@ LAB_004a51bd:
 }
 #undef local_4
 #undef local_8
-
-#endif
 
 
 /* ---- 0x004a54a0  Set_RegisterHandle ---- */
@@ -1079,7 +1075,7 @@ int Set_FindHandle(char *name)
 }
 
 /* ---- 0x004a55d0  Set_IsHandleValid ---- */
-bool Set_IsHandleValid(char *param_1)
+int Set_IsHandleValid(char *param_1)
 
 {
   int iVar1;

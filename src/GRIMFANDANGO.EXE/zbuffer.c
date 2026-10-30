@@ -6,8 +6,6 @@
 #include "functions.h"
 
 /* ---- 0x004a4920  ZBuffer_Load ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Loads a ZBUF resource: wrapper of ZBuffer_LoadFile. */
 
 void ZBuffer_Load(undefined4 param_1)
@@ -16,8 +14,6 @@ void ZBuffer_Load(undefined4 param_1)
   ZBuffer_LoadFile(param_1);
   return;
 }
-#endif
-
 
 /* ---- 0x004a4930  ZBuffer_LoadFile ---- */
 /* Loads a z-buffer .zbm through stdBitmap_LoadFile and detaches the pixel plane (bitmap+0x78) from

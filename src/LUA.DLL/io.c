@@ -6,8 +6,6 @@
 #include "functions.h"
 
 /* ---- 0x100053d0  io_getint ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* liolib.c helper: numeric argument through lua2C */
 
 longlong __cdecl io_getint(int param_1)
@@ -17,12 +15,9 @@ longlong __cdecl io_getint(int param_1)
   longlong lVar2;
   
   iVar1 = lua_lua2C(param_1);
-  lua_getnumber(iVar1);
-  lVar2 = _ftol();
+  lVar2 = FTOL(lua_getnumber(iVar1));
   return lVar2;
 }
-#endif
-
 
 /* ---- 0x100053f0  io_pushresult ---- */
 /* Pushes userdata/nil plus strerror(errno) like Lua 3.1 pushresult */
@@ -45,8 +40,6 @@ void __cdecl io_pushresult(int param_1)
 }
 
 /* ---- 0x10005430  io_setfile ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Stores a file handle in a global (_INPUT/_OUTPUT) with the file tag */
 
 void __cdecl io_setfile(byte *param_1)
@@ -56,7 +49,7 @@ void __cdecl io_setfile(byte *param_1)
   int iVar2;
   longlong lVar3;
   
-  ppuVar1 = (undefined **)((code *)io_getfilebyname)(param_1);
+  ppuVar1 = (undefined **)io_getfilebyname(param_1);
   if ((ppuVar1 != &PTR_DAT_100282d0) && (ppuVar1 != (undefined **)&DAT_100282f0)) {
     (**(code **)(DAT_1002beb8 + 0x34))(ppuVar1);
     iVar2 = lua_getglobal(param_1);
@@ -66,15 +59,11 @@ void __cdecl io_setfile(byte *param_1)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x10005480  io_getfilebyname ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* errors '%s is not a file' */
 
-void __cdecl io_getfilebyname(byte *param_1)
+int __cdecl io_getfilebyname(byte *param_1)
 
 {
   bool bVar1;
@@ -86,16 +75,14 @@ void __cdecl io_getfilebyname(byte *param_1)
   if (((uint)(bVar1)) == 0) {
     luaL_verror(s_global_variable____50s__is_not_a_10026c08,param_1);
   }
-  lua_getuserdata(iVar2);
-  return;
+  iVar2 = lua_getuserdata(iVar2);
+  return iVar2;
 }
-#endif
-
 
 /* ---- 0x100054c0  io_gethandle ---- */
 /* checks the userdata tag and errors 'a closed file' */
 
-bool __cdecl io_gethandle(int param_1)
+int __cdecl io_gethandle(int param_1)
 
 {
   int iVar1;
@@ -196,8 +183,6 @@ void FUN_10005620(void)
 }
 
 /* ---- 0x10005660  FUN_10005660 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void FUN_10005660(void)
 
 {
@@ -210,11 +195,11 @@ void FUN_10005660(void)
   int iVar6;
   char *pcVar7;
   #define iStack_c (*(int *)(_frame + (0x20 - 0xc)))
-  #define uStack_8 (*(undefined4 *)(_frame + (0x20 - 0x8)))
+  #define iStack_8 (*(int *)(_frame + (0x20 - 0x8)))
   #define pcStack_4 (*(char **)(_frame + (0x20 - 0x4)))
   
   iStack_c = 3;
-  uStack_8 = ((code *)io_getfileparam)((byte *)s__INPUT_10026c00,&iStack_c);
+  iStack_8 = io_getfileparam((byte *)s__INPUT_10026c00,&iStack_c);
   pcVar2 = (char *)luaL_opt_string(iStack_c,s__________10026c88);
   iVar6 = 0;
   iVar5 = -2;
@@ -234,7 +219,7 @@ void FUN_10005660(void)
     }
     else {
       if (iVar5 == -2) {
-        iVar5 = lauxlib__2960(uStack_8);
+        iVar5 = lauxlib__2960(iStack_8);
       }
       if (iVar5 == -1) {
         uVar3 = 0;
@@ -266,7 +251,7 @@ LAB_10005731:
     cVar1 = *pcVar7;
   }
   if (-1 < iVar5) {
-    lauxlib__2990(iVar5,uStack_8);
+    lauxlib__2990(iVar5,iStack_8);
   }
   luaL_addchar(0);
   pbVar4 = (byte *)lbuiltin__2da0();
@@ -275,19 +260,15 @@ LAB_10005731:
   }
   return;
 }
+#undef iStack_8
 #undef iStack_c
 #undef pcStack_4
-#undef uStack_8
-
-#endif
 
 
 /* ---- 0x10005780  io_getfileparam ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Unidentified function of liolib.c (file/system library) */
 
-void __cdecl io_getfileparam(byte *param_1,int *param_2)
+int __cdecl io_getfileparam(byte *param_1,int *param_2)
 
 {
   bool bVar1;
@@ -298,25 +279,21 @@ void __cdecl io_getfileparam(byte *param_1,int *param_2)
   bVar1 = io_gethandle(iVar2);
   if (((uint)(bVar1)) != 0) {
     *param_2 = *param_2 + 1;
-    lua_getuserdata(iVar2);
-    return;
+    iVar2 = lua_getuserdata(iVar2);
+    return iVar2;
   }
-  io_getfilebyname(param_1);
-  return;
+  iVar2 = io_getfilebyname(param_1);
+  return iVar2;
 }
-#endif
-
 
 /* ---- 0x100057d0  FUN_100057d0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void FUN_100057d0(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   char cVar1;
   int iVar2;
-  undefined4 uVar3;
+  int iVar3;
   char *pcVar4;
   uint uVar5;
   int iVar6;
@@ -324,7 +301,7 @@ void FUN_100057d0(void)
   #define iStack_4 (*(int *)(_frame + (0x20 - 0x4)))
   
   iStack_4 = 3;
-  uVar3 = ((code *)io_getfileparam)((byte *)s__OUTPUT_10026c58,&iStack_4);
+  iVar3 = io_getfileparam((byte *)s__OUTPUT_10026c58,&iStack_4);
   iVar2 = iStack_4;
   iStack_4 = iStack_4 + 1;
   iVar6 = 1;
@@ -347,7 +324,7 @@ LAB_1000583c:
         cVar1 = *pcVar7;
         pcVar7 = pcVar7 + 1;
       } while (cVar1 != '\0');
-      iVar6 = (**(code **)(DAT_1002beb8 + 0x40))(uVar3,pcVar4,~uVar5 - 1);
+      iVar6 = (**(code **)(DAT_1002beb8 + 0x40))(iVar3,pcVar4,~uVar5 - 1);
       if (iVar6 == -1) goto LAB_1000583c;
       iVar6 = 1;
     }
@@ -357,8 +334,6 @@ LAB_1000583c:
   } while( true );
 }
 #undef iStack_4
-
-#endif
 
 
 /* ---- 0x10005870  FUN_10005870 ---- */
@@ -426,8 +401,6 @@ void FUN_10005920(void)
 }
 
 /* ---- 0x10005940  FUN_10005940 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void FUN_10005940(void)
 
 {
@@ -452,12 +425,8 @@ void FUN_10005940(void)
 #undef abStack_200
 #undef iStack_204
 
-#endif
-
 
 /* ---- 0x100059c0  FUN_100059c0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void FUN_100059c0(void)
 
 {
@@ -466,8 +435,7 @@ void FUN_100059c0(void)
   byte *pbVar3;
   longlong lVar4;
   
-  luaL_opt_number(2,0.0);
-  lVar4 = _ftol();
+  lVar4 = FTOL(luaL_opt_number(2,0.0));
   iVar1 = (int)lVar4;
   if ((iVar1 < 0) || (5 < iVar1)) {
     luaL_argerror(2,IMG_ADDR(0x10026cb0));
@@ -477,8 +445,6 @@ void FUN_100059c0(void)
   lua_pushstring(pbVar3);
   return;
 }
-#endif
-
 
 /* ---- 0x10005a20  FUN_10005a20 ---- */
 void FUN_10005a20(void)

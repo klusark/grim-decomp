@@ -108,11 +108,11 @@ Collision_PointInBox
   
   local_c[0] = *param_11 + *param_1;
   uStack_20 = param_10;
-  param_4 = (uint)(*param_11 + *param_2);
+  param_4 = PUN(uint,(float)(*param_11 + *param_2));
   local_c[1] = param_1[1] + param_11[1];
-  param_5 = (uint)(param_2[1] + param_11[1]);
+  param_5 = PUN(uint,(float)(param_2[1] + param_11[1]));
   local_c[2] = param_1[2] + param_11[2];
-  param_6 = (uint)(param_2[2] + param_11[2]);
+  param_6 = PUN(uint,(float)(param_2[2] + param_11[2]));
   puVar3 = &param_4;
   puVar4 = auStack_38;
   for (iVar2 = 6; iVar2 != 0; iVar2 = iVar2 + -1) {
@@ -297,9 +297,9 @@ int Collision_PickDetour(float *param_1,float *param_2,int param_3)
                 (pfVar2[-1] - param_2[1]) * (pfVar2[-1] - param_2[1]) +
                 (param_1[2] - *pfVar2) * (param_1[2] - *pfVar2) +
                 (param_1[1] - pfVar2[-1]) * (param_1[1] - pfVar2[-1]) +
-                (*param_1 - pfVar2[-2]) * (*param_1 - pfVar2[-2]), fVar1 < (float)local_4)) {
+                (*param_1 - pfVar2[-2]) * (*param_1 - pfVar2[-2]), fVar1 < PUN(float,local_4))) {
       iVar4 = iVar3;
-      local_4 = (uint)fVar1;
+      local_4 = PUN(uint,(float)fVar1);
     }
     iVar3 = iVar3 + 1;
     piVar5 = piVar5 + 1;
@@ -526,9 +526,9 @@ undefined4 Collision_TestActorAgainstOthers(void *param_1)
         }
       }
 LAB_004940c6:
-      local_5c[2] = (float)((int)local_5c[2] + 1);
-      local_74[1] = (float)((int)local_74[1] + 4);
-    } while ((int)local_5c[2] < g_nDrawableActorCount);
+      local_5c[2] = PUN(float,(PUN(int,(float)local_5c[2]) + 1));
+      local_74[1] = PUN(float,(PUN(int,(float)local_74[1]) + 4));
+    } while (PUN(int,(float)local_5c[2]) < g_nDrawableActorCount);
   }
   return 1;
 }

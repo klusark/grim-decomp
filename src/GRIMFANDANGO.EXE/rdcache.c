@@ -400,13 +400,13 @@ undefined4 rdCache_DrawMeshList3D(void)
     if (local_20 != 0.0) {
       iVar11 = *(int *)(puVar14 + 0x3c);
       if (iVar11 == -1) {
-        iVar11 = *(int *)((int)local_20 + 100);
+        iVar11 = *(int *)(PUN(int,(float)local_20) + 100);
         if (iVar11 < 0) {
 LAB_00406cbf:
           iVar11 = 0;
         }
         else {
-          iVar12 = *(int *)((int)local_20 + 0x60) + -1;
+          iVar12 = *(int *)(PUN(int,(float)local_20) + 0x60) + -1;
           if (iVar12 < iVar11) {
             iVar11 = iVar12;
           }
@@ -414,12 +414,12 @@ LAB_00406cbf:
       }
       else {
         if (iVar11 < 0) goto LAB_00406cbf;
-        iVar12 = *(int *)((int)local_20 + 0x60) + -1;
+        iVar12 = *(int *)(PUN(int,(float)local_20) + 0x60) + -1;
         if (iVar12 < iVar11) {
           iVar11 = iVar12;
         }
       }
-      local_2c = *(undefined4 *)((int)local_20 + 0x68 + iVar11 * 4);
+      local_2c = *(undefined4 *)(PUN(int,(float)local_20) + 0x68 + iVar11 * 4);
       if ((local_8 == 4) && ((*(byte *)local_2c & 8) == 0)) {
         local_8 = 3;
       }
@@ -810,7 +810,7 @@ LAB_00407a22:
             local_18 = local_18 & 0xff;
             UINT_0068bfa8 = UINT_0068bfa8 + 1;
             *(uint *)(&DAT_006f0fc8 + iVar12) =
-                 ((local_1c | (uint)local_20) << 8 | local_10) << 8 | local_18;
+                 ((local_1c | PUN(uint,(float)local_20)) << 8 | local_10) << 8 | local_18;
             uVar15 = *(uint *)(puVar14 + 0x1c);
             *(undefined4 *)(&DAT_006f0fd0 + iVar12) = 0;
             *(undefined4 *)(&DAT_006f0fd4 + iVar12) = 0;
@@ -834,9 +834,9 @@ LAB_00407a22:
           local_34 = uVar15 - 1;
           uVar15 = 0;
           local_8 = 1;
-          if (0 < (int)local_20) {
+          if (0 < PUN(int,(float)local_20)) {
             piVar10 = (int *)(&DAT_00606fa4 + UINT_006f0fb0 * 0x14);
-            UINT_006f0fb0 = UINT_006f0fb0 + (int)local_20;
+            UINT_006f0fb0 = UINT_006f0fb0 + PUN(int,(float)local_20);
             do {
               piVar10[1] = uVar13 + uVar9;
               *piVar10 = local_8 + uVar9;
@@ -853,7 +853,7 @@ LAB_00407a22:
               }
               piVar10 = piVar10 + 5;
               uVar15 = uVar15 + 1;
-            } while ((int)uVar15 < (int)local_20);
+            } while ((int)uVar15 < PUN(int,(float)local_20));
           }
         }
       }
@@ -1148,7 +1148,7 @@ LAB_004071fa:
             local_18 = local_18 & 0xff;
             iVar2 = *(int *)(puVar14 + 0x24);
             *(uint *)(&DAT_006f0fc8 + local_14) =
-                 ((local_1c | (uint)local_20) << 8 | local_10) << 8 | local_18;
+                 ((local_1c | PUN(uint,(float)local_20)) << 8 | local_10) << 8 | local_18;
             iVar11 = local_8 * 8;
             iVar12 = local_8 * 8;
             UINT_0068bfa8 = UINT_0068bfa8 + 1;
@@ -1175,9 +1175,9 @@ LAB_004071fa:
           local_34 = uVar15 - 1;
           uVar15 = 0;
           local_8 = 1;
-          if (0 < (int)local_20) {
+          if (0 < PUN(int,(float)local_20)) {
             piVar10 = (int *)(&DAT_006cbfb4 + UINT_0060bfa0 * 0x14);
-            UINT_0060bfa0 = UINT_0060bfa0 + (int)local_20;
+            UINT_0060bfa0 = UINT_0060bfa0 + PUN(int,(float)local_20);
             do {
               piVar10[1] = uVar13 + uVar9;
               *piVar10 = local_8 + uVar9;
@@ -1194,7 +1194,7 @@ LAB_004071fa:
               }
               piVar10 = piVar10 + 5;
               uVar15 = uVar15 + 1;
-            } while ((int)uVar15 < (int)local_20);
+            } while ((int)uVar15 < PUN(int,(float)local_20));
           }
         }
       }

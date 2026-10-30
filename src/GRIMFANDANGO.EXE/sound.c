@@ -160,8 +160,6 @@ undefined4 PositionedSound_Apply(int param_1)
 
 
 /* ---- 0x004d0c20  Sound_DriverQuery ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Calls entry +0x14 of the installed sound driver vtable */
 
 undefined4 Sound_DriverQuery(void)
@@ -177,8 +175,6 @@ undefined4 Sound_DriverQuery(void)
   }
   return 0xffffffff;
 }
-#endif
-
 
 /* ---- 0x004d0cf0  Sound_VoiceSampleCount ---- */
 /* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */

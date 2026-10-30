@@ -9,7 +9,7 @@
 /* WARNING: Variable defined which should be unmapped: local_14 */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-char _stricmp(byte *param_1,byte *param_2)
+int _stricmp(byte *param_1,byte *param_2)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -6985,7 +6985,7 @@ void _getbuf(int *param_1)
 }
 
 /* ---- 0x004b6d40  _isatty ---- */
-byte _isatty(uint param_1)
+uint _isatty(uint param_1)
 
 {
   if (UINT_00906c00 <= param_1) {
@@ -7724,7 +7724,7 @@ undefined4 _isindst(undefined4 param_1)
 }
 
 /* ---- 0x004b8250  _isindst_lk ---- */
-bool _isindst_lk(int *param_1)
+int _isindst_lk(int *param_1)
 
 {
   uint uVar1;
@@ -8375,7 +8375,7 @@ uint _ungetc_lk(uint param_1,int *param_2)
 }
 
 /* ---- 0x004b9010  _filwbuf ---- */
-undefined2 _filwbuf(undefined4 *param_1)
+uint _filwbuf(undefined4 *param_1)
 
 {
   undefined2 uVar1;
@@ -8490,7 +8490,7 @@ switchD_004b9ebf_caseD_6:
 
 
 /* ---- 0x004ba2c0  _ValidateRead ---- */
-bool _ValidateRead(int param_1,int param_2)
+int _ValidateRead(int param_1,int param_2)
 
 {
   int iVar1;
@@ -8500,7 +8500,7 @@ bool _ValidateRead(int param_1,int param_2)
 }
 
 /* ---- 0x004ba2e0  _ValidateWrite ---- */
-bool _ValidateWrite(int param_1,int param_2)
+int _ValidateWrite(int param_1,int param_2)
 
 {
   int iVar1;
@@ -8510,7 +8510,7 @@ bool _ValidateWrite(int param_1,int param_2)
 }
 
 /* ---- 0x004ba300  _ValidateExecute ---- */
-bool _ValidateExecute(int param_1)
+int _ValidateExecute(int param_1)
 
 {
   int iVar1;
@@ -9800,7 +9800,7 @@ switchD_004bbffb_default:
 }
 
 /* ---- 0x004bc0a0  _handle_exc ---- */
-bool _handle_exc(uint param_1,double *param_2,uint param_3)
+int _handle_exc(uint param_1,double *param_2,uint param_3)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */

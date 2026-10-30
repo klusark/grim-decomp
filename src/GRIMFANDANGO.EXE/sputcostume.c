@@ -9,7 +9,7 @@
 /* Subsystem init entry registered through EngineModule_Init; fills the module's 8-entry interface
    {init, shutdown, save, restore, ...} */
 
-bool sputCostume_Initialize(GrimServices *param_1,undefined4 *param_2)
+int sputCostume_Initialize(GrimServices *param_1,undefined4 *param_2)
 
 {
   int iVar1;

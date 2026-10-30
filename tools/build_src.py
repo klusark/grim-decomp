@@ -6,7 +6,7 @@ of the nearest preceding named function (code from one compilation unit is conti
 in the image), except that a long run of unnamed functions becomes its own
 region_<addr> module so we do not pretend to know what it is."""
 import sys
-import json, os, re, sys
+import glob, json, os, re, sys
 from collections import Counter, OrderedDict, defaultdict
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import frame_locals
@@ -120,6 +120,20 @@ def read_text(path):
         return (f"/* Ghidra could not decompile this function: {reason} */\n"
                 f"void FUN_{addr}(void)\n\n{{\n  __builtin_trap();\n}}\n")
     return text
+
+
+# A function returning bool/char/short leaves only AL/AX defined in EAX when gcc compiles it; the original (MSVC) code that
+# calls it, and assembled callers in general, test the whole of EAX.  Return types narrower than int are therefore widened.
+RET_NARROW_RE = re.compile(r"\A((?:\s*/\*.*?\*/)*\s*)(bool|char|byte|undefined1|uchar|short|ushort|undefined2)(\s+(?:__\w+\s+)?[A-Za-z_]\w*\s*\()", re.S)
+RET_WIDE = {"bool": "int", "char": "int", "short": "int", "byte": "uint", "undefined1": "uint", "uchar": "uint",
+            "ushort": "uint", "undefined2": "uint"}
+
+
+def widen_return_type(code):
+    m = RET_NARROW_RE.match(code)
+    if not m:
+        return code
+    return m.group(1) + RET_WIDE[m.group(2)] + code[m.end(2):]
 
 
 def signature_of(code):
@@ -421,6 +435,10 @@ def type_of(e, vt, ctx, depth=0):
         inner = e[1:j]
         if is_type(inner, ctx.known_types):
             return " ".join(inner.split())
+        # `(&local_1e0)[i]`: an element of a local used as the start of an array
+        m = re.fullmatch(r"&\s*([A-Za-z_]\w*)", inner.strip())
+        if m and e[j + 1:].lstrip().startswith("[") and m.group(1) in vt:
+            return vt[m.group(1)]
         return None
     if e[0] == "*":
         return deref(type_of(e[1:], vt, ctx, depth + 1))
@@ -472,15 +490,53 @@ def type_of(e, vt, ctx, depth=0):
 CAST_AT_RE = re.compile(r"\(([A-Za-z_][\w ]*?(?:\s*\*)*)\)")
 
 
+_DISASM = {}
+CUR_FN_ADDR = None
+
+
+def int_float_conversions(addr):
+    """-> (has FILD-like int->float conversion, has FIST-like float->int conversion) from the original code.
+    Without them every `(float)intvar` / `(uint)(floatexpr)` in Ghidra's text is a bit reinterpretation of a
+    stack slot or struct field that holds the other type (no value conversion exists in the machine code)."""
+    if CUR_PROG not in _DISASM:
+        try:
+            _DISASM[CUR_PROG] = json.load(open(os.path.join(RAW, CUR_PROG, "disasm.json")))
+        except (OSError, ValueError):
+            _DISASM[CUR_PROG] = {}
+    text = _DISASM[CUR_PROG].get(addr)
+    if text is None:
+        return True, True  # unknown: assume conversions exist (no rewrite)
+    return bool(re.search(r"\bFI(?:LD|ADD|SUB|MUL|DIV|COM)", text)) or " CVTSI2S" in text, \
+        bool(re.search(r"\bFIST", text)) or " CVTT" in text
+
+
+_LEGACY = {}
+
+
+def legacy_cast_funcs(prog):
+    """Functions that were converted from assembly to C (names/asm_exclude_exe_lo.json) while int<->float casts were still
+    plain value conversions; their C only works with those, so the PUN rewrite of fix_casts skips them."""
+    if prog not in _LEGACY:
+        try:
+            _LEGACY[prog] = set(json.load(open(os.path.join(ROOT, "names", "asm_exclude_exe_lo.json"))).get(prog, []))
+        except OSError:
+            _LEGACY[prog] = set()
+    return _LEGACY[prog]
+
+
 def fix_casts(body, vt, ctx):
     """Ghidra reuses one register for a pointer and a float (`(float)param_2` with
     `float *param_2`, `(float *)((float)x * -1.0)`): C forbids those conversions,
     Ghidra means a bit-for-bit reinterpretation, i.e. PUN()."""
     casts = [m for m in CAST_AT_RE.finditer(body) if is_type(m.group(1), ctx.known_types)]
+    has_fild, has_fist = int_float_conversions(CUR_FN_ADDR)
+    if CUR_FN_ADDR in legacy_cast_funcs(CUR_PROG):
+        has_fild = has_fist = True  # value-converting casts, as before the PUN rules (functions converted by agent I)
+
     for m in reversed(casts):
         T = " ".join(m.group(1).split())
         tk = type_kind(T)
-        if tk not in ("float", "ptr"):
+        if tk not in ("float", "ptr") and not (tk == "int" and not has_fist):
             continue
         # skip things that are not casts: `sizeof(int *)`, declarations, prototypes
         pre = body[:m.start()].rstrip()
@@ -492,7 +548,13 @@ def fix_casts(body, vt, ctx):
             continue
         operand = body[s:e]
         ok = type_kind(type_of(operand, vt, ctx))
-        if tk == "float" and ok == "ptr":
+        if tk == "float" and ok == "int" and not has_fild and not NUM_RE.fullmatch(operand.strip()) \
+                and CAST_AT_RE.sub("", operand.strip()) != "" and not operand.lstrip().startswith("ROUND"):
+            new = f"PUN({T},{operand.strip()})"  # int slot read as float
+        elif tk == "int" and ok == "float" and not has_fist and re.fullmatch(r"(?:u?int|undefined4|uint|ulong|long|dword)", T) \
+                and "ROUND" not in operand:
+            new = f"PUN({T},(float){operand.strip()})"  # float stored through an int slot
+        elif tk == "float" and ok == "ptr":
             new = f"PUN(float,{operand.strip()})"
             if base_type(T) != "float":
                 new = f"({T}){new}"
@@ -866,6 +928,141 @@ def fix_stdcall(code):
     return head + body
 
 
+# ---- x87 return values feeding _ftol (Ghidra cannot pass ST0 to `_ftol`) ------------------------------------
+# The game converts Lua numbers with `lua_getnumber(obj); _ftol();`: the float comes back in ST0 and _ftol
+# consumes it.  Ghidra prints the call as a statement and the _ftol argument as stack garbage
+#     lua_getnumber(iVar1);
+#     lVar5 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+# so the statement before a garbage `_ftol` call, when it is a call of a function that returns in ST0, is the value.
+_X87_NAMES = {}
+
+
+def x87_float_names():
+    if CUR_PROG not in _X87_NAMES:
+        names = set()
+        rawdir = os.path.join(RAW, CUR_PROG)
+        try:
+            found = json.load(open(os.path.join(rawdir, "x87_returns.json")))
+            byaddr = {f["address"]: f["name"] for f in json.load(open(os.path.join(rawdir, "functions.json")))}
+            for k in found:
+                names.add(byaddr.get(k, k))
+        except OSError:
+            pass
+        names.discard("_ftol")
+        _X87_NAMES[CUR_PROG] = names
+    return _X87_NAMES[CUR_PROG]
+
+
+FTOL_GARBAGE_RE = re.compile(r"^(?P<ind>[ \t]*)(?:(?P<lhs>[A-Za-z_]\w*) = )?_ftol\((?:\(double\)CONCAT44\([^;]*\))?\);[ \t]*$")
+PREV_CALL_RE = re.compile(r"^(?P<ind>[ \t]*)(?:(?P<v>[A-Za-z_]\w*) = )?(?P<f>[A-Za-z_]\w*)\((?P<a>.*)\);[ \t]*$")
+
+
+def seh_strip_allowed():
+    """names/seh_strip*.json {prog: [addresses]}: functions whose C++ exception frame may be dropped (see strip_seh_frames)"""
+    global _SEH_OK
+    if _SEH_OK is None:
+        _SEH_OK = set()
+        for path in glob.glob(os.path.join(ROOT, "names", "seh_strip*.json")):
+            for prog, addrs in json.load(open(path)).items():
+                if prog != "_comment":
+                    _SEH_OK |= {(prog, a) for a in addrs}
+    return (CUR_PROG, CUR_FN_ADDR) in _SEH_OK
+
+
+_SEH_OK = None
+
+
+def fix_ftol(body, seh=True):
+    if seh and seh_strip_allowed():
+        body = strip_seh_frames(body)
+    lines = body.split("\n")
+    names = x87_float_names()
+    out = []
+    for ln in lines:
+        m = FTOL_GARBAGE_RE.match(ln)
+        if m and m.group("lhs") and out:  # a bare `_ftol();` hides a use of EAX that Ghidra dropped: stays assembly
+            pm = PREV_CALL_RE.match(out[-1])
+            if pm and pm.group("f") in names:
+                lhs = "%s = " % m.group("lhs")
+                if pm.group("v"):  # `fVar = f(..);` already named
+                    out.append("%s%sFTOL(%s);" % (m.group("ind"), lhs, pm.group("v")))
+                else:
+                    out[-1] = "%s%sFTOL(%s(%s));" % (m.group("ind"), lhs, pm.group("f"), pm.group("a"))
+                continue
+        out.append(ln)
+    return drop_unused_artifacts("\n".join(out))
+
+
+
+# ---- C++ exception frames (SEH registration) ----------------------------------------------------------------
+# MSVC registers an exception frame in every function that constructs/destroys C++ objects:
+#     uStack_4 = 0xffffffff;  pcStack_8 = FUN_10021fe6;  uStack_c = *unaff_FS_OFFSET;  *unaff_FS_OFFSET = &uStack_c;
+#     ... uStack_4 = 0; ...        *unaff_FS_OFFSET = uStack_c;       (state changes, unlink before returning)
+# The frame only matters when a C++ exception unwinds through the function (it runs the destructors listed in the
+# handler's table).  The game never throws; the only thing that unwinds is longjmp, which does not run them either way.
+# The frame is removed when its three variables are used for nothing else.
+SEH_PREV_RE = re.compile(r"^[ \t]*(\w+) = \*unaff_FS_OFFSET;[ \t]*$", re.M)
+
+
+def strip_seh_frames(body):
+    if "unaff_FS_OFFSET" not in body or "unaff_EBP" in body:
+        return body
+    prevs = SEH_PREV_RE.findall(body)
+    if len(prevs) != 1:
+        return body
+    prev = prevs[0]
+    lines = body.split("\n")
+    # the registration statements sit together at the start of the body
+    first = next((i for i, l in enumerate(lines) if re.match(r"^[ \t]*%s = \*unaff_FS_OFFSET;" % prev, l)), None)
+    if first is None:
+        return body
+    state = handler = None
+    for l in lines[max(0, first - 4):first]:
+        m = re.match(r"^[ 	]*(\w+) = 0xffffffff;[ 	]*$", l)
+        if m:
+            state = m.group(1)
+        m = re.match(r"^[ 	]*(\w+) = (?:\(code \*\))?[A-Za-z_]\w*;[ 	]*$", l)
+        if m and re.search(r"^[ 	]+code \*%s;" % m.group(1), body, re.M):
+            handler = m.group(1)
+    keep, dropped = [], 0
+    for i, l in enumerate(lines):
+        if re.match(r"^[ \t]*%s = \*unaff_FS_OFFSET;" % prev, l) or re.match(r"^[ \t]*\*unaff_FS_OFFSET = (?:\(\w+\))?&%s;" % prev, l) \
+                or re.match(r"^[ \t]*\*unaff_FS_OFFSET = %s;" % prev, l):
+            dropped += 1
+            continue
+        if state and re.match(r"^[ \t]*%s = (?:0x)?[0-9a-fA-F]+;[ \t]*$" % state, l):
+            continue
+        if handler and first - 4 <= i <= first and re.match(r"^[ \t]*%s = " % handler, l):
+            continue
+        keep.append(l)
+    if dropped < 2:
+        return body
+    out = "\n".join(keep)
+    names = [n for n in (prev, state, handler, "unaff_FS_OFFSET") if n]
+    for n in names:
+        # the variable must be dead now (only its declaration is left)
+        if len(re.findall(r"\b%s\b" % n, out)) != 1:
+            return body
+    out = "\n".join(l for l in out.split("\n") if not any(re.match(r"^[ \t]+[\w ]+?[ \t]+\**%s;[ \t]*$" % n, l) for n in names))
+    return out
+
+
+ARTIFACT_DECL_RE = re.compile(r"^[ \t]+[A-Za-z_][\w ]*?[ \t]+\**(unaff_\w+|in_\w+|extraout_\w+);[ \t]*$")
+
+
+def drop_unused_artifacts(body):
+    """Declarations of unaff_*/in_*/extraout_* locals that no statement uses any more (the garbage
+    operand of a `_ftol` call that fix_ftol replaced)."""
+    lines = body.split("\n")
+    keep = []
+    for ln in lines:
+        m = ARTIFACT_DECL_RE.match(ln)
+        if m and sum(len(re.findall(r"\b%s\b" % m.group(1), x)) for x in lines) == 1:
+            continue
+        keep.append(ln)
+    return "\n".join(keep)
+
+
 def fix_function(code, ctx, stats):
     code = ftol_fold.fold(code, FLOAT_RETURNERS_NOW)
     code = fix_symbols(code)
@@ -883,6 +1080,7 @@ def fix_function(code, ctx, stats):
                 if n:
                     vt[n] = t
     vt.update(local_types(body))
+    body = fix_ftol(body)
     body = fix_pieces(body)
     body = fix_views(body, vt)
     body = fix_pseudo_regs(body)
@@ -1225,6 +1423,7 @@ def build(prog):
                 new = f"{name}_{f['address']}"
                 code = re.sub(r"\b" + re.escape(name) + r"(\s*\()", new + r"\1", code, count=1)
                 renamed[f["address"]] = new
+            code = widen_return_type(code)
             codes[f["address"]] = code
             sig = signature_of(code)
             if sig:
@@ -1253,6 +1452,8 @@ def build(prog):
     stats = Counter()
     fixed = {}
     for a, code in codes.items():
+        global CUR_FN_ADDR
+        CUR_FN_ADDR = a
         fixed[a] = fix_function(code, ctx, stats) if FIXUPS else code
 
     protos = OrderedDict()
@@ -1564,6 +1765,7 @@ typedef int code();
 #define ROUND(x)   ((float10)__builtin_rintl((float10)(x)))   /* FRNDINT */
 #define ABS(x)     (((x) < 0) ? -(x) : (x))
 #define SQRT(x)    ((float10)__builtin_sqrtl((float10)(x)))   /* FSQRT */
+#define FTOL(x)    ((long long)(x))                /* x87 _ftol: truncate toward zero (the value Ghidra loses in ST0) */
 #define ISNAN(x)   ((x) != (x))                    /* Ghidra NAN(x): unordered compare */
 #define NAN        (__builtin_nanf(""))
 #define f2xm1(x)   ((float10)__builtin_exp2l((float10)(x)) - 1)             /* F2XM1 */

@@ -424,7 +424,7 @@ int __cdecl D3D_AddTriangles(void *tris,uint count)
 #if 0
 /* Terminates and executes the buffer on the device */
 
-bool D3D_ExecuteBuffer(void)
+int D3D_ExecuteBuffer(void)
 
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1312,7 +1312,7 @@ void D3D_SetViewportRect(uint *param_1)
   
   UINT_00900600 = *param_1;
   uVar1 = param_1[1];
-  UINT_00900580 = (uint)(float)(int)UINT_00900600;
+  UINT_00900580 = PUN(uint,(float)(float)(int)UINT_00900600);
   UINT_00900608 = param_1[2];
   iVar3 = UINT_00900600 + UINT_00900608;
   UINT_0090060c = param_1[3];
@@ -1322,7 +1322,7 @@ void D3D_SetViewportRect(uint *param_1)
     *puVar4 = 0;
     puVar4 = puVar4 + 1;
   }
-  UINT_00900584 = (uint)(float)(int)UINT_00900604;
+  UINT_00900584 = PUN(uint,(float)(float)(int)UINT_00900604);
   _DAT_00900540 = 0;
   _DAT_00900544 = 1;
   _DAT_009005a0 = (float)iVar3;
@@ -1858,7 +1858,7 @@ LAB_0047a825:
 }
 
 /* ---- 0x0047a850  D3D_CapsToFilterBits ---- */
-byte D3D_CapsToFilterBits(uint param_1)
+uint D3D_CapsToFilterBits(uint param_1)
 
 {
   byte bVar1;
@@ -1886,7 +1886,7 @@ byte D3D_CapsToFilterBits(uint param_1)
 }
 
 /* ---- 0x0047a890  D3D_FilterBitsToMask ---- */
-byte D3D_FilterBitsToMask(byte param_1)
+uint D3D_FilterBitsToMask(byte param_1)
 
 {
   byte bVar1;
@@ -1917,7 +1917,7 @@ byte D3D_FilterBitsToMask(byte param_1)
 }
 
 /* ---- 0x0047a8e0  D3D_FilterBitsToEnum ---- */
-byte D3D_FilterBitsToEnum(byte param_1)
+uint D3D_FilterBitsToEnum(byte param_1)
 
 {
   byte bVar1;

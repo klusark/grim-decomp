@@ -1,0 +1,12 @@
+{
+ "_comment": "functions whose C++ exception frame may be removed when they are compiled as C (agent J)",
+ "LUA.DLL": [
+  "10004180",
+  "10002760",
+  "10003260",
+  "100087f0",
+  "10008ad0",
+  "1000dbd0",
+  "1000dd10"
+ ]
+}

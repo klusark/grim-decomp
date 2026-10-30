@@ -648,7 +648,7 @@ void Render_DrawDebugGrid(void)
 
 
 /* ---- 0x00486100  Render_CanvasIsPaletted ---- */
-bool Render_CanvasIsPaletted(void)
+int Render_CanvasIsPaletted(void)
 
 {
   return **(int **)((int)g_pCanvas + 4) == 1;

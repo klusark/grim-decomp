@@ -119,7 +119,7 @@ void Sector_IntersectSegment(int param_1,int param_2,float *param_3,float *param
 /* Remembers the set being parsed (UINT_008cb0a8), stores its base file name (+0, 0x7f chars) and
    parses the sections with SetFile_ParseSections. */
 
-bool SetFile_Parse(char *param_1,uint param_2)
+int SetFile_Parse(char *param_1,uint param_2)
 
 {
   char *pcVar1;
@@ -136,8 +136,6 @@ bool SetFile_Parse(char *param_1,uint param_2)
 }
 
 /* ---- 0x004a5550  SetFile_ParseSections ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Opens the .set file with stdConffile and calls Set_IsHandleValid (the registered section handler
    dispatcher) for every 'section: <name>' line; returns 0 if a handler rejects its section. */
 
@@ -172,8 +170,6 @@ undefined4 SetFile_ParseSections(undefined4 param_1)
   return 1;
 }
 #undef local_20
-
-#endif
 
 
 /* ---- 0x004a5600  SetFile_ParseLights ---- */
@@ -631,8 +627,6 @@ void SectorList_FreeShrinkSave(void)
 }
 
 /* ---- 0x004a6380  SectorList_RestoreAfterShrink ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void SectorList_RestoreAfterShrink(void)
 
 {
@@ -668,7 +662,7 @@ void SectorList_RestoreAfterShrink(void)
       do {
         iVar9 = *piVar3;
         iVar8 = iVar8 + -1;
-        (&FLOAT_008cb0b0)[iVar9 * 4] = (float)piVar3[1];
+        (&FLOAT_008cb0b0)[iVar9 * 4] = PUN(float,piVar3[1]);
         (&UINT_008cb0b4)[iVar9 * 4] = piVar3[2];
         (&UINT_008cb0b8)[iVar9 * 4] = piVar3[3];
         (&UINT_008cb0bc)[iVar9 * 4] = piVar3[4];
@@ -702,7 +696,7 @@ void SectorList_RestoreAfterShrink(void)
     UINT_008cf26c = 0;
     pfVar4 = &FLOAT_008cb0b0;
     do {
-      if (0 < (int)*pfVar4) {
+      if (0 < PUN(int,(float)*pfVar4)) {
         UINT_008cf26c = UINT_008cf26c + 1;
       }
       pfVar4 = pfVar4 + 4;
@@ -710,8 +704,6 @@ void SectorList_RestoreAfterShrink(void)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x004a6490  Sector_Construct ---- */
 /* Sector_Construct(sector, vertices, count, group name): vertices go through
@@ -972,8 +964,6 @@ void __thiscall Sector_SetName(void *this,char *name)
 }
 
 /* ---- 0x004a6790  Sector_SetSavedType ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Stores the type bits (+0x24); 0x1000 sets a small shrink tolerance, 0x100 (edge sector) needs 4
    vertices and picks the long axis (+0x78) */
 
@@ -1070,8 +1060,6 @@ void __thiscall Sector_SetSavedType(void *this,uint type)
 #undef local_4
 #undef local_8
 #undef local_c
-
-#endif
 
 
 /* ---- 0x004a6980  Sector_ContainsPoint ---- */
@@ -1276,8 +1264,6 @@ int __thiscall Sector_ClampPoint(void *this,int a1)
 
 
 /* ---- 0x004a6d10  Sector_FindExitPoint ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* WARNING: Variable defined which should be unmapped: local_3c */
 
 float __thiscall Sector_FindExitPoint(void *this,int a1,int a2,int a3)
@@ -1397,8 +1383,6 @@ float __thiscall Sector_FindExitPoint(void *this,int a1,int a2,int a3)
 #undef local_8
 #undef local_c
 
-#endif
-
 
 /* ---- 0x004a6fa0  Sector_SnapToPlane ---- */
 /* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
@@ -1483,8 +1467,6 @@ void __thiscall Sector_DrawOutline(void *this,int color)
 }
 
 /* ---- 0x004a71e0  SectorList_FindByPoint ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void * SectorList_FindByPoint(float *param_1,uint param_2)
 
 {
@@ -1506,8 +1488,6 @@ void * SectorList_FindByPoint(float *param_1,uint param_2)
   }
   return this;
 }
-#endif
-
 
 /* ---- 0x004a7230  Sector_FindByName ---- */
 void * __cdecl Sector_FindByName(char *name)
@@ -1564,8 +1544,6 @@ void * __cdecl Sector_FindById(int id)
 }
 
 /* ---- 0x004a72b0  SectorList_FindNearestPoint ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* SectorList_FindNearestPoint(point, mask): the sector with the mask that contains the point
    (SectorList_FindByPoint), else the active sector whose Sector_ClampPoint of the point is nearest.
    Used by Lua GetShrinkPos, which then clamps the point in it (so (x, y) stay and only the height
@@ -1614,12 +1592,8 @@ void * SectorList_FindNearestPoint(float *param_1,uint param_2)
 #undef local_8
 #undef local_c
 
-#endif
-
 
 /* ---- 0x004a7390  Sector_MoveWalkerToOppositeEdge ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void __thiscall Sector_MoveWalkerToOppositeEdge(void *this,float *walker)
 
 {
@@ -1700,12 +1674,8 @@ void __thiscall Sector_MoveWalkerToOppositeEdge(void *this,float *walker)
 #undef local_8
 #undef local_c
 
-#endif
-
 
 /* ---- 0x004a7520  Sector_EdgeFollowDirection ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* For a 4-vertex edge sector: direction along the edge the walker should follow (g_vEdgeFollowDir),
    stepping the current edge index when the walker reaches a corner */
@@ -1913,8 +1883,6 @@ float * __thiscall Sector_EdgeFollowDirection(void *this,float *walker)
 #undef local_4
 #undef local_8
 
-#endif
-
 
 /* ---- 0x004a7a90  SectorList_ResetFree ---- */
 void SectorList_ResetFree(void)
@@ -1929,8 +1897,6 @@ void SectorList_ResetFree(void)
 }
 
 /* ---- 0x004a7ab0  SectorVertexPool_GetOrAdd ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Source: Engine/WalkPlane.cpp (line 974, from __FILE__/__LINE__ passed to the allocator) */
 
 float * SectorVertexPool_GetOrAdd(undefined4 param_1,float *param_2)
@@ -1950,12 +1916,12 @@ float * SectorVertexPool_GetOrAdd(undefined4 param_1,float *param_2)
   iVar3 = 0;
   puVar2 = &UINT_008cb0b4;
   do {
-    if (((float)puVar2[-1] != 0.0) &&
-       ((param_2[2] - (float)puVar2[2]) * (param_2[2] - (float)puVar2[2]) +
-        (param_2[1] - (float)puVar2[1]) * (param_2[1] - (float)puVar2[1]) +
-        (*param_2 - (float)*puVar2) * (*param_2 - (float)*puVar2) < 1e-08)) {
+    if ((PUN(float,puVar2[-1]) != 0.0) &&
+       ((param_2[2] - PUN(float,puVar2[2])) * (param_2[2] - PUN(float,puVar2[2])) +
+        (param_2[1] - PUN(float,puVar2[1])) * (param_2[1] - PUN(float,puVar2[1])) +
+        (*param_2 - PUN(float,*puVar2)) * (*param_2 - PUN(float,*puVar2)) < 1e-08)) {
       pfVar4 = &FLOAT_008cb0b0 + iVar3 * 4;
-      *pfVar4 = PUN(float,((int)*pfVar4 + 1));
+      *pfVar4 = PUN(float,(PUN(int,(float)*pfVar4) + 1));
       return pfVar4;
     }
     puVar2 = puVar2 + 4;
@@ -1964,7 +1930,7 @@ float * SectorVertexPool_GetOrAdd(undefined4 param_1,float *param_2)
   iVar3 = 0;
   pfVar1 = &FLOAT_008cb0b0;
   do {
-    if ((int)*pfVar1 < 1) {
+    if (PUN(int,(float)*pfVar1) < 1) {
       pfVar4 = &FLOAT_008cb0b0 + iVar3 * 4;
       break;
     }
@@ -1978,8 +1944,6 @@ float * SectorVertexPool_GetOrAdd(undefined4 param_1,float *param_2)
   pfVar4[3] = param_2[2];
   return pfVar4;
 }
-#endif
-
 
 /* ---- 0x004a7ba0  SectorVertexPool_Release ---- */
 void SectorVertexPool_Release(int *param_1)
@@ -2381,8 +2345,6 @@ LAB_004a80a5:
 
 
 /* ---- 0x004a8cb0  Sector_ClipPolygon ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Sutherland-Hodgman clip of a polygon against the sector's edges in its projection plane; returns
    the vertex count */
 
@@ -2467,13 +2429,13 @@ int __thiscall Sector_ClipPolygon(void *this,float *verts,int count,float *out)
           iVar1 = *(int *)((int)this + 0x7c);
           iVar20 = iVar1 * 4;
           iVar12 = iVar14 * 4;
-          fVar4 = ((float)puVar15[iVar14] - *(float *)(iVar21 + iVar12)) * fVar2 +
-                  ((float)puVar15[iVar1] - *(float *)(iVar21 + iVar20)) * fVar3;
+          fVar4 = (PUN(float,puVar15[iVar14]) - *(float *)(iVar21 + iVar12)) * fVar2 +
+                  (PUN(float,puVar15[iVar1]) - *(float *)(iVar21 + iVar20)) * fVar3;
           if ((local_138 <= 0.0) || (fVar4 <= 0.0)) {
             if ((local_138 <= 0.0) || (0.0 <= fVar4)) {
               if ((local_138 < 0.0) && (0.0 < fVar4)) {
-                fVar9 = (float)puVar15[iVar14] - *(float *)(local_148 + iVar12);
-                fVar8 = (float)puVar15[iVar1] - *(float *)(local_148 + iVar20);
+                fVar9 = PUN(float,puVar15[iVar14]) - *(float *)(local_148 + iVar12);
+                fVar8 = PUN(float,puVar15[iVar1]) - *(float *)(local_148 + iVar20);
                 fVar5 = -(fVar9 * fVar2) - fVar8 * fVar3;
                 fVar7 = fVar5;
                 if (fVar5 < 0.0) {
@@ -2486,19 +2448,19 @@ int __thiscall Sector_ClipPolygon(void *this,float *verts,int count,float *out)
                 if (fVar6 != 0.0) {
                   local_150 = local_150 + 1;
                   *(float *)(puVar17 + (*(int *)((int)this + 0x80) + iVar16) * 4) =
-                       fVar9 * (fVar4 / fVar5) + (float)puVar15[iVar14];
+                       fVar9 * (fVar4 / fVar5) + PUN(float,puVar15[iVar14]);
                   iVar12 = *(int *)((int)this + 0x7c) + iVar16;
                   iVar16 = iVar16 + 3;
                   local_14c = local_14c + 0xc;
                   *(float *)(puVar17 + iVar12 * 4) =
-                       fVar8 * (fVar4 / fVar5) + (float)puVar15[*(int *)((int)this + 0x7c)];
+                       fVar8 * (fVar4 / fVar5) + PUN(float,puVar15[*(int *)((int)this + 0x7c)]);
                 }
                 goto LAB_004a903f;
               }
             }
             else {
-              fVar9 = (float)puVar15[iVar14] - *(float *)(local_148 + iVar12);
-              fVar8 = (float)puVar15[iVar1] - *(float *)(local_148 + iVar20);
+              fVar9 = PUN(float,puVar15[iVar14]) - *(float *)(local_148 + iVar12);
+              fVar8 = PUN(float,puVar15[iVar1]) - *(float *)(local_148 + iVar20);
               fVar5 = -(fVar9 * fVar2) - fVar8 * fVar3;
               fVar7 = fVar5;
               if (fVar5 < 0.0) {
@@ -2511,12 +2473,12 @@ int __thiscall Sector_ClipPolygon(void *this,float *verts,int count,float *out)
               if (fVar6 != 0.0) {
                 local_150 = local_150 + 1;
                 *(float *)(puVar17 + (*(int *)((int)this + 0x80) + iVar16) * 4) =
-                     fVar9 * (fVar4 / fVar5) + (float)puVar15[iVar14];
+                     fVar9 * (fVar4 / fVar5) + PUN(float,puVar15[iVar14]);
                 iVar12 = *(int *)((int)this + 0x7c) + iVar16;
                 iVar16 = iVar16 + 3;
                 local_14c = local_14c + 0xc;
                 *(float *)(puVar17 + iVar12 * 4) =
-                     fVar8 * (fVar4 / fVar5) + (float)puVar15[*(int *)((int)this + 0x7c)];
+                     fVar8 * (fVar4 / fVar5) + PUN(float,puVar15[*(int *)((int)this + 0x7c)]);
               }
             }
           }
@@ -2580,11 +2542,9 @@ LAB_004a903f:
 #undef local_84
 #undef local_90
 
-#endif
-
 
 /* ---- 0x004a9070  Sector_EdgeDistance ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Source: Engine/WalkPlane.cpp (line 1736, from __FILE__/__LINE__ passed to the allocator) */
 
@@ -2648,8 +2608,6 @@ float __thiscall Sector_EdgeDistance(void *this,int edge,float *point)
 
 
 /* ---- 0x004a9180  Sector_CollapseShortestEdge ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Sector_CollapseShortestEdge: for a sector of 4 or more vertices, finds the shortest edge a -
    (a+1) and replaces its two ends by the point where the line of the edge before it (a-1 -> a)
    meets the line of the edge after it ((a+1) -> (a+2)), computed on the two dominant axes (+0x7c,
@@ -2802,8 +2760,6 @@ undefined4 __fastcall Sector_CollapseShortestEdge(void *param_1)
 #undef local_4c
 #undef local_50
 #undef local_54
-
-#endif
 
 
 /* ---- 0x004a9d00  SectorList_ShrinkWalkSectors ---- */
@@ -2966,9 +2922,9 @@ LAB_004aa005:
         fVar3 = 1.0 / (float)*piVar11;
         fVar1 = *pfVar10;
         fVar2 = pfVar10[1];
-        puVar7[-1] = (uint)(pfVar10[-1] * fVar3 + (float)puVar7[-1]);
-        *puVar7 = (uint)(fVar1 * fVar3 + (float)*puVar7);
-        puVar7[1] = (uint)(fVar2 * fVar3 + (float)puVar7[1]);
+        puVar7[-1] = PUN(uint,(float)(pfVar10[-1] * fVar3 + (float)puVar7[-1]));
+        *puVar7 = PUN(uint,(float)(fVar1 * fVar3 + (float)*puVar7));
+        puVar7[1] = PUN(uint,(float)(fVar2 * fVar3 + (float)puVar7[1]));
       }
       puVar7 = puVar7 + 4;
       piVar11 = piVar11 + 1;

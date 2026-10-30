@@ -181,7 +181,7 @@ void __cdecl Matrix_GetAngles(float *matrix,float *outAngles)
 /* ---- 0x0044e7d0  Frustum_TestSphere ---- */
 /* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
-undefined1 Frustum_TestSphere(int *param_1,float *param_2,float param_3)
+uint Frustum_TestSphere(int *param_1,float *param_2,float param_3)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -200,15 +200,15 @@ undefined1 Frustum_TestSphere(int *param_1,float *param_2,float param_3)
   pfVar8 = param_2;
   fVar5 = param_3 + param_2[1];
   fVar2 = param_2[1] - param_3;
-  if (fVar5 < (float)param_1[1]) {
+  if (fVar5 < PUN(float,param_1[1])) {
     return 2;
   }
-  bVar4 = (float)param_1[1] <= fVar2;
+  bVar4 = PUN(float,param_1[1]) <= fVar2;
   if (*param_1 != 0) {
-    if ((float)param_1[2] < fVar2) {
+    if (PUN(float,param_1[2]) < fVar2) {
       return 2;
     }
-    if ((float)param_1[2] < fVar5) {
+    if (PUN(float,param_1[2]) < fVar5) {
       bVar4 = false;
     }
   }
@@ -216,12 +216,12 @@ undefined1 Frustum_TestSphere(int *param_1,float *param_2,float param_3)
   fVar7 = param_2[2] - param_3;
   iVar3 = *(int *)g_pRdCurrentCamera;
   if (iVar3 == 1) {
-    fVar1 = (float)param_1[7] * fVar2;
-    param_2 = PUN(float *,(float)((float)param_1[7] * fVar5));
+    fVar1 = PUN(float,param_1[7]) * fVar2;
+    param_2 = PUN(float *,(float)(PUN(float,param_1[7]) * fVar5));
   }
   else {
     param_2 = (float *)param_1[4];
-    fVar1 = (float)param_1[4];
+    fVar1 = PUN(float,param_1[4]);
   }
   if ((fVar1 < fVar7) && (PUN(float,param_2) < fVar7)) {
     return 2;
@@ -230,12 +230,12 @@ undefined1 Frustum_TestSphere(int *param_1,float *param_2,float param_3)
     bVar4 = false;
   }
   if (iVar3 == 1) {
-    fVar1 = (float)param_1[8] * fVar2;
-    param_2 = PUN(float *,(float)((float)param_1[8] * fVar5));
+    fVar1 = PUN(float,param_1[8]) * fVar2;
+    param_2 = PUN(float *,(float)(PUN(float,param_1[8]) * fVar5));
   }
   else {
     param_2 = (float *)param_1[6];
-    fVar1 = (float)param_1[6];
+    fVar1 = PUN(float,param_1[6]);
   }
   if ((fVar6 < fVar1) && (fVar6 < PUN(float,param_2))) {
     return 2;
@@ -246,12 +246,12 @@ undefined1 Frustum_TestSphere(int *param_1,float *param_2,float param_3)
   fVar7 = param_3 + *pfVar8;
   fVar6 = *pfVar8 - param_3;
   if (iVar3 == 1) {
-    fVar1 = (float)param_1[9] * fVar2;
-    param_3 = (float)param_1[9] * fVar5;
+    fVar1 = PUN(float,param_1[9]) * fVar2;
+    param_3 = PUN(float,param_1[9]) * fVar5;
   }
   else {
-    param_3 = (float)param_1[3];
-    fVar1 = (float)param_1[3];
+    param_3 = PUN(float,param_1[3]);
+    fVar1 = PUN(float,param_1[3]);
   }
   if ((fVar7 < fVar1) && (fVar7 < param_3)) {
     return 2;
@@ -260,12 +260,12 @@ undefined1 Frustum_TestSphere(int *param_1,float *param_2,float param_3)
     bVar4 = false;
   }
   if (iVar3 == 1) {
-    fVar2 = (float)param_1[10] * fVar2;
-    param_3 = (float)param_1[10] * fVar5;
+    fVar2 = PUN(float,param_1[10]) * fVar2;
+    param_3 = PUN(float,param_1[10]) * fVar5;
   }
   else {
-    param_3 = (float)param_1[5];
-    fVar2 = (float)param_1[5];
+    param_3 = PUN(float,param_1[5]);
+    fVar2 = PUN(float,param_1[5]);
   }
   if ((fVar2 < fVar6) && (param_3 < fVar6)) {
     return 2;
@@ -350,12 +350,12 @@ uint Polygon_ClipToPlane(float *param_1,float *param_2,float *param_3,undefined4
       if ((local_18[0] < 0.0) || (fVar2 < 0.0)) {
         if ((0.0 <= local_18[0]) && (fVar2 < 0.0)) {
           fVar1 = -(local_18[0] / (fVar2 - local_18[0]));
-          *puVar12 = (uint)((*pfVar8 - *pfVar7) * fVar1 + *pfVar7);
-          *puVar14 = (uint)((pfVar8[1] - pfVar7[1]) * fVar1 + pfVar7[1]);
-          *puVar9 = (uint)((pfVar8[2] - pfVar7[2]) * fVar1 + pfVar7[2]);
+          *puVar12 = PUN(uint,(float)((*pfVar8 - *pfVar7) * fVar1 + *pfVar7));
+          *puVar14 = PUN(uint,(float)((pfVar8[1] - pfVar7[1]) * fVar1 + pfVar7[1]));
+          *puVar9 = PUN(uint,(float)((pfVar8[2] - pfVar7[2]) * fVar1 + pfVar7[2]));
           if (param_4 != (undefined4 *)0x0) {
-            *param_6 = (uint)((*PUN(float *,(float)local_18[1]) - *pfVar6) * fVar1 + *pfVar6);
-            *(float *)local_1c = (*(float *)((int)local_18[1] + 4) - pfVar6[1]) * fVar1 + pfVar6[1];
+            *param_6 = PUN(uint,(float)((*PUN(float *,(float)local_18[1]) - *pfVar6) * fVar1 + *pfVar6));
+            *(float *)local_1c = (*(float *)(PUN(int,(float)local_18[1]) + 4) - pfVar6[1]) * fVar1 + pfVar6[1];
           }
           if (param_5 != (float *)0x0) {
             *(float *)local_24 = (PUN(float,pfVar11) - local_18[2]) * fVar1 + local_18[2];
@@ -364,12 +364,12 @@ uint Polygon_ClipToPlane(float *param_1,float *param_2,float *param_3,undefined4
         }
         if ((local_18[0] < 0.0) && (0.0 <= fVar2)) {
           fVar1 = -(local_18[0] / (fVar2 - local_18[0]));
-          *puVar12 = (uint)((*pfVar8 - *pfVar7) * fVar1 + *pfVar7);
-          *puVar14 = (uint)((pfVar8[1] - pfVar7[1]) * fVar1 + pfVar7[1]);
-          *puVar9 = (uint)((pfVar8[2] - pfVar7[2]) * fVar1 + pfVar7[2]);
+          *puVar12 = PUN(uint,(float)((*pfVar8 - *pfVar7) * fVar1 + *pfVar7));
+          *puVar14 = PUN(uint,(float)((pfVar8[1] - pfVar7[1]) * fVar1 + pfVar7[1]));
+          *puVar9 = PUN(uint,(float)((pfVar8[2] - pfVar7[2]) * fVar1 + pfVar7[2]));
           if (param_4 != (undefined4 *)0x0) {
-            *param_6 = (uint)((*PUN(float *,(float)local_18[1]) - *pfVar6) * fVar1 + *pfVar6);
-            *(float *)local_1c = (*(float *)((int)local_18[1] + 4) - pfVar6[1]) * fVar1 + pfVar6[1];
+            *param_6 = PUN(uint,(float)((*PUN(float *,(float)local_18[1]) - *pfVar6) * fVar1 + *pfVar6));
+            *(float *)local_1c = (*(float *)(PUN(int,(float)local_18[1]) + 4) - pfVar6[1]) * fVar1 + pfVar6[1];
           }
           if (param_5 != (float *)0x0) {
             *(float *)local_24 = (PUN(float,pfVar11) - local_18[2]) * fVar1 + local_18[2];
@@ -382,12 +382,12 @@ uint Polygon_ClipToPlane(float *param_1,float *param_2,float *param_3,undefined4
           puVar14 = puVar14 + 3;
           *pfVar7 = *pfVar8;
           puVar9 = puVar9 + 3;
-          puVar12[4] = (uint)pfVar8[1];
-          puVar12[5] = (uint)pfVar8[2];
+          puVar12[4] = PUN(uint,(float)pfVar8[1]);
+          puVar12[5] = PUN(uint,(float)pfVar8[2]);
           if (param_4 != (undefined4 *)0x0) {
             *pfVar6 = *PUN(float *,(float)local_18[1]);
-            param_6[3] = (uint)*(float *)((int)local_18[1] + 4);
-            param_6[4] = (uint)*(float *)((int)local_18[1] + 8);
+            param_6[3] = PUN(uint,(float)*(float *)(PUN(int,(float)local_18[1]) + 4));
+            param_6[4] = PUN(uint,(float)*(float *)(PUN(int,(float)local_18[1]) + 8));
           }
           puVar12 = (uint *)pfVar7;
           param_6 = (uint *)pfVar6;
@@ -398,13 +398,13 @@ uint Polygon_ClipToPlane(float *param_1,float *param_2,float *param_3,undefined4
         }
       }
       else {
-        *puVar12 = (uint)*pfVar8;
-        puVar12[1] = (uint)pfVar8[1];
-        puVar12[2] = (uint)pfVar8[2];
+        *puVar12 = PUN(uint,(float)*pfVar8);
+        puVar12[1] = PUN(uint,(float)pfVar8[1]);
+        puVar12[2] = PUN(uint,(float)pfVar8[2]);
         if (param_4 != (undefined4 *)0x0) {
-          *param_6 = (uint)*PUN(float *,(float)local_18[1]);
-          param_6[1] = (uint)*(float *)((int)local_18[1] + 4);
-          param_6[2] = (uint)*(float *)((int)local_18[1] + 8);
+          *param_6 = PUN(uint,(float)*PUN(float *,(float)local_18[1]));
+          param_6[1] = PUN(uint,(float)*(float *)(PUN(int,(float)local_18[1]) + 4));
+          param_6[2] = PUN(uint,(float)*(float *)(PUN(int,(float)local_18[1]) + 8));
         }
         if (param_5 != (float *)0x0) {
           *(float **)local_24 = pfVar11;
@@ -418,9 +418,9 @@ LAB_0044ed90:
         puVar12 = puVar12 + 3;
         local_24 = local_24 + 4;
       }
-      local_c[0] = (float)((int)local_c[0] + 8);
-      local_c[1] = (float)((int)local_c[1] + 4);
-      local_c[2] = (float)((int)local_c[2] + -1);
+      local_c[0] = PUN(float,(PUN(int,(float)local_c[0]) + 8));
+      local_c[1] = PUN(float,(PUN(int,(float)local_c[1]) + 4));
+      local_c[2] = PUN(float,(PUN(int,(float)local_c[2]) + -1));
       pfVar7 = pfVar8;
       pfVar8 = pfVar8 + 3;
       pfVar6 = PUN(float *,(float)local_18[1]);

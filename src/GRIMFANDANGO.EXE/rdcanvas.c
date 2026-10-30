@@ -1496,8 +1496,6 @@ void rdCanvas_DrawPoint(void *param_1,int param_2,int param_3,undefined4 param_4
 
 
 /* ---- 0x004c04f0  rdCanvas_New ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Rdcanvas.c: allocates a 0x28-byte canvas and initialises it */
 
 uint * rdCanvas_New(uint param_1,uint param_2,uint param_3,uint param_4,uint param_5,uint param_6,
@@ -1514,12 +1512,8 @@ uint * rdCanvas_New(uint param_1,uint param_2,uint param_3,uint param_4,uint par
   rdCanvas_Init(canvas,param_1,param_2,param_3,param_4,param_5,param_6,param_7,param_8);
   return canvas;
 }
-#endif
-
 
 /* ---- 0x004c0550  rdCanvas_Init ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* flags bit 0: explicit clip rect, otherwise the whole surface */
 
 int __cdecl
@@ -1543,16 +1537,12 @@ rdCanvas_Init(uint *canvas,uint flags,uint surface,uint zSurface,uint x0,uint y0
     canvas[8] = x1;
     canvas[9] = y1;
   }
-  canvas[2] = (uint)((float)(int)canvas[6] + (float)(int)((canvas[8] - canvas[6]) + 1) * 0.5);
-  canvas[3] = (uint)((float)(int)canvas[7] + (float)(int)((canvas[9] - canvas[7]) + 1) * 0.5);
+  canvas[2] = PUN(uint,(float)((float)(int)canvas[6] + (float)(int)((canvas[8] - canvas[6]) + 1) * 0.5));
+  canvas[3] = PUN(uint,(float)((float)(int)canvas[7] + (float)(int)((canvas[9] - canvas[7]) + 1) * 0.5));
   return 1;
 }
-#endif
-
 
 /* ---- 0x004c0610  rdCanvas_Free ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void rdCanvas_Free(int param_1)
 
 {
@@ -1562,5 +1552,3 @@ void rdCanvas_Free(int param_1)
   }
   return;
 }
-#endif
-

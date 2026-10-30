@@ -176,7 +176,7 @@ undefined4 Movie_CheckSurfaceFormat(int param_1,int param_2,int param_3)
 }
 
 /* ---- 0x00489410  FUN_00489410 ---- */
-bool FUN_00489410(void)
+int FUN_00489410(void)
 
 {
   return g_nMovieAvailable == 0;
@@ -219,7 +219,7 @@ undefined4 Movie_UnlockSurface(void)
 }
 
 /* ---- 0x004894d0  FUN_004894d0 ---- */
-bool FUN_004894d0(void)
+int FUN_004894d0(void)
 
 {
   return g_nMovieAvailable == 0;

@@ -461,7 +461,7 @@ void FUN_10006790(void)
     if ((((*piVar1 != 0) && (piVar1 != (int *)&DAT_10010724)) && (piVar1 != (int *)&DAT_10010714))
        && ((piVar1 != (int *)&DAT_10010704 && (piVar1 != (int *)&DAT_100106e4)))) {
       DeleteCriticalSection(*piVar1);
-      FUN_10009510(*piVar1);
+      FUN_10009510();
     }
     piVar1 = piVar1 + 1;
   } while ((int)piVar1 < IMG_ADDR(0x100107a0));
@@ -489,13 +489,13 @@ void FUN_10006810(int param_1)
     }
     FUN_10006810(0x11);
     if (*(int *)(param_1 * 4 + IMG_ADDR(0x100106e0)) == 0) {
-      InitializeCriticalSection();
+      InitializeCriticalSection(iVar1);
       *(int *)(param_1 * 4 + IMG_ADDR(0x100106e0)) = iVar1;
     }
     else {
-      FUN_10009510(iVar1);
+      FUN_10009510();
     }
-    FUN_10006890(0x11);
+    FUN_10006890();
   }
   EnterCriticalSection(*(undefined4 *)(param_1 * 4 + IMG_ADDR(0x100106e0)));
   return;
@@ -506,11 +506,16 @@ void FUN_10006810(int param_1)
 /* ---- 0x10006890  FUN_10006890 ---- */
 /* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
-void FUN_10006890(int param_1)
+/* WARNING: Unknown calling convention -- yet parameter storage is locked */
+
+int FUN_10006890(void)
 
 {
-  LeaveCriticalSection(*(undefined4 *)(param_1 * 4 + IMG_ADDR(0x100106e0)));
-  return;
+  int iVar1;
+  int in_stack_00000004;
+  
+  iVar1 = LeaveCriticalSection(*(undefined4 *)(in_stack_00000004 * 4 + IMG_ADDR(0x100106e0)));
+  return iVar1;
 }
 #endif
 
@@ -554,7 +559,7 @@ void FUN_10006920(uint param_1)
 
 {
   if ((IMG_ADDR(0x10010d17) < param_1) && (param_1 < IMG_ADDR(0x10010f79))) {
-    FUN_10006890(((int)(param_1 + 0xeffef2e8) >> 5) + 0x1c);
+    FUN_10006890();
     return;
   }
   LeaveCriticalSection(param_1 + 0x20);
@@ -570,7 +575,7 @@ void FUN_10006960(int param_1,int param_2)
 
 {
   if (param_1 < 0x14) {
-    FUN_10006890(param_1 + 0x1c);
+    FUN_10006890();
     return;
   }
   LeaveCriticalSection(param_2 + 0x20);
@@ -614,7 +619,7 @@ int FUN_100069a0(int param_1)
     }
     param_1 = FUN_10006a30(param_1);
     if (bVar1) {
-      FUN_10006890(0x13);
+      FUN_10006890();
       return param_1;
     }
     InterlockedDecrement(IMG_ADDR(0x10015af0));
@@ -1576,7 +1581,7 @@ void FUN_10007a70(void)
 void FUN_10007a80(void)
 
 {
-  FUN_10006890(0xd);
+  FUN_10006890();
   return;
 }
 #endif
@@ -1706,27 +1711,27 @@ void FUN_10007be0(int param_1)
   if (_DAT_10010908 != -1) {
     if ((param_1 != 0) || (param_1 = TlsGetValue(_DAT_10010908), param_1 != 0)) {
       if (*(int *)(param_1 + 0x24) != 0) {
-        FUN_10009510(*(int *)(param_1 + 0x24));
+        FUN_10009510();
       }
       if (*(int *)(param_1 + 0x28) != 0) {
-        FUN_10009510(*(int *)(param_1 + 0x28));
+        FUN_10009510();
       }
       if (*(int *)(param_1 + 0x30) != 0) {
-        FUN_10009510(*(int *)(param_1 + 0x30));
+        FUN_10009510();
       }
       if (*(int *)(param_1 + 0x38) != 0) {
-        FUN_10009510(*(int *)(param_1 + 0x38));
+        FUN_10009510();
       }
       if (*(int *)(param_1 + 0x40) != 0) {
-        FUN_10009510(*(int *)(param_1 + 0x40));
+        FUN_10009510();
       }
       if (*(int *)(param_1 + 0x44) != 0) {
-        FUN_10009510(*(int *)(param_1 + 0x44));
+        FUN_10009510();
       }
       if (*(int *)(param_1 + 0x50) != IMG_ADDR(0x10011720)) {
-        FUN_10009510(*(int *)(param_1 + 0x50));
+        FUN_10009510();
       }
-      FUN_10009510(param_1);
+      FUN_10009510();
     }
     TlsSetValue(_DAT_10010908,0);
     return;
@@ -1889,7 +1894,7 @@ void FUN_10007ea0(void)
           iVar3 = iVar3 + 0x24;
         } while (uVar2 < *puVar1 + 0x480);
       }
-      FUN_10009510(*puVar1);
+      FUN_10009510();
       *puVar1 = 0;
     }
     puVar1 = puVar1 + 1;
@@ -1948,7 +1953,7 @@ void FUN_10007f00(void)
   pcVar7 = _DAT_10014400;
   do {
     if (cVar2 == '\0') {
-      FUN_10009510(_DAT_10014400);
+      FUN_10009510();
       _DAT_10014400 = (char *)0x0;
       *piVar3 = 0;
       return;
@@ -2227,13 +2232,13 @@ undefined4 FUN_100082a0(undefined4 param_1)
   FUN_10006810(0x19);
   iVar3 = FUN_100084d0(param_1);
   if (iVar3 == _DAT_100147f0) {
-    FUN_10006890(0x19);
+    FUN_10006890();
     return 0;
   }
   if (iVar3 == 0) {
     FUN_10008580();
     FUN_100085c0();
-    FUN_10006890(0x19);
+    FUN_10006890();
     return 0;
   }
   iVar8 = 0;
@@ -2317,14 +2322,14 @@ undefined4 FUN_100082a0(undefined4 param_1)
   }
   else {
     if (_DAT_10014804 == 0) {
-      FUN_10006890(0x19);
+      FUN_10006890();
       return 0xffffffff;
     }
     FUN_10008580();
   }
 LAB_100083f2:
   FUN_100085c0();
-  FUN_10006890(0x19);
+  FUN_10006890();
   return 0;
 }
 #undef abStack_14
@@ -2587,7 +2592,7 @@ char * FUN_100087b0(void)
       if ((iVar6 != 0) && (pcVar10 = (char *)FUN_10009580(iVar6), pcVar10 != (char *)0x0)) {
         iVar5 = WideCharToMultiByte(0,0,psVar11,iVar5,pcVar10,iVar6,0,0);
         if (iVar5 == 0) {
-          FUN_10009510(pcVar10);
+          FUN_10009510();
           pcVar10 = (char *)0x0;
         }
         FreeEnvironmentStringsW(psVar11);
@@ -2926,9 +2931,8 @@ uint FUN_10008bc0(uint param_1,uint param_2)
   uint uVar1;
   
   uVar1 = ((code *)FUN_10008c20)();
-  uVar1 = param_2 & param_1 | ~param_2 & uVar1;
-  ((code *)FUN_10008cc0)(uVar1);
-  return uVar1;
+  FUN_10008cc0();
+  return param_2 & param_1 | ~param_2 & uVar1;
 }
 #endif
 
@@ -3002,10 +3006,55 @@ uint FUN_10008c20(uint param_1)
 /* ---- 0x10008cc0  FUN_10008cc0 ---- */
 /* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
-void FUN_10008cc0(void)
+/* WARNING: Unknown calling convention -- yet parameter storage is locked */
+
+int FUN_10008cc0(void)
 
 {
-  return;
+  uint uVar1;
+  uint uVar2;
+  byte bVar3;
+  uint in_stack_00000004;
+  
+  bVar3 = (in_stack_00000004 & 0x10) != 0;
+  if ((in_stack_00000004 & 8) != 0) {
+    bVar3 = bVar3 | 4;
+  }
+  if ((in_stack_00000004 & 4) != 0) {
+    bVar3 = bVar3 | 8;
+  }
+  if ((in_stack_00000004 & 2) != 0) {
+    bVar3 = bVar3 | 0x10;
+  }
+  if ((in_stack_00000004 & 1) != 0) {
+    bVar3 = bVar3 | 0x20;
+  }
+  if ((in_stack_00000004 & 0x80000) != 0) {
+    bVar3 = bVar3 | 2;
+  }
+  uVar1 = (uint)bVar3;
+  uVar2 = in_stack_00000004 & 0x300;
+  if (uVar2 < 0x101) {
+    if (uVar2 == 0x100) {
+      uVar1 = bVar3 | 0x400;
+    }
+  }
+  else if (uVar2 == 0x200) {
+    uVar1 = (uint)CONCAT11(8,bVar3);
+  }
+  else if (uVar2 == 0x300) {
+    uVar1 = (uint)CONCAT11(0xc,bVar3);
+  }
+  if ((in_stack_00000004 & 0x30000) == 0) {
+    uVar1 = uVar1 | 0x300;
+  }
+  else if ((in_stack_00000004 & 0x30000) == 0x10000) {
+    uVar1 = uVar1 | 0x200;
+  }
+  if ((in_stack_00000004 & 0x40000) != 0) {
+    uVar1 = uVar1 | 0x1000;
+  }
+  return uVar1;
 }
 #endif
 
@@ -3084,32 +3133,36 @@ undefined4 FUN_10008df0(int param_1,int param_2)
 /* ---- 0x10008e60  FUN_10008e60 ---- */
 /* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
-void FUN_10008e60(int param_1,int param_2)
+/* WARNING: Unknown calling convention -- yet parameter storage is locked */
+
+int FUN_10008e60(void)
 
 {
   byte bVar1;
   int iVar2;
   int iVar3;
   undefined4 *puVar4;
+  int in_stack_00000004;
+  int in_stack_00000008;
   
-  bVar1 = (byte)(param_2 >> 0x1f);
-  iVar3 = (int)(param_2 + (param_2 >> 0x1f & 0x1fU)) >> 5;
-  iVar2 = FUN_1000b830(*(undefined4 *)(param_1 + iVar3 * 4),
-                       1 << (0x1f - ((((byte)param_2 ^ bVar1) - bVar1 & 0x1f ^ bVar1) - bVar1) &
-                            0x1f),param_1 + iVar3 * 4);
+  bVar1 = (byte)(in_stack_00000008 >> 0x1f);
+  iVar3 = (int)(in_stack_00000008 + (in_stack_00000008 >> 0x1f & 0x1fU)) >> 5;
+  iVar2 = FUN_1000b830(*(undefined4 *)(in_stack_00000004 + iVar3 * 4),
+                       1 << (0x1f - ((((byte)in_stack_00000008 ^ bVar1) - bVar1 & 0x1f ^ bVar1) -
+                                    bVar1) & 0x1f),in_stack_00000004 + iVar3 * 4);
   iVar3 = iVar3 + -1;
   if (-1 < iVar3) {
-    puVar4 = (undefined4 *)(param_1 + iVar3 * 4);
+    puVar4 = (undefined4 *)(in_stack_00000004 + iVar3 * 4);
     do {
       if (iVar2 == 0) {
-        return;
+        return 0;
       }
       iVar2 = FUN_1000b830(*puVar4,1,puVar4);
       iVar3 = iVar3 + -1;
       puVar4 = puVar4 + -1;
     } while (-1 < iVar3);
   }
-  return;
+  return iVar2;
 }
 #endif
 
@@ -3117,7 +3170,7 @@ void FUN_10008e60(int param_1,int param_2)
 /* ---- 0x10008ed0  FUN_10008ed0 ---- */
 /* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
-undefined4 FUN_10008ed0(int param_1,int param_2)
+int FUN_10008ed0(int param_1,int param_2)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -3125,15 +3178,15 @@ undefined4 FUN_10008ed0(int param_1,int param_2)
   byte bVar2;
   int iVar3;
   undefined4 *puVar4;
-  #define uStack_4 (*(undefined4 *)(_frame + (0x20 - 0x4)))
+  #define iStack_4 (*(int *)(_frame + (0x20 - 0x4)))
   
-  uStack_4 = 0;
+  iStack_4 = 0;
   bVar2 = (byte)(param_2 >> 0x1f);
   bVar2 = 0x1f - ((((byte)param_2 ^ bVar2) - bVar2 & 0x1f ^ bVar2) - bVar2);
   iVar3 = (int)(param_2 + (param_2 >> 0x1f & 0x1fU)) >> 5;
   if (((*(uint *)(param_1 + iVar3 * 4) & 1 << (bVar2 & 0x1f)) != 0) &&
      (iVar1 = FUN_10008df0(param_1,param_2 + 1), iVar1 == 0)) {
-    uStack_4 = ((code *)FUN_10008e60)(param_1,param_2 + -1);
+    iStack_4 = FUN_10008e60();
   }
   *(uint *)(param_1 + iVar3 * 4) = *(uint *)(param_1 + iVar3 * 4) & -1 << (bVar2 & 0x1f);
   iVar3 = iVar3 + 1;
@@ -3144,9 +3197,9 @@ undefined4 FUN_10008ed0(int param_1,int param_2)
       puVar4 = puVar4 + 1;
     }
   }
-  return uStack_4;
+  return iStack_4;
 }
-#undef uStack_4
+#undef iStack_4
 
 #endif
 
@@ -3600,31 +3653,29 @@ void FUN_10009500(void)
 /* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+/* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
-void FUN_10009510(int param_1)
+int FUN_10009510(void)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  int in_EAX;
   int iVar1;
-  int iVar2;
-  #define uStack_4 (*(undefined4 *)(_frame + (0x20 - 0x4)))
+  undefined4 in_ECX;
+  int in_stack_00000004;
   
-  iVar1 = param_1;
-  if (param_1 != 0) {
+  if (in_stack_00000004 != 0) {
     FUN_10006810(9);
-    iVar2 = FUN_1000b320(iVar1,&uStack_4,&param_1);
-    if (iVar2 != 0) {
-      FUN_1000b380(uStack_4,param_1,iVar2);
-      FUN_10006890(9);
-      return;
+    iVar1 = ((code *)FUN_1000b320)();
+    if (iVar1 != 0) {
+      FUN_1000b380(in_ECX,in_stack_00000004,iVar1);
+      iVar1 = FUN_10006890();
+      return iVar1;
     }
-    FUN_10006890(9);
-    HeapFree(_DAT_100159c4,0,iVar1);
+    FUN_10006890();
+    in_EAX = HeapFree(_DAT_100159c4,0);
   }
-  return;
+  return in_EAX;
 }
-#undef uStack_4
-
 #endif
 
 
@@ -3693,7 +3744,7 @@ int FUN_100095f0(int param_1)
   if (uVar2 <= _DAT_100137cc) {
     FUN_10006810(9);
     iVar1 = FUN_1000b3e0(param_1 + 0xfU >> 4);
-    FUN_10006890(9);
+    FUN_10006890();
     if (iVar1 != 0) {
       return iVar1;
     }
@@ -3782,14 +3833,14 @@ int __stdcall FUN_10009710(int a1,int a2,int a3,int a4)
         }
         if (0x13 < iVar4) {
           DeleteCriticalSection(*(int *)(_DAT_100149a4 + iVar4 * 4) + 0x20);
-          FUN_10009510(*(undefined4 *)(_DAT_100149a4 + iVar4 * 4));
+          FUN_10009510();
           *(undefined4 *)(_DAT_100149a4 + iVar4 * 4) = 0;
         }
       }
       iVar4 = iVar4 + 1;
     } while (iVar4 < _DAT_100159c0);
   }
-  FUN_10006890(2);
+  FUN_10006890();
   return iVar3;
 }
 #endif
@@ -3809,7 +3860,7 @@ undefined4 FUN_10009730(void)
   if (_DAT_10014484 == 0) {
     _DAT_1001387c = IMG_ADDR(0x100137d0);
     FUN_10009b60(_DAT_10014818);
-    FUN_10009510(_DAT_10014818);
+    FUN_10009510();
     _DAT_10014818 = 0;
     return 0;
   }
@@ -3820,12 +3871,12 @@ undefined4 FUN_10009730(void)
   iVar2 = FUN_100097e0(iVar1);
   if (iVar2 != 0) {
     FUN_10009b60(iVar1);
-    FUN_10009510(iVar1);
+    FUN_10009510();
     return 1;
   }
   _DAT_1001387c = iVar1;
   FUN_10009b60(_DAT_10014818);
-  FUN_10009510(_DAT_10014818);
+  FUN_10009510();
   _DAT_10014818 = iVar1;
   return 0;
 }
@@ -3946,53 +3997,53 @@ uint FUN_100097e0(int param_1)
 /* ---- 0x10009b60  FUN_10009b60 ---- */
 /* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
-void FUN_10009b60(undefined4 *param_1)
+void FUN_10009b60(int param_1)
 
 {
-  if (param_1 != (undefined4 *)0x0) {
-    FUN_10009510(param_1[1]);
-    FUN_10009510(param_1[2]);
-    FUN_10009510(param_1[3]);
-    FUN_10009510(param_1[4]);
-    FUN_10009510(param_1[5]);
-    FUN_10009510(param_1[6]);
-    FUN_10009510(*param_1);
-    FUN_10009510(param_1[8]);
-    FUN_10009510(param_1[9]);
-    FUN_10009510(param_1[10]);
-    FUN_10009510(param_1[0xb]);
-    FUN_10009510(param_1[0xc]);
-    FUN_10009510(param_1[0xd]);
-    FUN_10009510(param_1[7]);
-    FUN_10009510(param_1[0xe]);
-    FUN_10009510(param_1[0xf]);
-    FUN_10009510(param_1[0x10]);
-    FUN_10009510(param_1[0x11]);
-    FUN_10009510(param_1[0x12]);
-    FUN_10009510(param_1[0x13]);
-    FUN_10009510(param_1[0x14]);
-    FUN_10009510(param_1[0x15]);
-    FUN_10009510(param_1[0x16]);
-    FUN_10009510(param_1[0x17]);
-    FUN_10009510(param_1[0x18]);
-    FUN_10009510(param_1[0x19]);
-    FUN_10009510(param_1[0x1a]);
-    FUN_10009510(param_1[0x1b]);
-    FUN_10009510(param_1[0x1c]);
-    FUN_10009510(param_1[0x1d]);
-    FUN_10009510(param_1[0x1e]);
-    FUN_10009510(param_1[0x1f]);
-    FUN_10009510(param_1[0x20]);
-    FUN_10009510(param_1[0x21]);
-    FUN_10009510(param_1[0x22]);
-    FUN_10009510(param_1[0x23]);
-    FUN_10009510(param_1[0x24]);
-    FUN_10009510(param_1[0x25]);
-    FUN_10009510(param_1[0x26]);
-    FUN_10009510(param_1[0x27]);
-    FUN_10009510(param_1[0x28]);
-    FUN_10009510(param_1[0x29]);
-    FUN_10009510(param_1[0x2a]);
+  if (param_1 != 0) {
+    FUN_10009510();
+    FUN_10009510();
+    FUN_10009510();
+    FUN_10009510();
+    FUN_10009510();
+    FUN_10009510();
+    FUN_10009510();
+    FUN_10009510();
+    FUN_10009510();
+    FUN_10009510();
+    FUN_10009510();
+    FUN_10009510();
+    FUN_10009510();
+    FUN_10009510();
+    FUN_10009510();
+    FUN_10009510();
+    FUN_10009510();
+    FUN_10009510();
+    FUN_10009510();
+    FUN_10009510();
+    FUN_10009510();
+    FUN_10009510();
+    FUN_10009510();
+    FUN_10009510();
+    FUN_10009510();
+    FUN_10009510();
+    FUN_10009510();
+    FUN_10009510();
+    FUN_10009510();
+    FUN_10009510();
+    FUN_10009510();
+    FUN_10009510();
+    FUN_10009510();
+    FUN_10009510();
+    FUN_10009510();
+    FUN_10009510();
+    FUN_10009510();
+    FUN_10009510();
+    FUN_10009510();
+    FUN_10009510();
+    FUN_10009510();
+    FUN_10009510();
+    FUN_10009510();
   }
   return;
 }
@@ -4072,7 +4123,7 @@ LAB_10009e3c:
   *pcVar9 = 's';
   pcVar9[1] = 's';
   pcVar9[2] = '\0';
-  FUN_10009510(param_2);
+  FUN_10009510();
   return 0;
 }
 #undef iStack_4
@@ -4096,9 +4147,9 @@ undefined4 FUN_10009ea0(void)
   
   uVar1 = _DAT_10014852;
   if (_DAT_10014480 == 0) {
-    FUN_10009510(_DAT_1001481c);
-    FUN_10009510(_DAT_10014820);
-    FUN_10009510(_DAT_10014824);
+    FUN_10009510();
+    FUN_10009510();
+    FUN_10009510();
     _DAT_1001481c = 0;
     _DAT_10014820 = 0;
     _DAT_10014824 = 0;
@@ -4127,18 +4178,18 @@ undefined4 FUN_10009ea0(void)
     iVar4 = FUN_1000c790(1,uVar1,0x10,&DAT_10014824);
     FUN_1000a2e0(_DAT_10014824);
     if ((iVar2 != 0 || iVar3 != 0) || iVar4 != 0) {
-      FUN_10009510(_DAT_1001481c);
-      FUN_10009510(_DAT_10014820);
-      FUN_10009510(_DAT_10014824);
+      FUN_10009510();
+      FUN_10009510();
+      FUN_10009510();
       _DAT_1001481c = 0;
       _DAT_10014820 = 0;
       _DAT_10014824 = 0;
       return 0xffffffff;
     }
     if (*_DAT_100138b8 != IMG_ADDR(0x10013880)) {
-      FUN_10009510(*_DAT_100138b8);
-      FUN_10009510(_DAT_100138b8[1]);
-      FUN_10009510(_DAT_100138b8[2]);
+      FUN_10009510();
+      FUN_10009510();
+      FUN_10009510();
     }
     *_DAT_100138b8 = _DAT_1001481c;
     _DAT_100138b8[1] = _DAT_10014820;
@@ -4168,7 +4219,7 @@ undefined4 FUN_1000a0a0(void)
     _DAT_10013890 = _DAT_100138b8[2];
     _DAT_100138b8 = (undefined4 *)&DAT_10013888;
     FUN_1000a320(_DAT_10014828);
-    FUN_10009510(_DAT_10014828);
+    FUN_10009510();
     _DAT_10014828 = (undefined4 *)0x0;
     return 0;
   }
@@ -4179,7 +4230,7 @@ undefined4 FUN_1000a0a0(void)
   iVar2 = FUN_1000a190(puVar1);
   if (iVar2 != 0) {
     FUN_1000a320(puVar1);
-    FUN_10009510(puVar1);
+    FUN_10009510();
     return 1;
   }
   *puVar1 = *_DAT_100138b8;
@@ -4187,7 +4238,7 @@ undefined4 FUN_1000a0a0(void)
   puVar1[2] = _DAT_100138b8[2];
   _DAT_100138b8 = puVar1;
   FUN_1000a320(_DAT_10014828);
-  FUN_10009510(_DAT_10014828);
+  FUN_10009510();
   _DAT_10014828 = puVar1;
   return 0;
 }
@@ -4287,13 +4338,13 @@ void FUN_1000a320(int param_1)
 
 {
   if ((param_1 != 0) && (*(int *)(param_1 + 0xc) != IMG_ADDR(0x100148d0))) {
-    FUN_10009510(*(int *)(param_1 + 0xc));
-    FUN_10009510(*(undefined4 *)(param_1 + 0x10));
-    FUN_10009510(*(undefined4 *)(param_1 + 0x14));
-    FUN_10009510(*(undefined4 *)(param_1 + 0x18));
-    FUN_10009510(*(undefined4 *)(param_1 + 0x1c));
-    FUN_10009510(*(undefined4 *)(param_1 + 0x20));
-    FUN_10009510(*(undefined4 *)(param_1 + 0x24));
+    FUN_10009510();
+    FUN_10009510();
+    FUN_10009510();
+    FUN_10009510();
+    FUN_10009510();
+    FUN_10009510();
+    FUN_10009510();
   }
   return;
 }
@@ -4308,122 +4359,118 @@ void FUN_1000a320(int param_1)
 undefined4 FUN_1000a390(void)
 
 {
-  unsigned char _frame[0x30];  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x20];  /* Ghidra stack frame, see tools/frame_locals.py */
   byte *pbVar1;
   undefined2 *puVar2;
   int iVar3;
-  uint uVar4;
-  byte *pbVar5;
+  undefined2 *puVar4;
+  int iVar5;
   undefined2 *puVar6;
-  undefined2 *puVar7;
-  undefined2 *puVar8;
-  int iVar9;
+  uint uVar7;
+  byte *pbVar8;
+  undefined2 *puVar9;
   char unaff_retaddr;
-  #define puStack_18 (*(undefined2 **)(_frame + (0x30 - 0x18)))
-  #define puStack_c (*(undefined2 **)(_frame + (0x30 - 0xc)))
-  #define puStack_8 (*(undefined2 **)(_frame + (0x30 - 0x8)))
-  #define uStack_4 (*(uint *)(_frame + (0x30 - 0x4)))
+  #define puStack_c (*(undefined2 **)(_frame + (0x20 - 0xc)))
+  #define puStack_8 (*(undefined2 **)(_frame + (0x20 - 0x8)))
+  #define uStack_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
-  iVar9 = 0;
-  puVar8 = (undefined2 *)0x0;
   if (_DAT_10014478 == 0) {
     _DAT_10010ad8 = (undefined2 *)IMG_ADDR(0x10010ae2);
     _DAT_10010adc = (undefined2 *)IMG_ADDR(0x10010ae2);
-    FUN_10009510(_DAT_1001482c);
-    FUN_10009510(_DAT_10014830);
+    FUN_10009510();
+    FUN_10009510();
     _DAT_1001482c = (undefined2 *)0x0;
     _DAT_10014830 = (undefined2 *)0x0;
     return 0;
   }
   if ((_DAT_10014488 != 0) || (iVar3 = FUN_1000c790(0,_DAT_10014844,0xb,&DAT_10014488), iVar3 == 0))
   {
-    puStack_18 = (undefined2 *)FUN_10009580(0x202);
+    puVar4 = (undefined2 *)FUN_10009580(0x202);
     iVar3 = FUN_10009580(0x202);
-    iVar9 = FUN_10009580(0x101);
-    puVar8 = (undefined2 *)FUN_10009580(0x202);
-    if ((puStack_18 != (undefined2 *)0x0) &&
-       (((iVar3 != 0 && (iVar9 != 0)) && (puVar8 != (undefined2 *)0x0)))) {
+    iVar5 = FUN_10009580(0x101);
+    puVar6 = (undefined2 *)FUN_10009580(0x202);
+    if ((puVar4 != (undefined2 *)0x0) &&
+       (((iVar3 != 0 && (iVar5 != 0)) && (puVar6 != (undefined2 *)0x0)))) {
       iVar3 = 0;
       do {
-        *(char *)(iVar3 + iVar9) = (char)iVar3;
+        *(char *)(iVar3 + iVar5) = (char)iVar3;
         iVar3 = iVar3 + 1;
       } while (iVar3 < 0x100);
       iVar3 = GetCPInfo(_DAT_10014488,&uStack_4);
       if ((iVar3 != 0) && (uStack_4 < 3)) {
         _DAT_10010ac8 = uStack_4 & 0xffff;
         if ((1 < _DAT_10010ac8) && (unaff_retaddr != '\0')) {
-          pbVar5 = &STACK0X(0x00000003);
+          pbVar8 = &STACK0X(0x00000003);
           do {
-            if (*pbVar5 == 0) break;
-            uVar4 = (uint)pbVar5[-1];
-            if (uVar4 <= *pbVar5) {
+            if (*pbVar8 == 0) break;
+            uVar7 = (uint)pbVar8[-1];
+            if (uVar7 <= *pbVar8) {
               do {
-                *(undefined1 *)(uVar4 + iVar9) = 0;
-                uVar4 = uVar4 + 1;
-              } while ((int)uVar4 <= (int)(uint)*pbVar5);
+                *(undefined1 *)(uVar7 + iVar5) = 0;
+                uVar7 = uVar7 + 1;
+              } while ((int)uVar7 <= (int)(uint)*pbVar8);
             }
-            pbVar1 = pbVar5 + 1;
-            pbVar5 = pbVar5 + 2;
+            pbVar1 = pbVar8 + 1;
+            pbVar8 = pbVar8 + 2;
           } while (*pbVar1 != 0);
         }
-        puVar2 = puStack_18 + 1;
-        iVar3 = FUN_1000af40(1,iVar9,0x100,puVar2,0,0,0);
+        puVar2 = puVar4 + 1;
+        iVar3 = FUN_1000af40(1,iVar5,0x100,puVar2,0,0,0);
         if (iVar3 != 0) {
-          *puStack_18 = 0;
+          *puVar4 = 0;
           iVar3 = 0;
-          puVar6 = puVar8;
+          puVar9 = puVar6;
           do {
-            *puVar6 = (short)iVar3;
-            puVar6 = puVar6 + 1;
+            *puVar9 = (short)iVar3;
+            puVar9 = puVar9 + 1;
             iVar3 = iVar3 + 1;
           } while (iVar3 < 0x100);
-          puVar6 = puStack_c + 1;
-          iVar3 = ((code *)FUN_1000adb0)(1,puVar8,0x100,puVar6,0,0);
+          puVar9 = puStack_c + 1;
+          iVar3 = ((code *)FUN_1000adb0)(1,puVar6,0x100,puVar9,0,0);
           if (iVar3 != 0) {
             *puStack_c = 0;
             if ((1 < (int)_DAT_10010ac8) && (unaff_retaddr != '\0')) {
-              pbVar5 = &STACK0X(0x00000003);
+              pbVar8 = &STACK0X(0x00000003);
               do {
-                puStack_18 = puStack_8;
-                if (*pbVar5 == 0) break;
-                uVar4 = (uint)pbVar5[-1];
-                if (uVar4 <= *pbVar5) {
-                  puVar7 = puStack_8 + uVar4 + 1;
+                puVar4 = puStack_8;
+                if (*pbVar8 == 0) break;
+                uVar7 = (uint)pbVar8[-1];
+                if (uVar7 <= *pbVar8) {
+                  puVar6 = puStack_8 + uVar7 + 1;
                   do {
-                    *puVar7 = 0x8000;
-                    uVar4 = uVar4 + 1;
-                    puVar7 = puVar7 + 1;
-                  } while ((int)uVar4 <= (int)(uint)*pbVar5);
+                    *puVar6 = 0x8000;
+                    uVar7 = uVar7 + 1;
+                    puVar6 = puVar6 + 1;
+                  } while ((int)uVar7 <= (int)(uint)*pbVar8);
                 }
-                pbVar1 = pbVar5 + 1;
-                pbVar5 = pbVar5 + 2;
+                pbVar1 = pbVar8 + 1;
+                pbVar8 = pbVar8 + 2;
               } while (*pbVar1 != 0);
             }
             _DAT_10010ad8 = puVar2;
-            _DAT_10010adc = puVar6;
+            _DAT_10010adc = puVar9;
             if (_DAT_1001482c != (undefined2 *)0x0) {
-              FUN_10009510(_DAT_1001482c);
+              FUN_10009510();
             }
-            _DAT_1001482c = puStack_18;
+            _DAT_1001482c = puVar4;
             if (_DAT_10014830 != (undefined2 *)0x0) {
-              FUN_10009510(_DAT_10014830);
+              FUN_10009510();
             }
             _DAT_10014830 = puStack_c;
-            FUN_10009510(iVar9);
-            FUN_10009510(puVar8);
+            FUN_10009510();
+            FUN_10009510();
             return 0;
           }
         }
       }
     }
   }
-  FUN_10009510(puStack_18);
-  FUN_10009510(puStack_c);
-  FUN_10009510(iVar9);
-  FUN_10009510(puVar8);
+  FUN_10009510();
+  FUN_10009510();
+  FUN_10009510();
+  FUN_10009510();
   return 1;
 }
-#undef puStack_18
 #undef puStack_8
 #undef puStack_c
 #undef uStack_4
@@ -4500,28 +4547,28 @@ int FUN_1000a710(undefined4 param_1,undefined4 param_2,undefined4 param_3,int pa
       goto LAB_1000a918;
       if (iVar9 == 0) {
         iVar4 = WideCharToMultiByte(unaff_EDI,0x220,iVar1,iVar4,0,0,0,0);
-        iVar2 = iVar4;
+        iVar1 = iVar4;
       }
       else {
         iVar4 = WideCharToMultiByte(unaff_EDI,0x220,iVar1,iVar4,iVar5,iVar9,0,0);
-        iVar2 = iVar4;
+        iVar1 = iVar4;
       }
     }
     else {
       if (iVar9 == 0) goto LAB_1000a87f;
       if (iVar9 < iVar4) goto LAB_1000a918;
-      iVar2 = LCMapStringW(iVar5,uVar6,iVar3,iVar2,uVar8,iVar9);
+      iVar1 = LCMapStringW(iVar5,uVar6,iVar3,iVar2,uVar8,iVar9);
     }
-    if (iVar2 != 0) {
+    if (iVar1 != 0) {
 LAB_1000a87f:
-      FUN_10009510(iVar3);
-      FUN_10009510(iVar1);
+      FUN_10009510();
+      FUN_10009510();
       return iVar4;
     }
   }
 LAB_1000a918:
-  FUN_10009510(iVar3);
-  FUN_10009510(iVar1);
+  FUN_10009510();
+  FUN_10009510();
   return 0;
 }
 #endif
@@ -4570,7 +4617,7 @@ undefined4 FUN_1000a970(undefined4 param_1,undefined4 param_2,undefined4 param_3
     InterlockedDecrement(IMG_ADDR(0x10015af0));
     return uVar1;
   }
-  FUN_10006890(0x13);
+  FUN_10006890();
   return uVar1;
 }
 #endif
@@ -4819,7 +4866,7 @@ LAB_1000ad74:
       else {
         FUN_10006810(9);
         puVar4 = (undefined4 *)FUN_1000b3e0(uVar3 >> 4);
-        FUN_10006890(9);
+        FUN_10006890();
         if (puVar4 != (undefined4 *)0x0) {
           puVar5 = puVar4;
           for (uVar2 = uVar3 >> 2; uVar2 != 0; uVar2 = uVar2 - 1) {
@@ -4860,15 +4907,13 @@ int FUN_1000adb0(undefined4 param_1,undefined4 param_2,int param_3,undefined4 pa
   int iVar2;
   int iVar3;
   int iVar4;
-  int iVar5;
   undefined4 unaff_EBP;
+  undefined4 uVar5;
   undefined4 uVar6;
-  undefined4 uVar7;
-  int iVar8;
-  undefined4 uVar9;
+  int iVar7;
+  undefined4 uVar8;
   #define uStack_4 (*(undefined4 *)(_frame + (0x20 - 0x4)))
   
-  iVar5 = 0;
   if (_DAT_10014888 == 0) {
     iVar1 = GetStringTypeW(1,&UNK_1000ead0,1,&uStack_4);
     if (iVar1 == 0) {
@@ -4889,9 +4934,9 @@ int FUN_1000adb0(undefined4 param_1,undefined4 param_2,int param_3,undefined4 pa
       if (param_5 == 0) {
         param_5 = _DAT_10014488;
       }
-      uVar9 = 0;
-      iVar8 = 0;
-      uVar7 = 0x220;
+      uVar8 = 0;
+      iVar7 = 0;
+      uVar6 = 0x220;
       iVar2 = WideCharToMultiByte(param_5,0x220,param_2,param_3,0,0,0,0);
       if (iVar2 == 0) {
         return 0;
@@ -4900,31 +4945,31 @@ int FUN_1000adb0(undefined4 param_1,undefined4 param_2,int param_3,undefined4 pa
       if (iVar3 == 0) {
         return 0;
       }
-      uVar6 = 0;
+      uVar5 = 0;
       iVar1 = iVar3;
-      iVar4 = WideCharToMultiByte(unaff_EBP,0x220,uVar9,param_3,iVar3,iVar2,0,0);
-      if ((iVar4 != 0) && (iVar5 = FUN_10009580(iVar2 * 2 + 2), iVar5 != 0)) {
-        if (iVar8 == 0) {
-          iVar8 = _DAT_10014478;
+      iVar4 = WideCharToMultiByte(unaff_EBP,0x220,uVar8,param_3,iVar3,iVar2,0,0);
+      if ((iVar4 != 0) && (iVar4 = FUN_10009580(iVar2 * 2 + 2), iVar4 != 0)) {
+        if (iVar7 == 0) {
+          iVar7 = _DAT_10014478;
         }
         param_3 = param_3 * 2;
-        *(undefined2 *)(iVar5 + param_3) = 0xffff;
-        *(undefined2 *)(iVar5 + -2 + param_3) = 0xffff;
-        iVar1 = GetStringTypeA(iVar8,uVar6,iVar3,iVar2,iVar5);
-        if ((*(short *)(iVar5 + -2 + param_3) == -1) || (*(short *)(iVar5 + param_3) != -1)) {
+        *(undefined2 *)(iVar4 + param_3) = 0xffff;
+        *(undefined2 *)(iVar4 + -2 + param_3) = 0xffff;
+        iVar1 = GetStringTypeA(iVar7,uVar5,iVar3,iVar2,iVar4);
+        if ((*(short *)(iVar4 + -2 + param_3) == -1) || (*(short *)(iVar4 + param_3) != -1)) {
           iVar1 = 0;
         }
         else {
-          FUN_10005860(uVar7,iVar5,param_3);
+          FUN_10005860(uVar6,iVar4,param_3);
         }
       }
-      FUN_10009510(iVar3);
-      FUN_10009510(iVar5);
+      FUN_10009510();
+      FUN_10009510();
     }
     return iVar1;
   }
-  iVar5 = GetStringTypeW(param_1,param_2,param_3,param_4);
-  return iVar5;
+  iVar1 = GetStringTypeW(param_1,param_2,param_3,param_4);
+  return iVar1;
 }
 #undef uStack_4
 
@@ -4942,14 +4987,13 @@ int FUN_1000af40(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefi
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
+  int iVar2;
   undefined4 unaff_EBX;
   undefined4 unaff_ESI;
   undefined4 unaff_EDI;
-  int iVar2;
   int unaff_retaddr;
   #define auStack_2 (*(undefined1 (*)[2])(_frame + (0x20 - 0x2)))
   
-  iVar2 = 0;
   if (_DAT_1001488c == 0) {
     iVar1 = GetStringTypeW(1,&UNK_1000ead0,1,auStack_2);
     if (iVar1 == 0) {
@@ -4967,8 +5011,8 @@ int FUN_1000af40(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefi
     if (param_6 == 0) {
       param_6 = _DAT_10014478;
     }
-    iVar2 = GetStringTypeA(param_6,param_1,param_2,param_3,param_4);
-    return iVar2;
+    iVar1 = GetStringTypeA(param_6,param_1,param_2,param_3,param_4);
+    return iVar1;
   }
   iVar1 = _DAT_1001488c;
   if (_DAT_1001488c == 1) {
@@ -4982,12 +5026,12 @@ int FUN_1000af40(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefi
         iVar1 = MultiByteToWideChar(param_5,1,unaff_ESI,param_3,iVar2,iVar1);
         if (iVar1 != 0) {
           iVar1 = GetStringTypeW(unaff_EDI,iVar2,iVar1,unaff_EBX);
-          FUN_10009510(iVar2);
+          FUN_10009510();
           return iVar1;
         }
       }
     }
-    FUN_10009510(iVar2);
+    FUN_10009510();
     iVar1 = unaff_retaddr;
   }
   return iVar1;
@@ -6401,7 +6445,7 @@ int FUN_1000c6d0(int param_1)
       iVar3 = iVar3 + 1;
     } while (iVar3 < _DAT_100159c0);
   }
-  FUN_10006890(2);
+  FUN_10006890();
   if (param_1 != 1) {
     iStack_4 = iVar2;
   }
@@ -6475,14 +6519,14 @@ undefined4 FUN_1000c790(int param_1,undefined4 param_2,undefined4 param_3,int *p
     if (!bVar2) {
       return 0;
     }
-    FUN_10009510(puVar4);
+    FUN_10009510();
     return 0;
   }
 LAB_1000c840:
   if (!bVar2) {
     return 0xffffffff;
   }
-  FUN_10009510(puVar4);
+  FUN_10009510();
   return 0xffffffff;
 }
 #undef auStack_80
@@ -6493,39 +6537,42 @@ LAB_1000c840:
 /* ---- 0x1000ca50  FUN_1000ca50 ---- */
 /* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
-void FUN_1000ca50(uint param_1)
+/* WARNING: Unknown calling convention -- yet parameter storage is locked */
+
+int FUN_1000ca50(void)
 
 {
   uint *puVar1;
   undefined4 *puVar2;
   int iVar3;
+  uint in_stack_00000004;
   
   puVar1 = (uint *)FUN_1000cae0();
   iVar3 = 0;
-  *puVar1 = param_1;
+  *puVar1 = in_stack_00000004;
   puVar1 = (uint *)IMG_ADDR(0x100138c0);
   do {
-    if (param_1 == *puVar1) {
+    if (in_stack_00000004 == *puVar1) {
       puVar2 = (undefined4 *)FUN_1000cad0();
       *puVar2 = *(undefined4 *)(iVar3 * 8 + IMG_ADDR(0x100138c4));
-      return;
+      return (int)puVar2;
     }
     puVar1 = puVar1 + 2;
     iVar3 = iVar3 + 1;
   } while (puVar1 < (uint *)IMG_ADDR(0x10013a28));
-  if ((0x12 < param_1) && (param_1 < 0x25)) {
+  if ((0x12 < in_stack_00000004) && (in_stack_00000004 < 0x25)) {
     puVar2 = (undefined4 *)FUN_1000cad0();
     *puVar2 = 0xd;
-    return;
+    return (int)puVar2;
   }
-  if ((0xbb < param_1) && (param_1 < 0xcb)) {
+  if ((0xbb < in_stack_00000004) && (in_stack_00000004 < 0xcb)) {
     puVar2 = (undefined4 *)FUN_1000cad0();
     *puVar2 = 8;
-    return;
+    return (int)puVar2;
   }
   puVar2 = (undefined4 *)FUN_1000cad0();
   *puVar2 = 0x16;
-  return;
+  return (int)puVar2;
 }
 #endif
 
@@ -6717,7 +6764,7 @@ LAB_1000cd48:
         return -1;
       }
       if (iVar7 != 0x6d) {
-        FUN_1000ca50(iVar7);
+        FUN_1000ca50();
         return -1;
       }
     }
@@ -7020,7 +7067,7 @@ undefined4 FUN_1000d190(int param_1)
       return 0xffffffff;
     }
     if (*(int *)(param_1 + 0x1c) != 0) {
-      FUN_10009510(*(int *)(param_1 + 0x1c));
+      FUN_10009510();
       *(undefined4 *)(param_1 + 0x1c) = 0;
     }
   }
@@ -7191,7 +7238,7 @@ int FUN_1000d320(uint param_1,char *param_2,uint param_3)
     return -1;
   }
   if (iStack_414 != 5) {
-    FUN_1000ca50(iStack_414);
+    FUN_1000ca50();
     return -1;
   }
   puVar5 = (undefined4 *)FUN_1000cad0();
@@ -7255,19 +7302,19 @@ int FUN_1000d530(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefi
       if (unaff_ESI == 0) {
         iVar1 = MultiByteToWideChar(unaff_EBP,1,iVar2,0xffffffff,0,0);
         if (iVar1 != 0) {
-          FUN_10009510(iVar2);
+          FUN_10009510();
           return iVar1;
         }
       }
       else {
         iVar1 = MultiByteToWideChar(unaff_EBP,1,iVar2,0xffffffff,unaff_EDI,unaff_ESI);
         if (iVar1 != 0) {
-          FUN_10009510(iVar2);
+          FUN_10009510();
           return iVar1;
         }
       }
     }
-    FUN_10009510(iVar2);
+    FUN_10009510();
     return 0;
   }
   return 0;
@@ -7320,19 +7367,19 @@ int FUN_1000d660(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefi
       if (unaff_ESI == 0) {
         iVar1 = WideCharToMultiByte(unaff_EBP,0x220,iVar2,0xffffffff,0,0,0,0);
         if (iVar1 != 0) {
-          FUN_10009510(iVar2);
+          FUN_10009510();
           return iVar1;
         }
       }
       else {
         iVar1 = WideCharToMultiByte(unaff_EBP,0x220,iVar2,0xffffffff,unaff_EDI,unaff_ESI,0,0);
         if (iVar1 != 0) {
-          FUN_10009510(iVar2);
+          FUN_10009510();
           return iVar1;
         }
       }
     }
-    FUN_10009510(iVar2);
+    FUN_10009510();
     return 0;
   }
   return 0;
@@ -7426,7 +7473,7 @@ void FUN_1000d980(uint param_1)
       InitializeCriticalSection(iVar1 + 0xc);
       *(int *)(iVar1 + 8) = *(int *)(iVar1 + 8) + 1;
     }
-    FUN_10006890(0x11);
+    FUN_10006890();
   }
   EnterCriticalSection(*(int *)(&DAT_100159e0 + ((int)param_1 >> 5) * 4) + 0xc + iVar2);
   return;
@@ -7471,7 +7518,7 @@ int FUN_1000da20(uint param_1,undefined4 param_2,undefined4 param_3)
     iVar3 = 0;
   }
   if (iVar3 != 0) {
-    FUN_1000ca50(iVar3);
+    FUN_1000ca50();
     return -1;
   }
   *(byte *)(*(int *)(&DAT_100159e0 + ((int)param_1 >> 5) * 4) + 4 + (param_1 & 0x1f) * 0x24) =
@@ -7541,7 +7588,7 @@ LAB_1000db68:
   *(undefined1 *)(*(int *)(&DAT_100159e0 + ((int)param_1 >> 5) * 4) + 4 + (param_1 & 0x1f) * 0x24) =
        0;
   if (iVar1 != 0) {
-    FUN_1000ca50(iVar1);
+    FUN_1000ca50();
     return 0xffffffff;
   }
   return 0;
@@ -7556,7 +7603,7 @@ void FUN_1000dba0(undefined4 *param_1)
 
 {
   if (((param_1[3] & 0x83) != 0) && ((param_1[3] & 8) != 0)) {
-    FUN_10009510(param_1[2]);
+    FUN_10009510();
     param_1[3] = param_1[3] & 0xfffffbf7;
     *param_1 = 0;
     param_1[2] = 0;
