@@ -111,3 +111,25 @@ void _lock_fhandle(int fh) { (void)fh; }
 void _unlock_fhandle(int fh) { (void)fh; }
 void _lock_file2(int i, void *f) { (void)i; (void)f; }
 void _unlock_file2(int i, void *f) { (void)i; (void)f; }
+
+/* _dosmaperr (Win32 error -> errno): msvcrt.dll does not export it (the bundled MSVC 6 copy is part of the removed C
+ * runtime, see names/lib_replace.json), and the game's file helpers (the zfile / LecShare service functions: _chdrive,
+ * remove, ...) call it on every failed Win32 file call. Same table and the same rules as MSVC's dosmap.c. */
+extern int *_errno(void);
+extern unsigned long *__doserrno(void);
+void _dosmaperr(unsigned long oserr)
+{
+    static const unsigned short tab[][2] = {
+        {1, 22}, {2, 2}, {3, 2}, {4, 24}, {5, 13}, {6, 9}, {7, 12}, {8, 12}, {9, 12}, {10, 7}, {11, 8}, {12, 22}, {13, 22},
+        {15, 2}, {16, 13}, {17, 18}, {18, 2}, {33, 13}, {53, 2}, {65, 13}, {67, 2}, {80, 17}, {82, 13}, {83, 13}, {87, 22},
+        {89, 11}, {108, 13}, {109, 32}, {112, 28}, {114, 9}, {6, 22}, {128, 10}, {129, 10}, {130, 9}, {131, 22}, {132, 13},
+        {145, 41}, {158, 13}, {161, 2}, {164, 11}, {167, 13}, {183, 17}, {206, 2}, {215, 11}, {1816, 12}
+    };
+    unsigned i;
+    *__doserrno() = oserr;
+    for (i = 0; i < sizeof tab / sizeof tab[0]; i++)
+        if (oserr == tab[i][0]) { *_errno() = tab[i][1]; return; }
+    if (oserr >= 19 && oserr <= 36) *_errno() = 13;        /* EACCES */
+    else if (oserr >= 188 && oserr <= 202) *_errno() = 8;  /* ENOEXEC */
+    else *_errno() = 22;                                   /* EINVAL */
+}
