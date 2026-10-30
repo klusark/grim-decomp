@@ -270,6 +270,10 @@ def link(cc, src, obj, prog, env):
         if os.path.exists(imp):
             libs.append(imp)
     libs += ["-lmingwex", "-lgcc"]  # x87 math helpers (sinl, exp2l, ldexpl, sqrtl), 64-bit division
+    if prog == "GRIMFANDANGO.EXE" and not os.environ.get("GRIM_BUNDLED_ZLIB"):
+        # the system zlib (mingw-w64-i686-zlib) replaces the game's bundled zlib 1.1.3 (names/lib_replace.json "zlib");
+        # statically, so the exe needs no zlib DLL
+        libs += ["-Wl,-Bstatic", "-lz", "-Wl,-Bdynamic"]
     # the real Win32 / DirectX import libraries (mingw-w64-i686); --enable-stdcall-fixup
     # binds the undecorated `_CreateFileA` of the decompiled code to `_CreateFileA@28`
     libs += WIN32_LIBS
