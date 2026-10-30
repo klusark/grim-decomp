@@ -18,8 +18,8 @@ extern int g_nRenderedSetup; /* 0x004e8084 */
 extern int g_nNextPrimitiveId; /* 0x004e8394 */
 extern int g_nSubtitleDefaultX; /* 0x004e8488 */
 extern int g_nSubtitleDefaultY; /* 0x004e848c */
-extern uint g_PrintLineTextCtx; /* 0x004e8498 */
-extern uint g_SubtitleTextCtx; /* 0x004e84c8 */
+extern undefined4 g_PrintLineTextCtx; /* 0x004e8498, undefined4 in Ghidra */
+extern undefined4 g_SubtitleTextCtx; /* 0x004e84c8, undefined4 in Ghidra */
 extern uint g_TextObjectCtx; /* 0x004e84f8 */
 extern uint g_ControlTable; /* 0x004e87c8 */
 extern int g_nControlCount; /* 0x004e9238 */
@@ -35,10 +35,12 @@ extern int g_nTextSpeed; /* 0x004e9e00 */
 extern int g_nChoreFadeMs; /* 0x004e9e04 */
 extern char g_szConfigKeyPrefix[8]; /* 0x004ea884 */
 extern int g_nLightEdSelected; /* 0x004f0d10 */
-extern uint g_anBlockySplit4Y; /* 0x004f38e8 */
+extern float g_flLightEdMoveStep; /* 0x004f0d18 */
+extern float g_flLightEdAngleStep; /* 0x004f0d1c */
+extern int g_anBlockySplit4Y[16]; /* 0x004f38e8 */
 extern int g_anBlockySplit4X[16]; /* 0x004f3928 */
-extern undefined g_anBlockySplit8Y; /* 0x004f3968, undefined in Ghidra */
-extern undefined g_anBlockySplit8X; /* 0x004f39a8, undefined in Ghidra */
+extern int g_anBlockySplit8Y[16]; /* 0x004f3968 */
+extern int g_anBlockySplit8X[16]; /* 0x004f39a8 */
 extern int g_nBlkLastSeq; /* 0x004f39e8 */
 extern undefined * g_apfnInsaneTimerModule; /* 0x004f3bf8 */
 extern undefined * g_apfnInsaneTimerInterface; /* 0x004f3c08 */
@@ -197,8 +199,16 @@ extern uint g_dwWinDialogCount; /* 0x008d0a78 */
 extern void * g_hLightEdDialog; /* 0x008d3630 */
 extern void * g_pLightEdSet; /* 0x008d3634 */
 extern void * g_pLightEdMarkerActor; /* 0x008d3638 */
+extern void * g_hLightEdHook; /* 0x008d363c */
+extern int g_nLightEdBusy; /* 0x008d3640 */
+extern uint g_dwLightEdLastKey; /* 0x008d3648 */
 extern void * g_pDirectSound; /* 0x008d365c */
 extern void * g_pDSoundPrimary; /* 0x008d3670 */
+extern int * g_pAnimTimer; /* 0x008d6f10 */
+extern int * g_pAnimLipsync; /* 0x008d6f18 */
+extern int g_nAnimFramesDecoded; /* 0x008d6f1c */
+extern int * g_pZfileMemory; /* 0x008d7834 */
+extern int * g_pStdFileIo; /* 0x008d7848 */
 extern void * g_pfnBlkOutput; /* 0x008da508 */
 extern byte * g_pbBlkCur; /* 0x008da50c */
 extern byte * g_pbBlkExpand; /* 0x008da510 */
@@ -248,6 +258,11 @@ extern uint g_BackBuffer; /* 0x009055e0 */
 extern GrimServices * g_pSvcMain; /* 0x00905ac0 */
 extern void ** g_pOnExitEnd; /* 0x00906c10 */
 extern void ** g_pOnExitBegin; /* 0x00906c14 */
+extern int * g_pAnimDebug; /* 0x00906c30 */
+extern int * g_pAnimFrame; /* 0x00906c34 */
+extern int * g_pAnimStreamer; /* 0x00906c38 */
+extern int * g_pAnimMemory; /* 0x00906c3c */
+extern int * g_pZfileFileIo; /* 0x00906c44 */
 extern uint g_stBlockyDecState; /* 0x00906c48 */
 extern byte * g_pbBlkPrev2; /* 0x00906c74 */
 extern undefined2 g_aBlockySplit8; /* 0x00906c80, undefined2 in Ghidra */
@@ -982,8 +997,6 @@ extern char s_LECMODULE_insane_memory_004f0cdc[]; /* used by 2 fn(s), first 0x00
 extern char s_LECMODULE_insane_stdio_004f0cf4[]; /* used by 2 fn(s), first 0x004be050 */
 extern undefined4 UINT_004f0d0c; /* used by 1 fn(s), first 0x004be180 */
 extern undefined *PTR_s_Error_004f0d14; /* used by 1 fn(s), first 0x004be990 */
-extern undefined DAT_004f0d18; /* used by 1 fn(s), first 0x004bffb0 */
-extern undefined DAT_004f0d1c; /* used by 1 fn(s), first 0x004bffb0 */
 extern char s_x_spot_cos_004f0d28[]; /* used by 1 fn(s), first 0x004be180 */
 extern char s_LightManager_Startup__Could_not_c_004f0d34[]; /* used by 1 fn(s), first 0x004be180 */
 extern char s_newlight_d_004f0d6c[]; /* used by 1 fn(s), first 0x004be730 */
@@ -2107,10 +2120,7 @@ extern undefined4 UINT_008d1c30; /* used by 2 fn(s), first 0x004be310 */
 extern undefined4 UINT_008d1c50; /* used by 1 fn(s), first 0x004be3b0 */
 extern undefined4 UINT_008d1c54; /* used by 1 fn(s), first 0x004be3b0 */
 extern undefined4 UINT_008d1c58; /* used by 1 fn(s), first 0x004be3b0 */
-extern undefined4 UINT_008d363c; /* used by 3 fn(s), first 0x004be180 */
-extern undefined4 UINT_008d3640; /* used by 2 fn(s), first 0x004bf3f0 */
 extern undefined4 UINT_008d3644; /* used by 2 fn(s), first 0x004be310 */
-extern undefined4 UINT_008d3648; /* used by 1 fn(s), first 0x004bffb0 */
 extern undefined4 UINT_008d364c; /* used by 1 fn(s), first 0x004c0660 */
 extern undefined4 UINT_008d3650; /* used by 1 fn(s), first 0x004c0e40 */
 extern undefined4 UINT_008d3654; /* used by 2 fn(s), first 0x004c0ed0 */
@@ -2134,10 +2144,7 @@ extern undefined4 UINT_008d6f00; /* used by 1 fn(s), first 0x004c1990 */
 extern undefined4 UINT_008d6f04; /* used by 3 fn(s), first 0x004c1ff0 */
 extern undefined DAT_008d6f08; /* used by 1 fn(s), first 0x004c1f40 */
 extern undefined DAT_008d6f0c; /* used by 1 fn(s), first 0x004c1f40 */
-extern int * PTR_008d6f10; /* used by 7 fn(s), first 0x004c1ff0 */
 extern uint UINT_008d6f14; /* used by 2 fn(s), first 0x004c1f40 */
-extern undefined4 UINT_008d6f18; /* used by 4 fn(s), first 0x004c1ff0 */
-extern undefined4 UINT_008d6f1c; /* used by 2 fn(s), first 0x004c27a0 */
 extern uint UINT_008d6f20; /* used by 3 fn(s), first 0x004c23c0 */
 extern undefined4 UINT_008d6f24; /* used by 2 fn(s), first 0x004c2690 */
 extern undefined4 UINT_008d6f28; /* used by 1 fn(s), first 0x004c27a0 */
@@ -2165,12 +2172,10 @@ extern undefined4 UINT_008d7824; /* used by 1 fn(s), first 0x004c50a0 */
 extern undefined4 UINT_008d7828; /* used by 2 fn(s), first 0x004c52f0 */
 extern int * PTR_008d782c; /* used by 4 fn(s), first 0x004c5280 */
 extern uint UINT_008d7830; /* used by 2 fn(s), first 0x004c5280 */
-extern int * PTR_008d7834; /* used by 4 fn(s), first 0x004c5870 */
 extern int * PTR_008d7838; /* used by 4 fn(s), first 0x004c5790 */
 extern uint UINT_008d783c; /* used by 4 fn(s), first 0x004c57d0 */
 extern uint UINT_008d7840; /* used by 2 fn(s), first 0x004c5790 */
 extern int * PTR_008d7844; /* used by 4 fn(s), first 0x004c5ce0 */
-extern int * PTR_008d7848; /* used by 13 fn(s), first 0x004c5d50 */
 extern uint UINT_008d784c; /* used by 2 fn(s), first 0x004c5ce0 */
 extern int * PTR_008d7850; /* used by 2 fn(s), first 0x004cbaa0 */
 extern undefined DAT_008d7858; /* used by 2 fn(s), first 0x004cbc00 */
@@ -2741,12 +2746,7 @@ extern undefined4 UINT_00906c20; /* used by 2 fn(s), first 0x004c2be0 */
 extern int * PTR_00906c24; /* used by 4 fn(s), first 0x004c2b50 */
 extern undefined4 UINT_00906c28; /* used by 3 fn(s), first 0x004c2be0 */
 extern undefined4 UINT_00906c2c; /* used by 3 fn(s), first 0x004c2be0 */
-extern int * PTR_00906c30; /* used by 4 fn(s), first 0x004c1ff0 */
-extern int * PTR_00906c34; /* used by 8 fn(s), first 0x004c1ff0 */
-extern int * PTR_00906c38; /* used by 10 fn(s), first 0x004c1ff0 */
-extern int * PTR_00906c3c; /* used by 4 fn(s), first 0x004c1ff0 */
 extern int * PTR_00906c40; /* used by 6 fn(s), first 0x004c1f40 */
-extern int * PTR_00906c44; /* used by 19 fn(s), first 0x004c3e60 */
 extern undefined4 UINT_00906c4c; /* used by 4 fn(s), first 0x004cd550 */
 extern undefined DAT_00906c50; /* used by 2 fn(s), first 0x004cd550 */
 extern undefined4 UINT_00906c54; /* used by 4 fn(s), first 0x004cd550 */
@@ -2792,8 +2792,6 @@ extern undefined4 in_stack_ffffffe8; /* used by 2 fn(s), first 0x0040dc30 */
 #define _DAT_004efc00 (*(undefined4 *)&DAT_004efc00) /* same address as DAT_004efc00, other width */
 #define _DAT_004f04f4 (*(undefined4 *)&DAT_004f04f4) /* same address as DAT_004f04f4, other width */
 #define _DAT_004f050c (*(undefined4 *)&DAT_004f050c) /* same address as DAT_004f050c, other width */
-#define _DAT_004f0d18 (*(float *)&DAT_004f0d18) /* same address as DAT_004f0d18, other width */
-#define _DAT_004f0d1c (*(float *)&DAT_004f0d1c) /* same address as DAT_004f0d1c, other width */
 #define _DAT_004f3c2c (*(undefined4 *)&DAT_004f3c2c) /* same address as DAT_004f3c2c, other width */
 #define _DAT_004f44f0 (*(undefined4 *)&DAT_004f44f0) /* same address as DAT_004f44f0, other width */
 #define _DAT_004f450c (*(undefined4 *)&DAT_004f450c) /* same address as DAT_004f450c, other width */

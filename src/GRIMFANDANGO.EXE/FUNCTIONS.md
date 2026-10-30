@@ -1,6 +1,6 @@
 # GRIMFANDANGO.EXE function index
 
-2604 functions, 2242 with real names.
+2604 functions, 2252 with real names.
 
 | address | name | module | lines |
 |---|---|---|---|
@@ -74,8 +74,8 @@
 | 0048bbc0 | Lua_GetTextObjectDimensions | lua.c | 29 |
 | 0048bc50 | Lua_GetTextCharPosition | lua.c | 41 |
 | 0048bd10 | Lua_ChangeTextObject | lua.c | 52 |
-| 0048be30 | Lua_MakeTextObject | lua.c | 67 |
-| 0048bf50 | Lua_BlastText | lua.c | 65 |
+| 0048be30 | Lua_MakeTextObject | lua.c | 69 |
+| 0048bf50 | Lua_BlastText | lua.c | 67 |
 | 0048c960 | Lua_GetTranslationMode | lua.c | 14 |
 | 0048c980 | Lua_SetTranslationMode | lua.c | 30 |
 | 00495850 | Lua_GetKeyLength | lua.c | 27 |
@@ -1567,7 +1567,7 @@
 | 00489280 | Movie_SetTarget | movie.c | 9 |
 | 004892a0 | Movie_Start | movie.c | 30 |
 | 00489370 | Movie_Stop | movie.c | 9 |
-| 00489390 | Movie_SetFile | movie.c | 19 |
+| 00489390 | Movie_SetFile | movie.c | 18 |
 | 004893d0 | Movie_CheckSurfaceFormat | movie.c | 13 |
 | 00489410 | FUN_00489410 | movie.c | 5 |
 | 00489420 | Movie_LockSurface | movie.c | 21 |
@@ -2201,22 +2201,18 @@
 | 004be140 | FUN_004be140 | crt_unnamed.c | 6 |
 | 004be160 | FUN_004be160 | crt_unnamed.c | 6 |
 | 004bf950 | FUN_004bf950 | crt_unnamed.c | 234 |
-| 004bffb0 | FUN_004bffb0 | crt_unnamed.c | 1 |
 | 004c1900 | FUN_004c1900 | crt_unnamed.c | 38 |
 | 004c1f40 | FUN_004c1f40 | crt_unnamed.c | 14 |
 | 004c1fb0 | FUN_004c1fb0 | crt_unnamed.c | 8 |
 | 004c1ff0 | FUN_004c1ff0 | crt_unnamed.c | 32 |
 | 004c2150 | FUN_004c2150 | crt_unnamed.c | 16 |
-| 004c21e0 | FUN_004c21e0 | crt_unnamed.c | 71 |
-| 004c23c0 | FUN_004c23c0 | crt_unnamed.c | 1 |
+| 004c21e0 | FUN_004c21e0 | crt_unnamed.c | 70 |
 | 004c2590 | FUN_004c2590 | crt_unnamed.c | 5 |
-| 004c25c0 | FUN_004c25c0 | crt_unnamed.c | 26 |
+| 004c25c0 | FUN_004c25c0 | crt_unnamed.c | 23 |
 | 004c2650 | FUN_004c2650 | crt_unnamed.c | 8 |
-| 004c2690 | FUN_004c2690 | crt_unnamed.c | 1 |
 | 004c2720 | FUN_004c2720 | crt_unnamed.c | 12 |
 | 004c2760 | FUN_004c2760 | crt_unnamed.c | 7 |
 | 004c2780 | FUN_004c2780 | crt_unnamed.c | 8 |
-| 004c27a0 | FUN_004c27a0 | crt_unnamed.c | 1 |
 | 004c2a70 | FUN_004c2a70 | crt_unnamed.c | 6 |
 | 004c2a80 | FUN_004c2a80 | crt_unnamed.c | 29 |
 | 004c2b00 | FUN_004c2b00 | crt_unnamed.c | 14 |
@@ -2235,7 +2231,6 @@
 | 004c3660 | FUN_004c3660 | crt_unnamed.c | 14 |
 | 004c3690 | FUN_004c3690 | crt_unnamed.c | 6 |
 | 004c36a0 | FUN_004c36a0 | crt_unnamed.c | 5 |
-| 004c36b0 | FUN_004c36b0 | crt_unnamed.c | 1 |
 | 004c36f0 | FUN_004c36f0 | crt_unnamed.c | 185 |
 | 004c3b30 | FUN_004c3b30 | crt_unnamed.c | 28 |
 | 004c3bb0 | FUN_004c3bb0 | crt_unnamed.c | 22 |
@@ -2243,7 +2238,6 @@
 | 004c3c90 | FUN_004c3c90 | crt_unnamed.c | 15 |
 | 004c3d00 | FUN_004c3d00 | crt_unnamed.c | 5 |
 | 004c3d10 | FUN_004c3d10 | crt_unnamed.c | 7 |
-| 004c3d30 | FUN_004c3d30 | crt_unnamed.c | 1 |
 | 004c3d90 | FUN_004c3d90 | crt_unnamed.c | 8 |
 | 004c3db0 | FUN_004c3db0 | crt_unnamed.c | 21 |
 | 004c4650 | FUN_004c4650 | crt_unnamed.c | 12 |
@@ -2282,7 +2276,6 @@
 | 004c5870 | FUN_004c5870 | crt_unnamed.c | 16 |
 | 004c5910 | FUN_004c5910 | crt_unnamed.c | 10 |
 | 004c5950 | FUN_004c5950 | crt_unnamed.c | 59 |
-| 004c5ab0 | FUN_004c5ab0 | crt_unnamed.c | 1 |
 | 004c5b00 | FUN_004c5b00 | crt_unnamed.c | 37 |
 | 004c5bc0 | FUN_004c5bc0 | crt_unnamed.c | 19 |
 | 004c5c20 | FUN_004c5c20 | crt_unnamed.c | 14 |
@@ -2296,12 +2289,9 @@
 | 004c5dd0 | FUN_004c5dd0 | crt_unnamed.c | 6 |
 | 004c5df0 | FUN_004c5df0 | crt_unnamed.c | 6 |
 | 004c5e10 | FUN_004c5e10 | crt_unnamed.c | 6 |
-| 004c5e30 | FUN_004c5e30 | crt_unnamed.c | 1 |
 | 004c5e50 | FUN_004c5e50 | crt_unnamed.c | 6 |
 | 004c5e70 | FUN_004c5e70 | crt_unnamed.c | 6 |
-| 004c5e90 | FUN_004c5e90 | crt_unnamed.c | 12 |
 | 004c5ee0 | FUN_004c5ee0 | crt_unnamed.c | 31 |
-| 004c5f50 | FUN_004c5f50 | crt_unnamed.c | 1 |
 | 004c5f80 | FUN_004c5f80 | crt_unnamed.c | 23 |
 | 004c5fe0 | FUN_004c5fe0 | crt_unnamed.c | 11 |
 | 004c6010 | FUN_004c6010 | crt_unnamed.c | 11 |
@@ -2403,7 +2393,7 @@
 | 004bd970 | Smush_Advance | smush.c | 53 |
 | 004bde90 | Smush_SetColorTable | smush.c | 6 |
 | 004bdea0 | Smush_GetFrameRect | smush.c | 17 |
-| 004bdf00 | Smush_SetFile | smush.c | 1 |
+| 004bdf00 | Smush_GetLengthMs | smush.c | 1 |
 | 004be310 | LightMgr_Refresh | lightmgr.c | 46 |
 | 004beee0 | LightMgr_UpdateDialog | lightmgr.c | 10 |
 | 004be3b0 | LightEd_SyncFromSet | lighted.c | 68 |
@@ -2424,6 +2414,7 @@
 | 004bf850 | LightEd_SetAllEnabled | lighted.c | 24 |
 | 004bf8b0 | LightEd_MoveMarkerActor | lighted.c | 18 |
 | 004bf930 | LightEd_GetLightAngles | lighted.c | 6 |
+| 004bffb0 | LightEd_KeyboardProc | lighted.c | 1 |
 | 004c0ed0 | DSound_Init | mixer.c | 1 |
 | 004c1090 | DSound_Shutdown | mixer.c | 1 |
 | 004c1110 | DSound_SetPrimaryVolume | mixer.c | 1 |
@@ -2459,6 +2450,11 @@
 | 004c1b60 | LecShare_CountMatching | lecshare.c | 48 |
 | 004c1be0 | LecShare_FindEntry | lecshare.c | 22 |
 | 004c1e50 | LecShare_Nop | lecshare.c | 5 |
+| 004c23c0 | AnimPlay_Create | animplay.c | 1 |
+| 004c2690 | AnimPlay_Destroy | animplay.c | 1 |
+| 004c27a0 | AnimPlay_Update | animplay.c | 1 |
+| 004c36b0 | AnimPlay_ResetState | animplay.c | 1 |
+| 004c3d30 | AnimPlay_OpenFile | animplay.c | 1 |
 | 004c3e60 | gz_open | zlib.c | 1 |
 | 004c4120 | gz_check_header | zlib.c | 71 |
 | 004c4280 | gz_get_byte | zlib.c | 26 |
@@ -2505,6 +2501,10 @@
 | 004cb520 | inflate_trees_fixed | zlib.c | 1 |
 | 004cb550 | inflate_flush | zlib.c | 1 |
 | 004cb690 | inflate_fast | zlib.c | 1 |
+| 004c5ab0 | Zfile_Close | zfile.c | 1 |
+| 004c5e30 | StdFile_Tell | stdfile.c | 1 |
+| 004c5e90 | StdFile_Size | stdfile.c | 14 |
+| 004c5f50 | StdFile_IsEof | stdfile.c | 1 |
 | 004cc210 | Blocky16_Register | blocky16.c | 12 |
 | 004cc250 | Blocky16_SetOption | blocky16.c | 1 |
 | 004cc290 | Blocky16_Unregister | blocky16.c | 9 |

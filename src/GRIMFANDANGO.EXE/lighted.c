@@ -1,5 +1,5 @@
 /* GRIMFANDANGO.EXE :: lighted.c
- * functions 0x004be3b0 .. 0x004bf930 (18 functions)
+ * functions 0x004be3b0 .. 0x004bffb0 (19 functions)
  * Decompiled from the shipped binaries with Ghidra; see ../../README.md */
 #include "ghidra_types.h"
 #include "globals.h"
@@ -788,10 +788,10 @@ void LightEd_SetDlgFloat(int param_1,int param_2,float param_3,int param_4)
   if (iVar1 != 0) {
     sprintf(local_4c,&DAT_004ddc14,(double)param_3);
     if (param_4 == 0) {
-      UINT_008d3640 = 1;
+      g_nLightEdBusy = 1;
     }
     SetDlgItemTextA(param_1,param_2,(int)local_4c);
-    UINT_008d3640 = 0;
+    g_nLightEdBusy = 0;
   }
   return;
 }
@@ -858,12 +858,12 @@ switchD_004bf4ef_caseD_2:
 
 
 /* ---- 0x004bf560  LightEd_ReadControl ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Parses the edited text field back into the light (position, direction, intensity, angles,
    falloff) */
 
-void LightEd_ReadControl(int param_1,int param_2)
+void __cdecl LightEd_ReadControl(int hdlg,int id)
 
 {
   unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -875,7 +875,7 @@ void LightEd_ReadControl(int param_1,int param_2)
   int a2;
   #define local_4c (*(byte (*)[76])(_frame + (0x60 - 0x4c)))
   
-  GetDlgItemTextA(param_1,param_2,(int)local_4c,0x4b);
+  GetDlgItemTextA(hdlg,id,(int)local_4c,0x4b);
   outer = atof(local_4c);
   if (g_pLightEdSet == (void *)0x0) {
     return;
@@ -883,10 +883,10 @@ void LightEd_ReadControl(int param_1,int param_2)
   if (g_nLightEdSelected == -1) {
     return;
   }
-  switch(param_2) {
+  switch(id) {
   case 0x3ec:
     *(float *)((&UINT_008d1730)[g_nLightEdSelected * 5] + 0x44) = outer;
-    if (UINT_008d3640 != 0) {
+    if (g_nLightEdBusy != 0) {
       return;
     }
     lVar1 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
@@ -896,7 +896,7 @@ void LightEd_ReadControl(int param_1,int param_2)
   case 0x3ed:
     rdLight_SetAngles((void *)((&UINT_008d1730)[g_nLightEdSelected * 5] + 0x2c),outer,
                       *(float *)((&UINT_008d1730)[g_nLightEdSelected * 5] + 0x54));
-    if (UINT_008d3640 != 0) {
+    if (g_nLightEdBusy != 0) {
       return;
     }
     lVar1 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
@@ -906,14 +906,14 @@ void LightEd_ReadControl(int param_1,int param_2)
   case 0x3ee:
     rdLight_SetAngles((void *)((&UINT_008d1730)[g_nLightEdSelected * 5] + 0x2c),
                       *(float *)((&UINT_008d1730)[g_nLightEdSelected * 5] + 0x4c),outer);
-    if (UINT_008d3640 != 0) {
+    if (g_nLightEdBusy != 0) {
       return;
     }
     lVar1 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
     a5 = (uint)lVar1 & 0xffff;
     a2 = 0x400;
 LAB_004bf718:
-    SendDlgItemMessageA(param_1,a2,0x467,0,a5);
+    SendDlgItemMessageA(hdlg,a2,0x467,0,a5);
     break;
   case 0x3ef:
     LightEd_SetLightPosComponent(g_nLightEdSelected,0,outer);
@@ -933,7 +933,7 @@ LAB_004bf718:
   case 0x3f5:
     LightEd_SetLightAngle(g_nLightEdSelected,2,outer);
   }
-  if (UINT_008d3640 == 0) {
+  if (g_nLightEdBusy == 0) {
     LightEd_MoveMarkerActor();
   }
   return;
@@ -1046,3 +1046,183 @@ void LightEd_GetLightAngles(int param_1,float *param_2)
   Matrix_GetAngles((float *)(param_1 + 0xc),param_2);
   return;
 }
+
+/* ---- 0x004bffb0  LightEd_KeyboardProc ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
+/* WARNING: Variable defined which should be unmapped: local_18 */
+/* Keyboard hook of the light editor: arrow keys move the selected light, numpad 2 4 6 8 turn it,
+   steps grow while a key is held */
+
+int __stdcall LightEd_KeyboardProc(int code,uint wParam,uint lParam)
+
+{
+  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  uint uVar1;
+  int iVar2;
+  uint uVar3;
+  uint uVar4;
+  undefined4 uVar5;
+  #define local_18 (*(float *)(_frame + (0x30 - 0x18)))
+  
+  if ((((code == 0) && (g_hLightEdDialog != (void *)0x0)) &&
+      (iVar2 = Win_IsFocusWithin(g_hLightEdDialog), iVar2 != 0)) && (g_nLightEdSelected != -1)) {
+    uVar4 = lParam >> 0x10 & 0x2000;
+    uVar3 = (~(lParam >> 0x10) & 0xffff) >> 0xf;
+    uVar1 = (&UINT_008d1730)[g_nLightEdSelected * 5];
+    if ((uVar3 & (g_dwLightEdLastKey & 0xffff) == wParam) == 0) {
+      g_flLightEdMoveStep = 0.01;
+      g_flLightEdAngleStep = 1.0;
+      g_dwLightEdLastKey = CONCAT22(PIECE(g_dwLightEdLastKey,2,2),-(ushort)(uVar3 != 0) & (ushort)wParam)
+      ;
+    }
+    else {
+      g_flLightEdMoveStep = g_flLightEdMoveStep - -0.005;
+      g_flLightEdAngleStep = g_flLightEdAngleStep - -0.5;
+    }
+    switch(wParam) {
+    case 0x12:
+      break;
+    default:
+      goto switchD_004c008d_caseD_13;
+    case 0x25:
+      if (uVar3 != 0) {
+        local_18 = *(float *)(uVar1 + 0x20) - g_flLightEdMoveStep;
+        uVar5 = 0x3ef;
+LAB_004c0263:
+        LightEd_SetDlgFloat(g_hLightEdDialog,uVar5,local_18,1);
+        return 1;
+      }
+      break;
+    case 0x26:
+      if (uVar3 != 0) {
+        if (uVar4 != 0) {
+          local_18 = *(float *)(uVar1 + 0x28) + g_flLightEdMoveStep;
+          uVar5 = 0x3f1;
+          goto LAB_004c041f;
+        }
+        local_18 = *(float *)(uVar1 + 0x24) + g_flLightEdMoveStep;
+        uVar5 = 0x3f0;
+        goto LAB_004c0263;
+      }
+      break;
+    case 0x27:
+      if (uVar3 != 0) {
+        ((int (*)(int, int, float, int))LightEd_SetDlgFloat)(g_hLightEdDialog,0x3ef,*(float *)(uVar1 + 0x20) + g_flLightEdMoveStep,1)
+        ;
+        return 1;
+      }
+      break;
+    case 0x28:
+      if (uVar3 != 0) {
+        if (uVar4 != 0) {
+          LightEd_SetDlgFloat(g_hLightEdDialog,0x3f1,*(float *)(uVar1 + 0x28) - g_flLightEdMoveStep,
+                              1);
+          return 1;
+        }
+        ((int (*)(int, int, float, int))LightEd_SetDlgFloat)(g_hLightEdDialog,0x3f0,*(float *)(uVar1 + 0x24) - g_flLightEdMoveStep,1)
+        ;
+        return 1;
+      }
+      break;
+    case 0x62:
+      if (uVar3 != 0) {
+        lParam = PUN(uint,(float)((float)(&UINT_008d1738)[g_nLightEdSelected * 5] + g_flLightEdAngleStep));
+        if (PUN(float,lParam) <= 360.0) {
+          if (PUN(float,lParam) < -180.0) {
+            lParam = PUN(uint,(float)(PUN(float,lParam) - -360.0));
+          }
+        }
+        else {
+          lParam = PUN(uint,(float)(PUN(float,lParam) - 360.0));
+        }
+        local_18 = PUN(float,lParam);
+        uVar5 = 0x3f2;
+        goto LAB_004c0263;
+      }
+      break;
+    case 100:
+      if (uVar3 != 0) {
+        if (uVar4 == 0) {
+          lParam = PUN(uint,(float)((float)(&UINT_008d173c)[g_nLightEdSelected * 5] - g_flLightEdAngleStep));
+          if (PUN(float,lParam) <= 360.0) {
+            if (PUN(float,lParam) < -180.0) {
+              lParam = PUN(uint,(float)(PUN(float,lParam) - -360.0));
+            }
+          }
+          else {
+            lParam = PUN(uint,(float)(PUN(float,lParam) - 360.0));
+          }
+          LightEd_SetDlgFloat(g_hLightEdDialog,0x3f4,lParam,1);
+          return 1;
+        }
+        lParam = PUN(uint,(float)((float)(&UINT_008d1740)[g_nLightEdSelected * 5] - g_flLightEdAngleStep));
+        if (PUN(float,lParam) <= 360.0) {
+          if (PUN(float,lParam) < -180.0) {
+            lParam = PUN(uint,(float)(PUN(float,lParam) - -360.0));
+          }
+        }
+        else {
+          lParam = PUN(uint,(float)(PUN(float,lParam) - 360.0));
+        }
+        local_18 = PUN(float,lParam);
+        uVar5 = 0x3f5;
+LAB_004c041f:
+        LightEd_SetDlgFloat(g_hLightEdDialog,uVar5,local_18,1);
+        return 1;
+      }
+      break;
+    case 0x66:
+      if (uVar3 != 0) {
+        if (uVar4 != 0) {
+          lParam = PUN(uint,(float)((float)(&UINT_008d1740)[g_nLightEdSelected * 5] + g_flLightEdAngleStep));
+          if (PUN(float,lParam) <= 360.0) {
+            if (PUN(float,lParam) < -180.0) {
+              lParam = PUN(uint,(float)(PUN(float,lParam) - -360.0));
+            }
+          }
+          else {
+            lParam = PUN(uint,(float)(PUN(float,lParam) - 360.0));
+          }
+          LightEd_SetDlgFloat(g_hLightEdDialog,0x3f5,lParam,1);
+          return 1;
+        }
+        lParam = PUN(uint,(float)((float)(&UINT_008d173c)[g_nLightEdSelected * 5] + g_flLightEdAngleStep));
+        if (PUN(float,lParam) <= 360.0) {
+          if (PUN(float,lParam) < -180.0) {
+            lParam = PUN(uint,(float)(PUN(float,lParam) - -360.0));
+          }
+        }
+        else {
+          lParam = PUN(uint,(float)(PUN(float,lParam) - 360.0));
+        }
+        local_18 = PUN(float,lParam);
+        uVar5 = 0x3f4;
+        goto LAB_004c041f;
+      }
+      break;
+    case 0x68:
+      if (uVar3 != 0) {
+        lParam = PUN(uint,(float)((float)(&UINT_008d1738)[g_nLightEdSelected * 5] - g_flLightEdAngleStep));
+        if (PUN(float,lParam) <= 360.0) {
+          if (PUN(float,lParam) < -180.0) {
+            lParam = PUN(uint,(float)(PUN(float,lParam) - -360.0));
+          }
+        }
+        else {
+          lParam = PUN(uint,(float)(PUN(float,lParam) - 360.0));
+        }
+        LightEd_SetDlgFloat(g_hLightEdDialog,0x3f2,lParam,1);
+        return 1;
+      }
+    }
+    return 1;
+  }
+switchD_004c008d_caseD_13:
+  iVar2 = CallNextHookEx((int)g_hLightEdHook,code,wParam,lParam);
+  return iVar2;
+}
+#undef local_18
+
+#endif
+

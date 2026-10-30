@@ -222,11 +222,11 @@ uint LecShare_Unregister(undefined4 param_1)
 }
 
 /* ---- 0x004c16c0  LecShare_Resolve ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Looks a module up by name (wildcards allowed), honouring the application's override list */
 
-undefined4 LecShare_Resolve(char *param_1,char *param_2)
+void * __cdecl LecShare_Resolve(char *name,char *pattern)
 
 {
   unsigned char _frame[0x80] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -246,23 +246,23 @@ undefined4 LecShare_Resolve(char *param_1,char *param_2)
   pbVar7 = (byte *)0x0;
   if (UINT_008d56e8 != 0) {
     if (UINT_008d56f0 != 0) {
-      pbVar7 = Str_WildcardMatch(param_1,(char *)UINT_008d56f0);
+      pbVar7 = Str_WildcardMatch(name,(char *)UINT_008d56f0);
     }
     if (pbVar7 == (byte *)0x0) {
-      if (param_2 != (char *)0x0) {
-        pbVar7 = Str_WildcardMatch(param_1,param_2);
+      if (pattern != (char *)0x0) {
+        pbVar7 = Str_WildcardMatch(name,pattern);
       }
       if ((pbVar7 == (byte *)0x0) && (UINT_008d56ec != 0)) {
-        pbVar7 = Str_WildcardMatch(param_1,(char *)UINT_008d56ec);
+        pbVar7 = Str_WildcardMatch(name,(char *)UINT_008d56ec);
       }
     }
-    iVar3 = Str_ModuleNameLength(param_1);
-    strncpy(local_64,param_1,iVar3);
+    iVar3 = Str_ModuleNameLength(name);
+    strncpy(local_64,name,iVar3);
     local_64[iVar3] = '\0';
     if (pbVar7 == (byte *)0x0) {
       iVar3 = LecShare_CountMatching(local_64);
       if (iVar3 == 0) {
-        return 0;
+        return (void *)0x0;
       }
       uVar4 = ((code *)LecShare_Subscribe)(local_64,iVar3 + -1,99);
       ((code *)strncpy)(local_64,uVar4);
@@ -337,10 +337,10 @@ undefined4 LecShare_Resolve(char *param_1,char *param_2)
     iVar3 = LecShare_FindEntry(local_64);
     if (iVar3 != 0) {
       *(int *)(iVar3 + 8) = *(int *)(iVar3 + 8) + 1;
-      return *(undefined4 *)(iVar3 + 4);
+      return *(void **)(iVar3 + 4);
     }
   }
-  return 0;
+  return (void *)0x0;
 }
 #undef local_64
 
@@ -379,28 +379,28 @@ undefined4 LecShare_BatchSubscribe(int *param_1,char *param_2)
 
 {
   int *piVar1;
-  char *pcVar2;
-  undefined4 uVar3;
+  char *pattern;
+  void *pvVar2;
   
   if (*param_1 == 0) {
     return 0;
   }
   while( true ) {
-    pcVar2 = (char *)param_1[2];
-    if ((pcVar2 == (char *)0x0) || (*pcVar2 == '\0')) {
+    pattern = (char *)param_1[2];
+    if ((pattern == (char *)0x0) || (*pattern == '\0')) {
       *(undefined4 *)*param_1 = 0;
     }
     else {
-      uVar3 = LecShare_Resolve(param_1[1],pcVar2);
-      *(undefined4 *)*param_1 = uVar3;
+      pvVar2 = LecShare_Resolve((char *)param_1[1],pattern);
+      *(void **)*param_1 = pvVar2;
     }
     if (((*(int *)*param_1 == 0) && (param_2 != (char *)0x0)) && (*param_2 != '\0')) {
-      uVar3 = LecShare_Resolve(param_1[1],param_2);
-      *(undefined4 *)*param_1 = uVar3;
+      pvVar2 = LecShare_Resolve((char *)param_1[1],param_2);
+      *(void **)*param_1 = pvVar2;
     }
     if (*(int *)*param_1 == 0) {
-      uVar3 = LecShare_Resolve(param_1[1],0);
-      *(undefined4 *)*param_1 = uVar3;
+      pvVar2 = LecShare_Resolve((char *)param_1[1],(char *)0x0);
+      *(void **)*param_1 = pvVar2;
     }
     if (*(int *)*param_1 == 0) break;
     piVar1 = param_1 + 3;

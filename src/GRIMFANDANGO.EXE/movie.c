@@ -142,20 +142,19 @@ void Movie_Stop(void)
 /* ---- 0x00489390  Movie_SetFile ---- */
 /* Resolves the movie name through the resource system and hands the path to the SMUSH player */
 
-undefined * Movie_SetFile(char *param_1)
+int Movie_SetFile(char *param_1)
 
 {
   unsigned char _frame[0x90] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
-  undefined *puVar2;
   #define local_80 (*(char (*)[128])(_frame + (0x90 - 0x80)))
   
   iVar1 = Res_GetFilePath(param_1,local_80,0x80);
   if (iVar1 != 1) {
-    return (undefined *)0x0;
+    return 0;
   }
-  puVar2 = Smush_SetFile((uint)local_80);
-  return puVar2;
+  iVar1 = Smush_GetLengthMs(local_80);
+  return iVar1;
 }
 #undef local_80
 

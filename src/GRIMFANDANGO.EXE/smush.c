@@ -252,10 +252,13 @@ undefined4 Smush_GetFrameRect(uint *param_1,uint *param_2)
   return 0;
 }
 
-/* ---- 0x004bdf00  Smush_SetFile ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* ---- 0x004bdf00  Smush_GetLengthMs ---- */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
-undefined * __cdecl Smush_SetFile(uint param_1)
+/* Opens a movie file, reads its header and returns the movie length in milliseconds (16 bit header
+   field times 66.67); 0 if it cannot be opened */
+
+int __cdecl Smush_GetLengthMs(char *path)
 
 {
   unsigned char _frame[0x440] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -265,14 +268,14 @@ undefined * __cdecl Smush_SetFile(uint param_1)
   #define auStack_428 (*(undefined1 (*)[2])(_frame + (0x440 - 0x428)))
   #define sStack_426 (*(short *)(_frame + (0x440 - 0x426)))
   
-  iVar1 = (*(code *)*PTR_008d10c8)(param_1,&DAT_004dda54);
+  iVar1 = (*(code *)*PTR_008d10c8)(path,&DAT_004dda54);
   if (iVar1 == 0) {
-    return (undefined *)0x0;
+    return 0;
   }
   Insane_ReadFrameHeader(iVar1,auStack_428);
   (*(code *)PTR_008d10c8[1])(iVar1);
   lVar2 = _ftol((double)CONCAT44((int)sStack_426,unaff_ESI));
-  return (undefined *)lVar2;
+  return (int)lVar2;
 }
 #undef auStack_428
 #undef sStack_426

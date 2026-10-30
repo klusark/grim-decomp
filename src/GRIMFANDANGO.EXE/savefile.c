@@ -42,6 +42,6 @@ void * SaveFile_Open(char *name,char *mode)
 {
   void *pvVar1;
   
-  pvVar1 = (void *)gz_open(name,mode,0xffffffff);
+  pvVar1 = gz_open(name,mode,-1);
   return pvVar1;
 }

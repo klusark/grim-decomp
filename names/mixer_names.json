@@ -894,5 +894,166 @@
   "type": "int",
   "comment": "Row coordinates of the 16 edge points of an 8x8 block",
   "array_length": 16
+ },
+ {
+  "addr": "004bdf00",
+  "name": "Smush_GetLengthMs",
+  "comment": "Opens a movie file, reads its header and returns the movie length in milliseconds (16 bit header field times 66.67); 0 if it cannot be opened",
+  "tags": "smush"
+ },
+ {
+  "addr": "004bffb0",
+  "name": "LightEd_KeyboardProc",
+  "comment": "Keyboard hook of the light editor: arrow keys move the selected light, numpad 2 4 6 8 turn it, steps grow while a key is held",
+  "tags": "lighted"
+ },
+ {
+  "addr": "004c16c0",
+  "name": "LecShare_Resolve",
+  "tags": "lecshare"
+ },
+ {
+  "addr": "004c23c0",
+  "name": "AnimPlay_Create",
+  "comment": "Creates the AnimPlay frame player: allocates it, opens the streamer and the file, starts the clock and frame timers; returns 0 or -1",
+  "tags": "smush,animplay"
+ },
+ {
+  "addr": "004c2690",
+  "name": "AnimPlay_Destroy",
+  "comment": "Stops the timers of an AnimPlay frame player, closes the streamer and frees it",
+  "tags": "smush,animplay"
+ },
+ {
+  "addr": "004c27a0",
+  "name": "AnimPlay_Update",
+  "comment": "One step of the AnimPlay frame player: shows the next frame if due and adjusts the frame delay to keep sound and picture in sync",
+  "tags": "smush,animplay"
+ },
+ {
+  "addr": "004c36b0",
+  "name": "AnimPlay_ResetState",
+  "comment": "Resets the decoder state fields of an AnimPlay frame player and its streamer",
+  "tags": "smush,animplay"
+ },
+ {
+  "addr": "004c3d30",
+  "name": "AnimPlay_OpenFile",
+  "comment": "Opens the movie file of an AnimPlay frame player through the streamer",
+  "tags": "smush,animplay"
+ },
+ {
+  "addr": "004c5ab0",
+  "name": "Zfile_Close",
+  "comment": "Closes a Zfile object: the plain file or the gzip stream, then frees the object",
+  "tags": "zlib"
+ },
+ {
+  "addr": "004c5e30",
+  "name": "StdFile_Tell",
+  "comment": "Returns the current position of a StdFile through the file service",
+  "tags": "stdfile"
+ },
+ {
+  "addr": "004c5e90",
+  "name": "StdFile_Size",
+  "comment": "Returns the size of a StdFile by seeking to its end and back",
+  "tags": "stdfile"
+ },
+ {
+  "addr": "004c5f50",
+  "name": "StdFile_IsEof",
+  "comment": "True when the position of a StdFile is at or past its size",
+  "tags": "stdfile"
+ },
+ {
+  "addr": "008d363c",
+  "global": "g_hLightEdHook",
+  "type": "void *",
+  "comment": "Handle of the keyboard hook of the light editor"
+ },
+ {
+  "addr": "008d3640",
+  "global": "g_nLightEdBusy",
+  "type": "int",
+  "comment": "Nonzero while the light editor must not mirror changes into its dialog"
+ },
+ {
+  "addr": "008d3648",
+  "global": "g_dwLightEdLastKey",
+  "type": "uint",
+  "comment": "Low word is the key currently held in the light editor"
+ },
+ {
+  "addr": "004f0d18",
+  "global": "g_flLightEdMoveStep",
+  "type": "float",
+  "comment": "Position step of the light editor keys, grows while a key is held"
+ },
+ {
+  "addr": "004f0d1c",
+  "global": "g_flLightEdAngleStep",
+  "type": "float",
+  "comment": "Angle step of the light editor keys, grows while a key is held"
+ },
+ {
+  "addr": "00906c3c",
+  "global": "g_pAnimMemory",
+  "type": "int *",
+  "comment": "MEMORY workspace service of the AnimPlay module"
+ },
+ {
+  "addr": "00906c30",
+  "global": "g_pAnimDebug",
+  "type": "int *",
+  "comment": "VIRTHERC debug service of the AnimPlay module"
+ },
+ {
+  "addr": "00906c38",
+  "global": "g_pAnimStreamer",
+  "type": "int *",
+  "comment": "STREAMER spooler service of the AnimPlay module"
+ },
+ {
+  "addr": "00906c34",
+  "global": "g_pAnimFrame",
+  "type": "int *",
+  "comment": "ANIMFRAME render service of the AnimPlay module"
+ },
+ {
+  "addr": "008d6f10",
+  "global": "g_pAnimTimer",
+  "type": "int *",
+  "comment": "TIMER clocks service of the AnimPlay module"
+ },
+ {
+  "addr": "008d6f18",
+  "global": "g_pAnimLipsync",
+  "type": "int *",
+  "comment": "SOUND lipsync service of the AnimPlay module"
+ },
+ {
+  "addr": "008d6f1c",
+  "global": "g_nAnimFramesDecoded",
+  "type": "int",
+  "comment": "Frames decoded since the movie started, counted by the frame decoder"
+ },
+ {
+  "addr": "00906c44",
+  "global": "g_pZfileFileIo",
+  "type": "int *",
+  "comment": "FILIO chainto file service of the Zfile module"
+ },
+ {
+  "addr": "008d7834",
+  "global": "g_pZfileMemory",
+  "type": "int *",
+  "comment": "MEMORY buffers service of the Zfile module"
+ },
+ {
+  "addr": "008d7848",
+  "global": "g_pStdFileIo",
+  "type": "int *",
+  "comment": "FILIO chainto file service of the StdFile module"
  }
 ]

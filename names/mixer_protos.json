@@ -373,5 +373,80 @@
   "addr": "004cdb80",
   "proto": "byte * Blocky16_DecodeBlock2(byte * src, byte * dst, int pitch)",
   "cc": "__cdecl"
+ },
+ {
+  "addr": "004bdf00",
+  "proto": "int Smush_GetLengthMs(char * path)",
+  "cc": "__cdecl"
+ },
+ {
+  "addr": "004bffb0",
+  "proto": "int LightEd_KeyboardProc(int code, uint wParam, uint lParam)",
+  "cc": "__stdcall"
+ },
+ {
+  "addr": "004bf560",
+  "proto": "void LightEd_ReadControl(int hdlg, int id)",
+  "cc": "__cdecl"
+ },
+ {
+  "addr": "004c16c0",
+  "proto": "void * LecShare_Resolve(char * name, char * pattern)",
+  "cc": "__cdecl"
+ },
+ {
+  "addr": "004c23c0",
+  "proto": "int AnimPlay_Create(void * * out, char * name, int fps, int streamArg1, int streamArg2, uint flags)",
+  "cc": "__cdecl"
+ },
+ {
+  "addr": "004c2690",
+  "proto": "void AnimPlay_Destroy(void * * pp)",
+  "cc": "__cdecl"
+ },
+ {
+  "addr": "004c27a0",
+  "proto": "int AnimPlay_Update(void * p, int a2, int a3, int a4, int a5, int a6, int a7, int a8, int a9, int a10)",
+  "cc": "__cdecl"
+ },
+ {
+  "addr": "004c36b0",
+  "proto": "int AnimPlay_ResetState(void * p)",
+  "cc": "__cdecl"
+ },
+ {
+  "addr": "004c3d30",
+  "proto": "int AnimPlay_OpenFile(void * p, char * name, uint flags, int a4, int a5, int a6)",
+  "cc": "__cdecl"
+ },
+ {
+  "addr": "004c5ab0",
+  "proto": "void Zfile_Close(int * z)",
+  "cc": "__cdecl"
+ },
+ {
+  "addr": "004c5e30",
+  "proto": "int StdFile_Tell(void * file)",
+  "cc": "__cdecl"
+ },
+ {
+  "addr": "004c5e90",
+  "proto": "int StdFile_Size(void * file)",
+  "cc": "__cdecl"
+ },
+ {
+  "addr": "004c5f50",
+  "proto": "int StdFile_IsEof(void * file)",
+  "cc": "__cdecl"
+ },
+ {
+  "addr": "004c49c0",
+  "proto": "void gz_putLong(void * file, uint x)",
+  "cc": "__cdecl"
+ },
+ {
+  "addr": "004c3e60",
+  "proto": "void * gz_open(char * path, char * mode, int fd)",
+  "cc": "__cdecl"
  }
 ]

@@ -18,7 +18,7 @@
  {"addr": "004bd570", "name": "Smush_Open", "proto": "int Smush_Open(char * name, int flags, int bufferSize, int x, int y, int w, int h, int a, int sixteenBit)", "tags": "smush"},
  {"addr": "004bd500", "name": "Smush_Pause", "tags": "smush"},
  {"addr": "004bd520", "name": "Smush_Resume", "tags": "smush"},
- {"addr": "004bdf00", "name": "Smush_SetFile", "tags": "smush"},
+ {"addr": "004bdf00", "name": "Smush_GetLengthMs", "tags": "smush"},
  {"addr": "00489550", "name": "Primitives_DrawAll", "proto": "void Primitives_DrawAll(uint layerMask)", "tags": "primitives"},
  {"addr": "004895d0", "name": "Primitives_Hide", "comment": "Invalidates every primitive and stops drawing them (movie playback)", "tags": "primitives"},
  {"addr": "004895f0", "name": "Primitives_Show", "tags": "primitives"},

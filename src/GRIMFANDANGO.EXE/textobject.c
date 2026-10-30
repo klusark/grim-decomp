@@ -31,7 +31,7 @@ void __cdecl TextObject_Activate(void *obj,int durationMs,int flags)
 }
 
 /* ---- 0x0048c7e0  TextObject_New ---- */
-void * __cdecl TextObject_New(void *ctx,char *text)
+void * __cdecl TextObject_New(void *ctx,char *text,int durationMs,int flags)
 
 {
   undefined4 *puVar1;

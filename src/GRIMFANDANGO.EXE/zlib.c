@@ -6,12 +6,12 @@
 #include "functions.h"
 
 /* ---- 0x004c3e60  gz_open ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* zlib 1.1.3 gzio.c (file access routed through the file service table at g_pZlibFileOps): opens a
    gzip stream for 'r' or 'w' */
 
-undefined4 * gz_open(char *param_1,char *param_2,int param_3)
+void * __cdecl gz_open(char *path,char *mode,int fd)
 
 {
   unsigned char _frame[0x80];  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -36,15 +36,15 @@ undefined4 * gz_open(char *param_1,char *param_2,int param_3)
   
   local_60 = 0xffffffff;
   local_64 = 0;
-  if (param_1 == (char *)0x0) {
-    return (undefined4 *)0x0;
+  if (path == (char *)0x0) {
+    return (void *)0x0;
   }
-  if (param_2 == (char *)0x0) {
-    return (undefined4 *)0x0;
+  if (mode == (char *)0x0) {
+    return (void *)0x0;
   }
   puVar2 = (undefined4 *)malloc(100);
   if (puVar2 == (undefined4 *)0x0) {
-    return (undefined4 *)0x0;
+    return (void *)0x0;
   }
   puVar2[8] = 0;
   puVar2[9] = 0;
@@ -63,7 +63,7 @@ undefined4 * gz_open(char *param_1,char *param_2,int param_3)
   uVar8 = 0xffffffff;
   puVar2[0x14] = 0;
   puVar2[0x16] = 0;
-  pcVar4 = param_1;
+  pcVar4 = path;
   do {
     if (uVar8 == 0) break;
     uVar8 = uVar8 - 1;
@@ -74,7 +74,7 @@ undefined4 * gz_open(char *param_1,char *param_2,int param_3)
   puVar2[0x15] = pcVar4;
   if (pcVar4 != (char *)0x0) {
     uVar8 = 0xffffffff;
-    pcVar10 = param_1;
+    pcVar10 = path;
     do {
       pcVar11 = pcVar10;
       if (uVar8 == 0) break;
@@ -96,8 +96,8 @@ undefined4 * gz_open(char *param_1,char *param_2,int param_3)
       pcVar4 = pcVar4 + 1;
     }
     *(undefined1 *)(puVar2 + 0x17) = 0;
-    pcVar4 = param_2;
-    param_2 = local_50;
+    pcVar4 = mode;
+    mode = local_50;
     do {
       if (*pcVar4 == 'r') {
         *(undefined1 *)(puVar2 + 0x17) = 0x72;
@@ -114,15 +114,15 @@ undefined4 * gz_open(char *param_1,char *param_2,int param_3)
           local_64 = 2;
         }
         else {
-          *param_2 = cVar1;
-          param_2 = param_2 + 1;
+          *mode = cVar1;
+          mode = mode + 1;
         }
       }
       else {
         local_60 = (int)cVar1 - 0x30;
       }
       pcVar4 = pcVar4 + 1;
-    } while ((cVar1 != '\0') && (param_2 != &STACK0X(0x00000000)));
+    } while ((cVar1 != '\0') && (mode != &STACK0X(0x00000000)));
     if (*(char *)(puVar2 + 0x17) != '\0') {
       if (*(char *)(puVar2 + 0x17) == 'w') {
         iVar5 = deflateInit2_(puVar2,local_60,8,0xfffffff1,8,local_64,s_1_1_3_004f1a20,0x38);
@@ -132,7 +132,7 @@ undefined4 * gz_open(char *param_1,char *param_2,int param_3)
         if (iVar5 != 0) goto LAB_004c410c;
         if (puVar6 == (undefined *)0x0) {
           gz_destroy(puVar2);
-          return (undefined4 *)0x0;
+          return (void *)0x0;
         }
       }
       else {
@@ -145,11 +145,11 @@ undefined4 * gz_open(char *param_1,char *param_2,int param_3)
       puVar2[4] = 0x4000;
       puVar7 = (undefined4 *)_errno();
       *puVar7 = 0;
-      if (param_3 < 0) {
-        iVar5 = (*(code *)*PTR_00906c44)(param_1);
+      if (fd < 0) {
+        iVar5 = (*(code *)*g_pZfileFileIo)(path);
       }
       else {
-        iVar5 = _fdopen(param_3,local_50);
+        iVar5 = _fdopen(fd,local_50);
       }
       puVar2[0x10] = iVar5;
       if (iVar5 != 0) {
@@ -160,13 +160,13 @@ undefined4 * gz_open(char *param_1,char *param_2,int param_3)
           uStack_53 = 0;
           sprintf(&cStack_5c,s__c_c_c_c_c_c_c_c_c_c_004f1a08,UINT_004f1a00,UINT_004f1a04,8,0,0,0,0,0
                   ,0,0xb);
-          (*(code *)PTR_00906c44[3])(puVar2[0x10],&cStack_5c,10);
+          (*(code *)g_pZfileFileIo[3])(puVar2[0x10],&cStack_5c,10);
           puVar2[0x18] = 10;
           return puVar2;
         }
         gz_check_header(puVar2);
         if (puVar2[0x16] != 1) {
-          iVar5 = (*(code *)PTR_00906c44[4])(puVar2[0x10]);
+          iVar5 = (*(code *)g_pZfileFileIo[4])(puVar2[0x10]);
           puVar2[0x18] = iVar5 - puVar2[1];
           return puVar2;
         }
@@ -175,7 +175,7 @@ undefined4 * gz_open(char *param_1,char *param_2,int param_3)
   }
 LAB_004c410c:
   gz_destroy(puVar2);
-  return (undefined4 *)0x0;
+  return (void *)0x0;
 }
 #undef cStack_5c
 #undef local_50
@@ -275,7 +275,7 @@ uint gz_get_byte(undefined4 *param_1)
   if (param_1[1] == 0) {
     puVar2 = (undefined4 *)_errno();
     *puVar2 = 0;
-    iVar3 = (*(code *)PTR_00906c44[2])(param_1[0x10],param_1[0x11],0x4000);
+    iVar3 = (*(code *)g_pZfileFileIo[2])(param_1[0x10],param_1[0x11],0x4000);
     param_1[1] = iVar3;
     if (iVar3 == 0) {
       param_1[0xf] = 1;
@@ -310,7 +310,7 @@ int gz_destroy(int param_1)
       }
     }
     if (*(int *)(param_1 + 0x40) != 0) {
-      (*(code *)PTR_00906c44[1])(*(int *)(param_1 + 0x40));
+      (*(code *)g_pZfileFileIo[1])(*(int *)(param_1 + 0x40));
       piVar1 = (int *)_errno();
       if (*piVar1 != 0x1d) {
         iVar2 = -1;
@@ -389,7 +389,7 @@ int gzread(int *param_1,int param_2,int param_3)
           piVar2[1] = piVar2[1] - uVar6;
         }
         if (piVar2[4] != 0) {
-          iVar5 = (*(code *)PTR_00906c44[2])(piVar2[0x10],param_1,piVar2[4]);
+          iVar5 = (*(code *)g_pZfileFileIo[2])(piVar2[0x10],param_1,piVar2[4]);
           piVar2[4] = piVar2[4] - iVar5;
         }
         param_3 = param_3 - piVar2[4];
@@ -403,7 +403,7 @@ int gzread(int *param_1,int param_2,int param_3)
       if ((uVar6 == 0) && (piVar2[0xf] == 0)) {
         puVar3 = (undefined4 *)_errno();
         *puVar3 = 0;
-        iVar4 = (*(code *)PTR_00906c44[2])(piVar2[0x10],piVar2[0x11],0x4000);
+        iVar4 = (*(code *)g_pZfileFileIo[2])(piVar2[0x10],piVar2[0x11],0x4000);
         piVar2[1] = iVar4;
         if (iVar4 == 0) {
           piVar2[0xf] = 1;
@@ -463,7 +463,7 @@ LAB_004c4624:
     }
     if (param_1[4] == 0) {
       param_1[3] = param_1[0x12];
-      iVar1 = (*(code *)PTR_00906c44[3])(param_1[0x10],param_1[0x12],0x4000);
+      iVar1 = (*(code *)g_pZfileFileIo[3])(param_1[0x10],param_1[0x12],0x4000);
       if (iVar1 != 0x4000) {
         param_1[0xe] = 0xffffffff;
         goto LAB_004c4624;
@@ -493,7 +493,7 @@ uint gz_do_flush(int param_1,undefined4 param_2)
   do {
     iVar3 = 0x4000 - *(int *)(param_1 + 0x10);
     if (iVar3 != 0) {
-      iVar2 = (*(code *)PTR_00906c44[3])
+      iVar2 = (*(code *)g_pZfileFileIo[3])
                         (*(undefined4 *)(param_1 + 0x40),*(undefined4 *)(param_1 + 0x48),iVar3);
       if (iVar2 != iVar3) {
         *(undefined4 *)(param_1 + 0x38) = 0xffffffff;
@@ -564,7 +564,7 @@ uint gzseek(undefined4 *param_1,uint param_2,int param_3)
         if (param_1[0x16] != 0) {
           param_1[1] = 0;
           *param_1 = param_1[0x11];
-          (*(code *)PTR_00906c44[5])(param_1[0x10],param_2,0);
+          (*(code *)g_pZfileFileIo[5])(param_1[0x10],param_2,0);
           param_1[5] = param_2;
           param_1[2] = param_2;
           return param_2;
@@ -619,7 +619,7 @@ undefined4 gzrewind(undefined4 *param_1)
       return 0;
     }
     inflateReset(param_1);
-    uVar1 = (*(code *)PTR_00906c44[5])(param_1[0x10],param_1[0x18],0);
+    uVar1 = (*(code *)g_pZfileFileIo[5])(param_1[0x10],param_1[0x18],0);
     return uVar1;
   }
   return 0xffffffff;
@@ -657,8 +657,8 @@ undefined4 gzclose(int param_1)
   if (*(char *)(param_1 + 0x5c) == 'w') {
     iVar1 = gz_do_flush(param_1,4);
     if (iVar1 == 0) {
-      gz_putLong(*(undefined4 *)(param_1 + 0x40),*(undefined4 *)(param_1 + 0x4c));
-      gz_putLong(*(undefined4 *)(param_1 + 0x40),*(undefined4 *)(param_1 + 8));
+      gz_putLong(*(void **)(param_1 + 0x40),*(uint *)(param_1 + 0x4c));
+      gz_putLong(*(void **)(param_1 + 0x40),*(uint *)(param_1 + 8));
     }
   }
   uVar2 = gz_destroy(param_1);
@@ -666,21 +666,21 @@ undefined4 gzclose(int param_1)
 }
 
 /* ---- 0x004c49c0  gz_putLong ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
-void gz_putLong(undefined4 param_1,uint param_2)
+void __cdecl gz_putLong(void *file,uint x)
 
 {
-  undefined4 uVar1;
+  void *pvVar1;
   uint uVar2;
   int iVar3;
   
-  uVar1 = param_1;
+  pvVar1 = file;
   iVar3 = 4;
-  uVar2 = param_2;
+  uVar2 = x;
   do {
-    param_1 = CONCAT31(PIECE(param_1,1,3),(char)uVar2);
-    (*(code *)PTR_00906c44[3])(uVar1,&param_1,1);
+    file = (void *)CONCAT31(PIECE(file,1,3),(char)uVar2);
+    (*(code *)g_pZfileFileIo[3])(pvVar1,&file,1);
     uVar2 = uVar2 >> 8;
     iVar3 = iVar3 + -1;
   } while (iVar3 != 0);

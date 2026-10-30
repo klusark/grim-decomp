@@ -383,8 +383,8 @@ void __cdecl Blocky16_BuildSplitMasks(int size)
   #define local_4 (*(uint *)(_frame + (0x180 - 0x4)))
   
   if (size == 8) {
-    local_164 = (uint)&g_anBlockySplit8Y;
-    local_148 = (uint)&g_anBlockySplit8X;
+    local_164 = (uint)g_anBlockySplit8Y;
+    local_148 = (uint)g_anBlockySplit8X;
     puVar3 = &DAT_00906e00;
     do {
       *puVar3 = 0;
@@ -397,7 +397,7 @@ void __cdecl Blocky16_BuildSplitMasks(int size)
     } while ((int)puVar3 < IMG_ADDR(0x0091f201));
   }
   if (size == 4) {
-    local_164 = (uint)&g_anBlockySplit4Y;
+    local_164 = (uint)g_anBlockySplit4Y;
     local_148 = (uint)g_anBlockySplit4X;
     puVar3 = &DAT_0091f100;
     do {
@@ -701,7 +701,7 @@ int __cdecl Blocky16_DecodeFrame(void *dst,uint *clip,int x,int y,int palette,by
     Video_FillPixels(g_pbBlkPrev,g_pBlkBitmap0,g_pBlkBitmap0[1] * g_pBlkBitmap0[2],hdr + 0x20);
     g_nBlkLastSeq = -1;
   }
-  UINT_008d6f1c = UINT_008d6f1c + 1;
+  g_nAnimFramesDecoded = g_nAnimFramesDecoded + 1;
   switch(hdr[0x12]) {
   case 0:
     goto LAB_004ccf61;

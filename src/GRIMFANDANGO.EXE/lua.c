@@ -1266,14 +1266,14 @@ void Lua_PrintLine(void)
   char *pcVar5;
   char *pcVar6;
   undefined4 unaff_ESI;
-  uint *puVar7;
+  undefined4 *puVar7;
   undefined4 unaff_EDI;
-  uint *puVar8;
+  undefined4 *puVar8;
   longlong lVar9;
   #define local_5c (*(uint *)(_frame + (0x70 - 0x5c)))
   #define local_58 (*(int *)(_frame + (0x70 - 0x58)))
   #define local_50 (*(char (*)[32])(_frame + (0x70 - 0x50)))
-  #define local_30 (*(uint (*)[12])(_frame + (0x70 - 0x30)))
+  #define local_30 (*(undefined4 (*)[12])(_frame + (0x70 - 0x30)))
   
   iVar2 = lua_lua2C(1);
   pvVar3 = (void *)lua_lua2C(2);
@@ -1324,7 +1324,7 @@ void Lua_PrintLine(void)
         local_58 = (int)lVar9;
       }
       iVar2 = 0;
-      pvVar3 = TextObject_New((void *)local_5c,pcVar6);
+      pvVar3 = TextObject_New((void *)local_5c,pcVar6,local_58,0);
       TextObject_Activate(pvVar3,local_58,iVar2);
     }
   }
@@ -1597,7 +1597,9 @@ void Lua_MakeTextObject(void)
   int iVar2;
   char *pcVar3;
   void *table;
+  int unaff_EBX;
   uint *puVar4;
+  int unaff_EDI;
   uint *puVar5;
   #define local_78 (*(uint *)(_frame + (0x90 - 0x78)))
   #define local_64 (*(uint *)(_frame + (0x90 - 0x64)))
@@ -1633,7 +1635,7 @@ void Lua_MakeTextObject(void)
       }
     }
     pcVar3 = Text_ParseLineId(pcVar3,local_50);
-    pcVar3 = TextObject_New(&local_30,pcVar3);
+    pcVar3 = TextObject_New(&local_30,pcVar3,unaff_EBX,unaff_EDI);
     lua_pushusertag(pcVar3,0x54584554);
     iVar1 = Text_MeasureWidth(pcVar3 + 0x208,pcVar3 + 8);
     lua_pushnumber((float)iVar1);
@@ -1666,7 +1668,9 @@ void Lua_BlastText(void)
   char *pcVar3;
   void *pvVar4;
   void *surface;
+  int unaff_EBP;
   uint *puVar5;
+  int unaff_EDI;
   uint *puVar6;
   #define local_60 (*(uint *)(_frame + (0x70 - 0x60)))
   #define local_5c (*(uint *)(_frame + (0x70 - 0x5c)))
@@ -1704,7 +1708,7 @@ void Lua_BlastText(void)
       }
     }
     pcVar3 = Text_ParseLineId(pcVar3,local_50);
-    pvVar4 = TextObject_New(&local_30,pcVar3);
+    pvVar4 = TextObject_New(&local_30,pcVar3,unaff_EBP,unaff_EDI);
     TextObject_Draw(pvVar4,0);
     surface = (void *)Render_GetBackBuffer();
     Surface_Unlock(surface);
@@ -11874,7 +11878,7 @@ void Lua_LightMgrStartup(void)
     else {
       iVar2 = 0;
       iVar1 = Win_GetInstance();
-      UINT_008d363c = SetWindowsHookExA(2,((unsigned)(uintptr_t)FUN_004bffb0),iVar1,iVar2);
+      g_hLightEdHook = (void *)SetWindowsHookExA(2,((unsigned)(uintptr_t)LightEd_KeyboardProc),iVar1,iVar2);
     }
     if (UINT_004f0d0c == 0xffffffff) {
       UINT_004f0d0c = Actor_Create();
@@ -11918,8 +11922,8 @@ void Lua_LightMgrSetChange(void)
 void Lua_LightMgrShutdown(void)
 
 {
-  if (UINT_008d363c != 0) {
-    UnhookWindowsHookEx(UINT_008d363c);
+  if (g_hLightEdHook != (void *)0x0) {
+    UnhookWindowsHookEx((int)g_hLightEdHook);
   }
   if (g_hLightEdDialog != (void *)0x0) {
     DestroyWindow((int)g_hLightEdDialog);

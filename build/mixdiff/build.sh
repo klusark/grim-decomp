@@ -10,6 +10,7 @@ DATA_O=${DATA_O:-build/obj/GRIMFANDANGO.EXE/data_s.o}
 T=$1; OUT=$2; shift 2
 W=build/mixdiff/out; mkdir -p $W; rm -f $W/mine_*.o $W/extra_*.o
 python -I build/mixdiff/slice_orig.py $BASE_ASM $W/orig.s "$@"
+[ -n "$ORIG_SED" ] && sed -i -E "$ORIG_SED" $W/orig.s     # e.g. rename CRT symbols the test must not hook globally
 /ucrt64/bin/gcc -m32 -c $W/orig.s -o $W/orig.o
 for ov in ${OVERRIDES:-build/overrides_mixer.c build/overrides_mixer_drv.c}; do
   /ucrt64/bin/gcc -m32 -std=gnu11 -fpermissive -w -fno-builtin -ffreestanding -fno-common -include build/compat.h -Isrc/GRIMFANDANGO.EXE -DGRIM_EXE $EXTRA_CFLAGS -c $ov -o $W/mine_$(basename $ov .c).o
