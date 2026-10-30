@@ -1,0 +1,11 @@
+{
+ "_comment": "functions whose C++ exception frame (SEH registration around allocations) may be removed when they are compiled as C (agent P, game logic)",
+ "GRIMFANDANGO.EXE": [
+  "00490730",
+  "0048a670",
+  "004a5d50",
+  "004aa410",
+  "004aa4c0",
+  "004a7bc0"
+ ]
+}
