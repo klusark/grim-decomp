@@ -885,7 +885,7 @@ compared on the planner without starting a game (identical results).
 
 Scope: `GRIMFANDANGO.EXE` 0x401000-0x49ffff.  Functions that the build rebuilt from Ghidra's disassembly (`asm_funcs.s`)
 went from 1046 to 473 (372 of those are the software rasteriser, see `docs/ASM_REMAINING.md` for every remaining function and the
-reason).  About 570 functions are compiled C again; about 30 of them are written by hand in `build/overrides_exe.c`.
+reason).  About 570 functions are compiled C again; about 20 of them are written by hand in `build/overrides_exe.c`.
 
 **How a function is moved from assembly to C**
 1. Add its address to `names/asm_exclude_exe_lo.json` (read by `tools/gen_asm.py` together with `asm_exclude.json`), or define it in
