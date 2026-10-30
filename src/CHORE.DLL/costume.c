@@ -3849,7 +3849,7 @@ uint * FUN_10005e90(uint *param_1,char param_2)
 
 
 /* ---- 0x10005f50  FUN_10005f50 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 

@@ -191,8 +191,6 @@ undefined4 _unwind_handler(void)
 }
 
 /* ---- 0x1000f466  _NLG_Notify ---- */
-/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
-#if 0
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
 
 undefined4 __stdcall _NLG_Notify(int a1)
@@ -206,8 +204,6 @@ undefined4 __stdcall _NLG_Notify(int a1)
   DAT_100282c4 = unaff_EBP;
   return in_EAX;
 }
-#endif
-
 
 /* ---- 0x1000f480  vsprintf ---- */
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
@@ -4108,8 +4104,6 @@ CallCatchBlock(int param_1,undefined4 param_2,int param_3,undefined4 param_4,und
 
 
 /* ---- 0x10013b98  Eh_CallCatchBlockInner ---- */
-/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
-#if 0
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
 
 void Eh_CallCatchBlockInner(void)
@@ -4133,8 +4127,6 @@ void Eh_CallCatchBlockInner(void)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x10013c30  BuildCatchObject ---- */
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
@@ -4469,8 +4461,6 @@ LAB_100142b3:
 }
 
 /* ---- 0x10014370  _output ---- */
-/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
-#if 0
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
 
 int __cdecl _output(int *param_1,char *param_2,undefined4 *param_3)
@@ -4917,8 +4907,6 @@ LAB_10014acf:
 #undef local_248
 #undef local_24c
 #undef uStack_1
-
-#endif
 
 
 /* ---- 0x10014d00  write_char ---- */
@@ -8472,8 +8460,6 @@ uint __cdecl wcstol(short *param_1,undefined4 *param_2,uint param_3)
 }
 
 /* ---- 0x1001c410  wcstoxl ---- */
-/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
-#if 0
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
 
 uint __cdecl wcstoxl(short *param_1,undefined4 *param_2,uint param_3,uint param_4)
@@ -8585,8 +8571,6 @@ LAB_1001c55b:
     }
   } while( true );
 }
-#endif
-
 
 /* ---- 0x1001c5f0  __crtGetLocaleInfoA ---- */
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
@@ -9814,8 +9798,6 @@ int __cdecl _wctomb_lk(undefined1 *param_1,ushort param_2)
 }
 
 /* ---- 0x1001e4d0  _aulldiv ---- */
-/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
-#if 0
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
 
 int __stdcall _aulldiv(int a1,int a2,int a3,int a4)
@@ -9859,12 +9841,8 @@ int __stdcall _aulldiv(int a1,int a2,int a3,int a4)
   }
   return iVar3;
 }
-#endif
-
 
 /* ---- 0x1001e540  _aullrem ---- */
-/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
-#if 0
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
 
 int __stdcall _aullrem(int a1,int a2,int a3,int a4)
@@ -9910,8 +9888,6 @@ int __stdcall _aullrem(int a1,int a2,int a3,int a4)
   }
   return iVar6;
 }
-#endif
-
 
 /* ---- 0x1001e5c0  _callnewh ---- */
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
