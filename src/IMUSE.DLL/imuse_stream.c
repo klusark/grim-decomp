@@ -347,7 +347,7 @@ undefined4 __cdecl iMUSE_stream__b840(int *param_1,int param_2)
 
 
 /* ---- 0x1000b8d0  FUN_1000b8d0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (host): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 int __cdecl FUN_1000b8d0(undefined1 *param_1,char *param_2,undefined4 *param_3)
 
