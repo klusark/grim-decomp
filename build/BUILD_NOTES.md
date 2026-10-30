@@ -880,3 +880,38 @@ The `move` tier fails for the 24 cases that start on the stair of `ly` (72/96): 
 is then held up at the stair top 7 times. With the extra point dropped all 96 pass on the rebuilt engine.
 Debug trick: `lua31.exe` of `autorun/tools/lua31` takes the DLL as its first argument, so the original and the rebuilt `lua.dll` can be
 compared on the planner without starting a game (identical results).
+
+## Start-up: the whole screen flashing black (2026-10-29, agent L)
+
+Symptom (user): the entire screen goes black for a moment when the game starts. Reproduced with
+`tools/desktop_watch.c` (gcc -O2 -o watch.exe desktop_watch.c -lgdi32 -luser32) (a desktop sampler: 192x108 thumbnail of the whole screen plus
+`GetWindowRect`/style/topmost of every `wKernel` window every ~30 ms, started before the game): about 0.5 s after the window
+appears, the game window is 3072x1728 (the whole desktop), black, and flips `WS_EX_TOPMOST` on and off twice; then it shrinks to
+656x516. Nothing else (no `ChangeDisplaySettings`, no monitor mode change).
+
+Two causes, both in the original code that the rebuild runs unchanged:
+
+1. `Win_CreateMainWindow` (0x4ac1f0) creates the `wKernel` window as a visible desktop-sized WS_POPUP (the shape a DirectDraw
+   full-screen device needs). The windowed DIB device that this build selects (`Display_InitFromConfig`) only turns it into a
+   640x480 captioned window at the very end of `Display_Select` (`Win_SetWindowedSize`), i.e. after the whole device/mode
+   enumeration. Until then a black screen-sized window covers the desktop.
+2. Even with a small window, the enumeration of the DirectDraw devices does it again: `FUN_004761b0` (DirectDrawEnumerate callback,
+   needs only `GetCaps`) and `DDraw_Create` (`EnumDisplayModes`, run for every device from `Grim_EnumDisplayModes`) call
+   `SetCooperativeLevel(hwnd, DDSCL_EXCLUSIVE|FULLSCREEN[|ALLOWMODEX])` (0x11 / 0x51) on the game window and then NORMAL (8).
+   ddraw makes the window topmost and resizes it to the desktop (gdb: `SetWindowPos(hwnd, 0,0,0, 0xc00, 0x6c0)` from
+   `DDraw_Create`), and back; on real fullscreen hardware this is also what blanks the monitor.
+
+Fix:
+* `build/overrides.c`: hand-written `Win_CreateMainWindow` creates the window directly in its final windowed form (style
+  0x10cf0000, 640x480 client + the same frame metrics `Win_SetWindowedSize` uses, so that call becomes a no-op), at the same place
+  with the same `ShowWindow`/`UpdateWindow` (activation order unchanged). `GRIM_DISPLAY_DEVICE=<n>` with n > 0 (a DirectDraw
+  full-screen device) keeps the original desktop-sized popup.
+* `names/asm_patches.json`: the three `SetCooperativeLevel` flag pushes of the probing code (`FUN_004761b0` @0x476297,
+  `DDraw_Create` @0x476111 and @0x476145) get `mov dword ptr [esp],8` (NORMAL) after the `push`. The caps and mode lists do not
+  need exclusive mode; the real full-screen open (`DDraw_CreateSurfaces`) still sets 0x11/0x51 itself. Known difference: the
+  Mode-X (320x240) modes that only `DDSCL_ALLOWMODEX` lists are no longer enumerated for DirectDraw devices.
+
+Verification: same sampler before/after (the window stays 656x516, never topmost, for the whole 30 s of a normal start with the
+logo movie: `chg.sh`), boot, `manny:walkto`, F1 menu and the logo screenshots, autorun unit 60/60 and walk 44/44.
+Not tested: the DirectDraw full-screen device (`GRIM_DISPLAY_DEVICE=1`) on this shared machine.
+Side note, not changed: the client area is 640x477, not 480: `UINT_008d0a88` uses `SM_CXSIZEFRAME*2` and ignores the padded border of Windows 10/11 (the original code does the same).

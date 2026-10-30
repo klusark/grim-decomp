@@ -411,6 +411,8 @@ undefined4 Win_RemoveMessageHook(void *param_1)
 }
 
 /* ---- 0x004ac1f0  Win_CreateMainWindow ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 Win_CreateMainWindow(uint param_1,undefined4 param_2,int param_3)
 
 {
@@ -488,6 +490,8 @@ undefined4 Win_CreateMainWindow(uint param_1,undefined4 param_2,int param_3)
 #undef local_4
 #undef local_8
 #undef local_c
+
+#endif
 
 
 /* ---- 0x004ac340  Win_KernelWndProc ---- */

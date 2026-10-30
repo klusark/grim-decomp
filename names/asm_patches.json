@@ -9,6 +9,19 @@
     "9:"
    ]
   },
+  "004760d0": {
+   "00476111": [
+    "mov dword ptr [esp],8"
+   ],
+   "00476145": [
+    "mov dword ptr [esp],8"
+   ]
+  },
+  "004761b0": {
+   "00476297": [
+    "mov dword ptr [esp],8"
+   ]
+  },
   "0049c8f0": {
    "0049c8f6": [
     "call _GRIM_lua_cmd_poll"

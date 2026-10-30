@@ -660,6 +660,72 @@ void __cdecl Win_AbortIfAlreadyRunning(void *hInstance, void *hPrevInstance, cha
 #endif
 
 #ifdef GRIM_EXE
+/* OVERRIDES: Win_CreateMainWindow */
+/* Win_CreateMainWindow (0x4ac1f0): the original creates the 'wKernel' window as a borderless WS_POPUP the size of the
+ * whole desktop (GetSystemMetrics(0/1)) and shows it at once, because a DirectDraw full-screen device draws into it.
+ * The windowed (DIB section) display device that this build selects (Display_InitFromConfig) only shrinks it to
+ * 640x480 with a caption in Win_SetWindowedSize at the very end of Display_Select, after DirectDrawEnumerate has
+ * probed the DirectDraw devices with SetCooperativeLevel(EXCLUSIVE|FULLSCREEN) / (NORMAL) on that window. Until then
+ * the whole screen is covered by a black topmost window (the 'entire screen flickers black at start-up' report,
+ * ~0.5 s here, longer on slower starts). So when a windowed device will be used, create the window right away in
+ * its final windowed form (the style and size Win_SetWindowedSize would give it for 640x480), at the same place and
+ * with the same ShowWindow/UpdateWindow, so the activation order is unchanged; GRIM_DISPLAY_DEVICE=<n> (n > 0, a
+ * DirectDraw full-screen device) keeps the original full-screen popup. */
+undefined4 Win_CreateMainWindow(uint param_1, undefined4 param_2, int param_3)
+{
+    unsigned wc[12];
+    int iVar1;
+    int style, x, y, w, h;
+    char e[8] = "";
+
+    wc[0] = 0x30;                         /* cbSize */
+    wc[1] = 3;                            /* CS_HREDRAW | CS_VREDRAW */
+    wc[2] = (uint)Win_KernelWndProc;
+    wc[3] = 0;
+    wc[4] = 0;
+    wc[5] = param_1;
+    wc[6] = LoadIconA(param_1, IMG_ADDR(0x004ed088));
+    if (wc[6] == 0)
+        wc[6] = LoadIconA(0, 0x7f00);
+    wc[7] = LoadCursorA(0, 0x7f00);
+    wc[8] = GetStockObject(4);            /* BLACK_BRUSH */
+    wc[9] = 0;
+    wc[10] = (uint)IMG_ADDR(0x004ed080);  /* "wKernel" */
+    wc[11] = LoadIconA(param_1, IMG_ADDR(0x004ed088));
+    if (wc[11] == 0)
+        wc[11] = LoadIconA(0, 0x7f00);
+    iVar1 = RegisterClassExA((int)wc);
+    if ((short)iVar1 == 0)
+        return 0;
+    iVar1 = FindWindowA(IMG_ADDR(0x004ed080), param_3);
+    if (iVar1 != 0)
+        exit(0xffffffff);
+
+    GRIM_GetEnv("GRIM_DISPLAY_DEVICE", e, sizeof e);
+    if (e[0] > '0' && e[0] <= '9') {
+        style = -0x70000000;              /* WS_POPUP | WS_VISIBLE, desktop sized (original) */
+        x = y = 0;
+        w = GetSystemMetrics(0);
+        h = GetSystemMetrics(1);
+    } else {
+        /* same numbers as Win_AbortIfAlreadyRunning / Win_SetWindowedSize: 640x480 client + frame */
+        int frame = GetSystemMetrics(0x20);
+        style = 0x10cf0000;               /* WS_VISIBLE | WS_OVERLAPPEDWINDOW minus thick frame/maximize */
+        x = y = 0;
+        w = 640 + frame * 2;
+        h = 480 + GetSystemMetrics(0xf) + frame * 2;
+    }
+    g_pWinMainHwnd = (void *)CreateWindowExA(0x40000, IMG_ADDR(0x004ed080), param_3, style, x, y, w, h, 0, 0, param_1, 0);
+    if (g_pWinMainHwnd == (void *)0x0)
+        return 0;
+    UINT_008d09e4 = param_1;
+    ShowWindow((int)g_pWinMainHwnd, 1);
+    UpdateWindow((int)g_pWinMainHwnd);
+    return 1;
+}
+#endif
+
+#ifdef GRIM_EXE
 /* PrintDebug / PrintWarning / PrintError (0x49ddd0): the retail game registers one empty function for all
  * three. The scripted tests (grim_tools/autorun) read their results from a log, like the grimdlg.dll patch
  * of the original exe does: with GRIM_DEBUGLOG=<file> every message is appended as "[ms since start] DEBUG text"
