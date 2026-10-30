@@ -361,7 +361,7 @@
 | 00474310 | Display_CloseMode | stddisplay.c | 22 |
 | 00474380 | Display_SuspendForDialog | stddisplay.c | 1 |
 | 004743d0 | Display_ResumeAfterDialog | stddisplay.c | 1 |
-| 00474420 | Display_Flip | stddisplay.c | 24 |
+| 00474420 | Display_Flip | stddisplay.c | 1 |
 | 00474480 | Surface_Create | stddisplay.c | 1 |
 | 004746d0 | Surface_Free | stddisplay.c | 9 |
 | 004746f0 | Surface_Release | stddisplay.c | 1 |
@@ -1027,7 +1027,7 @@
 | 00451b80 | rdPrimit2_DrawLine | rdprimit2.c | 1 |
 | 00451f20 | rdPrimit2_DrawRect | rdprimit2.c | 1 |
 | 0045ff00 | Mem_DumpLog | memory.c | 7 |
-| 00478170 | Mem_Copy | memory.c | 54 |
+| 00478170 | Mem_Copy | memory.c | 1 |
 | 0047fe00 | Mem_CheckAlloc | memory.c | 11 |
 | 004888d0 | Memory_SysInitialize | memory.c | 26 |
 | 00488930 | Memory_Sys_Terminate | memory.c | 9 |
@@ -2497,7 +2497,7 @@
 | 004bdb00 | Insane_PrepareFrame | insane.c | 1 |
 | 004bdca0 | Insane_Blit8To16Doubled | insane.c | 1 |
 | 004bdd50 | Insane_BlitRowsDual | insane.c | 27 |
-| 004bddb0 | Insane_BlitRows16 | insane.c | 53 |
+| 004bddb0 | Insane_BlitRows16 | insane.c | 1 |
 | 004bd500 | Smush_Pause | smush.c | 8 |
 | 004bd520 | Smush_Resume | smush.c | 8 |
 | 004bd560 | Smush_Idle | smush.c | 8 |

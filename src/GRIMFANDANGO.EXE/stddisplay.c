@@ -1003,6 +1003,8 @@ void Display_ResumeAfterDialog(void)
 
 
 /* ---- 0x00474420  Display_Flip ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* BitBlt of the DIB back buffer or DirectDraw flip */
 
 int Display_Flip(void)
@@ -1027,6 +1029,8 @@ int Display_Flip(void)
   }
   return 1;
 }
+#endif
+
 
 /* ---- 0x00474480  Surface_Create ---- */
 /* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */

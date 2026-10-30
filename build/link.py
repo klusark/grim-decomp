@@ -217,8 +217,22 @@ def link(cc, src, obj, prog, env):
         print(f"{prog}: overrides.c does not compile:\n{out[:2000]}")
         return
     objs.append(os.path.join(d, "overrides.o"))
+    # hand-written fast paths (fastpaths.c): optimised, SSE2
+    rc, out = run([cc] + cflags + ov_flags + ["-O2", "-msse2", "-c", os.path.join(here, "fastpaths.c"), "-o", os.path.join(d, "fastpaths.o")], env)
+    if rc:
+        print(f"{prog}: fastpaths.c does not compile:\n{out[:2000]}")
+        return
+    objs.append(os.path.join(d, "fastpaths.o"))
     # functions reassembled from the disassembly (tools/gen_asm.py)
     asm_src = os.path.join(src, prog, "asm_funcs.s")
+    if os.path.exists(asm_src) and prog == "GRIMFANDANGO.EXE" and not os.environ.get("GRIM_NO_PEEPHOLE"):
+        # x87 control-word switching around every float->int conversion -> SSE4.1 (see peephole.py)
+        fast_src = os.path.join(d, "asm_funcs_fast.s")
+        pr = subprocess.run([sys.executable, "-I", os.path.join(here, "peephole.py"), asm_src, fast_src],
+                            capture_output=True, text=True, env=env)
+        print(f"{prog}: {pr.stdout.strip()}{pr.stderr.strip()}")
+        if pr.returncode == 0:
+            asm_src = fast_src
     if os.path.exists(asm_src):
         rc, out = run([cc, "-m32", "-c", asm_src, "-o", os.path.join(d, "asm_funcs.o")], env)
         if rc:

@@ -736,3 +736,92 @@ Bug classes found (all root-caused, see git log):
 * Test knobs: the crash report is `grim_crash_<GRIM_MULTI>.txt`. `exit()` from the Lua hook sets `g_quitRequested` before
   `Game_FrameUpdate` tests it, so the window is never destroyed: quit through `start_script(exit_the_game)` instead.
   Hook lines are limited to ~400 characters (longer ones are cut and fail to parse); `getn` does not exist in this Lua.
+## Performance (2026-10-29, agent C)
+
+Everything below is measured on the same machine with the in-process counter of `Display_Flip` (`GRIM_PERFLOG=1`,
+see "Tools"); "ms/frame" is one pass of the main loop (the engine does not wait for anything, so the frame rate is
+`1000 / ms`). Baseline = the tree as it was (all C at -O0, original `Display_Flip` = `GRIM_SLOWFLIP=1`, no peephole).
+
+| scene (movies off, idle unless noted) | before | after |
+|---|---|---|
+| Manny's office, idle | 1.30 ms (770 fps) | 0.35 ms (2800 fps) |
+| office, Manny walking | 1.27 ms | 0.34 ms |
+| tour of 12 sets, mean of the per-set medians | 1.24 ms | 0.33 ms (3.8x) |
+| busiest sets: do.set / hf.set / vd.set / mx.set | 2.41 / 2.22 / 1.83 / 1.62 ms | 0.96 / 0.53 / 0.62 / 0.38 ms |
+| still scenes (nothing moves) | 0.55 ms | 0.04 ms |
+| movie playback loop (intro cutscene) | 0.57 ms | 0.08 ms |
+
+Start-up to a rendering Manny's office is about 1 s (movies off), so loading is not an issue.
+
+### Where the time went (sampling profile, `perf/sampler.py`)
+
+* About 89% of the game-code time in every scene is **assembled original code** (the rasteriser, rdCache, rdModel,
+  keyframes, Sector_*, Vec3/Matrix), which is already optimised machine code; the C that is compiled from the decompilation
+  is about 10% (Lua VM, Mem_Copy, Plane_*, Insane blit/decode).
+* **`Display_Flip` was 35-40% of every frame**: the back buffer is a 16 bpp (565) DIB section, and `BitBlt` to the 32 bpp
+  window DC made GDI convert it pixel by pixel in the kernel (`win32u` was the top "function").
+* After that the hottest functions were **`rdRaster_SpanR_Flat_11/12` (30-35% of rendering)**: the scan-line edge set-up, which
+  turns floats into ints with `fldcw floor; fld; fistp; fldcw default` (and `fldcw ceil; frndint`). `fldcw` serialises the
+  x87 unit on current CPUs; 1807 floor and 100 ceil sites like this exist in the assembled EXE, plus `_ftol` itself
+  (`fstcw / fldcw trunc / fistp qword / fldcw`).
+* In movies `Insane_BlitRows16` (a 4-byte copy loop at -O0, run once per main-loop pass) was 58% and `Display_Flip` 27%.
+
+### What was done (each is a separate mechanism)
+
+1. **`Display_Flip` (build/fastpaths.c).** A 32 bpp DIB section (same size, top-down) is kept next to the game's 16 bpp one;
+   the 565 (or 555) pixels are expanded with SSE2 (`x<<3 | x>>2`, which is exactly what GDI produced: screenshots of the old
+   and the new path differ only where Manny's animation differs) and `BitBlt` then copies same-format pixels. On top of that the
+   previous 16 bpp frame is kept: only the band of rows that changed is converted and blitted, an identical frame costs a
+   compare of 600 KB (about 20 us) and no GDI call at all, and a full blit is forced every 100 ms (and after any mode change) in
+   case the window lost its contents. Falls back to the original BitBlt for 8 bpp modes, DirectDraw, odd widths.
+   Knobs: `GRIM_SLOWFLIP=1` original BitBlt, `GRIM_NODELTA=1` full conversion + blit every frame, `GRIM_PERFLOG=1` appends
+   `perf: 256 frames, x ms/frame (fps), flip y us/frame` to the `GRIM_LUA_LOG` file every 256 flips.
+2. **x87 control-word peephole (build/peephole.py, run by link.py on `src/GRIMFANDANGO.EXE/asm_funcs.s`, output
+   `obj/GRIMFANDANGO.EXE/asm_funcs_fast.s`).** The control words are `DAT_00900524` (default), `...526` (floor, 0x077f), `...528`
+   (truncate, 0x0c7f) and `...52a` (ceil, 0x0b7f), set by `Services_SetCurrent`. The two dominant shapes become
+   `movss xmm0,[m]; roundss xmm0,xmm0,9; cvttps2dq xmm0,xmm0; movd [d],xmm0` (floor) and `movss; roundss ,10; movss [d],xmm0`
+   (ceil): the same result (floor/ceil of a single are exact, out-of-range gives 0x80000000 in both), no control-word change, no
+   stack effect. A sequence is only rewritten when none of its interior labels is a jump target (0 skipped). The CRT `_ftol` becomes one
+   `fisttp`. 1807 + 100 sites and `_ftol`; the roughly 90 remaining `fldcw trunc` pairs (once per perspective span: `rdRaster_SpanP*`,
+   `Span_Tex*`, precision control) were left. **Requires SSE4.1 (roundss) and SSE3 (fisttp)**; `GRIM_NO_PEEPHOLE=1 make link` links the
+   untouched assembly. This one change took the office from 0.67 to 0.30 ms.
+3. **Per-module -O2 for the C code (build/opt.mk).** `Makefile` includes `opt.mk` (override with `OPTMK=file`), which holds one
+   line per module, `OPT_<PROG>/<module> := $(OPT_FAST)`, with `OPT_FAST := -O2 -fno-omit-frame-pointer
+   -fno-delete-null-pointer-checks` (frame pointer: `STACK0X` and the Ghidra `_frame` idiom assume one; the pointer-check flag
+   is a precaution). The flags are appended after `$(OPT)` so the last -O wins, and the complete flag string of every object is
+   stored in `obj/<prog>/<module>.flags` (rewritten only when it changes), so editing `opt.mk` or passing `OPT_ALL=-O1` / `EXTRA_CFLAGS=`
+   rebuilds exactly the modules affected. 162 of 164 candidate modules are on (all 29 LUA.DLL, all 11 IMUSE.DLL, all 4 CHORE.DLL,
+   118 of 120 EXE modules; `crt` / `crt_unnamed` are not linked). **Left at -O0: `GRIMFANDANGO.EXE/lecshare` and
+   `GRIMFANDANGO.EXE/resource`** (with either at -O2 the game hangs at a black screen or dies at start-up; not investigated further, neither is
+   hot). A blanket -O2 without `-fno-omit-frame-pointer` crashes at start-up; with it only those two modules fail.
+   The list was found by `perf/bisect.py` (greedy delta debugging: each trial builds into `obj_t/`, boots, walks, compares screenshots
+   with the -O0 reference) and then verified with `perf/soak.py` and `perf/longsoak.py`.
+4. **Hand-written replacements (build/fastpaths.c, compiled -O2 -msse2 and linked into every program; `tools/build_src.py` puts the
+   decompiled version of every function defined there under `#if 0`, like overrides.c):** `Display_Flip`, `Mem_Copy` (forward
+   `rep movsb`; blocks of 256 bytes or more that do not overlap closer than 16 bytes use 16-byte SSE copies), `Insane_BlitRows16` (SSE row copies,
+   the 16-bit look-up-table variant kept as a plain loop).
+
+### Verification
+
+* `perf/check.py <dir> <tag> base [quick]`: boots with the Lua hook, waits for Manny's office, takes PrintWindow shots (idle, after
+  `manny:walkto`), compares with the shots of the reference build (the -O0 build against itself: 0.005% of pixels differ by more than 24, the
+  optimised build 0.02-0.4%, all of it Manny's animation phase), checks Manny's position and the Lua error count.
+* `perf/soak.py <dir> <tag> base`: tours 12 sets through `system.setTable[...]:switch_to_set()`, plays `funny.snm`, `Save`s, changes a
+  global, `Load`s and checks the global came back. `perf/longsoak.py <dir> 200`: 167 set changes and 15 movies in 200 s without a crash.
+* The -O0 reference (`perf/base`, and `perf/o0` for the in-process timings) is built with `GRIM_NO_PEEPHOLE=1 make OBJ=obj_o0 OPTMK=perf/empty.mk link`.
+
+### Tools (build/perf/)
+
+`ctl.sh start|stop|pid` (launches and kills only builds under grim-agentC; `GRIM_NOMOVIE=0` = movies on), `shot.py` (PrintWindow to PNG + raw BGRA),
+`sampler.py PID seconds interval_ms` (suspends every thread, reads EIP and the ebp chain, resolves with `nm`, marks functions that are compiled C and
+assembled ones; `gen_csyms.sh` writes the C symbol lists), `benchsets.py` (frame time per set), `bench.sh`, `boot.py`, `check.py`, `soak.py`,
+`longsoak.py`, `bisect.py`, `fps.sh` / `ivl.sh` (gdb breakpoint counters; gdb distorts frame times by a factor 3-5, use the in-process log).
+
+### Not done / observations
+
+* The rest of a frame is the original rasteriser's per-pixel span code (`rdRaster_Span16_TexLitZw_*`, `Span16_FlatZ_2`: 40-50%), keyframe
+  interpolation and polygon clipping, all original machine code. Only a rewrite (SIMD spans) would speed it up.
+* The main loop never waits: it spins at 100% of one core (2800 passes/s in the office, 12000 in a movie), as the original does. Sleeping
+  when `Display_Flip` found an identical frame would cut the CPU load; it was not added because it changes the timing of input polling.
+* The Lua test line `T(soak_sets[1 + mod(n-1, 12)])` (a float index returned by `mod`) kills the Lua VM in the -O0 baseline as well; use an
+  integer loop counter in test scripts. Not looked at.
