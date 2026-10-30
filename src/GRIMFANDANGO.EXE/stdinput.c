@@ -42,7 +42,7 @@ undefined * Input_Init(void)
 }
 
 /* ---- 0x00476f70  Input_Shutdown ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void Input_Shutdown(void)
 
@@ -261,7 +261,7 @@ undefined4 FUN_004772d0(undefined4 param_1,int param_2,int param_3)
 }
 
 /* ---- 0x00477300  Input_SetAcquired ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void __cdecl Input_SetAcquired(int acquire)
 
@@ -547,7 +547,7 @@ void Input_MarkAxisUsed(uint param_1)
 }
 
 /* ---- 0x00477730  Input_PollKeyboard ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Buffered DirectInput key events plus the immediate key state; each key has a 7-dword record {?,
    lastDown, down, downTime, upTime, pressCount, doubleTap} */
@@ -660,7 +660,7 @@ LAB_00477881:
 
 
 /* ---- 0x004778a0  Input_FlushKeyboard ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void Input_FlushKeyboard(void)
 
@@ -902,7 +902,7 @@ LAB_00477bd5:
 
 
 /* ---- 0x00477c20  Input_PollMouse ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Removing unreachable block (ram,0x00477cd3) */
 /* WARNING: Removing unreachable block (ram,0x00477cd5) */
@@ -987,7 +987,7 @@ LAB_00477da3:
 
 
 /* ---- 0x00477dc0  Input_FlushJoystick ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void Input_FlushJoystick(void)
 
@@ -1040,7 +1040,7 @@ LAB_00477e51:
 
 
 /* ---- 0x00477e70  Input_SetAxisRange ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void __cdecl Input_SetAxisRange(int axis,int min,int max,float deadZone)
 

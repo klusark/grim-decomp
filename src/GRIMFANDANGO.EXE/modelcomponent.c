@@ -6,7 +6,7 @@
 #include "functions.h"
 
 /* ---- 0x00496890  ModelComponent_EditParentOffset ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Editor dialog 'Resolve parent offset' */
 
@@ -149,7 +149,7 @@ undefined4 FUN_00496b40(int param_1)
 }
 
 /* ---- 0x00496b60  FUN_00496b60 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 bool FUN_00496b60(undefined4 param_1,undefined4 param_2,int param_3,int param_4,char *param_5)
 
@@ -425,7 +425,7 @@ bool FUN_00497180(undefined4 param_1,undefined4 param_2)
 }
 
 /* ---- 0x004971a0  FUN_004971a0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void __cdecl
 FUN_004971a0(int param_1,float param_2,undefined4 param_3,float param_4,uint param_5,uint param_6,
@@ -589,7 +589,7 @@ undefined4 FUN_00497320(int *param_1,undefined4 param_2)
 
 
 /* ---- 0x00497460  FUN_00497460 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 bool FUN_00497460(undefined4 param_1,undefined4 param_2,int param_3,undefined4 param_4,char *param_5
                  )

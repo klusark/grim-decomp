@@ -1267,7 +1267,11 @@ def build(prog):
             title = f["name"] + (f"  (renamed {renamed[f['address']]}: duplicate name)" if f["address"] in renamed else "")
             lines.append(f"/* ---- 0x{f['address']}  {title} ---- */")
             if f["name"] in OVERRIDES or f["address"] in ASM_ADDRS:
-                lines.append("/* replaced by the hand-written version in build/overrides.c */")
+                if f["name"] in OVERRIDES:
+                    lines.append("/* replaced by the hand-written version in build/overrides.c */")
+                else:
+                    lines.append("/* NOT COMPILED: the build uses the original machine code of this function (src/%s/asm_funcs.s, "
+                                 "tools/gen_asm.py); this C text is only for reading */" % prog)
                 lines.append("#if 0")
                 lines.append(code)
                 lines.append("#endif")

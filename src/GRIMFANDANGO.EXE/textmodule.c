@@ -84,7 +84,7 @@ undefined4 FUN_004aa880(code *param_1)
 
 
 /* ---- 0x004aa8d0  TextModule_CheckHeader ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Expects 'TxtB', 1, 0 from the read function */
 

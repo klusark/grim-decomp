@@ -6,7 +6,7 @@
 #include "functions.h"
 
 /* ---- 0x00451460  rdLight_Init ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Defaults: type 2, on, white (0xffffff), intensity 1.0 */
 
@@ -30,7 +30,7 @@ undefined4 rdLight_Init(int param_1)
 
 
 /* ---- 0x004514a0  rdLight_SetAngles ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void __cdecl rdLight_SetAngles(void *light,float inner,float outer)
 
@@ -56,7 +56,7 @@ void __cdecl rdLight_SetAngles(void *light,float inner,float outer)
 
 
 /* ---- 0x00451510  rdLight_CalcVertexIntensities ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Blends keyframe node transforms into the puppet's output matrices (returns the weight) */
 

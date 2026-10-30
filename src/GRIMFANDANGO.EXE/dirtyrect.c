@@ -6,7 +6,7 @@
 #include "functions.h"
 
 /* ---- 0x00485420  DirtyRect_Add ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Adds a dirty rectangle for one display buffer. Rectangles contained in an existing one are
    merged; partial overlaps are split into up to three non-overlapping pieces (recursive). Records
@@ -205,7 +205,7 @@ LAB_0048555c:
 
 
 /* ---- 0x00485e50  DirtyRect_Flush ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Restores every dirty rectangle from the background and depth images, dropping records whose
    per-buffer countdown expired; debug flag 0x10 outlines them */
@@ -293,7 +293,7 @@ void __cdecl DirtyRect_Flush(void *dst,void *zdst)
 
 
 /* ---- 0x00486020  DirtyRect_Clear ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void DirtyRect_Clear(void)
 
@@ -315,7 +315,7 @@ void DirtyRect_Clear(void)
 
 
 /* ---- 0x00486050  FUN_00486050 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_00486050(void)
 
@@ -330,7 +330,7 @@ void FUN_00486050(void)
 
 
 /* ---- 0x00486070  FUN_00486070 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 bool FUN_00486070(void)
 
@@ -355,7 +355,7 @@ bool FUN_00486070(void)
 
 
 /* ---- 0x004860d0  FUN_004860d0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_004860d0(void)
 

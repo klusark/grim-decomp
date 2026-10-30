@@ -102,7 +102,7 @@ undefined4 DSound_Init(void)
 
 
 /* ---- 0x004c1090  DSound_Shutdown ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void DSound_Shutdown(void)
 
@@ -127,7 +127,7 @@ void DSound_Shutdown(void)
 
 
 /* ---- 0x004c1110  DSound_SetPrimaryVolume ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* IDirectSoundBuffer::SetVolume on the primary buffer under priority cooperative level */
 
@@ -189,7 +189,7 @@ undefined * __stdcall Mixer_TimerThread(int a1)
 }
 
 /* ---- 0x004ce060  Mixer_Update ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Advances the mixer clock and mixes every active voice into the accumulator */
@@ -272,7 +272,7 @@ void Mixer_Update(void)
 
 
 /* ---- 0x004ce1d0  Mixer_ServiceVoices ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* setjmp-protected per-tick voice servicing */
@@ -305,7 +305,7 @@ void Mixer_ServiceVoices(void)
 
 
 /* ---- 0x004ce260  Mixer_ScheduleVoices ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void Mixer_ScheduleVoices(void)
 
@@ -345,7 +345,7 @@ void Mixer_ScheduleVoices(void)
 
 
 /* ---- 0x004d27d0  DSound_FillStreamBuffer ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Locks the next 0x1800-byte block(s) of the streaming buffer behind the play cursor and fills them
    from the mixer */
@@ -432,7 +432,7 @@ void DSound_FillStreamBuffer(void)
 
 
 /* ---- 0x004d2c60  DSound_GetPlayBlock ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* IDirectSoundBuffer::GetCurrentPosition / 0x1800 modulo the block count */
 
@@ -484,7 +484,7 @@ undefined4 Mixer_ClearAccumulator(void)
 }
 
 /* ---- 0x004d3040  Mixer_MixVoice ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Dispatches to the Mixer_Mix* resamplers by sample format, channel count and volume mode */
 

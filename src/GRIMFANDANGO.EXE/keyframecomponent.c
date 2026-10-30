@@ -61,7 +61,7 @@ undefined4 FUN_00498180(void)
 }
 
 /* ---- 0x00498190  FUN_00498190 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 bool FUN_00498190(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4,
                  char *param_5)
@@ -134,7 +134,7 @@ bool FUN_00498190(undefined4 param_1,undefined4 param_2,undefined4 param_3,undef
 
 
 /* ---- 0x00498280  FUN_00498280 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4
 FUN_00498280(undefined4 param_1,undefined4 param_2,int param_3,float param_4,char *param_5)
@@ -316,7 +316,7 @@ undefined4 KeyframeComponent_Destroy(undefined4 param_1,undefined4 param_2,int *
 }
 
 /* ---- 0x004985c0  FUN_004985c0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4 * FUN_004985c0(int param_1,undefined4 *param_2,int param_3)
 
@@ -368,7 +368,7 @@ undefined4 * FUN_004985c0(int param_1,undefined4 *param_2,int param_3)
 
 
 /* ---- 0x004986e0  FUN_004986e0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4 FUN_004986e0(undefined4 *param_1,undefined4 param_2)
 

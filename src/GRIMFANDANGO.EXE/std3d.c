@@ -6,7 +6,7 @@
 #include "functions.h"
 
 /* ---- 0x00478230  D3D_Enumerate ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Queries IDirect3D from DirectDraw and enumerates the 3D drivers into g_D3dDrivers (0x22c bytes
    each) */
@@ -41,7 +41,7 @@ undefined4 D3D_Enumerate(void)
 
 
 /* ---- 0x004782b0  D3D_Release ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void D3D_Release(void)
 
@@ -63,7 +63,7 @@ uint D3D_IsAvailable(void)
 }
 
 /* ---- 0x004782e0  D3D_SelectDriver ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Creates the Direct3D device, z-buffer, viewport, execute buffer and picks the texture formats */
@@ -205,7 +205,7 @@ int __cdecl D3D_SelectDriver(uint driverIdx,int useZBuffer)
 
 
 /* ---- 0x00478660  D3D_ReleaseDriver ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void D3D_ReleaseDriver(void)
 
@@ -255,7 +255,7 @@ void __cdecl D3D_SetTextureLimits(int minW,int minH,int maxSize,int d)
 }
 
 /* ---- 0x00478730  D3D_BeginScene ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void D3D_BeginScene(void)
 
@@ -270,7 +270,7 @@ void D3D_BeginScene(void)
 
 
 /* ---- 0x00478750  D3D_EndScene ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void D3D_EndScene(void)
 
@@ -285,7 +285,7 @@ void D3D_EndScene(void)
 
 
 /* ---- 0x00478770  D3D_BeginExecuteBuffer ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4 D3D_BeginExecuteBuffer(void)
 
@@ -448,7 +448,7 @@ int __cdecl D3D_AddTriangles(void *tris,uint count)
 }
 
 /* ---- 0x00478b40  D3D_ExecuteBuffer ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Terminates and executes the buffer on the device */
 
@@ -652,7 +652,7 @@ void D3D_ClampTextureSize(uint param_1,uint param_2,uint *param_3,uint *param_4)
 }
 
 /* ---- 0x00479110  D3D_ResetTextures ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua ResetTextures: frees every texture record */
 
@@ -673,7 +673,7 @@ void D3D_ResetTextures(void)
 
 
 /* ---- 0x00479170  D3D_CreateTexture ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Builds a 0x98-byte texture record {sysSurface, vidSurface, ..., +0x74 handle, +0x78 valid, +0x80
    w, +0x88 h, +0x88 size, +0x8c frameStamp, +0x90 prev, +0x94 next}; scales to the driver's size
@@ -1048,7 +1048,7 @@ LAB_0047940a:
 
 
 /* ---- 0x00479860  D3D_FreeAllTextures ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void D3D_FreeAllTextures(void)
 
@@ -1143,7 +1143,7 @@ void D3D_UnlinkTexture(void *param_1)
 }
 
 /* ---- 0x00479a00  D3D_SetVertexLimit ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4 D3D_SetVertexLimit(void)
 
@@ -1191,7 +1191,7 @@ void D3D_TouchTexture(int param_1)
 }
 
 /* ---- 0x00479aa0  D3D_ClearZBuffer ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4 D3D_ClearZBuffer(void)
 
@@ -1239,7 +1239,7 @@ undefined4 D3D_ClearZBuffer(void)
 
 
 /* ---- 0x00479b50  D3D_FindClosestDriver ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 uint D3D_FindClosestDriver(int *param_1,int param_2,uint param_3)
 
@@ -1341,7 +1341,7 @@ uint D3D_FindTextureFormat(int *param_1,int param_2,uint param_3)
 
 
 /* ---- 0x00479cc0  D3D_SetViewportRect ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -1388,7 +1388,7 @@ void D3D_SetViewportRect(uint *param_1)
 
 
 /* ---- 0x00479db0  D3D_InitRenderState ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Fills an execute buffer with the initial STATERENDER list derived from the driver capability bits
     */
@@ -1548,7 +1548,7 @@ undefined4 D3D_InitRenderState(void)
 
 
 /* ---- 0x0047a130  D3D_CreateViewport ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4 D3D_CreateViewport(void)
 
@@ -1619,7 +1619,7 @@ undefined4 D3D_CreateViewport(void)
 
 
 /* ---- 0x0047a240  D3D_CreateZBuffer ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -1993,7 +1993,7 @@ byte D3D_FilterBitsToEnum(byte param_1)
 }
 
 /* ---- 0x0047a930  D3D_EvictTexture ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Frees a texture not used this frame (best size match) to make room, or all idle textures */
 

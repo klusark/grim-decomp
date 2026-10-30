@@ -6,7 +6,7 @@
 #include "functions.h"
 
 /* ---- 0x0040cee0  rdPuppet_BuildJointMatrices ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void __cdecl rdPuppet_BuildJointMatrices(void *model,float *frame,uint param_3,uint param_4)
 
@@ -29,7 +29,7 @@ void __cdecl rdPuppet_BuildJointMatrices(void *model,float *frame,uint param_3,u
 
 
 /* ---- 0x00450500  rdPuppet_New ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4 * rdPuppet_New(void *param_1)
 
@@ -59,7 +59,7 @@ undefined4 * rdPuppet_New(void *param_1)
 
 
 /* ---- 0x00450560  rdPuppet_Init ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Six tracks of 0x134 bytes starting at +8; all stopped */
 
@@ -86,7 +86,7 @@ int __cdecl rdPuppet_Init(void *puppet,void *thing)
 
 
 /* ---- 0x004505a0  rdPuppet_AddTrack ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Takes the first free track (status 0) and binds the keyframe to it */
 
@@ -135,7 +135,7 @@ uint __cdecl rdPuppet_AddTrack(void *puppet,uint keyframe,uint lowPri,uint highP
 
 
 /* ---- 0x00450640  rdPuppet_StopTrack ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void __cdecl rdPuppet_StopTrack(void *puppet,int track)
 
@@ -157,7 +157,7 @@ void __cdecl rdPuppet_StopTrack(void *puppet,int track)
 
 
 /* ---- 0x004506a0  rdPuppet_SetTrackFlags ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4 rdPuppet_SetTrackFlags(int param_1,int param_2,uint param_3)
 
@@ -172,7 +172,7 @@ undefined4 rdPuppet_SetTrackFlags(int param_1,int param_2,uint param_3)
 
 
 /* ---- 0x004506d0  rdPuppet_SetTrackUserData ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Writes the last dword (+0x12c) of the track record */
 
@@ -186,7 +186,7 @@ void rdPuppet_SetTrackUserData(int param_1,int param_2,undefined4 param_3)
 
 
 /* ---- 0x004506f0  rdPuppet_PlayTrack ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Status bits: clears 0x10, sets 2, speed 1.0 */
 
@@ -204,7 +204,7 @@ undefined4 rdPuppet_PlayTrack(int param_1,int param_2)
 
 
 /* ---- 0x00450720  rdPuppet_FadeInTrack ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 int __cdecl rdPuppet_FadeInTrack(void *puppet,int track,float seconds)
 
@@ -224,7 +224,7 @@ int __cdecl rdPuppet_FadeInTrack(void *puppet,int track,float seconds)
 
 
 /* ---- 0x00450780  rdPuppet_FadeOutTrack ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 int __cdecl rdPuppet_FadeOutTrack(void *puppet,int track,float seconds)
 
@@ -244,7 +244,7 @@ int __cdecl rdPuppet_FadeOutTrack(void *puppet,int track,float seconds)
 
 
 /* ---- 0x004507e0  rdPuppet_AdvanceTrack ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Advances the track time, handles fades and loops, stops finished tracks */
 
@@ -375,7 +375,7 @@ void __cdecl rdPuppet_AdvanceTrack(void *puppet,int track,float dt)
 
 
 /* ---- 0x00450a90  rdPuppet_Advance ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_14 */
 
@@ -431,7 +431,7 @@ void __cdecl rdPuppet_Advance(void *puppet,float seconds)
 
 
 /* ---- 0x00450b50  rdPuppet_ClearTrackNodes ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Zeroes the 64 node weights of a track and marks it status 3 */
 
@@ -461,7 +461,7 @@ void rdPuppet_ClearTrackNodes(int param_1,int param_2)
 
 
 /* ---- 0x00450ba0  rdPuppet_UpdateFrame ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_88 */
 
@@ -815,7 +815,7 @@ void __cdecl rdPuppet_UpdateFrame(void *model,float *frame)
 
 
 /* ---- 0x00451800  rdKeyframe_InterpolateNode ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 float __cdecl
 rdKeyframe_InterpolateNode

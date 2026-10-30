@@ -6,7 +6,7 @@
 #include "functions.h"
 
 /* ---- 0x00471ee0  rdPolyline_Draw ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_b0 */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
@@ -143,7 +143,7 @@ undefined4 rdPolyline_Draw(int param_1,float *param_2)
 
 
 /* ---- 0x00472360  rdPolyline_DrawFace ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Allocates a cache mesh for one polyline face, clips and adds it */
 
@@ -302,7 +302,7 @@ void rdPolyline_DrawFace(int param_1,int param_2,undefined4 param_3,undefined4 *
 
 
 /* ---- 0x00472640  rdSprite_DrawThing ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Billboard: builds a camera-facing matrix for the thing position and draws the sprite */
@@ -402,7 +402,7 @@ int __cdecl rdSprite_DrawThing(void *thing,void *sprite)
 
 
 /* ---- 0x004728a0  rdPolyline_New ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Allocates a 0xb8-byte polyline (RDroid Primitiv*.c) and initialises it */
 
@@ -426,7 +426,7 @@ int rdPolyline_New(undefined4 param_1,undefined4 param_2,undefined4 param_3,unde
 
 
 /* ---- 0x00472910  rdPolyline_Init ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Copies the 31-char name and builds the vertex ring for the given radius/segment counts */
 
@@ -527,7 +527,7 @@ LAB_00472af2:
 
 
 /* ---- 0x00472b50  rdSprite_Free ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void rdSprite_Free(int param_1)
 
@@ -542,7 +542,7 @@ void rdSprite_Free(int param_1)
 
 
 /* ---- 0x00472b70  rdSprite_FreeContents ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void rdSprite_FreeContents(int param_1)
 
@@ -565,7 +565,7 @@ void rdSprite_FreeContents(int param_1)
 
 
 /* ---- 0x00472bd0  rdSprite_Draw ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Frustum tests the sprite, builds the quad in the cache and clips it */

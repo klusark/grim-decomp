@@ -6,6 +6,8 @@
 #include "functions.h"
 
 /* ---- 0x00473430  stdFile_Open ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined * __cdecl stdFile_Open(uint param_1,uint param_2)
 
 {
@@ -14,6 +16,8 @@ undefined * __cdecl stdFile_Open(uint param_1,uint param_2)
   puVar1 = fopen(param_1,param_2);
   return puVar1;
 }
+#endif
+
 
 /* ---- 0x00473450  stdFile_Close ---- */
 void stdFile_Close(undefined4 param_1)
@@ -109,7 +113,7 @@ undefined4 FUN_00473570(undefined4 param_1,char *param_2)
 }
 
 /* ---- 0x004735f0  stdFile_ReadByte ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 uint stdFile_ReadByte(uint param_1)
 
@@ -121,7 +125,7 @@ uint stdFile_ReadByte(uint param_1)
 
 
 /* ---- 0x00473610  stdFile_WriteByte ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void stdFile_WriteByte(undefined4 param_1,undefined4 param_2)
 

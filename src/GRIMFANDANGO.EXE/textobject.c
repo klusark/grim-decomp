@@ -399,7 +399,7 @@ undefined4 FUN_0048cd80(code *param_1)
 
 
 /* ---- 0x0048d030  FUN_0048d030 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 bool FUN_0048d030(undefined4 param_1)
 

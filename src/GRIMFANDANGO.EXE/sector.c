@@ -49,7 +49,7 @@ void __cdecl Sector_DrawAllDebug(void)
 }
 
 /* ---- 0x0049c750  Sector_IntersectSegment ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Tests a segment against a sector's edges, returning the entry/exit points */
 
@@ -562,7 +562,7 @@ void SectorList_FreeShrinkSave(void)
 }
 
 /* ---- 0x004a6380  SectorList_RestoreAfterShrink ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void SectorList_RestoreAfterShrink(void)
 
@@ -900,7 +900,7 @@ void __thiscall Sector_SetName(void *this,char *name)
 }
 
 /* ---- 0x004a6790  Sector_SetSavedType ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Stores the type bits (+0x24); 0x1000 sets a small shrink tolerance, 0x100 (edge sector) needs 4
    vertices and picks the long axis (+0x78) */
@@ -1198,7 +1198,7 @@ int __thiscall Sector_ClampPoint(void *this,int a1)
 
 
 /* ---- 0x004a6d10  Sector_FindExitPoint ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_3c */
 
@@ -1420,7 +1420,7 @@ void FUN_004a7100(void *param_1)
 }
 
 /* ---- 0x004a71e0  SectorList_FindByPoint ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void * SectorList_FindByPoint(float *param_1,uint param_2)
 
@@ -1501,7 +1501,7 @@ void * __cdecl Sector_FindById(int id)
 }
 
 /* ---- 0x004a72b0  SectorList_FindNearestPoint ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* SectorList_FindNearestPoint(point, mask): the sector with the mask that contains the point
    (SectorList_FindByPoint), else the active sector whose Sector_ClampPoint of the point is nearest.
@@ -1555,7 +1555,7 @@ void * SectorList_FindNearestPoint(float *param_1,uint param_2)
 
 
 /* ---- 0x004a7390  Sector_MoveWalkerToOppositeEdge ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void __thiscall Sector_MoveWalkerToOppositeEdge(void *this,float *walker)
 
@@ -1644,7 +1644,7 @@ void __thiscall Sector_MoveWalkerToOppositeEdge(void *this,float *walker)
 
 
 /* ---- 0x004a7520  Sector_EdgeFollowDirection ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* For a 4-vertex edge sector: direction along the edge the walker should follow (g_vEdgeFollowDir),
@@ -1874,7 +1874,7 @@ void SectorList_ResetFree(void)
 }
 
 /* ---- 0x004a7ab0  SectorVertexPool_GetOrAdd ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Source: Engine/WalkPlane.cpp (line 974, from __FILE__/__LINE__ passed to the allocator) */
 
@@ -1939,7 +1939,7 @@ void SectorVertexPool_Release(int *param_1)
 }
 
 /* ---- 0x004a7bc0  SetFile_ParseSectors ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Source: Engine/WalkPlane.cpp (lines 1070-1184, from __FILE__/__LINE__ passed to the allocator) */
 
@@ -2326,7 +2326,7 @@ LAB_004a80a5:
 
 
 /* ---- 0x004a8cb0  Sector_ClipPolygon ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Sutherland-Hodgman clip of a polygon against the sector's edges in its projection plane; returns
    the vertex count */
@@ -2529,7 +2529,7 @@ LAB_004a903f:
 
 
 /* ---- 0x004a9070  Sector_EdgeDistance ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Source: Engine/WalkPlane.cpp (line 1736, from __FILE__/__LINE__ passed to the allocator) */
 
@@ -2593,7 +2593,7 @@ float __thiscall Sector_EdgeDistance(void *this,int a1,int a2)
 
 
 /* ---- 0x004a9180  Sector_CollapseShortestEdge ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Sector_CollapseShortestEdge: for a sector of 4 or more vertices, finds the shortest edge a -
    (a+1) and replaces its two ends by the point where the line of the edge before it (a-1 -> a)
@@ -2752,7 +2752,7 @@ undefined4 __fastcall Sector_CollapseShortestEdge(void *param_1)
 
 
 /* ---- 0x004a9d00  SectorList_ShrinkWalkSectors ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_18 */
 /* WARNING: Variable defined which should be unmapped: local_4 */

@@ -18,7 +18,7 @@ undefined4 SpriteComponent_Destroy(undefined4 param_1,undefined4 param_2,void *p
 }
 
 /* ---- 0x00496370  FUN_00496370 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4 * FUN_00496370(undefined4 param_1,undefined4 param_2,int *param_3)
 
@@ -63,7 +63,7 @@ undefined4 * FUN_00496370(undefined4 param_1,undefined4 param_2,int *param_3)
 
 
 /* ---- 0x00496d70  SpriteComponent_NewInstance ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Source: Engine/sputCostume.cpp (line 2900, from __FILE__/__LINE__ passed to the allocator) */
 

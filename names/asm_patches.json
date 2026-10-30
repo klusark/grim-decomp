@@ -18,6 +18,11 @@
    "004016a6": [
     "call _GRIM_lua_cmd_poll"
    ]
+  },
+  "0049de00": {
+   "0049de7c": [
+    "call _GRIM_RegisterModApi"
+   ]
   }
  }
 }

@@ -6,7 +6,7 @@
 #include "functions.h"
 
 /* ---- 0x00491230  Walker_UpdateYaw ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Walker_UpdateYaw(actor, pos): eases the visible yaw (actor+0x28) toward the walker heading. Done
    (returns 1) when under 0.5 deg. step = rate*frameSec*timescale; if remaining > step, step =
@@ -87,7 +87,7 @@ undefined4 Walker_UpdateYaw(void *param_1,float *param_2)
 
 
 /* ---- 0x00491650  Walker_ReplanPath ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void Walker_ReplanPath(int param_1,int param_2,undefined4 *param_3,undefined4 param_4)
 
@@ -177,7 +177,7 @@ void Walker_ReplanPath(int param_1,int param_2,undefined4 *param_3,undefined4 pa
 
 
 /* ---- 0x004917e0  Walker_AvoidActorPath ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_124 */
 
@@ -653,7 +653,7 @@ LAB_00491fa5:
 
 
 /* ---- 0x00494880  Walker_SetFadeTime ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua SetWalkSystemFadeTime */
 
@@ -667,7 +667,7 @@ void __cdecl Walker_SetFadeTime(int ms)
 
 
 /* ---- 0x004a8200  Walker_Create ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Allocates the 0x60-byte walker record */
 
@@ -698,7 +698,7 @@ void * __thiscall Walker_Create(void *this,float radius)
 
 
 /* ---- 0x004a8270  Walker_Destroy ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void __fastcall Walker_Destroy(int param_1)
 
@@ -718,7 +718,7 @@ void __fastcall Walker_Destroy(int param_1)
 
 
 /* ---- 0x004a82a0  Walker_GetAngles ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Converts the walker's 3x3 frame to pitch/yaw/roll in g_vWalkerAngles */
 
@@ -732,7 +732,7 @@ undefined * __fastcall Walker_GetAngles(int param_1)
 
 
 /* ---- 0x004a82c0  Walker_ReattachToSet ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Called after Actor_PutInSet when the actor has a walker so it picks up the new set's sectors */
 
@@ -758,7 +758,7 @@ void __fastcall Walker_ReattachToSet(void *param_1)
 
 
 /* ---- 0x004a8310  Walker_SetPosition ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void __thiscall Walker_SetPosition(void *this,float *pos)
 
@@ -775,7 +775,7 @@ void __thiscall Walker_SetPosition(void *this,float *pos)
 
 
 /* ---- 0x004a8350  Walker_RotateVector ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void __thiscall Walker_RotateVector(void *this,float *vec)
 
@@ -787,7 +787,7 @@ void __thiscall Walker_RotateVector(void *this,float *vec)
 
 
 /* ---- 0x004a8370  Walker_ToLocalSpace ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Rotates a world vector into the current walker's frame */
 
@@ -816,7 +816,7 @@ void __thiscall Walker_ToLocalSpace(void *this,float *vec)
 
 
 /* ---- 0x004a83c0  Walker_TurnHeading ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined * __thiscall Walker_TurnHeading(void *this,int a1)
 
@@ -847,7 +847,7 @@ undefined * __thiscall Walker_TurnHeading(void *this,int a1)
 
 
 /* ---- 0x004a8450  Walker_TurnToPoint ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 float __thiscall Walker_TurnToPoint(void *this,int a1,int a2)
 
@@ -885,7 +885,7 @@ float __thiscall Walker_TurnToPoint(void *this,int a1,int a2)
 
 
 /* ---- 0x004a85b0  Walker_SetConstraint ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined * __thiscall Walker_SetConstraint(void *this,int a1)
 
@@ -916,7 +916,7 @@ undefined * __thiscall Walker_SetConstraint(void *this,int a1)
 
 
 /* ---- 0x004a8610  Walker_WalkSectors ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_48 */
 /* Walker_WalkSectors: the per-frame walk of an actor over the walk sectors (target-inside test with
@@ -1070,7 +1070,7 @@ undefined * __thiscall Walker_WalkSectors(void *this,int a1,int a2,int a3)
 
 
 /* ---- 0x004a89b0  Walker_SetSectorFrame ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined * __thiscall Walker_SetSectorFrame(void *this,int a1)
 
@@ -1107,7 +1107,7 @@ undefined * __thiscall Walker_SetSectorFrame(void *this,int a1)
 
 
 /* ---- 0x004a8a90  Walker_RebuildRightVector ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void __fastcall Walker_RebuildRightVector(int param_1)
 
@@ -1132,7 +1132,7 @@ void __fastcall Walker_RebuildRightVector(int param_1)
 
 
 /* ---- 0x004a8b00  Walker_DrawDebugAxes ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void __stdcall Walker_DrawDebugAxes(int color)
 
@@ -1195,7 +1195,7 @@ void __stdcall Walker_DrawDebugAxes(int color)
 
 
 /* ---- 0x004a9420  Planner_GetPath ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 uint Planner_GetPath(undefined4 *param_1)
 
@@ -1207,7 +1207,7 @@ uint Planner_GetPath(undefined4 *param_1)
 
 
 /* ---- 0x004a9430  Planner_PlanPath ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4 Planner_PlanPath(undefined4 param_1,uint *param_2,int param_3)
 
@@ -1247,7 +1247,7 @@ undefined4 Planner_PlanPath(undefined4 param_1,uint *param_2,int param_3)
 
 
 /* ---- 0x004a94d0  Planner_SearchSectors ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4 Planner_SearchSectors(float *param_1,float *param_2,void *param_3)
 
@@ -1342,7 +1342,7 @@ undefined4 Planner_SearchSectors(float *param_1,float *param_2,void *param_3)
 
 
 /* ---- 0x004a96f0  Planner_CollectSharedCorners ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 uint Planner_CollectSharedCorners(void *param_1,float *param_2,uint *param_3)
 
@@ -1478,7 +1478,7 @@ uint Planner_CollectSharedCorners(void *param_1,float *param_2,uint *param_3)
 
 
 /* ---- 0x004a9920  Planner_PortalPoint ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4 Planner_PortalPoint(void *param_1,void *param_2,float *param_3,undefined4 *param_4)
 
@@ -1548,7 +1548,7 @@ undefined4 Planner_PortalPoint(void *param_1,void *param_2,float *param_3,undefi
 
 
 /* ---- 0x004a9aa0  Planner_SmoothPath ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4 Planner_SmoothPath(void)
 
@@ -1648,7 +1648,7 @@ undefined4 Planner_SmoothPath(void)
 
 
 /* ---- 0x004a9ca0  Planner_SharedSector ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void * Planner_SharedSector(undefined4 param_1,float *param_2)
 

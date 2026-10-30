@@ -6,7 +6,7 @@
 #include "functions.h"
 
 /* ---- 0x0040cf20  rdThing_Draw ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Rdthing.c: frustum-tests the model's bounding sphere, picks the geometry set, updates the puppet
    and draws the node hierarchy */
@@ -106,7 +106,7 @@ int __cdecl rdThing_Draw(void *thing,float *position)
 
 
 /* ---- 0x00471a40  rdThing_New ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 uint rdThing_New(undefined4 param_1)
 
@@ -126,7 +126,7 @@ uint rdThing_New(undefined4 param_1)
 
 
 /* ---- 0x00471a80  rdThing_Init ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Default thing: geometry mode 4, lighting 3, texture 2, no model, both sprite indices -1 */
 
@@ -157,7 +157,7 @@ undefined4 rdThing_Init(undefined4 *param_1,undefined4 param_2)
 
 
 /* ---- 0x00471af0  rdThing_Free ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void rdThing_Free(int param_1)
 
@@ -172,7 +172,7 @@ void rdThing_Free(int param_1)
 
 
 /* ---- 0x00471b10  rdThing_FreeEntry ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Type 1 (model) things free their puppet buffers */
 
@@ -221,7 +221,7 @@ void rdThing_FreeEntry(int *param_1)
 
 
 /* ---- 0x00471bd0  rdThing_SetModel ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void __cdecl rdThing_SetModel(void *thing,void *model)
 
@@ -297,7 +297,7 @@ void __cdecl rdThing_SetModel(void *thing,void *model)
 
 
 /* ---- 0x00471d40  rdThing_SetCamera ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Thing type 2 pointing at a sprite */
 
@@ -312,7 +312,7 @@ undefined4 rdThing_SetCamera(undefined4 *param_1,undefined4 param_2)
 
 
 /* ---- 0x00471d60  rdThing_SetPolyline ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Thing type 4 pointing at a polyline */
 
@@ -328,7 +328,7 @@ undefined4 rdThing_SetPolyline(undefined4 *param_1,undefined4 param_2)
 
 
 /* ---- 0x00471d80  rdThing_DrawAlt ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 int __cdecl rdThing_DrawAlt(void *thing,float *frame)
 
@@ -361,7 +361,7 @@ int __cdecl rdThing_DrawAlt(void *thing,float *frame)
 
 
 /* ---- 0x00471e00  rdThing_BuildNodeMatrix ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Node matrix = node pivot/offset transform times the parent's matrix */
 

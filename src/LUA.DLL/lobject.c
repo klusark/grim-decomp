@@ -35,7 +35,7 @@ undefined4 __cdecl luaO_redimension(int param_1)
 }
 
 /* ---- 0x100074b0  luaO_equalObj ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Unidentified function of lobject.c */
 

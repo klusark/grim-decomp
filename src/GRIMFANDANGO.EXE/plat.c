@@ -15,7 +15,7 @@ undefined4 Plat_ReturnTrue(void)
 }
 
 /* ---- 0x00477f10  FUN_00477f10 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_00477f10(undefined4 param_1,char *param_2,undefined4 param_3)
 

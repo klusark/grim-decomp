@@ -194,7 +194,7 @@ int lapi__1240(void)
 }
 
 /* ---- 0x100012a0  lua_pop ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4 lua_pop(void)
 
@@ -339,7 +339,7 @@ int __cdecl lapi__1430(undefined4 *param_1)
 }
 
 /* ---- 0x10001490  lua_settagmethod ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4 __cdecl lua_settagmethod(int param_1,byte *param_2)
 
@@ -379,7 +379,7 @@ undefined4 __cdecl lua_seterrormethod(void)
 
 
 /* ---- 0x10001520  lua_gettable ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4 __cdecl lua_gettable(void)
 
@@ -396,7 +396,7 @@ undefined4 __cdecl lua_gettable(void)
 
 
 /* ---- 0x10001540  lua_rawgettable ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4 lua_rawgettable(void)
 
@@ -430,7 +430,7 @@ undefined4 lua_rawgettable(void)
 
 
 /* ---- 0x100015b0  lua_settable ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4 __cdecl lua_settable(void)
 
@@ -446,7 +446,7 @@ undefined4 __cdecl lua_settable(void)
 
 
 /* ---- 0x100015e0  lua_rawsettable ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4 __cdecl lua_rawsettable(void)
 
@@ -462,7 +462,7 @@ undefined4 __cdecl lua_rawsettable(void)
 
 
 /* ---- 0x10001610  lua_createtable ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4 __cdecl lua_createtable(void)
 
@@ -486,7 +486,7 @@ undefined4 __cdecl lua_createtable(void)
 
 
 /* ---- 0x10001640  lua_getglobal ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4 __cdecl lua_getglobal(byte *param_1)
 
@@ -518,7 +518,7 @@ undefined4 __cdecl lua_rawgetglobal(byte *param_1)
 }
 
 /* ---- 0x10001690  lua_setglobal ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4 __cdecl lua_setglobal(byte *param_1)
 
@@ -537,7 +537,7 @@ undefined4 __cdecl lua_setglobal(byte *param_1)
 
 
 /* ---- 0x100016c0  lua_rawsetglobal ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4 __cdecl lua_rawsetglobal(byte *param_1)
 
@@ -740,7 +740,7 @@ int * __cdecl luaA_normalizeObj(int *param_1)
 }
 
 /* ---- 0x10001990  lua_gettask ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 longlong __fastcall lua_gettask(undefined4 param_1,int param_2,int param_3)
 
@@ -805,7 +805,7 @@ void __cdecl lua_pushnumber(float n)
 }
 
 /* ---- 0x10001aa0  lua_pushstring ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4 __cdecl lua_pushstring(byte *param_1)
 
@@ -832,7 +832,7 @@ undefined4 __cdecl lua_pushstring(byte *param_1)
 
 
 /* ---- 0x10001b10  lua_pushCclosure ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4 __cdecl lua_pushCclosure(int param_1,uint param_2)
 
@@ -857,7 +857,7 @@ undefined4 __cdecl lua_pushCclosure(int param_1,uint param_2)
 
 
 /* ---- 0x10001b90  lua_pushusertag ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4 __cdecl lua_pushusertag(byte *param_1,uint param_2)
 
@@ -951,7 +951,7 @@ undefined4 __cdecl lua_tag(int param_1)
 }
 
 /* ---- 0x10001d30  lua_settag ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 int * __cdecl lua_settag(int param_1)
 
@@ -1015,7 +1015,7 @@ undefined4 __cdecl lua_unpausetasks(void)
 }
 
 /* ---- 0x10001e10  lua_updatetasks ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 bool __cdecl lua_updatetasks(int param_1)
 
@@ -1156,7 +1156,7 @@ int __cdecl lua_stackedfunction(int param_1)
 }
 
 /* ---- 0x100020f0  lua_printstack ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4 __cdecl lua_printstack(int param_1)
 
@@ -1347,7 +1347,7 @@ undefined4 __cdecl lua_funcinfo(int param_1,int *param_2,undefined4 *param_3)
 }
 
 /* ---- 0x10002440  lua_getobjname ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 char * __cdecl lua_getobjname(int param_1,undefined4 *param_2)
 
@@ -1403,7 +1403,7 @@ int * __cdecl lua_beginblock(void)
 }
 
 /* ---- 0x10002510  lua_endblock ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4 __cdecl lua_endblock(void)
 
@@ -1426,7 +1426,7 @@ undefined4 __cdecl lua_endblock(void)
 
 
 /* ---- 0x10002560  lua_ref ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 uint __cdecl lua_ref(int param_1)
 
@@ -1459,7 +1459,7 @@ undefined4 __cdecl lua_getref(uint param_1)
 }
 
 /* ---- 0x100025b0  lua_setfallback ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4 __cdecl lua_setfallback(byte *param_1,undefined4 param_2,int param_3)
 
@@ -1505,7 +1505,7 @@ void lapi__2660(void)
 }
 
 /* ---- 0x10002670  lua_Save ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4 __cdecl lua_Save(undefined *param_1)
 
@@ -1560,7 +1560,7 @@ void __cdecl FUN_10002730(undefined4 param_1,int param_2)
 }
 
 /* ---- 0x10002760  lua_Restore ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4 lua_Restore(code *param_1)
 
@@ -1681,7 +1681,7 @@ void FUN_10002940(void)
 }
 
 /* ---- 0x10004650  lua_error ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4 __cdecl lua_error(byte *param_1)
 
@@ -1804,7 +1804,7 @@ uint __cdecl lua_unref(uint param_1)
 }
 
 /* ---- 0x10004ee0  lua_collectgarbage ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 int __cdecl lua_collectgarbage(int param_1)
 
@@ -1842,7 +1842,7 @@ int __cdecl lua_collectgarbage(int param_1)
 
 
 /* ---- 0x10005ae0  lua_iolibopen ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4 __cdecl lua_iolibopen(void)
 
@@ -1889,7 +1889,7 @@ void lua_ioregister(void)
 }
 
 /* ---- 0x10007320  lua_mathlibopen ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4 __cdecl lua_mathlibopen(void)
 
@@ -1978,7 +1978,7 @@ int * __cdecl lua_open(void)
 }
 
 /* ---- 0x10008c30  lua_close ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4 __cdecl lua_close(void)
 
@@ -2027,7 +2027,7 @@ undefined4 __cdecl lua_close(void)
 
 
 /* ---- 0x1000a6e0  lua_strlibopen ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4 __cdecl lua_strlibopen(void)
 
@@ -2056,7 +2056,7 @@ int lua_newtag(void)
 }
 
 /* ---- 0x1000c950  lua_copytagmethods ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 int __cdecl lua_copytagmethods(int param_1,int param_2)
 

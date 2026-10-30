@@ -201,7 +201,7 @@ bool Engine_CallExitHandler(void)
 }
 
 /* ---- 0x004828e0  Engine_Quit ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua exit() */
 
@@ -257,7 +257,7 @@ undefined * __cdecl Engine_CallCharacterHandler(int param_1)
 }
 
 /* ---- 0x00482990  Engine_UpdateFrame ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_8 */
 /* WARNING: Variable defined which should be unmapped: local_c */
@@ -586,7 +586,7 @@ void Profile_Begin(int param_1)
 
 
 /* ---- 0x00482e80  Profile_End ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Source: Main/sputmain.cpp (line 1462, from __FILE__/__LINE__ passed to the allocator) */
 
@@ -895,7 +895,7 @@ undefined4 Engine_CreateCameraActor(void)
 }
 
 /* ---- 0x00484260  Engine_RenderFrame ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* sputRender.cpp: draws one frame. Mode 3 polls the movie; otherwise re-prepares the set when it
    changed, draws object states, actors (profile slots 4-7), overlays, the iris/fade (flag 4 of

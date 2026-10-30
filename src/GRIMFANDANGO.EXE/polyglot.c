@@ -6,7 +6,7 @@
 #include "functions.h"
 
 /* ---- 0x00483720  Polyglot_LoadTable ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* polyglot.c: loads the language table (text id -> translated string) */
 

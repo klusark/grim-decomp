@@ -6,7 +6,7 @@
 #include "functions.h"
 
 /* ---- 0x100053e0  Chore_AdvanceTime ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Advances a chore by dt ms. Keys with time in [cur, cur+dt) are set; first update after
    Cos_InstPlayChore already takes dt (no zero-length first frame). time >= length ends the chore
@@ -93,7 +93,7 @@ void __cdecl Chore_AdvanceTime(int param_1,int param_2,int param_3,int param_4,u
 
 
 /* ---- 0x10005530  FUN_10005530 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void __cdecl
 FUN_10005530(undefined4 param_1,undefined4 *param_2,undefined4 param_3,int param_4,

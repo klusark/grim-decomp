@@ -6,7 +6,7 @@
 #include "functions.h"
 
 /* ---- 0x00489550  Primitives_DrawAll ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void __cdecl Primitives_DrawAll(uint layerMask)
 
@@ -20,7 +20,7 @@ void __cdecl Primitives_DrawAll(uint layerMask)
 
 
 /* ---- 0x004895d0  Primitives_Hide ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Invalidates every primitive and stops drawing them (movie playback) */
 
@@ -35,7 +35,7 @@ void Primitives_Hide(void)
 
 
 /* ---- 0x004895f0  Primitives_Show ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void Primitives_Show(void)
 
@@ -47,7 +47,7 @@ void Primitives_Show(void)
 
 
 /* ---- 0x00489600  FUN_00489600 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4 FUN_00489600(code *param_1)
 
@@ -84,7 +84,7 @@ undefined4 FUN_00489600(code *param_1)
 
 
 /* ---- 0x004896b0  FUN_004896b0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4 FUN_004896b0(code *param_1)
 
@@ -150,7 +150,7 @@ undefined4 FUN_004896b0(code *param_1)
 
 
 /* ---- 0x004897d0  FUN_004897d0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -167,7 +167,7 @@ void FUN_004897d0(void)
 
 
 /* ---- 0x004897f0  FUN_004897f0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4 FUN_004897f0(void)
 
@@ -183,7 +183,7 @@ undefined4 FUN_004897f0(void)
 
 
 /* ---- 0x00489820  FUN_00489820 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_00489820(void)
 
@@ -196,7 +196,7 @@ void FUN_00489820(void)
 
 
 /* ---- 0x0048a4b0  Primitive_Construct ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* 0x30-byte primitive {next, prev, type (0 line, 1 rect, 2 polyline segment), id, layer, x1, y1,
    x2, y2, color, ?, filled} */
@@ -225,7 +225,7 @@ void __thiscall Primitive_Construct(void *this,int id,int unused)
 
 
 /* ---- 0x0048a500  FUN_0048a500 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void __fastcall FUN_0048a500(undefined4 *param_1)
 
@@ -238,7 +238,7 @@ void __fastcall FUN_0048a500(undefined4 *param_1)
 
 
 /* ---- 0x0048a560  Primitive_AddLine ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 int __thiscall Primitive_AddLine(void *this,int x1,int y1,int x2,int y2,int color,int layer)
 
@@ -260,7 +260,7 @@ int __thiscall Primitive_AddLine(void *this,int x1,int y1,int x2,int y2,int colo
 
 
 /* ---- 0x0048a5b0  Primitive_AddRect ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 int __thiscall
 Primitive_AddRect(void *this,int x1,int y1,int x2,int y2,int color,int filled,int layer)
@@ -285,7 +285,7 @@ Primitive_AddRect(void *this,int x1,int y1,int x2,int y2,int color,int filled,in
 
 
 /* ---- 0x0048a600  Primitive_AddPolyline ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 int __thiscall Primitive_AddPolyline(void *this,int count,int *points,int color,int layer)
 
@@ -320,7 +320,7 @@ int __thiscall Primitive_AddPolyline(void *this,int count,int *points,int color,
 
 
 /* ---- 0x0048a740  Primitive_Kill ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void __thiscall Primitive_Kill(void *this,int id)
 
@@ -358,7 +358,7 @@ void __thiscall Primitive_Kill(void *this,int id)
 
 
 /* ---- 0x0048a7b0  Primitive_SetColor ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined * __stdcall Primitive_SetColor(int a1,int a2)
 
@@ -376,7 +376,7 @@ undefined * __stdcall Primitive_SetColor(int a1,int a2)
 
 
 /* ---- 0x0048a7e0  Primitive_SetLayer ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined * __stdcall Primitive_SetLayer(int a1,int a2)
 
@@ -398,7 +398,7 @@ undefined * __stdcall Primitive_SetLayer(int a1,int a2)
 
 
 /* ---- 0x0048a830  Primitive_Offset ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined * __stdcall Primitive_Offset(int a1,int a2,int a3)
 
@@ -420,7 +420,7 @@ undefined * __stdcall Primitive_Offset(int a1,int a2,int a3)
 
 
 /* ---- 0x0048a8a0  Primitive_MoveTo ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined * __stdcall Primitive_MoveTo(int a1,int a2,int a3)
 
@@ -460,7 +460,7 @@ undefined * __stdcall Primitive_MoveTo(int a1,int a2,int a3)
 
 
 /* ---- 0x0048a960  Primitive_SetEnd ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined * __stdcall Primitive_SetEnd(int a1,int a2,int a3)
 
@@ -487,7 +487,7 @@ undefined * __stdcall Primitive_SetEnd(int a1,int a2,int a3)
 
 
 /* ---- 0x0048a9a0  Primitive_SetSize ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined * __stdcall Primitive_SetSize(int a1,int a2,int a3)
 
@@ -514,7 +514,7 @@ undefined * __stdcall Primitive_SetSize(int a1,int a2,int a3)
 
 
 /* ---- 0x0048aa20  Primitive_Draw ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void __stdcall Primitive_Draw(void *prim,void *canvas)
 
@@ -580,7 +580,7 @@ void __stdcall Primitive_Draw(void *prim,void *canvas)
 
 
 /* ---- 0x0048ab50  Primitive_Invalidate ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Marks the primitive's bounding rectangle dirty on the last buffer */
 
@@ -630,7 +630,7 @@ undefined * __stdcall Primitive_Invalidate(int a1)
 
 
 /* ---- 0x0048abc0  Primitive_ResetIds ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void Primitive_ResetIds(void)
 

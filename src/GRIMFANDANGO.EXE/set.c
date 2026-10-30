@@ -49,7 +49,7 @@ void __cdecl Set_MakeCurrent(char *name)
 }
 
 /* ---- 0x00482820  Set_ChangeSetup ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Changes the camera setup of the current set: resets the set's sound parameters
    (Set_SetSoundParams: min 20, max 127, scale 8.0, pan scale 1.5, near 0.8), runs the camera change
@@ -201,7 +201,7 @@ void __cdecl Set_SwitchSetup(void *set,int setupIdx)
 
 
 /* ---- 0x00485780  Set_DrawDebugLights ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Debug overlay of every light in the set: point/omni lights as a line and circle, spot lights as a
    cone frustum */
@@ -302,7 +302,7 @@ void Set_DrawDebugLights(int param_1)
 
 
 /* ---- 0x004859c0  Set_DrawDebugCameras ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void __cdecl Set_DrawDebugCameras(void *set,uint setupIdx)
 
@@ -800,7 +800,7 @@ void FUN_004a4d80(undefined4 param_1,int param_2)
 }
 
 /* ---- 0x004a4fe0  Set_LoadResources ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Loads colormaps (set+0x80, 0x34 each), each setup's background/depth bitmaps, creates the
    rdCamera (setup+0x48) and rdThing (+0x4c), builds the camera basis and adds the set's lights */
@@ -1068,7 +1068,7 @@ int Set_FindHandle(char *name)
 }
 
 /* ---- 0x004a5550  FUN_004a5550 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4 FUN_004a5550(undefined4 param_1)
 

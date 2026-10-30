@@ -6,7 +6,7 @@
 #include "functions.h"
 
 /* ---- 0x004c3e60  gz_open ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* zlib 1.1.3 gzio.c (file access routed through the file service table at g_pZlibFileOps): opens a
    gzip stream for 'r' or 'w' */
@@ -666,7 +666,7 @@ undefined4 gzclose(int param_1)
 }
 
 /* ---- 0x004c49c0  gz_putLong ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void gz_putLong(undefined4 param_1,uint param_2)
 
@@ -2283,7 +2283,7 @@ inflate_codes_new(undefined1 param_1,undefined1 param_2,uint param_3,uint param_
 }
 
 /* ---- 0x004ca660  inflate_codes ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined * __cdecl inflate_codes(uint param_1,byte *param_2,int param_3)
 
