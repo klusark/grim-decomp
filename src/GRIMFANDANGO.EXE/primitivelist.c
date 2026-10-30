@@ -66,7 +66,7 @@ void __fastcall PrimitiveList_Clear(int *param_1)
   iVar1 = *param_1;
   while (iVar1 != 0) {
     iVar1 = *(int *)*param_1;
-    Primitive_Invalidate(*param_1);
+    ((code *)Primitive_Invalidate)(*param_1);
     Plat_Free((void *)*param_1);
     *param_1 = iVar1;
   }
@@ -153,23 +153,19 @@ void __thiscall PrimitiveList_Draw(void *this,void *canvas,uint layerMask)
 }
 
 /* ---- 0x0048ab20  PrimitiveList_Invalidate ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 undefined * __thiscall PrimitiveList_Invalidate(void *this,int a1)
 
 {
-  undefined4 *a1_00;
+  undefined4 *prim;
   undefined *in_EAX;
   
-  for (a1_00 = *(undefined4 **)this; a1_00 != (undefined4 *)0x0; a1_00 = (undefined4 *)*a1_00) {
-    if ((a1_00[4] & a1) != 0) {
-      in_EAX = Primitive_Invalidate((int)a1_00);
+  for (prim = *(undefined4 **)this; prim != (undefined4 *)0x0; prim = (undefined4 *)*prim) {
+    if ((prim[4] & a1) != 0) {
+      in_EAX = (undefined *)Primitive_Invalidate(this,prim);
     }
   }
   return in_EAX;
 }
-#endif
-
 
 /* ---- 0x0048abd0  PrimitiveList_FindById ---- */
 void * __thiscall PrimitiveList_FindById(void *this,int id,void *after)

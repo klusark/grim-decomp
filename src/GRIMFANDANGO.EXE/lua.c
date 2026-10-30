@@ -566,6 +566,8 @@ void Lua_DrawRectangle(void)
 
 
 /* ---- 0x00489fe0  Lua_ChangePrimitive ---- */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+#if 0
 /* Lua opcode: ChangePrimitive */
 
 void Lua_ChangePrimitive(void)
@@ -602,7 +604,7 @@ void Lua_ChangePrimitive(void)
     if ((iVar4 != 0) && (iVar4 = lua_tag(iVar3), iVar4 == 0x524c4f43)) {
       uVar5 = lua_getuserdata(iVar3);
       PIECE(local_10,2,1) = (byte)(uVar5 >> 0x10);
-      Primitive_SetColor(iVar1,(uint)(PIECE(local_10,2,1) >> ((byte)UINT_004ddac8 & 0x1f)) <<
+      ((code *)Primitive_SetColor)(iVar1,(uint)(PIECE(local_10,2,1) >> ((byte)UINT_004ddac8 & 0x1f)) <<
                                ((byte)UINT_004ddabc & 0x1f) & 0xffff |
                                ((uVar5 >> 8 & 0xff) >> ((byte)UINT_004ddac4 & 0x1f)) <<
                                ((byte)UINT_004ddab8 & 0x1f) & 0xffff |
@@ -615,7 +617,7 @@ void Lua_ChangePrimitive(void)
     iVar4 = lua_isnumber(iVar3);
     if (iVar4 != 0) {
       lVar7 = (longlong)lua_getnumber(iVar3);
-      Primitive_SetLayer(iVar1,(int)lVar7);
+      ((code *)Primitive_SetLayer)(iVar1,(int)lVar7);
     }
     lua_pushobject(iVar2);
     lua_pushstring(PTR_s_xoffset_004e836c);
@@ -639,7 +641,7 @@ void Lua_ChangePrimitive(void)
         lVar7 = (longlong)lua_getnumber(iVar4);
         iVar3 = (int)lVar7;
       }
-      Primitive_Offset(iVar1,local_8,iVar3);
+      ((code *)Primitive_Offset)(iVar1,local_8,iVar3);
     }
     lua_pushobject(iVar2);
     lua_pushstring(PTR_DAT_004e8374);
@@ -663,7 +665,7 @@ void Lua_ChangePrimitive(void)
         lVar7 = (longlong)lua_getnumber(iVar4);
         iVar3 = (int)lVar7;
       }
-      Primitive_MoveTo(iVar1,local_8,iVar3);
+      ((code *)Primitive_MoveTo)(iVar1,local_8,iVar3);
     }
     lua_pushobject(iVar2);
     lua_pushstring(PTR_DAT_004e837c);
@@ -687,7 +689,7 @@ void Lua_ChangePrimitive(void)
         lVar7 = (longlong)lua_getnumber(iVar4);
         iVar3 = (int)lVar7;
       }
-      Primitive_SetEnd(iVar1,local_8,iVar3);
+      ((code *)Primitive_SetEnd)(iVar1,local_8,iVar3);
     }
     lua_pushobject(iVar2);
     lua_pushstring(PTR_s_width_004e8384);
@@ -713,7 +715,7 @@ void Lua_ChangePrimitive(void)
       lVar7 = (longlong)lua_getnumber(iVar2);
       iVar6 = (int)lVar7;
     }
-    Primitive_SetSize(iVar1,iVar3,iVar6);
+    ((code *)Primitive_SetSize)(iVar1,iVar3,iVar6);
     return;
   }
   return;
@@ -723,6 +725,8 @@ void Lua_ChangePrimitive(void)
 #undef local_4
 #undef local_8
 #undef local_c
+
+#endif
 
 
 /* ---- 0x0048a460  Lua_KillPrimitive ---- */

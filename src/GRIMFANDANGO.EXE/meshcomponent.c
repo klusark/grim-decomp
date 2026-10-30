@@ -24,12 +24,12 @@ void MeshComponent_OnKey(undefined4 param_1,int *param_2,undefined4 param_3,int 
 }
 
 /* ---- 0x00496d70  MeshComponent_NewInstance ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Costume tag handler, slot 5 of the 'RDroid Thing Mesh' tag: per-instance data of a mesh
    component. (Was named SpriteComponent_NewInstance.) */
 
-int * MeshComponent_NewInstance(int param_1,int param_2,int param_3)
+int * __cdecl MeshComponent_NewInstance(int inst,int component,int create)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -38,16 +38,16 @@ int * MeshComponent_NewInstance(int param_1,int param_2,int param_3)
   int *piVar3;
   #define auStack_4 (*(undefined1 (*)[4])(_frame + (0x20 - 0x4)))
   
-  if (param_3 == 0) {
-    iVar2 = Cos_InstGetInstanceData(param_1,param_2,(int *)0x0);
+  if (create == 0) {
+    iVar2 = Cos_InstGetInstanceData(inst,component,(int *)0x0);
     (*g_pSvcCostume->pFree)(iVar2);
     return (int *)0x0;
   }
   piVar3 = (int *)(*g_pSvcCostume->pAlloc)(0xc,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0xb54);
   piVar1 = piVar3 + 1;
-  Cos_InstComponentInfo(param_1,param_2,(int)auStack_4,(int)piVar1,(int)&param_3);
+  Cos_InstComponentInfo(inst,component,(int)auStack_4,(int)piVar1,(int)&create);
   *piVar1 = *piVar1 >> 0x10;
-  iVar2 = Cos_InstGetInstanceData(param_1,param_3,(int *)0x0);
+  iVar2 = Cos_InstGetInstanceData(inst,create,(int *)0x0);
   *piVar3 = iVar2;
   piVar3[2] = 1;
   return piVar3;

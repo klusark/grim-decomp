@@ -1742,14 +1742,14 @@ int __thiscall Primitive_AddLine(void *this,int x1,int y1,int x2,int y2,int colo
 int __thiscall Primitive_AddRect(void *this,int x1,int y1,int x2,int y2,int color,int filled,int layer); /* 0x0048a5b0 */
 int __thiscall Primitive_AddPolyline(void *this,int count,int *points,int color,int layer); /* 0x0048a600 */
 void __thiscall Primitive_Kill(void *this,int id); /* 0x0048a740 */
-undefined * __stdcall Primitive_SetColor(int a1,int a2); /* 0x0048a7b0 */
-undefined * __stdcall Primitive_SetLayer(int a1,int a2); /* 0x0048a7e0 */
-undefined * __stdcall Primitive_Offset(int a1,int a2,int a3); /* 0x0048a830 */
-undefined * __stdcall Primitive_MoveTo(int a1,int a2,int a3); /* 0x0048a8a0 */
-undefined * __stdcall Primitive_SetEnd(int a1,int a2,int a3); /* 0x0048a960 */
-undefined * __stdcall Primitive_SetSize(int a1,int a2,int a3); /* 0x0048a9a0 */
+int __thiscall Primitive_SetColor(void *this,int id,int color); /* 0x0048a7b0 */
+int __thiscall Primitive_SetLayer(void *this,int id,int layer); /* 0x0048a7e0 */
+int __thiscall Primitive_Offset(void *this,int id,int dx,int dy); /* 0x0048a830 */
+int __thiscall Primitive_MoveTo(void *this,int id,int x,int y); /* 0x0048a8a0 */
+int __thiscall Primitive_SetEnd(void *this,int id,int x,int y); /* 0x0048a960 */
+int __thiscall Primitive_SetSize(void *this,int id,int w,int h); /* 0x0048a9a0 */
 void __stdcall Primitive_Draw(void *prim,void *canvas); /* 0x0048aa20 */
-undefined * __stdcall Primitive_Invalidate(int a1); /* 0x0048ab50 */
+int __thiscall Primitive_Invalidate(void *this,void *prim); /* 0x0048ab50 */
 void Primitive_ResetIds(void); /* 0x0048abc0 */
 
 /* ===== sputprimitive.c ===== */
@@ -1924,7 +1924,7 @@ undefined4 BitmapComponent_Create(uint param_1,int param_2,int param_3,int param
 undefined4 BitmapComponent_Destroy(undefined4 param_1,undefined4 param_2,void *param_3); /* 0x00496340 */
 
 /* ===== cmapcomponent.c ===== */
-int * CmapComponent_NewInstance(int param_1,int param_2,int *param_3); /* 0x00496370 */
+int * __cdecl CmapComponent_NewInstance(int inst,int component,int create); /* 0x00496370 */
 bool CmapComponent_Create(uint param_1,int param_2,int param_3,int param_4,char *param_5); /* 0x00496460 */
 undefined4 CmapComponent_Destroy(undefined4 param_1,undefined4 param_2,void *param_3); /* 0x00496580 */
 undefined4 FUN_004965b0(void); /* 0x004965b0 */
@@ -1944,7 +1944,7 @@ undefined4 ModelComponent_Destroy(undefined4 param_1,undefined4 param_2,void *pa
 
 /* ===== meshcomponent.c ===== */
 void MeshComponent_OnKey(undefined4 param_1,int *param_2,undefined4 param_3,int param_4); /* 0x00496d40 */
-int * MeshComponent_NewInstance(int param_1,int param_2,int param_3); /* 0x00496d70 */
+int * __cdecl MeshComponent_NewInstance(int inst,int component,int create); /* 0x00496d70 */
 void MeshComponent_Stop(int param_1); /* 0x00496e10 */
 undefined4 MeshComponent_Create(uint param_1,int param_2,int *param_3,int param_4,char *param_5); /* 0x00496e20 */
 bool FUN_00497180(undefined4 param_1,undefined4 param_2); /* 0x00497180 */
@@ -1969,7 +1969,7 @@ bool ImuseIntComponent_Create(uint param_1,int param_2,int param_3,int param_4);
 /* ===== keyframecomponent.c ===== */
 void KeyframeComponent_OnKey (undefined4 param_1,int *param_2,undefined4 param_3,int param_4,uint param_5, undefined4 param_6,undefined4 param_7,undefined4 param_8); /* 0x00497890 */
 void KeyframeComponent_TrackCallback(int param_1,int param_2,uint param_3); /* 0x00497cb0 */
-int * KeyframeComponent_NewInstance(int param_1,int *param_2,int param_3); /* 0x00497d10 */
+int * __cdecl KeyframeComponent_NewInstance(int inst,int component,int create); /* 0x00497d10 */
 bool KeyframeComponent_Create(uint param_1,int param_2,int param_3,int param_4,uint param_5); /* 0x00497e10 */
 undefined4 KeyframeComponent_EditKey(int *param_1,undefined4 param_2); /* 0x00498000 */
 undefined4 KeyframeComponent_Destroy(undefined4 param_1,undefined4 param_2,void *param_3); /* 0x004980b0 */

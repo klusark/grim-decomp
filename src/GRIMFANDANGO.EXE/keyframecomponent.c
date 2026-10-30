@@ -175,13 +175,13 @@ void KeyframeComponent_TrackCallback(int param_1,int param_2,uint param_3)
 }
 
 /* ---- 0x00497d10  KeyframeComponent_NewInstance ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Costume tag handler for 'RDroid Keyframe (KEY)' (registered by sputCostume_Start through
    Cos_NewStateBasedTag/Cos_NewIntTag): slot 5, instance data for a keyframe component (ResRef to
    the animation, 'Bad keyframe Reference' assertion); with param 0 it frees it. */
 
-int * KeyframeComponent_NewInstance(int param_1,int *param_2,int param_3)
+int * __cdecl KeyframeComponent_NewInstance(int inst,int component,int create)
 
 {
   void *data;
@@ -190,20 +190,20 @@ int * KeyframeComponent_NewInstance(int param_1,int *param_2,int param_3)
   int iVar3;
   int *piVar4;
   
-  iVar1 = param_1;
-  if (param_3 == 0) {
-    iVar1 = Cos_InstGetInstanceData(param_1,(int)param_2,(int *)0x0);
+  iVar1 = inst;
+  if (create == 0) {
+    iVar1 = Cos_InstGetInstanceData(inst,component,(int *)0x0);
     ResRef_Remove((void *)(iVar1 + 4));
     (*g_pSvcCostume->pFree)(iVar1);
     return (int *)0x0;
   }
-  Cos_InstComponentInfo(param_1,(int)param_2,(int)&param_3,(int)&param_2,(int)&param_1);
-  piVar4 = param_2;
-  if (*param_2 == 0) {
+  Cos_InstComponentInfo(inst,component,(int)&create,(int)&component,(int)&inst);
+  iVar3 = component;
+  if (*(int *)component == 0) {
     (*g_pSvcMain->pAssertFail)
               (s_Bad_keyframe_Reference_004ea1e0,s_main_sputResource_h_004e80a8,0xb3);
   }
-  data = (void *)piVar4[1];
+  data = *(void **)(iVar3 + 4);
   piVar2 = (int *)(*g_pSvcCostume->pAlloc)(0x40,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0xed8);
   piVar4 = piVar2;
   for (iVar3 = 0x10; iVar3 != 0; iVar3 = iVar3 + -1) {
@@ -211,9 +211,9 @@ int * KeyframeComponent_NewInstance(int param_1,int *param_2,int param_3)
     piVar4 = piVar4 + 1;
   }
   ResRef_Add(piVar2 + 1,data,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0xeda);
-  piVar2[0xe] = param_2[0xd];
-  piVar2[0xf] = param_2[0xe];
-  iVar1 = Cos_InstGetInstanceData(iVar1,param_1,(int *)0x0);
+  piVar2[0xe] = *(int *)(component + 0x34);
+  piVar2[0xf] = *(int *)(component + 0x38);
+  iVar1 = Cos_InstGetInstanceData(iVar1,inst,(int *)0x0);
   *piVar2 = iVar1;
   return piVar2;
 }
