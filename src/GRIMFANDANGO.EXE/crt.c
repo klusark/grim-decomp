@@ -3017,7 +3017,7 @@ undefined4 _unwind_handler(void)
 }
 
 /* ---- 0x004af736  _NLG_Notify ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 undefined * __stdcall _NLG_Notify(int a1)
 
@@ -6813,7 +6813,7 @@ CallCatchBlock(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefine
 
 
 /* ---- 0x004b58b8  Eh_CallCatchBlockInner ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 void Eh_CallCatchBlockInner(void)
 
@@ -9578,7 +9578,7 @@ int getenv(char *param_1)
 }
 
 /* ---- 0x004bbc10  _chsize ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 int _chsize(void)
 
