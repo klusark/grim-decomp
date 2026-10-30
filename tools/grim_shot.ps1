@@ -15,4 +15,5 @@ $r = New-Object GrimShot+RECT
 $bmp = New-Object System.Drawing.Bitmap ($r.R - $r.L), ($r.B - $r.T)
 $g = [System.Drawing.Graphics]::FromImage($bmp)
 $hdc = $g.GetHdc(); [GrimShot]::PrintWindow($p.MainWindowHandle, $hdc, 2) | Out-Null; $g.ReleaseHdc($hdc)
-$bmp.Save((Join-Path (Get-Location) $Out)); "saved $Out (pid $($p.Id))"
+$full = if ([IO.Path]::IsPathRooted($Out)) { $Out } else { Join-Path (Get-Location) $Out }
+$bmp.Save($full); "saved $full (pid $($p.Id))"
