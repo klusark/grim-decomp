@@ -82,11 +82,11 @@ anyway: the state table (181 entries at 0x100172e8) and the sequence table (41 e
   earlier or later: the original build shows the same four variants), so blocks that differ between baseline runs are masked.
   Scenarios (`build/perf/imuse/scn_*.lua`, 3-6 runs of each build, the C build identical to the baseline outside the masked blocks except for
   single heartbeats of the same jitter): sound effect with fade / pan / pause / resume / group volumes / voices / voice effect (2), ten music
-  state changes (3), a tour of 17 sets (8), music states and sequences (9); a movie (4) plays to the end in every run (its audio does not
-  go through iMUSE).  Save + Load round trip (5): the iMUSE part of the save (`ImSave` blob, 38564 bytes) is identical to the baseline
+  state changes (3), a tour of 17 sets (8), music states and sequences (9); a movie (4) plays to the end in every run (movies run on real time, the audio
+  starts at a different heartbeat in every run, aligned by its start the traces agree except for the same jitter).  Save + Load round trip (5): the iMUSE part of the save (`ImSave` blob, 38564 bytes) is identical to the baseline
   apart from 20 pointers into the DLL's own data.  Voice lines (7): the 4288 `iMUSE_GetPhoneme` calls (lip sync) return the same values.
 * `oldsaves.py` on saves 0, 2, 5, 8, 12, 21, 30, 40, 50, 62, 70: all pass.  `libcheck.py --movie`: all PASS, probe.txt identical (the walk shot
-  differs because the C build runs ~35 percent faster per frame: it is taken at a wall-clock time, not at a frame).
+  differs because the C build runs ~35 percent faster per frame (0.23 against 0.37 ms) and the shot is taken at a wall-clock time, not at a frame; the unit/walk/move tiers, which count frames, are identical).
 * Function-level differential tests (`build/perf/imuse/imuse_diff*.c`): both DLLs loaded into one process, same inputs, outputs compared:
   `Im_VimaDecompress` on the 7594 .wav files of the data LABs x 4 NULL-pointer patterns, `Im_MixLoopA..D` (20000 random calls, all four
   resampling ratios), `Im_DecodeSoundBlock` (30000), `Im_ConvertBlock` (4000 random blocks, mono and stereo), `Im_VimaDecodeBlock` (4000
