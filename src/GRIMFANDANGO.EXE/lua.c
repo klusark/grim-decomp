@@ -2124,7 +2124,6 @@ void Lua_UnShrinkBoxes(void)
 /* WARNING: Variable defined which should be unmapped: local_14 */
 /* WARNING: Variable defined which should be unmapped: local_10 */
 /* WARNING: Variable defined which should be unmapped: local_c */
-/* WARNING: Variable defined which should be unmapped: local_8 */
 /* WARNING: Variable defined which should be unmapped: local_4 */
 /* Lua opcode: GetShrinkPos */
 
@@ -2144,15 +2143,14 @@ void Lua_GetShrinkPos(undefined4 param_1,double param_2)
   uint unaff_EDI;
   float fVar6;
   float fVar7;
-  float *pfVar8;
-  float fVar9;
+  float *n;
+  float fVar8;
   uint unaff_retaddr;
   #define local_1c (*(uint *)(_frame + (0x30 - 0x1c)))
   #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
   #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
   #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  #define local_c (*(float (*)[2])(_frame + (0x30 - 0xc)))
   #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
   
   iVar1 = lua_lua2C(1);
@@ -2169,24 +2167,23 @@ void Lua_GetShrinkPos(undefined4 param_1,double param_2)
         if (iVar5 != 0) {
           fVar6 = lua_getnumber(iVar1);
           fVar7 = lua_getnumber(iVar2);
-          pfVar8 = (float *)lua_getnumber(iVar3);
-          fVar9 = lua_getnumber(iVar4);
-          local_c = PUN(uint,(float)fVar6);
-          local_8 = PUN(uint,(float)fVar7);
-          local_4 = (uint)pfVar8;
+          n = (float *)lua_getnumber(iVar3);
+          fVar8 = lua_getnumber(iVar4);
+          local_c[0] = fVar6;
+          local_c[1] = fVar7;
           SectorList_SaveForShrink();
           SectorList_ShrinkWalkSectors
-                    (fVar9,unaff_EDI,unaff_ESI,unaff_EBP,unaff_EBX,fVar6,fVar7,pfVar8,fVar9,
-                     PUN(float,local_c),PUN(float,local_8),PUN(float,local_4),unaff_retaddr,param_2);
-          this = (void *)SectorList_FindNearestPoint(&local_c,0x1000);
+                    (fVar8,unaff_EDI,unaff_ESI,unaff_EBP,unaff_EBX,fVar6,fVar7,n,fVar8,local_c[0],
+                     local_c[1],PUN(float,n),unaff_retaddr,param_2);
+          this = (void *)SectorList_FindNearestPoint(local_c,0x1000);
           if (this != (void *)0x0) {
-            Sector_ClampPoint(this,(int)&local_c);
+            Sector_ClampPoint(this,(int)local_c);
           }
           Lua_UnShrinkBoxes();
           if (this != (void *)0x0) {
-            lua_pushnumber(PUN(float,local_c));
-            lua_pushnumber(PUN(float,local_8));
-            lua_pushnumber(PUN(float,local_4));
+            lua_pushnumber(local_c[0]);
+            lua_pushnumber(local_c[1]);
+            lua_pushnumber(PUN(float,n));
             return;
           }
           lua_pushnil();
@@ -2201,7 +2198,6 @@ void Lua_GetShrinkPos(undefined4 param_1,double param_2)
 #undef local_18
 #undef local_1c
 #undef local_4
-#undef local_8
 #undef local_c
 
 #endif
@@ -9580,7 +9576,7 @@ void Lua_SetLightRotation(void)
   #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
   #define local_20 (*(uint *)(_frame + (0x40 - 0x20)))
   #define local_1c (*(uint *)(_frame + (0x40 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x40 - 0x18)))
+  #define local_18 (*(float *)(_frame + (0x40 - 0x18)))
   #define local_14 (*(uint *)(_frame + (0x40 - 0x14)))
   #define local_10 (*(uint *)(_frame + (0x40 - 0x10)))
   #define local_c (*(float *)(_frame + (0x40 - 0xc)))
@@ -9628,11 +9624,11 @@ void Lua_SetLightRotation(void)
     else {
       local_4 = lua_getnumber(iVar5);
     }
-    local_18 = 0;
+    local_18 = 0.0;
     local_14 = 0x3f800000;
     local_10 = 0;
-    Vec3_Rotate((float *)&local_18,&local_c);
-    *(uint *)((int)pvVar8 + 0x38) = local_18;
+    Vec3_Rotate(&local_18,&local_c);
+    *(float *)((int)pvVar8 + 0x38) = local_18;
     *(uint *)((int)pvVar8 + 0x3c) = local_14;
     uVar9 = 0;
     *(uint *)((int)pvVar8 + 0x40) = local_10;
@@ -9643,7 +9639,7 @@ void Lua_SetLightRotation(void)
         iVar3 = iVar3 + 300;
         iVar4 = *(int *)(*piVar1 + iVar2 * 4 + 0x5c);
         uVar9 = uVar9 + 1;
-        *(uint *)(iVar4 + 0xc) = local_18;
+        *(float *)(iVar4 + 0xc) = local_18;
         *(uint *)(iVar4 + 0x10) = local_14;
         *(uint *)(iVar4 + 0x14) = local_10;
       } while (uVar9 < *(uint *)((int)pvVar6 + 0xb0));
