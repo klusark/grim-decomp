@@ -233,7 +233,51 @@ undefined *Display_InitFromConfig(void)
 }
 
 
-<<<<<<< C:/msys64/tmp/ov_ours.c
+
+/* Costume_ApplyScale (0x495510): called before and after the meshes of a scaled actor are drawn; it
+ * multiplies the bounding radius of every model (and of every mesh) by actor+0x30 so that the
+ * frustum test in rdModel_DrawMesh covers the scaled-up geometry, then stores the reciprocal of the
+ * scale in actor+0x30 so that the second call undoes the first. The original code stores the
+ * reciprocal inside the per-component loop, so the factor alternates s, 1/s, s, ... from component to
+ * component: with an even number of components (Manny has 26) the second call does not undo the
+ * first, every call scales the even components by s and the odd ones by 1/s again, and the radii
+ * drift by s^2 per frame (to infinity / zero). A model whose radius has shrunk is judged "inside the
+ * frustum" although its polygons stick out, rdModel_AddMeshToCache then skips the clipper, and an
+ * unclipped polygon on the screen edge makes the span routines write rows outside the z-buffer.
+ * Here the factor is the same for all components and is inverted once per call. Non-model
+ * components (type != 1, e.g. colormaps) are left alone: the original multiplied a float at +0x5c of
+ * whatever object they point to. */
+void __cdecl Costume_ApplyScale(void *actor, void *componentList)
+{
+    float s = *(float *)((char *)actor + 0x30);
+    void *c;
+    float inv, d;
+
+    if (componentList == 0 || s == 1.0f)
+        return;
+    for (c = componentList; c != 0; c = *(void **)((char *)c + 400)) {
+        int *data = *(int **)((char *)c + 0x40);
+        char *model;
+        if (data == 0 || data[0] != 1)
+            continue;
+        model = (char *)data[1];
+        *(float *)(model + 0x5c) *= s;
+        {
+            int set = *(int *)(model + 0x50);
+            unsigned n = *(unsigned *)(model + 0x24 + set * 8);
+            char *mesh = *(char **)(model + 0x28 + set * 8);
+            unsigned i;
+            for (i = 0; i < n; i++)
+                *(float *)(mesh + i * 0x7c + 0x60) *= s;
+        }
+    }
+    inv = 1.0f / s;
+    d = 1.0f - inv;
+    *(float *)((char *)actor + 0x30) = inv;
+    if ((d < 0 ? -d : d) <= 1e-05f)
+        *(float *)((char *)actor + 0x30) = 1.0f;
+}
+
 /* stdFile_Open (0x473430): fopen for the engine's file services. The original binary used its own MSVC 6 C runtime;
  * this build links the host msvcrt, whose text-mode ftell() returns 0 after a one-byte fread() (checked with a
  * stand-alone program). Lua's dofile reads the first character of a script, calls ftell and seeks back by one, so
@@ -369,51 +413,6 @@ static struct { const char *name; void *fn; } mod_api[] = {
 void GRIM_RegisterModApi(void)
 {
     lua_openlib(mod_api, sizeof mod_api / sizeof mod_api[0]);
-=======
-
-/* Costume_ApplyScale (0x495510): called before and after the meshes of a scaled actor are drawn; it
- * multiplies the bounding radius of every model (and of every mesh) by actor+0x30 so that the
- * frustum test in rdModel_DrawMesh covers the scaled-up geometry, then stores the reciprocal of the
- * scale in actor+0x30 so that the second call undoes the first. The original code stores the
- * reciprocal inside the per-component loop, so the factor alternates s, 1/s, s, ... from component to
- * component: with an even number of components (Manny has 26) the second call does not undo the
- * first, every call scales the even components by s and the odd ones by 1/s again, and the radii
- * drift by s^2 per frame (to infinity / zero). A model whose radius has shrunk is judged "inside the
- * frustum" although its polygons stick out, rdModel_AddMeshToCache then skips the clipper, and an
- * unclipped polygon on the screen edge makes the span routines write rows outside the z-buffer.
- * Here the factor is the same for all components and is inverted once per call. Non-model
- * components (type != 1, e.g. colormaps) are left alone: the original multiplied a float at +0x5c of
- * whatever object they point to. */
-void __cdecl Costume_ApplyScale(void *actor, void *componentList)
-{
-    float s = *(float *)((char *)actor + 0x30);
-    void *c;
-    float inv, d;
-
-    if (componentList == 0 || s == 1.0f)
-        return;
-    for (c = componentList; c != 0; c = *(void **)((char *)c + 400)) {
-        int *data = *(int **)((char *)c + 0x40);
-        char *model;
-        if (data == 0 || data[0] != 1)
-            continue;
-        model = (char *)data[1];
-        *(float *)(model + 0x5c) *= s;
-        {
-            int set = *(int *)(model + 0x50);
-            unsigned n = *(unsigned *)(model + 0x24 + set * 8);
-            char *mesh = *(char **)(model + 0x28 + set * 8);
-            unsigned i;
-            for (i = 0; i < n; i++)
-                *(float *)(mesh + i * 0x7c + 0x60) *= s;
-        }
-    }
-    inv = 1.0f / s;
-    d = 1.0f - inv;
-    *(float *)((char *)actor + 0x30) = inv;
-    if ((d < 0 ? -d : d) <= 1e-05f)
-        *(float *)((char *)actor + 0x30) = 1.0f;
->>>>>>> C:/msys64/tmp/ov_theirs.c
 }
 
 #endif /* GRIM_EXE */
