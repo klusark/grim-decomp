@@ -3017,8 +3017,6 @@ undefined4 _unwind_handler(void)
 }
 
 /* ---- 0x004af736  _NLG_Notify ---- */
-/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
-#if 0
 undefined * __stdcall _NLG_Notify(int a1)
 
 {
@@ -3030,8 +3028,6 @@ undefined * __stdcall _NLG_Notify(int a1)
   UINT_004ed0dc = unaff_EBP;
   return in_EAX;
 }
-#endif
-
 
 /* ---- 0x004af750  isdigit ---- */
 uint isdigit(int param_1)
@@ -6813,8 +6809,6 @@ CallCatchBlock(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefine
 
 
 /* ---- 0x004b58b8  Eh_CallCatchBlockInner ---- */
-/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
-#if 0
 void Eh_CallCatchBlockInner(void)
 
 {
@@ -6836,8 +6830,6 @@ void Eh_CallCatchBlockInner(void)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x004b5950  BuildCatchObject ---- */
 void BuildCatchObject(int param_1,int param_2,byte *param_3,byte *param_4)
@@ -9578,8 +9570,6 @@ int getenv(char *param_1)
 }
 
 /* ---- 0x004bbc10  _chsize ---- */
-/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
-#if 0
 int _chsize(void)
 
 {
@@ -9647,8 +9637,6 @@ LAB_004bbcca:
   iVar7 = -1;
   goto LAB_004bbcca;
 }
-#endif
-
 
 /* ---- 0x004bbd60  _raise_exc ---- */
 void _raise_exc(uint *param_1,uint *param_2,byte param_3,uint param_4,uint *param_5,uint *param_6)

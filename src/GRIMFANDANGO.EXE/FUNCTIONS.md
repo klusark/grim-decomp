@@ -1915,7 +1915,7 @@
 | 004af660 | _global_unwind2 | crt.c | 6 |
 | 004af6a2 | _local_unwind2 | crt.c | 35 |
 | 004af70a | _unwind_handler | crt.c | 15 |
-| 004af736 | _NLG_Notify | crt.c | 1 |
+| 004af736 | _NLG_Notify | crt.c | 11 |
 | 004af750 | isdigit | crt.c | 11 |
 | 004af780 | isspace | crt.c | 11 |
 | 004af7e0 | _lock | crt.c | 23 |
@@ -1985,7 +1985,7 @@
 | 004b5650 | FrameUnwindToState | crt.c | 40 |
 | 004b5730 | CatchIt | crt.c | 22 |
 | 004b57c0 | CallCatchBlock | crt.c | 49 |
-| 004b58b8 | Eh_CallCatchBlockInner | crt.c | 1 |
+| 004b58b8 | Eh_CallCatchBlockInner | crt.c | 21 |
 | 004b5950 | BuildCatchObject | crt.c | 83 |
 | 004b5c60 | terminate | crt.c | 34 |
 | 004b6ce0 | _getbuf | crt.c | 22 |
@@ -2037,7 +2037,7 @@
 | 004bb950 | _wcstombs_lk | crt.c | 103 |
 | 004bbb40 | wcsncnt | crt.c | 20 |
 | 004bbb80 | getenv | crt.c | 49 |
-| 004bbc10 | _chsize | crt.c | 1 |
+| 004bbc10 | _chsize | crt.c | 67 |
 | 004bbd60 | _raise_exc | crt.c | 147 |
 | 004bc0a0 | _handle_exc | crt.c | 145 |
 | 004bc730 | __ld12mul | crt.c | 164 |
