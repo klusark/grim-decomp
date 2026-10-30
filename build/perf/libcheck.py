@@ -39,6 +39,10 @@ def diff(oa, ob):
     rc = 0
     la = open(os.path.join(oa, 'probe.txt'), errors='replace').read().splitlines()
     lb = open(os.path.join(ob, 'probe.txt'), errors='replace').read().splitlines()
+    skip = os.environ.get('LIBCHECK_SKIP')   # e.g. A,RU: line prefixes expected to differ (A = asin/acos, which returned 0 in the old builds;
+    if skip:                                  # RU = random() before any randomseed: the old builds started rand() at seed 0, the original at 1)
+        pat = re.compile(r'^(%s)\d* ' % '|'.join(skip.split(',')))
+        la = [l for l in la if not pat.match(l)]; lb = [l for l in lb if not pat.match(l)]
     if la == lb:
         print('probe.txt: identical (%d lines)' % len(la))
     else:
@@ -63,9 +67,11 @@ PROBES = [
     'function S1(f,a,b) if type(f)=="function" then return tostring(f(a,b)) else return "nofn" end end',
     'function PR() local i=1 while PN[i] do local n=PN[i] grimlog("P"..i.." "..tostring(n).." "..format("%.14g|%f|%e|%5.2f|%g|%.3g|%10.4f|%-8.1f|%.0f|%.20g|",n,n,n,n,n,n,n,n,n,n)..S1(floor,n).." "..S1(ceil,n).." "..S1(abs,n)) i=i+1 end end',
     'function PM() local i=1 while PN[i] do local n=PN[i] local a=abs(n) grimlog("M"..i.." "..S1(sqrt,a).." "..S1(mod,n,7).." "..S1(mod,n,0.3).." "..tostring(a^0.5).." "..tostring(a^2.5).." "..S1(sin,n).." "..S1(cos,n).." "..S1(tan,n).." "..S1(atan,n).." "..S1(atan2,n,3).." "..S1(log,a+1).." "..S1(log10,a+1).." "..S1(exp,mod(a,40)).." "..S1(min,n,2).." "..S1(max,n,2)) i=i+1 end end',
+    'function PA() local i=1 while PN[i] do local n=PN[i] grimlog("A"..i.." "..S1(asin,n/100000).." "..S1(acos,n/100000).." "..S1(asin,mod(n,1)).." "..S1(acos,mod(n,1))) i=i+1 end end',
+    'function PRn() local s="" local i=1 while i<=8 do s=s..tostring(random(1000)).."," i=i+1 end grimlog("RU "..s) randomseed(7) s="" i=1 while i<=8 do s=s..tostring(random(1000)).."," i=i+1 end grimlog("R2 "..s) s="" i=1 while i<=4 do s=s..format("%.6f",random()).."," i=i+1 end grimlog("R3 "..s) end',
     'function PI() grimlog("I "..format("%d|%5d|%-5d|%05d|%x|%X|%o|%c|%s|%5s|%-5s|%i|%u",42,-7,7,12,255,255,8,65,"abc","ab","cd",5,3)) grimlog("I2 "..format("%d %d %d",2147483647,-2147483648,1e9)) grimlog("I3 "..format("%s %s","q",tostring(nil))) end',
     'function PS() local s="Hello, World! hello" grimlog("S "..strlen(s).." "..strsub(s,3,7).." "..strlower(s).." "..strupper(s).." "..strrep("ab",3).." "..tostring(strfind(s,"o, W")).." "..tostring(strfind(s,"(l+)o")).." "..gsub(s,"l","L").." "..strlen(strrep(s,2))) grimlog("T "..tostring(tonumber("0x1F")).." "..tostring(tonumber("  12  ")).." "..tostring(tonumber("1e3")).." "..tostring(tonumber("abc")).." "..tostring(tonumber("10",2)).." "..tostring(tonumber("1.5e-3")).." "..tostring(tonumber(".5")).." "..tostring(tonumber("-0")).." "..tostring(tonumber("12abc"))) end',
-    'PR() PM() PI() PS() grimlog("PROBESDONE")',
+    'PR() PM() PA() PRn() PI() PS() grimlog("PROBESDONE")',
 ]
 
 
@@ -171,10 +177,10 @@ def main():
         perf = [l for l in log().splitlines() if l.startswith('perf:')]
         if perf: summ.append('INFO ' + perf[-1])
     check(p.poll() is None, 'process alive after phase A')
-    lines = [l for l in log().splitlines() if re.match(r'^(P\d+|M\d+|I\d?|S|T|SORT|POS|ZZ=)\b', l)]
+    lines = [l for l in log().splitlines() if re.match(r'^(P\d+|M\d+|A\d+|RU|R\d|I\d?|S|T|SORT|POS|ZZ=)\b', l)]
     try:
         dl = open(dbg, errors='replace').read().splitlines()
-        lines += ['DBG ' + re.sub(r'^\[\s*\d+\]', '[T]', re.sub(r'\d+\.\d+ ?(ms|s)\b', 'T', l)) for l in dl[:400]]
+        lines += ['DBG ' + re.sub(r'^\[\s*\d+\]', '[T]', re.sub(r'\d+\.\d+ ?(ms|s)\b', 'T', l)) for l in dl[:next((i for i, x in enumerate(dl) if 'c u r r e n t' in x), 400)] if 'FREEING' not in l]
     except OSError:
         pass
     open(os.path.join(out, 'probe.txt'), 'w').write('\n'.join(lines) + '\n')
