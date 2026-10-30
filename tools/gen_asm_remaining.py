@@ -63,6 +63,16 @@ def main():
            "(`src/GRIMFANDANGO.EXE/asm_funcs.s`), its C text in `src/` is only for reading.", "",
            "%d functions in %d modules." % (len(rows), len(by)), ""]
     for m in sorted(by, key=lambda m: -len(by[m])):
+        if m == "rdraster.c":   # the whole software rasteriser stays machine code: one paragraph instead of 372 rows
+            lo, hi = by[m][0][1], by[m][-1][1]
+            out += ["## rdraster.c (%d)" % len(by[m]), "",
+                    "The RDroid software rasteriser (0x%s-0x%s): polygon set-up (`rdRaster_SetupPoly*`, `EdgeSetup*`, `Grad*`), the per-format "
+                    "span fillers (`Span8/16/R/P_*`: flat / textured / lit / z-buffered / colour-keyed variants, about 220 of them) and the "
+                    "`Draw*` drivers that walk the edges.  This is float -> fixed-point code with x87 control-word switches (floor/ceil via "
+                    "FLDCW, see `build/peephole.py`) and it is the hot loop of the frame (build/BUILD_NOTES.md, Performance: 40-50 percent of a "
+                    "frame is the span fillers), so it stays machine code unless a pixel-exact, equally fast C port is written.  "
+                    "`python -I tools/asm_audit.py` lists the blocking flag of each function." % (lo, hi), ""]
+            continue
         out += ["## %s (%d)" % (m, len(by[m])), "", "| address | name | reason |", "|---|---|---|"]
         out += ["| 0x%s | `%s` | %s |" % (a, n, w) for _, a, n, w in by[m]]
         out.append("")

@@ -2578,8 +2578,8 @@ float __thiscall Sector_EdgeDistance(void *this,int edge,float *point)
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   int iVar2;
-  float10 fVar3;
-  float fVar4;
+  float10 extraout_ST0;
+  float fVar3;
   #define fStack_38 (*(float *)(_frame + (0x50 - 0x38)))
   #define auStack_34 (*(undefined1 (*)[4])(_frame + (0x50 - 0x34)))
   #define local_30 (*(float *)(_frame + (0x50 - 0x30)))
@@ -2608,10 +2608,10 @@ float __thiscall Sector_EdgeDistance(void *this,int edge,float *point)
   fStack_20 = point[1] - *(float *)(iVar1 + 8);
   fStack_1c = point[2] - *(float *)(iVar1 + 0xc);
   Vec3_NormalizeTo(&local_c,&local_30);
-  fVar3 = (float10)((code *)Vec3_NormalizeTo)(&fStack_18,&fStack_24);
-  fVar4 = Math_AsinDegreesSeries(fStack_10 * fStack_4 + fStack_14 * fStack_8 + fStack_18 * local_c);
-  Math_SinCosTable(90.0 - fVar4,&fStack_38,auStack_34);
-  return fStack_38 * (float)fVar3;
+  Vec3_NormalizeTo(&fStack_18,&fStack_24);
+  fVar3 = Math_AsinDegreesSeries(fStack_10 * fStack_4 + fStack_14 * fStack_8 + fStack_18 * local_c);
+  Math_SinCosTable(90.0 - fVar3,&fStack_38,auStack_34);
+  return fStack_38 * (float)extraout_ST0;
 }
 #undef auStack_34
 #undef fStack_10

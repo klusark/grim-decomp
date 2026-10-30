@@ -155,6 +155,30 @@ void Game_FrameUpdate(void)
     }
 }
 
+/* ==== Vec3_NormalizeTo (0x00446920) ====
+ * out = v / |v|, or a plain copy of v when |v| is zero (or NaN).  Ghidra shows a void function, but the original leaves
+ * the length |v| unrounded in ST0 and Sector_EdgeDistance (assembled) reads it from there, so
+ * the C pushes the length back on the x87 stack before it returns.  The original keeps the sum of squares, the length
+ * and the quotients in extended precision and rounds to float only on the stores; the walk code is sensitive to that last
+ * bit, so the C uses long double and the same order of additions (x^2 + (y^2 + z^2)). */
+void Vec3_NormalizeTo(float *out, float *v)
+{
+    long double x = v[0], y = v[1], z = v[2];
+    long double len = x * x + (y * y + z * z);
+
+    __asm__("fsqrt" : "+t"(len));
+    if (len == 0.0L || len != len) {                    /* FCOM + "C3 set" is true for equal and for unordered */
+        out[0] = v[0];
+        out[1] = v[1];
+        out[2] = v[2];
+    } else {
+        out[0] = (float)(x / len);
+        out[1] = (float)(y / len);
+        out[2] = (float)(z / len);
+    }
+    __asm__ volatile("fldt %0" : : "m"(len));           /* the hidden return value: ST0 = |v| */
+}
+
 /* ==== Math_NormalizeAngle360 (0x0047bc20) ====
  * Angle in degrees brought into [0, 360).  By hand because of the test at the end: the original stores the result in a
  * float local and compares *that* with 360.0 (a value that rounds to 360.0f is turned into 0).  Compiled from Ghidra's
@@ -328,6 +352,134 @@ int *MeshComponent_NewInstance(int inst, int component, int create)
     data[0] = Cos_InstGetInstanceData(inst, parent, (int *)0);
     data[2] = 1;
     return data;
+}
+
+/* ==== file / save-game helpers: stdFile_ReadByte, stdFile_WriteByte, SaveFile_CheckFUTBHeader, Resource_Filio_SaveState,
+ *      sputPrimitive_SaveState, sputPrimitive_RestoreState (0x004735f0 ... 0x004896b0) ====
+ * The save-game code hands every module a callback (`write(buf, n)` / `read(buf, n)`, non-zero result = failure) and
+ * each module streams its own state through it.  By hand because all of them pass the address of one of their own
+ * *parameter slots* as the buffer (`&param_1`), which Ghidra splits into differently named variables. */
+typedef int (*SaveIO)(void *buf, int n);
+
+/* one byte from a file through the main service table (pFread); the byte lands in the low byte of the buffer */
+uint stdFile_ReadByte(uint file)
+{
+    uint value = 0;
+    (*g_pSvcMain->pFread)(file, &value, 1);
+    return value & 0xff;
+}
+
+void stdFile_WriteByte(undefined4 value, undefined4 file)
+{
+    (*g_pSvcMain->pFwrite)(file, &value, 1);
+}
+
+/* the save file starts with 'FUTB', version 1, flags 0; returns 0 when the header matches, 1 otherwise */
+undefined4 SaveFile_CheckFUTBHeader(code *readFn)
+{
+    SaveIO read = (SaveIO)readFn;
+    int magic, version, flags;
+
+    read(&magic, 4);
+    if (magic != 0x42545546)
+        return 1;
+    read(&version, 4);
+    if (version != 1)
+        return 1;
+    read(&flags, 4);
+    if (flags != 0)
+        return 1;
+    return 0;
+}
+
+/* Resource_Filio module, save-game writer: the list of loaded files (PTR_008a85d4) -> count, then per saved file its name
+ * (length + bytes), its flags word and its "loaded" word.  A file is saved when it has a handle (+0x24) and its name
+ * does not contain the temporary-file marker, or when bit 3 of its flags is set. */
+undefined4 Resource_Filio_SaveState(code *writeFn)
+{
+    SaveIO write = (SaveIO)writeFn;
+    int count = 0, len;
+    int *file;
+
+#define FILE_IS_SAVED(f) ((((f)[9] != 0 && String_ContainsSubstring((uint *)(f)[2], &DAT_004e7b14) == 0) || (*(byte *)((f) + 7) & 8) != 0))
+    for (file = PTR_008a85d4; file != 0; file = (int *)*file)
+        if (FILE_IS_SAVED(file))
+            count++;
+    if (write(&count, 4) != 0)
+        return 1;
+    for (file = PTR_008a85d4; file != 0; file = (int *)*file) {
+        if (!FILE_IS_SAVED(file))
+            continue;
+        len = strlen((char *)file[2]);
+        if (write(&len, 4) != 0 || write((void *)file[2], len) != 0 || write(file + 4, 4) != 0)
+            return 1;
+        file[6] = file[5];
+        if (write(file + 6, 4) != 0)
+            return 1;
+    }
+#undef FILE_IS_SAVED
+    return 0;
+}
+
+/* sputPrimitive module, save-game writer: the screen primitives (list head in UINT_008ca0a0, next pointer at +0) */
+undefined4 sputPrimitive_SaveState(code *writeFn)
+{
+    SaveIO write = (SaveIO)writeFn;
+    int count = 0, id;
+    int *prim;
+
+    for (prim = (int *)UINT_008ca0a0; prim != 0; prim = (int *)*prim)
+        count++;
+    write(&count, 4);
+    for (prim = (int *)UINT_008ca0a0; prim != 0; prim = (int *)*prim) {
+        id = prim[2];
+        write(&id, 4);
+        write(prim + 3, 4);          /* id used by DrawLine & co */
+        write(prim + 4, 4);          /* layer */
+        write(prim + 5, 8);          /* x1, y1 */
+        write(prim + 7, 8);          /* x2, y2 */
+        write(prim + 9, 4);          /* colour */
+        write(prim + 10, 4);
+        write(prim + 11, 4);
+    }
+    return 0;
+}
+
+/* ... and the reader: clears the list, re-creates every primitive (PrimitiveList_Append) and fills in its fields */
+undefined4 sputPrimitive_RestoreState(code *readFn)
+{
+    SaveIO read = (SaveIO)readFn;
+    int count, kind, id, layer, color, f28, f2c;
+    int rect[4];
+    int *prim;
+
+    PrimitiveList_Clear((int *)&UINT_008ca0a0);
+    read(&count, 4);
+    while (count != 0) {
+        count--;
+        rect[0] = rect[1] = rect[2] = rect[3] = 0;
+        read(&kind, 4);
+        read(&id, 4);
+        read(&layer, 4);
+        read(&rect[0], 8);
+        read(&rect[2], 8);
+        read(&color, 4);
+        read(&f28, 4);
+        read(&f2c, 4);
+        prim = (int *)PrimitiveList_Append(&UINT_008ca0a0, id, layer);
+        if (prim != 0) {
+            prim[2] = kind;
+            prim[5] = rect[0];
+            prim[6] = rect[1];
+            prim[7] = rect[2];
+            prim[8] = rect[3];
+            prim[9] = color;
+            prim[10] = f28;
+            prim[11] = f2c;
+        }
+        g_nNextPrimitiveId = id + 1;
+    }
+    return 0;
 }
 
 #endif /* GRIM_EXE */

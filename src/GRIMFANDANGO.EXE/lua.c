@@ -604,12 +604,13 @@ void Lua_ChangePrimitive(void)
     if ((iVar4 != 0) && (iVar4 = lua_tag(iVar3), iVar4 == 0x524c4f43)) {
       uVar5 = lua_getuserdata(iVar3);
       PIECE(local_10,2,1) = (byte)(uVar5 >> 0x10);
-      ((code *)Primitive_SetColor)(iVar1,(uint)(PIECE(local_10,2,1) >> ((byte)UINT_004ddac8 & 0x1f)) <<
-                               ((byte)UINT_004ddabc & 0x1f) & 0xffff |
-                               ((uVar5 >> 8 & 0xff) >> ((byte)UINT_004ddac4 & 0x1f)) <<
-                               ((byte)UINT_004ddab8 & 0x1f) & 0xffff |
-                               ((uVar5 & 0xff) >> ((byte)UINT_004ddac0 & 0x1f)) <<
-                               ((byte)UINT_004ddab4 & 0x1f) & 0xffff);
+      Primitive_SetColor(&UINT_008ca0a0,iVar1,
+                         (uint)(PIECE(local_10,2,1) >> ((byte)UINT_004ddac8 & 0x1f)) <<
+                         ((byte)UINT_004ddabc & 0x1f) & 0xffff |
+                         ((uVar5 >> 8 & 0xff) >> ((byte)UINT_004ddac4 & 0x1f)) <<
+                         ((byte)UINT_004ddab8 & 0x1f) & 0xffff |
+                         ((uVar5 & 0xff) >> ((byte)UINT_004ddac0 & 0x1f)) <<
+                         ((byte)UINT_004ddab4 & 0x1f) & 0xffff);
     }
     lua_pushobject(iVar2);
     lua_pushstring(PTR_s_layer_004e8390);
@@ -617,7 +618,7 @@ void Lua_ChangePrimitive(void)
     iVar4 = lua_isnumber(iVar3);
     if (iVar4 != 0) {
       lVar7 = (longlong)lua_getnumber(iVar3);
-      ((code *)Primitive_SetLayer)(iVar1,(int)lVar7);
+      Primitive_SetLayer(&UINT_008ca0a0,iVar1,(int)lVar7);
     }
     lua_pushobject(iVar2);
     lua_pushstring(PTR_s_xoffset_004e836c);
@@ -641,7 +642,7 @@ void Lua_ChangePrimitive(void)
         lVar7 = (longlong)lua_getnumber(iVar4);
         iVar3 = (int)lVar7;
       }
-      ((code *)Primitive_Offset)(iVar1,local_8,iVar3);
+      Primitive_Offset(&UINT_008ca0a0,iVar1,local_8,iVar3);
     }
     lua_pushobject(iVar2);
     lua_pushstring(PTR_DAT_004e8374);
@@ -665,7 +666,7 @@ void Lua_ChangePrimitive(void)
         lVar7 = (longlong)lua_getnumber(iVar4);
         iVar3 = (int)lVar7;
       }
-      ((code *)Primitive_MoveTo)(iVar1,local_8,iVar3);
+      Primitive_MoveTo(&UINT_008ca0a0,iVar1,local_8,iVar3);
     }
     lua_pushobject(iVar2);
     lua_pushstring(PTR_DAT_004e837c);
@@ -689,7 +690,7 @@ void Lua_ChangePrimitive(void)
         lVar7 = (longlong)lua_getnumber(iVar4);
         iVar3 = (int)lVar7;
       }
-      ((code *)Primitive_SetEnd)(iVar1,local_8,iVar3);
+      Primitive_SetEnd(&UINT_008ca0a0,iVar1,local_8,iVar3);
     }
     lua_pushobject(iVar2);
     lua_pushstring(PTR_s_width_004e8384);
@@ -715,7 +716,7 @@ void Lua_ChangePrimitive(void)
       lVar7 = (longlong)lua_getnumber(iVar2);
       iVar6 = (int)lVar7;
     }
-    ((code *)Primitive_SetSize)(iVar1,iVar3,iVar6);
+    Primitive_SetSize(&UINT_008ca0a0,iVar1,iVar3,iVar6);
     return;
   }
   return;

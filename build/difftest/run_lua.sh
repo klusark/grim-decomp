@@ -36,6 +36,12 @@ until grep -aq '^DONE' "$LOG" 2>/dev/null || [ $i -ge $((MAX*2)) ] || ! kill -0 
   fi
 done
 i=$((i/2))
+# optional follow-up lines (env FOLLOW, one Lua statement per line) run after the script reported DONE, e.g. a Load() whose
+# result is checked in the log; the hook runs one line per frame
+if [ -n "$FOLLOW" ] && kill -0 $PID 2>/dev/null; then
+  printf '%s
+' "$FOLLOW" >> "$CMD"; sleep 6
+fi
 kill -0 $PID 2>/dev/null || echo "GAME EXITED/CRASHED" >> "$LOG"
 cp "$LOG" "$OUT"; ls "$DD"/grim_crash* 2>/dev/null && cp "$DD"/grim_crash* "$OUT.crash"
 kill $PID 2>/dev/null; taskkill //F //PID $PID >/dev/null 2>&1
