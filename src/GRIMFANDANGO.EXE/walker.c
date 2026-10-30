@@ -667,8 +667,6 @@ void __cdecl Walker_SetFadeTime(int ms)
 
 
 /* ---- 0x004a8200  Walker_Create ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Allocates the 0x60-byte walker record */
 
 void * __thiscall Walker_Create(void *this,float radius)
@@ -694,12 +692,8 @@ void * __thiscall Walker_Create(void *this,float radius)
   UINT_008d086c = (uint)this;
   return this;
 }
-#endif
-
 
 /* ---- 0x004a8270  Walker_Destroy ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void __fastcall Walker_Destroy(int param_1)
 
 {
@@ -714,12 +708,8 @@ void __fastcall Walker_Destroy(int param_1)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x004a82a0  Walker_GetAngles ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Converts the walker's 3x3 frame to pitch/yaw/roll in g_vWalkerAngles */
 
 undefined * __fastcall Walker_GetAngles(int param_1)
@@ -728,12 +718,8 @@ undefined * __fastcall Walker_GetAngles(int param_1)
   Matrix_ToAngles(param_1 + 0xc,&DAT_008cf250);
   return &DAT_008cf250;
 }
-#endif
-
 
 /* ---- 0x004a82c0  Walker_ReattachToSet ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Called after Actor_PutInSet when the actor has a walker so it picks up the new set's sectors */
 
 void __fastcall Walker_ReattachToSet(void *param_1)
@@ -754,12 +740,8 @@ void __fastcall Walker_ReattachToSet(void *param_1)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x004a8310  Walker_SetPosition ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void __thiscall Walker_SetPosition(void *this,float *pos)
 
 {
@@ -771,24 +753,16 @@ void __thiscall Walker_SetPosition(void *this,float *pos)
   *(float *)((int)this + 0x38) = pos[2];
   return;
 }
-#endif
-
 
 /* ---- 0x004a8350  Walker_RotateVector ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void __thiscall Walker_RotateVector(void *this,float *vec)
 
 {
   Vec3_Rotate3x3(vec,(float *)((int)this + 0xc));
   return;
 }
-#endif
-
 
 /* ---- 0x004a8370  Walker_ToLocalSpace ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Rotates a world vector into the current walker's frame */
 
 void __thiscall Walker_ToLocalSpace(void *this,float *vec)
@@ -812,13 +786,11 @@ void __thiscall Walker_ToLocalSpace(void *this,float *vec)
 #undef local_8
 #undef local_c
 
-#endif
-
 
 /* ---- 0x004a83c0  Walker_TurnHeading ---- */
 /* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
-undefined * __thiscall Walker_TurnHeading(void *this,int a1)
+undefined * __thiscall Walker_TurnHeading(void *this,float angle)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -826,7 +798,7 @@ undefined * __thiscall Walker_TurnHeading(void *this,int a1)
   undefined *extraout_EAX;
   #define local_30 (*(float (*)[12])(_frame + (0x40 - 0x30)))
   
-  Matrix_AxisAngle(local_30,(int)this + 0x24,a1);
+  Matrix_AxisAngle(local_30,(int)this + 0x24,angle);
   vec = (float *)((int)this + 0x18);
   Vec3_Transform(vec,local_30);
   *vec = *vec + *(float *)((int)this + 0x30);
@@ -874,7 +846,7 @@ float __thiscall Walker_TurnToPoint(void *this,int a1,int a2)
   if (0.0 < local_c) {
     a1 = PUN(int,(float)(PUN(float,a1) * -1.0));
   }
-  Walker_TurnHeading(this,a1);
+  Walker_TurnHeading(this,PUN(float,a1));
   return PUN(float,a1);
 }
 #undef local_4
@@ -916,15 +888,13 @@ undefined * __thiscall Walker_SetConstraint(void *this,int a1)
 
 
 /* ---- 0x004a8610  Walker_WalkSectors ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* WARNING: Variable defined which should be unmapped: local_48 */
 /* Walker_WalkSectors: the per-frame walk of an actor over the walk sectors (target-inside test with
    tolerance, exit point of the edge, neighbour lookup with the current sector deactivated, 0.02 cap
    into the new sector, reflection turn only when |angle| < reflect and not against a held turn
    key). See autorun/NAV_PLAN.md and COLLISION_FIX_PLAN.md. */
 
-undefined * __thiscall Walker_WalkSectors(void *this,int a1,int a2,int a3)
+undefined * __thiscall Walker_WalkSectors(void *this,float step,int turnLeftOk,int turnRightOk)
 
 {
   unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -934,13 +904,13 @@ undefined * __thiscall Walker_WalkSectors(void *this,int a1,int a2,int a3)
   float fVar3;
   #define local_48 (*(float *)(_frame + (0x60 - 0x48)))
   #define local_34 (*(float *)(_frame + (0x60 - 0x34)))
-  #define local_30 (*(uint *)(_frame + (0x60 - 0x30)))
+  #define local_30 (*(float *)(_frame + (0x60 - 0x30)))
   #define local_2c (*(uint *)(_frame + (0x60 - 0x2c)))
   #define local_28 (*(uint *)(_frame + (0x60 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x60 - 0x24)))
+  #define local_24 (*(float *)(_frame + (0x60 - 0x24)))
   #define local_20 (*(float *)(_frame + (0x60 - 0x20)))
   #define local_1c (*(uint *)(_frame + (0x60 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x60 - 0x18)))
+  #define local_18 (*(float *)(_frame + (0x60 - 0x18)))
   #define local_14 (*(float *)(_frame + (0x60 - 0x14)))
   #define local_10 (*(uint *)(_frame + (0x60 - 0x10)))
   #define local_c (*(float *)(_frame + (0x60 - 0xc)))
@@ -949,7 +919,7 @@ undefined * __thiscall Walker_WalkSectors(void *this,int a1,int a2,int a3)
   
   puVar2 = (undefined *)0x0;
   if (UINT_008d0870 == 0) {
-    *(int *)((int)this + 0x40) = a1;
+    *(float *)((int)this + 0x40) = step;
   }
   UINT_008d0870 = UINT_008d0870 + 1;
   if (*(int *)((int)this + 0x50) != 0) {
@@ -967,15 +937,14 @@ undefined * __thiscall Walker_WalkSectors(void *this,int a1,int a2,int a3)
     if (fVar3 <= 0.0) {
       local_48 = -local_48;
     }
-    Walker_TurnHeading(this,PUN(int,(float)local_48));
+    Walker_TurnHeading(this,local_48);
   }
-  local_30 = 0;
-  local_2c = a1;
+  local_30 = 0.0;
+  local_2c = PUN(uint,(float)step);
   local_28 = 0;
-  Walker_RotateVector(this,(float *)&local_30);
+  Walker_RotateVector(this,&local_30);
   if ((*(void **)((int)this + 0x5c) == (void *)0x0) ||
-     (iVar1 = Sector_ContainsPoint(*(void **)((int)this + 0x5c),(float *)&local_30,1), iVar1 != 0))
-  {
+     (iVar1 = Sector_ContainsPoint(*(void **)((int)this + 0x5c),&local_30,1), iVar1 != 0)) {
     local_48 = PUN(float,&local_30);
     Walker_SetPosition(this,PUN(float *,(float)local_48));
     UINT_008d0870 = 0;
@@ -991,11 +960,11 @@ undefined * __thiscall Walker_WalkSectors(void *this,int a1,int a2,int a3)
   local_18 = local_24;
   local_14 = local_20;
   local_10 = local_1c;
-  Walker_ToLocalSpace(this,(float *)&local_18);
-  a1 = PUN(int,(float)(PUN(float,a1) - local_14));
+  Walker_ToLocalSpace(this,&local_18);
+  step = step - local_14;
   iVar1 = SectorList_FindByPoint(&local_24,0x1000);
   if (iVar1 == 0) {
-    Walker_SetPosition(this,(float *)&local_24);
+    Walker_SetPosition(this,&local_24);
     iVar1 = *(int *)((int)this + 0x5c);
     if ((*(uint *)(iVar1 + 0x24) & 0x100) == 0) {
       fVar3 = local_34;
@@ -1003,15 +972,16 @@ undefined * __thiscall Walker_WalkSectors(void *this,int a1,int a2,int a3)
         fVar3 = -local_34;
       }
       if ((*(float *)((int)this + 0x3c) <= fVar3) || (*(int *)((int)this + 0x50) != 0)) {
-        *(float *)((int)this + 0x40) = *(float *)((int)this + 0x40) - PUN(float,a1);
+        *(float *)((int)this + 0x40) = *(float *)((int)this + 0x40) - step;
       }
-      else if (((0.0 < local_34) && (a2 != 0)) || ((local_34 < 0.0 && (a3 != 0)))) {
-        Walker_TurnHeading(this,PUN(int,(float)local_34));
+      else if (((0.0 < local_34) && (turnLeftOk != 0)) || ((local_34 < 0.0 && (turnRightOk != 0))))
+      {
+        Walker_TurnHeading(this,local_34);
         *(undefined4 *)((int)this_00 + 0x2c) = 1;
-        puVar2 = Walker_WalkSectors(this,a1,1,1);
+        puVar2 = Walker_WalkSectors(this,step,1,1);
       }
       if (*(int *)((int)this + 0x50) != 0) {
-        Walker_TurnHeading(this,PUN(int,(float)local_34));
+        Walker_TurnHeading(this,local_34);
         *(undefined4 *)((int)this + 0x50) = 1;
         *(undefined4 *)((int)this + 0x44) = *(undefined4 *)((int)this + 0x18);
         *(undefined4 *)((int)this + 0x48) = *(undefined4 *)((int)this + 0x1c);
@@ -1034,20 +1004,20 @@ undefined * __thiscall Walker_WalkSectors(void *this,int a1,int a2,int a3)
       else if (3.0 < local_34) {
         local_34 = -90.2 - (90.0 - local_34);
       }
-      Walker_TurnHeading(this,PUN(int,(float)local_34));
-      puVar2 = Walker_WalkSectors(this,a1,1,1);
+      Walker_TurnHeading(this,local_34);
+      puVar2 = Walker_WalkSectors(this,step,1,1);
       *(undefined4 *)((int)this_00 + 0x2c) = 1;
       return puVar2;
     }
     return (undefined *)0x0;
   }
-  Walker_SetPosition(this,(float *)&local_24);
+  Walker_SetPosition(this,&local_24);
   *(int *)((int)this + 0x5c) = iVar1;
   Walker_SetSectorFrame(this,iVar1);
-  if (0.02 <= PUN(float,a1)) {
-    a1 = 0x3ca3d70a;
+  if (0.02 <= step) {
+    step = 0.02;
   }
-  puVar2 = Walker_WalkSectors(this,a1,1,1);
+  puVar2 = Walker_WalkSectors(this,step,1,1);
   *(undefined4 *)((int)this_00 + 0x2c) = 1;
   return puVar2;
 }
@@ -1065,8 +1035,6 @@ undefined * __thiscall Walker_WalkSectors(void *this,int a1,int a2,int a3)
 #undef local_48
 #undef local_8
 #undef local_c
-
-#endif
 
 
 /* ---- 0x004a89b0  Walker_SetSectorFrame ---- */
@@ -1107,8 +1075,6 @@ undefined * __thiscall Walker_SetSectorFrame(void *this,int a1)
 
 
 /* ---- 0x004a8a90  Walker_RebuildRightVector ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void __fastcall Walker_RebuildRightVector(int param_1)
 
 {
@@ -1128,8 +1094,6 @@ void __fastcall Walker_RebuildRightVector(int param_1)
   Vec3_Normalize((float *)(param_1 + 0xc));
   return;
 }
-#endif
-
 
 /* ---- 0x004a8b00  Walker_DrawDebugAxes ---- */
 /* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
@@ -1139,48 +1103,48 @@ void __stdcall Walker_DrawDebugAxes(int color)
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   void *in_ECX;
-  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
+  #define local_18 (*(float *)(_frame + (0x30 - 0x18)))
   #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
   #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
+  #define local_c (*(float *)(_frame + (0x30 - 0xc)))
   #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
   
-  local_c = 0;
+  local_c = 0.0;
   local_8 = 0;
   local_4 = 0;
-  local_18 = 0;
+  local_18 = 0.0;
   local_14 = 0x3dcccccd;
   local_10 = 0;
-  Walker_RotateVector(in_ECX,(float *)&local_c);
-  Walker_RotateVector(in_ECX,(float *)&local_18);
+  Walker_RotateVector(in_ECX,&local_c);
+  Walker_RotateVector(in_ECX,&local_18);
   rdPrimit3_DrawLine(&local_c,&local_18,0,0,0,0,color,0xffffffff);
-  local_c = 0x3d4ccccd;
+  local_c = 0.05;
   local_8 = 0x3d4ccccd;
   local_4 = 0;
-  local_18 = 0;
+  local_18 = 0.0;
   local_14 = 0x3dcccccd;
   local_10 = 0;
-  Walker_RotateVector(in_ECX,(float *)&local_c);
-  Walker_RotateVector(in_ECX,(float *)&local_18);
+  Walker_RotateVector(in_ECX,&local_c);
+  Walker_RotateVector(in_ECX,&local_18);
   rdPrimit3_DrawLine(&local_c,&local_18,0,0,0,0,color,0xffffffff);
-  local_c = 0xbd4ccccd;
+  local_c = -0.05;
   local_8 = 0x3d4ccccd;
   local_4 = 0;
-  local_18 = 0;
+  local_18 = 0.0;
   local_14 = 0x3dcccccd;
   local_10 = 0;
-  Walker_RotateVector(in_ECX,(float *)&local_c);
-  Walker_RotateVector(in_ECX,(float *)&local_18);
+  Walker_RotateVector(in_ECX,&local_c);
+  Walker_RotateVector(in_ECX,&local_18);
   rdPrimit3_DrawLine(&local_c,&local_18,0,0,0,0,color,0xffffffff);
-  local_c = 0;
+  local_c = 0.0;
   local_8 = 0;
   local_4 = 0x3d4ccccd;
-  local_18 = 0;
+  local_18 = 0.0;
   local_14 = 0;
   local_10 = 0;
-  Walker_RotateVector(in_ECX,(float *)&local_c);
-  Walker_RotateVector(in_ECX,(float *)&local_18);
+  Walker_RotateVector(in_ECX,&local_c);
+  Walker_RotateVector(in_ECX,&local_18);
   rdPrimit3_DrawLine(&local_c,&local_18,0,0,0,0,color,0xffffffff);
   return;
 }
@@ -1195,20 +1159,14 @@ void __stdcall Walker_DrawDebugAxes(int color)
 
 
 /* ---- 0x004a9420  Planner_GetPath ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 uint Planner_GetPath(undefined4 *param_1)
 
 {
   *param_1 = &UINT_008cf0b0;
   return UINT_008cf248;
 }
-#endif
-
 
 /* ---- 0x004a9430  Planner_PlanPath ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 undefined4 Planner_PlanPath(undefined4 param_1,uint *param_2,int param_3)
 
 {
@@ -1243,12 +1201,8 @@ undefined4 Planner_PlanPath(undefined4 param_1,uint *param_2,int param_3)
   SectorList_ResetFree();
   return uVar3;
 }
-#endif
-
 
 /* ---- 0x004a94d0  Planner_SearchSectors ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 undefined4 Planner_SearchSectors(float *param_1,float *param_2,void *param_3)
 
 {
@@ -1337,8 +1291,6 @@ undefined4 Planner_SearchSectors(float *param_1,float *param_2,void *param_3)
 #undef local_1f4
 #undef local_1f8
 #undef local_1fc
-
-#endif
 
 
 /* ---- 0x004a96f0  Planner_CollectSharedCorners ---- */
@@ -1478,8 +1430,6 @@ uint Planner_CollectSharedCorners(void *param_1,float *param_2,uint *param_3)
 
 
 /* ---- 0x004a9920  Planner_PortalPoint ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 undefined4 Planner_PortalPoint(void *param_1,void *param_2,float *param_3,undefined4 *param_4)
 
 {
@@ -1544,12 +1494,8 @@ undefined4 Planner_PortalPoint(void *param_1,void *param_2,float *param_3,undefi
 }
 #undef local_4
 
-#endif
-
 
 /* ---- 0x004a9aa0  Planner_SmoothPath ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 undefined4 Planner_SmoothPath(void)
 
 {
@@ -1644,12 +1590,8 @@ undefined4 Planner_SmoothPath(void)
 #undef local_8
 #undef local_c
 
-#endif
-
 
 /* ---- 0x004a9ca0  Planner_SharedSector ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void * Planner_SharedSector(undefined4 param_1,float *param_2)
 
 {
@@ -1664,5 +1606,3 @@ void * Planner_SharedSector(undefined4 param_1,float *param_2)
   SectorList_ResetFree();
   return this;
 }
-#endif
-

@@ -1031,27 +1031,25 @@ void Actor_SetRot(int param_1,undefined4 *param_2,int param_3)
   int iVar1;
   undefined4 uVar2;
   float fVar3;
-  #define local_40 (*(uint *)(_frame + (0x50 - 0x40)))
+  #define local_40 (*(float *)(_frame + (0x50 - 0x40)))
   #define local_30 (*(undefined1 (*)[12])(_frame + (0x50 - 0x30)))
-  #define local_24 (*(uint *)(_frame + (0x50 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x50 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x50 - 0x1c)))
+  #define local_24 (*(float (*)[3])(_frame + (0x50 - 0x24)))
   
   *(uint *)(param_1 + 8) = *(uint *)(param_1 + 8) & 0xfffffffe;
   if ((*(int *)(param_1 + 0xa4) != 0) &&
      (this = *(float **)(*(int *)(param_1 + 0xa4) + 0x1b4), this != (float *)0x0)) {
     Angles_ToMatrixNoPos(local_30,param_2);
-    local_24 = PUN(uint,(float)(PUN(float,local_24) + *this));
-    local_20 = PUN(uint,(float)(this[1] + PUN(float,local_20)));
-    local_1c = PUN(uint,(float)(this[2] + PUN(float,local_1c)));
-    Walker_ToLocalSpace(this,(float *)&local_24);
-    local_1c = 0;
-    Vec3_Normalize((float *)&local_24);
-    fVar3 = Math_AsinDegreesSeries(PUN(float,local_20));
+    local_24[0] = local_24[0] + *this;
+    local_24[1] = this[1] + local_24[1];
+    local_24[2] = this[2] + local_24[2];
+    Walker_ToLocalSpace(this,local_24);
+    local_24[2] = 0.0;
+    Vec3_Normalize(local_24);
+    fVar3 = Math_AsinDegreesSeries(local_24[1]);
     fVar3 = 90.0 - fVar3;
-    local_40 = PUN(uint,(float)fVar3);
-    if (0.0 < PUN(float,local_24)) {
-      local_40 = PUN(uint,(float)-fVar3);
+    local_40 = fVar3;
+    if (0.0 < local_24[0]) {
+      local_40 = -fVar3;
     }
     Walker_TurnHeading(this,local_40);
     iVar1 = *(int *)(param_1 + 0xa4);
@@ -1071,8 +1069,6 @@ void Actor_SetRot(int param_1,undefined4 *param_2,int param_3)
   *(undefined4 *)(param_1 + 0x2c) = uVar2;
   return;
 }
-#undef local_1c
-#undef local_20
 #undef local_24
 #undef local_30
 #undef local_40
@@ -1375,31 +1371,31 @@ void Actor_UpdateWalker(int param_1)
   undefined *puVar3;
   undefined4 uVar4;
   float fVar5;
-  uint a2;
-  uint a3;
+  uint turnLeftOk;
+  uint turnRightOk;
   
   puVar1 = *(undefined4 **)(*(int *)(param_1 + 0xa4) + 0x1b4);
   if ((*(int *)(*(int *)(param_1 + 0xa4) + 0x10) != 0) && ((*(byte *)(param_1 + 8) & 1) == 0)) {
     iVar2 = *(int *)(param_1 + 0xa4);
     fVar5 = Timer_GetFrameSeconds();
     Walker_TurnHeading(*(void **)(iVar2 + 0x1b4),
-                       PUN(int,(float)((float)*(int *)(iVar2 + 0x10) *
-                            *(float *)(iVar2 + 0x1c) * fVar5 * *(float *)(iVar2 + 0x41c))));
+                       (float)*(int *)(iVar2 + 0x10) *
+                       *(float *)(iVar2 + 0x1c) * fVar5 * *(float *)(iVar2 + 0x41c));
   }
   iVar2 = *(int *)(param_1 + 0xa4);
   if (*(int *)(iVar2 + 0xc) != 0) {
     fVar5 = Timer_GetFrameSeconds();
     if (*(int *)(iVar2 + 0x1bc) == 0) {
-      a3 = (uint)(*(int *)(iVar2 + 0x10) != 1);
-      a2 = (uint)(*(int *)(iVar2 + 0x10) != -1);
+      turnRightOk = (uint)(*(int *)(iVar2 + 0x10) != 1);
+      turnLeftOk = (uint)(*(int *)(iVar2 + 0x10) != -1);
     }
     else {
-      a3 = 1;
-      a2 = 1;
+      turnRightOk = 1;
+      turnLeftOk = 1;
     }
     puVar3 = Walker_WalkSectors(*(void **)(iVar2 + 0x1b4),
-                                PUN(int,(float)(fVar5 * *(float *)(iVar2 + 0x41c) * *(float *)(iVar2 + 0x18))),
-                                a2,a3);
+                                fVar5 * *(float *)(iVar2 + 0x41c) * *(float *)(iVar2 + 0x18),
+                                turnLeftOk,turnRightOk);
     *(undefined **)(*(int *)(param_1 + 0xa4) + 0xc) = puVar3;
   }
   uVar4 = Walker_UpdateYaw(param_1,puVar1);
@@ -2893,6 +2889,8 @@ LAB_004a5fa6:
 }
 
 /* ---- 0x004a8500  Actor_GetYawToPoint ---- */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+#if 0
 float __thiscall Actor_GetYawToPoint(void *this,int a1)
 
 {
@@ -2928,4 +2926,6 @@ float __thiscall Actor_GetYawToPoint(void *this,int a1)
 #undef local_4
 #undef local_8
 #undef local_c
+
+#endif
 

@@ -1858,10 +1858,10 @@ void __fastcall Walker_ReattachToSet(void *param_1); /* 0x004a82c0 */
 void __thiscall Walker_SetPosition(void *this,float *pos); /* 0x004a8310 */
 void __thiscall Walker_RotateVector(void *this,float *vec); /* 0x004a8350 */
 void __thiscall Walker_ToLocalSpace(void *this,float *vec); /* 0x004a8370 */
-undefined * __thiscall Walker_TurnHeading(void *this,int a1); /* 0x004a83c0 */
+undefined * __thiscall Walker_TurnHeading(void *this,float angle); /* 0x004a83c0 */
 float __thiscall Walker_TurnToPoint(void *this,int a1,int a2); /* 0x004a8450 */
 undefined * __thiscall Walker_SetConstraint(void *this,int a1); /* 0x004a85b0 */
-undefined * __thiscall Walker_WalkSectors(void *this,int a1,int a2,int a3); /* 0x004a8610 */
+undefined * __thiscall Walker_WalkSectors(void *this,float step,int turnLeftOk,int turnRightOk); /* 0x004a8610 */
 undefined * __thiscall Walker_SetSectorFrame(void *this,int a1); /* 0x004a89b0 */
 void __fastcall Walker_RebuildRightVector(int param_1); /* 0x004a8a90 */
 void __stdcall Walker_DrawDebugAxes(int color); /* 0x004a8b00 */
