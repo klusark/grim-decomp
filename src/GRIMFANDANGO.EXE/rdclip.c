@@ -152,8 +152,6 @@ int __cdecl rdClip_PointInFrustum(void *frustum,float *point)
 }
 
 /* ---- 0x00446f80  rdClip_Line3 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 int __cdecl rdClip_Line3(void *frustum,float *p0,float *p1,int *clipped0,int *clipped1)
 
 {
@@ -489,8 +487,6 @@ int __cdecl rdClip_Line3(void *frustum,float *p0,float *p1,int *clipped0,int *cl
   }
   return 1;
 }
-#endif
-
 
 /* ---- 0x004478c0  rdClip_Face3_Pos ---- */
 /* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */

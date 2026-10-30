@@ -1505,8 +1505,6 @@ undefined4 D3D_InitRenderState(void)
 
 
 /* ---- 0x0047a130  D3D_CreateViewport ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 undefined4 D3D_CreateViewport(void)
 
 {
@@ -1571,8 +1569,6 @@ undefined4 D3D_CreateViewport(void)
 #undef uStack_30
 #undef uStack_58
 #undef uStack_c
-
-#endif
 
 
 /* ---- 0x0047a240  D3D_CreateZBuffer ---- */

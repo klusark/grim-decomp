@@ -805,6 +805,11 @@ def fix_fnptr_calls(body, vt, ctx):
     return re.sub(r"\(\*(\**\s*[A-Za-z_]\w*(?:->\w+)?)\)\s*\(", rep, body)
 
 
+# parameters that are floats in the original but typed int in Ghidra, in functions outside the part of the EXE this
+# tree retypes (0x4a0000 and up: Ghidra's prototype stays, so the call site is fixed here): {callee: (argument indices)}
+FLOAT_BIT_ARGS = {"Walker_TurnToPoint": (2,), "Walker_TurnHeading": (1,)}
+
+
 def fix_call_args(body, vt, ctx, stats):
     """A float parameter given a pointer-typed variable (or the reverse) is again one
     register reused by Ghidra: PUN the argument."""
@@ -825,6 +830,9 @@ def fix_call_args(body, vt, ctx, stats):
                 args[i] = f"PUN(float,{a.strip()})"
             elif pk == "ptr" and ak == "float":
                 args[i] = f"PUN({pt},(float){a.strip()})"
+            elif i in FLOAT_BIT_ARGS.get(m.group(1), ()) and re.match(r"\s*\((?:u?int)\)\s*\(?[^,]*(?:\b[fd]Var\d+|\b\d+\.\d+|\(float\))", a):
+                # a parameter the callee reads as float bits, declared int: the decompiler printed `(int)(float expr)`
+                args[i] = "PUN(int,(float)" + re.sub(r"^\s*\((?:u?int)\)", "", a).strip() + ")"
             elif pk == "float" and re.fullmatch(r"\s*0x[0-9a-f]{6,8}\s*", a) and int(a, 16) >= 0x00800000:
                 # a float constant the decompiler printed as the hex of its bits (callee's float parameter)
                 args[i] = f"FBITS({a.strip()})"

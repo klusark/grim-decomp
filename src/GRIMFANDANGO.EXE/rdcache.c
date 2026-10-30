@@ -1296,8 +1296,6 @@ int rdCache_CompareBatchEntries(int param_1,int param_2)
 }
 
 /* ---- 0x00407fd0  rdCache_DrawMesh ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Software path without z-buffer: clamps the mesh modes to the global limits and calls the
    rasterizer entry for each face */
 
@@ -1776,8 +1774,6 @@ LAB_00408067:
   return 1;
 }
 #undef local_4
-
-#endif
 
 
 /* ---- 0x00408800  FUN_00408800 ---- */

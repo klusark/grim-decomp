@@ -750,8 +750,6 @@ void __cdecl rdPuppet_UpdateFrame(void *model,float *frame)
 
 
 /* ---- 0x00451800  rdKeyframe_InterpolateNode ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 float __cdecl
 rdKeyframe_InterpolateNode
           (int *param_1,int param_2,uint param_3,uint param_4,int param_5,float *param_6,int param_7
@@ -800,8 +798,6 @@ rdKeyframe_InterpolateNode
 }
 #undef local_10
 #undef local_4
-
-#endif
 
 
 /* ---- 0x004c0630  rdKeyframe_NewEntry ---- */

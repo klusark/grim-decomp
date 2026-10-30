@@ -6,8 +6,6 @@
 #include "functions.h"
 
 /* ---- 0x0040cf20  rdThing_Draw ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Rdthing.c: frustum-tests the model's bounding sphere, picks the geometry set, updates the puppet
    and draws the node hierarchy */
 
@@ -101,8 +99,6 @@ int __cdecl rdThing_Draw(void *thing,float *position)
   return 0;
 }
 #undef local_c
-
-#endif
 
 
 /* ---- 0x00471a40  rdThing_New ---- */

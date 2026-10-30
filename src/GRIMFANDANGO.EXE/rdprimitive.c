@@ -6,8 +6,6 @@
 #include "functions.h"
 
 /* ---- 0x00471ee0  rdPolyline_Draw ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* WARNING: Variable defined which should be unmapped: local_b0 */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -118,8 +116,6 @@ undefined4 rdPolyline_Draw(int param_1,float *param_2)
 #undef local_9c
 #undef local_a0
 #undef local_b0
-
-#endif
 
 
 /* ---- 0x00472360  rdPolyline_DrawFace ---- */

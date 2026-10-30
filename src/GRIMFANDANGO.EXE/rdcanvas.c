@@ -633,8 +633,6 @@ void rdCanvas_BuildEdgeLists(void)
 
 
 /* ---- 0x00405770  rdCanvas_PreparePolygon ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 undefined4 rdCanvas_PreparePolygon(byte *param_1)
 
 {
@@ -1329,8 +1327,6 @@ LAB_0040585d:
   return 1;
 }
 #undef local_4
-
-#endif
 
 
 /* ---- 0x00451950  rdCanvas_DrawLine ---- */

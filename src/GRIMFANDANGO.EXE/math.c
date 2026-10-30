@@ -79,8 +79,6 @@ float __cdecl Math_NormalizeAngle360(float degrees)
 
 
 /* ---- 0x0047bce0  Math_NormalizeAngle180 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 float __cdecl Math_NormalizeAngle180(float param_1)
 
 {
@@ -94,8 +92,6 @@ float __cdecl Math_NormalizeAngle180(float param_1)
   return local_8;
 }
 #undef local_8
-
-#endif
 
 
 /* ---- 0x0047bd20  Math_SinCosTable ---- */
@@ -369,8 +365,6 @@ float10 Math_SinDeg(float param_1)
 
 
 /* ---- 0x0047c3b0  Math_AsinDegrees ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* WARNING: Variable defined which should be unmapped: local_18 */
 
 float __cdecl Math_AsinDegrees(float x)
@@ -407,8 +401,6 @@ float __cdecl Math_AsinDegrees(float x)
 #undef local_18
 #undef local_8
 
-#endif
-
 
 /* ---- 0x0047c490  Math_Sqrt ---- */
 float __cdecl Math_Sqrt(float param_1)
@@ -418,8 +410,6 @@ float __cdecl Math_Sqrt(float param_1)
 }
 
 /* ---- 0x0047c4a0  Math_AsinDegreesSeries ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* WARNING: Variable defined which should be unmapped: local_28 */
 
 float __cdecl Math_AsinDegreesSeries(float param_1)
@@ -469,8 +459,6 @@ float __cdecl Math_AsinDegreesSeries(float param_1)
 #undef local_24
 #undef local_28
 #undef local_8
-
-#endif
 
 
 /* ---- 0x0047c5f0  Math_Atan2Deg ---- */
