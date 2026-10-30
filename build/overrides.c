@@ -376,6 +376,29 @@ void GRIM_RegisterModApi(void)
 #include "globals.h"
 #include "functions.h"
 
+/* The iMUSE re-entrancy guard (DAT_100172c0, Enter/Leave around nearly every Im* call) is a plain counter:
+ * Enter is INC without LOCK, Leave is load / test / dec / store. The WINMM heartbeat thread and the main thread
+ * leave at the same moment now and then, both read 2 and store 1, and the counter stays 1 for good: ImHeartbeat
+ * (which only runs at 0) never runs again, no stream is consumed and SoundsFloodMusicBuffer (Set_LoadResources)
+ * spins forever (seen with fast set switches and with the original binary too). Same semantics, made atomic. */
+/* OVERRIDES: Im_GuardEnter Im_GuardLeave */
+__asm__(".text\n"
+        ".def _Im_GuardEnter; .scl 2; .type 32; .endef\n"
+        ".globl _Im_GuardEnter\n"
+        "_Im_GuardEnter:\n"
+        "    lock incl _DAT_100172c0\n"
+        "    ret\n"
+        ".def _Im_GuardLeave; .scl 2; .type 32; .endef\n"
+        ".globl _Im_GuardLeave\n"
+        "_Im_GuardLeave:\n"
+        "1:  movl _DAT_100172c0, %eax\n"
+        "    testl %eax, %eax\n"
+        "    jz 2f\n"
+        "    leal -1(%eax), %ecx\n"
+        "    lock cmpxchgl %ecx, _DAT_100172c0\n"
+        "    jnz 1b\n"
+        "2:  ret\n");
+
 /* FUN_10008ce0 (iMUSE heartbeat timer start-up): the decompiler lost the TIMECAPS
  * structure it reads back from the stack (wPeriodMin/wPeriodMax became unaff_ESI /
  * unaff_EDI, which made the period 0). Rewritten from the disassembly:
@@ -526,6 +549,22 @@ __asm__(".text\n"
         "    call *__imp__pow\n"
         "    addl $16, %esp\n"
         "    ret\n");
+
+#ifdef GRIM_LUA
+/* LUA.DLL's fmod (math.mod): _CIfmod = FUN_100120fa (fastcall, operands on the x87 stack: ST(0) = y, ST(1) = x)
+ * funnels through the CRT's _ctrlfp/_handle_exc pieces that Ghidra cannot stitch together (it called through
+ * the address -6: crash whenever a script used mod). Host msvcrt's fmod does the job. */
+/* OVERRIDES: FUN_100120fa */
+__asm__(".text\n"
+        ".globl @FUN_100120fa@4\n"
+        "@FUN_100120fa@4:\n"
+        "    subl $16, %esp\n"
+        "    fstpl 8(%esp)\n"     /* y: ST(0) */
+        "    fstpl (%esp)\n"      /* x: ST(1) */
+        "    call *__imp__fmod\n"
+        "    addl $16, %esp\n"
+        "    ret\n");
+#endif
 
 #ifdef GRIM_EXE
 /* OVERRIDES: Win_AbortIfAlreadyRunning */
