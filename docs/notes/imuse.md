@@ -79,5 +79,7 @@ callers push (garbage in the original, the last argument here).  The commands th
   earlier or later: the original build shows the same four variants), so blocks that differ between baseline runs are masked.
   Scenarios (`build/perf/scn_*.lua`): sound effect with fade / pan / pause / resume / group volumes / voices / voice effect, and ten music
   state changes.
-* Function-level differential test (`build/perf/imuse_diff.c`): both DLLs loaded into one process, `Im_VimaDecompress` called with
-  7594 original sounds and four NULL-pointer patterns each: identical.
+* Function-level differential tests (`build/perf/imuse/imuse_diff*.c`): both DLLs loaded into one process, same inputs, outputs compared:
+  `Im_VimaDecompress` on the 7594 .wav files of the data LABs x 4 NULL-pointer patterns, `Im_MixLoopA..D` (20000 random calls, all four
+  resampling ratios), `Im_DecodeSoundBlock` (30000), `Im_ConvertBlock` (4000 random blocks, mono and stereo), `Im_VimaDecodeBlock` (4000
+  random), `Im_StrCmpNoCase` (20000): all identical.

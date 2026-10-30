@@ -1,0 +1,3 @@
+function WFX(n) local i = 0 while i < n do break_here() i = i + 1 end end
+function S9() while not (manny and manny.hActor and system.currentSet) do break_here() end WFX(40) ImSetState(1001) WFX(150) ImSetSequence(2001) WFX(200) ImSetSequence(2000) WFX(120) ImSetState(1008) WFX(150) ImSetSequence(2010) WFX(200) ImSetState(1010) WFX(100) ImSetSequence(2020) WFX(150) ImSetSequence(2000) WFX(100) ImSetSequence(2030) WFX(200) ImSetSequence(2055) WFX(200) ImSetState(1002) WFX(150) ImSetSequence(2210) WFX(250) ImSetSequence(2000) WFX(100) ImSetState(1999) WFX(60) ImSetState(1000) WFX(60) grimlog("DONE") end
+start_script(S9)
