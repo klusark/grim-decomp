@@ -10,7 +10,7 @@
 #if 0
 /* Hook registered by sputControl_Start: forwards to Debug_CameraFovKeys. */
 
-bool Controls_DebugKeysHook(undefined4 param_1)
+int Controls_DebugKeysHook(undefined4 param_1)
 
 {
   int iVar1;

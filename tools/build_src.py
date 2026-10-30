@@ -121,6 +121,20 @@ def read_text(path):
     return text
 
 
+# A function returning bool/char/short leaves only AL/AX defined in EAX when gcc compiles it; the original (MSVC) code that
+# calls it, and assembled callers in general, test the whole of EAX.  Return types narrower than int are therefore widened.
+RET_NARROW_RE = re.compile(r"\A((?:\s*/\*.*?\*/)*\s*)(bool|char|byte|undefined1|uchar|short|ushort|undefined2)(\s+(?:__\w+\s+)?[A-Za-z_]\w*\s*\()", re.S)
+RET_WIDE = {"bool": "int", "char": "int", "short": "int", "byte": "uint", "undefined1": "uint", "uchar": "uint",
+            "ushort": "uint", "undefined2": "uint"}
+
+
+def widen_return_type(code):
+    m = RET_NARROW_RE.match(code)
+    if not m:
+        return code
+    return m.group(1) + RET_WIDE[m.group(2)] + code[m.end(2):]
+
+
 def signature_of(code):
     s = _signature_of_raw(code)
     return ARRAY_RET_RE.sub(r"\1 *\3", s) if s else s
@@ -1368,6 +1382,7 @@ def build(prog):
                 new = f"{name}_{f['address']}"
                 code = re.sub(r"\b" + re.escape(name) + r"(\s*\()", new + r"\1", code, count=1)
                 renamed[f["address"]] = new
+            code = widen_return_type(code)
             codes[f["address"]] = code
             sig = signature_of(code)
             if sig:

@@ -123,7 +123,7 @@ void Sector_IntersectSegment(int param_1,int param_2,float *param_3,float *param
 /* Remembers the set being parsed (UINT_008cb0a8), stores its base file name (+0, 0x7f chars) and
    parses the sections with SetFile_ParseSections. */
 
-bool SetFile_Parse(char *param_1,uint param_2)
+int SetFile_Parse(char *param_1,uint param_2)
 
 {
   char *pcVar1;

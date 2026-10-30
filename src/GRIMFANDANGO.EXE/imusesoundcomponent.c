@@ -185,7 +185,7 @@ undefined4 ImuseSoundComponent_EditKey(int *param_1,undefined4 param_2)
    through Cos_NewStateBasedTag/Cos_NewIntTag): slot 1, builds a sound key or asks for an
    .imu/.imc/.wvc file. */
 
-bool ImuseSoundComponent_Create(uint param_1,int param_2,int param_3,int param_4,char *param_5)
+int ImuseSoundComponent_Create(uint param_1,int param_2,int param_3,int param_4,char *param_5)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */

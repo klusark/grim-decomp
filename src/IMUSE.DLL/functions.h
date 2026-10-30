@@ -212,8 +212,8 @@ undefined4 __cdecl SoundsStopSound(uint *param_1); /* 0x10007500 */
 uint __cdecl SoundsGetParam(uint *param_1,int param_2); /* 0x10007520 */
 undefined4 __cdecl SoundsSetParam(uint *param_1,int param_2,uint param_3); /* 0x10007550 */
 undefined4 SoundsFadeParam(uint *param_1,int param_2,uint param_3,int param_4); /* 0x10007580 */
-bool __cdecl SoundsIsSoundInUse(uint *param_1); /* 0x100075d0 */
-bool __cdecl SoundsIsSoundPlaying(uint *param_1); /* 0x10007640 */
+int __cdecl SoundsIsSoundInUse(uint *param_1); /* 0x100075d0 */
+int __cdecl SoundsIsSoundPlaying(uint *param_1); /* 0x10007640 */
 undefined4 __cdecl SoundsFillStreamsWhileMusicCritical(int param_1); /* 0x10007670 */
 undefined4 FUN_100076b0(void); /* 0x100076b0 */
 undefined4 __cdecl FUN_10007700(undefined4 *param_1,undefined4 *param_2,int *param_3,undefined4 *param_4); /* 0x10007700 */
@@ -339,7 +339,7 @@ void __cdecl _NMSG_WRITE(int param_1); /* 0x1000fa70 */
 int * __cdecl malloc(uint param_1); /* 0x1000fc50 */
 int * __cdecl _nh_malloc(uint param_1,int param_2); /* 0x1000fc70 */
 int * __cdecl _heap_alloc(int param_1); /* 0x1000fcc0 */
-byte __cdecl _isatty(uint param_1); /* 0x1000fd20 */
+uint __cdecl _isatty(uint param_1); /* 0x1000fd20 */
 int * __cdecl calloc(int param_1,int param_2); /* 0x1000ff30 */
 void __cdecl _getbuf(int *param_1); /* 0x10010080 */
 undefined4 __cdecl _free_osfhnd(uint param_1); /* 0x10010300 */

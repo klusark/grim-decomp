@@ -61,8 +61,6 @@ void __cdecl io_setfile(byte *param_1)
 }
 
 /* ---- 0x10005480  io_getfilebyname ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* errors '%s is not a file' */
 
 int __cdecl io_getfilebyname(byte *param_1)
@@ -80,13 +78,11 @@ int __cdecl io_getfilebyname(byte *param_1)
   iVar2 = lua_getuserdata(iVar2);
   return iVar2;
 }
-#endif
-
 
 /* ---- 0x100054c0  io_gethandle ---- */
 /* checks the userdata tag and errors 'a closed file' */
 
-bool __cdecl io_gethandle(int param_1)
+int __cdecl io_gethandle(int param_1)
 
 {
   int iVar1;
@@ -270,8 +266,6 @@ LAB_10005731:
 
 
 /* ---- 0x10005780  io_getfileparam ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Unidentified function of liolib.c (file/system library) */
 
 int __cdecl io_getfileparam(byte *param_1,int *param_2)
@@ -291,8 +285,6 @@ int __cdecl io_getfileparam(byte *param_1,int *param_2)
   iVar2 = io_getfilebyname(param_1);
   return iVar2;
 }
-#endif
-
 
 /* ---- 0x100057d0  FUN_100057d0 ---- */
 void FUN_100057d0(void)
@@ -409,8 +401,6 @@ void FUN_10005920(void)
 }
 
 /* ---- 0x10005940  FUN_10005940 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void FUN_10005940(void)
 
 {
@@ -434,8 +424,6 @@ void FUN_10005940(void)
 }
 #undef abStack_200
 #undef iStack_204
-
-#endif
 
 
 /* ---- 0x100059c0  FUN_100059c0 ---- */

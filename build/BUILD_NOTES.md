@@ -880,3 +880,27 @@ The `move` tier fails for the 24 cases that start on the stair of `ly` (72/96): 
 is then held up at the stair top 7 times. With the extra point dropped all 96 pass on the rebuilt engine.
 Debug trick: `lua31.exe` of `autorun/tools/lua31` takes the DLL as its first argument, so the original and the rebuilt `lua.dll` can be
 compared on the planner without starting a game (identical results).
+## Less assembly (2026-10-30, agent J)
+
+Scope: GRIMFANDANGO.EXE >= 0x004a0000, LUA.DLL, IMUSE.DLL, CHORE.DLL.  Counts and the reason for every function that is still
+assembled are in docs/ASM_REMAINING_2.md.
+
+How a function leaves the assembly selection
+- `names/asm_exclude_agentJ.json` (one address per line, per program) forces a function to be compiled from the decompiler's
+  C; `names/asm_extra_agentJ.json` keeps functions assembled that the artifact rule would otherwise convert.
+- A function defined in `build/overrides.c` is always C (hand-written, commented).  The blocks added by agent J are delimited
+  by `agentJ:` comments.
+
+Root causes fixed at the source (Ghidra, then `tools/export_changed.py`)
+- Import prototypes (`tools/set_import_protos.py`, `names/import_protos.json`): the EXE's calls into LUA.DLL and IMUSE.DLL
+  now pass the right arguments.
+- Return types (`tools/set_return_type.py`): functions declared `void` whose callers use EAX, and bool/char returns.
+  `tools/build_src.py` also widens bool/char/short returns to int (a gcc function leaves the upper bits of EAX undefined; MSVC
+  callers, and assembled callers, test all of EAX).
+- Float values stored in int slots (`float_retype2.py`): locals whose bits are a float are retyped in Ghidra; the generator
+  turns `(float)int_var` into a bit reinterpretation (PUN) in functions that never use FILD.
+- x87 values that Ghidra loses between instructions (`_ftol()` without an argument, `lua_getnumber` results): the common
+  patterns are rewritten by `fix_ftol`; the rest are hand-written in overrides.c.
+- Test oracles: `build/jtmp` (kept out of git) has hostdiff.py (original vs rebuilt LUA.DLL under the stand-alone host), the
+  Lua scenario traces and a delta-debugging bisect.  Lesson: a bisect whose check silently skips a tier looks like it works;
+  verify the final set with the real suite.

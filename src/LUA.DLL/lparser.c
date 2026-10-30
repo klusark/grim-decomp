@@ -283,8 +283,6 @@ void __cdecl luaY_growvector(undefined4 param_1,undefined4 param_2)
 }
 
 /* ---- 0x1000abd0  yyparse ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* lua.stx: generated LALR parser from lua.stx */
 
 undefined4 yyparse(void)
@@ -293,51 +291,52 @@ undefined4 yyparse(void)
   unsigned char _frame[0xbf0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   short sVar1;
   int *piVar2;
-  float fVar3;
-  int *piVar4;
-  int iVar5;
-  undefined4 uVar6;
+  int *piVar3;
+  int iVar4;
+  undefined4 uVar5;
+  uint uVar6;
   uint uVar7;
-  uint uVar8;
-  float *pfVar9;
-  float fVar10;
-  int iVar11;
-  undefined4 *puVar12;
-  int iVar13;
-  undefined4 *puVar14;
+  int *pfVar9;
+  int fVar9;
+  int iVar8;
+  undefined4 *puVar9;
+  int iVar10;
+  undefined4 *puVar11;
   #define local_be0 (*(uint *)(_frame + (0xbf0 - 0xbe0)))
   #define local_bdc (*(int *)(_frame + (0xbf0 - 0xbdc)))
   #define local_bd8 (*(short **)(_frame + (0xbf0 - 0xbd8)))
   #define local_bd4 (*(int *)(_frame + (0xbf0 - 0xbd4)))
-  #define local_bd0 (*(float *)(_frame + (0xbf0 - 0xbd0)))
+  #define local_bd0 (*(int *)(_frame + (0xbf0 - 0xbd0)))
   #define local_bcc (*(int *)(_frame + (0xbf0 - 0xbcc)))
-  #define local_bc8 (*(float *)(_frame + (0xbf0 - 0xbc8)))
+  #define local_bc8 (*(int *)(_frame + (0xbf0 - 0xbc8)))
   #define local_bc4 (*(int *)(_frame + (0xbf0 - 0xbc4)))
   #define local_bc0 (*(uint *)(_frame + (0xbf0 - 0xbc0)))
   #define local_bbc (*(int **)(_frame + (0xbf0 - 0xbbc)))
   #define local_bb8 (*(short (*)[499])(_frame + (0xbf0 - 0xbb8)))
   #define local_7d2 (*(short *)(_frame + (0xbf0 - 0x7d2)))
-  #define local_7d0 (*(float *)(_frame + (0xbf0 - 0x7d0)))
-  #define afStack_7cc (*(float (*)[499])(_frame + (0xbf0 - 0x7cc)))
+  #define local_7d0 (*(int *)(_frame + (0xbf0 - 0x7d0)))
+  #define afStack_7cc (*(int (*)[499])(_frame + (0xbf0 - 0x7cc)))
+  int fVar3;
+  int fVar4;
   
   local_bd8 = local_bb8;
-  iVar11 = 0;
+  iVar8 = 0;
   local_bdc = 0;
   local_bc4 = 0;
   local_be0 = 0xfffffffe;
   pfVar9 = &local_7d0;
   local_bb8[0] = 0;
-  fVar10 = local_bc8;
+  fVar9 = local_bc8;
   if (&local_7d2 <= local_bd8) {
 LAB_1000b47d:
     lparser__a730(s_parser_stack_overflow_10027b6c);
     return 2;
   }
 LAB_1000ac11:
-  sVar1 = (&DAT_10023610)[iVar11];
+  sVar1 = (&DAT_10023610)[iVar8];
   if (sVar1 == -0x8000) {
 LAB_1000b4fe:
-    local_bd4 = (int)(short)(&DAT_10023448)[iVar11];
+    local_bd4 = (int)(short)(&DAT_10023448)[iVar8];
     if (local_bd4 == 0) {
 LAB_1000b512:
       if (local_bdc == 0) {
@@ -352,10 +351,10 @@ LAB_1000b512:
       }
       local_bdc = 3;
       do {
-        if ((((short)(&DAT_10023610)[iVar11] != -0x8000) &&
-            (iVar11 = (short)(&DAT_10023610)[iVar11] + 1, -1 < iVar11)) &&
-           ((iVar11 < 0x107 && (*(short *)(&DAT_100239e8 + iVar11 * 2) == 1)))) {
-          local_bd4 = (int)*(short *)(&DAT_100237d8 + iVar11 * 2);
+        if ((((short)(&DAT_10023610)[iVar8] != -0x8000) &&
+            (iVar8 = (short)(&DAT_10023610)[iVar8] + 1, -1 < iVar8)) &&
+           ((iVar8 < 0x107 && (*(short *)(&DAT_100239e8 + iVar8 * 2) == 1)))) {
+          local_bd4 = (int)*(short *)(&DAT_100237d8 + iVar8 * 2);
           if (local_bd4 < 0) {
             if (local_bd4 != -0x8000) {
               local_bd4 = -local_bd4;
@@ -367,129 +366,128 @@ LAB_1000b512:
         if (local_bd8 == local_bb8) {
           return 1;
         }
-        iVar11 = (int)local_bd8[-1];
+        iVar8 = (int)local_bd8[-1];
         pfVar9 = pfVar9 + -1;
         local_bd8 = local_bd8 + -1;
       } while( true );
     }
 LAB_1000acaa:
-    iVar11 = (int)*(short *)(&DAT_10023378 + local_bd4 * 2);
-    if (0 < iVar11) {
-      fVar10 = pfVar9[1 - iVar11];
+    iVar8 = (int)*(short *)(&DAT_10023378 + local_bd4 * 2);
+    if (0 < iVar8) {
+      fVar9 = pfVar9[1 - iVar8];
     }
-    local_bcc = iVar11;
+    local_bcc = iVar8;
     switch(local_bd4) {
     case 6:
-      lparser__bfa0(PUN(int,(float)pfVar9[-5]),PUN(int,(float)pfVar9[-2]));
+      lparser__bfa0(pfVar9[-5],pfVar9[-2]);
       break;
     case 8:
       piVar2 = (int *)PTR_1002bf6c[0xf];
-      uVar7 = PUN(int,(float)pfVar9[-3]) - PUN(int,(float)pfVar9[-4]);
-      local_bc8 = PUN(float,(PUN(int,(float)pfVar9[-4]) + 2));
-      local_bc0 = uVar7;
+      uVar6 = pfVar9[-3] - pfVar9[-4];
+      local_bc8 = pfVar9[-4] + 2;
+      local_bc0 = uVar6;
       local_bbc = piVar2;
-      luaY_code_byte(uVar7);
-      piVar4 = local_bbc;
-      puVar12 = (undefined4 *)(PUN(int,(float)pfVar9[-4]) + *(int *)(*piVar2 + 0x10));
-      puVar14 = (undefined4 *)(piVar2[1] + *(int *)(*piVar2 + 0x10));
-      for (uVar8 = uVar7 >> 2; uVar8 != 0; uVar8 = uVar8 - 1) {
-        *puVar14 = *puVar12;
-        puVar12 = puVar12 + 1;
-        puVar14 = puVar14 + 1;
+      luaY_code_byte(uVar6);
+      piVar3 = local_bbc;
+      puVar9 = (undefined4 *)(pfVar9[-4] + *(int *)(*piVar2 + 0x10));
+      puVar11 = (undefined4 *)(piVar2[1] + *(int *)(*piVar2 + 0x10));
+      for (uVar7 = uVar6 >> 2; uVar7 != 0; uVar7 = uVar7 - 1) {
+        *puVar11 = *puVar9;
+        puVar9 = puVar9 + 1;
+        puVar11 = puVar11 + 1;
       }
-      for (uVar7 = uVar7 & 3; uVar7 != 0; uVar7 = uVar7 - 1) {
-        *(undefined1 *)puVar14 = *(undefined1 *)puVar12;
-        puVar12 = (undefined4 *)((int)puVar12 + 1);
-        puVar14 = (undefined4 *)((int)puVar14 + 1);
+      for (uVar6 = uVar6 & 3; uVar6 != 0; uVar6 = uVar6 - 1) {
+        *(undefined1 *)puVar11 = *(undefined1 *)puVar9;
+        puVar9 = (undefined4 *)((int)puVar9 + 1);
+        puVar11 = (undefined4 *)((int)puVar11 + 1);
       }
-      memcpy((undefined4 *)(*(int *)(*local_bbc + 0x10) + PUN(int,(float)pfVar9[-4])),
-             (undefined4 *)(PUN(int,(float)pfVar9[-3]) + *(int *)(*local_bbc + 0x10)),
-             local_bbc[1] - PUN(int,(float)pfVar9[-4]));
-      iVar11 = lparser__bf50(PUN(int,(float)pfVar9[-4]),'m',piVar4[1] - local_bc0);
-      lparser__bf70('q',PUN(int,(float)local_bc8) + iVar11);
-      iVar11 = local_bcc;
+      memcpy((undefined4 *)(*(int *)(*local_bbc + 0x10) + pfVar9[-4]),
+             (undefined4 *)(pfVar9[-3] + *(int *)(*local_bbc + 0x10)),local_bbc[1] - pfVar9[-4]);
+      iVar8 = lparser__bf50(pfVar9[-4],'m',piVar3[1] - local_bc0);
+      lparser__bf70('q',local_bc8 + iVar8);
+      iVar8 = local_bcc;
       break;
     case 9:
-      lparser__bf70('s',PUN(int,(float)pfVar9[-3]));
+      lparser__bf70('s',pfVar9[-3]);
       lparser__a8b0(-1);
       break;
     case 10:
-      iVar11 = 0;
-      lparser__bd80(PUN(int,(float)pfVar9[-2]),PUN(int,(float)*pfVar9));
+      iVar8 = 0;
+      lparser__bd80(pfVar9[-2],*pfVar9);
       fVar3 = pfVar9[-2];
-      while (fVar3 = PUN(float,(PUN(int,(float)fVar3) + -1)), -1 < PUN(int,(float)fVar3)) {
-        iVar11 = lparser__bf00(PUN(int,(float)fVar3),iVar11);
+      while (fVar3 = fVar3 + -1, -1 < fVar3) {
+        iVar8 = lparser__bf00(fVar3,iVar8);
       }
-      lparser__bcc0(iVar11);
-      iVar11 = local_bcc;
+      lparser__bcc0(iVar8);
+      iVar8 = local_bcc;
       break;
     case 0xb:
-      lparser__bd00(PUN(int,(float)*pfVar9),0);
+      lparser__bd00(*pfVar9,0);
       break;
     case 0xc:
-      *(int *)(PTR_1002bf6c[0xf] + 0x90) = *(int *)(PTR_1002bf6c[0xf] + 0x90) + PUN(int,(float)pfVar9[-1]);
-      lparser__bd80(PUN(int,(float)pfVar9[-1]),PUN(int,(float)*pfVar9));
+      *(int *)(PTR_1002bf6c[0xf] + 0x90) = *(int *)(PTR_1002bf6c[0xf] + 0x90) + pfVar9[-1];
+      lparser__bd80(pfVar9[-1],*pfVar9);
       break;
     case 0xd:
-      lparser__bec0(PUN(int,(float)pfVar9[-1]));
+      lparser__bec0(pfVar9[-1]);
       break;
     case 0xe:
-      fVar10 = *(float *)(PTR_1002bf6c[0xf] + 0x90);
+      fVar9 = *(int *)(PTR_1002bf6c[0xf] + 0x90);
       break;
     case 0xf:
-      lparser__bcc0(*(int *)(PTR_1002bf6c[0xf] + 0x90) - PUN(int,(float)pfVar9[-1]));
-      if (PUN(int,(float)pfVar9[-1]) < *(int *)(PTR_1002bf6c[0xf] + 0x90)) {
+      lparser__bcc0(*(int *)(PTR_1002bf6c[0xf] + 0x90) - pfVar9[-1]);
+      if (pfVar9[-1] < *(int *)(PTR_1002bf6c[0xf] + 0x90)) {
         do {
           lparser__ba10(*(undefined4 *)(PTR_1002bf6c[0x10] + 8));
           *(int *)(PTR_1002bf6c[0xf] + 0x90) = *(int *)(PTR_1002bf6c[0xf] + 0x90) + -1;
-        } while (PUN(int,(float)pfVar9[-1]) < *(int *)(PTR_1002bf6c[0xf] + 0x90));
+        } while (pfVar9[-1] < *(int *)(PTR_1002bf6c[0xf] + 0x90));
       }
       break;
     case 0x10:
-      fVar10 = *pfVar9;
+      fVar9 = *pfVar9;
       lparser__c100();
       break;
     case 0x11:
-      fVar10 = 0.0;
+      fVar9 = 0;
       lparser__c100();
       break;
     case 0x12:
-      fVar10 = 0.0;
+      fVar9 = 0;
       lparser__c100();
-      uVar6 = luaS_new(&DAT_10027ba0);
-      lparser__ba70(uVar6);
+      uVar5 = luaS_new(&DAT_10027ba0);
+      lparser__ba70(uVar5);
       break;
     case 0x13:
-      lparser__be60(PUN(int,(float)*pfVar9));
+      lparser__be60(*pfVar9);
       break;
     case 0x14:
-      lparser__b8a0(PUN(int,(float)*pfVar9));
+      lparser__b8a0(*pfVar9);
       break;
     case 0x15:
       luaY_syntaxerror();
       lparser__c060();
       break;
     case 0x18:
-      lparser__bfa0(PUN(int,(float)pfVar9[-4]),PUN(int,(float)pfVar9[-1]));
+      lparser__bfa0(pfVar9[-4],pfVar9[-1]);
       break;
     case 0x1a:
-      lparser__bd00(PUN(int,(float)pfVar9[-1]),0xff);
+      lparser__bd00(pfVar9[-1],0xff);
       lparser__c020();
       break;
     case 0x1b:
-      fVar10 = *(float *)(PTR_1002bf6c[0xf] + 4);
+      fVar9 = *(int *)(PTR_1002bf6c[0xf] + 4);
       break;
     case 0x1c:
-      fVar10 = *(float *)(PTR_1002bf6c[0xf] + 4);
+      fVar9 = *(int *)(PTR_1002bf6c[0xf] + 4);
       luaY_code_byte(2);
       *(int *)(PTR_1002bf6c[0xf] + 4) = *(int *)(PTR_1002bf6c[0xf] + 4) + 2;
       break;
     case 0x1d:
-      fVar10 = *pfVar9;
+      fVar9 = *pfVar9;
       lparser__a8b0(-1);
       break;
     case 0x1e:
-      fVar10 = *pfVar9;
+      fVar9 = *pfVar9;
       lparser__a8b0(1);
       break;
     case 0x1f:
@@ -501,66 +499,66 @@ LAB_1000acaa:
     case 0x55:
     case 0x66:
 switchD_1000acd8_caseD_1f:
-      fVar10 = *pfVar9;
+      fVar9 = *pfVar9;
       break;
     case 0x20:
-      lparser__bd00(PUN(int,(float)*pfVar9),1);
+      lparser__bd00(*pfVar9,1);
       break;
     case 0x22:
       lparser__b800(0x5b);
-      fVar10 = 0.0;
+      fVar9 = 0;
       break;
     case 0x23:
       lparser__b800(0x5d);
-      fVar10 = 0.0;
+      fVar9 = 0;
       break;
     case 0x24:
       lparser__b800(0x5f);
-      fVar10 = 0.0;
+      fVar9 = 0;
       break;
     case 0x25:
       lparser__b800(0x5c);
-      fVar10 = 0.0;
+      fVar9 = 0;
       break;
     case 0x26:
       lparser__b800(0x5e);
-      fVar10 = 0.0;
+      fVar9 = 0;
       break;
     case 0x27:
       lparser__b800(0x60);
-      fVar10 = 0.0;
+      fVar9 = 0;
       break;
     case 0x28:
       lparser__b800(0x61);
-      fVar10 = 0.0;
+      fVar9 = 0;
       break;
     case 0x29:
       lparser__b800(0x62);
-      fVar10 = 0.0;
+      fVar9 = 0;
       break;
     case 0x2a:
       lparser__b800(99);
-      fVar10 = 0.0;
+      fVar9 = 0;
       break;
     case 0x2b:
       lparser__b800(100);
-      fVar10 = 0.0;
+      fVar9 = 0;
       break;
     case 0x2c:
       lparser__b800(0x65);
-      fVar10 = 0.0;
+      fVar9 = 0;
       break;
     case 0x2d:
       lparser__b800(0x66);
-      fVar10 = 0.0;
+      fVar9 = 0;
       break;
     case 0x2e:
       lparser__ab20(0x67);
-      fVar10 = 0.0;
+      fVar9 = 0;
       break;
     case 0x2f:
       lparser__ab20(0x68);
-      fVar10 = 0.0;
+      fVar9 = 0;
       break;
     case 0x31:
     case 0x36:
@@ -569,87 +567,86 @@ switchD_1000acd8_caseD_1f:
     case 0x48:
     case 0x53:
     case 0x65:
-      fVar10 = 0.0;
+      fVar9 = 0;
       break;
     case 0x32:
-      luaY_code_number(*pfVar9);
-      fVar10 = 0.0;
+      luaY_code_number(PUN(float,PUN(float,*pfVar9)));
+      fVar9 = 0;
       break;
     case 0x33:
-      lparser__b8a0(PUN(int,(float)*pfVar9));
-      fVar10 = 0.0;
+      lparser__b8a0(*pfVar9);
+      fVar9 = 0;
       break;
     case 0x34:
       lparser__bcc0(-1);
-      fVar10 = 0.0;
+      fVar9 = 0;
       break;
     case 0x35:
       lparser__c100();
       break;
     case 0x37:
-      lparser__c000(PUN(int,(float)pfVar9[-1]),'k');
-      fVar10 = 0.0;
+      lparser__c000(pfVar9[-1],'k');
+      fVar9 = 0;
       break;
     case 0x38:
-      lparser__c000(PUN(int,(float)pfVar9[-1]),'i');
-      fVar10 = 0.0;
+      lparser__c000(pfVar9[-1],'i');
+      fVar9 = 0;
       break;
     case 0x39:
-      lparser__bd00(PUN(int,(float)*pfVar9),1);
+      lparser__bd00(*pfVar9,1);
       break;
     case 0x3a:
-      lparser__be60(PUN(int,(float)*pfVar9));
-      fVar10 = 0.0;
+      lparser__be60(*pfVar9);
+      fVar9 = 0;
       break;
     case 0x3b:
-      lparser__bbd0(PUN(int,(float)*pfVar9));
-      fVar10 = 0.0;
+      lparser__bbd0(*pfVar9);
+      fVar9 = 0;
       break;
     case 0x3f:
-      iVar5 = luaY_string_constant(PUN(int,(float)*pfVar9),(int *)PTR_1002bf6c[0xf]);
-      fVar10 = PUN(float,(-1 - iVar5));
+      iVar4 = luaY_string_constant(*pfVar9,(int *)PTR_1002bf6c[0xf]);
+      fVar9 = -1 - iVar4;
       break;
     case 0x40:
-      fVar10 = PUN(float,lparser__baf0(PUN(int,(float)*pfVar9),(int *)PTR_1002bf6c[0xf]));
+      fVar9 = lparser__baf0(*pfVar9,(int *)PTR_1002bf6c[0xf]);
       break;
     case 0x41:
-      lparser__b770(PUN(int,(float)pfVar9[-2]),'=',2,PUN(uint,(float)pfVar9[-1]));
+      lparser__b770(pfVar9[-2],'=',2,pfVar9[-1]);
       break;
     case 0x42:
       lparser__aa10(0);
       lparser__aa10(*(char *)(pfVar9 + -1) + *(char *)pfVar9);
-      fVar10 = *(float *)(PTR_1002bf6c[0xf] + 4);
+      fVar9 = *(int *)(PTR_1002bf6c[0xf] + 4);
       lparser__aa10(0);
       break;
     case 0x44:
-      iVar5 = 1;
-      uVar8 = luaY_string_constant(PUN(int,(float)*pfVar9),(int *)PTR_1002bf6c[0xf]);
-      luaY_code_opcode_arg('3',8,uVar8,iVar5);
-      fVar10 = 1.4013e-45;
+      iVar4 = 1;
+      uVar7 = luaY_string_constant(*pfVar9,(int *)PTR_1002bf6c[0xf]);
+      luaY_code_opcode_arg('3',8,uVar7,iVar4);
+      fVar9 = 1;
       break;
     case 0x45:
-      fVar10 = PUN(float,lparser__bd00(PUN(int,(float)pfVar9[-1]),1));
+      fVar9 = lparser__bd00(pfVar9[-1],1);
       break;
     case 0x47:
-      lparser__b8a0(PUN(int,(float)*pfVar9));
-      fVar10 = 1.4013e-45;
+      lparser__b8a0(*pfVar9);
+      fVar9 = 1;
       break;
     case 0x4a:
-      fVar10 = *pfVar9;
-      if (fVar10 == 0.0) {
-        fVar10 = -NAN;
+      fVar9 = *pfVar9;
+      if (PUN(float,fVar9) == 0.0) {
+        fVar9 = -1;
       }
       break;
     case 0x4b:
-      fVar10 = PUN(float,lparser__bd00(PUN(int,(float)pfVar9[-1]),1));
+      fVar9 = lparser__bd00(pfVar9[-1],1);
       break;
     case 0x4c:
-      if (*pfVar9 != 0.0) {
-        *(char *)(*(int *)(*(int *)PTR_1002bf6c[0xf] + 0x10) + PUN(int,(float)*pfVar9)) =
-             *(char *)(pfVar9 + -1);
+      if (PUN(float,*pfVar9) != 0.0) {
+        *(char *)(*(int *)(*(int *)PTR_1002bf6c[0xf] + 0x10) + *pfVar9) = *(char *)(pfVar9 + -1);
         goto switchD_1000acd8_caseD_1f;
       }
-      fVar10 = PUN(float,(-1 - PUN(int,(float)pfVar9[-1])));
+      fVar9 = -1 - pfVar9[-1];
       break;
     case 0x4d:
       lparser__bde0(0,0);
@@ -658,100 +655,99 @@ switchD_1000acd8_caseD_1f:
       lparser__bde0(0,1);
       break;
     case 0x4f:
-      lparser__bde0(PUN(int,(float)*pfVar9),0);
+      lparser__bde0(*pfVar9,0);
       break;
     case 0x50:
-      lparser__bde0(PUN(int,(float)pfVar9[-2]),1);
+      lparser__bde0(pfVar9[-2],1);
       break;
     case 0x51:
-      uVar8 = PUN(int,(float)*pfVar9) >> 0x1f;
-      fVar10 = PUN(float,((PUN(uint,(float)*pfVar9) ^ uVar8) - uVar8));
+      uVar7 = *pfVar9 >> 0x1f;
+      fVar9 = (*pfVar9 ^ uVar7) - uVar7;
       break;
     case 0x52:
-      if (0 < PUN(int,(float)*pfVar9) * PUN(int,(float)pfVar9[-2])) {
+      if (0 < *pfVar9 * pfVar9[-2]) {
         lparser__a730(s_invalid_constructor_syntax_10027b84);
       }
-      uVar8 = PUN(int,(float)*pfVar9) >> 0x1f;
-      uVar7 = PUN(int,(float)pfVar9[-2]) >> 0x1f;
-      fVar10 = PUN(float,(((PUN(uint,(float)*pfVar9) ^ uVar8) - uVar8) + ((PUN(uint,(float)pfVar9[-2]) ^ uVar7) - uVar7)));
+      uVar7 = *pfVar9 >> 0x1f;
+      uVar6 = pfVar9[-2] >> 0x1f;
+      fVar9 = ((*pfVar9 ^ uVar7) - uVar7) + ((pfVar9[-2] ^ uVar6) - uVar6);
       break;
     case 0x58:
-      uVar8 = PUN(int,(float)pfVar9[-1]) >> 0x1f;
-      lparser__b9c0(((PUN(uint,(float)pfVar9[-1]) ^ uVar8) - uVar8 & 0x1f ^ uVar8) - uVar8);
-      fVar10 = PUN(float,-PUN(int,(float)pfVar9[-1]));
+      uVar7 = pfVar9[-1] >> 0x1f;
+      lparser__b9c0(((pfVar9[-1] ^ uVar7) - uVar7 & 0x1f ^ uVar7) - uVar7);
+      fVar9 = -pfVar9[-1];
       break;
     case 0x59:
-      fVar10 = pfVar9[-1];
-      uVar8 = PUN(int,(float)fVar10) >> 0x1f;
-      lparser__b9e0((int)(PUN(int,(float)fVar10) + (uVar8 & 0x3f)) >> 6,
-                    ((PUN(uint,(float)fVar10) ^ uVar8) - uVar8 & 0x3f ^ uVar8) - uVar8);
+      fVar4 = pfVar9[-1];
+      uVar7 = fVar4 >> 0x1f;
+      lparser__b9e0((int)(fVar4 + (uVar7 & 0x3f)) >> 6,
+                    ((fVar4 ^ uVar7) - uVar7 & 0x3f ^ uVar7) - uVar7);
     case 0x21:
-      fVar10 = pfVar9[-1];
+      fVar9 = pfVar9[-1];
       break;
     case 0x5b:
-      fVar10 = PUN(float,(PUN(int,(float)pfVar9[-2]) + 1));
-      uVar8 = PUN(int,(float)fVar10) >> 0x1f;
-      if (((PUN(uint,(float)fVar10) ^ uVar8) - uVar8 & 0x1f ^ uVar8) == uVar8) {
+      fVar9 = pfVar9[-2] + 1;
+      uVar7 = fVar9 >> 0x1f;
+      if (((fVar9 ^ uVar7) - uVar7 & 0x1f ^ uVar7) == uVar7) {
         lparser__b9c0(0x20);
       }
       break;
     case 0x60:
-      fVar10 = PUN(float,(PUN(int,(float)pfVar9[-2]) + 1));
-      uVar8 = PUN(int,(float)fVar10) >> 0x1f;
-      if (((PUN(uint,(float)fVar10) ^ uVar8) - uVar8 & 0x3f ^ uVar8) == uVar8) {
-        lparser__b9e0(((int)(PUN(int,(float)fVar10) + (uVar8 & 0x3f)) >> 6) - 1,0x40);
+      fVar9 = pfVar9[-2] + 1;
+      uVar7 = fVar9 >> 0x1f;
+      if (((fVar9 ^ uVar7) - uVar7 & 0x3f ^ uVar7) == uVar7) {
+        lparser__b9e0(((int)(fVar9 + (uVar7 & 0x3f)) >> 6) - 1,0x40);
       }
       break;
     case 0x61:
-      fVar10 = 1.4013e-45;
-      lparser__ba90(PUN(int,(float)*pfVar9),0);
+      fVar9 = 1;
+      lparser__ba90(*pfVar9,0);
       break;
     case 0x62:
-      lparser__ba90(PUN(int,(float)*pfVar9),PUN(int,(float)pfVar9[-2]));
-      fVar10 = PUN(float,(PUN(int,(float)pfVar9[-2]) + 1));
+      lparser__ba90(*pfVar9,pfVar9[-2]);
+      fVar9 = pfVar9[-2] + 1;
       break;
     case 99:
       lparser__ba20(*pfVar9,0);
     case 0x46:
     case 0x5a:
     case 0x5f:
-      fVar10 = 1.4013e-45;
+      fVar9 = 1;
       break;
     case 100:
-      lparser__ba20(*pfVar9,PUN(int,(float)pfVar9[-2]));
-      fVar10 = PUN(float,(PUN(int,(float)pfVar9[-2]) + 1));
+      lparser__ba20(*pfVar9,pfVar9[-2]);
+      fVar9 = pfVar9[-2] + 1;
     }
-    local_bd8 = local_bd8 + -iVar11;
-    pfVar9 = pfVar9 + (1 - iVar11);
-    *pfVar9 = fVar10;
-    iVar11 = (int)*(short *)(&DAT_1002371e + *(short *)(&DAT_100232a8 + local_bd4 * 2) * 2) +
-             (int)*local_bd8;
-    if (((iVar11 < 0) || (0x106 < iVar11)) || (*(short *)(&DAT_100239e8 + iVar11 * 2) != *local_bd8)
-       ) {
+    local_bd8 = local_bd8 + -iVar8;
+    pfVar9 = pfVar9 + (1 - iVar8);
+    *pfVar9 = fVar9;
+    iVar8 = (int)*(short *)(&DAT_1002371e + *(short *)(&DAT_100232a8 + local_bd4 * 2) * 2) +
+            (int)*local_bd8;
+    if (((iVar8 < 0) || (0x106 < iVar8)) || (*(short *)(&DAT_100239e8 + iVar8 * 2) != *local_bd8)) {
       local_bd4 = (int)*(short *)(&DAT_10023556 + *(short *)(&DAT_100232a8 + local_bd4 * 2) * 2);
     }
     else {
-      local_bd4 = (int)*(short *)(&DAT_100237d8 + iVar11 * 2);
+      local_bd4 = (int)*(short *)(&DAT_100237d8 + iVar8 * 2);
     }
   }
   else {
     if (local_be0 == 0xfffffffe) {
-      local_be0 = luaX_lex(&local_bd0);
+      local_be0 = luaX_lex((float *)&local_bd0);
     }
     if ((int)local_be0 < 1) {
-      iVar5 = 0;
+      iVar4 = 0;
       local_be0 = 0;
     }
     else if (local_be0 < 0x11d) {
-      iVar5 = (int)(char)(&DAT_10023188)[local_be0];
+      iVar4 = (int)(char)(&DAT_10023188)[local_be0];
     }
     else {
-      iVar5 = 0x5d;
+      iVar4 = 0x5d;
     }
-    iVar13 = sVar1 + iVar5;
-    if (((iVar13 < 0) || (0x106 < iVar13)) || (*(short *)(&DAT_100239e8 + iVar13 * 2) != iVar5))
+    iVar10 = sVar1 + iVar4;
+    if (((iVar10 < 0) || (0x106 < iVar10)) || (*(short *)(&DAT_100239e8 + iVar10 * 2) != iVar4))
     goto LAB_1000b4fe;
-    local_bd4 = (int)*(short *)(&DAT_100237d8 + iVar13 * 2);
+    local_bd4 = (int)*(short *)(&DAT_100237d8 + iVar10 * 2);
     if (local_bd4 < 0) {
       if (local_bd4 == -0x8000) goto LAB_1000b512;
       local_bd4 = -local_bd4;
@@ -780,7 +776,7 @@ LAB_1000b5bf:
 LAB_1000b464:
   local_bd8 = local_bd8 + 1;
   *local_bd8 = (short)local_bd4;
-  iVar11 = local_bd4;
+  iVar8 = local_bd4;
   if (&local_7d2 <= local_bd8) goto LAB_1000b47d;
   goto LAB_1000ac11;
 }
@@ -798,8 +794,6 @@ LAB_1000b464:
 #undef local_bd8
 #undef local_bdc
 #undef local_be0
-
-#endif
 
 
 /* ---- 0x1000b770  lparser__b770 ---- */
@@ -907,7 +901,7 @@ void __cdecl lparser__b8c0(uint param_1)
 }
 
 /* ---- 0x1000b8e0  luaY_code_number ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Unidentified function of lua.stx (yacc parser) and code generation */
 

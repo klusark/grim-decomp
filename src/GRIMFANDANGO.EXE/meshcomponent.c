@@ -227,7 +227,7 @@ LAB_004970d4:
 
 
 /* ---- 0x00497180  FUN_00497180 ---- */
-bool FUN_00497180(undefined4 param_1,undefined4 param_2)
+int FUN_00497180(undefined4 param_1,undefined4 param_2)
 
 {
   int iVar1;

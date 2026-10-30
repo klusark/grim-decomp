@@ -511,7 +511,7 @@ void __cdecl str_push_captures(int *ms)
 
 
 /* ---- 0x10009ea0  str_match ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* recursive pattern matcher; errors 'too many captures' */
 
@@ -850,7 +850,7 @@ LAB_1000a36b:
 }
 
 /* ---- 0x1000a440  FUN_1000a440 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 void FUN_1000a440(void)
 

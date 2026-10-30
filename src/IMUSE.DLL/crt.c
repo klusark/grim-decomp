@@ -1322,7 +1322,7 @@ int * __cdecl _heap_alloc(int param_1)
 /* ---- 0x1000fd20  _isatty ---- */
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
 
-byte __cdecl _isatty(uint param_1)
+uint __cdecl _isatty(uint param_1)
 
 {
   if (DAT_100337e0 <= param_1) {

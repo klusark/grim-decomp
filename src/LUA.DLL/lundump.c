@@ -286,7 +286,7 @@ void __cdecl luaU_LoadLocals(int param_1,uint *param_2)
 }
 
 /* ---- 0x1000d230  luaU_LoadConstants ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Unidentified function of lundump.c (precompiled chunk loader) */
 
@@ -335,7 +335,7 @@ void __cdecl luaU_LoadConstants(int param_1,undefined4 *param_2)
 
 
 /* ---- 0x1000d2f0  luaU_LoadNumber ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Unidentified function of lundump.c (precompiled chunk loader) */
 
@@ -434,7 +434,7 @@ void __cdecl lundump__d3c0(int param_1,int *param_2)
 }
 
 /* ---- 0x1000d420  luaU_loadheader ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* lundump.c: binary file %s too new/old version */
 
@@ -513,7 +513,7 @@ void __cdecl luaU_LoadSignature(int *param_1)
 }
 
 /* ---- 0x1000d5c0  luaU_str2number ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* lundump.c: parses %lf %c */
 
@@ -543,7 +543,7 @@ undefined4 __cdecl luaU_str2number(int *param_1)
 
 
 /* ---- 0x1000d620  lundump__d620 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Unidentified function of lundump.c (precompiled chunk loader) */
 

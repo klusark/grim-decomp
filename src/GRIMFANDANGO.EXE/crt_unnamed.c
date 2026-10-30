@@ -2381,7 +2381,7 @@ void FUN_004b5b60(int param_1)
 /* ---- 0x004b5baa  FUN_004b5baa ---- */
 /* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
-bool FUN_004b5baa(void)
+int FUN_004b5baa(void)
 
 {
   int unaff_EBP;
@@ -7119,7 +7119,7 @@ void FUN_004c5370(undefined4 *param_1)
 }
 
 /* ---- 0x004c5380  FUN_004c5380 ---- */
-bool FUN_004c5380(int param_1)
+int FUN_004c5380(int param_1)
 
 {
   unsigned char _frame[0x150] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -7196,7 +7196,7 @@ int FUN_004c53e0(undefined4 param_1,int param_2,int param_3,undefined4 param_4,b
 
 
 /* ---- 0x004c54f0  FUN_004c54f0 ---- */
-bool FUN_004c54f0(char *param_1,int param_2)
+int FUN_004c54f0(char *param_1,int param_2)
 
 {
   char cVar1;
@@ -7852,7 +7852,7 @@ int FUN_004c5ee0(undefined4 param_1,int param_2,int param_3)
 /* ---- 0x004c5f50  FUN_004c5f50 ---- */
 /* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
-bool FUN_004c5f50(undefined4 param_1)
+int FUN_004c5f50(undefined4 param_1)
 
 {
   int iVar1;
@@ -13885,7 +13885,7 @@ undefined4 FUN_004d0e00(undefined4 param_1,undefined4 param_2,uint *param_3,uint
 /* ---- 0x004d0eb0  FUN_004d0eb0 ---- */
 /* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
-undefined1 FUN_004d0eb0(byte param_1)
+uint FUN_004d0eb0(byte param_1)
 
 {
   if (param_1 == 0xff) {
@@ -15712,7 +15712,7 @@ undefined * FUN_004d5de0(int a1)
 /* ---- 0x004d5e1c  FUN_004d5e1c ---- */
 /* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
-bool FUN_004d5e1c(void)
+int FUN_004d5e1c(void)
 
 {
   int unaff_EBP;

@@ -6390,7 +6390,7 @@ LAB_100164f9:
 /* ---- 0x10016510  _isindst ---- */
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
 
-bool __cdecl _isindst(int *param_1)
+int __cdecl _isindst(int *param_1)
 
 {
   bool bVar1;
@@ -6404,7 +6404,7 @@ bool __cdecl _isindst(int *param_1)
 /* ---- 0x10016540  _isindst_lk ---- */
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
 
-bool __cdecl _isindst_lk(int *param_1)
+int __cdecl _isindst_lk(int *param_1)
 
 {
   uint uVar1;
@@ -7224,7 +7224,7 @@ switchD_1001939b_default:
 #if 0
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
 
-bool __cdecl _handle_exc(uint param_1,double *param_2,uint param_3)
+int __cdecl _handle_exc(uint param_1,double *param_2,uint param_3)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -9556,7 +9556,7 @@ void __cdecl _fptostr(char *param_1,int param_2,int param_3)
 /* ---- 0x1001de60  _ValidateRead ---- */
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
 
-bool __cdecl _ValidateRead(int param_1,int param_2)
+int __cdecl _ValidateRead(int param_1,int param_2)
 
 {
   int iVar1;
@@ -9568,7 +9568,7 @@ bool __cdecl _ValidateRead(int param_1,int param_2)
 /* ---- 0x1001de80  _ValidateWrite ---- */
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
 
-bool __cdecl _ValidateWrite(int param_1,int param_2)
+int __cdecl _ValidateWrite(int param_1,int param_2)
 
 {
   int iVar1;
@@ -9580,7 +9580,7 @@ bool __cdecl _ValidateWrite(int param_1,int param_2)
 /* ---- 0x1001dea0  _ValidateExecute ---- */
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
 
-bool __cdecl _ValidateExecute(int param_1)
+int __cdecl _ValidateExecute(int param_1)
 
 {
   int iVar1;
@@ -9811,7 +9811,7 @@ void __cdecl _getbuf(int *param_1)
 /* ---- 0x1001e3b0  _isatty ---- */
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
 
-byte __cdecl _isatty(uint param_1)
+uint __cdecl _isatty(uint param_1)
 
 {
   if (DAT_1002c700 <= param_1) {

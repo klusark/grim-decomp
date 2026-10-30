@@ -220,7 +220,7 @@ void __cdecl luaV_setglobal(int *param_1)
 }
 
 /* ---- 0x1000da30  luaV_pack ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Unidentified function of lvm.c (virtual machine) */
 
@@ -317,7 +317,7 @@ undefined4 __thiscall lvm__db40(void *this,int a1)
 }
 
 /* ---- 0x1000dbd0  lvm__dbd0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Unidentified function of lvm.c (virtual machine) */
 
@@ -376,7 +376,7 @@ undefined4 __thiscall lvm__dbd0(void *this,int a1,int a2,int a3)
 
 
 /* ---- 0x1000dd10  lvm__dd10 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Unidentified function of lvm.c (virtual machine) */
 

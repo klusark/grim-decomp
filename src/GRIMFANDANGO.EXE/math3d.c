@@ -219,7 +219,7 @@ void __cdecl Matrix_GetAngles(float *matrix,float *outAngles)
 /* ---- 0x0044e7d0  Frustum_TestSphere ---- */
 /* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
-undefined1 Frustum_TestSphere(int *param_1,float *param_2,float param_3)
+uint Frustum_TestSphere(int *param_1,float *param_2,float param_3)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */

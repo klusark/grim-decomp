@@ -1092,7 +1092,7 @@ int Set_FindHandle(char *name)
 }
 
 /* ---- 0x004a55d0  Set_IsHandleValid ---- */
-bool Set_IsHandleValid(char *param_1)
+int Set_IsHandleValid(char *param_1)
 
 {
   int iVar1;

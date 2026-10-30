@@ -145,7 +145,7 @@ undefined4 * __cdecl luaH_free(int param_1)
 }
 
 /* ---- 0x1000c3d0  luaH_init ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Unidentified function of ltable.c (hash tables, with Grim save support) */
 
@@ -248,7 +248,7 @@ int __cdecl luaH_present(int param_1,int *param_2)
 }
 
 /* ---- 0x1000c580  luaH_hashindex ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Unidentified function of ltable.c (hash tables, with Grim save support) */
 

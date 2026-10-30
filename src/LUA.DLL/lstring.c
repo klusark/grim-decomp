@@ -649,7 +649,7 @@ int * __cdecl lstring__9510(undefined *param_1)
 /* ---- 0x10009550  lstring__9550 ---- */
 /* Unidentified function of lstring.c (string table) */
 
-bool __cdecl lstring__9550(byte *param_1)
+int __cdecl lstring__9550(byte *param_1)
 
 {
   int iVar1;

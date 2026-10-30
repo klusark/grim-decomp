@@ -121,7 +121,7 @@ uint __cdecl FUN_10007810(int param_1,int param_2)
 }
 
 /* ---- 0x10007830  lstate__7830 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Unidentified function of lstate.c (Grim execution states / tasks) */
 
@@ -534,8 +534,6 @@ undefined4 __stdcall lstate__79d0(int a1)
 
 
 /* ---- 0x100081c0  lstate__81c0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Unidentified function of lstate.c (Grim execution states / tasks) */
 
@@ -706,8 +704,6 @@ undefined4 __stdcall lstate__81c0(int a1)
 #undef puStack_30
 #undef puStack_34
 
-#endif
-
 
 /* ---- 0x100085e0  lstate__85e0 ---- */
 /* Unidentified function of lstate.c (Grim execution states / tasks) */
@@ -809,7 +805,7 @@ undefined4 __thiscall lstate__8640(void *this,int a1)
 
 
 /* ---- 0x100087f0  lstate__87f0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Unidentified function of lstate.c (Grim execution states / tasks) */
 
@@ -906,7 +902,7 @@ undefined4 __thiscall lstate__87f0(void *this,int a1)
 
 
 /* ---- 0x10008ad0  lstate__8ad0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Unidentified function of lstate.c (Grim execution states / tasks) */
 
@@ -932,7 +928,7 @@ undefined4 * lstate__8ad0(void)
 
 
 /* ---- 0x10008b70  lstate__8b70 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Unidentified function of lstate.c (Grim execution states / tasks) */
 
