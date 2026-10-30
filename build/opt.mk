@@ -3,7 +3,7 @@
 # The list was produced by perf/bisect.py (every module compiled at -O2 and checked: boots to the office, walks,
 # renders the same pixels; perf/soak.py then tours sets, plays a movie, saves and loads).
 # Modules that must stay at -O0 (the build boots to a black screen / hangs with them optimised):
-#   GRIMFANDANGO.EXE/lecshare   GRIMFANDANGO.EXE/resource
+#   GRIMFANDANGO.EXE/lecshare   GRIMFANDANGO.EXE/resource   GRIMFANDANGO.EXE/sputresource (the module was renamed by the naming pass)
 # crt / crt_unnamed (the decompiled MSVC runtime) are not linked at all.
 OPT_FAST := -O2 -fno-omit-frame-pointer -fno-delete-null-pointer-checks
 OPT_LUA.DLL/getlcidfromcountryonly := $(OPT_FAST)
@@ -141,7 +141,6 @@ OPT_GRIMFANDANGO.EXE/sputcostume := $(OPT_FAST)
 OPT_GRIMFANDANGO.EXE/sputlua := $(OPT_FAST)
 OPT_GRIMFANDANGO.EXE/sputprimitive := $(OPT_FAST)
 OPT_GRIMFANDANGO.EXE/sputrender := $(OPT_FAST)
-OPT_GRIMFANDANGO.EXE/sputresource := $(OPT_FAST)
 OPT_GRIMFANDANGO.EXE/sputroom := $(OPT_FAST)
 OPT_GRIMFANDANGO.EXE/sputsmush := $(OPT_FAST)
 OPT_GRIMFANDANGO.EXE/sputtext := $(OPT_FAST)
