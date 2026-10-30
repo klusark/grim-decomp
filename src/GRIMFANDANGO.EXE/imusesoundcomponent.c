@@ -6,7 +6,7 @@
 #include "functions.h"
 
 /* ---- 0x004971a0  ImuseSoundComponent_OnKey ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Costume tag handler for 'iMuse Streamed / Resident Sound FX' (registered by sputCostume_Start
    through Cos_NewStateBasedTag/Cos_NewIntTag): slot 0, starts the sound (SoundStartVoiceStream for
@@ -15,66 +15,65 @@
 
 void __cdecl
 ImuseSoundComponent_OnKey
-          (int param_1,float param_2,undefined4 param_3,float param_4,uint param_5,uint param_6,
-          uint param_7,uint param_8)
+          (int tag,int snd,undefined4 param_3,int slot,uint param_5,uint param_6,uint param_7,
+          uint inst)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   void *pvVar1;
-  float fVar2;
-  float fVar3;
-  byte bVar4;
+  int iVar2;
+  byte bVar3;
+  int iVar4;
   int iVar5;
-  int iVar6;
   void *set;
+  int iVar6;
   uint uVar7;
   #define local_4 (*(float *)(_frame + (0x20 - 0x4)))
   
-  iVar5 = Cos_InstGetUserData(param_8);
-  fVar3 = param_4;
-  fVar2 = param_2;
+  iVar4 = Cos_InstGetUserData(inst);
+  iVar6 = slot;
+  iVar2 = snd;
   pvVar1 = g_pActorTable;
-  if ((*(int *)(&DAT_004e9ff8 + PUN(int,(float)param_4) * 4) == 0) &&
-     (iVar6 = SoundsIsSoundPlaying(PUN(int,(float)param_2)), iVar6 == 0)) {
-    if (param_1 != 0x736c6d69) {
-      if (param_1 != 0x73736d69) {
+  if ((*(int *)(&DAT_004e9ff8 + slot * 4) == 0) && (iVar5 = SoundsIsSoundPlaying(snd), iVar5 == 0))
+  {
+    if (tag != 0x736c6d69) {
+      if (tag != 0x73736d69) {
         return;
       }
-      SoundStartVoiceStream
-                (PUN(int,(float)fVar2),(uint)*(byte *)(PUN(int,(float)fVar2) + 0x20),(int)*(char *)(PUN(int,(float)fVar2) + 0x21));
-      SoundsSetParam(PUN(int,(float)fVar2),0x400,1);
-      SoundsSetParam(PUN(int,(float)fVar2),0x500,*(uint *)(PUN(int,(float)fVar2) + 0x24));
+      SoundStartVoiceStream(iVar2,(uint)*(byte *)(iVar2 + 0x20),(int)*(char *)(iVar2 + 0x21));
+      SoundsSetParam(iVar2,0x400,1);
+      SoundsSetParam(iVar2,0x500,*(uint *)(iVar2 + 0x24));
       return;
     }
     set = Set_GetCurrent();
-    iVar6 = SoundsLoadStartSound(PUN(int,(float)fVar2),*(int *)(PUN(int,(float)fVar2) + 0x24),1);
+    iVar6 = SoundsLoadStartSound(iVar2,*(int *)(iVar2 + 0x24),1);
     if (set == (void *)0x0) {
       return;
     }
-    Set_GetSoundParams(set,&param_2,(char *)&param_8,(char *)&param_1,&local_4,&param_4);
-    bVar4 = *(byte *)(PUN(int,(float)fVar2) + 0x20);
-    if ((byte)param_1 < *(byte *)(PUN(int,(float)fVar2) + 0x20)) {
-      bVar4 = (byte)param_1;
+    Set_GetSoundParams(set,(float *)&snd,(char *)&inst,(char *)&tag,&local_4,(float *)&slot);
+    bVar3 = *(byte *)(iVar2 + 0x20);
+    if ((byte)tag < *(byte *)(iVar2 + 0x20)) {
+      bVar3 = (byte)tag;
     }
-    uVar7 = param_8 & 0xff;
-    if ((int)(param_8 & 0xff) <= (int)*(uint *)(PUN(int,(float)fVar2) + 0x28)) {
-      uVar7 = *(uint *)(PUN(int,(float)fVar2) + 0x28);
+    uVar7 = inst & 0xff;
+    if ((int)(inst & 0xff) <= (int)*(uint *)(iVar2 + 0x28)) {
+      uVar7 = *(uint *)(iVar2 + 0x28);
     }
-    Sound_SetPosition(iVar6,(int)pvVar1 + iVar5 * 0xa8 + 0xc,uVar7,bVar4,param_2,param_4);
+    Sound_SetPosition(iVar6,(int)pvVar1 + iVar4 * 0xa8 + 0xc,uVar7,bVar3,snd,slot);
     return;
   }
-  if (*(int *)(&DAT_004e9ff8 + PUN(int,(float)fVar3) * 4) == 1) {
-    if (param_1 == 0x736c6d69) {
-      SoundsStopSound(PUN(int,(float)fVar2));
+  if (*(int *)(&DAT_004e9ff8 + iVar6 * 4) == 1) {
+    if (tag == 0x736c6d69) {
+      SoundsStopSound(iVar2);
       return;
     }
-    if (param_1 == 0x73736d69) {
+    if (tag == 0x73736d69) {
       SoundStopVoiceStream();
       return;
     }
   }
-  else if (*(int *)(&DAT_004e9ff8 + PUN(int,(float)fVar3) * 4) == 2) {
-    iMUSE_SetHook(PUN(int,(float)fVar2),0x80);
+  else if (*(int *)(&DAT_004e9ff8 + iVar6 * 4) == 2) {
+    iMUSE_SetHook(iVar2,0x80);
   }
   return;
 }

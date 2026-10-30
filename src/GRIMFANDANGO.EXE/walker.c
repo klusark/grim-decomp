@@ -6,7 +6,7 @@
 #include "functions.h"
 
 /* ---- 0x00491230  Walker_UpdateYaw ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Walker_UpdateYaw(actor, pos): eases the visible yaw (actor+0x28) toward the walker heading. Done
    (returns 1) when under 0.5 deg. step = rate*frameSec*timescale; if remaining > step, step =
@@ -196,17 +196,17 @@ uint Walker_AvoidActorPath
   float *pfVar14;
   uint uVar15;
   uint uVar16;
-  uint uVar17;
-  int iVar18;
-  uint *puVar19;
-  float fVar20;
-  float *pfVar21;
+  int iVar17;
+  uint *puVar18;
+  float *pfVar19;
+  float *pfVar20;
+  float fVar21;
   float *pfVar22;
-  float fVar23;
-  float *pfVar24;
   float in_stack_fffffed0;
-  uint uVar25;
+  float bz0;
+  float bx1;
   #define local_124 (*(uint *)(_frame + (0x140 - 0x124)))
+  float fVar23;
   #define local_104 (*(float *)(_frame + (0x140 - 0x104)))
   #define local_100 (*(uint *)(_frame + (0x140 - 0x100)))
   #define local_fc (*(float *)(_frame + (0x140 - 0xfc)))
@@ -263,32 +263,32 @@ uint Walker_AvoidActorPath
   local_104 = *(float *)(*(int *)((int)param_1 + 0xa4) + 0x3f4) * *(float *)(iVar12 + 0x5c);
   pfVar9 = Actor_GetFrame(param_1);
   Vec3_Copy(local_c,(float *)(iVar12 + 0x78),pfVar9);
-  uVar15 = *(uint *)(*(int *)(*(int *)((int)param_2 + 0xa0) + 4) + 4);
+  bx1 = *(float *)(*(int *)(*(int *)((int)param_2 + 0xa0) + 4) + 4);
   pfVar9 = Actor_GetFrame(param_2);
-  Vec3_Sub(local_88,(float *)(uVar15 + 0x78),pfVar9);
+  Vec3_Sub(local_88,(float *)(PUN(int,(float)bx1) + 0x78),pfVar9);
   pfVar9 = Actor_GetFrame(param_2);
-  Vec3_Copy(&local_e8,(float *)(uVar15 + 0x78),pfVar9);
+  Vec3_Copy(&local_e8,(float *)(PUN(int,(float)bx1) + 0x78),pfVar9);
   iVar12 = *(int *)((int)param_2 + 0xa4);
-  local_7c[0] = *(float *)(uVar15 + 0x60) * *(float *)(iVar12 + 0x3f4) - local_104;
+  local_7c[0] = *(float *)(PUN(int,(float)bx1) + 0x60) * *(float *)(iVar12 + 0x3f4) - local_104;
   pfVar9 = (float *)(param_3 + param_4 * 3 + -3);
-  local_7c[1] = *(float *)(uVar15 + 100) * *(float *)(iVar12 + 0x3f4) - local_104;
-  local_7c[2] = *(float *)(uVar15 + 0x68) * *(float *)(iVar12 + 0x3f4) - local_104;
+  local_7c[1] = *(float *)(PUN(int,(float)bx1) + 100) * *(float *)(iVar12 + 0x3f4) - local_104;
+  local_7c[2] = *(float *)(PUN(int,(float)bx1) + 0x68) * *(float *)(iVar12 + 0x3f4) - local_104;
   Actor_GetFrame(param_2);
   pfVar14 = local_7c;
-  pfVar21 = (float *)(_stkneg + 28);
+  pfVar19 = (float *)(_stkneg + 28);
   for (iVar12 = 6; iVar12 != 0; iVar12 = iVar12 + -1) {
-    *pfVar21 = *pfVar14;
+    *pfVar19 = *pfVar14;
     pfVar14 = pfVar14 + 1;
-    pfVar21 = pfVar21 + 1;
+    pfVar19 = pfVar19 + 1;
   }
   ((code *)Collision_PushOutOfBox)(pfVar9);
   Actor_GetFrame(param_2);
   pfVar14 = local_7c;
-  pfVar21 = (float *)(_stkneg + 28);
+  pfVar19 = (float *)(_stkneg + 28);
   for (iVar12 = 6; iVar12 != 0; iVar12 = iVar12 + -1) {
-    *pfVar21 = *pfVar14;
+    *pfVar19 = *pfVar14;
     pfVar14 = pfVar14 + 1;
-    pfVar21 = pfVar21 + 1;
+    pfVar19 = pfVar19 + 1;
   }
   ((code *)Collision_PushOutOfBox)(param_3);
   local_d0 = *pfVar9;
@@ -298,7 +298,7 @@ uint Walker_AvoidActorPath
   if (iVar12 == 0) {
     return 0;
   }
-  uVar16 = 0;
+  uVar15 = 0;
   local_f8 = PUN(float,(param_4 - 1));
   local_f0 = 0;
   if (0 < PUN(int,(float)local_f8)) {
@@ -307,7 +307,7 @@ uint Walker_AvoidActorPath
     do {
       local_64[0] = local_e8 + pfVar14[-2];
       local_fc = PUN(float,(pfVar9 + 3));
-      uVar16 = local_100 + 1;
+      uVar15 = local_100 + 1;
       local_64[1] = pfVar14[-1] + local_e4[0];
       local_64[2] = local_e4[1] + *pfVar14;
       local_a0[0] = pfVar14[1] + local_e8;
@@ -318,82 +318,82 @@ uint Walker_AvoidActorPath
       pfVar9[2] = *pfVar14;
       Actor_GetFrame(param_2);
       pfVar9 = local_7c;
-      pfVar21 = (float *)(_stkneg + 32);
+      pfVar19 = (float *)(_stkneg + 32);
       for (iVar12 = 6; iVar12 != 0; iVar12 = iVar12 + -1) {
-        *pfVar21 = *pfVar9;
+        *pfVar19 = *pfVar9;
         pfVar9 = pfVar9 + 1;
-        pfVar21 = pfVar21 + 1;
+        pfVar19 = pfVar19 + 1;
       }
       iVar12 = ((code *)Collision_SegmentHitsBox)(local_64,local_a0);
-      local_100 = uVar16;
+      local_100 = uVar15;
       if (iVar12 != 0) {
         pfVar9 = Actor_GetFrame(param_2);
         Vec3_Sub(local_58,(float *)&DAT_008ca320,pfVar9);
         this = (void *)((code *)SectorList_FindNearestPoint)();
         Sector_SnapToPlane(this,local_58);
         Actor_GetFrame(param_2);
-        uVar25 = 0x491ba9;
+        bz0 = 6.713914e-39;
         ((code *)Collision_BoxCorners)();
-        puVar19 = &local_1c;
+        puVar18 = &local_1c;
         pfVar9 = &local_4c;
         local_f4 = 5.60519e-45;
         do {
-          *puVar19 = 0;
+          *puVar18 = 0;
           local_a0[0] = local_e8 + *pfVar9;
           local_a0[1] = pfVar9[1] + local_e4[0];
           local_a0[2] = local_e4[1] + pfVar9[2];
           Actor_GetFrame(param_2);
           pfVar14 = local_88;
-          pfVar21 = local_7c;
-          pfVar22 = (float *)(_stkneg + 32);
+          pfVar19 = local_7c;
+          pfVar20 = (float *)(_stkneg + 32);
           for (iVar12 = 6; iVar12 != 0; iVar12 = iVar12 + -1) {
-            *pfVar22 = *pfVar21;
-            pfVar21 = pfVar21 + 1;
-            pfVar22 = pfVar22 + 1;
+            *pfVar20 = *pfVar19;
+            pfVar19 = pfVar19 + 1;
+            pfVar20 = pfVar20 + 1;
           }
           iVar12 = ((code *)Collision_SegmentHitsBox)(local_64,local_a0);
           if ((iVar12 == 0) && (iVar12 = ((code *)Planner_PlanPath)(), iVar12 != 0)) {
-            *puVar19 = 1;
+            *puVar18 = 1;
           }
           pfVar9 = pfVar9 + 3;
-          puVar19 = puVar19 + 1;
+          puVar18 = puVar18 + 1;
           local_f4 = PUN(float,(PUN(int,(float)local_f4) + -1));
         } while (local_f4 != 0.0);
         fVar10 = (float)((code *)Collision_PickDetour)();
         if (fVar10 == -NAN) {
-          return uVar16;
+          return uVar15;
         }
         ((code *)Planner_PlanPath)();
         iVar12 = ((code *)Planner_GetPath)();
         if (0 < iVar12) {
-          local_100 = uVar16 + iVar12;
-          pfVar9 = param_5 + uVar16 * 3;
-          pfVar21 = PUN(float *,(float)local_fc);
+          local_100 = uVar15 + iVar12;
+          pfVar9 = param_5 + uVar15 * 3;
+          pfVar19 = PUN(float *,(float)local_fc);
           do {
             iVar12 = iVar12 + -1;
-            *pfVar9 = *pfVar21;
-            pfVar9[1] = pfVar21[1];
-            pfVar9[2] = pfVar21[2];
+            *pfVar9 = *pfVar19;
+            pfVar9[1] = pfVar19[1];
+            pfVar9[2] = pfVar19[2];
             pfVar9 = pfVar9 + 3;
-            pfVar21 = pfVar21 + 3;
+            pfVar19 = pfVar19 + 3;
           } while (iVar12 != 0);
         }
-        pfVar21 = &local_e8;
+        pfVar19 = &local_e8;
         (&local_1c)[PUN(int,(float)fVar10)] = 0;
         local_f4 = PUN(float,(param_5 + local_100 * 3));
         pfVar9 = (float *)(PUN(int,(float)local_f4) + -0xc);
-        uVar16 = 0x491d51;
+        fVar23 = 6.714508e-39;
         pfVar11 = Actor_GetFrame(param_2);
-        pfVar22 = local_7c;
-        pfVar24 = (float *)(_stkneg + 28);
+        pfVar20 = local_7c;
+        pfVar22 = (float *)(_stkneg + 28);
         for (iVar12 = 6; iVar12 != 0; iVar12 = iVar12 + -1) {
-          *pfVar24 = *pfVar22;
+          *pfVar22 = *pfVar20;
+          pfVar20 = pfVar20 + 1;
           pfVar22 = pfVar22 + 1;
-          pfVar24 = pfVar24 + 1;
         }
         iVar12 = Collision_PointInBox
-                           (pfVar9,&local_d0,local_88,(uint)pfVar14,PUN(uint,(float)in_stack_fffffed0),uVar25,
-                            uVar15,0x491cca,uVar16,(uint)pfVar11,pfVar21);
+                           (pfVar9,&local_d0,local_88,PUN(float,pfVar14),in_stack_fffffed0,bz0,bx1,
+                            6.714319e-39,fVar23,pfVar11,pfVar19);
         if (iVar12 != 0) {
           iVar12 = ((code *)Planner_GetPath)();
           if (iVar12 < 1) {
@@ -410,33 +410,33 @@ uint Walker_AvoidActorPath
           } while (iVar12 != 0);
           return uVar15;
         }
-        uVar16 = (int)(PUN(int,(float)fVar10) + 3U) >> 0x1f;
-        fVar20 = PUN(float,(((PUN(int,(float)fVar10) + 3U ^ uVar16) - uVar16 & 3 ^ uVar16) - uVar16));
-        uVar16 = (int)(PUN(int,(float)fVar10) + 5U) >> 0x1f;
-        fVar23 = PUN(float,(((PUN(int,(float)fVar10) + 5U ^ uVar16) - uVar16 & 3 ^ uVar16) - uVar16));
+        uVar15 = (int)(PUN(int,(float)fVar10) + 3U) >> 0x1f;
+        fVar23 = PUN(float,(((PUN(int,(float)fVar10) + 3U ^ uVar15) - uVar15 & 3 ^ uVar15) - uVar15));
+        uVar15 = (int)(PUN(int,(float)fVar10) + 5U) >> 0x1f;
+        fVar21 = PUN(float,(((PUN(int,(float)fVar10) + 5U ^ uVar15) - uVar15 & 3 ^ uVar15) - uVar15));
         local_f0 = ((code *)Planner_PlanPath)();
         iVar12 = ((code *)Planner_PlanPath)();
         if (iVar12 != 0) {
           if (local_f0 == 0) goto LAB_00491fa5;
-          local_104 = *pfVar9 - (&local_4c)[PUN(int,(float)fVar20) * 3];
-          fVar2 = *(float *)(PUN(int,(float)local_f4) + -8) - PUN(float,(&local_48)[PUN(int,(float)fVar20) * 3]);
-          fVar3 = *(float *)(PUN(int,(float)local_f4) + -4) - PUN(float,(&local_44)[PUN(int,(float)fVar20) * 3]);
-          fVar4 = PUN(float,(&local_48)[PUN(int,(float)fVar20) * 3]) - local_cc[0];
-          fVar5 = PUN(float,(&local_44)[PUN(int,(float)fVar20) * 3]) - local_cc[1];
-          fVar6 = *(float *)(PUN(int,(float)local_f4) + -8) - PUN(float,(&local_48)[PUN(int,(float)fVar23) * 3]);
-          local_f8 = *(float *)(PUN(int,(float)local_f4) + -4) - PUN(float,(&local_44)[PUN(int,(float)fVar23) * 3]);
-          local_fc = PUN(float,(&local_48)[PUN(int,(float)fVar23) * 3]) - local_cc[0];
-          fVar1 = PUN(float,(&local_44)[PUN(int,(float)fVar23) * 3]) - local_cc[1];
+          local_104 = *pfVar9 - (&local_4c)[PUN(int,(float)fVar23) * 3];
+          fVar2 = *(float *)(PUN(int,(float)local_f4) + -8) - PUN(float,(&local_48)[PUN(int,(float)fVar23) * 3]);
+          fVar3 = *(float *)(PUN(int,(float)local_f4) + -4) - PUN(float,(&local_44)[PUN(int,(float)fVar23) * 3]);
+          fVar4 = PUN(float,(&local_48)[PUN(int,(float)fVar23) * 3]) - local_cc[0];
+          fVar5 = PUN(float,(&local_44)[PUN(int,(float)fVar23) * 3]) - local_cc[1];
+          fVar6 = *(float *)(PUN(int,(float)local_f4) + -8) - PUN(float,(&local_48)[PUN(int,(float)fVar21) * 3]);
+          local_f8 = *(float *)(PUN(int,(float)local_f4) + -4) - PUN(float,(&local_44)[PUN(int,(float)fVar21) * 3]);
+          local_fc = PUN(float,(&local_48)[PUN(int,(float)fVar21) * 3]) - local_cc[0];
+          fVar1 = PUN(float,(&local_44)[PUN(int,(float)fVar21) * 3]) - local_cc[1];
           if (fVar1 * fVar1 +
               local_fc * local_fc +
-              ((&local_4c)[PUN(int,(float)fVar23) * 3] - local_d0) * ((&local_4c)[PUN(int,(float)fVar23) * 3] - local_d0)
+              ((&local_4c)[PUN(int,(float)fVar21) * 3] - local_d0) * ((&local_4c)[PUN(int,(float)fVar21) * 3] - local_d0)
               + local_f8 * local_f8 +
                 fVar6 * fVar6 +
-                (*pfVar9 - (&local_4c)[PUN(int,(float)fVar23) * 3]) * (*pfVar9 - (&local_4c)[PUN(int,(float)fVar23) * 3])
+                (*pfVar9 - (&local_4c)[PUN(int,(float)fVar21) * 3]) * (*pfVar9 - (&local_4c)[PUN(int,(float)fVar21) * 3])
               <= fVar5 * fVar5 +
                  fVar4 * fVar4 +
-                 ((&local_4c)[PUN(int,(float)fVar20) * 3] - local_d0) *
-                 ((&local_4c)[PUN(int,(float)fVar20) * 3] - local_d0) +
+                 ((&local_4c)[PUN(int,(float)fVar23) * 3] - local_d0) *
+                 ((&local_4c)[PUN(int,(float)fVar23) * 3] - local_d0) +
                  fVar3 * fVar3 + fVar2 * fVar2 + local_104 * local_104) {
             local_f0 = 0;
           }
@@ -446,12 +446,12 @@ uint Walker_AvoidActorPath
         }
         if (local_f0 != 0) {
           local_f8 = -NAN;
-          local_104 = fVar20;
+          local_104 = fVar23;
         }
 LAB_00491fa5:
         if (iVar12 != 0) {
           local_f8 = 1.4013e-45;
-          local_104 = fVar23;
+          local_104 = fVar21;
         }
         if (local_104 == fVar10) {
           return local_100;
@@ -461,21 +461,21 @@ LAB_00491fa5:
           pfVar9 = (float *)((code *)Planner_GetPath)();
           iVar12 = 0;
           if (0 < (int)pfVar9 + -1) {
-            iVar18 = 0;
+            iVar17 = 0;
             do {
-              local_ac[0] = local_e8 + *(float *)(PUN(int,(float)local_fc) + iVar18);
-              local_ac[1] = *(float *)(PUN(int,(float)local_fc) + 4 + iVar18) + local_e4[0];
-              local_ac[2] = *(float *)(PUN(int,(float)local_fc) + 8 + iVar18) + local_e4[1];
-              local_94[0] = *(float *)(PUN(int,(float)local_fc) + 0xc + iVar18) + local_e8;
-              local_94[1] = *(float *)(PUN(int,(float)local_fc) + 0x10 + iVar18) + local_e4[0];
-              local_94[2] = *(float *)(PUN(int,(float)local_fc) + 0x14 + iVar18) + local_e4[1];
+              local_ac[0] = local_e8 + *(float *)(PUN(int,(float)local_fc) + iVar17);
+              local_ac[1] = *(float *)(PUN(int,(float)local_fc) + 4 + iVar17) + local_e4[0];
+              local_ac[2] = *(float *)(PUN(int,(float)local_fc) + 8 + iVar17) + local_e4[1];
+              local_94[0] = *(float *)(PUN(int,(float)local_fc) + 0xc + iVar17) + local_e8;
+              local_94[1] = *(float *)(PUN(int,(float)local_fc) + 0x10 + iVar17) + local_e4[0];
+              local_94[2] = *(float *)(PUN(int,(float)local_fc) + 0x14 + iVar17) + local_e4[1];
               Actor_GetFrame(param_2);
               pfVar14 = local_7c;
-              pfVar21 = (float *)(_stkneg + 32);
+              pfVar19 = (float *)(_stkneg + 32);
               for (iVar13 = 6; iVar13 != 0; iVar13 = iVar13 + -1) {
-                *pfVar21 = *pfVar14;
+                *pfVar19 = *pfVar14;
                 pfVar14 = pfVar14 + 1;
-                pfVar21 = pfVar21 + 1;
+                pfVar19 = pfVar19 + 1;
               }
               pfVar14 = local_88;
               iVar13 = ((code *)Collision_SegmentHitsBox)(local_ac,local_94);
@@ -483,70 +483,69 @@ LAB_00491fa5:
                 return 0;
               }
               iVar12 = iVar12 + 1;
-              iVar18 = iVar18 + 0xc;
+              iVar17 = iVar17 + 0xc;
             } while (iVar12 < (int)pfVar9 + -1);
           }
           if (0 < (int)pfVar9) {
             local_100 = local_100 + (int)pfVar9;
             puVar7 = PUN(undefined4 *,(float)local_fc);
-            pfVar21 = pfVar9;
+            pfVar19 = pfVar9;
             do {
-              pfVar21 = (float *)((int)pfVar21 + -1);
+              pfVar19 = (float *)((int)pfVar19 + -1);
               *PUN(undefined4 *,(float)local_f4) = *puVar7;
               *(undefined4 *)(PUN(int,(float)local_f4) + 4) = puVar7[1];
               *(undefined4 *)(PUN(int,(float)local_f4) + 8) = puVar7[2];
               local_f4 = PUN(float,(PUN(int,(float)local_f4) + 0xc));
               puVar7 = puVar7 + 3;
-            } while (pfVar21 != (float *)0x0);
+            } while (pfVar19 != (float *)0x0);
           }
-          pfVar21 = &local_e8;
+          pfVar19 = &local_e8;
           local_f4 = PUN(float,(param_5 + local_100 * 3));
-          uVar16 = 0x492118;
+          fVar23 = 6.715863e-39;
           pfVar11 = Actor_GetFrame(param_2);
-          pfVar22 = local_7c;
-          pfVar24 = (float *)(_stkneg + 28);
+          pfVar20 = local_7c;
+          pfVar22 = (float *)(_stkneg + 28);
           for (iVar12 = 6; iVar12 != 0; iVar12 = iVar12 + -1) {
-            *pfVar24 = *pfVar22;
+            *pfVar22 = *pfVar20;
+            pfVar20 = pfVar20 + 1;
             pfVar22 = pfVar22 + 1;
-            pfVar24 = pfVar24 + 1;
           }
           iVar12 = Collision_PointInBox
-                             ((float *)(PUN(int,(float)local_f4) + -0xc),&local_d0,local_88,(uint)pfVar14,
-                              PUN(uint,(float)in_stack_fffffed0),uVar25,uVar15,0x491fde,uVar16,(uint)pfVar11,
-                              pfVar21);
+                             ((float *)(PUN(int,(float)local_f4) + -0xc),&local_d0,local_88,PUN(float,pfVar14),
+                              in_stack_fffffed0,bz0,bx1,6.715423e-39,fVar23,pfVar11,pfVar19);
           if (iVar12 != 0) break;
-          uVar16 = PUN(int,(float)local_f8) + 4 + PUN(int,(float)local_104);
-          uVar17 = (int)uVar16 >> 0x1f;
-          local_104 = PUN(float,(((uVar16 ^ uVar17) - uVar17 & 3 ^ uVar17) - uVar17));
+          uVar15 = PUN(int,(float)local_f8) + 4 + PUN(int,(float)local_104);
+          uVar16 = (int)uVar15 >> 0x1f;
+          local_104 = PUN(float,(((uVar15 ^ uVar16) - uVar16 & 3 ^ uVar16) - uVar16));
           if (local_104 == fVar10) {
             return local_100;
           }
         }
         iVar12 = ((code *)Planner_GetPath)();
-        iVar18 = 0;
+        iVar17 = 0;
         local_f8 = 0.0;
         if (0 < iVar12 + -1) {
           do {
-            local_94[0] = local_e8 + *(float *)((int)pfVar9 + iVar18);
-            local_94[1] = *(float *)((int)pfVar9 + iVar18 + 4) + local_e4[0];
-            local_94[2] = *(float *)((int)pfVar9 + iVar18 + 8) + local_e4[1];
-            local_ac[0] = *(float *)((int)pfVar9 + iVar18 + 0xc) + local_e8;
-            local_ac[1] = *(float *)((int)pfVar9 + iVar18 + 0x10) + local_e4[0];
-            local_ac[2] = *(float *)((int)pfVar9 + iVar18 + 0x14) + local_e4[1];
+            local_94[0] = local_e8 + *(float *)((int)pfVar9 + iVar17);
+            local_94[1] = *(float *)((int)pfVar9 + iVar17 + 4) + local_e4[0];
+            local_94[2] = *(float *)((int)pfVar9 + iVar17 + 8) + local_e4[1];
+            local_ac[0] = *(float *)((int)pfVar9 + iVar17 + 0xc) + local_e8;
+            local_ac[1] = *(float *)((int)pfVar9 + iVar17 + 0x10) + local_e4[0];
+            local_ac[2] = *(float *)((int)pfVar9 + iVar17 + 0x14) + local_e4[1];
             Actor_GetFrame(param_2);
             pfVar14 = local_7c;
-            pfVar21 = (float *)(_stkneg + 32);
+            pfVar19 = (float *)(_stkneg + 32);
             for (iVar13 = 6; iVar13 != 0; iVar13 = iVar13 + -1) {
-              *pfVar21 = *pfVar14;
+              *pfVar19 = *pfVar14;
               pfVar14 = pfVar14 + 1;
-              pfVar21 = pfVar21 + 1;
+              pfVar19 = pfVar19 + 1;
             }
             iVar13 = ((code *)Collision_SegmentHitsBox)(local_94,local_ac);
             if (iVar13 != 0) {
               return 0;
             }
             local_f8 = PUN(float,(PUN(int,(float)local_f8) + 1));
-            iVar18 = iVar18 + 0xc;
+            iVar17 = iVar17 + 0xc;
           } while (PUN(int,(float)local_f8) < iVar12 + -1);
         }
         uVar15 = local_100;
@@ -564,13 +563,13 @@ LAB_00491fa5:
         }
         return uVar15;
       }
-      uVar16 = local_f0 + 1;
+      uVar15 = local_f0 + 1;
       pfVar14 = pfVar14 + 3;
       pfVar9 = PUN(float *,(float)local_fc);
-      local_f0 = uVar16;
-    } while ((int)uVar16 < PUN(int,(float)local_f8));
+      local_f0 = uVar15;
+    } while ((int)uVar15 < PUN(int,(float)local_f8));
   }
-  pfVar9 = (float *)(param_3 + uVar16 * 3);
+  pfVar9 = (float *)(param_3 + uVar15 * 3);
   param_5 = param_5 + local_100 * 3;
   *param_5 = *pfVar9;
   param_5[1] = pfVar9[1];
@@ -748,8 +747,6 @@ void __thiscall Walker_ToLocalSpace(void *this,float *vec)
 
 
 /* ---- 0x004a83c0  Walker_TurnHeading ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void __thiscall Walker_TurnHeading(void *this,float angle)
 
 {
@@ -773,8 +770,6 @@ void __thiscall Walker_TurnHeading(void *this,float angle)
   return;
 }
 #undef local_30
-
-#endif
 
 
 /* ---- 0x004a8450  Walker_TurnToPoint ---- */
@@ -816,8 +811,6 @@ float __thiscall Walker_TurnToPoint(void *this,float *point,float maxTurn)
 
 
 /* ---- 0x004a85b0  Walker_SetConstraint ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void __thiscall Walker_SetConstraint(void *this,int a1)
 
 {
@@ -839,8 +832,6 @@ void __thiscall Walker_SetConstraint(void *this,int a1)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x004a8610  Walker_WalkSectors ---- */
 /* WARNING: Variable defined which should be unmapped: local_48 */
@@ -993,8 +984,6 @@ undefined * __thiscall Walker_WalkSectors(void *this,float step,int turnLeftOk,i
 
 
 /* ---- 0x004a89b0  Walker_SetSectorFrame ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void __thiscall Walker_SetSectorFrame(void *this,int a1)
 
 {
@@ -1025,8 +1014,6 @@ void __thiscall Walker_SetSectorFrame(void *this,int a1)
   Vec3_Normalize(pfVar2);
   return;
 }
-#endif
-
 
 /* ---- 0x004a8a90  Walker_RebuildRightVector ---- */
 void __fastcall Walker_RebuildRightVector(int param_1)
@@ -1050,13 +1037,10 @@ void __fastcall Walker_RebuildRightVector(int param_1)
 }
 
 /* ---- 0x004a8b00  Walker_DrawDebugAxes ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
-void __stdcall Walker_DrawDebugAxes(int color)
+void __thiscall Walker_DrawDebugAxes(void *this,int color)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  void *in_ECX;
   #define local_18 (*(float *)(_frame + (0x30 - 0x18)))
   #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
   #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
@@ -1070,36 +1054,40 @@ void __stdcall Walker_DrawDebugAxes(int color)
   local_18 = 0.0;
   local_14 = 0x3dcccccd;
   local_10 = 0;
-  Walker_RotateVector(in_ECX,&local_c);
-  Walker_RotateVector(in_ECX,&local_18);
-  rdPrimit3_DrawLine(&local_c,&local_18,0,0,0,0,color,0xffffffff);
+  Walker_RotateVector(this,&local_c);
+  Walker_RotateVector(this,&local_18);
+  rdPrimit3_DrawLine(&local_c,&local_18,(int *)0x0,(int *)0x0,(int *)0x0,(int *)0x0,color,0xffffffff
+                    );
   local_c = 0.05;
   local_8 = 0x3d4ccccd;
   local_4 = 0;
   local_18 = 0.0;
   local_14 = 0x3dcccccd;
   local_10 = 0;
-  Walker_RotateVector(in_ECX,&local_c);
-  Walker_RotateVector(in_ECX,&local_18);
-  rdPrimit3_DrawLine(&local_c,&local_18,0,0,0,0,color,0xffffffff);
+  Walker_RotateVector(this,&local_c);
+  Walker_RotateVector(this,&local_18);
+  rdPrimit3_DrawLine(&local_c,&local_18,(int *)0x0,(int *)0x0,(int *)0x0,(int *)0x0,color,0xffffffff
+                    );
   local_c = -0.05;
   local_8 = 0x3d4ccccd;
   local_4 = 0;
   local_18 = 0.0;
   local_14 = 0x3dcccccd;
   local_10 = 0;
-  Walker_RotateVector(in_ECX,&local_c);
-  Walker_RotateVector(in_ECX,&local_18);
-  rdPrimit3_DrawLine(&local_c,&local_18,0,0,0,0,color,0xffffffff);
+  Walker_RotateVector(this,&local_c);
+  Walker_RotateVector(this,&local_18);
+  rdPrimit3_DrawLine(&local_c,&local_18,(int *)0x0,(int *)0x0,(int *)0x0,(int *)0x0,color,0xffffffff
+                    );
   local_c = 0.0;
   local_8 = 0;
   local_4 = 0x3d4ccccd;
   local_18 = 0.0;
   local_14 = 0;
   local_10 = 0;
-  Walker_RotateVector(in_ECX,&local_c);
-  Walker_RotateVector(in_ECX,&local_18);
-  rdPrimit3_DrawLine(&local_c,&local_18,0,0,0,0,color,0xffffffff);
+  Walker_RotateVector(this,&local_c);
+  Walker_RotateVector(this,&local_18);
+  rdPrimit3_DrawLine(&local_c,&local_18,(int *)0x0,(int *)0x0,(int *)0x0,(int *)0x0,color,0xffffffff
+                    );
   return;
 }
 #undef local_10
@@ -1108,8 +1096,6 @@ void __stdcall Walker_DrawDebugAxes(int color)
 #undef local_4
 #undef local_8
 #undef local_c
-
-#endif
 
 
 /* ---- 0x004a9420  Planner_GetPath ---- */

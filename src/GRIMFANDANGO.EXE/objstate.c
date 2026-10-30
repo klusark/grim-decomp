@@ -6,8 +6,6 @@
 #include "functions.h"
 
 /* ---- 0x004a5d50  ObjectState_Create ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Lua NewObjectState (userdata tag 'STAT'): record {?, type, setupIdx, ...} linked into setup+0x128
     */
 
@@ -17,15 +15,11 @@ void * __cdecl ObjectState_Create(int setupIdx,int type,char *bitmap,char *zbitm
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   void *pvVar2;
-  uint *unaff_FS_OFFSET = (uint *)TEB_BASE();
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
   #define pcStack_8 (*(code **)(_frame + (0x20 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
-  local_c = *unaff_FS_OFFSET;
   local_4 = 0xffffffff;
   pcStack_8 = FUN_004d607b;
-  *unaff_FS_OFFSET = (uint)&local_c;
   pvVar2 = Set_GetCurrent();
   iVar1 = *(int *)((int)pvVar2 + 0xac) + setupIdx * 300;
   pvVar2 = Plat_Alloc(0xfc);
@@ -39,7 +33,6 @@ void * __cdecl ObjectState_Create(int setupIdx,int type,char *bitmap,char *zbitm
   local_4 = 0xffffffff;
   *(void **)(iVar1 + 0x128) = pvVar2;
   if (pvVar2 == (void *)0x0) {
-    *unaff_FS_OFFSET = local_c;
     return (void *)0x0;
   }
   Mem_CheckAlloc(pvVar2,s_C__grimsrc_libs_grimlib_Engine_s_004ec5e0,0x992);
@@ -50,14 +43,10 @@ void * __cdecl ObjectState_Create(int setupIdx,int type,char *bitmap,char *zbitm
   }
   ObjectState_SetFrame(*(void **)(iVar1 + 0x128),visible);
   pvVar2 = *(void **)(iVar1 + 0x128);
-  *unaff_FS_OFFSET = local_c;
   return pvVar2;
 }
 #undef local_4
-#undef local_c
 #undef pcStack_8
-
-#endif
 
 
 /* ---- 0x004a5e50  ObjectState_Free ---- */
@@ -287,8 +276,6 @@ int __fastcall StateImage_IsCurrentFrame(int param_1)
 }
 
 /* ---- 0x004aa410  ObjectState_Construct ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* ObjectState.cpp constructor: builds the bitmap and depth StateImages */
 
 void * __thiscall
@@ -329,24 +316,16 @@ ObjectState_Construct(void *this,int type,char *bitmapName,char *zbufName,int se
 #undef local_c
 #undef pcStack_8
 
-#endif
-
 
 /* ---- 0x004aa4c0  ObjectState_Destruct ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void __fastcall ObjectState_Destruct(int param_1)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  uint *unaff_FS_OFFSET = (uint *)TEB_BASE();
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
   #define pcStack_8 (*(code **)(_frame + (0x20 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
-  local_c = *unaff_FS_OFFSET;
   pcStack_8 = FUN_004d610b;
-  *unaff_FS_OFFSET = (uint)&local_c;
   local_4 = 0;
   if (*(int *)(param_1 + 0xf4) != 0) {
     *(undefined4 *)(*(int *)(param_1 + 0xf4) + 0xf8) = *(undefined4 *)(param_1 + 0xf8);
@@ -357,14 +336,10 @@ void __fastcall ObjectState_Destruct(int param_1)
   StateImage_Release(param_1 + 0x80);
   local_4 = 0xffffffff;
   StateImage_Release(param_1 + 0xc);
-  *unaff_FS_OFFSET = local_c;
   return;
 }
 #undef local_4
-#undef local_c
 #undef pcStack_8
-
-#endif
 
 
 /* ---- 0x004aa540  ObjectState_LoadImages ---- */

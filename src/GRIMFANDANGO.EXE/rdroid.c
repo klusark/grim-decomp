@@ -183,7 +183,7 @@ undefined4 rdroid_SetColormap(uint param_1)
 }
 
 /* ---- 0x00404b80  rdroid_BuildMathTables ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_4 */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */

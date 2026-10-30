@@ -641,8 +641,6 @@ void D3D_ResetTextures(void)
 }
 
 /* ---- 0x00479170  D3D_CreateTexture ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Builds a 0x98-byte texture record {sysSurface, vidSurface, ..., +0x74 handle, +0x78 valid, +0x80
    w, +0x88 h, +0x88 size, +0x8c frameStamp, +0x90 prev, +0x94 next}; scales to the driver's size
    limits and converts 8-bit sources to 16-bit */
@@ -1013,8 +1011,6 @@ LAB_0047940a:
 #undef local_f0
 #undef uStack_24
 
-#endif
-
 
 /* ---- 0x00479860  D3D_FreeAllTextures ---- */
 void D3D_FreeAllTextures(void)
@@ -1196,8 +1192,6 @@ undefined4 D3D_ClearZBuffer(void)
 
 
 /* ---- 0x00479b50  D3D_FindClosestDriver ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 uint D3D_FindClosestDriver(int *param_1,int param_2,uint param_3)
 
 {
@@ -1236,8 +1230,6 @@ uint D3D_FindClosestDriver(int *param_1,int param_2,uint param_3)
   return local_4;
 }
 #undef local_4
-
-#endif
 
 
 /* ---- 0x00479be0  D3D_FindTextureFormat ---- */
@@ -1298,8 +1290,6 @@ uint D3D_FindTextureFormat(int *param_1,int param_2,uint param_3)
 
 
 /* ---- 0x00479cc0  D3D_SetViewportRect ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 void D3D_SetViewportRect(uint *param_1)
@@ -1341,8 +1331,6 @@ void D3D_SetViewportRect(uint *param_1)
   _DAT_00900560 = 0x8200;
   return;
 }
-#endif
-
 
 /* ---- 0x00479db0  D3D_InitRenderState ---- */
 /* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */

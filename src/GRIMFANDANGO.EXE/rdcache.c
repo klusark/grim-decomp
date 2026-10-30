@@ -149,7 +149,7 @@ void rdCache_Flush(void)
 }
 
 /* ---- 0x00406860  rdCache_AddMesh ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Appends a mesh to the cache list and computes its screen bounds / depth */
 
@@ -1785,7 +1785,7 @@ undefined4 FUN_00408800(void)
 }
 
 /* ---- 0x00408af0  rdCache_DrawMeshZ ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software path with z-buffer */
 

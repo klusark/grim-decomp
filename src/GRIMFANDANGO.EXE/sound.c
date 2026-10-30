@@ -95,7 +95,7 @@ PositionedSound_Add(uint param_1,undefined **param_2,uint param_3,uint param_4,u
 }
 
 /* ---- 0x004a4e80  PositionedSound_Apply ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Moves the volume and pan of one positioned sound (entry: +8..0x10 pos, +0x14 min, +0x18 max,
    +0x1c scale, +0x20 near distance 0.8). d = pos - camera pos (current setup, set+0xac, setup

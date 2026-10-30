@@ -197,8 +197,6 @@ void __cdecl Set_SwitchSetup(void *set,int setupIdx)
 
 
 /* ---- 0x00485780  Set_DrawDebugLights ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Debug overlay of every light in the set: point/omni lights as a line and circle, spot lights as a
    cone frustum */
 
@@ -207,7 +205,7 @@ void Set_DrawDebugLights(int param_1)
 {
   unsigned char _frame[0x90] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
-  undefined4 *puVar2;
+  float *pfVar2;
   float *vec;
   #define local_74 (*(uint *)(_frame + (0x90 - 0x74)))
   #define local_70 (*(uint *)(_frame + (0x90 - 0x70)))
@@ -226,23 +224,24 @@ void Set_DrawDebugLights(int param_1)
   
   local_70 = 0;
   if (*(int *)(param_1 + 0xb8) != 0) {
-    puVar2 = (undefined4 *)(param_1 + 0x11c);
+    pfVar2 = (float *)(param_1 + 0x11c);
     do {
-      if ((int)puVar2[-0xc] < 3) {
-        local_6c = puVar2[-0x10];
-        local_68 = puVar2[-0xf];
+      if (PUN(int,(float)pfVar2[-0xc]) < 3) {
+        local_6c = PUN(uint,(float)pfVar2[-0x10]);
+        local_68 = PUN(uint,(float)pfVar2[-0xf]);
         local_64 = 0;
-        rdPrimit3_DrawLine(puVar2 + -0x10,&local_6c,0,0,0,0,PIECE(UINT_008c97c8,2,2),0xffffffff);
-        ((void (*)(float *, float, undefined4, int, int))rdPrimit3_DrawPoint)(puVar2 + -0x10,*puVar2,0x41980000,PIECE(UINT_008c97c8,2,2),0xffffffff);
+        rdPrimit3_DrawLine(pfVar2 + -0x10,(float *)&local_6c,(int *)0x0,(int *)0x0,(int *)0x0,
+                           (int *)0x0,(uint)PIECE(UINT_008c97c8,2,2),0xffffffff);
+        rdPrimit3_DrawPoint(pfVar2 + -0x10,*pfVar2,0x41980000,(uint)PIECE(UINT_008c97c8,2,2),0xffffffff);
       }
       else {
-        local_68 = PUN(uint,(float)(PUN(float,puVar2[-9]) + PUN(float,puVar2[-0xf])));
-        local_64 = PUN(uint,(float)(PUN(float,puVar2[-8]) + PUN(float,puVar2[-0xe])));
-        local_6c = PUN(uint,(float)(PUN(float,puVar2[-10]) + PUN(float,puVar2[-0x10])));
-        Camera_BuildBasis(local_30,puVar2 + -0x10,&local_6c,0);
-        local_5c = PUN(float,puVar2[-7]) * 0.1;
+        local_68 = PUN(uint,(float)(pfVar2[-9] + pfVar2[-0xf]));
+        local_64 = PUN(uint,(float)(pfVar2[-8] + pfVar2[-0xe]));
+        local_6c = PUN(uint,(float)(pfVar2[-10] + pfVar2[-0x10]));
+        Camera_BuildBasis(local_30,pfVar2 + -0x10,&local_6c,0);
+        local_5c = pfVar2[-7] * 0.1;
         vec = &local_60;
-        local_60 = (1.0 - PUN(float,puVar2[-2])) * local_5c;
+        local_60 = (1.0 - pfVar2[-2]) * local_5c;
         local_48 = -local_60;
         iVar1 = 4;
         local_58[0] = local_60;
@@ -255,17 +254,22 @@ void Set_DrawDebugLights(int param_1)
         local_38[1] = local_60;
         do {
           Vec3_Rotate3x3(vec,local_30);
-          rdPrimit3_DrawLine(puVar2 + -0x10,vec,0,0,0,0,PIECE(UINT_008c97cc,2,2),0xffffffff);
+          rdPrimit3_DrawLine(pfVar2 + -0x10,vec,(int *)0x0,(int *)0x0,(int *)0x0,(int *)0x0,
+                             (uint)PIECE(UINT_008c97cc,2,2),0xffffffff);
           vec = vec + 3;
           iVar1 = iVar1 + -1;
         } while (iVar1 != 0);
-        rdPrimit3_DrawLine(&local_60,local_58 + 1,0,0,0,0,PIECE(UINT_008c97cc,2,2),0xffffffff);
-        rdPrimit3_DrawLine(local_58 + 1,&local_48,0,0,0,0,PIECE(UINT_008c97cc,2,2),0xffffffff);
-        rdPrimit3_DrawLine(&local_48,&local_3c,0,0,0,0,PIECE(UINT_008c97cc,2,2),0xffffffff);
-        rdPrimit3_DrawLine(&local_3c,&local_60,0,0,0,0,PIECE(UINT_008c97cc,2,2),0xffffffff);
+        rdPrimit3_DrawLine(&local_60,local_58 + 1,(int *)0x0,(int *)0x0,(int *)0x0,(int *)0x0,
+                           (uint)PIECE(UINT_008c97cc,2,2),0xffffffff);
+        rdPrimit3_DrawLine(local_58 + 1,&local_48,(int *)0x0,(int *)0x0,(int *)0x0,(int *)0x0,
+                           (uint)PIECE(UINT_008c97cc,2,2),0xffffffff);
+        rdPrimit3_DrawLine(&local_48,&local_3c,(int *)0x0,(int *)0x0,(int *)0x0,(int *)0x0,
+                           (uint)PIECE(UINT_008c97cc,2,2),0xffffffff);
+        rdPrimit3_DrawLine(&local_3c,&local_60,(int *)0x0,(int *)0x0,(int *)0x0,(int *)0x0,
+                           (uint)PIECE(UINT_008c97cc,2,2),0xffffffff);
       }
       local_70 = local_70 + 1;
-      puVar2 = puVar2 + 0x1a;
+      pfVar2 = pfVar2 + 0x1a;
     } while (local_70 < *(uint *)(param_1 + 0xb8));
   }
   return;
@@ -284,8 +288,6 @@ void Set_DrawDebugLights(int param_1)
 #undef local_6c
 #undef local_70
 #undef local_74
-
-#endif
 
 
 /* ---- 0x004859c0  Set_DrawDebugCameras ---- */

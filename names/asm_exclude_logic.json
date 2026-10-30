@@ -1,0 +1,27 @@
+{
+ "_comment": "agent P (game logic): functions converted from assembly back to decompiled C (functions written by hand in build/overrides_logic*.c are not listed)",
+ "GRIMFANDANGO.EXE": [
+  "00479170",
+  "00479b50",
+  "00479cc0",
+  "00485780",
+  "0048a4b0",
+  "0048a670",
+  "00490730",
+  "00493570",
+  "004936e0",
+  "004a5d50",
+  "004a6b30",
+  "004a6fa0",
+  "004a7000",
+  "004a7bc0",
+  "004a83c0",
+  "004a85b0",
+  "004a89b0",
+  "004a8b00",
+  "004aa410",
+  "004aa4c0",
+  "004ab210",
+  "004ab5d0"
+ ]
+}

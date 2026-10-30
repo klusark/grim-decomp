@@ -35,12 +35,10 @@ void Primitives_Show(void)
 }
 
 /* ---- 0x0048a4b0  Primitive_Construct ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* 0x30-byte primitive {next, prev, type (0 line, 1 rect, 2 polyline segment), id, layer, x1, y1,
    x2, y2, color, ?, filled} */
 
-void __thiscall Primitive_Construct(void *this,int id,int unused)
+void * __thiscall Primitive_Construct(void *this,int id,int unused)
 
 {
   *(undefined4 *)((int)this + 0x14) = 0;
@@ -58,10 +56,8 @@ void __thiscall Primitive_Construct(void *this,int id,int unused)
   *(undefined4 *)((int)this + 0x1c) = 0;
   *(undefined4 *)((int)this + 0x20) = *(undefined4 *)((int)this + 0x18);
   *(undefined4 *)((int)this + 0x10) = 2;
-  return;
+  return this;
 }
-#endif
-
 
 /* ---- 0x0048a560  Primitive_AddLine ---- */
 int __thiscall Primitive_AddLine(void *this,int x1,int y1,int x2,int y2,int color,int layer)

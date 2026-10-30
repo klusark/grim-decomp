@@ -274,7 +274,7 @@ void rdPolyline_DrawFace(int param_1,int param_2,undefined4 param_3,undefined4 *
 
 
 /* ---- 0x00472640  rdSprite_DrawThing ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Billboard: builds a camera-facing matrix for the thing position and draws the sprite */

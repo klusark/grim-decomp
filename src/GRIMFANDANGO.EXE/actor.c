@@ -46,6 +46,7 @@ void Actor_DrawDebugWalker(void *param_1)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  void *this;
   int iVar1;
   float *b;
   int iVar2;
@@ -54,8 +55,9 @@ void Actor_DrawDebugWalker(void *param_1)
   #define local_c (*(float (*)[3])(_frame + (0x40 - 0xc)))
   
   if (*(int *)((int)param_1 + 0xa4) != 0) {
-    if (*(int *)(*(int *)((int)param_1 + 0xa4) + 0x1b4) != 0) {
-      Walker_DrawDebugAxes(UINT_008c97e0 & 0xffff);
+    this = *(void **)(*(int *)((int)param_1 + 0xa4) + 0x1b4);
+    if (this != (void *)0x0) {
+      Walker_DrawDebugAxes(this,UINT_008c97e0 & 0xffff);
     }
     if ((*(byte *)((int)param_1 + 8) & 1) != 0) {
       iVar1 = *(int *)((int)param_1 + 0xa4);
@@ -63,8 +65,8 @@ void Actor_DrawDebugWalker(void *param_1)
       if (*(int *)(iVar1 + 0x44) != 1 && -1 < *(int *)(iVar1 + 0x44) + -1) {
         iVar2 = 0x48;
         do {
-          rdPrimit3_DrawLine(iVar2 + iVar1,iVar2 + 0xc + iVar1,0,0,0,0,UINT_008c97d4 & 0xffff,
-                             0xffffffff);
+          rdPrimit3_DrawLine((float *)(iVar2 + iVar1),(float *)(iVar2 + 0xc + iVar1),(int *)0x0,
+                             (int *)0x0,(int *)0x0,(int *)0x0,UINT_008c97d4 & 0xffff,0xffffffff);
           iVar1 = *(int *)((int)param_1 + 0xa4);
           iVar3 = iVar3 + 1;
           iVar2 = iVar2 + 0xc;
@@ -75,7 +77,7 @@ void Actor_DrawDebugWalker(void *param_1)
       iVar1 = *(int *)(*(int *)(*(int *)((int)param_1 + 0xa0) + 4) + 4);
       b = Actor_GetFrame(param_1);
       Vec3_Sub(local_c,(float *)(iVar1 + 0x78),b);
-      ((void (*)(float *, float, undefined4, int, int))rdPrimit3_DrawPoint)(local_c,*(float *)(iVar1 + 0x5c) *
+      rdPrimit3_DrawPoint(local_c,*(float *)(iVar1 + 0x5c) *
                                   *(float *)(*(int *)((int)param_1 + 0xa4) + 0x3f4),0x41200000,
                           0xffff,0xffffffff);
     }
@@ -87,7 +89,7 @@ void Actor_DrawDebugWalker(void *param_1)
 
 
 /* ---- 0x0048b2e0  Actor_CreateSubtitle ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Creates the speech text object above the actor (projected head position when on screen), clamped
    to the screen edges */
@@ -399,7 +401,7 @@ void Actor_WalkForward(int param_1)
 }
 
 /* ---- 0x0048fd90  Actor_UpdateMovement ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Actor_UpdateMovement(actor, dt): per frame; path following when actor+8 bit 0 (Actor_FollowPath),
    Actor_UpdateWalker, Actor_UpdateMoveChores, costume update with dt * time scale, Actor_PuckOrient
@@ -437,7 +439,7 @@ void Actor_UpdateMovement(void *param_1,float param_2)
     Actor_UpdateLookAt(param_1,param_2);
   }
   if ((*(byte *)((int)param_1 + 4) & 0x10) != 0) {
-    Actor_PuckOrient(PUN(float,param_1));
+    Actor_PuckOrient(param_1);
   }
   return;
 }
@@ -584,7 +586,7 @@ void __cdecl Actor_UpdateLookAt(void *actor,float dt)
 
 
 /* ---- 0x00490210  Actor_UpdateTalk ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Lip sync: reads the current phoneme from iMUSE, plays the matching talk chore, ends speech when
    the voice or the text timer runs out */
@@ -645,7 +647,7 @@ void __cdecl Actor_UpdateTalk(void *actor,float dt)
 
 
 /* ---- 0x00490320  Actor_SetSelected ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Lua SetSelectedActor; returns the handle or -1 */
 
@@ -838,8 +840,6 @@ void Actor_SetFollowBoxes(int param_1,int param_2)
 }
 
 /* ---- 0x00490730  Actor_CreateWalker ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Source: Engine/sputActor.cpp (line 1637, from __FILE__/__LINE__ passed to the allocator) */
 
 void Actor_CreateWalker(void *param_1,int param_2)
@@ -849,23 +849,18 @@ void Actor_CreateWalker(void *param_1,int param_2)
   void *pvVar1;
   float *pfVar2;
   void *p;
-  uint *unaff_FS_OFFSET = (uint *)TEB_BASE();
   #define local_18 (*(float (*)[3])(_frame + (0x30 - 0x18)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
   #define pcStack_8 (*(code **)(_frame + (0x30 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
   
-  local_c = *unaff_FS_OFFSET;
   local_4 = 0xffffffff;
   pcStack_8 = FUN_004d605b;
-  *unaff_FS_OFFSET = (uint)&local_c;
   p = (void *)0x0;
   if ((param_2 == 0) &&
      (pvVar1 = *(void **)(*(int *)((int)param_1 + 0xa4) + 0x1b4), pvVar1 != (void *)0x0)) {
     Walker_Destroy((int)pvVar1);
     Plat_Free(pvVar1);
     *(undefined4 *)(*(int *)((int)param_1 + 0xa4) + 0x1b4) = 0;
-    *unaff_FS_OFFSET = local_c;
     return;
   }
   if (*(int *)(*(int *)((int)param_1 + 0xa4) + 0x1b4) == 0) {
@@ -884,15 +879,11 @@ void Actor_CreateWalker(void *param_1,int param_2)
     Walker_TurnToPoint(p,local_18,3.4028235e+38);
     *(void **)(*(int *)((int)param_1 + 0xa4) + 0x1b4) = p;
   }
-  *unaff_FS_OFFSET = local_c;
   return;
 }
 #undef local_18
 #undef local_4
-#undef local_c
 #undef pcStack_8
-
-#endif
 
 
 /* ---- 0x00490870  Actor_SetPositionClamped ---- */
@@ -1162,7 +1153,7 @@ void __cdecl Actor_PopCostume(void *actor,int free)
 }
 
 /* ---- 0x00490f50  Actor_PuckOrient ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_68 */
 /* Actor_PuckOrient: at the end of the actor update when actor+4 & 0x10 (ActorPuckOrient). Rebuilds
@@ -1170,7 +1161,7 @@ void __cdecl Actor_PopCostume(void *actor,int free)
    2 degrees it turns about up x normal by min(angle, frame seconds * turn rate), multiplies
    (Matrix_Multiply) and sets the three angles from the matrix (Matrix_ToAngles). */
 
-void Actor_PuckOrient(float param_1)
+void __cdecl Actor_PuckOrient(void *actor)
 
 {
   unsigned char _frame[0x80] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1178,48 +1169,49 @@ void Actor_PuckOrient(float param_1)
   int iVar2;
   int iVar3;
   int iVar4;
-  float fVar5;
-  float fVar6;
+  void *pvVar5;
+  void *pvVar6;
+  float fVar7;
   #define local_68 (*(uint *)(_frame + (0x80 - 0x68)))
   #define local_54 (*(float (*)[3])(_frame + (0x80 - 0x54)))
   #define local_48 (*(float (*)[3])(_frame + (0x80 - 0x48)))
   #define local_3c (*(float (*)[3])(_frame + (0x80 - 0x3c)))
   #define local_30 (*(undefined1 (*)[48])(_frame + (0x80 - 0x30)))
   
-  if (((param_1 != 0.0) && (*(int *)(PUN(int,(float)param_1) + 0xa4) != 0)) &&
-     (iVar4 = *(int *)(*(int *)(PUN(int,(float)param_1) + 0xa4) + 0x1b4), iVar4 != 0)) {
-    iVar1 = PUN(int,(float)param_1) + 0xc;
-    iVar2 = PUN(int,(float)param_1) + 0x24;
-    iVar3 = PUN(int,(float)param_1) + 0x38;
+  if (((actor != (void *)0x0) && (*(int *)((int)actor + 0xa4) != 0)) &&
+     (iVar4 = *(int *)(*(int *)((int)actor + 0xa4) + 0x1b4), iVar4 != 0)) {
+    iVar1 = (int)actor + 0xc;
+    iVar2 = (int)actor + 0x24;
+    iVar3 = (int)actor + 0x38;
     Angles_ToMatrix(iVar3,iVar2,iVar1);
-    local_48[0] = *(float *)(PUN(int,(float)param_1) + 0x50);
-    local_48[1] = *(float *)(PUN(int,(float)param_1) + 0x54);
-    local_48[2] = *(float *)(PUN(int,(float)param_1) + 0x58);
+    local_48[0] = *(float *)((int)actor + 0x50);
+    local_48[1] = *(float *)((int)actor + 0x54);
+    local_48[2] = *(float *)((int)actor + 0x58);
     local_54[0] = *(float *)(iVar4 + 0x24);
     local_54[1] = *(float *)(iVar4 + 0x28);
     local_54[2] = *(float *)(iVar4 + 0x2c);
-    fVar5 = Vec3_Dot2(local_48,local_54);
-    fVar5 = Math_AsinDegreesSeries(fVar5);
-    fVar5 = 90.0 - fVar5;
-    fVar6 = fVar5;
-    if (fVar5 < 0.0) {
-      fVar6 = -fVar5;
+    fVar7 = Vec3_Dot2(local_48,local_54);
+    fVar7 = Math_AsinDegreesSeries(fVar7);
+    pvVar5 = PUN(void *,(float)(90.0 - fVar7));
+    pvVar6 = pvVar5;
+    if (PUN(float,pvVar5) < 0.0) {
+      pvVar6 = PUN(void *,(float)-PUN(float,pvVar5));
     }
-    if (2.0 < fVar6) {
-      fVar6 = Timer_GetFrameSeconds();
-      fVar6 = fVar6 * *(float *)(*(int *)(PUN(int,(float)param_1) + 0xa4) + 0x1c);
-      param_1 = fVar5;
-      if ((0.0 < fVar5) && (fVar6 < fVar5)) {
-        param_1 = fVar6;
+    if (2.0 < PUN(float,pvVar6)) {
+      fVar7 = Timer_GetFrameSeconds();
+      pvVar6 = PUN(void *,(float)(fVar7 * *(float *)(*(int *)((int)actor + 0xa4) + 0x1c)));
+      actor = pvVar5;
+      if ((0.0 < PUN(float,pvVar5)) && (PUN(float,pvVar6) < PUN(float,pvVar5))) {
+        actor = pvVar6;
       }
-      if ((param_1 < 0.0) && (param_1 < -fVar6)) {
-        param_1 = -fVar6;
+      if ((PUN(float,actor) < 0.0) && (PUN(float,actor) < -PUN(float,pvVar6))) {
+        actor = PUN(void *,(float)-PUN(float,pvVar6));
       }
       local_3c[0] = local_54[2] * local_48[1] - local_54[1] * local_48[2];
       local_3c[1] = local_54[0] * local_48[2] - local_54[2] * local_48[0];
       local_3c[2] = local_54[1] * local_48[0] - local_54[0] * local_48[1];
       Vec3_Normalize(local_3c);
-      Matrix_AxisAngle(local_30,local_3c,param_1);
+      Matrix_AxisAngle(local_30,local_3c,PUN(float,actor));
       Matrix_Multiply(iVar3,local_30);
       Matrix_ToAngles(iVar3,iVar2);
       Angles_ToMatrix(iVar3,iVar2,iVar1);
@@ -1874,8 +1866,6 @@ void __cdecl Actor_ActivateShadow(void *actor,int shadowIdx,int active)
 }
 
 /* ---- 0x00493570  Actor_SetShadowPlane ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void Actor_SetShadowPlane(int param_1,char *param_2)
 
 {
@@ -1905,8 +1895,6 @@ void Actor_SetShadowPlane(int param_1,char *param_2)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x004935f0  Actor_SetShadowPoint ---- */
 void __cdecl Actor_SetShadowPoint(void *actor,float x,float y,float z)
@@ -1975,8 +1963,6 @@ void __cdecl Actor_KillShadows(void *actor)
 }
 
 /* ---- 0x004936e0  Actor_DrawShadows ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Draws the shadows of an actor: slots at extra+0x1f8, 0x54 bytes each (+0 active, +4 valid,
    +8..+0x14 plane normal and d, +0x18..0x20 shadow point). valid 0: always; -1: only when pos.n+d
    <= 0; 1: only when >= 0 (pos = actor+0xc). Set by SetActorShadowPlane (Actor_SetShadowPlane
@@ -2010,8 +1996,6 @@ void Actor_DrawShadows(int param_1)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x00493790  Actor_GetFrame ---- */
 /* Returns the actor's 12-float frame (position + 3x3 rotation), rebuilding it from pos/rot when
@@ -2228,7 +2212,7 @@ void __cdecl Actor_Destroy(void *actor)
 }
 
 /* ---- 0x00494940  Actor_DrawShadowPlane ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 /* Draws the actor's shadow onto one shadow plane: every mesh face of each model is projected

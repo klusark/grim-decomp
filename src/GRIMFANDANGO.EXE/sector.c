@@ -1165,8 +1165,6 @@ int __thiscall Sector_ContainsPoint(void *this,float *point,int checkActive)
 
 
 /* ---- 0x004a6b30  Sector_ClampPoint ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 int __thiscall Sector_ClampPoint(void *this,int a1)
 
 {
@@ -1259,8 +1257,6 @@ int __thiscall Sector_ClampPoint(void *this,int a1)
 #undef local_4
 #undef local_8
 #undef local_c
-
-#endif
 
 
 /* ---- 0x004a6d10  Sector_FindExitPoint ---- */
@@ -1385,8 +1381,6 @@ float __thiscall Sector_FindExitPoint(void *this,int a1,int a2,int a3)
 
 
 /* ---- 0x004a6fa0  Sector_SnapToPlane ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Lua SnapToPlane: projects the point onto the plane of the sector found by Sector_FindByName */
 
 void __thiscall Sector_SnapToPlane(void *this,float *pos)
@@ -1404,12 +1398,8 @@ void __thiscall Sector_SnapToPlane(void *this,float *pos)
   pos[2] = pos[2] - fVar2 * *(float *)((int)this + 0x68);
   return;
 }
-#endif
-
 
 /* ---- 0x004a7000  Sector_FixPlaneCoordinate ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 int __thiscall Sector_FixPlaneCoordinate(void *this,int a1)
 
 {
@@ -1437,30 +1427,29 @@ int __thiscall Sector_FixPlaneCoordinate(void *this,int a1)
        -*(float *)((int)this + iVar4 * 4 + 0x60);
   return iVar3;
 }
-#endif
-
 
 /* ---- 0x004a70a0  Sector_DrawOutline ---- */
 void __thiscall Sector_DrawOutline(void *this,int color)
 
 {
   int iVar1;
-  int iVar2;
-  int *piVar3;
-  int iVar4;
+  float *a;
+  int *piVar2;
+  int iVar3;
   
   if (*(int *)((int)this + 0x28) != 0) {
-    iVar4 = 0;
+    iVar3 = 0;
     if (0 < *(int *)((int)this + 0x34)) {
-      piVar3 = (int *)((int)this + 0x38);
-      iVar2 = *(int *)((int)this + *(int *)((int)this + 0x34) * 4 + 0x34) + 4;
+      piVar2 = (int *)((int)this + 0x38);
+      a = (float *)(*(int *)((int)this + *(int *)((int)this + 0x34) * 4 + 0x34) + 4);
       do {
-        iVar1 = *piVar3;
-        rdPrimit3_DrawLine(iVar2,iVar1 + 4,0,0,0,0,color,0xffffffff);
-        iVar4 = iVar4 + 1;
-        piVar3 = piVar3 + 1;
-        iVar2 = iVar1 + 4;
-      } while (iVar4 < *(int *)((int)this + 0x34));
+        iVar1 = *piVar2;
+        rdPrimit3_DrawLine(a,(float *)(iVar1 + 4),(int *)0x0,(int *)0x0,(int *)0x0,(int *)0x0,color,
+                           0xffffffff);
+        iVar3 = iVar3 + 1;
+        piVar2 = piVar2 + 1;
+        a = (float *)(iVar1 + 4);
+      } while (iVar3 < *(int *)((int)this + 0x34));
     }
   }
   return;
@@ -1958,8 +1947,6 @@ void SectorVertexPool_Release(int *param_1)
 }
 
 /* ---- 0x004a7bc0  SetFile_ParseSectors ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Source: Engine/WalkPlane.cpp (lines 1070-1184, from __FILE__/__LINE__ passed to the allocator) */
 
 undefined * SetFile_ParseSectors(int param_1)
@@ -1979,7 +1966,6 @@ undefined * SetFile_ParseSectors(int param_1)
   char *pcVar11;
   byte *pbVar12;
   char *pcVar13;
-  uint *unaff_FS_OFFSET = (uint *)TEB_BASE();
   bool bVar14;
   #define local_200 (*(uint *)(_frame + (0x210 - 0x200)))
   #define local_1fc (*(uint *)(_frame + (0x210 - 0x1fc)))
@@ -1994,14 +1980,7 @@ undefined * SetFile_ParseSectors(int param_1)
   #define auStack_180 (*(undefined1 (*)[4])(_frame + (0x210 - 0x180)))
   #define auStack_17c (*(undefined1 (*)[112])(_frame + (0x210 - 0x17c)))
   #define local_10c (*(char (*)[256])(_frame + (0x210 - 0x10c)))
-  #define local_c (*(uint *)(_frame + (0x210 - 0xc)))
-  #define pcStack_8 (*(code **)(_frame + (0x210 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x210 - 0x4)))
   
-  local_4 = 0xffffffff;
-  pcStack_8 = FUN_004d60ba;
-  local_c = *unaff_FS_OFFSET;
-  *unaff_FS_OFFSET = (uint)&local_c;
   local_1fc = 0;
   local_1ec = 0;
   local_200 = 0;
@@ -2015,14 +1994,12 @@ undefined * SetFile_ParseSectors(int param_1)
     if (iVar3 == 0) {
       if (2 < (int)local_1fc) {
         pvVar4 = Plat_Alloc(0x84);
-        local_4 = 2;
         if (pvVar4 == (void *)0x0) {
           puVar5 = (undefined1 *)0x0;
         }
         else {
           puVar5 = Sector_Construct(pvVar4,(int)local_184,local_1fc,param_1);
         }
-        local_4 = 0xffffffff;
         if (puVar5 != (undefined1 *)0x0) {
           Mem_CheckAlloc(puVar5,s_C__grimsrc_libs_grimlib_Engine_W_004ec8c8,0x4a0);
           Sector_SetName(puVar5,(char *)local_1b4);
@@ -2033,7 +2010,6 @@ undefined * SetFile_ParseSectors(int param_1)
       }
       puVar8 = (undefined *)0x0;
 LAB_004a8147:
-      *unaff_FS_OFFSET = local_c;
       return puVar8;
     }
     uVar9 = 0xffffffff;
@@ -2063,14 +2039,12 @@ LAB_004a8147:
     if (iVar3 == 1) {
       if (2 < (int)local_1fc) {
         pvVar4 = Plat_Alloc(0x84);
-        local_4 = 0;
         if (pvVar4 == (void *)0x0) {
           puVar5 = (undefined1 *)0x0;
         }
         else {
           puVar5 = Sector_Construct(pvVar4,(int)local_184,local_1fc,param_1);
         }
-        local_4 = 0xffffffff;
         if (puVar5 != (undefined1 *)0x0) {
           Mem_CheckAlloc(puVar5,s_C__grimsrc_libs_grimlib_Engine_W_004ec8c8,0x42e);
           Sector_SetName(puVar5,(char *)local_1b4);
@@ -2088,14 +2062,12 @@ LAB_004a8147:
       if (iVar3 == 1) {
         if (2 < (int)local_1fc) {
           pvVar4 = Plat_Alloc(0x84);
-          local_4 = 1;
           if (pvVar4 == (void *)0x0) {
             puVar5 = (undefined1 *)0x0;
           }
           else {
             puVar5 = Sector_Construct(pvVar4,(int)local_184,local_1fc,param_1);
           }
-          local_4 = 0xffffffff;
           if (puVar5 != (undefined1 *)0x0) {
             Mem_CheckAlloc(puVar5,s_C__grimsrc_libs_grimlib_Engine_W_004ec8c8,0x445);
             Sector_SetName(puVar5,(char *)local_1b4);
@@ -2337,11 +2309,6 @@ LAB_004a80a5:
 #undef local_1f8
 #undef local_1fc
 #undef local_200
-#undef local_4
-#undef local_c
-#undef pcStack_8
-
-#endif
 
 
 /* ---- 0x004a8cb0  Sector_ClipPolygon ---- */
@@ -2763,7 +2730,7 @@ undefined4 __fastcall Sector_CollapseShortestEdge(void *param_1)
 
 
 /* ---- 0x004a9d00  SectorList_ShrinkWalkSectors ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_18 */
 /* WARNING: Variable defined which should be unmapped: local_4 */
@@ -2777,165 +2744,165 @@ undefined4 __fastcall Sector_CollapseShortestEdge(void *param_1)
    and the pool vertex moves by the mean, so all sectors that share it move together. Undone by
    SectorList_RestoreAfterShrink. */
 
-void __cdecl
-SectorList_ShrinkWalkSectors
-          (float param_1,uint param_2,uint param_3,uint param_4,float param_5,float param_6,
-          float param_7,float *param_8,float param_9,float param_10,float param_11,float param_12,
-          uint param_13,double param_14)
+void __cdecl SectorList_ShrinkWalkSectors(float radius)
 
 {
   unsigned char _frame[0x30];  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   float fVar2;
   float fVar3;
-  double dVar4;
-  bool bVar5;
+  bool bVar4;
+  uint *puVar5;
   int iVar6;
-  uint *puVar7;
-  int iVar8;
+  int iVar7;
+  float *pfVar8;
   int iVar9;
-  float *pfVar10;
-  int *piVar11;
+  int *piVar10;
   void *this;
-  float *pfVar12;
-  undefined4 *puVar13;
-  float fVar14;
+  float *pfVar11;
+  undefined4 *puVar12;
+  float fVar13;
   uint local_res0;
-  undefined4 in_stack_00000038;
+  int iStack0000000c;
+  int iStack00000010;
+  float in_stack_00000014;
+  float in_stack_00000018;
+  float in_stack_0000001c;
+  float *pfStack00000020;
+  float in_stack_00000024;
+  float in_stack_00000028;
+  float in_stack_0000002c;
+  float in_stack_00000030;
+  double in_stack_00000038;
   #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
   #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
   #define local_4 (*(float *)(_frame + (0x30 - 0x4)))
   
   FUN_004addf0();
-  if (0.0 <= param_1) {
-    puVar13 = (undefined4 *)&STACK0X(0x000010b8);
-    for (iVar8 = 0xc00; iVar8 != 0; iVar8 = iVar8 + -1) {
-      *puVar13 = 0;
-      puVar13 = puVar13 + 1;
+  if (0.0 <= radius) {
+    puVar12 = (undefined4 *)&STACK0X(0x000010b8);
+    for (iVar6 = 0xc00; iVar6 != 0; iVar6 = iVar6 + -1) {
+      *puVar12 = 0;
+      puVar12 = puVar12 + 1;
     }
-    puVar13 = (undefined4 *)&STACK0X(0x000000b8);
-    for (iVar8 = 0x400; iVar8 != 0; iVar8 = iVar8 + -1) {
-      *puVar13 = 0;
-      puVar13 = puVar13 + 1;
+    puVar12 = (undefined4 *)&STACK0X(0x000000b8);
+    for (iVar6 = 0x400; iVar6 != 0; iVar6 = iVar6 + -1) {
+      *puVar12 = 0;
+      puVar12 = puVar12 + 1;
     }
     this = g_pSectorList;
     if (g_pSectorList != (void *)0x0) {
 LAB_004a9d53:
-      if (((*(uint *)((int)this + 0x24) & 0x1000) != 0) &&
-         (dVar4 = param_14, *(int *)((int)this + 0x28) != 0)) {
+      if (((*(uint *)((int)this + 0x24) & 0x1000) != 0) && (*(int *)((int)this + 0x28) != 0)) {
 LAB_004a9d6a:
-        PIECE(param_14,4,4) = (undefined4)((ulonglong)dVar4 >> 0x20);
-        PIECE(param_14,0,4) = SUB84(dVar4,0);
-        iVar8 = *(int *)((int)this + 0x38);
-        puVar13 = (undefined4 *)((int)&param_14 + 4);
-        for (iVar9 = 0x1e; iVar9 != 0; iVar9 = iVar9 + -1) {
-          *puVar13 = 0;
-          puVar13 = puVar13 + 1;
+        iVar6 = *(int *)((int)this + 0x38);
+        puVar12 = (undefined4 *)&STACK0X(0x00000040);
+        for (iVar7 = 0x1e; iVar7 != 0; iVar7 = iVar7 + -1) {
+          *puVar12 = 0;
+          puVar12 = puVar12 + 1;
         }
-        param_8 = (float *)&STACK0X(0x00000044);
-        iVar9 = 0;
-        pfVar10 = (float *)(*(int *)((int)this + *(int *)((int)this + 0x34) * 4 + 0x34) + 4);
-        pfVar12 = (float *)(iVar8 + 4);
+        pfStack00000020 = (float *)&STACK0X(0x00000044);
+        iStack0000000c = 0;
+        pfVar8 = (float *)(*(int *)((int)this + *(int *)((int)this + 0x34) * 4 + 0x34) + 4);
+        pfVar11 = (float *)(iVar6 + 4);
         do {
-          if (*(int *)((int)this + 0x34) <= iVar9) {
-            iVar8 = *(int *)((int)this + 0x34);
-            if (0 < iVar8) {
-              piVar11 = (int *)((int)this + 0x38);
-              pfVar10 = (float *)&STACK0X(0x00000044);
+          if (*(int *)((int)this + 0x34) <= iStack0000000c) {
+            iVar6 = *(int *)((int)this + 0x34);
+            if (0 < iVar6) {
+              piVar10 = (int *)((int)this + 0x38);
+              pfVar8 = (float *)&STACK0X(0x00000044);
               do {
-                iVar9 = *piVar11;
-                piVar11 = piVar11 + 1;
-                iVar9 = iVar9 - (int)IMG_ADDR(0x008cb0b0) >> 4;
-                iVar6 = iVar9 * 0xc;
-                *(float *)(&STACK0X(0x000010b8) + iVar6) =
-                     pfVar10[-1] + *(float *)(&STACK0X(0x000010b8) + iVar6);
-                *(float *)(&STACK0X(0x000010bc) + iVar6) =
-                     *(float *)(&STACK0X(0x000010bc) + iVar6) + *pfVar10;
-                *(float *)(&STACK0X(0x000010c0) + iVar6) =
-                     pfVar10[1] + *(float *)(&STACK0X(0x000010c0) + iVar6);
-                iVar8 = iVar8 + -1;
-                *(int *)(&STACK0X(0x000000b8) + iVar9 * 4) = *(int *)(&STACK0X(0x000000b8) + iVar9 * 4) + 1;
-                pfVar10 = pfVar10 + 3;
-              } while (iVar8 != 0);
+                iVar7 = *piVar10;
+                piVar10 = piVar10 + 1;
+                iVar7 = iVar7 - (int)IMG_ADDR(0x008cb0b0) >> 4;
+                iVar9 = iVar7 * 0xc;
+                *(float *)(&STACK0X(0x000010b8) + iVar9) =
+                     pfVar8[-1] + *(float *)(&STACK0X(0x000010b8) + iVar9);
+                *(float *)(&STACK0X(0x000010bc) + iVar9) =
+                     *(float *)(&STACK0X(0x000010bc) + iVar9) + *pfVar8;
+                *(float *)(&STACK0X(0x000010c0) + iVar9) =
+                     pfVar8[1] + *(float *)(&STACK0X(0x000010c0) + iVar9);
+                iVar6 = iVar6 + -1;
+                *(int *)(&STACK0X(0x000000b8) + iVar7 * 4) = *(int *)(&STACK0X(0x000000b8) + iVar7 * 4) + 1;
+                pfVar8 = pfVar8 + 3;
+              } while (iVar6 != 0);
             }
             break;
           }
-          iVar9 = iVar9 + 1;
-          local_4 = *pfVar10 - *pfVar12;
-          iVar8 = *(int *)((int)this + (iVar9 % *(int *)((int)this + 0x34)) * 4 + 0x38);
-          fVar1 = pfVar10[1];
-          fVar2 = pfVar12[1];
-          fVar3 = pfVar10[2];
-          fVar14 = pfVar12[2];
+          iStack0000000c = iStack0000000c + 1;
+          local_4 = *pfVar8 - *pfVar11;
+          iVar6 = *(int *)((int)this + (iStack0000000c % *(int *)((int)this + 0x34)) * 4 + 0x38);
+          fVar1 = pfVar8[1];
+          fVar2 = pfVar11[1];
+          fVar3 = pfVar8[2];
+          fVar13 = pfVar11[2];
           Vec3_Normalize(&local_4);
-          param_5 = *(float *)(iVar8 + 4) - *pfVar12;
-          param_6 = *(float *)(iVar8 + 8) - pfVar12[1];
-          param_7 = *(float *)(iVar8 + 0xc) - pfVar12[2];
-          Vec3_Normalize(&param_5);
-          local_4 = param_5 + local_4;
-          fVar1 = param_6 + (fVar1 - fVar2);
-          fVar2 = param_7 + (fVar3 - fVar14);
+          in_stack_00000014 = *(float *)(iVar6 + 4) - *pfVar11;
+          in_stack_00000018 = *(float *)(iVar6 + 8) - pfVar11[1];
+          in_stack_0000001c = *(float *)(iVar6 + 0xc) - pfVar11[2];
+          Vec3_Normalize(&STACK0X(0x00000014));
+          local_4 = in_stack_00000014 + local_4;
+          fVar1 = in_stack_00000018 + (fVar1 - fVar2);
+          fVar2 = in_stack_0000001c + (fVar3 - fVar13);
           Vec3_Normalize(&local_4);
-          Math_AsinDegreesSeries(param_7 * fVar2 + param_6 * fVar1 + param_5 * local_4);
+          Math_AsinDegreesSeries
+                    (in_stack_0000001c * fVar2 +
+                     in_stack_00000018 * fVar1 + in_stack_00000014 * local_4);
           ((code *)Math_SinCosTable)();
-          fVar3 = fVar2 / param_9;
-          bVar5 = true;
-          param_10 = fVar3 * local_4 + *pfVar12;
-          param_11 = fVar3 * fVar1 + pfVar12[1];
-          param_12 = fVar3 * fVar2 + pfVar12[2];
-          iVar6 = Sector_ContainsPoint(this,&param_10,1);
-          if (iVar6 == 0) {
+          fVar3 = fVar2 / in_stack_00000024;
+          bVar4 = true;
+          in_stack_00000028 = fVar3 * local_4 + *pfVar11;
+          in_stack_0000002c = fVar3 * fVar1 + pfVar11[1];
+          in_stack_00000030 = fVar3 * fVar2 + pfVar11[2];
+          iVar7 = Sector_ContainsPoint(this,&STACK0X(0x00000028),1);
+          if (iVar7 == 0) {
 LAB_004a9f32:
-            bVar5 = false;
+            bVar4 = false;
           }
           else {
-            param_4 = 0;
+            iStack00000010 = 0;
             if (0 < *(int *)((int)this + 0x34)) {
-              dVar4 = (double)(fVar2 - 0.001);
+              in_stack_00000038 = (double)(fVar2 - 0.001);
               do {
-                PIECE(param_14,0,4) = (undefined4)((ulonglong)dVar4 >> 0x20);
-                in_stack_00000038 = SUB84(dVar4,0);
-                fVar14 = Sector_EdgeDistance(this,param_4,&param_10);
-                dVar4 = (double)CONCAT44(PIECE(param_14,0,4),in_stack_00000038);
-                if (fVar14 < (float)dVar4) goto LAB_004a9f32;
-                param_4 = param_4 + 1;
-              } while ((int)param_4 < *(int *)((int)this + 0x34));
+                fVar13 = Sector_EdgeDistance(this,iStack00000010,&STACK0X(0x00000028));
+                if (fVar13 < (float)in_stack_00000038) goto LAB_004a9f32;
+                iStack00000010 = iStack00000010 + 1;
+              } while (iStack00000010 < *(int *)((int)this + 0x34));
             }
           }
-          if (!bVar5) goto LAB_004a9f7e;
-          param_8[-1] = fVar3 * local_4;
-          *param_8 = fVar3 * fVar1;
-          param_8[1] = fVar3 * fVar2;
-          param_8 = param_8 + 3;
-          pfVar10 = pfVar12;
-          pfVar12 = (float *)(iVar8 + 4);
+          if (!bVar4) goto LAB_004a9f7e;
+          pfStack00000020[-1] = fVar3 * local_4;
+          *pfStack00000020 = fVar3 * fVar1;
+          pfStack00000020[1] = fVar3 * fVar2;
+          pfStack00000020 = pfStack00000020 + 3;
+          pfVar8 = pfVar11;
+          pfVar11 = (float *)(iVar6 + 4);
         } while( true );
       }
       goto LAB_004a9ffa;
     }
 LAB_004aa005:
-    piVar11 = (int *)&STACK0X(0x000000b8);
-    puVar7 = &UINT_008cb0b8;
-    pfVar10 = (float *)&STACK0X(0x000010bc);
+    piVar10 = (int *)&STACK0X(0x000000b8);
+    puVar5 = &UINT_008cb0b8;
+    pfVar8 = (float *)&STACK0X(0x000010bc);
     do {
-      if (*piVar11 != 0) {
-        fVar3 = 1.0 / (float)*piVar11;
-        fVar1 = *pfVar10;
-        fVar2 = pfVar10[1];
-        puVar7[-1] = PUN(uint,(float)(pfVar10[-1] * fVar3 + (float)puVar7[-1]));
-        *puVar7 = PUN(uint,(float)(fVar1 * fVar3 + (float)*puVar7));
-        puVar7[1] = PUN(uint,(float)(fVar2 * fVar3 + (float)puVar7[1]));
+      if (*piVar10 != 0) {
+        fVar3 = 1.0 / (float)*piVar10;
+        fVar1 = *pfVar8;
+        fVar2 = pfVar8[1];
+        puVar5[-1] = PUN(uint,(float)(pfVar8[-1] * fVar3 + (float)puVar5[-1]));
+        *puVar5 = PUN(uint,(float)(fVar1 * fVar3 + (float)*puVar5));
+        puVar5[1] = PUN(uint,(float)(fVar2 * fVar3 + (float)puVar5[1]));
       }
-      puVar7 = puVar7 + 4;
-      piVar11 = piVar11 + 1;
-      pfVar10 = pfVar10 + 3;
-    } while ((int)puVar7 < IMG_ADDR(0x008cf0b8));
+      puVar5 = puVar5 + 4;
+      piVar10 = piVar10 + 1;
+      pfVar8 = pfVar8 + 3;
+    } while ((int)puVar5 < IMG_ADDR(0x008cf0b8));
   }
   return;
 LAB_004a9f7e:
-  iVar8 = Sector_CollapseShortestEdge(this);
-  dVar4 = param_14;
-  if (iVar8 == 0) goto code_r0x004a9f8d;
+  iVar6 = Sector_CollapseShortestEdge(this);
+  if (iVar6 == 0) goto code_r0x004a9f8d;
   goto LAB_004a9d6a;
 code_r0x004a9f8d:
   *(undefined4 *)((int)this + 0x28) = 0;

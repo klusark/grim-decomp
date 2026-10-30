@@ -771,8 +771,6 @@ undefined4 Text_BuildLineTable(undefined4 param_1,int *param_2)
 
 
 /* ---- 0x004ab210  Text_LayoutString ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Advances through the string computing glyph positions for the given width (ctx at +0x208) */
 
 char * Text_LayoutString(void *param_1,void *param_2,char *param_3,int *param_4,uint *param_5,
@@ -938,8 +936,6 @@ LAB_004ab344:
 #undef local_8
 #undef local_c
 
-#endif
-
 
 /* ---- 0x004ab510  Font_GlyphAdvance ---- */
 uint __cdecl Font_GlyphAdvance(void *ctx,void *font,int ch)
@@ -987,8 +983,6 @@ uint Font_GlyphWidth(int param_1,int param_2,uint param_3)
 }
 
 /* ---- 0x004ab5d0  Text_DrawString ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void __cdecl Text_DrawString(void *ctx,void *font,char *text)
 
 {
@@ -1062,8 +1056,6 @@ LAB_004ab66a:
 #undef local_4
 #undef local_8
 #undef local_c
-
-#endif
 
 
 /* ---- 0x004ab710  Text_DrawChar ---- */

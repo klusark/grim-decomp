@@ -1,0 +1,55 @@
+{
+ "_comment": "agent P (game logic): prototypes set in Ghidra so the callers' decompilation passes the right arguments; applied by tools/apply_logic_protos.py (GRIMFANDANGO.EXE)",
+ "GRIMFANDANGO.EXE": {
+  "0040dde0": {
+   "proto": "void rdPrimit3_DrawPoint(float *world, float radius, uint a3, uint a4, uint a5)",
+   "cc": "__cdecl"
+  },
+  "0040dcc0": {
+   "proto": "undefined4 rdPrimit3_DrawLine(float *a, float *b, int *outA, int *outB, int *clipA, int *clipB, uint color, uint pattern)",
+   "cc": "__cdecl"
+  },
+  "0047b610": {
+   "proto": "void Palette_FromFloatTable(byte *out, byte *in, int n, double gamma)",
+   "cc": "__cdecl"
+  },
+  "004870e0": {
+   "proto": "void Render_FillRect(int x, int y, int w, int h, float scale)",
+   "cc": "__cdecl"
+  },
+  "0048a4b0": {
+   "proto": "void * Primitive_Construct(void *this, int id, int unused)",
+   "cc": "__thiscall"
+  },
+  "004a9d00": {
+   "proto": "void SectorList_ShrinkWalkSectors(float radius)",
+   "cc": "__cdecl"
+  },
+  "00490f50": {
+   "proto": "void Actor_PuckOrient(void *actor)",
+   "cc": "__cdecl"
+  },
+  "004a8b00": {
+   "proto": "void Walker_DrawDebugAxes(void *this, int color)",
+   "cc": "__thiscall"
+  },
+  "00492510": {
+   "proto": "undefined4 Collision_PointInBox(float *a, float *b, float *p3, float bx0, float by0, float bz0, float bx1, float by1, float bz1, float *p10, float *offset)",
+   "cc": "__cdecl"
+  },
+  "004971a0": {
+   "proto": "void ImuseSoundComponent_OnKey(int tag, int snd, undefined4 param_3, int slot, uint param_5, uint param_6, uint param_7, uint inst)",
+   "cc": "__cdecl"
+  }
+ },
+ "CHORE.DLL": {
+  "10002e40": {
+   "proto": "int CosUtil_ComponentInfo(int cos, uint index, int *outTag, undefined4 *outA, undefined4 *outB, int *outKind)",
+   "cc": "__cdecl"
+  },
+  "10002f20": {
+   "proto": "int Cos_InstComponentInfo(int inst, undefined4 index, undefined4 outTag, undefined4 outA, undefined4 outB)",
+   "cc": "__cdecl"
+  }
+ }
+}

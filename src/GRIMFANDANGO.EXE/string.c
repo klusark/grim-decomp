@@ -51,7 +51,7 @@ char * __cdecl Str_FileNameFromPath(char *path)
 }
 
 /* ---- 0x0047b5c0  Str_ToLower ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 char * __cdecl Str_ToLower(char *s)
 

@@ -75,50 +75,34 @@ void __fastcall PrimitiveList_Clear(int *param_1)
 }
 
 /* ---- 0x0048a670  PrimitiveList_Append ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void * __thiscall PrimitiveList_Append(void *this,int id,int layer)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   void *pvVar1;
-  undefined4 extraout_EAX;
-  undefined4 extraout_EAX_00;
-  undefined4 uVar2;
-  uint *unaff_FS_OFFSET = (uint *)TEB_BASE();
   #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
-  #define pcStack_8 (*(code **)(_frame + (0x20 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
-  local_4 = 0xffffffff;
-  pcStack_8 = FUN_004d6046;
-  local_c = *unaff_FS_OFFSET;
-  *unaff_FS_OFFSET = (uint)&local_c;
   if (*(int *)((int)this + 4) == 0) {
     pvVar1 = Plat_Alloc(0x30);
-    local_4 = 0;
     if (pvVar1 == (void *)0x0) {
       *(undefined4 *)((int)this + 4) = 0;
       *(undefined4 *)this = 0;
     }
     else {
-      Primitive_Construct(pvVar1,id,0);
-      *(undefined4 *)((int)this + 4) = extraout_EAX;
-      *(undefined4 *)this = extraout_EAX;
+      pvVar1 = Primitive_Construct(pvVar1,id,0);
+      *(void **)((int)this + 4) = pvVar1;
+      *(void **)this = pvVar1;
     }
   }
   else {
     pvVar1 = Plat_Alloc(0x30);
-    local_4 = 1;
     if (pvVar1 == (void *)0x0) {
-      uVar2 = 0;
+      pvVar1 = (void *)0x0;
     }
     else {
-      Primitive_Construct(pvVar1,id,0);
-      uVar2 = extraout_EAX_00;
+      pvVar1 = Primitive_Construct(pvVar1,id,0);
     }
-    **(undefined4 **)((int)this + 4) = uVar2;
+    **(undefined4 **)((int)this + 4) = pvVar1;
     *(int **)(**(int **)((int)this + 4) + 4) = *(int **)((int)this + 4);
     *(undefined4 *)((int)this + 4) = **(undefined4 **)((int)this + 4);
   }
@@ -127,15 +111,9 @@ void * __thiscall PrimitiveList_Append(void *this,int id,int layer)
   }
   *(int *)(*(int *)((int)this + 4) + 0x10) = layer;
   pvVar1 = *(void **)((int)this + 4);
-  *unaff_FS_OFFSET = local_c;
   return pvVar1;
 }
 #undef local_10
-#undef local_4
-#undef local_c
-#undef pcStack_8
-
-#endif
 
 
 /* ---- 0x0048a9f0  PrimitiveList_Draw ---- */

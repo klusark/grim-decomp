@@ -1164,3 +1164,18 @@ Root causes fixed at the source (Ghidra, then `tools/export_changed.py`)
   `GRIM_lua_cmd_poll`: one ImHeartbeat per 20 ms of game time. The ring is still written (muted). The two loops that wait for the
   heartbeat tick it themselves. `me_tank3.wav` now ends after 410-412 frames (7.0 s of game time). The guard counter
   (Im_GuardEnter/Leave) was already atomic; the sound is not a race: it lasted a constant 6.8 s of real time (6 trials).
+
+## Assembly to C, round 3 (2026-10-30/31: agents O and P, lead)
+
+* Every `build/overrides_<topic>.c` is compiled and its functions replace the assembled ones (link.py, build_src.load_overrides);
+  one file per work stream keeps parallel work conflict-free. Notes per stream: docs/notes/mixer.md (agent O: the whole
+  0x4bdf00-0x4d4100 range, DirectSound/software mixer, Smush video and Blocky16 codec, AnimPlay, zlib glue; differential tests in
+  build/mixdiff/, millions of random cases, 0 differences) and docs/notes/logic.md (agent P: game logic below 0x4a0000 outside the
+  rasteriser, 0x4a0000-0x4bf000, six CHORE.DLL functions; differential harness build/difftest/logic_dt.c). What is still assembled
+  and why: docs/ASM_REMAINING_mixer.md, docs/ASM_REMAINING_logic.md (EXE: 440 functions, of which the software rasteriser is ~395).
+* A hand-written function is only recognised as an override if its definition line matches build_src.load_overrides' regex
+  (return type on its own line is missed: add a `/* OVERRIDES: name */` line), otherwise the assembled copy is linked as well and
+  `--allow-multiple-definition` silently picks it: the C was never run (found by agent P in Collision_BoxSlide).
+* Two agents edit the same Ghidra project: when both retype one function the last write wins (TextObject_New is 4 parameters, the
+  last two unused, since agent O; agent P's 2-parameter calls pass 0, 0). After merging agents, re-export with a clean raw/
+  (`rm raw/<PROG>/functions/*.c` first: export_raw.py skips files that exist), regenerate, build.

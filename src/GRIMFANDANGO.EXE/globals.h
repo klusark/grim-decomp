@@ -271,7 +271,6 @@ extern undefined2 g_aBlockySplit4; /* 0x0091f0a0, undefined2 in Ghidra */
 extern short g_asBlockyMotion; /* 0x009270a0 */
 
 /* ---- unnamed data (type inferred from use) ---- */
-extern undefined4 in_stack_00000008; /* used by 1 fn(s), first 0x00498ea0 */
 extern undefined4 in_stack_00000010; /* used by 1 fn(s), first 0x004ac720 */
 extern undefined DAT_004891a0; /* used by 1 fn(s), first 0x00488fb0 */
 extern code LAB_004af680;  /* code label (address only) */ /* used by 2 fn(s), first 0x004af6a2 */
