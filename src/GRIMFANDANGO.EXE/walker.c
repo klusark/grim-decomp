@@ -755,17 +755,17 @@ void __thiscall Walker_ToLocalSpace(void *this,float *vec)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
+  #define local_c (*(float *)(_frame + (0x20 - 0xc)))
+  #define local_8 (*(float *)(_frame + (0x20 - 0x8)))
+  #define local_4 (*(float *)(_frame + (0x20 - 0x4)))
   
   *vec = *vec - *(float *)this;
   vec[1] = vec[1] - *(float *)((int)this + 4);
   vec[2] = vec[2] - *(float *)((int)this + 8);
-  Vec3_TransformTo((float *)&local_c,vec,(float *)((int)this + 0xc));
-  *vec = (float)local_c;
-  vec[1] = (float)local_8;
-  vec[2] = (float)local_4;
+  Vec3_TransformTo(&local_c,vec,(float *)((int)this + 0xc));
+  *vec = local_c;
+  vec[1] = local_8;
+  vec[2] = local_4;
   return;
 }
 #undef local_4
@@ -778,7 +778,7 @@ void __thiscall Walker_ToLocalSpace(void *this,float *vec)
 /* ---- 0x004a83c0  Walker_TurnHeading ---- */
 /* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
-undefined * __thiscall Walker_TurnHeading(void *this,int a1)
+undefined * __thiscall Walker_TurnHeading(void *this,float angle)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -786,7 +786,7 @@ undefined * __thiscall Walker_TurnHeading(void *this,int a1)
   undefined *extraout_EAX;
   #define local_30 (*(float (*)[12])(_frame + (0x40 - 0x30)))
   
-  Matrix_AxisAngle(local_30,(int)this + 0x24,a1);
+  Matrix_AxisAngle(local_30,(int)this + 0x24,angle);
   vec = (float *)((int)this + 0x18);
   Vec3_Transform(vec,local_30);
   *vec = *vec + *(float *)((int)this + 0x30);
@@ -809,33 +809,33 @@ undefined * __thiscall Walker_TurnHeading(void *this,int a1)
 /* ---- 0x004a8450  Walker_TurnToPoint ---- */
 /* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
-float __thiscall Walker_TurnToPoint(void *this,int a1,int a2)
+float __thiscall Walker_TurnToPoint(void *this,float *point,float maxTurn)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  #define local_c (*(float *)(_frame + (0x20 - 0xc)))
+  #define local_8 (*(float *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
-  local_c = *(uint *)a1;
-  local_8 = *(uint *)(a1 + 4);
-  local_4 = *(uint *)(a1 + 8);
+  local_c = *point;
+  local_8 = point[1];
+  local_4 = (uint)point[2];
   if (*(void **)((int)this + 0x5c) != (void *)0x0) {
     Sector_FixPlaneCoordinate(*(void **)((int)this + 0x5c),(int)&local_c);
   }
-  Walker_ToLocalSpace(this,(float *)&local_c);
-  Vec3_Normalize((float *)&local_c);
-  fVar1 = Math_AsinDegreesSeries((float)local_8);
-  a1 = (int)(90.0 - fVar1);
-  if ((float)a2 < (float)a1) {
-    a1 = a2;
+  Walker_ToLocalSpace(this,&local_c);
+  Vec3_Normalize(&local_c);
+  fVar1 = Math_AsinDegreesSeries(local_8);
+  point = PUN(float *,(float)(90.0 - fVar1));
+  if (maxTurn < PUN(float,point)) {
+    point = PUN(float *,(float)maxTurn);
   }
-  if (0.0 < (float)local_c) {
-    a1 = (int)((float)a1 * -1.0);
+  if (0.0 < local_c) {
+    point = PUN(float *,(float)(PUN(float,point) * -1.0));
   }
-  Walker_TurnHeading(this,a1);
-  return (float)a1;
+  Walker_TurnHeading(this,PUN(float,point));
+  return PUN(float,point);
 }
 #undef local_4
 #undef local_8
@@ -884,7 +884,7 @@ undefined * __thiscall Walker_SetConstraint(void *this,int a1)
    into the new sector, reflection turn only when |angle| < reflect and not against a held turn
    key). See autorun/NAV_PLAN.md and COLLISION_FIX_PLAN.md. */
 
-undefined * __thiscall Walker_WalkSectors(void *this,int a1,int a2,int a3)
+undefined * __thiscall Walker_WalkSectors(void *this,float step,int turnLeftOk,int turnRightOk)
 
 {
   unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -892,52 +892,51 @@ undefined * __thiscall Walker_WalkSectors(void *this,int a1,int a2,int a3)
   int iVar1;
   undefined *puVar2;
   float fVar3;
-  #define local_48 (*(uint *)(_frame + (0x60 - 0x48)))
-  #define local_34 (*(uint *)(_frame + (0x60 - 0x34)))
-  #define local_30 (*(uint *)(_frame + (0x60 - 0x30)))
+  #define local_48 (*(float *)(_frame + (0x60 - 0x48)))
+  #define local_34 (*(float *)(_frame + (0x60 - 0x34)))
+  #define local_30 (*(float *)(_frame + (0x60 - 0x30)))
   #define local_2c (*(uint *)(_frame + (0x60 - 0x2c)))
   #define local_28 (*(uint *)(_frame + (0x60 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x60 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x60 - 0x20)))
+  #define local_24 (*(float *)(_frame + (0x60 - 0x24)))
+  #define local_20 (*(float *)(_frame + (0x60 - 0x20)))
   #define local_1c (*(uint *)(_frame + (0x60 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x60 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x60 - 0x14)))
+  #define local_18 (*(float *)(_frame + (0x60 - 0x18)))
+  #define local_14 (*(float *)(_frame + (0x60 - 0x14)))
   #define local_10 (*(uint *)(_frame + (0x60 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x60 - 0xc)))
+  #define local_c (*(float *)(_frame + (0x60 - 0xc)))
   #define local_8 (*(uint *)(_frame + (0x60 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x60 - 0x4)))
   
   puVar2 = (undefined *)0x0;
   if (UINT_008d0870 == 0) {
-    *(int *)((int)this + 0x40) = a1;
+    *(float *)((int)this + 0x40) = step;
   }
   UINT_008d0870 = UINT_008d0870 + 1;
   if (*(int *)((int)this + 0x50) != 0) {
     fVar3 = Vec3_Dot2((float *)((int)this + 0xc),(float *)((int)this + 0x44));
     fVar3 = Math_AsinDegreesSeries(fVar3);
-    local_48 = (uint)((90.0 - fVar3) - 90.0);
-    fVar3 = (float)local_48;
-    if ((float)local_48 < 0.0) {
-      fVar3 = -(float)local_48;
+    local_48 = (90.0 - fVar3) - 90.0;
+    fVar3 = local_48;
+    if (local_48 < 0.0) {
+      fVar3 = -local_48;
     }
     if (*(float *)((int)this + 0x3c) < fVar3) {
       return (undefined *)0x0;
     }
     fVar3 = Vec3_Dot2((float *)((int)this + 0x18),(float *)((int)this + 0x44));
     if (fVar3 <= 0.0) {
-      local_48 = (uint)-(float)local_48;
+      local_48 = -local_48;
     }
     Walker_TurnHeading(this,local_48);
   }
-  local_30 = 0;
-  local_2c = a1;
+  local_30 = 0.0;
+  local_2c = (uint)step;
   local_28 = 0;
-  Walker_RotateVector(this,(float *)&local_30);
+  Walker_RotateVector(this,&local_30);
   if ((*(void **)((int)this + 0x5c) == (void *)0x0) ||
-     (iVar1 = Sector_ContainsPoint(*(void **)((int)this + 0x5c),(float *)&local_30,1), iVar1 != 0))
-  {
-    local_48 = (uint)&local_30;
-    Walker_SetPosition(this,(float *)local_48);
+     (iVar1 = Sector_ContainsPoint(*(void **)((int)this + 0x5c),&local_30,1), iVar1 != 0)) {
+    local_48 = PUN(float,&local_30);
+    Walker_SetPosition(this,PUN(float *,(float)local_48));
     UINT_008d0870 = 0;
     return (undefined *)0x1;
   }
@@ -946,29 +945,30 @@ undefined * __thiscall Walker_WalkSectors(void *this,int a1,int a2,int a3)
     return (undefined *)0x0;
   }
   this_00 = *(void **)((int)this + 0x5c);
-  local_34 = (uint)Sector_FindExitPoint(this_00,(int)this,(int)&local_30,(int)&local_24);
+  local_34 = Sector_FindExitPoint(this_00,(int)this,(int)&local_30,(int)&local_24);
   *(undefined4 *)(*(int *)((int)this + 0x5c) + 0x2c) = 0;
   local_18 = local_24;
   local_14 = local_20;
   local_10 = local_1c;
-  Walker_ToLocalSpace(this,(float *)&local_18);
-  a1 = (int)((float)a1 - (float)local_14);
+  Walker_ToLocalSpace(this,&local_18);
+  step = step - local_14;
   iVar1 = SectorList_FindByPoint(&local_24,0x1000);
   if (iVar1 == 0) {
-    Walker_SetPosition(this,(float *)&local_24);
+    Walker_SetPosition(this,&local_24);
     iVar1 = *(int *)((int)this + 0x5c);
     if ((*(uint *)(iVar1 + 0x24) & 0x100) == 0) {
-      fVar3 = (float)local_34;
-      if ((float)local_34 < 0.0) {
-        fVar3 = -(float)local_34;
+      fVar3 = local_34;
+      if (local_34 < 0.0) {
+        fVar3 = -local_34;
       }
       if ((*(float *)((int)this + 0x3c) <= fVar3) || (*(int *)((int)this + 0x50) != 0)) {
-        *(float *)((int)this + 0x40) = *(float *)((int)this + 0x40) - (float)a1;
+        *(float *)((int)this + 0x40) = *(float *)((int)this + 0x40) - step;
       }
-      else if (((0.0 < (float)local_34) && (a2 != 0)) || (((float)local_34 < 0.0 && (a3 != 0)))) {
+      else if (((0.0 < local_34) && (turnLeftOk != 0)) || ((local_34 < 0.0 && (turnRightOk != 0))))
+      {
         Walker_TurnHeading(this,local_34);
         *(undefined4 *)((int)this_00 + 0x2c) = 1;
-        puVar2 = Walker_WalkSectors(this,a1,1,1);
+        puVar2 = Walker_WalkSectors(this,step,1,1);
       }
       if (*(int *)((int)this + 0x50) != 0) {
         Walker_TurnHeading(this,local_34);
@@ -982,32 +982,32 @@ undefined * __thiscall Walker_WalkSectors(void *this,int a1,int a2,int a3)
     }
     if ((*(int *)(iVar1 + 0x78) + 1) % *(int *)(iVar1 + 0x34) != *(int *)(iVar1 + 0x74)) {
       iVar1 = *(int *)(iVar1 + 0x38 + *(int *)(iVar1 + 0x78) * 4);
-      local_c = *(uint *)(iVar1 + 4);
+      local_c = *(float *)(iVar1 + 4);
       local_8 = *(uint *)(iVar1 + 8);
       local_4 = *(uint *)(iVar1 + 0xc);
-      Walker_ToLocalSpace(this,(float *)&local_c);
-      if ((float)local_c <= 0.0) {
-        if ((float)local_34 < 3.0) {
-          local_34 = (uint)(((float)local_34 - -90.0) - -90.2);
+      Walker_ToLocalSpace(this,&local_c);
+      if (local_c <= 0.0) {
+        if (local_34 < 3.0) {
+          local_34 = (local_34 - -90.0) - -90.2;
         }
       }
-      else if (3.0 < (float)local_34) {
-        local_34 = (uint)(-90.2 - (90.0 - (float)local_34));
+      else if (3.0 < local_34) {
+        local_34 = -90.2 - (90.0 - local_34);
       }
       Walker_TurnHeading(this,local_34);
-      puVar2 = Walker_WalkSectors(this,a1,1,1);
+      puVar2 = Walker_WalkSectors(this,step,1,1);
       *(undefined4 *)((int)this_00 + 0x2c) = 1;
       return puVar2;
     }
     return (undefined *)0x0;
   }
-  Walker_SetPosition(this,(float *)&local_24);
+  Walker_SetPosition(this,&local_24);
   *(int *)((int)this + 0x5c) = iVar1;
   Walker_SetSectorFrame(this,iVar1);
-  if (0.02 <= (float)a1) {
-    a1 = 0x3ca3d70a;
+  if (0.02 <= step) {
+    step = 0.02;
   }
-  puVar2 = Walker_WalkSectors(this,a1,1,1);
+  puVar2 = Walker_WalkSectors(this,step,1,1);
   *(undefined4 *)((int)this_00 + 0x2c) = 1;
   return puVar2;
 }
@@ -1099,48 +1099,48 @@ void __stdcall Walker_DrawDebugAxes(int color)
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   void *in_ECX;
-  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
+  #define local_18 (*(float *)(_frame + (0x30 - 0x18)))
   #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
   #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
+  #define local_c (*(float *)(_frame + (0x30 - 0xc)))
   #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
   
-  local_c = 0;
+  local_c = 0.0;
   local_8 = 0;
   local_4 = 0;
-  local_18 = 0;
+  local_18 = 0.0;
   local_14 = 0x3dcccccd;
   local_10 = 0;
-  Walker_RotateVector(in_ECX,(float *)&local_c);
-  Walker_RotateVector(in_ECX,(float *)&local_18);
+  Walker_RotateVector(in_ECX,&local_c);
+  Walker_RotateVector(in_ECX,&local_18);
   rdPrimit3_DrawLine(&local_c,&local_18,0,0,0,0,color,0xffffffff);
-  local_c = 0x3d4ccccd;
+  local_c = 0.05;
   local_8 = 0x3d4ccccd;
   local_4 = 0;
-  local_18 = 0;
+  local_18 = 0.0;
   local_14 = 0x3dcccccd;
   local_10 = 0;
-  Walker_RotateVector(in_ECX,(float *)&local_c);
-  Walker_RotateVector(in_ECX,(float *)&local_18);
+  Walker_RotateVector(in_ECX,&local_c);
+  Walker_RotateVector(in_ECX,&local_18);
   rdPrimit3_DrawLine(&local_c,&local_18,0,0,0,0,color,0xffffffff);
-  local_c = 0xbd4ccccd;
+  local_c = -0.05;
   local_8 = 0x3d4ccccd;
   local_4 = 0;
-  local_18 = 0;
+  local_18 = 0.0;
   local_14 = 0x3dcccccd;
   local_10 = 0;
-  Walker_RotateVector(in_ECX,(float *)&local_c);
-  Walker_RotateVector(in_ECX,(float *)&local_18);
+  Walker_RotateVector(in_ECX,&local_c);
+  Walker_RotateVector(in_ECX,&local_18);
   rdPrimit3_DrawLine(&local_c,&local_18,0,0,0,0,color,0xffffffff);
-  local_c = 0;
+  local_c = 0.0;
   local_8 = 0;
   local_4 = 0x3d4ccccd;
-  local_18 = 0;
+  local_18 = 0.0;
   local_14 = 0;
   local_10 = 0;
-  Walker_RotateVector(in_ECX,(float *)&local_c);
-  Walker_RotateVector(in_ECX,(float *)&local_18);
+  Walker_RotateVector(in_ECX,&local_c);
+  Walker_RotateVector(in_ECX,&local_18);
   rdPrimit3_DrawLine(&local_c,&local_18,0,0,0,0,color,0xffffffff);
   return;
 }
@@ -1219,9 +1219,9 @@ undefined4 Planner_SearchSectors(float *param_1,float *param_2,void *param_3)
   undefined1 *puVar4;
   #define local_1fc (*(uint *)(_frame + (0x210 - 0x1fc)))
   #define local_1f8 (*(uint *)(_frame + (0x210 - 0x1f8)))
-  #define local_1f4 (*(uint *)(_frame + (0x210 - 0x1f4)))
-  #define local_1f0 (*(uint *)(_frame + (0x210 - 0x1f0)))
-  #define local_1ec (*(uint *)(_frame + (0x210 - 0x1ec)))
+  #define local_1f4 (*(float *)(_frame + (0x210 - 0x1f4)))
+  #define local_1f0 (*(float *)(_frame + (0x210 - 0x1f0)))
+  #define local_1ec (*(float *)(_frame + (0x210 - 0x1ec)))
   #define local_1e8 (*(uint *)(_frame + (0x210 - 0x1e8)))
   #define local_1e4 (*(uint *)(_frame + (0x210 - 0x1e4)))
   #define local_1e0 (*(undefined1 (*)[480])(_frame + (0x210 - 0x1e0)))
@@ -1247,9 +1247,9 @@ undefined4 Planner_SearchSectors(float *param_1,float *param_2,void *param_3)
     local_1e8 = UINT_008cf248;
     Sector_FindExitPoint(param_3,(int)param_1,(int)param_2,(int)&local_1f4);
     *(undefined4 *)((int)param_3 + 0x2c) = 0;
-    if (((float)local_1f4 - *param_1) * ((float)local_1f4 - *param_1) +
-        ((float)local_1ec - param_1[2]) * ((float)local_1ec - param_1[2]) +
-        ((float)local_1f0 - param_1[1]) * ((float)local_1f0 - param_1[1]) <= 0.0001) {
+    if ((local_1f4 - *param_1) * (local_1f4 - *param_1) +
+        (local_1ec - param_1[2]) * (local_1ec - param_1[2]) +
+        (local_1f0 - param_1[1]) * (local_1f0 - param_1[1]) <= 0.0001) {
       local_1f8 = 0;
     }
     else {
@@ -1450,10 +1450,10 @@ undefined4 Planner_PortalPoint(void *param_1,void *param_2,float *param_3,undefi
   int iVar4;
   int iVar5;
   int *piVar6;
-  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
+  #define local_4 (*(float *)(_frame + (0x20 - 0x4)))
   
   iVar5 = 0;
-  local_4 = 0x7f7fffff;
+  local_4 = 3.4028235e+38;
   if (0 < *(int *)((int)param_1 + 0x34)) {
     piVar6 = (int *)((int)param_1 + 0x38);
     do {
@@ -1464,11 +1464,11 @@ undefined4 Planner_PortalPoint(void *param_1,void *param_2,float *param_3,undefi
         fVar1 = *(float *)(iVar4 + 0xc) - param_3[2];
         fVar2 = *(float *)(iVar4 + 4) - *param_3;
         fVar1 = fVar2 * fVar2 + fVar1 * fVar1 + fVar3 * fVar3;
-        if (fVar1 < (float)local_4) {
+        if (fVar1 < local_4) {
           *param_4 = *(undefined4 *)(iVar4 + 4);
           param_4[1] = *(undefined4 *)(iVar4 + 8);
           param_4[2] = *(undefined4 *)(iVar4 + 0xc);
-          local_4 = (uint)fVar1;
+          local_4 = fVar1;
         }
       }
       iVar5 = iVar5 + 1;
@@ -1486,18 +1486,18 @@ undefined4 Planner_PortalPoint(void *param_1,void *param_2,float *param_3,undefi
         fVar1 = *(float *)(iVar4 + 0xc) - param_3[2];
         fVar2 = *(float *)(iVar4 + 4) - *param_3;
         fVar1 = fVar2 * fVar2 + fVar1 * fVar1 + fVar3 * fVar3;
-        if (fVar1 < (float)local_4) {
+        if (fVar1 < local_4) {
           *param_4 = *(undefined4 *)(iVar4 + 4);
           param_4[1] = *(undefined4 *)(iVar4 + 8);
           param_4[2] = *(undefined4 *)(iVar4 + 0xc);
-          local_4 = (uint)fVar1;
+          local_4 = fVar1;
         }
       }
       iVar5 = iVar5 + 1;
       piVar6 = piVar6 + 1;
     } while (iVar5 < *(int *)((int)param_2 + 0x34));
   }
-  if ((float)local_4 == 3.4028235e+38) {
+  if (local_4 == 3.4028235e+38) {
     return 0;
   }
   return 1;
@@ -1526,9 +1526,9 @@ undefined4 Planner_SmoothPath(void)
   #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
   #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
   #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
+  #define local_c (*(float *)(_frame + (0x30 - 0xc)))
+  #define local_8 (*(float *)(_frame + (0x30 - 0x8)))
+  #define local_4 (*(float *)(_frame + (0x30 - 0x4)))
   
   bVar2 = false;
   local_10 = 0;
@@ -1550,12 +1550,12 @@ undefined4 Planner_SmoothPath(void)
       iVar4 = Planner_SharedSector(&local_c,puVar6);
       if (((iVar4 != 0) && (iVar3 != 0)) &&
          (0.0025000002 <
-          ((float)local_4 - (float)puVar6[-1]) * ((float)local_4 - (float)puVar6[-1]) +
-          ((float)local_8 - (float)puVar6[-2]) * ((float)local_8 - (float)puVar6[-2]) +
-          ((float)local_c - *pfVar5) * ((float)local_c - *pfVar5))) {
-        *pfVar5 = (float)local_c;
-        puVar6[-2] = local_8;
-        puVar6[-1] = local_4;
+          (local_4 - (float)puVar6[-1]) * (local_4 - (float)puVar6[-1]) +
+          (local_8 - (float)puVar6[-2]) * (local_8 - (float)puVar6[-2]) +
+          (local_c - *pfVar5) * (local_c - *pfVar5))) {
+        *pfVar5 = local_c;
+        puVar6[-2] = (uint)local_8;
+        puVar6[-1] = (uint)local_4;
         bVar2 = true;
       }
       local_10 = local_10 + 1;

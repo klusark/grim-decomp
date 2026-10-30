@@ -854,8 +854,6 @@ void Display_CloseDevice(void)
 }
 
 /* ---- 0x00474140  Display_OpenMode ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Stddisplay.c: selects the video mode, creates the primary and back surfaces (DIB section windowed
    or DirectDraw) and the Arial debug font */
@@ -917,8 +915,6 @@ int __cdecl Display_OpenMode(uint modeIdx,void *palette,int use3D)
   g_nDisplayModeOpen = 1;
   return 1;
 }
-#endif
-
 
 /* ---- 0x00474310  Display_CloseMode ---- */
 void Display_CloseMode(void)
@@ -2572,8 +2568,6 @@ Surface_BlitLockedDst
 
 
 /* ---- 0x004760d0  DDraw_Create ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 bool DDraw_Create(undefined4 param_1)
 
 {
@@ -2610,8 +2604,6 @@ bool DDraw_Create(undefined4 param_1)
   iVar1 = (**(code_std **)(*(int *)g_pDirectDraw + 0x50))(g_pDirectDraw,param_1,8);
   return iVar1 == 0;
 }
-#endif
-
 
 /* ---- 0x00476190  DDraw_Release ---- */
 void DDraw_Release(void)

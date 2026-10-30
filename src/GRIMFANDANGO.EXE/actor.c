@@ -875,7 +875,7 @@ void Actor_CreateWalker(void *param_1,int param_2)
     local_18[0] = pfVar2[3] + *(float *)((int)param_1 + 0xc);
     local_18[1] = *(float *)((int)param_1 + 0x10) + pfVar2[4];
     local_18[2] = *(float *)((int)param_1 + 0x14) + pfVar2[5];
-    Walker_TurnToPoint(p,(int)local_18,0x7f7fffff);
+    Walker_TurnToPoint(p,local_18,3.4028235e+38);
     *(void **)(*(int *)((int)param_1 + 0xa4) + 0x1b4) = p;
   }
   *unaff_FS_OFFSET = local_c;
@@ -1241,30 +1241,31 @@ void Actor_UpdateWalker(int param_1)
   undefined *puVar3;
   undefined4 uVar4;
   float fVar5;
-  uint a2;
-  uint a3;
+  uint turnLeftOk;
+  uint turnRightOk;
   
   puVar1 = *(undefined4 **)(*(int *)(param_1 + 0xa4) + 0x1b4);
   if ((*(int *)(*(int *)(param_1 + 0xa4) + 0x10) != 0) && ((*(byte *)(param_1 + 8) & 1) == 0)) {
     iVar2 = *(int *)(param_1 + 0xa4);
     fVar5 = Timer_GetFrameSeconds();
-    Walker_TurnHeading(*(void **)(iVar2 + 0x1b4),PUN(int,(float)((float)*(int *)(iVar2 + 0x10) *
-                            *(float *)(iVar2 + 0x1c) * fVar5 * *(float *)(iVar2 + 0x41c))));
+    Walker_TurnHeading(*(void **)(iVar2 + 0x1b4),
+                       (float)*(int *)(iVar2 + 0x10) *
+                       *(float *)(iVar2 + 0x1c) * fVar5 * *(float *)(iVar2 + 0x41c));
   }
   iVar2 = *(int *)(param_1 + 0xa4);
   if (*(int *)(iVar2 + 0xc) != 0) {
     fVar5 = Timer_GetFrameSeconds();
     if (*(int *)(iVar2 + 0x1bc) == 0) {
-      a3 = (uint)(*(int *)(iVar2 + 0x10) != 1);
-      a2 = (uint)(*(int *)(iVar2 + 0x10) != -1);
+      turnRightOk = (uint)(*(int *)(iVar2 + 0x10) != 1);
+      turnLeftOk = (uint)(*(int *)(iVar2 + 0x10) != -1);
     }
     else {
-      a3 = 1;
-      a2 = 1;
+      turnRightOk = 1;
+      turnLeftOk = 1;
     }
     puVar3 = Walker_WalkSectors(*(void **)(iVar2 + 0x1b4),
-                                (int)(fVar5 * *(float *)(iVar2 + 0x41c) * *(float *)(iVar2 + 0x18)),
-                                a2,a3);
+                                fVar5 * *(float *)(iVar2 + 0x41c) * *(float *)(iVar2 + 0x18),
+                                turnLeftOk,turnRightOk);
     *(undefined **)(*(int *)(param_1 + 0xa4) + 0xc) = puVar3;
   }
   uVar4 = Walker_UpdateYaw(param_1,puVar1);
@@ -1412,8 +1413,6 @@ LAB_0049162b:
 }
 
 /* ---- 0x00492b30  Actor_SayLine ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Starts speech: resolves the /id/ to a voice file (.wvc/.wav/.imc/.imu), plays it (3D positioned
    when flag 8), creates the subtitle text object, times text-only speech from its length, and plays
    the talk chore */
@@ -1651,12 +1650,8 @@ LAB_00492fe7:
 #undef local_24
 #undef local_44
 
-#endif
-
 
 /* ---- 0x00493060  Actor_ShutUp ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Lua ShutUpActor: stops the actor's speech and talk chores */
 
 void __cdecl Actor_ShutUp(void *actor)
@@ -1726,8 +1721,6 @@ void __cdecl Actor_ShutUp(void *actor)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x004931f0  Actor_PushSectorOppositeEdge ---- */
 /* Lua GetSectorOppositeEdge: pushes the point on the far edge of the sector from the actor */
@@ -1798,7 +1791,7 @@ void Actor_FollowPath(int param_1)
     }
   }
   *(uint *)(param_1 + 8) = *(uint *)(param_1 + 8) | 1;
-  Walker_TurnToPoint(*(void **)(iVar6 + 0x1b4),iVar6 + 0x2c,0x7f7fffff);
+  Walker_TurnToPoint(*(void **)(iVar6 + 0x1b4),(float *)(iVar6 + 0x2c),3.4028235e+38);
   Actor_WalkForward(param_1);
   return;
 }
@@ -2678,34 +2671,34 @@ LAB_004a5fa6:
 /* ---- 0x004a8500  Actor_GetYawToPoint ---- */
 /* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
-float __thiscall Actor_GetYawToPoint(void *this,int a1)
+float __thiscall Actor_GetYawToPoint(void *this,float *point)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   undefined *puVar1;
   float fVar2;
-  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
+  #define local_18 (*(float *)(_frame + (0x30 - 0x18)))
+  #define local_14 (*(float *)(_frame + (0x30 - 0x14)))
   #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
   #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
   #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
   
-  local_18 = *(uint *)a1;
-  local_14 = *(uint *)(a1 + 4);
-  local_10 = *(uint *)(a1 + 8);
+  local_18 = *point;
+  local_14 = point[1];
+  local_10 = (uint)point[2];
   if (*(void **)((int)this + 0x5c) != (void *)0x0) {
     Sector_FixPlaneCoordinate(*(void **)((int)this + 0x5c),(int)&local_18);
   }
-  Walker_ToLocalSpace(this,(float *)&local_18);
-  Vec3_Normalize((float *)&local_18);
-  fVar2 = Math_AsinDegreesSeries((float)local_14);
-  a1 = (int)(90.0 - fVar2);
-  if (0.0 < (float)local_18) {
-    a1 = (int)((float)a1 * -1.0);
+  Walker_ToLocalSpace(this,&local_18);
+  Vec3_Normalize(&local_18);
+  fVar2 = Math_AsinDegreesSeries(local_14);
+  point = PUN(float *,(float)(90.0 - fVar2));
+  if (0.0 < local_18) {
+    point = PUN(float *,(float)(PUN(float,point) * -1.0));
   }
   puVar1 = Walker_GetAngles((int)this);
-  return *(float *)(puVar1 + 4) + (float)a1;
+  return *(float *)(puVar1 + 4) + PUN(float,point);
 }
 #undef local_10
 #undef local_14

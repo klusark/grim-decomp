@@ -54,8 +54,6 @@ int * CmapComponent_NewInstance(int param_1,int param_2,int *param_3)
 
 
 /* ---- 0x00496460  CmapComponent_Create ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Registers a 'cmap' colormap component (CMAP resource, 0x34-byte ResRef); with no name a file
    dialog asks for one (editor) */
 
@@ -108,8 +106,6 @@ bool CmapComponent_Create(uint param_1,int param_2,int param_3,int param_4,char 
   }
   return false;
 }
-#endif
-
 
 /* ---- 0x00496580  CmapComponent_Destroy ---- */
 undefined4 CmapComponent_Destroy(undefined4 param_1,undefined4 param_2,void *param_3)

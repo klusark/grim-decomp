@@ -221,8 +221,6 @@ int * KeyframeComponent_NewInstance(int param_1,int *param_2,int param_3)
 
 
 /* ---- 0x00497e10  KeyframeComponent_Create ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Costume tag handler for 'RDroid Keyframe (KEY)' (registered by sputCostume_Start through
    Cos_NewStateBasedTag/Cos_NewIntTag): slot 1, builds a key from 'name priority tagged' text or
    asks for a .key file and loads it as a Keyframe resource. */
@@ -313,8 +311,6 @@ bool KeyframeComponent_Create(uint param_1,int param_2,int param_3,int param_4,u
 #undef local_24
 #undef local_28
 #undef local_2c
-
-#endif
 
 
 /* ---- 0x00498000  KeyframeComponent_EditKey ---- */

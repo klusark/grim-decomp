@@ -179,8 +179,6 @@ undefined4 ImuseSoundComponent_EditKey(int *param_1,undefined4 param_2)
 
 
 /* ---- 0x00497460  ImuseSoundComponent_Create ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Costume tag handler for 'iMuse Streamed / Resident Sound FX' (registered by sputCostume_Start
    through Cos_NewStateBasedTag/Cos_NewIntTag): slot 1, builds a sound key or asks for an
    .imu/.imc/.wvc file. */
@@ -270,8 +268,6 @@ bool ImuseSoundComponent_Create(uint param_1,int param_2,int param_3,int param_4
 #undef local_20
 #undef local_24
 #undef local_25
-
-#endif
 
 
 /* ---- 0x00497640  ImuseSoundComponent_Destroy ---- */

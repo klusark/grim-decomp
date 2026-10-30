@@ -49,10 +49,10 @@
 | 00482880 | Lua_NextSetup | lua.c | 11 |
 | 004828a0 | Lua_PreviousSetup | lua.c | 12 |
 | 00486f50 | Lua_IrisClear | lua.c | 24 |
-| 00489840 | Lua_DrawLine | lua.c | 1 |
-| 00489a80 | Lua_DrawPolygon | lua.c | 1 |
-| 00489d70 | Lua_DrawRectangle | lua.c | 1 |
-| 00489fe0 | Lua_ChangePrimitive | lua.c | 1 |
+| 00489840 | Lua_DrawLine | lua.c | 89 |
+| 00489a80 | Lua_DrawPolygon | lua.c | 130 |
+| 00489d70 | Lua_DrawRectangle | lua.c | 88 |
+| 00489fe0 | Lua_ChangePrimitive | lua.c | 158 |
 | 0048a460 | Lua_KillPrimitive | lua.c | 18 |
 | 0048a4a0 | Lua_PurgePrimitiveQueue | lua.c | 9 |
 | 0048ad60 | Lua_SetOffscreenTextPos | lua.c | 29 |
@@ -85,7 +85,7 @@
 | 00498da0 | Lua_GetDiskFreeSpace | lua.c | 17 |
 | 00498e20 | Lua_TEST | lua.c | 1 |
 | 00498e50 | Lua_ShrinkBoxes | lua.c | 1 |
-| 00498e90 | Lua_UnShrinkBoxes | lua.c | 9 |
+| 00498e90 | Lua_UnShrinkBoxes | lua.c | 1 |
 | 00498ea0 | Lua_GetShrinkPos | lua.c | 1 |
 | 00499000 | Lua_SetSoundParameters | lua.c | 98 |
 | 004991c0 | Lua_GetSoundParameters | lua.c | 37 |
@@ -98,7 +98,7 @@
 | 00499360 | Lua_SetSelectedActor | lua.c | 25 |
 | 004993c0 | Lua_PutActorAt | lua.c | 45 |
 | 004994a0 | Lua_PutActorInSet | lua.c | 37 |
-| 00499590 | Lua_WalkActorVector | lua.c | 123 |
+| 00499590 | Lua_WalkActorVector | lua.c | 124 |
 | 00499800 | Lua_WalkActorForward | lua.c | 21 |
 | 00499860 | Lua_WalkActorTo | lua.c | 64 |
 | 004999d0 | Lua_WalkActorToAvoiding | lua.c | 73 |
@@ -181,8 +181,8 @@
 | 0049d3f0 | Lua_EnableControl | lua.c | 20 |
 | 0049d430 | Lua_DisableControl | lua.c | 20 |
 | 0049d470 | Lua_GetControlState | lua.c | 49 |
-| 0049d550 | Lua_CallCostumeOverrideHandler | lua.c | 1 |
-| 0049d670 | Lua_CallCostumeMarkerHandler | lua.c | 1 |
+| 0049d550 | Lua_CallCostumeOverrideHandler | lua.c | 62 |
+| 0049d670 | Lua_CallCostumeMarkerHandler | lua.c | 62 |
 | 0049d7b0 | Lua_CallUserPaintHandler | lua.c | 54 |
 | 0049d890 | Lua_CallExitHandler | lua.c | 53 |
 | 0049d970 | Lua_CallPauseHandler | lua.c | 53 |
@@ -200,7 +200,7 @@
 | 0049e0b0 | Lua_DispatchControlHandlers | lua.c | 145 |
 | 0049e380 | Lua_CreateSystemTable | lua.c | 32 |
 | 0049e460 | Lua_CreateControlsTable | lua.c | 35 |
-| 0049e590 | Lua_SetSoundPosition | lua.c | 1 |
+| 0049e590 | Lua_SetSoundPosition | lua.c | 106 |
 | 0049e7e0 | Lua_StartFullscreenMovie | lua.c | 32 |
 | 0049e860 | Lua_PauseMovie | lua.c | 12 |
 | 0049e880 | Lua_StartMovie | lua.c | 52 |
@@ -357,7 +357,7 @@
 | 00473b30 | Display_RestoreMode | stddisplay.c | 12 |
 | 00473c80 | Display_SelectDevice | stddisplay.c | 168 |
 | 00474100 | Display_CloseDevice | stddisplay.c | 14 |
-| 00474140 | Display_OpenMode | stddisplay.c | 1 |
+| 00474140 | Display_OpenMode | stddisplay.c | 61 |
 | 00474310 | Display_CloseMode | stddisplay.c | 22 |
 | 00474380 | Display_SuspendForDialog | stddisplay.c | 17 |
 | 004743d0 | Display_ResumeAfterDialog | stddisplay.c | 17 |
@@ -384,7 +384,7 @@
 | 004755e0 | Surface_BlitDDraw | stddisplay.c | 160 |
 | 004758a0 | Surface_BlitLockedSrc | stddisplay.c | 207 |
 | 00475c90 | Surface_BlitLockedDst | stddisplay.c | 216 |
-| 004760d0 | DDraw_Create | stddisplay.c | 1 |
+| 004760d0 | DDraw_Create | stddisplay.c | 36 |
 | 00476190 | DDraw_Release | stddisplay.c | 9 |
 | 004761b0 | FUN_004761b0 | stddisplay.c | 1 |
 | 00476390 | DDraw_EnumModesCallback | stddisplay.c | 97 |
@@ -477,7 +477,7 @@
 | 00404b80 | rdroid_BuildMathTables | rdroid.c | 1 |
 | 00404380 | rdColormap_SetCurrent | rdcolormap.c | 8 |
 | 004043c0 | rdColormap_Load | rdcolormap.c | 26 |
-| 00404420 | rdColormap_LoadEntry | rdcolormap.c | 1 |
+| 00404420 | rdColormap_LoadEntry | rdcolormap.c | 142 |
 | 00404730 | rdColormap_Free | rdcolormap.c | 7 |
 | 00404750 | rdColormap_FreeEntry | rdcolormap.c | 23 |
 | 004047e0 | rdColormap_Build16bitTables | rdcolormap.c | 1 |
@@ -1129,7 +1129,7 @@
 | 004886f0 | Plat_InputDialogProc | plat.c | 43 |
 | 00488800 | Plat_Alloc | plat.c | 11 |
 | 00488820 | Plat_Free | plat.c | 6 |
-| 00477f10 | PlatSvc_AssertFail | platsvc.c | 1 |
+| 00477f10 | PlatSvc_AssertFail | platsvc.c | 50 |
 | 00478030 | PlatSvc_HAlloc | platsvc.c | 8 |
 | 00478040 | PlatSvc_HFree | platsvc.c | 8 |
 | 00478050 | PlatSvc_HRealloc | platsvc.c | 8 |
@@ -1401,7 +1401,7 @@
 | 004849a0 | Render_Present | render.c | 11 |
 | 004849d0 | Render_SetPixelFormat | render.c | 23 |
 | 00484a50 | FUN_00484a50 | render.c | 85 |
-| 00484c40 | Render_InitColorConstants | render.c | 1 |
+| 00484c40 | Render_InitColorConstants | render.c | 171 |
 | 00485bd0 | Render_DrawDebugGrid | render.c | 62 |
 | 00486100 | Render_CanvasIsPaletted | render.c | 5 |
 | 00486120 | Render_BuildActorDrawList | render.c | 58 |
@@ -1466,8 +1466,8 @@
 | 00490f50 | Actor_PuckOrient | actor.c | 69 |
 | 00491110 | Actor_UpdateWalker | actor.c | 1 |
 | 004913f0 | Actor_UpdateMoveChores | actor.c | 120 |
-| 00492b30 | Actor_SayLine | actor.c | 1 |
-| 00493060 | Actor_ShutUp | actor.c | 1 |
+| 00492b30 | Actor_SayLine | actor.c | 237 |
+| 00493060 | Actor_ShutUp | actor.c | 69 |
 | 004931f0 | Actor_PushSectorOppositeEdge | actor.c | 14 |
 | 00493230 | Actor_FollowPath | actor.c | 60 |
 | 004933c0 | Actor_SetWalkDominate | actor.c | 6 |
@@ -1495,7 +1495,7 @@
 | 004a5f60 | Actor_PutInSet | actor.c | 1 |
 | 004a8500 | Actor_GetYawToPoint | actor.c | 1 |
 | 00485420 | DirtyRect_Add | dirtyrect.c | 193 |
-| 00485e50 | DirtyRect_Flush | dirtyrect.c | 1 |
+| 00485e50 | DirtyRect_Flush | dirtyrect.c | 82 |
 | 00486020 | DirtyRect_Clear | dirtyrect.c | 16 |
 | 00485a40 | Setup_DrawDebugCamera | setup.c | 42 |
 | 004a3db0 | Setup_GetBackgroundBitmap | setup.c | 70 |
@@ -1535,7 +1535,7 @@
 | 004a9070 | Sector_EdgeDistance | sector.c | 1 |
 | 004a9180 | Sector_CollapseShortestEdge | sector.c | 1 |
 | 004a9d00 | SectorList_ShrinkWalkSectors | sector.c | 1 |
-| 00486250 | DrawList_Reset | drawlist.c | 1 |
+| 00486250 | DrawList_Reset | drawlist.c | 16 |
 | 00486280 | DrawList_Alloc | drawlist.c | 14 |
 | 004862b0 | FUN_004862b0 | drawlist.c | 8 |
 | 00486a10 | Plane_IntersectSegment | plane.c | 36 |
@@ -1658,7 +1658,7 @@
 | 0048d790 | sputResource_Start | sputresource.c | 23 |
 | 0048d830 | sputResource_Stop | sputresource.c | 13 |
 | 0048e240 | Actors_FreeAllCostumes | actors.c | 31 |
-| 0048fcc0 | Actors_UpdateTalking | actors.c | 1 |
+| 0048fcc0 | Actors_UpdateTalking | actors.c | 16 |
 | 0048fcf0 | Actors_UpdateAll | actors.c | 34 |
 | 0048e2c0 | sputActor_Initialize | sputactor.c | 23 |
 | 0048e330 | sputActor_SaveState | sputactor.c | 283 |
@@ -1724,13 +1724,13 @@
 | 00494bf0 | Shadow_DrawClippedPoly | shadow.c | 53 |
 | 004957f0 | sputCostume_Initialize | sputcostume.c | 21 |
 | 00495960 | sputCostume_Terminate | sputcostume.c | 16 |
-| 004959a0 | sputCostume_Start | sputcostume.c | 1 |
+| 004959a0 | sputCostume_Start | sputcostume.c | 165 |
 | 004988a0 | sputCostume_Stop | sputcostume.c | 26 |
 | 00496060 | Component_SetBitmapFrame | component.c | 9 |
 | 004960a0 | BitmapComponent_Create | bitmapcomponent.c | 148 |
 | 00496340 | BitmapComponent_Destroy | bitmapcomponent.c | 13 |
 | 00496370 | CmapComponent_NewInstance | cmapcomponent.c | 1 |
-| 00496460 | CmapComponent_Create | cmapcomponent.c | 1 |
+| 00496460 | CmapComponent_Create | cmapcomponent.c | 52 |
 | 00496580 | CmapComponent_Destroy | cmapcomponent.c | 7 |
 | 004965b0 | FUN_004965b0 | cmapcomponent.c | 1 |
 | 004965d0 | MaterialComponent_OnKey | materialcomponent.c | 10 |
@@ -1740,7 +1740,7 @@
 | 00496930 | ModelComponent_SetVisibleFlag | modelcomponent.c | 6 |
 | 00496950 | ModelComponent_NewInstance | modelcomponent.c | 1 |
 | 00496b40 | ModelComponent_Stop | modelcomponent.c | 10 |
-| 00496b60 | ModelComponent_Create | modelcomponent.c | 1 |
+| 00496b60 | ModelComponent_Create | modelcomponent.c | 83 |
 | 00496d10 | ModelComponent_Destroy | modelcomponent.c | 7 |
 | 00496d40 | MeshComponent_OnKey | meshcomponent.c | 16 |
 | 00496d70 | MeshComponent_NewInstance | meshcomponent.c | 1 |
@@ -1749,7 +1749,7 @@
 | 00497180 | FUN_00497180 | meshcomponent.c | 8 |
 | 004971a0 | ImuseSoundComponent_OnKey | imusesoundcomponent.c | 1 |
 | 00497320 | ImuseSoundComponent_EditKey | imusesoundcomponent.c | 93 |
-| 00497460 | ImuseSoundComponent_Create | imusesoundcomponent.c | 1 |
+| 00497460 | ImuseSoundComponent_Create | imusesoundcomponent.c | 90 |
 | 00497640 | ImuseSoundComponent_Destroy | imusesoundcomponent.c | 9 |
 | 00497660 | ImuseSoundComponent_Stop | imusesoundcomponent.c | 9 |
 | 00497680 | LuaVarComponent_OnKey | luavarcomponent.c | 17 |
@@ -1761,13 +1761,13 @@
 | 00497890 | KeyframeComponent_OnKey | keyframecomponent.c | 147 |
 | 00497cb0 | KeyframeComponent_TrackCallback | keyframecomponent.c | 18 |
 | 00497d10 | KeyframeComponent_NewInstance | keyframecomponent.c | 1 |
-| 00497e10 | KeyframeComponent_Create | keyframecomponent.c | 1 |
+| 00497e10 | KeyframeComponent_Create | keyframecomponent.c | 91 |
 | 00498000 | KeyframeComponent_EditKey | keyframecomponent.c | 39 |
 | 004980b0 | KeyframeComponent_Destroy | keyframecomponent.c | 10 |
 | 004980e0 | KeyframeComponent_Stop | keyframecomponent.c | 28 |
 | 00498140 | SmushComponent_Destroy | smushcomponent.c | 9 |
 | 00498160 | SmushComponent_OnKey | smushcomponent.c | 12 |
-| 00498190 | SmushComponent_Create | smushcomponent.c | 1 |
+| 00498190 | SmushComponent_Create | smushcomponent.c | 70 |
 | 00498180 | CostumeTag_Nop | costumetag.c | 8 |
 | 00498280 | SpriteComponent_Create | spritecomponent.c | 150 |
 | 00498550 | SpriteComponent_OnKey | spritecomponent.c | 15 |

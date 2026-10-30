@@ -324,14 +324,6 @@ static void walk_scale_init(void)
         g_fWalkSpeedScale = (float)GRIM_atof(e);
 }
 
-/* float -> its IEEE bits: the original passes float arguments of Walker_TurnHeading/Walker_WalkSectors in int slots */
-static int float_bits(float f)
-{
-    union { float f; int i; } u;
-    u.f = f;
-    return u.i;
-}
-
 #define ACT_I(p, off) (*(int *)((char *)(p) + (off)))
 #define ACT_F(p, off) (*(float *)((char *)(p) + (off)))
 
@@ -348,7 +340,7 @@ void Actor_UpdateWalker(int actor)
     walk_scale_init();
     if (ACT_I(extra, 0x10) != 0 && (ACT_I(actor, 8) & 1) == 0) {
         dt = Timer_GetFrameSeconds();
-        Walker_TurnHeading(walker, float_bits((float)ACT_I(extra, 0x10) * ACT_F(extra, 0x1c) * dt * ACT_F(extra, 0x41c)));
+        Walker_TurnHeading(walker, (float)ACT_I(extra, 0x10) * ACT_F(extra, 0x1c) * dt * ACT_F(extra, 0x41c));
     }
     extra = ACT_I(actor, 0xa4);
     if (ACT_I(extra, 0xc) != 0) {
@@ -362,7 +354,7 @@ void Actor_UpdateWalker(int actor)
             a2 = 1;
         }
         ACT_I(ACT_I(actor, 0xa4), 0xc) =
-            (int)Walker_WalkSectors(walker, float_bits(dt * ACT_F(extra, 0x41c) * ACT_F(extra, 0x18) * g_fWalkSpeedScale), a2, a3);
+            (int)Walker_WalkSectors(walker, dt * ACT_F(extra, 0x41c) * ACT_F(extra, 0x18) * g_fWalkSpeedScale, a2, a3);
     }
     ACT_I(ACT_I(actor, 0xa4), 0x20) = Walker_UpdateYaw((void *)actor, walker);
     extra = ACT_I(actor, 0xa4);

@@ -973,17 +973,17 @@ void LightEd_SetLightAngle(int param_1,short param_2,uint param_3)
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint uVar1;
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
+  #define local_c (*(float *)(_frame + (0x20 - 0xc)))
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
-  local_c = 0;
+  local_c = 0.0;
   (&UINT_008d1738)[param_1 * 5 + (int)param_2] = param_3;
   local_8 = 0x3f800000;
   local_4 = 0;
-  Vec3_Rotate((float *)&local_c,(float *)(&UINT_008d1738 + param_1 * 5));
+  Vec3_Rotate(&local_c,(float *)(&UINT_008d1738 + param_1 * 5));
   uVar1 = (&UINT_008d1730)[param_1 * 5];
-  *(uint *)(uVar1 + 0x38) = local_c;
+  *(float *)(uVar1 + 0x38) = local_c;
   *(uint *)(uVar1 + 0x3c) = local_8;
   *(uint *)(uVar1 + 0x40) = local_4;
   return;

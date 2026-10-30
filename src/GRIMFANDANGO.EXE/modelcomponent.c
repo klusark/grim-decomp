@@ -160,8 +160,6 @@ undefined4 ModelComponent_Stop(int param_1)
 }
 
 /* ---- 0x00496b60  ModelComponent_Create ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Costume tag handler for 'MAIN RDroid Thing (3DO) / RDroid Thing (3DO)' (registered by
    sputCostume_Start through Cos_NewStateBasedTag/Cos_NewIntTag): slot 1, builds a key from 'name x
    y' text or asks for a .3do file ('Select model file to add...') and loads it as a model resource.
@@ -244,8 +242,6 @@ bool ModelComponent_Create(uint param_1,int param_2,int param_3,int param_4,char
 #undef local_1f
 #undef local_20
 #undef local_24
-
-#endif
 
 
 /* ---- 0x00496d10  ModelComponent_Destroy ---- */
