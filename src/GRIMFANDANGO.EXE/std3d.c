@@ -1355,7 +1355,7 @@ void D3D_SetViewportRect(uint *param_1)
   
   UINT_00900600 = *param_1;
   uVar1 = param_1[1];
-  UINT_00900580 = (uint)(float)(int)UINT_00900600;
+  UINT_00900580 = PUN(uint,(float)(float)(int)UINT_00900600);
   UINT_00900608 = param_1[2];
   iVar3 = UINT_00900600 + UINT_00900608;
   UINT_0090060c = param_1[3];
@@ -1365,7 +1365,7 @@ void D3D_SetViewportRect(uint *param_1)
     *puVar4 = 0;
     puVar4 = puVar4 + 1;
   }
-  UINT_00900584 = (uint)(float)(int)UINT_00900604;
+  UINT_00900584 = PUN(uint,(float)(float)(int)UINT_00900604);
   _DAT_00900540 = 0;
   _DAT_00900544 = 1;
   _DAT_009005a0 = (float)iVar3;
@@ -1579,7 +1579,7 @@ undefined4 D3D_CreateViewport(void)
   if (iVar4 != 0) {
     return 0;
   }
-  fStack_10 = (float)(uint)fStack_10;
+  fStack_10 = (float)PUN(uint,(float)fStack_10);
   uStack_58 = uStack_c;
   fVar1 = fStack_10 * 0.5;
   fVar2 = (float)uStack_c * 0.5;
@@ -1592,7 +1592,7 @@ undefined4 D3D_CreateViewport(void)
   auStack_40[0] = 0x2c;
   auStack_40[2] = 0;
   auStack_40[1] = 0;
-  auStack_40[3] = (uint)fVar3;
+  auStack_40[3] = PUN(uint,(float)fVar3);
   uStack_30 = uStack_c;
   fStack_20 = (float)uStack_c / (fVar2 + fVar2);
   fStack_2c = fVar1;

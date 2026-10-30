@@ -19,7 +19,7 @@ void * __cdecl rdCamera_New(float fov,int type,float aspectX,float aspectY,float
   if (camera == (void *)0x0) {
     return (void *)0x0;
   }
-  iVar1 = rdCamera_Init(camera,fov,type,(int)aspectX,(int)aspectY,zoom);
+  iVar1 = rdCamera_Init(camera,fov,type,PUN(int,(float)aspectX),PUN(int,(float)aspectY),zoom);
   return (void *)(-(uint)(iVar1 != 0) & (uint)camera);
 }
 #endif
@@ -256,7 +256,7 @@ undefined4 rdCamera_BuildProjection(int *param_1)
     fVar2 = (float)(*(int *)(iVar1 + 0x20) - *(int *)(iVar1 + 0x18)) * 0.5;
     fVar3 = (float)(*(int *)(iVar1 + 0x24) - *(int *)(iVar1 + 0x1c)) * 0.5;
     fVar4 = (float10)Math_SinDeg((float)param_1[0xe] * 0.5);
-    param_1[0xf] = (int)(fVar2 / (float)fVar4);
+    param_1[0xf] = PUN(int,(float)(fVar2 / (float)fVar4));
     *(float *)(param_1[0x12] + 0x1c) = (fVar3 / (fVar2 / (float)fVar4)) / (float)param_1[0x10];
     *(float *)(param_1[0x12] + 0x24) = -fVar2 / (float)param_1[0xf];
     *(float *)(param_1[0x12] + 0x20) = (-fVar3 / (float)param_1[0xf]) / (float)param_1[0x10];
@@ -653,9 +653,9 @@ int __cdecl rdCamera_ProjectPoint(float *world,float *outScreen)
     (**(code **)((int)g_pRdCurrentCamera + 0x4c))((_stkneg + 24),local_c);
     if (outScreen != (float *)0x0) {
       lVar2 = _ftol((double)CONCAT44(in_stack_ffffffe8,unaff_ESI));
-      *outScreen = (float)lVar2;
+      *outScreen = PUN(float,lVar2);
       lVar2 = _ftol((double)CONCAT44(in_stack_ffffffe8,unaff_ESI));
-      outScreen[1] = (float)lVar2;
+      outScreen[1] = PUN(float,lVar2);
       outScreen[2] = fStack_10;
     }
     return 1;

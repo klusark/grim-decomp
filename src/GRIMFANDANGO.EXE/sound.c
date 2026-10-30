@@ -125,12 +125,12 @@ undefined4 PositionedSound_Apply(int param_1)
   
   pvVar2 = Set_GetCurrent();
   if (pvVar2 != (void *)0x0) {
-    local_c = (uint)(*(float *)(param_1 + 8) -
+    local_c = PUN(uint,(float)(*(float *)(param_1 + 8) -
                     *(float *)(*(int *)((int)pvVar2 + 0xac) + 0x20 +
-                              *(int *)((int)pvVar2 + 0xb4) * 300));
+                              *(int *)((int)pvVar2 + 0xb4) * 300)));
     iVar1 = *(int *)((int)pvVar2 + 0xac) + 0x20 + *(int *)((int)pvVar2 + 0xb4) * 300;
-    local_8 = (uint)(*(float *)(param_1 + 0xc) - *(float *)(iVar1 + 4));
-    local_4 = (uint)(*(float *)(param_1 + 0x10) - *(float *)(iVar1 + 8));
+    local_8 = PUN(uint,(float)(*(float *)(param_1 + 0xc) - *(float *)(iVar1 + 4)));
+    local_4 = PUN(uint,(float)(*(float *)(param_1 + 0x10) - *(float *)(iVar1 + 8)));
     fVar7 = Vec3_NormalizeApprox((float *)&local_c);
     if (0.0 <= fVar7 - *(float *)(param_1 + 0x20)) {
       uVar5 = *(uint *)(param_1 + 0x18);
@@ -161,8 +161,6 @@ undefined4 PositionedSound_Apply(int param_1)
 
 
 /* ---- 0x004d0c20  Sound_DriverQuery ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Calls entry +0x14 of the installed sound driver vtable */
 
 undefined4 Sound_DriverQuery(void)
@@ -178,8 +176,6 @@ undefined4 Sound_DriverQuery(void)
   }
   return 0xffffffff;
 }
-#endif
-
 
 /* ---- 0x004d0cf0  Sound_VoiceSampleCount ---- */
 /* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */

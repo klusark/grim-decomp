@@ -51,15 +51,15 @@ void rdRaster_SetupPoly(float *param_1,int param_2)
   #define local_4 (*(uint *)(_frame + (0x40 - 0x4)))
   
   fVar5 = *param_1;
-  iVar19 = *(int *)((int)fVar5 + 0x1c);
+  iVar19 = *(int *)(PUN(int,(float)fVar5) + 0x1c);
   if (iVar19 == 3) {
     local_20 = 1;
     local_24 = 0;
     pfVar20 = (float *)0x2;
     goto LAB_0040ec61;
   }
-  local_24 = *(uint *)((int)fVar5 + 0x6c);
-  local_20 = *(undefined4 *)((int)fVar5 + 0x70);
+  local_24 = *(uint *)(PUN(int,(float)fVar5) + 0x6c);
+  local_20 = *(undefined4 *)(PUN(int,(float)fVar5) + 0x70);
   uVar16 = local_24 + 1;
   if ((int)uVar16 < 0) {
     pfVar17 = (float *)(iVar19 + -1);
@@ -86,7 +86,7 @@ void rdRaster_SetupPoly(float *param_1,int param_2)
       if (-1 < (int)uVar16) {
         pfVar20 = (float *)(((int)pfVar21 < (int)uVar16) - 1 & uVar16);
       }
-      iVar19 = *(int *)((int)fVar5 + 0x20);
+      iVar19 = *(int *)(PUN(int,(float)fVar5) + 0x20);
       pfVar17 = (float *)(iVar19 + (int)pfVar20 * 0xc);
       pfVar2 = (float *)(iVar19 + local_20 * 0xc);
       lVar22 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
@@ -120,7 +120,7 @@ void rdRaster_SetupPoly(float *param_1,int param_2)
     }
   }
 LAB_0040ebcc:
-  iVar19 = *(int *)((int)fVar5 + 0x20);
+  iVar19 = *(int *)(PUN(int,(float)fVar5) + 0x20);
   local_14 = 0;
   uVar16 = local_24 + local_1c;
   pfVar17 = pfVar21;
@@ -135,7 +135,7 @@ LAB_0040ebcc:
     }
     if ((float)local_14 < fVar6) {
       pfVar20 = pfVar17;
-      local_14 = (uint)fVar6;
+      local_14 = PUN(uint,(float)fVar6);
     }
     uVar16 = local_1c + (int)pfVar17;
     pfVar17 = pfVar21;
@@ -145,7 +145,7 @@ LAB_0040ebcc:
   }
 LAB_0040ec61:
   iVar19 = 0;
-  if (0 < *(int *)((int)fVar5 + 0x1c)) {
+  if (0 < *(int *)(PUN(int,(float)fVar5) + 0x1c)) {
     iVar18 = 0;
     pfVar17 = param_1;
     do {
@@ -153,15 +153,15 @@ LAB_0040ec61:
       iVar19 = iVar19 + 1;
       iVar4 = iVar18 + 8;
       iVar18 = iVar18 + 0xc;
-      *pfVar17 = 1.0 / *(float *)(iVar4 + *(int *)((int)fVar5 + 0x20));
-    } while (iVar19 < *(int *)((int)fVar5 + 0x1c));
+      *pfVar17 = 1.0 / *(float *)(iVar4 + *(int *)(PUN(int,(float)fVar5) + 0x20));
+    } while (iVar19 < *(int *)(PUN(int,(float)fVar5) + 0x1c));
   }
-  iVar19 = *(int *)((int)fVar5 + 0x20);
+  iVar19 = *(int *)(PUN(int,(float)fVar5) + 0x20);
   fVar6 = *(float *)(iVar19 + 4 + local_24 * 0xc) - *(float *)(iVar19 + 4 + (int)pfVar20 * 0xc);
   fVar10 = *(float *)(iVar19 + 4 + local_20 * 0xc) - *(float *)(iVar19 + 4 + (int)pfVar20 * 0xc);
   fVar12 = *(float *)(iVar19 + local_24 * 0xc) - *(float *)(iVar19 + (int)pfVar20 * 0xc);
   fVar13 = *(float *)(iVar19 + local_20 * 0xc) - *(float *)(iVar19 + (int)pfVar20 * 0xc);
-  iVar19 = *(int *)((int)fVar5 + 0x24);
+  iVar19 = *(int *)(PUN(int,(float)fVar5) + 0x24);
   pfVar17 = (float *)(iVar19 + 4 + (int)pfVar20 * 8);
   fVar9 = 1.0 / (fVar6 * fVar13 - fVar10 * fVar12);
   fVar11 = *(float *)(iVar19 + local_20 * 8) - *(float *)(iVar19 + (int)pfVar20 * 8);
@@ -174,7 +174,7 @@ LAB_0040ec61:
     param_1[0x70] = 0.0;
   }
   else if (param_2 == 1) {
-    if (_DAT_004dda94 < *(float *)((int)fVar5 + 100)) {
+    if (_DAT_004dda94 < *(float *)(PUN(int,(float)fVar5) + 100)) {
       param_1[0x70] = 1.4013e-45;
     }
     else {
@@ -182,8 +182,8 @@ LAB_0040ec61:
     }
   }
   else if (param_2 == 2) {
-    if (_DAT_004dda90 < *(float *)((int)fVar5 + 100)) {
-      if (_DAT_004dda94 < *(float *)((int)fVar5 + 100)) {
+    if (_DAT_004dda90 < *(float *)(PUN(int,(float)fVar5) + 100)) {
+      if (_DAT_004dda94 < *(float *)(PUN(int,(float)fVar5) + 100)) {
         param_1[0x70] = 2.8026e-45;
       }
       else {
@@ -195,9 +195,9 @@ LAB_0040ec61:
     }
   }
   else if (param_2 == 3) {
-    if (_DAT_004dda90 < *(float *)((int)fVar5 + 100)) {
-      if (_DAT_004dda94 < *(float *)((int)fVar5 + 100)) {
-        if (_DAT_004dda98 < *(float *)((int)fVar5 + 100)) {
+    if (_DAT_004dda90 < *(float *)(PUN(int,(float)fVar5) + 100)) {
+      if (_DAT_004dda94 < *(float *)(PUN(int,(float)fVar5) + 100)) {
+        if (_DAT_004dda98 < *(float *)(PUN(int,(float)fVar5) + 100)) {
           param_1[0x70] = 4.2039e-45;
         }
         else {
@@ -302,15 +302,15 @@ void rdRaster_SetupPolyTex(float *param_1,int param_2)
   
   pfVar21 = param_1;
   fVar13 = *param_1;
-  iVar24 = *(int *)((int)fVar13 + 0x1c);
+  iVar24 = *(int *)(PUN(int,(float)fVar13) + 0x1c);
   if (iVar24 == 3) {
     local_2c = 0;
     param_1 = (float *)0x1;
     local_24 = 2;
   }
   else {
-    local_2c = *(uint *)((int)fVar13 + 0x6c);
-    param_1 = *(float **)((int)fVar13 + 0x70);
+    local_2c = *(uint *)(PUN(int,(float)fVar13) + 0x6c);
+    param_1 = *(float **)(PUN(int,(float)fVar13) + 0x70);
     uVar1 = local_2c + 1;
     if ((int)uVar1 < 0) {
       uVar23 = iVar24 - 1;
@@ -335,7 +335,7 @@ void rdRaster_SetupPolyTex(float *param_1,int param_2)
         if (-1 < (int)uVar1) {
           local_24 = ((int)uVar25 < (int)uVar1) - 1 & uVar1;
         }
-        iVar24 = *(int *)((int)fVar13 + 0x20);
+        iVar24 = *(int *)(PUN(int,(float)fVar13) + 0x20);
         pfVar3 = (float *)(iVar24 + local_24 * 0xc);
         pfVar22 = (float *)(iVar24 + (int)param_1 * 0xc);
         lVar28 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
@@ -369,7 +369,7 @@ void rdRaster_SetupPolyTex(float *param_1,int param_2)
       }
     }
 LAB_0040f132:
-    iVar24 = *(int *)((int)fVar13 + 0x20);
+    iVar24 = *(int *)(PUN(int,(float)fVar13) + 0x20);
     local_18 = 0;
     uVar23 = local_2c + local_28;
     uVar1 = uVar25;
@@ -384,7 +384,7 @@ LAB_0040f132:
       }
       if ((float)local_18 < fVar5) {
         local_24 = uVar1;
-        local_18 = (uint)fVar5;
+        local_18 = PUN(uint,(float)fVar5);
       }
       uVar23 = local_28 + uVar1;
       uVar1 = uVar25;
@@ -394,22 +394,22 @@ LAB_0040f132:
     }
   }
   iVar24 = 0;
-  if (0 < *(int *)((int)fVar13 + 0x1c)) {
+  if (0 < *(int *)(PUN(int,(float)fVar13) + 0x1c)) {
     iVar26 = 0;
     pfVar3 = pfVar21;
     do {
       pfVar22 = pfVar3 + 1;
       iVar2 = iVar24 * 8;
       iVar24 = iVar24 + 1;
-      fVar5 = 1.0 / *(float *)(iVar26 + 8 + *(int *)((int)fVar13 + 0x20));
+      fVar5 = 1.0 / *(float *)(iVar26 + 8 + *(int *)(PUN(int,(float)fVar13) + 0x20));
       iVar26 = iVar26 + 0xc;
       *pfVar22 = fVar5;
-      pfVar3[0x21] = *(float *)(iVar2 + *(int *)((int)fVar13 + 0x24)) * fVar5;
-      pfVar3[0x41] = *(float *)(iVar2 + 4 + *(int *)((int)fVar13 + 0x24)) * *pfVar22;
+      pfVar3[0x21] = *(float *)(iVar2 + *(int *)(PUN(int,(float)fVar13) + 0x24)) * fVar5;
+      pfVar3[0x41] = *(float *)(iVar2 + 4 + *(int *)(PUN(int,(float)fVar13) + 0x24)) * *pfVar22;
       pfVar3 = pfVar22;
-    } while (iVar24 < *(int *)((int)fVar13 + 0x1c));
+    } while (iVar24 < *(int *)(PUN(int,(float)fVar13) + 0x1c));
   }
-  iVar24 = *(int *)((int)fVar13 + 0x20);
+  iVar24 = *(int *)(PUN(int,(float)fVar13) + 0x20);
   fVar14 = *(float *)(iVar24 + 4 + local_2c * 0xc) - *(float *)(iVar24 + 4 + local_24 * 0xc);
   fVar16 = *(float *)(iVar24 + 4 + (int)param_1 * 0xc) - *(float *)(iVar24 + 4 + local_24 * 0xc);
   fVar17 = *(float *)(iVar24 + local_2c * 0xc) - *(float *)(iVar24 + local_24 * 0xc);
@@ -446,29 +446,29 @@ LAB_0040f132:
     goto LAB_0040f4ea;
   }
   if (param_2 == 1) {
-    if (*(float *)((int)fVar13 + 100) <= _DAT_004dda94) {
+    if (*(float *)(PUN(int,(float)fVar13) + 100) <= _DAT_004dda94) {
       pfVar21[0x70] = 0.0;
       goto LAB_0040f4ea;
     }
   }
   else if (param_2 == 2) {
-    if (*(float *)((int)fVar13 + 100) <= _DAT_004dda90) {
+    if (*(float *)(PUN(int,(float)fVar13) + 100) <= _DAT_004dda90) {
       pfVar21[0x70] = 0.0;
       goto LAB_0040f4ea;
     }
-    if (_DAT_004dda94 < *(float *)((int)fVar13 + 100)) {
+    if (_DAT_004dda94 < *(float *)(PUN(int,(float)fVar13) + 100)) {
       pfVar21[0x70] = 2.8026e-45;
       goto LAB_0040f4ea;
     }
   }
   else {
     if (param_2 != 3) goto LAB_0040f4ea;
-    if (*(float *)((int)fVar13 + 100) <= _DAT_004dda90) {
+    if (*(float *)(PUN(int,(float)fVar13) + 100) <= _DAT_004dda90) {
       pfVar21[0x70] = 0.0;
       goto LAB_0040f4ea;
     }
-    if (_DAT_004dda94 < *(float *)((int)fVar13 + 100)) {
-      if (_DAT_004dda98 < *(float *)((int)fVar13 + 100)) {
+    if (_DAT_004dda94 < *(float *)(PUN(int,(float)fVar13) + 100)) {
+      if (_DAT_004dda98 < *(float *)(PUN(int,(float)fVar13) + 100)) {
         pfVar21[0x70] = 4.2039e-45;
       }
       else {
@@ -539,16 +539,16 @@ void rdRaster_Select_Flat(float *param_1,int param_2)
   
   uVar5 = 0;
   fVar2 = *param_1;
-  if (*(int *)((int)fVar2 + 0x1c) != 0) {
+  if (*(int *)(PUN(int,(float)fVar2) + 0x1c) != 0) {
     iVar4 = 0;
     pfVar3 = param_1;
     do {
       pfVar3 = pfVar3 + 1;
       uVar5 = uVar5 + 1;
-      pfVar1 = (float *)(*(int *)((int)fVar2 + 0x20) + 8 + iVar4);
+      pfVar1 = (float *)(*(int *)(PUN(int,(float)fVar2) + 0x20) + 8 + iVar4);
       iVar4 = iVar4 + 0xc;
       *pfVar3 = 1.0 / *pfVar1;
-    } while (uVar5 < *(uint *)((int)fVar2 + 0x1c));
+    } while (uVar5 < *(uint *)(PUN(int,(float)fVar2) + 0x1c));
   }
   fVar2 = *(float *)(param_2 + 4);
   param_1[0x6d] = PUN(float,rdRaster_SpanFlatSetup);
@@ -705,9 +705,9 @@ undefined4 rdRaster_EdgeSetup_Flat(undefined4 *param_1,int *param_2,int param_3,
     fVar5 = 1.0 / (*(float *)(iVar1 + 4 + param_3 * 0xc) - *(float *)(iVar1 + 4 + iVar7));
     fVar3 = (*(float *)(iVar1 + param_3 * 0xc) - *(float *)(iVar1 + iVar7)) * fVar5;
     param_1[0xb] = (int)ROUND(fVar3 * 65536.0);
-    param_1[10] = (int)ROUND((fVar3 * (float)local_8 + *(float *)(iVar7 + *(int *)(iVar4 + 0x20))) *
+    param_1[10] = (int)ROUND((fVar3 * PUN(float,local_8) + *(float *)(iVar7 + *(int *)(iVar4 + 0x20))) *
                              65536.0);
-    fVar3 = (float)param_2[param_3 + 1];
+    fVar3 = PUN(float,param_2[param_3 + 1]);
     param_3 = param_4;
     param_1 = PUN(undefined4 *,(float)fVar5);
   }
@@ -726,14 +726,14 @@ undefined4 rdRaster_EdgeSetup_Flat(undefined4 *param_1,int *param_2,int param_3,
     fVar3 = (*(float *)(iVar7 + *(int *)(iVar4 + 0x20)) - *(float *)(*(int *)(iVar4 + 0x20) + iVar9)
             ) * fVar5;
     param_1[0xb] = (int)ROUND(fVar3 * 65536.0);
-    param_1[10] = (int)ROUND((fVar3 * (float)local_8 + *(float *)(iVar9 + *(int *)(iVar4 + 0x20))) *
+    param_1[10] = (int)ROUND((fVar3 * PUN(float,local_8) + *(float *)(iVar9 + *(int *)(iVar4 + 0x20))) *
                              65536.0);
-    fVar3 = (float)param_2[param_4 + 1];
+    fVar3 = PUN(float,param_2[param_4 + 1]);
     param_1 = PUN(undefined4 *,(float)fVar5);
   }
-  fVar3 = (fVar3 - (float)param_2[param_3 + 1]) * PUN(float,param_1);
+  fVar3 = (fVar3 - PUN(float,param_2[param_3 + 1])) * PUN(float,param_1);
   puVar6[5] = fVar3;
-  puVar6[4] = (float)local_8 * fVar3 + (float)param_2[param_3 + 1];
+  puVar6[4] = PUN(float,local_8) * fVar3 + PUN(float,param_2[param_3 + 1]);
   return 1;
 }
 #undef local_10
@@ -761,16 +761,16 @@ void rdRaster_Select_Flat_2(float *param_1,int param_2)
   
   uVar5 = 0;
   fVar2 = *param_1;
-  if (*(int *)((int)fVar2 + 0x1c) != 0) {
+  if (*(int *)(PUN(int,(float)fVar2) + 0x1c) != 0) {
     iVar4 = 0;
     pfVar3 = param_1;
     do {
       pfVar3 = pfVar3 + 1;
       uVar5 = uVar5 + 1;
-      pfVar1 = (float *)(*(int *)((int)fVar2 + 0x20) + 8 + iVar4);
+      pfVar1 = (float *)(*(int *)(PUN(int,(float)fVar2) + 0x20) + 8 + iVar4);
       iVar4 = iVar4 + 0xc;
       *pfVar3 = 1.0 / *pfVar1;
-    } while (uVar5 < *(uint *)((int)fVar2 + 0x1c));
+    } while (uVar5 < *(uint *)(PUN(int,(float)fVar2) + 0x1c));
   }
   fVar2 = *(float *)(param_2 + 4);
   param_1[0x6d] = PUN(float,rdRaster_SpanTexSetup);
@@ -908,9 +908,9 @@ undefined4 rdRaster_EdgeSetup_Flat_2(undefined4 *param_1,int *param_2,int param_
     fVar5 = 1.0 / (*(float *)(iVar1 + 4 + param_3 * 0xc) - *(float *)(iVar1 + 4 + iVar7));
     fVar3 = (*(float *)(iVar1 + param_3 * 0xc) - *(float *)(iVar1 + iVar7)) * fVar5;
     param_1[0xb] = (int)ROUND(fVar3 * 65536.0);
-    param_1[10] = (int)ROUND((fVar3 * (float)local_8 + *(float *)(iVar7 + *(int *)(iVar4 + 0x20))) *
+    param_1[10] = (int)ROUND((fVar3 * PUN(float,local_8) + *(float *)(iVar7 + *(int *)(iVar4 + 0x20))) *
                              65536.0);
-    fVar3 = (float)param_2[param_3 + 1];
+    fVar3 = PUN(float,param_2[param_3 + 1]);
     param_3 = param_4;
     param_1 = PUN(undefined4 *,(float)fVar5);
   }
@@ -929,14 +929,14 @@ undefined4 rdRaster_EdgeSetup_Flat_2(undefined4 *param_1,int *param_2,int param_
     fVar3 = (*(float *)(iVar7 + *(int *)(iVar4 + 0x20)) - *(float *)(*(int *)(iVar4 + 0x20) + iVar9)
             ) * fVar5;
     param_1[0xb] = (int)ROUND(fVar3 * 65536.0);
-    param_1[10] = (int)ROUND((fVar3 * (float)local_8 + *(float *)(iVar9 + *(int *)(iVar4 + 0x20))) *
+    param_1[10] = (int)ROUND((fVar3 * PUN(float,local_8) + *(float *)(iVar9 + *(int *)(iVar4 + 0x20))) *
                              65536.0);
-    fVar3 = (float)param_2[param_4 + 1];
+    fVar3 = PUN(float,param_2[param_4 + 1]);
     param_1 = PUN(undefined4 *,(float)fVar5);
   }
-  fVar3 = (fVar3 - (float)param_2[param_3 + 1]) * PUN(float,param_1);
+  fVar3 = (fVar3 - PUN(float,param_2[param_3 + 1])) * PUN(float,param_1);
   puVar6[5] = fVar3;
-  puVar6[4] = (float)local_8 * fVar3 + (float)param_2[param_3 + 1];
+  puVar6[4] = PUN(float,local_8) * fVar3 + PUN(float,param_2[param_3 + 1]);
   return 1;
 }
 #undef local_10
@@ -979,7 +979,7 @@ void rdRaster_Select_TexLit(float *param_1,int param_2,float param_3)
   bVar2 = *(byte *)(*(int *)(param_2 + 4) + *(int *)(*(int *)((int)*param_1 + 0x4c) + 0x330) +
                    (int)ROUND(param_3) * 0x100);
   param_1[0x6d] = PUN(float,rdRaster_SpanLitSetup);
-  param_1[0x74] = (float)(uint)bVar2;
+  param_1[0x74] = PUN(float,(uint)bVar2);
   param_1[0x7a] = PUN(float,rdRaster_EdgeSetup_Flat_3);
   return;
 }
@@ -1090,9 +1090,9 @@ undefined4 rdRaster_EdgeSetup_Flat_3(undefined4 *param_1,int *param_2,int param_
     fVar5 = 1.0 / (*(float *)(iVar1 + 4 + param_3 * 0xc) - *(float *)(iVar1 + 4 + iVar7));
     fVar3 = (*(float *)(iVar1 + param_3 * 0xc) - *(float *)(iVar1 + iVar7)) * fVar5;
     param_1[0xb] = (int)ROUND(fVar3 * 65536.0);
-    param_1[10] = (int)ROUND((fVar3 * (float)local_8 + *(float *)(iVar7 + *(int *)(iVar4 + 0x20))) *
+    param_1[10] = (int)ROUND((fVar3 * PUN(float,local_8) + *(float *)(iVar7 + *(int *)(iVar4 + 0x20))) *
                              65536.0);
-    fVar3 = (float)param_2[param_3 + 1];
+    fVar3 = PUN(float,param_2[param_3 + 1]);
     param_3 = param_4;
     param_1 = PUN(undefined4 *,(float)fVar5);
   }
@@ -1111,14 +1111,14 @@ undefined4 rdRaster_EdgeSetup_Flat_3(undefined4 *param_1,int *param_2,int param_
     fVar3 = (*(float *)(iVar7 + *(int *)(iVar4 + 0x20)) - *(float *)(*(int *)(iVar4 + 0x20) + iVar9)
             ) * fVar5;
     param_1[0xb] = (int)ROUND(fVar3 * 65536.0);
-    param_1[10] = (int)ROUND((fVar3 * (float)local_8 + *(float *)(iVar9 + *(int *)(iVar4 + 0x20))) *
+    param_1[10] = (int)ROUND((fVar3 * PUN(float,local_8) + *(float *)(iVar9 + *(int *)(iVar4 + 0x20))) *
                              65536.0);
-    fVar3 = (float)param_2[param_4 + 1];
+    fVar3 = PUN(float,param_2[param_4 + 1]);
     param_1 = PUN(undefined4 *,(float)fVar5);
   }
-  fVar3 = (fVar3 - (float)param_2[param_3 + 1]) * PUN(float,param_1);
+  fVar3 = (fVar3 - PUN(float,param_2[param_3 + 1])) * PUN(float,param_1);
   puVar6[5] = fVar3;
-  puVar6[4] = (float)local_8 * fVar3 + (float)param_2[param_3 + 1];
+  puVar6[4] = PUN(float,local_8) * fVar3 + PUN(float,param_2[param_3 + 1]);
   return 1;
 }
 #undef local_10
@@ -1148,23 +1148,23 @@ void rdRaster_Select_FlatLit(float *param_1,int param_2)
   uVar6 = 0;
   fVar2 = *param_1;
   iVar3 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
-  if (*(int *)((int)fVar2 + 0x1c) != 0) {
+  if (*(int *)(PUN(int,(float)fVar2) + 0x1c) != 0) {
     iVar5 = 0;
     pfVar4 = param_1;
     do {
       pfVar4 = pfVar4 + 1;
       uVar6 = uVar6 + 1;
-      pfVar1 = (float *)(*(int *)((int)fVar2 + 0x20) + 8 + iVar5);
+      pfVar1 = (float *)(*(int *)(PUN(int,(float)fVar2) + 0x20) + 8 + iVar5);
       iVar5 = iVar5 + 0xc;
       *pfVar4 = 1.0 / *pfVar1;
-    } while (uVar6 < *(uint *)((int)fVar2 + 0x1c));
+    } while (uVar6 < *(uint *)(PUN(int,(float)fVar2) + 0x1c));
   }
   param_1[0x74] = *(float *)(param_2 + 4);
   if (iVar3 == 8) {
-    param_1[0x77] = *(float *)(*(int *)((int)*param_1 + 0x4c) + 0x330);
+    param_1[0x77] = *(float *)(*(int *)(PUN(int,(float)*param_1) + 0x4c) + 0x330);
   }
   else if (iVar3 == 0x10) {
-    param_1[0x78] = *(float *)(*(int *)((int)*param_1 + 0x4c) + 0x348);
+    param_1[0x78] = *(float *)(*(int *)(PUN(int,(float)*param_1) + 0x4c) + 0x348);
   }
   param_1[0x6d] = PUN(float,FUN_00410330);
   param_1[0x7a] = PUN(float,rdRaster_EdgeSetup_Flat_4);
@@ -1327,9 +1327,9 @@ undefined4 rdRaster_EdgeSetup_Flat_4(undefined4 *param_1,int *param_2,int param_
     param_1[0x11] = (int)ROUND(fVar7 * 65536.0);
     param_1[0x10] =
          (int)ROUND((fVar7 * fVar5 + *(float *)(*(int *)(iVar4 + 0x28) + param_3 * 4)) * 65536.0);
-    fVar6 = ((float)param_2[param_4 + 1] - (float)param_2[param_3 + 1]) * fVar6;
+    fVar6 = (PUN(float,param_2[param_4 + 1]) - PUN(float,param_2[param_3 + 1])) * fVar6;
     param_1[5] = fVar6;
-    param_1[4] = fVar5 * fVar6 + (float)param_2[param_3 + 1];
+    param_1[4] = fVar5 * fVar6 + PUN(float,param_2[param_3 + 1]);
     return 1;
   }
   *param_1 = 0;
@@ -1354,9 +1354,9 @@ undefined4 rdRaster_EdgeSetup_Flat_4(undefined4 *param_1,int *param_2,int param_
   param_1[0x11] = (int)ROUND(fVar7 * 65536.0);
   param_1[0x10] =
        (int)ROUND((fVar7 * fVar6 + *(float *)(*(int *)(iVar4 + 0x28) + param_4 * 4)) * 65536.0);
-  fVar5 = ((float)param_2[param_3 + 1] - (float)param_2[param_4 + 1]) * fVar5;
+  fVar5 = (PUN(float,param_2[param_3 + 1]) - PUN(float,param_2[param_4 + 1])) * fVar5;
   param_1[5] = fVar5;
-  param_1[4] = fVar6 * fVar5 + (float)param_2[param_4 + 1];
+  param_1[4] = fVar6 * fVar5 + PUN(float,param_2[param_4 + 1]);
   return 1;
 }
 #undef local_10
@@ -1560,9 +1560,9 @@ undefined4 rdRaster_EdgeSetup_Flat_5(undefined4 *param_1,int *param_2,int param_
     param_1[0xf] = (int)ROUND(fVar7 * 65536.0);
     param_1[0xe] = (int)ROUND((fVar7 * fVar5 + *(float *)(*(int *)(iVar4 + 0x24) + 4 + param_3 * 8))
                               * 65536.0);
-    fVar6 = ((float)param_2[param_4 + 1] - (float)param_2[param_3 + 1]) * fVar6;
+    fVar6 = (PUN(float,param_2[param_4 + 1]) - PUN(float,param_2[param_3 + 1])) * fVar6;
     param_1[5] = fVar6;
-    param_1[4] = fVar5 * fVar6 + (float)param_2[param_3 + 1];
+    param_1[4] = fVar5 * fVar6 + PUN(float,param_2[param_3 + 1]);
     return 1;
   }
   *param_1 = 0;
@@ -1593,9 +1593,9 @@ undefined4 rdRaster_EdgeSetup_Flat_5(undefined4 *param_1,int *param_2,int param_
   param_1[0xf] = (int)ROUND(fVar7 * 65536.0);
   param_1[0xe] = (int)ROUND((fVar7 * fVar6 + *(float *)(*(int *)(iVar4 + 0x24) + 4 + param_4 * 8)) *
                             65536.0);
-  fVar5 = ((float)param_2[param_3 + 1] - (float)param_2[param_4 + 1]) * fVar5;
+  fVar5 = (PUN(float,param_2[param_3 + 1]) - PUN(float,param_2[param_4 + 1])) * fVar5;
   param_1[5] = fVar5;
-  param_1[4] = fVar6 * fVar5 + (float)param_2[param_4 + 1];
+  param_1[4] = fVar6 * fVar5 + PUN(float,param_2[param_4 + 1]);
   return 1;
 }
 #undef local_10
@@ -1709,7 +1709,7 @@ void rdRaster_SpanR8_TexKey(int *param_1)
   iVar4 = param_1[6];
   uVar11 = param_1[3];
   iVar9 = param_1[5];
-  iVar10 = (int)ROUND((float)param_1[7] * 65536.0);
+  iVar10 = (int)ROUND(PUN(float,param_1[7]) * 65536.0);
   iVar7 = *(int *)((int)g_pRdCurrentCamera + 4);
   pcVar6 = (char *)(*(int *)(*(int *)(iVar7 + 4) + 0x18) * param_1[2] +
                     *(int *)(*(int *)(iVar7 + 4) + 0x5c) + *param_1);
@@ -1778,7 +1778,7 @@ void rdRaster_SpanR16_TexKey(int *param_1)
   uVar9 = param_1[3];
   iVar4 = param_1[6];
   iVar6 = param_1[5];
-  iVar11 = (int)ROUND((float)param_1[7] * 65536.0);
+  iVar11 = (int)ROUND(PUN(float,param_1[7]) * 65536.0);
   iVar7 = *(int *)((int)g_pRdCurrentCamera + 4);
   puVar8 = (undefined2 *)
            (*(int *)(*(int *)(iVar7 + 4) + 0x5c) +
@@ -2027,9 +2027,9 @@ undefined4 rdRaster_EdgeSetup_Flat_6(undefined4 *param_1,int *param_2,int param_
     param_1[0xf] = (int)ROUND(fVar7 * 65536.0);
     param_1[0xe] = (int)ROUND((fVar7 * fVar5 + *(float *)(*(int *)(iVar4 + 0x24) + 4 + param_3 * 8))
                               * 65536.0);
-    fVar6 = ((float)param_2[param_4 + 1] - (float)param_2[param_3 + 1]) * fVar6;
+    fVar6 = (PUN(float,param_2[param_4 + 1]) - PUN(float,param_2[param_3 + 1])) * fVar6;
     param_1[5] = fVar6;
-    param_1[4] = fVar5 * fVar6 + (float)param_2[param_3 + 1];
+    param_1[4] = fVar5 * fVar6 + PUN(float,param_2[param_3 + 1]);
     return 1;
   }
   *param_1 = 0;
@@ -2060,9 +2060,9 @@ undefined4 rdRaster_EdgeSetup_Flat_6(undefined4 *param_1,int *param_2,int param_
   param_1[0xf] = (int)ROUND(fVar7 * 65536.0);
   param_1[0xe] = (int)ROUND((fVar7 * fVar6 + *(float *)(*(int *)(iVar4 + 0x24) + 4 + param_4 * 8)) *
                             65536.0);
-  fVar5 = ((float)param_2[param_3 + 1] - (float)param_2[param_4 + 1]) * fVar5;
+  fVar5 = (PUN(float,param_2[param_3 + 1]) - PUN(float,param_2[param_4 + 1])) * fVar5;
   param_1[5] = fVar5;
-  param_1[4] = fVar6 * fVar5 + (float)param_2[param_4 + 1];
+  param_1[4] = fVar6 * fVar5 + PUN(float,param_2[param_4 + 1]);
   return 1;
 }
 #undef local_10
@@ -2183,7 +2183,7 @@ void rdRaster_SpanR8_TexKey_2(int *param_1)
   iVar4 = param_1[6];
   uVar11 = param_1[3];
   iVar9 = param_1[5];
-  iVar10 = (int)ROUND((float)param_1[7] * 65536.0);
+  iVar10 = (int)ROUND(PUN(float,param_1[7]) * 65536.0);
   iVar7 = *(int *)((int)g_pRdCurrentCamera + 4);
   puVar6 = (undefined1 *)
            (*(int *)(*(int *)(iVar7 + 4) + 0x18) * param_1[2] + *(int *)(*(int *)(iVar7 + 4) + 0x5c)
@@ -2254,7 +2254,7 @@ void rdRaster_SpanR16_TexKey_2(int *param_1)
   uVar9 = param_1[3];
   iVar4 = param_1[6];
   iVar6 = param_1[5];
-  iVar11 = (int)ROUND((float)param_1[7] * 65536.0);
+  iVar11 = (int)ROUND(PUN(float,param_1[7]) * 65536.0);
   iVar7 = *(int *)((int)g_pRdCurrentCamera + 4);
   puVar8 = (undefined2 *)
            (*(int *)(*(int *)(iVar7 + 4) + 0x5c) +
@@ -2511,9 +2511,9 @@ undefined4 rdRaster_EdgeSetup_Flat_7(undefined4 *param_1,int *param_2,int param_
     param_1[0x11] = (int)ROUND(fVar7 * 65536.0);
     param_1[0x10] =
          (int)ROUND((fVar7 * fVar5 + *(float *)(*(int *)(iVar4 + 0x28) + param_3 * 4)) * 65536.0);
-    fVar6 = ((float)param_2[param_4 + 1] - (float)param_2[param_3 + 1]) * fVar6;
+    fVar6 = (PUN(float,param_2[param_4 + 1]) - PUN(float,param_2[param_3 + 1])) * fVar6;
     param_1[5] = fVar6;
-    param_1[4] = fVar5 * fVar6 + (float)param_2[param_3 + 1];
+    param_1[4] = fVar5 * fVar6 + PUN(float,param_2[param_3 + 1]);
     return 1;
   }
   *param_1 = 0;
@@ -2549,9 +2549,9 @@ undefined4 rdRaster_EdgeSetup_Flat_7(undefined4 *param_1,int *param_2,int param_
   param_1[0x11] = (int)ROUND(fVar7 * 65536.0);
   param_1[0x10] =
        (int)ROUND((fVar7 * fVar6 + *(float *)(*(int *)(iVar4 + 0x28) + param_4 * 4)) * 65536.0);
-  fVar5 = ((float)param_2[param_3 + 1] - (float)param_2[param_4 + 1]) * fVar5;
+  fVar5 = (PUN(float,param_2[param_3 + 1]) - PUN(float,param_2[param_4 + 1])) * fVar5;
   param_1[5] = fVar5;
-  param_1[4] = fVar6 * fVar5 + (float)param_2[param_4 + 1];
+  param_1[4] = fVar6 * fVar5 + PUN(float,param_2[param_4 + 1]);
   return 1;
 }
 #undef local_10
@@ -2678,7 +2678,7 @@ void rdRaster_SpanR8_TexKey_3(int *param_1)
   iVar4 = param_1[6];
   uVar13 = param_1[3];
   iVar11 = param_1[5];
-  iVar12 = (int)ROUND((float)param_1[7] * 65536.0);
+  iVar12 = (int)ROUND(PUN(float,param_1[7]) * 65536.0);
   iVar5 = param_1[9];
   iVar6 = param_1[8];
   iVar9 = *(int *)((int)g_pRdCurrentCamera + 4);
@@ -2758,7 +2758,7 @@ void rdRaster_SpanR16_TexKey_3(int *param_1)
   uVar11 = param_1[3];
   iVar4 = param_1[6];
   iVar7 = param_1[5];
-  iVar13 = (int)ROUND((float)param_1[7] * 65536.0);
+  iVar13 = (int)ROUND(PUN(float,param_1[7]) * 65536.0);
   iVar5 = param_1[9];
   iVar9 = param_1[8];
   iVar8 = *(int *)((int)g_pRdCurrentCamera + 4);
@@ -2815,9 +2815,9 @@ void rdRaster_Select_FlatLit_8(int *param_1,int param_2)
   iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
   rdRaster_SetupPolyTex(param_1,*(int *)(*(int *)(param_2 + 0x1c) + 0x18) + -1);
   iVar2 = param_1[0x70];
-  param_1[0x6a] = (int)((float)param_1[0x61] * 16.0);
-  param_1[0x6b] = (int)((float)param_1[99] * 16.0);
-  param_1[0x6c] = (int)((float)param_1[0x65] * 16.0);
+  param_1[0x6a] = PUN(int,(float)(PUN(float,param_1[0x61]) * 16.0));
+  param_1[0x6b] = PUN(int,(float)(PUN(float,param_1[99]) * 16.0));
+  param_1[0x6c] = PUN(int,(float)(PUN(float,param_1[0x65]) * 16.0));
   param_1[0x71] = *(int *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + iVar2 * 4) + 0x5c);
   param_1[0x72] = *(int *)(*(int *)(param_2 + 0x1c) + 0xc) - iVar2;
   param_1[0x73] = *(int *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + iVar2 * 4) + 0x18);
@@ -2988,18 +2988,18 @@ undefined4 rdRaster_EdgeSetup_Flat_8(undefined4 *param_1,int *param_2,int param_
       param_1[0xb] = (int)ROUND(fVar3 * 65536.0);
       fVar6 = fVar3 * fVar4 + *(float *)(iVar9 + *(int *)(iVar5 + 0x20));
       param_1[10] = (int)ROUND(fVar6 * 65536.0);
-      param_1[5] = (float)param_2[0x61] * fVar3 + (float)param_2[0x62];
-      param_1[7] = (float)param_2[99] * fVar3 + (float)param_2[100];
-      param_1[9] = (float)param_2[0x65] * fVar3 + (float)param_2[0x66];
+      param_1[5] = PUN(float,param_2[0x61]) * fVar3 + PUN(float,param_2[0x62]);
+      param_1[7] = PUN(float,param_2[99]) * fVar3 + PUN(float,param_2[100]);
+      param_1[9] = PUN(float,param_2[0x65]) * fVar3 + PUN(float,param_2[0x66]);
       param_1 = PUN(undefined4 *,(float)fVar6);
     }
     fVar3 = PUN(float,param_1) - *(float *)(iVar9 + *(int *)(iVar5 + 0x20));
-    puVar7[4] = (float)param_2[0x61] * fVar3 +
-                (float)param_2[0x62] * fVar4 + (float)param_2[param_3 + 1];
-    puVar7[6] = (float)param_2[99] * fVar3 +
-                (float)param_2[100] * fVar4 + (float)param_2[param_3 + 0x21];
-    puVar7[8] = (float)param_2[0x66] * fVar4 +
-                (float)param_2[0x65] * fVar3 + (float)param_2[param_3 + 0x41];
+    puVar7[4] = PUN(float,param_2[0x61]) * fVar3 +
+                PUN(float,param_2[0x62]) * fVar4 + PUN(float,param_2[param_3 + 1]);
+    puVar7[6] = PUN(float,param_2[99]) * fVar3 +
+                PUN(float,param_2[100]) * fVar4 + PUN(float,param_2[param_3 + 0x21]);
+    puVar7[8] = PUN(float,param_2[0x66]) * fVar4 +
+                PUN(float,param_2[0x65]) * fVar3 + PUN(float,param_2[param_3 + 0x41]);
     return 1;
   }
   *param_1 = 0;
@@ -3042,9 +3042,9 @@ void rdRaster_Select_FlatLit_9(int *param_1,int param_2)
   iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
   rdRaster_SetupPolyTex(param_1,*(int *)(*(int *)(param_2 + 0x1c) + 0x18) + -1);
   iVar2 = param_1[0x70];
-  param_1[0x6a] = (int)((float)param_1[0x61] * 16.0);
-  param_1[0x6b] = (int)((float)param_1[99] * 16.0);
-  param_1[0x6c] = (int)((float)param_1[0x65] * 16.0);
+  param_1[0x6a] = PUN(int,(float)(PUN(float,param_1[0x61]) * 16.0));
+  param_1[0x6b] = PUN(int,(float)(PUN(float,param_1[99]) * 16.0));
+  param_1[0x6c] = PUN(int,(float)(PUN(float,param_1[0x65]) * 16.0));
   param_1[0x71] = *(int *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + iVar2 * 4) + 0x5c);
   param_1[0x72] = *(int *)(*(int *)(param_2 + 0x1c) + 0xc) - iVar2;
   param_1[0x73] = *(int *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + iVar2 * 4) + 0x18);
@@ -3584,9 +3584,9 @@ void rdRaster_Select_FlatLit_10(int *param_1,int param_2,float param_3)
   
   iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
   rdRaster_SetupPolyTex(param_1,*(int *)(*(int *)(param_2 + 0x1c) + 0x18) + -1);
-  param_1[0x6a] = (int)((float)param_1[0x61] * 16.0);
-  param_1[0x6b] = (int)((float)param_1[99] * 16.0);
-  param_1[0x6c] = (int)((float)param_1[0x65] * 16.0);
+  param_1[0x6a] = (int)(PUN(float,param_1[0x61]) * 16.0);
+  param_1[0x6b] = (int)(PUN(float,param_1[99]) * 16.0);
+  param_1[0x6c] = (int)(PUN(float,param_1[0x65]) * 16.0);
   if (iVar1 == 8) {
     param_1[0x77] = *(int *)(*(int *)(*param_1 + 0x4c) + 0x330) + (int)ROUND(param_3) * 0x100;
   }
@@ -3790,18 +3790,18 @@ undefined4 rdRaster_EdgeSetup_Flat_9(undefined4 *param_1,int *param_2,int param_
       param_1[0xb] = (int)ROUND(fVar3 * 65536.0);
       fVar6 = fVar3 * fVar4 + *(float *)(iVar9 + *(int *)(iVar5 + 0x20));
       param_1[10] = (int)ROUND(fVar6 * 65536.0);
-      param_1[5] = (float)param_2[0x61] * fVar3 + (float)param_2[0x62];
-      param_1[7] = (float)param_2[99] * fVar3 + (float)param_2[100];
-      param_1[9] = (float)param_2[0x65] * fVar3 + (float)param_2[0x66];
+      param_1[5] = PUN(float,param_2[0x61]) * fVar3 + PUN(float,param_2[0x62]);
+      param_1[7] = PUN(float,param_2[99]) * fVar3 + PUN(float,param_2[100]);
+      param_1[9] = PUN(float,param_2[0x65]) * fVar3 + PUN(float,param_2[0x66]);
       param_1 = PUN(undefined4 *,(float)fVar6);
     }
     fVar3 = PUN(float,param_1) - *(float *)(iVar9 + *(int *)(iVar5 + 0x20));
-    puVar7[4] = (float)param_2[0x61] * fVar3 +
-                (float)param_2[0x62] * fVar4 + (float)param_2[param_3 + 1];
-    puVar7[6] = (float)param_2[99] * fVar3 +
-                (float)param_2[100] * fVar4 + (float)param_2[param_3 + 0x21];
-    puVar7[8] = (float)param_2[0x66] * fVar4 +
-                (float)param_2[0x65] * fVar3 + (float)param_2[param_3 + 0x41];
+    puVar7[4] = PUN(float,param_2[0x61]) * fVar3 +
+                PUN(float,param_2[0x62]) * fVar4 + PUN(float,param_2[param_3 + 1]);
+    puVar7[6] = PUN(float,param_2[99]) * fVar3 +
+                PUN(float,param_2[100]) * fVar4 + PUN(float,param_2[param_3 + 0x21]);
+    puVar7[8] = PUN(float,param_2[0x66]) * fVar4 +
+                PUN(float,param_2[0x65]) * fVar3 + PUN(float,param_2[param_3 + 0x41]);
     return 1;
   }
   *param_1 = 0;
@@ -3843,9 +3843,9 @@ void rdRaster_Select_FlatLit_11(int *param_1,int param_2,float param_3)
   
   iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
   rdRaster_SetupPolyTex(param_1,*(int *)(*(int *)(param_2 + 0x1c) + 0x18) + -1);
-  param_1[0x6a] = (int)((float)param_1[0x61] * 16.0);
-  param_1[0x6b] = (int)((float)param_1[99] * 16.0);
-  param_1[0x6c] = (int)((float)param_1[0x65] * 16.0);
+  param_1[0x6a] = (int)(PUN(float,param_1[0x61]) * 16.0);
+  param_1[0x6b] = (int)(PUN(float,param_1[99]) * 16.0);
+  param_1[0x6c] = (int)(PUN(float,param_1[0x65]) * 16.0);
   if (iVar1 == 8) {
     param_1[0x77] = *(int *)(*(int *)(*param_1 + 0x4c) + 0x330) + (int)ROUND(param_3) * 0x100;
   }
@@ -4394,9 +4394,9 @@ void rdRaster_Select_FlatLit_12(int *param_1,int param_2)
   
   iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
   rdRaster_SetupPolyTex(param_1,*(int *)(*(int *)(param_2 + 0x1c) + 0x18) + -1);
-  param_1[0x6a] = (int)((float)param_1[0x61] * 16.0);
-  param_1[0x6b] = (int)((float)param_1[99] * 16.0);
-  param_1[0x6c] = (int)((float)param_1[0x65] * 16.0);
+  param_1[0x6a] = PUN(int,(float)(PUN(float,param_1[0x61]) * 16.0));
+  param_1[0x6b] = PUN(int,(float)(PUN(float,param_1[99]) * 16.0));
+  param_1[0x6c] = PUN(int,(float)(PUN(float,param_1[0x65]) * 16.0));
   if (iVar1 == 8) {
     param_1[0x77] = *(int *)(*(int *)(*param_1 + 0x4c) + 0x330);
   }
@@ -4592,7 +4592,7 @@ undefined4 rdRaster_EdgeSetup_Flat_10(undefined4 *param_1,int *param_2,int param
     fVar4 = fVar4 - *(float *)(*(int *)(iVar3 + 0x20) + 4 + iVar9);
     if (iVar7 < 2) {
       local_c = *(uint *)(*(int *)(iVar3 + 0x20) + iVar9);
-      param_1[10] = (int)ROUND((float)local_c * 65536.0);
+      param_1[10] = (int)ROUND(PUN(float,local_c) * 65536.0);
       param_1[0x10] = (int)ROUND(*(float *)(*(int *)(iVar3 + 0x28) + param_3 * 4) * 65536.0);
     }
     else {
@@ -4602,23 +4602,23 @@ undefined4 rdRaster_EdgeSetup_Flat_10(undefined4 *param_1,int *param_2,int param
               *(float *)(*(int *)(iVar3 + 0x20) + iVar9)) * fVar5;
       param_1[0xb] = (int)ROUND(fVar6 * 65536.0);
       local_c = (uint)(fVar6 * fVar4 + *(float *)(*(int *)(iVar3 + 0x20) + iVar9));
-      param_1[10] = (int)ROUND((float)local_c * 65536.0);
-      param_1[5] = (float)param_2[0x61] * fVar6 + (float)param_2[0x62];
-      param_1[7] = (float)param_2[99] * fVar6 + (float)param_2[100];
-      param_1[9] = (float)param_2[0x65] * fVar6 + (float)param_2[0x66];
+      param_1[10] = (int)ROUND(PUN(float,local_c) * 65536.0);
+      param_1[5] = PUN(float,param_2[0x61]) * fVar6 + PUN(float,param_2[0x62]);
+      param_1[7] = PUN(float,param_2[99]) * fVar6 + PUN(float,param_2[100]);
+      param_1[9] = PUN(float,param_2[0x65]) * fVar6 + PUN(float,param_2[0x66]);
       fVar5 = (*(float *)(*(int *)(iVar3 + 0x28) + param_4 * 4) -
               *(float *)(*(int *)(iVar3 + 0x28) + param_3 * 4)) * fVar5;
       param_1[0x11] = (int)ROUND(fVar5 * 65536.0);
       param_1[0x10] =
            (int)ROUND((fVar5 * fVar4 + *(float *)(*(int *)(iVar3 + 0x28) + param_3 * 4)) * 65536.0);
     }
-    fVar5 = (float)local_c - *(float *)(*(int *)(iVar3 + 0x20) + iVar9);
-    param_1[4] = (float)param_2[0x61] * fVar5 +
-                 (float)param_2[0x62] * fVar4 + (float)param_2[param_3 + 1];
-    param_1[6] = (float)param_2[99] * fVar5 +
-                 (float)param_2[100] * fVar4 + (float)param_2[param_3 + 0x21];
-    param_1[8] = (float)param_2[0x66] * fVar4 +
-                 (float)param_2[0x65] * fVar5 + (float)param_2[param_3 + 0x41];
+    fVar5 = PUN(float,local_c) - *(float *)(*(int *)(iVar3 + 0x20) + iVar9);
+    param_1[4] = PUN(float,param_2[0x61]) * fVar5 +
+                 PUN(float,param_2[0x62]) * fVar4 + PUN(float,param_2[param_3 + 1]);
+    param_1[6] = PUN(float,param_2[99]) * fVar5 +
+                 PUN(float,param_2[100]) * fVar4 + PUN(float,param_2[param_3 + 0x21]);
+    param_1[8] = PUN(float,param_2[0x66]) * fVar4 +
+                 PUN(float,param_2[0x65]) * fVar5 + PUN(float,param_2[param_3 + 0x41]);
     return 1;
   }
   *param_1 = 0;
@@ -4666,9 +4666,9 @@ undefined4 rdRaster_Select_FlatLit_13(int *param_1,int param_2)
   
   iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
   rdRaster_SetupPolyTex(param_1,*(int *)(*(int *)(param_2 + 0x1c) + 0x18) + -1);
-  param_1[0x6a] = (int)((float)param_1[0x61] * 16.0);
-  param_1[0x6b] = (int)((float)param_1[99] * 16.0);
-  param_1[0x6c] = (int)((float)param_1[0x65] * 16.0);
+  param_1[0x6a] = PUN(int,(float)(PUN(float,param_1[0x61]) * 16.0));
+  param_1[0x6b] = PUN(int,(float)(PUN(float,param_1[99]) * 16.0));
+  param_1[0x6c] = PUN(int,(float)(PUN(float,param_1[0x65]) * 16.0));
   if (iVar1 == 8) {
     param_1[0x77] = *(int *)(*(int *)(*param_1 + 0x4c) + 0x330);
   }
@@ -5290,7 +5290,7 @@ void rdRaster_Grad_Flat(float param_1)
       uVar12 = g_nRdRasterStartVertex - 1;
       fVar13 = fVar16;
       if (-1 < (int)uVar12) {
-        fVar13 = (float)(((int)fVar16 < (int)uVar12) - 1 & uVar12);
+        fVar13 = (float)((PUN(int,(float)fVar16) < (int)uVar12) - 1 & uVar12);
       }
       if (fVar13 == (float)g_nRdRasterEndVertex) {
         iVar14 = 1;
@@ -5298,9 +5298,9 @@ void rdRaster_Grad_Flat(float param_1)
       else {
         fVar17 = fVar16;
         if (-1 < (int)uVar18) {
-          fVar17 = (float)(((int)fVar16 < (int)uVar18) - 1 & uVar18);
+          fVar17 = (float)((PUN(int,(float)fVar16) < (int)uVar18) - 1 & uVar18);
         }
-        pfVar2 = g_pRdRasterVerts + (int)fVar17 * 3;
+        pfVar2 = g_pRdRasterVerts + PUN(int,(float)fVar17) * 3;
         pfVar3 = g_pRdRasterVerts + g_nRdRasterEndVertex * 3;
         lVar19 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
         iVar14 = (int)lVar19;
@@ -5338,34 +5338,34 @@ LAB_004186b9:
     local_1c = 0;
     fVar13 = fVar16;
     if (-1 < (int)uVar18) {
-      fVar13 = (float)(((int)fVar16 < (int)uVar18) - 1 & uVar18);
+      fVar13 = (float)((PUN(int,(float)fVar16) < (int)uVar18) - 1 & uVar18);
     }
     while (fVar13 != (float)g_nRdRasterEndVertex) {
-      fVar4 = pfVar1[(int)fVar13 * 3] -
+      fVar4 = pfVar1[PUN(int,(float)fVar13) * 3] -
               (pfVar1[iVar15 * 3] + pfVar1[g_nRdRasterEndVertex * 3]) * 0.5;
       if (fVar4 < 0.0) {
         fVar4 = -fVar4;
       }
       if ((float)local_1c < fVar4) {
         fVar17 = fVar13;
-        local_1c = (uint)fVar4;
+        local_1c = PUN(uint,(float)fVar4);
       }
-      uVar18 = (int)fVar13 + iVar14;
+      uVar18 = PUN(int,(float)fVar13) + iVar14;
       fVar13 = fVar16;
       if (-1 < (int)uVar18) {
-        fVar13 = (float)(((int)fVar16 < (int)uVar18) - 1 & uVar18);
+        fVar13 = (float)((PUN(int,(float)fVar16) < (int)uVar18) - 1 & uVar18);
       }
     }
   }
-  pfVar2 = pfVar1 + (int)fVar17 * 3;
+  pfVar2 = pfVar1 + PUN(int,(float)fVar17) * 3;
   fVar9 = pfVar1[iVar15 * 3] - *pfVar2;
   fVar8 = pfVar1[local_20 * 3] - *pfVar2;
   fVar16 = pfVar1[iVar15 * 3 + 1] - pfVar2[1];
   fVar6 = pfVar1[local_20 * 3 + 1] - pfVar2[1];
   fVar5 = 1.0 / (fVar16 * fVar8 - fVar6 * fVar9);
-  pfVar1 = (float *)(UINT_007f4398 + 4 + (int)fVar17 * 8);
-  fVar7 = *(float *)(UINT_007f4398 + local_20 * 8) - *(float *)(UINT_007f4398 + (int)fVar17 * 8);
-  fVar4 = *(float *)(UINT_007f4398 + iVar15 * 8) - *(float *)(UINT_007f4398 + (int)fVar17 * 8);
+  pfVar1 = (float *)(UINT_007f4398 + 4 + PUN(int,(float)fVar17) * 8);
+  fVar7 = *(float *)(UINT_007f4398 + local_20 * 8) - *(float *)(UINT_007f4398 + PUN(int,(float)fVar17) * 8);
+  fVar4 = *(float *)(UINT_007f4398 + iVar15 * 8) - *(float *)(UINT_007f4398 + PUN(int,(float)fVar17) * 8);
   fVar10 = *(float *)(UINT_007f4398 + 4 + local_20 * 8) - *pfVar1;
   fVar11 = *(float *)(UINT_007f4398 + 4 + iVar15 * 8) - *pfVar1;
   fVar13 = (fVar7 * fVar16 - fVar4 * fVar6) * fVar5;
@@ -5560,7 +5560,7 @@ LAB_00418b68:
       }
       if ((float)local_14 < fVar2) {
         local_24 = uVar7;
-        local_14 = (uint)fVar2;
+        local_14 = PUN(uint,(float)fVar2);
       }
       uVar1 = uVar7 + iVar10;
       uVar7 = uVar14;
@@ -5578,8 +5578,8 @@ LAB_00418b68:
       fVar2 = *pfVar13;
       iVar12 = iVar11 + 1;
       pfVar13 = pfVar13 + 3;
-      (&UINT_007f43c8)[iVar11] = (uint)(1.0 / fVar2);
-      (&UINT_007f4260)[iVar11] = (uint)(*pfVar9 * (1.0 / fVar2));
+      (&UINT_007f43c8)[iVar11] = PUN(uint,(float)(1.0 / fVar2));
+      (&UINT_007f4260)[iVar11] = PUN(uint,(float)(*pfVar9 * (1.0 / fVar2)));
       iVar10 = g_nRdRasterVertCount;
       *pfVar15 = pfVar9[1] * (float)(&UINT_007f43c8)[iVar11];
       pfVar9 = pfVar9 + 2;
@@ -11297,9 +11297,9 @@ void rdRaster_Draw_FlatLit_4(int param_1,int param_2)
             }
           }
           else {
-            local_78 = (uint)((float)local_78 + (float)local_74);
-            local_70 = (uint)((float)local_70 + (float)local_6c);
-            local_68 = (uint)((float)local_68 + (float)local_64);
+            local_78 = PUN(uint,(float)(PUN(float,local_78) + PUN(float,local_74)));
+            local_70 = PUN(uint,(float)(PUN(float,local_70) + PUN(float,local_6c)));
+            local_68 = PUN(uint,(float)(PUN(float,local_68) + PUN(float,local_64)));
             local_88 = local_88 + local_84;
             local_48 = local_48 + 1;
           }
@@ -11590,19 +11590,19 @@ undefined4 rdRaster_Edge_Flat_13(int *param_1)
         fVar1 = ROUND(fVar1) - g_pRdRasterVerts[uVar6 * 3 + 1];
         if (iVar5 < 2) {
           local_8 = (uint)g_pRdRasterVerts[uVar6 * 3];
-          *param_1 = (int)ROUND((float)local_8 * 65536.0);
+          *param_1 = (int)ROUND(PUN(float,local_8) * 65536.0);
         }
         else {
           fVar2 = (g_pRdRasterVerts[uVar4 * 3] - g_pRdRasterVerts[uVar6 * 3]) /
                   (g_pRdRasterVerts[uVar4 * 3 + 1] - g_pRdRasterVerts[uVar6 * 3 + 1]);
           param_1[1] = (int)ROUND(fVar2 * 65536.0);
           local_8 = (uint)(fVar2 * fVar1 + g_pRdRasterVerts[uVar6 * 3]);
-          *param_1 = (int)ROUND((float)local_8 * 65536.0);
+          *param_1 = (int)ROUND(PUN(float,local_8) * 65536.0);
           param_1[5] = (int)(fVar2 * _DAT_008ddef4 + _DAT_008ddef0);
           param_1[7] = (int)(fVar2 * _DAT_008ddec8 + _DAT_008ddec4);
           param_1[9] = (int)(fVar2 * _DAT_008ddedc + _DAT_008ddee0);
         }
-        fVar3 = (float)local_8 - g_pRdRasterVerts[uVar6 * 3];
+        fVar3 = PUN(float,local_8) - g_pRdRasterVerts[uVar6 * 3];
         param_1[4] = (int)(fVar3 * _DAT_008ddef4 + fVar1 * _DAT_008ddef0 +
                           (float)(&UINT_007f43c8)[uVar6]);
         param_1[6] = (int)(fVar3 * _DAT_008ddec8 + fVar1 * _DAT_008ddec4 +
@@ -11778,9 +11778,9 @@ void rdRaster_Draw16_TexLit_8(int param_1,int param_2)
           }
         }
         else {
-          local_78 = (uint)((float)local_78 + (float)local_74);
-          local_70 = (uint)((float)local_70 + (float)local_6c);
-          local_68 = (uint)((float)local_68 + (float)local_64);
+          local_78 = PUN(uint,(float)(PUN(float,local_78) + PUN(float,local_74)));
+          local_70 = PUN(uint,(float)(PUN(float,local_70) + PUN(float,local_6c)));
+          local_68 = PUN(uint,(float)(PUN(float,local_68) + PUN(float,local_64)));
           local_88 = local_88 + local_84;
           local_48 = local_48 + 1;
         }
@@ -12330,9 +12330,9 @@ void rdRaster_Draw16_TexLitKey_4(int param_1,int param_2)
           }
         }
         else {
-          local_78 = (uint)((float)local_78 + (float)local_74);
-          local_70 = (uint)((float)local_70 + (float)local_6c);
-          local_68 = (uint)((float)local_68 + (float)local_64);
+          local_78 = PUN(uint,(float)(PUN(float,local_78) + PUN(float,local_74)));
+          local_70 = PUN(uint,(float)(PUN(float,local_70) + PUN(float,local_6c)));
+          local_68 = PUN(uint,(float)(PUN(float,local_68) + PUN(float,local_64)));
           local_88 = local_88 + local_84;
           local_48 = local_48 + 1;
         }
@@ -12875,9 +12875,9 @@ void rdRaster_Draw16_TexLitKey_5(int param_1,int param_2)
           }
         }
         else {
-          local_78 = (uint)((float)local_78 + (float)local_74);
-          local_70 = (uint)((float)local_70 + (float)local_6c);
-          local_68 = (uint)((float)local_68 + (float)local_64);
+          local_78 = PUN(uint,(float)(PUN(float,local_78) + PUN(float,local_74)));
+          local_70 = PUN(uint,(float)(PUN(float,local_70) + PUN(float,local_6c)));
+          local_68 = PUN(uint,(float)(PUN(float,local_68) + PUN(float,local_64)));
           local_88 = local_88 + local_84;
           local_48 = local_48 + 1;
         }
@@ -13456,11 +13456,11 @@ void rdRaster_Draw_FlatLit_5(int param_1,int param_2,float param_3)
             }
           }
           else {
-            local_38 = (uint)((float)local_38 + (float)local_34);
+            local_38 = (uint)(PUN(float,local_38) + PUN(float,local_34));
             local_48 = local_48 + local_44;
             local_8 = local_8 + 1;
-            local_30 = (uint)((float)local_30 + (float)local_2c);
-            local_28 = (uint)((float)local_28 + (float)local_24);
+            local_30 = (uint)(PUN(float,local_30) + PUN(float,local_2c));
+            local_28 = (uint)(PUN(float,local_28) + PUN(float,local_24));
           }
           local_84 = local_84 - 1;
           if (local_84 == 0) break;
@@ -13750,19 +13750,19 @@ undefined4 rdRaster_Edge_Flat_15(int *param_1)
         fVar1 = ROUND(fVar1) - g_pRdRasterVerts[uVar6 * 3 + 1];
         if (iVar5 < 2) {
           local_8 = (uint)g_pRdRasterVerts[uVar6 * 3];
-          *param_1 = (int)ROUND((float)local_8 * 65536.0);
+          *param_1 = (int)ROUND(PUN(float,local_8) * 65536.0);
         }
         else {
           fVar2 = (g_pRdRasterVerts[uVar4 * 3] - g_pRdRasterVerts[uVar6 * 3]) /
                   (g_pRdRasterVerts[uVar4 * 3 + 1] - g_pRdRasterVerts[uVar6 * 3 + 1]);
           param_1[1] = (int)ROUND(fVar2 * 65536.0);
           local_8 = (uint)(fVar2 * fVar1 + g_pRdRasterVerts[uVar6 * 3]);
-          *param_1 = (int)ROUND((float)local_8 * 65536.0);
+          *param_1 = (int)ROUND(PUN(float,local_8) * 65536.0);
           param_1[5] = (int)(fVar2 * _DAT_008ddef4 + _DAT_008ddef0);
           param_1[7] = (int)(fVar2 * _DAT_008ddec8 + _DAT_008ddec4);
           param_1[9] = (int)(fVar2 * _DAT_008ddedc + _DAT_008ddee0);
         }
-        fVar3 = (float)local_8 - g_pRdRasterVerts[uVar6 * 3];
+        fVar3 = PUN(float,local_8) - g_pRdRasterVerts[uVar6 * 3];
         param_1[4] = (int)(fVar3 * _DAT_008ddef4 + fVar1 * _DAT_008ddef0 +
                           (float)(&UINT_007f43c8)[uVar6]);
         param_1[6] = (int)(fVar3 * _DAT_008ddec8 + fVar1 * _DAT_008ddec4 +
@@ -13941,11 +13941,11 @@ void rdRaster_Draw16_TexLit_9(int param_1,int param_2,float param_3)
           }
         }
         else {
-          local_38 = (uint)((float)local_38 + (float)local_34);
+          local_38 = (uint)(PUN(float,local_38) + PUN(float,local_34));
           local_48 = local_48 + local_44;
           local_8 = local_8 + 1;
-          local_30 = (uint)((float)local_30 + (float)local_2c);
-          local_28 = (uint)((float)local_28 + (float)local_24);
+          local_30 = (uint)(PUN(float,local_30) + PUN(float,local_2c));
+          local_28 = (uint)(PUN(float,local_28) + PUN(float,local_24));
         }
         local_84 = local_84 - 1;
         if (local_84 == 0) break;
@@ -14518,11 +14518,11 @@ void rdRaster_Draw_TexLitKey_4(int param_1,int param_2,float param_3)
           }
         }
         else {
-          local_38 = (uint)((float)local_38 + (float)local_34);
+          local_38 = (uint)(PUN(float,local_38) + PUN(float,local_34));
           local_48 = local_48 + local_44;
           local_8 = local_8 + 1;
-          local_30 = (uint)((float)local_30 + (float)local_2c);
-          local_28 = (uint)((float)local_28 + (float)local_24);
+          local_30 = (uint)(PUN(float,local_30) + PUN(float,local_2c));
+          local_28 = (uint)(PUN(float,local_28) + PUN(float,local_24));
         }
         local_84 = local_84 - 1;
         if (local_84 == 0) break;
@@ -15069,11 +15069,11 @@ void rdRaster_Draw16_TexLitKey_6(int param_1,int param_2,float param_3)
           }
         }
         else {
-          local_38 = (uint)((float)local_38 + (float)local_34);
+          local_38 = (uint)(PUN(float,local_38) + PUN(float,local_34));
           local_48 = local_48 + local_44;
           local_8 = local_8 + 1;
-          local_30 = (uint)((float)local_30 + (float)local_2c);
-          local_28 = (uint)((float)local_28 + (float)local_24);
+          local_30 = (uint)(PUN(float,local_30) + PUN(float,local_2c));
+          local_28 = (uint)(PUN(float,local_28) + PUN(float,local_24));
         }
         local_84 = local_84 - 1;
         if (local_84 == 0) break;
@@ -15661,9 +15661,9 @@ void rdRaster_Draw_FlatLit_6(int param_1,int param_2)
             }
           }
           else {
-            local_78 = (uint)((float)local_78 + (float)local_74);
-            local_70 = (uint)((float)local_70 + (float)local_6c);
-            local_68 = (uint)((float)local_68 + (float)local_64);
+            local_78 = PUN(uint,(float)(PUN(float,local_78) + PUN(float,local_74)));
+            local_70 = PUN(uint,(float)(PUN(float,local_70) + PUN(float,local_6c)));
+            local_68 = PUN(uint,(float)(PUN(float,local_68) + PUN(float,local_64)));
             local_88 = local_88 + local_84;
             local_50 = local_50 + local_4c;
             local_48 = local_48 + 1;
@@ -15958,7 +15958,7 @@ undefined4 rdRaster_Edge_Flat_17(int *param_1)
         fVar1 = ROUND(fVar1) - g_pRdRasterVerts[uVar6 * 3 + 1];
         if (iVar5 < 2) {
           local_c = (uint)g_pRdRasterVerts[uVar6 * 3];
-          *param_1 = (int)ROUND((float)local_c * 65536.0);
+          *param_1 = (int)ROUND(PUN(float,local_c) * 65536.0);
           fVar2 = *(float *)(UINT_007f4304 + uVar6 * 4);
         }
         else {
@@ -15966,7 +15966,7 @@ undefined4 rdRaster_Edge_Flat_17(int *param_1)
           fVar3 = (g_pRdRasterVerts[uVar4 * 3] - g_pRdRasterVerts[uVar6 * 3]) * fVar2;
           param_1[1] = (int)ROUND(fVar3 * 65536.0);
           local_c = (uint)(fVar3 * fVar1 + g_pRdRasterVerts[uVar6 * 3]);
-          *param_1 = (int)ROUND((float)local_c * 65536.0);
+          *param_1 = (int)ROUND(PUN(float,local_c) * 65536.0);
           param_1[5] = (int)(fVar3 * _DAT_008ddef4 + _DAT_008ddef0);
           param_1[7] = (int)(fVar3 * _DAT_008ddec8 + _DAT_008ddec4);
           param_1[9] = (int)(fVar3 * _DAT_008ddedc + _DAT_008ddee0);
@@ -15976,7 +15976,7 @@ undefined4 rdRaster_Edge_Flat_17(int *param_1)
           fVar2 = fVar2 * fVar1 + *(float *)(UINT_007f4304 + uVar6 * 4);
         }
         param_1[0xe] = (int)ROUND(fVar2 * 65536.0);
-        fVar3 = (float)local_c - g_pRdRasterVerts[uVar6 * 3];
+        fVar3 = PUN(float,local_c) - g_pRdRasterVerts[uVar6 * 3];
         param_1[4] = (int)(fVar3 * _DAT_008ddef4 + fVar1 * _DAT_008ddef0 +
                           (float)(&UINT_007f43c8)[uVar6]);
         param_1[6] = (int)(fVar3 * _DAT_008ddec8 + fVar1 * _DAT_008ddec4 +
@@ -16164,9 +16164,9 @@ void rdRaster_Draw16_TexLit_10(int param_1,int param_2)
           }
         }
         else {
-          local_78 = (uint)((float)local_78 + (float)local_74);
-          local_70 = (uint)((float)local_70 + (float)local_6c);
-          local_68 = (uint)((float)local_68 + (float)local_64);
+          local_78 = PUN(uint,(float)(PUN(float,local_78) + PUN(float,local_74)));
+          local_70 = PUN(uint,(float)(PUN(float,local_70) + PUN(float,local_6c)));
+          local_68 = PUN(uint,(float)(PUN(float,local_68) + PUN(float,local_64)));
           local_88 = local_88 + local_84;
           local_50 = local_50 + local_4c;
           local_48 = local_48 + 1;
@@ -16789,9 +16789,9 @@ void rdRaster_Draw_TexLitKey_5(int param_1,int param_2)
           }
         }
         else {
-          local_78 = (uint)((float)local_78 + (float)local_74);
-          local_70 = (uint)((float)local_70 + (float)local_6c);
-          local_68 = (uint)((float)local_68 + (float)local_64);
+          local_78 = PUN(uint,(float)(PUN(float,local_78) + PUN(float,local_74)));
+          local_70 = PUN(uint,(float)(PUN(float,local_70) + PUN(float,local_6c)));
+          local_68 = PUN(uint,(float)(PUN(float,local_68) + PUN(float,local_64)));
           local_88 = local_88 + local_84;
           local_50 = local_50 + local_4c;
           local_48 = local_48 + 1;
@@ -17387,9 +17387,9 @@ void rdRaster_Draw16_TexLitKey_7(int param_1,int param_2)
           }
         }
         else {
-          local_78 = (uint)((float)local_78 + (float)local_74);
-          local_70 = (uint)((float)local_70 + (float)local_6c);
-          local_68 = (uint)((float)local_68 + (float)local_64);
+          local_78 = PUN(uint,(float)(PUN(float,local_78) + PUN(float,local_74)));
+          local_70 = PUN(uint,(float)(PUN(float,local_70) + PUN(float,local_6c)));
+          local_68 = PUN(uint,(float)(PUN(float,local_68) + PUN(float,local_64)));
           local_88 = local_88 + local_84;
           local_50 = local_50 + local_4c;
           local_48 = local_48 + 1;
@@ -17973,7 +17973,7 @@ void rdRaster_Grad_Flat_3(float param_1)
       uVar16 = UINT_007f44e8 - 1;
       fVar13 = fVar15;
       if (-1 < (int)uVar16) {
-        fVar13 = (float)(((int)fVar15 < (int)uVar16) - 1 & uVar16);
+        fVar13 = PUN(float,((PUN(int,(float)fVar15) < (int)uVar16) - 1 & uVar16));
       }
       if (fVar13 == (float)UINT_007f44f4) {
         iVar17 = 1;
@@ -17981,10 +17981,10 @@ void rdRaster_Grad_Flat_3(float param_1)
       else {
         fVar12 = fVar15;
         if (-1 < (int)uVar14) {
-          fVar12 = (float)(((int)fVar15 < (int)uVar14) - 1 & uVar14);
+          fVar12 = PUN(float,((PUN(int,(float)fVar15) < (int)uVar14) - 1 & uVar14));
         }
-        fVar13 = (float)(PTR_007f44fc + (int)fVar12 * 3)[1] -
-                 (((float)PTR_007f44fc[(int)fVar12 * 3] - (float)PTR_007f44fc[UINT_007f44e8 * 3]) *
+        fVar13 = (float)(PTR_007f44fc + PUN(int,(float)fVar12) * 3)[1] -
+                 (((float)PTR_007f44fc[PUN(int,(float)fVar12) * 3] - (float)PTR_007f44fc[UINT_007f44e8 * 3]) *
                   (((float)PTR_007f44fc[UINT_007f44f4 * 3 + 1] -
                    (float)PTR_007f44fc[UINT_007f44e8 * 3 + 1]) /
                   ((float)PTR_007f44fc[UINT_007f44f4 * 3] - (float)PTR_007f44fc[UINT_007f44e8 * 3]))
@@ -18004,23 +18004,23 @@ void rdRaster_Grad_Flat_3(float param_1)
     uVar14 = iVar17 + UINT_007f44e8;
     fVar13 = fVar15;
     if (-1 < (int)uVar14) {
-      fVar13 = (float)(((int)fVar15 < (int)uVar14) - 1 & uVar14);
+      fVar13 = PUN(float,((PUN(int,(float)fVar15) < (int)uVar14) - 1 & uVar14));
     }
     while (uVar14 = UINT_007f44e8, fVar13 != (float)UINT_007f44f4) {
-      fVar1 = (float)PTR_007f44fc[(int)fVar13 * 3] -
+      fVar1 = (float)PTR_007f44fc[PUN(int,(float)fVar13) * 3] -
               ((float)PTR_007f44fc[UINT_007f44e8 * 3] + (float)PTR_007f44fc[UINT_007f44f4 * 3]) *
               0.5;
       if (fVar1 < 0.0) {
         fVar1 = -fVar1;
       }
-      if ((float)local_1c < fVar1) {
+      if (PUN(float,local_1c) < fVar1) {
         fVar12 = fVar13;
-        local_1c = (uint)fVar1;
+        local_1c = PUN(uint,(float)fVar1);
       }
-      uVar14 = (int)fVar13 + iVar17;
+      uVar14 = PUN(int,(float)fVar13) + iVar17;
       fVar13 = fVar15;
       if (-1 < (int)uVar14) {
-        fVar13 = (float)(((int)fVar15 < (int)uVar14) - 1 & uVar14);
+        fVar13 = PUN(float,((PUN(int,(float)fVar15) < (int)uVar14) - 1 & uVar14));
       }
     }
   }
@@ -18036,15 +18036,15 @@ void rdRaster_Grad_Flat_3(float param_1)
       pfVar11 = pfVar11 + 1;
     } while (uVar16 != 0);
   }
-  pfVar10 = (float *)(piVar9 + (int)fVar12 * 3);
-  fVar6 = (float)piVar9[uVar14 * 3] - *pfVar10;
-  fVar5 = (float)piVar9[local_24 * 3] - *pfVar10;
-  fVar15 = (float)piVar9[uVar14 * 3 + 1] - pfVar10[1];
-  fVar3 = (float)piVar9[local_24 * 3 + 1] - pfVar10[1];
-  pfVar10 = (float *)(UINT_007f4584 + 4 + (int)fVar12 * 8);
+  pfVar10 = (float *)(piVar9 + PUN(int,(float)fVar12) * 3);
+  fVar6 = PUN(float,piVar9[uVar14 * 3]) - *pfVar10;
+  fVar5 = PUN(float,piVar9[local_24 * 3]) - *pfVar10;
+  fVar15 = PUN(float,piVar9[uVar14 * 3 + 1]) - pfVar10[1];
+  fVar3 = PUN(float,piVar9[local_24 * 3 + 1]) - pfVar10[1];
+  pfVar10 = (float *)(UINT_007f4584 + 4 + PUN(int,(float)fVar12) * 8);
   fVar2 = 1.0 / (fVar15 * fVar5 - fVar3 * fVar6);
-  fVar4 = *(float *)(UINT_007f4584 + local_24 * 8) - *(float *)(UINT_007f4584 + (int)fVar12 * 8);
-  fVar1 = *(float *)(UINT_007f4584 + uVar14 * 8) - *(float *)(UINT_007f4584 + (int)fVar12 * 8);
+  fVar4 = *(float *)(UINT_007f4584 + local_24 * 8) - *(float *)(UINT_007f4584 + PUN(int,(float)fVar12) * 8);
+  fVar1 = *(float *)(UINT_007f4584 + uVar14 * 8) - *(float *)(UINT_007f4584 + PUN(int,(float)fVar12) * 8);
   fVar7 = *(float *)(UINT_007f4584 + 4 + local_24 * 8) - *pfVar10;
   fVar8 = *(float *)(UINT_007f4584 + 4 + uVar14 * 8) - *pfVar10;
   fVar13 = (fVar4 * fVar15 - fVar1 * fVar3) * fVar2;
@@ -18188,7 +18188,7 @@ void rdRaster_Grad_Flat_4(float param_1)
       uVar14 = UINT_007f44e8 - 1;
       fVar15 = fVar18;
       if (-1 < (int)uVar14) {
-        fVar15 = (float)(((int)fVar18 < (int)uVar14) - 1 & uVar14);
+        fVar15 = PUN(float,((PUN(int,(float)fVar18) < (int)uVar14) - 1 & uVar14));
       }
       if (fVar15 == (float)UINT_007f44f4) {
         iVar20 = 1;
@@ -18196,10 +18196,10 @@ void rdRaster_Grad_Flat_4(float param_1)
       else {
         fVar17 = fVar18;
         if (-1 < (int)uVar1) {
-          fVar17 = (float)(((int)fVar18 < (int)uVar1) - 1 & uVar1);
+          fVar17 = PUN(float,((PUN(int,(float)fVar18) < (int)uVar1) - 1 & uVar1));
         }
-        fVar15 = (float)(PTR_007f44fc + (int)fVar17 * 3)[1] -
-                 (((float)PTR_007f44fc[(int)fVar17 * 3] - (float)PTR_007f44fc[UINT_007f44e8 * 3]) *
+        fVar15 = (float)(PTR_007f44fc + PUN(int,(float)fVar17) * 3)[1] -
+                 (((float)PTR_007f44fc[PUN(int,(float)fVar17) * 3] - (float)PTR_007f44fc[UINT_007f44e8 * 3]) *
                   (((float)PTR_007f44fc[UINT_007f44f4 * 3 + 1] -
                    (float)PTR_007f44fc[UINT_007f44e8 * 3 + 1]) /
                   ((float)PTR_007f44fc[UINT_007f44f4 * 3] - (float)PTR_007f44fc[UINT_007f44e8 * 3]))
@@ -18219,23 +18219,23 @@ void rdRaster_Grad_Flat_4(float param_1)
     uVar1 = iVar20 + UINT_007f44e8;
     fVar15 = fVar18;
     if (-1 < (int)uVar1) {
-      fVar15 = (float)(((int)fVar18 < (int)uVar1) - 1 & uVar1);
+      fVar15 = PUN(float,((PUN(int,(float)fVar18) < (int)uVar1) - 1 & uVar1));
     }
     while (fVar15 != (float)UINT_007f44f4) {
-      fVar2 = (float)PTR_007f44fc[(int)fVar15 * 3] -
+      fVar2 = (float)PTR_007f44fc[PUN(int,(float)fVar15) * 3] -
               ((float)PTR_007f44fc[UINT_007f44e8 * 3] + (float)PTR_007f44fc[UINT_007f44f4 * 3]) *
               0.5;
       if (fVar2 < 0.0) {
         fVar2 = -fVar2;
       }
-      if ((float)local_18 < fVar2) {
+      if (PUN(float,local_18) < fVar2) {
         fVar17 = fVar15;
-        local_18 = (uint)fVar2;
+        local_18 = PUN(uint,(float)fVar2);
       }
-      uVar1 = (int)fVar15 + iVar20;
+      uVar1 = PUN(int,(float)fVar15) + iVar20;
       fVar15 = fVar18;
       if (-1 < (int)uVar1) {
-        fVar15 = (float)(((int)fVar18 < (int)uVar1) - 1 & uVar1);
+        fVar15 = PUN(float,((PUN(int,(float)fVar18) < (int)uVar1) - 1 & uVar1));
       }
     }
   }
@@ -18249,8 +18249,8 @@ void rdRaster_Grad_Flat_4(float param_1)
       iVar16 = iVar20 + 1;
       pfVar19 = pfVar19 + 3;
       fVar18 = 1.0 / (fVar18 - -1.0);
-      (&UINT_007f4588)[iVar20] = (uint)fVar18;
-      (&UINT_007f4468)[iVar20] = (uint)(*pfVar13 * fVar18);
+      (&UINT_007f4588)[iVar20] = PUN(uint,(float)fVar18);
+      (&UINT_007f4468)[iVar20] = PUN(uint,(float)(*pfVar13 * fVar18));
       uVar1 = UINT_007f4460;
       *pfVar21 = pfVar13[1] * (float)(&UINT_007f4588)[iVar20];
       pfVar13 = pfVar13 + 2;
@@ -18258,28 +18258,28 @@ void rdRaster_Grad_Flat_4(float param_1)
       pfVar21 = pfVar21 + 1;
     } while (iVar16 < (int)uVar1);
   }
-  pfVar19 = (float *)(piVar12 + (int)fVar17 * 3);
-  fVar10 = (float)piVar12[local_1c * 3] - *pfVar19;
-  fVar9 = (float)piVar12[local_20 * 3] - *pfVar19;
-  fVar8 = 1.0 / (((float)piVar12[local_1c * 3 + 1] - pfVar19[1]) * fVar9 -
-                ((float)piVar12[local_20 * 3 + 1] - pfVar19[1]) * fVar10);
+  pfVar19 = (float *)(piVar12 + PUN(int,(float)fVar17) * 3);
+  fVar10 = PUN(float,piVar12[local_1c * 3]) - *pfVar19;
+  fVar9 = PUN(float,piVar12[local_20 * 3]) - *pfVar19;
+  fVar8 = 1.0 / ((PUN(float,piVar12[local_1c * 3 + 1]) - pfVar19[1]) * fVar9 -
+                (PUN(float,piVar12[local_20 * 3 + 1]) - pfVar19[1]) * fVar10);
   fVar18 = (float)(&UINT_007f4468)[local_20];
   fVar15 = (float)(&UINT_007f4468)[local_1c];
   fVar2 = (float)(&UINT_007f4500)[local_20];
   fVar3 = (float)(&UINT_007f4500)[local_1c];
-  fVar4 = (float)(&UINT_007f4468)[(int)fVar17];
-  fVar5 = (float)(&UINT_007f4468)[(int)fVar17];
-  fVar6 = (float)(&UINT_007f4500)[(int)fVar17];
-  fVar7 = (float)(&UINT_007f4500)[(int)fVar17];
+  fVar4 = (float)(&UINT_007f4468)[PUN(int,(float)fVar17)];
+  fVar5 = (float)(&UINT_007f4468)[PUN(int,(float)fVar17)];
+  fVar6 = (float)(&UINT_007f4500)[PUN(int,(float)fVar17)];
+  fVar7 = (float)(&UINT_007f4500)[PUN(int,(float)fVar17)];
   _DAT_008ddea0 =
-       (((float)(&UINT_007f4588)[local_20] - (float)(&UINT_007f4588)[(int)fVar17]) *
-        ((float)piVar12[local_1c * 3 + 1] - pfVar19[1]) -
-       ((float)(&UINT_007f4588)[local_1c] - (float)(&UINT_007f4588)[(int)fVar17]) *
-       ((float)piVar12[local_20 * 3 + 1] - pfVar19[1])) * fVar8;
+       (((float)(&UINT_007f4588)[local_20] - (float)(&UINT_007f4588)[PUN(int,(float)fVar17)]) *
+        (PUN(float,piVar12[local_1c * 3 + 1]) - pfVar19[1]) -
+       ((float)(&UINT_007f4588)[local_1c] - (float)(&UINT_007f4588)[PUN(int,(float)fVar17)]) *
+       (PUN(float,piVar12[local_20 * 3 + 1]) - pfVar19[1])) * fVar8;
   fVar11 = -fVar8;
   _DAT_008dde9c =
-       (((float)(&UINT_007f4588)[local_20] - (float)(&UINT_007f4588)[(int)fVar17]) * fVar10 -
-       ((float)(&UINT_007f4588)[local_1c] - (float)(&UINT_007f4588)[(int)fVar17]) * fVar9) * fVar11;
+       (((float)(&UINT_007f4588)[local_20] - (float)(&UINT_007f4588)[PUN(int,(float)fVar17)]) * fVar10 -
+       ((float)(&UINT_007f4588)[local_1c] - (float)(&UINT_007f4588)[PUN(int,(float)fVar17)]) * fVar9) * fVar11;
   lVar22 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
   UINT_008dde88 = (uint)lVar22;
   _DAT_008dde60 =
@@ -18602,13 +18602,13 @@ void rdRaster_Draw_FlatLitZ(int param_1,int param_2)
           }
         }
         else {
-          local_78 = (uint)((float)local_78 + (float)local_74);
+          local_78 = PUN(uint,(float)(PUN(float,local_78) + PUN(float,local_74)));
           local_88 = local_88 + local_84;
           local_48 = local_48 + 1;
         }
         local_3c = local_3c - 1;
         if (local_3c == 0) break;
-        local_34 = (uint)((float)local_34 + (float)local_30);
+        local_34 = PUN(uint,(float)(PUN(float,local_34) + PUN(float,local_30)));
         local_44 = local_44 + local_40;
         local_4 = local_4 + 1;
       }
@@ -19000,13 +19000,13 @@ void rdRaster_Draw_TexLitZ(int param_1,int param_2)
           }
         }
         else {
-          local_78 = (uint)((float)local_78 + (float)local_74);
+          local_78 = PUN(uint,(float)(PUN(float,local_78) + PUN(float,local_74)));
           local_88 = local_88 + local_84;
           local_48 = local_48 + 1;
         }
         local_3c = local_3c - 1;
         if (local_3c == 0) break;
-        local_34 = (uint)((float)local_34 + (float)local_30);
+        local_34 = PUN(uint,(float)(PUN(float,local_34) + PUN(float,local_30)));
         local_44 = local_44 + local_40;
         local_4 = local_4 + 1;
       }
@@ -19256,13 +19256,13 @@ void rdRaster_Draw_FlatLitZ_2(int param_1,int param_2,float param_3)
           }
         }
         else {
-          local_38 = (uint)((float)local_38 + (float)local_34);
+          local_38 = (uint)(PUN(float,local_38) + PUN(float,local_34));
           local_48 = local_48 + local_44;
           local_8 = local_8 + 1;
         }
         local_84 = local_84 - 1;
         if (local_84 == 0) break;
-        local_7c = (uint)((float)local_7c + (float)local_78);
+        local_7c = (uint)(PUN(float,local_7c) + PUN(float,local_78));
         local_8c = local_8c + local_88;
         local_4c = local_4c + 1;
       }
@@ -19656,13 +19656,13 @@ void rdRaster_Draw_TexLitZ_2(int param_1,int param_2,float param_3)
           }
         }
         else {
-          local_38 = (uint)((float)local_38 + (float)local_34);
+          local_38 = (uint)(PUN(float,local_38) + PUN(float,local_34));
           local_48 = local_48 + local_44;
           local_8 = local_8 + 1;
         }
         local_84 = local_84 - 1;
         if (local_84 == 0) break;
-        local_7c = (uint)((float)local_7c + (float)local_78);
+        local_7c = (uint)(PUN(float,local_7c) + PUN(float,local_78));
         local_8c = local_8c + local_88;
         local_4c = local_4c + 1;
       }
@@ -19914,14 +19914,14 @@ void rdRaster_Draw_FlatLitZ_3(int param_1,int param_2)
           }
         }
         else {
-          local_78 = (uint)((float)local_78 + (float)local_74);
+          local_78 = PUN(uint,(float)(PUN(float,local_78) + PUN(float,local_74)));
           local_88 = local_88 + local_84;
           local_50 = local_50 + local_4c;
           local_48 = local_48 + 1;
         }
         local_3c = local_3c - 1;
         if (local_3c == 0) break;
-        local_34 = (uint)((float)local_34 + (float)local_30);
+        local_34 = PUN(uint,(float)(PUN(float,local_34) + PUN(float,local_30)));
         local_44 = local_44 + local_40;
         local_c = local_c + local_8;
         local_4 = local_4 + 1;
@@ -20363,14 +20363,14 @@ void rdRaster_Draw_TexLitZ_3(int param_1,int param_2)
           }
         }
         else {
-          local_78 = (uint)((float)local_78 + (float)local_74);
+          local_78 = PUN(uint,(float)(PUN(float,local_78) + PUN(float,local_74)));
           local_88 = local_88 + local_84;
           local_50 = local_50 + local_4c;
           local_48 = local_48 + 1;
         }
         local_3c = local_3c - 1;
         if (local_3c == 0) break;
-        local_34 = (uint)((float)local_34 + (float)local_30);
+        local_34 = PUN(uint,(float)(PUN(float,local_34) + PUN(float,local_30)));
         local_44 = local_44 + local_40;
         local_c = local_c + local_8;
         local_4 = local_4 + 1;
@@ -20715,7 +20715,7 @@ void rdRaster_Draw_FlatLit_7(int param_1,int param_2)
             }
           }
           else {
-            local_78 = (uint)((float)local_78 + (float)local_74);
+            local_78 = PUN(uint,(float)(PUN(float,local_78) + PUN(float,local_74)));
             local_88 = local_88 + local_84;
             local_60 = local_60 + local_5c;
             local_58 = local_58 + local_54;
@@ -20723,7 +20723,7 @@ void rdRaster_Draw_FlatLit_7(int param_1,int param_2)
           }
           local_3c = local_3c - 1;
           if (local_3c == 0) break;
-          local_34 = (uint)((float)local_34 + (float)local_30);
+          local_34 = PUN(uint,(float)(PUN(float,local_34) + PUN(float,local_30)));
           local_1c = local_1c + local_18;
           local_44 = local_44 + local_40;
           local_14 = local_14 + local_10;
@@ -21195,7 +21195,7 @@ void rdRaster_Draw_TexLitZ_4(int param_1,int param_2)
           }
         }
         else {
-          local_78 = (uint)((float)local_78 + (float)local_74);
+          local_78 = PUN(uint,(float)(PUN(float,local_78) + PUN(float,local_74)));
           local_60 = local_60 + local_5c;
           local_88 = local_88 + local_84;
           local_58 = local_58 + local_54;
@@ -21203,7 +21203,7 @@ void rdRaster_Draw_TexLitZ_4(int param_1,int param_2)
         }
         local_3c = local_3c - 1;
         if (local_3c == 0) break;
-        local_34 = (uint)((float)local_34 + (float)local_30);
+        local_34 = PUN(uint,(float)(PUN(float,local_34) + PUN(float,local_30)));
         local_44 = local_44 + local_40;
         local_14 = local_14 + local_10;
         local_1c = local_1c + local_18;
@@ -21520,7 +21520,7 @@ void rdRaster_Draw_TexLitKeyZw(int param_1,int param_2)
           }
         }
         else {
-          local_78 = (uint)((float)local_78 + (float)local_74);
+          local_78 = PUN(uint,(float)(PUN(float,local_78) + PUN(float,local_74)));
           local_60 = local_60 + local_5c;
           local_88 = local_88 + local_84;
           local_58 = local_58 + local_54;
@@ -21528,7 +21528,7 @@ void rdRaster_Draw_TexLitKeyZw(int param_1,int param_2)
         }
         local_3c = local_3c - 1;
         if (local_3c == 0) break;
-        local_34 = (uint)((float)local_34 + (float)local_30);
+        local_34 = PUN(uint,(float)(PUN(float,local_34) + PUN(float,local_30)));
         local_44 = local_44 + local_40;
         local_14 = local_14 + local_10;
         local_1c = local_1c + local_18;
@@ -21840,7 +21840,7 @@ void rdRaster_Draw_TexLitKeyZw_2(int param_1,int param_2)
           }
         }
         else {
-          local_78 = (uint)((float)local_78 + (float)local_74);
+          local_78 = PUN(uint,(float)(PUN(float,local_78) + PUN(float,local_74)));
           local_60 = local_60 + local_5c;
           local_88 = local_88 + local_84;
           local_58 = local_58 + local_54;
@@ -21848,7 +21848,7 @@ void rdRaster_Draw_TexLitKeyZw_2(int param_1,int param_2)
         }
         local_3c = local_3c - 1;
         if (local_3c == 0) break;
-        local_34 = (uint)((float)local_34 + (float)local_30);
+        local_34 = PUN(uint,(float)(PUN(float,local_34) + PUN(float,local_30)));
         local_44 = local_44 + local_40;
         local_14 = local_14 + local_10;
         local_1c = local_1c + local_18;
@@ -22223,7 +22223,7 @@ void rdRaster_Draw_FlatLit_8(int param_1,int param_2,float param_3)
             }
           }
           else {
-            local_38 = (uint)((float)local_38 + (float)local_34);
+            local_38 = (uint)(PUN(float,local_38) + PUN(float,local_34));
             local_48 = local_48 + local_44;
             local_20 = local_20 + local_1c;
             local_18 = local_18 + local_14;
@@ -22231,7 +22231,7 @@ void rdRaster_Draw_FlatLit_8(int param_1,int param_2,float param_3)
           }
           local_84 = local_84 - 1;
           if (local_84 == 0) break;
-          local_7c = (uint)((float)local_7c + (float)local_78);
+          local_7c = (uint)(PUN(float,local_7c) + PUN(float,local_78));
           local_64 = local_64 + local_60;
           local_8c = local_8c + local_88;
           local_5c = local_5c + local_58;
@@ -22709,7 +22709,7 @@ void rdRaster_Draw_TexLitZ_5(int param_1,int param_2,float param_3)
           }
         }
         else {
-          local_38 = (uint)((float)local_38 + (float)local_34);
+          local_38 = (uint)(PUN(float,local_38) + PUN(float,local_34));
           local_20 = local_20 + local_1c;
           local_48 = local_48 + local_44;
           local_18 = local_18 + local_14;
@@ -22717,7 +22717,7 @@ void rdRaster_Draw_TexLitZ_5(int param_1,int param_2,float param_3)
         }
         local_84 = local_84 - 1;
         if (local_84 == 0) break;
-        local_7c = (uint)((float)local_7c + (float)local_78);
+        local_7c = (uint)(PUN(float,local_7c) + PUN(float,local_78));
         local_8c = local_8c + local_88;
         local_64 = local_64 + local_60;
         local_5c = local_5c + local_58;
@@ -23040,7 +23040,7 @@ void rdRaster_Draw_TexLitKeyZw_3(int param_1,int param_2,float param_3)
           }
         }
         else {
-          local_38 = (uint)((float)local_38 + (float)local_34);
+          local_38 = (uint)(PUN(float,local_38) + PUN(float,local_34));
           local_20 = local_20 + local_1c;
           local_48 = local_48 + local_44;
           local_18 = local_18 + local_14;
@@ -23048,7 +23048,7 @@ void rdRaster_Draw_TexLitKeyZw_3(int param_1,int param_2,float param_3)
         }
         local_84 = local_84 - 1;
         if (local_84 == 0) break;
-        local_7c = (uint)((float)local_7c + (float)local_78);
+        local_7c = (uint)(PUN(float,local_7c) + PUN(float,local_78));
         local_8c = local_8c + local_88;
         local_5c = local_5c + local_58;
         local_64 = local_64 + local_60;
@@ -23366,7 +23366,7 @@ void rdRaster_Draw_TexLitKeyZw_4(int param_1,int param_2,float param_3)
           }
         }
         else {
-          local_38 = (uint)((float)local_38 + (float)local_34);
+          local_38 = (uint)(PUN(float,local_38) + PUN(float,local_34));
           local_20 = local_20 + local_1c;
           local_48 = local_48 + local_44;
           local_18 = local_18 + local_14;
@@ -23374,7 +23374,7 @@ void rdRaster_Draw_TexLitKeyZw_4(int param_1,int param_2,float param_3)
         }
         local_84 = local_84 - 1;
         if (local_84 == 0) break;
-        local_7c = (uint)((float)local_7c + (float)local_78);
+        local_7c = (uint)(PUN(float,local_7c) + PUN(float,local_78));
         local_8c = local_8c + local_88;
         local_64 = local_64 + local_60;
         local_5c = local_5c + local_58;
@@ -23757,7 +23757,7 @@ void rdRaster_Draw_FlatLit_9(int param_1,int param_2)
           else {
             local_88 = local_88 + local_84;
             local_60 = local_60 + local_5c;
-            local_78 = (uint)((float)local_78 + (float)local_74);
+            local_78 = PUN(uint,(float)(PUN(float,local_78) + PUN(float,local_74)));
             local_58 = local_58 + local_54;
             local_50 = local_50 + local_4c;
             local_48 = local_48 + 1;
@@ -23765,7 +23765,7 @@ void rdRaster_Draw_FlatLit_9(int param_1,int param_2)
           local_3c = local_3c - 1;
           if (local_3c == 0) break;
           local_44 = local_44 + local_40;
-          local_34 = (uint)((float)local_34 + (float)local_30);
+          local_34 = PUN(uint,(float)(PUN(float,local_34) + PUN(float,local_30)));
           local_1c = local_1c + local_18;
           local_14 = local_14 + local_10;
           local_c = local_c + local_8;
@@ -24323,7 +24323,7 @@ void rdRaster_Draw_TexLitZ_6(int param_1,int param_2)
         }
         else {
           local_88 = local_88 + local_84;
-          local_78 = (uint)((float)local_78 + (float)local_74);
+          local_78 = PUN(uint,(float)(PUN(float,local_78) + PUN(float,local_74)));
           local_60 = local_60 + local_5c;
           local_50 = local_50 + local_4c;
           local_58 = local_58 + local_54;
@@ -24331,7 +24331,7 @@ void rdRaster_Draw_TexLitZ_6(int param_1,int param_2)
         }
         local_3c = local_3c - 1;
         if (local_3c == 0) break;
-        local_34 = (uint)((float)local_34 + (float)local_30);
+        local_34 = PUN(uint,(float)(PUN(float,local_34) + PUN(float,local_30)));
         local_44 = local_44 + local_40;
         local_14 = local_14 + local_10;
         local_1c = local_1c + local_18;
@@ -24693,7 +24693,7 @@ void rdRaster_Draw_TexLitKeyZw_5(int param_1,int param_2)
         }
         else {
           local_88 = local_88 + local_84;
-          local_78 = (uint)((float)local_78 + (float)local_74);
+          local_78 = PUN(uint,(float)(PUN(float,local_78) + PUN(float,local_74)));
           local_60 = local_60 + local_5c;
           local_50 = local_50 + local_4c;
           local_58 = local_58 + local_54;
@@ -24701,7 +24701,7 @@ void rdRaster_Draw_TexLitKeyZw_5(int param_1,int param_2)
         }
         local_3c = local_3c - 1;
         if (local_3c == 0) break;
-        local_34 = (uint)((float)local_34 + (float)local_30);
+        local_34 = PUN(uint,(float)(PUN(float,local_34) + PUN(float,local_30)));
         local_44 = local_44 + local_40;
         local_14 = local_14 + local_10;
         local_1c = local_1c + local_18;
@@ -25059,7 +25059,7 @@ void rdRaster_Draw_TexLitKeyZw_6(int param_1,int param_2)
         }
         else {
           local_88 = local_88 + local_84;
-          local_78 = (uint)((float)local_78 + (float)local_74);
+          local_78 = PUN(uint,(float)(PUN(float,local_78) + PUN(float,local_74)));
           local_60 = local_60 + local_5c;
           local_50 = local_50 + local_4c;
           local_58 = local_58 + local_54;
@@ -25067,7 +25067,7 @@ void rdRaster_Draw_TexLitKeyZw_6(int param_1,int param_2)
         }
         local_3c = local_3c - 1;
         if (local_3c == 0) break;
-        local_34 = (uint)((float)local_34 + (float)local_30);
+        local_34 = PUN(uint,(float)(PUN(float,local_34) + PUN(float,local_30)));
         local_44 = local_44 + local_40;
         local_14 = local_14 + local_10;
         local_1c = local_1c + local_18;
@@ -25469,9 +25469,9 @@ void rdRaster_Draw_FlatLit_10(int param_1,int param_2)
             }
           }
           else {
-            local_78 = (uint)((float)local_78 + (float)local_74);
-            local_70 = (uint)((float)local_70 + (float)local_6c);
-            local_68 = (uint)((float)local_68 + (float)local_64);
+            local_78 = PUN(uint,(float)(PUN(float,local_78) + PUN(float,local_74)));
+            local_70 = PUN(uint,(float)(PUN(float,local_70) + PUN(float,local_6c)));
+            local_68 = PUN(uint,(float)(PUN(float,local_68) + PUN(float,local_64)));
             local_88 = local_88 + local_84;
             local_48 = local_48 + 1;
           }
@@ -26040,19 +26040,19 @@ undefined4 rdRaster_SpanR_Flat_13(int *param_1)
         fVar1 = ROUND(fVar1) - (float)PTR_007f44fc[uVar6 * 3 + 1];
         if (iVar5 < 2) {
           local_8 = PTR_007f44fc[uVar6 * 3];
-          *param_1 = (int)ROUND((float)local_8 * 65536.0);
+          *param_1 = (int)ROUND(PUN(float,local_8) * 65536.0);
         }
         else {
           fVar2 = ((float)PTR_007f44fc[uVar4 * 3] - (float)PTR_007f44fc[uVar6 * 3]) /
                   ((float)PTR_007f44fc[uVar4 * 3 + 1] - (float)PTR_007f44fc[uVar6 * 3 + 1]);
           param_1[1] = (int)ROUND(fVar2 * 65536.0);
           local_8 = (uint)(fVar2 * fVar1 + (float)PTR_007f44fc[uVar6 * 3]);
-          *param_1 = (int)ROUND((float)local_8 * 65536.0);
+          *param_1 = (int)ROUND(PUN(float,local_8) * 65536.0);
           param_1[5] = (int)(fVar2 * _DAT_008ddea0 + _DAT_008dde9c);
           param_1[7] = (int)(fVar2 * _DAT_008dde60 + _DAT_008dde64);
           param_1[9] = (int)(fVar2 * _DAT_008dde80 + _DAT_008dde84);
         }
-        fVar3 = (float)local_8 - (float)PTR_007f44fc[uVar6 * 3];
+        fVar3 = PUN(float,local_8) - (float)PTR_007f44fc[uVar6 * 3];
         param_1[4] = (int)(fVar3 * _DAT_008ddea0 +
                           fVar1 * _DAT_008dde9c + (float)(&UINT_007f4588)[uVar6]);
         param_1[6] = (int)(fVar3 * _DAT_008dde60 +
@@ -26229,9 +26229,9 @@ void rdRaster_Draw_TexLitZ_7(int param_1,int param_2)
           }
         }
         else {
-          local_78 = (uint)((float)local_78 + (float)local_74);
-          local_70 = (uint)((float)local_70 + (float)local_6c);
-          local_68 = (uint)((float)local_68 + (float)local_64);
+          local_78 = PUN(uint,(float)(PUN(float,local_78) + PUN(float,local_74)));
+          local_70 = PUN(uint,(float)(PUN(float,local_70) + PUN(float,local_6c)));
+          local_68 = PUN(uint,(float)(PUN(float,local_68) + PUN(float,local_64)));
           local_88 = local_88 + local_84;
           local_48 = local_48 + 1;
         }
@@ -26842,9 +26842,9 @@ void rdRaster_Draw_TexLitKeyZw_7(int param_1,int param_2)
           }
         }
         else {
-          local_78 = (uint)((float)local_78 + (float)local_74);
-          local_70 = (uint)((float)local_70 + (float)local_6c);
-          local_68 = (uint)((float)local_68 + (float)local_64);
+          local_78 = PUN(uint,(float)(PUN(float,local_78) + PUN(float,local_74)));
+          local_70 = PUN(uint,(float)(PUN(float,local_70) + PUN(float,local_6c)));
+          local_68 = PUN(uint,(float)(PUN(float,local_68) + PUN(float,local_64)));
           local_88 = local_88 + local_84;
           local_48 = local_48 + 1;
         }
@@ -27461,9 +27461,9 @@ void rdRaster_Draw_TexLitKeyZw_8(int param_1,int param_2)
           }
         }
         else {
-          local_78 = (uint)((float)local_78 + (float)local_74);
-          local_70 = (uint)((float)local_70 + (float)local_6c);
-          local_68 = (uint)((float)local_68 + (float)local_64);
+          local_78 = PUN(uint,(float)(PUN(float,local_78) + PUN(float,local_74)));
+          local_70 = PUN(uint,(float)(PUN(float,local_70) + PUN(float,local_6c)));
+          local_68 = PUN(uint,(float)(PUN(float,local_68) + PUN(float,local_64)));
           local_88 = local_88 + local_84;
           local_48 = local_48 + 1;
         }
@@ -28142,11 +28142,11 @@ void rdRaster_Draw_FlatLit_11(int param_1,int param_2,float param_3)
             }
           }
           else {
-            local_38 = (uint)((float)local_38 + (float)local_34);
+            local_38 = (uint)(PUN(float,local_38) + PUN(float,local_34));
             local_48 = local_48 + local_44;
             local_8 = local_8 + 1;
-            local_30 = (uint)((float)local_30 + (float)local_2c);
-            local_28 = (uint)((float)local_28 + (float)local_24);
+            local_30 = (uint)(PUN(float,local_30) + PUN(float,local_2c));
+            local_28 = (uint)(PUN(float,local_28) + PUN(float,local_24));
           }
           local_84 = local_84 - 1;
           if (local_84 == 0) break;
@@ -28716,19 +28716,19 @@ undefined4 rdRaster_SpanR_Flat_15(int *param_1)
         fVar1 = ROUND(fVar1) - (float)PTR_007f44fc[uVar6 * 3 + 1];
         if (iVar5 < 2) {
           local_8 = PTR_007f44fc[uVar6 * 3];
-          *param_1 = (int)ROUND((float)local_8 * 65536.0);
+          *param_1 = (int)ROUND(PUN(float,local_8) * 65536.0);
         }
         else {
           fVar2 = ((float)PTR_007f44fc[uVar4 * 3] - (float)PTR_007f44fc[uVar6 * 3]) /
                   ((float)PTR_007f44fc[uVar4 * 3 + 1] - (float)PTR_007f44fc[uVar6 * 3 + 1]);
           param_1[1] = (int)ROUND(fVar2 * 65536.0);
           local_8 = (uint)(fVar2 * fVar1 + (float)PTR_007f44fc[uVar6 * 3]);
-          *param_1 = (int)ROUND((float)local_8 * 65536.0);
+          *param_1 = (int)ROUND(PUN(float,local_8) * 65536.0);
           param_1[5] = (int)(fVar2 * _DAT_008ddea0 + _DAT_008dde9c);
           param_1[7] = (int)(fVar2 * _DAT_008dde60 + _DAT_008dde64);
           param_1[9] = (int)(fVar2 * _DAT_008dde80 + _DAT_008dde84);
         }
-        fVar3 = (float)local_8 - (float)PTR_007f44fc[uVar6 * 3];
+        fVar3 = PUN(float,local_8) - (float)PTR_007f44fc[uVar6 * 3];
         param_1[4] = (int)(fVar3 * _DAT_008ddea0 +
                           fVar1 * _DAT_008dde9c + (float)(&UINT_007f4588)[uVar6]);
         param_1[6] = (int)(fVar3 * _DAT_008dde60 +
@@ -28908,11 +28908,11 @@ void rdRaster_Draw_TexLitZ_8(int param_1,int param_2,float param_3)
           }
         }
         else {
-          local_38 = (uint)((float)local_38 + (float)local_34);
+          local_38 = (uint)(PUN(float,local_38) + PUN(float,local_34));
           local_48 = local_48 + local_44;
           local_8 = local_8 + 1;
-          local_30 = (uint)((float)local_30 + (float)local_2c);
-          local_28 = (uint)((float)local_28 + (float)local_24);
+          local_30 = (uint)(PUN(float,local_30) + PUN(float,local_2c));
+          local_28 = (uint)(PUN(float,local_28) + PUN(float,local_24));
         }
         local_84 = local_84 - 1;
         if (local_84 == 0) break;
@@ -29539,11 +29539,11 @@ void rdRaster_Draw_TexLitKeyZw_9(int param_1,int param_2,float param_3)
           }
         }
         else {
-          local_38 = (uint)((float)local_38 + (float)local_34);
+          local_38 = (uint)(PUN(float,local_38) + PUN(float,local_34));
           local_48 = local_48 + local_44;
           local_8 = local_8 + 1;
-          local_30 = (uint)((float)local_30 + (float)local_2c);
-          local_28 = (uint)((float)local_28 + (float)local_24);
+          local_30 = (uint)(PUN(float,local_30) + PUN(float,local_2c));
+          local_28 = (uint)(PUN(float,local_28) + PUN(float,local_24));
         }
         local_84 = local_84 - 1;
         if (local_84 == 0) break;
@@ -30163,11 +30163,11 @@ void rdRaster_Draw_TexLitKeyZw_10(int param_1,int param_2,float param_3)
           }
         }
         else {
-          local_38 = (uint)((float)local_38 + (float)local_34);
+          local_38 = (uint)(PUN(float,local_38) + PUN(float,local_34));
           local_48 = local_48 + local_44;
           local_8 = local_8 + 1;
-          local_30 = (uint)((float)local_30 + (float)local_2c);
-          local_28 = (uint)((float)local_28 + (float)local_24);
+          local_30 = (uint)(PUN(float,local_30) + PUN(float,local_2c));
+          local_28 = (uint)(PUN(float,local_28) + PUN(float,local_24));
         }
         local_84 = local_84 - 1;
         if (local_84 == 0) break;
@@ -30852,9 +30852,9 @@ void rdRaster_Draw_FlatLit_12(int param_1,int param_2)
             }
           }
           else {
-            local_78 = (uint)((float)local_78 + (float)local_74);
-            local_70 = (uint)((float)local_70 + (float)local_6c);
-            local_68 = (uint)((float)local_68 + (float)local_64);
+            local_78 = PUN(uint,(float)(PUN(float,local_78) + PUN(float,local_74)));
+            local_70 = PUN(uint,(float)(PUN(float,local_70) + PUN(float,local_6c)));
+            local_68 = PUN(uint,(float)(PUN(float,local_68) + PUN(float,local_64)));
             local_50 = local_50 + local_4c;
             local_88 = local_88 + local_84;
             local_48 = local_48 + 1;
@@ -31474,7 +31474,7 @@ undefined4 rdRaster_SpanR_Flat_17(int *param_1)
         fVar1 = ROUND(fVar1) - (float)PTR_007f44fc[uVar6 * 3 + 1];
         if (iVar5 < 2) {
           local_c = PTR_007f44fc[uVar6 * 3];
-          *param_1 = (int)ROUND((float)local_c * 65536.0);
+          *param_1 = (int)ROUND(PUN(float,local_c) * 65536.0);
           fVar2 = *(float *)(UINT_007f44f8 + uVar6 * 4);
         }
         else {
@@ -31482,7 +31482,7 @@ undefined4 rdRaster_SpanR_Flat_17(int *param_1)
           fVar3 = ((float)PTR_007f44fc[uVar4 * 3] - (float)PTR_007f44fc[uVar6 * 3]) * fVar2;
           param_1[1] = (int)ROUND(fVar3 * 65536.0);
           local_c = (uint)(fVar3 * fVar1 + (float)PTR_007f44fc[uVar6 * 3]);
-          *param_1 = (int)ROUND((float)local_c * 65536.0);
+          *param_1 = (int)ROUND(PUN(float,local_c) * 65536.0);
           param_1[5] = (int)(fVar3 * _DAT_008ddea0 + _DAT_008dde9c);
           param_1[7] = (int)(fVar3 * _DAT_008dde60 + _DAT_008dde64);
           param_1[9] = (int)(fVar3 * _DAT_008dde80 + _DAT_008dde84);
@@ -31492,7 +31492,7 @@ undefined4 rdRaster_SpanR_Flat_17(int *param_1)
           fVar2 = fVar2 * fVar1 + *(float *)(UINT_007f44f8 + uVar6 * 4);
         }
         param_1[0xe] = (int)ROUND(fVar2 * 65536.0);
-        fVar3 = (float)local_c - (float)PTR_007f44fc[uVar6 * 3];
+        fVar3 = PUN(float,local_c) - (float)PTR_007f44fc[uVar6 * 3];
         param_1[4] = (int)(fVar3 * _DAT_008ddea0 +
                           fVar1 * _DAT_008dde9c + (float)(&UINT_007f4588)[uVar6]);
         param_1[6] = (int)(fVar3 * _DAT_008dde60 +
@@ -31681,9 +31681,9 @@ void rdRaster_Draw_TexLitZ_9(int param_1,int param_2)
           }
         }
         else {
-          local_78 = (uint)((float)local_78 + (float)local_74);
-          local_70 = (uint)((float)local_70 + (float)local_6c);
-          local_68 = (uint)((float)local_68 + (float)local_64);
+          local_78 = PUN(uint,(float)(PUN(float,local_78) + PUN(float,local_74)));
+          local_70 = PUN(uint,(float)(PUN(float,local_70) + PUN(float,local_6c)));
+          local_68 = PUN(uint,(float)(PUN(float,local_68) + PUN(float,local_64)));
           local_88 = local_88 + local_84;
           local_50 = local_50 + local_4c;
           local_48 = local_48 + 1;
@@ -32374,9 +32374,9 @@ void rdRaster_Draw_TexLitKeyZw_11(int param_1,int param_2)
           }
         }
         else {
-          local_78 = (uint)((float)local_78 + (float)local_74);
-          local_70 = (uint)((float)local_70 + (float)local_6c);
-          local_68 = (uint)((float)local_68 + (float)local_64);
+          local_78 = PUN(uint,(float)(PUN(float,local_78) + PUN(float,local_74)));
+          local_70 = PUN(uint,(float)(PUN(float,local_70) + PUN(float,local_6c)));
+          local_68 = PUN(uint,(float)(PUN(float,local_68) + PUN(float,local_64)));
           local_88 = local_88 + local_84;
           local_50 = local_50 + local_4c;
           local_48 = local_48 + 1;
@@ -33053,9 +33053,9 @@ void rdRaster_Draw_TexLitKeyZw_12(int param_1,int param_2)
           }
         }
         else {
-          local_78 = (uint)((float)local_78 + (float)local_74);
-          local_70 = (uint)((float)local_70 + (float)local_6c);
-          local_68 = (uint)((float)local_68 + (float)local_64);
+          local_78 = PUN(uint,(float)(PUN(float,local_78) + PUN(float,local_74)));
+          local_70 = PUN(uint,(float)(PUN(float,local_70) + PUN(float,local_6c)));
+          local_68 = PUN(uint,(float)(PUN(float,local_68) + PUN(float,local_64)));
           local_88 = local_88 + local_84;
           local_50 = local_50 + local_4c;
           local_48 = local_48 + 1;
@@ -33671,7 +33671,7 @@ void rdRaster_SpanR_FlatZw(int *param_1)
   iVar6 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
   puVar3 = (undefined4 *)
            (param_1[2] * *(int *)(iVar6 + 0x18) + *param_1 * 2 + *(int *)(iVar6 + 0x5c));
-  UINT_007f4b74 = (uint)ROUND((float)param_1[7] * 65536.0);
+  UINT_007f4b74 = (uint)ROUND(PUN(float,param_1[7]) * 65536.0);
   uVar2 = param_1[1];
   uVar5 = UINT_007f4b74;
   UINT_007f4ad0 = uVar2;
@@ -33726,7 +33726,7 @@ void rdRaster_SpanR_FlatZw_2(int *param_1)
   puVar8 = (undefined4 *)
            (param_1[2] * *(int *)(iVar1 + 0x18) + *param_1 * 2 + *(int *)(iVar1 + 0x5c));
   UINT_007f4b40 = *(uint *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x14);
-  UINT_007f4b74 = (uint)ROUND((float)param_1[7] * 65536.0);
+  UINT_007f4b74 = (uint)ROUND(PUN(float,param_1[7]) * 65536.0);
   UINT_007f4ad0 = param_1[1];
   bVar4 = (byte)UINT_007f4b40;
   uVar5 = UINT_007f4b74;

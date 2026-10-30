@@ -235,7 +235,7 @@ undefined4 Grim_Init(char *param_1)
     ((code *)Grim_FatalMessageBox)(uVar7);
     return 0;
   }
-  lua_openlib(&PTR_s_Is3DHardwareEnabled_004dd350,UINT_004dd380);
+  lua_openlib((int *)&PTR_s_Is3DHardwareEnabled_004dd350,UINT_004dd380);
   Engine_SetIdleCallback(Grim_RequestQuit);
   Engine_SetRenderUserCallback(Grim_OnDisplayModeChange);
   Engine_SetFlipCallback(Display_Flip);

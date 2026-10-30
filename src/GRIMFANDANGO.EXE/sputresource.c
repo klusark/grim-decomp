@@ -66,7 +66,7 @@ bool sputResource_Start(void)
   UINT_008ca200 = rdMaterial_SetLoadHook(Resource_MaterialLoadHook);
   UINT_008ca204 = rdMaterial_SetFreeHook(Resource_MaterialFreeHook);
   UINT_008a85e8 = (uint)SoundsPeriodic;
-  Cos_RegisterSaveVerify(Resource_CountCostumeRefs);
+  Cos_RegisterSaveVerify(((unsigned)(uintptr_t)Resource_CountCostumeRefs));
   return UINT_008ca1fc == 0;
 }
 

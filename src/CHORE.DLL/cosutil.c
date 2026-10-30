@@ -218,7 +218,7 @@ undefined4 CosUtil_Write(char *param_1,int param_2,undefined4 param_3)
                 }
                 else if (iVar9 == 2) {
                   (**(code **)(DAT_100143a8 + 0x54))
-                            (iVar10,IMG_ADDR(0x10010048),*puVar14,(double)(float)puVar14[1]);
+                            (iVar10,IMG_ADDR(0x10010048),*puVar14,(double)PUN(float,puVar14[1]));
                 }
                 else {
                   (**(code **)(DAT_100143a8 + 0x18))

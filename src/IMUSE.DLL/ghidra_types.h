@@ -49,6 +49,7 @@ typedef int code();
 #define ROUND(x)   ((float10)__builtin_rintl((float10)(x)))   /* FRNDINT */
 #define ABS(x)     (((x) < 0) ? -(x) : (x))
 #define SQRT(x)    ((float10)__builtin_sqrtl((float10)(x)))   /* FSQRT */
+#define FTOL(x)    ((long long)(x))                /* x87 _ftol: truncate toward zero (the value Ghidra loses in ST0) */
 #define ISNAN(x)   ((x) != (x))                    /* Ghidra NAN(x): unordered compare */
 #define NAN        (__builtin_nanf(""))
 #define f2xm1(x)   ((float10)__builtin_exp2l((float10)(x)) - 1)             /* F2XM1 */

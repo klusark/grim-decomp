@@ -25,22 +25,22 @@ void Setup_DrawDebugCamera(int param_1)
   
   local_14 = *(uint *)(param_1 + 0x30);
   local_10 = *(uint *)(param_1 + 0x34);
-  local_c = (uint)(*(float *)(param_1 + 0x2c) - -1.0);
-  local_18 = (uint)(*(float *)(param_1 + 0x2c) - 1.0);
+  local_c = PUN(uint,(float)(*(float *)(param_1 + 0x2c) - -1.0));
+  local_18 = PUN(uint,(float)(*(float *)(param_1 + 0x2c) - 1.0));
   local_8 = local_14;
   local_4 = local_10;
   rdPrimit3_DrawLine(&local_c,&local_18,0,0,0,0,UINT_008c97cc & 0xffff,0xffffffff);
   local_18 = *(uint *)(param_1 + 0x2c);
   local_10 = *(uint *)(param_1 + 0x34);
-  local_8 = (uint)(*(float *)(param_1 + 0x30) - -1.0);
-  local_14 = (uint)(*(float *)(param_1 + 0x30) - 1.0);
+  local_8 = PUN(uint,(float)(*(float *)(param_1 + 0x30) - -1.0));
+  local_14 = PUN(uint,(float)(*(float *)(param_1 + 0x30) - 1.0));
   local_c = local_18;
   local_4 = local_10;
   rdPrimit3_DrawLine(&local_c,&local_18,0,0,0,0,UINT_008c97cc & 0xffff,0xffffffff);
   local_18 = *(uint *)(param_1 + 0x2c);
   local_14 = *(uint *)(param_1 + 0x30);
-  local_4 = (uint)(*(float *)(param_1 + 0x34) - -1.0);
-  local_10 = (uint)(*(float *)(param_1 + 0x34) - 1.0);
+  local_4 = PUN(uint,(float)(*(float *)(param_1 + 0x34) - -1.0));
+  local_10 = PUN(uint,(float)(*(float *)(param_1 + 0x34) - 1.0));
   local_c = local_18;
   local_8 = local_14;
   rdPrimit3_DrawLine(&local_c,&local_18,0,0,0,0,UINT_008c97cc & 0xffff,0xffffffff);

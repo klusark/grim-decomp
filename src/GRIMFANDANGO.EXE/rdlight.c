@@ -105,11 +105,11 @@ rdKeyframe_Interpolate
             fVar3 = 0.0;
           }
           else {
-            local_c = (uint)(*param_7 - *(float *)local_2c);
-            local_8 = (uint)(*(float *)(((int)param_2 - param_3) + -4 + (int)pfVar6) -
-                            *(float *)(iVar5 + -4 + (int)pfVar7));
-            local_4 = (uint)(*(float *)(((int)param_2 - param_3) + (int)pfVar6) -
-                            *(float *)(iVar5 + (int)pfVar7));
+            local_c = PUN(uint,(float)(*param_7 - *(float *)local_2c));
+            local_8 = PUN(uint,(float)(*(float *)(((int)param_2 - param_3) + -4 + (int)pfVar6) -
+                            *(float *)(iVar5 + -4 + (int)pfVar7)));
+            local_4 = PUN(uint,(float)(*(float *)(((int)param_2 - param_3) + (int)pfVar6) -
+                            *(float *)(iVar5 + (int)pfVar7)));
             fVar3 = (float)local_4 * (float)local_4 +
                     (float)local_8 * (float)local_8 + (float)local_c * (float)local_c;
           }
@@ -160,7 +160,7 @@ LAB_0045173f:
         } while (local_24 < param_4);
       }
       pfVar7 = pfVar7 + 3;
-      local_28 = (uint)((float)local_28 + *param_8);
+      local_28 = PUN(uint,(float)((float)local_28 + *param_8));
       local_2c = local_2c + 0xc;
       param_8 = param_8 + 1;
       local_1c = local_1c - 1;

@@ -263,7 +263,7 @@ void __cdecl luaV_pack(int param_1,int param_2,undefined4 *param_3)
   local_4 = (float)param_2;
   piVar5 = luaH_set(param_3[1],&local_10);
   *piVar5 = -1;
-  piVar5[1] = (int)local_4;
+  piVar5[1] = PUN(int,(float)local_4);
   return;
 }
 #undef local_10

@@ -388,17 +388,17 @@ LAB_1000acaa:
     local_bcc = iVar11;
     switch(local_bd4) {
     case 6:
-      lparser__bfa0((int)pfVar9[-5],(int)pfVar9[-2]);
+      lparser__bfa0(PUN(int,(float)pfVar9[-5]),PUN(int,(float)pfVar9[-2]));
       break;
     case 8:
       piVar2 = (int *)PTR_1002bf6c[0xf];
-      uVar7 = (int)pfVar9[-3] - (int)pfVar9[-4];
-      local_bc8 = (float)((int)pfVar9[-4] + 2);
+      uVar7 = PUN(int,(float)pfVar9[-3]) - PUN(int,(float)pfVar9[-4]);
+      local_bc8 = PUN(float,(PUN(int,(float)pfVar9[-4]) + 2));
       local_bc0 = uVar7;
       local_bbc = piVar2;
       luaY_code_byte(uVar7);
       piVar4 = local_bbc;
-      puVar12 = (undefined4 *)((int)pfVar9[-4] + *(int *)(*piVar2 + 0x10));
+      puVar12 = (undefined4 *)(PUN(int,(float)pfVar9[-4]) + *(int *)(*piVar2 + 0x10));
       puVar14 = (undefined4 *)(piVar2[1] + *(int *)(*piVar2 + 0x10));
       for (uVar8 = uVar7 >> 2; uVar8 != 0; uVar8 = uVar8 - 1) {
         *puVar14 = *puVar12;
@@ -410,47 +410,47 @@ LAB_1000acaa:
         puVar12 = (undefined4 *)((int)puVar12 + 1);
         puVar14 = (undefined4 *)((int)puVar14 + 1);
       }
-      memcpy((undefined4 *)(*(int *)(*local_bbc + 0x10) + (int)pfVar9[-4]),
-             (undefined4 *)((int)pfVar9[-3] + *(int *)(*local_bbc + 0x10)),
-             local_bbc[1] - (int)pfVar9[-4]);
-      iVar11 = lparser__bf50((int)pfVar9[-4],'m',piVar4[1] - local_bc0);
-      lparser__bf70('q',(int)local_bc8 + iVar11);
+      memcpy((undefined4 *)(*(int *)(*local_bbc + 0x10) + PUN(int,(float)pfVar9[-4])),
+             (undefined4 *)(PUN(int,(float)pfVar9[-3]) + *(int *)(*local_bbc + 0x10)),
+             local_bbc[1] - PUN(int,(float)pfVar9[-4]));
+      iVar11 = lparser__bf50(PUN(int,(float)pfVar9[-4]),'m',piVar4[1] - local_bc0);
+      lparser__bf70('q',PUN(int,(float)local_bc8) + iVar11);
       iVar11 = local_bcc;
       break;
     case 9:
-      lparser__bf70('s',(int)pfVar9[-3]);
+      lparser__bf70('s',PUN(int,(float)pfVar9[-3]));
       lparser__a8b0(-1);
       break;
     case 10:
       iVar11 = 0;
-      lparser__bd80((int)pfVar9[-2],(int)*pfVar9);
+      lparser__bd80(PUN(int,(float)pfVar9[-2]),PUN(int,(float)*pfVar9));
       fVar3 = pfVar9[-2];
-      while (fVar3 = (float)((int)fVar3 + -1), -1 < (int)fVar3) {
-        iVar11 = lparser__bf00((int)fVar3,iVar11);
+      while (fVar3 = PUN(float,(PUN(int,(float)fVar3) + -1)), -1 < PUN(int,(float)fVar3)) {
+        iVar11 = lparser__bf00(PUN(int,(float)fVar3),iVar11);
       }
       lparser__bcc0(iVar11);
       iVar11 = local_bcc;
       break;
     case 0xb:
-      lparser__bd00((int)*pfVar9,0);
+      lparser__bd00(PUN(int,(float)*pfVar9),0);
       break;
     case 0xc:
-      *(int *)(PTR_1002bf6c[0xf] + 0x90) = *(int *)(PTR_1002bf6c[0xf] + 0x90) + (int)pfVar9[-1];
-      lparser__bd80((int)pfVar9[-1],(int)*pfVar9);
+      *(int *)(PTR_1002bf6c[0xf] + 0x90) = *(int *)(PTR_1002bf6c[0xf] + 0x90) + PUN(int,(float)pfVar9[-1]);
+      lparser__bd80(PUN(int,(float)pfVar9[-1]),PUN(int,(float)*pfVar9));
       break;
     case 0xd:
-      lparser__bec0((int)pfVar9[-1]);
+      lparser__bec0(PUN(int,(float)pfVar9[-1]));
       break;
     case 0xe:
       fVar10 = *(float *)(PTR_1002bf6c[0xf] + 0x90);
       break;
     case 0xf:
-      lparser__bcc0(*(int *)(PTR_1002bf6c[0xf] + 0x90) - (int)pfVar9[-1]);
-      if ((int)pfVar9[-1] < *(int *)(PTR_1002bf6c[0xf] + 0x90)) {
+      lparser__bcc0(*(int *)(PTR_1002bf6c[0xf] + 0x90) - PUN(int,(float)pfVar9[-1]));
+      if (PUN(int,(float)pfVar9[-1]) < *(int *)(PTR_1002bf6c[0xf] + 0x90)) {
         do {
           lparser__ba10(*(undefined4 *)(PTR_1002bf6c[0x10] + 8));
           *(int *)(PTR_1002bf6c[0xf] + 0x90) = *(int *)(PTR_1002bf6c[0xf] + 0x90) + -1;
-        } while ((int)pfVar9[-1] < *(int *)(PTR_1002bf6c[0xf] + 0x90));
+        } while (PUN(int,(float)pfVar9[-1]) < *(int *)(PTR_1002bf6c[0xf] + 0x90));
       }
       break;
     case 0x10:
@@ -468,20 +468,20 @@ LAB_1000acaa:
       lparser__ba70(uVar6);
       break;
     case 0x13:
-      lparser__be60((int)*pfVar9);
+      lparser__be60(PUN(int,(float)*pfVar9));
       break;
     case 0x14:
-      lparser__b8a0((int)*pfVar9);
+      lparser__b8a0(PUN(int,(float)*pfVar9));
       break;
     case 0x15:
       luaY_syntaxerror();
       lparser__c060();
       break;
     case 0x18:
-      lparser__bfa0((int)pfVar9[-4],(int)pfVar9[-1]);
+      lparser__bfa0(PUN(int,(float)pfVar9[-4]),PUN(int,(float)pfVar9[-1]));
       break;
     case 0x1a:
-      lparser__bd00((int)pfVar9[-1],0xff);
+      lparser__bd00(PUN(int,(float)pfVar9[-1]),0xff);
       lparser__c020();
       break;
     case 0x1b:
@@ -512,7 +512,7 @@ switchD_1000acd8_caseD_1f:
       fVar10 = *pfVar9;
       break;
     case 0x20:
-      lparser__bd00((int)*pfVar9,1);
+      lparser__bd00(PUN(int,(float)*pfVar9),1);
       break;
     case 0x22:
       lparser__b800(0x5b);
@@ -584,7 +584,7 @@ switchD_1000acd8_caseD_1f:
       fVar10 = 0.0;
       break;
     case 0x33:
-      lparser__b8a0((int)*pfVar9);
+      lparser__b8a0(PUN(int,(float)*pfVar9));
       fVar10 = 0.0;
       break;
     case 0x34:
@@ -595,33 +595,33 @@ switchD_1000acd8_caseD_1f:
       lparser__c100();
       break;
     case 0x37:
-      lparser__c000((int)pfVar9[-1],'k');
+      lparser__c000(PUN(int,(float)pfVar9[-1]),'k');
       fVar10 = 0.0;
       break;
     case 0x38:
-      lparser__c000((int)pfVar9[-1],'i');
+      lparser__c000(PUN(int,(float)pfVar9[-1]),'i');
       fVar10 = 0.0;
       break;
     case 0x39:
-      lparser__bd00((int)*pfVar9,1);
+      lparser__bd00(PUN(int,(float)*pfVar9),1);
       break;
     case 0x3a:
-      lparser__be60((int)*pfVar9);
+      lparser__be60(PUN(int,(float)*pfVar9));
       fVar10 = 0.0;
       break;
     case 0x3b:
-      lparser__bbd0((int)*pfVar9);
+      lparser__bbd0(PUN(int,(float)*pfVar9));
       fVar10 = 0.0;
       break;
     case 0x3f:
-      iVar5 = luaY_string_constant((int)*pfVar9,(int *)PTR_1002bf6c[0xf]);
-      fVar10 = (float)(-1 - iVar5);
+      iVar5 = luaY_string_constant(PUN(int,(float)*pfVar9),(int *)PTR_1002bf6c[0xf]);
+      fVar10 = PUN(float,(-1 - iVar5));
       break;
     case 0x40:
-      fVar10 = (float)lparser__baf0((int)*pfVar9,(int *)PTR_1002bf6c[0xf]);
+      fVar10 = PUN(float,lparser__baf0(PUN(int,(float)*pfVar9),(int *)PTR_1002bf6c[0xf]));
       break;
     case 0x41:
-      lparser__b770((int)pfVar9[-2],'=',2,(uint)pfVar9[-1]);
+      lparser__b770(PUN(int,(float)pfVar9[-2]),'=',2,PUN(uint,(float)pfVar9[-1]));
       break;
     case 0x42:
       lparser__aa10(0);
@@ -631,15 +631,15 @@ switchD_1000acd8_caseD_1f:
       break;
     case 0x44:
       iVar5 = 1;
-      uVar8 = luaY_string_constant((int)*pfVar9,(int *)PTR_1002bf6c[0xf]);
+      uVar8 = luaY_string_constant(PUN(int,(float)*pfVar9),(int *)PTR_1002bf6c[0xf]);
       luaY_code_opcode_arg('3',8,uVar8,iVar5);
       fVar10 = 1.4013e-45;
       break;
     case 0x45:
-      fVar10 = (float)lparser__bd00((int)pfVar9[-1],1);
+      fVar10 = PUN(float,lparser__bd00(PUN(int,(float)pfVar9[-1]),1));
       break;
     case 0x47:
-      lparser__b8a0((int)*pfVar9);
+      lparser__b8a0(PUN(int,(float)*pfVar9));
       fVar10 = 1.4013e-45;
       break;
     case 0x4a:
@@ -649,15 +649,15 @@ switchD_1000acd8_caseD_1f:
       }
       break;
     case 0x4b:
-      fVar10 = (float)lparser__bd00((int)pfVar9[-1],1);
+      fVar10 = PUN(float,lparser__bd00(PUN(int,(float)pfVar9[-1]),1));
       break;
     case 0x4c:
       if (*pfVar9 != 0.0) {
-        *(char *)(*(int *)(*(int *)PTR_1002bf6c[0xf] + 0x10) + (int)*pfVar9) =
+        *(char *)(*(int *)(*(int *)PTR_1002bf6c[0xf] + 0x10) + PUN(int,(float)*pfVar9)) =
              *(char *)(pfVar9 + -1);
         goto switchD_1000acd8_caseD_1f;
       }
-      fVar10 = (float)(-1 - (int)pfVar9[-1]);
+      fVar10 = PUN(float,(-1 - PUN(int,(float)pfVar9[-1])));
       break;
     case 0x4d:
       lparser__bde0(0,0);
@@ -666,57 +666,57 @@ switchD_1000acd8_caseD_1f:
       lparser__bde0(0,1);
       break;
     case 0x4f:
-      lparser__bde0((int)*pfVar9,0);
+      lparser__bde0(PUN(int,(float)*pfVar9),0);
       break;
     case 0x50:
-      lparser__bde0((int)pfVar9[-2],1);
+      lparser__bde0(PUN(int,(float)pfVar9[-2]),1);
       break;
     case 0x51:
-      uVar8 = (int)*pfVar9 >> 0x1f;
-      fVar10 = (float)(((uint)*pfVar9 ^ uVar8) - uVar8);
+      uVar8 = PUN(int,(float)*pfVar9) >> 0x1f;
+      fVar10 = PUN(float,((PUN(uint,(float)*pfVar9) ^ uVar8) - uVar8));
       break;
     case 0x52:
-      if (0 < (int)*pfVar9 * (int)pfVar9[-2]) {
+      if (0 < PUN(int,(float)*pfVar9) * PUN(int,(float)pfVar9[-2])) {
         lparser__a730(s_invalid_constructor_syntax_10027b84);
       }
-      uVar8 = (int)*pfVar9 >> 0x1f;
-      uVar7 = (int)pfVar9[-2] >> 0x1f;
-      fVar10 = (float)((((uint)*pfVar9 ^ uVar8) - uVar8) + (((uint)pfVar9[-2] ^ uVar7) - uVar7));
+      uVar8 = PUN(int,(float)*pfVar9) >> 0x1f;
+      uVar7 = PUN(int,(float)pfVar9[-2]) >> 0x1f;
+      fVar10 = PUN(float,(((PUN(uint,(float)*pfVar9) ^ uVar8) - uVar8) + ((PUN(uint,(float)pfVar9[-2]) ^ uVar7) - uVar7)));
       break;
     case 0x58:
-      uVar8 = (int)pfVar9[-1] >> 0x1f;
-      lparser__b9c0((((uint)pfVar9[-1] ^ uVar8) - uVar8 & 0x1f ^ uVar8) - uVar8);
-      fVar10 = (float)-(int)pfVar9[-1];
+      uVar8 = PUN(int,(float)pfVar9[-1]) >> 0x1f;
+      lparser__b9c0(((PUN(uint,(float)pfVar9[-1]) ^ uVar8) - uVar8 & 0x1f ^ uVar8) - uVar8);
+      fVar10 = PUN(float,-PUN(int,(float)pfVar9[-1]));
       break;
     case 0x59:
       fVar10 = pfVar9[-1];
-      uVar8 = (int)fVar10 >> 0x1f;
-      lparser__b9e0((int)((int)fVar10 + (uVar8 & 0x3f)) >> 6,
-                    (((uint)fVar10 ^ uVar8) - uVar8 & 0x3f ^ uVar8) - uVar8);
+      uVar8 = PUN(int,(float)fVar10) >> 0x1f;
+      lparser__b9e0((int)(PUN(int,(float)fVar10) + (uVar8 & 0x3f)) >> 6,
+                    ((PUN(uint,(float)fVar10) ^ uVar8) - uVar8 & 0x3f ^ uVar8) - uVar8);
     case 0x21:
       fVar10 = pfVar9[-1];
       break;
     case 0x5b:
-      fVar10 = (float)((int)pfVar9[-2] + 1);
-      uVar8 = (int)fVar10 >> 0x1f;
-      if ((((uint)fVar10 ^ uVar8) - uVar8 & 0x1f ^ uVar8) == uVar8) {
+      fVar10 = PUN(float,(PUN(int,(float)pfVar9[-2]) + 1));
+      uVar8 = PUN(int,(float)fVar10) >> 0x1f;
+      if (((PUN(uint,(float)fVar10) ^ uVar8) - uVar8 & 0x1f ^ uVar8) == uVar8) {
         lparser__b9c0(0x20);
       }
       break;
     case 0x60:
-      fVar10 = (float)((int)pfVar9[-2] + 1);
-      uVar8 = (int)fVar10 >> 0x1f;
-      if ((((uint)fVar10 ^ uVar8) - uVar8 & 0x3f ^ uVar8) == uVar8) {
-        lparser__b9e0(((int)((int)fVar10 + (uVar8 & 0x3f)) >> 6) - 1,0x40);
+      fVar10 = PUN(float,(PUN(int,(float)pfVar9[-2]) + 1));
+      uVar8 = PUN(int,(float)fVar10) >> 0x1f;
+      if (((PUN(uint,(float)fVar10) ^ uVar8) - uVar8 & 0x3f ^ uVar8) == uVar8) {
+        lparser__b9e0(((int)(PUN(int,(float)fVar10) + (uVar8 & 0x3f)) >> 6) - 1,0x40);
       }
       break;
     case 0x61:
       fVar10 = 1.4013e-45;
-      lparser__ba90((int)*pfVar9,0);
+      lparser__ba90(PUN(int,(float)*pfVar9),0);
       break;
     case 0x62:
-      lparser__ba90((int)*pfVar9,(int)pfVar9[-2]);
-      fVar10 = (float)((int)pfVar9[-2] + 1);
+      lparser__ba90(PUN(int,(float)*pfVar9),PUN(int,(float)pfVar9[-2]));
+      fVar10 = PUN(float,(PUN(int,(float)pfVar9[-2]) + 1));
       break;
     case 99:
       lparser__ba20(*pfVar9,0);
@@ -726,8 +726,8 @@ switchD_1000acd8_caseD_1f:
       fVar10 = 1.4013e-45;
       break;
     case 100:
-      lparser__ba20(*pfVar9,(int)pfVar9[-2]);
-      fVar10 = (float)((int)pfVar9[-2] + 1);
+      lparser__ba20(*pfVar9,PUN(int,(float)pfVar9[-2]));
+      fVar10 = PUN(float,(PUN(int,(float)pfVar9[-2]) + 1));
     }
     local_bd8 = local_bd8 + -iVar11;
     pfVar9 = pfVar9 + (1 - iVar11);
@@ -964,7 +964,7 @@ int __cdecl luaY_real_constant(float param_1)
   if (iVar4 <= iVar2) {
     piVar3 = (int *)(*(int *)(iVar1 + 8) + iVar2 * 8);
     do {
-      if ((*piVar3 == -1) && ((float)piVar3[1] == param_1)) {
+      if ((*piVar3 == -1) && (PUN(float,piVar3[1]) == param_1)) {
         return iVar2;
       }
       iVar2 = iVar2 + -1;

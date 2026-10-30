@@ -13,10 +13,7 @@
    sputCostume_Start through Cos_NewStateBasedTag/Cos_NewIntTag): slot 1, builds a bitmap key or
    asks for an image file (.pcx/.gif/.lbm) and loads it as a bitmap resource. */
 
-undefined4
-BitmapComponent_Create
-          (undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4,char *param_5
-          )
+undefined4 BitmapComponent_Create(uint param_1,int param_2,int param_3,int param_4,char *param_5)
 
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -136,7 +133,8 @@ BitmapComponent_Create
   if (param_5 == (char *)0x0) {
     param_5 = name;
   }
-  iVar7 = Cos_RegisterComponent(param_1,param_5,ref,param_2,param_3,param_4,&local_34);
+  iVar7 = Cos_RegisterComponent
+                    (param_1,(int)param_5,(int)ref,param_2,param_3,param_4,(int)&local_34);
   if (iVar7 != 0) {
     if (local_30 != 0) {
       (*g_pSvcCostume->pFree)(local_30);

@@ -6,8 +6,6 @@
 #include "functions.h"
 
 /* ---- 0x004ad260  Clock_ElapsedMs ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Milliseconds since the recorded start time (time() plus a millisecond field); engine helper
    living in the CRT range */
 
@@ -23,6 +21,4 @@ int Clock_ElapsedMs(void)
 }
 #undef local_8
 #undef local_c
-
-#endif
 

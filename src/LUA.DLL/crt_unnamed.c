@@ -489,7 +489,7 @@ float10 FUN_10012104(void)
       in_ST0 = extraout_ST1;
     }
     else {
-      in_ST1 = in_ST1 - (float10)(unkint10)(in_ST1 / in_ST0) * in_ST0;
+      in_ST1 = in_ST1 - PUN(float10,(unkint10)(in_ST1 / in_ST0)) * in_ST0;
     }
   } while ((in_FPUStatusWord & 0x400) != 0);
   return in_ST1;
@@ -2875,7 +2875,7 @@ FUN_1001a5a6(undefined4 param_1,uint param_2,ushort param_3,uint param_4,uint pa
         fVar4 = (float10)CONCAT28((param_9 & 0x7fff) - ((param_9 & 0x7fff) - param_3 & 7 | 4) |
                                   param_3 & 0x8000,
                                   CONCAT26(PIECE(param_2,2,2),CONCAT24((undefined2)param_2,param_1)));
-        fVar3 = fVar3 - (float10)(unkint10)(fVar3 / fVar4) * fVar4;
+        fVar3 = fVar3 - PUN(float10,(unkint10)(fVar3 / fVar4)) * fVar4;
         param_7 = SUB104(fVar3,0);
         uVar1 = (uint)((unkuint10)fVar3 >> 0x20);
         param_9 = (ushort)((unkuint10)fVar3 >> 0x40);
@@ -2923,7 +2923,7 @@ float10 FUN_1001a7ac(void)
     return extraout_ST0;
   }
   if (uVar2 == 0 && uVar3 == 0) {
-    return in_ST0 - (float10)(unkint10)(in_ST0 / in_ST1) * in_ST1;
+    return in_ST0 - PUN(float10,(unkint10)(in_ST0 / in_ST1)) * in_ST1;
   }
   if ((uVar7 & 0x7fff) < 0x7fbf) {
     fVar1 = in_ST0 * (float10)_DAT_10029724;

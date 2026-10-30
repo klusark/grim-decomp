@@ -211,7 +211,7 @@ int __cdecl ResType_CostumeHandler(void *msg)
   }
   iVar1 = *(int *)msg;
   if (iVar1 == 1) {
-    pvVar2 = (void *)Cos_Load(*(undefined4 *)((int)msg + 4));
+    pvVar2 = (void *)Cos_Load(*(int *)((int)msg + 4));
     if (pvVar2 == (void *)0x0) {
       return 0;
     }
@@ -219,7 +219,7 @@ int __cdecl ResType_CostumeHandler(void *msg)
   }
   else {
     if (iVar1 == 2) {
-      Cos_Free(*(undefined4 *)((int)msg + 0xc));
+      Cos_Free(*(int *)((int)msg + 0xc));
       return 1;
     }
     if (iVar1 == 3) {

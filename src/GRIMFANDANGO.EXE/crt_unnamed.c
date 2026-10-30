@@ -3765,7 +3765,7 @@ FUN_004b9916(undefined4 param_1,uint param_2,ushort param_3,uint param_4,uint pa
         fVar4 = (float10)CONCAT28((param_9 & 0x7fff) - ((param_9 & 0x7fff) - param_3 & 7 | 4) |
                                   param_3 & 0x8000,
                                   CONCAT26(PIECE(param_2,2,2),CONCAT24((undefined2)param_2,param_1)));
-        fVar3 = fVar3 - (float10)(unkint10)(fVar3 / fVar4) * fVar4;
+        fVar3 = fVar3 - PUN(float10,(unkint10)(fVar3 / fVar4)) * fVar4;
         param_7 = SUB104(fVar3,0);
         uVar1 = (uint)((unkuint10)fVar3 >> 0x20);
         param_9 = (ushort)((unkuint10)fVar3 >> 0x40);
@@ -3818,7 +3818,7 @@ float10 FUN_004b9b1c(void)
     return extraout_ST0;
   }
   if (uVar2 == 0 && uVar3 == 0) {
-    return in_ST0 - (float10)(unkint10)(in_ST0 / in_ST1) * in_ST1;
+    return in_ST0 - PUN(float10,(unkint10)(in_ST0 / in_ST1)) * in_ST1;
   }
   if ((uVar7 & 0x7fff) < 0x7fbf) {
     fVar1 = in_ST0 * (float10)_DAT_004f04f4;
@@ -4878,7 +4878,7 @@ undefined * __stdcall FUN_004bffb0(int a1,int a2,int a3)
   undefined *puVar4;
   uint uVar5;
   undefined4 uVar6;
-  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
+  #define local_18 (*(float *)(_frame + (0x30 - 0x18)))
   
   if ((((a1 == 0) && (g_hLightEdDialog != (void *)0x0)) &&
       (iVar2 = Win_IsFocusWithin(g_hLightEdDialog), iVar2 != 0)) && (g_nLightEdSelected != -1)) {
@@ -4901,7 +4901,7 @@ undefined * __stdcall FUN_004bffb0(int a1,int a2,int a3)
       goto switchD_004c008d_caseD_13;
     case 0x25:
       if (uVar3 != 0) {
-        local_18 = (uint)(*(float *)(uVar1 + 0x20) - _DAT_004f0d18);
+        local_18 = *(float *)(uVar1 + 0x20) - _DAT_004f0d18;
         uVar6 = 0x3ef;
 LAB_004c0263:
         LightEd_SetDlgFloat(g_hLightEdDialog,uVar6,local_18,1);
@@ -4911,11 +4911,11 @@ LAB_004c0263:
     case 0x26:
       if (uVar3 != 0) {
         if (uVar5 != 0) {
-          local_18 = (uint)(*(float *)(uVar1 + 0x28) + _DAT_004f0d18);
+          local_18 = *(float *)(uVar1 + 0x28) + _DAT_004f0d18;
           uVar6 = 0x3f1;
           goto LAB_004c041f;
         }
-        local_18 = (uint)(*(float *)(uVar1 + 0x24) + _DAT_004f0d18);
+        local_18 = *(float *)(uVar1 + 0x24) + _DAT_004f0d18;
         uVar6 = 0x3f0;
         goto LAB_004c0263;
       }
@@ -4938,16 +4938,16 @@ LAB_004c0263:
       break;
     case 0x62:
       if (uVar3 != 0) {
-        a3 = (int)((float)(&UINT_008d1738)[g_nLightEdSelected * 5] + _DAT_004f0d1c);
-        if ((float)a3 <= 360.0) {
-          if ((float)a3 < -180.0) {
-            a3 = (int)((float)a3 - -360.0);
+        a3 = PUN(int,(float)((float)(&UINT_008d1738)[g_nLightEdSelected * 5] + _DAT_004f0d1c));
+        if (PUN(float,a3) <= 360.0) {
+          if (PUN(float,a3) < -180.0) {
+            a3 = PUN(int,(float)(PUN(float,a3) - -360.0));
           }
         }
         else {
-          a3 = (int)((float)a3 - 360.0);
+          a3 = PUN(int,(float)(PUN(float,a3) - 360.0));
         }
-        local_18 = a3;
+        local_18 = PUN(float,a3);
         uVar6 = 0x3f2;
         goto LAB_004c0263;
       }
@@ -4955,28 +4955,28 @@ LAB_004c0263:
     case 100:
       if (uVar3 != 0) {
         if (uVar5 == 0) {
-          a3 = (int)((float)(&UINT_008d173c)[g_nLightEdSelected * 5] - _DAT_004f0d1c);
-          if ((float)a3 <= 360.0) {
-            if ((float)a3 < -180.0) {
-              a3 = (int)((float)a3 - -360.0);
+          a3 = PUN(int,(float)((float)(&UINT_008d173c)[g_nLightEdSelected * 5] - _DAT_004f0d1c));
+          if (PUN(float,a3) <= 360.0) {
+            if (PUN(float,a3) < -180.0) {
+              a3 = PUN(int,(float)(PUN(float,a3) - -360.0));
             }
           }
           else {
-            a3 = (int)((float)a3 - 360.0);
+            a3 = PUN(int,(float)(PUN(float,a3) - 360.0));
           }
           LightEd_SetDlgFloat(g_hLightEdDialog,0x3f4,a3,1);
           return (undefined *)0x1;
         }
-        a3 = (int)((float)(&UINT_008d1740)[g_nLightEdSelected * 5] - _DAT_004f0d1c);
-        if ((float)a3 <= 360.0) {
-          if ((float)a3 < -180.0) {
-            a3 = (int)((float)a3 - -360.0);
+        a3 = PUN(int,(float)((float)(&UINT_008d1740)[g_nLightEdSelected * 5] - _DAT_004f0d1c));
+        if (PUN(float,a3) <= 360.0) {
+          if (PUN(float,a3) < -180.0) {
+            a3 = PUN(int,(float)(PUN(float,a3) - -360.0));
           }
         }
         else {
-          a3 = (int)((float)a3 - 360.0);
+          a3 = PUN(int,(float)(PUN(float,a3) - 360.0));
         }
-        local_18 = a3;
+        local_18 = PUN(float,a3);
         uVar6 = 0x3f5;
 LAB_004c041f:
         LightEd_SetDlgFloat(g_hLightEdDialog,uVar6,local_18,1);
@@ -4986,42 +4986,42 @@ LAB_004c041f:
     case 0x66:
       if (uVar3 != 0) {
         if (uVar5 != 0) {
-          a3 = (int)((float)(&UINT_008d1740)[g_nLightEdSelected * 5] + _DAT_004f0d1c);
-          if ((float)a3 <= 360.0) {
-            if ((float)a3 < -180.0) {
-              a3 = (int)((float)a3 - -360.0);
+          a3 = PUN(int,(float)((float)(&UINT_008d1740)[g_nLightEdSelected * 5] + _DAT_004f0d1c));
+          if (PUN(float,a3) <= 360.0) {
+            if (PUN(float,a3) < -180.0) {
+              a3 = PUN(int,(float)(PUN(float,a3) - -360.0));
             }
           }
           else {
-            a3 = (int)((float)a3 - 360.0);
+            a3 = PUN(int,(float)(PUN(float,a3) - 360.0));
           }
           LightEd_SetDlgFloat(g_hLightEdDialog,0x3f5,a3,1);
           return (undefined *)0x1;
         }
-        a3 = (int)((float)(&UINT_008d173c)[g_nLightEdSelected * 5] + _DAT_004f0d1c);
-        if ((float)a3 <= 360.0) {
-          if ((float)a3 < -180.0) {
-            a3 = (int)((float)a3 - -360.0);
+        a3 = PUN(int,(float)((float)(&UINT_008d173c)[g_nLightEdSelected * 5] + _DAT_004f0d1c));
+        if (PUN(float,a3) <= 360.0) {
+          if (PUN(float,a3) < -180.0) {
+            a3 = PUN(int,(float)(PUN(float,a3) - -360.0));
           }
         }
         else {
-          a3 = (int)((float)a3 - 360.0);
+          a3 = PUN(int,(float)(PUN(float,a3) - 360.0));
         }
-        local_18 = a3;
+        local_18 = PUN(float,a3);
         uVar6 = 0x3f4;
         goto LAB_004c041f;
       }
       break;
     case 0x68:
       if (uVar3 != 0) {
-        a3 = (int)((float)(&UINT_008d1738)[g_nLightEdSelected * 5] - _DAT_004f0d1c);
-        if ((float)a3 <= 360.0) {
-          if ((float)a3 < -180.0) {
-            a3 = (int)((float)a3 - -360.0);
+        a3 = PUN(int,(float)((float)(&UINT_008d1738)[g_nLightEdSelected * 5] - _DAT_004f0d1c));
+        if (PUN(float,a3) <= 360.0) {
+          if (PUN(float,a3) < -180.0) {
+            a3 = PUN(int,(float)(PUN(float,a3) - -360.0));
           }
         }
         else {
-          a3 = (int)((float)a3 - 360.0);
+          a3 = PUN(int,(float)(PUN(float,a3) - 360.0));
         }
         LightEd_SetDlgFloat(g_hLightEdDialog,0x3f2,a3,1);
         return (undefined *)0x1;
@@ -15451,7 +15451,7 @@ float10 FUN_004d54b4(void)
       in_ST0 = extraout_ST1;
     }
     else {
-      in_ST1 = in_ST1 - (float10)(unkint10)(in_ST1 / in_ST0) * in_ST0;
+      in_ST1 = in_ST1 - PUN(float10,(unkint10)(in_ST1 / in_ST0)) * in_ST0;
     }
   } while ((in_FPUStatusWord & 0x400) != 0);
   return in_ST1;

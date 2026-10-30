@@ -29,29 +29,28 @@ void MeshComponent_OnKey(undefined4 param_1,int *param_2,undefined4 param_3,int 
 /* Costume tag handler, slot 5 of the 'RDroid Thing Mesh' tag: per-instance data of a mesh
    component. (Was named SpriteComponent_NewInstance.) */
 
-undefined4 * MeshComponent_NewInstance(undefined4 param_1,undefined4 param_2,int param_3)
+int * MeshComponent_NewInstance(int param_1,int param_2,int param_3)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int *piVar1;
-  undefined4 uVar2;
-  undefined4 *puVar3;
+  int iVar2;
+  int *piVar3;
   #define auStack_4 (*(undefined1 (*)[4])(_frame + (0x20 - 0x4)))
   
   if (param_3 == 0) {
-    uVar2 = Cos_InstGetInstanceData(param_1,param_2,0);
-    (*g_pSvcCostume->pFree)(uVar2);
-    return (undefined4 *)0x0;
+    iVar2 = Cos_InstGetInstanceData(param_1,param_2,(int *)0x0);
+    (*g_pSvcCostume->pFree)(iVar2);
+    return (int *)0x0;
   }
-  puVar3 = (undefined4 *)
-           (*g_pSvcCostume->pAlloc)(0xc,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0xb54);
-  piVar1 = puVar3 + 1;
-  Cos_InstComponentInfo(param_1,param_2,auStack_4,piVar1,&param_3);
+  piVar3 = (int *)(*g_pSvcCostume->pAlloc)(0xc,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0xb54);
+  piVar1 = piVar3 + 1;
+  Cos_InstComponentInfo(param_1,param_2,(int)auStack_4,(int)piVar1,(int)&param_3);
   *piVar1 = *piVar1 >> 0x10;
-  uVar2 = Cos_InstGetInstanceData(param_1,param_3,0);
-  *puVar3 = uVar2;
-  puVar3[2] = 1;
-  return puVar3;
+  iVar2 = Cos_InstGetInstanceData(param_1,param_3,(int *)0x0);
+  *piVar3 = iVar2;
+  piVar3[2] = 1;
+  return piVar3;
 }
 #undef auStack_4
 
@@ -73,8 +72,7 @@ void MeshComponent_Stop(int param_1)
 /* Registers a MODL/MMDL component attached to a mesh node ('Mesh N: name'); with no node name the
    editor shows 'Select mesh node to add' */
 
-undefined4
-MeshComponent_Create(undefined4 param_1,undefined4 param_2,int *param_3,int param_4,char *param_5)
+undefined4 MeshComponent_Create(uint param_1,int param_2,int *param_3,int param_4,char *param_5)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -214,8 +212,8 @@ LAB_004970d4:
     }
   }
   iVar6 = Cos_RegisterComponent
-                    (param_1,buf,(int)puVar4 << 0x10 | (uint)param_3 & 0xffff,param_2,param_3,
-                     param_4,&DAT_004e9f48);
+                    (param_1,(int)buf,(int)puVar4 << 0x10 | (uint)param_3 & 0xffff,param_2,
+                     (int)param_3,param_4,IMG_ADDR(0x004e9f48));
   if (iVar6 == 0) {
     (*g_pSvcCostume->pFree)();
     return 0;

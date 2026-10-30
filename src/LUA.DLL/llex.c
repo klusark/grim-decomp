@@ -156,11 +156,11 @@ uint __cdecl luaX_lex(float *param_1)
       } while ((uVar4 != 0) || (*puVar2 == 0x5f));
       luaL_addchar(0);
       fVar6 = PUN(float,luaS_new(DAT_1002befc));
-      if ((int)*(uint *)((int)fVar6 + 4) < 0x100) {
+      if ((int)*(uint *)(PUN(int,(float)fVar6) + 4) < 0x100) {
         *param_1 = fVar6;
         return 0x112;
       }
-      return *(uint *)((int)fVar6 + 4);
+      return *(uint *)(PUN(int,(float)fVar6) + 4);
     case 9:
     case 0xd:
     case 0x20:

@@ -23,58 +23,58 @@ void Collision_PushOutOfBox
   #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
   
-  local_c = (uint)(*param_1 - *param_9);
-  local_8 = (uint)(param_1[1] - param_9[1]);
-  local_4 = (uint)(param_1[2] - param_9[2]);
+  local_c = PUN(uint,(float)(*param_1 - *param_9));
+  local_8 = PUN(uint,(float)(param_1[1] - param_9[1]));
+  local_4 = PUN(uint,(float)(param_1[2] - param_9[2]));
   Vec3_TransformTo((float *)&local_18,(float *)&local_c,param_8);
-  if ((((param_4 < (float)local_10) && (param_3 < (float)local_14)) && ((float)local_14 < param_6))
-     && (((param_2 < (float)local_18 && ((float)local_18 < param_5)) && ((float)local_10 < param_7))
+  if ((((param_4 < PUN(float,local_10)) && (param_3 < PUN(float,local_14))) && (PUN(float,local_14) < param_6))
+     && (((param_2 < PUN(float,local_18) && (PUN(float,local_18) < param_5)) && (PUN(float,local_10) < param_7))
         )) {
     fVar1 = 3.4028235e+38;
-    if ((float)local_14 < param_6) {
-      fVar2 = param_6 - (float)local_14;
+    if (PUN(float,local_14) < param_6) {
+      fVar2 = param_6 - PUN(float,local_14);
       if (fVar2 < 0.0) {
         fVar2 = -fVar2;
       }
       fVar1 = 3.4028235e+38;
       if (fVar2 < 3.4028235e+38) {
-        local_8 = (uint)(param_6 - -0.01);
+        local_8 = PUN(uint,(float)(param_6 - -0.01));
         local_c = local_18;
         local_4 = local_10;
         fVar1 = fVar2;
       }
     }
-    if (param_3 < (float)local_14) {
-      fVar2 = param_3 - (float)local_14;
+    if (param_3 < PUN(float,local_14)) {
+      fVar2 = param_3 - PUN(float,local_14);
       if (fVar2 < 0.0) {
         fVar2 = -fVar2;
       }
       if (fVar2 < fVar1) {
-        local_8 = (uint)(param_3 - 0.01);
+        local_8 = PUN(uint,(float)(param_3 - 0.01));
         local_c = local_18;
         local_4 = local_10;
         fVar1 = fVar2;
       }
     }
-    if ((float)local_18 < param_5) {
-      fVar2 = param_5 - (float)local_18;
+    if (PUN(float,local_18) < param_5) {
+      fVar2 = param_5 - PUN(float,local_18);
       if (fVar2 < 0.0) {
         fVar2 = -fVar2;
       }
       if (fVar2 < fVar1) {
-        local_c = (uint)(param_5 - -0.01);
+        local_c = PUN(uint,(float)(param_5 - -0.01));
         local_8 = local_14;
         local_4 = local_10;
         fVar1 = fVar2;
       }
     }
-    if (param_2 < (float)local_18) {
-      fVar2 = param_2 - (float)local_18;
+    if (param_2 < PUN(float,local_18)) {
+      fVar2 = param_2 - PUN(float,local_18);
       if (fVar2 < 0.0) {
         fVar2 = -fVar2;
       }
       if (fVar2 < fVar1) {
-        local_c = (uint)(param_2 - 0.01);
+        local_c = PUN(uint,(float)(param_2 - 0.01));
         local_8 = local_14;
         local_4 = local_10;
       }
@@ -115,13 +115,13 @@ Collision_PointInBox
   #define local_8 (*(uint *)(_frame + (0x50 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x50 - 0x4)))
   
-  local_c = (uint)(*param_11 + *param_1);
+  local_c = PUN(uint,(float)(*param_11 + *param_1));
   uStack_20 = param_10;
-  param_4 = (uint)(*param_11 + *param_2);
-  local_8 = (uint)(param_1[1] + param_11[1]);
-  param_5 = (uint)(param_2[1] + param_11[1]);
-  local_4 = (uint)(param_1[2] + param_11[2]);
-  param_6 = (uint)(param_2[2] + param_11[2]);
+  param_4 = PUN(uint,(float)(*param_11 + *param_2));
+  local_8 = PUN(uint,(float)(param_1[1] + param_11[1]));
+  param_5 = PUN(uint,(float)(param_2[1] + param_11[1]));
+  local_4 = PUN(uint,(float)(param_1[2] + param_11[2]));
+  param_6 = PUN(uint,(float)(param_2[2] + param_11[2]));
   puVar3 = &param_4;
   puVar4 = auStack_38;
   for (iVar2 = 6; iVar2 != 0; iVar2 = iVar2 + -1) {
@@ -219,22 +219,22 @@ Collision_SegmentHitsBox
   #define local_8 (*(uint *)(_frame + (0x40 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x40 - 0x4)))
   
-  local_18 = (uint)(*param_1 - *param_3);
-  local_14 = (uint)(param_1[1] - param_3[1]);
-  local_10 = (uint)(param_1[2] - param_3[2]);
+  local_18 = PUN(uint,(float)(*param_1 - *param_3));
+  local_14 = PUN(uint,(float)(param_1[1] - param_3[1]));
+  local_10 = PUN(uint,(float)(param_1[2] - param_3[2]));
   Vec3_TransformTo((float *)&local_24,(float *)&local_18,param_10);
-  local_18 = (uint)(*param_2 - *param_3);
-  local_14 = (uint)(param_2[1] - param_3[1]);
-  local_10 = (uint)(param_2[2] - param_3[2]);
+  local_18 = PUN(uint,(float)(*param_2 - *param_3));
+  local_14 = PUN(uint,(float)(param_2[1] - param_3[1]));
+  local_10 = PUN(uint,(float)(param_2[2] - param_3[2]));
   Vec3_TransformTo((float *)&local_c,(float *)&local_18,param_10);
-  fVar2 = (float)local_c - (float)local_24;
-  fVar3 = (float)local_8 - (float)local_20;
-  fVar4 = (float)local_4 - (float)local_1c;
-  if (((param_8 < (float)local_20) && ((float)local_8 < param_8)) &&
-     (fVar1 = (param_8 - (float)local_20) / fVar3, fVar1 < 1.0)) {
-    fVar5 = fVar1 * fVar2 + (float)local_24;
+  fVar2 = PUN(float,local_c) - PUN(float,local_24);
+  fVar3 = PUN(float,local_8) - PUN(float,local_20);
+  fVar4 = PUN(float,local_4) - PUN(float,local_1c);
+  if (((param_8 < PUN(float,local_20)) && (PUN(float,local_8) < param_8)) &&
+     (fVar1 = (param_8 - PUN(float,local_20)) / fVar3, fVar1 < 1.0)) {
+    fVar5 = fVar1 * fVar2 + PUN(float,local_24);
     if ((param_4 < fVar5) &&
-       (fVar6 = fVar1 * fVar3 + (float)local_20, fVar7 = fVar1 * fVar4 + (float)local_1c,
+       (fVar6 = fVar1 * fVar3 + PUN(float,local_20), fVar7 = fVar1 * fVar4 + PUN(float,local_1c),
        fVar5 < param_7)) goto LAB_00492801;
   }
   fVar1 = 1.0;
@@ -245,34 +245,34 @@ LAB_00492801:
   _DAT_008ca328 = fVar7;
   _DAT_008ca324 = fVar6;
   _DAT_008ca320 = fVar5;
-  if ((((float)local_20 < param_5) && (param_5 < (float)local_8)) &&
-     (fVar5 = (param_5 - (float)local_20) / fVar3, fVar5 < fVar1)) {
-    fVar6 = fVar5 * fVar2 + (float)local_24;
+  if (((PUN(float,local_20) < param_5) && (param_5 < PUN(float,local_8))) &&
+     (fVar5 = (param_5 - PUN(float,local_20)) / fVar3, fVar5 < fVar1)) {
+    fVar6 = fVar5 * fVar2 + PUN(float,local_24);
     if ((param_4 < fVar6) && (fVar6 < param_7)) {
       fVar1 = fVar5;
       _DAT_008ca320 = fVar6;
-      _DAT_008ca324 = fVar5 * fVar3 + (float)local_20;
-      _DAT_008ca328 = fVar5 * fVar4 + (float)local_1c;
+      _DAT_008ca324 = fVar5 * fVar3 + PUN(float,local_20);
+      _DAT_008ca328 = fVar5 * fVar4 + PUN(float,local_1c);
     }
   }
-  if (((param_7 < (float)local_24) && ((float)local_c < param_7)) &&
-     (fVar5 = (param_7 - (float)local_24) / fVar2, fVar5 < fVar1)) {
-    fVar6 = fVar5 * fVar3 + (float)local_20;
+  if (((param_7 < PUN(float,local_24)) && (PUN(float,local_c) < param_7)) &&
+     (fVar5 = (param_7 - PUN(float,local_24)) / fVar2, fVar5 < fVar1)) {
+    fVar6 = fVar5 * fVar3 + PUN(float,local_20);
     if ((param_5 < fVar6) && (fVar6 < param_8)) {
       fVar1 = fVar5;
-      _DAT_008ca320 = fVar5 * fVar2 + (float)local_24;
+      _DAT_008ca320 = fVar5 * fVar2 + PUN(float,local_24);
       _DAT_008ca324 = fVar6;
-      _DAT_008ca328 = fVar5 * fVar4 + (float)local_1c;
+      _DAT_008ca328 = fVar5 * fVar4 + PUN(float,local_1c);
     }
   }
-  if ((((float)local_24 < param_4) && (param_4 < (float)local_c)) &&
-     (fVar5 = (param_4 - (float)local_24) / fVar2, fVar5 < fVar1)) {
-    fVar3 = fVar5 * fVar3 + (float)local_20;
+  if (((PUN(float,local_24) < param_4) && (param_4 < PUN(float,local_c))) &&
+     (fVar5 = (param_4 - PUN(float,local_24)) / fVar2, fVar5 < fVar1)) {
+    fVar3 = fVar5 * fVar3 + PUN(float,local_20);
     if ((param_5 < fVar3) && (fVar3 < param_8)) {
       fVar1 = fVar5;
-      _DAT_008ca320 = fVar5 * fVar2 + (float)local_24;
+      _DAT_008ca320 = fVar5 * fVar2 + PUN(float,local_24);
       _DAT_008ca324 = fVar3;
-      _DAT_008ca328 = fVar5 * fVar4 + (float)local_1c;
+      _DAT_008ca328 = fVar5 * fVar4 + PUN(float,local_1c);
     }
   }
   if (fVar1 == 1.0) {
@@ -324,9 +324,9 @@ int Collision_PickDetour(float *param_1,float *param_2,int param_3)
                 (pfVar2[-1] - param_2[1]) * (pfVar2[-1] - param_2[1]) +
                 (param_1[2] - *pfVar2) * (param_1[2] - *pfVar2) +
                 (param_1[1] - pfVar2[-1]) * (param_1[1] - pfVar2[-1]) +
-                (*param_1 - pfVar2[-2]) * (*param_1 - pfVar2[-2]), fVar1 < (float)local_4)) {
+                (*param_1 - pfVar2[-2]) * (*param_1 - pfVar2[-2]), fVar1 < PUN(float,local_4))) {
       iVar4 = iVar3;
-      local_4 = (uint)fVar1;
+      local_4 = PUN(uint,(float)fVar1);
     }
     iVar3 = iVar3 + 1;
     piVar5 = piVar5 + 1;
@@ -450,10 +450,10 @@ undefined4 Collision_TestActorAgainstOthers(void *param_1)
   iVar8 = *(int *)(*(int *)(*(int *)((int)param_1 + 0xa0) + 4) + 4);
   pfVar6 = Actor_GetFrame(param_1);
   Vec3_Copy((float *)&local_98,(float *)(iVar8 + 0x78),pfVar6);
-  local_6c = (uint)((float)local_98 + *(float *)((int)param_1 + 0xc));
+  local_6c = PUN(uint,(float)(PUN(float,local_98) + *(float *)((int)param_1 + 0xc)));
   local_54 = 0;
-  local_68 = (uint)(*(float *)((int)param_1 + 0x10) + (float)local_94);
-  local_64 = (uint)(*(float *)((int)param_1 + 0x14) + (float)local_90);
+  local_68 = PUN(uint,(float)(*(float *)((int)param_1 + 0x10) + PUN(float,local_94)));
+  local_64 = PUN(uint,(float)(*(float *)((int)param_1 + 0x14) + PUN(float,local_90)));
   fVar3 = *(float *)(iVar8 + 0x5c) * *(float *)(*(int *)((int)param_1 + 0xa4) + 0x3f4);
   if (0 < g_nDrawableActorCount) {
     local_70 = (uint)&g_pDrawableActors;
@@ -466,30 +466,30 @@ undefined4 Collision_TestActorAgainstOthers(void *param_1)
         pfVar7 = Actor_GetFrame(actor);
         pvStack_d0 = (void *)0x493ac7;
         Vec3_Sub((float *)&local_60,pfVar6,pfVar7);
-        local_4c = (uint)((float)local_6c - (float)local_60);
-        local_50 = (uint)((float)local_68 - (float)local_5c);
-        fVar5 = (float)local_64 - (float)local_58;
+        local_4c = PUN(uint,(float)(PUN(float,local_6c) - PUN(float,local_60)));
+        local_50 = PUN(uint,(float)(PUN(float,local_68) - PUN(float,local_5c)));
+        fVar5 = PUN(float,local_64) - PUN(float,local_58);
         fVar4 = SQRT(fVar5 * fVar5 +
-                     (float)local_50 * (float)local_50 + (float)local_4c * (float)local_4c);
-        local_8c = (uint)(*(float *)(iVar8 + 0x5c) * *(float *)(*(int *)((int)actor + 0xa4) + 0x3f4)
-                         );
-        if (fVar4 < (float)local_8c + fVar3) {
+                     PUN(float,local_50) * PUN(float,local_50) + PUN(float,local_4c) * PUN(float,local_4c));
+        local_8c = PUN(uint,(float)(*(float *)(iVar8 + 0x5c) * *(float *)(*(int *)((int)actor + 0xa4) + 0x3f4)
+                         ));
+        if (fVar4 < PUN(float,local_8c) + fVar3) {
           if (*(int *)(*(int *)((int)actor + 0xa4) + 0x3f0) == 2) {
             *(undefined4 *)(*(int *)((int)param_1 + 0xa4) + 0x3f8) = 1;
             pfVar6 = (float *)((int)param_1 + 0xc);
             *(undefined4 *)(*(int *)((int)actor + 0xa4) + 0x3f8) = 1;
-            local_24 = (uint)((float)local_6c - (float)local_60);
-            local_20 = (uint)((float)local_68 - (float)local_5c);
-            local_1c = (uint)((float)local_64 - (float)local_58);
+            local_24 = PUN(uint,(float)(PUN(float,local_6c) - PUN(float,local_60)));
+            local_20 = PUN(uint,(float)(PUN(float,local_68) - PUN(float,local_5c)));
+            local_1c = PUN(uint,(float)(PUN(float,local_64) - PUN(float,local_58)));
             _DAT_008ca348 = *pfVar6;
             _DAT_008ca34c = *(undefined4 *)((int)param_1 + 0x10);
             _DAT_008ca350 = *(undefined4 *)((int)param_1 + 0x14);
             Vec3_Normalize((float *)&local_24);
             bVar1 = *(byte *)((int)param_1 + 8);
-            fVar4 = (1.0 - (fVar4 - (float)local_8c) / fVar3) * fVar3;
-            local_18 = (uint)(((float)local_24 * fVar4 + (float)local_6c) - (float)local_98);
-            local_14 = (uint)(((float)local_20 * fVar4 + (float)local_68) - (float)local_94);
-            local_10 = (uint)(((float)local_1c * fVar4 + (float)local_64) - (float)local_90);
+            fVar4 = (1.0 - (fVar4 - PUN(float,local_8c)) / fVar3) * fVar3;
+            local_18 = PUN(uint,(float)((PUN(float,local_24) * fVar4 + PUN(float,local_6c)) - PUN(float,local_98)));
+            local_14 = PUN(uint,(float)((PUN(float,local_20) * fVar4 + PUN(float,local_68)) - PUN(float,local_94)));
+            local_10 = PUN(uint,(float)((PUN(float,local_1c) * fVar4 + PUN(float,local_64)) - PUN(float,local_90)));
             ((code *)Actor_SetPositionClamped)();
             _DAT_008ca338 = *pfVar6;
             _DAT_008ca33c = *(undefined4 *)((int)param_1 + 0x10);
@@ -504,40 +504,40 @@ undefined4 Collision_TestActorAgainstOthers(void *param_1)
           else {
             local_88 = local_4c;
             local_84 = local_50;
-            local_80 = (uint)fVar5;
+            local_80 = PUN(uint,(float)fVar5);
             pfVar7 = Actor_GetFrame(actor);
             pvStack_d0 = (void *)0x493d0d;
             Vec3_TransformTo((float *)&local_a4,(float *)&local_88,pfVar7);
-            local_a4 = (uint)((float)local_a4 + *pfVar6);
-            local_a0 = (uint)((float)local_a0 + *(float *)(iVar8 + 0x7c));
-            local_9c = (uint)((float)local_9c + *(float *)(iVar8 + 0x80));
+            local_a4 = PUN(uint,(float)(PUN(float,local_a4) + *pfVar6));
+            local_a0 = PUN(uint,(float)(PUN(float,local_a0) + *(float *)(iVar8 + 0x7c)));
+            local_9c = PUN(uint,(float)(PUN(float,local_9c) + *(float *)(iVar8 + 0x80)));
             iVar2 = *(int *)((int)actor + 0xa4);
-            local_34 = (uint)(*(float *)(iVar8 + 0x68) * *(float *)(iVar2 + 0x3f4) - fVar3);
-            local_3c = (uint)(*(float *)(iVar8 + 0x60) * *(float *)(iVar2 + 0x3f4) - fVar3);
-            local_38 = (uint)(*(float *)(iVar8 + 100) * *(float *)(iVar2 + 0x3f4) - fVar3);
-            local_30 = (uint)(*(float *)(iVar8 + 0x6c) * *(float *)(iVar2 + 0x3f4) + fVar3);
-            local_2c = (uint)(*(float *)(iVar8 + 0x70) * *(float *)(iVar2 + 0x3f4) + fVar3);
-            local_28 = (uint)(*(float *)(iVar8 + 0x74) * *(float *)(iVar2 + 0x3f4) + fVar3);
-            if (((((float)local_9c <= (float)local_34) || ((float)local_a0 <= (float)local_38)) ||
-                (((float)local_2c <= (float)local_a0 ||
-                 (((float)local_a4 <= (float)local_3c || ((float)local_30 <= (float)local_a4))))))
-               || ((float)local_28 <= (float)local_9c)) goto LAB_004940c6;
+            local_34 = PUN(uint,(float)(*(float *)(iVar8 + 0x68) * *(float *)(iVar2 + 0x3f4) - fVar3));
+            local_3c = PUN(uint,(float)(*(float *)(iVar8 + 0x60) * *(float *)(iVar2 + 0x3f4) - fVar3));
+            local_38 = PUN(uint,(float)(*(float *)(iVar8 + 100) * *(float *)(iVar2 + 0x3f4) - fVar3));
+            local_30 = PUN(uint,(float)(*(float *)(iVar8 + 0x6c) * *(float *)(iVar2 + 0x3f4) + fVar3));
+            local_2c = PUN(uint,(float)(*(float *)(iVar8 + 0x70) * *(float *)(iVar2 + 0x3f4) + fVar3));
+            local_28 = PUN(uint,(float)(*(float *)(iVar8 + 0x74) * *(float *)(iVar2 + 0x3f4) + fVar3));
+            if ((((PUN(float,local_9c) <= PUN(float,local_34)) || (PUN(float,local_a0) <= PUN(float,local_38))) ||
+                ((PUN(float,local_2c) <= PUN(float,local_a0) ||
+                 ((PUN(float,local_a4) <= PUN(float,local_3c) || (PUN(float,local_30) <= PUN(float,local_a4)))))))
+               || (PUN(float,local_28) <= PUN(float,local_9c))) goto LAB_004940c6;
             *(undefined4 *)(*(int *)((int)param_1 + 0xa4) + 0x3f8) = 1;
             _DAT_008ca348 = *(float *)((int)param_1 + 0xc);
             _DAT_008ca34c = *(undefined4 *)((int)param_1 + 0x10);
             _DAT_008ca350 = *(undefined4 *)((int)param_1 + 0x14);
-            local_88 = (uint)(((float)local_98 + *(float *)((int)param_1 + 0x18)) - (float)local_60)
+            local_88 = PUN(uint,(float)((PUN(float,local_98) + *(float *)((int)param_1 + 0x18)) - PUN(float,local_60)))
             ;
-            local_84 = (uint)((*(float *)((int)param_1 + 0x1c) + (float)local_94) - (float)local_5c)
+            local_84 = PUN(uint,(float)((*(float *)((int)param_1 + 0x1c) + PUN(float,local_94)) - PUN(float,local_5c)))
             ;
-            local_80 = (uint)((*(float *)((int)param_1 + 0x20) + (float)local_90) - (float)local_58)
+            local_80 = PUN(uint,(float)((*(float *)((int)param_1 + 0x20) + PUN(float,local_90)) - PUN(float,local_58)))
             ;
             pfVar7 = Actor_GetFrame(actor);
             pvStack_d0 = (void *)0x493ee1;
             Vec3_TransformTo((float *)&local_48,(float *)&local_88,pfVar7);
-            local_48 = (uint)((float)local_48 + *pfVar6);
-            local_44 = (uint)((float)local_44 + *(float *)(iVar8 + 0x7c));
-            local_40 = (uint)((float)local_40 + *(float *)(iVar8 + 0x80));
+            local_48 = PUN(uint,(float)(PUN(float,local_48) + *pfVar6));
+            local_44 = PUN(uint,(float)(PUN(float,local_44) + *(float *)(iVar8 + 0x7c)));
+            local_40 = PUN(uint,(float)(PUN(float,local_40) + *(float *)(iVar8 + 0x80)));
             puVar9 = &local_3c;
             puVar10 = auStack_dc;
             for (iVar8 = 6; iVar8 != 0; iVar8 = iVar8 + -1) {
@@ -563,17 +563,17 @@ undefined4 Collision_TestActorAgainstOthers(void *param_1)
             }
             pfVar6 = Actor_GetFrame(actor);
             Vec3_Rotate3x3((float *)&local_7c,pfVar6);
-            local_7c = (uint)((float)local_7c - (float)local_98);
-            local_78 = (uint)((float)local_78 - (float)local_94);
+            local_7c = PUN(uint,(float)(PUN(float,local_7c) - PUN(float,local_98)));
+            local_78 = PUN(uint,(float)(PUN(float,local_78) - PUN(float,local_94)));
             *(float *)((int)param_1 + 0x18) = *(float *)((int)param_1 + 0xc);
-            local_74 = (uint)((float)local_74 - (float)local_90);
+            local_74 = PUN(uint,(float)(PUN(float,local_74) - PUN(float,local_90)));
             *(undefined4 *)((int)param_1 + 0x1c) = *(undefined4 *)((int)param_1 + 0x10);
             *(undefined4 *)((int)param_1 + 0x20) = *(undefined4 *)((int)param_1 + 0x14);
             pfVar6 = Actor_GetFrame(actor);
             Vec3_Rotate3x3((float *)&DAT_008ca320,pfVar6);
-            _DAT_008ca320 = _DAT_008ca320 - (float)local_98;
-            _DAT_008ca324 = _DAT_008ca324 - (float)local_94;
-            _DAT_008ca328 = _DAT_008ca328 - (float)local_90;
+            _DAT_008ca320 = _DAT_008ca320 - PUN(float,local_98);
+            _DAT_008ca324 = _DAT_008ca324 - PUN(float,local_94);
+            _DAT_008ca328 = _DAT_008ca328 - PUN(float,local_90);
             bVar1 = *(byte *)((int)param_1 + 8);
             ((code *)Actor_SetPositionClamped)();
             _DAT_008ca338 = *(float *)((int)param_1 + 0xc);
@@ -847,31 +847,31 @@ Collision_BoxSlide(float *param_1,float *param_2,float param_3,float param_4,flo
   if (fVar5 < 0.0) {
     fVar11 = -fVar5;
   }
-  local_48 = (uint)(fVar10 * fVar11);
+  local_48 = PUN(uint,(float)(fVar10 * fVar11));
   fVar10 = fVar5;
   if (fVar5 < 0.0) {
     fVar10 = -fVar5;
   }
-  local_44 = (uint)(fVar1 * fVar10);
+  local_44 = PUN(uint,(float)(fVar1 * fVar10));
   if (fVar5 < 0.0) {
     fVar5 = -fVar5;
   }
-  local_40 = (uint)(fVar3 * fVar5);
+  local_40 = PUN(uint,(float)(fVar3 * fVar5));
   fVar10 = Vec3_Normalize((float *)&local_48);
   fVar11 = Vec3_Dot2((float *)&local_48,(float *)&local_3c);
   fVar11 = Math_AsinDegreesSeries(fVar11);
   if (90.0 - fVar11 < 90.0) {
     return 0;
   }
-  param_3 = (float)local_34 * (float)local_44 - (float)local_38 * (float)local_40;
-  param_4 = (float)local_3c * (float)local_40 - (float)local_34 * (float)local_48;
-  param_5 = (float)local_38 * (float)local_48 - (float)local_3c * (float)local_44;
+  param_3 = PUN(float,local_34) * PUN(float,local_44) - PUN(float,local_38) * PUN(float,local_40);
+  param_4 = PUN(float,local_3c) * PUN(float,local_40) - PUN(float,local_34) * PUN(float,local_48);
+  param_5 = PUN(float,local_38) * PUN(float,local_48) - PUN(float,local_3c) * PUN(float,local_44);
   Vec3_Normalize(&param_3);
   Matrix_AxisAngle(local_30,&param_3,(90.0 - fVar11) - 90.0);
   Vec3_Transform((float *)&local_48,local_30);
-  *pfVar8 = fVar10 * (float)local_48 + *pfVar8;
-  pfVar8[1] = fVar10 * (float)local_44 + pfVar8[1];
-  pfVar8[2] = fVar10 * (float)local_40 + pfVar8[2];
+  *pfVar8 = fVar10 * PUN(float,local_48) + *pfVar8;
+  pfVar8[1] = fVar10 * PUN(float,local_44) + pfVar8[1];
+  pfVar8[2] = fVar10 * PUN(float,local_40) + pfVar8[2];
   return 1;
 }
 #undef local_30

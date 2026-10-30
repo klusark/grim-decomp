@@ -688,7 +688,7 @@ void Engine_SaveGame(void)
     (*(code *)UINT_008a8828)(SaveGame_Write);
     SaveGame_Write(&UINT_008a8c48,4);
     Render_DrawProgressBar(0.75);
-    lua_Save(SaveGame_Write);
+    lua_Save((int *)SaveGame_Write);
     Render_DrawProgressBar(1.0);
     if (g_pfnIMuseSaveHook != (void *)0x0) {
       (*(code *)g_pfnIMuseSaveHook)(SaveGame_Write);
@@ -871,7 +871,7 @@ void Engine_RenderFrame(void)
         Render_RequestFullRedraw();
         UINT_008c97f8 = 1;
       }
-      local_1c = (uint)Timer_GetFrameSeconds();
+      local_1c = PUN(uint,(float)Timer_GetFrameSeconds());
       Actors_UpdateTalking((float)local_1c);
       Surface_Lock(&g_BackBuffer);
       UINT_008a94b8 = UINT_0090563c;
@@ -1055,9 +1055,9 @@ void Engine_RenderFrame(void)
       if ((g_dwRenderFlags & 4) != 0) {
         iVar5 = Timer_GetTotalMs();
         local_18 = 0;
-        local_1c = (uint)((float)(iVar5 - g_dwIrisStartMs) / g_flIrisDurationMs);
+        local_1c = PUN(uint,(float)((float)(iVar5 - g_dwIrisStartMs) / g_flIrisDurationMs));
         if ((float)local_1c < 0.0) {
-          local_1c = (uint)-(float)local_1c;
+          local_1c = PUN(uint,(float)-(float)local_1c);
         }
         if ((float)local_1c <= 1.0) {
           g_dwRenderFlags = g_dwRenderFlags & 0xfffffff7;
@@ -1072,7 +1072,7 @@ void Engine_RenderFrame(void)
           }
         }
         if (g_flIrisDurationMs <= 0.0) {
-          local_1c = (uint)(1.0 - (float)local_1c);
+          local_1c = PUN(uint,(float)(1.0 - (float)local_1c));
         }
         Render_DrawIris((float)local_1c,g_nIrisX,g_nIrisY);
         if (g_flIrisDurationMs < 0.0) {

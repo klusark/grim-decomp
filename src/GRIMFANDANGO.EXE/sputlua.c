@@ -23,7 +23,7 @@ undefined4 sputLua_Initialize(GrimServices *param_1,undefined4 *param_2)
   param_2[5] = 0;
   param_2[6] = 0;
   param_2[7] = 0;
-  iVar1 = lua_Initialize(param_1,&DAT_008cab50);
+  iVar1 = lua_Initialize((int)param_1,(int *)&DAT_008cab50);
   if (iVar1 != 0) {
     UINT_008cab7c = 0;
     return 1;
