@@ -633,7 +633,7 @@ undefined4 Palette_SwapRedBlue(int param_1,undefined1 *param_2)
 /* Adds the 'Window Display Device' (DIBsection windowed) entry then DirectDrawEnumerate adds the
    DirectDraw devices */
 
-bool Display_EnumDevices(void)
+int Display_EnumDevices(void)
 
 {
   int iVar1;
@@ -2614,7 +2614,7 @@ Surface_BlitLockedDst
 /* ---- 0x004760d0  DDraw_Create ---- */
 /* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
-bool DDraw_Create(undefined4 param_1)
+int DDraw_Create(undefined4 param_1)
 
 {
   int iVar1;

@@ -51,7 +51,7 @@ void * __cdecl MaterialComponent_NewInstance(void *cosInst,int componentIdx,int 
    Cos_NewStateBasedTag/Cos_NewIntTag): slot 1, parses a key or asks for a .mat file ('Select mat
    file to animate...') for a model/sprite component. */
 
-bool MaterialComponent_Create(uint param_1,int param_2,int *param_3,int param_4,char *param_5)
+int MaterialComponent_Create(uint param_1,int param_2,int *param_3,int param_4,char *param_5)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */

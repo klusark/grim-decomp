@@ -51,7 +51,7 @@ void sputRender_Terminate(void)
    (non-zero makes the whole start-up unwind). _Start creates the dirty-rectangle pool, _Stop frees
    the cache rects and the pool. */
 
-bool sputRender_Start(void)
+int sputRender_Start(void)
 
 {
   bool bVar1;

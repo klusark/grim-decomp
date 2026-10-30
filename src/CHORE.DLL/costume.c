@@ -2907,7 +2907,7 @@ void FUN_10005700(void)
 /* ---- 0x10005740  FUN_10005740 ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-char FUN_10005740(byte *param_1,byte *param_2)
+int FUN_10005740(byte *param_1,byte *param_2)
 
 {
   bool bVar1;

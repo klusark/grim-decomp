@@ -59,7 +59,7 @@ int * CmapComponent_NewInstance(int param_1,int param_2,int *param_3)
 /* Registers a 'cmap' colormap component (CMAP resource, 0x34-byte ResRef); with no name a file
    dialog asks for one (editor) */
 
-bool CmapComponent_Create(uint param_1,int param_2,int param_3,int param_4,char *param_5)
+int CmapComponent_Create(uint param_1,int param_2,int param_3,int param_4,char *param_5)
 
 {
   undefined4 uVar1;

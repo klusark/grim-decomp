@@ -549,7 +549,7 @@ undefined4 __cdecl lua_isuserdata(int param_1)
 }
 
 /* ---- 0x10001790  lua_iscfunction ---- */
-bool __cdecl lua_iscfunction(int param_1)
+int __cdecl lua_iscfunction(int param_1)
 
 {
   int iVar1;
@@ -700,19 +700,19 @@ int * __cdecl luaA_normalizeObj(int *param_1)
 }
 
 /* ---- 0x10001990  lua_gettask ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
-longlong __fastcall lua_gettask(undefined4 param_1,int param_2,int param_3)
+int __cdecl lua_gettask(int obj)
 
 {
   longlong lVar1;
   
                     /* 0x1990  37  lua_gettask */
-  if ((param_3 != 0) && (param_2 = PTR_1002bf6c[8], *(int *)(param_2 + -8 + param_3 * 8) == -6)) {
+  if ((obj != 0) && (*(int *)(PTR_1002bf6c[8] + -8 + obj * 8) == -6)) {
     lVar1 = _ftol();
-    return lVar1;
+    return (int)lVar1;
   }
-  return CONCAT44(param_2,0xffffffff);
+  return -1;
 }
 #endif
 
@@ -961,7 +961,7 @@ undefined4 __cdecl lua_unpausetasks(void)
 /* ---- 0x10001e10  lua_updatetasks ---- */
 /* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
-bool __cdecl lua_updatetasks(int param_1)
+int __cdecl lua_updatetasks(int param_1)
 
 {
   unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1100,7 +1100,7 @@ int __cdecl lua_stackedfunction(int param_1)
 }
 
 /* ---- 0x100020f0  lua_printstack ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 undefined4 __cdecl lua_printstack(int param_1)
 
@@ -1438,8 +1438,6 @@ void lapi__2660(void)
 }
 
 /* ---- 0x10002670  lua_Save ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 undefined4 __cdecl lua_Save(undefined *param_1)
 
 {
@@ -1480,8 +1478,6 @@ undefined4 __cdecl lua_Save(undefined *param_1)
 }
 #undef local_4
 
-#endif
-
 
 /* ---- 0x10002730  FUN_10002730 ---- */
 void __cdecl FUN_10002730(undefined4 param_1,int param_2)
@@ -1493,7 +1489,7 @@ void __cdecl FUN_10002730(undefined4 param_1,int param_2)
 }
 
 /* ---- 0x10002760  lua_Restore ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 undefined4 lua_Restore(code *param_1)
 
@@ -1949,8 +1945,6 @@ int lua_newtag(void)
 }
 
 /* ---- 0x1000c950  lua_copytagmethods ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 int __cdecl lua_copytagmethods(int param_1,int param_2)
 
 {
@@ -1974,5 +1968,3 @@ int __cdecl lua_copytagmethods(int param_1,int param_2)
   } while (iVar3 < 0x12);
   return param_1;
 }
-#endif
-

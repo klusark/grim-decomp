@@ -8,7 +8,7 @@
 /* ---- 0x00490e00  Phoneme_ToTalkChore ---- */
 /* bsearch in the phoneme table g_PhonemeTable (8-byte {phoneme, chore} entries) */
 
-ushort __cdecl Phoneme_ToTalkChore(void *unused,int phoneme)
+uint __cdecl Phoneme_ToTalkChore(void *unused,int phoneme)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */

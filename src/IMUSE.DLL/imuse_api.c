@@ -1555,7 +1555,7 @@ undefined4 SoundsFadeParam(uint *param_1,int param_2,uint param_3,int param_4)
 /* ---- 0x100075d0  SoundsIsSoundInUse ---- */
 /* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
-bool __cdecl SoundsIsSoundInUse(uint *param_1)
+int __cdecl SoundsIsSoundInUse(uint *param_1)
 
 {
   int iVar1;
@@ -1582,7 +1582,7 @@ bool __cdecl SoundsIsSoundInUse(uint *param_1)
 /* ---- 0x10007640  SoundsIsSoundPlaying ---- */
 /* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
-bool __cdecl SoundsIsSoundPlaying(uint *param_1)
+int __cdecl SoundsIsSoundPlaying(uint *param_1)
 
 {
   int iVar1;

@@ -938,7 +938,7 @@ void __cdecl FUN_10013e40(int param_1)
 /* ---- 0x10013e8a  FUN_10013e8a ---- */
 /* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
-bool FUN_10013e8a(void)
+int FUN_10013e8a(void)
 
 {
   int unaff_EBP;
@@ -1151,7 +1151,7 @@ undefined4 FUN_10015160(int a1)
 /* ---- 0x1001519c  FUN_1001519c ---- */
 /* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
-bool FUN_1001519c(void)
+int FUN_1001519c(void)
 
 {
   int unaff_EBP;

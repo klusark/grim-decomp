@@ -204,7 +204,7 @@ void __cdecl ldo__4160(int param_1)
 }
 
 /* ---- 0x10004180  luaD_call ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Dispatches a call at the given stack position: C function, Lua closure or task mark ('unexpected
    cmark' otherwise) */
@@ -277,7 +277,7 @@ switchD_1000422b_caseD_fffffff9:
         piVar9 = (int *)*PTR_1002bf6c;
         goto LAB_100042fe;
       }
-      pvVar3 = (void *)((code *)luaD_callC)((int)a1,*(undefined **)(a1 + 0x10),iVar4);
+      pvVar3 = (void *)luaD_callC((int)a1,*(undefined **)(a1 + 0x10),iVar4);
       param_1 = a1;
       param_2 = pvVar3;
       break;
@@ -395,7 +395,7 @@ int __cdecl ldo__44e0(undefined *param_1,int param_2)
 /* ---- 0x10004580  luaD_callC ---- */
 /* Unidentified function of ldo.c (stack and call machinery, Grim task marks) */
 
-void __cdecl luaD_callC(int param_1,undefined *param_2,int param_3)
+int __cdecl luaD_callC(int param_1,undefined *param_2,int param_3)
 
 {
   uint uVar1;
@@ -419,8 +419,8 @@ void __cdecl luaD_callC(int param_1,undefined *param_2,int param_3)
     puVar4 = (undefined4 *)((int)puVar4 + 1);
   }
   PTR_1002bf6c[7] = PTR_1002bf6c[7] + uVar1 * 8;
-  ldo__44e0(param_2,param_3);
-  return;
+  iVar2 = ldo__44e0(param_2,param_3);
+  return iVar2;
 }
 
 /* ---- 0x10004600  ldo__4600 ---- */

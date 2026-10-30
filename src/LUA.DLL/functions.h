@@ -35,7 +35,7 @@ undefined4 __cdecl lua_rawsetglobal(byte *param_1); /* 0x100016c0 */
 undefined4 __cdecl lua_isnil(int param_1); /* 0x10001700 */
 undefined4 __cdecl lua_istable(int param_1); /* 0x10001730 */
 undefined4 __cdecl lua_isuserdata(int param_1); /* 0x10001760 */
-bool __cdecl lua_iscfunction(int param_1); /* 0x10001790 */
+int __cdecl lua_iscfunction(int param_1); /* 0x10001790 */
 undefined4 __cdecl lua_isnumber(int param_1); /* 0x100017b0 */
 undefined4 __cdecl lua_isstring(int param_1); /* 0x100017f0 */
 undefined4 __cdecl lua_isfunction(int param_1); /* 0x10001810 */
@@ -45,7 +45,7 @@ int __cdecl lua_getstring(int param_1); /* 0x100018c0 */
 undefined4 __cdecl lua_getuserdata(int param_1); /* 0x10001910 */
 int __cdecl lua_getcfunction(int param_1); /* 0x10001940 */
 int * __cdecl luaA_normalizeObj(int *param_1); /* 0x10001970 */
-longlong __fastcall lua_gettask(undefined4 param_1,int param_2,int param_3); /* 0x10001990 */
+int __cdecl lua_gettask(int obj); /* 0x10001990 */
 undefined4 __cdecl lua_pushtask(int param_1); /* 0x100019c0 */
 undefined4 __cdecl lua_pushnil(void); /* 0x10001a10 */
 void __cdecl lua_pushnumber(float n); /* 0x10001a50 */
@@ -58,7 +58,7 @@ undefined4 __cdecl lua_tag(int param_1); /* 0x10001ca0 */
 int * __cdecl lua_settag(int param_1); /* 0x10001d30 */
 undefined4 __cdecl lua_pausetasks(void); /* 0x10001db0 */
 undefined4 __cdecl lua_unpausetasks(void); /* 0x10001de0 */
-bool __cdecl lua_updatetasks(int param_1); /* 0x10001e10 */
+int __cdecl lua_updatetasks(int param_1); /* 0x10001e10 */
 int __cdecl lua_stackedfunction(int param_1); /* 0x10002090 */
 undefined4 __cdecl lua_printstack(int param_1); /* 0x100020f0 */
 undefined4 __cdecl lua_currentline(int param_1); /* 0x10002280 */
@@ -145,7 +145,7 @@ void FUN_100039f0(void); /* 0x100039f0 */
 void FUN_10003a10(void); /* 0x10003a10 */
 void FUN_10003a30(void); /* 0x10003a30 */
 void FUN_10003a60(void); /* 0x10003a60 */
-longlong __cdecl lbuiltin__3ba0(int param_1); /* 0x10003ba0 */
+int __cdecl lbuiltin__3ba0(int param_1); /* 0x10003ba0 */
 void FUN_10003bf0(void); /* 0x10003bf0 */
 void FUN_10003c20(void); /* 0x10003c20 */
 void FUN_10003c40(void); /* 0x10003c40 */
@@ -168,7 +168,7 @@ void __cdecl luaD_callTM(undefined4 *param_1,int param_2,void *param_3); /* 0x10
 void __cdecl ldo__4160(int param_1); /* 0x10004160 */
 undefined4 luaD_call(code *param_1,void *param_2); /* 0x10004180 */
 int __cdecl ldo__44e0(undefined *param_1,int param_2); /* 0x100044e0 */
-void __cdecl luaD_callC(int param_1,undefined *param_2,int param_3); /* 0x10004580 */
+int __cdecl luaD_callC(int param_1,undefined *param_2,int param_3); /* 0x10004580 */
 void __cdecl ldo__4600(undefined *param_1); /* 0x10004600 */
 void __cdecl luaD_message(byte *param_1); /* 0x100046a0 */
 undefined4 __cdecl luaD_protectedrun(void *param_1); /* 0x100046e0 */
@@ -209,7 +209,7 @@ longlong __cdecl io_getint(int param_1); /* 0x100053d0 */
 void __cdecl io_pushresult(int param_1); /* 0x100053f0 */
 void __cdecl io_setfile(byte *param_1); /* 0x10005430 */
 int __cdecl io_getfilebyname(byte *param_1); /* 0x10005480 */
-bool __cdecl io_gethandle(int param_1); /* 0x100054c0 */
+int __cdecl io_gethandle(int param_1); /* 0x100054c0 */
 void __cdecl io_setreturn(byte *param_1,byte *param_2); /* 0x10005520 */
 void __cdecl io_setfilebyname(byte *param_1,byte *param_2,uint param_3); /* 0x10005550 */
 void FUN_10005570(void); /* 0x10005570 */
@@ -272,7 +272,7 @@ uint __cdecl luaM_growaux(undefined4 *param_1,uint param_2,int param_3,byte *par
 
 /* ===== lobject.c ===== */
 undefined4 __cdecl luaO_redimension(int param_1); /* 0x10007450 */
-bool __cdecl luaO_equalObj(int *param_1,int *param_2); /* 0x100074b0 */
+int __cdecl luaO_equalObj(int *param_1,int *param_2); /* 0x100074b0 */
 int __cdecl luaO_findstring(byte *param_1,undefined4 *param_2); /* 0x10007550 */
 void __cdecl luaO_insertlist(undefined4 *param_1,undefined4 *param_2); /* 0x100075c0 */
 
@@ -315,7 +315,7 @@ uint * lstring__9410(void); /* 0x10009410 */
 void lstring__9470(void); /* 0x10009470 */
 void __cdecl lstring__94e0(int *param_1,int *param_2); /* 0x100094e0 */
 int * __cdecl lstring__9510(undefined *param_1); /* 0x10009510 */
-bool __cdecl lstring__9550(byte *param_1); /* 0x10009550 */
+int __cdecl lstring__9550(byte *param_1); /* 0x10009550 */
 void FUN_10009570(void); /* 0x10009570 */
 
 /* ===== str.c ===== */
@@ -614,8 +614,8 @@ int __cdecl _strnicoll(byte *param_1,byte *param_2,int param_3); /* 0x10016130 *
 undefined4 __crtsetenv_from_wenviron(void); /* 0x10016170 */
 void __tzset(void); /* 0x100161f0 */
 void _tzset_lk(void); /* 0x10016230 */
-bool __cdecl _isindst(int *param_1); /* 0x10016510 */
-bool __cdecl _isindst_lk(int *param_1); /* 0x10016540 */
+int __cdecl _isindst(int *param_1); /* 0x10016510 */
+int __cdecl _isindst_lk(int *param_1); /* 0x10016540 */
 void __cdecl _cvtdate(int param_1,int param_2,uint param_3,int param_4,int param_5,int param_6,int param_7, int param_8,int param_9,int param_10,int param_11); /* 0x100167b0 */
 uint __cdecl _stricmp(byte *param_1,byte *param_2); /* 0x10016950 */
 int * __cdecl gmtime(int *param_1); /* 0x10016a20 */
@@ -627,7 +627,7 @@ int __cdecl wcsncnt(short *param_1,int param_2); /* 0x100189a0 */
 int __cdecl __crtLCMapStringA(int param_1,uint param_2,char *param_3,int param_4,int param_5,int param_6, uint param_7,int param_8); /* 0x100189e0 */
 float __cdecl _frnd(double param_1); /* 0x10018fd0 */
 void __cdecl _raise_exc(uint *param_1,uint *param_2,byte param_3,uint param_4,uint *param_5,uint *param_6); /* 0x10019100 */
-bool __cdecl _handle_exc(uint param_1,double *param_2,uint param_3); /* 0x10019440 */
+int __cdecl _handle_exc(uint param_1,double *param_2,uint param_3); /* 0x10019440 */
 undefined4 __cdecl _pow_special_cases(double param_1,double param_2,double *param_3); /* 0x1001ad40 */
 undefined4 __cdecl _is_integer_double(double param_1); /* 0x1001af70 */
 int * __cdecl __crtGetStringTypeW(int param_1,int param_2,int param_3,undefined4 *param_4,int param_5,int param_6); /* 0x1001b000 */
@@ -657,16 +657,16 @@ void __cdecl _ld12tof(ushort *param_1,uint *param_2); /* 0x1001db30 */
 void __cdecl _atodbl(uint *param_1,byte *param_2); /* 0x1001db50 */
 void __cdecl _atoflt(uint *param_1,byte *param_2); /* 0x1001db90 */
 void __cdecl _fptostr(char *param_1,int param_2,int param_3); /* 0x1001dbd0 */
-bool __cdecl _ValidateRead(int param_1,int param_2); /* 0x1001de60 */
-bool __cdecl _ValidateWrite(int param_1,int param_2); /* 0x1001de80 */
-bool __cdecl _ValidateExecute(int param_1); /* 0x1001dea0 */
+int __cdecl _ValidateRead(int param_1,int param_2); /* 0x1001de60 */
+int __cdecl _ValidateWrite(int param_1,int param_2); /* 0x1001de80 */
+int __cdecl _ValidateExecute(int param_1); /* 0x1001dea0 */
 void abort(void); /* 0x1001dfa0 */
 int __cdecl _lseek(uint param_1,undefined4 param_2,undefined4 param_3); /* 0x1001dfc0 */
 int __cdecl _lseek_lk(uint param_1,int param_2,int param_3); /* 0x1001e040 */
 int __cdecl _write(uint param_1,char *param_2,uint param_3); /* 0x1001e0c0 */
 int __cdecl _write_lk(uint param_1,char *param_2,uint param_3); /* 0x1001e140 */
 void __cdecl _getbuf(int *param_1); /* 0x1001e350 */
-byte __cdecl _isatty(uint param_1); /* 0x1001e3b0 */
+uint __cdecl _isatty(uint param_1); /* 0x1001e3b0 */
 int __cdecl wctomb(undefined1 *param_1,ushort param_2); /* 0x1001e3e0 */
 int __cdecl _wctomb_lk(undefined1 *param_1,ushort param_2); /* 0x1001e450 */
 int __stdcall _aulldiv(int a1,int a2,int a3,int a4); /* 0x1001e4d0 */
@@ -760,7 +760,7 @@ undefined4 FUN_10013c00(int *param_1); /* 0x10013c00 */
 undefined4 FUN_10013e0b(void); /* 0x10013e0b */
 void FUN_10013e11(void); /* 0x10013e11 */
 void __cdecl FUN_10013e40(int param_1); /* 0x10013e40 */
-bool FUN_10013e8a(void); /* 0x10013e8a */
+int FUN_10013e8a(void); /* 0x10013e8a */
 void FUN_10013e95(void); /* 0x10013e95 */
 int __cdecl FUN_10013ec0(int param_1,int *param_2); /* 0x10013ec0 */
 undefined4 __stdcall FUN_10013ef0(int a1,int a2,int a3); /* 0x10013ef0 */
@@ -774,7 +774,7 @@ void FUN_1001421e(void); /* 0x1001421e */
 void FUN_10014f80(uint param_1); /* 0x10014f80 */
 void FUN_10014ff0(uint param_1); /* 0x10014ff0 */
 undefined4 FUN_10015160(int a1); /* 0x10015160 */
-bool FUN_1001519c(void); /* 0x1001519c */
+int FUN_1001519c(void); /* 0x1001519c */
 undefined4 __stdcall FUN_100151b0(int a1); /* 0x100151b0 */
 int FUN_100156f0(int *param_1); /* 0x100156f0 */
 void FUN_100157a0(void); /* 0x100157a0 */

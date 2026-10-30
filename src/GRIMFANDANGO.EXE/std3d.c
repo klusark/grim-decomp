@@ -452,7 +452,7 @@ int __cdecl D3D_AddTriangles(void *tris,uint count)
 #if 0
 /* Terminates and executes the buffer on the device */
 
-bool D3D_ExecuteBuffer(void)
+int D3D_ExecuteBuffer(void)
 
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1909,7 +1909,7 @@ LAB_0047a825:
 }
 
 /* ---- 0x0047a850  D3D_CapsToFilterBits ---- */
-byte D3D_CapsToFilterBits(uint param_1)
+uint D3D_CapsToFilterBits(uint param_1)
 
 {
   byte bVar1;
@@ -1937,7 +1937,7 @@ byte D3D_CapsToFilterBits(uint param_1)
 }
 
 /* ---- 0x0047a890  D3D_FilterBitsToMask ---- */
-byte D3D_FilterBitsToMask(byte param_1)
+uint D3D_FilterBitsToMask(byte param_1)
 
 {
   byte bVar1;
@@ -1968,7 +1968,7 @@ byte D3D_FilterBitsToMask(byte param_1)
 }
 
 /* ---- 0x0047a8e0  D3D_FilterBitsToEnum ---- */
-byte D3D_FilterBitsToEnum(byte param_1)
+uint D3D_FilterBitsToEnum(byte param_1)
 
 {
   byte bVar1;

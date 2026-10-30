@@ -574,7 +574,7 @@ undefined4 CosUtil_ComponentHasAdjuster(int param_1,uint param_2)
 /* ---- 0x100027e0  CosUtil_AddComponent ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-bool CosUtil_AddComponent
+int CosUtil_AddComponent
                (undefined4 param_1,int param_2,int param_3,undefined4 param_4,undefined4 param_5)
 
 {

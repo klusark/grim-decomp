@@ -193,7 +193,7 @@ int __cdecl Plat_SaveFileDialog(char *title,char *filter)
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Editor prompt dialog with labelled numeric fields */
 
-bool Plat_PromptDialog(int param_1,int param_2,undefined4 *param_3,uint param_4)
+int Plat_PromptDialog(int param_1,int param_2,undefined4 *param_3,uint param_4)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */

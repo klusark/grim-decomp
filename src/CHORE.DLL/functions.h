@@ -79,7 +79,7 @@ char * FUN_100056a0(char *param_1,char param_2); /* 0x100056a0 */
 void FUN_100056d0(void); /* 0x100056d0 */
 void FUN_100056f0(void); /* 0x100056f0 */
 void FUN_10005700(void); /* 0x10005700 */
-char FUN_10005740(byte *param_1,byte *param_2); /* 0x10005740 */
+int FUN_10005740(byte *param_1,byte *param_2); /* 0x10005740 */
 int __cdecl FUN_10005810(char *param_1,char *param_2,...); /* 0x10005810 */
 undefined4 * FUN_10005860(undefined4 *param_1,undefined4 *param_2,uint param_3); /* 0x10005860 */
 void FUN_10005ba0(uint param_1,uint param_2,uint param_3,code *param_4); /* 0x10005ba0 */
@@ -98,7 +98,7 @@ undefined4 CosUtil_RegisterBitmapMunger(undefined4 param_1); /* 0x10002070 */
 undefined4 CosUtil_DeleteComponent(uint param_1,uint param_2); /* 0x10002260 */
 int CosUtil_AdjustComponent(int param_1,uint param_2); /* 0x100026a0 */
 undefined4 CosUtil_ComponentHasAdjuster(int param_1,uint param_2); /* 0x10002740 */
-bool CosUtil_AddComponent (undefined4 param_1,int param_2,int param_3,undefined4 param_4,undefined4 param_5); /* 0x100027e0 */
+int CosUtil_AddComponent (undefined4 param_1,int param_2,int param_3,undefined4 param_4,undefined4 param_5); /* 0x100027e0 */
 int CosUtil_AddChore(int param_1); /* 0x10002880 */
 undefined4 __cdecl CosUtil_DeleteChore(int param_1,uint param_2); /* 0x100028f0 */
 int __cdecl CosUtil_SetChoreLength(int param_1,uint param_2,uint param_3); /* 0x100029e0 */

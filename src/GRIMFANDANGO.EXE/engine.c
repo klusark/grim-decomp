@@ -149,7 +149,7 @@ void Engine_SetExtraDataDir(char *param_1)
 }
 
 /* ---- 0x00482790  Engine_RunSystemScript ---- */
-bool Engine_RunSystemScript(void)
+int Engine_RunSystemScript(void)
 
 {
   int iVar1;
@@ -191,7 +191,7 @@ void Engine_InvalidateRect(int *param_1,int param_2)
 }
 
 /* ---- 0x004828d0  Engine_CallExitHandler ---- */
-bool Engine_CallExitHandler(void)
+int Engine_CallExitHandler(void)
 
 {
   int iVar1;

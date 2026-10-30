@@ -167,7 +167,7 @@ undefined4 ModelComponent_Stop(int param_1)
    y' text or asks for a .3do file ('Select model file to add...') and loads it as a model resource.
     */
 
-bool ModelComponent_Create(uint param_1,int param_2,int param_3,int param_4,char *param_5)
+int ModelComponent_Create(uint param_1,int param_2,int param_3,int param_4,char *param_5)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */

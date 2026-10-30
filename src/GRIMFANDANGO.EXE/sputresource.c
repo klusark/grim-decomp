@@ -50,7 +50,7 @@ void sputResource_Terminate(void)
    (non-zero makes the whole start-up unwind). _Start installs the ResFile services and registers
    the resource types. */
 
-bool sputResource_Start(void)
+int sputResource_Start(void)
 
 {
   int iVar1;

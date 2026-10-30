@@ -235,7 +235,7 @@ int * KeyframeComponent_NewInstance(int param_1,int *param_2,int param_3)
    Cos_NewStateBasedTag/Cos_NewIntTag): slot 1, builds a key from 'name priority tagged' text or
    asks for a .key file and loads it as a Keyframe resource. */
 
-bool KeyframeComponent_Create(uint param_1,int param_2,int param_3,int param_4,uint param_5)
+int KeyframeComponent_Create(uint param_1,int param_2,int param_3,int param_4,uint param_5)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */

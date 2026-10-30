@@ -5471,7 +5471,7 @@ void Lua_IsPointInSector(void)
 #if 0
 /* lua_dofile('_system.lua') */
 
-bool Lua_RunSystemScript(void)
+int Lua_RunSystemScript(void)
 
 {
   int iVar1;

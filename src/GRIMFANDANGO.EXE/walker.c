@@ -790,12 +790,11 @@ void __thiscall Walker_ToLocalSpace(void *this,float *vec)
 /* ---- 0x004a83c0  Walker_TurnHeading ---- */
 /* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
-undefined * __thiscall Walker_TurnHeading(void *this,float angle)
+void __thiscall Walker_TurnHeading(void *this,float angle)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float *vec;
-  undefined *extraout_EAX;
   #define local_30 (*(float (*)[12])(_frame + (0x40 - 0x30)))
   
   Matrix_AxisAngle(local_30,(int)this + 0x24,angle);
@@ -811,7 +810,7 @@ undefined * __thiscall Walker_TurnHeading(void *this,float angle)
   *(float *)((int)this + 0x1c) = *(float *)((int)this + 0x1c) - *(float *)((int)this + 0x34);
   *(float *)((int)this + 0x20) = *(float *)((int)this + 0x20) - *(float *)((int)this + 0x38);
   Walker_RebuildRightVector((int)this);
-  return extraout_EAX;
+  return;
 }
 #undef local_30
 
@@ -859,17 +858,14 @@ float __thiscall Walker_TurnToPoint(void *this,float *point,float maxTurn)
 /* ---- 0x004a85b0  Walker_SetConstraint ---- */
 /* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
-undefined * __thiscall Walker_SetConstraint(void *this,int a1)
+void __thiscall Walker_SetConstraint(void *this,int a1)
 
 {
-  undefined *in_EAX;
   float *pfVar1;
-  undefined *extraout_EAX;
   
   *(undefined4 *)((int)this + 0x50) = 0;
-  if ((*(void **)((int)this + 0x5c) != (void *)0x0) && (in_EAX = (undefined *)0x0, a1 != 0)) {
+  if ((*(void **)((int)this + 0x5c) != (void *)0x0) && (a1 != 0)) {
     pfVar1 = Sector_EdgeFollowDirection(*(void **)((int)this + 0x5c),this);
-    in_EAX = (undefined *)0x0;
     if (pfVar1 != (float *)0x0) {
       *(float *)((int)this + 0x44) = *pfVar1;
       *(float *)((int)this + 0x48) = pfVar1[1];
@@ -879,10 +875,9 @@ undefined * __thiscall Walker_SetConstraint(void *this,int a1)
       *(float *)((int)this + 0x20) = pfVar1[2];
       Walker_RebuildRightVector((int)this);
       *(undefined4 *)((int)this + 0x50) = 1;
-      in_EAX = extraout_EAX;
     }
   }
-  return in_EAX;
+  return;
 }
 #endif
 
@@ -1040,13 +1035,12 @@ undefined * __thiscall Walker_WalkSectors(void *this,float step,int turnLeftOk,i
 /* ---- 0x004a89b0  Walker_SetSectorFrame ---- */
 /* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
-undefined * __thiscall Walker_SetSectorFrame(void *this,int a1)
+void __thiscall Walker_SetSectorFrame(void *this,int a1)
 
 {
   float *pfVar1;
   float *pfVar2;
   float *pfVar3;
-  undefined *extraout_EAX;
   
   pfVar1 = (float *)((int)this + 0x24);
   pfVar2 = (float *)((int)this + 0x18);
@@ -1069,7 +1063,7 @@ undefined * __thiscall Walker_SetSectorFrame(void *this,int a1)
   *(float *)((int)this + 0x20) =
        *(float *)((int)this + 0x10) * *pfVar1 - *(float *)((int)this + 0x28) * *pfVar3;
   Vec3_Normalize(pfVar2);
-  return extraout_EAX;
+  return;
 }
 #endif
 
