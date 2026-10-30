@@ -454,7 +454,7 @@
 | 1000f390 | _global_unwind2 | crt.c | 8 |
 | 1000f3d2 | _local_unwind2 | crt.c | 37 |
 | 1000f43a | _unwind_handler | crt.c | 17 |
-| 1000f466 | _NLG_Notify | crt.c | 1 |
+| 1000f466 | _NLG_Notify | crt.c | 13 |
 | 1000f480 | vsprintf | crt.c | 30 |
 | 1000f4f0 | sprintf | crt.c | 30 |
 | 1000f560 | printf | crt.c | 15 |
@@ -525,7 +525,7 @@
 | 10013930 | FrameUnwindToState | crt.c | 38 |
 | 10013a10 | CatchIt | crt.c | 26 |
 | 10013aa0 | CallCatchBlock | crt.c | 39 |
-| 10013b98 | Eh_CallCatchBlockInner | crt.c | 1 |
+| 10013b98 | Eh_CallCatchBlockInner | crt.c | 23 |
 | 10013c30 | BuildCatchObject | crt.c | 99 |
 | 10013f40 | _mtinit | crt.c | 25 |
 | 10013fa0 | _mtterm | crt.c | 12 |
@@ -534,7 +534,7 @@
 | 10014070 | _freeptd | crt.c | 36 |
 | 10014120 | terminate | crt.c | 34 |
 | 10014240 | _flsbuf | crt.c | 72 |
-| 10014370 | _output | crt.c | 1 |
+| 10014370 | _output | crt.c | 447 |
 | 10014d00 | write_char | crt.c | 25 |
 | 10014d50 | write_multi_char | crt.c | 14 |
 | 10014d90 | write_string | crt.c | 18 |
@@ -599,7 +599,7 @@
 | 1001c0f0 | __crtCompareStringA | crt.c | 117 |
 | 1001c3c0 | _strncnt | crt.c | 17 |
 | 1001c3f0 | wcstol | crt.c | 10 |
-| 1001c410 | wcstoxl | crt.c | 1 |
+| 1001c410 | wcstoxl | crt.c | 111 |
 | 1001c5f0 | __crtGetLocaleInfoA | crt.c | 60 |
 | 1001c860 | _setenvp | crt.c | 98 |
 | 1001c950 | _setargv | crt.c | 31 |
@@ -628,8 +628,8 @@
 | 1001e3b0 | _isatty | crt.c | 10 |
 | 1001e3e0 | wctomb | crt.c | 22 |
 | 1001e450 | _wctomb_lk | crt.c | 31 |
-| 1001e4d0 | _aulldiv | crt.c | 1 |
-| 1001e540 | _aullrem | crt.c | 1 |
+| 1001e4d0 | _aulldiv | crt.c | 43 |
+| 1001e540 | _aullrem | crt.c | 45 |
 | 1001e5c0 | _callnewh | crt.c | 15 |
 | 1001e5e0 | __sbh_alloc_new_region | crt.c | 74 |
 | 1001e750 | __sbh_release_region | crt.c | 18 |
