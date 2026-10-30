@@ -160,7 +160,7 @@
 | 0049c660 | Lua_CallCamChangeHandler | lua.c | 27 |
 | 0049c6e0 | Lua_CallPostCamChangeHandler | lua.c | 26 |
 | 0049c8f0 | Lua_UpdateFrame | lua.c | 1 |
-| 0049ca60 | Lua_OpenEngineLib | lua.c | 1 |
+| 0049ca60 | Lua_OpenEngineLib | lua.c | 8 |
 | 0049ca80 | Lua_JustLoaded | lua.c | 17 |
 | 0049caa0 | Lua_ActorVoiceIs3D | lua.c | 25 |
 | 0049cb10 | Lua_ResolveCostumeArg | lua.c | 50 |
@@ -1004,7 +1004,7 @@
 | 00450170 | Matrix_TransformPoints | math3d.c | 12 |
 | 00450220 | FUN_00450220 | math3d.c | 18 |
 | 00450260 | FUN_00450260 | math3d.c | 11 |
-| 00450290 | Math3D_TriangleNormal | math3d.c | 1 |
+| 00450290 | Math3D_TriangleNormal | math3d.c | 32 |
 | 00450380 | Vec3_ZeroSmallComponents | math3d.c | 40 |
 | 00450410 | Math3D_PointsCollinear | math3d.c | 34 |
 | 00446c10 | rdClip_Line2D | rdclip.c | 1 |
@@ -1318,7 +1318,7 @@
 | 004827a0 | Engine_CallSystemFunction | engine.c | 22 |
 | 00482800 | Engine_InvalidateRect | engine.c | 6 |
 | 004828d0 | Engine_CallExitHandler | engine.c | 8 |
-| 004828e0 | Engine_Quit | engine.c | 1 |
+| 004828e0 | Engine_Quit | engine.c | 10 |
 | 00482900 | Engine_SetPaused | engine.c | 28 |
 | 00482980 | Engine_CallCharacterHandler | engine.c | 8 |
 | 00482990 | Engine_UpdateFrame | engine.c | 66 |
@@ -1445,7 +1445,7 @@
 | 0048fb80 | Actor_CanSee | actor.c | 20 |
 | 0048fbd0 | Actor_TurnKey | actor.c | 37 |
 | 0048fc80 | Actor_WalkForward | actor.c | 13 |
-| 0048fd90 | Actor_UpdateMovement | actor.c | 1 |
+| 0048fd90 | Actor_UpdateMovement | actor.c | 40 |
 | 0048fe80 | Actor_UpdateLookAt | actor.c | 137 |
 | 00490210 | Actor_UpdateTalk | actor.c | 1 |
 | 00490320 | Actor_SetSelected | actor.c | 1 |
@@ -1456,7 +1456,7 @@
 | 004906b0 | Actor_SetFollowBoxes | actor.c | 25 |
 | 00490730 | Actor_CreateWalker | actor.c | 1 |
 | 00490870 | Actor_SetPositionClamped | actor.c | 31 |
-| 00490900 | Actor_SetRot | actor.c | 1 |
+| 00490900 | Actor_SetRot | actor.c | 58 |
 | 00490a40 | Actor_SetReflection | actor.c | 11 |
 | 00490a60 | Actor_SetWalkChore | actor.c | 38 |
 | 00490b50 | Actor_SetTurnChores | actor.c | 44 |
