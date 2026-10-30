@@ -78,24 +78,24 @@ void * __cdecl stdBitmap_LoadFile(char *name,int a,int b)
   local_4 = 0;
   iVar5 = _stricmp(local_8,&DAT_004ddec4);
   if (iVar5 == 0) {
-    pvVar3 = (void *)FUN_0047f120(name,a,b);
+    pvVar3 = (void *)stdLbm_Load(name,a,b);
     return pvVar3;
   }
   iVar5 = _stricmp(local_8,&DAT_004ddebc);
   if (iVar5 == 0) {
-    pvVar3 = (void *)stdLbm_Load(name,a,b);
+    pvVar3 = (void *)stdPcx_Load(name,a,b);
     return pvVar3;
   }
   iVar5 = _stricmp(local_8,&DAT_004ddeb4);
   if (iVar5 == 0) {
-    pvVar3 = (void *)stdPcx_Load(name,a,b);
+    pvVar3 = (void *)stdGif_Load(name,a,b);
     return pvVar3;
   }
   iVar5 = _stricmp(local_8,&DAT_004ddeb0);
   if ((iVar5 != 0) && (iVar5 = _stricmp(local_8,&DAT_004ddea8), iVar5 != 0)) {
     iVar5 = _stricmp(local_8,&DAT_004ddea0);
     if (iVar5 == 0) {
-      pvVar3 = (void *)stdGif_Load(name,a,b);
+      pvVar3 = (void *)stdPic_Load(name,a,b);
       return pvVar3;
     }
     iVar5 = _stricmp(local_8,&DAT_004dde98);

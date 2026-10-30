@@ -1,5 +1,5 @@
 /* GRIMFANDANGO.EXE :: debuglog.c
- * functions 0x00401040 .. 0x00402560 (3 functions)
+ * functions 0x00401040 .. 0x00402560 (8 functions)
  * Decompiled from the shipped binaries with Ghidra; see ../../README.md */
 #include "ghidra_types.h"
 #include "globals.h"
@@ -28,11 +28,11 @@ void __cdecl DebugLog_Init(int enable)
         Engine_OpenResourceLog(s_resource_log_004dd414);
       }
       UINT_004f5a08 = DebugLog_Load();
-      _DAT_008ddda8 = FUN_00402330;
-      _DAT_008ddda4 = FUN_004023a0;
-      _DAT_008dddb0 = FUN_00402410;
-      UINT_008dddac = (uint)FUN_00402480;
-      _DAT_008dddb4 = FUN_004024f0;
+      _DAT_008ddda8 = DebugLog_Printf2;
+      _DAT_008ddda4 = DebugLog_Printf;
+      _DAT_008dddb0 = DebugLog_Error;
+      UINT_008dddac = (uint)DebugLog_Warning;
+      _DAT_008dddb4 = DebugLog_Debug;
       UINT_004f5a54 = 1;
     }
     if (enable != 0) {
@@ -77,6 +77,102 @@ undefined4 DebugLog_Load(void)
     }
   }
   return 0;
+}
+
+/* ---- 0x00402330  DebugLog_Printf2 ---- */
+/* g_MainServices.pPrintf2: like DebugLog_Printf with its own 0x400 buffer. */
+
+char * DebugLog_Printf2(char *param_1)
+
+{
+  _snprintf(&DAT_004f55b0,0x400,param_1,&STACK0X(0x00000008));
+  if ((UINT_004f5a08 == 0) || (g_bWindowedMode == 0)) {
+    Svc_DebugPrintf(&DAT_004f55b0);
+  }
+  else {
+    param_1 = (char *)(*(code *)UINT_004f5a3c)(&DAT_004f55b0);
+  }
+  if (UINT_004f5a18 != 0) {
+    DebugLog_Write(&DAT_004f55b0,0);
+  }
+  return param_1;
+}
+
+/* ---- 0x004023a0  DebugLog_Printf ---- */
+/* g_MainServices.pPrintf: snprintf into a 0x400 buffer, prints to the debugger/window and appends
+   to debug.log. */
+
+char * DebugLog_Printf(char *param_1)
+
+{
+  _snprintf(&DAT_004f4538,0x400,param_1,&STACK0X(0x00000008));
+  if ((UINT_004f5a08 == 0) || (g_bWindowedMode == 0)) {
+    Svc_DebugPrintf(&DAT_004f4538);
+  }
+  else {
+    param_1 = (char *)(*(code *)UINT_004f5a3c)(&DAT_004f4538);
+  }
+  if (UINT_004f5a18 != 0) {
+    DebugLog_Write(&DAT_004f4538,0);
+  }
+  return param_1;
+}
+
+/* ---- 0x00402410  DebugLog_Error ---- */
+/* g_MainServices.pError: formats into a 0x400 buffer, prints and appends to debug.log. */
+
+char * DebugLog_Error(char *param_1)
+
+{
+  _snprintf(&DAT_004f4db0,0x400,param_1,&STACK0X(0x00000008));
+  if ((UINT_004f5a08 == 0) || (g_bWindowedMode == 0)) {
+    Svc_DebugPrintf(&DAT_004f4db0);
+  }
+  else {
+    param_1 = (char *)(*(code *)UINT_004f5a3c)(&DAT_004f4db0);
+  }
+  if (UINT_004f5a18 != 0) {
+    DebugLog_Write(&DAT_004f4db0,0);
+  }
+  return param_1;
+}
+
+/* ---- 0x00402480  DebugLog_Warning ---- */
+/* g_MainServices.pWarning: formats into a 0x400 buffer, prints and appends to debug.log. */
+
+char * DebugLog_Warning(char *param_1)
+
+{
+  _snprintf(&DAT_004f51b0,0x400,param_1,&STACK0X(0x00000008));
+  if ((UINT_004f5a08 == 0) || (g_bWindowedMode == 0)) {
+    Svc_DebugPrintf(&DAT_004f51b0);
+  }
+  else {
+    param_1 = (char *)(*(code *)UINT_004f5a3c)(&DAT_004f51b0);
+  }
+  if (UINT_004f5a18 != 0) {
+    DebugLog_Write(&DAT_004f51b0,0);
+  }
+  return param_1;
+}
+
+/* ---- 0x004024f0  DebugLog_Debug ---- */
+/* g_MainServices.pDebug: formats into a 0x400 buffer, prints and appends to debug.log. */
+
+char * DebugLog_Debug(char *param_1)
+
+{
+  _snprintf(&DAT_004f4938,0x400,param_1,&STACK0X(0x00000008));
+  if ((UINT_004f5a08 == 0) || (g_bWindowedMode == 0)) {
+    Svc_DebugPrintf(&DAT_004f4938);
+  }
+  else {
+    param_1 = (char *)(*(code *)UINT_004f5a3c)(&DAT_004f4938);
+  }
+  if (UINT_004f5a18 != 0) {
+    DebugLog_Write(&DAT_004f4938,0);
+  }
+  return param_1;
 }
 
 /* ---- 0x00402560  DebugLog_Write ---- */

@@ -1,5 +1,5 @@
 /* GRIMFANDANGO.EXE :: math.c
- * functions 0x004735d0 .. 0x0047c8c0 (14 functions)
+ * functions 0x004735d0 .. 0x0047c5f0 (11 functions)
  * Decompiled from the shipped binaries with Ghidra; see ../../README.md */
 #include "ghidra_types.h"
 #include "globals.h"
@@ -578,98 +578,5 @@ float __cdecl Math_Atan2Deg(float y,float x)
 #undef local_8
 #undef local_c
 
-#endif
-
-
-/* ---- 0x0047c7c0  FUN_0047c7c0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
-void FUN_0047c7c0(undefined4 param_1)
-
-{
-  FUN_0047c7e0(param_1,&DAT_004dda54);
-  return;
-}
-#endif
-
-
-/* ---- 0x0047c7e0  FUN_0047c7e0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
-undefined4 FUN_0047c7e0(byte *param_1,undefined4 param_2)
-
-{
-  byte bVar1;
-  byte *pbVar2;
-  int iVar3;
-  byte *pbVar4;
-  bool bVar5;
-  
-  if (UINT_0080cbcc != 0) {
-    FUN_0047ca00();
-  }
-  pbVar4 = &DAT_004e7630;
-  pbVar2 = param_1;
-  do {
-    bVar1 = *pbVar2;
-    bVar5 = bVar1 < *pbVar4;
-    if (bVar1 != *pbVar4) {
-LAB_0047c822:
-      iVar3 = (1 - (uint)bVar5) - (uint)(bVar5 != 0);
-      goto LAB_0047c827;
-    }
-    if (bVar1 == 0) break;
-    bVar1 = pbVar2[1];
-    bVar5 = bVar1 < pbVar4[1];
-    if (bVar1 != pbVar4[1]) goto LAB_0047c822;
-    pbVar2 = pbVar2 + 2;
-    pbVar4 = pbVar4 + 2;
-  } while (bVar1 != 0);
-  iVar3 = 0;
-LAB_0047c827:
-  if (iVar3 == 0) {
-    UINT_0080cbd0 = 0;
-  }
-  else {
-    UINT_0080cbd0 = (*g_pSvcMain->pFopen)(param_1,param_2);
-    if ((int)UINT_0080cbd0 < 1) {
-      UINT_0080cbd0 = 0;
-      if (UINT_0080cbcc != 0) {
-        FUN_0047ca90();
-      }
-      return 0;
-    }
-  }
-  UINT_00900520 =
-       (*g_pSvcMain->pAlloc)(0x400,s_C__grimjedi_Libs_Std_General_Std_004e7604,DAT_004e7600 + 0x1d);
-  strncpy(&DAT_009004a0,param_1,0x7f);
-  DAT_0090051f = 0;
-  UINT_0080cbc8 = 0;
-  UINT_0080cbcc = 1;
-  return 1;
-}
-#endif
-
-
-/* ---- 0x0047c8c0  FUN_0047c8c0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
-void FUN_0047c8c0(void)
-
-{
-  if (UINT_0080cbcc != 0) {
-    if (UINT_0080cbd0 != 0) {
-      (*g_pSvcMain->pFclose)(UINT_0080cbd0);
-    }
-    UINT_0080cbd0 = 0;
-    (*g_pSvcMain->pFree)(UINT_00900520);
-    if (UINT_0080cbd8 != 0) {
-      FUN_0047ca90();
-      return;
-    }
-    UINT_0080cbcc = 0;
-  }
-  return;
-}
 #endif
 

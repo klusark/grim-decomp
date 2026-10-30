@@ -1303,7 +1303,7 @@ void rdCache_Flush3DBatch(void)
     }
     D3D_BeginInstructions();
     if (g_nRdroidZBufferMode == 2) {
-      qsort(&DAT_006cbfb0,UINT_0060bfa0,0x14,FUN_00407f90);
+      qsort(&DAT_006cbfb0,UINT_0060bfa0,0x14,rdCache_CompareBatchEntries);
     }
     if (UINT_006f0fb0 != 0) {
       D3D_AddTriangles(&DAT_00606fa0,UINT_006f0fb0);
@@ -1319,10 +1319,13 @@ void rdCache_Flush3DBatch(void)
 #endif
 
 
-/* ---- 0x00407f90  FUN_00407f90 ---- */
+/* ---- 0x00407f90  rdCache_CompareBatchEntries ---- */
 /* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
-int FUN_00407f90(int param_1,int param_2)
+/* qsort comparator of rdCache_Flush3DBatch: orders entries by material, then by their position in
+   the list. */
+
+int rdCache_CompareBatchEntries(int param_1,int param_2)
 
 {
   int iVar1;

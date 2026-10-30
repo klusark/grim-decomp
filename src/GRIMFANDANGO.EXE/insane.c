@@ -1,5 +1,5 @@
 /* GRIMFANDANGO.EXE :: insane.c
- * functions 0x004bd370 .. 0x004bddb0 (8 functions)
+ * functions 0x004bd370 .. 0x004bddb0 (11 functions)
  * Decompiled from the shipped binaries with Ghidra; see ../../README.md */
 #include "ghidra_types.h"
 #include "globals.h"
@@ -41,9 +41,9 @@ undefined4 Insane_RegisterFilio(uint param_1,undefined4 *param_2)
     UINT_008d16a0 = 1;
     if (param_2 != (undefined4 *)0x0) {
       *param_2 = Insane_RegisterFilio;
-      param_2[1] = FUN_004bd430;
-      param_2[2] = FUN_004bd440;
-      param_2[3] = FUN_004bd4d0;
+      param_2[1] = Insane_Terminate;
+      param_2[2] = Insane_Start;
+      param_2[3] = Insane_Stop;
       param_2[4] = 0;
       param_2[5] = 0;
       param_2[6] = 0;
@@ -52,6 +52,66 @@ undefined4 Insane_RegisterFilio(uint param_1,undefined4 *param_2)
     uVar1 = 0;
   }
   return uVar1;
+}
+
+/* ---- 0x004bd430  Insane_Terminate ---- */
+/* Module interface slot 1 (Insane): called by Engine_ResetSubsystems / when registration fails;
+   drops the service table pointer and clears the initialised flag. */
+
+void Insane_Terminate(void)
+
+{
+  LecShare_Shutdown();
+  UINT_008d16a0 = 0;
+  return;
+}
+
+/* ---- 0x004bd440  Insane_Start ---- */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+#if 0
+/* Module interface slot 2 (Insane): called by Engine_InitSubsystems, returns 0 on success (non-zero
+   makes the whole start-up unwind). _Start starts the LecShare module chain of the INSANE/Smush
+   player. */
+
+undefined4 Insane_Start(void)
+
+{
+  int iVar1;
+  undefined4 uVar2;
+  
+  uVar2 = 1;
+  if ((UINT_008d16a0 != 0) && (UINT_008d16a4 == 0)) {
+    ((code *)deflateParams_or_SetDictionary)(1,&DAT_004f0cc4,0);
+    ((code *)deflateParams_or_SetDictionary)(1,&DAT_004f0cbc,0);
+    ((code *)deflateParams_or_SetDictionary)(1,&DAT_004f0cb8,0);
+    ((code *)deflateParams_or_SetDictionary)(1,&DAT_004f0cb4,0);
+    iVar1 = LecShare_StartupModules();
+    if (iVar1 == 0) {
+      iVar1 = (*(code *)PTR_008d11d4[4])(&PTR_PTR_004f0b70,0);
+      if (iVar1 == 0) {
+        UINT_008d16a4 = 1;
+        uVar2 = 0;
+      }
+    }
+  }
+  return uVar2;
+}
+#endif
+
+
+/* ---- 0x004bd4d0  Insane_Stop ---- */
+/* Module interface slot 3 (Insane): called by Engine_ShutdownSubsystems in reverse order; releases
+   what _Start created. */
+
+void Insane_Stop(void)
+
+{
+  if (UINT_008d16a4 != 0) {
+    (*(code *)PTR_008d11d4[5])(&PTR_PTR_004f0b70);
+    LecShare_UnwindStartup();
+    UINT_008d16a4 = 0;
+  }
+  return;
 }
 
 /* ---- 0x004bd540  Insane_SetOutputParams ---- */

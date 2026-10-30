@@ -15,9 +15,9 @@ undefined4 sputTime_Initialize(undefined4 param_1,undefined4 *param_2)
 {
   _DAT_008cab94 = param_1;
   *param_2 = sputTime_Initialize;
-  param_2[1] = FUN_004a3d50;
-  param_2[2] = FUN_004a3d70;
-  param_2[3] = FUN_004a3da0;
+  param_2[1] = sputTime_Terminate;
+  param_2[2] = sputTime_Start;
+  param_2[3] = sputTime_Stop;
   param_2[4] = 0;
   param_2[5] = 0;
   param_2[6] = 0;
@@ -26,10 +26,12 @@ undefined4 sputTime_Initialize(undefined4 param_1,undefined4 *param_2)
   return 0;
 }
 
-/* ---- 0x004a3d50  FUN_004a3d50 ---- */
+/* ---- 0x004a3d50  sputTime_Terminate ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+/* Module interface slot 1 (sputTime): called by Engine_ResetSubsystems / when registration fails;
+   drops the service table pointer and clears the initialised flag. */
 
-void FUN_004a3d50(void)
+void sputTime_Terminate(void)
 
 {
   _DAT_008cab94 = 0;
@@ -39,8 +41,11 @@ void FUN_004a3d50(void)
   return;
 }
 
-/* ---- 0x004a3d70  FUN_004a3d70 ---- */
-undefined4 FUN_004a3d70(void)
+/* ---- 0x004a3d70  sputTime_Start ---- */
+/* Module interface slot 2 (sputTime): called by Engine_InitSubsystems, returns 0 on success
+   (non-zero makes the whole start-up unwind). _Start resets the frame timer. */
+
+undefined4 sputTime_Start(void)
 
 {
   if (UINT_008cab9c != 0) {
@@ -51,8 +56,11 @@ undefined4 FUN_004a3d70(void)
   return 0;
 }
 
-/* ---- 0x004a3da0  FUN_004a3da0 ---- */
-void FUN_004a3da0(void)
+/* ---- 0x004a3da0  sputTime_Stop ---- */
+/* Module interface slot 3 (sputTime): called by Engine_ShutdownSubsystems in reverse order;
+   releases what _Start created. */
+
+void sputTime_Stop(void)
 
 {
   UINT_008cab9c = 0;

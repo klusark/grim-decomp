@@ -1,5 +1,5 @@
 /* GRIMFANDANGO.EXE :: restype.c
- * functions 0x004801a0 .. 0x0048dee0 (12 functions)
+ * functions 0x004801a0 .. 0x0048e1e0 (14 functions)
  * Decompiled from the shipped binaries with Ghidra; see ../../README.md */
 #include "ghidra_types.h"
 #include "globals.h"
@@ -103,6 +103,39 @@ int __cdecl ResType_DefaultHandler(void *msg)
 #undef local_4
 
 
+/* ---- 0x0048d8c0  ResType_LipSyncHandler ---- */
+/* Resource type handler for 'SYNC' (entry of g_ResTypeTable): op 1 loads, op 2 frees, op 3 reports
+   the size. Load = grimSound_LipSyncLoad. */
+
+void * ResType_LipSyncHandler(int *param_1)
+
+{
+  int iVar1;
+  void *pvVar2;
+  
+  if (param_1[2] == 0x53594e43) {
+    iVar1 = *param_1;
+    if (iVar1 == 1) {
+      pvVar2 = (void *)grimSound_LipSyncLoad(param_1[1]);
+      if (pvVar2 != (void *)0x0) {
+        pvVar2 = Res_Register(param_1[2],(char *)param_1[1],pvVar2);
+        return pvVar2;
+      }
+    }
+    else {
+      if (iVar1 == 2) {
+        grimSound_LipSyncFree(param_1[3]);
+        return (void *)0x1;
+      }
+      if (iVar1 == 3) {
+        param_1[4] = *(int *)(param_1[3] + 0x20) + 0x28;
+        return (void *)0x1;
+      }
+    }
+  }
+  return (void *)0x0;
+}
+
 /* ---- 0x0048d930  ResType_BitmapHandler ---- */
 /* BKND handler: op 1 loads the .bm with stdBitmap and remaps 16-bit frames to the display, op 2
    frees it, op 3 reports its size */
@@ -197,8 +230,11 @@ int __cdecl ResType_CostumeHandler(void *msg)
   return (int)pvVar2;
 }
 
-/* ---- 0x0048dab0  FUN_0048dab0 ---- */
-void * FUN_0048dab0(int *param_1)
+/* ---- 0x0048dab0  ResType_ColormapHandler ---- */
+/* Resource type handler for 'CMAP' (entry of g_ResTypeTable): op 1 loads, op 2 frees, op 3 reports
+   the size. Load = rdColormap_Load + 16-bit tables + pixel remap. */
+
+void * ResType_ColormapHandler(int *param_1)
 
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -277,10 +313,13 @@ void * FUN_0048dab0(int *param_1)
 #undef local_c
 
 
-/* ---- 0x0048dbd0  FUN_0048dbd0 ---- */
+/* ---- 0x0048dbd0  ResType_FontHandler ---- */
 /* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
-void * FUN_0048dbd0(int *param_1)
+/* Resource type handler for 'FONT' (entry of g_ResTypeTable): op 1 loads, op 2 frees, op 3 reports
+   the size. Load = Font_LoadFile, kept locked. */
+
+void * ResType_FontHandler(int *param_1)
 
 {
   int *piVar1;
@@ -315,8 +354,11 @@ void * FUN_0048dbd0(int *param_1)
 #endif
 
 
-/* ---- 0x0048dc60  FUN_0048dc60 ---- */
-void * FUN_0048dc60(int *param_1)
+/* ---- 0x0048dc60  ResType_KeyframeHandler ---- */
+/* Resource type handler for 'KEYF' (entry of g_ResTypeTable): op 1 loads, op 2 frees, op 3 reports
+   the size. Load = rdKeyframe_Load (default 15 fps). */
+
+void * ResType_KeyframeHandler(int *param_1)
 
 {
   int iVar1;
@@ -330,7 +372,7 @@ void * FUN_0048dc60(int *param_1)
   }
   iVar1 = *param_1;
   if (iVar1 == 1) {
-    pvVar3 = (void *)FUN_004c0660(param_1[1]);
+    pvVar3 = (void *)rdKeyframe_Load(param_1[1]);
     if (pvVar3 == (void *)0x0) {
       return (void *)0x0;
     }
@@ -339,7 +381,7 @@ void * FUN_0048dc60(int *param_1)
     return pvVar3;
   }
   if (iVar1 == 2) {
-    FUN_004c0e40(param_1[3]);
+    rdKeyframe_Free(param_1[3]);
   }
   else {
     if (iVar1 != 3) {
@@ -363,8 +405,11 @@ void * FUN_0048dc60(int *param_1)
   return (void *)0x1;
 }
 
-/* ---- 0x0048dd20  FUN_0048dd20 ---- */
-void * FUN_0048dd20(int *param_1)
+/* ---- 0x0048dd20  ResType_MaterialHandler ---- */
+/* Resource type handler for 'MAT ' (entry of g_ResTypeTable): op 1 loads, op 2 frees, op 3 reports
+   the size. Load = rdMaterial_LoadFile, falls back to dflt.mat. */
+
+void * ResType_MaterialHandler(int *param_1)
 
 {
   void *material;
@@ -405,8 +450,11 @@ void * FUN_0048dd20(int *param_1)
   return pvVar2;
 }
 
-/* ---- 0x0048de10  FUN_0048de10 ---- */
-void * FUN_0048de10(int *param_1)
+/* ---- 0x0048de10  ResType_ModelHandler ---- */
+/* Resource type handler for 'MODL' (entry of g_ResTypeTable): op 1 loads, op 2 frees, op 3 reports
+   the size. Load = rdModel3_New (.3do). */
+
+void * ResType_ModelHandler(int *param_1)
 
 {
   int iVar1;
@@ -415,7 +463,7 @@ void * FUN_0048de10(int *param_1)
   if (param_1[2] == 0x4c444f4d) {
     iVar1 = *param_1;
     if (iVar1 == 1) {
-      pvVar2 = (void *)FUN_0040a8f0(param_1[1]);
+      pvVar2 = (void *)rdModel3_New(param_1[1]);
       if (pvVar2 != (void *)0x0) {
         pvVar2 = Res_Register(param_1[2],(char *)param_1[1],pvVar2);
         return pvVar2;
@@ -423,7 +471,7 @@ void * FUN_0048de10(int *param_1)
     }
     else {
       if (iVar1 == 2) {
-        FUN_0040c0d0(param_1[3]);
+        rdModel3_Free(param_1[3]);
         return (void *)0x1;
       }
       if (iVar1 == 3) {
@@ -435,8 +483,11 @@ void * FUN_0048de10(int *param_1)
   return (void *)0x0;
 }
 
-/* ---- 0x0048de70  FUN_0048de70 ---- */
-void * FUN_0048de70(int *param_1)
+/* ---- 0x0048de70  ResType_SetHandler ---- */
+/* Resource type handler for 'SET ' (entry of g_ResTypeTable): op 1 loads, op 2 frees, op 3 reports
+   the size. Load = Set_LoadFile. */
+
+void * ResType_SetHandler(int *param_1)
 
 {
   int iVar1;
@@ -445,7 +496,7 @@ void * FUN_0048de70(int *param_1)
   if (param_1[2] == 0x20544553) {
     iVar1 = *param_1;
     if (iVar1 == 1) {
-      pvVar2 = (void *)FUN_004a49a0(param_1[1]);
+      pvVar2 = (void *)Set_LoadFile(param_1[1]);
       if (pvVar2 != (void *)0x0) {
         pvVar2 = Res_Register(param_1[2],(char *)param_1[1],pvVar2);
         return pvVar2;
@@ -453,7 +504,7 @@ void * FUN_0048de70(int *param_1)
     }
     else {
       if (iVar1 == 2) {
-        FUN_004a4c40(param_1[3]);
+        Set_Free(param_1[3]);
         return (void *)0x1;
       }
       if (iVar1 == 3) {
@@ -465,10 +516,13 @@ void * FUN_0048de70(int *param_1)
   return (void *)0x0;
 }
 
-/* ---- 0x0048dee0  FUN_0048dee0 ---- */
+/* ---- 0x0048dee0  ResType_ZBufferHandler ---- */
 /* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
-void * FUN_0048dee0(int *param_1)
+/* Resource type handler for 'ZBUF' (entry of g_ResTypeTable): op 1 loads, op 2 frees, op 3 reports
+   the size. Load = ZBuffer_Load (z-buffer bitmap). */
+
+void * ResType_ZBufferHandler(int *param_1)
 
 {
   int iVar1;
@@ -477,7 +531,7 @@ void * FUN_0048dee0(int *param_1)
   if (param_1[2] == 0x4655425a) {
     iVar1 = *param_1;
     if (iVar1 == 1) {
-      pvVar2 = (void *)((code *)FUN_004a4920)(param_1[1]);
+      pvVar2 = (void *)((code *)ZBuffer_Load)(param_1[1]);
       if (pvVar2 != (void *)0x0) {
         pvVar2 = Res_Register(param_1[2],(char *)param_1[1],pvVar2);
         return pvVar2;
@@ -485,7 +539,7 @@ void * FUN_0048dee0(int *param_1)
     }
     else {
       if (iVar1 == 2) {
-        FUN_004a4980(param_1[3]);
+        ZBuffer_Free(param_1[3]);
         return (void *)0x1;
       }
       if (iVar1 == 3) {
@@ -498,3 +552,28 @@ void * FUN_0048dee0(int *param_1)
 }
 #endif
 
+
+/* ---- 0x0048e1e0  ResType_MemoryHandler ---- */
+/* Resource type handler for 'MEM ' (entry of g_ResTypeTable): op 1 loads, op 2 frees, op 3 reports
+   the size. Plain memory block: free releases the block and its data. */
+
+undefined4 ResType_MemoryHandler(int *param_1)
+
+{
+  int iVar1;
+  undefined4 *puVar2;
+  
+  iVar1 = *param_1;
+  if (iVar1 != 1) {
+    if (iVar1 == 2) {
+      puVar2 = (undefined4 *)param_1[3];
+      (**(code **)(UINT_008ca1d0 + 0x24))(*puVar2);
+      (**(code **)(UINT_008ca1d0 + 0x24))(puVar2);
+    }
+    else if (iVar1 == 3) {
+      param_1[4] = *(int *)(param_1[3] + 4);
+      return 1;
+    }
+  }
+  return 1;
+}

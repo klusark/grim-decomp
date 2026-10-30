@@ -280,7 +280,7 @@ void __cdecl Font_Free(void *font)
 /* ---- 0x004aa9b0  Text_NextChar ---- */
 /* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
-/* Returns the next character and advances; the pointer becomes NULL at the end of the string */
+/* Text.c: returns the next character of the text cursor (asserts *ppText) */
 
 char __cdecl Text_NextChar(char **pText)
 
@@ -795,8 +795,7 @@ undefined4 Text_BuildLineTable(undefined4 param_1,int *param_2)
 /* ---- 0x004ab210  Text_LayoutString ---- */
 /* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
-/* Measures one line with word wrap (flag 4) within the clip rect and applies centre (1) / right (2)
-   justification; returns the start of the next line */
+/* Advances through the string computing glyph positions for the given width (ctx at +0x208) */
 
 char * Text_LayoutString(void *param_1,void *param_2,char *param_3,int *param_4,uint *param_5,
                         int param_6)

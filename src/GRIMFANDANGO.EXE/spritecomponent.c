@@ -1,105 +1,328 @@
 /* GRIMFANDANGO.EXE :: spritecomponent.c
- * functions 0x00496340 .. 0x00496e10 (4 functions)
+ * functions 0x00498280 .. 0x004986e0 (5 functions)
  * Decompiled from the shipped binaries with Ghidra; see ../../README.md */
 #include "ghidra_types.h"
 #include "globals.h"
 #include "functions.h"
 
-/* ---- 0x00496340  SpriteComponent_Destroy ---- */
-/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+/* ---- 0x00498280  SpriteComponent_Create ---- */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+#if 0
+/* Costume tag handler for 'Sprite' (registered by sputCostume_Start through
+   Cos_NewStateBasedTag/Cos_NewIntTag): slot 1, builds a sprite key; asks for a .mat file ('Select
+   mat file for sprite') and creates the polyline. */
 
-undefined4 SpriteComponent_Destroy(undefined4 param_1,undefined4 param_2,void *param_3)
+undefined4
+SpriteComponent_Create
+          (undefined4 param_1,undefined4 param_2,int param_3,float param_4,char *param_5)
 
 {
-  _DAT_008ca7b4 = param_3;
-  ResRef_Remove(param_3);
+  unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  char cVar1;
+  uint uVar2;
+  undefined *puVar3;
+  undefined4 uVar4;
+  char *pcVar5;
+  int *piVar6;
+  int iVar7;
+  uint uVar8;
+  int *piVar9;
+  undefined4 *puVar10;
+  char *pcVar11;
+  int *piVar12;
+  #define local_50 (*(uint *)(_frame + (0x60 - 0x50)))
+  #define local_4c (*(uint *)(_frame + (0x60 - 0x4c)))
+  #define local_48 (*(uint *)(_frame + (0x60 - 0x48)))
+  #define local_44 (*(uint *)(_frame + (0x60 - 0x44)))
+  #define local_40 (*(uint *)(_frame + (0x60 - 0x40)))
+  #define local_3c (*(uint *)(_frame + (0x60 - 0x3c)))
+  #define local_38 (*(uint *)(_frame + (0x60 - 0x38)))
+  #define local_34 (*(uint *)(_frame + (0x60 - 0x34)))
+  #define local_30 (*(uint *)(_frame + (0x60 - 0x30)))
+  #define local_2c (*(uint *)(_frame + (0x60 - 0x2c)))
+  #define local_28 (*(uint *)(_frame + (0x60 - 0x28)))
+  #define local_24 (*(uint *)(_frame + (0x60 - 0x24)))
+  #define local_20 (*(char *)(_frame + (0x60 - 0x20)))
+  #define local_1f (*(undefined4 *)(_frame + (0x60 - 0x1f)))
+  #define local_1 (*(undefined1 *)(_frame + (0x60 - 0x1)))
+  
+  local_20 = DAT_004f5a98;
+  puVar10 = &local_1f;
+  for (iVar7 = 7; iVar7 != 0; iVar7 = iVar7 + -1) {
+    *puVar10 = 0;
+    puVar10 = puVar10 + 1;
+  }
+  *(undefined2 *)puVar10 = 0;
+  *(undefined1 *)((int)puVar10 + 2) = 0;
+  local_34 = 1;
+  local_30 = 0;
+  local_2c = 0;
+  local_28 = 0;
+  local_24 = 0;
+  local_40 = 0;
+  local_3c = 0;
+  local_38 = 0;
+  if ((param_3 != 0) && (param_4 == 216341.2)) {
+    if (param_5 == (char *)0x0) {
+      if (DAT_008ca938 != '\0') {
+        Plat_SetDialogDirectory(&DAT_008ca938);
+      }
+      iVar7 = Plat_OpenFileDialog(s_Select_mat_file_for_sprite____004ea834,
+                                  s_Material_files____mat__004ea5a4);
+      if (iVar7 == 0) {
+        return 0;
+      }
+      uVar4 = ((code *)Plat_GetDialogFileName)(0x7f);
+      ((code *)strncpy)(&DAT_008ca938,uVar4);
+      DAT_008ca9b7 = 0;
+      pcVar5 = Str_Basename(g_szDialogFileName);
+      param_5 = pcVar5;
+    }
+    else {
+      strncpy(&local_20,param_5,0x1f);
+      local_1 = 0;
+      pcVar5 = &local_20;
+      strtok(&local_20,&DAT_004ea52c);
+      uVar2 = strtok(0,&DAT_004ea52c);
+      if (uVar2 != 0) {
+        puVar3 = atoi(uVar2);
+        local_44 = (uint)((float)(int)puVar3 * 0.01);
+        uVar2 = strtok(0,&DAT_004ea52c);
+        puVar3 = atoi(uVar2);
+        local_48 = (uint)((float)(int)puVar3 * 0.01);
+        uVar2 = strtok(0,&DAT_004ea52c);
+        puVar3 = atoi(uVar2);
+        local_50 = (uint)((float)(int)puVar3 * 0.01);
+        uVar2 = strtok(0,&DAT_004ea52c);
+        puVar3 = atoi(uVar2);
+        local_4c = (uint)((float)(int)puVar3 * 0.01);
+        uVar2 = strtok(0,&DAT_004ea52c);
+        puVar3 = atoi(uVar2);
+        param_4 = (float)(int)puVar3 * 0.01;
+      }
+    }
+    piVar6 = (int *)(*g_pSvcCostume->pAlloc)
+                              (0x24,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0x1026);
+    if (piVar6 != (int *)0x0) {
+      piVar12 = piVar6;
+      for (iVar7 = 9; iVar7 != 0; iVar7 = iVar7 + -1) {
+        *piVar12 = 0;
+        piVar12 = piVar12 + 1;
+      }
+      local_40 = local_50;
+      local_3c = local_4c;
+      local_38 = (uint)param_4;
+      iVar7 = rdPolyline_New(0,pcVar5,pcVar5,local_44,local_48,5,0,1,0,&local_40);
+      *piVar6 = iVar7;
+      uVar2 = 0xffffffff;
+      do {
+        pcVar11 = pcVar5;
+        if (uVar2 == 0) break;
+        uVar2 = uVar2 - 1;
+        pcVar11 = pcVar5 + 1;
+        cVar1 = *pcVar5;
+        pcVar5 = pcVar11;
+      } while (cVar1 != '\0');
+      uVar2 = ~uVar2;
+      piVar9 = (int *)(pcVar11 + -uVar2);
+      piVar12 = piVar6;
+      for (uVar8 = uVar2 >> 2; piVar12 = piVar12 + 1, uVar8 != 0; uVar8 = uVar8 - 1) {
+        *piVar12 = *piVar9;
+        piVar9 = piVar9 + 1;
+      }
+      for (uVar2 = uVar2 & 3; uVar2 != 0; uVar2 = uVar2 - 1) {
+        *(char *)piVar12 = (char)*piVar9;
+        piVar9 = (int *)((int)piVar9 + 1);
+        piVar12 = (int *)((int)piVar12 + 1);
+      }
+      local_34 = *(int *)(*(int *)(*piVar6 + 0x7c) + 0x60) + 1;
+      local_30 = 0;
+      local_2c = 0;
+      iVar7 = Cos_RegisterComponent(param_1,param_5,piVar6,param_2,param_3,0x4853454d,&local_34);
+      if (iVar7 != 0) {
+        return 1;
+      }
+      if (local_30 != 0) {
+        (*g_pSvcCostume->pFree)(local_30);
+        return 0;
+      }
+    }
+  }
+  return 0;
+}
+#undef local_1
+#undef local_1f
+#undef local_20
+#undef local_24
+#undef local_28
+#undef local_2c
+#undef local_30
+#undef local_34
+#undef local_38
+#undef local_3c
+#undef local_40
+#undef local_44
+#undef local_48
+#undef local_4c
+#undef local_50
+
+#endif
+
+
+/* ---- 0x00498550  SpriteComponent_OnKey ---- */
+/* Costume tag handler for 'Sprite' (registered by sputCostume_Start through
+   Cos_NewStateBasedTag/Cos_NewIntTag): slot 0, shows (key>0, selects frame key-1) or hides the
+   sprite. */
+
+void SpriteComponent_OnKey(undefined4 param_1,int param_2,undefined4 param_3,int param_4)
+
+{
+  if (param_4 == 0) {
+    *(undefined4 *)(param_2 + 0x38) = 0;
+    return;
+  }
+  *(undefined4 *)(param_2 + 0x38) = 1;
+  *(int *)(*(int *)(*(int *)(param_2 + 0x34) + 0x7c) + 100) = param_4 + -1;
+  return;
+}
+
+/* ---- 0x00498580  SpriteComponent_Destroy ---- */
+/* Costume tag handler, slot 2 of the 'Sprite' tag: frees the key data. (Was named
+   KeyframeComponent_Destroy.) */
+
+undefined4 SpriteComponent_Destroy(undefined4 param_1,undefined4 param_2,int *param_3)
+
+{
+  rdMaterial_Free(*(undefined4 *)(*param_3 + 0x7c));
+  rdSprite_Free(*param_3);
   (*g_pSvcCostume->pFree)(param_3);
   return 1;
 }
 
-/* ---- 0x00496370  FUN_00496370 ---- */
+/* ---- 0x004985c0  FUN_004985c0 ---- */
 /* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
-undefined4 * FUN_00496370(undefined4 param_1,undefined4 param_2,int *param_3)
+undefined4 * FUN_004985c0(int param_1,undefined4 *param_2,int param_3)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  int *piVar1;
+  int iVar1;
   int iVar2;
   undefined4 *puVar3;
-  undefined4 uVar4;
-  undefined4 *puVar5;
-  #define uStack_8 (*(undefined4 *)(_frame + (0x20 - 0x8)))
-  #define auStack_4 (*(undefined1 (*)[4])(_frame + (0x20 - 0x4)))
+  undefined4 *puVar4;
   
-  if (param_3 == (int *)0x0) {
-    iVar2 = Cos_InstGetInstanceData(param_1,param_2,0);
-    ResRef_Remove((void *)(iVar2 + 4));
-    (*g_pSvcCostume->pFree)(iVar2);
+  iVar1 = param_1;
+  if (param_3 == 0) {
+    iVar1 = Cos_InstGetInstanceData(param_1,param_2,0);
+    iVar2 = *(int *)(iVar1 + 0x50) + -1;
+    *(int *)(iVar1 + 0x50) = iVar2;
+    if (iVar2 == 0) {
+      rdThing_Free(*(undefined4 *)(iVar1 + 0x40));
+      (*g_pSvcCostume->pFree)(iVar1);
+    }
     return (undefined4 *)0x0;
   }
+  Cos_InstComponentInfo(param_1,param_2,&param_3,&param_2,&param_1);
   puVar3 = (undefined4 *)
-           (*g_pSvcCostume->pAlloc)(0x38,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0x8fa);
-  Cos_InstComponentInfo(param_1,param_2,auStack_4,&param_3,&uStack_8);
-  piVar1 = param_3;
-  puVar5 = puVar3;
-  for (iVar2 = 0xe; iVar2 != 0; iVar2 = iVar2 + -1) {
-    *puVar5 = 0;
-    puVar5 = puVar5 + 1;
+           (*g_pSvcCostume->pAlloc)(0x194,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0x1070);
+  puVar4 = puVar3;
+  for (iVar2 = 0x65; iVar2 != 0; iVar2 = iVar2 + -1) {
+    *puVar4 = 0;
+    puVar4 = puVar4 + 1;
   }
-  if (*param_3 == 0) {
-    (*g_pSvcMain->pAssertFail)
-              (s_Bad_Colormap_Reference_004e8090,s_main_sputResource_h_004e80a8,0x9f);
+  puVar3[0xd] = *param_2;
+  iVar2 = rdThing_New(0);
+  puVar3[0x10] = iVar2;
+  *(undefined4 *)(iVar2 + 0x30) = 0;
+  rdThing_SetPolyline(puVar3[0x10],*param_2);
+  if (-1 < param_1) {
+    puVar4 = (undefined4 *)Cos_InstGetInstanceData(iVar1,param_1,0);
+    puVar3[0x11] = *puVar4;
+    puVar3[0x12] = puVar4[1];
+    puVar3[0x14] = puVar3[0x14] + 1;
+    puVar3[0xe] = 0;
+    return puVar3;
   }
-  ResRef_Add(puVar3 + 1,(void *)piVar1[1],s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0x8ff);
-  uVar4 = Cos_InstGetInstanceData(param_1,uStack_8,0);
-  *puVar3 = uVar4;
+  puVar3[0x11] = 0;
+  puVar3[0x14] = puVar3[0x14] + 1;
+  puVar3[0x12] = 0xffffffff;
+  puVar3[0xe] = 1;
   return puVar3;
 }
-#undef auStack_4
-#undef uStack_8
-
 #endif
 
 
-/* ---- 0x00496d70  SpriteComponent_NewInstance ---- */
+/* ---- 0x004986e0  SpriteComponent_EditKey ---- */
 /* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
-/* Source: Engine/sputCostume.cpp (line 2900, from __FILE__/__LINE__ passed to the allocator) */
+/* Costume tag handler for 'Sprite' (registered by sputCostume_Start through
+   Cos_NewStateBasedTag/Cos_NewIntTag): slot 4, editor dialog for the sprite's Width and Height. */
 
-undefined4 * SpriteComponent_NewInstance(undefined4 param_1,undefined4 param_2,int param_3)
+undefined4 SpriteComponent_EditKey(undefined4 *param_1,undefined4 param_2)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int *piVar1;
-  undefined4 uVar2;
-  undefined4 *puVar3;
-  #define auStack_4 (*(undefined1 (*)[4])(_frame + (0x20 - 0x4)))
+  int iVar2;
+  undefined4 unaff_ESI;
+  undefined4 unaff_EDI;
+  longlong lVar3;
+  #define local_48 (*(uint *)(_frame + (0x60 - 0x48)))
+  #define local_44 (*(uint *)(_frame + (0x60 - 0x44)))
+  #define local_40 (*(uint *)(_frame + (0x60 - 0x40)))
+  #define local_3c (*(uint *)(_frame + (0x60 - 0x3c)))
+  #define local_38 (*(uint *)(_frame + (0x60 - 0x38)))
+  #define local_34 (*(uint *)(_frame + (0x60 - 0x34)))
+  #define local_30 (*(uint *)(_frame + (0x60 - 0x30)))
+  #define local_2c (*(uint *)(_frame + (0x60 - 0x2c)))
+  #define local_28 (*(uint *)(_frame + (0x60 - 0x28)))
+  #define local_24 (*(uint *)(_frame + (0x60 - 0x24)))
+  #define local_20 (*(char (*)[32])(_frame + (0x60 - 0x20)))
   
-  if (param_3 == 0) {
-    uVar2 = Cos_InstGetInstanceData(param_1,param_2,0);
-    (*g_pSvcCostume->pFree)(uVar2);
-    return (undefined4 *)0x0;
+  local_34 = (uint)s_Width_004ea87c;
+  local_30 = (uint)s_Height_004ea874;
+  piVar1 = (int *)*param_1;
+  local_2c = (uint)&DAT_004ea870;
+  local_28 = (uint)&DAT_004ea86c;
+  local_24 = (uint)&DAT_004ea868;
+  lVar3 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+  local_48 = (uint)lVar3;
+  lVar3 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+  local_44 = (uint)lVar3;
+  lVar3 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+  local_40 = (uint)lVar3;
+  lVar3 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+  local_3c = (uint)lVar3;
+  lVar3 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+  local_38 = (uint)lVar3;
+  iVar2 = Plat_PromptDialog(param_2,&local_34,&local_48,5);
+  if (iVar2 != 0) {
+    *(float *)(*piVar1 + 0x4c) = (float)(int)local_48 * 0.01;
+    *(float *)(*piVar1 + 0x50) = (float)(int)local_44 * 0.01;
+    *(float *)(*piVar1 + 0x54) = *(float *)(*piVar1 + 0x4c) * 0.5;
+    *(float *)(*piVar1 + 0x58) = *(float *)(*piVar1 + 0x50) * 0.5;
+    *(float *)(*piVar1 + 0xac) = (float)(int)local_40 * 0.01;
+    *(float *)(*piVar1 + 0xb0) = (float)(int)local_3c * 0.01;
+    *(float *)(*piVar1 + 0xb4) = (float)(int)local_38 * 0.01;
+    iVar2 = strtok(param_2,&DAT_004ea52c);
+    sprintf(local_20,s__s__d__d__d__d__d_004ea854,iVar2,local_48,local_44,local_40,local_3c,local_38
+           );
+    strncpy(iVar2,local_20,0x1f);
+    *(undefined1 *)(iVar2 + 0x1f) = 0;
+    return 1;
   }
-  puVar3 = (undefined4 *)
-           (*g_pSvcCostume->pAlloc)(0xc,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0xb54);
-  piVar1 = puVar3 + 1;
-  Cos_InstComponentInfo(param_1,param_2,auStack_4,piVar1,&param_3);
-  *piVar1 = *piVar1 >> 0x10;
-  uVar2 = Cos_InstGetInstanceData(param_1,param_3,0);
-  *puVar3 = uVar2;
-  puVar3[2] = 1;
-  return puVar3;
+  return 0;
 }
-#undef auStack_4
+#undef local_20
+#undef local_24
+#undef local_28
+#undef local_2c
+#undef local_30
+#undef local_34
+#undef local_38
+#undef local_3c
+#undef local_40
+#undef local_44
+#undef local_48
 
 #endif
 
-
-/* ---- 0x00496e10  FUN_00496e10 ---- */
-void FUN_00496e10(int param_1)
-
-{
-  *(undefined4 *)(param_1 + 8) = 1;
-  return;
-}

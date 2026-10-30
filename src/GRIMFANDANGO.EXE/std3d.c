@@ -27,7 +27,7 @@ undefined4 D3D_Enumerate(void)
     return 0;
   }
   g_dwD3dDriverCount = 0;
-  iVar1 = (**(code_std **)(*(int *)g_pDirect3D + 0x10))(g_pDirect3D,FUN_0047a3b0,0);
+  iVar1 = (**(code_std **)(*(int *)g_pDirect3D + 0x10))(g_pDirect3D,D3D_EnumDevicesCallback,0);
   if (iVar1 != 0) {
     return 0;
   }
@@ -118,7 +118,7 @@ int __cdecl D3D_SelectDriver(uint driverIdx,int useZBuffer)
   }
   UINT_00806930 = 0;
   uStack_a4 = 0;
-  pcStack_a8 = FUN_0047a590;
+  pcStack_a8 = D3D_EnumTextureFormatsCallback;
   pvStack_ac = g_pD3dDevice;
   iVar1 = (**(code_std **)(*(int *)g_pD3dDevice + 0x38))();
   if (iVar1 != 0) {
@@ -1683,8 +1683,11 @@ undefined4 D3D_CreateZBuffer(int param_1,int param_2)
 #endif
 
 
-/* ---- 0x0047a3b0  FUN_0047a3b0 ---- */
-undefined * __stdcall FUN_0047a3b0(int a1,int a2,int a3,int a4,int a5,int a6)
+/* ---- 0x0047a3b0  D3D_EnumDevicesCallback ---- */
+/* IDirect3D::EnumDevices callback of D3D_Enumerate: stores GUID, name, description and caps of up
+   to 4 3D drivers. */
+
+undefined * __stdcall D3D_EnumDevicesCallback(int a1,int a2,int a3,int a4,int a5,int a6)
 
 {
   int iVar1;
@@ -1769,8 +1772,11 @@ undefined * __stdcall FUN_0047a3b0(int a1,int a2,int a3,int a4,int a5,int a6)
   return (undefined *)0x0;
 }
 
-/* ---- 0x0047a590  FUN_0047a590 ---- */
-undefined * __stdcall FUN_0047a590(int a1,int a2)
+/* ---- 0x0047a590  D3D_EnumTextureFormatsCallback ---- */
+/* EnumTextureFormats callback of D3D_SelectDriver: stores the RGB/palette texture formats with
+   their shifts and bit counts (up to 8). */
+
+undefined * __stdcall D3D_EnumTextureFormatsCallback(int a1,int a2)
 
 {
   int iVar1;

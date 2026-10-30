@@ -1,5 +1,5 @@
 /* GRIMFANDANGO.EXE :: lab.c
- * functions 0x00480120 .. 0x00482020 (13 functions)
+ * functions 0x00480120 .. 0x00482020 (12 functions)
  * Decompiled from the shipped binaries with Ghidra; see ../../README.md */
 #include "ghidra_types.h"
 #include "globals.h"
@@ -12,27 +12,6 @@ void Lab_CloseAll(void)
   while (PTR_008a85c4 != (int *)0x0) {
     Lab_Close((char *)(PTR_008a85c4 + 2));
   }
-  return;
-}
-
-/* ---- 0x00480140  FUN_00480140 ---- */
-void FUN_00480140(void)
-
-{
-  if (UINT_008a85bc != 0) {
-    Lab_CloseAll();
-    Engine_ResetState();
-    if (UINT_008a85c8 != 0) {
-      Pool_Destroy(UINT_008a85c8);
-    }
-    if (UINT_008a85c0 != 0) {
-      Pool_Destroy(UINT_008a85c0);
-    }
-    if (UINT_008a85d0 != 0) {
-      Pool_Destroy(UINT_008a85d0);
-    }
-  }
-  UINT_008a85bc = 0;
   return;
 }
 

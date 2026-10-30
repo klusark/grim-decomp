@@ -1405,10 +1405,13 @@ void FUN_00450260(int param_1)
 #endif
 
 
-/* ---- 0x00450290  FUN_00450290 ---- */
+/* ---- 0x00450290  Math3D_TriangleNormal ---- */
 /* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
-void FUN_00450290(float *param_1,float *param_2,float *param_3,float *param_4)
+/* Normal of the triangle (p0,p1,p2) from the normalised edges p1-p0 and p2-p0, with tiny components
+   zeroed. */
+
+void Math3D_TriangleNormal(float *param_1,float *param_2,float *param_3,float *param_4)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1431,7 +1434,7 @@ void FUN_00450290(float *param_1,float *param_2,float *param_3,float *param_4)
   param_1[1] = (float)local_18 * (float)local_4 - (float)local_10 * (float)local_c;
   param_1[2] = (float)local_14 * (float)local_c - (float)local_18 * (float)local_8;
   Vec3_Normalize(param_1);
-  FUN_00450380(param_1,0x358637bd);
+  Vec3_ZeroSmallComponents(param_1,0x358637bd);
   return;
 }
 #undef local_10
@@ -1444,10 +1447,12 @@ void FUN_00450290(float *param_1,float *param_2,float *param_3,float *param_4)
 #endif
 
 
-/* ---- 0x00450380  FUN_00450380 ---- */
+/* ---- 0x00450380  Vec3_ZeroSmallComponents ---- */
 /* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
-void FUN_00450380(float *param_1,float param_2)
+/* Sets every component whose magnitude is below the epsilon argument to 0. */
+
+void Vec3_ZeroSmallComponents(float *param_1,float param_2)
 
 {
   float fVar1;
@@ -1488,10 +1493,12 @@ void FUN_00450380(float *param_1,float param_2)
 #endif
 
 
-/* ---- 0x00450410  FUN_00450410 ---- */
+/* ---- 0x00450410  Math3D_PointsCollinear ---- */
 /* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
-undefined4 FUN_00450410(float *param_1,float *param_2,float *param_3)
+/* True when the normalised edges p1-p0 and p2-p0 are parallel (|dot| within 0.999..1.001). */
+
+undefined4 Math3D_PointsCollinear(float *param_1,float *param_2,float *param_3)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */

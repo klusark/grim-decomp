@@ -268,10 +268,10 @@ void __cdecl Res_InstallFileServices(GrimServices *svc)
   svc->pFopen = ResFile_Open;
   svc->pFclose = ResFile_Close;
   svc->pFread = ResFile_Read;
-  svc->pFgets = FUN_00480bb0;
-  svc->pFwrite = FUN_00480ce0;
-  svc->pFeof = FUN_00480d50;
-  svc->pFtell = FUN_00480dc0;
+  svc->pFgets = ResFile_Gets;
+  svc->pFwrite = ResFile_Write;
+  svc->pFeof = ResFile_Eof;
+  svc->pFtell = ResFile_Tell;
   svc->pFseek = ResFile_Seek;
   svc->pFileSize = ResFile_Size;
   svc->pFprintf = ResFile_Printf;

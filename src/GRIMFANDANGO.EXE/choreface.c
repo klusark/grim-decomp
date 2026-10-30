@@ -1,5 +1,5 @@
 /* GRIMFANDANGO.EXE :: choreface.c
- * functions 0x00402120 .. 0x004024f0 (8 functions)
+ * functions 0x00402120 .. 0x00402290 (3 functions)
  * Decompiled from the shipped binaries with Ghidra; see ../../README.md */
 #include "ghidra_types.h"
 #include "globals.h"
@@ -49,7 +49,7 @@ int __cdecl ChoreFace_Toggle(int show)
       if (iVar1 == 0) {
         iVar1 = (*(code *)UINT_004f4d98)();
         if (iVar1 == 0) {
-          _DAT_004f5a80 = (*(code *)UINT_004f5a78)(FUN_00402290);
+          _DAT_004f5a80 = (*(code *)UINT_004f5a78)(ChoreFace_OnCommand);
           UINT_004f5a6c = 1;
           goto LAB_004021fb;
         }
@@ -73,8 +73,12 @@ undefined4 FUN_00402200(void)
   return 1;
 }
 
-/* ---- 0x00402290  FUN_00402290 ---- */
-void FUN_00402290(undefined4 param_1,int param_2)
+/* ---- 0x00402290  ChoreFace_OnCommand ---- */
+/* Callback handed to choreface.dll (UINT_004f5a78): 1 = frame update, 2/3 = pause/unpause, 4/5 =
+   pop/push the selected actor costume (forces windowed mode while editing), >=7 sets
+   g_fixedFrameMs. */
+
+void ChoreFace_OnCommand(undefined4 param_1,int param_2)
 
 {
   switch(param_2) {
@@ -111,89 +115,4 @@ switchD_00402299_caseD_0:
     g_fixedFrameMs = param_2 + -7;
     return;
   }
-}
-
-/* ---- 0x00402330  FUN_00402330 ---- */
-char * FUN_00402330(char *param_1)
-
-{
-  _snprintf(&DAT_004f55b0,0x400,param_1,&STACK0X(0x00000008));
-  if ((UINT_004f5a08 == 0) || (g_bWindowedMode == 0)) {
-    Svc_DebugPrintf(&DAT_004f55b0);
-  }
-  else {
-    param_1 = (char *)(*(code *)UINT_004f5a3c)(&DAT_004f55b0);
-  }
-  if (UINT_004f5a18 != 0) {
-    DebugLog_Write(&DAT_004f55b0,0);
-  }
-  return param_1;
-}
-
-/* ---- 0x004023a0  FUN_004023a0 ---- */
-char * FUN_004023a0(char *param_1)
-
-{
-  _snprintf(&DAT_004f4538,0x400,param_1,&STACK0X(0x00000008));
-  if ((UINT_004f5a08 == 0) || (g_bWindowedMode == 0)) {
-    Svc_DebugPrintf(&DAT_004f4538);
-  }
-  else {
-    param_1 = (char *)(*(code *)UINT_004f5a3c)(&DAT_004f4538);
-  }
-  if (UINT_004f5a18 != 0) {
-    DebugLog_Write(&DAT_004f4538,0);
-  }
-  return param_1;
-}
-
-/* ---- 0x00402410  FUN_00402410 ---- */
-char * FUN_00402410(char *param_1)
-
-{
-  _snprintf(&DAT_004f4db0,0x400,param_1,&STACK0X(0x00000008));
-  if ((UINT_004f5a08 == 0) || (g_bWindowedMode == 0)) {
-    Svc_DebugPrintf(&DAT_004f4db0);
-  }
-  else {
-    param_1 = (char *)(*(code *)UINT_004f5a3c)(&DAT_004f4db0);
-  }
-  if (UINT_004f5a18 != 0) {
-    DebugLog_Write(&DAT_004f4db0,0);
-  }
-  return param_1;
-}
-
-/* ---- 0x00402480  FUN_00402480 ---- */
-char * FUN_00402480(char *param_1)
-
-{
-  _snprintf(&DAT_004f51b0,0x400,param_1,&STACK0X(0x00000008));
-  if ((UINT_004f5a08 == 0) || (g_bWindowedMode == 0)) {
-    Svc_DebugPrintf(&DAT_004f51b0);
-  }
-  else {
-    param_1 = (char *)(*(code *)UINT_004f5a3c)(&DAT_004f51b0);
-  }
-  if (UINT_004f5a18 != 0) {
-    DebugLog_Write(&DAT_004f51b0,0);
-  }
-  return param_1;
-}
-
-/* ---- 0x004024f0  FUN_004024f0 ---- */
-char * FUN_004024f0(char *param_1)
-
-{
-  _snprintf(&DAT_004f4938,0x400,param_1,&STACK0X(0x00000008));
-  if ((UINT_004f5a08 == 0) || (g_bWindowedMode == 0)) {
-    Svc_DebugPrintf(&DAT_004f4938);
-  }
-  else {
-    param_1 = (char *)(*(code *)UINT_004f5a3c)(&DAT_004f4938);
-  }
-  if (UINT_004f5a18 != 0) {
-    DebugLog_Write(&DAT_004f4938,0);
-  }
-  return param_1;
 }
