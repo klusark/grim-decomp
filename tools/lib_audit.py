@@ -222,6 +222,15 @@ def main(argv):
     if os.environ.get("DNODE"):
         d0 = int(os.environ["DNODE"], 16)
         print("dnode", hex(d0), dend[d0] - d0, [(k, seen.get(t) if k == "f" else hex(t)) for k, t in sorted(dedges[d0])][:40])
+    if os.environ.get("WHYSTUB"):
+        rev = {}
+        for a_, bs in edges.items():
+            for b_ in bs:
+                rev.setdefault(b_, set()).add(a_)
+        for q in os.environ["WHYSTUB"].split(","):
+            if q in byname:
+                print(q, "referenced by", [seen[x] + ("(live)" if x in live else "(dead)") for x in sorted(rev.get(byname[q], ()))][:8],
+                      "data" if byname[q] in dataroots else "")
     if out_json:
         json.dump({seen[a]: [hex(a), a in live, a in dataroots] for a in starts}, open(out_json, "w"))
 
