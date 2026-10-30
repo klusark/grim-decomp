@@ -6,6 +6,8 @@
 #include "functions.h"
 
 /* ---- 0x10018300  GetLcidFromCountryOnly ---- */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
 
 void GetLcidFromCountryOnly(void)
@@ -30,6 +32,8 @@ void GetLcidFromCountryOnly(void)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x10018340  FUN_10018340 ---- */
 undefined4 __stdcall FUN_10018340(int a1)
