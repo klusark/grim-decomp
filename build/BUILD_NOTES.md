@@ -1179,3 +1179,10 @@ Root causes fixed at the source (Ghidra, then `tools/export_changed.py`)
 * Two agents edit the same Ghidra project: when both retype one function the last write wins (TextObject_New is 4 parameters, the
   last two unused, since agent O; agent P's 2-parameter calls pass 0, 0). After merging agents, re-export with a clean raw/
   (`rm raw/<PROG>/functions/*.c` first: export_raw.py skips files that exist), regenerate, build.
+* **IMUSE.DLL is C** (agent N, round 3): 4 of 243 functions stay assembled (three music state/sequence transitions that read
+  arguments their callers never push, and the dead `_ftol`), 13 are hand-written in build/overrides_imuse.c. Notes and the
+  per-function reasons: docs/notes/imuse.md, docs/ASM_REMAINING_imuse.md; the PCM oracle and differential tests: build/perf/imuse/.
+  Root causes found on the way: four untyped pointer globals (Ghidra printed byte offsets, C scaled them by 4: the mixer accumulator
+  was written 36 KB past its buffer: names/imuse_ptr_types.json, tools/type_pointer_globals.py), DirectSound COM calls and `hmiFX*`
+  imports are __stdcall, address literals inside arithmetic need IMG_ADDR, lost `movsx` in Im_MixLoopC/D (negative samples twice as
+  loud), lost x87 values in Im_MixerInit. The game-time iMUSE block (GRIM_SIMTIME) is unchanged: me_tank3.wav ends after 414 frames.
