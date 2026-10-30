@@ -658,3 +658,19 @@ Bug classes found on the way (each is a pattern to grep for when something else 
   prototype / C call site with the original code. Real finding: `luaY_error`/`lparser__a730` took no parameters in Ghidra, so the compiled C passed only the
   format string to `luaL_verror` (garbage error messages); the remaining reports are assembled callees (harmless), CRT code that is not linked, or split
   functions/jump tables where the stack-slot scan is blind.
+
+## Eyes / 128-texel textures (2026-10-29, agent E)
+
+Symptom: Manny's face was a white box with only a nose and teeth (no eye sockets, brows, side outlines) and his suit a flat
+tile texture. Cause: `gen_asm.py` turned the immediate `and ecx,0x7f0000` (the u mask of every 128-texel-wide texture, 24 sites
+in the `rdRaster_Span*` / `Span16_*` family) into `and ecx,offset _sect_data+0x313000`, because 0x7f0000 lies inside the original
+image (bss). The texel column was masked with an address, so 128-wide textures (m_eye.mat face, m_s_chest suit, ...) were sampled
+at the wrong columns. Rule now: AND/OR/XOR/TEST immediates whose low 16 bits are zero are masks, never relocated.
+How it was found: gdb watchpoint on one framebuffer pixel (`*(short*)addr`, write) showed the span routine writing texel index 23
+(white) where the .mat has index 8 (black) -> the texel address computation was wrong. General lesson: an asm-mode immediate that
+is a plain number in the original but happens to fall into 0x401000..0x940000 is silently relocated; grep the generated
+`asm_funcs.s` for `offset _sect_` in non-address positions (`and/or/xor/test/cmp/imul/shl` immediates).
+
+Known remaining issue (pre-existing, not fixed): a polygon that crosses the top/bottom screen edge with a close camera and a
+large (scaled-up) actor can reach the span routines unclipped (z-buffer row pointer far outside the buffer, SIGSEGV in
+`rdRaster_Span16_TexLitZw_5/7`); repro: office set, `SetActorScale(manny.hActor, 1.8); PutActorAt(manny.hActor,1.15,2.0,0)`.
