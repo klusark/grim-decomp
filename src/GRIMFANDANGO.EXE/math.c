@@ -1,12 +1,12 @@
 /* GRIMFANDANGO.EXE :: math.c
- * functions 0x004735d0 .. 0x0047c8c0 (14 functions)
+ * functions 0x004735d0 .. 0x0047c5f0 (11 functions)
  * Decompiled from the shipped binaries with Ghidra; see ../../README.md */
 #include "ghidra_types.h"
 #include "globals.h"
 #include "functions.h"
 
 /* ---- 0x004735d0  Math_Log2Int ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 int __cdecl Math_Log2Int(int n)
 
@@ -23,7 +23,7 @@ int __cdecl Math_Log2Int(int n)
 
 
 /* ---- 0x0047bbe0  Math_PowInt ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 float __cdecl Math_PowInt(float x,int n)
 
@@ -45,7 +45,7 @@ float __cdecl Math_PowInt(float x,int n)
 
 
 /* ---- 0x0047bc20  Math_NormalizeAngle360 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_1c */
 
@@ -89,7 +89,7 @@ float __cdecl Math_NormalizeAngle360(float degrees)
 
 
 /* ---- 0x0047bce0  Math_NormalizeAngle180 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 float __cdecl Math_NormalizeAngle180(float param_1)
 
@@ -109,7 +109,7 @@ float __cdecl Math_NormalizeAngle180(float param_1)
 
 
 /* ---- 0x0047bd20  Math_SinCosTable ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_30 */
 /* Math_SinCosTable(deg, &sin, &cos): 4096-entry quarter table, interpolated, per quadrant. Some
@@ -253,7 +253,7 @@ void Math_SinCosTable(float param_1,float *param_2,float *param_3)
 
 
 /* ---- 0x0047c100  Math_Round ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 float __cdecl Math_Round(float param_1)
 
@@ -269,7 +269,7 @@ float __cdecl Math_Round(float param_1)
 
 
 /* ---- 0x0047c120  Math_SinDeg ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_30 */
 /* Table/polynomial sine of an angle in degrees */
@@ -377,7 +377,7 @@ float10 Math_SinDeg(float param_1)
 
 
 /* ---- 0x0047c3b0  Math_AsinDegrees ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_18 */
 
@@ -423,7 +423,7 @@ float __cdecl Math_AsinDegrees(float x)
 
 
 /* ---- 0x0047c490  Math_Sqrt ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 float __cdecl Math_Sqrt(float param_1)
 
@@ -434,7 +434,7 @@ float __cdecl Math_Sqrt(float param_1)
 
 
 /* ---- 0x0047c4a0  Math_AsinDegreesSeries ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_28 */
 
@@ -495,7 +495,7 @@ float __cdecl Math_AsinDegreesSeries(float param_1)
 
 
 /* ---- 0x0047c5f0  Math_Atan2Deg ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 float __cdecl Math_Atan2Deg(float y,float x)
 
@@ -578,98 +578,5 @@ float __cdecl Math_Atan2Deg(float y,float x)
 #undef local_8
 #undef local_c
 
-#endif
-
-
-/* ---- 0x0047c7c0  FUN_0047c7c0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
-void FUN_0047c7c0(undefined4 param_1)
-
-{
-  FUN_0047c7e0(param_1,&DAT_004dda54);
-  return;
-}
-#endif
-
-
-/* ---- 0x0047c7e0  FUN_0047c7e0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
-undefined4 FUN_0047c7e0(byte *param_1,undefined4 param_2)
-
-{
-  byte bVar1;
-  byte *pbVar2;
-  int iVar3;
-  byte *pbVar4;
-  bool bVar5;
-  
-  if (UINT_0080cbcc != 0) {
-    FUN_0047ca00();
-  }
-  pbVar4 = &DAT_004e7630;
-  pbVar2 = param_1;
-  do {
-    bVar1 = *pbVar2;
-    bVar5 = bVar1 < *pbVar4;
-    if (bVar1 != *pbVar4) {
-LAB_0047c822:
-      iVar3 = (1 - (uint)bVar5) - (uint)(bVar5 != 0);
-      goto LAB_0047c827;
-    }
-    if (bVar1 == 0) break;
-    bVar1 = pbVar2[1];
-    bVar5 = bVar1 < pbVar4[1];
-    if (bVar1 != pbVar4[1]) goto LAB_0047c822;
-    pbVar2 = pbVar2 + 2;
-    pbVar4 = pbVar4 + 2;
-  } while (bVar1 != 0);
-  iVar3 = 0;
-LAB_0047c827:
-  if (iVar3 == 0) {
-    UINT_0080cbd0 = 0;
-  }
-  else {
-    UINT_0080cbd0 = (*g_pSvcMain->pFopen)(param_1,param_2);
-    if ((int)UINT_0080cbd0 < 1) {
-      UINT_0080cbd0 = 0;
-      if (UINT_0080cbcc != 0) {
-        FUN_0047ca90();
-      }
-      return 0;
-    }
-  }
-  UINT_00900520 =
-       (*g_pSvcMain->pAlloc)(0x400,s_C__grimjedi_Libs_Std_General_Std_004e7604,DAT_004e7600 + 0x1d);
-  strncpy(&DAT_009004a0,param_1,0x7f);
-  DAT_0090051f = 0;
-  UINT_0080cbc8 = 0;
-  UINT_0080cbcc = 1;
-  return 1;
-}
-#endif
-
-
-/* ---- 0x0047c8c0  FUN_0047c8c0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
-void FUN_0047c8c0(void)
-
-{
-  if (UINT_0080cbcc != 0) {
-    if (UINT_0080cbd0 != 0) {
-      (*g_pSvcMain->pFclose)(UINT_0080cbd0);
-    }
-    UINT_0080cbd0 = 0;
-    (*g_pSvcMain->pFree)(UINT_00900520);
-    if (UINT_0080cbd8 != 0) {
-      FUN_0047ca90();
-      return;
-    }
-    UINT_0080cbcc = 0;
-  }
-  return;
-}
 #endif
 

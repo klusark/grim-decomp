@@ -17,10 +17,10 @@ int __cdecl TextModule_Init(GrimServices *svc,void *iface)
     UINT_008d0980 = 1;
     if (iface != (void *)0x0) {
       *(code **)iface = TextModule_Init;
-      *(code **)((int)iface + 4) = FUN_004aa810;
-      *(code **)((int)iface + 8) = FUN_004aa820;
-      *(code **)((int)iface + 0xc) = FUN_004aa860;
-      *(code **)((int)iface + 0x10) = FUN_004aa880;
+      *(code **)((int)iface + 4) = TextModule_Terminate;
+      *(code **)((int)iface + 8) = TextModule_Start;
+      *(code **)((int)iface + 0xc) = TextModule_Stop;
+      *(code **)((int)iface + 0x10) = TextModule_SaveState;
       *(code **)((int)iface + 0x14) = TextModule_CheckHeader;
       *(undefined4 *)((int)iface + 0x18) = 0;
       *(undefined4 *)((int)iface + 0x1c) = 0;
@@ -30,16 +30,23 @@ int __cdecl TextModule_Init(GrimServices *svc,void *iface)
   return iVar1;
 }
 
-/* ---- 0x004aa810  FUN_004aa810 ---- */
-void FUN_004aa810(void)
+/* ---- 0x004aa810  TextModule_Terminate ---- */
+/* Module interface slot 1 (TextModule): called by Engine_ResetSubsystems / when registration fails;
+   drops the service table pointer and clears the initialised flag. */
+
+void TextModule_Terminate(void)
 
 {
   UINT_008d0980 = 0;
   return;
 }
 
-/* ---- 0x004aa820  FUN_004aa820 ---- */
-void FUN_004aa820(void)
+/* ---- 0x004aa820  TextModule_Start ---- */
+/* Module interface slot 2 (TextModule): called by Engine_InitSubsystems, returns 0 on success
+   (non-zero makes the whole start-up unwind). _Start fills the identity translation table and wraps
+   the default font. */
+
+void TextModule_Start(void)
 
 {
   int iVar1;
@@ -56,8 +63,11 @@ void FUN_004aa820(void)
   return;
 }
 
-/* ---- 0x004aa860  FUN_004aa860 ---- */
-void FUN_004aa860(void)
+/* ---- 0x004aa860  TextModule_Stop ---- */
+/* Module interface slot 3 (TextModule): called by Engine_ShutdownSubsystems in reverse order;
+   releases what _Start created. */
+
+void TextModule_Stop(void)
 
 {
   (*g_pSvcText->pHFree)(g_pDefaultFont);
@@ -65,8 +75,11 @@ void FUN_004aa860(void)
   return;
 }
 
-/* ---- 0x004aa880  FUN_004aa880 ---- */
-undefined4 FUN_004aa880(code *param_1)
+/* ---- 0x004aa880  TextModule_SaveState ---- */
+/* Module interface slot 4 (TextModule): save-game writer, calls the SaveGame_Write callback it is
+   handed for every field. */
+
+undefined4 TextModule_SaveState(code *param_1)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -84,7 +97,7 @@ undefined4 FUN_004aa880(code *param_1)
 
 
 /* ---- 0x004aa8d0  TextModule_CheckHeader ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Expects 'TxtB', 1, 0 from the read function */
 

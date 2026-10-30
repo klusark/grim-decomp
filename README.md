@@ -9,6 +9,12 @@ into files that follow the original module layout.
 The Ghidra project is the system of record. Every name, prototype, struct and
 plate comment lives there; this tree is regenerated from it.
 
+**The rebuilt executable runs the real game** (boots to Manny's office, walks, dialogue, inventory, movies, save/load).
+To learn the code and change the game - build/run loop, how the game finds its Lua scripts and data (loose files
+override `.LAB` contents), how to add a Lua API function, a subsystem map and three worked example mods -
+read **[docs/MODDING.md](docs/MODDING.md)**; the 319 Lua functions the engine registers are in
+[docs/LUA_API.md](docs/LUA_API.md).
+
 ## Layout
 
 | Path | Contents |
@@ -24,6 +30,9 @@ plate comment lives there; this tree is regenerated from it.
 | `tools/export_data.py` | Dumps the `.rdata`/`.data` contents of each program into `raw/<prog>/sections/`. |
 | `build/` | Makefile, `gendata.py` (data sections with relocations), `link.py`, `compat.h`, shims, `BUILD_NOTES.md`. |
 | `tools/stats.py` | Coverage table (below). |
+| `tools/lab.py`, `tools/luadump.py`, `tools/list_lua_api.py` | List/extract/pack `.LAB` archives; dump precompiled Lua 3.1 scripts; list the Lua API (`docs/LUA_API.md`). |
+| `tools/run_game.sh`, `tools/lua_cmd.sh`, `tools/grim_shot.ps1`, `tools/mkmoddir.sh` | Start the rebuilt game with the test knobs, run Lua in it, screenshot it, create a mod directory. |
+| `mods/` | Example mods (loose-file scripts and set files; the C examples live in `build/overrides.c`). |
 | `raw/` | Regenerable dump. `raw/exe_source_spans.json` maps address ranges to the original source files. |
 | `src/` | Regenerable organised tree. |
 
@@ -50,22 +59,21 @@ switch it explicitly (`ghidra_api.ensure_current`).
 ## Building
 
 The tree compiles and links with the MSYS2 toolchain (UCRT64 `gcc -m32` for
-objects, the i686 gcc for linking). See `build/BUILD_NOTES.md` for details.
+objects, the i686 gcc for linking). See `build/BUILD_NOTES.md` for details and
+`docs/MODDING.md` for the edit-build-run loop.
 
 ```bash
 rm -rf src && python -I tools/build_src.py && make -C build -j8   # objects + summary
 make -C build link                                                 # link all four
 ```
 
-3191 of 3196 functions compile as decompiled; the five that do not get a trap
-body. Since the evening of 2026-10-28 the link uses the real section
-contents dumped from Ghidra (`tools/export_data.py`, `build/gendata.py`:
-labels at the original offsets, relocations for every pointer into the image)
-and the real Win32/DirectX import libraries (`build/stdcall_names.json`).
-What remains stubbed is listed in `build/BUILD_NOTES.md`: essentially the
-123 code labels of the EXE and the HMI audio library. The binaries still do
-not run: the entry point is a trap, and the decompiled code's register-level
-semantics are best-effort.
+All four programs compile and link; the link uses the real section contents dumped from Ghidra
+(`tools/export_data.py`, `build/gendata.py`: labels at the original offsets, relocations for every pointer into the
+image) and the real Win32/DirectX import libraries (`build/stdcall_names.json`). About half of the EXE (1324 of 2604
+functions) and most of the DLLs are built from the *original machine code* re-emitted from Ghidra's disassembly
+(`tools/gen_asm.py`, `src/<prog>/asm_funcs.s`) because Ghidra's C is wrong about x87 results, register calling
+conventions and lost arguments in those places; the rest is compiled C. The result is playable. What is still stubbed:
+11 MSVC runtime helpers (the host runtime replaces them) in the EXE.
 
 ## What the binary tells us about the original source
 
@@ -109,12 +117,12 @@ Output of `tools/stats.py` (regenerate after changes):
 
 | Program | Functions | Named | of which auto/module-level | Unnamed (FUN_) |
 |---|---|---|---|---|
-| GRIMFANDANGO.EXE | 2054 | 1987 | 378 | 67 |
-| LUA.DLL | 690 | 599 | 185 | 91 |
-| IMUSE.DLL | 345 | 275 | 52 | 70 |
-| CHORE.DLL | 179 | 67 | 0 | 112 |
+| GRIMFANDANGO.EXE | 2671 | 2204 | 378 | 467 (438 of them C runtime / zlib / EH internals at 0x4ad000+) |
+| LUA.DLL | 852 | 599 | 158 | 253 |
+| IMUSE.DLL | 451 | 285 | 52 | 166 |
+| CHORE.DLL | 264 | 67 | 0 | 197 |
 
-Files in src/: 182
+Files in src/: 200
 
 ## Known gaps
 

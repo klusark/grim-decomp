@@ -1,12 +1,12 @@
 /* GRIMFANDANGO.EXE :: lua.c
- * functions 0x00401ca0 .. 0x004be2a0 (313 functions)
+ * functions 0x00401ca0 .. 0x004be2a0 (300 functions)
  * Decompiled from the shipped binaries with Ghidra; see ../../README.md */
 #include "ghidra_types.h"
 #include "globals.h"
 #include "functions.h"
 
 /* ---- 0x00401ca0  Lua_Is3DHardwareEnabled ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: Is3DHardwareEnabled */
 
@@ -26,7 +26,7 @@ void Lua_Is3DHardwareEnabled(void)
 
 
 /* ---- 0x00401cc0  Lua_SetHardwareState ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: SetHardwareState */
 
@@ -56,7 +56,7 @@ void Lua_SetHardwareState(void)
 
 
 /* ---- 0x00401d30  Lua_GetVideoDevices ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_10 */
 /* Lua opcode: GetVideoDevices */
@@ -81,7 +81,7 @@ void Lua_GetVideoDevices(void)
 
 
 /* ---- 0x00401da0  Lua_SetVideoDevices ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: SetVideoDevices */
 
@@ -134,7 +134,7 @@ void Lua_SetVideoDevices(void)
 
 
 /* ---- 0x00401e90  Lua_Enumerate3DDevices ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_1c */
 /* Lua opcode: Enumerate3DDevices */
@@ -196,7 +196,7 @@ LAB_00401f9e:
 
 
 /* ---- 0x00401fb0  Lua_EnumerateVideoDevices ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_1c */
 /* Lua opcode: EnumerateVideoDevices */
@@ -231,20 +231,8 @@ void Lua_EnumerateVideoDevices(void)
 #endif
 
 
-/* ---- 0x00402050  FUN_00402050 ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
-void FUN_00402050(void)
-
-{
-  g_quitRequested = 1;
-  return;
-}
-#endif
-
-
 /* ---- 0x00482880  Lua_NextSetup ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: NextSetup */
 
@@ -261,7 +249,7 @@ void Lua_NextSetup(void)
 
 
 /* ---- 0x004828a0  Lua_PreviousSetup ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: PreviousSetup */
 
@@ -279,7 +267,7 @@ void Lua_PreviousSetup(void)
 
 
 /* ---- 0x00486f50  Lua_IrisClear ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: IrisClear */
 
@@ -309,7 +297,7 @@ void Lua_IrisClear(void)
 
 
 /* ---- 0x00489840  Lua_DrawLine ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_30 */
 /* Lua opcode: DrawLine */
@@ -411,7 +399,7 @@ void Lua_DrawLine(void)
 
 
 /* ---- 0x00489a80  Lua_DrawPolygon ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_38 */
 /* Lua opcode: DrawPolygon */
@@ -552,7 +540,7 @@ void Lua_DrawPolygon(void)
 
 
 /* ---- 0x00489d70  Lua_DrawRectangle ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_34 */
 /* Lua opcode: DrawRectangle */
@@ -653,7 +641,7 @@ void Lua_DrawRectangle(void)
 
 
 /* ---- 0x00489fe0  Lua_ChangePrimitive ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: ChangePrimitive */
 
@@ -831,7 +819,7 @@ void Lua_ChangePrimitive(void)
 
 
 /* ---- 0x0048a460  Lua_KillPrimitive ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: This function may have set the stack pointer */
 /* Lua opcode: KillPrimitive */
@@ -858,7 +846,7 @@ void __cdecl Lua_KillPrimitive(void)
 
 
 /* ---- 0x0048a4a0  Lua_PurgePrimitiveQueue ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: PurgePrimitiveQueue */
 
@@ -873,7 +861,7 @@ void Lua_PurgePrimitiveQueue(void)
 
 
 /* ---- 0x0048ad60  Lua_SetOffscreenTextPos ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: SetOffscreenTextPos */
 
@@ -912,7 +900,7 @@ void Lua_SetOffscreenTextPos(void)
 
 
 /* ---- 0x0048ade0  Lua_SetEmergencyFont ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: SetEmergencyFont */
 
@@ -947,7 +935,7 @@ void Lua_SetEmergencyFont(void)
 
 
 /* ---- 0x0048ae60  Lua_LocalizeString ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: LocalizeString */
 
@@ -980,7 +968,7 @@ void Lua_LocalizeString(void)
 
 
 /* ---- 0x0048aed0  Lua_MakeColor ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: MakeColor */
 
@@ -1152,7 +1140,7 @@ LAB_0048b0c2:
 
 
 /* ---- 0x0048b100  Lua_GetColorComponents ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_14 */
 /* Lua opcode: GetColorComponents */
@@ -1178,7 +1166,7 @@ void Lua_GetColorComponents(void)
 
 
 /* ---- 0x0048b190  Lua_SetActorTalkColor ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: SetActorTalkColor */
 
@@ -1217,7 +1205,7 @@ void Lua_SetActorTalkColor(void)
 
 
 /* ---- 0x0048b230  Lua_GetActorTalkColor ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: GetActorTalkColor */
 
@@ -1247,7 +1235,7 @@ void Lua_GetActorTalkColor(void)
 
 
 /* ---- 0x0048b2a0  Lua_SetSayLineDefaults ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: SetSayLineDefaults */
 
@@ -1270,7 +1258,7 @@ void Lua_SetSayLineDefaults(void)
 
 
 /* ---- 0x0048b4c0  Lua_SayLine ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: SayLine */
 
@@ -1359,7 +1347,7 @@ void Lua_SayLine(void)
 
 
 /* ---- 0x0048b6a0  Lua_ParseSayLineTable ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Reads volume, pan, background, x, y overrides from the SayLine options table */
 
@@ -1427,7 +1415,7 @@ void Lua_ParseSayLineTable
 
 
 /* ---- 0x0048b830  Lua_PrintLine ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: PrintLine */
 
@@ -1514,7 +1502,7 @@ void Lua_PrintLine(void)
 
 
 /* ---- 0x0048b9a0  Lua_IsMessageGoing ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: IsMessageGoing */
 
@@ -1560,7 +1548,7 @@ LAB_0048ba30:
 
 
 /* ---- 0x0048ba90  Lua_ExpireText ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: ExpireText */
 
@@ -1583,7 +1571,7 @@ void Lua_ExpireText(void)
 
 
 /* ---- 0x0048baf0  Lua_PurgeText ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: PurgeText */
 
@@ -1602,7 +1590,7 @@ void Lua_PurgeText(void)
 
 
 /* ---- 0x0048bb20  Lua_KillTextObject ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: KillTextObject */
 
@@ -1629,7 +1617,7 @@ void Lua_KillTextObject(void)
 
 
 /* ---- 0x0048bb70  Lua_GetFontDimensions ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_c */
 /* Lua opcode: GetFontDimensions */
@@ -1654,7 +1642,7 @@ void Lua_GetFontDimensions(void)
 
 
 /* ---- 0x0048bbc0  Lua_GetTextObjectDimensions ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_14 */
 /* Lua opcode: GetTextObjectDimensions */
@@ -1690,7 +1678,7 @@ void Lua_GetTextObjectDimensions(void)
 
 
 /* ---- 0x0048bc50  Lua_GetTextCharPosition ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_18 */
 /* Lua opcode: GetTextCharPosition */
@@ -1741,7 +1729,7 @@ void Lua_GetTextCharPosition(void)
 
 
 /* ---- 0x0048bd10  Lua_ChangeTextObject ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_18 */
 /* Lua opcode: ChangeTextObject */
@@ -1800,7 +1788,7 @@ void Lua_ChangeTextObject(void)
 
 
 /* ---- 0x0048be30  Lua_MakeTextObject ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_78 */
 /* Lua opcode: MakeTextObject */
@@ -1873,7 +1861,7 @@ void Lua_MakeTextObject(void)
 
 
 /* ---- 0x0048bf50  Lua_BlastText ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: BlastText */
 
@@ -1944,7 +1932,7 @@ void Lua_BlastText(void)
 
 
 /* ---- 0x0048c960  Lua_GetTranslationMode ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_4 */
 /* Lua opcode: GetTranslationMode */
@@ -1964,7 +1952,7 @@ void Lua_GetTranslationMode(void)
 
 
 /* ---- 0x0048c980  Lua_SetTranslationMode ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: This function may have set the stack pointer */
 /* Lua opcode: SetTranslationMode */
@@ -2003,7 +1991,7 @@ void Lua_SetTranslationMode(void)
 
 
 /* ---- 0x00495850  Lua_GetKeyLength ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: GetKeyLength */
 
@@ -2036,7 +2024,7 @@ void Lua_GetKeyLength(void)
 
 
 /* ---- 0x00495900  Lua_GetSmushLength ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_c */
 /* Lua opcode: GetSmushLength */
@@ -2068,300 +2056,8 @@ void Lua_GetSmushLength(void)
 #endif
 
 
-/* ---- 0x00495960  FUN_00495960 ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
-void FUN_00495960(void)
-
-{
-  g_pSvcCostume = (GrimServices *)0x0;
-  if (UINT_008ca798 != 0) {
-    UINT_008ca798 = 0;
-    (*(code *)UINT_008ca774)();
-    if (g_pShadowColormap != (void *)0x0) {
-      rdColormap_Free(g_pShadowColormap);
-    }
-  }
-  return;
-}
-#endif
-
-
-/* ---- 0x004959a0  FUN_004959a0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
-undefined4 FUN_004959a0(void)
-
-{
-  unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  int iVar1;
-  code **ppcVar2;
-  #define local_38 (*(code *(*)[14])(_frame + (0x50 - 0x38)))
-  
-  ppcVar2 = local_38;
-  for (iVar1 = 7; iVar1 != 0; iVar1 = iVar1 + -1) {
-    *ppcVar2 = (code *)0x0;
-    ppcVar2 = ppcVar2 + 1;
-  }
-  ppcVar2 = local_38 + 7;
-  for (iVar1 = 7; iVar1 != 0; iVar1 = iVar1 + -1) {
-    *ppcVar2 = (code *)0x0;
-    ppcVar2 = ppcVar2 + 1;
-  }
-  if (UINT_008ca79c != 0) {
-    return 1;
-  }
-  (*(code *)UINT_008ca778)();
-  g_pCostumePool = (void **)Pool_Create(0xb4,10,2);
-  ppcVar2 = local_38;
-  for (iVar1 = 7; iVar1 != 0; iVar1 = iVar1 + -1) {
-    *ppcVar2 = (code *)0x0;
-    ppcVar2 = ppcVar2 + 1;
-  }
-  local_38[0] = ModelComponent_SetVisibleFlag;
-  local_38[1] = FUN_00496b60;
-  local_38[2] = ModelComponent_Destroy;
-  local_38[3] = FUN_00496b40;
-  local_38[4] = ModelComponent_EditParentOffset;
-  local_38[5] = ModelComponent_NewInstance;
-  Cos_NewStateBasedTag(0x4c444d4d,s_MAIN_RDroid_Thing___3DO__004ea3a0,0,local_38,2);
-  Cos_NewStateBasedTag(0x4c444f4d,s_RDroid_Thing___3DO__004ea38c,0,local_38,2);
-  ppcVar2 = local_38;
-  for (iVar1 = 7; iVar1 != 0; iVar1 = iVar1 + -1) {
-    *ppcVar2 = (code *)0x0;
-    ppcVar2 = ppcVar2 + 1;
-  }
-  local_38[0] = Lua_Stub;
-  local_38[1] = CmapComponent_Create;
-  local_38[2] = CmapComponent_Destroy;
-  local_38[3] = (code *)0x0;
-  local_38[4] = (code *)0x0;
-  local_38[5] = FUN_00496370;
-  Cos_NewStateBasedTag(0x70616d63,s_RDroid_Colormap_004ea37c,0,local_38,2);
-  ppcVar2 = local_38;
-  for (iVar1 = 7; iVar1 != 0; iVar1 = iVar1 + -1) {
-    *ppcVar2 = (code *)0x0;
-    ppcVar2 = ppcVar2 + 1;
-  }
-  local_38[0] = FUN_00496d40;
-  local_38[1] = ModelComponent_Create;
-  local_38[2] = FUN_00498180;
-  local_38[3] = FUN_00496e10;
-  local_38[5] = SpriteComponent_NewInstance;
-  local_38[4] = FUN_00497180;
-  Cos_NewStateBasedTag(0x4853454d,s_RDroid_Thing_Mesh_004ea368,0,local_38,2);
-  ppcVar2 = local_38;
-  for (iVar1 = 7; iVar1 != 0; iVar1 = iVar1 + -1) {
-    *ppcVar2 = (code *)0x0;
-    ppcVar2 = ppcVar2 + 1;
-  }
-  local_38[0] = FUN_004965d0;
-  local_38[1] = FUN_00496670;
-  local_38[2] = FUN_00498180;
-  local_38[3] = (code *)0x0;
-  local_38[5] = CmapComponent_NewInstance;
-  local_38[6] = FUN_004965b0;
-  Cos_NewStateBasedTag(0x2054414d,s_RDroid_Animated_Material_004ea34c,0,local_38,2);
-  ppcVar2 = local_38;
-  for (iVar1 = 7; iVar1 != 0; iVar1 = iVar1 + -1) {
-    *ppcVar2 = (code *)0x0;
-    ppcVar2 = ppcVar2 + 1;
-  }
-  local_38[0] = FUN_00497890;
-  local_38[1] = FUN_00497e10;
-  local_38[2] = BitmapComponent_Destroy;
-  local_38[3] = KeyframeComponent_Stop;
-  local_38[4] = FUN_00498000;
-  local_38[5] = FUN_00497d10;
-  local_38[6] = (code *)0x0;
-  Cos_NewStateBasedTag(0x4659454b,s_RDroid_Keyframe___KEY__004ea334,0,local_38,2);
-  ppcVar2 = local_38;
-  for (iVar1 = 7; iVar1 != 0; iVar1 = iVar1 + -1) {
-    *ppcVar2 = (code *)0x0;
-    ppcVar2 = ppcVar2 + 1;
-  }
-  local_38[0] = Component_SetBitmapFrame;
-  local_38[1] = FUN_004960a0;
-  local_38[2] = SpriteComponent_Destroy;
-  local_38[3] = (code *)0x0;
-  local_38[4] = (code *)0x0;
-  local_38[5] = (code *)0x0;
-  Cos_NewStateBasedTag(0x444e4b42,s_General_Bitmap_004ea324,0,local_38,1);
-  Cos_NewStateBasedTag(0x6d696e61,s_Animation__old_use_Bitmap__004ea308,0,local_38,1);
-  ppcVar2 = local_38;
-  for (iVar1 = 7; iVar1 != 0; iVar1 = iVar1 + -1) {
-    *ppcVar2 = (code *)0x0;
-    ppcVar2 = ppcVar2 + 1;
-  }
-  local_38[0] = FUN_004971a0;
-  local_38[1] = FUN_00497460;
-  local_38[2] = FUN_00497640;
-  local_38[3] = FUN_00497660;
-  local_38[4] = FUN_00497320;
-  Cos_NewStateBasedTag(0x73736d69,s_iMuse_Streamed_Sound_FX_004ea2f0,0,local_38,2);
-  Cos_NewStateBasedTag(0x736c6d69,s_iMuse_Resident_Sound_FX_004ea2d8,0,local_38,2);
-  ppcVar2 = local_38;
-  for (iVar1 = 7; iVar1 != 0; iVar1 = iVar1 + -1) {
-    *ppcVar2 = (code *)0x0;
-    ppcVar2 = ppcVar2 + 1;
-  }
-  local_38[0] = FUN_00498160;
-  local_38[1] = FUN_00498190;
-  local_38[2] = FUN_00498140;
-  local_38[3] = (code *)0x0;
-  local_38[4] = (code *)0x0;
-  local_38[6] = FUN_00498180;
-  Cos_NewStateBasedTag(0x534d5348,s_Smush_Movie_004ea2cc,0,local_38,2);
-  ppcVar2 = local_38;
-  for (iVar1 = 7; iVar1 != 0; iVar1 = iVar1 + -1) {
-    *ppcVar2 = (code *)0x0;
-    ppcVar2 = ppcVar2 + 1;
-  }
-  local_38[0] = FUN_00498550;
-  local_38[1] = FUN_00498280;
-  local_38[2] = KeyframeComponent_Destroy;
-  local_38[3] = (code *)0x0;
-  local_38[4] = FUN_004986e0;
-  local_38[5] = FUN_004985c0;
-  Cos_NewStateBasedTag(0x74727073,s_Sprite_004ea2c4,0,local_38,2);
-  local_38[4] = (code *)0x0;
-  local_38[7] = Lua_Stub;
-  local_38[8] = FUN_00497840;
-  local_38[9] = FUN_00498180;
-  local_38[10] = (code *)0x0;
-  Cos_NewIntTag(0x65736d69,s_iMuse_Sequence_004ea2b4,0,local_38 + 7,2);
-  Cos_NewIntTag(0x74736d69,s_iMuse_State_004ea2a8,0,local_38 + 7,2);
-  local_38[7] = FUN_00497680;
-  local_38[8] = FUN_00497710;
-  local_38[9] = FUN_004977f0;
-  local_38[10] = FUN_00497810;
-  local_38[0xb] = FUN_004976a0;
-  Cos_NewIntTag(0x7661756c,s_Lua_Variable_004ea298,0,local_38 + 7,1);
-  UINT_008ca7ac = Cos_RegisterInstanceHook(FUN_00496020);
-  UINT_008ca7b0 = Cos_RegisterSaveHook(FUN_00495e90);
-  Lua_OpenEngineLib(&PTR_s_GetKeyLength_004ea058,UINT_004ea068);
-  UINT_008ca79c = 1;
-  Config_GetPath(s_KeyframePath_004ea27c,&DAT_008ca7b8,s_Animation_004ea28c);
-  Config_GetPath(s_ColormapPath_004ea260,&DAT_008ca8b8,s_Colormaps_004ea270);
-  Config_GetPath(s_MaterialPath_004ea244,&DAT_008ca938,s_Materials_004ea254);
-  Config_GetPath(s_ModelPath_004ea230,&DAT_008ca9b8,s_Models_004ea23c);
-  Config_GetPath(s_SoundPath_004ea220,&DAT_008caa38,&DAT_004ea22c);
-  Config_GetPath(s_SmushPath_004ea20c,&DAT_008caab8,s_Movies_004ea218);
-  Config_GetPath(s_BitmapPath_004ea1f8,&DAT_008ca838,s_Objects_004ea204);
-  return 0;
-}
-#undef local_38
-
-#endif
-
-
-/* ---- 0x00495e90  FUN_00495e90 ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
-undefined4 FUN_00495e90(char *param_1,undefined4 param_2,undefined4 param_3)
-
-{
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  void **ppvVar1;
-  char cVar2;
-  int iVar3;
-  undefined4 uVar4;
-  char *pcVar5;
-  uint uVar6;
-  undefined4 uVar7;
-  uint uVar8;
-  char *pcVar9;
-  #define acStack_20 (*(char (*)[32])(_frame + (0x30 - 0x20)))
-  
-  iVar3 = strrchr(param_1,0x5c);
-  pcVar5 = param_1;
-  if (iVar3 != 0) {
-    pcVar5 = (char *)(iVar3 + 1);
-  }
-  uVar4 = Cos_GetCostumeName(param_2);
-  iVar3 = _stricmp(pcVar5,uVar4);
-  if (iVar3 == 0) {
-    uVar6 = 0xffffffff;
-    pcVar5 = param_1;
-    do {
-      pcVar9 = pcVar5;
-      if (uVar6 == 0) break;
-      uVar6 = uVar6 - 1;
-      pcVar9 = pcVar5 + 1;
-      cVar2 = *pcVar5;
-      pcVar5 = pcVar9;
-    } while (cVar2 != '\0');
-    uVar6 = ~uVar6;
-    pcVar5 = pcVar9 + -uVar6;
-    pcVar9 = g_szDialogFileName;
-    for (uVar8 = uVar6 >> 2; uVar8 != 0; uVar8 = uVar8 - 1) {
-      *(undefined4 *)pcVar9 = *(undefined4 *)pcVar5;
-      pcVar5 = pcVar5 + 4;
-      pcVar9 = pcVar9 + 4;
-    }
-    for (uVar6 = uVar6 & 3; uVar6 != 0; uVar6 = uVar6 - 1) {
-      *pcVar9 = *pcVar5;
-      pcVar5 = pcVar5 + 1;
-      pcVar9 = pcVar9 + 1;
-    }
-    pcVar5 = Str_FileExtension(g_szDialogFileName);
-    sprintf(pcVar5,&DAT_004ea45c);
-  }
-  else {
-    iVar3 = Plat_SaveFileDialog(s_Name_chore_list_file____004ea460,
-                                s_Script_files____lua____def__004ea478);
-    if (iVar3 == 0) {
-      return 0;
-    }
-  }
-  iVar3 = (*g_pSvcCostume->pFopen)(g_szDialogFileName,&DAT_004dd478);
-  if (iVar3 != 0) {
-    ppvVar1 = &g_pSvcCostume->pFprintf;
-    pcVar5 = Str_Basename(param_1);
-    (*(code *)*ppvVar1)(iVar3,s____Chore_numbering_for__s__004ea3d4,pcVar5);
-    (*g_pSvcCostume->pFprintf)(iVar3,s_____s_004ea3cc,param_3);
-    Str_CopyBasenameNoExt(acStack_20,0x20,param_1);
-    uVar4 = Cos_CreateCosInstance(param_2,0);
-    uVar6 = Cos_InstCountChores(uVar4);
-    uVar8 = 0;
-    if (uVar6 != 0) {
-      do {
-        ppvVar1 = &g_pSvcCostume->pFprintf;
-        uVar7 = Cos_InstChoreName(uVar4,uVar8,uVar8);
-        (*(code *)*ppvVar1)(iVar3,s__s__s____d_004ea3bc,acStack_20,uVar7);
-        uVar8 = uVar8 + 1;
-      } while (uVar8 < uVar6);
-    }
-    (*g_pSvcCostume->pFclose)(iVar3);
-    Cos_FreeCosInstance(uVar4);
-    return 1;
-  }
-  Plat_MessageBox(s_File_Error__004ea3f0,s_Unable_to_open_chore_list_file__C_004ea3fc,0);
-  return 0;
-}
-#undef acStack_20
-
-#endif
-
-
-/* ---- 0x00496020  FUN_00496020 ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
-undefined4 FUN_00496020(undefined4 param_1,int param_2)
-
-{
-  if (param_2 != 0) {
-    Cos_InstSetUserData(param_1,0);
-    return 1;
-  }
-  Cos_InstSetUserData(param_1,0);
-  return 1;
-}
-#endif
-
-
 /* ---- 0x00497830  Lua_Stub ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcodes: PutActorAtOrigin, GetClippedPos, DriveActorTo, WalkActorToInterest, UnLockFont,
    LockSound, UnlockSound, LockCostume, UnlockCostume, PlaySound, PlaySoundAt, PlaySoundAttached,
@@ -2376,375 +2072,8 @@ void Lua_Stub(void)
 #endif
 
 
-/* ---- 0x00497840  FUN_00497840 ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
-bool FUN_00497840(undefined4 param_1,int param_2,int param_3,undefined4 param_4)
-
-{
-  char *pcVar1;
-  int iVar2;
-  
-  if (param_3 != 0) {
-    return false;
-  }
-  pcVar1 = s_iMuse_Sequence_004ea2b4;
-  if (param_2 != 0x65736d69) {
-    pcVar1 = s_iMuse_State_004ea2a8;
-  }
-  iVar2 = Cos_RegisterComponent(param_1,pcVar1,1,param_2,0,param_4,0);
-  return iVar2 != 0;
-}
-#endif
-
-
-/* ---- 0x00497890  FUN_00497890 ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
-void FUN_00497890(undefined4 param_1,int *param_2,undefined4 param_3,int param_4,uint param_5,
-                 undefined4 param_6,undefined4 param_7,undefined4 param_8)
-
-{
-  void *puppet;
-  void *data;
-  float fVar1;
-  bool bVar2;
-  undefined4 *puVar3;
-  uint track;
-  
-  puppet = *(void **)(*(int *)(*param_2 + 0x40) + 0x14);
-  if (param_2[1] == 0) {
-    (*g_pSvcMain->pAssertFail)
-              (s_Bad_keyframe_Reference_004ea1e0,s_main_sputResource_h_004e80a8,0xb3);
-  }
-  data = (void *)param_2[2];
-  bVar2 = false;
-  track = 0;
-  puVar3 = (undefined4 *)((int)puppet + 0x130);
-  do {
-    if ((void *)*puVar3 == data) break;
-    track = track + 1;
-    puVar3 = puVar3 + 0x4d;
-  } while ((int)track < 6);
-  if (*(uint *)(&DAT_004e9f60 + param_4 * 4) < 8) {
-    if (track == 6) {
-      track = rdPuppet_AddTrack(puppet,(uint)data,param_2[0xf],param_2[0xe]);
-      if ((int)track < 0) {
-        return;
-      }
-      *(int *)(*(int *)(*param_2 + 0x40) + 0x48) = *param_2;
-      ResRef_Add((void *)(*param_2 + 0x54 + track * 0x34),data,
-                 s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0xe3a);
-      *(undefined4 *)(*param_2 + 0x18c) = param_8;
-      rdPuppet_SetTrackUserData(puppet,track,FUN_00497cb0);
-      bVar2 = true;
-      goto LAB_00497960;
-    }
-  }
-  else {
-LAB_00497960:
-    if (track == 6) {
-      return;
-    }
-  }
-  switch(*(undefined4 *)(&DAT_004e9f60 + param_4 * 4)) {
-  case 0:
-    if (bVar2) {
-      rdPuppet_AdvanceTrack(puppet,track,(float)param_5 * 0.001);
-    }
-    rdPuppet_ClearTrackNodes(puppet,track);
-    rdPuppet_SetTrackFlags(puppet,track,0x20);
-    rdPuppet_PlayTrack(puppet,track);
-    return;
-  case 1:
-    if (bVar2) {
-      rdPuppet_AdvanceTrack(puppet,track,(float)param_5 * 0.001);
-    }
-    if ((*(byte *)((int)puppet + track * 0x134 + 8) & 0xc) == 0) {
-      rdPuppet_PlayTrack(puppet,track);
-      return;
-    }
-    break;
-  case 2:
-    if (bVar2) {
-      rdPuppet_AdvanceTrack(puppet,track,(float)param_5 * 0.001);
-    }
-    rdPuppet_ClearTrackNodes(puppet,track);
-    rdPuppet_SetTrackFlags(puppet,track,0x40);
-    rdPuppet_PlayTrack(puppet,track);
-    return;
-  case 3:
-    if (bVar2) {
-      rdPuppet_AdvanceTrack(puppet,track,(float)param_5 * 0.001);
-    }
-    rdPuppet_ClearTrackNodes(puppet,track);
-    rdPuppet_SetTrackFlags(puppet,track,0x80);
-    rdPuppet_PlayTrack(puppet,track);
-    return;
-  case 4:
-    rdPuppet_FadeInTrack(puppet,track,1.0);
-    if (bVar2) {
-      fVar1 = (float)param_5;
-LAB_00497bc4:
-      rdPuppet_AdvanceTrack(puppet,track,fVar1 * 0.001);
-      return;
-    }
-    break;
-  case 5:
-    rdPuppet_FadeInTrack(puppet,track,0.5);
-    if (bVar2) {
-      fVar1 = (float)param_5;
-      goto LAB_00497bc4;
-    }
-    break;
-  case 6:
-    rdPuppet_FadeInTrack(puppet,track,0.25);
-    if (bVar2) {
-      fVar1 = (float)param_5;
-      goto LAB_00497bc4;
-    }
-    break;
-  case 7:
-    rdPuppet_FadeInTrack(puppet,track,0.125);
-    if (bVar2) {
-      fVar1 = (float)param_5;
-      goto LAB_00497bc4;
-    }
-    break;
-  case 8:
-    if ((*(byte *)((int)puppet + track * 0x134 + 8) & 8) == 0) {
-      rdPuppet_StopTrack(puppet,track);
-      return;
-    }
-    break;
-  case 9:
-    rdPuppet_SetTrackFlags(puppet,track,0x10);
-    return;
-  case 10:
-    *(uint *)((int)puppet + track * 0x134 + 8) =
-         *(uint *)((int)puppet + track * 0x134 + 8) & 0xffffffef | 2;
-    if (bVar2) {
-      fVar1 = (float)param_5;
-      goto LAB_00497bc4;
-    }
-    break;
-  case 0xb:
-    rdPuppet_FadeOutTrack(puppet,track,1.0);
-    return;
-  case 0xc:
-    rdPuppet_FadeOutTrack(puppet,track,0.5);
-    return;
-  case 0xd:
-    rdPuppet_FadeOutTrack(puppet,track,0.25);
-    return;
-  case 0xe:
-    rdPuppet_FadeOutTrack(puppet,track,0.125);
-  }
-  return;
-}
-#endif
-
-
-/* ---- 0x00497cb0  FUN_00497cb0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
-void FUN_00497cb0(int param_1,int param_2,uint param_3)
-
-{
-  int iVar1;
-  
-  if (param_1 != 0) {
-    iVar1 = Cos_InstGetUserData(*(undefined4 *)(param_1 + 0x18c));
-    Lua_CallCostumeMarkerHandler((void *)((int)g_pActorTable + iVar1 * 0xa8),param_3);
-    if (param_3 == 0) {
-      ResRef_Remove((void *)(param_1 + 0x54 + param_2 * 0x34));
-    }
-  }
-  return;
-}
-#endif
-
-
-/* ---- 0x00497d10  FUN_00497d10 ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
-undefined4 * FUN_00497d10(undefined4 param_1,int *param_2,int param_3)
-
-{
-  void *data;
-  int *piVar1;
-  int iVar2;
-  undefined4 *puVar3;
-  undefined4 uVar4;
-  undefined4 *puVar5;
-  
-  uVar4 = param_1;
-  if (param_3 == 0) {
-    iVar2 = Cos_InstGetInstanceData(param_1,param_2,0);
-    ResRef_Remove((void *)(iVar2 + 4));
-    (*g_pSvcCostume->pFree)(iVar2);
-    return (undefined4 *)0x0;
-  }
-  Cos_InstComponentInfo(param_1,param_2,&param_3,&param_2,&param_1);
-  piVar1 = param_2;
-  if (*param_2 == 0) {
-    (*g_pSvcMain->pAssertFail)
-              (s_Bad_keyframe_Reference_004ea1e0,s_main_sputResource_h_004e80a8,0xb3);
-  }
-  data = (void *)piVar1[1];
-  puVar3 = (undefined4 *)
-           (*g_pSvcCostume->pAlloc)(0x40,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0xed8);
-  puVar5 = puVar3;
-  for (iVar2 = 0x10; iVar2 != 0; iVar2 = iVar2 + -1) {
-    *puVar5 = 0;
-    puVar5 = puVar5 + 1;
-  }
-  ResRef_Add(puVar3 + 1,data,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0xeda);
-  puVar3[0xe] = param_2[0xd];
-  puVar3[0xf] = param_2[0xe];
-  uVar4 = Cos_InstGetInstanceData(uVar4,param_1,0);
-  *puVar3 = uVar4;
-  return puVar3;
-}
-#endif
-
-
-/* ---- 0x00497e10  FUN_00497e10 ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
-bool FUN_00497e10(undefined4 param_1,undefined4 param_2,int param_3,int param_4,uint param_5)
-
-{
-  unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  char *name;
-  void *data;
-  uint uVar1;
-  undefined4 uVar2;
-  undefined4 *ref;
-  int iVar3;
-  undefined4 *puVar4;
-  #define local_2c (*(uint *)(_frame + (0x40 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x40 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
-  #define local_20 (*(undefined1 *)(_frame + (0x40 - 0x20)))
-  #define local_1f (*(undefined4 *)(_frame + (0x40 - 0x1f)))
-  #define local_1 (*(undefined1 *)(_frame + (0x40 - 0x1)))
-  
-  local_20 = DAT_004f5a98;
-  local_24 = 0;
-  puVar4 = &local_1f;
-  for (iVar3 = 7; iVar3 != 0; iVar3 = iVar3 + -1) {
-    *puVar4 = 0;
-    puVar4 = puVar4 + 1;
-  }
-  *(undefined2 *)puVar4 = 0;
-  *(undefined1 *)((int)puVar4 + 2) = 0;
-  local_2c = 1;
-  local_28 = 5;
-  if ((param_4 == 0x4c444f4d) || (param_4 == 0x4c444d4d)) {
-    if (param_3 == 0) {
-      return false;
-    }
-    if (param_5 == 0) {
-      if (DAT_008ca7b8 != '\0') {
-        Plat_SetDialogDirectory(&DAT_008ca7b8);
-      }
-      iVar3 = Plat_OpenFileDialog(s_Select_keyframe_file_to_add____004ea76c,
-                                  s_Keyframe_files____key__004ea78c);
-      if (iVar3 == 0) {
-        return false;
-      }
-      uVar2 = ((code *)Plat_GetDialogFileName)(0x7f);
-      ((code *)strncpy)(&DAT_008ca7b8,uVar2);
-      DAT_008ca837 = 0;
-      local_24 = (uint)Str_Basename(g_szDialogFileName);
-      data = Resource_Load(0x4659454b,g_szDialogFileName);
-    }
-    else {
-      strncpy(&local_20,param_5,0x1f);
-      local_1 = 0;
-      name = (char *)strtok(&local_20,&DAT_004ea52c);
-      data = Resource_Load(0x4659454b,name);
-      uVar1 = strtok(0,&DAT_004ea52c);
-      if (uVar1 != 0) {
-        local_2c = (uint)atoi(uVar1);
-        uVar1 = strtok(0,&DAT_004ea52c);
-        local_28 = (uint)atoi(uVar1);
-      }
-    }
-    if (data != (void *)0x0) {
-      ref = (undefined4 *)
-            (*g_pSvcCostume->pAlloc)(0x3c,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0xf27);
-      puVar4 = ref;
-      for (iVar3 = 0xf; iVar3 != 0; iVar3 = iVar3 + -1) {
-        *puVar4 = 0;
-        puVar4 = puVar4 + 1;
-      }
-      ResRef_Add(ref,data,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0xf29);
-      ref[0xe] = local_2c;
-      ref[0xd] = local_28;
-      if (param_5 == 0) {
-        param_5 = local_24;
-      }
-      iVar3 = Cos_RegisterComponent(param_1,param_5,ref,param_2,param_3,param_4,&DAT_004e9fe0);
-      return iVar3 != 0;
-    }
-  }
-  return false;
-}
-#undef local_1
-#undef local_1f
-#undef local_20
-#undef local_24
-#undef local_28
-#undef local_2c
-
-#endif
-
-
-/* ---- 0x00498000  FUN_00498000 ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
-undefined4 FUN_00498000(int *param_1,undefined4 param_2)
-
-{
-  unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  int iVar1;
-  int iVar2;
-  #define local_30 (*(uint *)(_frame + (0x40 - 0x30)))
-  #define local_2c (*(uint *)(_frame + (0x40 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x40 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
-  #define local_20 (*(char (*)[32])(_frame + (0x40 - 0x20)))
-  
-  local_28 = (uint)s_Tagged_Priority_004ea7dc;
-  local_24 = (uint)s_Normal_Priority_004ea7cc;
-  iVar1 = *param_1;
-  local_30 = *(uint *)(iVar1 + 0x34);
-  local_2c = *(uint *)(iVar1 + 0x38);
-  iVar2 = Plat_PromptDialog(param_2,&local_28,&local_30,2);
-  if (iVar2 != 0) {
-    iVar2 = strtok(param_2,&DAT_004ea52c);
-    *(uint *)(iVar1 + 0x34) = local_30;
-    *(uint *)(iVar1 + 0x38) = local_2c;
-    sprintf(local_20,s__s__d__d_004ea7c0,iVar2,local_2c,local_30);
-    strncpy(iVar2,local_20,0x1f);
-    *(undefined1 *)(iVar2 + 0x1f) = 0;
-    return 1;
-  }
-  return 0;
-}
-#undef local_20
-#undef local_24
-#undef local_28
-#undef local_2c
-#undef local_30
-
-#endif
-
-
 /* ---- 0x00498d80  Lua_GetMemoryUsage ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_8 */
 /* Lua opcode: GetMemoryUsage */
@@ -2768,7 +2097,7 @@ void Lua_GetMemoryUsage(void)
 
 
 /* ---- 0x00498da0  Lua_GetDiskFreeSpace ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: GetDiskFreeSpace */
 
@@ -2800,7 +2129,7 @@ void Lua_GetDiskFreeSpace(void)
 
 
 /* ---- 0x00498e20  Lua_TEST ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: TEST */
 
@@ -2820,7 +2149,7 @@ void Lua_TEST(uint param_1,uint param_2,float param_3,float param_4,float param_
 
 
 /* ---- 0x00498e50  Lua_ShrinkBoxes ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: ShrinkBoxes */
 
@@ -2851,7 +2180,7 @@ void Lua_ShrinkBoxes(uint param_1,float param_2,float param_3,float param_4,floa
 
 
 /* ---- 0x00498e90  Lua_UnShrinkBoxes ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: UnShrinkBoxes */
 
@@ -2866,7 +2195,7 @@ void Lua_UnShrinkBoxes(void)
 
 
 /* ---- 0x00498ea0  Lua_GetShrinkPos ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_1c */
 /* WARNING: Variable defined which should be unmapped: local_18 */
@@ -2958,7 +2287,7 @@ void Lua_GetShrinkPos(undefined4 param_1,double param_2)
 
 
 /* ---- 0x00499000  Lua_SetSoundParameters ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: SetSoundParameters */
 
@@ -3077,7 +2406,7 @@ void Lua_SetSoundParameters(void)
 
 
 /* ---- 0x004991c0  Lua_GetSoundParameters ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_20 */
 /* Lua opcode: GetSoundParameters */
@@ -3121,7 +2450,7 @@ void Lua_GetSoundParameters(void)
 
 
 /* ---- 0x00499250  Lua_SetDebugKeysCallback ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void Lua_SetDebugKeysCallback(uint param_1)
 
@@ -3133,7 +2462,7 @@ void Lua_SetDebugKeysCallback(uint param_1)
 
 
 /* ---- 0x00499260  Lua_EnginePause ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: EnginePause */
 
@@ -3147,7 +2476,7 @@ void Lua_EnginePause(void)
 
 
 /* ---- 0x00499270  Lua_EngineResume ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: EngineResume */
 
@@ -3161,7 +2490,7 @@ void Lua_EngineResume(void)
 
 
 /* ---- 0x00499280  Lua_EngineDisplay ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: EngineDisplay */
 
@@ -3182,7 +2511,7 @@ void Lua_EngineDisplay(void)
 
 
 /* ---- 0x004992b0  Lua_LoadActor ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: LoadActor */
 
@@ -3205,7 +2534,7 @@ void Lua_LoadActor(void)
 
 
 /* ---- 0x004992d0  Lua_PutActorAtInterest ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: PutActorAtInterest */
 
@@ -3248,7 +2577,7 @@ void Lua_PutActorAtInterest(void)
 
 
 /* ---- 0x00499360  Lua_SetSelectedActor ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: SetSelectedActor */
 
@@ -3278,7 +2607,7 @@ void Lua_SetSelectedActor(void)
 
 
 /* ---- 0x004993c0  Lua_PutActorAt ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: PutActorAt */
 
@@ -3336,7 +2665,7 @@ void Lua_PutActorAt(void)
 
 
 /* ---- 0x004994a0  Lua_PutActorInSet ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: PutActorInSet */
 
@@ -3379,7 +2708,7 @@ void Lua_PutActorInSet(void)
 
 
 /* ---- 0x00499590  Lua_WalkActorVector ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_78 */
 /* Lua opcode: WalkActorVector(actor, cameraActor, x, y, z [, yawOffset]). Transforms the vector by
@@ -3525,7 +2854,7 @@ void Lua_WalkActorVector(void)
 
 
 /* ---- 0x00499800  Lua_WalkActorForward ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: WalkActorForward */
 
@@ -3552,7 +2881,7 @@ void Lua_WalkActorForward(void)
 
 
 /* ---- 0x00499860  Lua_WalkActorTo ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: WalkActorTo */
 
@@ -3636,7 +2965,7 @@ void Lua_WalkActorTo(void)
 
 
 /* ---- 0x004999d0  Lua_WalkActorToAvoiding ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: WalkActorToAvoiding */
 
@@ -3728,7 +3057,7 @@ void Lua_WalkActorToAvoiding(void)
 
 
 /* ---- 0x00499b80  Lua_IsActorMoving ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: IsActorMoving */
 
@@ -3758,7 +3087,7 @@ void Lua_IsActorMoving(void)
 
 
 /* ---- 0x00499be0  Lua_IsActorTurning ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: IsActorTurning(actor). TRUE while extra+0x28 (angle left between visible yaw and
    walker heading) is not 0. That field is written only by Walker_UpdateYaw (0 once under 0.5
@@ -3792,7 +3121,7 @@ void Lua_IsActorTurning(void)
 
 
 /* ---- 0x00499c70  Lua_SetActorChoreLooping ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: SetActorChoreLooping */
 
@@ -3856,7 +3185,7 @@ void Lua_SetActorChoreLooping(void)
 
 
 /* ---- 0x00499da0  Lua_IsActorResting ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: IsActorResting */
 
@@ -3889,7 +3218,7 @@ void Lua_IsActorResting(void)
 
 
 /* ---- 0x00499e20  Lua_IsActorChoring ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_20 */
 /* Lua opcode: IsActorChoring */
@@ -3987,7 +3316,7 @@ void Lua_IsActorChoring(void)
 
 
 /* ---- 0x00499ff0  Lua_GetActorChores ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_2c */
 /* Lua opcode: GetActorChores */
@@ -4070,7 +3399,7 @@ void Lua_GetActorChores(void)
 
 
 /* ---- 0x0049a160  Lua_GetActorCostumeDepth ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_10 */
 /* Lua opcode: GetActorCostumeDepth */
@@ -4107,7 +3436,7 @@ void Lua_GetActorCostumeDepth(void)
 
 
 /* ---- 0x0049a1e0  Lua_GetActorCostume ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: GetActorCostume */
 
@@ -4159,7 +3488,7 @@ LAB_0049a295:
 
 
 /* ---- 0x0049a2a0  Lua_GetActorLoopingChores ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_2c */
 /* Lua opcode: GetActorLoopingChores */
@@ -4242,7 +3571,7 @@ void Lua_GetActorLoopingChores(void)
 
 
 /* ---- 0x0049a410  Lua_SetActorColormap ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Source: Scripts/sputLua.cpp (line 2035, from __FILE__/__LINE__ passed to the allocator) */
 
@@ -4293,7 +3622,7 @@ void Lua_SetActorColormap(void)
 
 
 /* ---- 0x0049a500  Lua_SetActorCostume ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: SetActorCostume */
 
@@ -4343,7 +3672,7 @@ void Lua_SetActorCostume(void)
 
 
 /* ---- 0x0049a5e0  Lua_PrintActorCostumes ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: PrintActorCostumes */
 
@@ -4370,7 +3699,7 @@ void Lua_PrintActorCostumes(void)
 
 
 /* ---- 0x0049a640  Lua_PushActorCostume ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: PushActorCostume */
 
@@ -4405,7 +3734,7 @@ void Lua_PushActorCostume(void)
 
 
 /* ---- 0x0049a6c0  Lua_PopActorCostume ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: PopActorCostume */
 
@@ -4439,7 +3768,7 @@ void Lua_PopActorCostume(void)
 
 
 /* ---- 0x0049a750  Lua_StopActorChore ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: StopActorChore */
 
@@ -4489,7 +3818,7 @@ void Lua_StopActorChore(void)
 
 
 /* ---- 0x0049a830  Lua_PlayActorChore ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: PlayActorChore */
 
@@ -4542,7 +3871,7 @@ void Lua_PlayActorChore(void)
 
 
 /* ---- 0x0049a910  Lua_CompleteActorChore ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: CompleteActorChore */
 
@@ -4594,7 +3923,7 @@ void Lua_CompleteActorChore(void)
 
 
 /* ---- 0x0049a9e0  Lua_PlayActorChoreLooping ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: PlayActorChoreLooping */
 
@@ -4647,7 +3976,7 @@ void Lua_PlayActorChoreLooping(void)
 
 
 /* ---- 0x0049aac0  Lua_ActorLookAt ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: ActorLookAt */
 
@@ -4760,7 +4089,7 @@ void Lua_ActorLookAt(void)
 
 
 /* ---- 0x0049ad30  Lua_IsActorLooking ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: IsActorLooking */
 
@@ -4790,7 +4119,7 @@ void Lua_IsActorLooking(void)
 
 
 /* ---- 0x0049ad90  Lua_SetActorLookRate ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: SetActorLookRate */
 
@@ -4825,7 +4154,7 @@ void Lua_SetActorLookRate(void)
 
 
 /* ---- 0x0049ae10  Lua_GetActorLookRate ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: GetActorLookRate */
 
@@ -4855,7 +4184,7 @@ void Lua_GetActorLookRate(void)
 
 
 /* ---- 0x0049ae80  Lua_SetActorVisibility ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: SetActorVisibility */
 
@@ -4890,7 +4219,7 @@ void Lua_SetActorVisibility(void)
 
 
 /* ---- 0x0049af00  Lua_SetActorFollowBoxes ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: SetActorFollowBoxes */
 
@@ -4925,7 +4254,7 @@ void Lua_SetActorFollowBoxes(void)
 
 
 /* ---- 0x0049af80  Lua_ShutUpActor ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: ShutUpActor */
 
@@ -4954,7 +4283,7 @@ void Lua_ShutUpActor(void)
 
 
 /* ---- 0x0049afd0  Lua_SetActorFrustrumCull ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: SetActorFrustrumCull */
 
@@ -4987,7 +4316,7 @@ void Lua_SetActorFrustrumCull(void)
 
 
 /* ---- 0x0049b040  Lua_GetCameraActor ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: GetCameraActor */
 
@@ -5001,7 +4330,7 @@ void Lua_GetCameraActor(void)
 
 
 /* ---- 0x0049b060  Lua_GetActorWalkRate ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: GetActorWalkRate */
 
@@ -5030,7 +4359,7 @@ void Lua_GetActorWalkRate(void)
 
 
 /* ---- 0x0049b0d0  Lua_SetActorWalkRate ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: SetActorWalkRate */
 
@@ -5066,7 +4395,7 @@ void Lua_SetActorWalkRate(void)
 
 
 /* ---- 0x0049b160  Lua_GetActorTurnRate ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: GetActorTurnRate */
 
@@ -5095,7 +4424,7 @@ void Lua_GetActorTurnRate(void)
 
 
 /* ---- 0x0049b1d0  Lua_SetActorTurnRate ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: SetActorTurnRate(actor, rate). Stores the rate at extra+0x1c, keeping the sign of the
    current rate (a negative rate is the pending snap flag). The value itself is not made absolute
@@ -5142,7 +4471,7 @@ void Lua_SetActorTurnRate(void)
 
 
 /* ---- 0x0049b280  Lua_SetActorWalkChore ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: SetActorWalkChore */
 
@@ -5193,7 +4522,7 @@ void Lua_SetActorWalkChore(void)
 
 
 /* ---- 0x0049b350  Lua_SetActorTurnChores ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: SetActorTurnChores */
 
@@ -5248,7 +4577,7 @@ void Lua_SetActorTurnChores(void)
 
 
 /* ---- 0x0049b430  Lua_SetActorRestChore ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: SetActorRestChore */
 
@@ -5299,7 +4628,7 @@ void Lua_SetActorRestChore(void)
 
 
 /* ---- 0x0049b500  Lua_SetActorMumblechore ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: SetActorMumblechore */
 
@@ -5344,7 +4673,7 @@ void Lua_SetActorMumblechore(void)
 
 
 /* ---- 0x0049b5a0  Lua_SetActorTalkChore ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: SetActorTalkChore */
 
@@ -5404,7 +4733,7 @@ void Lua_SetActorTalkChore(void)
 
 
 /* ---- 0x0049b6c0  Lua_SetActorHead ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_24 */
 /* WARNING: Variable defined which should be unmapped: local_28 */
@@ -5498,7 +4827,7 @@ void Lua_SetActorHead(void)
 
 
 /* ---- 0x0049b830  Lua_CanActorSee ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: CanActorSee */
 
@@ -5599,7 +4928,7 @@ void Lua_CanActorSee(void)
 
 
 /* ---- 0x0049b9e0  Lua_GetVisibleThings ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: GetVisibleThings */
 
@@ -5656,7 +4985,7 @@ void Lua_GetVisibleThings(void)
 
 
 /* ---- 0x0049bb10  Lua_GetActorRect ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_c */
 /* Lua opcode: GetActorRect */
@@ -5694,7 +5023,7 @@ void Lua_GetActorRect(void)
 
 
 /* ---- 0x0049bba0  Lua_GetActorPuckVector ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: GetActorPuckVector */
 
@@ -5748,7 +5077,7 @@ void Lua_GetActorPuckVector(void)
 
 
 /* ---- 0x0049bcc0  Lua_GetActorYawToPoint ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: GetActorYawToPoint(actor, x, y, z | {x, y, z}). Creates the extra and the walker if
    missing, then returns Actor_GetYawToPoint. */
@@ -5828,7 +5157,7 @@ void Lua_GetActorYawToPoint(void)
 
 
 /* ---- 0x0049be40  Lua_SetActorReflection ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_c */
 /* Lua opcode: SetActorReflection */
@@ -5866,7 +5195,7 @@ void Lua_SetActorReflection(void)
 
 
 /* ---- 0x0049bec0  Lua_GetActorPos ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: GetActorPos */
 
@@ -5894,7 +5223,7 @@ void Lua_GetActorPos(void)
 
 
 /* ---- 0x0049bf30  Lua_GetActorRot ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: GetActorRot */
 
@@ -5922,7 +5251,7 @@ void Lua_GetActorRot(void)
 
 
 /* ---- 0x0049bfa0  Lua_SetActorRot ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: SetActorRot */
 
@@ -5985,7 +5314,7 @@ void Lua_SetActorRot(void)
 
 
 /* ---- 0x0049c0a0  Lua_SetActorPitch ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: SetActorPitch */
 
@@ -6016,7 +5345,7 @@ void Lua_SetActorPitch(void)
 
 
 /* ---- 0x0049c110  Lua_SetActorRoll ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: SetActorRoll */
 
@@ -6047,7 +5376,7 @@ void Lua_SetActorRoll(void)
 
 
 /* ---- 0x0049c180  Lua_TurnActor ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_c */
 /* Lua opcode: TurnActor */
@@ -6086,7 +5415,7 @@ void Lua_TurnActor(void)
 
 
 /* ---- 0x0049c200  Lua_GetActorSector ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_c */
 /* Lua opcode: GetActorSector */
@@ -6134,7 +5463,7 @@ void Lua_GetActorSector(void)
 
 
 /* ---- 0x0049c2c0  Lua_IsActorInSector ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_10 */
 /* Lua opcode: IsActorInSector */
@@ -6191,7 +5520,7 @@ void Lua_IsActorInSector(void)
 
 
 /* ---- 0x0049c3b0  Lua_GetPointSector ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_24 */
 /* Lua opcode: GetPointSector */
@@ -6263,7 +5592,7 @@ void Lua_GetPointSector(void)
 
 
 /* ---- 0x0049c4c0  Lua_IsPointInSector ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_20 */
 /* Lua opcode: IsPointInSector */
@@ -6327,7 +5656,7 @@ void Lua_IsPointInSector(void)
 
 
 /* ---- 0x0049c5e0  Lua_RunSystemScript ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* lua_dofile('_system.lua') */
 
@@ -6343,7 +5672,7 @@ bool Lua_RunSystemScript(void)
 
 
 /* ---- 0x0049c600  Lua_CallSystemFunction ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Calls the global Lua function named by the string at 0x004ec3c8 with (flag, str) */
 
@@ -6373,7 +5702,7 @@ int __cdecl Lua_CallSystemFunction(int flag,char *str)
 
 
 /* ---- 0x0049c660  Lua_CallCamChangeHandler ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_c */
 /* system.camChangeHandler(from, to) */
@@ -6406,7 +5735,7 @@ void __cdecl Lua_CallCamChangeHandler(int fromSetup,int toSetup)
 
 
 /* ---- 0x0049c6e0  Lua_CallPostCamChangeHandler ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_8 */
 /* system.postCamChangeHandler(setup) */
@@ -6438,7 +5767,7 @@ void __cdecl Lua_CallPostCamChangeHandler(int setup)
 
 
 /* ---- 0x0049c8f0  Lua_UpdateFrame ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_1c */
 /* Per frame: stores system.frameTime and system.movieTime, collects garbage every 10 s, runs
@@ -6480,7 +5809,7 @@ void Lua_UpdateFrame(void)
 
 
 /* ---- 0x0049ca60  Lua_OpenEngineLib ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* lua_openlib() wrapper used to register the 279-entry engine opcode table at 0x004ea8b0 */
 
@@ -6494,7 +5823,7 @@ void Lua_OpenEngineLib(undefined4 param_1,undefined4 param_2)
 
 
 /* ---- 0x0049ca80  Lua_JustLoaded ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: JustLoaded */
 
@@ -6517,7 +5846,7 @@ void Lua_JustLoaded(void)
 
 
 /* ---- 0x0049caa0  Lua_ActorVoiceIs3D ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: ActorVoiceIs3D */
 
@@ -6549,7 +5878,7 @@ void Lua_ActorVoiceIs3D(void)
 
 
 /* ---- 0x0049cb10  Lua_ResolveCostumeArg ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Turns the optional costume argument of the chore opcodes (nil, index or name) into the costume
    record in the actor's list */
@@ -6607,7 +5936,7 @@ int __cdecl Lua_ResolveCostumeArg(void *luaObj,void *costumeList,void **outCostu
 
 
 /* ---- 0x0049cbe0  Lua_FunctionName ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: FunctionName */
 
@@ -6668,7 +5997,7 @@ void Lua_FunctionName(void)
 
 
 /* ---- 0x0049cca0  Lua_CheckForFile ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: CheckForFile */
 
@@ -6698,7 +6027,7 @@ void Lua_CheckForFile(void)
 
 
 /* ---- 0x0049cd10  Lua_NukeResources ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: NukeResources */
 
@@ -6715,7 +6044,7 @@ void Lua_NukeResources(void)
 
 
 /* ---- 0x0049cd40  Lua_DetachFromResources ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: DetachFromResources */
 
@@ -6731,7 +6060,7 @@ void Lua_DetachFromResources(void)
 
 
 /* ---- 0x0049cd50  Lua_AttachToResources ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: AttachToResources */
 
@@ -6746,7 +6075,7 @@ void Lua_AttachToResources(void)
 
 
 /* ---- 0x0049cd60  Lua_SearchForFileOrSwapCDs ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: SearchForFileOrSwapCDs */
 
@@ -6816,7 +6145,7 @@ void Lua_SearchForFileOrSwapCDs(void)
 
 
 /* ---- 0x0049cea0  Lua_Load ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: Load */
 
@@ -6843,7 +6172,7 @@ void Lua_Load(void)
 
 
 /* ---- 0x0049cef0  Lua_Save ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: Save */
 
@@ -6870,7 +6199,7 @@ void Lua_Save(void)
 
 
 /* ---- 0x0049cf40  Lua_EnableDebugKeys ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: EnableDebugKeys */
 
@@ -6887,7 +6216,7 @@ void Lua_EnableDebugKeys(void)
 
 
 /* ---- 0x0049cf60  Lua_WorldToScreen ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_2c */
 /* Lua opcode: WorldToScreen */
@@ -6947,7 +6276,7 @@ void Lua_WorldToScreen(void)
 
 
 /* ---- 0x0049d030  Lua_ScreenToWorld ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: ScreenToWorld */
 
@@ -7019,7 +6348,7 @@ void Lua_ScreenToWorld(void)
 
 
 /* ---- 0x0049d140  Lua_TypeOverride ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_14 */
 /* Lua opcode: Lua_TypeOverride */
@@ -7076,7 +6405,7 @@ LAB_0049d199:
 
 
 /* ---- 0x0049d220  Lua_ConcatFallback ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: Lua_ConcatFallback */
 
@@ -7172,7 +6501,7 @@ LAB_0049d34b:
 
 
 /* ---- 0x0049d3a0  Lua_exit ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: This function may have set the stack pointer */
 /* Lua opcode: exit */
@@ -7201,7 +6530,7 @@ void Lua_exit(void)
 
 
 /* ---- 0x0049d3f0  Lua_EnableControl ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: This function may have set the stack pointer */
 /* Lua opcode: EnableControl */
@@ -7230,7 +6559,7 @@ void Lua_EnableControl(void)
 
 
 /* ---- 0x0049d430  Lua_DisableControl ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: This function may have set the stack pointer */
 /* Lua opcode: DisableControl */
@@ -7259,7 +6588,7 @@ void Lua_DisableControl(void)
 
 
 /* ---- 0x0049d470  Lua_GetControlState ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: GetControlState */
 
@@ -7317,7 +6646,7 @@ void Lua_GetControlState(void)
 
 
 /* ---- 0x0049d550  Lua_CallCostumeOverrideHandler ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void __cdecl Lua_CallCostumeOverrideHandler(void *actor,int flag)
 
@@ -7386,7 +6715,7 @@ void __cdecl Lua_CallCostumeOverrideHandler(void *actor,int flag)
 
 
 /* ---- 0x0049d670  Lua_CallCostumeMarkerHandler ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_1c */
 /* system.costumeMarkerHandler(actor, marker) from keyframe markers */
@@ -7455,7 +6784,7 @@ void __cdecl Lua_CallCostumeMarkerHandler(void *actor,uint marker)
 
 
 /* ---- 0x0049d7b0  Lua_CallUserPaintHandler ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* system.userPaintHandler() after a restore */
 
@@ -7515,7 +6844,7 @@ void Lua_CallUserPaintHandler(void)
 
 
 /* ---- 0x0049d890  Lua_CallExitHandler ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* system.exitHandler(); returns 1 when a handler existed */
 
@@ -7574,7 +6903,7 @@ uint Lua_CallExitHandler(void)
 
 
 /* ---- 0x0049d970  Lua_CallPauseHandler ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* system.pauseHandler() (Pause key) */
 
@@ -7633,7 +6962,7 @@ uint Lua_CallPauseHandler(void)
 
 
 /* ---- 0x0049da50  Lua_CallCharacterHandler ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* system.characterHandler(char); true when the script consumed it */
 
@@ -7702,7 +7031,7 @@ int __cdecl Lua_CallCharacterHandler(int ch)
 
 
 /* ---- 0x0049db70  Lua_MakeCurrentSetup ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: This function may have set the stack pointer */
 /* Lua opcode: MakeCurrentSetup */
@@ -7729,7 +7058,7 @@ void Lua_MakeCurrentSetup(void)
 
 
 /* ---- 0x0049dbb0  Lua_GetCurrentSetup ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_10 */
 /* Lua opcode: GetCurrentSetup */
@@ -7779,7 +7108,7 @@ void Lua_GetCurrentSetup(void)
 
 
 /* ---- 0x0049dc70  Lua_MakeCurrentSet ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: MakeCurrentSet */
 
@@ -7804,7 +7133,7 @@ void Lua_MakeCurrentSet(void)
 
 
 /* ---- 0x0049dcb0  Lua_LockSet ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Source: Scripts/sputLua.cpp (line 5305, from __FILE__/__LINE__ passed to the allocator) */
 
@@ -7832,7 +7161,7 @@ void Lua_LockSet(void)
 
 
 /* ---- 0x0049dd10  Lua_UnLockSet ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: UnLockSet */
 
@@ -7859,7 +7188,7 @@ void Lua_UnLockSet(void)
 
 
 /* ---- 0x0049dd70  Lua_PrintMessage ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: PrintMessage */
 
@@ -7888,7 +7217,7 @@ void Lua_PrintMessage(void)
 
 
 /* ---- 0x0049ddd0  Lua_Print_NoOp ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcodes: PrintError, PrintWarning, PrintDebug
    PrintError / PrintWarning / PrintDebug: no-op in the release build */
@@ -7910,7 +7239,7 @@ void Lua_Print_NoOp(void)
 
 
 /* ---- 0x0049de00  Lua_InitGameLibs ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4 Lua_InitGameLibs(void)
 
@@ -7964,7 +7293,7 @@ undefined4 Lua_InitGameLibs(void)
 
 
 /* ---- 0x0049dfa0  Lua_SaveUserdataHook ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* lua_savehook: STAT userdata is written as setup<<16 | index in the setup's object state list */
 
@@ -8005,7 +7334,7 @@ uint Lua_SaveUserdataHook(int param_1,uint param_2)
 
 
 /* ---- 0x0049e020  Lua_RestoreUserdataHook ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* lua_restorehook: rebuilds STAT, FONT and TEXT userdata pointers from their saved ids */
 
@@ -8048,7 +7377,7 @@ void * Lua_RestoreUserdataHook(int param_1,void *param_2)
 
 
 /* ---- 0x0049e0b0  Lua_DispatchControlHandlers ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_58 */
 /* Calls system.buttonHandler / system.axisHandler for every enabled control whose state changed
@@ -8221,7 +7550,7 @@ undefined4 Lua_DispatchControlHandlers(void)
 
 
 /* ---- 0x0049e380  Lua_CreateSystemTable ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Creates the global `system` table with the controls table and stub camChange/axis/button
    handlers; returns its ref */
@@ -8259,7 +7588,7 @@ undefined4 Lua_CreateSystemTable(void)
 
 
 /* ---- 0x0049e460  Lua_CreateControlsTable ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_1c */
 /* system.controls[name] = index for every entry of g_ControlTable (name at control+0xc) */
@@ -8299,44 +7628,8 @@ void Lua_CreateControlsTable(undefined4 param_1)
 #endif
 
 
-/* ---- 0x0049e500  FUN_0049e500 ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
-void FUN_0049e500(void)
-
-{
-  g_pSvcLua = (GrimServices *)0x0;
-  if (UINT_008cab7c != 0) {
-    (*(code *)UINT_008cab54)();
-    UINT_008cab7c = 0;
-  }
-  return;
-}
-#endif
-
-
-/* ---- 0x0049e530  FUN_0049e530 ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
-void FUN_0049e530(void)
-
-{
-  if (g_pLuaFileFind != (void *)0x0) {
-    stdFileUtil_DisposeFind(g_pLuaFileFind);
-    g_pLuaFileFind = (void *)0x0;
-  }
-  lua_unref(g_nLuaSystemTableRef);
-  *(undefined4 *)lua_savehook_exref = 0;
-  *(undefined4 *)lua_restorehook_exref = 0;
-  (*(code *)UINT_008cab5c)();
-  UINT_008cab80 = 0;
-  return;
-}
-#endif
-
-
 /* ---- 0x0049e590  Lua_SetSoundPosition ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: SetSoundPosition */
 
@@ -8473,7 +7766,7 @@ void Lua_SetSoundPosition(void)
 
 
 /* ---- 0x0049e7e0  Lua_StartFullscreenMovie ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: StartFullscreenMovie */
 
@@ -8503,7 +7796,7 @@ void Lua_StartFullscreenMovie(void)
 
 
 /* ---- 0x0049e860  Lua_PauseMovie ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: PauseMovie */
 
@@ -8522,7 +7815,7 @@ void Lua_PauseMovie(void)
 
 
 /* ---- 0x0049e880  Lua_StartMovie ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: StartMovie */
 
@@ -8578,7 +7871,7 @@ void Lua_StartMovie(void)
 
 
 /* ---- 0x0049e960  Lua_IsMoviePlaying ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcodes: IsFullscreenMoviePlaying, IsMoviePlaying
    also registered as IsFullscreenMoviePlaying */
@@ -8602,7 +7895,7 @@ void Lua_IsMoviePlaying(void)
 
 
 /* ---- 0x0049e980  Lua_FileFindFirst ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: FileFindFirst */
 
@@ -8646,7 +7939,7 @@ void __fastcall Lua_FileFindFirst(char *param_1)
 
 
 /* ---- 0x0049ea20  Lua_FileFindNext ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: FileFindNext */
 
@@ -8682,7 +7975,7 @@ void Lua_FileFindNext(void)
 
 
 /* ---- 0x0049ea90  Lua_FileFindDispose ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: FileFindDispose */
 
@@ -8699,7 +7992,7 @@ void Lua_FileFindDispose(void)
 
 
 /* ---- 0x0049eab0  Lua_QueryDialog ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: QueryDialog */
 
@@ -8741,7 +8034,7 @@ void Lua_QueryDialog(void)
 
 
 /* ---- 0x0049eb60  Lua_InputDialog ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: InputDialog */
 
@@ -8808,7 +8101,7 @@ LAB_0049ec38:
 
 
 /* ---- 0x0049ec50  Lua_WriteRegistryValue ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: WriteRegistryValue */
 
@@ -8848,7 +8141,7 @@ void Lua_WriteRegistryValue(void)
 
 
 /* ---- 0x0049ece0  Lua_ReadRegistryValue ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: ReadRegistryValue */
 
@@ -8889,7 +8182,7 @@ void Lua_ReadRegistryValue(void)
 
 
 /* ---- 0x0049ed90  Lua_GetSectorOppositeEdge ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: GetSectorOppositeEdge */
 
@@ -8928,7 +8221,7 @@ void Lua_GetSectorOppositeEdge(void)
 
 
 /* ---- 0x0049ee20  Lua_IsSectorActive ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: IsSectorActive */
 
@@ -8973,7 +8266,7 @@ LAB_0049eea2:
 
 
 /* ---- 0x0049eeb0  Lua_MakeSectorActive ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: MakeSectorActive */
 
@@ -9019,7 +8312,7 @@ void Lua_MakeSectorActive(void)
 
 
 /* ---- 0x0049ef50  Lua_PreRender ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: PreRender */
 
@@ -9043,7 +8336,7 @@ void Lua_PreRender(void)
 
 
 /* ---- 0x0049efc0  Lua_GetCurrentScript ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: GetCurrentScript */
 
@@ -9060,7 +8353,7 @@ void Lua_GetCurrentScript(void)
 
 
 /* ---- 0x0049efe0  Lua_LockFont ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: LockFont */
 
@@ -9091,7 +8384,7 @@ void Lua_LockFont(void)
 
 
 /* ---- 0x0049f040  Lua_LoadCostume ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: LoadCostume */
 
@@ -9116,7 +8409,7 @@ void Lua_LoadCostume(void)
 
 
 /* ---- 0x0049f080  Lua_GetPhysicalBytes ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_4 */
 /* WARNING: Variable defined which should be unmapped: local_8 */
@@ -9141,7 +8434,7 @@ void __fastcall Lua_GetPhysicalBytes(undefined4 param_1)
 
 
 /* ---- 0x0049f0a0  Lua_SetMemoryUsage ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: SetMemoryUsage */
 
@@ -9169,7 +8462,7 @@ void Lua_SetMemoryUsage(void)
 
 
 /* ---- 0x0049f0f0  Lua_RotateVector ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: RotateVector */
 
@@ -9259,7 +8552,7 @@ void Lua_RotateVector(void)
 
 
 /* ---- 0x0049f2b0  Lua_GetCameraPosition ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: GetCameraPosition */
 
@@ -9278,7 +8571,7 @@ void Lua_GetCameraPosition(void)
 
 
 /* ---- 0x0049f300  Lua_GetCameraInterest ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: GetCameraInterest */
 
@@ -9297,7 +8590,7 @@ void Lua_GetCameraInterest(void)
 
 
 /* ---- 0x0049f350  Lua_GetCameraFOV ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: GetCameraFOV */
 
@@ -9314,7 +8607,7 @@ void Lua_GetCameraFOV(void)
 
 
 /* ---- 0x0049f380  Lua_GetCameraRoll ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: GetCameraRoll */
 
@@ -9331,7 +8624,7 @@ void Lua_GetCameraRoll(void)
 
 
 /* ---- 0x0049f3b0  Lua_SetCameraPosition ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_14 */
 /* Lua opcode: SetCameraPosition */
@@ -9379,7 +8672,7 @@ LAB_0049f40e:
 
 
 /* ---- 0x0049f480  Lua_SetCameraInterest ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_14 */
 /* Lua opcode: SetCameraInterest */
@@ -9427,7 +8720,7 @@ LAB_0049f4de:
 
 
 /* ---- 0x0049f550  Lua_SetActorScale ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: SetActorScale */
 
@@ -9463,7 +8756,7 @@ void Lua_SetActorScale(void)
 
 
 /* ---- 0x0049f5d0  Lua_SetActorTimeScale ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: SetActorTimeScale */
 
@@ -9510,7 +8803,7 @@ void Lua_SetActorTimeScale(void)
 
 
 /* ---- 0x0049f690  Lua_GetActorNodeLocation ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: GetActorNodeLocation */
 
@@ -9592,7 +8885,7 @@ void Lua_GetActorNodeLocation(void)
 
 
 /* ---- 0x0049f810  Lua_GetActorScale ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: GetActorScale */
 
@@ -9618,7 +8911,7 @@ void Lua_GetActorScale(void)
 
 
 /* ---- 0x0049f860  Lua_GetActorTimeScale ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: GetActorTimeScale */
 
@@ -9647,7 +8940,7 @@ void Lua_GetActorTimeScale(void)
 
 
 /* ---- 0x0049f8d0  Lua_SetCameraFOV ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: SetCameraFOV */
 
@@ -9675,7 +8968,7 @@ void Lua_SetCameraFOV(void)
 
 
 /* ---- 0x0049f930  Lua_SetCameraRoll ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_c */
 /* Lua opcode: SetCameraRoll */
@@ -9709,7 +9002,7 @@ void Lua_SetCameraRoll(void)
 
 
 /* ---- 0x0049f9b0  Lua_GetCameraLookVector ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: GetCameraLookVector */
 
@@ -9774,7 +9067,7 @@ void Lua_GetCameraLookVector(void)
 
 
 /* ---- 0x0049fb00  Lua_PointActorAt ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: PointActorAt(actor, x, y, z | actor). Creates the walker if missing, turns the walker
    heading all the way to the point (Walker_TurnToPoint with FLT_MAX) and negates the turn rate so
@@ -9846,7 +9139,7 @@ void Lua_PointActorAt(void)
 
 
 /* ---- 0x0049fc60  Lua_TurnActorTo ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: TurnActorTo(actor, x, y, z | actor). Creates the walker if missing, turns the heading
    by at most |rate| * frameSeconds (no time scale) and returns TRUE while a whole step was taken
@@ -9933,7 +9226,7 @@ LAB_0049fde2:
 
 
 /* ---- 0x0049fdf0  Lua_PerSecond ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_c */
 /* Lua opcode: PerSecond */
@@ -9964,7 +9257,7 @@ void Lua_PerSecond(void)
 
 
 /* ---- 0x0049fe40  Lua_SnapToPlane ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: SnapToPlane */
 
@@ -10015,7 +9308,7 @@ void Lua_SnapToPlane(void)
 
 
 /* ---- 0x0049ff00  Lua_GetAngleBetweenVectors ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_30 */
 /* Lua opcode: GetAngleBetweenVectors */
@@ -10100,7 +9393,7 @@ void Lua_GetAngleBetweenVectors(void)
 
 
 /* ---- 0x004a00a0  Lua_GetAngleBetweenActors ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_30 */
 /* Lua opcode: GetAngleBetweenActors */
@@ -10174,7 +9467,7 @@ void Lua_GetAngleBetweenActors(void)
 
 
 /* ---- 0x004a0230  Lua_SetAmbientLight ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_c */
 /* Lua opcode: SetAmbientLight */
@@ -10208,7 +9501,7 @@ void Lua_SetAmbientLight(void)
 
 
 /* ---- 0x004a0290  Lua_FindLight ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_c */
 /* Lua opcode: FindLight */
@@ -10243,7 +9536,7 @@ void Lua_FindLight(void)
 
 
 /* ---- 0x004a02f0  Lua_TurnLightOn ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: TurnLightOn */
 
@@ -10286,7 +9579,7 @@ void Lua_TurnLightOn(void)
 
 
 /* ---- 0x004a0380  Lua_IsLightOn ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: This function may have set the stack pointer */
 /* Lua opcode: IsLightOn */
@@ -10328,7 +9621,7 @@ LAB_004a03f5:
 
 
 /* ---- 0x004a0400  Lua_SetLightType ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: SetLightType */
 
@@ -10404,7 +9697,7 @@ void Lua_SetLightType(void)
 
 
 /* ---- 0x004a0530  Lua_GetLightType ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: This function may have set the stack pointer */
 /* Lua opcode: GetLightType */
@@ -10457,7 +9750,7 @@ LAB_004a05d0:
 
 
 /* ---- 0x004a05e0  Lua_SetLightPosition ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: SetLightPosition */
 
@@ -10543,7 +9836,7 @@ void Lua_SetLightPosition(void)
 
 
 /* ---- 0x004a0760  Lua_GetLightPosition ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: GetLightPosition */
 
@@ -10589,7 +9882,7 @@ LAB_004a07f0:
 
 
 /* ---- 0x004a0800  Lua_SetLightRotation ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: SetLightRotation */
 
@@ -10705,7 +9998,7 @@ void Lua_SetLightRotation(void)
 
 
 /* ---- 0x004a09a0  Lua_GetLightRotation ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_c */
 /* Lua opcode: GetLightRotation */
@@ -10757,7 +10050,7 @@ LAB_004a0a3b:
 
 
 /* ---- 0x004a0a50  Lua_SetLightAngles ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: SetLightAngles */
 
@@ -10824,7 +10117,7 @@ void Lua_SetLightAngles(void)
 
 
 /* ---- 0x004a0b40  Lua_GetLightAngles ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: GetLightAngles */
 
@@ -10866,7 +10159,7 @@ LAB_004a0bbc:
 
 
 /* ---- 0x004a0bd0  Lua_PointLightAt ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: PointLightAt */
 
@@ -10971,7 +10264,7 @@ void Lua_PointLightAt(void)
 
 
 /* ---- 0x004a0da0  Lua_SetLightIntensity ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: SetLightIntensity */
 
@@ -11035,7 +10328,7 @@ void Lua_SetLightIntensity(void)
 
 
 /* ---- 0x004a0e90  Lua_GetLightIntensity ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: GetLightIntensity */
 
@@ -11077,7 +10370,7 @@ LAB_004a0f08:
 
 
 /* ---- 0x004a0f20  Lua_ImStartRecording ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: ImStartRecording */
 
@@ -11102,7 +10395,7 @@ void Lua_ImStartRecording(void)
 
 
 /* ---- 0x004a0f80  Lua_ImStartSound ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_18 */
 /* Lua opcodes: ImStartSound, play
@@ -11148,7 +10441,7 @@ void Lua_ImStartSound(void)
 
 
 /* ---- 0x004a1030  Lua_ImStopSound ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: This function may have set the stack pointer */
 /* Lua opcode: ImStopSound */
@@ -11178,7 +10471,7 @@ void Lua_ImStopSound(void)
 
 
 /* ---- 0x004a1090  Lua_ImGetParam ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_10 */
 /* Lua opcode: ImGetParam */
@@ -11227,7 +10520,7 @@ void Lua_ImGetParam(void)
 
 
 /* ---- 0x004a1140  Lua_ImSetParam ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: ImSetParam */
 
@@ -11295,7 +10588,7 @@ void Lua_ImSetParam(void)
 
 
 /* ---- 0x004a1260  Lua_ImFadeParam ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: ImFadeParam */
 
@@ -11382,7 +10675,7 @@ void Lua_ImFadeParam(void)
 
 
 /* ---- 0x004a13d0  Lua_ImGetMasterVol ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_8 */
 /* WARNING: Variable defined which should be unmapped: local_4 */
@@ -11407,7 +10700,7 @@ void __fastcall Lua_ImGetMasterVol(undefined4 param_1)
 
 
 /* ---- 0x004a1400  Lua_ImSetMasterVol ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: This function may have set the stack pointer */
 /* Lua opcode: ImSetMasterVol */
@@ -11434,7 +10727,7 @@ void Lua_ImSetMasterVol(void)
 
 
 /* ---- 0x004a1440  Lua_ImGetSfxVol ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_8 */
 /* WARNING: Variable defined which should be unmapped: local_4 */
@@ -11459,7 +10752,7 @@ void __fastcall Lua_ImGetSfxVol(undefined4 param_1)
 
 
 /* ---- 0x004a1470  Lua_ImSetSfxVol ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: This function may have set the stack pointer */
 /* Lua opcode: ImSetSfxVol */
@@ -11486,7 +10779,7 @@ void Lua_ImSetSfxVol(void)
 
 
 /* ---- 0x004a14b0  Lua_ImGetVoiceVol ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_8 */
 /* WARNING: Variable defined which should be unmapped: local_4 */
@@ -11511,7 +10804,7 @@ void __fastcall Lua_ImGetVoiceVol(undefined4 param_1)
 
 
 /* ---- 0x004a14e0  Lua_ImSetVoiceVol ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: This function may have set the stack pointer */
 /* Lua opcode: ImSetVoiceVol */
@@ -11538,7 +10831,7 @@ void Lua_ImSetVoiceVol(void)
 
 
 /* ---- 0x004a1520  Lua_ImGetMusicVol ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_8 */
 /* WARNING: Variable defined which should be unmapped: local_4 */
@@ -11563,7 +10856,7 @@ void __fastcall Lua_ImGetMusicVol(undefined4 param_1)
 
 
 /* ---- 0x004a1550  Lua_ImSetMusicVol ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: This function may have set the stack pointer */
 /* Lua opcode: ImSetMusicVol */
@@ -11590,7 +10883,7 @@ void Lua_ImSetMusicVol(void)
 
 
 /* ---- 0x004a1590  Lua_ImStartVoice ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: ImStartVoice */
 
@@ -11628,7 +10921,7 @@ void Lua_ImStartVoice(void)
 
 
 /* ---- 0x004a1640  Lua_ImSetState ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: This function may have set the stack pointer */
 /* Lua opcode: ImSetState */
@@ -11655,7 +10948,7 @@ void Lua_ImSetState(void)
 
 
 /* ---- 0x004a1680  Lua_ImSetSequence ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_c */
 /* WARNING: Variable defined which should be unmapped: local_4 */
@@ -11689,7 +10982,7 @@ void __fastcall Lua_ImSetSequence(undefined4 param_1)
 
 
 /* ---- 0x004a16d0  Lua_ImSetCuePoint ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: This function may have set the stack pointer */
 /* Lua opcode: ImSetCuePoint */
@@ -11716,7 +11009,7 @@ void Lua_ImSetCuePoint(void)
 
 
 /* ---- 0x004a1710  Lua_ImSetAttribute ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_14 */
 /* Lua opcode: ImSetAttribute */
@@ -11757,7 +11050,7 @@ void Lua_ImSetAttribute(void)
 
 
 /* ---- 0x004a17b0  Lua_ImSetVoiceEffect ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcodes: vfx, ImSetVoiceEffect
    also registered as `vfx` */
@@ -11781,7 +11074,7 @@ void Lua_ImSetVoiceEffect(void)
 
 
 /* ---- 0x004a17f0  Lua_ImGetMemoryFootprint ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_c */
 /* Lua opcode: ImGetMemoryFootprint */
@@ -11803,7 +11096,7 @@ void Lua_ImGetMemoryFootprint(void)
 
 
 /* ---- 0x004a1820  Lua_ImGetSoundCacheSize ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_c */
 /* Lua opcode: ImGetSoundCacheSize */
@@ -11825,7 +11118,7 @@ void Lua_ImGetSoundCacheSize(void)
 
 
 /* ---- 0x004a1850  Lua_SetGamma ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_8 */
 /* Lua opcode: SetGamma */
@@ -11853,7 +11146,7 @@ void Lua_SetGamma(void)
 
 
 /* ---- 0x004a1890  Lua_SetActorWalkDominate ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: SetActorWalkDominate */
 
@@ -11883,7 +11176,7 @@ void Lua_SetActorWalkDominate(void)
 
 
 /* ---- 0x004a1900  Lua_SetActorConstrain ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: SetActorConstrain */
 
@@ -11912,7 +11205,7 @@ void Lua_SetActorConstrain(void)
 
 
 /* ---- 0x004a1970  Lua_RenderModeUser ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: RenderModeUser */
 
@@ -11942,7 +11235,7 @@ void Lua_RenderModeUser(void)
 
 
 /* ---- 0x004a19f0  Lua_DimScreen ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: DimScreen */
 
@@ -11956,7 +11249,7 @@ void Lua_DimScreen(void)
 
 
 /* ---- 0x004a1a00  Lua_DimRegion ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_28 */
 /* WARNING: Variable defined which should be unmapped: local_38 */
@@ -12018,7 +11311,7 @@ void Lua_DimRegion(void)
 
 
 /* ---- 0x004a1ae0  Lua_SetSpeechMode ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: This function may have set the stack pointer */
 /* Lua opcode: SetSpeechMode */
@@ -12058,7 +11351,7 @@ void Lua_SetSpeechMode(void)
 
 
 /* ---- 0x004a1b40  Lua_GetSpeechMode ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: GetSpeechMode */
 
@@ -12085,7 +11378,7 @@ void Lua_GetSpeechMode(void)
 
 
 /* ---- 0x004a1b80  Lua_ActorShadow ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: ActorShadow */
 
@@ -12118,7 +11411,7 @@ void Lua_ActorShadow(void)
 
 
 /* ---- 0x004a1bf0  Lua_ActivateActorShadow ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: ActivateActorShadow */
 
@@ -12159,7 +11452,7 @@ void Lua_ActivateActorShadow(void)
 
 
 /* ---- 0x004a1c90  Lua_SetActorShadowPlane ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: SetActorShadowPlane */
 
@@ -12191,7 +11484,7 @@ void Lua_SetActorShadowPlane(void)
 
 
 /* ---- 0x004a1d10  Lua_SetActorShadowPoint ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_18 */
 /* WARNING: Variable defined which should be unmapped: local_1c */
@@ -12246,7 +11539,7 @@ void Lua_SetActorShadowPoint(void)
 
 
 /* ---- 0x004a1dc0  Lua_SetActiveShadow ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: SetActiveShadow */
 
@@ -12285,7 +11578,7 @@ void Lua_SetActiveShadow(void)
 
 
 /* ---- 0x004a1e50  Lua_ActorDistToShadowPlane ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: ActorDistToShadowPlane */
 
@@ -12340,7 +11633,7 @@ void Lua_ActorDistToShadowPlane(void)
 
 
 /* ---- 0x004a1f30  Lua_AddShadowPlane ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: AddShadowPlane */
 
@@ -12377,7 +11670,7 @@ void Lua_AddShadowPlane(void)
 
 
 /* ---- 0x004a1fd0  Lua_SetActorShadowValid ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: SetActorShadowValid */
 
@@ -12417,7 +11710,7 @@ void Lua_SetActorShadowValid(void)
 
 
 /* ---- 0x004a2070  Lua_KillActorShadows ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: KillActorShadows */
 
@@ -12447,7 +11740,7 @@ void Lua_KillActorShadows(void)
 
 
 /* ---- 0x004a20d0  Lua_SetShadowColor ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: SetShadowColor */
 
@@ -12481,7 +11774,7 @@ void Lua_SetShadowColor(void)
 
 
 /* ---- 0x004a2130  Lua_NewObjectState ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: NewObjectState */
 
@@ -12535,7 +11828,7 @@ void Lua_NewObjectState(void)
 
 
 /* ---- 0x004a21f0  Lua_FreeObjectState ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: FreeObjectState */
 
@@ -12563,7 +11856,7 @@ void Lua_FreeObjectState(void)
 
 
 /* ---- 0x004a2240  Lua_SendObjectToBack ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: SendObjectToBack */
 
@@ -12597,7 +11890,7 @@ void Lua_SendObjectToBack(void)
 
 
 /* ---- 0x004a22b0  Lua_SendObjectToFront ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: SendObjectToFront */
 
@@ -12631,7 +11924,7 @@ void Lua_SendObjectToFront(void)
 
 
 /* ---- 0x004a2320  Lua_SetObjectType ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: SetObjectType */
 
@@ -12665,7 +11958,7 @@ void Lua_SetObjectType(void)
 
 
 /* ---- 0x004a2380  Lua_ActorToClean ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: ActorToClean */
 
@@ -12695,7 +11988,7 @@ void Lua_ActorToClean(void)
 
 
 /* ---- 0x004a23e0  Lua_SetActorCollisionMode ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: SetActorCollisionMode */
 
@@ -12734,7 +12027,7 @@ void Lua_SetActorCollisionMode(void)
 
 
 /* ---- 0x004a2470  Lua_SetActorCollisionScale ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: SetActorCollisionScale */
 
@@ -12770,7 +12063,7 @@ void Lua_SetActorCollisionScale(void)
 
 
 /* ---- 0x004a2500  Lua_SetActorOffsetYaw ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: SetActorOffsetYaw */
 
@@ -12806,7 +12099,7 @@ void Lua_SetActorOffsetYaw(void)
 
 
 /* ---- 0x004a2590  Lua_CacheRect ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_18 */
 /* WARNING: Variable defined which should be unmapped: local_1c */
@@ -12882,7 +12175,7 @@ LAB_004a268a:
 
 
 /* ---- 0x004a26b0  Lua_RestoreCacheRect ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: This function may have set the stack pointer */
 /* Lua opcode: RestoreCacheRect */
@@ -12909,7 +12202,7 @@ void Lua_RestoreCacheRect(void)
 
 
 /* ---- 0x004a26f0  Lua_ResReport ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_4 */
 /* WARNING: Variable defined which should be unmapped: local_8 */
@@ -12935,7 +12228,7 @@ void __fastcall Lua_ResReport(undefined4 param_1)
 
 
 /* ---- 0x004a2720  Lua_HardwareAccelerated ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: HardwareAccelerated */
 
@@ -12953,7 +12246,7 @@ void Lua_HardwareAccelerated(void)
 
 
 /* ---- 0x004a2750  Lua_SetActorClipActive ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: SetActorClipActive */
 
@@ -12982,7 +12275,7 @@ void Lua_SetActorClipActive(void)
 
 
 /* ---- 0x004a27b0  Lua_SetActorClipPlane ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: SetActorClipPlane */
 
@@ -13071,7 +12364,7 @@ void Lua_SetActorClipPlane(void)
 
 
 /* ---- 0x004a2920  Lua_MarkDirtyRect ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: MarkDirtyRect */
 
@@ -13135,7 +12428,7 @@ void Lua_MarkDirtyRect(void)
 
 
 /* ---- 0x004a2a20  Lua_FadeOutChore ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: FadeOutChore */
 
@@ -13184,7 +12477,7 @@ void Lua_FadeOutChore(void)
 
 
 /* ---- 0x004a2b00  Lua_FadeInChore ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: FadeInChore */
 
@@ -13237,7 +12530,7 @@ void Lua_FadeInChore(void)
 
 
 /* ---- 0x004a2c10  Lua_IrisDown ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: IrisDown */
 
@@ -13271,7 +12564,7 @@ void Lua_IrisDown(void)
 
 
 /* ---- 0x004a2c70  Lua_IrisUp ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: IrisUp */
 
@@ -13305,7 +12598,7 @@ void Lua_IrisUp(void)
 
 
 /* ---- 0x004a2cd0  Lua_IrisComplete ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_4 */
 /* WARNING: Variable defined which should be unmapped: local_8 */
@@ -13330,7 +12623,7 @@ void __fastcall Lua_IrisComplete(undefined4 param_1)
 
 
 /* ---- 0x004a2d00  Lua_TextFileGetLineCount ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_21c */
 /* Lua opcode: TextFileGetLineCount */
@@ -13391,7 +12684,7 @@ void Lua_TextFileGetLineCount(void)
 
 
 /* ---- 0x004a2e20  Lua_TextFileGetLine ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: TextFileGetLine */
 
@@ -13439,7 +12732,7 @@ void Lua_TextFileGetLine(void)
 
 
 /* ---- 0x004a2ee0  Lua_ScreenShot ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: ScreenShot */
 
@@ -13493,7 +12786,7 @@ LAB_004a2f5e:
 
 
 /* ---- 0x004a2f90  Lua_SaveScreen ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: SaveScreen */
 
@@ -13519,7 +12812,7 @@ void Lua_SaveScreen(void)
 
 
 /* ---- 0x004a2fd0  Lua_GetSaveGameImage ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: GetSaveGameImage */
 
@@ -13552,7 +12845,7 @@ void Lua_GetSaveGameImage(void)
 
 
 /* ---- 0x004a3040  Lua_GetImage ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: GetImage */
 
@@ -13590,7 +12883,7 @@ void Lua_GetImage(void)
 
 
 /* ---- 0x004a30e0  Lua_FreeImage ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: FreeImage */
 
@@ -13616,7 +12909,7 @@ void Lua_FreeImage(void)
 
 
 /* ---- 0x004a3130  Lua_BlastImage ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: BlastImage */
 
@@ -13669,7 +12962,7 @@ void Lua_BlastImage(void)
 
 
 /* ---- 0x004a31f0  Lua_BlastRect ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: BlastRect */
 
@@ -13801,7 +13094,7 @@ void Lua_BlastRect(void)
 
 
 /* ---- 0x004a34c0  Lua_CallSaveGameCallback ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* system.saveGameCallback(); the script answers with SubmitSaveGameData */
 
@@ -13867,7 +13160,7 @@ void __cdecl Lua_CallSaveGameCallback(void *writeFn)
 
 
 /* ---- 0x004a35d0  Lua_SubmitSaveGameData ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: SubmitSaveGameData */
 
@@ -13949,7 +13242,7 @@ void Lua_SubmitSaveGameData(void)
 
 
 /* ---- 0x004a3720  Lua_GetSaveGameData ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: GetSaveGameData */
 
@@ -14004,7 +13297,7 @@ void Lua_GetSaveGameData(void)
 
 
 /* ---- 0x004a3830  Lua_GetTextSpeed ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_4 */
 /* WARNING: Variable defined which should be unmapped: local_8 */
@@ -14029,7 +13322,7 @@ void __fastcall Lua_GetTextSpeed(undefined4 param_1)
 
 
 /* ---- 0x004a3850  Lua_SetTextSpeed ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: This function may have set the stack pointer */
 /* Lua opcode: SetTextSpeed */
@@ -14056,7 +13349,7 @@ void Lua_SetTextSpeed(void)
 
 
 /* ---- 0x004a3890  Lua_FindFileOnAnyCD ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: FindFileOnAnyCD */
 
@@ -14185,7 +13478,7 @@ void Lua_FindFileOnAnyCD(void)
 
 
 /* ---- 0x004a3a10  Lua_ActorPuckOrient ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: ActorPuckOrient */
 
@@ -14226,7 +13519,7 @@ void Lua_ActorPuckOrient(void)
 
 
 /* ---- 0x004a3aa0  Lua_GetTickCount ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_c */
 /* Lua opcode: GetTickCount */
@@ -14248,7 +13541,7 @@ void Lua_GetTickCount(void)
 
 
 /* ---- 0x004a3ae0  Lua_SetActorInvClipNode ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: SetActorInvClipNode */
 
@@ -14291,7 +13584,7 @@ void Lua_SetActorInvClipNode(void)
 
 
 /* ---- 0x004a3b80  Lua_SetWalkSystemFadeTime ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: This function may have set the stack pointer */
 /* Lua opcode: SetWalkSystemFadeTime */
@@ -14318,7 +13611,7 @@ void Lua_SetWalkSystemFadeTime(void)
 
 
 /* ---- 0x004be180  Lua_LightMgrStartup ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Debug light manager dialog (Lua LightMgrStartup). Creates the dialog, a keyboard hook and a
    helper actor wearing x_spot.cos */
@@ -14371,7 +13664,7 @@ void Lua_LightMgrStartup(void)
 
 
 /* ---- 0x004be260  Lua_LightMgrSetChange ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: LightMgrSetChange */
 
@@ -14395,7 +13688,7 @@ void Lua_LightMgrSetChange(void)
 
 
 /* ---- 0x004be2a0  Lua_LightMgrShutdown ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: LightMgrShutdown */
 

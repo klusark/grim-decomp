@@ -6,7 +6,7 @@
 #include "functions.h"
 
 /* ---- 0x00404c00  rdCanvas_InitEdgeTables ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Clears the per-scanline edge buckets for the current canvas height */
@@ -57,7 +57,7 @@ void rdCanvas_InitEdgeTables(void)
 
 
 /* ---- 0x00404ca0  rdCanvas_ResetPolyCount ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void rdCanvas_ResetPolyCount(void)
 
@@ -69,7 +69,7 @@ void rdCanvas_ResetPolyCount(void)
 
 
 /* ---- 0x00404cb0  rdCanvas_ScanConvert ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Rdcanvas.c: active-edge scanline loop over all queued polygons; merges edges per scanline, emits
    spans, flushes them */
@@ -156,7 +156,7 @@ void rdCanvas_ScanConvert(void)
 
 
 /* ---- 0x00404e00  rdCanvas_EmitSpans ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Walks the active edge list for one scanline, computing 0x2c-byte span records with interpolated
    z/u/v/light */
@@ -528,7 +528,7 @@ LAB_004055a9:
 
 
 /* ---- 0x004055d0  rdCanvas_FlushSpans ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Calls each polygon's span-draw callback for its accumulated spans and resets the span buffer */
 
@@ -558,7 +558,7 @@ void rdCanvas_FlushSpans(void)
 
 
 /* ---- 0x00405620  rdCanvas_BuildEdgeLists ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* For every queued polygon, runs its edge-setup callback on each edge and inserts the edges into
    the per-scanline buckets */
@@ -653,7 +653,7 @@ void rdCanvas_BuildEdgeLists(void)
 
 
 /* ---- 0x00405770  rdCanvas_PreparePolygon ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4 rdCanvas_PreparePolygon(byte *param_1)
 
@@ -1354,7 +1354,7 @@ LAB_0040585d:
 
 
 /* ---- 0x00451950  rdCanvas_DrawLine ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Bresenham line, 8 and 16 bpp, with a 32-bit stipple pattern */
 
@@ -1470,7 +1470,7 @@ void __cdecl rdCanvas_DrawLine(void *canvas,int x0,int y0,int x1,int y1,ushort c
 
 
 /* ---- 0x00451dd0  rdCanvas_DrawPoint ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Clips a point with radius against the canvas rect and draws it */
 
@@ -1524,7 +1524,7 @@ void rdCanvas_DrawPoint(void *param_1,int param_2,int param_3,undefined4 param_4
 
 
 /* ---- 0x004c04f0  rdCanvas_New ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Rdcanvas.c: allocates a 0x28-byte canvas and initialises it */
 
@@ -1546,7 +1546,7 @@ uint * rdCanvas_New(uint param_1,uint param_2,uint param_3,uint param_4,uint par
 
 
 /* ---- 0x004c0550  rdCanvas_Init ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* flags bit 0: explicit clip rect, otherwise the whole surface */
 
@@ -1579,7 +1579,7 @@ rdCanvas_Init(uint *canvas,uint flags,uint surface,uint zSurface,uint x0,uint y0
 
 
 /* ---- 0x004c0610  rdCanvas_Free ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void rdCanvas_Free(int param_1)
 

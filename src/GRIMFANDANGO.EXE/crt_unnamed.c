@@ -1,5 +1,5 @@
 /* GRIMFANDANGO.EXE :: crt_unnamed.c
- * functions 0x004ac690 .. 0x004d610b (438 functions)
+ * functions 0x004ac690 .. 0x004d610b (429 functions)
  * Decompiled from the shipped binaries with Ghidra; see ../../README.md */
 #include "ghidra_types.h"
 #include "globals.h"
@@ -29,7 +29,7 @@ void FUN_004ac6b0(void)
 }
 
 /* ---- 0x004acb8d  FUN_004acb8d ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_004acb8d(void)
 
@@ -46,7 +46,7 @@ void FUN_004acb8d(void)
 
 
 /* ---- 0x004acba2  FUN_004acba2 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Stack frame is not setup normally: Input value of stackpointer is not used */
 
@@ -114,7 +114,7 @@ void FUN_004ad2b0(void)
 }
 
 /* ---- 0x004addf0  FUN_004addf0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Unable to track spacebase fully for stack */
 
@@ -276,7 +276,7 @@ LAB_004ae4ca:
 }
 
 /* ---- 0x004ae735  FUN_004ae735 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -480,7 +480,7 @@ int FUN_004af5e0(int param_1,int param_2,int param_3,uint *param_4,uint *param_5
 
 
 /* ---- 0x004af72d  FUN_004af72d ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void __fastcall FUN_004af72d(uint param_1)
 
@@ -1883,7 +1883,7 @@ undefined4 FUN_004b1c00(void)
 }
 
 /* ---- 0x004b1c48  FUN_004b1c48 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4 FUN_004b1c48(int param_1,int param_2,undefined4 param_3)
 
@@ -2074,7 +2074,7 @@ float10 FUN_004b4ad4(void)
 }
 
 /* ---- 0x004b4b0d  FUN_004b4b0d ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 float10 FUN_004b4b0d(void)
 
@@ -2096,7 +2096,7 @@ float10 FUN_004b4b0d(void)
 
 
 /* ---- 0x004b4b0f  FUN_004b4b0f ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 float10 FUN_004b4b0f(void)
 
@@ -2118,7 +2118,7 @@ float10 FUN_004b4b0f(void)
 
 
 /* ---- 0x004b4c00  FUN_004b4c00 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 unkbyte10 FUN_004b4c00(void)
 
@@ -2135,7 +2135,7 @@ unkbyte10 FUN_004b4c00(void)
 
 
 /* ---- 0x004b4c15  FUN_004b4c15 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -2163,7 +2163,7 @@ uint __fastcall FUN_004b4c45(undefined4 param_1,int param_2)
 }
 
 /* ---- 0x004b4c9e  FUN_004b4c9e ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -2178,7 +2178,7 @@ undefined * FUN_004b4c9e(void)
 
 
 /* ---- 0x004b4ce9  FUN_004b4ce9 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined * __fastcall FUN_004b4ce9(uint param_1,int param_2)
 
@@ -2223,7 +2223,7 @@ undefined * __fastcall FUN_004b4ce9(uint param_1,int param_2)
 
 
 /* ---- 0x004b56c6  FUN_004b56c6 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_004b56c6(void)
 
@@ -2237,7 +2237,7 @@ void FUN_004b56c6(void)
 
 
 /* ---- 0x004b56d3  FUN_004b56d3 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Stack frame is not setup normally: Input value of stackpointer is not used */
 
@@ -2294,7 +2294,7 @@ undefined4 FUN_004b5710(undefined4 *param_1)
 }
 
 /* ---- 0x004b5884  FUN_004b5884 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Stack frame is not setup normally: Input value of stackpointer is not used */
 
@@ -2318,7 +2318,7 @@ undefined4 FUN_004b5884(void)
 
 
 /* ---- 0x004b58af  FUN_004b58af ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_004b58af(void)
 
@@ -2378,7 +2378,7 @@ void FUN_004b5b60(int param_1)
 
 
 /* ---- 0x004b5baa  FUN_004b5baa ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 bool FUN_004b5baa(void)
 
@@ -2391,7 +2391,7 @@ bool FUN_004b5baa(void)
 
 
 /* ---- 0x004b5bb5  FUN_004b5bb5 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Stack frame is not setup normally: Input value of stackpointer is not used */
 
@@ -2426,7 +2426,7 @@ int FUN_004b5be0(int param_1,int *param_2)
 }
 
 /* ---- 0x004b5c10  FUN_004b5c10 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Restarted to delay deadcode elimination for space: stack */
 
@@ -2459,7 +2459,7 @@ undefined4 FUN_004b5caa(void)
 }
 
 /* ---- 0x004b5cb0  FUN_004b5cb0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Stack frame is not setup normally: Input value of stackpointer is not used */
 
@@ -3700,7 +3700,7 @@ int FUN_004b7c10(void)
 }
 
 /* ---- 0x004b8f30  FUN_004b8f30 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 int __fastcall FUN_004b8f30(byte param_1,int param_2)
 
@@ -3719,7 +3719,7 @@ int __fastcall FUN_004b8f30(byte param_1,int param_2)
 
 
 /* ---- 0x004b9916  FUN_004b9916 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -3780,7 +3780,7 @@ FUN_004b9916(undefined4 param_1,uint param_2,ushort param_3,uint param_4,uint pa
 
 
 /* ---- 0x004b9b1c  FUN_004b9b1c ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -4293,7 +4293,7 @@ void FUN_004bc3d0(int param_1)
 }
 
 /* ---- 0x004bc400  FUN_004bc400 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 int FUN_004bc400(void)
 
@@ -4306,7 +4306,7 @@ int FUN_004bc400(void)
 
 
 /* ---- 0x004bc410  FUN_004bc410 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 int FUN_004bc410(void)
 
@@ -4341,7 +4341,7 @@ void FUN_004bc460(void)
 }
 
 /* ---- 0x004bc4c0  FUN_004bc4c0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 uint FUN_004bc4c0(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4)
 
@@ -4406,7 +4406,7 @@ uint FUN_004bc4c0(undefined4 param_1,undefined4 param_2,undefined4 param_3,undef
 
 
 /* ---- 0x004bc5f0  FUN_004bc5f0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 uint FUN_004bc5f0(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4)
 
@@ -4492,56 +4492,6 @@ int FUN_004bcb40(uint param_1,int param_2)
   }
   *(byte *)((&PTR_00906b00)[(int)param_1 >> 5] + (param_1 & 0x1f) * 9 + 1) = bVar3;
   return (-(uint)((bVar1 & 0x80) != 0) & 0xffffc000) + 0x8000;
-}
-
-/* ---- 0x004bd430  FUN_004bd430 ---- */
-void FUN_004bd430(void)
-
-{
-  LecShare_Shutdown();
-  UINT_008d16a0 = 0;
-  return;
-}
-
-/* ---- 0x004bd440  FUN_004bd440 ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
-undefined4 FUN_004bd440(void)
-
-{
-  int iVar1;
-  undefined4 uVar2;
-  
-  uVar2 = 1;
-  if ((UINT_008d16a0 != 0) && (UINT_008d16a4 == 0)) {
-    ((code *)deflateParams_or_SetDictionary)(1,&DAT_004f0cc4,0);
-    ((code *)deflateParams_or_SetDictionary)(1,&DAT_004f0cbc,0);
-    ((code *)deflateParams_or_SetDictionary)(1,&DAT_004f0cb8,0);
-    ((code *)deflateParams_or_SetDictionary)(1,&DAT_004f0cb4,0);
-    iVar1 = LecShare_StartupModules();
-    if (iVar1 == 0) {
-      iVar1 = (*(code *)PTR_008d11d4[4])(&PTR_PTR_004f0b70,0);
-      if (iVar1 == 0) {
-        UINT_008d16a4 = 1;
-        uVar2 = 0;
-      }
-    }
-  }
-  return uVar2;
-}
-#endif
-
-
-/* ---- 0x004bd4d0  FUN_004bd4d0 ---- */
-void FUN_004bd4d0(void)
-
-{
-  if (UINT_008d16a4 != 0) {
-    (*(code *)PTR_008d11d4[5])(&PTR_PTR_004f0b70);
-    LecShare_UnwindStartup();
-    UINT_008d16a4 = 0;
-  }
-  return;
 }
 
 /* ---- 0x004bdad0  FUN_004bdad0 ---- */
@@ -4913,7 +4863,7 @@ undefined * __stdcall FUN_004bf950(int a1,int a2,int a3,int a4)
 
 
 /* ---- 0x004bffb0  FUN_004bffb0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_18 */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
@@ -5087,443 +5037,6 @@ switchD_004c008d_caseD_13:
 
 #endif
 
-
-/* ---- 0x004c0630  FUN_004c0630 ---- */
-void FUN_004c0630(undefined4 *param_1)
-
-{
-  int iVar1;
-  undefined4 *puVar2;
-  
-  puVar2 = param_1;
-  for (iVar1 = 0x21; iVar1 != 0; iVar1 = iVar1 + -1) {
-    *puVar2 = 0;
-    puVar2 = puVar2 + 1;
-  }
-  strncpy(param_1,s_UNKNOWN_004ddb8c,0x1f);
-  *(undefined1 *)((int)param_1 + 0x1f) = 0;
-  return;
-}
-
-/* ---- 0x004c0660  FUN_004c0660 ---- */
-int FUN_004c0660(char *param_1)
-
-{
-  int iVar1;
-  int iVar2;
-  int iVar3;
-  char *pcVar4;
-  undefined4 uVar5;
-  
-  pcVar4 = param_1;
-  if (UINT_008d364c != 0) {
-    iVar1 = (*(code *)UINT_008d364c)(param_1);
-    return iVar1;
-  }
-  iVar1 = (*g_pSvcRdroid->pFopen)(param_1,&DAT_004ddb18);
-  if (iVar1 != 0) {
-    iVar2 = (*g_pSvcRdroid->pAlloc)
-                      (0x84,s_C__grimjedi_Libs_RDroid_Engine_R_004f0f14,DAT_004f0f08 + 0x11);
-    if (iVar2 != 0) {
-      (*g_pSvcRdroid->pFread)(iVar1,&param_1,4);
-      if (param_1 == (char *)0x4b455946) {
-        iVar3 = FUN_004c0ce0(iVar1,iVar2);
-        if (iVar3 != 0) {
-          uVar5 = 0x1f;
-          pcVar4 = Str_FileNameFromPath(pcVar4);
-          strncpy(iVar2,pcVar4,uVar5);
-          *(undefined1 *)(iVar2 + 0x1f) = 0;
-          (*g_pSvcRdroid->pFclose)(iVar1);
-          return iVar2;
-        }
-        (*g_pSvcRdroid->pFclose)(iVar1);
-        FUN_004c0e40(iVar2);
-        return 0;
-      }
-      (*g_pSvcRdroid->pFclose)(iVar1);
-      iVar1 = FUN_004c0770(pcVar4,iVar2);
-      if (iVar1 != 0) {
-        return iVar2;
-      }
-    }
-    FUN_004c0e40(iVar2);
-  }
-  return 0;
-}
-
-/* ---- 0x004c0770  FUN_004c0770 ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
-undefined4 FUN_004c0770(char *param_1,int param_2)
-
-{
-  unsigned char _frame[0x80] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  byte bVar1;
-  int iVar2;
-  char *pcVar3;
-  int iVar4;
-  undefined4 *puVar5;
-  byte *pbVar6;
-  int iVar7;
-  int iVar8;
-  uint uVar9;
-  byte *pbVar10;
-  bool bVar11;
-  undefined4 uVar12;
-  #define uStack_68 (*(uint *)(_frame + (0x80 - 0x68)))
-  #define iStack_64 (*(int *)(_frame + (0x80 - 0x64)))
-  #define iStack_60 (*(int *)(_frame + (0x80 - 0x60)))
-  #define uStack_5c (*(uint *)(_frame + (0x80 - 0x5c)))
-  #define local_58 (*(uint *)(_frame + (0x80 - 0x58)))
-  #define uStack_54 (*(undefined4 *)(_frame + (0x80 - 0x54)))
-  #define uStack_50 (*(undefined4 *)(_frame + (0x80 - 0x50)))
-  #define uStack_4c (*(undefined4 *)(_frame + (0x80 - 0x4c)))
-  #define uStack_48 (*(undefined4 *)(_frame + (0x80 - 0x48)))
-  #define uStack_44 (*(undefined4 *)(_frame + (0x80 - 0x44)))
-  #define uStack_40 (*(undefined4 *)(_frame + (0x80 - 0x40)))
-  #define uStack_3c (*(undefined4 *)(_frame + (0x80 - 0x3c)))
-  #define uStack_38 (*(undefined4 *)(_frame + (0x80 - 0x38)))
-  #define uStack_34 (*(undefined4 *)(_frame + (0x80 - 0x34)))
-  #define uStack_30 (*(undefined4 *)(_frame + (0x80 - 0x30)))
-  #define uStack_2c (*(undefined4 *)(_frame + (0x80 - 0x2c)))
-  #define uStack_28 (*(undefined4 *)(_frame + (0x80 - 0x28)))
-  #define auStack_24 (*(undefined1 (*)[4])(_frame + (0x80 - 0x24)))
-  #define auStack_20 (*(undefined1 (*)[32])(_frame + (0x80 - 0x20)))
-  
-  iVar2 = param_2;
-  FUN_004c0630(param_2);
-  uVar12 = 0x1f;
-  pcVar3 = Str_FileNameFromPath(param_1);
-  strncpy(iVar2,pcVar3,uVar12);
-  *(undefined1 *)(iVar2 + 0x1f) = 0;
-  iVar4 = ((code *)FUN_0047c7c0)(param_1);
-  if (iVar4 == 0) {
-    return 0;
-  }
-  iVar4 = Std_ParseCommandLine();
-  if (iVar4 != 0) {
-    iVar4 = sscanf((char *)UINT_00900520,s_section___s_004ddd64,&DAT_009056c0);
-    if (iVar4 == 1) {
-      iVar4 = Std_ParseCommandLine();
-      if (iVar4 != 0) {
-        iVar4 = sscanf((char *)UINT_00900520,s_flags__x_004f0ff0,iVar2 + 0x24);
-        if (iVar4 == 1) {
-          iVar4 = Std_ParseCommandLine();
-          if (iVar4 != 0) {
-            iVar4 = sscanf((char *)UINT_00900520,s_type__x_004f0fe4,iVar2 + 0x2c);
-            if (iVar4 == 1) {
-              iVar4 = Std_ParseCommandLine();
-              if (iVar4 != 0) {
-                iVar4 = sscanf((char *)UINT_00900520,s_frames__d_004f0fd8,iVar2 + 0x34);
-                if (iVar4 == 1) {
-                  iVar4 = Std_ParseCommandLine();
-                  if (iVar4 != 0) {
-                    iVar4 = sscanf((char *)UINT_00900520,s_fps__f_004f0fd0,&local_58);
-                    if (iVar4 == 1) {
-                      *(uint *)(iVar2 + 0x30) = local_58;
-                      iVar4 = Std_ParseCommandLine();
-                      if (iVar4 != 0) {
-                        iVar4 = sscanf((char *)UINT_00900520,s_joints__d_004f0fc4,&param_2);
-                        if (iVar4 == 1) {
-                          puVar5 = (undefined4 *)
-                                   (*g_pSvcRdroid->pAlloc)
-                                             (param_2 * 0x2c,
-                                              s_C__grimjedi_Libs_RDroid_Engine_R_004f0f14,
-                                              DAT_004f0f0c + 0x42);
-                          *(undefined4 **)(iVar2 + 0x3c) = puVar5;
-                          if (puVar5 != (undefined4 *)0x0) {
-                            for (uVar9 = param_2 * 0xb & 0x3fffffff; uVar9 != 0; uVar9 = uVar9 - 1)
-                            {
-                              *puVar5 = 0;
-                              puVar5 = puVar5 + 1;
-                            }
-                            for (iVar4 = 0; iVar4 != 0; iVar4 = iVar4 + -1) {
-                              *(undefined1 *)puVar5 = 0;
-                              puVar5 = (undefined4 *)((int)puVar5 + 1);
-                            }
-                            *(int *)(iVar2 + 0x28) = param_2;
-                            *(int *)(iVar2 + 0x38) = param_2;
-                            iVar4 = Std_ParseCommandLine();
-                            if (iVar4 != 0) {
-                              iVar4 = sscanf((char *)UINT_00900520,s_section___s_004ddd64,
-                                             &DAT_009056c0);
-                              if (iVar4 == 1) {
-                                pbVar10 = &DAT_004f0fbc;
-                                pbVar6 = &DAT_009056c0;
-                                do {
-                                  bVar1 = *pbVar6;
-                                  bVar11 = bVar1 < *pbVar10;
-                                  if (bVar1 != *pbVar10) {
-LAB_004c099a:
-                                    iVar4 = (1 - (uint)bVar11) - (uint)(bVar11 != 0);
-                                    goto LAB_004c099f;
-                                  }
-                                  if (bVar1 == 0) break;
-                                  bVar1 = pbVar6[1];
-                                  bVar11 = bVar1 < pbVar10[1];
-                                  if (bVar1 != pbVar10[1]) goto LAB_004c099a;
-                                  pbVar6 = pbVar6 + 2;
-                                  pbVar10 = pbVar10 + 2;
-                                } while (bVar1 != 0);
-                                iVar4 = 0;
-LAB_004c099f:
-                                if (iVar4 == 0) {
-                                  iVar4 = Std_ParseCommandLine();
-                                  if (iVar4 == 0) goto LAB_004c0cbf;
-                                  iVar4 = sscanf((char *)UINT_00900520,s_markers__d_004f0fb0,
-                                                 &uStack_68);
-                                  if ((iVar4 != 1) || (8 < uStack_68)) goto LAB_004c0cbf;
-                                  uVar9 = 0;
-                                  *(uint *)(iVar2 + 0x40) = uStack_68;
-                                  if (uStack_68 != 0) {
-                                    iVar4 = iVar2 + 0x44;
-                                    do {
-                                      iVar7 = Std_ParseCommandLine();
-                                      if (iVar7 == 0) goto LAB_004c0cbf;
-                                      iVar7 = sscanf((char *)UINT_00900520,s__f__d_004f0fa8,iVar4,
-                                                     iVar4 + 0x20);
-                                      if (iVar7 != 2) goto LAB_004c0cbf;
-                                      uVar9 = uVar9 + 1;
-                                      iVar4 = iVar4 + 4;
-                                    } while (uVar9 < uStack_68);
-                                  }
-                                  iVar4 = Std_ParseCommandLine();
-                                  if (iVar4 == 0) goto LAB_004c0cbf;
-                                  iVar4 = sscanf((char *)UINT_00900520,s_section___s_004ddd64,
-                                                 &DAT_009056c0);
-                                  if (iVar4 != 1) goto LAB_004c0cbf;
-                                }
-                                iVar4 = Std_ParseCommandLine();
-                                if (iVar4 != 0) {
-                                  iVar4 = sscanf((char *)UINT_00900520,s_nodes__d_004f0f9c,
-                                                 &uStack_5c);
-                                  if (iVar4 == 1) {
-                                    param_1 = (char *)0x0;
-                                    if (uStack_5c == 0) {
-                                      FUN_0047c8c0();
-                                      return 1;
-                                    }
-                                    while( true ) {
-                                      iVar4 = Std_ParseCommandLine();
-                                      if (iVar4 == 0) break;
-                                      iVar4 = sscanf((char *)UINT_00900520,s_node__d_004f0f90,
-                                                     &iStack_64);
-                                      if (iVar4 != 1) break;
-                                      iVar4 = Std_ParseCommandLine();
-                                      if (iVar4 == 0) break;
-                                      iVar4 = sscanf((char *)UINT_00900520,s_mesh_name__s_004f0f80,
-                                                     auStack_20);
-                                      if (iVar4 != 1) break;
-                                      iVar4 = *(int *)(iVar2 + 0x3c) + iStack_64 * 0x2c;
-                                      strncpy(iVar4,auStack_20,0x1f);
-                                      *(undefined1 *)(iVar4 + 0x1f) = 0;
-                                      iVar7 = Std_ParseCommandLine();
-                                      if (iVar7 == 0) break;
-                                      iVar7 = sscanf((char *)UINT_00900520,s_entries__d_004f0f74,
-                                                     &iStack_60);
-                                      if (iVar7 != 1) break;
-                                      *(int *)(iVar4 + 0x20) = iStack_64;
-                                      *(int *)(iVar4 + 0x24) = iStack_60;
-                                      iVar7 = (*g_pSvcRdroid->pAlloc)
-                                                        (iStack_60 * 0x38,
-                                                         s_C__grimjedi_Libs_RDroid_Engine_R_004f0f14
-                                                         ,DAT_004f0f0c + 0x9b);
-                                      *(int *)(iVar4 + 0x28) = iVar7;
-                                      if (iVar7 == 0) break;
-                                      uVar9 = 0;
-                                      if (*(int *)(iVar4 + 0x24) != 0) {
-                                        do {
-                                          iVar8 = Std_ParseCommandLine();
-                                          if (iVar8 == 0) goto LAB_004c0cbf;
-                                          iVar8 = sscanf((char *)UINT_00900520,
-                                                         s__d___f__x__f__f__f__f__f__f_004f0f54,
-                                                         auStack_24,iVar7,iVar7 + 4,&uStack_54,
-                                                         &uStack_50,&uStack_4c,&uStack_48,&uStack_44
-                                                         ,&uStack_40);
-                                          if (iVar8 != 9) goto LAB_004c0cbf;
-                                          *(undefined4 *)(iVar7 + 8) = uStack_54;
-                                          *(undefined4 *)(iVar7 + 0xc) = uStack_50;
-                                          *(undefined4 *)(iVar7 + 0x10) = uStack_4c;
-                                          *(undefined4 *)(iVar7 + 0x14) = uStack_48;
-                                          *(undefined4 *)(iVar7 + 0x18) = uStack_44;
-                                          *(undefined4 *)(iVar7 + 0x1c) = uStack_40;
-                                          iVar8 = Std_ParseCommandLine();
-                                          if (iVar8 == 0) goto LAB_004c0cbf;
-                                          iVar8 = sscanf((char *)UINT_00900520,
-                                                         s__f__f__f__f__f__f_004f0f40,&uStack_3c,
-                                                         &uStack_38,&uStack_34,&uStack_30,&uStack_2c
-                                                         ,&uStack_28);
-                                          if (iVar8 != 6) goto LAB_004c0cbf;
-                                          *(undefined4 *)(iVar7 + 0x20) = uStack_3c;
-                                          *(undefined4 *)(iVar7 + 0x24) = uStack_38;
-                                          *(undefined4 *)(iVar7 + 0x28) = uStack_34;
-                                          *(undefined4 *)(iVar7 + 0x2c) = uStack_30;
-                                          *(undefined4 *)(iVar7 + 0x30) = uStack_2c;
-                                          *(undefined4 *)(iVar7 + 0x34) = uStack_28;
-                                          iVar7 = iVar7 + 0x38;
-                                          uVar9 = uVar9 + 1;
-                                        } while (uVar9 < *(uint *)(iVar4 + 0x24));
-                                      }
-                                      param_1 = (char *)((int)param_1 + 1);
-                                      if (uStack_5c <= param_1) {
-                                        FUN_0047c8c0();
-                                        return 1;
-                                      }
-                                    }
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-LAB_004c0cbf:
-  FUN_0047c8c0();
-  return 0;
-}
-#undef auStack_20
-#undef auStack_24
-#undef iStack_60
-#undef iStack_64
-#undef local_58
-#undef uStack_28
-#undef uStack_2c
-#undef uStack_30
-#undef uStack_34
-#undef uStack_38
-#undef uStack_3c
-#undef uStack_40
-#undef uStack_44
-#undef uStack_48
-#undef uStack_4c
-#undef uStack_50
-#undef uStack_54
-#undef uStack_5c
-#undef uStack_68
-
-#endif
-
-
-/* ---- 0x004c0ce0  FUN_004c0ce0 ---- */
-undefined4 FUN_004c0ce0(undefined4 param_1,int param_2)
-
-{
-  int *piVar1;
-  int iVar2;
-  undefined4 *puVar3;
-  undefined4 uVar4;
-  int iVar5;
-  uint uVar6;
-  int iVar7;
-  int iVar8;
-  int iVar9;
-  
-  iVar2 = param_2;
-  (*g_pSvcRdroid->pFread)(param_1,param_2,0x84);
-  puVar3 = (undefined4 *)
-           (*g_pSvcRdroid->pAlloc)
-                     (*(int *)(param_2 + 0x38) * 0x2c,s_C__grimjedi_Libs_RDroid_Engine_R_004f0f14,
-                      DAT_004f0f10 + 0x16);
-  *(undefined4 **)(param_2 + 0x3c) = puVar3;
-  if (puVar3 == (undefined4 *)0x0) {
-LAB_004c0e2c:
-    (*g_pSvcRdroid->pFclose)(param_1);
-    return 0;
-  }
-  piVar1 = (int *)(param_2 + 0x38);
-  param_2 = 0;
-  for (uVar6 = *piVar1 * 0xb & 0x3fffffff; uVar6 != 0; uVar6 = uVar6 - 1) {
-    *puVar3 = 0;
-    puVar3 = puVar3 + 1;
-  }
-  for (iVar7 = 0; iVar7 != 0; iVar7 = iVar7 + -1) {
-    *(undefined1 *)puVar3 = 0;
-    puVar3 = (undefined4 *)((int)puVar3 + 1);
-  }
-  if (0 < *(int *)(iVar2 + 0x38)) {
-    iVar7 = 0;
-    do {
-      (*g_pSvcRdroid->pFread)(param_1,*(int *)(iVar2 + 0x3c) + iVar7,0x2c);
-      iVar9 = 0;
-      iVar5 = *(int *)(*(int *)(iVar2 + 0x3c) + 0x24 + iVar7);
-      if (iVar5 == 0) {
-        *(undefined4 *)(*(int *)(iVar2 + 0x3c) + iVar7 + 0x28) = 0;
-      }
-      else {
-        uVar4 = (*g_pSvcRdroid->pAlloc)
-                          (iVar5 * 0x38,s_C__grimjedi_Libs_RDroid_Engine_R_004f0f14,
-                           DAT_004f0f10 + 0x21);
-        *(undefined4 *)(*(int *)(iVar2 + 0x3c) + 0x28 + iVar7) = uVar4;
-        iVar5 = *(int *)(iVar2 + 0x3c) + iVar7;
-        if (*(int *)(*(int *)(iVar2 + 0x3c) + 0x28 + iVar7) == 0) goto LAB_004c0e2c;
-        if (0 < *(int *)(iVar5 + 0x24)) {
-          iVar8 = 0;
-          do {
-            (*g_pSvcRdroid->pFread)(param_1,*(int *)(iVar5 + 0x28) + iVar8,0x38);
-            iVar5 = *(int *)(iVar2 + 0x3c) + iVar7;
-            iVar9 = iVar9 + 1;
-            iVar8 = iVar8 + 0x38;
-          } while (iVar9 < *(int *)(iVar5 + 0x24));
-        }
-      }
-      param_2 = param_2 + 1;
-      iVar7 = iVar7 + 0x2c;
-    } while (param_2 < *(int *)(iVar2 + 0x38));
-  }
-  (*g_pSvcRdroid->pFclose)(param_1);
-  return 1;
-}
-
-/* ---- 0x004c0e40  FUN_004c0e40 ---- */
-void FUN_004c0e40(int param_1)
-
-{
-  if (param_1 != 0) {
-    if (UINT_008d3650 != 0) {
-      (*(code *)UINT_008d3650)();
-      return;
-    }
-    FUN_004c0e70(param_1);
-    (*g_pSvcRdroid->pFree)(param_1);
-  }
-  return;
-}
-
-/* ---- 0x004c0e70  FUN_004c0e70 ---- */
-void FUN_004c0e70(int param_1)
-
-{
-  int *piVar1;
-  uint uVar2;
-  
-  if (*(int *)(param_1 + 0x3c) != 0) {
-    uVar2 = 0;
-    if (*(int *)(param_1 + 0x38) != 0) {
-      piVar1 = (int *)(*(int *)(param_1 + 0x3c) + 0x28);
-      do {
-        if (*piVar1 != 0) {
-          (*g_pSvcRdroid->pFree)(*piVar1);
-          *piVar1 = 0;
-        }
-        piVar1 = piVar1 + 0xb;
-        uVar2 = uVar2 + 1;
-      } while (uVar2 < *(uint *)(param_1 + 0x38));
-    }
-    (*g_pSvcRdroid->pFree)(*(undefined4 *)(param_1 + 0x3c));
-    *(undefined4 *)(param_1 + 0x3c) = 0;
-  }
-  return;
-}
 
 /* ---- 0x004c1900  FUN_004c1900 ---- */
 undefined4 FUN_004c1900(int *param_1)
@@ -5717,7 +5230,7 @@ LAB_004c2376:
 
 
 /* ---- 0x004c23c0  FUN_004c23c0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4
 FUN_004c23c0(undefined4 *param_1,undefined4 param_2,int param_3,undefined4 param_4,
@@ -5834,7 +5347,7 @@ void FUN_004c2650(undefined4 param_1,undefined4 param_2,undefined4 param_3,undef
 }
 
 /* ---- 0x004c2690  FUN_004c2690 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_004c2690(int *param_1)
 
@@ -5893,7 +5406,7 @@ undefined4 FUN_004c2780(int param_1)
 }
 
 /* ---- 0x004c27a0  FUN_004c27a0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 int FUN_004c27a0(undefined4 *param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4,
                 undefined4 param_5,undefined4 param_6,undefined4 param_7,undefined4 param_8,
@@ -6559,7 +6072,7 @@ uint FUN_004c36a0(void)
 }
 
 /* ---- 0x004c36b0  FUN_004c36b0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_004c36b0(int param_1)
 
@@ -6879,7 +6392,7 @@ void FUN_004c3d10(int param_1)
 }
 
 /* ---- 0x004c3d30  FUN_004c3d30 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4
 FUN_004c3d30(int param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4,undefined4 param_5
@@ -6936,7 +6449,7 @@ uint FUN_004c3db0(int param_1,int param_2)
 }
 
 /* ---- 0x004c3df0  FUN_004c3df0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_004c3df0(undefined4 param_1,undefined4 param_2,undefined4 param_3)
 
@@ -6948,7 +6461,7 @@ void FUN_004c3df0(undefined4 param_1,undefined4 param_2,undefined4 param_3)
 
 
 /* ---- 0x004c3e10  FUN_004c3e10 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined8 __fastcall
 FUN_004c3e10(undefined4 param_1,undefined4 param_2,undefined4 *param_3,undefined4 *param_4,
@@ -8040,7 +7553,7 @@ int * FUN_004c5950(char *param_1,char *param_2)
 
 
 /* ---- 0x004c5ab0  FUN_004c5ab0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_004c5ab0(int *param_1)
 
@@ -8253,7 +7766,7 @@ void FUN_004c5e10(undefined4 param_1,undefined4 param_2,undefined4 param_3)
 }
 
 /* ---- 0x004c5e30  FUN_004c5e30 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_004c5e30(undefined4 param_1)
 
@@ -8328,7 +7841,7 @@ int FUN_004c5ee0(undefined4 param_1,int param_2,int param_3)
 }
 
 /* ---- 0x004c5f50  FUN_004c5f50 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 bool FUN_004c5f50(undefined4 param_1)
 
@@ -9102,7 +8615,7 @@ void FUN_004c8ba0(int param_1,undefined4 param_2,undefined4 param_3,int param_4)
 }
 
 /* ---- 0x004c8e90  FUN_004c8e90 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_004c8e90(int param_1,int param_2,int param_3,int param_4)
 
@@ -9308,7 +8821,7 @@ void FUN_004c9090(short *param_1,undefined4 *param_2)
 
 
 /* ---- 0x004c92d0  FUN_004c92d0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_004c92d0(int param_1,int param_2,int param_3)
 
@@ -9545,7 +9058,7 @@ void FUN_004c95c0(undefined2 *param_1,int param_2,short *param_3)
 
 
 /* ---- 0x004c9640  FUN_004c9640 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_004c9640(int param_1)
 
@@ -10573,7 +10086,7 @@ undefined4 FUN_004cc210(int *param_1,uint param_2)
 }
 
 /* ---- 0x004cc250  FUN_004cc250 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4 FUN_004cc250(uint param_1)
 
@@ -10842,7 +10355,7 @@ void FUN_004cc6a0(uint param_1)
 }
 
 /* ---- 0x004cc7d0  FUN_004cc7d0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_004cc7d0(int param_1)
 
@@ -11170,7 +10683,7 @@ LAB_004ccb89:
 
 
 /* ---- 0x004ccd00  FUN_004ccd00 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4
 FUN_004ccd00(int param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4,undefined4 param_5
@@ -11517,7 +11030,7 @@ void FUN_004cd450(int param_1,byte *param_2,int param_3,int param_4,int param_5)
 
 
 /* ---- 0x004cd550  FUN_004cd550 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -11554,7 +11067,7 @@ FUN_004cd550(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4
 
 
 /* ---- 0x004cd610  FUN_004cd610 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -11801,7 +11314,7 @@ void FUN_004cd610(void)
 
 
 /* ---- 0x004cd9b0  FUN_004cd9b0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -11938,7 +11451,7 @@ void FUN_004cd9b0(void)
 
 
 /* ---- 0x004cdb80  FUN_004cdb80 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -12039,7 +11552,7 @@ void FUN_004cdce0(void)
 }
 
 /* ---- 0x004cdd10  FUN_004cdd10 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4 FUN_004cdd10(void)
 
@@ -12098,7 +11611,7 @@ undefined4 FUN_004cdd80(void)
 
 
 /* ---- 0x004cde80  FUN_004cde80 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_004cde80(void)
 
@@ -12286,7 +11799,7 @@ void FUN_004ce3b0(void)
 }
 
 /* ---- 0x004ce3e0  FUN_004ce3e0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4 FUN_004ce3e0(int *param_1,int param_2,int param_3,int param_4)
 
@@ -12627,7 +12140,7 @@ undefined4 FUN_004ced70(int param_1,int param_2,undefined4 param_3,int param_4)
 }
 
 /* ---- 0x004cedc0  FUN_004cedc0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4
 FUN_004cedc0(int param_1,int param_2,int param_3,undefined4 param_4,int param_5,int param_6,
@@ -12714,7 +12227,7 @@ FUN_004cedc0(int param_1,int param_2,int param_3,undefined4 param_4,int param_5,
 
 
 /* ---- 0x004cf010  FUN_004cf010 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4 FUN_004cf010(uint *param_1,int param_2,int param_3,int param_4,byte *param_5)
 
@@ -12890,7 +12403,7 @@ undefined4 FUN_004cf010(uint *param_1,int param_2,int param_3,int param_4,byte *
 
 
 /* ---- 0x004cf520  FUN_004cf520 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4 FUN_004cf520(uint *param_1,int param_2,int param_3,undefined4 param_4,int param_5)
 
@@ -13102,7 +12615,7 @@ undefined4 FUN_004cf520(uint *param_1,int param_2,int param_3,undefined4 param_4
 
 
 /* ---- 0x004cfdb0  FUN_004cfdb0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_004cfdb0(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4,
                  undefined4 param_5,undefined4 param_6,undefined4 param_7,undefined4 param_8,
@@ -13116,7 +12629,7 @@ void FUN_004cfdb0(undefined4 param_1,undefined4 param_2,undefined4 param_3,undef
 
 
 /* ---- 0x004cfdf0  FUN_004cfdf0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined8 __fastcall
 FUN_004cfdf0(undefined4 param_1,undefined4 param_2,undefined4 *param_3,ushort *param_4,uint param_5,
@@ -13189,7 +12702,7 @@ FUN_004cfdf0(undefined4 param_1,undefined4 param_2,undefined4 *param_3,ushort *p
 
 
 /* ---- 0x004cfea0  FUN_004cfea0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_8 */
 /* WARNING: Variable defined which should be unmapped: local_4 */
@@ -13281,7 +12794,7 @@ undefined8 __fastcall FUN_004cfea0(undefined4 param_1,undefined4 param_2,int par
 
 
 /* ---- 0x004cff60  FUN_004cff60 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined8 __fastcall
 FUN_004cff60(undefined4 param_1,undefined4 param_2,undefined4 *param_3,uint *param_4,uint param_5)
@@ -13326,7 +12839,7 @@ FUN_004cff60(undefined4 param_1,undefined4 param_2,undefined4 *param_3,uint *par
 
 
 /* ---- 0x004cffe0  FUN_004cffe0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined8 __fastcall
 FUN_004cffe0(undefined4 param_1,uint param_2,uint *param_3,ushort *param_4,uint param_5)
@@ -13377,7 +12890,7 @@ FUN_004cffe0(undefined4 param_1,uint param_2,uint *param_3,ushort *param_4,uint 
 
 
 /* ---- 0x004d0070  FUN_004d0070 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined8 __fastcall
 FUN_004d0070(undefined4 param_1,undefined4 param_2,undefined4 *param_3,uint *param_4,uint param_5)
@@ -13422,7 +12935,7 @@ FUN_004d0070(undefined4 param_1,undefined4 param_2,undefined4 *param_3,uint *par
 
 
 /* ---- 0x004d00f0  FUN_004d00f0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined8 __fastcall
 FUN_004d00f0(undefined4 param_1,uint param_2,uint *param_3,ushort *param_4,uint param_5)
@@ -13468,7 +12981,7 @@ FUN_004d00f0(undefined4 param_1,uint param_2,uint *param_3,ushort *param_4,uint 
 
 
 /* ---- 0x004d0180  FUN_004d0180 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined8 __fastcall
 FUN_004d0180(undefined4 param_1,undefined4 param_2,undefined4 *param_3,uint *param_4,uint param_5)
@@ -13514,7 +13027,7 @@ FUN_004d0180(undefined4 param_1,undefined4 param_2,undefined4 *param_3,uint *par
 
 
 /* ---- 0x004d01f0  FUN_004d01f0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined8 __fastcall
 FUN_004d01f0(undefined4 param_1,undefined4 param_2,int *param_3,ushort *param_4,uint param_5)
@@ -13554,7 +13067,7 @@ FUN_004d01f0(undefined4 param_1,undefined4 param_2,int *param_3,ushort *param_4,
 
 
 /* ---- 0x004d0260  FUN_004d0260 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined8 __fastcall
 FUN_004d0260(undefined4 param_1,undefined4 param_2,int param_3,int param_4,int param_5,uint param_6,
@@ -13691,7 +13204,7 @@ void FUN_004d03a0(void)
 }
 
 /* ---- 0x004d03d0  FUN_004d03d0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4 FUN_004d03d0(void)
 
@@ -14667,7 +14180,7 @@ void FUN_004d1690(void)
 }
 
 /* ---- 0x004d16a0  FUN_004d16a0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_004d16a0(int param_1,code *param_2)
 
@@ -15117,7 +14630,7 @@ LAB_004d2124:
 
 
 /* ---- 0x004d2340  FUN_004d2340 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -15149,7 +14662,7 @@ void FUN_004d2340(int param_1,undefined4 param_2)
 
 
 /* ---- 0x004d23e0  FUN_004d23e0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_004d23e0(undefined4 param_1,undefined4 param_2,undefined4 param_3)
 
@@ -15161,7 +14674,7 @@ void FUN_004d23e0(undefined4 param_1,undefined4 param_2,undefined4 param_3)
 
 
 /* ---- 0x004d2400  FUN_004d2400 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_004d2400(undefined4 param_1,undefined4 param_2,undefined4 param_3)
 
@@ -15225,7 +14738,7 @@ void FUN_004d2520(void)
 }
 
 /* ---- 0x004d2550  FUN_004d2550 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -15346,7 +14859,7 @@ undefined4 FUN_004d27c0(void)
 }
 
 /* ---- 0x004d2940  FUN_004d2940 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4 FUN_004d2940(void)
 
@@ -15508,7 +15021,7 @@ void FUN_004d2bf0(void)
 }
 
 /* ---- 0x004d2cb0  FUN_004d2cb0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined8 __fastcall
 FUN_004d2cb0(undefined4 param_1,undefined4 param_2,undefined4 *param_3,undefined4 *param_4,
@@ -15543,7 +15056,7 @@ FUN_004d2cb0(undefined4 param_1,undefined4 param_2,undefined4 *param_3,undefined
 
 
 /* ---- 0x004d2ce0  FUN_004d2ce0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined8 __fastcall
 FUN_004d2ce0(undefined4 param_1,undefined4 param_2,undefined4 *param_3,undefined1 param_4,
@@ -15587,7 +15100,7 @@ FUN_004d2ce0(undefined4 param_1,undefined4 param_2,undefined4 *param_3,undefined
 
 
 /* ---- 0x004d2d40  FUN_004d2d40 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_004d2d40(undefined4 param_1,uint param_2,int param_3)
 
@@ -15654,7 +15167,7 @@ void FUN_004d2d90(undefined4 param_1,undefined4 param_2,undefined4 param_3,int p
 }
 
 /* ---- 0x004d2e80  FUN_004d2e80 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -15730,7 +15243,7 @@ undefined4 FUN_004d2fb0(int param_1)
 }
 
 /* ---- 0x004d54b4  FUN_004d54b4 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 float10 FUN_004d54b4(void)
 
@@ -15961,7 +15474,7 @@ undefined4 FUN_004d5990(uint param_1)
 }
 
 /* ---- 0x004d5de0  FUN_004d5de0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined * FUN_004d5de0(int a1)
 
@@ -15996,7 +15509,7 @@ undefined * FUN_004d5de0(int a1)
 
 
 /* ---- 0x004d5e1c  FUN_004d5e1c ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 bool FUN_004d5e1c(void)
 
@@ -16009,7 +15522,7 @@ bool FUN_004d5e1c(void)
 
 
 /* ---- 0x004d5e30  FUN_004d5e30 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4 FUN_004d5e30(void)
 
@@ -16025,7 +15538,7 @@ undefined4 FUN_004d5e30(void)
 
 
 /* ---- 0x004d5e35  FUN_004d5e35 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined * __stdcall FUN_004d5e35(int a1)
 
@@ -16042,7 +15555,7 @@ undefined * __stdcall FUN_004d5e35(int a1)
 
 
 /* ---- 0x004d5e50  FUN_004d5e50 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_004d5e50(undefined4 param_1,undefined4 param_2,undefined4 param_3)
 
@@ -16054,7 +15567,7 @@ void FUN_004d5e50(undefined4 param_1,undefined4 param_2,undefined4 param_3)
 
 
 /* ---- 0x004d5e70  FUN_004d5e70 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_004d5e70(undefined1 *param_1,undefined4 param_2,int param_3)
 
@@ -16127,7 +15640,7 @@ uint __fastcall FUN_004d5ed0(undefined4 param_1)
 
 
 /* ---- 0x004d5f70  FUN_004d5f70 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_004d5f70(undefined4 param_1)
 
@@ -16148,7 +15661,7 @@ void FUN_004d5f70(undefined4 param_1)
 
 
 /* ---- 0x004d5fd0  FUN_004d5fd0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined8 __fastcall
 FUN_004d5fd0(undefined4 param_1,undefined4 param_2,undefined4 *param_3,undefined1 param_4,
@@ -16186,7 +15699,7 @@ FUN_004d5fd0(undefined4 param_1,undefined4 param_2,undefined4 *param_3,undefined
 
 
 /* ---- 0x004d6030  FUN_004d6030 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_004d6030(void)
 
@@ -16208,7 +15721,7 @@ void FUN_004d6046(void)
 }
 
 /* ---- 0x004d6050  FUN_004d6050 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_004d6050(void)
 
@@ -16230,7 +15743,7 @@ void FUN_004d605b(void)
 }
 
 /* ---- 0x004d6070  FUN_004d6070 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_004d6070(void)
 
@@ -16252,7 +15765,7 @@ void FUN_004d607b(void)
 }
 
 /* ---- 0x004d6090  FUN_004d6090 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_004d6090(void)
 
@@ -16266,7 +15779,7 @@ void FUN_004d6090(void)
 
 
 /* ---- 0x004d609e  FUN_004d609e ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_004d609e(void)
 
@@ -16280,7 +15793,7 @@ void FUN_004d609e(void)
 
 
 /* ---- 0x004d60ac  FUN_004d60ac ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_004d60ac(void)
 
@@ -16302,7 +15815,7 @@ void FUN_004d60ba(void)
 }
 
 /* ---- 0x004d60d0  FUN_004d60d0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_004d60d0(void)
 
@@ -16316,7 +15829,7 @@ void FUN_004d60d0(void)
 
 
 /* ---- 0x004d60db  FUN_004d60db ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_004d60db(void)
 
@@ -16338,7 +15851,7 @@ void FUN_004d60e9(void)
 }
 
 /* ---- 0x004d6100  FUN_004d6100 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_004d6100(void)
 

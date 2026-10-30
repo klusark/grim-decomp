@@ -6,7 +6,7 @@
 #include "functions.h"
 
 /* ---- 0x1000bae0  hmi__bae0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Unidentified function of HMI SOS FX hooks and helpers - module name inferred */
 

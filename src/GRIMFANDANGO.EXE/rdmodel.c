@@ -6,7 +6,7 @@
 #include "functions.h"
 
 /* ---- 0x00409580  rdModel_ComputeMeshLighting ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Rdcamera.c: picks the light level of a mesh from the current geometry/lighting/texture modes
    (gouraud, flat, per-vertex) and hands it to the mesh draw callback at +0x14 */
@@ -385,7 +385,7 @@ switchD_00409661_default:
 
 
 /* ---- 0x00409d20  FUN_00409d20 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4 FUN_00409d20(int param_1,int param_2)
 
@@ -402,7 +402,7 @@ undefined4 FUN_00409d20(int param_1,int param_2)
 
 
 /* ---- 0x0040d140  rdModel_DrawNode ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Recursive hierarchy walk (+0x58 child count, +0x5c first child, +0x60 sibling) drawing each
    node's mesh */
@@ -450,7 +450,7 @@ void rdModel_DrawNode(int param_1)
 
 
 /* ---- 0x0040d230  rdModel_DrawMesh ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -704,7 +704,7 @@ LAB_0040d640:
 
 
 /* ---- 0x0040d880  rdModel_AddMeshToCache ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 

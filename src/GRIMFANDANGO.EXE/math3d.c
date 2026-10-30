@@ -6,7 +6,7 @@
 #include "functions.h"
 
 /* ---- 0x00446880  Vec3_Dot ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 float __cdecl Vec3_Dot(float *a,float *b)
 
@@ -17,7 +17,7 @@ float __cdecl Vec3_Dot(float *a,float *b)
 
 
 /* ---- 0x004468a0  Vec3_Dot2 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 float __cdecl Vec3_Dot2(float *a,float *b)
 
@@ -28,7 +28,7 @@ float __cdecl Vec3_Dot2(float *a,float *b)
 
 
 /* ---- 0x004468d0  Vec3_Cross ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void __cdecl Vec3_Cross(float *out,float *a,float *b)
 
@@ -42,7 +42,7 @@ void __cdecl Vec3_Cross(float *out,float *a,float *b)
 
 
 /* ---- 0x00446920  Vec3_NormalizeTo ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void Vec3_NormalizeTo(float *param_1,float *param_2)
 
@@ -69,7 +69,7 @@ void Vec3_NormalizeTo(float *param_1,float *param_2)
 
 
 /* ---- 0x004469a0  Vec3_Normalize ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 float __cdecl Vec3_Normalize(float *param_1)
 
@@ -94,7 +94,7 @@ float __cdecl Vec3_Normalize(float *param_1)
 
 
 /* ---- 0x00446a10  Vec3_NormalizeApprox ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Rough vector length: with the absolute values sorted max >= mid >= min, len = max + 0.34375 * mid
    + 0.25 * min. Also divides the vector by it (in place, in floats) and returns the length. */
@@ -179,7 +179,7 @@ float __cdecl Vec3_NormalizeApprox(float *param_1)
 
 
 /* ---- 0x00446ba0  Vec3_Rotate ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua RotateVector: rotates a vector by pitch/yaw/roll angles */
 
@@ -199,7 +199,7 @@ void __cdecl Vec3_Rotate(float *vec,float *rot)
 
 
 /* ---- 0x00446bd0  Matrix_GetAngles ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void __cdecl Matrix_GetAngles(float *matrix,float *outAngles)
 
@@ -217,7 +217,7 @@ void __cdecl Matrix_GetAngles(float *matrix,float *outAngles)
 
 
 /* ---- 0x0044e7d0  Frustum_TestSphere ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined1 Frustum_TestSphere(int *param_1,float *param_2,float param_3)
 
@@ -321,7 +321,7 @@ undefined1 Frustum_TestSphere(int *param_1,float *param_2,float param_3)
 
 
 /* ---- 0x0044ea50  Polygon_ClipToPlane ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 uint Polygon_ClipToPlane(float *param_1,float *param_2,float *param_3,undefined4 *param_4,
                         float *param_5,uint *param_6)
@@ -510,7 +510,7 @@ LAB_0044ed90:
 
 
 /* ---- 0x0044eeb0  Angles_ToMatrix ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void Angles_ToMatrix(float *param_1,undefined4 *param_2,float *param_3)
 
@@ -559,7 +559,7 @@ void Angles_ToMatrix(float *param_1,undefined4 *param_2,float *param_3)
 
 
 /* ---- 0x0044efd0  Matrix_Transpose ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void __cdecl Matrix_Transpose(float *out,float *m)
 
@@ -589,7 +589,7 @@ void __cdecl Matrix_Transpose(float *out,float *m)
 
 
 /* ---- 0x0044f080  Angles_ToMatrixNoPos ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void Angles_ToMatrixNoPos(float *param_1,undefined4 *param_2)
 
@@ -638,7 +638,7 @@ void Angles_ToMatrixNoPos(float *param_1,undefined4 *param_2)
 
 
 /* ---- 0x0044f1a0  Matrix_BuildTranslation ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Identity 3x4 (from g_MatrixIdentity) with the translation column set */
 
@@ -665,7 +665,7 @@ void __cdecl Matrix_BuildTranslation(float *m,float *pos)
 
 
 /* ---- 0x0044f1d0  Matrix_BuildTranslation2 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void Matrix_BuildTranslation2(undefined4 *param_1,undefined4 *param_2)
 
@@ -688,7 +688,7 @@ void Matrix_BuildTranslation2(undefined4 *param_1,undefined4 *param_2)
 
 
 /* ---- 0x0044f210  Matrix_AxisAngle ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void Matrix_AxisAngle(float *param_1,float *param_2,float param_3)
 
@@ -800,7 +800,7 @@ void Matrix_AxisAngle(float *param_1,float *param_2,float param_3)
 
 
 /* ---- 0x0044f490  Camera_BuildBasis ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Camera basis from (position, interest, roll) into out[0..11]: out+0 right = normalise(forward x
    rolledUp), out+0xc forward = normalise(interest - position), out+0x18 up = right-forward cross,
@@ -870,7 +870,7 @@ void Camera_BuildBasis(float *param_1,float *param_2,float *param_3,undefined4 p
 
 
 /* ---- 0x0044f650  Matrix_ToAngles ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_28 */
 
@@ -974,7 +974,7 @@ void Matrix_ToAngles(float *param_1,float *param_2)
 
 
 /* ---- 0x0044f880  Matrix_Identity ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void __cdecl Matrix_Identity(float *m)
 
@@ -994,7 +994,7 @@ void __cdecl Matrix_Identity(float *m)
 
 
 /* ---- 0x0044f8a0  Matrix_Mul34 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* 3x4 affine matrix product */
 
@@ -1019,7 +1019,7 @@ void __cdecl Matrix_Mul34(float *out,float *a,float *b)
 
 
 /* ---- 0x0044fa70  Matrix_BuildRotation ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Rotation 3x4 from pitch/yaw/roll angles in degrees */
 
@@ -1088,7 +1088,7 @@ void __cdecl Matrix_BuildRotation(float *m,float *angles)
 
 
 /* ---- 0x0044fc60  Matrix_Multiply ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void Matrix_Multiply(float *param_1,float *param_2)
 
@@ -1163,7 +1163,7 @@ void Matrix_Multiply(float *param_1,float *param_2)
 
 
 /* ---- 0x0044fe50  Matrix_BuildTransform ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Rotation then translation */
 
@@ -1183,7 +1183,7 @@ void Matrix_BuildTransform(float *param_1,undefined4 param_2)
 
 
 /* ---- 0x0044fe80  Matrix_SetTranslation ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void Matrix_SetTranslation(int param_1,float *param_2)
 
@@ -1197,7 +1197,7 @@ void Matrix_SetTranslation(int param_1,float *param_2)
 
 
 /* ---- 0x0044feb0  Matrix_BuildTransform2 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void Matrix_BuildTransform2(float *param_1,undefined4 param_2)
 
@@ -1215,7 +1215,7 @@ void Matrix_BuildTransform2(float *param_1,undefined4 param_2)
 
 
 /* ---- 0x0044fee0  Vec3_Copy ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void __cdecl Vec3_Copy(float *out,float *v,float *param_3)
 
@@ -1229,7 +1229,7 @@ void __cdecl Vec3_Copy(float *out,float *v,float *param_3)
 
 
 /* ---- 0x0044ff50  Vec3_TransformTo ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void __cdecl Vec3_TransformTo(float *out,float *v,float *m)
 
@@ -1243,7 +1243,7 @@ void __cdecl Vec3_TransformTo(float *out,float *v,float *m)
 
 
 /* ---- 0x0044ffc0  Vec3_Transform ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Transforms the point in place by the 3x4 matrix */
 
@@ -1286,7 +1286,7 @@ void __cdecl Vec3_Transform(float *vec,float *m)
 
 
 /* ---- 0x00450060  Vec3_Sub ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void __cdecl Vec3_Sub(float *out,float *a,float *b)
 
@@ -1300,7 +1300,7 @@ void __cdecl Vec3_Sub(float *out,float *a,float *b)
 
 
 /* ---- 0x004500d0  Vec3_Rotate3x3 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Rotates the vector in place by the 3x3 part of the matrix */
 
@@ -1347,7 +1347,7 @@ void __cdecl Vec3_Rotate3x3(float *vec,float *m)
 
 
 /* ---- 0x00450170  Matrix_TransformPoints ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void __cdecl Matrix_TransformPoints(float *m,float *in,float *out,int count)
 
@@ -1365,7 +1365,7 @@ void __cdecl Matrix_TransformPoints(float *m,float *in,float *out,int count)
 
 
 /* ---- 0x00450220  FUN_00450220 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4 FUN_00450220(undefined4 *param_1)
 
@@ -1389,7 +1389,7 @@ undefined4 FUN_00450220(undefined4 *param_1)
 
 
 /* ---- 0x00450260  FUN_00450260 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_00450260(int param_1)
 
@@ -1405,10 +1405,13 @@ void FUN_00450260(int param_1)
 #endif
 
 
-/* ---- 0x00450290  FUN_00450290 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* ---- 0x00450290  Math3D_TriangleNormal ---- */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
-void FUN_00450290(float *param_1,float *param_2,float *param_3,float *param_4)
+/* Normal of the triangle (p0,p1,p2) from the normalised edges p1-p0 and p2-p0, with tiny components
+   zeroed. */
+
+void Math3D_TriangleNormal(float *param_1,float *param_2,float *param_3,float *param_4)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1431,7 +1434,7 @@ void FUN_00450290(float *param_1,float *param_2,float *param_3,float *param_4)
   param_1[1] = (float)local_18 * (float)local_4 - (float)local_10 * (float)local_c;
   param_1[2] = (float)local_14 * (float)local_c - (float)local_18 * (float)local_8;
   Vec3_Normalize(param_1);
-  FUN_00450380(param_1,0x358637bd);
+  Vec3_ZeroSmallComponents(param_1,0x358637bd);
   return;
 }
 #undef local_10
@@ -1444,10 +1447,12 @@ void FUN_00450290(float *param_1,float *param_2,float *param_3,float *param_4)
 #endif
 
 
-/* ---- 0x00450380  FUN_00450380 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* ---- 0x00450380  Vec3_ZeroSmallComponents ---- */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
-void FUN_00450380(float *param_1,float param_2)
+/* Sets every component whose magnitude is below the epsilon argument to 0. */
+
+void Vec3_ZeroSmallComponents(float *param_1,float param_2)
 
 {
   float fVar1;
@@ -1488,10 +1493,12 @@ void FUN_00450380(float *param_1,float param_2)
 #endif
 
 
-/* ---- 0x00450410  FUN_00450410 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* ---- 0x00450410  Math3D_PointsCollinear ---- */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
-undefined4 FUN_00450410(float *param_1,float *param_2,float *param_3)
+/* True when the normalised edges p1-p0 and p2-p0 are parallel (|dot| within 0.999..1.001). */
+
+undefined4 Math3D_PointsCollinear(float *param_1,float *param_2,float *param_3)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */

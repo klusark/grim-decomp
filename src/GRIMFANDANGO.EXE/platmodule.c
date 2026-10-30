@@ -20,9 +20,9 @@ int PlatModule_Init(GrimServices *svc,void *iface)
     UINT_008d0990 = 1;
     if (iface != (void *)0x0) {
       *(code **)iface = PlatModule_Init;
-      *(code **)((int)iface + 4) = FUN_004abef0;
-      *(code **)((int)iface + 8) = FUN_004abf00;
-      *(code **)((int)iface + 0xc) = FUN_004abf30;
+      *(code **)((int)iface + 4) = PlatModule_Terminate;
+      *(code **)((int)iface + 8) = PlatModule_Start;
+      *(code **)((int)iface + 0xc) = PlatModule_Stop;
       *(undefined4 *)((int)iface + 0x10) = 0;
       *(undefined4 *)((int)iface + 0x14) = 0;
       *(undefined4 *)((int)iface + 0x18) = 0;
@@ -33,16 +33,22 @@ int PlatModule_Init(GrimServices *svc,void *iface)
   return iVar1;
 }
 
-/* ---- 0x004abef0  FUN_004abef0 ---- */
-void FUN_004abef0(void)
+/* ---- 0x004abef0  PlatModule_Terminate ---- */
+/* Module interface slot 1 (PlatModule): called by Engine_ResetSubsystems / when registration fails;
+   drops the service table pointer and clears the initialised flag. */
+
+void PlatModule_Terminate(void)
 
 {
   UINT_008d0990 = 0;
   return;
 }
 
-/* ---- 0x004abf00  FUN_004abf00 ---- */
-undefined4 FUN_004abf00(void)
+/* ---- 0x004abf00  PlatModule_Start ---- */
+/* Module interface slot 2 (PlatModule): called by Engine_InitSubsystems, returns 0 on success
+   (non-zero makes the whole start-up unwind).  */
+
+undefined4 PlatModule_Start(void)
 
 {
   undefined4 uVar1;
@@ -55,8 +61,11 @@ undefined4 FUN_004abf00(void)
   return uVar1;
 }
 
-/* ---- 0x004abf30  FUN_004abf30 ---- */
-void FUN_004abf30(void)
+/* ---- 0x004abf30  PlatModule_Stop ---- */
+/* Module interface slot 3 (PlatModule): called by Engine_ShutdownSubsystems in reverse order;
+   releases what _Start created. */
+
+void PlatModule_Stop(void)
 
 {
   UINT_008d0994 = 0;

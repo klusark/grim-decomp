@@ -1,5 +1,5 @@
 /* GRIMFANDANGO.EXE :: sputactor.c
- * functions 0x0048e2c0 .. 0x0048ecd0 (3 functions)
+ * functions 0x0048e2c0 .. 0x00490ef0 (6 functions)
  * Decompiled from the shipped binaries with Ghidra; see ../../README.md */
 #include "ghidra_types.h"
 #include "globals.h"
@@ -15,11 +15,11 @@ undefined4 sputActor_Initialize(uint param_1,undefined4 *param_2)
 {
   UINT_008ca32c = param_1;
   *param_2 = sputActor_Initialize;
-  param_2[1] = FUN_00490e60;
-  param_2[2] = FUN_00490e80;
-  param_2[3] = FUN_00490ef0;
-  param_2[4] = FUN_0048e330;
-  param_2[5] = FUN_0048ecd0;
+  param_2[1] = sputActor_Terminate;
+  param_2[2] = sputActor_Start;
+  param_2[3] = sputActor_Stop;
+  param_2[4] = sputActor_SaveState;
+  param_2[5] = sputActor_RestoreState;
   param_2[6] = 0;
   param_2[7] = 0;
   g_pTalkingActors = (void *)0x0;
@@ -30,8 +30,11 @@ undefined4 sputActor_Initialize(uint param_1,undefined4 *param_2)
   return 0;
 }
 
-/* ---- 0x0048e330  FUN_0048e330 ---- */
-undefined4 FUN_0048e330(code *param_1)
+/* ---- 0x0048e330  sputActor_SaveState ---- */
+/* Module interface slot 4 (sputActor): save-game writer, calls the SaveGame_Write callback it is
+   handed for every field. */
+
+undefined4 sputActor_SaveState(code *param_1)
 
 {
   unsigned char _frame[0xc0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -312,10 +315,12 @@ undefined4 FUN_0048e330(code *param_1)
 #undef uStack_88
 
 
-/* ---- 0x0048ecd0  FUN_0048ecd0 ---- */
+/* ---- 0x0048ecd0  sputActor_RestoreState ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+/* Module interface slot 5 (sputActor): save-game reader, calls the SaveGame_Read callback it is
+   handed; returns non-zero on a short read. */
 
-undefined4 FUN_0048ecd0(code *param_1)
+undefined4 sputActor_RestoreState(code *param_1)
 
 {
   unsigned char _frame[0x180] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -727,3 +732,70 @@ undefined4 FUN_0048ecd0(code *param_1)
 #undef uStack_144
 #undef uStack_bc
 
+
+/* ---- 0x00490e60  sputActor_Terminate ---- */
+/* Module interface slot 1 (sputActor): called by Engine_ResetSubsystems / when registration fails;
+   drops the service table pointer and clears the initialised flag. */
+
+void sputActor_Terminate(void)
+
+{
+  UINT_008ca32c = 0;
+  if (UINT_008ca768 != 0) {
+    UINT_008ca768 = 0;
+  }
+  return;
+}
+
+/* ---- 0x00490e80  sputActor_Start ---- */
+/* Module interface slot 2 (sputActor): called by Engine_InitSubsystems, returns 0 on success
+   (non-zero makes the whole start-up unwind). _Start allocates the 0x2a000-byte actor table and
+   sorts the phoneme table; _Stop destroys every actor. */
+
+undefined4 sputActor_Start(void)
+
+{
+  int iVar1;
+  undefined4 *puVar2;
+  
+  if (UINT_008ca76c != 0) {
+    return 1;
+  }
+  g_pActorTable =
+       (void *)(**(code **)(UINT_008ca32c + 0x20))
+                         (0x2a000,s_C__grimsrc_libs_grimlib_Engine_s_004e9e40,0x81b);
+  puVar2 = g_pActorTable;
+  for (iVar1 = 0xa800; iVar1 != 0; iVar1 = iVar1 + -1) {
+    *puVar2 = 0;
+    puVar2 = puVar2 + 1;
+  }
+  qsort(&g_PhonemeTable,g_nPhonemeCount,8,FUN_00490e50);
+  UINT_008ca76c = 1;
+  return 0;
+}
+
+/* ---- 0x00490ef0  sputActor_Stop ---- */
+/* Module interface slot 3 (sputActor): called by Engine_ShutdownSubsystems in reverse order;
+   releases what _Start created. */
+
+void sputActor_Stop(void)
+
+{
+  int iVar1;
+  int iVar2;
+  
+  iVar2 = 0;
+  if (0 < g_nActorCapacity) {
+    iVar1 = 0;
+    do {
+      Actor_Destroy((void *)((int)g_pActorTable + iVar1));
+      iVar2 = iVar2 + 1;
+      iVar1 = iVar1 + 0xa8;
+    } while (iVar2 < g_nActorCapacity);
+  }
+  if (g_pActorTable != (void *)0x0) {
+    (**(code **)(UINT_008ca32c + 0x24))(g_pActorTable);
+  }
+  UINT_008ca76c = 0;
+  return;
+}

@@ -204,7 +204,7 @@ void __cdecl ldo__4160(int param_1)
 }
 
 /* ---- 0x10004180  luaD_call ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Dispatches a call at the given stack position: C function, Lua closure or task mark ('unexpected
    cmark' otherwise) */
@@ -459,7 +459,7 @@ void __cdecl ldo__4600(undefined *param_1)
 }
 
 /* ---- 0x100046a0  luaD_message ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* ldo.c message(): pushes the string and calls the error tag method */
 
@@ -482,7 +482,7 @@ void __cdecl luaD_message(byte *param_1)
 
 
 /* ---- 0x100046e0  luaD_protectedrun ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* setjmp-protected call (do_protectedrun) */
 
@@ -610,7 +610,7 @@ int __cdecl luaD_domain(int *param_1,int param_2)
 }
 
 /* ---- 0x10004a50  luaD_protectedparser ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* ldo.c: runs luaU_undump1 or luaY_parser on the open ZIO */
 

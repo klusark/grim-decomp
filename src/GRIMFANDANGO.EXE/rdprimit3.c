@@ -6,7 +6,7 @@
 #include "functions.h"
 
 /* ---- 0x00409d50  rdPrimit3_DrawPolygon ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void * __cdecl rdPrimit3_DrawPolygon(float *verts,int count,void *material)
 
@@ -129,7 +129,7 @@ void * __cdecl rdPrimit3_DrawPolygon(float *verts,int count,void *material)
 
 
 /* ---- 0x0040dcc0  rdPrimit3_DrawLine ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Clips a world-space segment against the camera frustum, projects it and draws it with
    rdCanvas_DrawLine */
@@ -191,7 +191,7 @@ rdPrimit3_DrawLine(float *param_1,float *param_2,int *param_3,int *param_4,int *
 
 
 /* ---- 0x0040dde0  rdPrimit3_DrawPoint ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Projects a world-space point with a radius and draws it as a 2D point */
 
@@ -237,7 +237,7 @@ void rdPrimit3_DrawPoint(float *param_1,float param_2,undefined4 param_3)
 
 
 /* ---- 0x0040deb0  rdPrimit3_ClipFace ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Clips one face against the frustum; the switch selects the vertex attribute set from the
    geometry/lighting modes */
@@ -528,7 +528,7 @@ switchD_0040dec1_default:
 
 
 /* ---- 0x0040e500  rdPrimit3_CopyFaceVerts ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Copies the face's vertex attributes (position, uv, intensity) into the cache pools without
    clipping */

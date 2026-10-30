@@ -111,7 +111,7 @@ int __cdecl sprintf(char *buf,char *fmt,...)
 
 
 /* ---- 0x004ac6f0  _ftol ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 longlong __cdecl _ftol(double x)
 
@@ -124,7 +124,7 @@ longlong __cdecl _ftol(double x)
 
 
 /* ---- 0x004ac720  _snprintf ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 int __cdecl _snprintf(char *buf,uint n,char *fmt,...)
 
@@ -3017,7 +3017,7 @@ undefined4 _unwind_handler(void)
 }
 
 /* ---- 0x004af736  _NLG_Notify ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined * __stdcall _NLG_Notify(int a1)
 
@@ -3212,7 +3212,7 @@ LAB_004af9d3:
 }
 
 /* ---- 0x004afa90  _output ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* printf-family formatting core */
 
@@ -6204,7 +6204,7 @@ int _strncnt(char *param_1,int param_2)
 }
 
 /* ---- 0x004b4ba0  _pow_except1 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 float10 __fastcall
 _pow_except1(undefined4 param_1,undefined4 param_2,undefined2 param_3,undefined4 param_4,
@@ -6239,7 +6239,7 @@ _pow_except1(undefined4 param_1,undefined4 param_2,undefined2 param_3,undefined4
 
 
 /* ---- 0x004b4bb7  _pow_except2 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 float10 __fastcall
 _pow_except2(undefined4 param_1,undefined4 param_2,undefined2 param_3,undefined4 param_4,
@@ -6813,7 +6813,7 @@ CallCatchBlock(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefine
 
 
 /* ---- 0x004b58b8  Eh_CallCatchBlockInner ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void Eh_CallCatchBlockInner(void)
 
@@ -7048,7 +7048,7 @@ int _wctomb_lk(undefined1 *param_1,ushort param_2)
 }
 
 /* ---- 0x004b6e60  _aulldiv ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined * __stdcall _aulldiv(int a1,int a2,int a3,int a4)
 
@@ -7097,7 +7097,7 @@ undefined * __stdcall _aulldiv(int a1,int a2,int a3,int a4)
 
 
 /* ---- 0x004b6ed0  _aullrem ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined * __stdcall _aullrem(int a1,int a2,int a3,int a4)
 
@@ -9578,7 +9578,7 @@ int getenv(char *param_1)
 }
 
 /* ---- 0x004bbc10  _chsize ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 int _chsize(void)
 
@@ -10779,7 +10779,7 @@ void longjmp(int param_1)
 }
 
 /* ---- 0x004d5a4c  _setjmp3 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4 _setjmp3(undefined4 *param_1,int param_2,int param_3,undefined4 param_4)
 

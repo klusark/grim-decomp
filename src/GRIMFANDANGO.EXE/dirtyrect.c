@@ -1,12 +1,12 @@
 /* GRIMFANDANGO.EXE :: dirtyrect.c
- * functions 0x00485420 .. 0x004860d0 (6 functions)
+ * functions 0x00485420 .. 0x00486020 (3 functions)
  * Decompiled from the shipped binaries with Ghidra; see ../../README.md */
 #include "ghidra_types.h"
 #include "globals.h"
 #include "functions.h"
 
 /* ---- 0x00485420  DirtyRect_Add ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Adds a dirty rectangle for one display buffer. Rectangles contained in an existing one are
    merged; partial overlaps are split into up to three non-overlapping pieces (recursive). Records
@@ -205,7 +205,7 @@ LAB_0048555c:
 
 
 /* ---- 0x00485e50  DirtyRect_Flush ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Restores every dirty rectangle from the background and depth images, dropping records whose
    per-buffer countdown expired; debug flag 0x10 outlines them */
@@ -293,7 +293,7 @@ void __cdecl DirtyRect_Flush(void *dst,void *zdst)
 
 
 /* ---- 0x00486020  DirtyRect_Clear ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void DirtyRect_Clear(void)
 
@@ -309,63 +309,6 @@ void DirtyRect_Clear(void)
     g_pDirtyRectList = (void *)0x0;
   }
   g_nDirtyRectCount = 0;
-  return;
-}
-#endif
-
-
-/* ---- 0x00486050  FUN_00486050 ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
-void FUN_00486050(void)
-
-{
-  g_pSvcRender = (GrimServices *)0x0;
-  if (UINT_008c9788 != 0) {
-    UINT_008c9788 = 0;
-  }
-  return;
-}
-#endif
-
-
-/* ---- 0x00486070  FUN_00486070 ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
-bool FUN_00486070(void)
-
-{
-  bool bVar1;
-  
-  bVar1 = UINT_008c978c != 0;
-  if (!bVar1) {
-    UINT_008c978c = 1;
-    UINT_008a9510 = 4;
-    UINT_008a9514 = 3;
-    UINT_008a9518 = 1;
-    UINT_008a951c = 1;
-    UINT_008a9520 = 0;
-    UINT_008a9524 = 0;
-    UINT_008a9528 = 2;
-    g_pDirtyRectPool = (void **)Pool_Create(0x24,0x20,8);
-  }
-  return bVar1;
-}
-#endif
-
-
-/* ---- 0x004860d0  FUN_004860d0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
-void FUN_004860d0(void)
-
-{
-  CacheRect_FreeAll();
-  if (g_pDirtyRectPool != (void **)0x0) {
-    Pool_Destroy(g_pDirtyRectPool);
-    g_pDirtyRectPool = (void **)0x0;
-  }
-  UINT_008c978c = 0;
   return;
 }
 #endif

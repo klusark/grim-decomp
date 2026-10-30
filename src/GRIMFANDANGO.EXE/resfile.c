@@ -213,8 +213,11 @@ uint __cdecl ResFile_Read(int fh,void *buf,uint n)
   return iVar4 + iVar2;
 }
 
-/* ---- 0x00480bb0  FUN_00480bb0 ---- */
-char * FUN_00480bb0(int param_1,char *param_2,uint param_3)
+/* ---- 0x00480bb0  ResFile_Gets ---- */
+/* pFgets of the resource file services (Res_InstallFileServices): reads a line from the 4 KB buffer
+   of an archive entry or forwards to the real file. */
+
+char * ResFile_Gets(int param_1,char *param_2,uint param_3)
 
 {
   int iVar1;
@@ -276,8 +279,10 @@ char * FUN_00480bb0(int param_1,char *param_2,uint param_3)
   return param_2;
 }
 
-/* ---- 0x00480ce0  FUN_00480ce0 ---- */
-undefined4 FUN_00480ce0(int param_1,undefined4 param_2,undefined4 param_3)
+/* ---- 0x00480ce0  ResFile_Write ---- */
+/* pFwrite of the resource file services: only real files can be written. */
+
+undefined4 ResFile_Write(int param_1,undefined4 param_2,undefined4 param_3)
 
 {
   undefined4 uVar1;
@@ -298,8 +303,10 @@ undefined4 FUN_00480ce0(int param_1,undefined4 param_2,undefined4 param_3)
   return 0;
 }
 
-/* ---- 0x00480d50  FUN_00480d50 ---- */
-undefined4 FUN_00480d50(int param_1)
+/* ---- 0x00480d50  ResFile_Eof ---- */
+/* pFeof of the resource file services. */
+
+undefined4 ResFile_Eof(int param_1)
 
 {
   int iVar1;
@@ -321,8 +328,11 @@ undefined4 FUN_00480d50(int param_1)
   return *(undefined4 *)(&DAT_00824f2c + iVar1);
 }
 
-/* ---- 0x00480dc0  FUN_00480dc0 ---- */
-undefined4 FUN_00480dc0(int param_1)
+/* ---- 0x00480dc0  ResFile_Tell ---- */
+/* pFtell of the resource file services: the current position of an archive entry (relative to its
+   start) or of the real file. */
+
+undefined4 ResFile_Tell(int param_1)
 
 {
   int iVar1;

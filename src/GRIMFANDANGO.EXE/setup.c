@@ -6,7 +6,7 @@
 #include "functions.h"
 
 /* ---- 0x00485a40  Setup_DrawDebugCamera ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Draws the three axis lines at the setup's interest point and the camera actor's costume at its
    position */

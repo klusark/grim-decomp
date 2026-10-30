@@ -1,5 +1,5 @@
 /* GRIMFANDANGO.EXE :: reg.c
- * functions 0x004038a0 .. 0x00404120 (16 functions)
+ * functions 0x004038a0 .. 0x00404120 (15 functions)
  * Decompiled from the shipped binaries with Ghidra; see ../../README.md */
 #include "ghidra_types.h"
 #include "globals.h"
@@ -86,7 +86,7 @@ void Reg_CacheValueNames(void)
       uVar2 = uVar2 + 1;
     } while (uVar2 < g_dwRegValueCount);
   }
-  qsort(g_ppRegValueNames,g_dwRegValueCount,4,FUN_00403ae0);
+  qsort(g_ppRegValueNames,g_dwRegValueCount,4,Str_ComparePtrs);
   RegCloseKey((int)local_c);
   return;
 }
@@ -94,36 +94,6 @@ void Reg_CacheValueNames(void)
 #undef iStack_8
 #undef local_c
 
-
-/* ---- 0x00403ae0  FUN_00403ae0 ---- */
-int FUN_00403ae0(undefined4 *param_1,undefined4 *param_2)
-
-{
-  byte bVar1;
-  byte *pbVar2;
-  byte *pbVar3;
-  bool bVar4;
-  
-  pbVar3 = (byte *)*param_2;
-  pbVar2 = (byte *)*param_1;
-  while( true ) {
-    bVar1 = *pbVar2;
-    bVar4 = bVar1 < *pbVar3;
-    if (bVar1 != *pbVar3) break;
-    if (bVar1 == 0) {
-      return 0;
-    }
-    bVar1 = pbVar2[1];
-    bVar4 = bVar1 < pbVar3[1];
-    if (bVar1 != pbVar3[1]) break;
-    pbVar2 = pbVar2 + 2;
-    pbVar3 = pbVar3 + 2;
-    if (bVar1 == 0) {
-      return 0;
-    }
-  }
-  return (1 - (uint)bVar4) - (uint)(bVar4 != 0);
-}
 
 /* ---- 0x00403b20  Reg_Close ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
@@ -227,7 +197,7 @@ int __cdecl Reg_AddValueName(char *name)
       pcVar6 = pcVar6 + 1;
     }
     Str_ToLower(g_ppRegValueNames[g_dwRegValueCount - 1]);
-    qsort(g_ppRegValueNames,g_dwRegValueCount,4,FUN_00403ae0);
+    qsort(g_ppRegValueNames,g_dwRegValueCount,4,Str_ComparePtrs);
   }
   return iVar2;
 }
@@ -273,7 +243,7 @@ int __cdecl Reg_HasValue(char *name)
     pcVar6 = pcVar6 + 1;
   }
   Str_ToLower(local_80);
-  piVar2 = (int *)bsearch(&local_84,g_ppRegValueNames,g_dwRegValueCount,4,FUN_00403ae0);
+  piVar2 = (int *)bsearch(&local_84,g_ppRegValueNames,g_dwRegValueCount,4,Str_ComparePtrs);
   if (piVar2 != (int *)0x0) {
     return *piVar2;
   }

@@ -6,6 +6,8 @@
 #include "functions.h"
 
 /* ---- 0x00473430  stdFile_Open ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined * __cdecl stdFile_Open(uint param_1,uint param_2)
 
 {
@@ -14,6 +16,8 @@ undefined * __cdecl stdFile_Open(uint param_1,uint param_2)
   puVar1 = fopen(param_1,param_2);
   return puVar1;
 }
+#endif
+
 
 /* ---- 0x00473450  stdFile_Close ---- */
 void stdFile_Close(undefined4 param_1)
@@ -23,8 +27,10 @@ void stdFile_Close(undefined4 param_1)
   return;
 }
 
-/* ---- 0x00473460  FUN_00473460 ---- */
-void FUN_00473460(undefined4 param_1,undefined4 param_2,undefined4 param_3)
+/* ---- 0x00473460  stdFile_Read ---- */
+/* GrimServices.pFread of the platform table: fread(buf, 1, n, file). */
+
+void stdFile_Read(undefined4 param_1,undefined4 param_2,undefined4 param_3)
 
 {
   fread(param_2,1,param_3,param_1);
@@ -39,8 +45,10 @@ void stdFile_Write(undefined4 param_1,undefined4 param_2,undefined4 param_3)
   return;
 }
 
-/* ---- 0x004734a0  FUN_004734a0 ---- */
-void FUN_004734a0(undefined4 param_1,undefined4 param_2,undefined4 param_3)
+/* ---- 0x004734a0  stdFile_Gets ---- */
+/* GrimServices.pFgets of the platform table: fgets. */
+
+void stdFile_Gets(undefined4 param_1,undefined4 param_2,undefined4 param_3)
 
 {
   fgets(param_2,param_3,param_1);
@@ -55,8 +63,10 @@ void FUN_004734c0(undefined4 param_1,undefined4 param_2,undefined4 param_3)
   return;
 }
 
-/* ---- 0x004734e0  FUN_004734e0 ---- */
-uint FUN_004734e0(int param_1)
+/* ---- 0x004734e0  stdFile_Eof ---- */
+/* GrimServices.pFeof of the platform table: feof. */
+
+uint stdFile_Eof(int param_1)
 
 {
   return *(uint *)(param_1 + 0xc) & 0x10;
@@ -80,8 +90,11 @@ void stdFile_Seek(undefined4 param_1,undefined4 param_2,undefined4 param_3)
   return;
 }
 
-/* ---- 0x00473520  FUN_00473520 ---- */
-undefined * FUN_00473520(uint param_1)
+/* ---- 0x00473520  stdFile_Size ---- */
+/* GrimServices.pFileSize of the platform table: opens the file, seeks to the end and returns ftell.
+    */
+
+undefined * stdFile_Size(uint param_1)
 
 {
   undefined *puVar1;
@@ -97,8 +110,10 @@ undefined * FUN_00473520(uint param_1)
   return puVar2;
 }
 
-/* ---- 0x00473570  FUN_00473570 ---- */
-undefined4 FUN_00473570(undefined4 param_1,char *param_2)
+/* ---- 0x00473570  stdFile_Printf ---- */
+/* GrimServices.pFprintf of the platform table: formats into a 0x400-byte buffer and writes it. */
+
+undefined4 stdFile_Printf(undefined4 param_1,char *param_2)
 
 {
   int iVar1;
@@ -109,7 +124,7 @@ undefined4 FUN_00473570(undefined4 param_1,char *param_2)
 }
 
 /* ---- 0x004735f0  stdFile_ReadByte ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 uint stdFile_ReadByte(uint param_1)
 
@@ -121,7 +136,7 @@ uint stdFile_ReadByte(uint param_1)
 
 
 /* ---- 0x00473610  stdFile_WriteByte ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void stdFile_WriteByte(undefined4 param_1,undefined4 param_2)
 
