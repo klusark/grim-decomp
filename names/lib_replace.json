@@ -11,7 +11,9 @@
    "_ceil": "_floor",
    "__CIsqrt": "__CIasin",
    "_FUN_10011e20": "__CIacos",
-   "_FUN_100129a0": "_strstr"
+   "_FUN_100129a0": "_strstr",
+   "_FUN_10012350": "_srand",
+   "_FUN_10012360": "_rand"
   }
  },
  "GRIMFANDANGO.EXE": {
@@ -325,7 +327,9 @@
    "10011e20",
    "10011ef0",
    "10011ff0",
-   "100129a0"
+   "100129a0",
+   "10012350",
+   "10012360"
   ]
  },
  "IMUSE.DLL": {

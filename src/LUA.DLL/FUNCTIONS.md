@@ -698,8 +698,8 @@
 | 10011e3d | FUN_10011e3d | crt_unnamed.c | 1 |
 | 100120fa | FUN_100120fa | crt_unnamed.c | 1 |
 | 10012104 | FUN_10012104 | crt_unnamed.c | 1 |
-| 10012350 | FUN_10012350 | crt_unnamed.c | 9 |
-| 10012360 | FUN_10012360 | crt_unnamed.c | 11 |
+| 10012350 | FUN_10012350 | crt_unnamed.c | 1 |
+| 10012360 | FUN_10012360 | crt_unnamed.c | 1 |
 | 100129a0 | FUN_100129a0 | crt_unnamed.c | 1 |
 | 10012ec0 | FUN_10012ec0 | crt_unnamed.c | 1 |
 | 10012ee0 | FUN_10012ee0 | crt_unnamed.c | 1 |
