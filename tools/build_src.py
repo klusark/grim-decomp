@@ -70,6 +70,7 @@ RANGES = {
 IMPORT_NAMES = set()
 # imports that are not Win32 stdcall: the game's own DLLs (cdecl) and the varargs ones
 CDECL_IMPORTS = {"wsprintfA", "wsprintfW"}
+# (hmiFX*: the HMI sound library's exports are __stdcall too, see the stdcall branch in the functions.h writer)
 CDECL_IMPORT_PREFIXES = ("lua_", "Im", "Sounds", "Cos", "grimSound_", "iMUSE_", "hmiFX")
 # decorated stdcall names from the mingw import libraries (build/gen_stdcall_names.py)
 try:
@@ -1560,7 +1561,7 @@ def build(prog):
             w.write("/* ===== referenced, not decompiled here (thunks, imports, unknown FUN_) ===== */\n")
             for n in extra:
                 why = "import" if n in imp_names else ("thunk" if n in thunk_names else "no function at this address")
-                if n in imp_names and (n in DLL_STDCALL or (not n.startswith(CDECL_IMPORT_PREFIXES) and n not in CDECL_IMPORTS)):
+                if n in imp_names and (n in DLL_STDCALL or n.startswith("hmiFX") or (not n.startswith(CDECL_IMPORT_PREFIXES) and n not in CDECL_IMPORTS)):
                     # Win32/DirectX: stdcall, callee pops. Unprototyped on purpose: the
                     # decompiled call sites carry Ghidra's argument lists.
                     # the asm label keeps the symbol undecorated (`_f`, not `_f@0`) so the

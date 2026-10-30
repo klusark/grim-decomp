@@ -6,8 +6,6 @@
 #include "functions.h"
 
 /* ---- 0x1000a210  iMUSE_stream__a210 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
     */
 
@@ -57,12 +55,8 @@ uint * __cdecl iMUSE_stream__a210(uint param_1,uint param_2,uint param_3)
   }
   return (uint *)0x0;
 }
-#endif
-
 
 /* ---- 0x1000a2d0  iMUSE_stream__a2d0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
     */
 
@@ -75,12 +69,8 @@ undefined4 __cdecl iMUSE_stream__a2d0(undefined4 *param_1)
   }
   return 0;
 }
-#endif
-
 
 /* ---- 0x1000a420  iMUSE_stream__a420 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
     */
 
@@ -124,12 +114,8 @@ int __cdecl iMUSE_stream__a420(int param_1,uint param_2)
   }
   return iVar2;
 }
-#endif
-
 
 /* ---- 0x1000a490  iMUSE_stream__a490 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
     */
 
@@ -169,12 +155,8 @@ int __cdecl iMUSE_stream__a490(int param_1,int param_2,uint param_3)
   }
   return 0;
 }
-#endif
-
 
 /* ---- 0x1000a500  iMUSE_stream__a500 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
     */
 
@@ -195,12 +177,8 @@ undefined4 __cdecl iMUSE_stream__a500(int param_1,uint param_2)
   }
   return 0;
 }
-#endif
-
 
 /* ---- 0x1000a540  iMUSE_stream__a540 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
     */
 
@@ -221,12 +199,8 @@ undefined4 __cdecl iMUSE_stream__a540(int param_1,uint param_2)
   }
   return 0;
 }
-#endif
-
 
 /* ---- 0x1000a5a0  iMUSE_stream__a5a0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
     */
 
@@ -243,12 +217,8 @@ undefined4 __cdecl iMUSE_stream__a5a0(undefined4 *param_1,undefined4 param_2,und
   }
   return 0;
 }
-#endif
-
 
 /* ---- 0x1000b760  iMUSE_stream__b760 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
     */
 
@@ -266,12 +236,8 @@ undefined4 __cdecl iMUSE_stream__b760(int *param_1,int *param_2)
   }
   return 0xfffffffb;
 }
-#endif
-
 
 /* ---- 0x1000b7a0  iMUSE_stream__b7a0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
     */
 
@@ -305,12 +271,8 @@ undefined4 __cdecl iMUSE_stream__b7a0(int *param_1,int *param_2)
   *param_2 = 0;
   return 0;
 }
-#endif
-
 
 /* ---- 0x1000b810  iMUSE_stream__b810 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
     */
 
@@ -319,12 +281,8 @@ undefined4 __cdecl iMUSE_stream__b810(undefined1 *param_1)
 {
   return CONCAT31(CONCAT21(CONCAT11(*param_1,param_1[1]),param_1[2]),param_1[3]);
 }
-#endif
-
 
 /* ---- 0x1000b840  iMUSE_stream__b840 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
     */
 
@@ -343,8 +301,6 @@ undefined4 __cdecl iMUSE_stream__b840(int *param_1,int param_2)
   }
   return 0xffffffff;
 }
-#endif
-
 
 /* ---- 0x1000b8d0  FUN_1000b8d0 ---- */
 /* NOT COMPILED: names/lib_replace.json (host): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */

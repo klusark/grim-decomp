@@ -1576,7 +1576,7 @@ void FUN_10007a70(void)
 
 
 /* ---- 0x10007a80  FUN_10007a80 ---- */
-/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 void FUN_10007a80(void)
 

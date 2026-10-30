@@ -15,7 +15,7 @@ void __cdecl Im_DispatchMixTrack(int *param_1,uint param_2,uint param_3); /* 0x1
 int __cdecl Im_DispatchAllocBuffers(int *param_1); /* 0x10002a60 */
 int __cdecl Im_DispatchFetchNext(int *param_1); /* 0x10002d30 */
 undefined4 __cdecl Im_DSoundInit(undefined4 param_1,undefined4 *param_2); /* 0x100036b0 */
-undefined4 * __cdecl Im_DSoundHeartbeat(undefined4 param_1,uint *param_2); /* 0x10003730 */
+int __cdecl Im_DSoundHeartbeat(int **buf_out,uint *count_out,int *rate_out); /* 0x10003730 */
 undefined4 Im_DSoundShutdown(void); /* 0x100038d0 */
 void __cdecl Im_DSoundCreateBuffer(int param_1); /* 0x10003930 */
 undefined4 Im_DSoundReset(void); /* 0x10003ac0 */
@@ -268,7 +268,7 @@ void FUN_1000d130(void); /* 0x1000d130 */
 int __stdcall FUN_1000d1f0(int a1,int a2,int a3,int a4); /* 0x1000d1f0 */
 
 /* ===== soundstartvoicestream.c ===== */
-int __cdecl SoundStartVoiceStream(undefined4 param_1,undefined4 param_2,uint param_3); /* 0x100088d0 */
+int __cdecl SoundStartVoiceStream(undefined4 param_1,undefined4 param_2,uint param_3,uint param_4); /* 0x100088d0 */
 
 /* ===== soundstopvoicestream.c ===== */
 undefined4 __cdecl SoundStopVoiceStream(void); /* 0x10008970 */
@@ -518,15 +518,15 @@ int STDCALL VirtualAlloc() __asm__("_VirtualAlloc@16"); /* import */
 int STDCALL VirtualFree() __asm__("_VirtualFree@12"); /* import */
 int STDCALL WideCharToMultiByte() __asm__("_WideCharToMultiByte@32"); /* import */
 int STDCALL WriteFile() __asm__("_WriteFile@20"); /* import */
-int hmiFXFree(); /* import */
-int hmiFXInitSystem(); /* import */
-int hmiFXMalloc(); /* import */
-int hmiFXPresetFreeLibrary(); /* import */
-int hmiFXPresetLoadLibrary(); /* import */
-int hmiFXPresetLock(); /* import */
-int hmiFXPresetProcess(); /* import */
-int hmiFXPresetRelease(); /* import */
-int hmiFXUnInitSystem(); /* import */
+int STDCALL hmiFXFree() __asm__("_hmiFXFree"); /* import */
+int STDCALL hmiFXInitSystem() __asm__("_hmiFXInitSystem"); /* import */
+int STDCALL hmiFXMalloc() __asm__("_hmiFXMalloc"); /* import */
+int STDCALL hmiFXPresetFreeLibrary() __asm__("_hmiFXPresetFreeLibrary"); /* import */
+int STDCALL hmiFXPresetLoadLibrary() __asm__("_hmiFXPresetLoadLibrary"); /* import */
+int STDCALL hmiFXPresetLock() __asm__("_hmiFXPresetLock"); /* import */
+int STDCALL hmiFXPresetProcess() __asm__("_hmiFXPresetProcess"); /* import */
+int STDCALL hmiFXPresetRelease() __asm__("_hmiFXPresetRelease"); /* import */
+int STDCALL hmiFXUnInitSystem() __asm__("_hmiFXUnInitSystem"); /* import */
 int STDCALL timeBeginPeriod() __asm__("_timeBeginPeriod@4"); /* import */
 int STDCALL timeEndPeriod() __asm__("_timeEndPeriod@4"); /* import */
 int STDCALL timeGetDevCaps() __asm__("_timeGetDevCaps@8"); /* import */

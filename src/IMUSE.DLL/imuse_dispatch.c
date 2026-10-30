@@ -6,8 +6,6 @@
 #include "functions.h"
 
 /* ---- 0x10001fd0  iMUSE_Dispatch__1fd0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Unidentified function of iMUSE_Dispatch.c (command dispatch, fades, triggers) */
 
 undefined4 iMUSE_Dispatch__1fd0(void)
@@ -16,12 +14,8 @@ undefined4 iMUSE_Dispatch__1fd0(void)
   (**(code **)(DAT_10033510 + 0x24))(DAT_1002d808);
   return 0;
 }
-#endif
-
 
 /* ---- 0x10001ff0  iMUSE_Dispatch__1ff0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Unidentified function of iMUSE_Dispatch.c (command dispatch, fades, triggers) */
 
 undefined4 * __cdecl iMUSE_Dispatch__1ff0(int param_1)
@@ -29,12 +23,8 @@ undefined4 * __cdecl iMUSE_Dispatch__1ff0(int param_1)
 {
   return &DAT_100252a0 + param_1 * 0x215;
 }
-#endif
-
 
 /* ---- 0x10002010  iMUSE_Dispatch__2010 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Unidentified function of iMUSE_Dispatch.c (command dispatch, fades, triggers) */
 
 undefined4 __cdecl iMUSE_Dispatch__2010(undefined4 *param_1,uint param_2)
@@ -54,12 +44,8 @@ undefined4 __cdecl iMUSE_Dispatch__2010(undefined4 *param_1,uint param_2)
   }
   return 0x8540;
 }
-#endif
-
 
 /* ---- 0x10002040  iMUSE_Dispatch__2040 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Unidentified function of iMUSE_Dispatch.c (command dispatch, fades, triggers) */
 
 undefined4 __cdecl iMUSE_Dispatch__2040(undefined4 *param_1)
@@ -69,41 +55,39 @@ undefined4 __cdecl iMUSE_Dispatch__2040(undefined4 *param_1)
   undefined4 *puVar2;
   int iVar3;
   
-  iVar1 = 0;
   puVar2 = &DAT_100252a0;
   for (iVar3 = 0x2150; iVar3 != 0; iVar3 = iVar3 + -1) {
     *puVar2 = *param_1;
     param_1 = param_1 + 1;
     puVar2 = puVar2 + 1;
   }
+  iVar3 = 0;
   if (0 < DAT_1001e8c4) {
     do {
-      iVar1 = iVar1 + 1;
-      *(undefined4 *)(DAT_10024dc8 + -4 + iVar1 * 4) = 0;
+      iVar1 = iVar3 + 1;
+      PTR_10024dc8[iVar3] = 0;
+      iVar3 = iVar1;
     } while (iVar1 < DAT_1001e8c4);
   }
-  iVar1 = 0;
+  iVar3 = 0;
   if (0 < DAT_1001e8cc) {
     do {
-      iVar1 = iVar1 + 1;
-      *(undefined4 *)(DAT_10025298 + -4 + iVar1 * 4) = 0;
+      iVar1 = iVar3 + 1;
+      PTR_10025298[iVar3] = 0;
+      iVar3 = iVar1;
     } while (iVar1 < DAT_1001e8cc);
   }
   puVar2 = &DAT_10024df0;
-  iVar1 = 0x32;
+  iVar3 = 0x32;
   do {
     *puVar2 = 0;
     puVar2 = puVar2 + 6;
-    iVar1 = iVar1 + -1;
-  } while (iVar1 != 0);
+    iVar3 = iVar3 + -1;
+  } while (iVar3 != 0);
   return 0x8540;
 }
-#endif
-
 
 /* ---- 0x100020c0  iMUSE_Dispatch__20c0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Unidentified function of iMUSE_Dispatch.c (command dispatch, fades, triggers) */
 
 undefined4 iMUSE_Dispatch__20c0(void)
@@ -140,12 +124,8 @@ undefined4 iMUSE_Dispatch__20c0(void)
   }
   return 0;
 }
-#endif
-
 
 /* ---- 0x10002170  iMUSE_Dispatch__2170 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Unidentified function of iMUSE_Dispatch.c (command dispatch, fades, triggers) */
 
 undefined4 __cdecl iMUSE_Dispatch__2170(int param_1,uint param_2)
@@ -180,12 +160,8 @@ undefined4 __cdecl iMUSE_Dispatch__2170(int param_1,uint param_2)
   }
   return 0;
 }
-#endif
-
 
 /* ---- 0x10002200  iMUSE_Dispatch__2200 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Unidentified function of iMUSE_Dispatch.c (command dispatch, fades, triggers) */
 
 undefined4 __cdecl iMUSE_Dispatch__2200(int param_1)
@@ -211,12 +187,8 @@ undefined4 __cdecl iMUSE_Dispatch__2200(int param_1)
   }
   return 0;
 }
-#endif
-
 
 /* ---- 0x10002a00  iMUSE_Dispatch__2a00 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Unidentified function of iMUSE_Dispatch.c (command dispatch, fades, triggers) */
 
 void iMUSE_Dispatch__2a00(void)
@@ -240,12 +212,8 @@ void iMUSE_Dispatch__2a00(void)
   Im_GuardLeave();
   return;
 }
-#endif
-
 
 /* ---- 0x10002fe0  iMUSE_Dispatch__2fe0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Unidentified function of iMUSE_Dispatch.c (command dispatch, fades, triggers) */
 
 int __cdecl iMUSE_Dispatch__2fe0(undefined4 *param_1,undefined4 *param_2)
@@ -316,12 +284,8 @@ int __cdecl iMUSE_Dispatch__2fe0(undefined4 *param_1,undefined4 *param_2)
   }
   return -1;
 }
-#endif
-
 
 /* ---- 0x100030d0  iMUSE_Dispatch__30d0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Unidentified function of iMUSE_Dispatch.c (command dispatch, fades, triggers) */
 
 uint __cdecl iMUSE_Dispatch__30d0(int param_1,int param_2,int param_3)
@@ -346,12 +310,8 @@ uint __cdecl iMUSE_Dispatch__30d0(int param_1,int param_2,int param_3)
   }
   return 0;
 }
-#endif
-
 
 /* ---- 0x10003130  iMUSE_Dispatch__3130 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Unidentified function of iMUSE_Dispatch.c (command dispatch, fades, triggers) */
 
@@ -389,12 +349,8 @@ void __cdecl iMUSE_Dispatch__3130(int *param_1)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x100031d0  iMUSE_Dispatch__31d0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* WARNING: Removing unreachable block (ram,0x10003234) */
 /* Unidentified function of iMUSE_Dispatch.c (command dispatch, fades, triggers) */
 
@@ -422,12 +378,8 @@ int * __cdecl iMUSE_Dispatch__31d0(int *param_1,int param_2,int *param_3)
   }
   return piVar5;
 }
-#endif
-
 
 /* ---- 0x10003250  iMUSE_Dispatch__3250 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Unidentified function of iMUSE_Dispatch.c (command dispatch, fades, triggers) */
 
 void __cdecl iMUSE_Dispatch__3250(int *param_1,undefined4 *param_2,int param_3,int param_4)
@@ -509,12 +461,8 @@ void __cdecl iMUSE_Dispatch__3250(int *param_1,undefined4 *param_2,int param_3,i
 }
 #undef local_4
 
-#endif
-
 
 /* ---- 0x10003430  iMUSE_Dispatch__3430 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Unidentified function of iMUSE_Dispatch.c (command dispatch, fades, triggers) */
 
 void __cdecl iMUSE_Dispatch__3430(int *param_1,int param_2)
@@ -542,12 +490,8 @@ void __cdecl iMUSE_Dispatch__3430(int *param_1,int param_2)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x100034b0  iMUSE_Dispatch__34b0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Unidentified function of iMUSE_Dispatch.c (command dispatch, fades, triggers) */
 
 int __cdecl iMUSE_Dispatch__34b0(int *param_1)
@@ -566,12 +510,8 @@ int __cdecl iMUSE_Dispatch__34b0(int *param_1)
   }
   return (0x80 - (param_1[0x213] >> 0x10)) * iVar1 >> 7;
 }
-#endif
-
 
 /* ---- 0x10003510  iMUSE_Dispatch__3510 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Unidentified function of iMUSE_Dispatch.c (command dispatch, fades, triggers) */
 
 int __cdecl iMUSE_Dispatch__3510(int *param_1,int param_2)
@@ -593,12 +533,8 @@ int __cdecl iMUSE_Dispatch__3510(int *param_1,int param_2)
   }
   return iVar2 * ((iVar1 >> 0x10) + 1) >> 7;
 }
-#endif
-
 
 /* ---- 0x10003570  iMUSE_Dispatch__3570 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Unidentified function of iMUSE_Dispatch.c (command dispatch, fades, triggers) */
 
 undefined4 * iMUSE_Dispatch__3570(void)
@@ -624,12 +560,8 @@ undefined4 * iMUSE_Dispatch__3570(void)
   } while (iVar2 < 0x32);
   return (undefined4 *)0x0;
 }
-#endif
-
 
 /* ---- 0x100035a0  iMUSE_Dispatch__35a0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Unidentified function of iMUSE_Dispatch.c (command dispatch, fades, triggers) */
 
 int __cdecl iMUSE_Dispatch__35a0(uint *param_1)
@@ -643,11 +575,11 @@ int __cdecl iMUSE_Dispatch__35a0(uint *param_1)
   }
   if (DAT_1001e8c8 < *param_1) {
     iVar1 = 0;
-    piVar2 = DAT_10024dc8;
+    piVar2 = PTR_10024dc8;
     if (0 < DAT_1001e8c4) {
       do {
         if (*piVar2 == 0) {
-          DAT_10024dc8[iVar1] = 1;
+          PTR_10024dc8[iVar1] = 1;
           return iVar1 * DAT_1001e8c0 + DAT_10024dcc;
         }
         iVar1 = iVar1 + 1;
@@ -657,13 +589,13 @@ int __cdecl iMUSE_Dispatch__35a0(uint *param_1)
     *param_1 = DAT_1001e8c8;
   }
   iVar1 = 0;
-  piVar2 = DAT_10025298;
+  piVar2 = PTR_10025298;
   if (DAT_1001e8cc < 1) {
     return 0;
   }
   do {
     if (*piVar2 == 0) {
-      DAT_10025298[iVar1] = 1;
+      PTR_10025298[iVar1] = 1;
       return iVar1 * DAT_1001e8c8 + DAT_10024dd4;
     }
     iVar1 = iVar1 + 1;
@@ -671,12 +603,8 @@ int __cdecl iMUSE_Dispatch__35a0(uint *param_1)
   } while (iVar1 < DAT_1001e8cc);
   return 0;
 }
-#endif
-
 
 /* ---- 0x10003640  iMUSE_Dispatch__3640 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Unidentified function of iMUSE_Dispatch.c (command dispatch, fades, triggers) */
 
 void __cdecl iMUSE_Dispatch__3640(int param_1)
@@ -690,7 +618,7 @@ void __cdecl iMUSE_Dispatch__3640(int param_1)
   if (0 < DAT_1001e8c4) {
     do {
       if (param_1 == iVar2) {
-        *(undefined4 *)(DAT_10024dc8 + iVar1 * 4) = 0;
+        PTR_10024dc8[iVar1] = 0;
         return;
       }
       iVar1 = iVar1 + 1;
@@ -707,9 +635,7 @@ void __cdecl iMUSE_Dispatch__3640(int param_1)
         return;
       }
     }
-    *(undefined4 *)(DAT_10025298 + iVar1 * 4) = 0;
+    PTR_10025298[iVar1] = 0;
   }
   return;
 }
-#endif
-
