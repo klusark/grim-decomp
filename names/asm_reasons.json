@@ -1,0 +1,18 @@
+{
+ "_comment": "Hand-written reasons why a low-range EXE function (0x401000-0x49ffff) is still assembled; tools/gen_asm_remaining.py puts them into docs/ASM_REMAINING.md",
+ "00477730": "DirectInput keyboard poll (COM vtable calls); names/asm_patches.json patches the count reset after GetDeviceData",
+ "0049de00": "Lua start-up: names/asm_patches.json inserts the call of the mod API (GRIM_RegisterModApi); uses absolute .data addresses (library tables) as pointers",
+ "0040d880": "C version crashes at start-up (cause not found; the decompilation looks right: cache-mesh polygon loop)",
+ "00491230": "C version differs when the actor scale is 0 (NaN compares: the x87 FCOM flag tests treat an unordered result differently from gcc's)",
+ "004939f0": "C version crashes at start-up (Collision_UpdateMovedActors); needs a hand port, float structs behind int pointers",
+ "00489fe0": "C version crashes when ChangePrimitive runs (colour packing through PIECE(); found with build/difftest/t7.lua)",
+ "0048a4b0": "C version crashes (primitive constructor, __thiscall with SEH frame)",
+ "0048a670": "SEH frame (fs:[0]) and extraout_EAX results of Primitive_Construct",
+ "00490730": "SEH frame (fs:[0]) and registers across the walker constructor call",
+ "00490320": "Actor_SetSelected: register value (ECX) crosses the call to Actor_GetHandle",
+ "00490210": "lip-sync timer: float -> int through _ftol of a product the decompiler lost (dt * 1000 added to the talk timer)",
+ "00495730": "Costume_UpdateAll: dt * 1000 converted to unsigned through _ftol and a double bias constant",
+ "0040a280": "rdCamera_BuildProjection: camera struct typed int * while its fields are floats (needs a struct type, which raw/ cannot express)",
+ "0047bd20": "Math_SinCosTable: float -> int conversions through _ftol of table indices",
+ "0047c120": "Math_SinDeg: float -> int conversion through _ftol of the table index"
+}
