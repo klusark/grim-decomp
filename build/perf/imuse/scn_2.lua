@@ -1,0 +1,3 @@
+function WFX(n) local i = 0 while i < n do break_here() i = i + 1 end end
+function S2() while not (manny and manny.hActor and system.currentSet) do break_here() end WFX(30) local h = ImStartSound("me_tank3.wav", 127, 1) grimlog("H "..tostring(h)) WFX(20) local v = ImStartVoice("sggl011.wav", 127, 127) grimlog("V "..tostring(v)) WFX(60) ImFadeParam(h, IM_SOUND_VOL, 20, 2000) WFX(40) ImSetParam(h, IM_SOUND_PAN, 10) WFX(30) ImPause() WFX(20) ImResume() WFX(40) ImSetMusicVol(40) ImSetSfxVol(60) ImSetVoiceVol(90) WFX(60) ImStopSound(h) WFX(40) ImStartVoice("sggl012.wav", 127, 127) WFX(120) ImStopVoice() WFX(20) vfx(1) WFX(10) ImStartVoice("sggl013.wav", 127, 127) WFX(100) vfx(0) quiet() WFX(40) grimlog("DONE") end
+start_script(S2)

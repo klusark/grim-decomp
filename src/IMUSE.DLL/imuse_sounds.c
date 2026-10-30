@@ -6,8 +6,6 @@
 #include "functions.h"
 
 /* ---- 0x10009e10  iMUSE_sounds__9e10 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Unidentified function of iMUSE_sounds.c (sound resource slots) */
 
 undefined4 __cdecl iMUSE_sounds__9e10(undefined *param_1)
@@ -21,12 +19,8 @@ undefined4 __cdecl iMUSE_sounds__9e10(undefined *param_1)
   uVar1 = (**(code **)(DAT_10033510 + 0x48))(param_1);
   return uVar1;
 }
-#endif
-
 
 /* ---- 0x10009e40  iMUSE_sounds__9e40 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Unidentified function of iMUSE_sounds.c (sound resource slots) */
 
 undefined4 __cdecl iMUSE_sounds__9e40(undefined *param_1,int param_2,int param_3)
@@ -52,12 +46,8 @@ undefined4 __cdecl iMUSE_sounds__9e40(undefined *param_1,int param_2,int param_3
   *(int *)(param_1 + 8) = *(int *)(param_1 + 8) + param_2;
   return 0;
 }
-#endif
-
 
 /* ---- 0x10009eb0  iMUSE_sounds__9eb0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Unidentified function of iMUSE_sounds.c (sound resource slots) */
 
 int __cdecl iMUSE_sounds__9eb0(int param_1,uint param_2)
@@ -73,12 +63,8 @@ int __cdecl iMUSE_sounds__9eb0(int param_1,uint param_2)
   }
   return -1;
 }
-#endif
-
 
 /* ---- 0x10009ef0  FUN_10009ef0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 int __cdecl FUN_10009ef0(uint param_1,uint *param_2)
 
 {
@@ -87,12 +73,8 @@ int __cdecl FUN_10009ef0(uint param_1,uint *param_2)
   }
   return (-(uint)(param_1 < *param_2) & 0xfffffffe) + 1;
 }
-#endif
-
 
 /* ---- 0x10009f10  FUN_10009f10 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 undefined4 FUN_10009f10(undefined4 param_1)
 
 {
@@ -103,12 +85,8 @@ undefined4 FUN_10009f10(undefined4 param_1)
   FUN_10009f40(uVar1);
   return uVar1;
 }
-#endif
-
 
 /* ---- 0x10009f40  FUN_10009f40 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 void FUN_10009f40(int param_1)
@@ -160,12 +138,8 @@ void FUN_10009f40(int param_1)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x1000a010  FUN_1000a010 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void FUN_1000a010(undefined4 param_1)
 
 {
@@ -173,12 +147,8 @@ void FUN_1000a010(undefined4 param_1)
   (**(code **)(DAT_10033510 + 0x24))(param_1);
   return;
 }
-#endif
-
 
 /* ---- 0x1000a030  FUN_1000a030 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 void FUN_1000a030(int param_1)
@@ -203,5 +173,3 @@ void FUN_1000a030(int param_1)
   }
   return;
 }
-#endif
-

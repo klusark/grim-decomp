@@ -6,8 +6,6 @@
 #include "functions.h"
 
 /* ---- 0x10008970  SoundStopVoiceStream ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 undefined4 __cdecl SoundStopVoiceStream(void)
 
 {
@@ -18,5 +16,3 @@ undefined4 __cdecl SoundStopVoiceStream(void)
   uVar1 = FUN_10007250(10000);
   return uVar1;
 }
-#endif
-

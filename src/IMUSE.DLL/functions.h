@@ -15,7 +15,7 @@ void __cdecl Im_DispatchMixTrack(int *param_1,uint param_2,uint param_3); /* 0x1
 int __cdecl Im_DispatchAllocBuffers(int *param_1); /* 0x10002a60 */
 int __cdecl Im_DispatchFetchNext(int *param_1); /* 0x10002d30 */
 undefined4 __cdecl Im_DSoundInit(undefined4 param_1,undefined4 *param_2); /* 0x100036b0 */
-undefined4 * __cdecl Im_DSoundHeartbeat(undefined4 param_1,uint *param_2); /* 0x10003730 */
+int __cdecl Im_DSoundHeartbeat(int **buf_out,uint *count_out,int *rate_out); /* 0x10003730 */
 undefined4 Im_DSoundShutdown(void); /* 0x100038d0 */
 void __cdecl Im_DSoundCreateBuffer(int param_1); /* 0x10003930 */
 undefined4 Im_DSoundReset(void); /* 0x10003ac0 */
@@ -31,7 +31,7 @@ undefined4 __cdecl Im_SetGroupVolImpl(uint param_1,uint param_2); /* 0x100049e0 
 undefined4 __cdecl Im_GetGroupVol(uint param_1); /* 0x10004a80 */
 void Im_GuardEnter(void); /* 0x10004f50 */
 int Im_GuardLeave(void); /* 0x10004f60 */
-uint __cdecl Im_DispatchCommand(uint param_1,int *param_2,undefined4 *param_3,uint param_4,int param_5, int param_6); /* 0x10004f70 */
+uint __cdecl Im_DispatchCommand(uint cmd,int a2,int a3,int a4,int a5,int a6,int a7,int a8,int a9,int a10,int a11); /* 0x10004f70 */
 undefined4 __cdecl Im_MixerInit(undefined4 *param_1); /* 0x10005360 */
 undefined4 Im_MixerReset(void); /* 0x10005490 */
 undefined4 Im_MixerHeartbeat(void); /* 0x100054c0 */
@@ -52,7 +52,7 @@ undefined4 __cdecl FUN_10006620(int param_1); /* 0x10006620 */
 undefined4 FUN_100067a0(void); /* 0x100067a0 */
 undefined4 __cdecl FUN_100067b0(uint param_1,char *param_2); /* 0x100067b0 */
 void __cdecl FUN_100068b0(char *param_1,uint param_2,int param_3,uint param_4,int param_5,uint param_6, uint param_7,uint param_8); /* 0x100068b0 */
-void __cdecl FUN_100070e0(char *param_1,char *param_2); /* 0x100070e0 */
+void __cdecl FUN_100070e0(char *marker); /* 0x100070e0 */
 void FUN_10007110(void); /* 0x10007110 */
 undefined4 __cdecl Im_SoundsFindByName(undefined4 param_1,char *param_2); /* 0x100089b0 */
 void __cdecl Im_SoundsFreeSlot(int param_1); /* 0x10008b60 */
@@ -106,11 +106,11 @@ int * __cdecl Im_AllocTrackOrSteal(int param_1); /* 0x1000b110 */
 undefined4 Im_TriggersInit(void); /* 0x1000b170 */
 undefined4 __cdecl Im_TriggersSave(undefined4 *param_1,int param_2); /* 0x1000b1a0 */
 undefined4 __cdecl Im_TriggersRestore(undefined4 *param_1); /* 0x1000b1e0 */
-undefined4 __cdecl Im_SetTriggerImpl(int param_1,char *param_2,int param_3); /* 0x1000b220 */
+undefined4 __cdecl Im_SetTriggerImpl(int sound,char *marker,int cmd,int p0,int p1,int p2,int p3,int p4,int p5,int p6, int p7,int p8,int p9); /* 0x1000b220 */
 int __cdecl Im_CheckTriggerImpl(int param_1,byte *param_2,int param_3); /* 0x1000b2e0 */
 undefined4 __cdecl Im_ClearTriggerImpl(int param_1,byte *param_2,int param_3); /* 0x1000b380 */
 undefined4 * __cdecl Im_FireTriggers(int param_1,char *param_2); /* 0x1000b430 */
-undefined4 __cdecl Im_DeferCommandImpl(int param_1,int param_2); /* 0x1000b570 */
+undefined4 __cdecl Im_DeferCommandImpl(int time,int cmd,int p0,int p1,int p2,int p3,int p4,int p5,int p6,int p7,int p8, int p9); /* 0x1000b570 */
 void Im_ProcessDeferred(void); /* 0x1000b5e0 */
 int __cdecl Im_GetTriggerParam(int param_1); /* 0x1000b630 */
 void __cdecl Im_RunTriggerCommand(undefined4 *param_1,undefined4 param_2); /* 0x1000b6a0 */
@@ -181,10 +181,10 @@ uint __cdecl ImGetParam(int param_1,int param_2); /* 0x10004d30 */
 undefined4 __cdecl ImFadeParam(int param_1,int param_2,uint param_3,int param_4); /* 0x10004d90 */
 undefined4 __cdecl ImSetHook(int param_1,uint param_2); /* 0x10004db0 */
 undefined4 __cdecl ImGetHook(int param_1); /* 0x10004dd0 */
-undefined4 __cdecl ImSetTrigger(int param_1,char *param_2,int param_3); /* 0x10004de0 */
+undefined4 __cdecl ImSetTrigger(int sound,char *marker,int cmd,int p0,int p1,int p2,int p3,int p4,int p5,int p6,int p7, int p8,int p9); /* 0x10004de0 */
 int __cdecl ImCheckTrigger(int param_1,byte *param_2,int param_3); /* 0x10004e10 */
 undefined4 __cdecl ImClearTrigger(int param_1,byte *param_2,int param_3); /* 0x10004e30 */
-undefined4 __cdecl ImDeferCommand(int param_1,int param_2); /* 0x10004e50 */
+undefined4 __cdecl ImDeferCommand(int time,int cmd,int p0,int p1,int p2,int p3,int p4,int p5,int p6,int p7,int p8, int p9); /* 0x10004e50 */
 undefined4 __cdecl ImStartStream(uint param_1,int param_2,uint param_3); /* 0x10004e80 */
 undefined4 __cdecl ImSwitchStream(int param_1,undefined4 param_2,uint param_3,uint param_4,uint param_5); /* 0x10004ec0 */
 undefined4 __cdecl ImQueryStream(int param_1,undefined4 *param_2,undefined4 *param_3,int *param_4,undefined4 *param_5); /* 0x10004f00 */
@@ -268,7 +268,7 @@ void FUN_1000d130(void); /* 0x1000d130 */
 int __stdcall FUN_1000d1f0(int a1,int a2,int a3,int a4); /* 0x1000d1f0 */
 
 /* ===== soundstartvoicestream.c ===== */
-int __cdecl SoundStartVoiceStream(undefined4 param_1,undefined4 param_2,uint param_3); /* 0x100088d0 */
+int __cdecl SoundStartVoiceStream(undefined4 param_1,uint volume,uint pan); /* 0x100088d0 */
 
 /* ===== soundstopvoicestream.c ===== */
 undefined4 __cdecl SoundStopVoiceStream(void); /* 0x10008970 */
@@ -518,15 +518,15 @@ int STDCALL VirtualAlloc() __asm__("_VirtualAlloc@16"); /* import */
 int STDCALL VirtualFree() __asm__("_VirtualFree@12"); /* import */
 int STDCALL WideCharToMultiByte() __asm__("_WideCharToMultiByte@32"); /* import */
 int STDCALL WriteFile() __asm__("_WriteFile@20"); /* import */
-int hmiFXFree(); /* import */
-int hmiFXInitSystem(); /* import */
-int hmiFXMalloc(); /* import */
-int hmiFXPresetFreeLibrary(); /* import */
-int hmiFXPresetLoadLibrary(); /* import */
-int hmiFXPresetLock(); /* import */
-int hmiFXPresetProcess(); /* import */
-int hmiFXPresetRelease(); /* import */
-int hmiFXUnInitSystem(); /* import */
+int STDCALL hmiFXFree() __asm__("_hmiFXFree"); /* import */
+int STDCALL hmiFXInitSystem() __asm__("_hmiFXInitSystem"); /* import */
+int STDCALL hmiFXMalloc() __asm__("_hmiFXMalloc"); /* import */
+int STDCALL hmiFXPresetFreeLibrary() __asm__("_hmiFXPresetFreeLibrary"); /* import */
+int STDCALL hmiFXPresetLoadLibrary() __asm__("_hmiFXPresetLoadLibrary"); /* import */
+int STDCALL hmiFXPresetLock() __asm__("_hmiFXPresetLock"); /* import */
+int STDCALL hmiFXPresetProcess() __asm__("_hmiFXPresetProcess"); /* import */
+int STDCALL hmiFXPresetRelease() __asm__("_hmiFXPresetRelease"); /* import */
+int STDCALL hmiFXUnInitSystem() __asm__("_hmiFXUnInitSystem"); /* import */
 int STDCALL timeBeginPeriod() __asm__("_timeBeginPeriod@4"); /* import */
 int STDCALL timeEndPeriod() __asm__("_timeEndPeriod@4"); /* import */
 int STDCALL timeGetDevCaps() __asm__("_timeGetDevCaps@8"); /* import */

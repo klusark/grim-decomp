@@ -6,8 +6,6 @@
 #include "functions.h"
 
 /* ---- 0x10001000  Im_VimaDecodeBlock ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Compressed (VIMA-style ADPCM) block decoder using the step/index tables; identity inferred from
    structure */
 
@@ -229,12 +227,8 @@ switchD_100012ad_default:
 #undef local_20
 #undef local_24
 
-#endif
-
 
 /* ---- 0x100013c0  Im_VimaDecompress ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Drives Im_VimaDecodeBlock over a compressed sound chunk */
 
 uint * __cdecl
@@ -501,12 +495,8 @@ Im_VimaDecompress(uint *param_1,int *param_2,uint *param_3,uint *param_4,uint *p
   }
   return (uint *)0x0;
 }
-#endif
-
 
 /* ---- 0x100017e0  Im_DecodeSoundBlock ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Unidentified function of compressed audio decoding (VIMA/ADPCM style tables) - module name
    inferred */
@@ -605,12 +595,8 @@ Im_DecodeSoundBlock(undefined4 *param_1,int param_2,uint param_3,uint param_4,ui
   }
   return (int)puVar2 - (int)param_1;
 }
-#endif
-
 
 /* ---- 0x10001ba0  Im_CodecInit ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Unidentified function of compressed audio decoding (VIMA/ADPCM style tables) - module name
    inferred */
 
@@ -623,12 +609,8 @@ void __cdecl Im_CodecInit(undefined1 *param_1)
   *(undefined2 *)(param_1 + 2) = 0;
   return;
 }
-#endif
-
 
 /* ---- 0x10001bc0  Im_ConvertBlock ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Unidentified function of compressed audio decoding (VIMA/ADPCM style tables) - module name
    inferred */
 
@@ -660,12 +642,8 @@ void __cdecl Im_ConvertBlock(byte *param_1,undefined2 *param_2,byte *param_3,uin
   Im_ConvertBlockImpl((short *)param_1,param_2,pbVar2,param_4 / (uVar3 * 2),uVar3,1);
   return;
 }
-#endif
-
 
 /* ---- 0x10001c30  Im_ConvertBlockImpl ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Unidentified function of compressed audio decoding (VIMA/ADPCM style tables) - module name
    inferred */
 
@@ -806,12 +784,8 @@ Im_ConvertBlockImpl(short *param_1,undefined2 *param_2,byte *param_3,int param_4
 #undef local_24
 #undef local_8
 
-#endif
-
 
 /* ---- 0x10001f10  Im_DispatchInit ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* iMUSE_Dispatch.c: allocates the dispatch slots */
 
 undefined4 Im_DispatchInit(void)
@@ -828,13 +802,12 @@ undefined4 Im_DispatchInit(void)
     return 0xffffffff;
   }
   DAT_10024dd4 = DAT_1002d808 + DAT_1001e8c4 * DAT_1001e8c0;
-  DAT_10025298 = (undefined4 *)
-                 ((DAT_1001e8c0 + 4) * DAT_1001e8c4 + DAT_1002d808 + DAT_1001e8cc * DAT_1001e8c8);
-  DAT_10024dc8 = (undefined4 *)
-                 (DAT_1002d808 + DAT_1001e8cc * DAT_1001e8c8 + DAT_1001e8c4 * DAT_1001e8c0);
+  PTR_10025298 = (int *)((DAT_1001e8c0 + 4) * DAT_1001e8c4 + DAT_1002d808 +
+                        DAT_1001e8cc * DAT_1001e8c8);
+  PTR_10024dc8 = (int *)(DAT_1002d808 + DAT_1001e8cc * DAT_1001e8c8 + DAT_1001e8c4 * DAT_1001e8c0);
   DAT_10024dcc = DAT_1002d808;
-  *DAT_10024dc8 = 0;
-  *DAT_10025298 = 0;
+  *PTR_10024dc8 = 0;
+  *PTR_10025298 = 0;
   puVar2 = &DAT_10024de8;
   for (iVar1 = 300; iVar1 != 0; iVar1 = iVar1 + -1) {
     *puVar2 = 0;
@@ -842,12 +815,8 @@ undefined4 Im_DispatchInit(void)
   }
   return 0;
 }
-#endif
-
 
 /* ---- 0x10002260  Im_SwitchStreamImpl ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Body of ImSwitchStream (sound, offset, fade, flags) */
 
 undefined4 __cdecl
@@ -982,12 +951,8 @@ Im_SwitchStreamImpl(int param_1,undefined4 param_2,uint param_3,uint param_4,uin
   Im_GuardLeave();
   return 0;
 }
-#endif
-
 
 /* ---- 0x10002570  Im_DispatchMixTrack ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* WARNING: Removing unreachable block (ram,0x10002950) */
 /* Pulls decoded data for one track and mixes it (Im_MixSamples) */
 
@@ -1140,12 +1105,8 @@ LAB_100028ef:
 #undef local_4
 #undef local_8
 
-#endif
-
 
 /* ---- 0x10002a60  Im_DispatchAllocBuffers ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* WARNING: Removing unreachable block (ram,0x10002cfb) */
 /* Unidentified function of iMUSE_Dispatch.c (command dispatch, fades, triggers) */
 
@@ -1273,12 +1234,8 @@ LAB_10002d11:
 }
 #undef local_4
 
-#endif
-
 
 /* ---- 0x10002d30  Im_DispatchFetchNext ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Advances a dispatch through its sound regions / jumps and fetches the next data */
 
 int __cdecl Im_DispatchFetchNext(int *param_1)
@@ -1447,12 +1404,8 @@ LAB_10002f3c:
 #undef local_54
 #undef local_58
 
-#endif
-
 
 /* ---- 0x100036b0  Im_DSoundInit ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* iMUSE_dsound.c */
 
 undefined4 __cdecl Im_DSoundInit(undefined4 param_1,undefined4 *param_2)
@@ -1478,26 +1431,25 @@ undefined4 __cdecl Im_DSoundInit(undefined4 param_1,undefined4 *param_2)
   DAT_1002d844 = 0;
   return 0;
 }
-#endif
-
 
 /* ---- 0x10003730  Im_DSoundHeartbeat ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Fills the DirectSound stream buffer from the mixer once per tick */
 
-undefined4 * __cdecl Im_DSoundHeartbeat(undefined4 param_1,uint *param_2)
+int __cdecl Im_DSoundHeartbeat(int **buf_out,uint *count_out,int *rate_out)
 
 {
-  undefined4 *puVar1;
+  int iVar1;
   int *piVar2;
   int *piVar3;
   uint uVar4;
   uint uVar5;
   undefined4 *puVar6;
   int *piVar7;
+  undefined4 *puVar8;
   
-  *param_2 = 0;
+  *count_out = 0;
   uVar5 = DAT_1002d82c;
   piVar3 = DAT_1002d840;
   if ((DAT_1002d840 == (int *)0x0) && (piVar3 = DAT_1002d844, DAT_1002d844 == (int *)0x0)) {
@@ -1519,24 +1471,23 @@ undefined4 * __cdecl Im_DSoundHeartbeat(undefined4 param_1,uint *param_2)
             piVar3 = (int *)((int)piVar3 + 1);
             piVar2 = (int *)((int)piVar2 + 1);
           }
-          puVar1 = (undefined4 *)(DAT_1002d82c + (int)DAT_1002d818);
+          puVar8 = (undefined4 *)(DAT_1002d82c + (int)DAT_1002d818);
           puVar6 = DAT_1002d854;
           for (uVar5 = DAT_1002d820 >> 2; uVar5 != 0; uVar5 = uVar5 - 1) {
-            *puVar6 = *puVar1;
-            puVar1 = puVar1 + 1;
+            *puVar6 = *puVar8;
+            puVar8 = puVar8 + 1;
             puVar6 = puVar6 + 1;
           }
           for (uVar4 = uVar4 & 3; uVar4 != 0; uVar4 = uVar4 - 1) {
-            *(undefined1 *)puVar6 = *(undefined1 *)puVar1;
-            puVar1 = (undefined4 *)((int)puVar1 + 1);
+            *(undefined1 *)puVar6 = *(undefined1 *)puVar8;
+            puVar8 = (undefined4 *)((int)puVar8 + 1);
             puVar6 = (undefined4 *)((int)puVar6 + 1);
           }
         }
-        puVar1 = (undefined4 *)
-                 (**(code_std **)(*PTR_1002d83c + 0x4c))
-                           (PTR_1002d83c,DAT_1002d850,DAT_1002d82c,DAT_1002d854,DAT_1002d820);
+        iVar1 = (**(code_std **)(*PTR_1002d83c + 0x4c))
+                          (PTR_1002d83c,DAT_1002d850,DAT_1002d82c,DAT_1002d854,DAT_1002d820);
         DAT_1002d84c = 0;
-        return puVar1;
+        return iVar1;
       }
     }
     else {
@@ -1549,7 +1500,7 @@ undefined4 * __cdecl Im_DSoundHeartbeat(undefined4 param_1,uint *param_2)
             PTR_100170ec = piVar2;
           }
           PTR_100170ec = (int *)(((int)PTR_100170ec + 1) % DAT_1002d824);
-          puVar1 = &DAT_1002d820;
+          puVar8 = &DAT_1002d820;
           piVar7 = (int *)&DAT_1002d82c;
           piVar3 = (int *)(**(code_std **)(*PTR_1002d83c + 0x2c))
                                     (PTR_1002d83c,(int)PTR_100170ec * 0x1800,0x1800,&DAT_1002d850,
@@ -1558,14 +1509,14 @@ undefined4 * __cdecl Im_DSoundHeartbeat(undefined4 param_1,uint *param_2)
           if (piVar3 == (int *)0x0) {
             if ((DAT_1002d854 == (undefined4 *)0x0) || (DAT_1002d820 == 0)) {
               *piVar7 = (int)DAT_1002d850;
-              *param_2 = DAT_1002d82c >> 2;
+              *count_out = DAT_1002d82c >> 2;
             }
             else {
               *piVar7 = (int)DAT_1002d818;
-              *param_2 = 0x600;
+              *count_out = 0x600;
               piVar2 = piVar7;
             }
-            *puVar1 = 0x5622;
+            *puVar8 = 0x5622;
             DAT_1002d84c = 1;
             piVar3 = piVar2;
           }
@@ -1573,13 +1524,13 @@ undefined4 * __cdecl Im_DSoundHeartbeat(undefined4 param_1,uint *param_2)
       }
     }
   }
-  return piVar3;
+  return (int)piVar3;
 }
 #endif
 
 
 /* ---- 0x100038d0  Im_DSoundShutdown ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Unidentified function of iMUSE_dsound.c (DirectSound output) */
 
@@ -1694,8 +1645,6 @@ void __cdecl Im_DSoundCreateBuffer(int param_1)
 
 
 /* ---- 0x10003ac0  Im_DSoundReset ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Unidentified function of iMUSE_dsound.c (DirectSound output) */
 
 undefined4 Im_DSoundReset(void)
@@ -1712,12 +1661,8 @@ undefined4 Im_DSoundReset(void)
   DAT_1002d858 = 0;
   return 0;
 }
-#endif
-
 
 /* ---- 0x10003ae0  Im_DSoundSave ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Unidentified function of iMUSE_dsound.c (DirectSound output) */
 
 undefined4 __cdecl Im_DSoundSave(undefined4 *param_1,uint param_2)
@@ -1737,12 +1682,8 @@ undefined4 __cdecl Im_DSoundSave(undefined4 *param_1,uint param_2)
   }
   return 0x280;
 }
-#endif
-
 
 /* ---- 0x10003b10  Im_DSoundRestore ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Unidentified function of iMUSE_dsound.c (DirectSound output) */
 
 undefined4 __cdecl Im_DSoundRestore(undefined4 *param_1)
@@ -1760,12 +1701,8 @@ undefined4 __cdecl Im_DSoundRestore(undefined4 *param_1)
   DAT_1002d858 = 1;
   return 0x280;
 }
-#endif
-
 
 /* ---- 0x10003b40  Im_FadeParamImpl ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Body of ImFadeParam: allocates a fade slot for (sound, param, target, duration) */
 
 undefined4 __cdecl Im_FadeParamImpl(int param_1,int param_2,uint param_3,int param_4)
@@ -1817,12 +1754,8 @@ undefined4 __cdecl Im_FadeParamImpl(int param_1,int param_2,uint param_3,int par
   ImSetParam(param_1,param_2,param_3);
   return 0;
 }
-#endif
-
 
 /* ---- 0x10003c70  Im_FadesClearSound ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Unidentified function of iMUSE_dsound.c (DirectSound output) */
 
 void __cdecl Im_FadesClearSound(int param_1,int param_2)
@@ -1842,12 +1775,8 @@ void __cdecl Im_FadesClearSound(int param_1,int param_2)
   } while (iVar2 != 0);
   return;
 }
-#endif
-
 
 /* ---- 0x10003cb0  Im_FadesHeartbeat ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Steps every active fade and applies the parameter */
 
 uint Im_FadesHeartbeat(void)
@@ -1900,12 +1829,8 @@ uint Im_FadesHeartbeat(void)
   }
   return uVar1;
 }
-#endif
-
 
 /* ---- 0x10004820  Im_ApplyFXPreset ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* HMI SOS FX preset processing on a mixed block */
 
@@ -1975,12 +1900,8 @@ Im_ApplyFXPreset(undefined2 *param_1,uint param_2,undefined2 *param_3,int *param
   }
   return DAT_1002dd7c;
 }
-#endif
-
 
 /* ---- 0x10004970  FUN_10004970 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 void FUN_10004970(void)
@@ -1998,12 +1919,8 @@ void FUN_10004970(void)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x100049b0  Im_GroupsInit ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Unidentified function of iMUSE_dsound.c (DirectSound output) */
 
 undefined4 Im_GroupsInit(void)
@@ -2024,12 +1941,8 @@ undefined4 Im_GroupsInit(void)
   }
   return 0;
 }
-#endif
-
 
 /* ---- 0x100049e0  Im_SetGroupVolImpl ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Unidentified function of iMUSE_dsound.c (DirectSound output) */
 
 undefined4 __cdecl Im_SetGroupVolImpl(uint param_1,uint param_2)
@@ -2071,12 +1984,8 @@ undefined4 __cdecl Im_SetGroupVolImpl(uint param_1,uint param_2)
   Im_GuardLeave();
   return uVar1;
 }
-#endif
-
 
 /* ---- 0x10004a80  Im_GetGroupVol ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Unidentified function of iMUSE_dsound.c (DirectSound output) */
 
 undefined4 __cdecl Im_GetGroupVol(uint param_1)
@@ -2087,8 +1996,6 @@ undefined4 __cdecl Im_GetGroupVol(uint param_1)
   }
   return (&DAT_1002ddc0)[param_1];
 }
-#endif
-
 
 /* ---- 0x10004f50  Im_GuardEnter ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -2127,20 +2034,19 @@ int Im_GuardLeave(void)
 
 
 /* ---- 0x10004f70  Im_DispatchCommand ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Single-entry command dispatcher: switches on the command id and calls the Im* API */
 
 uint __cdecl
-Im_DispatchCommand(uint param_1,int *param_2,undefined4 *param_3,uint param_4,int param_5,
-                  int param_6)
+Im_DispatchCommand(uint cmd,int a2,int a3,int a4,int a5,int a6,int a7,int a8,int a9,int a10,int a11)
 
 {
   uint uVar1;
   int in_stack_0000003c;
   
   if (DAT_1002df0c != 0) {
-    switch(param_1) {
+    switch(cmd) {
     case 0:
       uVar1 = ImInitialize();
       return uVar1;
@@ -2148,7 +2054,7 @@ Im_DispatchCommand(uint param_1,int *param_2,undefined4 *param_3,uint param_4,in
       uVar1 = ImTerminate();
       return uVar1;
     case 2:
-      return param_1;
+      return cmd;
     case 3:
       uVar1 = ImPause();
       return uVar1;
@@ -2156,68 +2062,73 @@ Im_DispatchCommand(uint param_1,int *param_2,undefined4 *param_3,uint param_4,in
       uVar1 = ImResume();
       return uVar1;
     case 5:
-      uVar1 = ImSave(param_3,(int)param_3);
+      uVar1 = ImSave((undefined4 *)a3,a3);
       return uVar1;
     case 6:
-      uVar1 = ImRestore(param_2);
+      uVar1 = ImRestore((int *)a2);
       return uVar1;
     case 7:
-      uVar1 = ImSetGroupVol((uint)param_3,(uint)param_3);
+      uVar1 = ImSetGroupVol(a3,a3);
       return uVar1;
     case 8:
-      uVar1 = ImStartSound((uint)param_3,(int)param_3);
+      uVar1 = ImStartSound(a3,a3);
       return uVar1;
     case 9:
-      uVar1 = ImStopSound((int)param_2);
+      uVar1 = ImStopSound(a2);
       return uVar1;
     case 10:
       uVar1 = ImStopAllSounds();
       return uVar1;
     case 0xb:
-      uVar1 = ImGetNextSound((uint)param_2);
+      uVar1 = ImGetNextSound(a2);
       return uVar1;
     case 0xc:
-      uVar1 = ImSetParam(param_4,param_4,param_4);
+      uVar1 = ImSetParam(a4,a4,a4);
       return uVar1;
     case 0xd:
-      uVar1 = ImGetParam((int)param_3,(int)param_3);
+      uVar1 = ImGetParam(a3,a3);
       return uVar1;
     case 0xe:
-      uVar1 = ImFadeParam(param_5,param_5,param_5,param_5);
+      uVar1 = ImFadeParam(a5,a5,a5,a5);
       return uVar1;
     case 0xf:
-      uVar1 = ImSetHook((int)param_3,(uint)param_3);
+      uVar1 = ImSetHook(a3,a3);
       return uVar1;
     case 0x10:
-      uVar1 = ImGetHook((int)param_2);
+      uVar1 = ImGetHook(a2);
       return uVar1;
     case 0x11:
-      uVar1 = ImSetTrigger(in_stack_0000003c,(char *)in_stack_0000003c,in_stack_0000003c);
+      uVar1 = ImSetTrigger(in_stack_0000003c,(char *)in_stack_0000003c,in_stack_0000003c,
+                           in_stack_0000003c,in_stack_0000003c,in_stack_0000003c,in_stack_0000003c,
+                           in_stack_0000003c,in_stack_0000003c,in_stack_0000003c,in_stack_0000003c,
+                           in_stack_0000003c,in_stack_0000003c);
       return uVar1;
     case 0x12:
-      uVar1 = ImCheckTrigger(param_4,(byte *)param_4,param_4);
+      uVar1 = ImCheckTrigger(a4,(byte *)a4,a4);
       return uVar1;
     case 0x13:
-      uVar1 = ImClearTrigger(param_4,(byte *)param_4,param_4);
+      uVar1 = ImClearTrigger(a4,(byte *)a4,a4);
       return uVar1;
     case 0x14:
-      uVar1 = ImDeferCommand(in_stack_0000003c,in_stack_0000003c);
+      uVar1 = ImDeferCommand(in_stack_0000003c,in_stack_0000003c,in_stack_0000003c,in_stack_0000003c
+                             ,in_stack_0000003c,in_stack_0000003c,in_stack_0000003c,
+                             in_stack_0000003c,in_stack_0000003c,in_stack_0000003c,in_stack_0000003c
+                             ,in_stack_0000003c);
       return uVar1;
     case 0x19:
-      uVar1 = ImStartStream(param_4,param_4,param_4);
+      uVar1 = ImStartStream(a4,a4,a4);
       return uVar1;
     case 0x1a:
-      uVar1 = ImSwitchStream(param_6,param_6,param_6,param_6,param_6);
+      uVar1 = ImSwitchStream(a6,a6,a6,a6,a6);
       return uVar1;
     case 0x1b:
       uVar1 = ImProcessStreams();
       return uVar1;
     case 0x1c:
-      uVar1 = ImQueryStream(param_6,(undefined4 *)param_6,(undefined4 *)param_6,(int *)param_6,
-                            (undefined4 *)param_6);
+      uVar1 = ImQueryStream(a6,(undefined4 *)a6,(undefined4 *)a6,(int *)a6,(undefined4 *)a6);
       return uVar1;
     case 0x1d:
-      uVar1 = ImFeedStream(param_5,(undefined4 *)param_5,param_5,param_5);
+      uVar1 = ImFeedStream(a5,(undefined4 *)a5,a5,a5);
       return uVar1;
     }
   }
@@ -2227,7 +2138,7 @@ Im_DispatchCommand(uint param_1,int *param_2,undefined4 *param_3,uint param_4,in
 
 
 /* ---- 0x10005360  Im_MixerInit ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* iMUSE_Mixer.c */
@@ -2257,8 +2168,8 @@ undefined4 __cdecl Im_MixerInit(undefined4 *param_1)
   } while (iVar2 < 0x11);
   DAT_1002df18 = *param_1;
   DAT_1002df24 = param_1[2] << 1;
-  DAT_1002df5c = (**(code **)(DAT_10033510 + 0x20))
-                           (param_1[2] << 1,s_C__grimsrc_libs_iMUSE_Mixer_c_100172c8,0x7a);
+  PTR_1002df5c = (int *)(**(code **)(DAT_10033510 + 0x20))
+                                  (param_1[2] << 1,s_C__grimsrc_libs_iMUSE_Mixer_c_100172c8,0x7a);
   _DAT_1002df28 = param_1[3];
   puVar1 = (undefined2 *)
            (**(code **)(DAT_10033510 + 0x20))
@@ -2284,23 +2195,17 @@ undefined4 __cdecl Im_MixerInit(undefined4 *param_1)
 
 
 /* ---- 0x10005490  Im_MixerReset ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Unidentified function of iMUSE_Mixer.c (software mixing / resampling) */
 
 undefined4 Im_MixerReset(void)
 
 {
   (**(code **)(DAT_10033510 + 0x24))(DAT_1002df20);
-  (**(code **)(DAT_10033510 + 0x24))(DAT_1002df5c);
+  (**(code **)(DAT_10033510 + 0x24))(PTR_1002df5c);
   return 0;
 }
-#endif
-
 
 /* ---- 0x100054c0  Im_MixerHeartbeat ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Unidentified function of iMUSE_Mixer.c (software mixing / resampling) */
 
 undefined4 Im_MixerHeartbeat(void)
@@ -2308,26 +2213,22 @@ undefined4 Im_MixerHeartbeat(void)
 {
   uint uVar1;
   uint uVar2;
-  undefined4 *puVar3;
+  int *piVar3;
   
   uVar2 = DAT_1002df24;
-  puVar3 = DAT_1002df5c;
+  piVar3 = PTR_1002df5c;
   for (uVar1 = DAT_1002df24 >> 2; uVar1 != 0; uVar1 = uVar1 - 1) {
-    *puVar3 = 0;
-    puVar3 = puVar3 + 1;
+    *piVar3 = 0;
+    piVar3 = piVar3 + 1;
   }
   for (uVar2 = uVar2 & 3; uVar2 != 0; uVar2 = uVar2 - 1) {
-    *(undefined1 *)puVar3 = 0;
-    puVar3 = (undefined4 *)((int)puVar3 + 1);
+    *(undefined1 *)piVar3 = 0;
+    piVar3 = (int *)((int)piVar3 + 1);
   }
   return 0;
 }
-#endif
-
 
 /* ---- 0x100054f0  Im_MixSamples ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Dispatches to the four mix loops by channel count and volume mode */
 
 void __cdecl
@@ -2338,7 +2239,7 @@ Im_MixSamples(short *param_1,int param_2,int param_3,int param_4,int param_5,uin
   uint uVar1;
   int iVar2;
   
-  if ((((DAT_1002df5c != 0) && (param_1 != (short *)0x0)) && (param_2 != 0)) &&
+  if ((((PTR_1002df5c != (int *)0x0) && (param_1 != (short *)0x0)) && (param_2 != 0)) &&
      ((param_3 == 0x10 && (0 < param_8)))) {
     if ((param_4 == 1) && (DAT_1002df18 == 2)) {
       uVar1 = param_8 >> 3;
@@ -2370,12 +2271,8 @@ Im_MixSamples(short *param_1,int param_2,int param_3,int param_4,int param_5,uin
   }
   return;
 }
-#endif
-
 
 /* ---- 0x10005610  Im_ReadSoundData ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Reads and decodes the next block of a sound through the file layer */
 
 undefined4 __cdecl Im_ReadSoundData(int *param_1,int param_2)
@@ -2387,10 +2284,10 @@ undefined4 __cdecl Im_ReadSoundData(int *param_1,int param_2)
   int iVar4;
   int *piVar5;
   
-  if (((DAT_1002df5c != (int *)0x0) && (param_1 != (int *)0x0)) && (param_2 != 0)) {
+  if (((PTR_1002df5c != (int *)0x0) && (param_1 != (int *)0x0)) && (param_2 != 0)) {
     piVar5 = param_1;
     iVar3 = param_2;
-    piVar1 = DAT_1002df5c;
+    piVar1 = PTR_1002df5c;
     if (DAT_1002df18 == 2) {
       iVar3 = param_2 << 1;
     }
@@ -2450,12 +2347,8 @@ undefined4 __cdecl Im_ReadSoundData(int *param_1,int param_2)
   }
   return 0xffffffff;
 }
-#endif
-
 
 /* ---- 0x100057a0  Im_MixLoopA ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Mix loop variant (16-bit source); exact channel layout not verified */
 
 void __cdecl
@@ -2468,7 +2361,7 @@ Im_MixLoopA(short *param_1,int param_2,uint param_3,uint param_4,int param_5,int
   uint uVar4;
   uint uVar5;
   
-  piVar3 = (int *)(DAT_1002df5c + param_4 * 8);
+  piVar3 = PTR_1002df5c + param_4 * 2;
   uVar2 = (uint)(param_2 << 0x10) / param_3;
   if (uVar2 == 0x8000) {
     while (param_2 = param_2 + -1, param_2 != 0) {
@@ -2527,12 +2420,8 @@ Im_MixLoopA(short *param_1,int param_2,uint param_3,uint param_4,int param_5,int
   }
   return;
 }
-#endif
-
 
 /* ---- 0x100059a0  Im_MixLoopB ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Unidentified function of iMUSE_Mixer.c (software mixing / resampling) */
 
 void __cdecl Im_MixLoopB(short *param_1,int param_2,uint param_3,uint param_4,int param_5)
@@ -2545,7 +2434,7 @@ void __cdecl Im_MixLoopB(short *param_1,int param_2,uint param_3,uint param_4,in
   uint uVar5;
   int iVar6;
   
-  piVar4 = (int *)(DAT_1002df5c + param_4 * 8);
+  piVar4 = PTR_1002df5c + param_4 * 2;
   uVar2 = (uint)(param_2 << 0x10) / param_3;
   if (uVar2 == 0x8000) {
     while (param_2 = param_2 + -1, param_2 != 0) {
@@ -2605,11 +2494,9 @@ void __cdecl Im_MixLoopB(short *param_1,int param_2,uint param_3,uint param_4,in
   }
   return;
 }
-#endif
-
 
 /* ---- 0x10005b80  Im_MixLoopC ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Unidentified function of iMUSE_Mixer.c (software mixing / resampling) */
 
@@ -2625,7 +2512,7 @@ Im_MixLoopC(undefined2 *param_1,int param_2,uint param_3,int param_4,int param_5
   uint uVar6;
   uint uVar7;
   
-  piVar4 = (int *)(DAT_1002df5c + param_4 * 8);
+  piVar4 = PTR_1002df5c + param_4 * 2;
   uVar2 = (uint)(param_2 << 0x10) / param_3;
   if (uVar2 == 0x8000) {
     while (param_2 = param_2 + -1, param_2 != 0) {
@@ -2695,7 +2582,7 @@ Im_MixLoopC(undefined2 *param_1,int param_2,uint param_3,int param_4,int param_5
 
 
 /* ---- 0x10005db0  Im_MixLoopD ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Unidentified function of iMUSE_Mixer.c (software mixing / resampling) */
 
@@ -2712,7 +2599,7 @@ void __cdecl Im_MixLoopD(undefined2 *param_1,int param_2,uint param_3,uint param
   uint uVar8;
   uint uVar9;
   
-  piVar4 = (int *)(DAT_1002df5c + param_4 * 8);
+  piVar4 = PTR_1002df5c + param_4 * 2;
   uVar3 = (uint)(param_2 << 0x10) / param_3;
   if (uVar3 == 0x8000) {
     while (param_2 = param_2 + -1, param_2 != 0) {
@@ -2864,8 +2751,6 @@ undefined4 __cdecl FUN_10006070(int cmd,...)
 
 
 /* ---- 0x10006360  FUN_10006360 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 undefined4 __cdecl
@@ -2891,12 +2776,8 @@ FUN_10006360(int param_1,undefined4 param_2,undefined4 param_3,undefined4 param_
   DAT_1002e30c = 0;
   return 0;
 }
-#endif
-
 
 /* ---- 0x100063d0  FUN_100063d0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 undefined4 FUN_100063d0(void)
 
 {
@@ -2914,12 +2795,8 @@ undefined4 FUN_100063d0(void)
   DAT_1002e30c = 0;
   return 0;
 }
-#endif
-
 
 /* ---- 0x10006400  FUN_10006400 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 int __cdecl FUN_10006400(undefined4 *param_1,int param_2)
 
 {
@@ -2949,12 +2826,8 @@ int __cdecl FUN_10006400(undefined4 *param_1,int param_2)
   }
   return iVar3;
 }
-#endif
-
 
 /* ---- 0x10006470  FUN_10006470 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 int __cdecl FUN_10006470(undefined4 *param_1)
 
 {
@@ -2979,12 +2852,8 @@ int __cdecl FUN_10006470(undefined4 *param_1)
   iVar3 = ImRestoreFilelist(iVar4 + (int)param_1);
   return iVar4 + iVar3;
 }
-#endif
-
 
 /* ---- 0x100064d0  FUN_100064d0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 undefined4 FUN_100064d0(void)
 
 {
@@ -3014,8 +2883,6 @@ LAB_10006549:
   ImFlushSounds();
   return 0;
 }
-#endif
-
 
 /* ---- 0x10006560  FUN_10006560 ---- */
 /* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
@@ -3144,19 +3011,13 @@ undefined4 __cdecl FUN_10006620(int param_1)
 
 
 /* ---- 0x100067a0  FUN_100067a0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 undefined4 FUN_100067a0(void)
 
 {
   return 0;
 }
-#endif
-
 
 /* ---- 0x100067b0  FUN_100067b0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 undefined4 __cdecl FUN_100067b0(uint param_1,char *param_2)
 
 {
@@ -3227,8 +3088,6 @@ undefined4 __cdecl FUN_100067b0(uint param_1,char *param_2)
   }
   return 0;
 }
-#endif
-
 
 /* ---- 0x100068b0  FUN_100068b0 ---- */
 /* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
@@ -3238,97 +3097,111 @@ FUN_100068b0(char *param_1,uint param_2,int param_3,uint param_4,int param_5,uin
             uint param_7,uint param_8)
 
 {
-  char cVar1;
-  char *pcVar2;
-  uint uVar3;
+  char *pcVar1;
+  char cVar2;
+  char *pcVar3;
   uint uVar4;
   uint uVar5;
-  undefined1 *puVar6;
-  int iVar7;
+  uint uVar6;
+  undefined1 *puVar7;
   int iVar8;
-  undefined1 *puVar9;
-  char *pcVar10;
+  int unaff_EBX;
+  int unaff_EBP;
+  int iVar9;
+  int unaff_ESI;
+  int unaff_EDI;
+  undefined1 *puVar10;
+  char *pcVar11;
+  bool bVar12;
+  int unaff_retaddr;
+  int in_stack_00000024;
   
+  pcVar1 = param_1;
   if (DAT_1001e688 == 0) {
     return;
   }
   if (param_1 != (char *)0x0) {
     DAT_1002e310 = *param_1;
-    pcVar2 = &DAT_1002e311;
+    pcVar3 = &DAT_1002e311;
     if (DAT_1002e310 != '\0') {
       do {
-        cVar1 = pcVar2[(int)(param_1 + -0x1002e310)];
-        *pcVar2 = cVar1;
-        pcVar2 = pcVar2 + 1;
-      } while (cVar1 != '\0');
+        cVar2 = pcVar3[(int)(param_1 + -0x1002e310)];
+        *pcVar3 = cVar2;
+        pcVar3 = pcVar3 + 1;
+      } while (cVar2 != '\0');
     }
-    puVar9 = &DAT_1001bbc8;
+    puVar10 = &DAT_1001bbc8;
     if (DAT_1001bbc8 != '\0') {
-      iVar8 = 0x12748;
-      cVar1 = DAT_1001bbc8;
+      iVar9 = 0x12748;
+      cVar2 = DAT_1001bbc8;
 LAB_10006904:
-      iVar7 = 0;
-      for (puVar6 = puVar9; (cVar1 != '\0' && (puVar6[iVar8] == cVar1)); puVar6 = puVar6 + 1) {
-        cVar1 = puVar6[1];
-        iVar7 = iVar7 + 1;
+      iVar8 = 0;
+      for (puVar7 = puVar10; (cVar2 != '\0' && (puVar7[iVar9] == cVar2)); puVar7 = puVar7 + 1) {
+        cVar2 = puVar7[1];
+        iVar8 = iVar8 + 1;
       }
-      if (((iVar7 == 0) || ((&DAT_1002e310)[iVar7] != '\0')) || (puVar9[iVar7] != '\0'))
+      if (((iVar8 == 0) || ((&DAT_1002e310)[iVar8] != '\0')) || (puVar10[iVar8] != '\0'))
       goto LAB_1000692f;
-      DAT_1002e310 = puVar9[0x20];
-      pcVar2 = puVar9 + 0x20;
-      pcVar10 = &DAT_1002e311;
-      cVar1 = DAT_1002e310;
-      while (cVar1 != '\0') {
-        pcVar2 = pcVar2 + 1;
-        cVar1 = *pcVar2;
-        *pcVar10 = cVar1;
-        pcVar10 = pcVar10 + 1;
+      DAT_1002e310 = puVar10[0x20];
+      pcVar3 = puVar10 + 0x20;
+      pcVar11 = &DAT_1002e311;
+      cVar2 = DAT_1002e310;
+      while (cVar2 != '\0') {
+        pcVar3 = pcVar3 + 1;
+        cVar2 = *pcVar3;
+        *pcVar11 = cVar2;
+        pcVar11 = pcVar11 + 1;
       }
     }
   }
 LAB_1000695e:
-  if ((param_1 != (char *)0x0) && (param_2 != 0)) {
-    if (*(uint *)(param_1 + 0x40) != 0) {
-      param_2 = *(uint *)(param_1 + 0x40);
+  bVar12 = param_1 != (char *)0x0;
+  param_1 = (char *)0x0;
+  if ((bVar12) && (param_2 != 0)) {
+    if (*(uint *)(pcVar1 + 0x40) != 0) {
+      param_2 = *(uint *)(pcVar1 + 0x40);
     }
-    if (*(int *)(param_1 + 0x44) != 0) {
-      if ((*(int *)(&DAT_1002df84 + param_2 * 4) == 0) && (1 < *(int *)(param_1 + 0x44))) {
+    param_1 = *(char **)(&DAT_1002df84 + param_2 * 4);
+    if (*(int *)(pcVar1 + 0x44) != 0) {
+      if ((param_1 == (char *)0x0) && (1 < *(int *)(pcVar1 + 0x44))) {
         *(undefined4 *)(&DAT_1002df84 + param_2 * 4) = 2;
       }
       else {
-        iVar8 = *(int *)(&DAT_1002df84 + param_2 * 4) + 1;
-        *(int *)(&DAT_1002df84 + param_2 * 4) = iVar8;
-        if (*(int *)(param_1 + 0x44) < iVar8) {
+        *(char **)(&DAT_1002df84 + param_2 * 4) = param_1 + 1;
+        if (*(int *)(pcVar1 + 0x44) < (int)(param_1 + 1)) {
           *(undefined4 *)(&DAT_1002df84 + param_2 * 4) = 1;
         }
       }
     }
   }
-  for (uVar3 = ImGetNextSound(0); uVar3 != 0; uVar3 = ImGetNextSound(uVar3)) {
-    uVar4 = ImGetParam(uVar3,0x400);
-    if ((uVar4 == 4) && (uVar4 = ImGetParam(uVar3,0x1800), uVar4 == 0)) {
-      ImFadeParam(uVar3,0x600,0,0x78);
+  if (param_1 == (char *)0x0) {
+    param_1 = (char *)0x64;
+  }
+  for (uVar4 = ImGetNextSound(0); uVar4 != 0; uVar4 = ImGetNextSound(uVar4)) {
+    uVar5 = ImGetParam(uVar4,0x400);
+    if ((uVar5 == 4) && (uVar5 = ImGetParam(uVar4,0x1800), uVar5 == 0)) {
+      ImFadeParam(uVar4,0x600,0,0x78);
     }
   }
-  uVar3 = ImGetNextSound(0);
-  while ((uVar4 = 0, uVar3 != 0 &&
-         ((uVar4 = ImGetParam(uVar3,0x1800), uVar4 == 0 ||
-          (uVar5 = ImGetParam(uVar3,0x1900), uVar4 = uVar3, uVar5 != 2))))) {
-    uVar3 = ImGetNextSound(uVar3);
+  uVar4 = ImGetNextSound(0);
+  while ((uVar5 = 0, uVar4 != 0 &&
+         ((uVar5 = ImGetParam(uVar4,0x1800), uVar5 == 0 ||
+          (uVar6 = ImGetParam(uVar4,0x1900), uVar5 = uVar4, uVar6 != 2))))) {
+    uVar4 = ImGetNextSound(uVar4);
   }
-  if (param_1 == (char *)0x0) {
-    if (uVar4 == 0) {
+  if (pcVar1 == (char *)0x0) {
+    if (uVar5 == 0) {
       return;
     }
-    ImFadeParam(uVar4,0x600,0,0x78);
+    ImFadeParam(uVar5,0x600,0,0x78);
     return;
   }
-  iVar8 = *(int *)(param_1 + 0x48);
-  if (iVar8 == 0) {
-    iVar8 = 1000;
+  param_2 = *(uint *)(pcVar1 + 0x48);
+  if (param_2 == 0) {
+    param_2 = 1000;
   }
-  iVar8 = (iVar8 * 3) / 0x32;
-  switch(*(undefined4 *)(param_1 + 0x20)) {
+  iVar9 = (int)(param_2 * 3) / 0x32;
+  switch(*(undefined4 *)(pcVar1 + 0x20)) {
   case 0:
     ImPrintf(s_Trans_null____1001e860);
     return;
@@ -3344,63 +3217,64 @@ LAB_1000695e:
     ImPrintf(s_opening_1001e84c);
     ImPrintf(&DAT_1002e310);
     ImPrintf(&DAT_100171b0);
-    uVar3 = ImOpenSound(&DAT_1002e310,0);
-    if (uVar3 == 0) {
+    uVar4 = ImOpenSound(&DAT_1002e310,0);
+    if (uVar4 == 0) {
       ImPrintf(s_SCRIPT_ERR__Unable_to_open_1001e830);
       ImPrintf(&DAT_1002e310);
       ImPrintf(&DAT_100171b0);
-      if (uVar4 == 0) {
+      if (uVar5 == 0) {
         return;
       }
-      ImFadeParam(uVar4,0x600,0,0x3c);
+      ImFadeParam(uVar5,0x600,0,0x3c);
       return;
     }
-    if (*(int *)(param_1 + 0x20) == 4) {
+    if (*(int *)(pcVar1 + 0x20) == 4) {
       DAT_1002e304 = 0;
-      ImSetTrigger(uVar3,&DAT_1001e858,0);
+      ImSetTrigger(uVar4,&DAT_1001e858,0,unaff_EBX,unaff_retaddr,(int)param_1,param_2,param_3,
+                   param_4,param_5,param_6,param_7,param_8);
     }
     ImPrintf(s_HOOK__lu____1001e824,param_4);
-    if (uVar4 == 0) {
+    if (uVar5 == 0) {
       ImPrintf(s_No_stream_sound____1001e7ac);
-      iVar7 = ImStartStream(uVar3,0x7e,2);
-      if (iVar7 != 0) {
+      iVar8 = ImStartStream(uVar4,0x7e,2);
+      if (iVar8 != 0) {
         ImPrintf(s_SCRIPT_ERR__failed_start_stream__1001e788);
       }
-      ImSetParam(uVar3,0x600,0);
-      ImFadeParam(uVar3,0x600,*(uint *)(param_1 + 0x4c),iVar8);
-      ImSetParam(uVar3,0x700,*(uint *)(param_1 + 0x50));
-      ImSetParam(uVar3,0x400,4);
-      ImSetHook(uVar3,param_7);
+      ImSetParam(uVar4,0x600,0);
+      ImFadeParam(uVar4,0x600,*(uint *)(pcVar1 + 0x4c),iVar9);
+      ImSetParam(uVar4,0x700,*(uint *)(pcVar1 + 0x50));
+      ImSetParam(uVar4,0x400,4);
+      ImSetHook(uVar4,param_7);
       goto LAB_10007019;
     }
-    if (*(int *)(param_1 + 0x20) == 2) {
-      ImSwitchStream(uVar4,uVar3,param_6,0,0);
+    if (*(int *)(pcVar1 + 0x20) == 2) {
+      ImSwitchStream(uVar5,uVar4,param_6,0,0);
       ImPrintf(s_FADE__lu____1001e818,param_6);
       ImPrintf(s_vol__lu____1001e80c);
-      ImFadeParam(uVar3,0x600,*(uint *)(param_1 + 0x4c),iVar8);
-      ImFadeParam(uVar3,0x700,*(uint *)(param_1 + 0x50),iVar8);
-      ImSetParam(uVar3,0x400,4);
-      ImSetHook(uVar3,param_7);
+      ImFadeParam(uVar4,0x600,*(uint *)(pcVar1 + 0x4c),iVar9);
+      ImFadeParam(uVar4,0x700,*(uint *)(pcVar1 + 0x50),iVar9);
+      ImSetParam(uVar4,0x400,4);
+      ImSetHook(uVar4,param_7);
       ImProcessStreams();
       goto LAB_10007019;
     }
-    if (uVar4 == uVar3) {
-      ImFadeParam(uVar3,0x600,*(uint *)(param_1 + 0x4c),iVar8);
-      ImPrintf(s_fading_VOL__lu____1001e7d0,*(undefined4 *)(param_1 + 0x4c));
-      if (*(uint *)(param_1 + 0x50) != 0) {
-        ImFadeParam(uVar3,0x700,*(uint *)(param_1 + 0x50),iVar8);
+    if (uVar5 == uVar4) {
+      ImFadeParam(uVar4,0x600,*(uint *)(pcVar1 + 0x4c),iVar9);
+      ImPrintf(s_fading_VOL__lu____1001e7d0,*(undefined4 *)(pcVar1 + 0x4c));
+      if (*(uint *)(pcVar1 + 0x50) != 0) {
+        ImFadeParam(uVar4,0x700,*(uint *)(pcVar1 + 0x50),iVar9);
         ImPrintf(s_and_PAN__lu____1001e7c0);
       }
       goto LAB_10007019;
     }
-    if (((param_7 == 0) && (*(int *)(param_1 + 0x40) != 0)) &&
-       (*(int *)(param_1 + 0x40) == *(int *)(&DAT_10017328 + DAT_1002df70 * 0x54))) {
-      ImSwitchStream(uVar4,uVar3,param_6,0,1);
-      ImFadeParam(uVar3,0x600,*(uint *)(param_1 + 0x4c),iVar8);
-      ImFadeParam(uVar3,0x700,*(uint *)(param_1 + 0x50),iVar8);
-      ImSetParam(uVar3,0x400,4);
+    if (((param_7 == 0) && (*(int *)(pcVar1 + 0x40) != 0)) &&
+       (*(int *)(pcVar1 + 0x40) == *(int *)(&DAT_10017328 + DAT_1002df70 * 0x54))) {
+      ImSwitchStream(uVar5,uVar4,param_6,0,1);
+      ImFadeParam(uVar4,0x600,*(uint *)(pcVar1 + 0x4c),iVar9);
+      ImFadeParam(uVar4,0x700,*(uint *)(pcVar1 + 0x50),iVar9);
+      ImSetParam(uVar4,0x400,4);
       if (param_5 == 100) {
-        ImSetHook(uVar3,100);
+        ImSetHook(uVar4,100);
         ImProcessStreams();
         goto LAB_10007019;
       }
@@ -3408,94 +3282,113 @@ LAB_10006f42:
       ImProcessStreams();
     }
     else {
-      iVar7 = *(int *)(param_1 + 0x20);
-      if (iVar7 == 10) {
-        ImSetTrigger(uVar4,&DAT_1001e804,0x1a);
-        ImSetTrigger(uVar4,&DAT_1001e804,0xe);
-        ImSetTrigger(uVar4,&DAT_1001e804,0xe);
-        ImSetTrigger(uVar4,&DAT_1001e804,0xc);
+      iVar8 = *(int *)(pcVar1 + 0x20);
+      if (iVar8 == 10) {
+        ImSetTrigger(uVar5,&DAT_1001e804,0x1a,uVar5,uVar4,param_6,1,0,unaff_retaddr,(int)param_1,
+                     param_2,param_3,param_4);
+        ImSetTrigger(uVar5,&DAT_1001e804,0xe,uVar4,0x600,*(int *)(pcVar1 + 0x4c),iVar9,unaff_retaddr
+                     ,(int)param_1,param_2,param_3,param_4,param_5);
+        ImSetTrigger(uVar5,&DAT_1001e804,0xe,uVar4,0x700,*(int *)(pcVar1 + 0x50),iVar9,unaff_retaddr
+                     ,(int)param_1,param_2,param_3,param_4,param_5);
+        ImSetTrigger(uVar5,&DAT_1001e804,0xc,uVar4,0x400,4,unaff_retaddr,(int)param_1,param_2,
+                     param_3,param_4,param_5,param_6);
       }
       else {
-        if (iVar7 == 0xb) {
-          ImSetTrigger(uVar4,s_exit2_1001e7fc,0x1a);
-          ImSetTrigger(uVar4,s_exit2_1001e7fc,0xe);
-          ImSetTrigger(uVar4,s_exit2_1001e7fc,0xe);
-          ImSetTrigger(uVar4,s_exit2_1001e7fc,0xc);
-          ImSetTrigger(uVar4,s_exit2_1001e7fc,0xf);
+        if (iVar8 == 0xb) {
+          ImSetTrigger(uVar5,s_exit2_1001e7fc,0x1a,uVar5,uVar4,param_6,1,0,unaff_retaddr,
+                       (int)param_1,param_2,param_3,param_4);
+          ImSetTrigger(uVar5,s_exit2_1001e7fc,0xe,uVar4,0x600,*(int *)(pcVar1 + 0x4c),iVar9,
+                       unaff_retaddr,(int)param_1,param_2,param_3,param_4,param_5);
+          ImSetTrigger(uVar5,s_exit2_1001e7fc,0xe,uVar4,0x700,*(int *)(pcVar1 + 0x50),iVar9,
+                       unaff_retaddr,(int)param_1,param_2,param_3,param_4,param_5);
+          ImSetTrigger(uVar5,s_exit2_1001e7fc,0xc,uVar4,0x400,4,unaff_retaddr,(int)param_1,param_2,
+                       param_3,param_4,param_5,param_6);
+          ImSetTrigger(uVar5,s_exit2_1001e7fc,0xf,uVar4,param_5,unaff_retaddr,(int)param_1,param_2,
+                       param_3,param_4,param_5,param_6,param_7);
           ImProcessStreams();
           goto LAB_10007019;
         }
-        if (iVar7 != 0xc) {
-          ImSwitchStream(uVar4,uVar3,param_6,0,0);
+        if (iVar8 != 0xc) {
+          ImSwitchStream(uVar5,uVar4,param_6,0,0);
           ImPrintf(s_FADE__lu____1001e818,param_6);
           ImPrintf(s_vol__lu____1001e80c);
-          ImFadeParam(uVar3,0x600,*(uint *)(param_1 + 0x4c),iVar8);
-          ImFadeParam(uVar3,0x700,*(uint *)(param_1 + 0x50),iVar8);
+          ImFadeParam(uVar4,0x600,*(uint *)(pcVar1 + 0x4c),iVar9);
+          ImFadeParam(uVar4,0x700,*(uint *)(pcVar1 + 0x50),iVar9);
           ImPrintf(s_set_pan__lu____1001e7e4);
-          ImSetParam(uVar3,0x400,4);
-          ImSetHook(uVar3,param_8);
+          ImSetParam(uVar4,0x400,4);
+          ImSetHook(uVar4,param_8);
           goto LAB_10006f42;
         }
-        ImSetHook(uVar4,99);
-        ImSetTrigger(uVar4,s_clear_1001e7f4,0xf);
-        ImSetTrigger(uVar4,&DAT_1001e804,0x1a);
-        ImSetTrigger(uVar4,&DAT_1001e804,0xe);
-        ImSetTrigger(uVar4,&DAT_1001e804,0xe);
-        ImSetTrigger(uVar4,&DAT_1001e804,0xc);
+        ImSetHook(uVar5,99);
+        ImSetTrigger(uVar5,s_clear_1001e7f4,0xf,uVar5,0x80,unaff_retaddr,(int)param_1,param_2,
+                     param_3,param_4,param_5,param_6,param_7);
+        ImSetTrigger(uVar5,&DAT_1001e804,0x1a,uVar5,uVar4,param_6,1,0,unaff_retaddr,(int)param_1,
+                     param_2,param_3,param_4);
+        ImSetTrigger(uVar5,&DAT_1001e804,0xe,uVar4,0x600,*(int *)(pcVar1 + 0x4c),iVar9,unaff_retaddr
+                     ,(int)param_1,param_2,param_3,param_4,param_5);
+        ImSetTrigger(uVar5,&DAT_1001e804,0xe,uVar4,0x700,*(int *)(pcVar1 + 0x50),iVar9,unaff_retaddr
+                     ,(int)param_1,param_2,param_3,param_4,param_5);
+        ImSetTrigger(uVar5,&DAT_1001e804,0xc,uVar4,0x400,4,unaff_retaddr,(int)param_1,param_2,
+                     param_3,param_4,param_5,param_6);
         ImPrintf(s_HOOK__lu____1001e824,param_5);
       }
-      ImSetTrigger(uVar4,&DAT_1001e804,0xf);
+      ImSetTrigger(uVar5,&DAT_1001e804,0xf,uVar4,(int)param_1,param_2,param_3,param_4,param_5,
+                   param_6,param_7,param_8,in_stack_00000024);
       ImProcessStreams();
     }
 LAB_10007019:
-    ImCloseSound(uVar3);
-    ImSetParam(uVar3,0x400,4);
+    ImCloseSound(uVar4);
+    ImSetParam(uVar4,0x400,4);
     return;
   case 5:
     break;
   case 6:
     DAT_1002e304 = 0;
-    ImSetTrigger(0xbc6150,&DAT_1001e858,0);
+    ImSetTrigger(0xbc6150,&DAT_1001e858,0,unaff_EDI,unaff_ESI,unaff_EBP,unaff_EBX,unaff_retaddr,
+                 (int)param_1,param_2,param_3,param_4,param_5);
     return;
   case 7:
-    if (uVar4 != 0) {
-      ImFadeParam(uVar4,0x600,0,0x3c);
+    if (uVar5 != 0) {
+      ImFadeParam(uVar5,0x600,0,0x3c);
       return;
     }
     break;
   case 8:
-    if (uVar4 != 0) {
-      ImSetHook(uVar4,100);
+    if (uVar5 != 0) {
+      ImSetHook(uVar5,100);
       return;
     }
     break;
   case 9:
-    if (uVar4 != 0) {
-      ImSetHook(uVar4,99);
+    if (uVar5 != 0) {
+      ImSetHook(uVar5,99);
     }
     DAT_1002e304 = 0;
-    ImSetTrigger(uVar4,&DAT_1001e858,0);
+    ImSetTrigger(uVar5,&DAT_1001e858,0,unaff_EDI,unaff_ESI,unaff_EBP,unaff_EBX,unaff_retaddr,
+                 (int)param_1,param_2,param_3,param_4,param_5);
     return;
   }
   return;
 LAB_1000692f:
-  cVar1 = puVar9[0x40];
-  puVar9 = puVar9 + 0x40;
-  iVar8 = iVar8 + -0x40;
-  if (cVar1 == '\0') goto LAB_1000695e;
+  cVar2 = puVar10[0x40];
+  puVar10 = puVar10 + 0x40;
+  iVar9 = iVar9 + -0x40;
+  if (cVar2 == '\0') goto LAB_1000695e;
   goto LAB_10006904;
 }
 #endif
 
 
 /* ---- 0x100070e0  FUN_100070e0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
-void __cdecl FUN_100070e0(char *param_1,char *param_2)
+void __cdecl FUN_100070e0(char *marker)
 
 {
+  char *in_stack_00000008;
+  
   ImPrintf(s_CALLBACK__1001e898);
-  if (*param_2 == '_') {
+  if (*in_stack_00000008 == '_') {
     DAT_1002e304 = 1;
     return;
   }
@@ -3506,8 +3399,6 @@ void __cdecl FUN_100070e0(char *param_1,char *param_2)
 
 
 /* ---- 0x10007110  FUN_10007110 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void FUN_10007110(void)
 
 {
@@ -3519,12 +3410,8 @@ void FUN_10007110(void)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x100089b0  Im_SoundsFindByName ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Unidentified function of iMUSE_sounds.c (sound resource slots) */
 
 undefined4 __cdecl Im_SoundsFindByName(undefined4 param_1,char *param_2)
@@ -3606,12 +3493,8 @@ undefined4 __cdecl Im_SoundsFindByName(undefined4 param_1,char *param_2)
   }
   return 0;
 }
-#endif
-
 
 /* ---- 0x10008b60  Im_SoundsFreeSlot ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Unidentified function of iMUSE_sounds.c (sound resource slots) */
 
 void __cdecl Im_SoundsFreeSlot(int param_1)
@@ -3631,12 +3514,8 @@ void __cdecl Im_SoundsFreeSlot(int param_1)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x10008bb0  iMUSE_GetPhoneme ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 int iMUSE_GetPhoneme(int param_1,int param_2)
 
 {
@@ -3672,12 +3551,8 @@ LAB_10008c0e:
   }
   return 0;
 }
-#endif
-
 
 /* ---- 0x10008c40  FUN_10008c40 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 int __cdecl FUN_10008c40(int param_1,int param_2)
 
 {
@@ -3724,8 +3599,6 @@ int __cdecl FUN_10008c40(int param_1,int param_2)
   }
   return 0x5f;
 }
-#endif
-
 
 /* ---- 0x10008ce0  FUN_10008ce0 ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -3795,8 +3668,6 @@ LAB_10008de9:
 
 
 /* ---- 0x10008e00  FUN_10008e00 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 undefined4 __stdcall FUN_10008e00(int a1,int a2,int a3,int a4,int a5)
@@ -3810,12 +3681,8 @@ undefined4 __stdcall FUN_10008e00(int a1,int a2,int a3,int a4,int a5)
   _DAT_10031e80 = 0;
   return uVar1;
 }
-#endif
-
 
 /* ---- 0x10008e30  FUN_10008e30 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 void FUN_10008e30(void)
@@ -3826,12 +3693,8 @@ void FUN_10008e30(void)
   FUN_10008e00(1,2,3,4,5);
   return;
 }
-#endif
-
 
 /* ---- 0x10008e60  FUN_10008e60 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void FUN_10008e60(void)
 
 {
@@ -3859,12 +3722,8 @@ void FUN_10008e60(void)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x100093d0  Im_SoundsPrepare ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Decodes the header/first block of a loaded sound and applies FX */
 
 void __cdecl Im_SoundsPrepare(uint param_1)
@@ -3924,12 +3783,8 @@ void __cdecl Im_SoundsPrepare(uint param_1)
 #undef local_8
 #undef local_c
 
-#endif
-
 
 /* ---- 0x10009530  FUN_10009530 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 undefined4 FUN_10009530(int param_1)
 
 {
@@ -3938,12 +3793,8 @@ undefined4 FUN_10009530(int param_1)
   }
   return 0;
 }
-#endif
-
 
 /* ---- 0x10009560  FUN_10009560 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 undefined4 FUN_10009560(int param_1)
 
 {
@@ -3952,12 +3803,8 @@ undefined4 FUN_10009560(int param_1)
   }
   return 0;
 }
-#endif
-
 
 /* ---- 0x100095d0  grimSound_LipSyncLoad ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 uint * grimSound_LipSyncLoad(uint *param_1)
 
 {
@@ -3997,12 +3844,8 @@ uint * grimSound_LipSyncLoad(uint *param_1)
   Im_SoundsUnload(piVar1);
   return puVar2;
 }
-#endif
-
 
 /* ---- 0x100096b0  grimSound_LipSyncFree ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 undefined4 __cdecl grimSound_LipSyncFree(int param_1)
 
 {
@@ -4019,23 +3862,15 @@ undefined4 __cdecl grimSound_LipSyncFree(int param_1)
   uVar1 = (**(code **)(DAT_10033510 + 0x24))(param_1);
   return uVar1;
 }
-#endif
-
 
 /* ---- 0x10009700  FUN_10009700 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void FUN_10009700(void)
 
 {
   return;
 }
-#endif
-
 
 /* ---- 0x10009710  Im_SoundsLoad ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* iMUSE_sounds.c: opens the sound file into a slot */
 
 int * __cdecl Im_SoundsLoad(uint *param_1,char *param_2)
@@ -4182,12 +4017,8 @@ int * __cdecl Im_SoundsLoad(uint *param_1,char *param_2)
 #undef pbStack_4
 #undef uStack_14
 
-#endif
-
 
 /* ---- 0x10009b20  Im_SoundsUnload ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Unidentified function of iMUSE_sounds.c (sound resource slots) */
 
 undefined4 __cdecl Im_SoundsUnload(undefined4 *param_1)
@@ -4215,12 +4046,8 @@ undefined4 __cdecl Im_SoundsUnload(undefined4 *param_1)
   uVar1 = (**(code **)(DAT_10033510 + 0x34))(param_1);
   return uVar1;
 }
-#endif
-
 
 /* ---- 0x10009b90  Im_SoundsReadBlock ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Unidentified function of iMUSE_sounds.c (sound resource slots) */
 
 uint __cdecl Im_SoundsReadBlock(undefined4 *param_1,undefined4 *param_2,uint param_3)
@@ -4360,12 +4187,8 @@ uint __cdecl Im_SoundsReadBlock(undefined4 *param_1,undefined4 *param_2,uint par
 #undef local_4
 #undef local_c
 
-#endif
-
 
 /* ---- 0x1000a070  iMUSE_DeclareBufferSizes ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 void iMUSE_DeclareBufferSizes
@@ -4390,12 +4213,8 @@ void iMUSE_DeclareBufferSizes
   _DAT_1001e8d8 = 150000;
   return;
 }
-#endif
-
 
 /* ---- 0x1000a0f0  iMUSE_GetMemoryFootprint ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 undefined4 iMUSE_GetMemoryFootprint(void)
@@ -4404,12 +4223,8 @@ undefined4 iMUSE_GetMemoryFootprint(void)
                     /* 0xa0f0  77  iMUSE_GetMemoryFootprint */
   return _DAT_10031d4c;
 }
-#endif
-
 
 /* ---- 0x1000a100  iMUSE_GetSoundCacheSize ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 undefined4 iMUSE_GetSoundCacheSize(void)
@@ -4418,12 +4233,8 @@ undefined4 iMUSE_GetSoundCacheSize(void)
                     /* 0xa100  79  iMUSE_GetSoundCacheSize */
   return _DAT_10031d48;
 }
-#endif
-
 
 /* ---- 0x1000a110  iMUSE_SetHook ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 undefined4 iMUSE_SetHook(uint *param_1,uint param_2)
 
 {
@@ -4438,12 +4249,8 @@ undefined4 iMUSE_SetHook(uint *param_1,uint param_2)
   uVar2 = ImSetHook(iVar1,param_2);
   return uVar2;
 }
-#endif
-
 
 /* ---- 0x1000a140  iMUSE_GetHook ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 undefined4 iMUSE_GetHook(uint *param_1)
 
 {
@@ -4458,12 +4265,8 @@ undefined4 iMUSE_GetHook(uint *param_1)
   uVar2 = ImGetHook(iVar1);
   return uVar2;
 }
-#endif
-
 
 /* ---- 0x1000a160  iMUSE_SetVoiceEffect ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 int __cdecl iMUSE_SetVoiceEffect(uint *param_1)
@@ -4489,12 +4292,8 @@ int __cdecl iMUSE_SetVoiceEffect(uint *param_1)
   DAT_10031d30 = FUN_10004750((uint)param_1);
   return DAT_10031d30;
 }
-#endif
-
 
 /* ---- 0x1000a1e0  Im_TracksInit ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
     */
 
@@ -4511,12 +4310,8 @@ undefined4 Im_TracksInit(void)
   DAT_10031e90 = 0;
   return 0;
 }
-#endif
-
 
 /* ---- 0x1000a300  Im_ProcessStreamsImpl ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Refills every streaming track (Im_RefillStreamTrack) */
 
 undefined4 Im_ProcessStreamsImpl(void)
@@ -4588,12 +4383,8 @@ LAB_1000a415:
   Im_GuardLeave();
   return 0;
 }
-#endif
-
 
 /* ---- 0x1000a580  Im_FindTrack ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
     */
 
@@ -4608,12 +4399,8 @@ int __cdecl Im_FindTrack(int param_1)
   }
   return iVar1;
 }
-#endif
-
 
 /* ---- 0x1000a5e0  Im_QueryStreamTrack ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
     */
 
@@ -4632,12 +4419,8 @@ Im_QueryStreamTrack(int param_1,undefined4 *param_2,undefined4 *param_3,int *par
   *param_5 = *(undefined4 *)(param_1 + 0x2c);
   return 0;
 }
-#endif
-
 
 /* ---- 0x1000a620  Im_FeedStreamTrack ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
     */
 
@@ -4693,12 +4476,8 @@ Im_FeedStreamTrack(int param_1,undefined4 *param_2,uint param_3,undefined4 param
   *(undefined4 *)(param_1 + 0x2c) = param_4;
   return 0;
 }
-#endif
-
 
 /* ---- 0x1000a6d0  Im_RefillStreamTrack ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Refills the stream buffer of one track from its file. Drops the guard (Im_GuardLeave) around the
    blocking read and takes it again after: net 0 only when the caller holds the guard
    (Im_Scheduler_a300 does). */
@@ -4766,12 +4545,8 @@ undefined4 __cdecl Im_RefillStreamTrack(uint *param_1)
   }
   return 0;
 }
-#endif
-
 
 /* ---- 0x1000a7e0  Im_InitSubsystems ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* DirectSound, mixer, dispatch and track tables */
 
@@ -4820,12 +4595,8 @@ undefined4 Im_InitSubsystems(void)
   }
   return 0;
 }
-#endif
-
 
 /* ---- 0x1000a8a0  Im_ShutdownSubsystems ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
     */
 
@@ -4846,12 +4617,8 @@ int Im_ShutdownSubsystems(void)
   iVar1 = Im_MixerReset();
   return -(uint)(iVar1 != 0);
 }
-#endif
-
 
 /* ---- 0x1000a8d0  Im_PauseImpl ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
     */
 
@@ -4863,12 +4630,8 @@ void Im_PauseImpl(void)
   Im_GuardLeave();
   return;
 }
-#endif
-
 
 /* ---- 0x1000a8f0  Im_ResumeImpl ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
     */
 
@@ -4880,12 +4643,8 @@ void Im_ResumeImpl(void)
   Im_GuardLeave();
   return;
 }
-#endif
-
 
 /* ---- 0x1000a910  Im_SaveImpl ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
     */
 
@@ -4917,12 +4676,8 @@ int __cdecl Im_SaveImpl(undefined4 *param_1,uint param_2)
   Im_GuardLeave();
   return iVar1 + 0x3c0;
 }
-#endif
-
 
 /* ---- 0x1000a970  Im_RestoreImpl ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
     */
 
@@ -4967,12 +4722,8 @@ int __cdecl Im_RestoreImpl(undefined4 *param_1)
   Im_GuardLeave();
   return iVar2 + 0x3c0;
 }
-#endif
-
 
 /* ---- 0x1000aa00  Im_UpdateGroupVolumes ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
     */
 
@@ -4991,12 +4742,8 @@ undefined4 Im_UpdateGroupVolumes(void)
   Im_GuardLeave();
   return 0;
 }
-#endif
-
 
 /* ---- 0x1000aa40  Im_HeartbeatBody ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Body of ImHeartbeat once its guards pass: refill the streams, advance the 20 ms mixing step for
    every playing track (FUN_10002570), retire finished ones. */
 
@@ -5015,7 +4762,7 @@ void Im_HeartbeatBody(void)
   }
   do {
     iMUSE_Dispatch__2a00();
-    Im_DSoundHeartbeat(&DAT_10032314,&DAT_10032304);
+    Im_DSoundHeartbeat(&DAT_10032314,&DAT_10032304,(int *)&DAT_100322e8);
     DAT_10032310 = DAT_10032304;
     if (DAT_10032304 != 0) {
       Im_MixerHeartbeat();
@@ -5028,17 +4775,13 @@ void Im_HeartbeatBody(void)
         }
       }
       Im_ReadSoundData(DAT_10032314,DAT_10032304);
-      Im_DSoundHeartbeat(&DAT_10032314,&DAT_10032304);
+      Im_DSoundHeartbeat(&DAT_10032314,&DAT_10032304,(int *)0x0);
     }
   } while (DAT_10032310 != 0);
   return;
 }
-#endif
-
 
 /* ---- 0x1000ab00  Im_StartSoundImpl ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Starts a track for a sound id: priority clamped 0..127, Im_AllocTrackOrSteal, fills the track
    (+0xc id, +0x18 priority, +0x1c volume 127, +0x24 pan 64, +0x30 = 0x100 ...), links it into the
    playing list DAT_10032300. Returns 0, -1 (could not start) or -6 (no track). */
@@ -5085,12 +4828,8 @@ undefined4 __cdecl Im_StartSoundImpl(int param_1,int param_2,uint param_3)
   Im_GuardLeave();
   return 0;
 }
-#endif
-
 
 /* ---- 0x1000abb0  Im_StopSoundImpl ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
     */
 
@@ -5114,12 +4853,8 @@ undefined4 __cdecl Im_StopSoundImpl(int param_1)
   Im_GuardLeave();
   return uVar3;
 }
-#endif
-
 
 /* ---- 0x1000ac00  Im_StopAllSoundsImpl ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
     */
 
@@ -5137,12 +4872,8 @@ undefined4 Im_StopAllSoundsImpl(void)
   }
   return 0;
 }
-#endif
-
 
 /* ---- 0x1000ac20  Im_GetNextSoundImpl ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
     */
 
@@ -5165,12 +4896,8 @@ uint __cdecl Im_GetNextSoundImpl(uint param_1)
   Im_GuardLeave();
   return uVar3;
 }
-#endif
-
 
 /* ---- 0x1000ac60  Im_QueryStreamImpl ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
     */
 
@@ -5199,12 +4926,8 @@ Im_QueryStreamImpl(int param_1,undefined4 *param_2,undefined4 *param_3,int *para
   Im_GuardLeave();
   return 0;
 }
-#endif
-
 
 /* ---- 0x1000ace0  Im_FeedStreamImpl ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
     */
 
@@ -5233,12 +4956,8 @@ Im_FeedStreamImpl(int param_1,undefined4 *param_2,uint param_3,undefined4 param_
   uVar1 = Im_FeedStreamTrack(*(int *)(*(int *)(iVar2 + 8) + 0x81c),param_2,param_3,param_4);
   return uVar1;
 }
-#endif
-
 
 /* ---- 0x1000ad50  Im_FreeTrack ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Releases a track: dispatch, fades, stream */
 
 void __cdecl Im_FreeTrack(int *param_1)
@@ -5251,12 +4970,8 @@ void __cdecl Im_FreeTrack(int *param_1)
   param_1[3] = 0;
   return;
 }
-#endif
-
 
 /* ---- 0x1000ada0  Im_SetParamImpl ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* ImSetParam on a sound id. LEAK: with param 0x400 (group) and a value >= 0x10 it returns without
    Im_GuardLeave: the guard counter stays raised for good (ImStartSound with a group >= 16 reaches
    it too). No Lua script of the game passes such a group. */
@@ -5350,12 +5065,8 @@ undefined4 __cdecl Im_SetParamImpl(int param_1,int param_2,uint param_3)
   Im_GuardLeave();
   return 0xfffffffb;
 }
-#endif
-
 
 /* ---- 0x1000af50  Im_GetParamImpl ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* ImGetParam on a sound id: walks the list of playing tracks (DAT_10032300, next at +4) whose +0xc
    equals the id. 0x100 PLAY_COUNT = number of such tracks; the other params read the first match
    (0x300 prio-ish +0x10, 0x400 +0x14, 0x500 +0x18, 0x600 volume +0x1c, 0x700 pan +0x24, 0x800
@@ -5447,12 +5158,8 @@ uint __cdecl Im_GetParamImpl(int param_1,int param_2)
     iVar1 = *(int *)(iVar1 + 4);
   } while( true );
 }
-#endif
-
 
 /* ---- 0x1000b0a0  Im_SetHookImpl ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
     */
 
@@ -5479,12 +5186,8 @@ undefined4 __cdecl Im_SetHookImpl(int param_1,uint param_2)
   } while (*piVar1 != 0);
   return 0xfffffffc;
 }
-#endif
-
 
 /* ---- 0x1000b0e0  Im_GetHookImpl ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
     */
 
@@ -5507,12 +5210,8 @@ undefined4 __cdecl Im_GetHookImpl(int param_1)
   } while (*piVar1 != 0);
   return 0xfffffffc;
 }
-#endif
-
 
 /* ---- 0x1000b110  Im_AllocTrackOrSteal ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Track pool (0x3c bytes each, DAT_1003350c of them, first at 10031f28): a free track (+0xc == 0),
    else the lowest-priority playing track when its priority <= the new one (it is stopped,
    FUN_1000ad50), else NULL (the start fails with -6). */
@@ -5549,12 +5248,8 @@ int * __cdecl Im_AllocTrackOrSteal(int param_1)
   }
   return (int *)0x0;
 }
-#endif
-
 
 /* ---- 0x1000b170  Im_TriggersInit ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
     */
 
@@ -5578,12 +5273,8 @@ undefined4 Im_TriggersInit(void)
   DAT_10032f44 = 0;
   return 0;
 }
-#endif
-
 
 /* ---- 0x1000b1a0  Im_TriggersSave ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
     */
 
@@ -5613,12 +5304,8 @@ undefined4 __cdecl Im_TriggersSave(undefined4 *param_1,int param_2)
   }
   return 0xb20;
 }
-#endif
-
 
 /* ---- 0x1000b1e0  Im_TriggersRestore ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
     */
 
@@ -5646,16 +5333,16 @@ undefined4 __cdecl Im_TriggersRestore(undefined4 *param_1)
   DAT_10032f40 = 1;
   return 0xb20;
 }
-#endif
-
 
 /* ---- 0x1000b220  Im_SetTriggerImpl ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
     */
 
-undefined4 __cdecl Im_SetTriggerImpl(int param_1,char *param_2,int param_3)
+undefined4 __cdecl
+Im_SetTriggerImpl(int sound,char *marker,int cmd,int p0,int p1,int p2,int p3,int p4,int p5,int p6,
+                 int p7,int p8,int p9)
 
 {
   char cVar1;
@@ -5669,14 +5356,14 @@ undefined4 __cdecl Im_SetTriggerImpl(int param_1,char *param_2,int param_3)
   int *piVar9;
   
   piVar6 = &DAT_10032320;
-  if (param_1 == 0) {
+  if (sound == 0) {
     return 0xfffffffb;
   }
-  if (param_2 == (char *)0x0) {
-    param_2 = &DAT_10032f48;
+  if (marker == (char *)0x0) {
+    marker = &DAT_10032f48;
   }
   uVar4 = 0xffffffff;
-  pcVar8 = param_2;
+  pcVar8 = marker;
   do {
     if (uVar4 == 0) break;
     uVar4 = uVar4 - 1;
@@ -5694,17 +5381,17 @@ undefined4 __cdecl Im_SetTriggerImpl(int param_1,char *param_2,int param_3)
       return 0xfffffffa;
     }
   }
-  piVar6[0x41] = param_3;
+  piVar6[0x41] = cmd;
   uVar4 = 0xffffffff;
-  *piVar6 = param_1;
+  *piVar6 = sound;
   piVar6[0x4c] = 0;
   do {
-    pcVar8 = param_2;
+    pcVar8 = marker;
     if (uVar4 == 0) break;
     uVar4 = uVar4 - 1;
-    pcVar8 = param_2 + 1;
-    cVar1 = *param_2;
-    param_2 = pcVar8;
+    pcVar8 = marker + 1;
+    cVar1 = *marker;
+    marker = pcVar8;
   } while (cVar1 != '\0');
   uVar4 = ~uVar4;
   piVar7 = (int *)(pcVar8 + -uVar4);
@@ -5713,7 +5400,7 @@ undefined4 __cdecl Im_SetTriggerImpl(int param_1,char *param_2,int param_3)
     *piVar9 = *piVar7;
     piVar7 = piVar7 + 1;
   }
-  piVar3 = &param_3;
+  piVar3 = &cmd;
   for (uVar4 = uVar4 & 3; uVar4 != 0; uVar4 = uVar4 - 1) {
     *(char *)piVar9 = (char)*piVar7;
     piVar7 = (int *)((int)piVar7 + 1);
@@ -5734,8 +5421,6 @@ undefined4 __cdecl Im_SetTriggerImpl(int param_1,char *param_2,int param_3)
 
 
 /* ---- 0x1000b2e0  Im_CheckTriggerImpl ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
     */
 
@@ -5794,12 +5479,8 @@ LAB_1000b35f:
 #undef local_4
 #undef local_8
 
-#endif
-
 
 /* ---- 0x1000b380  Im_ClearTriggerImpl ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
     */
 
@@ -5860,12 +5541,8 @@ LAB_1000b40c:
 }
 #undef local_4
 
-#endif
-
 
 /* ---- 0x1000b430  Im_FireTriggers ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Matches a marker name against the trigger table and runs the stored commands */
 
 undefined4 * __cdecl Im_FireTriggers(int param_1,char *param_2)
@@ -5989,16 +5666,16 @@ LAB_1000b52c:
 }
 #undef local_100
 
-#endif
-
 
 /* ---- 0x1000b570  Im_DeferCommandImpl ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
     */
 
-undefined4 __cdecl Im_DeferCommandImpl(int param_1,int param_2)
+undefined4 __cdecl
+Im_DeferCommandImpl(int time,int cmd,int p0,int p1,int p2,int p3,int p4,int p5,int p6,int p7,int p8,
+                   int p9)
 
 {
   int *piVar1;
@@ -6008,15 +5685,15 @@ undefined4 __cdecl Im_DeferCommandImpl(int param_1,int param_2)
   int *piVar5;
   
   piVar5 = &DAT_10032cc0;
-  if (param_1 == 0) {
+  if (time == 0) {
     return 0xfffffffb;
   }
   iVar2 = 0;
   do {
     if (*piVar5 == 0) {
       piVar4 = piVar5 + 2;
-      piVar5[1] = param_2;
-      piVar3 = &param_2;
+      piVar5[1] = cmd;
+      piVar3 = &cmd;
       iVar2 = 10;
       do {
         piVar1 = piVar3 + 1;
@@ -6025,7 +5702,7 @@ undefined4 __cdecl Im_DeferCommandImpl(int param_1,int param_2)
         piVar4 = piVar4 + 1;
         iVar2 = iVar2 + -1;
       } while (iVar2 != 0);
-      *piVar5 = param_1;
+      *piVar5 = time;
       DAT_10032f40 = 1;
       return 0;
     }
@@ -6038,8 +5715,6 @@ undefined4 __cdecl Im_DeferCommandImpl(int param_1,int param_2)
 
 
 /* ---- 0x1000b5e0  Im_ProcessDeferred ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
     */
 
@@ -6069,12 +5744,8 @@ void Im_ProcessDeferred(void)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x1000b630  Im_GetTriggerParam ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
     */
 
@@ -6110,11 +5781,9 @@ int __cdecl Im_GetTriggerParam(int param_1)
   } while (iVar3 != 0);
   return iVar1;
 }
-#endif
-
 
 /* ---- 0x1000b6a0  Im_RunTriggerCommand ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
     */
@@ -6122,32 +5791,32 @@ int __cdecl Im_GetTriggerParam(int param_1)
 void __cdecl Im_RunTriggerCommand(undefined4 *param_1,undefined4 param_2)
 
 {
-  code *pcVar1;
-  int *piVar2;
-  undefined4 uVar3;
+  code *cmd;
+  int a2;
+  undefined4 uVar1;
   
-  pcVar1 = (code *)param_1[0x41];
+  cmd = (code *)param_1[0x41];
   *param_1 = 0;
-  if (pcVar1 == (code *)0x0) {
+  if (cmd == (code *)0x0) {
     if (DAT_100336a8 != (code *)0x0) {
-      uVar3 = param_1[0x4b];
-      (*DAT_100336a8)(param_2,uVar3,uVar3,uVar3,uVar3,uVar3,uVar3,uVar3,uVar3,uVar3,uVar3);
+      uVar1 = param_1[0x4b];
+      (*DAT_100336a8)(param_2,uVar1,uVar1,uVar1,uVar1,uVar1,uVar1,uVar1,uVar1,uVar1,uVar1);
     }
     return;
   }
-  piVar2 = (int *)param_1[0x4b];
-  if (pcVar1 < (code *)0x1e) {
-    Im_DispatchCommand((uint)pcVar1,piVar2,piVar2,(uint)piVar2,(int)piVar2,(int)piVar2);
+  a2 = param_1[0x4b];
+  if (cmd < (code *)0x1e) {
+    Im_DispatchCommand((uint)cmd,a2,a2,a2,a2,a2,a2,a2,a2,a2,a2);
     return;
   }
-  (*pcVar1)(param_2);
+  (*cmd)(param_2);
   return;
 }
 #endif
 
 
 /* ---- 0x1000b710  Im_RunDeferredCommand ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
     */
@@ -6155,25 +5824,25 @@ void __cdecl Im_RunTriggerCommand(undefined4 *param_1,undefined4 param_2)
 void __cdecl Im_RunDeferredCommand(int param_1)
 
 {
-  code *pcVar1;
-  int *piVar2;
+  code *cmd;
+  int a2;
   
-  pcVar1 = *(code **)(param_1 + 4);
-  if (pcVar1 == (code *)0x0) {
+  cmd = *(code **)(param_1 + 4);
+  if (cmd == (code *)0x0) {
     if (DAT_100336a8 == (code *)0x0) {
       return;
     }
-    piVar2 = *(int **)(param_1 + 0x2c);
-    pcVar1 = DAT_100336a8;
+    a2 = *(int *)(param_1 + 0x2c);
+    cmd = DAT_100336a8;
   }
   else {
-    piVar2 = *(int **)(param_1 + 0x2c);
-    if (pcVar1 < (code *)0x1e) {
-      Im_DispatchCommand((uint)pcVar1,piVar2,piVar2,(uint)piVar2,(int)piVar2,(int)piVar2);
+    a2 = *(int *)(param_1 + 0x2c);
+    if (cmd < (code *)0x1e) {
+      Im_DispatchCommand((uint)cmd,a2,a2,a2,a2,a2,a2,a2,a2,a2,a2);
       return;
     }
   }
-  (*pcVar1)(piVar2,piVar2,piVar2,piVar2,piVar2,piVar2,piVar2,piVar2,piVar2,piVar2);
+  (*cmd)(a2,a2,a2,a2,a2,a2,a2,a2,a2,a2);
   return;
 }
 #endif

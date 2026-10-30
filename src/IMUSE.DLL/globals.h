@@ -136,7 +136,7 @@ extern undefined DAT_10021d40; /* used by 2 fn(s), first 0x10012350 */
 extern undefined2 DAT_10022140; /* used by 1 fn(s), first 0x10001c30 */
 extern undefined DAT_100221c0; /* used by 1 fn(s), first 0x10001c30 */
 extern undefined4 DAT_10024dc0; /* used by 1 fn(s), first 0x10001c30 */
-extern int * DAT_10024dc8; /* used by 4 fn(s), first 0x10001f10 */
+extern int * PTR_10024dc8; /* used by 4 fn(s), first 0x10001f10 */
 extern int DAT_10024dcc; /* used by 3 fn(s), first 0x10001f10 */
 extern uint DAT_10024dd0; /* used by 1 fn(s), first 0x10002260 */
 extern int DAT_10024dd4; /* used by 3 fn(s), first 0x10001f10 */
@@ -145,7 +145,7 @@ extern undefined DAT_10024ddc; /* used by 1 fn(s), first 0x10002570 */
 extern undefined4 DAT_10024de0; /* used by 2 fn(s), first 0x10002570 */
 extern undefined4 DAT_10024de8; /* used by 2 fn(s), first 0x10001f10 */
 extern undefined4 DAT_10024df0; /* used by 1 fn(s), first 0x10002040 */
-extern int * DAT_10025298; /* used by 4 fn(s), first 0x10001f10 */
+extern int * PTR_10025298; /* used by 4 fn(s), first 0x10001f10 */
 extern undefined4 DAT_100252a0; /* used by 5 fn(s), first 0x10001ff0 */
 extern undefined4 DAT_10025abc; /* used by 1 fn(s), first 0x100020c0 */
 extern undefined DAT_1002d7e0; /* used by 1 fn(s), first 0x10002570 */
@@ -178,7 +178,7 @@ extern code *DAT_1002dae0; /* used by 4 fn(s), first 0x10003d70 */
 extern code *DAT_1002dae4; /* used by 5 fn(s), first 0x10003d70 */
 extern code *DAT_1002dcf0; /* used by 4 fn(s), first 0x10003d70 */
 extern code *DAT_1002dcf4; /* used by 5 fn(s), first 0x10003d70 */
-extern int * DAT_1002dcf8; /* used by 7 fn(s), first 0x10003dc0 */
+extern int * PTR_1002dcf8; /* used by 7 fn(s), first 0x10003dc0 */
 extern int * PTR_1002dcfc; /* used by 7 fn(s), first 0x10003dc0 */
 extern undefined4 DAT_1002dd00; /* used by 7 fn(s), first 0x10003d70 */
 extern undefined DAT_1002dd08; /* used by 2 fn(s), first 0x10004750 */
@@ -226,7 +226,7 @@ extern undefined4 DAT_1002df20; /* used by 3 fn(s), first 0x10005360 */
 extern uint DAT_1002df24; /* used by 2 fn(s), first 0x10005360 */
 extern undefined DAT_1002df28; /* used by 1 fn(s), first 0x10005360 */
 extern undefined DAT_1002df30; /* used by 1 fn(s), first 0x10005610 */
-extern undefined4 * DAT_1002df5c; /* used by 9 fn(s), first 0x10005360 */
+extern int * PTR_1002df5c; /* used by 9 fn(s), first 0x10005360 */
 extern undefined4 DAT_1002df60; /* used by 3 fn(s), first 0x10005300 */
 extern undefined4 DAT_1002df64; /* used by 2 fn(s), first 0x10005300 */
 extern undefined DAT_1002df68; /* used by 1 fn(s), first 0x10006360 */

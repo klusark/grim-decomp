@@ -1,0 +1,7 @@
+{
+ "_before": 243,
+ "10006560": "script layer (state transition): calls FUN_100068b0 with 3 pushed arguments; the callee reads five more words from the caller's stack frame (return address, the caller's own argument, words of the MSVC-compiled dispatcher FUN_10006070). The decompiler shows them as unaff_retaddr / in_stack_*; their values depend on the stack layout of the original machine code",
+ "10006620": "script layer (sequence transition): same as FUN_10006560 (three calls of FUN_100068b0 with 3 pushed arguments)",
+ "100068b0": "script layer (the transition itself, 8 declared parameters, only 3 pushed by its callers): parameters 4..8 are stack garbage of the callers (observed in the original at run time: 1, 0x11, a return address inside IMUSE.DLL, the state id, 0xc0c01d); they feed the fade time and the hook values of ImSwitchStream / ImSetHook",
+ "1000bae0": "MSVC _ftol: the float comes in ST0, the 64-bit result goes out in EDX:EAX; no C equivalent. No caller is left (Im_MixerInit is hand-written C in build/overrides_imuse.c)"
+}
