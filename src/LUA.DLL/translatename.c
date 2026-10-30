@@ -81,6 +81,8 @@ LAB_100184d3:
 
 
 /* ---- 0x100184f0  FUN_100184f0 ---- */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 undefined4 __cdecl FUN_100184f0(short param_1)
 
 {
@@ -95,8 +97,12 @@ undefined4 __cdecl FUN_100184f0(short param_1)
   } while (psVar1 < &DAT_100290f4);
   return 1;
 }
+#endif
+
 
 /* ---- 0x10018520  FUN_10018520 ---- */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 undefined4 __cdecl FUN_10018520(int param_1)
 
 {
@@ -138,8 +144,12 @@ undefined4 __cdecl FUN_10018520(int param_1)
 #undef puStack_88
 #undef uStack_84
 
+#endif
+
 
 /* ---- 0x100185b0  FUN_100185b0 ---- */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 undefined4 FUN_100185b0(void)
 
 {
@@ -158,8 +168,12 @@ undefined4 FUN_100185b0(void)
 #undef iStack_84
 #undef local_94
 
+#endif
+
 
 /* ---- 0x100185f0  FUN_100185f0 ---- */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 int __stdcall FUN_100185f0(int a1,int a2,int a3,int a4)
 
 {
@@ -218,8 +232,12 @@ int __stdcall FUN_100185f0(int a1,int a2,int a3,int a4)
   iVar5 = GetLocaleInfoA(a1,a2,a3,a4);
   return iVar5;
 }
+#endif
+
 
 /* ---- 0x10018720  FUN_10018720 ---- */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 int __cdecl FUN_10018720(char *param_1)
 
 {
@@ -243,8 +261,12 @@ int __cdecl FUN_10018720(char *param_1)
   }
   return iVar1;
 }
+#endif
+
 
 /* ---- 0x10018760  FUN_10018760 ---- */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 int __cdecl FUN_10018760(char *param_1)
 
 {
@@ -260,3 +282,5 @@ int __cdecl FUN_10018760(char *param_1)
   }
   return iVar2;
 }
+#endif
+

@@ -76,7 +76,7 @@ void __cdecl tmpnam_genfname(int param_1)
 }
 
 /* ---- 0x100102a0  FUN_100102a0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 undefined4 __cdecl FUN_100102a0(byte *param_1)
 

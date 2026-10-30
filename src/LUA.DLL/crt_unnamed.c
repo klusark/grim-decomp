@@ -6,6 +6,8 @@
 #include "functions.h"
 
 /* ---- 0x1000f070  FUN_1000f070 ---- */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 void FUN_1000f070(undefined4 param_1,undefined *UNRECOVERED_JUMPTABLE)
 
 {
@@ -16,6 +18,8 @@ void FUN_1000f070(undefined4 param_1,undefined *UNRECOVERED_JUMPTABLE)
   (*(code *)UNRECOVERED_JUMPTABLE)();
   return;
 }
+#endif
+
 
 /* ---- 0x1000f0e0  FUN_1000f0e0 ---- */
 undefined4 __cdecl FUN_1000f0e0(int *param_1,int param_2,int param_3,undefined4 param_4)
@@ -29,6 +33,8 @@ undefined4 __cdecl FUN_1000f0e0(int *param_1,int param_2,int param_3,undefined4 
 }
 
 /* ---- 0x1000f120  FUN_1000f120 ---- */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 undefined4 __cdecl FUN_1000f120(int param_1,undefined4 param_2,int param_3,int param_4,int param_5)
 
 {
@@ -57,8 +63,12 @@ undefined4 __cdecl FUN_1000f120(int param_1,undefined4 param_2,int param_3,int p
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x1000f1b0  FUN_1000f1b0 ---- */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 undefined4 __cdecl
 FUN_1000f1b0(undefined4 *param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4,
             undefined4 param_5,undefined4 param_6,undefined4 param_7)
@@ -122,8 +132,12 @@ FUN_1000f1b0(undefined4 *param_1,undefined4 param_2,undefined4 param_3,undefined
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x1000f280  FUN_1000f280 ---- */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 undefined4 __cdecl FUN_1000f280(int *param_1,int param_2,int param_3)
 
 {
@@ -144,8 +158,12 @@ undefined4 __cdecl FUN_1000f280(int *param_1,int param_2,int param_3)
   uVar1 = (**(code **)(param_2 + 0x18))();
   return uVar1;
 }
+#endif
+
 
 /* ---- 0x1000f310  FUN_1000f310 ---- */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 int __cdecl FUN_1000f310(int param_1,int param_2,int param_3,uint *param_4,uint *param_5)
 
 {
@@ -180,9 +198,11 @@ int __cdecl FUN_1000f310(int param_1,int param_2,int param_3,uint *param_4,uint 
   }
   return iVar2 + uVar5 * 0x14;
 }
+#endif
+
 
 /* ---- 0x1000f45d  FUN_1000f45d ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 void __fastcall FUN_1000f45d(undefined4 param_1)
 
@@ -251,6 +271,8 @@ uint __cdecl FUN_1000f650(int param_1)
 }
 
 /* ---- 0x1000fde0  FUN_1000fde0 ---- */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 void FUN_1000fde0(void)
@@ -294,8 +316,12 @@ void FUN_1000fde0(void)
   } while ((int)puVar4 < IMG_ADDR(0x10028340));
   return;
 }
+#endif
+
 
 /* ---- 0x1000fea0  FUN_1000fea0 ---- */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 int __stdcall FUN_1000fea0(int a1,int a2,int a3)
@@ -332,6 +358,8 @@ int __stdcall FUN_1000fea0(int a1,int a2,int a3)
   _unlock(2);
   return iVar3;
 }
+#endif
+
 
 /* ---- 0x100119e0  FUN_100119e0 ---- */
 undefined4 FUN_100119e0(void)
@@ -341,6 +369,8 @@ undefined4 FUN_100119e0(void)
 }
 
 /* ---- 0x100119f0  FUN_100119f0 ---- */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 void __cdecl FUN_100119f0(char *param_1,int param_2)
 
 {
@@ -395,6 +425,8 @@ void __cdecl FUN_100119f0(char *param_1,int param_2)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x10011e20  FUN_10011e20 ---- */
 /* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
@@ -628,14 +660,20 @@ uint * __cdecl FUN_100129a0(uint *param_1,char *param_2)
 }
 
 /* ---- 0x10012ec0  FUN_10012ec0 ---- */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 void FUN_10012ec0(void)
 
 {
   FUN_1001d560((void *)0x10000,0x30000);
   return;
 }
+#endif
+
 
 /* ---- 0x10012ee0  FUN_10012ee0 ---- */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 /* WARNING: Removing unreachable block (ram,0x10012f21) */
 
 undefined4 FUN_10012ee0(void)
@@ -643,8 +681,12 @@ undefined4 FUN_10012ee0(void)
 {
   return 0;
 }
+#endif
+
 
 /* ---- 0x10012f30  FUN_10012f30 ---- */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 undefined4 FUN_10012f30(void)
 
 {
@@ -663,8 +705,12 @@ undefined4 FUN_10012f30(void)
   uVar2 = FUN_10012ee0();
   return uVar2;
 }
+#endif
+
 
 /* ---- 0x10012f60  FUN_10012f60 ---- */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 void __cdecl FUN_10012f60(char *param_1)
 
 {
@@ -694,8 +740,12 @@ void __cdecl FUN_10012f60(char *param_1)
   } while (*param_1 != '\0');
   return;
 }
+#endif
+
 
 /* ---- 0x10012fc0  FUN_10012fc0 ---- */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 void __cdecl FUN_10012fc0(char *param_1)
 
 {
@@ -739,8 +789,12 @@ void __cdecl FUN_10012fc0(char *param_1)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x10013030  FUN_10013030 ---- */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 undefined4 __cdecl FUN_10013030(double *param_1)
 
 {
@@ -749,8 +803,12 @@ undefined4 __cdecl FUN_10013030(double *param_1)
   }
   return 0;
 }
+#endif
+
 
 /* ---- 0x10013050  FUN_10013050 ---- */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 void __cdecl FUN_10013050(int param_1,uint *param_2,byte *param_3)
 
 {
@@ -771,8 +829,12 @@ void __cdecl FUN_10013050(int param_1,uint *param_2,byte *param_3)
 #undef local_4
 #undef local_8
 
+#endif
+
 
 /* ---- 0x10013420  FUN_10013420 ---- */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 void __cdecl FUN_10013420(undefined4 *param_1,char *param_2,int param_3,uint param_4,int param_5)
 
 {
@@ -787,9 +849,11 @@ void __cdecl FUN_10013420(undefined4 *param_1,char *param_2,int param_3,uint par
   _cftoe(param_1,param_2,param_4,param_5);
   return;
 }
+#endif
+
 
 /* ---- 0x100139a6  FUN_100139a6 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 void FUN_100139a6(void)
 
@@ -803,7 +867,7 @@ void FUN_100139a6(void)
 
 
 /* ---- 0x100139b3  FUN_100139b3 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 /* WARNING: Stack frame is not setup normally: Input value of stackpointer is not used */
 
@@ -850,6 +914,8 @@ void FUN_100139b3(void)
 
 
 /* ---- 0x100139f0  FUN_100139f0 ---- */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 undefined4 FUN_100139f0(undefined4 *param_1)
 
 {
@@ -858,9 +924,11 @@ undefined4 FUN_100139f0(undefined4 *param_1)
   }
   return 0;
 }
+#endif
+
 
 /* ---- 0x10013b57  FUN_10013b57 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 void FUN_10013b57(void)
 
@@ -874,7 +942,7 @@ void FUN_10013b57(void)
 
 
 /* ---- 0x10013b64  FUN_10013b64 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 /* WARNING: Stack frame is not setup normally: Input value of stackpointer is not used */
 
@@ -898,7 +966,7 @@ undefined4 FUN_10013b64(void)
 
 
 /* ---- 0x10013b8f  FUN_10013b8f ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 void FUN_10013b8f(void)
 
@@ -926,6 +994,8 @@ void FUN_10013b8f(void)
 
 
 /* ---- 0x10013c00  FUN_10013c00 ---- */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 undefined4 FUN_10013c00(int *param_1)
 
 {
@@ -936,16 +1006,22 @@ undefined4 FUN_10013c00(int *param_1)
   }
   return 0;
 }
+#endif
+
 
 /* ---- 0x10013e0b  FUN_10013e0b ---- */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 undefined4 FUN_10013e0b(void)
 
 {
   return 1;
 }
+#endif
+
 
 /* ---- 0x10013e11  FUN_10013e11 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 /* WARNING: Stack frame is not setup normally: Input value of stackpointer is not used */
 
@@ -965,6 +1041,8 @@ void FUN_10013e11(void)
 
 
 /* ---- 0x10013e40  FUN_10013e40 ---- */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 void __cdecl FUN_10013e40(int param_1)
 
 {
@@ -994,9 +1072,11 @@ void __cdecl FUN_10013e40(int param_1)
 #undef puStack_10
 #undef puStack_c
 
+#endif
+
 
 /* ---- 0x10013e8a  FUN_10013e8a ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 bool FUN_10013e8a(void)
 
@@ -1009,7 +1089,7 @@ bool FUN_10013e8a(void)
 
 
 /* ---- 0x10013e95  FUN_10013e95 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 /* WARNING: Stack frame is not setup normally: Input value of stackpointer is not used */
 
@@ -1029,6 +1109,8 @@ void FUN_10013e95(void)
 
 
 /* ---- 0x10013ec0  FUN_10013ec0 ---- */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 int __cdecl FUN_10013ec0(int param_1,int *param_2)
 
 {
@@ -1042,9 +1124,11 @@ int __cdecl FUN_10013ec0(int param_1,int *param_2)
   }
   return iVar2;
 }
+#endif
+
 
 /* ---- 0x10013ef0  FUN_10013ef0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 /* WARNING: Restarted to delay deadcode elimination for space: stack */
 
@@ -1066,14 +1150,18 @@ undefined4 __stdcall FUN_10013ef0(int a1,int a2,int a3)
 
 
 /* ---- 0x1001416a  FUN_1001416a ---- */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 undefined4 FUN_1001416a(void)
 
 {
   return 1;
 }
+#endif
+
 
 /* ---- 0x10014170  FUN_10014170 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 /* WARNING: Stack frame is not setup normally: Input value of stackpointer is not used */
 
@@ -1094,14 +1182,20 @@ void FUN_10014170(void)
 
 
 /* ---- 0x10014197  FUN_10014197 ---- */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 void FUN_10014197(void)
 
 {
   abort();
   return;
 }
+#endif
+
 
 /* ---- 0x100141b0  FUN_100141b0 ---- */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 void FUN_100141b0(void)
 
 {
@@ -1130,16 +1224,22 @@ void FUN_100141b0(void)
 #undef puStack_10
 #undef puStack_c
 
+#endif
+
 
 /* ---- 0x100141f1  FUN_100141f1 ---- */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 undefined4 FUN_100141f1(void)
 
 {
   return 1;
 }
+#endif
+
 
 /* ---- 0x100141f7  FUN_100141f7 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 /* WARNING: Stack frame is not setup normally: Input value of stackpointer is not used */
 
@@ -1160,14 +1260,20 @@ void FUN_100141f7(void)
 
 
 /* ---- 0x1001421e  FUN_1001421e ---- */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 void FUN_1001421e(void)
 
 {
   terminate();
   return;
 }
+#endif
+
 
 /* ---- 0x10014f80  FUN_10014f80 ---- */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 void FUN_10014f80(uint param_1)
 
 {
@@ -1178,8 +1284,12 @@ void FUN_10014f80(uint param_1)
   EnterCriticalSection(param_1 + 0x20);
   return;
 }
+#endif
+
 
 /* ---- 0x10014ff0  FUN_10014ff0 ---- */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 void FUN_10014ff0(uint param_1)
 
 {
@@ -1190,8 +1300,12 @@ void FUN_10014ff0(uint param_1)
   LeaveCriticalSection(param_1 + 0x20);
   return;
 }
+#endif
+
 
 /* ---- 0x10015160  FUN_10015160 ---- */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 undefined4 FUN_10015160(int a1)
 
 {
@@ -1207,9 +1321,11 @@ undefined4 FUN_10015160(int a1)
 }
 #undef local_14
 
+#endif
+
 
 /* ---- 0x1001519c  FUN_1001519c ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 bool FUN_1001519c(void)
 
@@ -1222,7 +1338,7 @@ bool FUN_1001519c(void)
 
 
 /* ---- 0x100151b0  FUN_100151b0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 undefined4 __stdcall FUN_100151b0(int a1)
 
@@ -1238,6 +1354,8 @@ undefined4 __stdcall FUN_100151b0(int a1)
 
 
 /* ---- 0x100156f0  FUN_100156f0 ---- */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 int FUN_100156f0(int *param_1)
 
 {
@@ -1253,16 +1371,24 @@ int FUN_100156f0(int *param_1)
   }
   return 0;
 }
+#endif
+
 
 /* ---- 0x100157a0  FUN_100157a0 ---- */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 void FUN_100157a0(void)
 
 {
   FUN_100157b0(1);
   return;
 }
+#endif
+
 
 /* ---- 0x100157b0  FUN_100157b0 ---- */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 int FUN_100157b0(int param_1)
@@ -1309,8 +1435,12 @@ int FUN_100157b0(int param_1)
 }
 #undef iStack_4
 
+#endif
+
 
 /* ---- 0x10015df0  FUN_10015df0 ---- */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 undefined4 FUN_10015df0(uint param_1)
 
 {
@@ -1330,8 +1460,12 @@ undefined4 FUN_10015df0(uint param_1)
   *piVar2 = 0;
   return 0xffffffff;
 }
+#endif
+
 
 /* ---- 0x10015e60  FUN_10015e60 ---- */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 undefined4 FUN_10015e60(uint param_1)
 
 {
@@ -1364,8 +1498,12 @@ LAB_10015eb8:
   }
   return 0;
 }
+#endif
+
 
 /* ---- 0x10015f40  FUN_10015f40 ---- */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 char * __cdecl FUN_10015f40(uint param_1,char *param_2,uint param_3)
 
 {
@@ -1376,8 +1514,12 @@ char * __cdecl FUN_10015f40(uint param_1,char *param_2,uint param_3)
   FUN_10015f80(param_1,param_2,param_3,0);
   return param_2;
 }
+#endif
+
 
 /* ---- 0x10015f80  FUN_10015f80 ---- */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 void __cdecl FUN_10015f80(uint param_1,char *param_2,uint param_3,int param_4)
 
 {
@@ -1417,16 +1559,24 @@ void __cdecl FUN_10015f80(uint param_1,char *param_2,uint param_3,int param_4)
   } while (param_2 < pcVar4);
   return;
 }
+#endif
+
 
 /* ---- 0x10015ff0  FUN_10015ff0 ---- */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 char * __cdecl FUN_10015ff0(uint param_1,char *param_2,uint param_3)
 
 {
   FUN_10015f80(param_1,param_2,param_3,0);
   return param_2;
 }
+#endif
+
 
 /* ---- 0x100160b0  FUN_100160b0 ---- */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 int FUN_100160b0(void)
@@ -1457,8 +1607,12 @@ int FUN_100160b0(void)
   _unlock(2);
   return iVar3;
 }
+#endif
+
 
 /* ---- 0x10016c80  FUN_10016c80 ---- */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 undefined4 FUN_10016c80(void)
@@ -1490,8 +1644,12 @@ undefined4 FUN_10016c80(void)
   _DAT_1002c1bc = piVar1;
   return 0;
 }
+#endif
+
 
 /* ---- 0x10016d30  FUN_10016d30 ---- */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 uint FUN_10016d30(char *param_1)
@@ -1595,8 +1753,12 @@ uint FUN_10016d30(char *param_1)
          uVar32 | uVar33 | uVar34 | uVar35 | uVar36 | uVar37 | uVar38 | uVar39 | uVar40 | uVar41 |
          uVar42 | uVar43;
 }
+#endif
+
 
 /* ---- 0x100170b0  FUN_100170b0 ---- */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 void FUN_100170b0(undefined4 *param_1)
 
 {
@@ -1647,8 +1809,12 @@ void FUN_100170b0(undefined4 *param_1)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x100172f0  FUN_100172f0 ---- */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 uint FUN_100172f0(char *param_1,int param_2)
 
 {
@@ -1723,8 +1889,12 @@ LAB_1001738c:
 #undef iStack_4
 #undef iStack_8
 
+#endif
+
 
 /* ---- 0x100173f0  FUN_100173f0 ---- */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 undefined4 FUN_100173f0(void)
@@ -1790,8 +1960,12 @@ undefined4 FUN_100173f0(void)
   DAT_10028b60 = **(undefined1 **)PTR_PTR_1002bbd8;
   return 0;
 }
+#endif
+
 
 /* ---- 0x100175f0  FUN_100175f0 ---- */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 undefined4 FUN_100175f0(void)
 
 {
@@ -1827,8 +2001,12 @@ undefined4 FUN_100175f0(void)
   DAT_1002c1cc = piVar1;
   return 0;
 }
+#endif
+
 
 /* ---- 0x100176e0  FUN_100176e0 ---- */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 uint __cdecl FUN_100176e0(int param_1)
 
 {
@@ -1871,8 +2049,12 @@ uint __cdecl FUN_100176e0(int param_1)
   return uVar1 | uVar2 | uVar3 | uVar4 | uVar5 | uVar6 | uVar7 | uVar8 | uVar9 | uVar10 | uVar11 |
          uVar12 | uVar13 | uVar14 | uVar15;
 }
+#endif
+
 
 /* ---- 0x10017830  FUN_10017830 ---- */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 void __cdecl FUN_10017830(char *param_1)
 
 {
@@ -1902,8 +2084,12 @@ LAB_10017846:
     cVar2 = *param_1;
   } while( true );
 }
+#endif
+
 
 /* ---- 0x10017870  FUN_10017870 ---- */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 void __cdecl FUN_10017870(int param_1)
 
 {
@@ -1918,8 +2104,12 @@ void __cdecl FUN_10017870(int param_1)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x100178e0  FUN_100178e0 ---- */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 undefined4 FUN_100178e0(void)
 
 {
@@ -2043,8 +2233,12 @@ undefined4 FUN_100178e0(void)
 #undef puStack_1c
 #undef uStack_14
 
+#endif
+
 
 /* ---- 0x10017c10  FUN_10017c10 ---- */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 int __cdecl FUN_10017c10(byte *param_1,byte *param_2)
 
 {
@@ -2104,8 +2298,12 @@ int __cdecl FUN_10017c10(byte *param_1,byte *param_2)
 }
 #undef abStack_28
 
+#endif
+
 
 /* ---- 0x10017df0  FUN_10017df0 ---- */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 void __cdecl FUN_10017df0(int param_1,int param_2,int *param_3)
 
 {
@@ -2135,9 +2333,11 @@ void __cdecl FUN_10017df0(int param_1,int param_2,int *param_3)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x10018c77  FUN_10018c77 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 void __fastcall FUN_10018c77(undefined4 param_1,int param_2)
 
@@ -2284,7 +2484,7 @@ unkbyte10 FUN_10018db6(void)
 
 
 /* ---- 0x10018de0  FUN_10018de0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 float10 __fastcall
 FUN_10018de0(undefined4 param_1,uint param_2,undefined2 param_3,undefined4 param_4,
@@ -2354,7 +2554,7 @@ FUN_10018df7(undefined4 param_1,uint param_2,ushort param_3,undefined4 param_4,u
 
 
 /* ---- 0x10018e40  FUN_10018e40 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 undefined1 *FUN_10018e40(void)
 
@@ -2392,6 +2592,8 @@ undefined4 FUN_10018e6c(void)
 }
 
 /* ---- 0x10018e85  FUN_10018e85 ---- */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 uint __fastcall FUN_10018e85(undefined4 param_1,int param_2)
 
 {
@@ -2403,6 +2605,8 @@ uint __fastcall FUN_10018e85(undefined4 param_1,int param_2)
   }
   return *(uint *)(param_2 + 4);
 }
+#endif
+
 
 /* ---- 0x10018ec8  FUN_10018ec8 ---- */
 uint __cdecl FUN_10018ec8(undefined4 param_1,uint param_2)
@@ -2443,7 +2647,7 @@ FUN_10018eeb(undefined4 param_1,uint param_2,undefined4 param_3,undefined4 param
 
 
 /* ---- 0x10018f29  FUN_10018f29 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 void __fastcall
 FUN_10018f29(undefined4 param_1,uint param_2,undefined4 param_3,undefined4 param_4,
@@ -2753,6 +2957,8 @@ void FUN_10019ad0(void)
 }
 
 /* ---- 0x10019b30  FUN_10019b30 ---- */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 void __fastcall FUN_10019b30(undefined4 param_1,int param_2)
 
 {
@@ -2760,9 +2966,11 @@ void __fastcall FUN_10019b30(undefined4 param_1,int param_2)
   FUN_10019bfa();
   return;
 }
+#endif
+
 
 /* ---- 0x10019bfa  FUN_10019bfa ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 void FUN_10019bfa(void)
 
@@ -2940,6 +3148,8 @@ float10 FUN_1001a7ac(void)
 
 
 /* ---- 0x1001c720  FUN_1001c720 ---- */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 int __cdecl FUN_1001c720(int param_1,int param_2,int param_3,int param_4,int param_5)
 
 {
@@ -2997,8 +3207,12 @@ int __cdecl FUN_1001c720(int param_1,int param_2,int param_3,int param_4,int par
   }
   return 0;
 }
+#endif
+
 
 /* ---- 0x1001ce80  FUN_1001ce80 ---- */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 undefined4 __cdecl FUN_1001ce80(undefined4 param_1)
 
 {
@@ -3015,15 +3229,23 @@ undefined4 __cdecl FUN_1001ce80(undefined4 param_1)
     return 0x404;
   }
 }
+#endif
+
 
 /* ---- 0x1001d2f0  FUN_1001d2f0 ---- */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 undefined4 __stdcall FUN_1001d2f0(int a1,int a2,int a3)
 
 {
   return 1;
 }
+#endif
+
 
 /* ---- 0x1001d520  FUN_1001d520 ---- */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 uint __thiscall FUN_1001d520(void *this,uint param_1,uint param_2)
 
 {
@@ -3039,16 +3261,24 @@ uint __thiscall FUN_1001d520(void *this,uint param_1,uint param_2)
 }
 #undef local_8
 
+#endif
+
 
 /* ---- 0x1001d560  FUN_1001d560 ---- */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 void __cdecl FUN_1001d560(void *param_1,uint param_2)
 
 {
   FUN_1001d520(param_1,(uint)param_1,param_2 & 0xfff7ffff);
   return;
 }
+#endif
+
 
 /* ---- 0x1001d580  FUN_1001d580 ---- */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 uint __cdecl FUN_1001d580(uint param_1)
 
 {
@@ -3097,15 +3327,23 @@ uint __cdecl FUN_1001d580(uint param_1)
   }
   return uVar1;
 }
+#endif
+
 
 /* ---- 0x1001d620  FUN_1001d620 ---- */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 void FUN_1001d620(void)
 
 {
   return;
 }
+#endif
+
 
 /* ---- 0x1001d6b0  FUN_1001d6b0 ---- */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 undefined4 __cdecl FUN_1001d6b0(int param_1,int param_2)
 
 {
@@ -3133,8 +3371,12 @@ undefined4 __cdecl FUN_1001d6b0(int param_1,int param_2)
   }
   return 1;
 }
+#endif
+
 
 /* ---- 0x1001d720  FUN_1001d720 ---- */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 int __cdecl FUN_1001d720(int param_1,int param_2)
 
 {
@@ -3162,8 +3404,12 @@ int __cdecl FUN_1001d720(int param_1,int param_2)
   }
   return iVar2;
 }
+#endif
+
 
 /* ---- 0x1001d790  FUN_1001d790 ---- */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 undefined4 __cdecl FUN_1001d790(int param_1,int param_2)
 
 {
@@ -3195,8 +3441,12 @@ undefined4 __cdecl FUN_1001d790(int param_1,int param_2)
 }
 #undef local_4
 
+#endif
+
 
 /* ---- 0x1001d830  FUN_1001d830 ---- */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 void __cdecl FUN_1001d830(int param_1,undefined4 *param_2)
 
 {
@@ -3212,8 +3462,12 @@ void __cdecl FUN_1001d830(int param_1,undefined4 *param_2)
   } while (iVar2 != 0);
   return;
 }
+#endif
+
 
 /* ---- 0x1001d850  FUN_1001d850 ---- */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 void __cdecl FUN_1001d850(undefined4 *param_1)
 
 {
@@ -3222,8 +3476,12 @@ void __cdecl FUN_1001d850(undefined4 *param_1)
   param_1[2] = 0;
   return;
 }
+#endif
+
 
 /* ---- 0x1001d860  FUN_1001d860 ---- */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 undefined4 __cdecl FUN_1001d860(int *param_1)
 
 {
@@ -3239,8 +3497,12 @@ undefined4 __cdecl FUN_1001d860(int *param_1)
   } while (iVar1 < 3);
   return 1;
 }
+#endif
+
 
 /* ---- 0x1001d880  FUN_1001d880 ---- */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 void __cdecl FUN_1001d880(uint *param_1,int param_2)
 
 {
@@ -3279,9 +3541,11 @@ void __cdecl FUN_1001d880(uint *param_1,int param_2)
   } while (-1 < iVar3);
   return;
 }
+#endif
+
 
 /* ---- 0x1001dc70  FUN_1001dc70 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 int * __cdecl FUN_1001dc70(undefined4 param_1,undefined4 param_2,int *param_3,char *param_4)
 
@@ -3345,6 +3609,8 @@ int * __cdecl FUN_1001dc70(undefined4 param_1,undefined4 param_2,int *param_3,ch
 
 
 /* ---- 0x1001dd00  FUN_1001dd00 ---- */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 void __cdecl FUN_1001dd00(uint *param_1,uint *param_2)
 
 {
@@ -3390,16 +3656,24 @@ void __cdecl FUN_1001dd00(uint *param_1,uint *param_2)
   *(ushort *)(param_1 + 2) = uVar5 | uVar1 & 0x8000;
   return;
 }
+#endif
+
 
 /* ---- 0x1001ddc0  FUN_1001ddc0 ---- */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 void FUN_1001ddc0(void)
 
 {
   _amsg_exit(2);
   return;
 }
+#endif
+
 
 /* ---- 0x1001ddd0  FUN_1001ddd0 ---- */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 undefined4 __stdcall FUN_1001ddd0(int a1)
@@ -3424,8 +3698,12 @@ undefined4 __stdcall FUN_1001ddd0(int a1)
   }
   return 0;
 }
+#endif
+
 
 /* ---- 0x1001de30  FUN_1001de30 ---- */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 void FUN_1001de30(void)
@@ -3434,8 +3712,12 @@ void FUN_1001de30(void)
   _DAT_1002c594 = SetUnhandledExceptionFilter(FUN_1001ddd0);
   return;
 }
+#endif
+
 
 /* ---- 0x1001de50  FUN_1001de50 ---- */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 void FUN_1001de50(void)
@@ -3444,8 +3726,12 @@ void FUN_1001de50(void)
   SetUnhandledExceptionFilter(_DAT_1002c594);
   return;
 }
+#endif
+
 
 /* ---- 0x1001edd0  FUN_1001edd0 ---- */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 undefined4 FUN_1001edd0(int param_1)
 
 {
@@ -3460,8 +3746,12 @@ undefined4 FUN_1001edd0(int param_1)
   FUN_10014ff0(param_1);
   return uVar1;
 }
+#endif
+
 
 /* ---- 0x1001ee10  FUN_1001ee10 ---- */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 undefined4 FUN_1001ee10(int *param_1)
 
 {
@@ -3485,8 +3775,12 @@ undefined4 FUN_1001ee10(int *param_1)
   param_1[3] = 0;
   return uVar2;
 }
+#endif
+
 
 /* ---- 0x1001ee80  FUN_1001ee80 ---- */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 undefined4 FUN_1001ee80(uint param_1)
 
 {
@@ -3524,8 +3818,12 @@ LAB_1001eefd:
   _unlock_fhandle(param_1);
   return uVar1;
 }
+#endif
+
 
 /* ---- 0x1001ef20  FUN_1001ef20 ---- */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 uint __cdecl FUN_1001ef20(char *param_1,char *param_2,int param_3)
 
 {
@@ -3586,8 +3884,12 @@ LAB_1001ef81:
   *param_2 = '\0';
   return -(uint)(param_1 != pcVar3) & (uint)pcVar3;
 }
+#endif
+
 
 /* ---- 0x1001f5d0  FUN_1001f5d0 ---- */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 undefined4 FUN_1001f5d0(uint param_1)
 
 {
@@ -3623,8 +3925,12 @@ LAB_1001f637:
   *piVar2 = 0;
   return 0xffffffff;
 }
+#endif
+
 
 /* ---- 0x10020090  FUN_10020090 ---- */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 undefined4 __cdecl FUN_10020090(int param_1,int param_2,int param_3,char *param_4)
 
 {
@@ -3695,8 +4001,12 @@ LAB_10020140:
 }
 #undef local_80
 
+#endif
+
 
 /* ---- 0x10020470  FUN_10020470 ---- */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 int __cdecl FUN_10020470(int param_1,uint param_2)
 
 {
@@ -3723,8 +4033,12 @@ int __cdecl FUN_10020470(int param_1,uint param_2)
   }
   return 4;
 }
+#endif
+
 
 /* ---- 0x100206d0  FUN_100206d0 ---- */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 int __fastcall FUN_100206d0(byte param_1,int param_2)
 
 {
@@ -3738,8 +4052,12 @@ int __fastcall FUN_100206d0(byte param_1,int param_2)
   }
   return 0;
 }
+#endif
+
 
 /* ---- 0x10021a10  FUN_10021a10 ---- */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 void FUN_10021a10(undefined4 *param_1)
 
 {
@@ -3752,9 +4070,11 @@ void FUN_10021a10(undefined4 *param_1)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x10021f90  FUN_10021f90 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 void FUN_10021f90(void)
 
@@ -3768,7 +4088,7 @@ void FUN_10021f90(void)
 
 
 /* ---- 0x10021f9b  FUN_10021f9b ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 void FUN_10021f9b(void)
 
