@@ -42,6 +42,15 @@ OPT      ?= -O0          # make OPT=-O2 ; extra flags: make EXTRA_CFLAGS=...
 GHIDRA_CFLAGS := $(OPT) $(ARCH) -std=gnu11 -fpermissive -w -Wno-error=incompatible-pointer-types -Wno-error=int-conversion -Wno-error=implicit-function-declaration -fno-builtin -fno-strict-aliasing \
             -fwrapv -fsingle-precision-constant -fno-common -ffreestanding -include compat.h -I.
 
+# Per-module optimisation (see BUILD_NOTES.md, "Performance"): opt.mk sets OPT_<PROG>/<module> variables, e.g.
+#   OPT_GRIMFANDANGO.EXE/insane := -O2
+# The value is appended after $(OPT) (the last -O wins), so everything not listed keeps $(OPT) (-O0).
+# `make OPT_ALL=-O1` is a quick experiment that forces a level for every listed or unlisted module.
+OPTMK ?= opt.mk
+-include $(OPTMK)
+OPT_ALL ?=
+MODOPT = $(OPT_$*) $(OPT_ALL)
+
 # make sees GRIMFANDANGO.EXE etc. as plain directory names; nothing special needed.
 SRCS_ALL := $(foreach p,$(PROGS),$(wildcard $(SRC)/$(p)/*.c))
 SYNS     := $(patsubst $(SRC)/%.c,$(OBJ)/%.syn,$(SRCS_ALL))
@@ -63,7 +72,7 @@ objs: $(OBJS)
 # diagnostics on failure (the next `make syntax` retries only failing files).
 $(OBJ)/%.syn: $(SRC)/%.c compat.h $$(wildcard $(SRC)/$$(dir $$*)*.h)
 	@mkdir -p $(dir $@)
-	@if $(CC) $(GHIDRA_CFLAGS) $(EXTRA_CFLAGS) -fsyntax-only $< 2> $(OBJ)/$*.syn.log; then \
+	@if $(CC) $(GHIDRA_CFLAGS) $(MODOPT) $(EXTRA_CFLAGS) -fsyntax-only $< 2> $(OBJ)/$*.syn.log; then \
 	   touch $@; rm -f $(OBJ)/$*.syn.log; else echo "FAIL syntax $*"; false; fi
 
 # Objects. A module with errors is retried once with the failing functions'
@@ -71,13 +80,23 @@ $(OBJ)/%.syn: $(SRC)/%.c compat.h $$(wildcard $(SRC)/$$(dir $$*)*.h)
 # compiler's diagnostics stay in <mod>.log next to the object so that
 # `make summary` can count the stubbed functions. STUBS=0 turns this off.
 STUBS ?= 1
-$(OBJ)/%.o: $(SRC)/%.c compat.h stubify.py $$(wildcard $(SRC)/$$(dir $$*)*.h)
+
+# The compiler flags of every object are kept in obj/<prog>/<mod>.flags (rewritten only when they change),
+# so editing opt.mk, OPT_ALL= or EXTRA_CFLAGS= rebuilds exactly the modules whose flags changed.
+.PRECIOUS: $(OBJ)/%.flags
+.PHONY: FORCE
+FORCE:
+$(OBJ)/%.flags: FORCE
+	@mkdir -p $(dir $@)
+	@echo '$(GHIDRA_CFLAGS) $(MODOPT) $(EXTRA_CFLAGS)' | cmp -s - $@ || echo '$(GHIDRA_CFLAGS) $(MODOPT) $(EXTRA_CFLAGS)' > $@
+
+$(OBJ)/%.o: $(SRC)/%.c compat.h stubify.py $(OBJ)/%.flags $$(wildcard $(SRC)/$$(dir $$*)*.h)
 	@mkdir -p $(dir $@)
 	@rm -f $(OBJ)/$*.stub.c $(OBJ)/$*.stub.log
-	@if $(CC) $(GHIDRA_CFLAGS) $(EXTRA_CFLAGS) -c $< -o $@ 2> $(OBJ)/$*.log; then \
+	@if $(CC) $(GHIDRA_CFLAGS) $(MODOPT) $(EXTRA_CFLAGS) -c $< -o $@ 2> $(OBJ)/$*.log; then \
 	   rm -f $(OBJ)/$*.log; \
 	 elif [ "$(STUBS)" = 1 ] && $(PYTHON) stubify.py $< $(OBJ)/$*.log $(OBJ)/$*.stub.c \
-	      && $(CC) $(GHIDRA_CFLAGS) $(EXTRA_CFLAGS) -I$(dir $<) -c $(OBJ)/$*.stub.c -o $@ 2> $(OBJ)/$*.stub.log; then \
+	      && $(CC) $(GHIDRA_CFLAGS) $(MODOPT) $(EXTRA_CFLAGS) -I$(dir $<) -c $(OBJ)/$*.stub.c -o $@ 2> $(OBJ)/$*.stub.log; then \
 	   rm -f $(OBJ)/$*.stub.log; \
 	 else echo "FAIL $*"; rm -f $@; false; fi
 
