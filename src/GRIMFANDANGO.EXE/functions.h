@@ -90,10 +90,10 @@ void Lua_GetSmushLength(void); /* 0x00495900 */
 void Lua_Stub(void); /* 0x00497830 */
 void Lua_GetMemoryUsage(void); /* 0x00498d80 */
 void Lua_GetDiskFreeSpace(void); /* 0x00498da0 */
-void Lua_TEST(uint param_1,uint param_2,float param_3,float param_4,float param_5,float *param_6, float param_7,float param_8,float param_9,float param_10,uint param_11, undefined4 param_12,double param_13); /* 0x00498e20 */
-void Lua_ShrinkBoxes(uint param_1,float param_2,float param_3,float param_4,float *param_5, float param_6,float param_7,float param_8,float param_9,uint param_10, undefined4 param_11,double param_12); /* 0x00498e50 */
+void __cdecl Lua_TEST(void); /* 0x00498e20 */
+void __cdecl Lua_ShrinkBoxes(void); /* 0x00498e50 */
 void Lua_UnShrinkBoxes(void); /* 0x00498e90 */
-void Lua_GetShrinkPos(undefined4 param_1,double param_2); /* 0x00498ea0 */
+void __cdecl Lua_GetShrinkPos(void); /* 0x00498ea0 */
 void Lua_SetSoundParameters(void); /* 0x00499000 */
 void Lua_GetSoundParameters(void); /* 0x004991c0 */
 void Lua_SetDebugKeysCallback(uint param_1); /* 0x00499250 */
@@ -1612,7 +1612,7 @@ void Actor_DrawCostumes(undefined4 param_1,undefined4 param_2); /* 0x00495080 */
 void Actor_DrawCostumeMeshes(int *param_1,float *param_2); /* 0x004950a0 */
 void __cdecl Actor_RemoveFromSet(char *setName,void *actor); /* 0x004a5eb0 */
 void __cdecl Actor_PutInSet(void *actor,char *setName); /* 0x004a5f60 */
-float __thiscall Actor_GetYawToPoint(void *this,int a1); /* 0x004a8500 */
+float __thiscall Actor_GetYawToPoint(void *this,float *point); /* 0x004a8500 */
 
 /* ===== dirtyrect.c ===== */
 void __cdecl DirtyRect_Add(int *rect,int flag,int bufferIdx); /* 0x00485420 */
@@ -1657,7 +1657,7 @@ float * SectorVertexPool_GetOrAdd(undefined4 param_1,float *param_2); /* 0x004a7
 void SectorVertexPool_Release(int *param_1); /* 0x004a7ba0 */
 undefined * SetFile_ParseSectors(int param_1); /* 0x004a7bc0 */
 int __thiscall Sector_ClipPolygon(void *this,float *verts,int count,float *out); /* 0x004a8cb0 */
-float __thiscall Sector_EdgeDistance(void *this,int a1,int a2); /* 0x004a9070 */
+float __thiscall Sector_EdgeDistance(void *this,int edge,float *point); /* 0x004a9070 */
 undefined4 __fastcall Sector_CollapseShortestEdge(void *param_1); /* 0x004a9180 */
 void __cdecl SectorList_ShrinkWalkSectors (float param_1,uint param_2,uint param_3,uint param_4,float param_5,float param_6, float param_7,float *param_8,float param_9,float param_10,float param_11,float param_12, uint param_13,double param_14); /* 0x004a9d00 */
 
@@ -1858,10 +1858,10 @@ void __fastcall Walker_ReattachToSet(void *param_1); /* 0x004a82c0 */
 void __thiscall Walker_SetPosition(void *this,float *pos); /* 0x004a8310 */
 void __thiscall Walker_RotateVector(void *this,float *vec); /* 0x004a8350 */
 void __thiscall Walker_ToLocalSpace(void *this,float *vec); /* 0x004a8370 */
-undefined * __thiscall Walker_TurnHeading(void *this,int a1); /* 0x004a83c0 */
-float __thiscall Walker_TurnToPoint(void *this,int a1,int a2); /* 0x004a8450 */
+undefined * __thiscall Walker_TurnHeading(void *this,float angle); /* 0x004a83c0 */
+float __thiscall Walker_TurnToPoint(void *this,float *point,float maxTurn); /* 0x004a8450 */
 undefined * __thiscall Walker_SetConstraint(void *this,int a1); /* 0x004a85b0 */
-undefined * __thiscall Walker_WalkSectors(void *this,int a1,int a2,int a3); /* 0x004a8610 */
+undefined * __thiscall Walker_WalkSectors(void *this,float step,int turnLeftOk,int turnRightOk); /* 0x004a8610 */
 undefined * __thiscall Walker_SetSectorFrame(void *this,int a1); /* 0x004a89b0 */
 void __fastcall Walker_RebuildRightVector(int param_1); /* 0x004a8a90 */
 void __stdcall Walker_DrawDebugAxes(int color); /* 0x004a8b00 */
@@ -2311,7 +2311,7 @@ void FUN_004acc10(undefined4 param_1); /* 0x004acc10 */
 void FUN_004acd10(void); /* 0x004acd10 */
 void FUN_004acf30(void); /* 0x004acf30 */
 void FUN_004ad2b0(void); /* 0x004ad2b0 */
-void FUN_004addf0(void); /* 0x004addf0 */
+int FUN_004addf0(void); /* 0x004addf0 */
 short * FUN_004adef0(short *param_1,int param_2,undefined4 param_3); /* 0x004adef0 */
 uint * FUN_004ae410(uint *param_1,uint *param_2,uint param_3); /* 0x004ae410 */
 float __cdecl FUN_004ae735(void); /* 0x004ae735 */
@@ -2482,7 +2482,7 @@ void FUN_004c35c0(int param_1,undefined4 param_2,undefined4 param_3,undefined4 p
 char * FUN_004c3660(int param_1); /* 0x004c3660 */
 void FUN_004c3690(uint param_1); /* 0x004c3690 */
 uint FUN_004c36a0(void); /* 0x004c36a0 */
-void FUN_004c36b0(int param_1); /* 0x004c36b0 */
+int FUN_004c36b0(void); /* 0x004c36b0 */
 uint FUN_004c36f0(int param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4, undefined4 param_5,undefined4 param_6,undefined4 param_7,undefined4 param_8, undefined4 param_9,undefined4 param_10,undefined4 param_11); /* 0x004c36f0 */
 void FUN_004c3b30(int param_1,undefined4 param_2); /* 0x004c3b30 */
 undefined4 FUN_004c3bb0(int param_1); /* 0x004c3bb0 */
@@ -2545,7 +2545,7 @@ void FUN_004c5db0(undefined4 param_1,undefined4 param_2); /* 0x004c5db0 */
 void FUN_004c5dd0(undefined4 param_1); /* 0x004c5dd0 */
 void FUN_004c5df0(undefined4 param_1,undefined4 param_2,undefined4 param_3); /* 0x004c5df0 */
 void FUN_004c5e10(undefined4 param_1,undefined4 param_2,undefined4 param_3); /* 0x004c5e10 */
-void FUN_004c5e30(undefined4 param_1); /* 0x004c5e30 */
+int FUN_004c5e30(void); /* 0x004c5e30 */
 void FUN_004c5e50(undefined4 param_1,undefined4 param_2,undefined4 param_3); /* 0x004c5e50 */
 void FUN_004c5e70(undefined4 param_1); /* 0x004c5e70 */
 undefined4 FUN_004c5e90(undefined4 param_1); /* 0x004c5e90 */
@@ -2694,7 +2694,7 @@ void FUN_004d2aa0(uint param_1); /* 0x004d2aa0 */
 void FUN_004d2bf0(void); /* 0x004d2bf0 */
 undefined8 __fastcall FUN_004d2cb0(undefined4 param_1,undefined4 param_2,undefined4 *param_3,undefined4 *param_4, uint param_5); /* 0x004d2cb0 */
 undefined8 __fastcall FUN_004d2ce0(undefined4 param_1,undefined4 param_2,undefined4 *param_3,undefined1 param_4, uint param_5); /* 0x004d2ce0 */
-void FUN_004d2d40(undefined4 param_1,uint param_2,int param_3); /* 0x004d2d40 */
+int FUN_004d2d40(void); /* 0x004d2d40 */
 void FUN_004d2d70(undefined4 param_1); /* 0x004d2d70 */
 void FUN_004d2d90(undefined4 param_1,undefined4 param_2,undefined4 param_3,int param_4, undefined4 param_5,undefined4 param_6,int param_7,int param_8); /* 0x004d2d90 */
 undefined4 FUN_004d2e80(undefined4 *param_1,uint param_2,int param_3,undefined4 param_4); /* 0x004d2e80 */
@@ -2715,7 +2715,7 @@ void FUN_004d5e50(undefined4 param_1,undefined4 param_2,undefined4 param_3); /* 
 void FUN_004d5e70(undefined1 *param_1,undefined4 param_2,int param_3); /* 0x004d5e70 */
 void FUN_004d5eb0(int *param_1); /* 0x004d5eb0 */
 uint __fastcall FUN_004d5ed0(undefined4 param_1); /* 0x004d5ed0 */
-void FUN_004d5f70(undefined4 param_1); /* 0x004d5f70 */
+int FUN_004d5f70(void); /* 0x004d5f70 */
 undefined8 __fastcall FUN_004d5fd0(undefined4 param_1,undefined4 param_2,undefined4 *param_3,undefined1 param_4, uint param_5); /* 0x004d5fd0 */
 void FUN_004d6030(void); /* 0x004d6030 */
 void FUN_004d6046(void); /* 0x004d6046 */

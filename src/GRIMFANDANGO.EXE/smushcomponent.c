@@ -31,8 +31,6 @@ void SmushComponent_OnKey(undefined4 param_1,undefined4 param_2,undefined4 param
 }
 
 /* ---- 0x00498190  SmushComponent_Create ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Costume tag handler for 'Smush Movie' (registered by sputCostume_Start through
    Cos_NewStateBasedTag/Cos_NewIntTag): slot 1, asks for a .snm file ('Select smush file') in the
    editor and stores its name. */
@@ -103,5 +101,3 @@ bool SmushComponent_Create(uint param_1,int param_2,int param_3,int param_4,char
   iVar2 = Cos_RegisterComponent(param_1,(int)pcVar4,(int)pcVar5,param_2,param_3,param_4,IMG_ADDR(0x004ea040));
   return iVar2 != 0;
 }
-#endif
-

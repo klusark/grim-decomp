@@ -181,4 +181,80 @@ float Math_NormalizeAngle360(float degrees)
     return result;
 }
 
+/* ==== walk-box shrinking: Lua_TEST, Lua_ShrinkBoxes, Lua_UnShrinkBoxes, Lua_GetShrinkPos (0x00498e20-0x00498fe1) ====
+ * ShrinkBoxes(amount) pulls the edges of the walk sectors in by `amount` metres (so a bigger actor does not clip the
+ * walls), UnShrinkBoxes() restores them, GetShrinkPos(x, y, z, amount) returns the point of the shrunken sectors nearest
+ * to (x, y, z).  By hand because Ghidra gave SectorList_ShrinkWalkSectors (0x004a9d00, outside this range) a prototype
+ * with 14 parameters; the code pushes just one float. */
+extern void SectorList_ShrinkWalkSectors_amount(float amount) __asm__("_SectorList_ShrinkWalkSectors");
+
+/* TEST(): the developer test hook of the original, shrinks the boxes by 0.005 */
+void Lua_TEST(void)
+{
+    SectorList_ShrinkWalkSectors_amount(0.005f);
+}
+
+/* UnShrinkBoxes(): undo the last shrink and forget the saved geometry */
+void Lua_UnShrinkBoxes(void)
+{
+    SectorList_RestoreAfterShrink();
+    SectorList_FreeShrinkSave();
+}
+
+/* ShrinkBoxes(amount): unshrink, save the sectors, shrink by amount; nothing for a nil amount */
+void Lua_ShrinkBoxes(void)
+{
+    int amount = lua_lua2C(1);
+    if (lua_isnil(amount) == 0) {
+        Lua_UnShrinkBoxes();
+        SectorList_SaveForShrink();
+        SectorList_ShrinkWalkSectors_amount(lua_getnumber(amount));
+    }
+}
+
+/* GetShrinkPos(x, y, z, amount) -> x, y, z of the nearest point of the shrunken walk sectors (nil if there is none) */
+void Lua_GetShrinkPos(void)
+{
+    int a1 = lua_lua2C(1), a2 = lua_lua2C(2), a3 = lua_lua2C(3), a4 = lua_lua2C(4);
+    float pos[3];
+    float amount;
+    void *sector;
+
+    if (!lua_isnumber(a1) || !lua_isnumber(a2) || !lua_isnumber(a3) || !lua_isnumber(a4))
+        return;
+    pos[0] = lua_getnumber(a1);
+    pos[1] = lua_getnumber(a2);
+    pos[2] = lua_getnumber(a3);
+    amount = lua_getnumber(a4);
+    SectorList_SaveForShrink();
+    SectorList_ShrinkWalkSectors_amount(amount);
+    sector = SectorList_FindNearestPoint(pos, 0x1000);
+    if (sector != 0)
+        Sector_ClampPoint(sector, (int)pos);
+    Lua_UnShrinkBoxes();
+    if (sector == 0) {
+        lua_pushnil();
+        return;
+    }
+    lua_pushnumber(pos[0]);
+    lua_pushnumber(pos[1]);
+    lua_pushnumber(pos[2]);
+}
+
+/* ==== Lua_EngineDisplay (0x00499280), Lua_MakeCurrentSetup (0x0049db70) ====
+ * EngineDisplay(n): switch drawing of the 3D scene on/off.  MakeCurrentSetup(n): select camera setup n of the current set.
+ * Both convert the Lua number with the CRT _ftol (the float stays in ST(0) between lua_getnumber and _ftol, which the
+ * decompiler cannot follow): a C `(int)` cast does the same truncation. */
+void Lua_EngineDisplay(void)
+{
+    Render_SetDrawEnabled((int)lua_getnumber(lua_lua2C(1)));
+}
+
+void Lua_MakeCurrentSetup(void)
+{
+    int arg = lua_lua2C(1);
+    if (lua_isnumber(arg))
+        Set_ChangeSetup((uint)(int)lua_getnumber(arg));
+}
+
 #endif /* GRIM_EXE */

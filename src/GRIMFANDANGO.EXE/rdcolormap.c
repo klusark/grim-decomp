@@ -44,8 +44,6 @@ void * __cdecl rdColormap_Load(char *name)
 }
 
 /* ---- 0x00404420  rdColormap_LoadEntry ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Reads the CMP header (flags, tint), the 768-byte palette, the 0x10000-byte light-level table and
    optional 0x8000-byte transparency table. Falls back to the grey ramp when the magic is wrong. */
 
@@ -187,8 +185,6 @@ LAB_00404659:
 #undef uStack_30
 #undef uStack_34
 #undef uStack_38
-
-#endif
 
 
 /* ---- 0x00404730  rdColormap_Free ---- */

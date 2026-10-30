@@ -47,8 +47,6 @@ void sputCostume_Terminate(void)
 }
 
 /* ---- 0x004959a0  sputCostume_Start ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Module interface slot 2 (sputCostume): called by Engine_InitSubsystems, returns 0 on success
    (non-zero makes the whole start-up unwind).  */
 
@@ -213,8 +211,6 @@ undefined4 sputCostume_Start(void)
   return 0;
 }
 #undef local_38
-
-#endif
 
 
 /* ---- 0x004988a0  sputCostume_Stop ---- */

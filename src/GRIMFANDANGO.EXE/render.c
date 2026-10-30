@@ -411,8 +411,6 @@ undefined4 FUN_00484a50(void)
 }
 
 /* ---- 0x00484c40  Render_InitColorConstants ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Builds the 16-bit colour constants (black, white, greys, red, green, blue, text colours) for the
    current pixel format */
@@ -584,8 +582,6 @@ void Render_InitColorConstants(int param_1)
   Resource_RebuildColormaps();
   return;
 }
-#endif
-
 
 /* ---- 0x00485bd0  Render_DrawDebugGrid ---- */
 void Render_DrawDebugGrid(void)

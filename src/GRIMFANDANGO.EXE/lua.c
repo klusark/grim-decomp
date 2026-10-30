@@ -253,8 +253,6 @@ void Lua_IrisClear(void)
 
 
 /* ---- 0x00489840  Lua_DrawLine ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* WARNING: Variable defined which should be unmapped: local_30 */
 /* Lua opcode: DrawLine */
 
@@ -344,12 +342,8 @@ void Lua_DrawLine(void)
 #undef local_30
 #undef local_c
 
-#endif
-
 
 /* ---- 0x00489a80  Lua_DrawPolygon ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* WARNING: Variable defined which should be unmapped: local_38 */
 /* Lua opcode: DrawPolygon */
 
@@ -480,12 +474,8 @@ void Lua_DrawPolygon(void)
 #undef local_38
 #undef local_c
 
-#endif
-
 
 /* ---- 0x00489d70  Lua_DrawRectangle ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* WARNING: Variable defined which should be unmapped: local_34 */
 /* Lua opcode: DrawRectangle */
 
@@ -574,12 +564,8 @@ void Lua_DrawRectangle(void)
 #undef local_34
 #undef local_c
 
-#endif
-
 
 /* ---- 0x00489fe0  Lua_ChangePrimitive ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Lua opcode: ChangePrimitive */
 
 void Lua_ChangePrimitive(void)
@@ -737,8 +723,6 @@ void Lua_ChangePrimitive(void)
 #undef local_4
 #undef local_8
 #undef local_c
-
-#endif
 
 
 /* ---- 0x0048a460  Lua_KillPrimitive ---- */
@@ -1890,33 +1874,43 @@ void Lua_GetDiskFreeSpace(void)
 
 
 /* ---- 0x00498e20  Lua_TEST ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Lua opcode: TEST */
 
-void Lua_TEST(uint param_1,uint param_2,float param_3,float param_4,float param_5,float *param_6,
-             float param_7,float param_8,float param_9,float param_10,uint param_11,
-             undefined4 param_12,double param_13)
+void __cdecl Lua_TEST(void)
 
 {
   uint unaff_retaddr;
+  uint in_stack_00000004;
+  uint in_stack_00000008;
+  float in_stack_0000000c;
+  float in_stack_00000010;
+  float in_stack_00000014;
+  float *in_stack_00000018;
+  float in_stack_0000001c;
+  float in_stack_00000020;
+  float in_stack_00000024;
+  float in_stack_00000028;
+  uint in_stack_0000002c;
+  double in_stack_00000034;
   
   SectorList_ShrinkWalkSectors
-            (0.005,unaff_retaddr,param_1,param_2,param_3,param_4,param_5,param_6,param_7,param_8,
-             param_9,param_10,param_11,param_13);
+            (0.005,unaff_retaddr,in_stack_00000004,in_stack_00000008,in_stack_0000000c,
+             in_stack_00000010,in_stack_00000014,in_stack_00000018,in_stack_0000001c,
+             in_stack_00000020,in_stack_00000024,in_stack_00000028,in_stack_0000002c,
+             in_stack_00000034);
   return;
 }
 #endif
 
 
 /* ---- 0x00498e50  Lua_ShrinkBoxes ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Lua opcode: ShrinkBoxes */
 
-void Lua_ShrinkBoxes(uint param_1,float param_2,float param_3,float param_4,float *param_5,
-                    float param_6,float param_7,float param_8,float param_9,uint param_10,
-                    undefined4 param_11,double param_12)
+void __cdecl Lua_ShrinkBoxes(void)
 
 {
   int iVar1;
@@ -1924,6 +1918,17 @@ void Lua_ShrinkBoxes(uint param_1,float param_2,float param_3,float param_4,floa
   uint unaff_ESI;
   float fVar3;
   uint unaff_retaddr;
+  uint in_stack_00000004;
+  float in_stack_00000008;
+  float in_stack_0000000c;
+  float in_stack_00000010;
+  float *in_stack_00000014;
+  float in_stack_00000018;
+  float in_stack_0000001c;
+  float in_stack_00000020;
+  float in_stack_00000024;
+  uint in_stack_00000028;
+  double in_stack_00000030;
   
   iVar1 = lua_lua2C(1);
   iVar2 = lua_isnil(iVar1);
@@ -1932,8 +1937,9 @@ void Lua_ShrinkBoxes(uint param_1,float param_2,float param_3,float param_4,floa
     SectorList_SaveForShrink();
     fVar3 = lua_getnumber(iVar1);
     SectorList_ShrinkWalkSectors
-              (fVar3,unaff_ESI,unaff_retaddr,param_1,param_2,param_3,param_4,param_5,param_6,param_7
-               ,param_8,param_9,param_10,param_12);
+              (fVar3,unaff_ESI,unaff_retaddr,in_stack_00000004,in_stack_00000008,in_stack_0000000c,
+               in_stack_00000010,in_stack_00000014,in_stack_00000018,in_stack_0000001c,
+               in_stack_00000020,in_stack_00000024,in_stack_00000028,in_stack_00000030);
   }
   return;
 }
@@ -1941,6 +1947,8 @@ void Lua_ShrinkBoxes(uint param_1,float param_2,float param_3,float param_4,floa
 
 
 /* ---- 0x00498e90  Lua_UnShrinkBoxes ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: UnShrinkBoxes */
 
 void Lua_UnShrinkBoxes(void)
@@ -1950,9 +1958,11 @@ void Lua_UnShrinkBoxes(void)
   SectorList_FreeShrinkSave();
   return;
 }
+#endif
+
 
 /* ---- 0x00498ea0  Lua_GetShrinkPos ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_1c */
 /* WARNING: Variable defined which should be unmapped: local_18 */
@@ -1962,7 +1972,7 @@ void Lua_UnShrinkBoxes(void)
 /* WARNING: Variable defined which should be unmapped: local_4 */
 /* Lua opcode: GetShrinkPos */
 
-void Lua_GetShrinkPos(undefined4 param_1,double param_2)
+void __cdecl Lua_GetShrinkPos(void)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1981,6 +1991,7 @@ void Lua_GetShrinkPos(undefined4 param_1,double param_2)
   float *n;
   float fVar8;
   uint unaff_retaddr;
+  double in_stack_00000008;
   #define local_1c (*(uint *)(_frame + (0x30 - 0x1c)))
   #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
   #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
@@ -2009,7 +2020,7 @@ void Lua_GetShrinkPos(undefined4 param_1,double param_2)
           SectorList_SaveForShrink();
           SectorList_ShrinkWalkSectors
                     (fVar8,unaff_EDI,unaff_ESI,unaff_EBP,unaff_EBX,fVar6,fVar7,n,fVar8,local_c[0],
-                     local_c[1],PUN(float,n),unaff_retaddr,param_2);
+                     local_c[1],PUN(float,n),unaff_retaddr,in_stack_00000008);
           this = (void *)SectorList_FindNearestPoint(local_c,0x1000);
           if (this != (void *)0x0) {
             Sector_ClampPoint(this,(int)local_c);
@@ -2206,7 +2217,7 @@ void Lua_EngineResume(void)
 }
 
 /* ---- 0x00499280  Lua_EngineDisplay ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Lua opcode: EngineDisplay */
 
@@ -2497,7 +2508,8 @@ void Lua_WalkActorVector(void)
             fVar1 = -fVar1;
           }
           fVar12 = Timer_GetFrameSeconds();
-          Walker_TurnToPoint(*(void **)(*(int *)(iVar2 + 0xa4) + 0x1b4),(int)local_54,PUN(int,(float)(fVar12 * fVar1 + fVar12 * fVar1)));
+          Walker_TurnToPoint(*(void **)(*(int *)(iVar2 + 0xa4) + 0x1b4),local_54,
+                             fVar12 * fVar1 + fVar12 * fVar1);
           if (90.0 - fVar11 < 90.0) {
             *(uint *)(iVar2 + 8) = *(uint *)(iVar2 + 8) & 0xfffffffe;
             Actor_WalkForward(iVar2);
@@ -4516,7 +4528,7 @@ void Lua_GetActorYawToPoint(void)
       if (*(int *)(*(int *)(iVar1 + 0xa4) + 0x1b4) == 0) {
         Actor_CreateWalker(iVar1,1);
       }
-      n = Actor_GetYawToPoint(*(void **)(*(int *)(iVar1 + 0xa4) + 0x1b4),(int)local_c);
+      n = Actor_GetYawToPoint(*(void **)(*(int *)(iVar1 + 0xa4) + 0x1b4),local_c);
       lua_pushnumber(n);
       return;
     }
@@ -5822,8 +5834,6 @@ void Lua_GetControlState(void)
 
 
 /* ---- 0x0049d550  Lua_CallCostumeOverrideHandler ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void __cdecl Lua_CallCostumeOverrideHandler(void *actor,int flag)
 
 {
@@ -5886,12 +5896,8 @@ void __cdecl Lua_CallCostumeOverrideHandler(void *actor,int flag)
 }
 #undef local_4
 
-#endif
-
 
 /* ---- 0x0049d670  Lua_CallCostumeMarkerHandler ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* WARNING: Variable defined which should be unmapped: local_1c */
 /* system.costumeMarkerHandler(actor, marker) from keyframe markers */
 
@@ -5953,8 +5959,6 @@ void __cdecl Lua_CallCostumeMarkerHandler(void *actor,uint marker)
   return;
 }
 #undef local_1c
-
-#endif
 
 
 /* ---- 0x0049d7b0  Lua_CallUserPaintHandler ---- */
@@ -6188,7 +6192,7 @@ int __cdecl Lua_CallCharacterHandler(int ch)
 
 
 /* ---- 0x0049db70  Lua_MakeCurrentSetup ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: This function may have set the stack pointer */
 /* Lua opcode: MakeCurrentSetup */
@@ -6720,8 +6724,6 @@ void Lua_CreateControlsTable(uint param_1)
 
 
 /* ---- 0x0049e590  Lua_SetSoundPosition ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Lua opcode: SetSoundPosition */
 
 void Lua_SetSoundPosition(void)
@@ -6827,8 +6829,6 @@ void Lua_SetSoundPosition(void)
 #undef local_24
 #undef local_28
 #undef local_c
-
-#endif
 
 
 /* ---- 0x0049e7e0  Lua_StartFullscreenMovie ---- */
@@ -8002,7 +8002,7 @@ void Lua_PointActorAt(void)
   if (*(int *)(*(int *)(iVar1 + 0xa4) + 0x1b4) == 0) {
     Actor_CreateWalker(iVar1,1);
   }
-  Walker_TurnToPoint(*(void **)(*(int *)(iVar1 + 0xa4) + 0x1b4),(int)local_c,0x7f7fffff);
+  Walker_TurnToPoint(*(void **)(*(int *)(iVar1 + 0xa4) + 0x1b4),local_c,3.4028235e+38);
   iVar1 = *(int *)(iVar1 + 0xa4);
   if (*(float *)(iVar1 + 0x1c) <= 0.0) {
     return;
@@ -8071,7 +8071,7 @@ LAB_0049fd1e:
     fVar1 = -fVar1;
   }
   fVar7 = Timer_GetFrameSeconds();
-  fVar8 = Walker_TurnToPoint(*(void **)(*(int *)(iVar2 + 0xa4) + 0x1b4),(int)local_c,PUN(int,(float)(fVar7 * fVar1)));
+  fVar8 = Walker_TurnToPoint(*(void **)(*(int *)(iVar2 + 0xa4) + 0x1b4),local_c,fVar7 * fVar1);
   if (fVar8 < 0.0) {
     fVar8 = -fVar8;
   }
@@ -8230,48 +8230,45 @@ void Lua_GetAngleBetweenActors(void)
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
-  undefined4 uVar2;
-  undefined4 uVar3;
-  int iVar4;
-  int iVar5;
-  float fVar6;
+  int iVar2;
+  int iVar3;
+  float fVar4;
   #define local_30 (*(uint *)(_frame + (0x40 - 0x30)))
   #define local_1c (*(uint *)(_frame + (0x40 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x40 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x40 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x40 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x40 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x40 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x40 - 0x4)))
+  #define local_18 (*(float *)(_frame + (0x40 - 0x18)))
+  #define local_14 (*(float *)(_frame + (0x40 - 0x14)))
+  #define local_10 (*(float *)(_frame + (0x40 - 0x10)))
+  #define local_c (*(float *)(_frame + (0x40 - 0xc)))
+  #define local_8 (*(float *)(_frame + (0x40 - 0x8)))
+  #define local_4 (*(float *)(_frame + (0x40 - 0x4)))
   
-  uVar2 = lua_lua2C(1);
-  uVar3 = lua_lua2C(2);
-  iVar4 = lua_isuserdata(uVar2);
-  if (iVar4 != 0) {
-    iVar4 = lua_tag(uVar2);
-    if (iVar4 == 0x52544341) {
-      iVar4 = lua_isuserdata(uVar3);
-      if (iVar4 != 0) {
-        iVar4 = lua_tag(uVar3);
-        if (iVar4 == 0x52544341) {
-          uVar2 = lua_getuserdata(uVar2);
-          iVar4 = Actor_FromHandle(uVar2);
-          uVar2 = lua_getuserdata(uVar3);
-          iVar5 = Actor_FromHandle(uVar2);
-          if (((iVar4 != 0) && (iVar5 != 0)) &&
-             (iVar1 = *(int *)(*(int *)(iVar4 + 0xa4) + 0x1b4), iVar1 != 0)) {
-            local_c = *(uint *)(iVar1 + 0x18);
-            local_8 = *(uint *)(iVar1 + 0x1c);
-            local_4 = *(uint *)(iVar1 + 0x20);
-            local_18 = (uint)(*(float *)(iVar5 + 0xc) - *(float *)(iVar4 + 0xc));
-            local_14 = (uint)(*(float *)(iVar5 + 0x10) - *(float *)(iVar4 + 0x10));
-            local_10 = (uint)((float)local_4 - *(float *)(iVar4 + 0x14));
-            Vec3_Normalize((float *)&local_c);
-            Vec3_Normalize((float *)&local_18);
-            fVar6 = Math_AsinDegreesSeries
-                              ((float)local_10 * (float)local_4 +
-                               (float)local_14 * (float)local_8 + (float)local_18 * (float)local_c);
-            lua_pushnumber(90.0 - fVar6);
+  iVar1 = lua_lua2C(1);
+  iVar2 = lua_lua2C(2);
+  iVar3 = lua_isuserdata(iVar1);
+  if (iVar3 != 0) {
+    iVar3 = lua_tag(iVar1);
+    if (iVar3 == 0x52544341) {
+      iVar3 = lua_isuserdata(iVar2);
+      if (iVar3 != 0) {
+        iVar3 = lua_tag(iVar2);
+        if (iVar3 == 0x52544341) {
+          iVar1 = lua_getuserdata(iVar1);
+          iVar1 = Actor_FromHandle(iVar1);
+          iVar2 = lua_getuserdata(iVar2);
+          iVar2 = Actor_FromHandle(iVar2);
+          if (((iVar1 != 0) && (iVar2 != 0)) &&
+             (iVar3 = *(int *)(*(int *)(iVar1 + 0xa4) + 0x1b4), iVar3 != 0)) {
+            local_c = *(float *)(iVar3 + 0x18);
+            local_8 = *(float *)(iVar3 + 0x1c);
+            local_4 = *(float *)(iVar3 + 0x20);
+            local_18 = *(float *)(iVar2 + 0xc) - *(float *)(iVar1 + 0xc);
+            local_14 = *(float *)(iVar2 + 0x10) - *(float *)(iVar1 + 0x10);
+            local_10 = local_4 - *(float *)(iVar1 + 0x14);
+            Vec3_Normalize(&local_c);
+            Vec3_Normalize(&local_18);
+            fVar4 = Math_AsinDegreesSeries
+                              (local_10 * local_4 + local_14 * local_8 + local_18 * local_c);
+            lua_pushnumber(90.0 - fVar4);
             return;
           }
         }
@@ -8303,21 +8300,21 @@ void Lua_SetAmbientLight(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  undefined4 uVar1;
+  int iVar1;
   int iVar2;
   void *pvVar3;
-  float10 fVar4;
+  float ambient;
   #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
   
-  uVar1 = lua_lua2C(1);
-  iVar2 = lua_isnumber(uVar1);
+  iVar1 = lua_lua2C(1);
+  iVar2 = lua_isnumber(iVar1);
   if (iVar2 != 0) {
     pvVar3 = Set_GetCurrent();
     if (pvVar3 != (void *)0x0) {
-      fVar4 = (float10)lua_getnumber(uVar1);
+      ambient = lua_getnumber(iVar1);
       rdCamera_SetAmbientLight
                 (*(void **)(*(int *)((int)pvVar3 + 0xac) + 0x48 + *(int *)((int)pvVar3 + 0xb4) * 300
-                           ),(float)fVar4);
+                           ),ambient);
     }
   }
   return;
@@ -8337,19 +8334,19 @@ void Lua_FindLight(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  undefined4 uVar1;
+  int iVar1;
   int iVar2;
   char *name;
   #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
-  uVar1 = lua_lua2C(1);
-  iVar2 = lua_isstring(uVar1);
+  iVar1 = lua_lua2C(1);
+  iVar2 = lua_isstring(iVar1);
   if (iVar2 != 0) {
-    name = (char *)lua_getstring(uVar1);
-    iVar2 = Light_FindByName((void *)0x0,name);
-    if (iVar2 != -1) {
-      lua_pushnumber((float)iVar2);
+    name = (char *)lua_getstring(iVar1);
+    iVar1 = Light_FindByName((void *)0x0,name);
+    if (iVar1 != -1) {
+      lua_pushnumber((float)iVar1);
       return;
     }
   }
@@ -8370,32 +8367,32 @@ void Lua_FindLight(void)
 void Lua_TurnLightOn(void)
 
 {
-  undefined4 uVar1;
-  undefined4 uVar2;
+  int iVar1;
+  int iVar2;
   int iVar3;
   char *name;
   void *pvVar4;
   longlong lVar5;
   
-  uVar1 = lua_lua2C(1);
-  uVar2 = lua_lua2C(2);
-  iVar3 = lua_isnumber(uVar1);
+  iVar1 = lua_lua2C(1);
+  iVar2 = lua_lua2C(2);
+  iVar3 = lua_isnumber(iVar1);
   if (iVar3 == 0) {
-    iVar3 = lua_isstring(uVar1);
+    iVar3 = lua_isstring(iVar1);
     if (iVar3 == 0) {
       return;
     }
-    name = (char *)lua_getstring(uVar1);
-    iVar3 = Light_FindByName((void *)0x0,name);
+    name = (char *)lua_getstring(iVar1);
+    iVar1 = Light_FindByName((void *)0x0,name);
   }
   else {
-    lVar5 = (longlong)lua_getnumber();
-    iVar3 = (int)lVar5;
+    lVar5 = (longlong)lua_getnumber(iVar1);
+    iVar1 = (int)lVar5;
   }
-  pvVar4 = Light_Get((void *)0x0,iVar3);
+  pvVar4 = Light_Get((void *)0x0,iVar1);
   if (pvVar4 != (void *)0x0) {
-    iVar3 = lua_isnil(uVar2);
-    *(uint *)((int)pvVar4 + 0x34) = (uint)(iVar3 == 0);
+    iVar1 = lua_isnil(iVar2);
+    *(uint *)((int)pvVar4 + 0x34) = (uint)(iVar1 == 0);
   }
   return;
 }
@@ -8411,27 +8408,27 @@ void Lua_TurnLightOn(void)
 void Lua_IsLightOn(void)
 
 {
-  undefined4 uVar1;
+  int iVar1;
   int iVar2;
   char *name;
   void *pvVar3;
   longlong lVar4;
   
-  uVar1 = lua_lua2C(1);
-  iVar2 = lua_isnumber(uVar1);
+  iVar1 = lua_lua2C(1);
+  iVar2 = lua_isnumber(iVar1);
   if (iVar2 == 0) {
-    iVar2 = lua_isstring(uVar1);
+    iVar2 = lua_isstring(iVar1);
     if (iVar2 == 0) goto LAB_004a03f5;
-    name = (char *)lua_getstring(uVar1);
-    iVar2 = Light_FindByName((void *)0x0,name);
+    name = (char *)lua_getstring(iVar1);
+    iVar1 = Light_FindByName((void *)0x0,name);
   }
   else {
-    lVar4 = (longlong)lua_getnumber();
-    iVar2 = (int)lVar4;
+    lVar4 = (longlong)lua_getnumber(iVar1);
+    iVar1 = (int)lVar4;
   }
-  pvVar3 = Light_Get((void *)0x0,iVar2);
+  pvVar3 = Light_Get((void *)0x0,iVar1);
   if ((pvVar3 != (void *)0x0) && (*(int *)((int)pvVar3 + 0x34) != 0)) {
-    lua_pushnumber(FBITS(0x3f800000));
+    lua_pushnumber(1.0);
     return;
   }
 LAB_004a03f5:
@@ -8450,41 +8447,40 @@ void Lua_SetLightType(void)
 
 {
   int *piVar1;
-  undefined4 uVar2;
-  undefined4 uVar3;
+  int iVar2;
+  int iVar3;
   void *pvVar4;
   int iVar5;
   char *name;
   void *pvVar6;
-  int iVar7;
-  uint uVar8;
-  longlong lVar9;
+  uint uVar7;
+  longlong lVar8;
   
-  uVar2 = lua_lua2C(1);
-  uVar3 = lua_lua2C(2);
+  iVar2 = lua_lua2C(1);
+  iVar3 = lua_lua2C(2);
   pvVar4 = Set_GetCurrent();
-  iVar5 = lua_isnumber(uVar2);
+  iVar5 = lua_isnumber(iVar2);
   if (iVar5 == 0) {
-    iVar5 = lua_isstring(uVar2);
+    iVar5 = lua_isstring(iVar2);
     if (iVar5 == 0) {
       return;
     }
-    name = (char *)lua_getstring(uVar2);
-    iVar5 = Light_FindByName((void *)0x0,name);
+    name = (char *)lua_getstring(iVar2);
+    iVar2 = Light_FindByName((void *)0x0,name);
   }
   else {
-    lVar9 = (longlong)lua_getnumber();
-    iVar5 = (int)lVar9;
+    lVar8 = (longlong)lua_getnumber(iVar2);
+    iVar2 = (int)lVar8;
   }
-  pvVar6 = Light_Get((void *)0x0,iVar5);
+  pvVar6 = Light_Get((void *)0x0,iVar2);
   if (pvVar6 != (void *)0x0) {
-    iVar7 = lua_isstring(uVar3);
-    if (iVar7 != 0) {
-      uVar2 = lua_getstring(uVar3);
-      iVar7 = String_ContainsSubstring(uVar2,s_parallel_004ec5a8);
-      if ((iVar7 == 0) && (iVar7 = String_ContainsSubstring(uVar2,s_global_004ec5a0), iVar7 == 0)) {
-        iVar7 = String_ContainsSubstring(uVar2,&DAT_004ec598);
-        if (iVar7 == 0) {
+    iVar5 = lua_isstring(iVar3);
+    if (iVar5 != 0) {
+      iVar3 = lua_getstring(iVar3);
+      iVar5 = String_ContainsSubstring(iVar3,s_parallel_004ec5a8);
+      if ((iVar5 == 0) && (iVar5 = String_ContainsSubstring(iVar3,s_global_004ec5a0), iVar5 == 0)) {
+        iVar3 = String_ContainsSubstring(iVar3,&DAT_004ec598);
+        if (iVar3 == 0) {
           *(undefined4 *)((int)pvVar6 + 0x30) = 2;
         }
         else {
@@ -8494,16 +8490,16 @@ void Lua_SetLightType(void)
       else {
         *(undefined4 *)((int)pvVar6 + 0x30) = 1;
       }
-      uVar8 = 0;
+      uVar7 = 0;
       if (*(int *)((int)pvVar4 + 0xb0) != 0) {
-        iVar7 = 0;
+        iVar3 = 0;
         do {
-          uVar8 = uVar8 + 1;
-          piVar1 = (int *)(*(int *)((int)pvVar4 + 0xac) + 0x48 + iVar7);
-          iVar7 = iVar7 + 300;
-          *(undefined4 *)(*(int *)(*piVar1 + iVar5 * 4 + 0x5c) + 4) =
+          uVar7 = uVar7 + 1;
+          piVar1 = (int *)(*(int *)((int)pvVar4 + 0xac) + 0x48 + iVar3);
+          iVar3 = iVar3 + 300;
+          *(undefined4 *)(*(int *)(*piVar1 + iVar2 * 4 + 0x5c) + 4) =
                *(undefined4 *)((int)pvVar6 + 0x30);
-        } while (uVar8 < *(uint *)((int)pvVar4 + 0xb0));
+        } while (uVar7 < *(uint *)((int)pvVar4 + 0xb0));
       }
       return;
     }
@@ -8523,36 +8519,36 @@ void Lua_SetLightType(void)
 void Lua_GetLightType(void)
 
 {
-  undefined4 uVar1;
+  int iVar1;
   int iVar2;
   char *name;
   void *pvVar3;
   longlong lVar4;
   
-  uVar1 = lua_lua2C(1);
-  iVar2 = lua_isnumber(uVar1);
+  iVar1 = lua_lua2C(1);
+  iVar2 = lua_isnumber(iVar1);
   if (iVar2 == 0) {
-    iVar2 = lua_isstring(uVar1);
+    iVar2 = lua_isstring(iVar1);
     if (iVar2 == 0) goto LAB_004a05d0;
-    name = (char *)lua_getstring(uVar1);
-    iVar2 = Light_FindByName((void *)0x0,name);
+    name = (char *)lua_getstring(iVar1);
+    iVar1 = Light_FindByName((void *)0x0,name);
   }
   else {
-    lVar4 = (longlong)lua_getnumber();
-    iVar2 = (int)lVar4;
+    lVar4 = (longlong)lua_getnumber(iVar1);
+    iVar1 = (int)lVar4;
   }
-  pvVar3 = Light_Get((void *)0x0,iVar2);
+  pvVar3 = Light_Get((void *)0x0,iVar1);
   if (pvVar3 != (void *)0x0) {
-    iVar2 = *(int *)((int)pvVar3 + 0x30);
-    if (iVar2 == 1) {
+    iVar1 = *(int *)((int)pvVar3 + 0x30);
+    if (iVar1 == 1) {
       lua_pushstring(s_parallel_004ec5a8);
       return;
     }
-    if (iVar2 == 3) {
+    if (iVar1 == 3) {
       lua_pushstring(&DAT_004ec598);
       return;
     }
-    if (iVar2 == 2) {
+    if (iVar1 == 2) {
       lua_pushstring(&DAT_004ec5b4);
       return;
     }
@@ -8574,66 +8570,65 @@ void Lua_SetLightPosition(void)
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int *piVar1;
-  undefined4 uVar2;
-  undefined4 uVar3;
-  undefined4 uVar4;
-  undefined4 uVar5;
+  int iVar2;
+  int iVar3;
+  int iVar4;
+  int iVar5;
   int iVar6;
   char *name;
   void *pvVar7;
   void *pvVar8;
-  int iVar9;
-  uint uVar10;
-  float *pfVar11;
-  float10 fVar12;
-  float10 fVar13;
-  float10 fVar14;
-  longlong lVar15;
+  uint uVar9;
+  float *pfVar10;
+  longlong lVar11;
+  float fVar12;
+  float fVar13;
+  float fVar14;
   #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
   #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
   #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
   #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
   
-  uVar2 = lua_lua2C(1);
-  uVar3 = lua_lua2C(2);
-  uVar4 = lua_lua2C(3);
-  uVar5 = lua_lua2C(4);
-  iVar6 = lua_isnumber(uVar2);
+  iVar2 = lua_lua2C(1);
+  iVar3 = lua_lua2C(2);
+  iVar4 = lua_lua2C(3);
+  iVar5 = lua_lua2C(4);
+  iVar6 = lua_isnumber(iVar2);
   if (iVar6 == 0) {
-    iVar6 = lua_isstring(uVar2);
+    iVar6 = lua_isstring(iVar2);
     if (iVar6 == 0) {
       return;
     }
-    name = (char *)lua_getstring(uVar2);
-    iVar6 = Light_FindByName((void *)0x0,name);
+    name = (char *)lua_getstring(iVar2);
+    iVar2 = Light_FindByName((void *)0x0,name);
   }
   else {
-    lVar15 = (longlong)lua_getnumber();
-    iVar6 = (int)lVar15;
+    lVar11 = (longlong)lua_getnumber(iVar2);
+    iVar2 = (int)lVar11;
   }
   pvVar7 = Set_GetCurrent();
-  if ((((pvVar7 != (void *)0x0) && (pvVar8 = Light_Get((void *)0x0,iVar6), pvVar8 != (void *)0x0))
-      && (iVar9 = lua_isnumber(uVar3), iVar9 != 0)) &&
-     ((iVar9 = lua_isnumber(uVar4), iVar9 != 0 && (iVar9 = lua_isnumber(uVar5), iVar9 != 0)))) {
-    fVar12 = (float10)lua_getnumber(uVar3);
-    fVar13 = (float10)lua_getnumber(uVar4);
-    fVar14 = (float10)lua_getnumber(uVar5);
-    *(float *)((int)pvVar8 + 0x20) = (float)fVar12;
-    *(float *)((int)pvVar8 + 0x24) = (float)fVar13;
-    *(float *)((int)pvVar8 + 0x28) = (float)fVar14;
-    uVar10 = 0;
+  if ((((pvVar7 != (void *)0x0) && (pvVar8 = Light_Get((void *)0x0,iVar2), pvVar8 != (void *)0x0))
+      && (iVar6 = lua_isnumber(iVar3), iVar6 != 0)) &&
+     ((iVar6 = lua_isnumber(iVar4), iVar6 != 0 && (iVar6 = lua_isnumber(iVar5), iVar6 != 0)))) {
+    fVar12 = lua_getnumber(iVar3);
+    fVar13 = lua_getnumber(iVar4);
+    fVar14 = lua_getnumber(iVar5);
+    *(float *)((int)pvVar8 + 0x20) = fVar12;
+    *(float *)((int)pvVar8 + 0x24) = fVar13;
+    *(float *)((int)pvVar8 + 0x28) = fVar14;
+    uVar9 = 0;
     if (*(int *)((int)pvVar7 + 0xb0) != 0) {
-      iVar9 = 0;
+      iVar3 = 0;
       do {
-        piVar1 = (int *)(*(int *)((int)pvVar7 + 0xac) + 0x48 + iVar9);
-        iVar9 = iVar9 + 300;
-        pfVar11 = (float *)(*piVar1 + (iVar6 + 0x1d) * 0xc);
-        uVar10 = uVar10 + 1;
-        *pfVar11 = (float)fVar12;
-        pfVar11[1] = (float)fVar13;
-        pfVar11[2] = (float)fVar14;
-      } while (uVar10 < *(uint *)((int)pvVar7 + 0xb0));
+        piVar1 = (int *)(*(int *)((int)pvVar7 + 0xac) + 0x48 + iVar3);
+        iVar3 = iVar3 + 300;
+        pfVar10 = (float *)(*piVar1 + (iVar2 + 0x1d) * 0xc);
+        uVar9 = uVar9 + 1;
+        *pfVar10 = fVar12;
+        pfVar10[1] = fVar13;
+        pfVar10[2] = fVar14;
+      } while (uVar9 < *(uint *)((int)pvVar7 + 0xb0));
     }
   }
   return;
@@ -8655,31 +8650,31 @@ void Lua_SetLightPosition(void)
 void Lua_GetLightPosition(void)
 
 {
-  undefined4 uVar1;
+  int iVar1;
   int iVar2;
   char *name;
   void *pvVar3;
   longlong lVar4;
   
-  uVar1 = lua_lua2C(1);
-  iVar2 = lua_isnumber(uVar1);
+  iVar1 = lua_lua2C(1);
+  iVar2 = lua_isnumber(iVar1);
   if (iVar2 == 0) {
-    iVar2 = lua_isstring(uVar1);
+    iVar2 = lua_isstring(iVar1);
     if (iVar2 == 0) goto LAB_004a07f0;
-    name = (char *)lua_getstring(uVar1);
-    iVar2 = Light_FindByName((void *)0x0,name);
+    name = (char *)lua_getstring(iVar1);
+    iVar1 = Light_FindByName((void *)0x0,name);
   }
   else {
-    lVar4 = (longlong)lua_getnumber();
-    iVar2 = (int)lVar4;
+    lVar4 = (longlong)lua_getnumber(iVar1);
+    iVar1 = (int)lVar4;
   }
   pvVar3 = Set_GetCurrent();
   if (pvVar3 != (void *)0x0) {
-    pvVar3 = Light_Get((void *)0x0,iVar2);
+    pvVar3 = Light_Get((void *)0x0,iVar1);
     if (pvVar3 != (void *)0x0) {
-      lua_pushnumber(*(undefined4 *)((int)pvVar3 + 0x20));
-      lua_pushnumber(*(undefined4 *)((int)pvVar3 + 0x24));
-      lua_pushnumber(*(undefined4 *)((int)pvVar3 + 0x28));
+      lua_pushnumber(*(float *)((int)pvVar3 + 0x20));
+      lua_pushnumber(*(float *)((int)pvVar3 + 0x24));
+      lua_pushnumber(*(float *)((int)pvVar3 + 0x28));
       return;
     }
   }
@@ -8701,91 +8696,85 @@ void Lua_SetLightRotation(void)
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int *piVar1;
   int iVar2;
-  undefined4 uVar3;
-  undefined4 uVar4;
-  undefined4 uVar5;
-  undefined4 uVar6;
-  void *pvVar7;
-  int iVar8;
+  int iVar3;
+  int iVar4;
+  int iVar5;
+  void *pvVar6;
+  int iVar7;
   char *name;
-  void *pvVar9;
-  int iVar10;
-  uint uVar11;
-  float10 fVar12;
-  longlong lVar13;
+  void *pvVar8;
+  uint uVar9;
+  longlong lVar10;
   #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
   #define local_20 (*(uint *)(_frame + (0x40 - 0x20)))
   #define local_1c (*(uint *)(_frame + (0x40 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x40 - 0x18)))
+  #define local_18 (*(float *)(_frame + (0x40 - 0x18)))
   #define local_14 (*(uint *)(_frame + (0x40 - 0x14)))
   #define local_10 (*(uint *)(_frame + (0x40 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x40 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x40 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x40 - 0x4)))
+  #define local_c (*(float *)(_frame + (0x40 - 0xc)))
+  #define local_8 (*(float *)(_frame + (0x40 - 0x8)))
+  #define local_4 (*(float *)(_frame + (0x40 - 0x4)))
   
-  uVar3 = lua_lua2C(1);
-  uVar4 = lua_lua2C(2);
-  uVar5 = lua_lua2C(3);
-  uVar6 = lua_lua2C(4);
-  pvVar7 = Set_GetCurrent();
-  iVar8 = lua_isnumber(uVar3);
-  if (iVar8 == 0) {
-    iVar8 = lua_isstring(uVar3);
-    if (iVar8 == 0) {
+  iVar2 = lua_lua2C(1);
+  iVar3 = lua_lua2C(2);
+  iVar4 = lua_lua2C(3);
+  iVar5 = lua_lua2C(4);
+  pvVar6 = Set_GetCurrent();
+  iVar7 = lua_isnumber(iVar2);
+  if (iVar7 == 0) {
+    iVar7 = lua_isstring(iVar2);
+    if (iVar7 == 0) {
       return;
     }
-    name = (char *)lua_getstring(uVar3);
-    iVar8 = Light_FindByName((void *)0x0,name);
+    name = (char *)lua_getstring(iVar2);
+    iVar2 = Light_FindByName((void *)0x0,name);
   }
   else {
-    lVar13 = (longlong)lua_getnumber();
-    iVar8 = (int)lVar13;
+    lVar10 = (longlong)lua_getnumber(iVar2);
+    iVar2 = (int)lVar10;
   }
-  pvVar9 = Light_Get((void *)0x0,iVar8);
-  if (pvVar9 != (void *)0x0) {
-    iVar10 = lua_isnumber(uVar4);
-    if (iVar10 == 0) {
-      local_c = 0;
+  pvVar8 = Light_Get((void *)0x0,iVar2);
+  if (pvVar8 != (void *)0x0) {
+    iVar7 = lua_isnumber(iVar3);
+    if (iVar7 == 0) {
+      local_c = 0.0;
     }
     else {
-      fVar12 = (float10)lua_getnumber(uVar4);
-      local_c = (uint)(float)fVar12;
+      local_c = lua_getnumber(iVar3);
     }
-    iVar10 = lua_isnumber(uVar5);
-    if (iVar10 == 0) {
-      local_8 = 0;
-    }
-    else {
-      fVar12 = (float10)lua_getnumber(uVar5);
-      local_8 = (uint)(float)fVar12;
-    }
-    iVar10 = lua_isnumber(uVar6);
-    if (iVar10 == 0) {
-      local_4 = 0;
+    iVar3 = lua_isnumber(iVar4);
+    if (iVar3 == 0) {
+      local_8 = 0.0;
     }
     else {
-      fVar12 = (float10)lua_getnumber(uVar6);
-      local_4 = (uint)(float)fVar12;
+      local_8 = lua_getnumber(iVar4);
     }
-    local_18 = 0;
+    iVar3 = lua_isnumber(iVar5);
+    if (iVar3 == 0) {
+      local_4 = 0.0;
+    }
+    else {
+      local_4 = lua_getnumber(iVar5);
+    }
+    local_18 = 0.0;
     local_14 = 0x3f800000;
     local_10 = 0;
-    Vec3_Rotate((float *)&local_18,(float *)&local_c);
-    *(uint *)((int)pvVar9 + 0x38) = local_18;
-    *(uint *)((int)pvVar9 + 0x3c) = local_14;
-    uVar11 = 0;
-    *(uint *)((int)pvVar9 + 0x40) = local_10;
-    if (*(int *)((int)pvVar7 + 0xb0) != 0) {
-      iVar10 = 0;
+    Vec3_Rotate(&local_18,&local_c);
+    *(float *)((int)pvVar8 + 0x38) = local_18;
+    *(uint *)((int)pvVar8 + 0x3c) = local_14;
+    uVar9 = 0;
+    *(uint *)((int)pvVar8 + 0x40) = local_10;
+    if (*(int *)((int)pvVar6 + 0xb0) != 0) {
+      iVar3 = 0;
       do {
-        piVar1 = (int *)(*(int *)((int)pvVar7 + 0xac) + 0x48 + iVar10);
-        iVar10 = iVar10 + 300;
-        iVar2 = *(int *)(*piVar1 + iVar8 * 4 + 0x5c);
-        uVar11 = uVar11 + 1;
-        *(uint *)(iVar2 + 0xc) = local_18;
-        *(uint *)(iVar2 + 0x10) = local_14;
-        *(uint *)(iVar2 + 0x14) = local_10;
-      } while (uVar11 < *(uint *)((int)pvVar7 + 0xb0));
+        piVar1 = (int *)(*(int *)((int)pvVar6 + 0xac) + 0x48 + iVar3);
+        iVar3 = iVar3 + 300;
+        iVar4 = *(int *)(*piVar1 + iVar2 * 4 + 0x5c);
+        uVar9 = uVar9 + 1;
+        *(float *)(iVar4 + 0xc) = local_18;
+        *(uint *)(iVar4 + 0x10) = local_14;
+        *(uint *)(iVar4 + 0x14) = local_10;
+      } while (uVar9 < *(uint *)((int)pvVar6 + 0xb0));
     }
   }
   return;
@@ -8813,30 +8802,30 @@ void Lua_GetLightRotation(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  undefined4 uVar1;
+  int iVar1;
   int iVar2;
   char *name;
   void *pvVar3;
   longlong lVar4;
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
+  #define local_c (*(float *)(_frame + (0x20 - 0xc)))
+  #define local_8 (*(float *)(_frame + (0x20 - 0x8)))
+  #define local_4 (*(float *)(_frame + (0x20 - 0x4)))
   
-  uVar1 = lua_lua2C(1);
-  iVar2 = lua_isnumber(uVar1);
+  iVar1 = lua_lua2C(1);
+  iVar2 = lua_isnumber(iVar1);
   if (iVar2 == 0) {
-    iVar2 = lua_isstring(uVar1);
+    iVar2 = lua_isstring(iVar1);
     if (iVar2 == 0) goto LAB_004a0a3b;
-    name = (char *)lua_getstring(uVar1);
-    iVar2 = Light_FindByName((void *)0x0,name);
+    name = (char *)lua_getstring(iVar1);
+    iVar1 = Light_FindByName((void *)0x0,name);
   }
   else {
-    lVar4 = (longlong)lua_getnumber();
-    iVar2 = (int)lVar4;
+    lVar4 = (longlong)lua_getnumber(iVar1);
+    iVar1 = (int)lVar4;
   }
-  pvVar3 = Light_Get((void *)0x0,iVar2);
+  pvVar3 = Light_Get((void *)0x0,iVar1);
   if (pvVar3 != (void *)0x0) {
-    Matrix_GetAngles((float *)((int)pvVar3 + 0x38),(float *)&local_c);
+    Matrix_GetAngles((float *)((int)pvVar3 + 0x38),&local_c);
     lua_pushnumber(local_c);
     lua_pushnumber(local_8);
     lua_pushnumber(local_4);
@@ -8862,52 +8851,49 @@ void Lua_SetLightAngles(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  undefined4 uVar1;
-  undefined4 uVar2;
-  undefined4 uVar3;
+  int iVar1;
+  int iVar2;
+  int iVar3;
   int iVar4;
   char *name;
   void *pvVar5;
-  float10 fVar6;
-  longlong lVar7;
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
+  longlong lVar6;
+  #define local_8 (*(float *)(_frame + (0x20 - 0x8)))
+  #define local_4 (*(float *)(_frame + (0x20 - 0x4)))
   
-  uVar1 = lua_lua2C(1);
-  uVar2 = lua_lua2C(2);
-  uVar3 = lua_lua2C(3);
-  iVar4 = lua_isnumber(uVar1);
+  iVar1 = lua_lua2C(1);
+  iVar2 = lua_lua2C(2);
+  iVar3 = lua_lua2C(3);
+  iVar4 = lua_isnumber(iVar1);
   if (iVar4 == 0) {
-    iVar4 = lua_isstring(uVar1);
+    iVar4 = lua_isstring(iVar1);
     if (iVar4 == 0) {
       return;
     }
-    name = (char *)lua_getstring(uVar1);
-    iVar4 = Light_FindByName((void *)0x0,name);
+    name = (char *)lua_getstring(iVar1);
+    iVar1 = Light_FindByName((void *)0x0,name);
   }
   else {
-    lVar7 = (longlong)lua_getnumber();
-    iVar4 = (int)lVar7;
+    lVar6 = (longlong)lua_getnumber(iVar1);
+    iVar1 = (int)lVar6;
   }
-  pvVar5 = Light_Get((void *)0x0,iVar4);
+  pvVar5 = Light_Get((void *)0x0,iVar1);
   if (pvVar5 != (void *)0x0) {
-    iVar4 = lua_isnumber(uVar2);
-    if (iVar4 == 0) {
-      local_4 = 0;
+    iVar1 = lua_isnumber(iVar2);
+    if (iVar1 == 0) {
+      local_4 = 0.0;
     }
     else {
-      fVar6 = (float10)lua_getnumber(uVar2);
-      local_4 = (uint)(float)fVar6;
+      local_4 = lua_getnumber(iVar2);
     }
-    iVar4 = lua_isnumber(uVar3);
-    if (iVar4 == 0) {
-      local_8 = 0;
+    iVar1 = lua_isnumber(iVar3);
+    if (iVar1 == 0) {
+      local_8 = 0.0;
     }
     else {
-      fVar6 = (float10)lua_getnumber(uVar3);
-      local_8 = (uint)(float)fVar6;
+      local_8 = lua_getnumber(iVar3);
     }
-    rdLight_SetAngles((void *)((int)pvVar5 + 0x2c),(float)local_4,(float)local_8);
+    rdLight_SetAngles((void *)((int)pvVar5 + 0x2c),local_4,local_8);
   }
   return;
 }
@@ -8925,28 +8911,28 @@ void Lua_SetLightAngles(void)
 void Lua_GetLightAngles(void)
 
 {
-  undefined4 uVar1;
+  int iVar1;
   int iVar2;
   char *name;
   void *pvVar3;
   longlong lVar4;
   
-  uVar1 = lua_lua2C(1);
-  iVar2 = lua_isnumber(uVar1);
+  iVar1 = lua_lua2C(1);
+  iVar2 = lua_isnumber(iVar1);
   if (iVar2 == 0) {
-    iVar2 = lua_isstring(uVar1);
+    iVar2 = lua_isstring(iVar1);
     if (iVar2 == 0) goto LAB_004a0bbc;
-    name = (char *)lua_getstring(uVar1);
-    iVar2 = Light_FindByName((void *)0x0,name);
+    name = (char *)lua_getstring(iVar1);
+    iVar1 = Light_FindByName((void *)0x0,name);
   }
   else {
-    lVar4 = (longlong)lua_getnumber();
-    iVar2 = (int)lVar4;
+    lVar4 = (longlong)lua_getnumber(iVar1);
+    iVar1 = (int)lVar4;
   }
-  pvVar3 = Light_Get((void *)0x0,iVar2);
+  pvVar3 = Light_Get((void *)0x0,iVar1);
   if (pvVar3 != (void *)0x0) {
-    lua_pushnumber(*(undefined4 *)((int)pvVar3 + 0x4c));
-    lua_pushnumber(*(undefined4 *)((int)pvVar3 + 0x54));
+    lua_pushnumber(*(float *)((int)pvVar3 + 0x4c));
+    lua_pushnumber(*(float *)((int)pvVar3 + 0x54));
     return;
   }
 LAB_004a0bbc:
@@ -8965,83 +8951,79 @@ void Lua_PointLightAt(void)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  undefined4 uVar1;
-  undefined4 uVar2;
-  undefined4 uVar3;
-  undefined4 uVar4;
+  int iVar1;
+  int iVar2;
+  int iVar3;
+  int iVar4;
   int iVar5;
   char *name;
   void *pvVar6;
-  float10 fVar7;
-  longlong lVar8;
+  longlong lVar7;
   #define local_20 (*(uint *)(_frame + (0x30 - 0x20)))
   #define local_1c (*(uint *)(_frame + (0x30 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
+  #define local_18 (*(float *)(_frame + (0x30 - 0x18)))
+  #define local_14 (*(float *)(_frame + (0x30 - 0x14)))
+  #define local_10 (*(float *)(_frame + (0x30 - 0x10)))
+  #define local_c (*(float *)(_frame + (0x30 - 0xc)))
+  #define local_8 (*(float *)(_frame + (0x30 - 0x8)))
+  #define local_4 (*(float *)(_frame + (0x30 - 0x4)))
   
-  uVar1 = lua_lua2C(1);
-  uVar2 = lua_lua2C(2);
-  uVar3 = lua_lua2C(3);
-  uVar4 = lua_lua2C(4);
-  iVar5 = lua_isnumber(uVar1);
+  iVar1 = lua_lua2C(1);
+  iVar2 = lua_lua2C(2);
+  iVar3 = lua_lua2C(3);
+  iVar4 = lua_lua2C(4);
+  iVar5 = lua_isnumber(iVar1);
   if (iVar5 == 0) {
-    iVar5 = lua_isstring(uVar1);
+    iVar5 = lua_isstring(iVar1);
     if (iVar5 == 0) {
       return;
     }
-    name = (char *)lua_getstring(uVar1);
-    iVar5 = Light_FindByName((void *)0x0,name);
+    name = (char *)lua_getstring(iVar1);
+    iVar1 = Light_FindByName((void *)0x0,name);
   }
   else {
-    lVar8 = (longlong)lua_getnumber();
-    iVar5 = (int)lVar8;
+    lVar7 = (longlong)lua_getnumber(iVar1);
+    iVar1 = (int)lVar7;
   }
-  pvVar6 = Light_Get((void *)0x0,iVar5);
+  pvVar6 = Light_Get((void *)0x0,iVar1);
   if (pvVar6 != (void *)0x0) {
-    iVar5 = lua_isuserdata(uVar2);
-    if (((iVar5 == 0) || (iVar5 = lua_tag(uVar2), iVar5 != 0x52544341)) &&
-       (iVar5 = lua_isnumber(uVar2), iVar5 == 0)) {
+    iVar1 = lua_isuserdata(iVar2);
+    if (((iVar1 == 0) || (iVar1 = lua_tag(iVar2), iVar1 != 0x52544341)) &&
+       (iVar1 = lua_isnumber(iVar2), iVar1 == 0)) {
       return;
     }
-    iVar5 = lua_isuserdata(uVar2);
-    if ((iVar5 == 0) || (iVar5 = lua_tag(uVar2), iVar5 != 0x52544341)) {
-      fVar7 = (float10)lua_getnumber(uVar2);
-      local_18 = (uint)(float)fVar7;
-      iVar5 = lua_isnumber(uVar3);
-      if (iVar5 == 0) {
-        local_14 = 0;
+    iVar1 = lua_isuserdata(iVar2);
+    if ((iVar1 == 0) || (iVar1 = lua_tag(iVar2), iVar1 != 0x52544341)) {
+      local_18 = lua_getnumber(iVar2);
+      iVar1 = lua_isnumber(iVar3);
+      if (iVar1 == 0) {
+        local_14 = 0.0;
       }
       else {
-        fVar7 = (float10)lua_getnumber(uVar3);
-        local_14 = (uint)(float)fVar7;
+        local_14 = lua_getnumber(iVar3);
       }
-      iVar5 = lua_isnumber(uVar4);
-      if (iVar5 == 0) {
-        local_10 = 0;
+      iVar1 = lua_isnumber(iVar4);
+      if (iVar1 == 0) {
+        local_10 = 0.0;
       }
       else {
-        fVar7 = (float10)lua_getnumber(uVar4);
-        local_10 = (uint)(float)fVar7;
+        local_10 = lua_getnumber(iVar4);
       }
     }
     else {
-      uVar1 = lua_getuserdata(uVar2);
-      iVar5 = Actor_FromHandle(uVar1);
-      local_18 = *(uint *)(iVar5 + 0xc);
-      local_14 = *(uint *)(iVar5 + 0x10);
-      local_10 = *(uint *)(iVar5 + 0x14);
+      iVar1 = lua_getuserdata(iVar2);
+      iVar1 = Actor_FromHandle(iVar1);
+      local_18 = *(float *)(iVar1 + 0xc);
+      local_14 = *(float *)(iVar1 + 0x10);
+      local_10 = *(float *)(iVar1 + 0x14);
     }
-    local_c = (uint)((float)local_18 - *(float *)((int)pvVar6 + 0x20));
-    local_8 = (uint)((float)local_14 - *(float *)((int)pvVar6 + 0x24));
-    local_4 = (uint)((float)local_10 - *(float *)((int)pvVar6 + 0x28));
-    Vec3_Normalize((float *)&local_c);
-    *(uint *)((int)pvVar6 + 0x38) = local_c;
-    *(uint *)((int)pvVar6 + 0x3c) = local_8;
-    *(uint *)((int)pvVar6 + 0x40) = local_4;
+    local_c = local_18 - *(float *)((int)pvVar6 + 0x20);
+    local_8 = local_14 - *(float *)((int)pvVar6 + 0x24);
+    local_4 = local_10 - *(float *)((int)pvVar6 + 0x28);
+    Vec3_Normalize(&local_c);
+    *(float *)((int)pvVar6 + 0x38) = local_c;
+    *(float *)((int)pvVar6 + 0x3c) = local_8;
+    *(float *)((int)pvVar6 + 0x40) = local_4;
     return;
   }
   return;
@@ -9068,48 +9050,47 @@ void Lua_SetLightIntensity(void)
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int *piVar1;
-  undefined4 uVar2;
-  undefined4 uVar3;
+  int iVar2;
+  int iVar3;
   void *pvVar4;
   int iVar5;
   char *name;
   void *pvVar6;
-  int iVar7;
-  uint uVar8;
-  float10 fVar9;
-  longlong lVar10;
+  uint uVar7;
+  longlong lVar8;
+  float fVar9;
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
-  uVar2 = lua_lua2C(1);
-  uVar3 = lua_lua2C(2);
+  iVar2 = lua_lua2C(1);
+  iVar3 = lua_lua2C(2);
   pvVar4 = Set_GetCurrent();
-  iVar5 = lua_isnumber(uVar2);
+  iVar5 = lua_isnumber(iVar2);
   if (iVar5 == 0) {
-    iVar5 = lua_isstring(uVar2);
+    iVar5 = lua_isstring(iVar2);
     if (iVar5 == 0) {
       return;
     }
-    name = (char *)lua_getstring(uVar2);
-    iVar5 = Light_FindByName((void *)0x0,name);
+    name = (char *)lua_getstring(iVar2);
+    iVar2 = Light_FindByName((void *)0x0,name);
   }
   else {
-    lVar10 = (longlong)lua_getnumber();
-    iVar5 = (int)lVar10;
+    lVar8 = (longlong)lua_getnumber(iVar2);
+    iVar2 = (int)lVar8;
   }
-  pvVar6 = Light_Get((void *)0x0,iVar5);
-  if ((pvVar6 != (void *)0x0) && (iVar7 = lua_isnumber(uVar3), iVar7 != 0)) {
-    fVar9 = (float10)lua_getnumber(uVar3);
-    *(float *)((int)pvVar6 + 0x44) = (float)fVar9;
-    uVar8 = 0;
+  pvVar6 = Light_Get((void *)0x0,iVar2);
+  if ((pvVar6 != (void *)0x0) && (iVar5 = lua_isnumber(iVar3), iVar5 != 0)) {
+    fVar9 = lua_getnumber(iVar3);
+    *(float *)((int)pvVar6 + 0x44) = fVar9;
+    uVar7 = 0;
     if (*(int *)((int)pvVar4 + 0xb0) != 0) {
-      iVar7 = 0;
+      iVar5 = 0;
       do {
-        fVar9 = (float10)lua_getnumber(uVar3);
-        uVar8 = uVar8 + 1;
-        piVar1 = (int *)(*(int *)((int)pvVar4 + 0xac) + 0x48 + iVar7);
-        iVar7 = iVar7 + 300;
-        *(float *)(*(int *)(*piVar1 + iVar5 * 4 + 0x5c) + 0x18) = (float)fVar9;
-      } while (uVar8 < *(uint *)((int)pvVar4 + 0xb0));
+        fVar9 = lua_getnumber(iVar3);
+        uVar7 = uVar7 + 1;
+        piVar1 = (int *)(*(int *)((int)pvVar4 + 0xac) + 0x48 + iVar5);
+        iVar5 = iVar5 + 300;
+        *(float *)(*(int *)(*piVar1 + iVar2 * 4 + 0x5c) + 0x18) = fVar9;
+      } while (uVar7 < *(uint *)((int)pvVar4 + 0xb0));
     }
   }
   return;
@@ -9127,28 +9108,28 @@ void Lua_SetLightIntensity(void)
 void Lua_GetLightIntensity(void)
 
 {
-  undefined4 uVar1;
+  int iVar1;
   int iVar2;
   char *name;
   void *pvVar3;
   longlong lVar4;
   
-  uVar1 = lua_lua2C(1);
+  iVar1 = lua_lua2C(1);
   lua_lua2C(2);
-  iVar2 = lua_isnumber(uVar1);
+  iVar2 = lua_isnumber(iVar1);
   if (iVar2 == 0) {
-    iVar2 = lua_isstring(uVar1);
+    iVar2 = lua_isstring(iVar1);
     if (iVar2 == 0) goto LAB_004a0f08;
-    name = (char *)lua_getstring(uVar1);
-    iVar2 = Light_FindByName((void *)0x0,name);
+    name = (char *)lua_getstring(iVar1);
+    iVar1 = Light_FindByName((void *)0x0,name);
   }
   else {
-    lVar4 = (longlong)lua_getnumber();
-    iVar2 = (int)lVar4;
+    lVar4 = (longlong)lua_getnumber(iVar1);
+    iVar1 = (int)lVar4;
   }
-  pvVar3 = Light_Get((void *)0x0,iVar2);
+  pvVar3 = Light_Get((void *)0x0,iVar1);
   if (pvVar3 != (void *)0x0) {
-    lua_pushnumber(*(undefined4 *)((int)pvVar3 + 0x44));
+    lua_pushnumber(*(float *)((int)pvVar3 + 0x44));
     return;
   }
 LAB_004a0f08:
@@ -9166,17 +9147,19 @@ LAB_004a0f08:
 void Lua_ImStartRecording(void)
 
 {
-  undefined4 uVar1;
-  undefined4 uVar2;
+  int iVar1;
+  int iVar2;
   int iVar3;
+  uint uVar4;
   
-  uVar1 = lua_lua2C(1);
-  uVar2 = lua_lua2C(2);
-  iVar3 = lua_isstring(uVar1);
+  iVar1 = lua_lua2C(1);
+  iVar2 = lua_lua2C(2);
+  iVar3 = lua_isstring(iVar1);
   if (iVar3 != 0) {
-    iVar3 = lua_isnil(uVar2);
-    uVar1 = lua_getstring(uVar1,iVar3 == 0);
-    ImStartRecording(uVar1);
+    iVar2 = lua_isnil(iVar2);
+    uVar4 = (uint)(iVar2 == 0);
+    iVar1 = lua_getstring(iVar1);
+    ImStartRecording(iVar1,uVar4);
   }
   return;
 }
@@ -9194,28 +9177,30 @@ void Lua_ImStartSound(void)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  undefined4 uVar1;
-  undefined4 uVar2;
-  undefined4 uVar3;
+  int iVar1;
+  int iVar2;
+  int iVar3;
   int iVar4;
   longlong lVar5;
+  longlong lVar6;
   #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
   #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
   
-  uVar1 = lua_lua2C(1);
-  uVar2 = lua_lua2C(2);
-  uVar3 = lua_lua2C(3);
-  iVar4 = lua_isstring(uVar1);
-  if ((iVar4 == 0) && (iVar4 = lua_isnil(uVar1), iVar4 == 0)) {
+  iVar1 = lua_lua2C(1);
+  iVar2 = lua_lua2C(2);
+  iVar3 = lua_lua2C(3);
+  iVar4 = lua_isstring(iVar1);
+  if ((iVar4 == 0) && (iVar4 = lua_isnil(iVar1), iVar4 == 0)) {
     return;
   }
-  iVar4 = lua_isnumber(uVar2);
-  if ((iVar4 != 0) && (iVar4 = lua_isnumber(uVar3), iVar4 != 0)) {
-    lVar5 = (longlong)lua_getnumber(uVar3);
-    lVar5 = (longlong)lua_getnumber(uVar2);
-    uVar1 = lua_getstring(uVar1,(int)lVar5);
-    iVar4 = SoundsLoadStartSound(uVar1);
-    lua_pushnumber((float)iVar4);
+  iVar4 = lua_isnumber(iVar2);
+  if ((iVar4 != 0) && (iVar4 = lua_isnumber(iVar3), iVar4 != 0)) {
+    lVar5 = (longlong)lua_getnumber(iVar3);
+    lVar6 = (longlong)lua_getnumber(iVar2);
+    iVar2 = (int)lVar6;
+    iVar1 = lua_getstring(iVar1);
+    iVar1 = SoundsLoadStartSound(iVar1,iVar2,(uint)lVar5);
+    lua_pushnumber((float)iVar1);
   }
   return;
 }
@@ -9234,20 +9219,19 @@ void Lua_ImStartSound(void)
 void Lua_ImStopSound(void)
 
 {
-  undefined4 uVar1;
+  int iVar1;
   int iVar2;
-  undefined4 unaff_ESI;
   longlong lVar3;
   
-  uVar1 = lua_lua2C(1);
-  iVar2 = lua_isnumber(uVar1);
+  iVar1 = lua_lua2C(1);
+  iVar2 = lua_isnumber(iVar1);
   if (iVar2 != 0) {
-    lVar3 = (longlong)lua_getnumber();
-    SoundsStopSound((int)lVar3,unaff_ESI);
+    lVar3 = (longlong)lua_getnumber(iVar1);
+    SoundsStopSound((int)lVar3);
     return;
   }
-  uVar1 = lua_getstring(uVar1);
-  SoundsStopSound(uVar1);
+  iVar1 = lua_getstring(iVar1);
+  SoundsStopSound(iVar1);
   return;
 }
 #endif
@@ -9263,32 +9247,35 @@ void Lua_ImGetParam(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  undefined4 uVar1;
-  undefined4 uVar2;
+  int iVar1;
+  int iVar2;
   int iVar3;
-  longlong lVar4;
+  uint uVar4;
+  longlong lVar5;
   #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
-  uVar1 = lua_lua2C(1);
-  uVar2 = lua_lua2C(2);
-  iVar3 = lua_isnumber(uVar1);
+  iVar1 = lua_lua2C(1);
+  iVar2 = lua_lua2C(2);
+  iVar3 = lua_isnumber(iVar1);
   if (iVar3 == 0) {
-    iVar3 = lua_isstring(uVar2);
+    iVar3 = lua_isstring(iVar2);
     if (iVar3 == 0) {
-      lua_pushnumber(FBITS(0xbf800000));
+      lua_pushnumber(-1.0);
       return;
     }
-    lVar4 = (longlong)lua_getnumber(uVar2);
-    uVar1 = lua_getstring(uVar1,(int)lVar4);
+    lVar5 = (longlong)lua_getnumber(iVar2);
+    local_10 = (uint)lVar5;
+    iVar1 = lua_getstring(iVar1);
   }
   else {
-    lVar4 = (longlong)lua_getnumber();
-    lVar4 = (longlong)lua_getnumber(uVar1);
-    uVar1 = (undefined4)lVar4;
+    lVar5 = (longlong)lua_getnumber(iVar2);
+    local_10 = (uint)lVar5;
+    lVar5 = (longlong)lua_getnumber(iVar1);
+    iVar1 = (int)lVar5;
   }
-  iVar3 = SoundsGetParam(uVar1);
-  lua_pushnumber((float)iVar3);
+  uVar4 = SoundsGetParam(iVar1,local_10);
+  lua_pushnumber((float)(int)uVar4);
   return;
 }
 #undef local_10
@@ -9305,50 +9292,52 @@ void Lua_ImGetParam(void)
 void Lua_ImSetParam(void)
 
 {
-  undefined4 uVar1;
-  undefined4 uVar2;
-  undefined4 uVar3;
+  int iVar1;
+  int iVar2;
+  int iVar3;
   int iVar4;
-  longlong lVar5;
+  uint uVar5;
+  longlong lVar6;
   
-  uVar1 = lua_lua2C(1);
-  uVar2 = lua_lua2C(2);
-  uVar3 = lua_lua2C(3);
-  iVar4 = lua_isnumber(uVar1);
-  if ((iVar4 == 0) && (iVar4 = lua_isstring(uVar1), iVar4 == 0)) {
+  iVar1 = lua_lua2C(1);
+  iVar2 = lua_lua2C(2);
+  iVar3 = lua_lua2C(3);
+  iVar4 = lua_isnumber(iVar1);
+  if ((iVar4 == 0) && (iVar4 = lua_isstring(iVar1), iVar4 == 0)) {
     return;
   }
-  iVar4 = lua_isnumber(uVar2);
-  if ((iVar4 != 0) && (iVar4 = lua_isnumber(uVar3), iVar4 != 0)) {
-    iVar4 = lua_isnumber(uVar1);
+  iVar4 = lua_isnumber(iVar2);
+  if ((iVar4 != 0) && (iVar4 = lua_isnumber(iVar3), iVar4 != 0)) {
+    iVar4 = lua_isnumber(iVar1);
     if (iVar4 != 0) {
-      lVar5 = (longlong)lua_getnumber(uVar3);
-      if ((int)lVar5 < 1) {
-        uVar3 = 0;
+      lVar6 = (longlong)lua_getnumber(iVar3);
+      if ((int)lVar6 < 1) {
+        uVar5 = 0;
       }
       else {
-        lVar5 = (longlong)lua_getnumber(uVar3);
-        uVar3 = (undefined4)lVar5;
+        lVar6 = (longlong)lua_getnumber(iVar3);
+        uVar5 = (uint)lVar6;
       }
-      lVar5 = (longlong)lua_getnumber(uVar2);
-      uVar2 = (undefined4)lVar5;
-      lVar5 = (longlong)lua_getnumber(uVar1);
-      SoundsSetParam((int)lVar5);
+      lVar6 = (longlong)lua_getnumber(iVar2);
+      iVar2 = (int)lVar6;
+      lVar6 = (longlong)lua_getnumber(iVar1);
+      SoundsSetParam((int)lVar6,iVar2,uVar5);
       return;
     }
-    iVar4 = lua_isstring(uVar1);
+    iVar4 = lua_isstring(iVar1);
     if (iVar4 != 0) {
-      lVar5 = (longlong)lua_getnumber(uVar3);
-      if ((int)lVar5 < 1) {
-        uVar3 = 0;
+      lVar6 = (longlong)lua_getnumber(iVar3);
+      if ((int)lVar6 < 1) {
+        uVar5 = 0;
       }
       else {
-        lVar5 = (longlong)lua_getnumber(uVar3);
-        uVar3 = (undefined4)lVar5;
+        lVar6 = (longlong)lua_getnumber(iVar3);
+        uVar5 = (uint)lVar6;
       }
-      lVar5 = (longlong)lua_getnumber(uVar2);
-      uVar1 = lua_getstring(uVar1,(int)lVar5);
-      SoundsSetParam(uVar1);
+      lVar6 = (longlong)lua_getnumber(iVar2);
+      iVar2 = (int)lVar6;
+      iVar1 = lua_getstring(iVar1);
+      SoundsSetParam(iVar1,iVar2,uVar5);
     }
   }
   return;
@@ -9365,63 +9354,65 @@ void Lua_ImFadeParam(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  undefined4 uVar1;
-  undefined4 uVar2;
-  undefined4 uVar3;
-  undefined4 uVar4;
+  int iVar1;
+  int iVar2;
+  int iVar3;
+  int iVar4;
   int iVar5;
-  longlong lVar6;
+  uint uVar6;
+  longlong lVar7;
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
-  uVar1 = lua_lua2C(1);
-  uVar2 = lua_lua2C(2);
-  uVar3 = lua_lua2C(3);
-  uVar4 = lua_lua2C(4);
-  iVar5 = lua_isstring(uVar1);
+  iVar1 = lua_lua2C(1);
+  iVar2 = lua_lua2C(2);
+  iVar3 = lua_lua2C(3);
+  iVar4 = lua_lua2C(4);
+  iVar5 = lua_isstring(iVar1);
   if (iVar5 == 0) {
-    iVar5 = lua_isnumber(uVar1);
+    iVar5 = lua_isnumber(iVar1);
     if (iVar5 == 0) {
-      lua_pushnumber(0);
+      lua_pushnumber(0.0);
       return;
     }
   }
-  iVar5 = lua_isnumber(uVar2);
+  iVar5 = lua_isnumber(iVar2);
   if (iVar5 != 0) {
-    iVar5 = lua_isnumber(uVar3);
+    iVar5 = lua_isnumber(iVar3);
     if (iVar5 != 0) {
-      iVar5 = lua_isnumber(uVar4);
+      iVar5 = lua_isnumber(iVar4);
       if (iVar5 != 0) {
-        iVar5 = lua_isnumber(uVar1);
+        iVar5 = lua_isnumber(iVar1);
         if (iVar5 != 0) {
-          lVar6 = (longlong)lua_getnumber(uVar3);
-          if ((int)lVar6 < 1) {
-            uVar3 = 0;
+          lVar7 = (longlong)lua_getnumber(iVar3);
+          if ((int)lVar7 < 1) {
+            uVar6 = 0;
           }
           else {
-            lVar6 = (longlong)lua_getnumber(uVar3);
-            uVar3 = (undefined4)lVar6;
+            lVar7 = (longlong)lua_getnumber(iVar3);
+            uVar6 = (uint)lVar7;
           }
-          lVar6 = (longlong)lua_getnumber(uVar4);
-          uVar4 = (undefined4)lVar6;
-          lVar6 = (longlong)lua_getnumber(uVar2);
-          uVar2 = (undefined4)lVar6;
-          lVar6 = (longlong)lua_getnumber(uVar1);
-          SoundsFadeParam((int)lVar6);
+          lVar7 = (longlong)lua_getnumber(iVar4);
+          iVar3 = (int)lVar7;
+          lVar7 = (longlong)lua_getnumber(iVar2);
+          iVar2 = (int)lVar7;
+          lVar7 = (longlong)lua_getnumber(iVar1);
+          SoundsFadeParam((int)lVar7,iVar2,uVar6,iVar3);
           return;
         }
-        lVar6 = (longlong)lua_getnumber(uVar3);
-        if ((int)lVar6 < 1) {
-          uVar3 = 0;
+        lVar7 = (longlong)lua_getnumber(iVar3);
+        if ((int)lVar7 < 1) {
+          uVar6 = 0;
         }
         else {
-          lVar6 = (longlong)lua_getnumber(uVar3);
-          uVar3 = (undefined4)lVar6;
+          lVar7 = (longlong)lua_getnumber(iVar3);
+          uVar6 = (uint)lVar7;
         }
-        lVar6 = (longlong)lua_getnumber(uVar4);
-        uVar4 = (undefined4)lVar6;
-        lVar6 = (longlong)lua_getnumber(uVar2);
-        uVar1 = lua_getstring(uVar1,(int)lVar6);
-        SoundsFadeParam(uVar1);
+        lVar7 = (longlong)lua_getnumber(iVar4);
+        iVar3 = (int)lVar7;
+        lVar7 = (longlong)lua_getnumber(iVar2);
+        iVar2 = (int)lVar7;
+        iVar1 = lua_getstring(iVar1);
+        SoundsFadeParam(iVar1,iVar2,uVar6,iVar3);
       }
     }
   }
@@ -9436,7 +9427,6 @@ void Lua_ImFadeParam(void)
 /* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_8 */
-/* WARNING: Variable defined which should be unmapped: local_4 */
 /* Lua opcode: ImGetMasterVol */
 
 void __fastcall Lua_ImGetMasterVol(undefined4 param_1)
@@ -9447,7 +9437,7 @@ void __fastcall Lua_ImGetMasterVol(undefined4 param_1)
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
-  iVar1 = ImSetGroupVol(0,0xffffffff,param_1);
+  iVar1 = ImSetGroupVol(0,0xffffffff);
   lua_pushnumber((float)iVar1);
   return;
 }
@@ -9466,16 +9456,15 @@ void __fastcall Lua_ImGetMasterVol(undefined4 param_1)
 void Lua_ImSetMasterVol(void)
 
 {
-  undefined4 uVar1;
+  int iVar1;
   int iVar2;
-  undefined4 unaff_ESI;
   longlong lVar3;
   
-  uVar1 = lua_lua2C(1);
-  iVar2 = lua_isnumber(uVar1);
+  iVar1 = lua_lua2C(1);
+  iVar2 = lua_isnumber(iVar1);
   if (iVar2 != 0) {
-    lVar3 = (longlong)lua_getnumber(uVar1);
-    ImSetGroupVol(0,(int)lVar3,unaff_ESI);
+    lVar3 = (longlong)lua_getnumber(iVar1);
+    ImSetGroupVol(0,(uint)lVar3);
   }
   return;
 }
@@ -9486,7 +9475,6 @@ void Lua_ImSetMasterVol(void)
 /* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_8 */
-/* WARNING: Variable defined which should be unmapped: local_4 */
 /* Lua opcode: ImGetSfxVol */
 
 void __fastcall Lua_ImGetSfxVol(undefined4 param_1)
@@ -9497,7 +9485,7 @@ void __fastcall Lua_ImGetSfxVol(undefined4 param_1)
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
-  iVar1 = ImSetGroupVol(1,0xffffffff,param_1);
+  iVar1 = ImSetGroupVol(1,0xffffffff);
   lua_pushnumber((float)iVar1);
   return;
 }
@@ -9516,16 +9504,15 @@ void __fastcall Lua_ImGetSfxVol(undefined4 param_1)
 void Lua_ImSetSfxVol(void)
 
 {
-  undefined4 uVar1;
+  int iVar1;
   int iVar2;
-  undefined4 unaff_ESI;
   longlong lVar3;
   
-  uVar1 = lua_lua2C(1);
-  iVar2 = lua_isnumber(uVar1);
+  iVar1 = lua_lua2C(1);
+  iVar2 = lua_isnumber(iVar1);
   if (iVar2 != 0) {
-    lVar3 = (longlong)lua_getnumber(uVar1);
-    ImSetGroupVol(1,(int)lVar3,unaff_ESI);
+    lVar3 = (longlong)lua_getnumber(iVar1);
+    ImSetGroupVol(1,(uint)lVar3);
   }
   return;
 }
@@ -9536,7 +9523,6 @@ void Lua_ImSetSfxVol(void)
 /* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_8 */
-/* WARNING: Variable defined which should be unmapped: local_4 */
 /* Lua opcode: ImGetVoiceVol */
 
 void __fastcall Lua_ImGetVoiceVol(undefined4 param_1)
@@ -9547,7 +9533,7 @@ void __fastcall Lua_ImGetVoiceVol(undefined4 param_1)
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
-  iVar1 = ImSetGroupVol(2,0xffffffff,param_1);
+  iVar1 = ImSetGroupVol(2,0xffffffff);
   lua_pushnumber((float)iVar1);
   return;
 }
@@ -9566,16 +9552,15 @@ void __fastcall Lua_ImGetVoiceVol(undefined4 param_1)
 void Lua_ImSetVoiceVol(void)
 
 {
-  undefined4 uVar1;
+  int iVar1;
   int iVar2;
-  undefined4 unaff_ESI;
   longlong lVar3;
   
-  uVar1 = lua_lua2C(1);
-  iVar2 = lua_isnumber(uVar1);
+  iVar1 = lua_lua2C(1);
+  iVar2 = lua_isnumber(iVar1);
   if (iVar2 != 0) {
-    lVar3 = (longlong)lua_getnumber(uVar1);
-    ImSetGroupVol(2,(int)lVar3,unaff_ESI);
+    lVar3 = (longlong)lua_getnumber(iVar1);
+    ImSetGroupVol(2,(uint)lVar3);
   }
   return;
 }
@@ -9586,7 +9571,6 @@ void Lua_ImSetVoiceVol(void)
 /* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_8 */
-/* WARNING: Variable defined which should be unmapped: local_4 */
 /* Lua opcode: ImGetMusicVol */
 
 void __fastcall Lua_ImGetMusicVol(undefined4 param_1)
@@ -9597,7 +9581,7 @@ void __fastcall Lua_ImGetMusicVol(undefined4 param_1)
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
-  iVar1 = ImSetGroupVol(3,0xffffffff,param_1);
+  iVar1 = ImSetGroupVol(3,0xffffffff);
   lua_pushnumber((float)iVar1);
   return;
 }
@@ -9616,16 +9600,15 @@ void __fastcall Lua_ImGetMusicVol(undefined4 param_1)
 void Lua_ImSetMusicVol(void)
 
 {
-  undefined4 uVar1;
+  int iVar1;
   int iVar2;
-  undefined4 unaff_ESI;
   longlong lVar3;
   
-  uVar1 = lua_lua2C(1);
-  iVar2 = lua_isnumber(uVar1);
+  iVar1 = lua_lua2C(1);
+  iVar2 = lua_isnumber(iVar1);
   if (iVar2 != 0) {
-    lVar3 = (longlong)lua_getnumber(uVar1);
-    ImSetGroupVol(3,(int)lVar3,unaff_ESI);
+    lVar3 = (longlong)lua_getnumber(iVar1);
+    ImSetGroupVol(3,(uint)lVar3);
   }
   return;
 }
@@ -9640,26 +9623,28 @@ void Lua_ImSetMusicVol(void)
 void Lua_ImStartVoice(void)
 
 {
-  undefined4 uVar1;
-  undefined4 uVar2;
-  undefined4 uVar3;
+  int iVar1;
+  int iVar2;
+  int iVar3;
   int iVar4;
-  longlong lVar5;
+  uint uVar5;
+  longlong lVar6;
   
-  uVar1 = lua_lua2C(1);
-  uVar2 = lua_lua2C(2);
-  uVar3 = lua_lua2C(3);
-  iVar4 = lua_isstring(uVar1);
-  if ((iVar4 == 0) && (iVar4 = lua_isnil(uVar1), iVar4 == 0)) {
+  iVar1 = lua_lua2C(1);
+  iVar2 = lua_lua2C(2);
+  iVar3 = lua_lua2C(3);
+  iVar4 = lua_isstring(iVar1);
+  if ((iVar4 == 0) && (iVar4 = lua_isnil(iVar1), iVar4 == 0)) {
     return;
   }
-  iVar4 = lua_isnumber(uVar2);
-  if ((iVar4 != 0) && (iVar4 = lua_isnumber(uVar3), iVar4 != 0)) {
-    lVar5 = (longlong)lua_getnumber(uVar3);
-    uVar3 = (undefined4)lVar5;
-    lVar5 = (longlong)lua_getnumber(uVar2);
-    uVar1 = lua_getstring(uVar1,(int)lVar5);
-    SoundStartVoiceStream(uVar1);
+  iVar4 = lua_isnumber(iVar2);
+  if ((iVar4 != 0) && (iVar4 = lua_isnumber(iVar3), iVar4 != 0)) {
+    lVar6 = (longlong)lua_getnumber(iVar3);
+    uVar5 = (uint)lVar6;
+    lVar6 = (longlong)lua_getnumber(iVar2);
+    iVar2 = (int)lVar6;
+    iVar1 = lua_getstring(iVar1);
+    SoundStartVoiceStream(iVar1,iVar2,uVar5);
   }
   return;
 }
@@ -9675,14 +9660,14 @@ void Lua_ImStartVoice(void)
 void Lua_ImSetState(void)
 
 {
-  undefined4 uVar1;
+  int iVar1;
   int iVar2;
   longlong lVar3;
   
-  uVar1 = lua_lua2C(1);
-  iVar2 = lua_isnumber(uVar1);
+  iVar1 = lua_lua2C(1);
+  iVar2 = lua_isnumber(iVar1);
   if (iVar2 != 0) {
-    lVar3 = (longlong)lua_getnumber(uVar1);
+    lVar3 = (longlong)lua_getnumber(iVar1);
     Engine_SetIMuseState((int)lVar3);
   }
   return;
@@ -9701,18 +9686,18 @@ void __fastcall Lua_ImSetSequence(undefined4 param_1)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  undefined4 uVar1;
+  int iVar1;
   int iVar2;
   longlong lVar3;
   #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
-  uVar1 = lua_lua2C(1);
-  iVar2 = lua_isnumber(uVar1);
+  iVar1 = lua_lua2C(1);
+  iVar2 = lua_isnumber(iVar1);
   if (iVar2 != 0) {
-    lVar3 = (longlong)lua_getnumber(uVar1);
-    iVar2 = ImSetSequence((int)lVar3);
-    lua_pushnumber((float)iVar2);
+    lVar3 = (longlong)lua_getnumber(iVar1);
+    iVar1 = ImSetSequence((int)lVar3);
+    lua_pushnumber((float)iVar1);
   }
   return;
 }
@@ -9731,16 +9716,15 @@ void __fastcall Lua_ImSetSequence(undefined4 param_1)
 void Lua_ImSetCuePoint(void)
 
 {
-  undefined4 uVar1;
+  int iVar1;
   int iVar2;
-  undefined4 unaff_ESI;
   longlong lVar3;
   
-  uVar1 = lua_lua2C(1);
-  iVar2 = lua_isnumber(uVar1);
+  iVar1 = lua_lua2C(1);
+  iVar2 = lua_isnumber(iVar1);
   if (iVar2 != 0) {
-    lVar3 = (longlong)lua_getnumber(uVar1);
-    ImSetCuePoint((int)lVar3,unaff_ESI);
+    lVar3 = (longlong)lua_getnumber(iVar1);
+    ImSetCuePoint((int)lVar3);
   }
   return;
 }
@@ -9757,23 +9741,24 @@ void Lua_ImSetAttribute(void)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  undefined4 uVar1;
-  undefined4 uVar2;
+  int iVar1;
+  int iVar2;
   int iVar3;
   longlong lVar4;
+  longlong lVar5;
   #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
   #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
   
-  uVar1 = lua_lua2C(1);
-  uVar2 = lua_lua2C(2);
-  iVar3 = lua_isnumber(uVar1);
+  iVar1 = lua_lua2C(1);
+  iVar2 = lua_lua2C(2);
+  iVar3 = lua_isnumber(iVar1);
   if (iVar3 != 0) {
-    iVar3 = lua_isnumber(uVar2);
+    iVar3 = lua_isnumber(iVar2);
     if (iVar3 != 0) {
-      lVar4 = (longlong)lua_getnumber(uVar2);
-      lVar4 = (longlong)lua_getnumber(uVar1);
-      iVar3 = ImSetAttribute((int)lVar4);
-      lua_pushnumber((float)iVar3);
+      lVar4 = (longlong)lua_getnumber(iVar2);
+      lVar5 = (longlong)lua_getnumber(iVar1);
+      iVar1 = ImSetAttribute((int)lVar5,(int)lVar4);
+      lua_pushnumber((float)iVar1);
     }
   }
   return;
@@ -9793,16 +9778,16 @@ void Lua_ImSetAttribute(void)
 void Lua_ImSetVoiceEffect(void)
 
 {
-  undefined4 uVar1;
+  int iVar1;
   int iVar2;
   
-  uVar1 = lua_lua2C(1);
-  iVar2 = lua_isstring(uVar1);
-  if ((iVar2 == 0) && (iVar2 = lua_isnil(uVar1), iVar2 == 0)) {
+  iVar1 = lua_lua2C(1);
+  iVar2 = lua_isstring(iVar1);
+  if ((iVar2 == 0) && (iVar2 = lua_isnil(iVar1), iVar2 == 0)) {
     return;
   }
-  uVar1 = lua_getstring(uVar1);
-  iMUSE_SetVoiceEffect(uVar1);
+  iVar1 = lua_getstring(iVar1);
+  iMUSE_SetVoiceEffect(iVar1);
   return;
 }
 #endif
@@ -9862,16 +9847,16 @@ void Lua_SetGamma(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  undefined4 uVar1;
+  int iVar1;
   int iVar2;
-  float10 fVar3;
+  float gamma;
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   
-  uVar1 = lua_lua2C(1);
-  iVar2 = lua_isnumber(uVar1);
+  iVar1 = lua_lua2C(1);
+  iVar2 = lua_isnumber(iVar1);
   if ((iVar2 != 0) && (UINT_008a8c40 != 4)) {
-    fVar3 = (float10)lua_getnumber(uVar1);
-    Render_SetGamma((float)fVar3);
+    gamma = lua_getnumber(iVar1);
+    Render_SetGamma(gamma);
   }
   return;
 }
@@ -9888,21 +9873,21 @@ void Lua_SetGamma(void)
 void Lua_SetActorWalkDominate(void)
 
 {
-  undefined4 uVar1;
-  undefined4 uVar2;
+  int iVar1;
+  int iVar2;
   int iVar3;
   void *actor;
   
-  uVar1 = lua_lua2C(1);
-  uVar2 = lua_lua2C(2);
-  iVar3 = lua_isuserdata(uVar1);
+  iVar1 = lua_lua2C(1);
+  iVar2 = lua_lua2C(2);
+  iVar3 = lua_isuserdata(iVar1);
   if (iVar3 != 0) {
-    iVar3 = lua_tag(uVar1);
+    iVar3 = lua_tag(iVar1);
     if (iVar3 == 0x52544341) {
-      iVar3 = lua_isnil(uVar2);
-      uVar1 = lua_getuserdata(uVar1);
-      actor = (void *)Actor_FromHandle(uVar1);
-      Actor_SetWalkDominate(actor,iVar3);
+      iVar2 = lua_isnil(iVar2);
+      iVar1 = lua_getuserdata(iVar1);
+      actor = (void *)Actor_FromHandle(iVar1);
+      Actor_SetWalkDominate(actor,iVar2);
     }
   }
   return;
@@ -9918,20 +9903,21 @@ void Lua_SetActorWalkDominate(void)
 void Lua_SetActorConstrain(void)
 
 {
-  undefined4 uVar1;
-  undefined4 uVar2;
+  int iVar1;
+  int iVar2;
   int iVar3;
+  undefined4 uVar4;
   
-  uVar1 = lua_lua2C(1);
-  uVar2 = lua_lua2C(2);
-  iVar3 = lua_isuserdata(uVar1);
+  iVar1 = lua_lua2C(1);
+  iVar2 = lua_lua2C(2);
+  iVar3 = lua_isuserdata(iVar1);
   if (iVar3 != 0) {
-    iVar3 = lua_tag(uVar1);
+    iVar3 = lua_tag(iVar1);
     if (iVar3 == 0x52544341) {
-      iVar3 = lua_isnil(uVar2);
-      uVar1 = lua_getuserdata(uVar1);
-      uVar1 = Actor_FromHandle(uVar1);
-      Actor_SetConstrain(uVar1,iVar3 == 0);
+      iVar2 = lua_isnil(iVar2);
+      iVar1 = lua_getuserdata(iVar1);
+      uVar4 = Actor_FromHandle(iVar1);
+      Actor_SetConstrain(uVar4,iVar2 == 0);
     }
   }
   return;
@@ -9947,19 +9933,19 @@ void Lua_SetActorConstrain(void)
 void Lua_RenderModeUser(void)
 
 {
-  undefined4 uVar1;
+  int iVar1;
   int iVar2;
   
-  uVar1 = lua_lua2C(1);
-  iVar2 = lua_isnil(uVar1);
+  iVar1 = lua_lua2C(1);
+  iVar2 = lua_isnil(iVar1);
   if ((iVar2 != 0) && (UINT_008a8c40 == 4)) {
     Movie_SetPaused(0);
     Render_RequestFullRedraw();
     UINT_008a8c40 = Engine_GetSavedValue();
     return;
   }
-  iVar2 = lua_isnil(uVar1);
-  if ((iVar2 == 0) && (UINT_008a8c40 != 4)) {
+  iVar1 = lua_isnil(iVar1);
+  if ((iVar1 == 0) && (UINT_008a8c40 != 4)) {
     Engine_SetSavedValue(UINT_008a8c40);
     Movie_SetPaused(1);
     UINT_008a8c40 = 4;
@@ -9997,18 +9983,18 @@ void Lua_DimRegion(void)
 
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  undefined4 uVar1;
-  undefined4 uVar2;
-  undefined4 uVar3;
-  undefined4 uVar4;
-  undefined4 uVar5;
+  int iVar1;
+  int iVar2;
+  int iVar3;
+  int iVar4;
+  int iVar5;
   float unaff_ESI;
   float unaff_EDI;
-  float10 fVar6;
+  longlong lVar6;
   longlong lVar7;
   longlong lVar8;
   longlong lVar9;
-  longlong lVar10;
+  float r;
   #define local_38 (*(uint *)(_frame + (0x50 - 0x38)))
   #define local_34 (*(uint *)(_frame + (0x50 - 0x34)))
   #define local_30 (*(uint *)(_frame + (0x50 - 0x30)))
@@ -10017,17 +10003,17 @@ void Lua_DimRegion(void)
   #define local_14 (*(uint *)(_frame + (0x50 - 0x14)))
   #define local_4 (*(uint *)(_frame + (0x50 - 0x4)))
   
-  uVar1 = lua_lua2C(1);
-  uVar2 = lua_lua2C(2);
-  uVar3 = lua_lua2C(3);
-  uVar4 = lua_lua2C(4);
-  uVar5 = lua_lua2C(5);
-  lVar7 = (longlong)lua_getnumber(uVar1);
-  lVar8 = (longlong)lua_getnumber(uVar2);
-  lVar9 = (longlong)lua_getnumber(uVar3);
-  lVar10 = (longlong)lua_getnumber(uVar4);
-  fVar6 = (float10)lua_getnumber(uVar5);
-  Render_FillRect((int)lVar7,(int)lVar8,(int)lVar9,(int)lVar10,(float)fVar6,unaff_EDI,unaff_ESI);
+  iVar1 = lua_lua2C(1);
+  iVar2 = lua_lua2C(2);
+  iVar3 = lua_lua2C(3);
+  iVar4 = lua_lua2C(4);
+  iVar5 = lua_lua2C(5);
+  lVar6 = (longlong)lua_getnumber(iVar1);
+  lVar7 = (longlong)lua_getnumber(iVar2);
+  lVar8 = (longlong)lua_getnumber(iVar3);
+  lVar9 = (longlong)lua_getnumber(iVar4);
+  r = lua_getnumber(iVar5);
+  Render_FillRect((int)lVar6,(int)lVar7,(int)lVar8,(int)lVar9,r,unaff_EDI,unaff_ESI);
   return;
 }
 #undef local_14
@@ -10050,24 +10036,24 @@ void Lua_DimRegion(void)
 void Lua_SetSpeechMode(void)
 
 {
-  undefined4 uVar1;
+  int iVar1;
   int iVar2;
   longlong lVar3;
   
-  uVar1 = lua_lua2C(1);
-  iVar2 = lua_isnumber(uVar1);
+  iVar1 = lua_lua2C(1);
+  iVar2 = lua_isnumber(iVar1);
   if (iVar2 != 0) {
-    lVar3 = (longlong)lua_getnumber(uVar1);
-    iVar2 = (int)lVar3;
-    if (iVar2 == 1) {
+    lVar3 = (longlong)lua_getnumber(iVar1);
+    iVar1 = (int)lVar3;
+    if (iVar1 == 1) {
       Speech_SetMode(1);
     }
     else {
-      if (iVar2 == 2) {
+      if (iVar1 == 2) {
         Speech_SetMode(2);
         return;
       }
-      if (iVar2 == 3) {
+      if (iVar1 == 3) {
         Speech_SetMode(3);
         return;
       }
@@ -10091,15 +10077,15 @@ void Lua_GetSpeechMode(void)
   bVar1 = Speech_GetMode();
   if ((bVar1 & 2) == 0) {
     if ((bVar1 & 1) != 0) {
-      lua_pushnumber(FBITS(0x3f800000));
+      lua_pushnumber(1.0);
       return;
     }
   }
   else if ((bVar1 & 1) != 0) {
-    lua_pushnumber(FBITS(0x40400000));
+    lua_pushnumber(3.0);
     return;
   }
-  lua_pushnumber(FBITS(0x40000000));
+  lua_pushnumber(2.0);
   return;
 }
 #endif
@@ -10115,7 +10101,6 @@ void Lua_ActorShadow(void)
 {
   int iVar1;
   int iVar2;
-  undefined4 uVar3;
   void *actor;
   
   iVar1 = lua_lua2C(1);
@@ -10123,11 +10108,11 @@ void Lua_ActorShadow(void)
   if (iVar2 != 0) {
     iVar2 = lua_tag(iVar1);
     if ((iVar2 == 0x52544341) && (iVar1 != 0)) {
-      uVar3 = lua_getuserdata(iVar1);
-      actor = (void *)Actor_FromHandle(uVar3);
+      iVar1 = lua_getuserdata(iVar1);
+      actor = (void *)Actor_FromHandle(iVar1);
       iVar1 = Actor_HasShadow(actor);
       if (iVar1 != 0) {
-        lua_pushnumber(FBITS(0x3f800000));
+        lua_pushnumber(1.0);
         return;
       }
     }
@@ -10147,27 +10132,26 @@ void Lua_ActivateActorShadow(void)
 
 {
   int iVar1;
-  undefined4 uVar2;
-  undefined4 uVar3;
+  int iVar2;
+  int iVar3;
   int iVar4;
-  undefined4 uVar5;
   void *actor;
-  longlong lVar6;
+  longlong lVar5;
   uint active;
   
   iVar1 = lua_lua2C(1);
-  uVar2 = lua_lua2C(2);
-  uVar3 = lua_lua2C(3);
+  iVar2 = lua_lua2C(2);
+  iVar3 = lua_lua2C(3);
   iVar4 = lua_isuserdata(iVar1);
   if (iVar4 != 0) {
     iVar4 = lua_tag(iVar1);
     if ((iVar4 == 0x52544341) && (iVar1 != 0)) {
-      uVar5 = lua_getuserdata(iVar1);
-      actor = (void *)Actor_FromHandle(uVar5);
-      iVar1 = lua_isnil(uVar3);
+      iVar1 = lua_getuserdata(iVar1);
+      actor = (void *)Actor_FromHandle(iVar1);
+      iVar1 = lua_isnil(iVar3);
       active = (uint)(iVar1 == 0);
-      lVar6 = (longlong)lua_getnumber(uVar2);
-      Actor_ActivateShadow(actor,(int)lVar6,active);
+      lVar5 = (longlong)lua_getnumber(iVar2);
+      Actor_ActivateShadow(actor,(int)lVar5,active);
       return;
     }
   }
@@ -10186,20 +10170,20 @@ void Lua_SetActorShadowPlane(void)
 
 {
   int iVar1;
-  undefined4 uVar2;
+  int iVar2;
   int iVar3;
   undefined4 uVar4;
   
   iVar1 = lua_lua2C(1);
-  uVar2 = lua_lua2C(2);
+  iVar2 = lua_lua2C(2);
   iVar3 = lua_isuserdata(iVar1);
   if (iVar3 != 0) {
     iVar3 = lua_tag(iVar1);
     if ((iVar3 == 0x52544341) && (iVar1 != 0)) {
-      uVar4 = lua_getuserdata(iVar1);
-      uVar4 = Actor_FromHandle(uVar4);
-      uVar2 = lua_getstring(uVar2);
-      Actor_SetShadowPlane(uVar4,uVar2);
+      iVar1 = lua_getuserdata(iVar1);
+      uVar4 = Actor_FromHandle(iVar1);
+      iVar1 = lua_getstring(iVar2);
+      Actor_SetShadowPlane(uVar4,iVar1);
       return;
     }
   }
@@ -10222,34 +10206,33 @@ void Lua_SetActorShadowPoint(void)
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
-  undefined4 uVar2;
-  undefined4 uVar3;
-  undefined4 uVar4;
+  int iVar2;
+  int iVar3;
+  int iVar4;
   int iVar5;
-  undefined4 uVar6;
   void *actor;
-  float10 fVar7;
-  float10 fVar8;
-  float10 fVar9;
+  float z;
+  float y;
+  float x;
   #define local_20 (*(uint *)(_frame + (0x30 - 0x20)))
   #define local_1c (*(uint *)(_frame + (0x30 - 0x1c)))
   #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
   #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
   
   iVar1 = lua_lua2C(1);
-  uVar2 = lua_lua2C(2);
-  uVar3 = lua_lua2C(3);
-  uVar4 = lua_lua2C(4);
+  iVar2 = lua_lua2C(2);
+  iVar3 = lua_lua2C(3);
+  iVar4 = lua_lua2C(4);
   iVar5 = lua_isuserdata(iVar1);
   if (iVar5 != 0) {
     iVar5 = lua_tag(iVar1);
     if ((iVar5 == 0x52544341) && (iVar1 != 0)) {
-      uVar6 = lua_getuserdata(iVar1);
-      actor = (void *)Actor_FromHandle(uVar6);
-      fVar7 = (float10)lua_getnumber(uVar4);
-      fVar8 = (float10)lua_getnumber(uVar3);
-      fVar9 = (float10)lua_getnumber(uVar2);
-      Actor_SetShadowPoint(actor,(float)fVar9,(float)fVar8,(float)fVar7);
+      iVar1 = lua_getuserdata(iVar1);
+      actor = (void *)Actor_FromHandle(iVar1);
+      z = lua_getnumber(iVar4);
+      y = lua_getnumber(iVar3);
+      x = lua_getnumber(iVar2);
+      Actor_SetShadowPoint(actor,x,y,z);
       return;
     }
   }
@@ -10273,24 +10256,23 @@ void Lua_SetActiveShadow(void)
 
 {
   int iVar1;
-  undefined4 uVar2;
+  int iVar2;
   int iVar3;
-  undefined4 uVar4;
-  longlong lVar5;
+  longlong lVar4;
   
   iVar1 = lua_lua2C(1);
-  uVar2 = lua_lua2C(2);
+  iVar2 = lua_lua2C(2);
   iVar3 = lua_isuserdata(iVar1);
   if (iVar3 != 0) {
     iVar3 = lua_tag(iVar1);
     if ((iVar3 == 0x52544341) && (iVar1 != 0)) {
-      uVar4 = lua_getuserdata(iVar1);
-      iVar1 = Actor_FromHandle(uVar4);
+      iVar1 = lua_getuserdata(iVar1);
+      iVar1 = Actor_FromHandle(iVar1);
       if (*(int *)(iVar1 + 0xa4) == 0) {
         Actor_CreateExtra(iVar1);
       }
-      lVar5 = (longlong)lua_getnumber(uVar2);
-      *(int *)(*(int *)(iVar1 + 0xa4) + 500) = (int)lVar5;
+      lVar4 = (longlong)lua_getnumber(iVar2);
+      *(int *)(*(int *)(iVar1 + 0xa4) + 500) = (int)lVar4;
       return;
     }
   }
@@ -10311,36 +10293,34 @@ void Lua_ActorDistToShadowPlane(void)
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   int iVar2;
-  float fVar3;
+  float n;
+  int iVar3;
   int iVar4;
-  undefined4 uVar5;
-  int iVar6;
-  longlong lVar7;
+  longlong lVar5;
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
-  iVar4 = lua_lua2C(1);
-  uVar5 = lua_lua2C(2);
-  lVar7 = (longlong)lua_getnumber(uVar5);
-  iVar6 = lua_isuserdata(iVar4);
-  if (iVar6 != 0) {
-    iVar6 = lua_tag(iVar4);
-    if ((iVar6 == 0x52544341) && (iVar4 != 0)) {
-      uVar5 = lua_getuserdata(iVar4);
-      iVar4 = Actor_FromHandle(uVar5);
-      if (*(int *)(iVar4 + 0xa4) == 0) {
-        Actor_CreateExtra(iVar4);
+  iVar3 = lua_lua2C(1);
+  iVar4 = lua_lua2C(2);
+  lVar5 = (longlong)lua_getnumber(iVar4);
+  iVar4 = lua_isuserdata(iVar3);
+  if (iVar4 != 0) {
+    iVar4 = lua_tag(iVar3);
+    if ((iVar4 == 0x52544341) && (iVar3 != 0)) {
+      iVar3 = lua_getuserdata(iVar3);
+      iVar3 = Actor_FromHandle(iVar3);
+      if (*(int *)(iVar3 + 0xa4) == 0) {
+        Actor_CreateExtra(iVar3);
       }
-      iVar6 = (int)lVar7 + 6;
-      iVar2 = *(int *)(iVar4 + 0xa4);
-      iVar1 = iVar2 + iVar6 * 0x54;
-      fVar3 = *(float *)(iVar4 + 0x10) * *(float *)(iVar1 + 0xc) +
-              *(float *)(iVar2 + 0x10 + iVar6 * 0x54) * *(float *)(iVar4 + 0x14) +
-              *(float *)(iVar2 + 8 + iVar6 * 0x54) * *(float *)(iVar4 + 0xc) +
-              *(float *)(iVar1 + 0x14);
-      if (fVar3 < 0.0) {
-        fVar3 = -fVar3;
+      iVar4 = (int)lVar5 + 6;
+      iVar2 = *(int *)(iVar3 + 0xa4);
+      iVar1 = iVar2 + iVar4 * 0x54;
+      n = *(float *)(iVar3 + 0x10) * *(float *)(iVar1 + 0xc) +
+          *(float *)(iVar2 + 0x10 + iVar4 * 0x54) * *(float *)(iVar3 + 0x14) +
+          *(float *)(iVar2 + 8 + iVar4 * 0x54) * *(float *)(iVar3 + 0xc) + *(float *)(iVar1 + 0x14);
+      if (n < 0.0) {
+        n = -n;
       }
-      lua_pushnumber(fVar3);
+      lua_pushnumber(n);
       return;
     }
   }
@@ -10361,24 +10341,23 @@ void Lua_AddShadowPlane(void)
 
 {
   int iVar1;
-  undefined4 uVar2;
+  int iVar2;
   int iVar3;
-  undefined4 uVar4;
   void *actor;
   char *sectorName;
   
   iVar1 = lua_lua2C(1);
-  uVar2 = lua_lua2C(2);
+  iVar2 = lua_lua2C(2);
   iVar3 = lua_isuserdata(iVar1);
   if (iVar3 != 0) {
     iVar3 = lua_tag(iVar1);
     if ((iVar3 == 0x52544341) && (iVar1 != 0)) {
-      uVar4 = lua_getuserdata(iVar1);
-      actor = (void *)Actor_FromHandle(uVar4);
+      iVar1 = lua_getuserdata(iVar1);
+      actor = (void *)Actor_FromHandle(iVar1);
       if (*(int *)((int)actor + 0xa4) == 0) {
         Actor_CreateExtra(actor);
       }
-      sectorName = (char *)lua_getstring(uVar2);
+      sectorName = (char *)lua_getstring(iVar2);
       Actor_AddShadowPlane(actor,*(int *)(*(int *)((int)actor + 0xa4) + 500),sectorName);
       return;
     }
@@ -10398,25 +10377,24 @@ void Lua_SetActorShadowValid(void)
 
 {
   int iVar1;
-  undefined4 uVar2;
+  int iVar2;
   int iVar3;
-  undefined4 uVar4;
   void *actor;
-  longlong lVar5;
+  longlong lVar4;
   
   iVar1 = lua_lua2C(1);
-  uVar2 = lua_lua2C(2);
+  iVar2 = lua_lua2C(2);
   iVar3 = lua_isuserdata(iVar1);
   if (iVar3 != 0) {
     iVar3 = lua_tag(iVar1);
     if ((iVar3 == 0x52544341) && (iVar1 != 0)) {
-      uVar4 = lua_getuserdata(iVar1);
-      actor = (void *)Actor_FromHandle(uVar4);
+      iVar1 = lua_getuserdata(iVar1);
+      actor = (void *)Actor_FromHandle(iVar1);
       if (*(int *)((int)actor + 0xa4) == 0) {
         Actor_CreateExtra(actor);
       }
-      lVar5 = (longlong)lua_getnumber(uVar2);
-      Actor_SetShadowValid(actor,*(int *)(*(int *)((int)actor + 0xa4) + 500),(int)lVar5);
+      lVar4 = (longlong)lua_getnumber(iVar2);
+      Actor_SetShadowValid(actor,*(int *)(*(int *)((int)actor + 0xa4) + 500),(int)lVar4);
       return;
     }
   }
@@ -10436,7 +10414,6 @@ void Lua_KillActorShadows(void)
 {
   int iVar1;
   int iVar2;
-  undefined4 uVar3;
   void *actor;
   
   iVar1 = lua_lua2C(1);
@@ -10444,8 +10421,8 @@ void Lua_KillActorShadows(void)
   if (iVar2 != 0) {
     iVar2 = lua_tag(iVar1);
     if ((iVar2 == 0x52544341) && (iVar1 != 0)) {
-      uVar3 = lua_getuserdata(iVar1);
-      actor = (void *)Actor_FromHandle(uVar3);
+      iVar1 = lua_getuserdata(iVar1);
+      actor = (void *)Actor_FromHandle(iVar1);
       Actor_KillShadows(actor);
       return;
     }
@@ -10464,22 +10441,20 @@ void Lua_KillActorShadows(void)
 void Lua_SetShadowColor(void)
 
 {
-  undefined4 uVar1;
-  undefined4 uVar2;
-  undefined4 uVar3;
-  int b;
-  int g;
+  int iVar1;
+  int iVar2;
+  int iVar3;
   longlong lVar4;
   
-  uVar1 = lua_lua2C(1);
-  uVar2 = lua_lua2C(2);
-  uVar3 = lua_lua2C(3);
-  lVar4 = (longlong)lua_getnumber(uVar3);
-  b = (int)lVar4;
-  lVar4 = (longlong)lua_getnumber(uVar2);
-  g = (int)lVar4;
-  lVar4 = (longlong)lua_getnumber(uVar1);
-  Shadow_SetColor((int)lVar4,g,b);
+  iVar1 = lua_lua2C(1);
+  iVar2 = lua_lua2C(2);
+  iVar3 = lua_lua2C(3);
+  lVar4 = (longlong)lua_getnumber(iVar3);
+  iVar3 = (int)lVar4;
+  lVar4 = (longlong)lua_getnumber(iVar2);
+  iVar2 = (int)lVar4;
+  lVar4 = (longlong)lua_getnumber(iVar1);
+  Shadow_SetColor((int)lVar4,iVar2,iVar3);
   return;
 }
 #endif
@@ -10494,38 +10469,37 @@ void Lua_NewObjectState(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  undefined4 uVar1;
-  undefined4 uVar2;
-  undefined4 uVar3;
-  undefined4 uVar4;
-  undefined4 uVar5;
+  int iVar1;
+  int iVar2;
+  int iVar3;
+  int iVar4;
+  int iVar5;
   int iVar6;
-  char *zbitmap;
+  char *pcVar7;
   char *bitmap;
-  void *pvVar7;
   int visible;
   longlong lVar8;
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
-  uVar1 = lua_lua2C(1);
-  uVar2 = lua_lua2C(2);
-  uVar3 = lua_lua2C(3);
-  uVar4 = lua_lua2C(4);
-  uVar5 = lua_lua2C(5);
+  iVar1 = lua_lua2C(1);
+  iVar2 = lua_lua2C(2);
+  iVar3 = lua_lua2C(3);
+  iVar4 = lua_lua2C(4);
+  iVar5 = lua_lua2C(5);
   visible = -1;
-  iVar6 = lua_isnil(uVar5);
+  iVar6 = lua_isnil(iVar5);
   if (iVar6 == 0) {
-    lVar8 = (longlong)lua_getnumber(uVar5);
+    lVar8 = (longlong)lua_getnumber(iVar5);
     visible = (int)lVar8;
   }
-  zbitmap = (char *)lua_getstring(uVar4);
-  bitmap = (char *)lua_getstring(uVar3);
-  lVar8 = (longlong)lua_getnumber(uVar2);
-  iVar6 = (int)lVar8;
-  lVar8 = (longlong)lua_getnumber(uVar1);
-  pvVar7 = ObjectState_Create((int)lVar8,iVar6,bitmap,zbitmap,visible);
-  lua_pushusertag(pvVar7,0x54415453);
+  pcVar7 = (char *)lua_getstring(iVar4);
+  bitmap = (char *)lua_getstring(iVar3);
+  lVar8 = (longlong)lua_getnumber(iVar2);
+  iVar2 = (int)lVar8;
+  lVar8 = (longlong)lua_getnumber(iVar1);
+  pcVar7 = ObjectState_Create((int)lVar8,iVar2,bitmap,pcVar7,visible);
+  lua_pushusertag(pcVar7,0x54415453);
   return;
 }
 #undef local_4
@@ -10542,16 +10516,16 @@ void Lua_NewObjectState(void)
 void Lua_FreeObjectState(void)
 
 {
-  undefined4 uVar1;
+  int iVar1;
   int iVar2;
   void *state;
   
-  uVar1 = lua_lua2C(1);
-  iVar2 = lua_isuserdata(uVar1);
+  iVar1 = lua_lua2C(1);
+  iVar2 = lua_isuserdata(iVar1);
   if (iVar2 != 0) {
-    iVar2 = lua_tag(uVar1);
+    iVar2 = lua_tag(iVar1);
     if (iVar2 == 0x54415453) {
-      state = (void *)lua_getuserdata(uVar1);
+      state = (void *)lua_getuserdata(iVar1);
       if (state != (void *)0x0) {
         ObjectState_Free(state);
       }
@@ -10571,23 +10545,22 @@ void Lua_SendObjectToBack(void)
 
 {
   int iVar1;
-  undefined4 uVar2;
-  int iVar3;
+  int iVar2;
+  void *pvVar3;
   void *pvVar4;
-  void *pvVar5;
   
-  uVar2 = lua_lua2C(1);
-  iVar3 = lua_isuserdata(uVar2);
-  if (iVar3 != 0) {
-    iVar3 = lua_tag(uVar2);
-    if (iVar3 == 0x54415453) {
-      pvVar4 = (void *)lua_getuserdata(uVar2);
-      if (pvVar4 != (void *)0x0) {
-        iVar3 = *(int *)((int)pvVar4 + 8);
-        pvVar5 = Set_GetCurrent();
-        iVar1 = *(int *)((int)pvVar5 + 0xac);
-        pvVar4 = ObjectState_SendToBack(pvVar4,*(void **)(iVar1 + 0x128 + iVar3 * 300));
-        *(void **)(iVar1 + iVar3 * 300 + 0x128) = pvVar4;
+  iVar1 = lua_lua2C(1);
+  iVar2 = lua_isuserdata(iVar1);
+  if (iVar2 != 0) {
+    iVar2 = lua_tag(iVar1);
+    if (iVar2 == 0x54415453) {
+      pvVar3 = (void *)lua_getuserdata(iVar1);
+      if (pvVar3 != (void *)0x0) {
+        iVar1 = *(int *)((int)pvVar3 + 8);
+        pvVar4 = Set_GetCurrent();
+        iVar2 = *(int *)((int)pvVar4 + 0xac);
+        pvVar3 = ObjectState_SendToBack(pvVar3,*(void **)(iVar2 + 0x128 + iVar1 * 300));
+        *(void **)(iVar2 + iVar1 * 300 + 0x128) = pvVar3;
       }
     }
   }
@@ -10605,23 +10578,22 @@ void Lua_SendObjectToFront(void)
 
 {
   int iVar1;
-  undefined4 uVar2;
-  int iVar3;
+  int iVar2;
+  void *pvVar3;
   void *pvVar4;
-  void *pvVar5;
   
-  uVar2 = lua_lua2C(1);
-  iVar3 = lua_isuserdata(uVar2);
-  if (iVar3 != 0) {
-    iVar3 = lua_tag(uVar2);
-    if (iVar3 == 0x54415453) {
-      pvVar4 = (void *)lua_getuserdata(uVar2);
-      if (pvVar4 != (void *)0x0) {
-        iVar3 = *(int *)((int)pvVar4 + 8);
-        pvVar5 = Set_GetCurrent();
-        iVar1 = *(int *)((int)pvVar5 + 0xac);
-        pvVar4 = ObjectState_SendToFront(pvVar4,*(void **)(iVar1 + 0x128 + iVar3 * 300));
-        *(void **)(iVar1 + iVar3 * 300 + 0x128) = pvVar4;
+  iVar1 = lua_lua2C(1);
+  iVar2 = lua_isuserdata(iVar1);
+  if (iVar2 != 0) {
+    iVar2 = lua_tag(iVar1);
+    if (iVar2 == 0x54415453) {
+      pvVar3 = (void *)lua_getuserdata(iVar1);
+      if (pvVar3 != (void *)0x0) {
+        iVar1 = *(int *)((int)pvVar3 + 8);
+        pvVar4 = Set_GetCurrent();
+        iVar2 = *(int *)((int)pvVar4 + 0xac);
+        pvVar3 = ObjectState_SendToFront(pvVar3,*(void **)(iVar2 + 0x128 + iVar1 * 300));
+        *(void **)(iVar2 + iVar1 * 300 + 0x128) = pvVar3;
       }
     }
   }
@@ -10638,21 +10610,21 @@ void Lua_SendObjectToFront(void)
 void Lua_SetObjectType(void)
 
 {
-  undefined4 uVar1;
-  undefined4 uVar2;
+  int iVar1;
+  int iVar2;
   int iVar3;
   longlong lVar4;
   
-  uVar1 = lua_lua2C(1);
-  uVar2 = lua_lua2C(2);
-  iVar3 = lua_isuserdata(uVar1);
+  iVar1 = lua_lua2C(1);
+  iVar2 = lua_lua2C(2);
+  iVar3 = lua_isuserdata(iVar1);
   if (iVar3 != 0) {
-    iVar3 = lua_tag(uVar1);
+    iVar3 = lua_tag(iVar1);
     if (iVar3 == 0x54415453) {
-      iVar3 = lua_getuserdata(uVar1);
-      if (iVar3 != 0) {
-        lVar4 = (longlong)lua_getnumber(uVar2);
-        *(int *)(iVar3 + 4) = (int)lVar4;
+      iVar1 = lua_getuserdata(iVar1);
+      if (iVar1 != 0) {
+        lVar4 = (longlong)lua_getnumber(iVar2);
+        *(int *)(iVar1 + 4) = (int)lVar4;
       }
     }
   }
@@ -10671,7 +10643,6 @@ void Lua_ActorToClean(void)
 {
   int iVar1;
   int iVar2;
-  undefined4 uVar3;
   void *actor;
   
   iVar1 = lua_lua2C(1);
@@ -10679,8 +10650,8 @@ void Lua_ActorToClean(void)
   if (iVar2 != 0) {
     iVar2 = lua_tag(iVar1);
     if ((iVar2 == 0x52544341) && (iVar1 != 0)) {
-      uVar3 = lua_getuserdata(iVar1);
-      actor = (void *)Actor_FromHandle(uVar3);
+      iVar1 = lua_getuserdata(iVar1);
+      actor = (void *)Actor_FromHandle(iVar1);
       Actor_ToClean(actor);
       return;
     }
@@ -10700,24 +10671,23 @@ void Lua_SetActorCollisionMode(void)
 
 {
   int iVar1;
-  undefined4 uVar2;
+  int iVar2;
   int iVar3;
-  undefined4 uVar4;
-  longlong lVar5;
+  longlong lVar4;
   
   iVar1 = lua_lua2C(1);
-  uVar2 = lua_lua2C(2);
+  iVar2 = lua_lua2C(2);
   iVar3 = lua_isuserdata(iVar1);
   if (iVar3 != 0) {
     iVar3 = lua_tag(iVar1);
     if ((iVar3 == 0x52544341) && (iVar1 != 0)) {
-      uVar4 = lua_getuserdata(iVar1);
-      iVar1 = Actor_FromHandle(uVar4);
+      iVar1 = lua_getuserdata(iVar1);
+      iVar1 = Actor_FromHandle(iVar1);
       if (*(int *)(iVar1 + 0xa4) == 0) {
         Actor_CreateExtra(iVar1);
       }
-      lVar5 = (longlong)lua_getnumber(uVar2);
-      *(int *)(*(int *)(iVar1 + 0xa4) + 0x3f0) = (int)lVar5;
+      lVar4 = (longlong)lua_getnumber(iVar2);
+      *(int *)(*(int *)(iVar1 + 0xa4) + 0x3f0) = (int)lVar4;
       return;
     }
   }
@@ -10736,24 +10706,23 @@ void Lua_SetActorCollisionScale(void)
 
 {
   int iVar1;
-  undefined4 uVar2;
+  int iVar2;
   int iVar3;
-  undefined4 uVar4;
-  float10 fVar5;
+  float fVar4;
   
   iVar1 = lua_lua2C(1);
-  uVar2 = lua_lua2C(2);
+  iVar2 = lua_lua2C(2);
   iVar3 = lua_isuserdata(iVar1);
   if (iVar3 != 0) {
     iVar3 = lua_tag(iVar1);
     if ((iVar3 == 0x52544341) && (iVar1 != 0)) {
-      uVar4 = lua_getuserdata(iVar1);
-      iVar1 = Actor_FromHandle(uVar4);
+      iVar1 = lua_getuserdata(iVar1);
+      iVar1 = Actor_FromHandle(iVar1);
       if (*(int *)(iVar1 + 0xa4) == 0) {
         Actor_CreateExtra(iVar1);
       }
-      fVar5 = (float10)lua_getnumber(uVar2);
-      *(float *)(*(int *)(iVar1 + 0xa4) + 0x3f4) = (float)fVar5;
+      fVar4 = lua_getnumber(iVar2);
+      *(float *)(*(int *)(iVar1 + 0xa4) + 0x3f4) = fVar4;
       return;
     }
   }
@@ -10772,24 +10741,23 @@ void Lua_SetActorOffsetYaw(void)
 
 {
   int iVar1;
-  undefined4 uVar2;
+  int iVar2;
   int iVar3;
-  undefined4 uVar4;
-  float10 fVar5;
+  float fVar4;
   
   iVar1 = lua_lua2C(1);
-  uVar2 = lua_lua2C(2);
+  iVar2 = lua_lua2C(2);
   iVar3 = lua_isuserdata(iVar1);
   if (iVar3 != 0) {
     iVar3 = lua_tag(iVar1);
     if ((iVar3 == 0x52544341) && (iVar1 != 0)) {
-      uVar4 = lua_getuserdata(iVar1);
-      iVar1 = Actor_FromHandle(uVar4);
+      iVar1 = lua_getuserdata(iVar1);
+      iVar1 = Actor_FromHandle(iVar1);
       if (*(int *)(iVar1 + 0xa4) == 0) {
         Actor_CreateExtra(iVar1);
       }
-      fVar5 = (float10)lua_getnumber(uVar2);
-      *(float *)(*(int *)(iVar1 + 0xa4) + 0x24) = (float)fVar5;
+      fVar4 = lua_getnumber(iVar2);
+      *(float *)(*(int *)(iVar1 + 0xa4) + 0x24) = fVar4;
       return;
     }
   }
@@ -10803,21 +10771,21 @@ void Lua_SetActorOffsetYaw(void)
 /* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_18 */
-/* WARNING: Variable defined which should be unmapped: local_1c */
 /* WARNING: Variable defined which should be unmapped: local_24 */
 /* WARNING: Variable defined which should be unmapped: local_20 */
+/* WARNING: Variable defined which should be unmapped: local_1c */
 /* Lua opcode: CacheRect */
 
 void Lua_CacheRect(void)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  undefined4 uVar1;
-  undefined4 uVar2;
-  undefined4 uVar3;
-  undefined4 uVar4;
+  int iVar1;
+  int iVar2;
+  int iVar3;
+  int iVar4;
   int iVar5;
-  void *pvVar6;
+  char *pcVar6;
   longlong lVar7;
   #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
   #define local_20 (*(uint *)(_frame + (0x40 - 0x20)))
@@ -10825,39 +10793,39 @@ void Lua_CacheRect(void)
   #define local_18 (*(uint *)(_frame + (0x40 - 0x18)))
   #define local_4 (*(uint *)(_frame + (0x40 - 0x4)))
   
-  uVar1 = lua_lua2C(1);
-  uVar2 = lua_lua2C(2);
-  uVar3 = lua_lua2C(3);
-  uVar4 = lua_lua2C(4);
-  iVar5 = lua_isuserdata(uVar1);
+  iVar1 = lua_lua2C(1);
+  iVar2 = lua_lua2C(2);
+  iVar3 = lua_lua2C(3);
+  iVar4 = lua_lua2C(4);
+  iVar5 = lua_isuserdata(iVar1);
   if (iVar5 != 0) {
-    iVar5 = lua_tag(uVar1);
+    iVar5 = lua_tag(iVar1);
     if (iVar5 == 0x52544341) {
-      uVar1 = lua_getuserdata(uVar1);
-      iVar5 = Actor_FromHandle(uVar1);
-      if (((*(int *)(iVar5 + 0x68) == 0) || (*(int *)(iVar5 + 0x74) < 1)) ||
-         (*(int *)(iVar5 + 0x78) < 1)) {
+      iVar1 = lua_getuserdata(iVar1);
+      iVar1 = Actor_FromHandle(iVar1);
+      if (((*(int *)(iVar1 + 0x68) == 0) || (*(int *)(iVar1 + 0x74) < 1)) ||
+         (*(int *)(iVar1 + 0x78) < 1)) {
         lua_pushnil();
         return;
       }
-      local_24 = *(uint *)(iVar5 + 0x6c);
-      local_20 = *(uint *)(iVar5 + 0x70);
-      local_1c = *(uint *)(iVar5 + 0x74);
-      local_18 = *(uint *)(iVar5 + 0x78);
+      local_24 = *(uint *)(iVar1 + 0x6c);
+      local_20 = *(uint *)(iVar1 + 0x70);
+      local_1c = *(uint *)(iVar1 + 0x74);
+      local_18 = *(uint *)(iVar1 + 0x78);
       goto LAB_004a268a;
     }
   }
-  lVar7 = (longlong)lua_getnumber(uVar1);
+  lVar7 = (longlong)lua_getnumber(iVar1);
   local_24 = (uint)lVar7;
-  lVar7 = (longlong)lua_getnumber(uVar2);
+  lVar7 = (longlong)lua_getnumber(iVar2);
   local_20 = (uint)lVar7;
-  lVar7 = (longlong)lua_getnumber(uVar3);
+  lVar7 = (longlong)lua_getnumber(iVar3);
   local_1c = (uint)lVar7;
-  lVar7 = (longlong)lua_getnumber(uVar4);
+  lVar7 = (longlong)lua_getnumber(iVar4);
   local_18 = (uint)lVar7;
 LAB_004a268a:
-  pvVar6 = CacheRect_Create(local_24,local_20,local_1c,local_18);
-  lua_pushusertag(pvVar6,0x504f494e);
+  pcVar6 = CacheRect_Create(local_24,local_20,local_1c,local_18);
+  lua_pushusertag(pcVar6,0x504f494e);
   return;
 }
 #undef local_18
@@ -10878,15 +10846,15 @@ LAB_004a268a:
 void Lua_RestoreCacheRect(void)
 
 {
-  undefined4 uVar1;
+  int iVar1;
   int *piVar2;
   undefined4 unaff_ESI;
   longlong lVar3;
   
-  uVar1 = lua_lua2C(1);
-  piVar2 = (int *)lua_getuserdata(uVar1);
+  iVar1 = lua_lua2C(1);
+  piVar2 = (int *)lua_getuserdata(iVar1);
   if ((piVar2 != (int *)0x0) && (*piVar2 == 0x11111111)) {
-    lVar3 = (longlong)lua_getnumber(uVar1);
+    lVar3 = (longlong)lua_getnumber(iVar1);
     ((code *)CacheRect_Restore)((int)lVar3,unaff_ESI);
   }
   return;
@@ -10929,10 +10897,10 @@ void Lua_HardwareAccelerated(void)
 
 {
   if (g_nZBufferEnabled != 0) {
-    lua_pushnumber(FBITS(0x3f800000));
+    lua_pushnumber(1.0);
     return;
   }
-  lua_pushnumber(0);
+  lua_pushnumber(0.0);
   return;
 }
 #endif
@@ -10946,18 +10914,17 @@ void Lua_HardwareAccelerated(void)
 void Lua_SetActorClipActive(void)
 
 {
-  undefined4 uVar1;
-  undefined4 uVar2;
-  int iVar3;
-  longlong lVar4;
+  int iVar1;
+  int iVar2;
+  longlong lVar3;
   
-  uVar1 = lua_lua2C(1);
-  uVar2 = lua_lua2C(2);
-  uVar1 = lua_getuserdata(uVar1);
-  iVar3 = Actor_FromHandle(uVar1);
-  if (iVar3 != 0) {
-    lVar4 = (longlong)lua_getnumber(uVar2);
-    Actor_SetClipActive(iVar3,(int)lVar4);
+  iVar1 = lua_lua2C(1);
+  iVar2 = lua_lua2C(2);
+  iVar1 = lua_getuserdata(iVar1);
+  iVar1 = Actor_FromHandle(iVar1);
+  if (iVar1 != 0) {
+    lVar3 = (longlong)lua_getnumber(iVar2);
+    Actor_SetClipActive(iVar1,(int)lVar3);
   }
   return;
 }
@@ -10973,63 +10940,55 @@ void Lua_SetActorClipPlane(void)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  undefined4 uVar1;
-  undefined4 uVar2;
-  undefined4 uVar3;
-  undefined4 uVar4;
-  undefined4 uVar5;
-  undefined4 uVar6;
-  undefined4 uVar7;
+  int iVar1;
+  int iVar2;
+  int iVar3;
+  int iVar4;
+  int iVar5;
+  int iVar6;
+  int iVar7;
   int iVar8;
-  int iVar9;
-  float10 fVar10;
   #define local_28 (*(uint *)(_frame + (0x40 - 0x28)))
   #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
   #define local_20 (*(uint *)(_frame + (0x40 - 0x20)))
   #define local_1c (*(uint *)(_frame + (0x40 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x40 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x40 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x40 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x40 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x40 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x40 - 0x4)))
+  #define local_18 (*(float *)(_frame + (0x40 - 0x18)))
+  #define local_14 (*(float *)(_frame + (0x40 - 0x14)))
+  #define local_10 (*(float *)(_frame + (0x40 - 0x10)))
+  #define local_c (*(float *)(_frame + (0x40 - 0xc)))
+  #define local_8 (*(float *)(_frame + (0x40 - 0x8)))
+  #define local_4 (*(float *)(_frame + (0x40 - 0x4)))
   
-  uVar1 = lua_lua2C(1);
-  uVar2 = lua_lua2C(2);
-  uVar3 = lua_lua2C(3);
-  uVar4 = lua_lua2C(4);
-  uVar5 = lua_lua2C(5);
-  uVar6 = lua_lua2C(6);
-  uVar7 = lua_lua2C(7);
-  uVar1 = lua_getuserdata(uVar1);
-  iVar8 = Actor_FromHandle(uVar1);
-  if (iVar8 != 0) {
-    iVar9 = lua_isnumber(uVar2);
-    if (iVar9 != 0) {
-      iVar9 = lua_isnumber(uVar3);
-      if (iVar9 != 0) {
-        iVar9 = lua_isnumber(uVar4);
-        if (iVar9 != 0) {
-          iVar9 = lua_isnumber(uVar5);
-          if (iVar9 != 0) {
-            iVar9 = lua_isnumber(uVar6);
-            if (iVar9 != 0) {
-              iVar9 = lua_isnumber(uVar7);
-              if (iVar9 != 0) {
-                fVar10 = (float10)lua_getnumber(uVar2);
-                local_18 = (uint)(float)fVar10;
-                fVar10 = (float10)lua_getnumber(uVar3);
-                local_14 = (uint)(float)fVar10;
-                fVar10 = (float10)lua_getnumber(uVar4);
-                local_10 = (uint)(float)fVar10;
-                Vec3_Normalize((float *)&local_18);
-                fVar10 = (float10)lua_getnumber(uVar5);
-                local_c = (uint)(float)fVar10;
-                fVar10 = (float10)lua_getnumber(uVar6);
-                local_8 = (uint)(float)fVar10;
-                fVar10 = (float10)lua_getnumber(uVar7);
-                local_4 = (uint)(float)fVar10;
-                Actor_SetClipPlane(iVar8,&local_18,&local_c);
+  iVar1 = lua_lua2C(1);
+  iVar2 = lua_lua2C(2);
+  iVar3 = lua_lua2C(3);
+  iVar4 = lua_lua2C(4);
+  iVar5 = lua_lua2C(5);
+  iVar6 = lua_lua2C(6);
+  iVar7 = lua_lua2C(7);
+  iVar1 = lua_getuserdata(iVar1);
+  iVar1 = Actor_FromHandle(iVar1);
+  if (iVar1 != 0) {
+    iVar8 = lua_isnumber(iVar2);
+    if (iVar8 != 0) {
+      iVar8 = lua_isnumber(iVar3);
+      if (iVar8 != 0) {
+        iVar8 = lua_isnumber(iVar4);
+        if (iVar8 != 0) {
+          iVar8 = lua_isnumber(iVar5);
+          if (iVar8 != 0) {
+            iVar8 = lua_isnumber(iVar6);
+            if (iVar8 != 0) {
+              iVar8 = lua_isnumber(iVar7);
+              if (iVar8 != 0) {
+                local_18 = lua_getnumber(iVar2);
+                local_14 = lua_getnumber(iVar3);
+                local_10 = lua_getnumber(iVar4);
+                Vec3_Normalize(&local_18);
+                local_c = lua_getnumber(iVar5);
+                local_8 = lua_getnumber(iVar6);
+                local_4 = lua_getnumber(iVar7);
+                Actor_SetClipPlane(iVar1,&local_18,&local_c);
               }
             }
           }
@@ -11062,10 +11021,10 @@ void Lua_MarkDirtyRect(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  undefined4 uVar1;
-  undefined4 uVar2;
-  undefined4 uVar3;
-  undefined4 uVar4;
+  int iVar1;
+  int iVar2;
+  int iVar3;
+  int iVar4;
   int iVar5;
   longlong lVar6;
   #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
@@ -11073,32 +11032,32 @@ void Lua_MarkDirtyRect(void)
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
-  uVar1 = lua_lua2C(1);
-  uVar2 = lua_lua2C(2);
-  uVar3 = lua_lua2C(3);
-  uVar4 = lua_lua2C(4);
-  iVar5 = lua_isuserdata(uVar1);
+  iVar1 = lua_lua2C(1);
+  iVar2 = lua_lua2C(2);
+  iVar3 = lua_lua2C(3);
+  iVar4 = lua_lua2C(4);
+  iVar5 = lua_isuserdata(iVar1);
   if (iVar5 != 0) {
-    iVar5 = lua_tag(uVar1);
+    iVar5 = lua_tag(iVar1);
     if (iVar5 == 0x52544341) {
-      uVar1 = lua_getuserdata(uVar1);
-      iVar5 = Actor_FromHandle(uVar1);
-      if (((*(int *)(iVar5 + 0x68) != 0) && (0 < *(int *)(iVar5 + 0x74))) &&
-         (0 < *(int *)(iVar5 + 0x78))) {
-        Render_InvalidateRectLastBuffer((int *)(iVar5 + 0x6c),1);
+      iVar1 = lua_getuserdata(iVar1);
+      iVar1 = Actor_FromHandle(iVar1);
+      if (((*(int *)(iVar1 + 0x68) != 0) && (0 < *(int *)(iVar1 + 0x74))) &&
+         (0 < *(int *)(iVar1 + 0x78))) {
+        Render_InvalidateRectLastBuffer((int *)(iVar1 + 0x6c),1);
         return;
       }
       lua_pushnil();
       return;
     }
   }
-  lVar6 = (longlong)lua_getnumber(uVar1);
+  lVar6 = (longlong)lua_getnumber(iVar1);
   local_10 = (uint)lVar6;
-  lVar6 = (longlong)lua_getnumber(uVar2);
+  lVar6 = (longlong)lua_getnumber(iVar2);
   local_c = (uint)lVar6;
-  lVar6 = (longlong)lua_getnumber(uVar3);
+  lVar6 = (longlong)lua_getnumber(iVar3);
   local_8 = (uint)lVar6;
-  lVar6 = (longlong)lua_getnumber(uVar4);
+  lVar6 = (longlong)lua_getnumber(iVar4);
   local_4 = (uint)lVar6;
   Render_InvalidateRectLastBuffer((int *)&local_10,1);
   return;
@@ -11120,33 +11079,32 @@ void Lua_FadeOutChore(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  undefined4 uVar1;
+  int iVar1;
   void *luaObj;
-  undefined4 uVar2;
-  undefined4 uVar3;
+  int iVar2;
+  int iVar3;
   int iVar4;
-  int iVar5;
+  longlong lVar5;
   longlong lVar6;
-  longlong lVar7;
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
-  uVar1 = lua_lua2C(1);
+  iVar1 = lua_lua2C(1);
   luaObj = (void *)lua_lua2C(2);
-  uVar2 = lua_lua2C(3);
-  uVar3 = lua_lua2C(4);
-  iVar4 = lua_isuserdata(uVar1);
-  if ((iVar4 != 0) && (iVar4 = lua_tag(uVar1), iVar4 == 0x52544341)) {
-    uVar1 = lua_getuserdata(uVar1);
-    iVar4 = Actor_FromHandle(uVar1);
-    lVar6 = (longlong)lua_getnumber(uVar2);
-    lVar7 = (longlong)lua_getnumber(uVar3);
-    iVar5 = lua_isstring(luaObj);
-    if ((iVar5 == 0) && (iVar5 = lua_isnumber(luaObj), iVar5 == 0)) {
+  iVar2 = lua_lua2C(3);
+  iVar3 = lua_lua2C(4);
+  iVar4 = lua_isuserdata(iVar1);
+  if ((iVar4 != 0) && (iVar4 = lua_tag(iVar1), iVar4 == 0x52544341)) {
+    iVar1 = lua_getuserdata(iVar1);
+    iVar1 = Actor_FromHandle(iVar1);
+    lVar5 = (longlong)lua_getnumber(iVar2);
+    lVar6 = (longlong)lua_getnumber(iVar3);
+    iVar2 = lua_isstring((int)luaObj);
+    if ((iVar2 == 0) && (iVar2 = lua_isnumber((int)luaObj), iVar2 == 0)) {
       return;
     }
-    iVar4 = Lua_ResolveCostumeArg(luaObj,*(void **)(iVar4 + 0xa0),(void **)&local_4);
-    if (iVar4 != 0) {
-      Chore_FadeOut(*(void **)local_4,(int)lVar6,(int)lVar7);
+    iVar1 = Lua_ResolveCostumeArg(luaObj,*(void **)(iVar1 + 0xa0),(void **)&local_4);
+    if (iVar1 != 0) {
+      Chore_FadeOut(*(void **)local_4,(int)lVar5,(int)lVar6);
     }
   }
   return;
@@ -11165,36 +11123,35 @@ void Lua_FadeInChore(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  undefined4 uVar1;
+  int iVar1;
   void *luaObj;
-  undefined4 uVar2;
+  int iVar2;
   int iVar3;
-  int chore;
-  int iVar4;
-  longlong lVar5;
+  uint chore;
+  longlong lVar4;
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
-  uVar1 = lua_lua2C(1);
+  iVar1 = lua_lua2C(1);
   luaObj = (void *)lua_lua2C(2);
-  uVar2 = lua_lua2C(3);
+  iVar2 = lua_lua2C(3);
   local_4 = lua_lua2C(4);
-  iVar3 = lua_isuserdata(uVar1);
-  if ((iVar3 != 0) && (iVar3 = lua_tag(uVar1), iVar3 == 0x52544341)) {
-    uVar1 = lua_getuserdata(uVar1);
-    iVar3 = Actor_FromHandle(uVar1);
-    lVar5 = (longlong)lua_getnumber(uVar2);
-    chore = (int)lVar5;
-    lVar5 = (longlong)lua_getnumber(local_4);
-    iVar4 = lua_isstring(luaObj);
-    if ((iVar4 == 0) && (iVar4 = lua_isnumber(luaObj), iVar4 == 0)) {
+  iVar3 = lua_isuserdata(iVar1);
+  if ((iVar3 != 0) && (iVar3 = lua_tag(iVar1), iVar3 == 0x52544341)) {
+    iVar1 = lua_getuserdata(iVar1);
+    iVar1 = Actor_FromHandle(iVar1);
+    lVar4 = (longlong)lua_getnumber(iVar2);
+    chore = (uint)lVar4;
+    lVar4 = (longlong)lua_getnumber(local_4);
+    iVar2 = lua_isstring((int)luaObj);
+    if ((iVar2 == 0) && (iVar2 = lua_isnumber((int)luaObj), iVar2 == 0)) {
       return;
     }
-    iVar3 = Lua_ResolveCostumeArg(luaObj,*(void **)(iVar3 + 0xa0),(void **)&local_8);
-    if (iVar3 != 0) {
-      Cos_InstPlayChore(*(undefined4 *)local_8,chore,0,0);
-      Cos_InstUpdateChore(*(undefined4 *)local_8,chore,100);
-      Chore_FadeIn(*(void **)local_8,chore,(int)lVar5);
+    iVar1 = Lua_ResolveCostumeArg(luaObj,*(void **)(iVar1 + 0xa0),(void **)&local_8);
+    if (iVar1 != 0) {
+      Cos_InstPlayChore(*(int *)local_8,chore,0,0);
+      Cos_InstUpdateChore(*(int *)local_8,chore,100);
+      Chore_FadeIn(*(void **)local_8,chore,(int)lVar4);
     }
   }
   return;
@@ -11213,22 +11170,20 @@ void Lua_FadeInChore(void)
 void Lua_IrisDown(void)
 
 {
-  undefined4 uVar1;
-  undefined4 uVar2;
-  undefined4 uVar3;
-  int durationMs;
-  int y;
+  int iVar1;
+  int iVar2;
+  int iVar3;
   longlong lVar4;
   
-  uVar1 = lua_lua2C(1);
-  uVar2 = lua_lua2C(2);
-  uVar3 = lua_lua2C(3);
-  lVar4 = (longlong)lua_getnumber(uVar3);
-  durationMs = (int)lVar4;
-  lVar4 = (longlong)lua_getnumber(uVar2);
-  y = (int)lVar4;
-  lVar4 = (longlong)lua_getnumber(uVar1);
-  Render_StartIrisClose((int)lVar4,y,durationMs);
+  iVar1 = lua_lua2C(1);
+  iVar2 = lua_lua2C(2);
+  iVar3 = lua_lua2C(3);
+  lVar4 = (longlong)lua_getnumber(iVar3);
+  iVar3 = (int)lVar4;
+  lVar4 = (longlong)lua_getnumber(iVar2);
+  iVar2 = (int)lVar4;
+  lVar4 = (longlong)lua_getnumber(iVar1);
+  Render_StartIrisClose((int)lVar4,iVar2,iVar3);
   return;
 }
 #endif
@@ -11242,22 +11197,20 @@ void Lua_IrisDown(void)
 void Lua_IrisUp(void)
 
 {
-  undefined4 uVar1;
-  undefined4 uVar2;
-  undefined4 uVar3;
-  int durationMs;
-  int y;
+  int iVar1;
+  int iVar2;
+  int iVar3;
   longlong lVar4;
   
-  uVar1 = lua_lua2C(1);
-  uVar2 = lua_lua2C(2);
-  uVar3 = lua_lua2C(3);
-  lVar4 = (longlong)lua_getnumber(uVar3);
-  durationMs = (int)lVar4;
-  lVar4 = (longlong)lua_getnumber(uVar2);
-  y = (int)lVar4;
-  lVar4 = (longlong)lua_getnumber(uVar1);
-  Render_StartIrisOpen((int)lVar4,y,durationMs);
+  iVar1 = lua_lua2C(1);
+  iVar2 = lua_lua2C(2);
+  iVar3 = lua_lua2C(3);
+  lVar4 = (longlong)lua_getnumber(iVar3);
+  iVar3 = (int)lVar4;
+  lVar4 = (longlong)lua_getnumber(iVar2);
+  iVar2 = (int)lVar4;
+  lVar4 = (longlong)lua_getnumber(iVar1);
+  Render_StartIrisOpen((int)lVar4,iVar2,iVar3);
   return;
 }
 #endif
@@ -11299,7 +11252,7 @@ void Lua_TextFileGetLineCount(void)
 {
   unsigned char _frame[0x230] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   byte bVar1;
-  undefined4 uVar2;
+  int iVar2;
   int iVar3;
   uint uVar4;
   undefined *puVar5;
@@ -11308,20 +11261,20 @@ void Lua_TextFileGetLineCount(void)
   #define local_204 (*(uint *)(_frame + (0x230 - 0x204)))
   #define local_200 (*(undefined1 (*)[512])(_frame + (0x230 - 0x200)))
   
-  uVar2 = lua_lua2C(1);
+  iVar2 = lua_lua2C(1);
   local_208 = 0;
-  iVar3 = lua_isnil(uVar2);
+  iVar3 = lua_isnil(iVar2);
   if (iVar3 != 0) {
     lua_pushnil();
     return;
   }
-  uVar4 = lua_getstring(uVar2);
+  uVar4 = lua_getstring(iVar2);
   puVar5 = fopen(uVar4,IMG_ADDR(0x004ec5bc));
   if (puVar5 != (undefined *)0x0) {
-    uVar2 = lua_createtable();
+    iVar2 = lua_createtable();
     bVar1 = puVar5[0xc];
     while ((bVar1 & 0x10) == 0) {
-      lua_pushobject(uVar2);
+      lua_pushobject(iVar2);
       lua_pushnumber((float)(int)local_208);
       iVar3 = ftell(puVar5);
       lua_pushnumber((float)iVar3);
@@ -11331,11 +11284,11 @@ void Lua_TextFileGetLineCount(void)
       bVar1 = puVar5[0xc];
     }
     fclose(puVar5);
-    lua_pushobject(uVar2);
+    lua_pushobject(iVar2);
     lua_pushstring(s_count_004ec384);
     lua_pushnumber((float)(int)local_208);
     lua_settable();
-    lua_pushobject(uVar2);
+    lua_pushobject(iVar2);
     return;
   }
   lua_pushnil();
@@ -11358,27 +11311,27 @@ void Lua_TextFileGetLine(void)
 
 {
   unsigned char _frame[0x210] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  undefined4 uVar1;
-  undefined4 uVar2;
+  int iVar1;
+  int iVar2;
   int iVar3;
   uint uVar4;
   longlong lVar5;
   undefined *puVar6;
-  #define local_200 (*(undefined1 (*)[512])(_frame + (0x210 - 0x200)))
+  #define local_200 (*(char (*)[512])(_frame + (0x210 - 0x200)))
   
-  uVar1 = lua_lua2C(1);
-  uVar2 = lua_lua2C(2);
-  iVar3 = lua_isnil(uVar1);
+  iVar1 = lua_lua2C(1);
+  iVar2 = lua_lua2C(2);
+  iVar3 = lua_isnil(iVar1);
   if (iVar3 == 0) {
-    iVar3 = lua_isnil(uVar2);
+    iVar3 = lua_isnil(iVar2);
     if (iVar3 == 0) {
       puVar6 = &DAT_004ec5bc;
-      uVar4 = lua_getstring(uVar1);
+      uVar4 = lua_getstring(iVar1);
       puVar6 = fopen(uVar4,(uint)puVar6);
       if (puVar6 != (undefined *)0x0) {
-        lVar5 = (longlong)lua_getnumber(uVar2);
+        lVar5 = (longlong)lua_getnumber(iVar2);
         fseek(puVar6,(int)lVar5,0);
-        local_200[0] = 0;
+        local_200[0] = '\0';
         fgets(local_200,0x200,puVar6);
         fclose(puVar6);
         lua_pushstring(local_200);
@@ -11402,40 +11355,39 @@ void Lua_TextFileGetLine(void)
 void Lua_ScreenShot(void)
 
 {
-  undefined4 uVar1;
-  undefined4 uVar2;
+  int iVar1;
+  int iVar2;
   int iVar3;
-  int iVar4;
-  void *pvVar5;
-  longlong lVar6;
+  char *pcVar4;
+  longlong lVar5;
   
-  uVar1 = lua_lua2C(1);
-  uVar2 = lua_lua2C(2);
-  iVar3 = lua_isnil(uVar1);
+  iVar1 = lua_lua2C(1);
+  iVar2 = lua_lua2C(2);
+  iVar3 = lua_isnil(iVar1);
   if (iVar3 == 0) {
-    iVar3 = lua_isnumber(uVar1);
+    iVar3 = lua_isnumber(iVar1);
     if (iVar3 == 0) goto LAB_004a2f2f;
-    lVar6 = (longlong)lua_getnumber(uVar1);
-    iVar3 = (int)lVar6;
+    lVar5 = (longlong)lua_getnumber(iVar1);
+    iVar1 = (int)lVar5;
   }
   else {
 LAB_004a2f2f:
-    iVar3 = 0x280;
+    iVar1 = 0x280;
   }
-  iVar4 = lua_isnil(uVar2);
-  if (iVar4 == 0) {
-    iVar4 = lua_isnumber(uVar2);
-    if (iVar4 != 0) {
-      lVar6 = (longlong)lua_getnumber(uVar2);
-      iVar4 = (int)lVar6;
+  iVar3 = lua_isnil(iVar2);
+  if (iVar3 == 0) {
+    iVar3 = lua_isnumber(iVar2);
+    if (iVar3 != 0) {
+      lVar5 = (longlong)lua_getnumber(iVar2);
+      iVar2 = (int)lVar5;
       goto LAB_004a2f5e;
     }
   }
-  iVar4 = 0x1e0;
+  iVar2 = 0x1e0;
 LAB_004a2f5e:
-  pvVar5 = Render_CaptureThumbnail(iVar3,iVar4);
-  if (pvVar5 != (void *)0x0) {
-    lua_pushusertag(pvVar5,0x46554256);
+  pcVar4 = Render_CaptureThumbnail(iVar1,iVar2);
+  if (pcVar4 != (char *)0x0) {
+    lua_pushusertag(pcVar4,0x46554256);
     return;
   }
   lua_pushnil();
@@ -11452,16 +11404,16 @@ LAB_004a2f5e:
 void Lua_SaveScreen(void)
 
 {
-  undefined4 uVar1;
+  int iVar1;
   int iVar2;
   char *filename;
   
-  uVar1 = lua_lua2C(1);
-  iVar2 = lua_isnil(uVar1);
+  iVar1 = lua_lua2C(1);
+  iVar2 = lua_isnil(iVar1);
   if (iVar2 == 0) {
-    iVar2 = lua_isstring(uVar1);
+    iVar2 = lua_isstring(iVar1);
     if (iVar2 != 0) {
-      filename = (char *)lua_getstring(uVar1);
+      filename = (char *)lua_getstring(iVar1);
       Render_SaveScreen(filename);
     }
   }
@@ -11478,26 +11430,24 @@ void Lua_SaveScreen(void)
 void Lua_GetSaveGameImage(void)
 
 {
-  undefined4 uVar1;
+  int iVar1;
   int iVar2;
-  char *filename;
-  void *pvVar3;
+  char *pcVar3;
   
-  uVar1 = lua_lua2C(1);
-  iVar2 = lua_isstring(uVar1);
+  iVar1 = lua_lua2C(1);
+  iVar2 = lua_isstring(iVar1);
   if (iVar2 == 0) {
     lua_pushnil();
     return;
   }
-  filename = (char *)lua_getstring(uVar1);
-  pvVar3 = SaveGame_LoadThumbnail(filename);
-  if (pvVar3 == (void *)0x0) {
+  pcVar3 = (char *)lua_getstring(iVar1);
+  pcVar3 = SaveGame_LoadThumbnail(pcVar3);
+  if (pcVar3 == (char *)0x0) {
     lua_pushnil();
     return;
   }
-  Render_RemapPixels(*(ushort **)((int)pvVar3 + 0x5c),
-                     *(int *)((int)pvVar3 + 0x10) * *(int *)((int)pvVar3 + 0xc));
-  lua_pushusertag(pvVar3,0x46554256);
+  Render_RemapPixels(*(ushort **)(pcVar3 + 0x5c),*(int *)(pcVar3 + 0x10) * *(int *)(pcVar3 + 0xc));
+  lua_pushusertag(pcVar3,0x46554256);
   return;
 }
 #endif
@@ -11511,27 +11461,31 @@ void Lua_GetSaveGameImage(void)
 void Lua_GetImage(void)
 
 {
-  undefined4 uVar1;
+  int iVar1;
   int iVar2;
-  char *filename;
+  char *pcVar3;
   void *bitmap;
-  int iVar3;
+  int iVar4;
   
-  uVar1 = lua_lua2C(1);
-  iVar2 = lua_isstring(uVar1);
+  iVar1 = lua_lua2C(1);
+  iVar2 = lua_isstring(iVar1);
   if (iVar2 != 0) {
-    iVar3 = 0;
+    iVar4 = 0;
     iVar2 = 0;
-    filename = (char *)lua_getstring(uVar1);
-    bitmap = stdBitmap_Load(filename,iVar2,iVar3);
+    pcVar3 = (char *)lua_getstring(iVar1);
+    bitmap = stdBitmap_Load(pcVar3,iVar2,iVar4);
     if (bitmap != (void *)0x0) {
-      iVar2 = **(int **)((int)bitmap + 0x78);
-      *(undefined4 *)(iVar2 + 0x60) = 0xf81f;
+      pcVar3 = (char *)**(undefined4 **)((int)bitmap + 0x78);
+      pcVar3[0x60] = '\x1f';
+      pcVar3[0x61] = -8;
+      pcVar3[0x62] = '\0';
+      pcVar3[99] = '\0';
       **(undefined4 **)((int)bitmap + 0x78) = 0;
       stdBitmap_Free(bitmap);
-      Render_RemapPixels(*(ushort **)(iVar2 + 0x5c),*(int *)(iVar2 + 0x10) * *(int *)(iVar2 + 0xc));
-      Render_RemapPixels((ushort *)(iVar2 + 0x60),1);
-      lua_pushusertag(iVar2,0x46554256);
+      Render_RemapPixels(*(ushort **)(pcVar3 + 0x5c),
+                         *(int *)(pcVar3 + 0x10) * *(int *)(pcVar3 + 0xc));
+      Render_RemapPixels((ushort *)(pcVar3 + 0x60),1);
+      lua_pushusertag(pcVar3,0x46554256);
       return;
     }
   }
@@ -11549,16 +11503,16 @@ void Lua_GetImage(void)
 void Lua_FreeImage(void)
 
 {
-  undefined4 uVar1;
+  int iVar1;
   int iVar2;
   void *surface;
   
-  uVar1 = lua_lua2C(1);
-  iVar2 = lua_isuserdata(uVar1);
+  iVar1 = lua_lua2C(1);
+  iVar2 = lua_isuserdata(iVar1);
   if (iVar2 != 0) {
-    iVar2 = lua_tag(uVar1);
+    iVar2 = lua_tag(iVar1);
     if (iVar2 == 0x46554256) {
-      surface = (void *)lua_getuserdata(uVar1);
+      surface = (void *)lua_getuserdata(iVar1);
       Surface_Free(surface);
     }
   }
@@ -11575,40 +11529,38 @@ void Lua_FreeImage(void)
 void Lua_BlastImage(void)
 
 {
-  undefined4 uVar1;
-  undefined4 uVar2;
-  undefined4 uVar3;
-  undefined4 uVar4;
-  int iVar5;
+  int iVar1;
+  int iVar2;
+  int iVar3;
+  int iVar4;
   void *src;
-  int x;
   void *dst;
-  longlong lVar6;
+  longlong lVar5;
   int *srcRect;
   uint colorKey;
   
-  uVar1 = lua_lua2C(1);
-  uVar2 = lua_lua2C(2);
-  uVar3 = lua_lua2C(3);
-  uVar4 = lua_lua2C(4);
-  iVar5 = lua_isnil(uVar4);
-  colorKey = (uint)(iVar5 == 0);
-  iVar5 = lua_isuserdata(uVar1);
-  if (iVar5 != 0) {
-    iVar5 = lua_tag(uVar1);
-    if (iVar5 == 0x46554256) {
-      iVar5 = lua_isnumber(uVar2);
-      if (iVar5 != 0) {
-        iVar5 = lua_isnumber(uVar3);
-        if (iVar5 != 0) {
-          src = (void *)lua_getuserdata(uVar1);
+  iVar1 = lua_lua2C(1);
+  iVar2 = lua_lua2C(2);
+  iVar3 = lua_lua2C(3);
+  iVar4 = lua_lua2C(4);
+  iVar4 = lua_isnil(iVar4);
+  colorKey = (uint)(iVar4 == 0);
+  iVar4 = lua_isuserdata(iVar1);
+  if (iVar4 != 0) {
+    iVar4 = lua_tag(iVar1);
+    if (iVar4 == 0x46554256) {
+      iVar4 = lua_isnumber(iVar2);
+      if (iVar4 != 0) {
+        iVar4 = lua_isnumber(iVar3);
+        if (iVar4 != 0) {
+          src = (void *)lua_getuserdata(iVar1);
           srcRect = (int *)0x0;
-          lVar6 = (longlong)lua_getnumber(uVar3);
-          iVar5 = (int)lVar6;
-          lVar6 = (longlong)lua_getnumber(uVar2);
-          x = (int)lVar6;
+          lVar5 = (longlong)lua_getnumber(iVar3);
+          iVar1 = (int)lVar5;
+          lVar5 = (longlong)lua_getnumber(iVar2);
+          iVar2 = (int)lVar5;
           dst = (void *)Render_GetBackBuffer();
-          Surface_Blit(dst,src,x,iVar5,srcRect,colorKey);
+          Surface_Blit(dst,src,iVar2,iVar1,srcRect,colorKey);
         }
       }
     }
@@ -11627,108 +11579,106 @@ void Lua_BlastRect(void)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  undefined4 uVar1;
-  undefined4 uVar2;
-  undefined4 uVar3;
+  int iVar1;
+  int iVar2;
+  int iVar3;
   int iVar4;
   int iVar5;
-  int iVar6;
-  int iVar7;
-  uint uVar8;
-  undefined2 *puVar9;
-  undefined2 *puVar10;
-  uint uVar11;
-  longlong lVar12;
+  uint uVar6;
+  undefined2 *puVar7;
+  undefined2 *puVar8;
+  uint uVar9;
+  longlong lVar10;
   #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
   #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
   #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
   #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
   
-  uVar1 = lua_lua2C(1);
-  uVar2 = lua_lua2C(2);
+  iVar1 = lua_lua2C(1);
+  iVar2 = lua_lua2C(2);
   local_10 = lua_lua2C(3);
   local_c = lua_lua2C(4);
-  uVar3 = lua_lua2C(5);
+  iVar3 = lua_lua2C(5);
   local_14 = 0xffff;
   local_8 = 0;
-  iVar4 = lua_isnumber(uVar1);
-  if ((((iVar4 == 0) || (iVar4 = lua_isnumber(uVar2), iVar4 == 0)) ||
+  iVar4 = lua_isnumber(iVar1);
+  if ((((iVar4 == 0) || (iVar4 = lua_isnumber(iVar2), iVar4 == 0)) ||
       (iVar4 = lua_isnumber(local_10), iVar4 == 0)) || (iVar4 = lua_isnumber(local_c), iVar4 == 0))
   {
     lua_pushnil();
   }
   else {
-    lVar12 = (longlong)lua_getnumber(uVar1);
-    local_4 = (uint)lVar12;
-    lVar12 = (longlong)lua_getnumber(uVar2);
-    iVar4 = (int)lVar12;
-    lVar12 = (longlong)lua_getnumber(local_10);
-    iVar5 = (int)lVar12;
-    lVar12 = (longlong)lua_getnumber(local_c);
-    iVar6 = (int)lVar12;
-    iVar7 = lua_istable(uVar3);
-    if (iVar7 != 0) {
-      lua_pushobject(uVar3);
+    lVar10 = (longlong)lua_getnumber(iVar1);
+    local_4 = (uint)lVar10;
+    lVar10 = (longlong)lua_getnumber(iVar2);
+    iVar1 = (int)lVar10;
+    lVar10 = (longlong)lua_getnumber(local_10);
+    iVar2 = (int)lVar10;
+    lVar10 = (longlong)lua_getnumber(local_c);
+    iVar4 = (int)lVar10;
+    iVar5 = lua_istable(iVar3);
+    if (iVar5 != 0) {
+      lua_pushobject(iVar3);
       lua_pushstring(s_color_004e8468);
       local_c = lua_gettable();
-      iVar7 = lua_isuserdata(local_c);
-      if ((iVar7 != 0) && (iVar7 = lua_tag(local_c), iVar7 == 0x524c4f43)) {
-        uVar8 = lua_getuserdata(local_c);
-        local_14 = ((uVar8 >> 3) << 6 | uVar8 >> 10 & 0x3f) << 5 | uVar8 >> 0x13 & 0x1f;
+      iVar5 = lua_isuserdata(local_c);
+      if ((iVar5 != 0) && (iVar5 = lua_tag(local_c), iVar5 == 0x524c4f43)) {
+        uVar6 = lua_getuserdata(local_c);
+        local_14 = ((uVar6 >> 3) << 6 | uVar6 >> 10 & 0x3f) << 5 | uVar6 >> 0x13 & 0x1f;
         Render_RemapPixels((ushort *)&local_14,1);
       }
-      lua_pushobject(uVar3);
+      lua_pushobject(iVar3);
       lua_pushstring(s_filled_004e8430);
-      uVar1 = lua_gettable();
-      iVar7 = lua_isnil(uVar1);
-      if (iVar7 == 0) {
+      iVar3 = lua_gettable();
+      iVar3 = lua_isnil(iVar3);
+      if (iVar3 == 0) {
         local_8 = 1;
       }
     }
-    uVar8 = local_4;
-    if ((((int)local_4 <= iVar5) && (iVar4 <= iVar6)) &&
-       ((-1 < (int)local_4 && (((-1 < iVar4 && (iVar5 < 0x280)) && (iVar6 < 0x1e0)))))) {
+    uVar6 = local_4;
+    if ((((int)local_4 <= iVar2) && (iVar1 <= iVar4)) &&
+       ((-1 < (int)local_4 && (((-1 < iVar1 && (iVar2 < 0x280)) && (iVar4 < 0x1e0)))))) {
       local_4 = Render_GetBackBuffer();
-      uVar11 = iVar5 - uVar8;
-      local_c = (iVar6 - iVar4) + 1;
+      uVar9 = iVar2 - uVar6;
+      local_c = (iVar4 - iVar1) + 1;
       Surface_Lock((void *)local_4);
-      puVar9 = (undefined2 *)
-               (iVar4 * *(int *)(local_4 + 0x18) + *(int *)(local_4 + 0x5c) + uVar8 * 2);
-      if (uVar11 != 0xffffffff) {
-        iVar4 = uVar11 + 1;
-        puVar10 = puVar9;
+      puVar7 = (undefined2 *)
+               (iVar1 * *(int *)(local_4 + 0x18) + *(int *)(local_4 + 0x5c) + uVar6 * 2);
+      if (uVar9 != 0xffffffff) {
+        iVar1 = uVar9 + 1;
+        puVar8 = puVar7;
         do {
-          *puVar10 = (undefined2)local_14;
-          puVar10 = puVar10 + 1;
-          iVar4 = iVar4 + -1;
-        } while (iVar4 != 0);
+          *puVar8 = (undefined2)local_14;
+          puVar8 = puVar8 + 1;
+          iVar1 = iVar1 + -1;
+        } while (iVar1 != 0);
       }
       if (2 < (int)local_c) {
-        for (iVar4 = local_c - 2; iVar4 != 0; iVar4 = iVar4 + -1) {
-          puVar9 = (undefined2 *)((int)puVar9 + *(int *)(local_4 + 0x18));
-          puVar10 = puVar9;
-          uVar8 = uVar11;
+        for (iVar1 = local_c - 2; iVar1 != 0; iVar1 = iVar1 + -1) {
+          puVar7 = (undefined2 *)((int)puVar7 + *(int *)(local_4 + 0x18));
+          puVar8 = puVar7;
+          uVar6 = uVar9;
           if (local_8 == 0) {
-            uVar8 = 1;
+            uVar6 = 1;
           }
-          for (; uVar8 != 0; uVar8 = uVar8 - 1) {
-            *puVar10 = (undefined2)local_14;
-            puVar10 = puVar10 + 1;
+          for (; uVar6 != 0; uVar6 = uVar6 - 1) {
+            *puVar8 = (undefined2)local_14;
+            puVar8 = puVar8 + 1;
           }
-          puVar9[uVar11] = (undefined2)local_14;
+          puVar7[uVar9] = (undefined2)local_14;
         }
       }
       if ((1 < (int)local_c) &&
-         (puVar9 = (undefined2 *)((int)puVar9 + *(int *)(local_4 + 0x18)), uVar11 != 0xffffffff)) {
-        iVar4 = uVar11 + 1;
+         (puVar7 = (undefined2 *)((int)puVar7 + *(int *)(local_4 + 0x18)), uVar9 != 0xffffffff)) {
+        iVar1 = uVar9 + 1;
         do {
-          *puVar9 = (undefined2)local_14;
-          puVar9 = puVar9 + 1;
-          iVar4 = iVar4 + -1;
-        } while (iVar4 != 0);
+          *puVar7 = (undefined2)local_14;
+          puVar7 = puVar7 + 1;
+          iVar1 = iVar1 + -1;
+        } while (iVar1 != 0);
       }
-      local_10 = uVar11;
+      local_10 = uVar9;
       Surface_Unlock((void *)local_4);
       return;
     }
@@ -11755,10 +11705,9 @@ void __cdecl Lua_CallSaveGameCallback(void *writeFn)
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   bool bVar1;
   bool bVar2;
-  undefined4 uVar3;
+  int iVar3;
   void *pvVar4;
-  int iVar5;
-  void *pvVar6;
+  void *pvVar5;
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   bVar1 = false;
@@ -11766,38 +11715,38 @@ void __cdecl Lua_CallSaveGameCallback(void *writeFn)
   g_pfnLuaSaveWrite = writeFn;
   g_nLuaSaveStringCount = 0;
   lua_beginblock();
-  uVar3 = lua_getref(g_nLuaSystemTableRef);
-  lua_pushobject(uVar3);
+  iVar3 = lua_getref(g_nLuaSystemTableRef);
+  lua_pushobject(iVar3);
   lua_pushstring(s_saveGameCallback_004ec5c0);
   pvVar4 = (void *)lua_gettable();
-  iVar5 = lua_istable(pvVar4);
-  if (iVar5 == 0) {
-    iVar5 = lua_isfunction(pvVar4);
-    if (iVar5 == 0) {
-      lua_isnil(pvVar4);
-      pvVar6 = writeFn;
+  iVar3 = lua_istable((int)pvVar4);
+  if (iVar3 == 0) {
+    iVar3 = lua_isfunction((int)pvVar4);
+    if (iVar3 == 0) {
+      lua_isnil((int)pvVar4);
+      pvVar5 = writeFn;
     }
     else {
       bVar2 = false;
       bVar1 = true;
-      pvVar6 = pvVar4;
+      pvVar5 = pvVar4;
     }
   }
   else {
-    lua_pushobject();
+    lua_pushobject((int)pvVar4);
     lua_pushstring(s_saveGameCallback_004ec5c0);
-    pvVar6 = (void *)lua_gettable();
-    iVar5 = lua_isfunction(pvVar6);
-    if (iVar5 != 0) {
+    pvVar5 = (void *)lua_gettable();
+    iVar3 = lua_isfunction((int)pvVar5);
+    if (iVar3 != 0) {
       bVar1 = true;
       bVar2 = true;
     }
   }
   if (bVar1) {
     if (bVar2) {
-      lua_pushobject(pvVar4);
+      lua_pushobject((int)pvVar4);
     }
-    lua_callfunction(pvVar6);
+    lua_callfunction((int)pvVar5);
   }
   if (g_nLuaSaveStringCount == 0) {
     (*(code *)writeFn)(&g_nLuaSaveStringCount,4);
@@ -11820,8 +11769,8 @@ void Lua_SubmitSaveGameData(void)
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   char cVar1;
-  undefined4 uVar2;
-  undefined4 uVar3;
+  int iVar2;
+  int iVar3;
   int iVar4;
   char *pcVar5;
   char *pcVar6;
@@ -11832,28 +11781,28 @@ void Lua_SubmitSaveGameData(void)
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   local_10 = 0;
-  uVar2 = lua_lua2C(1);
+  iVar2 = lua_lua2C(1);
   g_nLuaSaveStringCount = 0;
   do {
-    lua_pushobject(uVar2);
+    lua_pushobject(iVar2);
     local_4 = (uint)(float)(int)local_10;
     local_10 = local_10 + 1;
-    lua_pushnumber(local_4);
-    uVar3 = lua_gettable();
-    iVar4 = lua_isnil(uVar3);
+    lua_pushnumber((float)local_4);
+    iVar3 = lua_gettable();
+    iVar4 = lua_isnil(iVar3);
     if (iVar4 != 0) {
       if (g_nLuaSaveStringCount != 0) {
         (*(code *)g_pfnLuaSaveWrite)(&g_nLuaSaveStringCount,4);
         local_10 = 0;
         while( true ) {
-          lua_pushobject(uVar2);
+          lua_pushobject(iVar2);
           local_4 = (uint)(float)(int)local_10;
           local_10 = local_10 + 1;
-          lua_pushnumber(local_4);
-          uVar3 = lua_gettable();
-          iVar4 = lua_isnil(uVar3);
+          lua_pushnumber((float)local_4);
+          iVar3 = lua_gettable();
+          iVar4 = lua_isnil(iVar3);
           if (iVar4 != 0) break;
-          pcVar6 = (char *)lua_getstring(uVar3);
+          pcVar6 = (char *)lua_getstring(iVar3);
           uStack_8 = 0xffffffff;
           pcVar5 = pcVar6;
           do {
@@ -11869,11 +11818,11 @@ void Lua_SubmitSaveGameData(void)
       }
       return;
     }
-    iVar4 = lua_isstring(uVar3);
+    iVar4 = lua_isstring(iVar3);
     if (iVar4 == 0) {
       return;
     }
-    pcVar5 = (char *)lua_getstring(uVar3);
+    pcVar5 = (char *)lua_getstring(iVar3);
     uVar7 = 0xffffffff;
     do {
       if (uVar7 == 0) break;
@@ -11901,7 +11850,7 @@ void Lua_GetSaveGameData(void)
 
 {
   unsigned char _frame[0xa0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  undefined4 uVar1;
+  int iVar1;
   int iVar2;
   char *name;
   void *pvVar3;
@@ -11910,29 +11859,29 @@ void Lua_GetSaveGameData(void)
   #define local_8c (*(uint *)(_frame + (0xa0 - 0x8c)))
   #define local_88 (*(uint *)(_frame + (0xa0 - 0x88)))
   #define local_84 (*(uint *)(_frame + (0xa0 - 0x84)))
-  #define local_80 (*(undefined1 (*)[128])(_frame + (0xa0 - 0x80)))
+  #define local_80 (*(char (*)[128])(_frame + (0xa0 - 0x80)))
   
   local_90 = 0;
-  uVar1 = lua_lua2C(1);
-  iVar2 = lua_isstring(uVar1);
+  iVar1 = lua_lua2C(1);
+  iVar2 = lua_isstring(iVar1);
   if (iVar2 != 0) {
     mode = &DAT_004ddb18;
-    name = (char *)lua_getstring(uVar1);
+    name = (char *)lua_getstring(iVar1);
     pvVar3 = SaveFile_Open(name,mode);
     if (pvVar3 != (void *)0x0) {
-      uVar1 = lua_createtable();
+      iVar1 = lua_createtable();
       gzread(pvVar3,&local_8c,4);
       for (; 0 < (int)local_8c; local_8c = local_8c + (-4 - local_88)) {
         gzread(pvVar3,&local_88,4);
         gzread(pvVar3,local_80,local_88);
-        lua_pushobject(uVar1);
+        lua_pushobject(iVar1);
         local_84 = (uint)(float)(int)local_90;
         local_90 = local_90 + 1;
-        lua_pushnumber(local_84);
+        lua_pushnumber((float)local_84);
         lua_pushstring(local_80);
         lua_settable();
       }
-      lua_pushobject(uVar1);
+      lua_pushobject(iVar1);
       gzclose(pvVar3);
     }
   }
@@ -11981,14 +11930,14 @@ void __fastcall Lua_GetTextSpeed(undefined4 param_1)
 void Lua_SetTextSpeed(void)
 
 {
-  undefined4 uVar1;
+  int iVar1;
   int iVar2;
   longlong lVar3;
   
-  uVar1 = lua_lua2C(1);
-  iVar2 = lua_isnumber(uVar1);
+  iVar1 = lua_lua2C(1);
+  iVar2 = lua_isnumber(iVar1);
   if (iVar2 != 0) {
-    lVar3 = (longlong)lua_getnumber(uVar1);
+    lVar3 = (longlong)lua_getnumber(iVar1);
     Text_SetSpeed((int)lVar3);
   }
   return;
@@ -12008,7 +11957,7 @@ void Lua_FindFileOnAnyCD(void)
   char *a1;
   char cVar1;
   bool bVar2;
-  undefined4 uVar3;
+  int iVar3;
   int iVar4;
   char *pcVar5;
   char *a2;
@@ -12022,19 +11971,19 @@ void Lua_FindFileOnAnyCD(void)
   #define acStack_174 (*(char (*)[52])(_frame + (0x190 - 0x174)))
   #define auStack_140 (*(undefined1 (*)[320])(_frame + (0x190 - 0x140)))
   
-  uVar3 = lua_lua2C(1);
+  iVar3 = lua_lua2C(1);
   bVar2 = false;
-  iVar4 = lua_isstring(uVar3);
-  if ((iVar4 != 0) && (pcVar5 = (char *)lua_getstring(uVar3), pcVar5 != (char *)0x0)) {
-    iVar4 = GetLogicalDriveStringsA(0,0);
-    if (iVar4 != 0) {
+  iVar4 = lua_isstring(iVar3);
+  if ((iVar4 != 0) && (pcVar5 = (char *)lua_getstring(iVar3), pcVar5 != (char *)0x0)) {
+    iVar3 = GetLogicalDriveStringsA(0,0);
+    if (iVar3 != 0) {
       a2 = (char *)(*g_pSvcLua->pAlloc)
-                             (iVar4 + 1,s_C__grimsrc_libs_grimlib_Scripts__004ec38c,0x2728);
-      GetLogicalDriveStringsA(iVar4,(int)a2);
+                             (iVar3 + 1,s_C__grimsrc_libs_grimlib_Scripts__004ec38c,0x2728);
+      GetLogicalDriveStringsA(iVar3,(int)a2);
       a1 = a2;
       while (((a1 != (char *)0x0 && (*a1 != '\0')) && (!bVar2))) {
-        iVar4 = GetDriveTypeA((int)a1);
-        if (iVar4 == 5) {
+        iVar3 = GetDriveTypeA((int)a1);
+        if (iVar3 == 5) {
           uVar6 = 0xffffffff;
           pcVar8 = a1;
           do {
@@ -12069,12 +12018,12 @@ void Lua_FindFileOnAnyCD(void)
             pcVar8 = pcVar10;
           } while (cVar1 != '\0');
           uVar6 = ~uVar6;
-          iVar4 = -1;
+          iVar3 = -1;
           pcVar8 = acStack_174;
           do {
             pcVar9 = pcVar8;
-            if (iVar4 == 0) break;
-            iVar4 = iVar4 + -1;
+            if (iVar3 == 0) break;
+            iVar3 = iVar3 + -1;
             pcVar9 = pcVar8 + 1;
             cVar1 = *pcVar8;
             pcVar8 = pcVar9;
@@ -12091,10 +12040,10 @@ void Lua_FindFileOnAnyCD(void)
             pcVar8 = pcVar8 + 1;
             pcVar10 = pcVar10 + 1;
           }
-          iVar4 = FindFirstFileA((int)acStack_174,(int)auStack_140);
-          if (iVar4 != -1) {
+          iVar3 = FindFirstFileA((int)acStack_174,(int)auStack_140);
+          if (iVar3 != -1) {
             bVar2 = true;
-            FindClose(iVar4);
+            FindClose(iVar3);
           }
         }
         uVar6 = 0xffffffff;
@@ -12110,7 +12059,7 @@ void Lua_FindFileOnAnyCD(void)
       (*g_pSvcLua->pFree)(a2);
     }
     if (bVar2) {
-      lua_pushnumber(FBITS(0x3f800000));
+      lua_pushnumber(1.0);
       return;
     }
   }
@@ -12133,29 +12082,28 @@ void Lua_FindFileOnAnyCD(void)
 void Lua_ActorPuckOrient(void)
 
 {
-  undefined4 uVar1;
-  undefined4 uVar2;
+  int iVar1;
+  int iVar2;
   int iVar3;
-  int iVar4;
-  longlong lVar5;
+  longlong lVar4;
   
-  uVar1 = lua_lua2C(1);
-  uVar2 = lua_lua2C(2);
-  iVar3 = lua_isuserdata(uVar1);
+  iVar1 = lua_lua2C(1);
+  iVar2 = lua_lua2C(2);
+  iVar3 = lua_isuserdata(iVar1);
   if (iVar3 != 0) {
-    iVar3 = lua_tag(uVar1);
+    iVar3 = lua_tag(iVar1);
     if (iVar3 == 0x52544341) {
-      uVar1 = lua_getuserdata(uVar1);
-      iVar3 = Actor_FromHandle(uVar1);
-      iVar4 = lua_isnil(uVar2);
-      if (iVar4 == 0) {
-        lVar5 = (longlong)lua_getnumber(uVar2);
-        if ((int)lVar5 != 0) {
-          *(uint *)(iVar3 + 4) = *(uint *)(iVar3 + 4) | 0x10;
+      iVar1 = lua_getuserdata(iVar1);
+      iVar1 = Actor_FromHandle(iVar1);
+      iVar3 = lua_isnil(iVar2);
+      if (iVar3 == 0) {
+        lVar4 = (longlong)lua_getnumber(iVar2);
+        if ((int)lVar4 != 0) {
+          *(uint *)(iVar1 + 4) = *(uint *)(iVar1 + 4) | 0x10;
           return;
         }
       }
-      *(uint *)(iVar3 + 4) = *(uint *)(iVar3 + 4) & 0xffffffef;
+      *(uint *)(iVar1 + 4) = *(uint *)(iVar1 + 4) & 0xffffffef;
     }
   }
   return;
@@ -12193,31 +12141,32 @@ void Lua_GetTickCount(void)
 void Lua_SetActorInvClipNode(void)
 
 {
-  undefined4 uVar1;
-  undefined4 uVar2;
+  int iVar1;
+  int iVar2;
   int iVar3;
-  longlong lVar4;
+  undefined4 uVar4;
+  longlong lVar5;
   
-  uVar1 = lua_lua2C(1);
-  uVar2 = lua_lua2C(2);
-  iVar3 = lua_isuserdata(uVar1);
+  iVar1 = lua_lua2C(1);
+  iVar2 = lua_lua2C(2);
+  iVar3 = lua_isuserdata(iVar1);
   if (iVar3 != 0) {
-    iVar3 = lua_tag(uVar1);
+    iVar3 = lua_tag(iVar1);
     if (iVar3 == 0x52544341) {
-      iVar3 = lua_isnil(uVar2);
+      iVar3 = lua_isnil(iVar2);
       if (iVar3 == 0) {
-        lVar4 = (longlong)lua_getnumber(uVar2);
-        uVar2 = (undefined4)lVar4;
+        lVar5 = (longlong)lua_getnumber(iVar2);
+        uVar4 = (undefined4)lVar5;
       }
       else {
-        uVar2 = 0xffffffff;
+        uVar4 = 0xffffffff;
       }
-      uVar1 = lua_getuserdata(uVar1);
-      iVar3 = Actor_FromHandle(uVar1);
-      if (*(int *)(iVar3 + 0xa4) == 0) {
-        Actor_CreateExtra(iVar3);
+      iVar1 = lua_getuserdata(iVar1);
+      iVar1 = Actor_FromHandle(iVar1);
+      if (*(int *)(iVar1 + 0xa4) == 0) {
+        Actor_CreateExtra(iVar1);
       }
-      *(undefined4 *)(*(int *)(iVar3 + 0xa4) + 0x420) = uVar2;
+      *(undefined4 *)(*(int *)(iVar1 + 0xa4) + 0x420) = uVar4;
     }
   }
   return;
@@ -12234,14 +12183,14 @@ void Lua_SetActorInvClipNode(void)
 void Lua_SetWalkSystemFadeTime(void)
 
 {
-  undefined4 uVar1;
+  int iVar1;
   int iVar2;
   longlong lVar3;
   
-  uVar1 = lua_lua2C(1);
-  iVar2 = lua_isnil(uVar1);
+  iVar1 = lua_lua2C(1);
+  iVar2 = lua_isnil(iVar1);
   if (iVar2 == 0) {
-    lVar3 = (longlong)lua_getnumber(uVar1);
+    lVar3 = (longlong)lua_getnumber(iVar1);
     Walker_SetFadeTime((int)lVar3);
   }
   return;

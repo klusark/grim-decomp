@@ -117,8 +117,9 @@ void FUN_004ad2b0(void)
 /* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Unable to track spacebase fully for stack */
+/* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
-void FUN_004addf0(void)
+int FUN_004addf0(void)
 
 {
   unsigned char _frame[0x1010];  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -133,7 +134,7 @@ void FUN_004addf0(void)
     puVar1 = puVar1 + -0x1000;
   }
   *(uint *)(puVar1 + (-4 - in_EAX)) = local_res0;
-  return;
+  return local_res0;
 }
 #undef local_4
 #undef local_ffc
@@ -4878,7 +4879,7 @@ undefined * __stdcall FUN_004bffb0(int a1,int a2,int a3)
   undefined *puVar4;
   uint uVar5;
   undefined4 uVar6;
-  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
+  #define local_18 (*(float *)(_frame + (0x30 - 0x18)))
   
   if ((((a1 == 0) && (g_hLightEdDialog != (void *)0x0)) &&
       (iVar2 = Win_IsFocusWithin(g_hLightEdDialog), iVar2 != 0)) && (g_nLightEdSelected != -1)) {
@@ -4901,7 +4902,7 @@ undefined * __stdcall FUN_004bffb0(int a1,int a2,int a3)
       goto switchD_004c008d_caseD_13;
     case 0x25:
       if (uVar3 != 0) {
-        local_18 = (uint)(*(float *)(uVar1 + 0x20) - _DAT_004f0d18);
+        local_18 = *(float *)(uVar1 + 0x20) - _DAT_004f0d18;
         uVar6 = 0x3ef;
 LAB_004c0263:
         LightEd_SetDlgFloat(g_hLightEdDialog,uVar6,local_18,1);
@@ -4911,11 +4912,11 @@ LAB_004c0263:
     case 0x26:
       if (uVar3 != 0) {
         if (uVar5 != 0) {
-          local_18 = (uint)(*(float *)(uVar1 + 0x28) + _DAT_004f0d18);
+          local_18 = *(float *)(uVar1 + 0x28) + _DAT_004f0d18;
           uVar6 = 0x3f1;
           goto LAB_004c041f;
         }
-        local_18 = (uint)(*(float *)(uVar1 + 0x24) + _DAT_004f0d18);
+        local_18 = *(float *)(uVar1 + 0x24) + _DAT_004f0d18;
         uVar6 = 0x3f0;
         goto LAB_004c0263;
       }
@@ -4947,7 +4948,7 @@ LAB_004c0263:
         else {
           a3 = (int)((float)a3 - 360.0);
         }
-        local_18 = a3;
+        local_18 = (float)a3;
         uVar6 = 0x3f2;
         goto LAB_004c0263;
       }
@@ -4976,7 +4977,7 @@ LAB_004c0263:
         else {
           a3 = (int)((float)a3 - 360.0);
         }
-        local_18 = a3;
+        local_18 = (float)a3;
         uVar6 = 0x3f5;
 LAB_004c041f:
         LightEd_SetDlgFloat(g_hLightEdDialog,uVar6,local_18,1);
@@ -5007,7 +5008,7 @@ LAB_004c041f:
         else {
           a3 = (int)((float)a3 - 360.0);
         }
-        local_18 = a3;
+        local_18 = (float)a3;
         uVar6 = 0x3f4;
         goto LAB_004c041f;
       }
@@ -5254,7 +5255,7 @@ FUN_004c23c0(undefined4 *param_1,undefined4 param_2,int param_3,undefined4 param
     piVar1[7] = iVar2;
     piVar1[8] = iVar2;
     *param_1 = piVar1;
-    iVar2 = ((code *)FUN_004c36b0)(piVar1);
+    iVar2 = FUN_004c36b0();
     if (iVar2 == 0) {
       iVar2 = FUN_004c3d30(*param_1,param_2,param_6,0xffffffff,0xffffffff,0);
       if (iVar2 == 0) {
@@ -6074,20 +6075,24 @@ uint FUN_004c36a0(void)
 /* ---- 0x004c36b0  FUN_004c36b0 ---- */
 /* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
-void FUN_004c36b0(int param_1)
+/* WARNING: Unknown calling convention -- yet parameter storage is locked */
+
+int FUN_004c36b0(void)
 
 {
-  (*(code *)PTR_00906c38[6])(*(undefined4 *)(param_1 + 0x60));
-  *(undefined4 *)(param_1 + 0xc) = 0;
-  *(undefined4 *)(param_1 + 0x28) = 0;
-  *(undefined4 *)(param_1 + 0x34) = 0x6e756c6c;
-  *(undefined4 *)(param_1 + 0x2c) = 1;
-  *(undefined4 *)(param_1 + 0x38) = 0;
-  *(undefined4 *)(param_1 + 0x54) = 0;
-  *(undefined4 *)(param_1 + 0x58) = 0;
-  *(undefined4 *)(param_1 + 0x40) = 0;
-  *(undefined4 *)(param_1 + 0x44) = 0;
-  return;
+  int in_stack_00000004;
+  
+  (*(code *)PTR_00906c38[6])(*(undefined4 *)(in_stack_00000004 + 0x60));
+  *(undefined4 *)(in_stack_00000004 + 0xc) = 0;
+  *(undefined4 *)(in_stack_00000004 + 0x28) = 0;
+  *(undefined4 *)(in_stack_00000004 + 0x34) = 0x6e756c6c;
+  *(undefined4 *)(in_stack_00000004 + 0x2c) = 1;
+  *(undefined4 *)(in_stack_00000004 + 0x38) = 0;
+  *(undefined4 *)(in_stack_00000004 + 0x54) = 0;
+  *(undefined4 *)(in_stack_00000004 + 0x58) = 0;
+  *(undefined4 *)(in_stack_00000004 + 0x40) = 0;
+  *(undefined4 *)(in_stack_00000004 + 0x44) = 0;
+  return 0;
 }
 #endif
 
@@ -7768,11 +7773,15 @@ void FUN_004c5e10(undefined4 param_1,undefined4 param_2,undefined4 param_3)
 /* ---- 0x004c5e30  FUN_004c5e30 ---- */
 /* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
-void FUN_004c5e30(undefined4 param_1)
+/* WARNING: Unknown calling convention -- yet parameter storage is locked */
+
+int FUN_004c5e30(void)
 
 {
-  (*(code *)PTR_008d7848[4])(param_1);
-  return;
+  int iVar1;
+  
+  iVar1 = (*(code *)PTR_008d7848[4])();
+  return iVar1;
 }
 #endif
 
@@ -7850,7 +7859,7 @@ bool FUN_004c5f50(undefined4 param_1)
   int iVar2;
   
   iVar1 = FUN_004c5e90(param_1);
-  iVar2 = ((code *)FUN_004c5e30)(param_1);
+  iVar2 = FUN_004c5e30();
   return iVar1 <= iVar2;
 }
 #endif
@@ -11846,16 +11855,16 @@ undefined4 FUN_004ce3e0(int *param_1,int param_2,int param_3,int param_4)
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
-  int iVar2;
-  undefined4 uVar3;
-  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
+  undefined4 uVar2;
+  int iVar3;
+  #define local_4 (*(int *)(_frame + (0x20 - 0x4)))
   
   local_4 = 0;
   switch(param_4) {
   case 1:
     local_4 = 0x100;
   case 0:
-    iVar2 = 1;
+    iVar3 = 1;
     break;
   case 2:
   case 3:
@@ -11863,34 +11872,29 @@ undefined4 FUN_004ce3e0(int *param_1,int param_2,int param_3,int param_4)
   case 7:
   case 8:
   case 10:
-    iVar2 = 2;
+    iVar3 = 2;
     break;
   case 4:
   case 9:
-    iVar2 = 3;
+    iVar3 = 3;
     break;
   case 6:
   case 0xb:
   case 0xc:
-    iVar2 = 4;
+    iVar3 = 4;
     break;
   case -1:
-    if (UINT_008da89c == 0) {
-      uVar3 = 0xbe;
-      goto LAB_004ce7b5;
-    }
-    iVar2 = (**(code **)(UINT_008da89c + 4))();
-    iVar2 = *(int *)(iVar2 + 0xc);
+    if (UINT_008da89c == 0) goto LAB_004ce7b5;
+    iVar3 = (**(code **)(UINT_008da89c + 4))();
+    iVar3 = *(int *)(iVar3 + 0xc);
     break;
   default:
-    uVar3 = 0xc4;
 LAB_004ce7b5:
-    ((code *)FUN_004d5f70)(s__s__line__s__Type__d_not_support_004f3d40,
-                 s_C__grimsrc_libs_lecsmush_insane__004f3d64,uVar3,param_4);
+    FUN_004d5f70();
     return 0xffffffff;
   }
   iVar1 = (*(code *)*PTR_008da890)
-                    (iVar2 * param_3 * param_2 + 0x5c + local_4 * 4,
+                    (iVar3 * param_3 * param_2 + 0x5c + local_4 * 4,
                      s_C__grimsrc_libs_lecsmush_insane__004f3d64,200);
   if (iVar1 == 0) {
     return 0xffffff9b;
@@ -11898,15 +11902,15 @@ LAB_004ce7b5:
   *param_1 = iVar1 + 8;
   *(int *)(iVar1 + 8) = iVar1 + 0x5c;
   *(int *)(*param_1 + 4) = param_2;
-  *(int *)(*param_1 + 0x14) = iVar2 * param_2;
+  *(int *)(*param_1 + 0x14) = iVar3 * param_2;
   *(int *)(*param_1 + 8) = param_3;
-  *(int *)(*param_1 + 0xc) = iVar2;
+  *(int *)(*param_1 + 0xc) = iVar3;
   *(undefined4 *)(*param_1 + 0x1c) = 0;
   *(undefined4 *)(*param_1 + 0x18) = 0;
                     /* WARNING: Could not recover jumptable at 0x004ce4a6. Too many branches */
                     /* WARNING: Treating indirect jump as call */
-  uVar3 = (**(code **)(&DAT_004ce808 + (param_4 + 1) * 4))();
-  return uVar3;
+  uVar2 = (**(code **)(&DAT_004ce808 + (param_4 + 1) * 4))();
+  return uVar2;
 }
 #undef local_4
 
@@ -14915,7 +14919,7 @@ undefined4 FUN_004d2550(uint param_1,undefined4 param_2,uint param_3)
   if (iVar1 != 0) {
     return 0xffffffff;
   }
-  iVar1 = ((code *)FUN_004d2d40)(UINT_008db208,4,0x400,0,1,1);
+  iVar1 = FUN_004d2d40();
   if (iVar1 != 0) {
     return 0xffffffff;
   }
@@ -15286,12 +15290,17 @@ FUN_004d2ce0(undefined4 param_1,undefined4 param_2,undefined4 *param_3,undefined
 /* ---- 0x004d2d40  FUN_004d2d40 ---- */
 /* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
-void FUN_004d2d40(undefined4 param_1,uint param_2,int param_3)
+/* WARNING: Unknown calling convention -- yet parameter storage is locked */
+
+int FUN_004d2d40(void)
 
 {
-  UINT_004f40f8 = param_2;
-  FUN_004d2e80(param_1,2,param_3 * 4,0);
-  return;
+  int iVar1;
+  uint in_stack_00000008;
+  
+  UINT_004f40f8 = in_stack_00000008;
+  iVar1 = ((code *)FUN_004d2e80)();
+  return iVar1;
 }
 #endif
 
@@ -15834,10 +15843,15 @@ uint __fastcall FUN_004d5ed0(undefined4 param_1)
 /* ---- 0x004d5f70  FUN_004d5f70 ---- */
 /* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
-void FUN_004d5f70(undefined4 param_1)
+/* WARNING: Unknown calling convention -- yet parameter storage is locked */
+
+int FUN_004d5f70(void)
 
 {
-  vsprintf(&DAT_008dcdc8 + UINT_008ddd68 * 200,param_1,&STACK0X(0x00000008));
+  uint uVar1;
+  
+  ((code *)vsprintf)(&DAT_008dcdc8 + UINT_008ddd68 * 200);
+  uVar1 = 0x13;
   if (UINT_008ddd68 == 0x13) {
     UINT_008ddd68 = 0;
   }
@@ -15845,9 +15859,10 @@ void FUN_004d5f70(undefined4 param_1)
     UINT_008ddd68 = UINT_008ddd68 + 1;
   }
   if ((int)UINT_008ddd6c < 0x13) {
-    UINT_008ddd6c = UINT_008ddd6c + 1;
+    uVar1 = UINT_008ddd6c + 1;
+    UINT_008ddd6c = uVar1;
   }
-  return;
+  return uVar1;
 }
 #endif
 
