@@ -2974,7 +2974,7 @@ undefined4 __cdecl Cos_RegisterSaveVerify(undefined4 param_1)
 
 
 /* ---- 0x100055a0  FUN_100055a0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (host): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 uint * FUN_100055a0(uint *param_1,uint *param_2,uint param_3)
 
@@ -3084,7 +3084,7 @@ LAB_1000561b:
 
 
 /* ---- 0x100056a0  FUN_100056a0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (host): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 char * FUN_100056a0(char *param_1,char param_2)
 
@@ -3169,7 +3169,7 @@ void FUN_10005700(void)
 
 
 /* ---- 0x10005740  FUN_10005740 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -3245,7 +3245,7 @@ LAB_100057ef:
 
 
 /* ---- 0x10005810  FUN_10005810 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (host): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 int __cdecl FUN_10005810(char *param_1,char *param_2,...)
 
@@ -3282,6 +3282,8 @@ int __cdecl FUN_10005810(char *param_1,char *param_2,...)
 
 
 /* ---- 0x10005860  FUN_10005860 ---- */
+/* NOT COMPILED: names/lib_replace.json (host): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 undefined4 * FUN_10005860(undefined4 *param_1,undefined4 *param_2,uint param_3)
 
 {
@@ -3582,6 +3584,8 @@ code_r0x100059e0:
 code_r0x100059b8:
   return param_1;
 }
+#endif
+
 
 /* ---- 0x10005ba0  FUN_10005ba0 ---- */
 /* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
@@ -3726,7 +3730,7 @@ void FUN_10005db0(undefined1 *param_1,undefined1 *param_2,int param_3)
 
 
 /* ---- 0x10005de0  FUN_10005de0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (host): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 uint FUN_10005de0(undefined4 param_1,uint param_2,uint param_3,int param_4,code *param_5)
 
@@ -3777,7 +3781,7 @@ uint FUN_10005de0(undefined4 param_1,uint param_2,uint param_3,int param_4,code 
 
 
 /* ---- 0x10005e90  FUN_10005e90 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (host): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 uint * FUN_10005e90(uint *param_1,char param_2)
 

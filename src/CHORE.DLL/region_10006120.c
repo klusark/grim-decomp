@@ -6,7 +6,7 @@
 #include "functions.h"
 
 /* ---- 0x10006120  FUN_10006120 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -475,7 +475,7 @@ void FUN_10006790(void)
 
 
 /* ---- 0x10006810  FUN_10006810 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 void FUN_10006810(int param_1)
 
@@ -504,7 +504,7 @@ void FUN_10006810(int param_1)
 
 
 /* ---- 0x10006890  FUN_10006890 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 void FUN_10006890(int param_1)
 
@@ -516,7 +516,7 @@ void FUN_10006890(int param_1)
 
 
 /* ---- 0x100068b0  FUN_100068b0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 void FUN_100068b0(uint param_1)
 
@@ -532,7 +532,7 @@ void FUN_100068b0(uint param_1)
 
 
 /* ---- 0x100068f0  FUN_100068f0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 void FUN_100068f0(int param_1,int param_2)
 
@@ -548,7 +548,7 @@ void FUN_100068f0(int param_1,int param_2)
 
 
 /* ---- 0x10006920  FUN_10006920 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 void FUN_10006920(uint param_1)
 
@@ -564,7 +564,7 @@ void FUN_10006920(uint param_1)
 
 
 /* ---- 0x10006960  FUN_10006960 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 void FUN_10006960(int param_1,int param_2)
 
@@ -625,7 +625,7 @@ int FUN_100069a0(int param_1)
 
 
 /* ---- 0x10006a30  FUN_10006a30 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -1488,7 +1488,7 @@ void FUN_10007950(void)
 
 
 /* ---- 0x10007980  FUN_10007980 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 void FUN_10007980(undefined4 param_1)
 
@@ -1512,7 +1512,7 @@ void FUN_100079a0(void)
 
 
 /* ---- 0x100079b0  FUN_100079b0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -1559,7 +1559,7 @@ void FUN_100079b0(undefined4 param_1,int param_2,int param_3)
 
 
 /* ---- 0x10007a70  FUN_10007a70 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 void FUN_10007a70(void)
 
@@ -1571,7 +1571,7 @@ void FUN_10007a70(void)
 
 
 /* ---- 0x10007a80  FUN_10007a80 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 void FUN_10007a80(void)
 
@@ -1583,7 +1583,7 @@ void FUN_10007a80(void)
 
 
 /* ---- 0x10007a90  FUN_10007a90 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 void FUN_10007a90(undefined4 *param_1,undefined4 *param_2)
 
@@ -1648,7 +1648,7 @@ void FUN_10007b10(void)
 
 
 /* ---- 0x10007b40  FUN_10007b40 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 void FUN_10007b40(int param_1)
 
@@ -1661,7 +1661,7 @@ void FUN_10007b40(int param_1)
 
 
 /* ---- 0x10007b60  FUN_10007b60 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -2695,7 +2695,7 @@ undefined4 __stdcall FUN_10008990(int a1,int a2,int a3)
 
 
 /* ---- 0x100089a0  FUN_100089a0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -2715,7 +2715,7 @@ void FUN_100089a0(void)
 
 
 /* ---- 0x100089e0  FUN_100089e0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -3011,7 +3011,7 @@ void FUN_10008cc0(void)
 
 
 /* ---- 0x10008d50  FUN_10008d50 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -3585,7 +3585,7 @@ void FUN_10009440(uint *param_1,uint *param_2)
 
 
 /* ---- 0x10009500  FUN_10009500 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 void FUN_10009500(void)
 
@@ -3597,7 +3597,7 @@ void FUN_10009500(void)
 
 
 /* ---- 0x10009510  FUN_10009510 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -3629,7 +3629,7 @@ void FUN_10009510(int param_1)
 
 
 /* ---- 0x10009580  FUN_10009580 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -3646,7 +3646,7 @@ undefined4 FUN_10009580(undefined4 param_1)
 
 
 /* ---- 0x100095a0  FUN_100095a0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 int FUN_100095a0(uint param_1,int param_2)
 
@@ -3679,7 +3679,7 @@ int FUN_100095a0(uint param_1,int param_2)
 
 
 /* ---- 0x100095f0  FUN_100095f0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -3705,7 +3705,7 @@ int FUN_100095f0(int param_1)
 
 
 /* ---- 0x10009650  FUN_10009650 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -3754,6 +3754,8 @@ void FUN_10009650(void)
 
 
 /* ---- 0x10009710  FUN_10009710 ---- */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 int __stdcall FUN_10009710(int a1,int a2,int a3,int a4)
@@ -3790,6 +3792,8 @@ int __stdcall FUN_10009710(int a1,int a2,int a3,int a4)
   FUN_10006890(2);
   return iVar3;
 }
+#endif
+
 
 /* ---- 0x10009730  FUN_10009730 ---- */
 /* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
@@ -4428,7 +4432,7 @@ undefined4 FUN_1000a390(void)
 
 
 /* ---- 0x1000a710  FUN_1000a710 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -4524,7 +4528,7 @@ LAB_1000a918:
 
 
 /* ---- 0x1000a940  FUN_1000a940 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 int FUN_1000a940(char *param_1,int param_2)
 
@@ -4781,7 +4785,7 @@ uint FUN_1000ac70(uint param_1,int *param_2)
 
 
 /* ---- 0x1000ad00  FUN_1000ad00 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -4928,7 +4932,7 @@ int FUN_1000adb0(undefined4 param_1,undefined4 param_2,int param_3,undefined4 pa
 
 
 /* ---- 0x1000af40  FUN_1000af40 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -4994,7 +4998,7 @@ int FUN_1000af40(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefi
 
 
 /* ---- 0x1000b080  FUN_1000b080 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -5074,7 +5078,7 @@ undefined4 * FUN_1000b080(void)
 
 
 /* ---- 0x1000b1f0  FUN_1000b1f0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -5098,7 +5102,7 @@ void FUN_1000b1f0(int *param_1)
 
 
 /* ---- 0x1000b250  FUN_1000b250 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -5158,7 +5162,7 @@ void FUN_1000b250(int param_1)
 
 
 /* ---- 0x1000b320  FUN_1000b320 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 int FUN_1000b320(uint param_1,undefined4 *param_2,uint *param_3)
 
@@ -5188,7 +5192,7 @@ int FUN_1000b320(uint param_1,undefined4 *param_2,uint *param_3)
 
 
 /* ---- 0x1000b380  FUN_1000b380 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -5212,7 +5216,7 @@ void FUN_1000b380(int param_1,int param_2,byte *param_3)
 
 
 /* ---- 0x1000b3e0  FUN_1000b3e0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -5329,7 +5333,7 @@ int * FUN_1000b3e0(uint param_1)
 
 
 /* ---- 0x1000b620  FUN_1000b620 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 int FUN_1000b620(int *param_1,uint param_2,uint param_3)
 
@@ -5441,7 +5445,7 @@ LAB_1000b776:
 
 
 /* ---- 0x1000b7a0  FUN_1000b7a0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -6265,7 +6269,7 @@ LAB_1000c526:
 
 
 /* ---- 0x1000c550  FUN_1000c550 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -6286,7 +6290,7 @@ undefined4 FUN_1000c550(undefined4 param_1)
 
 
 /* ---- 0x1000c610  FUN_1000c610 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 int FUN_1000c610(int param_1)
 
@@ -6307,7 +6311,7 @@ int FUN_1000c610(int param_1)
 
 
 /* ---- 0x1000c650  FUN_1000c650 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 undefined4 FUN_1000c650(int *param_1)
 
@@ -6345,7 +6349,7 @@ undefined4 FUN_1000c650(int *param_1)
 
 
 /* ---- 0x1000c6c0  FUN_1000c6c0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 void FUN_1000c6c0(void)
 
@@ -6357,7 +6361,7 @@ void FUN_1000c6c0(void)
 
 
 /* ---- 0x1000c6d0  FUN_1000c6d0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -6487,7 +6491,7 @@ LAB_1000c840:
 
 
 /* ---- 0x1000ca50  FUN_1000ca50 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 void FUN_1000ca50(uint param_1)
 
@@ -6527,7 +6531,7 @@ void FUN_1000ca50(uint param_1)
 
 
 /* ---- 0x1000cad0  FUN_1000cad0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 int FUN_1000cad0(void)
 
@@ -6541,7 +6545,7 @@ int FUN_1000cad0(void)
 
 
 /* ---- 0x1000cae0  FUN_1000cae0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 int FUN_1000cae0(void)
 
@@ -6978,7 +6982,7 @@ void FUN_1000d0c0(undefined2 *param_1,uint param_2,int param_3)
 
 
 /* ---- 0x1000d150  FUN_1000d150 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 undefined4 FUN_1000d150(int param_1)
 
@@ -6998,7 +7002,7 @@ undefined4 FUN_1000d150(int param_1)
 
 
 /* ---- 0x1000d190  FUN_1000d190 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 undefined4 FUN_1000d190(int param_1)
 
@@ -7027,7 +7031,7 @@ undefined4 FUN_1000d190(int param_1)
 
 
 /* ---- 0x1000d200  FUN_1000d200 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -7074,7 +7078,7 @@ LAB_1000d27d:
 
 
 /* ---- 0x1000d2a0  FUN_1000d2a0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -7102,7 +7106,7 @@ undefined4 FUN_1000d2a0(uint param_1,undefined4 param_2,undefined4 param_3)
 
 
 /* ---- 0x1000d320  FUN_1000d320 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 int FUN_1000d320(uint param_1,char *param_2,uint param_3)
 
@@ -7337,7 +7341,7 @@ int FUN_1000d660(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefi
 
 
 /* ---- 0x1000d890  FUN_1000d890 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -7381,7 +7385,7 @@ LAB_1000d8f7:
 
 
 /* ---- 0x1000d930  FUN_1000d930 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -7406,7 +7410,7 @@ undefined4 FUN_1000d930(uint param_1)
 
 
 /* ---- 0x1000d980  FUN_1000d980 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 void FUN_1000d980(uint param_1)
 
@@ -7431,7 +7435,7 @@ void FUN_1000d980(uint param_1)
 
 
 /* ---- 0x1000d9f0  FUN_1000d9f0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 void FUN_1000d9f0(uint param_1)
 
@@ -7444,7 +7448,7 @@ void FUN_1000d9f0(uint param_1)
 
 
 /* ---- 0x1000da20  FUN_1000da20 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 int FUN_1000da20(uint param_1,undefined4 param_2,undefined4 param_3)
 
@@ -7479,7 +7483,7 @@ int FUN_1000da20(uint param_1,undefined4 param_2,undefined4 param_3)
 
 
 /* ---- 0x1000daa0  FUN_1000daa0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -7507,7 +7511,7 @@ undefined4 FUN_1000daa0(uint param_1)
 
 
 /* ---- 0x1000db10  FUN_1000db10 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 undefined4 FUN_1000db10(uint param_1)
 
@@ -7546,7 +7550,7 @@ LAB_1000db68:
 
 
 /* ---- 0x1000dba0  FUN_1000dba0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 void FUN_1000dba0(undefined4 *param_1)
 
