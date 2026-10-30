@@ -107,6 +107,7 @@ def main(prog, src, obj):
     placed = {}  # addr -> [names]
     defined = []
     text_syms = []
+    code_stubs = []
     for n in referenced_symbols(src, prog):
         if n.endswith("_exref") or n.startswith(("LAB_", "switchD_")):
             continue
@@ -116,7 +117,15 @@ def main(prog, src, obj):
             continue
         if section_of(addr) is None:
             if in_text_blob(addr) and not n.startswith(("FUN_", "thunk_")):
-                text_syms.append((addr, n))
+                off0 = addr - tb["start"]
+                if tb["bytes"][off0:off0 + 2] == b"\xff\x25":
+                    # `jmp [mem]` that Ghidra has no function for (the Smush shutdown slot 0x4891a0 is stored
+                    # as a code pointer): a data symbol in the non-executable code copy would crash when called,
+                    # so emit a real jump stub
+                    code_stubs.append((addr, n, int.from_bytes(tb["bytes"][off0 + 2:off0 + 6], "little")))
+                    defined.append(n)
+                else:
+                    text_syms.append((addr, n))
             continue
         placed.setdefault(addr, []).append(n)
         defined.append(n)
@@ -242,6 +251,15 @@ def main(prog, src, obj):
         nxt = next((t for t in secs if t["start"] > base and s["name"] == ".rdata"), None)
         if nxt is not None and nxt["start"] > base + size:
             out.append("\t.zero %d\t# gap up to %s" % (nxt["start"] - base - size, nxt["name"]))
+    for a, n, mem in code_stubs:
+        ts = section_of(mem)
+        if ts is None:
+            raise SystemExit("code stub %s: target %#x outside the data sections" % (n, mem))
+        out.append("")
+        out.append("\t.text")
+        out.append("\t.def _%s; .scl 2; .type 32; .endef" % n)
+        out.append("\t.globl _%s" % n)
+        out.append("_%s:\tjmp *%s + 0x%x" % (n, ts["sym"], mem - ts["start"]))
     if tb is not None:
         out.append("")
         out.append("\t.section .data")
