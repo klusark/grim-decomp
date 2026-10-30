@@ -1064,6 +1064,8 @@ void FUN_10006f50(void)
 
 
 /* ---- 0x10006f80  FUN_10006f80 ---- */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+#if 0
 void FUN_10006f80(void)
 
 {
@@ -1074,6 +1076,8 @@ void FUN_10006f80(void)
   lua_pushnumber(fVar1 * 57.29578);
   return;
 }
+#endif
+
 
 /* ---- 0x10006fb0  FUN_10006fb0 ---- */
 /* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
