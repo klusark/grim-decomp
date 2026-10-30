@@ -84,5 +84,5 @@ entries = [{'program': '/LUA.DLL', 'addr': '%08x' % (0x10000000 + a), 'name': n,
 for e in entries:
     if e['comment'] is None:
         del e['comment']
-json.dump(entries, open(os.path.join(ROOT, 'names', 'lua_new.json'), 'w'), indent=0)
+json.dump(entries, open(os.path.join(ROOT, 'names', 'lua_new.json'), 'w', newline="\n"), indent=0)
 print('lua_new.json', len(entries))

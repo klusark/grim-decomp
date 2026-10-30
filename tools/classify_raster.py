@@ -128,7 +128,7 @@ def main():
     print('classified', len(out))
     print(collections.Counter(re.sub(r'_\d+$', '', o['name']) for o in out).most_common(60))
     if not dry:
-        json.dump(out, open(os.path.join(ROOT, 'names', 'exe_raster_auto.json'), 'w'), indent=0)
+        json.dump(out, open(os.path.join(ROOT, 'names', 'exe_raster_auto.json'), 'w', newline="\n"), indent=0)
 
 
 main()

@@ -316,11 +316,11 @@ def main():
         path = export_raw.PROGRAMS[prog]
         if "--select" in sys.argv or prog not in sel:
             sel[prog] = select(prog)
-            json.dump(sel, open(sel_path, "w"), indent=1)
+            json.dump(sel, open(sel_path, "w", newline="\n"), indent=1)
         else:   # names/lib_replace.json may have grown since the selection was made
             import build_src as _bs
             sel[prog] = [a for a in sel[prog] if a not in _bs.load_lib_replace(prog)]
-            json.dump(sel, open(sel_path, "w"), indent=1)
+            json.dump(sel, open(sel_path, "w", newline="\n"), indent=1)
         ctx = Ctx(prog)
         # raw/<prog>/disasm.json (tools/find_arity_asm.py --fetch) caches Ghidra's listings: no HTTP round trip per function
         try:
@@ -358,7 +358,7 @@ def main():
             if (refs - defined) or not ents_ok:
                 print("  skipped %s %s: refers to code outside its listing" % (addr, ctx.funcs[fstart]["name"]))
                 sel[prog] = [a for a in sel[prog] if a != addr]
-                json.dump(sel, open(sel_path, "w"), indent=1)
+                json.dump(sel, open(sel_path, "w", newline="\n"), indent=1)
                 continue
             # COFF function type, so `ld --export-all-symbols` exports a code symbol (import libraries
             # get a call thunk) instead of treating the label as data

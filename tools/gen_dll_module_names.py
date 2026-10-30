@@ -96,7 +96,7 @@ def gen(prog, raw, ranges, known, out):
             name = '%s__%04x' % (mod, a)
             comment = 'Unidentified function of %s' % note
         entries.append({'addr': f['address'], 'name': name, 'comment': comment, 'tags': mod.lower(), 'program': prog})
-    json.dump(entries, open(os.path.join(ROOT, 'names', out), 'w'), indent=0)
+    json.dump(entries, open(os.path.join(ROOT, 'names', out), 'w', newline="\n"), indent=0)
     print(out, len(entries))
 
 

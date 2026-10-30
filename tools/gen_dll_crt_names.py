@@ -64,7 +64,7 @@ def gen(prog, table, out):
     entries = [{'program': prog, 'addr': '%08x' % (base + a), 'name': n,
                 'comment': 'MSVC 6 C runtime (matched against the EXE runtime by structure)', 'tags': 'crt'}
                for a, n in sorted(table.items())]
-    json.dump(entries, open(os.path.join(ROOT, 'names', out), 'w'), indent=0)
+    json.dump(entries, open(os.path.join(ROOT, 'names', out), 'w', newline="\n"), indent=0)
     print(out, len(entries))
 
 

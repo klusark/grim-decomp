@@ -31,5 +31,5 @@ for lib in LIBS:
         names.setdefault(m.group(1), "_%s@%s" % (m.group(1), m.group(2)))
 for n, b in (("InterlockedIncrement", 4), ("InterlockedDecrement", 4), ("InterlockedExchange", 8)):
     names.setdefault(n, "_%s@%d" % (n, b))
-json.dump(names, open(os.path.join(here, "stdcall_names.json"), "w"), indent=0, sort_keys=True)
+json.dump(names, open(os.path.join(here, "stdcall_names.json"), "w", newline="\n"), indent=0, sort_keys=True)
 print(len(names), "decorated names")
