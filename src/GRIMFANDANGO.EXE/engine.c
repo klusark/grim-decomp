@@ -149,7 +149,7 @@ void Engine_SetExtraDataDir(char *param_1)
 }
 
 /* ---- 0x00482790  Engine_RunSystemScript ---- */
-bool Engine_RunSystemScript(void)
+int Engine_RunSystemScript(void)
 
 {
   int iVar1;
@@ -191,7 +191,7 @@ void Engine_InvalidateRect(int *param_1,int param_2)
 }
 
 /* ---- 0x004828d0  Engine_CallExitHandler ---- */
-bool Engine_CallExitHandler(void)
+int Engine_CallExitHandler(void)
 
 {
   int iVar1;
@@ -900,7 +900,7 @@ void Engine_RenderFrame(void)
       fVar8 = (float)(*(int *)((int)g_pRenderedSet + 0xac) + g_nRenderedSetup * 300);
       local_1c[0] = fVar8;
       Set_ApplySetupCamera(g_pRenderedSet,g_nRenderedSetup);
-      for (pvVar5 = *(void **)((int)fVar8 + 0x128); pvVar5 != (void *)0x0;
+      for (pvVar5 = *(void **)(PUN(int,(float)fVar8) + 0x128); pvVar5 != (void *)0x0;
           pvVar5 = *(void **)((int)pvVar5 + 0xf8)) {
         ObjectState_Draw(pvVar5,3,g_pBackgroundSurface,g_pZBufferSurface);
       }
@@ -914,7 +914,7 @@ void Engine_RenderFrame(void)
       Surface_Lock(&g_BackBuffer);
       Primitives_DrawAll(1);
       Surface_Unlock(&g_BackBuffer);
-      for (pvVar5 = *(void **)((int)fVar8 + 0x128); pvVar5 != (void *)0x0;
+      for (pvVar5 = *(void **)(PUN(int,(float)fVar8) + 0x128); pvVar5 != (void *)0x0;
           pvVar5 = *(void **)((int)pvVar5 + 0xf8)) {
         ObjectState_Draw(pvVar5,1,&g_BackBuffer,(void *)UINT_008c97a4);
       }
@@ -1027,7 +1027,7 @@ void Engine_RenderFrame(void)
         Profile_Begin(7);
         rdroid_EndFrame();
         Profile_End(7);
-        for (pvVar5 = *(void **)((int)fVar8 + 0x128); pvVar5 != (void *)0x0;
+        for (pvVar5 = *(void **)(PUN(int,(float)fVar8) + 0x128); pvVar5 != (void *)0x0;
             pvVar5 = *(void **)((int)pvVar5 + 0xf8)) {
           ObjectState_Draw(pvVar5,2,&g_BackBuffer,(void *)UINT_008c97a4);
         }

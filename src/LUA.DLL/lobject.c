@@ -35,11 +35,11 @@ undefined4 __cdecl luaO_redimension(int param_1)
 }
 
 /* ---- 0x100074b0  luaO_equalObj ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Unidentified function of lobject.c */
 
-bool __cdecl luaO_equalObj(int *param_1,int *param_2)
+int __cdecl luaO_equalObj(int *param_1,int *param_2)
 
 {
   if (*param_1 == *param_2) {
@@ -53,7 +53,7 @@ bool __cdecl luaO_equalObj(int *param_1,int *param_2)
       return true;
     case -6:
     case -1:
-      if ((float)param_2[1] == (float)param_1[1]) {
+      if (PUN(float,param_2[1]) == PUN(float,param_1[1])) {
         return true;
       }
       break;

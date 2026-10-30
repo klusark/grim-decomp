@@ -182,7 +182,7 @@ int __cdecl rdPuppet_FadeInTrack(void *puppet,int track,float seconds)
   puVar1 = (uint *)((int)puppet + track * 0x134 + 8);
   *puVar1 = *(uint *)((int)puppet + track * 0x134 + 8) & 0xfffffff7 | 6;
   if (0.0 < seconds) {
-    puVar1[7] = (uint)(1.0 / seconds);
+    puVar1[7] = PUN(uint,(float)(1.0 / seconds));
     return 1;
   }
   puVar1[7] = 0x3f800000;
@@ -202,7 +202,7 @@ int __cdecl rdPuppet_FadeOutTrack(void *puppet,int track,float seconds)
   puVar1 = (uint *)((int)puppet + track * 0x134 + 8);
   *puVar1 = *(uint *)((int)puppet + track * 0x134 + 8) & 0xfffffffb | 8;
   if (0.0 < seconds) {
-    puVar1[7] = (uint)(1.0 / seconds);
+    puVar1[7] = PUN(uint,(float)(1.0 / seconds));
     return 1;
   }
   puVar1[7] = 0x3f800000;
@@ -237,7 +237,7 @@ void __cdecl rdPuppet_AdvanceTrack(void *puppet,int track,float dt)
   puVar1 = (uint *)((int)puppet + track * 0x134 + 8);
   if ((iVar8 != 0) && (dt != 0.0)) {
     fVar2 = dt + (float)puVar1[0x49];
-    puVar1[0x48] = (uint)fVar2;
+    puVar1[0x48] = PUN(uint,(float)fVar2);
     fVar3 = (float)*(uint *)(iVar8 + 0x34);
     if (fVar3 <= fVar2) {
       uVar5 = *puVar1;
@@ -245,8 +245,8 @@ void __cdecl rdPuppet_AdvanceTrack(void *puppet,int track,float dt)
         if ((uVar5 & 0x40) == 0) {
           if ((uVar5 & 0x80) == 0) {
             local_8 = ROUND(fVar2 / fVar3);
-            puVar1[0x48] = (uint)((float)puVar1[0x48] -
-                                 (float)*(uint *)(puVar1[0x4a] + 0x34) * local_8);
+            puVar1[0x48] = PUN(uint,(float)((float)puVar1[0x48] -
+                                 (float)*(uint *)(puVar1[0x4a] + 0x34) * local_8));
             uVar5 = *(uint *)(*(int *)(*(int *)((int)puppet + 4) + 4) + 0x54);
             if (0x3f < uVar5) {
               uVar5 = 0x40;
@@ -258,18 +258,18 @@ void __cdecl rdPuppet_AdvanceTrack(void *puppet,int track,float dt)
             }
           }
           else {
-            puVar1[0x48] = (uint)fVar3;
+            puVar1[0x48] = PUN(uint,(float)fVar3);
             rdPuppet_FadeOutTrack(puppet,track,0.25);
             *puVar1 = *puVar1 | 0x10;
           }
         }
         else {
-          puVar1[0x48] = (uint)fVar3;
+          puVar1[0x48] = PUN(uint,(float)fVar3);
           *puVar1 = uVar5 | 0x10;
         }
       }
       else {
-        puVar1[0x48] = (uint)fVar3;
+        puVar1[0x48] = PUN(uint,(float)fVar3);
         bVar4 = true;
       }
     }
@@ -364,11 +364,11 @@ void __cdecl rdPuppet_Advance(void *puppet,float seconds)
       uVar1 = *puVar3;
       if ((uVar1 != 0) && ((uVar1 & 0x200) == 0)) {
         if ((uVar1 & 0x10) == 0) {
-          rdPuppet_AdvanceTrack(puppet,track,(float)puVar3[4] * seconds);
+          rdPuppet_AdvanceTrack(puppet,track,PUN(float,puVar3[4]) * seconds);
         }
         if ((*puVar3 & 4) == 0) {
           if (((*puVar3 & 8) != 0) &&
-             (fVar2 = (float)puVar3[6] - (float)puVar3[7] * seconds, puVar3[6] = (uint)fVar2,
+             (fVar2 = PUN(float,puVar3[6]) - PUN(float,puVar3[7]) * seconds, puVar3[6] = PUN(uint,(float)fVar2),
              fVar2 <= 0.0)) {
             if ((*puVar3 & 0x100) == 0) {
               rdPuppet_StopTrack(puppet,track);
@@ -379,8 +379,8 @@ void __cdecl rdPuppet_Advance(void *puppet,float seconds)
           }
         }
         else {
-          fVar2 = (float)puVar3[7] * seconds + (float)puVar3[6];
-          puVar3[6] = (uint)fVar2;
+          fVar2 = PUN(float,puVar3[7]) * seconds + PUN(float,puVar3[6]);
+          puVar3[6] = PUN(uint,(float)fVar2);
           if (1.0 <= fVar2) {
             puVar3[6] = 0x3f800000;
             *puVar3 = *puVar3 & 0xfffffffb;
@@ -526,16 +526,16 @@ void __cdecl rdPuppet_UpdateFrame(void *model,float *frame)
                         bVar8 = true;
                       }
                     } while (!bVar8);
-                    if ((uint)local_74[2] < 0x40) {
+                    if (PUN(uint,(float)local_74[2]) < 0x40) {
                       *PUN(int *,(float)local_74[1]) = iVar11;
                     }
                   }
                 }
               }
-              local_74[2] = (float)((int)local_74[2] + 1);
-              local_74[1] = (float)((int)local_74[1] + 4);
+              local_74[2] = PUN(float,(PUN(int,(float)local_74[2]) + 1));
+              local_74[1] = PUN(float,(PUN(int,(float)local_74[1]) + 4));
               piVar17 = piVar17 + 0xb;
-            } while ((uint)local_74[2] < (uint)*(float *)(iVar13 + 0x38));
+            } while (PUN(uint,(float)local_74[2]) < PUN(uint,(float)*(float *)(iVar13 + 0x38)));
           }
         }
         pbVar16 = pbVar16 + 0x134;
@@ -577,8 +577,8 @@ void __cdecl rdPuppet_UpdateFrame(void *model,float *frame)
               if ((((((*pbVar16 & 2) != 0) && (uVar15 = *puVar14, uVar15 < *(uint *)(iVar13 + 0x38))
                     ) && (iVar9 = *(int *)(iVar13 + 0x3c) + uVar15 * 0x2c,
                          *(int *)(iVar9 + 0x24) != 0)) &&
-                  (((int)local_74[2] <= (int)fVar20 &&
-                   (((int)local_5c[0] <= (int)fVar20 || (local_74[0] < 1.0)))))) &&
+                  ((PUN(int,(float)local_74[2]) <= PUN(int,(float)fVar20) &&
+                   ((PUN(int,(float)local_5c[0]) <= PUN(int,(float)fVar20) || (local_74[0] < 1.0)))))) &&
                  (uVar15 < *(uint *)(iVar13 + 0x38))) {
                 pfVar12 = (float *)(*(int *)(iVar9 + 0x28) +
                                    *(int *)(pbVar16 + uVar15 * 4 + 0x20) * 0x38);
@@ -588,7 +588,7 @@ void __cdecl rdPuppet_UpdateFrame(void *model,float *frame)
                 else {
                   fVar7 = 0.0;
                 }
-                if (((uint)pfVar12[1] & 1) == 0) {
+                if ((PUN(uint,(float)pfVar12[1]) & 1) == 0) {
                   local_24[0] = pfVar12[2];
                   local_24[1] = pfVar12[3];
                   local_24[2] = pfVar12[4];
@@ -598,7 +598,7 @@ void __cdecl rdPuppet_UpdateFrame(void *model,float *frame)
                   local_24[1] = pfVar12[9] * fVar7 + pfVar12[3];
                   local_24[2] = pfVar12[10] * fVar7 + pfVar12[4];
                 }
-                if (((uint)pfVar12[1] & 2) == 0) {
+                if ((PUN(uint,(float)pfVar12[1]) & 2) == 0) {
                   local_30[0] = pfVar12[5];
                   fVar6 = pfVar12[6];
                   fVar7 = pfVar12[7];
@@ -608,12 +608,12 @@ void __cdecl rdPuppet_UpdateFrame(void *model,float *frame)
                   fVar6 = pfVar12[0xc] * fVar7 + pfVar12[6];
                   fVar7 = pfVar12[0xd] * fVar7 + pfVar12[7];
                 }
-                local_24[0] = local_24[0] - (float)puVar14[0xb];
-                local_24[1] = local_24[1] - (float)puVar14[0xc];
-                local_24[2] = local_24[2] - (float)puVar14[0xd];
-                fVar2 = (float)puVar14[0xf];
-                fVar3 = (float)puVar14[0x10];
-                local_30[0] = Math_NormalizeAngle180(local_30[0] - (float)puVar14[0xe]);
+                local_24[0] = local_24[0] - PUN(float,puVar14[0xb]);
+                local_24[1] = local_24[1] - PUN(float,puVar14[0xc]);
+                local_24[2] = local_24[2] - PUN(float,puVar14[0xd]);
+                fVar2 = PUN(float,puVar14[0xf]);
+                fVar3 = PUN(float,puVar14[0x10]);
+                local_30[0] = Math_NormalizeAngle180(local_30[0] - PUN(float,puVar14[0xe]));
                 local_30[1] = Math_NormalizeAngle180(fVar6 - fVar2);
                 local_30[2] = Math_NormalizeAngle180(fVar7 - fVar3);
                 if (*(float *)(pbVar16 + 0x18) < 1.0) {
@@ -633,7 +633,7 @@ void __cdecl rdPuppet_UpdateFrame(void *model,float *frame)
                   local_48[2] = local_30[2] + local_48[2];
                   local_74[0] = local_74[0] + *(float *)(pbVar16 + 0x18);
                 }
-                else if ((int)local_5c[0] < (int)fVar20) {
+                else if (PUN(int,(float)local_5c[0]) < PUN(int,(float)fVar20)) {
                   local_18[0] = local_3c[0];
                   local_18[1] = local_3c[1];
                   local_18[2] = local_3c[2];
@@ -651,7 +651,7 @@ void __cdecl rdPuppet_UpdateFrame(void *model,float *frame)
                   local_48[2] = local_30[2];
                   local_5c[0] = fVar20;
                 }
-                else if ((int)local_74[2] < (int)fVar20) {
+                else if (PUN(int,(float)local_74[2]) < PUN(int,(float)fVar20)) {
                   local_18[0] = local_24[0];
                   local_18[1] = local_24[1];
                   local_18[2] = local_24[2];
@@ -673,7 +673,7 @@ void __cdecl rdPuppet_UpdateFrame(void *model,float *frame)
               }
             }
             pbVar16 = pbVar16 + 0x134;
-            local_5c[1] = (float)((int)local_5c[1] + -1);
+            local_5c[1] = PUN(float,(PUN(int,(float)local_5c[1]) + -1));
           } while (local_5c[1] != 0.0);
           if ((1.0 <= local_74[0]) || (local_74[1] <= 0.0)) {
             if (1.0 < local_74[0]) {
@@ -707,23 +707,23 @@ void __cdecl rdPuppet_UpdateFrame(void *model,float *frame)
           local_48[0] = Math_NormalizeAngle180(local_48[0]);
           local_48[1] = Math_NormalizeAngle180(local_48[1]);
           fVar20 = Math_NormalizeAngle180(local_48[2]);
-          local_3c[0] = (float)puVar14[0xb] + local_3c[0];
-          local_3c[1] = (float)puVar14[0xc] + local_3c[1];
-          local_3c[2] = (float)puVar14[0xd] + local_3c[2];
-          local_48[0] = (float)puVar14[0xe] + local_48[0];
-          local_48[1] = (float)puVar14[0xf] + local_48[1];
-          local_48[2] = (float)puVar14[0x10] + fVar20;
+          local_3c[0] = PUN(float,puVar14[0xb]) + local_3c[0];
+          local_3c[1] = PUN(float,puVar14[0xc]) + local_3c[1];
+          local_3c[2] = PUN(float,puVar14[0xd]) + local_3c[2];
+          local_48[0] = PUN(float,puVar14[0xe]) + local_48[0];
+          local_48[1] = PUN(float,puVar14[0xf]) + local_48[1];
+          local_48[2] = PUN(float,puVar14[0x10]) + fVar20;
           Angles_ToMatrix(local_50 + *(int *)((int)model + 0x20),local_48,local_3c);
           iVar13 = *(int *)((int)model + 0x24) + local_60;
           if (((*(float *)(*(int *)((int)model + 0x24) + local_60) != 0.0) ||
               (*(float *)(iVar13 + 4) != 0.0)) || (*(float *)(iVar13 + 8) != 0.0)) {
             Matrix_BuildTransform(local_50 + *(int *)((int)model + 0x20),iVar13);
           }
-          local_5c[2] = (float)((int)local_5c[2] + 1);
+          local_5c[2] = PUN(float,(PUN(int,(float)local_5c[2]) + 1));
           local_60 = local_60 + 0xc;
           local_50 = local_50 + 0x30;
           puVar14 = puVar14 + 0x2e;
-        } while ((uint)local_5c[2] < (uint)*(float *)(iVar4 + 0x54));
+        } while (PUN(uint,(float)local_5c[2]) < PUN(uint,(float)*(float *)(iVar4 + 0x54)));
       }
     }
     rdThing_BuildNodeMatrix(model,*(undefined4 *)(iVar4 + 0x58),frame);
@@ -871,8 +871,6 @@ int rdKeyframe_Load(char *param_1)
 }
 
 /* ---- 0x004c0770  rdKeyframe_LoadText ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Parser of the text .key format (flags, type, frames, fps, joints, entries; stdConffile). Source
    file Rdkeyframe.c (C:\grimjedi\Libs\RDroid\Engine\Rdkeyframe.c). */
 
@@ -1132,8 +1130,6 @@ LAB_004c0cbf:
 #undef uStack_54
 #undef uStack_5c
 #undef uStack_68
-
-#endif
 
 
 /* ---- 0x004c0ce0  rdKeyframe_LoadBinary ---- */

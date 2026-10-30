@@ -529,14 +529,14 @@ uint rdClip_Face3_Pos(int *param_1,float *param_2,uint param_3)
     pfVar15 = param_2 + param_3 * 3 + -3;
     pfVar8 = param_2;
     do {
-      fVar2 = pfVar15[1] * (float)param_1[9];
-      fVar3 = pfVar8[1] * (float)param_1[9];
+      fVar2 = pfVar15[1] * PUN(float,param_1[9]);
+      fVar3 = pfVar8[1] * PUN(float,param_1[9]);
       if ((fVar2 <= *pfVar15) || (fVar3 <= *pfVar8)) {
         if (((*pfVar15 != fVar2) && (fVar3 != *pfVar8)) && ((*pfVar15 < fVar2 || (*pfVar8 < fVar3)))
            ) {
           fVar2 = pfVar8[1] - pfVar15[1];
           fVar4 = *pfVar8 - *pfVar15;
-          fVar1 = (float)param_1[9] * fVar2 - fVar4;
+          fVar1 = PUN(float,param_1[9]) * fVar2 - fVar4;
           fVar5 = pfVar8[1] * *pfVar15 - pfVar15[1] * *pfVar8;
           if (fVar1 != 0.0) {
             fVar5 = fVar5 / fVar1;
@@ -550,12 +550,12 @@ uint rdClip_Face3_Pos(int *param_1,float *param_2,uint param_3)
             fVar6 = -fVar4;
           }
           if (fVar1 <= fVar6) {
-            fVar2 = ((float)param_1[9] * fVar5 - *pfVar15) / fVar4;
+            fVar2 = (PUN(float,param_1[9]) * fVar5 - *pfVar15) / fVar4;
           }
           else {
             fVar2 = (fVar5 - pfVar15[1]) / fVar2;
           }
-          *(float *)((int)puVar14 + iVar11) = (float)param_1[9] * fVar5;
+          *(float *)((int)puVar14 + iVar11) = PUN(float,param_1[9]) * fVar5;
           uVar12 = uVar12 + 1;
           *(float *)(UINT_007f46ac + 4 + iVar11) = fVar5;
           iVar11 = iVar11 + 0xc;
@@ -589,15 +589,15 @@ uint rdClip_Face3_Pos(int *param_1,float *param_2,uint param_3)
       UINT_007f47b8 = (uint)puVar14;
       local_4 = uVar12;
       do {
-        fVar2 = (float)param_1[10] * pfVar8[1];
-        fVar3 = (float)param_1[10] * (float)puVar14[1];
-        if ((*pfVar8 <= fVar2) || ((float)*puVar14 <= fVar3)) {
-          if (((*pfVar8 != fVar2) && (fVar3 != (float)*puVar14)) &&
-             ((fVar2 < *pfVar8 || (fVar3 < (float)*puVar14)))) {
-            fVar2 = (float)puVar14[1] - pfVar8[1];
-            fVar4 = (float)*puVar14 - *pfVar8;
-            fVar1 = (float)param_1[10] * fVar2 - fVar4;
-            fVar5 = (float)puVar14[1] * *pfVar8 - pfVar8[1] * (float)*puVar14;
+        fVar2 = PUN(float,param_1[10]) * pfVar8[1];
+        fVar3 = PUN(float,param_1[10]) * PUN(float,puVar14[1]);
+        if ((*pfVar8 <= fVar2) || (PUN(float,*puVar14) <= fVar3)) {
+          if (((*pfVar8 != fVar2) && (fVar3 != PUN(float,*puVar14))) &&
+             ((fVar2 < *pfVar8 || (fVar3 < PUN(float,*puVar14))))) {
+            fVar2 = PUN(float,puVar14[1]) - pfVar8[1];
+            fVar4 = PUN(float,*puVar14) - *pfVar8;
+            fVar1 = PUN(float,param_1[10]) * fVar2 - fVar4;
+            fVar5 = PUN(float,puVar14[1]) * *pfVar8 - pfVar8[1] * PUN(float,*puVar14);
             if (fVar1 != 0.0) {
               fVar5 = fVar5 / fVar1;
             }
@@ -610,27 +610,27 @@ uint rdClip_Face3_Pos(int *param_1,float *param_2,uint param_3)
               fVar6 = -fVar4;
             }
             if (fVar1 <= fVar6) {
-              fVar2 = ((float)param_1[10] * fVar5 - *pfVar8) / fVar4;
+              fVar2 = (PUN(float,param_1[10]) * fVar5 - *pfVar8) / fVar4;
             }
             else {
               fVar2 = (fVar5 - pfVar8[1]) / fVar2;
             }
-            *(float *)(uVar17 + iVar11) = (float)param_1[10] * fVar5;
+            *(float *)(uVar17 + iVar11) = PUN(float,param_1[10]) * fVar5;
             uVar13 = uVar13 + 1;
             *(float *)(UINT_007f46ac + 4 + iVar11) = fVar5;
             iVar11 = iVar11 + 0xc;
             *(float *)((UINT_007f46ac - 4) + iVar11) =
-                 ((float)puVar14[2] - pfVar8[2]) * fVar2 + pfVar8[2];
+                 (PUN(float,puVar14[2]) - pfVar8[2]) * fVar2 + pfVar8[2];
             UINT_007f4ac4 = UINT_007f4ac4 | 0x20;
             uVar17 = UINT_007f46ac;
           }
-          if ((float)*puVar14 <= fVar3) {
+          if (PUN(float,*puVar14) <= fVar3) {
             pfVar15 = (float *)(uVar17 + iVar11);
             uVar13 = uVar13 + 1;
             iVar11 = iVar11 + 0xc;
-            *pfVar15 = (float)*puVar14;
-            pfVar15[1] = (float)puVar14[1];
-            pfVar15[2] = (float)puVar14[2];
+            *pfVar15 = PUN(float,*puVar14);
+            pfVar15[1] = PUN(float,puVar14[1]);
+            pfVar15[2] = PUN(float,puVar14[2]);
             uVar17 = UINT_007f46ac;
           }
         }
@@ -653,19 +653,19 @@ uint rdClip_Face3_Pos(int *param_1,float *param_2,uint param_3)
         UINT_007f47b8 = uVar17;
         local_4 = uVar12;
         do {
-          fVar2 = (float)param_1[7] * pfVar15[1];
-          fVar3 = pfVar8[-1] * (float)param_1[7];
+          fVar2 = PUN(float,param_1[7]) * pfVar15[1];
+          fVar3 = pfVar8[-1] * PUN(float,param_1[7]);
           if ((pfVar15[2] <= fVar2) || (*pfVar8 <= fVar3)) {
             if (((pfVar15[2] != fVar2) && (fVar3 != *pfVar8)) &&
                ((fVar2 < pfVar15[2] || (fVar3 < *pfVar8)))) {
               fVar2 = pfVar8[-1] - pfVar15[1];
               fVar4 = *pfVar8 - pfVar15[2];
-              fVar1 = (float)param_1[7] * fVar2 - fVar4;
+              fVar1 = PUN(float,param_1[7]) * fVar2 - fVar4;
               fVar5 = pfVar15[2] * pfVar8[-1] - pfVar15[1] * *pfVar8;
               if (fVar1 != 0.0) {
                 fVar5 = fVar5 / fVar1;
               }
-              fVar1 = (float)param_1[7];
+              fVar1 = PUN(float,param_1[7]);
               fVar6 = fVar2;
               if (fVar2 < 0.0) {
                 fVar6 = -fVar2;
@@ -717,19 +717,19 @@ uint rdClip_Face3_Pos(int *param_1,float *param_2,uint param_3)
           UINT_007f47b8 = uVar16;
           local_4 = uVar12;
           do {
-            fVar2 = (float)param_1[8] * pfVar15[1];
-            fVar3 = pfVar8[-1] * (float)param_1[8];
+            fVar2 = PUN(float,param_1[8]) * pfVar15[1];
+            fVar3 = pfVar8[-1] * PUN(float,param_1[8]);
             if ((fVar2 <= pfVar15[2]) || (fVar3 <= *pfVar8)) {
               if (((pfVar15[2] != fVar2) && (fVar3 != *pfVar8)) &&
                  ((pfVar15[2] < fVar2 || (*pfVar8 < fVar3)))) {
                 fVar2 = pfVar8[-1] - pfVar15[1];
                 fVar4 = *pfVar8 - pfVar15[2];
-                fVar1 = (float)param_1[8] * fVar2 - fVar4;
+                fVar1 = PUN(float,param_1[8]) * fVar2 - fVar4;
                 fVar5 = pfVar15[2] * pfVar8[-1] - pfVar15[1] * *pfVar8;
                 if (fVar1 != 0.0) {
                   fVar5 = fVar5 / fVar1;
                 }
-                fVar1 = (float)param_1[8];
+                fVar1 = PUN(float,param_1[8]);
                 fVar6 = fVar2;
                 if (fVar2 < 0.0) {
                   fVar6 = -fVar2;
@@ -781,11 +781,11 @@ uint rdClip_Face3_Pos(int *param_1,float *param_2,uint param_3)
             UINT_007f47b8 = uVar17;
             param_3 = uVar12;
             do {
-              if (((float)param_1[1] <= pfVar15[1]) || ((float)param_1[1] <= *pfVar9)) {
-                if (((pfVar15[1] != (float)param_1[1]) && (*pfVar9 != (float)param_1[1])) &&
-                   ((pfVar15[1] < (float)param_1[1] || (*pfVar9 < (float)param_1[1])))) {
+              if ((PUN(float,param_1[1]) <= pfVar15[1]) || (PUN(float,param_1[1]) <= *pfVar9)) {
+                if (((pfVar15[1] != PUN(float,param_1[1])) && (*pfVar9 != PUN(float,param_1[1]))) &&
+                   ((pfVar15[1] < PUN(float,param_1[1]) || (*pfVar9 < PUN(float,param_1[1]))))) {
                   uVar13 = uVar13 + 1;
-                  fVar2 = ((float)param_1[1] - pfVar15[1]) / (*pfVar9 - pfVar15[1]);
+                  fVar2 = (PUN(float,param_1[1]) - pfVar15[1]) / (*pfVar9 - pfVar15[1]);
                   *(int *)((int)pfVar8 + iVar11 + 4) = param_1[1];
                   iVar11 = iVar11 + 0xc;
                   *(float *)((UINT_007f46ac - 4) + iVar11) =
@@ -795,7 +795,7 @@ uint rdClip_Face3_Pos(int *param_1,float *param_2,uint param_3)
                   UINT_007f4ac4 = UINT_007f4ac4 | 1;
                   pfVar8 = (float *)UINT_007f46ac;
                 }
-                if ((float)param_1[1] <= *pfVar9) {
+                if (PUN(float,param_1[1]) <= *pfVar9) {
                   pfVar8 = (float *)((int)pfVar8 + iVar11);
                   uVar13 = uVar13 + 1;
                   iVar11 = iVar11 + 0xc;
@@ -829,11 +829,11 @@ uint rdClip_Face3_Pos(int *param_1,float *param_2,uint param_3)
               UINT_007f47b8 = (uint)pfVar8;
               param_3 = uVar13;
               do {
-                if ((pfVar9[1] <= (float)param_1[2]) || (*pfVar10 <= (float)param_1[2])) {
-                  if (((pfVar9[1] != (float)param_1[2]) && (*pfVar10 != (float)param_1[2])) &&
-                     (((float)param_1[2] < pfVar9[1] || ((float)param_1[2] < *pfVar10)))) {
+                if ((pfVar9[1] <= PUN(float,param_1[2])) || (*pfVar10 <= PUN(float,param_1[2]))) {
+                  if (((pfVar9[1] != PUN(float,param_1[2])) && (*pfVar10 != PUN(float,param_1[2]))) &&
+                     ((PUN(float,param_1[2]) < pfVar9[1] || (PUN(float,param_1[2]) < *pfVar10)))) {
                     uVar12 = uVar12 + 1;
-                    fVar2 = ((float)param_1[2] - pfVar9[1]) / (*pfVar10 - pfVar9[1]);
+                    fVar2 = (PUN(float,param_1[2]) - pfVar9[1]) / (*pfVar10 - pfVar9[1]);
                     *(int *)((int)pfVar15 + iVar11 + 4) = param_1[2];
                     iVar11 = iVar11 + 0xc;
                     *(float *)((UINT_007f46ac - 4) + iVar11) =
@@ -843,7 +843,7 @@ uint rdClip_Face3_Pos(int *param_1,float *param_2,uint param_3)
                     UINT_007f4ac4 = UINT_007f4ac4 | 2;
                     pfVar15 = (float *)UINT_007f46ac;
                   }
-                  if (*pfVar10 <= (float)param_1[2]) {
+                  if (*pfVar10 <= PUN(float,param_1[2])) {
                     pfVar15 = (float *)((int)pfVar15 + iVar11);
                     uVar12 = uVar12 + 1;
                     iVar11 = iVar11 + 0xc;
@@ -920,8 +920,8 @@ int rdClip_Face3_PosB(int *param_1,float *param_2,int param_3)
   pfVar13 = param_2;
   if (0 < param_3) {
     do {
-      fVar2 = (float)param_1[3];
-      fVar1 = (float)param_1[3];
+      fVar2 = PUN(float,param_1[3]);
+      fVar1 = PUN(float,param_1[3]);
       if ((fVar2 <= *pfVar11) || (fVar1 <= *pfVar13)) {
         iVar8 = iVar7;
         if (((*pfVar11 != fVar2) && (fVar1 != *pfVar13)) &&
@@ -962,29 +962,29 @@ int rdClip_Face3_PosB(int *param_1,float *param_2,int param_3)
       UINT_007f47b8 = (uint)puVar10;
       param_3 = iVar9;
       do {
-        fVar2 = (float)param_1[5];
-        fVar1 = (float)param_1[5];
-        if ((*pfVar13 <= fVar2) || ((float)*puVar10 <= fVar1)) {
-          if (((*pfVar13 != fVar2) && (fVar1 != (float)*puVar10)) &&
-             ((fVar2 < *pfVar13 || (fVar1 < (float)*puVar10)))) {
-            fVar3 = (fVar2 - *pfVar13) / ((float)*puVar10 - *pfVar13);
+        fVar2 = PUN(float,param_1[5]);
+        fVar1 = PUN(float,param_1[5]);
+        if ((*pfVar13 <= fVar2) || (PUN(float,*puVar10) <= fVar1)) {
+          if (((*pfVar13 != fVar2) && (fVar1 != PUN(float,*puVar10))) &&
+             ((fVar2 < *pfVar13 || (fVar1 < PUN(float,*puVar10))))) {
+            fVar3 = (fVar2 - *pfVar13) / (PUN(float,*puVar10) - *pfVar13);
             iVar7 = iVar7 + 1;
             iVar8 = iVar8 + 0xc;
             *(float *)((uVar5 - 0xc) + iVar8) = fVar2;
             *(float *)((UINT_007f46ac - 8) + iVar8) =
-                 ((float)puVar10[1] - pfVar13[1]) * fVar3 + pfVar13[1];
+                 (PUN(float,puVar10[1]) - pfVar13[1]) * fVar3 + pfVar13[1];
             *(float *)((UINT_007f46ac - 4) + iVar8) =
-                 ((float)puVar10[2] - pfVar13[2]) * fVar3 + pfVar13[2];
+                 (PUN(float,puVar10[2]) - pfVar13[2]) * fVar3 + pfVar13[2];
             UINT_007f4ac4 = UINT_007f4ac4 | 0x20;
             uVar5 = UINT_007f46ac;
           }
-          if ((float)*puVar10 <= fVar1) {
+          if (PUN(float,*puVar10) <= fVar1) {
             pfVar11 = (float *)(uVar5 + iVar8);
             iVar7 = iVar7 + 1;
             iVar8 = iVar8 + 0xc;
-            *pfVar11 = (float)*puVar10;
-            pfVar11[1] = (float)puVar10[1];
-            pfVar11[2] = (float)puVar10[2];
+            *pfVar11 = PUN(float,*puVar10);
+            pfVar11[1] = PUN(float,puVar10[1]);
+            pfVar11[2] = PUN(float,puVar10[2]);
             uVar5 = UINT_007f46ac;
           }
         }
@@ -1007,8 +1007,8 @@ int rdClip_Face3_PosB(int *param_1,float *param_2,int param_3)
         UINT_007f47b8 = uVar5;
         param_3 = iVar9;
         do {
-          fVar2 = (float)param_1[4];
-          fVar1 = (float)param_1[4];
+          fVar2 = PUN(float,param_1[4]);
+          fVar1 = PUN(float,param_1[4]);
           if ((pfVar11[2] <= fVar2) || (*pfVar13 <= fVar1)) {
             if (((pfVar11[2] != fVar2) && (fVar1 != *pfVar13)) &&
                ((fVar2 < pfVar11[2] || (fVar1 < *pfVar13)))) {
@@ -1051,8 +1051,8 @@ int rdClip_Face3_PosB(int *param_1,float *param_2,int param_3)
           UINT_007f47b8 = uVar12;
           param_3 = iVar9;
           do {
-            fVar2 = (float)param_1[6];
-            fVar1 = (float)param_1[6];
+            fVar2 = PUN(float,param_1[6]);
+            fVar1 = PUN(float,param_1[6]);
             if ((fVar2 <= pfVar11[2]) || (fVar1 <= *pfVar13)) {
               if (((pfVar11[2] != fVar2) && (fVar1 != *pfVar13)) &&
                  ((pfVar11[2] < fVar2 || (*pfVar13 < fVar1)))) {
@@ -1095,11 +1095,11 @@ int rdClip_Face3_PosB(int *param_1,float *param_2,int param_3)
             UINT_007f47b8 = uVar5;
             param_3 = iVar9;
             do {
-              if (((float)param_1[1] <= pfVar11[1]) || ((float)param_1[1] <= *pfVar4)) {
-                if (((pfVar11[1] != (float)param_1[1]) && (*pfVar4 != (float)param_1[1])) &&
-                   ((pfVar11[1] < (float)param_1[1] || (*pfVar4 < (float)param_1[1])))) {
+              if ((PUN(float,param_1[1]) <= pfVar11[1]) || (PUN(float,param_1[1]) <= *pfVar4)) {
+                if (((pfVar11[1] != PUN(float,param_1[1])) && (*pfVar4 != PUN(float,param_1[1]))) &&
+                   ((pfVar11[1] < PUN(float,param_1[1]) || (*pfVar4 < PUN(float,param_1[1]))))) {
                   iVar7 = iVar7 + 1;
-                  fVar1 = ((float)param_1[1] - pfVar11[1]) / (*pfVar4 - pfVar11[1]);
+                  fVar1 = (PUN(float,param_1[1]) - pfVar11[1]) / (*pfVar4 - pfVar11[1]);
                   *(int *)((int)pfVar13 + iVar8 + 4) = param_1[1];
                   iVar8 = iVar8 + 0xc;
                   *(float *)((UINT_007f46ac - 4) + iVar8) =
@@ -1109,7 +1109,7 @@ int rdClip_Face3_PosB(int *param_1,float *param_2,int param_3)
                   UINT_007f4ac4 = UINT_007f4ac4 | 1;
                   pfVar13 = (float *)UINT_007f46ac;
                 }
-                if ((float)param_1[1] <= *pfVar4) {
+                if (PUN(float,param_1[1]) <= *pfVar4) {
                   pfVar13 = (float *)((int)pfVar13 + iVar8);
                   iVar7 = iVar7 + 1;
                   iVar8 = iVar8 + 0xc;
@@ -1143,11 +1143,11 @@ int rdClip_Face3_PosB(int *param_1,float *param_2,int param_3)
               UINT_007f47b8 = (uint)pfVar13;
               param_3 = iVar7;
               do {
-                if ((pfVar4[1] <= (float)param_1[2]) || (*pfVar6 <= (float)param_1[2])) {
-                  if (((pfVar4[1] != (float)param_1[2]) && (*pfVar6 != (float)param_1[2])) &&
-                     (((float)param_1[2] < pfVar4[1] || ((float)param_1[2] < *pfVar6)))) {
+                if ((pfVar4[1] <= PUN(float,param_1[2])) || (*pfVar6 <= PUN(float,param_1[2]))) {
+                  if (((pfVar4[1] != PUN(float,param_1[2])) && (*pfVar6 != PUN(float,param_1[2]))) &&
+                     ((PUN(float,param_1[2]) < pfVar4[1] || (PUN(float,param_1[2]) < *pfVar6)))) {
                     iVar9 = iVar9 + 1;
-                    fVar1 = ((float)param_1[2] - pfVar4[1]) / (*pfVar6 - pfVar4[1]);
+                    fVar1 = (PUN(float,param_1[2]) - pfVar4[1]) / (*pfVar6 - pfVar4[1]);
                     *(int *)((int)pfVar11 + iVar8 + 4) = param_1[2];
                     iVar8 = iVar8 + 0xc;
                     *(float *)((UINT_007f46ac - 4) + iVar8) =
@@ -1157,7 +1157,7 @@ int rdClip_Face3_PosB(int *param_1,float *param_2,int param_3)
                     UINT_007f4ac4 = UINT_007f4ac4 | 2;
                     pfVar11 = (float *)UINT_007f46ac;
                   }
-                  if (*pfVar6 <= (float)param_1[2]) {
+                  if (*pfVar6 <= PUN(float,param_1[2])) {
                     pfVar11 = (float *)((int)pfVar11 + iVar8);
                     iVar9 = iVar9 + 1;
                     iVar8 = iVar8 + 0xc;
@@ -1237,14 +1237,14 @@ uint rdClip_Face3_Pos_2(int *param_1,float *param_2,uint param_3)
     pfVar15 = param_2 + param_3 * 3 + -3;
     pfVar8 = param_2;
     do {
-      fVar2 = pfVar15[1] * (float)param_1[0xc];
-      fVar3 = pfVar8[1] * (float)param_1[0xc];
+      fVar2 = pfVar15[1] * PUN(float,param_1[0xc]);
+      fVar3 = pfVar8[1] * PUN(float,param_1[0xc]);
       if ((fVar2 <= *pfVar15) || (fVar3 <= *pfVar8)) {
         if (((*pfVar15 != fVar2) && (fVar3 != *pfVar8)) && ((*pfVar15 < fVar2 || (*pfVar8 < fVar3)))
            ) {
           fVar2 = pfVar8[1] - pfVar15[1];
           fVar4 = *pfVar8 - *pfVar15;
-          fVar1 = (float)param_1[0xc] * fVar2 - fVar4;
+          fVar1 = PUN(float,param_1[0xc]) * fVar2 - fVar4;
           fVar5 = pfVar8[1] * *pfVar15 - pfVar15[1] * *pfVar8;
           if (fVar1 != 0.0) {
             fVar5 = fVar5 / fVar1;
@@ -1258,12 +1258,12 @@ uint rdClip_Face3_Pos_2(int *param_1,float *param_2,uint param_3)
             fVar6 = -fVar4;
           }
           if (fVar1 <= fVar6) {
-            fVar2 = ((float)param_1[0xc] * fVar5 - *pfVar15) / fVar4;
+            fVar2 = (PUN(float,param_1[0xc]) * fVar5 - *pfVar15) / fVar4;
           }
           else {
             fVar2 = (fVar5 - pfVar15[1]) / fVar2;
           }
-          *(float *)((int)puVar14 + iVar11) = (float)param_1[0xc] * fVar5;
+          *(float *)((int)puVar14 + iVar11) = PUN(float,param_1[0xc]) * fVar5;
           uVar12 = uVar12 + 1;
           *(float *)(UINT_007f46ac + 4 + iVar11) = fVar5;
           iVar11 = iVar11 + 0xc;
@@ -1297,15 +1297,15 @@ uint rdClip_Face3_Pos_2(int *param_1,float *param_2,uint param_3)
       UINT_007f47b8 = (uint)puVar14;
       local_4 = uVar12;
       do {
-        fVar2 = (float)param_1[10] * pfVar8[1];
-        fVar3 = (float)param_1[10] * (float)puVar14[1];
-        if ((*pfVar8 <= fVar2) || ((float)*puVar14 <= fVar3)) {
-          if (((*pfVar8 != fVar2) && (fVar3 != (float)*puVar14)) &&
-             ((fVar2 < *pfVar8 || (fVar3 < (float)*puVar14)))) {
-            fVar2 = (float)puVar14[1] - pfVar8[1];
-            fVar4 = (float)*puVar14 - *pfVar8;
-            fVar1 = (float)param_1[10] * fVar2 - fVar4;
-            fVar5 = (float)puVar14[1] * *pfVar8 - pfVar8[1] * (float)*puVar14;
+        fVar2 = PUN(float,param_1[10]) * pfVar8[1];
+        fVar3 = PUN(float,param_1[10]) * PUN(float,puVar14[1]);
+        if ((*pfVar8 <= fVar2) || (PUN(float,*puVar14) <= fVar3)) {
+          if (((*pfVar8 != fVar2) && (fVar3 != PUN(float,*puVar14))) &&
+             ((fVar2 < *pfVar8 || (fVar3 < PUN(float,*puVar14))))) {
+            fVar2 = PUN(float,puVar14[1]) - pfVar8[1];
+            fVar4 = PUN(float,*puVar14) - *pfVar8;
+            fVar1 = PUN(float,param_1[10]) * fVar2 - fVar4;
+            fVar5 = PUN(float,puVar14[1]) * *pfVar8 - pfVar8[1] * PUN(float,*puVar14);
             if (fVar1 != 0.0) {
               fVar5 = fVar5 / fVar1;
             }
@@ -1318,27 +1318,27 @@ uint rdClip_Face3_Pos_2(int *param_1,float *param_2,uint param_3)
               fVar6 = -fVar4;
             }
             if (fVar1 <= fVar6) {
-              fVar2 = ((float)param_1[10] * fVar5 - *pfVar8) / fVar4;
+              fVar2 = (PUN(float,param_1[10]) * fVar5 - *pfVar8) / fVar4;
             }
             else {
               fVar2 = (fVar5 - pfVar8[1]) / fVar2;
             }
-            *(float *)(uVar17 + iVar11) = (float)param_1[10] * fVar5;
+            *(float *)(uVar17 + iVar11) = PUN(float,param_1[10]) * fVar5;
             uVar13 = uVar13 + 1;
             *(float *)(UINT_007f46ac + 4 + iVar11) = fVar5;
             iVar11 = iVar11 + 0xc;
             *(float *)((UINT_007f46ac - 4) + iVar11) =
-                 ((float)puVar14[2] - pfVar8[2]) * fVar2 + pfVar8[2];
+                 (PUN(float,puVar14[2]) - pfVar8[2]) * fVar2 + pfVar8[2];
             UINT_007f4ac4 = UINT_007f4ac4 | 0x20;
             uVar17 = UINT_007f46ac;
           }
-          if ((float)*puVar14 <= fVar3) {
+          if (PUN(float,*puVar14) <= fVar3) {
             pfVar15 = (float *)(uVar17 + iVar11);
             uVar13 = uVar13 + 1;
             iVar11 = iVar11 + 0xc;
-            *pfVar15 = (float)*puVar14;
-            pfVar15[1] = (float)puVar14[1];
-            pfVar15[2] = (float)puVar14[2];
+            *pfVar15 = PUN(float,*puVar14);
+            pfVar15[1] = PUN(float,puVar14[1]);
+            pfVar15[2] = PUN(float,puVar14[2]);
             uVar17 = UINT_007f46ac;
           }
         }
@@ -1361,19 +1361,19 @@ uint rdClip_Face3_Pos_2(int *param_1,float *param_2,uint param_3)
         UINT_007f47b8 = uVar17;
         local_4 = uVar12;
         do {
-          fVar2 = (float)param_1[0xb] * pfVar15[1];
-          fVar3 = pfVar8[-1] * (float)param_1[0xb];
+          fVar2 = PUN(float,param_1[0xb]) * pfVar15[1];
+          fVar3 = pfVar8[-1] * PUN(float,param_1[0xb]);
           if ((pfVar15[2] <= fVar2) || (*pfVar8 <= fVar3)) {
             if (((pfVar15[2] != fVar2) && (fVar3 != *pfVar8)) &&
                ((fVar2 < pfVar15[2] || (fVar3 < *pfVar8)))) {
               fVar2 = pfVar8[-1] - pfVar15[1];
               fVar4 = *pfVar8 - pfVar15[2];
-              fVar1 = (float)param_1[0xb] * fVar2 - fVar4;
+              fVar1 = PUN(float,param_1[0xb]) * fVar2 - fVar4;
               fVar5 = pfVar15[2] * pfVar8[-1] - pfVar15[1] * *pfVar8;
               if (fVar1 != 0.0) {
                 fVar5 = fVar5 / fVar1;
               }
-              fVar1 = (float)param_1[0xb];
+              fVar1 = PUN(float,param_1[0xb]);
               fVar6 = fVar2;
               if (fVar2 < 0.0) {
                 fVar6 = -fVar2;
@@ -1425,19 +1425,19 @@ uint rdClip_Face3_Pos_2(int *param_1,float *param_2,uint param_3)
           UINT_007f47b8 = uVar16;
           local_4 = uVar12;
           do {
-            fVar2 = (float)param_1[8] * pfVar15[1];
-            fVar3 = pfVar8[-1] * (float)param_1[8];
+            fVar2 = PUN(float,param_1[8]) * pfVar15[1];
+            fVar3 = pfVar8[-1] * PUN(float,param_1[8]);
             if ((fVar2 <= pfVar15[2]) || (fVar3 <= *pfVar8)) {
               if (((pfVar15[2] != fVar2) && (fVar3 != *pfVar8)) &&
                  ((pfVar15[2] < fVar2 || (*pfVar8 < fVar3)))) {
                 fVar2 = pfVar8[-1] - pfVar15[1];
                 fVar4 = *pfVar8 - pfVar15[2];
-                fVar1 = (float)param_1[8] * fVar2 - fVar4;
+                fVar1 = PUN(float,param_1[8]) * fVar2 - fVar4;
                 fVar5 = pfVar15[2] * pfVar8[-1] - pfVar15[1] * *pfVar8;
                 if (fVar1 != 0.0) {
                   fVar5 = fVar5 / fVar1;
                 }
-                fVar1 = (float)param_1[8];
+                fVar1 = PUN(float,param_1[8]);
                 fVar6 = fVar2;
                 if (fVar2 < 0.0) {
                   fVar6 = -fVar2;
@@ -1489,11 +1489,11 @@ uint rdClip_Face3_Pos_2(int *param_1,float *param_2,uint param_3)
             UINT_007f47b8 = uVar17;
             param_3 = uVar12;
             do {
-              if (((float)param_1[1] <= pfVar15[1]) || ((float)param_1[1] <= *pfVar9)) {
-                if (((pfVar15[1] != (float)param_1[1]) && (*pfVar9 != (float)param_1[1])) &&
-                   ((pfVar15[1] < (float)param_1[1] || (*pfVar9 < (float)param_1[1])))) {
+              if ((PUN(float,param_1[1]) <= pfVar15[1]) || (PUN(float,param_1[1]) <= *pfVar9)) {
+                if (((pfVar15[1] != PUN(float,param_1[1])) && (*pfVar9 != PUN(float,param_1[1]))) &&
+                   ((pfVar15[1] < PUN(float,param_1[1]) || (*pfVar9 < PUN(float,param_1[1]))))) {
                   uVar13 = uVar13 + 1;
-                  fVar2 = ((float)param_1[1] - pfVar15[1]) / (*pfVar9 - pfVar15[1]);
+                  fVar2 = (PUN(float,param_1[1]) - pfVar15[1]) / (*pfVar9 - pfVar15[1]);
                   *(int *)((int)pfVar8 + iVar11 + 4) = param_1[1];
                   iVar11 = iVar11 + 0xc;
                   *(float *)((UINT_007f46ac - 4) + iVar11) =
@@ -1503,7 +1503,7 @@ uint rdClip_Face3_Pos_2(int *param_1,float *param_2,uint param_3)
                   UINT_007f4ac4 = UINT_007f4ac4 | 1;
                   pfVar8 = (float *)UINT_007f46ac;
                 }
-                if ((float)param_1[1] <= *pfVar9) {
+                if (PUN(float,param_1[1]) <= *pfVar9) {
                   pfVar8 = (float *)((int)pfVar8 + iVar11);
                   uVar13 = uVar13 + 1;
                   iVar11 = iVar11 + 0xc;
@@ -1537,11 +1537,11 @@ uint rdClip_Face3_Pos_2(int *param_1,float *param_2,uint param_3)
               UINT_007f47b8 = (uint)pfVar8;
               param_3 = uVar13;
               do {
-                if ((pfVar9[1] <= (float)param_1[2]) || (*pfVar10 <= (float)param_1[2])) {
-                  if (((pfVar9[1] != (float)param_1[2]) && (*pfVar10 != (float)param_1[2])) &&
-                     (((float)param_1[2] < pfVar9[1] || ((float)param_1[2] < *pfVar10)))) {
+                if ((pfVar9[1] <= PUN(float,param_1[2])) || (*pfVar10 <= PUN(float,param_1[2]))) {
+                  if (((pfVar9[1] != PUN(float,param_1[2])) && (*pfVar10 != PUN(float,param_1[2]))) &&
+                     ((PUN(float,param_1[2]) < pfVar9[1] || (PUN(float,param_1[2]) < *pfVar10)))) {
                     uVar12 = uVar12 + 1;
-                    fVar2 = ((float)param_1[2] - pfVar9[1]) / (*pfVar10 - pfVar9[1]);
+                    fVar2 = (PUN(float,param_1[2]) - pfVar9[1]) / (*pfVar10 - pfVar9[1]);
                     *(int *)((int)pfVar15 + iVar11 + 4) = param_1[2];
                     iVar11 = iVar11 + 0xc;
                     *(float *)((UINT_007f46ac - 4) + iVar11) =
@@ -1551,7 +1551,7 @@ uint rdClip_Face3_Pos_2(int *param_1,float *param_2,uint param_3)
                     UINT_007f4ac4 = UINT_007f4ac4 | 2;
                     pfVar15 = (float *)UINT_007f46ac;
                   }
-                  if (*pfVar10 <= (float)param_1[2]) {
+                  if (*pfVar10 <= PUN(float,param_1[2])) {
                     pfVar15 = (float *)((int)pfVar15 + iVar11);
                     uVar12 = uVar12 + 1;
                     iVar11 = iVar11 + 0xc;
@@ -1626,8 +1626,8 @@ int rdClip_Face3_PosB_2(int *param_1,float *param_2,int param_3)
   pfVar13 = param_2;
   if (0 < param_3) {
     do {
-      fVar2 = (float)param_1[3];
-      fVar1 = (float)param_1[3];
+      fVar2 = PUN(float,param_1[3]);
+      fVar1 = PUN(float,param_1[3]);
       if ((fVar2 <= *pfVar11) || (fVar1 <= *pfVar13)) {
         iVar8 = iVar7;
         if (((*pfVar11 != fVar2) && (fVar1 != *pfVar13)) &&
@@ -1668,29 +1668,29 @@ int rdClip_Face3_PosB_2(int *param_1,float *param_2,int param_3)
       UINT_007f47b8 = (uint)puVar10;
       param_3 = iVar9;
       do {
-        fVar2 = (float)param_1[5];
-        fVar1 = (float)param_1[5];
-        if ((*pfVar13 <= fVar2) || ((float)*puVar10 <= fVar1)) {
-          if (((*pfVar13 != fVar2) && (fVar1 != (float)*puVar10)) &&
-             ((fVar2 < *pfVar13 || (fVar1 < (float)*puVar10)))) {
-            fVar3 = (fVar2 - *pfVar13) / ((float)*puVar10 - *pfVar13);
+        fVar2 = PUN(float,param_1[5]);
+        fVar1 = PUN(float,param_1[5]);
+        if ((*pfVar13 <= fVar2) || (PUN(float,*puVar10) <= fVar1)) {
+          if (((*pfVar13 != fVar2) && (fVar1 != PUN(float,*puVar10))) &&
+             ((fVar2 < *pfVar13 || (fVar1 < PUN(float,*puVar10))))) {
+            fVar3 = (fVar2 - *pfVar13) / (PUN(float,*puVar10) - *pfVar13);
             iVar7 = iVar7 + 1;
             iVar8 = iVar8 + 0xc;
             *(float *)((uVar5 - 0xc) + iVar8) = fVar2;
             *(float *)((UINT_007f46ac - 8) + iVar8) =
-                 ((float)puVar10[1] - pfVar13[1]) * fVar3 + pfVar13[1];
+                 (PUN(float,puVar10[1]) - pfVar13[1]) * fVar3 + pfVar13[1];
             *(float *)((UINT_007f46ac - 4) + iVar8) =
-                 ((float)puVar10[2] - pfVar13[2]) * fVar3 + pfVar13[2];
+                 (PUN(float,puVar10[2]) - pfVar13[2]) * fVar3 + pfVar13[2];
             UINT_007f4ac4 = UINT_007f4ac4 | 0x20;
             uVar5 = UINT_007f46ac;
           }
-          if ((float)*puVar10 <= fVar1) {
+          if (PUN(float,*puVar10) <= fVar1) {
             pfVar11 = (float *)(uVar5 + iVar8);
             iVar7 = iVar7 + 1;
             iVar8 = iVar8 + 0xc;
-            *pfVar11 = (float)*puVar10;
-            pfVar11[1] = (float)puVar10[1];
-            pfVar11[2] = (float)puVar10[2];
+            *pfVar11 = PUN(float,*puVar10);
+            pfVar11[1] = PUN(float,puVar10[1]);
+            pfVar11[2] = PUN(float,puVar10[2]);
             uVar5 = UINT_007f46ac;
           }
         }
@@ -1713,8 +1713,8 @@ int rdClip_Face3_PosB_2(int *param_1,float *param_2,int param_3)
         UINT_007f47b8 = uVar5;
         param_3 = iVar9;
         do {
-          fVar2 = (float)param_1[4];
-          fVar1 = (float)param_1[4];
+          fVar2 = PUN(float,param_1[4]);
+          fVar1 = PUN(float,param_1[4]);
           if ((pfVar11[2] <= fVar2) || (*pfVar13 <= fVar1)) {
             if (((pfVar11[2] != fVar2) && (fVar1 != *pfVar13)) &&
                ((fVar2 < pfVar11[2] || (fVar1 < *pfVar13)))) {
@@ -1757,8 +1757,8 @@ int rdClip_Face3_PosB_2(int *param_1,float *param_2,int param_3)
           UINT_007f47b8 = uVar12;
           param_3 = iVar9;
           do {
-            fVar2 = (float)param_1[6];
-            fVar1 = (float)param_1[6];
+            fVar2 = PUN(float,param_1[6]);
+            fVar1 = PUN(float,param_1[6]);
             if ((fVar2 <= pfVar11[2]) || (fVar1 <= *pfVar13)) {
               if (((pfVar11[2] != fVar2) && (fVar1 != *pfVar13)) &&
                  ((pfVar11[2] < fVar2 || (*pfVar13 < fVar1)))) {
@@ -1801,11 +1801,11 @@ int rdClip_Face3_PosB_2(int *param_1,float *param_2,int param_3)
             UINT_007f47b8 = uVar5;
             param_3 = iVar9;
             do {
-              if (((float)param_1[1] <= pfVar11[1]) || ((float)param_1[1] <= *pfVar4)) {
-                if (((pfVar11[1] != (float)param_1[1]) && (*pfVar4 != (float)param_1[1])) &&
-                   ((pfVar11[1] < (float)param_1[1] || (*pfVar4 < (float)param_1[1])))) {
+              if ((PUN(float,param_1[1]) <= pfVar11[1]) || (PUN(float,param_1[1]) <= *pfVar4)) {
+                if (((pfVar11[1] != PUN(float,param_1[1])) && (*pfVar4 != PUN(float,param_1[1]))) &&
+                   ((pfVar11[1] < PUN(float,param_1[1]) || (*pfVar4 < PUN(float,param_1[1]))))) {
                   iVar7 = iVar7 + 1;
-                  fVar1 = ((float)param_1[1] - pfVar11[1]) / (*pfVar4 - pfVar11[1]);
+                  fVar1 = (PUN(float,param_1[1]) - pfVar11[1]) / (*pfVar4 - pfVar11[1]);
                   *(int *)((int)pfVar13 + iVar8 + 4) = param_1[1];
                   iVar8 = iVar8 + 0xc;
                   *(float *)((UINT_007f46ac - 4) + iVar8) =
@@ -1815,7 +1815,7 @@ int rdClip_Face3_PosB_2(int *param_1,float *param_2,int param_3)
                   UINT_007f4ac4 = UINT_007f4ac4 | 1;
                   pfVar13 = (float *)UINT_007f46ac;
                 }
-                if ((float)param_1[1] <= *pfVar4) {
+                if (PUN(float,param_1[1]) <= *pfVar4) {
                   pfVar13 = (float *)((int)pfVar13 + iVar8);
                   iVar7 = iVar7 + 1;
                   iVar8 = iVar8 + 0xc;
@@ -1849,11 +1849,11 @@ int rdClip_Face3_PosB_2(int *param_1,float *param_2,int param_3)
               UINT_007f47b8 = (uint)pfVar13;
               param_3 = iVar7;
               do {
-                if ((pfVar4[1] <= (float)param_1[2]) || (*pfVar6 <= (float)param_1[2])) {
-                  if (((pfVar4[1] != (float)param_1[2]) && (*pfVar6 != (float)param_1[2])) &&
-                     (((float)param_1[2] < pfVar4[1] || ((float)param_1[2] < *pfVar6)))) {
+                if ((pfVar4[1] <= PUN(float,param_1[2])) || (*pfVar6 <= PUN(float,param_1[2]))) {
+                  if (((pfVar4[1] != PUN(float,param_1[2])) && (*pfVar6 != PUN(float,param_1[2]))) &&
+                     ((PUN(float,param_1[2]) < pfVar4[1] || (PUN(float,param_1[2]) < *pfVar6)))) {
                     iVar9 = iVar9 + 1;
-                    fVar1 = ((float)param_1[2] - pfVar4[1]) / (*pfVar6 - pfVar4[1]);
+                    fVar1 = (PUN(float,param_1[2]) - pfVar4[1]) / (*pfVar6 - pfVar4[1]);
                     *(int *)((int)pfVar11 + iVar8 + 4) = param_1[2];
                     iVar8 = iVar8 + 0xc;
                     *(float *)((UINT_007f46ac - 4) + iVar8) =
@@ -1863,7 +1863,7 @@ int rdClip_Face3_PosB_2(int *param_1,float *param_2,int param_3)
                     UINT_007f4ac4 = UINT_007f4ac4 | 2;
                     pfVar11 = (float *)UINT_007f46ac;
                   }
-                  if (*pfVar6 <= (float)param_1[2]) {
+                  if (*pfVar6 <= PUN(float,param_1[2])) {
                     pfVar11 = (float *)((int)pfVar11 + iVar8);
                     iVar9 = iVar9 + 1;
                     iVar8 = iVar8 + 0xc;
@@ -1952,14 +1952,14 @@ float rdClip_Face3_PosUvLit(int *param_1,float *param_2,float *param_3,float *pa
     do {
       pfVar13 = pfVar16;
       pfVar10 = pfVar15;
-      fVar12 = pfVar18[1] * (float)param_1[0xc];
-      fVar2 = (float)param_1[0xc] * pfVar10[1];
+      fVar12 = pfVar18[1] * PUN(float,param_1[0xc]);
+      fVar2 = PUN(float,param_1[0xc]) * pfVar10[1];
       if ((fVar12 <= *pfVar18) || (fVar2 <= *pfVar10)) {
         if (((*pfVar18 != fVar12) && (fVar2 != *pfVar10)) &&
            ((*pfVar18 < fVar12 || (*pfVar10 < fVar2)))) {
           fVar12 = pfVar10[1] - pfVar18[1];
           fVar3 = *pfVar10 - *pfVar18;
-          fVar1 = (float)param_1[0xc] * fVar12 - fVar3;
+          fVar1 = PUN(float,param_1[0xc]) * fVar12 - fVar3;
           fVar4 = pfVar10[1] * *pfVar18 - pfVar18[1] * *pfVar10;
           if (fVar1 != 0.0) {
             fVar4 = fVar4 / fVar1;
@@ -1973,33 +1973,33 @@ float rdClip_Face3_PosUvLit(int *param_1,float *param_2,float *param_3,float *pa
             fVar5 = -fVar3;
           }
           if (fVar1 <= fVar5) {
-            fVar12 = ((float)param_1[0xc] * fVar4 - *pfVar18) / fVar3;
+            fVar12 = (PUN(float,param_1[0xc]) * fVar4 - *pfVar18) / fVar3;
           }
           else {
             fVar12 = (fVar4 - pfVar18[1]) / fVar12;
           }
-          *(float *)((int)puVar14 + iVar7) = (float)param_1[0xc] * fVar4;
+          *(float *)((int)puVar14 + iVar7) = PUN(float,param_1[0xc]) * fVar4;
           iVar7 = iVar7 + 0xc;
           *(float *)((UINT_007f46ac - 8) + iVar7) = fVar4;
-          fVar11 = (float)((int)fVar11 + 1);
+          fVar11 = PUN(float,(PUN(int,(float)fVar11) + 1));
           *(float *)((UINT_007f46ac - 4) + iVar7) = (pfVar10[2] - pfVar18[2]) * fVar12 + pfVar18[2];
-          *(float *)((UINT_007f46b0 - 4) + (int)fVar11 * 4) =
+          *(float *)((UINT_007f46b0 - 4) + PUN(int,(float)fVar11) * 4) =
                (*pfVar13 - *PUN(float *,(float)local_10[0])) * fVar12 + *PUN(float *,(float)local_10[0]);
           UINT_007f4ac4 = UINT_007f4ac4 | 0x10;
           puVar14 = (uint *)UINT_007f46ac;
         }
         if (fVar2 <= *pfVar10) {
           pfVar15 = (float *)((int)puVar14 + iVar7);
-          fVar11 = (float)((int)fVar11 + 1);
+          fVar11 = PUN(float,(PUN(int,(float)fVar11) + 1));
           iVar7 = iVar7 + 0xc;
           *pfVar15 = *pfVar10;
           pfVar15[1] = pfVar10[1];
           pfVar15[2] = pfVar10[2];
-          *(float *)((UINT_007f46b0 - 4) + (int)fVar11 * 4) = *pfVar13;
+          *(float *)((UINT_007f46b0 - 4) + PUN(int,(float)fVar11) * 4) = *pfVar13;
           puVar14 = (uint *)UINT_007f46ac;
         }
       }
-      local_4 = (float)((int)local_4 + -1);
+      local_4 = PUN(float,(PUN(int,(float)local_4) + -1));
       pfVar15 = pfVar10 + 3;
       pfVar16 = pfVar13 + 1;
       pfVar18 = pfVar10;
@@ -2007,32 +2007,32 @@ float rdClip_Face3_PosUvLit(int *param_1,float *param_2,float *param_3,float *pa
     } while (local_4 != 0.0);
   }
   uVar9 = UINT_007f4618;
-  if (2 < (int)fVar11) {
+  if (2 < PUN(int,(float)fVar11)) {
     UINT_007f4618 = UINT_007f46b0;
     iVar7 = UINT_007f46b0 - 4;
     fVar12 = 0.0;
     uVar17 = UINT_007f47b8;
     UINT_007f46ac = UINT_007f47b8;
     pfVar15 = (float *)puVar14;
-    if (0 < (int)fVar11) {
+    if (0 < PUN(int,(float)fVar11)) {
       iVar8 = 0;
       pfVar16 = (float *)UINT_007f46b0;
-      pfVar18 = (float *)(puVar14 + (int)fVar11 * 3 + -3);
+      pfVar18 = (float *)(puVar14 + PUN(int,(float)fVar11) * 3 + -3);
       UINT_007f46b0 = uVar9;
       UINT_007f47b8 = (uint)puVar14;
-      local_10[0] = (float)(iVar7 + (int)fVar11 * 4);
+      local_10[0] = PUN(float,(iVar7 + PUN(int,(float)fVar11) * 4));
       local_4 = fVar11;
       do {
         pfVar10 = pfVar16;
         pfVar15 = (float *)puVar14;
-        fVar11 = (float)param_1[10] * pfVar18[1];
-        fVar2 = (float)param_1[10] * pfVar15[1];
+        fVar11 = PUN(float,param_1[10]) * pfVar18[1];
+        fVar2 = PUN(float,param_1[10]) * pfVar15[1];
         if ((*pfVar18 <= fVar11) || (*pfVar15 <= fVar2)) {
           if (((*pfVar18 != fVar11) && (fVar2 != *pfVar15)) &&
              ((fVar11 < *pfVar18 || (fVar2 < *pfVar15)))) {
             fVar11 = pfVar15[1] - pfVar18[1];
             fVar3 = *pfVar15 - *pfVar18;
-            fVar1 = (float)param_1[10] * fVar11 - fVar3;
+            fVar1 = PUN(float,param_1[10]) * fVar11 - fVar3;
             fVar4 = pfVar15[1] * *pfVar18 - pfVar18[1] * *pfVar15;
             if (fVar1 != 0.0) {
               fVar4 = fVar4 / fVar1;
@@ -2046,34 +2046,34 @@ float rdClip_Face3_PosUvLit(int *param_1,float *param_2,float *param_3,float *pa
               fVar5 = -fVar3;
             }
             if (fVar1 <= fVar5) {
-              fVar11 = ((float)param_1[10] * fVar4 - *pfVar18) / fVar3;
+              fVar11 = (PUN(float,param_1[10]) * fVar4 - *pfVar18) / fVar3;
             }
             else {
               fVar11 = (fVar4 - pfVar18[1]) / fVar11;
             }
-            *(float *)(uVar17 + iVar8) = (float)param_1[10] * fVar4;
+            *(float *)(uVar17 + iVar8) = PUN(float,param_1[10]) * fVar4;
             iVar8 = iVar8 + 0xc;
             *(float *)((UINT_007f46ac - 8) + iVar8) = fVar4;
-            fVar12 = (float)((int)fVar12 + 1);
+            fVar12 = PUN(float,(PUN(int,(float)fVar12) + 1));
             *(float *)((UINT_007f46ac - 4) + iVar8) =
                  (pfVar15[2] - pfVar18[2]) * fVar11 + pfVar18[2];
-            *(float *)((UINT_007f46b0 - 4) + (int)fVar12 * 4) =
+            *(float *)((UINT_007f46b0 - 4) + PUN(int,(float)fVar12) * 4) =
                  (*pfVar10 - *PUN(float *,(float)local_10[0])) * fVar11 + *PUN(float *,(float)local_10[0]);
             UINT_007f4ac4 = UINT_007f4ac4 | 0x20;
             uVar17 = UINT_007f46ac;
           }
           if (*pfVar15 <= fVar2) {
             pfVar16 = (float *)(uVar17 + iVar8);
-            fVar12 = (float)((int)fVar12 + 1);
+            fVar12 = PUN(float,(PUN(int,(float)fVar12) + 1));
             iVar8 = iVar8 + 0xc;
             *pfVar16 = *pfVar15;
             pfVar16[1] = pfVar15[1];
             pfVar16[2] = pfVar15[2];
-            *(float *)((UINT_007f46b0 - 4) + (int)fVar12 * 4) = *pfVar10;
+            *(float *)((UINT_007f46b0 - 4) + PUN(int,(float)fVar12) * 4) = *pfVar10;
             uVar17 = UINT_007f46ac;
           }
         }
-        local_4 = (float)((int)local_4 + -1);
+        local_4 = PUN(float,(PUN(int,(float)local_4) + -1));
         puVar14 = (uint *)(pfVar15 + 3);
         pfVar16 = pfVar10 + 1;
         pfVar18 = pfVar15;
@@ -2086,34 +2086,34 @@ float rdClip_Face3_PosUvLit(int *param_1,float *param_2,float *param_3,float *pa
     UINT_007f46b0 = uVar9;
     fVar11 = fVar12;
     pfVar15 = (float *)UINT_007f46b0;
-    if (2 < (int)fVar11) {
+    if (2 < PUN(int,(float)fVar11)) {
       UINT_007f46b0 = UINT_007f4618;
       fVar12 = 0.0;
       UINT_007f46ac = UINT_007f47b8;
-      pfVar16 = (float *)((uVar17 - 0xc) + (int)fVar11 * 0xc);
+      pfVar16 = (float *)((uVar17 - 0xc) + PUN(int,(float)fVar11) * 0xc);
       UINT_007f4618 = (uint)pfVar15;
       uVar9 = UINT_007f47b8;
-      if (0 < (int)fVar11) {
+      if (0 < PUN(int,(float)fVar11)) {
         iVar7 = 0;
         pfVar18 = (float *)(uVar17 + 8);
         UINT_007f47b8 = uVar17;
-        local_10[0] = (float)(((int)pfVar15 - 4U) + (int)fVar11 * 4);
+        local_10[0] = PUN(float,(((int)pfVar15 - 4U) + PUN(int,(float)fVar11) * 4));
         local_4 = fVar11;
         do {
           pfVar10 = pfVar15;
-          fVar11 = (float)param_1[0xb] * pfVar16[1];
-          fVar2 = pfVar18[-1] * (float)param_1[0xb];
+          fVar11 = PUN(float,param_1[0xb]) * pfVar16[1];
+          fVar2 = pfVar18[-1] * PUN(float,param_1[0xb]);
           if ((pfVar16[2] <= fVar11) || (*pfVar18 <= fVar2)) {
             if (((pfVar16[2] != fVar11) && (fVar2 != *pfVar18)) &&
                ((fVar11 < pfVar16[2] || (fVar2 < *pfVar18)))) {
               fVar11 = pfVar18[-1] - pfVar16[1];
               fVar3 = *pfVar18 - pfVar16[2];
-              fVar1 = (float)param_1[0xb] * fVar11 - fVar3;
+              fVar1 = PUN(float,param_1[0xb]) * fVar11 - fVar3;
               fVar4 = pfVar16[2] * pfVar18[-1] - pfVar16[1] * *pfVar18;
               if (fVar1 != 0.0) {
                 fVar4 = fVar4 / fVar1;
               }
-              fVar1 = (float)param_1[0xb];
+              fVar1 = PUN(float,param_1[0xb]);
               fVar5 = fVar11;
               if (fVar11 < 0.0) {
                 fVar5 = -fVar11;
@@ -2129,29 +2129,29 @@ float rdClip_Face3_PosUvLit(int *param_1,float *param_2,float *param_3,float *pa
                 fVar11 = (fVar4 - pfVar16[1]) / fVar11;
               }
               iVar7 = iVar7 + 0xc;
-              fVar12 = (float)((int)fVar12 + 1);
+              fVar12 = PUN(float,(PUN(int,(float)fVar12) + 1));
               *(float *)((uVar9 - 0xc) + iVar7) = (pfVar18[-2] - *pfVar16) * fVar11 + *pfVar16;
               *(float *)((UINT_007f46ac - 8) + iVar7) = fVar4;
               *(float *)((UINT_007f46ac - 4) + iVar7) = fVar1 * fVar4;
-              *(float *)((UINT_007f46b0 - 4) + (int)fVar12 * 4) =
+              *(float *)((UINT_007f46b0 - 4) + PUN(int,(float)fVar12) * 4) =
                    (*pfVar10 - *PUN(float *,(float)local_10[0])) * fVar11 + *PUN(float *,(float)local_10[0]);
               UINT_007f4ac4 = UINT_007f4ac4 | 4;
               uVar9 = UINT_007f46ac;
             }
             if (*pfVar18 <= fVar2) {
               pfVar15 = (float *)(uVar9 + iVar7);
-              fVar12 = (float)((int)fVar12 + 1);
+              fVar12 = PUN(float,(PUN(int,(float)fVar12) + 1));
               iVar7 = iVar7 + 0xc;
               *pfVar15 = pfVar18[-2];
               pfVar15[1] = pfVar18[-1];
               pfVar15[2] = *pfVar18;
-              *(float *)((UINT_007f46b0 - 4) + (int)fVar12 * 4) = *pfVar10;
+              *(float *)((UINT_007f46b0 - 4) + PUN(int,(float)fVar12) * 4) = *pfVar10;
               uVar9 = UINT_007f46ac;
             }
           }
           pfVar16 = pfVar18 + -2;
           pfVar18 = pfVar18 + 3;
-          local_4 = (float)((int)local_4 + -1);
+          local_4 = PUN(float,(PUN(int,(float)local_4) + -1));
           pfVar15 = pfVar10 + 1;
           uVar17 = UINT_007f47b8;
           local_10[0] = PUN(float,pfVar10);
@@ -2160,34 +2160,34 @@ float rdClip_Face3_PosUvLit(int *param_1,float *param_2,float *param_3,float *pa
       UINT_007f47b8 = uVar17;
       fVar11 = fVar12;
       pfVar15 = (float *)UINT_007f46b0;
-      if (2 < (int)fVar11) {
+      if (2 < PUN(int,(float)fVar11)) {
         UINT_007f46b0 = UINT_007f4618;
         fVar12 = 0.0;
         UINT_007f46ac = UINT_007f47b8;
-        pfVar16 = (float *)((uVar9 - 0xc) + (int)fVar11 * 0xc);
+        pfVar16 = (float *)((uVar9 - 0xc) + PUN(int,(float)fVar11) * 0xc);
         UINT_007f4618 = (uint)pfVar15;
         uVar17 = UINT_007f47b8;
-        if (0 < (int)fVar11) {
+        if (0 < PUN(int,(float)fVar11)) {
           iVar7 = 0;
           pfVar18 = (float *)(uVar9 + 8);
           UINT_007f47b8 = uVar9;
-          local_10[0] = (float)(((int)pfVar15 - 4U) + (int)fVar11 * 4);
+          local_10[0] = PUN(float,(((int)pfVar15 - 4U) + PUN(int,(float)fVar11) * 4));
           local_4 = fVar11;
           do {
             pfVar10 = pfVar15;
-            fVar11 = (float)param_1[8] * pfVar16[1];
-            fVar2 = pfVar18[-1] * (float)param_1[8];
+            fVar11 = PUN(float,param_1[8]) * pfVar16[1];
+            fVar2 = pfVar18[-1] * PUN(float,param_1[8]);
             if ((fVar11 <= pfVar16[2]) || (fVar2 <= *pfVar18)) {
               if (((pfVar16[2] != fVar11) && (fVar2 != *pfVar18)) &&
                  ((pfVar16[2] < fVar11 || (*pfVar18 < fVar2)))) {
                 fVar11 = pfVar18[-1] - pfVar16[1];
                 fVar3 = *pfVar18 - pfVar16[2];
-                fVar1 = (float)param_1[8] * fVar11 - fVar3;
+                fVar1 = PUN(float,param_1[8]) * fVar11 - fVar3;
                 fVar4 = pfVar16[2] * pfVar18[-1] - pfVar16[1] * *pfVar18;
                 if (fVar1 != 0.0) {
                   fVar4 = fVar4 / fVar1;
                 }
-                fVar1 = (float)param_1[8];
+                fVar1 = PUN(float,param_1[8]);
                 fVar5 = fVar11;
                 if (fVar11 < 0.0) {
                   fVar5 = -fVar11;
@@ -2203,29 +2203,29 @@ float rdClip_Face3_PosUvLit(int *param_1,float *param_2,float *param_3,float *pa
                   fVar11 = (fVar4 - pfVar16[1]) / fVar11;
                 }
                 iVar7 = iVar7 + 0xc;
-                fVar12 = (float)((int)fVar12 + 1);
+                fVar12 = PUN(float,(PUN(int,(float)fVar12) + 1));
                 *(float *)((uVar17 - 0xc) + iVar7) = (pfVar18[-2] - *pfVar16) * fVar11 + *pfVar16;
                 *(float *)((UINT_007f46ac - 8) + iVar7) = fVar4;
                 *(float *)((UINT_007f46ac - 4) + iVar7) = fVar1 * fVar4;
-                *(float *)((UINT_007f46b0 - 4) + (int)fVar12 * 4) =
+                *(float *)((UINT_007f46b0 - 4) + PUN(int,(float)fVar12) * 4) =
                      (*pfVar10 - *PUN(float *,(float)local_10[0])) * fVar11 + *PUN(float *,(float)local_10[0]);
                 UINT_007f4ac4 = UINT_007f4ac4 | 8;
                 uVar17 = UINT_007f46ac;
               }
               if (fVar2 <= *pfVar18) {
                 pfVar15 = (float *)(uVar17 + iVar7);
-                fVar12 = (float)((int)fVar12 + 1);
+                fVar12 = PUN(float,(PUN(int,(float)fVar12) + 1));
                 iVar7 = iVar7 + 0xc;
                 *pfVar15 = pfVar18[-2];
                 pfVar15[1] = pfVar18[-1];
                 pfVar15[2] = *pfVar18;
-                *(float *)((UINT_007f46b0 - 4) + (int)fVar12 * 4) = *pfVar10;
+                *(float *)((UINT_007f46b0 - 4) + PUN(int,(float)fVar12) * 4) = *pfVar10;
                 uVar17 = UINT_007f46ac;
               }
             }
             pfVar16 = pfVar18 + -2;
             pfVar18 = pfVar18 + 3;
-            local_4 = (float)((int)local_4 + -1);
+            local_4 = PUN(float,(PUN(int,(float)local_4) + -1));
             pfVar15 = pfVar10 + 1;
             uVar9 = UINT_007f47b8;
             local_10[0] = PUN(float,pfVar10);
@@ -2234,44 +2234,44 @@ float rdClip_Face3_PosUvLit(int *param_1,float *param_2,float *param_3,float *pa
         UINT_007f47b8 = uVar9;
         fVar11 = fVar12;
         param_4 = (float *)UINT_007f46b0;
-        if (2 < (int)fVar11) {
+        if (2 < PUN(int,(float)fVar11)) {
           UINT_007f46b0 = UINT_007f4618;
           fVar12 = 0.0;
-          local_10[0] = (float)(((int)param_4 - 4U) + (int)fVar11 * 4);
+          local_10[0] = PUN(float,(((int)param_4 - 4U) + PUN(int,(float)fVar11) * 4));
           UINT_007f46ac = UINT_007f47b8;
           UINT_007f4618 = (uint)param_4;
-          pfVar15 = (float *)((uVar17 - 0xc) + (int)fVar11 * 0xc);
+          pfVar15 = (float *)((uVar17 - 0xc) + PUN(int,(float)fVar11) * 0xc);
           pfVar16 = (float *)UINT_007f47b8;
-          if (0 < (int)fVar11) {
+          if (0 < PUN(int,(float)fVar11)) {
             iVar7 = 0;
             pfVar18 = (float *)(uVar17 + 4);
             UINT_007f47b8 = uVar17;
             local_4 = fVar11;
             do {
-              if (((float)param_1[1] <= pfVar15[1]) || ((float)param_1[1] <= *pfVar18)) {
-                if (((pfVar15[1] != (float)param_1[1]) && (*pfVar18 != (float)param_1[1])) &&
-                   ((pfVar15[1] < (float)param_1[1] || (*pfVar18 < (float)param_1[1])))) {
-                  fVar11 = ((float)param_1[1] - pfVar15[1]) / (*pfVar18 - pfVar15[1]);
+              if ((PUN(float,param_1[1]) <= pfVar15[1]) || (PUN(float,param_1[1]) <= *pfVar18)) {
+                if (((pfVar15[1] != PUN(float,param_1[1])) && (*pfVar18 != PUN(float,param_1[1]))) &&
+                   ((pfVar15[1] < PUN(float,param_1[1]) || (*pfVar18 < PUN(float,param_1[1]))))) {
+                  fVar11 = (PUN(float,param_1[1]) - pfVar15[1]) / (*pfVar18 - pfVar15[1]);
                   *(int *)((int)pfVar16 + iVar7 + 4) = param_1[1];
                   iVar7 = iVar7 + 0xc;
-                  fVar12 = (float)((int)fVar12 + 1);
+                  fVar12 = PUN(float,(PUN(int,(float)fVar12) + 1));
                   *(float *)((UINT_007f46ac - 4) + iVar7) =
                        (pfVar18[1] - pfVar15[2]) * fVar11 + pfVar15[2];
                   *(float *)((UINT_007f46ac - 0xc) + iVar7) =
                        (pfVar18[-1] - *pfVar15) * fVar11 + *pfVar15;
-                  *(float *)((UINT_007f46b0 - 4) + (int)fVar12 * 4) =
+                  *(float *)((UINT_007f46b0 - 4) + PUN(int,(float)fVar12) * 4) =
                        (*param_4 - *PUN(float *,(float)local_10[0])) * fVar11 + *PUN(float *,(float)local_10[0]);
                   UINT_007f4ac4 = UINT_007f4ac4 | 1;
                   pfVar16 = (float *)UINT_007f46ac;
                 }
-                if ((float)param_1[1] <= *pfVar18) {
+                if (PUN(float,param_1[1]) <= *pfVar18) {
                   pfVar16 = (float *)((int)pfVar16 + iVar7);
-                  fVar12 = (float)((int)fVar12 + 1);
+                  fVar12 = PUN(float,(PUN(int,(float)fVar12) + 1));
                   iVar7 = iVar7 + 0xc;
                   *pfVar16 = pfVar18[-1];
                   pfVar16[1] = *pfVar18;
                   pfVar16[2] = pfVar18[1];
-                  *(float *)((UINT_007f46b0 - 4) + (int)fVar12 * 4) = *param_4;
+                  *(float *)((UINT_007f46b0 - 4) + PUN(int,(float)fVar12) * 4) = *param_4;
                   pfVar16 = (float *)UINT_007f46ac;
                 }
               }
@@ -2279,13 +2279,13 @@ float rdClip_Face3_PosUvLit(int *param_1,float *param_2,float *param_3,float *pa
               local_10[0] = PUN(float,param_4);
               param_4 = param_4 + 1;
               pfVar18 = pfVar18 + 3;
-              local_4 = (float)((int)local_4 + -1);
+              local_4 = PUN(float,(PUN(int,(float)local_4) + -1));
               uVar17 = UINT_007f47b8;
             } while (local_4 != 0.0);
           }
           UINT_007f47b8 = uVar17;
           param_4 = (float *)UINT_007f46b0;
-          if ((int)fVar12 < 3) {
+          if (PUN(int,(float)fVar12) < 3) {
             UINT_007f4ac4 = UINT_007f4ac4 | 0x40;
             return fVar12;
           }
@@ -2294,41 +2294,41 @@ float rdClip_Face3_PosUvLit(int *param_1,float *param_2,float *param_3,float *pa
           if (*param_1 != 0) {
             UINT_007f46b0 = UINT_007f4618;
             fVar11 = 0.0;
-            local_10[0] = (float)(((int)param_4 - 4U) + (int)fVar12 * 4);
+            local_10[0] = PUN(float,(((int)param_4 - 4U) + PUN(int,(float)fVar12) * 4));
             UINT_007f46ac = UINT_007f47b8;
             UINT_007f4618 = (uint)param_4;
-            pfVar18 = pfVar16 + (int)fVar12 * 3 + -3;
+            pfVar18 = pfVar16 + PUN(int,(float)fVar12) * 3 + -3;
             pfVar15 = (float *)UINT_007f47b8;
-            if (0 < (int)fVar12) {
+            if (0 < PUN(int,(float)fVar12)) {
               iVar7 = 0;
               pfVar10 = pfVar16 + 1;
               UINT_007f47b8 = (uint)pfVar16;
               local_4 = fVar12;
               do {
-                if ((pfVar18[1] <= (float)param_1[2]) || (*pfVar10 <= (float)param_1[2])) {
-                  if (((pfVar18[1] != (float)param_1[2]) && (*pfVar10 != (float)param_1[2])) &&
-                     (((float)param_1[2] < pfVar18[1] || ((float)param_1[2] < *pfVar10)))) {
-                    fVar12 = ((float)param_1[2] - pfVar18[1]) / (*pfVar10 - pfVar18[1]);
+                if ((pfVar18[1] <= PUN(float,param_1[2])) || (*pfVar10 <= PUN(float,param_1[2]))) {
+                  if (((pfVar18[1] != PUN(float,param_1[2])) && (*pfVar10 != PUN(float,param_1[2]))) &&
+                     ((PUN(float,param_1[2]) < pfVar18[1] || (PUN(float,param_1[2]) < *pfVar10)))) {
+                    fVar12 = (PUN(float,param_1[2]) - pfVar18[1]) / (*pfVar10 - pfVar18[1]);
                     *(int *)((int)pfVar15 + iVar7 + 4) = param_1[2];
                     iVar7 = iVar7 + 0xc;
-                    fVar11 = (float)((int)fVar11 + 1);
+                    fVar11 = PUN(float,(PUN(int,(float)fVar11) + 1));
                     *(float *)((UINT_007f46ac - 4) + iVar7) =
                          (pfVar10[1] - pfVar18[2]) * fVar12 + pfVar18[2];
                     *(float *)((UINT_007f46ac - 0xc) + iVar7) =
                          (pfVar10[-1] - *pfVar18) * fVar12 + *pfVar18;
-                    *(float *)((UINT_007f46b0 - 4) + (int)fVar11 * 4) =
+                    *(float *)((UINT_007f46b0 - 4) + PUN(int,(float)fVar11) * 4) =
                          (*param_4 - *PUN(float *,(float)local_10[0])) * fVar12 + *PUN(float *,(float)local_10[0]);
                     UINT_007f4ac4 = UINT_007f4ac4 | 2;
                     pfVar15 = (float *)UINT_007f46ac;
                   }
-                  if (*pfVar10 <= (float)param_1[2]) {
+                  if (*pfVar10 <= PUN(float,param_1[2])) {
                     pfVar15 = (float *)((int)pfVar15 + iVar7);
-                    fVar11 = (float)((int)fVar11 + 1);
+                    fVar11 = PUN(float,(PUN(int,(float)fVar11) + 1));
                     iVar7 = iVar7 + 0xc;
                     *pfVar15 = pfVar10[-1];
                     pfVar15[1] = *pfVar10;
                     pfVar15[2] = pfVar10[1];
-                    *(float *)((UINT_007f46b0 - 4) + (int)fVar11 * 4) = *param_4;
+                    *(float *)((UINT_007f46b0 - 4) + PUN(int,(float)fVar11) * 4) = *param_4;
                     pfVar15 = (float *)UINT_007f46ac;
                   }
                 }
@@ -2336,17 +2336,17 @@ float rdClip_Face3_PosUvLit(int *param_1,float *param_2,float *param_3,float *pa
                 local_10[0] = PUN(float,param_4);
                 param_4 = param_4 + 1;
                 pfVar10 = pfVar10 + 3;
-                local_4 = (float)((int)local_4 + -1);
+                local_4 = PUN(float,(PUN(int,(float)local_4) + -1));
                 pfVar16 = (float *)UINT_007f47b8;
               } while (local_4 != 0.0);
             }
             UINT_007f47b8 = (uint)pfVar16;
-            if ((int)fVar11 < 3) {
+            if (PUN(int,(float)fVar11) < 3) {
               return fVar11;
             }
           }
           if (pfVar15 != param_2) {
-            for (uVar9 = (int)fVar11 * 3 & 0x3fffffff; uVar9 != 0; uVar9 = uVar9 - 1) {
+            for (uVar9 = PUN(int,(float)fVar11) * 3 & 0x3fffffff; uVar9 != 0; uVar9 = uVar9 - 1) {
               *param_2 = *pfVar15;
               pfVar15 = pfVar15 + 1;
               param_2 = param_2 + 1;
@@ -2357,7 +2357,7 @@ float rdClip_Face3_PosUvLit(int *param_1,float *param_2,float *param_3,float *pa
               pfVar15 = (float *)((int)pfVar15 + 1);
               param_2 = (float *)((int)param_2 + 1);
             }
-            for (; fVar12 != 0.0; fVar12 = (float)((int)fVar12 + -1)) {
+            for (; fVar12 != 0.0; fVar12 = PUN(float,(PUN(int,(float)fVar12) + -1))) {
               *param_3 = *pfVar16;
               pfVar16 = pfVar16 + 1;
               param_3 = param_3 + 1;
@@ -2415,8 +2415,8 @@ uint rdClip_Face3_PosUv(int *param_1,float *param_2,float *param_3,uint param_4)
     local_8 = PUN(float,(param_3 + param_4 + -1));
     do {
       pfVar6 = pfVar4;
-      fVar2 = (float)param_1[3];
-      fVar1 = (float)param_1[3];
+      fVar2 = PUN(float,param_1[3]);
+      fVar1 = PUN(float,param_1[3]);
       if ((fVar2 <= *pfVar9) || (fVar1 <= *pfVar12)) {
         iVar14 = iVar13;
         if (((*pfVar9 != fVar2) && (fVar1 != *pfVar12)) && ((*pfVar9 < fVar2 || (*pfVar12 < fVar1)))
@@ -2466,34 +2466,34 @@ uint rdClip_Face3_PosUv(int *param_1,float *param_2,float *param_3,uint param_4)
       UINT_007f46b0 = uVar5;
       UINT_007f47b8 = (uint)puVar8;
       param_4 = local_4;
-      local_8 = (float)(iVar13 + local_4 * 4);
+      local_8 = PUN(float,(iVar13 + local_4 * 4));
       do {
         pfVar6 = pfVar4;
-        fVar2 = (float)param_1[5];
-        fVar1 = (float)param_1[5];
-        if ((*pfVar12 <= fVar2) || ((float)*puVar8 <= fVar1)) {
-          if (((*pfVar12 != fVar2) && (fVar1 != (float)*puVar8)) &&
-             ((fVar2 < *pfVar12 || (fVar1 < (float)*puVar8)))) {
-            fVar3 = (fVar2 - *pfVar12) / ((float)*puVar8 - *pfVar12);
+        fVar2 = PUN(float,param_1[5]);
+        fVar1 = PUN(float,param_1[5]);
+        if ((*pfVar12 <= fVar2) || (PUN(float,*puVar8) <= fVar1)) {
+          if (((*pfVar12 != fVar2) && (fVar1 != PUN(float,*puVar8))) &&
+             ((fVar2 < *pfVar12 || (fVar1 < PUN(float,*puVar8))))) {
+            fVar3 = (fVar2 - *pfVar12) / (PUN(float,*puVar8) - *pfVar12);
             iVar14 = iVar14 + 0xc;
             uVar7 = uVar7 + 1;
             *(float *)((uVar11 - 0xc) + iVar14) = fVar2;
             *(float *)((UINT_007f46ac - 8) + iVar14) =
-                 ((float)puVar8[1] - pfVar12[1]) * fVar3 + pfVar12[1];
+                 (PUN(float,puVar8[1]) - pfVar12[1]) * fVar3 + pfVar12[1];
             *(float *)((UINT_007f46ac - 4) + iVar14) =
-                 ((float)puVar8[2] - pfVar12[2]) * fVar3 + pfVar12[2];
+                 (PUN(float,puVar8[2]) - pfVar12[2]) * fVar3 + pfVar12[2];
             *(float *)((UINT_007f46b0 - 4) + uVar7 * 4) =
                  (*pfVar6 - *PUN(float *,(float)local_8)) * fVar3 + *PUN(float *,(float)local_8);
             UINT_007f4ac4 = UINT_007f4ac4 | 0x20;
             uVar11 = UINT_007f46ac;
           }
-          if ((float)*puVar8 <= fVar1) {
+          if (PUN(float,*puVar8) <= fVar1) {
             pfVar9 = (float *)(uVar11 + iVar14);
             uVar7 = uVar7 + 1;
             iVar14 = iVar14 + 0xc;
-            *pfVar9 = (float)*puVar8;
-            pfVar9[1] = (float)puVar8[1];
-            pfVar9[2] = (float)puVar8[2];
+            *pfVar9 = PUN(float,*puVar8);
+            pfVar9[1] = PUN(float,puVar8[1]);
+            pfVar9[2] = PUN(float,puVar8[2]);
             *(float *)((UINT_007f46b0 - 4) + uVar7 * 4) = *pfVar6;
             uVar11 = UINT_007f46ac;
           }
@@ -2524,11 +2524,11 @@ uint rdClip_Face3_PosUv(int *param_1,float *param_2,float *param_3,uint param_4)
         pfVar4 = (float *)UINT_007f46b0;
         UINT_007f46b0 = uVar5;
         UINT_007f47b8 = uVar11;
-        local_8 = (float)(iVar13 + local_4 * 4);
+        local_8 = PUN(float,(iVar13 + local_4 * 4));
         do {
           pfVar6 = pfVar4;
-          fVar2 = (float)param_1[4];
-          fVar1 = (float)param_1[4];
+          fVar2 = PUN(float,param_1[4]);
+          fVar1 = PUN(float,param_1[4]);
           if ((pfVar9[2] <= fVar2) || (*pfVar12 <= fVar1)) {
             if (((pfVar9[2] != fVar2) && (fVar1 != *pfVar12)) &&
                ((fVar2 < pfVar9[2] || (fVar1 < *pfVar12)))) {
@@ -2582,8 +2582,8 @@ uint rdClip_Face3_PosUv(int *param_1,float *param_2,float *param_3,uint param_4)
           pfVar12 = (float *)(uVar10 + 8);
           UINT_007f47b8 = uVar10;
           do {
-            fVar2 = (float)param_1[6];
-            fVar1 = (float)param_1[6];
+            fVar2 = PUN(float,param_1[6]);
+            fVar1 = PUN(float,param_1[6]);
             if ((fVar2 <= pfVar9[2]) || (fVar1 <= *pfVar12)) {
               if (((pfVar9[2] != fVar2) && (fVar1 != *pfVar12)) &&
                  ((pfVar9[2] < fVar2 || (*pfVar12 < fVar1)))) {
@@ -2611,7 +2611,7 @@ uint rdClip_Face3_PosUv(int *param_1,float *param_2,float *param_3,uint param_4)
               }
             }
             pfVar9 = pfVar12 + -2;
-            local_8 = (float)local_c;
+            local_8 = PUN(float,local_c);
             local_c = local_c + 4;
             pfVar12 = pfVar12 + 3;
             local_4 = local_4 - 1;
@@ -2636,10 +2636,10 @@ uint rdClip_Face3_PosUv(int *param_1,float *param_2,float *param_3,uint param_4)
             UINT_007f47b8 = uVar11;
             param_4 = local_4;
             do {
-              if (((float)param_1[1] <= pfVar9[1]) || ((float)param_1[1] <= *pfVar4)) {
-                if (((pfVar9[1] != (float)param_1[1]) && (*pfVar4 != (float)param_1[1])) &&
-                   ((pfVar9[1] < (float)param_1[1] || (*pfVar4 < (float)param_1[1])))) {
-                  fVar1 = ((float)param_1[1] - pfVar9[1]) / (*pfVar4 - pfVar9[1]);
+              if ((PUN(float,param_1[1]) <= pfVar9[1]) || (PUN(float,param_1[1]) <= *pfVar4)) {
+                if (((pfVar9[1] != PUN(float,param_1[1])) && (*pfVar4 != PUN(float,param_1[1]))) &&
+                   ((pfVar9[1] < PUN(float,param_1[1]) || (*pfVar4 < PUN(float,param_1[1]))))) {
+                  fVar1 = (PUN(float,param_1[1]) - pfVar9[1]) / (*pfVar4 - pfVar9[1]);
                   *(int *)((int)pfVar12 + iVar13 + 4) = param_1[1];
                   iVar13 = iVar13 + 0xc;
                   uVar7 = uVar7 + 1;
@@ -2652,7 +2652,7 @@ uint rdClip_Face3_PosUv(int *param_1,float *param_2,float *param_3,uint param_4)
                   UINT_007f4ac4 = UINT_007f4ac4 | 1;
                   pfVar12 = (float *)UINT_007f46ac;
                 }
-                if ((float)param_1[1] <= *pfVar4) {
+                if (PUN(float,param_1[1]) <= *pfVar4) {
                   pfVar12 = (float *)((int)pfVar12 + iVar13);
                   uVar7 = uVar7 + 1;
                   iVar13 = iVar13 + 0xc;
@@ -2664,7 +2664,7 @@ uint rdClip_Face3_PosUv(int *param_1,float *param_2,float *param_3,uint param_4)
                 }
               }
               pfVar9 = pfVar4 + -1;
-              local_8 = (float)local_c;
+              local_8 = PUN(float,local_c);
               local_c = local_c + 4;
               pfVar4 = pfVar4 + 3;
               param_4 = param_4 - 1;
@@ -2694,10 +2694,10 @@ uint rdClip_Face3_PosUv(int *param_1,float *param_2,float *param_3,uint param_4)
               UINT_007f47b8 = (uint)pfVar12;
               param_4 = uVar7;
               do {
-                if ((pfVar4[1] <= (float)param_1[2]) || (*pfVar6 <= (float)param_1[2])) {
-                  if (((pfVar4[1] != (float)param_1[2]) && (*pfVar6 != (float)param_1[2])) &&
-                     (((float)param_1[2] < pfVar4[1] || ((float)param_1[2] < *pfVar6)))) {
-                    fVar1 = ((float)param_1[2] - pfVar4[1]) / (*pfVar6 - pfVar4[1]);
+                if ((pfVar4[1] <= PUN(float,param_1[2])) || (*pfVar6 <= PUN(float,param_1[2]))) {
+                  if (((pfVar4[1] != PUN(float,param_1[2])) && (*pfVar6 != PUN(float,param_1[2]))) &&
+                     ((PUN(float,param_1[2]) < pfVar4[1] || (PUN(float,param_1[2]) < *pfVar6)))) {
+                    fVar1 = (PUN(float,param_1[2]) - pfVar4[1]) / (*pfVar6 - pfVar4[1]);
                     *(int *)((int)pfVar9 + iVar13 + 4) = param_1[2];
                     iVar13 = iVar13 + 0xc;
                     local_4 = local_4 + 1;
@@ -2710,7 +2710,7 @@ uint rdClip_Face3_PosUv(int *param_1,float *param_2,float *param_3,uint param_4)
                     UINT_007f4ac4 = UINT_007f4ac4 | 2;
                     pfVar9 = (float *)UINT_007f46ac;
                   }
-                  if (*pfVar6 <= (float)param_1[2]) {
+                  if (*pfVar6 <= PUN(float,param_1[2])) {
                     pfVar9 = (float *)((int)pfVar9 + iVar13);
                     local_4 = local_4 + 1;
                     iVar13 = iVar13 + 0xc;
@@ -2722,7 +2722,7 @@ uint rdClip_Face3_PosUv(int *param_1,float *param_2,float *param_3,uint param_4)
                   }
                 }
                 pfVar4 = pfVar6 + -1;
-                local_8 = (float)local_c;
+                local_8 = PUN(float,local_c);
                 local_c = local_c + 4;
                 pfVar6 = pfVar6 + 3;
                 param_4 = param_4 - 1;
@@ -2809,14 +2809,14 @@ float rdClip_Face3_PosUvLit_2(int *param_1,float *param_2,float *param_3,float *
     pfVar8 = param_2 + (int)param_4 * 3 + -3;
     pfVar12 = param_2;
     do {
-      fVar10 = pfVar8[1] * (float)param_1[0xc];
-      fVar11 = (float)param_1[0xc] * pfVar12[1];
+      fVar10 = pfVar8[1] * PUN(float,param_1[0xc]);
+      fVar11 = PUN(float,param_1[0xc]) * pfVar12[1];
       if ((fVar10 <= *pfVar8) || (fVar11 <= *pfVar12)) {
         if (((*pfVar8 != fVar10) && (fVar11 != *pfVar12)) &&
            ((*pfVar8 < fVar10 || (*pfVar12 < fVar11)))) {
           fVar10 = pfVar12[1] - pfVar8[1];
           fVar2 = *pfVar12 - *pfVar8;
-          fVar1 = (float)param_1[0xc] * fVar10 - fVar2;
+          fVar1 = PUN(float,param_1[0xc]) * fVar10 - fVar2;
           fVar3 = pfVar12[1] * *pfVar8 - pfVar8[1] * *pfVar12;
           if (fVar1 != 0.0) {
             fVar3 = fVar3 / fVar1;
@@ -2830,12 +2830,12 @@ float rdClip_Face3_PosUvLit_2(int *param_1,float *param_2,float *param_3,float *
             fVar4 = -fVar2;
           }
           if (fVar1 <= fVar4) {
-            fVar10 = ((float)param_1[0xc] * fVar3 - *pfVar8) / fVar2;
+            fVar10 = (PUN(float,param_1[0xc]) * fVar3 - *pfVar8) / fVar2;
           }
           else {
             fVar10 = (fVar3 - pfVar8[1]) / fVar10;
           }
-          *(float *)((int)puVar14 + iVar6) = (float)param_1[0xc] * fVar3;
+          *(float *)((int)puVar14 + iVar6) = PUN(float,param_1[0xc]) * fVar3;
           *(float *)(UINT_007f46ac + 4 + iVar6) = fVar3;
           iVar7 = local_10 * 8;
           local_10 = local_10 + 1;
@@ -2858,17 +2858,17 @@ float rdClip_Face3_PosUvLit_2(int *param_1,float *param_2,float *param_3,float *
           puVar14 = (uint *)UINT_007f46ac;
         }
       }
-      local_4 = (float)((int)local_4 + -1);
+      local_4 = PUN(float,(PUN(int,(float)local_4) + -1));
       pfVar15 = pfVar16;
       pfVar16 = pfVar16 + 2;
       pfVar8 = pfVar12;
       pfVar12 = pfVar12 + 3;
     } while (local_4 != 0.0);
   }
-  local_4 = (float)local_10;
+  local_4 = PUN(float,local_10);
   uVar9 = UINT_007f461c;
   if ((int)local_10 < 3) {
-    return (float)local_10;
+    return PUN(float,local_10);
   }
   UINT_007f461c = UINT_007f46a8;
   iVar6 = local_10 * 8;
@@ -2876,23 +2876,23 @@ float rdClip_Face3_PosUvLit_2(int *param_1,float *param_2,float *param_3,float *
   uVar17 = UINT_007f47b8;
   UINT_007f46ac = UINT_007f47b8;
   pfVar15 = (float *)puVar14;
-  if (0 < (int)local_4) {
+  if (0 < PUN(int,(float)local_4)) {
     iVar7 = 0;
     pfVar16 = (float *)((UINT_007f46a8 - 8) + iVar6);
     pfVar8 = (float *)UINT_007f46a8;
-    pfVar12 = (float *)(puVar14 + (int)local_4 * 3 + -3);
+    pfVar12 = (float *)(puVar14 + PUN(int,(float)local_4) * 3 + -3);
     UINT_007f46a8 = uVar9;
     UINT_007f47b8 = (uint)puVar14;
     do {
       pfVar15 = (float *)puVar14;
-      fVar10 = (float)param_1[10] * pfVar12[1];
-      fVar11 = (float)param_1[10] * pfVar15[1];
+      fVar10 = PUN(float,param_1[10]) * pfVar12[1];
+      fVar11 = PUN(float,param_1[10]) * pfVar15[1];
       if ((*pfVar12 <= fVar10) || (*pfVar15 <= fVar11)) {
         if (((*pfVar12 != fVar10) && (fVar11 != *pfVar15)) &&
            ((fVar10 < *pfVar12 || (fVar11 < *pfVar15)))) {
           fVar10 = pfVar15[1] - pfVar12[1];
           fVar2 = *pfVar15 - *pfVar12;
-          fVar1 = (float)param_1[10] * fVar10 - fVar2;
+          fVar1 = PUN(float,param_1[10]) * fVar10 - fVar2;
           fVar3 = pfVar15[1] * *pfVar12 - pfVar12[1] * *pfVar15;
           if (fVar1 != 0.0) {
             fVar3 = fVar3 / fVar1;
@@ -2906,12 +2906,12 @@ float rdClip_Face3_PosUvLit_2(int *param_1,float *param_2,float *param_3,float *
             fVar4 = -fVar2;
           }
           if (fVar1 <= fVar4) {
-            fVar10 = ((float)param_1[10] * fVar3 - *pfVar12) / fVar2;
+            fVar10 = (PUN(float,param_1[10]) * fVar3 - *pfVar12) / fVar2;
           }
           else {
             fVar10 = (fVar3 - pfVar12[1]) / fVar10;
           }
-          *(float *)(uVar17 + iVar7) = (float)param_1[10] * fVar3;
+          *(float *)(uVar17 + iVar7) = PUN(float,param_1[10]) * fVar3;
           *(float *)(UINT_007f46ac + 4 + iVar7) = fVar3;
           iVar6 = local_10 * 8;
           local_10 = local_10 + 1;
@@ -2934,7 +2934,7 @@ float rdClip_Face3_PosUvLit_2(int *param_1,float *param_2,float *param_3,float *
           uVar17 = UINT_007f46ac;
         }
       }
-      local_4 = (float)((int)local_4 + -1);
+      local_4 = PUN(float,(PUN(int,(float)local_4) + -1));
       pfVar16 = pfVar8;
       puVar14 = (uint *)(pfVar15 + 3);
       pfVar8 = pfVar8 + 2;
@@ -2945,10 +2945,10 @@ float rdClip_Face3_PosUvLit_2(int *param_1,float *param_2,float *param_3,float *
   }
   UINT_007f47b8 = (uint)pfVar15;
   UINT_007f46a8 = uVar9;
-  local_4 = (float)local_10;
+  local_4 = PUN(float,local_10);
   pfVar15 = (float *)UINT_007f46a8;
   if ((int)local_10 < 3) {
-    return (float)local_10;
+    return PUN(float,local_10);
   }
   UINT_007f46a8 = UINT_007f461c;
   iVar6 = 0;
@@ -2957,24 +2957,24 @@ float rdClip_Face3_PosUvLit_2(int *param_1,float *param_2,float *param_3,float *
   UINT_007f461c = (uint)pfVar15;
   local_10 = 0;
   uVar9 = UINT_007f47b8;
-  if (0 < (int)local_4) {
+  if (0 < PUN(int,(float)local_4)) {
     pfVar12 = (float *)(uVar17 + 8);
-    pfVar8 = (float *)(((int)pfVar15 - 8U) + (int)local_4 * 8);
+    pfVar8 = (float *)(((int)pfVar15 - 8U) + PUN(int,(float)local_4) * 8);
     UINT_007f47b8 = uVar17;
     do {
-      fVar10 = (float)param_1[0xb] * pfVar16[1];
-      fVar11 = pfVar12[-1] * (float)param_1[0xb];
+      fVar10 = PUN(float,param_1[0xb]) * pfVar16[1];
+      fVar11 = pfVar12[-1] * PUN(float,param_1[0xb]);
       if ((pfVar16[2] <= fVar10) || (*pfVar12 <= fVar11)) {
         if (((pfVar16[2] != fVar10) && (fVar11 != *pfVar12)) &&
            ((fVar10 < pfVar16[2] || (fVar11 < *pfVar12)))) {
           fVar10 = pfVar12[-1] - pfVar16[1];
           fVar2 = *pfVar12 - pfVar16[2];
-          fVar1 = (float)param_1[0xb] * fVar10 - fVar2;
+          fVar1 = PUN(float,param_1[0xb]) * fVar10 - fVar2;
           fVar3 = pfVar16[2] * pfVar12[-1] - pfVar16[1] * *pfVar12;
           if (fVar1 != 0.0) {
             fVar3 = fVar3 / fVar1;
           }
-          fVar1 = (float)param_1[0xb];
+          fVar1 = PUN(float,param_1[0xb]);
           fVar4 = fVar10;
           if (fVar10 < 0.0) {
             fVar4 = -fVar10;
@@ -3014,17 +3014,17 @@ float rdClip_Face3_PosUvLit_2(int *param_1,float *param_2,float *param_3,float *
       }
       pfVar16 = pfVar12 + -2;
       pfVar12 = pfVar12 + 3;
-      local_4 = (float)((int)local_4 + -1);
+      local_4 = PUN(float,(PUN(int,(float)local_4) + -1));
       pfVar8 = pfVar15;
       pfVar15 = pfVar15 + 2;
       uVar17 = UINT_007f47b8;
     } while (local_4 != 0.0);
   }
   UINT_007f47b8 = uVar17;
-  local_4 = (float)local_10;
+  local_4 = PUN(float,local_10);
   pfVar15 = (float *)UINT_007f46a8;
   if ((int)local_10 < 3) {
-    return (float)local_10;
+    return PUN(float,local_10);
   }
   UINT_007f46a8 = UINT_007f461c;
   iVar6 = 0;
@@ -3033,24 +3033,24 @@ float rdClip_Face3_PosUvLit_2(int *param_1,float *param_2,float *param_3,float *
   UINT_007f461c = (uint)pfVar15;
   local_10 = 0;
   uVar17 = UINT_007f47b8;
-  if (0 < (int)local_4) {
+  if (0 < PUN(int,(float)local_4)) {
     pfVar12 = (float *)(uVar9 + 8);
-    pfVar8 = (float *)(((int)pfVar15 - 8U) + (int)local_4 * 8);
+    pfVar8 = (float *)(((int)pfVar15 - 8U) + PUN(int,(float)local_4) * 8);
     UINT_007f47b8 = uVar9;
     do {
-      fVar10 = (float)param_1[8] * pfVar16[1];
-      fVar11 = pfVar12[-1] * (float)param_1[8];
+      fVar10 = PUN(float,param_1[8]) * pfVar16[1];
+      fVar11 = pfVar12[-1] * PUN(float,param_1[8]);
       if ((fVar10 <= pfVar16[2]) || (fVar11 <= *pfVar12)) {
         if (((pfVar16[2] != fVar10) && (fVar11 != *pfVar12)) &&
            ((pfVar16[2] < fVar10 || (*pfVar12 < fVar11)))) {
           fVar10 = pfVar12[-1] - pfVar16[1];
           fVar2 = *pfVar12 - pfVar16[2];
-          fVar1 = (float)param_1[8] * fVar10 - fVar2;
+          fVar1 = PUN(float,param_1[8]) * fVar10 - fVar2;
           fVar3 = pfVar16[2] * pfVar12[-1] - pfVar16[1] * *pfVar12;
           if (fVar1 != 0.0) {
             fVar3 = fVar3 / fVar1;
           }
-          fVar1 = (float)param_1[8];
+          fVar1 = PUN(float,param_1[8]);
           fVar4 = fVar10;
           if (fVar10 < 0.0) {
             fVar4 = -fVar10;
@@ -3090,7 +3090,7 @@ float rdClip_Face3_PosUvLit_2(int *param_1,float *param_2,float *param_3,float *
       }
       pfVar16 = pfVar12 + -2;
       pfVar12 = pfVar12 + 3;
-      local_4 = (float)((int)local_4 + -1);
+      local_4 = PUN(float,(PUN(int,(float)local_4) + -1));
       pfVar8 = pfVar15;
       pfVar15 = pfVar15 + 2;
       uVar9 = UINT_007f47b8;
@@ -3110,17 +3110,17 @@ float rdClip_Face3_PosUvLit_2(int *param_1,float *param_2,float *param_3,float *
       pfVar8 = (float *)(((int)param_4 - 8U) + local_10 * 8);
       iVar6 = 0;
       UINT_007f47b8 = uVar17;
-      local_4 = (float)local_10;
+      local_4 = PUN(float,local_10);
       do {
         iVar7 = iVar6;
-        if (((float)param_1[1] <= pfVar15[1]) || ((float)param_1[1] <= *pfVar12)) {
-          if (((pfVar15[1] != (float)param_1[1]) && (*pfVar12 != (float)param_1[1])) &&
-             ((pfVar15[1] < (float)param_1[1] || (*pfVar12 < (float)param_1[1])))) {
+        if ((PUN(float,param_1[1]) <= pfVar15[1]) || (PUN(float,param_1[1]) <= *pfVar12)) {
+          if (((pfVar15[1] != PUN(float,param_1[1])) && (*pfVar12 != PUN(float,param_1[1]))) &&
+             ((pfVar15[1] < PUN(float,param_1[1]) || (*pfVar12 < PUN(float,param_1[1]))))) {
             iVar7 = iVar6 + 0xc;
-            fVar11 = ((float)param_1[1] - pfVar15[1]) / (*pfVar12 - pfVar15[1]);
+            fVar11 = (PUN(float,param_1[1]) - pfVar15[1]) / (*pfVar12 - pfVar15[1]);
             *(int *)((int)pfVar16 + iVar6 + 4) = param_1[1];
-            iVar6 = (int)fVar10 * 8;
-            fVar10 = (float)((int)fVar10 + 1);
+            iVar6 = PUN(int,(float)fVar10) * 8;
+            fVar10 = PUN(float,(PUN(int,(float)fVar10) + 1));
             *(float *)((UINT_007f46ac - 4) + iVar7) =
                  (pfVar12[1] - pfVar15[2]) * fVar11 + pfVar15[2];
             *(float *)((UINT_007f46ac - 0xc) + iVar7) = (pfVar12[-1] - *pfVar15) * fVar11 + *pfVar15
@@ -3130,21 +3130,21 @@ float rdClip_Face3_PosUvLit_2(int *param_1,float *param_2,float *param_3,float *
             UINT_007f4ac4 = UINT_007f4ac4 | 1;
             pfVar16 = (float *)UINT_007f46ac;
           }
-          if ((float)param_1[1] <= *pfVar12) {
+          if (PUN(float,param_1[1]) <= *pfVar12) {
             pfVar16 = (float *)((int)pfVar16 + iVar7);
-            fVar10 = (float)((int)fVar10 + 1);
+            fVar10 = PUN(float,(PUN(int,(float)fVar10) + 1));
             iVar7 = iVar7 + 0xc;
             *pfVar16 = pfVar12[-1];
             pfVar16[1] = *pfVar12;
             pfVar16[2] = pfVar12[1];
-            *(float *)((UINT_007f46a8 - 8) + (int)fVar10 * 8) = *param_4;
-            *(float *)((UINT_007f46a8 - 4) + (int)fVar10 * 8) = param_4[1];
+            *(float *)((UINT_007f46a8 - 8) + PUN(int,(float)fVar10) * 8) = *param_4;
+            *(float *)((UINT_007f46a8 - 4) + PUN(int,(float)fVar10) * 8) = param_4[1];
             pfVar16 = (float *)UINT_007f46ac;
           }
         }
         pfVar15 = pfVar12 + -1;
         pfVar12 = pfVar12 + 3;
-        local_4 = (float)((int)local_4 + -1);
+        local_4 = PUN(float,(PUN(int,(float)local_4) + -1));
         pfVar8 = param_4;
         iVar6 = iVar7;
         uVar17 = UINT_007f47b8;
@@ -3153,7 +3153,7 @@ float rdClip_Face3_PosUvLit_2(int *param_1,float *param_2,float *param_3,float *
     }
     UINT_007f47b8 = uVar17;
     uVar9 = UINT_007f461c;
-    if ((int)fVar10 < 3) {
+    if (PUN(int,(float)fVar10) < 3) {
       UINT_007f4ac4 = UINT_007f4ac4 | 0x40;
       return fVar10;
     }
@@ -3162,28 +3162,28 @@ float rdClip_Face3_PosUvLit_2(int *param_1,float *param_2,float *param_3,float *
     if (*param_1 != 0) {
       fVar11 = 0.0;
       UINT_007f461c = UINT_007f46a8;
-      pfVar8 = pfVar16 + (int)fVar10 * 3 + -3;
+      pfVar8 = pfVar16 + PUN(int,(float)fVar10) * 3 + -3;
       iVar6 = UINT_007f46a8 - 8;
       param_4 = (float *)UINT_007f46a8;
       pfVar15 = (float *)UINT_007f47b8;
       UINT_007f46a8 = uVar9;
       UINT_007f46ac = UINT_007f47b8;
-      if (0 < (int)fVar10) {
+      if (0 < PUN(int,(float)fVar10)) {
         pfVar13 = pfVar16 + 1;
-        pfVar12 = (float *)(iVar6 + (int)fVar10 * 8);
+        pfVar12 = (float *)(iVar6 + PUN(int,(float)fVar10) * 8);
         iVar6 = 0;
         UINT_007f47b8 = (uint)pfVar16;
         local_4 = fVar10;
         do {
           iVar7 = iVar6;
-          if ((pfVar8[1] <= (float)param_1[2]) || (*pfVar13 <= (float)param_1[2])) {
-            if (((pfVar8[1] != (float)param_1[2]) && (*pfVar13 != (float)param_1[2])) &&
-               (((float)param_1[2] < pfVar8[1] || ((float)param_1[2] < *pfVar13)))) {
+          if ((pfVar8[1] <= PUN(float,param_1[2])) || (*pfVar13 <= PUN(float,param_1[2]))) {
+            if (((pfVar8[1] != PUN(float,param_1[2])) && (*pfVar13 != PUN(float,param_1[2]))) &&
+               ((PUN(float,param_1[2]) < pfVar8[1] || (PUN(float,param_1[2]) < *pfVar13)))) {
               iVar7 = iVar6 + 0xc;
-              fVar10 = ((float)param_1[2] - pfVar8[1]) / (*pfVar13 - pfVar8[1]);
+              fVar10 = (PUN(float,param_1[2]) - pfVar8[1]) / (*pfVar13 - pfVar8[1]);
               *(int *)((int)pfVar15 + iVar6 + 4) = param_1[2];
-              iVar6 = (int)fVar11 * 8;
-              fVar11 = (float)((int)fVar11 + 1);
+              iVar6 = PUN(int,(float)fVar11) * 8;
+              fVar11 = PUN(float,(PUN(int,(float)fVar11) + 1));
               *(float *)((UINT_007f46ac - 4) + iVar7) =
                    (pfVar13[1] - pfVar8[2]) * fVar10 + pfVar8[2];
               *(float *)((UINT_007f46ac - 0xc) + iVar7) = (pfVar13[-1] - *pfVar8) * fVar10 + *pfVar8
@@ -3194,21 +3194,21 @@ float rdClip_Face3_PosUvLit_2(int *param_1,float *param_2,float *param_3,float *
               UINT_007f4ac4 = UINT_007f4ac4 | 2;
               pfVar15 = (float *)UINT_007f46ac;
             }
-            if (*pfVar13 <= (float)param_1[2]) {
+            if (*pfVar13 <= PUN(float,param_1[2])) {
               pfVar15 = (float *)((int)pfVar15 + iVar7);
-              fVar11 = (float)((int)fVar11 + 1);
+              fVar11 = PUN(float,(PUN(int,(float)fVar11) + 1));
               iVar7 = iVar7 + 0xc;
               *pfVar15 = pfVar13[-1];
               pfVar15[1] = *pfVar13;
               pfVar15[2] = pfVar13[1];
-              *(float *)((UINT_007f46a8 - 8) + (int)fVar11 * 8) = *param_4;
-              *(float *)((UINT_007f46a8 - 4) + (int)fVar11 * 8) = param_4[1];
+              *(float *)((UINT_007f46a8 - 8) + PUN(int,(float)fVar11) * 8) = *param_4;
+              *(float *)((UINT_007f46a8 - 4) + PUN(int,(float)fVar11) * 8) = param_4[1];
               pfVar15 = (float *)UINT_007f46ac;
             }
           }
           pfVar8 = pfVar13 + -1;
           pfVar13 = pfVar13 + 3;
-          local_4 = (float)((int)local_4 + -1);
+          local_4 = PUN(float,(PUN(int,(float)local_4) + -1));
           pfVar12 = param_4;
           iVar6 = iVar7;
           pfVar16 = (float *)UINT_007f47b8;
@@ -3216,12 +3216,12 @@ float rdClip_Face3_PosUvLit_2(int *param_1,float *param_2,float *param_3,float *
         } while (local_4 != 0.0);
       }
       UINT_007f47b8 = (uint)pfVar16;
-      if ((int)fVar11 < 3) {
+      if (PUN(int,(float)fVar11) < 3) {
         return fVar11;
       }
     }
     if (pfVar15 != param_2) {
-      for (uVar9 = (int)fVar11 * 3 & 0x3fffffff; uVar9 != 0; uVar9 = uVar9 - 1) {
+      for (uVar9 = PUN(int,(float)fVar11) * 3 & 0x3fffffff; uVar9 != 0; uVar9 = uVar9 - 1) {
         *param_2 = *pfVar15;
         pfVar15 = pfVar15 + 1;
         param_2 = param_2 + 1;
@@ -3232,7 +3232,7 @@ float rdClip_Face3_PosUvLit_2(int *param_1,float *param_2,float *param_3,float *
         param_2 = (float *)((int)param_2 + 1);
       }
       pfVar15 = (float *)UINT_007f46a8;
-      for (iVar6 = ((uint)fVar11 & 0x1fffffff) << 1; iVar6 != 0; iVar6 = iVar6 + -1) {
+      for (iVar6 = (PUN(uint,(float)fVar11) & 0x1fffffff) << 1; iVar6 != 0; iVar6 = iVar6 + -1) {
         *param_3 = *pfVar15;
         pfVar15 = pfVar15 + 1;
         param_3 = param_3 + 1;
@@ -3245,7 +3245,7 @@ float rdClip_Face3_PosUvLit_2(int *param_1,float *param_2,float *param_3,float *
     }
     return fVar11;
   }
-  return (float)local_10;
+  return PUN(float,local_10);
 }
 #undef local_10
 #undef local_4
@@ -3296,8 +3296,8 @@ uint rdClip_Face3_PosUvFlags(int *param_1,float *param_2,float *param_3,uint par
     pfVar5 = param_3 + param_4 * 2 + -2;
     pfVar8 = param_3;
     do {
-      fVar2 = (float)param_1[3];
-      fVar1 = (float)param_1[3];
+      fVar2 = PUN(float,param_1[3]);
+      fVar1 = PUN(float,param_1[3]);
       if ((fVar2 <= *pfVar10) || (fVar1 <= *pfVar12)) {
         iVar14 = iVar13;
         if (((*pfVar10 != fVar2) && (fVar1 != *pfVar12)) &&
@@ -3350,30 +3350,30 @@ uint rdClip_Face3_PosUvFlags(int *param_1,float *param_2,float *param_3,uint par
       UINT_007f46a8 = uVar6;
       UINT_007f47b8 = (uint)puVar9;
       do {
-        fVar2 = (float)param_1[5];
-        fVar1 = (float)param_1[5];
-        if ((*pfVar12 <= fVar2) || ((float)*puVar9 <= fVar1)) {
-          if (((*pfVar12 != fVar2) && (fVar1 != (float)*puVar9)) &&
-             ((fVar2 < *pfVar12 || (fVar1 < (float)*puVar9)))) {
-            fVar3 = (fVar2 - *pfVar12) / ((float)*puVar9 - *pfVar12);
+        fVar2 = PUN(float,param_1[5]);
+        fVar1 = PUN(float,param_1[5]);
+        if ((*pfVar12 <= fVar2) || (PUN(float,*puVar9) <= fVar1)) {
+          if (((*pfVar12 != fVar2) && (fVar1 != PUN(float,*puVar9))) &&
+             ((fVar2 < *pfVar12 || (fVar1 < PUN(float,*puVar9))))) {
+            fVar3 = (fVar2 - *pfVar12) / (PUN(float,*puVar9) - *pfVar12);
             iVar13 = iVar13 + 0xc;
             iVar14 = local_c * 8;
             local_c = local_c + 1;
             *(float *)((uVar11 - 0xc) + iVar13) = fVar2;
             *(float *)((UINT_007f46ac - 8) + iVar13) =
-                 ((float)puVar9[1] - pfVar12[1]) * fVar3 + pfVar12[1];
+                 (PUN(float,puVar9[1]) - pfVar12[1]) * fVar3 + pfVar12[1];
             *(float *)((UINT_007f46ac - 4) + iVar13) =
-                 ((float)puVar9[2] - pfVar12[2]) * fVar3 + pfVar12[2];
+                 (PUN(float,puVar9[2]) - pfVar12[2]) * fVar3 + pfVar12[2];
             *(float *)(UINT_007f46a8 + iVar14) = (*pfVar8 - *pfVar5) * fVar3 + *pfVar5;
             *(float *)(UINT_007f46a8 + 4 + iVar14) = (pfVar8[1] - pfVar5[1]) * fVar3 + pfVar5[1];
             UINT_007f4ac4 = UINT_007f4ac4 | 0x20;
             uVar11 = UINT_007f46ac;
           }
-          if ((float)*puVar9 <= fVar1) {
+          if (PUN(float,*puVar9) <= fVar1) {
             pfVar10 = (float *)(uVar11 + iVar13);
-            *pfVar10 = (float)*puVar9;
-            pfVar10[1] = (float)puVar9[1];
-            pfVar10[2] = (float)puVar9[2];
+            *pfVar10 = PUN(float,*puVar9);
+            pfVar10[1] = PUN(float,puVar9[1]);
+            pfVar10[2] = PUN(float,puVar9[2]);
             *(float *)(UINT_007f46a8 + local_c * 8) = *pfVar8;
             *(float *)(UINT_007f46a8 + 4 + local_c * 8) = pfVar8[1];
             local_c = local_c + 1;
@@ -3408,8 +3408,8 @@ uint rdClip_Face3_PosUvFlags(int *param_1,float *param_2,float *param_3,uint par
         UINT_007f46a8 = uVar6;
         UINT_007f47b8 = uVar11;
         do {
-          fVar2 = (float)param_1[4];
-          fVar1 = (float)param_1[4];
+          fVar2 = PUN(float,param_1[4]);
+          fVar1 = PUN(float,param_1[4]);
           if ((pfVar10[2] <= fVar2) || (*pfVar12 <= fVar1)) {
             if (((pfVar10[2] != fVar2) && (fVar1 != *pfVar12)) &&
                ((fVar2 < pfVar10[2] || (fVar1 < *pfVar12)))) {
@@ -3465,8 +3465,8 @@ uint rdClip_Face3_PosUvFlags(int *param_1,float *param_2,float *param_3,uint par
           UINT_007f46a8 = uVar6;
           UINT_007f47b8 = uVar7;
           do {
-            fVar2 = (float)param_1[6];
-            fVar1 = (float)param_1[6];
+            fVar2 = PUN(float,param_1[6]);
+            fVar1 = PUN(float,param_1[6]);
             if ((fVar2 <= pfVar10[2]) || (fVar1 <= *pfVar12)) {
               if (((pfVar10[2] != fVar2) && (fVar1 != *pfVar12)) &&
                  ((pfVar10[2] < fVar2 || (*pfVar12 < fVar1)))) {
@@ -3526,11 +3526,11 @@ uint rdClip_Face3_PosUvFlags(int *param_1,float *param_2,float *param_3,uint par
           pfVar8 = (float *)(iVar13 + local_c * 8);
           UINT_007f47b8 = uVar11;
           do {
-            if (((float)param_1[1] <= pfVar10[1]) || ((float)param_1[1] <= *pfVar5)) {
-              if (((pfVar10[1] != (float)param_1[1]) && (*pfVar5 != (float)param_1[1])) &&
-                 ((pfVar10[1] < (float)param_1[1] || (*pfVar5 < (float)param_1[1])))) {
+            if ((PUN(float,param_1[1]) <= pfVar10[1]) || (PUN(float,param_1[1]) <= *pfVar5)) {
+              if (((pfVar10[1] != PUN(float,param_1[1])) && (*pfVar5 != PUN(float,param_1[1]))) &&
+                 ((pfVar10[1] < PUN(float,param_1[1]) || (*pfVar5 < PUN(float,param_1[1]))))) {
                 iVar4 = iVar14 + 0xc;
-                fVar1 = ((float)param_1[1] - pfVar10[1]) / (*pfVar5 - pfVar10[1]);
+                fVar1 = (PUN(float,param_1[1]) - pfVar10[1]) / (*pfVar5 - pfVar10[1]);
                 *(int *)((int)pfVar12 + iVar14 + 4) = param_1[1];
                 iVar13 = uVar7 * 8;
                 uVar7 = uVar7 + 1;
@@ -3546,7 +3546,7 @@ uint rdClip_Face3_PosUvFlags(int *param_1,float *param_2,float *param_3,uint par
                 pfVar12 = (float *)UINT_007f46ac;
                 iVar14 = iVar4;
               }
-              if ((float)param_1[1] <= *pfVar5) {
+              if (PUN(float,param_1[1]) <= *pfVar5) {
                 pfVar12 = (float *)((int)pfVar12 + iVar14);
                 uVar7 = uVar7 + 1;
                 iVar14 = iVar14 + 0xc;
@@ -3590,11 +3590,11 @@ uint rdClip_Face3_PosUvFlags(int *param_1,float *param_2,float *param_3,uint par
             UINT_007f47b8 = (uint)pfVar12;
             param_4 = uVar7;
             do {
-              if ((pfVar5[1] <= (float)param_1[2]) || (*pfVar15 <= (float)param_1[2])) {
-                if (((pfVar5[1] != (float)param_1[2]) && (*pfVar15 != (float)param_1[2])) &&
-                   (((float)param_1[2] < pfVar5[1] || ((float)param_1[2] < *pfVar15)))) {
+              if ((pfVar5[1] <= PUN(float,param_1[2])) || (*pfVar15 <= PUN(float,param_1[2]))) {
+                if (((pfVar5[1] != PUN(float,param_1[2])) && (*pfVar15 != PUN(float,param_1[2]))) &&
+                   ((PUN(float,param_1[2]) < pfVar5[1] || (PUN(float,param_1[2]) < *pfVar15)))) {
                   iVar4 = iVar14 + 0xc;
-                  fVar1 = ((float)param_1[2] - pfVar5[1]) / (*pfVar15 - pfVar5[1]);
+                  fVar1 = (PUN(float,param_1[2]) - pfVar5[1]) / (*pfVar15 - pfVar5[1]);
                   *(int *)((int)pfVar10 + iVar14 + 4) = param_1[2];
                   iVar13 = local_c * 8;
                   local_c = local_c + 1;
@@ -3610,7 +3610,7 @@ uint rdClip_Face3_PosUvFlags(int *param_1,float *param_2,float *param_3,uint par
                   iVar14 = iVar4;
                   pfVar10 = (float *)UINT_007f46ac;
                 }
-                if (*pfVar15 <= (float)param_1[2]) {
+                if (*pfVar15 <= PUN(float,param_1[2])) {
                   pfVar10 = (float *)((int)pfVar10 + iVar14);
                   local_c = local_c + 1;
                   iVar14 = iVar14 + 0xc;
@@ -3724,14 +3724,14 @@ float rdClip_Face3_PosUvLitColor
     do {
       pfVar19 = pfVar15;
       pfVar12 = pfVar14;
-      fVar11 = (float)param_1[0xc] * param_5[1];
-      fVar2 = (float)param_1[0xc] * pfVar12[1];
+      fVar11 = PUN(float,param_1[0xc]) * param_5[1];
+      fVar2 = PUN(float,param_1[0xc]) * pfVar12[1];
       if ((fVar11 <= *param_5) || (fVar2 <= *pfVar12)) {
         if (((*param_5 != fVar11) && (fVar2 != *pfVar12)) &&
            ((*param_5 < fVar11 || (*pfVar12 < fVar2)))) {
           fVar11 = pfVar12[1] - param_5[1];
           fVar3 = *pfVar12 - *param_5;
-          fVar1 = (float)param_1[0xc] * fVar11 - fVar3;
+          fVar1 = PUN(float,param_1[0xc]) * fVar11 - fVar3;
           fVar4 = pfVar12[1] * *param_5 - param_5[1] * *pfVar12;
           if (fVar1 != 0.0) {
             fVar4 = fVar4 / fVar1;
@@ -3745,42 +3745,42 @@ float rdClip_Face3_PosUvLitColor
             fVar5 = -fVar3;
           }
           if (fVar1 <= fVar5) {
-            fVar11 = ((float)param_1[0xc] * fVar4 - *param_5) / fVar3;
+            fVar11 = (PUN(float,param_1[0xc]) * fVar4 - *param_5) / fVar3;
           }
           else {
             fVar11 = (fVar4 - param_5[1]) / fVar11;
           }
-          *(float *)((int)puVar13 + iVar10) = (float)param_1[0xc] * fVar4;
+          *(float *)((int)puVar13 + iVar10) = PUN(float,param_1[0xc]) * fVar4;
           iVar10 = iVar10 + 0xc;
           *(float *)((UINT_007f46ac - 8) + iVar10) = fVar4;
-          fVar7 = (float)((int)fVar7 + 1);
+          fVar7 = PUN(float,(PUN(int,(float)fVar7) + 1));
           *(float *)((UINT_007f46ac - 4) + iVar10) = (pfVar12[2] - param_5[2]) * fVar11 + param_5[2]
           ;
-          *(float *)((UINT_007f46a8 - 8) + (int)fVar7 * 8) = (*pfVar19 - *pfVar8) * fVar11 + *pfVar8
+          *(float *)((UINT_007f46a8 - 8) + PUN(int,(float)fVar7) * 8) = (*pfVar19 - *pfVar8) * fVar11 + *pfVar8
           ;
-          *(float *)((UINT_007f46a8 - 4) + (int)fVar7 * 8) =
+          *(float *)((UINT_007f46a8 - 4) + PUN(int,(float)fVar7) * 8) =
                (pfVar19[1] - pfVar8[1]) * fVar11 + pfVar8[1];
-          *(float *)((UINT_007f46b0 - 4) + (int)fVar7 * 4) =
+          *(float *)((UINT_007f46b0 - 4) + PUN(int,(float)fVar7) * 4) =
                (*(float *)local_18 - *PUN(float *,(float)local_14[0])) * fVar11 + *PUN(float *,(float)local_14[0]);
           UINT_007f4ac4 = UINT_007f4ac4 | 0x10;
           puVar13 = (uint *)UINT_007f46ac;
         }
         if (fVar2 <= *pfVar12) {
           pfVar14 = (float *)((int)puVar13 + iVar10);
-          fVar7 = (float)((int)fVar7 + 1);
+          fVar7 = PUN(float,(PUN(int,(float)fVar7) + 1));
           iVar10 = iVar10 + 0xc;
           *pfVar14 = *pfVar12;
           pfVar14[1] = pfVar12[1];
           pfVar14[2] = pfVar12[2];
-          *(float *)((UINT_007f46a8 - 8) + (int)fVar7 * 8) = *pfVar19;
-          *(float *)((UINT_007f46a8 - 4) + (int)fVar7 * 8) = pfVar19[1];
-          *(undefined4 *)((UINT_007f46b0 - 4) + (int)fVar7 * 4) = *(undefined4 *)local_18;
+          *(float *)((UINT_007f46a8 - 8) + PUN(int,(float)fVar7) * 8) = *pfVar19;
+          *(float *)((UINT_007f46a8 - 4) + PUN(int,(float)fVar7) * 8) = pfVar19[1];
+          *(undefined4 *)((UINT_007f46b0 - 4) + PUN(int,(float)fVar7) * 4) = *(undefined4 *)local_18;
           puVar13 = (uint *)UINT_007f46ac;
         }
       }
-      local_14[0] = (float)local_18;
+      local_14[0] = PUN(float,local_18);
       local_18 = local_18 + 4;
-      local_4 = (float)((int)local_4 + -1);
+      local_4 = PUN(float,(PUN(int,(float)local_4) + -1));
       pfVar14 = pfVar12 + 3;
       pfVar15 = pfVar19 + 2;
       pfVar8 = pfVar19;
@@ -3789,36 +3789,36 @@ float rdClip_Face3_PosUvLitColor
   }
   local_18 = UINT_007f46b0;
   uVar9 = UINT_007f461c;
-  if ((int)fVar7 < 3) {
+  if (PUN(int,(float)fVar7) < 3) {
     return fVar7;
   }
   UINT_007f461c = UINT_007f46a8;
   UINT_007f46b0 = UINT_007f4618;
   UINT_007f4618 = local_18;
   fVar11 = 0.0;
-  local_14[0] = (float)((local_18 - 4) + (int)fVar7 * 4);
+  local_14[0] = PUN(float,((local_18 - 4) + PUN(int,(float)fVar7) * 4));
   uVar17 = UINT_007f47b8;
   UINT_007f46ac = UINT_007f47b8;
   pfVar14 = (float *)puVar13;
-  if (0 < (int)fVar7) {
+  if (0 < PUN(int,(float)fVar7)) {
     iVar10 = 0;
     pfVar15 = (float *)UINT_007f46a8;
-    pfVar8 = (float *)((UINT_007f46a8 - 8) + (int)fVar7 * 8);
+    pfVar8 = (float *)((UINT_007f46a8 - 8) + PUN(int,(float)fVar7) * 8);
     UINT_007f46a8 = uVar9;
     UINT_007f47b8 = (uint)puVar13;
-    param_5 = (float *)(puVar13 + (int)fVar7 * 3 + -3);
+    param_5 = (float *)(puVar13 + PUN(int,(float)fVar7) * 3 + -3);
     local_4 = fVar7;
     do {
       pfVar12 = (float *)puVar13;
       pfVar14 = pfVar15;
-      fVar7 = (float)param_1[10] * param_5[1];
-      fVar2 = (float)param_1[10] * pfVar12[1];
+      fVar7 = PUN(float,param_1[10]) * param_5[1];
+      fVar2 = PUN(float,param_1[10]) * pfVar12[1];
       if ((*param_5 <= fVar7) || (*pfVar12 <= fVar2)) {
         if (((*param_5 != fVar7) && (fVar2 != *pfVar12)) &&
            ((fVar7 < *param_5 || (fVar2 < *pfVar12)))) {
           fVar7 = pfVar12[1] - param_5[1];
           fVar3 = *pfVar12 - *param_5;
-          fVar1 = (float)param_1[10] * fVar7 - fVar3;
+          fVar1 = PUN(float,param_1[10]) * fVar7 - fVar3;
           fVar4 = pfVar12[1] * *param_5 - param_5[1] * *pfVar12;
           if (fVar1 != 0.0) {
             fVar4 = fVar4 / fVar1;
@@ -3832,41 +3832,41 @@ float rdClip_Face3_PosUvLitColor
             fVar5 = -fVar3;
           }
           if (fVar1 <= fVar5) {
-            fVar7 = ((float)param_1[10] * fVar4 - *param_5) / fVar3;
+            fVar7 = (PUN(float,param_1[10]) * fVar4 - *param_5) / fVar3;
           }
           else {
             fVar7 = (fVar4 - param_5[1]) / fVar7;
           }
-          *(float *)(uVar17 + iVar10) = (float)param_1[10] * fVar4;
+          *(float *)(uVar17 + iVar10) = PUN(float,param_1[10]) * fVar4;
           iVar10 = iVar10 + 0xc;
           *(float *)((UINT_007f46ac - 8) + iVar10) = fVar4;
-          fVar11 = (float)((int)fVar11 + 1);
+          fVar11 = PUN(float,(PUN(int,(float)fVar11) + 1));
           *(float *)((UINT_007f46ac - 4) + iVar10) = (pfVar12[2] - param_5[2]) * fVar7 + param_5[2];
-          *(float *)((UINT_007f46a8 - 8) + (int)fVar11 * 8) = (*pfVar14 - *pfVar8) * fVar7 + *pfVar8
+          *(float *)((UINT_007f46a8 - 8) + PUN(int,(float)fVar11) * 8) = (*pfVar14 - *pfVar8) * fVar7 + *pfVar8
           ;
-          *(float *)((UINT_007f46a8 - 4) + (int)fVar11 * 8) =
+          *(float *)((UINT_007f46a8 - 4) + PUN(int,(float)fVar11) * 8) =
                (pfVar14[1] - pfVar8[1]) * fVar7 + pfVar8[1];
-          *(float *)((UINT_007f46b0 - 4) + (int)fVar11 * 4) =
+          *(float *)((UINT_007f46b0 - 4) + PUN(int,(float)fVar11) * 4) =
                (*(float *)local_18 - *PUN(float *,(float)local_14[0])) * fVar7 + *PUN(float *,(float)local_14[0]);
           UINT_007f4ac4 = UINT_007f4ac4 | 0x20;
           uVar17 = UINT_007f46ac;
         }
         if (*pfVar12 <= fVar2) {
           pfVar15 = (float *)(uVar17 + iVar10);
-          fVar11 = (float)((int)fVar11 + 1);
+          fVar11 = PUN(float,(PUN(int,(float)fVar11) + 1));
           iVar10 = iVar10 + 0xc;
           *pfVar15 = *pfVar12;
           pfVar15[1] = pfVar12[1];
           pfVar15[2] = pfVar12[2];
-          *(float *)((UINT_007f46a8 - 8) + (int)fVar11 * 8) = *pfVar14;
-          *(float *)((UINT_007f46a8 - 4) + (int)fVar11 * 8) = pfVar14[1];
-          *(undefined4 *)((UINT_007f46b0 - 4) + (int)fVar11 * 4) = *(undefined4 *)local_18;
+          *(float *)((UINT_007f46a8 - 8) + PUN(int,(float)fVar11) * 8) = *pfVar14;
+          *(float *)((UINT_007f46a8 - 4) + PUN(int,(float)fVar11) * 8) = pfVar14[1];
+          *(undefined4 *)((UINT_007f46b0 - 4) + PUN(int,(float)fVar11) * 4) = *(undefined4 *)local_18;
           uVar17 = UINT_007f46ac;
         }
       }
-      local_14[0] = (float)local_18;
+      local_14[0] = PUN(float,local_18);
       local_18 = local_18 + 4;
-      local_4 = (float)((int)local_4 + -1);
+      local_4 = PUN(float,(PUN(int,(float)local_4) + -1));
       pfVar15 = pfVar14 + 2;
       puVar13 = (uint *)(pfVar12 + 3);
       pfVar8 = pfVar14;
@@ -3880,37 +3880,37 @@ float rdClip_Face3_PosUvLitColor
   local_18 = UINT_007f46b0;
   pfVar14 = (float *)UINT_007f46a8;
   uVar9 = UINT_007f4618;
-  if (2 < (int)fVar11) {
+  if (2 < PUN(int,(float)fVar11)) {
     UINT_007f46a8 = UINT_007f461c;
     UINT_007f4618 = UINT_007f46b0;
     UINT_007f461c = (uint)pfVar14;
     UINT_007f46b0 = uVar9;
     fVar7 = 0.0;
     UINT_007f46ac = UINT_007f47b8;
-    pfVar15 = (float *)((uVar17 - 0xc) + (int)fVar11 * 0xc);
-    local_14[0] = (float)((local_18 - 4) + (int)fVar11 * 4);
+    pfVar15 = (float *)((uVar17 - 0xc) + PUN(int,(float)fVar11) * 0xc);
+    local_14[0] = PUN(float,((local_18 - 4) + PUN(int,(float)fVar11) * 4));
     uVar9 = UINT_007f47b8;
-    if (0 < (int)fVar11) {
+    if (0 < PUN(int,(float)fVar11)) {
       iVar10 = 0;
       local_c = uVar17 + 8;
-      pfVar8 = (float *)(((int)pfVar14 - 8U) + (int)fVar11 * 8);
+      pfVar8 = (float *)(((int)pfVar14 - 8U) + PUN(int,(float)fVar11) * 8);
       UINT_007f47b8 = uVar17;
       local_4 = fVar11;
       do {
         pfVar12 = pfVar14;
-        fVar11 = (float)param_1[0xb] * pfVar15[1];
-        fVar2 = (float)param_1[0xb] * *(float *)(local_c - 4);
+        fVar11 = PUN(float,param_1[0xb]) * pfVar15[1];
+        fVar2 = PUN(float,param_1[0xb]) * *(float *)(local_c - 4);
         if ((pfVar15[2] <= fVar11) || (*(float *)local_c <= fVar2)) {
           if (((pfVar15[2] != fVar11) && (fVar2 != *(float *)local_c)) &&
              ((fVar11 < pfVar15[2] || (fVar2 < *(float *)local_c)))) {
             fVar11 = *(float *)(local_c - 4) - pfVar15[1];
             fVar3 = *(float *)local_c - pfVar15[2];
-            fVar1 = (float)param_1[0xb] * fVar11 - fVar3;
+            fVar1 = PUN(float,param_1[0xb]) * fVar11 - fVar3;
             fVar4 = pfVar15[2] * *(float *)(local_c - 4) - pfVar15[1] * *(float *)local_c;
             if (fVar1 != 0.0) {
               fVar4 = fVar4 / fVar1;
             }
-            fVar1 = (float)param_1[0xb];
+            fVar1 = PUN(float,param_1[0xb]);
             fVar5 = fVar11;
             if (fVar11 < 0.0) {
               fVar5 = -fVar11;
@@ -3926,38 +3926,38 @@ float rdClip_Face3_PosUvLitColor
               fVar11 = (fVar4 - pfVar15[1]) / fVar11;
             }
             iVar10 = iVar10 + 0xc;
-            fVar7 = (float)((int)fVar7 + 1);
+            fVar7 = PUN(float,(PUN(int,(float)fVar7) + 1));
             *(float *)((uVar9 - 0xc) + iVar10) =
                  (*(float *)(local_c - 8) - *pfVar15) * fVar11 + *pfVar15;
             *(float *)((UINT_007f46ac - 8) + iVar10) = fVar4;
             *(float *)((UINT_007f46ac - 4) + iVar10) = fVar1 * fVar4;
-            *(float *)((UINT_007f46a8 - 8) + (int)fVar7 * 8) =
+            *(float *)((UINT_007f46a8 - 8) + PUN(int,(float)fVar7) * 8) =
                  (*pfVar12 - *pfVar8) * fVar11 + *pfVar8;
-            *(float *)((UINT_007f46a8 - 4) + (int)fVar7 * 8) =
+            *(float *)((UINT_007f46a8 - 4) + PUN(int,(float)fVar7) * 8) =
                  (pfVar12[1] - pfVar8[1]) * fVar11 + pfVar8[1];
-            *(float *)((UINT_007f46b0 - 4) + (int)fVar7 * 4) =
+            *(float *)((UINT_007f46b0 - 4) + PUN(int,(float)fVar7) * 4) =
                  (*(float *)local_18 - *PUN(float *,(float)local_14[0])) * fVar11 + *PUN(float *,(float)local_14[0]);
             UINT_007f4ac4 = UINT_007f4ac4 | 4;
             uVar9 = UINT_007f46ac;
           }
           if (*(float *)local_c <= fVar2) {
             puVar16 = (undefined4 *)(uVar9 + iVar10);
-            fVar7 = (float)((int)fVar7 + 1);
+            fVar7 = PUN(float,(PUN(int,(float)fVar7) + 1));
             iVar10 = iVar10 + 0xc;
             *puVar16 = *(undefined4 *)(local_c - 8);
             puVar16[1] = *(undefined4 *)(local_c - 4);
             puVar16[2] = *(undefined4 *)local_c;
-            *(float *)((UINT_007f46a8 - 8) + (int)fVar7 * 8) = *pfVar12;
-            *(float *)((UINT_007f46a8 - 4) + (int)fVar7 * 8) = pfVar12[1];
-            *(undefined4 *)((UINT_007f46b0 - 4) + (int)fVar7 * 4) = *(undefined4 *)local_18;
+            *(float *)((UINT_007f46a8 - 8) + PUN(int,(float)fVar7) * 8) = *pfVar12;
+            *(float *)((UINT_007f46a8 - 4) + PUN(int,(float)fVar7) * 8) = pfVar12[1];
+            *(undefined4 *)((UINT_007f46b0 - 4) + PUN(int,(float)fVar7) * 4) = *(undefined4 *)local_18;
             uVar9 = UINT_007f46ac;
           }
         }
         pfVar15 = (float *)(local_c - 8);
         local_c = local_c + 0xc;
-        local_14[0] = (float)local_18;
+        local_14[0] = PUN(float,local_18);
         local_18 = local_18 + 4;
-        local_4 = (float)((int)local_4 + -1);
+        local_4 = PUN(float,(PUN(int,(float)local_4) + -1));
         pfVar14 = pfVar12 + 2;
         pfVar8 = pfVar12;
         uVar17 = UINT_007f47b8;
@@ -3966,39 +3966,39 @@ float rdClip_Face3_PosUvLitColor
     UINT_007f47b8 = uVar17;
     local_18 = UINT_007f46b0;
     pfVar14 = (float *)UINT_007f46a8;
-    if ((int)fVar7 < 3) {
+    if (PUN(int,(float)fVar7) < 3) {
       return fVar7;
     }
     UINT_007f46a8 = UINT_007f461c;
     UINT_007f46b0 = UINT_007f4618;
     UINT_007f4618 = local_18;
     fVar11 = 0.0;
-    local_14[0] = (float)((local_18 - 4) + (int)fVar7 * 4);
-    pfVar15 = (float *)((uVar9 - 0xc) + (int)fVar7 * 0xc);
+    local_14[0] = PUN(float,((local_18 - 4) + PUN(int,(float)fVar7) * 4));
+    pfVar15 = (float *)((uVar9 - 0xc) + PUN(int,(float)fVar7) * 0xc);
     UINT_007f46ac = UINT_007f47b8;
     UINT_007f461c = (uint)pfVar14;
     uVar17 = UINT_007f47b8;
-    if (0 < (int)fVar7) {
+    if (0 < PUN(int,(float)fVar7)) {
       iVar10 = 0;
       local_c = uVar9 + 8;
-      pfVar8 = (float *)(((int)pfVar14 - 8U) + (int)fVar7 * 8);
+      pfVar8 = (float *)(((int)pfVar14 - 8U) + PUN(int,(float)fVar7) * 8);
       UINT_007f47b8 = uVar9;
       local_4 = fVar7;
       do {
         pfVar12 = pfVar14;
-        fVar7 = (float)param_1[8] * pfVar15[1];
-        fVar2 = (float)param_1[8] * *(float *)(local_c - 4);
+        fVar7 = PUN(float,param_1[8]) * pfVar15[1];
+        fVar2 = PUN(float,param_1[8]) * *(float *)(local_c - 4);
         if ((fVar7 <= pfVar15[2]) || (fVar2 <= *(float *)local_c)) {
           if (((pfVar15[2] != fVar7) && (fVar2 != *(float *)local_c)) &&
              ((pfVar15[2] < fVar7 || (*(float *)local_c < fVar2)))) {
             fVar7 = *(float *)(local_c - 4) - pfVar15[1];
             fVar3 = *(float *)local_c - pfVar15[2];
-            fVar1 = (float)param_1[8] * fVar7 - fVar3;
+            fVar1 = PUN(float,param_1[8]) * fVar7 - fVar3;
             fVar4 = pfVar15[2] * *(float *)(local_c - 4) - pfVar15[1] * *(float *)local_c;
             if (fVar1 != 0.0) {
               fVar4 = fVar4 / fVar1;
             }
-            fVar1 = (float)param_1[8];
+            fVar1 = PUN(float,param_1[8]);
             fVar5 = fVar7;
             if (fVar7 < 0.0) {
               fVar5 = -fVar7;
@@ -4014,38 +4014,38 @@ float rdClip_Face3_PosUvLitColor
               fVar7 = (fVar4 - pfVar15[1]) / fVar7;
             }
             iVar10 = iVar10 + 0xc;
-            fVar11 = (float)((int)fVar11 + 1);
+            fVar11 = PUN(float,(PUN(int,(float)fVar11) + 1));
             *(float *)((uVar17 - 0xc) + iVar10) =
                  (*(float *)(local_c - 8) - *pfVar15) * fVar7 + *pfVar15;
             *(float *)((UINT_007f46ac - 8) + iVar10) = fVar4;
             *(float *)((UINT_007f46ac - 4) + iVar10) = fVar1 * fVar4;
-            *(float *)((UINT_007f46a8 - 8) + (int)fVar11 * 8) =
+            *(float *)((UINT_007f46a8 - 8) + PUN(int,(float)fVar11) * 8) =
                  (*pfVar12 - *pfVar8) * fVar7 + *pfVar8;
-            *(float *)((UINT_007f46a8 - 4) + (int)fVar11 * 8) =
+            *(float *)((UINT_007f46a8 - 4) + PUN(int,(float)fVar11) * 8) =
                  (pfVar12[1] - pfVar8[1]) * fVar7 + pfVar8[1];
-            *(float *)((UINT_007f46b0 - 4) + (int)fVar11 * 4) =
+            *(float *)((UINT_007f46b0 - 4) + PUN(int,(float)fVar11) * 4) =
                  (*(float *)local_18 - *PUN(float *,(float)local_14[0])) * fVar7 + *PUN(float *,(float)local_14[0]);
             UINT_007f4ac4 = UINT_007f4ac4 | 8;
             uVar17 = UINT_007f46ac;
           }
           if (fVar2 <= *(float *)local_c) {
             puVar16 = (undefined4 *)(uVar17 + iVar10);
-            fVar11 = (float)((int)fVar11 + 1);
+            fVar11 = PUN(float,(PUN(int,(float)fVar11) + 1));
             iVar10 = iVar10 + 0xc;
             *puVar16 = *(undefined4 *)(local_c - 8);
             puVar16[1] = *(undefined4 *)(local_c - 4);
             puVar16[2] = *(undefined4 *)local_c;
-            *(float *)((UINT_007f46a8 - 8) + (int)fVar11 * 8) = *pfVar12;
-            *(float *)((UINT_007f46a8 - 4) + (int)fVar11 * 8) = pfVar12[1];
-            *(undefined4 *)((UINT_007f46b0 - 4) + (int)fVar11 * 4) = *(undefined4 *)local_18;
+            *(float *)((UINT_007f46a8 - 8) + PUN(int,(float)fVar11) * 8) = *pfVar12;
+            *(float *)((UINT_007f46a8 - 4) + PUN(int,(float)fVar11) * 8) = pfVar12[1];
+            *(undefined4 *)((UINT_007f46b0 - 4) + PUN(int,(float)fVar11) * 4) = *(undefined4 *)local_18;
             uVar17 = UINT_007f46ac;
           }
         }
         pfVar15 = (float *)(local_c - 8);
         local_c = local_c + 0xc;
-        local_14[0] = (float)local_18;
+        local_14[0] = PUN(float,local_18);
         local_18 = local_18 + 4;
-        local_4 = (float)((int)local_4 + -1);
+        local_4 = PUN(float,(PUN(int,(float)local_4) + -1));
         pfVar14 = pfVar12 + 2;
         pfVar8 = pfVar12;
         uVar9 = UINT_007f47b8;
@@ -4054,7 +4054,7 @@ float rdClip_Face3_PosUvLitColor
     UINT_007f47b8 = uVar9;
     local_18 = UINT_007f46b0;
     param_5 = (float *)UINT_007f46a8;
-    if ((int)fVar11 < 3) {
+    if (PUN(int,(float)fVar11) < 3) {
       return fVar11;
     }
     UINT_007f46a8 = UINT_007f461c;
@@ -4062,56 +4062,56 @@ float rdClip_Face3_PosUvLitColor
     UINT_007f461c = (uint)param_5;
     UINT_007f4618 = local_18;
     fVar7 = 0.0;
-    local_14[0] = (float)((local_18 - 4) + (int)fVar11 * 4);
-    pfVar14 = (float *)((uVar17 - 0xc) + (int)fVar11 * 0xc);
+    local_14[0] = PUN(float,((local_18 - 4) + PUN(int,(float)fVar11) * 4));
+    pfVar14 = (float *)((uVar17 - 0xc) + PUN(int,(float)fVar11) * 0xc);
     UINT_007f46ac = UINT_007f47b8;
     pfVar15 = (float *)UINT_007f47b8;
-    if (0 < (int)fVar11) {
+    if (0 < PUN(int,(float)fVar11)) {
       pfVar12 = (float *)(uVar17 + 4);
-      pfVar8 = (float *)(((int)param_5 - 8U) + (int)fVar11 * 8);
+      pfVar8 = (float *)(((int)param_5 - 8U) + PUN(int,(float)fVar11) * 8);
       iVar10 = 0;
       UINT_007f47b8 = uVar17;
       local_4 = fVar11;
       do {
         iVar18 = iVar10;
-        if (((float)param_1[1] <= pfVar14[1]) || ((float)param_1[1] <= *pfVar12)) {
-          if (((pfVar14[1] != (float)param_1[1]) && (*pfVar12 != (float)param_1[1])) &&
-             ((pfVar14[1] < (float)param_1[1] || (*pfVar12 < (float)param_1[1])))) {
+        if ((PUN(float,param_1[1]) <= pfVar14[1]) || (PUN(float,param_1[1]) <= *pfVar12)) {
+          if (((pfVar14[1] != PUN(float,param_1[1])) && (*pfVar12 != PUN(float,param_1[1]))) &&
+             ((pfVar14[1] < PUN(float,param_1[1]) || (*pfVar12 < PUN(float,param_1[1]))))) {
             iVar18 = iVar10 + 0xc;
-            fVar7 = (float)((int)fVar7 + 1);
-            fVar11 = ((float)param_1[1] - pfVar14[1]) / (*pfVar12 - pfVar14[1]);
+            fVar7 = PUN(float,(PUN(int,(float)fVar7) + 1));
+            fVar11 = (PUN(float,param_1[1]) - pfVar14[1]) / (*pfVar12 - pfVar14[1]);
             *(int *)((int)pfVar15 + iVar10 + 4) = param_1[1];
             *(float *)((UINT_007f46ac - 4) + iVar18) =
                  (pfVar12[1] - pfVar14[2]) * fVar11 + pfVar14[2];
             *(float *)((UINT_007f46ac - 0xc) + iVar18) =
                  (pfVar12[-1] - *pfVar14) * fVar11 + *pfVar14;
-            *(float *)((UINT_007f46a8 - 8) + (int)fVar7 * 8) =
+            *(float *)((UINT_007f46a8 - 8) + PUN(int,(float)fVar7) * 8) =
                  (*param_5 - *pfVar8) * fVar11 + *pfVar8;
-            *(float *)((UINT_007f46a8 - 4) + (int)fVar7 * 8) =
+            *(float *)((UINT_007f46a8 - 4) + PUN(int,(float)fVar7) * 8) =
                  (param_5[1] - pfVar8[1]) * fVar11 + pfVar8[1];
-            *(float *)((UINT_007f46b0 - 4) + (int)fVar7 * 4) =
+            *(float *)((UINT_007f46b0 - 4) + PUN(int,(float)fVar7) * 4) =
                  (*(float *)local_18 - *PUN(float *,(float)local_14[0])) * fVar11 + *PUN(float *,(float)local_14[0]);
             UINT_007f4ac4 = UINT_007f4ac4 | 1;
             pfVar15 = (float *)UINT_007f46ac;
           }
-          if ((float)param_1[1] <= *pfVar12) {
+          if (PUN(float,param_1[1]) <= *pfVar12) {
             pfVar15 = (float *)((int)pfVar15 + iVar18);
-            fVar7 = (float)((int)fVar7 + 1);
+            fVar7 = PUN(float,(PUN(int,(float)fVar7) + 1));
             iVar18 = iVar18 + 0xc;
             *pfVar15 = pfVar12[-1];
             pfVar15[1] = *pfVar12;
             pfVar15[2] = pfVar12[1];
-            *(float *)((UINT_007f46a8 - 8) + (int)fVar7 * 8) = *param_5;
-            *(float *)((UINT_007f46a8 - 4) + (int)fVar7 * 8) = param_5[1];
-            *(undefined4 *)((UINT_007f46b0 - 4) + (int)fVar7 * 4) = *(undefined4 *)local_18;
+            *(float *)((UINT_007f46a8 - 8) + PUN(int,(float)fVar7) * 8) = *param_5;
+            *(float *)((UINT_007f46a8 - 4) + PUN(int,(float)fVar7) * 8) = param_5[1];
+            *(undefined4 *)((UINT_007f46b0 - 4) + PUN(int,(float)fVar7) * 4) = *(undefined4 *)local_18;
             pfVar15 = (float *)UINT_007f46ac;
           }
         }
         pfVar14 = pfVar12 + -1;
-        local_14[0] = (float)local_18;
+        local_14[0] = PUN(float,local_18);
         local_18 = local_18 + 4;
         pfVar12 = pfVar12 + 3;
-        local_4 = (float)((int)local_4 + -1);
+        local_4 = PUN(float,(PUN(int,(float)local_4) + -1));
         pfVar8 = param_5;
         iVar10 = iVar18;
         uVar17 = UINT_007f47b8;
@@ -4121,7 +4121,7 @@ float rdClip_Face3_PosUvLitColor
     UINT_007f47b8 = uVar17;
     uVar17 = UINT_007f461c;
     uVar9 = UINT_007f4618;
-    if ((int)fVar7 < 3) {
+    if (PUN(int,(float)fVar7) < 3) {
       UINT_007f4ac4 = UINT_007f4ac4 | 0x40;
       return fVar7;
     }
@@ -4132,60 +4132,60 @@ float rdClip_Face3_PosUvLitColor
       UINT_007f4618 = UINT_007f46b0;
       fVar11 = 0.0;
       param_5 = (float *)UINT_007f46a8;
-      local_14[0] = (float)((UINT_007f46b0 - 4) + (int)fVar7 * 4);
-      pfVar8 = pfVar15 + (int)fVar7 * 3 + -3;
+      local_14[0] = (float)((UINT_007f46b0 - 4) + PUN(int,(float)fVar7) * 4);
+      pfVar8 = pfVar15 + PUN(int,(float)fVar7) * 3 + -3;
       iVar10 = UINT_007f46a8 - 8;
       local_18 = UINT_007f46b0;
       pfVar14 = (float *)UINT_007f47b8;
       UINT_007f46a8 = uVar17;
       UINT_007f46ac = UINT_007f47b8;
       UINT_007f46b0 = uVar9;
-      if (0 < (int)fVar7) {
+      if (0 < PUN(int,(float)fVar7)) {
         pfVar19 = pfVar15 + 1;
-        pfVar12 = (float *)(iVar10 + (int)fVar7 * 8);
+        pfVar12 = (float *)(iVar10 + PUN(int,(float)fVar7) * 8);
         iVar10 = 0;
         UINT_007f47b8 = (uint)pfVar15;
         local_4 = fVar7;
         do {
           iVar18 = iVar10;
-          if ((pfVar8[1] <= (float)param_1[2]) || (*pfVar19 <= (float)param_1[2])) {
-            if (((pfVar8[1] != (float)param_1[2]) && (*pfVar19 != (float)param_1[2])) &&
-               (((float)param_1[2] < pfVar8[1] || ((float)param_1[2] < *pfVar19)))) {
+          if ((pfVar8[1] <= PUN(float,param_1[2])) || (*pfVar19 <= PUN(float,param_1[2]))) {
+            if (((pfVar8[1] != PUN(float,param_1[2])) && (*pfVar19 != PUN(float,param_1[2]))) &&
+               ((PUN(float,param_1[2]) < pfVar8[1] || (PUN(float,param_1[2]) < *pfVar19)))) {
               iVar18 = iVar10 + 0xc;
-              fVar11 = (float)((int)fVar11 + 1);
-              fVar7 = ((float)param_1[2] - pfVar8[1]) / (*pfVar19 - pfVar8[1]);
+              fVar11 = PUN(float,(PUN(int,(float)fVar11) + 1));
+              fVar7 = (PUN(float,param_1[2]) - pfVar8[1]) / (*pfVar19 - pfVar8[1]);
               *(int *)((int)pfVar14 + iVar10 + 4) = param_1[2];
               *(float *)((UINT_007f46ac - 4) + iVar18) =
                    (pfVar19[1] - pfVar8[2]) * fVar7 + pfVar8[2];
               *(float *)((UINT_007f46ac - 0xc) + iVar18) = (pfVar19[-1] - *pfVar8) * fVar7 + *pfVar8
               ;
-              *(float *)((UINT_007f46a8 - 8) + (int)fVar11 * 8) =
+              *(float *)((UINT_007f46a8 - 8) + PUN(int,(float)fVar11) * 8) =
                    (*param_5 - *pfVar12) * fVar7 + *pfVar12;
-              *(float *)((UINT_007f46a8 - 4) + (int)fVar11 * 8) =
+              *(float *)((UINT_007f46a8 - 4) + PUN(int,(float)fVar11) * 8) =
                    (param_5[1] - pfVar12[1]) * fVar7 + pfVar12[1];
-              *(float *)((UINT_007f46b0 - 4) + (int)fVar11 * 4) =
+              *(float *)((UINT_007f46b0 - 4) + PUN(int,(float)fVar11) * 4) =
                    (*(float *)local_18 - *PUN(float *,(float)local_14[0])) * fVar7 + *PUN(float *,(float)local_14[0]);
               UINT_007f4ac4 = UINT_007f4ac4 | 2;
               pfVar14 = (float *)UINT_007f46ac;
             }
-            if (*pfVar19 <= (float)param_1[2]) {
+            if (*pfVar19 <= PUN(float,param_1[2])) {
               pfVar14 = (float *)((int)pfVar14 + iVar18);
-              fVar11 = (float)((int)fVar11 + 1);
+              fVar11 = PUN(float,(PUN(int,(float)fVar11) + 1));
               iVar18 = iVar18 + 0xc;
               *pfVar14 = pfVar19[-1];
               pfVar14[1] = *pfVar19;
               pfVar14[2] = pfVar19[1];
-              *(float *)((UINT_007f46a8 - 8) + (int)fVar11 * 8) = *param_5;
-              *(float *)((UINT_007f46a8 - 4) + (int)fVar11 * 8) = param_5[1];
-              *(undefined4 *)((UINT_007f46b0 - 4) + (int)fVar11 * 4) = *(undefined4 *)local_18;
+              *(float *)((UINT_007f46a8 - 8) + PUN(int,(float)fVar11) * 8) = *param_5;
+              *(float *)((UINT_007f46a8 - 4) + PUN(int,(float)fVar11) * 8) = param_5[1];
+              *(undefined4 *)((UINT_007f46b0 - 4) + PUN(int,(float)fVar11) * 4) = *(undefined4 *)local_18;
               pfVar14 = (float *)UINT_007f46ac;
             }
           }
           pfVar8 = pfVar19 + -1;
-          local_14[0] = (float)local_18;
+          local_14[0] = PUN(float,local_18);
           local_18 = local_18 + 4;
           pfVar19 = pfVar19 + 3;
-          local_4 = (float)((int)local_4 + -1);
+          local_4 = PUN(float,(PUN(int,(float)local_4) + -1));
           pfVar12 = param_5;
           iVar10 = iVar18;
           pfVar15 = (float *)UINT_007f47b8;
@@ -4193,12 +4193,12 @@ float rdClip_Face3_PosUvLitColor
         } while (local_4 != 0.0);
       }
       UINT_007f47b8 = (uint)pfVar15;
-      if ((int)fVar11 < 3) {
+      if (PUN(int,(float)fVar11) < 3) {
         return fVar11;
       }
     }
     if (pfVar14 != param_2) {
-      for (uVar9 = (int)fVar11 * 3 & 0x3fffffff; uVar9 != 0; uVar9 = uVar9 - 1) {
+      for (uVar9 = PUN(int,(float)fVar11) * 3 & 0x3fffffff; uVar9 != 0; uVar9 = uVar9 - 1) {
         *param_2 = *pfVar14;
         pfVar14 = pfVar14 + 1;
         param_2 = param_2 + 1;
@@ -4209,7 +4209,7 @@ float rdClip_Face3_PosUvLitColor
         param_2 = (float *)((int)param_2 + 1);
       }
       pfVar14 = (float *)UINT_007f46a8;
-      for (iVar10 = ((uint)fVar11 & 0x1fffffff) << 1; iVar10 != 0; iVar10 = iVar10 + -1) {
+      for (iVar10 = (PUN(uint,(float)fVar11) & 0x1fffffff) << 1; iVar10 != 0; iVar10 = iVar10 + -1) {
         *param_3 = *pfVar14;
         pfVar14 = pfVar14 + 1;
         param_3 = param_3 + 1;
@@ -4220,7 +4220,7 @@ float rdClip_Face3_PosUvLitColor
         pfVar14 = (float *)((int)pfVar14 + 1);
         param_3 = (float *)((int)param_3 + 1);
       }
-      for (; fVar7 != 0.0; fVar7 = (float)((int)fVar7 - 1)) {
+      for (; fVar7 != 0.0; fVar7 = PUN(float,(PUN(int,(float)fVar7) - 1))) {
         *param_4 = *puVar16;
         puVar16 = puVar16 + 1;
         param_4 = param_4 + 1;
@@ -4289,8 +4289,8 @@ uint rdClip_Face3_PosUvLitFlags
     pfVar15 = param_2;
     pfVar5 = (float *)(param_3 + param_5 * 2 + -2);
     do {
-      fVar2 = (float)param_1[3];
-      fVar1 = (float)param_1[3];
+      fVar2 = PUN(float,param_1[3]);
+      fVar1 = PUN(float,param_1[3]);
       if ((fVar2 <= *pfVar13) || (fVar1 <= *pfVar15)) {
         if (((*pfVar13 != fVar2) && (fVar1 != *pfVar15)) &&
            ((*pfVar13 < fVar2 || (*pfVar15 < fVar1)))) {
@@ -4354,19 +4354,19 @@ uint rdClip_Face3_PosUvLitFlags
       UINT_007f47b8 = (uint)puVar12;
       param_5 = uVar7;
       do {
-        fVar2 = (float)param_1[5];
-        fVar1 = (float)param_1[5];
-        if ((*pfVar15 <= fVar2) || ((float)*puVar12 <= fVar1)) {
-          if (((*pfVar15 != fVar2) && (fVar1 != (float)*puVar12)) &&
-             ((fVar2 < *pfVar15 || (fVar1 < (float)*puVar12)))) {
-            fVar3 = (fVar2 - *pfVar15) / ((float)*puVar12 - *pfVar15);
+        fVar2 = PUN(float,param_1[5]);
+        fVar1 = PUN(float,param_1[5]);
+        if ((*pfVar15 <= fVar2) || (PUN(float,*puVar12) <= fVar1)) {
+          if (((*pfVar15 != fVar2) && (fVar1 != PUN(float,*puVar12))) &&
+             ((fVar2 < *pfVar15 || (fVar1 < PUN(float,*puVar12))))) {
+            fVar3 = (fVar2 - *pfVar15) / (PUN(float,*puVar12) - *pfVar15);
             iVar19 = iVar19 + 0xc;
             uVar9 = uVar9 + 1;
             *(float *)((uVar8 - 0xc) + iVar19) = fVar2;
             *(float *)((UINT_007f46ac - 8) + iVar19) =
-                 ((float)puVar12[1] - pfVar15[1]) * fVar3 + pfVar15[1];
+                 (PUN(float,puVar12[1]) - pfVar15[1]) * fVar3 + pfVar15[1];
             *(float *)((UINT_007f46ac - 4) + iVar19) =
-                 ((float)puVar12[2] - pfVar15[2]) * fVar3 + pfVar15[2];
+                 (PUN(float,puVar12[2]) - pfVar15[2]) * fVar3 + pfVar15[2];
             *(float *)((UINT_007f46a8 - 8) + uVar9 * 8) =
                  (*(float *)local_10 - *pfVar5) * fVar3 + *pfVar5;
             *(float *)((UINT_007f46a8 - 4) + uVar9 * 8) =
@@ -4376,13 +4376,13 @@ uint rdClip_Face3_PosUvLitFlags
             UINT_007f4ac4 = UINT_007f4ac4 | 0x20;
             uVar8 = UINT_007f46ac;
           }
-          if ((float)*puVar12 <= fVar1) {
+          if (PUN(float,*puVar12) <= fVar1) {
             pfVar13 = (float *)(uVar8 + iVar19);
             uVar9 = uVar9 + 1;
             iVar19 = iVar19 + 0xc;
-            *pfVar13 = (float)*puVar12;
-            pfVar13[1] = (float)puVar12[1];
-            pfVar13[2] = (float)puVar12[2];
+            *pfVar13 = PUN(float,*puVar12);
+            pfVar13[1] = PUN(float,puVar12[1]);
+            pfVar13[2] = PUN(float,puVar12[2]);
             *(undefined4 *)((UINT_007f46a8 - 8) + uVar9 * 8) = *(undefined4 *)local_10;
             *(undefined4 *)((UINT_007f46a8 - 4) + uVar9 * 8) = *(undefined4 *)(local_10 + 4);
             *(undefined4 *)((UINT_007f46b0 - 4) + uVar9 * 4) = *(undefined4 *)local_14;
@@ -4424,8 +4424,8 @@ uint rdClip_Face3_PosUvLitFlags
       UINT_007f47b8 = uVar8;
       param_5 = uVar9;
       do {
-        fVar2 = (float)param_1[4];
-        fVar1 = (float)param_1[4];
+        fVar2 = PUN(float,param_1[4]);
+        fVar1 = PUN(float,param_1[4]);
         if ((pfVar13[2] <= fVar2) || (*pfVar15 <= fVar1)) {
           if (((pfVar13[2] != fVar2) && (fVar1 != *pfVar15)) &&
              ((fVar2 < pfVar13[2] || (fVar1 < *pfVar15)))) {
@@ -4491,8 +4491,8 @@ uint rdClip_Face3_PosUvLitFlags
         UINT_007f47b8 = uVar14;
         param_5 = uVar7;
         do {
-          fVar2 = (float)param_1[6];
-          fVar1 = (float)param_1[6];
+          fVar2 = PUN(float,param_1[6]);
+          fVar1 = PUN(float,param_1[6]);
           if ((fVar2 <= pfVar13[2]) || (fVar1 <= *pfVar15)) {
             if (((pfVar13[2] != fVar2) && (fVar1 != *pfVar15)) &&
                ((pfVar13[2] < fVar2 || (*pfVar15 < fVar1)))) {
@@ -4559,12 +4559,12 @@ uint rdClip_Face3_PosUvLitFlags
           UINT_007f47b8 = uVar9;
           param_5 = uVar7;
           do {
-            if (((float)param_1[1] <= pfVar13[1]) || ((float)param_1[1] <= *pfVar5)) {
-              if (((pfVar13[1] != (float)param_1[1]) && (*pfVar5 != (float)param_1[1])) &&
-                 ((pfVar13[1] < (float)param_1[1] || (*pfVar5 < (float)param_1[1])))) {
+            if ((PUN(float,param_1[1]) <= pfVar13[1]) || (PUN(float,param_1[1]) <= *pfVar5)) {
+              if (((pfVar13[1] != PUN(float,param_1[1])) && (*pfVar5 != PUN(float,param_1[1]))) &&
+                 ((pfVar13[1] < PUN(float,param_1[1]) || (*pfVar5 < PUN(float,param_1[1]))))) {
                 iVar18 = iVar19 + 0xc;
                 uVar8 = uVar8 + 1;
-                fVar1 = ((float)param_1[1] - pfVar13[1]) / (*pfVar5 - pfVar13[1]);
+                fVar1 = (PUN(float,param_1[1]) - pfVar13[1]) / (*pfVar5 - pfVar13[1]);
                 *(int *)((int)pfVar15 + iVar19 + 4) = param_1[1];
                 *(float *)((UINT_007f46ac - 4) + iVar18) =
                      (pfVar5[1] - pfVar13[2]) * fVar1 + pfVar13[2];
@@ -4580,7 +4580,7 @@ uint rdClip_Face3_PosUvLitFlags
                 pfVar15 = (float *)UINT_007f46ac;
                 iVar19 = iVar18;
               }
-              if ((float)param_1[1] <= *pfVar5) {
+              if (PUN(float,param_1[1]) <= *pfVar5) {
                 pfVar15 = (float *)((int)pfVar15 + iVar19);
                 uVar8 = uVar8 + 1;
                 iVar19 = iVar19 + 0xc;
@@ -4632,12 +4632,12 @@ uint rdClip_Face3_PosUvLitFlags
             UINT_007f47b8 = (uint)pfVar15;
             param_5 = uVar8;
             do {
-              if ((pfVar5[1] <= (float)param_1[2]) || (*pfVar10 <= (float)param_1[2])) {
-                if (((pfVar5[1] != (float)param_1[2]) && (*pfVar10 != (float)param_1[2])) &&
-                   (((float)param_1[2] < pfVar5[1] || ((float)param_1[2] < *pfVar10)))) {
+              if ((pfVar5[1] <= PUN(float,param_1[2])) || (*pfVar10 <= PUN(float,param_1[2]))) {
+                if (((pfVar5[1] != PUN(float,param_1[2])) && (*pfVar10 != PUN(float,param_1[2]))) &&
+                   ((PUN(float,param_1[2]) < pfVar5[1] || (PUN(float,param_1[2]) < *pfVar10)))) {
                   iVar18 = iVar19 + 0xc;
                   uVar7 = uVar7 + 1;
-                  fVar1 = ((float)param_1[2] - pfVar5[1]) / (*pfVar10 - pfVar5[1]);
+                  fVar1 = (PUN(float,param_1[2]) - pfVar5[1]) / (*pfVar10 - pfVar5[1]);
                   *(int *)((int)pfVar13 + iVar19 + 4) = param_1[2];
                   *(float *)((UINT_007f46ac - 4) + iVar18) =
                        (pfVar10[1] - pfVar5[2]) * fVar1 + pfVar5[2];
@@ -4653,7 +4653,7 @@ uint rdClip_Face3_PosUvLitFlags
                   pfVar13 = (float *)UINT_007f46ac;
                   iVar19 = iVar18;
                 }
-                if (*pfVar10 <= (float)param_1[2]) {
+                if (*pfVar10 <= PUN(float,param_1[2])) {
                   pfVar13 = (float *)((int)pfVar13 + iVar19);
                   uVar7 = uVar7 + 1;
                   iVar19 = iVar19 + 0xc;

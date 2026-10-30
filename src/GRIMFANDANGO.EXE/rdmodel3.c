@@ -1287,7 +1287,7 @@ void rdModel3_CalcRadii(int param_1)
         pfVar3 = pfVar3 + 3;
       }
       uVar6 = uVar6 + 1;
-      piVar4[6] = (int)(fVar1 * 0.1 + fVar1);
+      piVar4[6] = PUN(int,(float)(fVar1 * 0.1 + fVar1));
       piVar4 = piVar4 + 0x1f;
     } while (uVar6 < *(uint *)(param_1 + 0x24));
   }
@@ -1511,12 +1511,12 @@ void rdModel3_CalcVertexNormals(int param_1)
               fVar3 = 0.0;
               fVar4 = 0.0;
               local_44[0] = 0.0;
-              if ((float)puVar13[8] == 0.0) {
+              if (PUN(float,puVar13[8]) == 0.0) {
                 fVar1 = 0.0;
               }
               else {
                 puVar17 = (uint *)(puVar13[4] + 0x14);
-                fVar12 = (float)puVar13[8];
+                fVar12 = PUN(float,puVar13[8]);
                 do {
                   local_44[0] = fVar12;
                   uVar11 = 0;
@@ -1524,9 +1524,9 @@ void rdModel3_CalcVertexNormals(int param_1)
                     puVar14 = (uint *)puVar17[1];
                     do {
                       if (*puVar14 == local_38) {
-                        fVar1 = (float)puVar17[0xb] + fVar1;
-                        fVar2 = (float)puVar17[0xc] + fVar2;
-                        fVar3 = (float)puVar17[0xd] + fVar3;
+                        fVar1 = PUN(float,puVar17[0xb]) + fVar1;
+                        fVar2 = PUN(float,puVar17[0xc]) + fVar2;
+                        fVar3 = PUN(float,puVar17[0xd]) + fVar3;
                         fVar4 = fVar4 - -1.0;
                         break;
                       }
@@ -1535,7 +1535,7 @@ void rdModel3_CalcVertexNormals(int param_1)
                     } while (uVar11 < *puVar17);
                   }
                   puVar17 = puVar17 + 0x13;
-                  fVar12 = (float)((int)local_44[0] + -1);
+                  fVar12 = PUN(float,(PUN(int,(float)local_44[0]) + -1));
                   local_44[0] = fVar4;
                   local_20[0] = fVar2;
                   local_20[1] = fVar3;

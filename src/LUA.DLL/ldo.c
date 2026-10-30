@@ -204,7 +204,7 @@ void __cdecl ldo__4160(int param_1)
 }
 
 /* ---- 0x10004180  luaD_call ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Dispatches a call at the given stack position: C function, Lua closure or task mark ('unexpected
    cmark' otherwise) */
@@ -224,21 +224,12 @@ undefined4 luaD_call(code *param_1,void *param_2)
   void *a3;
   void *pvVar8;
   int *piVar9;
-  undefined4 *unaff_FS_OFFSET = (undefined4 *)TEB_BASE();
   #define iStack_14 (*(int *)(_frame + (0x30 - 0x14)))
-  #define uStack_c (*(undefined4 *)(_frame + (0x30 - 0xc)))
-  #define pcStack_8 (*(code **)(_frame + (0x30 - 0x8)))
-  #define uStack_4 (*(undefined4 *)(_frame + (0x30 - 0x4)))
   
   a3 = param_2;
-  uStack_4 = 0xffffffff;
-  pcStack_8 = FUN_10021fe6;
-  uStack_c = *unaff_FS_OFFSET;
-  *unaff_FS_OFFSET = &uStack_c;
   iStack_14 = *PTR_1002bf6c;
   if ((iStack_14 == 0) || (PTR_1002bf6c[6] != 0)) {
     pvVar3 = lvm__dd10(0x30);
-    uStack_4 = 0;
     if (pvVar3 == (void *)0x0) {
       iVar4 = 0;
     }
@@ -251,7 +242,6 @@ undefined4 luaD_call(code *param_1,void *param_2)
   else {
     iStack_14 = PTR_1002bf6c[1];
   }
-  uStack_4 = 0xffffffff;
   pvVar3 = param_2;
   iVar4 = (int)param_1;
   do {
@@ -287,7 +277,7 @@ switchD_1000422b_caseD_fffffff9:
         piVar9 = (int *)*PTR_1002bf6c;
         goto LAB_100042fe;
       }
-      pvVar3 = (void *)((code *)luaD_callC)((int)a1,*(undefined **)(a1 + 0x10),iVar4);
+      pvVar3 = (void *)luaD_callC((int)a1,*(undefined **)(a1 + 0x10),iVar4);
       param_1 = a1;
       param_2 = pvVar3;
       break;
@@ -309,14 +299,12 @@ LAB_100042fe:
       iVar4 = -(int)pvVar3;
       a3 = (void *)lvm__dde0(*PTR_1002bf6c);
       pvVar8 = lvm__dd10(0x30);
-      uStack_4 = 1;
       if (pvVar8 == (void *)0x0) {
         iVar5 = 0;
       }
       else {
         iVar5 = lvm__ddb0(pvVar8,*PTR_1002bf6c,iVar4,(int)a3);
       }
-      uStack_4 = 0xffffffff;
       *PTR_1002bf6c = iVar5;
     }
     else {
@@ -352,21 +340,16 @@ LAB_100042fe:
       }
       if ((param_1 == FUN_10003770) && (PTR_1002bf6c[2] == 0)) {
         PTR_1002bf6c[1] = iStack_14;
-        *unaff_FS_OFFSET = uStack_c;
         return 1;
       }
     }
 LAB_10004474:
     if (*PTR_1002bf6c == iStack_14) {
-      *unaff_FS_OFFSET = uStack_c;
       return 0;
     }
   } while( true );
 }
 #undef iStack_14
-#undef pcStack_8
-#undef uStack_4
-#undef uStack_c
 
 #endif
 
@@ -412,7 +395,7 @@ int __cdecl ldo__44e0(undefined *param_1,int param_2)
 /* ---- 0x10004580  luaD_callC ---- */
 /* Unidentified function of ldo.c (stack and call machinery, Grim task marks) */
 
-void __cdecl luaD_callC(int param_1,undefined *param_2,int param_3)
+int __cdecl luaD_callC(int param_1,undefined *param_2,int param_3)
 
 {
   uint uVar1;
@@ -436,8 +419,8 @@ void __cdecl luaD_callC(int param_1,undefined *param_2,int param_3)
     puVar4 = (undefined4 *)((int)puVar4 + 1);
   }
   PTR_1002bf6c[7] = PTR_1002bf6c[7] + uVar1 * 8;
-  ldo__44e0(param_2,param_3);
-  return;
+  iVar2 = ldo__44e0(param_2,param_3);
+  return iVar2;
 }
 
 /* ---- 0x10004600  ldo__4600 ---- */
@@ -459,7 +442,7 @@ void __cdecl ldo__4600(undefined *param_1)
 }
 
 /* ---- 0x100046a0  luaD_message ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* ldo.c message(): pushes the string and calls the error tag method */
 

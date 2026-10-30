@@ -1887,7 +1887,7 @@ void Actor_SetShadowPlane(int param_1,char *param_2)
     fVar5 = *(float *)(iVar6 + 4);
     *puVar1 = 1;
     puVar1[1] = 0;
-    puVar1[5] = -(fVar5 * (float)puVar1[2] + fVar3 * (float)puVar1[3] + fVar4 * fVar2);
+    puVar1[5] = -(fVar5 * PUN(float,puVar1[2]) + fVar3 * PUN(float,puVar1[3]) + fVar4 * fVar2);
   }
   return;
 }
@@ -1984,9 +1984,9 @@ void Actor_DrawShadows(int param_1)
       shadow = (int *)(*(int *)(param_1 + 0xa4) + iVar3);
       if ((*shadow != 0) &&
          ((iVar1 = shadow[1], iVar1 == 0 ||
-          (((fVar2 = *(float *)(param_1 + 0x10) * (float)shadow[3] +
-                     *(float *)(param_1 + 0x14) * (float)shadow[4] +
-                     *(float *)(param_1 + 0xc) * (float)shadow[2] + (float)shadow[5], iVar1 != -1 ||
+          (((fVar2 = *(float *)(param_1 + 0x10) * PUN(float,shadow[3]) +
+                     *(float *)(param_1 + 0x14) * PUN(float,shadow[4]) +
+                     *(float *)(param_1 + 0xc) * PUN(float,shadow[2]) + PUN(float,shadow[5]), iVar1 != -1 ||
             (fVar2 <= 0.0)) && ((iVar1 != 1 || (0.0 <= fVar2)))))))) {
         Actor_DrawShadowPlane(*(void **)(param_1 + 0xa0),shadow);
       }
@@ -2537,8 +2537,6 @@ LAB_004951b3:
 
 
 /* ---- 0x004a5eb0  Actor_RemoveFromSet ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void __cdecl Actor_RemoveFromSet(char *setName,void *actor)
 
 {
@@ -2576,12 +2574,8 @@ void __cdecl Actor_RemoveFromSet(char *setName,void *actor)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x004a5f60  Actor_PutInSet ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* sputRoom.cpp: moves the actor into the named set's actor list (actor+0x7c holds the set name) */
 
 void __cdecl Actor_PutInSet(void *actor,char *setName)
@@ -2657,11 +2651,9 @@ LAB_004a5fa6:
   }
   return;
 }
-#endif
-
 
 /* ---- 0x004a8500  Actor_GetYawToPoint ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 float __thiscall Actor_GetYawToPoint(void *this,float *point)
 
@@ -2678,7 +2670,7 @@ float __thiscall Actor_GetYawToPoint(void *this,float *point)
   
   local_18 = *point;
   local_14 = point[1];
-  local_10 = (uint)point[2];
+  local_10 = PUN(uint,(float)point[2]);
   if (*(void **)((int)this + 0x5c) != (void *)0x0) {
     Sector_FixPlaneCoordinate(*(void **)((int)this + 0x5c),(int)&local_18);
   }

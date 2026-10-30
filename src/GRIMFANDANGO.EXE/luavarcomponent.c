@@ -56,7 +56,7 @@ undefined4 LuaVarComponent_EditKey(undefined4 *param_1,int param_2,int param_3)
    Cos_NewStateBasedTag/Cos_NewIntTag): slot 1, asks for the variable name ('Name of variable') in
    the editor. */
 
-bool LuaVarComponent_Create(uint param_1,int param_2,int param_3,int param_4,int param_5)
+int LuaVarComponent_Create(uint param_1,int param_2,int param_3,int param_4,int param_5)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */

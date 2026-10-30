@@ -1079,7 +1079,7 @@ undefined4 ImStartRecording(undefined4 param_1,int param_2)
 
 {
                     /* 0x5300  39  ImStartRecording */
-  DAT_1002df64 = (int *)((code *)FUN_1000ba60)(param_1,IMG_ADDR(0x100172c4));
+  DAT_1002df64 = (int *)FUN_1000ba60(param_1,IMG_ADDR(0x100172c4));
   if (DAT_1002df64 == (int *)0x0) {
     DAT_1002df60 = 0;
   }
@@ -1555,7 +1555,7 @@ undefined4 SoundsFadeParam(uint *param_1,int param_2,uint param_3,int param_4)
 /* ---- 0x100075d0  SoundsIsSoundInUse ---- */
 /* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
-bool __cdecl SoundsIsSoundInUse(uint *param_1)
+int __cdecl SoundsIsSoundInUse(uint *param_1)
 
 {
   int iVar1;
@@ -1582,7 +1582,7 @@ bool __cdecl SoundsIsSoundInUse(uint *param_1)
 /* ---- 0x10007640  SoundsIsSoundPlaying ---- */
 /* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
-bool __cdecl SoundsIsSoundPlaying(uint *param_1)
+int __cdecl SoundsIsSoundPlaying(uint *param_1)
 
 {
   int iVar1;
@@ -3100,11 +3100,13 @@ undefined4 __cdecl FUN_1000ba20(undefined4 param_1,char *param_2,undefined4 para
 /* ---- 0x1000ba60  FUN_1000ba60 ---- */
 /* NOT COMPILED: names/lib_replace.json (host): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
-void __cdecl FUN_1000ba60(undefined4 param_1,undefined4 param_2)
+int __cdecl FUN_1000ba60(undefined4 param_1,undefined4 param_2)
 
 {
-  FUN_1000ba20(param_1,param_2,0x40);
-  return;
+  int iVar1;
+  
+  iVar1 = FUN_1000ba20(param_1,param_2,0x40);
+  return iVar1;
 }
 #endif
 
@@ -3340,11 +3342,13 @@ void __cdecl ImFile_LockInit(int param_1)
 #if 0
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
 
-void __cdecl ImFile_UnlockInner(int param_1)
+int __cdecl ImFile_UnlockInner(int param_1)
 
 {
-  LeaveCriticalSection(*(int *)(&DAT_1001e9e8 + param_1 * 4));
-  return;
+  int iVar1;
+  
+  iVar1 = LeaveCriticalSection(*(int *)(&DAT_1001e9e8 + param_1 * 4));
+  return iVar1;
 }
 #endif
 

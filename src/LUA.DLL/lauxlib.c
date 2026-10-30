@@ -6,7 +6,7 @@
 #include "functions.h"
 
 /* ---- 0x10002960  lauxlib__2960 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Unidentified function of lauxlib.c (argument checking helpers) */
 

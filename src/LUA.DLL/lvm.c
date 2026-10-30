@@ -220,7 +220,7 @@ void __cdecl luaV_setglobal(int *param_1)
 }
 
 /* ---- 0x1000da30  luaV_pack ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Unidentified function of lvm.c (virtual machine) */
 
@@ -263,7 +263,7 @@ void __cdecl luaV_pack(int param_1,int param_2,undefined4 *param_3)
   local_4 = (float)param_2;
   piVar5 = luaH_set(param_3[1],&local_10);
   *piVar5 = -1;
-  piVar5[1] = (int)local_4;
+  piVar5[1] = PUN(int,(float)local_4);
   return;
 }
 #undef local_10
@@ -317,7 +317,7 @@ undefined4 __thiscall lvm__db40(void *this,int a1)
 }
 
 /* ---- 0x1000dbd0  lvm__dbd0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Unidentified function of lvm.c (virtual machine) */
 
@@ -327,18 +327,14 @@ undefined4 __thiscall lvm__dbd0(void *this,int a1,int a2,int a3)
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   void *pvVar2;
-  undefined4 *unaff_FS_OFFSET = (undefined4 *)TEB_BASE();
   #define local_14 (*(undefined4 *)(_frame + (0x30 - 0x14)))
   #define local_10 (*(undefined4 *)(_frame + (0x30 - 0x10)))
-  #define uStack_c (*(undefined4 *)(_frame + (0x30 - 0xc)))
   #define pcStack_8 (*(code **)(_frame + (0x30 - 0x8)))
   #define local_4 (*(undefined4 *)(_frame + (0x30 - 0x4)))
   
   iVar1 = a3;
-  uStack_c = *unaff_FS_OFFSET;
   local_4 = 0xffffffff;
   pcStack_8 = FUN_1002203b;
-  *unaff_FS_OFFSET = &uStack_c;
   if (a3 != 0) {
     pvVar2 = lvm__dd10(0x30);
     local_4 = 0;
@@ -369,20 +365,18 @@ undefined4 __thiscall lvm__dbd0(void *this,int a1,int a2,int a3)
   *(int *)((int)this + 0x20) = *(int *)(*(int *)((int)this + 4) + 0x10) + a3;
   (*(code *)a1)((int)this + 0x24,4);
   *(undefined4 *)((int)this + 0x2c) = *(undefined4 *)(*(int *)((int)this + 4) + 8);
-  *unaff_FS_OFFSET = uStack_c;
   return 0;
 }
 #undef local_10
 #undef local_14
 #undef local_4
 #undef pcStack_8
-#undef uStack_c
 
 #endif
 
 
 /* ---- 0x1000dd10  lvm__dd10 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Unidentified function of lvm.c (virtual machine) */
 
@@ -392,14 +386,8 @@ void * __cdecl lvm__dd10(int size)
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   void *pvVar1;
   int iVar2;
-  undefined4 *unaff_FS_OFFSET = (undefined4 *)TEB_BASE();
-  #define local_c (*(undefined4 *)(_frame + (0x20 - 0xc)))
-  #define pcStack_8 (*(code **)(_frame + (0x20 - 0x8)))
   #define local_4 (*(undefined4 *)(_frame + (0x20 - 0x4)))
   
-  pcStack_8 = FUN_1002205b;
-  local_c = *unaff_FS_OFFSET;
-  *unaff_FS_OFFSET = &local_c;
   pvVar1 = PTR_1002bf84;
   if (PTR_1002bf84 == (void *)0x0) {
     iVar2 = 10;
@@ -418,12 +406,9 @@ void * __cdecl lvm__dd10(int size)
     } while (iVar2 != 0);
   }
   PTR_1002bf84 = *(void **)((int)pvVar1 + 0xc);
-  *unaff_FS_OFFSET = local_c;
   return pvVar1;
 }
 #undef local_4
-#undef local_c
-#undef pcStack_8
 
 #endif
 

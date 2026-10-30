@@ -34,38 +34,38 @@ ImuseSoundComponent_OnKey
   fVar3 = param_4;
   fVar2 = param_2;
   pvVar1 = g_pActorTable;
-  if ((*(int *)(&DAT_004e9ff8 + (int)param_4 * 4) == 0) &&
-     (iVar6 = SoundsIsSoundPlaying((int)param_2), iVar6 == 0)) {
+  if ((*(int *)(&DAT_004e9ff8 + PUN(int,(float)param_4) * 4) == 0) &&
+     (iVar6 = SoundsIsSoundPlaying(PUN(int,(float)param_2)), iVar6 == 0)) {
     if (param_1 != 0x736c6d69) {
       if (param_1 != 0x73736d69) {
         return;
       }
       SoundStartVoiceStream
-                ((int)fVar2,(uint)*(byte *)((int)fVar2 + 0x20),(int)*(char *)((int)fVar2 + 0x21));
-      SoundsSetParam((int)fVar2,0x400,1);
-      SoundsSetParam((int)fVar2,0x500,*(uint *)((int)fVar2 + 0x24));
+                (PUN(int,(float)fVar2),(uint)*(byte *)(PUN(int,(float)fVar2) + 0x20),(int)*(char *)(PUN(int,(float)fVar2) + 0x21));
+      SoundsSetParam(PUN(int,(float)fVar2),0x400,1);
+      SoundsSetParam(PUN(int,(float)fVar2),0x500,*(uint *)(PUN(int,(float)fVar2) + 0x24));
       return;
     }
     set = Set_GetCurrent();
-    iVar6 = SoundsLoadStartSound((int)fVar2,*(int *)((int)fVar2 + 0x24),1);
+    iVar6 = SoundsLoadStartSound(PUN(int,(float)fVar2),*(int *)(PUN(int,(float)fVar2) + 0x24),1);
     if (set == (void *)0x0) {
       return;
     }
     Set_GetSoundParams(set,&param_2,(char *)&param_8,(char *)&param_1,&local_4,&param_4);
-    bVar4 = *(byte *)((int)fVar2 + 0x20);
-    if ((byte)param_1 < *(byte *)((int)fVar2 + 0x20)) {
+    bVar4 = *(byte *)(PUN(int,(float)fVar2) + 0x20);
+    if ((byte)param_1 < *(byte *)(PUN(int,(float)fVar2) + 0x20)) {
       bVar4 = (byte)param_1;
     }
     uVar7 = param_8 & 0xff;
-    if ((int)(param_8 & 0xff) <= (int)*(uint *)((int)fVar2 + 0x28)) {
-      uVar7 = *(uint *)((int)fVar2 + 0x28);
+    if ((int)(param_8 & 0xff) <= (int)*(uint *)(PUN(int,(float)fVar2) + 0x28)) {
+      uVar7 = *(uint *)(PUN(int,(float)fVar2) + 0x28);
     }
     Sound_SetPosition(iVar6,(int)pvVar1 + iVar5 * 0xa8 + 0xc,uVar7,bVar4,param_2,param_4);
     return;
   }
-  if (*(int *)(&DAT_004e9ff8 + (int)fVar3 * 4) == 1) {
+  if (*(int *)(&DAT_004e9ff8 + PUN(int,(float)fVar3) * 4) == 1) {
     if (param_1 == 0x736c6d69) {
-      SoundsStopSound((int)fVar2);
+      SoundsStopSound(PUN(int,(float)fVar2));
       return;
     }
     if (param_1 == 0x73736d69) {
@@ -73,8 +73,8 @@ ImuseSoundComponent_OnKey
       return;
     }
   }
-  else if (*(int *)(&DAT_004e9ff8 + (int)fVar3 * 4) == 2) {
-    iMUSE_SetHook((int)fVar2,0x80);
+  else if (*(int *)(&DAT_004e9ff8 + PUN(int,(float)fVar3) * 4) == 2) {
+    iMUSE_SetHook(PUN(int,(float)fVar2),0x80);
   }
   return;
 }
@@ -183,7 +183,7 @@ undefined4 ImuseSoundComponent_EditKey(int *param_1,undefined4 param_2)
    through Cos_NewStateBasedTag/Cos_NewIntTag): slot 1, builds a sound key or asks for an
    .imu/.imc/.wvc file. */
 
-bool ImuseSoundComponent_Create(uint param_1,int param_2,int param_3,int param_4,char *param_5)
+int ImuseSoundComponent_Create(uint param_1,int param_2,int param_3,int param_4,char *param_5)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */

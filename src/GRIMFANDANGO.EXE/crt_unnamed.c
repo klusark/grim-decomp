@@ -2597,7 +2597,7 @@ void FUN_004b5b60(int param_1)
 /* ---- 0x004b5baa  FUN_004b5baa ---- */
 /* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
-bool FUN_004b5baa(void)
+int FUN_004b5baa(void)
 
 {
   int unaff_EBP;
@@ -4122,7 +4122,7 @@ FUN_004b9916(undefined4 param_1,uint param_2,ushort param_3,uint param_4,uint pa
         fVar4 = (float10)CONCAT28((param_9 & 0x7fff) - ((param_9 & 0x7fff) - param_3 & 7 | 4) |
                                   param_3 & 0x8000,
                                   CONCAT26(PIECE(param_2,2,2),CONCAT24((undefined2)param_2,param_1)));
-        fVar3 = fVar3 - (float10)(unkint10)(fVar3 / fVar4) * fVar4;
+        fVar3 = fVar3 - PUN(float10,(unkint10)(fVar3 / fVar4)) * fVar4;
         param_7 = SUB104(fVar3,0);
         uVar1 = (uint)((unkuint10)fVar3 >> 0x20);
         param_9 = (ushort)((unkuint10)fVar3 >> 0x40);
@@ -4175,7 +4175,7 @@ float10 FUN_004b9b1c(void)
     return extraout_ST0;
   }
   if (uVar2 == 0 && uVar3 == 0) {
-    return in_ST0 - (float10)(unkint10)(in_ST0 / in_ST1) * in_ST1;
+    return in_ST0 - PUN(float10,(unkint10)(in_ST0 / in_ST1)) * in_ST1;
   }
   if ((uVar7 & 0x7fff) < 0x7fbf) {
     fVar1 = in_ST0 * (float10)_DAT_004f04f4;
@@ -5351,16 +5351,16 @@ LAB_004c0263:
       break;
     case 0x62:
       if (uVar3 != 0) {
-        a3 = (int)((float)(&UINT_008d1738)[g_nLightEdSelected * 5] + _DAT_004f0d1c);
-        if ((float)a3 <= 360.0) {
-          if ((float)a3 < -180.0) {
-            a3 = (int)((float)a3 - -360.0);
+        a3 = PUN(int,(float)((float)(&UINT_008d1738)[g_nLightEdSelected * 5] + _DAT_004f0d1c));
+        if (PUN(float,a3) <= 360.0) {
+          if (PUN(float,a3) < -180.0) {
+            a3 = PUN(int,(float)(PUN(float,a3) - -360.0));
           }
         }
         else {
-          a3 = (int)((float)a3 - 360.0);
+          a3 = PUN(int,(float)(PUN(float,a3) - 360.0));
         }
-        local_18 = (float)a3;
+        local_18 = PUN(float,a3);
         uVar6 = 0x3f2;
         goto LAB_004c0263;
       }
@@ -5368,28 +5368,28 @@ LAB_004c0263:
     case 100:
       if (uVar3 != 0) {
         if (uVar5 == 0) {
-          a3 = (int)((float)(&UINT_008d173c)[g_nLightEdSelected * 5] - _DAT_004f0d1c);
-          if ((float)a3 <= 360.0) {
-            if ((float)a3 < -180.0) {
-              a3 = (int)((float)a3 - -360.0);
+          a3 = PUN(int,(float)((float)(&UINT_008d173c)[g_nLightEdSelected * 5] - _DAT_004f0d1c));
+          if (PUN(float,a3) <= 360.0) {
+            if (PUN(float,a3) < -180.0) {
+              a3 = PUN(int,(float)(PUN(float,a3) - -360.0));
             }
           }
           else {
-            a3 = (int)((float)a3 - 360.0);
+            a3 = PUN(int,(float)(PUN(float,a3) - 360.0));
           }
           LightEd_SetDlgFloat(g_hLightEdDialog,0x3f4,a3,1);
           return (undefined *)0x1;
         }
-        a3 = (int)((float)(&UINT_008d1740)[g_nLightEdSelected * 5] - _DAT_004f0d1c);
-        if ((float)a3 <= 360.0) {
-          if ((float)a3 < -180.0) {
-            a3 = (int)((float)a3 - -360.0);
+        a3 = PUN(int,(float)((float)(&UINT_008d1740)[g_nLightEdSelected * 5] - _DAT_004f0d1c));
+        if (PUN(float,a3) <= 360.0) {
+          if (PUN(float,a3) < -180.0) {
+            a3 = PUN(int,(float)(PUN(float,a3) - -360.0));
           }
         }
         else {
-          a3 = (int)((float)a3 - 360.0);
+          a3 = PUN(int,(float)(PUN(float,a3) - 360.0));
         }
-        local_18 = (float)a3;
+        local_18 = PUN(float,a3);
         uVar6 = 0x3f5;
 LAB_004c041f:
         LightEd_SetDlgFloat(g_hLightEdDialog,uVar6,local_18,1);
@@ -5399,42 +5399,42 @@ LAB_004c041f:
     case 0x66:
       if (uVar3 != 0) {
         if (uVar5 != 0) {
-          a3 = (int)((float)(&UINT_008d1740)[g_nLightEdSelected * 5] + _DAT_004f0d1c);
-          if ((float)a3 <= 360.0) {
-            if ((float)a3 < -180.0) {
-              a3 = (int)((float)a3 - -360.0);
+          a3 = PUN(int,(float)((float)(&UINT_008d1740)[g_nLightEdSelected * 5] + _DAT_004f0d1c));
+          if (PUN(float,a3) <= 360.0) {
+            if (PUN(float,a3) < -180.0) {
+              a3 = PUN(int,(float)(PUN(float,a3) - -360.0));
             }
           }
           else {
-            a3 = (int)((float)a3 - 360.0);
+            a3 = PUN(int,(float)(PUN(float,a3) - 360.0));
           }
           LightEd_SetDlgFloat(g_hLightEdDialog,0x3f5,a3,1);
           return (undefined *)0x1;
         }
-        a3 = (int)((float)(&UINT_008d173c)[g_nLightEdSelected * 5] + _DAT_004f0d1c);
-        if ((float)a3 <= 360.0) {
-          if ((float)a3 < -180.0) {
-            a3 = (int)((float)a3 - -360.0);
+        a3 = PUN(int,(float)((float)(&UINT_008d173c)[g_nLightEdSelected * 5] + _DAT_004f0d1c));
+        if (PUN(float,a3) <= 360.0) {
+          if (PUN(float,a3) < -180.0) {
+            a3 = PUN(int,(float)(PUN(float,a3) - -360.0));
           }
         }
         else {
-          a3 = (int)((float)a3 - 360.0);
+          a3 = PUN(int,(float)(PUN(float,a3) - 360.0));
         }
-        local_18 = (float)a3;
+        local_18 = PUN(float,a3);
         uVar6 = 0x3f4;
         goto LAB_004c041f;
       }
       break;
     case 0x68:
       if (uVar3 != 0) {
-        a3 = (int)((float)(&UINT_008d1738)[g_nLightEdSelected * 5] - _DAT_004f0d1c);
-        if ((float)a3 <= 360.0) {
-          if ((float)a3 < -180.0) {
-            a3 = (int)((float)a3 - -360.0);
+        a3 = PUN(int,(float)((float)(&UINT_008d1738)[g_nLightEdSelected * 5] - _DAT_004f0d1c));
+        if (PUN(float,a3) <= 360.0) {
+          if (PUN(float,a3) < -180.0) {
+            a3 = PUN(int,(float)(PUN(float,a3) - -360.0));
           }
         }
         else {
-          a3 = (int)((float)a3 - 360.0);
+          a3 = PUN(int,(float)(PUN(float,a3) - 360.0));
         }
         LightEd_SetDlgFloat(g_hLightEdDialog,0x3f2,a3,1);
         return (undefined *)0x1;
@@ -7531,7 +7531,7 @@ void FUN_004c5370(undefined4 *param_1)
 }
 
 /* ---- 0x004c5380  FUN_004c5380 ---- */
-bool FUN_004c5380(int param_1)
+int FUN_004c5380(int param_1)
 
 {
   unsigned char _frame[0x150] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -7608,7 +7608,7 @@ int FUN_004c53e0(undefined4 param_1,int param_2,int param_3,undefined4 param_4,b
 
 
 /* ---- 0x004c54f0  FUN_004c54f0 ---- */
-bool FUN_004c54f0(char *param_1,int param_2)
+int FUN_004c54f0(char *param_1,int param_2)
 
 {
   char cVar1;
@@ -8264,7 +8264,7 @@ int FUN_004c5ee0(undefined4 param_1,int param_2,int param_3)
 /* ---- 0x004c5f50  FUN_004c5f50 ---- */
 /* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
-bool FUN_004c5f50(undefined4 param_1)
+int FUN_004c5f50(undefined4 param_1)
 
 {
   int iVar1;
@@ -14369,7 +14369,7 @@ undefined4 FUN_004d0e00(undefined4 param_1,undefined4 param_2,uint *param_3,uint
 /* ---- 0x004d0eb0  FUN_004d0eb0 ---- */
 /* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
-undefined1 FUN_004d0eb0(byte param_1)
+uint FUN_004d0eb0(byte param_1)
 
 {
   if (param_1 == 0xff) {
@@ -15944,7 +15944,7 @@ float10 FUN_004d54b4(void)
       in_ST0 = extraout_ST1;
     }
     else {
-      in_ST1 = in_ST1 - (float10)(unkint10)(in_ST1 / in_ST0) * in_ST0;
+      in_ST1 = in_ST1 - PUN(float10,(unkint10)(in_ST1 / in_ST0)) * in_ST0;
     }
   } while ((in_FPUStatusWord & 0x400) != 0);
   return in_ST1;
@@ -16196,7 +16196,7 @@ undefined * FUN_004d5de0(int a1)
 /* ---- 0x004d5e1c  FUN_004d5e1c ---- */
 /* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
-bool FUN_004d5e1c(void)
+int FUN_004d5e1c(void)
 
 {
   int unaff_EBP;

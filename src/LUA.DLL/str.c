@@ -6,8 +6,6 @@
 #include "functions.h"
 
 /* ---- 0x100095b0  str_sub ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* lstrlib.c strsub */
 
 void str_sub(void)
@@ -32,11 +30,9 @@ void str_sub(void)
     pcVar7 = pcVar7 + 1;
   } while (cVar1 != '\0');
   iVar6 = ~uVar5 - 1;
-  luaL_check_number(2);
-  lVar8 = _ftol();
+  lVar8 = FTOL(luaL_check_number(2));
   iVar3 = (int)lVar8;
-  luaL_opt_number(3,-1.0);
-  lVar8 = _ftol();
+  lVar8 = FTOL(luaL_opt_number(3,-1.0));
   iVar4 = (int)lVar8;
   if (iVar3 < 0) {
     iVar3 = iVar3 + 1 + iVar6;
@@ -53,8 +49,6 @@ void str_sub(void)
   lua_pushstring(&DAT_1002bedc);
   return;
 }
-#endif
-
 
 /* ---- 0x10009650  str_addnchar ---- */
 /* Unidentified function of lstrlib.c (string library) */
@@ -131,8 +125,6 @@ void FUN_100096e0(void)
 }
 
 /* ---- 0x10009720  FUN_10009720 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void FUN_10009720(void)
 
 {
@@ -141,8 +133,7 @@ void FUN_10009720(void)
   longlong lVar3;
   
   puVar1 = (uint *)luaL_check_string(1);
-  luaL_check_number(2);
-  lVar3 = _ftol();
+  lVar3 = FTOL(luaL_check_number(2));
   iVar2 = (int)lVar3;
   luaL_resetbuffer();
   if (0 < iVar2) {
@@ -154,8 +145,6 @@ void FUN_10009720(void)
   str_closeandpush();
   return;
 }
-#endif
-
 
 /* ---- 0x10009760  str_addstr ---- */
 /* Unidentified function of lstrlib.c (string library) */
@@ -180,8 +169,6 @@ void __cdecl str_addstr(uint *param_1)
 }
 
 /* ---- 0x10009780  FUN_10009780 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void FUN_10009780(void)
 
 {
@@ -193,8 +180,7 @@ void FUN_10009780(void)
   longlong lVar6;
   
   pcVar2 = (char *)luaL_check_string(1);
-  luaL_opt_number(2,1.0);
-  lVar6 = _ftol();
+  lVar6 = FTOL(luaL_opt_number(2,1.0));
   uVar4 = (int)lVar6 - 1;
   if (-1 < (int)uVar4) {
     uVar3 = 0xffffffff;
@@ -212,8 +198,6 @@ LAB_100097c8:
   lua_pushnumber((float)(byte)pcVar2[uVar4]);
   return;
 }
-#endif
-
 
 /* ---- 0x100097f0  str_singlematch ---- */
 /* luaI_singlematch: one pattern item against one char */
@@ -413,8 +397,6 @@ uint __cdecl str_matchclass(uint param_1,uint param_2)
 }
 
 /* ---- 0x10009cb0  FUN_10009cb0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void FUN_10009cb0(void)
 
 {
@@ -429,15 +411,13 @@ void FUN_10009cb0(void)
   uint *puVar8;
   uint uVar9;
   uint uVar10;
-  int *unaff_EDI;
   char *pcVar11;
   longlong lVar12;
   #define aiStack_4c (*(int (*)[19])(_frame + (0x60 - 0x4c)))
   
   pcVar3 = (char *)luaL_check_string(1);
   pbVar4 = (byte *)luaL_check_string(2);
-  luaL_opt_number(3,1.0);
-  lVar12 = _ftol();
+  lVar12 = FTOL(luaL_opt_number(3,1.0));
   uVar10 = (int)lVar12 - 1;
   if (-1 < (int)uVar10) {
     uVar9 = 0xffffffff;
@@ -466,7 +446,7 @@ LAB_10009d07:
       if (pcVar7 != (char *)0x0) {
         lua_pushnumber((float)(int)(pcVar11 + (1 - (int)pcVar3)));
         lua_pushnumber((float)((int)pcVar7 - (int)pcVar3));
-        str_push_captures(aiStack_4c,unaff_EDI);
+        str_push_captures(aiStack_4c);
         return;
       }
       cVar1 = *pcVar11;
@@ -494,25 +474,24 @@ LAB_10009d07:
 }
 #undef aiStack_4c
 
-#endif
-
 
 /* ---- 0x10009e40  str_push_captures ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* errors 'unfinished capture' */
 
-void __cdecl str_push_captures(int *param_1,int *param_2)
+void __cdecl str_push_captures(int *ms)
 
 {
   uint uVar1;
   uint *puVar2;
   int *piVar3;
   int iVar4;
+  int *in_stack_00000008;
   
   iVar4 = 0;
-  if (0 < *param_1) {
-    piVar3 = param_1 + 1;
+  if (0 < *ms) {
+    piVar3 = ms + 1;
     do {
       uVar1 = piVar3[1];
       puVar2 = (uint *)luaL_openspace(uVar1 + 1);
@@ -524,7 +503,7 @@ void __cdecl str_push_captures(int *param_1,int *param_2)
       lua_pushstring((byte *)puVar2);
       iVar4 = iVar4 + 1;
       piVar3 = piVar3 + 2;
-    } while (iVar4 < *param_2);
+    } while (iVar4 < *in_stack_00000008);
   }
   return;
 }
@@ -532,7 +511,7 @@ void __cdecl str_push_captures(int *param_1,int *param_2)
 
 
 /* ---- 0x10009ea0  str_match ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* recursive pattern matcher; errors 'too many captures' */
 
@@ -733,8 +712,6 @@ char * __cdecl str_expand(char *param_1,int param_2,int param_3)
 }
 
 /* ---- 0x1000a1d0  FUN_1000a1d0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void FUN_1000a1d0(void)
 
 {
@@ -761,8 +738,7 @@ void FUN_1000a1d0(void)
     uVar1 = *puVar5;
     puVar5 = (uint *)((int)puVar5 + 1);
   } while ((char)uVar1 != '\0');
-  luaL_opt_number(4,(float)~uVar6);
-  lVar8 = _ftol();
+  lVar8 = FTOL(luaL_opt_number(4,(float)~uVar6));
   bVar7 = (char)*piVar3 == '^';
   if (bVar7) {
     piVar3 = (int *)((int)piVar3 + 1);
@@ -797,12 +773,8 @@ LAB_1000a291:
 #undef aiStack_4c
 #undef iStack_60
 
-#endif
-
 
 /* ---- 0x1000a2e0  str_add_value ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* gsub replacement: string or function result */
 
 void __cdecl str_add_value(int param_1,int *param_2)
@@ -815,14 +787,13 @@ void __cdecl str_add_value(int param_1,int *param_2)
   int iVar5;
   uint *puVar6;
   char *pcVar7;
-  int *unaff_EDI;
   
   iVar2 = lua_isstring(param_1);
   if (iVar2 == 0) {
     iVar2 = lua_isfunction(param_1);
     if (iVar2 != 0) {
       lua_beginblock();
-      str_push_captures(param_2,unaff_EDI);
+      str_push_captures(param_2);
       iVar2 = lbuiltin__2d30(0);
       iVar5 = lua_callfunction(param_1);
       lbuiltin__2d80(iVar2);
@@ -877,11 +848,9 @@ LAB_1000a36b:
   }
   return;
 }
-#endif
-
 
 /* ---- 0x1000a440  FUN_1000a440 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 void FUN_1000a440(void)
 

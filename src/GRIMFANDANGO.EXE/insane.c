@@ -67,8 +67,6 @@ void Insane_Terminate(void)
 }
 
 /* ---- 0x004bd440  Insane_Start ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Module interface slot 2 (Insane): called by Engine_InitSubsystems, returns 0 on success (non-zero
    makes the whole start-up unwind). _Start starts the LecShare module chain of the INSANE/Smush
    player. */
@@ -96,8 +94,6 @@ undefined4 Insane_Start(void)
   }
   return uVar2;
 }
-#endif
-
 
 /* ---- 0x004bd4d0  Insane_Stop ---- */
 /* Module interface slot 3 (Insane): called by Engine_ShutdownSubsystems in reverse order; releases
@@ -166,8 +162,6 @@ undefined4 Insane_ReadFrameHeader(int param_1,int param_2)
 }
 
 /* ---- 0x004bdb00  Insane_PrepareFrame ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Validates the frame against the output size and chooses the blit mode bits in g_dwInsaneBlitFlags
     */
@@ -247,12 +241,8 @@ undefined4 Insane_PrepareFrame(int *param_1,undefined4 *param_2,uint *param_3)
 #undef local_18
 #undef local_8
 
-#endif
-
 
 /* ---- 0x004bdca0  Insane_Blit8To16Doubled ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Pixel-doubling conversion of 8-bit frame rows into a 16-bit destination */
 
 undefined8 __fastcall
@@ -297,8 +287,6 @@ Insane_Blit8To16Doubled
 #undef local_14
 #undef local_8
 #undef local_c
-
-#endif
 
 
 /* ---- 0x004bdd50  Insane_BlitRowsDual ---- */

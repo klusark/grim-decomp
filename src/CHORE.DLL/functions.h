@@ -79,7 +79,7 @@ char * FUN_100056a0(char *param_1,char param_2); /* 0x100056a0 */
 void FUN_100056d0(void); /* 0x100056d0 */
 void FUN_100056f0(void); /* 0x100056f0 */
 void FUN_10005700(void); /* 0x10005700 */
-char FUN_10005740(byte *param_1,byte *param_2); /* 0x10005740 */
+int FUN_10005740(byte *param_1,byte *param_2); /* 0x10005740 */
 int __cdecl FUN_10005810(char *param_1,char *param_2,...); /* 0x10005810 */
 undefined4 * FUN_10005860(undefined4 *param_1,undefined4 *param_2,uint param_3); /* 0x10005860 */
 void FUN_10005ba0(uint param_1,uint param_2,uint param_3,code *param_4); /* 0x10005ba0 */
@@ -98,7 +98,7 @@ undefined4 CosUtil_RegisterBitmapMunger(undefined4 param_1); /* 0x10002070 */
 undefined4 CosUtil_DeleteComponent(uint param_1,uint param_2); /* 0x10002260 */
 int CosUtil_AdjustComponent(int param_1,uint param_2); /* 0x100026a0 */
 undefined4 CosUtil_ComponentHasAdjuster(int param_1,uint param_2); /* 0x10002740 */
-bool CosUtil_AddComponent (undefined4 param_1,int param_2,int param_3,undefined4 param_4,undefined4 param_5); /* 0x100027e0 */
+int CosUtil_AddComponent (undefined4 param_1,int param_2,int param_3,undefined4 param_4,undefined4 param_5); /* 0x100027e0 */
 int CosUtil_AddChore(int param_1); /* 0x10002880 */
 undefined4 __cdecl CosUtil_DeleteChore(int param_1,uint param_2); /* 0x100028f0 */
 int __cdecl CosUtil_SetChoreLength(int param_1,uint param_2,uint param_3); /* 0x100029e0 */
@@ -140,7 +140,7 @@ void FUN_10006730(char *param_1,int param_2); /* 0x10006730 */
 void FUN_10006760(void); /* 0x10006760 */
 void FUN_10006790(void); /* 0x10006790 */
 void FUN_10006810(int param_1); /* 0x10006810 */
-void FUN_10006890(int param_1); /* 0x10006890 */
+int FUN_10006890(void); /* 0x10006890 */
 void FUN_100068b0(uint param_1); /* 0x100068b0 */
 void FUN_100068f0(int param_1,int param_2); /* 0x100068f0 */
 void FUN_10006920(uint param_1); /* 0x10006920 */
@@ -185,11 +185,11 @@ void FUN_100089e0(int param_1); /* 0x100089e0 */
 uint FUN_10008bc0(uint param_1,uint param_2); /* 0x10008bc0 */
 void FUN_10008c00(undefined4 param_1,uint param_2); /* 0x10008c00 */
 uint FUN_10008c20(uint param_1); /* 0x10008c20 */
-void FUN_10008cc0(void); /* 0x10008cc0 */
+int FUN_10008cc0(void); /* 0x10008cc0 */
 uint FUN_10008d50(int param_1,uint param_2); /* 0x10008d50 */
 undefined4 FUN_10008df0(int param_1,int param_2); /* 0x10008df0 */
-void FUN_10008e60(int param_1,int param_2); /* 0x10008e60 */
-undefined4 FUN_10008ed0(int param_1,int param_2); /* 0x10008ed0 */
+int FUN_10008e60(void); /* 0x10008e60 */
+int FUN_10008ed0(int param_1,int param_2); /* 0x10008ed0 */
 void FUN_10008f70(int param_1,undefined4 *param_2); /* 0x10008f70 */
 void FUN_10008f90(undefined4 *param_1); /* 0x10008f90 */
 undefined4 FUN_10008fa0(int *param_1); /* 0x10008fa0 */
@@ -203,7 +203,7 @@ void FUN_10009310(char *param_1,int param_2,int param_3); /* 0x10009310 */
 int * FUN_100093b0(undefined4 param_1,undefined4 param_2,int *param_3,char *param_4); /* 0x100093b0 */
 void FUN_10009440(uint *param_1,uint *param_2); /* 0x10009440 */
 void FUN_10009500(void); /* 0x10009500 */
-void FUN_10009510(int param_1); /* 0x10009510 */
+int FUN_10009510(void); /* 0x10009510 */
 undefined4 FUN_10009580(undefined4 param_1); /* 0x10009580 */
 int FUN_100095a0(uint param_1,int param_2); /* 0x100095a0 */
 int FUN_100095f0(int param_1); /* 0x100095f0 */
@@ -211,7 +211,7 @@ void FUN_10009650(void); /* 0x10009650 */
 int __stdcall FUN_10009710(int a1,int a2,int a3,int a4); /* 0x10009710 */
 undefined4 FUN_10009730(void); /* 0x10009730 */
 uint FUN_100097e0(int param_1); /* 0x100097e0 */
-void FUN_10009b60(undefined4 *param_1); /* 0x10009b60 */
+void FUN_10009b60(int param_1); /* 0x10009b60 */
 uint FUN_10009da0(undefined4 param_1,char *param_2,int param_3); /* 0x10009da0 */
 undefined4 FUN_10009ea0(void); /* 0x10009ea0 */
 undefined4 FUN_1000a0a0(void); /* 0x1000a0a0 */
@@ -252,7 +252,7 @@ undefined4 FUN_1000c650(int *param_1); /* 0x1000c650 */
 void FUN_1000c6c0(void); /* 0x1000c6c0 */
 int FUN_1000c6d0(int param_1); /* 0x1000c6d0 */
 undefined4 FUN_1000c790(int param_1,undefined4 param_2,undefined4 param_3,int *param_4); /* 0x1000c790 */
-void FUN_1000ca50(uint param_1); /* 0x1000ca50 */
+int FUN_1000ca50(void); /* 0x1000ca50 */
 int FUN_1000cad0(void); /* 0x1000cad0 */
 int FUN_1000cae0(void); /* 0x1000cae0 */
 undefined4 FUN_1000caf0(uint param_1,undefined4 param_2,undefined4 param_3); /* 0x1000caf0 */

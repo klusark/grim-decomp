@@ -10,7 +10,7 @@
    Cos_NewStateBasedTag/Cos_NewIntTag): slot 1 of the iMuse Sequence / iMuse State integer tags:
    registers the key with Cos_RegisterComponent. */
 
-bool ImuseIntComponent_Create(uint param_1,int param_2,int param_3,int param_4)
+int ImuseIntComponent_Create(uint param_1,int param_2,int param_3,int param_4)
 
 {
   char *pcVar1;

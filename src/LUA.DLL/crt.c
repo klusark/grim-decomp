@@ -1,5 +1,5 @@
 /* LUA.DLL :: crt.c
- * functions 0x1000ef80 .. 0x10021ef0 (233 functions)
+ * functions 0x1000ef80 .. 0x10021ef0 (235 functions)
  * Decompiled from the shipped binaries with Ghidra; see ../../README.md */
 #include "ghidra_types.h"
 #include "globals.h"
@@ -2566,12 +2566,12 @@ uint __cdecl _toupper_lk(uint param_1)
 #undef local_8
 
 
-/* ---- 0x10011d50  _CIsqrt ---- */
+/* ---- 0x10011d50  _CIasin ---- */
 /* NOT COMPILED: names/lib_replace.json (host): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
-/* MSVC 6 C runtime (matched against the EXE runtime by structure) */
+/* MSVC CRT: asin with the argument in ST(0) (was misnamed _CIsqrt) */
 
-float __cdecl _CIsqrt(void)
+float __cdecl _CIasin(void)
 
 {
   float10 in_ST0;
@@ -2580,18 +2580,18 @@ float __cdecl _CIsqrt(void)
   
   dVar2 = (double)in_ST0;
   FUN_10018ec8(SUB84(dVar2,0),(uint)((ulonglong)dVar2 >> 0x20));
-  fVar1 = (float10)((code *)_sqrt)(SUB84(dVar2,0),(uint)((ulonglong)dVar2 >> 0x20));
+  fVar1 = (float10)((code *)_asin)(SUB84(dVar2,0),(uint)((ulonglong)dVar2 >> 0x20));
   return (float)fVar1;
 }
 #endif
 
 
-/* ---- 0x10011d6d  _sqrt ---- */
+/* ---- 0x10011d6d  _asin ---- */
 /* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
-/* MSVC 6 C runtime (matched against the EXE runtime by structure) */
+/* MSVC CRT: asin core (was misnamed _sqrt) */
 
-void __cdecl _sqrt(int param_1,uint param_2)
+void __cdecl _asin(int param_1,uint param_2)
 
 {
   uint in_EAX;
@@ -2622,6 +2622,70 @@ LAB_10011dfc:
     else if ((0x3ff00000 < in_EAX) || ((param_2 & 0xfffff) != 0 || param_1 != 0)) goto LAB_10011dfc;
     if (DAT_1002bf88 == 0) {
       FUN_10018eeb(&DAT_100288d0,0xe,unaff_retaddr,param_1,param_2);
+      return;
+    }
+  }
+  return;
+}
+#endif
+
+
+/* ---- 0x10011e20  _CIacos ---- */
+/* NOT COMPILED: names/lib_replace.json (host): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
+/* MSVC CRT: acos with the argument in ST(0) */
+
+float __cdecl _CIacos(void)
+
+{
+  float10 in_ST0;
+  float10 fVar1;
+  double dVar2;
+  
+  dVar2 = (double)in_ST0;
+  FUN_10018ec8(SUB84(dVar2,0),(uint)((ulonglong)dVar2 >> 0x20));
+  fVar1 = (float10)((code *)_acos)(SUB84(dVar2,0),(uint)((ulonglong)dVar2 >> 0x20));
+  return (float)fVar1;
+}
+#endif
+
+
+/* ---- 0x10011e3d  _acos ---- */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
+/* MSVC CRT: acos core */
+
+void __cdecl _acos(int param_1,uint param_2)
+
+{
+  uint in_EAX;
+  bool in_ZF;
+  ushort in_FPUControlWord;
+  float10 in_ST0;
+  float10 extraout_ST0;
+  undefined4 unaff_retaddr;
+  
+  if (in_ZF) {
+    if (((in_EAX & 0xfffff) != 0) || (param_1 != 0)) {
+      FUN_10018e6c();
+    }
+LAB_10011ecc:
+    if (DAT_1002bf88 == 0) {
+      FUN_10018df7(&DAT_100288e0,0xd,in_FPUControlWord,unaff_retaddr,param_1,param_2);
+      return;
+    }
+  }
+  else {
+    if (in_FPUControlWord != 0x27f) {
+      in_EAX = FUN_10018e55();
+      in_ST0 = extraout_ST0;
+    }
+    if (in_EAX < 0x3ff00000) {
+      fpatan(SQRT(((float10)1 - in_ST0) * ((float10)1 + in_ST0)),in_ST0);
+    }
+    else if ((0x3ff00000 < in_EAX) || ((param_2 & 0xfffff) != 0 || param_1 != 0)) goto LAB_10011ecc;
+    if (DAT_1002bf88 == 0) {
+      FUN_10018eeb(&DAT_100288e0,0xd,unaff_retaddr,param_1,param_2);
       return;
     }
   }
@@ -6326,7 +6390,7 @@ LAB_100164f9:
 /* ---- 0x10016510  _isindst ---- */
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
 
-bool __cdecl _isindst(int *param_1)
+int __cdecl _isindst(int *param_1)
 
 {
   bool bVar1;
@@ -6340,7 +6404,7 @@ bool __cdecl _isindst(int *param_1)
 /* ---- 0x10016540  _isindst_lk ---- */
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
 
-bool __cdecl _isindst_lk(int *param_1)
+int __cdecl _isindst_lk(int *param_1)
 
 {
   uint uVar1;
@@ -7160,7 +7224,7 @@ switchD_1001939b_default:
 #if 0
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
 
-bool __cdecl _handle_exc(uint param_1,double *param_2,uint param_3)
+int __cdecl _handle_exc(uint param_1,double *param_2,uint param_3)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -9492,7 +9556,7 @@ void __cdecl _fptostr(char *param_1,int param_2,int param_3)
 /* ---- 0x1001de60  _ValidateRead ---- */
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
 
-bool __cdecl _ValidateRead(int param_1,int param_2)
+int __cdecl _ValidateRead(int param_1,int param_2)
 
 {
   int iVar1;
@@ -9504,7 +9568,7 @@ bool __cdecl _ValidateRead(int param_1,int param_2)
 /* ---- 0x1001de80  _ValidateWrite ---- */
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
 
-bool __cdecl _ValidateWrite(int param_1,int param_2)
+int __cdecl _ValidateWrite(int param_1,int param_2)
 
 {
   int iVar1;
@@ -9516,7 +9580,7 @@ bool __cdecl _ValidateWrite(int param_1,int param_2)
 /* ---- 0x1001dea0  _ValidateExecute ---- */
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
 
-bool __cdecl _ValidateExecute(int param_1)
+int __cdecl _ValidateExecute(int param_1)
 
 {
   int iVar1;
@@ -9747,7 +9811,7 @@ void __cdecl _getbuf(int *param_1)
 /* ---- 0x1001e3b0  _isatty ---- */
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
 
-byte __cdecl _isatty(uint param_1)
+uint __cdecl _isatty(uint param_1)
 
 {
   if (DAT_1002c700 <= param_1) {

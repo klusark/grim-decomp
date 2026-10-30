@@ -286,7 +286,7 @@ void __cdecl luaU_LoadLocals(int param_1,uint *param_2)
 }
 
 /* ---- 0x1000d230  luaU_LoadConstants ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Unidentified function of lundump.c (precompiled chunk loader) */
 
@@ -335,7 +335,7 @@ void __cdecl luaU_LoadConstants(int param_1,undefined4 *param_2)
 
 
 /* ---- 0x1000d2f0  luaU_LoadNumber ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Unidentified function of lundump.c (precompiled chunk loader) */
 
@@ -368,7 +368,7 @@ float __cdecl luaU_LoadNumber(undefined4 *param_1)
 /* ---- 0x1000d360  lundump__d360 ---- */
 /* Unidentified function of lundump.c (precompiled chunk loader) */
 
-void __cdecl lundump__d360(undefined1 *param_1)
+int __cdecl lundump__d360(undefined1 *param_1)
 
 {
   undefined1 uVar1;
@@ -379,13 +379,13 @@ void __cdecl lundump__d360(undefined1 *param_1)
   uVar1 = param_1[1];
   param_1[1] = param_1[2];
   param_1[2] = uVar1;
-  return;
+  return (int)(param_1 + 2);
 }
 
 /* ---- 0x1000d380  lundump__d380 ---- */
 /* Unidentified function of lundump.c (precompiled chunk loader) */
 
-void __cdecl lundump__d380(undefined1 *param_1)
+int __cdecl lundump__d380(undefined1 *param_1)
 
 {
   undefined1 uVar1;
@@ -402,7 +402,7 @@ void __cdecl lundump__d380(undefined1 *param_1)
   uVar1 = param_1[3];
   param_1[3] = param_1[4];
   param_1[4] = uVar1;
-  return;
+  return (int)(param_1 + 4);
 }
 
 /* ---- 0x1000d3c0  lundump__d3c0 ---- */
@@ -434,7 +434,7 @@ void __cdecl lundump__d3c0(int param_1,int *param_2)
 }
 
 /* ---- 0x1000d420  luaU_loadheader ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* lundump.c: binary file %s too new/old version */
 
@@ -513,7 +513,7 @@ void __cdecl luaU_LoadSignature(int *param_1)
 }
 
 /* ---- 0x1000d5c0  luaU_str2number ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* lundump.c: parses %lf %c */
 
@@ -532,7 +532,7 @@ undefined4 __cdecl luaU_str2number(int *param_1)
   iVar2 = sscanf((char *)(param_1[1] + 0x18),s__lf__c_10028170,&local_8,&param_1);
   if (iVar2 == 1) {
     *piVar1 = -1;
-    piVar1[1] = (int)(float)local_8;
+    piVar1[1] = PUN(int,(float)(float)local_8);
     return 0;
   }
   return 2;
@@ -543,7 +543,7 @@ undefined4 __cdecl luaU_str2number(int *param_1)
 
 
 /* ---- 0x1000d620  lundump__d620 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Unidentified function of lundump.c (precompiled chunk loader) */
 
