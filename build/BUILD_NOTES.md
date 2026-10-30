@@ -960,9 +960,15 @@ the data folder are deleted at the end), retries a boot that failed because the 
 and prints the crash header of `grim_crash_<tag>.txt` on a failure.
 
 Remaining / notes:
-* An intermittent crash seen once in 76 loads (grim90, `Mem_Copy` +0x5a writing past the end of a block, a 0x280 byte copy)
-  did not reproduce in 10 more loads of the same save and in three more full runs; no crash dump survived. Treat it as a latent
-  fastpaths / rendering issue until it is seen again.
+* **An intermittent crash after a load** (3 of about 380 loads of fresh games, always a write fault exactly at a page boundary):
+  `grim38` and `grim72`: `Set_SwitchSetup` (first frame after `Load`) -> `Render_ConvertBackground` -> `Surface_CopyConvert` ->
+  `stdCompress_Decompress` -> `stdCompress_DecompressLoop` +0xf5 writes past the end of the 0x4b000 byte destination (the LZSS
+  loop of the set's background / z-buffer bitmap into `g_pTempSurface`); `grim90` once in `Mem_Copy` (0x280 bytes). Neither
+  reproduces when the same save is loaded again (60 + 250 loads in one game, 40 fresh games each for grim38 and grim72, with and
+  without CPU load, 76 fresh games one per save): not a function of the save contents. Looks like a stale /
+  too small temp surface or a purged resource under memory-budget pressure, not like a load-format problem, and it is not
+  understood. `oldsaves.py` keeps the full crash report in `%TEMP%\grim_<tag>_lastcrash.txt`, retries a crashed save once and
+  prints "FLAKY" when the retry passes.
 * No dialect detection for the saves of the in-between builds: a marker would change the format, and as it is original and
   rebuilt saves are interchangeable in layout.
 * Ghidra: nothing required. Useful names for the next naming pass: `TextObject+0x254` speaker actor, `+0x258` flags
