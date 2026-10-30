@@ -430,7 +430,7 @@ void Costume_TouchComponents(int param_1)
 
 
 /* ---- 0x00495730  Costume_UpdateAll ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 void __cdecl Costume_UpdateAll(void *costumeList,float dt)
 

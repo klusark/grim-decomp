@@ -602,7 +602,8 @@ void Render_DrawDebugGrid(void)
     local_18[2] = 0.0;
     local_18[1] = local_1c;
     local_c[1] = local_1c;
-    rdPrimit3_DrawLine(local_c,local_18,0,0,0,0,UINT_008c97c8 & 0xffff,0xff00ff00);
+    rdPrimit3_DrawLine(local_c,local_18,(int *)0x0,(int *)0x0,(int *)0x0,(int *)0x0,
+                       UINT_008c97c8 & 0xffff,0xff00ff00);
     local_1c = local_1c - -0.1;
     iVar1 = iVar1 + -1;
   } while (iVar1 != 0);
@@ -615,7 +616,8 @@ void Render_DrawDebugGrid(void)
     local_18[2] = 0.0;
     local_18[0] = local_1c;
     local_c[0] = local_1c;
-    rdPrimit3_DrawLine(local_c,local_18,0,0,0,0,UINT_008c97c8 & 0xffff,0xff00ff00);
+    rdPrimit3_DrawLine(local_c,local_18,(int *)0x0,(int *)0x0,(int *)0x0,(int *)0x0,
+                       UINT_008c97c8 & 0xffff,0xff00ff00);
     local_1c = local_1c - -0.1;
     iVar1 = iVar1 + -1;
   } while (iVar1 != 0);
@@ -625,21 +627,24 @@ void Render_DrawDebugGrid(void)
   local_18[0] = 2.0;
   local_18[1] = 0.0;
   local_18[2] = 0.0;
-  rdPrimit3_DrawLine(local_c,local_18,0,0,0,0,DAT_008c97c6,0xffffffff);
+  rdPrimit3_DrawLine(local_c,local_18,(int *)0x0,(int *)0x0,(int *)0x0,(int *)0x0,(uint)DAT_008c97c6
+                     ,0xffffffff);
   local_c[0] = 0.0;
   local_c[1] = 0.0;
   local_c[2] = 0.0;
   local_18[0] = 0.0;
   local_18[1] = 2.0;
   local_18[2] = 0.0;
-  rdPrimit3_DrawLine(local_c,local_18,0,0,0,0,DAT_008c97c6,0xffffffff);
+  rdPrimit3_DrawLine(local_c,local_18,(int *)0x0,(int *)0x0,(int *)0x0,(int *)0x0,(uint)DAT_008c97c6
+                     ,0xffffffff);
   local_c[0] = 0.0;
   local_c[1] = 0.0;
   local_c[2] = 0.0;
   local_18[0] = 0.0;
   local_18[1] = 0.0;
   local_18[2] = 2.0;
-  rdPrimit3_DrawLine(local_c,local_18,0,0,0,0,DAT_008c97c6,0xffffffff);
+  rdPrimit3_DrawLine(local_c,local_18,(int *)0x0,(int *)0x0,(int *)0x0,(int *)0x0,(uint)DAT_008c97c6
+                     ,0xffffffff);
   return;
 }
 #undef local_18
@@ -795,7 +800,7 @@ void __cdecl Render_InvalidateBackground(int redrawBackground,int redrawDepth)
 
 
 /* ---- 0x004864a0  Render_BuildColorTable ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_40 */
 /* Fills the 65536-entry 16-bit remap table g_wColorTable for the pixel format and gamma */
@@ -1135,7 +1140,7 @@ void Render_SetDrawEnabled(int param_1)
 }
 
 /* ---- 0x00486d00  Render_DrawIris ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Blacks out the back buffer outside a rectangle centred on (x,y) that has closed by `percent` (0 =
    fully open, 1 = closed) */
@@ -1276,7 +1281,7 @@ uint Render_IsIrisDone(void)
 }
 
 /* ---- 0x00486f90  Render_CaptureThumbnail ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Renders a dimmed frame and scales the background down into a new w x h bitmap (save game
    thumbnail) */
@@ -1358,11 +1363,11 @@ void * __cdecl Render_CaptureThumbnail(int w,int h)
 
 
 /* ---- 0x004870e0  Render_FillRect ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-void __cdecl Render_FillRect(int x,int y,int w,int h,float r,float g,float b)
+void __cdecl Render_FillRect(int x,int y,int w,int h,float scale)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1553,7 +1558,7 @@ void __cdecl Render_SaveScreenshotBmp(char *filename)
 
 
 /* ---- 0x004873d0  Render_DrawProgressBar ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Draws the save/load progress bar directly on the primary surface */
 

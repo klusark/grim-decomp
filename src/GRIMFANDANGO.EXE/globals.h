@@ -205,7 +205,6 @@ extern void ** g_pOnExitEnd; /* 0x00906c10 */
 extern void ** g_pOnExitBegin; /* 0x00906c14 */
 
 /* ---- unnamed data (type inferred from use) ---- */
-extern undefined4 in_stack_00000008; /* used by 1 fn(s), first 0x00498ea0 */
 extern undefined4 in_stack_00000010; /* used by 1 fn(s), first 0x004ac720 */
 extern undefined DAT_004891a0; /* used by 1 fn(s), first 0x00488fb0 */
 extern code LAB_004af680;  /* code label (address only) */ /* used by 2 fn(s), first 0x004af6a2 */

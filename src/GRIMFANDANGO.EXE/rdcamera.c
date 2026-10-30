@@ -183,7 +183,7 @@ void __cdecl rdCamera_SetZoom(void *camera,float zoom)
 }
 
 /* ---- 0x0040a280  rdCamera_BuildProjection ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_14 */
 /* Computes the projection scale from FOV and canvas size and the frustum planes */
@@ -544,7 +544,7 @@ void rdCamera_ResetStats(void)
 }
 
 /* ---- 0x0040dc30  rdCamera_ProjectPoint ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Lua WorldToScreen; returns 0 when the point is behind the camera */
 

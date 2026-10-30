@@ -949,38 +949,37 @@ undefined4 CosUtil_CountComponents(int param_1)
 }
 
 /* ---- 0x10002e40  CosUtil_ComponentInfo ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
-void CosUtil_ComponentInfo
-               (int param_1,uint param_2,int *param_3,undefined4 *param_4,undefined4 *param_5,
-               int *param_6)
+int __cdecl
+CosUtil_ComponentInfo(int cos,uint index,int *outTag,undefined4 *outA,undefined4 *outB,int *outKind)
 
 {
   int *piVar1;
   int iVar2;
   
                     /* 0x2e40  10  CosUtil_ComponentInfo */
-  if (param_1 == 0) {
+  if (cos == 0) {
     (**(code **)(DAT_100143a8 + 0x18))(IMG_ADDR(0x1001034c),s_C__grimsrc_libs_chore_Costume_c_1001020c,0x797);
   }
-  if (*(uint *)(param_1 + 0x28) <= param_2) {
+  if (*(uint *)(cos + 0x28) <= index) {
     (**(code **)(DAT_100143a8 + 0x18))(IMG_ADDR(0x10010444),s_C__grimsrc_libs_chore_Costume_c_1001020c,0x798);
   }
-  iVar2 = *(int *)(param_1 + 0x2c) + param_2 * 0x40;
+  iVar2 = *(int *)(cos + 0x2c) + index * 0x40;
   piVar1 = PTR_100143c0 + *(int *)(iVar2 + 0x20) * 0x17;
-  if (param_3 != (int *)0x0) {
-    *param_3 = *piVar1;
+  if (outTag != (int *)0x0) {
+    *outTag = *piVar1;
   }
-  if (param_4 != (undefined4 *)0x0) {
-    *param_4 = *(undefined4 *)(iVar2 + 0x24);
+  if (outA != (undefined4 *)0x0) {
+    *outA = *(undefined4 *)(iVar2 + 0x24);
   }
-  if (param_6 != (int *)0x0) {
-    *param_6 = piVar1[1];
+  if (outKind != (int *)0x0) {
+    *outKind = piVar1[1];
   }
-  if (param_5 != (undefined4 *)0x0) {
-    *param_5 = *(undefined4 *)(iVar2 + 0x2c);
+  if (outB != (undefined4 *)0x0) {
+    *outB = *(undefined4 *)(iVar2 + 0x2c);
   }
-  return;
+  return iVar2;
 }
 #endif
 

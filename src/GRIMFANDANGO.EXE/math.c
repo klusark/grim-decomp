@@ -95,7 +95,7 @@ float __cdecl Math_NormalizeAngle180(float param_1)
 
 
 /* ---- 0x0047bd20  Math_SinCosTable ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_30 */
 /* Math_SinCosTable(deg, &sin, &cos): 4096-entry quarter table, interpolated, per quadrant. Some
@@ -259,7 +259,7 @@ float __cdecl Math_Floor(float param_1)
 
 
 /* ---- 0x0047c120  Math_SinDeg ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_30 */
 /* Table/polynomial sine of an angle in degrees */

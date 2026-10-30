@@ -87,54 +87,54 @@ void Collision_PushOutOfBox
 
 
 /* ---- 0x00492510  Collision_PointInBox ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 undefined4 __cdecl
 Collision_PointInBox
-          (float *param_1,float *param_2,undefined4 param_3,uint param_4,uint param_5,uint param_6,
-          uint param_7,uint param_8,uint param_9,uint param_10,float *param_11)
+          (float *a,float *b,float *p3,float bx0,float by0,float bz0,float bx1,float by1,float bz1,
+          float *p10,float *offset)
 
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   undefined4 uVar1;
   int iVar2;
-  uint *puVar3;
-  uint *puVar4;
-  #define auStack_38 (*(uint (*)[4])(_frame + (0x50 - 0x38)))
+  float *pfVar3;
+  float *pfVar4;
+  #define afStack_38 (*(float (*)[4])(_frame + (0x50 - 0x38)))
   #define pfStack_28 (*(float **)(_frame + (0x50 - 0x28)))
   #define pfStack_24 (*(float **)(_frame + (0x50 - 0x24)))
-  #define uStack_20 (*(uint *)(_frame + (0x50 - 0x20)))
+  #define pfStack_20 (*(float **)(_frame + (0x50 - 0x20)))
   #define local_c (*(float (*)[3])(_frame + (0x50 - 0xc)))
   
-  local_c[0] = *param_11 + *param_1;
-  uStack_20 = param_10;
-  param_4 = PUN(uint,(float)(*param_11 + *param_2));
-  local_c[1] = param_1[1] + param_11[1];
-  param_5 = PUN(uint,(float)(param_2[1] + param_11[1]));
-  local_c[2] = param_1[2] + param_11[2];
-  param_6 = PUN(uint,(float)(param_2[2] + param_11[2]));
-  puVar3 = &param_4;
-  puVar4 = auStack_38;
+  local_c[0] = *offset + *a;
+  pfStack_20 = p10;
+  bx0 = *offset + *b;
+  local_c[1] = a[1] + offset[1];
+  by0 = b[1] + offset[1];
+  local_c[2] = a[2] + offset[2];
+  bz0 = b[2] + offset[2];
+  pfVar3 = &bx0;
+  pfVar4 = afStack_38;
   for (iVar2 = 6; iVar2 != 0; iVar2 = iVar2 + -1) {
-    *puVar4 = *puVar3;
-    puVar3 = puVar3 + 1;
-    puVar4 = puVar4 + 1;
+    *pfVar4 = *pfVar3;
+    pfVar3 = pfVar3 + 1;
+    pfVar4 = pfVar4 + 1;
   }
-  uStack_20 = ((code *)Collision_SegmentHitsBox)(local_c,&param_4,param_3);
-  if (uStack_20 == 0) {
-    pfStack_24 = param_2;
-    pfStack_28 = param_1;
-    auStack_38[3] = 0x4925a6;
+  pfStack_20 = (float *)((code *)Collision_SegmentHitsBox)(local_c,&bx0,p3);
+  if (pfStack_20 == (float *)0x0) {
+    pfStack_24 = b;
+    pfStack_28 = a;
+    afStack_38[3] = 6.717497e-39;
     uVar1 = ((code *)Planner_PlanPath)();
     return uVar1;
   }
   return 0;
 }
-#undef auStack_38
+#undef afStack_38
 #undef local_c
+#undef pfStack_20
 #undef pfStack_24
 #undef pfStack_28
-#undef uStack_20
 
 #endif
 
@@ -561,7 +561,7 @@ LAB_004940c6:
 
 
 /* ---- 0x00494100  Collision_BoxSlide ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_58 */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */

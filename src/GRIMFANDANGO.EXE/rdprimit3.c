@@ -6,7 +6,7 @@
 #include "functions.h"
 
 /* ---- 0x00409d50  rdPrimit3_DrawPolygon ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 void * __cdecl rdPrimit3_DrawPolygon(float *verts,int count,void *material)
 
@@ -123,14 +123,14 @@ void * __cdecl rdPrimit3_DrawPolygon(float *verts,int count,void *material)
 
 
 /* ---- 0x0040dcc0  rdPrimit3_DrawLine ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Clips a world-space segment against the camera frustum, projects it and draws it with
    rdCanvas_DrawLine */
 
-undefined4
-rdPrimit3_DrawLine(float *param_1,float *param_2,int *param_3,int *param_4,int *param_5,int *param_6
-                  ,ushort param_7,uint param_8)
+undefined4 __cdecl
+rdPrimit3_DrawLine(float *a,float *b,int *outA,int *outB,int *clipA,int *clipB,uint color,
+                  uint pattern)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -148,28 +148,28 @@ rdPrimit3_DrawLine(float *param_1,float *param_2,int *param_3,int *param_4,int *
   #define local_18 (*(float (*)[3])(_frame + (0x40 - 0x18)))
   #define local_c (*(float (*)[3])(_frame + (0x40 - 0xc)))
   
-  Vec3_Sub(local_18,param_1,(float *)((int)g_pRdCurrentCamera + 8));
-  Vec3_Sub(local_c,param_2,(float *)((int)g_pRdCurrentCamera + 8));
-  iVar1 = rdClip_Line3(*(void **)((int)g_pRdCurrentCamera + 0x48),local_18,local_c,param_5,param_6);
+  Vec3_Sub(local_18,a,(float *)((int)g_pRdCurrentCamera + 8));
+  Vec3_Sub(local_c,b,(float *)((int)g_pRdCurrentCamera + 8));
+  iVar1 = rdClip_Line3(*(void **)((int)g_pRdCurrentCamera + 0x48),local_18,local_c,clipA,clipB);
   if (iVar1 != 0) {
     (**(code **)((int)g_pRdCurrentCamera + 0x4c))(local_30,local_18);
     (**(code **)((int)g_pRdCurrentCamera + 0x4c))(auStack_24,local_c);
     lVar2 = _ftol((double)CONCAT44(unaff_ESI,unaff_EBX));
     lVar3 = _ftol((double)CONCAT44(unaff_ESI,unaff_EBX));
-    if (param_3 != (int *)0x0) {
-      *param_3 = (int)lVar2;
-      param_3[1] = (int)lVar3;
-      param_3[2] = iStack_28;
+    if (outA != (int *)0x0) {
+      *outA = (int)lVar2;
+      outA[1] = (int)lVar3;
+      outA[2] = iStack_28;
     }
     lVar4 = _ftol((double)CONCAT44(unaff_ESI,unaff_EBX));
     lVar5 = _ftol((double)CONCAT44(unaff_ESI,unaff_EBX));
-    if (param_4 != (int *)0x0) {
-      *param_4 = (int)lVar4;
-      param_4[1] = (int)lVar5;
-      param_4[2] = iStack_1c;
+    if (outB != (int *)0x0) {
+      *outB = (int)lVar4;
+      outB[1] = (int)lVar5;
+      outB[2] = iStack_1c;
     }
     rdCanvas_DrawLine(*(void **)((int)g_pRdCurrentCamera + 4),(int)lVar2,(int)lVar3,(int)lVar4,
-                      (int)lVar5,param_7,param_8);
+                      (int)lVar5,(ushort)color,pattern);
     return 1;
   }
   return 0;
@@ -185,11 +185,11 @@ rdPrimit3_DrawLine(float *param_1,float *param_2,int *param_3,int *param_4,int *
 
 
 /* ---- 0x0040dde0  rdPrimit3_DrawPoint ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Projects a world-space point with a radius and draws it as a 2D point */
 
-void rdPrimit3_DrawPoint(float *param_1,float param_2,undefined4 param_3)
+void __cdecl rdPrimit3_DrawPoint(float *world,float radius,uint a3,uint a4,uint a5)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -201,15 +201,15 @@ void rdPrimit3_DrawPoint(float *param_1,float param_2,undefined4 param_3)
   #define local_18 (*(float (*)[3])(_frame + (0x40 - 0x18)))
   #define afStack_c (*(float (*)[3])(_frame + (0x40 - 0xc)))
   
-  Vec3_Sub(&local_30,param_1,(float *)((int)g_pRdCurrentCamera + 8));
-  local_24[0] = local_30 + param_2;
+  Vec3_Sub(&local_30,world,(float *)((int)g_pRdCurrentCamera + 8));
+  local_24[0] = local_30 + radius;
   local_24[1] = local_2c[0];
   local_24[2] = local_2c[1];
   if (0.0 < local_2c[0]) {
     (**(code **)((int)g_pRdCurrentCamera + 0x4c))(local_18,&local_30);
     (**(code **)((int)g_pRdCurrentCamera + 0x4c))(afStack_c,local_24);
     fVar2 = afStack_c[0] - local_18[0];
-    lVar1 = _ftol((double)CONCAT44(param_3,fVar2));
+    lVar1 = _ftol((double)CONCAT44(a3,fVar2));
     lVar1 = _ftol((double)CONCAT44(fVar2,(int)lVar1));
     ((code *)rdCanvas_DrawPoint)(*(undefined4 *)((int)g_pRdCurrentCamera + 4),(int)lVar1);
   }
@@ -225,7 +225,7 @@ void rdPrimit3_DrawPoint(float *param_1,float param_2,undefined4 param_3)
 
 
 /* ---- 0x0040deb0  rdPrimit3_ClipFace ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Clips one face against the frustum; the switch selects the vertex attribute set from the
    geometry/lighting modes */

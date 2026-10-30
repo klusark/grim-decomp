@@ -240,7 +240,7 @@ undefined4 * FUN_004985c0(int param_1,undefined4 *param_2,int param_3)
 
 
 /* ---- 0x004986e0  SpriteComponent_EditKey ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Costume tag handler for 'Sprite' (registered by sputCostume_Start through
    Cos_NewStateBasedTag/Cos_NewIntTag): slot 4, editor dialog for the sprite's Width and Height. */

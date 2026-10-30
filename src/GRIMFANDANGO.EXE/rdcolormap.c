@@ -222,7 +222,7 @@ void rdColormap_FreeEntry(int param_1)
 }
 
 /* ---- 0x004047e0  rdColormap_Build16bitTables ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Converts the 256-entry palette into 16-bit pixel values for 64 light levels using the
    pixel-format shifts */

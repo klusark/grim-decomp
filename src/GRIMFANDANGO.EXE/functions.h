@@ -411,7 +411,7 @@ undefined4 DDraw_SetPalette(undefined1 *param_1); /* 0x00476dc0 */
 void * __cdecl DIB_CreateSurface(void *mode,void *surface,void *palette,void *hwnd); /* 0x00476e40 */
 void DIB_ReleaseSurface(void); /* 0x00476ee0 */
 void __cdecl Display_SetPalette3D(void *palette,int flags); /* 0x00478fc0 */
-void Palette_FromFloatTable(undefined1 *param_1,undefined4 param_2,int param_3); /* 0x0047b610 */
+void __cdecl Palette_FromFloatTable(byte *out,byte *in,int n,double gamma); /* 0x0047b610 */
 void __cdecl Pixel_Convert(ushort *dst,int dstFormat,ushort *src,int srcFormat,uint count); /* 0x0047b8a0 */
 int Pixel_ConvertOne(int param_1,undefined4 param_2,int param_3); /* 0x0047bbb0 */
 
@@ -544,8 +544,8 @@ undefined4 rdModel_AddMeshToCache(int param_1,int param_2); /* 0x0040d880 */
 
 /* ===== rdprimit3.c ===== */
 void * __cdecl rdPrimit3_DrawPolygon(float *verts,int count,void *material); /* 0x00409d50 */
-undefined4 rdPrimit3_DrawLine(float *param_1,float *param_2,int *param_3,int *param_4,int *param_5,int *param_6 ,ushort param_7,uint param_8); /* 0x0040dcc0 */
-void rdPrimit3_DrawPoint(float *param_1,float param_2,undefined4 param_3); /* 0x0040dde0 */
+undefined4 __cdecl rdPrimit3_DrawLine(float *a,float *b,int *outA,int *outB,int *clipA,int *clipB,uint color, uint pattern); /* 0x0040dcc0 */
+void __cdecl rdPrimit3_DrawPoint(float *world,float radius,uint a3,uint a4,uint a5); /* 0x0040dde0 */
 void rdPrimit3_ClipFace(undefined4 param_1,undefined4 param_2,int param_3,undefined4 param_4, uint *param_5,undefined4 *param_6,float *param_7); /* 0x0040deb0 */
 void rdPrimit3_CopyFaceVerts (undefined4 param_1,int param_2,undefined4 param_3,uint *param_4,uint *param_5, float *param_6); /* 0x0040e500 */
 
@@ -1539,7 +1539,7 @@ void __cdecl Render_StartIrisClose(int x,int y,int durationMs); /* 0x00486eb0 */
 void __cdecl Render_StartIrisOpen(int x,int y,int durationMs); /* 0x00486ef0 */
 uint Render_IsIrisDone(void); /* 0x00486f30 */
 void * __cdecl Render_CaptureThumbnail(int w,int h); /* 0x00486f90 */
-void __cdecl Render_FillRect(int x,int y,int w,int h,float r,float g,float b); /* 0x004870e0 */
+void __cdecl Render_FillRect(int x,int y,int w,int h,float scale); /* 0x004870e0 */
 void __cdecl Render_SaveScreen(char *filename); /* 0x00487260 */
 void __cdecl Render_SaveZBufferBmp(char *filename); /* 0x004872f0 */
 void __cdecl Render_SaveScreenshotBmp(char *filename); /* 0x00487340 */
@@ -1582,7 +1582,7 @@ void __cdecl Actor_SetTurnChores(void *actor,int leftChore,int rightChore,void *
 void __cdecl Actor_SetRestChore(void *actor,int chore,void *costume); /* 0x00490c80 */
 int __cdecl Actor_PushCostume(void *actor,char *name,int param_3); /* 0x00490d30 */
 void __cdecl Actor_PopCostume(void *actor,int free); /* 0x00490dd0 */
-void Actor_PuckOrient(float param_1); /* 0x00490f50 */
+void __cdecl Actor_PuckOrient(void *actor); /* 0x00490f50 */
 void Actor_UpdateWalker(int param_1); /* 0x00491110 */
 void Actor_UpdateMoveChores(int param_1); /* 0x004913f0 */
 void __cdecl Actor_SayLine(void *actor,char *text,int background,int volume,int pan,int x,int y); /* 0x00492b30 */
@@ -1659,7 +1659,7 @@ undefined * SetFile_ParseSectors(int param_1); /* 0x004a7bc0 */
 int __thiscall Sector_ClipPolygon(void *this,float *verts,int count,float *out); /* 0x004a8cb0 */
 float __thiscall Sector_EdgeDistance(void *this,int edge,float *point); /* 0x004a9070 */
 undefined4 __fastcall Sector_CollapseShortestEdge(void *param_1); /* 0x004a9180 */
-void __cdecl SectorList_ShrinkWalkSectors (float param_1,uint param_2,uint param_3,uint param_4,float param_5,float param_6, float param_7,float *param_8,float param_9,float param_10,float param_11,float param_12, uint param_13,double param_14); /* 0x004a9d00 */
+void __cdecl SectorList_ShrinkWalkSectors(float radius); /* 0x004a9d00 */
 
 /* ===== drawlist.c ===== */
 void DrawList_Reset(void); /* 0x00486250 */
@@ -1737,7 +1737,7 @@ void * __thiscall PrimitiveList_FindById(void *this,int id,void *after); /* 0x00
 void __cdecl Primitives_DrawAll(uint layerMask); /* 0x00489550 */
 void Primitives_Hide(void); /* 0x004895d0 */
 void Primitives_Show(void); /* 0x004895f0 */
-void __thiscall Primitive_Construct(void *this,int id,int unused); /* 0x0048a4b0 */
+void * __thiscall Primitive_Construct(void *this,int id,int unused); /* 0x0048a4b0 */
 int __thiscall Primitive_AddLine(void *this,int x1,int y1,int x2,int y2,int color,int layer); /* 0x0048a560 */
 int __thiscall Primitive_AddRect(void *this,int x1,int y1,int x2,int y2,int color,int filled,int layer); /* 0x0048a5b0 */
 int __thiscall Primitive_AddPolyline(void *this,int count,int *points,int color,int layer); /* 0x0048a600 */
@@ -1864,7 +1864,7 @@ void __thiscall Walker_SetConstraint(void *this,int a1); /* 0x004a85b0 */
 undefined * __thiscall Walker_WalkSectors(void *this,float step,int turnLeftOk,int turnRightOk); /* 0x004a8610 */
 void __thiscall Walker_SetSectorFrame(void *this,int a1); /* 0x004a89b0 */
 void __fastcall Walker_RebuildRightVector(int param_1); /* 0x004a8a90 */
-void __stdcall Walker_DrawDebugAxes(int color); /* 0x004a8b00 */
+void __thiscall Walker_DrawDebugAxes(void *this,int color); /* 0x004a8b00 */
 uint Planner_GetPath(undefined4 *param_1); /* 0x004a9420 */
 undefined4 Planner_PlanPath(undefined4 param_1,uint *param_2,int param_3); /* 0x004a9430 */
 undefined4 Planner_SearchSectors(float *param_1,float *param_2,void *param_3); /* 0x004a94d0 */
@@ -1875,7 +1875,7 @@ void * Planner_SharedSector(undefined4 param_1,float *param_2); /* 0x004a9ca0 */
 
 /* ===== collision.c ===== */
 void Collision_PushOutOfBox (float *param_1,float param_2,float param_3,float param_4,float param_5,float param_6 ,float param_7,float *param_8,float *param_9); /* 0x004922d0 */
-undefined4 __cdecl Collision_PointInBox (float *param_1,float *param_2,undefined4 param_3,uint param_4,uint param_5,uint param_6, uint param_7,uint param_8,uint param_9,uint param_10,float *param_11); /* 0x00492510 */
+undefined4 __cdecl Collision_PointInBox (float *a,float *b,float *p3,float bx0,float by0,float bz0,float bx1,float by1,float bz1, float *p10,float *offset); /* 0x00492510 */
 void Collision_BoxCorners(int param_1,float param_2,float *param_3,float param_4,float *param_5); /* 0x004925c0 */
 undefined4 Collision_SegmentHitsBox (float *param_1,float *param_2,float *param_3,float param_4,float param_5, undefined4 param_6,float param_7,float param_8,undefined4 param_9,float *param_10); /* 0x00492680 */
 int Collision_PickDetour(float *param_1,float *param_2,int param_3); /* 0x00492a50 */
@@ -1950,7 +1950,7 @@ undefined4 MeshComponent_Create(uint param_1,int param_2,int *param_3,int param_
 int FUN_00497180(undefined4 param_1,undefined4 param_2); /* 0x00497180 */
 
 /* ===== imusesoundcomponent.c ===== */
-void __cdecl ImuseSoundComponent_OnKey (int param_1,float param_2,undefined4 param_3,float param_4,uint param_5,uint param_6, uint param_7,uint param_8); /* 0x004971a0 */
+void __cdecl ImuseSoundComponent_OnKey (int tag,int snd,undefined4 param_3,int slot,uint param_5,uint param_6,uint param_7, uint inst); /* 0x004971a0 */
 undefined4 ImuseSoundComponent_EditKey(int *param_1,undefined4 param_2); /* 0x00497320 */
 int ImuseSoundComponent_Create(uint param_1,int param_2,int param_3,int param_4,char *param_5); /* 0x00497460 */
 undefined4 ImuseSoundComponent_Destroy(undefined4 param_1,undefined4 param_2,undefined4 param_3); /* 0x00497640 */

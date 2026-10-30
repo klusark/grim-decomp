@@ -24,7 +24,7 @@
 | 10002080 | Cos_RegisterComponent | costume.c | 74 |
 | 100021f0 | Cos_RemoveComponent | costume.c | 27 |
 | 10002ee0 | Cos_InstCountComponents | costume.c | 14 |
-| 10002f20 | Cos_InstComponentInfo | costume.c | 14 |
+| 10002f20 | Cos_InstComponentInfo | costume.c | 12 |
 | 10002f70 | Cos_InstCountChores | costume.c | 9 |
 | 10002fb0 | Cos_GetCostumeName | costume.c | 14 |
 | 10003000 | Cos_InstGetCostume | costume.c | 17 |

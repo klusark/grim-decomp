@@ -785,7 +785,7 @@ void Res_NextInList(int *param_1,int *param_2,int param_3)
 }
 
 /* ---- 0x00482200  Res_TouchByData ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Moves the record owning the data pointer to the front of the LRU list */
 

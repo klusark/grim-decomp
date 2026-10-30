@@ -511,7 +511,7 @@ int __cdecl Cos_InstSetUserData(int param_1,undefined4 param_2)
 }
 
 /* ---- 0x10001e80  Cos_NewStateBasedTag ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 undefined4
 Cos_NewStateBasedTag
@@ -586,7 +586,7 @@ FUN_10001ed0(int *param_1,int param_2,char *param_3,undefined4 param_4,undefined
 }
 
 /* ---- 0x10001f80  Cos_NewIntTag ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 undefined4
 Cos_NewIntTag(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4 *param_4,
@@ -614,7 +614,7 @@ Cos_NewIntTag(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined
 
 
 /* ---- 0x10001fd0  Cos_NewFloatTag ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 undefined4
 Cos_NewFloatTag(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4 *param_4,
@@ -763,19 +763,17 @@ undefined4 Cos_InstCountComponents(int param_1)
 }
 
 /* ---- 0x10002f20  Cos_InstComponentInfo ---- */
-void Cos_InstComponentInfo
-               (int param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4,
-               undefined4 param_5)
+int __cdecl Cos_InstComponentInfo(int inst,uint index,int *outTag,undefined4 *outA,undefined4 *outB)
 
 {
   int iVar1;
   
                     /* 0x2f20  34  Cos_InstComponentInfo */
-  iVar1 = FUN_100051a0(param_1);
-  CosUtil_ComponentInfo
-            (DAT_100143b4 + *(int *)(DAT_100143cc + iVar1 * 0x14) * 0x3c,param_2,param_3,param_4,
-             param_5,0);
-  return;
+  iVar1 = FUN_100051a0(inst);
+  iVar1 = CosUtil_ComponentInfo
+                    (DAT_100143b4 + *(int *)(DAT_100143cc + iVar1 * 0x14) * 0x3c,index,outTag,outA,
+                     outB,(int *)0x0);
+  return iVar1;
 }
 
 /* ---- 0x10002f70  Cos_InstCountChores ---- */
@@ -1182,7 +1180,7 @@ undefined4 Cos_Initialize(undefined4 param_1,undefined4 *param_2)
 }
 
 /* ---- 0x100037a0  Cos_Save ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -1286,7 +1284,7 @@ undefined4 Cos_SaveInstance(int param_1,code *param_2)
 }
 
 /* ---- 0x10003970  Cos_Restore ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 

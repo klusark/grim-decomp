@@ -23,7 +23,7 @@ undefined4 Cos_NewFloatTag(undefined4 param_1,undefined4 param_2,undefined4 para
 undefined4 Cos_RegisterComponent (uint param_1,int param_2,undefined4 param_3,int param_4,int param_5,int param_6, undefined4 param_7); /* 0x10002080 */
 int __cdecl Cos_RemoveComponent(undefined4 param_1,int param_2,int param_3); /* 0x100021f0 */
 undefined4 Cos_InstCountComponents(int param_1); /* 0x10002ee0 */
-void Cos_InstComponentInfo (int param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4, undefined4 param_5); /* 0x10002f20 */
+int __cdecl Cos_InstComponentInfo(int inst,uint index,int *outTag,undefined4 *outA,undefined4 *outB); /* 0x10002f20 */
 undefined4 Cos_InstCountChores(int param_1); /* 0x10002f70 */
 int Cos_GetCostumeName(undefined4 param_1); /* 0x10002fb0 */
 int Cos_InstGetCostume(int param_1,undefined4 *param_2); /* 0x10003000 */
@@ -109,7 +109,7 @@ undefined4 CosUtil_AddFSKey(int param_1,undefined4 param_2,int param_3,undefined
 undefined4 CosUtil_AddIntKey(int param_1,undefined4 param_2,int param_3,undefined4 param_4,undefined4 param_5); /* 0x10002d50 */
 undefined4 CosUtil_AddFloatKey(int param_1,undefined4 param_2,int param_3,undefined4 param_4,undefined4 param_5 ); /* 0x10002db0 */
 undefined4 CosUtil_CountComponents(int param_1); /* 0x10002e10 */
-void CosUtil_ComponentInfo (int param_1,uint param_2,int *param_3,undefined4 *param_4,undefined4 *param_5, int *param_6); /* 0x10002e40 */
+int __cdecl CosUtil_ComponentInfo(int cos,uint index,int *outTag,undefined4 *outA,undefined4 *outB,int *outKind); /* 0x10002e40 */
 undefined4 CosUtil_CountChores(int param_1); /* 0x10002fa0 */
 int CosUtil_ChoreName(int param_1,uint param_2); /* 0x100030b0 */
 undefined4 CosUtil_CountTags(void); /* 0x100030f0 */

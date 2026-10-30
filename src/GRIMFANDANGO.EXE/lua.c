@@ -566,7 +566,7 @@ void Lua_DrawRectangle(void)
 
 
 /* ---- 0x00489fe0  Lua_ChangePrimitive ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Lua opcode: ChangePrimitive */
 
@@ -1251,7 +1251,7 @@ void Lua_ParseSayLineTable
 }
 
 /* ---- 0x0048b830  Lua_PrintLine ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Lua opcode: PrintLine */
 
@@ -1860,7 +1860,7 @@ void Lua_GetMemoryUsage(void)
 
 
 /* ---- 0x00498da0  Lua_GetDiskFreeSpace ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Lua opcode: GetDiskFreeSpace */
 
@@ -1890,25 +1890,7 @@ void Lua_GetDiskFreeSpace(void)
 void __cdecl Lua_TEST(void)
 
 {
-  uint unaff_retaddr;
-  uint in_stack_00000004;
-  uint in_stack_00000008;
-  float in_stack_0000000c;
-  float in_stack_00000010;
-  float in_stack_00000014;
-  float *in_stack_00000018;
-  float in_stack_0000001c;
-  float in_stack_00000020;
-  float in_stack_00000024;
-  float in_stack_00000028;
-  uint in_stack_0000002c;
-  double in_stack_00000034;
-  
-  SectorList_ShrinkWalkSectors
-            (0.005,unaff_retaddr,in_stack_00000004,in_stack_00000008,in_stack_0000000c,
-             in_stack_00000010,in_stack_00000014,in_stack_00000018,in_stack_0000001c,
-             in_stack_00000020,in_stack_00000024,in_stack_00000028,in_stack_0000002c,
-             in_stack_00000034);
+  SectorList_ShrinkWalkSectors(0.005);
   return;
 }
 #endif
@@ -1924,31 +1906,15 @@ void __cdecl Lua_ShrinkBoxes(void)
 {
   int iVar1;
   int iVar2;
-  uint unaff_ESI;
-  float fVar3;
-  uint unaff_retaddr;
-  uint in_stack_00000004;
-  float in_stack_00000008;
-  float in_stack_0000000c;
-  float in_stack_00000010;
-  float *in_stack_00000014;
-  float in_stack_00000018;
-  float in_stack_0000001c;
-  float in_stack_00000020;
-  float in_stack_00000024;
-  uint in_stack_00000028;
-  double in_stack_00000030;
+  float radius;
   
   iVar1 = lua_lua2C(1);
   iVar2 = lua_isnil(iVar1);
   if (iVar2 == 0) {
     Lua_UnShrinkBoxes();
     SectorList_SaveForShrink();
-    fVar3 = lua_getnumber(iVar1);
-    SectorList_ShrinkWalkSectors
-              (fVar3,unaff_ESI,unaff_retaddr,in_stack_00000004,in_stack_00000008,in_stack_0000000c,
-               in_stack_00000010,in_stack_00000014,in_stack_00000018,in_stack_0000001c,
-               in_stack_00000020,in_stack_00000024,in_stack_00000028,in_stack_00000030);
+    radius = lua_getnumber(iVar1);
+    SectorList_ShrinkWalkSectors(radius);
   }
   return;
 }
@@ -1973,12 +1939,6 @@ void Lua_UnShrinkBoxes(void)
 /* ---- 0x00498ea0  Lua_GetShrinkPos ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-/* WARNING: Variable defined which should be unmapped: local_1c */
-/* WARNING: Variable defined which should be unmapped: local_18 */
-/* WARNING: Variable defined which should be unmapped: local_14 */
-/* WARNING: Variable defined which should be unmapped: local_10 */
-/* WARNING: Variable defined which should be unmapped: local_c */
-/* WARNING: Variable defined which should be unmapped: local_4 */
 /* Lua opcode: GetShrinkPos */
 
 void __cdecl Lua_GetShrinkPos(void)
@@ -1991,16 +1951,10 @@ void __cdecl Lua_GetShrinkPos(void)
   int iVar4;
   int iVar5;
   void *this;
-  float unaff_EBX;
-  uint unaff_EBP;
-  uint unaff_ESI;
-  uint unaff_EDI;
   float fVar6;
   float fVar7;
-  float *n;
-  float fVar8;
-  uint unaff_retaddr;
-  double in_stack_00000008;
+  float n;
+  float radius;
   #define local_1c (*(uint *)(_frame + (0x30 - 0x1c)))
   #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
   #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
@@ -2022,14 +1976,12 @@ void __cdecl Lua_GetShrinkPos(void)
         if (iVar5 != 0) {
           fVar6 = lua_getnumber(iVar1);
           fVar7 = lua_getnumber(iVar2);
-          n = (float *)lua_getnumber(iVar3);
-          fVar8 = lua_getnumber(iVar4);
+          n = lua_getnumber(iVar3);
+          radius = lua_getnumber(iVar4);
           local_c[0] = fVar6;
           local_c[1] = fVar7;
           SectorList_SaveForShrink();
-          SectorList_ShrinkWalkSectors
-                    (fVar8,unaff_EDI,unaff_ESI,unaff_EBP,unaff_EBX,fVar6,fVar7,n,fVar8,local_c[0],
-                     local_c[1],PUN(float,n),unaff_retaddr,in_stack_00000008);
+          SectorList_ShrinkWalkSectors(radius);
           this = (void *)SectorList_FindNearestPoint(local_c,0x1000);
           if (this != (void *)0x0) {
             Sector_ClampPoint(this,(int)local_c);
@@ -2038,7 +1990,7 @@ void __cdecl Lua_GetShrinkPos(void)
           if (this != (void *)0x0) {
             lua_pushnumber(local_c[0]);
             lua_pushnumber(local_c[1]);
-            lua_pushnumber(PUN(float,n));
+            lua_pushnumber(n);
             return;
           }
           lua_pushnil();
@@ -2942,7 +2894,7 @@ void Lua_IsActorChoring(void)
 
 
 /* ---- 0x00499ff0  Lua_GetActorChores ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_2c */
 /* Lua opcode: GetActorChores */
@@ -3091,7 +3043,7 @@ LAB_0049a295:
 }
 
 /* ---- 0x0049a2a0  Lua_GetActorLoopingChores ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_2c */
 /* Lua opcode: GetActorLoopingChores */
@@ -5480,7 +5432,7 @@ void Lua_EnableDebugKeys(void)
 }
 
 /* ---- 0x0049cf60  Lua_WorldToScreen ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_2c */
 /* Lua opcode: WorldToScreen */
@@ -6523,7 +6475,7 @@ void * Lua_RestoreUserdataHook(int param_1,void *param_2)
 }
 
 /* ---- 0x0049e0b0  Lua_DispatchControlHandlers ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_58 */
 /* Calls system.buttonHandler / system.axisHandler for every enabled control whose state changed
@@ -9819,7 +9771,7 @@ void Lua_DimScreen(void)
 }
 
 /* ---- 0x004a1a00  Lua_DimRegion ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_28 */
 /* WARNING: Variable defined which should be unmapped: local_38 */
@@ -9837,13 +9789,11 @@ void Lua_DimRegion(void)
   int iVar3;
   int iVar4;
   int iVar5;
-  float unaff_ESI;
-  float unaff_EDI;
   longlong lVar6;
   longlong lVar7;
   longlong lVar8;
   longlong lVar9;
-  float r;
+  float scale;
   #define local_38 (*(uint *)(_frame + (0x50 - 0x38)))
   #define local_34 (*(uint *)(_frame + (0x50 - 0x34)))
   #define local_30 (*(uint *)(_frame + (0x50 - 0x30)))
@@ -9861,8 +9811,8 @@ void Lua_DimRegion(void)
   lVar7 = (longlong)lua_getnumber(iVar2);
   lVar8 = (longlong)lua_getnumber(iVar3);
   lVar9 = (longlong)lua_getnumber(iVar4);
-  r = lua_getnumber(iVar5);
-  Render_FillRect((int)lVar6,(int)lVar7,(int)lVar8,(int)lVar9,r,unaff_EDI,unaff_ESI);
+  scale = lua_getnumber(iVar5);
+  Render_FillRect((int)lVar6,(int)lVar7,(int)lVar8,(int)lVar9,scale);
   return;
 }
 #undef local_14
@@ -10599,7 +10549,7 @@ LAB_004a268a:
 
 
 /* ---- 0x004a26b0  Lua_RestoreCacheRect ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: This function may have set the stack pointer */
 /* Lua opcode: RestoreCacheRect */

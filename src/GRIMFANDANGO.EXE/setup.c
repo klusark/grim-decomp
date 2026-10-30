@@ -23,21 +23,24 @@ void Setup_DrawDebugCamera(int param_1)
   local_18[0] = *(float *)(param_1 + 0x2c) - 1.0;
   local_c[1] = local_18[1];
   local_c[2] = local_18[2];
-  rdPrimit3_DrawLine(local_c,local_18,0,0,0,0,UINT_008c97cc & 0xffff,0xffffffff);
+  rdPrimit3_DrawLine(local_c,local_18,(int *)0x0,(int *)0x0,(int *)0x0,(int *)0x0,
+                     UINT_008c97cc & 0xffff,0xffffffff);
   local_18[0] = *(float *)(param_1 + 0x2c);
   local_18[2] = *(float *)(param_1 + 0x34);
   local_c[1] = *(float *)(param_1 + 0x30) - -1.0;
   local_18[1] = *(float *)(param_1 + 0x30) - 1.0;
   local_c[0] = local_18[0];
   local_c[2] = local_18[2];
-  rdPrimit3_DrawLine(local_c,local_18,0,0,0,0,UINT_008c97cc & 0xffff,0xffffffff);
+  rdPrimit3_DrawLine(local_c,local_18,(int *)0x0,(int *)0x0,(int *)0x0,(int *)0x0,
+                     UINT_008c97cc & 0xffff,0xffffffff);
   local_18[0] = *(float *)(param_1 + 0x2c);
   local_18[1] = *(float *)(param_1 + 0x30);
   local_c[2] = *(float *)(param_1 + 0x34) - -1.0;
   local_18[2] = *(float *)(param_1 + 0x34) - 1.0;
   local_c[0] = local_18[0];
   local_c[1] = local_18[1];
-  rdPrimit3_DrawLine(local_c,local_18,0,0,0,0,UINT_008c97cc & 0xffff,0xffffffff);
+  rdPrimit3_DrawLine(local_c,local_18,(int *)0x0,(int *)0x0,(int *)0x0,(int *)0x0,
+                     UINT_008c97cc & 0xffff,0xffffffff);
   iVar1 = Actor_FromHandle(g_nCameraActor);
   if (*(int *)(iVar1 + 0xa0) != 0) {
     iVar1 = ((code *)Actor_FromHandle)(g_nCameraActor,param_1 + 0x50);

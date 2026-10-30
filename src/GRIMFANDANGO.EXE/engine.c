@@ -505,7 +505,7 @@ void Profile_Begin(int param_1)
 
 
 /* ---- 0x00482e80  Profile_End ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Source: Main/sputmain.cpp (line 1462, from __FILE__/__LINE__ passed to the allocator) */
 

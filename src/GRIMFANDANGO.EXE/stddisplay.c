@@ -1009,7 +1009,7 @@ int Display_Flip(void)
 
 
 /* ---- 0x00474480  Surface_Create ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Std/Win95/Stddisplay.c: creates a surface record (0xd8 bytes) from a 19-dword format/size
    description */
@@ -1562,21 +1562,28 @@ void __cdecl Display_SetPalette(void *palette)
 }
 
 /* ---- 0x00474dd0  Palette_ApplyGamma ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 int __cdecl Palette_ApplyGamma(void *dst,void *src,int count,int gammaIdx)
 
 {
+  undefined4 unaff_retaddr;
+  
   if (UINT_00803fc0 == 0) {
     Mem_Copy(dst,src,0x300);
     return 0;
   }
   if (gammaIdx != 0) {
-    ((code *)Palette_FromFloatTable)(dst,src,0x100,*(undefined4 *)((UINT_00803fc0 - 8) + gammaIdx * 8),
-               *(undefined4 *)((UINT_00803fc0 - 4) + gammaIdx * 8));
+    Palette_FromFloatTable
+              (dst,src,0x100,
+               (double)CONCAT44(unaff_retaddr,*(undefined4 *)((UINT_00803fc0 - 4) + gammaIdx * 8)));
     return 1;
   }
   Mem_Copy(dst,src,0x300);
   return 1;
 }
+#endif
+
 
 /* ---- 0x00474e40  Display_DrawText ---- */
 /* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
@@ -3327,26 +3334,26 @@ void __cdecl Display_SetPalette3D(void *palette,int flags)
 }
 
 /* ---- 0x0047b610  Palette_FromFloatTable ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Writes n RGB byte triplets from a float colour table */
 
-void Palette_FromFloatTable(undefined1 *param_1,undefined4 param_2,int param_3)
+void __cdecl Palette_FromFloatTable(byte *out,byte *in,int n,double gamma)
 
 {
   longlong lVar1;
   
-  if (0 < param_3) {
+  if (0 < n) {
     do {
       lVar1 = (longlong)_CIpow();
-      *param_1 = (char)lVar1;
+      *out = (byte)lVar1;
       lVar1 = (longlong)_CIpow();
-      param_1[1] = (char)lVar1;
+      out[1] = (byte)lVar1;
       lVar1 = (longlong)_CIpow();
-      param_1[2] = (char)lVar1;
-      param_1 = param_1 + 3;
-      param_3 = param_3 + -1;
-    } while (param_3 != 0);
+      out[2] = (byte)lVar1;
+      out = out + 3;
+      n = n + -1;
+    } while (n != 0);
   }
   return;
 }
@@ -3354,7 +3361,7 @@ void Palette_FromFloatTable(undefined1 *param_1,undefined4 param_2,int param_3)
 
 
 /* ---- 0x0047b8a0  Pixel_Convert ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Converts pixels between the 16-bit RGB layouts described by the format records */
 
@@ -3466,7 +3473,7 @@ void __cdecl Pixel_Convert(ushort *dst,int dstFormat,ushort *src,int srcFormat,u
 
 
 /* ---- 0x0047bbb0  Pixel_ConvertOne ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 int Pixel_ConvertOne(int param_1,undefined4 param_2,int param_3)
 

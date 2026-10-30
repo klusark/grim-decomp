@@ -315,7 +315,7 @@ void * ResType_ColormapHandler(int *param_1)
 
 
 /* ---- 0x0048dbd0  ResType_FontHandler ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Resource type handler for 'FONT' (entry of g_ResTypeTable): op 1 loads, op 2 frees, op 3 reports
    the size. Load = Font_LoadFile, kept locked. */

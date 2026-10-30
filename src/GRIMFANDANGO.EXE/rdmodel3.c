@@ -66,7 +66,7 @@ undefined4 * rdModel3_New(undefined4 param_1)
 }
 
 /* ---- 0x0040a980  rdModel3_Load ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Opens the file; the magic 'MODL' selects rdModel3_LoadBinary, anything else is parsed by
    rdModel3_LoadText. Source file Rdmodel3.c (C:\grimjedi\Libs\RDroid\Primitives\Rdmodel3.c). */
@@ -1255,7 +1255,7 @@ void rdModel3_AccumulateNodeBounds(int param_1,int param_2,float *param_3)
 
 
 /* ---- 0x0040c8c0  rdModel3_CalcRadii ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Computes the bounding radius of every mesh (largest vertex distance) and of the model. Source
@@ -1455,7 +1455,7 @@ void rdModel3_CalcFaceNormals(uint param_1)
 
 
 /* ---- 0x0040cc30  rdModel3_CalcVertexNormals ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Averages the normals of the faces that share a vertex (or builds one from the neighbouring edges)
    and normalises. Source file Rdmodel3.c (C:\grimjedi\Libs\RDroid\Primitives\Rdmodel3.c). */
