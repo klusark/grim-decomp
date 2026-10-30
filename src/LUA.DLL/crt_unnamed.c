@@ -534,6 +534,8 @@ float10 FUN_10012104(void)
 
 
 /* ---- 0x10012350  FUN_10012350 ---- */
+/* NOT COMPILED: names/lib_replace.json (host): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 void __cdecl FUN_10012350(int param_1)
 
 {
@@ -543,8 +545,12 @@ void __cdecl FUN_10012350(int param_1)
   piVar1[5] = param_1;
   return;
 }
+#endif
+
 
 /* ---- 0x10012360  FUN_10012360 ---- */
+/* NOT COMPILED: names/lib_replace.json (host): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 uint FUN_10012360(void)
 
 {
@@ -556,6 +562,8 @@ uint FUN_10012360(void)
   piVar2[5] = uVar1;
   return uVar1 >> 0x10 & 0x7fff;
 }
+#endif
+
 
 /* ---- 0x100129a0  FUN_100129a0 ---- */
 /* NOT COMPILED: names/lib_replace.json (host): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
