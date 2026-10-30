@@ -16,7 +16,7 @@
 | 004ac100 | Win_SetWindowedSize | window.c | 10 |
 | 004ac160 | Win_AddMessageHook | window.c | 18 |
 | 004ac1a0 | Win_RemoveMessageHook | window.c | 18 |
-| 004ac1f0 | Win_CreateMainWindow | window.c | 78 |
+| 004ac1f0 | Win_CreateMainWindow | window.c | 1 |
 | 004ac340 | Win_KernelWndProc | window.c | 83 |
 | 004bff70 | Win_IsFocusWithin | window.c | 21 |
 | 00401040 | DebugLog_Init | debuglog.c | 1 |
