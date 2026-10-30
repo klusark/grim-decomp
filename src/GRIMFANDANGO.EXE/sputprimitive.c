@@ -27,7 +27,7 @@ undefined4 sputPrimitive_Initialize(undefined4 param_1,undefined4 *param_2)
 }
 
 /* ---- 0x00489600  sputPrimitive_SaveState ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Module interface slot 4 (sputPrimitive): save-game writer, calls the SaveGame_Write callback it
    is handed for every field. */
@@ -67,7 +67,7 @@ undefined4 sputPrimitive_SaveState(code *param_1)
 
 
 /* ---- 0x004896b0  sputPrimitive_RestoreState ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Module interface slot 5 (sputPrimitive): save-game reader, calls the SaveGame_Read callback it is
    handed; returns non-zero on a short read. */

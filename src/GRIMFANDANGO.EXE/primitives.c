@@ -138,30 +138,30 @@ void __thiscall Primitive_Kill(void *this,int id)
 
 {
   int *piVar1;
-  int *p;
+  int *prim;
   
-  p = *(int **)this;
-  while (p != (int *)0x0) {
-    if (p[3] == id) {
-      if ((int *)p[1] != (int *)0x0) {
-        *(int *)p[1] = *p;
+  prim = *(int **)this;
+  while (prim != (int *)0x0) {
+    if (prim[3] == id) {
+      if ((int *)prim[1] != (int *)0x0) {
+        *(int *)prim[1] = *prim;
       }
-      if (*p != 0) {
-        *(int *)(*p + 4) = p[1];
+      if (*prim != 0) {
+        *(int *)(*prim + 4) = prim[1];
       }
-      if (*(int **)((int)this + 4) == p) {
-        *(int *)((int)this + 4) = p[1];
+      if (*(int **)((int)this + 4) == prim) {
+        *(int *)((int)this + 4) = prim[1];
       }
-      if (p == *(int **)this) {
+      if (prim == *(int **)this) {
         *(int *)this = **(int **)this;
       }
-      piVar1 = (int *)*p;
-      ((code *)Primitive_Invalidate)((int)p);
-      Plat_Free(p);
-      p = piVar1;
+      piVar1 = (int *)*prim;
+      Primitive_Invalidate(this,prim);
+      Plat_Free(prim);
+      prim = piVar1;
     }
     else {
-      p = (int *)*p;
+      prim = (int *)*prim;
     }
   }
   return;

@@ -30,7 +30,9 @@ void __cdecl Vec3_Cross(float *out,float *a,float *b)
 }
 
 /* ---- 0x00446920  Vec3_NormalizeTo ---- */
-void Vec3_NormalizeTo(float *param_1,float *param_2)
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
+void __cdecl Vec3_NormalizeTo(float *param_1,float *param_2)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -50,6 +52,8 @@ void Vec3_NormalizeTo(float *param_1,float *param_2)
   return;
 }
 #undef local_4
+
+#endif
 
 
 /* ---- 0x004469a0  Vec3_Normalize ---- */

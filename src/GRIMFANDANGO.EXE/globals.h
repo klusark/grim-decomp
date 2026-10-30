@@ -1767,7 +1767,7 @@ extern undefined DAT_008c9fc4; /* used by 1 fn(s), first 0x00489190 */
 extern undefined DAT_008c9ff8; /* used by 1 fn(s), first 0x004892a0 */
 extern undefined DAT_008ca080; /* used by 1 fn(s), first 0x00488fb0 */
 extern undefined DAT_008ca098; /* used by 1 fn(s), first 0x004891b0 */
-extern undefined4 UINT_008ca0a0; /* used by 12 fn(s), first 0x00489520 */
+extern undefined4 UINT_008ca0a0; /* used by 13 fn(s), first 0x00489520 */
 extern undefined4 UINT_008ca0a8; /* used by 2 fn(s), first 0x00489580 */
 extern undefined4 UINT_008ca0ac; /* used by 2 fn(s), first 0x004897f0 */
 extern undefined DAT_008ca0b0; /* used by 2 fn(s), first 0x00489580 */

@@ -6,7 +6,7 @@
 #include "functions.h"
 
 /* ---- 0x00488d80  SaveFile_CheckFUTBHeader ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Reads three dwords through readFn and expects 'FUTB', 1, 0. Returns 0 when the header matches, 1
    otherwise. */

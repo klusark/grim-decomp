@@ -974,7 +974,7 @@
 | 00446880 | Vec3_Dot | math3d.c | 5 |
 | 004468a0 | Vec3_Dot2 | math3d.c | 5 |
 | 004468d0 | Vec3_Cross | math3d.c | 8 |
-| 00446920 | Vec3_NormalizeTo | math3d.c | 21 |
+| 00446920 | Vec3_NormalizeTo | math3d.c | 1 |
 | 004469a0 | Vec3_Normalize | math3d.c | 19 |
 | 00446a10 | Vec3_NormalizeApprox | math3d.c | 69 |
 | 00446ba0 | Vec3_Rotate | math3d.c | 14 |

@@ -66,7 +66,7 @@ void __fastcall PrimitiveList_Clear(int *param_1)
   iVar1 = *param_1;
   while (iVar1 != 0) {
     iVar1 = *(int *)*param_1;
-    ((code *)Primitive_Invalidate)(*param_1);
+    Primitive_Invalidate(param_1,(int *)*param_1);
     Plat_Free((void *)*param_1);
     *param_1 = iVar1;
   }

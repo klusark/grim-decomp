@@ -1019,7 +1019,7 @@ int __cdecl rdMaterial_EnsureTexture(void *a,uint *material,int cel,int alt); /*
 float __cdecl Vec3_Dot(float *a,float *b); /* 0x00446880 */
 float __cdecl Vec3_Dot2(float *a,float *b); /* 0x004468a0 */
 void __cdecl Vec3_Cross(float *out,float *a,float *b); /* 0x004468d0 */
-void Vec3_NormalizeTo(float *param_1,float *param_2); /* 0x00446920 */
+void __cdecl Vec3_NormalizeTo(float *param_1,float *param_2); /* 0x00446920 */
 float __cdecl Vec3_Normalize(float *param_1); /* 0x004469a0 */
 float __cdecl Vec3_NormalizeApprox(float *param_1); /* 0x00446a10 */
 void __cdecl Vec3_Rotate(float *vec,float *rot); /* 0x00446ba0 */
