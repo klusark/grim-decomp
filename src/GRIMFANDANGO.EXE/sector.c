@@ -1083,6 +1083,8 @@ void __thiscall Sector_SetSavedType(void *this,uint type)
 
 
 /* ---- 0x004a6980  Sector_ContainsPoint ---- */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+#if 0
 /* Sector_ContainsPoint(sector, point, checkActive). With checkActive, an inactive sector (+0x28 or
    +0x2c zero) contains nothing. 1) distance from the plane (normal at +0x60..+0x68, vertex[1]): a
    distance <= 1e-5 counts as 0, then |d| <= height (+0x30; 0.005 for walk sectors, or when the file
@@ -1179,8 +1181,12 @@ int __thiscall Sector_ContainsPoint(void *this,float *point,int checkActive)
   }
   return 0;
 }
+#endif
+
 
 /* ---- 0x004a6b30  Sector_ClampPoint ---- */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+#if 0
 int __thiscall Sector_ClampPoint(void *this,int a1)
 
 {
@@ -1273,6 +1279,8 @@ int __thiscall Sector_ClampPoint(void *this,int a1)
 #undef local_4
 #undef local_8
 #undef local_c
+
+#endif
 
 
 /* ---- 0x004a6d10  Sector_FindExitPoint ---- */
@@ -1401,6 +1409,8 @@ float __thiscall Sector_FindExitPoint(void *this,int a1,int a2,int a3)
 
 
 /* ---- 0x004a6fa0  Sector_SnapToPlane ---- */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+#if 0
 /* Lua SnapToPlane: projects the point onto the plane of the sector found by Sector_FindByName */
 
 void __thiscall Sector_SnapToPlane(void *this,float *pos)
@@ -1418,8 +1428,12 @@ void __thiscall Sector_SnapToPlane(void *this,float *pos)
   pos[2] = pos[2] - fVar2 * *(float *)((int)this + 0x68);
   return;
 }
+#endif
+
 
 /* ---- 0x004a7000  Sector_FixPlaneCoordinate ---- */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+#if 0
 int __thiscall Sector_FixPlaneCoordinate(void *this,int a1)
 
 {
@@ -1447,6 +1461,8 @@ int __thiscall Sector_FixPlaneCoordinate(void *this,int a1)
        -*(float *)((int)this + iVar4 * 4 + 0x60);
   return iVar3;
 }
+#endif
+
 
 /* ---- 0x004a70a0  Sector_DrawOutline ---- */
 void __thiscall Sector_DrawOutline(void *this,int color)
