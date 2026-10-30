@@ -715,6 +715,8 @@ void Engine_SaveGame(void)
 
 
 /* ---- 0x00483240  Engine_LoadGame ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void Engine_LoadGame(void)
 
 {
@@ -788,6 +790,8 @@ void Engine_LoadGame(void)
 #undef aiStack_10
 #undef local_14
 #undef local_18
+
+#endif
 
 
 /* ---- 0x004835f0  Engine_SetSavedValue ---- */

@@ -6,6 +6,8 @@
 #include "functions.h"
 
 /* ---- 0x004831f0  SaveGame_Write ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* gzwrite on the open save file, asserting the byte count */
 
 int __cdecl SaveGame_Write(void *data,int bytes)
@@ -22,8 +24,12 @@ int __cdecl SaveGame_Write(void *data,int bytes)
   }
   return 0;
 }
+#endif
+
 
 /* ---- 0x00483470  SaveGame_Read ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 int __cdecl SaveGame_Read(void *buf,int n)
 
 {
@@ -32,6 +38,8 @@ int __cdecl SaveGame_Read(void *buf,int n)
   }
   return 0;
 }
+#endif
+
 
 /* ---- 0x00483490  SaveGame_LoadThumbnail ---- */
 /* Returns a 250x188 16-bit bitmap read from the head of a save file */

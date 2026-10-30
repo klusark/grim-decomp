@@ -400,18 +400,33 @@ static int Lua_GetWalkSpeedScale(void)
 }
 
 /* Table in the same {name, function} format as the engine's own (0x004ea8b0); lua_openlib registers every entry as a
- * global and lua_recognizelib makes the functions known to the save/restore code. */
+
+ * global (GRIM_RegisterModApi) and lua_recognizelib makes the functions known to the save/restore code. */
 static struct { const char *name; void *fn; } mod_api[] = {
     { "GetEngineVersionString", (void *)Lua_GetEngineVersionString },
     { "SetWalkSpeedScale",      (void *)Lua_SetWalkSpeedScale },
     { "GetWalkSpeedScale",      (void *)Lua_GetWalkSpeedScale },
 };
 
-/* Called right after the engine registered its own table: names/asm_patches.json inserts `call _GRIM_RegisterModApi`
- * into Lua_InitGameLibs (0x49de00), after the Lua_OpenEngineLib call. */
+/* A saved C function is stored as (index of its library in the list of recognised libraries, counted from the NEWEST)
+ * << 16 | index in the library (lua_FuncPtrToID / lua_IDToFuncPtr). The original game has 14 libraries, the base
+ * library and stderrorim registered inside lua_open being the two oldest. A library of ours that is registered after
+ * them would shift the id of every older library by one (an original save then calls the wrong functions or a null
+ * pointer), so it has to be the OLDEST one: names/asm_patches.json calls GRIM_RegisterModApiLib at the start of
+ * Lua_InitGameLibs, before anything has opened the Lua state (lua_recognizelib only needs the allocator), and
+ * GRIM_RegisterModApi right after the engine's own table (state exists then) to create the globals. */
+void GRIM_RegisterModApiLib(void)
+{
+    lua_recognizelib((int)mod_api, sizeof mod_api / sizeof mod_api[0]);
+}
+
 void GRIM_RegisterModApi(void)
 {
-    lua_openlib(mod_api, sizeof mod_api / sizeof mod_api[0]);
+    unsigned i;
+    for (i = 0; i < sizeof mod_api / sizeof mod_api[0]; i++) {
+        lua_pushCclosure((int)mod_api[i].fn, 0);
+        lua_setglobal((int)mod_api[i].name);
+    }
 }
 
 #endif /* GRIM_EXE */
@@ -705,3 +720,164 @@ int GRIM_SimTime(void)
     return ms;
 }
 #endif
+
+#ifdef GRIM_EXE
+/* ---- save-game stream tracing (debug aid, GRIM_SAVETRACE=<file>) ----
+ * SaveGame_Write / SaveGame_Read are the single choke point of the save format: every module's SaveState /
+ * RestoreState callback goes through them. With GRIM_SAVETRACE set, every call is appended to the file as a
+ * 16 byte record {stream offset, size, return address, first dword} (little endian). tools/savetrace.py reads it. */
+extern void *GRIM_host_fopen2(const char *, const char *) __asm__("_fopen");
+extern unsigned GRIM_host_fwrite(const void *, unsigned, unsigned, void *) __asm__("_fwrite");
+extern int GRIM_host_setvbuf(void *, char *, int, unsigned) __asm__("_setvbuf");
+static void *sg_trace;
+static int sg_trace_state;      /* 0 = unknown, 1 = on, -1 = off */
+static unsigned sg_trace_off;
+
+static void sg_trace_rec(const void *buf, int n, unsigned ret, int write)
+{
+    unsigned rec[4];
+    if (sg_trace_state == 0) {
+        const char *path = GRIM_getenv("GRIM_SAVETRACE");
+        sg_trace_state = -1;
+        if (path) {
+            sg_trace = GRIM_host_fopen2(path, "wb");
+            if (sg_trace) {
+                GRIM_host_setvbuf(sg_trace, 0, 4 /* _IONBF */, 0);
+                sg_trace_state = 1;
+            }
+        }
+    }
+    if (sg_trace_state < 0)
+        return;
+    rec[0] = sg_trace_off;
+    rec[1] = (unsigned)n | (write ? 0x80000000u : 0);
+    rec[2] = ret;
+    rec[3] = n >= 4 ? *(const unsigned *)buf : 0;
+    sg_trace_off += n;
+    GRIM_host_fwrite(rec, 16, 1, sg_trace);
+}
+
+/* OVERRIDES: SaveGame_Write SaveGame_Read */
+int __cdecl SaveGame_Write(void *data, int bytes)
+{
+    if (bytes != 0) {
+        int n = gzwrite((undefined4 *)UINT_008a8770, (undefined4)data, bytes);
+        if (n != bytes) {
+            (*g_pSvcEngineModule->pAssertFail)(s_tot_____int_bytes_004e7fd4, s_C__grimsrc_libs_grimlib_Main_spu_004e7f9c, 0x60c);
+        }
+        sg_trace_rec(data, bytes, (unsigned)__builtin_return_address(0), 1);
+    }
+    return 0;
+}
+
+int __cdecl SaveGame_Read(void *buf, int n)
+{
+    if (n != 0) {
+        gzread((int *)UINT_008a8770, (int)buf, n);
+        sg_trace_rec(buf, n, (unsigned)__builtin_return_address(0), 0);
+    }
+    return 0;
+}
+#endif /* GRIM_EXE (save-game stream) */
+
+#ifdef GRIM_EXE
+/* ---- Engine_LoadGame (0x483240) with a post-load pass for the text objects' speaker pointers ----
+ * A speech text object (flag 4, made by Actor_SayLine) keeps a RAW pointer to its actor at +0x254. sputText saves it as is
+ * and nothing remaps it on load, so it is only right when the actor table sits at the address it had when the game was
+ * saved: the original game (heap addresses differ from run to run, and Actor_Create reallocs the table) loaded such a save
+ * with a stale pointer and Lua_ExpireText then zeroed a word of some other heap block; in the rebuilt engine the same stale
+ * pointer is a different address and the write faults. What the save does keep consistent is the other direction: the
+ * actor's extra data +0x1ec holds the text object, which sputActor_RestoreState maps through TextObject_FindBySelf. So after
+ * the restore hooks, link every text object back to the actor that points at it, and drop the speech flag of text objects
+ * no actor points at (they would be dereferenced by Lua_ExpireText). */
+static void GRIM_FixTextActors(void)
+{
+    char *table = (char *)g_pActorTable;
+    int *t;
+    int i;
+
+    for (t = (int *)g_pTextObjectList; t; t = (int *)t[0])
+        if (t[0x96] & 4)
+            t[0x95] = 0;                       /* "no speaker" until an actor claims it below */
+    for (i = 0; i < g_nActorCapacity; i++) {
+        char *actor = table + i * 0xa8;
+        int extra, text;
+        if (*(int *)(actor + 0x9c) == 0)
+            continue;
+        extra = *(int *)(actor + 0xa4);
+        if (extra == 0)
+            continue;
+        text = *(int *)(extra + 0x1ec);
+        for (t = (int *)g_pTextObjectList; t; t = (int *)t[0])
+            if ((int)t == text) {
+                t[0x95] = (int)actor;
+                break;
+            }
+    }
+    for (t = (int *)g_pTextObjectList; t; t = (int *)t[0])
+        if ((t[0x96] & 4) && t[0x95] == 0)
+            t[0x96] &= ~4;
+}
+
+/* OVERRIDES: Engine_LoadGame */
+void Engine_LoadGame(void)
+{
+    int rect[4];
+    int hdrLen, thumbLen;
+    char *name;
+    void *set;
+    int setupIdx;
+
+    UINT_008a8c80 = 0;
+    name = g_pSaveFileName;
+    if (name == 0)
+        name = s_grim_sav_004e7fc8;
+    UINT_008a8770 = (uint)SaveFile_Open(name, &DAT_004ddb18);
+    if ((void *)UINT_008a8770 != 0) {
+        Render_SetWaitCursorEnabled(0);
+        Render_DrawProgressBar(0.1);
+        ImStopAllSounds();
+        Movie_Stop();
+        Movie_PollPlayback();
+        Engine_ResetState();
+        g_pShadowMaterial = 0;
+        Resource_SetNoPurge(1);
+        SaveGame_Read(&hdrLen, 4);
+        gzseek((undefined4 *)UINT_008a8770, hdrLen, 1);
+        SaveGame_Read(&thumbLen, 4);
+        gzseek((undefined4 *)UINT_008a8770, thumbLen, 1);
+        Render_DrawProgressBar(0.2);
+        Cos_Restore(SaveGame_Read);
+        Render_DrawProgressBar(0.3);
+        (*(code *)UINT_008a86e4)(SaveGame_Read);
+        (*(code *)UINT_008a87ec)(SaveGame_Read);
+        Render_DrawProgressBar(0.4);
+        (*(code *)UINT_008a8644)(SaveGame_Read);
+        (*(code *)UINT_008a86c4)(SaveGame_Read);
+        (*(code *)UINT_008a87cc)(SaveGame_Read);
+        (*(code *)UINT_008a880c)(SaveGame_Read);
+        (*(code *)UINT_008a882c)(SaveGame_Read);
+        UINT_008a8c40 = 4;
+        SaveGame_Read(&UINT_008a8c48, 4);
+        Render_DrawProgressBar(0.75);
+        lua_Restore(SaveGame_Read);
+        Render_DrawProgressBar(1.0);
+        if (g_pfnIMuseRestoreHook != 0)
+            (*(code *)g_pfnIMuseRestoreHook)(SaveGame_Read);
+        GRIM_FixTextActors();
+        Resource_SetNoPurge(0);
+        set = Set_GetCurrent();
+        setupIdx = set == 0 ? 0 : *(int *)((int)set + 0xb4);
+        Set_SwitchSetup(set, setupIdx);
+        gzclose((int)UINT_008a8770);
+        lua_dofile(s_patch05_bin_004e7fe8);
+        UINT_008a8c84 = 1;
+        Render_SetWaitCursorEnabled(1);
+        rect[0] = 0;
+        rect[1] = 0;
+        rect[2] = 0x280;
+        rect[3] = 0x1e0;
+        Render_InvalidateRect(rect, 1);
+    }
+}
+#endif /* GRIM_EXE (Engine_LoadGame) */

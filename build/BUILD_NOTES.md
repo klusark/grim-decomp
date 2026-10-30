@@ -622,9 +622,8 @@ Three bugs were in the way:
   jumped into the middle of an unrelated function. Thunks defined in `thunks.c` are valid targets now.
 * The Lua test hook defines `grimlog` again before each command (Load replaces the whole Lua state).
 
-Known limit: saves made by the original game (`saves_old_numbering/`) contain raw pointers into the original
-IMUSE.DLL image (e.g. `&DAT_1001e900`) and crash the rebuilt iMUSE restore; saves written by the rebuilt
-game load fine.
+Saves made by the original game (`saves_old_numbering/`) load too since 2026-10-30, see "Saves of the original
+game" at the end of this file.
 ## Gameplay checks (2026-10-29, agent B)
 
 Test knobs (environment, all optional): `GRIM_MULTI=<tag>` (window title "Grim Fandango (<tag>)", several instances),
@@ -880,3 +879,92 @@ The `move` tier fails for the 24 cases that start on the stair of `ly` (72/96): 
 is then held up at the stair top 7 times. With the extra point dropped all 96 pass on the rebuilt engine.
 Debug trick: `lua31.exe` of `autorun/tools/lua31` takes the DLL as its first argument, so the original and the rebuilt `lua.dll` can be
 compared on the planner without starting a game (identical results).
+
+## Saves of the original game (2026-10-30, agent K)
+
+The 76 saves of the original v1.01 EXE in `GRIMDATA/saves_old_numbering/` (`grim00-03`, `grim10-80`, `grim90`; the autorun
+checkpoints of `grim_tools`) load in the rebuilt engine: scene, Manny's position, text, inventory/Lua state and the playing
+sounds come back, the game keeps running (Lua tasks, walking, set changes), and a rebuilt save made from such a state
+reloads. `python -I build/perf/oldsaves.py build/run [--only NN,..]` checks this per save in a fresh game (details below).
+
+### Layout of a save (same code writes and reads it, so rebuilt saves have the same layout)
+
+The file is gzip (`gz*` of the EXE) around a stream with **no magic and no version**; `Engine_SaveGame` (0x482fe0) /
+`Engine_LoadGame` (0x483240) pass `SaveGame_Write` / `SaveGame_Read` to each module in turn. `GRIM_SAVETRACE=<file>`
+(build/overrides.c, `tools/savetrace.py` reads it) logs every call (offset, size, calling function), which gives the layout:
+
+| part | writer (restore = the matching `*_RestoreState`) | content |
+|---|---|---|
+| header | `Lua_CallSaveGameCallback` | dword length + length-prefixed strings = the table `GetSaveGameData` returns (autorun: name, flags, set). Skipped (`gzseek`) by Load |
+| thumbnail | `Engine_SaveGame` | dword 94000 + 250x188 RGB565 pixels (`SaveGame_LoadThumbnail` reads it for the menu). Skipped by Load |
+| costumes | `Cos_Save` (CHORE.DLL) | costume registry: id + 32 byte name |
+| resources | `Resource_Filio_SaveState` | per resource: name, type fourcc, id (the data pointer of the saving process) |
+| text objects | `sputText_SaveState` | the live `TextObject`s field by field, 3 default fonts |
+| set / actors / render / primitives / movie | `Set_SaveState`, `sputActor_SaveState` (+ `Cos_SaveInstance`), `Render_SaveState`, `sputPrimitive_SaveState`, `Movie_SaveState` | state per module, one `SaveGame_Write` per field (a typical save is ~500 000 calls) |
+| dword | `Engine_SetSavedValue` | `UINT_008a8c48` |
+| Lua | `lua_Save` (LUA.DLL, `lstate.c`) | the whole Lua state: string / closure / proto / table / task objects with their heap address as id, then the tables of `TObject`s (tag, value) |
+| iMUSE | `FUN_10008250` (IMUSE.DLL via `g_pfnIMuseSaveHook`) | 40 byte reverb name ("OFF", "Basic Reverb", ...); dword 38564 + blob = 4 + fades 0x280 + triggers 0xb20 + 16 dispatch tracks x 0x854 + 16 stream-track records x 60; dword 984 + script blob; dword n + n x 40 (sound name[32], id, param 0x7c) + n x 12 (id, `SoundsGetParam` 0x600 and 0x700) + n x 8 (id, hook) |
+
+### What is stored as a machine address (and what it needs)
+
+Scanning all 76 saves (module images in the saving process: the EXE at its fixed 0x400000, `IMUSE.DLL` at **0x01070000,
+0x01090000, 0x010a0000 or 0x01140000, never at its preferred 0x10000000**) found these classes. The original game had to cope
+with all of them being stale after a restart (DLLs at a different base, heap at different addresses), which is why nearly
+everything is harmless:
+
+1. **Lua C functions: `(index of its library, counted from the NEWEST) << 16 | index in the library`** (`lua_FuncPtrToID` /
+   `lua_IDToFuncPtr`, the "pointer-id tables" `DAT_1002bf60/68`, `lstate__7830` / `lstate__78b0`). This is not an address but
+   it depends on the registration order of the libraries: the original has 14 (ids up to `0xd001b` occur: base library =
+   lib 13, `stderrorim` 12, strings 9, io 10/11, engine table 6, ...). **This was the crash**: `GRIM_RegisterModApi` (mod example
+   10 b) registered a 15th table after the engine table, so every older library moved by one and a saved global such as
+   `type` (`0xd001b`) or `dofile` (`0xd0004`) hit `stderrorim` (a 1-entry table): null function pointer, crash in `ldo__44e0`
+   a few frames after `Load`. Fix: the mod table is registered **first** (`GRIM_RegisterModApiLib` = `lua_recognizelib` at the start of
+   `Lua_InitGameLibs`, before `lua_open` registered the base library) so it is the oldest and no id changes; the globals
+   are created by `GRIM_RegisterModApi` where it was before (names/asm_patches.json).
+2. **iMUSE blob: raw pointers into `IMUSE.DLL`, all rewritten or only tested for non-zero by the restore**. Fields (offsets in
+   the 0x854 byte dispatch track): +0x000 pointer to its stream-track record (`DAT_10031f28 + 60 i`; `Im_RestoreImpl` writes it
+   again), +0x81c pointer to the stream object (`&DAT_10031e98` in every save; `iMUSE_Dispatch__20c0` only tests it for
+   non-zero and creates a new stream), +0x824 pointer into the 50 entry pool `DAT_10024df0` (re-allocated by `20c0` when
+   +0x18 is set, otherwise unused); the 60 byte stream-track records hold the list links (cleared by `Im_RestoreImpl`) and the
+   dispatch pointer (rewritten). Nothing in the blob is dereferenced before it is rewritten, so **no translation is needed**: the
+   rebuilt restore re-creates streams in the rebuilt image (verified: every sound of the saves has play count 1 after load, e.g.
+   `ImGetParam(1317, 256)`; gdb on the track table shows the music stream of track 0 running and sfx tracks ending). The value
+   quoted in the task (`&DAT_1001e900`) does not occur in any save.
+3. **Text objects point to their speaker with a raw heap pointer** (`TextObject+0x254`, flag 4 at +0x258; written by
+   `Actor_SayLine`): the saves hold 0x04d7a21c, 0x04d966fc, 0x1004c88c, ... (the actor table moves between runs and
+   `Actor_Create` reallocs it). Nothing remaps it on load, so the original zeroed a word of whatever heap block the stale
+   pointer hit when `ExpireText` ran; in the rebuilt engine the same pointer faulted (grim62, "I bet Glottis would know.").
+   Fix: `Engine_LoadGame` is overridden (build/overrides.c, `GRIM_FixTextActors`): after the restore hooks, every actor whose
+   extra data `+0x1ec` names a text object (that link *is* remapped by `sputActor_RestoreState` through
+   `TextObject_FindBySelf`) is stored in that object's `+0x254`; speech text objects without a speaker lose flag 4.
+4. **Ids that are heap pointers by design** (Lua object ids; resource ids = data pointer of the saving process, mapped back by
+   `Res_DataFromHandle` / `TextObject_FindBySelf`; text object "self" at +0x25c; the font handles of a text object): fine.
+5. **EXE addresses**: only the text object's `+0x208` (`&UINT_008a94b8`, written raw into the file, rewritten by
+   `sputText_RestoreState`) and `+0x20c` (self pointer + 0x240, rewritten). No other field of a module's state lies in the
+   EXE image (scan of every 4 byte read of three traced loads: only that and float / colour values), so the different section layout of
+   the rebuilt EXE needs no translation layer.
+
+Rebuilt saves are written in the same format. Saves made by a build between the mod API commit (agent D) and this one carry
+the shifted library numbering of the old registration order (a test file of agent C, `agentC_soak.gsv`, loads but calls wrong
+C functions later); saves of earlier builds (before the mod API) and of the original are fine.
+
+### Verification (`build/perf/oldsaves.py <exe-dir>`)
+
+76 / 76 saves: loads without a crash (before the fixes every save crashed: Lua null call; after the first one grim62 still
+died in `Lua_ExpireText`), scene state readable,
+every sound listed in the iMUSE tail playing (22 sounds in 22 saves), a Lua task runs, Manny walks 0.5 m (reported only), a
+`Save` of the loaded game plus a Lua marker and the scene survive `Load` of that save (original -> rebuilt -> reload), a set
+change through `switch_to_set` works and the game still runs. Screenshots were checked for ga.set (grim01), ha.set (grim12),
+bl.set (grim62). The script starts a fresh game per save (`GRIM_MULTI`, Lua hook, no OS input; private copies of the saves in
+the data folder are deleted at the end), retries a boot that failed because the previous instance's window was still there
+and prints the crash header of `grim_crash_<tag>.txt` on a failure.
+
+Remaining / notes:
+* An intermittent crash seen once in 76 loads (grim90, `Mem_Copy` +0x5a writing past the end of a block, a 0x280 byte copy)
+  did not reproduce in 10 more loads of the same save and in three more full runs; no crash dump survived. Treat it as a latent
+  fastpaths / rendering issue until it is seen again.
+* No dialect detection for the saves of the in-between builds: a marker would change the format, and as it is original and
+  rebuilt saves are interchangeable in layout.
+* Ghidra: nothing required. Useful names for the next naming pass: `TextObject+0x254` speaker actor, `+0x258` flags
+  (1 keep, 2 hidden, 4 speech, 8 always draw), `+0x25c` self id; an `Engine_LoadGame` comment "text object speaker pointers are
+  not remapped (original bug), see GRIM_FixTextActors".
