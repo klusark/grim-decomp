@@ -201,8 +201,6 @@ bool Engine_CallExitHandler(void)
 }
 
 /* ---- 0x004828e0  Engine_Quit ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Lua exit() */
 
 void __cdecl Engine_Quit(int exitCode)
@@ -213,8 +211,6 @@ void __cdecl Engine_Quit(int exitCode)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x00482900  Engine_SetPaused ---- */
 /* Lua EnginePause/EngineResume and WM_ACTIVATEAPP use this to freeze the engine clock */

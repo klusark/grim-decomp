@@ -1205,8 +1205,6 @@ void FUN_00450260(int param_1)
 }
 
 /* ---- 0x00450290  Math3D_TriangleNormal ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Normal of the triangle (p0,p1,p2) from the normalised edges p1-p0 and p2-p0, with tiny components
    zeroed. */
 
@@ -1238,8 +1236,6 @@ void Math3D_TriangleNormal(float *param_1,float *param_2,float *param_3,float *p
 #undef local_18
 #undef local_8
 #undef local_c
-
-#endif
 
 
 /* ---- 0x00450380  Vec3_ZeroSmallComponents ---- */

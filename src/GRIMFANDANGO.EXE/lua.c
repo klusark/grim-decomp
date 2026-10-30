@@ -5107,8 +5107,6 @@ void Lua_UpdateFrame(void)
 
 
 /* ---- 0x0049ca60  Lua_OpenEngineLib ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* lua_openlib() wrapper used to register the 279-entry engine opcode table at 0x004ea8b0 */
 
 void Lua_OpenEngineLib(int *param_1,int param_2)
@@ -5117,8 +5115,6 @@ void Lua_OpenEngineLib(int *param_1,int param_2)
   lua_openlib(param_1,param_2);
   return;
 }
-#endif
-
 
 /* ---- 0x0049ca80  Lua_JustLoaded ---- */
 /* Lua opcode: JustLoaded */

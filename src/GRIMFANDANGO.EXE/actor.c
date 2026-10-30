@@ -393,8 +393,6 @@ void Actor_WalkForward(int param_1)
 }
 
 /* ---- 0x0048fd90  Actor_UpdateMovement ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Actor_UpdateMovement(actor, dt): per frame; path following when actor+8 bit 0 (Actor_FollowPath),
    Actor_UpdateWalker, Actor_UpdateMoveChores, costume update with dt * time scale, Actor_PuckOrient
    when actor+4 & 0x10. */
@@ -435,8 +433,6 @@ void Actor_UpdateMovement(void *param_1,float param_2)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x0048fe80  Actor_UpdateLookAt ---- */
 /* Head tracking: turns the three head joints toward the look-at point (extra+0) limited by the look
@@ -923,8 +919,6 @@ void Actor_SetPositionClamped(int param_1,float *param_2)
 }
 
 /* ---- 0x00490900  Actor_SetRot ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* WARNING: Variable defined which should be unmapped: local_40 */
 /* Actor_SetRot(actor, angles, snap): clears actor+8 bit 0 first, which ends a WalkActorTo path walk
    (Actor_UpdateMovement only calls Actor_FollowPath while it is set). Pitch (+0x24) and roll
@@ -982,8 +976,6 @@ void Actor_SetRot(int param_1,undefined4 *param_2,int param_3)
 #undef local_24
 #undef local_30
 #undef local_40
-
-#endif
 
 
 /* ---- 0x00490a40  Actor_SetReflection ---- */
