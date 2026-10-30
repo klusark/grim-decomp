@@ -1,6 +1,12 @@
 {
  "_comment": "Functions taken out of the build (read by tools/build_src.py -> #if 0, tools/gen_asm.py -> never assembled). Categories: dead = original MSVC C runtime / zlib code that no live code references (tools/lib_audit.py; reachable only from the original `entry` / start-up, locale, stdio, heap and C++ EH internals of a runtime the host msvcrt replaces); host = replaced by the msvcrt.dll function of the same name; zlib = replaced by the system libz.a. Values are the Ghidra names (documentation only).",
- "aliases": {},
+ "aliases": {
+  "GRIMFANDANGO.EXE": {
+   "_FUN_004adef0": "_fgetws",
+   "_FUN_004d54b4": "__CIfmod",
+   "_FUN_004ae410": "_strncat"
+  }
+ },
  "GRIMFANDANGO.EXE": {
   "dead": [
    "004ac690",
@@ -20,6 +26,7 @@
    "004af550",
    "004af5e0",
    "004af72d",
+   "004af736",
    "004af7b0",
    "004b0550",
    "004b0570",
@@ -55,6 +62,11 @@
    "004b1c48",
    "004b2040",
    "004b2100",
+   "004b4ad4",
+   "004b4b0d",
+   "004b4b0f",
+   "004b4ba0",
+   "004b4bb7",
    "004b4c00",
    "004b4c15",
    "004b4c45",
@@ -65,6 +77,7 @@
    "004b5710",
    "004b5884",
    "004b58af",
+   "004b58b8",
    "004b5b60",
    "004b5baa",
    "004b5bb5",
@@ -85,6 +98,8 @@
    "004b6820",
    "004b6970",
    "004b69e0",
+   "004b6e60",
+   "004b6ed0",
    "004b6f50",
    "004b6f90",
    "004b6fb0",
@@ -102,6 +117,7 @@
    "004b7600",
    "004b76a0",
    "004b7730",
+   "004b77f0",
    "004b7800",
    "004b7c10",
    "004b8f30",
@@ -115,6 +131,7 @@
    "004ba2b0",
    "004ba340",
    "004bb1e0",
+   "004bbc10",
    "004bc3d0",
    "004bc400",
    "004bc410",
@@ -125,6 +142,17 @@
    "004bcb40",
    "004d5de0",
    "004d5e35"
+  ],
+  "host": [
+   "004ac720",
+   "004afa90",
+   "004adef0",
+   "004b4440",
+   "004d54b4",
+   "004b9b1c",
+   "004b9916",
+   "004ae410",
+   "004d5a4c"
   ]
  },
  "LUA.DLL": {

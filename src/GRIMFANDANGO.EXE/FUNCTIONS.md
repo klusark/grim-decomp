@@ -1915,7 +1915,7 @@
 | 004af660 | _global_unwind2 | crt.c | 6 |
 | 004af6a2 | _local_unwind2 | crt.c | 35 |
 | 004af70a | _unwind_handler | crt.c | 15 |
-| 004af736 | _NLG_Notify | crt.c | 11 |
+| 004af736 | _NLG_Notify | crt.c | 1 |
 | 004af750 | isdigit | crt.c | 11 |
 | 004af780 | isspace | crt.c | 11 |
 | 004af7e0 | _lock | crt.c | 23 |
@@ -1985,7 +1985,7 @@
 | 004b5650 | FrameUnwindToState | crt.c | 40 |
 | 004b5730 | CatchIt | crt.c | 22 |
 | 004b57c0 | CallCatchBlock | crt.c | 49 |
-| 004b58b8 | Eh_CallCatchBlockInner | crt.c | 21 |
+| 004b58b8 | Eh_CallCatchBlockInner | crt.c | 1 |
 | 004b5950 | BuildCatchObject | crt.c | 83 |
 | 004b5c60 | terminate | crt.c | 34 |
 | 004b6ce0 | _getbuf | crt.c | 22 |
@@ -2037,7 +2037,7 @@
 | 004bb950 | _wcstombs_lk | crt.c | 103 |
 | 004bbb40 | wcsncnt | crt.c | 20 |
 | 004bbb80 | getenv | crt.c | 49 |
-| 004bbc10 | _chsize | crt.c | 67 |
+| 004bbc10 | _chsize | crt.c | 1 |
 | 004bbd60 | _raise_exc | crt.c | 147 |
 | 004bc0a0 | _handle_exc | crt.c | 145 |
 | 004bc730 | __ld12mul | crt.c | 164 |
@@ -2065,8 +2065,8 @@
 | 004acf30 | FUN_004acf30 | crt_unnamed.c | 1 |
 | 004ad2b0 | FUN_004ad2b0 | crt_unnamed.c | 1 |
 | 004addf0 | FUN_004addf0 | crt_unnamed.c | 1 |
-| 004adef0 | FUN_004adef0 | crt_unnamed.c | 30 |
-| 004ae410 | FUN_004ae410 | crt_unnamed.c | 100 |
+| 004adef0 | FUN_004adef0 | crt_unnamed.c | 1 |
+| 004ae410 | FUN_004ae410 | crt_unnamed.c | 1 |
 | 004ae735 | FUN_004ae735 | crt_unnamed.c | 1 |
 | 004aeb60 | FUN_004aeb60 | crt_unnamed.c | 1 |
 | 004af340 | FUN_004af340 | crt_unnamed.c | 1 |
@@ -2111,8 +2111,8 @@
 | 004b1c48 | FUN_004b1c48 | crt_unnamed.c | 1 |
 | 004b2040 | FUN_004b2040 | crt_unnamed.c | 1 |
 | 004b2100 | FUN_004b2100 | crt_unnamed.c | 1 |
-| 004b4440 | FUN_004b4440 | crt_unnamed.c | 75 |
-| 004b4ad4 | FUN_004b4ad4 | crt_unnamed.c | 5 |
+| 004b4440 | FUN_004b4440 | crt_unnamed.c | 1 |
+| 004b4ad4 | FUN_004b4ad4 | crt_unnamed.c | 1 |
 | 004b4b0d | FUN_004b4b0d | crt_unnamed.c | 1 |
 | 004b4b0f | FUN_004b4b0f | crt_unnamed.c | 1 |
 | 004b4c00 | FUN_004b4c00 | crt_unnamed.c | 1 |
@@ -2162,7 +2162,7 @@
 | 004b7600 | FUN_004b7600 | crt_unnamed.c | 1 |
 | 004b76a0 | FUN_004b76a0 | crt_unnamed.c | 1 |
 | 004b7730 | FUN_004b7730 | crt_unnamed.c | 1 |
-| 004b77f0 | FUN_004b77f0 | crt_unnamed.c | 6 |
+| 004b77f0 | FUN_004b77f0 | crt_unnamed.c | 1 |
 | 004b7800 | FUN_004b7800 | crt_unnamed.c | 1 |
 | 004b7c10 | FUN_004b7c10 | crt_unnamed.c | 1 |
 | 004b8f30 | FUN_004b8f30 | crt_unnamed.c | 1 |
