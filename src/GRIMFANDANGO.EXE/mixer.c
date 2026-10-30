@@ -155,6 +155,8 @@ void __cdecl DSound_SetPrimaryVolume(int volume)
 
 
 /* ---- 0x004cddf0  Mixer_TimerThread ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Software sound mixer thread: wakes every 16 ms (timeGetTime) while g_nMixerRunning and refills
    the DirectSound stream buffer */
 
@@ -187,6 +189,8 @@ undefined * __stdcall Mixer_TimerThread(int a1)
   CloseHandle(a1_00);
   return (undefined *)0x0;
 }
+#endif
+
 
 /* ---- 0x004ce060  Mixer_Update ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -453,14 +457,20 @@ int DSound_GetPlayBlock(void)
 
 
 /* ---- 0x004d2e60  Mixer_Output ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void Mixer_Output(undefined4 param_1,undefined4 param_2)
 
 {
   Mixer_ConvertTo16(param_1,param_2);
   return;
 }
+#endif
+
 
 /* ---- 0x004d3010  Mixer_ClearAccumulator ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Zeroes the 32-bit mix accumulator at g_pMixAccum */
 
 undefined4 Mixer_ClearAccumulator(void)
@@ -482,6 +492,8 @@ undefined4 Mixer_ClearAccumulator(void)
   }
   return 0;
 }
+#endif
+
 
 /* ---- 0x004d3040  Mixer_MixVoice ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -546,6 +558,8 @@ void Mixer_MixVoice(byte *param_1,int param_2,int param_3,int param_4,uint param
 
 
 /* ---- 0x004d31d0  Mixer_ConvertTo16 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Accumulator >> 7 clamped to 16 bits into the output block */
 
 undefined4 Mixer_ConvertTo16(undefined2 *param_1,int param_2)
@@ -575,8 +589,12 @@ undefined4 Mixer_ConvertTo16(undefined2 *param_1,int param_2)
   }
   return 0xffffffff;
 }
+#endif
+
 
 /* ---- 0x004d3240  Mixer_Mix8MonoLR ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Resampling mix of unsigned 8-bit mono samples with separate left/right volumes */
 
 void __cdecl Mixer_Mix8MonoLR(byte *src,int count,uint rateFrac,int accumOffset,int volL,int volR)
@@ -648,8 +666,12 @@ void __cdecl Mixer_Mix8MonoLR(byte *src,int count,uint rateFrac,int accumOffset,
   }
   return;
 }
+#endif
+
 
 /* ---- 0x004d34a0  Mixer_Mix8Mono ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void Mixer_Mix8Mono(byte *param_1,int param_2,uint param_3,int param_4,int param_5)
 
 {
@@ -722,8 +744,12 @@ void Mixer_Mix8Mono(byte *param_1,int param_2,uint param_3,int param_4,int param
   }
   return;
 }
+#endif
+
 
 /* ---- 0x004d36e0  Mixer_Mix16MonoLR ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void Mixer_Mix16MonoLR(short *param_1,int param_2,uint param_3,int param_4,int param_5,int param_6)
 
 {
@@ -789,8 +815,12 @@ void Mixer_Mix16MonoLR(short *param_1,int param_2,uint param_3,int param_4,int p
   }
   return;
 }
+#endif
+
 
 /* ---- 0x004d38a0  Mixer_Mix16Mono ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void Mixer_Mix16Mono(short *param_1,int param_2,uint param_3,int param_4,int param_5)
 
 {
@@ -859,8 +889,12 @@ void Mixer_Mix16Mono(short *param_1,int param_2,uint param_3,int param_4,int par
   }
   return;
 }
+#endif
+
 
 /* ---- 0x004d3a60  Mixer_MixStereoLR_A ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Stereo sample-pair resampler with left/right volumes (format A) */
 
 void Mixer_MixStereoLR_A(ushort *param_1,int param_2,uint param_3,uint param_4,int param_5,
@@ -940,8 +974,12 @@ void Mixer_MixStereoLR_A(ushort *param_1,int param_2,uint param_3,uint param_4,i
   }
   return;
 }
+#endif
+
 
 /* ---- 0x004d3c40  Mixer_MixStereo_A ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void Mixer_MixStereo_A(ushort *param_1,int param_2,uint param_3,uint param_4,int param_5)
 
 {
@@ -1025,8 +1063,12 @@ void Mixer_MixStereo_A(ushort *param_1,int param_2,uint param_3,uint param_4,int
   }
   return;
 }
+#endif
+
 
 /* ---- 0x004d3e60  Mixer_MixStereoLR_B ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void Mixer_MixStereoLR_B(ushort *param_1,int param_2,uint param_3,uint param_4,int param_5,
                         int param_6)
 
@@ -1104,8 +1146,12 @@ void Mixer_MixStereoLR_B(ushort *param_1,int param_2,uint param_3,uint param_4,i
   }
   return;
 }
+#endif
+
 
 /* ---- 0x004d40d0  Mixer_MixStereo_B ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void Mixer_MixStereo_B(ushort *param_1,int param_2,uint param_3,uint param_4,int param_5)
 
 {
@@ -1176,3 +1222,5 @@ void Mixer_MixStereo_B(ushort *param_1,int param_2,uint param_3,uint param_4,int
   }
   return;
 }
+#endif
+
