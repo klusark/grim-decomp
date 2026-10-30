@@ -172,6 +172,7 @@ Environment variables read by the rebuilt EXE (set them before `tools/run_game.s
 | `GRIM_LUA_LOG=<file>` | target of `grimlog("text")` and of the hook's `rc=0: <line>` result lines | same |
 | `GRIM_DISPLAY_DEVICE=<n>` | pick another enumerated display device (1 = DirectDraw); default 0 = windowed DIB, software renderer | `Display_InitFromConfig` |
 | `GRIM_WALK_SCALE=<float>` | example mod 10 a: walk speed factor | `overrides.c` |
+| `GRIM_SAVETRACE=<file>` | log every `SaveGame_Write` / `SaveGame_Read` (offset, size, caller) = the layout of a save; read it with `tools/savetrace.py` (BUILD_NOTES "Saves of the original game") | `overrides.c` |
 
 `GRIM_LUA_FILE` and `GRIM_LUA_LOG` take **Windows paths with backslashes** (`C:\Users\Joel\x.lua`): a forward-slash MSYS
 path makes the hook silently skip the file (`tools/run_game.sh` converts with `cygpath -w`). The hook calls
@@ -342,19 +343,23 @@ values is several pushes. Prototypes: `src/GRIMFANDANGO.EXE/functions.h` (import
    ```
    Arguments: `int a = lua_lua2C(1); if (lua_isnumber(a)) x = lua_getnumber(a);` (`lua_getnumber` returns a `float`).
 2. **Add it to the table** `mod_api[]` (same file): `{ "GetEngineVersionString", (void *)Lua_GetEngineVersionString },`.
-   The table is passed to `lua_openlib` by `GRIM_RegisterModApi()`, which `names/asm_patches.json` makes `Lua_InitGameLibs`
-   call right after it registered the engine table (see 3). Nothing else is needed for further functions.
+   The table is recorded by `GRIM_RegisterModApiLib()` (`lua_recognizelib`, called by `names/asm_patches.json` at the start
+   of `Lua_InitGameLibs`, see the note below) and turned into globals by `GRIM_RegisterModApi()` (called right after the
+   engine's own table was registered). Nothing else is needed for further functions.
 3. **Build**: `make -C build link` (no assembly regeneration is needed: no assembled function was removed) and copy
    the binaries to `build/run/`.
 4. **Call it** from the hook and from scripts:
    `tools/lua_cmd.sh 'grimlog(GetEngineVersionString())'` -> `Grim Fandango GOG v1.01 decompilation rebuild, built Oct 29 2026 20:39:18`.
    In a loose script it is an ordinary global function.
 
-Notes: a new *table* (a second `lua_openlib` call) changes the table index that `lua_recognizelib` hands out for the
-tables registered before it, so save files made by a build with a different set of tables do not load (saves of the
-*original* game do not load in the rebuilt one anyway, see `BUILD_NOTES.md`). Adding entries to the one `mod_api[]`
-table is safe within one build. Functions that call back into the engine from a task thread must not block; use
-`lua_pushnumber`... results only.
+Notes: a Lua C function is stored in a save file as `(index of its table in the list of recognised tables, counted from the
+newest) << 16 | index in the table`. A table recognised **after** the original ones therefore shifts the id of every older
+table by one, and saves of the original game (and of every earlier build) then call the wrong functions or a null
+pointer. That is why `GRIM_RegisterModApiLib` runs at the very start of `Lua_InitGameLibs` (before the Lua state exists and
+before the base library is registered): the mod table is the **oldest** one and no existing id changes (`build/perf/oldsaves.py`
+checks this against the original saves). Never register another table after start-up; add entries to the one `mod_api[]`
+table instead (new entries get ids behind the old ones, so saves stay compatible within one build). Functions that call
+back into the engine from a task thread must not block; use `lua_pushnumber`... results only.
 
 ## 9. Subsystem map
 
@@ -425,7 +430,7 @@ no rebuild, is example c.
 ### b) Add new Lua functions: `GetEngineVersionString`, `SetWalkSpeedScale`, `GetWalkSpeedScale`
 
 Implemented exactly as the recipe in 8 (`build/overrides.c`: three `static int Lua_...(void)` functions, the `mod_api[]`
-table, `GRIM_RegisterModApi`, plus the one-line entry in `names/asm_patches.json`). Before the build the names are
+table, `GRIM_RegisterModApiLib` / `GRIM_RegisterModApi`, plus the two entries in `names/asm_patches.json`). Before the build the names are
 unknown globals; after it:
 
 ```text
@@ -505,6 +510,9 @@ from a mod directory without the file, so the change comes from the loose `mo.se
   read arguments with `*(char**)($esp+4)`; `printf` + `continue` in a `commands` block gives a call trace without
   stopping the game (this is how the file lookup order in 6 was determined). Attaching with `-p <pid>` works with
   `/mingw32/bin/gdb` for a process started outside gdb.
+* **Save files**: `GRIM_SAVETRACE=<file>` + `tools/savetrace.py` show which module writes / reads which bytes of a save;
+  `build/perf/oldsaves.py build/run` loads every save of the original game in a fresh game and checks scene, sounds, Lua
+  tasks, re-saving and set changes (BUILD_NOTES "Saves of the original game").
 * **A fault in `ntdll` heap code during early start-up**, or a "stack overflow" at a tiny stack depth, usually means a
   call bound to the wrong function (two functions with one name) or heap corruption: diff `src/` against the last
   commit and compare function names.
