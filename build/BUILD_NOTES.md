@@ -658,3 +658,33 @@ Bug classes found on the way (each is a pattern to grep for when something else 
   prototype / C call site with the original code. Real finding: `luaY_error`/`lparser__a730` took no parameters in Ghidra, so the compiled C passed only the
   format string to `luaL_verror` (garbage error messages); the remaining reports are assembled callees (harmless), CRT code that is not linked, or split
   functions/jump tables where the stack-slot scan is blind.
+
+## Loose files, naming pass 3 (2026-10-29, agent D)
+
+* **Where the game finds files** is documented in `docs/MODDING.md` (6): `ResFile_Open` asks the archive list first
+  (`Lab_FindFile`), then `fopen`; `Resource_OpenArchives` builds the list from `GrimDataDir`, the extra data directory and
+  the working directory, each directory contributing its `*.LAB`, itself as a pseudo-archive and the 30 `g_ppRequiredLabs`
+  subdirectories (`Scripts\`, `DEBUG_Scripts\`, ...). Directories are indexed once at start-up.
+* **Text scripts silently failed**: the host msvcrt's text-mode `ftell()` returns 0 after a one-byte `fread()`, Lua's
+  `dofile` reads the first byte and seeks back by one, so the first character of every text script was lost.
+  `stdFile_Open` (`overrides.c`) now opens read-mode files in binary mode; loose `.lua`/`.set` files work.
+* **Examples** (`docs/MODDING.md`, 10): `Actor_UpdateWalker` rewritten in `overrides.c` with a walk speed factor
+  (`GRIM_WALK_SCALE`, `SetWalkSpeedScale`), new Lua functions registered through `GRIM_RegisterModApi` (called from
+  `Lua_InitGameLibs` by `names/asm_patches.json`), loose `_local.lua` and `mo.set`.
+* **Generated C is marked**: functions that are assembled carry `/* NOT COMPILED: ... */`, the ones replaced in
+  `overrides.c` keep `/* replaced by the hand-written version ... */` (they used to share one misleading comment).
+* **Naming pass 3**: `names/exe_pass3.json` (221 functions): module interface slots (`<Module>_Terminate/_Start/_Stop/
+  _SaveState/_RestoreState`), costume tag handlers, rdCamera projections, `Rdmodel3.c`/`Rdkeyframe.c` loaders,
+  `Stdconffile.c`, set-file section handlers, resource type handlers, service slots, ... The evidence is the registration
+  tables (module interface, `Cos_NewStateBasedTag`, `g_ResTypeTable`, `Services_InitPlatformTable`, `stdBitmap_LoadFile`'s
+  extension chain) and the source-file strings in the allocation calls. It also **corrected names that were shifted by
+  one**: the five bitmap loaders (`.pic` -> `stdPic_Load`, `.gif` -> `stdGif_Load`, `.pcx` -> `stdPcx_Load`, `.lbm` ->
+  `stdLbm_Load`), the costume component handlers (mesh / material / bitmap / keyframe / sprite `Destroy` and
+  `NewInstance`), `Std_ParseCommandLine` -> `stdConffile_ReadLine`.
+* **Three regeneration lessons.** (1) After renames run `build_src.py`, then `gen_asm.py --select`, then `build_src.py`
+  (gen_asm takes symbols from `functions.h`); a stale `asm_funcs.s` leaves undefined `FUN_` symbols. (2) A function that
+  only stores the address of a renamed function in a table is not re-exported by `export_changed.py` (put it in
+  `raw/touched.json`). (3) Never re-apply a subset of `names/*.json`: the batches lag behind edits made in Ghidra and
+  an old batch restores stale names; this produced a second function called `stdBitmap_Load`, calls bound to the wrong
+  one, and a stack overflow while loading `splash.bm` before it was found and undone.
+* Known: `SetActorScale(manny, 1.6)` crashes in `rdRaster_Span16_TexLitZw_6` (software span rasterizer).

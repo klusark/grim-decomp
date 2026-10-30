@@ -1,0 +1,2 @@
+WM = {} WM.go = function() local h = manny.hActor local x0, y0 = GetActorPos(h) local t0 = GetTickCount() local i = 0 while i < 90 do WalkActorForward(h) break_here() i = i + 1 end local x1, y1 = GetActorPos(h) local ms = GetTickCount() - t0 local d = sqrt((x1-x0)^2 + (y1-y0)^2) grimlog(format("walked %.3f units in %d ms = %.3f units/s (actor walk rate %s, engine scale %s)", d, ms, d*1000/ms, GetActorWalkRate(h), tostring(GetWalkSpeedScale and GetWalkSpeedScale()))) end
+start_script(WM.go)
