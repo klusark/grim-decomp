@@ -641,6 +641,7 @@ ARRAY_RET_RE = re.compile(r"^(\w[\w ]*?)\s*\[(\d+)\]\s+(\w+\()", re.M)
 IMG_SECTIONS = []  # [(name, start, size)] of the program being built (raw/<prog>/sections.json)
 FUNC_AT = {}       # address int -> C name of every function of the program being built
 ASM_ADDRS = set()  # functions replaced by src/<prog>/asm_funcs.s (tools/gen_asm.py)
+LIB_REPL = {}      # address -> category of the functions taken out of the build (names/lib_replace.json)
 DATA_ELT = {}   # address -> C type for a Ghidra data item of 2 or 4 bytes (raw/<prog>/data_items.txt)
 ELT_TYPES = {"undefined4": "undefined4", "dword": "undefined4", "int": "undefined4", "uint": "undefined4",
              "undefined2": "undefined2", "word": "undefined2", "short": "undefined2", "ushort": "undefined2",
@@ -648,6 +649,21 @@ ELT_TYPES = {"undefined4": "undefined4", "dword": "undefined4", "int": "undefine
 ACCESS_ELT = {}  # address -> C type of the narrowest direct access (raw/<prog>/access_sizes.json)
 PTR_TYPES = {}  # PTR_<addr> -> pointee type applied in Ghidra (raw/<prog>/ptr_types.json)
 STDCALL_FUNCS = set()  # C names of callee-pop functions (raw/<prog>/stdcall_funcs.json)
+
+
+def load_lib_replace(prog):
+    """{address: category} of the functions names/lib_replace.json takes out of the build: "dead" (original C runtime
+    / zlib code that nothing live can reach, see tools/lib_audit.py), "host" / "zlib" (replaced by the system
+    library; the symbol resolves to msvcrt.dll / libz.a or to a generated alias)."""
+    path = os.path.join(ROOT, "names", "lib_replace.json")
+    out = {}
+    if os.path.exists(path):
+        for cat, addrs in json.load(open(path)).get(prog, {}).items():
+            if cat == "zlib" and os.environ.get("GRIM_BUNDLED_ZLIB"):
+                continue   # build the game's own zlib 1.1.3 again (needs src/ + asm regenerated with the variable set)
+            for a in addrs:
+                out[a] = cat
+    return out
 
 
 def load_overrides():
@@ -1077,6 +1093,8 @@ def build(prog):
     ap = os.path.join(ROOT, "names", "asm_funcs.json")
     if os.path.exists(ap):
         ASM_ADDRS = set(json.load(open(ap)).get(prog, []))
+    global LIB_REPL
+    LIB_REPL = load_lib_replace(prog)
     global DATA_ELT
     DATA_ELT = {}
     di_path = os.path.join(rawdir, "data_items.txt")
@@ -1274,7 +1292,14 @@ def build(prog):
                     globals_seen[g].add(f["address"])
             title = f["name"] + (f"  (renamed {renamed[f['address']]}: duplicate name)" if f["address"] in renamed else "")
             lines.append(f"/* ---- 0x{f['address']}  {title} ---- */")
-            if f["name"] in OVERRIDES or f["address"] in ASM_ADDRS:
+            if f["address"] in LIB_REPL and f["name"] not in OVERRIDES:
+                lines.append("/* NOT COMPILED: names/lib_replace.json (%s): the system C runtime / zlib (or nothing, for dead "
+                             "code) is used instead; this C text is only for reading */" % LIB_REPL[f["address"]])
+                lines.append("#if 0")
+                lines.append(code)
+                lines.append("#endif")
+                code = ""
+            elif f["name"] in OVERRIDES or f["address"] in ASM_ADDRS:
                 if f["name"] in OVERRIDES:
                     lines.append("/* replaced by the hand-written version in build/overrides.c */")
                 else:

@@ -1,0 +1,4 @@
+{
+ "_comment": "Functions taken out of the build (read by tools/build_src.py -> #if 0, tools/gen_asm.py -> never assembled). Categories: dead = original MSVC C runtime / zlib code that no live code references (tools/lib_audit.py; reachable only from the original `entry` / start-up, locale, stdio, heap and C++ EH internals of a runtime the host msvcrt replaces); host = replaced by the msvcrt.dll function of the same name; zlib = replaced by the system libz.a. Values are the Ghidra names (documentation only).",
+ "aliases": {}
+}
