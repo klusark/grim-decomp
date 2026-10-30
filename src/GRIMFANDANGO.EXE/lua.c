@@ -1860,6 +1860,8 @@ void Lua_GetMemoryUsage(void)
 
 
 /* ---- 0x00498da0  Lua_GetDiskFreeSpace ---- */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+#if 0
 /* Lua opcode: GetDiskFreeSpace */
 
 void Lua_GetDiskFreeSpace(void)
@@ -1870,12 +1872,14 @@ void Lua_GetDiskFreeSpace(void)
   #define local_4 (*(undefined1 (*)[4])(_frame + (0x30 - 0x4)))
   
   GetDiskFreeSpaceA(0,(int)(local_18 + 1),(int)local_18,(int)(local_18 + 2),(int)local_4);
-  lua_pushnumber((float)(uint)local_18[0] * 0.0009765625 * (float)(int)local_18[1] * 0.0009765625 *
-                 (float)(int)local_18[2]);
+  lua_pushnumber((float)PUN(uint,(float)local_18[0]) * 0.0009765625 * (float)PUN(int,(float)local_18[1]) * 0.0009765625 *
+                 (float)PUN(int,(float)local_18[2]));
   return;
 }
 #undef local_18
 #undef local_4
+
+#endif
 
 
 /* ---- 0x00498e20  Lua_TEST ---- */
@@ -2938,6 +2942,8 @@ void Lua_IsActorChoring(void)
 
 
 /* ---- 0x00499ff0  Lua_GetActorChores ---- */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+#if 0
 /* WARNING: Variable defined which should be unmapped: local_2c */
 /* Lua opcode: GetActorChores */
 
@@ -2973,23 +2979,23 @@ void Lua_GetActorChores(void)
       local_14[2] = fVar3;
       if (fVar3 != 0.0) {
         do {
-          uVar4 = Cos_InstChoreStatus(*(int *)local_18,(uint)fVar5);
+          uVar4 = Cos_InstChoreStatus(*(int *)local_18,PUN(uint,(float)fVar5));
           if ((uVar4 & 1) != 0) {
             lua_pushobject(iVar1);
-            fVar3 = (float)(uint)fVar5;
+            fVar3 = (float)PUN(uint,(float)fVar5);
             local_14[1] = fVar3;
             lua_pushnumber(fVar3);
             lua_pushnumber(fVar3);
             lua_settable();
-            local_14[0] = (float)((int)local_14[0] + 1);
+            local_14[0] = (float)(PUN(int,(float)local_14[0]) + 1);
             fVar3 = local_14[2];
           }
-          fVar5 = (float)((int)fVar5 + 1);
-        } while ((uint)fVar5 < (uint)fVar3);
+          fVar5 = (float)(PUN(int,(float)fVar5) + 1);
+        } while (PUN(uint,(float)fVar5) < PUN(uint,(float)fVar3));
       }
       lua_pushobject(iVar1);
       lua_pushstring(s_count_004ec384);
-      lua_pushnumber((float)(uint)local_14[0]);
+      lua_pushnumber((float)PUN(uint,(float)local_14[0]));
       lua_settable();
       lua_pushobject(iVar1);
       return;
@@ -3001,6 +3007,8 @@ void Lua_GetActorChores(void)
 #undef local_14
 #undef local_18
 #undef local_2c
+
+#endif
 
 
 /* ---- 0x0049a160  Lua_GetActorCostumeDepth ---- */
@@ -3083,6 +3091,8 @@ LAB_0049a295:
 }
 
 /* ---- 0x0049a2a0  Lua_GetActorLoopingChores ---- */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+#if 0
 /* WARNING: Variable defined which should be unmapped: local_2c */
 /* Lua opcode: GetActorLoopingChores */
 
@@ -3118,23 +3128,23 @@ void Lua_GetActorLoopingChores(void)
       local_14[2] = fVar3;
       if (fVar3 != 0.0) {
         do {
-          uVar4 = Cos_InstChoreStatus(*(int *)local_18,(uint)fVar5);
+          uVar4 = Cos_InstChoreStatus(*(int *)local_18,PUN(uint,(float)fVar5));
           if (((uVar4 & 1) != 0) && ((uVar4 & 2) != 0)) {
             lua_pushobject(iVar1);
-            fVar3 = (float)(uint)fVar5;
+            fVar3 = (float)PUN(uint,(float)fVar5);
             local_14[1] = fVar3;
             lua_pushnumber(fVar3);
             lua_pushnumber(fVar3);
             lua_settable();
-            local_14[0] = (float)((int)local_14[0] + 1);
+            local_14[0] = (float)(PUN(int,(float)local_14[0]) + 1);
             fVar3 = local_14[2];
           }
-          fVar5 = (float)((int)fVar5 + 1);
-        } while ((uint)fVar5 < (uint)fVar3);
+          fVar5 = (float)(PUN(int,(float)fVar5) + 1);
+        } while (PUN(uint,(float)fVar5) < PUN(uint,(float)fVar3));
       }
       lua_pushobject(iVar1);
       lua_pushstring(s_count_004ec384);
-      lua_pushnumber((float)(uint)local_14[0]);
+      lua_pushnumber((float)PUN(uint,(float)local_14[0]));
       lua_settable();
       lua_pushobject(iVar1);
       return;
@@ -3146,6 +3156,8 @@ void Lua_GetActorLoopingChores(void)
 #undef local_14
 #undef local_18
 #undef local_2c
+
+#endif
 
 
 /* ---- 0x0049a410  Lua_SetActorColormap ---- */
@@ -5468,6 +5480,8 @@ void Lua_EnableDebugKeys(void)
 }
 
 /* ---- 0x0049cf60  Lua_WorldToScreen ---- */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+#if 0
 /* WARNING: Variable defined which should be unmapped: local_2c */
 /* Lua opcode: WorldToScreen */
 
@@ -5498,7 +5512,7 @@ void Lua_WorldToScreen(void)
         local_18[2] = lua_getnumber(iVar3);
         iVar1 = rdCamera_ProjectPoint(local_18,&local_c);
         if (iVar1 != 0) {
-          lua_pushnumber((float)(int)local_c);
+          lua_pushnumber((float)PUN(int,(float)local_c));
           lua_pushnumber((float)(int)local_8);
           return;
         }
@@ -5513,6 +5527,8 @@ void Lua_WorldToScreen(void)
 #undef local_2c
 #undef local_8
 #undef local_c
+
+#endif
 
 
 /* ---- 0x0049d030  Lua_ScreenToWorld ---- */
@@ -6507,6 +6523,8 @@ void * Lua_RestoreUserdataHook(int param_1,void *param_2)
 }
 
 /* ---- 0x0049e0b0  Lua_DispatchControlHandlers ---- */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+#if 0
 /* WARNING: Variable defined which should be unmapped: local_58 */
 /* Calls system.buttonHandler / system.axisHandler for every enabled control whose state changed
    (last value kept at control+8) */
@@ -6541,10 +6559,10 @@ undefined4 Lua_DispatchControlHandlers(void)
   lua_pushobject(iVar3);
   lua_pushstring(s_buttonHandler_004ec574);
   fVar4 = (float)lua_gettable();
-  iVar3 = lua_istable((int)fVar4);
+  iVar3 = lua_istable(PUN(int,(float)fVar4));
   pcVar7 = lua_isfunction_exref;
   if (iVar3 == 0) {
-    iVar3 = lua_isfunction((int)fVar4);
+    iVar3 = lua_isfunction(PUN(int,(float)fVar4));
     if (iVar3 == 0) {
       local_44 = 0;
     }
@@ -6555,11 +6573,11 @@ undefined4 Lua_DispatchControlHandlers(void)
     }
   }
   else {
-    lua_pushobject((int)fVar4);
+    lua_pushobject(PUN(int,(float)fVar4));
     lua_pushstring(s_buttonHandler_004ec574);
     local_30[1] = (float)lua_gettable();
     pcVar7 = lua_isfunction_exref;
-    iVar3 = lua_isfunction((int)local_30[1]);
+    iVar3 = lua_isfunction(PUN(int,(float)local_30[1]));
     if (iVar3 != 0) {
       bVar1 = true;
       local_44 = 1;
@@ -6570,7 +6588,7 @@ undefined4 Lua_DispatchControlHandlers(void)
   lua_pushstring(s_axisHandler_004ec568);
   fVar5 = (float)lua_gettable();
   local_1c[0] = fVar5;
-  iVar3 = lua_istable((int)fVar5);
+  iVar3 = lua_istable(PUN(int,(float)fVar5));
   if (iVar3 == 0) {
     iVar3 = (*pcVar7)();
     if (iVar3 == 0) {
@@ -6583,7 +6601,7 @@ undefined4 Lua_DispatchControlHandlers(void)
     }
   }
   else {
-    lua_pushobject((int)fVar5);
+    lua_pushobject(PUN(int,(float)fVar5));
     lua_pushstring(s_axisHandler_004ec568);
     local_30[2] = (float)lua_gettable();
     iVar3 = (*pcVar7)(local_30[2]);
@@ -6604,12 +6622,12 @@ undefined4 Lua_DispatchControlHandlers(void)
           }
           if ((fVar6 != (float)*puVar8) && (local_3c != 0)) {
             if (bVar2) {
-              lua_pushobject((int)local_1c[0]);
+              lua_pushobject(PUN(int,(float)local_1c[0]));
             }
-            lua_pushnumber((float)(uint)fVar5);
+            lua_pushnumber((float)PUN(uint,(float)fVar5));
             lua_pushnumber(fVar6);
-            lua_callfunction((int)local_30[2]);
-            *puVar8 = (uint)fVar6;
+            lua_callfunction(PUN(int,(float)local_30[2]));
+            *puVar8 = PUN(uint,(float)fVar6);
           }
         }
         else {
@@ -6617,26 +6635,26 @@ undefined4 Lua_DispatchControlHandlers(void)
           fVar6 = (float)Input_GetButtonState(puVar8[-1],(int *)local_30,(int *)&local_20);
           if ((fVar6 != (float)*puVar8) && (local_44 != 0)) {
             if (bVar1) {
-              lua_pushobject((int)fVar4);
+              lua_pushobject(PUN(int,(float)fVar4));
             }
             local_1c[1] = fVar5;
-            lua_pushnumber((float)(uint)fVar5);
+            lua_pushnumber((float)PUN(uint,(float)fVar5));
             if (fVar6 == 0.0) {
               lua_pushnil();
             }
             else {
               lua_pushnumber(1.0);
             }
-            lua_pushnumber((float)(uint)local_30[0]);
+            lua_pushnumber((float)PUN(uint,(float)local_30[0]));
             lua_pushnumber((float)(int)local_20);
-            lua_callfunction((int)local_30[1]);
-            *puVar8 = (uint)fVar6;
+            lua_callfunction(PUN(int,(float)local_30[1]));
+            *puVar8 = PUN(uint,(float)fVar6);
           }
         }
       }
-      fVar5 = (float)((int)fVar5 + 1);
+      fVar5 = (float)(PUN(int,(float)fVar5) + 1);
       puVar8 = puVar8 + 4;
-    } while ((uint)fVar5 < (uint)g_nControlCount);
+    } while (PUN(uint,(float)fVar5) < (uint)g_nControlCount);
   }
   lua_endblock();
   return 0;
@@ -6651,6 +6669,8 @@ undefined4 Lua_DispatchControlHandlers(void)
 #undef local_40
 #undef local_44
 #undef local_58
+
+#endif
 
 
 /* ---- 0x0049e380  Lua_CreateSystemTable ---- */
@@ -7866,7 +7886,7 @@ void Lua_SetCameraFOV(void)
   }
   fVar3 = lua_getnumber(iVar1);
   g_pCameraSetup[7] = fVar3;
-  *(float *)((int)g_pCameraSetup[10] + 0x38) = g_pCameraSetup[7];
+  *(float *)(PUN(int,(float)g_pCameraSetup[10]) + 0x38) = g_pCameraSetup[7];
   return;
 }
 #endif

@@ -6,7 +6,7 @@
 #include "functions.h"
 
 /* ---- 0x10003a80  iMUSE_dsound__3a80 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Unidentified function of iMUSE_dsound.c (DirectSound output) */
 

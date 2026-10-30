@@ -73,6 +73,10 @@ static int grim_log_cfn(void)
     return 0;
 }
 
+extern int GRIM_SimTime(void);
+extern void *__attribute__((stdcall)) GRIM_GetModuleHandleA(const char *) __asm__("_GetModuleHandleA@4");
+extern void *__attribute__((stdcall)) GRIM_GetProcAddress(void *, const char *) __asm__("_GetProcAddress@8");
+
 void GRIM_lua_cmd_poll(void)
 {
     static char line[1024];
@@ -80,6 +84,24 @@ void GRIM_lua_cmd_poll(void)
     char buf[256];
     unsigned got, i;
     static int nomovie = -1;
+    static void (*imuse_step)(int);
+    static int imuse_step_state;     /* 0 = not looked for, 1 = found, -1 = no GRIM_SIMTIME / not found */
+    /* GRIM_SIMTIME: iMUSE runs on game time (see the GRIM_SIMTIME block of IMUSE.DLL in overrides.c): one step per frame */
+    if (imuse_step_state == 0) {
+        imuse_step_state = -1;
+        if (GRIM_SimTime() > 0) {
+            void *h = GRIM_GetModuleHandleA("IMUSE.DLL");
+            if (h) {
+                imuse_step = (void (*)(int))GRIM_GetProcAddress(h, "GRIM_ImSimStep");
+                if (!imuse_step)
+                    imuse_step = (void (*)(int))GRIM_GetProcAddress(h, "_GRIM_ImSimStep");
+                if (imuse_step)
+                    imuse_step_state = 1;
+            }
+        }
+    }
+    if (imuse_step_state > 0)
+        imuse_step(GRIM_SimTime());
     /* GRIM_NOMOVIE=1 (test runs): movies are skipped the way StartSmush=FALSE does it; the engine sets the flag
      * during start-up, so it is cleared again here, in every frame */
     if (nomovie < 0)
@@ -544,6 +566,97 @@ __asm__(".text\n"
         "    jnz 1b\n"
         "2:  ret\n");
 
+/* ==== GRIM_SIMTIME: iMUSE in game time =========================================================================
+ * The scripted runs give every frame a fixed game time (GRIM_SIMTIME ms) and run at ~100x real time, but iMUSE is paced by the
+ * hardware: a WINMM timer thread calls ImHeartbeat every 20 ms of real time, and a block of the DirectSound ring is refilled
+ * only when the play cursor has left it. A sound that lasts 7 s therefore lasts 7 s of real time = 700 s of game time, and
+ * the scripts that wait for the end of a sound (wait_for_sound, the shots of kill_hector) time out. With GRIM_SIMTIME set:
+ *   - no timer thread (FUN_10008ce0 reports success at once, the timer callback never runs): nothing races with the main thread;
+ *   - the play cursor (iMUSE_dsound__3a80) is a counter of bytes that advances by game time (avg bytes/s of the stream format);
+ *   - the EXE calls GRIM_ImSimStep(ms) once per frame (GRIM_lua_cmd_poll): the cursor moves and ImHeartbeat runs once per 20 ms
+ *     of game time (fades, mixing, retiring of finished tracks), whatever the real time between the calls;
+ *   - the two loops that wait for the heartbeat (SoundsFloodMusicBuffer, SoundsFillStreamsWhileMusicCritical) tick it themselves.
+ * The DirectSound buffer is still written and played (muted), so the rest of iMUSE does not notice. Off without GRIM_SIMTIME. */
+extern char *GRIM_getenv(const char *) __asm__("_getenv");
+int GRIM_ImSimOn(void)
+{
+    static int on = -1;
+    if (on < 0) {
+        const char *e = GRIM_getenv("GRIM_SIMTIME");
+        on = (e != 0 && e[0] >= '1' && e[0] <= '9');
+    }
+    return on;
+}
+static unsigned long long grim_sim_micro;   /* bytes of the ring the simulated play cursor has passed, times 1000 */
+static int grim_sim_acc;                    /* game ms not yet turned into 20 ms heartbeats */
+
+static void grim_sim_tick(int ms)
+{
+    unsigned avg = ((unsigned *)&DAT_100170f0)[2];   /* WAVEFORMATEX.nAvgBytesPerSec of the stream format */
+    grim_sim_micro += (unsigned long long)ms * avg;
+    grim_sim_acc += ms;
+    while (grim_sim_acc >= 20) {
+        grim_sim_acc -= 20;
+        DAT_100172bc = 0xffffffffu;   /* the 20 ms of real time between heartbeats ImHeartbeat insists on */
+        ImHeartbeat();
+    }
+}
+void GRIM_ImSimStep(int ms)
+{
+    if (GRIM_ImSimOn() && ms > 0)
+        grim_sim_tick(ms);
+}
+
+/* OVERRIDES: iMUSE_dsound__3a80 */
+int iMUSE_dsound__3a80(void)   /* the block of the ring that the play cursor is in, -1 when unknown */
+{
+    if (GRIM_ImSimOn()) {
+        unsigned ring = (unsigned)DAT_1002d824 * 0x1800;
+        if (ring == 0)
+            return -1;
+        DAT_1002d828 = (unsigned)((grim_sim_micro / 1000) % ring);
+        return (int)((unsigned)DAT_1002d828 / 0x1800) % DAT_1002d824;
+    }
+    if (COM(PTR_1002d83c, 0x10, &DAT_1002d828, &DAT_1002d81c) == 0)
+        return ((unsigned)DAT_1002d828 / 0x1800) % DAT_1002d824;   /* GetCurrentPosition */
+    return -1;
+}
+
+/* OVERRIDES: SoundsFloodMusicBuffer SoundsFillStreamsWhileMusicCritical */
+int SoundsFloodMusicBuffer(void)
+{
+    int r = 0;
+    if (_DAT_10031d44 != 0) {
+        r = FUN_100077c0();
+        while (r == 0) {
+            ImProcessStreams();
+            if (GRIM_ImSimOn())
+                grim_sim_tick(20);
+            r = FUN_100077c0();
+        }
+    }
+    return r;
+}
+undefined4 SoundsFillStreamsWhileMusicCritical(int n)
+{
+    undefined4 r = 0;
+    if (_DAT_10031d44 != 0 && FUN_100076b0() != 0) {
+        do {
+            ImProcessStreams();
+            if (GRIM_ImSimOn())
+                grim_sim_tick(20);
+        } while (FUN_100076b0() != 0);
+        r = 0;
+        for (; n > 0; n--) {
+            r = ImProcessStreams();
+            if (GRIM_ImSimOn())
+                grim_sim_tick(20);
+        }
+    }
+    return r;
+}
+/* ==== end GRIM_SIMTIME ================================================================================================ */
+
 /* FUN_10008ce0 (iMUSE heartbeat timer start-up): the decompiler lost the TIMECAPS
  * structure it reads back from the stack (wPeriodMin/wPeriodMax became unaff_ESI /
  * unaff_EDI, which made the period 0). Rewritten from the disassembly:
@@ -556,6 +669,10 @@ int FUN_10008ce0(void)
     unsigned period, lo;
     int start, tries;
 
+    if (GRIM_ImSimOn()) {   /* simulated time: no timer thread, GRIM_ImSimStep drives the heartbeat */
+        _DAT_10031e84 = 1;
+        return 1;
+    }
     if (timeGetDevCaps(caps, 8) != 0)
         return 0;
     lo = caps[0] > 0x32 ? caps[0] : 0x32;
@@ -610,7 +727,7 @@ void Im_DSoundCreateBuffer(int n)
     desc.reserved = 0;
     desc.format = &DAT_100170f0;
     if (COM(PTR_1002d834, 0xc, &desc, &PTR_1002d83c, 0) == 0) {
-        COM(PTR_1002d83c, 0x3c, 0);
+        COM(PTR_1002d83c, 0x3c, GRIM_ImSimOn() ? -10000 : 0);   /* SetVolume (muted in simulated time: the ring is filled faster than it plays) */
         if (COM(PTR_1002d83c, 0x2c, 0, n * 0x1800, &p1, &b1, &p2, &b2, 0) == 0) {
             unsigned i;
             for (i = 0; i < b1; i++)

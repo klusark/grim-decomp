@@ -87,6 +87,8 @@ void Actor_DrawDebugWalker(void *param_1)
 
 
 /* ---- 0x0048b2e0  Actor_CreateSubtitle ---- */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+#if 0
 /* Creates the speech text object above the actor (projected head position when on screen), clamped
    to the screen edges */
 
@@ -119,7 +121,7 @@ void * __cdecl Actor_CreateSubtitle(void *actor,char *text,int x,int y)
   
   pvVar1 = actor;
   local_38 = UINT_008a94bc;
-  local_50[0] = (float)g_nSubtitleDefaultX;
+  local_50[0] = PUN(float,g_nSubtitleDefaultX);
   local_50[2] = (float)UINT_004e8490;
   local_34 = UINT_008a94c0;
   puVar6 = &g_SubtitleTextCtx;
@@ -129,7 +131,7 @@ void * __cdecl Actor_CreateSubtitle(void *actor,char *text,int x,int y)
     puVar6 = puVar6 + 1;
     puVar7 = puVar7 + 1;
   }
-  local_50[1] = (float)g_nSubtitleDefaultY;
+  local_50[1] = PUN(float,g_nSubtitleDefaultY);
   local_2c = (uint)&local_40;
   local_40 = 0;
   local_3c = 0;
@@ -199,6 +201,8 @@ void * __cdecl Actor_CreateSubtitle(void *actor,char *text,int x,int y)
 #undef local_44
 #undef local_50
 #undef local_5c
+
+#endif
 
 
 /* ---- 0x0048f930  Actor_SetCostume ---- */
@@ -393,6 +397,8 @@ void Actor_WalkForward(int param_1)
 }
 
 /* ---- 0x0048fd90  Actor_UpdateMovement ---- */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+#if 0
 /* Actor_UpdateMovement(actor, dt): per frame; path following when actor+8 bit 0 (Actor_FollowPath),
    Actor_UpdateWalker, Actor_UpdateMoveChores, costume update with dt * time scale, Actor_PuckOrient
    when actor+4 & 0x10. */
@@ -433,6 +439,8 @@ void Actor_UpdateMovement(void *param_1,float param_2)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x0048fe80  Actor_UpdateLookAt ---- */
 /* Head tracking: turns the three head joints toward the look-at point (extra+0) limited by the look
@@ -1152,6 +1160,8 @@ void __cdecl Actor_PopCostume(void *actor,int free)
 }
 
 /* ---- 0x00490f50  Actor_PuckOrient ---- */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+#if 0
 /* WARNING: Variable defined which should be unmapped: local_68 */
 /* Actor_PuckOrient: at the end of the actor update when actor+4 & 0x10 (ActorPuckOrient). Rebuilds
    the actor matrix, takes the angle between its up row and the up vector of the walker frame; over
@@ -1174,15 +1184,15 @@ void Actor_PuckOrient(float param_1)
   #define local_3c (*(float (*)[3])(_frame + (0x80 - 0x3c)))
   #define local_30 (*(undefined1 (*)[48])(_frame + (0x80 - 0x30)))
   
-  if (((param_1 != 0.0) && (*(int *)((int)param_1 + 0xa4) != 0)) &&
-     (iVar4 = *(int *)(*(int *)((int)param_1 + 0xa4) + 0x1b4), iVar4 != 0)) {
-    iVar1 = (int)param_1 + 0xc;
-    iVar2 = (int)param_1 + 0x24;
-    iVar3 = (int)param_1 + 0x38;
+  if (((param_1 != 0.0) && (*(int *)(PUN(int,(float)param_1) + 0xa4) != 0)) &&
+     (iVar4 = *(int *)(*(int *)(PUN(int,(float)param_1) + 0xa4) + 0x1b4), iVar4 != 0)) {
+    iVar1 = PUN(int,(float)param_1) + 0xc;
+    iVar2 = PUN(int,(float)param_1) + 0x24;
+    iVar3 = PUN(int,(float)param_1) + 0x38;
     Angles_ToMatrix(iVar3,iVar2,iVar1);
-    local_48[0] = *(float *)((int)param_1 + 0x50);
-    local_48[1] = *(float *)((int)param_1 + 0x54);
-    local_48[2] = *(float *)((int)param_1 + 0x58);
+    local_48[0] = *(float *)(PUN(int,(float)param_1) + 0x50);
+    local_48[1] = *(float *)(PUN(int,(float)param_1) + 0x54);
+    local_48[2] = *(float *)(PUN(int,(float)param_1) + 0x58);
     local_54[0] = *(float *)(iVar4 + 0x24);
     local_54[1] = *(float *)(iVar4 + 0x28);
     local_54[2] = *(float *)(iVar4 + 0x2c);
@@ -1195,7 +1205,7 @@ void Actor_PuckOrient(float param_1)
     }
     if (2.0 < fVar6) {
       fVar6 = Timer_GetFrameSeconds();
-      fVar6 = fVar6 * *(float *)(*(int *)((int)param_1 + 0xa4) + 0x1c);
+      fVar6 = fVar6 * *(float *)(*(int *)(PUN(int,(float)param_1) + 0xa4) + 0x1c);
       param_1 = fVar5;
       if ((0.0 < fVar5) && (fVar6 < fVar5)) {
         param_1 = fVar6;
@@ -1220,6 +1230,8 @@ void Actor_PuckOrient(float param_1)
 #undef local_48
 #undef local_54
 #undef local_68
+
+#endif
 
 
 /* ---- 0x00491110  Actor_UpdateWalker ---- */

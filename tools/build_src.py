@@ -323,6 +323,7 @@ class Ctx:
         self.cc = {}          # name -> __thiscall / __fastcall / __stdcall
         self.gtypes = {}      # global name -> declared C type (named globals)
         self.known_types = set(PRIM_TYPES)
+        self.import_ints = set()   # names of the PE imports
 
 
 # -- expression typing (best effort; None = unknown) -------------------------
@@ -466,6 +467,8 @@ def type_of(e, vt, ctx, depth=0):
     is_func = False
     if t is None and name in ctx.protos:
         t, is_func = ctx.protos[name][0], True
+    elif t is None and name in ctx.import_ints:
+        t, is_func = "int", True  # (an imported function without a prototype is declared `extern int f();` in imports.h)
     i = 0
     while i < len(rest):
         if rest[i] == "[":
@@ -510,28 +513,12 @@ def int_float_conversions(addr):
         bool(re.search(r"\bFIST", text)) or " CVTT" in text
 
 
-_LEGACY = {}
-
-
-def legacy_cast_funcs(prog):
-    """Functions that were converted from assembly to C (names/asm_exclude_exe_lo.json) while int<->float casts were still
-    plain value conversions; their C only works with those, so the PUN rewrite of fix_casts skips them."""
-    if prog not in _LEGACY:
-        try:
-            _LEGACY[prog] = set(json.load(open(os.path.join(ROOT, "names", "asm_exclude_exe_lo.json"))).get(prog, []))
-        except OSError:
-            _LEGACY[prog] = set()
-    return _LEGACY[prog]
-
-
 def fix_casts(body, vt, ctx):
     """Ghidra reuses one register for a pointer and a float (`(float)param_2` with
     `float *param_2`, `(float *)((float)x * -1.0)`): C forbids those conversions,
     Ghidra means a bit-for-bit reinterpretation, i.e. PUN()."""
     casts = [m for m in CAST_AT_RE.finditer(body) if is_type(m.group(1), ctx.known_types)]
     has_fild, has_fist = int_float_conversions(CUR_FN_ADDR)
-    if CUR_FN_ADDR in legacy_cast_funcs(CUR_PROG):
-        has_fild = has_fist = True  # value-converting casts, as before the PUN rules (functions converted by agent I)
 
     for m in reversed(casts):
         T = " ".join(m.group(1).split())
@@ -1387,6 +1374,7 @@ def build(prog):
         by_mod.setdefault(m, []).append(f)
 
     ctx = Ctx()
+    ctx.import_ints = {i["name"] for i in imports}
     named_globals = {}
     try:
         for line in read_text(os.path.join(rawdir, "globals.json")).splitlines():

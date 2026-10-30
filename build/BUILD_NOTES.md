@@ -1135,3 +1135,32 @@ Root causes fixed at the source (Ghidra, then `tools/export_changed.py`)
 - Test oracles: `build/jtmp` (kept out of git) has hostdiff.py (original vs rebuilt LUA.DLL under the stand-alone host), the
   Lua scenario traces and a delta-debugging bisect.  Lesson: a bisect whose check silently skips a tier looks like it works;
   verify the final set with the real suite.
+
+## Whole-game run, lighting and game-time audio (2026-10-30, lead)
+
+* **Whole-game autorun passes** (ch01-ch65, `AUTORUN RESULT PASSED`, ~514 s of wall time, movies off, TEXT_ONLY) on the rebuilt engine
+  with a private copy of the `grim_tools` autorun: `nav_setfile.lua` ends with `readfrom()` (not `readfrom(old)`: the set file stays
+  open and the 128-slot ResFile table fills up, then the game asks for a CD), `ch36` also accepts being in Lola's set (no movie, the
+  cutscene is over before the poll), `DATA006.LAB` in the data folder, and the re-entry threshold of the hallway walk of chapter 1
+  at 1500 ms (1000 ms is missed by one frame: the walk is the same on ScummVM, which passes by one frame, the rebuilt engine by -1).
+  Run it on a private hard-linked data folder with its own script file name (`dofile("autorun_all.lua")` finds the shared copy first).
+* **Int/float casts of the converted functions** (`tools/build_src.py fix_casts`). Ghidra types a stack slot or parameter that the
+  compiler reused for an int and a float as `float`; whether `(int)x` / `(float)i` is a value conversion or a bit copy depends on the
+  function (FILD/FIST in the original: `int_float_conversions`). The rewrite is per cast, so a function with a FILD gets the read
+  side as PUN (bits) and the write side as a value conversion: `rdLight_CalcVertexIntensities` (loop counter in a float slot) lit most
+  vertices wrong (characters nearly black), `Actor_PuckOrient(float param_1)` (an actor pointer) crashed (original save grim21),
+  `Lua_DispatchControlHandlers` and `Lua_GetActor*Chores` (object handles) crashed. The 12 functions that had both kinds of cast were put
+  back to the original machine code (names/asm_exclude_exe_lo.json): rdCanvas_PreparePolygon, rdLight_CalcVertexIntensities,
+  Actor_CreateSubtitle, Actor_UpdateMovement, Actor_PuckOrient, Lua_GetDiskFreeSpace, Lua_WorldToScreen, Lua_SetCameraFOV,
+  Lua_GetActorChores, Lua_GetActorLoopingChores, Lua_DispatchControlHandlers, D3D_CreateViewport. `type_of` also knows that an
+  import without a prototype is `extern int f()`.
+  Check after any change of that rule: `build/perf/shot.py` of Manny's office (the mean brightness of Manny's region is ~44; it was 14
+  with the bug) and original save grim21.
+* **iMUSE in game time** (`GRIM_SIMTIME`, see the block in build/overrides.c). iMUSE was paced by the hardware: a WINMM timer thread
+  calls ImHeartbeat every 20 ms of real time and a block of the DirectSound ring is refilled when the play cursor has left it, so a
+  7 s sound lasted 7 s of real time = 700 s of game time at the ~100x of a scripted run, and the scripts that wait for the end of a
+  sound timed out (ch64: the water tower, `me_tank3.wav`). With GRIM_SIMTIME set there is no timer thread, the play cursor is a byte
+  counter advanced by game time, and the EXE calls `GRIM_ImSimStep(ms)` (exported by IMUSE.DLL) once per frame from
+  `GRIM_lua_cmd_poll`: one ImHeartbeat per 20 ms of game time. The ring is still written (muted). The two loops that wait for the
+  heartbeat tick it themselves. `me_tank3.wav` now ends after 410-412 frames (7.0 s of game time). The guard counter
+  (Im_GuardEnter/Leave) was already atomic; the sound is not a race: it lasted a constant 6.8 s of real time (6 trials).

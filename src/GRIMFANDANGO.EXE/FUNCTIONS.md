@@ -82,7 +82,7 @@
 | 00495900 | Lua_GetSmushLength | lua.c | 27 |
 | 00497830 | Lua_Stub | lua.c | 10 |
 | 00498d80 | Lua_GetMemoryUsage | lua.c | 18 |
-| 00498da0 | Lua_GetDiskFreeSpace | lua.c | 17 |
+| 00498da0 | Lua_GetDiskFreeSpace | lua.c | 1 |
 | 00498e20 | Lua_TEST | lua.c | 1 |
 | 00498e50 | Lua_ShrinkBoxes | lua.c | 1 |
 | 00498e90 | Lua_UnShrinkBoxes | lua.c | 1 |
@@ -107,10 +107,10 @@
 | 00499c70 | Lua_SetActorChoreLooping | lua.c | 56 |
 | 00499da0 | Lua_IsActorResting | lua.c | 27 |
 | 00499e20 | Lua_IsActorChoring | lua.c | 88 |
-| 00499ff0 | Lua_GetActorChores | lua.c | 64 |
+| 00499ff0 | Lua_GetActorChores | lua.c | 1 |
 | 0049a160 | Lua_GetActorCostumeDepth | lua.c | 31 |
 | 0049a1e0 | Lua_GetActorCostume | lua.c | 44 |
-| 0049a2a0 | Lua_GetActorLoopingChores | lua.c | 64 |
+| 0049a2a0 | Lua_GetActorLoopingChores | lua.c | 1 |
 | 0049a410 | Lua_SetActorColormap | lua.c | 45 |
 | 0049a500 | Lua_SetActorCostume | lua.c | 44 |
 | 0049a5e0 | Lua_PrintActorCostumes | lua.c | 21 |
@@ -173,7 +173,7 @@
 | 0049cea0 | Lua_Load | lua.c | 21 |
 | 0049cef0 | Lua_Save | lua.c | 21 |
 | 0049cf40 | Lua_EnableDebugKeys | lua.c | 11 |
-| 0049cf60 | Lua_WorldToScreen | lua.c | 46 |
+| 0049cf60 | Lua_WorldToScreen | lua.c | 1 |
 | 0049d030 | Lua_ScreenToWorld | lua.c | 56 |
 | 0049d140 | Lua_TypeOverride | lua.c | 50 |
 | 0049d220 | Lua_ConcatFallback | lua.c | 90 |
@@ -197,7 +197,7 @@
 | 0049de00 | Lua_InitGameLibs | lua.c | 1 |
 | 0049dfa0 | Lua_SaveUserdataHook | lua.c | 35 |
 | 0049e020 | Lua_RestoreUserdataHook | lua.c | 37 |
-| 0049e0b0 | Lua_DispatchControlHandlers | lua.c | 145 |
+| 0049e0b0 | Lua_DispatchControlHandlers | lua.c | 1 |
 | 0049e380 | Lua_CreateSystemTable | lua.c | 32 |
 | 0049e460 | Lua_CreateControlsTable | lua.c | 35 |
 | 0049e590 | Lua_SetSoundPosition | lua.c | 106 |
@@ -489,7 +489,7 @@
 | 00404e00 | rdCanvas_EmitSpans | rdcanvas.c | 1 |
 | 004055d0 | rdCanvas_FlushSpans | rdcanvas.c | 24 |
 | 00405620 | rdCanvas_BuildEdgeLists | rdcanvas.c | 89 |
-| 00405770 | rdCanvas_PreparePolygon | rdcanvas.c | 695 |
+| 00405770 | rdCanvas_PreparePolygon | rdcanvas.c | 1 |
 | 00451950 | rdCanvas_DrawLine | rdcanvas.c | 110 |
 | 00451dd0 | rdCanvas_DrawPoint | rdcanvas.c | 1 |
 | 004c04f0 | rdCanvas_New | rdcanvas.c | 16 |
@@ -1023,7 +1023,7 @@
 | 0044da40 | rdClip_Face3_PosUvLitFlags | rdclip.c | 1 |
 | 00451460 | rdLight_Init | rdlight.c | 18 |
 | 004514a0 | rdLight_SetAngles | rdlight.c | 25 |
-| 00451510 | rdLight_CalcVertexIntensities | rdlight.c | 118 |
+| 00451510 | rdLight_CalcVertexIntensities | rdlight.c | 1 |
 | 00451b80 | rdPrimit2_DrawLine | rdprimit2.c | 105 |
 | 00451f20 | rdPrimit2_DrawRect | rdprimit2.c | 9 |
 | 0045ff00 | Mem_DumpLog | memory.c | 7 |
@@ -1161,7 +1161,7 @@
 | 00479be0 | D3D_FindTextureFormat | std3d.c | 55 |
 | 00479cc0 | D3D_SetViewportRect | std3d.c | 1 |
 | 00479db0 | D3D_InitRenderState | std3d.c | 1 |
-| 0047a130 | D3D_CreateViewport | std3d.c | 65 |
+| 0047a130 | D3D_CreateViewport | std3d.c | 1 |
 | 0047a240 | D3D_CreateZBuffer | std3d.c | 59 |
 | 0047a3b0 | D3D_EnumDevicesCallback | std3d.c | 87 |
 | 0047a590 | D3D_EnumTextureFormatsCallback | std3d.c | 134 |
@@ -1438,14 +1438,14 @@
 | 004860d0 | sputRender_Stop | sputrender.c | 14 |
 | 00485290 | Actor_ComputeScreenBox | actor.c | 31 |
 | 00485320 | Actor_DrawDebugWalker | actor.c | 46 |
-| 0048b2e0 | Actor_CreateSubtitle | actor.c | 113 |
+| 0048b2e0 | Actor_CreateSubtitle | actor.c | 1 |
 | 0048f930 | Actor_SetCostume | actor.c | 26 |
 | 0048f9d0 | Actor_SetHead | actor.c | 34 |
 | 0048fa60 | Actor_CanSeePoint | actor.c | 49 |
 | 0048fb80 | Actor_CanSee | actor.c | 20 |
 | 0048fbd0 | Actor_TurnKey | actor.c | 37 |
 | 0048fc80 | Actor_WalkForward | actor.c | 13 |
-| 0048fd90 | Actor_UpdateMovement | actor.c | 40 |
+| 0048fd90 | Actor_UpdateMovement | actor.c | 1 |
 | 0048fe80 | Actor_UpdateLookAt | actor.c | 137 |
 | 00490210 | Actor_UpdateTalk | actor.c | 1 |
 | 00490320 | Actor_SetSelected | actor.c | 1 |
@@ -1463,7 +1463,7 @@
 | 00490c80 | Actor_SetRestChore | actor.c | 35 |
 | 00490d30 | Actor_PushCostume | actor.c | 24 |
 | 00490dd0 | Actor_PopCostume | actor.c | 9 |
-| 00490f50 | Actor_PuckOrient | actor.c | 69 |
+| 00490f50 | Actor_PuckOrient | actor.c | 1 |
 | 00491110 | Actor_UpdateWalker | actor.c | 1 |
 | 004913f0 | Actor_UpdateMoveChores | actor.c | 120 |
 | 00492b30 | Actor_SayLine | actor.c | 237 |

@@ -1505,6 +1505,8 @@ undefined4 D3D_InitRenderState(void)
 
 
 /* ---- 0x0047a130  D3D_CreateViewport ---- */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+#if 0
 undefined4 D3D_CreateViewport(void)
 
 {
@@ -1534,7 +1536,7 @@ undefined4 D3D_CreateViewport(void)
   if (iVar4 != 0) {
     return 0;
   }
-  fStack_10 = (float)(uint)fStack_10;
+  fStack_10 = (float)PUN(uint,(float)fStack_10);
   uStack_58 = uStack_c;
   fVar1 = fStack_10 * 0.5;
   fVar2 = (float)uStack_c * 0.5;
@@ -1547,7 +1549,7 @@ undefined4 D3D_CreateViewport(void)
   auStack_40[0] = 0x2c;
   auStack_40[2] = 0;
   auStack_40[1] = 0;
-  auStack_40[3] = (uint)fVar3;
+  auStack_40[3] = PUN(uint,(float)fVar3);
   uStack_30 = uStack_c;
   fStack_20 = (float)uStack_c / (fVar2 + fVar2);
   fStack_2c = fVar1;
@@ -1569,6 +1571,8 @@ undefined4 D3D_CreateViewport(void)
 #undef uStack_30
 #undef uStack_58
 #undef uStack_c
+
+#endif
 
 
 /* ---- 0x0047a240  D3D_CreateZBuffer ---- */

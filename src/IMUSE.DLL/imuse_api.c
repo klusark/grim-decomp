@@ -1597,7 +1597,7 @@ int __cdecl SoundsIsSoundPlaying(uint *param_1)
 
 
 /* ---- 0x10007670  SoundsFillStreamsWhileMusicCritical ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -1694,7 +1694,7 @@ LAB_1000775b:
 
 
 /* ---- 0x10007790  SoundsFloodMusicBuffer ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
