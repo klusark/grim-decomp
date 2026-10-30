@@ -785,3 +785,169 @@ int GRIM_SimTime(void)
     return ms;
 }
 #endif
+
+#ifdef GRIM_LUA
+#include "globals.h"
+/* ==== agentJ: Lua math library (lmathlib.c) and hand-fixed functions of LUA.DLL ====
+ * The original library works on the x87 stack (fsin, fpatan, f2xm1, fscale, the CRT's _CI* helpers); Ghidra cannot express
+ * that, so these are written in C with the host C runtime's double precision functions. Lua 3.1 numbers are floats: every
+ * function reads its arguments with luaL_check_number (float) and pushes a float. The trigonometric functions of the
+ * game's Lua work in DEGREES (sin(30) == 0.5, asin(0.5) == 30). */
+extern double sin(double), cos(double), tan(double), asin(double), acos(double), atan(double), atan2(double, double);
+extern double sqrt(double), log(double), log10(double), exp(double), fmod(double, double), pow(double, double);
+extern int rand(void);
+extern void srand(unsigned seed);
+
+#define MATH_DEG 57.29577951308232       /* radians -> degrees */
+#define MATH_RAD 0.017453292519943295    /* degrees -> radians */
+
+/* floor/ceil of a double (the CRT's floor/ceil of LUA.DLL are x87 code with control-word games) */
+static double lua_floor_d(double x)
+{
+    double t;
+    if (x >= 4503599627370496.0 || x <= -4503599627370496.0)
+        return x;                         /* already integral */
+    t = (double)(long long)x;
+    return t > x ? t - 1.0 : t;
+}
+
+static double lua_ceil_d(double x)
+{
+    double t;
+    if (x >= 4503599627370496.0 || x <= -4503599627370496.0)
+        return x;
+    t = (double)(long long)x;
+    return t < x ? t + 1.0 : t;
+}
+
+void math_abs(void)
+{
+    float x = luaL_check_number(1);
+    if (x < 0.0f)
+        x = -x;
+    lua_pushnumber(x);
+}
+
+void math_sin(void)   { lua_pushnumber((float)sin((double)luaL_check_number(1) * MATH_RAD)); }
+void math_cos(void)   { lua_pushnumber((float)cos((double)luaL_check_number(1) * MATH_RAD)); }
+void math_tan(void)   { lua_pushnumber((float)tan((double)luaL_check_number(1) * MATH_RAD)); }
+void math_asin(void)  { lua_pushnumber((float)(asin((double)luaL_check_number(1)) * MATH_DEG)); }
+void math_acos(void)  { lua_pushnumber((float)(acos((double)luaL_check_number(1)) * MATH_DEG)); }
+void math_atan(void)  { lua_pushnumber((float)(atan((double)luaL_check_number(1)) * MATH_DEG)); }
+
+void math_atan2(void)
+{
+    double y = luaL_check_number(1);
+    double x = luaL_check_number(2);
+    lua_pushnumber((float)(atan2(y, x) * MATH_DEG));
+}
+
+void math_ceil(void)  { lua_pushnumber((float)lua_ceil_d((double)luaL_check_number(1))); }
+void math_floor(void) { lua_pushnumber((float)lua_floor_d((double)luaL_check_number(1))); }
+
+void math_mod(void)
+{
+    double x = luaL_check_number(1);
+    double y = luaL_check_number(2);
+    lua_pushnumber((float)fmod(x, y));
+}
+
+void math_sqrt(void)  { lua_pushnumber((float)sqrt((double)luaL_check_number(1))); }
+
+/* pow(x, y); also the tag method of the '^' operator on numbers (installed by lua_mathlibopen) */
+void math_pow(void)
+{
+    double x = luaL_check_number(1);
+    double y = luaL_check_number(2);
+    lua_pushnumber((float)pow(x, y));
+}
+
+void math_log(void)    { lua_pushnumber((float)log((double)luaL_check_number(1))); }
+void math_log10(void)  { lua_pushnumber((float)log10((double)luaL_check_number(1))); }
+void math_exp(void)    { lua_pushnumber((float)exp((double)luaL_check_number(1))); }
+void math_deg(void)    { lua_pushnumber((float)((double)luaL_check_number(1) * MATH_DEG)); }
+void math_rad(void)    { lua_pushnumber((float)((double)luaL_check_number(1) * MATH_RAD)); }
+
+/* min(x, ...) / max(x, ...): the arguments are scanned until lua_lua2C returns no object */
+void math_min(void)
+{
+    float best = luaL_check_number(1);
+    int i = 2;
+    while (lua_lua2C(i) != 0) {
+        float v = luaL_check_number(i);
+        if (v < best)
+            best = v;
+        i++;
+    }
+    lua_pushnumber(best);
+}
+
+void math_max(void)
+{
+    float best = luaL_check_number(1);
+    int i = 2;
+    while (lua_lua2C(i) != 0) {
+        float v = luaL_check_number(i);
+        if (v > best)
+            best = v;
+        i++;
+    }
+    lua_pushnumber(best);
+}
+
+/* random() in [0,1): rand() % 32767 / 32767;  random(n): an integer in [1,n] */
+void math_random(void)
+{
+    float r = (float)(rand() % 0x7fff) * 3.051850947599719e-05;
+    float n = luaL_opt_number(1, 0.0f);
+    if (n == 0.0f) {
+        lua_pushnumber(r);
+        return;
+    }
+    lua_pushnumber((float)((int)((double)n * (double)r) + 1));
+}
+
+void math_randomseed(void)
+{
+    srand((unsigned)(int)luaL_check_number(1));
+}
+
+/* luaD_message (ldo.c): calls the error tag method (the global tag-method object, tag + value) with the message.
+ * The object is copied to the stack first, Ghidra only shows its value half. */
+void __cdecl luaD_message(byte *msg)
+{
+    undefined4 tm[2];
+    tm[0] = DAT_1002bf58;
+    tm[1] = DAT_1002bf5c;
+    if (tm[0] != (undefined4)-7) {
+        lua_pushstring(msg);
+        luaD_callTM(tm, 1, 0);
+    }
+}
+
+/* str_push_captures (lstrlib.c push_captures): pushes the captures of a pattern match; ms = {level, {start, len} x 32}.
+ * (Ghidra gives it a phantom second parameter.) */
+void __cdecl str_push_captures(int *ms)
+{
+    int i;
+    for (i = 0; i < ms[0]; i++) {
+        unsigned len = (unsigned)ms[2 + 2 * i];
+        char *buf = (char *)luaL_openspace(len + 1);
+        if (len == 0xffffffff)
+            lua_error((byte *)s_unfinished_capture_100279d0);
+        strncpy(buf, (char *)ms[1 + 2 * i], len);
+        buf[len] = 0;
+        lua_pushstring((byte *)buf);
+    }
+}
+
+/* lua_setfallback (lbuiltin.c, Lua 3.1 compat): sets a fallback function: calls the fallback setter with (name, function).
+ * Ghidra's stack tracking loses the second parameter after the first call (it prints in_stack_0000000c). */
+undefined4 __cdecl lua_setfallback(byte *name, int fallback)
+{
+    lua_pushstring(name);
+    lua_pushCclosure(fallback, 0);
+    luaA_callObject(FUN_1000cc30, 2, (void *)1);
+    return lapi__12e0();
+}
+#endif /* GRIM_LUA (agentJ) */

@@ -1148,7 +1148,6 @@ extern char s_BITMAP_insane_004f3cdc[]; /* used by 2 fn(s), first 0x004ce2e0 */
 extern char s_LECMODULE_insane_bitmap_004f3cec[]; /* used by 2 fn(s), first 0x004ce2e0 */
 extern char s_Video_Module__Cannot_allocate_me_004f3d04[]; /* used by 1 fn(s), first 0x004ce350 */
 extern char s_VIDEO_getbm_004f3d34[]; /* used by 1 fn(s), first 0x004ce350 */
-extern char s__s__line__s__Type__d_not_support_004f3d40[]; /* used by 1 fn(s), first 0x004ce3e0 */
 extern char s_C__grimsrc_libs_lecsmush_insane__004f3d64[]; /* used by 3 fn(s), first 0x004ce3e0 */
 extern undefined DAT_004f3da0; /* used by 2 fn(s), first 0x004cf010 */
 extern undefined *PTR_FUN_004f3dc8; /* used by 1 fn(s), first 0x004d0300 */
@@ -2264,7 +2263,7 @@ extern undefined4 UINT_008db1ec; /* used by 3 fn(s), first 0x004d0a80 */
 extern undefined4 UINT_008db1f0; /* used by 3 fn(s), first 0x004d0550 */
 extern undefined4 UINT_008db1f8; /* used by 2 fn(s), first 0x004d1690 */
 extern undefined DAT_008db200; /* used by 1 fn(s), first 0x004d2340 */
-extern undefined4 UINT_008db208; /* used by 4 fn(s), first 0x004d24b0 */
+extern undefined4 UINT_008db208; /* used by 3 fn(s), first 0x004d24b0 */
 extern undefined DAT_008db20c; /* used by 1 fn(s), first 0x004d2420 */
 extern undefined4 UINT_008db210; /* used by 1 fn(s), first 0x004d2630 */
 extern undefined DAT_008db214; /* used by 1 fn(s), first 0x004d2630 */
@@ -2309,7 +2308,7 @@ extern undefined DAT_008dcdc0; /* used by 1 fn(s), first 0x004d5ed0 */
 extern int * PTR_008dcdc4; /* used by 2 fn(s), first 0x004d5eb0 */
 extern undefined DAT_008dcdc8; /* used by 1 fn(s), first 0x004d5f70 */
 extern undefined4 UINT_008ddd68; /* used by 1 fn(s), first 0x004d5f70 */
-extern undefined4 UINT_008ddd6c; /* used by 1 fn(s), first 0x004d5f70 */
+extern uint UINT_008ddd6c; /* used by 1 fn(s), first 0x004d5f70 */
 extern undefined DAT_008ddd80; /* used by 1 fn(s), first 0x004012b0 */
 extern undefined4 UINT_008ddd84; /* used by 1 fn(s), first 0x00401950 */
 extern undefined4 UINT_008ddd88; /* used by 1 fn(s), first 0x004012b0 */

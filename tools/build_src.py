@@ -6,7 +6,7 @@ of the nearest preceding named function (code from one compilation unit is conti
 in the image), except that a long run of unnamed functions becomes its own
 region_<addr> module so we do not pretend to know what it is."""
 import sys
-import json, os, re, sys
+import glob, json, os, re, sys
 from collections import Counter, OrderedDict, defaultdict
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import frame_locals
@@ -901,26 +901,98 @@ def x87_float_names():
     return _X87_NAMES[CUR_PROG]
 
 
-FTOL_GARBAGE_RE = re.compile(r"^(?P<ind>[ \t]*)(?P<lhs>[A-Za-z_]\w*) = _ftol\(\(double\)CONCAT44\(\w+,\w+\)\);[ \t]*$")
+FTOL_GARBAGE_RE = re.compile(r"^(?P<ind>[ \t]*)(?:(?P<lhs>[A-Za-z_]\w*) = )?_ftol\((?:\(double\)CONCAT44\([^;]*\))?\);[ \t]*$")
 PREV_CALL_RE = re.compile(r"^(?P<ind>[ \t]*)(?:(?P<v>[A-Za-z_]\w*) = )?(?P<f>[A-Za-z_]\w*)\((?P<a>.*)\);[ \t]*$")
 
 
-def fix_ftol(body):
+def seh_strip_allowed():
+    """names/seh_strip*.json {prog: [addresses]}: functions whose C++ exception frame may be dropped (see strip_seh_frames)"""
+    global _SEH_OK
+    if _SEH_OK is None:
+        _SEH_OK = set()
+        for path in glob.glob(os.path.join(ROOT, "names", "seh_strip*.json")):
+            for prog, addrs in json.load(open(path)).items():
+                if prog != "_comment":
+                    _SEH_OK |= {(prog, a) for a in addrs}
+    return (CUR_PROG, CUR_FN_ADDR) in _SEH_OK
+
+
+_SEH_OK = None
+
+
+def fix_ftol(body, seh=True):
+    if seh and seh_strip_allowed():
+        body = strip_seh_frames(body)
     lines = body.split("\n")
     names = x87_float_names()
     out = []
     for ln in lines:
         m = FTOL_GARBAGE_RE.match(ln)
-        if m and out:
+        if m and m.group("lhs") and out:  # a bare `_ftol();` hides a use of EAX that Ghidra dropped: stays assembly
             pm = PREV_CALL_RE.match(out[-1])
             if pm and pm.group("f") in names:
+                lhs = "%s = " % m.group("lhs")
                 if pm.group("v"):  # `fVar = f(..);` already named
-                    out.append("%s%s = FTOL(%s);" % (m.group("ind"), m.group("lhs"), pm.group("v")))
+                    out.append("%s%sFTOL(%s);" % (m.group("ind"), lhs, pm.group("v")))
                 else:
-                    out[-1] = "%s%s = FTOL(%s(%s));" % (m.group("ind"), m.group("lhs"), pm.group("f"), pm.group("a"))
+                    out[-1] = "%s%sFTOL(%s(%s));" % (m.group("ind"), lhs, pm.group("f"), pm.group("a"))
                 continue
         out.append(ln)
     return drop_unused_artifacts("\n".join(out))
+
+
+
+# ---- C++ exception frames (SEH registration) ----------------------------------------------------------------
+# MSVC registers an exception frame in every function that constructs/destroys C++ objects:
+#     uStack_4 = 0xffffffff;  pcStack_8 = FUN_10021fe6;  uStack_c = *unaff_FS_OFFSET;  *unaff_FS_OFFSET = &uStack_c;
+#     ... uStack_4 = 0; ...        *unaff_FS_OFFSET = uStack_c;       (state changes, unlink before returning)
+# The frame only matters when a C++ exception unwinds through the function (it runs the destructors listed in the
+# handler's table).  The game never throws; the only thing that unwinds is longjmp, which does not run them either way.
+# The frame is removed when its three variables are used for nothing else.
+SEH_PREV_RE = re.compile(r"^[ \t]*(\w+) = \*unaff_FS_OFFSET;[ \t]*$", re.M)
+
+
+def strip_seh_frames(body):
+    if "unaff_FS_OFFSET" not in body or "unaff_EBP" in body:
+        return body
+    prevs = SEH_PREV_RE.findall(body)
+    if len(prevs) != 1:
+        return body
+    prev = prevs[0]
+    lines = body.split("\n")
+    # the registration statements sit together at the start of the body
+    first = next((i for i, l in enumerate(lines) if re.match(r"^[ \t]*%s = \*unaff_FS_OFFSET;" % prev, l)), None)
+    if first is None:
+        return body
+    state = handler = None
+    for l in lines[max(0, first - 4):first]:
+        m = re.match(r"^[ 	]*(\w+) = 0xffffffff;[ 	]*$", l)
+        if m:
+            state = m.group(1)
+        m = re.match(r"^[ 	]*(\w+) = (?:\(code \*\))?[A-Za-z_]\w*;[ 	]*$", l)
+        if m and re.search(r"^[ 	]+code \*%s;" % m.group(1), body, re.M):
+            handler = m.group(1)
+    keep, dropped = [], 0
+    for i, l in enumerate(lines):
+        if re.match(r"^[ \t]*%s = \*unaff_FS_OFFSET;" % prev, l) or re.match(r"^[ \t]*\*unaff_FS_OFFSET = (?:\(\w+\))?&%s;" % prev, l) \
+                or re.match(r"^[ \t]*\*unaff_FS_OFFSET = %s;" % prev, l):
+            dropped += 1
+            continue
+        if state and re.match(r"^[ \t]*%s = (?:0x)?[0-9a-fA-F]+;[ \t]*$" % state, l):
+            continue
+        if handler and first - 4 <= i <= first and re.match(r"^[ \t]*%s = " % handler, l):
+            continue
+        keep.append(l)
+    if dropped < 2:
+        return body
+    out = "\n".join(keep)
+    names = [n for n in (prev, state, handler, "unaff_FS_OFFSET") if n]
+    for n in names:
+        # the variable must be dead now (only its declaration is left)
+        if len(re.findall(r"\b%s\b" % n, out)) != 1:
+            return body
+    out = "\n".join(l for l in out.split("\n") if not any(re.match(r"^[ \t]+[\w ]+?[ \t]+\**%s;[ \t]*$" % n, l) for n in names))
+    return out
 
 
 ARTIFACT_DECL_RE = re.compile(r"^[ \t]+[A-Za-z_][\w ]*?[ \t]+\**(unaff_\w+|in_\w+|extraout_\w+);[ \t]*$")

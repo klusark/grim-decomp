@@ -6,8 +6,6 @@
 #include "functions.h"
 
 /* ---- 0x1000a6f0  luaY_error ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* lua.stx: 'last token read: %50s' error */
 
 void __cdecl luaY_error(char *msg,char *token)
@@ -21,12 +19,8 @@ void __cdecl luaY_error(char *msg,char *token)
               *(int *)(*(int *)PTR_1002bf6c[0xe] + 0x18) + 0x18);
   return;
 }
-#endif
-
 
 /* ---- 0x1000a730  lparser__a730 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Unidentified function of lua.stx (yacc parser) and code generation */
 
 void __cdecl lparser__a730(char *msg)
@@ -34,12 +28,10 @@ void __cdecl lparser__a730(char *msg)
 {
   char *token;
   
-  token = (char *)((code *)luaX_save)();
+  token = (char *)luaX_save();
   luaY_error(msg,token);
   return;
 }
-#endif
-
 
 /* ---- 0x1000a750  luaY_code_word ---- */
 /* Unidentified function of lua.stx (yacc parser) and code generation */
@@ -940,8 +932,6 @@ void __cdecl luaY_code_number(float param_1)
 
 
 /* ---- 0x1000b950  luaY_real_constant ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Unidentified function of lua.stx (yacc parser) and code generation */
 
 int __cdecl luaY_real_constant(float param_1)
@@ -977,8 +967,6 @@ int __cdecl luaY_real_constant(float param_1)
   *(float *)(iVar1 + 4 + iVar2 * 8) = param_1;
   return iVar2;
 }
-#endif
-
 
 /* ---- 0x1000b9c0  lparser__b9c0 ---- */
 /* Unidentified function of lua.stx (yacc parser) and code generation */
@@ -1272,8 +1260,6 @@ void __cdecl lparser__bde0(int param_1,int param_2)
 }
 
 /* ---- 0x1000be60  lparser__be60 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Unidentified function of lua.stx (yacc parser) and code generation */
 
 void __cdecl lparser__be60(int param_1)
@@ -1294,8 +1280,6 @@ void __cdecl lparser__be60(int param_1)
   ((code *)luaY_code_opcode_arg)(')',8,-param_1 - 1,0);
   return;
 }
-#endif
-
 
 /* ---- 0x1000bec0  lparser__bec0 ---- */
 /* Unidentified function of lua.stx (yacc parser) and code generation */
@@ -1392,8 +1376,6 @@ void __cdecl lparser__c000(int param_1,char param_2)
 }
 
 /* ---- 0x1000c020  lparser__c020 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Unidentified function of lua.stx (yacc parser) and code generation */
 
 void lparser__c020(void)
@@ -1403,8 +1385,6 @@ void lparser__c020(void)
   *(undefined4 *)(PTR_1002bf6c[0xf] + 0x88) = *(undefined4 *)(PTR_1002bf6c[0xf] + 0x90);
   return;
 }
-#endif
-
 
 /* ---- 0x1000c060  lparser__c060 ---- */
 /* Unidentified function of lua.stx (yacc parser) and code generation */

@@ -2277,9 +2277,8 @@ uint FUN_100108d0(uint param_1,uint param_2)
   uint uVar1;
   
   uVar1 = ((code *)FUN_10010930)();
-  uVar1 = param_2 & param_1 | ~param_2 & uVar1;
-  ((code *)FUN_100109d0)(uVar1);
-  return uVar1;
+  FUN_100109d0();
+  return param_2 & param_1 | ~param_2 & uVar1;
 }
 
 /* ---- 0x10010910  FUN_10010910 ---- */
@@ -2341,10 +2340,55 @@ uint FUN_10010930(uint param_1)
 }
 
 /* ---- 0x100109d0  FUN_100109d0 ---- */
-void FUN_100109d0(void)
+/* WARNING: Unknown calling convention -- yet parameter storage is locked */
+
+int FUN_100109d0(void)
 
 {
-  return;
+  uint uVar1;
+  uint uVar2;
+  byte bVar3;
+  uint in_stack_00000004;
+  
+  bVar3 = (in_stack_00000004 & 0x10) != 0;
+  if ((in_stack_00000004 & 8) != 0) {
+    bVar3 = bVar3 | 4;
+  }
+  if ((in_stack_00000004 & 4) != 0) {
+    bVar3 = bVar3 | 8;
+  }
+  if ((in_stack_00000004 & 2) != 0) {
+    bVar3 = bVar3 | 0x10;
+  }
+  if ((in_stack_00000004 & 1) != 0) {
+    bVar3 = bVar3 | 0x20;
+  }
+  if ((in_stack_00000004 & 0x80000) != 0) {
+    bVar3 = bVar3 | 2;
+  }
+  uVar1 = (uint)bVar3;
+  uVar2 = in_stack_00000004 & 0x300;
+  if (uVar2 < 0x101) {
+    if (uVar2 == 0x100) {
+      uVar1 = bVar3 | 0x400;
+    }
+  }
+  else if (uVar2 == 0x200) {
+    uVar1 = (uint)CONCAT11(8,bVar3);
+  }
+  else if (uVar2 == 0x300) {
+    uVar1 = (uint)CONCAT11(0xc,bVar3);
+  }
+  if ((in_stack_00000004 & 0x30000) == 0) {
+    uVar1 = uVar1 | 0x300;
+  }
+  else if ((in_stack_00000004 & 0x30000) == 0x10000) {
+    uVar1 = uVar1 | 0x200;
+  }
+  if ((in_stack_00000004 & 0x40000) != 0) {
+    uVar1 = uVar1 | 0x1000;
+  }
+  return uVar1;
 }
 
 /* ---- 0x10010a60  FUN_10010a60 ---- */
@@ -2377,36 +2421,40 @@ undefined4 FUN_10010a60(int param_1,int param_2)
 }
 
 /* ---- 0x10010ad0  FUN_10010ad0 ---- */
-void FUN_10010ad0(int param_1,int param_2)
+/* WARNING: Unknown calling convention -- yet parameter storage is locked */
+
+int FUN_10010ad0(void)
 
 {
   byte bVar1;
   int iVar2;
   int iVar3;
   undefined4 *puVar4;
+  int in_stack_00000004;
+  int in_stack_00000008;
   
-  bVar1 = (byte)(param_2 >> 0x1f);
-  iVar3 = (int)(param_2 + (param_2 >> 0x1f & 0x1fU)) >> 5;
-  iVar2 = FUN_100132c0(*(undefined4 *)(param_1 + iVar3 * 4),
-                       1 << (0x1f - ((((byte)param_2 ^ bVar1) - bVar1 & 0x1f ^ bVar1) - bVar1) &
-                            0x1f),param_1 + iVar3 * 4);
+  bVar1 = (byte)(in_stack_00000008 >> 0x1f);
+  iVar3 = (int)(in_stack_00000008 + (in_stack_00000008 >> 0x1f & 0x1fU)) >> 5;
+  iVar2 = FUN_100132c0(*(undefined4 *)(in_stack_00000004 + iVar3 * 4),
+                       1 << (0x1f - ((((byte)in_stack_00000008 ^ bVar1) - bVar1 & 0x1f ^ bVar1) -
+                                    bVar1) & 0x1f),in_stack_00000004 + iVar3 * 4);
   iVar3 = iVar3 + -1;
   if (-1 < iVar3) {
-    puVar4 = (undefined4 *)(param_1 + iVar3 * 4);
+    puVar4 = (undefined4 *)(in_stack_00000004 + iVar3 * 4);
     do {
       if (iVar2 == 0) {
-        return;
+        return 0;
       }
       iVar2 = FUN_100132c0(*puVar4,1,puVar4);
       iVar3 = iVar3 + -1;
       puVar4 = puVar4 + -1;
     } while (-1 < iVar3);
   }
-  return;
+  return iVar2;
 }
 
 /* ---- 0x10010b40  FUN_10010b40 ---- */
-undefined4 FUN_10010b40(int param_1,int param_2)
+int FUN_10010b40(int param_1,int param_2)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -2414,15 +2462,15 @@ undefined4 FUN_10010b40(int param_1,int param_2)
   byte bVar2;
   int iVar3;
   undefined4 *puVar4;
-  #define uStack_4 (*(undefined4 *)(_frame + (0x20 - 0x4)))
+  #define iStack_4 (*(int *)(_frame + (0x20 - 0x4)))
   
-  uStack_4 = 0;
+  iStack_4 = 0;
   bVar2 = (byte)(param_2 >> 0x1f);
   bVar2 = 0x1f - ((((byte)param_2 ^ bVar2) - bVar2 & 0x1f ^ bVar2) - bVar2);
   iVar3 = (int)(param_2 + (param_2 >> 0x1f & 0x1fU)) >> 5;
   if (((*(uint *)(param_1 + iVar3 * 4) & 1 << (bVar2 & 0x1f)) != 0) &&
      (iVar1 = FUN_10010a60(param_1,param_2 + 1), iVar1 == 0)) {
-    uStack_4 = ((code *)FUN_10010ad0)(param_1,param_2 + -1);
+    iStack_4 = FUN_10010ad0();
   }
   *(uint *)(param_1 + iVar3 * 4) = *(uint *)(param_1 + iVar3 * 4) & -1 << (bVar2 & 0x1f);
   iVar3 = iVar3 + 1;
@@ -2433,9 +2481,9 @@ undefined4 FUN_10010b40(int param_1,int param_2)
       puVar4 = puVar4 + 1;
     }
   }
-  return uStack_4;
+  return iStack_4;
 }
-#undef uStack_4
+#undef iStack_4
 
 
 /* ---- 0x10010be0  FUN_10010be0 ---- */

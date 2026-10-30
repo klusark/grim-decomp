@@ -1079,7 +1079,7 @@ undefined4 ImStartRecording(undefined4 param_1,int param_2)
 
 {
                     /* 0x5300  39  ImStartRecording */
-  DAT_1002df64 = (int *)((code *)FUN_1000ba60)(param_1,IMG_ADDR(0x100172c4));
+  DAT_1002df64 = (int *)FUN_1000ba60(param_1,IMG_ADDR(0x100172c4));
   if (DAT_1002df64 == (int *)0x0) {
     DAT_1002df60 = 0;
   }
@@ -3100,11 +3100,13 @@ undefined4 __cdecl FUN_1000ba20(undefined4 param_1,char *param_2,undefined4 para
 /* ---- 0x1000ba60  FUN_1000ba60 ---- */
 /* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
-void __cdecl FUN_1000ba60(undefined4 param_1,undefined4 param_2)
+int __cdecl FUN_1000ba60(undefined4 param_1,undefined4 param_2)
 
 {
-  FUN_1000ba20(param_1,param_2,0x40);
-  return;
+  int iVar1;
+  
+  iVar1 = FUN_1000ba20(param_1,param_2,0x40);
+  return iVar1;
 }
 #endif
 
@@ -3340,11 +3342,13 @@ void __cdecl ImFile_LockInit(int param_1)
 #if 0
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
 
-void __cdecl ImFile_UnlockInner(int param_1)
+int __cdecl ImFile_UnlockInner(int param_1)
 
 {
-  LeaveCriticalSection(*(int *)(&DAT_1001e9e8 + param_1 * 4));
-  return;
+  int iVar1;
+  
+  iVar1 = LeaveCriticalSection(*(int *)(&DAT_1001e9e8 + param_1 * 4));
+  return iVar1;
 }
 #endif
 

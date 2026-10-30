@@ -398,11 +398,9 @@ undefined4 __cdecl luaH_nuse(int param_1)
 }
 
 /* ---- 0x1000c7b0  luaH_next ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Unidentified function of ltable.c (hash tables, with Grim save support) */
 
-void __cdecl luaH_next(int param_1,int *param_2)
+int __cdecl luaH_next(int param_1,int *param_2)
 
 {
   int iVar1;
@@ -411,19 +409,17 @@ void __cdecl luaH_next(int param_1,int *param_2)
   
   iVar1 = *(int *)(param_1 + 4);
   if (*param_2 == -7) {
-    ltable__c810(iVar1,0);
-    return;
+    iVar1 = ltable__c810(iVar1,0);
+    return iVar1;
   }
   iVar2 = luaH_present(iVar1,param_2);
   piVar3 = (int *)(*(int *)(iVar1 + 8) + iVar2 * 0x10);
   if ((*piVar3 == -7) || (piVar3[2] == -7)) {
     luaL_argerror(2,IMG_ADDR(0x10027d38));
   }
-  ltable__c810(iVar1,iVar2 + 1);
-  return;
+  iVar1 = ltable__c810(iVar1,iVar2 + 1);
+  return iVar1;
 }
-#endif
-
 
 /* ---- 0x1000c810  ltable__c810 ---- */
 /* Unidentified function of ltable.c (hash tables, with Grim save support) */

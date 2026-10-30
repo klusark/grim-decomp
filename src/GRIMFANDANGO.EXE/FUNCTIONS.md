@@ -258,7 +258,7 @@
 | 004a0da0 | Lua_SetLightIntensity | lua.c | 54 |
 | 004a0e90 | Lua_GetLightIntensity | lua.c | 33 |
 | 004a0f20 | Lua_ImStartRecording | lua.c | 21 |
-| 004a0f80 | Lua_ImStartSound | lua.c | 1 |
+| 004a0f80 | Lua_ImStartSound | lua.c | 38 |
 | 004a1030 | Lua_ImStopSound | lua.c | 21 |
 | 004a1090 | Lua_ImGetParam | lua.c | 41 |
 | 004a1140 | Lua_ImSetParam | lua.c | 55 |
@@ -275,7 +275,7 @@
 | 004a1640 | Lua_ImSetState | lua.c | 18 |
 | 004a1680 | Lua_ImSetSequence | lua.c | 26 |
 | 004a16d0 | Lua_ImSetCuePoint | lua.c | 18 |
-| 004a1710 | Lua_ImSetAttribute | lua.c | 1 |
+| 004a1710 | Lua_ImSetAttribute | lua.c | 32 |
 | 004a17b0 | Lua_ImSetVoiceEffect | lua.c | 18 |
 | 004a17f0 | Lua_ImGetMemoryFootprint | lua.c | 16 |
 | 004a1820 | Lua_ImGetSoundCacheSize | lua.c | 16 |
@@ -2555,14 +2555,14 @@
 | 004c1590 | LecShare_Reset | lecshare.c | 17 |
 | 004c15c0 | LecShare_Register | lecshare.c | 36 |
 | 004c1650 | LecShare_Unregister | lecshare.c | 29 |
-| 004c16c0 | LecShare_Resolve | lecshare.c | 120 |
+| 004c16c0 | LecShare_Resolve | lecshare.c | 1 |
 | 004c1800 | LecShare_Release | lecshare.c | 23 |
 | 004c1850 | LecShare_BatchSubscribe | lecshare.c | 41 |
 | 004c1990 | LecShare_Subscribe | lecshare.c | 105 |
 | 004c1b60 | LecShare_CountMatching | lecshare.c | 48 |
 | 004c1be0 | LecShare_FindEntry | lecshare.c | 22 |
 | 004c1e50 | LecShare_Nop | lecshare.c | 5 |
-| 004c3e60 | gz_open | zlib.c | 177 |
+| 004c3e60 | gz_open | zlib.c | 1 |
 | 004c4120 | gz_check_header | zlib.c | 71 |
 | 004c4280 | gz_get_byte | zlib.c | 26 |
 | 004c42f0 | gz_destroy | zlib.c | 43 |
@@ -2573,7 +2573,7 @@
 | 004c48a0 | gzrewind | zlib.c | 22 |
 | 004c4920 | gz_getLong | zlib.c | 17 |
 | 004c4970 | gzclose | zlib.c | 19 |
-| 004c49c0 | gz_putLong | zlib.c | 18 |
+| 004c49c0 | gz_putLong | zlib.c | 1 |
 | 004c4c40 | zlibVersion | zlib.c | 7 |
 | 004c57d0 | deflateParams_or_SetDictionary | zlib.c | 37 |
 | 004c6040 | inflateReset | zlib.c | 15 |
@@ -2600,7 +2600,7 @@
 | 004ca510 | bi_windup | zlib.c | 23 |
 | 004ca580 | copy_block | zlib.c | 29 |
 | 004ca620 | inflate_codes_new | zlib.c | 16 |
-| 004ca660 | inflate_codes | zlib.c | 398 |
+| 004ca660 | inflate_codes | zlib.c | 1 |
 | 004cae10 | inflate_codes_free | zlib.c | 6 |
 | 004cae30 | inflate_trees_bits | zlib.c | 29 |
 | 004caee0 | huft_build | zlib.c | 304 |

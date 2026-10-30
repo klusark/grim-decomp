@@ -2115,13 +2115,13 @@ void Im_GuardEnter(void)
    wait for a sound spins forever. Seen on the original with the heartbeat (WINMM timer thread) and
    ImGetParam of the main thread 171 us apart. */
 
-void Im_GuardLeave(void)
+int Im_GuardLeave(void)
 
 {
   if (DAT_100172c0 != 0) {
     DAT_100172c0 = DAT_100172c0 + -1;
   }
-  return;
+  return DAT_100172c0;
 }
 #endif
 

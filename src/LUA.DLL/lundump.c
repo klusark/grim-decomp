@@ -368,7 +368,7 @@ float __cdecl luaU_LoadNumber(undefined4 *param_1)
 /* ---- 0x1000d360  lundump__d360 ---- */
 /* Unidentified function of lundump.c (precompiled chunk loader) */
 
-void __cdecl lundump__d360(undefined1 *param_1)
+int __cdecl lundump__d360(undefined1 *param_1)
 
 {
   undefined1 uVar1;
@@ -379,13 +379,13 @@ void __cdecl lundump__d360(undefined1 *param_1)
   uVar1 = param_1[1];
   param_1[1] = param_1[2];
   param_1[2] = uVar1;
-  return;
+  return (int)(param_1 + 2);
 }
 
 /* ---- 0x1000d380  lundump__d380 ---- */
 /* Unidentified function of lundump.c (precompiled chunk loader) */
 
-void __cdecl lundump__d380(undefined1 *param_1)
+int __cdecl lundump__d380(undefined1 *param_1)
 
 {
   undefined1 uVar1;
@@ -402,7 +402,7 @@ void __cdecl lundump__d380(undefined1 *param_1)
   uVar1 = param_1[3];
   param_1[3] = param_1[4];
   param_1[4] = uVar1;
-  return;
+  return (int)(param_1 + 4);
 }
 
 /* ---- 0x1000d3c0  lundump__d3c0 ---- */

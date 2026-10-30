@@ -30,7 +30,7 @@ undefined4 Im_GroupsInit(void); /* 0x100049b0 */
 undefined4 __cdecl Im_SetGroupVolImpl(uint param_1,uint param_2); /* 0x100049e0 */
 undefined4 __cdecl Im_GetGroupVol(uint param_1); /* 0x10004a80 */
 void Im_GuardEnter(void); /* 0x10004f50 */
-void Im_GuardLeave(void); /* 0x10004f60 */
+int Im_GuardLeave(void); /* 0x10004f60 */
 uint __cdecl Im_DispatchCommand(uint param_1,int *param_2,undefined4 *param_3,uint param_4,int param_5, int param_6); /* 0x10004f70 */
 undefined4 __cdecl Im_MixerInit(undefined4 *param_1); /* 0x10005360 */
 undefined4 Im_MixerReset(void); /* 0x10005490 */
@@ -244,7 +244,7 @@ int Sounds_EvictOldestIdleSlot(void); /* 0x100092f0 */
 int __cdecl ImFile_Read(int *param_1,int param_2,int param_3); /* 0x1000b940 */
 int __cdecl ImFile_ReadImpl(int *param_1,int param_2,int param_3); /* 0x1000b980 */
 undefined4 __cdecl FUN_1000ba20(undefined4 param_1,char *param_2,undefined4 param_3); /* 0x1000ba20 */
-void __cdecl FUN_1000ba60(undefined4 param_1,undefined4 param_2); /* 0x1000ba60 */
+int __cdecl FUN_1000ba60(undefined4 param_1,undefined4 param_2); /* 0x1000ba60 */
 void FUN_1000ba80(void); /* 0x1000ba80 */
 void FUN_1000baa0(void); /* 0x1000baa0 */
 undefined4 __cdecl ImFile_Close(int *param_1); /* 0x1000bb10 */
@@ -252,7 +252,7 @@ undefined4 __cdecl ImFile_CloseImpl(int *param_1); /* 0x1000bb50 */
 uint __cdecl ImFile_Open(char *param_1,uint param_2,uint param_3,int *param_4); /* 0x1000bbc0 */
 uint __cdecl ImFile_OpenImpl(char *param_1,uint param_2,uint param_3,int *param_4); /* 0x1000bc00 */
 void __cdecl ImFile_LockInit(int param_1); /* 0x1000c4f0 */
-void __cdecl ImFile_UnlockInner(int param_1); /* 0x1000c570 */
+int __cdecl ImFile_UnlockInner(int param_1); /* 0x1000c570 */
 void __cdecl ImFile_Lock(uint param_1); /* 0x1000c590 */
 void __cdecl FUN_1000c5d0(int param_1,int param_2); /* 0x1000c5d0 */
 void __cdecl ImFile_Unlock(uint param_1); /* 0x1000c600 */
@@ -414,10 +414,10 @@ uint __cdecl FUN_10010530(undefined4 param_1,uint param_2,undefined4 param_3,byt
 uint FUN_100108d0(uint param_1,uint param_2); /* 0x100108d0 */
 void FUN_10010910(undefined4 param_1,uint param_2); /* 0x10010910 */
 uint FUN_10010930(uint param_1); /* 0x10010930 */
-void FUN_100109d0(void); /* 0x100109d0 */
+int FUN_100109d0(void); /* 0x100109d0 */
 undefined4 FUN_10010a60(int param_1,int param_2); /* 0x10010a60 */
-void FUN_10010ad0(int param_1,int param_2); /* 0x10010ad0 */
-undefined4 FUN_10010b40(int param_1,int param_2); /* 0x10010b40 */
+int FUN_10010ad0(void); /* 0x10010ad0 */
+int FUN_10010b40(int param_1,int param_2); /* 0x10010b40 */
 void FUN_10010be0(int param_1,undefined4 *param_2); /* 0x10010be0 */
 void FUN_10010c00(undefined4 *param_1); /* 0x10010c00 */
 undefined4 FUN_10010c10(int *param_1); /* 0x10010c10 */

@@ -72,7 +72,7 @@ int * __cdecl lua_beginblock(void); /* 0x100024c0 */
 undefined4 __cdecl lua_endblock(void); /* 0x10002510 */
 uint __cdecl lua_ref(int param_1); /* 0x10002560 */
 undefined4 __cdecl lua_getref(uint param_1); /* 0x10002590 */
-undefined4 __cdecl lua_setfallback(byte *param_1,undefined4 param_2,int param_3); /* 0x100025b0 */
+undefined4 __cdecl lua_setfallback(byte *name,int fallback); /* 0x100025b0 */
 void __cdecl luaA_callObject(undefined4 param_1,int param_2,void *param_3); /* 0x100025f0 */
 void lapi__2660(void); /* 0x10002660 */
 undefined4 __cdecl lua_Save(undefined *param_1); /* 0x10002670 */
@@ -192,7 +192,7 @@ void __cdecl luaC_hashcallIM(undefined4 *param_1); /* 0x10004e70 */
 void __cdecl luaC_strcallIM(undefined4 *param_1); /* 0x10004ea0 */
 void lgc__4fc0(void); /* 0x10004fc0 */
 undefined4 __cdecl lgc__5010(undefined4 *param_1); /* 0x10005010 */
-void __cdecl lgc__5070(undefined4 *param_1); /* 0x10005070 */
+int __cdecl lgc__5070(undefined4 *param_1); /* 0x10005070 */
 void luaC_markall(void); /* 0x100050b0 */
 void luaC_travstack(void); /* 0x100050e0 */
 void luaC_travglobal(void); /* 0x10005120 */
@@ -208,14 +208,14 @@ void FUN_10005320(void); /* 0x10005320 */
 longlong __cdecl io_getint(int param_1); /* 0x100053d0 */
 void __cdecl io_pushresult(int param_1); /* 0x100053f0 */
 void __cdecl io_setfile(byte *param_1); /* 0x10005430 */
-void __cdecl io_getfilebyname(byte *param_1); /* 0x10005480 */
+int __cdecl io_getfilebyname(byte *param_1); /* 0x10005480 */
 bool __cdecl io_gethandle(int param_1); /* 0x100054c0 */
 void __cdecl io_setreturn(byte *param_1,byte *param_2); /* 0x10005520 */
 void __cdecl io_setfilebyname(byte *param_1,byte *param_2,uint param_3); /* 0x10005550 */
 void FUN_10005570(void); /* 0x10005570 */
 void FUN_10005620(void); /* 0x10005620 */
 void FUN_10005660(void); /* 0x10005660 */
-void __cdecl io_getfileparam(byte *param_1,int *param_2); /* 0x10005780 */
+int __cdecl io_getfileparam(byte *param_1,int *param_2); /* 0x10005780 */
 void FUN_100057d0(void); /* 0x100057d0 */
 void FUN_10005870(void); /* 0x10005870 */
 void FUN_100058a0(void); /* 0x100058a0 */
@@ -232,7 +232,7 @@ void FUN_10005ad0(void); /* 0x10005ad0 */
 void luaX_init(void); /* 0x10005c00 */
 void __cdecl luaX_setinput(undefined4 param_1); /* 0x10005c30 */
 void __cdecl llex__5c70(int param_1); /* 0x10005c70 */
-void luaX_save(void); /* 0x10005cf0 */
+int luaX_save(void); /* 0x10005cf0 */
 uint __cdecl luaX_lex(float *param_1); /* 0x10005d00 */
 void __cdecl luaX_pragma(uint *param_1); /* 0x10006890 */
 void __cdecl luaX_inclinenumber(uint *param_1); /* 0x10006b10 */
@@ -240,28 +240,30 @@ uint __cdecl luaX_error(byte *param_1); /* 0x10006b60 */
 void __cdecl llex__6bb0(uint *param_1,int param_2); /* 0x10006bb0 */
 void __cdecl llex__6c30(uint *param_1); /* 0x10006c30 */
 undefined4 __cdecl llex__6cb0(uint *param_1,undefined4 *param_2); /* 0x10006cb0 */
-void FUN_10006ea0(void); /* 0x10006ea0 */
-void FUN_10006ee0(void); /* 0x10006ee0 */
-void FUN_10006f00(void); /* 0x10006f00 */
-void FUN_10006f20(void); /* 0x10006f20 */
-void FUN_10006f50(void); /* 0x10006f50 */
-void FUN_10006f80(void); /* 0x10006f80 */
-void FUN_10006fb0(void); /* 0x10006fb0 */
-void FUN_10006fe0(void); /* 0x10006fe0 */
-void FUN_10007020(void); /* 0x10007020 */
-void FUN_10007050(void); /* 0x10007050 */
-void FUN_10007080(void); /* 0x10007080 */
-void FUN_100070c0(void); /* 0x100070c0 */
-void FUN_100070e0(void); /* 0x100070e0 */
-void FUN_10007120(void); /* 0x10007120 */
-void FUN_10007140(void); /* 0x10007140 */
-void FUN_10007160(void); /* 0x10007160 */
-void FUN_10007190(void); /* 0x10007190 */
-void FUN_100071b0(void); /* 0x100071b0 */
-void FUN_100071d0(void); /* 0x100071d0 */
-void FUN_10007230(void); /* 0x10007230 */
-void FUN_10007290(void); /* 0x10007290 */
-void FUN_10007300(void); /* 0x10007300 */
+
+/* ===== math.c ===== */
+void math_abs(void); /* 0x10006ea0 */
+void math_sin(void); /* 0x10006ee0 */
+void math_cos(void); /* 0x10006f00 */
+void math_tan(void); /* 0x10006f20 */
+void math_asin(void); /* 0x10006f50 */
+void math_acos(void); /* 0x10006f80 */
+void math_atan(void); /* 0x10006fb0 */
+void math_atan2(void); /* 0x10006fe0 */
+void math_ceil(void); /* 0x10007020 */
+void math_floor(void); /* 0x10007050 */
+void math_mod(void); /* 0x10007080 */
+void math_sqrt(void); /* 0x100070c0 */
+void math_pow(void); /* 0x100070e0 */
+void math_log(void); /* 0x10007120 */
+void math_log10(void); /* 0x10007140 */
+void math_exp(void); /* 0x10007160 */
+void math_deg(void); /* 0x10007190 */
+void math_rad(void); /* 0x100071b0 */
+void math_min(void); /* 0x100071d0 */
+void math_max(void); /* 0x10007230 */
+void math_random(void); /* 0x10007290 */
+void math_randomseed(void); /* 0x10007300 */
 
 /* ===== lmem.c ===== */
 void * __cdecl luaM_malloc(uint size); /* 0x100073b0 */
@@ -309,7 +311,7 @@ void __cdecl lstring__9290(int *param_1); /* 0x10009290 */
 int __cdecl lstring__92e0(int *param_1,uint *param_2); /* 0x100092e0 */
 int lstring__9370(void); /* 0x10009370 */
 void __cdecl lstring__93e0(undefined4 *param_1); /* 0x100093e0 */
-void lstring__9410(void); /* 0x10009410 */
+uint * lstring__9410(void); /* 0x10009410 */
 void lstring__9470(void); /* 0x10009470 */
 void __cdecl lstring__94e0(int *param_1,int *param_2); /* 0x100094e0 */
 int * __cdecl lstring__9510(undefined *param_1); /* 0x10009510 */
@@ -329,7 +331,7 @@ uint __cdecl str_singlematch(uint param_1,char *param_2,int *param_3); /* 0x1000
 uint * __cdecl str_bracket_end(char *param_1); /* 0x100099e0 */
 uint __cdecl str_matchclass(uint param_1,uint param_2); /* 0x10009a10 */
 void FUN_10009cb0(void); /* 0x10009cb0 */
-void __cdecl str_push_captures(int *param_1,int *param_2); /* 0x10009e40 */
+void __cdecl str_push_captures(int *ms); /* 0x10009e40 */
 char * __cdecl str_match(char *param_1,int *param_2,int *param_3); /* 0x10009ea0 */
 int __cdecl str_capture_to_close(int *param_1); /* 0x1000a030 */
 char * __cdecl str_matchbalance(char *param_1,char *param_2,int *param_3,int *param_4); /* 0x1000a060 */
@@ -404,7 +406,7 @@ int * __cdecl luaH_get(int param_1,int *param_2); /* 0x1000c5f0 */
 int * __cdecl luaH_set(int param_1,int *param_2); /* 0x1000c620 */
 void __cdecl luaH_rehash(int param_1); /* 0x1000c6b0 */
 undefined4 __cdecl luaH_nuse(int param_1); /* 0x1000c770 */
-void __cdecl luaH_next(int param_1,int *param_2); /* 0x1000c7b0 */
+int __cdecl luaH_next(int param_1,int *param_2); /* 0x1000c7b0 */
 int __cdecl ltable__c810(int param_1,int param_2); /* 0x1000c810 */
 
 /* ===== ltm.c ===== */
@@ -440,8 +442,8 @@ void __cdecl lundump__d130(uint *param_1,uint param_2); /* 0x1000d130 */
 void __cdecl luaU_LoadLocals(int param_1,uint *param_2); /* 0x1000d1a0 */
 void __cdecl luaU_LoadConstants(int param_1,undefined4 *param_2); /* 0x1000d230 */
 float __cdecl luaU_LoadNumber(undefined4 *param_1); /* 0x1000d2f0 */
-void __cdecl lundump__d360(undefined1 *param_1); /* 0x1000d360 */
-void __cdecl lundump__d380(undefined1 *param_1); /* 0x1000d380 */
+int __cdecl lundump__d360(undefined1 *param_1); /* 0x1000d360 */
+int __cdecl lundump__d380(undefined1 *param_1); /* 0x1000d380 */
 void __cdecl lundump__d3c0(int param_1,int *param_2); /* 0x1000d3c0 */
 void __cdecl luaU_loadheader(undefined4 *param_1); /* 0x1000d420 */
 void __cdecl luaU_LoadSignature(int *param_1); /* 0x1000d570 */
@@ -528,8 +530,10 @@ undefined4 __cdecl __lc_strtolc(uint *param_1,uint *param_2); /* 0x10011a40 */
 void __cdecl __lc_lctostr(char *param_1,char *param_2); /* 0x10011b50 */
 uint __cdecl toupper(uint param_1); /* 0x10011bc0 */
 uint __cdecl _toupper_lk(uint param_1); /* 0x10011c50 */
-float __cdecl _CIsqrt(void); /* 0x10011d50 */
-void __cdecl _sqrt(int param_1,uint param_2); /* 0x10011d6d */
+float __cdecl _CIasin(void); /* 0x10011d50 */
+void __cdecl _asin(int param_1,uint param_2); /* 0x10011d6d */
+float __cdecl _CIacos(void); /* 0x10011e20 */
+void __cdecl _acos(int param_1,uint param_2); /* 0x10011e3d */
 float __cdecl floor(uint param_1,uint param_2); /* 0x10011ef0 */
 float __cdecl ceil(uint param_1,uint param_2); /* 0x10011ff0 */
 float __cdecl _CIpow(void); /* 0x10012130 */
@@ -733,8 +737,6 @@ void FUN_1000fde0(void); /* 0x1000fde0 */
 int __stdcall FUN_1000fea0(int a1,int a2,int a3); /* 0x1000fea0 */
 undefined4 FUN_100119e0(void); /* 0x100119e0 */
 void __cdecl FUN_100119f0(char *param_1,int param_2); /* 0x100119f0 */
-float __cdecl FUN_10011e20(void); /* 0x10011e20 */
-void __cdecl FUN_10011e3d(int param_1,uint param_2); /* 0x10011e3d */
 float __fastcall FUN_100120fa(undefined4 param_1); /* 0x100120fa */
 float10 FUN_10012104(void); /* 0x10012104 */
 void __cdecl FUN_10012350(int param_1); /* 0x10012350 */
