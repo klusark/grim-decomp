@@ -40,8 +40,8 @@
 | 10005610 | Im_ReadSoundData | imuse.c | 74 |
 | 100057a0 | Im_MixLoopA | imuse.c | 71 |
 | 100059a0 | Im_MixLoopB | imuse.c | 72 |
-| 10005b80 | Im_MixLoopC | imuse.c | 80 |
-| 10005db0 | Im_MixLoopD | imuse.c | 84 |
+| 10005b80 | Im_MixLoopC | imuse.c | 1 |
+| 10005db0 | Im_MixLoopD | imuse.c | 1 |
 | 10006070 | FUN_10006070 | imuse.c | 77 |
 | 10006360 | FUN_10006360 | imuse.c | 25 |
 | 100063d0 | FUN_100063d0 | imuse.c | 17 |

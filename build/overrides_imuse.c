@@ -311,4 +311,118 @@ void FUN_100070e0(char *marker)
     }
     ImPrintf(s_ERR_callback_got_marker______end_1001e870);
 }
+
+/* ==== Im_MixLoopC (0x10005b80) and Im_MixLoopD (0x10005db0) ====
+ * The mixer's inner loops for 16-bit samples stored BIG-endian (the source is the sound data as it comes from the file): C takes
+ * mono data into the two accumulators of a stereo pair with the weights wl / wr, D takes stereo data with one weight.
+ * The decompiler lost the sign extension (`movsx eax, ax` after the byte swap) and printed (int)CONCAT11(lo, hi), which is
+ * unsigned: every negative sample came out as +65536 - |x| (twice as loud, from the first blocks of any stereo/big-endian sound).
+ * `rate` = (count << 16) / length is the resampling step in 16.16: exactly 0x8000 (interpolating doubling: odd output frames
+ * are the mean of two input frames), 0x10000 and 0x20000 (plain copy / every second frame), anything else steps by `rate`.
+ * acc = the accumulators PTR_1002df5c + 2 * out (two ints per output frame; the accumulator of a stereo pair is [left, right]). */
+static int bswap_s16(unsigned short v)
+{
+    return (short)((v >> 8) | (v << 8));
+}
+
+void Im_MixLoopC(undefined2 *src, int n, uint count, int out, int wl, int wr)
+{
+    int *acc = PTR_1002df5c + out * 2;
+    uint rate = (uint)(n << 16) / count;
+    unsigned short *p = (unsigned short *)src;
+    uint frac;
+
+    if (rate == 0x8000) {
+        while (--n != 0) {
+            int a = bswap_s16(p[0]);
+            int avg = (short)((bswap_s16(p[2]) + a) >> 1);
+            p++;
+            acc[0] += wl * a;
+            acc[1] += wr * a;
+            acc[2] += wl * avg;
+            acc[3] += wr * avg;
+            acc += 4;
+        }
+        {
+            int a = bswap_s16(p[0]);
+            acc[0] += wl * a;
+            acc[1] += wr * a;
+            acc[2] += wl * a;
+            acc[3] += wr * a;
+        }
+    } else if (rate == 0x10000) {
+        for (; count != 0; count--) {
+            int a = bswap_s16(*p++);
+            acc[0] += wl * a;
+            acc[1] += wr * a;
+            acc += 2;
+        }
+    } else if (rate == 0x20000) {
+        for (; count != 0; count--) {
+            int a = bswap_s16(p[0]);
+            p += 2;
+            acc[0] += wl * a;
+            acc[1] += wr * a;
+            acc += 2;
+        }
+    } else {
+        for (frac = 0; count != 0; count--) {
+            int a = bswap_s16(p[0]);
+            uint f = frac + rate;
+            acc[0] += wl * a;
+            acc[1] += wr * a;
+            acc += 2;
+            frac = f & 0xffff;
+            p += (int)f >> 16;
+        }
+    }
+}
+
+void Im_MixLoopD(undefined2 *src, int n, uint count, uint out, int vol)
+{
+    int *acc = PTR_1002df5c + out * 2;
+    uint rate = (uint)(n << 16) / count;
+    unsigned short *p = (unsigned short *)src;
+    uint frac;
+    int k;
+
+    if (rate == 0x8000) {
+        while (--n != 0) {
+            int l = bswap_s16(p[0]), r = bswap_s16(p[1]);
+            int nl = bswap_s16(p[2]), nr = bswap_s16(p[3]);
+            p += 2;
+            acc[0] += vol * l;
+            acc[1] += vol * r;
+            acc[2] += (short)((nl + l) >> 1) * vol;
+            acc[3] += (short)((nr + r) >> 1) * vol;
+            acc += 4;
+        }
+        {
+            int a = bswap_s16(p[0]) * vol, b = bswap_s16(p[1]) * vol;
+            acc[0] += a;
+            acc[1] += b;
+            acc[2] += a;
+            acc[3] += b;
+        }
+    } else if (rate == 0x10000) {
+        for (k = count * 2; k != 0; k--)
+            *acc++ += bswap_s16(*p++) * vol;
+    } else if (rate == 0x20000) {
+        for (; count != 0; count--) {
+            acc[0] += bswap_s16(p[0]) * vol;
+            acc[1] += bswap_s16(p[1]) * vol;
+            p += 4;
+            acc += 2;
+        }
+    } else {
+        for (frac = 0; count != 0; count--) {
+            uint f = frac + rate * 2;
+            acc[0] += vol * bswap_s16(p[0]);
+            acc[1] += vol * bswap_s16(p[1]);
+            frac = f & 0xffff;
+            p += (int)f >> 16;
+            acc += 2;
+        }
+    }
+}
 #endif /* GRIM_IMUSE */

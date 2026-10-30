@@ -1,0 +1,7 @@
+{
+ "_comment": "IMUSE.DLL globals typed `int *` in Ghidra by tools/type_pointer_globals.py (agent N). Ghidra printed byte offsets for them; the C declaration scaled them by 4. In a fresh project: apply_data_type at each address.",
+ "10024dc8": "int *",
+ "10025298": "int *",
+ "1002dcf8": "int *",
+ "1002df5c": "int *"
+}

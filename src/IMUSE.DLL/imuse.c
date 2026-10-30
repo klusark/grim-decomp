@@ -2496,6 +2496,8 @@ void __cdecl Im_MixLoopB(short *param_1,int param_2,uint param_3,uint param_4,in
 }
 
 /* ---- 0x10005b80  Im_MixLoopC ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Unidentified function of iMUSE_Mixer.c (software mixing / resampling) */
 
 void __cdecl
@@ -2576,8 +2578,12 @@ Im_MixLoopC(undefined2 *param_1,int param_2,uint param_3,int param_4,int param_5
   }
   return;
 }
+#endif
+
 
 /* ---- 0x10005db0  Im_MixLoopD ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Unidentified function of iMUSE_Mixer.c (software mixing / resampling) */
 
 void __cdecl Im_MixLoopD(undefined2 *param_1,int param_2,uint param_3,uint param_4,int param_5)
@@ -2662,6 +2668,8 @@ void __cdecl Im_MixLoopD(undefined2 *param_1,int param_2,uint param_3,uint param
   }
   return;
 }
+#endif
+
 
 /* ---- 0x10006070  FUN_10006070 ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
