@@ -9982,8 +9982,6 @@ void Lua_ImStartRecording(void)
 }
 
 /* ---- 0x004a0f80  Lua_ImStartSound ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* WARNING: Variable defined which should be unmapped: local_18 */
 /* Lua opcodes: ImStartSound, play
    also registered as `play` */
@@ -9996,7 +9994,6 @@ void Lua_ImStartSound(void)
   int iVar2;
   int iVar3;
   int iVar4;
-  undefined4 unaff_EDI;
   longlong lVar5;
   longlong lVar6;
   #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
@@ -10012,8 +10009,7 @@ void Lua_ImStartSound(void)
   iVar4 = lua_isnumber(iVar2);
   if ((iVar4 != 0) && (iVar4 = lua_isnumber(iVar3), iVar4 != 0)) {
     lVar5 = FTOL(lua_getnumber(iVar3));
-    lua_getnumber(iVar2);
-    lVar6 = _ftol((double)CONCAT44(unaff_EDI,(uint)lVar5));
+    lVar6 = FTOL(lua_getnumber(iVar2));
     iVar2 = (int)lVar6;
     iVar1 = lua_getstring(iVar1);
     iVar1 = SoundsLoadStartSound(iVar1,iVar2,(uint)lVar5);
@@ -10023,8 +10019,6 @@ void Lua_ImStartSound(void)
 }
 #undef local_18
 #undef local_4
-
-#endif
 
 
 /* ---- 0x004a1030  Lua_ImStopSound ---- */
@@ -10485,8 +10479,6 @@ void Lua_ImSetCuePoint(void)
 }
 
 /* ---- 0x004a1710  Lua_ImSetAttribute ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* WARNING: Variable defined which should be unmapped: local_14 */
 /* Lua opcode: ImSetAttribute */
 
@@ -10497,7 +10489,6 @@ void Lua_ImSetAttribute(void)
   int iVar1;
   int iVar2;
   int iVar3;
-  undefined4 unaff_EDI;
   longlong lVar4;
   longlong lVar5;
   #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
@@ -10510,8 +10501,7 @@ void Lua_ImSetAttribute(void)
     iVar3 = lua_isnumber(iVar2);
     if (iVar3 != 0) {
       lVar4 = FTOL(lua_getnumber(iVar2));
-      lua_getnumber(iVar1);
-      lVar5 = _ftol((double)CONCAT44(unaff_EDI,(int)lVar4));
+      lVar5 = FTOL(lua_getnumber(iVar1));
       iVar1 = ImSetAttribute((int)lVar5,(int)lVar4);
       lua_pushnumber((float)iVar1);
     }
@@ -10520,8 +10510,6 @@ void Lua_ImSetAttribute(void)
 }
 #undef local_14
 #undef local_4
-
-#endif
 
 
 /* ---- 0x004a17b0  Lua_ImSetVoiceEffect ---- */

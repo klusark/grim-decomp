@@ -232,7 +232,7 @@ def cleaned_text(prog, path):
     selection looks at what the C compiler would really see."""
     import build_src
     build_src.CUR_PROG = prog
-    return build_src.fix_ftol(open(path, encoding="utf-8", errors="replace").read())
+    return build_src.fix_ftol(open(path, encoding="utf-8", errors="replace").read(), seh=False)  # SEH frames are not an artifact that selects a function for C
 
 
 def select(prog):
@@ -272,8 +272,8 @@ def select(prog):
             out.append(f["address"])
     # hand-picked: the decompiler mishandles them for other reasons (stack objects, register
     # values); names/asm_extra.json {prog: [addresses]}
-    xp = os.path.join(ROOT, "names", "asm_extra.json")
-    if os.path.exists(xp):
+    # (names/asm_extra*.json: several files so that independent work streams can add to the list without touching the same lines)
+    for xp in sorted(glob.glob(os.path.join(ROOT, "names", "asm_extra*.json"))):
         out += json.load(open(xp)).get(prog, [])
     # --all: assemble every function (the decompiled C stays in src/ under #if 0 for reading);
     # names/asm_exclude.json {prog: [addresses]} keeps individual functions as C

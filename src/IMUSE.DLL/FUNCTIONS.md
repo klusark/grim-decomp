@@ -390,12 +390,12 @@
 | 10010250 | FUN_10010250 | crt_unnamed.c | 34 |
 | 10010490 | FUN_10010490 | crt_unnamed.c | 37 |
 | 10010530 | FUN_10010530 | crt_unnamed.c | 170 |
-| 100108d0 | FUN_100108d0 | crt_unnamed.c | 10 |
+| 100108d0 | FUN_100108d0 | crt_unnamed.c | 9 |
 | 10010910 | FUN_10010910 | crt_unnamed.c | 6 |
 | 10010930 | FUN_10010930 | crt_unnamed.c | 48 |
-| 100109d0 | FUN_100109d0 | crt_unnamed.c | 5 |
+| 100109d0 | FUN_100109d0 | crt_unnamed.c | 50 |
 | 10010a60 | FUN_10010a60 | crt_unnamed.c | 27 |
-| 10010ad0 | FUN_10010ad0 | crt_unnamed.c | 27 |
+| 10010ad0 | FUN_10010ad0 | crt_unnamed.c | 31 |
 | 10010b40 | FUN_10010b40 | crt_unnamed.c | 31 |
 | 10010be0 | FUN_10010be0 | crt_unnamed.c | 14 |
 | 10010c00 | FUN_10010c00 | crt_unnamed.c | 8 |

@@ -149,8 +149,6 @@ void FUN_10002e70(void)
 
 
 /* ---- 0x10002f80  FUN_10002f80 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void FUN_10002f80(void)
 
 {
@@ -163,15 +161,13 @@ void FUN_10002f80(void)
   iVar2 = luaL_nonnullarg(2);
   piVar3 = (int *)lapi__11e0(iVar2);
   iVar1 = lapi__11e0(iVar1);
-  puVar4 = (undefined4 *)((code *)luaH_next)(iVar1,piVar3);
+  puVar4 = (undefined4 *)luaH_next(iVar1,piVar3);
   if (puVar4 != (undefined4 *)0x0) {
     luaA_pushobject(puVar4);
     luaA_pushobject(puVar4 + 2);
   }
   return;
 }
-#endif
-
 
 /* ---- 0x10002fd0  FUN_10002fd0 ---- */
 void FUN_10002fd0(void)
@@ -334,27 +330,17 @@ undefined1 * __cdecl luaB_tostring(int param_1)
 void lbuiltin__3260(void)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int *piVar1;
   int *piVar2;
   int iVar3;
   int iVar4;
   undefined4 *puVar5;
   int *this;
-  undefined4 *unaff_FS_OFFSET = (undefined4 *)TEB_BASE();
-  #define local_c (*(undefined4 *)(_frame + (0x20 - 0xc)))
-  #define pcStack_8 (*(code **)(_frame + (0x20 - 0x8)))
-  #define local_4 (*(undefined4 *)(_frame + (0x20 - 0x4)))
   
-  local_4 = 0xffffffff;
-  pcStack_8 = FUN_10021fbb;
-  local_c = *unaff_FS_OFFSET;
-  *unaff_FS_OFFSET = &local_c;
   iVar3 = lua_lua2C(1);
   iVar4 = lua_isfunction(iVar3);
   if (iVar4 != 0) {
     puVar5 = luaM_malloc(0xd4);
-    local_4 = 0;
     if (puVar5 == (undefined4 *)0x0) {
       this = (int *)0x0;
     }
@@ -362,7 +348,6 @@ void lbuiltin__3260(void)
       this = lstate__75e0(puVar5);
     }
     this[3] = 0;
-    local_4 = 0xffffffff;
     lstate__8b70(this,(int)PTR_1002bf6c);
     iVar4 = PTR_1002bf6c[8];
     this[0x31] = *(int *)(iVar4 + -8 + iVar3 * 8);
@@ -380,13 +365,8 @@ void lbuiltin__3260(void)
     }
     lua_pushtask(this[0x30]);
   }
-  *unaff_FS_OFFSET = local_c;
   return;
 }
-#undef local_4
-#undef local_c
-#undef pcStack_8
-
 #endif
 
 
@@ -693,8 +673,6 @@ void FUN_100037d0(void)
 }
 
 /* ---- 0x10003820  FUN_10003820 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void FUN_10003820(void)
 
 {
@@ -709,8 +687,7 @@ void FUN_10003820(void)
   #define uStack_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define uStack_4 (*(undefined4 *)(_frame + (0x20 - 0x4)))
   
-  luaL_opt_number(2,10.0);
-  lVar5 = _ftol();
+  lVar5 = FTOL(luaL_opt_number(2,10.0));
   uVar3 = (uint)lVar5;
   if (uVar3 == 10) {
     iVar1 = lua_lua2C(1);
@@ -743,8 +720,6 @@ void FUN_10003820(void)
 #undef pbStack_c
 #undef uStack_4
 #undef uStack_8
-
-#endif
 
 
 /* ---- 0x10003910  FUN_10003910 ---- */
@@ -924,8 +899,7 @@ longlong __cdecl lbuiltin__3ba0(int param_1)
   iVar1 = lua_rawgettable();
   iVar2 = lua_isnumber(iVar1);
   if (iVar2 != 0) {
-    lua_getnumber(iVar1);
-    lVar3 = _ftol();
+    lVar3 = FTOL(lua_getnumber(iVar1));
     return lVar3;
   }
   return CONCAT44(extraout_EDX,0xfffe);
@@ -934,8 +908,6 @@ longlong __cdecl lbuiltin__3ba0(int param_1)
 
 
 /* ---- 0x10003bf0  FUN_10003bf0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void FUN_10003bf0(void)
 
 {
@@ -944,13 +916,10 @@ void FUN_10003bf0(void)
   
   iVar1 = luaL_tablearg(1);
   lua_pushobject(iVar1);
-  luaL_check_number(2);
-  lVar2 = _ftol();
+  lVar2 = FTOL(luaL_check_number(2));
   lua_settag((int)lVar2);
   return;
 }
-#endif
-
 
 /* ---- 0x10003c20  FUN_10003c20 ---- */
 void FUN_10003c20(void)
@@ -964,25 +933,19 @@ void FUN_10003c20(void)
 }
 
 /* ---- 0x10003c40  FUN_10003c40 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void FUN_10003c40(void)
 
 {
   int iVar1;
   longlong lVar2;
   
-  luaL_check_number(2);
-  lVar2 = _ftol();
+  lVar2 = FTOL(luaL_check_number(2));
   iVar1 = (int)lVar2;
-  luaL_check_number(1);
-  lVar2 = _ftol();
+  lVar2 = FTOL(luaL_check_number(1));
   iVar1 = lua_copytagmethods((int)lVar2,iVar1);
   lua_pushnumber((float)iVar1);
   return;
 }
-#endif
-
 
 /* ---- 0x10003c80  FUN_10003c80 ---- */
 void FUN_10003c80(void)
@@ -1021,8 +984,6 @@ void luaB_rawsettable(void)
 }
 
 /* ---- 0x10003d10  FUN_10003d10 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void FUN_10003d10(void)
 
 {
@@ -1033,18 +994,13 @@ void FUN_10003d10(void)
   iVar1 = luaL_nonnullarg(3);
   lua_pushobject(iVar1);
   pbVar2 = (byte *)luaL_check_string(2);
-  luaL_check_number(1);
-  lVar3 = _ftol();
+  lVar3 = FTOL(luaL_check_number(1));
   iVar1 = lua_settagmethod((int)lVar3,pbVar2);
   lua_pushobject(iVar1);
   return;
 }
-#endif
-
 
 /* ---- 0x10003d50  FUN_10003d50 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void FUN_10003d50(void)
 
 {
@@ -1053,14 +1009,11 @@ void FUN_10003d50(void)
   longlong lVar3;
   
   pbVar1 = (byte *)luaL_check_string(2);
-  luaL_check_number(1);
-  lVar3 = _ftol();
+  lVar3 = FTOL(luaL_check_number(1));
   iVar2 = lua_gettagmethod((int)lVar3,pbVar1);
   lua_pushobject(iVar2);
   return;
 }
-#endif
-
 
 /* ---- 0x10003d80  FUN_10003d80 ---- */
 void FUN_10003d80(void)
@@ -1076,22 +1029,17 @@ void FUN_10003d80(void)
 }
 
 /* ---- 0x10003db0  FUN_10003db0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void FUN_10003db0(void)
 
 {
   int iVar1;
   longlong lVar2;
   
-  luaL_opt_number(1,0.0);
-  lVar2 = _ftol();
+  lVar2 = FTOL(luaL_opt_number(1,0.0));
   iVar1 = lua_collectgarbage((int)lVar2);
   lua_pushnumber((float)iVar1);
   return;
 }
-#endif
-
 
 /* ---- 0x10003df0  luaB_predefine ---- */
 /* lbuiltin.c: registers the built-in functions and the setfallback compatibility entry */

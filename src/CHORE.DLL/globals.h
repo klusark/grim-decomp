@@ -211,7 +211,7 @@ extern undefined DAT_10015af8; /* used by 1 fn(s), first 0x10006070 */
 #define _DAT_10014820 (*(undefined4 *)&DAT_10014820) /* same address as DAT_10014820, other width */
 #define _DAT_10014824 (*(undefined4 *)&DAT_10014824) /* same address as DAT_10014824, other width */
 #define _DAT_10014828 (*(undefined4 * *)&DAT_10014828) /* same address as DAT_10014828, other width */
-#define _DAT_1001482c (*(undefined4 *)&DAT_1001482c) /* same address as DAT_1001482c, other width */
+#define _DAT_1001482c (*(undefined2 * *)&DAT_1001482c) /* same address as DAT_1001482c, other width */
 #define _DAT_10014830 (*(undefined4 *)&DAT_10014830) /* same address as DAT_10014830, other width */
 #define _DAT_10014844 (*(undefined2 *)&DAT_10014844) /* same address as DAT_10014844, other width */
 #define _DAT_1001484c (*(undefined2 *)&DAT_1001484c) /* same address as DAT_1001484c, other width */
