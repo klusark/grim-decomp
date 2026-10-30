@@ -7217,7 +7217,7 @@ void Lua_PrintMessage(void)
 
 
 /* ---- 0x0049ddd0  Lua_Print_NoOp ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Lua opcodes: PrintError, PrintWarning, PrintDebug
    PrintError / PrintWarning / PrintDebug: no-op in the release build */

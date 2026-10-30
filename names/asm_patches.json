@@ -15,8 +15,20 @@
    ]
   },
   "004016a0": {
-   "004016a6": [
-    "call _GRIM_lua_cmd_poll"
+   "00401721": [
+    "push ecx",
+    "push edx",
+    "push eax",
+    "call _GRIM_SimTime",
+    "test eax,eax",
+    "jz 8f",
+    "add esp,4",
+    "jmp 9f",
+    "8:",
+    "pop eax",
+    "9:",
+    "pop edx",
+    "pop ecx"
    ]
   },
   "0049de00": {

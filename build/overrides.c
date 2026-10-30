@@ -282,8 +282,7 @@ void __cdecl Costume_ApplyScale(void *actor, void *componentList)
  * this build links the host msvcrt, whose text-mode ftell() returns 0 after a one-byte fread() (checked with a
  * stand-alone program). Lua's dofile reads the first character of a script, calls ftell and seeks back by one, so
  * every *text* script (a loose _system.lua, mod.lua ...; TextAllowed=TRUE) lost its first character and silently
- * failed to parse. Read-mode opens are therefore done in binary mode (Lua 3.1 treats "
-" as white space). */
+ * failed to parse. Read-mode opens are therefore done in binary mode (Lua 3.1 treats "\r\n" as white space). */
 extern void *GRIM_host_fopen(const char *, const char *) __asm__("_fopen");
 undefined * __cdecl stdFile_Open(uint param_1, uint param_2)
 {
@@ -657,5 +656,52 @@ void __cdecl Win_AbortIfAlreadyRunning(void *hInstance, void *hPrevInstance, cha
             Win_PumpMessages();
         } while (g_nWinQuit == 0);
     }
+}
+#endif
+
+#ifdef GRIM_EXE
+/* PrintDebug / PrintWarning / PrintError (0x49ddd0): the retail game registers one empty function for all
+ * three. The scripted tests (grim_tools/autorun) read their results from a log, like the grimdlg.dll patch
+ * of the original exe does: with GRIM_DEBUGLOG=<file> every message is appended as "[ms since start] DEBUG text"
+ * (the level is not known to a shared function, so everything is DEBUG). */
+/* OVERRIDES: Lua_Print_NoOp */
+void Lua_Print_NoOp(void)
+{
+    static unsigned t0;
+    const char *path = GRIM_getenv("GRIM_DEBUGLOG");
+    int arg = lua_lua2C(1);
+    if (path == 0 || lua_isnil(arg) || !lua_isstring(arg))
+        return;
+    {
+        const char *text = (const char *)lua_getstring(arg);
+        unsigned len = __builtin_strlen(text), wrote;
+        char head[40];
+        void *h;
+        while (len > 0 && (text[len - 1] == '\n' || text[len - 1] == '\r'))
+            len--;
+        if (!t0)
+            t0 = GetTickCount();
+        h = CreateFileA(path, 4, 3, 0, 4, 0x80, 0);   /* FILE_APPEND_DATA */
+        if (h == (void *)-1)
+            return;
+        wsprintfA(head, "[%8u] DEBUG ", GetTickCount() - t0);
+        WriteFile(h, head, __builtin_strlen(head), &wrote, 0);
+        WriteFile(h, text, len, &wrote, 0);
+        WriteFile(h, "\r\n", 2, &wrote, 0);
+        CloseHandle(h);
+    }
+}
+
+/* The frame time of Game_FrameUpdate (0x401721 loads the one-shot "fixed frame time" DAT_004f5a48, 0 = wall
+ * clock): GRIM_SIMTIME=<ms> makes every frame that long whatever the machine does (the scripted tests compare
+ * against values recorded on the original with a fixed 17 ms frame). names/asm_patches.json calls this. */
+int GRIM_SimTime(void)
+{
+    static int ms = -1;
+    if (ms < 0) {
+        const char *e = GRIM_getenv("GRIM_SIMTIME");
+        ms = e ? (int)GRIM_atof(e) : 0;
+    }
+    return ms;
 }
 #endif
