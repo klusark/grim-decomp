@@ -382,7 +382,7 @@ int main(int argc, char **argv)
               fx_reset(); effseed = cseed | 1; orig_FUN_004d1690(); orig_FUN_004d2340(tk); fx_snap_a();
               fx_restore(); fx_reset(); effseed = cseed | 1; SoundModule_SyncClock(); SoundModule_AdvanceClock(tk); }
             break;
-        case 9: case 10: case 11: case 12: { /* PlayVoc / PlaySaud / PlayChunk */
+        case 9: case 10: case 11: { /* PlayVoc / PlaySaud / PlayChunk */
             int kind = f - 9;
             int sz = 8 + R(2500);
             unsigned fl = (R(3) == 0 ? 0x40 : R(2) ? 0x80 : 0) | R(4);
