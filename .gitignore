@@ -11,3 +11,9 @@ names/*.out
 build/perf/base/
 build/perf/csyms_*.txt
 build/perf/*.raw
+build/obj_*/
+build/perf/o0/
+build/perf/o2/
+build/perf/trial/
+build/perf/trial.mk
+build/perf/*.log

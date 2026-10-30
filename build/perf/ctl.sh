@@ -7,6 +7,7 @@ case "$1" in
  pid) pid;;
  start) "$0" stop; : > /c/Users/Joel/agentC_cmd.lua; rm -f /c/Users/Joel/agentC_log.txt
    cd "/c/GOG Games/GRIMDATA"
-   GRIM_MULTI=agentC GRIM_NOMOVIE=${GRIM_NOMOVIE-1} GRIM_ACTIVE=1 GRIM_LUA_FILE='C:\Users\Joel\agentC_cmd.lua' GRIM_LUA_LOG='C:\Users\Joel\agentC_log.txt' "$2/grimfandango.exe" >/dev/null 2>&1 &
+   if [ "${GRIM_NOMOVIE-1}" = 0 ]; then unset GRIM_NOMOVIE; else export GRIM_NOMOVIE=1; fi   # GRIM_NOMOVIE=0 here means movies on
+   GRIM_MULTI=agentC GRIM_ACTIVE=1 GRIM_LUA_FILE='C:\Users\Joel\agentC_cmd.lua' GRIM_LUA_LOG='C:\Users\Joel\agentC_log.txt' "$2/grimfandango.exe" >/dev/null 2>&1 &
    sleep ${WAIT-14}; pid;;
 esac

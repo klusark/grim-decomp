@@ -101,7 +101,7 @@ static void conv555(const unsigned short *src, uint *dst, int n)
     }
 }
 
-/* Test knobs (environment): GRIM_SLOWFLIP=1 uses the original 16 bpp BitBlt; GRIM_PERFLOG=1 appends
+/* Test knobs (environment): GRIM_SLOWFLIP=1 uses the original 16 bpp BitBlt, GRIM_NODELTA=1 converts and blits every frame completely; GRIM_PERFLOG=1 appends
  * "perf: ..." lines (frame rate, time spent in Display_Flip) to the file named by GRIM_LUA_LOG every 256 frames. */
 extern char *GRIM_getenv(const char *) __asm__("_getenv");
 extern int __attribute__((stdcall)) GRIM_QPC(long long *) __asm__("_QueryPerformanceCounter@4");
@@ -130,7 +130,7 @@ FASTFN int Display_Flip(void)
     long long a, b;
     int r;
     if (fp_knobs < 0) {
-        fp_knobs = (GRIM_getenv("GRIM_SLOWFLIP") != 0) | ((GRIM_getenv("GRIM_PERFLOG") != 0) << 1);
+        fp_knobs = (GRIM_getenv("GRIM_SLOWFLIP") != 0) | ((GRIM_getenv("GRIM_PERFLOG") != 0) << 1) | ((GRIM_getenv("GRIM_NODELTA") != 0) << 2);
         GRIM_QPF(&fp_freq);
     }
     if (!(fp_knobs & 2))
@@ -153,21 +153,70 @@ FASTFN int Display_Flip(void)
     return r;
 }
 
+/* Delta flip: the previously presented 16 bpp frame is kept in fp_prev; only the band of rows that changed is
+ * converted and blitted, and nothing at all is done when the frame is identical (the main loop flips every
+ * iteration, also in a still scene or while a movie is between two frames). A full blit is forced at least every
+ * 100 ms (and after any mode change), in case the window lost its contents. GRIM_NODELTA=1 disables this. */
+static unsigned short fp_prev[1280 * 1024];
+static int fp_prev_w, fp_prev_h;
+static long long fp_last_full;
+
+static int rowdiff(const unsigned short *a, const unsigned short *b, int bytes)
+{
+    int i;
+    for (i = 0; i < bytes; i += 16) {
+        __m128i x = _mm_cmpeq_epi8(_mm_loadu_si128((const __m128i *)((const char *)a + i)),
+                                   _mm_loadu_si128((const __m128i *)((const char *)b + i)));
+        if (_mm_movemask_epi8(x) != 0xffff)
+            return 1;
+    }
+    return 0;
+}
+
+static void copyrows(unsigned short *dst, const unsigned short *src, int bytes)
+{
+    int i;
+    for (i = 0; i < bytes; i += 16)
+        _mm_storeu_si128((__m128i *)((char *)dst + i), _mm_loadu_si128((const __m128i *)((const char *)src + i)));
+}
+
 static int fp_flip_impl(void)
 {
     int iVar1;
     if (*(int *)((int)g_pDisplayDevice + 0x100) == 0) {
         int *mode = (int *)g_pVideoMode;
         int w = mode[2], h = mode[3];
-        GdiFlush();
         if (!(fp_knobs & 1) && mode[7] == 1 && mode[8] == 16 && UINT_007feae0 != 0 && (w & 7) == 0 && w > 0 && h > 0
-            && fp_setup(UINT_00803f7c, w, h)) {
+            && w <= 1280 && w * h <= 1280 * 1024 && fp_setup(UINT_00803f7c, w, h)) {
+            const unsigned short *src = (const unsigned short *)UINT_007feae0;
+            int y0 = 0, y1 = h - 1, y;
+            long long now;
+            GRIM_QPC(&now);
+            if (!(fp_knobs & 4) && fp_prev_w == w && fp_prev_h == h && now - fp_last_full < fp_freq / 10) {
+                y0 = -1;
+                for (y = 0; y < h; y++) {
+                    if (rowdiff(src + y * w, fp_prev + y * w, w * 2)) {
+                        if (y0 < 0) y0 = y;
+                        y1 = y;
+                    }
+                }
+                if (y0 < 0)
+                    return 1;       /* identical to what is on the screen */
+            } else {
+                fp_last_full = now;
+            }
+            GdiFlush();
             if (mode[10] == 6)
-                conv565((const unsigned short *)UINT_007feae0, fp_bits, w * h);
+                conv565(src + y0 * w, fp_bits + y0 * w, (y1 - y0 + 1) * w);
             else
-                conv555((const unsigned short *)UINT_007feae0, fp_bits, w * h);
-            BitBlt(UINT_00803f7c, 0, 0, w, h, fp_dc, 0, 0, 0xcc0020);
+                conv555(src + y0 * w, fp_bits + y0 * w, (y1 - y0 + 1) * w);
+            copyrows(fp_prev + y0 * w, src + y0 * w, (y1 - y0 + 1) * w * 2);
+            fp_prev_w = w;
+            fp_prev_h = h;
+            BitBlt(UINT_00803f7c, 0, y0, w, y1 - y0 + 1, fp_dc, 0, y0, 0xcc0020);
         } else {
+            GdiFlush();
+            fp_prev_w = 0;
             BitBlt(UINT_00803f7c, 0, 0, w, h, UINT_007f6498, 0, 0, 0xcc0020);
         }
     }
