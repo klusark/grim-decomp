@@ -15,6 +15,8 @@ void Mem_DumpLog(void)
 }
 
 /* ---- 0x00478170  Mem_Copy ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void __cdecl Mem_Copy(void *dst,void *src,uint n)
 
 {
@@ -69,6 +71,8 @@ void __cdecl Mem_Copy(void *dst,void *src,uint n)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x0047fe00  Mem_CheckAlloc ---- */
 /* Asserts that an allocation succeeded */

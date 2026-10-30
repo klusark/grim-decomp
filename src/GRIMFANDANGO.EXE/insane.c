@@ -271,6 +271,8 @@ void Insane_BlitRowsDual(int param_1,int param_2,undefined4 *param_3,int param_4
 }
 
 /* ---- 0x004bddb0  Insane_BlitRows16 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void Insane_BlitRows16(ushort *param_1,int param_2,int param_3,int param_4,int param_5,int param_6)
 
 {
@@ -324,3 +326,5 @@ void Insane_BlitRows16(ushort *param_1,int param_2,int param_3,int param_4,int p
   }
   return;
 }
+#endif
+

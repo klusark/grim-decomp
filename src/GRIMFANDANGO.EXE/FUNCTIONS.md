@@ -1023,7 +1023,7 @@
 | 00451b80 | rdPrimit2_DrawLine | rdprimit2.c | 1 |
 | 00451f20 | rdPrimit2_DrawRect | rdprimit2.c | 1 |
 | 0045ff00 | Mem_DumpLog | memory.c | 7 |
-| 00478170 | Mem_Copy | memory.c | 54 |
+| 00478170 | Mem_Copy | memory.c | 1 |
 | 0047fe00 | Mem_CheckAlloc | memory.c | 11 |
 | 004888d0 | Memory_SysInitialize | memory.c | 26 |
 | 00488930 | FUN_00488930 | memory.c | 6 |
@@ -2497,7 +2497,7 @@
 | 004bdb00 | Insane_PrepareFrame | insane.c | 1 |
 | 004bdca0 | Insane_Blit8To16Doubled | insane.c | 1 |
 | 004bdd50 | Insane_BlitRowsDual | insane.c | 27 |
-| 004bddb0 | Insane_BlitRows16 | insane.c | 53 |
+| 004bddb0 | Insane_BlitRows16 | insane.c | 1 |
 | 004bd500 | Smush_Pause | smush.c | 8 |
 | 004bd520 | Smush_Resume | smush.c | 8 |
 | 004bd560 | Smush_Idle | smush.c | 8 |

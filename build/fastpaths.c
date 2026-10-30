@@ -233,4 +233,58 @@ static int fp_flip_impl(void)
     return 1;
 }
 
+
+/* Mem_Copy (0x478170): forward copy (the engine relies on that for overlapping ranges, so no memmove semantics).
+ * The decompiled version copies 8 bytes per iteration through 64-bit loads; `rep movsb` is the fast forward copy
+ * of current CPUs, and large non-overlapping blocks use 16-byte SSE copies. */
+FASTFN void __cdecl Mem_Copy(void *dst, void *src, uint n)
+{
+    if ((int)n <= 0)
+        return;
+    if (n >= 256 && ((uint)dst - (uint)src) + 16 > 32) {      /* |dst - src| >= 16: chunked copy gives the same bytes */
+        char *d = (char *)dst;
+        const char *s = (const char *)src;
+        uint i;
+        for (i = 0; i + 16 <= n; i += 16)
+            _mm_storeu_si128((__m128i *)(d + i), _mm_loadu_si128((const __m128i *)(s + i)));
+        dst = d + i;
+        src = (void *)(s + i);
+        n -= i;
+    }
+    __asm__ volatile("rep movsb" : "+D"(dst), "+S"(src), "+c"(n) : : "memory");
+}
+
+/* Insane_BlitRows16 (0x4bddb0): copies `rows` rows of `bytes` bytes (movie frame -> screen buffer), optionally through a
+ * 16-bit look-up table (UINT_008d16bc). The plain copy dominated a movie loop. */
+FASTFN void Insane_BlitRows16(ushort *param_1, int param_2, int param_3, int param_4, int param_5, int param_6)
+{
+    int n = param_5 >> 2;
+    if (UINT_008d16bc == 0) {
+        while (param_6 != 0) {
+            const char *s = (const char *)param_1;
+            char *d = (char *)param_3;
+            int i, bytes = n * 4;
+            for (i = 0; i + 16 <= bytes; i += 16)
+                _mm_storeu_si128((__m128i *)(d + i), _mm_loadu_si128((const __m128i *)(s + i)));
+            for (; i < bytes; i += 4)
+                *(uint *)(d + i) = *(const uint *)(s + i);
+            param_1 = (ushort *)((int)param_1 + param_2);
+            param_3 += param_4;
+            param_6--;
+        }
+    } else {
+        const ushort *tab = (const ushort *)UINT_008d16bc;
+        while (param_6 != 0) {
+            const ushort *s = param_1;
+            uint *d = (uint *)param_3;
+            int i;
+            for (i = 0; i < n; i++)
+                d[i] = (uint)tab[s[2 * i]] | ((uint)tab[s[2 * i + 1]] << 16);
+            param_3 += param_4;
+            param_1 = (ushort *)((int)param_1 + param_2);
+            param_6--;
+        }
+    }
+}
+
 #endif
