@@ -257,4 +257,77 @@ void Lua_MakeCurrentSetup(void)
         Set_ChangeSetup((uint)(int)lua_getnumber(arg));
 }
 
+/* ==== costume component tag handlers: NewInstance of the Keyframe, Colormap and Mesh components ====
+ * (KeyframeComponent_NewInstance 0x00497d10, CmapComponent_NewInstance 0x00496370, MeshComponent_NewInstance 0x00496d70)
+ * Slot 5 of the tag: build (create != 0) or free (create == 0) the per-instance data of one component of a costume
+ * instance.  Cos_InstComponentInfo(inst, component, &a, &info, &b) returns the component's record in `info` (for
+ * keyframes and colormaps record[0] is the resource-valid flag and record[1] the resource) and the index of the parent
+ * component in `b`.  By hand because the original passes the addresses of its own *parameter slots* as the output
+ * pointers; Ghidra reused the slots as differently named variables (`&param_3`, `&param_2`, `&param_1`), the C text read
+ * the wrong ones. */
+int *KeyframeComponent_NewInstance(int inst, int component, int create)
+{
+    int aux, parent;
+    int *info, *data, i;
+    void *res;
+
+    if (create == 0) {
+        int d = Cos_InstGetInstanceData(inst, component, (int *)0);
+        ResRef_Remove((void *)(d + 4));
+        (*g_pSvcCostume->pFree)(d);
+        return (int *)0;
+    }
+    Cos_InstComponentInfo(inst, component, (int)&aux, (int)&info, (int)&parent);
+    if (*info == 0)
+        (*g_pSvcMain->pAssertFail)(s_Bad_keyframe_Reference_004ea1e0, s_main_sputResource_h_004e80a8, 0xb3);
+    res = (void *)info[1];
+    data = (int *)(*g_pSvcCostume->pAlloc)(0x40, s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0, 0xed8);
+    for (i = 0; i < 0x10; i++)
+        data[i] = 0;
+    ResRef_Add(data + 1, res, s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0, 0xeda);
+    data[0xe] = info[0xd];
+    data[0xf] = info[0xe];
+    data[0] = Cos_InstGetInstanceData(inst, parent, (int *)0);
+    return data;
+}
+
+int *CmapComponent_NewInstance(int inst, int component, int create)
+{
+    int aux, parent, i;
+    int *info, *data;
+
+    if (create == 0) {
+        int d = Cos_InstGetInstanceData(inst, component, (int *)0);
+        ResRef_Remove((void *)(d + 4));
+        (*g_pSvcCostume->pFree)(d);
+        return (int *)0;
+    }
+    data = (int *)(*g_pSvcCostume->pAlloc)(0x38, s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0, 0x8fa);
+    Cos_InstComponentInfo(inst, component, (int)&aux, (int)&info, (int)&parent);
+    for (i = 0; i < 0xe; i++)
+        data[i] = 0;
+    if (*info == 0)
+        (*g_pSvcMain->pAssertFail)(s_Bad_Colormap_Reference_004e8090, s_main_sputResource_h_004e80a8, 0x9f);
+    ResRef_Add(data + 1, (void *)info[1], s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0, 0x8ff);
+    data[0] = Cos_InstGetInstanceData(inst, parent, (int *)0);
+    return data;
+}
+
+int *MeshComponent_NewInstance(int inst, int component, int create)
+{
+    int aux, parent;
+    int *data;
+
+    if (create == 0) {
+        (*g_pSvcCostume->pFree)(Cos_InstGetInstanceData(inst, component, (int *)0));
+        return (int *)0;
+    }
+    data = (int *)(*g_pSvcCostume->pAlloc)(0xc, s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0, 0xb54);
+    Cos_InstComponentInfo(inst, component, (int)&aux, (int)(data + 1), (int)&parent);   /* data[1] = the component's value */
+    data[1] = data[1] >> 16;
+    data[0] = Cos_InstGetInstanceData(inst, parent, (int *)0);
+    data[2] = 1;
+    return data;
+}
+
 #endif /* GRIM_EXE */

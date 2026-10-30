@@ -8,3 +8,4 @@ bash run_lua.sh ../run_t ia t3.lua out/t3_t.log 90 >/dev/null; echo "t3 (movemen
 python -I run_probe.py ../run_t out/probe_t 3 @../../.scratch/probe_funcs.txt > out/probe_t.txt 2>&1
 echo "probes: $(python -I cmpprobe.py out/probe_ref out/probe_t | grep '^==' | grep -v 'GetActorNodeLocation\|GetActorRect' | tr '\n' ' ')"
 bash run_lua.sh ../run_t ia tour.lua out/tour_t.log 120 >/dev/null; echo "tour: $(python -I cmpshots.py out/tour_ref.log.shots out/tour_t.log.shots | tail -1)"
+rm -rf out/t7_t.log.shots; bash run_lua.sh ../run_t ia t7.lua out/t7_t.log 90 >/dev/null; echo "t7 (primitives): $(python -I cmpshots.py out/t7_ref.log.shots out/t7_t.log.shots | tail -1)"

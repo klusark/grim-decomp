@@ -35,6 +35,8 @@ void Primitives_Show(void)
 }
 
 /* ---- 0x0048a4b0  Primitive_Construct ---- */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+#if 0
 /* 0x30-byte primitive {next, prev, type (0 line, 1 rect, 2 polyline segment), id, layer, x1, y1,
    x2, y2, color, ?, filled} */
 
@@ -58,6 +60,8 @@ void __thiscall Primitive_Construct(void *this,int id,int unused)
   *(undefined4 *)((int)this + 0x10) = 2;
   return;
 }
+#endif
+
 
 /* ---- 0x0048a560  Primitive_AddLine ---- */
 int __thiscall Primitive_AddLine(void *this,int x1,int y1,int x2,int y2,int color,int layer)
@@ -152,7 +156,7 @@ void __thiscall Primitive_Kill(void *this,int id)
         *(int *)this = **(int **)this;
       }
       piVar1 = (int *)*p;
-      Primitive_Invalidate((int)p);
+      ((code *)Primitive_Invalidate)((int)p);
       Plat_Free(p);
       p = piVar1;
     }
@@ -164,160 +168,130 @@ void __thiscall Primitive_Kill(void *this,int id)
 }
 
 /* ---- 0x0048a7b0  Primitive_SetColor ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
-undefined * __stdcall Primitive_SetColor(int a1,int a2)
+int __thiscall Primitive_SetColor(void *this,int id,int color)
 
 {
   void *after;
-  void *in_ECX;
   
-  for (after = PrimitiveList_FindById(in_ECX,a1,(void *)0x0); after != (void *)0x0;
-      after = PrimitiveList_FindById(in_ECX,a1,after)) {
-    *(int *)((int)after + 0x24) = a2;
+  for (after = PrimitiveList_FindById(this,id,(void *)0x0); after != (void *)0x0;
+      after = PrimitiveList_FindById(this,id,after)) {
+    *(int *)((int)after + 0x24) = color;
   }
-  return (undefined *)0x0;
+  return 0;
 }
-#endif
-
 
 /* ---- 0x0048a7e0  Primitive_SetLayer ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
-undefined * __stdcall Primitive_SetLayer(int a1,int a2)
+int __thiscall Primitive_SetLayer(void *this,int id,int layer)
 
 {
-  void *after;
-  void *in_ECX;
+  void *prim;
   
-  for (after = PrimitiveList_FindById(in_ECX,a1,(void *)0x0); after != (void *)0x0;
-      after = PrimitiveList_FindById(in_ECX,a1,after)) {
-    Primitive_Invalidate((int)after);
-    if ((a2 != 2) && (a2 != 1)) {
-      a2 = 2;
+  for (prim = PrimitiveList_FindById(this,id,(void *)0x0); prim != (void *)0x0;
+      prim = PrimitiveList_FindById(this,id,prim)) {
+    Primitive_Invalidate(this,prim);
+    if ((layer != 2) && (layer != 1)) {
+      layer = 2;
     }
-    *(int *)((int)after + 0x10) = a2;
+    *(int *)((int)prim + 0x10) = layer;
   }
-  return (undefined *)0x0;
+  return 0;
 }
-#endif
-
 
 /* ---- 0x0048a830  Primitive_Offset ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
-undefined * __stdcall Primitive_Offset(int a1,int a2,int a3)
+int __thiscall Primitive_Offset(void *this,int id,int dx,int dy)
 
 {
-  void *after;
-  void *in_ECX;
+  void *prim;
   
-  for (after = PrimitiveList_FindById(in_ECX,a1,(void *)0x0); after != (void *)0x0;
-      after = PrimitiveList_FindById(in_ECX,a1,after)) {
-    Primitive_Invalidate((int)after);
-    *(int *)((int)after + 0x14) = *(int *)((int)after + 0x14) + a2;
-    *(int *)((int)after + 0x20) = *(int *)((int)after + 0x20) + a3;
-    *(int *)((int)after + 0x18) = *(int *)((int)after + 0x18) + a3;
-    *(int *)((int)after + 0x1c) = *(int *)((int)after + 0x1c) + a2;
+  for (prim = PrimitiveList_FindById(this,id,(void *)0x0); prim != (void *)0x0;
+      prim = PrimitiveList_FindById(this,id,prim)) {
+    Primitive_Invalidate(this,prim);
+    *(int *)((int)prim + 0x14) = *(int *)((int)prim + 0x14) + dx;
+    *(int *)((int)prim + 0x20) = *(int *)((int)prim + 0x20) + dy;
+    *(int *)((int)prim + 0x18) = *(int *)((int)prim + 0x18) + dy;
+    *(int *)((int)prim + 0x1c) = *(int *)((int)prim + 0x1c) + dx;
   }
-  return (undefined *)0x0;
+  return 0;
 }
-#endif
-
 
 /* ---- 0x0048a8a0  Primitive_MoveTo ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
-undefined * __stdcall Primitive_MoveTo(int a1,int a2,int a3)
+int __thiscall Primitive_MoveTo(void *this,int id,int x,int y)
 
 {
   void *pvVar1;
-  void *in_ECX;
   int iVar2;
   int iVar3;
   
   iVar2 = 0;
   iVar3 = 0;
-  pvVar1 = PrimitiveList_FindById(in_ECX,a1,(void *)0x0);
+  pvVar1 = PrimitiveList_FindById(this,id,(void *)0x0);
   if (pvVar1 != (void *)0x0) {
-    Primitive_Invalidate((int)pvVar1);
-    if (a2 != -1) {
-      iVar3 = a2 - *(int *)((int)pvVar1 + 0x14);
-      *(int *)((int)pvVar1 + 0x14) = a2;
+    Primitive_Invalidate(this,pvVar1);
+    if (x != -1) {
+      iVar3 = x - *(int *)((int)pvVar1 + 0x14);
+      *(int *)((int)pvVar1 + 0x14) = x;
     }
-    if (a3 != -1) {
-      iVar2 = a3 - *(int *)((int)pvVar1 + 0x18);
-      *(int *)((int)pvVar1 + 0x18) = a3;
+    if (y != -1) {
+      iVar2 = y - *(int *)((int)pvVar1 + 0x18);
+      *(int *)((int)pvVar1 + 0x18) = y;
     }
     *(int *)((int)pvVar1 + 0x20) = *(int *)((int)pvVar1 + 0x20) + iVar2;
     *(int *)((int)pvVar1 + 0x1c) = *(int *)((int)pvVar1 + 0x1c) + iVar3;
-    for (pvVar1 = PrimitiveList_FindById(in_ECX,a1,pvVar1); pvVar1 != (void *)0x0;
-        pvVar1 = PrimitiveList_FindById(in_ECX,a1,pvVar1)) {
-      Primitive_Invalidate((int)pvVar1);
+    for (pvVar1 = PrimitiveList_FindById(this,id,pvVar1); pvVar1 != (void *)0x0;
+        pvVar1 = PrimitiveList_FindById(this,id,pvVar1)) {
+      Primitive_Invalidate(this,pvVar1);
       *(int *)((int)pvVar1 + 0x14) = *(int *)((int)pvVar1 + 0x14) + iVar3;
       *(int *)((int)pvVar1 + 0x18) = *(int *)((int)pvVar1 + 0x18) + iVar2;
       *(int *)((int)pvVar1 + 0x1c) = *(int *)((int)pvVar1 + 0x1c) + iVar3;
       *(int *)((int)pvVar1 + 0x20) = *(int *)((int)pvVar1 + 0x20) + iVar2;
     }
   }
-  return (undefined *)0x0;
+  return 0;
 }
-#endif
-
 
 /* ---- 0x0048a960  Primitive_SetEnd ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
-undefined * __stdcall Primitive_SetEnd(int a1,int a2,int a3)
+int __thiscall Primitive_SetEnd(void *this,int id,int x,int y)
 
 {
-  void *a1_00;
-  undefined *puVar1;
-  void *in_ECX;
+  void *prim;
+  int iVar1;
   
-  a1_00 = PrimitiveList_FindById(in_ECX,a1,(void *)0x0);
-  puVar1 = (undefined *)0x0;
-  if (a1_00 != (void *)0x0) {
-    Primitive_Invalidate((int)a1_00);
-    if (a2 != -1) {
-      *(int *)((int)a1_00 + 0x1c) = a2;
+  prim = PrimitiveList_FindById(this,id,(void *)0x0);
+  iVar1 = 0;
+  if (prim != (void *)0x0) {
+    Primitive_Invalidate(this,prim);
+    if (x != -1) {
+      *(int *)((int)prim + 0x1c) = x;
     }
-    puVar1 = (undefined *)a3;
-    if (a3 != -1) {
-      *(int *)((int)a1_00 + 0x20) = a3;
+    iVar1 = y;
+    if (y != -1) {
+      *(int *)((int)prim + 0x20) = y;
     }
   }
-  return puVar1;
+  return iVar1;
 }
-#endif
-
 
 /* ---- 0x0048a9a0  Primitive_SetSize ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
-undefined * __stdcall Primitive_SetSize(int a1,int a2,int a3)
+int __thiscall Primitive_SetSize(void *this,int id,int w,int h)
 
 {
-  void *a1_00;
-  undefined *puVar1;
-  void *in_ECX;
+  void *prim;
+  int iVar1;
   
-  a1_00 = PrimitiveList_FindById(in_ECX,a1,(void *)0x0);
-  puVar1 = (undefined *)0x0;
-  if (a1_00 != (void *)0x0) {
-    Primitive_Invalidate((int)a1_00);
-    if (a2 != -1) {
-      *(int *)((int)a1_00 + 0x1c) = *(int *)((int)a1_00 + 0x14) + a2;
+  prim = PrimitiveList_FindById(this,id,(void *)0x0);
+  iVar1 = 0;
+  if (prim != (void *)0x0) {
+    Primitive_Invalidate(this,prim);
+    if (w != -1) {
+      *(int *)((int)prim + 0x1c) = *(int *)((int)prim + 0x14) + w;
     }
-    puVar1 = (undefined *)a3;
-    if (a3 != -1) {
-      *(int *)((int)a1_00 + 0x20) = *(int *)((int)a1_00 + 0x18) + a3;
+    iVar1 = h;
+    if (h != -1) {
+      *(int *)((int)prim + 0x20) = *(int *)((int)prim + 0x18) + h;
     }
   }
-  return puVar1;
+  return iVar1;
 }
-#endif
-
 
 /* ---- 0x0048aa20  Primitive_Draw ---- */
 void __stdcall Primitive_Draw(void *prim,void *canvas)
@@ -382,11 +356,9 @@ void __stdcall Primitive_Draw(void *prim,void *canvas)
 
 
 /* ---- 0x0048ab50  Primitive_Invalidate ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Marks the primitive's bounding rectangle dirty on the last buffer */
 
-undefined * __stdcall Primitive_Invalidate(int a1)
+int __thiscall Primitive_Invalidate(void *this,void *prim)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -394,20 +366,20 @@ undefined * __stdcall Primitive_Invalidate(int a1)
   uint uVar2;
   uint uVar3;
   uint uVar4;
-  undefined *extraout_EAX;
+  int extraout_EAX;
   #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
   #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
-  uVar3 = *(uint *)(a1 + 0x14);
-  uVar1 = *(uint *)(a1 + 0x1c);
+  uVar3 = *(uint *)((int)prim + 0x14);
+  uVar1 = *(uint *)((int)prim + 0x1c);
   local_10 = uVar3;
   if ((int)uVar1 <= (int)uVar3) {
     local_10 = uVar1;
   }
-  uVar4 = *(uint *)(a1 + 0x18);
-  uVar2 = *(uint *)(a1 + 0x20);
+  uVar4 = *(uint *)((int)prim + 0x18);
+  uVar2 = *(uint *)((int)prim + 0x20);
   local_c = uVar4;
   if ((int)uVar2 <= (int)uVar4) {
     local_c = uVar2;
@@ -427,8 +399,6 @@ undefined * __stdcall Primitive_Invalidate(int a1)
 #undef local_4
 #undef local_8
 #undef local_c
-
-#endif
 
 
 /* ---- 0x0048abc0  Primitive_ResetIds ---- */

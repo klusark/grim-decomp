@@ -6,46 +6,46 @@
 #include "functions.h"
 
 /* ---- 0x00496370  CmapComponent_NewInstance ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Costume tag handler for 'RDroid Colormap' (registered by sputCostume_Start through
    Cos_NewStateBasedTag/Cos_NewIntTag): slot 5, instance data for a colormap component (0x38 bytes
    holding a ResRef to the colormap, 'Bad Colormap Reference' assertion); with param 0 it frees the
    instance. */
 
-int * CmapComponent_NewInstance(int param_1,int param_2,int *param_3)
+int * __cdecl CmapComponent_NewInstance(int inst,int component,int create)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  int *piVar1;
-  int iVar2;
-  int *piVar3;
+  int iVar1;
+  int *piVar2;
+  int iVar3;
   int *piVar4;
   #define iStack_8 (*(int *)(_frame + (0x20 - 0x8)))
   #define auStack_4 (*(undefined1 (*)[4])(_frame + (0x20 - 0x4)))
   
-  if (param_3 == (int *)0x0) {
-    iVar2 = Cos_InstGetInstanceData(param_1,param_2,(int *)0x0);
-    ResRef_Remove((void *)(iVar2 + 4));
-    (*g_pSvcCostume->pFree)(iVar2);
+  if (create == 0) {
+    iVar1 = Cos_InstGetInstanceData(inst,component,(int *)0x0);
+    ResRef_Remove((void *)(iVar1 + 4));
+    (*g_pSvcCostume->pFree)(iVar1);
     return (int *)0x0;
   }
-  piVar3 = (int *)(*g_pSvcCostume->pAlloc)(0x38,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0x8fa);
-  Cos_InstComponentInfo(param_1,param_2,(int)auStack_4,(int)&param_3,(int)&iStack_8);
-  piVar1 = param_3;
-  piVar4 = piVar3;
-  for (iVar2 = 0xe; iVar2 != 0; iVar2 = iVar2 + -1) {
+  piVar2 = (int *)(*g_pSvcCostume->pAlloc)(0x38,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0x8fa);
+  Cos_InstComponentInfo(inst,component,(int)auStack_4,(int)&create,(int)&iStack_8);
+  iVar1 = create;
+  piVar4 = piVar2;
+  for (iVar3 = 0xe; iVar3 != 0; iVar3 = iVar3 + -1) {
     *piVar4 = 0;
     piVar4 = piVar4 + 1;
   }
-  if (*param_3 == 0) {
+  if (*(int *)create == 0) {
     (*g_pSvcMain->pAssertFail)
               (s_Bad_Colormap_Reference_004e8090,s_main_sputResource_h_004e80a8,0x9f);
   }
-  ResRef_Add(piVar3 + 1,(void *)piVar1[1],s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0x8ff);
-  iVar2 = Cos_InstGetInstanceData(param_1,iStack_8,(int *)0x0);
-  *piVar3 = iVar2;
-  return piVar3;
+  ResRef_Add(piVar2 + 1,*(void **)(iVar1 + 4),s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0x8ff);
+  iVar1 = Cos_InstGetInstanceData(inst,iStack_8,(int *)0x0);
+  *piVar2 = iVar1;
+  return piVar2;
 }
 #undef auStack_4
 #undef iStack_8
