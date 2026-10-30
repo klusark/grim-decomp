@@ -2647,15 +2647,10 @@ void Lua_WalkActorVector(void)
   #define local_60 (*(uint *)(_frame + (0x90 - 0x60)))
   #define local_5c (*(uint *)(_frame + (0x90 - 0x5c)))
   #define local_58 (*(uint *)(_frame + (0x90 - 0x58)))
-  #define local_54 (*(uint *)(_frame + (0x90 - 0x54)))
-  #define local_50 (*(uint *)(_frame + (0x90 - 0x50)))
-  #define local_4c (*(uint *)(_frame + (0x90 - 0x4c)))
-  #define local_48 (*(uint *)(_frame + (0x90 - 0x48)))
-  #define local_44 (*(uint *)(_frame + (0x90 - 0x44)))
-  #define local_40 (*(uint *)(_frame + (0x90 - 0x40)))
+  #define local_54 (*(float (*)[3])(_frame + (0x90 - 0x54)))
+  #define local_48 (*(float (*)[3])(_frame + (0x90 - 0x48)))
   #define local_3c (*(uint *)(_frame + (0x90 - 0x3c)))
-  #define local_38 (*(uint *)(_frame + (0x90 - 0x38)))
-  #define local_34 (*(uint *)(_frame + (0x90 - 0x34)))
+  #define local_38 (*(float (*)[2])(_frame + (0x90 - 0x38)))
   #define local_30 (*(float (*)[9])(_frame + (0x90 - 0x30)))
   #define local_c (*(uint *)(_frame + (0x90 - 0xc)))
   #define local_8 (*(uint *)(_frame + (0x90 - 0x8)))
@@ -2679,9 +2674,9 @@ void Lua_WalkActorVector(void)
           iVar2 = Actor_FromHandle(iVar2);
           iVar3 = lua_getuserdata(iVar3);
           actor = (void *)Actor_FromHandle(iVar3);
-          local_54 = (uint)lua_getnumber(iVar4);
-          local_50 = (uint)lua_getnumber(iVar5);
-          local_4c = (uint)lua_getnumber(iVar6);
+          local_54[0] = lua_getnumber(iVar4);
+          local_54[1] = lua_getnumber(iVar5);
+          local_54[2] = lua_getnumber(iVar6);
           pfVar9 = Actor_GetFrame(actor);
           pfVar10 = local_30;
           for (iVar3 = 0xc; iVar3 != 0; iVar3 = iVar3 + -1) {
@@ -2691,18 +2686,18 @@ void Lua_WalkActorVector(void)
           }
           iVar3 = lua_isnumber(iVar7);
           if (iVar3 != 0) {
-            local_38 = (uint)lua_getnumber(iVar7);
+            local_38[0] = lua_getnumber(iVar7);
             local_c = 0;
             local_8 = 0;
             local_3c = 0;
-            local_34 = 0;
+            local_38[1] = 0.0;
             local_4 = 0;
             Matrix_BuildTransform(local_30,&local_3c);
           }
-          Vec3_Transform((float *)&local_54,local_30);
+          Vec3_Transform(local_54,local_30);
           iVar3 = 3;
           pfVar9 = (float *)(iVar2 + 0xc);
-          pfVar10 = (float *)&local_54;
+          pfVar10 = local_54;
           do {
             fVar1 = *pfVar9;
             pfVar9 = pfVar9 + 1;
@@ -2710,19 +2705,19 @@ void Lua_WalkActorVector(void)
             *pfVar10 = fVar1 + *pfVar10;
             pfVar10 = pfVar10 + 1;
           } while (iVar3 != 0);
-          local_48 = local_54;
-          local_44 = local_50;
-          local_40 = local_4c;
-          Walker_ToLocalSpace(*(void **)(*(int *)(iVar2 + 0xa4) + 0x1b4),(float *)&local_48);
-          Vec3_Normalize((float *)&local_48);
-          fVar11 = Math_AsinDegreesSeries(PUN(float,local_44));
+          local_48[0] = local_54[0];
+          local_48[1] = local_54[1];
+          local_48[2] = local_54[2];
+          Walker_ToLocalSpace(*(void **)(*(int *)(iVar2 + 0xa4) + 0x1b4),local_48);
+          Vec3_Normalize(local_48);
+          fVar11 = Math_AsinDegreesSeries(local_48[1]);
           fVar1 = *(float *)(*(int *)(iVar2 + 0xa4) + 0x1c);
           if (*(float *)(*(int *)(iVar2 + 0xa4) + 0x1c) < 0.0) {
             fVar1 = -fVar1;
           }
           fVar12 = Timer_GetFrameSeconds();
-          Walker_TurnToPoint(*(void **)(*(int *)(iVar2 + 0xa4) + 0x1b4),(int)&local_54,
-                             PUN(int,(float)(fVar12 * fVar1 + fVar12 * fVar1)));
+          Walker_TurnToPoint(*(void **)(*(int *)(iVar2 + 0xa4) + 0x1b4),local_54,
+                             fVar12 * fVar1 + fVar12 * fVar1);
           if (90.0 - fVar11 < 90.0) {
             *(uint *)(iVar2 + 8) = *(uint *)(iVar2 + 8) & 0xfffffffe;
             Actor_WalkForward(iVar2);
@@ -2734,15 +2729,10 @@ void Lua_WalkActorVector(void)
   return;
 }
 #undef local_30
-#undef local_34
 #undef local_38
 #undef local_3c
 #undef local_4
-#undef local_40
-#undef local_44
 #undef local_48
-#undef local_4c
-#undef local_50
 #undef local_54
 #undef local_58
 #undef local_5c
@@ -4940,9 +4930,7 @@ void Lua_GetActorYawToPoint(void)
   #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
   #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
   #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
+  #define local_c (*(float (*)[3])(_frame + (0x30 - 0xc)))
   
   iVar1 = lua_lua2C(1);
   iVar2 = lua_lua2C(2);
@@ -4969,16 +4957,16 @@ void Lua_GetActorYawToPoint(void)
         iVar5 = lua_gettable();
         iVar2 = iVar4;
       }
-      local_c = (uint)lua_getnumber(iVar2);
-      local_8 = (uint)lua_getnumber(iVar3);
-      local_4 = (uint)lua_getnumber(iVar5);
+      local_c[0] = lua_getnumber(iVar2);
+      local_c[1] = lua_getnumber(iVar3);
+      local_c[2] = lua_getnumber(iVar5);
       if (*(int *)(iVar1 + 0xa4) == 0) {
         Actor_CreateExtra(iVar1);
       }
       if (*(int *)(*(int *)(iVar1 + 0xa4) + 0x1b4) == 0) {
         Actor_CreateWalker(iVar1,1);
       }
-      n = Actor_GetYawToPoint(*(void **)(*(int *)(iVar1 + 0xa4) + 0x1b4),(int)&local_c);
+      n = Actor_GetYawToPoint(*(void **)(*(int *)(iVar1 + 0xa4) + 0x1b4),local_c);
       lua_pushnumber(n);
       return;
     }
@@ -4989,8 +4977,6 @@ void Lua_GetActorYawToPoint(void)
 #undef local_10
 #undef local_14
 #undef local_18
-#undef local_4
-#undef local_8
 #undef local_c
 
 #endif
@@ -8840,9 +8826,7 @@ void Lua_PointActorAt(void)
   int iVar5;
   #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
   #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
+  #define local_c (*(float (*)[3])(_frame + (0x30 - 0xc)))
   
   iVar1 = lua_lua2C(1);
   iVar2 = lua_lua2C(2);
@@ -8857,21 +8841,21 @@ void Lua_PointActorAt(void)
   iVar1 = Actor_FromHandle(iVar1);
   iVar5 = lua_isuserdata(iVar2);
   if ((iVar5 == 0) || (iVar5 = lua_tag(iVar2), iVar5 != 0x52544341)) {
-    local_c = (uint)lua_getnumber(iVar2);
-    local_8 = (uint)lua_getnumber(iVar3);
-    local_4 = (uint)lua_getnumber(iVar4);
+    local_c[0] = lua_getnumber(iVar2);
+    local_c[1] = lua_getnumber(iVar3);
+    local_c[2] = lua_getnumber(iVar4);
   }
   else {
     iVar2 = lua_getuserdata(iVar2);
     iVar2 = Actor_FromHandle(iVar2);
-    local_c = *(uint *)(iVar2 + 0xc);
-    local_8 = *(uint *)(iVar2 + 0x10);
-    local_4 = *(uint *)(iVar2 + 0x14);
+    local_c[0] = *(float *)(iVar2 + 0xc);
+    local_c[1] = *(float *)(iVar2 + 0x10);
+    local_c[2] = *(float *)(iVar2 + 0x14);
   }
   if (*(int *)(*(int *)(iVar1 + 0xa4) + 0x1b4) == 0) {
     Actor_CreateWalker(iVar1,1);
   }
-  Walker_TurnToPoint(*(void **)(*(int *)(iVar1 + 0xa4) + 0x1b4),(int)&local_c,0x7f7fffff);
+  Walker_TurnToPoint(*(void **)(*(int *)(iVar1 + 0xa4) + 0x1b4),local_c,3.4028235e+38);
   iVar1 = *(int *)(iVar1 + 0xa4);
   if (*(float *)(iVar1 + 0x1c) <= 0.0) {
     return;
@@ -8881,8 +8865,6 @@ void Lua_PointActorAt(void)
 }
 #undef local_10
 #undef local_14
-#undef local_4
-#undef local_8
 #undef local_c
 
 #endif
@@ -8910,9 +8892,7 @@ void Lua_TurnActorTo(void)
   float fVar8;
   #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
   #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
+  #define local_c (*(float (*)[3])(_frame + (0x30 - 0xc)))
   
   iVar2 = lua_lua2C(1);
   iVar3 = lua_lua2C(2);
@@ -8927,18 +8907,18 @@ void Lua_TurnActorTo(void)
   iVar6 = lua_isuserdata(iVar3);
   if (iVar6 == 0) {
 LAB_0049fd1e:
-    local_c = (uint)lua_getnumber(iVar3);
-    local_8 = (uint)lua_getnumber(iVar4);
-    local_4 = (uint)lua_getnumber(iVar5);
+    local_c[0] = lua_getnumber(iVar3);
+    local_c[1] = lua_getnumber(iVar4);
+    local_c[2] = lua_getnumber(iVar5);
   }
   else {
     iVar6 = lua_tag(iVar3);
     if (iVar6 != 0x52544341) goto LAB_0049fd1e;
     iVar3 = lua_getuserdata(iVar3);
     iVar3 = Actor_FromHandle(iVar3);
-    local_c = *(uint *)(iVar3 + 0xc);
-    local_8 = *(uint *)(iVar3 + 0x10);
-    local_4 = *(uint *)(iVar3 + 0x14);
+    local_c[0] = *(float *)(iVar3 + 0xc);
+    local_c[1] = *(float *)(iVar3 + 0x10);
+    local_c[2] = *(float *)(iVar3 + 0x14);
   }
   if (*(int *)(*(int *)(iVar2 + 0xa4) + 0x1b4) == 0) {
     Actor_CreateWalker(iVar2,1);
@@ -8948,8 +8928,7 @@ LAB_0049fd1e:
     fVar1 = -fVar1;
   }
   fVar7 = Timer_GetFrameSeconds();
-  fVar8 = Walker_TurnToPoint(*(void **)(*(int *)(iVar2 + 0xa4) + 0x1b4),(int)&local_c,
-                             PUN(int,(float)(fVar7 * fVar1)));
+  fVar8 = Walker_TurnToPoint(*(void **)(*(int *)(iVar2 + 0xa4) + 0x1b4),local_c,fVar7 * fVar1);
   if (fVar8 < 0.0) {
     fVar8 = -fVar8;
   }
@@ -8963,8 +8942,6 @@ LAB_0049fde2:
 }
 #undef local_10
 #undef local_14
-#undef local_4
-#undef local_8
 #undef local_c
 
 #endif

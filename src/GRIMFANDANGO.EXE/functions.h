@@ -1612,7 +1612,7 @@ void Actor_DrawCostumes(undefined4 param_1,undefined4 param_2); /* 0x00495080 */
 void Actor_DrawCostumeMeshes(int *param_1,float *param_2); /* 0x004950a0 */
 void __cdecl Actor_RemoveFromSet(char *setName,void *actor); /* 0x004a5eb0 */
 void __cdecl Actor_PutInSet(void *actor,char *setName); /* 0x004a5f60 */
-float __thiscall Actor_GetYawToPoint(void *this,int a1); /* 0x004a8500 */
+float __thiscall Actor_GetYawToPoint(void *this,float *point); /* 0x004a8500 */
 
 /* ===== dirtyrect.c ===== */
 void __cdecl DirtyRect_Add(int *rect,int flag,int bufferIdx); /* 0x00485420 */
@@ -1657,7 +1657,7 @@ float * SectorVertexPool_GetOrAdd(undefined4 param_1,float *param_2); /* 0x004a7
 void SectorVertexPool_Release(int *param_1); /* 0x004a7ba0 */
 undefined * SetFile_ParseSectors(int param_1); /* 0x004a7bc0 */
 int __thiscall Sector_ClipPolygon(void *this,float *verts,int count,float *out); /* 0x004a8cb0 */
-float __thiscall Sector_EdgeDistance(void *this,int a1,int a2); /* 0x004a9070 */
+float __thiscall Sector_EdgeDistance(void *this,int edge,float *point); /* 0x004a9070 */
 undefined4 __fastcall Sector_CollapseShortestEdge(void *param_1); /* 0x004a9180 */
 void __cdecl SectorList_ShrinkWalkSectors (float param_1,uint param_2,uint param_3,uint param_4,float param_5,float param_6, float param_7,float *param_8,float param_9,float param_10,float param_11,float param_12, uint param_13,double param_14); /* 0x004a9d00 */
 
@@ -1859,7 +1859,7 @@ void __thiscall Walker_SetPosition(void *this,float *pos); /* 0x004a8310 */
 void __thiscall Walker_RotateVector(void *this,float *vec); /* 0x004a8350 */
 void __thiscall Walker_ToLocalSpace(void *this,float *vec); /* 0x004a8370 */
 undefined * __thiscall Walker_TurnHeading(void *this,float angle); /* 0x004a83c0 */
-float __thiscall Walker_TurnToPoint(void *this,int a1,int a2); /* 0x004a8450 */
+float __thiscall Walker_TurnToPoint(void *this,float *point,float maxTurn); /* 0x004a8450 */
 undefined * __thiscall Walker_SetConstraint(void *this,int a1); /* 0x004a85b0 */
 undefined * __thiscall Walker_WalkSectors(void *this,float step,int turnLeftOk,int turnRightOk); /* 0x004a8610 */
 undefined * __thiscall Walker_SetSectorFrame(void *this,int a1); /* 0x004a89b0 */
