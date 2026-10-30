@@ -20,9 +20,7 @@ void * __cdecl rdPrimit3_DrawPolygon(float *verts,int count,void *material)
   float *out;
   undefined4 *puVar5;
   undefined4 *puVar6;
-  #define local_330 (*(uint *)(_frame + (0x340 - 0x330)))
-  #define local_32c (*(uint *)(_frame + (0x340 - 0x32c)))
-  #define local_328 (*(uint *)(_frame + (0x340 - 0x328)))
+  #define local_330 (*(float (*)[3])(_frame + (0x340 - 0x330)))
   #define fStack_324 (*(float *)(_frame + (0x340 - 0x324)))
   #define fStack_320 (*(float *)(_frame + (0x340 - 0x320)))
   #define fStack_31c (*(float *)(_frame + (0x340 - 0x31c)))
@@ -32,9 +30,8 @@ void * __cdecl rdPrimit3_DrawPolygon(float *verts,int count,void *material)
   #define fStack_30c (*(float *)(_frame + (0x340 - 0x30c)))
   #define fStack_308 (*(float *)(_frame + (0x340 - 0x308)))
   #define fStack_304 (*(float *)(_frame + (0x340 - 0x304)))
-  #define local_300 (*(uint *)(_frame + (0x340 - 0x300)))
-  #define local_2fc (*(uint *)(_frame + (0x340 - 0x2fc)))
-  #define local_2f8 (*(uint *)(_frame + (0x340 - 0x2f8)))
+  #define local_300 (*(float *)(_frame + (0x340 - 0x300)))
+  #define local_2fc (*(float (*)[2])(_frame + (0x340 - 0x2fc)))
   #define fStack_2f4 (*(float *)(_frame + (0x340 - 0x2f4)))
   #define fStack_2f0 (*(float *)(_frame + (0x340 - 0x2f0)))
   #define fStack_2ec (*(float *)(_frame + (0x340 - 0x2ec)))
@@ -43,19 +40,19 @@ void * __cdecl rdPrimit3_DrawPolygon(float *verts,int count,void *material)
   #define fStack_2e0 (*(float *)(_frame + (0x340 - 0x2e0)))
   #define local_180 (*(undefined4 (*)[96])(_frame + (0x340 - 0x180)))
   
-  local_328 = 0;
-  local_32c = 0;
-  local_330 = 0;
+  local_330[2] = 0.0;
+  local_330[1] = 0.0;
+  local_330[0] = 0.0;
   if (0 < count) {
     iVar4 = count;
-    out = (float *)&local_300;
+    out = &local_300;
     do {
       Vec3_Sub(out,(float *)(((int)verts - (int)&local_300) + (int)out),
                (float *)((int)g_pRdCurrentCamera + 8));
-      local_330 = (uint)((float)local_330 + *out);
+      local_330[0] = local_330[0] + *out;
       iVar4 = iVar4 + -1;
-      local_32c = (uint)(out[1] + (float)local_32c);
-      local_328 = (uint)(out[2] + (float)local_328);
+      local_330[1] = out[1] + local_330[1];
+      local_330[2] = out[2] + local_330[2];
       out = out + 3;
     } while (iVar4 != 0);
   }
@@ -89,16 +86,16 @@ void * __cdecl rdPrimit3_DrawPolygon(float *verts,int count,void *material)
   }
   puVar2[0xf] = 0xffffffff;
   puVar2[0xe] = material;
-  fStack_324 = fStack_2f4 - (float)local_300;
-  fStack_320 = fStack_2f0 - (float)local_2fc;
-  fStack_31c = fStack_2ec - (float)local_2f8;
+  fStack_324 = fStack_2f4 - local_300;
+  fStack_320 = fStack_2f0 - local_2fc[0];
+  fStack_31c = fStack_2ec - local_2fc[1];
   fStack_30c = fStack_2e8 - fStack_2f4;
   fStack_308 = fStack_2e4 - fStack_2f0;
   fStack_304 = fStack_2e0 - fStack_2ec;
   Vec3_Cross(&fStack_318,&fStack_324,&fStack_30c);
-  puVar2[0x14] = (uint)(0.0 < fStack_310 * ((float)local_328 / fVar1) +
-                              fStack_314 * ((float)local_32c / fVar1) +
-                              fStack_318 * ((float)local_330 / fVar1));
+  puVar2[0x14] = (uint)(0.0 < fStack_310 * (local_330[2] / fVar1) +
+                              fStack_314 * (local_330[1] / fVar1) +
+                              fStack_318 * (local_330[0] / fVar1));
   rdCache_AddMesh((void *)0x0,vertexCount,1);
   return puVar2;
 }
@@ -118,11 +115,8 @@ void * __cdecl rdPrimit3_DrawPolygon(float *verts,int count,void *material)
 #undef fStack_320
 #undef fStack_324
 #undef local_180
-#undef local_2f8
 #undef local_2fc
 #undef local_300
-#undef local_328
-#undef local_32c
 #undef local_330
 
 #endif
@@ -201,22 +195,19 @@ void rdPrimit3_DrawPoint(float *param_1,float param_2,undefined4 param_3)
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   longlong lVar1;
   float fVar2;
-  #define local_30 (*(uint *)(_frame + (0x40 - 0x30)))
-  #define local_2c (*(uint *)(_frame + (0x40 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x40 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x40 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x40 - 0x1c)))
+  #define local_30 (*(float *)(_frame + (0x40 - 0x30)))
+  #define local_2c (*(float (*)[2])(_frame + (0x40 - 0x2c)))
+  #define local_24 (*(float (*)[3])(_frame + (0x40 - 0x24)))
   #define local_18 (*(float (*)[3])(_frame + (0x40 - 0x18)))
   #define afStack_c (*(float (*)[3])(_frame + (0x40 - 0xc)))
   
-  Vec3_Sub((float *)&local_30,param_1,(float *)((int)g_pRdCurrentCamera + 8));
-  local_24 = (uint)((float)local_30 + param_2);
-  local_20 = local_2c;
-  local_1c = local_28;
-  if (0.0 < (float)local_2c) {
+  Vec3_Sub(&local_30,param_1,(float *)((int)g_pRdCurrentCamera + 8));
+  local_24[0] = local_30 + param_2;
+  local_24[1] = local_2c[0];
+  local_24[2] = local_2c[1];
+  if (0.0 < local_2c[0]) {
     (**(code **)((int)g_pRdCurrentCamera + 0x4c))(local_18,&local_30);
-    (**(code **)((int)g_pRdCurrentCamera + 0x4c))(afStack_c,&local_24);
+    (**(code **)((int)g_pRdCurrentCamera + 0x4c))(afStack_c,local_24);
     fVar2 = afStack_c[0] - local_18[0];
     lVar1 = _ftol((double)CONCAT44(param_3,fVar2));
     lVar1 = _ftol((double)CONCAT44(fVar2,(int)lVar1));
@@ -226,10 +217,7 @@ void rdPrimit3_DrawPoint(float *param_1,float param_2,undefined4 param_3)
 }
 #undef afStack_c
 #undef local_18
-#undef local_1c
-#undef local_20
 #undef local_24
-#undef local_28
 #undef local_2c
 #undef local_30
 

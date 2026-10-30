@@ -6,8 +6,6 @@
 #include "functions.h"
 
 /* ---- 0x0040cf20  rdThing_Draw ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Rdthing.c: frustum-tests the model's bounding sphere, picks the geometry set, updates the puppet
    and draws the node hierarchy */
 
@@ -102,12 +100,8 @@ int __cdecl rdThing_Draw(void *thing,float *position)
 }
 #undef local_c
 
-#endif
-
 
 /* ---- 0x00471a40  rdThing_New ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 uint rdThing_New(undefined4 param_1)
 
 {
@@ -122,12 +116,8 @@ uint rdThing_New(undefined4 param_1)
   iVar2 = rdThing_Init(uVar1,param_1);
   return -(uint)(iVar2 != 0) & uVar1;
 }
-#endif
-
 
 /* ---- 0x00471a80  rdThing_Init ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Default thing: geometry mode 4, lighting 3, texture 2, no model, both sprite indices -1 */
 
 undefined4 rdThing_Init(undefined4 *param_1,undefined4 param_2)
@@ -153,12 +143,8 @@ undefined4 rdThing_Init(undefined4 *param_1,undefined4 param_2)
   param_1[0xb] = 0;
   return 1;
 }
-#endif
-
 
 /* ---- 0x00471af0  rdThing_Free ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void rdThing_Free(int param_1)
 
 {
@@ -168,12 +154,8 @@ void rdThing_Free(int param_1)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x00471b10  rdThing_FreeEntry ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Type 1 (model) things free their puppet buffers */
 
 void rdThing_FreeEntry(int *param_1)
@@ -217,12 +199,8 @@ void rdThing_FreeEntry(int *param_1)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x00471bd0  rdThing_SetModel ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void __cdecl rdThing_SetModel(void *thing,void *model)
 
 {
@@ -293,12 +271,8 @@ void __cdecl rdThing_SetModel(void *thing,void *model)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x00471d40  rdThing_SetCamera ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Thing type 2 pointing at a sprite */
 
 undefined4 rdThing_SetCamera(undefined4 *param_1,undefined4 param_2)
@@ -308,12 +282,8 @@ undefined4 rdThing_SetCamera(undefined4 *param_1,undefined4 param_2)
   param_1[1] = param_2;
   return 1;
 }
-#endif
-
 
 /* ---- 0x00471d60  rdThing_SetPolyline ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Thing type 4 pointing at a polyline */
 
 undefined4 rdThing_SetPolyline(undefined4 *param_1,undefined4 param_2)
@@ -324,12 +294,8 @@ undefined4 rdThing_SetPolyline(undefined4 *param_1,undefined4 param_2)
   param_1[0xc] = 0xffffffff;
   return 1;
 }
-#endif
-
 
 /* ---- 0x00471d80  rdThing_DrawAlt ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 int __cdecl rdThing_DrawAlt(void *thing,float *frame)
 
 {
@@ -357,12 +323,8 @@ int __cdecl rdThing_DrawAlt(void *thing,float *frame)
   }
   return 0;
 }
-#endif
-
 
 /* ---- 0x00471e00  rdThing_BuildNodeMatrix ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Node matrix = node pivot/offset transform times the parent's matrix */
 
 void rdThing_BuildNodeMatrix(int param_1,int param_2,float *param_3)
@@ -371,19 +333,17 @@ void rdThing_BuildNodeMatrix(int param_1,int param_2,float *param_3)
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint uVar1;
   int iVar2;
-  #define local_3c (*(uint *)(_frame + (0x50 - 0x3c)))
-  #define local_38 (*(uint *)(_frame + (0x50 - 0x38)))
-  #define local_34 (*(uint *)(_frame + (0x50 - 0x34)))
+  #define local_3c (*(float (*)[3])(_frame + (0x50 - 0x3c)))
   #define local_30 (*(float (*)[12])(_frame + (0x50 - 0x30)))
   
   Matrix_BuildTranslation(local_30,(float *)(param_2 + 100));
   Matrix_Multiply(local_30,*(int *)(param_2 + 0x44) * 0x30 + *(int *)(param_1 + 0x20));
   iVar2 = *(int *)(param_2 + 0x54);
   if (iVar2 != 0) {
-    local_3c = (uint)-*(float *)(iVar2 + 100);
-    local_38 = (uint)-*(float *)(iVar2 + 0x68);
-    local_34 = (uint)-*(float *)(iVar2 + 0x6c);
-    Matrix_SetTranslation(local_30,&local_3c);
+    local_3c[0] = -*(float *)(iVar2 + 100);
+    local_3c[1] = -*(float *)(iVar2 + 0x68);
+    local_3c[2] = -*(float *)(iVar2 + 0x6c);
+    Matrix_SetTranslation(local_30,local_3c);
   }
   Matrix_Mul34((float *)(*(int *)(param_2 + 0x44) * 0x30 + *(int *)(param_1 + 0x20)),param_3,
                local_30);
@@ -404,9 +364,5 @@ void rdThing_BuildNodeMatrix(int param_1,int param_2,float *param_3)
   return;
 }
 #undef local_30
-#undef local_34
-#undef local_38
 #undef local_3c
-
-#endif
 

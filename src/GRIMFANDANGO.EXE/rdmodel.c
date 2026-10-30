@@ -26,8 +26,7 @@ undefined4 rdModel_ComputeMeshLighting(byte *param_1)
   int iVar9;
   int iVar10;
   int iVar11;
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
+  #define local_8 (*(float (*)[2])(_frame + (0x20 - 0x8)))
   
   iVar5 = (int)param_1;
   iVar8 = *(int *)((int)param_1 + 8);
@@ -83,10 +82,10 @@ LAB_0040961e:
     }
   }
   if (((byte)g_dwRdroidFlags & 2) == 0) {
-    local_8 = 0;
+    local_8[0] = 0.0;
   }
   else {
-    local_8 = *(uint *)(iVar5 + 0x40);
+    local_8[0] = *(float *)(iVar5 + 0x40);
   }
   switch(iVar8) {
   case 1:
@@ -112,19 +111,19 @@ LAB_0040961e:
       else {
         fVar1 = *(float *)(iVar5 + 0x48);
       }
-      if ((float)local_8 < fVar1) {
+      if (local_8[0] < fVar1) {
         if (*(float *)(iVar5 + 0x48) < 0.0) {
-          local_8 = 0;
+          local_8[0] = 0.0;
         }
         else if (1.0 < *(float *)(iVar5 + 0x48)) {
-          local_8 = 0x3f800000;
+          local_8[0] = 1.0;
         }
         else {
-          local_8 = *(uint *)(iVar5 + 0x48);
+          local_8[0] = *(float *)(iVar5 + 0x48);
         }
       }
-      *(float *)(iVar5 + 0x44) = (float)local_8 * 63.0;
-      (**(code **)(iVar5 + 0x14))(iVar5,param_1,(float)local_8 * 63.0);
+      *(float *)(iVar5 + 0x44) = local_8[0] * 63.0;
+      (**(code **)(iVar5 + 0x14))(iVar5,param_1,local_8[0] * 63.0);
       return 1;
     case 2:
       fVar1 = *(float *)(iVar5 + 0x48) + *(float *)(iVar5 + 0x44);
@@ -137,19 +136,19 @@ LAB_0040961e:
           fVar3 = 1.0;
         }
       }
-      if ((float)local_8 < fVar3) {
+      if (local_8[0] < fVar3) {
         if (fVar1 < 0.0) {
-          local_8 = (uint)0.0;
+          local_8[0] = 0.0;
         }
         else {
-          local_8 = (uint)fVar1;
+          local_8[0] = fVar1;
           if (1.0 < fVar1) {
-            local_8 = (uint)1.0;
+            local_8[0] = 1.0;
           }
         }
       }
-      *(float *)(iVar5 + 0x44) = (float)local_8 * 63.0;
-      (**(code **)(iVar5 + 0x14))(iVar5,param_1,(float)local_8 * 63.0);
+      *(float *)(iVar5 + 0x44) = local_8[0] * 63.0;
+      (**(code **)(iVar5 + 0x14))(iVar5,param_1,local_8[0] * 63.0);
       return 1;
     case 3:
       uVar7 = 0;
@@ -166,8 +165,8 @@ LAB_0040961e:
               fVar3 = 1.0;
             }
           }
-          fVar4 = (float)local_8;
-          if ((float)local_8 < fVar3) {
+          fVar4 = local_8[0];
+          if (local_8[0] < fVar3) {
             if (fVar1 < 0.0) {
               fVar4 = 0.0;
             }
@@ -202,19 +201,19 @@ LAB_0040961e:
         else {
           fVar1 = *(float *)(iVar5 + 0x48);
         }
-        if ((float)local_8 < fVar1) {
+        if (local_8[0] < fVar1) {
           if (*(float *)(iVar5 + 0x48) < 0.0) {
-            local_8 = 0;
+            local_8[0] = 0.0;
           }
           else if (1.0 < *(float *)(iVar5 + 0x48)) {
-            local_8 = 0x3f800000;
+            local_8[0] = 1.0;
           }
           else {
-            local_8 = *(uint *)(iVar5 + 0x48);
+            local_8[0] = *(float *)(iVar5 + 0x48);
           }
         }
-        *(float *)(iVar5 + 0x44) = (float)local_8 * 63.0;
-        (**(code **)(iVar5 + 0x14))(iVar5,param_1,(float)local_8 * 63.0);
+        *(float *)(iVar5 + 0x44) = local_8[0] * 63.0;
+        (**(code **)(iVar5 + 0x14))(iVar5,param_1,local_8[0] * 63.0);
         return 1;
       case 2:
         fVar1 = *(float *)(iVar5 + 0x48) + *(float *)(iVar5 + 0x44);
@@ -227,19 +226,19 @@ LAB_0040961e:
             fVar3 = 1.0;
           }
         }
-        if ((float)local_8 < fVar3) {
+        if (local_8[0] < fVar3) {
           if (fVar1 < 0.0) {
-            local_8 = (uint)0.0;
+            local_8[0] = 0.0;
           }
           else {
-            local_8 = (uint)fVar1;
+            local_8[0] = fVar1;
             if (1.0 < fVar1) {
-              local_8 = (uint)1.0;
+              local_8[0] = 1.0;
             }
           }
         }
-        *(float *)(iVar5 + 0x44) = (float)local_8 * 63.0;
-        (**(code **)(iVar5 + 0x14))(iVar5,param_1,(float)local_8 * 63.0);
+        *(float *)(iVar5 + 0x44) = local_8[0] * 63.0;
+        (**(code **)(iVar5 + 0x14))(iVar5,param_1,local_8[0] * 63.0);
         return 1;
       case 3:
         uVar7 = 0;
@@ -256,8 +255,8 @@ LAB_0040961e:
                 fVar3 = 1.0;
               }
             }
-            fVar4 = (float)local_8;
-            if ((float)local_8 < fVar3) {
+            fVar4 = local_8[0];
+            if (local_8[0] < fVar3) {
               if (fVar1 < 0.0) {
                 fVar4 = 0.0;
               }
@@ -295,19 +294,19 @@ switchD_004098a8_caseD_0:
         else {
           fVar1 = *(float *)(iVar5 + 0x48);
         }
-        if ((float)local_8 < fVar1) {
+        if (local_8[0] < fVar1) {
           if (*(float *)(iVar5 + 0x48) < 0.0) {
-            local_8 = 0;
+            local_8[0] = 0.0;
           }
           else if (1.0 < *(float *)(iVar5 + 0x48)) {
-            local_8 = 0x3f800000;
+            local_8[0] = 1.0;
           }
           else {
-            local_8 = *(uint *)(iVar5 + 0x48);
+            local_8[0] = *(float *)(iVar5 + 0x48);
           }
         }
-        *(float *)(iVar5 + 0x44) = (float)local_8 * 63.0;
-        (**(code **)(iVar5 + 0x14))(iVar5,param_1,(float)local_8 * 63.0);
+        *(float *)(iVar5 + 0x44) = local_8[0] * 63.0;
+        (**(code **)(iVar5 + 0x14))(iVar5,param_1,local_8[0] * 63.0);
         return 1;
       case 2:
         fVar1 = *(float *)(iVar5 + 0x48) + *(float *)(iVar5 + 0x44);
@@ -320,19 +319,19 @@ switchD_004098a8_caseD_0:
             fVar3 = 1.0;
           }
         }
-        if ((float)local_8 < fVar3) {
+        if (local_8[0] < fVar3) {
           if (fVar1 < 0.0) {
-            local_8 = (uint)0.0;
+            local_8[0] = 0.0;
           }
           else {
-            local_8 = (uint)fVar1;
+            local_8[0] = fVar1;
             if (1.0 < fVar1) {
-              local_8 = (uint)1.0;
+              local_8[0] = 1.0;
             }
           }
         }
-        *(float *)(iVar5 + 0x44) = (float)local_8 * 63.0;
-        (**(code **)(iVar5 + 0x14))(iVar5,param_1,(float)local_8 * 63.0);
+        *(float *)(iVar5 + 0x44) = local_8[0] * 63.0;
+        (**(code **)(iVar5 + 0x14))(iVar5,param_1,local_8[0] * 63.0);
         return 1;
       case 3:
         uVar7 = 0;
@@ -349,8 +348,8 @@ switchD_004098a8_caseD_0:
                 fVar3 = 1.0;
               }
             }
-            fVar4 = (float)local_8;
-            if ((float)local_8 < fVar3) {
+            fVar4 = local_8[0];
+            if (local_8[0] < fVar3) {
               if (fVar1 < 0.0) {
                 fVar4 = 0.0;
               }
@@ -378,15 +377,12 @@ switchD_004098a8_caseD_0:
 switchD_00409661_default:
   return 1;
 }
-#undef local_4
 #undef local_8
 
 #endif
 
 
 /* ---- 0x00409d20  FUN_00409d20 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 undefined4 FUN_00409d20(int param_1,int param_2)
 
 {
@@ -398,12 +394,8 @@ undefined4 FUN_00409d20(int param_1,int param_2)
   }
   return 0xffffffff;
 }
-#endif
-
 
 /* ---- 0x0040d140  rdModel_DrawNode ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Recursive hierarchy walk (+0x58 child count, +0x5c first child, +0x60 sibling) drawing each
    node's mesh */
 
@@ -446,8 +438,6 @@ void rdModel_DrawNode(int param_1)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x0040d230  rdModel_DrawMesh ---- */
 /* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
@@ -475,19 +465,13 @@ void __cdecl rdModel_DrawMesh(void *mesh,float *matrix)
   #define local_ac (*(uint *)(_frame + (0xc0 - 0xac)))
   #define local_a8 (*(uint *)(_frame + (0xc0 - 0xa8)))
   #define local_a4 (*(uint *)(_frame + (0xc0 - 0xa4)))
-  #define local_a0 (*(uint *)(_frame + (0xc0 - 0xa0)))
-  #define local_9c (*(uint *)(_frame + (0xc0 - 0x9c)))
-  #define local_98 (*(uint *)(_frame + (0xc0 - 0x98)))
-  #define local_90 (*(uint *)(_frame + (0xc0 - 0x90)))
-  #define local_8c (*(uint *)(_frame + (0xc0 - 0x8c)))
-  #define local_88 (*(uint *)(_frame + (0xc0 - 0x88)))
+  #define local_a0 (*(float (*)[3])(_frame + (0xc0 - 0xa0)))
+  #define local_90 (*(float (*)[3])(_frame + (0xc0 - 0x90)))
   #define local_84 (*(float (*)[9])(_frame + (0xc0 - 0x84)))
   #define local_60 (*(uint *)(_frame + (0xc0 - 0x60)))
   #define local_5c (*(uint *)(_frame + (0xc0 - 0x5c)))
   #define local_58 (*(uint *)(_frame + (0xc0 - 0x58)))
-  #define local_54 (*(uint *)(_frame + (0xc0 - 0x54)))
-  #define local_50 (*(uint *)(_frame + (0xc0 - 0x50)))
-  #define local_4c (*(uint *)(_frame + (0xc0 - 0x4c)))
+  #define local_54 (*(float (*)[3])(_frame + (0xc0 - 0x54)))
   #define local_48 (*(float (*)[5])(_frame + (0xc0 - 0x48)))
   #define local_34 (*(uint *)(_frame + (0xc0 - 0x34)))
   #define local_30 (*(float (*)[12])(_frame + (0xc0 - 0x30)))
@@ -549,34 +533,31 @@ void __cdecl rdModel_DrawMesh(void *mesh,float *matrix)
           pvVar11 = PTR_007f30a0;
           do {
             piVar3 = *(int **)local_ac;
-            if (piVar3[2] != 0) {
-              iVar12 = *piVar3;
-              local_90 = (uint)(*(float *)((int)pvVar9 + iVar12 * 0xc + 0x160) - matrix[10]);
-              fVar13 = *(float *)((int)pvVar9 + (iVar12 + 0x1d) * 0xc) - *a;
-              local_8c = (uint)(*(float *)((int)pvVar9 + iVar12 * 0xc + 0x164) - matrix[0xb]);
-              local_88 = (uint)SQRT((float)local_8c * (float)local_8c +
-                                    (float)local_90 * (float)local_90 + fVar13 * fVar13);
-              if ((float)local_88 < (float)piVar3[0xd] + *(float *)((int)pvVar11 + 0x60)) {
-                (&UINT_007f30e0)[uVar10] = (uint)piVar3;
-                Vec3_Sub((float *)(&DAT_007f1598 + uVar10 * 0xc),
-                         (float *)((int)pvVar9 + (*piVar3 + 0x1d) * 0xc),local_84);
-                if (piVar3[1] != 2) {
-                  local_60 = 0;
-                  local_5c = 0;
-                  local_34 = local_58;
-                  local_58 = 0;
-                  local_a0 = (uint)-(float)piVar3[3];
-                  local_9c = (uint)-(float)piVar3[4];
-                  local_98 = (uint)-(float)piVar3[5];
-                  Vec3_Sub((float *)(&DAT_007f1168 + UINT_007f31fc * 0xc),(float *)&local_a0,
-                           local_84);
-                  local_58 = local_34;
-                }
-                uVar10 = UINT_007f31fc + 1;
-                pvVar9 = g_pRdCurrentCamera;
-                pvVar11 = PTR_007f30a0;
-                UINT_007f31fc = uVar10;
+            if ((piVar3[2] != 0) &&
+               (iVar12 = *piVar3,
+               fVar13 = *(float *)((int)pvVar9 + iVar12 * 0xc + 0x160) - matrix[10],
+               fVar4 = *(float *)((int)pvVar9 + (iVar12 + 0x1d) * 0xc) - *a,
+               fVar5 = *(float *)((int)pvVar9 + iVar12 * 0xc + 0x164) - matrix[0xb],
+               SQRT(fVar5 * fVar5 + fVar13 * fVar13 + fVar4 * fVar4) <
+               (float)piVar3[0xd] + *(float *)((int)pvVar11 + 0x60))) {
+              (&UINT_007f30e0)[uVar10] = (uint)piVar3;
+              Vec3_Sub((float *)(&DAT_007f1598 + uVar10 * 0xc),
+                       (float *)((int)pvVar9 + (*piVar3 + 0x1d) * 0xc),local_84);
+              if (piVar3[1] != 2) {
+                local_60 = 0;
+                local_5c = 0;
+                local_34 = local_58;
+                local_58 = 0;
+                local_a0[0] = -(float)piVar3[3];
+                local_a0[1] = -(float)piVar3[4];
+                local_a0[2] = -(float)piVar3[5];
+                Vec3_Sub((float *)(&DAT_007f1168 + UINT_007f31fc * 0xc),local_a0,local_84);
+                local_58 = local_34;
               }
+              uVar10 = UINT_007f31fc + 1;
+              pvVar9 = g_pRdCurrentCamera;
+              pvVar11 = PTR_007f30a0;
+              UINT_007f31fc = uVar10;
             }
             local_a8 = local_a8 + 1;
             local_ac = local_ac + 4;
@@ -614,11 +595,10 @@ void __cdecl rdModel_DrawMesh(void *mesh,float *matrix)
                   local_60 = 0;
                   local_5c = 0;
                   local_58 = 0;
-                  local_a0 = (uint)-(float)piVar3[3];
-                  local_9c = (uint)-(float)piVar3[4];
-                  local_98 = (uint)-(float)piVar3[5];
-                  Vec3_Sub((float *)(&DAT_007f1168 + UINT_007f31fc * 0xc),(float *)&local_a0,
-                           local_84);
+                  local_a0[0] = -(float)piVar3[3];
+                  local_a0[1] = -(float)piVar3[4];
+                  local_a0[2] = -(float)piVar3[5];
+                  Vec3_Sub((float *)(&DAT_007f1168 + UINT_007f31fc * 0xc),local_a0,local_84);
                 }
                 uVar10 = UINT_007f31fc + 1;
                 pvVar9 = g_pRdCurrentCamera;
@@ -631,7 +611,7 @@ void __cdecl rdModel_DrawMesh(void *mesh,float *matrix)
             local_ac = local_ac + 4;
           } while (local_a8 < UINT_007f31f8);
         }
-        fVar13 = rdKeyframe_Interpolate
+        fVar13 = rdLight_CalcVertexIntensities
                            ((int *)&UINT_007f30e0,(float *)&DAT_007f1598,IMG_ADDR(0x007f1168),uVar10,
                             *(int **)((int)pvVar11 + 0x44),*(uint *)((int)pvVar11 + 0x30),
                             *(float **)((int)pvVar11 + 0x38),*(float **)((int)pvVar11 + 0x3c),
@@ -649,10 +629,10 @@ void __cdecl rdModel_DrawMesh(void *mesh,float *matrix)
           } while (uVar10 < *(uint *)((int)mesh + 0x50));
         }
       }
-      local_54 = UINT_008ddf84;
-      local_50 = UINT_008ddf88;
-      local_4c = UINT_008ddf8c;
-      Vec3_Sub((float *)&DAT_007f0fd8,(float *)&local_54,local_84);
+      local_54[0] = (float)UINT_008ddf84;
+      local_54[1] = (float)UINT_008ddf88;
+      local_54[2] = (float)UINT_008ddf8c;
+      Vec3_Sub((float *)&DAT_007f0fd8,local_54,local_84);
       iVar12 = *(int *)((int)mesh + 0x40);
       uVar10 = 0;
       if (*(int *)((int)mesh + 0x50) != 0) {
@@ -683,18 +663,12 @@ LAB_0040d640:
 #undef local_30
 #undef local_34
 #undef local_48
-#undef local_4c
-#undef local_50
 #undef local_54
 #undef local_58
 #undef local_5c
 #undef local_60
 #undef local_84
-#undef local_88
-#undef local_8c
 #undef local_90
-#undef local_98
-#undef local_9c
 #undef local_a0
 #undef local_a4
 #undef local_a8
@@ -720,9 +694,8 @@ undefined4 rdModel_AddMeshToCache(int param_1,int param_2)
   int iVar5;
   bool bVar6;
   float fVar7;
-  #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x40 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x40 - 0x1c)))
+  #define local_24 (*(float *)(_frame + (0x40 - 0x24)))
+  #define local_20 (*(float (*)[2])(_frame + (0x40 - 0x20)))
   #define local_18 (*(float (*)[3])(_frame + (0x40 - 0x18)))
   #define local_c (*(float (*)[3])(_frame + (0x40 - 0xc)))
   
@@ -783,12 +756,12 @@ undefined4 rdModel_AddMeshToCache(int param_1,int param_2)
       pfVar4 = (float *)(param_1 + 0x40);
     }
     else {
-      local_24 = (uint)-*(float *)(param_1 + 0x40);
-      local_20 = (uint)-*(float *)(param_1 + 0x44);
-      local_1c = (uint)-*(float *)(param_1 + 0x48);
+      local_24 = -*(float *)(param_1 + 0x40);
+      local_20[0] = -*(float *)(param_1 + 0x44);
+      local_20[1] = -*(float *)(param_1 + 0x48);
       fVar7 = *(float *)((int)g_pRdCurrentCamera + 0x45c);
       iVar5 = *(int *)((int)PTR_007f30a0 + 0x30);
-      pfVar4 = (float *)&local_24;
+      pfVar4 = &local_24;
     }
     fVar7 = rdKeyframe_InterpolateNode
                       ((int *)&UINT_007f30e0,IMG_ADDR(0x007f1598),IMG_ADDR(0x007f1168),UINT_007f31fc,param_1,pfVar4,iVar5,
@@ -872,7 +845,6 @@ LAB_0040dbd3:
   return 1;
 }
 #undef local_18
-#undef local_1c
 #undef local_20
 #undef local_24
 #undef local_c

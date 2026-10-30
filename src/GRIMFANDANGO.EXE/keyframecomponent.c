@@ -6,8 +6,6 @@
 #include "functions.h"
 
 /* ---- 0x00497890  KeyframeComponent_OnKey ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Costume tag handler for 'RDroid Keyframe (KEY)' (registered by sputCostume_Start through
    Cos_NewStateBasedTag/Cos_NewIntTag): slot 0, applies a keyframe key to the actor's puppet: finds
    or adds the track (rdPuppet_AddTrack) and plays/loops/stops/fades it according to the key type
@@ -155,12 +153,8 @@ LAB_00497bc4:
   }
   return;
 }
-#endif
-
 
 /* ---- 0x00497cb0  KeyframeComponent_TrackCallback ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Track user-data callback installed by KeyframeComponent_OnKey (rdPuppet_SetTrackUserData):
    forwards track markers of the playing animation to Lua_CallCostumeMarkerHandler for the actor and
    drops the keyframe ResRef when the track ends. */
@@ -171,7 +165,7 @@ void KeyframeComponent_TrackCallback(int param_1,int param_2,uint param_3)
   int iVar1;
   
   if (param_1 != 0) {
-    iVar1 = Cos_InstGetUserData(*(undefined4 *)(param_1 + 0x18c));
+    iVar1 = Cos_InstGetUserData(*(int *)(param_1 + 0x18c));
     Lua_CallCostumeMarkerHandler((void *)((int)g_pActorTable + iVar1 * 0xa8),param_3);
     if (param_3 == 0) {
       ResRef_Remove((void *)(param_1 + 0x54 + param_2 * 0x34));
@@ -179,66 +173,59 @@ void KeyframeComponent_TrackCallback(int param_1,int param_2,uint param_3)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x00497d10  KeyframeComponent_NewInstance ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Costume tag handler for 'RDroid Keyframe (KEY)' (registered by sputCostume_Start through
    Cos_NewStateBasedTag/Cos_NewIntTag): slot 5, instance data for a keyframe component (ResRef to
    the animation, 'Bad keyframe Reference' assertion); with param 0 it frees it. */
 
-undefined4 * KeyframeComponent_NewInstance(undefined4 param_1,int *param_2,int param_3)
+int * __cdecl KeyframeComponent_NewInstance(int inst,int component,int create)
 
 {
   void *data;
-  int *piVar1;
-  int iVar2;
-  undefined4 *puVar3;
-  undefined4 uVar4;
-  undefined4 *puVar5;
+  int iVar1;
+  int *piVar2;
+  int iVar3;
+  int *piVar4;
   
-  uVar4 = param_1;
-  if (param_3 == 0) {
-    iVar2 = Cos_InstGetInstanceData(param_1,param_2,0);
-    ResRef_Remove((void *)(iVar2 + 4));
-    (*g_pSvcCostume->pFree)(iVar2);
-    return (undefined4 *)0x0;
+  iVar1 = inst;
+  if (create == 0) {
+    iVar1 = Cos_InstGetInstanceData(inst,component,(int *)0x0);
+    ResRef_Remove((void *)(iVar1 + 4));
+    (*g_pSvcCostume->pFree)(iVar1);
+    return (int *)0x0;
   }
-  Cos_InstComponentInfo(param_1,param_2,&param_3,&param_2,&param_1);
-  piVar1 = param_2;
-  if (*param_2 == 0) {
+  Cos_InstComponentInfo(inst,component,(int)&create,(int)&component,(int)&inst);
+  iVar3 = component;
+  if (*(int *)component == 0) {
     (*g_pSvcMain->pAssertFail)
               (s_Bad_keyframe_Reference_004ea1e0,s_main_sputResource_h_004e80a8,0xb3);
   }
-  data = (void *)piVar1[1];
-  puVar3 = (undefined4 *)
-           (*g_pSvcCostume->pAlloc)(0x40,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0xed8);
-  puVar5 = puVar3;
-  for (iVar2 = 0x10; iVar2 != 0; iVar2 = iVar2 + -1) {
-    *puVar5 = 0;
-    puVar5 = puVar5 + 1;
+  data = *(void **)(iVar3 + 4);
+  piVar2 = (int *)(*g_pSvcCostume->pAlloc)(0x40,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0xed8);
+  piVar4 = piVar2;
+  for (iVar3 = 0x10; iVar3 != 0; iVar3 = iVar3 + -1) {
+    *piVar4 = 0;
+    piVar4 = piVar4 + 1;
   }
-  ResRef_Add(puVar3 + 1,data,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0xeda);
-  puVar3[0xe] = param_2[0xd];
-  puVar3[0xf] = param_2[0xe];
-  uVar4 = Cos_InstGetInstanceData(uVar4,param_1,0);
-  *puVar3 = uVar4;
-  return puVar3;
+  ResRef_Add(piVar2 + 1,data,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0xeda);
+  piVar2[0xe] = *(int *)(component + 0x34);
+  piVar2[0xf] = *(int *)(component + 0x38);
+  iVar1 = Cos_InstGetInstanceData(iVar1,inst,(int *)0x0);
+  *piVar2 = iVar1;
+  return piVar2;
 }
 #endif
 
 
 /* ---- 0x00497e10  KeyframeComponent_Create ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Costume tag handler for 'RDroid Keyframe (KEY)' (registered by sputCostume_Start through
    Cos_NewStateBasedTag/Cos_NewIntTag): slot 1, builds a key from 'name priority tagged' text or
    asks for a .key file and loads it as a Keyframe resource. */
 
-bool KeyframeComponent_Create
-               (undefined4 param_1,undefined4 param_2,int param_3,int param_4,uint param_5)
+bool KeyframeComponent_Create(uint param_1,int param_2,int param_3,int param_4,uint param_5)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -312,7 +299,7 @@ bool KeyframeComponent_Create
       if (param_5 == 0) {
         param_5 = local_24;
       }
-      iVar3 = Cos_RegisterComponent(param_1,param_5,ref,param_2,param_3,param_4,&DAT_004e9fe0);
+      iVar3 = Cos_RegisterComponent(param_1,param_5,(int)ref,param_2,param_3,param_4,IMG_ADDR(0x004e9fe0));
       return iVar3 != 0;
     }
   }
@@ -325,12 +312,8 @@ bool KeyframeComponent_Create
 #undef local_28
 #undef local_2c
 
-#endif
-
 
 /* ---- 0x00498000  KeyframeComponent_EditKey ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Costume tag handler for 'RDroid Keyframe (KEY)' (registered by sputCostume_Start through
    Cos_NewStateBasedTag/Cos_NewIntTag): slot 4, editor dialog for the Normal/Tagged priority of a
    keyframe key. */
@@ -369,8 +352,6 @@ undefined4 KeyframeComponent_EditKey(int *param_1,undefined4 param_2)
 #undef local_28
 #undef local_2c
 #undef local_30
-
-#endif
 
 
 /* ---- 0x004980b0  KeyframeComponent_Destroy ---- */

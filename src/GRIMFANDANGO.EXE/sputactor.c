@@ -365,7 +365,7 @@ undefined4 sputActor_RestoreState(code *param_1)
   #define auStack_fc (*(undefined4 (*)[16])(_frame + (0x180 - 0xfc)))
   #define uStack_bc (*(undefined4 *)(_frame + (0x180 - 0xbc)))
   #define iStack_b8 (*(int *)(_frame + (0x180 - 0xb8)))
-  #define auStack_b4 (*(undefined4 (*)[13])(_frame + (0x180 - 0xb4)))
+  #define aiStack_b4 (*(int (*)[13])(_frame + (0x180 - 0xb4)))
   #define acStack_80 (*(char (*)[32])(_frame + (0x180 - 0x80)))
   #define acStack_60 (*(char (*)[32])(_frame + (0x180 - 0x60)))
   #define auStack_40 (*(undefined4 (*)[16])(_frame + (0x180 - 0x40)))
@@ -499,13 +499,13 @@ undefined4 sputActor_RestoreState(code *param_1)
           (*param_1)(&uStack_100,4);
           (*param_1)(auStack_fc,0x40);
           (*param_1)(&uStack_bc,4);
-          (*param_1)(auStack_b4,4);
+          (*param_1)(aiStack_b4,4);
           ResRef_Release(&iStack_b8);
           if (iStack_b8 == 0) {
             (*g_pSvcMain->pAssertFail)
                       (s_Bad_costume_Reference_004e9e90,s_main_sputResource_h_004e80a8,0xb8);
           }
-          name = (char *)CosUtil_PtrFromHandle(auStack_b4[0]);
+          name = (char *)CosUtil_PtrFromHandle(aiStack_b4[0]);
           if (iStack_164 == 0) {
             Actor_SetCostume(setName,name,0);
           }
@@ -702,9 +702,9 @@ undefined4 sputActor_RestoreState(code *param_1)
 }
 #undef acStack_60
 #undef acStack_80
+#undef aiStack_b4
 #undef auStack_134
 #undef auStack_40
-#undef auStack_b4
 #undef auStack_fc
 #undef iStack_13c
 #undef iStack_140

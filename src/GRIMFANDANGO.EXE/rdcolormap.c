@@ -6,8 +6,6 @@
 #include "functions.h"
 
 /* ---- 0x00404380  rdColormap_SetCurrent ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 undefined4 rdColormap_SetCurrent(uint param_1)
 
 {
@@ -16,12 +14,8 @@ undefined4 rdColormap_SetCurrent(uint param_1)
   }
   return 1;
 }
-#endif
-
 
 /* ---- 0x004043c0  rdColormap_Load ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* RDroid/Engine/Rdcolormap.c: allocates a 0x350-byte colormap and loads it from the named .CMP file
     */
 
@@ -48,12 +42,8 @@ void * __cdecl rdColormap_Load(char *name)
   rdColormap_Free(cmp);
   return (void *)0x0;
 }
-#endif
-
 
 /* ---- 0x00404420  rdColormap_LoadEntry ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Reads the CMP header (flags, tint), the 768-byte palette, the 0x10000-byte light-level table and
    optional 0x8000-byte transparency table. Falls back to the grey ramp when the magic is wrong. */
 
@@ -196,12 +186,8 @@ LAB_00404659:
 #undef uStack_34
 #undef uStack_38
 
-#endif
-
 
 /* ---- 0x00404730  rdColormap_Free ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void rdColormap_Free(undefined4 param_1)
 
 {
@@ -209,12 +195,8 @@ void rdColormap_Free(undefined4 param_1)
   (*g_pSvcRdroid->pFree)(param_1);
   return;
 }
-#endif
-
 
 /* ---- 0x00404750  rdColormap_FreeEntry ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void rdColormap_FreeEntry(int param_1)
 
 {
@@ -238,8 +220,6 @@ void rdColormap_FreeEntry(int param_1)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x004047e0  rdColormap_Build16bitTables ---- */
 /* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
@@ -332,8 +312,6 @@ rdColormap_Build16bitTables
 
 
 /* ---- 0x00404a40  rdColormap_BuildGreyRamp ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Fills the colormap with the synthetic GREYRAMP.CMP palette and 64 light levels */
 
 undefined4 rdColormap_BuildGreyRamp(undefined4 *param_1)
@@ -382,12 +360,8 @@ undefined4 rdColormap_BuildGreyRamp(undefined4 *param_1)
   } while (uVar3 < 0x100);
   return 1;
 }
-#endif
-
 
 /* ---- 0x00404b30  FUN_00404b30 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 int FUN_00404b30(int param_1)
 
 {
@@ -408,5 +382,3 @@ int FUN_00404b30(int param_1)
   }
   return iVar1;
 }
-#endif
-

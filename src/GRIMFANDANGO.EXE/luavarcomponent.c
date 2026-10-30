@@ -11,7 +11,7 @@
    Cos_NewStateBasedTag/Cos_NewIntTag): slot 0, sets the named Lua global to the key value
    (lua_pushnumber + lua_setglobal). */
 
-void LuaVarComponent_OnKey(undefined4 param_1,undefined4 param_2,undefined4 param_3,int param_4)
+void LuaVarComponent_OnKey(undefined4 param_1,char *param_2,undefined4 param_3,int param_4)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -56,8 +56,7 @@ undefined4 LuaVarComponent_EditKey(undefined4 *param_1,int param_2,int param_3)
    Cos_NewStateBasedTag/Cos_NewIntTag): slot 1, asks for the variable name ('Name of variable') in
    the editor. */
 
-bool LuaVarComponent_Create
-               (undefined4 param_1,undefined4 param_2,int param_3,undefined4 param_4,int param_5)
+bool LuaVarComponent_Create(uint param_1,int param_2,int param_3,int param_4,int param_5)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -118,7 +117,7 @@ undefined4 LuaVarComponent_Destroy(undefined4 param_1,undefined4 param_2,undefin
 /* Costume tag handler for 'Lua Variable' (registered by sputCostume_Start through
    Cos_NewStateBasedTag/Cos_NewIntTag): slot 3, sets the Lua global to nil. */
 
-undefined4 LuaVarComponent_Stop(undefined4 param_1)
+undefined4 LuaVarComponent_Stop(char *param_1)
 
 {
   lua_pushnil();

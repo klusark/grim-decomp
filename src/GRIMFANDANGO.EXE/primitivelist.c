@@ -47,8 +47,6 @@ void PrimitiveList_AtExitClear(void)
 }
 
 /* ---- 0x0048a500  PrimitiveList_Init ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* __fastcall: clears the head and tail of a primitive list. */
 
 void __fastcall PrimitiveList_Init(undefined4 *param_1)
@@ -58,12 +56,8 @@ void __fastcall PrimitiveList_Init(undefined4 *param_1)
   param_1[1] = 0;
   return;
 }
-#endif
-
 
 /* ---- 0x0048a520  PrimitiveList_Clear ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void __fastcall PrimitiveList_Clear(int *param_1)
 
 {
@@ -72,15 +66,13 @@ void __fastcall PrimitiveList_Clear(int *param_1)
   iVar1 = *param_1;
   while (iVar1 != 0) {
     iVar1 = *(int *)*param_1;
-    Primitive_Invalidate(*param_1);
+    Primitive_Invalidate(param_1,(int *)*param_1);
     Plat_Free((void *)*param_1);
     *param_1 = iVar1;
   }
   param_1[1] = 0;
   return;
 }
-#endif
-
 
 /* ---- 0x0048a670  PrimitiveList_Append ---- */
 /* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
@@ -147,8 +139,6 @@ void * __thiscall PrimitiveList_Append(void *this,int id,int layer)
 
 
 /* ---- 0x0048a9f0  PrimitiveList_Draw ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void __thiscall PrimitiveList_Draw(void *this,void *canvas,uint layerMask)
 
 {
@@ -161,31 +151,23 @@ void __thiscall PrimitiveList_Draw(void *this,void *canvas,uint layerMask)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x0048ab20  PrimitiveList_Invalidate ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 undefined * __thiscall PrimitiveList_Invalidate(void *this,int a1)
 
 {
-  undefined4 *a1_00;
+  undefined4 *prim;
   undefined *in_EAX;
   
-  for (a1_00 = *(undefined4 **)this; a1_00 != (undefined4 *)0x0; a1_00 = (undefined4 *)*a1_00) {
-    if ((a1_00[4] & a1) != 0) {
-      in_EAX = Primitive_Invalidate((int)a1_00);
+  for (prim = *(undefined4 **)this; prim != (undefined4 *)0x0; prim = (undefined4 *)*prim) {
+    if ((prim[4] & a1) != 0) {
+      in_EAX = (undefined *)Primitive_Invalidate(this,prim);
     }
   }
   return in_EAX;
 }
-#endif
-
 
 /* ---- 0x0048abd0  PrimitiveList_FindById ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void * __thiscall PrimitiveList_FindById(void *this,int id,void *after)
 
 {
@@ -201,5 +183,3 @@ void * __thiscall PrimitiveList_FindById(void *this,int id,void *after)
   }
   return puVar1;
 }
-#endif
-

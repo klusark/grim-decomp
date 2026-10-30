@@ -42,8 +42,6 @@ undefined * Input_Init(void)
 }
 
 /* ---- 0x00476f70  Input_Shutdown ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void Input_Shutdown(void)
 
 {
@@ -61,8 +59,6 @@ void Input_Shutdown(void)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x00476fc0  Input_Enable ---- */
 undefined4 Input_Enable(void)
@@ -248,8 +244,6 @@ int __cdecl Input_GetButtonState(int inputId,int *down,int *justPressed)
 }
 
 /* ---- 0x00477300  Input_SetAcquired ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void __cdecl Input_SetAcquired(int acquire)
 
 {
@@ -276,8 +270,6 @@ void __cdecl Input_SetAcquired(int acquire)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x00477380  Input_ShowCursor ---- */
 void Input_ShowCursor(int param_1)
@@ -647,8 +639,6 @@ LAB_00477881:
 
 
 /* ---- 0x004778a0  Input_FlushKeyboard ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void Input_FlushKeyboard(void)
 
 {
@@ -673,8 +663,6 @@ void Input_FlushKeyboard(void)
   return;
 }
 #undef local_4
-
-#endif
 
 
 /* ---- 0x004778f0  Input_PollJoysticks ---- */

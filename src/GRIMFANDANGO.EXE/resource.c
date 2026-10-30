@@ -129,7 +129,7 @@ void Resource_Filio_Stop(void)
 }
 
 /* ---- 0x00482260  Resource_Filio_SaveState ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Module interface slot 4 (Resource_Filio): save-game writer, calls the SaveGame_Write callback it
    is handed for every field. */

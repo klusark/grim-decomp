@@ -6,8 +6,6 @@
 #include "functions.h"
 
 /* ---- 0x00401140  Grim_FindDataOnDrives ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* grimdemo.c: scans CD-ROM drives (and network drives when g_devMode) for <drive>\<subdir>; shows
    the _engn006/_engn007 'could not find data' message and returns 0 if none has it. */
 
@@ -126,12 +124,8 @@ int __cdecl Grim_FindDataOnDrives(char *subdir)
 #undef acStack_174
 #undef auStack_140
 
-#endif
-
 
 /* ---- 0x004012b0  Grim_Init ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* grimdemo.c: whole-engine startup: service tables, registry/config, window + 256-colour check,
    display enumeration, resource system, Lua engine lib registration, iMUSE. */
@@ -235,7 +229,7 @@ undefined4 Grim_Init(char *param_1)
     ((code *)Grim_FatalMessageBox)(uVar7);
     return 0;
   }
-  lua_openlib(&PTR_s_Is3DHardwareEnabled_004dd350,UINT_004dd380);
+  lua_openlib((int *)&PTR_s_Is3DHardwareEnabled_004dd350,UINT_004dd380);
   Engine_SetIdleCallback(Grim_RequestQuit);
   Engine_SetRenderUserCallback(Grim_OnDisplayModeChange);
   Engine_SetFlipCallback(Display_Flip);
@@ -270,8 +264,6 @@ undefined4 Grim_Init(char *param_1)
 #undef local_78
 #undef local_7c
 #undef local_80
-
-#endif
 
 
 /* ---- 0x00401640  Grim_DecodeRegKeyName ---- */
@@ -539,8 +531,6 @@ void Grim_EnumDisplayModes(void)
 
 
 /* ---- 0x00402050  Grim_RequestQuit ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Sets g_quitRequested. */
 
 void Grim_RequestQuit(void)
@@ -549,8 +539,6 @@ void Grim_RequestQuit(void)
   g_quitRequested = 1;
   return;
 }
-#endif
-
 
 /* ---- 0x00402060  Grim_OnDisplayModeChange ---- */
 undefined4 Grim_OnDisplayModeChange(void *param_1,int param_2)
@@ -565,8 +553,6 @@ undefined4 Grim_OnDisplayModeChange(void *param_1,int param_2)
 }
 
 /* ---- 0x00402c80  Grim_ParseCommandLine ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* grimdemo.c: strtok loop over the command line. Options set g_bAlwaysLog, g_bDevMode,
    g_bWindowedStart etc., a bad option shows the 'GRIME: Grim Fandango Executable Usage' box. */
@@ -662,8 +648,6 @@ LAB_00402f60:
     }
   } while( true );
 }
-#endif
-
 
 /* ---- 0x004034b0  Grim_OpenRegistry ---- */
 /* Opens HKLM\SOFTWARE\LucasArts Entertainment Company LLC\... and seeds GrimDataDir with the

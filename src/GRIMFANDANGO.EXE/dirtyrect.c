@@ -6,8 +6,6 @@
 #include "functions.h"
 
 /* ---- 0x00485420  DirtyRect_Add ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Adds a dirty rectangle for one display buffer. Rectangles contained in an existing one are
    merged; partial overlaps are split into up to three non-overlapping pieces (recursive). Records
    come from g_pDirtyRectPool. */
@@ -201,12 +199,8 @@ LAB_0048555c:
 #undef local_8
 #undef local_c
 
-#endif
-
 
 /* ---- 0x00485e50  DirtyRect_Flush ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Restores every dirty rectangle from the background and depth images, dropping records whose
    per-buffer countdown expired; debug flag 0x10 outlines them */
 
@@ -289,12 +283,8 @@ void __cdecl DirtyRect_Flush(void *dst,void *zdst)
 #undef local_8
 #undef local_c
 
-#endif
-
 
 /* ---- 0x00486020  DirtyRect_Clear ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void DirtyRect_Clear(void)
 
 {
@@ -311,5 +301,3 @@ void DirtyRect_Clear(void)
   g_nDirtyRectCount = 0;
   return;
 }
-#endif
-

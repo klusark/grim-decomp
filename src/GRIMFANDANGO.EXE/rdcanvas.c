@@ -6,8 +6,6 @@
 #include "functions.h"
 
 /* ---- 0x00404c00  rdCanvas_InitEdgeTables ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Clears the per-scanline edge buckets for the current canvas height */
 
@@ -53,24 +51,16 @@ void rdCanvas_InitEdgeTables(void)
   UINT_004f6f2c = 0;
   return;
 }
-#endif
-
 
 /* ---- 0x00404ca0  rdCanvas_ResetPolyCount ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void rdCanvas_ResetPolyCount(void)
 
 {
   UINT_005e6f98 = 0;
   return;
 }
-#endif
-
 
 /* ---- 0x00404cb0  rdCanvas_ScanConvert ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Rdcanvas.c: active-edge scanline loop over all queued polygons; merges edges per scanline, emits
    spans, flushes them */
 
@@ -152,8 +142,6 @@ void rdCanvas_ScanConvert(void)
   rdCanvas_FlushSpans();
   return;
 }
-#endif
-
 
 /* ---- 0x00404e00  rdCanvas_EmitSpans ---- */
 /* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
@@ -528,8 +516,6 @@ LAB_004055a9:
 
 
 /* ---- 0x004055d0  rdCanvas_FlushSpans ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Calls each polygon's span-draw callback for its accumulated spans and resets the span buffer */
 
 void rdCanvas_FlushSpans(void)
@@ -554,12 +540,8 @@ void rdCanvas_FlushSpans(void)
   UINT_004f6f2c = 0;
   return;
 }
-#endif
-
 
 /* ---- 0x00405620  rdCanvas_BuildEdgeLists ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* For every queued polygon, runs its edge-setup callback on each edge and inserts the edges into
    the per-scanline buckets */
 
@@ -649,12 +631,8 @@ void rdCanvas_BuildEdgeLists(void)
 }
 #undef local_4
 
-#endif
-
 
 /* ---- 0x00405770  rdCanvas_PreparePolygon ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 undefined4 rdCanvas_PreparePolygon(byte *param_1)
 
 {
@@ -663,50 +641,50 @@ undefined4 rdCanvas_PreparePolygon(byte *param_1)
   uint *puVar2;
   float fVar3;
   float fVar4;
-  float fVar5;
-  byte *pbVar6;
+  byte *pbVar5;
+  float fVar6;
   int iVar7;
   uint uVar8;
   byte *pbVar9;
   int iVar10;
   int iVar11;
-  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
+  #define local_4 (*(float *)(_frame + (0x20 - 0x4)))
   
-  pbVar6 = param_1;
+  pbVar5 = param_1;
   uVar8 = UINT_005e6f3c;
   if (0x3ff < UINT_005e6f3c) {
     return 0;
   }
-  local_4 = *(uint *)(param_1 + 8);
+  local_4 = *(float *)(param_1 + 8);
   if (g_nRdroidGeometryMode <= (int)local_4) {
-    local_4 = g_nRdroidGeometryMode;
+    local_4 = (float)g_nRdroidGeometryMode;
   }
   param_1 = *(byte **)(param_1 + 0xc);
   if (g_nRdroidLightingMode <= (int)param_1) {
     param_1 = (byte *)g_nRdroidLightingMode;
   }
-  iVar10 = *(int *)(pbVar6 + 0x10);
-  if (g_nRdroidTextureMode <= *(int *)(pbVar6 + 0x10)) {
+  iVar10 = *(int *)(pbVar5 + 0x10);
+  if (g_nRdroidTextureMode <= *(int *)(pbVar5 + 0x10)) {
     iVar10 = g_nRdroidTextureMode;
   }
-  if (local_4 == 0) {
+  if (local_4 == 0.0) {
     return 0;
   }
   iVar1 = UINT_005e6f3c * 0x204;
   puVar2 = &UINT_00565f38 + UINT_005e6f3c * 0x81;
-  *puVar2 = (uint)pbVar6;
+  *puVar2 = (uint)pbVar5;
   (&UINT_005660f0)[uVar8 * 0x81] = 0;
   (&UINT_005660f4)[uVar8 * 0x81] = 0;
   *(undefined4 *)(&DAT_00566124 + iVar1) = 0;
   *(undefined4 *)(&DAT_00566128 + iVar1) = 0;
   *(undefined4 *)(&DAT_00566130 + iVar1) = 0;
-  iVar1 = *(int *)(pbVar6 + 0x38);
-  uVar8 = local_4;
+  iVar1 = *(int *)(pbVar5 + 0x38);
+  fVar6 = local_4;
   if (iVar1 == 0) {
     pbVar9 = (byte *)0x0;
     goto LAB_0040585d;
   }
-  iVar7 = *(int *)(pbVar6 + 0x3c);
+  iVar7 = *(int *)(pbVar5 + 0x3c);
   if (iVar7 == -1) {
     iVar7 = *(int *)(iVar1 + 100);
     if (iVar7 < 0) {
@@ -728,381 +706,381 @@ LAB_0040583c:
     }
   }
   pbVar9 = *(byte **)(iVar1 + 0x68 + iVar7 * 4);
-  if ((local_4 == 4) && ((*pbVar9 & 8) == 0)) {
-    uVar8 = 3;
+  if ((local_4 == 5.60519e-45) && ((*pbVar9 & 8) == 0)) {
+    fVar6 = 4.2039e-45;
   }
 LAB_0040585d:
   if (((byte)g_dwRdroidFlags & 2) == 0) {
-    local_4 = 0;
+    local_4 = 0.0;
   }
   else {
-    local_4 = *(uint *)(pbVar6 + 0x40);
+    local_4 = *(float *)(pbVar5 + 0x40);
   }
-  if (uVar8 == 2) {
+  if (fVar6 == 2.8026e-45) {
     if ((-1 < (int)param_1) && ((int)param_1 < 5)) {
-      if ((*pbVar6 & 1) == 0) {
+      if ((*pbVar5 & 1) == 0) {
         if (g_nRdroidZBufferMode == 1) {
           rdRaster_Select_Flat(puVar2,pbVar9);
         }
       }
       else {
-        (**(code **)(pbVar6 + 0x18))(puVar2,pbVar9,0);
+        (**(code **)(pbVar5 + 0x18))(puVar2,pbVar9,0);
       }
     }
   }
-  else if (uVar8 == 3) {
+  else if (fVar6 == 4.2039e-45) {
     switch((int)(param_1)) {
     case 0x0:
-      if ((*pbVar6 & 1) == 0) {
+      if ((*pbVar5 & 1) == 0) {
         if (g_nRdroidZBufferMode == 1) {
           rdRaster_Select_Flat_2(puVar2,pbVar9);
         }
       }
       else {
-        (**(code **)(pbVar6 + 0x18))(puVar2,pbVar9,0);
+        (**(code **)(pbVar5 + 0x18))(puVar2,pbVar9,0);
       }
       break;
     case 0x1:
-      if (*(float *)(pbVar6 + 0x48) < 0.0) {
-        fVar3 = 0.0;
+      if (*(float *)(pbVar5 + 0x48) < 0.0) {
+        fVar6 = 0.0;
       }
-      else if (1.0 < *(float *)(pbVar6 + 0x48)) {
-        fVar3 = 1.0;
+      else if (1.0 < *(float *)(pbVar5 + 0x48)) {
+        fVar6 = 1.0;
       }
       else {
-        fVar3 = *(float *)(pbVar6 + 0x48);
+        fVar6 = *(float *)(pbVar5 + 0x48);
       }
-      if ((float)local_4 < fVar3) {
-        if (*(float *)(pbVar6 + 0x48) < 0.0) {
-          local_4 = 0;
+      if (local_4 < fVar6) {
+        if (*(float *)(pbVar5 + 0x48) < 0.0) {
+          local_4 = 0.0;
         }
-        else if (1.0 < *(float *)(pbVar6 + 0x48)) {
-          local_4 = 0x3f800000;
+        else if (1.0 < *(float *)(pbVar5 + 0x48)) {
+          local_4 = 1.0;
         }
         else {
-          local_4 = *(uint *)(pbVar6 + 0x48);
+          local_4 = *(float *)(pbVar5 + 0x48);
         }
       }
-      fVar3 = (float)local_4 * 63.0;
-      *(float *)(pbVar6 + 0x44) = fVar3;
-      if ((*pbVar6 & 1) == 0) {
+      fVar6 = local_4 * 63.0;
+      *(float *)(pbVar5 + 0x44) = fVar6;
+      if ((*pbVar5 & 1) == 0) {
         if (g_nRdroidZBufferMode == 1) {
-          rdRaster_Select_TexLit(puVar2,pbVar9,fVar3);
+          rdRaster_Select_TexLit(puVar2,pbVar9,fVar6);
         }
       }
       else {
-        (**(code **)(pbVar6 + 0x18))(puVar2,pbVar9,fVar3);
+        (**(code **)(pbVar5 + 0x18))(puVar2,pbVar9,fVar6);
       }
       break;
     case 0x2:
-      fVar3 = *(float *)(pbVar6 + 0x48) + *(float *)(pbVar6 + 0x44);
-      if (fVar3 < 0.0) {
-        fVar4 = 0.0;
+      fVar6 = *(float *)(pbVar5 + 0x48) + *(float *)(pbVar5 + 0x44);
+      if (fVar6 < 0.0) {
+        fVar3 = 0.0;
       }
       else {
-        fVar4 = fVar3;
-        if (1.0 < fVar3) {
-          fVar4 = 1.0;
+        fVar3 = fVar6;
+        if (1.0 < fVar6) {
+          fVar3 = 1.0;
         }
       }
-      if ((float)local_4 < fVar4) {
-        if (fVar3 < 0.0) {
-          local_4 = (uint)0.0;
+      if (local_4 < fVar3) {
+        if (fVar6 < 0.0) {
+          local_4 = 0.0;
         }
         else {
-          local_4 = (uint)fVar3;
-          if (1.0 < fVar3) {
-            local_4 = (uint)1.0;
+          local_4 = fVar6;
+          if (1.0 < fVar6) {
+            local_4 = 1.0;
           }
         }
       }
-      fVar3 = (float)local_4 * 63.0;
-      *(float *)(pbVar6 + 0x44) = fVar3;
-      if ((*pbVar6 & 1) == 0) {
+      fVar6 = local_4 * 63.0;
+      *(float *)(pbVar5 + 0x44) = fVar6;
+      if ((*pbVar5 & 1) == 0) {
         if (g_nRdroidZBufferMode == 1) {
-          rdRaster_Select_TexLit(puVar2,pbVar9,fVar3);
+          rdRaster_Select_TexLit(puVar2,pbVar9,fVar6);
         }
       }
       else {
-        (**(code **)(pbVar6 + 0x18))(puVar2,pbVar9,fVar3);
+        (**(code **)(pbVar5 + 0x18))(puVar2,pbVar9,fVar6);
       }
       break;
     case 0x3:
       uVar8 = 0;
-      if (*(int *)(pbVar6 + 0x1c) != 0) {
+      if (*(int *)(pbVar5 + 0x1c) != 0) {
         do {
-          fVar3 = *(float *)(*(int *)(pbVar6 + 0x28) + uVar8 * 4) + *(float *)(pbVar6 + 0x48);
+          fVar6 = *(float *)(*(int *)(pbVar5 + 0x28) + uVar8 * 4) + *(float *)(pbVar5 + 0x48);
           iVar10 = uVar8 * 4;
-          if (fVar3 < 0.0) {
-            fVar4 = 0.0;
+          if (fVar6 < 0.0) {
+            fVar3 = 0.0;
           }
           else {
-            fVar4 = fVar3;
-            if (1.0 < fVar3) {
-              fVar4 = 1.0;
+            fVar3 = fVar6;
+            if (1.0 < fVar6) {
+              fVar3 = 1.0;
             }
           }
-          fVar5 = (float)local_4;
-          if ((float)local_4 < fVar4) {
-            if (fVar3 < 0.0) {
-              fVar5 = 0.0;
+          fVar4 = local_4;
+          if (local_4 < fVar3) {
+            if (fVar6 < 0.0) {
+              fVar4 = 0.0;
             }
             else {
-              fVar5 = fVar3;
-              if (1.0 < fVar3) {
-                fVar5 = 1.0;
+              fVar4 = fVar6;
+              if (1.0 < fVar6) {
+                fVar4 = 1.0;
               }
             }
           }
           uVar8 = uVar8 + 1;
-          *(float *)(*(int *)(pbVar6 + 0x28) + iVar10) = fVar5 * 63.0;
-        } while (uVar8 < *(uint *)(pbVar6 + 0x1c));
+          *(float *)(*(int *)(pbVar5 + 0x28) + iVar10) = fVar4 * 63.0;
+        } while (uVar8 < *(uint *)(pbVar5 + 0x1c));
       }
-      if ((*pbVar6 & 1) == 0) {
+      if ((*pbVar5 & 1) == 0) {
         if (g_nRdroidZBufferMode == 1) {
           rdRaster_Select_FlatLit(puVar2,pbVar9);
         }
       }
       else {
-        (**(code **)(pbVar6 + 0x18))(puVar2,pbVar9,0);
+        (**(code **)(pbVar5 + 0x18))(puVar2,pbVar9,0);
       }
     }
   }
-  else if (uVar8 == 4) {
+  else if (fVar6 == 5.60519e-45) {
     if ((**(byte **)(pbVar9 + 0x1c) & 1) == 0) {
       if (iVar10 == 0) {
         switch((int)(param_1)) {
         case 0x0:
-          if ((*pbVar6 & 1) == 0) {
+          if ((*pbVar5 & 1) == 0) {
             if (g_nRdroidZBufferMode == 1) {
               rdRaster_Select_FlatLit_2(puVar2,pbVar9);
             }
           }
           else {
-            (**(code **)(pbVar6 + 0x18))(puVar2,pbVar9,0);
+            (**(code **)(pbVar5 + 0x18))(puVar2,pbVar9,0);
           }
           break;
         case 0x1:
-          if (*(float *)(pbVar6 + 0x48) < 0.0) {
-            fVar3 = 0.0;
+          if (*(float *)(pbVar5 + 0x48) < 0.0) {
+            fVar6 = 0.0;
           }
-          else if (1.0 < *(float *)(pbVar6 + 0x48)) {
-            fVar3 = 1.0;
+          else if (1.0 < *(float *)(pbVar5 + 0x48)) {
+            fVar6 = 1.0;
           }
           else {
-            fVar3 = *(float *)(pbVar6 + 0x48);
+            fVar6 = *(float *)(pbVar5 + 0x48);
           }
-          if ((float)local_4 < fVar3) {
-            if (*(float *)(pbVar6 + 0x48) < 0.0) {
-              local_4 = 0;
+          if (local_4 < fVar6) {
+            if (*(float *)(pbVar5 + 0x48) < 0.0) {
+              local_4 = 0.0;
             }
-            else if (1.0 < *(float *)(pbVar6 + 0x48)) {
-              local_4 = 0x3f800000;
+            else if (1.0 < *(float *)(pbVar5 + 0x48)) {
+              local_4 = 1.0;
             }
             else {
-              local_4 = *(uint *)(pbVar6 + 0x48);
+              local_4 = *(float *)(pbVar5 + 0x48);
             }
           }
-          fVar3 = (float)local_4 * 63.0;
-          *(float *)(pbVar6 + 0x44) = fVar3;
-          if ((*pbVar6 & 1) == 0) {
+          fVar6 = local_4 * 63.0;
+          *(float *)(pbVar5 + 0x44) = fVar6;
+          if ((*pbVar5 & 1) == 0) {
             if (g_nRdroidZBufferMode == 1) {
-              rdRaster_Select_FlatLit_4(puVar2,pbVar9,fVar3);
+              rdRaster_Select_FlatLit_4(puVar2,pbVar9,fVar6);
             }
           }
           else {
-            (**(code **)(pbVar6 + 0x18))(puVar2,pbVar9,fVar3);
+            (**(code **)(pbVar5 + 0x18))(puVar2,pbVar9,fVar6);
           }
           break;
         case 0x2:
-          fVar3 = *(float *)(pbVar6 + 0x48) + *(float *)(pbVar6 + 0x44);
-          if (fVar3 < 0.0) {
-            fVar4 = 0.0;
+          fVar6 = *(float *)(pbVar5 + 0x48) + *(float *)(pbVar5 + 0x44);
+          if (fVar6 < 0.0) {
+            fVar3 = 0.0;
           }
           else {
-            fVar4 = fVar3;
-            if (1.0 < fVar3) {
-              fVar4 = 1.0;
+            fVar3 = fVar6;
+            if (1.0 < fVar6) {
+              fVar3 = 1.0;
             }
           }
-          if ((float)local_4 < fVar4) {
-            if (fVar3 < 0.0) {
-              local_4 = (uint)0.0;
+          if (local_4 < fVar3) {
+            if (fVar6 < 0.0) {
+              local_4 = 0.0;
             }
             else {
-              local_4 = (uint)fVar3;
-              if (1.0 < fVar3) {
-                local_4 = (uint)1.0;
+              local_4 = fVar6;
+              if (1.0 < fVar6) {
+                local_4 = 1.0;
               }
             }
           }
-          fVar3 = (float)local_4 * 63.0;
-          *(float *)(pbVar6 + 0x44) = fVar3;
-          if ((*pbVar6 & 1) == 0) {
+          fVar6 = local_4 * 63.0;
+          *(float *)(pbVar5 + 0x44) = fVar6;
+          if ((*pbVar5 & 1) == 0) {
             if (g_nRdroidZBufferMode == 1) {
-              rdRaster_Select_FlatLit_4(puVar2,pbVar9,fVar3);
+              rdRaster_Select_FlatLit_4(puVar2,pbVar9,fVar6);
             }
           }
           else {
-            (**(code **)(pbVar6 + 0x18))(puVar2,pbVar9,fVar3);
+            (**(code **)(pbVar5 + 0x18))(puVar2,pbVar9,fVar6);
           }
           break;
         case 0x3:
           uVar8 = 0;
-          if (*(int *)(pbVar6 + 0x1c) != 0) {
+          if (*(int *)(pbVar5 + 0x1c) != 0) {
             do {
-              fVar3 = *(float *)(*(int *)(pbVar6 + 0x28) + uVar8 * 4) + *(float *)(pbVar6 + 0x48);
+              fVar6 = *(float *)(*(int *)(pbVar5 + 0x28) + uVar8 * 4) + *(float *)(pbVar5 + 0x48);
               iVar10 = uVar8 * 4;
-              if (fVar3 < 0.0) {
-                fVar4 = 0.0;
+              if (fVar6 < 0.0) {
+                fVar3 = 0.0;
               }
               else {
-                fVar4 = fVar3;
-                if (1.0 < fVar3) {
-                  fVar4 = 1.0;
+                fVar3 = fVar6;
+                if (1.0 < fVar6) {
+                  fVar3 = 1.0;
                 }
               }
-              fVar5 = (float)local_4;
-              if ((float)local_4 < fVar4) {
-                if (fVar3 < 0.0) {
-                  fVar5 = 0.0;
+              fVar4 = local_4;
+              if (local_4 < fVar3) {
+                if (fVar6 < 0.0) {
+                  fVar4 = 0.0;
                 }
                 else {
-                  fVar5 = fVar3;
-                  if (1.0 < fVar3) {
-                    fVar5 = 1.0;
+                  fVar4 = fVar6;
+                  if (1.0 < fVar6) {
+                    fVar4 = 1.0;
                   }
                 }
               }
               uVar8 = uVar8 + 1;
-              *(float *)(*(int *)(pbVar6 + 0x28) + iVar10) = fVar5 * 63.0;
-            } while (uVar8 < *(uint *)(pbVar6 + 0x1c));
+              *(float *)(*(int *)(pbVar5 + 0x28) + iVar10) = fVar4 * 63.0;
+            } while (uVar8 < *(uint *)(pbVar5 + 0x1c));
           }
-          if ((*pbVar6 & 1) == 0) {
+          if ((*pbVar5 & 1) == 0) {
             if (g_nRdroidZBufferMode == 1) {
               rdRaster_Select_FlatLit_6(puVar2,pbVar9);
             }
           }
           else {
-            (**(code **)(pbVar6 + 0x18))(puVar2,pbVar9,0);
+            (**(code **)(pbVar5 + 0x18))(puVar2,pbVar9,0);
           }
         }
       }
       else if ((0 < iVar10) && (iVar10 < 3)) {
         switch((int)(param_1)) {
         case 0x0:
-          if ((*pbVar6 & 1) == 0) {
+          if ((*pbVar5 & 1) == 0) {
             if (g_nRdroidZBufferMode == 1) {
               rdRaster_Select_FlatLit_8(puVar2,pbVar9);
             }
           }
           else {
-            (**(code **)(pbVar6 + 0x18))(puVar2,pbVar9,0);
+            (**(code **)(pbVar5 + 0x18))(puVar2,pbVar9,0);
           }
           break;
         case 0x1:
-          if (*(float *)(pbVar6 + 0x48) < 0.0) {
-            fVar3 = 0.0;
+          if (*(float *)(pbVar5 + 0x48) < 0.0) {
+            fVar6 = 0.0;
           }
-          else if (1.0 < *(float *)(pbVar6 + 0x48)) {
-            fVar3 = 1.0;
+          else if (1.0 < *(float *)(pbVar5 + 0x48)) {
+            fVar6 = 1.0;
           }
           else {
-            fVar3 = *(float *)(pbVar6 + 0x48);
+            fVar6 = *(float *)(pbVar5 + 0x48);
           }
-          if ((float)local_4 < fVar3) {
-            if (*(float *)(pbVar6 + 0x48) < 0.0) {
-              local_4 = 0;
+          if (local_4 < fVar6) {
+            if (*(float *)(pbVar5 + 0x48) < 0.0) {
+              local_4 = 0.0;
             }
-            else if (1.0 < *(float *)(pbVar6 + 0x48)) {
-              local_4 = 0x3f800000;
+            else if (1.0 < *(float *)(pbVar5 + 0x48)) {
+              local_4 = 1.0;
             }
             else {
-              local_4 = *(uint *)(pbVar6 + 0x48);
+              local_4 = *(float *)(pbVar5 + 0x48);
             }
           }
-          fVar3 = (float)local_4 * 63.0;
-          *(float *)(pbVar6 + 0x44) = fVar3;
-          if ((*pbVar6 & 1) == 0) {
+          fVar6 = local_4 * 63.0;
+          *(float *)(pbVar5 + 0x44) = fVar6;
+          if ((*pbVar5 & 1) == 0) {
             if (g_nRdroidZBufferMode == 1) {
-              rdRaster_Select_FlatLit_10(puVar2,pbVar9,fVar3);
+              rdRaster_Select_FlatLit_10(puVar2,pbVar9,fVar6);
             }
           }
           else {
-            (**(code **)(pbVar6 + 0x18))(puVar2,pbVar9,fVar3);
+            (**(code **)(pbVar5 + 0x18))(puVar2,pbVar9,fVar6);
           }
           break;
         case 0x2:
-          fVar3 = *(float *)(pbVar6 + 0x48) + *(float *)(pbVar6 + 0x44);
-          if (fVar3 < 0.0) {
-            fVar4 = 0.0;
+          fVar6 = *(float *)(pbVar5 + 0x48) + *(float *)(pbVar5 + 0x44);
+          if (fVar6 < 0.0) {
+            fVar3 = 0.0;
           }
           else {
-            fVar4 = fVar3;
-            if (1.0 < fVar3) {
-              fVar4 = 1.0;
+            fVar3 = fVar6;
+            if (1.0 < fVar6) {
+              fVar3 = 1.0;
             }
           }
-          if ((float)local_4 < fVar4) {
-            if (fVar3 < 0.0) {
-              local_4 = (uint)0.0;
+          if (local_4 < fVar3) {
+            if (fVar6 < 0.0) {
+              local_4 = 0.0;
             }
             else {
-              local_4 = (uint)fVar3;
-              if (1.0 < fVar3) {
-                local_4 = (uint)1.0;
+              local_4 = fVar6;
+              if (1.0 < fVar6) {
+                local_4 = 1.0;
               }
             }
           }
-          fVar3 = (float)local_4 * 63.0;
-          *(float *)(pbVar6 + 0x44) = fVar3;
-          if ((*pbVar6 & 1) == 0) {
+          fVar6 = local_4 * 63.0;
+          *(float *)(pbVar5 + 0x44) = fVar6;
+          if ((*pbVar5 & 1) == 0) {
             if (g_nRdroidZBufferMode == 1) {
-              rdRaster_Select_FlatLit_10(puVar2,pbVar9,fVar3);
+              rdRaster_Select_FlatLit_10(puVar2,pbVar9,fVar6);
             }
           }
           else {
-            (**(code **)(pbVar6 + 0x18))(puVar2,pbVar9,fVar3);
+            (**(code **)(pbVar5 + 0x18))(puVar2,pbVar9,fVar6);
           }
           break;
         case 0x3:
           uVar8 = 0;
-          if (*(int *)(pbVar6 + 0x1c) != 0) {
+          if (*(int *)(pbVar5 + 0x1c) != 0) {
             do {
-              fVar3 = *(float *)(*(int *)(pbVar6 + 0x28) + uVar8 * 4) + *(float *)(pbVar6 + 0x48);
+              fVar6 = *(float *)(*(int *)(pbVar5 + 0x28) + uVar8 * 4) + *(float *)(pbVar5 + 0x48);
               iVar10 = uVar8 * 4;
-              if (fVar3 < 0.0) {
-                fVar4 = 0.0;
+              if (fVar6 < 0.0) {
+                fVar3 = 0.0;
               }
               else {
-                fVar4 = fVar3;
-                if (1.0 < fVar3) {
-                  fVar4 = 1.0;
+                fVar3 = fVar6;
+                if (1.0 < fVar6) {
+                  fVar3 = 1.0;
                 }
               }
-              fVar5 = (float)local_4;
-              if ((float)local_4 < fVar4) {
-                if (fVar3 < 0.0) {
-                  fVar5 = 0.0;
+              fVar4 = local_4;
+              if (local_4 < fVar3) {
+                if (fVar6 < 0.0) {
+                  fVar4 = 0.0;
                 }
                 else {
-                  fVar5 = fVar3;
-                  if (1.0 < fVar3) {
-                    fVar5 = 1.0;
+                  fVar4 = fVar6;
+                  if (1.0 < fVar6) {
+                    fVar4 = 1.0;
                   }
                 }
               }
               uVar8 = uVar8 + 1;
-              *(float *)(*(int *)(pbVar6 + 0x28) + iVar10) = fVar5 * 63.0;
-            } while (uVar8 < *(uint *)(pbVar6 + 0x1c));
+              *(float *)(*(int *)(pbVar5 + 0x28) + iVar10) = fVar4 * 63.0;
+            } while (uVar8 < *(uint *)(pbVar5 + 0x1c));
           }
-          if ((*pbVar6 & 1) == 0) {
+          if ((*pbVar5 & 1) == 0) {
             if (g_nRdroidZBufferMode == 1) {
               rdRaster_Select_FlatLit_12(puVar2,pbVar9);
             }
           }
           else {
-            (**(code **)(pbVar6 + 0x18))(puVar2,pbVar9,0);
+            (**(code **)(pbVar5 + 0x18))(puVar2,pbVar9,0);
           }
         }
       }
@@ -1110,236 +1088,236 @@ LAB_0040585d:
     else if (iVar10 == 0) {
       switch((int)(param_1)) {
       case 0x0:
-        if ((*pbVar6 & 1) == 0) {
+        if ((*pbVar5 & 1) == 0) {
           if (g_nRdroidZBufferMode == 1) {
             rdRaster_Select_FlatLit_3(puVar2,pbVar9);
           }
         }
         else {
-          (**(code **)(pbVar6 + 0x18))(puVar2,pbVar9,0);
+          (**(code **)(pbVar5 + 0x18))(puVar2,pbVar9,0);
         }
         break;
       case 0x1:
-        if (*(float *)(pbVar6 + 0x48) < 0.0) {
-          fVar3 = 0.0;
+        if (*(float *)(pbVar5 + 0x48) < 0.0) {
+          fVar6 = 0.0;
         }
-        else if (1.0 < *(float *)(pbVar6 + 0x48)) {
-          fVar3 = 1.0;
+        else if (1.0 < *(float *)(pbVar5 + 0x48)) {
+          fVar6 = 1.0;
         }
         else {
-          fVar3 = *(float *)(pbVar6 + 0x48);
+          fVar6 = *(float *)(pbVar5 + 0x48);
         }
-        if ((float)local_4 < fVar3) {
-          if (*(float *)(pbVar6 + 0x48) < 0.0) {
-            local_4 = 0;
+        if (local_4 < fVar6) {
+          if (*(float *)(pbVar5 + 0x48) < 0.0) {
+            local_4 = 0.0;
           }
-          else if (1.0 < *(float *)(pbVar6 + 0x48)) {
-            local_4 = 0x3f800000;
+          else if (1.0 < *(float *)(pbVar5 + 0x48)) {
+            local_4 = 1.0;
           }
           else {
-            local_4 = *(uint *)(pbVar6 + 0x48);
+            local_4 = *(float *)(pbVar5 + 0x48);
           }
         }
-        fVar3 = (float)local_4 * 63.0;
-        *(float *)(pbVar6 + 0x44) = fVar3;
-        if ((*pbVar6 & 1) == 0) {
+        fVar6 = local_4 * 63.0;
+        *(float *)(pbVar5 + 0x44) = fVar6;
+        if ((*pbVar5 & 1) == 0) {
           if (g_nRdroidZBufferMode == 1) {
-            rdRaster_Select_FlatLit_5(puVar2,pbVar9,fVar3);
+            rdRaster_Select_FlatLit_5(puVar2,pbVar9,fVar6);
           }
         }
         else {
-          (**(code **)(pbVar6 + 0x18))(puVar2,pbVar9,fVar3);
+          (**(code **)(pbVar5 + 0x18))(puVar2,pbVar9,fVar6);
         }
         break;
       case 0x2:
-        fVar3 = *(float *)(pbVar6 + 0x48) + *(float *)(pbVar6 + 0x44);
-        if (fVar3 < 0.0) {
-          fVar4 = 0.0;
+        fVar6 = *(float *)(pbVar5 + 0x48) + *(float *)(pbVar5 + 0x44);
+        if (fVar6 < 0.0) {
+          fVar3 = 0.0;
         }
         else {
-          fVar4 = fVar3;
-          if (1.0 < fVar3) {
-            fVar4 = 1.0;
+          fVar3 = fVar6;
+          if (1.0 < fVar6) {
+            fVar3 = 1.0;
           }
         }
-        if ((float)local_4 < fVar4) {
-          if (fVar3 < 0.0) {
-            local_4 = (uint)0.0;
+        if (local_4 < fVar3) {
+          if (fVar6 < 0.0) {
+            local_4 = 0.0;
           }
           else {
-            local_4 = (uint)fVar3;
-            if (1.0 < fVar3) {
-              local_4 = (uint)1.0;
+            local_4 = fVar6;
+            if (1.0 < fVar6) {
+              local_4 = 1.0;
             }
           }
         }
-        fVar3 = (float)local_4 * 63.0;
-        *(float *)(pbVar6 + 0x44) = fVar3;
-        if ((*pbVar6 & 1) == 0) {
+        fVar6 = local_4 * 63.0;
+        *(float *)(pbVar5 + 0x44) = fVar6;
+        if ((*pbVar5 & 1) == 0) {
           if (g_nRdroidZBufferMode == 1) {
-            rdRaster_Select_FlatLit_5(puVar2,pbVar9,fVar3);
+            rdRaster_Select_FlatLit_5(puVar2,pbVar9,fVar6);
           }
         }
         else {
-          (**(code **)(pbVar6 + 0x18))(puVar2,pbVar9,fVar3);
+          (**(code **)(pbVar5 + 0x18))(puVar2,pbVar9,fVar6);
         }
         break;
       case 0x3:
         uVar8 = 0;
-        if (*(int *)(pbVar6 + 0x1c) != 0) {
+        if (*(int *)(pbVar5 + 0x1c) != 0) {
           do {
-            fVar3 = *(float *)(*(int *)(pbVar6 + 0x28) + uVar8 * 4) + *(float *)(pbVar6 + 0x48);
+            fVar6 = *(float *)(*(int *)(pbVar5 + 0x28) + uVar8 * 4) + *(float *)(pbVar5 + 0x48);
             iVar10 = uVar8 * 4;
-            if (fVar3 < 0.0) {
-              fVar4 = 0.0;
+            if (fVar6 < 0.0) {
+              fVar3 = 0.0;
             }
             else {
-              fVar4 = fVar3;
-              if (1.0 < fVar3) {
-                fVar4 = 1.0;
+              fVar3 = fVar6;
+              if (1.0 < fVar6) {
+                fVar3 = 1.0;
               }
             }
-            fVar5 = (float)local_4;
-            if ((float)local_4 < fVar4) {
-              if (fVar3 < 0.0) {
-                fVar5 = 0.0;
+            fVar4 = local_4;
+            if (local_4 < fVar3) {
+              if (fVar6 < 0.0) {
+                fVar4 = 0.0;
               }
               else {
-                fVar5 = fVar3;
-                if (1.0 < fVar3) {
-                  fVar5 = 1.0;
+                fVar4 = fVar6;
+                if (1.0 < fVar6) {
+                  fVar4 = 1.0;
                 }
               }
             }
             uVar8 = uVar8 + 1;
-            *(float *)(*(int *)(pbVar6 + 0x28) + iVar10) = fVar5 * 63.0;
-          } while (uVar8 < *(uint *)(pbVar6 + 0x1c));
+            *(float *)(*(int *)(pbVar5 + 0x28) + iVar10) = fVar4 * 63.0;
+          } while (uVar8 < *(uint *)(pbVar5 + 0x1c));
         }
-        if ((*pbVar6 & 1) == 0) {
+        if ((*pbVar5 & 1) == 0) {
           if (g_nRdroidZBufferMode == 1) {
             rdRaster_Select_FlatLit_7(puVar2,pbVar9);
           }
         }
         else {
-          (**(code **)(pbVar6 + 0x18))(puVar2,pbVar9,0);
+          (**(code **)(pbVar5 + 0x18))(puVar2,pbVar9,0);
         }
       }
     }
     else if ((0 < iVar10) && (iVar10 < 3)) {
       switch((int)(param_1)) {
       case 0x0:
-        if ((*pbVar6 & 1) == 0) {
+        if ((*pbVar5 & 1) == 0) {
           if (g_nRdroidZBufferMode == 1) {
             rdRaster_Select_FlatLit_9(puVar2,pbVar9);
           }
         }
         else {
-          (**(code **)(pbVar6 + 0x18))(puVar2,pbVar9,0);
+          (**(code **)(pbVar5 + 0x18))(puVar2,pbVar9,0);
         }
         break;
       case 0x1:
-        if (*(float *)(pbVar6 + 0x48) < 0.0) {
-          fVar3 = 0.0;
+        if (*(float *)(pbVar5 + 0x48) < 0.0) {
+          fVar6 = 0.0;
         }
-        else if (1.0 < *(float *)(pbVar6 + 0x48)) {
-          fVar3 = 1.0;
+        else if (1.0 < *(float *)(pbVar5 + 0x48)) {
+          fVar6 = 1.0;
         }
         else {
-          fVar3 = *(float *)(pbVar6 + 0x48);
+          fVar6 = *(float *)(pbVar5 + 0x48);
         }
-        if ((float)local_4 < fVar3) {
-          if (*(float *)(pbVar6 + 0x48) < 0.0) {
-            local_4 = 0;
+        if (local_4 < fVar6) {
+          if (*(float *)(pbVar5 + 0x48) < 0.0) {
+            local_4 = 0.0;
           }
-          else if (1.0 < *(float *)(pbVar6 + 0x48)) {
-            local_4 = 0x3f800000;
+          else if (1.0 < *(float *)(pbVar5 + 0x48)) {
+            local_4 = 1.0;
           }
           else {
-            local_4 = *(uint *)(pbVar6 + 0x48);
+            local_4 = *(float *)(pbVar5 + 0x48);
           }
         }
-        fVar3 = (float)local_4 * 63.0;
-        *(float *)(pbVar6 + 0x44) = fVar3;
-        if ((*pbVar6 & 1) == 0) {
+        fVar6 = local_4 * 63.0;
+        *(float *)(pbVar5 + 0x44) = fVar6;
+        if ((*pbVar5 & 1) == 0) {
           if (g_nRdroidZBufferMode == 1) {
-            rdRaster_Select_FlatLit_11(puVar2,pbVar9,fVar3);
+            rdRaster_Select_FlatLit_11(puVar2,pbVar9,fVar6);
           }
         }
         else {
-          (**(code **)(pbVar6 + 0x18))(puVar2,pbVar9,fVar3);
+          (**(code **)(pbVar5 + 0x18))(puVar2,pbVar9,fVar6);
         }
         break;
       case 0x2:
-        fVar3 = *(float *)(pbVar6 + 0x48) + *(float *)(pbVar6 + 0x44);
-        if (fVar3 < 0.0) {
-          fVar4 = 0.0;
+        fVar6 = *(float *)(pbVar5 + 0x48) + *(float *)(pbVar5 + 0x44);
+        if (fVar6 < 0.0) {
+          fVar3 = 0.0;
         }
         else {
-          fVar4 = fVar3;
-          if (1.0 < fVar3) {
-            fVar4 = 1.0;
+          fVar3 = fVar6;
+          if (1.0 < fVar6) {
+            fVar3 = 1.0;
           }
         }
-        if ((float)local_4 < fVar4) {
-          if (fVar3 < 0.0) {
-            local_4 = (uint)0.0;
+        if (local_4 < fVar3) {
+          if (fVar6 < 0.0) {
+            local_4 = 0.0;
           }
           else {
-            local_4 = (uint)fVar3;
-            if (1.0 < fVar3) {
-              local_4 = (uint)1.0;
+            local_4 = fVar6;
+            if (1.0 < fVar6) {
+              local_4 = 1.0;
             }
           }
         }
-        fVar3 = (float)local_4 * 63.0;
-        *(float *)(pbVar6 + 0x44) = fVar3;
-        if ((*pbVar6 & 1) == 0) {
+        fVar6 = local_4 * 63.0;
+        *(float *)(pbVar5 + 0x44) = fVar6;
+        if ((*pbVar5 & 1) == 0) {
           if (g_nRdroidZBufferMode == 1) {
-            rdRaster_Select_FlatLit_11(puVar2,pbVar9,fVar3);
+            rdRaster_Select_FlatLit_11(puVar2,pbVar9,fVar6);
           }
         }
         else {
-          (**(code **)(pbVar6 + 0x18))(puVar2,pbVar9,fVar3);
+          (**(code **)(pbVar5 + 0x18))(puVar2,pbVar9,fVar6);
         }
         break;
       case 0x3:
         uVar8 = 0;
-        if (*(int *)(pbVar6 + 0x1c) != 0) {
+        if (*(int *)(pbVar5 + 0x1c) != 0) {
           do {
-            fVar3 = *(float *)(*(int *)(pbVar6 + 0x28) + uVar8 * 4) + *(float *)(pbVar6 + 0x48);
+            fVar6 = *(float *)(*(int *)(pbVar5 + 0x28) + uVar8 * 4) + *(float *)(pbVar5 + 0x48);
             iVar10 = uVar8 * 4;
-            if (fVar3 < 0.0) {
-              fVar4 = 0.0;
+            if (fVar6 < 0.0) {
+              fVar3 = 0.0;
             }
             else {
-              fVar4 = fVar3;
-              if (1.0 < fVar3) {
-                fVar4 = 1.0;
+              fVar3 = fVar6;
+              if (1.0 < fVar6) {
+                fVar3 = 1.0;
               }
             }
-            fVar5 = (float)local_4;
-            if ((float)local_4 < fVar4) {
-              if (fVar3 < 0.0) {
-                fVar5 = 0.0;
+            fVar4 = local_4;
+            if (local_4 < fVar3) {
+              if (fVar6 < 0.0) {
+                fVar4 = 0.0;
               }
               else {
-                fVar5 = fVar3;
-                if (1.0 < fVar3) {
-                  fVar5 = 1.0;
+                fVar4 = fVar6;
+                if (1.0 < fVar6) {
+                  fVar4 = 1.0;
                 }
               }
             }
             uVar8 = uVar8 + 1;
-            *(float *)(*(int *)(pbVar6 + 0x28) + iVar10) = fVar5 * 63.0;
-          } while (uVar8 < *(uint *)(pbVar6 + 0x1c));
+            *(float *)(*(int *)(pbVar5 + 0x28) + iVar10) = fVar4 * 63.0;
+          } while (uVar8 < *(uint *)(pbVar5 + 0x1c));
         }
-        if ((*pbVar6 & 1) == 0) {
+        if ((*pbVar5 & 1) == 0) {
           if (g_nRdroidZBufferMode == 1) {
             rdRaster_Select_FlatLit_13(puVar2,pbVar9);
           }
         }
         else {
-          (**(code **)(pbVar6 + 0x18))(puVar2,pbVar9,0);
+          (**(code **)(pbVar5 + 0x18))(puVar2,pbVar9,0);
         }
       }
     }
@@ -1350,12 +1328,8 @@ LAB_0040585d:
 }
 #undef local_4
 
-#endif
-
 
 /* ---- 0x00451950  rdCanvas_DrawLine ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Bresenham line, 8 and 16 bpp, with a 32-bit stipple pattern */
 
 void __cdecl rdCanvas_DrawLine(void *canvas,int x0,int y0,int x1,int y1,ushort color,uint pattern)
@@ -1465,8 +1439,6 @@ void __cdecl rdCanvas_DrawLine(void *canvas,int x0,int y0,int x1,int y1,ushort c
 #undef local_4
 #undef local_8
 #undef local_c
-
-#endif
 
 
 /* ---- 0x00451dd0  rdCanvas_DrawPoint ---- */

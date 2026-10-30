@@ -6,8 +6,6 @@
 #include "functions.h"
 
 /* ---- 0x0048c050  Text_ParseLuaTable ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Reads x, y, font, width, height, fgcolor, bgcolor, ... keys from a Lua table into a text context
     */
 
@@ -15,179 +13,167 @@ int __cdecl Text_ParseLuaTable(void *ctx,void *table,void *textObj)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  undefined4 uVar1;
+  int iVar1;
   int iVar2;
   int iVar3;
-  int iVar4;
-  undefined4 unaff_ESI;
-  undefined4 unaff_EDI;
-  longlong lVar5;
+  longlong lVar4;
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
-  iVar4 = *(int *)((int)ctx + 4);
-  lua_pushobject(table);
-  uVar1 = lua_getref(UINT_008ca0dc);
-  lua_pushobject(uVar1);
-  iVar2 = lua_gettable();
-  if (iVar2 != 0) {
-    iVar3 = lua_isnumber(iVar2);
-    if (iVar3 != 0) {
-      lua_getnumber(iVar2);
-      lVar5 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
-      *(int *)((int)ctx + 0xc) = (int)lVar5;
+  iVar3 = *(int *)((int)ctx + 4);
+  lua_pushobject((int)table);
+  iVar1 = lua_getref(UINT_008ca0dc);
+  lua_pushobject(iVar1);
+  iVar1 = lua_gettable();
+  if (iVar1 != 0) {
+    iVar2 = lua_isnumber(iVar1);
+    if (iVar2 != 0) {
+      lVar4 = (longlong)lua_getnumber(iVar1);
+      *(int *)((int)ctx + 0xc) = (int)lVar4;
       if (textObj != (void *)0x0) {
-        lua_getnumber(iVar2);
-        lVar5 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
-        *(int *)((int)textObj + 0x238) = (int)lVar5;
+        lVar4 = (longlong)lua_getnumber(iVar1);
+        *(int *)((int)textObj + 0x238) = (int)lVar4;
       }
     }
   }
-  lua_pushobject(table);
-  uVar1 = lua_getref(UINT_008ca0e0);
-  lua_pushobject(uVar1);
-  iVar2 = lua_gettable();
-  if (iVar2 != 0) {
-    iVar3 = lua_isnumber(iVar2);
-    if (iVar3 != 0) {
-      lua_getnumber(iVar2);
-      lVar5 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
-      *(int *)((int)ctx + 0x10) = (int)lVar5 + *(int *)(**(int **)((int)ctx + 8) + 8);
+  lua_pushobject((int)table);
+  iVar1 = lua_getref(UINT_008ca0e0);
+  lua_pushobject(iVar1);
+  iVar1 = lua_gettable();
+  if (iVar1 != 0) {
+    iVar2 = lua_isnumber(iVar1);
+    if (iVar2 != 0) {
+      lVar4 = (longlong)lua_getnumber(iVar1);
+      *(int *)((int)ctx + 0x10) = (int)lVar4 + *(int *)(**(int **)((int)ctx + 8) + 8);
       if (textObj != (void *)0x0) {
-        lua_getnumber(iVar2);
-        lVar5 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
-        *(int *)((int)textObj + 0x23c) = (int)lVar5;
+        lVar4 = (longlong)lua_getnumber(iVar1);
+        *(int *)((int)textObj + 0x23c) = (int)lVar4;
       }
     }
   }
-  lua_pushobject(table);
-  uVar1 = lua_getref(UINT_008ca104);
-  lua_pushobject(uVar1);
-  iVar2 = lua_gettable();
-  if (iVar2 != 0) {
-    iVar3 = lua_isuserdata(iVar2);
-    if (iVar3 != 0) {
-      iVar3 = lua_tag(iVar2);
-      if ((iVar3 == 0x544e4f46) && (g_pOverrideFont == (void *)0x0)) {
-        uVar1 = lua_getuserdata(iVar2);
-        *(undefined4 *)((int)ctx + 8) = uVar1;
-      }
-    }
-  }
-  lua_pushobject(table);
-  uVar1 = lua_getref(UINT_008ca0f8);
-  lua_pushobject(uVar1);
-  iVar2 = lua_gettable();
-  if (iVar2 != 0) {
-    iVar3 = lua_isnumber(iVar2);
-    if ((iVar3 != 0) && (iVar4 != 0)) {
-      lua_getnumber(iVar2);
-      lVar5 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
-      *(int *)(iVar4 + 8) = (int)lVar5;
-    }
-  }
-  lua_pushobject(table);
-  uVar1 = lua_getref(UINT_008ca0d8);
-  lua_pushobject(uVar1);
-  iVar2 = lua_gettable();
-  if (iVar2 != 0) {
-    iVar3 = lua_isnumber(iVar2);
-    if ((iVar3 != 0) && (iVar4 != 0)) {
-      lua_getnumber(iVar2);
-      lVar5 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
-      *(int *)(iVar4 + 0xc) = (int)lVar5;
-    }
-  }
-  lua_pushobject(table);
-  uVar1 = lua_getref(UINT_008ca110);
-  lua_pushobject(uVar1);
-  iVar4 = lua_gettable();
-  if (iVar4 != 0) {
-    iVar2 = lua_isuserdata(iVar4);
+  lua_pushobject((int)table);
+  iVar1 = lua_getref(UINT_008ca104);
+  lua_pushobject(iVar1);
+  iVar1 = lua_gettable();
+  if (iVar1 != 0) {
+    iVar2 = lua_isuserdata(iVar1);
     if (iVar2 != 0) {
-      iVar2 = lua_tag(iVar4);
-      if (iVar2 == 0x524c4f43) {
-        uVar1 = lua_getuserdata(iVar4);
-        *(undefined4 *)((int)ctx + 0x14) = uVar1;
+      iVar2 = lua_tag(iVar1);
+      if ((iVar2 == 0x544e4f46) && (g_pOverrideFont == (void *)0x0)) {
+        iVar1 = lua_getuserdata(iVar1);
+        *(int *)((int)ctx + 8) = iVar1;
       }
     }
   }
-  lua_pushobject(table);
-  uVar1 = lua_getref(UINT_008ca0fc);
-  lua_pushobject(uVar1);
-  iVar4 = lua_gettable();
-  if (iVar4 != 0) {
-    iVar2 = lua_isuserdata(iVar4);
-    if (iVar2 != 0) {
-      iVar2 = lua_tag(iVar4);
-      if (iVar2 == 0x524c4f43) {
-        uVar1 = lua_getuserdata(iVar4);
-        *(undefined4 *)((int)ctx + 0x18) = uVar1;
+  lua_pushobject((int)table);
+  iVar1 = lua_getref(UINT_008ca0f8);
+  lua_pushobject(iVar1);
+  iVar1 = lua_gettable();
+  if (iVar1 != 0) {
+    iVar2 = lua_isnumber(iVar1);
+    if ((iVar2 != 0) && (iVar3 != 0)) {
+      lVar4 = (longlong)lua_getnumber(iVar1);
+      *(int *)(iVar3 + 8) = (int)lVar4;
+    }
+  }
+  lua_pushobject((int)table);
+  iVar1 = lua_getref(UINT_008ca0d8);
+  lua_pushobject(iVar1);
+  iVar1 = lua_gettable();
+  if (iVar1 != 0) {
+    iVar2 = lua_isnumber(iVar1);
+    if ((iVar2 != 0) && (iVar3 != 0)) {
+      lVar4 = (longlong)lua_getnumber(iVar1);
+      *(int *)(iVar3 + 0xc) = (int)lVar4;
+    }
+  }
+  lua_pushobject((int)table);
+  iVar3 = lua_getref(UINT_008ca110);
+  lua_pushobject(iVar3);
+  iVar3 = lua_gettable();
+  if (iVar3 != 0) {
+    iVar1 = lua_isuserdata(iVar3);
+    if (iVar1 != 0) {
+      iVar1 = lua_tag(iVar3);
+      if (iVar1 == 0x524c4f43) {
+        iVar3 = lua_getuserdata(iVar3);
+        *(int *)((int)ctx + 0x14) = iVar3;
       }
     }
   }
-  lua_pushobject(table);
-  uVar1 = lua_getref(UINT_008ca0f0);
-  lua_pushobject(uVar1);
-  iVar4 = lua_gettable();
-  if (iVar4 != 0) {
-    iVar2 = lua_isuserdata(iVar4);
-    if (iVar2 != 0) {
-      iVar2 = lua_tag(iVar4);
-      if (iVar2 == 0x524c4f43) {
-        uVar1 = lua_getuserdata(iVar4);
-        *(undefined4 *)((int)ctx + 0x1c) = uVar1;
+  lua_pushobject((int)table);
+  iVar3 = lua_getref(UINT_008ca0fc);
+  lua_pushobject(iVar3);
+  iVar3 = lua_gettable();
+  if (iVar3 != 0) {
+    iVar1 = lua_isuserdata(iVar3);
+    if (iVar1 != 0) {
+      iVar1 = lua_tag(iVar3);
+      if (iVar1 == 0x524c4f43) {
+        iVar3 = lua_getuserdata(iVar3);
+        *(int *)((int)ctx + 0x18) = iVar3;
       }
     }
   }
-  lua_pushobject(table);
-  uVar1 = lua_getref(UINT_008ca0f4);
-  lua_pushobject(uVar1);
-  iVar4 = lua_gettable();
-  if (iVar4 != 0) {
-    iVar4 = lua_isnil(iVar4);
-    if (iVar4 == 0) {
+  lua_pushobject((int)table);
+  iVar3 = lua_getref(UINT_008ca0f0);
+  lua_pushobject(iVar3);
+  iVar3 = lua_gettable();
+  if (iVar3 != 0) {
+    iVar1 = lua_isuserdata(iVar3);
+    if (iVar1 != 0) {
+      iVar1 = lua_tag(iVar3);
+      if (iVar1 == 0x524c4f43) {
+        iVar3 = lua_getuserdata(iVar3);
+        *(int *)((int)ctx + 0x1c) = iVar3;
+      }
+    }
+  }
+  lua_pushobject((int)table);
+  iVar3 = lua_getref(UINT_008ca0f4);
+  lua_pushobject(iVar3);
+  iVar3 = lua_gettable();
+  if (iVar3 != 0) {
+    iVar3 = lua_isnil(iVar3);
+    if (iVar3 == 0) {
       *(undefined4 *)((int)ctx + 0x28) = 5;
     }
   }
-  lua_pushobject(table);
-  uVar1 = lua_getref(UINT_008ca108);
-  lua_pushobject(uVar1);
-  iVar4 = lua_gettable();
-  if (iVar4 != 0) {
-    iVar4 = lua_isnil(iVar4);
-    if (iVar4 == 0) {
+  lua_pushobject((int)table);
+  iVar3 = lua_getref(UINT_008ca108);
+  lua_pushobject(iVar3);
+  iVar3 = lua_gettable();
+  if (iVar3 != 0) {
+    iVar3 = lua_isnil(iVar3);
+    if (iVar3 == 0) {
       *(undefined4 *)((int)ctx + 0x28) = 4;
     }
   }
-  lua_pushobject(table);
-  uVar1 = lua_getref(UINT_008ca10c);
-  lua_pushobject(uVar1);
-  iVar4 = lua_gettable();
-  if (iVar4 != 0) {
-    iVar4 = lua_isnil(iVar4);
-    if (iVar4 == 0) {
+  lua_pushobject((int)table);
+  iVar3 = lua_getref(UINT_008ca10c);
+  lua_pushobject(iVar3);
+  iVar3 = lua_gettable();
+  if (iVar3 != 0) {
+    iVar3 = lua_isnil(iVar3);
+    if (iVar3 == 0) {
       *(undefined4 *)((int)ctx + 0x28) = 6;
     }
   }
-  lua_pushobject(table);
-  uVar1 = lua_getref(UINT_008ca0ec);
-  lua_pushobject(uVar1);
-  iVar4 = lua_gettable();
-  if (iVar4 != 0) {
-    iVar2 = lua_isnumber(iVar4);
-    if (iVar2 != 0) {
-      lua_getnumber(iVar4);
-      lVar5 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
-      return (int)lVar5;
+  lua_pushobject((int)table);
+  iVar3 = lua_getref(UINT_008ca0ec);
+  lua_pushobject(iVar3);
+  iVar3 = lua_gettable();
+  if (iVar3 != 0) {
+    iVar1 = lua_isnumber(iVar3);
+    if (iVar1 != 0) {
+      lVar4 = (longlong)lua_getnumber(iVar3);
+      return (int)lVar4;
     }
   }
   return -1;
 }
 #undef local_4
 #undef local_8
-
-#endif
 
 
 /* ---- 0x0048c8d0  Text_ParseLineId ---- */

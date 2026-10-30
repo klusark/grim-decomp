@@ -6,8 +6,6 @@
 #include "functions.h"
 
 /* ---- 0x00417e90  rdMaterial_SetLoadHook ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Installs the engine's material loader callback and returns the previous one */
 
 uint rdMaterial_SetLoadHook(uint param_1)
@@ -19,12 +17,8 @@ uint rdMaterial_SetLoadHook(uint param_1)
   UINT_007f4238 = param_1;
   return uVar1;
 }
-#endif
-
 
 /* ---- 0x00417ea0  rdMaterial_SetFreeHook ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 uint rdMaterial_SetFreeHook(uint param_1)
 
 {
@@ -34,12 +28,8 @@ uint rdMaterial_SetFreeHook(uint param_1)
   UINT_007f423c = param_1;
   return uVar1;
 }
-#endif
-
 
 /* ---- 0x00417eb0  rdMaterial_Load ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void * __cdecl rdMaterial_Load(char *name,int a,int b)
 
 {
@@ -61,12 +51,8 @@ void * __cdecl rdMaterial_Load(char *name,int a,int b)
   rdMaterial_Free(pvVar1);
   return (void *)0x0;
 }
-#endif
-
 
 /* ---- 0x00417f30  rdMaterial_LoadFile ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Reads a 'MAT ' material file: header, colour table, per-cel texture surfaces (type 2 colour-keyed
    / type 0 solid) */
 
@@ -290,12 +276,8 @@ LAB_0041833a:
 #undef uStack_418
 #undef uStack_428
 
-#endif
-
 
 /* ---- 0x00418360  rdMaterial_Free ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void rdMaterial_Free(undefined4 param_1)
 
 {
@@ -307,12 +289,8 @@ void rdMaterial_Free(undefined4 param_1)
   (*g_pSvcRdroid->pFree)(param_1);
   return;
 }
-#endif
-
 
 /* ---- 0x004183a0  rdMaterial_FreeContents ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Frees the cel bitmaps, their mip surfaces and Direct3D textures */
 
 void rdMaterial_FreeContents(int param_1)
@@ -369,12 +347,8 @@ void rdMaterial_FreeContents(int param_1)
 #undef local_4
 #undef local_8
 
-#endif
-
 
 /* ---- 0x004184a0  rdMaterial_EnsureTexture ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Touches the cel's Direct3D texture or creates it (D3D_CreateTexture) on first use */
 
 int __cdecl rdMaterial_EnsureTexture(void *a,uint *material,int cel,int alt)
@@ -405,5 +379,3 @@ int __cdecl rdMaterial_EnsureTexture(void *a,uint *material,int cel,int alt)
   }
   return 1;
 }
-#endif
-

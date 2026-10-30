@@ -86,7 +86,7 @@ function:
 
 | Program | functions (without thunks) | assembled |
 |---|---|---|
-| GRIMFANDANGO.EXE | 2604 | 1324 |
+| GRIMFANDANGO.EXE | 2604 | 811 (low half 0x401000-0x49ffff: 473, of which 372 are the software rasteriser; list and reasons in docs/ASM_REMAINING.md) |
 | LUA.DLL | 850 | 178 |
 | IMUSE.DLL | 434 | 282 |
 | CHORE.DLL | 264 | 258 |

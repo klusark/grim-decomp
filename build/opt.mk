@@ -5,7 +5,13 @@
 # Modules that must stay at -O0 (the build boots to a black screen / hangs with them optimised):
 #   GRIMFANDANGO.EXE/lecshare   GRIMFANDANGO.EXE/resource   GRIMFANDANGO.EXE/sputresource (the module was renamed by the naming pass)
 # crt / crt_unnamed (the decompiled MSVC runtime) are not linked at all.
-OPT_FAST := -O2 -fno-omit-frame-pointer -fno-delete-null-pointer-checks
+# -fno-tree-fre/-pre/-dominator-opts/-dse: decompiled code walks across adjacent globals through a pointer to the first one
+# (`for (i = 7; i; i--) *p++ = *q++` over UINT_008a9510 .. UINT_008a9528); gcc treats that as one object and forwards the last
+# store to a later load of the first (Render_SetPixelFormat set the geometry mode from the 7th dword: wireframe actors)
+# NOT -fexcess-precision=standard: tried; it rounds every Ghidra temporary (fVarN) to a float although the original keeps it
+# in an 80-bit x87 register, which moves results in the 4th digit (t3 oracle). Where the original really stores to a float
+# local and tests the stored value (Math_NormalizeAngle360 == 360.0), the function is written by hand with a volatile.
+OPT_FAST := -O2 -fno-omit-frame-pointer -fno-delete-null-pointer-checks -fno-tree-fre -fno-tree-pre -fno-tree-dominator-opts -fno-tree-dse
 OPT_LUA.DLL/getlcidfromcountryonly := $(OPT_FAST)
 OPT_LUA.DLL/getlcidfromdefault := $(OPT_FAST)
 OPT_LUA.DLL/getlcidfromlangcountry := $(OPT_FAST)

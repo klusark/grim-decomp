@@ -218,8 +218,6 @@ void Lab_Unlink(int *param_1)
 }
 
 /* ---- 0x00481630  Lab_FindFile ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Searches every open archive (or dev directory) for the file; fills a 0x210-byte entry {type,
    archiveFh, offset, size, inArchive, name} */
 
@@ -247,8 +245,6 @@ int __cdecl Lab_FindFile(char *name,void *outEntry)
   return iVar1;
 }
 #undef local_104
-
-#endif
 
 
 /* ---- 0x004816b0  Lab_Open ---- */

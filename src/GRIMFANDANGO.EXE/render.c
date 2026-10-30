@@ -6,8 +6,6 @@
 #include "functions.h"
 
 /* ---- 0x004839f0  Render_GetBackBuffer ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Returns the back buffer surface g_BackBuffer */
 
 uint * Render_GetBackBuffer(void)
@@ -15,12 +13,8 @@ uint * Render_GetBackBuffer(void)
 {
   return &g_BackBuffer;
 }
-#endif
-
 
 /* ---- 0x00483a00  Render_ToggleDebugOverlay ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Flips debug flag 1 and, when turning it off, invalidates the whole canvas on every buffer */
 
 void Render_ToggleDebugOverlay(void)
@@ -61,24 +55,16 @@ void Render_ToggleDebugOverlay(void)
 #undef local_8
 #undef local_c
 
-#endif
-
 
 /* ---- 0x00483a80  Render_SetUserCallback ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void Render_SetUserCallback(uint param_1)
 
 {
   UINT_008c97b8 = param_1;
   return;
 }
-#endif
-
 
 /* ---- 0x00483a90  Render_SetFlipCallback ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Installs the function Render_Present calls to show the back buffer */
 
 void Render_SetFlipCallback(void *param_1)
@@ -87,12 +73,8 @@ void Render_SetFlipCallback(void *param_1)
   g_pfnFlipCallback = param_1;
   return;
 }
-#endif
-
 
 /* ---- 0x00483da0  Render_SaveState ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 int __cdecl Render_SaveState(void *writeFn)
 
 {
@@ -107,12 +89,8 @@ int __cdecl Render_SaveState(void *writeFn)
   (*(code *)writeFn)(&UINT_008c97f8,4);
   return 0;
 }
-#endif
-
 
 /* ---- 0x00483e20  Render_RestoreState ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 int __cdecl Render_RestoreState(void *readFn)
 
 {
@@ -127,24 +105,16 @@ int __cdecl Render_RestoreState(void *readFn)
   (*(code *)readFn)(&UINT_008c97f8,4);
   return 0;
 }
-#endif
-
 
 /* ---- 0x00483ea0  Render_SetZBufferEnabled ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void Render_SetZBufferEnabled(int param_1)
 
 {
   g_nZBufferEnabled = param_1;
   return;
 }
-#endif
-
 
 /* ---- 0x00483eb0  Render_SetBufferCount ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void __cdecl Render_SetBufferCount(int n)
 
 {
@@ -154,12 +124,8 @@ void __cdecl Render_SetBufferCount(int n)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x00483ed0  Render_InvalidateRectLastBuffer ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 void __cdecl Render_InvalidateRectLastBuffer(int *rect,int flag)
@@ -186,12 +152,8 @@ void __cdecl Render_InvalidateRectLastBuffer(int *rect,int flag)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x00483f60  Render_InvalidateRect ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Aligns x/width to 4 pixels and marks the rectangle dirty on every buffer */
 
@@ -225,12 +187,8 @@ void __cdecl Render_InvalidateRect(int *rect,int flag)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x00484030  Render_Open ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Creates the rdCanvas, the background, temp and z-buffer surfaces, programs the pixel format into
    RDroid and draws the current set */
@@ -300,12 +258,8 @@ Render_Open(uint param_1,uint param_2,undefined4 param_3,undefined4 param_4,unde
 }
 #undef local_4c
 
-#endif
-
 
 /* ---- 0x004841f0  Render_Close ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 void Render_Close(void)
@@ -330,12 +284,8 @@ void Render_Close(void)
   _DAT_008c9790 = 0;
   return;
 }
-#endif
-
 
 /* ---- 0x004849a0  Render_Present ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Calls the flip callback unless the frame was flagged to skip presentation */
 
 void Render_Present(void)
@@ -347,12 +297,8 @@ void Render_Present(void)
   UINT_008c97f8 = 0;
   return;
 }
-#endif
-
 
 /* ---- 0x004849d0  Render_SetPixelFormat ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Copies the 7-dword pixel format and pushes each component shift/mask into RDroid */
 
 void Render_SetPixelFormat(uint *param_1)
@@ -376,12 +322,8 @@ void Render_SetPixelFormat(uint *param_1)
   rdroid_SetZBufferMode(UINT_008a9528);
   return;
 }
-#endif
-
 
 /* ---- 0x00484a50  FUN_00484a50 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 undefined4 FUN_00484a50(void)
 
 {
@@ -467,12 +409,8 @@ undefined4 FUN_00484a50(void)
   }
   return uVar2;
 }
-#endif
-
 
 /* ---- 0x00484c40  Render_InitColorConstants ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Builds the 16-bit colour constants (black, white, greys, red, green, blue, text colours) for the
    current pixel format */
@@ -644,99 +582,79 @@ void Render_InitColorConstants(int param_1)
   Resource_RebuildColormaps();
   return;
 }
-#endif
-
 
 /* ---- 0x00485bd0  Render_DrawDebugGrid ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void Render_DrawDebugGrid(void)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
-  #define local_1c (*(uint *)(_frame + (0x30 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
+  #define local_1c (*(float *)(_frame + (0x30 - 0x1c)))
+  #define local_18 (*(float (*)[3])(_frame + (0x30 - 0x18)))
+  #define local_c (*(float (*)[3])(_frame + (0x30 - 0xc)))
   
   iVar1 = 0x14;
-  local_1c = 0xbf800000;
+  local_1c = -1.0;
   do {
-    local_c = 0xbf800000;
-    local_4 = 0;
-    local_18 = 0x3f800000;
-    local_10 = 0;
-    local_14 = local_1c;
-    local_8 = local_1c;
-    rdPrimit3_DrawLine(&local_c,&local_18,0,0,0,0,UINT_008c97c8 & 0xffff,0xff00ff00);
-    local_1c = (uint)((float)local_1c - -0.1);
+    local_c[0] = -1.0;
+    local_c[2] = 0.0;
+    local_18[0] = 1.0;
+    local_18[2] = 0.0;
+    local_18[1] = local_1c;
+    local_c[1] = local_1c;
+    rdPrimit3_DrawLine(local_c,local_18,0,0,0,0,UINT_008c97c8 & 0xffff,0xff00ff00);
+    local_1c = local_1c - -0.1;
     iVar1 = iVar1 + -1;
   } while (iVar1 != 0);
   iVar1 = 0x14;
-  local_1c = 0xbf800000;
+  local_1c = -1.0;
   do {
-    local_8 = 0xbf800000;
-    local_4 = 0;
-    local_14 = 0x3f800000;
-    local_10 = 0;
-    local_18 = local_1c;
-    local_c = local_1c;
-    rdPrimit3_DrawLine(&local_c,&local_18,0,0,0,0,UINT_008c97c8 & 0xffff,0xff00ff00);
-    local_1c = (uint)((float)local_1c - -0.1);
+    local_c[1] = -1.0;
+    local_c[2] = 0.0;
+    local_18[1] = 1.0;
+    local_18[2] = 0.0;
+    local_18[0] = local_1c;
+    local_c[0] = local_1c;
+    rdPrimit3_DrawLine(local_c,local_18,0,0,0,0,UINT_008c97c8 & 0xffff,0xff00ff00);
+    local_1c = local_1c - -0.1;
     iVar1 = iVar1 + -1;
   } while (iVar1 != 0);
-  local_c = 0;
-  local_8 = 0;
-  local_4 = 0;
-  local_18 = 0x40000000;
-  local_14 = 0;
-  local_10 = 0;
-  rdPrimit3_DrawLine(&local_c,&local_18,0,0,0,0,DAT_008c97c6,0xffffffff);
-  local_c = 0;
-  local_8 = 0;
-  local_4 = 0;
-  local_18 = 0;
-  local_14 = 0x40000000;
-  local_10 = 0;
-  rdPrimit3_DrawLine(&local_c,&local_18,0,0,0,0,DAT_008c97c6,0xffffffff);
-  local_c = 0;
-  local_8 = 0;
-  local_4 = 0;
-  local_18 = 0;
-  local_14 = 0;
-  local_10 = 0x40000000;
-  rdPrimit3_DrawLine(&local_c,&local_18,0,0,0,0,DAT_008c97c6,0xffffffff);
+  local_c[0] = 0.0;
+  local_c[1] = 0.0;
+  local_c[2] = 0.0;
+  local_18[0] = 2.0;
+  local_18[1] = 0.0;
+  local_18[2] = 0.0;
+  rdPrimit3_DrawLine(local_c,local_18,0,0,0,0,DAT_008c97c6,0xffffffff);
+  local_c[0] = 0.0;
+  local_c[1] = 0.0;
+  local_c[2] = 0.0;
+  local_18[0] = 0.0;
+  local_18[1] = 2.0;
+  local_18[2] = 0.0;
+  rdPrimit3_DrawLine(local_c,local_18,0,0,0,0,DAT_008c97c6,0xffffffff);
+  local_c[0] = 0.0;
+  local_c[1] = 0.0;
+  local_c[2] = 0.0;
+  local_18[0] = 0.0;
+  local_18[1] = 0.0;
+  local_18[2] = 2.0;
+  rdPrimit3_DrawLine(local_c,local_18,0,0,0,0,DAT_008c97c6,0xffffffff);
   return;
 }
-#undef local_10
-#undef local_14
 #undef local_18
 #undef local_1c
-#undef local_4
-#undef local_8
 #undef local_c
-
-#endif
 
 
 /* ---- 0x00486100  Render_CanvasIsPaletted ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 bool Render_CanvasIsPaletted(void)
 
 {
   return **(int **)((int)g_pCanvas + 4) == 1;
 }
-#endif
-
 
 /* ---- 0x00486120  Render_BuildActorDrawList ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Collects the visible actors of the current set with their view-space depth into 12-byte {kind,
    depth, index} entries and sorts them back to front */
 
@@ -747,9 +665,8 @@ void Render_BuildActorDrawList(void)
   int *piVar1;
   void *pvVar2;
   undefined1 *puVar3;
-  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
+  #define local_18 (*(float *)(_frame + (0x30 - 0x18)))
+  #define local_14 (*(float (*)[2])(_frame + (0x30 - 0x14)))
   #define local_c (*(float *)(_frame + (0x30 - 0xc)))
   #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
   
@@ -768,10 +685,10 @@ void Render_BuildActorDrawList(void)
       if (puVar3 == (undefined1 *)0x0) {
         return;
       }
-      local_18 = (uint)(*(float *)((int)pvVar2 + 0xc) - *g_pCameraSetup);
-      local_14 = (uint)(*(float *)((int)pvVar2 + 0x10) - g_pCameraSetup[1]);
-      local_10 = (uint)(*(float *)((int)pvVar2 + 0x14) - g_pCameraSetup[2]);
-      Vec3_TransformTo(&local_c,(float *)&local_18,g_pCameraSetup + 0xc);
+      local_18 = *(float *)((int)pvVar2 + 0xc) - *g_pCameraSetup;
+      local_14[0] = *(float *)((int)pvVar2 + 0x10) - g_pCameraSetup[1];
+      local_14[1] = *(float *)((int)pvVar2 + 0x14) - g_pCameraSetup[2];
+      Vec3_TransformTo(&local_c,&local_18,g_pCameraSetup + 0xc);
       *(uint *)(puVar3 + 4) = local_8;
       if (*(int *)((int)pvVar2 + 0xa0) == 0) {
         *(int *)(puVar3 + 8) = ((int)pvVar2 - (int)g_pActorTable) / 0xa8;
@@ -791,18 +708,13 @@ void Render_BuildActorDrawList(void)
     piVar1 = (int *)piVar1[2];
   } while( true );
 }
-#undef local_10
 #undef local_14
 #undef local_18
 #undef local_8
 #undef local_c
 
-#endif
-
 
 /* ---- 0x004862e0  Render_ScreenToWorld ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Reads the depth image at (x,y) and un-projects the pixel through the current camera frame */
 
 void __cdecl Render_ScreenToWorld(int x,int y,float *outPos)
@@ -811,9 +723,8 @@ void __cdecl Render_ScreenToWorld(int x,int y,float *outPos)
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   float fVar2;
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
+  #define local_c (*(float *)(_frame + (0x20 - 0xc)))
+  #define local_8 (*(float (*)[2])(_frame + (0x20 - 0x8)))
   
   if ((g_pRdCurrentCamera != (void *)0x0) && (*(int *)((int)g_pRdCurrentCamera + 4) != 0)) {
     fVar2 = (float)(int)((uint)*(ushort *)
@@ -822,25 +733,19 @@ void __cdecl Render_ScreenToWorld(int x,int y,float *outPos)
                         ((byte)*(undefined4 *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x14) & 0x1f)
                         ) * 1.5258789e-05;
     fVar1 = *(float *)((int)g_pRdCurrentCamera + 0x3c) * fVar2;
-    local_8 = (uint)(1.0 / fVar2 - 1.0);
-    local_c = (uint)((1.0 / fVar1) *
-                    ((float)x - *(float *)(*(int *)((int)g_pRdCurrentCamera + 4) + 8)));
-    local_4 = (uint)((-1.0 / fVar1) *
-                    ((float)y - *(float *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0xc)));
-    Vec3_Sub(outPos,(float *)&local_c,g_pCameraSetup + 0xc);
+    local_8[0] = 1.0 / fVar2 - 1.0;
+    local_c = (1.0 / fVar1) * ((float)x - *(float *)(*(int *)((int)g_pRdCurrentCamera + 4) + 8));
+    local_8[1] = (-1.0 / fVar1) *
+                 ((float)y - *(float *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0xc));
+    Vec3_Sub(outPos,&local_c,g_pCameraSetup + 0xc);
   }
   return;
 }
-#undef local_4
 #undef local_8
 #undef local_c
 
-#endif
-
 
 /* ---- 0x004863b0  Render_InvalidateBackground ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void __cdecl Render_InvalidateBackground(int redrawBackground,int redrawDepth)
 
 {
@@ -887,8 +792,6 @@ void __cdecl Render_InvalidateBackground(int redrawBackground,int redrawDepth)
 #undef local_4
 #undef local_8
 #undef local_c
-
-#endif
 
 
 /* ---- 0x004864a0  Render_BuildColorTable ---- */
@@ -962,8 +865,6 @@ void Render_BuildColorTable(int param_1,float param_2)
 
 
 /* ---- 0x00486620  Render_RemapPixels ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void __cdecl Render_RemapPixels(ushort *pixels,uint n)
 
 {
@@ -999,12 +900,8 @@ void __cdecl Render_RemapPixels(ushort *pixels,uint n)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x00486710  Render_SetGamma ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Rebuilds the colour constants and redraws the current setup when the gamma changes */
 
 void __cdecl Render_SetGamma(float gamma)
@@ -1026,12 +923,8 @@ void __cdecl Render_SetGamma(float gamma)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x00486760  Render_ConvertBackground ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Converts a compressed (type 2) background bitmap into g_pTempSurface and remaps its pixels */
 
 void Render_ConvertBackground(void *param_1)
@@ -1060,12 +953,8 @@ void Render_ConvertBackground(void *param_1)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x004867d0  Render_DimBackground ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Renders a frame, copies it to the background and darkens every pixel by the given shift (used
    while menus are up) */
 
@@ -1170,24 +1059,16 @@ void Render_DimBackground(ushort *param_1,byte param_2)
 #undef local_8
 #undef local_c
 
-#endif
-
 
 /* ---- 0x00486990  Render_CopyBackBufferToBackground ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void Render_CopyBackBufferToBackground(void)
 
 {
   Surface_Blit(g_pBackgroundSurface,&g_BackBuffer,0,0,(int *)0x0,0);
   return;
 }
-#endif
-
 
 /* ---- 0x004869b0  Render_CleanBuffer ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Lua CleanBuffer: after a restore, copies the background back onto the back buffer */
 
 void Render_CleanBuffer(void)
@@ -1213,12 +1094,8 @@ void Render_CleanBuffer(void)
 #undef local_8
 #undef local_c
 
-#endif
-
 
 /* ---- 0x00486a00  Render_RequestFullRedraw ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Lua opcode: ForceRefresh */
 
 void Render_RequestFullRedraw(void)
@@ -1227,53 +1104,35 @@ void Render_RequestFullRedraw(void)
   g_nFullRedrawPending = 1;
   return;
 }
-#endif
-
 
 /* ---- 0x00486b00  Render_GetBackgroundSurface ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void * Render_GetBackgroundSurface(void)
 
 {
   return g_pBackgroundSurface;
 }
-#endif
-
 
 /* ---- 0x00486b10  Render_GetZBufferSurface ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void * Render_GetZBufferSurface(void)
 
 {
   return g_pZBufferSurface;
 }
-#endif
-
 
 /* ---- 0x00486b20  Render_GetUserCallback ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 uint Render_GetUserCallback(void)
 
 {
   return UINT_008c97b8;
 }
-#endif
-
 
 /* ---- 0x00486b30  Render_SetDrawEnabled ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void Render_SetDrawEnabled(int param_1)
 
 {
   g_nDrawEnabled = param_1;
   return;
 }
-#endif
-
 
 /* ---- 0x00486d00  Render_DrawIris ---- */
 /* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
@@ -1379,8 +1238,6 @@ void __cdecl Render_DrawIris(float percent,int x,int y)
 
 
 /* ---- 0x00486eb0  Render_StartIrisClose ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Lua IrisDown: starts an iris transition closing over durationMs */
 
 void __cdecl Render_StartIrisClose(int x,int y,int durationMs)
@@ -1393,12 +1250,8 @@ void __cdecl Render_StartIrisClose(int x,int y,int durationMs)
   g_dwRenderFlags = g_dwRenderFlags | 4;
   return;
 }
-#endif
-
 
 /* ---- 0x00486ef0  Render_StartIrisOpen ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Lua IrisUp: starts an iris transition opening over durationMs (negative duration) */
 
 void __cdecl Render_StartIrisOpen(int x,int y,int durationMs)
@@ -1411,12 +1264,8 @@ void __cdecl Render_StartIrisOpen(int x,int y,int durationMs)
   g_dwRenderFlags = g_dwRenderFlags | 4;
   return;
 }
-#endif
-
 
 /* ---- 0x00486f30  Render_IsIrisDone ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 uint Render_IsIrisDone(void)
 
 {
@@ -1425,8 +1274,6 @@ uint Render_IsIrisDone(void)
   }
   return ~g_dwRenderFlags >> 2 & 1;
 }
-#endif
-
 
 /* ---- 0x00486f90  Render_CaptureThumbnail ---- */
 /* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
@@ -1572,8 +1419,6 @@ void __cdecl Render_FillRect(int x,int y,int w,int h,float r,float g,float b)
 
 
 /* ---- 0x00487260  Render_SaveScreen ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Lua SaveScreen */
 
 void __cdecl Render_SaveScreen(char *filename)
@@ -1633,12 +1478,8 @@ void __cdecl Render_SaveScreen(char *filename)
 #undef local_8
 #undef local_c
 
-#endif
-
 
 /* ---- 0x004872f0  Render_SaveZBufferBmp ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void __cdecl Render_SaveZBufferBmp(char *filename)
 
 {
@@ -1651,12 +1492,8 @@ void __cdecl Render_SaveZBufferBmp(char *filename)
   stdBitmap_Free(bitmap);
   return;
 }
-#endif
-
 
 /* ---- 0x00487340  Render_SaveScreenshotBmp ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Debug key S: writes the back buffer as a 24-bit .bmp */
 
 void __cdecl Render_SaveScreenshotBmp(char *filename)
@@ -1713,8 +1550,6 @@ void __cdecl Render_SaveScreenshotBmp(char *filename)
 #undef local_4
 #undef local_8
 #undef local_c
-
-#endif
 
 
 /* ---- 0x004873d0  Render_DrawProgressBar ---- */
@@ -1779,20 +1614,14 @@ void __cdecl Render_DrawProgressBar(float fraction)
 
 
 /* ---- 0x004874c0  Render_SetWaitCursorEnabled ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void Render_SetWaitCursorEnabled(uint param_1)
 
 {
   UINT_004e8088 = param_1;
   return;
 }
-#endif
-
 
 /* ---- 0x004874d0  Render_UpdateWaitCursor ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* After 3.5 s without a frame, animates wait.bm (BKND resource) on the primary surface every 250 ms
     */
 
@@ -1858,16 +1687,10 @@ void Render_UpdateWaitCursor(void)
 #undef uStack_4
 #undef uStack_8
 
-#endif
-
 
 /* ---- 0x0048f920  Render_GetFrameCounter ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 int Render_GetFrameCounter(void)
 
 {
   return g_nTalkingActorCount;
 }
-#endif
-

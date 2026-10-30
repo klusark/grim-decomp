@@ -17,3 +17,4 @@ build/perf/o2/
 build/perf/trial/
 build/perf/trial.mk
 build/perf/*.log
+build/difftest/out/
