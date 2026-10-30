@@ -9,11 +9,11 @@
 /* Cos_StartChoreFaded(inst, chore, ms): play the chore, advance it 70 ms, fade its keyframes in
    over ms (130 for the move chores). */
 
-void Cos_StartChoreFaded(void *param_1,int param_2,int param_3)
+void Cos_StartChoreFaded(void *param_1,uint param_2,int param_3)
 
 {
-  Cos_InstPlayChore(param_1,param_2,1,0);
-  Cos_InstUpdateChore(param_1,param_2,0x46);
+  Cos_InstPlayChore((int)param_1,param_2,1,0);
+  Cos_InstUpdateChore((int)param_1,param_2,0x46);
   Chore_FadeIn(param_1,param_2,param_3);
   return;
 }
@@ -30,7 +30,7 @@ undefined * __cdecl Cos_StopChoreFaded(void *param_1,int param_2,int param_3)
   int iVar3;
   
   if (param_2 == -1) {
-    puVar1 = (undefined *)Cos_InstCountChores(param_1);
+    puVar1 = (undefined *)Cos_InstCountChores((int)param_1);
     iVar3 = 0;
     if (0 < (int)puVar1) {
       do {
@@ -42,7 +42,7 @@ undefined * __cdecl Cos_StopChoreFaded(void *param_1,int param_2,int param_3)
   }
   else {
     Chore_FadeOut(param_1,param_2,param_3);
-    puVar1 = (undefined *)Cos_InstStopChore(param_1,param_2);
+    puVar1 = (undefined *)Cos_InstStopChore((int)param_1,param_2);
   }
   return puVar1;
 }
@@ -52,39 +52,39 @@ void __cdecl Costume_PrintList(void *costume)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  undefined4 *puVar1;
+  int *piVar1;
   int iVar2;
   int iVar3;
   int iVar4;
-  undefined4 *puVar5;
-  uint uVar6;
+  uint uVar5;
+  int *piVar6;
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
-  puVar5 = costume;
+  piVar6 = costume;
   if (costume != (void *)0x0) {
     do {
-      iVar2 = Cos_InstCountChores(*puVar5);
-      iVar4 = 0;
-      if (0 < iVar2) {
+      iVar3 = Cos_InstCountChores(*piVar6);
+      uVar5 = 0;
+      if (0 < iVar3) {
         do {
-          Cos_InstChoreStatus(*puVar5,iVar4);
-          iVar4 = iVar4 + 1;
-        } while (iVar4 < iVar2);
+          Cos_InstChoreStatus(*piVar6,uVar5);
+          uVar5 = uVar5 + 1;
+        } while ((int)uVar5 < iVar3);
       }
-      puVar1 = puVar5 + 0x2c;
-      puVar5 = (undefined4 *)*puVar1;
-    } while ((undefined4 *)*puVar1 != (undefined4 *)0x0);
-    for (iVar2 = *(int *)((int)costume + 8); iVar2 != 0; iVar2 = *(int *)(iVar2 + 400)) {
-      if (*(int *)(iVar2 + 0x38) != 0) {
-        uVar6 = 0;
-        iVar4 = *(int *)(*(int *)(iVar2 + 0x40) + 4);
-        if (*(int *)(iVar4 + 0x54) != 0) {
-          iVar3 = 0;
+      piVar1 = piVar6 + 0x2c;
+      piVar6 = (int *)*piVar1;
+    } while ((int *)*piVar1 != (int *)0x0);
+    for (iVar3 = *(int *)((int)costume + 8); iVar3 != 0; iVar3 = *(int *)(iVar3 + 400)) {
+      if (*(int *)(iVar3 + 0x38) != 0) {
+        uVar5 = 0;
+        iVar2 = *(int *)(*(int *)(iVar3 + 0x40) + 4);
+        if (*(int *)(iVar2 + 0x54) != 0) {
+          iVar4 = 0;
           do {
-            String_ContainsSubstring(*(int *)(iVar4 + 0x58) + iVar3,s_skirt_004ea1a8);
-            uVar6 = uVar6 + 1;
-            iVar3 = iVar3 + 0xb8;
-          } while (uVar6 < *(uint *)(iVar4 + 0x54));
+            String_ContainsSubstring(*(int *)(iVar2 + 0x58) + iVar4,s_skirt_004ea1a8);
+            uVar5 = uVar5 + 1;
+            iVar4 = iVar4 + 0xb8;
+          } while (uVar5 < *(uint *)(iVar2 + 0x54));
         }
       }
     }
@@ -98,18 +98,18 @@ void __cdecl Costume_PrintList(void *costume)
 void __cdecl Costume_FreeList(void *list,int free)
 
 {
-  undefined4 *puVar1;
+  int *piVar1;
   
-  while (list != (undefined4 *)0x0) {
-    puVar1 = *(undefined4 **)((int)list + 0xb0);
+  while (list != (int *)0x0) {
+    piVar1 = *(int **)((int)list + 0xb0);
     if (free != 0) {
-      Cos_FreeCosInstance(*(undefined4 *)list);
+      Cos_FreeCosInstance(*(int *)list);
     }
     if (*(int *)((int)list + 0x7c) != 0) {
-      ResRef_Remove((undefined4 *)((int)list + 0x7c));
+      ResRef_Remove((int *)((int)list + 0x7c));
     }
     Pool_Free(list);
-    list = puVar1;
+    list = piVar1;
   }
   return;
 }
@@ -124,7 +124,7 @@ void * __cdecl Costume_Pop(void *list,int free)
   if (list != (void *)0x0) {
     pvVar1 = *(void **)((int)list + 0xb0);
     *(undefined4 *)((int)list + 0xb0) = 0;
-    Cos_InstStopChores(*(undefined4 *)list);
+    Cos_InstStopChores(*(uint *)list);
     Costume_FreeList(list,free);
   }
   return pvVar1;
@@ -149,32 +149,31 @@ void * __cdecl Costume_Push(void *list,void *costumeRes,int flags)
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int *piVar1;
-  undefined4 uVar2;
-  int iVar3;
-  void *pvVar4;
+  int iVar2;
+  void *pvVar3;
+  uint uVar4;
   uint uVar5;
-  uint uVar6;
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   piVar1 = (int *)Costume_AllocRecord();
   piVar1[0x2c] = (int)list;
   if (flags == 0) {
     if (list == (void *)0x0) {
-      uVar2 = 0;
+      uVar4 = 0;
     }
     else {
-      uVar2 = *(undefined4 *)list;
+      uVar4 = *(uint *)list;
     }
-    iVar3 = Cos_CreateCosInstance(costumeRes,uVar2);
-    *piVar1 = iVar3;
+    iVar2 = Cos_CreateCosInstance(costumeRes,uVar4);
+    *piVar1 = iVar2;
     ResRef_Add(piVar1 + 0x1f,costumeRes,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0x47a);
   }
   else {
     *piVar1 = flags;
   }
-  pvVar4 = Costume_GetMainModel((void *)*piVar1);
-  piVar1[1] = (int)pvVar4;
-  if (((pvVar4 != (void *)0x0) && (list != (void *)0x0)) && (*(void **)((int)list + 4) == pvVar4)) {
+  pvVar3 = Costume_GetMainModel((void *)*piVar1);
+  piVar1[1] = (int)pvVar3;
+  if (((pvVar3 != (void *)0x0) && (list != (void *)0x0)) && (*(void **)((int)list + 4) == pvVar3)) {
     piVar1[3] = *(int *)((int)list + 0xc);
     piVar1[4] = *(int *)((int)list + 0x10);
     piVar1[5] = *(int *)((int)list + 0x14);
@@ -184,18 +183,18 @@ void * __cdecl Costume_Push(void *list,void *costumeRes,int flags)
     piVar1[9] = *(int *)((int)list + 0x24);
     piVar1[2] = *(int *)((int)list + 8);
   }
-  uVar5 = Cos_InstCountComponents(*piVar1);
-  uVar6 = 0;
-  if (uVar5 != 0) {
+  uVar4 = Cos_InstCountComponents(*piVar1);
+  uVar5 = 0;
+  if (uVar4 != 0) {
     do {
-      iVar3 = Cos_InstGetInstanceData(*piVar1,uVar6,&local_4);
+      iVar2 = Cos_InstGetInstanceData(*piVar1,uVar5,(int *)&local_4);
       if ((((local_4 == 0x4c444d4d) || (local_4 == 0x4c444f4d)) || (local_4 == 0x74727073)) &&
-         (*(int *)(iVar3 + 0x50) == 1)) {
-        *(int *)(iVar3 + 400) = piVar1[2];
-        piVar1[2] = iVar3;
+         (*(int *)(iVar2 + 0x50) == 1)) {
+        *(int *)(iVar2 + 400) = piVar1[2];
+        piVar1[2] = iVar2;
       }
-      uVar6 = uVar6 + 1;
-    } while (uVar6 < uVar5);
+      uVar5 = uVar5 + 1;
+    } while (uVar5 < uVar4);
   }
   return piVar1;
 }
@@ -266,13 +265,13 @@ void * __cdecl Costume_GetMainModel(void *cosInst)
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   pvVar1 = cosInst;
-  uVar2 = Cos_InstCountComponents(cosInst);
+  uVar2 = Cos_InstCountComponents((int)cosInst);
   uVar4 = 0;
   if (uVar2 == 0) {
     return (void *)0x0;
   }
   do {
-    iVar3 = Cos_InstGetInstanceData(pvVar1,uVar4,&cosInst);
+    iVar3 = Cos_InstGetInstanceData((int)pvVar1,uVar4,(int *)&cosInst);
     if (cosInst == (void *)0x4c444d4d) {
       return *(void **)(iVar3 + 0x40);
     }
@@ -359,11 +358,11 @@ void __cdecl Costume_ApplyComponentState(void *cosInst)
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   pvVar2 = cosInst;
-  iVar3 = Cos_InstCountComponents(cosInst);
+  iVar3 = Cos_InstCountComponents((int)cosInst);
   iVar6 = 0;
   if (0 < iVar3) {
     do {
-      piVar4 = (int *)Cos_InstGetInstanceData(pvVar2,iVar6,&cosInst);
+      piVar4 = (int *)Cos_InstGetInstanceData((int)pvVar2,iVar6,(int *)&cosInst);
       if (cosInst == (void *)0x2054414d) {
         iVar1 = *(int *)(*(int *)(*(int *)(*(int *)(*piVar4 + 0x40) + 4) + 0x48) + piVar4[1] * 4);
         uVar5 = *(uint *)(iVar1 + 100) ^ piVar4[2];
@@ -408,20 +407,20 @@ void __cdecl Costume_UpdateAttachedFrame(void *component,float *frame)
 }
 
 /* ---- 0x004956f0  Costume_TouchComponents ---- */
-void Costume_TouchComponents(undefined4 param_1)
+void Costume_TouchComponents(int param_1)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   int iVar2;
-  #define local_4 (*(undefined1 (*)[4])(_frame + (0x20 - 0x4)))
+  #define local_4 (*(int *)(_frame + (0x20 - 0x4)))
   
   Set_GetCurrent();
   iVar1 = Cos_InstCountComponents(param_1);
   iVar2 = 0;
   if (0 < iVar1) {
     do {
-      Cos_InstGetInstanceData(param_1,iVar2,local_4);
+      Cos_InstGetInstanceData(param_1,iVar2,&local_4);
       iVar2 = iVar2 + 1;
     } while (iVar2 < iVar1);
   }
@@ -439,19 +438,19 @@ void __cdecl Costume_UpdateAll(void *costumeList,float dt)
   int iVar1;
   void *puppet;
   undefined4 unaff_ESI;
-  undefined4 *puVar2;
+  int *piVar2;
   undefined4 unaff_EDI;
   ulonglong uVar3;
   
   uVar3 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
   if (costumeList != (void *)0x0) {
     iVar1 = *(int *)((int)costumeList + 4);
-    puVar2 = costumeList;
+    piVar2 = costumeList;
     do {
-      if (puVar2[1] != iVar1) break;
-      Cos_InstUpdateChores(*puVar2,(int)uVar3);
-      puVar2 = (undefined4 *)puVar2[0x2c];
-    } while (puVar2 != (undefined4 *)0x0);
+      if (piVar2[1] != iVar1) break;
+      Cos_InstUpdateChores(*piVar2,(int)uVar3);
+      piVar2 = (int *)piVar2[0x2c];
+    } while (piVar2 != (int *)0x0);
     for (iVar1 = *(int *)((int)costumeList + 8); iVar1 != 0; iVar1 = *(int *)(iVar1 + 400)) {
       puppet = *(void **)(*(int *)(iVar1 + 0x40) + 0x14);
       if (puppet != (void *)0x0) {
@@ -465,59 +464,58 @@ void __cdecl Costume_UpdateAll(void *costumeList,float dt)
 
 
 /* ---- 0x00495e90  Costume_SaveChoreListFile ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Callback given to Cos_RegisterSaveHook (costume editor): asks for a .lua/.def file name and
    writes the costume's chore list. */
 
-undefined4 Costume_SaveChoreListFile(char *param_1,undefined4 param_2,undefined4 param_3)
+undefined4 Costume_SaveChoreListFile(char *param_1,uint *param_2,undefined4 param_3)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   void **ppvVar1;
   char cVar2;
   int iVar3;
-  undefined4 uVar4;
-  char *pcVar5;
+  char *pcVar4;
+  int iVar5;
   uint uVar6;
-  undefined4 uVar7;
+  int iVar7;
   uint uVar8;
   char *pcVar9;
+  uint uVar10;
   #define acStack_20 (*(char (*)[32])(_frame + (0x30 - 0x20)))
   
   iVar3 = strrchr(param_1,0x5c);
-  pcVar5 = param_1;
+  pcVar4 = param_1;
   if (iVar3 != 0) {
-    pcVar5 = (char *)(iVar3 + 1);
+    pcVar4 = (char *)(iVar3 + 1);
   }
-  uVar4 = Cos_GetCostumeName(param_2);
-  iVar3 = _stricmp(pcVar5,uVar4);
+  iVar3 = Cos_GetCostumeName((int)param_2);
+  iVar3 = _stricmp(pcVar4,iVar3);
   if (iVar3 == 0) {
     uVar6 = 0xffffffff;
-    pcVar5 = param_1;
+    pcVar4 = param_1;
     do {
-      pcVar9 = pcVar5;
+      pcVar9 = pcVar4;
       if (uVar6 == 0) break;
       uVar6 = uVar6 - 1;
-      pcVar9 = pcVar5 + 1;
-      cVar2 = *pcVar5;
-      pcVar5 = pcVar9;
+      pcVar9 = pcVar4 + 1;
+      cVar2 = *pcVar4;
+      pcVar4 = pcVar9;
     } while (cVar2 != '\0');
     uVar6 = ~uVar6;
-    pcVar5 = pcVar9 + -uVar6;
+    pcVar4 = pcVar9 + -uVar6;
     pcVar9 = g_szDialogFileName;
     for (uVar8 = uVar6 >> 2; uVar8 != 0; uVar8 = uVar8 - 1) {
-      *(undefined4 *)pcVar9 = *(undefined4 *)pcVar5;
-      pcVar5 = pcVar5 + 4;
+      *(undefined4 *)pcVar9 = *(undefined4 *)pcVar4;
+      pcVar4 = pcVar4 + 4;
       pcVar9 = pcVar9 + 4;
     }
     for (uVar6 = uVar6 & 3; uVar6 != 0; uVar6 = uVar6 - 1) {
-      *pcVar9 = *pcVar5;
-      pcVar5 = pcVar5 + 1;
+      *pcVar9 = *pcVar4;
+      pcVar4 = pcVar4 + 1;
       pcVar9 = pcVar9 + 1;
     }
-    pcVar5 = Str_FileExtension(g_szDialogFileName);
-    sprintf(pcVar5,&DAT_004ea45c);
+    pcVar4 = Str_FileExtension(g_szDialogFileName);
+    sprintf(pcVar4,&DAT_004ea45c);
   }
   else {
     iVar3 = Plat_SaveFileDialog(s_Name_chore_list_file____004ea460,
@@ -529,23 +527,24 @@ undefined4 Costume_SaveChoreListFile(char *param_1,undefined4 param_2,undefined4
   iVar3 = (*g_pSvcCostume->pFopen)(g_szDialogFileName,&DAT_004dd478);
   if (iVar3 != 0) {
     ppvVar1 = &g_pSvcCostume->pFprintf;
-    pcVar5 = Str_Basename(param_1);
-    (*(code *)*ppvVar1)(iVar3,s____Chore_numbering_for__s__004ea3d4,pcVar5);
+    pcVar4 = Str_Basename(param_1);
+    (*(code *)*ppvVar1)(iVar3,s____Chore_numbering_for__s__004ea3d4,pcVar4);
     (*g_pSvcCostume->pFprintf)(iVar3,s_____s_004ea3cc,param_3);
     Str_CopyBasenameNoExt(acStack_20,0x20,param_1);
-    uVar4 = Cos_CreateCosInstance(param_2,0);
-    uVar6 = Cos_InstCountChores(uVar4);
+    iVar5 = Cos_CreateCosInstance(param_2,0);
+    uVar6 = Cos_InstCountChores(iVar5);
     uVar8 = 0;
     if (uVar6 != 0) {
       do {
         ppvVar1 = &g_pSvcCostume->pFprintf;
-        uVar7 = Cos_InstChoreName(uVar4,uVar8,uVar8);
-        (*(code *)*ppvVar1)(iVar3,s__s__s____d_004ea3bc,acStack_20,uVar7);
+        uVar10 = uVar8;
+        iVar7 = Cos_InstChoreName(iVar5,uVar8);
+        (*(code *)*ppvVar1)(iVar3,s__s__s____d_004ea3bc,acStack_20,iVar7,uVar10);
         uVar8 = uVar8 + 1;
       } while (uVar8 < uVar6);
     }
     (*g_pSvcCostume->pFclose)(iVar3);
-    Cos_FreeCosInstance(uVar4);
+    Cos_FreeCosInstance(iVar5);
     return 1;
   }
   Plat_MessageBox(s_File_Error__004ea3f0,s_Unable_to_open_chore_list_file__C_004ea3fc,0);
@@ -553,16 +552,12 @@ undefined4 Costume_SaveChoreListFile(char *param_1,undefined4 param_2,undefined4
 }
 #undef acStack_20
 
-#endif
-
 
 /* ---- 0x00496020  Costume_InstanceHook ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Callback given to Cos_RegisterInstanceHook: clears the instance's user data (the actor index)
    when an instance is created or destroyed. */
 
-undefined4 Costume_InstanceHook(undefined4 param_1,int param_2)
+undefined4 Costume_InstanceHook(int param_1,int param_2)
 
 {
   if (param_2 != 0) {
@@ -572,5 +567,3 @@ undefined4 Costume_InstanceHook(undefined4 param_1,int param_2)
   Cos_InstSetUserData(param_1,0);
   return 1;
 }
-#endif
-

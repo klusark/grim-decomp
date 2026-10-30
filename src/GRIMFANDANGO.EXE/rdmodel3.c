@@ -6,8 +6,6 @@
 #include "functions.h"
 
 /* ---- 0x0040a8c0  rdModel3_NewEntry ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Clears a 0x90-byte model record and names it UNKNOWN. Source file Rdmodel3.c
    (C:\grimjedi\Libs\RDroid\Primitives\Rdmodel3.c). */
 
@@ -27,12 +25,8 @@ void rdModel3_NewEntry(undefined4 *param_1)
   param_1[0x14] = 0;
   return;
 }
-#endif
-
 
 /* ---- 0x0040a8f0  rdModel3_New ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Loads a model: calls the custom loader hook if one is installed, otherwise allocates the record,
    rdModel3_Load, then rdModel3_LoadPostProcess. Source file Rdmodel3.c
    (C:\grimjedi\Libs\RDroid\Primitives\Rdmodel3.c). */
@@ -70,8 +64,6 @@ undefined4 * rdModel3_New(undefined4 param_1)
   rdModel3_Free(puVar1);
   return (undefined4 *)0x0;
 }
-#endif
-
 
 /* ---- 0x0040a980  rdModel3_Load ---- */
 /* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
@@ -862,8 +854,6 @@ undefined4 rdModel3_LoadBinary(int param_1,int param_2)
 
 
 /* ---- 0x0040c090  rdModel3_LoadPostProcess ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Computes everything derived after loading: bounding boxes, radii, face and vertex normals, node
    child counts. Source file Rdmodel3.c (C:\grimjedi\Libs\RDroid\Primitives\Rdmodel3.c). */
 
@@ -878,12 +868,8 @@ void rdModel3_LoadPostProcess(undefined4 param_1)
   rdModel3_BuildBoundingBoxCorners(param_1);
   return;
 }
-#endif
-
 
 /* ---- 0x0040c0d0  rdModel3_Free ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Frees a model (custom free hook if installed, else rdModel3_FreeEntry and the record). Source
    file Rdmodel3.c (C:\grimjedi\Libs\RDroid\Primitives\Rdmodel3.c). */
 
@@ -900,12 +886,8 @@ void rdModel3_Free(int param_1)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x0040c100  rdModel3_FreeEntry ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Frees the contents of a model: materials, geometry sets, meshes, vertices, faces, hierarchy
    nodes. Source file Rdmodel3.c (C:\grimjedi\Libs\RDroid\Primitives\Rdmodel3.c). */
 
@@ -989,12 +971,8 @@ void rdModel3_FreeEntry(int param_1)
 #undef local_4
 #undef local_8
 
-#endif
-
 
 /* ---- 0x0040c280  rdModel3_BuildBoundingBoxCorners ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Allocates 0xc0 bytes per mesh and fills the 8 corner points of its bounding box from the min/max
    values. Source file Rdmodel3.c (C:\grimjedi\Libs\RDroid\Primitives\Rdmodel3.c). */
 
@@ -1093,8 +1071,6 @@ void rdModel3_BuildBoundingBoxCorners(int param_1)
   } while( true );
 }
 #undef local_4
-
-#endif
 
 
 /* ---- 0x0040c520  rdModel3_CalcBoundingBoxes ---- */
@@ -1200,8 +1176,6 @@ void rdModel3_CalcBoundingBoxes(uint param_1)
 
 
 /* ---- 0x0040c710  rdModel3_AccumulateNodeBounds ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Recursively composes the node matrices (angles, offset, pivot) and accumulates the transformed
    mesh boxes into the model bounds. Source file Rdmodel3.c
    (C:\grimjedi\Libs\RDroid\Primitives\Rdmodel3.c). */
@@ -1214,12 +1188,9 @@ void rdModel3_AccumulateNodeBounds(int param_1,int param_2,float *param_3)
   float *a;
   uint uVar2;
   int iVar3;
-  #define local_a8 (*(uint *)(_frame + (0xc0 - 0xa8)))
-  #define local_a4 (*(uint *)(_frame + (0xc0 - 0xa4)))
-  #define local_a0 (*(uint *)(_frame + (0xc0 - 0xa0)))
-  #define local_9c (*(uint *)(_frame + (0xc0 - 0x9c)))
-  #define local_98 (*(uint *)(_frame + (0xc0 - 0x98)))
-  #define local_94 (*(uint *)(_frame + (0xc0 - 0x94)))
+  #define local_a8 (*(float *)(_frame + (0xc0 - 0xa8)))
+  #define local_a4 (*(float (*)[2])(_frame + (0xc0 - 0xa4)))
+  #define local_9c (*(float (*)[3])(_frame + (0xc0 - 0x9c)))
   #define local_90 (*(float (*)[12])(_frame + (0xc0 - 0x90)))
   #define local_60 (*(float (*)[12])(_frame + (0xc0 - 0x60)))
   #define local_30 (*(undefined1 (*)[48])(_frame + (0xc0 - 0x30)))
@@ -1229,10 +1200,10 @@ void rdModel3_AccumulateNodeBounds(int param_1,int param_2,float *param_3)
   Matrix_Multiply(local_90,local_30);
   iVar3 = *(int *)(param_2 + 0x54);
   if (iVar3 != 0) {
-    local_9c = (uint)-*(float *)(iVar3 + 100);
-    local_98 = (uint)-*(float *)(iVar3 + 0x68);
-    local_94 = (uint)-*(float *)(iVar3 + 0x6c);
-    Matrix_SetTranslation(local_90,&local_9c);
+    local_9c[0] = -*(float *)(iVar3 + 100);
+    local_9c[1] = -*(float *)(iVar3 + 0x68);
+    local_9c[2] = -*(float *)(iVar3 + 0x6c);
+    Matrix_SetTranslation(local_90,local_9c);
   }
   Matrix_Mul34(local_60,param_3,local_90);
   iVar3 = *(int *)(param_2 + 0x4c);
@@ -1242,24 +1213,24 @@ void rdModel3_AccumulateNodeBounds(int param_1,int param_2,float *param_3)
     a = *(float **)(iVar1 + 0x30 + iVar3 * 0x7c);
     if (*(int *)(iVar1 + 0x48 + iVar3 * 0x7c) != 0) {
       do {
-        Vec3_Sub((float *)&local_a8,a,local_60);
-        if (*(float *)(param_1 + 0x6c) < (float)local_a8) {
-          *(uint *)(param_1 + 0x6c) = local_a8;
+        Vec3_Sub(&local_a8,a,local_60);
+        if (*(float *)(param_1 + 0x6c) < local_a8) {
+          *(float *)(param_1 + 0x6c) = local_a8;
         }
-        if (*(float *)(param_1 + 0x70) < (float)local_a4) {
-          *(uint *)(param_1 + 0x70) = local_a4;
+        if (*(float *)(param_1 + 0x70) < local_a4[0]) {
+          *(float *)(param_1 + 0x70) = local_a4[0];
         }
-        if (*(float *)(param_1 + 0x74) < (float)local_a0) {
-          *(uint *)(param_1 + 0x74) = local_a0;
+        if (*(float *)(param_1 + 0x74) < local_a4[1]) {
+          *(float *)(param_1 + 0x74) = local_a4[1];
         }
-        if ((float)local_a8 < *(float *)(param_1 + 0x60)) {
-          *(uint *)(param_1 + 0x60) = local_a8;
+        if (local_a8 < *(float *)(param_1 + 0x60)) {
+          *(float *)(param_1 + 0x60) = local_a8;
         }
-        if ((float)local_a4 < *(float *)(param_1 + 100)) {
-          *(uint *)(param_1 + 100) = local_a4;
+        if (local_a4[0] < *(float *)(param_1 + 100)) {
+          *(float *)(param_1 + 100) = local_a4[0];
         }
-        if ((float)local_a0 < *(float *)(param_1 + 0x68)) {
-          *(uint *)(param_1 + 0x68) = local_a0;
+        if (local_a4[1] < *(float *)(param_1 + 0x68)) {
+          *(float *)(param_1 + 0x68) = local_a4[1];
         }
         a = a + 3;
         uVar2 = uVar2 + 1;
@@ -1282,14 +1253,9 @@ void rdModel3_AccumulateNodeBounds(int param_1,int param_2,float *param_3)
 #undef local_30
 #undef local_60
 #undef local_90
-#undef local_94
-#undef local_98
 #undef local_9c
-#undef local_a0
 #undef local_a4
 #undef local_a8
-
-#endif
 
 
 /* ---- 0x0040c8c0  rdModel3_CalcRadii ---- */
@@ -1354,12 +1320,8 @@ void rdModel3_AccumulateNodeRadius(int param_1,int param_2,float *param_3)
   float *a;
   uint uVar3;
   int iVar4;
-  #define local_a8 (*(uint *)(_frame + (0xc0 - 0xa8)))
-  #define local_a4 (*(uint *)(_frame + (0xc0 - 0xa4)))
-  #define local_a0 (*(uint *)(_frame + (0xc0 - 0xa0)))
-  #define local_9c (*(uint *)(_frame + (0xc0 - 0x9c)))
-  #define local_98 (*(uint *)(_frame + (0xc0 - 0x98)))
-  #define local_94 (*(uint *)(_frame + (0xc0 - 0x94)))
+  #define local_a8 (*(float (*)[3])(_frame + (0xc0 - 0xa8)))
+  #define local_9c (*(float (*)[3])(_frame + (0xc0 - 0x9c)))
   #define local_90 (*(float (*)[12])(_frame + (0xc0 - 0x90)))
   #define local_60 (*(float (*)[12])(_frame + (0xc0 - 0x60)))
   #define local_30 (*(undefined1 (*)[48])(_frame + (0xc0 - 0x30)))
@@ -1369,10 +1331,10 @@ void rdModel3_AccumulateNodeRadius(int param_1,int param_2,float *param_3)
   Matrix_Multiply(local_90,local_30);
   iVar4 = *(int *)(param_2 + 0x54);
   if (iVar4 != 0) {
-    local_9c = (uint)-*(float *)(iVar4 + 100);
-    local_98 = (uint)-*(float *)(iVar4 + 0x68);
-    local_94 = (uint)-*(float *)(iVar4 + 0x6c);
-    Matrix_SetTranslation(local_90,&local_9c);
+    local_9c[0] = -*(float *)(iVar4 + 100);
+    local_9c[1] = -*(float *)(iVar4 + 0x68);
+    local_9c[2] = -*(float *)(iVar4 + 0x6c);
+    Matrix_SetTranslation(local_90,local_9c);
   }
   Matrix_Mul34(local_60,param_3,local_90);
   iVar4 = *(int *)(param_2 + 0x4c);
@@ -1382,9 +1344,9 @@ void rdModel3_AccumulateNodeRadius(int param_1,int param_2,float *param_3)
     a = *(float **)(iVar1 + 0x30 + iVar4 * 0x7c);
     if (*(int *)(iVar1 + 0x48 + iVar4 * 0x7c) != 0) {
       do {
-        Vec3_Sub((float *)&local_a8,a,local_60);
-        fVar2 = SQRT((float)local_a0 * (float)local_a0 +
-                     (float)local_a4 * (float)local_a4 + (float)local_a8 * (float)local_a8);
+        Vec3_Sub(local_a8,a,local_60);
+        fVar2 = SQRT(local_a8[2] * local_a8[2] +
+                     local_a8[1] * local_a8[1] + local_a8[0] * local_a8[0]);
         if (_DAT_007f3200 < fVar2) {
           _DAT_007f3200 = fVar2;
         }
@@ -1409,19 +1371,13 @@ void rdModel3_AccumulateNodeRadius(int param_1,int param_2,float *param_3)
 #undef local_30
 #undef local_60
 #undef local_90
-#undef local_94
-#undef local_98
 #undef local_9c
-#undef local_a0
-#undef local_a4
 #undef local_a8
 
 #endif
 
 
 /* ---- 0x0040cad0  rdModel3_CalcFaceNormals ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Computes the normal of every face from three non-collinear vertices (Math3D_TriangleNormal,
    Math3D_PointsCollinear). Source file Rdmodel3.c (C:\grimjedi\Libs\RDroid\Primitives\Rdmodel3.c).
     */
@@ -1505,8 +1461,6 @@ void rdModel3_CalcFaceNormals(uint param_1)
 #undef local_8
 #undef local_c
 
-#endif
-
 
 /* ---- 0x0040cc30  rdModel3_CalcVertexNormals ---- */
 /* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
@@ -1525,26 +1479,23 @@ void rdModel3_CalcVertexNormals(int param_1)
   float fVar5;
   float fVar6;
   float fVar7;
-  float fVar8;
-  int iVar9;
-  float *pfVar10;
-  int iVar11;
-  uint uVar12;
+  int iVar8;
+  float *pfVar9;
+  int iVar10;
+  uint uVar11;
+  float fVar12;
   undefined4 *puVar13;
   uint *puVar14;
   uint *puVar15;
   float *pfVar16;
   uint *puVar17;
-  #define local_44 (*(uint *)(_frame + (0x60 - 0x44)))
-  #define local_40 (*(uint *)(_frame + (0x60 - 0x40)))
-  #define local_3c (*(uint *)(_frame + (0x60 - 0x3c)))
+  #define local_44 (*(float (*)[3])(_frame + (0x60 - 0x44)))
   #define local_38 (*(uint *)(_frame + (0x60 - 0x38)))
   #define local_34 (*(uint *)(_frame + (0x60 - 0x34)))
   #define local_30 (*(uint *)(_frame + (0x60 - 0x30)))
   #define local_2c (*(uint *)(_frame + (0x60 - 0x2c)))
   #define local_28 (*(uint *)(_frame + (0x60 - 0x28)))
-  #define local_20 (*(uint *)(_frame + (0x60 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x60 - 0x1c)))
+  #define local_20 (*(float (*)[2])(_frame + (0x60 - 0x20)))
   #define local_14 (*(uint *)(_frame + (0x60 - 0x14)))
   #define local_10 (*(uint *)(_frame + (0x60 - 0x10)))
   #define local_4 (*(uint *)(_frame + (0x60 - 0x4)))
@@ -1561,22 +1512,22 @@ void rdModel3_CalcVertexNormals(int param_1)
           local_38 = 0;
           if (puVar13[6] != 0) {
             do {
-              local_20 = 0;
-              local_1c = 0;
+              local_20[0] = 0.0;
+              local_20[1] = 0.0;
               fVar1 = 0.0;
               fVar2 = 0.0;
               fVar3 = 0.0;
               fVar4 = 0.0;
-              local_44 = 0;
-              if (puVar13[8] == 0) {
+              local_44[0] = 0.0;
+              if ((float)puVar13[8] == 0.0) {
                 fVar1 = 0.0;
               }
               else {
                 puVar17 = (uint *)(puVar13[4] + 0x14);
-                uVar12 = puVar13[8];
+                fVar12 = (float)puVar13[8];
                 do {
-                  local_44 = uVar12;
-                  uVar12 = 0;
+                  local_44[0] = fVar12;
+                  uVar11 = 0;
                   if (*puVar17 != 0) {
                     puVar14 = (uint *)puVar17[1];
                     do {
@@ -1587,47 +1538,47 @@ void rdModel3_CalcVertexNormals(int param_1)
                         fVar4 = fVar4 - -1.0;
                         break;
                       }
-                      uVar12 = uVar12 + 1;
+                      uVar11 = uVar11 + 1;
                       puVar14 = puVar14 + 1;
-                    } while (uVar12 < *puVar17);
+                    } while (uVar11 < *puVar17);
                   }
                   puVar17 = puVar17 + 0x13;
-                  uVar12 = local_44 - 1;
-                  local_44 = (uint)fVar4;
-                  local_20 = (uint)fVar2;
-                  local_1c = (uint)fVar3;
-                } while (uVar12 != 0);
+                  fVar12 = (float)((int)local_44[0] + -1);
+                  local_44[0] = fVar4;
+                  local_20[0] = fVar2;
+                  local_20[1] = fVar3;
+                } while (fVar12 != 0.0);
               }
-              if ((float)local_44 == 0.0) {
+              if (local_44[0] == 0.0) {
                 *pfVar16 = 1.0;
                 pfVar16[1] = 0.0;
                 pfVar16[2] = 0.0;
               }
-              else if ((float)local_44 == 1.0) {
-                iVar9 = puVar13[4];
-                uVar12 = *(uint *)(iVar9 + 0x14);
-                iVar9 = *(int *)(iVar9 + 0x18);
-                pfVar10 = (float *)*puVar13;
-                iVar11 = *(int *)(iVar9 + (uVar12 - 1) * 4);
-                fVar1 = pfVar10[2];
-                fVar2 = pfVar10[2];
-                fVar3 = *pfVar10;
-                fVar4 = *pfVar10;
-                fVar5 = (pfVar10 + iVar11 * 3)[2];
-                fVar6 = pfVar10[iVar11 * 3];
-                iVar9 = *(int *)(iVar9 + (int)(1 % (ulonglong)uVar12) * 4);
-                fVar7 = pfVar10[iVar9 * 3 + 2];
-                fVar8 = pfVar10[iVar9 * 3];
-                pfVar16[1] = (pfVar10[1] - pfVar10[iVar9 * 3 + 1]) +
-                             (pfVar10[1] - pfVar10[iVar11 * 3 + 1]);
-                pfVar16[2] = (fVar1 - fVar7) + (fVar2 - fVar5);
-                *pfVar16 = (fVar4 - fVar6) + (fVar3 - fVar8);
+              else if (local_44[0] == 1.0) {
+                iVar8 = puVar13[4];
+                uVar11 = *(uint *)(iVar8 + 0x14);
+                iVar8 = *(int *)(iVar8 + 0x18);
+                pfVar9 = (float *)*puVar13;
+                iVar10 = *(int *)(iVar8 + (uVar11 - 1) * 4);
+                fVar1 = pfVar9[2];
+                fVar2 = pfVar9[2];
+                fVar3 = *pfVar9;
+                fVar4 = *pfVar9;
+                fVar12 = (pfVar9 + iVar10 * 3)[2];
+                fVar5 = pfVar9[iVar10 * 3];
+                iVar8 = *(int *)(iVar8 + (int)(1 % (ulonglong)uVar11) * 4);
+                fVar6 = pfVar9[iVar8 * 3 + 2];
+                fVar7 = pfVar9[iVar8 * 3];
+                pfVar16[1] = (pfVar9[1] - pfVar9[iVar8 * 3 + 1]) +
+                             (pfVar9[1] - pfVar9[iVar10 * 3 + 1]);
+                pfVar16[2] = (fVar1 - fVar6) + (fVar2 - fVar12);
+                *pfVar16 = (fVar4 - fVar5) + (fVar3 - fVar7);
                 Vec3_Normalize(pfVar16);
               }
               else {
-                *pfVar16 = fVar1 / (float)local_44;
-                pfVar16[1] = (float)local_20 / (float)local_44;
-                pfVar16[2] = (float)local_1c / (float)local_44;
+                *pfVar16 = fVar1 / local_44[0];
+                pfVar16[1] = local_20[0] / local_44[0];
+                pfVar16[2] = local_20[1] / local_44[0];
                 Vec3_Normalize(pfVar16);
               }
               pfVar16 = pfVar16 + 3;
@@ -1646,24 +1597,19 @@ void rdModel3_CalcVertexNormals(int param_1)
 }
 #undef local_10
 #undef local_14
-#undef local_1c
 #undef local_20
 #undef local_28
 #undef local_2c
 #undef local_30
 #undef local_34
 #undef local_38
-#undef local_3c
 #undef local_4
-#undef local_40
 #undef local_44
 
 #endif
 
 
 /* ---- 0x0040ce90  rdModel3_CountNodeChildren ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Counts the children of every hierarchy node (follows the sibling chain at +0x54). Source file
    Rdmodel3.c (C:\grimjedi\Libs\RDroid\Primitives\Rdmodel3.c). */
 
@@ -1696,5 +1642,3 @@ void rdModel3_CountNodeChildren(int param_1)
   }
   return;
 }
-#endif
-

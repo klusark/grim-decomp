@@ -111,14 +111,15 @@ void * ResType_LipSyncHandler(int *param_1)
 
 {
   int iVar1;
+  uint *data;
   void *pvVar2;
   
   if (param_1[2] == 0x53594e43) {
     iVar1 = *param_1;
     if (iVar1 == 1) {
-      pvVar2 = (void *)grimSound_LipSyncLoad(param_1[1]);
-      if (pvVar2 != (void *)0x0) {
-        pvVar2 = Res_Register(param_1[2],(char *)param_1[1],pvVar2);
+      data = grimSound_LipSyncLoad((uint *)param_1[1]);
+      if (data != (uint *)0x0) {
+        pvVar2 = Res_Register(param_1[2],(char *)param_1[1],data);
         return pvVar2;
       }
     }
@@ -211,7 +212,7 @@ int __cdecl ResType_CostumeHandler(void *msg)
   }
   iVar1 = *(int *)msg;
   if (iVar1 == 1) {
-    pvVar2 = (void *)Cos_Load(*(undefined4 *)((int)msg + 4));
+    pvVar2 = (void *)Cos_Load(*(int *)((int)msg + 4));
     if (pvVar2 == (void *)0x0) {
       return 0;
     }
@@ -219,7 +220,7 @@ int __cdecl ResType_CostumeHandler(void *msg)
   }
   else {
     if (iVar1 == 2) {
-      Cos_Free(*(undefined4 *)((int)msg + 0xc));
+      Cos_Free(*(int *)((int)msg + 0xc));
       return 1;
     }
     if (iVar1 == 3) {
@@ -517,8 +518,6 @@ void * ResType_SetHandler(int *param_1)
 }
 
 /* ---- 0x0048dee0  ResType_ZBufferHandler ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Resource type handler for 'ZBUF' (entry of g_ResTypeTable): op 1 loads, op 2 frees, op 3 reports
    the size. Load = ZBuffer_Load (z-buffer bitmap). */
 
@@ -550,8 +549,6 @@ void * ResType_ZBufferHandler(int *param_1)
   }
   return (void *)0x0;
 }
-#endif
-
 
 /* ---- 0x0048e1e0  ResType_MemoryHandler ---- */
 /* Resource type handler for 'MEM ' (entry of g_ResTypeTable): op 1 loads, op 2 frees, op 3 reports

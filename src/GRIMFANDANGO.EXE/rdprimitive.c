@@ -20,22 +20,15 @@ undefined4 rdPolyline_Draw(int param_1,float *param_2)
   float fVar3;
   #define local_b0 (*(uint *)(_frame + (0xc0 - 0xb0)))
   #define local_a0 (*(uint *)(_frame + (0xc0 - 0xa0)))
-  #define local_9c (*(uint *)(_frame + (0xc0 - 0x9c)))
-  #define local_94 (*(uint *)(_frame + (0xc0 - 0x94)))
-  #define local_90 (*(uint *)(_frame + (0xc0 - 0x90)))
-  #define local_88 (*(uint *)(_frame + (0xc0 - 0x88)))
-  #define local_84 (*(uint *)(_frame + (0xc0 - 0x84)))
-  #define local_80 (*(uint *)(_frame + (0xc0 - 0x80)))
-  #define local_7c (*(uint *)(_frame + (0xc0 - 0x7c)))
+  #define local_9c (*(float *)(_frame + (0xc0 - 0x9c)))
+  #define local_94 (*(float (*)[2])(_frame + (0xc0 - 0x94)))
+  #define local_88 (*(float (*)[3])(_frame + (0xc0 - 0x88)))
+  #define local_7c (*(float *)(_frame + (0xc0 - 0x7c)))
   #define local_78 (*(float (*)[9])(_frame + (0xc0 - 0x78)))
-  #define local_54 (*(uint *)(_frame + (0xc0 - 0x54)))
-  #define local_50 (*(uint *)(_frame + (0xc0 - 0x50)))
-  #define local_4c (*(uint *)(_frame + (0xc0 - 0x4c)))
-  #define local_48 (*(uint *)(_frame + (0xc0 - 0x48)))
-  #define local_40 (*(uint *)(_frame + (0xc0 - 0x40)))
-  #define local_38 (*(uint *)(_frame + (0xc0 - 0x38)))
-  #define local_34 (*(uint *)(_frame + (0xc0 - 0x34)))
-  #define local_30 (*(uint *)(_frame + (0xc0 - 0x30)))
+  #define local_54 (*(float (*)[3])(_frame + (0xc0 - 0x54)))
+  #define local_48 (*(float *)(_frame + (0xc0 - 0x48)))
+  #define local_40 (*(float *)(_frame + (0xc0 - 0x40)))
+  #define local_38 (*(float (*)[3])(_frame + (0xc0 - 0x38)))
   #define local_2c (*(undefined1 (*)[12])(_frame + (0xc0 - 0x2c)))
   #define local_20 (*(uint *)(_frame + (0xc0 - 0x20)))
   #define local_1c (*(uint *)(_frame + (0xc0 - 0x1c)))
@@ -47,70 +40,64 @@ undefined4 rdPolyline_Draw(int param_1,float *param_2)
   local_18 = 0;
   local_14 = 0;
   Matrix_Mul34(local_78,(float *)((int)g_pRdCurrentCamera + 8),param_2);
-  local_38 = 0;
-  local_34 = *(uint *)(iVar1 + 0x20);
-  local_30 = 0;
-  Vec3_Sub((float *)&local_84,(float *)&local_38,local_78);
-  _DAT_007f4e84 = (float)local_80 - -0.001;
-  _DAT_007f4e80 = (float)local_84 - *(float *)(iVar1 + 0x28);
-  _DAT_007f4e88 = (float)local_7c - *(float *)(iVar1 + 0x28);
-  _DAT_007f4e8c = (float)local_84 + *(float *)(iVar1 + 0x28);
-  _DAT_007f4e94 = (float)local_7c - *(float *)(iVar1 + 0x28);
-  _DAT_007f4e98 = (float)local_84 + *(float *)(iVar1 + 0x28);
-  _DAT_007f4ea0 = (float)local_7c + *(float *)(iVar1 + 0x28);
-  _DAT_007f4ea4 = (float)local_84 - *(float *)(iVar1 + 0x28);
-  _DAT_007f4eac = (float)local_7c + *(float *)(iVar1 + 0x28);
+  local_38[0] = 0.0;
+  local_38[1] = *(float *)(iVar1 + 0x20);
+  local_38[2] = 0.0;
+  Vec3_Sub(local_88 + 1,local_38,local_78);
+  _DAT_007f4e84 = local_88[2] - -0.001;
+  _DAT_007f4e80 = local_88[1] - *(float *)(iVar1 + 0x28);
+  _DAT_007f4e88 = local_7c - *(float *)(iVar1 + 0x28);
+  _DAT_007f4e8c = local_88[1] + *(float *)(iVar1 + 0x28);
+  _DAT_007f4e94 = local_7c - *(float *)(iVar1 + 0x28);
+  _DAT_007f4e98 = local_88[1] + *(float *)(iVar1 + 0x28);
+  _DAT_007f4ea0 = local_7c + *(float *)(iVar1 + 0x28);
+  _DAT_007f4ea4 = local_88[1] - *(float *)(iVar1 + 0x28);
+  _DAT_007f4eac = local_7c + *(float *)(iVar1 + 0x28);
   local_1c = *(uint *)(iVar1 + 0xd4);
   _DAT_007f4e90 = _DAT_007f4e84;
   _DAT_007f4e9c = _DAT_007f4e84;
   _DAT_007f4ea8 = _DAT_007f4e84;
   rdPolyline_DrawFace(param_1,iVar1 + 0x84,&DAT_007f4e80,local_2c);
-  _DAT_007f4e84 = (float)local_50 - -0.001;
-  _DAT_007f4e80 = (float)local_54 - *(float *)(iVar1 + 0x24);
-  _DAT_007f4e88 = (float)local_4c - *(float *)(iVar1 + 0x24);
-  _DAT_007f4e8c = (float)local_54 + *(float *)(iVar1 + 0x24);
-  _DAT_007f4e94 = (float)local_4c - *(float *)(iVar1 + 0x24);
-  _DAT_007f4e98 = (float)local_54 + *(float *)(iVar1 + 0x24);
-  _DAT_007f4ea0 = (float)local_4c + *(float *)(iVar1 + 0x24);
-  _DAT_007f4ea4 = (float)local_54 - *(float *)(iVar1 + 0x24);
-  _DAT_007f4eac = (float)local_4c + *(float *)(iVar1 + 0x24);
+  _DAT_007f4e84 = local_54[1] - -0.001;
+  _DAT_007f4e80 = local_54[0] - *(float *)(iVar1 + 0x24);
+  _DAT_007f4e88 = local_54[2] - *(float *)(iVar1 + 0x24);
+  _DAT_007f4e8c = local_54[0] + *(float *)(iVar1 + 0x24);
+  _DAT_007f4e94 = local_54[2] - *(float *)(iVar1 + 0x24);
+  _DAT_007f4e98 = local_54[0] + *(float *)(iVar1 + 0x24);
+  _DAT_007f4ea0 = local_54[2] + *(float *)(iVar1 + 0x24);
+  _DAT_007f4ea4 = local_54[0] - *(float *)(iVar1 + 0x24);
+  _DAT_007f4eac = local_54[2] + *(float *)(iVar1 + 0x24);
   local_1c = *(uint *)(iVar1 + 0xd4);
   _DAT_007f4e90 = _DAT_007f4e84;
   _DAT_007f4e9c = _DAT_007f4e84;
   _DAT_007f4ea8 = _DAT_007f4e84;
   rdPolyline_DrawFace(param_1,iVar1 + 0x84,&DAT_007f4e80,local_2c);
-  local_90 = (uint)((float)local_84 - (float)local_54);
-  fVar2 = (float)local_7c - (float)local_4c;
-  fVar3 = SQRT(fVar2 * fVar2 + (float)local_90 * (float)local_90);
-  local_9c = (uint)Math_AsinDegreesSeries(-(float)local_90 / fVar3);
+  local_94[1] = local_88[1] - local_54[0];
+  fVar2 = local_7c - local_54[2];
+  fVar3 = SQRT(fVar2 * fVar2 + local_94[1] * local_94[1]);
+  local_9c = Math_AsinDegreesSeries(-local_94[1] / fVar3);
   if (fVar2 < 0.0) {
-    if ((float)local_90 <= 0.0) {
-      local_9c = (uint)-((float)local_9c - -180.0);
+    if (local_94[1] <= 0.0) {
+      local_9c = -(local_9c - -180.0);
     }
     else {
-      local_9c = (uint)(180.0 - (float)local_9c);
+      local_9c = 180.0 - local_9c;
     }
   }
-  Math_SinCosTable(local_9c,&local_88,&local_94);
-  local_48 = (uint)-*(float *)(iVar1 + 0x24);
-  local_40 = *(uint *)(iVar1 + 0x24);
-  _DAT_007f4e84 = (float)local_80;
-  _DAT_007f4e80 =
-       (*(float *)(iVar1 + 0x28) * (float)local_94 - (float)local_88 * fVar3) + (float)local_54;
-  _DAT_007f4e88 =
-       *(float *)(iVar1 + 0x28) * (float)local_88 + (float)local_94 * fVar3 + (float)local_4c;
-  _DAT_007f4e8c =
-       (-*(float *)(iVar1 + 0x28) * (float)local_94 - (float)local_88 * fVar3) + (float)local_54;
-  local_90 = 0;
-  _DAT_007f4e94 =
-       -*(float *)(iVar1 + 0x28) * (float)local_88 + (float)local_94 * fVar3 + (float)local_4c;
-  _DAT_007f4e98 = ((float)local_48 * (float)local_94 - 0.0) + (float)local_54;
-  _DAT_007f4ea0 = (float)local_48 * (float)local_88 + 0.0 + (float)local_4c;
-  _DAT_007f4e90 = (float)local_80;
-  _DAT_007f4e9c = (float)local_50;
-  _DAT_007f4ea4 = ((float)local_40 * (float)local_94 - 0.0) + (float)local_54;
-  _DAT_007f4eac = (float)local_40 * (float)local_88 + 0.0 + (float)local_4c;
-  _DAT_007f4ea8 = (float)local_50;
+  Math_SinCosTable(local_9c,local_88,local_94);
+  _DAT_007f4e84 = local_88[2];
+  _DAT_007f4e80 = (*(float *)(iVar1 + 0x28) * local_94[0] - local_88[0] * fVar3) + local_54[0];
+  _DAT_007f4e88 = *(float *)(iVar1 + 0x28) * local_88[0] + local_94[0] * fVar3 + local_54[2];
+  _DAT_007f4e8c = (-*(float *)(iVar1 + 0x28) * local_94[0] - local_88[0] * fVar3) + local_54[0];
+  local_94[1] = 0.0;
+  _DAT_007f4e94 = -*(float *)(iVar1 + 0x28) * local_88[0] + local_94[0] * fVar3 + local_54[2];
+  _DAT_007f4e98 = (-*(float *)(iVar1 + 0x24) * local_94[0] - 0.0) + local_54[0];
+  _DAT_007f4ea0 = -*(float *)(iVar1 + 0x24) * local_88[0] + 0.0 + local_54[2];
+  _DAT_007f4e90 = local_88[2];
+  _DAT_007f4e9c = local_54[1];
+  _DAT_007f4ea4 = (*(float *)(iVar1 + 0x24) * local_94[0] - 0.0) + local_54[0];
+  _DAT_007f4eac = *(float *)(iVar1 + 0x24) * local_88[0] + 0.0 + local_54[2];
+  _DAT_007f4ea8 = local_54[1];
   local_1c = *(uint *)(iVar1 + 0xd0);
   rdPolyline_DrawFace(param_1,iVar1 + 0x38,&DAT_007f4e80,local_2c);
   return 1;
@@ -120,20 +107,13 @@ undefined4 rdPolyline_Draw(int param_1,float *param_2)
 #undef local_1c
 #undef local_20
 #undef local_2c
-#undef local_30
-#undef local_34
 #undef local_38
 #undef local_40
 #undef local_48
-#undef local_4c
-#undef local_50
 #undef local_54
 #undef local_78
 #undef local_7c
-#undef local_80
-#undef local_84
 #undef local_88
-#undef local_90
 #undef local_94
 #undef local_9c
 #undef local_a0
@@ -143,8 +123,6 @@ undefined4 rdPolyline_Draw(int param_1,float *param_2)
 
 
 /* ---- 0x00472360  rdPolyline_DrawFace ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Allocates a cache mesh for one polyline face, clips and adds it */
 
 void rdPolyline_DrawFace(int param_1,int param_2,undefined4 param_3,undefined4 *param_4)
@@ -298,8 +276,6 @@ void rdPolyline_DrawFace(int param_1,int param_2,undefined4 param_3,undefined4 *
 #undef local_2c
 #undef local_4
 
-#endif
-
 
 /* ---- 0x00472640  rdSprite_DrawThing ---- */
 /* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
@@ -402,8 +378,6 @@ int __cdecl rdSprite_DrawThing(void *thing,void *sprite)
 
 
 /* ---- 0x004728a0  rdPolyline_New ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Allocates a 0xb8-byte polyline (RDroid Primitiv*.c) and initialises it */
 
 int rdPolyline_New(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4,
@@ -422,12 +396,8 @@ int rdPolyline_New(undefined4 param_1,undefined4 param_2,undefined4 param_3,unde
                   param_10);
   return iVar1;
 }
-#endif
-
 
 /* ---- 0x00472910  rdPolyline_Init ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Copies the 31-char name and builds the vertex ring for the given radius/segment counts */
 
 undefined4
@@ -523,12 +493,8 @@ LAB_00472af2:
   }
   return 0;
 }
-#endif
-
 
 /* ---- 0x00472b50  rdSprite_Free ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void rdSprite_Free(int param_1)
 
 {
@@ -538,12 +504,8 @@ void rdSprite_Free(int param_1)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x00472b70  rdSprite_FreeContents ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void rdSprite_FreeContents(int param_1)
 
 {
@@ -561,12 +523,8 @@ void rdSprite_FreeContents(int param_1)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x00472bd0  rdSprite_Draw ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Frustum tests the sprite, builds the quad in the cache and clips it */
 
@@ -586,14 +544,11 @@ undefined4 rdSprite_Draw(int param_1,float *param_2)
   int iVar9;
   bool bVar10;
   #define local_7c (*(uint *)(_frame + (0x90 - 0x7c)))
-  #define local_78 (*(uint *)(_frame + (0x90 - 0x78)))
-  #define local_74 (*(uint *)(_frame + (0x90 - 0x74)))
-  #define local_70 (*(uint *)(_frame + (0x90 - 0x70)))
-  #define local_6c (*(uint *)(_frame + (0x90 - 0x6c)))
-  #define local_68 (*(uint *)(_frame + (0x90 - 0x68)))
-  #define local_64 (*(uint *)(_frame + (0x90 - 0x64)))
-  #define local_60 (*(uint *)(_frame + (0x90 - 0x60)))
-  #define local_5c (*(uint *)(_frame + (0x90 - 0x5c)))
+  #define local_78 (*(float (*)[2])(_frame + (0x90 - 0x78)))
+  #define local_70 (*(float *)(_frame + (0x90 - 0x70)))
+  #define local_6c (*(float (*)[2])(_frame + (0x90 - 0x6c)))
+  #define local_64 (*(float *)(_frame + (0x90 - 0x64)))
+  #define local_60 (*(float (*)[2])(_frame + (0x90 - 0x60)))
   #define local_58 (*(uint *)(_frame + (0x90 - 0x58)))
   #define local_4c (*(uint *)(_frame + (0x90 - 0x4c)))
   #define local_48 (*(uint *)(_frame + (0x90 - 0x48)))
@@ -608,14 +563,14 @@ undefined4 rdSprite_Draw(int param_1,float *param_2)
   #define local_14 (*(uint *)(_frame + (0x90 - 0x14)))
   
   iVar1 = *(int *)(param_1 + 4);
-  Vec3_Sub((float *)&local_64,param_2 + 9,(float *)((int)g_pRdCurrentCamera + 8));
-  Vec3_Copy((float *)&local_70,(float *)(iVar1 + 0xac),param_2);
-  Vec3_Transform((float *)&local_70,(float *)((int)g_pRdCurrentCamera + 8));
-  if (0.0 <= (float)local_70) {
-    local_78 = (uint)-*(float *)(iVar1 + 0x54);
+  Vec3_Sub(&local_64,param_2 + 9,(float *)((int)g_pRdCurrentCamera + 8));
+  Vec3_Copy(&local_70,(float *)(iVar1 + 0xac),param_2);
+  Vec3_Transform(&local_70,(float *)((int)g_pRdCurrentCamera + 8));
+  if (0.0 <= local_70) {
+    local_78[0] = -*(float *)(iVar1 + 0x54);
   }
   else {
-    local_78 = *(uint *)(iVar1 + 0x54);
+    local_78[0] = *(float *)(iVar1 + 0x54);
   }
   if ((DAT_00900068 & 2) == 0) {
     iVar4 = *(int *)(param_1 + 0x44);
@@ -625,16 +580,14 @@ undefined4 rdSprite_Draw(int param_1,float *param_2)
                                *(undefined4 *)(iVar1 + 0x24));
   }
   if ((iVar4 != 2) && (iVar4 = rdCache_AllocMesh(), iVar4 != 0)) {
-    _DAT_007f5f0c = (float)local_6c + (float)local_60;
-    _DAT_007f5f10 = (float)local_68 + (float)local_5c;
-    _DAT_007f5f08 = (float)local_64 + ((float)local_70 - (float)local_78);
-    _DAT_007f5f14 = (float)local_64 + (float)local_78 + (float)local_70;
-    _DAT_007f5f20 = (float)local_64 + (float)local_78 + (float)local_70;
-    _DAT_007f5f28 =
-         (float)local_5c + *(float *)(iVar1 + 0x58) + *(float *)(iVar1 + 0x58) + (float)local_68;
-    _DAT_007f5f2c = (float)local_64 + ((float)local_70 - (float)local_78);
-    _DAT_007f5f34 =
-         (float)local_5c + *(float *)(iVar1 + 0x58) + *(float *)(iVar1 + 0x58) + (float)local_68;
+    _DAT_007f5f0c = local_6c[0] + local_60[0];
+    _DAT_007f5f10 = local_6c[1] + local_60[1];
+    _DAT_007f5f08 = local_64 + (local_70 - local_78[0]);
+    _DAT_007f5f14 = local_64 + local_78[0] + local_70;
+    _DAT_007f5f20 = local_64 + local_78[0] + local_70;
+    _DAT_007f5f28 = local_60[1] + *(float *)(iVar1 + 0x58) + *(float *)(iVar1 + 0x58) + local_6c[1];
+    _DAT_007f5f2c = local_64 + (local_70 - local_78[0]);
+    _DAT_007f5f34 = local_60[1] + *(float *)(iVar1 + 0x58) + *(float *)(iVar1 + 0x58) + local_6c[1];
     local_2c = *(uint *)(iVar1 + 0x70);
     local_28 = *(uint *)(iVar1 + 0x74);
     local_24 = *(uint *)(iVar1 + 0x78);
@@ -753,7 +706,7 @@ undefined4 rdSprite_Draw(int param_1,float *param_2)
         flags = flags | 4;
       }
       *(undefined4 *)(iVar4 + 0x3c) = *(undefined4 *)(param_1 + 0x30);
-      *(uint *)(iVar4 + 0x50) = (uint)((float)local_78 < 0.0);
+      *(uint *)(iVar4 + 0x50) = (uint)(local_78[0] < 0.0);
       *(undefined4 *)(iVar4 + 4) = *(undefined4 *)(iVar1 + 0x60);
       *(undefined4 *)(iVar4 + 0x48) = *(undefined4 *)(iVar1 + 0x8c);
       *(undefined4 *)(iVar4 + 0x38) = *(undefined4 *)(iVar1 + 0x7c);
@@ -775,15 +728,10 @@ undefined4 rdSprite_Draw(int param_1,float *param_2)
 #undef local_48
 #undef local_4c
 #undef local_58
-#undef local_5c
 #undef local_60
 #undef local_64
-#undef local_68
 #undef local_6c
 #undef local_70
-#undef local_74
 #undef local_78
 #undef local_7c
-
-#endif
 

@@ -6,8 +6,6 @@
 #include "functions.h"
 
 /* ---- 0x00485a40  Setup_DrawDebugCamera ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Draws the three axis lines at the setup's interest point and the camera actor's costume at its
    position */
 
@@ -16,34 +14,30 @@ void Setup_DrawDebugCamera(int param_1)
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
-  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
+  #define local_18 (*(float (*)[3])(_frame + (0x30 - 0x18)))
+  #define local_c (*(float (*)[3])(_frame + (0x30 - 0xc)))
   
-  local_14 = *(uint *)(param_1 + 0x30);
-  local_10 = *(uint *)(param_1 + 0x34);
-  local_c = (uint)(*(float *)(param_1 + 0x2c) - -1.0);
-  local_18 = (uint)(*(float *)(param_1 + 0x2c) - 1.0);
-  local_8 = local_14;
-  local_4 = local_10;
-  rdPrimit3_DrawLine(&local_c,&local_18,0,0,0,0,UINT_008c97cc & 0xffff,0xffffffff);
-  local_18 = *(uint *)(param_1 + 0x2c);
-  local_10 = *(uint *)(param_1 + 0x34);
-  local_8 = (uint)(*(float *)(param_1 + 0x30) - -1.0);
-  local_14 = (uint)(*(float *)(param_1 + 0x30) - 1.0);
-  local_c = local_18;
-  local_4 = local_10;
-  rdPrimit3_DrawLine(&local_c,&local_18,0,0,0,0,UINT_008c97cc & 0xffff,0xffffffff);
-  local_18 = *(uint *)(param_1 + 0x2c);
-  local_14 = *(uint *)(param_1 + 0x30);
-  local_4 = (uint)(*(float *)(param_1 + 0x34) - -1.0);
-  local_10 = (uint)(*(float *)(param_1 + 0x34) - 1.0);
-  local_c = local_18;
-  local_8 = local_14;
-  rdPrimit3_DrawLine(&local_c,&local_18,0,0,0,0,UINT_008c97cc & 0xffff,0xffffffff);
+  local_18[1] = *(float *)(param_1 + 0x30);
+  local_18[2] = *(float *)(param_1 + 0x34);
+  local_c[0] = *(float *)(param_1 + 0x2c) - -1.0;
+  local_18[0] = *(float *)(param_1 + 0x2c) - 1.0;
+  local_c[1] = local_18[1];
+  local_c[2] = local_18[2];
+  rdPrimit3_DrawLine(local_c,local_18,0,0,0,0,UINT_008c97cc & 0xffff,0xffffffff);
+  local_18[0] = *(float *)(param_1 + 0x2c);
+  local_18[2] = *(float *)(param_1 + 0x34);
+  local_c[1] = *(float *)(param_1 + 0x30) - -1.0;
+  local_18[1] = *(float *)(param_1 + 0x30) - 1.0;
+  local_c[0] = local_18[0];
+  local_c[2] = local_18[2];
+  rdPrimit3_DrawLine(local_c,local_18,0,0,0,0,UINT_008c97cc & 0xffff,0xffffffff);
+  local_18[0] = *(float *)(param_1 + 0x2c);
+  local_18[1] = *(float *)(param_1 + 0x30);
+  local_c[2] = *(float *)(param_1 + 0x34) - -1.0;
+  local_18[2] = *(float *)(param_1 + 0x34) - 1.0;
+  local_c[0] = local_18[0];
+  local_c[1] = local_18[1];
+  rdPrimit3_DrawLine(local_c,local_18,0,0,0,0,UINT_008c97cc & 0xffff,0xffffffff);
   iVar1 = Actor_FromHandle(g_nCameraActor);
   if (*(int *)(iVar1 + 0xa0) != 0) {
     iVar1 = ((code *)Actor_FromHandle)(g_nCameraActor,param_1 + 0x50);
@@ -51,14 +45,8 @@ void Setup_DrawDebugCamera(int param_1)
   }
   return;
 }
-#undef local_10
-#undef local_14
 #undef local_18
-#undef local_4
-#undef local_8
 #undef local_c
-
-#endif
 
 
 /* ---- 0x004a3db0  Setup_GetBackgroundBitmap ---- */

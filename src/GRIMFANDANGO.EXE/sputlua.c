@@ -23,7 +23,7 @@ undefined4 sputLua_Initialize(GrimServices *param_1,undefined4 *param_2)
   param_2[5] = 0;
   param_2[6] = 0;
   param_2[7] = 0;
-  iVar1 = lua_Initialize(param_1,&DAT_008cab50);
+  iVar1 = lua_Initialize((int)param_1,(int *)&DAT_008cab50);
   if (iVar1 != 0) {
     UINT_008cab7c = 0;
     return 1;
@@ -33,8 +33,6 @@ undefined4 sputLua_Initialize(GrimServices *param_1,undefined4 *param_2)
 }
 
 /* ---- 0x0049e500  sputLua_Terminate ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Module slot 1 of sputLua: clears g_pSvcLua and calls the Lua shutdown hook if the Lua state
    exists. */
 
@@ -48,12 +46,8 @@ void sputLua_Terminate(void)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x0049e530  sputLua_Stop ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Module slot 3 of sputLua: disposes the Lua file finder, unrefs the system table, clears the
    save/restore hooks and closes the Lua libs. */
 
@@ -71,5 +65,3 @@ void sputLua_Stop(void)
   UINT_008cab80 = 0;
   return;
 }
-#endif
-

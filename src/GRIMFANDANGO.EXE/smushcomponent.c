@@ -37,9 +37,7 @@ void SmushComponent_OnKey(undefined4 param_1,undefined4 param_2,undefined4 param
    Cos_NewStateBasedTag/Cos_NewIntTag): slot 1, asks for a .snm file ('Select smush file') in the
    editor and stores its name. */
 
-bool SmushComponent_Create
-               (undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4,
-               char *param_5)
+bool SmushComponent_Create(uint param_1,int param_2,int param_3,int param_4,char *param_5)
 
 {
   char cVar1;
@@ -102,7 +100,7 @@ bool SmushComponent_Create
   if (param_5 != (char *)0x0) {
     pcVar4 = param_5;
   }
-  iVar2 = Cos_RegisterComponent(param_1,pcVar4,pcVar5,param_2,param_3,param_4,&DAT_004ea040);
+  iVar2 = Cos_RegisterComponent(param_1,(int)pcVar4,(int)pcVar5,param_2,param_3,param_4,IMG_ADDR(0x004ea040));
   return iVar2 != 0;
 }
 #endif

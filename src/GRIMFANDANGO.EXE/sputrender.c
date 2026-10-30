@@ -27,8 +27,6 @@ undefined4 sputRender_Initialize(GrimServices *param_1,undefined4 *param_2)
 }
 
 /* ---- 0x00486050  sputRender_Terminate ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Module interface slot 1 (sputRender): called by Engine_ResetSubsystems / when registration fails;
    drops the service table pointer and clears the initialised flag. */
 
@@ -41,12 +39,8 @@ void sputRender_Terminate(void)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x00486070  sputRender_Start ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Module interface slot 2 (sputRender): called by Engine_InitSubsystems, returns 0 on success
    (non-zero makes the whole start-up unwind). _Start creates the dirty-rectangle pool, _Stop frees
    the cache rects and the pool. */
@@ -70,12 +64,8 @@ bool sputRender_Start(void)
   }
   return bVar1;
 }
-#endif
-
 
 /* ---- 0x004860d0  sputRender_Stop ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Module interface slot 3 (sputRender): called by Engine_ShutdownSubsystems in reverse order;
    releases what _Start created. */
 
@@ -90,5 +80,3 @@ void sputRender_Stop(void)
   UINT_008c978c = 0;
   return;
 }
-#endif
-

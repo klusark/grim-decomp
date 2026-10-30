@@ -20,7 +20,7 @@ void __cdecl Chore_FadeIn(void *cosInst,int chore,int ms)
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
-  Cos_InstGetCostume(cosInst,&local_8);
+  Cos_InstGetCostume((int)cosInst,(int *)&local_8);
   iVar2 = CosUtil_PtrFromHandle(local_8);
   if (chore <= *(int *)(iVar2 + 0x30)) {
     iVar2 = *(int *)(iVar2 + 0x34) + chore * 0x2c;
@@ -29,8 +29,8 @@ void __cdecl Chore_FadeIn(void *cosInst,int chore,int ms)
       chore = 0;
       do {
         piVar3 = (int *)Cos_InstGetInstanceData
-                                  (cosInst,*(undefined4 *)(*(int *)(iVar2 + 0x24) + chore),&local_4)
-        ;
+                                  ((int)cosInst,*(int *)(*(int *)(iVar2 + 0x24) + chore),
+                                   (int *)&local_4);
         if (local_4 == 0x4659454b) {
           track = 0;
           iVar4 = 0;
@@ -80,7 +80,7 @@ void __cdecl Chore_FadeOut(void *cosInst,int chore,int ms)
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
-  Cos_InstGetCostume(cosInst,&local_8);
+  Cos_InstGetCostume((int)cosInst,(int *)&local_8);
   iVar2 = CosUtil_PtrFromHandle(local_8);
   if (chore <= *(int *)(iVar2 + 0x30)) {
     iVar2 = *(int *)(iVar2 + 0x34) + chore * 0x2c;
@@ -89,8 +89,8 @@ void __cdecl Chore_FadeOut(void *cosInst,int chore,int ms)
       chore = 0;
       do {
         piVar3 = (int *)Cos_InstGetInstanceData
-                                  (cosInst,*(undefined4 *)(*(int *)(iVar2 + 0x24) + chore),&local_4)
-        ;
+                                  ((int)cosInst,*(int *)(*(int *)(iVar2 + 0x24) + chore),
+                                   (int *)&local_4);
         if (local_4 == 0x4659454b) {
           track = 0;
           iVar4 = 0;

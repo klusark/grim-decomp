@@ -49,8 +49,6 @@ void __cdecl Set_MakeCurrent(char *name)
 }
 
 /* ---- 0x00482820  Set_ChangeSetup ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Changes the camera setup of the current set: resets the set's sound parameters
    (Set_SetSoundParams: min 20, max 127, scale 8.0, pan scale 1.5, near 0.8), runs the camera change
    handler and moves every positioned sound again (PositionedSounds_UpdateAll). */
@@ -78,8 +76,6 @@ void * Set_ChangeSetup(uint param_1)
   }
   return pvVar3;
 }
-#endif
-
 
 /* ---- 0x00483aa0  Set_ApplySetupCamera ---- */
 /* Selects the setup's colormap, binds the rdCamera (setup+0x48) to the canvas, sets zoom 1.0 and
@@ -218,18 +214,14 @@ void Set_DrawDebugLights(int param_1)
   #define local_6c (*(uint *)(_frame + (0x90 - 0x6c)))
   #define local_68 (*(uint *)(_frame + (0x90 - 0x68)))
   #define local_64 (*(uint *)(_frame + (0x90 - 0x64)))
-  #define local_60 (*(uint *)(_frame + (0x90 - 0x60)))
-  #define local_5c (*(uint *)(_frame + (0x90 - 0x5c)))
-  #define local_58 (*(uint *)(_frame + (0x90 - 0x58)))
-  #define local_54 (*(uint *)(_frame + (0x90 - 0x54)))
-  #define local_50 (*(uint *)(_frame + (0x90 - 0x50)))
-  #define local_4c (*(uint *)(_frame + (0x90 - 0x4c)))
-  #define local_48 (*(uint *)(_frame + (0x90 - 0x48)))
-  #define local_44 (*(uint *)(_frame + (0x90 - 0x44)))
-  #define local_40 (*(uint *)(_frame + (0x90 - 0x40)))
-  #define local_3c (*(uint *)(_frame + (0x90 - 0x3c)))
-  #define local_38 (*(uint *)(_frame + (0x90 - 0x38)))
-  #define local_34 (*(uint *)(_frame + (0x90 - 0x34)))
+  #define local_60 (*(float *)(_frame + (0x90 - 0x60)))
+  #define local_5c (*(float *)(_frame + (0x90 - 0x5c)))
+  #define local_58 (*(float (*)[3])(_frame + (0x90 - 0x58)))
+  #define local_4c (*(float *)(_frame + (0x90 - 0x4c)))
+  #define local_48 (*(float *)(_frame + (0x90 - 0x48)))
+  #define local_44 (*(float (*)[2])(_frame + (0x90 - 0x44)))
+  #define local_3c (*(float *)(_frame + (0x90 - 0x3c)))
+  #define local_38 (*(float (*)[2])(_frame + (0x90 - 0x38)))
   #define local_30 (*(float (*)[12])(_frame + (0x90 - 0x30)))
   
   local_70 = 0;
@@ -248,28 +240,27 @@ void Set_DrawDebugLights(int param_1)
         local_64 = (uint)((float)puVar2[-8] + (float)puVar2[-0xe]);
         local_6c = (uint)((float)puVar2[-10] + (float)puVar2[-0x10]);
         Camera_BuildBasis(local_30,puVar2 + -0x10,&local_6c,0);
-        local_5c = (uint)((float)puVar2[-7] * 0.1);
-        vec = (float *)&local_60;
-        local_60 = (uint)((1.0 - (float)puVar2[-2]) * (float)local_5c);
-        local_4c = (uint)-(float)local_60;
+        local_5c = (float)puVar2[-7] * 0.1;
+        vec = &local_60;
+        local_60 = (1.0 - (float)puVar2[-2]) * local_5c;
+        local_48 = -local_60;
         iVar1 = 4;
-        local_58 = local_60;
-        local_54 = local_60;
-        local_50 = local_5c;
-        local_48 = local_4c;
-        local_44 = local_5c;
-        local_40 = local_4c;
-        local_3c = local_4c;
-        local_38 = local_5c;
-        local_34 = local_60;
+        local_58[0] = local_60;
+        local_58[1] = local_60;
+        local_58[2] = local_5c;
+        local_44[0] = local_5c;
+        local_44[1] = local_48;
+        local_3c = local_48;
+        local_38[0] = local_5c;
+        local_38[1] = local_60;
         do {
           Vec3_Rotate3x3(vec,local_30);
           rdPrimit3_DrawLine(puVar2 + -0x10,vec,0,0,0,0,PIECE(UINT_008c97cc,2,2),0xffffffff);
           vec = vec + 3;
           iVar1 = iVar1 + -1;
         } while (iVar1 != 0);
-        rdPrimit3_DrawLine(&local_60,&local_54,0,0,0,0,PIECE(UINT_008c97cc,2,2),0xffffffff);
-        rdPrimit3_DrawLine(&local_54,&local_48,0,0,0,0,PIECE(UINT_008c97cc,2,2),0xffffffff);
+        rdPrimit3_DrawLine(&local_60,local_58 + 1,0,0,0,0,PIECE(UINT_008c97cc,2,2),0xffffffff);
+        rdPrimit3_DrawLine(local_58 + 1,&local_48,0,0,0,0,PIECE(UINT_008c97cc,2,2),0xffffffff);
         rdPrimit3_DrawLine(&local_48,&local_3c,0,0,0,0,PIECE(UINT_008c97cc,2,2),0xffffffff);
         rdPrimit3_DrawLine(&local_3c,&local_60,0,0,0,0,PIECE(UINT_008c97cc,2,2),0xffffffff);
       }
@@ -280,15 +271,11 @@ void Set_DrawDebugLights(int param_1)
   return;
 }
 #undef local_30
-#undef local_34
 #undef local_38
 #undef local_3c
-#undef local_40
 #undef local_44
 #undef local_48
 #undef local_4c
-#undef local_50
-#undef local_54
 #undef local_58
 #undef local_5c
 #undef local_60
@@ -302,8 +289,6 @@ void Set_DrawDebugLights(int param_1)
 
 
 /* ---- 0x004859c0  Set_DrawDebugCameras ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void __cdecl Set_DrawDebugCameras(void *set,uint setupIdx)
 
 {
@@ -330,8 +315,6 @@ void __cdecl Set_DrawDebugCameras(void *set,uint setupIdx)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x004a4010  Set_SetSoundParams ---- */
 void Set_SetSoundParams(int param_1,undefined4 param_2,undefined1 param_3,undefined1 param_4,

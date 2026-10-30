@@ -49,59 +49,55 @@ void __cdecl Sector_DrawAllDebug(void)
 }
 
 /* ---- 0x0049c750  Sector_IntersectSegment ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Tests a segment against a sector's edges, returning the entry/exit points */
 
-void Sector_IntersectSegment
-               (int param_1,int param_2,undefined4 *param_3,undefined4 *param_4,undefined4 *param_5)
+void Sector_IntersectSegment(int param_1,int param_2,float *param_3,float *param_4,float *param_5)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   bool bVar1;
   bool bVar2;
-  undefined4 uVar3;
+  int iVar3;
   int iVar4;
   int iVar5;
-  int iVar6;
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   bVar1 = false;
   bVar2 = false;
   lua_beginblock();
-  uVar3 = lua_getref(g_nLuaSystemTableRef);
-  lua_pushobject(uVar3);
+  iVar3 = lua_getref(g_nLuaSystemTableRef);
+  lua_pushobject(iVar3);
   lua_pushstring(s_collisionHandler_004ec3fc);
-  iVar4 = lua_gettable();
-  iVar5 = lua_istable(iVar4);
-  if (iVar5 == 0) {
-    iVar5 = lua_isfunction(iVar4);
-    if (iVar5 == 0) {
-      lua_isnil(iVar4);
-      iVar5 = param_1;
+  iVar3 = lua_gettable();
+  iVar4 = lua_istable(iVar3);
+  if (iVar4 == 0) {
+    iVar4 = lua_isfunction(iVar3);
+    if (iVar4 == 0) {
+      lua_isnil(iVar3);
+      iVar4 = param_1;
     }
     else {
       bVar2 = false;
       bVar1 = true;
-      iVar5 = iVar4;
+      iVar4 = iVar3;
     }
   }
   else {
-    lua_pushobject();
+    lua_pushobject(iVar3);
     lua_pushstring(s_collisionHandler_004ec3fc);
-    iVar5 = lua_gettable();
-    iVar6 = lua_isfunction(iVar5);
-    if (iVar6 != 0) {
+    iVar4 = lua_gettable();
+    iVar5 = lua_isfunction(iVar4);
+    if (iVar5 != 0) {
       bVar1 = true;
       bVar2 = true;
     }
   }
   if (bVar1) {
     if (bVar2) {
-      lua_pushobject(iVar4);
+      lua_pushobject(iVar3);
     }
-    lua_pushusertag((param_1 - (int)g_pActorTable) / 0xa8,0x52544341);
-    lua_pushusertag((param_2 - (int)g_pActorTable) / 0xa8,0x52544341);
+    lua_pushusertag((char *)((param_1 - (int)g_pActorTable) / 0xa8),0x52544341);
+    lua_pushusertag((char *)((param_2 - (int)g_pActorTable) / 0xa8),0x52544341);
     lua_pushnumber(*param_3);
     lua_pushnumber(param_3[1]);
     lua_pushnumber(param_3[2]);
@@ -111,14 +107,12 @@ void Sector_IntersectSegment
     lua_pushnumber(*param_5);
     lua_pushnumber(param_5[1]);
     lua_pushnumber(param_5[2]);
-    lua_callfunction(iVar5);
+    lua_callfunction(iVar4);
   }
   lua_endblock();
   return;
 }
 #undef local_4
-
-#endif
 
 
 /* ---- 0x004a4b00  SetFile_Parse ---- */
