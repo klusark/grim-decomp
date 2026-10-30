@@ -53,7 +53,7 @@
 | 100067a0 | FUN_100067a0 | imuse.c | 5 |
 | 100067b0 | FUN_100067b0 | imuse.c | 70 |
 | 100068b0 | FUN_100068b0 | imuse.c | 1 |
-| 100070e0 | FUN_100070e0 | imuse.c | 11 |
+| 100070e0 | FUN_100070e0 | imuse.c | 1 |
 | 10007110 | FUN_10007110 | imuse.c | 11 |
 | 100089b0 | Im_SoundsFindByName | imuse.c | 81 |
 | 10008b60 | Im_SoundsFreeSlot | imuse.c | 19 |
@@ -176,10 +176,10 @@
 | 10004d90 | ImFadeParam | imuse_api.c | 9 |
 | 10004db0 | ImSetHook | imuse_api.c | 9 |
 | 10004dd0 | ImGetHook | imuse_api.c | 9 |
-| 10004de0 | ImSetTrigger | imuse_api.c | 1 |
+| 10004de0 | ImSetTrigger | imuse_api.c | 11 |
 | 10004e10 | ImCheckTrigger | imuse_api.c | 9 |
 | 10004e30 | ImClearTrigger | imuse_api.c | 9 |
-| 10004e50 | ImDeferCommand | imuse_api.c | 1 |
+| 10004e50 | ImDeferCommand | imuse_api.c | 11 |
 | 10004e80 | ImStartStream | imuse_api.c | 16 |
 | 10004ec0 | ImSwitchStream | imuse_api.c | 10 |
 | 10004f00 | ImQueryStream | imuse_api.c | 10 |
@@ -261,7 +261,7 @@
 | 1000d110 | FUN_1000d110 | imuse_api.c | 1 |
 | 1000d130 | FUN_1000d130 | imuse_api.c | 1 |
 | 1000d1f0 | FUN_1000d1f0 | imuse_api.c | 1 |
-| 100088d0 | SoundStartVoiceStream | soundstartvoicestream.c | 21 |
+| 100088d0 | SoundStartVoiceStream | soundstartvoicestream.c | 1 |
 | 10008970 | SoundStopVoiceStream | soundstopvoicestream.c | 10 |
 | 10008990 | SoundGetVoiceTime | soundgetvoicetime.c | 11 |
 | 10009e10 | iMUSE_sounds__9e10 | imuse_sounds.c | 13 |

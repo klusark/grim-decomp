@@ -133,4 +133,182 @@ undefined4 Im_MixerInit(undefined4 *param_1)
     }
     return 0;
 }
+
+/* ==== Trigger and deferred-command layer (0x1000b220 0x1000b570 0x1000b6a0 0x1000b710 0x10004f70) ====
+ * iMUSE can attach a command to a marker of a sound (ImSetTrigger: when the marker passes, "run command <cmd> with these ten
+ * parameter words") and queue one for later (ImDeferCommand).  Commands 0..0x1d are the numbers of the Im* API calls handled
+ * by Im_DispatchCommand; a larger value is a callback address.
+ *
+ * What the shipped code really does (the disassembly is the reference; the original C source must have used va_arg):
+ *  - ImSetTrigger / ImDeferCommand pass their LAST parameter p9 for every one of the ten stored words (see their decompiled
+ *    text), and Im_Run*Command pass the last stored word for all ten again, so a command runs with the same word in every
+ *    argument: ImSetHook(w, w), ImFadeParam(w, w, w, w).  Dispatch uses a different one of those equal arguments per call,
+ *    which is the same.  The commands therefore only do something useful when the word happens to be meaningful; the script
+ *    layer (FUN_100068b0) sets such triggers with garbage in the unused words.  Kept as it is: the behaviour of the game
+ *    depends on it.
+ *  - Im_DispatchCommand reads the word at [esp+0x3c] (argument 15, four words beyond what the callers push) for commands
+ *    0x11 (set trigger) and 0x14 (defer): garbage in the original.  Here: the last argument, a11 (identical to every other
+ *    argument as passed by the two callers).
+ * Trigger slots: 8 of 0x4d dwords at DAT_10032320 {0 owner sound, 1..0x40 marker string (256 bytes), 0x41 command,
+ * 0x42..0x4b parameters, 0x4c kept-after-fire flag}.  Deferred slots: 8 of 12 dwords at DAT_10032cc0 {0 time, 1 command,
+ * 2..11 parameters}. */
+undefined4 Im_SetTriggerImpl(int sound, char *marker, int cmd, int p0, int p1, int p2, int p3, int p4, int p5, int p6, int p7, int p8, int p9)
+{
+    int *slot = (int *)&DAT_10032320;
+    int n, len;
+    char *dst;
+
+    if (sound == 0)
+        return 0xfffffffb;
+    if (marker == 0)
+        marker = (char *)&DAT_10032f48;           /* "" */
+    for (len = 0; marker[len] != 0; len++)
+        ;
+    if (len > 0xff)
+        return 0xfffffffb;
+    for (n = 0; slot[0] != 0; ) {                  /* first free slot */
+        n++;
+        slot += 0x4d;
+        if (n > 7)
+            return 0xfffffffa;
+    }
+    slot[0x41] = cmd;
+    slot[0] = sound;
+    slot[0x4c] = 0;
+    dst = (char *)(slot + 1);
+    for (n = 0; n <= len; n++)
+        dst[n] = marker[n];
+    slot[0x42] = p0; slot[0x43] = p1; slot[0x44] = p2; slot[0x45] = p3; slot[0x46] = p4;
+    slot[0x47] = p5; slot[0x48] = p6; slot[0x49] = p7; slot[0x4a] = p8; slot[0x4b] = p9;
+    return 0;
+}
+
+undefined4 Im_DeferCommandImpl(int time, int cmd, int p0, int p1, int p2, int p3, int p4, int p5, int p6, int p7, int p8, int p9)
+{
+    int *e = (int *)&DAT_10032cc0;
+    int i;
+
+    if (time == 0)
+        return 0xfffffffb;
+    for (i = 0; i < 8; i++, e += 0xc) {
+        if (e[0] == 0) {
+            e[1] = cmd;
+            e[2] = p0; e[3] = p1; e[4] = p2; e[5] = p3; e[6] = p4;
+            e[7] = p5; e[8] = p6; e[9] = p7; e[10] = p8; e[11] = p9;
+            e[0] = time;
+            DAT_10032f40 = 1;                      /* something to look at in Im_ProcessDeferred */
+            return 0;
+        }
+    }
+    return 0xfffffffa;
+}
+
+/* A fired trigger: free its slot, then run the command with marker name `marker` (callbacks get it first).  The decompiler
+ * showed the callback call with one argument; the code pushes eleven (marker + ten words) and pops 0x2c bytes. */
+void Im_RunTriggerCommand(undefined4 *slot, undefined4 marker)
+{
+    int cmd = (int)slot[0x41];
+    int w = (int)slot[0x4b];
+
+    slot[0] = 0;
+    if (cmd == 0) {
+        if (DAT_100336a8 != 0)
+            ((int (*)(int, int, int, int, int, int, int, int, int, int, int))DAT_100336a8)(marker, w, w, w, w, w, w, w, w, w, w);
+        return;
+    }
+    if ((unsigned)cmd < 0x1e) {
+        Im_DispatchCommand(cmd, w, w, w, w, w, w, w, w, w, w);
+        return;
+    }
+    ((int (*)(int, int, int, int, int, int, int, int, int, int, int))cmd)(marker, w, w, w, w, w, w, w, w, w, w);
+}
+
+/* A deferred command whose time has come (Im_ProcessDeferred): the slot is {time, command, ten words}. */
+void Im_RunDeferredCommand(int e)
+{
+    int cmd = ((int *)e)[1];
+    int w = ((int *)e)[0xb];
+
+    if (cmd == 0) {
+        if (DAT_100336a8 == 0)
+            return;
+        cmd = (int)DAT_100336a8;
+    } else if ((unsigned)cmd < 0x1e) {
+        Im_DispatchCommand(cmd, w, w, w, w, w, w, w, w, w, w);
+        return;
+    }
+    ((int (*)(int, int, int, int, int, int, int, int, int, int))cmd)(w, w, w, w, w, w, w, w, w, w);
+}
+
+/* Command dispatcher: cmd = number of the Im* call, a2..a11 = ten argument words.  Every call takes ITS arguments from the
+ * LAST of the argument words it needs (the same word for all of them: compiled from va_arg expressions evaluated in the
+ * wrong order).  Commands 0x15..0x18 do not exist. */
+uint Im_DispatchCommand(uint cmd, int a2, int a3, int a4, int a5, int a6, int a7, int a8, int a9, int a10, int a11)
+{
+    if (DAT_1002df0c == 0 || cmd > 0x1d)
+        return 0xffffffff;
+    switch (cmd) {
+    case 0x00: return ImInitialize();
+    case 0x01: return ImTerminate();
+    case 0x02: return cmd;
+    case 0x03: return ImPause();
+    case 0x04: return ImResume();
+    case 0x05: return ImSave((undefined4 *)a3, a3);
+    case 0x06: return ImRestore((int *)a2);
+    case 0x07: return ImSetGroupVol(a3, a3);
+    case 0x08: return ImStartSound(a3, a3);
+    case 0x09: return ImStopSound(a2);
+    case 0x0a: return ImStopAllSounds();
+    case 0x0b: return ImGetNextSound(a2);
+    case 0x0c: return ImSetParam(a4, a4, a4);
+    case 0x0d: return ImGetParam(a3, a3);
+    case 0x0e: return ImFadeParam(a5, a5, a5, a5);
+    case 0x0f: return ImSetHook(a3, a3);
+    case 0x10: return ImGetHook(a2);
+    case 0x11: return ImSetTrigger(a11, (char *)a11, a11, a11, a11, a11, a11, a11, a11, a11, a11, a11, a11);
+    case 0x12: return ImCheckTrigger(a4, (byte *)a4, a4);
+    case 0x13: return ImClearTrigger(a4, (byte *)a4, a4);
+    case 0x14: return ImDeferCommand(a11, a11, a11, a11, a11, a11, a11, a11, a11, a11, a11, a11);
+    case 0x19: return ImStartStream(a4, a4, a4);
+    case 0x1a: return ImSwitchStream(a6, a6, a6, a6, a6);
+    case 0x1b: return ImProcessStreams();
+    case 0x1c: return ImQueryStream(a6, (undefined4 *)a6, (undefined4 *)a6, (int *)a6, (undefined4 *)a6);
+    case 0x1d: return ImFeedStream(a5, (undefined4 *)a5, a5, a5);
+    }
+    return 0xffffffff;
+}
+
+/* ==== SoundStartVoiceStream (0x100088d0) ====
+ * Starts the voice stream (sound id 10000): SoundStartVoiceStream(name, volume, pan).  The decompiler mixed up the arguments
+ * (it read the pan from a fourth, non-existent parameter): the code reads [esp+0x14] and [esp+0x18] while the 3 pushes of
+ * the calls before it are still on the stack (the pops are deferred), which are arguments 2 and 3. */
+int SoundStartVoiceStream(undefined4 param_1, uint volume, uint pan)
+{
+    ImStopSound(10000);
+    SoundsCloseVoiceFile();
+    if (SoundsRegisterVoice(param_1) == 0)
+        return 1;
+    SoundsFillStreamsWhileMusicCritical(5);
+    ImStartStream(10000, 0x7f, 1);
+    ImSetParam(10000, 0x400, 2);            /* group 2: voice */
+    ImSetParam(10000, 0x600, volume);
+    ImSetParam(10000, 0x700, pan);
+    ImProcessStreams();
+    ImProcessStreams();
+    return 0;
+}
+
+/* ==== FUN_100070e0 (0x100070e0) ====
+ * Trigger callback (stored by FUN_10006360, run by Im_RunTriggerCommand with the marker name as its first argument): when the
+ * marker is "_..." the script layer's end-of-sequence flag DAT_1002e304 is set.  The decompiler read the marker from the
+ * second argument (the code reads [esp+8] while the pop of the ImPrintf argument is still pending, that is argument 1). */
+void FUN_100070e0(char *marker)
+{
+    ImPrintf(s_CALLBACK__1001e898);
+    if (*marker == '_') {
+        DAT_1002e304 = 1;
+        return;
+    }
+    ImPrintf(s_ERR_callback_got_marker______end_1001e870);
+}
 #endif /* GRIM_IMUSE */

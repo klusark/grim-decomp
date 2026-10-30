@@ -750,19 +750,17 @@ undefined4 __cdecl ImGetHook(int param_1)
 }
 
 /* ---- 0x10004de0  ImSetTrigger ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
-undefined4 __cdecl ImSetTrigger(int param_1,char *param_2,int param_3)
+undefined4 __cdecl
+ImSetTrigger(int sound,char *marker,int cmd,int p0,int p1,int p2,int p3,int p4,int p5,int p6,int p7,
+            int p8,int p9)
 
 {
   undefined4 uVar1;
   
                     /* 0x4de0  38  ImSetTrigger */
-  uVar1 = Im_SetTriggerImpl(param_1,param_2,param_3);
+  uVar1 = Im_SetTriggerImpl(sound,marker,cmd,p9,p9,p9,p9,p9,p9,p9,p9,p9,p9);
   return uVar1;
 }
-#endif
-
 
 /* ---- 0x10004e10  ImCheckTrigger ---- */
 int __cdecl ImCheckTrigger(int param_1,byte *param_2,int param_3)
@@ -787,19 +785,17 @@ undefined4 __cdecl ImClearTrigger(int param_1,byte *param_2,int param_3)
 }
 
 /* ---- 0x10004e50  ImDeferCommand ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
-undefined4 __cdecl ImDeferCommand(int param_1,int param_2)
+undefined4 __cdecl
+ImDeferCommand(int time,int cmd,int p0,int p1,int p2,int p3,int p4,int p5,int p6,int p7,int p8,
+              int p9)
 
 {
   undefined4 uVar1;
   
                     /* 0x4e50  5  ImDeferCommand */
-  uVar1 = Im_DeferCommandImpl(param_1,param_2);
+  uVar1 = Im_DeferCommandImpl(time,cmd,p9,p9,p9,p9,p9,p9,p9,p9,p9,p9);
   return uVar1;
 }
-#endif
-
 
 /* ---- 0x10004e80  ImStartStream ---- */
 undefined4 __cdecl ImStartStream(uint param_1,int param_2,uint param_3)
