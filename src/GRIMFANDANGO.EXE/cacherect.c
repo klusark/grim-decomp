@@ -6,7 +6,7 @@
 #include "functions.h"
 
 /* ---- 0x00486b40  CacheRect_Create ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua CacheRect: copies a rectangle of the background and depth images into a 0x20-byte record
    {magic, x, y, w, h, bgCopy, zCopy, next} on g_pCacheRectList */
@@ -74,7 +74,7 @@ void * __cdecl CacheRect_Create(int x,int y,int w,int h)
 
 
 /* ---- 0x00486c50  CacheRect_Restore ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua RestoreCacheRect: copies the most recent cached rectangle back and invalidates it */
 
@@ -99,7 +99,7 @@ void CacheRect_Restore(void)
 
 
 /* ---- 0x00486cb0  CacheRect_FreeAll ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void CacheRect_FreeAll(void)
 

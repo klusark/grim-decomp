@@ -1,5 +1,5 @@
 /* GRIMFANDANGO.EXE :: debug.c
- * functions 0x0048d210 .. 0x0048d330 (4 functions)
+ * functions 0x0048d210 .. 0x0048d210 (1 functions)
  * Decompiled from the shipped binaries with Ghidra; see ../../README.md */
 #include "ghidra_types.h"
 #include "globals.h"
@@ -42,46 +42,3 @@ undefined4 Debug_CameraFovKeys(void)
 }
 #undef local_4
 
-
-/* ---- 0x0048d2c0  FUN_0048d2c0 ---- */
-/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
-
-void FUN_0048d2c0(void)
-
-{
-  _DAT_008ca1b8 = 0;
-  if (UINT_008ca1bc != 0) {
-    UINT_008ca1bc = 0;
-  }
-  return;
-}
-
-/* ---- 0x0048d2e0  FUN_0048d2e0 ---- */
-undefined4 FUN_0048d2e0(void)
-
-{
-  undefined *puVar1;
-  
-  if (UINT_008ca1c0 != 0) {
-    return 1;
-  }
-  if (UINT_00805f98 == 0) {
-    puVar1 = Input_Init();
-    if (puVar1 == (undefined *)0x0) {
-      return 1;
-    }
-  }
-  Controls_ResetAll();
-  Engine_RegisterShutdownHook(FUN_0048d030);
-  UINT_008ca1c0 = 1;
-  return 0;
-}
-
-/* ---- 0x0048d330  FUN_0048d330 ---- */
-void FUN_0048d330(void)
-
-{
-  Input_Shutdown();
-  UINT_008ca1c0 = 0;
-  return;
-}

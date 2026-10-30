@@ -6,7 +6,7 @@
 #include "functions.h"
 
 /* ---- 0x004922d0  Collision_PushOutOfBox ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void Collision_PushOutOfBox
                (float *param_1,float param_2,float param_3,float param_4,float param_5,float param_6
@@ -94,7 +94,7 @@ void Collision_PushOutOfBox
 
 
 /* ---- 0x00492510  Collision_PointInBox ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4 __cdecl
 Collision_PointInBox
@@ -187,7 +187,7 @@ void Collision_BoxCorners(int param_1,float param_2,float *param_3,float param_4
 }
 
 /* ---- 0x00492680  Collision_SegmentHitsBox ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Walker_AvoidActorPath: does the path segment pass through the other actor's collision box */
@@ -378,7 +378,7 @@ undefined4 Collision_UpdateMovedActors(void)
 }
 
 /* ---- 0x004939f0  Collision_TestActorAgainstOthers ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -657,7 +657,7 @@ LAB_004940c6:
 
 
 /* ---- 0x00494100  Collision_BoxSlide ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_58 */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */

@@ -1,5 +1,5 @@
 /* GRIMFANDANGO.EXE :: movie.c
- * functions 0x00489030 .. 0x00489540 (20 functions)
+ * functions 0x00489030 .. 0x004894f0 (14 functions)
  * Decompiled from the shipped binaries with Ghidra; see ../../README.md */
 #include "ghidra_types.h"
 #include "globals.h"
@@ -19,8 +19,12 @@ int __cdecl Movie_SaveState(void *fn)
   return 0;
 }
 
-/* ---- 0x00489090  FUN_00489090 ---- */
-undefined4 FUN_00489090(code *param_1)
+/* ---- 0x00489090  Movie_RestoreState ---- */
+/* Module slot 5 of sputSmush: reads the movie state saved by Movie_SaveState (playing/paused/stop
+   flag, file name, fullscreen, position) and restarts the movie with Movie_Start if one was
+   playing. */
+
+undefined4 Movie_RestoreState(code *param_1)
 
 {
   Movie_SetTarget(&g_PrimarySurface);
@@ -35,43 +39,6 @@ undefined4 FUN_00489090(code *param_1)
     Movie_Start(g_szMovieName,g_nMovieFullscreen,UINT_008c9fb0,UINT_008c9fb4);
   }
   return 0;
-}
-
-/* ---- 0x00489130  FUN_00489130 ---- */
-undefined4 FUN_00489130(void)
-
-{
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  int iVar1;
-  #define local_c (*(char (*)[12])(_frame + (0x20 - 0xc)))
-  
-  iVar1 = Reg_GetString(s_StartSmush_004e8358,local_c,10,&DAT_004f5a98);
-  if ((iVar1 != 0) && (iVar1 = _stricmp(local_c,s_FALSE_004e8350), iVar1 == 0)) {
-    return 0;
-  }
-  iVar1 = (*(code *)UINT_008c9fc0)();
-  if (iVar1 == 0) {
-    g_nMovieAvailable = 1;
-    return 0;
-  }
-  return 1;
-}
-#undef local_c
-
-
-/* ---- 0x00489190  FUN_00489190 ---- */
-/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
-
-void FUN_00489190(void)
-
-{
-  if (g_nMovieAvailable != 0) {
-                    /* WARNING: Could not recover jumptable at 0x00489199. Too many branches */
-                    /* WARNING: Treating indirect jump as call */
-    (*_DAT_008c9fc4)();
-    return;
-  }
-  return;
 }
 
 /* ---- 0x004891b0  Movie_PollPlayback ---- */
@@ -193,8 +160,11 @@ undefined * Movie_SetFile(char *param_1)
 #undef local_80
 
 
-/* ---- 0x004893d0  FUN_004893d0 ---- */
-undefined4 FUN_004893d0(int param_1,int param_2,int param_3)
+/* ---- 0x004893d0  Movie_CheckSurfaceFormat ---- */
+/* Smush surface callback: 0 when the movie surface has exactly the requested width, height and bits
+   per pixel. */
+
+undefined4 Movie_CheckSurfaceFormat(int param_1,int param_2,int param_3)
 
 {
   if ((((g_nMovieAvailable != 0) && (*(int *)((int)g_pMovieSurface + 0xc) == param_1)) &&
@@ -212,8 +182,11 @@ bool FUN_00489410(void)
   return g_nMovieAvailable == 0;
 }
 
-/* ---- 0x00489420  FUN_00489420 ---- */
-undefined4 FUN_00489420(undefined4 *param_1,undefined4 *param_2)
+/* ---- 0x00489420  Movie_LockSurface ---- */
+/* Smush surface callback: locks the movie surface and returns its description (pixels, pitch, size,
+   bytes per pixel) and the full-frame rectangle. */
+
+undefined4 Movie_LockSurface(undefined4 *param_1,undefined4 *param_2)
 
 {
   if (g_nMovieAvailable == 0) {
@@ -232,8 +205,10 @@ undefined4 FUN_00489420(undefined4 *param_1,undefined4 *param_2)
   return 0;
 }
 
-/* ---- 0x004894b0  FUN_004894b0 ---- */
-undefined4 FUN_004894b0(void)
+/* ---- 0x004894b0  Movie_UnlockSurface ---- */
+/* Smush surface callback: unlocks the movie surface. */
+
+undefined4 Movie_UnlockSurface(void)
 
 {
   if (g_nMovieAvailable == 0) {
@@ -267,38 +242,5 @@ void Movie_SetPaused(int paused)
     return;
   }
   Smush_Resume();
-  return;
-}
-
-/* ---- 0x00489510  FUN_00489510 ---- */
-void FUN_00489510(void)
-
-{
-  FUN_00489520();
-  FUN_00489530();
-  return;
-}
-
-/* ---- 0x00489520  FUN_00489520 ---- */
-void FUN_00489520(void)
-
-{
-  FUN_0048a500(&UINT_008ca0a0);
-  return;
-}
-
-/* ---- 0x00489530  FUN_00489530 ---- */
-void FUN_00489530(void)
-
-{
-  atexit(FUN_00489540);
-  return;
-}
-
-/* ---- 0x00489540  FUN_00489540 ---- */
-void FUN_00489540(void)
-
-{
-  PrimitiveList_Clear((int *)&UINT_008ca0a0);
   return;
 }

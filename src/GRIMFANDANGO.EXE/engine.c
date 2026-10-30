@@ -1,5 +1,5 @@
 /* GRIMFANDANGO.EXE :: engine.c
- * functions 0x00482460 .. 0x0048d1c0 (45 functions)
+ * functions 0x00482460 .. 0x0048d1c0 (42 functions)
  * Decompiled from the shipped binaries with Ghidra; see ../../README.md */
 #include "ghidra_types.h"
 #include "globals.h"
@@ -201,7 +201,7 @@ bool Engine_CallExitHandler(void)
 }
 
 /* ---- 0x004828e0  Engine_Quit ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua exit() */
 
@@ -257,7 +257,7 @@ undefined * __cdecl Engine_CallCharacterHandler(int param_1)
 }
 
 /* ---- 0x00482990  Engine_UpdateFrame ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_8 */
 /* WARNING: Variable defined which should be unmapped: local_c */
@@ -368,79 +368,6 @@ void Engine_PresentFrame(void)
   }
   Profile_End(8);
   return;
-}
-
-/* ---- 0x00482b60  FUN_00482b60 ---- */
-/* WARNING: Unknown calling convention -- yet parameter storage is locked */
-
-undefined * FUN_00482b60(void)
-
-{
-  undefined *puVar1;
-  
-  g_pSvcEngineModule = (GrimServices *)0x0;
-  puVar1 = (undefined *)0x0;
-  if (UINT_008a8c58 != 0) {
-    Engine_ResetSubsystems(&DAT_008a8778,6);
-    puVar1 = (undefined *)Engine_ResetSubsystems(&DAT_008a85f0,8);
-    UINT_008a8c58 = 0;
-  }
-  return puVar1;
-}
-
-/* ---- 0x00482ba0  FUN_00482ba0 ---- */
-int FUN_00482ba0(void)
-
-{
-  int iVar1;
-  uint budget;
-  
-  if (UINT_008a8c5c != 0) {
-    return 1;
-  }
-  iVar1 = Engine_InitSubsystems(&DAT_008a85f0,8);
-  if (iVar1 == 0) {
-    iVar1 = DSound_Init();
-    if (iVar1 == 0) {
-      return 1;
-    }
-    iVar1 = Plat_GetPhysicalMemory();
-    if (iVar1 < 0x1000001) {
-      iMUSE_DeclareBufferSizes
-                (88000,44000,88000,440000,44000,0x55f00,100000,1,0xac44,2,300000,6,150000);
-      budget = 0xa00000;
-    }
-    else {
-      iMUSE_DeclareBufferSizes
-                (88000,44000,88000,440000,44000,0x55f00,100000,1,0xac44,2,300000,9,150000);
-      iVar1 = Plat_GetPhysicalMemory();
-      budget = UINT_004e7b20;
-      if (iVar1 - (int)IMG_ADDR(0x00800000) <= (int)UINT_004e7b20) {
-        iVar1 = Plat_GetPhysicalMemory();
-        budget = iVar1 - 0x800000;
-      }
-    }
-    Resource_SetMemoryUsage(budget,0);
-    Sounds_PlatformDevice(g_pDirectSound);
-    iVar1 = Engine_InitSubsystems(&DAT_008a8778,6);
-  }
-  UINT_008a8c5c = (uint)(iVar1 == 0);
-  return iVar1;
-}
-
-/* ---- 0x00482cc0  FUN_00482cc0 ---- */
-/* WARNING: Unknown calling convention -- yet parameter storage is locked */
-
-undefined * FUN_00482cc0(void)
-
-{
-  undefined *puVar1;
-  
-  Engine_ShutdownSubsystems(&DAT_008a8778,6);
-  DSound_Shutdown();
-  puVar1 = (undefined *)Engine_ShutdownSubsystems(&DAT_008a85f0,8);
-  UINT_008a8c5c = 0;
-  return puVar1;
 }
 
 /* ---- 0x00482cf0  Engine_RegisterSubsystems ---- */
@@ -586,7 +513,7 @@ void Profile_Begin(int param_1)
 
 
 /* ---- 0x00482e80  Profile_End ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Source: Main/sputmain.cpp (line 1462, from __FILE__/__LINE__ passed to the allocator) */
 
@@ -895,7 +822,7 @@ undefined4 Engine_CreateCameraActor(void)
 }
 
 /* ---- 0x00484260  Engine_RenderFrame ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* sputRender.cpp: draws one frame. Mode 3 polls the movie; otherwise re-prepares the set when it
    changed, draws object states, actors (profile slots 4-7), overlays, the iris/fade (flag 4 of

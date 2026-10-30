@@ -222,7 +222,7 @@ uint LecShare_Unregister(undefined4 param_1)
 }
 
 /* ---- 0x004c16c0  LecShare_Resolve ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Looks a module up by name (wildcards allowed), honouring the application's override list */
 

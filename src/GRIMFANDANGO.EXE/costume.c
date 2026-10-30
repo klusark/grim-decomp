@@ -1,5 +1,5 @@
 /* GRIMFANDANGO.EXE :: costume.c
- * functions 0x00493410 .. 0x00495730 (15 functions)
+ * functions 0x00493410 .. 0x00496020 (17 functions)
  * Decompiled from the shipped binaries with Ghidra; see ../../README.md */
 #include "ghidra_types.h"
 #include "globals.h"
@@ -427,7 +427,7 @@ void Costume_TouchComponents(undefined4 param_1)
 
 
 /* ---- 0x00495730  Costume_UpdateAll ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void __cdecl Costume_UpdateAll(void *costumeList,float dt)
 
@@ -456,6 +456,117 @@ void __cdecl Costume_UpdateAll(void *costumeList,float dt)
     }
   }
   return;
+}
+#endif
+
+
+/* ---- 0x00495e90  Costume_SaveChoreListFile ---- */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+#if 0
+/* Callback given to Cos_RegisterSaveHook (costume editor): asks for a .lua/.def file name and
+   writes the costume's chore list. */
+
+undefined4 Costume_SaveChoreListFile(char *param_1,undefined4 param_2,undefined4 param_3)
+
+{
+  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  void **ppvVar1;
+  char cVar2;
+  int iVar3;
+  undefined4 uVar4;
+  char *pcVar5;
+  uint uVar6;
+  undefined4 uVar7;
+  uint uVar8;
+  char *pcVar9;
+  #define acStack_20 (*(char (*)[32])(_frame + (0x30 - 0x20)))
+  
+  iVar3 = strrchr(param_1,0x5c);
+  pcVar5 = param_1;
+  if (iVar3 != 0) {
+    pcVar5 = (char *)(iVar3 + 1);
+  }
+  uVar4 = Cos_GetCostumeName(param_2);
+  iVar3 = _stricmp(pcVar5,uVar4);
+  if (iVar3 == 0) {
+    uVar6 = 0xffffffff;
+    pcVar5 = param_1;
+    do {
+      pcVar9 = pcVar5;
+      if (uVar6 == 0) break;
+      uVar6 = uVar6 - 1;
+      pcVar9 = pcVar5 + 1;
+      cVar2 = *pcVar5;
+      pcVar5 = pcVar9;
+    } while (cVar2 != '\0');
+    uVar6 = ~uVar6;
+    pcVar5 = pcVar9 + -uVar6;
+    pcVar9 = g_szDialogFileName;
+    for (uVar8 = uVar6 >> 2; uVar8 != 0; uVar8 = uVar8 - 1) {
+      *(undefined4 *)pcVar9 = *(undefined4 *)pcVar5;
+      pcVar5 = pcVar5 + 4;
+      pcVar9 = pcVar9 + 4;
+    }
+    for (uVar6 = uVar6 & 3; uVar6 != 0; uVar6 = uVar6 - 1) {
+      *pcVar9 = *pcVar5;
+      pcVar5 = pcVar5 + 1;
+      pcVar9 = pcVar9 + 1;
+    }
+    pcVar5 = Str_FileExtension(g_szDialogFileName);
+    sprintf(pcVar5,&DAT_004ea45c);
+  }
+  else {
+    iVar3 = Plat_SaveFileDialog(s_Name_chore_list_file____004ea460,
+                                s_Script_files____lua____def__004ea478);
+    if (iVar3 == 0) {
+      return 0;
+    }
+  }
+  iVar3 = (*g_pSvcCostume->pFopen)(g_szDialogFileName,&DAT_004dd478);
+  if (iVar3 != 0) {
+    ppvVar1 = &g_pSvcCostume->pFprintf;
+    pcVar5 = Str_Basename(param_1);
+    (*(code *)*ppvVar1)(iVar3,s____Chore_numbering_for__s__004ea3d4,pcVar5);
+    (*g_pSvcCostume->pFprintf)(iVar3,s_____s_004ea3cc,param_3);
+    Str_CopyBasenameNoExt(acStack_20,0x20,param_1);
+    uVar4 = Cos_CreateCosInstance(param_2,0);
+    uVar6 = Cos_InstCountChores(uVar4);
+    uVar8 = 0;
+    if (uVar6 != 0) {
+      do {
+        ppvVar1 = &g_pSvcCostume->pFprintf;
+        uVar7 = Cos_InstChoreName(uVar4,uVar8,uVar8);
+        (*(code *)*ppvVar1)(iVar3,s__s__s____d_004ea3bc,acStack_20,uVar7);
+        uVar8 = uVar8 + 1;
+      } while (uVar8 < uVar6);
+    }
+    (*g_pSvcCostume->pFclose)(iVar3);
+    Cos_FreeCosInstance(uVar4);
+    return 1;
+  }
+  Plat_MessageBox(s_File_Error__004ea3f0,s_Unable_to_open_chore_list_file__C_004ea3fc,0);
+  return 0;
+}
+#undef acStack_20
+
+#endif
+
+
+/* ---- 0x00496020  Costume_InstanceHook ---- */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+#if 0
+/* Callback given to Cos_RegisterInstanceHook: clears the instance's user data (the actor index)
+   when an instance is created or destroyed. */
+
+undefined4 Costume_InstanceHook(undefined4 param_1,int param_2)
+
+{
+  if (param_2 != 0) {
+    Cos_InstSetUserData(param_1,0);
+    return 1;
+  }
+  Cos_InstSetUserData(param_1,0);
+  return 1;
 }
 #endif
 

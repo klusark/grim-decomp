@@ -98,9 +98,9 @@ undefined4 Memory_SysInitialize(GrimServices *param_1,undefined4 *param_2)
     UINT_008c9a74 = 1;
     if (param_2 != (undefined4 *)0x0) {
       *param_2 = Memory_SysInitialize;
-      param_2[1] = FUN_00488930;
-      param_2[2] = FUN_00488940;
-      param_2[3] = FUN_00488970;
+      param_2[1] = Memory_Sys_Terminate;
+      param_2[2] = Memory_Sys_Start;
+      param_2[3] = Memory_Sys_Stop;
       param_2[4] = 0;
       param_2[5] = 0;
       param_2[6] = 0;
@@ -111,16 +111,22 @@ undefined4 Memory_SysInitialize(GrimServices *param_1,undefined4 *param_2)
   return uVar1;
 }
 
-/* ---- 0x00488930  FUN_00488930 ---- */
-void FUN_00488930(void)
+/* ---- 0x00488930  Memory_Sys_Terminate ---- */
+/* Module interface slot 1 (Memory_Sys): called by Engine_ResetSubsystems / when registration fails;
+   drops the service table pointer and clears the initialised flag. */
+
+void Memory_Sys_Terminate(void)
 
 {
   UINT_008c9a74 = 0;
   return;
 }
 
-/* ---- 0x00488940  FUN_00488940 ---- */
-undefined4 FUN_00488940(void)
+/* ---- 0x00488940  Memory_Sys_Start ---- */
+/* Module interface slot 2 (Memory_Sys): called by Engine_InitSubsystems, returns 0 on success
+   (non-zero makes the whole start-up unwind).  */
+
+undefined4 Memory_Sys_Start(void)
 
 {
   undefined4 uVar1;
@@ -133,8 +139,11 @@ undefined4 FUN_00488940(void)
   return uVar1;
 }
 
-/* ---- 0x00488970  FUN_00488970 ---- */
-void FUN_00488970(void)
+/* ---- 0x00488970  Memory_Sys_Stop ---- */
+/* Module interface slot 3 (Memory_Sys): called by Engine_ShutdownSubsystems in reverse order;
+   releases what _Start created. */
+
+void Memory_Sys_Stop(void)
 
 {
   UINT_008c9a78 = 0;

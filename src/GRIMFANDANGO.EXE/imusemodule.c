@@ -16,7 +16,7 @@ undefined4 IMuseModule_Init(GrimServices *param_1,undefined4 *param_2)
   *param_2 = IMuseModule_Init;
   param_2[1] = 0;
   param_2[2] = LecShare_Nop;
-  param_2[3] = FUN_004836f0;
+  param_2[3] = IMuseModule_Stop;
   param_2[4] = 0;
   param_2[5] = 0;
   param_2[6] = 0;
@@ -24,8 +24,10 @@ undefined4 IMuseModule_Init(GrimServices *param_1,undefined4 *param_2)
   return 0;
 }
 
-/* ---- 0x004836f0  FUN_004836f0 ---- */
-void FUN_004836f0(void)
+/* ---- 0x004836f0  IMuseModule_Stop ---- */
+/* Module interface slot 3 of IMuseModule: frees g_pPolyglotText and the string table buffer. */
+
+void IMuseModule_Stop(void)
 
 {
   if (g_pPolyglotText != (char *)0x0) {

@@ -182,7 +182,7 @@ int __cdecl FUN_1000f310(int param_1,int param_2,int param_3,uint *param_4,uint 
 }
 
 /* ---- 0x1000f45d  FUN_1000f45d ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void __fastcall FUN_1000f45d(undefined4 param_1)
 
@@ -397,7 +397,7 @@ void __cdecl FUN_100119f0(char *param_1,int param_2)
 }
 
 /* ---- 0x10011e20  FUN_10011e20 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 float __cdecl FUN_10011e20(void)
 
@@ -415,7 +415,7 @@ float __cdecl FUN_10011e20(void)
 
 
 /* ---- 0x10011e3d  FUN_10011e3d ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void __cdecl FUN_10011e3d(int param_1,uint param_2)
 
@@ -467,7 +467,7 @@ float __fastcall FUN_100120fa(undefined4 param_1)
 }
 
 /* ---- 0x10012104  FUN_10012104 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -785,7 +785,7 @@ void __cdecl FUN_10013420(undefined4 *param_1,char *param_2,int param_3,uint par
 }
 
 /* ---- 0x100139a6  FUN_100139a6 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_100139a6(void)
 
@@ -799,7 +799,7 @@ void FUN_100139a6(void)
 
 
 /* ---- 0x100139b3  FUN_100139b3 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Stack frame is not setup normally: Input value of stackpointer is not used */
 
@@ -856,7 +856,7 @@ undefined4 FUN_100139f0(undefined4 *param_1)
 }
 
 /* ---- 0x10013b57  FUN_10013b57 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_10013b57(void)
 
@@ -870,7 +870,7 @@ void FUN_10013b57(void)
 
 
 /* ---- 0x10013b64  FUN_10013b64 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Stack frame is not setup normally: Input value of stackpointer is not used */
 
@@ -894,7 +894,7 @@ undefined4 FUN_10013b64(void)
 
 
 /* ---- 0x10013b8f  FUN_10013b8f ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_10013b8f(void)
 
@@ -941,7 +941,7 @@ undefined4 FUN_10013e0b(void)
 }
 
 /* ---- 0x10013e11  FUN_10013e11 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Stack frame is not setup normally: Input value of stackpointer is not used */
 
@@ -992,7 +992,7 @@ void __cdecl FUN_10013e40(int param_1)
 
 
 /* ---- 0x10013e8a  FUN_10013e8a ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 bool FUN_10013e8a(void)
 
@@ -1005,7 +1005,7 @@ bool FUN_10013e8a(void)
 
 
 /* ---- 0x10013e95  FUN_10013e95 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Stack frame is not setup normally: Input value of stackpointer is not used */
 
@@ -1040,7 +1040,7 @@ int __cdecl FUN_10013ec0(int param_1,int *param_2)
 }
 
 /* ---- 0x10013ef0  FUN_10013ef0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Restarted to delay deadcode elimination for space: stack */
 
@@ -1069,7 +1069,7 @@ undefined4 FUN_1001416a(void)
 }
 
 /* ---- 0x10014170  FUN_10014170 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Stack frame is not setup normally: Input value of stackpointer is not used */
 
@@ -1135,7 +1135,7 @@ undefined4 FUN_100141f1(void)
 }
 
 /* ---- 0x100141f7  FUN_100141f7 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Stack frame is not setup normally: Input value of stackpointer is not used */
 
@@ -1205,7 +1205,7 @@ undefined4 FUN_10015160(int a1)
 
 
 /* ---- 0x1001519c  FUN_1001519c ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 bool FUN_1001519c(void)
 
@@ -1218,7 +1218,7 @@ bool FUN_1001519c(void)
 
 
 /* ---- 0x100151b0  FUN_100151b0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4 __stdcall FUN_100151b0(int a1)
 
@@ -2133,7 +2133,7 @@ void __cdecl FUN_10017df0(int param_1,int param_2,int *param_3)
 }
 
 /* ---- 0x10018c77  FUN_10018c77 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void __fastcall FUN_10018c77(undefined4 param_1,int param_2)
 
@@ -2185,7 +2185,7 @@ float10 FUN_10018d14(void)
 }
 
 /* ---- 0x10018d4d  FUN_10018d4d ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 float10 FUN_10018d4d(void)
 
@@ -2207,7 +2207,7 @@ float10 FUN_10018d4d(void)
 
 
 /* ---- 0x10018d4f  FUN_10018d4f ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 float10 FUN_10018d4f(void)
 
@@ -2229,7 +2229,7 @@ float10 FUN_10018d4f(void)
 
 
 /* ---- 0x10018d77  FUN_10018d77 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 float10 FUN_10018d77(void)
 
@@ -2260,7 +2260,7 @@ LAB_10018db3:
 
 
 /* ---- 0x10018db6  FUN_10018db6 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -2280,7 +2280,7 @@ unkbyte10 FUN_10018db6(void)
 
 
 /* ---- 0x10018de0  FUN_10018de0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 float10 __fastcall
 FUN_10018de0(undefined4 param_1,uint param_2,undefined2 param_3,undefined4 param_4,
@@ -2318,7 +2318,7 @@ FUN_10018de0(undefined4 param_1,uint param_2,undefined2 param_3,undefined4 param
 
 
 /* ---- 0x10018df7  FUN_10018df7 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 float10 __fastcall
 FUN_10018df7(undefined4 param_1,uint param_2,ushort param_3,undefined4 param_4,undefined4 param_5,
@@ -2350,7 +2350,7 @@ FUN_10018df7(undefined4 param_1,uint param_2,ushort param_3,undefined4 param_4,u
 
 
 /* ---- 0x10018e40  FUN_10018e40 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined1 *FUN_10018e40(void)
 
@@ -2418,7 +2418,7 @@ void FUN_10018ede(void)
 }
 
 /* ---- 0x10018eeb  FUN_10018eeb ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void __fastcall
 FUN_10018eeb(undefined4 param_1,uint param_2,undefined4 param_3,undefined4 param_4,
@@ -2439,7 +2439,7 @@ FUN_10018eeb(undefined4 param_1,uint param_2,undefined4 param_3,undefined4 param
 
 
 /* ---- 0x10018f29  FUN_10018f29 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void __fastcall
 FUN_10018f29(undefined4 param_1,uint param_2,undefined4 param_3,undefined4 param_4,
@@ -2476,7 +2476,7 @@ FUN_10018f29(undefined4 param_1,uint param_2,undefined4 param_3,undefined4 param
 
 
 /* ---- 0x10018ff0  FUN_10018ff0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 float10 __cdecl FUN_10018ff0(int param_1,int param_2,uint param_3)
 
@@ -2498,7 +2498,7 @@ float10 __cdecl FUN_10018ff0(int param_1,int param_2,uint param_3)
 
 
 /* ---- 0x10019040  FUN_10019040 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 float10 __cdecl
 FUN_10019040(uint param_1,uint param_2,uint param_3,uint param_4,uint param_5,uint param_6,
@@ -2697,7 +2697,7 @@ float __cdecl FUN_10019960(uint param_1,uint param_2,int *param_3)
 }
 
 /* ---- 0x10019a70  FUN_10019a70 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 int FUN_10019a70(void)
 
@@ -2710,7 +2710,7 @@ int FUN_10019a70(void)
 
 
 /* ---- 0x10019a80  FUN_10019a80 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 int FUN_10019a80(void)
 
@@ -2750,7 +2750,7 @@ void __fastcall FUN_10019b30(undefined4 param_1,int param_2)
 }
 
 /* ---- 0x10019bfa  FUN_10019bfa ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_10019bfa(void)
 
@@ -2818,7 +2818,7 @@ LAB_10019cc9:
 
 
 /* ---- 0x1001a5a6  FUN_1001a5a6 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -2876,7 +2876,7 @@ FUN_1001a5a6(undefined4 param_1,uint param_2,ushort param_3,uint param_4,uint pa
 
 
 /* ---- 0x1001a7ac  FUN_1001a7ac ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -3269,7 +3269,7 @@ void __cdecl FUN_1001d880(uint *param_1,int param_2)
 }
 
 /* ---- 0x1001dc70  FUN_1001dc70 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 int * __cdecl FUN_1001dc70(undefined4 param_1,undefined4 param_2,int *param_3,char *param_4)
 
@@ -3742,7 +3742,7 @@ void FUN_10021a10(undefined4 *param_1)
 }
 
 /* ---- 0x10021f90  FUN_10021f90 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_10021f90(void)
 
@@ -3756,7 +3756,7 @@ void FUN_10021f90(void)
 
 
 /* ---- 0x10021f9b  FUN_10021f9b ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_10021f9b(void)
 
@@ -3778,7 +3778,7 @@ void __cdecl FUN_10021fa6(int *param_1,int param_2,int param_3,undefined4 param_
 }
 
 /* ---- 0x10021fb0  FUN_10021fb0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_10021fb0(void)
 
@@ -3802,7 +3802,7 @@ undefined4 FUN_10021fbb(int *param_1,int param_2,int param_3,undefined4 param_4)
 }
 
 /* ---- 0x10021fd0  FUN_10021fd0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_10021fd0(void)
 
@@ -3816,7 +3816,7 @@ void FUN_10021fd0(void)
 
 
 /* ---- 0x10021fdb  FUN_10021fdb ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_10021fdb(void)
 
@@ -3838,7 +3838,7 @@ void __cdecl FUN_10021fe6(int *param_1,int param_2,int param_3,undefined4 param_
 }
 
 /* ---- 0x10021ff0  FUN_10021ff0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_10021ff0(void)
 
@@ -3860,7 +3860,7 @@ void __cdecl FUN_10021ffb(int *param_1,int param_2,int param_3,undefined4 param_
 }
 
 /* ---- 0x10022010  FUN_10022010 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_10022010(void)
 
@@ -3884,7 +3884,7 @@ undefined4 FUN_1002201b(int *param_1,int param_2,int param_3,undefined4 param_4)
 }
 
 /* ---- 0x10022030  FUN_10022030 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_10022030(void)
 
@@ -3906,7 +3906,7 @@ void __cdecl FUN_1002203b(int *param_1,int param_2,int param_3,undefined4 param_
 }
 
 /* ---- 0x10022050  FUN_10022050 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_10022050(void)
 

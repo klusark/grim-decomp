@@ -76,7 +76,7 @@ void __cdecl tmpnam_genfname(int param_1)
 }
 
 /* ---- 0x100102a0  FUN_100102a0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4 __cdecl FUN_100102a0(byte *param_1)
 

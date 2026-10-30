@@ -1,453 +1,240 @@
 /* GRIMFANDANGO.EXE :: stdgif.c
- * functions 0x0047d280 .. 0x0047ec40 (13 functions)
+ * functions 0x0047db00 .. 0x0047ec40 (12 functions)
  * Decompiled from the shipped binaries with Ghidra; see ../../README.md */
 #include "ghidra_types.h"
 #include "globals.h"
 #include "functions.h"
 
-/* ---- 0x0047d280  stdGif_Load ---- */
-uint stdGif_Load(undefined4 param_1,undefined4 param_2,undefined4 param_3)
+/* ---- 0x0047db00  stdGif_Load ---- */
+/* stdBitmap_LoadFile loader for '.gif' (LZW through stdGif_LzwInitDecoder/DecodeNext, allocation
+   string Stdgif.c) */
+
+void * stdGif_Load(char *param_1,int param_2,int param_3)
 
 {
-  uint uVar1;
-  int iVar2;
+  unsigned char _frame[0xa0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  char cVar1;
+  byte bVar2;
+  int iVar3;
+  void *bitmap;
+  int iVar4;
+  char *pcVar5;
+  void *pvVar6;
+  int iVar7;
+  int iVar8;
+  int iVar9;
+  undefined4 uVar10;
+  #define cStack_81 (*(char *)(_frame + (0xa0 - 0x81)))
+  #define iStack_80 (*(int *)(_frame + (0xa0 - 0x80)))
+  #define iStack_7c (*(int *)(_frame + (0xa0 - 0x7c)))
+  #define piStack_78 (*(int **)(_frame + (0xa0 - 0x78)))
+  #define iStack_74 (*(int *)(_frame + (0xa0 - 0x74)))
+  #define iStack_70 (*(int *)(_frame + (0xa0 - 0x70)))
+  #define iStack_6c (*(int *)(_frame + (0xa0 - 0x6c)))
+  #define sStack_66 (*(short *)(_frame + (0xa0 - 0x66)))
+  #define auStack_64 (*(undefined1 (*)[2])(_frame + (0xa0 - 0x64)))
+  #define sStack_62 (*(short *)(_frame + (0xa0 - 0x62)))
+  #define sStack_60 (*(short *)(_frame + (0xa0 - 0x60)))
+  #define abStack_5e (*(byte (*)[2])(_frame + (0xa0 - 0x5e)))
+  #define cStack_5c (*(char *)(_frame + (0xa0 - 0x5c)))
+  #define cStack_5b (*(char *)(_frame + (0xa0 - 0x5b)))
+  #define cStack_5a (*(char *)(_frame + (0xa0 - 0x5a)))
+  #define cStack_59 (*(char *)(_frame + (0xa0 - 0x59)))
+  #define cStack_58 (*(char *)(_frame + (0xa0 - 0x58)))
+  #define cStack_57 (*(char *)(_frame + (0xa0 - 0x57)))
+  #define auStack_56 (*(undefined1 (*)[2])(_frame + (0xa0 - 0x56)))
+  #define auStack_54 (*(undefined1 (*)[2])(_frame + (0xa0 - 0x54)))
+  #define bStack_52 (*(byte *)(_frame + (0xa0 - 0x52)))
+  #define uStack_51 (*(undefined1 *)(_frame + (0xa0 - 0x51)))
+  #define auStack_50 (*(undefined1 (*)[4])(_frame + (0xa0 - 0x50)))
+  #define iStack_4c (*(int *)(_frame + (0xa0 - 0x4c)))
+  #define iStack_48 (*(int *)(_frame + (0xa0 - 0x48)))
+  #define uStack_38 (*(undefined4 *)(_frame + (0xa0 - 0x38)))
+  #define uStack_34 (*(undefined4 *)(_frame + (0xa0 - 0x34)))
   
-  uVar1 = (*g_pSvcMain->pAlloc)(0x7c,s_C__grimjedi_Libs_Std_General_std_004e77d8,DAT_004e77cc + 4);
-  if (uVar1 == 0) {
-    return 0;
+  iVar3 = (*g_pSvcMain->pFopen)(param_1,&DAT_004ddb18);
+  if (iVar3 == 0) {
+    return (void *)0x0;
   }
-  iVar2 = stdGif_LoadInto(param_1,uVar1,param_2,param_3);
-  return -(uint)(iVar2 != 0) & uVar1;
-}
-
-/* ---- 0x0047d2d0  stdGif_LoadInto ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
-/* Stdgif.c: GIF87/89 decoder (LZW via the stdGif_Lzw* helpers) */
-
-undefined4 stdGif_LoadInto(char *param_1,undefined4 *param_2,int param_3,int param_4)
-
-{
-  unsigned char _frame[0x160] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  short sVar1;
-  undefined1 uVar2;
-  undefined1 uVar3;
-  byte bVar4;
-  int iVar5;
-  int iVar6;
-  uint uVar7;
-  char *pcVar8;
-  void *pvVar9;
-  int iVar10;
-  undefined1 *puVar11;
-  undefined4 unaff_ESI;
-  uint uVar12;
-  int iVar13;
-  uint *puVar14;
-  undefined4 *puVar15;
-  undefined4 unaff_EDI;
-  uint uVar16;
-  uint *puVar17;
-  bool bVar18;
-  longlong lVar19;
-  undefined4 uVar20;
-  #define bStack_14b (*(byte *)(_frame + (0x160 - 0x14b)))
-  #define bStack_14a (*(byte *)(_frame + (0x160 - 0x14a)))
-  #define bStack_149 (*(byte *)(_frame + (0x160 - 0x149)))
-  #define puStack_148 (*(undefined4 **)(_frame + (0x160 - 0x148)))
-  #define uStack_141 (*(undefined1 *)(_frame + (0x160 - 0x141)))
-  #define iStack_140 (*(int *)(_frame + (0x160 - 0x140)))
-  #define iStack_13c (*(int *)(_frame + (0x160 - 0x13c)))
-  #define iStack_138 (*(int *)(_frame + (0x160 - 0x138)))
-  #define iStack_134 (*(int *)(_frame + (0x160 - 0x134)))
-  #define iStack_130 (*(int *)(_frame + (0x160 - 0x130)))
-  #define iStack_12c (*(int *)(_frame + (0x160 - 0x12c)))
-  #define uStack_128 (*(uint *)(_frame + (0x160 - 0x128)))
-  #define uStack_124 (*(uint *)(_frame + (0x160 - 0x124)))
-  #define puStack_120 (*(uint **)(_frame + (0x160 - 0x120)))
-  #define uStack_11c (*(uint *)(_frame + (0x160 - 0x11c)))
-  #define uStack_118 (*(uint *)(_frame + (0x160 - 0x118)))
-  #define uStack_114 (*(uint *)(_frame + (0x160 - 0x114)))
-  #define uStack_110 (*(undefined4 *)(_frame + (0x160 - 0x110)))
-  #define cStack_10c (*(char *)(_frame + (0x160 - 0x10c)))
-  #define cStack_10b (*(char *)(_frame + (0x160 - 0x10b)))
-  #define uStack_10a (*(ushort *)(_frame + (0x160 - 0x10a)))
-  #define iStack_104 (*(int *)(_frame + (0x160 - 0x104)))
-  #define auStack_100 (*(undefined1 (*)[4])(_frame + (0x160 - 0x100)))
-  #define local_fc (*(uint *)(_frame + (0x160 - 0xfc)))
-  #define local_f8 (*(uint *)(_frame + (0x160 - 0xf8)))
-  #define local_f4 (*(uint *)(_frame + (0x160 - 0xf4)))
-  #define local_f0 (*(uint *)(_frame + (0x160 - 0xf0)))
-  #define uStack_ec (*(uint *)(_frame + (0x160 - 0xec)))
-  #define fStack_e8 (*(float *)(_frame + (0x160 - 0xe8)))
-  #define uStack_94 (*(uint *)(_frame + (0x160 - 0x94)))
-  #define uStack_90 (*(undefined1 *)(_frame + (0x160 - 0x90)))
-  #define uStack_8f (*(undefined1 *)(_frame + (0x160 - 0x8f)))
-  #define uStack_8e (*(undefined1 *)(_frame + (0x160 - 0x8e)))
-  #define uStack_8d (*(undefined1 *)(_frame + (0x160 - 0x8d)))
-  #define fStack_8c (*(float *)(_frame + (0x160 - 0x8c)))
-  #define uStack_88 (*(undefined2 *)(_frame + (0x160 - 0x88)))
-  #define uStack_86 (*(undefined2 *)(_frame + (0x160 - 0x86)))
-  #define local_84 (*(uint *)(_frame + (0x160 - 0x84)))
-  #define local_80 (*(uint *)(_frame + (0x160 - 0x80)))
-  #define local_7c (*(uint *)(_frame + (0x160 - 0x7c)))
-  #define local_78 (*(uint *)(_frame + (0x160 - 0x78)))
-  #define local_74 (*(uint *)(_frame + (0x160 - 0x74)))
-  #define local_70 (*(uint *)(_frame + (0x160 - 0x70)))
-  #define local_6c (*(uint *)(_frame + (0x160 - 0x6c)))
-  #define local_68 (*(uint *)(_frame + (0x160 - 0x68)))
-  #define local_64 (*(uint *)(_frame + (0x160 - 0x64)))
-  #define local_60 (*(uint *)(_frame + (0x160 - 0x60)))
-  #define local_5c (*(uint *)(_frame + (0x160 - 0x5c)))
-  #define local_58 (*(uint *)(_frame + (0x160 - 0x58)))
-  #define local_54 (*(uint *)(_frame + (0x160 - 0x54)))
-  #define local_50 (*(uint *)(_frame + (0x160 - 0x50)))
-  #define uStack_4c (*(uint *)(_frame + (0x160 - 0x4c)))
-  #define uStack_48 (*(uint *)(_frame + (0x160 - 0x48)))
-  #define auStack_38 (*(uint (*)[14])(_frame + (0x160 - 0x38)))
-  
-  local_7c = 8;
-  local_78 = 8;
-  local_74 = 8;
-  local_6c = 8;
-  local_fc = 0;
-  local_f8 = 0;
-  local_f4 = 0;
-  local_f0 = 0;
-  local_84 = 1;
-  local_80 = 0x18;
-  local_70 = 0x10;
-  local_68 = 0;
-  local_64 = 0;
-  local_60 = 0;
-  local_5c = 0;
-  local_58 = 0;
-  local_54 = 0;
-  local_50 = 0;
-  iVar5 = (*g_pSvcMain->pFopen)(param_1,&DAT_004ddb18);
-  if (iVar5 == 0) {
-    return 0;
-  }
-  iVar6 = (*g_pSvcMain->pFread)(iVar5,&uStack_ec,0x68);
-  if (iVar6 != 0x68) {
-    return 0;
-  }
-  uVar12 = (uStack_ec << 0x10 | uStack_ec & 0xff00) << 8 |
-           (uStack_ec >> 0x10 | uStack_ec & 0xff0000) >> 8;
-  uStack_ec = uVar12;
-  lVar19 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
-  uVar3 = uStack_8e;
-  uVar2 = uStack_90;
-  uVar7 = (uint)lVar19;
-  uStack_110 = 0;
-  uStack_114 = (uVar7 & 0xff00 | uVar7 << 0x10) << 8 | (uVar7 >> 0x10 | uVar7 & 0xff0000) >> 8;
-  fStack_e8 = (float)uStack_114;
-  uStack_90 = uStack_8f;
-  uStack_8f = uVar2;
-  uVar16 = (uStack_94 << 0x10 | uStack_94 & 0xff00) << 8 |
-           (uStack_94 >> 0x10 | uStack_94 & 0xff0000) >> 8;
-  uStack_8e = uStack_8d;
-  uStack_8d = uVar3;
-  uStack_94 = uVar16;
-  lVar19 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
-  uVar7 = (uint)lVar19;
-  uStack_110 = 0;
-  uStack_114 = (uVar7 & 0xff00 | uVar7 << 0x10) << 8 | (uVar7 >> 0x10 | uVar7 & 0xff0000) >> 8;
-  fStack_8c = (float)uStack_114;
-  uStack_88 = CONCAT11((undefined1)uStack_88,PIECE(uStack_88,1,1));
-  uStack_86 = CONCAT11((undefined1)uStack_86,PIECE(uStack_86,1,1));
-  if (uVar12 != 0x5380f634) {
-    return 0;
-  }
-  if (uVar16 == 0x50494354) {
-    iStack_140 = -1;
-    iStack_138 = -1;
-    iStack_134 = -1;
-    iStack_130 = -1;
-    iVar13 = 0;
-    iVar6 = (*g_pSvcMain->pFread)(iVar5,&cStack_10c,4);
-    if (iVar6 == 4) {
-      puVar14 = &local_fc;
-      while( true ) {
-        bStack_14a = (byte)(uStack_10a >> 8);
-        if ((uStack_10a & 0x8000) != 0) {
-          iStack_140 = iVar13;
-        }
-        bStack_149 = bStack_14a & 0x40;
-        if ((uStack_10a & 0x4000) != 0) {
-          iStack_138 = iVar13;
-        }
-        bStack_14a = bStack_14a & 0x20;
-        if ((uStack_10a & 0x2000) != 0) {
-          iStack_134 = iVar13;
-        }
-        if ((uStack_10a & 0x1000) != 0) {
-          iStack_130 = iVar13;
-        }
-        uVar7 = (uint)CONCAT21(uStack_10a,cStack_10b);
-        if ((uStack_10a & 0x8000) != 0) {
-          uStack_128 = (uVar7 & 0xff) >> 3;
-        }
-        if ((uStack_10a & 0x4000) != 0) {
-          uStack_118 = (uVar7 & 0xff) >> 3;
-        }
-        if ((uStack_10a & 0x2000) != 0) {
-          uStack_11c = (uVar7 & 0xff) >> 3;
-        }
-        if ((uStack_10a & 0x1000) != 0) {
-          uStack_124 = (uVar7 & 0xff) >> 3;
-        }
-        *puVar14 = uStack_10a & 0xff;
-        if (cStack_10b != '\b') break;
-        iVar13 = iVar13 + 1;
-        puVar14 = puVar14 + 1;
-        if (cStack_10c == '\0') {
-          uVar20 = 0x1f;
-          puVar15 = param_2;
-          for (iVar6 = 0x1f; iVar6 != 0; iVar6 = iVar6 + -1) {
-            *puVar15 = 0;
-            puVar15 = puVar15 + 1;
+  iStack_6c = iVar3;
+  bitmap = (void *)(*g_pSvcMain->pAlloc)
+                             (0x7c,s_C__grimjedi_Libs_Std_General_Std_004e7884,DAT_004e787c + 0x13);
+  if (bitmap != (void *)0x0) {
+    *(undefined4 *)((int)bitmap + 0x60) = 0;
+    *(undefined4 *)((int)bitmap + 0x78) = 0;
+    (*g_pSvcMain->pFread)(iVar3,&cStack_5c,3);
+    iVar4 = toupper((int)cStack_5c);
+    if (((iVar4 == 0x47) && (iVar4 = toupper((int)cStack_5b), iVar4 == 0x49)) &&
+       (iVar4 = toupper((int)cStack_5a), iVar4 == 0x46)) {
+      (*g_pSvcMain->pFread)(iVar3,&cStack_59,3);
+      (*g_pSvcMain->pFread)(iVar3,auStack_56,2);
+      (*g_pSvcMain->pFread)(iVar3,auStack_54,2);
+      (*g_pSvcMain->pFread)(iVar3,&bStack_52,1);
+      (*g_pSvcMain->pFread)(iVar3,&uStack_51,1);
+      (*g_pSvcMain->pFread)(iVar3,auStack_50,1);
+      if ((bStack_52 & 0x80) != 0) {
+        iVar4 = (*g_pSvcMain->pAlloc)
+                          (0x300,s_C__grimjedi_Libs_Std_General_Std_004e7884,DAT_004e787c + 0x3b);
+        *(int *)((int)bitmap + 0x60) = iVar4;
+        if (iVar4 == 0) goto LAB_0047e02f;
+        (*g_pSvcMain->pFread)(iVar3,iVar4,(short)(1 << (bStack_52 & 7) + 1) * 3);
+      }
+      if (((cStack_59 == '8') && (cStack_58 == '9')) &&
+         (iVar4 = toupper((int)cStack_57), iVar4 == 0x41)) {
+        cVar1 = stdFile_ReadByte(iVar3);
+        while (cVar1 == '!') {
+          cVar1 = stdFile_ReadByte(iVar3);
+          while (cVar1 != '\0') {
+            cVar1 = stdFile_ReadByte(iVar3);
           }
-          iStack_12c = iVar13;
-          pcVar8 = Str_FileNameFromPath(param_1);
-          strncpy(param_2,pcVar8,uVar20);
-          *(undefined1 *)((int)param_2 + 0x1f) = 0;
-          param_2[8] = 0;
-          param_2[9] = 0;
-          param_2[0x18] = 0;
-          param_2[0x19] = 1;
-          param_2[0x1a] = 0;
-          puVar14 = &local_84;
-          puVar17 = param_2 + 10;
-          for (iVar6 = 0xe; iVar6 != 0; iVar6 = iVar6 + -1) {
-            *puVar17 = *puVar14;
-            puVar14 = puVar14 + 1;
-            puVar17 = puVar17 + 1;
-          }
-          iVar6 = (*g_pSvcMain->pAlloc)
-                            (4,s_C__grimjedi_Libs_Std_General_std_004e77d8,DAT_004e77d0 + 0x6d);
-          param_2[0x1e] = iVar6;
-          if (iVar6 == 0) {
-            (*g_pSvcMain->pAssertFail)
-                      (s_Unable_to_allocate_memory__004e76d4,
-                       s_C__grimjedi_Libs_Std_General_std_004e77d8,DAT_004e77d0 + 0x6e);
-          }
-          uStack_4c = CONCAT12(uStack_8e,CONCAT11(uStack_8f,uStack_90)) & 0xffff;
-          puVar14 = param_2 + 10;
-          puVar17 = auStack_38;
-          for (iVar6 = 0xe; iVar6 != 0; iVar6 = iVar6 + -1) {
-            *puVar17 = *puVar14;
-            puVar14 = puVar14 + 1;
-            puVar17 = puVar17 + 1;
-          }
-          uStack_48 = (uint)CONCAT11(uStack_8d,uStack_8e);
-          pvVar9 = Surface_Create(&uStack_4c,param_3,param_4,0);
-          *(void **)param_2[0x1e] = pvVar9;
-          if (*(int *)param_2[0x1e] == 0) {
-            (*g_pSvcMain->pAssertFail)
-                      (s_Unable_to_allocate_memory__004e76d4,
-                       s_C__grimjedi_Libs_Std_General_std_004e77d8,DAT_004e77d0 + 0x76);
-          }
-          iVar6 = Surface_Lock(*(void **)param_2[0x1e]);
-          if (iVar6 == 0) {
-            (*g_pSvcMain->pAssertFail)
-                      (s_Unable_to_lock_VBuffer_memory__004e76b4,
-                       s_C__grimjedi_Libs_Std_General_std_004e77d8,DAT_004e77d0 + 0x7c);
-          }
-          iStack_104 = 0;
-          uStack_114 = *(int *)(*(int *)param_2[0x1e] + 0x18);
-          puVar15 = param_2;
-          iVar6 = *(int *)(*(int *)param_2[0x1e] + 0x5c);
-          if (CONCAT11(uStack_8d,uStack_8e) != 0) {
-            do {
-              iStack_13c = iVar6;
-              iVar6 = 0;
-              if (0 < iStack_12c) {
-                puStack_120 = &local_fc;
-                do {
-                  if (*puStack_120 == 0) {
-                    iVar13 = 0;
-                    if (CONCAT11(uStack_8f,uStack_90) != 0) {
-                      puVar15 = (undefined4 *)(iStack_13c + 2);
-                      do {
-                        if (iStack_140 == iVar6) {
-                          (*g_pSvcMain->pFread)(iVar5,(int)puVar15 + -2,uStack_128);
-                        }
-                        if (iStack_138 == iVar6) {
-                          (*g_pSvcMain->pFread)(iVar5,(int)puVar15 + -1,uStack_118);
-                        }
-                        if (iStack_134 == iVar6) {
-                          (*g_pSvcMain->pFread)(iVar5,puVar15,uStack_11c);
-                        }
-                        if (iStack_130 == iVar6) {
-                          (*g_pSvcMain->pFread)(iVar5,auStack_100,uStack_124);
-                        }
-                        iVar13 = iVar13 + 1;
-                        puVar15 = (undefined4 *)((int)puVar15 + 3);
-                      } while (iVar13 < (int)(CONCAT12(uStack_8e,CONCAT11(uStack_8f,uStack_90)) &
-                                             0xffff));
-                    }
-                  }
-                  else {
-                    iVar13 = 0;
-                    if (CONCAT11(uStack_8f,uStack_90) != 0) {
-                      do {
-                        (*g_pSvcMain->pFread)(iVar5,&bStack_14b,1);
-                        if (bStack_14b < 0x80) {
-                          if (bStack_14b != 0xff) {
-                            puVar15 = (undefined4 *)(iVar13 * 3 + 2 + iStack_13c);
-                            do {
-                              if (iStack_140 == iVar6) {
-                                (*g_pSvcMain->pFread)(iVar5,(int)puVar15 + -2,uStack_128);
-                              }
-                              if (iStack_138 == iVar6) {
-                                (*g_pSvcMain->pFread)(iVar5,(int)puVar15 + -1,uStack_118);
-                              }
-                              if (iStack_134 == iVar6) {
-                                (*g_pSvcMain->pFread)(iVar5,puVar15,uStack_11c);
-                              }
-                              if (iStack_130 == iVar6) {
-                                (*g_pSvcMain->pFread)(iVar5,auStack_100,uStack_124);
-                              }
-                              iVar13 = iVar13 + 1;
-                              puVar15 = (undefined4 *)((int)puVar15 + 3);
-                              bVar4 = bStack_14b - 1;
-                              bVar18 = bStack_14b != 0;
-                              bStack_14b = bVar4;
-                            } while (bVar18);
-                          }
-                        }
-                        else {
-                          if (bStack_14b == 0x80) {
-                            (*g_pSvcMain->pFread)(iVar5,&puStack_148,2);
-                            puStack_148 = (undefined4 *)
-                                          (uint)CONCAT11((char)puStack_148,
-                                                         (char)((uint)puStack_148 >> 8));
-                          }
-                          else {
-                            puStack_148 = (undefined4 *)
-                                          (CONCAT22((short)((uint)puVar15 >> 0x10),
-                                                    (ushort)bStack_14b) - 0x7f);
-                          }
-                          if (iStack_140 == iVar6) {
-                            (*g_pSvcMain->pFread)(iVar5,&bStack_14a,uStack_128);
-                          }
-                          if (iStack_138 == iVar6) {
-                            (*g_pSvcMain->pFread)(iVar5,&bStack_149,uStack_118);
-                          }
-                          if (iStack_134 == iVar6) {
-                            (*g_pSvcMain->pFread)(iVar5,&uStack_141,uStack_11c);
-                          }
-                          if (iStack_130 == iVar6) {
-                            (*g_pSvcMain->pFread)(iVar5,auStack_100,uStack_124);
-                          }
-                          sVar1 = (short)puStack_148;
-                          puVar15 = (undefined4 *)((int)puStack_148 + 0xffff);
-                          puStack_148 = puVar15;
-                          if (sVar1 != 0) {
-                            iVar10 = ((uint)puVar15 & 0xffff) + 1;
-                            puVar11 = (undefined1 *)(iVar13 * 3 + 2 + iStack_13c);
-                            iVar13 = iVar13 + iVar10;
-                            do {
-                              if (iStack_140 == iVar6) {
-                                puVar11[-2] = bStack_14a;
-                              }
-                              if (iStack_138 == iVar6) {
-                                puVar11[-1] = bStack_149;
-                              }
-                              if (iStack_134 == iVar6) {
-                                *puVar11 = uStack_141;
-                              }
-                              puVar11 = puVar11 + 3;
-                              iVar10 = iVar10 + -1;
-                              puVar15 = (undefined4 *)((int)puVar15 + 0xffff);
-                              puStack_148 = puVar15;
-                            } while (iVar10 != 0);
-                          }
-                        }
-                      } while (iVar13 < (int)(CONCAT12(uStack_8e,CONCAT11(uStack_8f,uStack_90)) &
-                                             0xffff));
-                    }
-                  }
-                  iVar6 = iVar6 + 1;
-                  puStack_120 = puStack_120 + 1;
-                } while (iVar6 < iStack_12c);
+          cVar1 = stdFile_ReadByte(iVar3);
+        }
+      }
+      else {
+        cVar1 = stdFile_ReadByte(iVar3);
+      }
+      if (cVar1 == ',') {
+        (*g_pSvcMain->pFread)(iVar3,&sStack_66,2);
+        (*g_pSvcMain->pFread)(iVar3,auStack_64,2);
+        (*g_pSvcMain->pFread)(iVar3,&sStack_62,2);
+        (*g_pSvcMain->pFread)(iVar3,&sStack_60,2);
+        (*g_pSvcMain->pFread)(iVar3,abStack_5e,1);
+        uVar10 = 0x1f;
+        pcVar5 = Str_FileNameFromPath(param_1);
+        strncpy(bitmap,pcVar5,uVar10);
+        *(undefined1 *)((int)bitmap + 0x1f) = 0;
+        *(undefined4 *)((int)bitmap + 0x20) = 0;
+        *(undefined4 *)((int)bitmap + 0x24) = 2;
+        *(undefined4 *)((int)bitmap + 100) = 1;
+        *(undefined4 *)((int)bitmap + 0x68) = 0;
+        *(undefined4 *)((int)bitmap + 0x28) = 0;
+        *(undefined4 *)((int)bitmap + 0x2c) = 8;
+        iVar4 = (*g_pSvcMain->pAlloc)
+                          (4,s_C__grimjedi_Libs_Std_General_Std_004e7884,DAT_004e787c + 0x73);
+        *(int *)((int)bitmap + 0x78) = iVar4;
+        if (iVar4 != 0) {
+          iStack_4c = (int)sStack_62;
+          iStack_48 = (int)sStack_60;
+          uStack_38 = 0;
+          uStack_34 = 8;
+          pvVar6 = Surface_Create(&iStack_4c,param_2,param_3,0);
+          **(undefined4 **)((int)bitmap + 0x78) = pvVar6;
+          if (**(int **)((int)bitmap + 0x78) != 0) {
+            if ((abStack_5e[0] & 0x80) != 0) {
+              bVar2 = abStack_5e[0] & 7;
+              if (*(int *)((int)bitmap + 0x60) == 0) {
+                iVar4 = (*g_pSvcMain->pAlloc)
+                                  (0x300,s_C__grimjedi_Libs_Std_General_Std_004e7884,
+                                   DAT_004e787c + 0x8a);
+                *(int *)((int)bitmap + 0x60) = iVar4;
+                if (iVar4 == 0) goto LAB_0047e02f;
               }
-              iStack_104 = iStack_104 + 1;
-              iStack_13c = iStack_13c + uStack_114;
-              iVar6 = iStack_13c;
-            } while (iStack_104 < (int)(uint)CONCAT11(uStack_8d,uStack_8e));
+              (*g_pSvcMain->pFread)
+                        (iVar3,*(undefined4 *)((int)bitmap + 0x60),(short)(1 << bVar2 + 1) * 3);
+            }
+            iVar4 = (*g_pSvcMain->pAlloc)
+                              (*(int *)(**(int **)((int)bitmap + 0x78) + 0xc) + (int)sStack_66,
+                               s_C__grimjedi_Libs_Std_General_Std_004e7884,DAT_004e787c + 0x95);
+            iStack_7c = iVar4;
+            if (iVar4 != 0) {
+              (*g_pSvcMain->pFread)(iVar3,&cStack_81,1);
+              stdGif_LzwInitDecoder((short)cStack_81);
+              iVar9 = 0;
+              iStack_74 = (-(uint)((abStack_5e[0] & 2) != 0) & 7) + 1;
+              iStack_80 = 0;
+              Surface_Lock((void *)**(undefined4 **)((int)bitmap + 0x78));
+              iStack_70 = 0;
+              iVar7 = **(int **)((int)bitmap + 0x78);
+              if (0 < *(int *)(iVar7 + 0x10)) {
+                piStack_78 = (int *)&DAT_004e780c;
+                do {
+                  iVar4 = 0;
+                  if (0 < *(int *)(iVar7 + 0xc) + (int)sStack_66) {
+                    do {
+                      bVar2 = stdGif_LzwDecodeNext(iVar3);
+                      *(byte *)(iVar4 + iStack_7c) = bVar2;
+                      if (bVar2 == 0xffffffff) {
+                        (*g_pSvcMain->pFree)(iStack_7c);
+                        goto LAB_0047e02f;
+                      }
+                      iVar4 = iVar4 + 1;
+                    } while (iVar4 < *(int *)(**(int **)((int)bitmap + 0x78) + 0xc) + (int)sStack_66
+                            );
+                  }
+                  iVar4 = **(int **)((int)bitmap + 0x78);
+                  if (iVar9 <= *(int *)(iVar4 + 0x10)) {
+                    iVar7 = *(int *)(iVar4 + 0xc);
+                    iVar8 = 0;
+                    if (0 < iVar7) {
+                      do {
+                        iVar3 = iStack_7c + iVar8;
+                        iVar8 = iVar8 + 1;
+                        *(undefined1 *)(iVar9 * iVar7 + *(int *)(iVar4 + 0x5c) + -1 + iVar8) =
+                             *(undefined1 *)(iVar3 + sStack_66);
+                        iVar4 = **(int **)((int)bitmap + 0x78);
+                        iVar7 = *(int *)(iVar4 + 0xc);
+                        iVar9 = iStack_80;
+                        iVar3 = iStack_6c;
+                      } while (iVar8 < iVar7);
+                    }
+                  }
+                  iVar9 = iVar9 + iStack_74;
+                  iVar7 = **(int **)((int)bitmap + 0x78);
+                  if (*(int *)(iVar7 + 0x10) <= iVar9) {
+                    iVar9 = piStack_78[1];
+                    iStack_74 = piStack_78[2];
+                    piStack_78 = piStack_78 + 2;
+                  }
+                  iStack_70 = iStack_70 + 1;
+                  iVar4 = iStack_7c;
+                  iStack_80 = iVar9;
+                } while (iStack_70 < *(int *)(iVar7 + 0x10));
+              }
+              Surface_Unlock((void *)**(undefined4 **)((int)bitmap + 0x78));
+              (*g_pSvcMain->pFree)(iVar4);
+              (*g_pSvcMain->pFread)(iVar3,&cStack_81,1);
+              (*g_pSvcMain->pFclose)(iVar3);
+              return bitmap;
+            }
           }
-          Surface_Unlock(*(void **)param_2[0x1e]);
-          (*g_pSvcMain->pFclose)(iVar5);
-          return 1;
-        }
-        iVar6 = (*g_pSvcMain->pFread)(iVar5,&cStack_10c,4);
-        if (iVar6 != 4) {
-          return 0;
         }
       }
     }
-    return 0;
   }
-  return 0;
+LAB_0047e02f:
+  (*g_pSvcMain->pFclose)(iVar3);
+  if (bitmap != (void *)0x0) {
+    stdBitmap_Free(bitmap);
+  }
+  return (void *)0x0;
 }
-#undef auStack_100
-#undef auStack_38
-#undef bStack_149
-#undef bStack_14a
-#undef bStack_14b
-#undef cStack_10b
-#undef cStack_10c
-#undef fStack_8c
-#undef fStack_e8
-#undef iStack_104
-#undef iStack_12c
-#undef iStack_130
-#undef iStack_134
-#undef iStack_138
-#undef iStack_13c
-#undef iStack_140
-#undef local_50
-#undef local_54
-#undef local_58
-#undef local_5c
-#undef local_60
-#undef local_64
-#undef local_68
-#undef local_6c
-#undef local_70
-#undef local_74
-#undef local_78
-#undef local_7c
-#undef local_80
-#undef local_84
-#undef local_f0
-#undef local_f4
-#undef local_f8
-#undef local_fc
-#undef puStack_120
-#undef puStack_148
-#undef uStack_10a
-#undef uStack_110
-#undef uStack_114
-#undef uStack_118
-#undef uStack_11c
-#undef uStack_124
-#undef uStack_128
-#undef uStack_141
-#undef uStack_48
-#undef uStack_4c
-#undef uStack_86
-#undef uStack_88
-#undef uStack_8d
-#undef uStack_8e
-#undef uStack_8f
-#undef uStack_90
-#undef uStack_94
-#undef uStack_ec
-
-#endif
+#undef abStack_5e
+#undef auStack_50
+#undef auStack_54
+#undef auStack_56
+#undef auStack_64
+#undef bStack_52
+#undef cStack_57
+#undef cStack_58
+#undef cStack_59
+#undef cStack_5a
+#undef cStack_5b
+#undef cStack_5c
+#undef cStack_81
+#undef iStack_48
+#undef iStack_4c
+#undef iStack_6c
+#undef iStack_70
+#undef iStack_74
+#undef iStack_7c
+#undef iStack_80
+#undef piStack_78
+#undef sStack_60
+#undef sStack_62
+#undef sStack_66
+#undef uStack_34
+#undef uStack_38
+#undef uStack_51
 
 
 /* ---- 0x0047e060  stdGif_Save ---- */
@@ -796,7 +583,7 @@ uint stdGif_ReadByte(undefined4 param_1)
 }
 
 /* ---- 0x0047e7f0  stdGif_LzwInitEncoder ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -899,7 +686,7 @@ void stdGif_LzwWriteCode(undefined4 param_1,short param_2)
 }
 
 /* ---- 0x0047ea30  stdGif_LzwEncodePixel ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 

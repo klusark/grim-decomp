@@ -6,7 +6,7 @@
 #include "functions.h"
 
 /* ---- 0x004839f0  Render_GetBackBuffer ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Returns the back buffer surface g_BackBuffer */
 
@@ -19,7 +19,7 @@ uint * Render_GetBackBuffer(void)
 
 
 /* ---- 0x00483a00  Render_ToggleDebugOverlay ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Flips debug flag 1 and, when turning it off, invalidates the whole canvas on every buffer */
 
@@ -65,7 +65,7 @@ void Render_ToggleDebugOverlay(void)
 
 
 /* ---- 0x00483a80  Render_SetUserCallback ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void Render_SetUserCallback(uint param_1)
 
@@ -77,7 +77,7 @@ void Render_SetUserCallback(uint param_1)
 
 
 /* ---- 0x00483a90  Render_SetFlipCallback ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Installs the function Render_Present calls to show the back buffer */
 
@@ -91,7 +91,7 @@ void Render_SetFlipCallback(void *param_1)
 
 
 /* ---- 0x00483da0  Render_SaveState ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 int __cdecl Render_SaveState(void *writeFn)
 
@@ -111,7 +111,7 @@ int __cdecl Render_SaveState(void *writeFn)
 
 
 /* ---- 0x00483e20  Render_RestoreState ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 int __cdecl Render_RestoreState(void *readFn)
 
@@ -131,7 +131,7 @@ int __cdecl Render_RestoreState(void *readFn)
 
 
 /* ---- 0x00483ea0  Render_SetZBufferEnabled ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void Render_SetZBufferEnabled(int param_1)
 
@@ -143,7 +143,7 @@ void Render_SetZBufferEnabled(int param_1)
 
 
 /* ---- 0x00483eb0  Render_SetBufferCount ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void __cdecl Render_SetBufferCount(int n)
 
@@ -158,7 +158,7 @@ void __cdecl Render_SetBufferCount(int n)
 
 
 /* ---- 0x00483ed0  Render_InvalidateRectLastBuffer ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -190,7 +190,7 @@ void __cdecl Render_InvalidateRectLastBuffer(int *rect,int flag)
 
 
 /* ---- 0x00483f60  Render_InvalidateRect ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Aligns x/width to 4 pixels and marks the rectangle dirty on every buffer */
@@ -229,7 +229,7 @@ void __cdecl Render_InvalidateRect(int *rect,int flag)
 
 
 /* ---- 0x00484030  Render_Open ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Creates the rdCanvas, the background, temp and z-buffer surfaces, programs the pixel format into
@@ -304,7 +304,7 @@ Render_Open(uint param_1,uint param_2,undefined4 param_3,undefined4 param_4,unde
 
 
 /* ---- 0x004841f0  Render_Close ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -334,7 +334,7 @@ void Render_Close(void)
 
 
 /* ---- 0x004849a0  Render_Present ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Calls the flip callback unless the frame was flagged to skip presentation */
 
@@ -351,7 +351,7 @@ void Render_Present(void)
 
 
 /* ---- 0x004849d0  Render_SetPixelFormat ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Copies the 7-dword pixel format and pushes each component shift/mask into RDroid */
 
@@ -380,7 +380,7 @@ void Render_SetPixelFormat(uint *param_1)
 
 
 /* ---- 0x00484a50  FUN_00484a50 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4 FUN_00484a50(void)
 
@@ -471,7 +471,7 @@ undefined4 FUN_00484a50(void)
 
 
 /* ---- 0x00484c40  Render_InitColorConstants ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Builds the 16-bit colour constants (black, white, greys, red, green, blue, text colours) for the
@@ -648,7 +648,7 @@ void Render_InitColorConstants(int param_1)
 
 
 /* ---- 0x00485bd0  Render_DrawDebugGrid ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void Render_DrawDebugGrid(void)
 
@@ -724,7 +724,7 @@ void Render_DrawDebugGrid(void)
 
 
 /* ---- 0x00486100  Render_CanvasIsPaletted ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 bool Render_CanvasIsPaletted(void)
 
@@ -735,7 +735,7 @@ bool Render_CanvasIsPaletted(void)
 
 
 /* ---- 0x00486120  Render_BuildActorDrawList ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Collects the visible actors of the current set with their view-space depth into 12-byte {kind,
    depth, index} entries and sorts them back to front */
@@ -801,7 +801,7 @@ void Render_BuildActorDrawList(void)
 
 
 /* ---- 0x004862e0  Render_ScreenToWorld ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Reads the depth image at (x,y) and un-projects the pixel through the current camera frame */
 
@@ -839,7 +839,7 @@ void __cdecl Render_ScreenToWorld(int x,int y,float *outPos)
 
 
 /* ---- 0x004863b0  Render_InvalidateBackground ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void __cdecl Render_InvalidateBackground(int redrawBackground,int redrawDepth)
 
@@ -892,7 +892,7 @@ void __cdecl Render_InvalidateBackground(int redrawBackground,int redrawDepth)
 
 
 /* ---- 0x004864a0  Render_BuildColorTable ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_40 */
 /* Fills the 65536-entry 16-bit remap table g_wColorTable for the pixel format and gamma */
@@ -962,7 +962,7 @@ void Render_BuildColorTable(int param_1,float param_2)
 
 
 /* ---- 0x00486620  Render_RemapPixels ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void __cdecl Render_RemapPixels(ushort *pixels,uint n)
 
@@ -1003,7 +1003,7 @@ void __cdecl Render_RemapPixels(ushort *pixels,uint n)
 
 
 /* ---- 0x00486710  Render_SetGamma ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Rebuilds the colour constants and redraws the current setup when the gamma changes */
 
@@ -1030,7 +1030,7 @@ void __cdecl Render_SetGamma(float gamma)
 
 
 /* ---- 0x00486760  Render_ConvertBackground ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Converts a compressed (type 2) background bitmap into g_pTempSurface and remaps its pixels */
 
@@ -1064,7 +1064,7 @@ void Render_ConvertBackground(void *param_1)
 
 
 /* ---- 0x004867d0  Render_DimBackground ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Renders a frame, copies it to the background and darkens every pixel by the given shift (used
    while menus are up) */
@@ -1174,7 +1174,7 @@ void Render_DimBackground(ushort *param_1,byte param_2)
 
 
 /* ---- 0x00486990  Render_CopyBackBufferToBackground ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void Render_CopyBackBufferToBackground(void)
 
@@ -1186,7 +1186,7 @@ void Render_CopyBackBufferToBackground(void)
 
 
 /* ---- 0x004869b0  Render_CleanBuffer ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua CleanBuffer: after a restore, copies the background back onto the back buffer */
 
@@ -1217,7 +1217,7 @@ void Render_CleanBuffer(void)
 
 
 /* ---- 0x00486a00  Render_RequestFullRedraw ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua opcode: ForceRefresh */
 
@@ -1231,7 +1231,7 @@ void Render_RequestFullRedraw(void)
 
 
 /* ---- 0x00486b00  Render_GetBackgroundSurface ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void * Render_GetBackgroundSurface(void)
 
@@ -1242,7 +1242,7 @@ void * Render_GetBackgroundSurface(void)
 
 
 /* ---- 0x00486b10  Render_GetZBufferSurface ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void * Render_GetZBufferSurface(void)
 
@@ -1253,7 +1253,7 @@ void * Render_GetZBufferSurface(void)
 
 
 /* ---- 0x00486b20  Render_GetUserCallback ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 uint Render_GetUserCallback(void)
 
@@ -1264,7 +1264,7 @@ uint Render_GetUserCallback(void)
 
 
 /* ---- 0x00486b30  Render_SetDrawEnabled ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void Render_SetDrawEnabled(int param_1)
 
@@ -1276,7 +1276,7 @@ void Render_SetDrawEnabled(int param_1)
 
 
 /* ---- 0x00486d00  Render_DrawIris ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Blacks out the back buffer outside a rectangle centred on (x,y) that has closed by `percent` (0 =
    fully open, 1 = closed) */
@@ -1379,7 +1379,7 @@ void __cdecl Render_DrawIris(float percent,int x,int y)
 
 
 /* ---- 0x00486eb0  Render_StartIrisClose ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua IrisDown: starts an iris transition closing over durationMs */
 
@@ -1397,7 +1397,7 @@ void __cdecl Render_StartIrisClose(int x,int y,int durationMs)
 
 
 /* ---- 0x00486ef0  Render_StartIrisOpen ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua IrisUp: starts an iris transition opening over durationMs (negative duration) */
 
@@ -1415,7 +1415,7 @@ void __cdecl Render_StartIrisOpen(int x,int y,int durationMs)
 
 
 /* ---- 0x00486f30  Render_IsIrisDone ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 uint Render_IsIrisDone(void)
 
@@ -1429,7 +1429,7 @@ uint Render_IsIrisDone(void)
 
 
 /* ---- 0x00486f90  Render_CaptureThumbnail ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Renders a dimmed frame and scales the background down into a new w x h bitmap (save game
    thumbnail) */
@@ -1511,7 +1511,7 @@ void * __cdecl Render_CaptureThumbnail(int w,int h)
 
 
 /* ---- 0x004870e0  Render_FillRect ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -1572,7 +1572,7 @@ void __cdecl Render_FillRect(int x,int y,int w,int h,float r,float g,float b)
 
 
 /* ---- 0x00487260  Render_SaveScreen ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua SaveScreen */
 
@@ -1637,7 +1637,7 @@ void __cdecl Render_SaveScreen(char *filename)
 
 
 /* ---- 0x004872f0  Render_SaveZBufferBmp ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void __cdecl Render_SaveZBufferBmp(char *filename)
 
@@ -1655,7 +1655,7 @@ void __cdecl Render_SaveZBufferBmp(char *filename)
 
 
 /* ---- 0x00487340  Render_SaveScreenshotBmp ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Debug key S: writes the back buffer as a 24-bit .bmp */
 
@@ -1718,7 +1718,7 @@ void __cdecl Render_SaveScreenshotBmp(char *filename)
 
 
 /* ---- 0x004873d0  Render_DrawProgressBar ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Draws the save/load progress bar directly on the primary surface */
 
@@ -1779,7 +1779,7 @@ void __cdecl Render_DrawProgressBar(float fraction)
 
 
 /* ---- 0x004874c0  Render_SetWaitCursorEnabled ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void Render_SetWaitCursorEnabled(uint param_1)
 
@@ -1791,7 +1791,7 @@ void Render_SetWaitCursorEnabled(uint param_1)
 
 
 /* ---- 0x004874d0  Render_UpdateWaitCursor ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* After 3.5 s without a frame, animates wait.bm (BKND resource) on the primary surface every 250 ms
     */
@@ -1862,7 +1862,7 @@ void Render_UpdateWaitCursor(void)
 
 
 /* ---- 0x0048f920  Render_GetFrameCounter ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 int Render_GetFrameCounter(void)
 

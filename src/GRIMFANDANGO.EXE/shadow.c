@@ -6,7 +6,7 @@
 #include "functions.h"
 
 /* ---- 0x00494890  Shadow_SetColor ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua SetShadowColor */
 
@@ -40,7 +40,7 @@ void __cdecl Shadow_SetColor(int r,int g,int b)
 
 
 /* ---- 0x00494bf0  Shadow_DrawClippedPoly ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Clips the projected polygon against each sector of the shadow plane and draws it, growing the
    dirty box */

@@ -233,6 +233,143 @@ undefined *Display_InitFromConfig(void)
 }
 
 
+/* stdFile_Open (0x473430): fopen for the engine's file services. The original binary used its own MSVC 6 C runtime;
+ * this build links the host msvcrt, whose text-mode ftell() returns 0 after a one-byte fread() (checked with a
+ * stand-alone program). Lua's dofile reads the first character of a script, calls ftell and seeks back by one, so
+ * every *text* script (a loose _system.lua, mod.lua ...; TextAllowed=TRUE) lost its first character and silently
+ * failed to parse. Read-mode opens are therefore done in binary mode (Lua 3.1 treats "
+" as white space). */
+extern void *GRIM_host_fopen(const char *, const char *) __asm__("_fopen");
+undefined * __cdecl stdFile_Open(uint param_1, uint param_2)
+{
+    const char *name = (const char *)param_1, *mode = (const char *)param_2;
+    char m[8];
+    int i = 0, has_b = 0, has_plus = 0, is_r = (mode[0] == 'r');
+    for (; mode[i] && i < 6; i++) {
+        m[i] = mode[i];
+        has_b |= (mode[i] == 'b');
+        has_plus |= (mode[i] == '+');
+    }
+    if (is_r && !has_b && !has_plus)
+        m[i++] = 'b';
+    m[i] = 0;
+    return (undefined *)GRIM_host_fopen(name, m);
+}
+
+
+/* ===================================================================================================
+ * Example mods (docs/MODDING.md): a C change to the walker and new Lua API functions.
+ * =================================================================================================== */
+
+extern double GRIM_atof(const char *) __asm__("_atof");   /* host C runtime */
+
+/* Walk speed scale. Every actor's walk step is dt * timeScale * walkRate (Actor_UpdateWalker); this factor is
+ * applied on top. Default 1.0; GRIM_WALK_SCALE=<float> in the environment sets the start value and the Lua function
+ * SetWalkSpeedScale(x) changes it at run time. */
+static float g_fWalkSpeedScale = 1.0f;
+static int g_bWalkScaleInit;
+
+static void walk_scale_init(void)
+{
+    const char *e;
+    if (g_bWalkScaleInit)
+        return;
+    g_bWalkScaleInit = 1;
+    e = GRIM_getenv("GRIM_WALK_SCALE");
+    if (e && GRIM_atof(e) > 0.0)
+        g_fWalkSpeedScale = (float)GRIM_atof(e);
+}
+
+/* float -> its IEEE bits: the original passes float arguments of Walker_TurnHeading/Walker_WalkSectors in int slots */
+static int float_bits(float f)
+{
+    union { float f; int i; } u;
+    u.f = f;
+    return u.i;
+}
+
+#define ACT_I(p, off) (*(int *)((char *)(p) + (off)))
+#define ACT_F(p, off) (*(float *)((char *)(p) + (off)))
+
+/* Actor_UpdateWalker (0x491110), rewritten from the disassembly with the walk speed scale added. Actor layout (see the
+ * plate comment of Actor_Create): +8 flags (bit 0 = following a path), +0xa4 extra. Extra: +0xc walk-forward flag,
+ * +0x10 turn direction (-1/0/1), +0x18 walk rate, +0x1c turn rate, +0x20 yaw done, +0x28 yaw error, +0x1b4 walker,
+ * +0x1bc follow-boxes off, +0x41c time scale. */
+void Actor_UpdateWalker(int actor)
+{
+    int extra = ACT_I(actor, 0xa4);
+    float *walker = (float *)ACT_I(extra, 0x1b4);
+    float dt;
+
+    walk_scale_init();
+    if (ACT_I(extra, 0x10) != 0 && (ACT_I(actor, 8) & 1) == 0) {
+        dt = Timer_GetFrameSeconds();
+        Walker_TurnHeading(walker, float_bits((float)ACT_I(extra, 0x10) * ACT_F(extra, 0x1c) * dt * ACT_F(extra, 0x41c)));
+    }
+    extra = ACT_I(actor, 0xa4);
+    if (ACT_I(extra, 0xc) != 0) {
+        int a2, a3;
+        dt = Timer_GetFrameSeconds();
+        if (ACT_I(extra, 0x1bc) == 0) {
+            a3 = ACT_I(extra, 0x10) != 1;
+            a2 = ACT_I(extra, 0x10) != -1;
+        } else {
+            a3 = 1;
+            a2 = 1;
+        }
+        ACT_I(ACT_I(actor, 0xa4), 0xc) =
+            (int)Walker_WalkSectors(walker, float_bits(dt * ACT_F(extra, 0x41c) * ACT_F(extra, 0x18) * g_fWalkSpeedScale), a2, a3);
+    }
+    ACT_I(ACT_I(actor, 0xa4), 0x20) = Walker_UpdateYaw((void *)actor, walker);
+    extra = ACT_I(actor, 0xa4);
+    if (ACT_I(extra, 0x10) == 0 && ACT_I(extra, 0x20) == 0)
+        ACT_I(extra, 0x10) = (ACT_F(extra, 0x28) <= 0.0f) ? 1 : -1;
+    ACT_I(actor, 0xc) = ((int *)walker)[0];
+    ACT_I(actor, 0x10) = ((int *)walker)[1];
+    ACT_I(actor, 0x14) = ((int *)walker)[2];
+    ACT_I(actor, 0x34) = 0;
+}
+
+/* ---- new Lua API functions ----
+ * A Lua C function takes no C arguments: it reads its Lua arguments with lua_lua2C(1..n) (+ lua_getnumber,
+ * lua_getstring, lua_isnumber ...) and returns its results by pushing them (lua_pushnumber, lua_pushstring, ...). */
+static int Lua_GetEngineVersionString(void)
+{
+    lua_pushstring("Grim Fandango GOG v1.01 decompilation rebuild, built " __DATE__ " " __TIME__);
+    return 0;
+}
+
+static int Lua_SetWalkSpeedScale(void)
+{
+    int arg = lua_lua2C(1);
+    walk_scale_init();
+    if (lua_isnumber(arg))
+        g_fWalkSpeedScale = lua_getnumber(arg);
+    return 0;
+}
+
+static int Lua_GetWalkSpeedScale(void)
+{
+    walk_scale_init();
+    lua_pushnumber(g_fWalkSpeedScale);
+    return 0;
+}
+
+/* Table in the same {name, function} format as the engine's own (0x004ea8b0); lua_openlib registers every entry as a
+ * global and lua_recognizelib makes the functions known to the save/restore code. */
+static struct { const char *name; void *fn; } mod_api[] = {
+    { "GetEngineVersionString", (void *)Lua_GetEngineVersionString },
+    { "SetWalkSpeedScale",      (void *)Lua_SetWalkSpeedScale },
+    { "GetWalkSpeedScale",      (void *)Lua_GetWalkSpeedScale },
+};
+
+/* Called right after the engine registered its own table: names/asm_patches.json inserts `call _GRIM_RegisterModApi`
+ * into Lua_InitGameLibs (0x49de00), after the Lua_OpenEngineLib call. */
+void GRIM_RegisterModApi(void)
+{
+    lua_openlib(mod_api, sizeof mod_api / sizeof mod_api[0]);
+}
+
 #endif /* GRIM_EXE */
 
 #ifdef GRIM_IMUSE

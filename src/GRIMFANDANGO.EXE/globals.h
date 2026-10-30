@@ -580,7 +580,7 @@ extern undefined DAT_004e82f4; /* used by 2 fn(s), first 0x00488a70 */
 extern char s__s____004e82fc[]; /* used by 1 fn(s), first 0x00488de0 */
 extern char s__s___s_004e8304[]; /* used by 1 fn(s), first 0x00488de0 */
 extern char s_C__grimsrc_libs_grimlib_Temp_Fil_004e830c[]; /* used by 1 fn(s), first 0x00488de0 */
-extern undefined *PTR_FUN_004e8338; /* used by 1 fn(s), first 0x00488fb0 */
+extern undefined *PTR_Movie_CheckSurfaceFormat_004e8338; /* used by 1 fn(s), first 0x00488fb0 */
 extern char s_FALSE_004e8350[]; /* used by 1 fn(s), first 0x00489130 */
 extern char s_StartSmush_004e8358[]; /* used by 1 fn(s), first 0x00489130 */
 extern undefined *PTR_s_color_004e8368; /* used by 4 fn(s), first 0x00489840 */

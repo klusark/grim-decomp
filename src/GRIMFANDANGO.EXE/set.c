@@ -1,5 +1,5 @@
 /* GRIMFANDANGO.EXE :: set.c
- * functions 0x004824c0 .. 0x004a7150 (32 functions)
+ * functions 0x004824c0 .. 0x004a7150 (30 functions)
  * Decompiled from the shipped binaries with Ghidra; see ../../README.md */
 #include "ghidra_types.h"
 #include "globals.h"
@@ -49,7 +49,7 @@ void __cdecl Set_MakeCurrent(char *name)
 }
 
 /* ---- 0x00482820  Set_ChangeSetup ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Changes the camera setup of the current set: resets the set's sound parameters
    (Set_SetSoundParams: min 20, max 127, scale 8.0, pan scale 1.5, near 0.8), runs the camera change
@@ -201,7 +201,7 @@ void __cdecl Set_SwitchSetup(void *set,int setupIdx)
 
 
 /* ---- 0x00485780  Set_DrawDebugLights ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Debug overlay of every light in the set: point/omni lights as a line and circle, spot lights as a
    cone frustum */
@@ -302,7 +302,7 @@ void Set_DrawDebugLights(int param_1)
 
 
 /* ---- 0x004859c0  Set_DrawDebugCameras ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void __cdecl Set_DrawDebugCameras(void *set,uint setupIdx)
 
@@ -672,6 +672,81 @@ int __cdecl Set_RestoreState(void *readFn)
 #undef uStack_74
 
 
+/* ---- 0x004a49a0  Set_LoadFile ---- */
+/* Resource type 'SET ' loader (ResType_SetHandler op 1): allocates the 0x1b08-byte set record,
+   initialises it, parses the .set file, links it to the set-name entry and re-attaches the walkers
+   of the actors already in that set. */
+
+undefined4 * Set_LoadFile(char *param_1)
+
+{
+  int *piVar1;
+  undefined4 *puVar2;
+  void *pvVar3;
+  int iVar4;
+  undefined4 *puVar5;
+  
+  puVar2 = (undefined4 *)
+           (*g_pSvcRoom->pAlloc)(0x1b08,s_C__grimsrc_libs_grimlib_Engine_s_004ec5e0,0x306);
+  if (puVar2 != (undefined4 *)0x0) {
+    puVar5 = puVar2;
+    for (iVar4 = 0x6c2; iVar4 != 0; iVar4 = iVar4 + -1) {
+      *puVar5 = 0;
+      puVar5 = puVar5 + 1;
+    }
+    Set_InitRecord(puVar2);
+    iVar4 = SetFile_Parse(param_1,puVar2);
+    if (iVar4 != 0) {
+      pvVar3 = (void *)Set_FindNameInList(param_1);
+      if (pvVar3 == (void *)0x0) {
+        pvVar3 = Set_NormalizeName(param_1);
+      }
+      puVar2[0x6af] = pvVar3;
+      for (piVar1 = *(int **)((int)pvVar3 + 0x80); piVar1 != (int *)0x0; piVar1 = (int *)piVar1[2])
+      {
+        iVar4 = *(int *)((int)g_pActorTable + *piVar1 * 0xa8 + 0xa4);
+        if (((iVar4 != 0) && (*(void **)(iVar4 + 0x1b4) != (void *)0x0)) &&
+           (*(int *)(iVar4 + 0x1b8) != 0)) {
+          Walker_ReattachToSet(*(void **)(iVar4 + 0x1b4));
+        }
+      }
+      return puVar2;
+    }
+  }
+  Set_Free(puVar2);
+  return (undefined4 *)0x0;
+}
+
+/* ---- 0x004a4a70  Set_InitRecord ---- */
+/* Zeroes a 0x1b08-byte set record and fills the defaults (empty names, size field +0x1af4). */
+
+void Set_InitRecord(undefined4 *param_1)
+
+{
+  int iVar1;
+  undefined4 *puVar2;
+  
+  puVar2 = param_1;
+  for (iVar1 = 0x6c2; iVar1 != 0; iVar1 = iVar1 + -1) {
+    *puVar2 = 0;
+    puVar2 = puVar2 + 1;
+  }
+  param_1[0x2e] = 0;
+  param_1[0x2c] = 0;
+  param_1[0x2b] = 0;
+  param_1[0x2d] = 0;
+  param_1[0x22] = 0;
+  param_1[0x21] = 1;
+  param_1[0x20] = 0;
+  *(undefined1 *)(param_1 + 0x23) = 0;
+  strncpy(param_1 + 0x23,&DAT_004ec60c,0x1f);
+  *(undefined1 *)((int)param_1 + 0xab) = 0;
+  strncpy(param_1,&DAT_004f5a98,0x1f);
+  *(undefined1 *)((int)param_1 + 0x1f) = 0;
+  param_1[0x6bd] = 0x1b08;
+  return;
+}
+
 /* ---- 0x004a4b40  Set_ReleaseResources ---- */
 /* Drops the colormap, background, depth and object state references of an unlocked set */
 
@@ -720,17 +795,22 @@ void __cdecl Set_ReleaseResources(void *set)
   return;
 }
 
-/* ---- 0x004a4c40  FUN_004a4c40 ---- */
-void FUN_004a4c40(undefined4 param_1)
+/* ---- 0x004a4c40  Set_Free ---- */
+/* Resource type 'SET ' free handler: Set_FreeContents, then frees the set record. */
+
+void Set_Free(undefined4 param_1)
 
 {
-  FUN_004a4c60(param_1);
+  Set_FreeContents(param_1);
   (*g_pSvcRoom->pFree)(param_1);
   return;
 }
 
-/* ---- 0x004a4c60  FUN_004a4c60 ---- */
-void FUN_004a4c60(char *param_1)
+/* ---- 0x004a4c60  Set_FreeContents ---- */
+/* Releases a set's resources, colormap array, setups and sectors and removes its actor list
+   (killing the shadows of the actors in it). */
+
+void Set_FreeContents(char *param_1)
 
 {
   int iVar1;
@@ -740,8 +820,8 @@ void FUN_004a4c60(char *param_1)
   if (*(int *)(param_1 + 0x80) != 0) {
     (*g_pSvcRoom->pFree)(*(int *)(param_1 + 0x80));
   }
-  FUN_004a4d10(param_1);
-  FUN_004a7100(param_1);
+  Set_FreeSetups(param_1);
+  Set_FreeSectors(param_1);
   iVar1 = *(int *)(param_1 + 0x1abc);
   if (iVar1 != 0) {
     piVar2 = *(int **)(iVar1 + 0x80);
@@ -750,7 +830,7 @@ void FUN_004a4c60(char *param_1)
       Actor_RemoveFromSet(param_1,(void *)((int)g_pActorTable + **(int **)(iVar1 + 0x80) * 0xa8));
       piVar2 = *(int **)(iVar1 + 0x80);
     }
-    FUN_004a6160(iVar1);
+    SetActorList_Free(iVar1);
     param_1[0x1abc] = '\0';
     param_1[0x1abd] = '\0';
     param_1[0x1abe] = '\0';
@@ -759,8 +839,10 @@ void FUN_004a4c60(char *param_1)
   return;
 }
 
-/* ---- 0x004a4d10  FUN_004a4d10 ---- */
-void FUN_004a4d10(int param_1)
+/* ---- 0x004a4d10  Set_FreeSetups ---- */
+/* Frees every setup (300-byte records at set+0xac, count at +0xb0) and the array. */
+
+void Set_FreeSetups(int param_1)
 
 {
   int iVar1;
@@ -770,7 +852,7 @@ void FUN_004a4d10(int param_1)
   if (*(int *)(param_1 + 0xb0) != 0) {
     iVar1 = 0;
     do {
-      FUN_004a4d80(param_1,*(int *)(param_1 + 0xac) + iVar1);
+      Set_FreeSetup(param_1,*(int *)(param_1 + 0xac) + iVar1);
       uVar2 = uVar2 + 1;
       iVar1 = iVar1 + 300;
     } while (uVar2 < *(uint *)(param_1 + 0xb0));
@@ -783,12 +865,14 @@ void FUN_004a4d10(int param_1)
   return;
 }
 
-/* ---- 0x004a4d80  FUN_004a4d80 ---- */
-void FUN_004a4d80(undefined4 param_1,int param_2)
+/* ---- 0x004a4d80  Set_FreeSetup ---- */
+/* Frees one setup: camera (rdCamera_Free), rdThing, and clears the pointer fields. */
+
+void Set_FreeSetup(undefined4 param_1,int param_2)
 
 {
   if (*(int *)(param_2 + 0x48) != 0) {
-    FUN_0040a080(*(int *)(param_2 + 0x48));
+    rdCamera_Free(*(int *)(param_2 + 0x48));
     *(undefined4 *)(param_2 + 0x48) = 0;
   }
   if (*(int *)(param_2 + 0x4c) != 0) {
@@ -800,7 +884,7 @@ void FUN_004a4d80(undefined4 param_1,int param_2)
 }
 
 /* ---- 0x004a4fe0  Set_LoadResources ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Loads colormaps (set+0x80, 0x34 each), each setup's background/depth bitmaps, creates the
    rdCamera (setup+0x48) and rdThing (+0x4c), builds the camera basis and adds the set's lights */
@@ -960,62 +1044,6 @@ LAB_004a51bd:
 #endif
 
 
-/* ---- 0x004a5390  FUN_004a5390 ---- */
-void FUN_004a5390(void)
-
-{
-  g_pSvcRoom = (GrimServices *)0x0;
-  if (UINT_008cb098 != 0) {
-    UINT_008cb098 = 0;
-  }
-  return;
-}
-
-/* ---- 0x004a53b0  FUN_004a53b0 ---- */
-undefined4 FUN_004a53b0(void)
-
-{
-  if (UINT_008cb09c != 0) {
-    return 1;
-  }
-  Set_RegisterHandle(s_colormaps_004ec734,FUN_004a5b40);
-  Set_RegisterHandle(s_setups_004ec72c,FUN_004a5890);
-  Set_RegisterHandle(s_lights_004ec724,FUN_004a5600);
-  Set_RegisterHandle(s_sectors_004ec71c,FUN_004a5c90);
-  g_pPositionedSoundPool = (void **)Pool_Create(0x24,0x10,8);
-  UINT_008cb09c = 1;
-  return 0;
-}
-
-/* ---- 0x004a5430  FUN_004a5430 ---- */
-void FUN_004a5430(void)
-
-{
-  int iVar1;
-  void *pvVar2;
-  void *pvVar3;
-  int iVar4;
-  
-  pvVar3 = g_pSetActorLists;
-  while (pvVar3 != (void *)0x0) {
-    iVar4 = *(int *)((int)pvVar3 + 0x80);
-    while (iVar4 != 0) {
-      iVar1 = *(int *)(iVar4 + 8);
-      (*g_pSvcRoom->pFree)(iVar4);
-      iVar4 = iVar1;
-    }
-    pvVar2 = *(void **)((int)pvVar3 + 0x84);
-    (*g_pSvcRoom->pFree)(pvVar3);
-    pvVar3 = pvVar2;
-  }
-  if (g_pPositionedSoundPool != (void **)0x0) {
-    Pool_Destroy(g_pPositionedSoundPool);
-    g_pPositionedSoundPool = (void **)0x0;
-  }
-  UINT_008cb09c = 0;
-  return;
-}
-
 /* ---- 0x004a54a0  Set_RegisterHandle ---- */
 /* Adds a set to the 32-entry handle table at g_SetHandles (0x24 bytes each) if not already present
     */
@@ -1066,44 +1094,6 @@ int Set_FindHandle(char *name)
   } while (iVar2 < (int)UINT_008cb0a4);
   return -1;
 }
-
-/* ---- 0x004a5550  FUN_004a5550 ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
-undefined4 FUN_004a5550(undefined4 param_1)
-
-{
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  int iVar1;
-  #define local_20 (*(undefined1 (*)[32])(_frame + (0x30 - 0x20)))
-  
-  iVar1 = ((code *)FUN_0047c7c0)(param_1);
-  if (iVar1 == 0) {
-    return 0;
-  }
-  iVar1 = Std_ParseCommandLine();
-  if (iVar1 != 0) {
-    do {
-      iVar1 = sscanf((char *)UINT_00900520,s_section___s_004ec740,local_20);
-      if (iVar1 == 1) {
-        iVar1 = Set_IsHandleValid(local_20);
-        if (iVar1 == 0) {
-          FUN_0047c8c0();
-          return 0;
-        }
-      }
-      iVar1 = Std_ParseCommandLine();
-    } while (iVar1 != 0);
-    FUN_0047c8c0();
-    return 1;
-  }
-  FUN_0047c8c0();
-  return 1;
-}
-#undef local_20
-
-#endif
-
 
 /* ---- 0x004a55d0  Set_IsHandleValid ---- */
 bool Set_IsHandleValid(char *param_1)
@@ -1206,34 +1196,29 @@ void * __cdecl Set_NormalizeName(char *setName)
   return pcVar2;
 }
 
-/* ---- 0x004a6160  FUN_004a6160 ---- */
-void FUN_004a6160(void *param_1)
+/* ---- 0x004a7100  Set_FreeSectors ---- */
+/* Deactivates the set's sectors and frees every sector in g_pSectorList (Sector_Unlink +
+   Plat_Free), then restores the previous list head. */
+
+void Set_FreeSectors(void *param_1)
 
 {
+  void *p;
   void *pvVar1;
-  void *pvVar2;
-  void *pvVar3;
   
-  pvVar3 = (void *)0x0;
-  pvVar2 = g_pSetActorLists;
-  if (g_pSetActorLists != (void *)0x0) {
-    do {
-      pvVar1 = pvVar2;
-      pvVar2 = pvVar1;
-      if (pvVar1 == param_1) break;
-      pvVar2 = *(void **)((int)pvVar1 + 0x84);
-      pvVar3 = pvVar1;
-    } while (pvVar2 != (void *)0x0);
-    if (pvVar2 != (void *)0x0) {
-      if (pvVar3 == (void *)0x0) {
-        g_pSetActorLists = *(void **)((int)pvVar2 + 0x84);
-        (*g_pSvcRoom->pFree)(pvVar2);
-        return;
-      }
-      *(undefined4 *)((int)pvVar3 + 0x84) = *(undefined4 *)((int)pvVar2 + 0x84);
-      (*g_pSvcRoom->pFree)(pvVar2);
-    }
+  pvVar1 = g_pSectorList;
+  Set_ActivateSectors(param_1);
+  p = g_pSectorList;
+  if (pvVar1 == g_pSectorList) {
+    pvVar1 = (void *)0x0;
   }
+  while (p != (void *)0x0) {
+    g_pSectorList = p;
+    Sector_Unlink(p);
+    Plat_Free(p);
+    p = g_pSectorList;
+  }
+  g_pSectorList = pvVar1;
   return;
 }
 

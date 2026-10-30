@@ -95,7 +95,7 @@ void luaX_save(void)
 }
 
 /* ---- 0x10005d00  luaX_lex ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* llex.c: main tokenizer; numbers are returned through the float out-parameter */
 
@@ -976,7 +976,7 @@ switchD_10006cce_caseD_5b:
 }
 
 /* ---- 0x10006ea0  FUN_10006ea0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_10006ea0(void)
 
@@ -997,7 +997,7 @@ void FUN_10006ea0(void)
 
 
 /* ---- 0x10006ee0  FUN_10006ee0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_10006ee0(void)
 
@@ -1014,7 +1014,7 @@ void FUN_10006ee0(void)
 
 
 /* ---- 0x10006f00  FUN_10006f00 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_10006f00(void)
 
@@ -1031,7 +1031,7 @@ void FUN_10006f00(void)
 
 
 /* ---- 0x10006f20  FUN_10006f20 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_10006f20(void)
 
@@ -1048,7 +1048,7 @@ void FUN_10006f20(void)
 
 
 /* ---- 0x10006f50  FUN_10006f50 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_10006f50(void)
 
@@ -1076,7 +1076,7 @@ void FUN_10006f80(void)
 }
 
 /* ---- 0x10006fb0  FUN_10006fb0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_10006fb0(void)
 
@@ -1093,7 +1093,7 @@ void FUN_10006fb0(void)
 
 
 /* ---- 0x10006fe0  FUN_10006fe0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_10006fe0(void)
 
@@ -1112,7 +1112,7 @@ void FUN_10006fe0(void)
 
 
 /* ---- 0x10007020  FUN_10007020 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_10007020(void)
 
@@ -1128,7 +1128,7 @@ void FUN_10007020(void)
 
 
 /* ---- 0x10007050  FUN_10007050 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_10007050(void)
 
@@ -1144,7 +1144,7 @@ void FUN_10007050(void)
 
 
 /* ---- 0x10007080  FUN_10007080 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_10007080(void)
 
@@ -1173,7 +1173,7 @@ void FUN_100070c0(void)
 }
 
 /* ---- 0x100070e0  FUN_100070e0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_100070e0(void)
 
@@ -1190,7 +1190,7 @@ void FUN_100070e0(void)
 
 
 /* ---- 0x10007120  FUN_10007120 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_10007120(void)
 
@@ -1207,7 +1207,7 @@ void FUN_10007120(void)
 
 
 /* ---- 0x10007140  FUN_10007140 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_10007140(void)
 
@@ -1224,7 +1224,7 @@ void FUN_10007140(void)
 
 
 /* ---- 0x10007160  FUN_10007160 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_10007160(void)
 
@@ -1266,7 +1266,7 @@ void FUN_100071b0(void)
 }
 
 /* ---- 0x100071d0  FUN_100071d0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_100071d0(void)
 
@@ -1297,7 +1297,7 @@ void FUN_100071d0(void)
 
 
 /* ---- 0x10007230  FUN_10007230 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_10007230(void)
 
@@ -1328,7 +1328,7 @@ void FUN_10007230(void)
 
 
 /* ---- 0x10007290  FUN_10007290 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_10007290(void)
 
@@ -1351,7 +1351,7 @@ void FUN_10007290(void)
 
 
 /* ---- 0x10007300  FUN_10007300 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_10007300(void)
 

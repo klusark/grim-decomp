@@ -6,7 +6,7 @@
 #include "functions.h"
 
 /* ---- 0x00485290  Actor_ComputeScreenBox ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Projects the actor's model through its frame and stores the covering screen rectangle at
    actor+0x6c (valid flag at +0x68) */
@@ -43,7 +43,7 @@ void __cdecl Actor_ComputeScreenBox(void *actor)
 
 
 /* ---- 0x00485320  Actor_DrawDebugWalker ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_28 */
 /* Debug overlay: the walker's path segments, its sector outline and the look-at circle */
@@ -95,7 +95,7 @@ void Actor_DrawDebugWalker(void *param_1)
 
 
 /* ---- 0x0048b2e0  Actor_CreateSubtitle ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Creates the speech text object above the actor (projected head position when on screen), clamped
    to the screen edges */
@@ -220,7 +220,7 @@ void * __cdecl Actor_CreateSubtitle(void *actor,char *text,int x,int y)
 
 
 /* ---- 0x0048f930  Actor_SetCostume ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua SetActorCostume: replaces the whole costume stack with one costume */
 
@@ -253,7 +253,7 @@ int __cdecl Actor_SetCostume(void *actor,char *name,int param_3)
 
 
 /* ---- 0x0048f9d0  Actor_SetHead ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_14 */
 /* Lua SetActorHead: head-tracking joints and limits */
@@ -293,7 +293,7 @@ Actor_SetHead(void *actor,int joint1,int joint2,int joint3,float maxRoll,float m
 
 
 /* ---- 0x0048fa60  Actor_CanSeePoint ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* True when the point lies within the head joint's view cone (cosine threshold at costume+0x24 set
    by Actor_SetHead) */
@@ -360,7 +360,7 @@ int __cdecl Actor_CanSeePoint(void *actor,float *point,float *outDistance)
 
 
 /* ---- 0x0048fb80  Actor_CanSee ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua CanActorSee / GetVisibleThings line-of-sight test */
 
@@ -386,7 +386,7 @@ int __cdecl Actor_CanSee(void *viewer,void *target,float *outDistance)
 
 
 /* ---- 0x0048fbd0  Actor_TurnKey ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Actor_TurnKey(actor, dir): the TurnActor builtin. Walker extra struct at actor+0xa4: +0x1c turn
    rate (deg/s, default 135, set by SetActorTurnRate), +0x41c time scale, +0x28 angle still to turn.
@@ -429,7 +429,7 @@ void Actor_TurnKey(int param_1,float param_2)
 
 
 /* ---- 0x0048fc80  Actor_WalkForward ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Actor_WalkForward(actor): creates the walker if missing and sets extra+0xc (walk forward this
    frame), consumed by Actor_UpdateWalker. */
@@ -448,7 +448,7 @@ void Actor_WalkForward(int param_1)
 
 
 /* ---- 0x0048fd90  Actor_UpdateMovement ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Actor_UpdateMovement(actor, dt): per frame; path following when actor+8 bit 0 (Actor_FollowPath),
    Actor_UpdateWalker, Actor_UpdateMoveChores, costume update with dt * time scale, Actor_PuckOrient
@@ -494,7 +494,7 @@ void Actor_UpdateMovement(void *param_1,float param_2)
 
 
 /* ---- 0x0048fe80  Actor_UpdateLookAt ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Head tracking: turns the three head joints toward the look-at point (extra+0) limited by the look
    rate and the yaw/pitch limits */
@@ -641,7 +641,7 @@ void __cdecl Actor_UpdateLookAt(void *actor,float dt)
 
 
 /* ---- 0x00490210  Actor_UpdateTalk ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lip sync: reads the current phoneme from iMUSE, plays the matching talk chore, ends speech when
    the voice or the text timer runs out */
@@ -703,7 +703,7 @@ void __cdecl Actor_UpdateTalk(void *actor,float dt)
 
 
 /* ---- 0x00490320  Actor_SetSelected ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua SetSelectedActor; returns the handle or -1 */
 
@@ -726,7 +726,7 @@ int __cdecl Actor_SetSelected(int handle)
 
 
 /* ---- 0x00490360  Actor_FromHandle ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void * Actor_FromHandle(int param_1)
 
@@ -737,7 +737,7 @@ void * Actor_FromHandle(int param_1)
 
 
 /* ---- 0x00490380  Actor_GetHandle ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 int __cdecl Actor_GetHandle(void *actor,int tag)
 
@@ -748,7 +748,7 @@ int __cdecl Actor_GetHandle(void *actor,int tag)
 
 
 /* ---- 0x004903a0  Actor_Create ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 /* Lua LoadActor: allocates an actor record and returns its handle (-1 when full) */
@@ -841,7 +841,7 @@ int Actor_Create(void)
 
 
 /* ---- 0x00490580  Actor_CreateExtra ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Source: Engine/sputActor.cpp (lines 1561-1564, from __FILE__/__LINE__ passed to the allocator) */
 
@@ -885,7 +885,7 @@ void Actor_CreateExtra(int param_1)
 
 
 /* ---- 0x004906b0  Actor_SetFollowBoxes ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Actor_SetFollowBoxes(actor, follow): sets extra+0x1b8. Following creates the walker and
    reattaches it to the set; not following clears the walker's sector (+0x5c) but keeps the walker.
@@ -916,7 +916,7 @@ void Actor_SetFollowBoxes(int param_1,int param_2)
 
 
 /* ---- 0x00490730  Actor_CreateWalker ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Source: Engine/sputActor.cpp (line 1637, from __FILE__/__LINE__ passed to the allocator) */
 
@@ -978,7 +978,7 @@ void Actor_CreateWalker(void *param_1,int param_2)
 
 
 /* ---- 0x00490870  Actor_SetPositionClamped ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void Actor_SetPositionClamped(int param_1,float *param_2)
 
@@ -1015,7 +1015,7 @@ void Actor_SetPositionClamped(int param_1,float *param_2)
 
 
 /* ---- 0x00490900  Actor_SetRot ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_40 */
 /* Actor_SetRot(actor, angles, snap): clears actor+8 bit 0 first, which ends a WalkActorTo path walk
@@ -1083,7 +1083,7 @@ void Actor_SetRot(int param_1,undefined4 *param_2,int param_3)
 
 
 /* ---- 0x00490a40  Actor_SetReflection ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void __cdecl Actor_SetReflection(void *actor,float angle)
 
@@ -1100,7 +1100,7 @@ void __cdecl Actor_SetReflection(void *actor,float angle)
 
 
 /* ---- 0x00490a60  Actor_SetWalkChore ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void __cdecl Actor_SetWalkChore(void *actor,int chore,void *costume)
 
@@ -1144,7 +1144,7 @@ void __cdecl Actor_SetWalkChore(void *actor,int chore,void *costume)
 
 
 /* ---- 0x00490b50  Actor_SetTurnChores ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void __cdecl Actor_SetTurnChores(void *actor,int leftChore,int rightChore,void *costume)
 
@@ -1194,7 +1194,7 @@ void __cdecl Actor_SetTurnChores(void *actor,int leftChore,int rightChore,void *
 
 
 /* ---- 0x00490c80  Actor_SetRestChore ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void __cdecl Actor_SetRestChore(void *actor,int chore,void *costume)
 
@@ -1235,7 +1235,7 @@ void __cdecl Actor_SetRestChore(void *actor,int chore,void *costume)
 
 
 /* ---- 0x00490d30  Actor_PushCostume ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 int __cdecl Actor_PushCostume(void *actor,char *name,int param_3)
 
@@ -1266,7 +1266,7 @@ int __cdecl Actor_PushCostume(void *actor,char *name,int param_3)
 
 
 /* ---- 0x00490dd0  Actor_PopCostume ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void __cdecl Actor_PopCostume(void *actor,int free)
 
@@ -1281,7 +1281,7 @@ void __cdecl Actor_PopCostume(void *actor,int free)
 
 
 /* ---- 0x00490f50  Actor_PuckOrient ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_68 */
 /* Actor_PuckOrient: at the end of the actor update when actor+4 & 0x10 (ActorPuckOrient). Rebuilds
@@ -1428,7 +1428,7 @@ void Actor_UpdateWalker(int param_1)
 
 
 /* ---- 0x004913f0  Actor_UpdateMoveChores ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Actor_UpdateMoveChores (after Actor_UpdateWalker): costume record [10] walk, [0xb] left turn,
    [0xc] right turn, [0xd] rest. Walking (walker+0xc): start walk chore (rest flag +0x14 = 0) else
@@ -1554,7 +1554,7 @@ LAB_0049162b:
 
 
 /* ---- 0x00492b30  Actor_SayLine ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Starts speech: resolves the /id/ to a voice file (.wvc/.wav/.imc/.imu), plays it (3D positioned
    when flag 8), creates the subtitle text object, times text-only speech from its length, and plays
@@ -1798,7 +1798,7 @@ LAB_00492fe7:
 
 
 /* ---- 0x00493060  Actor_ShutUp ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua ShutUpActor: stops the actor's speech and talk chores */
 
@@ -1873,7 +1873,7 @@ void __cdecl Actor_ShutUp(void *actor)
 
 
 /* ---- 0x004931f0  Actor_PushSectorOppositeEdge ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua GetSectorOppositeEdge: pushes the point on the far edge of the sector from the actor */
 
@@ -1893,7 +1893,7 @@ void __cdecl Actor_PushSectorOppositeEdge(int a1,int a2)
 
 
 /* ---- 0x00493230  Actor_FollowPath ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Actor_FollowPath(actor): walk to a point along the planned path (walker+0x2c next node); sets
    actor+8 bit 0 while the path lasts, clears it at the end. TurnActor and SetActorRot clear bit 0,
@@ -1959,7 +1959,7 @@ void Actor_FollowPath(int param_1)
 
 
 /* ---- 0x004933c0  Actor_SetWalkDominate ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void __cdecl Actor_SetWalkDominate(void *actor,int dominate)
 
@@ -1971,7 +1971,7 @@ void __cdecl Actor_SetWalkDominate(void *actor,int dominate)
 
 
 /* ---- 0x004933e0  Actor_SetConstrain ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void Actor_SetConstrain(int param_1,int param_2)
 
@@ -1988,7 +1988,7 @@ void Actor_SetConstrain(int param_1,int param_2)
 
 
 /* ---- 0x004934b0  Actor_IsVoicePlaying ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 int __cdecl Actor_IsVoicePlaying(void *actor)
 
@@ -2010,7 +2010,7 @@ int __cdecl Actor_IsVoicePlaying(void *actor)
 
 
 /* ---- 0x00493510  Actor_HasShadow ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 int __cdecl Actor_HasShadow(void *actor)
 
@@ -2033,7 +2033,7 @@ int __cdecl Actor_HasShadow(void *actor)
 
 
 /* ---- 0x00493540  Actor_ActivateShadow ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void __cdecl Actor_ActivateShadow(void *actor,int shadowIdx,int active)
 
@@ -2045,7 +2045,7 @@ void __cdecl Actor_ActivateShadow(void *actor,int shadowIdx,int active)
 
 
 /* ---- 0x00493570  Actor_SetShadowPlane ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void Actor_SetShadowPlane(int param_1,char *param_2)
 
@@ -2080,7 +2080,7 @@ void Actor_SetShadowPlane(int param_1,char *param_2)
 
 
 /* ---- 0x004935f0  Actor_SetShadowPoint ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void __cdecl Actor_SetShadowPoint(void *actor,float x,float y,float z)
 
@@ -2097,7 +2097,7 @@ void __cdecl Actor_SetShadowPoint(void *actor,float x,float y,float z)
 
 
 /* ---- 0x00493630  Actor_SetShadowValid ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void __cdecl Actor_SetShadowValid(void *actor,int shadowIdx,int valid)
 
@@ -2109,7 +2109,7 @@ void __cdecl Actor_SetShadowValid(void *actor,int shadowIdx,int valid)
 
 
 /* ---- 0x00493660  Actor_AddShadowPlane ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Shadow records are 0x54 bytes at extra+(idx+6)*0x54 with the plane equation at +8 */
 
@@ -2141,7 +2141,7 @@ void __cdecl Actor_AddShadowPlane(void *actor,int shadowIdx,char *sectorName)
 
 
 /* ---- 0x004936b0  Actor_KillShadows ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void __cdecl Actor_KillShadows(void *actor)
 
@@ -2162,7 +2162,7 @@ void __cdecl Actor_KillShadows(void *actor)
 
 
 /* ---- 0x004936e0  Actor_DrawShadows ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Draws the shadows of an actor: slots at extra+0x1f8, 0x54 bytes each (+0 active, +4 valid,
    +8..+0x14 plane normal and d, +0x18..0x20 shadow point). valid 0: always; -1: only when pos.n+d
@@ -2201,7 +2201,7 @@ void Actor_DrawShadows(int param_1)
 
 
 /* ---- 0x00493790  Actor_GetFrame ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Returns the actor's 12-float frame (position + 3x3 rotation), rebuilding it from pos/rot when
    dirty */
@@ -2219,7 +2219,7 @@ float * __cdecl Actor_GetFrame(void *actor)
 
 
 /* ---- 0x004937c0  Actor_ToClean ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua ActorToClean: marks the actor's rectangle to be restored from the clean background */
 
@@ -2318,7 +2318,7 @@ void __cdecl Actor_ToClean(void *actor)
 
 
 /* ---- 0x00494690  Actor_CountCostumes ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 int Actor_CountCostumes(int param_1)
 
@@ -2336,7 +2336,7 @@ int Actor_CountCostumes(int param_1)
 
 
 /* ---- 0x004946b0  Actor_SetClipPlane ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void Actor_SetClipPlane(int param_1,undefined4 *param_2,undefined4 *param_3)
 
@@ -2360,7 +2360,7 @@ void Actor_SetClipPlane(int param_1,undefined4 *param_2,undefined4 *param_3)
 
 
 /* ---- 0x00494710  Actor_SetClipActive ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void Actor_SetClipActive(int param_1,undefined4 param_2)
 
@@ -2375,7 +2375,7 @@ void Actor_SetClipActive(int param_1,undefined4 param_2)
 
 
 /* ---- 0x00494780  Actor_SetFrustumCull ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void Actor_SetFrustumCull(int param_1,int param_2)
 
@@ -2404,7 +2404,7 @@ void Actor_SetFrustumCull(int param_1,int param_2)
 
 
 /* ---- 0x004947c0  Actor_Destroy ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Removes the actor from its set, kills shadows, frees costumes, walker, extra and colormap
    reference */
@@ -2443,7 +2443,7 @@ void __cdecl Actor_Destroy(void *actor)
 
 
 /* ---- 0x00494940  Actor_DrawShadowPlane ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 /* Draws the actor's shadow onto one shadow plane: every mesh face of each model is projected
@@ -2579,7 +2579,7 @@ void Actor_DrawShadowPlane(void *costumeList,void *shadow)
 
 
 /* ---- 0x00495080  Actor_DrawCostumes ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void Actor_DrawCostumes(undefined4 param_1,undefined4 param_2)
 
@@ -2591,7 +2591,7 @@ void Actor_DrawCostumes(undefined4 param_1,undefined4 param_2)
 
 
 /* ---- 0x004950a0  Actor_DrawCostumeMeshes ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Draws the meshes of an actor's costume. Enables the user clip plane when extra+0x3fc != 0 (normal
    extra+0x400, point extra+0x40c). For a model hung on a node (component+0x44 != 0) whose node
@@ -2782,7 +2782,7 @@ LAB_004951b3:
 
 
 /* ---- 0x004a5eb0  Actor_RemoveFromSet ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void __cdecl Actor_RemoveFromSet(char *setName,void *actor)
 
@@ -2825,7 +2825,7 @@ void __cdecl Actor_RemoveFromSet(char *setName,void *actor)
 
 
 /* ---- 0x004a5f60  Actor_PutInSet ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* sputRoom.cpp: moves the actor into the named set's actor list (actor+0x7c holds the set name) */
 
@@ -2906,7 +2906,7 @@ LAB_004a5fa6:
 
 
 /* ---- 0x004a8500  Actor_GetYawToPoint ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 float __thiscall Actor_GetYawToPoint(void *this,int a1)
 

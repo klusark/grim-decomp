@@ -1,8 +1,8 @@
 [
- {"addr": "004980b0", "name": "BitmapComponent_Destroy", "tags": "costume"},
+ {"addr": "004980b0", "name": "KeyframeComponent_Destroy", "tags": "costume"},
  {"addr": "004980e0", "name": "KeyframeComponent_Stop", "comment": "Stops the puppet track (6 slots of 0x134 bytes at puppet+8) playing this keyframe unless it is flagged persistent", "tags": "costume"},
  {"addr": "00450640", "name": "rdPuppet_StopTrack", "proto": "void rdPuppet_StopTrack(void * puppet, int track)", "tags": "rdroid"},
- {"addr": "00498580", "name": "KeyframeComponent_Destroy", "tags": "costume"},
+ {"addr": "00498580", "name": "SpriteComponent_Destroy", "tags": "costume"},
  {"addr": "00498bf0", "name": "Config_GetPath", "proto": "void Config_GetPath(char * name, char * buf, char * defaultSubdir)", "comment": "Reads a path setting from the registry (prefix g_szConfigKeyPrefix + name); falls back to GrimDataDir plus the default sub directory", "tags": "startup"},
  {"addr": "00498cf0", "name": "Config_SetPath", "proto": "void Config_SetPath(char * name, char * value)", "tags": "startup"},
  {"addr": "004ea884", "global": "g_szConfigKeyPrefix", "type": "char", "comment": "Registry value name prefix for Config_GetPath / Config_SetPath", "array_length": 8},

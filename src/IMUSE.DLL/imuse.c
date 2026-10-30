@@ -6,7 +6,7 @@
 #include "functions.h"
 
 /* ---- 0x10001000  Im_VimaDecodeBlock ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Compressed (VIMA-style ADPCM) block decoder using the step/index tables; identity inferred from
    structure */
@@ -233,7 +233,7 @@ switchD_100012ad_default:
 
 
 /* ---- 0x100013c0  Im_VimaDecompress ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Drives Im_VimaDecodeBlock over a compressed sound chunk */
 
@@ -505,7 +505,7 @@ Im_VimaDecompress(uint *param_1,int *param_2,uint *param_3,uint *param_4,uint *p
 
 
 /* ---- 0x100017e0  Im_DecodeSoundBlock ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Unidentified function of compressed audio decoding (VIMA/ADPCM style tables) - module name
@@ -609,7 +609,7 @@ Im_DecodeSoundBlock(undefined4 *param_1,int param_2,uint param_3,uint param_4,ui
 
 
 /* ---- 0x10001ba0  Im_CodecInit ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Unidentified function of compressed audio decoding (VIMA/ADPCM style tables) - module name
    inferred */
@@ -627,7 +627,7 @@ void __cdecl Im_CodecInit(undefined1 *param_1)
 
 
 /* ---- 0x10001bc0  Im_ConvertBlock ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Unidentified function of compressed audio decoding (VIMA/ADPCM style tables) - module name
    inferred */
@@ -664,7 +664,7 @@ void __cdecl Im_ConvertBlock(byte *param_1,undefined2 *param_2,byte *param_3,uin
 
 
 /* ---- 0x10001c30  Im_ConvertBlockImpl ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Unidentified function of compressed audio decoding (VIMA/ADPCM style tables) - module name
    inferred */
@@ -810,7 +810,7 @@ Im_ConvertBlockImpl(short *param_1,undefined2 *param_2,byte *param_3,int param_4
 
 
 /* ---- 0x10001f10  Im_DispatchInit ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* iMUSE_Dispatch.c: allocates the dispatch slots */
 
@@ -846,7 +846,7 @@ undefined4 Im_DispatchInit(void)
 
 
 /* ---- 0x10002260  Im_SwitchStreamImpl ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Body of ImSwitchStream (sound, offset, fade, flags) */
 
@@ -986,7 +986,7 @@ Im_SwitchStreamImpl(int param_1,undefined4 param_2,uint param_3,uint param_4,uin
 
 
 /* ---- 0x10002570  Im_DispatchMixTrack ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Removing unreachable block (ram,0x10002950) */
 /* Pulls decoded data for one track and mixes it (Im_MixSamples) */
@@ -1144,7 +1144,7 @@ LAB_100028ef:
 
 
 /* ---- 0x10002a60  Im_DispatchAllocBuffers ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Removing unreachable block (ram,0x10002cfb) */
 /* Unidentified function of iMUSE_Dispatch.c (command dispatch, fades, triggers) */
@@ -1277,7 +1277,7 @@ LAB_10002d11:
 
 
 /* ---- 0x10002d30  Im_DispatchFetchNext ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Advances a dispatch through its sound regions / jumps and fetches the next data */
 
@@ -1451,7 +1451,7 @@ LAB_10002f3c:
 
 
 /* ---- 0x100036b0  Im_DSoundInit ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* iMUSE_dsound.c */
 
@@ -1482,7 +1482,7 @@ undefined4 __cdecl Im_DSoundInit(undefined4 param_1,undefined4 *param_2)
 
 
 /* ---- 0x10003730  Im_DSoundHeartbeat ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Fills the DirectSound stream buffer from the mixer once per tick */
 
@@ -1579,7 +1579,7 @@ undefined4 * __cdecl Im_DSoundHeartbeat(undefined4 param_1,uint *param_2)
 
 
 /* ---- 0x100038d0  Im_DSoundShutdown ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Unidentified function of iMUSE_dsound.c (DirectSound output) */
 
@@ -1694,7 +1694,7 @@ void __cdecl Im_DSoundCreateBuffer(int param_1)
 
 
 /* ---- 0x10003ac0  Im_DSoundReset ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Unidentified function of iMUSE_dsound.c (DirectSound output) */
 
@@ -1716,7 +1716,7 @@ undefined4 Im_DSoundReset(void)
 
 
 /* ---- 0x10003ae0  Im_DSoundSave ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Unidentified function of iMUSE_dsound.c (DirectSound output) */
 
@@ -1741,7 +1741,7 @@ undefined4 __cdecl Im_DSoundSave(undefined4 *param_1,uint param_2)
 
 
 /* ---- 0x10003b10  Im_DSoundRestore ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Unidentified function of iMUSE_dsound.c (DirectSound output) */
 
@@ -1764,7 +1764,7 @@ undefined4 __cdecl Im_DSoundRestore(undefined4 *param_1)
 
 
 /* ---- 0x10003b40  Im_FadeParamImpl ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Body of ImFadeParam: allocates a fade slot for (sound, param, target, duration) */
 
@@ -1821,7 +1821,7 @@ undefined4 __cdecl Im_FadeParamImpl(int param_1,int param_2,uint param_3,int par
 
 
 /* ---- 0x10003c70  Im_FadesClearSound ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Unidentified function of iMUSE_dsound.c (DirectSound output) */
 
@@ -1846,7 +1846,7 @@ void __cdecl Im_FadesClearSound(int param_1,int param_2)
 
 
 /* ---- 0x10003cb0  Im_FadesHeartbeat ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Steps every active fade and applies the parameter */
 
@@ -1904,7 +1904,7 @@ uint Im_FadesHeartbeat(void)
 
 
 /* ---- 0x10004820  Im_ApplyFXPreset ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* HMI SOS FX preset processing on a mixed block */
@@ -1979,7 +1979,7 @@ Im_ApplyFXPreset(undefined2 *param_1,uint param_2,undefined2 *param_3,int *param
 
 
 /* ---- 0x10004970  FUN_10004970 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -2002,7 +2002,7 @@ void FUN_10004970(void)
 
 
 /* ---- 0x100049b0  Im_GroupsInit ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Unidentified function of iMUSE_dsound.c (DirectSound output) */
 
@@ -2028,7 +2028,7 @@ undefined4 Im_GroupsInit(void)
 
 
 /* ---- 0x100049e0  Im_SetGroupVolImpl ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Unidentified function of iMUSE_dsound.c (DirectSound output) */
 
@@ -2075,7 +2075,7 @@ undefined4 __cdecl Im_SetGroupVolImpl(uint param_1,uint param_2)
 
 
 /* ---- 0x10004a80  Im_GetGroupVol ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Unidentified function of iMUSE_dsound.c (DirectSound output) */
 
@@ -2091,7 +2091,7 @@ undefined4 __cdecl Im_GetGroupVol(uint param_1)
 
 
 /* ---- 0x10004f50  Im_GuardEnter ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Guard enter: INC [DAT_100172c0], NOT atomic (no LOCK) and NOT a lock: it does not exclude any
    thread, ImHeartbeat only skips itself while it is nonzero. Called at the start of most Im* entry
@@ -2107,7 +2107,7 @@ void Im_GuardEnter(void)
 
 
 /* ---- 0x10004f60  Im_GuardLeave ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Guard leave: load, if nonzero decrement, store (three separate steps, not atomic). Two threads
    leaving at the same moment both read 2 and both store 1: the counter stays 1 for good (a lost
@@ -2127,7 +2127,7 @@ void Im_GuardLeave(void)
 
 
 /* ---- 0x10004f70  Im_DispatchCommand ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Single-entry command dispatcher: switches on the command id and calls the Im* API */
 
@@ -2227,7 +2227,7 @@ Im_DispatchCommand(uint param_1,int *param_2,undefined4 *param_3,uint param_4,in
 
 
 /* ---- 0x10005360  Im_MixerInit ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* iMUSE_Mixer.c */
@@ -2284,7 +2284,7 @@ undefined4 __cdecl Im_MixerInit(undefined4 *param_1)
 
 
 /* ---- 0x10005490  Im_MixerReset ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Unidentified function of iMUSE_Mixer.c (software mixing / resampling) */
 
@@ -2299,7 +2299,7 @@ undefined4 Im_MixerReset(void)
 
 
 /* ---- 0x100054c0  Im_MixerHeartbeat ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Unidentified function of iMUSE_Mixer.c (software mixing / resampling) */
 
@@ -2326,7 +2326,7 @@ undefined4 Im_MixerHeartbeat(void)
 
 
 /* ---- 0x100054f0  Im_MixSamples ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Dispatches to the four mix loops by channel count and volume mode */
 
@@ -2374,7 +2374,7 @@ Im_MixSamples(short *param_1,int param_2,int param_3,int param_4,int param_5,uin
 
 
 /* ---- 0x10005610  Im_ReadSoundData ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Reads and decodes the next block of a sound through the file layer */
 
@@ -2454,7 +2454,7 @@ undefined4 __cdecl Im_ReadSoundData(int *param_1,int param_2)
 
 
 /* ---- 0x100057a0  Im_MixLoopA ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Mix loop variant (16-bit source); exact channel layout not verified */
 
@@ -2531,7 +2531,7 @@ Im_MixLoopA(short *param_1,int param_2,uint param_3,uint param_4,int param_5,int
 
 
 /* ---- 0x100059a0  Im_MixLoopB ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Unidentified function of iMUSE_Mixer.c (software mixing / resampling) */
 
@@ -2609,7 +2609,7 @@ void __cdecl Im_MixLoopB(short *param_1,int param_2,uint param_3,uint param_4,in
 
 
 /* ---- 0x10005b80  Im_MixLoopC ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Unidentified function of iMUSE_Mixer.c (software mixing / resampling) */
 
@@ -2695,7 +2695,7 @@ Im_MixLoopC(undefined2 *param_1,int param_2,uint param_3,int param_4,int param_5
 
 
 /* ---- 0x10005db0  Im_MixLoopD ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Unidentified function of iMUSE_Mixer.c (software mixing / resampling) */
 
@@ -2864,7 +2864,7 @@ undefined4 __cdecl FUN_10006070(int cmd,...)
 
 
 /* ---- 0x10006360  FUN_10006360 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -2895,7 +2895,7 @@ FUN_10006360(int param_1,undefined4 param_2,undefined4 param_3,undefined4 param_
 
 
 /* ---- 0x100063d0  FUN_100063d0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4 FUN_100063d0(void)
 
@@ -2918,7 +2918,7 @@ undefined4 FUN_100063d0(void)
 
 
 /* ---- 0x10006400  FUN_10006400 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 int __cdecl FUN_10006400(undefined4 *param_1,int param_2)
 
@@ -2953,7 +2953,7 @@ int __cdecl FUN_10006400(undefined4 *param_1,int param_2)
 
 
 /* ---- 0x10006470  FUN_10006470 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 int __cdecl FUN_10006470(undefined4 *param_1)
 
@@ -2983,7 +2983,7 @@ int __cdecl FUN_10006470(undefined4 *param_1)
 
 
 /* ---- 0x100064d0  FUN_100064d0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4 FUN_100064d0(void)
 
@@ -3018,7 +3018,7 @@ LAB_10006549:
 
 
 /* ---- 0x10006560  FUN_10006560 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4 __cdecl FUN_10006560(int param_1)
 
@@ -3064,7 +3064,7 @@ undefined4 __cdecl FUN_10006560(int param_1)
 
 
 /* ---- 0x10006620  FUN_10006620 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4 __cdecl FUN_10006620(int param_1)
 
@@ -3144,7 +3144,7 @@ undefined4 __cdecl FUN_10006620(int param_1)
 
 
 /* ---- 0x100067a0  FUN_100067a0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4 FUN_100067a0(void)
 
@@ -3155,7 +3155,7 @@ undefined4 FUN_100067a0(void)
 
 
 /* ---- 0x100067b0  FUN_100067b0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4 __cdecl FUN_100067b0(uint param_1,char *param_2)
 
@@ -3231,7 +3231,7 @@ undefined4 __cdecl FUN_100067b0(uint param_1,char *param_2)
 
 
 /* ---- 0x100068b0  FUN_100068b0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void __cdecl
 FUN_100068b0(char *param_1,uint param_2,int param_3,uint param_4,int param_5,uint param_6,
@@ -3489,7 +3489,7 @@ LAB_1000692f:
 
 
 /* ---- 0x100070e0  FUN_100070e0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void __cdecl FUN_100070e0(char *param_1,char *param_2)
 
@@ -3506,7 +3506,7 @@ void __cdecl FUN_100070e0(char *param_1,char *param_2)
 
 
 /* ---- 0x10007110  FUN_10007110 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_10007110(void)
 
@@ -3523,7 +3523,7 @@ void FUN_10007110(void)
 
 
 /* ---- 0x100089b0  Im_SoundsFindByName ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Unidentified function of iMUSE_sounds.c (sound resource slots) */
 
@@ -3610,7 +3610,7 @@ undefined4 __cdecl Im_SoundsFindByName(undefined4 param_1,char *param_2)
 
 
 /* ---- 0x10008b60  Im_SoundsFreeSlot ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Unidentified function of iMUSE_sounds.c (sound resource slots) */
 
@@ -3635,7 +3635,7 @@ void __cdecl Im_SoundsFreeSlot(int param_1)
 
 
 /* ---- 0x10008bb0  iMUSE_GetPhoneme ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 int iMUSE_GetPhoneme(int param_1,int param_2)
 
@@ -3676,7 +3676,7 @@ LAB_10008c0e:
 
 
 /* ---- 0x10008c40  FUN_10008c40 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 int __cdecl FUN_10008c40(int param_1,int param_2)
 
@@ -3795,7 +3795,7 @@ LAB_10008de9:
 
 
 /* ---- 0x10008e00  FUN_10008e00 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -3814,7 +3814,7 @@ undefined4 __stdcall FUN_10008e00(int a1,int a2,int a3,int a4,int a5)
 
 
 /* ---- 0x10008e30  FUN_10008e30 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -3830,7 +3830,7 @@ void FUN_10008e30(void)
 
 
 /* ---- 0x10008e60  FUN_10008e60 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_10008e60(void)
 
@@ -3863,7 +3863,7 @@ void FUN_10008e60(void)
 
 
 /* ---- 0x100093d0  Im_SoundsPrepare ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Decodes the header/first block of a loaded sound and applies FX */
 
@@ -3928,7 +3928,7 @@ void __cdecl Im_SoundsPrepare(uint param_1)
 
 
 /* ---- 0x10009530  FUN_10009530 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4 FUN_10009530(int param_1)
 
@@ -3942,7 +3942,7 @@ undefined4 FUN_10009530(int param_1)
 
 
 /* ---- 0x10009560  FUN_10009560 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4 FUN_10009560(int param_1)
 
@@ -3956,7 +3956,7 @@ undefined4 FUN_10009560(int param_1)
 
 
 /* ---- 0x100095d0  grimSound_LipSyncLoad ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 uint * grimSound_LipSyncLoad(uint *param_1)
 
@@ -4001,7 +4001,7 @@ uint * grimSound_LipSyncLoad(uint *param_1)
 
 
 /* ---- 0x100096b0  grimSound_LipSyncFree ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4 __cdecl grimSound_LipSyncFree(int param_1)
 
@@ -4023,7 +4023,7 @@ undefined4 __cdecl grimSound_LipSyncFree(int param_1)
 
 
 /* ---- 0x10009700  FUN_10009700 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_10009700(void)
 
@@ -4034,7 +4034,7 @@ void FUN_10009700(void)
 
 
 /* ---- 0x10009710  Im_SoundsLoad ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* iMUSE_sounds.c: opens the sound file into a slot */
 
@@ -4186,7 +4186,7 @@ int * __cdecl Im_SoundsLoad(uint *param_1,char *param_2)
 
 
 /* ---- 0x10009b20  Im_SoundsUnload ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Unidentified function of iMUSE_sounds.c (sound resource slots) */
 
@@ -4219,7 +4219,7 @@ undefined4 __cdecl Im_SoundsUnload(undefined4 *param_1)
 
 
 /* ---- 0x10009b90  Im_SoundsReadBlock ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Unidentified function of iMUSE_sounds.c (sound resource slots) */
 
@@ -4364,7 +4364,7 @@ uint __cdecl Im_SoundsReadBlock(undefined4 *param_1,undefined4 *param_2,uint par
 
 
 /* ---- 0x1000a070  iMUSE_DeclareBufferSizes ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -4394,7 +4394,7 @@ void iMUSE_DeclareBufferSizes
 
 
 /* ---- 0x1000a0f0  iMUSE_GetMemoryFootprint ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -4408,7 +4408,7 @@ undefined4 iMUSE_GetMemoryFootprint(void)
 
 
 /* ---- 0x1000a100  iMUSE_GetSoundCacheSize ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -4422,7 +4422,7 @@ undefined4 iMUSE_GetSoundCacheSize(void)
 
 
 /* ---- 0x1000a110  iMUSE_SetHook ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4 iMUSE_SetHook(uint *param_1,uint param_2)
 
@@ -4442,7 +4442,7 @@ undefined4 iMUSE_SetHook(uint *param_1,uint param_2)
 
 
 /* ---- 0x1000a140  iMUSE_GetHook ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4 iMUSE_GetHook(uint *param_1)
 
@@ -4462,7 +4462,7 @@ undefined4 iMUSE_GetHook(uint *param_1)
 
 
 /* ---- 0x1000a160  iMUSE_SetVoiceEffect ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -4493,7 +4493,7 @@ int __cdecl iMUSE_SetVoiceEffect(uint *param_1)
 
 
 /* ---- 0x1000a1e0  Im_TracksInit ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
     */
@@ -4515,7 +4515,7 @@ undefined4 Im_TracksInit(void)
 
 
 /* ---- 0x1000a300  Im_ProcessStreamsImpl ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Refills every streaming track (Im_RefillStreamTrack) */
 
@@ -4592,7 +4592,7 @@ LAB_1000a415:
 
 
 /* ---- 0x1000a580  Im_FindTrack ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
     */
@@ -4612,7 +4612,7 @@ int __cdecl Im_FindTrack(int param_1)
 
 
 /* ---- 0x1000a5e0  Im_QueryStreamTrack ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
     */
@@ -4636,7 +4636,7 @@ Im_QueryStreamTrack(int param_1,undefined4 *param_2,undefined4 *param_3,int *par
 
 
 /* ---- 0x1000a620  Im_FeedStreamTrack ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
     */
@@ -4697,7 +4697,7 @@ Im_FeedStreamTrack(int param_1,undefined4 *param_2,uint param_3,undefined4 param
 
 
 /* ---- 0x1000a6d0  Im_RefillStreamTrack ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Refills the stream buffer of one track from its file. Drops the guard (Im_GuardLeave) around the
    blocking read and takes it again after: net 0 only when the caller holds the guard
@@ -4770,7 +4770,7 @@ undefined4 __cdecl Im_RefillStreamTrack(uint *param_1)
 
 
 /* ---- 0x1000a7e0  Im_InitSubsystems ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* DirectSound, mixer, dispatch and track tables */
@@ -4824,7 +4824,7 @@ undefined4 Im_InitSubsystems(void)
 
 
 /* ---- 0x1000a8a0  Im_ShutdownSubsystems ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
     */
@@ -4850,7 +4850,7 @@ int Im_ShutdownSubsystems(void)
 
 
 /* ---- 0x1000a8d0  Im_PauseImpl ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
     */
@@ -4867,7 +4867,7 @@ void Im_PauseImpl(void)
 
 
 /* ---- 0x1000a8f0  Im_ResumeImpl ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
     */
@@ -4884,7 +4884,7 @@ void Im_ResumeImpl(void)
 
 
 /* ---- 0x1000a910  Im_SaveImpl ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
     */
@@ -4921,7 +4921,7 @@ int __cdecl Im_SaveImpl(undefined4 *param_1,uint param_2)
 
 
 /* ---- 0x1000a970  Im_RestoreImpl ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
     */
@@ -4971,7 +4971,7 @@ int __cdecl Im_RestoreImpl(undefined4 *param_1)
 
 
 /* ---- 0x1000aa00  Im_UpdateGroupVolumes ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
     */
@@ -4995,7 +4995,7 @@ undefined4 Im_UpdateGroupVolumes(void)
 
 
 /* ---- 0x1000aa40  Im_HeartbeatBody ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Body of ImHeartbeat once its guards pass: refill the streams, advance the 20 ms mixing step for
    every playing track (FUN_10002570), retire finished ones. */
@@ -5037,7 +5037,7 @@ void Im_HeartbeatBody(void)
 
 
 /* ---- 0x1000ab00  Im_StartSoundImpl ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Starts a track for a sound id: priority clamped 0..127, Im_AllocTrackOrSteal, fills the track
    (+0xc id, +0x18 priority, +0x1c volume 127, +0x24 pan 64, +0x30 = 0x100 ...), links it into the
@@ -5089,7 +5089,7 @@ undefined4 __cdecl Im_StartSoundImpl(int param_1,int param_2,uint param_3)
 
 
 /* ---- 0x1000abb0  Im_StopSoundImpl ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
     */
@@ -5118,7 +5118,7 @@ undefined4 __cdecl Im_StopSoundImpl(int param_1)
 
 
 /* ---- 0x1000ac00  Im_StopAllSoundsImpl ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
     */
@@ -5141,7 +5141,7 @@ undefined4 Im_StopAllSoundsImpl(void)
 
 
 /* ---- 0x1000ac20  Im_GetNextSoundImpl ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
     */
@@ -5169,7 +5169,7 @@ uint __cdecl Im_GetNextSoundImpl(uint param_1)
 
 
 /* ---- 0x1000ac60  Im_QueryStreamImpl ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
     */
@@ -5203,7 +5203,7 @@ Im_QueryStreamImpl(int param_1,undefined4 *param_2,undefined4 *param_3,int *para
 
 
 /* ---- 0x1000ace0  Im_FeedStreamImpl ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
     */
@@ -5237,7 +5237,7 @@ Im_FeedStreamImpl(int param_1,undefined4 *param_2,uint param_3,undefined4 param_
 
 
 /* ---- 0x1000ad50  Im_FreeTrack ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Releases a track: dispatch, fades, stream */
 
@@ -5255,7 +5255,7 @@ void __cdecl Im_FreeTrack(int *param_1)
 
 
 /* ---- 0x1000ada0  Im_SetParamImpl ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* ImSetParam on a sound id. LEAK: with param 0x400 (group) and a value >= 0x10 it returns without
    Im_GuardLeave: the guard counter stays raised for good (ImStartSound with a group >= 16 reaches
@@ -5354,7 +5354,7 @@ undefined4 __cdecl Im_SetParamImpl(int param_1,int param_2,uint param_3)
 
 
 /* ---- 0x1000af50  Im_GetParamImpl ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* ImGetParam on a sound id: walks the list of playing tracks (DAT_10032300, next at +4) whose +0xc
    equals the id. 0x100 PLAY_COUNT = number of such tracks; the other params read the first match
@@ -5451,7 +5451,7 @@ uint __cdecl Im_GetParamImpl(int param_1,int param_2)
 
 
 /* ---- 0x1000b0a0  Im_SetHookImpl ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
     */
@@ -5483,7 +5483,7 @@ undefined4 __cdecl Im_SetHookImpl(int param_1,uint param_2)
 
 
 /* ---- 0x1000b0e0  Im_GetHookImpl ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
     */
@@ -5511,7 +5511,7 @@ undefined4 __cdecl Im_GetHookImpl(int param_1)
 
 
 /* ---- 0x1000b110  Im_AllocTrackOrSteal ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Track pool (0x3c bytes each, DAT_1003350c of them, first at 10031f28): a free track (+0xc == 0),
    else the lowest-priority playing track when its priority <= the new one (it is stopped,
@@ -5553,7 +5553,7 @@ int * __cdecl Im_AllocTrackOrSteal(int param_1)
 
 
 /* ---- 0x1000b170  Im_TriggersInit ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
     */
@@ -5582,7 +5582,7 @@ undefined4 Im_TriggersInit(void)
 
 
 /* ---- 0x1000b1a0  Im_TriggersSave ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
     */
@@ -5617,7 +5617,7 @@ undefined4 __cdecl Im_TriggersSave(undefined4 *param_1,int param_2)
 
 
 /* ---- 0x1000b1e0  Im_TriggersRestore ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
     */
@@ -5650,7 +5650,7 @@ undefined4 __cdecl Im_TriggersRestore(undefined4 *param_1)
 
 
 /* ---- 0x1000b220  Im_SetTriggerImpl ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
     */
@@ -5734,7 +5734,7 @@ undefined4 __cdecl Im_SetTriggerImpl(int param_1,char *param_2,int param_3)
 
 
 /* ---- 0x1000b2e0  Im_CheckTriggerImpl ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
     */
@@ -5798,7 +5798,7 @@ LAB_1000b35f:
 
 
 /* ---- 0x1000b380  Im_ClearTriggerImpl ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
     */
@@ -5864,7 +5864,7 @@ LAB_1000b40c:
 
 
 /* ---- 0x1000b430  Im_FireTriggers ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Matches a marker name against the trigger table and runs the stored commands */
 
@@ -5993,7 +5993,7 @@ LAB_1000b52c:
 
 
 /* ---- 0x1000b570  Im_DeferCommandImpl ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
     */
@@ -6038,7 +6038,7 @@ undefined4 __cdecl Im_DeferCommandImpl(int param_1,int param_2)
 
 
 /* ---- 0x1000b5e0  Im_ProcessDeferred ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
     */
@@ -6073,7 +6073,7 @@ void Im_ProcessDeferred(void)
 
 
 /* ---- 0x1000b630  Im_GetTriggerParam ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
     */
@@ -6114,7 +6114,7 @@ int __cdecl Im_GetTriggerParam(int param_1)
 
 
 /* ---- 0x1000b6a0  Im_RunTriggerCommand ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
     */
@@ -6147,7 +6147,7 @@ void __cdecl Im_RunTriggerCommand(undefined4 *param_1,undefined4 param_2)
 
 
 /* ---- 0x1000b710  Im_RunDeferredCommand ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
     */
@@ -6180,7 +6180,7 @@ void __cdecl Im_RunDeferredCommand(int param_1)
 
 
 /* ---- 0x1000bd50  Im_StrChr ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
 
@@ -6221,7 +6221,7 @@ char * __cdecl Im_StrChr(char *param_1,char param_2)
 
 
 /* ---- 0x1000bd80  Im_MemCopy ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
 
@@ -6333,7 +6333,7 @@ LAB_1000bdfb:
 
 
 /* ---- 0x1000be80  Im_StrCmpNoCase ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */

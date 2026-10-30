@@ -111,11 +111,11 @@
  {"addr": "004b50f0", "name": "__loctotime_t", "tags": "crt"},
  {"addr": "004b51e0", "name": "__InternalCxxFrameHandler", "tags": "crt"},
  {"addr": "004b52b0", "name": "FindHandler", "tags": "crt"},
- {"addr": "004b5570", "name": "FindHandlerForForeignException", "tags": "crt"},
+ {"addr": "004b5570", "name": "Eh_FindForeignHandler", "tags": "crt"},
  {"addr": "004b5650", "name": "FrameUnwindToState", "tags": "crt"},
  {"addr": "004b5730", "name": "CatchIt", "tags": "crt"},
  {"addr": "004b57c0", "name": "CallCatchBlock", "tags": "crt"},
- {"addr": "004b58b8", "name": "CallCatchBlockHelper", "tags": "crt"},
+ {"addr": "004b58b8", "name": "Eh_CallCatchBlockInner", "tags": "crt"},
  {"addr": "004b5950", "name": "BuildCatchObject", "tags": "crt"},
  {"addr": "004b5c60", "name": "terminate", "tags": "crt"},
  {"addr": "004b6ce0", "name": "_getbuf", "tags": "crt"},
@@ -181,6 +181,6 @@
  {"addr": "004bd180", "name": "_mbschr", "tags": "crt"},
  {"addr": "004bd250", "name": "_strdup", "tags": "crt"},
  {"addr": "004d54e0", "name": "_fdopen", "tags": "crt"},
- {"addr": "004d59d0", "name": "_except_handler3", "tags": "crt"},
+ {"addr": "004d59d0", "name": "longjmp", "tags": "crt"},
  {"addr": "004d5ad0", "name": "_fltin", "tags": "crt"}
 ]

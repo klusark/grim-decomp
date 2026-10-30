@@ -283,7 +283,7 @@ void __cdecl luaY_growvector(undefined4 param_1,undefined4 param_2)
 }
 
 /* ---- 0x1000abd0  yyparse ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* lua.stx: generated LALR parser from lua.stx */
 
@@ -907,7 +907,7 @@ void __cdecl lparser__b8c0(uint param_1)
 }
 
 /* ---- 0x1000b8e0  luaY_code_number ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Unidentified function of lua.stx (yacc parser) and code generation */
 
@@ -932,7 +932,7 @@ void __cdecl luaY_code_number(float param_1)
 
 
 /* ---- 0x1000b950  luaY_real_constant ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Unidentified function of lua.stx (yacc parser) and code generation */
 
@@ -1264,7 +1264,7 @@ void __cdecl lparser__bde0(int param_1,int param_2)
 }
 
 /* ---- 0x1000be60  lparser__be60 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Unidentified function of lua.stx (yacc parser) and code generation */
 
@@ -1384,7 +1384,7 @@ void __cdecl lparser__c000(int param_1,char param_2)
 }
 
 /* ---- 0x1000c020  lparser__c020 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Unidentified function of lua.stx (yacc parser) and code generation */
 

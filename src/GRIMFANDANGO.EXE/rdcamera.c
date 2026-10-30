@@ -6,7 +6,7 @@
 #include "functions.h"
 
 /* ---- 0x00409f50  rdCamera_New ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void * __cdecl rdCamera_New(float fov,int type,float aspectX,float aspectY,float zoom)
 
@@ -26,7 +26,7 @@ void * __cdecl rdCamera_New(float fov,int type,float aspectX,float aspectY,float
 
 
 /* ---- 0x00409fb0  rdCamera_Init ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Allocates the 0x34-byte projection block (camera+0x48), clamps the FOV to 5..179 and selects
    perspective projection */
@@ -65,14 +65,16 @@ int __cdecl rdCamera_Init(void *camera,float fov,int a,int b,int c,float zoom)
 #endif
 
 
-/* ---- 0x0040a080  FUN_0040a080 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* ---- 0x0040a080  rdCamera_Free ---- */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
-void FUN_0040a080(int param_1)
+/* Frees a camera: its projection block and the camera itself. */
+
+void rdCamera_Free(int param_1)
 
 {
   if (param_1 != 0) {
-    FUN_0040a0a0(param_1);
+    rdCamera_FreeProjection(param_1);
     (*g_pSvcRdroid->pFree)(param_1);
   }
   return;
@@ -80,10 +82,12 @@ void FUN_0040a080(int param_1)
 #endif
 
 
-/* ---- 0x0040a0a0  FUN_0040a0a0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* ---- 0x0040a0a0  rdCamera_FreeProjection ---- */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
-void FUN_0040a0a0(int param_1)
+/* Frees the 0x34-byte projection block (camera+0x48) allocated by rdCamera_Init. */
+
+void rdCamera_FreeProjection(int param_1)
 
 {
   if (*(int *)(param_1 + 0x48) != 0) {
@@ -95,7 +99,7 @@ void FUN_0040a0a0(int param_1)
 
 
 /* ---- 0x0040a0c0  rdCamera_SetCanvas ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void __cdecl rdCamera_SetCanvas(void *camera,void *canvas)
 
@@ -108,7 +112,7 @@ void __cdecl rdCamera_SetCanvas(void *camera,void *canvas)
 
 
 /* ---- 0x0040a0e0  rdCamera_SetCurrent ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4 rdCamera_SetCurrent(void *param_1)
 
@@ -122,7 +126,7 @@ undefined4 rdCamera_SetCurrent(void *param_1)
 
 
 /* ---- 0x0040a100  rdCamera_SetFov ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void __cdecl rdCamera_SetFov(void *camera,float fov)
 
@@ -141,7 +145,7 @@ void __cdecl rdCamera_SetFov(void *camera,float fov)
 
 
 /* ---- 0x0040a150  rdCamera_SetProjectType ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* 0 orthographic, 1 perspective; installs the project/unproject function pointers (+0x4c/+0x50) and
    rebuilds the frustum */
@@ -152,22 +156,22 @@ int __cdecl rdCamera_SetProjectType(void *camera,int type)
   *(int *)camera = type;
   if (type == 0) {
     if (*(int *)((int)camera + 0x40) == 0x3f800000) {
-      *(code **)((int)camera + 0x4c) = FUN_0040a530;
-      *(code **)((int)camera + 0x50) = FUN_0040a570;
+      *(code **)((int)camera + 0x4c) = rdCamera_OrthoProjectSquare;
+      *(code **)((int)camera + 0x50) = rdCamera_OrthoProjectSquareLst;
     }
     else {
-      *(code **)((int)camera + 0x4c) = FUN_0040a470;
-      *(code **)((int)camera + 0x50) = FUN_0040a4b0;
+      *(code **)((int)camera + 0x4c) = rdCamera_OrthoProject;
+      *(code **)((int)camera + 0x50) = rdCamera_OrthoProjectLst;
     }
   }
   else if (type == 1) {
     if (*(int *)((int)camera + 0x40) == 0x3f800000) {
-      *(code **)((int)camera + 0x4c) = FUN_0040a6a0;
-      *(code **)((int)camera + 0x50) = FUN_0040a6e0;
+      *(code **)((int)camera + 0x4c) = rdCamera_PerspProjectSquare;
+      *(code **)((int)camera + 0x50) = rdCamera_PerspProjectSquareLst;
     }
     else {
-      *(code **)((int)camera + 0x4c) = FUN_0040a5e0;
-      *(code **)((int)camera + 0x50) = FUN_0040a620;
+      *(code **)((int)camera + 0x4c) = rdCamera_PerspProject;
+      *(code **)((int)camera + 0x50) = rdCamera_PerspProjectLst;
     }
   }
   if (*(int *)((int)camera + 4) != 0) {
@@ -179,7 +183,7 @@ int __cdecl rdCamera_SetProjectType(void *camera,int type)
 
 
 /* ---- 0x0040a1d0  rdCamera_SetZoom ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void __cdecl rdCamera_SetZoom(void *camera,float zoom)
 
@@ -187,23 +191,23 @@ void __cdecl rdCamera_SetZoom(void *camera,float zoom)
   *(float *)((int)camera + 0x40) = zoom;
   if (*(int *)camera == 0) {
     if (zoom == 1.0) {
-      *(code **)((int)camera + 0x4c) = FUN_0040a530;
-      *(code **)((int)camera + 0x50) = FUN_0040a570;
+      *(code **)((int)camera + 0x4c) = rdCamera_OrthoProjectSquare;
+      *(code **)((int)camera + 0x50) = rdCamera_OrthoProjectSquareLst;
       rdCamera_BuildProjection(camera);
       return;
     }
-    *(code **)((int)camera + 0x4c) = FUN_0040a470;
-    *(code **)((int)camera + 0x50) = FUN_0040a4b0;
+    *(code **)((int)camera + 0x4c) = rdCamera_OrthoProject;
+    *(code **)((int)camera + 0x50) = rdCamera_OrthoProjectLst;
   }
   else if (*(int *)camera == 1) {
     if (zoom == 1.0) {
-      *(code **)((int)camera + 0x4c) = FUN_0040a6a0;
-      *(code **)((int)camera + 0x50) = FUN_0040a6e0;
+      *(code **)((int)camera + 0x4c) = rdCamera_PerspProjectSquare;
+      *(code **)((int)camera + 0x50) = rdCamera_PerspProjectSquareLst;
       rdCamera_BuildProjection(camera);
       return;
     }
-    *(code **)((int)camera + 0x4c) = FUN_0040a5e0;
-    *(code **)((int)camera + 0x50) = FUN_0040a620;
+    *(code **)((int)camera + 0x4c) = rdCamera_PerspProject;
+    *(code **)((int)camera + 0x50) = rdCamera_PerspProjectLst;
     rdCamera_BuildProjection(camera);
     return;
   }
@@ -214,7 +218,7 @@ void __cdecl rdCamera_SetZoom(void *camera,float zoom)
 
 
 /* ---- 0x0040a280  rdCamera_BuildProjection ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_14 */
 /* Computes the projection scale from FOV and canvas size and the frustum planes */
@@ -272,7 +276,7 @@ undefined4 rdCamera_BuildProjection(int *param_1)
 
 
 /* ---- 0x0040a430  rdCamera_SetFrame ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void __cdecl rdCamera_SetFrame(float *frame)
 
@@ -293,10 +297,14 @@ void __cdecl rdCamera_SetFrame(float *frame)
 #endif
 
 
-/* ---- 0x0040a470  FUN_0040a470 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* ---- 0x0040a470  rdCamera_OrthoProject ---- */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
-void FUN_0040a470(float *param_1,float *param_2)
+/* Projects one camera-space point orthographically with the aspect ratio. Selected by
+   rdCamera_SetProjectType/rdCamera_SetZoom (camera type 0 orthographic, 1 perspective; 'Square'
+   when the pixel aspect (+0x40) is 1.0). */
+
+void rdCamera_OrthoProject(float *param_1,float *param_2)
 
 {
   int iVar1;
@@ -311,10 +319,14 @@ void FUN_0040a470(float *param_1,float *param_2)
 #endif
 
 
-/* ---- 0x0040a4b0  FUN_0040a4b0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* ---- 0x0040a4b0  rdCamera_OrthoProjectLst ---- */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
-void FUN_0040a4b0(float *param_1,float *param_2,int param_3)
+/* Projects a list of points orthographically with the aspect ratio. Selected by
+   rdCamera_SetProjectType/rdCamera_SetZoom (camera type 0 orthographic, 1 perspective; 'Square'
+   when the pixel aspect (+0x40) is 1.0). */
+
+void rdCamera_OrthoProjectLst(float *param_1,float *param_2,int param_3)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -346,10 +358,14 @@ void FUN_0040a4b0(float *param_1,float *param_2,int param_3)
 #endif
 
 
-/* ---- 0x0040a530  FUN_0040a530 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* ---- 0x0040a530  rdCamera_OrthoProjectSquare ---- */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
-void FUN_0040a530(float *param_1,float *param_2)
+/* Projects one point orthographically, square pixels. Selected by
+   rdCamera_SetProjectType/rdCamera_SetZoom (camera type 0 orthographic, 1 perspective; 'Square'
+   when the pixel aspect (+0x40) is 1.0). */
+
+void rdCamera_OrthoProjectSquare(float *param_1,float *param_2)
 
 {
   int iVar1;
@@ -363,10 +379,14 @@ void FUN_0040a530(float *param_1,float *param_2)
 #endif
 
 
-/* ---- 0x0040a570  FUN_0040a570 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* ---- 0x0040a570  rdCamera_OrthoProjectSquareLst ---- */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
-void FUN_0040a570(float *param_1,float *param_2,int param_3)
+/* Projects a list of points orthographically, square pixels. Selected by
+   rdCamera_SetProjectType/rdCamera_SetZoom (camera type 0 orthographic, 1 perspective; 'Square'
+   when the pixel aspect (+0x40) is 1.0). */
+
+void rdCamera_OrthoProjectSquareLst(float *param_1,float *param_2,int param_3)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -396,10 +416,14 @@ void FUN_0040a570(float *param_1,float *param_2,int param_3)
 #endif
 
 
-/* ---- 0x0040a5e0  FUN_0040a5e0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* ---- 0x0040a5e0  rdCamera_PerspProject ---- */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
-void FUN_0040a5e0(float *param_1,float *param_2)
+/* Perspective-projects one point (x*focal/y + cx, cy - z*aspect*focal/y) with the aspect ratio.
+   Selected by rdCamera_SetProjectType/rdCamera_SetZoom (camera type 0 orthographic, 1 perspective;
+   'Square' when the pixel aspect (+0x40) is 1.0). */
+
+void rdCamera_PerspProject(float *param_1,float *param_2)
 
 {
   float fVar1;
@@ -417,10 +441,14 @@ void FUN_0040a5e0(float *param_1,float *param_2)
 #endif
 
 
-/* ---- 0x0040a620  FUN_0040a620 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* ---- 0x0040a620  rdCamera_PerspProjectLst ---- */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
-void FUN_0040a620(float *param_1,float *param_2,int param_3)
+/* Perspective-projects a list of points with the aspect ratio. Selected by
+   rdCamera_SetProjectType/rdCamera_SetZoom (camera type 0 orthographic, 1 perspective; 'Square'
+   when the pixel aspect (+0x40) is 1.0). */
+
+void rdCamera_PerspProjectLst(float *param_1,float *param_2,int param_3)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -450,10 +478,14 @@ void FUN_0040a620(float *param_1,float *param_2,int param_3)
 #endif
 
 
-/* ---- 0x0040a6a0  FUN_0040a6a0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* ---- 0x0040a6a0  rdCamera_PerspProjectSquare ---- */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
-void FUN_0040a6a0(float *param_1,float *param_2)
+/* Perspective-projects one point, square pixels. Selected by
+   rdCamera_SetProjectType/rdCamera_SetZoom (camera type 0 orthographic, 1 perspective; 'Square'
+   when the pixel aspect (+0x40) is 1.0). */
+
+void rdCamera_PerspProjectSquare(float *param_1,float *param_2)
 
 {
   int iVar1;
@@ -469,10 +501,14 @@ void FUN_0040a6a0(float *param_1,float *param_2)
 #endif
 
 
-/* ---- 0x0040a6e0  FUN_0040a6e0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* ---- 0x0040a6e0  rdCamera_PerspProjectSquareLst ---- */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
-void FUN_0040a6e0(float *param_1,float *param_2,int param_3)
+/* Perspective-projects a list of points, square pixels. Selected by
+   rdCamera_SetProjectType/rdCamera_SetZoom (camera type 0 orthographic, 1 perspective; 'Square'
+   when the pixel aspect (+0x40) is 1.0). */
+
+void rdCamera_PerspProjectSquareLst(float *param_1,float *param_2,int param_3)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -501,7 +537,7 @@ void FUN_0040a6e0(float *param_1,float *param_2,int param_3)
 
 
 /* ---- 0x0040a750  rdCamera_SetAmbientLight ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua SetAmbientLight */
 
@@ -515,7 +551,7 @@ void __cdecl rdCamera_SetAmbientLight(void *camera,float ambient)
 
 
 /* ---- 0x0040a760  rdCamera_AddLight ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Up to 64 lights per camera; stores the light pointer and position and precomputes the falloff
    terms */
@@ -543,7 +579,7 @@ void __cdecl rdCamera_AddLight(void *camera,void *light,float *pos)
 
 
 /* ---- 0x0040a7d0  rdCamera_ClearCanvas ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void rdCamera_ClearCanvas(void)
 
@@ -583,7 +619,7 @@ void rdCamera_ClearCanvas(void)
 
 
 /* ---- 0x0040a860  rdCamera_ResetStats ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void rdCamera_ResetStats(void)
 
@@ -595,7 +631,7 @@ void rdCamera_ResetStats(void)
 
 
 /* ---- 0x0040dc30  rdCamera_ProjectPoint ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Lua WorldToScreen; returns 0 when the point is behind the camera */
 

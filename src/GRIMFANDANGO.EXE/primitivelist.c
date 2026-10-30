@@ -1,12 +1,68 @@
 /* GRIMFANDANGO.EXE :: primitivelist.c
- * functions 0x0048a520 .. 0x0048abd0 (5 functions)
+ * functions 0x00489510 .. 0x0048abd0 (10 functions)
  * Decompiled from the shipped binaries with Ghidra; see ../../README.md */
 #include "ghidra_types.h"
 #include "globals.h"
 #include "functions.h"
 
+/* ---- 0x00489510  PrimitiveList_StaticConstruct ---- */
+/* Static constructor of the global primitive list (init + atexit registration). */
+
+void PrimitiveList_StaticConstruct(void)
+
+{
+  PrimitiveList_InitGlobal();
+  PrimitiveList_RegisterAtExit();
+  return;
+}
+
+/* ---- 0x00489520  PrimitiveList_InitGlobal ---- */
+/* Initialises the global primitive list (UINT_008ca0a0). */
+
+void PrimitiveList_InitGlobal(void)
+
+{
+  PrimitiveList_Init(&UINT_008ca0a0);
+  return;
+}
+
+/* ---- 0x00489530  PrimitiveList_RegisterAtExit ---- */
+/* Registers PrimitiveList_AtExitClear with atexit (static destructor). */
+
+void PrimitiveList_RegisterAtExit(void)
+
+{
+  atexit(PrimitiveList_AtExitClear);
+  return;
+}
+
+/* ---- 0x00489540  PrimitiveList_AtExitClear ---- */
+/* atexit handler: clears the global primitive list. */
+
+void PrimitiveList_AtExitClear(void)
+
+{
+  PrimitiveList_Clear((int *)&UINT_008ca0a0);
+  return;
+}
+
+/* ---- 0x0048a500  PrimitiveList_Init ---- */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+#if 0
+/* __fastcall: clears the head and tail of a primitive list. */
+
+void __fastcall PrimitiveList_Init(undefined4 *param_1)
+
+{
+  *param_1 = 0;
+  param_1[1] = 0;
+  return;
+}
+#endif
+
+
 /* ---- 0x0048a520  PrimitiveList_Clear ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void __fastcall PrimitiveList_Clear(int *param_1)
 
@@ -27,7 +83,7 @@ void __fastcall PrimitiveList_Clear(int *param_1)
 
 
 /* ---- 0x0048a670  PrimitiveList_Append ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void * __thiscall PrimitiveList_Append(void *this,int id,int layer)
 
@@ -91,7 +147,7 @@ void * __thiscall PrimitiveList_Append(void *this,int id,int layer)
 
 
 /* ---- 0x0048a9f0  PrimitiveList_Draw ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void __thiscall PrimitiveList_Draw(void *this,void *canvas,uint layerMask)
 
@@ -109,7 +165,7 @@ void __thiscall PrimitiveList_Draw(void *this,void *canvas,uint layerMask)
 
 
 /* ---- 0x0048ab20  PrimitiveList_Invalidate ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined * __thiscall PrimitiveList_Invalidate(void *this,int a1)
 
@@ -128,7 +184,7 @@ undefined * __thiscall PrimitiveList_Invalidate(void *this,int a1)
 
 
 /* ---- 0x0048abd0  PrimitiveList_FindById ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void * __thiscall PrimitiveList_FindById(void *this,int id,void *after)
 

@@ -6,7 +6,7 @@
 #include "functions.h"
 
 /* ---- 0x00483720  Polyglot_LoadTable ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* polyglot.c: loads the language table (text id -> translated string) */
 
@@ -65,7 +65,7 @@ void Polyglot_LoadTable(undefined *param_1)
       pcVar3 = puVar4 + 2;
       iVar1 = iVar1 + 4;
     } while (pcVar3 < g_pPolyglotText + iVar2 + -1);
-    qsort(UINT_008a8c9c,UINT_008a8ca4,4,FUN_00403ae0);
+    qsort(UINT_008a8c9c,UINT_008a8ca4,4,Str_ComparePtrs);
   }
   return;
 }
@@ -127,7 +127,7 @@ char * __cdecl Polyglot_Lookup(char *textId)
       *puVar3 = 0;
     }
     _strupr(local_100);
-    puVar4 = (undefined4 *)bsearch(&local_104,UINT_008a8c9c,UINT_008a8ca4,4,FUN_00403ae0);
+    puVar4 = (undefined4 *)bsearch(&local_104,UINT_008a8c9c,UINT_008a8ca4,4,Str_ComparePtrs);
     if (puVar4 == (undefined4 *)0x0) {
       return (char *)(iVar2 + 1);
     }

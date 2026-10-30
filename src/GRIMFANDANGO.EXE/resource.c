@@ -1,5 +1,5 @@
 /* GRIMFANDANGO.EXE :: resource.c
- * functions 0x00480010 .. 0x0048e1e0 (23 functions)
+ * functions 0x00480010 .. 0x0048e1b0 (21 functions)
  * Decompiled from the shipped binaries with Ghidra; see ../../README.md */
 #include "ghidra_types.h"
 #include "globals.h"
@@ -20,11 +20,11 @@ undefined4 Resource_RegisterFilioModule(uint param_1,undefined4 *param_2)
     UINT_008a85b8 = 1;
     if (param_2 != (undefined4 *)0x0) {
       *param_2 = Resource_RegisterFilioModule;
-      param_2[1] = FUN_004800a0;
-      param_2[2] = FUN_004800b0;
-      param_2[3] = FUN_00480140;
-      param_2[4] = FUN_00482260;
-      param_2[5] = FUN_00482380;
+      param_2[1] = Resource_Filio_Terminate;
+      param_2[2] = Resource_Filio_Start;
+      param_2[3] = Resource_Filio_Stop;
+      param_2[4] = Resource_Filio_SaveState;
+      param_2[5] = Resource_Filio_RestoreState;
       param_2[6] = 0;
       param_2[7] = 0;
     }
@@ -52,11 +52,11 @@ undefined4 __fastcall FUN_00480020(uint param_1,int param_2,undefined4 param_3,u
     UINT_008a85b8 = 1;
     if (param_4 != (undefined4 *)0x0) {
       *param_4 = Resource_RegisterFilioModule;
-      param_4[1] = FUN_004800a0;
-      param_4[2] = FUN_004800b0;
-      param_4[3] = FUN_00480140;
-      param_4[4] = FUN_00482260;
-      param_4[5] = FUN_00482380;
+      param_4[1] = Resource_Filio_Terminate;
+      param_4[2] = Resource_Filio_Start;
+      param_4[3] = Resource_Filio_Stop;
+      param_4[4] = Resource_Filio_SaveState;
+      param_4[5] = Resource_Filio_RestoreState;
       param_4[6] = 0;
       param_4[7] = 0;
     }
@@ -72,16 +72,23 @@ undefined4 __fastcall FUN_00480020(uint param_1,int param_2,undefined4 param_3,u
   return uVar1;
 }
 
-/* ---- 0x004800a0  FUN_004800a0 ---- */
-void FUN_004800a0(void)
+/* ---- 0x004800a0  Resource_Filio_Terminate ---- */
+/* Module interface slot 1 (Resource_Filio): called by Engine_ResetSubsystems / when registration
+   fails; drops the service table pointer and clears the initialised flag. */
+
+void Resource_Filio_Terminate(void)
 
 {
   UINT_008a85b8 = 0;
   return;
 }
 
-/* ---- 0x004800b0  FUN_004800b0 ---- */
-undefined4 FUN_004800b0(void)
+/* ---- 0x004800b0  Resource_Filio_Start ---- */
+/* Module interface slot 2 (Resource_Filio): called by Engine_InitSubsystems, returns 0 on success
+   (non-zero makes the whole start-up unwind). Pools for the LAB archive records are created in
+   _Start. */
+
+undefined4 Resource_Filio_Start(void)
 
 {
   undefined4 uVar1;
@@ -96,6 +103,160 @@ undefined4 FUN_004800b0(void)
   }
   return uVar1;
 }
+
+/* ---- 0x00480140  Resource_Filio_Stop ---- */
+/* Module interface slot 3 (Resource_Filio): called by Engine_ShutdownSubsystems in reverse order;
+   releases what _Start created. */
+
+void Resource_Filio_Stop(void)
+
+{
+  if (UINT_008a85bc != 0) {
+    Lab_CloseAll();
+    Engine_ResetState();
+    if (UINT_008a85c8 != 0) {
+      Pool_Destroy(UINT_008a85c8);
+    }
+    if (UINT_008a85c0 != 0) {
+      Pool_Destroy(UINT_008a85c0);
+    }
+    if (UINT_008a85d0 != 0) {
+      Pool_Destroy(UINT_008a85d0);
+    }
+  }
+  UINT_008a85bc = 0;
+  return;
+}
+
+/* ---- 0x00482260  Resource_Filio_SaveState ---- */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+#if 0
+/* Module interface slot 4 (Resource_Filio): save-game writer, calls the SaveGame_Write callback it
+   is handed for every field. */
+
+undefined4 Resource_Filio_SaveState(code *param_1)
+
+{
+  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  char cVar1;
+  code *pcVar2;
+  int iVar3;
+  uint uVar4;
+  int *piVar5;
+  char *pcVar6;
+  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
+  
+  local_4 = 0;
+  pcVar2 = param_1;
+  for (piVar5 = PTR_008a85d4; param_1 = pcVar2, piVar5 != (int *)0x0; piVar5 = (int *)*piVar5) {
+    if (((piVar5[9] != 0) && (iVar3 = String_ContainsSubstring(piVar5[2],&DAT_004e7b14), iVar3 == 0)
+        ) || ((*(byte *)(piVar5 + 7) & 8) != 0)) {
+      local_4 = local_4 + 1;
+    }
+    pcVar2 = param_1;
+  }
+  iVar3 = (*pcVar2)(&local_4,4);
+  if (iVar3 != 0) {
+    return 1;
+  }
+  local_4 = 0;
+  piVar5 = PTR_008a85d4;
+  if (PTR_008a85d4 == (int *)0x0) {
+    return 0;
+  }
+  do {
+    if (((piVar5[9] != 0) && (iVar3 = String_ContainsSubstring(piVar5[2],&DAT_004e7b14), iVar3 == 0)
+        ) || ((*(byte *)(piVar5 + 7) & 8) != 0)) {
+      uVar4 = 0xffffffff;
+      pcVar6 = (char *)piVar5[2];
+      do {
+        if (uVar4 == 0) break;
+        uVar4 = uVar4 - 1;
+        cVar1 = *pcVar6;
+        pcVar6 = pcVar6 + 1;
+      } while (cVar1 != '\0');
+      param_1 = (code *)(~uVar4 - 1);
+      iVar3 = (*pcVar2)(&param_1,4);
+      if (((iVar3 != 0) || (iVar3 = (*pcVar2)(piVar5[2],param_1), iVar3 != 0)) ||
+         (iVar3 = (*pcVar2)(piVar5 + 4,4), iVar3 != 0)) {
+        return 1;
+      }
+      piVar5[6] = piVar5[5];
+      iVar3 = (*pcVar2)(piVar5 + 6,4);
+      if (iVar3 != 0) {
+        return 1;
+      }
+      local_4 = local_4 + 1;
+    }
+    piVar5 = (int *)*piVar5;
+    if (piVar5 == (int *)0x0) {
+      return 0;
+    }
+  } while( true );
+}
+#undef local_4
+
+#endif
+
+
+/* ---- 0x00482380  Resource_Filio_RestoreState ---- */
+/* Module interface slot 5 (Resource_Filio): save-game reader, calls the SaveGame_Read callback it
+   is handed; returns non-zero on a short read. */
+
+undefined4 Resource_Filio_RestoreState(code *param_1)
+
+{
+  unsigned char _frame[0x120] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  int iVar1;
+  int iVar2;
+  void *pvVar3;
+  #define iStack_110 (*(int *)(_frame + (0x120 - 0x110)))
+  #define local_10c (*(int *)(_frame + (0x120 - 0x10c)))
+  #define iStack_108 (*(int *)(_frame + (0x120 - 0x108)))
+  #define iStack_104 (*(int *)(_frame + (0x120 - 0x104)))
+  #define acStack_100 (*(char (*)[256])(_frame + (0x120 - 0x100)))
+  
+  iVar1 = (*param_1)(&local_10c,4);
+  if (iVar1 != 0) {
+    return 1;
+  }
+  iVar1 = 0;
+  if (local_10c < 1) {
+    return 0;
+  }
+  while( true ) {
+    iVar2 = (*param_1)(&iStack_110,4);
+    if ((iVar2 != 0) || (0xff < iStack_110)) {
+      return 1;
+    }
+    iVar2 = (*param_1)(acStack_100,iStack_110);
+    if (iVar2 != 0) {
+      return 1;
+    }
+    acStack_100[iStack_110] = '\0';
+    iVar2 = (*param_1)(&iStack_108,4);
+    if (iVar2 != 0) break;
+    pvVar3 = Res_LoadInternal(iStack_108,acStack_100,&iStack_104);
+    if (iStack_104 == 0) {
+      return 1;
+    }
+    iVar2 = (*param_1)((int)pvVar3 + 0x18,4);
+    if (iVar2 != 0) {
+      return 1;
+    }
+    iVar1 = iVar1 + 1;
+    if (local_10c <= iVar1) {
+      return 0;
+    }
+  }
+  return 1;
+}
+#undef acStack_100
+#undef iStack_104
+#undef iStack_108
+#undef iStack_110
+#undef local_10c
+
 
 /* ---- 0x0048d340  Resource_SetNoPurge ---- */
 void __cdecl Resource_SetNoPurge(int noPurge)
@@ -410,56 +571,14 @@ int __cdecl Resource_OpenArchivesInDir(char *dir)
 #undef local_18c
 
 
-/* ---- 0x0048d770  FUN_0048d770 ---- */
-/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+/* ---- 0x0048d810  Resource_CountCostumeRefs ---- */
+/* Callback given to Cos_RegisterSaveVerify: Res_CountChildren for 'COST' resources (checks the
+   costumes referenced by a save). */
 
-void FUN_0048d770(void)
-
-{
-  (*(code *)UINT_008ca1dc)();
-  UINT_008ca1d0 = 0;
-  _DAT_008ca1f8 = 0;
-  return;
-}
-
-/* ---- 0x0048d790  FUN_0048d790 ---- */
-bool FUN_0048d790(void)
-
-{
-  int iVar1;
-  
-  if (UINT_008ca1fc != 0) {
-    return true;
-  }
-  iVar1 = (*(code *)UINT_008ca1e0)();
-  if (iVar1 == 0) {
-    UINT_008ca1fc = Resource_RegisterTypes();
-  }
-  Res_InstallFileServices((GrimServices *)UINT_008ca1d0);
-  UINT_008ca200 = rdMaterial_SetLoadHook(FUN_0048e170);
-  UINT_008ca204 = rdMaterial_SetFreeHook(FUN_0048e1b0);
-  UINT_008a85e8 = (uint)SoundsPeriodic;
-  Cos_RegisterSaveVerify(FUN_0048d810);
-  return UINT_008ca1fc == 0;
-}
-
-/* ---- 0x0048d810  FUN_0048d810 ---- */
-void FUN_0048d810(undefined4 param_1)
+void Resource_CountCostumeRefs(undefined4 param_1)
 
 {
   Res_CountChildren(0x54534f43,param_1);
-  return;
-}
-
-/* ---- 0x0048d830  FUN_0048d830 ---- */
-void FUN_0048d830(void)
-
-{
-  (*(code *)UINT_008ca1e4)();
-  rdMaterial_SetLoadHook(UINT_008ca200);
-  rdMaterial_SetFreeHook(UINT_008ca204);
-  Res_RestoreFileServices((GrimServices *)UINT_008ca1d0);
-  UINT_008ca1fc = 0;
   return;
 }
 
@@ -496,36 +615,6 @@ void __cdecl Resource_SetMemoryUsage(int budget,int b)
     UINT_004e9a30 = b;
   }
   return;
-}
-
-/* ---- 0x0048d8c0  FUN_0048d8c0 ---- */
-void * FUN_0048d8c0(int *param_1)
-
-{
-  int iVar1;
-  void *pvVar2;
-  
-  if (param_1[2] == 0x53594e43) {
-    iVar1 = *param_1;
-    if (iVar1 == 1) {
-      pvVar2 = (void *)grimSound_LipSyncLoad(param_1[1]);
-      if (pvVar2 != (void *)0x0) {
-        pvVar2 = Res_Register(param_1[2],(char *)param_1[1],pvVar2);
-        return pvVar2;
-      }
-    }
-    else {
-      if (iVar1 == 2) {
-        grimSound_LipSyncFree(param_1[3]);
-        return (void *)0x1;
-      }
-      if (iVar1 == 3) {
-        param_1[4] = *(int *)(param_1[3] + 0x20) + 0x28;
-        return (void *)0x1;
-      }
-    }
-  }
-  return (void *)0x0;
 }
 
 /* ---- 0x0048df50  Resource_ReloadBitmaps ---- */
@@ -678,8 +767,11 @@ void Resource_RebuildColormaps(void)
 #undef local_c
 
 
-/* ---- 0x0048e170  FUN_0048e170 ---- */
-void * FUN_0048e170(char *param_1)
+/* ---- 0x0048e170  Resource_MaterialLoadHook ---- */
+/* rdMaterial load hook (rdMaterial_SetLoadHook): loads the 'MAT ' resource and counts a reference
+   (+0x24), locking it on the first one. */
+
+void * Resource_MaterialLoadHook(char *param_1)
 
 {
   void *data;
@@ -692,8 +784,11 @@ void * FUN_0048e170(char *param_1)
   return data;
 }
 
-/* ---- 0x0048e1b0  FUN_0048e1b0 ---- */
-void FUN_0048e1b0(void *param_1)
+/* ---- 0x0048e1b0  Resource_MaterialFreeHook ---- */
+/* rdMaterial free hook (rdMaterial_SetFreeHook): drops a reference and unlocks the resource when
+   the count reaches 0. */
+
+void Resource_MaterialFreeHook(void *param_1)
 
 {
   if (*(int *)((int)param_1 + 0x24) != 0) {
@@ -703,26 +798,4 @@ void FUN_0048e1b0(void *param_1)
     Res_SetLocked(param_1,1);
   }
   return;
-}
-
-/* ---- 0x0048e1e0  FUN_0048e1e0 ---- */
-undefined4 FUN_0048e1e0(int *param_1)
-
-{
-  int iVar1;
-  undefined4 *puVar2;
-  
-  iVar1 = *param_1;
-  if (iVar1 != 1) {
-    if (iVar1 == 2) {
-      puVar2 = (undefined4 *)param_1[3];
-      (**(code **)(UINT_008ca1d0 + 0x24))(*puVar2);
-      (**(code **)(UINT_008ca1d0 + 0x24))(puVar2);
-    }
-    else if (iVar1 == 3) {
-      param_1[4] = *(int *)(param_1[3] + 4);
-      return 1;
-    }
-  }
-  return 1;
 }

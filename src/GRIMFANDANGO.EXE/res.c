@@ -268,10 +268,10 @@ void __cdecl Res_InstallFileServices(GrimServices *svc)
   svc->pFopen = ResFile_Open;
   svc->pFclose = ResFile_Close;
   svc->pFread = ResFile_Read;
-  svc->pFgets = FUN_00480bb0;
-  svc->pFwrite = FUN_00480ce0;
-  svc->pFeof = FUN_00480d50;
-  svc->pFtell = FUN_00480dc0;
+  svc->pFgets = ResFile_Gets;
+  svc->pFwrite = ResFile_Write;
+  svc->pFeof = ResFile_Eof;
+  svc->pFtell = ResFile_Tell;
   svc->pFseek = ResFile_Seek;
   svc->pFileSize = ResFile_Size;
   svc->pFprintf = ResFile_Printf;
@@ -785,7 +785,7 @@ void Res_NextInList(int *param_1,int *param_2,int param_3)
 }
 
 /* ---- 0x00482200  Res_TouchByData ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Moves the record owning the data pointer to the front of the LRU list */
 

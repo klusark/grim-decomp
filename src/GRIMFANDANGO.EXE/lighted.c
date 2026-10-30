@@ -858,7 +858,7 @@ switchD_004bf4ef_caseD_2:
 
 
 /* ---- 0x004bf560  LightEd_ReadControl ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Parses the edited text field back into the light (position, direction, intensity, angles,
    falloff) */
