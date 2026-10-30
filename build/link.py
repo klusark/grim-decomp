@@ -217,14 +217,16 @@ def link(cc, src, obj, prog, env):
         print(f"{prog}: overrides.c does not compile:\n{out[:2000]}")
         return
     objs.append(os.path.join(d, "overrides.o"))
-    # readable C that replaces assembled/uncompilable EXE functions of the game proper (overrides_exe.c)
-    ov2 = os.path.join(here, "overrides_exe.c")
-    if prog == "GRIMFANDANGO.EXE" and os.path.exists(ov2):
-        rc, out = run([cc] + cflags + ov_flags + ["-c", ov2, "-o", os.path.join(d, "overrides_exe.o")], env)
+    # readable C that replaces assembled/uncompilable functions (overrides_<topic>.c: overrides_exe.c, then one file per work
+    # stream so that parallel work does not touch the same file). Each file is compiled for every program and guards its
+    # code with #ifdef GRIM_EXE / GRIM_IMUSE / GRIM_LUA / GRIM_CHORE.
+    for ov2 in sorted(glob.glob(os.path.join(here, "overrides_*.c"))):
+        stem = os.path.splitext(os.path.basename(ov2))[0]
+        rc, out = run([cc] + cflags + ov_flags + ["-c", ov2, "-o", os.path.join(d, stem + ".o")], env)
         if rc:
-            print(f"{prog}: overrides_exe.c does not compile:\n{out[:3000]}")
+            print(f"{prog}: {stem}.c does not compile:\n{out[:3000]}")
             return
-        objs.append(os.path.join(d, "overrides_exe.o"))
+        objs.append(os.path.join(d, stem + ".o"))
     # hand-written fast paths (fastpaths.c): optimised, SSE2
     rc, out = run([cc] + cflags + ov_flags + ["-O2", "-msse2", "-c", os.path.join(here, "fastpaths.c"), "-o", os.path.join(d, "fastpaths.o")], env)
     if rc:

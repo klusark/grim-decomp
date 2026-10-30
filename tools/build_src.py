@@ -718,7 +718,7 @@ def load_lib_replace(prog):
 def load_overrides():
     """Names of the functions build/overrides.c and build/fastpaths.c define by hand."""
     names = set()
-    for fname in ("overrides.c", "overrides_exe.c", "fastpaths.c"):
+    for fname in ["overrides.c", "fastpaths.c"] + sorted(os.path.basename(x) for x in glob.glob(os.path.join(ROOT, "build", "overrides_*.c"))):
         path = os.path.join(ROOT, "build", fname)
         if not os.path.exists(path):
             continue
