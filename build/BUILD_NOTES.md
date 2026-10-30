@@ -653,3 +653,35 @@ Bug classes found on the way (each is a pattern to grep for when something else 
   of a savegame was read at a byte offset; `infer_global_types` now types such globals from the frame-local they are added to.
 * **Address literals in integer arithmetic** (`iVar + -0x8cb0b0 >> 4`, an index into a static pool): relocated with `IMG_ADDR`.
 * **printf engine of IMUSE's own CRT** (`FUN_1000c670`) jumps into data: replaced by the host formatter.
+
+## Coverage pass (2026-10-29, agent B, second round)
+
+Verified by script (hook + PrintWindow + audio peak meter, `GRIM_MULTI=agentB`): all 124 regular sets switch and render with
+models, costumes and text (`system.setTable[n]:switch_to_set()`, screenshots per set; `op`, `dp`, `tp`, `ul`, `testroom`
+replace `CommonEnter` and break later switches, they are not engine bugs); Manny walking/turning (`manny:walkto`, poll
+`IsActorMoving`), the office tube/cards/inventory, dialogue text with voice; movies (intro with audio, ~25 short/medium
+`.snm` through `StartFullscreenMovie`); music state per set (`music_state.cur_state`, audible in each) and SFX (`start_sfx`,
+`sound_playing`); credits (`credits_menu:run("ingame.txt")`) and `start_script(exit_the_game)` (exit code 0, no crash report);
+a 36 minute soak (set hopping, office walking, SFX, movies; private bytes 53 -> 65 MB then flat, 506-595 handles, 9 threads).
+
+Bug classes found (all root-caused, see git log):
+
+* **x87 CRT helpers with lost control-word arguments**: `floor`/`ceil` (`_ctrlfp(DAT_..., 0xffff)` call dropped by Ghidra:
+  Lua `floor(2.7)` was 3), assembled; `_CIfmod` (`FUN_100120fa`, Lua `mod`) went through unstitched CRT pieces and called
+  address -6: host `fmod` override.
+* **Varargs callee with lost arguments**: `luaY_error` (`luaL_verror(fmt)` without message/token: syntax errors printed
+  garbage). `scan_varargs.py`-style check: format strings with `%` specifiers and fewer call arguments (only that one left).
+* **Non-atomic iMUSE guard**: `Im_GuardEnter/Leave` (`inc [mem]` / load-dec-store) lose an update when the WINMM heartbeat
+  thread and the main thread leave together; the counter then stays 1, `ImHeartbeat` never runs again and
+  `SoundsFloodMusicBuffer` (called by `Set_LoadResources`) spins forever (two hangs in fast set switching). Now `lock inc` /
+  `lock cmpxchg` (overrides.c). The race exists in the original binary too.
+* **Movie (Smush) audio silent**: the EXE's own DirectSound stream mixer (`FUN_004d2aa0` creates the stream buffer with COM
+  calls through function pointers, `FUN_004d2630` volume, ...) was C with lost arguments: buffer never created, so nothing was
+  mixed; and the C `Mixer_Mix*` resampling loops zero-extended 8-bit samples (`*src ^ 0x80`, original sign-extends: huge DC
+  offset, clipping). 0x4cdc00-0x4cdfff, 0x4d0000-0x4d40ff are assembled now.
+* **Code pointer to a `jmp [mem]` that has no Ghidra function** (Smush shutdown slot 0x4891a0): the symbol became data in
+  the non-executable `_sect_text` copy, so quitting crashed (`Engine_ResetSubsystems` called it). `gendata.py` emits a jump
+  stub for such symbols; the proper fix is a function at 0x4891a0 in Ghidra.
+* Test knobs: the crash report is `grim_crash_<GRIM_MULTI>.txt`. `exit()` from the Lua hook sets `g_quitRequested` before
+  `Game_FrameUpdate` tests it, so the window is never destroyed: quit through `start_script(exit_the_game)` instead.
+  Hook lines are limited to ~400 characters (longer ones are cut and fail to parse); `getn` does not exist in this Lua.
