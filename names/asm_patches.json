@@ -32,6 +32,9 @@
    ]
   },
   "0049de00": {
+   "0049de35": [
+    "call _GRIM_RegisterModApiLib"
+   ],
    "0049de7c": [
     "call _GRIM_RegisterModApi"
    ]

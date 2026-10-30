@@ -1336,7 +1336,7 @@
 | 00482fb0 | Engine_RequestLoad | engine.c | 7 |
 | 00482fd0 | Engine_TakeRestoreFlag | engine.c | 9 |
 | 00482fe0 | Engine_SaveGame | engine.c | 91 |
-| 00483240 | Engine_LoadGame | engine.c | 74 |
+| 00483240 | Engine_LoadGame | engine.c | 1 |
 | 004835f0 | Engine_SetSavedValue | engine.c | 8 |
 | 00483600 | Engine_GetSavedValue | engine.c | 5 |
 | 00484000 | Engine_CreateCameraActor | engine.c | 12 |
@@ -1377,8 +1377,8 @@
 | 00482b60 | EngineModule_Terminate | enginemodule.c | 18 |
 | 00482ba0 | EngineModule_Start | enginemodule.c | 41 |
 | 00482cc0 | EngineModule_Stop | enginemodule.c | 15 |
-| 004831f0 | SaveGame_Write | savegame.c | 16 |
-| 00483470 | SaveGame_Read | savegame.c | 8 |
+| 004831f0 | SaveGame_Write | savegame.c | 1 |
+| 00483470 | SaveGame_Read | savegame.c | 1 |
 | 00483490 | SaveGame_LoadThumbnail | savegame.c | 101 |
 | 00483610 | IMuse_SaveToTemp | imuse.c | 14 |
 | 00483650 | IMuse_RestoreFromTemp | imuse.c | 17 |
