@@ -1,5 +1,5 @@
 /* GRIMFANDANGO.EXE :: rdpuppet.c
- * functions 0x0040cee0 .. 0x00451800 (15 functions)
+ * functions 0x0040cee0 .. 0x004c0e70 (21 functions)
  * Decompiled from the shipped binaries with Ghidra; see ../../README.md */
 #include "ghidra_types.h"
 #include "globals.h"
@@ -875,3 +875,459 @@ rdKeyframe_InterpolateNode
 
 #endif
 
+
+/* ---- 0x004c0630  rdKeyframe_NewEntry ---- */
+/* Clears a 0x84-byte keyframe record and names it UNKNOWN. Source file Rdkeyframe.c
+   (C:\grimjedi\Libs\RDroid\Engine\Rdkeyframe.c). */
+
+void rdKeyframe_NewEntry(undefined4 *param_1)
+
+{
+  int iVar1;
+  undefined4 *puVar2;
+  
+  puVar2 = param_1;
+  for (iVar1 = 0x21; iVar1 != 0; iVar1 = iVar1 + -1) {
+    *puVar2 = 0;
+    puVar2 = puVar2 + 1;
+  }
+  strncpy(param_1,s_UNKNOWN_004ddb8c,0x1f);
+  *(undefined1 *)((int)param_1 + 0x1f) = 0;
+  return;
+}
+
+/* ---- 0x004c0660  rdKeyframe_Load ---- */
+/* Loads an animation: custom loader hook if installed, else allocates the 0x84-byte record; the
+   magic 'KEYF' selects rdKeyframe_LoadBinary, anything else rdKeyframe_LoadText. Source file
+   Rdkeyframe.c (C:\grimjedi\Libs\RDroid\Engine\Rdkeyframe.c). */
+
+int rdKeyframe_Load(char *param_1)
+
+{
+  int iVar1;
+  int iVar2;
+  int iVar3;
+  char *pcVar4;
+  undefined4 uVar5;
+  
+  pcVar4 = param_1;
+  if (UINT_008d364c != 0) {
+    iVar1 = (*(code *)UINT_008d364c)(param_1);
+    return iVar1;
+  }
+  iVar1 = (*g_pSvcRdroid->pFopen)(param_1,&DAT_004ddb18);
+  if (iVar1 != 0) {
+    iVar2 = (*g_pSvcRdroid->pAlloc)
+                      (0x84,s_C__grimjedi_Libs_RDroid_Engine_R_004f0f14,DAT_004f0f08 + 0x11);
+    if (iVar2 != 0) {
+      (*g_pSvcRdroid->pFread)(iVar1,&param_1,4);
+      if (param_1 == (char *)0x4b455946) {
+        iVar3 = rdKeyframe_LoadBinary(iVar1,iVar2);
+        if (iVar3 != 0) {
+          uVar5 = 0x1f;
+          pcVar4 = Str_FileNameFromPath(pcVar4);
+          strncpy(iVar2,pcVar4,uVar5);
+          *(undefined1 *)(iVar2 + 0x1f) = 0;
+          (*g_pSvcRdroid->pFclose)(iVar1);
+          return iVar2;
+        }
+        (*g_pSvcRdroid->pFclose)(iVar1);
+        rdKeyframe_Free(iVar2);
+        return 0;
+      }
+      (*g_pSvcRdroid->pFclose)(iVar1);
+      iVar1 = rdKeyframe_LoadText(pcVar4,iVar2);
+      if (iVar1 != 0) {
+        return iVar2;
+      }
+    }
+    rdKeyframe_Free(iVar2);
+  }
+  return 0;
+}
+
+/* ---- 0x004c0770  rdKeyframe_LoadText ---- */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+#if 0
+/* Parser of the text .key format (flags, type, frames, fps, joints, entries; stdConffile). Source
+   file Rdkeyframe.c (C:\grimjedi\Libs\RDroid\Engine\Rdkeyframe.c). */
+
+undefined4 rdKeyframe_LoadText(char *param_1,int param_2)
+
+{
+  unsigned char _frame[0x80] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  byte bVar1;
+  int iVar2;
+  char *pcVar3;
+  int iVar4;
+  undefined4 *puVar5;
+  byte *pbVar6;
+  int iVar7;
+  int iVar8;
+  uint uVar9;
+  byte *pbVar10;
+  bool bVar11;
+  undefined4 uVar12;
+  #define uStack_68 (*(uint *)(_frame + (0x80 - 0x68)))
+  #define iStack_64 (*(int *)(_frame + (0x80 - 0x64)))
+  #define iStack_60 (*(int *)(_frame + (0x80 - 0x60)))
+  #define uStack_5c (*(uint *)(_frame + (0x80 - 0x5c)))
+  #define local_58 (*(uint *)(_frame + (0x80 - 0x58)))
+  #define uStack_54 (*(undefined4 *)(_frame + (0x80 - 0x54)))
+  #define uStack_50 (*(undefined4 *)(_frame + (0x80 - 0x50)))
+  #define uStack_4c (*(undefined4 *)(_frame + (0x80 - 0x4c)))
+  #define uStack_48 (*(undefined4 *)(_frame + (0x80 - 0x48)))
+  #define uStack_44 (*(undefined4 *)(_frame + (0x80 - 0x44)))
+  #define uStack_40 (*(undefined4 *)(_frame + (0x80 - 0x40)))
+  #define uStack_3c (*(undefined4 *)(_frame + (0x80 - 0x3c)))
+  #define uStack_38 (*(undefined4 *)(_frame + (0x80 - 0x38)))
+  #define uStack_34 (*(undefined4 *)(_frame + (0x80 - 0x34)))
+  #define uStack_30 (*(undefined4 *)(_frame + (0x80 - 0x30)))
+  #define uStack_2c (*(undefined4 *)(_frame + (0x80 - 0x2c)))
+  #define uStack_28 (*(undefined4 *)(_frame + (0x80 - 0x28)))
+  #define auStack_24 (*(undefined1 (*)[4])(_frame + (0x80 - 0x24)))
+  #define auStack_20 (*(undefined1 (*)[32])(_frame + (0x80 - 0x20)))
+  
+  iVar2 = param_2;
+  rdKeyframe_NewEntry(param_2);
+  uVar12 = 0x1f;
+  pcVar3 = Str_FileNameFromPath(param_1);
+  strncpy(iVar2,pcVar3,uVar12);
+  *(undefined1 *)(iVar2 + 0x1f) = 0;
+  iVar4 = ((code *)stdConffile_OpenRead)(param_1);
+  if (iVar4 == 0) {
+    return 0;
+  }
+  iVar4 = stdConffile_ReadLine();
+  if (iVar4 != 0) {
+    iVar4 = sscanf((char *)UINT_00900520,s_section___s_004ddd64,&DAT_009056c0);
+    if (iVar4 == 1) {
+      iVar4 = stdConffile_ReadLine();
+      if (iVar4 != 0) {
+        iVar4 = sscanf((char *)UINT_00900520,s_flags__x_004f0ff0,iVar2 + 0x24);
+        if (iVar4 == 1) {
+          iVar4 = stdConffile_ReadLine();
+          if (iVar4 != 0) {
+            iVar4 = sscanf((char *)UINT_00900520,s_type__x_004f0fe4,iVar2 + 0x2c);
+            if (iVar4 == 1) {
+              iVar4 = stdConffile_ReadLine();
+              if (iVar4 != 0) {
+                iVar4 = sscanf((char *)UINT_00900520,s_frames__d_004f0fd8,iVar2 + 0x34);
+                if (iVar4 == 1) {
+                  iVar4 = stdConffile_ReadLine();
+                  if (iVar4 != 0) {
+                    iVar4 = sscanf((char *)UINT_00900520,s_fps__f_004f0fd0,&local_58);
+                    if (iVar4 == 1) {
+                      *(uint *)(iVar2 + 0x30) = local_58;
+                      iVar4 = stdConffile_ReadLine();
+                      if (iVar4 != 0) {
+                        iVar4 = sscanf((char *)UINT_00900520,s_joints__d_004f0fc4,&param_2);
+                        if (iVar4 == 1) {
+                          puVar5 = (undefined4 *)
+                                   (*g_pSvcRdroid->pAlloc)
+                                             (param_2 * 0x2c,
+                                              s_C__grimjedi_Libs_RDroid_Engine_R_004f0f14,
+                                              DAT_004f0f0c + 0x42);
+                          *(undefined4 **)(iVar2 + 0x3c) = puVar5;
+                          if (puVar5 != (undefined4 *)0x0) {
+                            for (uVar9 = param_2 * 0xb & 0x3fffffff; uVar9 != 0; uVar9 = uVar9 - 1)
+                            {
+                              *puVar5 = 0;
+                              puVar5 = puVar5 + 1;
+                            }
+                            for (iVar4 = 0; iVar4 != 0; iVar4 = iVar4 + -1) {
+                              *(undefined1 *)puVar5 = 0;
+                              puVar5 = (undefined4 *)((int)puVar5 + 1);
+                            }
+                            *(int *)(iVar2 + 0x28) = param_2;
+                            *(int *)(iVar2 + 0x38) = param_2;
+                            iVar4 = stdConffile_ReadLine();
+                            if (iVar4 != 0) {
+                              iVar4 = sscanf((char *)UINT_00900520,s_section___s_004ddd64,
+                                             &DAT_009056c0);
+                              if (iVar4 == 1) {
+                                pbVar10 = &DAT_004f0fbc;
+                                pbVar6 = &DAT_009056c0;
+                                do {
+                                  bVar1 = *pbVar6;
+                                  bVar11 = bVar1 < *pbVar10;
+                                  if (bVar1 != *pbVar10) {
+LAB_004c099a:
+                                    iVar4 = (1 - (uint)bVar11) - (uint)(bVar11 != 0);
+                                    goto LAB_004c099f;
+                                  }
+                                  if (bVar1 == 0) break;
+                                  bVar1 = pbVar6[1];
+                                  bVar11 = bVar1 < pbVar10[1];
+                                  if (bVar1 != pbVar10[1]) goto LAB_004c099a;
+                                  pbVar6 = pbVar6 + 2;
+                                  pbVar10 = pbVar10 + 2;
+                                } while (bVar1 != 0);
+                                iVar4 = 0;
+LAB_004c099f:
+                                if (iVar4 == 0) {
+                                  iVar4 = stdConffile_ReadLine();
+                                  if (iVar4 == 0) goto LAB_004c0cbf;
+                                  iVar4 = sscanf((char *)UINT_00900520,s_markers__d_004f0fb0,
+                                                 &uStack_68);
+                                  if ((iVar4 != 1) || (8 < uStack_68)) goto LAB_004c0cbf;
+                                  uVar9 = 0;
+                                  *(uint *)(iVar2 + 0x40) = uStack_68;
+                                  if (uStack_68 != 0) {
+                                    iVar4 = iVar2 + 0x44;
+                                    do {
+                                      iVar7 = stdConffile_ReadLine();
+                                      if (iVar7 == 0) goto LAB_004c0cbf;
+                                      iVar7 = sscanf((char *)UINT_00900520,s__f__d_004f0fa8,iVar4,
+                                                     iVar4 + 0x20);
+                                      if (iVar7 != 2) goto LAB_004c0cbf;
+                                      uVar9 = uVar9 + 1;
+                                      iVar4 = iVar4 + 4;
+                                    } while (uVar9 < uStack_68);
+                                  }
+                                  iVar4 = stdConffile_ReadLine();
+                                  if (iVar4 == 0) goto LAB_004c0cbf;
+                                  iVar4 = sscanf((char *)UINT_00900520,s_section___s_004ddd64,
+                                                 &DAT_009056c0);
+                                  if (iVar4 != 1) goto LAB_004c0cbf;
+                                }
+                                iVar4 = stdConffile_ReadLine();
+                                if (iVar4 != 0) {
+                                  iVar4 = sscanf((char *)UINT_00900520,s_nodes__d_004f0f9c,
+                                                 &uStack_5c);
+                                  if (iVar4 == 1) {
+                                    param_1 = (char *)0x0;
+                                    if (uStack_5c == 0) {
+                                      stdConffile_Close();
+                                      return 1;
+                                    }
+                                    while( true ) {
+                                      iVar4 = stdConffile_ReadLine();
+                                      if (iVar4 == 0) break;
+                                      iVar4 = sscanf((char *)UINT_00900520,s_node__d_004f0f90,
+                                                     &iStack_64);
+                                      if (iVar4 != 1) break;
+                                      iVar4 = stdConffile_ReadLine();
+                                      if (iVar4 == 0) break;
+                                      iVar4 = sscanf((char *)UINT_00900520,s_mesh_name__s_004f0f80,
+                                                     auStack_20);
+                                      if (iVar4 != 1) break;
+                                      iVar4 = *(int *)(iVar2 + 0x3c) + iStack_64 * 0x2c;
+                                      strncpy(iVar4,auStack_20,0x1f);
+                                      *(undefined1 *)(iVar4 + 0x1f) = 0;
+                                      iVar7 = stdConffile_ReadLine();
+                                      if (iVar7 == 0) break;
+                                      iVar7 = sscanf((char *)UINT_00900520,s_entries__d_004f0f74,
+                                                     &iStack_60);
+                                      if (iVar7 != 1) break;
+                                      *(int *)(iVar4 + 0x20) = iStack_64;
+                                      *(int *)(iVar4 + 0x24) = iStack_60;
+                                      iVar7 = (*g_pSvcRdroid->pAlloc)
+                                                        (iStack_60 * 0x38,
+                                                         s_C__grimjedi_Libs_RDroid_Engine_R_004f0f14
+                                                         ,DAT_004f0f0c + 0x9b);
+                                      *(int *)(iVar4 + 0x28) = iVar7;
+                                      if (iVar7 == 0) break;
+                                      uVar9 = 0;
+                                      if (*(int *)(iVar4 + 0x24) != 0) {
+                                        do {
+                                          iVar8 = stdConffile_ReadLine();
+                                          if (iVar8 == 0) goto LAB_004c0cbf;
+                                          iVar8 = sscanf((char *)UINT_00900520,
+                                                         s__d___f__x__f__f__f__f__f__f_004f0f54,
+                                                         auStack_24,iVar7,iVar7 + 4,&uStack_54,
+                                                         &uStack_50,&uStack_4c,&uStack_48,&uStack_44
+                                                         ,&uStack_40);
+                                          if (iVar8 != 9) goto LAB_004c0cbf;
+                                          *(undefined4 *)(iVar7 + 8) = uStack_54;
+                                          *(undefined4 *)(iVar7 + 0xc) = uStack_50;
+                                          *(undefined4 *)(iVar7 + 0x10) = uStack_4c;
+                                          *(undefined4 *)(iVar7 + 0x14) = uStack_48;
+                                          *(undefined4 *)(iVar7 + 0x18) = uStack_44;
+                                          *(undefined4 *)(iVar7 + 0x1c) = uStack_40;
+                                          iVar8 = stdConffile_ReadLine();
+                                          if (iVar8 == 0) goto LAB_004c0cbf;
+                                          iVar8 = sscanf((char *)UINT_00900520,
+                                                         s__f__f__f__f__f__f_004f0f40,&uStack_3c,
+                                                         &uStack_38,&uStack_34,&uStack_30,&uStack_2c
+                                                         ,&uStack_28);
+                                          if (iVar8 != 6) goto LAB_004c0cbf;
+                                          *(undefined4 *)(iVar7 + 0x20) = uStack_3c;
+                                          *(undefined4 *)(iVar7 + 0x24) = uStack_38;
+                                          *(undefined4 *)(iVar7 + 0x28) = uStack_34;
+                                          *(undefined4 *)(iVar7 + 0x2c) = uStack_30;
+                                          *(undefined4 *)(iVar7 + 0x30) = uStack_2c;
+                                          *(undefined4 *)(iVar7 + 0x34) = uStack_28;
+                                          iVar7 = iVar7 + 0x38;
+                                          uVar9 = uVar9 + 1;
+                                        } while (uVar9 < *(uint *)(iVar4 + 0x24));
+                                      }
+                                      param_1 = (char *)((int)param_1 + 1);
+                                      if (uStack_5c <= param_1) {
+                                        stdConffile_Close();
+                                        return 1;
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+LAB_004c0cbf:
+  stdConffile_Close();
+  return 0;
+}
+#undef auStack_20
+#undef auStack_24
+#undef iStack_60
+#undef iStack_64
+#undef local_58
+#undef uStack_28
+#undef uStack_2c
+#undef uStack_30
+#undef uStack_34
+#undef uStack_38
+#undef uStack_3c
+#undef uStack_40
+#undef uStack_44
+#undef uStack_48
+#undef uStack_4c
+#undef uStack_50
+#undef uStack_54
+#undef uStack_5c
+#undef uStack_68
+
+#endif
+
+
+/* ---- 0x004c0ce0  rdKeyframe_LoadBinary ---- */
+/* Reader of the binary 'KEYF' animation format. Source file Rdkeyframe.c
+   (C:\grimjedi\Libs\RDroid\Engine\Rdkeyframe.c). */
+
+undefined4 rdKeyframe_LoadBinary(undefined4 param_1,int param_2)
+
+{
+  int *piVar1;
+  int iVar2;
+  undefined4 *puVar3;
+  undefined4 uVar4;
+  int iVar5;
+  uint uVar6;
+  int iVar7;
+  int iVar8;
+  int iVar9;
+  
+  iVar2 = param_2;
+  (*g_pSvcRdroid->pFread)(param_1,param_2,0x84);
+  puVar3 = (undefined4 *)
+           (*g_pSvcRdroid->pAlloc)
+                     (*(int *)(param_2 + 0x38) * 0x2c,s_C__grimjedi_Libs_RDroid_Engine_R_004f0f14,
+                      DAT_004f0f10 + 0x16);
+  *(undefined4 **)(param_2 + 0x3c) = puVar3;
+  if (puVar3 == (undefined4 *)0x0) {
+LAB_004c0e2c:
+    (*g_pSvcRdroid->pFclose)(param_1);
+    return 0;
+  }
+  piVar1 = (int *)(param_2 + 0x38);
+  param_2 = 0;
+  for (uVar6 = *piVar1 * 0xb & 0x3fffffff; uVar6 != 0; uVar6 = uVar6 - 1) {
+    *puVar3 = 0;
+    puVar3 = puVar3 + 1;
+  }
+  for (iVar7 = 0; iVar7 != 0; iVar7 = iVar7 + -1) {
+    *(undefined1 *)puVar3 = 0;
+    puVar3 = (undefined4 *)((int)puVar3 + 1);
+  }
+  if (0 < *(int *)(iVar2 + 0x38)) {
+    iVar7 = 0;
+    do {
+      (*g_pSvcRdroid->pFread)(param_1,*(int *)(iVar2 + 0x3c) + iVar7,0x2c);
+      iVar9 = 0;
+      iVar5 = *(int *)(*(int *)(iVar2 + 0x3c) + 0x24 + iVar7);
+      if (iVar5 == 0) {
+        *(undefined4 *)(*(int *)(iVar2 + 0x3c) + iVar7 + 0x28) = 0;
+      }
+      else {
+        uVar4 = (*g_pSvcRdroid->pAlloc)
+                          (iVar5 * 0x38,s_C__grimjedi_Libs_RDroid_Engine_R_004f0f14,
+                           DAT_004f0f10 + 0x21);
+        *(undefined4 *)(*(int *)(iVar2 + 0x3c) + 0x28 + iVar7) = uVar4;
+        iVar5 = *(int *)(iVar2 + 0x3c) + iVar7;
+        if (*(int *)(*(int *)(iVar2 + 0x3c) + 0x28 + iVar7) == 0) goto LAB_004c0e2c;
+        if (0 < *(int *)(iVar5 + 0x24)) {
+          iVar8 = 0;
+          do {
+            (*g_pSvcRdroid->pFread)(param_1,*(int *)(iVar5 + 0x28) + iVar8,0x38);
+            iVar5 = *(int *)(iVar2 + 0x3c) + iVar7;
+            iVar9 = iVar9 + 1;
+            iVar8 = iVar8 + 0x38;
+          } while (iVar9 < *(int *)(iVar5 + 0x24));
+        }
+      }
+      param_2 = param_2 + 1;
+      iVar7 = iVar7 + 0x2c;
+    } while (param_2 < *(int *)(iVar2 + 0x38));
+  }
+  (*g_pSvcRdroid->pFclose)(param_1);
+  return 1;
+}
+
+/* ---- 0x004c0e40  rdKeyframe_Free ---- */
+/* Frees a keyframe (custom free hook if installed, else rdKeyframe_FreeEntry and the record).
+   Source file Rdkeyframe.c (C:\grimjedi\Libs\RDroid\Engine\Rdkeyframe.c). */
+
+void rdKeyframe_Free(int param_1)
+
+{
+  if (param_1 != 0) {
+    if (UINT_008d3650 != 0) {
+      (*(code *)UINT_008d3650)();
+      return;
+    }
+    rdKeyframe_FreeEntry(param_1);
+    (*g_pSvcRdroid->pFree)(param_1);
+  }
+  return;
+}
+
+/* ---- 0x004c0e70  rdKeyframe_FreeEntry ---- */
+/* Frees the per-joint node arrays of a keyframe record. Source file Rdkeyframe.c
+   (C:\grimjedi\Libs\RDroid\Engine\Rdkeyframe.c). */
+
+void rdKeyframe_FreeEntry(int param_1)
+
+{
+  int *piVar1;
+  uint uVar2;
+  
+  if (*(int *)(param_1 + 0x3c) != 0) {
+    uVar2 = 0;
+    if (*(int *)(param_1 + 0x38) != 0) {
+      piVar1 = (int *)(*(int *)(param_1 + 0x3c) + 0x28);
+      do {
+        if (*piVar1 != 0) {
+          (*g_pSvcRdroid->pFree)(*piVar1);
+          *piVar1 = 0;
+        }
+        piVar1 = piVar1 + 0xb;
+        uVar2 = uVar2 + 1;
+      } while (uVar2 < *(uint *)(param_1 + 0x38));
+    }
+    (*g_pSvcRdroid->pFree)(*(undefined4 *)(param_1 + 0x3c));
+    *(undefined4 *)(param_1 + 0x3c) = 0;
+  }
+  return;
+}

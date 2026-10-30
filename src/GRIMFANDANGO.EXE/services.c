@@ -1,5 +1,5 @@
 /* GRIMFANDANGO.EXE :: services.c
- * functions 0x004035b0 .. 0x00478080 (31 functions)
+ * functions 0x004035b0 .. 0x00478080 (27 functions)
  * Decompiled from the shipped binaries with Ghidra; see ../../README.md */
 #include "ghidra_types.h"
 #include "globals.h"
@@ -299,37 +299,6 @@ undefined4 __cdecl Svc_DebugPrintf(char *fmt,...)
   return 1;
 }
 
-/* ---- 0x00478030  FUN_00478030 ---- */
-void FUN_00478030(uint param_1)
-
-{
-  malloc(param_1);
-  return;
-}
-
-/* ---- 0x00478040  FUN_00478040 ---- */
-void FUN_00478040(undefined4 param_1)
-
-{
-  free(param_1);
-  return;
-}
-
-/* ---- 0x00478050  FUN_00478050 ---- */
-void FUN_00478050(undefined4 param_1,undefined4 param_2)
-
-{
-  realloc(param_1,param_2);
-  return;
-}
-
-/* ---- 0x00478070  FUN_00478070 ---- */
-undefined4 FUN_00478070(undefined4 param_1)
-
-{
-  return param_1;
-}
-
 /* ---- 0x00478080  Services_InitPlatformTable ---- */
 /* Win95 platform service table: debug printf, stdMemory alloc/free/realloc, timeGetTime, stdFile
    I/O, handle memory stubs */
@@ -343,7 +312,7 @@ void __cdecl Services_InitPlatformTable(GrimServices *svc)
   svc->pError = Svc_DebugPrintf;
   svc->flVersion = 1000.0;
   svc->pDebug = (void *)0x0;
-  svc->pAssertFail = FUN_00477f10;
+  svc->pAssertFail = PlatSvc_AssertFail;
   svc->pFn_1c = (void *)0x0;
   svc->pAlloc = stdMemory_Alloc;
   svc->pFree = stdMemory_Free;
@@ -351,19 +320,19 @@ void __cdecl Services_InitPlatformTable(GrimServices *svc)
   svc->pGetTimeMs = timeGetTime;
   svc->pFopen = stdFile_Open;
   svc->pFclose = stdFile_Close;
-  svc->pFread = FUN_00473460;
-  svc->pFgets = FUN_004734a0;
+  svc->pFread = stdFile_Read;
+  svc->pFgets = stdFile_Gets;
   svc->pFwrite = stdFile_Write;
-  svc->pFeof = FUN_004734e0;
+  svc->pFeof = stdFile_Eof;
   svc->pFtell = stdFile_Tell;
   svc->pFseek = stdFile_Seek;
-  svc->pFileSize = FUN_00473520;
-  svc->pFprintf = FUN_00473570;
+  svc->pFileSize = stdFile_Size;
+  svc->pFprintf = stdFile_Printf;
   svc->pFn_58 = FUN_004734c0;
-  svc->pHAlloc = FUN_00478030;
-  svc->pHFree = FUN_00478040;
-  svc->pHRealloc = FUN_00478050;
-  svc->pHLock = FUN_00478070;
+  svc->pHAlloc = PlatSvc_HAlloc;
+  svc->pHFree = PlatSvc_HFree;
+  svc->pHRealloc = PlatSvc_HRealloc;
+  svc->pHLock = PlatSvc_HLock;
   svc->pHUnlock = Mem_DumpLog;
   return;
 }

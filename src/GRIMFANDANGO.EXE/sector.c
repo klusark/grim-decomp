@@ -1,5 +1,5 @@
 /* GRIMFANDANGO.EXE :: sector.c
- * functions 0x00485dc0 .. 0x004a9d00 (34 functions)
+ * functions 0x00485dc0 .. 0x004a9d00 (35 functions)
  * Decompiled from the shipped binaries with Ghidra; see ../../README.md */
 #include "ghidra_types.h"
 #include "globals.h"
@@ -121,8 +121,73 @@ void Sector_IntersectSegment
 #endif
 
 
+/* ---- 0x004a4b00  SetFile_Parse ---- */
+/* Remembers the set being parsed (UINT_008cb0a8), stores its base file name (+0, 0x7f chars) and
+   parses the sections with SetFile_ParseSections. */
+
+bool SetFile_Parse(char *param_1,uint param_2)
+
+{
+  char *pcVar1;
+  int iVar2;
+  undefined4 uVar3;
+  
+  uVar3 = 0x7f;
+  UINT_008cb0a8 = param_2;
+  pcVar1 = Str_Basename(param_1);
+  strncpy(param_2,pcVar1,uVar3);
+  *(undefined1 *)(param_2 + 0x7f) = 0;
+  iVar2 = SetFile_ParseSections(param_1);
+  return iVar2 != 0;
+}
+
+/* ---- 0x004a5550  SetFile_ParseSections ---- */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+#if 0
+/* Opens the .set file with stdConffile and calls Set_IsHandleValid (the registered section handler
+   dispatcher) for every 'section: <name>' line; returns 0 if a handler rejects its section. */
+
+undefined4 SetFile_ParseSections(undefined4 param_1)
+
+{
+  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  int iVar1;
+  #define local_20 (*(undefined1 (*)[32])(_frame + (0x30 - 0x20)))
+  
+  iVar1 = ((code *)stdConffile_OpenRead)(param_1);
+  if (iVar1 == 0) {
+    return 0;
+  }
+  iVar1 = stdConffile_ReadLine();
+  if (iVar1 != 0) {
+    do {
+      iVar1 = sscanf((char *)UINT_00900520,s_section___s_004ec740,local_20);
+      if (iVar1 == 1) {
+        iVar1 = Set_IsHandleValid(local_20);
+        if (iVar1 == 0) {
+          stdConffile_Close();
+          return 0;
+        }
+      }
+      iVar1 = stdConffile_ReadLine();
+    } while (iVar1 != 0);
+    stdConffile_Close();
+    return 1;
+  }
+  stdConffile_Close();
+  return 1;
+}
+#undef local_20
+
+#endif
+
+
 /* ---- 0x004a5600  SetFile_ParseLights ---- */
-undefined4 FUN_004a5600(void)
+/* Text set "section: lights" parser. Light record 0x68 bytes from set+0xbc, embedded rdLight at
+   +0x2c: type +0x30 (omni 2, spot 3, direct 0), direction +0x38 (normalised), position +0x20,
+   intensity +0x44 (raw), color +0x48 (packed RGB), umbraangle +0x4c, penumbraangle +0x54. */
+
+undefined4 SetFile_ParseLights(void)
 
 {
   unsigned char _frame[0x120] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -147,7 +212,7 @@ undefined4 FUN_004a5600(void)
   *puVar7 = 0;
   pbVar6 = (byte *)0x0;
   local_10c = (uint)puVar7;
-  iVar3 = Std_ParseCommandLine();
+  iVar3 = stdConffile_ReadLine();
   if (iVar3 == 0) {
     return 1;
   }
@@ -249,7 +314,7 @@ LAB_004a5767:
         }
       }
     }
-    iVar3 = Std_ParseCommandLine();
+    iVar3 = stdConffile_ReadLine();
     puVar7 = (undefined4 *)local_10c;
     if (iVar3 == 0) {
       return 1;
@@ -263,8 +328,12 @@ LAB_004a5767:
 #undef local_110
 
 
-/* ---- 0x004a5890  FUN_004a5890 ---- */
-undefined4 FUN_004a5890(void)
+/* ---- 0x004a5890  SetFile_ParseSetups ---- */
+/* Section handler 'setups' registered by sputRoom_Start: reads 'numsetups', and per setup its name,
+   background, zbuffer, position, interest, roll, fov, nclip, fclip (300-byte setup records at
+   set+0xac). */
+
+undefined4 SetFile_ParseSetups(void)
 
 {
   unsigned char _frame[0x120] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -285,7 +354,7 @@ undefined4 FUN_004a5890(void)
   uVar3 = UINT_008cb0a8;
   puVar9 = (uint *)(UINT_008cb0a8 + 0xac);
   *puVar9 = 0;
-  iVar4 = Std_ParseCommandLine();
+  iVar4 = stdConffile_ReadLine();
   pcVar8 = (char *)uVar3;
   if (iVar4 == 0) {
     return 1;
@@ -377,7 +446,7 @@ undefined4 FUN_004a5890(void)
         }
       }
     }
-    iVar4 = Std_ParseCommandLine();
+    iVar4 = stdConffile_ReadLine();
     if (iVar4 == 0) {
       return 1;
     }
@@ -387,8 +456,11 @@ undefined4 FUN_004a5890(void)
 #undef local_104
 
 
-/* ---- 0x004a5b40  FUN_004a5b40 ---- */
-undefined4 FUN_004a5b40(void)
+/* ---- 0x004a5b40  SetFile_ParseColormaps ---- */
+/* Section handler 'colormaps' registered by sputRoom_Start: reads 'numcolormaps' and the colormap
+   names (0x34-byte entries at set+0x80). */
+
+undefined4 SetFile_ParseColormaps(void)
 
 {
   unsigned char _frame[0x110] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -407,7 +479,7 @@ undefined4 FUN_004a5b40(void)
               (s_pRoom__apColormaps____NULL_004ec88c,s_C__grimsrc_libs_grimlib_Engine_s_004ec5e0,
                0x91d);
   }
-  iVar4 = Std_ParseCommandLine();
+  iVar4 = stdConffile_ReadLine();
   if (iVar4 == 0) {
     return 1;
   }
@@ -446,7 +518,7 @@ undefined4 FUN_004a5b40(void)
       }
     }
 LAB_004a5c4e:
-    iVar4 = Std_ParseCommandLine();
+    iVar4 = stdConffile_ReadLine();
     if (iVar4 == 0) {
       return 1;
     }
@@ -455,8 +527,11 @@ LAB_004a5c4e:
 #undef local_100
 
 
-/* ---- 0x004a5c90  FUN_004a5c90 ---- */
-undefined4 FUN_004a5c90(void)
+/* ---- 0x004a5c90  SetFile_SectorsSectionHandler ---- */
+/* Section handler 'sectors' registered by sputRoom_Start: runs SetFile_ParseSectors for the set
+   being parsed. */
+
+undefined4 SetFile_SectorsSectionHandler(void)
 
 {
   int iVar1;
@@ -825,8 +900,11 @@ LAB_004a66ac:
 #undef local_2
 
 
-/* ---- 0x004a66e0  FUN_004a66e0 ---- */
-void __fastcall FUN_004a66e0(void *param_1)
+/* ---- 0x004a66e0  Sector_Unlink ---- */
+/* __fastcall: unlinks a sector from g_pSectorList and the per-type sector lists and releases its
+   vertex pool entries. */
+
+void __fastcall Sector_Unlink(void *param_1)
 
 {
   uint *puVar1;
@@ -1393,29 +1471,6 @@ void __thiscall Sector_DrawOutline(void *this,int color)
       } while (iVar4 < *(int *)((int)this + 0x34));
     }
   }
-  return;
-}
-
-/* ---- 0x004a7100  FUN_004a7100 ---- */
-void FUN_004a7100(void *param_1)
-
-{
-  void *p;
-  void *pvVar1;
-  
-  pvVar1 = g_pSectorList;
-  Set_ActivateSectors(param_1);
-  p = g_pSectorList;
-  if (pvVar1 == g_pSectorList) {
-    pvVar1 = (void *)0x0;
-  }
-  while (p != (void *)0x0) {
-    g_pSectorList = p;
-    FUN_004a66e0(p);
-    Plat_Free(p);
-    p = g_pSectorList;
-  }
-  g_pSectorList = pvVar1;
   return;
 }
 
@@ -1991,7 +2046,7 @@ undefined * SetFile_ParseSectors(int param_1)
   local_1f4 = 0x4640e400;
   local_1b4[0] = 0;
   DAT_008cf218 = 0;
-  iVar3 = Std_ParseCommandLine();
+  iVar3 = stdConffile_ReadLine();
   do {
     if (iVar3 == 0) {
       if (2 < (int)local_1fc) {
@@ -2302,7 +2357,7 @@ LAB_004a7fb9:
       }
     }
 LAB_004a80a5:
-    iVar3 = Std_ParseCommandLine();
+    iVar3 = stdConffile_ReadLine();
   } while( true );
 }
 #undef auStack_17c

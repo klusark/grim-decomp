@@ -1,5 +1,5 @@
 /* GRIMFANDANGO.EXE :: window.c
- * functions 0x00401010 .. 0x004bff70 (14 functions)
+ * functions 0x00401010 .. 0x004bff70 (15 functions)
  * Decompiled from the shipped binaries with Ghidra; see ../../README.md */
 #include "ghidra_types.h"
 #include "globals.h"
@@ -243,6 +243,22 @@ uint Win_GetInstance(void)
 
 {
   return UINT_007f608c;
+}
+
+/* ---- 0x004772d0  Win_IsSysCommandBlocked ---- */
+/* Window-message filter: true for WM_SYSCOMMAND with SC_KEYMENU (0xf100) or SC_SCREENSAVE (0xf140).
+    */
+
+undefined4 Win_IsSysCommandBlocked(undefined4 param_1,int param_2,int param_3)
+
+{
+  if (param_2 != 0x112) {
+    return 0;
+  }
+  if ((param_3 != 0xf100) && (param_3 != 0xf140)) {
+    return 0;
+  }
+  return 1;
 }
 
 /* ---- 0x004abf40  Win_AbortIfAlreadyRunning ---- */

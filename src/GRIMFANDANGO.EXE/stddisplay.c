@@ -510,8 +510,10 @@ void stdDisplay_BuildBitmapInfo16(int param_1,uint param_2,int param_3,int param
 #endif
 
 
-/* ---- 0x004731f0  FUN_004731f0 ---- */
-undefined * __cdecl FUN_004731f0(uint param_1,uint param_2,int param_3,uint param_4)
+/* ---- 0x004731f0  DIB_CreateSection565 ---- */
+/* CreateDIBSection of a top-down 16-bit surface with the RGB565 bit masks (0xf800, 0x7e0, 0x1f). */
+
+undefined * __cdecl DIB_CreateSection565(uint param_1,uint param_2,int param_3,uint param_4)
 
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -842,7 +844,7 @@ int __cdecl Display_SelectDevice(int deviceIdx)
       return 0;
     }
   }
-  qsort(&UINT_00901760,g_dwVideoModeCount,0x54,FUN_00475140);
+  qsort(&UINT_00901760,g_dwVideoModeCount,0x54,Display_CompareVideoModes);
   g_nDisplayDeviceOpen = 1;
   return 1;
 }
@@ -1779,8 +1781,10 @@ uint __cdecl Display_FindClosestMode(void *wanted,void *modes,uint count)
 #undef local_4
 
 
-/* ---- 0x00475140  FUN_00475140 ---- */
-int FUN_00475140(int *param_1,int *param_2)
+/* ---- 0x00475140  Display_CompareVideoModes ---- */
+/* qsort comparator of Display_SelectDevice for the video mode list. */
+
+int Display_CompareVideoModes(int *param_1,int *param_2)
 
 {
   if (*param_1 == 0) {
@@ -2626,7 +2630,8 @@ bool DDraw_Create(undefined4 param_1)
   if (iVar1 != 0) {
     return false;
   }
-  iVar1 = (**(code_std **)(*(int *)g_pDirectDraw + 0x20))(g_pDirectDraw,0,0,0,FUN_004765a0);
+  iVar1 = (**(code_std **)(*(int *)g_pDirectDraw + 0x20))
+                    (g_pDirectDraw,0,0,0,DDraw_EnumModesCallback320);
   if (iVar1 != 0) {
     return false;
   }
@@ -2634,7 +2639,7 @@ bool DDraw_Create(undefined4 param_1)
   if (iVar1 != 0) {
     return false;
   }
-  iVar1 = (**(code_std **)(*(int *)g_pDirectDraw + 0x20))(g_pDirectDraw,0,0,0,FUN_00476390);
+  iVar1 = (**(code_std **)(*(int *)g_pDirectDraw + 0x20))(g_pDirectDraw,0,0,0,DDraw_EnumModesCallback);
   if (iVar1 != 0) {
     return false;
   }
@@ -2760,8 +2765,11 @@ undefined * __stdcall FUN_004761b0(int a1,int a2,int a3,int a4)
 #endif
 
 
-/* ---- 0x00476390  FUN_00476390 ---- */
-undefined * __stdcall FUN_00476390(int a1,int a2)
+/* ---- 0x00476390  DDraw_EnumModesCallback ---- */
+/* DirectDraw EnumDisplayModes callback used by DDraw_Create: stores width, height, pitch, bit depth
+   and the colour shift/loss of each mode (up to 64). */
+
+undefined * __stdcall DDraw_EnumModesCallback(int a1,int a2)
 
 {
   int iVar1;
@@ -2856,8 +2864,10 @@ LAB_00476535:
   return (undefined *)0x1;
 }
 
-/* ---- 0x004765a0  FUN_004765a0 ---- */
-undefined * __stdcall FUN_004765a0(int a1,int a2)
+/* ---- 0x004765a0  DDraw_EnumModesCallback320 ---- */
+/* Variant of DDraw_EnumModesCallback that keeps only 320-pixel-wide modes (marked with flag 1). */
+
+undefined * __stdcall DDraw_EnumModesCallback320(int a1,int a2)
 
 {
   int iVar1;
@@ -3335,8 +3345,9 @@ void * __cdecl DIB_CreateSurface(void *mode,void *surface,void *palette,void *hw
   else if ((*(int *)((int)mode + 0x1c) == 1) && (*(int *)((int)mode + 0x20) == 0x10)) {
     if (*(int *)((int)mode + 0x28) == 6) {
       UINT_00803fb4 =
-           (uint)FUN_004731f0(UINT_00803f7c,*(uint *)((int)mode + 8),*(int *)((int)mode + 0xc),
-                              (uint)surface);
+           (uint)DIB_CreateSection565
+                           (UINT_00803f7c,*(uint *)((int)mode + 8),*(int *)((int)mode + 0xc),
+                            (uint)surface);
     }
     else {
       UINT_00803fb4 = ((code *)stdDisplay_BuildBitmapInfo16)();

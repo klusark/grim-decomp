@@ -289,8 +289,7 @@ bool __fastcall StateImage_IsCurrentFrame(int param_1)
 /* ---- 0x004aa410  ObjectState_Construct ---- */
 /* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
-/* ObjectState record (0xfc bytes): +4 type, +8 setupIdx, +0xc bitmap StateImage, +0x80 depth
-   StateImage, +0xf4 prev, +0xf8 next */
+/* ObjectState.cpp constructor: builds the bitmap and depth StateImages */
 
 void * __thiscall
 ObjectState_Construct(void *this,int type,char *bitmapName,char *zbufName,int setupIdx)

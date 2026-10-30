@@ -1,5 +1,5 @@
 /* GRIMFANDANGO.EXE :: grim.c
- * functions 0x00401140 .. 0x00403520 (11 functions)
+ * functions 0x00401140 .. 0x00403520 (12 functions)
  * Decompiled from the shipped binaries with Ghidra; see ../../README.md */
 #include "ghidra_types.h"
 #include "globals.h"
@@ -198,7 +198,7 @@ undefined4 Grim_Init(char *param_1)
     return 0;
   }
   Win_AddMessageHook(Win_WndProc);
-  Win_AddMessageHook(FUN_004772d0);
+  Win_AddMessageHook(Win_IsSysCommandBlocked);
   iVar5 = GetDC(0);
   iVar1 = GetDeviceCaps(iVar5,0xc);
   ReleaseDC(0,iVar5);
@@ -236,7 +236,7 @@ undefined4 Grim_Init(char *param_1)
     return 0;
   }
   lua_openlib(&PTR_s_Is3DHardwareEnabled_004dd350,UINT_004dd380);
-  Engine_SetIdleCallback(FUN_00402050);
+  Engine_SetIdleCallback(Grim_RequestQuit);
   Engine_SetRenderUserCallback(Grim_OnDisplayModeChange);
   Engine_SetFlipCallback(Display_Flip);
   Engine_SetDebugKeysCallback(DebugLog_Init);
@@ -536,6 +536,20 @@ void Grim_EnumDisplayModes(void)
 #undef local_4
 #undef local_8
 #undef local_c
+
+
+/* ---- 0x00402050  Grim_RequestQuit ---- */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+#if 0
+/* Sets g_quitRequested. */
+
+void Grim_RequestQuit(void)
+
+{
+  g_quitRequested = 1;
+  return;
+}
+#endif
 
 
 /* ---- 0x00402060  Grim_OnDisplayModeChange ---- */

@@ -1,5 +1,5 @@
 /* GRIMFANDANGO.EXE :: stdinput.c
- * functions 0x00476f10 .. 0x00477e70 (23 functions)
+ * functions 0x00476f10 .. 0x00477e70 (22 functions)
  * Decompiled from the shipped binaries with Ghidra; see ../../README.md */
 #include "ghidra_types.h"
 #include "globals.h"
@@ -245,19 +245,6 @@ int __cdecl Input_GetButtonState(int inputId,int *down,int *justPressed)
     *justPressed = 0;
   }
   return 0;
-}
-
-/* ---- 0x004772d0  FUN_004772d0 ---- */
-undefined4 FUN_004772d0(undefined4 param_1,int param_2,int param_3)
-
-{
-  if (param_2 != 0x112) {
-    return 0;
-  }
-  if ((param_3 != 0xf100) && (param_3 != 0xf140)) {
-    return 0;
-  }
-  return 1;
 }
 
 /* ---- 0x00477300  Input_SetAcquired ---- */
