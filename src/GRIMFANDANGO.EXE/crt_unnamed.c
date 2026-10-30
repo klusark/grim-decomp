@@ -11531,7 +11531,7 @@ void FUN_004cdb80(void)
 
 
 /* ---- 0x004cdc90  FUN_004cdc90 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4 FUN_004cdc90(int *param_1,uint param_2)
 
@@ -11547,7 +11547,7 @@ undefined4 FUN_004cdc90(int *param_1,uint param_2)
 
 
 /* ---- 0x004cdce0  FUN_004cdce0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_004cdce0(void)
 
@@ -11579,7 +11579,7 @@ undefined4 FUN_004cdd10(void)
 
 
 /* ---- 0x004cdd60  FUN_004cdd60 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_004cdd60(void)
 
@@ -11592,7 +11592,7 @@ void FUN_004cdd60(void)
 
 
 /* ---- 0x004cdd80  FUN_004cdd80 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -11655,7 +11655,7 @@ void FUN_004cde80(void)
 
 
 /* ---- 0x004cdef0  FUN_004cdef0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_004cdef0(void)
 
@@ -11667,7 +11667,7 @@ void FUN_004cdef0(void)
 
 
 /* ---- 0x004cdf00  FUN_004cdf00 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_004cdf00(void)
 
@@ -11679,7 +11679,7 @@ void FUN_004cdf00(void)
 
 
 /* ---- 0x004cdf10  FUN_004cdf10 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 int FUN_004cdf10(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4)
 
@@ -11712,7 +11712,7 @@ int FUN_004cdf10(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefi
 
 
 /* ---- 0x004cdf80  FUN_004cdf80 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_004cdf80(int param_1)
 
@@ -11726,7 +11726,7 @@ void FUN_004cdf80(int param_1)
 
 
 /* ---- 0x004cdfa0  FUN_004cdfa0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_004cdfa0(int param_1,undefined4 param_2)
 
@@ -11741,7 +11741,7 @@ void FUN_004cdfa0(int param_1,undefined4 param_2)
 
 
 /* ---- 0x004cdfd0  FUN_004cdfd0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_004cdfd0(int param_1)
 
@@ -13200,7 +13200,7 @@ FUN_004d0260(undefined4 param_1,undefined4 param_2,int param_3,int param_4,int p
 
 
 /* ---- 0x004d0300  FUN_004d0300 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -13239,7 +13239,7 @@ undefined4 FUN_004d0300(int *param_1,uint param_2)
 
 
 /* ---- 0x004d03a0  FUN_004d03a0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_004d03a0(void)
 
@@ -13289,7 +13289,7 @@ undefined4 FUN_004d03d0(void)
 
 
 /* ---- 0x004d0510  FUN_004d0510 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_004d0510(void)
 
@@ -13304,7 +13304,7 @@ void FUN_004d0510(void)
 
 
 /* ---- 0x004d0550  FUN_004d0550 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4 FUN_004d0550(undefined4 param_1,undefined4 param_2,uint param_3)
 
@@ -13344,7 +13344,7 @@ undefined4 FUN_004d0550(undefined4 param_1,undefined4 param_2,uint param_3)
 
 
 /* ---- 0x004d0610  FUN_004d0610 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 uint FUN_004d0610(void)
 
@@ -13381,7 +13381,7 @@ uint FUN_004d0610(void)
 
 
 /* ---- 0x004d06a0  FUN_004d06a0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4 FUN_004d06a0(uint param_1,int param_2)
 
@@ -13453,7 +13453,7 @@ LAB_004d0827:
 
 
 /* ---- 0x004d0860  FUN_004d0860 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_004d0860(undefined1 *param_1,undefined4 param_2,int param_3,int param_4,uint param_5)
 
@@ -13510,7 +13510,7 @@ void FUN_004d0860(undefined1 *param_1,undefined4 param_2,int param_3,int param_4
 
 
 /* ---- 0x004d0a50  FUN_004d0a50 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_004d0a50(uint param_1)
 
@@ -13536,7 +13536,7 @@ void FUN_004d0a50(uint param_1)
 
 
 /* ---- 0x004d0a80  FUN_004d0a80 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_004d0a80(void)
 
@@ -13548,7 +13548,7 @@ void FUN_004d0a80(void)
 
 
 /* ---- 0x004d0a90  FUN_004d0a90 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_004d0a90(void)
 
@@ -13562,7 +13562,7 @@ void FUN_004d0a90(void)
 
 
 /* ---- 0x004d0aa0  FUN_004d0aa0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_004d0aa0(void)
 
@@ -13586,7 +13586,7 @@ void FUN_004d0aa0(void)
 
 
 /* ---- 0x004d0ad0  FUN_004d0ad0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_004d0ad0(int param_1,uint param_2)
 
@@ -13615,7 +13615,7 @@ void FUN_004d0ad0(int param_1,uint param_2)
 
 
 /* ---- 0x004d0b10  FUN_004d0b10 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 uint FUN_004d0b10(uint param_1)
 
@@ -13644,7 +13644,7 @@ uint FUN_004d0b10(uint param_1)
 
 
 /* ---- 0x004d0b60  FUN_004d0b60 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_004d0b60(int param_1,undefined1 param_2)
 
@@ -13669,7 +13669,7 @@ void FUN_004d0b60(int param_1,undefined1 param_2)
 
 
 /* ---- 0x004d0b90  FUN_004d0b90 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 int FUN_004d0b90(uint param_1)
 
@@ -13695,7 +13695,7 @@ int FUN_004d0b90(uint param_1)
 
 
 /* ---- 0x004d0bd0  FUN_004d0bd0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_004d0bd0(undefined4 param_1)
 
@@ -13709,7 +13709,7 @@ void FUN_004d0bd0(undefined4 param_1)
 
 
 /* ---- 0x004d0bf0  FUN_004d0bf0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4 FUN_004d0bf0(void)
 
@@ -13728,7 +13728,7 @@ undefined4 FUN_004d0bf0(void)
 
 
 /* ---- 0x004d0c00  FUN_004d0c00 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_004d0c00(uint param_1)
 
@@ -13743,7 +13743,7 @@ void FUN_004d0c00(uint param_1)
 
 
 /* ---- 0x004d0c30  FUN_004d0c30 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 int FUN_004d0c30(uint param_1)
 
@@ -13793,7 +13793,7 @@ int FUN_004d0c30(uint param_1)
 
 
 /* ---- 0x004d0d70  FUN_004d0d70 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4 FUN_004d0d70(undefined4 param_1,undefined4 param_2,uint param_3,uint param_4)
 
@@ -13829,7 +13829,7 @@ undefined4 FUN_004d0d70(undefined4 param_1,undefined4 param_2,uint param_3,uint 
 
 
 /* ---- 0x004d0e00  FUN_004d0e00 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4 FUN_004d0e00(undefined4 param_1,undefined4 param_2,uint *param_3,uint *param_4)
 
@@ -13879,7 +13879,7 @@ undefined4 FUN_004d0e00(undefined4 param_1,undefined4 param_2,uint *param_3,uint
 
 
 /* ---- 0x004d0eb0  FUN_004d0eb0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined1 FUN_004d0eb0(byte param_1)
 
@@ -13893,7 +13893,7 @@ undefined1 FUN_004d0eb0(byte param_1)
 
 
 /* ---- 0x004d0ed0  FUN_004d0ed0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_004d0ed0(byte param_1,byte param_2)
 
@@ -13908,7 +13908,7 @@ void FUN_004d0ed0(byte param_1,byte param_2)
 
 
 /* ---- 0x004d0f00  FUN_004d0f00 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_004d0f00(undefined4 param_1,uint param_2,uint param_3,undefined1 param_4,undefined1 param_5
                  ,uint param_6)
@@ -14054,7 +14054,7 @@ void FUN_004d0f00(undefined4 param_1,uint param_2,uint param_3,undefined1 param_
 
 
 /* ---- 0x004d1180  FUN_004d1180 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_004d1180(int param_1,int param_2,uint param_3,int param_4,int param_5,uint param_6,
                  int param_7,int param_8,int param_9,int param_10)
@@ -14312,7 +14312,7 @@ LAB_004d153e:
 
 
 /* ---- 0x004d1690  FUN_004d1690 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_004d1690(void)
 
@@ -14830,7 +14830,7 @@ void FUN_004d2400(undefined4 param_1,undefined4 param_2,undefined4 param_3)
 
 
 /* ---- 0x004d2420  FUN_004d2420 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -14851,7 +14851,7 @@ undefined4 FUN_004d2420(int *param_1,uint param_2)
 
 
 /* ---- 0x004d2480  FUN_004d2480 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_004d2480(void)
 
@@ -14864,7 +14864,7 @@ void FUN_004d2480(void)
 
 
 /* ---- 0x004d24b0  FUN_004d24b0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4 FUN_004d24b0(void)
 
@@ -14885,7 +14885,7 @@ undefined4 FUN_004d24b0(void)
 
 
 /* ---- 0x004d2520  FUN_004d2520 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_004d2520(void)
 
@@ -14932,7 +14932,7 @@ undefined4 FUN_004d2550(uint param_1,undefined4 param_2,uint param_3)
 
 
 /* ---- 0x004d25f0  FUN_004d25f0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_004d25f0(void)
 
@@ -14949,7 +14949,7 @@ void FUN_004d25f0(void)
 
 
 /* ---- 0x004d2630  FUN_004d2630 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Removing unreachable block (ram,0x004d2765) */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
@@ -15013,7 +15013,7 @@ void FUN_004d2630(uint param_1)
 
 
 /* ---- 0x004d27b0  FUN_004d27b0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 uint FUN_004d27b0(void)
 
@@ -15024,7 +15024,7 @@ uint FUN_004d27b0(void)
 
 
 /* ---- 0x004d27c0  FUN_004d27c0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4 FUN_004d27c0(void)
 
@@ -15088,7 +15088,7 @@ undefined4 FUN_004d2940(void)
 
 
 /* ---- 0x004d2aa0  FUN_004d2aa0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -15180,7 +15180,7 @@ void FUN_004d2aa0(uint param_1)
 
 
 /* ---- 0x004d2bf0  FUN_004d2bf0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_004d2bf0(void)
 
@@ -15305,7 +15305,7 @@ void FUN_004d2d70(undefined4 param_1)
 }
 
 /* ---- 0x004d2d90  FUN_004d2d90 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 void FUN_004d2d90(undefined4 param_1,undefined4 param_2,undefined4 param_3,int param_4,
                  undefined4 param_5,undefined4 param_6,int param_7,int param_8)
@@ -15416,7 +15416,7 @@ undefined4 FUN_004d2e80(undefined4 *param_1,uint param_2,int param_3,undefined4 
 
 
 /* ---- 0x004d2fb0  FUN_004d2fb0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4 FUN_004d2fb0(int param_1)
 

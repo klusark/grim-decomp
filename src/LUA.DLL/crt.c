@@ -2631,7 +2631,7 @@ LAB_10011dfc:
 
 
 /* ---- 0x10011ef0  floor ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* MSVC 6 C runtime (matched against the EXE runtime by structure); floor/ceil pair, order not
    verified */
@@ -2684,7 +2684,7 @@ float __cdecl floor(uint param_1,uint param_2)
 
 
 /* ---- 0x10011ff0  ceil ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* MSVC 6 C runtime (matched against the EXE runtime by structure); floor/ceil pair, order not
    verified */
@@ -6988,7 +6988,7 @@ LAB_10018be8:
 }
 
 /* ---- 0x10018fd0  _frnd ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
 

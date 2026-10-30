@@ -2631,7 +2631,7 @@ float __cdecl FUN_100198c0(undefined4 param_1,undefined4 param_2,short param_3)
 
 
 /* ---- 0x10019900  FUN_10019900 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4 __cdecl FUN_10019900(int param_1,uint param_2)
 
@@ -2731,7 +2731,7 @@ int FUN_10019a80(void)
 
 
 /* ---- 0x10019aa0  FUN_10019aa0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 int FUN_10019aa0(void)
 

@@ -2091,7 +2091,7 @@ undefined4 __cdecl Im_GetGroupVol(uint param_1)
 
 
 /* ---- 0x10004f50  Im_GuardEnter ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Guard enter: INC [DAT_100172c0], NOT atomic (no LOCK) and NOT a lock: it does not exclude any
    thread, ImHeartbeat only skips itself while it is nonzero. Called at the start of most Im* entry
@@ -2107,7 +2107,7 @@ void Im_GuardEnter(void)
 
 
 /* ---- 0x10004f60  Im_GuardLeave ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Guard leave: load, if nonzero decrement, store (three separate steps, not atomic). Two threads
    leaving at the same moment both read 2 and both store 1: the counter stays 1 for good (a lost
