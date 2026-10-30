@@ -6,30 +6,20 @@
 #include "functions.h"
 
 /* ---- 0x00446880  Vec3_Dot ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 float __cdecl Vec3_Dot(float *a,float *b)
 
 {
   return *a * *b + a[1] * b[1];
 }
-#endif
-
 
 /* ---- 0x004468a0  Vec3_Dot2 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 float __cdecl Vec3_Dot2(float *a,float *b)
 
 {
   return *a * *b + b[2] * a[2] + a[1] * b[1];
 }
-#endif
-
 
 /* ---- 0x004468d0  Vec3_Cross ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void __cdecl Vec3_Cross(float *out,float *a,float *b)
 
 {
@@ -38,12 +28,8 @@ void __cdecl Vec3_Cross(float *out,float *a,float *b)
   out[2] = b[1] * *a - a[1] * *b;
   return;
 }
-#endif
-
 
 /* ---- 0x00446920  Vec3_NormalizeTo ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void Vec3_NormalizeTo(float *param_1,float *param_2)
 
 {
@@ -65,12 +51,8 @@ void Vec3_NormalizeTo(float *param_1,float *param_2)
 }
 #undef local_4
 
-#endif
-
 
 /* ---- 0x004469a0  Vec3_Normalize ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 float __cdecl Vec3_Normalize(float *param_1)
 
 {
@@ -90,12 +72,8 @@ float __cdecl Vec3_Normalize(float *param_1)
 }
 #undef local_4
 
-#endif
-
 
 /* ---- 0x00446a10  Vec3_NormalizeApprox ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Rough vector length: with the absolute values sorted max >= mid >= min, len = max + 0.34375 * mid
    + 0.25 * min. Also divides the vector by it (in place, in floats) and returns the length. */
 
@@ -105,60 +83,55 @@ float __cdecl Vec3_NormalizeApprox(float *param_1)
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   float fVar2;
-  #define local_28 (*(uint *)(_frame + (0x40 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x40 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x40 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x40 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x40 - 0x14)))
+  #define local_28 (*(float (*)[3])(_frame + (0x40 - 0x28)))
+  #define local_1c (*(float (*)[3])(_frame + (0x40 - 0x1c)))
   #define local_10 (*(uint *)(_frame + (0x40 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x40 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x40 - 0x8)))
+  #define local_c (*(float (*)[2])(_frame + (0x40 - 0xc)))
   
   if (0.0 <= *param_1) {
-    local_20 = (uint)*param_1;
+    local_28[2] = *param_1;
   }
   else {
-    local_20 = (uint)-*param_1;
+    local_28[2] = -*param_1;
   }
-  local_c = local_20;
+  local_c[0] = local_28[2];
   if (0.0 <= param_1[1]) {
-    local_24 = (uint)param_1[1];
+    local_28[1] = param_1[1];
   }
   else {
-    local_24 = (uint)-param_1[1];
+    local_28[1] = -param_1[1];
   }
-  local_8 = local_24;
+  local_c[1] = local_28[1];
   if (0.0 <= param_1[2]) {
-    local_28 = (uint)param_1[2];
+    local_28[0] = param_1[2];
   }
   else {
-    local_28 = (uint)-param_1[2];
+    local_28[0] = -param_1[2];
   }
-  local_1c = local_28;
-  if ((float)local_28 <= (float)local_24) {
-    if ((float)local_20 < (float)local_24) {
-      local_8 = local_20;
-      local_c = local_24;
-      if ((float)local_20 < (float)local_28) {
-        local_1c = local_20;
-        local_8 = local_28;
+  local_1c[0] = local_28[0];
+  if (local_28[0] <= local_28[1]) {
+    if (local_28[2] < local_28[1]) {
+      local_c[1] = local_28[2];
+      local_c[0] = local_28[1];
+      if (local_28[2] < local_28[0]) {
+        local_1c[0] = local_28[2];
+        local_c[1] = local_28[0];
       }
     }
   }
-  else if ((float)local_28 <= (float)local_20) {
-    local_1c = local_24;
-    local_8 = local_28;
+  else if (local_28[0] <= local_28[2]) {
+    local_1c[0] = local_28[1];
+    local_c[1] = local_28[0];
   }
   else {
-    local_1c = local_20;
-    local_c = local_28;
-    if ((float)local_24 < (float)local_20) {
-      local_1c = local_24;
-      local_8 = local_20;
+    local_1c[0] = local_28[2];
+    local_c[0] = local_28[0];
+    if (local_28[1] < local_28[2]) {
+      local_1c[0] = local_28[1];
+      local_c[1] = local_28[2];
     }
   }
-  fVar1 = (float)local_1c * 0.25 + (float)local_8 * 0.34375 + (float)local_c;
+  fVar1 = local_1c[0] * 0.25 + local_c[1] * 0.34375 + local_c[0];
   fVar2 = 1.0 / fVar1;
   *param_1 = *param_1 * fVar2;
   param_1[1] = param_1[1] * fVar2;
@@ -166,21 +139,12 @@ float __cdecl Vec3_NormalizeApprox(float *param_1)
   return fVar1;
 }
 #undef local_10
-#undef local_14
-#undef local_18
 #undef local_1c
-#undef local_20
-#undef local_24
 #undef local_28
-#undef local_8
 #undef local_c
-
-#endif
 
 
 /* ---- 0x00446ba0  Vec3_Rotate ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Lua RotateVector: rotates a vector by pitch/yaw/roll angles */
 
 void __cdecl Vec3_Rotate(float *vec,float *rot)
@@ -195,12 +159,8 @@ void __cdecl Vec3_Rotate(float *vec,float *rot)
 }
 #undef local_30
 
-#endif
-
 
 /* ---- 0x00446bd0  Matrix_GetAngles ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void __cdecl Matrix_GetAngles(float *matrix,float *outAngles)
 
 {
@@ -213,8 +173,6 @@ void __cdecl Matrix_GetAngles(float *matrix,float *outAngles)
   outAngles[1] = fVar1;
   return;
 }
-#endif
-
 
 /* ---- 0x0044e7d0  Frustum_TestSphere ---- */
 /* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
@@ -345,14 +303,10 @@ uint Polygon_ClipToPlane(float *param_1,float *param_2,float *param_3,undefined4
   #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
   #define local_20 (*(uint *)(_frame + (0x40 - 0x20)))
   #define local_1c (*(uint *)(_frame + (0x40 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x40 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x40 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x40 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x40 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x40 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x40 - 0x4)))
+  #define local_18 (*(float (*)[3])(_frame + (0x40 - 0x18)))
+  #define local_c (*(float (*)[3])(_frame + (0x40 - 0xc)))
   
-  local_4 = (uint)param_6;
+  local_c[2] = PUN(float,param_6);
   puVar5 = param_4;
   iVar3 = (int)param_6 * 3;
   iVar10 = (int)param_6 * 3;
@@ -363,12 +317,12 @@ uint Polygon_ClipToPlane(float *param_1,float *param_2,float *param_3,undefined4
     pfVar6 = param_5;
   }
   if (param_5 != (float *)0x0) {
-    local_10 = (uint)param_5[(int)param_6 - 1];
+    local_18[2] = param_5[(int)param_6 + -1];
   }
   if (0 < (int)param_6) {
     local_24 = (uint)&UINT_007f47c0;
-    local_8 = (uint)param_5;
-    local_c = (uint)param_4;
+    local_c[1] = PUN(float,param_5);
+    local_c[0] = PUN(float,param_4);
     param_6 = &UINT_007f46b8;
     puVar12 = &UINT_007f48c0;
     local_1c = (uint)&UINT_007f46bc;
@@ -377,44 +331,44 @@ uint Polygon_ClipToPlane(float *param_1,float *param_2,float *param_3,undefined4
     pfVar7 = param_3 + iVar4 + -3;
     pfVar8 = param_3;
     pfVar11 = param_5;
-    local_18 = (uint)(((param_3 + iVar4 + -3)[1] - param_2[1]) * param_1[1] +
-                     (param_3[iVar3 + -1] - param_2[2]) * param_1[2] +
-                     (param_3[iVar10 + -3] - *param_2) * *param_1);
+    local_18[0] = ((param_3 + iVar4 + -3)[1] - param_2[1]) * param_1[1] +
+                  (param_3[iVar3 + -1] - param_2[2]) * param_1[2] +
+                  (param_3[iVar10 + -3] - *param_2) * *param_1;
     do {
       if (param_4 != (undefined4 *)0x0) {
-        local_14 = local_c;
+        local_18[1] = local_c[0];
       }
       if (param_5 != (float *)0x0) {
-        pfVar11 = *(float **)local_8;
+        pfVar11 = *PUN(float **,(float)local_c[1]);
       }
       fVar2 = (pfVar8[1] - param_2[1]) * param_1[1] +
               (*pfVar8 - *param_2) * *param_1 + (pfVar8[2] - param_2[2]) * param_1[2];
-      if (((float)local_18 < 0.0) || (fVar2 < 0.0)) {
-        if ((0.0 <= (float)local_18) && (fVar2 < 0.0)) {
-          fVar1 = -((float)local_18 / (fVar2 - (float)local_18));
+      if ((local_18[0] < 0.0) || (fVar2 < 0.0)) {
+        if ((0.0 <= local_18[0]) && (fVar2 < 0.0)) {
+          fVar1 = -(local_18[0] / (fVar2 - local_18[0]));
           *puVar12 = (uint)((*pfVar8 - *pfVar7) * fVar1 + *pfVar7);
           *puVar14 = (uint)((pfVar8[1] - pfVar7[1]) * fVar1 + pfVar7[1]);
           *puVar9 = (uint)((pfVar8[2] - pfVar7[2]) * fVar1 + pfVar7[2]);
           if (param_4 != (undefined4 *)0x0) {
-            *param_6 = (uint)((*(float *)local_14 - *pfVar6) * fVar1 + *pfVar6);
-            *(float *)local_1c = (*(float *)(local_14 + 4) - pfVar6[1]) * fVar1 + pfVar6[1];
+            *param_6 = (uint)((*PUN(float *,(float)local_18[1]) - *pfVar6) * fVar1 + *pfVar6);
+            *(float *)local_1c = (*(float *)((int)local_18[1] + 4) - pfVar6[1]) * fVar1 + pfVar6[1];
           }
           if (param_5 != (float *)0x0) {
-            *(float *)local_24 = (PUN(float,pfVar11) - (float)local_10) * fVar1 + (float)local_10;
+            *(float *)local_24 = (PUN(float,pfVar11) - local_18[2]) * fVar1 + local_18[2];
           }
           goto LAB_0044ed90;
         }
-        if (((float)local_18 < 0.0) && (0.0 <= fVar2)) {
-          fVar1 = -((float)local_18 / (fVar2 - (float)local_18));
+        if ((local_18[0] < 0.0) && (0.0 <= fVar2)) {
+          fVar1 = -(local_18[0] / (fVar2 - local_18[0]));
           *puVar12 = (uint)((*pfVar8 - *pfVar7) * fVar1 + *pfVar7);
           *puVar14 = (uint)((pfVar8[1] - pfVar7[1]) * fVar1 + pfVar7[1]);
           *puVar9 = (uint)((pfVar8[2] - pfVar7[2]) * fVar1 + pfVar7[2]);
           if (param_4 != (undefined4 *)0x0) {
-            *param_6 = (uint)((*(float *)local_14 - *pfVar6) * fVar1 + *pfVar6);
-            *(float *)local_1c = (*(float *)(local_14 + 4) - pfVar6[1]) * fVar1 + pfVar6[1];
+            *param_6 = (uint)((*PUN(float *,(float)local_18[1]) - *pfVar6) * fVar1 + *pfVar6);
+            *(float *)local_1c = (*(float *)((int)local_18[1] + 4) - pfVar6[1]) * fVar1 + pfVar6[1];
           }
           if (param_5 != (float *)0x0) {
-            *(float *)local_24 = (PUN(float,pfVar11) - (float)local_10) * fVar1 + (float)local_10;
+            *(float *)local_24 = (PUN(float,pfVar11) - local_18[2]) * fVar1 + local_18[2];
           }
           local_20 = local_20 + 1;
           local_1c = local_1c + 8;
@@ -427,9 +381,9 @@ uint Polygon_ClipToPlane(float *param_1,float *param_2,float *param_3,undefined4
           puVar12[4] = (uint)pfVar8[1];
           puVar12[5] = (uint)pfVar8[2];
           if (param_4 != (undefined4 *)0x0) {
-            *pfVar6 = *(float *)local_14;
-            param_6[3] = (uint)*(float *)(local_14 + 4);
-            param_6[4] = (uint)*(float *)(local_14 + 8);
+            *pfVar6 = *PUN(float *,(float)local_18[1]);
+            param_6[3] = (uint)*(float *)((int)local_18[1] + 4);
+            param_6[4] = (uint)*(float *)((int)local_18[1] + 8);
           }
           puVar12 = (uint *)pfVar7;
           param_6 = (uint *)pfVar6;
@@ -444,9 +398,9 @@ uint Polygon_ClipToPlane(float *param_1,float *param_2,float *param_3,undefined4
         puVar12[1] = (uint)pfVar8[1];
         puVar12[2] = (uint)pfVar8[2];
         if (param_4 != (undefined4 *)0x0) {
-          *param_6 = (uint)*(float *)local_14;
-          param_6[1] = (uint)*(float *)(local_14 + 4);
-          param_6[2] = (uint)*(float *)(local_14 + 8);
+          *param_6 = (uint)*PUN(float *,(float)local_18[1]);
+          param_6[1] = (uint)*(float *)((int)local_18[1] + 4);
+          param_6[2] = (uint)*(float *)((int)local_18[1] + 8);
         }
         if (param_5 != (float *)0x0) {
           *(float **)local_24 = pfVar11;
@@ -460,15 +414,15 @@ LAB_0044ed90:
         puVar12 = puVar12 + 3;
         local_24 = local_24 + 4;
       }
-      local_c = local_c + 8;
-      local_8 = local_8 + 4;
-      local_4 = local_4 - 1;
+      local_c[0] = (float)((int)local_c[0] + 8);
+      local_c[1] = (float)((int)local_c[1] + 4);
+      local_c[2] = (float)((int)local_c[2] + -1);
       pfVar7 = pfVar8;
       pfVar8 = pfVar8 + 3;
-      pfVar6 = (float *)local_14;
-      local_18 = (uint)fVar2;
-      local_10 = (uint)pfVar11;
-    } while (local_4 != 0);
+      pfVar6 = PUN(float *,(float)local_18[1]);
+      local_18[0] = fVar2;
+      local_18[2] = PUN(float,pfVar11);
+    } while (local_c[2] != 0.0);
   }
   if (0 < (int)local_20) {
     iVar10 = (int)&UINT_007f48c0 - (int)param_3;
@@ -496,14 +450,10 @@ LAB_0044ed90:
   }
   return local_20;
 }
-#undef local_10
-#undef local_14
 #undef local_18
 #undef local_1c
 #undef local_20
 #undef local_24
-#undef local_4
-#undef local_8
 #undef local_c
 
 #endif
@@ -517,43 +467,31 @@ void Angles_ToMatrix(float *param_1,undefined4 *param_2,float *param_3)
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   undefined4 *puVar1;
-  #define local_1c (*(uint *)(_frame + (0x30 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  #define local_1c (*(float (*)[3])(_frame + (0x30 - 0x1c)))
+  #define local_10 (*(float (*)[3])(_frame + (0x30 - 0x10)))
   #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
   
   puVar1 = param_2;
-  Math_SinCosTable(*param_2,&param_2,&local_1c);
-  Math_SinCosTable(puVar1[1],&local_14,&local_10);
-  Math_SinCosTable(puVar1[2],&local_18,&local_c);
-  *param_1 = -((float)local_18 * (float)local_14) * PUN(float,param_2) +
-             (float)local_c * (float)local_10;
-  param_1[1] = (float)local_18 * (float)local_10 * PUN(float,param_2) + (float)local_c * (float)local_14
-  ;
-  param_1[2] = -(float)local_18 * (float)local_1c;
-  param_1[3] = -(float)local_14 * (float)local_1c;
-  param_1[4] = (float)local_10 * (float)local_1c;
+  Math_SinCosTable(*param_2,&param_2,local_1c);
+  Math_SinCosTable(puVar1[1],local_1c + 2,local_10);
+  Math_SinCosTable(puVar1[2],local_1c + 1,local_10 + 1);
+  *param_1 = -(local_1c[1] * local_1c[2]) * PUN(float,param_2) + local_10[1] * local_10[0];
+  param_1[1] = local_1c[1] * local_10[0] * PUN(float,param_2) + local_10[1] * local_1c[2];
+  param_1[2] = -local_1c[1] * local_1c[0];
+  param_1[3] = -local_1c[2] * local_1c[0];
+  param_1[4] = local_10[0] * local_1c[0];
   param_1[5] = PUN(float,param_2);
-  param_1[6] = (float)local_c * (float)local_14 * PUN(float,param_2) + (float)local_18 * (float)local_10
-  ;
-  param_1[7] = -PUN(float,param_2) * (float)local_c * (float)local_10 +
-               (float)local_18 * (float)local_14;
-  param_1[8] = (float)local_c * (float)local_1c;
+  param_1[6] = local_10[1] * local_1c[2] * PUN(float,param_2) + local_1c[1] * local_10[0];
+  param_1[7] = -PUN(float,param_2) * local_10[1] * local_10[0] + local_1c[1] * local_1c[2];
+  param_1[8] = local_10[1] * local_1c[0];
   param_1[9] = *param_3;
   param_1[10] = param_3[1];
   param_1[0xb] = param_3[2];
   return;
 }
 #undef local_10
-#undef local_14
-#undef local_18
 #undef local_1c
 #undef local_4
-#undef local_8
-#undef local_c
 
 #endif
 
@@ -596,50 +534,36 @@ void Angles_ToMatrixNoPos(float *param_1,undefined4 *param_2)
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   undefined4 *puVar1;
-  #define local_1c (*(uint *)(_frame + (0x30 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  #define local_1c (*(float (*)[3])(_frame + (0x30 - 0x1c)))
+  #define local_10 (*(float (*)[3])(_frame + (0x30 - 0x10)))
   #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
   
   puVar1 = param_2;
-  Math_SinCosTable(*param_2,&param_2,&local_1c);
-  Math_SinCosTable(puVar1[1],&local_14,&local_10);
-  Math_SinCosTable(puVar1[2],&local_18,&local_c);
-  *param_1 = -((float)local_18 * (float)local_14) * PUN(float,param_2) +
-             (float)local_c * (float)local_10;
-  param_1[1] = (float)local_18 * (float)local_10 * PUN(float,param_2) + (float)local_c * (float)local_14
-  ;
-  param_1[2] = -(float)local_18 * (float)local_1c;
-  param_1[3] = -(float)local_14 * (float)local_1c;
-  param_1[4] = (float)local_10 * (float)local_1c;
+  Math_SinCosTable(*param_2,&param_2,local_1c);
+  Math_SinCosTable(puVar1[1],local_1c + 2,local_10);
+  Math_SinCosTable(puVar1[2],local_1c + 1,local_10 + 1);
+  *param_1 = -(local_1c[1] * local_1c[2]) * PUN(float,param_2) + local_10[1] * local_10[0];
+  param_1[1] = local_1c[1] * local_10[0] * PUN(float,param_2) + local_10[1] * local_1c[2];
+  param_1[2] = -local_1c[1] * local_1c[0];
+  param_1[3] = -local_1c[2] * local_1c[0];
+  param_1[4] = local_10[0] * local_1c[0];
   param_1[5] = PUN(float,param_2);
-  param_1[6] = (float)local_c * (float)local_14 * PUN(float,param_2) + (float)local_18 * (float)local_10
-  ;
-  param_1[7] = -PUN(float,param_2) * (float)local_c * (float)local_10 +
-               (float)local_18 * (float)local_14;
-  param_1[8] = (float)local_c * (float)local_1c;
+  param_1[6] = local_10[1] * local_1c[2] * PUN(float,param_2) + local_1c[1] * local_10[0];
+  param_1[7] = -PUN(float,param_2) * local_10[1] * local_10[0] + local_1c[1] * local_1c[2];
+  param_1[8] = local_10[1] * local_1c[0];
   param_1[9] = 0.0;
   param_1[10] = 0.0;
   param_1[0xb] = 0.0;
   return;
 }
 #undef local_10
-#undef local_14
-#undef local_18
 #undef local_1c
 #undef local_4
-#undef local_8
-#undef local_c
 
 #endif
 
 
 /* ---- 0x0044f1a0  Matrix_BuildTranslation ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Identity 3x4 (from g_MatrixIdentity) with the translation column set */
 
 void __cdecl Matrix_BuildTranslation(float *m,float *pos)
@@ -661,12 +585,8 @@ void __cdecl Matrix_BuildTranslation(float *m,float *pos)
   m[0xb] = pos[2];
   return;
 }
-#endif
-
 
 /* ---- 0x0044f1d0  Matrix_BuildTranslation2 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void Matrix_BuildTranslation2(undefined4 *param_1,undefined4 *param_2)
 
 {
@@ -684,8 +604,6 @@ void Matrix_BuildTranslation2(undefined4 *param_1,undefined4 *param_2)
   param_1[0xb] = 0;
   return;
 }
-#endif
-
 
 /* ---- 0x0044f210  Matrix_AxisAngle ---- */
 /* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
@@ -706,9 +624,7 @@ void Matrix_AxisAngle(float *param_1,float *param_2,float param_3)
   float fVar10;
   float fVar11;
   float fVar12;
-  #define local_28 (*(uint *)(_frame + (0x40 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x40 - 0x20)))
+  #define local_28 (*(float (*)[3])(_frame + (0x40 - 0x28)))
   #define local_1c (*(uint *)(_frame + (0x40 - 0x1c)))
   #define local_18 (*(uint *)(_frame + (0x40 - 0x18)))
   #define local_14 (*(uint *)(_frame + (0x40 - 0x14)))
@@ -717,7 +633,7 @@ void Matrix_AxisAngle(float *param_1,float *param_2,float param_3)
   #define local_8 (*(uint *)(_frame + (0x40 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x40 - 0x4)))
   
-  Math_SinCosTable(param_3,&local_28,&param_3);
+  Math_SinCosTable(param_3,local_28,&param_3);
   fVar1 = 1.0 - param_2[2];
   fVar2 = fVar1;
   if (fVar1 < 0.0) {
@@ -729,8 +645,8 @@ void Matrix_AxisAngle(float *param_1,float *param_2,float param_3)
   if (fVar1 == 0.0) {
     *param_1 = param_3;
     param_1[4] = param_3;
-    param_1[3] = -(float)local_28;
-    param_1[1] = (float)local_28;
+    param_1[3] = -local_28[0];
+    param_1[1] = local_28[0];
   }
   else {
     fVar1 = param_2[2] - -1.0;
@@ -761,19 +677,19 @@ void Matrix_AxisAngle(float *param_1,float *param_2,float param_3)
       param_1[10] = 0.0;
       param_1[4] = (fVar10 * fVar9 + fVar7) / (1.0 - fVar9) + fVar8;
       param_1[8] = fVar10 + fVar7 + fVar9;
-      param_1[1] = fVar4 * (float)local_28 + param_3;
-      param_1[3] = param_3 - fVar4 * (float)local_28;
-      param_1[2] = fVar11 - fVar2 * (float)local_28;
-      param_1[5] = fVar12 + (float)local_28 * fVar5;
-      param_1[6] = fVar11 + fVar2 * (float)local_28;
-      param_1[7] = fVar12 - (float)local_28 * fVar5;
+      param_1[1] = fVar4 * local_28[0] + param_3;
+      param_1[3] = param_3 - fVar4 * local_28[0];
+      param_1[2] = fVar11 - fVar2 * local_28[0];
+      param_1[5] = fVar12 + local_28[0] * fVar5;
+      param_1[6] = fVar11 + fVar2 * local_28[0];
+      param_1[7] = fVar12 - local_28[0] * fVar5;
       param_1[0xb] = 0.0;
       return;
     }
     *param_1 = param_3;
     param_1[4] = param_3;
-    param_1[1] = -(float)local_28;
-    param_1[3] = (float)local_28;
+    param_1[1] = -local_28[0];
+    param_1[3] = local_28[0];
   }
   param_1[2] = 0.0;
   param_1[5] = 0.0;
@@ -789,8 +705,6 @@ void Matrix_AxisAngle(float *param_1,float *param_2,float param_3)
 #undef local_14
 #undef local_18
 #undef local_1c
-#undef local_20
-#undef local_24
 #undef local_28
 #undef local_4
 #undef local_8
@@ -814,12 +728,9 @@ void Camera_BuildBasis(float *param_1,float *param_2,float *param_3,undefined4 p
   float *pfVar1;
   float fVar2;
   float *v;
-  #define local_48 (*(uint *)(_frame + (0x60 - 0x48)))
-  #define local_44 (*(uint *)(_frame + (0x60 - 0x44)))
-  #define local_40 (*(uint *)(_frame + (0x60 - 0x40)))
-  #define local_3c (*(uint *)(_frame + (0x60 - 0x3c)))
-  #define local_38 (*(uint *)(_frame + (0x60 - 0x38)))
-  #define local_34 (*(uint *)(_frame + (0x60 - 0x34)))
+  #define local_48 (*(float *)(_frame + (0x60 - 0x48)))
+  #define local_44 (*(float (*)[2])(_frame + (0x60 - 0x44)))
+  #define local_3c (*(float (*)[3])(_frame + (0x60 - 0x3c)))
   #define local_30 (*(float (*)[12])(_frame + (0x60 - 0x30)))
   
   pfVar1 = param_1 + 3;
@@ -839,15 +750,15 @@ void Camera_BuildBasis(float *param_1,float *param_2,float *param_3,undefined4 p
     v = (float *)&DAT_004d7530;
   }
   else {
-    local_3c = 0x80000000;
-    local_38 = 0xbf800000;
-    v = (float *)&local_3c;
-    local_34 = 0x80000000;
+    local_3c[0] = -0.0;
+    local_3c[1] = -1.0;
+    v = local_3c;
+    local_3c[2] = -0.0;
   }
-  Vec3_Copy((float *)&local_48,v,local_30);
-  *param_1 = param_1[4] * (float)local_40 - param_1[5] * (float)local_44;
-  param_1[1] = param_1[5] * (float)local_48 - *pfVar1 * (float)local_40;
-  param_1[2] = *pfVar1 * (float)local_44 - param_1[4] * (float)local_48;
+  Vec3_Copy(&local_48,v,local_30);
+  *param_1 = param_1[4] * local_44[1] - param_1[5] * local_44[0];
+  param_1[1] = param_1[5] * local_48 - *pfVar1 * local_44[1];
+  param_1[2] = *pfVar1 * local_44[0] - param_1[4] * local_48;
   Vec3_Normalize(param_1);
   param_1[6] = param_1[5] * param_1[1] - param_1[4] * param_1[2];
   param_1[7] = param_1[2] * *pfVar1 - param_1[5] * *param_1;
@@ -859,10 +770,7 @@ void Camera_BuildBasis(float *param_1,float *param_2,float *param_3,undefined4 p
   return;
 }
 #undef local_30
-#undef local_34
-#undef local_38
 #undef local_3c
-#undef local_40
 #undef local_44
 #undef local_48
 
@@ -974,8 +882,6 @@ void Matrix_ToAngles(float *param_1,float *param_2)
 
 
 /* ---- 0x0044f880  Matrix_Identity ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void __cdecl Matrix_Identity(float *m)
 
 {
@@ -990,12 +896,8 @@ void __cdecl Matrix_Identity(float *m)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x0044f8a0  Matrix_Mul34 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* 3x4 affine matrix product */
 
 void __cdecl Matrix_Mul34(float *out,float *a,float *b)
@@ -1015,8 +917,6 @@ void __cdecl Matrix_Mul34(float *out,float *a,float *b)
   out[0xb] = a[8] * b[0xb] + a[2] * b[9] + a[5] * b[10] + a[0xb];
   return;
 }
-#endif
-
 
 /* ---- 0x0044fa70  Matrix_BuildRotation ---- */
 /* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
@@ -1032,56 +932,41 @@ void __cdecl Matrix_BuildRotation(float *m,float *angles)
   int iVar3;
   float *pfVar4;
   float *pfVar5;
-  #define local_30 (*(uint *)(_frame + (0x40 - 0x30)))
-  #define local_2c (*(uint *)(_frame + (0x40 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x40 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x40 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x40 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x40 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x40 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x40 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x40 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x40 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x40 - 0x4)))
+  #define local_30 (*(float *)(_frame + (0x40 - 0x30)))
+  #define local_2c (*(float (*)[2])(_frame + (0x40 - 0x2c)))
+  #define local_24 (*(float (*)[3])(_frame + (0x40 - 0x24)))
+  #define local_18 (*(float (*)[3])(_frame + (0x40 - 0x18)))
+  #define local_c (*(float (*)[3])(_frame + (0x40 - 0xc)))
   
   fVar1 = angles[1];
   fVar2 = angles[2];
   pfVar4 = m;
-  pfVar5 = (float *)&local_30;
+  pfVar5 = &local_30;
   for (iVar3 = 0xc; iVar3 != 0; iVar3 = iVar3 + -1) {
     *pfVar5 = *pfVar4;
     pfVar4 = pfVar4 + 1;
     pfVar5 = pfVar5 + 1;
   }
-  *m = (float)local_30 * *angles + fVar2 * (float)local_18 + fVar1 * (float)local_24;
-  m[1] = (float)local_2c * *angles + angles[2] * (float)local_14 + angles[1] * (float)local_20;
-  m[2] = (float)local_28 * *angles + angles[2] * (float)local_10 + angles[1] * (float)local_1c;
-  m[3] = angles[5] * (float)local_18 + angles[3] * (float)local_30 + angles[4] * (float)local_24;
-  m[4] = angles[5] * (float)local_14 + angles[3] * (float)local_2c + angles[4] * (float)local_20;
-  m[5] = angles[5] * (float)local_10 + angles[3] * (float)local_28 + angles[4] * (float)local_1c;
-  m[6] = angles[8] * (float)local_18 + angles[6] * (float)local_30 + angles[7] * (float)local_24;
-  m[7] = angles[8] * (float)local_14 + angles[6] * (float)local_2c + angles[7] * (float)local_20;
-  m[8] = angles[8] * (float)local_10 + angles[6] * (float)local_28 + angles[7] * (float)local_1c;
-  m[9] = angles[0xb] * (float)local_18 + angles[9] * (float)local_30 + angles[10] * (float)local_24
-         + (float)local_c;
-  m[10] = angles[0xb] * (float)local_14 + angles[9] * (float)local_2c + angles[10] * (float)local_20
-          + (float)local_8;
-  m[0xb] = angles[0xb] * (float)local_10 +
-           angles[9] * (float)local_28 + angles[10] * (float)local_1c + (float)local_4;
+  *m = local_30 * *angles + fVar2 * local_18[0] + fVar1 * local_24[0];
+  m[1] = local_2c[0] * *angles + angles[2] * local_18[1] + angles[1] * local_24[1];
+  m[2] = local_2c[1] * *angles + angles[2] * local_18[2] + angles[1] * local_24[2];
+  m[3] = angles[5] * local_18[0] + angles[3] * local_30 + angles[4] * local_24[0];
+  m[4] = angles[5] * local_18[1] + angles[3] * local_2c[0] + angles[4] * local_24[1];
+  m[5] = angles[5] * local_18[2] + angles[3] * local_2c[1] + angles[4] * local_24[2];
+  m[6] = angles[8] * local_18[0] + angles[6] * local_30 + angles[7] * local_24[0];
+  m[7] = angles[8] * local_18[1] + angles[6] * local_2c[0] + angles[7] * local_24[1];
+  m[8] = angles[8] * local_18[2] + angles[6] * local_2c[1] + angles[7] * local_24[2];
+  m[9] = angles[0xb] * local_18[0] + angles[9] * local_30 + angles[10] * local_24[0] + local_c[0];
+  m[10] = angles[0xb] * local_18[1] + angles[9] * local_2c[0] + angles[10] * local_24[1] +
+          local_c[1];
+  m[0xb] = angles[0xb] * local_18[2] + angles[9] * local_2c[1] + angles[10] * local_24[2] +
+           local_c[2];
   return;
 }
-#undef local_10
-#undef local_14
 #undef local_18
-#undef local_1c
-#undef local_20
 #undef local_24
-#undef local_28
 #undef local_2c
 #undef local_30
-#undef local_4
-#undef local_8
 #undef local_c
 
 #endif
@@ -1099,72 +984,48 @@ void Matrix_Multiply(float *param_1,float *param_2)
   int iVar3;
   float *pfVar4;
   float *pfVar5;
-  #define local_30 (*(uint *)(_frame + (0x40 - 0x30)))
-  #define local_2c (*(uint *)(_frame + (0x40 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x40 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x40 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x40 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x40 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x40 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x40 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x40 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x40 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x40 - 0x4)))
+  #define local_30 (*(float *)(_frame + (0x40 - 0x30)))
+  #define local_2c (*(float (*)[2])(_frame + (0x40 - 0x2c)))
+  #define local_24 (*(float (*)[3])(_frame + (0x40 - 0x24)))
+  #define local_18 (*(float (*)[3])(_frame + (0x40 - 0x18)))
+  #define local_c (*(float (*)[3])(_frame + (0x40 - 0xc)))
   
   fVar1 = param_2[3];
   fVar2 = param_2[6];
   pfVar4 = param_1;
-  pfVar5 = (float *)&local_30;
+  pfVar5 = &local_30;
   for (iVar3 = 0xc; iVar3 != 0; iVar3 = iVar3 + -1) {
     *pfVar5 = *pfVar4;
     pfVar4 = pfVar4 + 1;
     pfVar5 = pfVar5 + 1;
   }
-  *param_1 = (float)local_30 * *param_2 + fVar2 * (float)local_28 + fVar1 * (float)local_2c;
-  param_1[1] = param_2[4] * (float)local_2c +
-               param_2[1] * (float)local_30 + param_2[7] * (float)local_28;
-  param_1[2] = param_2[8] * (float)local_28 +
-               param_2[2] * (float)local_30 + param_2[5] * (float)local_2c;
-  param_1[3] = (float)local_24 * *param_2 +
-               param_2[6] * (float)local_1c + param_2[3] * (float)local_20;
-  param_1[4] = param_2[4] * (float)local_20 +
-               param_2[1] * (float)local_24 + param_2[7] * (float)local_1c;
-  param_1[5] = param_2[8] * (float)local_1c +
-               param_2[2] * (float)local_24 + param_2[5] * (float)local_20;
-  param_1[6] = (float)local_18 * *param_2 +
-               param_2[6] * (float)local_10 + param_2[3] * (float)local_14;
-  param_1[7] = param_2[4] * (float)local_14 +
-               param_2[1] * (float)local_18 + param_2[7] * (float)local_10;
-  param_1[8] = param_2[8] * (float)local_10 +
-               param_2[2] * (float)local_18 + param_2[5] * (float)local_14;
-  param_1[9] = (float)local_c * *param_2 + param_2[6] * (float)local_4 + param_2[3] * (float)local_8
-               + param_2[9];
-  param_1[10] = param_2[4] * (float)local_8 +
-                param_2[1] * (float)local_c + param_2[7] * (float)local_4 + param_2[10];
-  param_1[0xb] = param_2[8] * (float)local_4 +
-                 param_2[2] * (float)local_c + param_2[5] * (float)local_8 + param_2[0xb];
+  *param_1 = local_30 * *param_2 + fVar2 * local_2c[1] + fVar1 * local_2c[0];
+  param_1[1] = param_2[4] * local_2c[0] + param_2[1] * local_30 + param_2[7] * local_2c[1];
+  param_1[2] = param_2[8] * local_2c[1] + param_2[2] * local_30 + param_2[5] * local_2c[0];
+  param_1[3] = local_24[0] * *param_2 + param_2[6] * local_24[2] + param_2[3] * local_24[1];
+  param_1[4] = param_2[4] * local_24[1] + param_2[1] * local_24[0] + param_2[7] * local_24[2];
+  param_1[5] = param_2[8] * local_24[2] + param_2[2] * local_24[0] + param_2[5] * local_24[1];
+  param_1[6] = local_18[0] * *param_2 + param_2[6] * local_18[2] + param_2[3] * local_18[1];
+  param_1[7] = param_2[4] * local_18[1] + param_2[1] * local_18[0] + param_2[7] * local_18[2];
+  param_1[8] = param_2[8] * local_18[2] + param_2[2] * local_18[0] + param_2[5] * local_18[1];
+  param_1[9] = local_c[0] * *param_2 + param_2[6] * local_c[2] + param_2[3] * local_c[1] +
+               param_2[9];
+  param_1[10] = param_2[4] * local_c[1] + param_2[1] * local_c[0] + param_2[7] * local_c[2] +
+                param_2[10];
+  param_1[0xb] = param_2[8] * local_c[2] + param_2[2] * local_c[0] + param_2[5] * local_c[1] +
+                 param_2[0xb];
   return;
 }
-#undef local_10
-#undef local_14
 #undef local_18
-#undef local_1c
-#undef local_20
 #undef local_24
-#undef local_28
 #undef local_2c
 #undef local_30
-#undef local_4
-#undef local_8
 #undef local_c
 
 #endif
 
 
 /* ---- 0x0044fe50  Matrix_BuildTransform ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Rotation then translation */
 
 void Matrix_BuildTransform(float *param_1,undefined4 param_2)
@@ -1179,12 +1040,8 @@ void Matrix_BuildTransform(float *param_1,undefined4 param_2)
 }
 #undef local_30
 
-#endif
-
 
 /* ---- 0x0044fe80  Matrix_SetTranslation ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void Matrix_SetTranslation(int param_1,float *param_2)
 
 {
@@ -1193,12 +1050,8 @@ void Matrix_SetTranslation(int param_1,float *param_2)
   *(float *)(param_1 + 0x2c) = param_2[2] + *(float *)(param_1 + 0x2c);
   return;
 }
-#endif
-
 
 /* ---- 0x0044feb0  Matrix_BuildTransform2 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void Matrix_BuildTransform2(float *param_1,undefined4 param_2)
 
 {
@@ -1211,12 +1064,8 @@ void Matrix_BuildTransform2(float *param_1,undefined4 param_2)
 }
 #undef local_30
 
-#endif
-
 
 /* ---- 0x0044fee0  Vec3_Copy ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void __cdecl Vec3_Copy(float *out,float *v,float *param_3)
 
 {
@@ -1225,12 +1074,8 @@ void __cdecl Vec3_Copy(float *out,float *v,float *param_3)
   out[2] = param_3[2] * *v + param_3[8] * v[2] + v[1] * param_3[5];
   return;
 }
-#endif
-
 
 /* ---- 0x0044ff50  Vec3_TransformTo ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void __cdecl Vec3_TransformTo(float *out,float *v,float *m)
 
 {
@@ -1239,8 +1084,6 @@ void __cdecl Vec3_TransformTo(float *out,float *v,float *m)
   out[2] = m[6] * *v + m[8] * v[2] + v[1] * m[7];
   return;
 }
-#endif
-
 
 /* ---- 0x0044ffc0  Vec3_Transform ---- */
 /* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
@@ -1286,8 +1129,6 @@ void __cdecl Vec3_Transform(float *vec,float *m)
 
 
 /* ---- 0x00450060  Vec3_Sub ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void __cdecl Vec3_Sub(float *out,float *a,float *b)
 
 {
@@ -1296,8 +1137,6 @@ void __cdecl Vec3_Sub(float *out,float *a,float *b)
   out[2] = b[2] * *a + b[8] * a[2] + a[1] * b[5] + b[0xb];
   return;
 }
-#endif
-
 
 /* ---- 0x004500d0  Vec3_Rotate3x3 ---- */
 /* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
@@ -1347,8 +1186,6 @@ void __cdecl Vec3_Rotate3x3(float *vec,float *m)
 
 
 /* ---- 0x00450170  Matrix_TransformPoints ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void __cdecl Matrix_TransformPoints(float *m,float *in,float *out,int count)
 
 {
@@ -1361,12 +1198,8 @@ void __cdecl Matrix_TransformPoints(float *m,float *in,float *out,int count)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x00450220  FUN_00450220 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 undefined4 FUN_00450220(undefined4 *param_1)
 
 {
@@ -1385,12 +1218,8 @@ undefined4 FUN_00450220(undefined4 *param_1)
   param_1[0xc] = 0;
   return 1;
 }
-#endif
-
 
 /* ---- 0x00450260  FUN_00450260 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void FUN_00450260(int param_1)
 
 {
@@ -1402,8 +1231,6 @@ void FUN_00450260(int param_1)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x00450290  Math3D_TriangleNormal ---- */
 /* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
@@ -1415,32 +1242,28 @@ void Math3D_TriangleNormal(float *param_1,float *param_2,float *param_3,float *p
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
+  #define local_18 (*(float *)(_frame + (0x30 - 0x18)))
+  #define local_14 (*(float (*)[2])(_frame + (0x30 - 0x14)))
+  #define local_c (*(float *)(_frame + (0x30 - 0xc)))
+  #define local_8 (*(float (*)[2])(_frame + (0x30 - 0x8)))
   
-  local_c = (uint)(*param_3 - *param_2);
-  local_18 = (uint)(*param_4 - *param_2);
-  local_8 = (uint)(param_3[1] - param_2[1]);
-  local_4 = (uint)(param_3[2] - param_2[2]);
-  local_14 = (uint)(param_4[1] - param_2[1]);
-  local_10 = (uint)(param_4[2] - param_2[2]);
-  Vec3_Normalize((float *)&local_c);
-  Vec3_Normalize((float *)&local_18);
-  *param_1 = (float)local_10 * (float)local_8 - (float)local_14 * (float)local_4;
-  param_1[1] = (float)local_18 * (float)local_4 - (float)local_10 * (float)local_c;
-  param_1[2] = (float)local_14 * (float)local_c - (float)local_18 * (float)local_8;
+  local_c = *param_3 - *param_2;
+  local_18 = *param_4 - *param_2;
+  local_8[0] = param_3[1] - param_2[1];
+  local_8[1] = param_3[2] - param_2[2];
+  local_14[0] = param_4[1] - param_2[1];
+  local_14[1] = param_4[2] - param_2[2];
+  Vec3_Normalize(&local_c);
+  Vec3_Normalize(&local_18);
+  *param_1 = local_14[1] * local_8[0] - local_14[0] * local_8[1];
+  param_1[1] = local_18 * local_8[1] - local_14[1] * local_c;
+  param_1[2] = local_14[0] * local_c - local_18 * local_8[0];
   Vec3_Normalize(param_1);
-  Vec3_ZeroSmallComponents(param_1,0x358637bd);
+  Vec3_ZeroSmallComponents(param_1,FBITS(0x358637bd));
   return;
 }
-#undef local_10
 #undef local_14
 #undef local_18
-#undef local_4
 #undef local_8
 #undef local_c
 
@@ -1448,8 +1271,6 @@ void Math3D_TriangleNormal(float *param_1,float *param_2,float *param_3,float *p
 
 
 /* ---- 0x00450380  Vec3_ZeroSmallComponents ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Sets every component whose magnitude is below the epsilon argument to 0. */
 
 void Vec3_ZeroSmallComponents(float *param_1,float param_2)
@@ -1490,12 +1311,8 @@ void Vec3_ZeroSmallComponents(float *param_1,float param_2)
   param_1[2] = param_1[2];
   return;
 }
-#endif
-
 
 /* ---- 0x00450410  Math3D_PointsCollinear ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* True when the normalised edges p1-p0 and p2-p0 are parallel (|dot| within 0.999..1.001). */
 
 undefined4 Math3D_PointsCollinear(float *param_1,float *param_2,float *param_3)
@@ -1503,23 +1320,20 @@ undefined4 Math3D_PointsCollinear(float *param_1,float *param_2,float *param_3)
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
-  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
+  #define local_18 (*(float *)(_frame + (0x30 - 0x18)))
+  #define local_14 (*(float (*)[2])(_frame + (0x30 - 0x14)))
+  #define local_c (*(float *)(_frame + (0x30 - 0xc)))
+  #define local_8 (*(float (*)[2])(_frame + (0x30 - 0x8)))
   
-  local_c = (uint)(*param_2 - *param_1);
-  local_18 = (uint)(*param_3 - *param_1);
-  local_8 = (uint)(param_2[1] - param_1[1]);
-  local_4 = (uint)(param_2[2] - param_1[2]);
-  local_14 = (uint)(param_3[1] - param_1[1]);
-  local_10 = (uint)(param_3[2] - param_1[2]);
-  Vec3_Normalize((float *)&local_c);
-  Vec3_Normalize((float *)&local_18);
-  fVar1 = (float)local_10 * (float)local_4 +
-          (float)local_14 * (float)local_8 + (float)local_18 * (float)local_c;
+  local_c = *param_2 - *param_1;
+  local_18 = *param_3 - *param_1;
+  local_8[0] = param_2[1] - param_1[1];
+  local_8[1] = param_2[2] - param_1[2];
+  local_14[0] = param_3[1] - param_1[1];
+  local_14[1] = param_3[2] - param_1[2];
+  Vec3_Normalize(&local_c);
+  Vec3_Normalize(&local_18);
+  fVar1 = local_14[1] * local_8[1] + local_14[0] * local_8[0] + local_18 * local_c;
   if (fVar1 < 0.0) {
     fVar1 = -fVar1;
   }
@@ -1528,12 +1342,8 @@ undefined4 Math3D_PointsCollinear(float *param_1,float *param_2,float *param_3)
   }
   return 0;
 }
-#undef local_10
 #undef local_14
 #undef local_18
-#undef local_4
 #undef local_8
 #undef local_c
-
-#endif
 

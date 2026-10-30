@@ -75,13 +75,11 @@ int EngineModule_Start(void)
     }
     iVar1 = Plat_GetPhysicalMemory();
     if (iVar1 < 0x1000001) {
-      iMUSE_DeclareBufferSizes
-                (88000,44000,88000,440000,44000,0x55f00,100000,1,0xac44,2,300000,6,150000);
+      iMUSE_DeclareBufferSizes(88000,44000,88000,440000,44000,0x55f00,100000,1,0xac44,2,300000,6);
       budget = 0xa00000;
     }
     else {
-      iMUSE_DeclareBufferSizes
-                (88000,44000,88000,440000,44000,0x55f00,100000,1,0xac44,2,300000,9,150000);
+      iMUSE_DeclareBufferSizes(88000,44000,88000,440000,44000,0x55f00,100000,1,0xac44,2,300000,9);
       iVar1 = Plat_GetPhysicalMemory();
       budget = UINT_004e7b20;
       if (iVar1 - (int)IMG_ADDR(0x00800000) <= (int)UINT_004e7b20) {
@@ -90,7 +88,7 @@ int EngineModule_Start(void)
       }
     }
     Resource_SetMemoryUsage(budget,0);
-    Sounds_PlatformDevice(g_pDirectSound);
+    Sounds_PlatformDevice((int)g_pDirectSound);
     iVar1 = Engine_InitSubsystems(&DAT_008a8778,6);
   }
   UINT_008a8c5c = (uint)(iVar1 == 0);

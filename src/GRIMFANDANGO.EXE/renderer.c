@@ -6,20 +6,14 @@
 #include "functions.h"
 
 /* ---- 0x0040a870  Renderer_EnableClipPlane ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void Renderer_EnableClipPlane(uint param_1)
 
 {
   UINT_007f3204 = param_1;
   return;
 }
-#endif
-
 
 /* ---- 0x0040a880  Renderer_SetClipPlane ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 void Renderer_SetClipPlane(undefined4 *param_1,undefined4 *param_2)
@@ -33,5 +27,3 @@ void Renderer_SetClipPlane(undefined4 *param_1,undefined4 *param_2)
   _DAT_007f3210 = param_2[2];
   return;
 }
-#endif
-

@@ -280,10 +280,13 @@ def select(prog):
                 if not (f.get("isThunk") or f.get("isExternal") or f["name"] in build_src.OVERRIDES)
                 and f["address"] not in crt_addrs]
         out = [a for a in out if a not in crt_addrs or a in keep]
-    ep = os.path.join(ROOT, "names", "asm_exclude.json")  # applies to every selection mode
-    if os.path.exists(ep):
-        skip = set(json.load(open(ep)).get(prog, []))
-        out = [a for a in out if a not in skip]
+    # applies to every selection mode; names/asm_exclude*.json (asm_exclude.json = functions that broke when
+    # assembled, asm_exclude_<topic>.json = functions converted back to C, kept in separate files so that
+    # parallel work merges)
+    skip = set()
+    for ep in sorted(glob.glob(os.path.join(ROOT, "names", "asm_exclude*.json"))):
+        skip |= set(json.load(open(ep)).get(prog, []))
+    out = [a for a in out if a not in skip]
     # a function written by hand in build/overrides.c must not also be assembled (duplicate symbol)
     hand = {f["address"] for f in json.load(open(os.path.join(raw, "functions.json"))) if f["name"] in build_src.OVERRIDES}
     out = [a for a in out if a not in hand]

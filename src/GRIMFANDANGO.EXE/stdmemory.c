@@ -79,8 +79,6 @@ void __cdecl stdMemory_Free(void *p)
 }
 
 /* ---- 0x0047ff70  stdMemory_Realloc ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void * __cdecl stdMemory_Realloc(void *p,uint size,char *file,int line)
 
 {
@@ -120,5 +118,3 @@ void * __cdecl stdMemory_Realloc(void *p,uint size,char *file,int line)
   stdMemory_Free(p);
   return puVar2;
 }
-#endif
-

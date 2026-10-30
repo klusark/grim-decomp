@@ -6,8 +6,6 @@
 #include "functions.h"
 
 /* ---- 0x00406650  rdCache_BeginScene3D ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void rdCache_BeginScene3D(void)
 
 {
@@ -17,12 +15,8 @@ void rdCache_BeginScene3D(void)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x00406660  rdCache_EndScene3D ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void rdCache_EndScene3D(void)
 
 {
@@ -32,12 +26,8 @@ void rdCache_EndScene3D(void)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x00406670  rdCache_Reset ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Empties the 1024-entry mesh list (0x78 bytes each at g_RdCacheMeshes) and the vertex/uv/colour
    pools */
 
@@ -50,12 +40,8 @@ void rdCache_Reset(void)
   UINT_007f0fc4 = 0;
   return;
 }
-#endif
-
 
 /* ---- 0x00406690  rdCache_ClearStats ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 void rdCache_ClearStats(void)
@@ -64,12 +50,8 @@ void rdCache_ClearStats(void)
   _DAT_007f0fb8 = 0;
   return;
 }
-#endif
-
 
 /* ---- 0x004066a0  rdCache_AllocMesh ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Returns the next free cached-mesh record, flushing first when the list or a 0x8000-entry pool is
    full */
 
@@ -101,12 +83,8 @@ undefined1 * rdCache_AllocMesh(void)
   (&UINT_008ddff4)[uVar2 * 0x1e] = (uint)(&DAT_006d0fb0 + UINT_007f0fc4 * 4);
   return &DAT_008ddfc0 + iVar1;
 }
-#endif
-
 
 /* ---- 0x00406770  rdCache_Flush ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Sorts (sort mode 2) and draws every cached mesh with the software or 3D path chosen by the
    occlusion/zbuffer modes */
@@ -169,8 +147,6 @@ void rdCache_Flush(void)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x00406860  rdCache_AddMesh ---- */
 /* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
@@ -193,9 +169,7 @@ int __cdecl rdCache_AddMesh(void *mesh,uint vertexCount,byte flags)
   undefined4 unaff_ESI;
   undefined4 unaff_EDI;
   longlong lVar10;
-  #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  #define local_10 (*(float (*)[3])(_frame + (0x20 - 0x10)))
   
   uVar7 = g_dwRdCacheMeshCount;
   if (0x3ff < g_dwRdCacheMeshCount) {
@@ -206,7 +180,7 @@ int __cdecl rdCache_AddMesh(void *mesh,uint vertexCount,byte flags)
   *(void **)(&DAT_008ddfc0 + iVar1) = mesh;
   (&UINT_008ddfdc)[uVar7 * 0x1e] = vertexCount;
   *(uint *)(&DAT_008de034 + iVar1) = UINT_00900054;
-  local_c = (uint)*pfVar4;
+  local_10[1] = *pfVar4;
   fVar2 = pfVar4[1];
   *(undefined4 *)(&DAT_008de030 + iVar1) = 0;
   *(undefined4 *)(&DAT_008de02c + iVar1) = 0;
@@ -214,22 +188,22 @@ int __cdecl rdCache_AddMesh(void *mesh,uint vertexCount,byte flags)
   uVar9 = 1;
   *(float *)(&DAT_008de028 + iVar1) = fVar3;
   *(float *)(&DAT_008de024 + iVar1) = fVar3;
-  local_10 = (uint)fVar2;
-  local_8 = local_c;
+  local_10[0] = fVar2;
+  local_10[2] = local_10[1];
   if (1 < vertexCount) {
     do {
       fVar3 = pfVar4[3];
       fVar5 = pfVar4[4];
       fVar6 = pfVar4[5];
       fVar8 = fVar3;
-      if (((float)local_8 <= fVar3) && (fVar8 = (float)local_8, (float)local_c <= fVar3)) {
-        local_c = (uint)fVar3;
+      if ((local_10[2] <= fVar3) && (fVar8 = local_10[2], local_10[1] <= fVar3)) {
+        local_10[1] = fVar3;
       }
-      local_8 = (uint)fVar8;
+      local_10[2] = fVar8;
       if (fVar2 <= fVar5) {
-        if ((float)local_10 < fVar5) {
+        if (local_10[0] < fVar5) {
           *(uint *)(&DAT_008de030 + iVar1) = uVar9;
-          local_10 = (uint)fVar5;
+          local_10[0] = fVar5;
         }
       }
       else {
@@ -248,8 +222,8 @@ int __cdecl rdCache_AddMesh(void *mesh,uint vertexCount,byte flags)
       pfVar4 = pfVar4 + 3;
     } while (uVar9 < vertexCount);
   }
-  if ((float)local_8 < (float)local_c) {
-    if (fVar2 < (float)local_10) {
+  if (local_10[2] < local_10[1]) {
+    if (fVar2 < local_10[0]) {
       lVar10 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
       *(int *)(&DAT_008de014 + iVar1) = (int)lVar10;
       lVar10 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
@@ -288,8 +262,6 @@ int __cdecl rdCache_AddMesh(void *mesh,uint vertexCount,byte flags)
   return 0;
 }
 #undef local_10
-#undef local_8
-#undef local_c
 
 #endif
 
@@ -325,9 +297,7 @@ undefined4 rdCache_DrawMeshList3D(void)
   uint uVar15;
   longlong lVar16;
   longlong lVar17;
-  #define local_7c (*(uint *)(_frame + (0x90 - 0x7c)))
-  #define local_78 (*(uint *)(_frame + (0x90 - 0x78)))
-  #define local_74 (*(uint *)(_frame + (0x90 - 0x74)))
+  #define local_7c (*(float (*)[3])(_frame + (0x90 - 0x7c)))
   #define local_70 (*(uint *)(_frame + (0x90 - 0x70)))
   #define local_6c (*(uint *)(_frame + (0x90 - 0x6c)))
   #define local_68 (*(uint *)(_frame + (0x90 - 0x68)))
@@ -348,7 +318,7 @@ undefined4 rdCache_DrawMeshList3D(void)
   #define local_2c (*(uint *)(_frame + (0x90 - 0x2c)))
   #define local_28 (*(uint *)(_frame + (0x90 - 0x28)))
   #define local_24 (*(uint *)(_frame + (0x90 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x90 - 0x20)))
+  #define local_20 (*(float *)(_frame + (0x90 - 0x20)))
   #define local_1c (*(uint *)(_frame + (0x90 - 0x1c)))
   #define local_18 (*(uint *)(_frame + (0x90 - 0x18)))
   #define local_14 (*(uint *)(_frame + (0x90 - 0x14)))
@@ -374,7 +344,7 @@ undefined4 rdCache_DrawMeshList3D(void)
   if (((0.0 < _DAT_0090002c) || (0.0 < _DAT_00900030)) || (0.0 < _DAT_00900034)) {
     bVar5 = true;
     bVar8 = true;
-    local_20 = (uint)(_DAT_0090002c * 0.5);
+    local_20 = _DAT_0090002c * 0.5;
   }
   if (((UINT_00900020 != 0) || (UINT_00900024 != 0)) || (UINT_00900028 != 0)) {
     bVar6 = true;
@@ -426,17 +396,17 @@ undefined4 rdCache_DrawMeshList3D(void)
       local_24 = 0xff;
       local_4c = 1;
     }
-    local_20 = *(uint *)(puVar14 + 0x38);
-    if (local_20 != 0) {
+    local_20 = *(float *)(puVar14 + 0x38);
+    if (local_20 != 0.0) {
       iVar11 = *(int *)(puVar14 + 0x3c);
       if (iVar11 == -1) {
-        iVar11 = *(int *)(local_20 + 100);
+        iVar11 = *(int *)((int)local_20 + 100);
         if (iVar11 < 0) {
 LAB_00406cbf:
           iVar11 = 0;
         }
         else {
-          iVar12 = *(int *)(local_20 + 0x60) + -1;
+          iVar12 = *(int *)((int)local_20 + 0x60) + -1;
           if (iVar12 < iVar11) {
             iVar11 = iVar12;
           }
@@ -444,12 +414,12 @@ LAB_00406cbf:
       }
       else {
         if (iVar11 < 0) goto LAB_00406cbf;
-        iVar12 = *(int *)(local_20 + 0x60) + -1;
+        iVar12 = *(int *)((int)local_20 + 0x60) + -1;
         if (iVar12 < iVar11) {
           iVar11 = iVar12;
         }
       }
-      local_2c = *(undefined4 *)(local_20 + 0x68 + iVar11 * 4);
+      local_2c = *(undefined4 *)((int)local_20 + 0x68 + iVar11 * 4);
       if ((local_8 == 4) && ((*(byte *)local_2c & 8) == 0)) {
         local_8 = 3;
       }
@@ -508,12 +478,12 @@ LAB_00406d8d:
         if (material[uVar15 * 0x26 + 0x29] == 0) {
           Display_SetPalette3D((void *)(*(int *)(puVar14 + 0x4c) + 0x30),0x5a);
         }
-        iVar11 = rdMaterial_EnsureTexture((void *)local_20,material,uVar15,local_4c);
+        iVar11 = rdMaterial_EnsureTexture(PUN(void *,(float)local_20),material,uVar15,local_4c);
         if (iVar11 == 0) {
           rdCache_Flush3DBatch();
           rdCache_Begin3DBatch();
           D3D_ResetTextures();
-          iVar11 = rdMaterial_EnsureTexture((void *)local_20,material,uVar15,local_4c);
+          iVar11 = rdMaterial_EnsureTexture(PUN(void *,(float)local_20),material,uVar15,local_4c);
           if (iVar11 == 0) {
             return 0;
           }
@@ -528,8 +498,8 @@ LAB_00406d8d:
         D3D_ClampTextureSize
                   (*(undefined4 *)(material[uVar15 + 7] + 0xc),
                    *(undefined4 *)(material[uVar15 + 7] + 0x10),&local_38,&local_3c);
-        local_7c = (uint)(float)(local_38 << ((byte)uVar15 & 0x1f));
-        local_78 = (uint)(float)(local_3c << ((byte)uVar15 & 0x1f));
+        local_7c[0] = (float)(local_38 << ((byte)uVar15 & 0x1f));
+        local_7c[1] = (float)(local_3c << ((byte)uVar15 & 0x1f));
       }
       if (local_8 == 3) {
         fVar3 = (float)local_c;
@@ -721,7 +691,7 @@ LAB_00407a22:
         }
         local_8 = 0;
         if (*(int *)(puVar14 + 0x1c) != 0) {
-          local_20 = local_24 << 8;
+          local_20 = (float)(local_24 << 8);
           local_24 = 0;
           do {
             iVar11 = *(int *)(puVar14 + 0x20);
@@ -840,7 +810,7 @@ LAB_00407a22:
             local_18 = local_18 & 0xff;
             UINT_0068bfa8 = UINT_0068bfa8 + 1;
             *(uint *)(&DAT_006f0fc8 + iVar12) =
-                 ((local_1c | local_20) << 8 | local_10) << 8 | local_18;
+                 ((local_1c | (uint)local_20) << 8 | local_10) << 8 | local_18;
             uVar15 = *(uint *)(puVar14 + 0x1c);
             *(undefined4 *)(&DAT_006f0fd0 + iVar12) = 0;
             *(undefined4 *)(&DAT_006f0fd4 + iVar12) = 0;
@@ -859,14 +829,14 @@ LAB_00407a22:
           *(undefined4 *)(&DAT_00606fb0 + iVar11) = 0;
         }
         else {
-          local_20 = uVar15 - 2;
+          local_20 = (float)(uVar15 - 2);
           uVar13 = 0;
           local_34 = uVar15 - 1;
           uVar15 = 0;
           local_8 = 1;
           if (0 < (int)local_20) {
             piVar10 = (int *)(&DAT_00606fa4 + UINT_006f0fb0 * 0x14);
-            UINT_006f0fb0 = UINT_006f0fb0 + local_20;
+            UINT_006f0fb0 = UINT_006f0fb0 + (int)local_20;
             do {
               piVar10[1] = uVar13 + uVar9;
               *piVar10 = local_8 + uVar9;
@@ -1055,7 +1025,7 @@ LAB_004071fa:
         local_8 = 0;
         if (*(int *)(puVar14 + 0x1c) != 0) {
           local_2c = *(uint *)(puVar14 + 0x20);
-          local_20 = local_24 << 8;
+          local_20 = (float)(local_24 << 8);
           local_24 = 0;
           do {
             iVar11 = *(int *)(puVar14 + 0x20);
@@ -1178,14 +1148,14 @@ LAB_004071fa:
             local_18 = local_18 & 0xff;
             iVar2 = *(int *)(puVar14 + 0x24);
             *(uint *)(&DAT_006f0fc8 + local_14) =
-                 ((local_1c | local_20) << 8 | local_10) << 8 | local_18;
+                 ((local_1c | (uint)local_20) << 8 | local_10) << 8 | local_18;
             iVar11 = local_8 * 8;
             iVar12 = local_8 * 8;
             UINT_0068bfa8 = UINT_0068bfa8 + 1;
             local_8 = local_8 + 1;
-            *(float *)(&DAT_006f0fd0 + local_14) = *(float *)(iVar2 + iVar11) / (float)local_7c;
+            *(float *)(&DAT_006f0fd0 + local_14) = *(float *)(iVar2 + iVar11) / local_7c[0];
             uVar15 = *(uint *)(puVar14 + 0x1c);
-            *(float *)(&DAT_006f0fd4 + local_14) = *(float *)(iVar2 + iVar12 + 4) / (float)local_78;
+            *(float *)(&DAT_006f0fd4 + local_14) = *(float *)(iVar2 + iVar12 + 4) / local_7c[1];
             local_24 = local_24 + 0xc;
           } while (local_8 < uVar15);
         }
@@ -1200,14 +1170,14 @@ LAB_004071fa:
           *(uint *)(&DAT_006cbfc0 + iVar11) = local_40;
         }
         else {
-          local_20 = uVar15 - 2;
+          local_20 = (float)(uVar15 - 2);
           uVar13 = 0;
           local_34 = uVar15 - 1;
           uVar15 = 0;
           local_8 = 1;
           if (0 < (int)local_20) {
             piVar10 = (int *)(&DAT_006cbfb4 + UINT_0060bfa0 * 0x14);
-            UINT_0060bfa0 = UINT_0060bfa0 + local_20;
+            UINT_0060bfa0 = UINT_0060bfa0 + (int)local_20;
             do {
               piVar10[1] = uVar13 + uVar9;
               *piVar10 = local_8 + uVar9;
@@ -1263,8 +1233,6 @@ LAB_00407e89:
 #undef local_68
 #undef local_6c
 #undef local_70
-#undef local_74
-#undef local_78
 #undef local_7c
 #undef local_8
 #undef local_c
@@ -1273,8 +1241,6 @@ LAB_00407e89:
 
 
 /* ---- 0x00407ed0  rdCache_Begin3DBatch ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void rdCache_Begin3DBatch(void)
 
 {
@@ -1284,12 +1250,8 @@ void rdCache_Begin3DBatch(void)
   UINT_0068bfa8 = 0;
   return;
 }
-#endif
-
 
 /* ---- 0x00407ef0  rdCache_Flush3DBatch ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void rdCache_Flush3DBatch(void)
 
 {
@@ -1316,12 +1278,8 @@ void rdCache_Flush3DBatch(void)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x00407f90  rdCache_CompareBatchEntries ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* qsort comparator of rdCache_Flush3DBatch: orders entries by material, then by their position in
    the list. */
 
@@ -1336,8 +1294,6 @@ int rdCache_CompareBatchEntries(int param_1,int param_2)
   }
   return (-(uint)(iVar1 != 0) & 2) - 1;
 }
-#endif
-
 
 /* ---- 0x00407fd0  rdCache_DrawMesh ---- */
 /* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
@@ -1360,7 +1316,7 @@ int __cdecl rdCache_DrawMesh(void *mesh)
   int iVar9;
   int iVar10;
   byte *pbVar11;
-  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
+  #define local_4 (*(float *)(_frame + (0x20 - 0x4)))
   
   pvVar5 = mesh;
   iVar8 = *(int *)((int)mesh + 8);
@@ -1410,10 +1366,10 @@ LAB_0040804e:
   }
 LAB_00408067:
   if (((byte)g_dwRdroidFlags & 2) == 0) {
-    local_4 = 0;
+    local_4 = 0.0;
   }
   else {
-    local_4 = *(uint *)((int)pvVar5 + 0x40);
+    local_4 = *(float *)((int)pvVar5 + 0x40);
   }
   switch(iVar8) {
   case 1:
@@ -1447,18 +1403,18 @@ LAB_00408067:
       else {
         fVar1 = *(float *)((int)pvVar5 + 0x48);
       }
-      if ((float)local_4 < fVar1) {
+      if (local_4 < fVar1) {
         if (*(float *)((int)pvVar5 + 0x48) < 0.0) {
-          local_4 = 0;
+          local_4 = 0.0;
         }
         else if (1.0 < *(float *)((int)pvVar5 + 0x48)) {
-          local_4 = 0x3f800000;
+          local_4 = 1.0;
         }
         else {
-          local_4 = *(uint *)((int)pvVar5 + 0x48);
+          local_4 = *(float *)((int)pvVar5 + 0x48);
         }
       }
-      fVar1 = (float)local_4 * 63.0;
+      fVar1 = local_4 * 63.0;
       *(float *)((int)pvVar5 + 0x44) = fVar1;
       if ((*(byte *)((int)pvVar5 + 4) & 2) == 0) {
         rdRaster_Draw16_FlatLit_2(pvVar5,pbVar11,fVar1);
@@ -1477,18 +1433,18 @@ LAB_00408067:
           fVar3 = 1.0;
         }
       }
-      if ((float)local_4 < fVar3) {
+      if (local_4 < fVar3) {
         if (fVar1 < 0.0) {
-          local_4 = (uint)0.0;
+          local_4 = 0.0;
         }
         else {
-          local_4 = (uint)fVar1;
+          local_4 = fVar1;
           if (1.0 < fVar1) {
-            local_4 = (uint)1.0;
+            local_4 = 1.0;
           }
         }
       }
-      fVar1 = (float)local_4 * 63.0;
+      fVar1 = local_4 * 63.0;
       *(float *)((int)pvVar5 + 0x44) = fVar1;
       if ((*(byte *)((int)pvVar5 + 4) & 2) == 0) {
         rdRaster_Draw16_FlatLit_2(pvVar5,pbVar11,fVar1);
@@ -1512,8 +1468,8 @@ LAB_00408067:
               fVar3 = 1.0;
             }
           }
-          fVar4 = (float)local_4;
-          if ((float)local_4 < fVar3) {
+          fVar4 = local_4;
+          if (local_4 < fVar3) {
             if (fVar1 < 0.0) {
               fVar4 = 0.0;
             }
@@ -1564,18 +1520,18 @@ LAB_00408067:
         else {
           fVar1 = *(float *)((int)pvVar5 + 0x48);
         }
-        if ((float)local_4 < fVar1) {
+        if (local_4 < fVar1) {
           if (*(float *)((int)pvVar5 + 0x48) < 0.0) {
-            local_4 = 0;
+            local_4 = 0.0;
           }
           else if (1.0 < *(float *)((int)pvVar5 + 0x48)) {
-            local_4 = 0x3f800000;
+            local_4 = 1.0;
           }
           else {
-            local_4 = *(uint *)((int)pvVar5 + 0x48);
+            local_4 = *(float *)((int)pvVar5 + 0x48);
           }
         }
-        fVar1 = (float)local_4 * 63.0;
+        fVar1 = local_4 * 63.0;
         *(float *)((int)pvVar5 + 0x44) = fVar1;
         if ((**(byte **)(pbVar11 + 0x1c) & 1) == 0) {
           if ((*(byte *)((int)pvVar5 + 4) & 2) == 0) {
@@ -1602,18 +1558,18 @@ LAB_00408067:
             fVar3 = 1.0;
           }
         }
-        if ((float)local_4 < fVar3) {
+        if (local_4 < fVar3) {
           if (fVar1 < 0.0) {
-            local_4 = (uint)0.0;
+            local_4 = 0.0;
           }
           else {
-            local_4 = (uint)fVar1;
+            local_4 = fVar1;
             if (1.0 < fVar1) {
-              local_4 = (uint)1.0;
+              local_4 = 1.0;
             }
           }
         }
-        fVar1 = (float)local_4 * 63.0;
+        fVar1 = local_4 * 63.0;
         *(float *)((int)pvVar5 + 0x44) = fVar1;
         if ((**(byte **)(pbVar11 + 0x1c) & 1) == 0) {
           if ((*(byte *)((int)pvVar5 + 4) & 2) == 0) {
@@ -1645,8 +1601,8 @@ LAB_00408067:
                 fVar3 = 1.0;
               }
             }
-            fVar4 = (float)local_4;
-            if ((float)local_4 < fVar3) {
+            fVar4 = local_4;
+            if (local_4 < fVar3) {
               if (fVar1 < 0.0) {
                 fVar4 = 0.0;
               }
@@ -1703,18 +1659,18 @@ LAB_00408067:
         else {
           fVar1 = *(float *)((int)pvVar5 + 0x48);
         }
-        if ((float)local_4 < fVar1) {
+        if (local_4 < fVar1) {
           if (*(float *)((int)pvVar5 + 0x48) < 0.0) {
-            local_4 = 0;
+            local_4 = 0.0;
           }
           else if (1.0 < *(float *)((int)pvVar5 + 0x48)) {
-            local_4 = 0x3f800000;
+            local_4 = 1.0;
           }
           else {
-            local_4 = *(uint *)((int)pvVar5 + 0x48);
+            local_4 = *(float *)((int)pvVar5 + 0x48);
           }
         }
-        fVar1 = (float)local_4 * 63.0;
+        fVar1 = local_4 * 63.0;
         *(float *)((int)pvVar5 + 0x44) = fVar1;
         if ((**(byte **)(pbVar11 + 0x1c) & 1) == 0) {
           if ((*(byte *)((int)pvVar5 + 4) & 2) == 0) {
@@ -1741,18 +1697,18 @@ LAB_00408067:
             fVar3 = 1.0;
           }
         }
-        if ((float)local_4 < fVar3) {
+        if (local_4 < fVar3) {
           if (fVar1 < 0.0) {
-            local_4 = (uint)0.0;
+            local_4 = 0.0;
           }
           else {
-            local_4 = (uint)fVar1;
+            local_4 = fVar1;
             if (1.0 < fVar1) {
-              local_4 = (uint)1.0;
+              local_4 = 1.0;
             }
           }
         }
-        fVar1 = (float)local_4 * 63.0;
+        fVar1 = local_4 * 63.0;
         *(float *)((int)pvVar5 + 0x44) = fVar1;
         if ((**(byte **)(pbVar11 + 0x1c) & 1) == 0) {
           if ((*(byte *)((int)pvVar5 + 4) & 2) == 0) {
@@ -1784,8 +1740,8 @@ LAB_00408067:
                 fVar3 = 1.0;
               }
             }
-            fVar4 = (float)local_4;
-            if ((float)local_4 < fVar3) {
+            fVar4 = local_4;
+            if (local_4 < fVar3) {
               if (fVar1 < 0.0) {
                 fVar4 = 0.0;
               }
@@ -1825,16 +1781,12 @@ LAB_00408067:
 
 
 /* ---- 0x00408800  FUN_00408800 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 undefined4 FUN_00408800(void)
 
 {
   ((code *)rdRaster_Draw16_TexLit_6)();
   return 1;
 }
-#endif
-
 
 /* ---- 0x00408af0  rdCache_DrawMeshZ ---- */
 /* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
@@ -1856,7 +1808,7 @@ int __cdecl rdCache_DrawMeshZ(void *mesh)
   int iVar9;
   byte *pbVar10;
   float fVar11;
-  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
+  #define local_4 (*(float *)(_frame + (0x20 - 0x4)))
   
   pvVar4 = mesh;
   iVar7 = *(int *)((int)mesh + 8);
@@ -1906,10 +1858,10 @@ LAB_00408b6e:
     }
   }
   if (((byte)g_dwRdroidFlags & 2) == 0) {
-    local_4 = 0;
+    local_4 = 0.0;
   }
   else {
-    local_4 = *(uint *)((int)pvVar4 + 0x40);
+    local_4 = *(float *)((int)pvVar4 + 0x40);
   }
   switch(iVar7) {
   case 1:
@@ -1952,18 +1904,18 @@ LAB_00408b6e:
           fVar2 = 1.0;
         }
       }
-      if ((float)local_4 < fVar2) {
+      if (local_4 < fVar2) {
         if (fVar11 < 0.0) {
-          local_4 = (uint)0.0;
+          local_4 = 0.0;
         }
         else {
-          local_4 = (uint)fVar11;
+          local_4 = fVar11;
           if (1.0 < fVar11) {
-            local_4 = (uint)1.0;
+            local_4 = 1.0;
           }
         }
       }
-      fVar11 = (float)local_4 * 63.0;
+      fVar11 = local_4 * 63.0;
       *(float *)((int)pvVar4 + 0x44) = fVar11;
       if ((*(byte *)((int)pvVar4 + 4) & 2) != 0) {
         rdRaster_Draw_TexLitZ_2(pvVar4,pbVar10,fVar11);
@@ -1986,8 +1938,8 @@ LAB_00408b6e:
               fVar2 = 1.0;
             }
           }
-          fVar3 = (float)local_4;
-          if ((float)local_4 < fVar2) {
+          fVar3 = local_4;
+          if (local_4 < fVar2) {
             if (fVar11 < 0.0) {
               fVar3 = 0.0;
             }
@@ -2041,18 +1993,18 @@ LAB_00408b6e:
         else {
           fVar11 = *(float *)((int)pvVar4 + 0x48);
         }
-        if ((float)local_4 < fVar11) {
+        if (local_4 < fVar11) {
           if (*(float *)((int)pvVar4 + 0x48) < 0.0) {
-            local_4 = 0;
+            local_4 = 0.0;
           }
           else if (1.0 < *(float *)((int)pvVar4 + 0x48)) {
-            local_4 = 0x3f800000;
+            local_4 = 1.0;
           }
           else {
-            local_4 = *(uint *)((int)pvVar4 + 0x48);
+            local_4 = *(float *)((int)pvVar4 + 0x48);
           }
         }
-        fVar11 = (float)local_4 * 63.0;
+        fVar11 = local_4 * 63.0;
         *(float *)((int)pvVar4 + 0x44) = fVar11;
         if ((**(byte **)(pbVar10 + 0x1c) & 1) == 0) {
           if ((*(byte *)((int)pvVar4 + 4) & 2) == 0) {
@@ -2079,18 +2031,18 @@ LAB_00408b6e:
             fVar2 = 1.0;
           }
         }
-        if ((float)local_4 < fVar2) {
+        if (local_4 < fVar2) {
           if (fVar11 < 0.0) {
-            local_4 = (uint)0.0;
+            local_4 = 0.0;
           }
           else {
-            local_4 = (uint)fVar11;
+            local_4 = fVar11;
             if (1.0 < fVar11) {
-              local_4 = (uint)1.0;
+              local_4 = 1.0;
             }
           }
         }
-        fVar11 = (float)local_4 * 63.0;
+        fVar11 = local_4 * 63.0;
         *(float *)((int)pvVar4 + 0x44) = fVar11;
         if ((**(byte **)(pbVar10 + 0x1c) & 1) == 0) {
           if ((*(byte *)((int)pvVar4 + 4) & 2) == 0) {
@@ -2122,8 +2074,8 @@ LAB_00408b6e:
                 fVar2 = 1.0;
               }
             }
-            fVar3 = (float)local_4;
-            if ((float)local_4 < fVar2) {
+            fVar3 = local_4;
+            if (local_4 < fVar2) {
               if (fVar11 < 0.0) {
                 fVar3 = 0.0;
               }
@@ -2180,18 +2132,18 @@ LAB_00408b6e:
         else {
           fVar11 = *(float *)((int)pvVar4 + 0x48);
         }
-        if ((float)local_4 < fVar11) {
+        if (local_4 < fVar11) {
           if (*(float *)((int)pvVar4 + 0x48) < 0.0) {
-            local_4 = 0;
+            local_4 = 0.0;
           }
           else if (1.0 < *(float *)((int)pvVar4 + 0x48)) {
-            local_4 = 0x3f800000;
+            local_4 = 1.0;
           }
           else {
-            local_4 = *(uint *)((int)pvVar4 + 0x48);
+            local_4 = *(float *)((int)pvVar4 + 0x48);
           }
         }
-        fVar11 = (float)local_4 * 63.0;
+        fVar11 = local_4 * 63.0;
         *(float *)((int)pvVar4 + 0x44) = fVar11;
         if ((**(byte **)(pbVar10 + 0x1c) & 1) == 0) {
           if ((*(byte *)((int)pvVar4 + 4) & 2) == 0) {
@@ -2218,18 +2170,18 @@ LAB_00408b6e:
             fVar2 = 1.0;
           }
         }
-        if ((float)local_4 < fVar2) {
+        if (local_4 < fVar2) {
           if (fVar11 < 0.0) {
-            local_4 = (uint)0.0;
+            local_4 = 0.0;
           }
           else {
-            local_4 = (uint)fVar11;
+            local_4 = fVar11;
             if (1.0 < fVar11) {
-              local_4 = (uint)1.0;
+              local_4 = 1.0;
             }
           }
         }
-        fVar11 = (float)local_4 * 63.0;
+        fVar11 = local_4 * 63.0;
         *(float *)((int)pvVar4 + 0x44) = fVar11;
         if ((**(byte **)(pbVar10 + 0x1c) & 1) == 0) {
           if ((*(byte *)((int)pvVar4 + 4) & 2) == 0) {
@@ -2261,8 +2213,8 @@ LAB_00408b6e:
                 fVar2 = 1.0;
               }
             }
-            fVar3 = (float)local_4;
-            if ((float)local_4 < fVar2) {
+            fVar3 = local_4;
+            if (local_4 < fVar2) {
               if (fVar11 < 0.0) {
                 fVar3 = 0.0;
               }

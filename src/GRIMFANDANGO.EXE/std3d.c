@@ -6,8 +6,6 @@
 #include "functions.h"
 
 /* ---- 0x00478230  D3D_Enumerate ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Queries IDirect3D from DirectDraw and enumerates the 3D drivers into g_D3dDrivers (0x22c bytes
    each) */
 
@@ -37,12 +35,8 @@ undefined4 D3D_Enumerate(void)
   UINT_0080696c = 1;
   return 1;
 }
-#endif
-
 
 /* ---- 0x004782b0  D3D_Release ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void D3D_Release(void)
 
 {
@@ -52,8 +46,6 @@ void D3D_Release(void)
   UINT_0080696c = 0;
   return;
 }
-#endif
-
 
 /* ---- 0x004782d0  D3D_IsAvailable ---- */
 uint D3D_IsAvailable(void)
@@ -63,8 +55,6 @@ uint D3D_IsAvailable(void)
 }
 
 /* ---- 0x004782e0  D3D_SelectDriver ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Creates the Direct3D device, z-buffer, viewport, execute buffer and picks the texture formats */
 
@@ -201,12 +191,8 @@ int __cdecl D3D_SelectDriver(uint driverIdx,int useZBuffer)
 #undef uStack_74
 #undef uStack_a4
 
-#endif
-
 
 /* ---- 0x00478660  D3D_ReleaseDriver ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void D3D_ReleaseDriver(void)
 
 {
@@ -238,8 +224,6 @@ void D3D_ReleaseDriver(void)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x00478700  D3D_SetTextureLimits ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
@@ -255,8 +239,6 @@ void __cdecl D3D_SetTextureLimits(int minW,int minH,int maxSize,int d)
 }
 
 /* ---- 0x00478730  D3D_BeginScene ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void D3D_BeginScene(void)
 
 {
@@ -266,12 +248,8 @@ void D3D_BeginScene(void)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x00478750  D3D_EndScene ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void D3D_EndScene(void)
 
 {
@@ -281,12 +259,8 @@ void D3D_EndScene(void)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x00478770  D3D_BeginExecuteBuffer ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 undefined4 D3D_BeginExecuteBuffer(void)
 
 {
@@ -304,8 +278,6 @@ undefined4 D3D_BeginExecuteBuffer(void)
   PTR_00806918 = (int *)UINT_00806400;
   return 1;
 }
-#endif
-
 
 /* ---- 0x004787d0  D3D_AddVertices ---- */
 /* Copies 32-byte TLVERTEX records into the execute buffer */
@@ -652,8 +624,6 @@ void D3D_ClampTextureSize(uint param_1,uint param_2,uint *param_3,uint *param_4)
 }
 
 /* ---- 0x00479110  D3D_ResetTextures ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Lua ResetTextures: frees every texture record */
 
 void D3D_ResetTextures(void)
@@ -669,8 +639,6 @@ void D3D_ResetTextures(void)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x00479170  D3D_CreateTexture ---- */
 /* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
@@ -691,9 +659,10 @@ int __cdecl D3D_CreateTexture(void *surface,void *texture,int usePalette,int col
   void *pvVar6;
   void *pvVar7;
   uint *puVar8;
-  uint uVar9;
+  float fVar9;
   uint uVar10;
-  uint *puVar11;
+  uint uVar11;
+  uint *puVar12;
   #define local_15c (*(uint *)(_frame + (0x170 - 0x15c)))
   #define local_14c (*(uint *)(_frame + (0x170 - 0x14c)))
   #define local_138 (*(uint *)(_frame + (0x170 - 0x138)))
@@ -704,7 +673,7 @@ int __cdecl D3D_CreateTexture(void *surface,void *texture,int usePalette,int col
   #define local_9c (*(uint *)(_frame + (0x170 - 0x9c)))
   #define local_98 (*(uint *)(_frame + (0x170 - 0x98)))
   #define local_3c (*(uint *)(_frame + (0x170 - 0x3c)))
-  #define local_38 (*(uint *)(_frame + (0x170 - 0x38)))
+  #define local_38 (*(float *)(_frame + (0x170 - 0x38)))
   #define local_34 (*(uint *)(_frame + (0x170 - 0x34)))
   #define local_30 (*(uint *)(_frame + (0x170 - 0x30)))
   #define local_2c (*(uint *)(_frame + (0x170 - 0x2c)))
@@ -741,11 +710,11 @@ int __cdecl D3D_CreateTexture(void *surface,void *texture,int usePalette,int col
   if (((pvVar3 < UINT_004dee48) || (pvVar6 < UINT_004dee4c)) ||
      ((pvVar7 = surface, *(int *)((int)g_pD3dDriver + 0x1c) != 0 && (pvVar3 != pvVar6)))) {
     puVar8 = (uint *)((int)surface + 0xc);
-    puVar11 = &local_f0;
+    puVar12 = &local_f0;
     for (iVar4 = 0x13; iVar4 != 0; iVar4 = iVar4 + -1) {
-      *puVar11 = *puVar8;
+      *puVar12 = *puVar8;
       puVar8 = puVar8 + 1;
-      puVar11 = puVar11 + 1;
+      puVar12 = puVar12 + 1;
     }
     if ((*(int *)((int)g_pD3dDriver + 0x1c) == 0) || (pvVar3 == pvVar6)) {
       if (pvVar3 < UINT_004dee48) {
@@ -765,26 +734,26 @@ int __cdecl D3D_CreateTexture(void *surface,void *texture,int usePalette,int col
     }
     local_28 = local_c;
     uStack_24 = 0;
-    local_38 = (uint)ROUND(PUN(float,pvVar3) / (float)(int)local_c - -0.5);
+    local_38 = (float)(int)ROUND(PUN(float,pvVar3) / (float)(int)local_c - -0.5);
     fStack_1c = PUN(float,pvVar7) / (float)(int)pvVar6 - -0.5;
-    uVar9 = (uint)ROUND(fStack_1c);
-    local_f0 = local_f0 * local_38;
-    local_ec = local_ec * uVar9;
-    local_34 = uVar9;
+    uVar10 = (uint)ROUND(fStack_1c);
+    local_f0 = local_f0 * (int)local_38;
+    local_ec = local_ec * uVar10;
+    local_34 = uVar10;
     local_20 = pvVar6;
     local_30 = (uint)Surface_Create(&local_f0,0,0,0);
-    if (uVar9 != 0) {
+    if (uVar10 != 0) {
       local_34 = 0;
-      fStack_1c = (float)uVar9;
+      fStack_1c = (float)uVar10;
       do {
-        if (local_38 != 0) {
+        if (local_38 != 0.0) {
           iVar4 = 0;
-          uVar9 = local_38;
+          fVar9 = local_38;
           do {
             Surface_Blit((void *)local_30,surface,iVar4,local_34,(int *)0x0,0);
             iVar4 = iVar4 + local_c;
-            uVar9 = uVar9 - 1;
-          } while (uVar9 != 0);
+            fVar9 = (float)((int)fVar9 + -1);
+          } while (fVar9 != 0.0);
         }
         local_34 = local_34 + (int)pvVar6;
         fStack_1c = (float)((int)fStack_1c - 1);
@@ -800,22 +769,22 @@ int __cdecl D3D_CreateTexture(void *surface,void *texture,int usePalette,int col
   if ((usePalette == 0) || (*(int *)((int)g_pD3dDriver + 0x10) == 0)) {
     if (colorKey == 0) {
       *(undefined4 *)((int)texture + 0x7c) = 0;
-      uVar9 = UINT_00806934;
+      uVar10 = UINT_00806934;
     }
     else {
       *(undefined4 *)((int)texture + 0x7c) = 1;
-      uVar9 = UINT_0080693c;
+      uVar10 = UINT_0080693c;
     }
   }
   else {
     *(undefined4 *)((int)texture + 0x7c) = 1;
-    uVar9 = UINT_00806938;
+    uVar10 = UINT_00806938;
     if (colorKey != 0) {
-      uVar9 = UINT_0080693c;
+      uVar10 = UINT_0080693c;
     }
   }
-  Mem_Copy(&local_a4,(void *)(uVar9 + 0x38),0x6c);
-  uVar9 = local_c;
+  Mem_Copy(&local_a4,(void *)(uVar10 + 0x38),0x6c);
+  uVar10 = local_c;
   local_9c = (uint)surface;
   local_a4 = 0x6c;
   local_a0 = 0x1007;
@@ -845,13 +814,13 @@ int __cdecl D3D_CreateTexture(void *surface,void *texture,int usePalette,int col
             pbVar5 = (byte *)((int)pvVar3 * *(int *)((int)pvVar7 + 0x18) +
                              *(int *)((int)pvVar7 + 0x5c));
             puVar2 = (undefined2 *)((int)pvVar3 * local_14c + local_138);
-            uVar10 = uVar9;
-            for (; uVar10 != 0; uVar10 = uVar10 - 1) {
+            uVar11 = uVar10;
+            for (; uVar11 != 0; uVar11 = uVar11 - 1) {
               bVar1 = *pbVar5;
               pbVar5 = pbVar5 + 1;
               *puVar2 = *(undefined2 *)((int)&UINT_00806408 + (uint)bVar1 * 2);
               puVar2 = puVar2 + 1;
-              uVar9 = local_c;
+              uVar10 = local_c;
             }
             pvVar3 = (void *)((int)pvVar3 + 1);
           } while (pvVar3 < surface);
@@ -864,13 +833,13 @@ int __cdecl D3D_CreateTexture(void *surface,void *texture,int usePalette,int col
             pbVar5 = (byte *)((int)pvVar3 * *(int *)((int)pvVar7 + 0x18) +
                              *(int *)((int)pvVar7 + 0x5c));
             puVar2 = (undefined2 *)((int)pvVar3 * local_14c + local_138);
-            uVar10 = uVar9;
-            for (; uVar10 != 0; uVar10 = uVar10 - 1) {
+            uVar11 = uVar10;
+            for (; uVar11 != 0; uVar11 = uVar11 - 1) {
               bVar1 = *pbVar5;
               pbVar5 = pbVar5 + 1;
               *puVar2 = *(undefined2 *)(&DAT_00805fd8 + (uint)bVar1 * 2);
               puVar2 = puVar2 + 1;
-              uVar9 = local_c;
+              uVar10 = local_c;
             }
             pvVar3 = (void *)((int)pvVar3 + 1);
           } while (pvVar3 < surface);
@@ -884,13 +853,13 @@ int __cdecl D3D_CreateTexture(void *surface,void *texture,int usePalette,int col
           pbVar5 = (byte *)((int)pvVar3 * *(int *)((int)pvVar7 + 0x18) +
                            *(int *)((int)pvVar7 + 0x5c));
           puVar2 = (undefined2 *)((int)pvVar3 * local_14c + local_138);
-          uVar10 = uVar9;
-          for (; uVar10 != 0; uVar10 = uVar10 - 1) {
+          uVar11 = uVar10;
+          for (; uVar11 != 0; uVar11 = uVar11 - 1) {
             bVar1 = *pbVar5;
             pbVar5 = pbVar5 + 1;
             *puVar2 = *(undefined2 *)(&DAT_008061e8 + (uint)bVar1 * 2);
             puVar2 = puVar2 + 1;
-            uVar9 = local_c;
+            uVar10 = local_c;
           }
           pvVar3 = (void *)((int)pvVar3 + 1);
         } while (pvVar3 < surface);
@@ -903,13 +872,13 @@ int __cdecl D3D_CreateTexture(void *surface,void *texture,int usePalette,int col
           pbVar5 = (byte *)((int)pvVar3 * *(int *)((int)pvVar7 + 0x18) +
                            *(int *)((int)pvVar7 + 0x5c));
           puVar2 = (undefined2 *)((int)pvVar3 * local_14c + local_138);
-          uVar10 = uVar9;
-          for (; uVar10 != 0; uVar10 = uVar10 - 1) {
+          uVar11 = uVar10;
+          for (; uVar11 != 0; uVar11 = uVar11 - 1) {
             bVar1 = *pbVar5;
             pbVar5 = pbVar5 + 1;
             *puVar2 = *(undefined2 *)(&DAT_00805fd8 + (uint)bVar1 * 2);
             puVar2 = puVar2 + 1;
-            uVar9 = local_c;
+            uVar10 = local_c;
           }
           pvVar3 = (void *)((int)pvVar3 + 1);
         } while (pvVar3 < surface);
@@ -925,7 +894,7 @@ LAB_00479709:
       do {
         Mem_Copy((void *)((int)pvVar3 * local_14c + local_138),
                  (void *)((int)pvVar3 * *(int *)((int)pvVar7 + 0x18) + *(int *)((int)pvVar7 + 0x5c))
-                 ,uVar9 * 2);
+                 ,uVar10 * 2);
         pvVar3 = (void *)((int)pvVar3 + 1);
       } while (pvVar3 < surface);
     }
@@ -976,7 +945,7 @@ LAB_00479709:
             *(uint *)texture = local_14;
             *(uint *)((int)texture + 4) = local_18;
             *(uint *)((int)texture + 0x74) = local_2c;
-            *(uint *)((int)texture + 0x80) = uVar9;
+            *(uint *)((int)texture + 0x80) = uVar10;
             *(void **)((int)texture + 0x84) = surface;
             *(float *)((int)texture + 0x88) = fStack_1c;
             *(undefined4 *)((int)texture + 0x78) = 1;
@@ -1048,8 +1017,6 @@ LAB_0047940a:
 
 
 /* ---- 0x00479860  D3D_FreeAllTextures ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void D3D_FreeAllTextures(void)
 
 {
@@ -1082,8 +1049,6 @@ void D3D_FreeAllTextures(void)
   UINT_004dee58 = 1;
   return;
 }
-#endif
-
 
 /* ---- 0x004798e0  D3D_LinkTexture ---- */
 void D3D_LinkTexture(void *param_1)
@@ -1143,8 +1108,6 @@ void D3D_UnlinkTexture(void *param_1)
 }
 
 /* ---- 0x00479a00  D3D_SetVertexLimit ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 undefined4 D3D_SetVertexLimit(void)
 
 {
@@ -1177,8 +1140,6 @@ undefined4 D3D_SetVertexLimit(void)
 #undef puStack_c
 #undef uStack_4
 
-#endif
-
 
 /* ---- 0x00479a70  D3D_TouchTexture ---- */
 void D3D_TouchTexture(int param_1)
@@ -1191,8 +1152,6 @@ void D3D_TouchTexture(int param_1)
 }
 
 /* ---- 0x00479aa0  D3D_ClearZBuffer ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 undefined4 D3D_ClearZBuffer(void)
 
 {
@@ -1234,8 +1193,6 @@ undefined4 D3D_ClearZBuffer(void)
 #undef local_6c
 #undef local_70
 #undef local_74
-
-#endif
 
 
 /* ---- 0x00479b50  D3D_FindClosestDriver ---- */
@@ -1619,8 +1576,6 @@ undefined4 D3D_CreateViewport(void)
 
 
 /* ---- 0x0047a240  D3D_CreateZBuffer ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 undefined4 D3D_CreateZBuffer(int param_1,int param_2)
@@ -1680,8 +1635,6 @@ undefined4 D3D_CreateZBuffer(int param_1,int param_2)
   }
   return 0;
 }
-#endif
-
 
 /* ---- 0x0047a3b0  D3D_EnumDevicesCallback ---- */
 /* IDirect3D::EnumDevices callback of D3D_Enumerate: stores GUID, name, description and caps of up
@@ -1999,8 +1952,6 @@ byte D3D_FilterBitsToEnum(byte param_1)
 }
 
 /* ---- 0x0047a930  D3D_EvictTexture ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Frees a texture not used this frame (best size match) to make room, or all idle textures */
 
 int __cdecl D3D_EvictTexture(uint size)
@@ -2056,6 +2007,4 @@ int __cdecl D3D_EvictTexture(uint size)
   return 1;
 }
 #undef local_4
-
-#endif
 

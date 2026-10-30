@@ -257,8 +257,6 @@ undefined * __cdecl Engine_CallCharacterHandler(int param_1)
 }
 
 /* ---- 0x00482990  Engine_UpdateFrame ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* WARNING: Variable defined which should be unmapped: local_8 */
 /* WARNING: Variable defined which should be unmapped: local_c */
 /* Engine_UpdateFrame(draw, fixedMs). Runs the frame: sound (SoundsPeriodic), then the timer
@@ -324,8 +322,6 @@ void Engine_UpdateFrame(int param_1,int param_2)
 }
 #undef local_8
 #undef local_c
-
-#endif
 
 
 /* ---- 0x00482ae0  Engine_SetIMuseState ---- */
@@ -688,7 +684,7 @@ void Engine_SaveGame(void)
     (*(code *)UINT_008a8828)(SaveGame_Write);
     SaveGame_Write(&UINT_008a8c48,4);
     Render_DrawProgressBar(0.75);
-    lua_Save(SaveGame_Write);
+    lua_Save((int *)SaveGame_Write);
     Render_DrawProgressBar(1.0);
     if (g_pfnIMuseSaveHook != (void *)0x0) {
       (*(code *)g_pfnIMuseSaveHook)(SaveGame_Write);
@@ -833,19 +829,16 @@ void Engine_RenderFrame(void)
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int *actor;
-  float fVar1;
-  int *piVar2;
+  int *piVar1;
+  int iVar2;
   int iVar3;
   int iVar4;
-  int iVar5;
-  void *pvVar6;
+  void *pvVar5;
+  float *pfVar6;
   float *pfVar7;
-  float *pfVar8;
-  uint uVar9;
-  uint *puVar10;
-  #define local_1c (*(uint *)(_frame + (0x30 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
+  float fVar8;
+  uint *puVar9;
+  #define local_1c (*(float (*)[3])(_frame + (0x30 - 0x1c)))
   #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
   #define fStack_c (*(float *)(_frame + (0x30 - 0xc)))
   #define fStack_8 (*(float *)(_frame + (0x30 - 0x8)))
@@ -854,25 +847,24 @@ void Engine_RenderFrame(void)
   if (UINT_008a8c40 != 0) {
     if (UINT_008a8c40 == 3) {
       Movie_SetTarget(&g_BackBuffer);
-      iVar5 = Movie_PollPlayback();
-      if (iVar5 != 0) {
-        iVar5 = 0;
+      iVar4 = Movie_PollPlayback();
+      if (iVar4 != 0) {
+        iVar4 = 0;
         UINT_008a8c40 = 2;
-        local_1c = 0;
-        local_18 = 0;
-        local_14 = 0x280;
-        local_10 = 0x1e0;
+        local_1c[0] = 0.0;
+        local_1c[1] = 0.0;
+        local_1c[2] = 8.96831e-43;
         if (0 < g_nBufferCount) {
           do {
-            DirtyRect_Add((int *)&local_1c,1,iVar5);
-            iVar5 = iVar5 + 1;
-          } while (iVar5 < g_nBufferCount);
+            DirtyRect_Add((int *)local_1c,1,iVar4);
+            iVar4 = iVar4 + 1;
+          } while (iVar4 < g_nBufferCount);
         }
         Render_RequestFullRedraw();
         UINT_008c97f8 = 1;
       }
-      local_1c = (uint)Timer_GetFrameSeconds();
-      Actors_UpdateTalking((float)local_1c);
+      local_1c[0] = Timer_GetFrameSeconds();
+      Actors_UpdateTalking(local_1c[0]);
       Surface_Lock(&g_BackBuffer);
       UINT_008a94b8 = UINT_0090563c;
       TextObjects_Update(0);
@@ -891,13 +883,13 @@ void Engine_RenderFrame(void)
       if (UINT_008c9804 != 0) {
         lua_printstack(0);
       }
-      pvVar6 = Set_GetCurrent();
-      if (pvVar6 == (void *)0x0) {
+      pvVar5 = Set_GetCurrent();
+      if (pvVar5 == (void *)0x0) {
         return;
       }
-      pvVar6 = Set_GetCurrent();
-      if (((g_pRenderedSet != pvVar6) ||
-          (pvVar6 = Set_GetCurrent(), *(int *)((int)pvVar6 + 0xb4) != g_nRenderedSetup)) ||
+      pvVar5 = Set_GetCurrent();
+      if (((g_pRenderedSet != pvVar5) ||
+          (pvVar5 = Set_GetCurrent(), *(int *)((int)pvVar5 + 0xb4) != g_nRenderedSetup)) ||
          (g_nFullRedrawPending != 0)) {
         DirtyRect_Clear();
         g_pRenderedSet = Set_GetCurrent();
@@ -905,12 +897,12 @@ void Engine_RenderFrame(void)
         Set_SwitchSetup(g_pRenderedSet,g_nRenderedSetup);
         Lua_CallPostCamChangeHandler(g_nRenderedSetup);
       }
-      uVar9 = *(int *)((int)g_pRenderedSet + 0xac) + g_nRenderedSetup * 300;
-      local_1c = uVar9;
+      fVar8 = (float)(*(int *)((int)g_pRenderedSet + 0xac) + g_nRenderedSetup * 300);
+      local_1c[0] = fVar8;
       Set_ApplySetupCamera(g_pRenderedSet,g_nRenderedSetup);
-      for (pvVar6 = *(void **)(uVar9 + 0x128); pvVar6 != (void *)0x0;
-          pvVar6 = *(void **)((int)pvVar6 + 0xf8)) {
-        ObjectState_Draw(pvVar6,3,g_pBackgroundSurface,g_pZBufferSurface);
+      for (pvVar5 = *(void **)((int)fVar8 + 0x128); pvVar5 != (void *)0x0;
+          pvVar5 = *(void **)((int)pvVar5 + 0xf8)) {
+        ObjectState_Draw(pvVar5,3,g_pBackgroundSurface,g_pZBufferSurface);
       }
       Profile_Begin(4);
       if (g_nDrawEnabled != 0) {
@@ -922,26 +914,26 @@ void Engine_RenderFrame(void)
       Surface_Lock(&g_BackBuffer);
       Primitives_DrawAll(1);
       Surface_Unlock(&g_BackBuffer);
-      for (pvVar6 = *(void **)(uVar9 + 0x128); pvVar6 != (void *)0x0;
-          pvVar6 = *(void **)((int)pvVar6 + 0xf8)) {
-        ObjectState_Draw(pvVar6,1,&g_BackBuffer,(void *)UINT_008c97a4);
+      for (pvVar5 = *(void **)((int)fVar8 + 0x128); pvVar5 != (void *)0x0;
+          pvVar5 = *(void **)((int)pvVar5 + 0xf8)) {
+        ObjectState_Draw(pvVar5,1,&g_BackBuffer,(void *)UINT_008c97a4);
       }
       rdroid_BeginFrame();
       Render_BuildActorDrawList();
       if ((UINT_008a952c != 0) || (((byte)g_dwRenderDebugFlags & 1) != 0)) {
         Profile_Begin(5);
-        iVar5 = 0;
+        iVar4 = 0;
         if (0 < (int)UINT_008a952c) {
-          puVar10 = &UINT_008c9568;
+          puVar9 = &UINT_008c9568;
           do {
-            if (*(char *)*puVar10 == '\0') {
+            if (*(char *)*puVar9 == '\0') {
               Costume_TouchComponents
                         (**(undefined4 **)
-                           ((int)g_pActorTable + *(int *)((char *)*puVar10 + 8) * 0xa8 + 0xa0));
+                           ((int)g_pActorTable + *(int *)((char *)*puVar9 + 8) * 0xa8 + 0xa0));
             }
-            iVar5 = iVar5 + 1;
-            puVar10 = puVar10 + 1;
-          } while (iVar5 < (int)UINT_008a952c);
+            iVar4 = iVar4 + 1;
+            puVar9 = puVar9 + 1;
+          } while (iVar4 < (int)UINT_008a952c);
         }
         Profile_End(5);
         if (((byte)g_dwRenderDebugFlags & 1) != 0) {
@@ -956,59 +948,59 @@ void Engine_RenderFrame(void)
           Surface_Unlock(&g_BackBuffer);
         }
         Profile_Begin(6);
-        if (iVar5 != 0) {
-          puVar10 = &UINT_008c9568 + iVar5 + -1;
+        if (iVar4 != 0) {
+          puVar9 = &UINT_008c9568 + iVar4 + -1;
           do {
-            actor = (int *)((int)g_pActorTable + *(int *)(*puVar10 + 8) * 0xa8);
-            fVar1 = *(float *)((int)g_pActorTable + *(int *)(*puVar10 + 8) * 0xa8 + 0x30);
-            if (fVar1 != 1.0) {
+            actor = (int *)((int)g_pActorTable + *(int *)(*puVar9 + 8) * 0xa8);
+            fVar8 = *(float *)((int)g_pActorTable + *(int *)(*puVar9 + 8) * 0xa8 + 0x30);
+            if (fVar8 != 1.0) {
               fStack_8 = (float)actor[0xc];
-              pfVar8 = &fStack_c;
+              pfVar7 = &fStack_c;
               fStack_4 = (float)actor[0xc];
-              fStack_c = fVar1;
-              pfVar7 = Actor_GetFrame(actor);
-              Matrix_BuildTransform2(pfVar7,pfVar8);
+              fStack_c = fVar8;
+              pfVar6 = Actor_GetFrame(actor);
+              Matrix_BuildTransform2(pfVar6,pfVar7);
             }
-            if (*(char *)*puVar10 == '\0') {
-              piVar2 = (int *)*actor;
-              iVar3 = *piVar2;
-              if (iVar3 == 0) {
-                iVar3 = *(int *)((int)g_pRenderedSet + 0x88);
-                iVar4 = *(int *)((int)g_pRenderedSet + 0x80);
-                if (*(int *)(iVar4 + iVar3 * 0x34) == 0) {
+            if (*(char *)*puVar9 == '\0') {
+              piVar1 = (int *)*actor;
+              iVar2 = *piVar1;
+              if (iVar2 == 0) {
+                iVar2 = *(int *)((int)g_pRenderedSet + 0x88);
+                iVar3 = *(int *)((int)g_pRenderedSet + 0x80);
+                if (*(int *)(iVar3 + iVar2 * 0x34) == 0) {
                   (*g_pSvcMain->pAssertFail)
                             (s_Bad_Colormap_Reference_004e8090,s_main_sputResource_h_004e80a8,0x9f);
                 }
-                rdroid_SetColormap(*(undefined4 *)(iVar4 + iVar3 * 0x34 + 4));
-                iVar3 = *(int *)((int)g_pRenderedSet + 0x88);
-                iVar4 = *(int *)((int)g_pRenderedSet + 0x80);
-                if (*(int *)(iVar4 + iVar3 * 0x34) == 0) {
+                rdroid_SetColormap(*(undefined4 *)(iVar3 + iVar2 * 0x34 + 4));
+                iVar2 = *(int *)((int)g_pRenderedSet + 0x88);
+                iVar3 = *(int *)((int)g_pRenderedSet + 0x80);
+                if (*(int *)(iVar3 + iVar2 * 0x34) == 0) {
                   (*g_pSvcMain->pAssertFail)
                             (s_Bad_Colormap_Reference_004e8090,s_main_sputResource_h_004e80a8,0x9f);
                 }
-                iVar3 = *(int *)(iVar4 + iVar3 * 0x34 + 4);
+                iVar2 = *(int *)(iVar3 + iVar2 * 0x34 + 4);
               }
               else {
-                if (iVar3 == 0) {
+                if (iVar2 == 0) {
                   (*g_pSvcMain->pAssertFail)
                             (s_Bad_Colormap_Reference_004e8090,s_main_sputResource_h_004e80a8,0x9f);
                 }
-                rdroid_SetColormap(piVar2[1]);
-                piVar2 = (int *)*actor;
-                if (*piVar2 == 0) {
+                rdroid_SetColormap(piVar1[1]);
+                piVar1 = (int *)*actor;
+                if (*piVar1 == 0) {
                   (*g_pSvcMain->pAssertFail)
                             (s_Bad_Colormap_Reference_004e8090,s_main_sputResource_h_004e80a8,0x9f);
                 }
-                iVar3 = piVar2[1];
+                iVar2 = piVar1[1];
               }
-              (*(code *)UINT_008c97b8)(iVar3 + 0x30,0);
-              pfVar8 = Actor_GetFrame(actor);
-              Actor_DrawCostumes(actor[0x28],pfVar8);
+              (*(code *)UINT_008c97b8)(iVar2 + 0x30,0);
+              pfVar7 = Actor_GetFrame(actor);
+              Actor_DrawCostumes(actor[0x28],pfVar7);
               if (((byte)g_dwRenderDebugFlags & 1) != 0) {
                 Actor_DrawDebugWalker(actor);
               }
             }
-            else if (*(char *)*puVar10 == '\x01') {
+            else if (*(char *)*puVar9 == '\x01') {
               if (g_nZBufferEnabled == 0) {
                 Surface_Lock(&g_BackBuffer);
               }
@@ -1020,50 +1012,50 @@ void Engine_RenderFrame(void)
             }
             if (actor[0xc] != 0x3f800000) {
               fStack_c = 1.0 / (float)actor[0xc];
-              pfVar8 = &fStack_c;
+              pfVar7 = &fStack_c;
               fStack_8 = fStack_c;
               fStack_4 = fStack_c;
-              pfVar7 = Actor_GetFrame(actor);
-              Matrix_BuildTransform2(pfVar7,pfVar8);
+              pfVar6 = Actor_GetFrame(actor);
+              Matrix_BuildTransform2(pfVar6,pfVar7);
             }
-            iVar5 = iVar5 + -1;
-            puVar10 = puVar10 + -1;
-            uVar9 = local_1c;
-          } while (iVar5 != 0);
+            iVar4 = iVar4 + -1;
+            puVar9 = puVar9 + -1;
+            fVar8 = local_1c[0];
+          } while (iVar4 != 0);
         }
         Profile_End(6);
         Profile_Begin(7);
         rdroid_EndFrame();
         Profile_End(7);
-        for (pvVar6 = *(void **)(uVar9 + 0x128); pvVar6 != (void *)0x0;
-            pvVar6 = *(void **)((int)pvVar6 + 0xf8)) {
-          ObjectState_Draw(pvVar6,2,&g_BackBuffer,(void *)UINT_008c97a4);
+        for (pvVar5 = *(void **)((int)fVar8 + 0x128); pvVar5 != (void *)0x0;
+            pvVar5 = *(void **)((int)pvVar5 + 0xf8)) {
+          ObjectState_Draw(pvVar5,2,&g_BackBuffer,(void *)UINT_008c97a4);
         }
       }
       Surface_Lock(&g_BackBuffer);
       Primitives_DrawAll(2);
       Surface_Unlock(&g_BackBuffer);
       if (((byte)g_dwRenderDebugFlags & 1) != 0) {
-        pvVar6 = Set_GetCurrent();
+        pvVar5 = Set_GetCurrent();
         if (((byte)g_dwRenderDebugFlags & 2) != 0) {
-          Set_DrawDebugLights(pvVar6);
+          Set_DrawDebugLights(pvVar5);
         }
         if (((byte)g_dwRenderDebugFlags & 4) != 0) {
-          Set_DrawDebugCameras(pvVar6,0xffffffff);
+          Set_DrawDebugCameras(pvVar5,0xffffffff);
         }
       }
       if ((g_dwRenderFlags & 4) != 0) {
-        iVar5 = Timer_GetTotalMs();
-        local_18 = 0;
-        local_1c = (uint)((float)(iVar5 - g_dwIrisStartMs) / g_flIrisDurationMs);
-        if ((float)local_1c < 0.0) {
-          local_1c = (uint)-(float)local_1c;
+        iVar4 = Timer_GetTotalMs();
+        local_1c[1] = 0.0;
+        local_1c[0] = (float)(iVar4 - g_dwIrisStartMs) / g_flIrisDurationMs;
+        if (local_1c[0] < 0.0) {
+          local_1c[0] = -local_1c[0];
         }
-        if ((float)local_1c <= 1.0) {
+        if (local_1c[0] <= 1.0) {
           g_dwRenderFlags = g_dwRenderFlags & 0xfffffff7;
         }
         else {
-          local_1c = 0x3f800000;
+          local_1c[0] = 1.0;
           if (0.0 <= g_flIrisDurationMs) {
             g_dwRenderFlags = g_dwRenderFlags | 8;
           }
@@ -1072,15 +1064,14 @@ void Engine_RenderFrame(void)
           }
         }
         if (g_flIrisDurationMs <= 0.0) {
-          local_1c = (uint)(1.0 - (float)local_1c);
+          local_1c[0] = 1.0 - local_1c[0];
         }
-        Render_DrawIris((float)local_1c,g_nIrisX,g_nIrisY);
+        Render_DrawIris(local_1c[0],g_nIrisX,g_nIrisY);
         if (g_flIrisDurationMs < 0.0) {
-          local_18 = 0;
-          local_1c = 0;
-          local_14 = 0x280;
-          local_10 = 0x1e0;
-          Render_InvalidateRect((int *)&local_1c,0);
+          local_1c[1] = 0.0;
+          local_1c[0] = 0.0;
+          local_1c[2] = 8.96831e-43;
+          Render_InvalidateRect((int *)local_1c,0);
         }
       }
       Surface_Lock(&g_BackBuffer);
@@ -1096,8 +1087,6 @@ void Engine_RenderFrame(void)
 #undef fStack_8
 #undef fStack_c
 #undef local_10
-#undef local_14
-#undef local_18
 #undef local_1c
 
 #endif
