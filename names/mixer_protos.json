@@ -273,5 +273,70 @@
  {
   "addr": "004d2340",
   "proto": "void SoundModule_AdvanceClock(double ticks)"
+ },
+ {
+  "addr": "004ce3e0",
+  "proto": "int VideoBitmap_Create(void * out, int width, int height, int format)"
+ },
+ {
+  "addr": "004cedc0",
+  "proto": "int VideoBitmap_ConvertPixels(byte * src, void * srcFmt, int count, byte * palette, byte * dst, void * dstFmt, byte * expandTable)"
+ },
+ {
+  "addr": "004cf010",
+  "proto": "int Video_PixelsToRgba(void * src, void * fmt, int count, byte * palette, byte * dst)"
+ },
+ {
+  "addr": "004cf520",
+  "proto": "int Video_PixelsFromRgba(void * dst, void * fmt, int count, int unused, byte * src)"
+ },
+ {
+  "addr": "004cfdb0",
+  "proto": "void Video_CopyRectDstFirst(byte * dst, byte * src, int dstX, uint dstY, int srcX, uint srcY, uint width, int rows, uint dstPitch, uint srcPitch)"
+ },
+ {
+  "addr": "004cfdf0",
+  "proto": "void Video_ExpandIndexed8(byte * dst, byte * src, int count, int bytesPerPixel, byte * table)",
+  "cc": "__cdecl"
+ },
+ {
+  "addr": "004cfea0",
+  "proto": "void Video_ExpandIndexed16(byte * dst, ushort * src, int count, int bytesPerPixel, byte * table)",
+  "cc": "__cdecl"
+ },
+ {
+  "addr": "004cff60",
+  "proto": "void Video_Rgba32To555(ushort * dst, uint * src, uint count)",
+  "cc": "__cdecl"
+ },
+ {
+  "addr": "004cffe0",
+  "proto": "void Video_555ToRgba32(uint * dst, ushort * src, uint count)",
+  "cc": "__cdecl"
+ },
+ {
+  "addr": "004d0070",
+  "proto": "void Video_Rgba32To565(ushort * dst, uint * src, uint count)",
+  "cc": "__cdecl"
+ },
+ {
+  "addr": "004d00f0",
+  "proto": "void Video_565ToRgba32(uint * dst, ushort * src, uint count)",
+  "cc": "__cdecl"
+ },
+ {
+  "addr": "004d0180",
+  "proto": "void Video_Rgba32To565Alt(ushort * dst, uint * src, uint count)",
+  "cc": "__cdecl"
+ },
+ {
+  "addr": "004d01f0",
+  "proto": "void Video_565AltToRgba32(uint * dst, ushort * src, uint count)",
+  "cc": "__cdecl"
+ },
+ {
+  "addr": "004d0260",
+  "proto": "void Video_CopyRect(byte * src, byte * dst, int srcX, uint srcY, int dstX, uint dstY, uint width, int rows, uint srcPitch, uint dstPitch)",
+  "cc": "__cdecl"
  }
 ]

@@ -519,5 +519,75 @@
   "type": "int",
   "array_length": 16,
   "comment": "Chunks already received of the streamed sound of each voice"
+ },
+ {
+  "addr": "004ce3e0",
+  "name": "VideoBitmap_Create",
+  "tags": "smush,video"
+ },
+ {
+  "addr": "004cedc0",
+  "name": "VideoBitmap_ConvertPixels",
+  "tags": "smush,video"
+ },
+ {
+  "addr": "004cf010",
+  "name": "Video_PixelsToRgba",
+  "tags": "smush,video"
+ },
+ {
+  "addr": "004cf520",
+  "name": "Video_PixelsFromRgba",
+  "tags": "smush,video"
+ },
+ {
+  "addr": "004cfdb0",
+  "name": "Video_CopyRectDstFirst",
+  "tags": "smush,video"
+ },
+ {
+  "addr": "004cfdf0",
+  "name": "Video_ExpandIndexed8",
+  "tags": "smush,video"
+ },
+ {
+  "addr": "004cfea0",
+  "name": "Video_ExpandIndexed16",
+  "tags": "smush,video"
+ },
+ {
+  "addr": "004cff60",
+  "name": "Video_Rgba32To555",
+  "tags": "smush,video"
+ },
+ {
+  "addr": "004cffe0",
+  "name": "Video_555ToRgba32",
+  "tags": "smush,video"
+ },
+ {
+  "addr": "004d0070",
+  "name": "Video_Rgba32To565",
+  "tags": "smush,video"
+ },
+ {
+  "addr": "004d00f0",
+  "name": "Video_565ToRgba32",
+  "tags": "smush,video"
+ },
+ {
+  "addr": "004d0180",
+  "name": "Video_Rgba32To565Alt",
+  "tags": "smush,video"
+ },
+ {
+  "addr": "004d01f0",
+  "name": "Video_565AltToRgba32",
+  "tags": "smush,video"
+ },
+ {
+  "addr": "004d0260",
+  "name": "Video_CopyRect",
+  "tags": "smush,video"
  }
 ]

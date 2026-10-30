@@ -1,9 +1,9 @@
-"""print the generated assembly of functions (by name) with the .L<func>_ prefix of the labels stripped.
-usage: python -I showasm.py <asm_funcs.s> name [name...]"""
+"""print the generated assembly of functions (by undecorated name) with the .L<func>_ prefix of the labels stripped.
+usage: python -I showasm.py <asm_funcs.s> name [name...]       (_name, _name@N and @name@N are found)"""
 import re, sys
 t = open(sys.argv[1]).read()
 for n in sys.argv[2:]:
-    m = re.search(r"(?ms)^\t\.def _%s;.*?(?=^\t\.def |^\t\.section|^\t\.data)" % re.escape(n), t)
+    m = re.search(r"(?ms)^\t\.def ([_@]%s(?:@\d+)?);.*?(?=^\t\.def |^\t\.section|^\t\.data)" % re.escape(n), t)
     if not m:
         print("; not found", n); continue
     s = m.group(0)

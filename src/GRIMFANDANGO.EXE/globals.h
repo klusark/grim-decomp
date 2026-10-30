@@ -1169,7 +1169,7 @@ extern char s_TIMER_insane_004f3c30[]; /* used by 2 fn(s), first 0x004cdc90 */
 extern char s_LECMODULE_insane_timer_004f3c40[]; /* used by 2 fn(s), first 0x004cdc90 */
 extern char s_Timer_Module__Cannot_allocate_me_004f3c58[]; /* used by 1 fn(s), first 0x004cdd10 */
 extern undefined *PTR_FUN_004f3cc0; /* used by 1 fn(s), first 0x004ce2e0 */
-extern undefined *PTR_FUN_004f3cd0; /* used by 1 fn(s), first 0x004ce2e0 */
+extern undefined *PTR_VideoBitmap_Create_004f3cd0; /* used by 1 fn(s), first 0x004ce2e0 */
 extern char s_BITMAP_insane_004f3cdc[]; /* used by 2 fn(s), first 0x004ce2e0 */
 extern char s_LECMODULE_insane_bitmap_004f3cec[]; /* used by 2 fn(s), first 0x004ce2e0 */
 extern char s_Video_Module__Cannot_allocate_me_004f3d04[]; /* used by 1 fn(s), first 0x004ce350 */

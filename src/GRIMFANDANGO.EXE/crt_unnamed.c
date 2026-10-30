@@ -1,5 +1,5 @@
 /* GRIMFANDANGO.EXE :: crt_unnamed.c
- * functions 0x004ac690 .. 0x004d610b (365 functions)
+ * functions 0x004ac690 .. 0x004d610b (351 functions)
  * Decompiled from the shipped binaries with Ghidra; see ../../README.md */
 #include "ghidra_types.h"
 #include "globals.h"
@@ -11309,26 +11309,29 @@ LAB_004ccf67:
 
 
 /* ---- 0x004cd1e0  FUN_004cd1e0 ---- */
-void FUN_004cd1e0(int param_1)
+void FUN_004cd1e0(void *param_1)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   
-  if (((((UINT_008da510 != 0) && (*(int *)(param_1 + 0xc) == 2)) &&
-       ((*(int *)(param_1 + 0x20) == 1 || (*(int *)(param_1 + 0x20) == 2)))) &&
-      (((*(int *)(param_1 + 0x30) != PTR_008da528[0xc] ||
-        (*(int *)(param_1 + 0x38) != PTR_008da528[0xe])) ||
-       (*(int *)(param_1 + 0x34) != PTR_008da528[0xd])))) &&
-     (((*(uint *)(param_1 + 0x30) != UINT_008da514 || (*(uint *)(param_1 + 0x38) != UINT_008da51c))
-      || (*(uint *)(param_1 + 0x34) != UINT_008da518)))) {
-    UINT_008da514 = *(uint *)(param_1 + 0x30);
-    UINT_008da518 = *(uint *)(param_1 + 0x34);
-    UINT_008da51c = *(uint *)(param_1 + 0x38);
+  if (((((UINT_008da510 != 0) && (*(int *)((int)param_1 + 0xc) == 2)) &&
+       ((*(int *)((int)param_1 + 0x20) == 1 || (*(int *)((int)param_1 + 0x20) == 2)))) &&
+      (((*(int *)((int)param_1 + 0x30) != PTR_008da528[0xc] ||
+        (*(int *)((int)param_1 + 0x38) != PTR_008da528[0xe])) ||
+       (*(int *)((int)param_1 + 0x34) != PTR_008da528[0xd])))) &&
+     (((*(uint *)((int)param_1 + 0x30) != UINT_008da514 ||
+       (*(uint *)((int)param_1 + 0x38) != UINT_008da51c)) ||
+      (*(uint *)((int)param_1 + 0x34) != UINT_008da518)))) {
+    UINT_008da514 = *(uint *)((int)param_1 + 0x30);
+    UINT_008da518 = *(uint *)((int)param_1 + 0x34);
+    UINT_008da51c = *(uint *)((int)param_1 + 0x38);
     for (local_8 = 0; (int)local_8 < 0x10000; local_8 = local_8 + 1) {
       *(undefined2 *)(UINT_008da510 + local_8 * 2) = (undefined2)local_8;
     }
-    FUN_004cedc0(UINT_008da510,PTR_008da528,0x10000,0,UINT_008da510,param_1,0);
+    VideoBitmap_ConvertPixels
+              ((byte *)UINT_008da510,PTR_008da528,0x10000,(byte *)0x0,(byte *)UINT_008da510,param_1,
+               (byte *)0x0);
   }
   return;
 }
@@ -12019,7 +12022,7 @@ undefined4 FUN_004ce2e0(int *param_1,uint param_2)
   PTR_008da894 = param_1;
   UINT_008da898 = param_2;
   (*(code *)*param_1)(s_LECMODULE_insane_bitmap_004f3cec,&PTR_FUN_004f3cc0);
-  (*(code *)*PTR_008da894)(s_BITMAP_insane_004f3cdc,&PTR_FUN_004f3cd0);
+  (*(code *)*PTR_008da894)(s_BITMAP_insane_004f3cdc,&PTR_VideoBitmap_Create_004f3cd0);
   return 0;
 }
 
@@ -12055,76 +12058,6 @@ void FUN_004ce3b0(void)
   }
   return;
 }
-
-/* ---- 0x004ce3e0  FUN_004ce3e0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
-undefined4 FUN_004ce3e0(int *param_1,int param_2,int param_3,int param_4)
-
-{
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  int iVar1;
-  undefined4 uVar2;
-  int iVar3;
-  #define local_4 (*(int *)(_frame + (0x20 - 0x4)))
-  
-  local_4 = 0;
-  switch(param_4) {
-  case 1:
-    local_4 = 0x100;
-  case 0:
-    iVar3 = 1;
-    break;
-  case 2:
-  case 3:
-  case 5:
-  case 7:
-  case 8:
-  case 10:
-    iVar3 = 2;
-    break;
-  case 4:
-  case 9:
-    iVar3 = 3;
-    break;
-  case 6:
-  case 0xb:
-  case 0xc:
-    iVar3 = 4;
-    break;
-  case -1:
-    if (UINT_008da89c == 0) goto LAB_004ce7b5;
-    iVar3 = (**(code **)(UINT_008da89c + 4))();
-    iVar3 = *(int *)(iVar3 + 0xc);
-    break;
-  default:
-LAB_004ce7b5:
-    FUN_004d5f70();
-    return 0xffffffff;
-  }
-  iVar1 = (*(code *)*PTR_008da890)
-                    (iVar3 * param_3 * param_2 + 0x5c + local_4 * 4,
-                     s_C__grimsrc_libs_lecsmush_insane__004f3d64,200);
-  if (iVar1 == 0) {
-    return 0xffffff9b;
-  }
-  *param_1 = iVar1 + 8;
-  *(int *)(iVar1 + 8) = iVar1 + 0x5c;
-  *(int *)(*param_1 + 4) = param_2;
-  *(int *)(*param_1 + 0x14) = iVar3 * param_2;
-  *(int *)(*param_1 + 8) = param_3;
-  *(int *)(*param_1 + 0xc) = iVar3;
-  *(undefined4 *)(*param_1 + 0x1c) = 0;
-  *(undefined4 *)(*param_1 + 0x18) = 0;
-                    /* WARNING: Could not recover jumptable at 0x004ce4a6. Too many branches */
-                    /* WARNING: Treating indirect jump as call */
-  uVar2 = (**(code **)(&DAT_004ce808 + (param_4 + 1) * 4))();
-  return uVar2;
-}
-#undef local_4
-
-#endif
-
 
 /* ---- 0x004ce840  FUN_004ce840 ---- */
 undefined4
@@ -12222,7 +12155,7 @@ void FUN_004ce9b0(undefined4 *param_1,undefined4 param_2)
     iVar1 = param_1[2];
     uVar2 = *param_1;
     iVar3 = param_1[1];
-    FUN_004cf520(local_14,param_1,1,0,&param_2);
+    Video_PixelsFromRgba(local_14,param_1,1,0,(byte *)&param_2);
     FUN_004cec40(uVar2,param_1,iVar1 * iVar3,local_14);
   }
   return;
@@ -12231,15 +12164,16 @@ void FUN_004ce9b0(undefined4 *param_1,undefined4 param_2)
 
 
 /* ---- 0x004cea30  FUN_004cea30 ---- */
-void FUN_004cea30(int *param_1,uint *param_2,int param_3,int param_4,int *param_5,undefined4 param_6
-                 ,undefined1 *param_7)
+void FUN_004cea30(int *param_1,uint *param_2,int param_3,int param_4,int *param_5,byte *param_6,
+                 byte *param_7)
 
 {
   unsigned char _frame[0x430] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  byte *dst;
   int iVar1;
-  int iVar2;
-  uint uVar3;
-  int iVar4;
+  byte *src;
+  uint uVar2;
+  int iVar3;
   #define local_420 (*(uint *)(_frame + (0x430 - 0x420)))
   #define local_41c (*(uint *)(_frame + (0x430 - 0x41c)))
   #define local_418 (*(uint *)(_frame + (0x430 - 0x418)))
@@ -12248,7 +12182,7 @@ void FUN_004cea30(int *param_1,uint *param_2,int param_3,int param_4,int *param_
   #define local_40c (*(uint *)(_frame + (0x430 - 0x40c)))
   #define local_408 (*(uint *)(_frame + (0x430 - 0x408)))
   #define local_404 (*(uint *)(_frame + (0x430 - 0x404)))
-  #define local_400 (*(undefined1 (*)[1024])(_frame + (0x430 - 0x400)))
+  #define local_400 (*(byte (*)[1024])(_frame + (0x430 - 0x400)))
   
   if (param_2 == (uint *)0x0) {
     param_2 = &local_410;
@@ -12260,49 +12194,50 @@ void FUN_004cea30(int *param_1,uint *param_2,int param_3,int param_4,int *param_
   local_420 = 0;
   local_41c = param_5[1];
   local_418 = param_5[2];
-  uVar3 = *param_2 - param_3;
-  if (0 < (int)uVar3) {
-    local_41c = local_41c - uVar3;
-    param_3 = param_3 + uVar3;
-    local_420 = uVar3;
+  uVar2 = *param_2 - param_3;
+  if (0 < (int)uVar2) {
+    local_41c = local_41c - uVar2;
+    param_3 = param_3 + uVar2;
+    local_420 = uVar2;
   }
-  iVar4 = param_2[1] - param_4;
-  iVar2 = 0;
-  if (0 < iVar4) {
-    local_418 = local_418 - iVar4;
-    param_4 = param_4 + iVar4;
-    iVar2 = iVar4;
+  iVar3 = param_2[1] - param_4;
+  iVar1 = 0;
+  if (0 < iVar3) {
+    local_418 = local_418 - iVar3;
+    param_4 = param_4 + iVar3;
+    iVar1 = iVar3;
   }
   if ((int)(param_2[2] + *param_2) < (int)(local_41c + param_3)) {
     local_41c = (param_2[2] + *param_2) - param_3;
   }
-  iVar4 = param_2[3] + param_2[1];
-  if (iVar4 < (int)(local_418 + param_4)) {
-    local_418 = iVar4 - param_4;
+  iVar3 = param_2[3] + param_2[1];
+  if (iVar3 < (int)(local_418 + param_4)) {
+    local_418 = iVar3 - param_4;
   }
   if ((0 < (int)local_41c) && (0 < (int)local_418)) {
-    iVar4 = param_3 * param_1[3] + param_4 * param_1[5] + *param_1;
-    iVar2 = iVar2 * param_5[5] + local_420 * param_5[3] + *param_5;
+    dst = (byte *)(param_3 * param_1[3] + param_4 * param_1[5] + *param_1);
+    src = (byte *)(iVar1 * param_5[5] + local_420 * param_5[3] + *param_5);
     if (((param_5[4] == param_1[4]) && (iVar1 = param_5[8], iVar1 == param_1[8])) &&
        (((iVar1 != 1 && (iVar1 != 2)) ||
         ((param_5[0xc] == param_1[0xc] &&
          ((param_5[0xd] == param_1[0xd] && (param_5[0xe] == param_1[0xe])))))))) {
-      FUN_004cfdb0(iVar4,iVar2,0,0,0,0,local_41c * param_1[3],local_418,param_1[5],param_5[5]);
+      ((code *)Video_CopyRectDstFirst)(dst,src,0,0,0,0,local_41c * param_1[3],local_418,param_1[5],param_5[5])
+      ;
       return;
     }
     local_420 = local_418;
-    if ((param_7 == (undefined1 *)0x0) && (param_5[3] == 1)) {
+    if ((param_7 == (byte *)0x0) && (param_5[3] == 1)) {
       FUN_004ced70(param_5,param_1,local_400,param_6);
       param_7 = local_400;
     }
     do {
       local_420 = local_420 - 1;
-      iVar1 = FUN_004cedc0(iVar2,param_5,local_41c,param_6,iVar4,param_1,param_7);
+      iVar1 = VideoBitmap_ConvertPixels(src,param_5,local_41c,param_6,dst,param_1,param_7);
       if (iVar1 != 0) {
         return;
       }
-      iVar2 = iVar2 + param_5[5];
-      iVar4 = iVar4 + param_1[5];
+      src = src + param_5[5];
+      dst = dst + param_1[5];
     } while (local_420 != 0);
   }
   return;
@@ -12377,1040 +12312,20 @@ void FUN_004cec40(char *param_1,int param_2,int param_3,char *param_4)
 }
 
 /* ---- 0x004ced70  FUN_004ced70 ---- */
-undefined4 FUN_004ced70(int param_1,int param_2,undefined4 param_3,int param_4)
+undefined4 FUN_004ced70(int param_1,void *param_2,void *param_3,byte *param_4)
 
 {
-  int iVar1;
+  byte *src;
   
   if ((((*(int *)(param_1 + 0x20) == 0) && (*(int *)(param_1 + 0xc) == 1)) &&
-      (*(int *)(param_2 + 0x20) != 0)) &&
-     ((iVar1 = *(int *)(param_1 + 0x24), *(int *)(param_1 + 0x24) != 0 ||
-      (iVar1 = param_4, param_4 != 0)))) {
-    FUN_004cf520(param_3,param_2,0x100,0,iVar1);
+      (*(int *)((int)param_2 + 0x20) != 0)) &&
+     ((src = *(byte **)(param_1 + 0x24), *(byte **)(param_1 + 0x24) != (byte *)0x0 ||
+      (src = param_4, param_4 != (byte *)0x0)))) {
+    Video_PixelsFromRgba(param_3,param_2,0x100,0,src);
     return 0;
   }
   return 0xffffffff;
 }
-
-/* ---- 0x004cedc0  FUN_004cedc0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
-undefined4
-FUN_004cedc0(void *param_1,int param_2,int param_3,undefined4 param_4,void *param_5,int param_6,
-            int param_7)
-
-{
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  bool bVar1;
-  bool bVar2;
-  int iVar3;
-  uint uVar4;
-  int iVar5;
-  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
-  
-  if (((*(int *)(param_2 + 0x10) == *(int *)(param_6 + 0x10)) &&
-      (iVar5 = *(int *)(param_2 + 0x20), iVar5 == *(int *)(param_6 + 0x20))) &&
-     (((iVar5 != 1 && (iVar5 != 2)) ||
-      (((*(int *)(param_2 + 0x30) == *(int *)(param_6 + 0x30) &&
-        (*(int *)(param_2 + 0x34) == *(int *)(param_6 + 0x34))) &&
-       (*(int *)(param_2 + 0x38) == *(int *)(param_6 + 0x38))))))) {
-    Insane_MemCopyCdecl(param_5,param_1,*(int *)(param_6 + 0xc) * param_3);
-    return 0;
-  }
-  if (param_7 != 0) {
-    if ((*(int *)(param_2 + 0x20) == 0) && (*(int *)(param_2 + 0xc) == 1)) {
-      ((code *)FUN_004cfdf0)(param_5,param_1,param_3,*(undefined4 *)(param_6 + 0xc),param_7);
-      return 0;
-    }
-    if (((param_7 != 0) && (*(int *)(param_2 + 0xc) == 2)) && (*(int *)(param_6 + 0x20) != 0)) {
-      ((code *)FUN_004cfea0)(param_5,param_1,param_3,*(undefined4 *)(param_6 + 0xc),param_7);
-      return 0;
-    }
-  }
-  if ((((*(int *)(param_2 + 0x20) != 2) || (*(int *)(param_2 + 0xc) != 4)) ||
-      (*(int *)(param_2 + 0x30) != 0)) ||
-     ((*(int *)(param_2 + 0x34) != 8 || (bVar1 = true, *(int *)(param_2 + 0x38) != 0x10)))) {
-    bVar1 = false;
-  }
-  if (((*(int *)(param_6 + 0x20) != 2) || (*(int *)(param_6 + 0xc) != 4)) ||
-     ((*(int *)(param_6 + 0x30) != 0 ||
-      ((*(int *)(param_6 + 0x34) != 8 || (bVar2 = true, *(int *)(param_6 + 0x38) != 0x10)))))) {
-    bVar2 = false;
-  }
-  iVar5 = param_3;
-  if (0x4ff < param_3) {
-    iVar5 = 0x500;
-  }
-  if (iVar5 < 1) {
-    return 0;
-  }
-  while( true ) {
-    if (bVar1) {
-      iVar3 = FUN_004cf520(param_5,param_6,iVar5,param_4,param_1);
-    }
-    else if (bVar2) {
-      iVar3 = FUN_004cf010(param_1,param_2,iVar5,param_4,param_5);
-    }
-    else {
-      UINT_008da8a0 = UINT_008da8a0 + 1;
-      uVar4 = UINT_008da8a0 & 1;
-      iVar3 = FUN_004cf010(param_1,param_2,iVar5,param_4,&DAT_009272a0 + uVar4 * 0x1400);
-      if (iVar3 != 0) {
-        return 0xffffffff;
-      }
-      iVar3 = FUN_004cf520(param_5,param_6,iVar5,param_4,&DAT_009272a0 + uVar4 * 0x1400);
-    }
-    if (iVar3 != 0) break;
-    param_3 = param_3 - iVar5;
-    param_1 = (void *)((int)param_1 + *(int *)(param_2 + 0xc) * iVar5);
-    param_5 = (void *)((int)param_5 + *(int *)(param_6 + 0xc) * iVar5);
-    iVar5 = param_3;
-    if (0x4ff < param_3) {
-      iVar5 = 0x500;
-    }
-    if (iVar5 < 1) {
-      return 0;
-    }
-  }
-  return 0xffffffff;
-}
-#undef local_4
-
-#endif
-
-
-/* ---- 0x004cf010  FUN_004cf010 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
-undefined4 FUN_004cf010(uint *param_1,int param_2,int param_3,int param_4,byte *param_5)
-
-{
-  byte bVar1;
-  byte bVar2;
-  byte bVar3;
-  byte bVar4;
-  byte bVar5;
-  byte bVar6;
-  byte bVar7;
-  byte bVar8;
-  byte bVar9;
-  byte bVar10;
-  byte bVar11;
-  byte bVar12;
-  ushort uVar13;
-  int iVar14;
-  int iVar15;
-  uint uVar16;
-  
-  iVar15 = *(int *)(param_2 + 0x20);
-  if ((iVar15 == 1) && (*(int *)(param_2 + 0xc) == 2)) {
-    iVar14 = *(int *)(param_2 + 0x30);
-    if ((iVar14 == 10) && ((*(int *)(param_2 + 0x34) == 5 && (*(int *)(param_2 + 0x38) == 0)))) {
-      ((code *)FUN_004cffe0)(param_5,param_1,param_3);
-      return 0;
-    }
-    if (((iVar14 == 0) && (*(int *)(param_2 + 0x34) == 5)) && (*(int *)(param_2 + 0x38) == 0xb)) {
-      ((code *)FUN_004d01f0)(param_5,param_1,param_3);
-      return 0;
-    }
-    if (((iVar14 == 0xb) && (*(int *)(param_2 + 0x34) == 5)) && (*(int *)(param_2 + 0x38) == 0)) {
-      ((code *)FUN_004d00f0)(param_5,param_1,param_3);
-      return 0;
-    }
-  }
-  if (iVar15 == 0) {
-    iVar15 = *(int *)(param_2 + 0x24);
-    if ((*(int *)(param_2 + 0x24) == 0) && (iVar15 = param_4, param_4 == 0)) {
-      return 0xffffffff;
-    }
-    ((code *)FUN_004cfdf0)(param_5,param_1,param_3,4,iVar15);
-    return 0;
-  }
-  if (iVar15 == 1) {
-    bVar1 = (&DAT_004f3da0)[*(int *)(param_2 + 0x28) * 4];
-    bVar2 = (&DAT_004f3da0)[*(int *)(param_2 + 0x24) * 4];
-    bVar3 = (&DAT_004f3da0)[*(int *)(param_2 + 0x2c) * 4];
-    bVar4 = *(byte *)(param_2 + 0x30);
-    bVar5 = *(byte *)(param_2 + 0x34);
-    bVar6 = *(byte *)(param_2 + 0x38);
-    bVar7 = *(byte *)(param_2 + 0x3c);
-    bVar8 = *(byte *)(param_2 + 0x40);
-    bVar9 = *(byte *)(param_2 + 0x44);
-    iVar15 = *(int *)(param_2 + 0xc);
-    if (iVar15 == 2) {
-      if (param_3 != 0) {
-        do {
-          uVar13 = (ushort)*param_1;
-          param_1 = (uint *)((int)param_1 + 2);
-          *param_5 = (char)(uVar13 >> (bVar4 & 0x1f)) << (bVar7 & 0x1f) & bVar2;
-          param_5[1] = (char)(uVar13 >> (bVar5 & 0x1f)) << (bVar8 & 0x1f) & bVar1;
-          param_5[2] = (char)(uVar13 >> (bVar6 & 0x1f)) << (bVar9 & 0x1f) & bVar3;
-          param_5[3] = 0xff;
-          param_5 = param_5 + 4;
-          param_3 = param_3 + -1;
-        } while (param_3 != 0);
-        return 0;
-      }
-    }
-    else if (iVar15 == 3) {
-      if (param_3 != 0) {
-        do {
-          uVar16 = *param_1;
-          param_1 = (uint *)((int)param_1 + 3);
-          uVar16 = uVar16 & 0xffffff;
-          *param_5 = (char)(uVar16 >> (bVar4 & 0x1f)) << (bVar7 & 0x1f) & bVar2;
-          param_5[1] = (char)(uVar16 >> (bVar5 & 0x1f)) << (bVar8 & 0x1f) & bVar1;
-          param_5[2] = (char)(uVar16 >> (bVar6 & 0x1f)) << (bVar9 & 0x1f) & bVar3;
-          param_5[3] = 0xff;
-          param_5 = param_5 + 4;
-          param_3 = param_3 + -1;
-        } while (param_3 != 0);
-        return 0;
-      }
-    }
-    else {
-      if (iVar15 != 4) {
-        return 0xffffffff;
-      }
-      if (param_3 != 0) {
-        do {
-          uVar16 = *param_1;
-          param_1 = param_1 + 1;
-          *param_5 = (char)(uVar16 >> (bVar4 & 0x1f)) << (bVar7 & 0x1f) & bVar2;
-          param_5[1] = (char)(uVar16 >> (bVar5 & 0x1f)) << (bVar8 & 0x1f) & bVar1;
-          param_5[2] = (char)(uVar16 >> (bVar6 & 0x1f)) << (bVar9 & 0x1f) & bVar3;
-          param_5[3] = 0xff;
-          param_5 = param_5 + 4;
-          param_3 = param_3 + -1;
-        } while (param_3 != 0);
-        return 0;
-      }
-    }
-  }
-  else {
-    if (iVar15 != 2) {
-      return 0xffffffff;
-    }
-    bVar1 = (&DAT_004f3da0)[*(int *)(param_2 + 0x28) * 4];
-    bVar2 = (&DAT_004f3da0)[*(int *)(param_2 + 0x24) * 4];
-    bVar3 = (&DAT_004f3da0)[*(int *)(param_2 + 0x2c) * 4];
-    bVar4 = (&DAT_004f3da0)[*(int *)(param_2 + 0x48) * 4];
-    bVar5 = *(byte *)(param_2 + 0x30);
-    bVar6 = *(byte *)(param_2 + 0x34);
-    bVar7 = *(byte *)(param_2 + 0x38);
-    bVar8 = *(byte *)(param_2 + 0x4c);
-    bVar9 = *(byte *)(param_2 + 0x3c);
-    bVar10 = *(byte *)(param_2 + 0x40);
-    bVar11 = *(byte *)(param_2 + 0x44);
-    bVar12 = *(byte *)(param_2 + 0x50);
-    iVar15 = *(int *)(param_2 + 0xc);
-    if (iVar15 == 2) {
-      if (param_3 != 0) {
-        do {
-          uVar13 = (ushort)*param_1;
-          param_1 = (uint *)((int)param_1 + 2);
-          *param_5 = (char)(uVar13 >> (bVar5 & 0x1f)) << (bVar9 & 0x1f) & bVar2;
-          param_5[1] = (char)(uVar13 >> (bVar6 & 0x1f)) << (bVar10 & 0x1f) & bVar1;
-          param_5[2] = (char)(uVar13 >> (bVar7 & 0x1f)) << (bVar11 & 0x1f) & bVar3;
-          param_5[3] = (char)(uVar13 >> (bVar8 & 0x1f)) << (bVar12 & 0x1f) & bVar4;
-          param_5 = param_5 + 4;
-          param_3 = param_3 + -1;
-        } while (param_3 != 0);
-        return 0;
-      }
-    }
-    else if (iVar15 == 3) {
-      if (param_3 != 0) {
-        do {
-          uVar16 = *param_1;
-          param_1 = (uint *)((int)param_1 + 3);
-          uVar16 = uVar16 & 0xffffff;
-          *param_5 = (char)(uVar16 >> (bVar5 & 0x1f)) << (bVar9 & 0x1f) & bVar2;
-          param_5[1] = (char)(uVar16 >> (bVar6 & 0x1f)) << (bVar10 & 0x1f) & bVar1;
-          param_5[2] = (char)(uVar16 >> (bVar7 & 0x1f)) << (bVar11 & 0x1f) & bVar3;
-          param_5[3] = (char)(uVar16 >> (bVar8 & 0x1f)) << (bVar12 & 0x1f) & bVar4;
-          param_5 = param_5 + 4;
-          param_3 = param_3 + -1;
-        } while (param_3 != 0);
-        return 0;
-      }
-    }
-    else {
-      if (iVar15 != 4) {
-        return 0xffffffff;
-      }
-      for (; param_3 != 0; param_3 = param_3 + -1) {
-        uVar16 = *param_1;
-        param_1 = param_1 + 1;
-        *param_5 = (char)(uVar16 >> (bVar5 & 0x1f)) << (bVar9 & 0x1f) & bVar2;
-        param_5[1] = (char)(uVar16 >> (bVar6 & 0x1f)) << (bVar10 & 0x1f) & bVar1;
-        param_5[2] = (char)(uVar16 >> (bVar7 & 0x1f)) << (bVar11 & 0x1f) & bVar3;
-        param_5[3] = (char)(uVar16 >> (bVar8 & 0x1f)) << (bVar12 & 0x1f) & bVar4;
-        param_5 = param_5 + 4;
-      }
-    }
-  }
-  return 0;
-}
-#endif
-
-
-/* ---- 0x004cf520  FUN_004cf520 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
-undefined4 FUN_004cf520(uint *param_1,int param_2,int param_3,undefined4 param_4,int param_5)
-
-{
-  unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  byte bVar1;
-  byte bVar2;
-  byte bVar3;
-  byte bVar4;
-  byte bVar5;
-  byte bVar6;
-  byte bVar7;
-  byte bVar8;
-  byte bVar9;
-  byte bVar10;
-  byte bVar11;
-  byte bVar12;
-  int iVar13;
-  uint uVar14;
-  byte *pbVar15;
-  uint *puVar16;
-  #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x40 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x40 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x40 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x40 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x40 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x40 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x40 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x40 - 0x4)))
-  
-  if (*(int *)(param_2 + 0x20) == 1) {
-    if (*(int *)(param_2 + 0xc) == 2) {
-      iVar13 = *(int *)(param_2 + 0x30);
-      if (((iVar13 == 10) && (*(int *)(param_2 + 0x34) == 5)) && (*(int *)(param_2 + 0x38) == 0)) {
-        ((code *)FUN_004cff60)(param_1,param_5,param_3);
-        return 0;
-      }
-      if (((iVar13 == 0) && (*(int *)(param_2 + 0x34) == 5)) && (*(int *)(param_2 + 0x38) == 0xb)) {
-        ((code *)FUN_004d0180)(param_1,param_5,param_3);
-        return 0;
-      }
-      if (((iVar13 == 0xb) && (*(int *)(param_2 + 0x34) == 5)) && (*(int *)(param_2 + 0x38) == 0)) {
-        ((code *)FUN_004d0070)(param_1,param_5,param_3);
-        return 0;
-      }
-    }
-    bVar1 = *(byte *)(param_2 + 0x34);
-    bVar2 = (&DAT_004f3da0)[*(int *)(param_2 + 0x24) * 4];
-    bVar3 = (&DAT_004f3da0)[*(int *)(param_2 + 0x28) * 4];
-    bVar4 = (&DAT_004f3da0)[*(int *)(param_2 + 0x2c) * 4];
-    bVar5 = *(byte *)(param_2 + 0x30);
-    bVar6 = *(byte *)(param_2 + 0x38);
-    bVar7 = *(byte *)(param_2 + 0x3c);
-    bVar8 = *(byte *)(param_2 + 0x40);
-    bVar9 = *(byte *)(param_2 + 0x44);
-    iVar13 = *(int *)(param_2 + 0xc);
-    if (iVar13 == 1) {
-      if (param_3 != 0) {
-        pbVar15 = (byte *)(param_5 + 2);
-        do {
-          *(byte *)param_1 =
-               (byte)((int)((uint)(pbVar15[-1] & bVar3) << (bVar1 & 0x1f)) >> (bVar8 & 0x1f)) |
-               (byte)((int)((uint)(*pbVar15 & bVar4) << (bVar6 & 0x1f)) >> (bVar9 & 0x1f)) |
-               (byte)((int)((uint)(pbVar15[-2] & bVar2) << (bVar5 & 0x1f)) >> (bVar7 & 0x1f));
-          param_1 = (uint *)((int)param_1 + 1);
-          param_3 = param_3 + -1;
-          pbVar15 = pbVar15 + 4;
-        } while (param_3 != 0);
-        return 0;
-      }
-    }
-    else if (iVar13 == 2) {
-      if (param_3 != 0) {
-        pbVar15 = (byte *)(param_5 + 2);
-        do {
-          param_3 = param_3 + -1;
-          *(ushort *)param_1 =
-               (ushort)((int)((uint)(pbVar15[-2] & bVar2) << (bVar5 & 0x1f)) >> (bVar7 & 0x1f)) |
-               (ushort)((int)((uint)(*pbVar15 & bVar4) << (bVar6 & 0x1f)) >> (bVar9 & 0x1f)) |
-               (ushort)((int)((uint)(pbVar15[-1] & bVar3) << (bVar1 & 0x1f)) >> (bVar8 & 0x1f));
-          pbVar15 = pbVar15 + 4;
-          param_1 = (uint *)((int)param_1 + 2);
-        } while (param_3 != 0);
-        return 0;
-      }
-    }
-    else if (iVar13 == 3) {
-      if (param_3 != 0) {
-        puVar16 = param_1;
-        pbVar15 = (byte *)(param_5 + 2);
-        do {
-          uVar14 = ((uint)(pbVar15[-1] & bVar3) << (bVar1 & 0x1f)) >> (bVar8 & 0x1f) |
-                   ((uint)(pbVar15[-2] & bVar2) << (bVar5 & 0x1f)) >> (bVar7 & 0x1f) |
-                   ((uint)(*pbVar15 & bVar4) << (bVar6 & 0x1f)) >> (bVar9 & 0x1f);
-          *(byte *)puVar16 = (byte)uVar14;
-          PIECE(param_1,2,1) = (byte)(uVar14 >> 0x10);
-          *(byte *)((int)puVar16 + 1) = (byte)(uVar14 >> 8);
-          *(byte *)((int)puVar16 + 2) = PIECE(param_1,2,1);
-          puVar16 = (uint *)((int)puVar16 + 3);
-          param_3 = param_3 + -1;
-          pbVar15 = pbVar15 + 4;
-        } while (param_3 != 0);
-        return 0;
-      }
-    }
-    else {
-      if (iVar13 != 4) {
-        return 0xffffffff;
-      }
-      if (param_3 != 0) {
-        pbVar15 = (byte *)(param_5 + 2);
-        do {
-          param_3 = param_3 + -1;
-          *param_1 = ((uint)(pbVar15[-2] & bVar2) << (bVar5 & 0x1f)) >> (bVar7 & 0x1f) |
-                     ((uint)(*pbVar15 & bVar4) << (bVar6 & 0x1f)) >> (bVar9 & 0x1f) |
-                     ((uint)(pbVar15[-1] & bVar3) << (bVar1 & 0x1f)) >> (bVar8 & 0x1f);
-          pbVar15 = pbVar15 + 4;
-          param_1 = param_1 + 1;
-        } while (param_3 != 0);
-        return 0;
-      }
-    }
-  }
-  else {
-    if (*(int *)(param_2 + 0x20) != 2) {
-      return 0xffffffff;
-    }
-    bVar1 = *(byte *)(param_2 + 0x34);
-    bVar2 = (&DAT_004f3da0)[*(int *)(param_2 + 0x24) * 4];
-    bVar3 = (&DAT_004f3da0)[*(int *)(param_2 + 0x28) * 4];
-    bVar4 = (&DAT_004f3da0)[*(int *)(param_2 + 0x2c) * 4];
-    bVar5 = (&DAT_004f3da0)[*(int *)(param_2 + 0x48) * 4];
-    bVar6 = *(byte *)(param_2 + 0x38);
-    bVar7 = *(byte *)(param_2 + 0x4c);
-    bVar8 = *(byte *)(param_2 + 0x3c);
-    bVar9 = *(byte *)(param_2 + 0x40);
-    bVar10 = *(byte *)(param_2 + 0x44);
-    bVar11 = *(byte *)(param_2 + 0x30);
-    bVar12 = *(byte *)(param_2 + 0x50);
-    iVar13 = *(int *)(param_2 + 0xc);
-    if (iVar13 == 2) {
-      if (param_3 != 0) {
-        pbVar15 = (byte *)(param_5 + 2);
-        do {
-          param_3 = param_3 + -1;
-          *(ushort *)param_1 =
-               (ushort)((int)((uint)(*pbVar15 & bVar4) << (bVar6 & 0x1f)) >> (bVar10 & 0x1f)) |
-               (ushort)((int)((uint)(pbVar15[-1] & bVar3) << (bVar1 & 0x1f)) >> (bVar9 & 0x1f)) |
-               (ushort)((int)((uint)(pbVar15[-2] & bVar2) << (bVar11 & 0x1f)) >> (bVar8 & 0x1f)) |
-               (ushort)((int)((uint)(pbVar15[1] & bVar5) << (bVar7 & 0x1f)) >> (bVar12 & 0x1f));
-          pbVar15 = pbVar15 + 4;
-          param_1 = (uint *)((int)param_1 + 2);
-        } while (param_3 != 0);
-        return 0;
-      }
-    }
-    else if (iVar13 == 3) {
-      if (param_3 != 0) {
-        puVar16 = param_1;
-        pbVar15 = (byte *)(param_5 + 2);
-        do {
-          uVar14 = ((uint)(*pbVar15 & bVar4) << (bVar6 & 0x1f)) >> (bVar10 & 0x1f) |
-                   ((uint)(pbVar15[-2] & bVar2) << (bVar11 & 0x1f)) >> (bVar8 & 0x1f) |
-                   ((uint)(pbVar15[-1] & bVar3) << (bVar1 & 0x1f)) >> (bVar9 & 0x1f) |
-                   ((uint)(pbVar15[1] & bVar5) << (bVar7 & 0x1f)) >> (bVar12 & 0x1f);
-          *(byte *)puVar16 = (byte)uVar14;
-          PIECE(param_1,2,1) = (byte)(uVar14 >> 0x10);
-          *(byte *)((int)puVar16 + 1) = (byte)(uVar14 >> 8);
-          *(byte *)((int)puVar16 + 2) = PIECE(param_1,2,1);
-          puVar16 = (uint *)((int)puVar16 + 3);
-          param_3 = param_3 + -1;
-          pbVar15 = pbVar15 + 4;
-        } while (param_3 != 0);
-        return 0;
-      }
-    }
-    else {
-      if (iVar13 != 4) {
-        return 0xffffffff;
-      }
-      if (param_3 != 0) {
-        pbVar15 = (byte *)(param_5 + 2);
-        do {
-          param_3 = param_3 + -1;
-          *param_1 = ((uint)(pbVar15[1] & bVar5) << (bVar7 & 0x1f)) >> (bVar12 & 0x1f) |
-                     ((uint)(pbVar15[-2] & bVar2) << (bVar11 & 0x1f)) >> (bVar8 & 0x1f) |
-                     ((uint)(pbVar15[-1] & bVar3) << (bVar1 & 0x1f)) >> (bVar9 & 0x1f) |
-                     ((uint)(*pbVar15 & bVar4) << (bVar6 & 0x1f)) >> (bVar10 & 0x1f);
-          pbVar15 = pbVar15 + 4;
-          param_1 = param_1 + 1;
-        } while (param_3 != 0);
-      }
-    }
-  }
-  return 0;
-}
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_4
-#undef local_8
-#undef local_c
-
-#endif
-
-
-/* ---- 0x004cfdb0  FUN_004cfdb0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
-void FUN_004cfdb0(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4,
-                 undefined4 param_5,undefined4 param_6,undefined4 param_7,undefined4 param_8,
-                 undefined4 param_9,undefined4 param_10)
-
-{
-  ((code *)FUN_004d0260)(param_2,param_1,param_5,param_6,param_3,param_4,param_7,param_8,param_10,param_9);
-  return;
-}
-#endif
-
-
-/* ---- 0x004cfdf0  FUN_004cfdf0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
-undefined8 __fastcall
-FUN_004cfdf0(undefined4 param_1,undefined4 param_2,undefined4 *param_3,ushort *param_4,uint param_5,
-            char param_6,int param_7)
-
-{
-  bool bVar1;
-  ushort uVar2;
-  undefined4 in_EAX;
-  int iVar3;
-  uint uVar4;
-  uint uVar5;
-  
-  if (param_6 == '\x01') {
-    do {
-      uVar2 = *param_4;
-      param_4 = (ushort *)((int)param_4 + 1);
-      *(undefined1 *)param_3 = *(undefined1 *)((uint)(byte)uVar2 + param_7);
-      uVar4 = param_5 - 1;
-      param_3 = (undefined4 *)((int)param_3 + 1);
-      bVar1 = 0 < (int)param_5;
-      param_5 = uVar4;
-    } while (uVar4 != 0 && bVar1);
-  }
-  else if (param_6 == '\x02') {
-    uVar4 = param_5 >> 1;
-    if ((param_5 & 1) != 0) {
-      uVar2 = *param_4;
-      param_4 = (ushort *)((int)param_4 + 1);
-      *(undefined2 *)param_3 = *(undefined2 *)(param_7 + (uint)(byte)uVar2 * 2);
-      param_3 = (undefined4 *)((int)param_3 + 2);
-    }
-    do {
-      uVar2 = *param_4;
-      param_4 = param_4 + 1;
-      *param_3 = CONCAT22(*(undefined2 *)(param_7 + (uint)(byte)(uVar2 >> 8) * 2),
-                          *(undefined2 *)(param_7 + (uVar2 & 0xffff00ff) * 2));
-      uVar5 = uVar4 - 1;
-      param_3 = param_3 + 1;
-      bVar1 = 0 < (int)uVar4;
-      uVar4 = uVar5;
-    } while (uVar5 != 0 && bVar1);
-  }
-  else if (param_6 == '\x03') {
-    iVar3 = 0;
-    do {
-      iVar3 = CONCAT31((int3)((uint)iVar3 >> 8),(byte)*param_4) * 3;
-      param_4 = (ushort *)((int)param_4 + 1);
-      *param_3 = *(undefined4 *)(iVar3 + param_7);
-      uVar4 = param_5 - 1;
-      param_3 = (undefined4 *)((int)param_3 + 3);
-      bVar1 = 0 < (int)param_5;
-      param_5 = uVar4;
-    } while (uVar4 != 0 && bVar1);
-  }
-  else if (param_6 == '\x04') {
-    do {
-      uVar2 = *param_4;
-      param_4 = (ushort *)((int)param_4 + 1);
-      *param_3 = *(undefined4 *)(param_7 + (uint)(byte)uVar2 * 4);
-      uVar4 = param_5 - 1;
-      param_3 = param_3 + 1;
-      bVar1 = 0 < (int)param_5;
-      param_5 = uVar4;
-    } while (uVar4 != 0 && bVar1);
-  }
-  return CONCAT44(param_2,in_EAX);
-}
-#endif
-
-
-/* ---- 0x004cfea0  FUN_004cfea0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
-/* WARNING: Variable defined which should be unmapped: local_8 */
-/* WARNING: Variable defined which should be unmapped: local_4 */
-/* WARNING: Variable defined which should be unmapped: local_c */
-
-undefined8 __fastcall FUN_004cfea0(undefined4 param_1,undefined4 param_2,int param_3)
-
-{
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  ushort uVar1;
-  uint uVar2;
-  bool bVar3;
-  undefined4 in_EAX;
-  int iVar4;
-  uint uVar5;
-  char cVar6;
-  uint *unaff_EBX;
-  uint unaff_EBP;
-  uint uVar7;
-  uint *unaff_ESI;
-  uint local_res0;
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
-  
-  cVar6 = (char)local_res0;
-  if (cVar6 == '\x01') {
-    do {
-      uVar5 = *unaff_EBX;
-      unaff_EBX = (uint *)((int)unaff_EBX + 2);
-      *(undefined1 *)unaff_ESI = *(undefined1 *)((uint)(ushort)uVar5 + param_3);
-      uVar5 = unaff_EBP - 1;
-      unaff_ESI = (uint *)((int)unaff_ESI + 1);
-      bVar3 = 0 < (int)unaff_EBP;
-      unaff_EBP = uVar5;
-    } while (uVar5 != 0 && bVar3);
-  }
-  else if (cVar6 == '\x02') {
-    uVar5 = unaff_EBP >> 1;
-    if ((unaff_EBP & 1) != 0) {
-      uVar5 = *unaff_EBX;
-      unaff_EBX = (uint *)((int)unaff_EBX + 2);
-      *(undefined2 *)unaff_ESI = *(undefined2 *)(param_3 + (uint)(ushort)uVar5 * 2);
-      uVar5 = unaff_EBP >> 1;
-      unaff_ESI = (uint *)((int)unaff_ESI + 2);
-    }
-    do {
-      uVar2 = *unaff_EBX;
-      unaff_EBX = unaff_EBX + 1;
-      uVar1 = *(ushort *)(param_3 + (uVar2 & 0xffff) * 2);
-      uVar7 = uVar5 - 1;
-      *unaff_ESI = (uint)uVar1 |
-                   CONCAT22(uVar1,*(undefined2 *)(param_3 + (uVar2 >> 0x10) * 2)) << 0x10;
-      bVar3 = 0 < (int)uVar5;
-      uVar5 = uVar7;
-      unaff_ESI = unaff_ESI + 1;
-    } while (uVar7 != 0 && bVar3);
-  }
-  else if (cVar6 == '\x03') {
-    iVar4 = 0;
-    do {
-      iVar4 = CONCAT22((short)((uint)iVar4 >> 0x10),(ushort)*unaff_EBX) * 3;
-      unaff_EBX = (uint *)((int)unaff_EBX + 2);
-      *unaff_ESI = *(uint *)(iVar4 + param_3);
-      uVar5 = unaff_EBP - 1;
-      unaff_ESI = (uint *)((int)unaff_ESI + 3);
-      bVar3 = 0 < (int)unaff_EBP;
-      unaff_EBP = uVar5;
-    } while (uVar5 != 0 && bVar3);
-  }
-  else if (cVar6 == '\x04') {
-    do {
-      uVar5 = *unaff_EBX;
-      unaff_EBX = (uint *)((int)unaff_EBX + 2);
-      *unaff_ESI = *(uint *)(param_3 + (uint)(ushort)uVar5 * 4);
-      uVar5 = unaff_EBP - 1;
-      unaff_ESI = unaff_ESI + 1;
-      bVar3 = 0 < (int)unaff_EBP;
-      unaff_EBP = uVar5;
-    } while (uVar5 != 0 && bVar3);
-  }
-  return CONCAT44(param_2,in_EAX);
-}
-#undef local_4
-#undef local_8
-#undef local_c
-
-#endif
-
-
-/* ---- 0x004cff60  FUN_004cff60 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
-undefined8 __fastcall
-FUN_004cff60(undefined4 param_1,undefined4 param_2,undefined4 *param_3,uint *param_4,uint param_5)
-
-{
-  bool bVar1;
-  undefined4 in_EAX;
-  uint uVar2;
-  uint uVar3;
-  uint uVar4;
-  int iVar5;
-  int iVar6;
-  
-  uVar2 = param_5 >> 1;
-  if ((param_5 & 1) != 0) {
-    uVar2 = *param_4 & 0xf8f8f8;
-    iVar5 = (uint)CONCAT11((byte)uVar2 >> 3,(char)(uVar2 >> 8)) << 2;
-    *(short *)param_3 =
-         (short)CONCAT31((int3)((uint)iVar5 >> 8),(byte)iVar5 | (byte)((uVar2 >> 0xb) >> 8));
-    param_4 = param_4 + 1;
-    param_3 = (undefined4 *)((int)param_3 + 2);
-    uVar2 = param_5 >> 1;
-  }
-  do {
-    uVar3 = param_4[1] & 0xf8f8f8;
-    uVar4 = *param_4 & 0xf8f8f8;
-    iVar6 = (uint)CONCAT11((byte)uVar3 >> 3,(char)(uVar3 >> 8)) << 2;
-    iVar5 = (uint)CONCAT11((byte)uVar4 >> 3,(char)(uVar4 >> 8)) << 2;
-    *param_3 = CONCAT22((short)CONCAT31((int3)((uint)iVar6 >> 8),
-                                        (byte)iVar6 | (byte)((uVar3 >> 0xb) >> 8)),
-                        (short)CONCAT31((int3)((uint)iVar5 >> 8),
-                                        (byte)iVar5 | (byte)((uVar4 >> 0xb) >> 8)));
-    param_4 = param_4 + 2;
-    param_3 = param_3 + 1;
-    uVar3 = uVar2 - 1;
-    bVar1 = 0 < (int)uVar2;
-    uVar2 = uVar3;
-  } while (uVar3 != 0 && bVar1);
-  return CONCAT44(param_2,in_EAX);
-}
-#endif
-
-
-/* ---- 0x004cffe0  FUN_004cffe0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
-undefined8 __fastcall
-FUN_004cffe0(undefined4 param_1,uint param_2,uint *param_3,ushort *param_4,uint param_5)
-
-{
-  ushort uVar1;
-  bool bVar2;
-  undefined4 in_EAX;
-  ushort uVar4;
-  uint uVar3;
-  uint unaff_EBX;
-  ushort uVar5;
-  ushort uVar6;
-  uint uVar7;
-  uint uVar8;
-  
-  uVar3 = param_2;
-  uVar7 = param_5 >> 1;
-  if ((param_5 & 1) != 0) {
-    uVar1 = *param_4;
-    uVar5 = (ushort)(unaff_EBX >> 0x17) | (ushort)(((uint)(byte)(uVar1 >> 8) << 0x19) >> 0x10);
-    unaff_EBX = CONCAT31(CONCAT21(uVar5,(char)uVar1 << 3),(char)(((uint)uVar1 << 6) >> 8)) << 8 |
-                (uint)(uVar5 >> 8) | 0xff070707;
-    *param_3 = unaff_EBX;
-    param_4 = param_4 + 1;
-    param_3 = param_3 + 1;
-  }
-  do {
-    uVar1 = param_4[1];
-    uVar5 = *param_4;
-    uVar6 = (ushort)(unaff_EBX >> 0x17) | (ushort)(((uint)(byte)(uVar1 >> 8) << 0x19) >> 0x10);
-    uVar4 = (ushort)(uVar3 >> 0x17) | (ushort)(((uint)(byte)(uVar5 >> 8) << 0x19) >> 0x10);
-    unaff_EBX = CONCAT31(CONCAT21(uVar6,(char)uVar1 << 3),(char)(((uint)uVar1 << 6) >> 8)) << 8 |
-                (uint)(uVar6 >> 8) | 0xff070707;
-    uVar3 = CONCAT31(CONCAT21(uVar4,(char)uVar5 << 3),(char)(((uint)uVar5 << 6) >> 8)) << 8 |
-            (uint)(uVar4 >> 8) | 0xff070707;
-    param_3[1] = unaff_EBX;
-    *param_3 = uVar3;
-    param_4 = param_4 + 2;
-    param_3 = param_3 + 2;
-    uVar8 = uVar7 - 1;
-    bVar2 = 0 < (int)uVar7;
-    uVar7 = uVar8;
-  } while (uVar8 != 0 && bVar2);
-  return CONCAT44(param_2,in_EAX);
-}
-#endif
-
-
-/* ---- 0x004d0070  FUN_004d0070 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
-undefined8 __fastcall
-FUN_004d0070(undefined4 param_1,undefined4 param_2,undefined4 *param_3,uint *param_4,uint param_5)
-
-{
-  bool bVar1;
-  undefined4 in_EAX;
-  uint uVar2;
-  uint uVar3;
-  uint uVar4;
-  int iVar5;
-  int iVar6;
-  
-  uVar2 = param_5 >> 1;
-  if ((param_5 & 1) != 0) {
-    uVar2 = *param_4 & 0xf8fcf8;
-    iVar5 = (uint)CONCAT11((byte)uVar2 >> 3,(char)(uVar2 >> 8)) << 3;
-    *(short *)param_3 =
-         (short)CONCAT31((int3)((uint)iVar5 >> 8),(byte)iVar5 | (byte)((uVar2 >> 0xb) >> 8));
-    param_4 = param_4 + 1;
-    param_3 = (undefined4 *)((int)param_3 + 2);
-    uVar2 = param_5 >> 1;
-  }
-  do {
-    uVar3 = param_4[1] & 0xf8fcf8;
-    uVar4 = *param_4 & 0xf8fcf8;
-    iVar6 = (uint)CONCAT11((byte)uVar3 >> 3,(char)(uVar3 >> 8)) << 3;
-    iVar5 = (uint)CONCAT11((byte)uVar4 >> 3,(char)(uVar4 >> 8)) << 3;
-    *param_3 = CONCAT22((short)CONCAT31((int3)((uint)iVar6 >> 8),
-                                        (byte)iVar6 | (byte)((uVar3 >> 0xb) >> 8)),
-                        (short)CONCAT31((int3)((uint)iVar5 >> 8),
-                                        (byte)iVar5 | (byte)((uVar4 >> 0xb) >> 8)));
-    param_4 = param_4 + 2;
-    param_3 = param_3 + 1;
-    uVar3 = uVar2 - 1;
-    bVar1 = 0 < (int)uVar2;
-    uVar2 = uVar3;
-  } while (uVar3 != 0 && bVar1);
-  return CONCAT44(param_2,in_EAX);
-}
-#endif
-
-
-/* ---- 0x004d00f0  FUN_004d00f0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
-undefined8 __fastcall
-FUN_004d00f0(undefined4 param_1,uint param_2,uint *param_3,ushort *param_4,uint param_5)
-
-{
-  ushort uVar1;
-  ushort uVar2;
-  bool bVar3;
-  undefined4 in_EAX;
-  uint uVar4;
-  uint unaff_EBX;
-  uint uVar5;
-  uint uVar6;
-  
-  uVar4 = param_2;
-  uVar5 = param_5 >> 1;
-  if ((param_5 & 1) != 0) {
-    uVar1 = *param_4;
-    unaff_EBX = CONCAT31(CONCAT21(CONCAT11((char)(unaff_EBX >> 0x18),(char)uVar1 << 3),
-                                  (char)(((uint)uVar1 << 5) >> 8)),(char)(uVar1 >> 8)) | 0xff070307;
-    *param_3 = unaff_EBX;
-    param_4 = param_4 + 1;
-    param_3 = param_3 + 1;
-  }
-  do {
-    uVar1 = param_4[1];
-    uVar2 = *param_4;
-    unaff_EBX = CONCAT31(CONCAT21(CONCAT11((char)(unaff_EBX >> 0x18),(char)uVar1 << 3),
-                                  (char)(((uint)uVar1 << 5) >> 8)),(char)(uVar1 >> 8)) | 0xff070307;
-    uVar4 = CONCAT31(CONCAT21(CONCAT11((char)(uVar4 >> 0x18),(char)uVar2 << 3),
-                              (char)(((uint)uVar2 << 5) >> 8)),(char)(uVar2 >> 8)) | 0xff070307;
-    param_3[1] = unaff_EBX;
-    *param_3 = uVar4;
-    param_4 = param_4 + 2;
-    param_3 = param_3 + 2;
-    uVar6 = uVar5 - 1;
-    bVar3 = 0 < (int)uVar5;
-    uVar5 = uVar6;
-  } while (uVar6 != 0 && bVar3);
-  return CONCAT44(param_2,in_EAX);
-}
-#endif
-
-
-/* ---- 0x004d0180  FUN_004d0180 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
-undefined8 __fastcall
-FUN_004d0180(undefined4 param_1,undefined4 param_2,undefined4 *param_3,uint *param_4,uint param_5)
-
-{
-  bool bVar1;
-  short sVar2;
-  undefined4 in_EAX;
-  ushort uVar3;
-  short sVar4;
-  ushort uVar5;
-  uint uVar6;
-  uint uVar7;
-  
-  uVar6 = param_5 >> 1;
-  if ((param_5 & 1) != 0) {
-    uVar3 = (ushort)(*param_4 >> 0x13);
-    sVar2 = (short)(*param_4 >> 3) << 1;
-    *(short *)param_3 =
-         (short)(CONCAT22(uVar3,(short)CONCAT31((int3)(CONCAT22(uVar3,sVar2) >> 8),(char)sVar2 << 2)
-                                << 2) >> 5);
-    param_4 = param_4 + 1;
-    param_3 = (undefined4 *)((int)param_3 + 2);
-  }
-  do {
-    uVar3 = (ushort)(param_4[1] >> 0x13);
-    sVar2 = (short)(param_4[1] >> 3) << 1;
-    uVar5 = (ushort)(*param_4 >> 0x13);
-    sVar4 = (short)(*param_4 >> 3) << 1;
-    *param_3 = CONCAT22((short)(CONCAT22(uVar3,(short)CONCAT31((int3)(CONCAT22(uVar3,sVar2) >> 8),
-                                                               (char)sVar2 << 2) << 2) >> 5),
-                        (short)(CONCAT22(uVar5,(short)CONCAT31((int3)(CONCAT22(uVar5,sVar4) >> 8),
-                                                               (char)sVar4 << 2) << 2) >> 5));
-    param_4 = param_4 + 2;
-    param_3 = param_3 + 1;
-    uVar7 = uVar6 - 1;
-    bVar1 = 0 < (int)uVar6;
-    uVar6 = uVar7;
-  } while (uVar7 != 0 && bVar1);
-  return CONCAT44(param_2,in_EAX);
-}
-#endif
-
-
-/* ---- 0x004d01f0  FUN_004d01f0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
-undefined8 __fastcall
-FUN_004d01f0(undefined4 param_1,undefined4 param_2,int *param_3,ushort *param_4,uint param_5)
-
-{
-  bool bVar1;
-  undefined4 in_EAX;
-  int iVar2;
-  int iVar3;
-  uint uVar4;
-  uint uVar5;
-  
-  uVar4 = param_5 >> 1;
-  if ((param_5 & 1) != 0) {
-    iVar2 = CONCAT22((short)(((uint)*param_4 << 5) >> 0x10),(ushort)((uint)*param_4 << 5) >> 3) << 1
-    ;
-    *param_3 = CONCAT31((int3)((uint)iVar2 >> 8),(byte)iVar2 >> 2) << 2;
-    param_4 = param_4 + 1;
-    param_3 = param_3 + 1;
-  }
-  do {
-    iVar2 = CONCAT22((short)(((uint)param_4[1] << 5) >> 0x10),(ushort)((uint)param_4[1] << 5) >> 3)
-            << 1;
-    iVar3 = CONCAT22((short)(((uint)*param_4 << 5) >> 0x10),(ushort)((uint)*param_4 << 5) >> 3) << 1
-    ;
-    param_3[1] = CONCAT31((int3)((uint)iVar2 >> 8),(byte)iVar2 >> 2) << 2;
-    *param_3 = CONCAT31((int3)((uint)iVar3 >> 8),(byte)iVar3 >> 2) << 2;
-    param_4 = param_4 + 2;
-    param_3 = param_3 + 2;
-    uVar5 = uVar4 - 1;
-    bVar1 = 0 < (int)uVar4;
-    uVar4 = uVar5;
-  } while (uVar5 != 0 && bVar1);
-  return CONCAT44(param_2,in_EAX);
-}
-#endif
-
-
-/* ---- 0x004d0260  FUN_004d0260 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
-undefined8 __fastcall
-FUN_004d0260(undefined4 param_1,undefined4 param_2,int param_3,int param_4,int param_5,uint param_6,
-            int param_7,uint param_8,uint param_9,int param_10,uint param_11,uint param_12)
-
-{
-  unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  bool bVar1;
-  undefined4 in_EAX;
-  uint uVar2;
-  uint uVar3;
-  int iVar4;
-  int iVar5;
-  int iVar6;
-  undefined4 *puVar7;
-  undefined4 *puVar8;
-  #define local_38 (*(uint *)(_frame + (0x50 - 0x38)))
-  #define local_34 (*(uint *)(_frame + (0x50 - 0x34)))
-  
-  uVar3 = (param_6 & 0xffff) * (param_11 & 0xffff);
-  puVar7 = (undefined4 *)
-           (param_3 + param_5 +
-           (CONCAT22((short)(param_6 >> 0x10),(short)uVar3) | uVar3 & 0xffff0000));
-  uVar3 = (param_8 & 0xffff) * (param_12 & 0xffff);
-  puVar8 = (undefined4 *)
-           (param_4 + param_7 +
-           (CONCAT22((short)(param_8 >> 0x10),(short)uVar3) | uVar3 & 0xffff0000));
-  iVar5 = param_11 - param_9;
-  iVar4 = param_12 - param_9;
-  if ((param_9 & 3) == 0) {
-    if (iVar4 == 0) {
-      uVar3 = param_9 >> 2;
-      do {
-        for (; uVar3 != 0; uVar3 = uVar3 - 1) {
-          *puVar8 = *puVar7;
-          puVar7 = puVar7 + 1;
-          puVar8 = puVar8 + 1;
-        }
-        puVar7 = (undefined4 *)((int)puVar7 + iVar5);
-        iVar4 = param_10 + -1;
-        bVar1 = 0 < param_10;
-        uVar3 = param_9 >> 2;
-        param_10 = iVar4;
-      } while (iVar4 != 0 && bVar1);
-    }
-    else {
-      uVar3 = param_9 >> 2;
-      do {
-        for (; uVar3 != 0; uVar3 = uVar3 - 1) {
-          *puVar8 = *puVar7;
-          puVar7 = puVar7 + 1;
-          puVar8 = puVar8 + 1;
-        }
-        puVar8 = (undefined4 *)((int)puVar8 + iVar4);
-        puVar7 = (undefined4 *)((int)puVar7 + iVar5);
-        iVar6 = param_10 + -1;
-        bVar1 = 0 < param_10;
-        uVar3 = param_9 >> 2;
-        param_10 = iVar6;
-      } while (iVar6 != 0 && bVar1);
-    }
-  }
-  else {
-    uVar3 = param_9 >> 2;
-    do {
-      for (; uVar2 = param_9 & 3, uVar3 != 0; uVar3 = uVar3 - 1) {
-        *puVar8 = *puVar7;
-        puVar7 = puVar7 + 1;
-        puVar8 = puVar8 + 1;
-      }
-      for (; uVar2 != 0; uVar2 = uVar2 - 1) {
-        *(undefined1 *)puVar8 = *(undefined1 *)puVar7;
-        puVar7 = (undefined4 *)((int)puVar7 + 1);
-        puVar8 = (undefined4 *)((int)puVar8 + 1);
-      }
-      puVar8 = (undefined4 *)((int)puVar8 + iVar4);
-      puVar7 = (undefined4 *)((int)puVar7 + iVar5);
-      iVar6 = param_10 + -1;
-      bVar1 = 0 < param_10;
-      uVar3 = param_9 >> 2;
-      param_10 = iVar6;
-    } while (iVar6 != 0 && bVar1);
-  }
-  return CONCAT44(param_2,in_EAX);
-}
-#undef local_34
-#undef local_38
-
-#endif
-
 
 /* ---- 0x004d2d70  FUN_004d2d70 ---- */
 void FUN_004d2d70(int *param_1)

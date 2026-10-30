@@ -1,6 +1,6 @@
 # GRIMFANDANGO.EXE function index
 
-2604 functions, 2201 with real names.
+2604 functions, 2215 with real names.
 
 | address | name | module | lines |
 |---|---|---|---|
@@ -2353,7 +2353,7 @@
 | 004cc6a0 | FUN_004cc6a0 | crt_unnamed.c | 73 |
 | 004cc7d0 | FUN_004cc7d0 | crt_unnamed.c | 1 |
 | 004ccd00 | FUN_004ccd00 | crt_unnamed.c | 1 |
-| 004cd1e0 | FUN_004cd1e0 | crt_unnamed.c | 25 |
+| 004cd1e0 | FUN_004cd1e0 | crt_unnamed.c | 28 |
 | 004cd300 | FUN_004cd300 | crt_unnamed.c | 67 |
 | 004cd3f0 | FUN_004cd3f0 | crt_unnamed.c | 7 |
 | 004cd450 | FUN_004cd450 | crt_unnamed.c | 70 |
@@ -2367,26 +2367,12 @@
 | 004ce320 | FUN_004ce320 | crt_unnamed.c | 7 |
 | 004ce350 | FUN_004ce350 | crt_unnamed.c | 11 |
 | 004ce3b0 | FUN_004ce3b0 | crt_unnamed.c | 9 |
-| 004ce3e0 | FUN_004ce3e0 | crt_unnamed.c | 1 |
 | 004ce840 | FUN_004ce840 | crt_unnamed.c | 65 |
 | 004ce980 | FUN_004ce980 | crt_unnamed.c | 9 |
 | 004ce9b0 | FUN_004ce9b0 | crt_unnamed.c | 24 |
-| 004cea30 | FUN_004cea30 | crt_unnamed.c | 86 |
+| 004cea30 | FUN_004cea30 | crt_unnamed.c | 88 |
 | 004cec40 | FUN_004cec40 | crt_unnamed.c | 56 |
 | 004ced70 | FUN_004ced70 | crt_unnamed.c | 14 |
-| 004cedc0 | FUN_004cedc0 | crt_unnamed.c | 1 |
-| 004cf010 | FUN_004cf010 | crt_unnamed.c | 1 |
-| 004cf520 | FUN_004cf520 | crt_unnamed.c | 1 |
-| 004cfdb0 | FUN_004cfdb0 | crt_unnamed.c | 1 |
-| 004cfdf0 | FUN_004cfdf0 | crt_unnamed.c | 1 |
-| 004cfea0 | FUN_004cfea0 | crt_unnamed.c | 1 |
-| 004cff60 | FUN_004cff60 | crt_unnamed.c | 1 |
-| 004cffe0 | FUN_004cffe0 | crt_unnamed.c | 1 |
-| 004d0070 | FUN_004d0070 | crt_unnamed.c | 1 |
-| 004d00f0 | FUN_004d00f0 | crt_unnamed.c | 1 |
-| 004d0180 | FUN_004d0180 | crt_unnamed.c | 1 |
-| 004d01f0 | FUN_004d01f0 | crt_unnamed.c | 1 |
-| 004d0260 | FUN_004d0260 | crt_unnamed.c | 1 |
 | 004d2d70 | FUN_004d2d70 | crt_unnamed.c | 6 |
 | 004d54b4 | FUN_004d54b4 | crt_unnamed.c | 1 |
 | 004d56f0 | FUN_004d56f0 | crt_unnamed.c | 18 |
@@ -2563,6 +2549,20 @@
 | 004ce060 | InsaneTimer_Tick | insanetimer.c | 1 |
 | 004ce1d0 | InsaneTimer_ServiceDeferred | insanetimer.c | 1 |
 | 004ce260 | InsaneTimer_RunDeferred | insanetimer.c | 1 |
+| 004ce3e0 | VideoBitmap_Create | videobitmap.c | 1 |
+| 004cedc0 | VideoBitmap_ConvertPixels | videobitmap.c | 1 |
+| 004cf010 | Video_PixelsToRgba | video.c | 1 |
+| 004cf520 | Video_PixelsFromRgba | video.c | 1 |
+| 004cfdb0 | Video_CopyRectDstFirst | video.c | 1 |
+| 004cfdf0 | Video_ExpandIndexed8 | video.c | 1 |
+| 004cfea0 | Video_ExpandIndexed16 | video.c | 1 |
+| 004cff60 | Video_Rgba32To555 | video.c | 1 |
+| 004cffe0 | Video_555ToRgba32 | video.c | 1 |
+| 004d0070 | Video_Rgba32To565 | video.c | 1 |
+| 004d00f0 | Video_565ToRgba32 | video.c | 1 |
+| 004d0180 | Video_Rgba32To565Alt | video.c | 1 |
+| 004d01f0 | Video_565AltToRgba32 | video.c | 1 |
+| 004d0260 | Video_CopyRect | video.c | 1 |
 | 004d0300 | SoundModule_Register | soundmodule.c | 1 |
 | 004d03a0 | SoundModule_Unregister | soundmodule.c | 1 |
 | 004d03d0 | SoundModule_Init | soundmodule.c | 1 |

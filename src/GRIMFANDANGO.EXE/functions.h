@@ -2600,7 +2600,7 @@ undefined4 FUN_004cc650(short *param_1,int param_2,int *param_3,int *param_4,int
 void FUN_004cc6a0(uint param_1); /* 0x004cc6a0 */
 void FUN_004cc7d0(int param_1); /* 0x004cc7d0 */
 undefined4 FUN_004ccd00(int param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4,undefined4 param_5 ,int param_6,byte param_7); /* 0x004ccd00 */
-void FUN_004cd1e0(int param_1); /* 0x004cd1e0 */
+void FUN_004cd1e0(void *param_1); /* 0x004cd1e0 */
 void FUN_004cd300(void *param_1,ushort *param_2,int param_3,int param_4); /* 0x004cd300 */
 int FUN_004cd3f0(uint param_1,uint param_2); /* 0x004cd3f0 */
 void FUN_004cd450(void *param_1,byte *param_2,int param_3,int param_4,int param_5); /* 0x004cd450 */
@@ -2614,26 +2614,12 @@ undefined4 FUN_004ce2e0(int *param_1,uint param_2); /* 0x004ce2e0 */
 void FUN_004ce320(void); /* 0x004ce320 */
 undefined4 FUN_004ce350(void); /* 0x004ce350 */
 void FUN_004ce3b0(void); /* 0x004ce3b0 */
-undefined4 FUN_004ce3e0(int *param_1,int param_2,int param_3,int param_4); /* 0x004ce3e0 */
 undefined4 FUN_004ce840(int *param_1,int param_2,int param_3,int param_4,int param_5,undefined4 param_6, undefined4 *param_7); /* 0x004ce840 */
 void FUN_004ce980(int *param_1); /* 0x004ce980 */
 void FUN_004ce9b0(undefined4 *param_1,undefined4 param_2); /* 0x004ce9b0 */
-void FUN_004cea30(int *param_1,uint *param_2,int param_3,int param_4,int *param_5,undefined4 param_6 ,undefined1 *param_7); /* 0x004cea30 */
+void FUN_004cea30(int *param_1,uint *param_2,int param_3,int param_4,int *param_5,byte *param_6, byte *param_7); /* 0x004cea30 */
 void FUN_004cec40(char *param_1,int param_2,int param_3,char *param_4); /* 0x004cec40 */
-undefined4 FUN_004ced70(int param_1,int param_2,undefined4 param_3,int param_4); /* 0x004ced70 */
-undefined4 FUN_004cedc0(void *param_1,int param_2,int param_3,undefined4 param_4,void *param_5,int param_6, int param_7); /* 0x004cedc0 */
-undefined4 FUN_004cf010(uint *param_1,int param_2,int param_3,int param_4,byte *param_5); /* 0x004cf010 */
-undefined4 FUN_004cf520(uint *param_1,int param_2,int param_3,undefined4 param_4,int param_5); /* 0x004cf520 */
-void FUN_004cfdb0(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4, undefined4 param_5,undefined4 param_6,undefined4 param_7,undefined4 param_8, undefined4 param_9,undefined4 param_10); /* 0x004cfdb0 */
-undefined8 __fastcall FUN_004cfdf0(undefined4 param_1,undefined4 param_2,undefined4 *param_3,ushort *param_4,uint param_5, char param_6,int param_7); /* 0x004cfdf0 */
-undefined8 __fastcall FUN_004cfea0(undefined4 param_1,undefined4 param_2,int param_3); /* 0x004cfea0 */
-undefined8 __fastcall FUN_004cff60(undefined4 param_1,undefined4 param_2,undefined4 *param_3,uint *param_4,uint param_5); /* 0x004cff60 */
-undefined8 __fastcall FUN_004cffe0(undefined4 param_1,uint param_2,uint *param_3,ushort *param_4,uint param_5); /* 0x004cffe0 */
-undefined8 __fastcall FUN_004d0070(undefined4 param_1,undefined4 param_2,undefined4 *param_3,uint *param_4,uint param_5); /* 0x004d0070 */
-undefined8 __fastcall FUN_004d00f0(undefined4 param_1,uint param_2,uint *param_3,ushort *param_4,uint param_5); /* 0x004d00f0 */
-undefined8 __fastcall FUN_004d0180(undefined4 param_1,undefined4 param_2,undefined4 *param_3,uint *param_4,uint param_5); /* 0x004d0180 */
-undefined8 __fastcall FUN_004d01f0(undefined4 param_1,undefined4 param_2,int *param_3,ushort *param_4,uint param_5); /* 0x004d01f0 */
-undefined8 __fastcall FUN_004d0260(undefined4 param_1,undefined4 param_2,int param_3,int param_4,int param_5,uint param_6, int param_7,uint param_8,uint param_9,int param_10,uint param_11,uint param_12); /* 0x004d0260 */
+undefined4 FUN_004ced70(int param_1,void *param_2,void *param_3,byte *param_4); /* 0x004ced70 */
 void FUN_004d2d70(int *param_1); /* 0x004d2d70 */
 float10 FUN_004d54b4(void); /* 0x004d54b4 */
 int FUN_004d56f0(void); /* 0x004d56f0 */
@@ -2830,6 +2816,24 @@ int InsaneTimer_GetClock(void); /* 0x004ce000 */
 void InsaneTimer_Tick(void); /* 0x004ce060 */
 void InsaneTimer_ServiceDeferred(void); /* 0x004ce1d0 */
 void InsaneTimer_RunDeferred(void); /* 0x004ce260 */
+
+/* ===== videobitmap.c ===== */
+int __cdecl VideoBitmap_Create(void *out,int width,int height,int format); /* 0x004ce3e0 */
+int __cdecl VideoBitmap_ConvertPixels (byte *src,void *srcFmt,int count,byte *palette,byte *dst,void *dstFmt,byte *expandTable); /* 0x004cedc0 */
+
+/* ===== video.c ===== */
+int __cdecl Video_PixelsToRgba(void *src,void *fmt,int count,byte *palette,byte *dst); /* 0x004cf010 */
+int __cdecl Video_PixelsFromRgba(void *dst,void *fmt,int count,int unused,byte *src); /* 0x004cf520 */
+void __cdecl Video_CopyRectDstFirst (byte *dst,byte *src,int dstX,uint dstY,int srcX,uint srcY,uint width,int rows, uint dstPitch,uint srcPitch); /* 0x004cfdb0 */
+void __cdecl Video_ExpandIndexed8(byte *dst,byte *src,int count,int bytesPerPixel,byte *table); /* 0x004cfdf0 */
+void __cdecl Video_ExpandIndexed16(byte *dst,ushort *src,int count,int bytesPerPixel,byte *table); /* 0x004cfea0 */
+void __cdecl Video_Rgba32To555(ushort *dst,uint *src,uint count); /* 0x004cff60 */
+void __cdecl Video_555ToRgba32(uint *dst,ushort *src,uint count); /* 0x004cffe0 */
+void __cdecl Video_Rgba32To565(ushort *dst,uint *src,uint count); /* 0x004d0070 */
+void __cdecl Video_565ToRgba32(uint *dst,ushort *src,uint count); /* 0x004d00f0 */
+void __cdecl Video_Rgba32To565Alt(ushort *dst,uint *src,uint count); /* 0x004d0180 */
+void __cdecl Video_565AltToRgba32(uint *dst,ushort *src,uint count); /* 0x004d01f0 */
+void __cdecl Video_CopyRect(byte *src,byte *dst,int srcX,uint srcY,int dstX,uint dstY,uint width,int rows, uint srcPitch,uint dstPitch); /* 0x004d0260 */
 
 /* ===== soundmodule.c ===== */
 int __cdecl SoundModule_Register(int *services,uint moduleSize); /* 0x004d0300 */
