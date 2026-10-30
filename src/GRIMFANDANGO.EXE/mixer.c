@@ -102,7 +102,7 @@ undefined4 DSound_Init(void)
 
 
 /* ---- 0x004c1090  DSound_Shutdown ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 void DSound_Shutdown(void)
 
@@ -127,7 +127,7 @@ void DSound_Shutdown(void)
 
 
 /* ---- 0x004c1110  DSound_SetPrimaryVolume ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* IDirectSoundBuffer::SetVolume on the primary buffer under priority cooperative level */
 
@@ -154,202 +154,8 @@ void __cdecl DSound_SetPrimaryVolume(int volume)
 #endif
 
 
-/* ---- 0x004cddf0  Mixer_TimerThread ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
-/* Software sound mixer thread: wakes every 16 ms (timeGetTime) while g_nMixerRunning and refills
-   the DirectSound stream buffer */
-
-undefined * __stdcall Mixer_TimerThread(int a1)
-
-{
-  int a1_00;
-  int iVar1;
-  
-  a1_00 = CreateEventA(0,1,0,0);
-  UINT_008da864 = timeGetTime();
-  while (UINT_008da874 != 0) {
-    iVar1 = timeGetTime();
-    if ((int)(iVar1 - UINT_008da864) < 0x11) {
-      iVar1 = 0x10 - (iVar1 - UINT_008da864);
-    }
-    else {
-      UINT_008da864 = UINT_008da864 + 0x10;
-      Mixer_Update();
-      iVar1 = 10;
-    }
-    if (iVar1 == 0) {
-      iVar1 = 1;
-    }
-    if (10 < iVar1) {
-      iVar1 = 10;
-    }
-    WaitForSingleObject(a1_00,iVar1);
-  }
-  CloseHandle(a1_00);
-  return (undefined *)0x0;
-}
-#endif
-
-
-/* ---- 0x004ce060  Mixer_Update ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
-/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
-/* Advances the mixer clock and mixes every active voice into the accumulator */
-
-void Mixer_Update(void)
-
-{
-  uint uVar1;
-  uint uVar2;
-  uint *puVar3;
-  int iVar4;
-  
-  UINT_008da5c8 = UINT_008da5c8 + UINT_008da860;
-  if (UINT_008da878 == 0) {
-    iVar4 = 1;
-    _DAT_008da86c = 1;
-    UINT_008da870 = UINT_008da868;
-    UINT_008da868 = 0;
-    puVar3 = &UINT_008da60c;
-    do {
-      uVar2 = UINT_008da860;
-      if (puVar3[-5] != 0) {
-        *puVar3 = *puVar3 + UINT_008da860;
-        puVar3[2] = puVar3[2] + uVar2;
-        if (((((byte)puVar3[-3] & 5) == 1) && (uVar2 = puVar3[-4], uVar2 != 0)) &&
-           (uVar1 = *puVar3, (int)uVar2 <= (int)uVar1)) {
-          do {
-            *puVar3 = uVar1 - uVar2;
-            if ((puVar3[-3] & 2) != 0) {
-              puVar3[-4] = 0;
-              (*(code_std *)puVar3[-5])(iVar4,puVar3[-2]);
-              break;
-            }
-            (*(code_std *)puVar3[-5])(iVar4,puVar3[-2]);
-            uVar1 = *puVar3;
-            uVar2 = puVar3[-4];
-          } while ((int)uVar2 <= (int)uVar1);
-        }
-      }
-      puVar3 = puVar3 + 8;
-      iVar4 = iVar4 + 1;
-    } while ((int)puVar3 < IMG_ADDR(0x008da86c));
-    iVar4 = 1;
-    puVar3 = &UINT_008da60c;
-    do {
-      if (((puVar3[-5] != 0) && ((puVar3[-3] & 5) == 0)) && ((puVar3[-4] != 0 && (puVar3[-1] == 0)))
-         ) {
-        puVar3[-1] = 1;
-        uVar2 = *puVar3;
-        uVar1 = puVar3[-4];
-        if ((int)uVar1 <= (int)uVar2) {
-          do {
-            *puVar3 = uVar2 - uVar1;
-            if ((puVar3[-3] & 2) != 0) {
-              puVar3[-4] = 0;
-              (*(code_std *)puVar3[-5])(iVar4,puVar3[-2]);
-              break;
-            }
-            (*(code_std *)puVar3[-5])(iVar4,puVar3[-2]);
-            uVar2 = *puVar3;
-            uVar1 = puVar3[-4];
-          } while ((int)uVar1 <= (int)uVar2);
-        }
-        puVar3[-1] = 0;
-      }
-      puVar3 = puVar3 + 8;
-      iVar4 = iVar4 + 1;
-    } while ((int)puVar3 < IMG_ADDR(0x008da86c));
-    UINT_008da868 = UINT_008da870;
-    _DAT_008da86c = 0;
-    if ((UINT_008da880 == 0) && (UINT_008da87c == 0)) {
-      UINT_008da880 = 1;
-      Mixer_ServiceVoices();
-      UINT_008da880 = 0;
-    }
-  }
-  return;
-}
-#endif
-
-
-/* ---- 0x004ce1d0  Mixer_ServiceVoices ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
-/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
-/* setjmp-protected per-tick voice servicing */
-
-void Mixer_ServiceVoices(void)
-
-{
-  int iVar1;
-  
-  if ((UINT_008da88c == 0) || (UINT_008da88c = UINT_008da88c - 1, UINT_008da88c == 0)) {
-    iVar1 = ((code *)_setjmp3)(&DAT_008da548,0);
-    if (iVar1 == 0) {
-      if (UINT_008da884 != 0) {
-        UINT_008da884 = 0;
-        _DAT_008da888 = 1;
-        ((code *)longjmp)(&DAT_008da588,1);
-      }
-      UINT_008da884 = 0;
-      _DAT_008da888 = 1;
-      Mixer_ScheduleVoices();
-      _DAT_008da888 = 0;
-      _DAT_008da5d0 = UINT_008da5d4;
-      ((code *)longjmp)(&DAT_008da548,2);
-    }
-    UINT_008da868 = 0;
-  }
-  return;
-}
-#endif
-
-
-/* ---- 0x004ce260  Mixer_ScheduleVoices ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
-void Mixer_ScheduleVoices(void)
-
-{
-  uint uVar1;
-  uint uVar2;
-  uint *puVar3;
-  int iVar4;
-  
-  iVar4 = 1;
-  puVar3 = &UINT_008da60c;
-  do {
-    puVar3[1] = 1;
-    if ((((puVar3[-5] != 0) && (((byte)puVar3[-3] & 5) == 4)) && (uVar2 = puVar3[-4], uVar2 != 0))
-       && (uVar1 = *puVar3, (int)uVar2 <= (int)uVar1)) {
-      do {
-        *puVar3 = uVar1 - uVar2;
-        if ((puVar3[-3] & 2) != 0) {
-          puVar3[-4] = 0;
-          (*(code_std *)puVar3[-5])(iVar4,puVar3[-2]);
-          break;
-        }
-        (*(code_std *)puVar3[-5])(iVar4,puVar3[-2]);
-        uVar1 = *puVar3;
-        uVar2 = puVar3[-4];
-      } while ((int)uVar2 <= (int)uVar1);
-    }
-    puVar3[1] = 0;
-    puVar3 = puVar3 + 8;
-    iVar4 = iVar4 + 1;
-    if (IMG_ADDR(0x008da86b) < (int)puVar3) {
-      return;
-    }
-  } while( true );
-}
-#endif
-
-
 /* ---- 0x004d27d0  DSound_FillStreamBuffer ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Locks the next 0x1800-byte block(s) of the streaming buffer behind the play cursor and fills them
    from the mixer */
@@ -358,8 +164,8 @@ void DSound_FillStreamBuffer(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  uint uVar1;
-  int iVar2;
+  int iVar1;
+  uint uVar2;
   uint *puVar3;
   undefined4 *puVar4;
   uint *puVar5;
@@ -369,62 +175,64 @@ void DSound_FillStreamBuffer(void)
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(uint **)(_frame + (0x20 - 0x4)))
   
-  uVar1 = DSound_GetPlayBlock();
-  if (uVar1 != 0xffffffff) {
-    if (uVar1 != (int)(UINT_004f3f94 + 1) % (int)UINT_008db420) {
-      if ((int)UINT_004f3f94 < 0) {
-        UINT_004f3f94 = uVar1;
+  iVar1 = DSound_GetPlayBlock();
+  if (iVar1 != -1) {
+    if (iVar1 != (g_nStreamLastBlock + 1) % g_nStreamBlocks) {
+      if (g_nStreamLastBlock < 0) {
+        g_nStreamLastBlock = iVar1;
       }
-      UINT_004f3f94 = (int)(UINT_004f3f94 + 1) % (int)UINT_008db420;
-      iVar2 = (**(code_std **)(*PTR_008dcc48 + 0x2c))
-                        (PTR_008dcc48,UINT_004f3f94 * 0x1800,0x1800,&local_4,&local_8,&local_c,
-                         &local_10,0);
-      if (iVar2 == 0) {
+      g_nStreamLastBlock = (g_nStreamLastBlock + 1) % g_nStreamBlocks;
+      iVar1 = (**(code_std **)(*(int *)g_pStreamDSBuffer + 0x2c))
+                        (g_pStreamDSBuffer,g_nStreamLastBlock * 0x1800,0x1800,&local_4,&local_8,
+                         &local_c,&local_10,0);
+      if (iVar1 == 0) {
         if ((local_c == (undefined4 *)0x0) || (local_10 == 0)) {
-          iVar2 = (int)(local_8 + ((int)local_8 >> 0x1f & 3U)) >> 2;
+          iVar1 = (int)(local_8 + ((int)local_8 >> 0x1f & 3U)) >> 2;
           puVar3 = local_4;
         }
         else {
-          iVar2 = 0x600;
+          iVar1 = 0x600;
           puVar3 = &UINT_008db438;
         }
-        ((code *)Mixer_ClearAccumulator)(iVar2);
-        (*(code_std *)UINT_008db410)(iVar2,FUN_004d2d90);
-        Mixer_Output(puVar3,iVar2);
+        Mixer_ClearAccumulator();
+        (*(code_std *)g_pfnStreamMix)(iVar1,Mixer_MixVoiceByFormat);
+        Mixer_Output((short *)puVar3,iVar1);
         if ((local_c != (undefined4 *)0x0) && (local_10 != 0)) {
           puVar3 = &UINT_008db438;
           puVar5 = local_4;
-          for (uVar1 = local_8 >> 2; uVar1 != 0; uVar1 = uVar1 - 1) {
+          for (uVar2 = local_8 >> 2; uVar2 != 0; uVar2 = uVar2 - 1) {
             *puVar5 = *puVar3;
             puVar3 = puVar3 + 1;
             puVar5 = puVar5 + 1;
           }
-          for (uVar1 = local_8 & 3; uVar1 != 0; uVar1 = uVar1 - 1) {
+          for (uVar2 = local_8 & 3; uVar2 != 0; uVar2 = uVar2 - 1) {
             *(char *)puVar5 = (char)*puVar3;
             puVar3 = (uint *)((int)puVar3 + 1);
             puVar5 = (uint *)((int)puVar5 + 1);
           }
           puVar4 = (undefined4 *)((int)&UINT_008db438 + local_8);
           puVar6 = local_c;
-          for (uVar1 = local_10 >> 2; uVar1 != 0; uVar1 = uVar1 - 1) {
+          for (uVar2 = local_10 >> 2; uVar2 != 0; uVar2 = uVar2 - 1) {
             *puVar6 = *puVar4;
             puVar4 = puVar4 + 1;
             puVar6 = puVar6 + 1;
           }
-          for (uVar1 = local_10 & 3; uVar1 != 0; uVar1 = uVar1 - 1) {
+          for (uVar2 = local_10 & 3; uVar2 != 0; uVar2 = uVar2 - 1) {
             *(undefined1 *)puVar6 = *(undefined1 *)puVar4;
             puVar4 = (undefined4 *)((int)puVar4 + 1);
             puVar6 = (undefined4 *)((int)puVar6 + 1);
           }
         }
-        (**(code_std **)(*PTR_008dcc48 + 0x4c))(PTR_008dcc48,local_4,local_8,local_c,local_10);
+        (**(code_std **)(*(int *)g_pStreamDSBuffer + 0x4c))
+                  (g_pStreamDSBuffer,local_4,local_8,local_c,local_10);
       }
     }
   }
-  (*(code_std *)PTR_008db424[4])
-            (UINT_008dcc54,
+  (*(code_std *)g_pDsndClock[4])
+            (g_nStreamTimerId,
              (int)(0x1234dc /
-                  (longlong)((int)(UINT_004f3f98 + ((int)UINT_004f3f98 >> 0x1f & 0x3ffU)) >> 10)));
+                  (longlong)((int)(g_dwStreamRate + ((int)g_dwStreamRate >> 0x1f & 0x3ffU)) >> 10)))
+  ;
   return;
 }
 #undef local_10
@@ -436,7 +244,7 @@ void DSound_FillStreamBuffer(void)
 
 
 /* ---- 0x004d2c60  DSound_GetPlayBlock ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* IDirectSoundBuffer::GetCurrentPosition / 0x1800 modulo the block count */
 
@@ -445,10 +253,11 @@ int DSound_GetPlayBlock(void)
 {
   int iVar1;
   
-  if (PTR_008dcc48 != (int *)0x0) {
-    iVar1 = (**(code_std **)(*PTR_008dcc48 + 0x10))(PTR_008dcc48,&UINT_008db428,&DAT_008db418);
+  if (g_pStreamDSBuffer != (void *)0x0) {
+    iVar1 = (**(code_std **)(*(int *)g_pStreamDSBuffer + 0x10))
+                      (g_pStreamDSBuffer,&UINT_008db428,&DAT_008db418);
     if (iVar1 == 0) {
-      return ((int)UINT_008db428 / 0x1800) % (int)UINT_008db420;
+      return ((int)UINT_008db428 / 0x1800) % g_nStreamBlocks;
     }
   }
   return -1;
@@ -456,33 +265,186 @@ int DSound_GetPlayBlock(void)
 #endif
 
 
-/* ---- 0x004d2e60  Mixer_Output ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* ---- 0x004d2d40  Mixer_Init ---- */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
-void Mixer_Output(undefined4 param_1,undefined4 param_2)
+int __cdecl Mixer_Init(int *services,uint tableUnits,int frames)
 
 {
-  Mixer_ConvertTo16(param_1,param_2);
+  int iVar1;
+  
+  g_dwMixTableUnits = tableUnits;
+  iVar1 = Mixer_InitTables(services,2,frames * 4,0);
+  return iVar1;
+}
+#endif
+
+
+/* ---- 0x004d2d90  Mixer_MixVoiceByFormat ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
+/* Callback handed to the driver: format code 0..5 (8/16 bit, mono/stereo, offset binary) to
+   Mixer_MixVoice parameters */
+
+void __cdecl
+Mixer_MixVoiceByFormat
+          (byte *data,int accumOffset,uint outFrames,int srcBytes,int unused,int volume,int pan,
+          int format)
+
+{
+  int bits;
+  int channels;
+  
+  bits = format;
+  channels = format;
+  switch(format) {
+  case 0:
+    format = 1;
+    bits = 8;
+    channels = 1;
+    break;
+  case 1:
+    format = 1;
+    bits = 8;
+    channels = 2;
+    break;
+  case 2:
+    format = 0;
+    bits = 0x10;
+    channels = 1;
+    break;
+  case 3:
+    format = 0;
+    bits = 0x10;
+    channels = 2;
+    break;
+  case 4:
+    format = 1;
+    bits = 0x10;
+    channels = 1;
+    break;
+  case 5:
+    format = 1;
+    bits = 0x10;
+    channels = 2;
+  }
+  Mixer_MixVoice(data,srcBytes / ((bits >> 3) * channels),bits,channels,outFrames,accumOffset,volume
+                 ,(pan + 0x7f) / 2,format,0);
   return;
 }
 #endif
 
 
-/* ---- 0x004d3010  Mixer_ClearAccumulator ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* ---- 0x004d2e60  Mixer_Output ---- */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
+void __cdecl Mixer_Output(short *dst,int frames)
+
+{
+  Mixer_ConvertTo16(dst,frames);
+  return;
+}
+#endif
+
+
+/* ---- 0x004d2e80  Mixer_InitTables ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
+/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+/* Builds the 17x17 volume/pan table and the compander table and allocates the accumulator */
+
+int __cdecl Mixer_InitTables(int *services,uint channels,int frames4,int unused)
+
+{
+  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  undefined2 *puVar1;
+  int iVar2;
+  undefined4 unaff_ESI;
+  undefined4 unaff_EDI;
+  undefined1 *puVar3;
+  longlong lVar4;
+  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
+  
+  iVar2 = 0;
+  puVar3 = &DAT_008dcc70;
+  do {
+    local_4 = 0;
+    do {
+      fsin((float10)(int)local_4 * (float10)3.1415 * (float10)0.03125);
+      lVar4 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+      *puVar3 = (char)lVar4;
+      puVar3 = puVar3 + 1;
+      local_4 = local_4 + 1;
+    } while ((int)local_4 < 0x11);
+    iVar2 = iVar2 + 1;
+  } while (iVar2 < 0x11);
+  g_dwMixChannels = channels;
+  g_dwMixAccumBytes = frames4 * 4;
+  g_pMixAccum = (int *)(*(code_std *)*services)
+                                 (g_dwMixAccumBytes,s_C__grimsrc_libs_lecsmush_insane__004f4158,
+                                  0x356);
+  if (g_pMixAccum == (int *)0x0) {
+    return -1;
+  }
+  _DAT_008dcda0 = unused;
+  puVar1 = (undefined2 *)
+           (*(code_std *)*services)
+                     (g_dwMixTableUnits << 0x10,s_C__grimsrc_libs_lecsmush_insane__004f4158,0x35c);
+  g_pMixCompanderTable = puVar1;
+  if (puVar1 == (undefined2 *)0x0) {
+    return -1;
+  }
+  iVar2 = 0;
+  if (0 < (int)(g_dwMixTableUnits << 0xf)) {
+    do {
+      lVar4 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+      *puVar1 = (short)lVar4;
+      puVar1 = puVar1 + 1;
+      iVar2 = iVar2 + 1;
+    } while (iVar2 < (int)(g_dwMixTableUnits * 0x8000));
+  }
+  return 0;
+}
+#undef local_4
+
+#endif
+
+
+/* ---- 0x004d2fb0  Mixer_Free ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
+int __cdecl Mixer_Free(int *services)
+
+{
+  if (g_pMixCompanderTable != (void *)0x0) {
+    (*(code_std *)services[1])(g_pMixCompanderTable,s_C__grimsrc_libs_lecsmush_insane__004f4158,0x379);
+  }
+  g_pMixCompanderTable = (void *)0x0;
+  if (g_pMixAccum != (int *)0x0) {
+    (*(code_std *)services[1])(g_pMixAccum,s_C__grimsrc_libs_lecsmush_insane__004f4158,0x37a);
+  }
+  g_pMixAccum = (int *)0x0;
+  return 0;
+}
+#endif
+
+
+/* ---- 0x004d3010  Mixer_ClearAccumulator ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
+/* WARNING: Unknown calling convention -- yet parameter storage is locked */
 /* Zeroes the 32-bit mix accumulator at g_pMixAccum */
 
-undefined4 Mixer_ClearAccumulator(void)
+int Mixer_ClearAccumulator(void)
 
 {
   uint uVar1;
   uint uVar2;
   int *piVar3;
   
-  uVar2 = UINT_008dcd9c;
+  uVar2 = g_dwMixAccumBytes;
   piVar3 = g_pMixAccum;
-  for (uVar1 = UINT_008dcd9c >> 2; uVar1 != 0; uVar1 = uVar1 - 1) {
+  for (uVar1 = g_dwMixAccumBytes >> 2; uVar1 != 0; uVar1 = uVar1 - 1) {
     *piVar3 = 0;
     piVar3 = piVar3 + 1;
   }
@@ -496,61 +458,62 @@ undefined4 Mixer_ClearAccumulator(void)
 
 
 /* ---- 0x004d3040  Mixer_MixVoice ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Dispatches to the Mixer_Mix* resamplers by sample format, channel count and volume mode */
 
-void Mixer_MixVoice(byte *param_1,int param_2,int param_3,int param_4,uint param_5,int param_6,
-                   int param_7,int param_8,int param_9,int param_10)
+void __cdecl
+Mixer_MixVoice(byte *data,int count,int bits,int channels,uint outFrames,int accumOffset,int volume,
+              int pan,int offsetBinary,int byteSwapped)
 
 {
   int iVar1;
   uint uVar2;
   uint volL;
   
-  if (((g_pMixAccum != (int *)0x0) && (param_1 != (byte *)0x0)) && (param_2 != 0)) {
-    if (param_4 == 1) {
-      uVar2 = param_7 >> 3;
-      if (param_7 != 0) {
+  if (((g_pMixAccum != (int *)0x0) && (data != (byte *)0x0)) && (count != 0)) {
+    if (channels == 1) {
+      uVar2 = volume >> 3;
+      if (volume != 0) {
         uVar2 = uVar2 + 1;
       }
       if (0x10 < uVar2) {
         uVar2 = 0x10;
       }
-      iVar1 = (param_8 >> 3) + -8;
-      if (0x40 < param_8) {
-        iVar1 = (param_8 >> 3) + -7;
+      iVar1 = (pan >> 3) + -8;
+      if (0x40 < pan) {
+        iVar1 = (pan >> 3) + -7;
       }
       volL = (uint)(byte)(&DAT_008dcc78)[uVar2 * 0x11 - iVar1];
       uVar2 = (uint)(byte)(&DAT_008dcc78)[uVar2 * 0x11 + iVar1];
-      if (param_3 == 8) {
-        Mixer_Mix8MonoLR(param_1,param_2,param_5,param_6,volL,uVar2);
+      if (bits == 8) {
+        Mixer_Mix8MonoLR(data,count,outFrames,accumOffset,volL,uVar2);
         return;
       }
-      if (param_9 == 0) {
-        Mixer_MixStereoLR_A(param_1,param_2,param_5,param_6,volL,uVar2);
+      if (offsetBinary == 0) {
+        Mixer_MixStereoLR_A(data,count,outFrames,accumOffset,volL,uVar2);
         return;
       }
-      if (param_10 != 0) {
-        ((code *)Mixer_MixStereoLR_B)(param_1,param_2,param_5,param_6);
+      if (byteSwapped != 0) {
+        ((code *)Mixer_MixStereoLR_B)(data,count,outFrames,accumOffset);
         return;
       }
-      Mixer_Mix16MonoLR(param_1,param_2,param_5,param_6,volL,uVar2);
+      Mixer_Mix16MonoLR(data,count,outFrames,accumOffset,volL,uVar2);
       return;
     }
-    if (param_3 == 8) {
-      Mixer_Mix8Mono(param_1,param_2,param_5,param_6,param_7 + 1);
+    if (bits == 8) {
+      Mixer_Mix8Mono(data,count,outFrames,accumOffset,volume + 1);
       return;
     }
-    if (param_9 == 0) {
-      Mixer_MixStereo_A(param_1,param_2,param_5,param_6,param_7 + 1);
+    if (offsetBinary == 0) {
+      Mixer_MixStereo_A(data,count,outFrames,accumOffset,volume + 1);
       return;
     }
-    if (param_10 != 0) {
-      Mixer_MixStereo_B(param_1,param_2,param_5,param_6,param_7 + 1);
+    if (byteSwapped != 0) {
+      Mixer_MixStereo_B(data,count,outFrames,accumOffset,volume + 1);
       return;
     }
-    Mixer_Mix16Mono(param_1,param_2,param_5,param_6,param_7 + 1);
+    Mixer_Mix16Mono(data,count,outFrames,accumOffset,volume + 1);
   }
   return;
 }
@@ -558,22 +521,22 @@ void Mixer_MixVoice(byte *param_1,int param_2,int param_3,int param_4,uint param
 
 
 /* ---- 0x004d31d0  Mixer_ConvertTo16 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Accumulator >> 7 clamped to 16 bits into the output block */
 
-undefined4 Mixer_ConvertTo16(undefined2 *param_1,int param_2)
+int __cdecl Mixer_ConvertTo16(short *dst,int frames)
 
 {
   int *piVar1;
   int iVar2;
   
-  if (((g_pMixAccum != (int *)0x0) && (param_1 != (undefined2 *)0x0)) && (param_2 != 0)) {
+  if (((g_pMixAccum != (int *)0x0) && (dst != (short *)0x0)) && (frames != 0)) {
     piVar1 = g_pMixAccum;
-    if (UINT_008dcc60 == 2) {
-      param_2 = param_2 << 1;
+    if (g_dwMixChannels == 2) {
+      frames = frames << 1;
     }
-    for (; param_2 != 0; param_2 = param_2 + -1) {
+    for (; frames != 0; frames = frames + -1) {
       iVar2 = *piVar1 >> 7;
       if (iVar2 < -0x8000) {
         iVar2 = -0x8000;
@@ -581,19 +544,19 @@ undefined4 Mixer_ConvertTo16(undefined2 *param_1,int param_2)
       if (0x7fff < iVar2) {
         iVar2 = 0x7fff;
       }
-      *param_1 = (short)iVar2;
-      param_1 = param_1 + 1;
+      *dst = (short)iVar2;
+      dst = dst + 1;
       piVar1 = piVar1 + 1;
     }
     return 0;
   }
-  return 0xffffffff;
+  return -1;
 }
 #endif
 
 
 /* ---- 0x004d3240  Mixer_Mix8MonoLR ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Resampling mix of unsigned 8-bit mono samples with separate left/right volumes */
 
@@ -670,7 +633,7 @@ void __cdecl Mixer_Mix8MonoLR(byte *src,int count,uint rateFrac,int accumOffset,
 
 
 /* ---- 0x004d34a0  Mixer_Mix8Mono ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 void Mixer_Mix8Mono(byte *param_1,int param_2,uint param_3,int param_4,int param_5)
 
@@ -748,7 +711,7 @@ void Mixer_Mix8Mono(byte *param_1,int param_2,uint param_3,int param_4,int param
 
 
 /* ---- 0x004d36e0  Mixer_Mix16MonoLR ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 void Mixer_Mix16MonoLR(short *param_1,int param_2,uint param_3,int param_4,int param_5,int param_6)
 
@@ -819,7 +782,7 @@ void Mixer_Mix16MonoLR(short *param_1,int param_2,uint param_3,int param_4,int p
 
 
 /* ---- 0x004d38a0  Mixer_Mix16Mono ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 void Mixer_Mix16Mono(short *param_1,int param_2,uint param_3,int param_4,int param_5)
 
@@ -893,7 +856,7 @@ void Mixer_Mix16Mono(short *param_1,int param_2,uint param_3,int param_4,int par
 
 
 /* ---- 0x004d3a60  Mixer_MixStereoLR_A ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Stereo sample-pair resampler with left/right volumes (format A) */
 
@@ -978,7 +941,7 @@ void Mixer_MixStereoLR_A(ushort *param_1,int param_2,uint param_3,uint param_4,i
 
 
 /* ---- 0x004d3c40  Mixer_MixStereo_A ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 void Mixer_MixStereo_A(ushort *param_1,int param_2,uint param_3,uint param_4,int param_5)
 
@@ -1067,7 +1030,7 @@ void Mixer_MixStereo_A(ushort *param_1,int param_2,uint param_3,uint param_4,int
 
 
 /* ---- 0x004d3e60  Mixer_MixStereoLR_B ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 void Mixer_MixStereoLR_B(ushort *param_1,int param_2,uint param_3,uint param_4,int param_5,
                         int param_6)
@@ -1150,7 +1113,7 @@ void Mixer_MixStereoLR_B(ushort *param_1,int param_2,uint param_3,uint param_4,i
 
 
 /* ---- 0x004d40d0  Mixer_MixStereo_B ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 void Mixer_MixStereo_B(ushort *param_1,int param_2,uint param_3,uint param_4,int param_5)
 

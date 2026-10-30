@@ -1,5 +1,5 @@
 /* GRIMFANDANGO.EXE :: crt_unnamed.c
- * functions 0x004ac690 .. 0x004d610b (429 functions)
+ * functions 0x004ac690 .. 0x004d610b (365 functions)
  * Decompiled from the shipped binaries with Ghidra; see ../../README.md */
 #include "ghidra_types.h"
 #include "globals.h"
@@ -6277,7 +6277,7 @@ uint FUN_004c2fa0(undefined4 param_1,undefined4 param_2,undefined4 param_3,undef
            ((&UINT_008d70c0)[uVar10] != 0)) {
           if (((bVar6) && (UINT_008d77f0 != 0)) && (((&UINT_008d6f30)[uVar10] & 0x10) != 0)) {
             if (iVar11 + 8U < UINT_008d77f8) {
-              FUN_004c3df0(UINT_008d77f0,param_11,iVar11 + 8U);
+              Insane_MemCopyCdecl((void *)UINT_008d77f0,param_11,iVar11 + 8U);
               UINT_004f1720 = uVar10;
             }
             else {
@@ -6351,15 +6351,15 @@ LAB_004c3182:
       }
       else if (uVar12 == 0x6e70616c) {
         if (*(short *)(param_11 + 0x14) == 0) {
-          FUN_004c3df0(param_5 + *(short *)(param_11 + 0x16) * 4,param_11 + 0x1c,
-                       (int)*(short *)(param_11 + 0x18) << 2);
+          Insane_MemCopyCdecl(param_5 + *(short *)(param_11 + 0x16) * 4,param_11 + 0x1c,
+                              (int)*(short *)(param_11 + 0x18) << 2);
           *param_7 = *param_7 | *(uint *)(param_11 + 0x10);
           UINT_008d7804 = 0;
         }
         else {
-          FUN_004c3df0(&DAT_008d73e8,param_5,0x400);
-          FUN_004c3df0(&DAT_008d73e8 + *(short *)(param_11 + 0x16) * 0x10,param_11 + 0x1c,
-                       (int)*(short *)(param_11 + 0x18) << 2);
+          Insane_MemCopyCdecl(&DAT_008d73e8,param_5,0x400);
+          Insane_MemCopyCdecl(&DAT_008d73e8 + *(short *)(param_11 + 0x16) * 0x10,param_11 + 0x1c,
+                              (int)*(short *)(param_11 + 0x18) << 2);
           UINT_008d7804 = (uint)*(short *)(param_11 + 0x14);
         }
       }
@@ -6401,7 +6401,7 @@ void FUN_004c34d0(short *param_1,int param_2)
   uVar1 = UINT_008d7808;
   if ((uVar2 == UINT_008d7808 + 1) &&
      (uVar1 = uVar2, (int)(param_2 + UINT_008d7800) < (int)UINT_008d77fc)) {
-    FUN_004c3df0(UINT_008d7800 + UINT_008d77f4,param_1 + 5,param_2 + -10);
+    Insane_MemCopyCdecl((void *)(UINT_008d7800 + UINT_008d77f4),param_1 + 5,param_2 - 10);
     UINT_008d7800 = (UINT_008d7800 - 10) + param_2;
   }
   UINT_008d7808 = uVar1;
@@ -6776,12 +6776,12 @@ FUN_004c3c00(int param_1,undefined4 param_2,undefined4 param_3,undefined4 param_
 }
 
 /* ---- 0x004c3c90  FUN_004c3c90 ---- */
-void FUN_004c3c90(int param_1,int param_2,undefined4 param_3,uint *param_4)
+void FUN_004c3c90(int param_1,int param_2,void *param_3,uint *param_4)
 
 {
   *(uint *)(param_1 + 0xc) = *(uint *)(param_1 + 0x3c);
   if ((*(uint *)(param_1 + 0x3c) & 0x2000) == 0) {
-    FUN_004c3df0(param_3,param_2 + 0x16,0x400);
+    Insane_MemCopyCdecl(param_3,(void *)(param_2 + 0x16),0x400);
     *param_4 = *param_4 | 3;
   }
   *(int *)(param_1 + 0x2c) = (int)*(short *)(param_2 + 2);
@@ -6864,44 +6864,6 @@ uint FUN_004c3db0(int param_1,int param_2)
   }
   return *(uint *)(param_1 + 0x58);
 }
-
-/* ---- 0x004c3df0  FUN_004c3df0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
-void FUN_004c3df0(undefined4 param_1,undefined4 param_2,undefined4 param_3)
-
-{
-  ((code *)FUN_004c3e10)(param_1,param_2,param_3);
-  return;
-}
-#endif
-
-
-/* ---- 0x004c3e10  FUN_004c3e10 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
-undefined8 __fastcall
-FUN_004c3e10(undefined4 param_1,undefined4 param_2,undefined4 *param_3,undefined4 *param_4,
-            uint param_5)
-
-{
-  undefined4 in_EAX;
-  uint uVar1;
-  
-  for (uVar1 = param_5 & 3; uVar1 != 0; uVar1 = uVar1 - 1) {
-    *(undefined1 *)param_3 = *(undefined1 *)param_4;
-    param_4 = (undefined4 *)((int)param_4 + 1);
-    param_3 = (undefined4 *)((int)param_3 + 1);
-  }
-  for (param_5 = param_5 >> 2; param_5 != 0; param_5 = param_5 - 1) {
-    *param_3 = *param_4;
-    param_4 = param_4 + 1;
-    param_3 = param_3 + 1;
-  }
-  return CONCAT44(param_2,in_EAX);
-}
-#endif
-
 
 /* ---- 0x004c4650  FUN_004c4650 ---- */
 uint FUN_004c4650(int param_1,undefined4 param_2)
@@ -7401,9 +7363,9 @@ int FUN_004c50a0(undefined4 *param_1,int param_2)
     if (iVar1 != 0) {
       UINT_008d7824 = 0;
       param_1[0xb] = param_2;
-      iVar1 = (param_2 + param_1[10]) - param_1[1];
-      if (0 < iVar1) {
-        FUN_004c3df0(param_1[1],*param_1,iVar1);
+      uVar2 = (param_2 + param_1[10]) - (int)param_1[1];
+      if (0 < (int)uVar2) {
+        Insane_MemCopyCdecl((void *)param_1[1],(void *)*param_1,uVar2);
       }
       if ((param_1[5] == 0) && (iVar1 = param_1[8], iVar1 != 0)) {
         param_1[8] = 0;
@@ -11189,26 +11151,26 @@ FUN_004ccd00(int param_1,undefined4 param_2,undefined4 param_3,undefined4 param_
   uint uVar3;
   int iVar4;
   int iVar5;
-  byte *pbVar6;
-  undefined2 *puVar7;
+  byte *src;
+  undefined2 *puVar6;
   int extraout_ECX;
-  int iVar8;
-  uint uVar9;
-  int *piVar10;
+  int iVar7;
+  uint uVar8;
+  int *piVar9;
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
-  uVar9 = (uint)*(short *)(param_6 + 8);
-  iVar8 = (int)*(short *)(param_6 + 0xc);
-  pbVar6 = (byte *)(param_6 + 0x230);
-  if (((PTR_008da528 == (int *)0x0) || (uVar9 != PTR_008da528[1])) ||
-     ((iVar8 + 7U & 0xfffffff8) != PTR_008da528[2])) {
+  uVar8 = (uint)*(short *)(param_6 + 8);
+  iVar7 = (int)*(short *)(param_6 + 0xc);
+  src = (byte *)(param_6 + 0x230);
+  if (((PTR_008da528 == (int *)0x0) || (uVar8 != PTR_008da528[1])) ||
+     ((iVar7 + 7U & 0xfffffff8) != PTR_008da528[2])) {
     FUN_004cc590();
     iVar4 = (int)*(short *)(param_6 + 0x228);
     if (*(short *)(param_6 + 0x228) == 0) {
       iVar4 = 8;
     }
-    FUN_004cc410(uVar9,iVar8 + 7U & 0xfffffff8,iVar4);
+    FUN_004cc410(uVar8,iVar7 + 7U & 0xfffffff8,iVar4);
   }
   iVar4 = UINT_0091f080 - UINT_008da50c;
   iVar5 = UINT_00906c74 - UINT_008da50c;
@@ -11216,7 +11178,7 @@ FUN_004ccd00(int param_1,undefined4 param_2,undefined4 param_3,undefined4 param_
     FUN_004cd1e0(param_1);
   }
   if (*(short *)(param_6 + 0x10) == 0) {
-    FUN_004cc6a0(uVar9);
+    FUN_004cc6a0(uVar8);
     FUN_004cec40(UINT_00906c74,PTR_008da528,PTR_008da528[1] * PTR_008da528[2],param_6 + 0x20);
     FUN_004cec40(UINT_0091f080,PTR_008da528,PTR_008da528[1] * PTR_008da528[2],param_6 + 0x20);
     UINT_004f39e8 = 0xffffffff;
@@ -11226,7 +11188,7 @@ FUN_004ccd00(int param_1,undefined4 param_2,undefined4 param_3,undefined4 param_
   case 0:
     goto LAB_004ccf61;
   case 1:
-    FUN_004cd300(UINT_008da50c,pbVar6,uVar9,iVar8);
+    FUN_004cd300(UINT_008da50c,src,uVar8,iVar7);
     UINT_008da538 = UINT_008da50c;
     break;
   case 2:
@@ -11235,96 +11197,95 @@ FUN_004ccd00(int param_1,undefined4 param_2,undefined4 param_3,undefined4 param_
       return 0;
     }
     if ((int)*(short *)(param_6 + 0x10) == UINT_004f39e8 + 1) {
-      ((code *)FUN_004cd550)(UINT_008da50c,pbVar6,iVar4 >> 1,iVar5 >> 1,uVar9,&DAT_009270a0,param_6 + 0x18,
-                   iVar8,uVar9 * 9 - (uVar9 & 0xfffffff8),&DAT_0091f0a0,&DAT_00906c80,param_6 + 0x28
-                  );
+      ((code *)FUN_004cd550)(UINT_008da50c,src,iVar4 >> 1,iVar5 >> 1,uVar8,&DAT_009270a0,param_6 + 0x18,iVar7,
+                   uVar8 * 9 - (uVar8 & 0xfffffff8),&DAT_0091f0a0,&DAT_00906c80,param_6 + 0x28);
       UINT_008da538 = UINT_008da50c;
     }
     break;
   case 3:
-    pbVar6 = (byte *)UINT_0091f080;
+    src = (byte *)UINT_0091f080;
     if (((param_7 & 4) != 0) && (*(char *)(param_6 + 0x13) == '\0')) {
       UINT_004f39e8 = (int)*(short *)(param_6 + 0x10);
       return 0;
     }
     goto LAB_004ccf61;
   case 4:
-    pbVar6 = (byte *)UINT_00906c74;
+    src = (byte *)UINT_00906c74;
     if (((param_7 & 4) != 0) && (*(char *)(param_6 + 0x13) == '\0')) {
       UINT_004f39e8 = (int)*(short *)(param_6 + 0x10);
       return 0;
     }
 LAB_004ccf61:
-    FUN_004c3df0(UINT_008da50c,pbVar6,uVar9 * iVar8 * 2);
+    Insane_MemCopyCdecl((void *)UINT_008da50c,src,uVar8 * iVar7 * 2);
 LAB_004ccf67:
     UINT_008da538 = UINT_008da50c;
     break;
   case 5:
-    FUN_004d5e70(UINT_008da50c,pbVar6,*(undefined4 *)(param_6 + 0x24));
+    FUN_004d5e70(UINT_008da50c,src,*(undefined4 *)(param_6 + 0x24));
     goto LAB_004ccf67;
   case 6:
-    iVar8 = uVar9 * iVar8;
-    puVar7 = (undefined2 *)UINT_008da50c;
+    iVar7 = uVar8 * iVar7;
+    puVar6 = (undefined2 *)UINT_008da50c;
     UINT_008da538 = UINT_008da50c;
-    if (iVar8 != 0) {
+    if (iVar7 != 0) {
       do {
-        bVar1 = *pbVar6;
-        pbVar6 = pbVar6 + 1;
-        iVar8 = iVar8 + -1;
-        *puVar7 = *(undefined2 *)(param_6 + 0x28 + (uint)bVar1 * 2);
-        puVar7 = puVar7 + 1;
-      } while (iVar8 != 0);
+        bVar1 = *src;
+        src = src + 1;
+        iVar7 = iVar7 + -1;
+        *puVar6 = *(undefined2 *)(param_6 + 0x28 + (uint)bVar1 * 2);
+        puVar6 = puVar6 + 1;
+      } while (iVar7 != 0);
       UINT_008da538 = UINT_008da50c;
     }
     break;
   case 7:
-    FUN_004cd450(UINT_008da50c,pbVar6,uVar9,iVar8,param_6 + 0x28);
+    FUN_004cd450(UINT_008da50c,src,uVar8,iVar7,param_6 + 0x28);
     UINT_008da538 = UINT_008da50c;
     break;
   case 8:
-    FUN_004d5eb0(pbVar6);
-    iVar8 = uVar9 * iVar8;
-    iVar4 = iVar8;
-    puVar7 = (undefined2 *)UINT_008da50c;
-    for (; iVar8 != 0; iVar8 = iVar8 + -1) {
-      uVar9 = FUN_004d5ed0(iVar4);
-      *puVar7 = *(undefined2 *)(param_6 + 0x28 + (uVar9 & 0xff) * 2);
+    FUN_004d5eb0(src);
+    iVar7 = uVar8 * iVar7;
+    iVar4 = iVar7;
+    puVar6 = (undefined2 *)UINT_008da50c;
+    for (; iVar7 != 0; iVar7 = iVar7 + -1) {
+      uVar8 = FUN_004d5ed0(iVar4);
+      *puVar6 = *(undefined2 *)(param_6 + 0x28 + (uVar8 & 0xff) * 2);
       iVar4 = extraout_ECX;
-      puVar7 = puVar7 + 1;
+      puVar6 = puVar6 + 1;
     }
     Mem_DumpLog();
     UINT_008da538 = UINT_008da50c;
   }
   if ((UINT_008da538 != 0) && (param_1 != 0)) {
-    uVar9 = UINT_008da510;
+    uVar8 = UINT_008da510;
     if ((UINT_008da514 == 0) && (UINT_008da518 == 0)) {
-      uVar9 = 0;
+      uVar8 = 0;
     }
     if (UINT_008da508 == 0) {
-      piVar10 = PTR_008da528;
+      piVar9 = PTR_008da528;
       if (((UINT_008da538 == *PTR_008da528) ||
-          (piVar10 = (int *)UINT_008da52c, UINT_008da538 == *(uint *)UINT_008da52c)) ||
-         (piVar10 = (int *)UINT_008da530, UINT_008da538 == *(uint *)UINT_008da530)) {
-        FUN_004cea30(param_1,param_2,param_3,param_4,piVar10,param_5,uVar9);
+          (piVar9 = (int *)UINT_008da52c, UINT_008da538 == *(uint *)UINT_008da52c)) ||
+         (piVar9 = (int *)UINT_008da530, UINT_008da538 == *(uint *)UINT_008da530)) {
+        FUN_004cea30(param_1,param_2,param_3,param_4,piVar9,param_5,uVar8);
       }
       param_5 = 1;
     }
     else if (UINT_008da538 == *PTR_008da528) {
-      param_5 = (*(code *)UINT_008da508)(param_1,param_2,param_3,param_4,PTR_008da528,param_5,uVar9)
+      param_5 = (*(code *)UINT_008da508)(param_1,param_2,param_3,param_4,PTR_008da528,param_5,uVar8)
       ;
     }
     else if (UINT_008da538 == *(uint *)UINT_008da52c) {
       param_5 = (*(code *)UINT_008da508)
-                          (param_1,param_2,param_3,param_4,UINT_008da52c,param_5,uVar9);
+                          (param_1,param_2,param_3,param_4,UINT_008da52c,param_5,uVar8);
     }
     else if (UINT_008da538 == *(uint *)UINT_008da530) {
       param_5 = (*(code *)UINT_008da508)
-                          (param_1,param_2,param_3,param_4,UINT_008da530,param_5,uVar9);
+                          (param_1,param_2,param_3,param_4,UINT_008da530,param_5,uVar8);
     }
   }
   uVar3 = UINT_0091f080;
   uVar2 = UINT_00906c74;
-  uVar9 = UINT_008da50c;
+  uVar8 = UINT_008da50c;
   if ((int)*(short *)(param_6 + 0x10) == UINT_004f39e8 + 1) {
     if (*(char *)(param_6 + 0x13) == '\x01') {
       UINT_0091f080 = UINT_008da50c;
@@ -11335,7 +11296,7 @@ LAB_004ccf67:
     if (*(char *)(param_6 + 0x13) == '\x02') {
       UINT_00906c74 = UINT_0091f080;
       UINT_008da50c = uVar2;
-      UINT_0091f080 = uVar9;
+      UINT_0091f080 = uVar8;
     }
   }
   UINT_004f39e8 = (int)*(short *)(param_6 + 0x10);
@@ -11375,7 +11336,7 @@ void FUN_004cd1e0(int param_1)
 
 
 /* ---- 0x004cd300  FUN_004cd300 ---- */
-void FUN_004cd300(int param_1,ushort *param_2,int param_3,int param_4)
+void FUN_004cd300(void *param_1,ushort *param_2,int param_3,int param_4)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -11384,52 +11345,53 @@ void FUN_004cd300(int param_1,ushort *param_2,int param_3,int param_4)
   undefined2 uVar3;
   uint uVar4;
   uint uVar5;
-  ushort uVar6;
-  undefined2 *puVar7;
-  uint *puVar8;
-  undefined4 *puVar9;
+  uint uVar6;
+  ushort uVar7;
+  undefined2 *puVar8;
+  uint *puVar9;
+  undefined4 *puVar10;
   #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
   #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
-  iVar2 = param_3 * 2;
+  uVar5 = param_3 * 2;
   if (0 < param_4) {
     local_10 = param_4 + 1U >> 1;
-    puVar9 = (undefined4 *)(param_1 + iVar2);
+    puVar10 = (undefined4 *)((int)param_1 + uVar5);
     do {
-      puVar8 = puVar9 + 1;
-      uVar6 = *param_2;
+      puVar9 = puVar10 + 1;
+      uVar7 = *param_2;
       param_2 = param_2 + 1;
-      *puVar9 = CONCAT22(uVar6,uVar6);
+      *puVar10 = CONCAT22(uVar7,uVar7);
       if (0 < param_3 + -2) {
-        uVar5 = param_3 - 1U >> 1;
+        uVar6 = param_3 - 1U >> 1;
         do {
           uVar1 = *param_2;
           param_2 = param_2 + 1;
-          uVar4 = FUN_004cd3f0(uVar6,uVar1);
-          *puVar8 = uVar4 & 0xffff | (uint)uVar1 << 0x10;
-          puVar8 = puVar8 + 1;
-          uVar5 = uVar5 - 1;
-          uVar6 = uVar1;
-        } while (uVar5 != 0);
+          uVar4 = FUN_004cd3f0(uVar7,uVar1);
+          *puVar9 = uVar4 & 0xffff | (uint)uVar1 << 0x10;
+          puVar9 = puVar9 + 1;
+          uVar6 = uVar6 - 1;
+          uVar7 = uVar1;
+        } while (uVar6 != 0);
       }
-      puVar9 = (undefined4 *)((int)puVar8 + iVar2);
+      puVar10 = (undefined4 *)((int)puVar9 + uVar5);
       local_10 = local_10 - 1;
     } while (local_10 != 0);
   }
-  FUN_004c3df0(param_1,(undefined4 *)(param_1 + iVar2),iVar2);
-  puVar7 = (undefined2 *)(param_1 + param_3 * 4);
+  Insane_MemCopyCdecl(param_1,(undefined4 *)((int)param_1 + uVar5),uVar5);
+  puVar8 = (undefined2 *)((int)param_1 + param_3 * 4);
   if (param_4 != 2 && -1 < param_4 + -2) {
     uVar5 = param_4 - 1U >> 1;
     iVar2 = param_3;
     do {
       for (; iVar2 != 0; iVar2 = iVar2 + -1) {
-        uVar3 = FUN_004cd3f0(puVar7[param_3],puVar7[-param_3]);
-        *puVar7 = uVar3;
-        puVar7 = puVar7 + 1;
+        uVar3 = FUN_004cd3f0(puVar8[param_3],puVar8[-param_3]);
+        *puVar8 = uVar3;
+        puVar8 = puVar8 + 1;
       }
-      puVar7 = puVar7 + param_3;
+      puVar8 = puVar8 + param_3;
       uVar5 = uVar5 - 1;
       iVar2 = param_3;
     } while (uVar5 != 0);
@@ -11452,7 +11414,7 @@ int FUN_004cd3f0(uint param_1,uint param_2)
 }
 
 /* ---- 0x004cd450  FUN_004cd450 ---- */
-void FUN_004cd450(int param_1,byte *param_2,int param_3,int param_4,int param_5)
+void FUN_004cd450(void *param_1,byte *param_2,int param_3,int param_4,int param_5)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -11462,54 +11424,55 @@ void FUN_004cd450(int param_1,byte *param_2,int param_3,int param_4,int param_5)
   undefined2 uVar4;
   uint uVar5;
   uint uVar6;
-  ushort uVar7;
-  undefined2 *puVar8;
-  uint *puVar9;
-  undefined4 *puVar10;
+  uint uVar7;
+  ushort uVar8;
+  undefined2 *puVar9;
+  uint *puVar10;
+  undefined4 *puVar11;
   #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
   #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
-  iVar3 = param_3 * 2;
+  uVar6 = param_3 * 2;
   if (0 < param_4) {
     local_10 = param_4 + 1U >> 1;
-    puVar10 = (undefined4 *)(param_1 + iVar3);
+    puVar11 = (undefined4 *)((int)param_1 + uVar6);
     do {
       bVar1 = *param_2;
       param_2 = param_2 + 1;
-      puVar9 = puVar10 + 1;
-      uVar7 = *(ushort *)(param_5 + (uint)bVar1 * 2);
-      *puVar10 = CONCAT22(uVar7,uVar7);
+      puVar10 = puVar11 + 1;
+      uVar8 = *(ushort *)(param_5 + (uint)bVar1 * 2);
+      *puVar11 = CONCAT22(uVar8,uVar8);
       if (0 < param_3 + -2) {
-        uVar6 = param_3 - 1U >> 1;
+        uVar7 = param_3 - 1U >> 1;
         do {
           bVar1 = *param_2;
           param_2 = param_2 + 1;
           uVar2 = *(ushort *)(param_5 + (uint)bVar1 * 2);
-          uVar5 = FUN_004cd3f0(uVar7,uVar2);
-          *puVar9 = uVar5 & 0xffff | (uint)uVar2 << 0x10;
-          puVar9 = puVar9 + 1;
-          uVar6 = uVar6 - 1;
-          uVar7 = uVar2;
-        } while (uVar6 != 0);
+          uVar5 = FUN_004cd3f0(uVar8,uVar2);
+          *puVar10 = uVar5 & 0xffff | (uint)uVar2 << 0x10;
+          puVar10 = puVar10 + 1;
+          uVar7 = uVar7 - 1;
+          uVar8 = uVar2;
+        } while (uVar7 != 0);
       }
-      puVar10 = (undefined4 *)((int)puVar9 + iVar3);
+      puVar11 = (undefined4 *)((int)puVar10 + uVar6);
       local_10 = local_10 - 1;
     } while (local_10 != 0);
   }
-  FUN_004c3df0(param_1,(undefined4 *)(param_1 + iVar3),iVar3);
-  puVar8 = (undefined2 *)(param_1 + param_3 * 4);
+  Insane_MemCopyCdecl(param_1,(undefined4 *)((int)param_1 + uVar6),uVar6);
+  puVar9 = (undefined2 *)((int)param_1 + param_3 * 4);
   if (param_4 != 2 && -1 < param_4 + -2) {
     uVar6 = param_4 - 1U >> 1;
     iVar3 = param_3;
     do {
       for (; iVar3 != 0; iVar3 = iVar3 + -1) {
-        uVar4 = FUN_004cd3f0(puVar8[param_3],puVar8[-param_3]);
-        *puVar8 = uVar4;
-        puVar8 = puVar8 + 1;
+        uVar4 = FUN_004cd3f0(puVar9[param_3],puVar9[-param_3]);
+        *puVar9 = uVar4;
+        puVar9 = puVar9 + 1;
       }
-      puVar8 = puVar8 + param_3;
+      puVar9 = puVar9 + param_3;
       uVar6 = uVar6 - 1;
       iVar3 = param_3;
     } while (uVar6 != 0);
@@ -12023,249 +11986,11 @@ void FUN_004cdb80(void)
 #endif
 
 
-/* ---- 0x004cdc90  FUN_004cdc90 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
-undefined4 FUN_004cdc90(int *param_1,uint param_2)
-
-{
-  PTR_008da5cc = param_1;
-  UINT_008da85c = param_2;
-  (*(code *)*param_1)(s_LECMODULE_insane_timer_004f3c40,&PTR_FUN_004f3bf8);
-  (*(code *)*PTR_008da5cc)(s_TIMER_insane_004f3c30,&PTR_FUN_004f3c08);
-  UINT_008da544 = 300;
-  return 0;
-}
-#endif
-
-
-/* ---- 0x004cdce0  FUN_004cdce0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
-void FUN_004cdce0(void)
-
-{
-  (*(code *)PTR_008da5cc[1])(s_TIMER_insane_004f3c30);
-  (*(code *)PTR_008da5cc[1])(s_LECMODULE_insane_timer_004f3c40);
-  return;
-}
-#endif
-
-
-/* ---- 0x004cdd10  FUN_004cdd10 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
-undefined4 FUN_004cdd10(void)
-
-{
-  undefined4 uVar1;
-  
-  UINT_008da540 = (*(code *)PTR_008da5cc[2])(s_MEMORY_workspace_004f14ec,UINT_008da85c);
-  if (UINT_008da540 == 0) {
-    (*(code *)PTR_008da5cc[8])(s_Timer_Module__Cannot_allocate_me_004f3c58);
-    return 0xffffffff;
-  }
-  uVar1 = ((code *)FUN_004cdd80)((int)(0x1234dc / (longlong)(int)UINT_008da544),0x10000);
-  return uVar1;
-}
-#endif
-
-
-/* ---- 0x004cdd60  FUN_004cdd60 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
-void FUN_004cdd60(void)
-
-{
-  (*(code *)PTR_008da5cc[3])(UINT_008da540);
-  FUN_004cde80();
-  return;
-}
-#endif
-
-
-/* ---- 0x004cdd80  FUN_004cdd80 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
-/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
-
-undefined4 FUN_004cdd80(void)
-
-{
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  uint uVar1;
-  uint *puVar2;
-  bool bVar3;
-  #define local_4 (*(undefined1 (*)[4])(_frame + (0x20 - 0x4)))
-  
-  uVar1 = UINT_008da874 + 1;
-  bVar3 = UINT_008da874 == 0;
-  UINT_008da874 = uVar1;
-  if (bVar3) {
-    puVar2 = &UINT_008da5f8;
-    do {
-      *puVar2 = 0;
-      puVar2 = puVar2 + 8;
-    } while ((int)puVar2 < IMG_ADDR(0x008da858));
-    UINT_008da860 = 0x4dae;
-    UINT_008da858 = CreateThread(0,0,((unsigned)(uintptr_t)Mixer_TimerThread),0,0,(int)local_4);
-    SetThreadPriority(UINT_008da858,2);
-    _DAT_004f3c2c = 0xffffffff;
-  }
-  return 0;
-}
-#undef local_4
-
-#endif
-
-
-/* ---- 0x004cde80  FUN_004cde80 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
-void FUN_004cde80(void)
-
-{
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  unsigned char _stkneg[32] __attribute__((aligned(16)));  /* the original frame below the return address */
-  int iVar1;
-  int unaff_ESI;
-  #define local_4 (*(undefined1 (*)[4])(_frame + (0x20 - 0x4)))
-  
-  UINT_008da874 = UINT_008da874 - 1;
-  if (UINT_008da874 == 0) {
-    iVar1 = GetExitCodeThread(UINT_008da858,local_4);
-    while ((iVar1 != 0 && (unaff_ESI == 0x103))) {
-      OutputDebugStringA(IMG_ADDR(0x004f3c88));
-      iVar1 = GetExitCodeThread(UINT_008da858,(_stkneg + 20));
-    }
-    CloseHandle(UINT_008da858);
-  }
-  return;
-}
-#undef local_4
-
-#endif
-
-
-/* ---- 0x004cdef0  FUN_004cdef0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
-void FUN_004cdef0(void)
-
-{
-  UINT_008da878 = UINT_008da878 + 1;
-  return;
-}
-#endif
-
-
-/* ---- 0x004cdf00  FUN_004cdf00 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
-void FUN_004cdf00(void)
-
-{
-  UINT_008da878 = UINT_008da878 - 1;
-  return;
-}
-#endif
-
-
-/* ---- 0x004cdf10  FUN_004cdf10 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
-int FUN_004cdf10(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4)
-
-{
-  int iVar1;
-  uint *puVar2;
-  int iVar3;
-  
-  iVar1 = 1;
-  puVar2 = &UINT_008da5f8;
-  do {
-    if (*puVar2 == 0) {
-      iVar3 = iVar1 * 0x20;
-      *(undefined4 *)(iVar3 + IMG_ADDR(0x008da5e8)) = 0;
-      *(undefined4 *)(&DAT_008da5ec + iVar3) = 0;
-      *(undefined4 *)(iVar3 + IMG_ADDR(0x008da5e4)) = param_4;
-      *(undefined4 *)(iVar3 + IMG_ADDR(0x008da5e0)) = param_3;
-      *(undefined4 *)(&DAT_008da5dc + iVar3) = param_2;
-      *(undefined4 *)(&DAT_008da5d8 + iVar3) = param_1;
-      *(undefined4 *)(iVar3 + IMG_ADDR(0x008da5f0)) = 0;
-      *(undefined4 *)(iVar3 + IMG_ADDR(0x008da5f4)) = 0;
-      return iVar1;
-    }
-    puVar2 = puVar2 + 8;
-    iVar1 = iVar1 + 1;
-  } while ((int)puVar2 < IMG_ADDR(0x008da858));
-  return 0;
-}
-#endif
-
-
-/* ---- 0x004cdf80  FUN_004cdf80 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
-void FUN_004cdf80(int param_1)
-
-{
-  if ((0 < param_1) && (param_1 < 0x14)) {
-    *(undefined4 *)(&DAT_008da5d8 + param_1 * 0x20) = 0;
-  }
-  return;
-}
-#endif
-
-
-/* ---- 0x004cdfa0  FUN_004cdfa0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
-void FUN_004cdfa0(int param_1,undefined4 param_2)
-
-{
-  if ((0 < param_1) && (param_1 < 0x14)) {
-    *(undefined4 *)(&DAT_008da5dc + param_1 * 0x20) = param_2;
-    *(undefined4 *)(&DAT_008da5ec + param_1 * 0x20) = 0;
-  }
-  return;
-}
-#endif
-
-
-/* ---- 0x004cdfd0  FUN_004cdfd0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
-void FUN_004cdfd0(int param_1)
-
-{
-  uint uVar1;
-  
-  uVar1 = UINT_008da5c8;
-  param_1 = param_1 + UINT_008da5c8;
-  do {
-    if (param_1 <= (int)UINT_008da5c8) {
-      return;
-    }
-    FUN_004ce000();
-  } while ((int)uVar1 <= (int)UINT_008da5c8);
-  return;
-}
-#endif
-
-
-/* ---- 0x004ce000  FUN_004ce000 ---- */
-uint FUN_004ce000(void)
-
-{
-  return UINT_008da5c8;
-}
-
 /* ---- 0x004ce010  FUN_004ce010 ---- */
 uint FUN_004ce010(void)
 
 {
-  return UINT_008da860;
+  return g_dwTimerStep;
 }
 
 /* ---- 0x004ce020  FUN_004ce020 ---- */
@@ -12671,7 +12396,7 @@ undefined4 FUN_004ced70(int param_1,int param_2,undefined4 param_3,int param_4)
 /* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 undefined4
-FUN_004cedc0(int param_1,int param_2,int param_3,undefined4 param_4,int param_5,int param_6,
+FUN_004cedc0(void *param_1,int param_2,int param_3,undefined4 param_4,void *param_5,int param_6,
             int param_7)
 
 {
@@ -12689,7 +12414,7 @@ FUN_004cedc0(int param_1,int param_2,int param_3,undefined4 param_4,int param_5,
       (((*(int *)(param_2 + 0x30) == *(int *)(param_6 + 0x30) &&
         (*(int *)(param_2 + 0x34) == *(int *)(param_6 + 0x34))) &&
        (*(int *)(param_2 + 0x38) == *(int *)(param_6 + 0x38))))))) {
-    FUN_004c3df0(param_5,param_1,*(int *)(param_6 + 0xc) * param_3);
+    Insane_MemCopyCdecl(param_5,param_1,*(int *)(param_6 + 0xc) * param_3);
     return 0;
   }
   if (param_7 != 0) {
@@ -12737,8 +12462,8 @@ FUN_004cedc0(int param_1,int param_2,int param_3,undefined4 param_4,int param_5,
     }
     if (iVar3 != 0) break;
     param_3 = param_3 - iVar5;
-    param_1 = param_1 + *(int *)(param_2 + 0xc) * iVar5;
-    param_5 = param_5 + *(int *)(param_6 + 0xc) * iVar5;
+    param_1 = (void *)((int)param_1 + *(int *)(param_2 + 0xc) * iVar5);
+    param_5 = (void *)((int)param_5 + *(int *)(param_6 + 0xc) * iVar5);
     iVar5 = param_3;
     if (0x4ff < param_3) {
       iVar5 = 0x500;
@@ -13687,2245 +13412,13 @@ FUN_004d0260(undefined4 param_1,undefined4 param_2,int param_3,int param_4,int p
 #endif
 
 
-/* ---- 0x004d0300  FUN_004d0300 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
-/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
-
-undefined4 FUN_004d0300(int *param_1,uint param_2)
-
-{
-  bool bVar1;
-  uint *puVar2;
-  uint *puVar3;
-  int iVar4;
-  
-  PTR_008dacf8 = param_1;
-  UINT_008db098 = param_2;
-  (*(code *)*param_1)(s_LECMODULE_insane_sound_004f3e5c,&PTR_FUN_004f3dc8);
-  (*(code *)*PTR_008dacf8)(s_SOUND_insane_004f3e4c,&PTR_FUN_004f3dd8);
-  iVar4 = 0;
-  PTR_008dacf0 = (int *)0x0;
-  UINT_008db09c = 0x5622;
-  UINT_008dacfc = 64000;
-  _DAT_008db1e8 = 0;
-  UINT_008dad50 = 0;
-  UINT_008dacf4 = 0;
-  UINT_008db0a0 = 0;
-  puVar2 = &UINT_008dacb0;
-  do {
-    bVar1 = 0 < iVar4;
-    puVar3 = puVar2 + 1;
-    iVar4 = iVar4 + 1;
-    *puVar2 = bVar1 - 1 & 100000;
-    puVar2 = puVar3;
-  } while ((int)puVar3 < IMG_ADDR(0x008dacf0));
-  UINT_008dacb0 = 500000;
-  return 0;
-}
-#endif
-
-
-/* ---- 0x004d03a0  FUN_004d03a0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
-void FUN_004d03a0(void)
-
-{
-  (*(code *)PTR_008dacf8[1])(s_SOUND_insane_004f3e4c);
-  (*(code *)PTR_008dacf8[1])(s_LECMODULE_insane_sound_004f3e5c);
-  return;
-}
-#endif
-
-
-/* ---- 0x004d03d0  FUN_004d03d0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
-undefined4 FUN_004d03d0(void)
-
-{
-  uint uVar1;
-  undefined4 uVar2;
-  
-  PTR_008da8a8 = (int *)(*(code *)PTR_008dacf8[2])(s_MEMORY_workspace_004f14ec,UINT_008db098);
-  UINT_008dad48 = (*(code *)PTR_008dacf8[2])(s_TIMER_external_sync_004f3f1c,UINT_008db098);
-  uVar1 = UINT_008db0a0;
-  if (UINT_008db0a0 == 0) {
-    uVar1 = UINT_008db098;
-  }
-  PTR_008dacf0 = (int *)(*(code *)PTR_008dacf8[2])(s_SNDDRIVER_driver_004f3f08,uVar1);
-  if (PTR_008da8a8 == (int *)0x0) {
-    (*(code *)PTR_008dacf8[8])(s_Sound_Module__Cannot_allocate_me_004f3ed8);
-    return 0xffffffff;
-  }
-  if (UINT_008dad48 == 0) {
-    (*(code *)PTR_008dacf8[8])(s_Sound_Module__Cannot_allocate_ti_004f3ea8);
-    return 0xffffffff;
-  }
-  if (PTR_008dacf0 == (int *)0x0) {
-    (*(code *)PTR_008dacf8[8])(s_Sound_Module__Cannot_allocate_sn_004f3e74);
-    return 0xffffffff;
-  }
-  uVar2 = ((code *)FUN_004d0550)(UINT_008db09c,UINT_008dacfc,UINT_008dacb0,UINT_008dacb4,UINT_008dacb8,
-                       UINT_008dacbc,UINT_008dacc0,UINT_008dacc4,UINT_008dacc8,UINT_008daccc,
-                       UINT_008dacd0,UINT_008dacd4,UINT_008dacd8,UINT_008dacdc,UINT_008dace0,
-                       UINT_008dace4,UINT_008dace8,UINT_008dacec,0);
-  return uVar2;
-}
-#endif
-
-
-/* ---- 0x004d0510  FUN_004d0510 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
-void FUN_004d0510(void)
-
-{
-  (*(code *)PTR_008dacf8[3])(PTR_008da8a8);
-  (*(code *)PTR_008dacf8[3])(PTR_008dacf0);
-  (*(code *)PTR_008dacf8[3])(UINT_008dad48);
-  FUN_004d0610();
-  return;
-}
-#endif
-
-
-/* ---- 0x004d0550  FUN_004d0550 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
-undefined4 FUN_004d0550(undefined4 param_1,undefined4 param_2,uint param_3)
-
-{
-  int iVar1;
-  uint *puVar2;
-  
-  UINT_004f3e30 = 0;
-  UINT_004f3e34 = 0x7f;
-  iVar1 = 0;
-  do {
-    (&DAT_008db0e8)[iVar1] = 0;
-    iVar1 = iVar1 + 1;
-  } while (iVar1 < 0x100);
-  puVar2 = (uint *)&STACK0X(0x00000010);
-  while( true ) {
-    if (param_3 == 0) {
-      iVar1 = (*(code *)*PTR_008dacf0)(param_1,UINT_004f3e30,FUN_004d16a0);
-      UINT_008db1f0 = (uint)(iVar1 == 0);
-      UINT_004f3e38 = (*(code *)PTR_008dacf0[5])();
-      UINT_008dacf4 = 0;
-      UINT_008dad40 = 1;
-      UINT_008dad4c = 1;
-      UINT_008dad44 = 1;
-      (**(code **)(UINT_008dad48 + 0x20))(0);
-      return 0;
-    }
-    iVar1 = FUN_004d06a0(param_3 & 0xfffffffc,param_2);
-    if (iVar1 != 0) break;
-    param_3 = *puVar2;
-    puVar2 = puVar2 + 1;
-  }
-  FUN_004d0610();
-  return 0xffffffff;
-}
-#endif
-
-
-/* ---- 0x004d0610  FUN_004d0610 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
-uint FUN_004d0610(void)
-
-{
-  uint uVar1;
-  uint *puVar2;
-  int iVar3;
-  
-  if (UINT_008db1f0 != 0) {
-    (*(code *)PTR_008dacf0[1])();
-    UINT_008db1f0 = 0;
-  }
-  iVar3 = 0;
-  if (0 < (int)UINT_004f3e30) {
-    puVar2 = &UINT_008dad5c;
-    do {
-      if (puVar2[-1] != 0) {
-        (*(code *)PTR_008da8a8[1])(puVar2[-1],s_C__grimsrc_libs_lecsmush_insane__004f3f30,0x1a8);
-      }
-      puVar2[-1] = 0;
-      if (*puVar2 != 0) {
-        (*(code *)PTR_008da8a8[1])(*puVar2,s_C__grimsrc_libs_lecsmush_insane__004f3f30,0x1a9);
-      }
-      uVar1 = UINT_004f3e30;
-      *puVar2 = 0;
-      iVar3 = iVar3 + 1;
-      puVar2 = puVar2 + 0xd;
-    } while (iVar3 < (int)uVar1);
-  }
-  UINT_004f3e30 = 0;
-  return UINT_008dacf4;
-}
-#endif
-
-
-/* ---- 0x004d06a0  FUN_004d06a0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
-undefined4 FUN_004d06a0(uint param_1,int param_2)
-
-{
-  uint uVar1;
-  int *piVar2;
-  uint uVar3;
-  int iVar4;
-  int iVar5;
-  
-  piVar2 = PTR_008da8a8;
-  uVar1 = UINT_004f3e30;
-  iVar5 = UINT_004f3e30 * 0x34;
-  (&DAT_008dad6e)[iVar5] = 0;
-  (&UINT_008dad84)[uVar1 * 0xd] = 0;
-  (&UINT_008dad70)[uVar1 * 0xd] = 0;
-  (&UINT_008dad74)[uVar1 * 0xd] = 0xffffff01;
-  (&UINT_008dad58)[uVar1 * 0xd] = 0;
-  (&UINT_008dad5c)[uVar1 * 0xd] = 0;
-  *(uint *)(iVar5 + IMG_ADDR(0x008dad68)) = param_1 & 0xfffffffc;
-  uVar3 = (*(code *)*piVar2)(0x1800,s_C__grimsrc_libs_lecsmush_insane__004f3f30,0x1cf);
-  (&UINT_008dad5c)[uVar1 * 0xd] = uVar3;
-  if (uVar3 == 0) {
-    return 0xffffffff;
-  }
-  uVar3 = (*(code *)*PTR_008da8a8)
-                    (*(undefined4 *)(iVar5 + IMG_ADDR(0x008dad68)),s_C__grimsrc_libs_lecsmush_insane__004f3f30,
-                     0x1d1);
-  (&UINT_008dad58)[uVar1 * 0xd] = uVar3;
-  if (uVar3 == 0) {
-    iVar4 = *(int *)(iVar5 + IMG_ADDR(0x008dad68));
-    while (param_2 < iVar4) {
-      uVar3 = (*(code *)*PTR_008da8a8)
-                        (*(undefined4 *)(iVar5 + IMG_ADDR(0x008dad68)),
-                         s_C__grimsrc_libs_lecsmush_insane__004f3f30,0x1d7);
-      (&UINT_008dad58)[uVar1 * 0xd] = uVar3;
-      if (uVar3 != 0) break;
-      iVar4 = *(int *)(iVar5 + IMG_ADDR(0x008dad68)) + -10000;
-      *(int *)(iVar5 + IMG_ADDR(0x008dad68)) = iVar4;
-    }
-    uVar3 = *(uint *)(iVar5 + IMG_ADDR(0x008dad68)) & 0xfffffffc;
-    *(uint *)(iVar5 + IMG_ADDR(0x008dad68)) = uVar3;
-    if (param_2 < (int)uVar3) {
-      if ((&UINT_008dad58)[uVar1 * 0xd] != 0) {
-        (*(code *)PTR_008da8a8[1])
-                  ((&UINT_008dad58)[uVar1 * 0xd],s_C__grimsrc_libs_lecsmush_insane__004f3f30,0x1e2);
-      }
-      (&UINT_008dad58)[uVar1 * 0xd] = 0;
-      piVar2 = PTR_008da8a8;
-      param_2 = *(int *)(iVar5 + IMG_ADDR(0x008dad68)) - param_2;
-      *(int *)(iVar5 + IMG_ADDR(0x008dad68)) = param_2;
-      uVar3 = (*(code *)*piVar2)(param_2,s_C__grimsrc_libs_lecsmush_insane__004f3f30,0x1e5);
-      (&UINT_008dad58)[uVar1 * 0xd] = uVar3;
-      if (uVar3 != 0) goto LAB_004d0827;
-    }
-    if ((&UINT_008dad5c)[uVar1 * 0xd] != 0) {
-      (*(code *)PTR_008da8a8[1])
-                ((&UINT_008dad5c)[uVar1 * 0xd],s_C__grimsrc_libs_lecsmush_insane__004f3f30,0x1ee);
-    }
-    (&UINT_008dad5c)[uVar1 * 0xd] = 0;
-    return 0xfffffffe;
-  }
-LAB_004d0827:
-  FUN_004d5e50((&UINT_008dad58)[uVar1 * 0xd],0x7f,*(undefined4 *)(iVar5 + IMG_ADDR(0x008dad68)));
-  UINT_004f3e30 = UINT_004f3e30 + 1;
-  return 0;
-}
-#endif
-
-
-/* ---- 0x004d0860  FUN_004d0860 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
-void FUN_004d0860(undefined1 *param_1,undefined4 param_2,int param_3,int param_4,uint param_5)
-
-{
-  byte bVar1;
-  uint uVar2;
-  int iVar3;
-  
-  if (UINT_008db1f0 != 0) {
-    uVar2 = CONCAT31(CONCAT21(CONCAT11(*param_1,param_1[1]),param_1[2]),param_1[3]);
-    if (uVar2 < 0x50534145) {
-      if (uVar2 != 0x50534144) {
-        if (uVar2 != 0x43726561) {
-          return;
-        }
-        iVar3 = (uint)(byte)param_1[0x15] * 0x100 + (uint)(byte)param_1[0x14];
-        bVar1 = param_1[iVar3 + 1];
-        FUN_004d0f00(param_1 + iVar3 + 6,(uint)CONCAT11(bVar1,bVar1) * 0x100 + (uint)bVar1,param_2,
-                     param_3,param_4,param_5);
-        return;
-      }
-    }
-    else if (uVar2 != 0x50564f43) {
-      if (uVar2 != 0x53415544) {
-        return;
-      }
-      FUN_004d1180(param_1,CONCAT31(CONCAT21(CONCAT11(param_1[4],param_1[5]),param_1[6]),param_1[7])
-                           + 8,param_2,param_3,param_4,param_5,0,0,1,0);
-      return;
-    }
-    if ((((param_1[8] == '\0') && (param_1[9] == '\0')) && (param_1[0xc] == '\0')) &&
-       (((param_1[0xd] == '\0' && (param_1[0x10] == '\0')) && (param_1[0x11] == '\0')))) {
-      FUN_004d1180(param_1 + 0x14,
-                   CONCAT31(CONCAT21(CONCAT11(param_1[4],param_1[5]),param_1[6]),param_1[7]) + -0xc,
-                   param_2,param_3,param_4,param_5,CONCAT11(param_1[10],param_1[0xb]),
-                   CONCAT11(param_1[0xe],param_1[0xf]),CONCAT11(param_1[0x12],param_1[0x13]),1);
-      return;
-    }
-    if ((char)param_1[0x11] < -0x7f) {
-      param_4 = 0x80;
-    }
-    else {
-      param_4 = param_4 + (char)param_1[0x11];
-    }
-    FUN_004d1180(param_1 + 0x12,
-                 CONCAT31(CONCAT21(CONCAT11(param_1[4],param_1[5]),param_1[6]),param_1[7]) + -10,
-                 param_2,(int)((uint)(byte)param_1[0x10] * param_3) >> 7,param_4,
-                 (int)*(short *)(param_1 + 0xe) | param_5,(int)*(short *)(param_1 + 8),
-                 (int)*(short *)(param_1 + 10),(int)*(short *)(param_1 + 0xc),1);
-  }
-  return;
-}
-#endif
-
-
-/* ---- 0x004d0a50  FUN_004d0a50 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
-void FUN_004d0a50(uint param_1)
-
-{
-  uint *puVar1;
-  uint uVar2;
-  
-  if (0 < (int)UINT_004f3e30) {
-    puVar1 = &UINT_008dad74;
-    uVar2 = UINT_004f3e30;
-    do {
-      if (*puVar1 == param_1) {
-        *(undefined1 *)((int)puVar1 + -6) = 0;
-        *puVar1 = 0xffffff01;
-      }
-      puVar1 = puVar1 + 0xd;
-      uVar2 = uVar2 - 1;
-    } while (uVar2 != 0);
-  }
-  return;
-}
-#endif
-
-
-/* ---- 0x004d0a80  FUN_004d0a80 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
-void FUN_004d0a80(void)
-
-{
-  UINT_008db1ec = UINT_008db1ec + 1;
-  return;
-}
-#endif
-
-
-/* ---- 0x004d0a90  FUN_004d0a90 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
-void FUN_004d0a90(void)
-
-{
-  if (UINT_008db1ec != 0) {
-    UINT_008db1ec = UINT_008db1ec - 1;
-  }
-  return;
-}
-#endif
-
-
-/* ---- 0x004d0aa0  FUN_004d0aa0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
-void FUN_004d0aa0(void)
-
-{
-  uint *puVar1;
-  uint uVar2;
-  
-  if (0 < (int)UINT_004f3e30) {
-    puVar1 = &UINT_008dad74;
-    uVar2 = UINT_004f3e30;
-    do {
-      *(undefined1 *)((int)puVar1 + -6) = 0;
-      *puVar1 = 0xffffff01;
-      puVar1 = puVar1 + 0xd;
-      uVar2 = uVar2 - 1;
-    } while (uVar2 != 0);
-  }
-  return;
-}
-#endif
-
-
-/* ---- 0x004d0ad0  FUN_004d0ad0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
-void FUN_004d0ad0(int param_1,uint param_2)
-
-{
-  undefined1 *puVar1;
-  uint uVar2;
-  
-  if (param_1 == -0xff) {
-    UINT_004f3e34 = param_2;
-    return;
-  }
-  if (0 < (int)UINT_004f3e30) {
-    puVar1 = &DAT_008dad6c;
-    uVar2 = UINT_004f3e30;
-    do {
-      if (*(int *)(puVar1 + 8) == param_1) {
-        *puVar1 = (undefined1)param_2;
-      }
-      puVar1 = puVar1 + 0x34;
-      uVar2 = uVar2 - 1;
-    } while (uVar2 != 0);
-  }
-  return;
-}
-#endif
-
-
-/* ---- 0x004d0b10  FUN_004d0b10 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
-uint FUN_004d0b10(uint param_1)
-
-{
-  int iVar1;
-  uint *puVar2;
-  
-  if (param_1 == 0xffffff01) {
-    return UINT_004f3e34;
-  }
-  iVar1 = 0;
-  if (0 < (int)UINT_004f3e30) {
-    puVar2 = &UINT_008dad74;
-    do {
-      if (*puVar2 == param_1) {
-        return (int)(char)(&DAT_008dad6c)[iVar1 * 0x34];
-      }
-      iVar1 = iVar1 + 1;
-      puVar2 = puVar2 + 0xd;
-    } while (iVar1 < (int)UINT_004f3e30);
-    return 0xffffffff;
-  }
-  return 0xffffffff;
-}
-#endif
-
-
-/* ---- 0x004d0b60  FUN_004d0b60 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
-void FUN_004d0b60(int param_1,undefined1 param_2)
-
-{
-  undefined1 *puVar1;
-  uint uVar2;
-  
-  if (0 < (int)UINT_004f3e30) {
-    puVar1 = &DAT_008dad6d;
-    uVar2 = UINT_004f3e30;
-    do {
-      if (*(int *)(puVar1 + 7) == param_1) {
-        *puVar1 = param_2;
-      }
-      puVar1 = puVar1 + 0x34;
-      uVar2 = uVar2 - 1;
-    } while (uVar2 != 0);
-  }
-  return;
-}
-#endif
-
-
-/* ---- 0x004d0b90  FUN_004d0b90 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
-int FUN_004d0b90(uint param_1)
-
-{
-  int iVar1;
-  uint *puVar2;
-  
-  iVar1 = 0;
-  if ((int)UINT_004f3e30 < 1) {
-    return -1;
-  }
-  puVar2 = &UINT_008dad74;
-  do {
-    if (*puVar2 == param_1) {
-      return (int)(char)(&DAT_008dad6d)[iVar1 * 0x34];
-    }
-    iVar1 = iVar1 + 1;
-    puVar2 = puVar2 + 0xd;
-  } while (iVar1 < (int)UINT_004f3e30);
-  return -1;
-}
-#endif
-
-
-/* ---- 0x004d0bd0  FUN_004d0bd0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
-void FUN_004d0bd0(undefined4 param_1)
-
-{
-  if (PTR_008dacf0 != (int *)0x0) {
-    (*(code *)PTR_008dacf0[2])(param_1);
-  }
-  return;
-}
-#endif
-
-
-/* ---- 0x004d0bf0  FUN_004d0bf0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
-undefined4 FUN_004d0bf0(void)
-
-{
-  undefined4 uVar1;
-  
-  if (PTR_008dacf0 != (int *)0x0) {
-                    /* WARNING: Could not recover jumptable at 0x004d0bf9. Too many branches */
-                    /* WARNING: Treating indirect jump as call */
-    uVar1 = (*(code *)PTR_008dacf0[3])();
-    return uVar1;
-  }
-  return 0xffffffff;
-}
-#endif
-
-
-/* ---- 0x004d0c00  FUN_004d0c00 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
-void FUN_004d0c00(uint param_1)
-
-{
-  UINT_004f3e38 = param_1;
-  if (PTR_008dacf0 != (int *)0x0) {
-    (*(code *)PTR_008dacf0[4])(param_1);
-  }
-  return;
-}
-#endif
-
-
-/* ---- 0x004d0c30  FUN_004d0c30 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
-int FUN_004d0c30(uint param_1)
-
-{
-  int iVar1;
-  char *pcVar2;
-  uint *puVar3;
-  
-  if (param_1 == 0xffffff01) {
-    iVar1 = 0;
-    if (0 < (int)UINT_004f3e30) {
-      pcVar2 = &DAT_008dad6e;
-      do {
-        if (*pcVar2 != '\0') {
-          return (&UINT_008dad84)[iVar1 * 0xd] + 1;
-        }
-        iVar1 = iVar1 + 1;
-        pcVar2 = pcVar2 + 0x34;
-      } while (iVar1 < (int)UINT_004f3e30);
-      return 0;
-    }
-  }
-  else if (((int)param_1 < 0) && ((int)(-1 - param_1) < (int)UINT_004f3e30)) {
-    if ((&DAT_008dad6e)[(param_1 + 1) * -0x34] != '\0') {
-      return (&UINT_008dad84)[(param_1 + 1) * -0xd] + 1;
-    }
-  }
-  else {
-    iVar1 = 0;
-    if (0 < (int)UINT_004f3e30) {
-      puVar3 = &UINT_008dad74;
-      while (*puVar3 != param_1) {
-        iVar1 = iVar1 + 1;
-        puVar3 = puVar3 + 0xd;
-        if ((int)UINT_004f3e30 <= iVar1) {
-          return 0;
-        }
-      }
-      if ((&DAT_008dad6e)[iVar1 * 0x34] != '\0') {
-        return (&UINT_008dad84)[iVar1 * 0xd] + 1;
-      }
-    }
-  }
-  return 0;
-}
-#endif
-
-
-/* ---- 0x004d0d70  FUN_004d0d70 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
-undefined4 FUN_004d0d70(undefined4 param_1,undefined4 param_2,uint param_3,uint param_4)
-
-{
-  switch(param_2) {
-  case 1:
-    FUN_004d0ed0(param_3,param_4);
-    return 0;
-  case 2:
-    if (param_3 != 0) {
-      UINT_004f3e3c = param_3;
-    }
-    if (param_4 != 0) {
-      UINT_004f3e40 = param_4;
-      return 0;
-    }
-    break;
-  case 3:
-    UINT_008dad40 = param_3;
-    return 0;
-  case 4:
-    UINT_008dad4c = param_3;
-    return 0;
-  case 5:
-    UINT_008dad44 = param_3;
-    break;
-  default:
-    return 0xffffffff;
-  }
-  return 0;
-}
-#endif
-
-
-/* ---- 0x004d0e00  FUN_004d0e00 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
-undefined4 FUN_004d0e00(undefined4 param_1,undefined4 param_2,uint *param_3,uint *param_4)
-
-{
-  uint uVar1;
-  
-  switch(param_2) {
-  case 1:
-    if (param_3 != (uint *)0x0) {
-      uVar1 = FUN_004d0eb0(param_4);
-      *param_3 = uVar1 & 0xff;
-      return 0;
-    }
-    break;
-  case 2:
-    if (param_3 != (uint *)0x0) {
-      *param_3 = UINT_004f3e3c;
-    }
-    if (param_4 != (uint *)0x0) {
-      *param_4 = UINT_004f3e40;
-      return 0;
-    }
-    break;
-  case 3:
-    if (param_3 != (uint *)0x0) {
-      *param_3 = UINT_008dad40;
-      return 0;
-    }
-    break;
-  case 4:
-    if (param_3 != (uint *)0x0) {
-      *param_3 = UINT_008dad4c;
-      return 0;
-    }
-    break;
-  case 5:
-    if (param_3 != (uint *)0x0) {
-      *param_3 = UINT_008dad44;
-    }
-    break;
-  default:
-    return 0xffffffff;
-  }
-  return 0;
-}
-#endif
-
-
-/* ---- 0x004d0eb0  FUN_004d0eb0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
-uint FUN_004d0eb0(byte param_1)
-
-{
-  if (param_1 == 0xff) {
-    return (undefined1)UINT_004f3e34;
-  }
-  return (&DAT_008db0e8)[param_1];
-}
-#endif
-
-
-/* ---- 0x004d0ed0  FUN_004d0ed0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
-void FUN_004d0ed0(byte param_1,byte param_2)
-
-{
-  if (param_1 == 0xff) {
-    UINT_004f3e34 = (uint)param_2;
-  }
-  (&DAT_008db0e8)[param_1] = param_2;
-  return;
-}
-#endif
-
-
-/* ---- 0x004d0f00  FUN_004d0f00 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
-void FUN_004d0f00(undefined4 param_1,uint param_2,uint param_3,undefined1 param_4,undefined1 param_5
-                 ,uint param_6)
-
-{
-  unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  uint uVar1;
-  int iVar2;
-  int *piVar3;
-  uint *puVar4;
-  char *pcVar5;
-  uint uVar6;
-  int iVar7;
-  int iVar8;
-  int iVar9;
-  #define local_48 (*(uint *)(_frame + (0x60 - 0x48)))
-  #define local_44 (*(uint *)(_frame + (0x60 - 0x44)))
-  #define aiStack_40 (*(int (*)[16])(_frame + (0x60 - 0x40)))
-  
-  iVar2 = UINT_004f3e30 - 1;
-  local_44 = 0;
-  if (-1 < iVar2) {
-    puVar4 = (uint *)(iVar2 * 0x34 + IMG_ADDR(0x008dad68));
-    uVar6 = UINT_004f3e30;
-    do {
-      if ((int)local_44 < (int)*puVar4) {
-        local_44 = *puVar4;
-      }
-      puVar4 = puVar4 + -0xd;
-      uVar6 = uVar6 - 1;
-    } while (uVar6 != 0);
-  }
-  iVar8 = 10000000;
-  if (-1 < iVar2) {
-    puVar4 = (uint *)(iVar2 * 0x34 + IMG_ADDR(0x008dad68));
-    uVar6 = UINT_004f3e30;
-    do {
-      uVar1 = *puVar4;
-      iVar7 = uVar1 - param_2;
-      iVar9 = iVar7;
-      if (iVar7 < 0) {
-        iVar9 = param_2 - uVar1;
-      }
-      if (((iVar9 < iVar8) && ((int)param_2 < (int)uVar1)) &&
-         (iVar8 = iVar7, local_44 = uVar1, iVar7 < 0)) {
-        iVar8 = param_2 - uVar1;
-      }
-      puVar4 = puVar4 + -0xd;
-      uVar6 = uVar6 - 1;
-    } while (uVar6 != 0);
-  }
-  if (-1 < iVar2) {
-    piVar3 = aiStack_40 + iVar2;
-    pcVar5 = &DAT_008dad6e + iVar2 * 0x34;
-    uVar6 = UINT_004f3e30;
-    do {
-      uVar1 = *(uint *)(pcVar5 + -6);
-      *piVar3 = 0;
-      if ((uVar1 == local_44) &&
-         (((*pcVar5 == '\0' || (*pcVar5 == '\x03')) || (*(int *)(pcVar5 + 2) <= (int)param_6)))) {
-        if (*pcVar5 == '\0') {
-          *piVar3 = 0x1000;
-        }
-        uVar1 = *(uint *)(pcVar5 + 2);
-        if ((int)uVar1 < (int)param_6) {
-          *piVar3 = *piVar3 + 0x800;
-        }
-        if (uVar1 == param_6) {
-          *piVar3 = *piVar3 + 0x400;
-        }
-        if (*pcVar5 == '\x03') {
-          *piVar3 = *piVar3 + 0x200;
-        }
-        *piVar3 = *piVar3 + *(int *)(pcVar5 + 10) + 1;
-      }
-      pcVar5 = pcVar5 + -0x34;
-      piVar3 = piVar3 + -1;
-      uVar6 = uVar6 - 1;
-    } while (uVar6 != 0);
-  }
-  iVar8 = 0;
-  iVar9 = -1;
-  if (-1 < iVar2) {
-    piVar3 = aiStack_40 + iVar2;
-    iVar7 = iVar2;
-    do {
-      if (iVar8 < *piVar3) {
-        iVar8 = *piVar3;
-        iVar9 = iVar7;
-      }
-      iVar7 = iVar7 + -1;
-      piVar3 = piVar3 + -1;
-    } while (-1 < iVar7);
-  }
-  if (-1 < iVar9) {
-    if (-1 < iVar2) {
-      piVar3 = (int *)(iVar2 * 0x34 + IMG_ADDR(0x008dad78));
-      uVar6 = UINT_004f3e30;
-      do {
-        if (*piVar3 < 0x100) {
-          *piVar3 = *piVar3 + 1;
-        }
-        piVar3 = piVar3 + -0xd;
-        uVar6 = uVar6 - 1;
-      } while (uVar6 != 0);
-    }
-    iVar2 = iVar9 * 0x34;
-    *(undefined4 *)(iVar2 + IMG_ADDR(0x008dad78)) = 0;
-    (&DAT_008dad6e)[iVar2] = 0;
-    *(undefined1 *)(&UINT_008dad58)[iVar9 * 0xd] = 1;
-    *(undefined1 *)((&UINT_008dad58)[iVar9 * 0xd] + 1) = 8;
-    uVar6 = (&UINT_008dad58)[iVar9 * 0xd];
-    *(undefined1 *)(uVar6 + 2) = 0;
-    *(undefined1 *)(uVar6 + 3) = 0;
-    *(undefined1 *)(uVar6 + 4) = 0;
-    *(undefined1 *)(uVar6 + 5) = 0;
-    uVar6 = (&UINT_008dad58)[iVar9 * 0xd];
-    *(char *)(uVar6 + 6) = (char)(param_2 >> 0x18);
-    *(char *)(uVar6 + 7) = (char)(param_2 >> 0x10);
-    *(char *)(uVar6 + 8) = (char)(param_2 >> 8);
-    *(char *)(uVar6 + 9) = (char)param_2;
-    *(undefined1 *)((&UINT_008dad58)[iVar9 * 0xd] + 10) = 0;
-    *(undefined1 *)((&UINT_008dad58)[iVar9 * 0xd] + 0xb) = 0;
-    FUN_004c3df0((&UINT_008dad58)[iVar9 * 0xd] + 0xc,param_1,param_2);
-    (&UINT_008dad60)[iVar9 * 0xd] = (&UINT_008dad58)[iVar9 * 0xd];
-    (&UINT_008dad64)[iVar9 * 0xd] = (&UINT_008dad58)[iVar9 * 0xd] + 0xc;
-    (&UINT_008dad7c)[iVar9 * 0xd] = *(int *)(iVar2 + IMG_ADDR(0x008dad68)) - 0xc;
-    (&UINT_008dad80)[iVar9 * 0xd] = param_2;
-    (&UINT_008dad74)[iVar9 * 0xd] = param_3;
-    (&DAT_008dad6c)[iVar2] = param_4;
-    (&DAT_008dad6d)[iVar2] = param_5;
-    (&UINT_008dad70)[iVar9 * 0xd] = param_6;
-    (&UINT_008dad84)[iVar9 * 0xd] = 0;
-    (&DAT_008dad6e)[iVar2] = 2;
-  }
-  return;
-}
-#undef aiStack_40
-#undef local_44
-#undef local_48
-
-#endif
-
-
-/* ---- 0x004d1180  FUN_004d1180 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
-void FUN_004d1180(int param_1,int param_2,uint param_3,int param_4,int param_5,uint param_6,
-                 int param_7,int param_8,int param_9,int param_10)
-
-{
-  unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  undefined1 uVar1;
-  undefined1 uVar2;
-  undefined1 uVar3;
-  undefined1 uVar4;
-  uint uVar5;
-  int iVar6;
-  int *piVar7;
-  char *pcVar8;
-  uint uVar9;
-  int iVar10;
-  int iVar11;
-  int iVar12;
-  int iVar13;
-  #define local_44 (*(uint *)(_frame + (0x60 - 0x44)))
-  #define aiStack_40 (*(int (*)[16])(_frame + (0x60 - 0x40)))
-  
-  if (param_8 == 0) {
-    if ((param_9 != 1) || (iVar10 = 0, param_10 != 0)) {
-      iVar10 = CONCAT31(CONCAT21(CONCAT11(*(undefined1 *)(param_1 + 4),*(undefined1 *)(param_1 + 5))
-                                 ,*(undefined1 *)(param_1 + 6)),*(undefined1 *)(param_1 + 7));
-    }
-    iVar11 = 0;
-    param_8 = 0;
-    if (-1 < (int)(UINT_004f3e30 - 1)) {
-      piVar7 = (int *)((UINT_004f3e30 - 1) * 0x34 + IMG_ADDR(0x008dad68));
-      uVar9 = UINT_004f3e30;
-      do {
-        if (iVar11 < *piVar7) {
-          iVar11 = *piVar7;
-        }
-        piVar7 = piVar7 + -0xd;
-        uVar9 = uVar9 - 1;
-        param_8 = iVar11;
-      } while (uVar9 != 0);
-    }
-    iVar11 = 10000000;
-    if ((param_6 & 0xc0) == 0x40) {
-      if (1 < param_9) {
-        FUN_004d1690();
-      }
-    }
-    else if (-1 < (int)(UINT_004f3e30 - 1)) {
-      local_44 = UINT_004f3e30;
-      piVar7 = (int *)((UINT_004f3e30 - 1) * 0x34 + IMG_ADDR(0x008dad68));
-      do {
-        iVar13 = *piVar7;
-        iVar12 = iVar13 - iVar10;
-        iVar6 = iVar12;
-        if (iVar12 < 0) {
-          iVar6 = iVar10 - iVar13;
-        }
-        if ((iVar6 < iVar11) && ((iVar10 * 2) / 3 < iVar13)) {
-          iVar6 = param_2;
-          if (1 < param_9) {
-            iVar6 = param_2 * 2;
-          }
-          if ((iVar6 < iVar13) && (iVar11 = iVar12, param_8 = iVar13, iVar12 < 0)) {
-            iVar11 = iVar10 - iVar13;
-          }
-        }
-        piVar7 = piVar7 + -0xd;
-        local_44 = local_44 - 1;
-      } while (local_44 != 0);
-    }
-    iVar10 = UINT_004f3e30 - 1;
-    if (-1 < iVar10) {
-      piVar7 = aiStack_40 + iVar10;
-      pcVar8 = &DAT_008dad6e + iVar10 * 0x34;
-      uVar9 = UINT_004f3e30;
-      do {
-        iVar11 = *(int *)(pcVar8 + -6);
-        *piVar7 = 0;
-        if (iVar11 == param_8) {
-          if (*pcVar8 == '\0') {
-LAB_004d12e0:
-            *piVar7 = 0x1000;
-          }
-          else {
-            if ((*pcVar8 != '\x03') && ((int)param_6 < *(int *)(pcVar8 + 2))) goto LAB_004d130e;
-            if (*pcVar8 == '\0') goto LAB_004d12e0;
-          }
-          uVar5 = *(uint *)(pcVar8 + 2);
-          if ((int)uVar5 < (int)param_6) {
-            *piVar7 = *piVar7 + 0x800;
-          }
-          if (uVar5 == param_6) {
-            *piVar7 = *piVar7 + 0x400;
-          }
-          if (*pcVar8 == '\x03') {
-            *piVar7 = *piVar7 + 0x200;
-          }
-          *piVar7 = *piVar7 + *(int *)(pcVar8 + 10) + 1;
-        }
-LAB_004d130e:
-        pcVar8 = pcVar8 + -0x34;
-        piVar7 = piVar7 + -1;
-        uVar9 = uVar9 - 1;
-      } while (uVar9 != 0);
-    }
-    iVar13 = -1;
-    iVar11 = -1;
-    if (-1 < iVar10) {
-      piVar7 = aiStack_40 + iVar10;
-      iVar6 = iVar10;
-      do {
-        iVar12 = *piVar7;
-        if ((iVar12 != 0) && (iVar13 < iVar12)) {
-          iVar11 = iVar6;
-          iVar13 = iVar12;
-        }
-        iVar6 = iVar6 + -1;
-        piVar7 = piVar7 + -1;
-      } while (-1 < iVar6);
-    }
-    if (-1 < iVar11) {
-      if (-1 < iVar10) {
-        piVar7 = (int *)(iVar10 * 0x34 + IMG_ADDR(0x008dad78));
-        uVar9 = UINT_004f3e30;
-        do {
-          if (*piVar7 < 0xff) {
-            *piVar7 = *piVar7 + 1;
-          }
-          piVar7 = piVar7 + -0xd;
-          uVar9 = uVar9 - 1;
-        } while (uVar9 != 0);
-      }
-      *(int *)(iVar11 * 4 + IMG_ADDR(0x008dad00)) = param_7;
-      *(int *)(iVar11 * 4 + IMG_ADDR(0x008da8b0)) = param_9;
-      iVar13 = iVar11 * 0x34;
-      *(undefined4 *)(iVar11 * 4 + IMG_ADDR(0x008db0a8)) = 0;
-      *(undefined4 *)(iVar13 + IMG_ADDR(0x008dad78)) = 0;
-      (&DAT_008dad6e)[iVar13] = 0;
-      iVar10 = CONCAT31(CONCAT21(CONCAT11(*(undefined1 *)(param_1 + 0xc),
-                                          *(undefined1 *)(param_1 + 0xd)),
-                                 *(undefined1 *)(param_1 + 0xe)),*(undefined1 *)(param_1 + 0xf));
-      uVar1 = *(undefined1 *)(iVar10 + 0x15 + param_1);
-      uVar2 = *(undefined1 *)(iVar10 + 0x16 + param_1);
-      uVar3 = *(undefined1 *)(iVar10 + 0x14 + param_1);
-      uVar4 = *(undefined1 *)(iVar10 + 0x17 + param_1);
-      if ((param_9 == 1) && (param_10 == 0)) {
-        (&UINT_008dad60)[iVar11 * 0xd] = param_1 + 0x10;
-        iVar6 = param_2;
-      }
-      else {
-        iVar6 = *(int *)(iVar13 + IMG_ADDR(0x008dad68));
-        if (param_2 < *(int *)(iVar13 + IMG_ADDR(0x008dad68))) {
-          iVar6 = param_2;
-        }
-        FUN_004c3df0((&UINT_008dad58)[iVar11 * 0xd],param_1,iVar6);
-        (&UINT_008dad60)[iVar11 * 0xd] = (&UINT_008dad58)[iVar11 * 0xd] + 0x10;
-        iVar6 = *(int *)(iVar13 + IMG_ADDR(0x008dad68));
-      }
-      (&UINT_008dad7c)[iVar11 * 0xd] = (iVar6 - iVar10) - 0x18;
-      (&UINT_008dad64)[iVar11 * 0xd] = iVar10 + 8 + (&UINT_008dad60)[iVar11 * 0xd];
-      (&UINT_008dad80)[iVar11 * 0xd] = (param_2 - iVar10) - 0x18;
-      (&UINT_008dad88)[iVar11 * 0xd] = CONCAT31(CONCAT21(CONCAT11(uVar3,uVar1),uVar2),uVar4);
-      (&UINT_008dad74)[iVar11 * 0xd] = param_3;
-      (&DAT_008dad6c)[iVar13] = 0x7f;
-      (&DAT_008dad6d)[iVar13] = 0;
-      if ((-1 < param_4) && (param_4 < 0x80)) {
-        (&DAT_008dad6c)[iVar13] = (char)param_4;
-      }
-      if ((-0x80 < param_5) && (param_5 < 0x80)) {
-        (&DAT_008dad6d)[iVar13] = (char)param_5;
-      }
-      (&UINT_008dad70)[iVar11 * 0xd] = param_6;
-      (&UINT_008dad84)[iVar11 * 0xd] = 0;
-      (&DAT_008dad6e)[iVar13] = 2;
-      uVar9 = (&UINT_008dad64)[iVar11 * 0xd];
-      uVar9 = CONCAT31(CONCAT21(CONCAT11(*(undefined1 *)(uVar9 - 8),*(undefined1 *)(uVar9 - 7)),
-                                *(undefined1 *)(uVar9 - 6)),*(undefined1 *)(uVar9 - 5));
-      if (uVar9 < 0x5336535b) {
-        if (uVar9 == 0x5336535a) {
-          (&DAT_008dad6f)[iVar13] = 5;
-          return;
-        }
-        if (uVar9 == 0x53364d5a) {
-          (&DAT_008dad6f)[iVar13] = 4;
-          return;
-        }
-LAB_004d153e:
-        (&DAT_008dad6f)[iVar13] = 0;
-        return;
-      }
-      if (uVar9 < 0x53443254) {
-        if (uVar9 != 0x53443253) {
-          (&DAT_008dad6f)[iVar13] = 0;
-          return;
-        }
-      }
-      else {
-        if (uVar9 == 0x5344364d) {
-          (&DAT_008dad6f)[iVar13] = 2;
-          return;
-        }
-        if (uVar9 == 0x53443653) {
-          (&DAT_008dad6f)[iVar13] = 3;
-          return;
-        }
-        if (uVar9 != 0x53443853) goto LAB_004d153e;
-      }
-      (&DAT_008dad6f)[iVar13] = 1;
-      return;
-    }
-  }
-  else {
-    iVar10 = UINT_004f3e30 - 1;
-    if (-1 < iVar10) {
-      piVar7 = (int *)(iVar10 * 4 + IMG_ADDR(0x008da8b0));
-      pcVar8 = &DAT_008dad6e + iVar10 * 0x34;
-      while ((((*pcVar8 == '\0' || (param_7 != *(int *)(iVar10 * 4 + IMG_ADDR(0x008dad00)))) ||
-              (param_8 != *(int *)(iVar10 * 4 + IMG_ADDR(0x008db0a8)) + 1)) || (param_9 != *piVar7))) {
-        iVar10 = iVar10 + -1;
-        pcVar8 = pcVar8 + -0x34;
-        piVar7 = piVar7 + -1;
-        if (iVar10 < 0) {
-          return;
-        }
-      }
-      *(int *)(iVar10 * 4 + IMG_ADDR(0x008db0a8)) = *(int *)(iVar10 * 4 + IMG_ADDR(0x008db0a8)) + 1;
-      uVar9 = (&UINT_008dad7c)[iVar10 * 0xd];
-      iVar11 = (int)(&UINT_008dad80)[iVar10 * 0xd] % (int)uVar9;
-      if ((int)uVar9 < iVar11 + param_2) {
-        FUN_004c3df0(iVar11 + (&UINT_008dad64)[iVar10 * 0xd],param_1,uVar9 - iVar11);
-        param_1 = (param_1 - iVar11) + (&UINT_008dad7c)[iVar10 * 0xd];
-        uVar9 = (&UINT_008dad64)[iVar10 * 0xd];
-        iVar11 = (iVar11 + param_2) - (&UINT_008dad7c)[iVar10 * 0xd];
-      }
-      else {
-        uVar9 = (&UINT_008dad64)[iVar10 * 0xd] + iVar11;
-        iVar11 = param_2;
-      }
-      FUN_004c3df0(uVar9,param_1,iVar11);
-      if ((-1 < param_4) && (param_4 < 0x7f)) {
-        (&DAT_008dad6c)[iVar10 * 0x34] = (char)param_4;
-      }
-      if ((-0x80 < param_5) && (param_5 < 0x80)) {
-        (&DAT_008dad6d)[iVar10 * 0x34] = (char)param_5;
-      }
-      (&UINT_008dad80)[iVar10 * 0xd] = (&UINT_008dad80)[iVar10 * 0xd] + param_2;
-    }
-  }
-  return;
-}
-#undef aiStack_40
-#undef local_44
-
-#endif
-
-
-/* ---- 0x004d1690  FUN_004d1690 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
-void FUN_004d1690(void)
-
-{
-  UINT_008db1f8 = (**(code **)(UINT_008dad48 + 0x18))();
-  return;
-}
-#endif
-
-
-/* ---- 0x004d16a0  FUN_004d16a0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
-void FUN_004d16a0(int param_1,code *param_2)
-
-{
-  unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  char cVar1;
-  undefined1 uVar2;
-  byte bVar3;
-  undefined1 *puVar4;
-  bool bVar5;
-  bool bVar6;
-  uint *puVar7;
-  int iVar8;
-  uint uVar9;
-  uint uVar10;
-  int iVar11;
-  int iVar12;
-  uint uVar13;
-  int iVar14;
-  bool bVar15;
-  #define local_24 (*(int *)(_frame + (0x40 - 0x24)))
-  #define local_20 (*(int *)(_frame + (0x40 - 0x20)))
-  #define local_1c (*(int *)(_frame + (0x40 - 0x1c)))
-  #define local_18 (*(int *)(_frame + (0x40 - 0x18)))
-  #define local_10 (*(int *)(_frame + (0x40 - 0x10)))
-  
-  UINT_008dacf4 = UINT_008dacf4 + 1;
-  ((void (*)(float))FUN_004d2340)(((double)param_1 * 1193180.0) / (double)(int)UINT_004f3e38);
-  if (UINT_008db1ec == 0) {
-    if (UINT_004f3e48 != 0) {
-      UINT_004f3e48 = 0;
-      puVar7 = &UINT_008da928;
-      do {
-        puVar7[-4] = 0;
-        *puVar7 = 0;
-        puVar7 = puVar7 + 0xf;
-      } while ((int)puVar7 < IMG_ADDR(0x008dace8));
-    }
-    bVar6 = false;
-    local_10 = 0;
-    if (0 < (int)UINT_004f3e30) {
-      do {
-        iVar14 = local_10 * 0x34;
-        uVar13 = (&UINT_008dad70)[local_10 * 0xd] & 0xc0;
-        if ((((uVar13 == 0x80) && (UINT_008dad4c != 0)) ||
-            ((uVar13 == 0x40 && (UINT_008dad40 != 0)))) || ((uVar13 == 0 && (UINT_008dad44 != 0))))
-        {
-          bVar5 = true;
-        }
-        else {
-          bVar5 = false;
-        }
-        local_20 = (int)(UINT_004f3e34 * (int)(char)(&DAT_008dad6c)[iVar14]) / 0x7f;
-        if ((uVar13 == 0x40) && (UINT_008dad4c != 0)) {
-          local_20 = (int)(local_20 * UINT_004f3e44) >> 8;
-        }
-        if (((&DAT_008dad6e)[iVar14] == '\x02') && ((&UINT_008da90c)[local_10 * 0xf] == 1)) {
-          uVar13 = (&UINT_008da8fc)[local_10 * 0xf];
-          uVar9 = (&UINT_008da8f8)[local_10 * 0xf];
-          cVar1 = (&DAT_008dad6c)[iVar14];
-          (&UINT_008da918)[local_10 * 0xf] = 0x1800;
-          (&UINT_008da914)[local_10 * 0xf] = (int)cVar1;
-          uVar10 = (&UINT_008dad5c)[local_10 * 0xd];
-          (&DAT_008da91c)[local_10 * 0x3c] = (&DAT_008dad6f)[iVar14];
-          (&UINT_008da910)[local_10 * 0xf] = (&UINT_008da904)[local_10 * 0xf];
-          ((code *)FUN_004d2400)(uVar10,0x80);
-          iVar8 = (&UINT_008da8f8)[local_10 * 0xf] - (int)uVar13 % (int)uVar9;
-          if (0x1800 < iVar8) {
-            iVar8 = 0x1800;
-          }
-          FUN_004d23e0((&UINT_008dad5c)[local_10 * 0xd],
-                       (&UINT_008da8f4)[local_10 * 0xf] + (int)uVar13 % (int)uVar9,iVar8);
-          (&UINT_008da920)[local_10 * 0xf] = 0;
-        }
-        else if (((&DAT_008dad6e)[iVar14] == '\x01') &&
-                ((uVar13 = (&UINT_008dad80)[local_10 * 0xd],
-                 (int)(&UINT_008da8fc)[local_10 * 0xf] <
-                 (int)((uVar13 - (&UINT_008dad7c)[local_10 * 0xd]) + 15000) &&
-                 (uVar9 = (&UINT_008dad88)[local_10 * 0xd], (int)uVar13 < (int)uVar9)))) {
-          (&UINT_008da920)[local_10 * 0xf] = 0;
-          uVar10 = (&UINT_008da8fc)[local_10 * 0xf];
-          uVar13 = (uVar13 - uVar10) - 15000;
-          if ((int)(&UINT_008da900)[local_10 * 0xf] < (int)uVar13) {
-            uVar13 = (&UINT_008da900)[local_10 * 0xf];
-          }
-          iVar8 = uVar9 - (&UINT_008da8f8)[local_10 * 0xf];
-          if (iVar8 < (int)(uVar13 + uVar10)) {
-            uVar13 = iVar8 - uVar10;
-          }
-          if (0 < (int)uVar13) {
-            (&UINT_008da918)[local_10 * 0xf] = 0x1800;
-            (&UINT_008da910)[local_10 * 0xf] = (&UINT_008da904)[local_10 * 0xf];
-            FUN_004d23e0((&UINT_008dad5c)[local_10 * 0xd],
-                         (&UINT_008da8f4)[local_10 * 0xf] +
-                         (int)(&UINT_008da8fc)[local_10 * 0xf] %
-                         (int)(&UINT_008da8f8)[local_10 * 0xf],0x1800);
-            (&UINT_008da8fc)[local_10 * 0xf] = (&UINT_008da8fc)[local_10 * 0xf] + uVar13;
-            (&UINT_008da900)[local_10 * 0xf] = (&UINT_008da900)[local_10 * 0xf] - uVar13;
-          }
-        }
-        iVar8 = local_10 * 0x3c;
-        uVar13 = (&UINT_008da918)[local_10 * 0xf];
-        if (*(int *)(&DAT_004f3e18 + (uint)(byte)(&DAT_008da91c)[iVar8] * 4) < (int)uVar13) {
-          local_1c = 0;
-          uVar9 = (int)(param_1 * *(int *)(&DAT_004f3e18 + (uint)(byte)(&DAT_008da91c)[iVar8] * 4) *
-                       (&UINT_008da910)[local_10 * 0xf]) / (int)UINT_004f3e38;
-          if ((int)uVar9 <= (int)uVar13) {
-            uVar13 = uVar9;
-          }
-          uVar10 = (int)uVar13 >> 0x1f;
-          for (uVar13 = uVar13 - (((uVar13 ^ uVar10) - uVar10 & 3 ^ uVar10) - uVar10);
-              3 < (int)uVar13; uVar13 = uVar13 - uVar10) {
-            uVar10 = uVar13;
-            if (0x400 < (int)uVar13) {
-              uVar10 = 0x400;
-            }
-            if (uVar10 == uVar9) {
-              local_24 = param_1;
-            }
-            else {
-              local_24 = (int)(((int)uVar10 /
-                               *(int *)(&DAT_004f3e18 + (uint)(byte)(&DAT_008da91c)[iVar8] * 4)) *
-                              UINT_004f3e38) / (int)(&UINT_008da910)[local_10 * 0xf];
-            }
-            if (bVar5) {
-              (*param_2)(((&UINT_008dad5c)[local_10 * 0xd] - (&UINT_008da918)[local_10 * 0xf]) +
-                         0x1800,local_1c,local_24,uVar10,1,
-                         (int)(UINT_004f3e34 * (&UINT_008da918)[local_10 * 0xf] *
-                              (&UINT_008da914)[local_10 * 0xf]) / 0xbe800);
-            }
-            local_1c = local_1c + local_24;
-            (&UINT_008da918)[local_10 * 0xf] = (&UINT_008da918)[local_10 * 0xf] - uVar10;
-          }
-        }
-        if ((&DAT_008dad6e)[iVar14] == '\x02') {
-          if ((&UINT_008da90c)[local_10 * 0xf] != 1) {
-            (&UINT_008da920)[local_10 * 0xf] = 0x10;
-          }
-          uVar13 = (&UINT_008dad64)[local_10 * 0xd];
-          uVar9 = (&UINT_008dad7c)[local_10 * 0xd];
-          (&UINT_008da8f0)[local_10 * 0xf] = (&UINT_008dad60)[local_10 * 0xd];
-          uVar2 = (&DAT_008dad6f)[iVar14];
-          (&UINT_008da8f4)[local_10 * 0xf] = uVar13;
-          (&UINT_008da8f8)[local_10 * 0xf] = uVar9;
-          (&DAT_008da908)[iVar8] = uVar2;
-          (&UINT_008da900)[local_10 * 0xf] = 0;
-          (&UINT_008da928)[local_10 * 0xf] = 0;
-          (&DAT_008dad6e)[iVar14] = 1;
-        }
-        if ((&DAT_008dad6e)[iVar14] != '\0') {
-          local_18 = 0;
-          local_24 = param_1;
-          while (0 < local_24) {
-            uVar13 = (&UINT_008da900)[local_10 * 0xf];
-            if (0 < (int)uVar13) {
-              uVar9 = (&UINT_008da8f8)[local_10 * 0xf];
-              iVar11 = (int)(&UINT_008da8fc)[local_10 * 0xf] % (int)uVar9;
-              uVar10 = (int)(*(int *)(&DAT_004f3e18 + (uint)(byte)(&DAT_008da908)[iVar8] * 4) *
-                             local_24 * (&UINT_008da904)[local_10 * 0xf]) / (int)UINT_004f3e38;
-              if ((int)uVar10 <= (int)uVar13) {
-                uVar13 = uVar10;
-              }
-              if ((int)uVar9 < (int)(iVar11 + uVar13)) {
-                uVar13 = uVar9 - iVar11;
-              }
-              uVar9 = (&UINT_008da920)[local_10 * 0xf];
-              if ((int)(&UINT_008dad80)[local_10 * 0xd] <
-                  (int)((&UINT_008da8fc)[local_10 * 0xf] + uVar13)) {
-                if (uVar9 != 0) {
-                  (&UINT_008da920)[local_10 * 0xf] = uVar9 - 1;
-                }
-                (&DAT_008dad6e)[iVar14] = 3;
-                if (0x400 < (int)uVar13) {
-                  uVar13 = 0x400;
-                }
-                (&UINT_008da8fc)[local_10 * 0xf] = (&UINT_008da8fc)[local_10 * 0xf] - uVar13;
-                (&UINT_008da900)[local_10 * 0xf] = (&UINT_008da900)[local_10 * 0xf] + uVar13;
-                iVar11 = (int)(&UINT_008da8fc)[local_10 * 0xf] %
-                         (int)(&UINT_008da8f8)[local_10 * 0xf];
-              }
-              else {
-                if ((int)uVar9 < 0x10) {
-                  (&UINT_008da920)[local_10 * 0xf] = uVar9 + 1;
-                }
-                if (0x400 < (int)uVar13) {
-                  uVar13 = 0x400;
-                }
-                (&DAT_008dad6e)[iVar14] = 1;
-                if (((byte)(&UINT_008dad70)[local_10 * 0xd] & 0xc0) == 0x80) {
-                  bVar6 = true;
-                }
-              }
-              iVar12 = local_24;
-              if (uVar13 != uVar10) {
-                iVar12 = (int)(((int)uVar13 /
-                               *(int *)(&DAT_004f3e18 + (uint)(byte)(&DAT_008da908)[iVar8] * 4)) *
-                              UINT_004f3e38) / (int)(&UINT_008da904)[local_10 * 0xf];
-              }
-              if (bVar5) {
-                (*param_2)((&UINT_008da8f4)[local_10 * 0xf] + iVar11,local_18,iVar12,uVar13,1,
-                           (int)(local_20 * (&UINT_008da920)[local_10 * 0xf]) >> 4);
-              }
-              local_24 = local_24 - iVar12;
-              (&UINT_008da900)[local_10 * 0xf] = (&UINT_008da900)[local_10 * 0xf] - uVar13;
-              local_18 = local_18 + iVar12;
-              (&UINT_008da8fc)[local_10 * 0xf] = (&UINT_008da8fc)[local_10 * 0xf] + uVar13;
-            }
-            uVar13 = (&UINT_008da900)[local_10 * 0xf];
-            uVar9 = UINT_004f3e34;
-            while (UINT_004f3e34 = uVar9, (int)uVar13 < 1) {
-              if (local_24 == 0) goto LAB_004d2124;
-              puVar4 = (undefined1 *)(&UINT_008da8f0)[local_10 * 0xf];
-              switch(*puVar4) {
-              case 1:
-                (&UINT_008da928)[local_10 * 0xf] = 0;
-                uVar13 = (&UINT_008da8f0)[local_10 * 0xf];
-                uVar10 = (&UINT_008dad7c)[local_10 * 0xd];
-                (&UINT_008da8fc)[local_10 * 0xf] =
-                     CONCAT31(CONCAT21(CONCAT11(*(undefined1 *)(uVar13 + 2),
-                                                *(undefined1 *)(uVar13 + 3)),
-                                       *(undefined1 *)(uVar13 + 4)),*(undefined1 *)(uVar13 + 5));
-                uVar9 = UINT_004f3e38;
-                uVar13 = (&UINT_008da8f0)[local_10 * 0xf];
-                (&UINT_008da900)[local_10 * 0xf] =
-                     CONCAT31(CONCAT21(CONCAT11(*(undefined1 *)(uVar13 + 6),
-                                                *(undefined1 *)(uVar13 + 7)),
-                                       *(undefined1 *)(uVar13 + 8)),*(undefined1 *)(uVar13 + 9));
-                (&UINT_008da904)[local_10 * 0xf] = uVar9;
-                (&UINT_008da8f0)[local_10 * 0xf] =
-                     *(byte *)((&UINT_008da8f0)[local_10 * 0xf] + 1) + 2 +
-                     (&UINT_008da8f0)[local_10 * 0xf];
-                uVar13 = (&UINT_008dad80)[local_10 * 0xd];
-                uVar9 = (&UINT_008da8fc)[local_10 * 0xf];
-                if ((int)(((((int)(&UINT_008dad88)[local_10 * 0xd] <= (int)uVar13) - 1 & 15000) +
-                          uVar13) - uVar10) <= (int)uVar9) break;
-                iVar11 = ((uVar13 - uVar9) - uVar10) + 15000;
-                if (iVar11 <= (int)(&UINT_008da900)[local_10 * 0xf]) goto LAB_004d1ebb;
-                goto LAB_004d1ea1;
-              case 2:
-              case 8:
-              case 9:
-              case 10:
-              case 0xb:
-                bVar3 = puVar4[4];
-                if (bVar3 == 0xff) {
-                  PIECE(UINT_004f3e34,0,1) = (byte)uVar9;
-                }
-                else if (bVar3 == 0xfe) {
-                  PIECE(UINT_004f3e34,0,1) = (&DAT_008dad6c)[iVar14];
-                }
-                else if (bVar3 == 0xfd) {
-                  PIECE(UINT_004f3e34,0,1) = (&DAT_008dad6d)[iVar14];
-                }
-                else {
-                  PIECE(UINT_004f3e34,0,1) = (&DAT_008db0e8)[bVar3];
-                }
-                switch(*puVar4) {
-                case 2:
-                  if (((byte)UINT_004f3e34 != 0) || (bVar3 == 0)) {
-                    PIECE(UINT_004f3e34,0,1) = 1;
-                  }
-                  break;
-                case 8:
-                  PIECE(UINT_004f3e34,0,1) = (byte)puVar4[5] < (byte)UINT_004f3e34;
-                  break;
-                case 9:
-                  PIECE(UINT_004f3e34,0,1) = (byte)UINT_004f3e34 < (byte)puVar4[5];
-                  break;
-                case 10:
-                  PIECE(UINT_004f3e34,0,1) = (byte)UINT_004f3e34 == puVar4[5];
-                  break;
-                case 0xb:
-                  PIECE(UINT_004f3e34,0,1) = (byte)UINT_004f3e34 != puVar4[5];
-                }
-                bVar15 = (byte)UINT_004f3e34 == 0;
-                if (bVar15) {
-LAB_004d20e0:
-                  (&UINT_008da8f0)[local_10 * 0xf] = (uint)(puVar4 + (byte)puVar4[1] + 2);
-                }
-                else {
-                  (&UINT_008da8f0)[local_10 * 0xf] =
-                       (uint)(puVar4 + ((uint)(byte)puVar4[3] |
-                                       (int)(short)((ushort)(byte)puVar4[2] << 8)));
-                }
-                break;
-              case 3:
-                bVar3 = puVar4[2];
-                if (bVar3 == 0xff) {
-                  UINT_004f3e34 = (uint)(byte)puVar4[3];
-                  (&UINT_008da8f0)[local_10 * 0xf] = (uint)(puVar4 + (byte)puVar4[1] + 2);
-                }
-                else if (bVar3 == 0xfe) {
-                  cVar1 = puVar4[3];
-                  (&DAT_008dad6c)[iVar14] = cVar1;
-                  local_20 = (int)(uVar9 * (int)cVar1) / 0x7f;
-                  if ((((byte)(&UINT_008dad70)[local_10 * 0xd] & 0xc0) != 0x40) ||
-                     (UINT_008dad4c == 0)) goto LAB_004d20e0;
-                  local_20 = (int)(local_20 * UINT_004f3e44) >> 8;
-                  (&UINT_008da8f0)[local_10 * 0xf] = (uint)(puVar4 + (byte)puVar4[1] + 2);
-                }
-                else if (bVar3 == 0xfd) {
-                  (&DAT_008dad6d)[iVar14] = puVar4[3];
-                  (&UINT_008da8f0)[local_10 * 0xf] = (uint)(puVar4 + (byte)puVar4[1] + 2);
-                }
-                else {
-                  (&DAT_008db0e8)[bVar3] = puVar4[3];
-                  (&UINT_008da8f0)[local_10 * 0xf] = (uint)(puVar4 + (byte)puVar4[1] + 2);
-                }
-                break;
-              case 4:
-                bVar3 = puVar4[2];
-                if (bVar3 == 0xff) {
-                  UINT_004f3e34 = uVar9 + (byte)puVar4[3];
-                  (&UINT_008da8f0)[local_10 * 0xf] = (uint)(puVar4 + (byte)puVar4[1] + 2);
-                }
-                else if (bVar3 == 0xfe) {
-                  (&DAT_008dad6c)[iVar14] = (&DAT_008dad6c)[iVar14] + puVar4[3];
-                  (&UINT_008da8f0)[local_10 * 0xf] = (uint)(puVar4 + (byte)puVar4[1] + 2);
-                }
-                else {
-                  if (bVar3 != 0xfd) {
-                    (&DAT_008db0e8)[bVar3] = puVar4[3] + (&DAT_008db0e8)[bVar3];
-                    goto LAB_004d20e0;
-                  }
-                  (&DAT_008dad6d)[iVar14] = (&DAT_008dad6d)[iVar14] + puVar4[3];
-                  (&UINT_008da8f0)[local_10 * 0xf] = (uint)(puVar4 + (byte)puVar4[1] + 2);
-                }
-                break;
-              default:
-                (&DAT_008dad6e)[iVar14] = 0;
-                (&UINT_008dad74)[local_10 * 0xd] = 0xffffff01;
-                local_24 = 0;
-                break;
-              case 6:
-                (&UINT_008da928)[local_10 * 0xf] = 0;
-                uVar13 = (&UINT_008da8f0)[local_10 * 0xf];
-                (&UINT_008da8fc)[local_10 * 0xf] =
-                     CONCAT31(CONCAT21(CONCAT11(*(undefined1 *)(uVar13 + 2),
-                                                *(undefined1 *)(uVar13 + 3)),
-                                       *(undefined1 *)(uVar13 + 4)),*(undefined1 *)(uVar13 + 5));
-                uVar13 = (&UINT_008da8f0)[local_10 * 0xf];
-                (&UINT_008da900)[local_10 * 0xf] =
-                     CONCAT31(CONCAT21(CONCAT11(*(undefined1 *)(uVar13 + 6),
-                                                *(undefined1 *)(uVar13 + 7)),
-                                       *(undefined1 *)(uVar13 + 8)),*(undefined1 *)(uVar13 + 9));
-                uVar13 = (&UINT_008da8f0)[local_10 * 0xf];
-                (&UINT_008da904)[local_10 * 0xf] =
-                     CONCAT31(CONCAT21(CONCAT11(*(undefined1 *)(uVar13 + 10),
-                                                *(undefined1 *)(uVar13 + 0xb)),
-                                       *(undefined1 *)(uVar13 + 0xc)),*(undefined1 *)(uVar13 + 0xd))
-                ;
-                uVar13 = (&UINT_008da8f0)[local_10 * 0xf];
-LAB_004d1e4f:
-                (&UINT_008da8f0)[local_10 * 0xf] = *(byte *)(uVar13 + 1) + 2 + uVar13;
-                goto LAB_004d1e5e;
-              case 7:
-                if ((&UINT_008da928)[local_10 * 0xf] == 0) {
-                  (&UINT_008da928)[local_10 * 0xf] =
-                       CONCAT31(CONCAT21(CONCAT11(puVar4[6],puVar4[7]),puVar4[8]),puVar4[9]);
-                  (&UINT_008da924)[local_10 * 0xf] = 0;
-                }
-                uVar13 = (&UINT_008da8f0)[local_10 * 0xf];
-                (&UINT_008da8fc)[local_10 * 0xf] =
-                     CONCAT31(CONCAT21(CONCAT11(*(undefined1 *)(uVar13 + 2),
-                                                *(undefined1 *)(uVar13 + 3)),
-                                       *(undefined1 *)(uVar13 + 4)),*(undefined1 *)(uVar13 + 5)) +
-                     (&UINT_008da924)[local_10 * 0xf];
-                uVar13 = (&UINT_008da8f0)[local_10 * 0xf];
-                uVar13 = CONCAT31(CONCAT21(CONCAT11(*(undefined1 *)(uVar13 + 0xe),
-                                                    *(undefined1 *)(uVar13 + 0xf)),
-                                           *(undefined1 *)(uVar13 + 0x10)),
-                                  *(undefined1 *)(uVar13 + 0x11));
-                if ((&UINT_008da928)[local_10 * 0xf] < uVar13) {
-                  uVar13 = (&UINT_008da928)[local_10 * 0xf];
-                }
-                (&UINT_008da900)[local_10 * 0xf] = uVar13;
-                uVar13 = (&UINT_008da8f0)[local_10 * 0xf];
-                (&UINT_008da904)[local_10 * 0xf] =
-                     CONCAT31(CONCAT21(CONCAT11(*(undefined1 *)(uVar13 + 10),
-                                                *(undefined1 *)(uVar13 + 0xb)),
-                                       *(undefined1 *)(uVar13 + 0xc)),*(undefined1 *)(uVar13 + 0xd))
-                ;
-                (&UINT_008da928)[local_10 * 0xf] =
-                     (&UINT_008da928)[local_10 * 0xf] - (&UINT_008da900)[local_10 * 0xf];
-                (&UINT_008da924)[local_10 * 0xf] =
-                     (&UINT_008da924)[local_10 * 0xf] + (&UINT_008da900)[local_10 * 0xf];
-                uVar13 = (&UINT_008da8f0)[local_10 * 0xf];
-                if ((&UINT_008da928)[local_10 * 0xf] != 0) goto LAB_004d1e4f;
-                (&UINT_008da8f0)[local_10 * 0xf] =
-                     ((uint)*(byte *)(uVar13 + 0x13) |
-                     (int)(short)((ushort)*(byte *)(uVar13 + 0x12) << 8)) + uVar13;
-LAB_004d1e5e:
-                uVar13 = (&UINT_008dad80)[local_10 * 0xd];
-                uVar9 = (&UINT_008da8fc)[local_10 * 0xf];
-                if ((int)uVar9 <
-                    (int)(((((int)(&UINT_008dad88)[local_10 * 0xd] <= (int)uVar13) - 1 & 15000) +
-                          uVar13) - (&UINT_008dad7c)[local_10 * 0xd])) {
-                  iVar11 = ((uVar13 - uVar9) - (&UINT_008dad7c)[local_10 * 0xd]) + 15000;
-                  if ((int)(&UINT_008da900)[local_10 * 0xf] < iVar11) {
-LAB_004d1ea1:
-                    (&DAT_008dad6e)[iVar14] = 0;
-                    (&UINT_008dad74)[local_10 * 0xd] = 0xffffff01;
-                    local_24 = 0;
-                  }
-                  else {
-LAB_004d1ebb:
-                    (&UINT_008da8fc)[local_10 * 0xf] = uVar9 + iVar11;
-                    (&UINT_008da900)[local_10 * 0xf] = (&UINT_008da900)[local_10 * 0xf] - iVar11;
-                  }
-                }
-              }
-              uVar9 = UINT_004f3e34;
-              uVar13 = (&UINT_008da900)[local_10 * 0xf];
-            }
-          }
-        }
-LAB_004d2124:
-        uVar13 = UINT_004f3e30;
-        (&UINT_008dad84)[local_10 * 0xd] = (&UINT_008da8fc)[local_10 * 0xf];
-        (&UINT_008da90c)[local_10 * 0xf] = (uint)(byte)(&DAT_008dad6e)[iVar14];
-        local_10 = local_10 + 1;
-      } while (local_10 < (int)uVar13);
-    }
-    if (bVar6) {
-      if (((int)UINT_004f3e3c < (int)UINT_004f3e44) &&
-         (UINT_004f3e44 = UINT_004f3e44 - ((int)(param_1 * UINT_004f3e40) >> 0xd),
-         (int)UINT_004f3e44 < (int)UINT_004f3e3c)) {
-        UINT_004f3e44 = UINT_004f3e3c;
-        return;
-      }
-    }
-    else if (((int)UINT_004f3e44 < 0x100) &&
-            (UINT_004f3e44 = UINT_004f3e44 + ((int)(param_1 * UINT_004f3e40) >> 0xf),
-            0x100 < (int)UINT_004f3e44)) {
-      UINT_004f3e44 = 0x100;
-    }
-  }
-  return;
-}
-#undef local_10
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-
-#endif
-
-
-/* ---- 0x004d2340  FUN_004d2340 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
-/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
-
-void FUN_004d2340(int param_1,undefined4 param_2)
-
-{
-  int iVar1;
-  longlong lVar2;
-  undefined4 unaff_retaddr;
-  
-  _DAT_008db200 = _DAT_008db200 + (double)CONCAT44(param_2,param_1);
-  if (UINT_008db1f8 != 0) {
-    iVar1 = (**(code **)(UINT_008dad48 + 0x18))();
-    if ((int)UINT_008db1f8 < iVar1) {
-      param_1 = iVar1 - UINT_008db1f8;
-      if (param_1 / 5 < 0x1234dc) {
-        UINT_008db1f8 = 0;
-        _DAT_008db200 = _DAT_008db200 - (double)param_1;
-      }
-    }
-  }
-  lVar2 = _ftol((double)CONCAT44(param_1,unaff_retaddr));
-  (**(code **)(UINT_008dad48 + 0x20))((int)lVar2);
-  lVar2 = _ftol((double)CONCAT44(param_1,unaff_retaddr));
-  _DAT_008db200 = _DAT_008db200 - (double)(int)lVar2;
-  return;
-}
-#endif
-
-
-/* ---- 0x004d23e0  FUN_004d23e0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
-void FUN_004d23e0(undefined4 param_1,undefined4 param_2,undefined4 param_3)
-
-{
-  ((code *)FUN_004d2cb0)(param_1,param_2,param_3);
-  return;
-}
-#endif
-
-
-/* ---- 0x004d2400  FUN_004d2400 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
-void FUN_004d2400(undefined4 param_1,undefined4 param_2,undefined4 param_3)
-
-{
-  ((code *)FUN_004d2ce0)(param_1,param_2,param_3);
-  return;
-}
-#endif
-
-
-/* ---- 0x004d2420  FUN_004d2420 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
-/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
-
-undefined4 FUN_004d2420(int *param_1,uint param_2)
-
-{
-  PTR_008db41c = param_1;
-  UINT_008db430 = param_2;
-  (*(code *)*param_1)(s_LECMODULE_insane_dsnd_004f3fec,&PTR_FUN_004f3f68);
-  (*(code *)*PTR_008db41c)(s_SNDDRIVER_insane_dsnd_004f3fd4,&PTR_FUN_004f3f78);
-  _DAT_008db414 = 0xffffffff;
-  _DAT_008db20c = 0xffffffff;
-  _DAT_008dcc38 = 0xffffffff;
-  _DAT_008db42c = 0xffffffff;
-  return 0;
-}
-#endif
-
-
-/* ---- 0x004d2480  FUN_004d2480 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
-void FUN_004d2480(void)
-
-{
-  (*(code *)PTR_008db41c[1])(s_SNDDRIVER_insane_dsnd_004f3fd4);
-  (*(code *)PTR_008db41c[1])(s_LECMODULE_insane_dsnd_004f3fec);
-  return;
-}
-#endif
-
-
-/* ---- 0x004d24b0  FUN_004d24b0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
-undefined4 FUN_004d24b0(void)
-
-{
-  PTR_008db424 = (int *)(*(code *)PTR_008db41c[2])(s_TIMER_clock_004f4054,UINT_008db430);
-  if (PTR_008db424 == (int *)0x0) {
-    (*(code *)PTR_008db41c[8])(s_DirectSoundDriver_Module__Cannot_004f4018);
-    return 0xffffffff;
-  }
-  UINT_008db208 = (*(code *)PTR_008db41c[2])(s_MEMORY_mixertable_004f4004,UINT_008db430);
-  if (UINT_008db208 == 0) {
-    (*(code *)PTR_008db41c[8])(s_DirectSoundDriver_Module__Cannot_004f4018);
-    return 0xffffffff;
-  }
-  return 0;
-}
-#endif
-
-
-/* ---- 0x004d2520  FUN_004d2520 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
-void FUN_004d2520(void)
-
-{
-  (*(code *)PTR_008db41c[3])(PTR_008db424);
-  (*(code *)PTR_008db41c[3])(UINT_008db208);
-  return;
-}
-#endif
-
-
-/* ---- 0x004d2550  FUN_004d2550 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
-/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
-
-undefined4 FUN_004d2550(uint param_1,undefined4 param_2,uint param_3)
-
-{
-  int iVar1;
-  
-  _DAT_008dcc3c = 0;
-  if ((int)param_1 < 0x5622) {
-    param_1 = 0x5622;
-  }
-  iVar1 = FUN_004d2940();
-  if (iVar1 != 0) {
-    return 0xffffffff;
-  }
-  iVar1 = FUN_004d2d40();
-  if (iVar1 != 0) {
-    return 0xffffffff;
-  }
-  UINT_008db410 = param_3;
-  UINT_004f3f98 = param_1;
-  UINT_008dcc54 =
-       (*(code *)*PTR_008db424)
-                 (DSound_FillStreamBuffer,
-                  (int)(0x1234dc /
-                       (longlong)((int)(param_1 + ((int)param_1 >> 0x1f & 0x3ffU)) >> 10)),2,0);
-  return 0;
-}
-#endif
-
-
-/* ---- 0x004d25f0  FUN_004d25f0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
-void FUN_004d25f0(void)
-
-{
-  if (UINT_008dcc54 != 0) {
-    (*(code *)PTR_008db424[1])(UINT_008dcc54);
-  }
-  UINT_008dcc54 = 0;
-  FUN_004d2d70(UINT_008db208);
-  FUN_004d2bf0();
-  return;
-}
-#endif
-
-
-/* ---- 0x004d2630  FUN_004d2630 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
-/* WARNING: Removing unreachable block (ram,0x004d2765) */
-/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
-
-void FUN_004d2630(uint param_1)
-
-{
-  int iVar1;
-  uint *puVar2;
-  uint *puVar3;
-  int iVar4;
-  
-  if (UINT_008dcc58 == 0) {
-    UINT_008db210 = 0xffffd8f0;
-    _DAT_008db214 = 0xffffe4a8;
-    _DAT_008db218 = 0xffffe890;
-    _DAT_008db21c = 0xffffebb0;
-    _DAT_008db220 = 0xffffec78;
-    _DAT_008db224 = 0xffffee6c;
-    _DAT_008db228 = 0xffffef98;
-    _DAT_008db22c = 0xffffeffc;
-    UINT_008db230 = 0xfffff060;
-    iVar4 = 16000;
-    puVar2 = &UINT_008db230;
-    do {
-      iVar1 = iVar4 + -16000;
-      puVar3 = puVar2 + 1;
-      iVar4 = iVar4 + 2000;
-      *puVar2 = iVar1 / 0x17 - 4000;
-      puVar2 = puVar3;
-    } while ((int)puVar3 < IMG_ADDR(0x008db290));
-    iVar4 = 32000;
-    puVar2 = &UINT_008db290;
-    do {
-      iVar1 = iVar4 + -32000;
-      puVar3 = puVar2 + 1;
-      iVar4 = iVar4 + 1000;
-      *puVar2 = iVar1 / 0x1f - 2000;
-      puVar2 = puVar3;
-    } while ((int)puVar3 < IMG_ADDR(0x008db310));
-    iVar4 = 64000;
-    puVar2 = &UINT_008db310;
-    do {
-      iVar1 = iVar4 + -64000;
-      puVar3 = puVar2 + 1;
-      iVar4 = iVar4 + 1000;
-      *puVar2 = iVar1 / 0x3f - 1000;
-      puVar2 = puVar3;
-    } while ((int)puVar3 < IMG_ADDR(0x008db410));
-    UINT_008dcc58 = 1;
-  }
-  UINT_004f3f9c = param_1 & 0x7f;
-  if (UINT_004f3f9c < 0x80) {
-    (**(code_std **)(*PTR_008dcc48 + 0x3c))(PTR_008dcc48,(&UINT_008db210)[UINT_004f3f9c]);
-    return;
-  }
-  (**(code_std **)(*PTR_008dcc48 + 0x3c))(PTR_008dcc48,UINT_008db40c);
-  return;
-}
-#endif
-
-
-/* ---- 0x004d27b0  FUN_004d27b0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
-uint FUN_004d27b0(void)
-
-{
-  return UINT_004f3f9c;
-}
-#endif
-
-
-/* ---- 0x004d27c0  FUN_004d27c0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
-undefined4 FUN_004d27c0(void)
-
-{
-  return 0x5622;
-}
-#endif
-
-
-/* ---- 0x004d2940  FUN_004d2940 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
-undefined4 FUN_004d2940(void)
-
-{
-  unsigned char _stkneg[48] __attribute__((aligned(16)));  /* the original frame below the return address */
-  int iVar1;
-  undefined4 uVar2;
-  
-  if (PTR_008dcc40 == (int *)0x0) {
-    iVar1 = DirectSoundCreate(0,IMG_ADDR(0x008dcc40),0);
-    if (iVar1 != 0) {
-      PTR_008dcc40 = (int *)0x0;
-      ((code *)Lua_Stub)(s_Cannot_create_DirectSound_object_004f40d0);
-      return 0xffffffff;
-    }
-    iVar1 = *PTR_008dcc40;
-    uVar2 = Win_GetMainHwnd();
-    iVar1 = (**(code **)(iVar1 + 0x18))(PTR_008dcc40,uVar2);
-    if (iVar1 != 0) {
-      ((code *)Lua_Stub)(s_DirectSound__Error__08X_while_se_004f4098,iVar1);
-      if (iVar1 != 0) {
-        return 0xffffffff;
-      }
-    }
-    iVar1 = (**(code_std **)(*PTR_008dcc40 + 0xc))(PTR_008dcc40,(_stkneg + 16),&PTR_008dcc44,0);
-    if (iVar1 != 0) {
-      ((code *)Lua_Stub)(s_DirectSound__Error__08X_while_cr_004f4060,iVar1);
-      if (iVar1 != 0) {
-        return 0xffffffff;
-      }
-    }
-    iVar1 = (**(code_std **)(*PTR_008dcc44 + 0x38))(PTR_008dcc44,&DAT_004f3fa8);
-    if (iVar1 != 0) {
-      return 0xffffffff;
-    }
-    iVar1 = (**(code_std **)(*PTR_008dcc44 + 0x18))(PTR_008dcc44,&UINT_004f3fa0);
-    if (iVar1 != 0) {
-      return 0xffffffff;
-    }
-    iVar1 = (**(code_std **)(*PTR_008dcc44 + 0x3c))(PTR_008dcc44,0);
-    if (iVar1 != 0) {
-      return 0xffffffff;
-    }
-    FUN_004d2aa0(3);
-    UINT_008dcc50 = 1;
-  }
-  return 0;
-}
-#endif
-
-
-/* ---- 0x004d2aa0  FUN_004d2aa0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
-/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
-
-void FUN_004d2aa0(uint param_1)
-
-{
-  unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  int *piVar1;
-  int iVar2;
-  uint uVar3;
-  uint uVar4;
-  undefined4 **ppuVar5;
-  int *piVar6;
-  #define puStack_30 (*(undefined4 **)(_frame + (0x40 - 0x30)))
-  #define ppiStack_2c (*(int ***)(_frame + (0x40 - 0x2c)))
-  #define piStack_28 (*(int **)(_frame + (0x40 - 0x28)))
-  #define uStack_14 (*(undefined4 *)(_frame + (0x40 - 0x14)))
-  #define uStack_10 (*(undefined4 *)(_frame + (0x40 - 0x10)))
-  #define iStack_c (*(int *)(_frame + (0x40 - 0xc)))
-  #define uStack_8 (*(undefined4 *)(_frame + (0x40 - 0x8)))
-  #define puStack_4 (*(undefined **)(_frame + (0x40 - 0x4)))
-  
-  _DAT_008dcc4c = 1;
-  if (PTR_008dcc48 != (int *)0x0) {
-    piStack_28 = PTR_008dcc48;
-    ppiStack_2c = (int **)0x4d2abd;
-    (**(code_std **)(*PTR_008dcc48 + 8))();
-  }
-  piVar1 = PTR_008dcc40;
-  PTR_008dcc48 = (int *)0x0;
-  if ((int)param_1 < 3) {
-    param_1 = 3;
-  }
-  if (0x10 < (int)param_1) {
-    param_1 = 0x10;
-  }
-  uStack_14 = 0x14;
-  uStack_10 = 0x10080;
-  iStack_c = param_1 * 0x1800;
-  uStack_8 = 0;
-  piStack_28 = (int *)0x0;
-  puStack_30 = &uStack_14;
-  puStack_4 = &DAT_004f3fc0;
-  ppiStack_2c = &PTR_008dcc48;
-  UINT_008db420 = param_1;
-  iVar2 = (**(code_std **)(*PTR_008dcc40 + 0xc))();
-  if (iVar2 == 0) {
-    (**(code_std **)(*PTR_008dcc48 + 0x3c))(PTR_008dcc48);
-    uVar3 = UINT_008db420 * 0x1800;
-    iVar2 = (**(code_std **)(*PTR_008dcc48 + 0x2c))(PTR_008dcc48);
-    if (iVar2 == 0) {
-      ppuVar5 = &puStack_30;
-      for (uVar4 = uVar3 >> 2; uVar4 != 0; uVar4 = uVar4 - 1) {
-        *ppuVar5 = (undefined4 *)0x0;
-        ppuVar5 = ppuVar5 + 1;
-      }
-      for (iVar2 = 0; iVar2 != 0; iVar2 = iVar2 + -1) {
-        *(undefined1 *)ppuVar5 = 0;
-        ppuVar5 = (undefined4 **)((int)ppuVar5 + 1);
-      }
-      if (piVar1 != (int *)0x0) {
-        piVar6 = piVar1;
-        for (iVar2 = 0; iVar2 != 0; iVar2 = iVar2 + -1) {
-          *piVar6 = 0;
-          piVar6 = piVar6 + 1;
-        }
-        for (iVar2 = 0; iVar2 != 0; iVar2 = iVar2 + -1) {
-          *(undefined1 *)piVar6 = 0;
-          piVar6 = (int *)((int)piVar6 + 1);
-        }
-      }
-      (**(code_std **)(*PTR_008dcc48 + 0x4c))(PTR_008dcc48,&puStack_30,uVar3,piVar1,0);
-    }
-    (**(code_std **)(*PTR_008dcc48 + 0x30))(PTR_008dcc48,0,0,1);
-  }
-  _DAT_008dcc4c = 0;
-  return;
-}
-#undef iStack_c
-#undef piStack_28
-#undef ppiStack_2c
-#undef puStack_30
-#undef puStack_4
-#undef uStack_10
-#undef uStack_14
-#undef uStack_8
-
-#endif
-
-
-/* ---- 0x004d2bf0  FUN_004d2bf0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
-void FUN_004d2bf0(void)
-
-{
-  if (PTR_008dcc48 != (int *)0x0) {
-    (**(code_std **)(*PTR_008dcc48 + 8))(PTR_008dcc48);
-  }
-  PTR_008dcc48 = (int *)0x0;
-  if ((PTR_008dcc44 != (int *)0x0) && (UINT_008dcc50 != 0)) {
-    (**(code_std **)(*PTR_008dcc44 + 0x3c))(PTR_008dcc44,UINT_004f3fa0);
-    (**(code_std **)(*PTR_008dcc44 + 8))(PTR_008dcc44);
-    PTR_008dcc44 = (int *)0x0;
-    UINT_008dcc50 = 0;
-  }
-  if (PTR_008dcc40 != (int *)0x0) {
-    (**(code_std **)(*PTR_008dcc40 + 8))(PTR_008dcc40);
-  }
-  PTR_008dcc40 = (int *)0x0;
-  return;
-}
-#endif
-
-
-/* ---- 0x004d2cb0  FUN_004d2cb0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
-undefined8 __fastcall
-FUN_004d2cb0(undefined4 param_1,undefined4 param_2,undefined4 *param_3,undefined4 *param_4,
-            uint param_5)
-
-{
-  undefined4 in_EAX;
-  uint uVar1;
-  
-  if (param_5 != 0) {
-    if ((param_5 & 3) != 0) {
-      for (uVar1 = param_5 >> 1; uVar1 != 0; uVar1 = uVar1 - 1) {
-        *(undefined2 *)param_3 = *(undefined2 *)param_4;
-        param_4 = (undefined4 *)((int)param_4 + 2);
-        param_3 = (undefined4 *)((int)param_3 + 2);
-      }
-      for (uVar1 = (uint)((param_5 & 1) != 0); param_5 = 0, uVar1 != 0; uVar1 = uVar1 - 1) {
-        *(undefined1 *)param_3 = *(undefined1 *)param_4;
-        param_4 = (undefined4 *)((int)param_4 + 1);
-        param_3 = (undefined4 *)((int)param_3 + 1);
-      }
-    }
-    for (param_5 = param_5 >> 2; param_5 != 0; param_5 = param_5 - 1) {
-      *param_3 = *param_4;
-      param_4 = param_4 + 1;
-      param_3 = param_3 + 1;
-    }
-  }
-  return CONCAT44(param_2,in_EAX);
-}
-#endif
-
-
-/* ---- 0x004d2ce0  FUN_004d2ce0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
-undefined8 __fastcall
-FUN_004d2ce0(undefined4 param_1,undefined4 param_2,undefined4 *param_3,undefined1 param_4,
-            uint param_5)
-
-{
-  unsigned char _stkneg[32] __attribute__((aligned(16)));  /* the original frame below the return address */
-  undefined4 in_EAX;
-  undefined4 uVar1;
-  int iVar2;
-  uint uVar3;
-  
-  uVar1 = CONCAT31(CONCAT21(CONCAT11(param_4,param_4),param_4),param_4);
-  if (19999 < (int)param_5) {
-    do {
-      for (iVar2 = 5000; iVar2 != 0; iVar2 = iVar2 + -1) {
-        *param_3 = uVar1;
-        param_3 = param_3 + 1;
-      }
-      param_5 = param_5 - 20000;
-    } while (20000 < (int)param_5);
-  }
-  if ((param_5 & 3) != 0) {
-    for (uVar3 = param_5 >> 1; uVar3 != 0; uVar3 = uVar3 - 1) {
-      *(short *)param_3 = (short)uVar1;
-      param_3 = (undefined4 *)((int)param_3 + 2);
-    }
-    for (uVar3 = (uint)((param_5 & 1) != 0); uVar3 != 0; uVar3 = uVar3 - 1) {
-      *(undefined1 *)param_3 = param_4;
-      param_3 = (undefined4 *)((int)param_3 + 1);
-    }
-    return CONCAT44(param_2,(_stkneg + 16));
-  }
-  for (param_5 = param_5 >> 2; param_5 != 0; param_5 = param_5 - 1) {
-    *param_3 = uVar1;
-    param_3 = param_3 + 1;
-  }
-  return CONCAT44(param_2,in_EAX);
-}
-#endif
-
-
-/* ---- 0x004d2d40  FUN_004d2d40 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
-/* WARNING: Unknown calling convention -- yet parameter storage is locked */
-
-int FUN_004d2d40(void)
-
-{
-  int iVar1;
-  uint in_stack_00000008;
-  
-  UINT_004f40f8 = in_stack_00000008;
-  iVar1 = ((code *)FUN_004d2e80)();
-  return iVar1;
-}
-#endif
-
-
 /* ---- 0x004d2d70  FUN_004d2d70 ---- */
-void FUN_004d2d70(undefined4 param_1)
+void FUN_004d2d70(int *param_1)
 
 {
-  FUN_004d2fb0(param_1);
+  Mixer_Free(param_1);
   return;
 }
-
-/* ---- 0x004d2d90  FUN_004d2d90 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
-void FUN_004d2d90(undefined4 param_1,undefined4 param_2,undefined4 param_3,int param_4,
-                 undefined4 param_5,undefined4 param_6,int param_7,int param_8)
-
-{
-  int iVar1;
-  int iVar2;
-  
-  iVar1 = param_8;
-  iVar2 = param_8;
-  switch(param_8) {
-  case 0:
-    param_8 = 1;
-    iVar1 = 8;
-    iVar2 = 1;
-    break;
-  case 1:
-    param_8 = 1;
-    iVar1 = 8;
-    iVar2 = 2;
-    break;
-  case 2:
-    param_8 = 0;
-    iVar1 = 0x10;
-    iVar2 = 1;
-    break;
-  case 3:
-    param_8 = 0;
-    iVar1 = 0x10;
-    iVar2 = 2;
-    break;
-  case 4:
-    param_8 = 1;
-    iVar1 = 0x10;
-    iVar2 = 1;
-    break;
-  case 5:
-    param_8 = 1;
-    iVar1 = 0x10;
-    iVar2 = 2;
-  }
-  Mixer_MixVoice(param_1,param_4 / ((iVar1 >> 3) * iVar2),iVar1,iVar2,param_3,param_2,param_6,
-                 (param_7 + 0x7f) / 2,param_8,0);
-  return;
-}
-#endif
-
-
-/* ---- 0x004d2e80  FUN_004d2e80 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
-/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
-
-undefined4 FUN_004d2e80(undefined4 *param_1,uint param_2,int param_3,undefined4 param_4)
-
-{
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  undefined2 *puVar1;
-  int iVar2;
-  undefined4 unaff_ESI;
-  undefined4 unaff_EDI;
-  undefined1 *puVar3;
-  longlong lVar4;
-  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
-  
-  iVar2 = 0;
-  puVar3 = &DAT_008dcc70;
-  do {
-    local_4 = 0;
-    do {
-      fsin((float10)(int)local_4 * (float10)3.1415 * (float10)0.03125);
-      lVar4 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
-      *puVar3 = (char)lVar4;
-      puVar3 = puVar3 + 1;
-      local_4 = local_4 + 1;
-    } while ((int)local_4 < 0x11);
-    iVar2 = iVar2 + 1;
-  } while (iVar2 < 0x11);
-  UINT_008dcc60 = param_2;
-  UINT_008dcd9c = param_3 * 4;
-  g_pMixAccum = (int *)(*(code *)*param_1)(UINT_008dcd9c,s_C__grimsrc_libs_lecsmush_insane__004f4158
-                                           ,0x356);
-  if (g_pMixAccum == (int *)0x0) {
-    return 0xffffffff;
-  }
-  _DAT_008dcda0 = param_4;
-  puVar1 = (undefined2 *)
-           (*(code *)*param_1)(UINT_004f40f8 << 0x10,s_C__grimsrc_libs_lecsmush_insane__004f4158,
-                               0x35c);
-  UINT_008dcc64 = (uint)puVar1;
-  if (puVar1 == (undefined2 *)0x0) {
-    return 0xffffffff;
-  }
-  iVar2 = 0;
-  if (0 < (int)(UINT_004f40f8 << 0xf)) {
-    do {
-      lVar4 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
-      *puVar1 = (short)lVar4;
-      puVar1 = puVar1 + 1;
-      iVar2 = iVar2 + 1;
-    } while (iVar2 < (int)(UINT_004f40f8 * 0x8000));
-  }
-  return 0;
-}
-#undef local_4
-
-#endif
-
-
-/* ---- 0x004d2fb0  FUN_004d2fb0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
-undefined4 FUN_004d2fb0(int param_1)
-
-{
-  if (UINT_008dcc64 != 0) {
-    (**(code **)(param_1 + 4))(UINT_008dcc64,s_C__grimsrc_libs_lecsmush_insane__004f4158,0x379);
-  }
-  UINT_008dcc64 = 0;
-  if (g_pMixAccum != (int *)0x0) {
-    (**(code **)(param_1 + 4))(g_pMixAccum,s_C__grimsrc_libs_lecsmush_insane__004f4158,0x37a);
-  }
-  g_pMixAccum = (int *)0x0;
-  return 0;
-}
-#endif
-
 
 /* ---- 0x004d54b4  FUN_004d54b4 ---- */
 /* NOT COMPILED: names/lib_replace.json (host): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */

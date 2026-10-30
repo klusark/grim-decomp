@@ -177,20 +177,20 @@ undefined4 Sound_DriverQuery(void)
 }
 
 /* ---- 0x004d0cf0  Sound_VoiceSampleCount ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Converts the byte count of a 0x34-byte voice record to samples depending on its format code
    (halved for 8/16-bit mono formats 1,2,4) */
 
-undefined * __cdecl Sound_VoiceSampleCount(int param_1)
+int __cdecl Sound_VoiceSampleCount(int voice)
 
 {
   uint uVar1;
   longlong lVar2;
   double x;
   
-  uVar1 = (&UINT_008dad84)[param_1 * 0xd];
-  switch((&DAT_008dad6f)[param_1 * 0x34]) {
+  uVar1 = (&UINT_008dad84)[voice * 0xd];
+  switch((&DAT_008dad6f)[voice * 0x34]) {
   case 0:
     break;
   case 1:
@@ -205,12 +205,12 @@ undefined * __cdecl Sound_VoiceSampleCount(int param_1)
   default:
     goto switchD_004d0d15_default;
   }
-  param_1 = uVar1;
+  voice = uVar1;
 switchD_004d0d15_default:
-  x = (double)param_1;
+  x = (double)voice;
   Sound_DriverQuery();
   lVar2 = _ftol(x);
-  return (undefined *)lVar2;
+  return (int)lVar2;
 }
 #endif
 

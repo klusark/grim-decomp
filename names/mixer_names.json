@@ -1,0 +1,523 @@
+[
+ {
+  "addr": "004cdc90",
+  "name": "InsaneTimer_Register",
+  "comment": "Entry of LECMODULE insane_timer: stores the service table of the module manager and the workspace size, registers the module and the TIMER insane interface",
+  "tags": "smush,timer"
+ },
+ {
+  "addr": "004cdce0",
+  "name": "InsaneTimer_Unregister",
+  "tags": "smush,timer"
+ },
+ {
+  "addr": "004cdd10",
+  "name": "InsaneTimer_Init",
+  "comment": "Allocates the timer workspace and starts the timer thread",
+  "tags": "smush,timer"
+ },
+ {
+  "addr": "004cdd60",
+  "name": "InsaneTimer_Shutdown",
+  "tags": "smush,timer"
+ },
+ {
+  "addr": "004cdd80",
+  "name": "InsaneTimer_StartThread",
+  "comment": "First caller clears the 20 timer slots and creates the high priority thread InsaneTimer_ThreadProc",
+  "tags": "smush,timer"
+ },
+ {
+  "addr": "004cddf0",
+  "name": "InsaneTimer_ThreadProc",
+  "comment": "Timer thread: wakes every 16 ms of timeGetTime and runs InsaneTimer_Tick",
+  "tags": "smush,timer"
+ },
+ {
+  "addr": "004cde80",
+  "name": "InsaneTimer_StopThread",
+  "tags": "smush,timer"
+ },
+ {
+  "addr": "004cdef0",
+  "name": "InsaneTimer_Hold",
+  "comment": "TIMER insane: suspends the periodic callbacks (counter)",
+  "tags": "smush,timer"
+ },
+ {
+  "addr": "004cdf00",
+  "name": "InsaneTimer_Release",
+  "tags": "smush,timer"
+ },
+ {
+  "addr": "004cdf10",
+  "name": "InsaneTimer_AddTimer",
+  "comment": "Finds a free slot (1..19) and fills in callback, period, flags and user data; returns the slot number or 0",
+  "tags": "smush,timer"
+ },
+ {
+  "addr": "004cdf80",
+  "name": "InsaneTimer_RemoveTimer",
+  "tags": "smush,timer"
+ },
+ {
+  "addr": "004cdfa0",
+  "name": "InsaneTimer_SetPeriod",
+  "tags": "smush,timer"
+ },
+ {
+  "addr": "004cdfd0",
+  "name": "InsaneTimer_Run",
+  "comment": "Runs InsaneTimer_GetClock-driven steps until the clock has advanced by the given number of ticks",
+  "tags": "smush,timer"
+ },
+ {
+  "addr": "004ce000",
+  "name": "InsaneTimer_GetClock",
+  "tags": "smush,timer"
+ },
+ {
+  "addr": "004ce060",
+  "name": "InsaneTimer_Tick",
+  "comment": "Advances the timer clock by one step and runs the due callbacks",
+  "tags": "smush,timer"
+ },
+ {
+  "addr": "004ce1d0",
+  "name": "InsaneTimer_ServiceDeferred",
+  "tags": "smush,timer"
+ },
+ {
+  "addr": "004ce260",
+  "name": "InsaneTimer_RunDeferred",
+  "tags": "smush,timer"
+ },
+ {
+  "addr": "004d2420",
+  "name": "DsndDriver_Register",
+  "comment": "Entry of LECMODULE insane_dsnd: registers the DirectSound sound driver (SNDDRIVER insane_dsnd)",
+  "tags": "smush,dsound"
+ },
+ {
+  "addr": "004d2480",
+  "name": "DsndDriver_Unregister",
+  "tags": "smush,dsound"
+ },
+ {
+  "addr": "004d24b0",
+  "name": "DsndDriver_Init",
+  "comment": "Gets the TIMER clock interface and allocates the mixer table",
+  "tags": "smush,dsound"
+ },
+ {
+  "addr": "004d2520",
+  "name": "DsndDriver_Shutdown",
+  "tags": "smush,dsound"
+ },
+ {
+  "addr": "004d2550",
+  "name": "DsndDriver_Open",
+  "comment": "Opens DirectSound and the mixer and starts the periodic DSound_FillStreamBuffer timer",
+  "tags": "smush,dsound"
+ },
+ {
+  "addr": "004d25f0",
+  "name": "DsndDriver_Close",
+  "tags": "smush,dsound"
+ },
+ {
+  "addr": "004d2630",
+  "name": "DsndDriver_SetVolume",
+  "comment": "Volume 0..127 through a logarithmic table to IDirectSoundBuffer::SetVolume on the stream buffer",
+  "tags": "smush,dsound"
+ },
+ {
+  "addr": "004d27b0",
+  "name": "DsndDriver_GetVolume",
+  "tags": "smush,dsound"
+ },
+ {
+  "addr": "004d27c0",
+  "name": "DsndDriver_GetSampleRate",
+  "tags": "smush,dsound"
+ },
+ {
+  "addr": "004d2940",
+  "name": "DsndDriver_InitDirectSound",
+  "tags": "smush,dsound"
+ },
+ {
+  "addr": "004d2aa0",
+  "name": "DsndDriver_CreateStreamBuffer",
+  "comment": "Creates the looping secondary stream buffer of N blocks of 0x1800 bytes (3..16), clears it and starts it",
+  "tags": "smush,dsound"
+ },
+ {
+  "addr": "004d2bf0",
+  "name": "DsndDriver_ReleaseDirectSound",
+  "tags": "smush,dsound"
+ },
+ {
+  "addr": "004d2cb0",
+  "name": "Dsnd_MemCopy",
+  "comment": "memcpy for the Smush audio code; __fastcall with two unused register arguments (ECX, EDX)",
+  "tags": "smush"
+ },
+ {
+  "addr": "004d2ce0",
+  "name": "Dsnd_MemFill",
+  "comment": "memset with a byte value for the Smush audio code; __fastcall with two unused register arguments",
+  "tags": "smush"
+ },
+ {
+  "addr": "004d23e0",
+  "name": "Dsnd_MemCopyCdecl",
+  "tags": "smush"
+ },
+ {
+  "addr": "004d2400",
+  "name": "Dsnd_MemFillCdecl",
+  "tags": "smush"
+ },
+ {
+  "addr": "004c3df0",
+  "name": "Insane_MemCopyCdecl",
+  "tags": "smush"
+ },
+ {
+  "addr": "004c3e10",
+  "name": "Insane_MemCopy",
+  "comment": "memcpy for the lecsmush code; __fastcall with two unused register arguments (ECX, EDX): copies the unaligned head first, then dwords",
+  "tags": "smush"
+ },
+ {
+  "addr": "004d2d40",
+  "name": "Mixer_Init",
+  "tags": "smush,mixer"
+ },
+ {
+  "addr": "004d2e80",
+  "name": "Mixer_InitTables",
+  "comment": "Builds the 17x17 volume/pan table and the compander table and allocates the accumulator",
+  "tags": "smush,mixer"
+ },
+ {
+  "addr": "004d2fb0",
+  "name": "Mixer_Free",
+  "tags": "smush,mixer"
+ },
+ {
+  "addr": "004d2d90",
+  "name": "Mixer_MixVoiceByFormat",
+  "comment": "Callback handed to the driver: format code 0..5 (8/16 bit, mono/stereo, offset binary) to Mixer_MixVoice parameters",
+  "tags": "smush,mixer"
+ },
+ {
+  "addr": "004d0300",
+  "name": "SoundModule_Register",
+  "comment": "Entry of LECMODULE insane_sound: the Smush sound track manager (SOUND insane)",
+  "tags": "smush,sound"
+ },
+ {
+  "addr": "004d03a0",
+  "name": "SoundModule_Unregister",
+  "tags": "smush,sound"
+ },
+ {
+  "addr": "004d03d0",
+  "name": "SoundModule_Init",
+  "tags": "smush,sound"
+ },
+ {
+  "addr": "004d0510",
+  "name": "SoundModule_Shutdown",
+  "tags": "smush,sound"
+ },
+ {
+  "addr": "004d0550",
+  "name": "SoundModule_Open",
+  "comment": "Zero-terminated list of track buffer sizes follows the three fixed arguments",
+  "tags": "smush,sound"
+ },
+ {
+  "addr": "004d0610",
+  "name": "SoundModule_Close",
+  "tags": "smush,sound"
+ },
+ {
+  "addr": "004d06a0",
+  "name": "SoundModule_AddTrackBuffer",
+  "tags": "smush,sound"
+ },
+ {
+  "addr": "004d0860",
+  "name": "SoundModule_PlayChunk",
+  "comment": "Dispatches a sound chunk by its four-character tag: Crea(tive VOC), PSAD / SAUD (Smush audio)",
+  "tags": "smush,sound"
+ },
+ {
+  "addr": "004d0a50",
+  "name": "SoundModule_StopSound",
+  "tags": "smush,sound"
+ },
+ {
+  "addr": "004d0a80",
+  "name": "SoundModule_Pause",
+  "tags": "smush,sound"
+ },
+ {
+  "addr": "004d0a90",
+  "name": "SoundModule_Resume",
+  "tags": "smush,sound"
+ },
+ {
+  "addr": "004d0aa0",
+  "name": "SoundModule_StopAll",
+  "tags": "smush,sound"
+ },
+ {
+  "addr": "004d0ad0",
+  "name": "SoundModule_SetVolume",
+  "tags": "smush,sound"
+ },
+ {
+  "addr": "004d0b10",
+  "name": "SoundModule_GetVolume",
+  "tags": "smush,sound"
+ },
+ {
+  "addr": "004d0b60",
+  "name": "SoundModule_SetPan",
+  "tags": "smush,sound"
+ },
+ {
+  "addr": "004d0b90",
+  "name": "SoundModule_GetPan",
+  "tags": "smush,sound"
+ },
+ {
+  "addr": "004d0bd0",
+  "name": "SoundModule_DriverCommand2",
+  "tags": "smush,sound"
+ },
+ {
+  "addr": "004d0bf0",
+  "name": "SoundModule_DriverCommand3",
+  "tags": "smush,sound"
+ },
+ {
+  "addr": "004d0c00",
+  "name": "SoundModule_SetDriverRate",
+  "tags": "smush,sound"
+ },
+ {
+  "addr": "004d0c30",
+  "name": "SoundModule_GetPosition",
+  "tags": "smush,sound"
+ },
+ {
+  "addr": "004d0d70",
+  "name": "SoundModule_SetParam",
+  "tags": "smush,sound"
+ },
+ {
+  "addr": "004d0e00",
+  "name": "SoundModule_GetParam",
+  "tags": "smush,sound"
+ },
+ {
+  "addr": "004d0eb0",
+  "name": "SoundModule_GetChannelVolume",
+  "tags": "smush,sound"
+ },
+ {
+  "addr": "004d0ed0",
+  "name": "SoundModule_SetChannelVolume",
+  "tags": "smush,sound"
+ },
+ {
+  "addr": "004d0f00",
+  "name": "SoundModule_PlayVoc",
+  "tags": "smush,sound"
+ },
+ {
+  "addr": "004d1180",
+  "name": "SoundModule_PlaySaud",
+  "tags": "smush,sound"
+ },
+ {
+  "addr": "004d1690",
+  "name": "SoundModule_SyncClock",
+  "tags": "smush,sound"
+ },
+ {
+  "addr": "004d16a0",
+  "name": "SoundModule_MixCallback",
+  "comment": "Mixes all active tracks into the driver buffer (called by DSound_FillStreamBuffer through the driver)",
+  "tags": "smush,sound"
+ },
+ {
+  "addr": "004d2340",
+  "name": "SoundModule_AdvanceClock",
+  "tags": "smush,sound"
+ },
+ {
+  "addr": "008dcd9c",
+  "global": "g_dwMixAccumBytes",
+  "type": "uint",
+  "comment": "Size in bytes of the mixer accumulator g_pMixAccum"
+ },
+ {
+  "addr": "008dcc60",
+  "global": "g_dwMixChannels",
+  "type": "uint",
+  "comment": "1 = mono mix, 2 = stereo (Mixer_ConvertTo16 converts twice the frame count)"
+ },
+ {
+  "addr": "008dcc64",
+  "global": "g_pMixCompanderTable",
+  "type": "void *",
+  "comment": "Table of g_nMixTableUnits*0x8000 shorts built by Mixer_InitTables"
+ },
+ {
+  "addr": "004f40f8",
+  "global": "g_dwMixTableUnits",
+  "type": "uint",
+  "comment": "Size parameter of the compander table (Mixer_Init)"
+ },
+ {
+  "addr": "008dcc40",
+  "global": "g_pStreamDS",
+  "type": "void *",
+  "comment": "IDirectSound used by the Smush stream driver"
+ },
+ {
+  "addr": "008dcc44",
+  "global": "g_pStreamDSPrimary",
+  "type": "void *",
+  "comment": "IDirectSoundBuffer: its primary buffer"
+ },
+ {
+  "addr": "008dcc48",
+  "global": "g_pStreamDSBuffer",
+  "type": "void *",
+  "comment": "IDirectSoundBuffer: looping stream buffer of g_nStreamBlocks blocks of 0x1800 bytes"
+ },
+ {
+  "addr": "008db420",
+  "global": "g_nStreamBlocks",
+  "type": "int",
+  "comment": "Blocks in the DirectSound stream buffer (3..16)"
+ },
+ {
+  "addr": "004f3f94",
+  "global": "g_nStreamLastBlock",
+  "type": "int",
+  "comment": "Index of the block DSound_FillStreamBuffer wrote last (-1 = none)"
+ },
+ {
+  "addr": "004f3f98",
+  "global": "g_dwStreamRate",
+  "type": "uint",
+  "comment": "Sample rate requested from DsndDriver_Open (at least 22050)"
+ },
+ {
+  "addr": "004f3f9c",
+  "global": "g_dwStreamVolume",
+  "type": "uint",
+  "comment": "Volume 0..127 last passed to DsndDriver_SetVolume"
+ },
+ {
+  "addr": "004f3fa0",
+  "global": "g_nStreamSavedVolume",
+  "type": "int",
+  "comment": "Primary buffer volume saved by DsndDriver_InitDirectSound and restored on release"
+ },
+ {
+  "addr": "008db410",
+  "global": "g_pfnStreamMix",
+  "type": "void *",
+  "comment": "Mixer callback (count, Mixer_MixVoiceByFormat) given to DsndDriver_Open"
+ },
+ {
+  "addr": "008dcc54",
+  "global": "g_nStreamTimerId",
+  "type": "int",
+  "comment": "Timer id of the periodic DSound_FillStreamBuffer call"
+ },
+ {
+  "addr": "008db41c",
+  "global": "g_pDsndServices",
+  "type": "int *",
+  "comment": "Service table of the module manager handed to DsndDriver_Register"
+ },
+ {
+  "addr": "008db424",
+  "global": "g_pDsndClock",
+  "type": "int *",
+  "comment": "Interface of the TIMER clock module used by the DirectSound sound driver"
+ },
+ {
+  "addr": "008da5cc",
+  "global": "g_pTimerServices",
+  "type": "int *",
+  "comment": "Service table of the module manager handed to InsaneTimer_Register"
+ },
+ {
+  "addr": "008da5c8",
+  "global": "g_nTimerClock",
+  "type": "int",
+  "comment": "Timer clock in ticks (InsaneTimer_Tick adds g_nTimerStep)"
+ },
+ {
+  "addr": "008da860",
+  "global": "g_dwTimerStep",
+  "type": "uint",
+  "comment": "Ticks per InsaneTimer_Tick (0x4dae = 20.0 ms in the 1193180 Hz unit)"
+ },
+ {
+  "addr": "004f3bf8",
+  "label": "g_apfnInsaneTimerModule"
+ },
+ {
+  "addr": "004f3c08",
+  "label": "g_apfnInsaneTimerInterface"
+ },
+ {
+  "addr": "004f3dc8",
+  "label": "g_apfnSoundModule"
+ },
+ {
+  "addr": "004f3dd8",
+  "label": "g_apfnSoundInterface"
+ },
+ {
+  "addr": "004f3f68",
+  "label": "g_apfnDsndDriverModule"
+ },
+ {
+  "addr": "004f3f78",
+  "label": "g_apfnDsndDriverInterface"
+ },
+ {
+  "addr": "008da8b0",
+  "global": "g_anSndStreamKind",
+  "type": "int",
+  "array_length": 16,
+  "comment": "Kind (container version) of the sound each voice of the sound module receives"
+ },
+ {
+  "addr": "008dad00",
+  "global": "g_anSndStreamKey",
+  "type": "int",
+  "array_length": 16,
+  "comment": "Stream key of the sound each voice of the sound module receives"
+ },
+ {
+  "addr": "008db0a8",
+  "global": "g_anSndChunkCount",
+  "type": "int",
+  "array_length": 16,
+  "comment": "Chunks already received of the streamed sound of each voice"
+ }
+]

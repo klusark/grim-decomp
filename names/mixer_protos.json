@@ -1,0 +1,277 @@
+[
+ {
+  "addr": "004d3010",
+  "proto": "int Mixer_ClearAccumulator(void)"
+ },
+ {
+  "addr": "004d3040",
+  "proto": "void Mixer_MixVoice(byte * data, int count, int bits, int channels, uint outFrames, int accumOffset, int volume, int pan, int offsetBinary, int byteSwapped)"
+ },
+ {
+  "addr": "004d31d0",
+  "proto": "int Mixer_ConvertTo16(short * dst, int frames)"
+ },
+ {
+  "addr": "004d2e60",
+  "proto": "void Mixer_Output(short * dst, int frames)"
+ },
+ {
+  "addr": "004d2d90",
+  "proto": "void Mixer_MixVoiceByFormat(byte * data, int accumOffset, uint outFrames, int srcBytes, int unused, int volume, int pan, int format)"
+ },
+ {
+  "addr": "004d2e80",
+  "proto": "int Mixer_InitTables(int * services, uint channels, int frames4, int unused)"
+ },
+ {
+  "addr": "004d2d40",
+  "proto": "int Mixer_Init(int * services, uint tableUnits, int frames)"
+ },
+ {
+  "addr": "004d2fb0",
+  "proto": "int Mixer_Free(int * services)"
+ },
+ {
+  "addr": "004cdc90",
+  "proto": "int InsaneTimer_Register(int * services, uint workspaceSize)"
+ },
+ {
+  "addr": "004cdce0",
+  "proto": "void InsaneTimer_Unregister(void)"
+ },
+ {
+  "addr": "004cdd10",
+  "proto": "int InsaneTimer_Init(void)"
+ },
+ {
+  "addr": "004cdd60",
+  "proto": "void InsaneTimer_Shutdown(void)"
+ },
+ {
+  "addr": "004cdd80",
+  "proto": "int InsaneTimer_StartThread(void)"
+ },
+ {
+  "addr": "004cde80",
+  "proto": "void InsaneTimer_StopThread(void)"
+ },
+ {
+  "addr": "004cdef0",
+  "proto": "void InsaneTimer_Hold(void)"
+ },
+ {
+  "addr": "004cdf00",
+  "proto": "void InsaneTimer_Release(void)"
+ },
+ {
+  "addr": "004cdf10",
+  "proto": "int InsaneTimer_AddTimer(void * callback, int period, uint flags, int user)"
+ },
+ {
+  "addr": "004cdf80",
+  "proto": "void InsaneTimer_RemoveTimer(int slot)"
+ },
+ {
+  "addr": "004cdfa0",
+  "proto": "void InsaneTimer_SetPeriod(int slot, int period)"
+ },
+ {
+  "addr": "004cdfd0",
+  "proto": "void InsaneTimer_Run(int ticks)"
+ },
+ {
+  "addr": "004d2420",
+  "proto": "int DsndDriver_Register(int * services, uint moduleSize)"
+ },
+ {
+  "addr": "004d2480",
+  "proto": "void DsndDriver_Unregister(void)"
+ },
+ {
+  "addr": "004d24b0",
+  "proto": "int DsndDriver_Init(void)"
+ },
+ {
+  "addr": "004d2520",
+  "proto": "void DsndDriver_Shutdown(void)"
+ },
+ {
+  "addr": "004d2550",
+  "proto": "int DsndDriver_Open(int rate, int unused, void * mix)"
+ },
+ {
+  "addr": "004d25f0",
+  "proto": "void DsndDriver_Close(void)"
+ },
+ {
+  "addr": "004d2630",
+  "proto": "void DsndDriver_SetVolume(uint volume)"
+ },
+ {
+  "addr": "004d27b0",
+  "proto": "uint DsndDriver_GetVolume(void)"
+ },
+ {
+  "addr": "004d27c0",
+  "proto": "int DsndDriver_GetSampleRate(void)"
+ },
+ {
+  "addr": "004d2940",
+  "proto": "int DsndDriver_InitDirectSound(void)"
+ },
+ {
+  "addr": "004d2aa0",
+  "proto": "void DsndDriver_CreateStreamBuffer(int blocks)"
+ },
+ {
+  "addr": "004d2bf0",
+  "proto": "void DsndDriver_ReleaseDirectSound(void)"
+ },
+ {
+  "addr": "004d2cb0",
+  "proto": "void Dsnd_MemCopy(void * dst, void * src, uint n)",
+  "cc": "__cdecl"
+ },
+ {
+  "addr": "004d2ce0",
+  "proto": "void Dsnd_MemFill(void * dst, int value, uint n)",
+  "cc": "__cdecl"
+ },
+ {
+  "addr": "004d23e0",
+  "proto": "void Dsnd_MemCopyCdecl(void * dst, void * src, uint n)"
+ },
+ {
+  "addr": "004d2400",
+  "proto": "void Dsnd_MemFillCdecl(void * dst, int value, uint n)"
+ },
+ {
+  "addr": "004c3e10",
+  "proto": "void Insane_MemCopy(void * dst, void * src, uint n)",
+  "cc": "__cdecl"
+ },
+ {
+  "addr": "004c3df0",
+  "proto": "void Insane_MemCopyCdecl(void * dst, void * src, uint n)"
+ },
+ {
+  "addr": "004d0300",
+  "proto": "int SoundModule_Register(int * services, uint moduleSize)"
+ },
+ {
+  "addr": "004d03a0",
+  "proto": "void SoundModule_Unregister(void)"
+ },
+ {
+  "addr": "004d03d0",
+  "proto": "int SoundModule_Init(void)"
+ },
+ {
+  "addr": "004d0510",
+  "proto": "void SoundModule_Shutdown(void)"
+ },
+ {
+  "addr": "004d0550",
+  "proto": "int SoundModule_Open(int rate, int limit, uint size, ...)"
+ },
+ {
+  "addr": "004d0610",
+  "proto": "int SoundModule_Close(void)"
+ },
+ {
+  "addr": "004d06a0",
+  "proto": "int SoundModule_AddTrackBuffer(uint size, int limit)"
+ },
+ {
+  "addr": "004d0860",
+  "proto": "void SoundModule_PlayChunk(byte * p, int id, int volume, int pan, uint flags)"
+ },
+ {
+  "addr": "004d0a50",
+  "proto": "void SoundModule_StopSound(uint id)"
+ },
+ {
+  "addr": "004d0a80",
+  "proto": "void SoundModule_Pause(void)"
+ },
+ {
+  "addr": "004d0a90",
+  "proto": "void SoundModule_Resume(void)"
+ },
+ {
+  "addr": "004d0aa0",
+  "proto": "void SoundModule_StopAll(void)"
+ },
+ {
+  "addr": "004d0ad0",
+  "proto": "void SoundModule_SetVolume(int id, uint volume)"
+ },
+ {
+  "addr": "004d0b10",
+  "proto": "uint SoundModule_GetVolume(uint id)"
+ },
+ {
+  "addr": "004d0b60",
+  "proto": "void SoundModule_SetPan(int id, byte pan)"
+ },
+ {
+  "addr": "004d0b90",
+  "proto": "int SoundModule_GetPan(uint id)"
+ },
+ {
+  "addr": "004d0bd0",
+  "proto": "void SoundModule_DriverCommand2(int arg)"
+ },
+ {
+  "addr": "004d0bf0",
+  "proto": "int SoundModule_DriverCommand3(void)"
+ },
+ {
+  "addr": "004d0c00",
+  "proto": "void SoundModule_SetDriverRate(uint rate)"
+ },
+ {
+  "addr": "004d0c30",
+  "proto": "int SoundModule_GetPosition(uint id)"
+ },
+ {
+  "addr": "004d0cf0",
+  "proto": "int Sound_VoiceSampleCount(int voice)"
+ },
+ {
+  "addr": "004d0d70",
+  "proto": "int SoundModule_SetParam(int unused, int which, uint a, uint b)"
+ },
+ {
+  "addr": "004d0e00",
+  "proto": "int SoundModule_GetParam(int unused, int which, uint * a, uint * b)"
+ },
+ {
+  "addr": "004d0eb0",
+  "proto": "byte SoundModule_GetChannelVolume(byte channel)"
+ },
+ {
+  "addr": "004d0ed0",
+  "proto": "void SoundModule_SetChannelVolume(byte channel, byte value)"
+ },
+ {
+  "addr": "004d0f00",
+  "proto": "void SoundModule_PlayVoc(byte * src, uint size, int id, int volume, int pan, uint flags)"
+ },
+ {
+  "addr": "004d1180",
+  "proto": "void SoundModule_PlaySaud(byte * data, int size, int id, int volume, int pan, uint flags, int key, int chunkNo, int kind, int whole)"
+ },
+ {
+  "addr": "004d1690",
+  "proto": "void SoundModule_SyncClock(void)"
+ },
+ {
+  "addr": "004d16a0",
+  "proto": "void SoundModule_MixCallback(int frames, void * mix)"
+ },
+ {
+  "addr": "004d2340",
+  "proto": "void SoundModule_AdvanceClock(double ticks)"
+ }
+]

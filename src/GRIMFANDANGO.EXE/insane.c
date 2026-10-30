@@ -1,5 +1,5 @@
 /* GRIMFANDANGO.EXE :: insane.c
- * functions 0x004bd370 .. 0x004bddb0 (11 functions)
+ * functions 0x004bd370 .. 0x004c3e10 (13 functions)
  * Decompiled from the shipped binaries with Ghidra; see ../../README.md */
 #include "ghidra_types.h"
 #include "globals.h"
@@ -9,16 +9,16 @@
 /* INSANE (SMUSH) movie player glue: steps the player when the file io, decoder and output modules
    are all registered */
 
-undefined * Insane_Poll(void)
+int Insane_Poll(void)
 
 {
-  undefined *puVar1;
+  int iVar1;
   
   if (((UINT_008d16a0 != 0) && (UINT_008d16a4 != 0)) && (UINT_008d16a8 != 0)) {
-    puVar1 = Sound_VoiceSampleCount(0);
-    return puVar1;
+    iVar1 = Sound_VoiceSampleCount(0);
+    return iVar1;
   }
-  return (undefined *)0x0;
+  return 0;
 }
 
 /* ---- 0x004bd3a0  Insane_RegisterFilio ---- */
@@ -371,6 +371,44 @@ void Insane_BlitRows16(ushort *param_1,int param_2,int param_3,int param_4,int p
       } while (param_6 != 0);
       return;
     }
+  }
+  return;
+}
+#endif
+
+
+/* ---- 0x004c3df0  Insane_MemCopyCdecl ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
+void __cdecl Insane_MemCopyCdecl(void *dst,void *src,uint n)
+
+{
+  Insane_MemCopy(dst,src,n);
+  return;
+}
+#endif
+
+
+/* ---- 0x004c3e10  Insane_MemCopy ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
+/* memcpy for the lecsmush code; __fastcall with two unused register arguments (ECX, EDX): copies
+   the unaligned head first, then dwords */
+
+void __cdecl Insane_MemCopy(void *dst,void *src,uint n)
+
+{
+  uint uVar1;
+  
+  for (uVar1 = n & 3; uVar1 != 0; uVar1 = uVar1 - 1) {
+    *(undefined1 *)dst = *(undefined1 *)src;
+    src = (undefined4 *)((int)src + 1);
+    dst = (undefined4 *)((int)dst + 1);
+  }
+  for (uVar1 = n >> 2; uVar1 != 0; uVar1 = uVar1 - 1) {
+    *(undefined4 *)dst = *(undefined4 *)src;
+    src = (undefined4 *)((int)src + 4);
+    dst = (undefined4 *)((int)dst + 4);
   }
   return;
 }
