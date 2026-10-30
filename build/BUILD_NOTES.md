@@ -1051,3 +1051,62 @@ all-assembly reference (`build/ref`): `t2` actors drawn, `t3` walking, `t7` prim
 log diff or a `suite:` of `build/qtests.sh`).  The scripted suite `grim_tools/autorun/rebuilt_all.sh` is the final gate.
 `build/qtests.sh` is its quick subset (unit 120 / walk 88 / coll 314 pass, 8 known coll differences).
 Rare (about 4 percent) boot segfaults also happen with the all-assembly reference; the harness retries.
+
+## System libraries instead of the bundled CRT/zlib (2026-10-30, agent M)
+
+Inventory, risk ratings and the list of other replaceable libraries: `docs/LIBS_INVENTORY.md`.  What the starting point
+really was: `link.py` had always left the decompiled MSVC 6 runtime module `crt.c` out of the link (all four modules
+import `malloc/free/fopen/printf/qsort/...` from the system `msvcrt.dll`, so there is ONE heap for EXE, LUA.DLL, IMUSE.DLL
+and CHORE.DLL), but the runtime functions Ghidra had not named (`crt_unnamed.c`), runtime functions the assembly selection
+had pulled in (`_snprintf`+`_output`, `_setjmp3`, `floor/ceil`, `_CIfmod`, ...) and the statically linked runtimes of
+CHORE.DLL and IMUSE.DLL were still compiled from the original code.  The game's zlib 1.1.3 was bundled in the EXE.
+(UCRT is not an option: MSYS2 has no 32-bit UCRT toolchain; msvcrt.dll is on every Windows.)
+
+**Mechanism (`names/lib_replace.json`, read by `tools/build_src.py`, `tools/gen_asm.py`, `build/link.py`)**
+
+| key | meaning |
+|---|---|
+| `<PROG>.dead` | addresses of original runtime code that no live code can reach: `build_src.py` writes the C text under `#if 0`, `gen_asm.py` never assembles it, the symbol (if anything dead still names it) becomes a trap stub |
+| `<PROG>.host` | live functions that the system library replaces; same removal, the symbol then resolves to the msvcrt import (same name) or to an alias |
+| `<PROG>.zlib` | the bundled zlib; the symbols (`_inflate`, `_deflateInit2_`, `_crc32`, ...) resolve to `libz.a` (`-Wl,-Bstatic -lz`) |
+| `aliases.<PROG>` | `{C symbol: msvcrt symbol}`: `link.py` writes `obj/<prog>/lib_alias.s` with `sym: jmp *__imp_<name>` (through the import table, so the thunk can never loop back to a symbol of this link: needed for the swapped `_floor`/`_ceil`) |
+
+Adding a function: put its address in `host` (and an alias if the name differs or Ghidra has no name), `python -I tools/gen_asm.py
+<PROG>` (use `--select` when the function is also defined in `build/overrides.c`: the selection must be re-derived), `python -I
+tools/build_src.py`, `make -C build link`.  **Check the semantics first**: the Ghidra names of unnamed runtime functions are
+guesses (floor/ceil swapped, `strchr` that is `strrchr`, `_sqrt` that is `asin`; all in LIBS_INVENTORY section 5).  The
+safe method is a differential test against the original code: load the baseline DLL (`--export-all-symbols` exports every
+function) or execute the bytes of `raw/<prog>/sections/text.bin` from a VirtualAlloc'ed page and compare with msvcrt.dll on
+random inputs (the test programs are quoted in the inventory; each function above was run on 10^5-4x10^6 inputs).
+`python -I tools/lib_audit.py build/obj/<PROG>/<file> [--orig-exports raw/<PROG>/exports.json] [--json out]` lists the functions of
+the linked image that cannot be reached (DLLs: roots are the exports of the ORIGINAL dll, the rebuilt ones export everything)
+and, via `WHY=<sym>` / `WHYSTUB=<sym>`, why a function is live.  Stubs that are still reachable are latent traps: after this
+work only three pow special-case fragments in an EXE data table and two CHORE.DLL start-up table entries remain, none callable.
+
+**Results (build to build, all verified; baselines are the tree of commit 9b9f546)**
+
+| | before | after |
+|---|---|---|
+| runtime functions removed as unreachable (`dead`) | 0 | 558 (EXE 133, LUA.DLL 153, IMUSE.DLL 120, CHORE.DLL 152) |
+| live runtime functions replaced by msvcrt (`host`) | 0 | 33 + 1 sign wrapper (EXE 9, LUA.DLL 9, IMUSE.DLL 9, CHORE.DLL 6) |
+| zlib | bundled 1.1.3, 53 functions | system 1.3.2, static, no new DLL |
+| .text EXE / LUA / IMUSE / CHORE | 932496 / 105184 / 121376 / 50464 | 905424 / 75168 / 77712 / 21488 |
+| reachable trap stubs (static) | EXE 2 + the `_output` helpers (bound to LUA.DLL's stubs), IMUSE.DLL 7 | EXE 3 (data-table fragments of `_pow`), CHORE 2 (init table), IMUSE 0, LUA 0 |
+
+What was deliberately kept: EXE `_ftol` (peephole `fisttp`, build/peephole.py), `_alloca_probe` (msvcrt.dll does not export it),
+`_CIpow`/`_pow`/LUA `_CIfmod` (overrides.c, already msvcrt), CHORE.DLL's three-function `qsort` (msvcrt's orders equal keys differently:
+measured on 20000 random arrays), the four ctype table wrappers of the Lua lexer, `rdraster`/mixer/codecs (not library code).
+
+**Behaviour changes, each its own commit so they can be dropped**: `acos()` in Lua returned 0 (FUN_10006f80 dropped the x87 argument; now
+assembled, `asin`/`acos` use msvcrt) and `rand()` starts at seed 1 like the original (the `_getptd` shim block is zero), so an unseeded
+`random()` sequence differs from the previous rebuild (identical after `randomseed`).  Saves written by the rebuild are valid gzip
+but not byte-identical to 1.1.3's output (zlib 1.3.2 deflates differently, 877 KB vs 860 KB for the same payload); the original saves
+inflate identically.
+
+**New knobs**: `GRIM_BUNDLED_ZLIB=1` for `build_src.py` / `gen_asm.py` / `make link` (regenerate `src/` with it to build the game's own zlib 1.1.3 again);
+`build/perf/libcheck.py <exe-dir> <tag> [--movie] [--data DIR]` (boot, Lua probes, walk, 5 sets, Save/Load, debug log, movie; `--diff A B`,
+`LIBCHECK_SKIP=A,RU` ignores the lines that are expected to differ).
+
+**Test setup notes** (for running next to other sessions): a private data dir made of hard links to the LABs works (`--data`); the
+autorun scripts of `grim_tools` find `GRIMDATA/autorun_all.lua` of the shared install first even when started from a private dir
+(cause not analysed), so a private copy must use another file name (`agentM_all.lua` in `build_original.sh`/`rebuilt_test.sh`).
