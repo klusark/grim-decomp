@@ -35,5 +35,3 @@ __asm__(".text\n.globl _Lua_ResetTextures\n_Lua_ResetTextures:\n\tjmp _D3D_Reset
 __asm__(".text\n.globl _Lua_SaveIMuse\n_Lua_SaveIMuse:\n\tjmp _IMuse_SaveToTemp\n");
 /* Lua_RestoreIMuse @ 0x004a3bd0 */
 __asm__(".text\n.globl _Lua_RestoreIMuse\n_Lua_RestoreIMuse:\n\tjmp _IMuse_RestoreFromTemp\n");
-/* thunk_FUN_004cc590 @ 0x004cc3b0 */
-__asm__(".text\n.globl _thunk_FUN_004cc590\n_thunk_FUN_004cc590:\n\tjmp _FUN_004cc590\n");

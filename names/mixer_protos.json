@@ -338,5 +338,40 @@
   "addr": "004d0260",
   "proto": "void Video_CopyRect(byte * src, byte * dst, int srcX, uint srcY, int dstX, uint dstY, uint width, int rows, uint srcPitch, uint dstPitch)",
   "cc": "__cdecl"
+ },
+ {
+  "addr": "004cc250",
+  "proto": "int Blocky16_SetOption(int key, ...)",
+  "cc": "__cdecl"
+ },
+ {
+  "addr": "004cc7d0",
+  "proto": "void Blocky16_BuildSplitMasks(int size)",
+  "cc": "__cdecl"
+ },
+ {
+  "addr": "004ccd00",
+  "proto": "int Blocky16_DecodeFrame(void * dst, uint * clip, int x, int y, int palette, byte * hdr, byte flags)",
+  "cc": "__cdecl"
+ },
+ {
+  "addr": "004cd550",
+  "proto": "void Blocky16_DecodeBlocks(byte * dst, byte * src, int prevOffset, int prev2Offset, int width, short * motion, short * colors, int height, int unused, byte * split4, byte * split8, ushort * pairColors)",
+  "cc": "__cdecl"
+ },
+ {
+  "addr": "004cd610",
+  "proto": "byte * Blocky16_DecodeBlock8(byte * src, byte * dst, int pitch)",
+  "cc": "__cdecl"
+ },
+ {
+  "addr": "004cd9b0",
+  "proto": "byte * Blocky16_DecodeBlock4(byte * src, byte * dst, int pitch)",
+  "cc": "__cdecl"
+ },
+ {
+  "addr": "004cdb80",
+  "proto": "byte * Blocky16_DecodeBlock2(byte * src, byte * dst, int pitch)",
+  "cc": "__cdecl"
  }
 ]

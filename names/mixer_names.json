@@ -589,5 +589,310 @@
   "addr": "004d0260",
   "name": "Video_CopyRect",
   "tags": "smush,video"
+ },
+ {
+  "addr": "004cc210",
+  "name": "Blocky16_Register",
+  "comment": "Entry of LECMODULE insane_blocky16_flobdec: stores the module manager services and the workspace size, registers the module and the FLOBDEC interface",
+  "tags": "smush,blocky16"
+ },
+ {
+  "addr": "004cc290",
+  "name": "Blocky16_Unregister",
+  "comment": "Unregisters the FLOBDEC interface and the module of the Blocky16 decoder",
+  "tags": "smush,blocky16"
+ },
+ {
+  "addr": "004cc2c0",
+  "name": "Blocky16_Init",
+  "comment": "Asks the module manager for the BITMAP clear service and the MEMORY workspace service of the decoder; -1 if one is missing",
+  "tags": "smush,blocky16"
+ },
+ {
+  "addr": "004cc340",
+  "name": "Blocky16_Shutdown",
+  "comment": "Frees the frame buffers and releases the two services of the Blocky16 decoder",
+  "tags": "smush,blocky16"
+ },
+ {
+  "addr": "004cc370",
+  "name": "Blocky16_GetInfoString",
+  "comment": "Returns the name, description or help text of the Blocky16 module for index 0, 1 or 2",
+  "tags": "smush,blocky16"
+ },
+ {
+  "addr": "004cc3a0",
+  "name": "Blocky16_GetFourCC",
+  "comment": "Returns the codec id Bl16 of the decoder",
+  "tags": "smush,blocky16"
+ },
+ {
+  "addr": "004cc3c0",
+  "name": "Blocky16_Prepare",
+  "comment": "Reallocates the three frame buffers when the frame size or depth of the header differs from the current ones",
+  "tags": "smush,blocky16"
+ },
+ {
+  "addr": "004cc410",
+  "name": "Blocky16_AllocBuffers",
+  "comment": "Allocates the three frame buffers (current, previous, before) for a frame size and clears them; sets up the display expand table memory",
+  "tags": "smush,blocky16"
+ },
+ {
+  "addr": "004cc590",
+  "name": "Blocky16_FreeBuffers",
+  "comment": "Frees the three frame buffers and the expand table of the Blocky16 decoder",
+  "tags": "smush,blocky16"
+ },
+ {
+  "addr": "004cc620",
+  "name": "Blocky16_DecodeFrameEntry",
+  "comment": "Interface entry of the decoder: drops the seventh argument and calls Blocky16_DecodeFrame",
+  "tags": "smush,blocky16"
+ },
+ {
+  "addr": "004cc650",
+  "name": "Blocky16_GetFrameInfo",
+  "comment": "Reads four 16 bit fields of a frame header of the right size (0x100), returns -1 for any other size",
+  "tags": "smush,blocky16"
+ },
+ {
+  "addr": "004cc6a0",
+  "name": "Blocky16_BuildPixelOffsets",
+  "comment": "Makes the pixel offsets of the split masks and the motion vectors for a frame width, once per width",
+  "tags": "smush,blocky16"
+ },
+ {
+  "addr": "004cd1e0",
+  "name": "Blocky16_BuildExpandTable",
+  "comment": "Makes the 64K entry table that converts 16 bit pixels to the display format when the display channel shifts change",
+  "tags": "smush,blocky16"
+ },
+ {
+  "addr": "004cd300",
+  "name": "Blocky16_DecodeHalfRows16",
+  "comment": "Decodes a method 1 frame: 16 bit pixels of every second row, the rows between are averaged",
+  "tags": "smush,blocky16"
+ },
+ {
+  "addr": "004cd450",
+  "name": "Blocky16_DecodeHalfRows8",
+  "comment": "Decodes a method 7 frame: 8 bit indexes of every second row through a colour table, the rows between are averaged",
+  "tags": "smush,blocky16"
+ },
+ {
+  "addr": "004cea30",
+  "name": "Video_BlitConvert",
+  "comment": "Copies or converts a clipped rectangle from one bitmap to another through VideoBitmap_ConvertPixels",
+  "tags": "smush,video"
+ },
+ {
+  "addr": "004cec40",
+  "name": "Video_FillPixels",
+  "comment": "Fills a number of pixels of 1 to 4 bytes with one pixel value",
+  "tags": "smush,video"
+ },
+ {
+  "addr": "004d5eb0",
+  "name": "Rle_Begin",
+  "comment": "Starts reading a run-length coded byte stream",
+  "tags": "smush,rle"
+ },
+ {
+  "addr": "004d5ed0",
+  "name": "Rle_NextByte",
+  "comment": "Returns the next byte of a run-length coded stream; control byte bit 0 selects a run or literal bytes",
+  "tags": "smush,rle"
+ },
+ {
+  "addr": "004d5e70",
+  "name": "Rle_Decode",
+  "comment": "Decodes a number of bytes of a run-length coded stream into a buffer",
+  "tags": "smush,rle"
+ },
+ {
+  "addr": "004cc250",
+  "name": "Blocky16_SetOption",
+  "comment": "Reads key and value pairs ending with key 0; key 1 sets the output callback g_pfnBlkOutput that Blocky16 hands decoded frames to; other keys are an error",
+  "tags": "smush,blocky16"
+ },
+ {
+  "addr": "004cc7d0",
+  "name": "Blocky16_BuildSplitMasks",
+  "comment": "Builds the 8x8 or 4x4 split masks of the Blocky16 codec in g_aBlockySplit8 or g_aBlockySplit4 from the edge points g_anBlockySplit8X, g_anBlockySplit8Y, g_anBlockySplit4X and g_anBlockySplit4Y",
+  "tags": "smush,blocky16"
+ },
+ {
+  "addr": "004ccd00",
+  "name": "Blocky16_DecodeFrame",
+  "comment": "Decodes one Blocky16 frame into the buffers g_pbBlkCur, g_pbBlkPrev and g_pbBlkPrev2 using g_stBlockyDecState, g_asBlockyMotion, g_aBlockySplit4 and g_aBlockySplit8 and gives it to the output g_pfnBlkOutput; bitmaps g_pBlkBitmap0, g_pBlkBitmap1, g_pBlkBitmap2; tables g_pbBlkExpand, g_nBlkShiftR, g_nBlkShiftG, g_nBlkShiftB, g_pbBlkOutput, g_nBlkLastSeq",
+  "tags": "smush,blocky16"
+ },
+ {
+  "addr": "004cd550",
+  "name": "Blocky16_DecodeBlocks",
+  "comment": "Decodes all 8x8 blocks of a method 2 frame into the current buffer (state in g_stBlockyDecState)",
+  "tags": "smush,blocky16"
+ },
+ {
+  "addr": "004cd610",
+  "name": "Blocky16_DecodeBlock8",
+  "comment": "Decodes one 8x8 block (register convention in the original: ESI stream, EDI destination, EBP pitch)",
+  "tags": "smush,blocky16"
+ },
+ {
+  "addr": "004cd9b0",
+  "name": "Blocky16_DecodeBlock4",
+  "comment": "Decodes one 4x4 block (register convention in the original: ESI stream, EDI destination, EBP pitch)",
+  "tags": "smush,blocky16"
+ },
+ {
+  "addr": "004cdb80",
+  "name": "Blocky16_DecodeBlock2",
+  "comment": "Decodes one 2x2 block (register convention in the original: ESI stream, EDI destination, EBP pitch)",
+  "tags": "smush,blocky16"
+ },
+ {
+  "addr": "008da508",
+  "global": "g_pfnBlkOutput",
+  "type": "void *",
+  "comment": "Callback that receives the decoded Blocky16 frame instead of the default blit"
+ },
+ {
+  "addr": "008da50c",
+  "global": "g_pbBlkCur",
+  "type": "byte *",
+  "comment": "Buffer the current Blocky16 frame is decoded into"
+ },
+ {
+  "addr": "008da510",
+  "global": "g_pbBlkExpand",
+  "type": "byte *",
+  "comment": "64K entry table converting 16 bit pixels to the display format"
+ },
+ {
+  "addr": "008da514",
+  "global": "g_nBlkShiftR",
+  "type": "int",
+  "comment": "Red channel shift of the display format the expand table was made for"
+ },
+ {
+  "addr": "008da518",
+  "global": "g_nBlkShiftG",
+  "type": "int",
+  "comment": "Green channel shift of the display format the expand table was made for"
+ },
+ {
+  "addr": "008da51c",
+  "global": "g_nBlkShiftB",
+  "type": "int",
+  "comment": "Blue channel shift of the display format the expand table was made for"
+ },
+ {
+  "addr": "008da520",
+  "global": "g_nBlkDepth",
+  "type": "int",
+  "comment": "Bits per pixel of the Blocky16 frame buffers"
+ },
+ {
+  "addr": "008da528",
+  "global": "g_pBlkBitmap0",
+  "type": "int *",
+  "comment": "Pixel format descriptor of the current frame buffer"
+ },
+ {
+  "addr": "008da52c",
+  "global": "g_pBlkBitmap1",
+  "type": "int *",
+  "comment": "Pixel format descriptor of the previous frame buffer"
+ },
+ {
+  "addr": "008da530",
+  "global": "g_pBlkBitmap2",
+  "type": "int *",
+  "comment": "Pixel format descriptor of the frame buffer before the previous one"
+ },
+ {
+  "addr": "008da534",
+  "global": "g_nBlkPixels",
+  "type": "int",
+  "comment": "Number of pixels of a Blocky16 frame buffer"
+ },
+ {
+  "addr": "008da538",
+  "global": "g_pbBlkOutput",
+  "type": "byte *",
+  "comment": "Buffer the last decoded Blocky16 frame was left in"
+ },
+ {
+  "addr": "00906c74",
+  "global": "g_pbBlkPrev2",
+  "type": "byte *",
+  "comment": "Blocky16 frame buffer holding the frame before the previous one"
+ },
+ {
+  "addr": "0091f080",
+  "global": "g_pbBlkPrev",
+  "type": "byte *",
+  "comment": "Blocky16 frame buffer holding the previous frame"
+ },
+ {
+  "addr": "004f39e8",
+  "global": "g_nBlkLastSeq",
+  "type": "int",
+  "comment": "Number of the last Blocky16 frame decoded, -1 at the start"
+ },
+ {
+  "addr": "00906c48",
+  "global": "g_stBlockyDecState",
+  "type": "uint",
+  "comment": "State of the Blocky16 block decoders: tables and offsets set by Blocky16_DecodeBlocks"
+ },
+ {
+  "addr": "00906c80",
+  "global": "g_aBlockySplit8",
+  "type": "undefined2",
+  "comment": "Table of 256 split masks for 8x8 blocks, 0x184 bytes each, built by Blocky16_BuildSplitMasks"
+ },
+ {
+  "addr": "0091f0a0",
+  "global": "g_aBlockySplit4",
+  "type": "undefined2",
+  "comment": "Table of 256 split masks for 4x4 blocks, 0x80 bytes each, built by Blocky16_BuildSplitMasks"
+ },
+ {
+  "addr": "009270a0",
+  "global": "g_asBlockyMotion",
+  "type": "short",
+  "comment": "Table of 255 motion vectors of the Blocky16 codec in pixels, made for the frame width",
+  "array_length": 255
+ },
+ {
+  "addr": "004f38e8",
+  "global": "g_anBlockySplit4Y",
+  "type": "int",
+  "comment": "Column coordinates of the 16 edge points of a 4x4 block",
+  "array_length": 16
+ },
+ {
+  "addr": "004f3928",
+  "global": "g_anBlockySplit4X",
+  "type": "int",
+  "comment": "Row coordinates of the 16 edge points of a 4x4 block",
+  "array_length": 16
+ },
+ {
+  "addr": "004f3968",
+  "global": "g_anBlockySplit8Y",
+  "type": "int",
+  "comment": "Column coordinates of the 16 edge points of an 8x8 block",
+  "array_length": 16
+ },
+ {
+  "addr": "004f39a8",
+  "global": "g_anBlockySplit8X",
+  "type": "int",
+  "comment": "Row coordinates of the 16 edge points of an 8x8 block",
+  "array_length": 16
  }
 ]

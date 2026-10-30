@@ -184,7 +184,7 @@ int __cdecl Smush_Advance(int *outDone)
   
   local_46c = 0;
   local_468 = 0;
-  ((code *)FUN_004cc250)(1,FUN_004bdad0,0);
+  Blocky16_SetOption(1,FUN_004bdad0,0);
   iVar1 = (**(code **)(UINT_008d1200 + 0xc))
                     (UINT_008d11d8,&DAT_008d1648,0,0,0,local_400,&local_468,&local_46c,1,0);
   (*(code *)UINT_008d10a0)(auStack_454,auStack_464);
@@ -215,7 +215,7 @@ int __cdecl Smush_Advance(int *outDone)
     *outDone = 0;
     UINT_008d16a8 = 1;
   }
-  ((code *)FUN_004cc250)(1,0,0);
+  Blocky16_SetOption(1,0,0);
   return 0;
 }
 #undef auStack_454

@@ -1,9 +1,162 @@
 /* GRIMFANDANGO.EXE :: video.c
- * functions 0x004cf010 .. 0x004d0260 (12 functions)
+ * functions 0x004cea30 .. 0x004d0260 (14 functions)
  * Decompiled from the shipped binaries with Ghidra; see ../../README.md */
 #include "ghidra_types.h"
 #include "globals.h"
 #include "functions.h"
+
+/* ---- 0x004cea30  Video_BlitConvert ---- */
+/* Copies or converts a clipped rectangle from one bitmap to another through
+   VideoBitmap_ConvertPixels */
+
+void Video_BlitConvert(int *param_1,uint *param_2,int param_3,int param_4,int *param_5,byte *param_6
+                      ,byte *param_7)
+
+{
+  unsigned char _frame[0x430] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  byte *dst;
+  int iVar1;
+  byte *src;
+  uint uVar2;
+  int iVar3;
+  #define local_420 (*(uint *)(_frame + (0x430 - 0x420)))
+  #define local_41c (*(uint *)(_frame + (0x430 - 0x41c)))
+  #define local_418 (*(uint *)(_frame + (0x430 - 0x418)))
+  #define local_414 (*(uint *)(_frame + (0x430 - 0x414)))
+  #define local_410 (*(uint *)(_frame + (0x430 - 0x410)))
+  #define local_40c (*(uint *)(_frame + (0x430 - 0x40c)))
+  #define local_408 (*(uint *)(_frame + (0x430 - 0x408)))
+  #define local_404 (*(uint *)(_frame + (0x430 - 0x404)))
+  #define local_400 (*(byte (*)[1024])(_frame + (0x430 - 0x400)))
+  
+  if (param_2 == (uint *)0x0) {
+    param_2 = &local_410;
+    local_410 = 0;
+    local_40c = 0;
+    local_408 = param_1[1];
+    local_404 = param_1[2];
+  }
+  local_420 = 0;
+  local_41c = param_5[1];
+  local_418 = param_5[2];
+  uVar2 = *param_2 - param_3;
+  if (0 < (int)uVar2) {
+    local_41c = local_41c - uVar2;
+    param_3 = param_3 + uVar2;
+    local_420 = uVar2;
+  }
+  iVar3 = param_2[1] - param_4;
+  iVar1 = 0;
+  if (0 < iVar3) {
+    local_418 = local_418 - iVar3;
+    param_4 = param_4 + iVar3;
+    iVar1 = iVar3;
+  }
+  if ((int)(param_2[2] + *param_2) < (int)(local_41c + param_3)) {
+    local_41c = (param_2[2] + *param_2) - param_3;
+  }
+  iVar3 = param_2[3] + param_2[1];
+  if (iVar3 < (int)(local_418 + param_4)) {
+    local_418 = iVar3 - param_4;
+  }
+  if ((0 < (int)local_41c) && (0 < (int)local_418)) {
+    dst = (byte *)(param_3 * param_1[3] + param_4 * param_1[5] + *param_1);
+    src = (byte *)(iVar1 * param_5[5] + local_420 * param_5[3] + *param_5);
+    if (((param_5[4] == param_1[4]) && (iVar1 = param_5[8], iVar1 == param_1[8])) &&
+       (((iVar1 != 1 && (iVar1 != 2)) ||
+        ((param_5[0xc] == param_1[0xc] &&
+         ((param_5[0xd] == param_1[0xd] && (param_5[0xe] == param_1[0xe])))))))) {
+      ((code *)Video_CopyRectDstFirst)(dst,src,0,0,0,0,local_41c * param_1[3],local_418,param_1[5],param_5[5])
+      ;
+      return;
+    }
+    local_420 = local_418;
+    if ((param_7 == (byte *)0x0) && (param_5[3] == 1)) {
+      FUN_004ced70(param_5,param_1,local_400,param_6);
+      param_7 = local_400;
+    }
+    do {
+      local_420 = local_420 - 1;
+      iVar1 = VideoBitmap_ConvertPixels(src,param_5,local_41c,param_6,dst,param_1,param_7);
+      if (iVar1 != 0) {
+        return;
+      }
+      src = src + param_5[5];
+      dst = dst + param_1[5];
+    } while (local_420 != 0);
+  }
+  return;
+}
+#undef local_400
+#undef local_404
+#undef local_408
+#undef local_40c
+#undef local_410
+#undef local_414
+#undef local_418
+#undef local_41c
+#undef local_420
+
+
+/* ---- 0x004cec40  Video_FillPixels ---- */
+/* Fills a number of pixels of 1 to 4 bytes with one pixel value */
+
+void Video_FillPixels(char *param_1,int param_2,int param_3,char *param_4)
+
+{
+  char cVar1;
+  int iVar2;
+  undefined3 uVar3;
+  
+  iVar2 = *(int *)(param_2 + 0xc) + -1;
+  uVar3 = (undefined3)((uint)iVar2 >> 8);
+  switch(iVar2) {
+  case 0:
+    FUN_004d5e50(param_1,CONCAT31(uVar3,*param_4),param_3);
+    return;
+  case 1:
+    if (*param_4 == param_4[1]) {
+      FUN_004d5e50(param_1,CONCAT31(uVar3,*param_4),param_3 * 2);
+      return;
+    }
+    if (param_3 != 0) {
+      do {
+        *(undefined2 *)param_1 = *(undefined2 *)param_4;
+        param_1 = param_1 + 2;
+        param_3 = param_3 + -1;
+      } while (param_3 != 0);
+      return;
+    }
+    break;
+  case 2:
+    if ((*param_4 == param_4[1]) && (param_4[2] == param_4[1])) {
+      FUN_004d5e50(param_1,*param_4,param_3 * 3);
+      return;
+    }
+    if (param_3 != 0) {
+      do {
+        *param_1 = *param_4;
+        param_1[1] = param_4[1];
+        param_1[2] = param_4[2];
+        param_1 = param_1 + 3;
+        param_3 = param_3 + -1;
+      } while (param_3 != 0);
+      return;
+    }
+    break;
+  case 3:
+    cVar1 = param_4[1];
+    if (((*param_4 == cVar1) && (param_4[2] == cVar1)) && (param_4[3] == cVar1)) {
+      FUN_004d5e50(param_1,*param_4,param_3 * 4);
+      return;
+    }
+    for (; param_3 != 0; param_3 = param_3 + -1) {
+      *(undefined4 *)param_1 = *(undefined4 *)param_4;
+      param_1 = param_1 + 4;
+    }
+  }
+  return;
+}
 
 /* ---- 0x004cf010  Video_PixelsToRgba ---- */
 /* replaced by the hand-written version in build/overrides.c */

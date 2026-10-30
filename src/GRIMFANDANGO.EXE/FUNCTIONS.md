@@ -1,6 +1,6 @@
 # GRIMFANDANGO.EXE function index
 
-2604 functions, 2215 with real names.
+2604 functions, 2242 with real names.
 
 | address | name | module | lines |
 |---|---|---|---|
@@ -2338,29 +2338,7 @@
 | 004cbc00 | FUN_004cbc00 | crt_unnamed.c | 92 |
 | 004cbf40 | FUN_004cbf40 | crt_unnamed.c | 5 |
 | 004cbf50 | FUN_004cbf50 | crt_unnamed.c | 136 |
-| 004cc210 | FUN_004cc210 | crt_unnamed.c | 9 |
-| 004cc250 | FUN_004cc250 | crt_unnamed.c | 1 |
-| 004cc290 | FUN_004cc290 | crt_unnamed.c | 7 |
-| 004cc2c0 | FUN_004cc2c0 | crt_unnamed.c | 15 |
-| 004cc340 | FUN_004cc340 | crt_unnamed.c | 8 |
-| 004cc370 | FUN_004cc370 | crt_unnamed.c | 14 |
-| 004cc3a0 | FUN_004cc3a0 | crt_unnamed.c | 5 |
-| 004cc3c0 | FUN_004cc3c0 | crt_unnamed.c | 15 |
-| 004cc410 | FUN_004cc410 | crt_unnamed.c | 38 |
-| 004cc590 | FUN_004cc590 | crt_unnamed.c | 19 |
-| 004cc620 | FUN_004cc620 | crt_unnamed.c | 7 |
-| 004cc650 | FUN_004cc650 | crt_unnamed.c | 21 |
-| 004cc6a0 | FUN_004cc6a0 | crt_unnamed.c | 73 |
-| 004cc7d0 | FUN_004cc7d0 | crt_unnamed.c | 1 |
-| 004ccd00 | FUN_004ccd00 | crt_unnamed.c | 1 |
-| 004cd1e0 | FUN_004cd1e0 | crt_unnamed.c | 28 |
-| 004cd300 | FUN_004cd300 | crt_unnamed.c | 67 |
 | 004cd3f0 | FUN_004cd3f0 | crt_unnamed.c | 7 |
-| 004cd450 | FUN_004cd450 | crt_unnamed.c | 70 |
-| 004cd550 | FUN_004cd550 | crt_unnamed.c | 1 |
-| 004cd610 | FUN_004cd610 | crt_unnamed.c | 1 |
-| 004cd9b0 | FUN_004cd9b0 | crt_unnamed.c | 1 |
-| 004cdb80 | FUN_004cdb80 | crt_unnamed.c | 1 |
 | 004ce010 | FUN_004ce010 | crt_unnamed.c | 5 |
 | 004ce020 | FUN_004ce020 | crt_unnamed.c | 17 |
 | 004ce2e0 | FUN_004ce2e0 | crt_unnamed.c | 9 |
@@ -2370,8 +2348,6 @@
 | 004ce840 | FUN_004ce840 | crt_unnamed.c | 65 |
 | 004ce980 | FUN_004ce980 | crt_unnamed.c | 9 |
 | 004ce9b0 | FUN_004ce9b0 | crt_unnamed.c | 24 |
-| 004cea30 | FUN_004cea30 | crt_unnamed.c | 88 |
-| 004cec40 | FUN_004cec40 | crt_unnamed.c | 56 |
 | 004ced70 | FUN_004ced70 | crt_unnamed.c | 14 |
 | 004d2d70 | FUN_004d2d70 | crt_unnamed.c | 6 |
 | 004d54b4 | FUN_004d54b4 | crt_unnamed.c | 1 |
@@ -2387,9 +2363,6 @@
 | 004d5e30 | FUN_004d5e30 | crt_unnamed.c | 1 |
 | 004d5e35 | FUN_004d5e35 | crt_unnamed.c | 1 |
 | 004d5e50 | FUN_004d5e50 | crt_unnamed.c | 1 |
-| 004d5e70 | FUN_004d5e70 | crt_unnamed.c | 1 |
-| 004d5eb0 | FUN_004d5eb0 | crt_unnamed.c | 7 |
-| 004d5ed0 | FUN_004d5ed0 | crt_unnamed.c | 38 |
 | 004d5f70 | FUN_004d5f70 | crt_unnamed.c | 1 |
 | 004d5fd0 | FUN_004d5fd0 | crt_unnamed.c | 1 |
 | 004d6030 | FUN_004d6030 | crt_unnamed.c | 1 |
@@ -2532,6 +2505,28 @@
 | 004cb520 | inflate_trees_fixed | zlib.c | 1 |
 | 004cb550 | inflate_flush | zlib.c | 1 |
 | 004cb690 | inflate_fast | zlib.c | 1 |
+| 004cc210 | Blocky16_Register | blocky16.c | 12 |
+| 004cc250 | Blocky16_SetOption | blocky16.c | 1 |
+| 004cc290 | Blocky16_Unregister | blocky16.c | 9 |
+| 004cc2c0 | Blocky16_Init | blocky16.c | 18 |
+| 004cc340 | Blocky16_Shutdown | blocky16.c | 10 |
+| 004cc370 | Blocky16_GetInfoString | blocky16.c | 16 |
+| 004cc3a0 | Blocky16_GetFourCC | blocky16.c | 7 |
+| 004cc3c0 | Blocky16_Prepare | blocky16.c | 18 |
+| 004cc410 | Blocky16_AllocBuffers | blocky16.c | 42 |
+| 004cc590 | Blocky16_FreeBuffers | blocky16.c | 21 |
+| 004cc620 | Blocky16_DecodeFrameEntry | blocky16.c | 10 |
+| 004cc650 | Blocky16_GetFrameInfo | blocky16.c | 25 |
+| 004cc6a0 | Blocky16_BuildPixelOffsets | blocky16.c | 76 |
+| 004cc7d0 | Blocky16_BuildSplitMasks | blocky16.c | 1 |
+| 004ccd00 | Blocky16_DecodeFrame | blocky16.c | 1 |
+| 004cd1e0 | Blocky16_BuildExpandTable | blocky16.c | 30 |
+| 004cd300 | Blocky16_DecodeHalfRows16 | blocky16.c | 69 |
+| 004cd450 | Blocky16_DecodeHalfRows8 | blocky16.c | 73 |
+| 004cd550 | Blocky16_DecodeBlocks | blocky16.c | 1 |
+| 004cd610 | Blocky16_DecodeBlock8 | blocky16.c | 1 |
+| 004cd9b0 | Blocky16_DecodeBlock4 | blocky16.c | 1 |
+| 004cdb80 | Blocky16_DecodeBlock2 | blocky16.c | 1 |
 | 004cdc90 | InsaneTimer_Register | insanetimer.c | 1 |
 | 004cdce0 | InsaneTimer_Unregister | insanetimer.c | 1 |
 | 004cdd10 | InsaneTimer_Init | insanetimer.c | 1 |
@@ -2551,6 +2546,8 @@
 | 004ce260 | InsaneTimer_RunDeferred | insanetimer.c | 1 |
 | 004ce3e0 | VideoBitmap_Create | videobitmap.c | 1 |
 | 004cedc0 | VideoBitmap_ConvertPixels | videobitmap.c | 1 |
+| 004cea30 | Video_BlitConvert | video.c | 91 |
+| 004cec40 | Video_FillPixels | video.c | 58 |
 | 004cf010 | Video_PixelsToRgba | video.c | 1 |
 | 004cf520 | Video_PixelsFromRgba | video.c | 1 |
 | 004cfdb0 | Video_CopyRectDstFirst | video.c | 1 |
@@ -2608,3 +2605,6 @@
 | 004d2940 | DsndDriver_InitDirectSound | dsnddriver.c | 1 |
 | 004d2aa0 | DsndDriver_CreateStreamBuffer | dsnddriver.c | 1 |
 | 004d2bf0 | DsndDriver_ReleaseDirectSound | dsnddriver.c | 1 |
+| 004d5e70 | Rle_Decode | rle.c | 1 |
+| 004d5eb0 | Rle_Begin | rle.c | 9 |
+| 004d5ed0 | Rle_NextByte | rle.c | 41 |

@@ -2585,29 +2585,7 @@ undefined4 FUN_004cbbe0(int param_1); /* 0x004cbbe0 */
 undefined4 __cdecl FUN_004cbc00(uint param_1,uint param_2,uint param_3,uint param_4,uint param_5,uint *param_6); /* 0x004cbc00 */
 undefined4 FUN_004cbf40(void); /* 0x004cbf40 */
 void FUN_004cbf50(int param_1,undefined1 *param_2,uint param_3,uint param_4); /* 0x004cbf50 */
-undefined4 FUN_004cc210(int *param_1,uint param_2); /* 0x004cc210 */
-undefined4 FUN_004cc250(uint param_1); /* 0x004cc250 */
-void FUN_004cc290(void); /* 0x004cc290 */
-undefined4 FUN_004cc2c0(void); /* 0x004cc2c0 */
-void FUN_004cc340(void); /* 0x004cc340 */
-char * FUN_004cc370(int param_1); /* 0x004cc370 */
-undefined4 FUN_004cc3a0(void); /* 0x004cc3a0 */
-undefined4 FUN_004cc3c0(int param_1); /* 0x004cc3c0 */
-int FUN_004cc410(int param_1,int param_2,uint param_3); /* 0x004cc410 */
-void FUN_004cc590(void); /* 0x004cc590 */
-void FUN_004cc620(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4, undefined4 param_5,undefined4 param_6,undefined4 param_7,undefined4 param_8); /* 0x004cc620 */
-undefined4 FUN_004cc650(short *param_1,int param_2,int *param_3,int *param_4,int *param_5,int *param_6); /* 0x004cc650 */
-void FUN_004cc6a0(uint param_1); /* 0x004cc6a0 */
-void FUN_004cc7d0(int param_1); /* 0x004cc7d0 */
-undefined4 FUN_004ccd00(int param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4,undefined4 param_5 ,int param_6,byte param_7); /* 0x004ccd00 */
-void FUN_004cd1e0(void *param_1); /* 0x004cd1e0 */
-void FUN_004cd300(void *param_1,ushort *param_2,int param_3,int param_4); /* 0x004cd300 */
 int FUN_004cd3f0(uint param_1,uint param_2); /* 0x004cd3f0 */
-void FUN_004cd450(void *param_1,byte *param_2,int param_3,int param_4,int param_5); /* 0x004cd450 */
-undefined8 __fastcall FUN_004cd550(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4,int param_5 ,int param_6,int param_7,uint param_8,int param_9,int param_10,undefined4 param_11, undefined4 param_12,undefined4 param_13,uint param_14); /* 0x004cd550 */
-void FUN_004cd610(void); /* 0x004cd610 */
-void FUN_004cd9b0(void); /* 0x004cd9b0 */
-void FUN_004cdb80(void); /* 0x004cdb80 */
 uint FUN_004ce010(void); /* 0x004ce010 */
 void FUN_004ce020(int param_1); /* 0x004ce020 */
 undefined4 FUN_004ce2e0(int *param_1,uint param_2); /* 0x004ce2e0 */
@@ -2617,8 +2595,6 @@ void FUN_004ce3b0(void); /* 0x004ce3b0 */
 undefined4 FUN_004ce840(int *param_1,int param_2,int param_3,int param_4,int param_5,undefined4 param_6, undefined4 *param_7); /* 0x004ce840 */
 void FUN_004ce980(int *param_1); /* 0x004ce980 */
 void FUN_004ce9b0(undefined4 *param_1,undefined4 param_2); /* 0x004ce9b0 */
-void FUN_004cea30(int *param_1,uint *param_2,int param_3,int param_4,int *param_5,byte *param_6, byte *param_7); /* 0x004cea30 */
-void FUN_004cec40(char *param_1,int param_2,int param_3,char *param_4); /* 0x004cec40 */
 undefined4 FUN_004ced70(int param_1,void *param_2,void *param_3,byte *param_4); /* 0x004ced70 */
 void FUN_004d2d70(int *param_1); /* 0x004d2d70 */
 float10 FUN_004d54b4(void); /* 0x004d54b4 */
@@ -2634,9 +2610,6 @@ int FUN_004d5e1c(void); /* 0x004d5e1c */
 undefined4 FUN_004d5e30(void); /* 0x004d5e30 */
 undefined * __stdcall FUN_004d5e35(int a1); /* 0x004d5e35 */
 void FUN_004d5e50(undefined4 param_1,undefined4 param_2,undefined4 param_3); /* 0x004d5e50 */
-void FUN_004d5e70(undefined1 *param_1,undefined4 param_2,int param_3); /* 0x004d5e70 */
-void FUN_004d5eb0(int *param_1); /* 0x004d5eb0 */
-uint __fastcall FUN_004d5ed0(undefined4 param_1); /* 0x004d5ed0 */
 int FUN_004d5f70(void); /* 0x004d5f70 */
 undefined8 __fastcall FUN_004d5fd0(undefined4 param_1,undefined4 param_2,undefined4 *param_3,undefined1 param_4, uint param_5); /* 0x004d5fd0 */
 void FUN_004d6030(void); /* 0x004d6030 */
@@ -2798,6 +2771,30 @@ undefined4 inflate_trees_fixed(uint *param_1,uint *param_2,undefined4 *param_3,u
 int inflate_flush(int param_1,int param_2,int param_3); /* 0x004cb550 */
 undefined4 inflate_fast(int param_1,uint param_2,int param_3,int param_4,int param_5,int *param_6); /* 0x004cb690 */
 
+/* ===== blocky16.c ===== */
+undefined4 Blocky16_Register(int *param_1,uint param_2); /* 0x004cc210 */
+int __cdecl Blocky16_SetOption(int key,...); /* 0x004cc250 */
+void Blocky16_Unregister(void); /* 0x004cc290 */
+undefined4 Blocky16_Init(void); /* 0x004cc2c0 */
+void Blocky16_Shutdown(void); /* 0x004cc340 */
+char * Blocky16_GetInfoString(int param_1); /* 0x004cc370 */
+undefined4 Blocky16_GetFourCC(void); /* 0x004cc3a0 */
+undefined4 Blocky16_Prepare(int param_1); /* 0x004cc3c0 */
+int Blocky16_AllocBuffers(int param_1,int param_2,int param_3); /* 0x004cc410 */
+void Blocky16_FreeBuffers(void); /* 0x004cc590 */
+void Blocky16_DecodeFrameEntry (void *param_1,uint *param_2,int param_3,int param_4,int param_5,byte *param_6, undefined4 param_7,byte param_8); /* 0x004cc620 */
+undefined4 Blocky16_GetFrameInfo (short *param_1,int param_2,int *param_3,int *param_4,int *param_5,int *param_6); /* 0x004cc650 */
+void Blocky16_BuildPixelOffsets(uint param_1); /* 0x004cc6a0 */
+void __cdecl Blocky16_BuildSplitMasks(int size); /* 0x004cc7d0 */
+int __cdecl Blocky16_DecodeFrame(void *dst,uint *clip,int x,int y,int palette,byte *hdr,byte flags); /* 0x004ccd00 */
+void Blocky16_BuildExpandTable(void *param_1); /* 0x004cd1e0 */
+void Blocky16_DecodeHalfRows16(void *param_1,ushort *param_2,int param_3,int param_4); /* 0x004cd300 */
+void Blocky16_DecodeHalfRows8(void *param_1,byte *param_2,int param_3,int param_4,int param_5); /* 0x004cd450 */
+void __cdecl Blocky16_DecodeBlocks (byte *dst,byte *src,int prevOffset,int prev2Offset,int width,short *motion,short *colors, int height,int unused,byte *split4,byte *split8,ushort *pairColors); /* 0x004cd550 */
+byte * __cdecl Blocky16_DecodeBlock8(byte *src,byte *dst,int pitch); /* 0x004cd610 */
+byte * __cdecl Blocky16_DecodeBlock4(byte *src,byte *dst,int pitch); /* 0x004cd9b0 */
+byte * __cdecl Blocky16_DecodeBlock2(byte *src,byte *dst,int pitch); /* 0x004cdb80 */
+
 /* ===== insanetimer.c ===== */
 int __cdecl InsaneTimer_Register(int *services,uint workspaceSize); /* 0x004cdc90 */
 void InsaneTimer_Unregister(void); /* 0x004cdce0 */
@@ -2822,6 +2819,8 @@ int __cdecl VideoBitmap_Create(void *out,int width,int height,int format); /* 0x
 int __cdecl VideoBitmap_ConvertPixels (byte *src,void *srcFmt,int count,byte *palette,byte *dst,void *dstFmt,byte *expandTable); /* 0x004cedc0 */
 
 /* ===== video.c ===== */
+void Video_BlitConvert(int *param_1,uint *param_2,int param_3,int param_4,int *param_5,byte *param_6 ,byte *param_7); /* 0x004cea30 */
+void Video_FillPixels(char *param_1,int param_2,int param_3,char *param_4); /* 0x004cec40 */
 int __cdecl Video_PixelsToRgba(void *src,void *fmt,int count,byte *palette,byte *dst); /* 0x004cf010 */
 int __cdecl Video_PixelsFromRgba(void *dst,void *fmt,int count,int unused,byte *src); /* 0x004cf520 */
 void __cdecl Video_CopyRectDstFirst (byte *dst,byte *src,int dstX,uint dstY,int srcX,uint srcY,uint width,int rows, uint dstPitch,uint srcPitch); /* 0x004cfdb0 */
@@ -2885,6 +2884,11 @@ int DsndDriver_GetSampleRate(void); /* 0x004d27c0 */
 int DsndDriver_InitDirectSound(void); /* 0x004d2940 */
 void __cdecl DsndDriver_CreateStreamBuffer(int blocks); /* 0x004d2aa0 */
 void DsndDriver_ReleaseDirectSound(void); /* 0x004d2bf0 */
+
+/* ===== rle.c ===== */
+void Rle_Decode(undefined1 *param_1,undefined4 param_2,int param_3); /* 0x004d5e70 */
+void Rle_Begin(int *param_1); /* 0x004d5eb0 */
+uint __fastcall Rle_NextByte(undefined4 param_1); /* 0x004d5ed0 */
 
 /* ===== referenced, not decompiled here (thunks, imports, unknown FUN_) ===== */
 int STDCALL AnimatePalette() __asm__("_AnimatePalette@16"); /* import */
@@ -3180,7 +3184,6 @@ int lua_strlibopen(); /* import */
 int lua_tag(); /* import */
 int lua_unref(); /* import */
 int lua_updatetasks(); /* import */
-int thunk_FUN_004cc590(); /* thunk */
 int STDCALL timeGetTime() __asm__("_timeGetTime@0"); /* import */
 int wsprintfA(); /* import */
 extern int (STDCALL *SendDlgItemMessageA_exref)(); /* import address table slot */
