@@ -119,19 +119,18 @@ undefined4 PositionedSound_Apply(int param_1)
   longlong lVar6;
   float fVar7;
   #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
+  #define local_c (*(float *)(_frame + (0x30 - 0xc)))
+  #define local_8 (*(float *)(_frame + (0x30 - 0x8)))
+  #define local_4 (*(float *)(_frame + (0x30 - 0x4)))
   
   pvVar2 = Set_GetCurrent();
   if (pvVar2 != (void *)0x0) {
-    local_c = (uint)(*(float *)(param_1 + 8) -
-                    *(float *)(*(int *)((int)pvVar2 + 0xac) + 0x20 +
-                              *(int *)((int)pvVar2 + 0xb4) * 300));
+    local_c = *(float *)(param_1 + 8) -
+              *(float *)(*(int *)((int)pvVar2 + 0xac) + 0x20 + *(int *)((int)pvVar2 + 0xb4) * 300);
     iVar1 = *(int *)((int)pvVar2 + 0xac) + 0x20 + *(int *)((int)pvVar2 + 0xb4) * 300;
-    local_8 = (uint)(*(float *)(param_1 + 0xc) - *(float *)(iVar1 + 4));
-    local_4 = (uint)(*(float *)(param_1 + 0x10) - *(float *)(iVar1 + 8));
-    fVar7 = Vec3_NormalizeApprox((float *)&local_c);
+    local_8 = *(float *)(param_1 + 0xc) - *(float *)(iVar1 + 4);
+    local_4 = *(float *)(param_1 + 0x10) - *(float *)(iVar1 + 8);
+    fVar7 = Vec3_NormalizeApprox(&local_c);
     if (0.0 <= fVar7 - *(float *)(param_1 + 0x20)) {
       uVar5 = *(uint *)(param_1 + 0x18);
       uVar4 = *(uint *)(param_1 + 0x14);
@@ -140,14 +139,14 @@ undefined4 PositionedSound_Apply(int param_1)
       if ((uVar4 <= uVar3) && (uVar4 = uVar3, uVar5 < uVar3)) {
         uVar4 = uVar5;
       }
-      SoundsSetParam(*(undefined4 *)(param_1 + 4),0x600,uVar4);
+      SoundsSetParam(*(int *)(param_1 + 4),0x600,uVar4);
     }
     lVar6 = _ftol((double)CONCAT44(unaff_ESI,unaff_EBP));
     uVar5 = (uint)lVar6;
     if (0x7f < uVar5) {
       uVar5 = 0x7f;
     }
-    SoundsSetParam(*(undefined4 *)(param_1 + 4),0x700,uVar5);
+    SoundsSetParam(*(int *)(param_1 + 4),0x700,uVar5);
     return 1;
   }
   return 0;

@@ -25,35 +25,31 @@ void * __cdecl MaterialComponent_NewInstance(void *cosInst,int componentIdx,int 
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  undefined4 uVar1;
-  undefined4 *puVar2;
+  int iVar1;
+  int *piVar2;
   #define auStack_4 (*(undefined1 (*)[4])(_frame + (0x20 - 0x4)))
   
   if (create == 0) {
-    uVar1 = Cos_InstGetInstanceData(cosInst,componentIdx,0);
-    (*g_pSvcCostume->pFree)(uVar1);
+    iVar1 = Cos_InstGetInstanceData((int)cosInst,componentIdx,(int *)0x0);
+    (*g_pSvcCostume->pFree)(iVar1);
     return (void *)0x0;
   }
-  puVar2 = (undefined4 *)
-           (*g_pSvcCostume->pAlloc)(0xc,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0x9a1);
-  Cos_InstComponentInfo(cosInst,componentIdx,auStack_4,puVar2 + 1,&create);
-  uVar1 = Cos_InstGetInstanceData(cosInst,create,0);
-  *puVar2 = uVar1;
-  puVar2[2] = 0;
-  return puVar2;
+  piVar2 = (int *)(*g_pSvcCostume->pAlloc)(0xc,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0x9a1);
+  Cos_InstComponentInfo((int)cosInst,componentIdx,(int)auStack_4,(int)(piVar2 + 1),(int)&create);
+  iVar1 = Cos_InstGetInstanceData((int)cosInst,create,(int *)0x0);
+  *piVar2 = iVar1;
+  piVar2[2] = 0;
+  return piVar2;
 }
 #undef auStack_4
 
 
 /* ---- 0x00496670  MaterialComponent_Create ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Costume tag handler for 'RDroid Animated Material' (registered by sputCostume_Start through
    Cos_NewStateBasedTag/Cos_NewIntTag): slot 1, parses a key or asks for a .mat file ('Select mat
    file to animate...') for a model/sprite component. */
 
-bool MaterialComponent_Create
-               (undefined4 param_1,undefined4 param_2,int *param_3,int param_4,char *param_5)
+bool MaterialComponent_Create(uint param_1,int param_2,int *param_3,int param_4,char *param_5)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -142,7 +138,8 @@ bool MaterialComponent_Create
     if (param_5 == (char *)0x0) {
       param_5 = pcStack_18;
     }
-    iVar5 = Cos_RegisterComponent(param_1,param_5,uStack_1c,param_2,param_3,param_4,&local_14);
+    iVar5 = Cos_RegisterComponent
+                      (param_1,(int)param_5,uStack_1c,param_2,(int)param_3,param_4,(int)&local_14);
     return iVar5 != 0;
   }
   return false;
@@ -154,6 +151,4 @@ bool MaterialComponent_Create
 #undef local_c
 #undef pcStack_18
 #undef uStack_1c
-
-#endif
 

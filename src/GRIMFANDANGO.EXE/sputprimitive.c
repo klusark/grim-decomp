@@ -27,7 +27,7 @@ undefined4 sputPrimitive_Initialize(undefined4 param_1,undefined4 *param_2)
 }
 
 /* ---- 0x00489600  sputPrimitive_SaveState ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Module interface slot 4 (sputPrimitive): save-game writer, calls the SaveGame_Write callback it
    is handed for every field. */
@@ -67,7 +67,7 @@ undefined4 sputPrimitive_SaveState(code *param_1)
 
 
 /* ---- 0x004896b0  sputPrimitive_RestoreState ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Module interface slot 5 (sputPrimitive): save-game reader, calls the SaveGame_Read callback it is
    handed; returns non-zero on a short read. */
@@ -136,8 +136,6 @@ undefined4 sputPrimitive_RestoreState(code *param_1)
 
 
 /* ---- 0x004897d0  sputPrimitive_Terminate ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Module interface slot 1 (sputPrimitive): called by Engine_ResetSubsystems / when registration
    fails; drops the service table pointer and clears the initialised flag. */
@@ -151,12 +149,8 @@ void sputPrimitive_Terminate(void)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x004897f0  sputPrimitive_Start ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Module interface slot 2 (sputPrimitive): called by Engine_InitSubsystems, returns 0 on success
    (non-zero makes the whole start-up unwind). _Start registers the DrawLine/DrawPolygon/... Lua
    table, _Stop clears the primitive list. */
@@ -171,12 +165,8 @@ undefined4 sputPrimitive_Start(void)
   UINT_008ca0ac = 1;
   return 0;
 }
-#endif
-
 
 /* ---- 0x00489820  sputPrimitive_Stop ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Module interface slot 3 (sputPrimitive): called by Engine_ShutdownSubsystems in reverse order;
    releases what _Start created. */
 
@@ -187,5 +177,3 @@ void sputPrimitive_Stop(void)
   UINT_008ca0ac = 0;
   return;
 }
-#endif
-

@@ -205,6 +205,7 @@ extern void ** g_pOnExitEnd; /* 0x00906c10 */
 extern void ** g_pOnExitBegin; /* 0x00906c14 */
 
 /* ---- unnamed data (type inferred from use) ---- */
+extern undefined4 in_stack_00000008; /* used by 1 fn(s), first 0x00498ea0 */
 extern undefined4 in_stack_00000010; /* used by 1 fn(s), first 0x004ac720 */
 extern undefined DAT_004891a0; /* used by 1 fn(s), first 0x00488fb0 */
 extern code LAB_004af680;  /* code label (address only) */ /* used by 2 fn(s), first 0x004af6a2 */
@@ -605,7 +606,6 @@ extern char s_color_004e8468[]; /* used by 1 fn(s), first 0x004a31f0 */
 extern undefined4 UINT_004e8480; /* used by 1 fn(s), first 0x0048b830 */
 extern undefined4 UINT_004e8484; /* used by 1 fn(s), first 0x0048b830 */
 extern undefined4 UINT_004e8490; /* used by 1 fn(s), first 0x0048b2e0 */
-extern undefined4 UINT_004e8494; /* used by 1 fn(s), first 0x0048b2e0 */
 extern undefined4 UINT_004e84a0; /* used by 3 fn(s), first 0x0048c500 */
 extern undefined4 UINT_004e84d0; /* used by 3 fn(s), first 0x0048c500 */
 extern undefined4 UINT_004e8500; /* used by 3 fn(s), first 0x0048c500 */
@@ -646,15 +646,9 @@ extern char s__s_imc_004e9edc[]; /* used by 1 fn(s), first 0x00492b30 */
 extern char s__s_wav_004e9ee4[]; /* used by 1 fn(s), first 0x00492b30 */
 extern char s__s_wvc_004e9eec[]; /* used by 1 fn(s), first 0x00492b30 */
 extern undefined DAT_004e9ef8; /* used by 1 fn(s), first 0x00496930 */
-extern undefined DAT_004e9f08; /* used by 1 fn(s), first 0x00496b60 */
-extern undefined DAT_004e9f20; /* used by 1 fn(s), first 0x00496460 */
 extern undefined DAT_004e9f38; /* used by 1 fn(s), first 0x00496d40 */
-extern undefined DAT_004e9f48; /* used by 1 fn(s), first 0x00496e20 */
 extern undefined DAT_004e9f60; /* used by 1 fn(s), first 0x00497890 */
-extern undefined DAT_004e9fe0; /* used by 1 fn(s), first 0x00497e10 */
 extern undefined DAT_004e9ff8; /* used by 1 fn(s), first 0x004971a0 */
-extern undefined DAT_004ea018; /* used by 1 fn(s), first 0x00497460 */
-extern undefined DAT_004ea040; /* used by 1 fn(s), first 0x00498190 */
 extern undefined *PTR_s_GetKeyLength_004ea058; /* used by 1 fn(s), first 0x004959a0 */
 extern undefined4 UINT_004ea068; /* used by 1 fn(s), first 0x004959a0 */
 extern char s_shadow_cmp_004ea190[]; /* used by 2 fn(s), first 0x00494890 */
@@ -676,21 +670,8 @@ extern char s_ColormapPath_004ea260[]; /* used by 2 fn(s), first 0x004959a0 */
 extern char s_Colormaps_004ea270[]; /* used by 1 fn(s), first 0x004959a0 */
 extern char s_KeyframePath_004ea27c[]; /* used by 2 fn(s), first 0x004959a0 */
 extern char s_Animation_004ea28c[]; /* used by 1 fn(s), first 0x004959a0 */
-extern char s_Lua_Variable_004ea298[]; /* used by 1 fn(s), first 0x004959a0 */
-extern char s_iMuse_State_004ea2a8[]; /* used by 2 fn(s), first 0x004959a0 */
-extern char s_iMuse_Sequence_004ea2b4[]; /* used by 2 fn(s), first 0x004959a0 */
-extern char s_Sprite_004ea2c4[]; /* used by 1 fn(s), first 0x004959a0 */
-extern char s_Smush_Movie_004ea2cc[]; /* used by 1 fn(s), first 0x004959a0 */
-extern char s_iMuse_Resident_Sound_FX_004ea2d8[]; /* used by 1 fn(s), first 0x004959a0 */
-extern char s_iMuse_Streamed_Sound_FX_004ea2f0[]; /* used by 1 fn(s), first 0x004959a0 */
-extern char s_Animation__old_use_Bitmap__004ea308[]; /* used by 1 fn(s), first 0x004959a0 */
-extern char s_General_Bitmap_004ea324[]; /* used by 1 fn(s), first 0x004959a0 */
-extern char s_RDroid_Keyframe___KEY__004ea334[]; /* used by 1 fn(s), first 0x004959a0 */
-extern char s_RDroid_Animated_Material_004ea34c[]; /* used by 1 fn(s), first 0x004959a0 */
-extern char s_RDroid_Thing_Mesh_004ea368[]; /* used by 1 fn(s), first 0x004959a0 */
-extern char s_RDroid_Colormap_004ea37c[]; /* used by 1 fn(s), first 0x004959a0 */
-extern char s_RDroid_Thing___3DO__004ea38c[]; /* used by 1 fn(s), first 0x004959a0 */
-extern char s_MAIN_RDroid_Thing___3DO__004ea3a0[]; /* used by 1 fn(s), first 0x004959a0 */
+extern char s_iMuse_State_004ea2a8[]; /* used by 1 fn(s), first 0x00497840 */
+extern char s_iMuse_Sequence_004ea2b4[]; /* used by 1 fn(s), first 0x00497840 */
 extern char s__s__s____d_004ea3bc[]; /* used by 1 fn(s), first 0x00495e90 */
 extern char s_____s_004ea3cc[]; /* used by 1 fn(s), first 0x00495e90 */
 extern char s____Chore_numbering_for__s__004ea3d4[]; /* used by 1 fn(s), first 0x00495e90 */
@@ -736,7 +717,6 @@ extern undefined DAT_004ea86c; /* used by 1 fn(s), first 0x004986e0 */
 extern undefined DAT_004ea870; /* used by 1 fn(s), first 0x004986e0 */
 extern char s_Height_004ea874[]; /* used by 1 fn(s), first 0x004986e0 */
 extern char s_Width_004ea87c[]; /* used by 1 fn(s), first 0x004986e0 */
-extern undefined *PTR_s_concatfallback_004ea890; /* used by 1 fn(s), first 0x0049de00 */
 extern undefined *PTR_s_EnginePause_004ea8b0; /* used by 1 fn(s), first 0x0049de00 */
 extern undefined4 UINT_004eb168; /* used by 1 fn(s), first 0x0049de00 */
 extern char s_count_004ec384[]; /* used by 3 fn(s), first 0x00499ff0 */
@@ -1168,7 +1148,6 @@ extern char s_BITMAP_insane_004f3cdc[]; /* used by 2 fn(s), first 0x004ce2e0 */
 extern char s_LECMODULE_insane_bitmap_004f3cec[]; /* used by 2 fn(s), first 0x004ce2e0 */
 extern char s_Video_Module__Cannot_allocate_me_004f3d04[]; /* used by 1 fn(s), first 0x004ce350 */
 extern char s_VIDEO_getbm_004f3d34[]; /* used by 1 fn(s), first 0x004ce350 */
-extern char s__s__line__s__Type__d_not_support_004f3d40[]; /* used by 1 fn(s), first 0x004ce3e0 */
 extern char s_C__grimsrc_libs_lecsmush_insane__004f3d64[]; /* used by 3 fn(s), first 0x004ce3e0 */
 extern undefined DAT_004f3da0; /* used by 2 fn(s), first 0x004cf010 */
 extern undefined *PTR_FUN_004f3dc8; /* used by 1 fn(s), first 0x004d0300 */
@@ -1788,7 +1767,7 @@ extern undefined DAT_008c9fc4; /* used by 1 fn(s), first 0x00489190 */
 extern undefined DAT_008c9ff8; /* used by 1 fn(s), first 0x004892a0 */
 extern undefined DAT_008ca080; /* used by 1 fn(s), first 0x00488fb0 */
 extern undefined DAT_008ca098; /* used by 1 fn(s), first 0x004891b0 */
-extern undefined4 UINT_008ca0a0; /* used by 12 fn(s), first 0x00489520 */
+extern undefined4 UINT_008ca0a0; /* used by 13 fn(s), first 0x00489520 */
 extern undefined4 UINT_008ca0a8; /* used by 2 fn(s), first 0x00489580 */
 extern undefined4 UINT_008ca0ac; /* used by 2 fn(s), first 0x004897f0 */
 extern undefined DAT_008ca0b0; /* used by 2 fn(s), first 0x00489580 */
@@ -2284,7 +2263,7 @@ extern undefined4 UINT_008db1ec; /* used by 3 fn(s), first 0x004d0a80 */
 extern undefined4 UINT_008db1f0; /* used by 3 fn(s), first 0x004d0550 */
 extern undefined4 UINT_008db1f8; /* used by 2 fn(s), first 0x004d1690 */
 extern undefined DAT_008db200; /* used by 1 fn(s), first 0x004d2340 */
-extern undefined4 UINT_008db208; /* used by 4 fn(s), first 0x004d24b0 */
+extern undefined4 UINT_008db208; /* used by 3 fn(s), first 0x004d24b0 */
 extern undefined DAT_008db20c; /* used by 1 fn(s), first 0x004d2420 */
 extern undefined4 UINT_008db210; /* used by 1 fn(s), first 0x004d2630 */
 extern undefined DAT_008db214; /* used by 1 fn(s), first 0x004d2630 */
@@ -2329,7 +2308,7 @@ extern undefined DAT_008dcdc0; /* used by 1 fn(s), first 0x004d5ed0 */
 extern int * PTR_008dcdc4; /* used by 2 fn(s), first 0x004d5eb0 */
 extern undefined DAT_008dcdc8; /* used by 1 fn(s), first 0x004d5f70 */
 extern undefined4 UINT_008ddd68; /* used by 1 fn(s), first 0x004d5f70 */
-extern undefined4 UINT_008ddd6c; /* used by 1 fn(s), first 0x004d5f70 */
+extern uint UINT_008ddd6c; /* used by 1 fn(s), first 0x004d5f70 */
 extern undefined DAT_008ddd80; /* used by 1 fn(s), first 0x004012b0 */
 extern undefined4 UINT_008ddd84; /* used by 1 fn(s), first 0x00401950 */
 extern undefined4 UINT_008ddd88; /* used by 1 fn(s), first 0x004012b0 */

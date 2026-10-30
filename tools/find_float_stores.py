@@ -19,6 +19,7 @@ hdr = open(os.path.join(ROOT, "src", prog, "functions.h"), encoding="utf-8").rea
 for m in re.finditer(r"^(?:float|double)\s+(?:__\w+\s+)?\*?(\w+)\(", hdr, re.M):
     FRET.add(m.group(1))
 total = 0
+gfptrs = set(re.findall(r"extern (?:float|double) \*+ ?(\w+);", open(os.path.join(ROOT, "src", prog, "globals.h"), encoding="utf-8").read()))
 for f in sorted(glob.glob(os.path.join(ROOT, "src", prog, "*.c"))):
     base = os.path.basename(f)
     s = open(f, encoding="utf-8").read()
@@ -28,6 +29,7 @@ for f in sorted(glob.glob(os.path.join(ROOT, "src", prog, "*.c"))):
         if addr in asm:
             continue
         fl = set(re.findall(r"\b(?:float|double)\s+(\w+);", body))
+        fptrs = set(re.findall(r"\b(?:float|double)\s*\*+\s*(\w+)\s*[;,)]", body))
         hits = []
         for line in body.splitlines():
             m = re.match(r"\s*(.+?)\s=\s(\w+)(\(.*)?;\s*$", line)
@@ -38,6 +40,10 @@ for f in sorted(glob.glob(os.path.join(ROOT, "src", prog, "*.c"))):
             if not isf:
                 continue
             if lhs in fl or re.search(r"\((?:float|double) ?\*\)", lhs):
+                continue
+            # `*p = f`, `p[i] = f` with p declared float */double * (locally or as a global) is a plain float store
+            mp = re.match(r"\*?\(?(\w+?)(?:\[[^\]]*\])?\)?$", lhs)
+            if mp and (mp.group(1) in fptrs or mp.group(1) in gfptrs):
                 continue
             hits.append(line.strip())
         if hits:

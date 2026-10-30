@@ -6,8 +6,6 @@
 #include "functions.h"
 
 /* ---- 0x00486250  DrawList_Reset ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void DrawList_Reset(void)
 
 {
@@ -24,12 +22,8 @@ void DrawList_Reset(void)
   } while ((int)puVar1 < IMG_ADDR(0x008a92a8));
   return;
 }
-#endif
-
 
 /* ---- 0x00486280  DrawList_Alloc ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Returns the next of 128 draw-list entries or NULL */
 
 undefined * DrawList_Alloc(void)
@@ -44,12 +38,8 @@ undefined * DrawList_Alloc(void)
   }
   return (undefined *)0x0;
 }
-#endif
-
 
 /* ---- 0x004862b0  FUN_004862b0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 undefined4 FUN_004862b0(int *param_1,int *param_2)
 
 {
@@ -58,5 +48,3 @@ undefined4 FUN_004862b0(int *param_1,int *param_2)
   }
   return 0;
 }
-#endif
-

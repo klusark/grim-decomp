@@ -124,7 +124,7 @@ undefined4 stdFile_Printf(undefined4 param_1,char *param_2)
 }
 
 /* ---- 0x004735f0  stdFile_ReadByte ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 uint stdFile_ReadByte(uint param_1)
 
@@ -136,7 +136,7 @@ uint stdFile_ReadByte(uint param_1)
 
 
 /* ---- 0x00473610  stdFile_WriteByte ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 void stdFile_WriteByte(undefined4 param_1,undefined4 param_2)
 

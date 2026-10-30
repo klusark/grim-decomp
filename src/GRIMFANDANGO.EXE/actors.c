@@ -6,8 +6,6 @@
 #include "functions.h"
 
 /* ---- 0x0048e240  Actors_FreeAllCostumes ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Lua NukeResources: drops every actor's costume list */
 
 void Actors_FreeAllCostumes(void)
@@ -39,12 +37,8 @@ void Actors_FreeAllCostumes(void)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x0048fcc0  Actors_UpdateTalking ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Advances lip sync for the four actors in g_pTalkingActors */
 
 void __cdecl Actors_UpdateTalking(float dt)
@@ -61,12 +55,8 @@ void __cdecl Actors_UpdateTalking(float dt)
   } while ((int)ppvVar1 < IMG_ADDR(0x008ca320));
   return;
 }
-#endif
-
 
 /* ---- 0x0048fcf0  Actors_UpdateAll ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Per-frame update of every actor in the current set: talking, movement, collision */
 
 void __cdecl Actors_UpdateAll(float dt)
@@ -101,5 +91,3 @@ void __cdecl Actors_UpdateAll(float dt)
   }
   return;
 }
-#endif
-

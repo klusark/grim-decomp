@@ -6,8 +6,6 @@
 #include "functions.h"
 
 /* ---- 0x00451460  rdLight_Init ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Defaults: type 2, on, white (0xffffff), intensity 1.0 */
 
 undefined4 rdLight_Init(int param_1)
@@ -26,12 +24,13 @@ undefined4 rdLight_Init(int param_1)
   *(undefined4 *)(param_1 + 0x2c) = 0;
   return 1;
 }
-#endif
-
 
 /* ---- 0x004514a0  rdLight_SetAngles ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
+/* inner (umbra, degrees) -> +0x20, cos +0x24; outer (penumbra) -> +0x28, cos +0x2c; +0x30 =
+   1/(cosInner - cosOuter) only when positive, else left as is (0 from the set load memset => hard
+   edge at the penumbra). Called by Set_LoadResources with the raw set values (half angles, not
+   halved). */
+
 void __cdecl rdLight_SetAngles(void *light,float inner,float outer)
 
 {
@@ -52,16 +51,21 @@ void __cdecl rdLight_SetAngles(void *light,float inner,float outer)
 }
 #undef local_4
 
-#endif
-
 
 /* ---- 0x00451510  rdLight_CalcVertexIntensities ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
-/* Blends keyframe node transforms into the puppet's output matrices (returns the weight) */
+/* Per-vertex light level (monochrome, light colour unused). out[v] = base[v] + sum over lights,
+   clamped to <= 1 after each light (stops at 1). Returns the mean.
+   Lights culled when dist >= light+0x34 (= intensity / 0.2). k = camera+0x45c = 0.2
+   (rdCamera_Init).
+   type 0/1 direct: I * dot(n, -dir) if > 0.
+   type 2 omni: (I - k*dist) * dot(n, L) if > 0.
+   type 3 spot: c = dot(-dir, L); if c > cosOuter(+0x2c): I' = I, or I * (1 - (cosInner(+0x24) - c)
+   * invRange(+0x30)) when c < cosInner; adds (I' - k*dist) * dot(n, -dir) UNCLAMPED (uses the spot
+   axis, not L).
+   L = normalised light pos - vertex (model space), -dir = negated beam direction. */
 
 float __cdecl
-rdKeyframe_Interpolate
+rdLight_CalcVertexIntensities
           (int *param_1,float *param_2,int param_3,uint param_4,int *param_5,uint param_6,
           float *param_7,float *param_8,uint param_9,float param_10)
 
@@ -76,16 +80,12 @@ rdKeyframe_Interpolate
   float *pfVar7;
   float fVar8;
   #define local_2c (*(uint *)(_frame + (0x40 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x40 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x40 - 0x20)))
+  #define local_28 (*(float (*)[3])(_frame + (0x40 - 0x28)))
   #define local_1c (*(uint *)(_frame + (0x40 - 0x1c)))
   #define local_18 (*(uint *)(_frame + (0x40 - 0x18)))
-  #define local_c (*(uint *)(_frame + (0x40 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x40 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x40 - 0x4)))
+  #define local_c (*(float (*)[3])(_frame + (0x40 - 0xc)))
   
-  local_28 = 0;
+  local_28[0] = 0.0;
   if (param_9 != 0) {
     local_2c = param_6;
     iVar5 = param_6 - (int)param_5;
@@ -93,7 +93,7 @@ rdKeyframe_Interpolate
     pfVar7 = (float *)(param_5 + 2);
     local_1c = param_9;
     do {
-      local_24 = 0;
+      local_28[1] = 0.0;
       *param_8 = *(float *)(iVar4 + (int)param_8);
       if (param_4 != 0) {
         param_5 = param_1;
@@ -105,13 +105,12 @@ rdKeyframe_Interpolate
             fVar3 = 0.0;
           }
           else {
-            local_c = (uint)(*param_7 - *(float *)local_2c);
-            local_8 = (uint)(*(float *)(((int)param_2 - param_3) + -4 + (int)pfVar6) -
-                            *(float *)(iVar5 + -4 + (int)pfVar7));
-            local_4 = (uint)(*(float *)(((int)param_2 - param_3) + (int)pfVar6) -
-                            *(float *)(iVar5 + (int)pfVar7));
-            fVar3 = (float)local_4 * (float)local_4 +
-                    (float)local_8 * (float)local_8 + (float)local_c * (float)local_c;
+            local_c[0] = *param_7 - *(float *)local_2c;
+            local_c[1] = *(float *)(((int)param_2 - param_3) + -4 + (int)pfVar6) -
+                         *(float *)(iVar5 + -4 + (int)pfVar7);
+            local_c[2] = *(float *)(((int)param_2 - param_3) + (int)pfVar6) -
+                         *(float *)(iVar5 + (int)pfVar7);
+            fVar3 = local_c[2] * local_c[2] + local_c[1] * local_c[1] + local_c[0] * local_c[0];
           }
           if (fVar3 < *(float *)(iVar2 + 0x34) * *(float *)(iVar2 + 0x34)) {
             switch(*(undefined4 *)(iVar2 + 4)) {
@@ -125,18 +124,16 @@ LAB_0045173f:
               }
               break;
             case 2:
-              fVar8 = Vec3_Normalize((float *)&local_c);
-              fVar3 = *pfVar7 * (float)local_4 +
-                      pfVar7[-1] * (float)local_8 + pfVar7[-2] * (float)local_c;
+              fVar8 = Vec3_Normalize(local_c);
+              fVar3 = *pfVar7 * local_c[2] + pfVar7[-1] * local_c[1] + pfVar7[-2] * local_c[0];
               if (0.0 < fVar3) {
                 fVar3 = (*(float *)(iVar2 + 0x18) - fVar8 * param_10) * fVar3;
                 goto LAB_0045173f;
               }
               break;
             case 3:
-              fVar8 = Vec3_Normalize((float *)&local_c);
-              fVar3 = *pfVar6 * (float)local_4 +
-                      pfVar6[-2] * (float)local_c + pfVar6[-1] * (float)local_8;
+              fVar8 = Vec3_Normalize(local_c);
+              fVar3 = *pfVar6 * local_c[2] + pfVar6[-2] * local_c[0] + pfVar6[-1] * local_c[1];
               if (*(float *)(iVar2 + 0x2c) < fVar3) {
                 fVar1 = *(float *)(iVar2 + 0x18);
                 if (fVar3 < *(float *)(iVar2 + 0x24)) {
@@ -154,29 +151,23 @@ LAB_0045173f:
           }
           if (*param_8 == 1.0) break;
           param_5 = param_5 + 1;
-          local_24 = local_24 + 1;
+          local_28[1] = (float)((int)local_28[1] + 1);
           param_7 = param_7 + 3;
           pfVar6 = pfVar6 + 3;
-        } while (local_24 < param_4);
+        } while ((uint)local_28[1] < param_4);
       }
       pfVar7 = pfVar7 + 3;
-      local_28 = (uint)((float)local_28 + *param_8);
+      local_28[0] = local_28[0] + *param_8;
       local_2c = local_2c + 0xc;
       param_8 = param_8 + 1;
       local_1c = local_1c - 1;
     } while (local_1c != 0);
   }
-  return (float)local_28 / (float)param_9;
+  return local_28[0] / (float)param_9;
 }
 #undef local_18
 #undef local_1c
-#undef local_20
-#undef local_24
 #undef local_28
 #undef local_2c
-#undef local_4
-#undef local_8
 #undef local_c
-
-#endif
 

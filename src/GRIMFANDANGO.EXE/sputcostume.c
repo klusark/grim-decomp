@@ -23,14 +23,12 @@ bool sputCostume_Initialize(GrimServices *param_1,undefined4 *param_2)
   param_2[5] = 0;
   param_2[6] = 0;
   param_2[7] = 0;
-  iVar1 = Cos_Initialize(param_1,&DAT_008ca770);
+  iVar1 = Cos_Initialize((int)param_1,(int *)&DAT_008ca770);
   UINT_008ca798 = (uint)(iVar1 == 0);
   return iVar1 != 0;
 }
 
 /* ---- 0x00495960  sputCostume_Terminate ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Module interface slot 1 (sputCostume): called by Engine_ResetSubsystems / when registration
    fails; drops the service table pointer and clears the initialised flag. */
 
@@ -47,12 +45,8 @@ void sputCostume_Terminate(void)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x004959a0  sputCostume_Start ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Module interface slot 2 (sputCostume): called by Engine_InitSubsystems, returns 0 on success
    (non-zero makes the whole start-up unwind).  */
 
@@ -90,8 +84,8 @@ undefined4 sputCostume_Start(void)
   local_38[3] = ModelComponent_Stop;
   local_38[4] = ModelComponent_EditParentOffset;
   local_38[5] = ModelComponent_NewInstance;
-  Cos_NewStateBasedTag(0x4c444d4d,s_MAIN_RDroid_Thing___3DO__004ea3a0,0,local_38,2);
-  Cos_NewStateBasedTag(0x4c444f4d,s_RDroid_Thing___3DO__004ea38c,0,local_38,2);
+  Cos_NewStateBasedTag(0x4c444d4d,IMG_ADDR(0x004ea3a0),0,(int *)local_38,2);
+  Cos_NewStateBasedTag(0x4c444f4d,IMG_ADDR(0x004ea38c),0,(int *)local_38,2);
   ppcVar2 = local_38;
   for (iVar1 = 7; iVar1 != 0; iVar1 = iVar1 + -1) {
     *ppcVar2 = (code *)0x0;
@@ -103,7 +97,7 @@ undefined4 sputCostume_Start(void)
   local_38[3] = (code *)0x0;
   local_38[4] = (code *)0x0;
   local_38[5] = CmapComponent_NewInstance;
-  Cos_NewStateBasedTag(0x70616d63,s_RDroid_Colormap_004ea37c,0,local_38,2);
+  Cos_NewStateBasedTag(0x70616d63,IMG_ADDR(0x004ea37c),0,(int *)local_38,2);
   ppcVar2 = local_38;
   for (iVar1 = 7; iVar1 != 0; iVar1 = iVar1 + -1) {
     *ppcVar2 = (code *)0x0;
@@ -115,7 +109,7 @@ undefined4 sputCostume_Start(void)
   local_38[3] = MeshComponent_Stop;
   local_38[5] = MeshComponent_NewInstance;
   local_38[4] = FUN_00497180;
-  Cos_NewStateBasedTag(0x4853454d,s_RDroid_Thing_Mesh_004ea368,0,local_38,2);
+  Cos_NewStateBasedTag(0x4853454d,IMG_ADDR(0x004ea368),0,(int *)local_38,2);
   ppcVar2 = local_38;
   for (iVar1 = 7; iVar1 != 0; iVar1 = iVar1 + -1) {
     *ppcVar2 = (code *)0x0;
@@ -127,7 +121,7 @@ undefined4 sputCostume_Start(void)
   local_38[3] = (code *)0x0;
   local_38[5] = MaterialComponent_NewInstance;
   local_38[6] = FUN_004965b0;
-  Cos_NewStateBasedTag(0x2054414d,s_RDroid_Animated_Material_004ea34c,0,local_38,2);
+  Cos_NewStateBasedTag(0x2054414d,IMG_ADDR(0x004ea34c),0,(int *)local_38,2);
   ppcVar2 = local_38;
   for (iVar1 = 7; iVar1 != 0; iVar1 = iVar1 + -1) {
     *ppcVar2 = (code *)0x0;
@@ -140,7 +134,7 @@ undefined4 sputCostume_Start(void)
   local_38[4] = KeyframeComponent_EditKey;
   local_38[5] = KeyframeComponent_NewInstance;
   local_38[6] = (code *)0x0;
-  Cos_NewStateBasedTag(0x4659454b,s_RDroid_Keyframe___KEY__004ea334,0,local_38,2);
+  Cos_NewStateBasedTag(0x4659454b,IMG_ADDR(0x004ea334),0,(int *)local_38,2);
   ppcVar2 = local_38;
   for (iVar1 = 7; iVar1 != 0; iVar1 = iVar1 + -1) {
     *ppcVar2 = (code *)0x0;
@@ -152,8 +146,8 @@ undefined4 sputCostume_Start(void)
   local_38[3] = (code *)0x0;
   local_38[4] = (code *)0x0;
   local_38[5] = (code *)0x0;
-  Cos_NewStateBasedTag(0x444e4b42,s_General_Bitmap_004ea324,0,local_38,1);
-  Cos_NewStateBasedTag(0x6d696e61,s_Animation__old_use_Bitmap__004ea308,0,local_38,1);
+  Cos_NewStateBasedTag(0x444e4b42,IMG_ADDR(0x004ea324),0,(int *)local_38,1);
+  Cos_NewStateBasedTag(0x6d696e61,IMG_ADDR(0x004ea308),0,(int *)local_38,1);
   ppcVar2 = local_38;
   for (iVar1 = 7; iVar1 != 0; iVar1 = iVar1 + -1) {
     *ppcVar2 = (code *)0x0;
@@ -164,8 +158,8 @@ undefined4 sputCostume_Start(void)
   local_38[2] = ImuseSoundComponent_Destroy;
   local_38[3] = ImuseSoundComponent_Stop;
   local_38[4] = ImuseSoundComponent_EditKey;
-  Cos_NewStateBasedTag(0x73736d69,s_iMuse_Streamed_Sound_FX_004ea2f0,0,local_38,2);
-  Cos_NewStateBasedTag(0x736c6d69,s_iMuse_Resident_Sound_FX_004ea2d8,0,local_38,2);
+  Cos_NewStateBasedTag(0x73736d69,IMG_ADDR(0x004ea2f0),0,(int *)local_38,2);
+  Cos_NewStateBasedTag(0x736c6d69,IMG_ADDR(0x004ea2d8),0,(int *)local_38,2);
   ppcVar2 = local_38;
   for (iVar1 = 7; iVar1 != 0; iVar1 = iVar1 + -1) {
     *ppcVar2 = (code *)0x0;
@@ -177,7 +171,7 @@ undefined4 sputCostume_Start(void)
   local_38[3] = (code *)0x0;
   local_38[4] = (code *)0x0;
   local_38[6] = CostumeTag_Nop;
-  Cos_NewStateBasedTag(0x534d5348,s_Smush_Movie_004ea2cc,0,local_38,2);
+  Cos_NewStateBasedTag(0x534d5348,IMG_ADDR(0x004ea2cc),0,(int *)local_38,2);
   ppcVar2 = local_38;
   for (iVar1 = 7; iVar1 != 0; iVar1 = iVar1 + -1) {
     *ppcVar2 = (code *)0x0;
@@ -189,22 +183,22 @@ undefined4 sputCostume_Start(void)
   local_38[3] = (code *)0x0;
   local_38[4] = SpriteComponent_EditKey;
   local_38[5] = FUN_004985c0;
-  Cos_NewStateBasedTag(0x74727073,s_Sprite_004ea2c4,0,local_38,2);
+  Cos_NewStateBasedTag(0x74727073,IMG_ADDR(0x004ea2c4),0,(int *)local_38,2);
   local_38[4] = (code *)0x0;
   local_38[7] = Lua_Stub;
   local_38[8] = ImuseIntComponent_Create;
   local_38[9] = CostumeTag_Nop;
   local_38[10] = (code *)0x0;
-  Cos_NewIntTag(0x65736d69,s_iMuse_Sequence_004ea2b4,0,local_38 + 7,2);
-  Cos_NewIntTag(0x74736d69,s_iMuse_State_004ea2a8,0,local_38 + 7,2);
+  Cos_NewIntTag(0x65736d69,IMG_ADDR(0x004ea2b4),0,(int *)(local_38 + 7),2);
+  Cos_NewIntTag(0x74736d69,IMG_ADDR(0x004ea2a8),0,(int *)(local_38 + 7),2);
   local_38[7] = LuaVarComponent_OnKey;
   local_38[8] = LuaVarComponent_Create;
   local_38[9] = LuaVarComponent_Destroy;
   local_38[10] = LuaVarComponent_Stop;
   local_38[0xb] = LuaVarComponent_EditKey;
-  Cos_NewIntTag(0x7661756c,s_Lua_Variable_004ea298,0,local_38 + 7,1);
-  UINT_008ca7ac = Cos_RegisterInstanceHook(Costume_InstanceHook);
-  UINT_008ca7b0 = Cos_RegisterSaveHook(Costume_SaveChoreListFile);
+  Cos_NewIntTag(0x7661756c,IMG_ADDR(0x004ea298),0,(int *)(local_38 + 7),1);
+  UINT_008ca7ac = Cos_RegisterInstanceHook(((unsigned)(uintptr_t)Costume_InstanceHook));
+  UINT_008ca7b0 = Cos_RegisterSaveHook(((unsigned)(uintptr_t)Costume_SaveChoreListFile));
   Lua_OpenEngineLib(&PTR_s_GetKeyLength_004ea058,UINT_004ea068);
   UINT_008ca79c = 1;
   Config_GetPath(s_KeyframePath_004ea27c,&DAT_008ca7b8,s_Animation_004ea28c);
@@ -217,8 +211,6 @@ undefined4 sputCostume_Start(void)
   return 0;
 }
 #undef local_38
-
-#endif
 
 
 /* ---- 0x004988a0  sputCostume_Stop ---- */

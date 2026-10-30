@@ -6,31 +6,25 @@
 #include "functions.h"
 
 /* ---- 0x0040cee0  rdPuppet_BuildJointMatrices ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
-void __cdecl rdPuppet_BuildJointMatrices(void *model,float *frame,uint param_3,uint param_4)
+void __cdecl rdPuppet_BuildJointMatrices(void *model,float *frame,uint index,float *out)
 
 {
   int iVar1;
-  undefined4 *puVar2;
+  float *pfVar2;
   
-  if (*(uint *)(*(int *)((int)model + 4) + 0x54) <= param_3) {
+  if (*(uint *)(*(int *)((int)model + 4) + 0x54) <= index) {
     return;
   }
-  puVar2 = (undefined4 *)(param_3 * 0x30 + *(int *)((int)model + 0x20));
+  pfVar2 = (float *)(index * 0x30 + *(int *)((int)model + 0x20));
   for (iVar1 = 0xc; iVar1 != 0; iVar1 = iVar1 + -1) {
-    *(undefined4 *)param_4 = *puVar2;
-    puVar2 = puVar2 + 1;
-    param_4 = (uint)(param_4 + 4);
+    *out = *pfVar2;
+    pfVar2 = pfVar2 + 1;
+    out = out + 1;
   }
   return;
 }
-#endif
-
 
 /* ---- 0x00450500  rdPuppet_New ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 undefined4 * rdPuppet_New(void *param_1)
 
 {
@@ -55,12 +49,8 @@ undefined4 * rdPuppet_New(void *param_1)
   }
   return (undefined4 *)0x0;
 }
-#endif
-
 
 /* ---- 0x00450560  rdPuppet_Init ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Six tracks of 0x134 bytes starting at +8; all stopped */
 
 int __cdecl rdPuppet_Init(void *puppet,void *thing)
@@ -82,12 +72,8 @@ int __cdecl rdPuppet_Init(void *puppet,void *thing)
   } while (track < 6);
   return 1;
 }
-#endif
-
 
 /* ---- 0x004505a0  rdPuppet_AddTrack ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Takes the first free track (status 0) and binds the keyframe to it */
 
 uint __cdecl rdPuppet_AddTrack(void *puppet,uint keyframe,uint lowPri,uint highPri)
@@ -131,12 +117,8 @@ uint __cdecl rdPuppet_AddTrack(void *puppet,uint keyframe,uint lowPri,uint highP
   rdPuppet_ClearTrackNodes(puppet,track);
   return track;
 }
-#endif
-
 
 /* ---- 0x00450640  rdPuppet_StopTrack ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void __cdecl rdPuppet_StopTrack(void *puppet,int track)
 
 {
@@ -153,12 +135,8 @@ void __cdecl rdPuppet_StopTrack(void *puppet,int track)
   puVar1[0x4b] = 0;
   return;
 }
-#endif
-
 
 /* ---- 0x004506a0  rdPuppet_SetTrackFlags ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 undefined4 rdPuppet_SetTrackFlags(int param_1,int param_2,uint param_3)
 
 {
@@ -168,12 +146,8 @@ undefined4 rdPuppet_SetTrackFlags(int param_1,int param_2,uint param_3)
   *puVar1 = *puVar1 | param_3;
   return 1;
 }
-#endif
-
 
 /* ---- 0x004506d0  rdPuppet_SetTrackUserData ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Writes the last dword (+0x12c) of the track record */
 
 void rdPuppet_SetTrackUserData(int param_1,int param_2,undefined4 param_3)
@@ -182,12 +156,8 @@ void rdPuppet_SetTrackUserData(int param_1,int param_2,undefined4 param_3)
   *(undefined4 *)(param_1 + (param_2 + 1) * 0x134) = param_3;
   return;
 }
-#endif
-
 
 /* ---- 0x004506f0  rdPuppet_PlayTrack ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Status bits: clears 0x10, sets 2, speed 1.0 */
 
 undefined4 rdPuppet_PlayTrack(int param_1,int param_2)
@@ -200,8 +170,6 @@ undefined4 rdPuppet_PlayTrack(int param_1,int param_2)
   puVar1[6] = 0x3f800000;
   return 1;
 }
-#endif
-
 
 /* ---- 0x00450720  rdPuppet_FadeInTrack ---- */
 /* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
@@ -261,9 +229,9 @@ void __cdecl rdPuppet_AdvanceTrack(void *puppet,int track,float dt)
   uint *puVar7;
   int iVar8;
   #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  #define local_8 (*(float *)(_frame + (0x20 - 0x8)))
   
-  local_8 = 0;
+  local_8 = 0.0;
   bVar4 = false;
   iVar8 = *(int *)((int)puppet + track * 0x134 + 0x130);
   puVar1 = (uint *)((int)puppet + track * 0x134 + 8);
@@ -276,9 +244,9 @@ void __cdecl rdPuppet_AdvanceTrack(void *puppet,int track,float dt)
       if ((uVar5 & 0x20) == 0) {
         if ((uVar5 & 0x40) == 0) {
           if ((uVar5 & 0x80) == 0) {
-            local_8 = (uint)ROUND(fVar2 / fVar3);
+            local_8 = ROUND(fVar2 / fVar3);
             puVar1[0x48] = (uint)((float)puVar1[0x48] -
-                                 (float)*(uint *)(puVar1[0x4a] + 0x34) * (float)local_8);
+                                 (float)*(uint *)(puVar1[0x4a] + 0x34) * local_8);
             uVar5 = *(uint *)(*(int *)(*(int *)((int)puppet + 4) + 4) + 0x54);
             if (0x3f < uVar5) {
               uVar5 = 0x40;
@@ -309,7 +277,7 @@ void __cdecl rdPuppet_AdvanceTrack(void *puppet,int track,float dt)
       uVar5 = puVar1[0x4a];
       iVar8 = *(int *)(uVar5 + 0x40);
       if (iVar8 != 0) {
-        if ((float)local_8 == 0.0) {
+        if (local_8 == 0.0) {
           uVar6 = 0;
           if (iVar8 != 0) {
             iVar8 = 0x44;
@@ -327,7 +295,7 @@ void __cdecl rdPuppet_AdvanceTrack(void *puppet,int track,float dt)
             } while (uVar6 < *(uint *)(uVar5 + 0x40));
           }
         }
-        else if ((float)local_8 <= 1.0) {
+        else if (local_8 <= 1.0) {
           uVar6 = 0;
           if (iVar8 != 0) {
             iVar8 = 0x44;
@@ -431,8 +399,6 @@ void __cdecl rdPuppet_Advance(void *puppet,float seconds)
 
 
 /* ---- 0x00450b50  rdPuppet_ClearTrackNodes ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Zeroes the 64 node weights of a track and marks it status 3 */
 
 void rdPuppet_ClearTrackNodes(int param_1,int param_2)
@@ -457,8 +423,6 @@ void rdPuppet_ClearTrackNodes(int param_1,int param_2)
   *puVar1 = 3;
   return;
 }
-#endif
-
 
 /* ---- 0x00450ba0  rdPuppet_UpdateFrame ---- */
 /* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
@@ -470,344 +434,315 @@ void __cdecl rdPuppet_UpdateFrame(void *model,float *frame)
 {
   unsigned char _frame[0xa0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
-  int iVar2;
-  int *piVar3;
-  uint uVar4;
-  float fVar5;
-  bool bVar6;
-  int iVar7;
-  undefined4 *puVar8;
+  float fVar2;
+  float fVar3;
+  int iVar4;
+  int *piVar5;
+  float fVar6;
+  float fVar7;
+  bool bVar8;
   int iVar9;
-  float *pfVar10;
+  undefined4 *puVar10;
   int iVar11;
-  uint *puVar12;
-  uint uVar13;
-  byte *pbVar14;
-  int *piVar15;
-  undefined4 *puVar16;
-  undefined4 *puVar17;
-  float fVar18;
+  float *pfVar12;
+  int iVar13;
+  uint *puVar14;
+  uint uVar15;
+  byte *pbVar16;
+  int *piVar17;
+  undefined4 *puVar18;
+  undefined4 *puVar19;
+  float fVar20;
   #define local_88 (*(uint *)(_frame + (0xa0 - 0x88)))
-  #define local_74 (*(uint *)(_frame + (0xa0 - 0x74)))
-  #define local_70 (*(uint *)(_frame + (0xa0 - 0x70)))
-  #define local_6c (*(uint *)(_frame + (0xa0 - 0x6c)))
+  #define local_74 (*(float (*)[3])(_frame + (0xa0 - 0x74)))
   #define local_68 (*(uint *)(_frame + (0xa0 - 0x68)))
   #define local_64 (*(uint *)(_frame + (0xa0 - 0x64)))
   #define local_60 (*(uint *)(_frame + (0xa0 - 0x60)))
-  #define local_5c (*(uint *)(_frame + (0xa0 - 0x5c)))
-  #define local_58 (*(uint *)(_frame + (0xa0 - 0x58)))
-  #define local_54 (*(uint *)(_frame + (0xa0 - 0x54)))
+  #define local_5c (*(float (*)[3])(_frame + (0xa0 - 0x5c)))
   #define local_50 (*(uint *)(_frame + (0xa0 - 0x50)))
   #define local_4c (*(uint *)(_frame + (0xa0 - 0x4c)))
-  #define local_48 (*(uint *)(_frame + (0xa0 - 0x48)))
-  #define local_44 (*(uint *)(_frame + (0xa0 - 0x44)))
-  #define local_40 (*(uint *)(_frame + (0xa0 - 0x40)))
-  #define local_3c (*(uint *)(_frame + (0xa0 - 0x3c)))
-  #define local_38 (*(uint *)(_frame + (0xa0 - 0x38)))
-  #define local_34 (*(uint *)(_frame + (0xa0 - 0x34)))
-  #define local_30 (*(uint *)(_frame + (0xa0 - 0x30)))
-  #define local_2c (*(uint *)(_frame + (0xa0 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0xa0 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0xa0 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0xa0 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0xa0 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0xa0 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0xa0 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0xa0 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0xa0 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0xa0 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0xa0 - 0x4)))
+  #define local_48 (*(float (*)[3])(_frame + (0xa0 - 0x48)))
+  #define local_3c (*(float (*)[3])(_frame + (0xa0 - 0x3c)))
+  #define local_30 (*(float (*)[3])(_frame + (0xa0 - 0x30)))
+  #define local_24 (*(float (*)[3])(_frame + (0xa0 - 0x24)))
+  #define local_18 (*(float (*)[3])(_frame + (0xa0 - 0x18)))
+  #define local_c (*(float (*)[3])(_frame + (0xa0 - 0xc)))
   
-  iVar2 = *(int *)((int)model + 4);
-  piVar3 = *(int **)((int)model + 0x14);
+  iVar4 = *(int *)((int)model + 4);
+  piVar5 = *(int **)((int)model + 0x14);
   if (*(int *)((int)model + 0x18) == 0) {
-    if ((piVar3 == (int *)0x0) || (*piVar3 != 0)) {
-      uVar13 = 0;
-      if (*(int *)(iVar2 + 0x54) != 0) {
-        puVar8 = (undefined4 *)(*(int *)(iVar2 + 0x58) + 0x88);
-        iVar11 = 0;
+    if ((piVar5 == (int *)0x0) || (*piVar5 != 0)) {
+      uVar15 = 0;
+      if (*(int *)(iVar4 + 0x54) != 0) {
+        puVar10 = (undefined4 *)(*(int *)(iVar4 + 0x58) + 0x88);
+        iVar13 = 0;
         do {
-          puVar16 = puVar8;
-          puVar17 = (undefined4 *)(iVar11 + *(int *)((int)model + 0x20));
-          for (iVar7 = 0xc; iVar7 != 0; iVar7 = iVar7 + -1) {
-            *puVar17 = *puVar16;
-            puVar16 = puVar16 + 1;
-            puVar17 = puVar17 + 1;
+          puVar18 = puVar10;
+          puVar19 = (undefined4 *)(iVar13 + *(int *)((int)model + 0x20));
+          for (iVar9 = 0xc; iVar9 != 0; iVar9 = iVar9 + -1) {
+            *puVar19 = *puVar18;
+            puVar18 = puVar18 + 1;
+            puVar19 = puVar19 + 1;
           }
-          puVar8 = puVar8 + 0x2e;
-          uVar13 = uVar13 + 1;
-          iVar11 = iVar11 + 0x30;
-        } while (uVar13 < *(uint *)(iVar2 + 0x54));
+          puVar10 = puVar10 + 0x2e;
+          uVar15 = uVar15 + 1;
+          iVar13 = iVar13 + 0x30;
+        } while (uVar15 < *(uint *)(iVar4 + 0x54));
       }
     }
     else {
       local_64 = 6;
-      pbVar14 = (byte *)(piVar3 + 2);
+      pbVar16 = (byte *)(piVar5 + 2);
       do {
-        if (*(int *)pbVar14 != 0) {
-          iVar11 = *(int *)(pbVar14 + 0x128);
-          local_70 = (uint)(pbVar14 + 0x20);
-          local_6c = 0;
-          if (*(int *)(iVar11 + 0x38) != 0) {
-            piVar15 = (int *)(*(int *)(iVar11 + 0x3c) + 0x24);
+        if (*(int *)pbVar16 != 0) {
+          iVar13 = *(int *)(pbVar16 + 0x128);
+          local_74[1] = PUN(float,(pbVar16 + 0x20));
+          local_74[2] = 0.0;
+          if (*(int *)(iVar13 + 0x38) != 0) {
+            piVar17 = (int *)(*(int *)(iVar13 + 0x3c) + 0x24);
             do {
-              bVar6 = false;
-              if (*piVar15 != 0) {
-                if ((uint)piVar15[-1] < 0x40) {
-                  iVar7 = *(int *)(pbVar14 + piVar15[-1] * 4 + 0x20);
+              bVar8 = false;
+              if (*piVar17 != 0) {
+                if ((uint)piVar17[-1] < 0x40) {
+                  iVar9 = *(int *)(pbVar16 + piVar17[-1] * 4 + 0x20);
                 }
                 else {
-                  iVar7 = 0;
+                  iVar9 = 0;
                 }
-                iVar1 = *piVar15 + -1;
-                if (iVar7 != iVar1) {
-                  iVar9 = iVar7 + 1;
-                  if (*(float *)(piVar15[1] + iVar9 * 0x38) <= *(float *)(pbVar14 + 0x120)) {
-                    pfVar10 = (float *)(piVar15[1] + (iVar7 + 2) * 0x38);
+                iVar1 = *piVar17 + -1;
+                if (iVar9 != iVar1) {
+                  iVar11 = iVar9 + 1;
+                  if (*(float *)(piVar17[1] + iVar11 * 0x38) <= *(float *)(pbVar16 + 0x120)) {
+                    pfVar12 = (float *)(piVar17[1] + (iVar9 + 2) * 0x38);
                     do {
-                      if (iVar9 == iVar1) {
-                        bVar6 = true;
+                      if (iVar11 == iVar1) {
+                        bVar8 = true;
                       }
-                      else if (*pfVar10 <= *(float *)(pbVar14 + 0x120)) {
-                        iVar9 = iVar9 + 1;
-                        pfVar10 = pfVar10 + 0xe;
+                      else if (*pfVar12 <= *(float *)(pbVar16 + 0x120)) {
+                        iVar11 = iVar11 + 1;
+                        pfVar12 = pfVar12 + 0xe;
                       }
                       else {
-                        bVar6 = true;
+                        bVar8 = true;
                       }
-                    } while (!bVar6);
-                    if (local_6c < 0x40) {
-                      *(int *)local_70 = iVar9;
+                    } while (!bVar8);
+                    if ((uint)local_74[2] < 0x40) {
+                      *PUN(int *,(float)local_74[1]) = iVar11;
                     }
                   }
                 }
               }
-              local_6c = local_6c + 1;
-              local_70 = local_70 + 4;
-              piVar15 = piVar15 + 0xb;
-            } while (local_6c < *(uint *)(iVar11 + 0x38));
+              local_74[2] = (float)((int)local_74[2] + 1);
+              local_74[1] = (float)((int)local_74[1] + 4);
+              piVar17 = piVar17 + 0xb;
+            } while ((uint)local_74[2] < (uint)*(float *)(iVar13 + 0x38));
           }
         }
-        pbVar14 = pbVar14 + 0x134;
+        pbVar16 = pbVar16 + 0x134;
         local_64 = local_64 - 1;
       } while (local_64 != 0);
-      local_54 = 0;
-      if (*(int *)(iVar2 + 0x54) != 0) {
+      local_5c[2] = 0.0;
+      if (*(int *)(iVar4 + 0x54) != 0) {
         local_50 = 0;
         local_60 = 0;
-        puVar12 = (uint *)(*(int *)(iVar2 + 0x58) + 0x44);
+        puVar14 = (uint *)(*(int *)(iVar4 + 0x58) + 0x44);
         do {
-          local_3c = 0;
-          local_38 = 0;
-          local_5c = 0;
-          local_6c = 0;
-          local_74 = 0;
-          local_70 = 0;
-          local_34 = 0;
-          local_48 = 0;
-          local_18 = 0;
-          local_c = 0;
-          local_44 = 0;
-          local_14 = 0;
-          local_8 = 0;
-          local_40 = 0;
-          local_10 = 0;
-          local_4 = 0;
-          local_58 = 6;
-          pbVar14 = (byte *)(piVar3 + 2);
+          local_3c[0] = 0.0;
+          local_3c[1] = 0.0;
+          local_5c[0] = 0.0;
+          local_74[2] = 0.0;
+          local_74[0] = 0.0;
+          local_74[1] = 0.0;
+          local_3c[2] = 0.0;
+          local_48[0] = 0.0;
+          local_18[0] = 0.0;
+          local_c[0] = 0.0;
+          local_48[1] = 0.0;
+          local_18[1] = 0.0;
+          local_c[1] = 0.0;
+          local_48[2] = 0.0;
+          local_18[2] = 0.0;
+          local_c[2] = 0.0;
+          local_5c[1] = 8.40779e-45;
+          pbVar16 = (byte *)(piVar5 + 2);
           do {
-            iVar11 = *(int *)(pbVar14 + 0x128);
-            if (iVar11 != 0) {
-              if ((puVar12[1] & *(uint *)(iVar11 + 0x2c)) == 0) {
-                uVar13 = *(uint *)(pbVar14 + 8);
+            iVar13 = *(int *)(pbVar16 + 0x128);
+            if (iVar13 != 0) {
+              if ((puVar14[1] & *(uint *)(iVar13 + 0x2c)) == 0) {
+                fVar20 = *(float *)(pbVar16 + 8);
               }
               else {
-                uVar13 = *(uint *)(pbVar14 + 0xc);
+                fVar20 = *(float *)(pbVar16 + 0xc);
               }
-              if ((((((*pbVar14 & 2) != 0) && (uVar4 = *puVar12, uVar4 < *(uint *)(iVar11 + 0x38)))
-                   && (iVar7 = *(int *)(iVar11 + 0x3c) + uVar4 * 0x2c, *(int *)(iVar7 + 0x24) != 0))
-                  && (((int)local_6c <= (int)uVar13 &&
-                      (((int)local_5c <= (int)uVar13 || ((float)local_74 < 1.0)))))) &&
-                 (uVar4 < *(uint *)(iVar11 + 0x38))) {
-                pfVar10 = (float *)(*(int *)(iVar7 + 0x28) +
-                                   *(int *)(pbVar14 + uVar4 * 4 + 0x20) * 0x38);
-                if ((*(uint *)(iVar11 + 0x24) & 0x100) == 0) {
-                  fVar18 = *(float *)(pbVar14 + 0x120) - *pfVar10;
+              if ((((((*pbVar16 & 2) != 0) && (uVar15 = *puVar14, uVar15 < *(uint *)(iVar13 + 0x38))
+                    ) && (iVar9 = *(int *)(iVar13 + 0x3c) + uVar15 * 0x2c,
+                         *(int *)(iVar9 + 0x24) != 0)) &&
+                  (((int)local_74[2] <= (int)fVar20 &&
+                   (((int)local_5c[0] <= (int)fVar20 || (local_74[0] < 1.0)))))) &&
+                 (uVar15 < *(uint *)(iVar13 + 0x38))) {
+                pfVar12 = (float *)(*(int *)(iVar9 + 0x28) +
+                                   *(int *)(pbVar16 + uVar15 * 4 + 0x20) * 0x38);
+                if ((*(uint *)(iVar13 + 0x24) & 0x100) == 0) {
+                  fVar7 = *(float *)(pbVar16 + 0x120) - *pfVar12;
                 }
                 else {
-                  fVar18 = 0.0;
+                  fVar7 = 0.0;
                 }
-                if (((uint)pfVar10[1] & 1) == 0) {
-                  local_24 = (uint)pfVar10[2];
-                  local_20 = (uint)pfVar10[3];
-                  local_1c = (uint)pfVar10[4];
-                }
-                else {
-                  local_24 = (uint)(pfVar10[8] * fVar18 + pfVar10[2]);
-                  local_20 = (uint)(pfVar10[9] * fVar18 + pfVar10[3]);
-                  local_1c = (uint)(pfVar10[10] * fVar18 + pfVar10[4]);
-                }
-                if (((uint)pfVar10[1] & 2) == 0) {
-                  local_30 = (uint)pfVar10[5];
-                  fVar5 = pfVar10[6];
-                  fVar18 = pfVar10[7];
+                if (((uint)pfVar12[1] & 1) == 0) {
+                  local_24[0] = pfVar12[2];
+                  local_24[1] = pfVar12[3];
+                  local_24[2] = pfVar12[4];
                 }
                 else {
-                  local_30 = (uint)(pfVar10[0xb] * fVar18 + pfVar10[5]);
-                  fVar5 = pfVar10[0xc] * fVar18 + pfVar10[6];
-                  fVar18 = pfVar10[0xd] * fVar18 + pfVar10[7];
+                  local_24[0] = pfVar12[8] * fVar7 + pfVar12[2];
+                  local_24[1] = pfVar12[9] * fVar7 + pfVar12[3];
+                  local_24[2] = pfVar12[10] * fVar7 + pfVar12[4];
                 }
-                local_24 = (uint)((float)local_24 - (float)puVar12[0xb]);
-                local_20 = (uint)((float)local_20 - (float)puVar12[0xc]);
-                local_1c = (uint)((float)local_1c - (float)puVar12[0xd]);
-                local_2c = (uint)(fVar5 - (float)puVar12[0xf]);
-                local_28 = (uint)(fVar18 - (float)puVar12[0x10]);
-                local_30 = (uint)Math_NormalizeAngle180((float)local_30 - (float)puVar12[0xe]);
-                local_2c = (uint)Math_NormalizeAngle180((float)local_2c);
-                local_28 = (uint)Math_NormalizeAngle180((float)local_28);
-                if (*(float *)(pbVar14 + 0x18) < 1.0) {
-                  local_24 = (uint)(*(float *)(pbVar14 + 0x18) * (float)local_24);
-                  local_20 = (uint)(*(float *)(pbVar14 + 0x18) * (float)local_20);
-                  local_1c = (uint)(*(float *)(pbVar14 + 0x18) * (float)local_1c);
-                  local_30 = (uint)(*(float *)(pbVar14 + 0x18) * (float)local_30);
-                  local_2c = (uint)(*(float *)(pbVar14 + 0x18) * (float)local_2c);
-                  local_28 = (uint)(*(float *)(pbVar14 + 0x18) * (float)local_28);
-                }
-                if (uVar13 == local_5c) {
-                  local_3c = (uint)((float)local_24 + (float)local_3c);
-                  local_38 = (uint)((float)local_20 + (float)local_38);
-                  local_34 = (uint)((float)local_1c + (float)local_34);
-                  local_48 = (uint)((float)local_30 + (float)local_48);
-                  local_44 = (uint)((float)local_2c + (float)local_44);
-                  local_40 = (uint)((float)local_28 + (float)local_40);
-                  local_74 = (uint)((float)local_74 + *(float *)(pbVar14 + 0x18));
-                }
-                else if ((int)local_5c < (int)uVar13) {
-                  local_18 = local_3c;
-                  local_14 = local_38;
-                  local_10 = local_34;
-                  local_c = local_48;
-                  local_8 = local_44;
-                  local_4 = local_40;
-                  local_70 = local_74;
-                  local_3c = local_24;
-                  local_38 = local_20;
-                  local_34 = local_1c;
-                  local_48 = local_30;
-                  local_74 = *(uint *)(pbVar14 + 0x18);
-                  local_6c = local_5c;
-                  local_44 = local_2c;
-                  local_40 = local_28;
-                  local_5c = uVar13;
-                }
-                else if ((int)local_6c < (int)uVar13) {
-                  local_18 = local_24;
-                  local_14 = local_20;
-                  local_10 = local_1c;
-                  local_c = local_30;
-                  local_8 = local_2c;
-                  local_70 = *(uint *)(pbVar14 + 0x18);
-                  local_4 = local_28;
-                  local_6c = uVar13;
+                if (((uint)pfVar12[1] & 2) == 0) {
+                  local_30[0] = pfVar12[5];
+                  fVar6 = pfVar12[6];
+                  fVar7 = pfVar12[7];
                 }
                 else {
-                  local_18 = (uint)((float)local_24 + (float)local_18);
-                  local_14 = (uint)((float)local_20 + (float)local_14);
-                  local_10 = (uint)((float)local_1c + (float)local_10);
-                  local_c = (uint)((float)local_30 + (float)local_c);
-                  local_8 = (uint)((float)local_2c + (float)local_8);
-                  local_4 = (uint)((float)local_28 + (float)local_4);
-                  local_70 = (uint)((float)local_70 + *(float *)(pbVar14 + 0x18));
+                  local_30[0] = pfVar12[0xb] * fVar7 + pfVar12[5];
+                  fVar6 = pfVar12[0xc] * fVar7 + pfVar12[6];
+                  fVar7 = pfVar12[0xd] * fVar7 + pfVar12[7];
+                }
+                local_24[0] = local_24[0] - (float)puVar14[0xb];
+                local_24[1] = local_24[1] - (float)puVar14[0xc];
+                local_24[2] = local_24[2] - (float)puVar14[0xd];
+                fVar2 = (float)puVar14[0xf];
+                fVar3 = (float)puVar14[0x10];
+                local_30[0] = Math_NormalizeAngle180(local_30[0] - (float)puVar14[0xe]);
+                local_30[1] = Math_NormalizeAngle180(fVar6 - fVar2);
+                local_30[2] = Math_NormalizeAngle180(fVar7 - fVar3);
+                if (*(float *)(pbVar16 + 0x18) < 1.0) {
+                  local_24[0] = *(float *)(pbVar16 + 0x18) * local_24[0];
+                  local_24[1] = *(float *)(pbVar16 + 0x18) * local_24[1];
+                  local_24[2] = *(float *)(pbVar16 + 0x18) * local_24[2];
+                  local_30[0] = *(float *)(pbVar16 + 0x18) * local_30[0];
+                  local_30[1] = *(float *)(pbVar16 + 0x18) * local_30[1];
+                  local_30[2] = *(float *)(pbVar16 + 0x18) * local_30[2];
+                }
+                if (fVar20 == local_5c[0]) {
+                  local_3c[0] = local_24[0] + local_3c[0];
+                  local_3c[1] = local_24[1] + local_3c[1];
+                  local_3c[2] = local_24[2] + local_3c[2];
+                  local_48[0] = local_30[0] + local_48[0];
+                  local_48[1] = local_30[1] + local_48[1];
+                  local_48[2] = local_30[2] + local_48[2];
+                  local_74[0] = local_74[0] + *(float *)(pbVar16 + 0x18);
+                }
+                else if ((int)local_5c[0] < (int)fVar20) {
+                  local_18[0] = local_3c[0];
+                  local_18[1] = local_3c[1];
+                  local_18[2] = local_3c[2];
+                  local_c[0] = local_48[0];
+                  local_c[1] = local_48[1];
+                  local_c[2] = local_48[2];
+                  local_74[1] = local_74[0];
+                  local_3c[0] = local_24[0];
+                  local_3c[1] = local_24[1];
+                  local_3c[2] = local_24[2];
+                  local_48[0] = local_30[0];
+                  local_74[0] = *(float *)(pbVar16 + 0x18);
+                  local_74[2] = local_5c[0];
+                  local_48[1] = local_30[1];
+                  local_48[2] = local_30[2];
+                  local_5c[0] = fVar20;
+                }
+                else if ((int)local_74[2] < (int)fVar20) {
+                  local_18[0] = local_24[0];
+                  local_18[1] = local_24[1];
+                  local_18[2] = local_24[2];
+                  local_c[0] = local_30[0];
+                  local_c[1] = local_30[1];
+                  local_74[1] = *(float *)(pbVar16 + 0x18);
+                  local_c[2] = local_30[2];
+                  local_74[2] = fVar20;
+                }
+                else {
+                  local_18[0] = local_24[0] + local_18[0];
+                  local_18[1] = local_24[1] + local_18[1];
+                  local_18[2] = local_24[2] + local_18[2];
+                  local_c[0] = local_30[0] + local_c[0];
+                  local_c[1] = local_30[1] + local_c[1];
+                  local_c[2] = local_30[2] + local_c[2];
+                  local_74[1] = local_74[1] + *(float *)(pbVar16 + 0x18);
                 }
               }
             }
-            pbVar14 = pbVar14 + 0x134;
-            local_58 = local_58 - 1;
-          } while (local_58 != 0);
-          if ((1.0 <= (float)local_74) || ((float)local_70 <= 0.0)) {
-            if (1.0 < (float)local_74) {
-              fVar18 = 1.0 / (float)local_74;
-              local_3c = (uint)((float)local_3c * fVar18);
-              local_38 = (uint)((float)local_38 * fVar18);
-              local_34 = (uint)((float)local_34 * fVar18);
-              local_48 = (uint)((float)local_48 * fVar18);
-              local_44 = (uint)((float)local_44 * fVar18);
-              local_40 = (uint)((float)local_40 * fVar18);
+            pbVar16 = pbVar16 + 0x134;
+            local_5c[1] = (float)((int)local_5c[1] + -1);
+          } while (local_5c[1] != 0.0);
+          if ((1.0 <= local_74[0]) || (local_74[1] <= 0.0)) {
+            if (1.0 < local_74[0]) {
+              fVar20 = 1.0 / local_74[0];
+              local_3c[0] = local_3c[0] * fVar20;
+              local_3c[1] = local_3c[1] * fVar20;
+              local_3c[2] = local_3c[2] * fVar20;
+              local_48[0] = local_48[0] * fVar20;
+              local_48[1] = local_48[1] * fVar20;
+              local_48[2] = local_48[2] * fVar20;
             }
           }
           else {
-            if (1.0 < (float)local_70) {
-              fVar18 = 1.0 / (float)local_70;
-              local_18 = (uint)((float)local_18 * fVar18);
-              local_14 = (uint)((float)local_14 * fVar18);
-              local_10 = (uint)((float)local_10 * fVar18);
-              local_c = (uint)((float)local_c * fVar18);
-              local_8 = (uint)((float)local_8 * fVar18);
-              local_4 = (uint)((float)local_4 * fVar18);
+            if (1.0 < local_74[1]) {
+              fVar20 = 1.0 / local_74[1];
+              local_18[0] = local_18[0] * fVar20;
+              local_18[1] = local_18[1] * fVar20;
+              local_18[2] = local_18[2] * fVar20;
+              local_c[0] = local_c[0] * fVar20;
+              local_c[1] = local_c[1] * fVar20;
+              local_c[2] = local_c[2] * fVar20;
             }
-            fVar18 = 1.0 - (float)local_74;
-            local_3c = (uint)((float)local_18 * fVar18 + (float)local_3c);
-            local_38 = (uint)((float)local_14 * fVar18 + (float)local_38);
-            local_34 = (uint)((float)local_10 * fVar18 + (float)local_34);
-            local_48 = (uint)((float)local_c * fVar18 + (float)local_48);
-            local_44 = (uint)((float)local_8 * fVar18 + (float)local_44);
-            local_40 = (uint)((float)local_4 * fVar18 + (float)local_40);
+            fVar20 = 1.0 - local_74[0];
+            local_3c[0] = local_18[0] * fVar20 + local_3c[0];
+            local_3c[1] = local_18[1] * fVar20 + local_3c[1];
+            local_3c[2] = local_18[2] * fVar20 + local_3c[2];
+            local_48[0] = local_c[0] * fVar20 + local_48[0];
+            local_48[1] = local_c[1] * fVar20 + local_48[1];
+            local_48[2] = local_c[2] * fVar20 + local_48[2];
           }
-          local_48 = (uint)Math_NormalizeAngle180((float)local_48);
-          local_44 = (uint)Math_NormalizeAngle180((float)local_44);
-          fVar18 = Math_NormalizeAngle180((float)local_40);
-          local_3c = (uint)((float)puVar12[0xb] + (float)local_3c);
-          local_38 = (uint)((float)puVar12[0xc] + (float)local_38);
-          local_34 = (uint)((float)puVar12[0xd] + (float)local_34);
-          local_48 = (uint)((float)puVar12[0xe] + (float)local_48);
-          local_44 = (uint)((float)puVar12[0xf] + (float)local_44);
-          local_40 = (uint)((float)puVar12[0x10] + fVar18);
-          Angles_ToMatrix(local_50 + *(int *)((int)model + 0x20),&local_48,&local_3c);
-          iVar11 = *(int *)((int)model + 0x24) + local_60;
+          local_48[0] = Math_NormalizeAngle180(local_48[0]);
+          local_48[1] = Math_NormalizeAngle180(local_48[1]);
+          fVar20 = Math_NormalizeAngle180(local_48[2]);
+          local_3c[0] = (float)puVar14[0xb] + local_3c[0];
+          local_3c[1] = (float)puVar14[0xc] + local_3c[1];
+          local_3c[2] = (float)puVar14[0xd] + local_3c[2];
+          local_48[0] = (float)puVar14[0xe] + local_48[0];
+          local_48[1] = (float)puVar14[0xf] + local_48[1];
+          local_48[2] = (float)puVar14[0x10] + fVar20;
+          Angles_ToMatrix(local_50 + *(int *)((int)model + 0x20),local_48,local_3c);
+          iVar13 = *(int *)((int)model + 0x24) + local_60;
           if (((*(float *)(*(int *)((int)model + 0x24) + local_60) != 0.0) ||
-              (*(float *)(iVar11 + 4) != 0.0)) || (*(float *)(iVar11 + 8) != 0.0)) {
-            Matrix_BuildTransform(local_50 + *(int *)((int)model + 0x20),iVar11);
+              (*(float *)(iVar13 + 4) != 0.0)) || (*(float *)(iVar13 + 8) != 0.0)) {
+            Matrix_BuildTransform(local_50 + *(int *)((int)model + 0x20),iVar13);
           }
-          local_54 = local_54 + 1;
+          local_5c[2] = (float)((int)local_5c[2] + 1);
           local_60 = local_60 + 0xc;
           local_50 = local_50 + 0x30;
-          puVar12 = puVar12 + 0x2e;
-        } while (local_54 < *(uint *)(iVar2 + 0x54));
+          puVar14 = puVar14 + 0x2e;
+        } while ((uint)local_5c[2] < (uint)*(float *)(iVar4 + 0x54));
       }
     }
-    rdThing_BuildNodeMatrix(model,*(undefined4 *)(iVar2 + 0x58),frame);
+    rdThing_BuildNodeMatrix(model,*(undefined4 *)(iVar4 + 0x58),frame);
     *(uint *)((int)model + 0x1c) = UINT_004f5eb4;
   }
   return;
 }
-#undef local_10
-#undef local_14
 #undef local_18
-#undef local_1c
-#undef local_20
 #undef local_24
-#undef local_28
-#undef local_2c
 #undef local_30
-#undef local_34
-#undef local_38
 #undef local_3c
-#undef local_4
-#undef local_40
-#undef local_44
 #undef local_48
 #undef local_4c
 #undef local_50
-#undef local_54
-#undef local_58
 #undef local_5c
 #undef local_60
 #undef local_64
 #undef local_68
-#undef local_6c
-#undef local_70
 #undef local_74
-#undef local_8
 #undef local_88
 #undef local_c
 
@@ -815,8 +750,6 @@ void __cdecl rdPuppet_UpdateFrame(void *model,float *frame)
 
 
 /* ---- 0x00451800  rdKeyframe_InterpolateNode ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 float __cdecl
 rdKeyframe_InterpolateNode
           (int *param_1,int param_2,uint param_3,uint param_4,int param_5,float *param_6,int param_7
@@ -830,50 +763,41 @@ rdKeyframe_InterpolateNode
   uint uVar4;
   float *pfVar5;
   float fVar6;
-  #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
+  #define local_10 (*(float (*)[3])(_frame + (0x20 - 0x10)))
+  #define local_4 (*(float *)(_frame + (0x20 - 0x4)))
   
   uVar4 = 0;
-  local_10 = 0;
+  local_10[0] = 0.0;
   if (param_4 != 0) {
     pfVar5 = (float *)(param_2 + 8);
     do {
       iVar1 = *param_1;
       if (*(int *)(iVar1 + 8) != 0) {
         piVar2 = *(int **)(param_5 + 0x18);
-        local_c = (uint)(pfVar5[-2] - *(float *)(param_7 + *piVar2 * 0xc));
-        local_8 = (uint)(pfVar5[-1] - *(float *)(param_7 + 4 + *piVar2 * 0xc));
-        local_4 = (uint)(*pfVar5 - *(float *)(param_7 + 8 + *piVar2 * 0xc));
-        if ((float)local_4 * (float)local_4 +
-            (float)local_8 * (float)local_8 + (float)local_c * (float)local_c <
+        local_10[1] = pfVar5[-2] - *(float *)(param_7 + *piVar2 * 0xc);
+        local_10[2] = pfVar5[-1] - *(float *)(param_7 + 4 + *piVar2 * 0xc);
+        fVar3 = *pfVar5 - *(float *)(param_7 + 8 + *piVar2 * 0xc);
+        if (fVar3 * fVar3 + local_10[2] * local_10[2] + local_10[1] * local_10[1] <
             *(float *)(iVar1 + 0x34) * *(float *)(iVar1 + 0x34)) {
-          fVar6 = Vec3_Normalize((float *)&local_c);
-          fVar3 = (float)local_c * *param_6 +
-                  param_6[1] * (float)local_8 + param_6[2] * (float)local_4;
+          fVar6 = Vec3_Normalize(local_10 + 1);
+          fVar3 = local_10[1] * *param_6 + param_6[1] * local_10[2] + param_6[2] * fVar3;
           if (0.0 < fVar3) {
-            local_10 = (uint)((*(float *)(iVar1 + 0x18) - fVar6 * param_8) * fVar3 + (float)local_10
-                             );
+            local_10[0] = (*(float *)(iVar1 + 0x18) - fVar6 * param_8) * fVar3 + local_10[0];
           }
         }
       }
-      if (1.0 <= (float)local_10) {
-        return (float)local_10;
+      if (1.0 <= local_10[0]) {
+        return local_10[0];
       }
       uVar4 = uVar4 + 1;
       param_1 = param_1 + 1;
       pfVar5 = pfVar5 + 3;
     } while (uVar4 < param_4);
   }
-  return (float)local_10;
+  return local_10[0];
 }
 #undef local_10
 #undef local_4
-#undef local_8
-#undef local_c
-
-#endif
 
 
 /* ---- 0x004c0630  rdKeyframe_NewEntry ---- */

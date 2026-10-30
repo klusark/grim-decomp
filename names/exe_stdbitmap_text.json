@@ -18,7 +18,7 @@
  {"addr": "0047bbe0", "name": "Math_PowInt", "proto": "float Math_PowInt(float x, int n)", "tags": "math"},
  {"addr": "0047bc20", "name": "Math_NormalizeAngle360", "proto": "float Math_NormalizeAngle360(float degrees)", "tags": "math"},
  {"addr": "0047bce0", "name": "Math_NormalizeAngle180", "tags": "math"},
- {"addr": "0047c100", "name": "Math_Round", "tags": "math"},
+ {"addr": "0047c100", "name": "Math_Floor", "tags": "math"},
  {"addr": "0047c120", "name": "Math_SinDeg", "comment": "Table/polynomial sine of an angle in degrees", "tags": "math"},
  {"addr": "0047c490", "name": "Math_Sqrt", "tags": "math"},
  {"addr": "0047c5f0", "name": "Math_Atan2Deg", "proto": "float Math_Atan2Deg(float y, float x)", "tags": "math"},

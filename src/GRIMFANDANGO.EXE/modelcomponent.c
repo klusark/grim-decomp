@@ -50,6 +50,8 @@ void ModelComponent_SetVisibleFlag(undefined4 param_1,int param_2,undefined4 par
 }
 
 /* ---- 0x00496950  ModelComponent_NewInstance ---- */
+/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+#if 0
 /* 0x194-byte instance {ResRef model, ..., +0x38 isRoot, +0x40 rdThing, +0x44 parentInstance, +0x48
    parentNode, +0x4c colormap, +0x50 refCount, +0x190 next}; shared with an identical component of
    the actor's current costume */
@@ -60,11 +62,13 @@ void * __cdecl ModelComponent_NewInstance(void *cosInst,int componentIdx,int cre
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   void *pvVar1;
   int iVar2;
+  uint extraout_EAX;
   int iVar3;
-  undefined4 uVar4;
-  int iVar5;
+  undefined4 extraout_EAX_00;
+  int iVar4;
   undefined4 *ref;
   void *thing;
+  undefined4 uVar5;
   undefined4 *puVar6;
   int iVar7;
   #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
@@ -72,7 +76,7 @@ void * __cdecl ModelComponent_NewInstance(void *cosInst,int componentIdx,int cre
   #define local_4 (*(int *)(_frame + (0x20 - 0x4)))
   
   if (create == 0) {
-    pvVar1 = (void *)Cos_InstGetInstanceData(cosInst,componentIdx,0);
+    pvVar1 = (void *)Cos_InstGetInstanceData((int)cosInst,componentIdx,(int *)0x0);
     iVar2 = *(int *)((int)pvVar1 + 0x50) + -1;
     *(int *)((int)pvVar1 + 0x50) = iVar2;
     if (iVar2 == 0) {
@@ -82,18 +86,19 @@ void * __cdecl ModelComponent_NewInstance(void *cosInst,int componentIdx,int cre
     }
     return (void *)0x0;
   }
-  local_8 = Cos_InstComponentInfo(cosInst,componentIdx,&local_c,&componentIdx,&local_4);
-  iVar2 = Cos_InstGetUserData(cosInst);
+  Cos_InstComponentInfo((int)cosInst,componentIdx,(int)&local_c,(int)&componentIdx,(int)&local_4);
+  local_8 = extraout_EAX;
+  iVar2 = Cos_InstGetUserData((int)cosInst);
   if (iVar2 != 0) {
     iVar3 = Cos_InstCountComponents(iVar2);
     iVar7 = 0;
     if (0 < iVar3) {
       do {
-        uVar4 = Cos_InstComponentInfo(iVar2,iVar7,&create,0,0);
+        Cos_InstComponentInfo(iVar2,iVar7,(int)&create,0,0);
         if (create == local_c) {
-          iVar5 = _stricmp(uVar4,local_8);
-          if (iVar5 == 0) {
-            pvVar1 = (void *)Cos_InstGetInstanceData(iVar2,iVar7,0);
+          iVar4 = _stricmp(extraout_EAX_00,local_8);
+          if (iVar4 == 0) {
+            pvVar1 = (void *)Cos_InstGetInstanceData(iVar2,iVar7,(int *)0x0);
             *(int *)((int)pvVar1 + 0x50) = *(int *)((int)pvVar1 + 0x50) + 1;
             return pvVar1;
           }
@@ -117,12 +122,12 @@ void * __cdecl ModelComponent_NewInstance(void *cosInst,int componentIdx,int cre
   ResRef_Add(ref,pvVar1,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0xa91);
   thing = (void *)rdThing_New(0);
   rdThing_SetModel(thing,pvVar1);
-  uVar4 = rdPuppet_New(thing);
-  *(undefined4 *)((int)thing + 0x14) = uVar4;
+  uVar5 = rdPuppet_New(thing);
+  *(undefined4 *)((int)thing + 0x14) = uVar5;
   ref[0x10] = thing;
   ref[0xf] = *(undefined4 *)(componentIdx + 0x34);
   if (-1 < local_4) {
-    puVar6 = (undefined4 *)Cos_InstGetInstanceData(cosInst,local_4,0);
+    puVar6 = (undefined4 *)Cos_InstGetInstanceData((int)cosInst,local_4,(int *)0x0);
     ref[0x11] = *puVar6;
     ref[0x12] = puVar6[1];
     ref[0xe] = 0;
@@ -139,6 +144,8 @@ void * __cdecl ModelComponent_NewInstance(void *cosInst,int componentIdx,int cre
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x00496b40  ModelComponent_Stop ---- */
 /* Costume tag handler for 'MAIN RDroid Thing (3DO) / RDroid Thing (3DO)' (registered by
@@ -153,15 +160,12 @@ undefined4 ModelComponent_Stop(int param_1)
 }
 
 /* ---- 0x00496b60  ModelComponent_Create ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Costume tag handler for 'MAIN RDroid Thing (3DO) / RDroid Thing (3DO)' (registered by
    sputCostume_Start through Cos_NewStateBasedTag/Cos_NewIntTag): slot 1, builds a key from 'name x
    y' text or asks for a .3do file ('Select model file to add...') and loads it as a model resource.
     */
 
-bool ModelComponent_Create
-               (undefined4 param_1,undefined4 param_2,int param_3,int param_4,char *param_5)
+bool ModelComponent_Create(uint param_1,int param_2,int param_3,int param_4,char *param_5)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -231,15 +235,13 @@ bool ModelComponent_Create
   if (pcVar4 == (char *)0x0) {
     pcVar4 = param_5;
   }
-  iVar3 = Cos_RegisterComponent(param_1,pcVar4,ref,param_2,param_3,param_4,&DAT_004e9f08);
+  iVar3 = Cos_RegisterComponent(param_1,(int)pcVar4,(int)ref,param_2,param_3,param_4,IMG_ADDR(0x004e9f08));
   return iVar3 != 0;
 }
 #undef local_1
 #undef local_1f
 #undef local_20
 #undef local_24
-
-#endif
 
 
 /* ---- 0x00496d10  ModelComponent_Destroy ---- */

@@ -6,8 +6,6 @@
 #include "functions.h"
 
 /* ---- 0x00451b80  rdPrimit2_DrawLine ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void __cdecl rdPrimit2_DrawLine(void *canvas,int x1,int y1,int x2,int y2,int color,int mask)
 
 {
@@ -113,12 +111,8 @@ void __cdecl rdPrimit2_DrawLine(void *canvas,int x1,int y1,int x2,int y2,int col
 #undef local_8
 #undef local_c
 
-#endif
-
 
 /* ---- 0x00451f20  rdPrimit2_DrawRect ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void __cdecl rdPrimit2_DrawRect(void *canvas,int x1,int y1,int x2,int y2,int color,int mask)
 
 {
@@ -128,5 +122,3 @@ void __cdecl rdPrimit2_DrawRect(void *canvas,int x1,int y1,int x2,int y2,int col
   rdPrimit2_DrawLine(canvas,x1,y2,x2,y2,color,mask);
   return;
 }
-#endif
-

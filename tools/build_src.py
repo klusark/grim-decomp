@@ -10,6 +10,7 @@ import json, os, re, sys
 from collections import Counter, OrderedDict, defaultdict
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import frame_locals
+import ftol_fold
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 RAW = os.path.join(ROOT, "raw")
@@ -652,7 +653,7 @@ STDCALL_FUNCS = set()  # C names of callee-pop functions (raw/<prog>/stdcall_fun
 def load_overrides():
     """Names of the functions build/overrides.c and build/fastpaths.c define by hand."""
     names = set()
-    for fname in ("overrides.c", "fastpaths.c"):
+    for fname in ("overrides.c", "overrides_exe.c", "fastpaths.c"):
         path = os.path.join(ROOT, "build", fname)
         if not os.path.exists(path):
             continue
@@ -665,6 +666,7 @@ def load_overrides():
 
 
 OVERRIDES = load_overrides()
+FLOAT_RETURNERS_NOW = ftol_fold.float_returners()   # float/double-returning functions (previous functions.h)
 # modules that call DirectX COM objects: every `(**(code **)(` / `(*(code *)**` in them is a vtable
 # method call (the cdecl service-table calls live in other modules)
 COM_MODULES = {"std3d", "stddisplay", "stdinput", "mixer", "rdmaterial"}
@@ -823,6 +825,9 @@ def fix_call_args(body, vt, ctx, stats):
                 args[i] = f"PUN(float,{a.strip()})"
             elif pk == "ptr" and ak == "float":
                 args[i] = f"PUN({pt},(float){a.strip()})"
+            elif pk == "float" and re.fullmatch(r"\s*0x[0-9a-f]{6,8}\s*", a) and int(a, 16) >= 0x00800000:
+                # a float constant the decompiler printed as the hex of its bits (callee's float parameter)
+                args[i] = f"FBITS({a.strip()})"
             else:
                 continue
             changed = True
@@ -846,6 +851,7 @@ def fix_stdcall(code):
 
 
 def fix_function(code, ctx, stats):
+    code = ftol_fold.fold(code, FLOAT_RETURNERS_NOW)
     code = fix_symbols(code)
     code = fix_stdcall(code)
     code = fix_image_addrs(code)

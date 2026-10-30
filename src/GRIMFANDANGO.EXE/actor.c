@@ -6,8 +6,6 @@
 #include "functions.h"
 
 /* ---- 0x00485290  Actor_ComputeScreenBox ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Projects the actor's model through its frame and stores the covering screen rectangle at
    actor+0x6c (valid flag at +0x68) */
 
@@ -39,12 +37,8 @@ void __cdecl Actor_ComputeScreenBox(void *actor)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x00485320  Actor_DrawDebugWalker ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* WARNING: Variable defined which should be unmapped: local_28 */
 /* Debug overlay: the walker's path segments, its sector outline and the look-at circle */
 
@@ -91,12 +85,8 @@ void Actor_DrawDebugWalker(void *param_1)
 #undef local_28
 #undef local_c
 
-#endif
-
 
 /* ---- 0x0048b2e0  Actor_CreateSubtitle ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Creates the speech text object above the actor (projected head position when on screen), clamped
    to the screen edges */
 
@@ -105,16 +95,14 @@ void * __cdecl Actor_CreateSubtitle(void *actor,char *text,int x,int y)
 {
   unsigned char _frame[0x70] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   void *pvVar1;
-  char *pcVar2;
-  void *pvVar3;
-  int iVar4;
-  uint *puVar5;
+  float *pfVar2;
+  char *pcVar3;
+  void *pvVar4;
+  int iVar5;
   uint *puVar6;
-  #define local_5c (*(uint *)(_frame + (0x70 - 0x5c)))
-  #define local_58 (*(uint *)(_frame + (0x70 - 0x58)))
-  #define local_50 (*(uint *)(_frame + (0x70 - 0x50)))
-  #define local_4c (*(uint *)(_frame + (0x70 - 0x4c)))
-  #define local_48 (*(uint *)(_frame + (0x70 - 0x48)))
+  uint *puVar7;
+  #define local_5c (*(float (*)[2])(_frame + (0x70 - 0x5c)))
+  #define local_50 (*(float (*)[3])(_frame + (0x70 - 0x50)))
   #define local_44 (*(uint *)(_frame + (0x70 - 0x44)))
   #define local_40 (*(uint *)(_frame + (0x70 - 0x40)))
   #define local_3c (*(uint *)(_frame + (0x70 - 0x3c)))
@@ -131,18 +119,17 @@ void * __cdecl Actor_CreateSubtitle(void *actor,char *text,int x,int y)
   
   pvVar1 = actor;
   local_38 = UINT_008a94bc;
-  local_50 = g_nSubtitleDefaultX;
-  local_48 = UINT_004e8490;
+  local_50[0] = (float)g_nSubtitleDefaultX;
+  local_50[2] = (float)UINT_004e8490;
   local_34 = UINT_008a94c0;
-  puVar5 = &g_SubtitleTextCtx;
-  puVar6 = &local_30;
-  for (iVar4 = 0xc; iVar4 != 0; iVar4 = iVar4 + -1) {
-    *puVar6 = *puVar5;
-    puVar5 = puVar5 + 1;
+  puVar6 = &g_SubtitleTextCtx;
+  puVar7 = &local_30;
+  for (iVar5 = 0xc; iVar5 != 0; iVar5 = iVar5 + -1) {
+    *puVar7 = *puVar6;
     puVar6 = puVar6 + 1;
+    puVar7 = puVar7 + 1;
   }
-  local_4c = g_nSubtitleDefaultY;
-  local_44 = UINT_004e8494;
+  local_50[1] = (float)g_nSubtitleDefaultY;
   local_2c = (uint)&local_40;
   local_40 = 0;
   local_3c = 0;
@@ -150,52 +137,52 @@ void * __cdecl Actor_CreateSubtitle(void *actor,char *text,int x,int y)
   local_18 = 0;
   local_14 = 0;
   if ((*(int *)((int)actor + 0x68) == 0) || (UINT_008a8c40 == 3)) {
-    puVar5 = &local_50;
+    pfVar2 = local_50;
     if ((*(int *)((int)actor + 0xa0) == 0) || ((*(byte *)((int)actor + 4) & 2) != 0)) {
-      pcVar2 = Set_GetCurrentName();
-      iVar4 = _stricmp((int)actor + 0x7c,pcVar2);
-      if (iVar4 == 0) {
-        iVar4 = rdCamera_ProjectPoint((float *)((int)actor + 0xc),(float *)&local_5c);
-        if (iVar4 != 0) {
-          local_50 = local_5c;
-          local_4c = local_58;
+      pcVar3 = Set_GetCurrentName();
+      iVar5 = _stricmp((int)actor + 0x7c,pcVar3);
+      if (iVar5 == 0) {
+        iVar5 = rdCamera_ProjectPoint((float *)((int)actor + 0xc),local_5c);
+        if (iVar5 != 0) {
+          local_50[0] = local_5c[0];
+          local_50[1] = local_5c[1];
         }
       }
     }
   }
   else {
-    puVar5 = (void *)((int)actor + 0x6c);
+    pfVar2 = (void *)((int)actor + 0x6c);
   }
-  actor = puVar5;
-  iVar4 = Text_MeasureWidth(&local_30,text);
-  iVar4 = iVar4 / 2;
+  actor = pfVar2;
+  iVar5 = Text_MeasureWidth(&local_30,text);
+  iVar5 = iVar5 / 2;
   if (x == -1) {
     x = *(int *)((int)actor + 8) / 2 + *(int *)actor;
   }
-  if (x - iVar4 < 0x28) {
-    x = iVar4 + 0x28;
+  if (x - iVar5 < 0x28) {
+    x = iVar5 + 0x28;
   }
-  if ((int)(UINT_008a94bc - 0x28) < iVar4 + x) {
-    x = (UINT_008a94bc - iVar4) - 0x28;
+  if ((int)(UINT_008a94bc - 0x28) < iVar5 + x) {
+    x = (UINT_008a94bc - iVar5) - 0x28;
   }
   local_20 = *(uint *)(*(int *)local_28 + 8);
   local_24 = x;
-  iVar4 = Text_MeasureHeight(&local_30,text);
+  iVar5 = Text_MeasureHeight(&local_30,text);
   if (y == -1) {
-    y = *(int *)((int)actor + 4) - iVar4;
+    y = *(int *)((int)actor + 4) - iVar5;
   }
   if (y < 10) {
     y = 10;
   }
-  if ((int)(UINT_008a94c0 - 10) < y + iVar4) {
-    y = (UINT_008a94c0 - iVar4) + -10;
+  if ((int)(UINT_008a94c0 - 10) < y + iVar5) {
+    y = (UINT_008a94c0 - iVar5) + -10;
   }
   local_20 = *(int *)(*(int *)local_28 + 8) + y;
   local_24 = x;
-  pvVar3 = TextObject_New(&local_30,text);
-  *(void **)((int)pvVar3 + 0x254) = pvVar1;
+  pvVar4 = TextObject_New(&local_30,text);
+  *(void **)((int)pvVar4 + 0x254) = pvVar1;
   *(uint *)((int)pvVar1 + 4) = *(uint *)((int)pvVar1 + 4) | 4;
-  return pvVar3;
+  return pvVar4;
 }
 #undef local_14
 #undef local_18
@@ -210,18 +197,11 @@ void * __cdecl Actor_CreateSubtitle(void *actor,char *text,int x,int y)
 #undef local_3c
 #undef local_40
 #undef local_44
-#undef local_48
-#undef local_4c
 #undef local_50
-#undef local_58
 #undef local_5c
-
-#endif
 
 
 /* ---- 0x0048f930  Actor_SetCostume ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Lua SetActorCostume: replaces the whole costume stack with one costume */
 
 int __cdecl Actor_SetCostume(void *actor,char *name,int param_3)
@@ -244,17 +224,12 @@ int __cdecl Actor_SetCostume(void *actor,char *name,int param_3)
   }
   pvVar1 = Costume_ReplaceTop(pvVar1,costumeRes,param_3);
   *(void **)((int)actor + 0xa0) = pvVar1;
-  Cos_InstSetUserData(**(undefined4 **)((int)actor + 0xa0),((int)actor - (int)g_pActorTable) / 0xa8)
-  ;
+  Cos_InstSetUserData(**(int **)((int)actor + 0xa0),((int)actor - (int)g_pActorTable) / 0xa8);
   Actor_SetFrustumCull(actor,~*(uint *)((int)actor + 4) >> 2 & 1);
   return 1;
 }
-#endif
-
 
 /* ---- 0x0048f9d0  Actor_SetHead ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* WARNING: Variable defined which should be unmapped: local_14 */
 /* Lua SetActorHead: head-tracking joints and limits */
 
@@ -289,12 +264,8 @@ Actor_SetHead(void *actor,int joint1,int joint2,int joint3,float maxRoll,float m
 }
 #undef local_14
 
-#endif
-
 
 /* ---- 0x0048fa60  Actor_CanSeePoint ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* True when the point lies within the head joint's view cone (cosine threshold at costume+0x24 set
    by Actor_SetHead) */
 
@@ -304,64 +275,48 @@ int __cdecl Actor_CanSeePoint(void *actor,float *point,float *outDistance)
   unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   float fVar2;
+  float *frame;
   float *pfVar3;
   float fVar4;
-  uint uVar5;
-  undefined1 *puVar6;
-  #define local_48 (*(uint *)(_frame + (0x60 - 0x48)))
-  #define local_44 (*(uint *)(_frame + (0x60 - 0x44)))
-  #define local_40 (*(uint *)(_frame + (0x60 - 0x40)))
-  #define local_3c (*(uint *)(_frame + (0x60 - 0x3c)))
-  #define local_38 (*(uint *)(_frame + (0x60 - 0x38)))
-  #define local_34 (*(uint *)(_frame + (0x60 - 0x34)))
-  #define local_30 (*(undefined1 (*)[36])(_frame + (0x60 - 0x30)))
-  #define local_c (*(uint *)(_frame + (0x60 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x60 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x60 - 0x4)))
+  uint index;
+  #define local_48 (*(float (*)[3])(_frame + (0x60 - 0x48)))
+  #define local_3c (*(float (*)[3])(_frame + (0x60 - 0x3c)))
+  #define local_30 (*(float (*)[9])(_frame + (0x60 - 0x30)))
+  #define local_c (*(float (*)[3])(_frame + (0x60 - 0xc)))
   
   iVar1 = *(int *)((int)actor + 0xa0);
-  if (((iVar1 != 0) && (uVar5 = *(uint *)(iVar1 + 0xc), -1 < (int)uVar5)) &&
+  if (((iVar1 != 0) && (index = *(uint *)(iVar1 + 0xc), -1 < (int)index)) &&
      (*(int *)(iVar1 + 4) != 0)) {
-    puVar6 = local_30;
-    pfVar3 = Actor_GetFrame(actor);
-    rdPuppet_BuildJointMatrices(*(void **)(iVar1 + 4),pfVar3,uVar5,(uint)puVar6);
-    local_3c = (uint)(*point - (float)local_c);
-    local_38 = (uint)(point[1] - (float)local_8);
-    local_34 = (uint)(point[2] - (float)local_4);
-    fVar4 = Vec3_Normalize((float *)&local_3c);
-    local_48 = local_3c;
+    pfVar3 = local_30;
+    frame = Actor_GetFrame(actor);
+    rdPuppet_BuildJointMatrices(*(void **)(iVar1 + 4),frame,index,pfVar3);
+    local_3c[0] = *point - local_c[0];
+    local_3c[1] = point[1] - local_c[1];
+    local_3c[2] = point[2] - local_c[2];
+    fVar4 = Vec3_Normalize(local_3c);
+    local_48[0] = local_3c[0];
     *outDistance = fVar4;
-    local_44 = local_38;
-    local_40 = 0;
-    Vec3_Normalize((float *)&local_48);
+    local_48[1] = local_3c[1];
+    local_48[2] = 0.0;
+    Vec3_Normalize(local_48);
     pfVar3 = Actor_GetFrame(actor);
-    fVar4 = pfVar3[3] * (float)local_48;
+    fVar4 = pfVar3[3] * local_48[0];
     pfVar3 = Actor_GetFrame(actor);
-    fVar2 = pfVar3[4] * (float)local_44;
+    fVar2 = pfVar3[4] * local_48[1];
     pfVar3 = Actor_GetFrame(actor);
-    if (*(float *)(iVar1 + 0x24) <= pfVar3[5] * (float)local_40 + fVar2 + fVar4) {
+    if (*(float *)(iVar1 + 0x24) <= pfVar3[5] * local_48[2] + fVar2 + fVar4) {
       return 1;
     }
   }
   return 0;
 }
 #undef local_30
-#undef local_34
-#undef local_38
 #undef local_3c
-#undef local_4
-#undef local_40
-#undef local_44
 #undef local_48
-#undef local_8
 #undef local_c
-
-#endif
 
 
 /* ---- 0x0048fb80  Actor_CanSee ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Lua CanActorSee / GetVisibleThings line-of-sight test */
 
 int __cdecl Actor_CanSee(void *viewer,void *target,float *outDistance)
@@ -382,12 +337,8 @@ int __cdecl Actor_CanSee(void *viewer,void *target,float *outDistance)
   }
   return 0;
 }
-#endif
-
 
 /* ---- 0x0048fbd0  Actor_TurnKey ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Actor_TurnKey(actor, dir): the TurnActor builtin. Walker extra struct at actor+0xa4: +0x1c turn
    rate (deg/s, default 135, set by SetActorTurnRate), +0x41c time scale, +0x28 angle still to turn.
    Turn per press = rate * frameSeconds * timescale * dir; the key is accepted (+0x10 = +-1) only
@@ -425,12 +376,8 @@ void Actor_TurnKey(int param_1,float param_2)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x0048fc80  Actor_WalkForward ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Actor_WalkForward(actor): creates the walker if missing and sets extra+0xc (walk forward this
    frame), consumed by Actor_UpdateWalker. */
 
@@ -444,12 +391,8 @@ void Actor_WalkForward(int param_1)
   *(undefined4 *)(*(int *)(param_1 + 0xa4) + 0xc) = 1;
   return;
 }
-#endif
-
 
 /* ---- 0x0048fd90  Actor_UpdateMovement ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Actor_UpdateMovement(actor, dt): per frame; path following when actor+8 bit 0 (Actor_FollowPath),
    Actor_UpdateWalker, Actor_UpdateMoveChores, costume update with dt * time scale, Actor_PuckOrient
    when actor+4 & 0x10. */
@@ -471,7 +414,7 @@ void Actor_UpdateMovement(void *param_1,float param_2)
       (*g_pSvcMain->pAssertFail)
                 (s_Bad_costume_Reference_004e9e90,s_main_sputResource_h_004e80a8,0xb8);
     }
-    Cos_InstRescue(**(undefined4 **)((int)param_1 + 0xa0),*(undefined4 *)(iVar1 + 0x80));
+    Cos_InstRescue(**(int **)((int)param_1 + 0xa0),*(int *)(iVar1 + 0x80));
   }
   if ((*(byte *)((int)param_1 + 8) & 1) != 0) {
     Actor_FollowPath(param_1);
@@ -490,12 +433,8 @@ void Actor_UpdateMovement(void *param_1,float param_2)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x0048fe80  Actor_UpdateLookAt ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Head tracking: turns the three head joints toward the look-at point (extra+0) limited by the look
    rate and the yaw/pitch limits */
 
@@ -513,12 +452,10 @@ void __cdecl Actor_UpdateLookAt(void *actor,float dt)
   int *piVar8;
   int iVar9;
   float fVar10;
-  uint uVar11;
+  uint index;
   #define fStack_c8 (*(float *)(_frame + (0xe0 - 0xc8)))
   #define local_c4 (*(uint *)(_frame + (0xe0 - 0xc4)))
-  #define local_c0 (*(uint *)(_frame + (0xe0 - 0xc0)))
-  #define local_bc (*(uint *)(_frame + (0xe0 - 0xbc)))
-  #define local_b8 (*(uint *)(_frame + (0xe0 - 0xb8)))
+  #define local_c0 (*(float (*)[3])(_frame + (0xe0 - 0xc0)))
   #define fStack_b4 (*(float *)(_frame + (0xe0 - 0xb4)))
   #define fStack_b0 (*(float *)(_frame + (0xe0 - 0xb0)))
   #define afStack_a8 (*(float (*)[3])(_frame + (0xe0 - 0xa8)))
@@ -535,17 +472,17 @@ void __cdecl Actor_UpdateLookAt(void *actor,float dt)
   }
   if (((iVar1 != 0) && (piVar8 = (int *)(iVar1 + 0xc), -1 < *(int *)(iVar1 + 0xc))) &&
      (*(int *)(iVar1 + 4) != 0)) {
-    local_c0 = 0;
-    local_bc = 0x3f800000;
-    local_b8 = 0;
+    local_c0[0] = 0.0;
+    local_c0[1] = 1.0;
+    local_c0[2] = 0.0;
     if (*(int *)((int)actor + 0x68) == 0) {
       pfVar6 = Actor_GetFrame(actor);
       rdPuppet_UpdateFrame(*(void **)(iVar1 + 4),pfVar6);
     }
-    uVar11 = *(uint *)(iVar1 + 0x14);
+    index = *(uint *)(iVar1 + 0x14);
     pfVar6 = afStack_60;
     pfVar7 = Actor_GetFrame(actor);
-    rdPuppet_BuildJointMatrices(*(void **)(iVar1 + 4),pfVar7,uVar11,(uint)pfVar6);
+    rdPuppet_BuildJointMatrices(*(void **)(iVar1 + 4),pfVar7,index,pfVar6);
     Matrix_Transpose(afStack_90,afStack_60);
     pfVar6 = *(float **)((int)actor + 0xa4);
     if (((*pfVar6 == 0.0) && (pfVar6[1] == 0.0)) && (pfVar6[2] == 0.0)) {
@@ -558,10 +495,10 @@ void __cdecl Actor_UpdateLookAt(void *actor,float dt)
       Vec3_Sub(afStack_a8,pfVar6,afStack_90);
       Vec3_Normalize(afStack_a8);
     }
-    Vec3_Cross(afStack_9c,(float *)&local_c0,afStack_a8);
+    Vec3_Cross(afStack_9c,local_c0,afStack_a8);
     Vec3_Normalize(afStack_9c);
     fStack_c8 = *(float *)(iVar1 + 0x18) * dt;
-    fVar10 = Vec3_Dot((float *)&local_c0,afStack_a8);
+    fVar10 = Vec3_Dot(local_c0,afStack_a8);
     fVar10 = Math_AsinDegrees(fVar10);
     fVar10 = 90.0 - fVar10;
     fVar3 = fVar10;
@@ -578,8 +515,8 @@ void __cdecl Actor_UpdateLookAt(void *actor,float dt)
       }
     }
     Matrix_AxisAngle(afStack_30,afStack_9c,fStack_c8);
-    Vec3_Rotate3x3((float *)&local_c0,afStack_30);
-    Matrix_GetAngles((float *)&local_c0,&fStack_b4);
+    Vec3_Rotate3x3(local_c0,afStack_30);
+    Matrix_GetAngles(local_c0,&fStack_b4);
     if ((*(byte *)((int)actor + 8) & 2) == 0) {
       iVar9 = 3;
       do {
@@ -632,12 +569,8 @@ void __cdecl Actor_UpdateLookAt(void *actor,float dt)
 #undef fStack_b0
 #undef fStack_b4
 #undef fStack_c8
-#undef local_b8
-#undef local_bc
 #undef local_c0
 #undef local_c4
-
-#endif
 
 
 /* ---- 0x00490210  Actor_UpdateTalk ---- */
@@ -653,7 +586,7 @@ void __cdecl Actor_UpdateTalk(void *actor,float dt)
   ushort uVar2;
   int iVar3;
   undefined2 extraout_var;
-  undefined4 *puVar4;
+  int *piVar4;
   undefined4 unaff_ESI;
   undefined4 unaff_EDI;
   longlong lVar5;
@@ -664,22 +597,21 @@ void __cdecl Actor_UpdateTalk(void *actor,float dt)
   }
   if (((*(char *)(iVar3 + 0x1dc) != '\0') && (*(int *)(iVar3 + 0x1f0) != 0)) &&
      (*(int *)((int)actor + 0xa0) != 0)) {
-    iVar3 = iMUSE_GetPhoneme(*(undefined4 *)(iVar3 + 0x1c8),0);
+    iVar3 = iMUSE_GetPhoneme(*(int *)(iVar3 + 0x1c8),0);
     if (iVar3 == 0) {
       Actor_ShutUp(actor);
     }
     else {
       uVar2 = Phoneme_ToTalkChore(actor,iVar3);
-      puVar4 = *(undefined4 **)((int)actor + 0xa0);
-      piVar1 = puVar4 + 1;
-      if (puVar4 != (undefined4 *)0x0) {
+      piVar4 = *(int **)((int)actor + 0xa0);
+      piVar1 = piVar4 + 1;
+      if (piVar4 != (int *)0x0) {
         do {
-          if ((puVar4[1] != *piVar1) || (-1 < (int)puVar4[CONCAT22(extraout_var,uVar2) + 0xe]))
-          break;
-          puVar4 = (undefined4 *)puVar4[0x2c];
-        } while (puVar4 != (undefined4 *)0x0);
-        if ((puVar4 != (undefined4 *)0x0) && (puVar4[1] == *piVar1)) {
-          Cos_InstCompleteChore(*puVar4,puVar4[CONCAT22(extraout_var,uVar2) + 0xe]);
+          if ((piVar4[1] != *piVar1) || (-1 < piVar4[CONCAT22(extraout_var,uVar2) + 0xe])) break;
+          piVar4 = (int *)piVar4[0x2c];
+        } while (piVar4 != (int *)0x0);
+        if ((piVar4 != (int *)0x0) && (piVar4[1] == *piVar1)) {
+          Cos_InstCompleteChore(*piVar4,piVar4[CONCAT22(extraout_var,uVar2) + 0xe]);
         }
       }
     }
@@ -726,30 +658,20 @@ int __cdecl Actor_SetSelected(int handle)
 
 
 /* ---- 0x00490360  Actor_FromHandle ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void * Actor_FromHandle(int param_1)
 
 {
   return (void *)((int)g_pActorTable + param_1 * 0xa8);
 }
-#endif
-
 
 /* ---- 0x00490380  Actor_GetHandle ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 int __cdecl Actor_GetHandle(void *actor,int tag)
 
 {
   return ((int)actor - (int)g_pActorTable) / 0xa8;
 }
-#endif
-
 
 /* ---- 0x004903a0  Actor_Create ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 /* Lua LoadActor: allocates an actor record and returns its handle (-1 when full) */
 
@@ -837,12 +759,8 @@ int Actor_Create(void)
 #undef aiStack_10
 #undef local_14
 
-#endif
-
 
 /* ---- 0x00490580  Actor_CreateExtra ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Source: Engine/sputActor.cpp (lines 1561-1564, from __FILE__/__LINE__ passed to the allocator) */
 
 void Actor_CreateExtra(int param_1)
@@ -881,12 +799,8 @@ void Actor_CreateExtra(int param_1)
   *(undefined4 *)(*(int *)(param_1 + 0xa4) + 0x408) = 0x3f800000;
   return;
 }
-#endif
-
 
 /* ---- 0x004906b0  Actor_SetFollowBoxes ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Actor_SetFollowBoxes(actor, follow): sets extra+0x1b8. Following creates the walker and
    reattaches it to the set; not following clears the walker's sector (+0x5c) but keeps the walker.
     */
@@ -912,8 +826,6 @@ void Actor_SetFollowBoxes(int param_1,int param_2)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x00490730  Actor_CreateWalker ---- */
 /* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
@@ -928,9 +840,7 @@ void Actor_CreateWalker(void *param_1,int param_2)
   float *pfVar2;
   void *p;
   uint *unaff_FS_OFFSET = (uint *)TEB_BASE();
-  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
+  #define local_18 (*(float (*)[3])(_frame + (0x30 - 0x18)))
   #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
   #define pcStack_8 (*(code **)(_frame + (0x30 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
@@ -958,17 +868,15 @@ void Actor_CreateWalker(void *param_1,int param_2)
     Mem_CheckAlloc(p,s_C__grimsrc_libs_grimlib_Engine_s_004e9e40,0x665);
     Walker_SetPosition(p,(float *)((int)param_1 + 0xc));
     pfVar2 = Actor_GetFrame(param_1);
-    local_18 = (uint)(pfVar2[3] + *(float *)((int)param_1 + 0xc));
-    local_14 = (uint)(*(float *)((int)param_1 + 0x10) + pfVar2[4]);
-    local_10 = (uint)(*(float *)((int)param_1 + 0x14) + pfVar2[5]);
-    Walker_TurnToPoint(p,(int)&local_18,0x7f7fffff);
+    local_18[0] = pfVar2[3] + *(float *)((int)param_1 + 0xc);
+    local_18[1] = *(float *)((int)param_1 + 0x10) + pfVar2[4];
+    local_18[2] = *(float *)((int)param_1 + 0x14) + pfVar2[5];
+    Walker_TurnToPoint(p,local_18,3.4028235e+38);
     *(void **)(*(int *)((int)param_1 + 0xa4) + 0x1b4) = p;
   }
   *unaff_FS_OFFSET = local_c;
   return;
 }
-#undef local_10
-#undef local_14
 #undef local_18
 #undef local_4
 #undef local_c
@@ -978,8 +886,6 @@ void Actor_CreateWalker(void *param_1,int param_2)
 
 
 /* ---- 0x00490870  Actor_SetPositionClamped ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void Actor_SetPositionClamped(int param_1,float *param_2)
 
 {
@@ -1011,12 +917,8 @@ void Actor_SetPositionClamped(int param_1,float *param_2)
   *(float *)(param_1 + 0x14) = fVar2;
   return;
 }
-#endif
-
 
 /* ---- 0x00490900  Actor_SetRot ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* WARNING: Variable defined which should be unmapped: local_40 */
 /* Actor_SetRot(actor, angles, snap): clears actor+8 bit 0 first, which ends a WalkActorTo path walk
    (Actor_UpdateMovement only calls Actor_FollowPath while it is set). Pitch (+0x24) and roll
@@ -1033,27 +935,25 @@ void Actor_SetRot(int param_1,undefined4 *param_2,int param_3)
   int iVar1;
   undefined4 uVar2;
   float fVar3;
-  #define local_40 (*(uint *)(_frame + (0x50 - 0x40)))
+  #define local_40 (*(float *)(_frame + (0x50 - 0x40)))
   #define local_30 (*(undefined1 (*)[12])(_frame + (0x50 - 0x30)))
-  #define local_24 (*(uint *)(_frame + (0x50 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x50 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x50 - 0x1c)))
+  #define local_24 (*(float (*)[3])(_frame + (0x50 - 0x24)))
   
   *(uint *)(param_1 + 8) = *(uint *)(param_1 + 8) & 0xfffffffe;
   if ((*(int *)(param_1 + 0xa4) != 0) &&
      (this = *(float **)(*(int *)(param_1 + 0xa4) + 0x1b4), this != (float *)0x0)) {
     Angles_ToMatrixNoPos(local_30,param_2);
-    local_24 = (uint)((float)local_24 + *this);
-    local_20 = (uint)(this[1] + (float)local_20);
-    local_1c = (uint)(this[2] + (float)local_1c);
-    Walker_ToLocalSpace(this,(float *)&local_24);
-    local_1c = 0;
-    Vec3_Normalize((float *)&local_24);
-    fVar3 = Math_AsinDegreesSeries((float)local_20);
+    local_24[0] = local_24[0] + *this;
+    local_24[1] = this[1] + local_24[1];
+    local_24[2] = this[2] + local_24[2];
+    Walker_ToLocalSpace(this,local_24);
+    local_24[2] = 0.0;
+    Vec3_Normalize(local_24);
+    fVar3 = Math_AsinDegreesSeries(local_24[1]);
     fVar3 = 90.0 - fVar3;
-    local_40 = (uint)fVar3;
-    if (0.0 < (float)local_24) {
-      local_40 = (uint)-fVar3;
+    local_40 = fVar3;
+    if (0.0 < local_24[0]) {
+      local_40 = -fVar3;
     }
     Walker_TurnHeading(this,local_40);
     iVar1 = *(int *)(param_1 + 0xa4);
@@ -1073,18 +973,12 @@ void Actor_SetRot(int param_1,undefined4 *param_2,int param_3)
   *(undefined4 *)(param_1 + 0x2c) = uVar2;
   return;
 }
-#undef local_1c
-#undef local_20
 #undef local_24
 #undef local_30
 #undef local_40
 
-#endif
-
 
 /* ---- 0x00490a40  Actor_SetReflection ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void __cdecl Actor_SetReflection(void *actor,float angle)
 
 {
@@ -1096,42 +990,38 @@ void __cdecl Actor_SetReflection(void *actor,float angle)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x00490a60  Actor_SetWalkChore ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void __cdecl Actor_SetWalkChore(void *actor,int chore,void *costume)
 
 {
   int *piVar1;
   uint uVar2;
-  undefined4 *puVar3;
+  int *piVar3;
   
-  puVar3 = *(undefined4 **)((int)actor + 0xa0);
-  if (puVar3 != (undefined4 *)0x0) {
+  piVar3 = *(int **)((int)actor + 0xa0);
+  if (piVar3 != (int *)0x0) {
     if (costume == (void *)0x0) {
-      costume = puVar3;
+      costume = piVar3;
     }
-    piVar1 = puVar3 + 1;
-    if (puVar3 != (undefined4 *)0x0) {
+    piVar1 = piVar3 + 1;
+    if (piVar3 != (int *)0x0) {
       do {
-        if ((puVar3[1] != *piVar1) || (-1 < (int)puVar3[10])) break;
-        puVar3 = (undefined4 *)puVar3[0x2c];
-      } while (puVar3 != (undefined4 *)0x0);
-      if ((puVar3 != (undefined4 *)0x0) && (puVar3[1] == *piVar1)) {
-        if (chore == puVar3[10]) {
+        if ((piVar3[1] != *piVar1) || (-1 < piVar3[10])) break;
+        piVar3 = (int *)piVar3[0x2c];
+      } while (piVar3 != (int *)0x0);
+      if ((piVar3 != (int *)0x0) && (piVar3[1] == *piVar1)) {
+        if (chore == piVar3[10]) {
           return;
         }
-        uVar2 = Cos_InstChoreStatus(*puVar3,puVar3[10]);
+        uVar2 = Cos_InstChoreStatus(*piVar3,piVar3[10]);
         if ((uVar2 != 0) &&
-           (Cos_StopChoreFaded((void *)*puVar3,puVar3[10],g_nChoreFadeMs), chore != -1)) {
-          Cos_InstPlayChore(*puVar3,chore,uVar2 & 2,~uVar2 >> 2 & 1);
-          Cos_InstUpdateChore(*puVar3,chore,100);
-          Chore_FadeIn((void *)*puVar3,chore,g_nChoreFadeMs);
+           (Cos_StopChoreFaded((void *)*piVar3,piVar3[10],g_nChoreFadeMs), chore != -1)) {
+          Cos_InstPlayChore(*piVar3,chore,uVar2 & 2,~uVar2 >> 2 & 1);
+          Cos_InstUpdateChore(*piVar3,chore,100);
+          Chore_FadeIn((void *)*piVar3,chore,g_nChoreFadeMs);
         }
-        puVar3[10] = 0xffffffff;
+        piVar3[10] = -1;
         *(int *)((int)costume + 0x28) = chore;
         return;
       }
@@ -1140,47 +1030,43 @@ void __cdecl Actor_SetWalkChore(void *actor,int chore,void *costume)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x00490b50  Actor_SetTurnChores ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void __cdecl Actor_SetTurnChores(void *actor,int leftChore,int rightChore,void *costume)
 
 {
   int *piVar1;
   uint uVar2;
-  undefined4 *puVar3;
+  int *piVar3;
   
-  puVar3 = *(undefined4 **)((int)actor + 0xa0);
-  if (puVar3 != (undefined4 *)0x0) {
+  piVar3 = *(int **)((int)actor + 0xa0);
+  if (piVar3 != (int *)0x0) {
     if (costume == (void *)0x0) {
-      costume = puVar3;
+      costume = piVar3;
     }
-    piVar1 = puVar3 + 1;
-    if (puVar3 != (undefined4 *)0x0) {
+    piVar1 = piVar3 + 1;
+    if (piVar3 != (int *)0x0) {
       do {
-        if ((puVar3[1] != *piVar1) || (-1 < (int)puVar3[0xb])) break;
-        puVar3 = (undefined4 *)puVar3[0x2c];
-      } while (puVar3 != (undefined4 *)0x0);
-      if ((puVar3 != (undefined4 *)0x0) && (puVar3[1] == *piVar1)) {
-        if (leftChore != puVar3[0xb]) {
-          uVar2 = Cos_InstChoreStatus(*puVar3,puVar3[0xb]);
-          if ((uVar2 != 0) && (Cos_InstStopChore(*puVar3,puVar3[0xb]), leftChore != -1)) {
-            Cos_InstPlayChore(*puVar3,leftChore,uVar2 & 2,~uVar2 >> 2 & 1);
+        if ((piVar3[1] != *piVar1) || (-1 < piVar3[0xb])) break;
+        piVar3 = (int *)piVar3[0x2c];
+      } while (piVar3 != (int *)0x0);
+      if ((piVar3 != (int *)0x0) && (piVar3[1] == *piVar1)) {
+        if (leftChore != piVar3[0xb]) {
+          uVar2 = Cos_InstChoreStatus(*piVar3,piVar3[0xb]);
+          if ((uVar2 != 0) && (Cos_InstStopChore(*piVar3,piVar3[0xb]), leftChore != -1)) {
+            Cos_InstPlayChore(*piVar3,leftChore,uVar2 & 2,~uVar2 >> 2 & 1);
           }
-          puVar3[0xb] = 0xffffffff;
+          piVar3[0xb] = -1;
           *(int *)((int)costume + 0x2c) = leftChore;
         }
-        if (rightChore == puVar3[0xc]) {
+        if (rightChore == piVar3[0xc]) {
           return;
         }
-        uVar2 = Cos_InstChoreStatus(*puVar3,puVar3[0xc]);
-        if ((uVar2 != 0) && (Cos_InstStopChore(*puVar3,puVar3[0xc]), leftChore != -1)) {
-          Cos_InstPlayChore(*puVar3,rightChore,uVar2 & 2,~uVar2 >> 2 & 1);
+        uVar2 = Cos_InstChoreStatus(*piVar3,piVar3[0xc]);
+        if ((uVar2 != 0) && (Cos_InstStopChore(*piVar3,piVar3[0xc]), leftChore != -1)) {
+          Cos_InstPlayChore(*piVar3,rightChore,uVar2 & 2,~uVar2 >> 2 & 1);
         }
-        puVar3[0xc] = 0xffffffff;
+        piVar3[0xc] = -1;
         *(int *)((int)costume + 0x30) = rightChore;
         return;
       }
@@ -1190,39 +1076,35 @@ void __cdecl Actor_SetTurnChores(void *actor,int leftChore,int rightChore,void *
   }
   return;
 }
-#endif
-
 
 /* ---- 0x00490c80  Actor_SetRestChore ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void __cdecl Actor_SetRestChore(void *actor,int chore,void *costume)
 
 {
   int *piVar1;
   uint uVar2;
-  undefined4 *puVar3;
+  int *piVar3;
   
-  puVar3 = *(undefined4 **)((int)actor + 0xa0);
-  if (puVar3 != (undefined4 *)0x0) {
+  piVar3 = *(int **)((int)actor + 0xa0);
+  if (piVar3 != (int *)0x0) {
     if (costume == (void *)0x0) {
-      costume = puVar3;
+      costume = piVar3;
     }
-    piVar1 = puVar3 + 1;
-    if (puVar3 != (undefined4 *)0x0) {
+    piVar1 = piVar3 + 1;
+    if (piVar3 != (int *)0x0) {
       do {
-        if ((puVar3[1] != *piVar1) || (-1 < (int)puVar3[0xd])) break;
-        puVar3 = (undefined4 *)puVar3[0x2c];
-      } while (puVar3 != (undefined4 *)0x0);
-      if ((puVar3 != (undefined4 *)0x0) && (puVar3[1] == *piVar1)) {
-        if (chore == puVar3[0xd]) {
+        if ((piVar3[1] != *piVar1) || (-1 < piVar3[0xd])) break;
+        piVar3 = (int *)piVar3[0x2c];
+      } while (piVar3 != (int *)0x0);
+      if ((piVar3 != (int *)0x0) && (piVar3[1] == *piVar1)) {
+        if (chore == piVar3[0xd]) {
           return;
         }
-        uVar2 = Cos_InstChoreStatus(*puVar3,puVar3[0xd]);
-        if ((uVar2 != 0) && (Cos_InstStopChore(*puVar3,puVar3[0xd]), chore != -1)) {
-          Cos_InstPlayChore(*puVar3,chore,uVar2 & 2,~uVar2 >> 2 & 1);
+        uVar2 = Cos_InstChoreStatus(*piVar3,piVar3[0xd]);
+        if ((uVar2 != 0) && (Cos_InstStopChore(*piVar3,piVar3[0xd]), chore != -1)) {
+          Cos_InstPlayChore(*piVar3,chore,uVar2 & 2,~uVar2 >> 2 & 1);
         }
-        puVar3[0xd] = 0xffffffff;
+        piVar3[0xd] = -1;
         *(int *)((int)costume + 0x34) = chore;
         return;
       }
@@ -1231,12 +1113,8 @@ void __cdecl Actor_SetRestChore(void *actor,int chore,void *costume)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x00490d30  Actor_PushCostume ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 int __cdecl Actor_PushCostume(void *actor,char *name,int param_3)
 
 {
@@ -1257,17 +1135,12 @@ int __cdecl Actor_PushCostume(void *actor,char *name,int param_3)
   }
   pvVar1 = Costume_Push(pvVar1,costumeRes,param_3);
   *(void **)((int)actor + 0xa0) = pvVar1;
-  Cos_InstSetUserData(**(undefined4 **)((int)actor + 0xa0),((int)actor - (int)g_pActorTable) / 0xa8)
-  ;
+  Cos_InstSetUserData(**(int **)((int)actor + 0xa0),((int)actor - (int)g_pActorTable) / 0xa8);
   Actor_SetFrustumCull(actor,~*(uint *)((int)actor + 4) >> 2 & 1);
   return 1;
 }
-#endif
-
 
 /* ---- 0x00490dd0  Actor_PopCostume ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void __cdecl Actor_PopCostume(void *actor,int free)
 
 {
@@ -1277,12 +1150,8 @@ void __cdecl Actor_PopCostume(void *actor,int free)
   *(void **)((int)actor + 0xa0) = pvVar1;
   return;
 }
-#endif
-
 
 /* ---- 0x00490f50  Actor_PuckOrient ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* WARNING: Variable defined which should be unmapped: local_68 */
 /* Actor_PuckOrient: at the end of the actor update when actor+4 & 0x10 (ActorPuckOrient). Rebuilds
    the actor matrix, takes the angle between its up row and the up vector of the walker frame; over
@@ -1300,15 +1169,9 @@ void Actor_PuckOrient(float param_1)
   float fVar5;
   float fVar6;
   #define local_68 (*(uint *)(_frame + (0x80 - 0x68)))
-  #define local_54 (*(uint *)(_frame + (0x80 - 0x54)))
-  #define local_50 (*(uint *)(_frame + (0x80 - 0x50)))
-  #define local_4c (*(uint *)(_frame + (0x80 - 0x4c)))
-  #define local_48 (*(uint *)(_frame + (0x80 - 0x48)))
-  #define local_44 (*(uint *)(_frame + (0x80 - 0x44)))
-  #define local_40 (*(uint *)(_frame + (0x80 - 0x40)))
-  #define local_3c (*(uint *)(_frame + (0x80 - 0x3c)))
-  #define local_38 (*(uint *)(_frame + (0x80 - 0x38)))
-  #define local_34 (*(uint *)(_frame + (0x80 - 0x34)))
+  #define local_54 (*(float (*)[3])(_frame + (0x80 - 0x54)))
+  #define local_48 (*(float (*)[3])(_frame + (0x80 - 0x48)))
+  #define local_3c (*(float (*)[3])(_frame + (0x80 - 0x3c)))
   #define local_30 (*(undefined1 (*)[48])(_frame + (0x80 - 0x30)))
   
   if (((param_1 != 0.0) && (*(int *)((int)param_1 + 0xa4) != 0)) &&
@@ -1317,13 +1180,13 @@ void Actor_PuckOrient(float param_1)
     iVar2 = (int)param_1 + 0x24;
     iVar3 = (int)param_1 + 0x38;
     Angles_ToMatrix(iVar3,iVar2,iVar1);
-    local_48 = *(uint *)((int)param_1 + 0x50);
-    local_44 = *(uint *)((int)param_1 + 0x54);
-    local_40 = *(uint *)((int)param_1 + 0x58);
-    local_54 = *(uint *)(iVar4 + 0x24);
-    local_50 = *(uint *)(iVar4 + 0x28);
-    local_4c = *(uint *)(iVar4 + 0x2c);
-    fVar5 = Vec3_Dot2((float *)&local_48,(float *)&local_54);
+    local_48[0] = *(float *)((int)param_1 + 0x50);
+    local_48[1] = *(float *)((int)param_1 + 0x54);
+    local_48[2] = *(float *)((int)param_1 + 0x58);
+    local_54[0] = *(float *)(iVar4 + 0x24);
+    local_54[1] = *(float *)(iVar4 + 0x28);
+    local_54[2] = *(float *)(iVar4 + 0x2c);
+    fVar5 = Vec3_Dot2(local_48,local_54);
     fVar5 = Math_AsinDegreesSeries(fVar5);
     fVar5 = 90.0 - fVar5;
     fVar6 = fVar5;
@@ -1340,11 +1203,11 @@ void Actor_PuckOrient(float param_1)
       if ((param_1 < 0.0) && (param_1 < -fVar6)) {
         param_1 = -fVar6;
       }
-      local_3c = (uint)((float)local_4c * (float)local_44 - (float)local_50 * (float)local_40);
-      local_38 = (uint)((float)local_54 * (float)local_40 - (float)local_4c * (float)local_48);
-      local_34 = (uint)((float)local_50 * (float)local_48 - (float)local_54 * (float)local_44);
-      Vec3_Normalize((float *)&local_3c);
-      Matrix_AxisAngle(local_30,&local_3c,param_1);
+      local_3c[0] = local_54[2] * local_48[1] - local_54[1] * local_48[2];
+      local_3c[1] = local_54[0] * local_48[2] - local_54[2] * local_48[0];
+      local_3c[2] = local_54[1] * local_48[0] - local_54[0] * local_48[1];
+      Vec3_Normalize(local_3c);
+      Matrix_AxisAngle(local_30,local_3c,param_1);
       Matrix_Multiply(iVar3,local_30);
       Matrix_ToAngles(iVar3,iVar2);
       Angles_ToMatrix(iVar3,iVar2,iVar1);
@@ -1353,18 +1216,10 @@ void Actor_PuckOrient(float param_1)
   return;
 }
 #undef local_30
-#undef local_34
-#undef local_38
 #undef local_3c
-#undef local_40
-#undef local_44
 #undef local_48
-#undef local_4c
-#undef local_50
 #undef local_54
 #undef local_68
-
-#endif
 
 
 /* ---- 0x00491110  Actor_UpdateWalker ---- */
@@ -1378,31 +1233,31 @@ void Actor_UpdateWalker(int param_1)
   undefined *puVar3;
   undefined4 uVar4;
   float fVar5;
-  uint a2;
-  uint a3;
+  uint turnLeftOk;
+  uint turnRightOk;
   
   puVar1 = *(undefined4 **)(*(int *)(param_1 + 0xa4) + 0x1b4);
   if ((*(int *)(*(int *)(param_1 + 0xa4) + 0x10) != 0) && ((*(byte *)(param_1 + 8) & 1) == 0)) {
     iVar2 = *(int *)(param_1 + 0xa4);
     fVar5 = Timer_GetFrameSeconds();
     Walker_TurnHeading(*(void **)(iVar2 + 0x1b4),
-                       (int)((float)*(int *)(iVar2 + 0x10) *
-                            *(float *)(iVar2 + 0x1c) * fVar5 * *(float *)(iVar2 + 0x41c)));
+                       (float)*(int *)(iVar2 + 0x10) *
+                       *(float *)(iVar2 + 0x1c) * fVar5 * *(float *)(iVar2 + 0x41c));
   }
   iVar2 = *(int *)(param_1 + 0xa4);
   if (*(int *)(iVar2 + 0xc) != 0) {
     fVar5 = Timer_GetFrameSeconds();
     if (*(int *)(iVar2 + 0x1bc) == 0) {
-      a3 = (uint)(*(int *)(iVar2 + 0x10) != 1);
-      a2 = (uint)(*(int *)(iVar2 + 0x10) != -1);
+      turnRightOk = (uint)(*(int *)(iVar2 + 0x10) != 1);
+      turnLeftOk = (uint)(*(int *)(iVar2 + 0x10) != -1);
     }
     else {
-      a3 = 1;
-      a2 = 1;
+      turnRightOk = 1;
+      turnLeftOk = 1;
     }
     puVar3 = Walker_WalkSectors(*(void **)(iVar2 + 0x1b4),
-                                (int)(fVar5 * *(float *)(iVar2 + 0x41c) * *(float *)(iVar2 + 0x18)),
-                                a2,a3);
+                                fVar5 * *(float *)(iVar2 + 0x41c) * *(float *)(iVar2 + 0x18),
+                                turnLeftOk,turnRightOk);
     *(undefined **)(*(int *)(param_1 + 0xa4) + 0xc) = puVar3;
   }
   uVar4 = Walker_UpdateYaw(param_1,puVar1);
@@ -1428,8 +1283,6 @@ void Actor_UpdateWalker(int param_1)
 
 
 /* ---- 0x004913f0  Actor_UpdateMoveChores ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Actor_UpdateMoveChores (after Actor_UpdateWalker): costume record [10] walk, [0xb] left turn,
    [0xc] right turn, [0xd] rest. Walking (walker+0xc): start walk chore (rest flag +0x14 = 0) else
    stop it; walking clears +0x10. +0x10 >= 1 plays left, < 0 plays right (eased turns set -1 always:
@@ -1439,109 +1292,109 @@ void Actor_UpdateWalker(int param_1)
 void Actor_UpdateMoveChores(int param_1)
 
 {
-  int *piVar1;
-  int iVar2;
-  uint uVar3;
-  int iVar4;
-  undefined4 *puVar5;
+  int iVar1;
+  uint uVar2;
+  int iVar3;
+  int *piVar4;
+  int *piVar5;
   
   if (*(int *)(param_1 + 0xa4) == 0) {
     return;
   }
-  puVar5 = *(undefined4 **)(param_1 + 0xa0);
-  if (puVar5 == (undefined4 *)0x0) {
+  piVar4 = *(int **)(param_1 + 0xa0);
+  if (piVar4 == (int *)0x0) {
     return;
   }
-  piVar1 = puVar5 + 1;
-  if (puVar5 != (undefined4 *)0x0) {
+  piVar5 = piVar4 + 1;
+  if (piVar4 != (int *)0x0) {
     do {
-      if ((puVar5[1] != *piVar1) || (-1 < (int)puVar5[10])) break;
-      puVar5 = (undefined4 *)puVar5[0x2c];
-    } while (puVar5 != (undefined4 *)0x0);
-    if ((puVar5 != (undefined4 *)0x0) && (puVar5[1] == *piVar1)) {
-      uVar3 = Cos_InstChoreStatus(*puVar5,puVar5[10]);
-      iVar2 = *(int *)(*(int *)(param_1 + 0xa4) + 0xc);
-      if (iVar2 == 0) {
+      if ((piVar4[1] != *piVar5) || (-1 < piVar4[10])) break;
+      piVar4 = (int *)piVar4[0x2c];
+    } while (piVar4 != (int *)0x0);
+    if ((piVar4 != (int *)0x0) && (piVar4[1] == *piVar5)) {
+      uVar2 = Cos_InstChoreStatus(*piVar4,piVar4[10]);
+      iVar1 = *(int *)(*(int *)(param_1 + 0xa4) + 0xc);
+      if (iVar1 == 0) {
 LAB_00491477:
-        if (((uVar3 & 1) != 0) && ((*(byte *)(param_1 + 8) & 1) == 0)) {
-          Cos_StopChoreFaded((void *)*puVar5,puVar5[10],g_nChoreFadeMs);
+        if (((uVar2 & 1) != 0) && ((*(byte *)(param_1 + 8) & 1) == 0)) {
+          Cos_StopChoreFaded((void *)*piVar4,piVar4[10],g_nChoreFadeMs);
         }
       }
-      else if (uVar3 == 0) {
+      else if (uVar2 == 0) {
         *(undefined4 *)(*(int *)(param_1 + 0xa4) + 0x14) = 0;
-        Cos_StartChoreFaded(*puVar5,puVar5[10],g_nChoreFadeMs);
+        Cos_StartChoreFaded(*piVar4,piVar4[10],g_nChoreFadeMs);
       }
-      else if (iVar2 == 0) goto LAB_00491477;
+      else if (iVar1 == 0) goto LAB_00491477;
     }
   }
   if (*(int *)(*(int *)(param_1 + 0xa4) + 0xc) != 0) {
     *(undefined4 *)(*(int *)(param_1 + 0xa4) + 0x10) = 0;
   }
-  puVar5 = *(undefined4 **)(param_1 + 0xa0);
-  iVar2 = puVar5[1];
-  if (puVar5 != (undefined4 *)0x0) {
+  piVar4 = *(int **)(param_1 + 0xa0);
+  iVar1 = piVar4[1];
+  if (piVar4 != (int *)0x0) {
     do {
-      if ((puVar5[1] != iVar2) || (-1 < (int)puVar5[0xb])) break;
-      puVar5 = (undefined4 *)puVar5[0x2c];
-    } while (puVar5 != (undefined4 *)0x0);
-    if (puVar5 != (undefined4 *)0x0) {
-      if ((puVar5[1] == iVar2) && (-1 < (int)puVar5[0xb])) {
-        uVar3 = Cos_InstChoreStatus(*puVar5,puVar5[0xb]);
-        iVar4 = *(int *)(*(int *)(param_1 + 0xa4) + 0x10);
-        if (iVar4 < 1) {
+      if ((piVar4[1] != iVar1) || (-1 < piVar4[0xb])) break;
+      piVar4 = (int *)piVar4[0x2c];
+    } while (piVar4 != (int *)0x0);
+    if (piVar4 != (int *)0x0) {
+      if ((piVar4[1] == iVar1) && (-1 < piVar4[0xb])) {
+        uVar2 = Cos_InstChoreStatus(*piVar4,piVar4[0xb]);
+        iVar3 = *(int *)(*(int *)(param_1 + 0xa4) + 0x10);
+        if (iVar3 < 1) {
 LAB_00491517:
-          if ((uVar3 & 1) != 0) {
-            Cos_StopChoreFaded((void *)*puVar5,puVar5[0xb],g_nChoreFadeMs);
+          if ((uVar2 & 1) != 0) {
+            Cos_StopChoreFaded((void *)*piVar4,piVar4[0xb],g_nChoreFadeMs);
           }
         }
-        else if (uVar3 == 0) {
+        else if (uVar2 == 0) {
           *(undefined4 *)(*(int *)(param_1 + 0xa4) + 0x14) = 0;
-          Cos_StartChoreFaded(*puVar5,puVar5[0xb],g_nChoreFadeMs);
+          Cos_StartChoreFaded(*piVar4,piVar4[0xb],g_nChoreFadeMs);
         }
-        else if (iVar4 < 1) goto LAB_00491517;
+        else if (iVar3 < 1) goto LAB_00491517;
       }
-      if (((puVar5 != (undefined4 *)0x0) && (puVar5[1] == iVar2)) && (-1 < (int)puVar5[0xc])) {
-        uVar3 = Cos_InstChoreStatus(*puVar5,puVar5[0xc]);
-        iVar2 = *(int *)(*(int *)(param_1 + 0xa4) + 0x10);
-        if (iVar2 < 0) {
-          if (uVar3 == 0) {
+      if (((piVar4 != (int *)0x0) && (piVar4[1] == iVar1)) && (-1 < piVar4[0xc])) {
+        uVar2 = Cos_InstChoreStatus(*piVar4,piVar4[0xc]);
+        iVar1 = *(int *)(*(int *)(param_1 + 0xa4) + 0x10);
+        if (iVar1 < 0) {
+          if (uVar2 == 0) {
             *(undefined4 *)(*(int *)(param_1 + 0xa4) + 0x14) = 0;
-            Cos_StartChoreFaded(*puVar5,puVar5[0xc],g_nChoreFadeMs);
+            Cos_StartChoreFaded(*piVar4,piVar4[0xc],g_nChoreFadeMs);
           }
-          else if (-1 < iVar2) goto LAB_0049157a;
+          else if (-1 < iVar1) goto LAB_0049157a;
         }
         else {
 LAB_0049157a:
-          if ((uVar3 & 1) != 0) {
-            Cos_StopChoreFaded((void *)*puVar5,puVar5[0xc],g_nChoreFadeMs);
+          if ((uVar2 & 1) != 0) {
+            Cos_StopChoreFaded((void *)*piVar4,piVar4[0xc],g_nChoreFadeMs);
           }
         }
       }
     }
   }
-  iVar2 = *(int *)(param_1 + 0xa4);
-  if ((*(int *)(iVar2 + 0xc) == 0) && (*(int *)(iVar2 + 0x10) == 0)) {
-    *(undefined4 *)(iVar2 + 0x14) = 1;
+  iVar1 = *(int *)(param_1 + 0xa4);
+  if ((*(int *)(iVar1 + 0xc) == 0) && (*(int *)(iVar1 + 0x10) == 0)) {
+    *(undefined4 *)(iVar1 + 0x14) = 1;
   }
-  puVar5 = *(undefined4 **)(param_1 + 0xa0);
-  piVar1 = puVar5 + 1;
-  if (puVar5 != (undefined4 *)0x0) {
+  piVar5 = *(int **)(param_1 + 0xa0);
+  piVar4 = piVar5 + 1;
+  if (piVar5 != (int *)0x0) {
     do {
-      if ((puVar5[1] != *piVar1) || (-1 < (int)puVar5[0xd])) break;
-      puVar5 = (undefined4 *)puVar5[0x2c];
-    } while (puVar5 != (undefined4 *)0x0);
-    if (((puVar5 != (undefined4 *)0x0) && (puVar5[1] == *piVar1)) && (-1 < (int)puVar5[0xd])) {
-      iVar4 = Cos_InstChoreStatus(*puVar5,puVar5[0xd]);
-      iVar2 = *(int *)(*(int *)(param_1 + 0xa4) + 0x14);
-      if (iVar2 != 0) {
-        if (iVar4 == 0) {
-          Cos_StartChoreFaded(*puVar5,puVar5[0xd],g_nChoreFadeMs);
+      if ((piVar5[1] != *piVar4) || (-1 < piVar5[0xd])) break;
+      piVar5 = (int *)piVar5[0x2c];
+    } while (piVar5 != (int *)0x0);
+    if (((piVar5 != (int *)0x0) && (piVar5[1] == *piVar4)) && (-1 < piVar5[0xd])) {
+      iVar3 = Cos_InstChoreStatus(*piVar5,piVar5[0xd]);
+      iVar1 = *(int *)(*(int *)(param_1 + 0xa4) + 0x14);
+      if (iVar1 != 0) {
+        if (iVar3 == 0) {
+          Cos_StartChoreFaded(*piVar5,piVar5[0xd],g_nChoreFadeMs);
           goto LAB_0049162b;
         }
-        if (iVar2 != 0) goto LAB_0049162b;
+        if (iVar1 != 0) goto LAB_0049162b;
       }
-      if (iVar4 != 0) {
-        Cos_StopChoreFaded((void *)*puVar5,puVar5[0xd],g_nChoreFadeMs);
+      if (iVar3 != 0) {
+        Cos_StopChoreFaded((void *)*piVar5,piVar5[0xd],g_nChoreFadeMs);
       }
     }
   }
@@ -1550,12 +1403,8 @@ LAB_0049162b:
   *(undefined4 *)(*(int *)(param_1 + 0xa4) + 0x10) = 0;
   return;
 }
-#endif
-
 
 /* ---- 0x00492b30  Actor_SayLine ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Starts speech: resolves the /id/ to a voice file (.wvc/.wav/.imc/.imu), plays it (3D positioned
    when flag 8), creates the subtitle text object, times text-only speech from its length, and plays
    the talk chore */
@@ -1564,81 +1413,80 @@ void __cdecl Actor_SayLine(void *actor,char *text,int background,int volume,int 
 
 {
   unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  int *piVar1;
-  uint *puVar2;
-  char cVar3;
-  byte bVar4;
-  uint uVar5;
+  uint *puVar1;
+  char cVar2;
+  byte bVar3;
+  uint uVar4;
   char *text_00;
-  int iVar6;
-  byte *pbVar7;
-  void **ppvVar8;
-  void *pvVar9;
-  int iVar10;
-  undefined4 *puVar11;
-  uint uVar12;
-  int *piVar13;
-  int iVar14;
-  byte *pbVar15;
-  char *pcVar16;
-  uint uVar17;
-  char *pcVar18;
-  bool bVar19;
-  undefined4 uVar20;
+  int iVar5;
+  byte *pbVar6;
+  void **ppvVar7;
+  void *pvVar8;
+  int iVar9;
+  int *piVar10;
+  uint uVar11;
+  int *piVar12;
+  int iVar13;
+  byte *pbVar14;
+  char *pcVar15;
+  uint uVar16;
+  char *pcVar17;
+  bool bVar18;
+  undefined4 uVar19;
   #define local_44 (*(byte (*)[32])(_frame + (0x60 - 0x44)))
   #define local_24 (*(char (*)[36])(_frame + (0x60 - 0x24)))
   
   if (*(int *)((int)actor + 0xa4) == 0) {
     Actor_CreateExtra(actor);
   }
-  uVar5 = g_dwSpeechMode & 1;
-  uVar17 = g_dwSpeechMode & 2;
+  uVar4 = g_dwSpeechMode & 1;
+  uVar16 = g_dwSpeechMode & 2;
   text_00 = Text_ParseLineId(text,(char *)local_44);
   local_24[0] = '\0';
   if (local_44[0] != 0) {
     sprintf(local_24,s__s_wvc_004e9eec,local_44);
-    iVar6 = (**(code **)(UINT_008ca32c + 0x30))(local_24,&DAT_004ddb18);
-    if (iVar6 == 0) {
+    iVar5 = (**(code **)(UINT_008ca32c + 0x30))(local_24,&DAT_004ddb18);
+    if (iVar5 == 0) {
       sprintf(local_24,s__s_wav_004e9ee4,local_44);
-      iVar6 = (**(code **)(UINT_008ca32c + 0x30))(local_24,&DAT_004ddb18);
-      if (iVar6 == 0) {
+      iVar5 = (**(code **)(UINT_008ca32c + 0x30))(local_24,&DAT_004ddb18);
+      if (iVar5 == 0) {
         sprintf(local_24,s__s_imc_004e9edc,local_44);
-        iVar6 = (**(code **)(UINT_008ca32c + 0x30))(local_24,&DAT_004ddb18);
-        if (iVar6 == 0) {
+        iVar5 = (**(code **)(UINT_008ca32c + 0x30))(local_24,&DAT_004ddb18);
+        if (iVar5 == 0) {
           sprintf(local_24,s__s_imu_004e9ed4,local_44);
-          iVar6 = (**(code **)(UINT_008ca32c + 0x30))(local_24,&DAT_004ddb18);
-          if (iVar6 == 0) {
+          iVar5 = (**(code **)(UINT_008ca32c + 0x30))(local_24,&DAT_004ddb18);
+          if (iVar5 == 0) {
             local_24[0] = '\0';
             goto LAB_00492c61;
           }
         }
       }
     }
-    (**(code **)(UINT_008ca32c + 0x34))(iVar6);
+    (**(code **)(UINT_008ca32c + 0x34))(iVar5);
   }
 LAB_00492c61:
   if (*(int *)(*(int *)((int)actor + 0xa4) + 0x1c4) != 0) {
     if (local_44[0] != 0) {
-      pbVar15 = local_44;
-      pbVar7 = (byte *)(*(int *)((int)actor + 0xa4) + 0x1d0);
+      pbVar14 = local_44;
+      pbVar6 = (byte *)(*(int *)((int)actor + 0xa4) + 0x1d0);
       do {
-        bVar4 = *pbVar7;
-        bVar19 = bVar4 < *pbVar15;
-        if (bVar4 != *pbVar15) {
+        bVar3 = *pbVar6;
+        bVar18 = bVar3 < *pbVar14;
+        if (bVar3 != *pbVar14) {
 LAB_00492ca6:
-          iVar6 = (1 - (uint)bVar19) - (uint)(bVar19 != 0);
+          iVar5 = (1 - (uint)bVar18) - (uint)(bVar18 != 0);
           goto LAB_00492cab;
         }
-        if (bVar4 == 0) break;
-        bVar4 = pbVar7[1];
-        bVar19 = bVar4 < pbVar15[1];
-        if (bVar4 != pbVar15[1]) goto LAB_00492ca6;
-        pbVar7 = pbVar7 + 2;
-        pbVar15 = pbVar15 + 2;
-      } while (bVar4 != 0);
-      iVar6 = 0;
+        if (bVar3 == 0) break;
+        bVar3 = pbVar6[1];
+        bVar18 = bVar3 < pbVar14[1];
+        if (bVar3 != pbVar14[1]) goto LAB_00492ca6;
+        pbVar6 = pbVar6 + 2;
+        pbVar14 = pbVar14 + 2;
+      } while (bVar3 != 0);
+      iVar5 = 0;
 LAB_00492cab:
-      if (iVar6 == 0) {
+      if (iVar5 == 0) {
         return;
       }
     }
@@ -1648,145 +1496,145 @@ LAB_00492cab:
   *(undefined4 *)(*(int *)((int)actor + 0xa4) + 0x1c4) = 1;
   strncpy(*(int *)((int)actor + 0xa4) + 0x1d0,local_44,0xc);
   g_nTalkingActorCount = g_nTalkingActorCount + 1;
-  iVar6 = 0;
-  ppvVar8 = &g_pTalkingActors;
+  iVar5 = 0;
+  ppvVar7 = &g_pTalkingActors;
   do {
-    if (*ppvVar8 == (void *)0x0) {
-      (&g_pTalkingActors)[iVar6] = actor;
+    if (*ppvVar7 == (void *)0x0) {
+      (&g_pTalkingActors)[iVar5] = actor;
       break;
     }
-    ppvVar8 = ppvVar8 + 1;
-    iVar6 = iVar6 + 1;
-  } while ((int)ppvVar8 < IMG_ADDR(0x008ca320));
-  if (uVar17 != 0) {
+    ppvVar7 = ppvVar7 + 1;
+    iVar5 = iVar5 + 1;
+  } while ((int)ppvVar7 < IMG_ADDR(0x008ca320));
+  if (uVar16 != 0) {
     if (local_24[0] == '\0') {
 LAB_00492e5e:
       *(undefined1 *)(*(int *)((int)actor + 0xa4) + 0x1dc) = 0;
     }
     else {
       if (background == 0) {
-        uVar20 = SoundsLoadProcessStartSound(local_24,0x7f,2);
-        *(undefined4 *)(*(int *)((int)actor + 0xa4) + 0x1c8) = uVar20;
-        iVar6 = *(int *)(*(int *)((int)actor + 0xa4) + 0x1c8);
-        if (iVar6 == 0) {
+        iVar5 = SoundsLoadProcessStartSound((int)local_24,0x7f,2);
+        *(int *)(*(int *)((int)actor + 0xa4) + 0x1c8) = iVar5;
+        iVar5 = *(int *)(*(int *)((int)actor + 0xa4) + 0x1c8);
+        if (iVar5 == 0) {
           *(undefined1 *)(*(int *)((int)actor + 0xa4) + 0x1dc) = 0;
           goto LAB_00492e6b;
         }
-        SoundsSetParam(iVar6,0x600,volume);
+        SoundsSetParam(iVar5,0x600,volume);
         if ((*(byte *)((int)actor + 4) & 8) != 0) {
-          uVar20 = *(undefined4 *)(*(int *)((int)actor + 0xa4) + 0x1c8);
+          uVar19 = *(undefined4 *)(*(int *)((int)actor + 0xa4) + 0x1c8);
           goto LAB_00492dfb;
         }
       }
       else {
-        iVar6 = SoundStartVoiceStream(local_24,volume,pan);
-        if (iVar6 != 0) goto LAB_00492e5e;
+        iVar5 = SoundStartVoiceStream((int)local_24,volume,pan);
+        if (iVar5 != 0) goto LAB_00492e5e;
         *(undefined4 *)(*(int *)((int)actor + 0xa4) + 0x1c8) = 10000;
         if ((*(byte *)((int)actor + 4) & 8) != 0) {
-          uVar20 = 10000;
+          uVar19 = 10000;
 LAB_00492dfb:
-          Sound_SetPosition(uVar20,(int)actor + 0xc,0x14,0x7f,0x41000000,0x3f4ccccd);
+          Sound_SetPosition(uVar19,(int)actor + 0xc,0x14,0x7f,0x41000000,0x3f4ccccd);
         }
       }
-      uVar17 = 0xffffffff;
-      pcVar16 = local_24;
+      uVar16 = 0xffffffff;
+      pcVar15 = local_24;
       do {
-        pcVar18 = pcVar16;
-        if (uVar17 == 0) break;
-        uVar17 = uVar17 - 1;
-        pcVar18 = pcVar16 + 1;
-        cVar3 = *pcVar16;
-        pcVar16 = pcVar18;
-      } while (cVar3 != '\0');
-      uVar17 = ~uVar17;
-      pcVar16 = pcVar18 + -uVar17;
-      pcVar18 = (char *)(*(int *)((int)actor + 0xa4) + 0x1dc);
-      for (uVar12 = uVar17 >> 2; uVar12 != 0; uVar12 = uVar12 - 1) {
-        *(undefined4 *)pcVar18 = *(undefined4 *)pcVar16;
-        pcVar16 = pcVar16 + 4;
-        pcVar18 = pcVar18 + 4;
+        pcVar17 = pcVar15;
+        if (uVar16 == 0) break;
+        uVar16 = uVar16 - 1;
+        pcVar17 = pcVar15 + 1;
+        cVar2 = *pcVar15;
+        pcVar15 = pcVar17;
+      } while (cVar2 != '\0');
+      uVar16 = ~uVar16;
+      pcVar15 = pcVar17 + -uVar16;
+      pcVar17 = (char *)(*(int *)((int)actor + 0xa4) + 0x1dc);
+      for (uVar11 = uVar16 >> 2; uVar11 != 0; uVar11 = uVar11 - 1) {
+        *(undefined4 *)pcVar17 = *(undefined4 *)pcVar15;
+        pcVar15 = pcVar15 + 4;
+        pcVar17 = pcVar17 + 4;
       }
-      for (uVar17 = uVar17 & 3; uVar17 != 0; uVar17 = uVar17 - 1) {
-        *pcVar18 = *pcVar16;
-        pcVar16 = pcVar16 + 1;
-        pcVar18 = pcVar18 + 1;
+      for (uVar16 = uVar16 & 3; uVar16 != 0; uVar16 = uVar16 - 1) {
+        *pcVar17 = *pcVar15;
+        pcVar15 = pcVar15 + 1;
+        pcVar17 = pcVar17 + 1;
       }
-      uVar20 = iMUSE_GetPhoneme(*(undefined4 *)(*(int *)((int)actor + 0xa4) + 0x1c8),0);
-      *(undefined4 *)(*(int *)((int)actor + 0xa4) + 0x1f0) = uVar20;
+      iVar5 = iMUSE_GetPhoneme(*(int *)(*(int *)((int)actor + 0xa4) + 0x1c8),0);
+      *(int *)(*(int *)((int)actor + 0xa4) + 0x1f0) = iVar5;
     }
 LAB_00492e6b:
     *(undefined4 *)(*(int *)((int)actor + 0xa4) + 0x1cc) = 0xffffffff;
   }
-  if ((uVar5 != 0) || (*(char *)(*(int *)((int)actor + 0xa4) + 0x1dc) == '\0')) {
-    pvVar9 = Actor_CreateSubtitle(actor,text_00,x,y);
-    *(void **)(*(int *)((int)actor + 0xa4) + 0x1ec) = pvVar9;
+  if ((uVar4 != 0) || (*(char *)(*(int *)((int)actor + 0xa4) + 0x1dc) == '\0')) {
+    pvVar8 = Actor_CreateSubtitle(actor,text_00,x,y);
+    *(void **)(*(int *)((int)actor + 0xa4) + 0x1ec) = pvVar8;
     if (*(char *)(*(int *)((int)actor + 0xa4) + 0x1dc) == '\0') {
-      uVar5 = 0xffffffff;
+      uVar4 = 0xffffffff;
       do {
-        if (uVar5 == 0) break;
-        uVar5 = uVar5 - 1;
-        cVar3 = *text_00;
+        if (uVar4 == 0) break;
+        uVar4 = uVar4 - 1;
+        cVar2 = *text_00;
         text_00 = text_00 + 1;
-      } while (cVar3 != '\0');
+      } while (cVar2 != '\0');
       *(uint *)(*(int *)((int)actor + 0xa4) + 0x1cc) =
-           (~uVar5 - 1) * (0xb - g_nTextSpeed) * 0xf + 0x280;
+           (~uVar4 - 1) * (0xb - g_nTextSpeed) * 0xf + 0x280;
     }
-    TextObject_Activate(pvVar9,-1,0xd);
-    ppvVar8 = &g_pTalkingActors;
+    TextObject_Activate(pvVar8,-1,0xd);
+    ppvVar7 = &g_pTalkingActors;
     if (background == 0) {
       do {
-        pvVar9 = *ppvVar8;
-        if ((((pvVar9 != (void *)0x0) && (pvVar9 != actor)) &&
-            (*(int *)(*(int *)((int)pvVar9 + 0xa4) + 0x1ec) != 0)) &&
-           (*(int *)(*(int *)((int)pvVar9 + 0xa4) + 0x1c8) == 10000)) {
-          puVar2 = (uint *)(*(int *)(*(int *)((int)actor + 0xa4) + 0x1ec) + 600);
-          *puVar2 = *puVar2 | 2;
+        pvVar8 = *ppvVar7;
+        if ((((pvVar8 != (void *)0x0) && (pvVar8 != actor)) &&
+            (*(int *)(*(int *)((int)pvVar8 + 0xa4) + 0x1ec) != 0)) &&
+           (*(int *)(*(int *)((int)pvVar8 + 0xa4) + 0x1c8) == 10000)) {
+          puVar1 = (uint *)(*(int *)(*(int *)((int)actor + 0xa4) + 0x1ec) + 600);
+          *puVar1 = *puVar1 | 2;
           break;
         }
-        ppvVar8 = ppvVar8 + 1;
-      } while ((int)ppvVar8 < IMG_ADDR(0x008ca320));
+        ppvVar7 = ppvVar7 + 1;
+      } while ((int)ppvVar7 < IMG_ADDR(0x008ca320));
     }
     else {
       do {
-        pvVar9 = *ppvVar8;
-        if (((pvVar9 != (void *)0x0) && (pvVar9 != actor)) &&
-           (iVar6 = *(int *)(*(int *)((int)pvVar9 + 0xa4) + 0x1ec), iVar6 != 0)) {
-          puVar2 = (uint *)(iVar6 + 600);
-          *puVar2 = *puVar2 | 2;
+        pvVar8 = *ppvVar7;
+        if (((pvVar8 != (void *)0x0) && (pvVar8 != actor)) &&
+           (iVar5 = *(int *)(*(int *)((int)pvVar8 + 0xa4) + 0x1ec), iVar5 != 0)) {
+          puVar1 = (uint *)(iVar5 + 600);
+          *puVar1 = *puVar1 | 2;
         }
-        ppvVar8 = ppvVar8 + 1;
-      } while ((int)ppvVar8 < IMG_ADDR(0x008ca320));
+        ppvVar7 = ppvVar7 + 1;
+      } while ((int)ppvVar7 < IMG_ADDR(0x008ca320));
     }
   }
-  if (((actor != (void *)0x0) && (iVar6 = *(int *)((int)actor + 0xa4), iVar6 != 0)) &&
-     ((iVar14 = *(int *)((int)actor + 0xa0), iVar14 != 0 && (*(int *)(iVar6 + 0x1f0) != 0)))) {
-    piVar1 = (int *)(iVar14 + 4);
-    if (iVar14 != 0) {
-      while (*(int *)(iVar14 + 4) == *piVar1) {
-        iVar10 = 1;
-        piVar13 = (int *)(iVar14 + 0x3c);
+  if (((actor != (void *)0x0) && (iVar5 = *(int *)((int)actor + 0xa4), iVar5 != 0)) &&
+     ((iVar13 = *(int *)((int)actor + 0xa0), iVar13 != 0 && (*(int *)(iVar5 + 0x1f0) != 0)))) {
+    piVar10 = (int *)(iVar13 + 4);
+    if (iVar13 != 0) {
+      while (*(int *)(iVar13 + 4) == *piVar10) {
+        iVar9 = 1;
+        piVar12 = (int *)(iVar13 + 0x3c);
         do {
-          if (-1 < *piVar13) break;
-          iVar10 = iVar10 + 1;
-          piVar13 = piVar13 + 1;
-        } while (iVar10 < 10);
-        if ((iVar10 < 10) || (iVar14 = *(int *)(iVar14 + 0xb0), iVar14 == 0)) break;
+          if (-1 < *piVar12) break;
+          iVar9 = iVar9 + 1;
+          piVar12 = piVar12 + 1;
+        } while (iVar9 < 10);
+        if ((iVar9 < 10) || (iVar13 = *(int *)(iVar13 + 0xb0), iVar13 == 0)) break;
       }
-      if ((iVar14 != 0) && (*(int *)(iVar14 + 4) == *piVar1)) goto LAB_00492fe7;
+      if ((iVar13 != 0) && (*(int *)(iVar13 + 4) == *piVar10)) goto LAB_00492fe7;
     }
-    *(undefined4 *)(iVar6 + 0x1f0) = 0;
+    *(undefined4 *)(iVar5 + 0x1f0) = 0;
   }
 LAB_00492fe7:
   if (((*(char *)(*(int *)((int)actor + 0xa4) + 0x1dc) == '\0') ||
       (*(int *)(*(int *)((int)actor + 0xa4) + 0x1f0) == 0)) &&
-     (puVar11 = *(undefined4 **)((int)actor + 0xa0), puVar11 != (undefined4 *)0x0)) {
-    piVar1 = puVar11 + 1;
+     (piVar10 = *(int **)((int)actor + 0xa0), piVar10 != (int *)0x0)) {
+    piVar12 = piVar10 + 1;
     do {
-      if ((puVar11[1] != *piVar1) || (-1 < (int)puVar11[0x1e])) break;
-      puVar11 = (undefined4 *)puVar11[0x2c];
-    } while (puVar11 != (undefined4 *)0x0);
-    if (((puVar11 != (undefined4 *)0x0) && (puVar11[1] == *piVar1)) && (-1 < (int)puVar11[0x1e])) {
-      Cos_InstPlayChore(*puVar11,puVar11[0x1e],1,0);
+      if ((piVar10[1] != *piVar12) || (-1 < piVar10[0x1e])) break;
+      piVar10 = (int *)piVar10[0x2c];
+    } while (piVar10 != (int *)0x0);
+    if (((piVar10 != (int *)0x0) && (piVar10[1] == *piVar12)) && (-1 < piVar10[0x1e])) {
+      Cos_InstPlayChore(*piVar10,piVar10[0x1e],1,0);
     }
   }
   return;
@@ -1794,70 +1642,66 @@ LAB_00492fe7:
 #undef local_24
 #undef local_44
 
-#endif
-
 
 /* ---- 0x00493060  Actor_ShutUp ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Lua ShutUpActor: stops the actor's speech and talk chores */
 
 void __cdecl Actor_ShutUp(void *actor)
 
 {
-  int *piVar1;
   void *obj;
-  int iVar2;
-  undefined4 *puVar3;
-  void **ppvVar4;
+  int iVar1;
+  int *piVar2;
+  void **ppvVar3;
+  int *piVar4;
   
-  if ((actor != (void *)0x0) && (iVar2 = *(int *)((int)actor + 0xa4), iVar2 != 0)) {
-    if (*(char *)(iVar2 + 0x1dc) != '\0') {
-      if (*(int *)(iVar2 + 0x1c8) == 10000) {
+  if ((actor != (void *)0x0) && (iVar1 = *(int *)((int)actor + 0xa4), iVar1 != 0)) {
+    if (*(char *)(iVar1 + 0x1dc) != '\0') {
+      if (*(int *)(iVar1 + 0x1c8) == 10000) {
         SoundStopVoiceStream();
       }
       else {
-        SoundsStopSound(*(int *)(iVar2 + 0x1c8));
+        SoundsStopSound(*(int *)(iVar1 + 0x1c8));
       }
     }
     obj = *(void **)(*(int *)((int)actor + 0xa4) + 0x1ec);
     if (obj != (void *)0x0) {
       List_Unlink(obj);
     }
-    puVar3 = *(undefined4 **)((int)actor + 0xa0);
-    if (puVar3 != (undefined4 *)0x0) {
-      piVar1 = puVar3 + 1;
-      if (puVar3 != (undefined4 *)0x0) {
+    piVar4 = *(int **)((int)actor + 0xa0);
+    if (piVar4 != (int *)0x0) {
+      piVar2 = piVar4 + 1;
+      if (piVar4 != (int *)0x0) {
         do {
-          if ((puVar3[1] != *piVar1) || (-1 < (int)puVar3[0x1e])) break;
-          puVar3 = (undefined4 *)puVar3[0x2c];
-        } while (puVar3 != (undefined4 *)0x0);
-        if (((puVar3 != (undefined4 *)0x0) && (puVar3[1] == *piVar1)) && (-1 < (int)puVar3[0x1e])) {
-          iVar2 = Cos_InstChoreStatus(*puVar3,puVar3[0x1e]);
-          if (iVar2 != 0) {
-            Cos_InstStopChore(*puVar3,puVar3[0x1e]);
+          if ((piVar4[1] != *piVar2) || (-1 < piVar4[0x1e])) break;
+          piVar4 = (int *)piVar4[0x2c];
+        } while (piVar4 != (int *)0x0);
+        if (((piVar4 != (int *)0x0) && (piVar4[1] == *piVar2)) && (-1 < piVar4[0x1e])) {
+          iVar1 = Cos_InstChoreStatus(*piVar4,piVar4[0x1e]);
+          if (iVar1 != 0) {
+            Cos_InstStopChore(*piVar4,piVar4[0x1e]);
           }
         }
       }
-      puVar3 = *(undefined4 **)((int)actor + 0xa0);
-      piVar1 = puVar3 + 1;
-      if (puVar3 != (undefined4 *)0x0) {
+      piVar2 = *(int **)((int)actor + 0xa0);
+      piVar4 = piVar2 + 1;
+      if (piVar2 != (int *)0x0) {
         do {
-          if ((puVar3[1] != *piVar1) || (-1 < (int)puVar3[0xe])) break;
-          puVar3 = (undefined4 *)puVar3[0x2c];
-        } while (puVar3 != (undefined4 *)0x0);
-        if (((puVar3 != (undefined4 *)0x0) && (puVar3[1] == *piVar1)) && (-1 < (int)puVar3[0xe])) {
-          Cos_InstCompleteChore(*puVar3,puVar3[0xe]);
+          if ((piVar2[1] != *piVar4) || (-1 < piVar2[0xe])) break;
+          piVar2 = (int *)piVar2[0x2c];
+        } while (piVar2 != (int *)0x0);
+        if (((piVar2 != (int *)0x0) && (piVar2[1] == *piVar4)) && (-1 < piVar2[0xe])) {
+          Cos_InstCompleteChore(*piVar2,piVar2[0xe]);
         }
       }
     }
-    ppvVar4 = &g_pTalkingActors;
+    ppvVar3 = &g_pTalkingActors;
     do {
-      if (*ppvVar4 == actor) {
-        *ppvVar4 = (void *)0x0;
+      if (*ppvVar3 == actor) {
+        *ppvVar3 = (void *)0x0;
       }
-      ppvVar4 = ppvVar4 + 1;
-    } while ((int)ppvVar4 < IMG_ADDR(0x008ca320));
+      ppvVar3 = ppvVar3 + 1;
+    } while ((int)ppvVar3 < IMG_ADDR(0x008ca320));
     *(undefined4 *)(*(int *)((int)actor + 0xa4) + 0x1f0) = 0;
     *(undefined1 *)(*(int *)((int)actor + 0xa4) + 0x1dc) = 0;
     *(undefined4 *)(*(int *)((int)actor + 0xa4) + 0x1ec) = 0;
@@ -1869,12 +1713,8 @@ void __cdecl Actor_ShutUp(void *actor)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x004931f0  Actor_PushSectorOppositeEdge ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Lua GetSectorOppositeEdge: pushes the point on the far edge of the sector from the actor */
 
 void __cdecl Actor_PushSectorOppositeEdge(int a1,int a2)
@@ -1889,12 +1729,8 @@ void __cdecl Actor_PushSectorOppositeEdge(int a1,int a2)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x00493230  Actor_FollowPath ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Actor_FollowPath(actor): walk to a point along the planned path (walker+0x2c next node); sets
    actor+8 bit 0 while the path lasts, clears it at the end. TurnActor and SetActorRot clear bit 0,
    ending the walk. */
@@ -1947,7 +1783,7 @@ void Actor_FollowPath(int param_1)
     }
   }
   *(uint *)(param_1 + 8) = *(uint *)(param_1 + 8) | 1;
-  Walker_TurnToPoint(*(void **)(iVar6 + 0x1b4),iVar6 + 0x2c,0x7f7fffff);
+  Walker_TurnToPoint(*(void **)(iVar6 + 0x1b4),(float *)(iVar6 + 0x2c),3.4028235e+38);
   Actor_WalkForward(param_1);
   return;
 }
@@ -1955,24 +1791,16 @@ void Actor_FollowPath(int param_1)
 #undef local_8
 #undef local_c
 
-#endif
-
 
 /* ---- 0x004933c0  Actor_SetWalkDominate ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void __cdecl Actor_SetWalkDominate(void *actor,int dominate)
 
 {
   *(int *)(*(int *)((int)actor + 0xa4) + 0x1bc) = dominate;
   return;
 }
-#endif
-
 
 /* ---- 0x004933e0  Actor_SetConstrain ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void Actor_SetConstrain(int param_1,int param_2)
 
 {
@@ -1984,34 +1812,27 @@ void Actor_SetConstrain(int param_1,int param_2)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x004934b0  Actor_IsVoicePlaying ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 int __cdecl Actor_IsVoicePlaying(void *actor)
 
 {
-  int iVar1;
+  uint uVar1;
+  int iVar2;
   
-  iVar1 = *(int *)((int)actor + 0xa4);
-  if (*(char *)(iVar1 + 0x1dc) == '\0') {
+  iVar2 = *(int *)((int)actor + 0xa4);
+  if (*(char *)(iVar2 + 0x1dc) == '\0') {
     return 0;
   }
-  if (*(int *)(iVar1 + 0x1c8) == 10000) {
-    iVar1 = ImGetParam(10000,0x100);
-    return (uint)(0 < iVar1);
+  if (*(int *)(iVar2 + 0x1c8) == 10000) {
+    uVar1 = ImGetParam(10000,0x100);
+    return (uint)(0 < (int)uVar1);
   }
-  iVar1 = SoundsIsSoundPlaying(iVar1 + 0x1dc);
-  return (uint)(0 < iVar1);
+  iVar2 = SoundsIsSoundPlaying(iVar2 + 0x1dc);
+  return (uint)(0 < iVar2);
 }
-#endif
-
 
 /* ---- 0x00493510  Actor_HasShadow ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 int __cdecl Actor_HasShadow(void *actor)
 
 {
@@ -2029,20 +1850,14 @@ int __cdecl Actor_HasShadow(void *actor)
   } while (iVar2 < 6);
   return 0;
 }
-#endif
-
 
 /* ---- 0x00493540  Actor_ActivateShadow ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void __cdecl Actor_ActivateShadow(void *actor,int shadowIdx,int active)
 
 {
   *(int *)(*(int *)((int)actor + 0xa4) + (shadowIdx + 6) * 0x54) = active;
   return;
 }
-#endif
-
 
 /* ---- 0x00493570  Actor_SetShadowPlane ---- */
 /* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
@@ -2080,8 +1895,6 @@ void Actor_SetShadowPlane(int param_1,char *param_2)
 
 
 /* ---- 0x004935f0  Actor_SetShadowPoint ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void __cdecl Actor_SetShadowPoint(void *actor,float x,float y,float z)
 
 {
@@ -2093,24 +1906,16 @@ void __cdecl Actor_SetShadowPoint(void *actor,float x,float y,float z)
   *(float *)(iVar1 + 0x20) = z;
   return;
 }
-#endif
-
 
 /* ---- 0x00493630  Actor_SetShadowValid ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void __cdecl Actor_SetShadowValid(void *actor,int shadowIdx,int valid)
 
 {
   *(int *)(*(int *)((int)actor + 0xa4) + 0x1fc + shadowIdx * 0x54) = valid;
   return;
 }
-#endif
-
 
 /* ---- 0x00493660  Actor_AddShadowPlane ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Shadow records are 0x54 bytes at extra+(idx+6)*0x54 with the plane equation at +8 */
 
 void __cdecl Actor_AddShadowPlane(void *actor,int shadowIdx,char *sectorName)
@@ -2137,12 +1942,8 @@ void __cdecl Actor_AddShadowPlane(void *actor,int shadowIdx,char *sectorName)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x004936b0  Actor_KillShadows ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void __cdecl Actor_KillShadows(void *actor)
 
 {
@@ -2158,8 +1959,6 @@ void __cdecl Actor_KillShadows(void *actor)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x004936e0  Actor_DrawShadows ---- */
 /* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
@@ -2201,8 +2000,6 @@ void Actor_DrawShadows(int param_1)
 
 
 /* ---- 0x00493790  Actor_GetFrame ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Returns the actor's 12-float frame (position + 3x3 rotation), rebuilding it from pos/rot when
    dirty */
 
@@ -2215,12 +2012,8 @@ float * __cdecl Actor_GetFrame(void *actor)
   }
   return (float *)((int)actor + 0x38);
 }
-#endif
-
 
 /* ---- 0x004937c0  Actor_ToClean ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Lua ActorToClean: marks the actor's rectangle to be restored from the clean background */
 
 void __cdecl Actor_ToClean(void *actor)
@@ -2314,12 +2107,8 @@ void __cdecl Actor_ToClean(void *actor)
 #undef iStack_c
 #undef local_10
 
-#endif
-
 
 /* ---- 0x00494690  Actor_CountCostumes ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 int Actor_CountCostumes(int param_1)
 
 {
@@ -2332,12 +2121,8 @@ int Actor_CountCostumes(int param_1)
   }
   return iVar2;
 }
-#endif
-
 
 /* ---- 0x004946b0  Actor_SetClipPlane ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void Actor_SetClipPlane(int param_1,undefined4 *param_2,undefined4 *param_3)
 
 {
@@ -2356,12 +2141,8 @@ void Actor_SetClipPlane(int param_1,undefined4 *param_2,undefined4 *param_3)
   *(undefined4 *)(iVar1 + 0x414) = param_3[2];
   return;
 }
-#endif
-
 
 /* ---- 0x00494710  Actor_SetClipActive ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void Actor_SetClipActive(int param_1,undefined4 param_2)
 
 {
@@ -2371,12 +2152,8 @@ void Actor_SetClipActive(int param_1,undefined4 param_2)
   *(undefined4 *)(*(int *)(param_1 + 0xa4) + 0x3fc) = param_2;
   return;
 }
-#endif
-
 
 /* ---- 0x00494780  Actor_SetFrustumCull ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void Actor_SetFrustumCull(int param_1,int param_2)
 
 {
@@ -2400,12 +2177,8 @@ void Actor_SetFrustumCull(int param_1,int param_2)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x004947c0  Actor_Destroy ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Removes the actor from its set, kills shadows, frees costumes, walker, extra and colormap
    reference */
 
@@ -2439,8 +2212,6 @@ void __cdecl Actor_Destroy(void *actor)
   g_nActorCount = g_nActorCount + -1;
   return;
 }
-#endif
-
 
 /* ---- 0x00494940  Actor_DrawShadowPlane ---- */
 /* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
@@ -2458,20 +2229,19 @@ void Actor_DrawShadowPlane(void *costumeList,void *shadow)
   int iVar1;
   int iVar2;
   int iVar3;
-  uint uVar4;
+  int iVar4;
   int iVar5;
+  int iVar6;
+  int iVar7;
   undefined4 unaff_ESI;
   undefined4 unaff_EDI;
-  longlong lVar6;
-  #define local_fc (*(uint *)(_frame + (0x110 - 0xfc)))
-  #define local_f8 (*(uint *)(_frame + (0x110 - 0xf8)))
+  longlong lVar8;
+  #define local_fc (*(float (*)[2])(_frame + (0x110 - 0xfc)))
   #define local_f4 (*(uint *)(_frame + (0x110 - 0xf4)))
   #define local_f0 (*(uint *)(_frame + (0x110 - 0xf0)))
   #define local_ec (*(uint *)(_frame + (0x110 - 0xec)))
   #define local_e8 (*(uint *)(_frame + (0x110 - 0xe8)))
-  #define local_e4 (*(uint *)(_frame + (0x110 - 0xe4)))
-  #define local_e0 (*(uint *)(_frame + (0x110 - 0xe0)))
-  #define local_dc (*(uint *)(_frame + (0x110 - 0xdc)))
+  #define local_e4 (*(float (*)[3])(_frame + (0x110 - 0xe4)))
   #define local_d8 (*(uint *)(_frame + (0x110 - 0xd8)))
   #define local_d4 (*(uint *)(_frame + (0x110 - 0xd4)))
   #define local_d0 (*(uint *)(_frame + (0x110 - 0xd0)))
@@ -2484,72 +2254,69 @@ void Actor_DrawShadowPlane(void *costumeList,void *shadow)
   #define local_30 (*(float (*)[12])(_frame + (0x110 - 0x30)))
   
   if (costumeList != (void *)0x0) {
-    local_f0 = *(uint *)((int)costumeList + 8);
-    local_fc = 0x44200000;
-    local_f8 = 0x43f00000;
-    local_e4 = 0;
-    local_dc = 0;
-    for (; local_f0 != 0; local_f0 = *(uint *)(local_f0 + 400)) {
-      local_d4 = *(uint *)(local_f0 + 0x40);
-      uVar4 = *(uint *)(local_d4 + 4);
-      local_e8 = uVar4;
-      if (((*(int *)(local_f0 + 0x38) != 0) && (*(int *)(local_f0 + 0x34) == 0)) &&
-         (local_d8 = 0, 0 < *(int *)(uVar4 + 0x54))) {
+    iVar1 = *(int *)((int)costumeList + 8);
+    local_fc[0] = 640.0;
+    local_fc[1] = 480.0;
+    local_e4[0] = 0.0;
+    local_e4[2] = 0.0;
+    for (; iVar1 != 0; iVar1 = *(int *)(iVar1 + 400)) {
+      iVar2 = *(int *)(iVar1 + 0x40);
+      iVar3 = *(int *)(iVar2 + 4);
+      if (((*(int *)(iVar1 + 0x38) != 0) && (*(int *)(iVar1 + 0x34) == 0)) &&
+         (local_d8 = 0, 0 < *(int *)(iVar3 + 0x54))) {
         local_f4 = 0;
         local_ec = 0;
         do {
-          iVar1 = *(int *)(local_ec + 0x4c + *(int *)(uVar4 + 0x58));
-          if (((iVar1 != -1) &&
-              (iVar2 = *(int *)(uVar4 + 0x28), *(int *)(iVar2 + 0x54 + iVar1 * 0x7c) != 0)) &&
-             (*(int *)(*(int *)(local_d4 + 0x2c) + iVar1 * 4) != 0)) {
-            iVar5 = 0;
+          iVar4 = *(int *)(local_ec + 0x4c + *(int *)(iVar3 + 0x58));
+          if (((iVar4 != -1) &&
+              (iVar5 = *(int *)(iVar3 + 0x28), *(int *)(iVar5 + 0x54 + iVar4 * 0x7c) != 0)) &&
+             (*(int *)(*(int *)(iVar2 + 0x2c) + iVar4 * 4) != 0)) {
+            iVar7 = 0;
             do {
-              out = (float *)((int)local_c0 + iVar5);
-              Vec3_Sub(out,(float *)(iVar5 + *(int *)(iVar2 + iVar1 * 0x7c + 0x58)),
-                       (float *)(local_f4 + *(int *)(local_d4 + 0x20)));
-              iVar3 = Plane_IntersectSegment
+              out = (float *)((int)local_c0 + iVar7);
+              Vec3_Sub(out,(float *)(iVar7 + *(int *)(iVar5 + iVar4 * 0x7c + 0x58)),
+                       (float *)(local_f4 + *(int *)(iVar2 + 0x20)));
+              iVar6 = Plane_IntersectSegment
                                 (out,(float *)((int)shadow + 0x18),out,*(float *)((int)shadow + 8),
                                  *(float *)((int)shadow + 0xc),*(float *)((int)shadow + 0x10),
                                  *(float *)((int)shadow + 0x14));
-              if (iVar3 == 0) {
+              if (iVar6 == 0) {
                 return;
               }
-              iVar5 = iVar5 + 0xc;
-            } while (iVar5 < 0xc0);
+              iVar7 = iVar7 + 0xc;
+            } while (iVar7 < 0xc0);
             if (g_pShadowMaterial == (void *)0x0) {
               g_pShadowMaterial = rdMaterial_Load(s_shadow_mat_004ea19c,0,0);
             }
             if (g_pShadowColormap == (void *)0x0) {
               g_pShadowColormap = rdColormap_Load(s_shadow_cmp_004ea190);
             }
-            uVar4 = local_e8;
             if (g_pShadowMaterial != (void *)0x0) {
               rdroid_SetColormap(g_pShadowColormap);
               if (g_nZBufferEnabled != 0) {
                 Display_SetPalette3D((void *)((int)g_pShadowColormap + 0x30),0);
               }
-              Shadow_DrawClippedPoly(local_c0,4,(float *)&local_fc,(float *)&local_e4,shadow);
-              Shadow_DrawClippedPoly(local_90,4,(float *)&local_fc,(float *)&local_e4,shadow);
-              Shadow_DrawClippedPoly(local_60,4,(float *)&local_fc,(float *)&local_e4,shadow);
-              Shadow_DrawClippedPoly(local_30,4,(float *)&local_fc,(float *)&local_e4,shadow);
-              uVar4 = local_e8;
+              Shadow_DrawClippedPoly(local_c0,4,local_fc,local_e4,shadow);
+              Shadow_DrawClippedPoly(local_90,4,local_fc,local_e4,shadow);
+              Shadow_DrawClippedPoly(local_60,4,local_fc,local_e4,shadow);
+              Shadow_DrawClippedPoly(local_30,4,local_fc,local_e4,shadow);
             }
           }
           local_d8 = local_d8 + 1;
           local_ec = local_ec + 0xb8;
           local_f4 = local_f4 + 0x30;
-        } while ((int)local_d8 < *(int *)(uVar4 + 0x54));
+        } while ((int)local_d8 < *(int *)(iVar3 + 0x54));
       }
     }
-    if ((float)local_fc <= (float)local_e4) {
-      lVar6 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
-      local_d0 = (uint)lVar6;
-      lVar6 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
-      local_cc = (uint)lVar6;
-      lVar6 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
-      local_c8 = (uint)lVar6;
-      lVar6 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
-      local_c4 = (uint)lVar6;
+    if (local_fc[0] <= local_e4[0]) {
+      lVar8 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+      local_d0 = (uint)lVar8;
+      lVar8 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+      local_cc = (uint)lVar8;
+      lVar8 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+      local_c8 = (uint)lVar8;
+      lVar8 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+      local_c4 = (uint)lVar8;
       Render_InvalidateRectLastBuffer((int *)&local_d0,1);
     }
   }
@@ -2565,34 +2332,25 @@ void Actor_DrawShadowPlane(void *costumeList,void *shadow)
 #undef local_d0
 #undef local_d4
 #undef local_d8
-#undef local_dc
-#undef local_e0
 #undef local_e4
 #undef local_e8
 #undef local_ec
 #undef local_f0
 #undef local_f4
-#undef local_f8
 #undef local_fc
 
 #endif
 
 
 /* ---- 0x00495080  Actor_DrawCostumes ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void Actor_DrawCostumes(undefined4 param_1,undefined4 param_2)
 
 {
   ((code *)Actor_DrawCostumeMeshes)(param_1,param_2,0,0);
   return;
 }
-#endif
-
 
 /* ---- 0x004950a0  Actor_DrawCostumeMeshes ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Draws the meshes of an actor's costume. Enables the user clip plane when extra+0x3fc != 0 (normal
    extra+0x400, point extra+0x40c). For a model hung on a node (component+0x44 != 0) whose node
    index (+0x48) equals extra+0x420 (SetActorInvClipNode) the plane through the actor position
@@ -2601,12 +2359,11 @@ void Actor_DrawCostumes(undefined4 param_1,undefined4 param_2)
    space (MeshFace_Draw 0x40d880 -> Polygon_ClipToPlane 0x44ea50: keep dist >= 0); Mesh_Draw
    0x40d230 skips a mesh whose centre is more than its radius behind the plane. */
 
-void Actor_DrawCostumeMeshes(undefined4 *param_1,float *param_2)
+void Actor_DrawCostumeMeshes(int *param_1,float *param_2)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  int *actor;
-  undefined4 *puVar1;
+  int *piVar1;
   int iVar2;
   int iVar3;
   int *piVar4;
@@ -2624,30 +2381,30 @@ void Actor_DrawCostumeMeshes(undefined4 *param_1,float *param_2)
   #define iStack_4 (*(int *)(_frame + (0x30 - 0x4)))
   
   iVar5 = param_1[1];
-  for (puVar1 = param_1; (puVar1 != (undefined4 *)0x0 && (puVar1[1] == iVar5));
-      puVar1 = (undefined4 *)puVar1[0x2c]) {
-    Costume_ApplyComponentState((void *)*puVar1);
+  for (piVar1 = param_1; (piVar1 != (int *)0x0 && (piVar1[1] == iVar5));
+      piVar1 = (int *)piVar1[0x2c]) {
+    Costume_ApplyComponentState((void *)*piVar1);
   }
   iVar5 = Cos_InstGetUserData(*param_1);
-  actor = (int *)((int)g_pActorTable + iVar5 * 0xa8);
-  if ((actor[0x29] == 0) || (*(int *)(actor[0x29] + 0x3fc) == 0)) {
+  piVar1 = (int *)((int)g_pActorTable + iVar5 * 0xa8);
+  if ((piVar1[0x29] == 0) || (*(int *)(piVar1[0x29] + 0x3fc) == 0)) {
     Renderer_EnableClipPlane(0);
   }
   else {
     Renderer_EnableClipPlane(1);
-    Renderer_SetClipPlane(actor[0x29] + 0x400,actor[0x29] + 0x40c);
+    Renderer_SetClipPlane(piVar1[0x29] + 0x400,piVar1[0x29] + 0x40c);
   }
-  Costume_ApplyScale(actor,(void *)param_1[2]);
+  Costume_ApplyScale(piVar1,(void *)param_1[2]);
   iVar5 = param_1[2];
   do {
     if (iVar5 == 0) {
-      Actor_DrawShadows(actor);
+      Actor_DrawShadows(piVar1);
       iVar5 = param_1[1];
-      for (puVar1 = param_1; (puVar1 != (undefined4 *)0x0 && (puVar1[1] == iVar5));
-          puVar1 = (undefined4 *)puVar1[0x2c]) {
-        Costume_ApplyComponentState((void *)*puVar1);
+      for (piVar4 = param_1; (piVar4 != (int *)0x0 && (piVar4[1] == iVar5));
+          piVar4 = (int *)piVar4[0x2c]) {
+        Costume_ApplyComponentState((void *)*piVar4);
       }
-      Costume_ApplyScale(actor,(void *)param_1[2]);
+      Costume_ApplyScale(piVar1,(void *)param_1[2]);
       return;
     }
     if (*(int *)(iVar5 + 0x38) != 0) {
@@ -2672,11 +2429,11 @@ LAB_004951b3:
           Surface_Lock(pvVar6);
         }
         iVar7 = rdThing_DrawAlt(*(void **)(iVar5 + 0x40),param_2);
-        if ((iVar7 == 0) || (actor == (int *)0x0)) {
-          actor[0x1a] = 0;
+        if ((iVar7 == 0) || (piVar1 == (int *)0x0)) {
+          piVar1[0x1a] = 0;
         }
         else {
-          actor[0x1a] = 1;
+          piVar1[0x1a] = 1;
         }
         if (g_nZBufferEnabled == 0) {
           pvVar6 = (void *)Render_GetBackBuffer();
@@ -2710,17 +2467,17 @@ LAB_004951b3:
           *(float *)(iVar2 + 0x68) = *(float *)(iVar2 + 0x68) - *(float *)(iVar7 + 0x68);
           *(float *)(iVar2 + 0x6c) = *(float *)(iVar2 + 0x6c) - *(float *)(iVar7 + 0x6c);
         }
-        actor[0x1a] = 0;
-        if ((actor[0x29] != 0) && (*(int *)(actor[0x29] + 0x420) == *(int *)(iVar5 + 0x48))) {
+        piVar1[0x1a] = 0;
+        if ((piVar1[0x29] != 0) && (*(int *)(piVar1[0x29] + 0x420) == *(int *)(iVar5 + 0x48))) {
           Renderer_EnableClipPlane(1);
-          Renderer_SetClipPlane(actor + 0x11,actor + 3);
+          Renderer_SetClipPlane(piVar1 + 0x11,piVar1 + 3);
         }
         iVar8 = rdThing_DrawAlt(*(void **)(iVar5 + 0x40),
                                 (float *)(*(int *)(iVar8 + 0x20) + *(int *)(iVar5 + 0x48) * 0x30));
-        if ((iVar8 != 0) && (actor != (int *)0x0)) {
-          actor[0x1a] = 1;
+        if ((iVar8 != 0) && (piVar1 != (int *)0x0)) {
+          piVar1[0x1a] = 1;
         }
-        if ((actor[0x29] != 0) && (*(int *)(actor[0x29] + 0x420) == *(int *)(iVar5 + 0x48))) {
+        if ((piVar1[0x29] != 0) && (*(int *)(piVar1[0x29] + 0x420) == *(int *)(iVar5 + 0x48))) {
           Renderer_EnableClipPlane(0);
         }
         if ((*(int *)(iVar5 + 0x3c) != 0) && (**(int **)(iVar5 + 0x40) != 4)) {
@@ -2737,7 +2494,7 @@ LAB_004951b3:
           Surface_Unlock(pvVar6);
         }
       }
-      piVar4 = (int *)*actor;
+      piVar4 = (int *)*piVar1;
       iVar7 = *piVar4;
       if (iVar7 != 0) {
         if (iVar7 == 0) {
@@ -2746,7 +2503,7 @@ LAB_004951b3:
         }
         rdroid_SetColormap(piVar4[1]);
         if (g_nZBufferEnabled != 0) {
-          piVar4 = (int *)*actor;
+          piVar4 = (int *)*piVar1;
           if (*piVar4 == 0) {
             (*g_pSvcMain->pAssertFail)
                       (s_Bad_Colormap_Reference_004e8090,s_main_sputResource_h_004e80a8,0x9f);
@@ -2759,11 +2516,11 @@ LAB_004951b3:
       iStack_c = g_nDrawBoxMinY;
       iStack_4 = g_nDrawBoxMaxY - g_nDrawBoxMinY;
       Render_InvalidateRectLastBuffer(&iStack_10,1);
-      if ((*(int *)(iVar5 + 0x40) == param_1[1]) && (actor != (int *)0x0)) {
-        actor[0x1b] = iStack_10;
-        actor[0x1c] = iStack_c;
-        actor[0x1d] = iStack_8;
-        actor[0x1e] = iStack_4;
+      if ((*(int *)(iVar5 + 0x40) == param_1[1]) && (piVar1 != (int *)0x0)) {
+        piVar1[0x1b] = iStack_10;
+        piVar1[0x1c] = iStack_c;
+        piVar1[0x1d] = iStack_8;
+        piVar1[0x1e] = iStack_4;
       }
     }
     iVar5 = *(int *)(iVar5 + 400);
@@ -2777,8 +2534,6 @@ LAB_004951b3:
 #undef uStack_14
 #undef uStack_18
 #undef uStack_1c
-
-#endif
 
 
 /* ---- 0x004a5eb0  Actor_RemoveFromSet ---- */
@@ -2908,34 +2663,34 @@ LAB_004a5fa6:
 /* ---- 0x004a8500  Actor_GetYawToPoint ---- */
 /* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
-float __thiscall Actor_GetYawToPoint(void *this,int a1)
+float __thiscall Actor_GetYawToPoint(void *this,float *point)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   undefined *puVar1;
   float fVar2;
-  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
+  #define local_18 (*(float *)(_frame + (0x30 - 0x18)))
+  #define local_14 (*(float *)(_frame + (0x30 - 0x14)))
   #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
   #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
   #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
   
-  local_18 = *(uint *)a1;
-  local_14 = *(uint *)(a1 + 4);
-  local_10 = *(uint *)(a1 + 8);
+  local_18 = *point;
+  local_14 = point[1];
+  local_10 = (uint)point[2];
   if (*(void **)((int)this + 0x5c) != (void *)0x0) {
     Sector_FixPlaneCoordinate(*(void **)((int)this + 0x5c),(int)&local_18);
   }
-  Walker_ToLocalSpace(this,(float *)&local_18);
-  Vec3_Normalize((float *)&local_18);
-  fVar2 = Math_AsinDegreesSeries((float)local_14);
-  a1 = (int)(90.0 - fVar2);
-  if (0.0 < (float)local_18) {
-    a1 = (int)((float)a1 * -1.0);
+  Walker_ToLocalSpace(this,&local_18);
+  Vec3_Normalize(&local_18);
+  fVar2 = Math_AsinDegreesSeries(local_14);
+  point = PUN(float *,(float)(90.0 - fVar2));
+  if (0.0 < local_18) {
+    point = PUN(float *,(float)(PUN(float,point) * -1.0));
   }
   puVar1 = Walker_GetAngles((int)this);
-  return *(float *)(puVar1 + 4) + (float)a1;
+  return *(float *)(puVar1 + 4) + PUN(float,point);
 }
 #undef local_10
 #undef local_14

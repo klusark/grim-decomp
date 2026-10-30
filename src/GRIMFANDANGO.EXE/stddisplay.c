@@ -395,8 +395,6 @@ Display_PickDefault(int wantFullscreen,int want3D,int *deviceIdx,int *modeIdx,in
 
 
 /* ---- 0x004730d0  stdDisplay_BuildBitmapInfo8 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Fills a BITMAPINFO (0x28 header, negative height) with a 256-entry palette */
 
 void stdDisplay_BuildBitmapInfo8
@@ -459,12 +457,8 @@ void stdDisplay_BuildBitmapInfo8
 #undef local_424
 #undef local_428
 
-#endif
-
 
 /* ---- 0x00473180  stdDisplay_BuildBitmapInfo16 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void stdDisplay_BuildBitmapInfo16(int param_1,uint param_2,int param_3,int param_4)
 
 {
@@ -506,8 +500,6 @@ void stdDisplay_BuildBitmapInfo16(int param_1,uint param_2,int param_3,int param
 #undef local_2c
 #undef local_8
 #undef local_c
-
-#endif
 
 
 /* ---- 0x004731f0  DIB_CreateSection565 ---- */
@@ -662,8 +654,6 @@ bool Display_EnumDevices(void)
 }
 
 /* ---- 0x00473b30  Display_RestoreMode ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* IDirectDraw::RestoreDisplayMode when a DirectDraw device is active */
 
@@ -676,8 +666,6 @@ void Display_RestoreMode(void)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x00473c80  Display_SelectDevice ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
@@ -866,8 +854,6 @@ void Display_CloseDevice(void)
 }
 
 /* ---- 0x00474140  Display_OpenMode ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Stddisplay.c: selects the video mode, creates the primary and back surfaces (DIB section windowed
    or DirectDraw) and the Arial debug font */
@@ -929,8 +915,6 @@ int __cdecl Display_OpenMode(uint modeIdx,void *palette,int use3D)
   g_nDisplayModeOpen = 1;
   return 1;
 }
-#endif
-
 
 /* ---- 0x00474310  Display_CloseMode ---- */
 void Display_CloseMode(void)
@@ -957,8 +941,6 @@ void Display_CloseMode(void)
 }
 
 /* ---- 0x00474380  Display_SuspendForDialog ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void Display_SuspendForDialog(void)
 
 {
@@ -976,12 +958,8 @@ void Display_SuspendForDialog(void)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x004743d0  Display_ResumeAfterDialog ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void Display_ResumeAfterDialog(void)
 
 {
@@ -999,8 +977,6 @@ void Display_ResumeAfterDialog(void)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x00474420  Display_Flip ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -1158,8 +1134,6 @@ void __cdecl Surface_Free(void *surface)
 }
 
 /* ---- 0x004746f0  Surface_Release ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Releases DirectDraw surfaces (type 1) or frees the system memory pixels (types 0/2) */
 
 void __cdecl Surface_Release(void *surface)
@@ -1194,8 +1168,6 @@ void __cdecl Surface_Release(void *surface)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x00474750  Surface_Lock ---- */
 int __cdecl Surface_Lock(void *surface)
@@ -1385,8 +1357,6 @@ int __cdecl Surface_Fill(void *surface,int color,int *rect)
 
 
 /* ---- 0x00474a60  Surface_Blit ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 int __cdecl Surface_Blit(void *dst,void *src,int x,int y,int *srcRect,int colorKey)
 
 {
@@ -1405,12 +1375,8 @@ int __cdecl Surface_Blit(void *dst,void *src,int x,int y,int *srcRect,int colorK
   ((code *)Surface_BlitLockedSrc)();
   return 1;
 }
-#endif
-
 
 /* ---- 0x00474ae0  Surface_SetColorKey ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 int __cdecl Surface_SetColorKey(void *surface,int color)
 
 {
@@ -1431,8 +1397,6 @@ int __cdecl Surface_SetColorKey(void *surface,int color)
 }
 #undef local_4
 #undef local_8
-
-#endif
 
 
 /* ---- 0x00474b30  Surface_Decompress ---- */
@@ -1598,8 +1562,6 @@ void __cdecl Display_SetPalette(void *palette)
 }
 
 /* ---- 0x00474dd0  Palette_ApplyGamma ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 int __cdecl Palette_ApplyGamma(void *dst,void *src,int count,int gammaIdx)
 
 {
@@ -1615,8 +1577,6 @@ int __cdecl Palette_ApplyGamma(void *dst,void *src,int count,int gammaIdx)
   Mem_Copy(dst,src,0x300);
   return 1;
 }
-#endif
-
 
 /* ---- 0x00474e40  Display_DrawText ---- */
 /* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
@@ -2019,8 +1979,6 @@ int __cdecl Surface_BlitSoftware(void *dst,void *src,uint x,uint y,int *srcRect,
 }
 
 /* ---- 0x004755e0  Surface_BlitDDraw ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 undefined4
 Surface_BlitDDraw(int param_1,int param_2,uint param_3,uint param_4,uint *param_5,byte param_6)
 
@@ -2180,8 +2138,6 @@ Surface_BlitDDraw(int param_1,int param_2,uint param_3,uint param_4,uint *param_
 #undef local_7c
 #undef local_80
 #undef local_84
-
-#endif
 
 
 /* ---- 0x004758a0  Surface_BlitLockedSrc ---- */
@@ -2612,8 +2568,6 @@ Surface_BlitLockedDst
 
 
 /* ---- 0x004760d0  DDraw_Create ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 bool DDraw_Create(undefined4 param_1)
 
 {
@@ -2650,12 +2604,8 @@ bool DDraw_Create(undefined4 param_1)
   iVar1 = (**(code_std **)(*(int *)g_pDirectDraw + 0x50))(g_pDirectDraw,param_1,8);
   return iVar1 == 0;
 }
-#endif
-
 
 /* ---- 0x00476190  DDraw_Release ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void DDraw_Release(void)
 
 {
@@ -2665,8 +2615,6 @@ void DDraw_Release(void)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x004761b0  FUN_004761b0 ---- */
 /* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
@@ -3148,8 +3096,6 @@ void DDraw_ReleaseSurfaces(void)
 }
 
 /* ---- 0x00476bf0  DDraw_LockSurface ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 undefined4 DDraw_LockSurface(undefined4 *param_1)
 
 {
@@ -3169,12 +3115,8 @@ undefined4 DDraw_LockSurface(undefined4 *param_1)
   } while (iVar1 == 0);
   return param_1[0xb];
 }
-#endif
-
 
 /* ---- 0x00476c40  DDraw_UnlockSurface ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 undefined4 DDraw_UnlockSurface(undefined4 *param_1)
 
 {
@@ -3196,12 +3138,8 @@ undefined4 DDraw_UnlockSurface(undefined4 *param_1)
   } while (iVar1 == 0);
   return 0;
 }
-#endif
-
 
 /* ---- 0x00476c90  DDraw_Flip ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 undefined4 DDraw_Flip(void)
 
 {
@@ -3223,12 +3161,8 @@ undefined4 DDraw_Flip(void)
   } while (iVar1 == -0x7789fde4);
   return 0;
 }
-#endif
-
 
 /* ---- 0x00476cd0  DDraw_FillSurface ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 undefined4 DDraw_FillSurface(undefined4 *param_1,uint param_2,uint *param_3)
 
 {
@@ -3291,12 +3225,8 @@ undefined4 DDraw_FillSurface(undefined4 *param_1,uint param_2,uint *param_3)
 #undef local_70
 #undef local_74
 
-#endif
-
 
 /* ---- 0x00476dc0  DDraw_SetPalette ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 undefined4 DDraw_SetPalette(undefined1 *param_1)
 
 {
@@ -3328,12 +3258,8 @@ undefined4 DDraw_SetPalette(undefined1 *param_1)
 }
 #undef local_400
 
-#endif
-
 
 /* ---- 0x00476e40  DIB_CreateSurface ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 void * __cdecl DIB_CreateSurface(void *mode,void *surface,void *palette,void *hwnd)
 
 {
@@ -3364,8 +3290,6 @@ void * __cdecl DIB_CreateSurface(void *mode,void *surface,void *palette,void *hw
   SelectObject(UINT_007f6498,UINT_00803fb4);
   return (void *)0x1;
 }
-#endif
-
 
 /* ---- 0x00476ee0  DIB_ReleaseSurface ---- */
 void DIB_ReleaseSurface(void)
@@ -3410,20 +3334,15 @@ void __cdecl Display_SetPalette3D(void *palette,int flags)
 void Palette_FromFloatTable(undefined1 *param_1,undefined4 param_2,int param_3)
 
 {
-  undefined4 unaff_ESI;
-  undefined4 unaff_EDI;
   longlong lVar1;
   
   if (0 < param_3) {
     do {
-      _CIpow();
-      lVar1 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+      lVar1 = (longlong)_CIpow();
       *param_1 = (char)lVar1;
-      _CIpow();
-      lVar1 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+      lVar1 = (longlong)_CIpow();
       param_1[1] = (char)lVar1;
-      _CIpow();
-      lVar1 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+      lVar1 = (longlong)_CIpow();
       param_1[2] = (char)lVar1;
       param_1 = param_1 + 3;
       param_3 = param_3 + -1;

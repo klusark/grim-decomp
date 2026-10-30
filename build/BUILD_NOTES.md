@@ -1009,3 +1009,45 @@ Remaining / notes:
 * Ghidra: nothing required. Useful names for the next naming pass: `TextObject+0x254` speaker actor, `+0x258` flags
   (1 keep, 2 hidden, 4 speech, 8 always draw), `+0x25c` self id; an `Engine_LoadGame` comment "text object speaker pointers are
   not remapped (original bug), see GRIM_FixTextActors".
+
+## Less assembly in the EXE low half (2026-10-30, agent I)
+
+Scope: `GRIMFANDANGO.EXE` 0x401000-0x49ffff.  Functions that the build rebuilt from Ghidra's disassembly (`asm_funcs.s`)
+went from 1046 to 473 (372 of those are the software rasteriser, see `docs/ASM_REMAINING.md` for every remaining function and the
+reason).  About 570 functions are compiled C again; about 20 of them are written by hand in `build/overrides_exe.c`.
+
+**How a function is moved from assembly to C**
+1. Add its address to `names/asm_exclude_exe_lo.json` (read by `tools/gen_asm.py` together with `asm_exclude.json`), or define it in
+   `build/overrides_exe.c` / `overrides.c` / `fastpaths.c` (then it drops out of the selection by itself and `build_src.py` puts the
+   decompiled text under `#if 0`).
+2. `python -I tools/gen_asm.py GRIMFANDANGO.EXE --select && python -I tools/build_src.py && cd build && make link -j14`
+   (`build/difftest/rebuild.sh` does all of it and copies the result to `build/run_t`).
+3. Verify (below).  To go back, delete the address / the C block and rebuild.
+
+**Why a decompiled function was assembled (and the fixes)**: float bits kept in `uint` slots (retype the local or parameter in Ghidra:
+`tools/fix_float_locals.py`, `fix_float_params.py`; the heuristics are not perfect, look at the diff), `_ftol` of a lost x87 result
+(`tools/ftol_fold.py` folds `F(args); x = _ftol(CONCAT44(..))` into `x = (longlong)F(args)`), hex float literals passed as ints
+(`FBITS()` in `build_src.py`), prototypes with stack arguments the decompiler dropped, `__thiscall` methods, rounding-mode switches
+(`FLDCW`: `Math_Round` was really a floor and is now `Math_Floor`), parameter slots reused as output buffers, COM vtable calls.
+
+**Traps found by the tests** (all compile and boot, but differ):
+- Hidden x87 results: `Vec3_NormalizeTo` is `void` in Ghidra but leaves |v| in ST0 for an assembled caller; the C version must push it
+  back (`fldt`).  The lengths, sums and quotients must stay in extended precision with the original order of additions
+  (`GetShrinkPos` fails otherwise).
+- gcc forwarding stores through pointer walks (wireframe actors): `build/opt.mk` disables `-ftree-fre/-pre/-dominator-opts/-dse` for
+  the `-O2` modules.
+- `Math_NormalizeAngle360` needs the intermediate rounded to float (volatile), `Walker_UpdateYaw` (scale 0 / NaN) and
+  `Collision_TestActorAgainstOthers` differ in NaN compares: kept assembled.
+- Functions patched by `names/asm_patches.json` (`Game_FrameUpdate`, `Input_PollKeyboard`, `Lua_UpdateFrame`, `Lua_InitGameLibs`) need the
+  hook in C too (`Game_FrameUpdate`, `Lua_UpdateFrame` are in `overrides_exe.c`).
+- Shared Ghidra edits by other agents change prototypes under you (the `Walker_*` floats): re-export (`tools/export_changed.py`) and look
+  at `overrides.c`.
+
+**Verification used** (`build/difftest/`): `run_lua.sh <rundir> <tag> <script.lua> <log>` boots to Manny's office with a fixed frame time
+(`GRIM_SIMTIME=17`) and runs a Lua script through the `GRIM_LUA_FILE` hook, so the converted build (`build/run_t`) can be diffed against the
+all-assembly reference (`build/ref`): `t2` actors drawn, `t3` walking, `t7` primitives, `t8` save/load round trip (`FOLLOW=`),
+`t9` GetShrinkPos, probes of ~100 Lua functions (`run_probe.py`/`cmpprobe.py`), `tour.lua` pixel comparison of every set (`cmpshots.py`).
+`oracles.sh` runs the battery.  `bisect.py` finds the one function of a conversion list that breaks a test (the predicate is a probe, a
+log diff or a `suite:` of `build/qtests.sh`).  The scripted suite `grim_tools/autorun/rebuilt_all.sh` is the final gate.
+`build/qtests.sh` is its quick subset (unit 120 / walk 88 / coll 314 pass, 8 known coll differences).
+Rare (about 4 percent) boot segfaults also happen with the all-assembly reference; the harness retries.

@@ -27,8 +27,7 @@ ImuseSoundComponent_OnKey
   int iVar5;
   int iVar6;
   void *set;
-  undefined4 uVar7;
-  uint uVar8;
+  uint uVar7;
   #define local_4 (*(float *)(_frame + (0x20 - 0x4)))
   
   iVar5 = Cos_InstGetUserData(param_8);
@@ -36,19 +35,19 @@ ImuseSoundComponent_OnKey
   fVar2 = param_2;
   pvVar1 = g_pActorTable;
   if ((*(int *)(&DAT_004e9ff8 + (int)param_4 * 4) == 0) &&
-     (iVar6 = SoundsIsSoundPlaying(param_2), iVar6 == 0)) {
+     (iVar6 = SoundsIsSoundPlaying((int)param_2), iVar6 == 0)) {
     if (param_1 != 0x736c6d69) {
       if (param_1 != 0x73736d69) {
         return;
       }
       SoundStartVoiceStream
-                (fVar2,*(undefined1 *)((int)fVar2 + 0x20),(int)*(char *)((int)fVar2 + 0x21));
-      SoundsSetParam(fVar2,0x400,1);
-      SoundsSetParam(fVar2,0x500,*(undefined4 *)((int)fVar2 + 0x24));
+                ((int)fVar2,(uint)*(byte *)((int)fVar2 + 0x20),(int)*(char *)((int)fVar2 + 0x21));
+      SoundsSetParam((int)fVar2,0x400,1);
+      SoundsSetParam((int)fVar2,0x500,*(uint *)((int)fVar2 + 0x24));
       return;
     }
     set = Set_GetCurrent();
-    uVar7 = SoundsLoadStartSound(fVar2,*(undefined4 *)((int)fVar2 + 0x24),1);
+    iVar6 = SoundsLoadStartSound((int)fVar2,*(int *)((int)fVar2 + 0x24),1);
     if (set == (void *)0x0) {
       return;
     }
@@ -57,16 +56,16 @@ ImuseSoundComponent_OnKey
     if ((byte)param_1 < *(byte *)((int)fVar2 + 0x20)) {
       bVar4 = (byte)param_1;
     }
-    uVar8 = param_8 & 0xff;
+    uVar7 = param_8 & 0xff;
     if ((int)(param_8 & 0xff) <= (int)*(uint *)((int)fVar2 + 0x28)) {
-      uVar8 = *(uint *)((int)fVar2 + 0x28);
+      uVar7 = *(uint *)((int)fVar2 + 0x28);
     }
-    Sound_SetPosition(uVar7,(int)pvVar1 + iVar5 * 0xa8 + 0xc,uVar8,bVar4,param_2,param_4);
+    Sound_SetPosition(iVar6,(int)pvVar1 + iVar5 * 0xa8 + 0xc,uVar7,bVar4,param_2,param_4);
     return;
   }
   if (*(int *)(&DAT_004e9ff8 + (int)fVar3 * 4) == 1) {
     if (param_1 == 0x736c6d69) {
-      SoundsStopSound(fVar2);
+      SoundsStopSound((int)fVar2);
       return;
     }
     if (param_1 == 0x73736d69) {
@@ -75,7 +74,7 @@ ImuseSoundComponent_OnKey
     }
   }
   else if (*(int *)(&DAT_004e9ff8 + (int)fVar3 * 4) == 2) {
-    iMUSE_SetHook(fVar2,0x80);
+    iMUSE_SetHook((int)fVar2,0x80);
   }
   return;
 }
@@ -180,14 +179,11 @@ undefined4 ImuseSoundComponent_EditKey(int *param_1,undefined4 param_2)
 
 
 /* ---- 0x00497460  ImuseSoundComponent_Create ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Costume tag handler for 'iMuse Streamed / Resident Sound FX' (registered by sputCostume_Start
    through Cos_NewStateBasedTag/Cos_NewIntTag): slot 1, builds a sound key or asks for an
    .imu/.imc/.wvc file. */
 
-bool ImuseSoundComponent_Create
-               (undefined4 param_1,undefined4 param_2,int param_3,undefined4 param_4,char *param_5)
+bool ImuseSoundComponent_Create(uint param_1,int param_2,int param_3,int param_4,char *param_5)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -264,7 +260,7 @@ bool ImuseSoundComponent_Create
   *(undefined1 *)(iVar4 + 0x1f) = 0;
   *(undefined1 *)(iVar4 + 0x20) = uVar5;
   *(undefined **)(iVar4 + 0x24) = puVar6;
-  iVar4 = Cos_RegisterComponent(param_1,param_5,iVar4,param_2,0,param_4,&DAT_004ea018);
+  iVar4 = Cos_RegisterComponent(param_1,(int)param_5,iVar4,param_2,0,param_4,IMG_ADDR(0x004ea018));
   return iVar4 != 0;
 }
 #undef local_1
@@ -272,8 +268,6 @@ bool ImuseSoundComponent_Create
 #undef local_20
 #undef local_24
 #undef local_25
-
-#endif
 
 
 /* ---- 0x00497640  ImuseSoundComponent_Destroy ---- */
@@ -291,7 +285,7 @@ undefined4 ImuseSoundComponent_Destroy(undefined4 param_1,undefined4 param_2,und
 /* Costume tag handler for 'iMuse Streamed / Resident Sound FX' (registered by sputCostume_Start
    through Cos_NewStateBasedTag/Cos_NewIntTag): slot 3, SoundsStopSound. */
 
-undefined4 ImuseSoundComponent_Stop(undefined4 param_1)
+undefined4 ImuseSoundComponent_Stop(int param_1)
 
 {
   SoundsStopSound(param_1);

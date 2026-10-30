@@ -6,8 +6,6 @@
 #include "functions.h"
 
 /* ---- 0x00477f10  PlatSvc_AssertFail ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* GrimServices.pAssertFail of the platform table (Services_InitPlatformTable; the default table of
    Svc_* functions has its own Svc_AssertFail): logs 'file(line): message' to an assert file and
    aborts (DebugBreak + exit(1)); a second failure while handling the first exits immediately. */
@@ -57,8 +55,6 @@ void PlatSvc_AssertFail(undefined4 param_1,char *param_2,undefined4 param_3)
   return;
 }
 #undef acStack_200
-
-#endif
 
 
 /* ---- 0x00478030  PlatSvc_HAlloc ---- */

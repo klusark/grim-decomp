@@ -6,8 +6,6 @@
 #include "functions.h"
 
 /* ---- 0x0047c7c0  stdConffile_OpenRead ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Opens a text configuration file for reading (stdConffile_OpenMode with mode "r"). Source file
    Stdconffile.c (C:\grimjedi\Libs\Std\General\Stdconffile.c). */
 
@@ -17,12 +15,8 @@ void stdConffile_OpenRead(undefined4 param_1)
   stdConffile_OpenMode(param_1,&DAT_004dda54);
   return;
 }
-#endif
-
 
 /* ---- 0x0047c7e0  stdConffile_OpenMode ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Opens a configuration file through the file services (pFopen); pushes the currently open file
    first (stdConffile_Push) and allocates the 0x400-byte line buffer. The name 'none' means no file.
    Source file Stdconffile.c (C:\grimjedi\Libs\Std\General\Stdconffile.c). */
@@ -79,12 +73,8 @@ LAB_0047c827:
   UINT_0080cbcc = 1;
   return 1;
 }
-#endif
-
 
 /* ---- 0x0047c8c0  stdConffile_Close ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Closes the current configuration file, frees the line buffer and pops the previous file if one
    was pushed. Source file Stdconffile.c (C:\grimjedi\Libs\Std\General\Stdconffile.c). */
 
@@ -105,8 +95,6 @@ void stdConffile_Close(void)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x0047c920  stdConffile_ReadLine ---- */
 /* Reads the next line of the open stdConffile into the line buffer UINT_00900520 (skips ';' '#' and

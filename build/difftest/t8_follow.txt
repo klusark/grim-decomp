@@ -1,0 +1,47 @@
+Load("t8.gsv")
+x_pad=1
+x_pad=1
+x_pad=1
+x_pad=1
+x_pad=1
+x_pad=1
+x_pad=1
+x_pad=1
+x_pad=1
+x_pad=1
+x_pad=1
+x_pad=1
+x_pad=1
+x_pad=1
+x_pad=1
+x_pad=1
+x_pad=1
+x_pad=1
+x_pad=1
+x_pad=1
+x_pad=1
+x_pad=1
+x_pad=1
+x_pad=1
+x_pad=1
+x_pad=1
+x_pad=1
+x_pad=1
+x_pad=1
+x_pad=1
+x_pad=1
+x_pad=1
+x_pad=1
+x_pad=1
+x_pad=1
+x_pad=1
+x_pad=1
+x_pad=1
+x_pad=1
+x_pad=1
+grimlog("after load MARK="..tostring(MARK))
+grimlog("walkrate "..tostring(GetActorWalkRate(manny.hActor)))
+NEWID = DrawLine(1,1,50,50,{color=MakeColor(0,255,0)})
+grimlog("new primitive id "..tostring(NEWID))
+local_gs = GetSaveGameData and 1 or 0
+grimlog("done follow")
