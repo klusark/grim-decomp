@@ -12,9 +12,7 @@
    Cos_NewStateBasedTag/Cos_NewIntTag): slot 1, builds a sprite key; asks for a .mat file ('Select
    mat file for sprite') and creates the polyline. */
 
-undefined4
-SpriteComponent_Create
-          (undefined4 param_1,undefined4 param_2,int param_3,float param_4,char *param_5)
+undefined4 SpriteComponent_Create(uint param_1,int param_2,int param_3,float param_4,char *param_5)
 
 {
   unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -86,16 +84,16 @@ SpriteComponent_Create
       uVar2 = strtok(0,&DAT_004ea52c);
       if (uVar2 != 0) {
         puVar3 = atoi(uVar2);
-        local_44 = (uint)((float)(int)puVar3 * 0.01);
+        local_44 = PUN(uint,(float)((float)(int)puVar3 * 0.01));
         uVar2 = strtok(0,&DAT_004ea52c);
         puVar3 = atoi(uVar2);
-        local_48 = (uint)((float)(int)puVar3 * 0.01);
+        local_48 = PUN(uint,(float)((float)(int)puVar3 * 0.01));
         uVar2 = strtok(0,&DAT_004ea52c);
         puVar3 = atoi(uVar2);
-        local_50 = (uint)((float)(int)puVar3 * 0.01);
+        local_50 = PUN(uint,(float)((float)(int)puVar3 * 0.01));
         uVar2 = strtok(0,&DAT_004ea52c);
         puVar3 = atoi(uVar2);
-        local_4c = (uint)((float)(int)puVar3 * 0.01);
+        local_4c = PUN(uint,(float)((float)(int)puVar3 * 0.01));
         uVar2 = strtok(0,&DAT_004ea52c);
         puVar3 = atoi(uVar2);
         param_4 = (float)(int)puVar3 * 0.01;
@@ -111,7 +109,7 @@ SpriteComponent_Create
       }
       local_40 = local_50;
       local_3c = local_4c;
-      local_38 = (uint)param_4;
+      local_38 = PUN(uint,(float)param_4);
       iVar7 = rdPolyline_New(0,pcVar5,pcVar5,local_44,local_48,5,0,1,0,&local_40);
       *piVar6 = iVar7;
       uVar2 = 0xffffffff;
@@ -138,7 +136,9 @@ SpriteComponent_Create
       local_34 = *(int *)(*(int *)(*piVar6 + 0x7c) + 0x60) + 1;
       local_30 = 0;
       local_2c = 0;
-      iVar7 = Cos_RegisterComponent(param_1,param_5,piVar6,param_2,param_3,0x4853454d,&local_34);
+      iVar7 = Cos_RegisterComponent
+                        (param_1,(int)param_5,(int)piVar6,param_2,param_3,0x4853454d,(int)&local_34)
+      ;
       if (iVar7 != 0) {
         return 1;
       }
@@ -212,7 +212,7 @@ undefined4 * FUN_004985c0(int param_1,undefined4 *param_2,int param_3)
   
   iVar1 = param_1;
   if (param_3 == 0) {
-    iVar1 = Cos_InstGetInstanceData(param_1,param_2,0);
+    iVar1 = Cos_InstGetInstanceData(param_1,(int)param_2,(int *)0x0);
     iVar2 = *(int *)(iVar1 + 0x50) + -1;
     *(int *)(iVar1 + 0x50) = iVar2;
     if (iVar2 == 0) {
@@ -221,7 +221,7 @@ undefined4 * FUN_004985c0(int param_1,undefined4 *param_2,int param_3)
     }
     return (undefined4 *)0x0;
   }
-  Cos_InstComponentInfo(param_1,param_2,&param_3,&param_2,&param_1);
+  Cos_InstComponentInfo(param_1,(int)param_2,(int)&param_3,(int)&param_2,(int)&param_1);
   puVar3 = (undefined4 *)
            (*g_pSvcCostume->pAlloc)(0x194,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0x1070);
   puVar4 = puVar3;
@@ -235,7 +235,7 @@ undefined4 * FUN_004985c0(int param_1,undefined4 *param_2,int param_3)
   *(undefined4 *)(iVar2 + 0x30) = 0;
   rdThing_SetPolyline(puVar3[0x10],*param_2);
   if (-1 < param_1) {
-    puVar4 = (undefined4 *)Cos_InstGetInstanceData(iVar1,param_1,0);
+    puVar4 = (undefined4 *)Cos_InstGetInstanceData(iVar1,param_1,(int *)0x0);
     puVar3[0x11] = *puVar4;
     puVar3[0x12] = puVar4[1];
     puVar3[0x14] = puVar3[0x14] + 1;

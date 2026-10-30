@@ -214,7 +214,7 @@ int __cdecl rdPuppet_FadeInTrack(void *puppet,int track,float seconds)
   puVar1 = (uint *)((int)puppet + track * 0x134 + 8);
   *puVar1 = *(uint *)((int)puppet + track * 0x134 + 8) & 0xfffffff7 | 6;
   if (0.0 < seconds) {
-    puVar1[7] = (uint)(1.0 / seconds);
+    puVar1[7] = PUN(uint,(float)(1.0 / seconds));
     return 1;
   }
   puVar1[7] = 0x3f800000;
@@ -234,7 +234,7 @@ int __cdecl rdPuppet_FadeOutTrack(void *puppet,int track,float seconds)
   puVar1 = (uint *)((int)puppet + track * 0x134 + 8);
   *puVar1 = *(uint *)((int)puppet + track * 0x134 + 8) & 0xfffffffb | 8;
   if (0.0 < seconds) {
-    puVar1[7] = (uint)(1.0 / seconds);
+    puVar1[7] = PUN(uint,(float)(1.0 / seconds));
     return 1;
   }
   puVar1[7] = 0x3f800000;
@@ -269,7 +269,7 @@ void __cdecl rdPuppet_AdvanceTrack(void *puppet,int track,float dt)
   puVar1 = (uint *)((int)puppet + track * 0x134 + 8);
   if ((iVar8 != 0) && (dt != 0.0)) {
     fVar2 = dt + (float)puVar1[0x49];
-    puVar1[0x48] = (uint)fVar2;
+    puVar1[0x48] = PUN(uint,(float)fVar2);
     fVar3 = (float)*(uint *)(iVar8 + 0x34);
     if (fVar3 <= fVar2) {
       uVar5 = *puVar1;
@@ -277,8 +277,8 @@ void __cdecl rdPuppet_AdvanceTrack(void *puppet,int track,float dt)
         if ((uVar5 & 0x40) == 0) {
           if ((uVar5 & 0x80) == 0) {
             local_8 = (uint)ROUND(fVar2 / fVar3);
-            puVar1[0x48] = (uint)((float)puVar1[0x48] -
-                                 (float)*(uint *)(puVar1[0x4a] + 0x34) * (float)local_8);
+            puVar1[0x48] = PUN(uint,(float)((float)puVar1[0x48] -
+                                 (float)*(uint *)(puVar1[0x4a] + 0x34) * (float)local_8));
             uVar5 = *(uint *)(*(int *)(*(int *)((int)puppet + 4) + 4) + 0x54);
             if (0x3f < uVar5) {
               uVar5 = 0x40;
@@ -290,18 +290,18 @@ void __cdecl rdPuppet_AdvanceTrack(void *puppet,int track,float dt)
             }
           }
           else {
-            puVar1[0x48] = (uint)fVar3;
+            puVar1[0x48] = PUN(uint,(float)fVar3);
             rdPuppet_FadeOutTrack(puppet,track,0.25);
             *puVar1 = *puVar1 | 0x10;
           }
         }
         else {
-          puVar1[0x48] = (uint)fVar3;
+          puVar1[0x48] = PUN(uint,(float)fVar3);
           *puVar1 = uVar5 | 0x10;
         }
       }
       else {
-        puVar1[0x48] = (uint)fVar3;
+        puVar1[0x48] = PUN(uint,(float)fVar3);
         bVar4 = true;
       }
     }
@@ -396,11 +396,11 @@ void __cdecl rdPuppet_Advance(void *puppet,float seconds)
       uVar1 = *puVar3;
       if ((uVar1 != 0) && ((uVar1 & 0x200) == 0)) {
         if ((uVar1 & 0x10) == 0) {
-          rdPuppet_AdvanceTrack(puppet,track,(float)puVar3[4] * seconds);
+          rdPuppet_AdvanceTrack(puppet,track,PUN(float,puVar3[4]) * seconds);
         }
         if ((*puVar3 & 4) == 0) {
           if (((*puVar3 & 8) != 0) &&
-             (fVar2 = (float)puVar3[6] - (float)puVar3[7] * seconds, puVar3[6] = (uint)fVar2,
+             (fVar2 = PUN(float,puVar3[6]) - PUN(float,puVar3[7]) * seconds, puVar3[6] = PUN(uint,(float)fVar2),
              fVar2 <= 0.0)) {
             if ((*puVar3 & 0x100) == 0) {
               rdPuppet_StopTrack(puppet,track);
@@ -411,8 +411,8 @@ void __cdecl rdPuppet_Advance(void *puppet,float seconds)
           }
         }
         else {
-          fVar2 = (float)puVar3[7] * seconds + (float)puVar3[6];
-          puVar3[6] = (uint)fVar2;
+          fVar2 = PUN(float,puVar3[7]) * seconds + PUN(float,puVar3[6]);
+          puVar3[6] = PUN(uint,(float)fVar2);
           if (1.0 <= fVar2) {
             puVar3[6] = 0x3f800000;
             *puVar3 = *puVar3 & 0xfffffffb;
@@ -627,7 +627,7 @@ void __cdecl rdPuppet_UpdateFrame(void *model,float *frame)
               if ((((((*pbVar14 & 2) != 0) && (uVar4 = *puVar12, uVar4 < *(uint *)(iVar11 + 0x38)))
                    && (iVar7 = *(int *)(iVar11 + 0x3c) + uVar4 * 0x2c, *(int *)(iVar7 + 0x24) != 0))
                   && (((int)local_6c <= (int)uVar13 &&
-                      (((int)local_5c <= (int)uVar13 || ((float)local_74 < 1.0)))))) &&
+                      (((int)local_5c <= (int)uVar13 || (PUN(float,local_74) < 1.0)))))) &&
                  (uVar4 < *(uint *)(iVar11 + 0x38))) {
                 pfVar10 = (float *)(*(int *)(iVar7 + 0x28) +
                                    *(int *)(pbVar14 + uVar4 * 4 + 0x20) * 0x38);
@@ -637,50 +637,50 @@ void __cdecl rdPuppet_UpdateFrame(void *model,float *frame)
                 else {
                   fVar18 = 0.0;
                 }
-                if (((uint)pfVar10[1] & 1) == 0) {
-                  local_24 = (uint)pfVar10[2];
-                  local_20 = (uint)pfVar10[3];
-                  local_1c = (uint)pfVar10[4];
+                if ((PUN(uint,(float)pfVar10[1]) & 1) == 0) {
+                  local_24 = PUN(uint,(float)pfVar10[2]);
+                  local_20 = PUN(uint,(float)pfVar10[3]);
+                  local_1c = PUN(uint,(float)pfVar10[4]);
                 }
                 else {
-                  local_24 = (uint)(pfVar10[8] * fVar18 + pfVar10[2]);
-                  local_20 = (uint)(pfVar10[9] * fVar18 + pfVar10[3]);
-                  local_1c = (uint)(pfVar10[10] * fVar18 + pfVar10[4]);
+                  local_24 = PUN(uint,(float)(pfVar10[8] * fVar18 + pfVar10[2]));
+                  local_20 = PUN(uint,(float)(pfVar10[9] * fVar18 + pfVar10[3]));
+                  local_1c = PUN(uint,(float)(pfVar10[10] * fVar18 + pfVar10[4]));
                 }
-                if (((uint)pfVar10[1] & 2) == 0) {
-                  local_30 = (uint)pfVar10[5];
+                if ((PUN(uint,(float)pfVar10[1]) & 2) == 0) {
+                  local_30 = PUN(uint,(float)pfVar10[5]);
                   fVar5 = pfVar10[6];
                   fVar18 = pfVar10[7];
                 }
                 else {
-                  local_30 = (uint)(pfVar10[0xb] * fVar18 + pfVar10[5]);
+                  local_30 = PUN(uint,(float)(pfVar10[0xb] * fVar18 + pfVar10[5]));
                   fVar5 = pfVar10[0xc] * fVar18 + pfVar10[6];
                   fVar18 = pfVar10[0xd] * fVar18 + pfVar10[7];
                 }
-                local_24 = (uint)((float)local_24 - (float)puVar12[0xb]);
-                local_20 = (uint)((float)local_20 - (float)puVar12[0xc]);
-                local_1c = (uint)((float)local_1c - (float)puVar12[0xd]);
-                local_2c = (uint)(fVar5 - (float)puVar12[0xf]);
-                local_28 = (uint)(fVar18 - (float)puVar12[0x10]);
-                local_30 = (uint)Math_NormalizeAngle180((float)local_30 - (float)puVar12[0xe]);
-                local_2c = (uint)Math_NormalizeAngle180((float)local_2c);
-                local_28 = (uint)Math_NormalizeAngle180((float)local_28);
+                local_24 = PUN(uint,(float)(PUN(float,local_24) - PUN(float,puVar12[0xb])));
+                local_20 = PUN(uint,(float)(PUN(float,local_20) - PUN(float,puVar12[0xc])));
+                local_1c = PUN(uint,(float)(PUN(float,local_1c) - PUN(float,puVar12[0xd])));
+                local_2c = PUN(uint,(float)(fVar5 - PUN(float,puVar12[0xf])));
+                local_28 = PUN(uint,(float)(fVar18 - PUN(float,puVar12[0x10])));
+                local_30 = PUN(uint,(float)Math_NormalizeAngle180(PUN(float,local_30) - PUN(float,puVar12[0xe])));
+                local_2c = PUN(uint,(float)Math_NormalizeAngle180(PUN(float,local_2c)));
+                local_28 = PUN(uint,(float)Math_NormalizeAngle180(PUN(float,local_28)));
                 if (*(float *)(pbVar14 + 0x18) < 1.0) {
-                  local_24 = (uint)(*(float *)(pbVar14 + 0x18) * (float)local_24);
-                  local_20 = (uint)(*(float *)(pbVar14 + 0x18) * (float)local_20);
-                  local_1c = (uint)(*(float *)(pbVar14 + 0x18) * (float)local_1c);
-                  local_30 = (uint)(*(float *)(pbVar14 + 0x18) * (float)local_30);
-                  local_2c = (uint)(*(float *)(pbVar14 + 0x18) * (float)local_2c);
-                  local_28 = (uint)(*(float *)(pbVar14 + 0x18) * (float)local_28);
+                  local_24 = PUN(uint,(float)(*(float *)(pbVar14 + 0x18) * PUN(float,local_24)));
+                  local_20 = PUN(uint,(float)(*(float *)(pbVar14 + 0x18) * PUN(float,local_20)));
+                  local_1c = PUN(uint,(float)(*(float *)(pbVar14 + 0x18) * PUN(float,local_1c)));
+                  local_30 = PUN(uint,(float)(*(float *)(pbVar14 + 0x18) * PUN(float,local_30)));
+                  local_2c = PUN(uint,(float)(*(float *)(pbVar14 + 0x18) * PUN(float,local_2c)));
+                  local_28 = PUN(uint,(float)(*(float *)(pbVar14 + 0x18) * PUN(float,local_28)));
                 }
                 if (uVar13 == local_5c) {
-                  local_3c = (uint)((float)local_24 + (float)local_3c);
-                  local_38 = (uint)((float)local_20 + (float)local_38);
-                  local_34 = (uint)((float)local_1c + (float)local_34);
-                  local_48 = (uint)((float)local_30 + (float)local_48);
-                  local_44 = (uint)((float)local_2c + (float)local_44);
-                  local_40 = (uint)((float)local_28 + (float)local_40);
-                  local_74 = (uint)((float)local_74 + *(float *)(pbVar14 + 0x18));
+                  local_3c = PUN(uint,(float)(PUN(float,local_24) + PUN(float,local_3c)));
+                  local_38 = PUN(uint,(float)(PUN(float,local_20) + PUN(float,local_38)));
+                  local_34 = PUN(uint,(float)(PUN(float,local_1c) + PUN(float,local_34)));
+                  local_48 = PUN(uint,(float)(PUN(float,local_30) + PUN(float,local_48)));
+                  local_44 = PUN(uint,(float)(PUN(float,local_2c) + PUN(float,local_44)));
+                  local_40 = PUN(uint,(float)(PUN(float,local_28) + PUN(float,local_40)));
+                  local_74 = PUN(uint,(float)(PUN(float,local_74) + *(float *)(pbVar14 + 0x18)));
                 }
                 else if ((int)local_5c < (int)uVar13) {
                   local_18 = local_3c;
@@ -711,57 +711,57 @@ void __cdecl rdPuppet_UpdateFrame(void *model,float *frame)
                   local_6c = uVar13;
                 }
                 else {
-                  local_18 = (uint)((float)local_24 + (float)local_18);
-                  local_14 = (uint)((float)local_20 + (float)local_14);
-                  local_10 = (uint)((float)local_1c + (float)local_10);
-                  local_c = (uint)((float)local_30 + (float)local_c);
-                  local_8 = (uint)((float)local_2c + (float)local_8);
-                  local_4 = (uint)((float)local_28 + (float)local_4);
-                  local_70 = (uint)((float)local_70 + *(float *)(pbVar14 + 0x18));
+                  local_18 = PUN(uint,(float)(PUN(float,local_24) + PUN(float,local_18)));
+                  local_14 = PUN(uint,(float)(PUN(float,local_20) + PUN(float,local_14)));
+                  local_10 = PUN(uint,(float)(PUN(float,local_1c) + PUN(float,local_10)));
+                  local_c = PUN(uint,(float)(PUN(float,local_30) + PUN(float,local_c)));
+                  local_8 = PUN(uint,(float)(PUN(float,local_2c) + PUN(float,local_8)));
+                  local_4 = PUN(uint,(float)(PUN(float,local_28) + PUN(float,local_4)));
+                  local_70 = PUN(uint,(float)(PUN(float,local_70) + *(float *)(pbVar14 + 0x18)));
                 }
               }
             }
             pbVar14 = pbVar14 + 0x134;
             local_58 = local_58 - 1;
           } while (local_58 != 0);
-          if ((1.0 <= (float)local_74) || ((float)local_70 <= 0.0)) {
-            if (1.0 < (float)local_74) {
-              fVar18 = 1.0 / (float)local_74;
-              local_3c = (uint)((float)local_3c * fVar18);
-              local_38 = (uint)((float)local_38 * fVar18);
-              local_34 = (uint)((float)local_34 * fVar18);
-              local_48 = (uint)((float)local_48 * fVar18);
-              local_44 = (uint)((float)local_44 * fVar18);
-              local_40 = (uint)((float)local_40 * fVar18);
+          if ((1.0 <= PUN(float,local_74)) || (PUN(float,local_70) <= 0.0)) {
+            if (1.0 < PUN(float,local_74)) {
+              fVar18 = 1.0 / PUN(float,local_74);
+              local_3c = PUN(uint,(float)(PUN(float,local_3c) * fVar18));
+              local_38 = PUN(uint,(float)(PUN(float,local_38) * fVar18));
+              local_34 = PUN(uint,(float)(PUN(float,local_34) * fVar18));
+              local_48 = PUN(uint,(float)(PUN(float,local_48) * fVar18));
+              local_44 = PUN(uint,(float)(PUN(float,local_44) * fVar18));
+              local_40 = PUN(uint,(float)(PUN(float,local_40) * fVar18));
             }
           }
           else {
-            if (1.0 < (float)local_70) {
-              fVar18 = 1.0 / (float)local_70;
-              local_18 = (uint)((float)local_18 * fVar18);
-              local_14 = (uint)((float)local_14 * fVar18);
-              local_10 = (uint)((float)local_10 * fVar18);
-              local_c = (uint)((float)local_c * fVar18);
-              local_8 = (uint)((float)local_8 * fVar18);
-              local_4 = (uint)((float)local_4 * fVar18);
+            if (1.0 < PUN(float,local_70)) {
+              fVar18 = 1.0 / PUN(float,local_70);
+              local_18 = PUN(uint,(float)(PUN(float,local_18) * fVar18));
+              local_14 = PUN(uint,(float)(PUN(float,local_14) * fVar18));
+              local_10 = PUN(uint,(float)(PUN(float,local_10) * fVar18));
+              local_c = PUN(uint,(float)(PUN(float,local_c) * fVar18));
+              local_8 = PUN(uint,(float)(PUN(float,local_8) * fVar18));
+              local_4 = PUN(uint,(float)(PUN(float,local_4) * fVar18));
             }
-            fVar18 = 1.0 - (float)local_74;
-            local_3c = (uint)((float)local_18 * fVar18 + (float)local_3c);
-            local_38 = (uint)((float)local_14 * fVar18 + (float)local_38);
-            local_34 = (uint)((float)local_10 * fVar18 + (float)local_34);
-            local_48 = (uint)((float)local_c * fVar18 + (float)local_48);
-            local_44 = (uint)((float)local_8 * fVar18 + (float)local_44);
-            local_40 = (uint)((float)local_4 * fVar18 + (float)local_40);
+            fVar18 = 1.0 - PUN(float,local_74);
+            local_3c = PUN(uint,(float)(PUN(float,local_18) * fVar18 + PUN(float,local_3c)));
+            local_38 = PUN(uint,(float)(PUN(float,local_14) * fVar18 + PUN(float,local_38)));
+            local_34 = PUN(uint,(float)(PUN(float,local_10) * fVar18 + PUN(float,local_34)));
+            local_48 = PUN(uint,(float)(PUN(float,local_c) * fVar18 + PUN(float,local_48)));
+            local_44 = PUN(uint,(float)(PUN(float,local_8) * fVar18 + PUN(float,local_44)));
+            local_40 = PUN(uint,(float)(PUN(float,local_4) * fVar18 + PUN(float,local_40)));
           }
-          local_48 = (uint)Math_NormalizeAngle180((float)local_48);
-          local_44 = (uint)Math_NormalizeAngle180((float)local_44);
-          fVar18 = Math_NormalizeAngle180((float)local_40);
-          local_3c = (uint)((float)puVar12[0xb] + (float)local_3c);
-          local_38 = (uint)((float)puVar12[0xc] + (float)local_38);
-          local_34 = (uint)((float)puVar12[0xd] + (float)local_34);
-          local_48 = (uint)((float)puVar12[0xe] + (float)local_48);
-          local_44 = (uint)((float)puVar12[0xf] + (float)local_44);
-          local_40 = (uint)((float)puVar12[0x10] + fVar18);
+          local_48 = PUN(uint,(float)Math_NormalizeAngle180(PUN(float,local_48)));
+          local_44 = PUN(uint,(float)Math_NormalizeAngle180(PUN(float,local_44)));
+          fVar18 = Math_NormalizeAngle180(PUN(float,local_40));
+          local_3c = PUN(uint,(float)(PUN(float,puVar12[0xb]) + PUN(float,local_3c)));
+          local_38 = PUN(uint,(float)(PUN(float,puVar12[0xc]) + PUN(float,local_38)));
+          local_34 = PUN(uint,(float)(PUN(float,puVar12[0xd]) + PUN(float,local_34)));
+          local_48 = PUN(uint,(float)(PUN(float,puVar12[0xe]) + PUN(float,local_48)));
+          local_44 = PUN(uint,(float)(PUN(float,puVar12[0xf]) + PUN(float,local_44)));
+          local_40 = PUN(uint,(float)(PUN(float,puVar12[0x10]) + fVar18));
           Angles_ToMatrix(local_50 + *(int *)((int)model + 0x20),&local_48,&local_3c);
           iVar11 = *(int *)((int)model + 0x24) + local_60;
           if (((*(float *)(*(int *)((int)model + 0x24) + local_60) != 0.0) ||
@@ -843,30 +843,30 @@ rdKeyframe_InterpolateNode
       iVar1 = *param_1;
       if (*(int *)(iVar1 + 8) != 0) {
         piVar2 = *(int **)(param_5 + 0x18);
-        local_c = (uint)(pfVar5[-2] - *(float *)(param_7 + *piVar2 * 0xc));
-        local_8 = (uint)(pfVar5[-1] - *(float *)(param_7 + 4 + *piVar2 * 0xc));
-        local_4 = (uint)(*pfVar5 - *(float *)(param_7 + 8 + *piVar2 * 0xc));
-        if ((float)local_4 * (float)local_4 +
-            (float)local_8 * (float)local_8 + (float)local_c * (float)local_c <
+        local_c = PUN(uint,(float)(pfVar5[-2] - *(float *)(param_7 + *piVar2 * 0xc)));
+        local_8 = PUN(uint,(float)(pfVar5[-1] - *(float *)(param_7 + 4 + *piVar2 * 0xc)));
+        local_4 = PUN(uint,(float)(*pfVar5 - *(float *)(param_7 + 8 + *piVar2 * 0xc)));
+        if (PUN(float,local_4) * PUN(float,local_4) +
+            PUN(float,local_8) * PUN(float,local_8) + PUN(float,local_c) * PUN(float,local_c) <
             *(float *)(iVar1 + 0x34) * *(float *)(iVar1 + 0x34)) {
           fVar6 = Vec3_Normalize((float *)&local_c);
-          fVar3 = (float)local_c * *param_6 +
-                  param_6[1] * (float)local_8 + param_6[2] * (float)local_4;
+          fVar3 = PUN(float,local_c) * *param_6 +
+                  param_6[1] * PUN(float,local_8) + param_6[2] * PUN(float,local_4);
           if (0.0 < fVar3) {
-            local_10 = (uint)((*(float *)(iVar1 + 0x18) - fVar6 * param_8) * fVar3 + (float)local_10
-                             );
+            local_10 = PUN(uint,(float)((*(float *)(iVar1 + 0x18) - fVar6 * param_8) * fVar3 + PUN(float,local_10)
+                             ));
           }
         }
       }
-      if (1.0 <= (float)local_10) {
-        return (float)local_10;
+      if (1.0 <= PUN(float,local_10)) {
+        return PUN(float,local_10);
       }
       uVar4 = uVar4 + 1;
       param_1 = param_1 + 1;
       pfVar5 = pfVar5 + 3;
     } while (uVar4 < param_4);
   }
-  return (float)local_10;
+  return PUN(float,local_10);
 }
 #undef local_10
 #undef local_4
@@ -947,8 +947,6 @@ int rdKeyframe_Load(char *param_1)
 }
 
 /* ---- 0x004c0770  rdKeyframe_LoadText ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
-#if 0
 /* Parser of the text .key format (flags, type, frames, fps, joints, entries; stdConffile). Source
    file Rdkeyframe.c (C:\grimjedi\Libs\RDroid\Engine\Rdkeyframe.c). */
 
@@ -1208,8 +1206,6 @@ LAB_004c0cbf:
 #undef uStack_54
 #undef uStack_5c
 #undef uStack_68
-
-#endif
 
 
 /* ---- 0x004c0ce0  rdKeyframe_LoadBinary ---- */

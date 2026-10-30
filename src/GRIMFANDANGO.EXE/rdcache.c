@@ -206,7 +206,7 @@ int __cdecl rdCache_AddMesh(void *mesh,uint vertexCount,byte flags)
   *(void **)(&DAT_008ddfc0 + iVar1) = mesh;
   (&UINT_008ddfdc)[uVar7 * 0x1e] = vertexCount;
   *(uint *)(&DAT_008de034 + iVar1) = UINT_00900054;
-  local_c = (uint)*pfVar4;
+  local_c = PUN(uint,(float)*pfVar4);
   fVar2 = pfVar4[1];
   *(undefined4 *)(&DAT_008de030 + iVar1) = 0;
   *(undefined4 *)(&DAT_008de02c + iVar1) = 0;
@@ -214,7 +214,7 @@ int __cdecl rdCache_AddMesh(void *mesh,uint vertexCount,byte flags)
   uVar9 = 1;
   *(float *)(&DAT_008de028 + iVar1) = fVar3;
   *(float *)(&DAT_008de024 + iVar1) = fVar3;
-  local_10 = (uint)fVar2;
+  local_10 = PUN(uint,(float)fVar2);
   local_8 = local_c;
   if (1 < vertexCount) {
     do {
@@ -222,14 +222,14 @@ int __cdecl rdCache_AddMesh(void *mesh,uint vertexCount,byte flags)
       fVar5 = pfVar4[4];
       fVar6 = pfVar4[5];
       fVar8 = fVar3;
-      if (((float)local_8 <= fVar3) && (fVar8 = (float)local_8, (float)local_c <= fVar3)) {
-        local_c = (uint)fVar3;
+      if ((PUN(float,local_8) <= fVar3) && (fVar8 = PUN(float,local_8), PUN(float,local_c) <= fVar3)) {
+        local_c = PUN(uint,(float)fVar3);
       }
-      local_8 = (uint)fVar8;
+      local_8 = PUN(uint,(float)fVar8);
       if (fVar2 <= fVar5) {
-        if ((float)local_10 < fVar5) {
+        if (PUN(float,local_10) < fVar5) {
           *(uint *)(&DAT_008de030 + iVar1) = uVar9;
-          local_10 = (uint)fVar5;
+          local_10 = PUN(uint,(float)fVar5);
         }
       }
       else {
@@ -248,8 +248,8 @@ int __cdecl rdCache_AddMesh(void *mesh,uint vertexCount,byte flags)
       pfVar4 = pfVar4 + 3;
     } while (uVar9 < vertexCount);
   }
-  if ((float)local_8 < (float)local_c) {
-    if (fVar2 < (float)local_10) {
+  if (PUN(float,local_8) < PUN(float,local_c)) {
+    if (fVar2 < PUN(float,local_10)) {
       lVar10 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
       *(int *)(&DAT_008de014 + iVar1) = (int)lVar10;
       lVar10 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
@@ -374,7 +374,7 @@ undefined4 rdCache_DrawMeshList3D(void)
   if (((0.0 < _DAT_0090002c) || (0.0 < _DAT_00900030)) || (0.0 < _DAT_00900034)) {
     bVar5 = true;
     bVar8 = true;
-    local_20 = (uint)(_DAT_0090002c * 0.5);
+    local_20 = PUN(uint,(float)(_DAT_0090002c * 0.5));
   }
   if (((UINT_00900020 != 0) || (UINT_00900024 != 0)) || (UINT_00900028 != 0)) {
     bVar6 = true;
@@ -528,8 +528,8 @@ LAB_00406d8d:
         D3D_ClampTextureSize
                   (*(undefined4 *)(material[uVar15 + 7] + 0xc),
                    *(undefined4 *)(material[uVar15 + 7] + 0x10),&local_38,&local_3c);
-        local_7c = (uint)(float)(local_38 << ((byte)uVar15 & 0x1f));
-        local_78 = (uint)(float)(local_3c << ((byte)uVar15 & 0x1f));
+        local_7c = PUN(uint,(float)(float)(local_38 << ((byte)uVar15 & 0x1f)));
+        local_78 = PUN(uint,(float)(float)(local_3c << ((byte)uVar15 & 0x1f)));
       }
       if (local_8 == 3) {
         fVar3 = (float)local_c;
@@ -1447,7 +1447,7 @@ LAB_00408067:
       else {
         fVar1 = *(float *)((int)pvVar5 + 0x48);
       }
-      if ((float)local_4 < fVar1) {
+      if (PUN(float,local_4) < fVar1) {
         if (*(float *)((int)pvVar5 + 0x48) < 0.0) {
           local_4 = 0;
         }
@@ -1458,7 +1458,7 @@ LAB_00408067:
           local_4 = *(uint *)((int)pvVar5 + 0x48);
         }
       }
-      fVar1 = (float)local_4 * 63.0;
+      fVar1 = PUN(float,local_4) * 63.0;
       *(float *)((int)pvVar5 + 0x44) = fVar1;
       if ((*(byte *)((int)pvVar5 + 4) & 2) == 0) {
         rdRaster_Draw16_FlatLit_2(pvVar5,pbVar11,fVar1);
@@ -1477,18 +1477,18 @@ LAB_00408067:
           fVar3 = 1.0;
         }
       }
-      if ((float)local_4 < fVar3) {
+      if (PUN(float,local_4) < fVar3) {
         if (fVar1 < 0.0) {
-          local_4 = (uint)0.0;
+          local_4 = PUN(uint,(float)0.0);
         }
         else {
-          local_4 = (uint)fVar1;
+          local_4 = PUN(uint,(float)fVar1);
           if (1.0 < fVar1) {
-            local_4 = (uint)1.0;
+            local_4 = PUN(uint,(float)1.0);
           }
         }
       }
-      fVar1 = (float)local_4 * 63.0;
+      fVar1 = PUN(float,local_4) * 63.0;
       *(float *)((int)pvVar5 + 0x44) = fVar1;
       if ((*(byte *)((int)pvVar5 + 4) & 2) == 0) {
         rdRaster_Draw16_FlatLit_2(pvVar5,pbVar11,fVar1);
@@ -1512,8 +1512,8 @@ LAB_00408067:
               fVar3 = 1.0;
             }
           }
-          fVar4 = (float)local_4;
-          if ((float)local_4 < fVar3) {
+          fVar4 = PUN(float,local_4);
+          if (PUN(float,local_4) < fVar3) {
             if (fVar1 < 0.0) {
               fVar4 = 0.0;
             }
@@ -1564,7 +1564,7 @@ LAB_00408067:
         else {
           fVar1 = *(float *)((int)pvVar5 + 0x48);
         }
-        if ((float)local_4 < fVar1) {
+        if (PUN(float,local_4) < fVar1) {
           if (*(float *)((int)pvVar5 + 0x48) < 0.0) {
             local_4 = 0;
           }
@@ -1575,7 +1575,7 @@ LAB_00408067:
             local_4 = *(uint *)((int)pvVar5 + 0x48);
           }
         }
-        fVar1 = (float)local_4 * 63.0;
+        fVar1 = PUN(float,local_4) * 63.0;
         *(float *)((int)pvVar5 + 0x44) = fVar1;
         if ((**(byte **)(pbVar11 + 0x1c) & 1) == 0) {
           if ((*(byte *)((int)pvVar5 + 4) & 2) == 0) {
@@ -1602,18 +1602,18 @@ LAB_00408067:
             fVar3 = 1.0;
           }
         }
-        if ((float)local_4 < fVar3) {
+        if (PUN(float,local_4) < fVar3) {
           if (fVar1 < 0.0) {
-            local_4 = (uint)0.0;
+            local_4 = PUN(uint,(float)0.0);
           }
           else {
-            local_4 = (uint)fVar1;
+            local_4 = PUN(uint,(float)fVar1);
             if (1.0 < fVar1) {
-              local_4 = (uint)1.0;
+              local_4 = PUN(uint,(float)1.0);
             }
           }
         }
-        fVar1 = (float)local_4 * 63.0;
+        fVar1 = PUN(float,local_4) * 63.0;
         *(float *)((int)pvVar5 + 0x44) = fVar1;
         if ((**(byte **)(pbVar11 + 0x1c) & 1) == 0) {
           if ((*(byte *)((int)pvVar5 + 4) & 2) == 0) {
@@ -1645,8 +1645,8 @@ LAB_00408067:
                 fVar3 = 1.0;
               }
             }
-            fVar4 = (float)local_4;
-            if ((float)local_4 < fVar3) {
+            fVar4 = PUN(float,local_4);
+            if (PUN(float,local_4) < fVar3) {
               if (fVar1 < 0.0) {
                 fVar4 = 0.0;
               }
@@ -1703,7 +1703,7 @@ LAB_00408067:
         else {
           fVar1 = *(float *)((int)pvVar5 + 0x48);
         }
-        if ((float)local_4 < fVar1) {
+        if (PUN(float,local_4) < fVar1) {
           if (*(float *)((int)pvVar5 + 0x48) < 0.0) {
             local_4 = 0;
           }
@@ -1714,7 +1714,7 @@ LAB_00408067:
             local_4 = *(uint *)((int)pvVar5 + 0x48);
           }
         }
-        fVar1 = (float)local_4 * 63.0;
+        fVar1 = PUN(float,local_4) * 63.0;
         *(float *)((int)pvVar5 + 0x44) = fVar1;
         if ((**(byte **)(pbVar11 + 0x1c) & 1) == 0) {
           if ((*(byte *)((int)pvVar5 + 4) & 2) == 0) {
@@ -1741,18 +1741,18 @@ LAB_00408067:
             fVar3 = 1.0;
           }
         }
-        if ((float)local_4 < fVar3) {
+        if (PUN(float,local_4) < fVar3) {
           if (fVar1 < 0.0) {
-            local_4 = (uint)0.0;
+            local_4 = PUN(uint,(float)0.0);
           }
           else {
-            local_4 = (uint)fVar1;
+            local_4 = PUN(uint,(float)fVar1);
             if (1.0 < fVar1) {
-              local_4 = (uint)1.0;
+              local_4 = PUN(uint,(float)1.0);
             }
           }
         }
-        fVar1 = (float)local_4 * 63.0;
+        fVar1 = PUN(float,local_4) * 63.0;
         *(float *)((int)pvVar5 + 0x44) = fVar1;
         if ((**(byte **)(pbVar11 + 0x1c) & 1) == 0) {
           if ((*(byte *)((int)pvVar5 + 4) & 2) == 0) {
@@ -1784,8 +1784,8 @@ LAB_00408067:
                 fVar3 = 1.0;
               }
             }
-            fVar4 = (float)local_4;
-            if ((float)local_4 < fVar3) {
+            fVar4 = PUN(float,local_4);
+            if (PUN(float,local_4) < fVar3) {
               if (fVar1 < 0.0) {
                 fVar4 = 0.0;
               }
@@ -1952,18 +1952,18 @@ LAB_00408b6e:
           fVar2 = 1.0;
         }
       }
-      if ((float)local_4 < fVar2) {
+      if (PUN(float,local_4) < fVar2) {
         if (fVar11 < 0.0) {
-          local_4 = (uint)0.0;
+          local_4 = PUN(uint,(float)0.0);
         }
         else {
-          local_4 = (uint)fVar11;
+          local_4 = PUN(uint,(float)fVar11);
           if (1.0 < fVar11) {
-            local_4 = (uint)1.0;
+            local_4 = PUN(uint,(float)1.0);
           }
         }
       }
-      fVar11 = (float)local_4 * 63.0;
+      fVar11 = PUN(float,local_4) * 63.0;
       *(float *)((int)pvVar4 + 0x44) = fVar11;
       if ((*(byte *)((int)pvVar4 + 4) & 2) != 0) {
         rdRaster_Draw_TexLitZ_2(pvVar4,pbVar10,fVar11);
@@ -1986,8 +1986,8 @@ LAB_00408b6e:
               fVar2 = 1.0;
             }
           }
-          fVar3 = (float)local_4;
-          if ((float)local_4 < fVar2) {
+          fVar3 = PUN(float,local_4);
+          if (PUN(float,local_4) < fVar2) {
             if (fVar11 < 0.0) {
               fVar3 = 0.0;
             }
@@ -2041,7 +2041,7 @@ LAB_00408b6e:
         else {
           fVar11 = *(float *)((int)pvVar4 + 0x48);
         }
-        if ((float)local_4 < fVar11) {
+        if (PUN(float,local_4) < fVar11) {
           if (*(float *)((int)pvVar4 + 0x48) < 0.0) {
             local_4 = 0;
           }
@@ -2052,7 +2052,7 @@ LAB_00408b6e:
             local_4 = *(uint *)((int)pvVar4 + 0x48);
           }
         }
-        fVar11 = (float)local_4 * 63.0;
+        fVar11 = PUN(float,local_4) * 63.0;
         *(float *)((int)pvVar4 + 0x44) = fVar11;
         if ((**(byte **)(pbVar10 + 0x1c) & 1) == 0) {
           if ((*(byte *)((int)pvVar4 + 4) & 2) == 0) {
@@ -2079,18 +2079,18 @@ LAB_00408b6e:
             fVar2 = 1.0;
           }
         }
-        if ((float)local_4 < fVar2) {
+        if (PUN(float,local_4) < fVar2) {
           if (fVar11 < 0.0) {
-            local_4 = (uint)0.0;
+            local_4 = PUN(uint,(float)0.0);
           }
           else {
-            local_4 = (uint)fVar11;
+            local_4 = PUN(uint,(float)fVar11);
             if (1.0 < fVar11) {
-              local_4 = (uint)1.0;
+              local_4 = PUN(uint,(float)1.0);
             }
           }
         }
-        fVar11 = (float)local_4 * 63.0;
+        fVar11 = PUN(float,local_4) * 63.0;
         *(float *)((int)pvVar4 + 0x44) = fVar11;
         if ((**(byte **)(pbVar10 + 0x1c) & 1) == 0) {
           if ((*(byte *)((int)pvVar4 + 4) & 2) == 0) {
@@ -2122,8 +2122,8 @@ LAB_00408b6e:
                 fVar2 = 1.0;
               }
             }
-            fVar3 = (float)local_4;
-            if ((float)local_4 < fVar2) {
+            fVar3 = PUN(float,local_4);
+            if (PUN(float,local_4) < fVar2) {
               if (fVar11 < 0.0) {
                 fVar3 = 0.0;
               }
@@ -2180,7 +2180,7 @@ LAB_00408b6e:
         else {
           fVar11 = *(float *)((int)pvVar4 + 0x48);
         }
-        if ((float)local_4 < fVar11) {
+        if (PUN(float,local_4) < fVar11) {
           if (*(float *)((int)pvVar4 + 0x48) < 0.0) {
             local_4 = 0;
           }
@@ -2191,7 +2191,7 @@ LAB_00408b6e:
             local_4 = *(uint *)((int)pvVar4 + 0x48);
           }
         }
-        fVar11 = (float)local_4 * 63.0;
+        fVar11 = PUN(float,local_4) * 63.0;
         *(float *)((int)pvVar4 + 0x44) = fVar11;
         if ((**(byte **)(pbVar10 + 0x1c) & 1) == 0) {
           if ((*(byte *)((int)pvVar4 + 4) & 2) == 0) {
@@ -2218,18 +2218,18 @@ LAB_00408b6e:
             fVar2 = 1.0;
           }
         }
-        if ((float)local_4 < fVar2) {
+        if (PUN(float,local_4) < fVar2) {
           if (fVar11 < 0.0) {
-            local_4 = (uint)0.0;
+            local_4 = PUN(uint,(float)0.0);
           }
           else {
-            local_4 = (uint)fVar11;
+            local_4 = PUN(uint,(float)fVar11);
             if (1.0 < fVar11) {
-              local_4 = (uint)1.0;
+              local_4 = PUN(uint,(float)1.0);
             }
           }
         }
-        fVar11 = (float)local_4 * 63.0;
+        fVar11 = PUN(float,local_4) * 63.0;
         *(float *)((int)pvVar4 + 0x44) = fVar11;
         if ((**(byte **)(pbVar10 + 0x1c) & 1) == 0) {
           if ((*(byte *)((int)pvVar4 + 4) & 2) == 0) {
@@ -2261,8 +2261,8 @@ LAB_00408b6e:
                 fVar2 = 1.0;
               }
             }
-            fVar3 = (float)local_4;
-            if ((float)local_4 < fVar2) {
+            fVar3 = PUN(float,local_4);
+            if (PUN(float,local_4) < fVar2) {
               if (fVar11 < 0.0) {
                 fVar3 = 0.0;
               }

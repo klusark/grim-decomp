@@ -71,7 +71,7 @@ void Lua_SetActorTalkColor(void); /* 0x0048b190 */
 void Lua_GetActorTalkColor(void); /* 0x0048b230 */
 void Lua_SetSayLineDefaults(void); /* 0x0048b2a0 */
 void Lua_SayLine(void); /* 0x0048b4c0 */
-void Lua_ParseSayLineTable (undefined4 param_1,int *param_2,int *param_3,int *param_4,int *param_5,int *param_6); /* 0x0048b6a0 */
+void Lua_ParseSayLineTable (int param_1,int *param_2,int *param_3,int *param_4,int *param_5,int *param_6); /* 0x0048b6a0 */
 void Lua_PrintLine(void); /* 0x0048b830 */
 void Lua_IsMessageGoing(void); /* 0x0048b9a0 */
 void Lua_ExpireText(void); /* 0x0048ba90 */
@@ -167,7 +167,7 @@ int __cdecl Lua_CallSystemFunction(int flag,char *str); /* 0x0049c600 */
 void __cdecl Lua_CallCamChangeHandler(int fromSetup,int toSetup); /* 0x0049c660 */
 void __cdecl Lua_CallPostCamChangeHandler(int setup); /* 0x0049c6e0 */
 void Lua_UpdateFrame(void); /* 0x0049c8f0 */
-void Lua_OpenEngineLib(undefined4 param_1,undefined4 param_2); /* 0x0049ca60 */
+void Lua_OpenEngineLib(int *param_1,int param_2); /* 0x0049ca60 */
 void Lua_JustLoaded(void); /* 0x0049ca80 */
 void Lua_ActorVoiceIs3D(void); /* 0x0049caa0 */
 int __cdecl Lua_ResolveCostumeArg(void *luaObj,void *costumeList,void **outCostume); /* 0x0049cb10 */
@@ -205,8 +205,8 @@ undefined4 Lua_InitGameLibs(void); /* 0x0049de00 */
 uint Lua_SaveUserdataHook(int param_1,uint param_2); /* 0x0049dfa0 */
 void * Lua_RestoreUserdataHook(int param_1,void *param_2); /* 0x0049e020 */
 undefined4 Lua_DispatchControlHandlers(void); /* 0x0049e0b0 */
-undefined4 Lua_CreateSystemTable(void); /* 0x0049e380 */
-void Lua_CreateControlsTable(undefined4 param_1); /* 0x0049e460 */
+uint Lua_CreateSystemTable(void); /* 0x0049e380 */
+void Lua_CreateControlsTable(uint param_1); /* 0x0049e460 */
 void Lua_SetSoundPosition(void); /* 0x0049e590 */
 void Lua_StartFullscreenMovie(void); /* 0x0049e7e0 */
 void Lua_PauseMovie(void); /* 0x0049e860 */
@@ -1609,7 +1609,7 @@ void Actor_SetFrustumCull(int param_1,int param_2); /* 0x00494780 */
 void __cdecl Actor_Destroy(void *actor); /* 0x004947c0 */
 void Actor_DrawShadowPlane(void *costumeList,void *shadow); /* 0x00494940 */
 void Actor_DrawCostumes(undefined4 param_1,undefined4 param_2); /* 0x00495080 */
-void Actor_DrawCostumeMeshes(undefined4 *param_1,float *param_2); /* 0x004950a0 */
+void Actor_DrawCostumeMeshes(int *param_1,float *param_2); /* 0x004950a0 */
 void __cdecl Actor_RemoveFromSet(char *setName,void *actor); /* 0x004a5eb0 */
 void __cdecl Actor_PutInSet(void *actor,char *setName); /* 0x004a5f60 */
 float __thiscall Actor_GetYawToPoint(void *this,int a1); /* 0x004a8500 */
@@ -1626,7 +1626,7 @@ void * __cdecl Setup_GetZBufferBitmap(void *set,int setupIdx); /* 0x004a3ef0 */
 
 /* ===== sector.c ===== */
 void __cdecl Sector_DrawAllDebug(void); /* 0x00485dc0 */
-void Sector_IntersectSegment (int param_1,int param_2,undefined4 *param_3,undefined4 *param_4,undefined4 *param_5); /* 0x0049c750 */
+void Sector_IntersectSegment(int param_1,int param_2,float *param_3,float *param_4,float *param_5); /* 0x0049c750 */
 bool SetFile_Parse(char *param_1,uint param_2); /* 0x004a4b00 */
 undefined4 SetFile_ParseSections(undefined4 param_1); /* 0x004a5550 */
 undefined4 SetFile_ParseLights(void); /* 0x004a5600 */
@@ -1888,7 +1888,7 @@ void __cdecl Speech_SetMode(int mode); /* 0x004931c0 */
 uint Speech_GetMode(void); /* 0x004931e0 */
 
 /* ===== costume.c ===== */
-void Cos_StartChoreFaded(void *param_1,int param_2,int param_3); /* 0x00493410 */
+void Cos_StartChoreFaded(void *param_1,uint param_2,int param_3); /* 0x00493410 */
 undefined * __cdecl Cos_StopChoreFaded(void *param_1,int param_2,int param_3); /* 0x00493450 */
 void __cdecl Costume_PrintList(void *costume); /* 0x00494d10 */
 void __cdecl Costume_FreeList(void *list,int free); /* 0x00494dc0 */
@@ -1901,10 +1901,10 @@ void * __cdecl Costume_GetMainModel(void *cosInst); /* 0x00495020 */
 void __cdecl Costume_ApplyScale(void *actor,void *componentList); /* 0x00495510 */
 void __cdecl Costume_ApplyComponentState(void *cosInst); /* 0x004955e0 */
 void __cdecl Costume_UpdateAttachedFrame(void *component,float *frame); /* 0x004956a0 */
-void Costume_TouchComponents(undefined4 param_1); /* 0x004956f0 */
+void Costume_TouchComponents(int param_1); /* 0x004956f0 */
 void __cdecl Costume_UpdateAll(void *costumeList,float dt); /* 0x00495730 */
-undefined4 Costume_SaveChoreListFile(char *param_1,undefined4 param_2,undefined4 param_3); /* 0x00495e90 */
-undefined4 Costume_InstanceHook(undefined4 param_1,int param_2); /* 0x00496020 */
+undefined4 Costume_SaveChoreListFile(char *param_1,uint *param_2,undefined4 param_3); /* 0x00495e90 */
+undefined4 Costume_InstanceHook(int param_1,int param_2); /* 0x00496020 */
 
 /* ===== shadow.c ===== */
 void __cdecl Shadow_SetColor(int r,int g,int b); /* 0x00494890 */
@@ -1920,57 +1920,57 @@ void sputCostume_Stop(void); /* 0x004988a0 */
 void Component_SetBitmapFrame(undefined4 param_1,int *param_2,undefined4 param_3,int param_4); /* 0x00496060 */
 
 /* ===== bitmapcomponent.c ===== */
-undefined4 BitmapComponent_Create (undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4,char *param_5 ); /* 0x004960a0 */
+undefined4 BitmapComponent_Create(uint param_1,int param_2,int param_3,int param_4,char *param_5); /* 0x004960a0 */
 undefined4 BitmapComponent_Destroy(undefined4 param_1,undefined4 param_2,void *param_3); /* 0x00496340 */
 
 /* ===== cmapcomponent.c ===== */
-undefined4 * CmapComponent_NewInstance(undefined4 param_1,undefined4 param_2,int *param_3); /* 0x00496370 */
-bool CmapComponent_Create (undefined4 param_1,undefined4 param_2,undefined4 param_3,int param_4,char *param_5); /* 0x00496460 */
+int * CmapComponent_NewInstance(int param_1,int param_2,int *param_3); /* 0x00496370 */
+bool CmapComponent_Create(uint param_1,int param_2,int param_3,int param_4,char *param_5); /* 0x00496460 */
 undefined4 CmapComponent_Destroy(undefined4 param_1,undefined4 param_2,void *param_3); /* 0x00496580 */
 undefined4 FUN_004965b0(void); /* 0x004965b0 */
 
 /* ===== materialcomponent.c ===== */
 void MaterialComponent_OnKey(undefined4 param_1,int param_2,undefined4 param_3,undefined4 param_4); /* 0x004965d0 */
 void * __cdecl MaterialComponent_NewInstance(void *cosInst,int componentIdx,int create); /* 0x004965e0 */
-bool MaterialComponent_Create (undefined4 param_1,undefined4 param_2,int *param_3,int param_4,char *param_5); /* 0x00496670 */
+bool MaterialComponent_Create(uint param_1,int param_2,int *param_3,int param_4,char *param_5); /* 0x00496670 */
 
 /* ===== modelcomponent.c ===== */
 undefined4 ModelComponent_EditParentOffset(int *param_1,undefined4 param_2); /* 0x00496890 */
 void ModelComponent_SetVisibleFlag(undefined4 param_1,int param_2,undefined4 param_3,int param_4); /* 0x00496930 */
 void * __cdecl ModelComponent_NewInstance(void *cosInst,int componentIdx,int create); /* 0x00496950 */
 undefined4 ModelComponent_Stop(int param_1); /* 0x00496b40 */
-bool ModelComponent_Create (undefined4 param_1,undefined4 param_2,int param_3,int param_4,char *param_5); /* 0x00496b60 */
+bool ModelComponent_Create(uint param_1,int param_2,int param_3,int param_4,char *param_5); /* 0x00496b60 */
 undefined4 ModelComponent_Destroy(undefined4 param_1,undefined4 param_2,void *param_3); /* 0x00496d10 */
 
 /* ===== meshcomponent.c ===== */
 void MeshComponent_OnKey(undefined4 param_1,int *param_2,undefined4 param_3,int param_4); /* 0x00496d40 */
-undefined4 * MeshComponent_NewInstance(undefined4 param_1,undefined4 param_2,int param_3); /* 0x00496d70 */
+int * MeshComponent_NewInstance(int param_1,int param_2,int param_3); /* 0x00496d70 */
 void MeshComponent_Stop(int param_1); /* 0x00496e10 */
-undefined4 MeshComponent_Create(undefined4 param_1,undefined4 param_2,int *param_3,int param_4,char *param_5); /* 0x00496e20 */
+undefined4 MeshComponent_Create(uint param_1,int param_2,int *param_3,int param_4,char *param_5); /* 0x00496e20 */
 bool FUN_00497180(undefined4 param_1,undefined4 param_2); /* 0x00497180 */
 
 /* ===== imusesoundcomponent.c ===== */
 void __cdecl ImuseSoundComponent_OnKey (int param_1,float param_2,undefined4 param_3,float param_4,uint param_5,uint param_6, uint param_7,uint param_8); /* 0x004971a0 */
 undefined4 ImuseSoundComponent_EditKey(int *param_1,undefined4 param_2); /* 0x00497320 */
-bool ImuseSoundComponent_Create (undefined4 param_1,undefined4 param_2,int param_3,undefined4 param_4,char *param_5); /* 0x00497460 */
+bool ImuseSoundComponent_Create(uint param_1,int param_2,int param_3,int param_4,char *param_5); /* 0x00497460 */
 undefined4 ImuseSoundComponent_Destroy(undefined4 param_1,undefined4 param_2,undefined4 param_3); /* 0x00497640 */
 undefined4 ImuseSoundComponent_Stop(undefined4 param_1); /* 0x00497660 */
 
 /* ===== luavarcomponent.c ===== */
-void LuaVarComponent_OnKey(undefined4 param_1,undefined4 param_2,undefined4 param_3,int param_4); /* 0x00497680 */
+void LuaVarComponent_OnKey(undefined4 param_1,char *param_2,undefined4 param_3,int param_4); /* 0x00497680 */
 undefined4 LuaVarComponent_EditKey(undefined4 *param_1,int param_2,int param_3); /* 0x004976a0 */
-bool LuaVarComponent_Create (undefined4 param_1,undefined4 param_2,int param_3,undefined4 param_4,int param_5); /* 0x00497710 */
+bool LuaVarComponent_Create(uint param_1,int param_2,int param_3,int param_4,int param_5); /* 0x00497710 */
 undefined4 LuaVarComponent_Destroy(undefined4 param_1,undefined4 param_2,undefined4 param_3); /* 0x004977f0 */
-undefined4 LuaVarComponent_Stop(undefined4 param_1); /* 0x00497810 */
+undefined4 LuaVarComponent_Stop(char *param_1); /* 0x00497810 */
 
 /* ===== imuseintcomponent.c ===== */
-bool ImuseIntComponent_Create(undefined4 param_1,int param_2,int param_3,undefined4 param_4); /* 0x00497840 */
+bool ImuseIntComponent_Create(uint param_1,int param_2,int param_3,int param_4); /* 0x00497840 */
 
 /* ===== keyframecomponent.c ===== */
 void KeyframeComponent_OnKey (undefined4 param_1,int *param_2,undefined4 param_3,int param_4,uint param_5, undefined4 param_6,undefined4 param_7,undefined4 param_8); /* 0x00497890 */
 void KeyframeComponent_TrackCallback(int param_1,int param_2,uint param_3); /* 0x00497cb0 */
-undefined4 * KeyframeComponent_NewInstance(undefined4 param_1,int *param_2,int param_3); /* 0x00497d10 */
-bool KeyframeComponent_Create (undefined4 param_1,undefined4 param_2,int param_3,int param_4,uint param_5); /* 0x00497e10 */
+int * KeyframeComponent_NewInstance(int param_1,int *param_2,int param_3); /* 0x00497d10 */
+bool KeyframeComponent_Create(uint param_1,int param_2,int param_3,int param_4,uint param_5); /* 0x00497e10 */
 undefined4 KeyframeComponent_EditKey(int *param_1,undefined4 param_2); /* 0x00498000 */
 undefined4 KeyframeComponent_Destroy(undefined4 param_1,undefined4 param_2,void *param_3); /* 0x004980b0 */
 undefined4 KeyframeComponent_Stop(int *param_1); /* 0x004980e0 */
@@ -1978,13 +1978,13 @@ undefined4 KeyframeComponent_Stop(int *param_1); /* 0x004980e0 */
 /* ===== smushcomponent.c ===== */
 undefined4 SmushComponent_Destroy(undefined4 param_1,undefined4 param_2,undefined4 param_3); /* 0x00498140 */
 void SmushComponent_OnKey(undefined4 param_1,undefined4 param_2,undefined4 param_3,int param_4); /* 0x00498160 */
-bool SmushComponent_Create (undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4, char *param_5); /* 0x00498190 */
+bool SmushComponent_Create(uint param_1,int param_2,int param_3,int param_4,char *param_5); /* 0x00498190 */
 
 /* ===== costumetag.c ===== */
 undefined4 CostumeTag_Nop(void); /* 0x00498180 */
 
 /* ===== spritecomponent.c ===== */
-undefined4 SpriteComponent_Create (undefined4 param_1,undefined4 param_2,int param_3,float param_4,char *param_5); /* 0x00498280 */
+undefined4 SpriteComponent_Create(uint param_1,int param_2,int param_3,float param_4,char *param_5); /* 0x00498280 */
 void SpriteComponent_OnKey(undefined4 param_1,int param_2,undefined4 param_3,int param_4); /* 0x00498550 */
 undefined4 SpriteComponent_Destroy(undefined4 param_1,undefined4 param_2,int *param_3); /* 0x00498580 */
 undefined4 * FUN_004985c0(int param_1,undefined4 *param_2,int param_3); /* 0x004985c0 */

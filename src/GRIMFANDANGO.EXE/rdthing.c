@@ -380,9 +380,9 @@ void rdThing_BuildNodeMatrix(int param_1,int param_2,float *param_3)
   Matrix_Multiply(local_30,*(int *)(param_2 + 0x44) * 0x30 + *(int *)(param_1 + 0x20));
   iVar2 = *(int *)(param_2 + 0x54);
   if (iVar2 != 0) {
-    local_3c = (uint)-*(float *)(iVar2 + 100);
-    local_38 = (uint)-*(float *)(iVar2 + 0x68);
-    local_34 = (uint)-*(float *)(iVar2 + 0x6c);
+    local_3c = PUN(uint,(float)-*(float *)(iVar2 + 100));
+    local_38 = PUN(uint,(float)-*(float *)(iVar2 + 0x68));
+    local_34 = PUN(uint,(float)-*(float *)(iVar2 + 0x6c));
     Matrix_SetTranslation(local_30,&local_3c);
   }
   Matrix_Mul34((float *)(*(int *)(param_2 + 0x44) * 0x30 + *(int *)(param_1 + 0x20)),param_3,

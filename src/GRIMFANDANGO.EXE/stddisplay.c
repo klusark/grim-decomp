@@ -3410,20 +3410,15 @@ void __cdecl Display_SetPalette3D(void *palette,int flags)
 void Palette_FromFloatTable(undefined1 *param_1,undefined4 param_2,int param_3)
 
 {
-  undefined4 unaff_ESI;
-  undefined4 unaff_EDI;
   longlong lVar1;
   
   if (0 < param_3) {
     do {
-      _CIpow();
-      lVar1 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+      lVar1 = FTOL(_CIpow());
       *param_1 = (char)lVar1;
-      _CIpow();
-      lVar1 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+      lVar1 = FTOL(_CIpow());
       param_1[1] = (char)lVar1;
-      _CIpow();
-      lVar1 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+      lVar1 = FTOL(_CIpow());
       param_1[2] = (char)lVar1;
       param_1 = param_1 + 3;
       param_3 = param_3 + -1;

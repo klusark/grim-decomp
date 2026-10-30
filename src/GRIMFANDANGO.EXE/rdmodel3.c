@@ -1229,9 +1229,9 @@ void rdModel3_AccumulateNodeBounds(int param_1,int param_2,float *param_3)
   Matrix_Multiply(local_90,local_30);
   iVar3 = *(int *)(param_2 + 0x54);
   if (iVar3 != 0) {
-    local_9c = (uint)-*(float *)(iVar3 + 100);
-    local_98 = (uint)-*(float *)(iVar3 + 0x68);
-    local_94 = (uint)-*(float *)(iVar3 + 0x6c);
+    local_9c = PUN(uint,(float)-*(float *)(iVar3 + 100));
+    local_98 = PUN(uint,(float)-*(float *)(iVar3 + 0x68));
+    local_94 = PUN(uint,(float)-*(float *)(iVar3 + 0x6c));
     Matrix_SetTranslation(local_90,&local_9c);
   }
   Matrix_Mul34(local_60,param_3,local_90);
@@ -1243,22 +1243,22 @@ void rdModel3_AccumulateNodeBounds(int param_1,int param_2,float *param_3)
     if (*(int *)(iVar1 + 0x48 + iVar3 * 0x7c) != 0) {
       do {
         Vec3_Sub((float *)&local_a8,a,local_60);
-        if (*(float *)(param_1 + 0x6c) < (float)local_a8) {
+        if (*(float *)(param_1 + 0x6c) < PUN(float,local_a8)) {
           *(uint *)(param_1 + 0x6c) = local_a8;
         }
-        if (*(float *)(param_1 + 0x70) < (float)local_a4) {
+        if (*(float *)(param_1 + 0x70) < PUN(float,local_a4)) {
           *(uint *)(param_1 + 0x70) = local_a4;
         }
-        if (*(float *)(param_1 + 0x74) < (float)local_a0) {
+        if (*(float *)(param_1 + 0x74) < PUN(float,local_a0)) {
           *(uint *)(param_1 + 0x74) = local_a0;
         }
-        if ((float)local_a8 < *(float *)(param_1 + 0x60)) {
+        if (PUN(float,local_a8) < *(float *)(param_1 + 0x60)) {
           *(uint *)(param_1 + 0x60) = local_a8;
         }
-        if ((float)local_a4 < *(float *)(param_1 + 100)) {
+        if (PUN(float,local_a4) < *(float *)(param_1 + 100)) {
           *(uint *)(param_1 + 100) = local_a4;
         }
-        if ((float)local_a0 < *(float *)(param_1 + 0x68)) {
+        if (PUN(float,local_a0) < *(float *)(param_1 + 0x68)) {
           *(uint *)(param_1 + 0x68) = local_a0;
         }
         a = a + 3;
@@ -1325,7 +1325,7 @@ void rdModel3_CalcRadii(int param_1)
         pfVar3 = pfVar3 + 3;
       }
       uVar6 = uVar6 + 1;
-      piVar4[6] = (int)(fVar1 * 0.1 + fVar1);
+      piVar4[6] = PUN(int,(float)(fVar1 * 0.1 + fVar1));
       piVar4 = piVar4 + 0x1f;
     } while (uVar6 < *(uint *)(param_1 + 0x24));
   }
@@ -1369,9 +1369,9 @@ void rdModel3_AccumulateNodeRadius(int param_1,int param_2,float *param_3)
   Matrix_Multiply(local_90,local_30);
   iVar4 = *(int *)(param_2 + 0x54);
   if (iVar4 != 0) {
-    local_9c = (uint)-*(float *)(iVar4 + 100);
-    local_98 = (uint)-*(float *)(iVar4 + 0x68);
-    local_94 = (uint)-*(float *)(iVar4 + 0x6c);
+    local_9c = PUN(uint,(float)-*(float *)(iVar4 + 100));
+    local_98 = PUN(uint,(float)-*(float *)(iVar4 + 0x68));
+    local_94 = PUN(uint,(float)-*(float *)(iVar4 + 0x6c));
     Matrix_SetTranslation(local_90,&local_9c);
   }
   Matrix_Mul34(local_60,param_3,local_90);
@@ -1383,8 +1383,8 @@ void rdModel3_AccumulateNodeRadius(int param_1,int param_2,float *param_3)
     if (*(int *)(iVar1 + 0x48 + iVar4 * 0x7c) != 0) {
       do {
         Vec3_Sub((float *)&local_a8,a,local_60);
-        fVar2 = SQRT((float)local_a0 * (float)local_a0 +
-                     (float)local_a4 * (float)local_a4 + (float)local_a8 * (float)local_a8);
+        fVar2 = SQRT(PUN(float,local_a0) * PUN(float,local_a0) +
+                     PUN(float,local_a4) * PUN(float,local_a4) + PUN(float,local_a8) * PUN(float,local_a8));
         if (_DAT_007f3200 < fVar2) {
           _DAT_007f3200 = fVar2;
         }
@@ -1581,9 +1581,9 @@ void rdModel3_CalcVertexNormals(int param_1)
                     puVar14 = (uint *)puVar17[1];
                     do {
                       if (*puVar14 == local_38) {
-                        fVar1 = (float)puVar17[0xb] + fVar1;
-                        fVar2 = (float)puVar17[0xc] + fVar2;
-                        fVar3 = (float)puVar17[0xd] + fVar3;
+                        fVar1 = PUN(float,puVar17[0xb]) + fVar1;
+                        fVar2 = PUN(float,puVar17[0xc]) + fVar2;
+                        fVar3 = PUN(float,puVar17[0xd]) + fVar3;
                         fVar4 = fVar4 - -1.0;
                         break;
                       }
@@ -1593,17 +1593,17 @@ void rdModel3_CalcVertexNormals(int param_1)
                   }
                   puVar17 = puVar17 + 0x13;
                   uVar12 = local_44 - 1;
-                  local_44 = (uint)fVar4;
-                  local_20 = (uint)fVar2;
-                  local_1c = (uint)fVar3;
+                  local_44 = PUN(uint,(float)fVar4);
+                  local_20 = PUN(uint,(float)fVar2);
+                  local_1c = PUN(uint,(float)fVar3);
                 } while (uVar12 != 0);
               }
-              if ((float)local_44 == 0.0) {
+              if (PUN(float,local_44) == 0.0) {
                 *pfVar16 = 1.0;
                 pfVar16[1] = 0.0;
                 pfVar16[2] = 0.0;
               }
-              else if ((float)local_44 == 1.0) {
+              else if (PUN(float,local_44) == 1.0) {
                 iVar9 = puVar13[4];
                 uVar12 = *(uint *)(iVar9 + 0x14);
                 iVar9 = *(int *)(iVar9 + 0x18);
@@ -1625,9 +1625,9 @@ void rdModel3_CalcVertexNormals(int param_1)
                 Vec3_Normalize(pfVar16);
               }
               else {
-                *pfVar16 = fVar1 / (float)local_44;
-                pfVar16[1] = (float)local_20 / (float)local_44;
-                pfVar16[2] = (float)local_1c / (float)local_44;
+                *pfVar16 = fVar1 / PUN(float,local_44);
+                pfVar16[1] = PUN(float,local_20) / PUN(float,local_44);
+                pfVar16[2] = PUN(float,local_1c) / PUN(float,local_44);
                 Vec3_Normalize(pfVar16);
               }
               pfVar16 = pfVar16 + 3;

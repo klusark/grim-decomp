@@ -112,7 +112,7 @@ LAB_0040961e:
       else {
         fVar1 = *(float *)(iVar5 + 0x48);
       }
-      if ((float)local_8 < fVar1) {
+      if (PUN(float,local_8) < fVar1) {
         if (*(float *)(iVar5 + 0x48) < 0.0) {
           local_8 = 0;
         }
@@ -123,8 +123,8 @@ LAB_0040961e:
           local_8 = *(uint *)(iVar5 + 0x48);
         }
       }
-      *(float *)(iVar5 + 0x44) = (float)local_8 * 63.0;
-      (**(code **)(iVar5 + 0x14))(iVar5,param_1,(float)local_8 * 63.0);
+      *(float *)(iVar5 + 0x44) = PUN(float,local_8) * 63.0;
+      (**(code **)(iVar5 + 0x14))(iVar5,param_1,PUN(float,local_8) * 63.0);
       return 1;
     case 2:
       fVar1 = *(float *)(iVar5 + 0x48) + *(float *)(iVar5 + 0x44);
@@ -137,19 +137,19 @@ LAB_0040961e:
           fVar3 = 1.0;
         }
       }
-      if ((float)local_8 < fVar3) {
+      if (PUN(float,local_8) < fVar3) {
         if (fVar1 < 0.0) {
-          local_8 = (uint)0.0;
+          local_8 = PUN(uint,(float)0.0);
         }
         else {
-          local_8 = (uint)fVar1;
+          local_8 = PUN(uint,(float)fVar1);
           if (1.0 < fVar1) {
-            local_8 = (uint)1.0;
+            local_8 = PUN(uint,(float)1.0);
           }
         }
       }
-      *(float *)(iVar5 + 0x44) = (float)local_8 * 63.0;
-      (**(code **)(iVar5 + 0x14))(iVar5,param_1,(float)local_8 * 63.0);
+      *(float *)(iVar5 + 0x44) = PUN(float,local_8) * 63.0;
+      (**(code **)(iVar5 + 0x14))(iVar5,param_1,PUN(float,local_8) * 63.0);
       return 1;
     case 3:
       uVar7 = 0;
@@ -166,8 +166,8 @@ LAB_0040961e:
               fVar3 = 1.0;
             }
           }
-          fVar4 = (float)local_8;
-          if ((float)local_8 < fVar3) {
+          fVar4 = PUN(float,local_8);
+          if (PUN(float,local_8) < fVar3) {
             if (fVar1 < 0.0) {
               fVar4 = 0.0;
             }
@@ -202,7 +202,7 @@ LAB_0040961e:
         else {
           fVar1 = *(float *)(iVar5 + 0x48);
         }
-        if ((float)local_8 < fVar1) {
+        if (PUN(float,local_8) < fVar1) {
           if (*(float *)(iVar5 + 0x48) < 0.0) {
             local_8 = 0;
           }
@@ -213,8 +213,8 @@ LAB_0040961e:
             local_8 = *(uint *)(iVar5 + 0x48);
           }
         }
-        *(float *)(iVar5 + 0x44) = (float)local_8 * 63.0;
-        (**(code **)(iVar5 + 0x14))(iVar5,param_1,(float)local_8 * 63.0);
+        *(float *)(iVar5 + 0x44) = PUN(float,local_8) * 63.0;
+        (**(code **)(iVar5 + 0x14))(iVar5,param_1,PUN(float,local_8) * 63.0);
         return 1;
       case 2:
         fVar1 = *(float *)(iVar5 + 0x48) + *(float *)(iVar5 + 0x44);
@@ -227,19 +227,19 @@ LAB_0040961e:
             fVar3 = 1.0;
           }
         }
-        if ((float)local_8 < fVar3) {
+        if (PUN(float,local_8) < fVar3) {
           if (fVar1 < 0.0) {
-            local_8 = (uint)0.0;
+            local_8 = PUN(uint,(float)0.0);
           }
           else {
-            local_8 = (uint)fVar1;
+            local_8 = PUN(uint,(float)fVar1);
             if (1.0 < fVar1) {
-              local_8 = (uint)1.0;
+              local_8 = PUN(uint,(float)1.0);
             }
           }
         }
-        *(float *)(iVar5 + 0x44) = (float)local_8 * 63.0;
-        (**(code **)(iVar5 + 0x14))(iVar5,param_1,(float)local_8 * 63.0);
+        *(float *)(iVar5 + 0x44) = PUN(float,local_8) * 63.0;
+        (**(code **)(iVar5 + 0x14))(iVar5,param_1,PUN(float,local_8) * 63.0);
         return 1;
       case 3:
         uVar7 = 0;
@@ -256,8 +256,8 @@ LAB_0040961e:
                 fVar3 = 1.0;
               }
             }
-            fVar4 = (float)local_8;
-            if ((float)local_8 < fVar3) {
+            fVar4 = PUN(float,local_8);
+            if (PUN(float,local_8) < fVar3) {
               if (fVar1 < 0.0) {
                 fVar4 = 0.0;
               }
@@ -295,7 +295,7 @@ switchD_004098a8_caseD_0:
         else {
           fVar1 = *(float *)(iVar5 + 0x48);
         }
-        if ((float)local_8 < fVar1) {
+        if (PUN(float,local_8) < fVar1) {
           if (*(float *)(iVar5 + 0x48) < 0.0) {
             local_8 = 0;
           }
@@ -306,8 +306,8 @@ switchD_004098a8_caseD_0:
             local_8 = *(uint *)(iVar5 + 0x48);
           }
         }
-        *(float *)(iVar5 + 0x44) = (float)local_8 * 63.0;
-        (**(code **)(iVar5 + 0x14))(iVar5,param_1,(float)local_8 * 63.0);
+        *(float *)(iVar5 + 0x44) = PUN(float,local_8) * 63.0;
+        (**(code **)(iVar5 + 0x14))(iVar5,param_1,PUN(float,local_8) * 63.0);
         return 1;
       case 2:
         fVar1 = *(float *)(iVar5 + 0x48) + *(float *)(iVar5 + 0x44);
@@ -320,19 +320,19 @@ switchD_004098a8_caseD_0:
             fVar3 = 1.0;
           }
         }
-        if ((float)local_8 < fVar3) {
+        if (PUN(float,local_8) < fVar3) {
           if (fVar1 < 0.0) {
-            local_8 = (uint)0.0;
+            local_8 = PUN(uint,(float)0.0);
           }
           else {
-            local_8 = (uint)fVar1;
+            local_8 = PUN(uint,(float)fVar1);
             if (1.0 < fVar1) {
-              local_8 = (uint)1.0;
+              local_8 = PUN(uint,(float)1.0);
             }
           }
         }
-        *(float *)(iVar5 + 0x44) = (float)local_8 * 63.0;
-        (**(code **)(iVar5 + 0x14))(iVar5,param_1,(float)local_8 * 63.0);
+        *(float *)(iVar5 + 0x44) = PUN(float,local_8) * 63.0;
+        (**(code **)(iVar5 + 0x14))(iVar5,param_1,PUN(float,local_8) * 63.0);
         return 1;
       case 3:
         uVar7 = 0;
@@ -349,8 +349,8 @@ switchD_004098a8_caseD_0:
                 fVar3 = 1.0;
               }
             }
-            fVar4 = (float)local_8;
-            if ((float)local_8 < fVar3) {
+            fVar4 = PUN(float,local_8);
+            if (PUN(float,local_8) < fVar3) {
               if (fVar1 < 0.0) {
                 fVar4 = 0.0;
               }
@@ -551,12 +551,12 @@ void __cdecl rdModel_DrawMesh(void *mesh,float *matrix)
             piVar3 = *(int **)local_ac;
             if (piVar3[2] != 0) {
               iVar12 = *piVar3;
-              local_90 = (uint)(*(float *)((int)pvVar9 + iVar12 * 0xc + 0x160) - matrix[10]);
+              local_90 = PUN(uint,(float)(*(float *)((int)pvVar9 + iVar12 * 0xc + 0x160) - matrix[10]));
               fVar13 = *(float *)((int)pvVar9 + (iVar12 + 0x1d) * 0xc) - *a;
-              local_8c = (uint)(*(float *)((int)pvVar9 + iVar12 * 0xc + 0x164) - matrix[0xb]);
-              local_88 = (uint)SQRT((float)local_8c * (float)local_8c +
-                                    (float)local_90 * (float)local_90 + fVar13 * fVar13);
-              if ((float)local_88 < (float)piVar3[0xd] + *(float *)((int)pvVar11 + 0x60)) {
+              local_8c = PUN(uint,(float)(*(float *)((int)pvVar9 + iVar12 * 0xc + 0x164) - matrix[0xb]));
+              local_88 = PUN(uint,(float)SQRT(PUN(float,local_8c) * PUN(float,local_8c) +
+                                    PUN(float,local_90) * PUN(float,local_90) + fVar13 * fVar13));
+              if (PUN(float,local_88) < PUN(float,piVar3[0xd]) + *(float *)((int)pvVar11 + 0x60)) {
                 (&UINT_007f30e0)[uVar10] = (uint)piVar3;
                 Vec3_Sub((float *)(&DAT_007f1598 + uVar10 * 0xc),
                          (float *)((int)pvVar9 + (*piVar3 + 0x1d) * 0xc),local_84);
@@ -565,9 +565,9 @@ void __cdecl rdModel_DrawMesh(void *mesh,float *matrix)
                   local_5c = 0;
                   local_34 = local_58;
                   local_58 = 0;
-                  local_a0 = (uint)-(float)piVar3[3];
-                  local_9c = (uint)-(float)piVar3[4];
-                  local_98 = (uint)-(float)piVar3[5];
+                  local_a0 = PUN(uint,(float)-PUN(float,piVar3[3]));
+                  local_9c = PUN(uint,(float)-PUN(float,piVar3[4]));
+                  local_98 = PUN(uint,(float)-PUN(float,piVar3[5]));
                   Vec3_Sub((float *)(&DAT_007f1168 + UINT_007f31fc * 0xc),(float *)&local_a0,
                            local_84);
                   local_58 = local_34;
@@ -604,7 +604,7 @@ void __cdecl rdModel_DrawMesh(void *mesh,float *matrix)
               else {
                 fVar13 = fVar4 * fVar4 + fVar5 * fVar5 + fVar13 * fVar13;
               }
-              fVar4 = (float)piVar3[0xd] + *(float *)((int)pvVar11 + 0x60);
+              fVar4 = PUN(float,piVar3[0xd]) + *(float *)((int)pvVar11 + 0x60);
               if (fVar13 < fVar4 * fVar4) {
                 (&UINT_007f30e0)[uVar10] = (uint)piVar3;
                 Vec3_Sub((float *)(&DAT_007f1598 + uVar10 * 0xc),
@@ -614,9 +614,9 @@ void __cdecl rdModel_DrawMesh(void *mesh,float *matrix)
                   local_60 = 0;
                   local_5c = 0;
                   local_58 = 0;
-                  local_a0 = (uint)-(float)piVar3[3];
-                  local_9c = (uint)-(float)piVar3[4];
-                  local_98 = (uint)-(float)piVar3[5];
+                  local_a0 = PUN(uint,(float)-PUN(float,piVar3[3]));
+                  local_9c = PUN(uint,(float)-PUN(float,piVar3[4]));
+                  local_98 = PUN(uint,(float)-PUN(float,piVar3[5]));
                   Vec3_Sub((float *)(&DAT_007f1168 + UINT_007f31fc * 0xc),(float *)&local_a0,
                            local_84);
                 }
@@ -783,9 +783,9 @@ undefined4 rdModel_AddMeshToCache(int param_1,int param_2)
       pfVar4 = (float *)(param_1 + 0x40);
     }
     else {
-      local_24 = (uint)-*(float *)(param_1 + 0x40);
-      local_20 = (uint)-*(float *)(param_1 + 0x44);
-      local_1c = (uint)-*(float *)(param_1 + 0x48);
+      local_24 = PUN(uint,(float)-*(float *)(param_1 + 0x40));
+      local_20 = PUN(uint,(float)-*(float *)(param_1 + 0x44));
+      local_1c = PUN(uint,(float)-*(float *)(param_1 + 0x48));
       fVar7 = *(float *)((int)g_pRdCurrentCamera + 0x45c);
       iVar5 = *(int *)((int)PTR_007f30a0 + 0x30);
       pfVar4 = (float *)&local_24;

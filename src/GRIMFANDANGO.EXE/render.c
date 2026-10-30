@@ -673,7 +673,7 @@ void Render_DrawDebugGrid(void)
     local_14 = local_1c;
     local_8 = local_1c;
     rdPrimit3_DrawLine(&local_c,&local_18,0,0,0,0,UINT_008c97c8 & 0xffff,0xff00ff00);
-    local_1c = (uint)((float)local_1c - -0.1);
+    local_1c = PUN(uint,(float)(PUN(float,local_1c) - -0.1));
     iVar1 = iVar1 + -1;
   } while (iVar1 != 0);
   iVar1 = 0x14;
@@ -686,7 +686,7 @@ void Render_DrawDebugGrid(void)
     local_18 = local_1c;
     local_c = local_1c;
     rdPrimit3_DrawLine(&local_c,&local_18,0,0,0,0,UINT_008c97c8 & 0xffff,0xff00ff00);
-    local_1c = (uint)((float)local_1c - -0.1);
+    local_1c = PUN(uint,(float)(PUN(float,local_1c) - -0.1));
     iVar1 = iVar1 + -1;
   } while (iVar1 != 0);
   local_c = 0;
@@ -768,9 +768,9 @@ void Render_BuildActorDrawList(void)
       if (puVar3 == (undefined1 *)0x0) {
         return;
       }
-      local_18 = (uint)(*(float *)((int)pvVar2 + 0xc) - *g_pCameraSetup);
-      local_14 = (uint)(*(float *)((int)pvVar2 + 0x10) - g_pCameraSetup[1]);
-      local_10 = (uint)(*(float *)((int)pvVar2 + 0x14) - g_pCameraSetup[2]);
+      local_18 = PUN(uint,(float)(*(float *)((int)pvVar2 + 0xc) - *g_pCameraSetup));
+      local_14 = PUN(uint,(float)(*(float *)((int)pvVar2 + 0x10) - g_pCameraSetup[1]));
+      local_10 = PUN(uint,(float)(*(float *)((int)pvVar2 + 0x14) - g_pCameraSetup[2]));
       Vec3_TransformTo(&local_c,(float *)&local_18,g_pCameraSetup + 0xc);
       *(uint *)(puVar3 + 4) = local_8;
       if (*(int *)((int)pvVar2 + 0xa0) == 0) {
@@ -822,11 +822,11 @@ void __cdecl Render_ScreenToWorld(int x,int y,float *outPos)
                         ((byte)*(undefined4 *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x14) & 0x1f)
                         ) * 1.5258789e-05;
     fVar1 = *(float *)((int)g_pRdCurrentCamera + 0x3c) * fVar2;
-    local_8 = (uint)(1.0 / fVar2 - 1.0);
-    local_c = (uint)((1.0 / fVar1) *
-                    ((float)x - *(float *)(*(int *)((int)g_pRdCurrentCamera + 4) + 8)));
-    local_4 = (uint)((-1.0 / fVar1) *
-                    ((float)y - *(float *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0xc)));
+    local_8 = PUN(uint,(float)(1.0 / fVar2 - 1.0));
+    local_c = PUN(uint,(float)((1.0 / fVar1) *
+                    ((float)x - *(float *)(*(int *)((int)g_pRdCurrentCamera + 4) + 8))));
+    local_4 = PUN(uint,(float)((-1.0 / fVar1) *
+                    ((float)y - *(float *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0xc))));
     Vec3_Sub(outPos,(float *)&local_c,g_pCameraSetup + 0xc);
   }
   return;

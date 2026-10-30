@@ -532,7 +532,7 @@ undefined4 __cdecl luaU_str2number(int *param_1)
   iVar2 = sscanf((char *)(param_1[1] + 0x18),s__lf__c_10028170,&local_8,&param_1);
   if (iVar2 == 1) {
     *piVar1 = -1;
-    piVar1[1] = (int)(float)local_8;
+    piVar1[1] = PUN(int,(float)(float)local_8);
     return 0;
   }
   return 2;

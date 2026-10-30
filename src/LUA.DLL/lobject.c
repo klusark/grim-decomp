@@ -53,7 +53,7 @@ bool __cdecl luaO_equalObj(int *param_1,int *param_2)
       return true;
     case -6:
     case -1:
-      if ((float)param_2[1] == (float)param_1[1]) {
+      if (PUN(float,param_2[1]) == PUN(float,param_1[1])) {
         return true;
       }
       break;
