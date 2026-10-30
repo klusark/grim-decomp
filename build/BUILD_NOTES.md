@@ -671,7 +671,7 @@ How it was found: gdb watchpoint on one framebuffer pixel (`*(short*)addr`, writ
 is a plain number in the original but happens to fall into 0x401000..0x940000 is silently relocated; grep the generated
 `asm_funcs.s` for `offset _sect_` in non-address positions (`and/or/xor/test/cmp/imul/shl` immediates).
 
-Known remaining issue (pre-existing, not fixed): a polygon that crosses the top/bottom screen edge with a close camera and a
+Known remaining issue (fixed later, see "Scaled actors" below): a polygon that crosses the top/bottom screen edge with a close camera and a
 large (scaled-up) actor can reach the span routines unclipped (z-buffer row pointer far outside the buffer, SIGSEGV in
 `rdRaster_Span16_TexLitZw_5/7`); repro: office set, `SetActorScale(manny.hActor, 1.8); PutActorAt(manny.hActor,1.15,2.0,0)`.
 
