@@ -284,6 +284,8 @@ void * __cdecl Costume_GetMainModel(void *cosInst)
 
 
 /* ---- 0x00495510  Costume_ApplyScale ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Scales every model radius by actor+0x30 and stores the reciprocal so the second call undoes it */
 
 void __cdecl Costume_ApplyScale(void *actor,void *componentList)
@@ -337,6 +339,8 @@ void __cdecl Costume_ApplyScale(void *actor,void *componentList)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x004955e0  Costume_ApplyComponentState ---- */
 /* Walks the CHORE.DLL components of a costume instance: 'MAT ' swaps the material index of the

@@ -825,3 +825,42 @@ assembled ones; `gen_csyms.sh` writes the C symbol lists), `benchsets.py` (frame
   when `Display_Flip` found an identical frame would cut the CPU load; it was not added because it changes the timing of input polling.
 * The Lua test line `T(soak_sets[1 + mod(n-1, 12)])` (a float index returned by `mod`) kills the Lua VM in the -O0 baseline as well; use an
   integer loop counter in test scripts. Not looked at.
+Known remaining issue (fixed later, see "Scaled actors" below): a polygon that crosses the top/bottom screen edge with a close camera and a
+large (scaled-up) actor can reach the span routines unclipped (z-buffer row pointer far outside the buffer, SIGSEGV in
+`rdRaster_Span16_TexLitZw_5/7`); repro: office set, `SetActorScale(manny.hActor, 1.8); PutActorAt(manny.hActor,1.15,2.0,0)`.
+
+## Scaled actors: the "unclipped polygon" crash (2026-10-29, agent F)
+
+Symptom (office, `SetActorScale(manny.hActor,1.8); PutActorAt(manny.hActor,1.15,2.0,0)`): SIGSEGV in
+`rdRaster_Span16_TexLitZw_5/_7`, the z-buffer row pointer a few rows above the buffer (y = -2.4 -> unmapped page in front of the
+VirtualAlloc'd z-buffer). The clip stages themselves are fine (rdClip_*, rdPrimit3_ClipFace, rdCache_AddMesh, the frustum block at
+camera+0x48 and the asm of all of them match the Ghidra disassembly). The polygon was simply never sent to the clipper:
+`rdModel_DrawMesh` runs `Frustum_TestSphere(frustum, centre, mesh+0x60)`, a result of 0 ("fully inside") makes
+`rdModel_AddMeshToCache` use `rdPrimit3_CopyFaceVerts` instead of `rdPrimit3_ClipFace`, and the radius it tested was wrong.
+
+Cause: `Costume_ApplyScale` (0x495510), called before and after the meshes of an actor are drawn, multiplies the radius of every model
+and mesh by `actor+0x30` (so the sphere test covers the scaled geometry) and then stores the reciprocal in `actor+0x30` so that the second
+call undoes the first. The original code (decompiled and disassembly agree) stores the reciprocal *inside* the per-component loop, so the
+factor alternates s, 1/s, s, ... from component to component. With one component the second call is an exact undo; Manny's costume has 26
+components, so every call multiplied the even components by s and the odd ones by 1/s again: the radii drifted by s^2 per frame (comp 18:
+0.369 -> 0.664 -> 1.195, comp 1: 0.011 -> 0.0061 -> 0.0034 ...). A component whose radius had shrunk is "inside" although its polygons stick
+out of the screen, and the span routines then write outside the buffers (in the original this overwrites neighbouring heap quietly; the
+rebuilt layout has an unmapped page in front of the z-buffer). Not a rebuild artefact as such, a latent bug of the original code that only
+shows with a scale != 1 and components > 1.
+
+Fix (`build/overrides.c`, hand-written `Costume_ApplyScale`): the same factor for all components, the reciprocal stored once per call;
+non-model components (type != 1, e.g. the first component of Manny's list) are skipped (the original multiplied a float at +0x5c of
+whatever they point to). Identical to the original for costumes with exactly one model component.
+
+How it was found (reusable): gdb python breakpoints (script in the notes of this session: `agentF_run4.gdb`, not committed) at
+`rdModel_DrawMesh` (matrix, radius, `Frustum_TestSphere` result and relative centre), `rdModel_AddMeshToCache`/`rdCache_AddMesh` (clip flag
+`UINT_007f1898`, projected and camera-space vertices, flag BAD when an unclipped polygon leaves [0,640]x[0,480]) and `Costume_ApplyScale`
+(list of components with model/mesh radii at entry and exit). The stored radius of a mesh divided by the largest vertex distance was exactly
+1.1/1.8 for every mesh of Manny (radius = 1.1 x extent in the file, then wrongly divided by the actor scale), which pointed at the scale
+code; the gdb crash handler (`handle SIGTRAP nostop noprint`, then a python loop that executes command files after the crash) allows
+inspecting the dead process repeatedly without restarting the 40 s boot.
+
+Verified (Lua hook + PrintWindow, gdb attached, no SIGSEGV): the repro; Manny scale 1.8 and 2.5 at 12 positions around the camera (head,
+legs, arms crossing every edge); scale 1.0 and 0.5 close-ups; 900 frames of walking at scale 1.8 (radii stay constant, 910 polygons outside the
+guard band were all sent through the clipper, none unclipped); Glottis in the garage at scale 1.8 .. 14 (huge, crossing the top and side
+edges); boot to the office, walking (`WalkActorForward`), the F1 menu (`main_menu:run()`).
