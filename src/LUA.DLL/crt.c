@@ -7001,6 +7001,8 @@ float __cdecl _frnd(double param_1)
 
 
 /* ---- 0x10019100  _raise_exc ---- */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+#if 0
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
 
 void __cdecl
@@ -7150,8 +7152,12 @@ switchD_1001939b_default:
   puVar2[1] = param_1[0x11];
   return;
 }
+#endif
+
 
 /* ---- 0x10019440  _handle_exc ---- */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+#if 0
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
 
 bool __cdecl _handle_exc(uint param_1,double *param_2,uint param_3)
@@ -7295,6 +7301,8 @@ LAB_1001974b:
 }
 #undef local_10
 #undef local_14
+
+#endif
 
 
 /* ---- 0x1001ad40  _pow_special_cases ---- */
@@ -11621,6 +11629,8 @@ LAB_10020315:
 }
 
 /* ---- 0x10020350  _except1 ---- */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+#if 0
 /* MSVC 6 C runtime (matched against the EXE runtime by structure) */
 
 void __cdecl _except1(uint param_1,int *param_2,ushort *param_3)
@@ -11687,6 +11697,8 @@ switchD_1002036f_caseD_6:
 #undef local_2c
 #undef local_30
 #undef local_58
+
+#endif
 
 
 /* ---- 0x10020510  mbtowc ---- */

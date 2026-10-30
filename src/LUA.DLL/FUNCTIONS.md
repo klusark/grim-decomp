@@ -585,8 +585,8 @@
 | 100189a0 | wcsncnt | crt.c | 21 |
 | 100189e0 | __crtLCMapStringA | crt.c | 80 |
 | 10018fd0 | _frnd | crt.c | 1 |
-| 10019100 | _raise_exc | crt.c | 149 |
-| 10019440 | _handle_exc | crt.c | 144 |
+| 10019100 | _raise_exc | crt.c | 1 |
+| 10019440 | _handle_exc | crt.c | 1 |
 | 1001ad40 | _pow_special_cases | crt.c | 86 |
 | 1001af70 | _is_integer_double | crt.c | 21 |
 | 1001b000 | __crtGetStringTypeW | crt.c | 69 |
@@ -656,7 +656,7 @@
 | 1001fe60 | _wcstombs_lk | crt.c | 103 |
 | 10020050 | wcsncnt | crt.c | 22 |
 | 10020240 | _strnicmp | crt.c | 100 |
-| 10020350 | _except1 | crt.c | 67 |
+| 10020350 | _except1 | crt.c | 1 |
 | 10020510 | mbtowc | crt.c | 22 |
 | 10020590 | _mbtowc_lk | crt.c | 52 |
 | 10020690 | _allmul | crt.c | 10 |
