@@ -738,6 +738,8 @@ undefined4 deflateParams_or_SetDictionary(int param_1)
 }
 
 /* ---- 0x004c6040  inflateReset ---- */
+/* NOT COMPILED: names/lib_replace.json (zlib): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 undefined4 inflateReset(int param_1)
 
 {
@@ -753,8 +755,12 @@ undefined4 inflateReset(int param_1)
   }
   return 0xfffffffe;
 }
+#endif
+
 
 /* ---- 0x004c6090  inflateEnd ---- */
+/* NOT COMPILED: names/lib_replace.json (zlib): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 undefined4 inflateEnd(int param_1)
 
 {
@@ -771,8 +777,12 @@ undefined4 inflateEnd(int param_1)
   }
   return 0xfffffffe;
 }
+#endif
+
 
 /* ---- 0x004c60e0  inflateInit2_ ---- */
+/* NOT COMPILED: names/lib_replace.json (zlib): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 undefined4 inflateInit2_(int param_1,int param_2,char *param_3,int param_4)
 
 {
@@ -819,8 +829,12 @@ undefined4 inflateInit2_(int param_1,int param_2,char *param_3,int param_4)
   inflateEnd(param_1);
   return 0xfffffffe;
 }
+#endif
+
 
 /* ---- 0x004c61f0  inflate ---- */
+/* NOT COMPILED: names/lib_replace.json (zlib): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 undefined * inflate(int *param_1,int param_2)
 
 {
@@ -1033,8 +1047,12 @@ switchD_004c6240_caseD_c:
     }
   } while( true );
 }
+#endif
+
 
 /* ---- 0x004c6640  deflateInit2_ ---- */
+/* NOT COMPILED: names/lib_replace.json (zlib): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 undefined4
 deflateInit2_(int param_1,int param_2,int param_3,int param_4,int param_5,int param_6,char *param_7,
              int param_8)
@@ -1113,8 +1131,12 @@ deflateInit2_(int param_1,int param_2,int param_3,int param_4,int param_5,int pa
   }
   return 0xfffffffe;
 }
+#endif
+
 
 /* ---- 0x004c6870  deflateReset ---- */
+/* NOT COMPILED: names/lib_replace.json (zlib): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 undefined4 deflateReset(int param_1)
 
 {
@@ -1140,8 +1162,12 @@ undefined4 deflateReset(int param_1)
   }
   return 0xfffffffe;
 }
+#endif
+
 
 /* ---- 0x004c68f0  deflate ---- */
+/* NOT COMPILED: names/lib_replace.json (zlib): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 uint deflate(int *param_1,int param_2)
 
 {
@@ -1255,8 +1281,12 @@ LAB_004c6b1f:
   }
   return 1;
 }
+#endif
+
 
 /* ---- 0x004c6bb0  putShortMSB ---- */
+/* NOT COMPILED: names/lib_replace.json (zlib): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 void putShortMSB(int param_1,undefined4 param_2)
 
 {
@@ -1269,8 +1299,12 @@ void putShortMSB(int param_1,undefined4 param_2)
   *(int *)(param_1 + 0x14) = *(int *)(param_1 + 0x14) + 1;
   return;
 }
+#endif
+
 
 /* ---- 0x004c6be0  flush_pending ---- */
+/* NOT COMPILED: names/lib_replace.json (zlib): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 void flush_pending(int param_1)
 
 {
@@ -1309,8 +1343,12 @@ void flush_pending(int param_1)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x004c6c60  deflateEnd ---- */
+/* NOT COMPILED: names/lib_replace.json (zlib): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 uint deflateEnd(int param_1)
 
 {
@@ -1340,8 +1378,12 @@ uint deflateEnd(int param_1)
   }
   return 0xfffffffe;
 }
+#endif
+
 
 /* ---- 0x004c6d10  lm_init ---- */
+/* NOT COMPILED: names/lib_replace.json (zlib): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 /* deflate.c: window_size = 2*w_size, clears the hash head table */
 
 void lm_init(int param_1)
@@ -1380,8 +1422,12 @@ void lm_init(int param_1)
   *(undefined4 *)(param_1 + 0x58) = 2;
   return;
 }
+#endif
+
 
 /* ---- 0x004c79b0  crc32 ---- */
+/* NOT COMPILED: names/lib_replace.json (zlib): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 uint crc32(uint param_1,byte *param_2,uint param_3)
 
 {
@@ -1414,16 +1460,24 @@ uint crc32(uint param_1,byte *param_2,uint param_3)
   }
   return ~param_1;
 }
+#endif
+
 
 /* ---- 0x004c7af0  zcalloc ---- */
+/* NOT COMPILED: names/lib_replace.json (zlib): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 void zcalloc(undefined4 param_1,undefined4 param_2,undefined4 param_3)
 
 {
   calloc(param_2,param_3);
   return;
 }
+#endif
+
 
 /* ---- 0x004c7b20  inflate_blocks_reset ---- */
+/* NOT COMPILED: names/lib_replace.json (zlib): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 void inflate_blocks_reset(int *param_1,int param_2,int *param_3)
 
 {
@@ -1450,8 +1504,12 @@ void inflate_blocks_reset(int *param_1,int param_2,int *param_3)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x004c7ba0  inflate_blocks_new ---- */
+/* NOT COMPILED: names/lib_replace.json (zlib): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 undefined4 * inflate_blocks_new(int param_1,undefined4 param_2,int param_3)
 
 {
@@ -1481,8 +1539,12 @@ undefined4 * inflate_blocks_new(int param_1,undefined4 param_2,int param_3)
   inflate_blocks_reset(puVar1,param_1,0);
   return puVar1;
 }
+#endif
+
 
 /* ---- 0x004c7c50  inflate_blocks ---- */
+/* NOT COMPILED: names/lib_replace.json (zlib): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 undefined * __cdecl inflate_blocks(uint *param_1,int *param_2,uint param_3)
 
 {
@@ -2023,8 +2085,12 @@ LAB_004c883a:
 #undef local_8
 #undef local_c
 
+#endif
+
 
 /* ---- 0x004c8940  inflate_blocks_free ---- */
+/* NOT COMPILED: names/lib_replace.json (zlib): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 undefined4 inflate_blocks_free(int param_1,int param_2)
 
 {
@@ -2034,8 +2100,12 @@ undefined4 inflate_blocks_free(int param_1,int param_2)
   (**(code **)(param_2 + 0x24))(*(undefined4 *)(param_2 + 0x28),param_1);
   return 0;
 }
+#endif
+
 
 /* ---- 0x004c8ac0  _tr_init ---- */
+/* NOT COMPILED: names/lib_replace.json (zlib): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 /* trees.c; the first call is the empty tr_static_init */
 
 void _tr_init(int param_1)
@@ -2054,8 +2124,12 @@ void _tr_init(int param_1)
   init_block(param_1);
   return;
 }
+#endif
+
 
 /* ---- 0x004c8b30  init_block ---- */
+/* NOT COMPILED: names/lib_replace.json (zlib): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 void init_block(int param_1)
 
 {
@@ -2090,8 +2164,12 @@ void init_block(int param_1)
   *(undefined4 *)(param_1 + 0x1698) = 0;
   return;
 }
+#endif
+
 
 /* ---- 0x004c8c40  _tr_align ---- */
+/* NOT COMPILED: names/lib_replace.json (zlib): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 void _tr_align(int param_1)
 
 {
@@ -2180,8 +2258,12 @@ void _tr_align(int param_1)
   *(undefined4 *)(param_1 + 0x16ac) = 7;
   return;
 }
+#endif
+
 
 /* ---- 0x004ca480  bi_flush ---- */
+/* NOT COMPILED: names/lib_replace.json (zlib): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 void bi_flush(int param_1)
 
 {
@@ -2207,8 +2289,12 @@ void bi_flush(int param_1)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x004ca510  bi_windup ---- */
+/* NOT COMPILED: names/lib_replace.json (zlib): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 void bi_windup(int param_1)
 
 {
@@ -2232,8 +2318,12 @@ LAB_004ca55f:
   *(undefined4 *)(param_1 + 0x16b4) = 0;
   return;
 }
+#endif
+
 
 /* ---- 0x004ca580  copy_block ---- */
+/* NOT COMPILED: names/lib_replace.json (zlib): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 void copy_block(int param_1,undefined1 *param_2,int param_3,int param_4)
 
 {
@@ -2263,8 +2353,12 @@ void copy_block(int param_1,undefined1 *param_2,int param_3,int param_4)
   }
   return;
 }
+#endif
+
 
 /* ---- 0x004ca620  inflate_codes_new ---- */
+/* NOT COMPILED: names/lib_replace.json (zlib): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 undefined * __cdecl
 inflate_codes_new(undefined1 param_1,undefined1 param_2,uint param_3,uint param_4,int param_5)
 
@@ -2281,9 +2375,11 @@ inflate_codes_new(undefined1 param_1,undefined1 param_2,uint param_3,uint param_
   }
   return (undefined *)puVar1;
 }
+#endif
+
 
 /* ---- 0x004ca660  inflate_codes ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (zlib): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 undefined * __cdecl inflate_codes(uint param_1,byte *param_2,int param_3)
 
@@ -2687,14 +2783,20 @@ switchD_004ca6ad_caseD_8:
 
 
 /* ---- 0x004cae10  inflate_codes_free ---- */
+/* NOT COMPILED: names/lib_replace.json (zlib): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 void inflate_codes_free(undefined4 param_1,int param_2)
 
 {
   (**(code **)(param_2 + 0x24))(*(undefined4 *)(param_2 + 0x28),param_1);
   return;
 }
+#endif
+
 
 /* ---- 0x004cae30  inflate_trees_bits ---- */
+/* NOT COMPILED: names/lib_replace.json (zlib): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 int inflate_trees_bits(undefined4 param_1,int *param_2,undefined4 param_3,undefined4 param_4,
                       int param_5)
 
@@ -2724,8 +2826,12 @@ int inflate_trees_bits(undefined4 param_1,int *param_2,undefined4 param_3,undefi
 }
 #undef local_4
 
+#endif
+
 
 /* ---- 0x004caee0  huft_build ---- */
+/* NOT COMPILED: names/lib_replace.json (zlib): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 undefined4
 huft_build(int *param_1,uint param_2,uint param_3,int param_4,int param_5,uint *param_6,
           uint *param_7,int param_8,uint *param_9,uint param_10)
@@ -3030,8 +3136,12 @@ huft_build(int *param_1,uint param_2,uint param_3,int param_4,int param_5,uint *
 #undef local_ec
 #undef local_f0
 
+#endif
+
 
 /* ---- 0x004cb390  inflate_trees_dynamic ---- */
+/* NOT COMPILED: names/lib_replace.json (zlib): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 int inflate_trees_dynamic
               (uint param_1,undefined4 param_2,int param_3,int *param_4,int *param_5,
               undefined4 param_6,undefined4 param_7,undefined4 param_8,int param_9)
@@ -3087,8 +3197,12 @@ int inflate_trees_dynamic
 }
 #undef local_4
 
+#endif
+
 
 /* ---- 0x004cb520  inflate_trees_fixed ---- */
+/* NOT COMPILED: names/lib_replace.json (zlib): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 undefined4 inflate_trees_fixed(uint *param_1,uint *param_2,undefined4 *param_3,undefined4 *param_4)
 
 {
@@ -3098,8 +3212,12 @@ undefined4 inflate_trees_fixed(uint *param_1,uint *param_2,undefined4 *param_3,u
   *param_4 = &DAT_004f30d8;
   return 0;
 }
+#endif
+
 
 /* ---- 0x004cb550  inflate_flush ---- */
+/* NOT COMPILED: names/lib_replace.json (zlib): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 int inflate_flush(int param_1,int param_2,int param_3)
 
 {
@@ -3190,8 +3308,12 @@ int inflate_flush(int param_1,int param_2,int param_3)
 }
 #undef local_4
 
+#endif
+
 
 /* ---- 0x004cb690  inflate_fast ---- */
+/* NOT COMPILED: names/lib_replace.json (zlib): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 undefined4 inflate_fast(int param_1,uint param_2,int param_3,int param_4,int param_5,int *param_6)
 
 {
@@ -3385,4 +3507,6 @@ LAB_004cb9ef:
 #undef local_4
 #undef local_8
 #undef local_c
+
+#endif
 
