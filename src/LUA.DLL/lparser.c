@@ -6,7 +6,7 @@
 #include "functions.h"
 
 /* ---- 0x1000a6f0  luaY_error ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* lua.stx: 'last token read: %50s' error */
 
@@ -25,7 +25,7 @@ void __cdecl luaY_error(char *msg,char *token)
 
 
 /* ---- 0x1000a730  lparser__a730 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
 #if 0
 /* Unidentified function of lua.stx (yacc parser) and code generation */
 
