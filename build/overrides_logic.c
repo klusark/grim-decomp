@@ -139,295 +139,125 @@ undefined4 __cdecl rdCamera_BuildProjection(int *cam)
 }
 
 /* ==== rdPrimit3_ClipFace (0x0040deb0) ====
- * Clips one face against the frustum; the switch selects the vertex attribute set from the geometry / lighting modes and
- * calls the matching rdClip_Face3_* clipper with (frustum, vertex pool, [uv / intensity pools,] count).  The compiler pushed
- * the three arguments of the two position-only clippers (rdClip_Face3_Pos / _Pos_2) before the branch that picks the
- * orthographic (PosB) or the perspective one, so the decompiler printed those two calls without arguments (find_lost_args
- * reports them: C args 0, code pushes 3): they are called with the same arguments as their PosB twins. */
-/* Clips one face against the frustum; the switch selects the vertex attribute set from the
-   geometry/lighting modes */
+ * Gathers the vertices of one face into the clip work buffers and clips them against the frustum.  `src` (param_5) is the
+ * face: +0 vertex count, +4 position index per vertex, +8 texture index per vertex, +0xc position pool (3 floats per entry),
+ * +0x10 texture pool (2 floats), +0x14 intensity pool (1 float per position index), +0x18 extra intensity per vertex (or 0).
+ * `dst` (param_6) receives: +0 the clipped vertex count, +0xc positions, +0x10 texture coordinates, +0x14 intensities.
+ * `uvoff` (param_7) is added to every texture coordinate.  param_2 is the geometry mode, param_3 the lighting mode, param_4
+ * is not used.  What is gathered and which clipper runs (the first one for a perspective camera, camera type 1, the second
+ * for any other):
+ *   geometry 0, or 3 with lighting 0..2   positions                        rdClip_Face3_Pos_2 / rdClip_Face3_PosB_2
+ *   geometry 1, 2                         positions                        rdClip_Face3_Pos   / rdClip_Face3_PosB
+ *   geometry 3, lighting 3                positions, intensity             rdClip_Face3_PosUvLit   / rdClip_Face3_PosUv
+ *   geometry 4, lighting 0..2             positions, uv                    rdClip_Face3_PosUvLit_2 / rdClip_Face3_PosUvFlags
+ *   geometry 4, lighting 3                positions, uv, intensity         rdClip_Face3_PosUvLitColor / rdClip_Face3_PosUvLitFlags
+ *   anything else                         nothing (dst untouched)
+ * The intensity is the pool value (plus the extra one when src+0x18 is set, summed in extended precision) clamped to 0..1.
+ * Every clipper is cdecl, takes (frustum, positions, [uv,] [intensities,] count) and returns the new vertex count in EAX,
+ * which is stored in dst+0.  Ghidra typed three of them (PosUvLit, PosUvLit_2, PosUvLitColor) as returning float; calling
+ * them through that prototype reads the count from the empty x87 stack (0, so every lit face of a perspective view was
+ * dropped, and the x87 stack was left one entry off).  They are therefore called through int-returning pointers here.
+ * (The clipper names are Ghidra's guesses and do not match the attribute sets they get.) */
+typedef uint (*rdClipFn3)(undefined4 frustum, float *pos, uint n);
+typedef uint (*rdClipFn4)(undefined4 frustum, float *pos, float *attr, uint n);
+typedef uint (*rdClipFn5)(undefined4 frustum, float *pos, float *uv, float *light, uint n);
+
+static void clipface_copy_pos(const uint *src, uint *dst)
+{
+    uint i;
+    for (i = 0; i < src[0]; i++) {
+        const float *p = (const float *)src[3] + ((const int *)src[1])[i] * 3;
+        float *o = (float *)dst[3] + i * 3;
+        o[0] = p[0];
+        o[1] = p[1];
+        o[2] = p[2];
+    }
+}
+
+static void clipface_copy_uv(const uint *src, uint *dst, const float *uvoff, uint i)
+{
+    const float *t = (const float *)src[4] + ((const int *)src[2])[i] * 2;
+    float *o = (float *)dst[4] + i * 2;
+    o[0] = t[0];
+    o[1] = t[1];
+    o[0] = uvoff[0] + o[0];
+    o[1] = o[1] + uvoff[1];
+}
+
+static void clipface_light(const uint *src, uint *dst, uint i)
+{
+    float v = ((const float *)src[5])[((const int *)src[1])[i]];
+    float *o = (float *)dst[5] + i;
+    if (src[6] != 0) {
+        long double s = (long double)v + ((const float *)src[6])[i];
+        *o = !(s >= 0.0L) ? 0.0f : (s > 1.0L ? 1.0f : (float)s);   /* NaN -> 0, as the x87 compares do */
+    } else {
+        *o = !(v >= 0.0f) ? 0.0f : (v > 1.0f ? 1.0f : v);
+    }
+}
+
+/* the camera type is read after the vertices are gathered, like the original does */
+static int clipface_persp(void) { return *(int *)g_pRdCurrentCamera == 1; }
 
 void rdPrimit3_ClipFace(undefined4 param_1,undefined4 param_2,int param_3,undefined4 param_4,
                        uint *param_5,undefined4 *param_6,float *param_7)
-
 {
-  float *pfVar1;
-  float fVar2;
-  int iVar3;
-  int iVar4;
-  uint uVar5;
-  uint *puVar6;
-  undefined4 uVar7;
-  uint uVar8;
-  undefined4 *puVar9;
-  int iVar10;
-  undefined4 *puVar11;
-  undefined4 *puVar12;
-  
-  puVar9 = param_6;
-  puVar6 = param_5;
-  switch(param_2) {
-  case 0:
-    uVar8 = 0;
-    if (*param_5 != 0) {
-      iVar10 = 0;
-      do {
-        puVar9 = (undefined4 *)(param_5[3] + *(int *)(param_5[1] + uVar8 * 4) * 0xc);
-        puVar12 = (undefined4 *)(iVar10 + param_6[3]);
-        uVar8 = uVar8 + 1;
-        iVar10 = iVar10 + 0xc;
-        *puVar12 = *puVar9;
-        puVar12[1] = puVar9[1];
-        puVar12[2] = puVar9[2];
-      } while (uVar8 < *param_5);
-    }
-    break;
-  case 1:
-  case 2:
-    uVar8 = 0;
-    if (*param_5 != 0) {
-      iVar10 = 0;
-      do {
-        puVar9 = (undefined4 *)(param_5[3] + *(int *)(param_5[1] + uVar8 * 4) * 0xc);
-        puVar12 = (undefined4 *)(iVar10 + param_6[3]);
-        uVar8 = uVar8 + 1;
-        iVar10 = iVar10 + 0xc;
-        *puVar12 = *puVar9;
-        puVar12[1] = puVar9[1];
-        puVar12[2] = puVar9[2];
-      } while (uVar8 < *param_5);
-    }
-    if (*(int *)g_pRdCurrentCamera != 1) {
-      uVar7 = rdClip_Face3_PosB(param_1,param_6[3],*param_5);
-      *param_6 = uVar7;
-      return;
-    }
-    uVar7 = rdClip_Face3_Pos(param_1,param_6[3],*param_5);
-    *param_6 = uVar7;
-    return;
-  case 3:
-    switch(param_3) {
-    case 0:
+    uint *src = param_5;
+    uint *dst = (uint *)param_6;
+    uint i;
+
+    (void)param_4;
+    switch (param_2) {
     case 1:
-      uVar8 = 0;
-      if (*param_5 != 0) {
-        iVar10 = 0;
-        do {
-          puVar9 = (undefined4 *)(param_5[3] + *(int *)(param_5[1] + uVar8 * 4) * 0xc);
-          puVar12 = (undefined4 *)(iVar10 + param_6[3]);
-          uVar8 = uVar8 + 1;
-          iVar10 = iVar10 + 0xc;
-          *puVar12 = *puVar9;
-          puVar12[1] = puVar9[1];
-          puVar12[2] = puVar9[2];
-        } while (uVar8 < *param_5);
-      }
-      break;
     case 2:
-      uVar8 = 0;
-      if (*param_5 != 0) {
-        iVar10 = 0;
-        do {
-          puVar9 = (undefined4 *)(param_5[3] + *(int *)(param_5[1] + uVar8 * 4) * 0xc);
-          puVar12 = (undefined4 *)(iVar10 + param_6[3]);
-          uVar8 = uVar8 + 1;
-          iVar10 = iVar10 + 0xc;
-          *puVar12 = *puVar9;
-          puVar12[1] = puVar9[1];
-          puVar12[2] = puVar9[2];
-        } while (uVar8 < *param_5);
-      }
-      break;
+        clipface_copy_pos(src, dst);
+        dst[0] = (clipface_persp() ? (rdClipFn3)rdClip_Face3_Pos : (rdClipFn3)rdClip_Face3_PosB)(param_1, (float *)dst[3], src[0]);
+        return;
+    case 0:
+        break;
     case 3:
-      if (param_5[6] == 0) {
-        uVar8 = 0;
-        if (*param_5 != 0) {
-          iVar10 = 0;
-          do {
-            puVar9 = (undefined4 *)(param_5[3] + *(int *)(param_5[1] + uVar8 * 4) * 0xc);
-            puVar12 = (undefined4 *)(iVar10 + param_6[3]);
-            *puVar12 = *puVar9;
-            puVar12[1] = puVar9[1];
-            puVar12[2] = puVar9[2];
-            iVar3 = *(int *)(param_5[1] + uVar8 * 4);
-            pfVar1 = (float *)(param_5[5] + iVar3 * 4);
-            if (*(float *)(param_5[5] + iVar3 * 4) < 0.0) {
-              fVar2 = 0.0;
+        if (param_3 < 0 || param_3 > 3)
+            return;
+        if (param_3 == 3) {
+            for (i = 0; i < src[0]; i++) {
+                const float *p = (const float *)src[3] + ((const int *)src[1])[i] * 3;
+                float *o = (float *)dst[3] + i * 3;
+                o[0] = p[0];
+                o[1] = p[1];
+                o[2] = p[2];
+                clipface_light(src, dst, i);
             }
-            else if (1.0 < *pfVar1) {
-              fVar2 = 1.0;
-            }
-            else {
-              fVar2 = *pfVar1;
-            }
-            uVar8 = uVar8 + 1;
-            iVar10 = iVar10 + 0xc;
-            *(float *)(param_6[5] + -4 + uVar8 * 4) = fVar2;
-          } while (uVar8 < *param_5);
+            dst[0] = (clipface_persp() ? (rdClipFn4)rdClip_Face3_PosUvLit : (rdClipFn4)rdClip_Face3_PosUv)(
+                param_1, (float *)dst[3], (float *)dst[5], src[0]);
+            return;
         }
-      }
-      else {
-        uVar8 = 0;
-        if (*param_5 != 0) {
-          iVar10 = 0;
-          do {
-            puVar9 = (undefined4 *)(param_5[3] + *(int *)(param_5[1] + uVar8 * 4) * 0xc);
-            puVar12 = (undefined4 *)(iVar10 + param_6[3]);
-            *puVar12 = *puVar9;
-            puVar12[1] = puVar9[1];
-            puVar12[2] = puVar9[2];
-            fVar2 = *(float *)(param_5[5] + *(int *)(param_5[1] + uVar8 * 4) * 4) +
-                    *(float *)(param_5[6] + uVar8 * 4);
-            if (fVar2 < 0.0) {
-              fVar2 = 0.0;
-            }
-            else if (1.0 < fVar2) {
-              fVar2 = 1.0;
-            }
-            uVar8 = uVar8 + 1;
-            iVar10 = iVar10 + 0xc;
-            *(float *)(param_6[5] + -4 + uVar8 * 4) = fVar2;
-          } while (uVar8 < *param_5);
+        break;
+    case 4:
+        if (param_3 < 0 || param_3 > 3)
+            return;
+        for (i = 0; i < src[0]; i++) {
+            const float *p = (const float *)src[3] + ((const int *)src[1])[i] * 3;
+            float *o = (float *)dst[3] + i * 3;
+            o[0] = p[0];
+            o[1] = p[1];
+            o[2] = p[2];
+            clipface_copy_uv(src, dst, param_7, i);
+            if (param_3 == 3)
+                clipface_light(src, dst, i);
         }
-      }
-      if (*(int *)g_pRdCurrentCamera != 1) {
-        uVar7 = rdClip_Face3_PosUv(param_1,param_6[3],param_6[5],*param_5);
-        *param_6 = uVar7;
+        if (param_3 == 3)
+            dst[0] = (clipface_persp() ? (rdClipFn5)rdClip_Face3_PosUvLitColor : (rdClipFn5)rdClip_Face3_PosUvLitFlags)(
+                param_1, (float *)dst[3], (float *)dst[4], (float *)dst[5], src[0]);
+        else
+            dst[0] = (clipface_persp() ? (rdClipFn4)rdClip_Face3_PosUvLit_2 : (rdClipFn4)rdClip_Face3_PosUvFlags)(
+                param_1, (float *)dst[3], (float *)dst[4], src[0]);
         return;
-      }
-      uVar7 = rdClip_Face3_PosUvLit(param_1,param_6[3],param_6[5],*param_5);
-      *param_6 = uVar7;
-      return;
     default:
-      goto switchD_0040dec1_default;
-    }
-    break;
-  case 4:
-    if (-1 < param_3) {
-      if (param_3 < 3) {
-        uVar8 = 0;
-        if (*param_5 != 0) {
-          param_5 = (uint *)0x0;
-          do {
-            puVar9 = (undefined4 *)(puVar6[3] + *(int *)(puVar6[1] + uVar8 * 4) * 0xc);
-            puVar12 = (undefined4 *)((int)param_5 + param_6[3]);
-            *puVar12 = *puVar9;
-            puVar12[1] = puVar9[1];
-            puVar12[2] = puVar9[2];
-            uVar5 = puVar6[4];
-            iVar10 = *(int *)(puVar6[2] + uVar8 * 4);
-            puVar9 = (undefined4 *)(uVar8 * 8 + param_6[4]);
-            *puVar9 = *(undefined4 *)(uVar5 + iVar10 * 8);
-            puVar9[1] = *(undefined4 *)(uVar5 + 4 + iVar10 * 8);
-            pfVar1 = (float *)(param_6[4] + uVar8 * 8);
-            *pfVar1 = *param_7 + *pfVar1;
-            iVar10 = uVar8 * 8;
-            iVar3 = uVar8 * 8;
-            uVar8 = uVar8 + 1;
-            param_5 = (uint *)((int)param_5 + 0xc);
-            *(float *)(param_6[4] + 4 + iVar3) = *(float *)(param_6[4] + 4 + iVar10) + param_7[1];
-          } while (uVar8 < *puVar6);
-        }
-        if (*(int *)g_pRdCurrentCamera == 1) {
-          uVar7 = rdClip_Face3_PosUvLit_2(param_1,param_6[3],param_6[4],*puVar6);
-          *param_6 = uVar7;
-          return;
-        }
-        uVar7 = rdClip_Face3_PosUvFlags(param_1,param_6[3],param_6[4],*puVar6);
-        *param_6 = uVar7;
-      }
-      else if (param_3 == 3) {
-        if (param_5[6] == 0) {
-          uVar8 = *param_5;
-          param_5 = (uint *)0x0;
-          if (uVar8 != 0) {
-            param_6 = (undefined4 *)0x0;
-            do {
-              puVar12 = (undefined4 *)(puVar6[3] + *(int *)(puVar6[1] + (int)param_5 * 4) * 0xc);
-              puVar11 = (undefined4 *)((int)param_6 + puVar9[3]);
-              *puVar11 = *puVar12;
-              puVar11[1] = puVar12[1];
-              puVar11[2] = puVar12[2];
-              iVar3 = puVar9[4];
-              iVar10 = (int)param_5 * 8;
-              iVar4 = *(int *)(puVar6[2] + (int)param_5 * 4);
-              uVar8 = puVar6[4];
-              *(undefined4 *)(iVar10 + iVar3) = *(undefined4 *)(uVar8 + iVar4 * 8);
-              ((undefined4 *)(iVar10 + iVar3))[1] = *(undefined4 *)(uVar8 + 4 + iVar4 * 8);
-              *(float *)(puVar9[4] + iVar10) = *param_7 + *(float *)(puVar9[4] + iVar10);
-              *(float *)(iVar10 + 4 + puVar9[4]) = *(float *)(iVar10 + 4 + puVar9[4]) + param_7[1];
-              iVar10 = *(int *)(puVar6[1] + (int)param_5 * 4);
-              pfVar1 = (float *)(puVar6[5] + iVar10 * 4);
-              if (*(float *)(puVar6[5] + iVar10 * 4) < 0.0) {
-                fVar2 = 0.0;
-              }
-              else if (1.0 < *pfVar1) {
-                fVar2 = 1.0;
-              }
-              else {
-                fVar2 = *pfVar1;
-              }
-              param_6 = (undefined4 *)((int)param_6 + 0xc);
-              *(float *)(puVar9[5] + (int)param_5 * 4) = fVar2;
-              param_5 = (uint *)((int)param_5 + 1);
-            } while (param_5 < *puVar6);
-          }
-        }
-        else {
-          uVar8 = *param_5;
-          param_5 = (uint *)0x0;
-          if (uVar8 != 0) {
-            param_6 = (undefined4 *)0x0;
-            do {
-              puVar12 = (undefined4 *)(puVar6[3] + *(int *)(puVar6[1] + (int)param_5 * 4) * 0xc);
-              puVar11 = (undefined4 *)((int)param_6 + puVar9[3]);
-              *puVar11 = *puVar12;
-              puVar11[1] = puVar12[1];
-              puVar11[2] = puVar12[2];
-              iVar3 = puVar9[4];
-              iVar10 = (int)param_5 * 8;
-              iVar4 = *(int *)(puVar6[2] + (int)param_5 * 4);
-              uVar8 = puVar6[4];
-              *(undefined4 *)(iVar10 + iVar3) = *(undefined4 *)(uVar8 + iVar4 * 8);
-              ((undefined4 *)(iVar10 + iVar3))[1] = *(undefined4 *)(uVar8 + 4 + iVar4 * 8);
-              *(float *)(puVar9[4] + iVar10) = *param_7 + *(float *)(puVar9[4] + iVar10);
-              *(float *)(iVar10 + 4 + puVar9[4]) = *(float *)(iVar10 + 4 + puVar9[4]) + param_7[1];
-              fVar2 = *(float *)(puVar6[5] + *(int *)(puVar6[1] + (int)param_5 * 4) * 4) +
-                      *(float *)(puVar6[6] + (int)param_5 * 4);
-              if (fVar2 < 0.0) {
-                fVar2 = 0.0;
-              }
-              else if (1.0 < fVar2) {
-                fVar2 = 1.0;
-              }
-              param_6 = (undefined4 *)((int)param_6 + 0xc);
-              *(float *)(puVar9[5] + (int)param_5 * 4) = fVar2;
-              param_5 = (uint *)((int)param_5 + 1);
-            } while (param_5 < *puVar6);
-          }
-        }
-        if (*(int *)g_pRdCurrentCamera != 1) {
-          uVar7 = rdClip_Face3_PosUvLitFlags(param_1,puVar9[3],puVar9[4],puVar9[5],*puVar6);
-          *puVar9 = uVar7;
-          return;
-        }
-        uVar7 = rdClip_Face3_PosUvLitColor(param_1,puVar9[3],puVar9[4],puVar9[5],*puVar6);
-        *puVar9 = uVar7;
         return;
-      }
     }
-  default:
-switchD_0040dec1_default:
-    return;
-  }
-  if (*(int *)g_pRdCurrentCamera != 1) {
-    uVar7 = rdClip_Face3_PosB_2(param_1,param_6[3],*param_5);
-    *param_6 = uVar7;
-    return;
-  }
-  uVar7 = rdClip_Face3_Pos_2(param_1,param_6[3],*param_5);
-  *param_6 = uVar7;
-  return;
+    /* geometry 0, geometry 3 with lighting 0..2 */
+    clipface_copy_pos(src, dst);
+    dst[0] = (clipface_persp() ? (rdClipFn3)rdClip_Face3_Pos_2 : (rdClipFn3)rdClip_Face3_PosB_2)(param_1, (float *)dst[3], src[0]);
 }
 /* ==== rdModel_AddMeshToCache (0x0040d880) ====
  * Allocates a draw cache entry for a mesh of a model, copies its geometry / lighting modes (capped by the global limits),
