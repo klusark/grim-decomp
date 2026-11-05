@@ -50,7 +50,7 @@ void ModelComponent_SetVisibleFlag(undefined4 param_1,int param_2,undefined4 par
 }
 
 /* ---- 0x00496950  ModelComponent_NewInstance ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* 0x194-byte instance {ResRef model, ..., +0x38 isRoot, +0x40 rdThing, +0x44 parentInstance, +0x48
    parentNode, +0x4c colormap, +0x50 refCount, +0x190 next}; shared with an identical component of

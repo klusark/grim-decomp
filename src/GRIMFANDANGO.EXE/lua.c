@@ -6350,7 +6350,7 @@ void Lua_Print_NoOp(void)
 
 
 /* ---- 0x0049de00  Lua_InitGameLibs ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 undefined4 Lua_InitGameLibs(void)
 

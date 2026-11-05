@@ -1063,7 +1063,7 @@ void __thiscall Sector_SetSavedType(void *this,uint type)
 
 
 /* ---- 0x004a6980  Sector_ContainsPoint ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Sector_ContainsPoint(sector, point, checkActive). With checkActive, an inactive sector (+0x28 or
    +0x2c zero) contains nothing. 1) distance from the plane (normal at +0x60..+0x68, vertex[1]): a

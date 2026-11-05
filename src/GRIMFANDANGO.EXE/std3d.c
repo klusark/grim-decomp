@@ -420,7 +420,7 @@ int __cdecl D3D_AddTriangles(void *tris,uint count)
 }
 
 /* ---- 0x00478b40  D3D_ExecuteBuffer ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Terminates and executes the buffer on the device */
 
@@ -1333,7 +1333,7 @@ void D3D_SetViewportRect(uint *param_1)
 }
 
 /* ---- 0x00479db0  D3D_InitRenderState ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Fills an execute buffer with the initial STATERENDER list derived from the driver capability bits
     */
@@ -1493,7 +1493,7 @@ undefined4 D3D_InitRenderState(void)
 
 
 /* ---- 0x0047a130  D3D_CreateViewport ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 undefined4 D3D_CreateViewport(void)
 

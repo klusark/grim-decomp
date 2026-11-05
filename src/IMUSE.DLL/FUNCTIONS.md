@@ -26,7 +26,7 @@
 | 10003c70 | Im_FadesClearSound | imuse.c | 19 |
 | 10003cb0 | Im_FadesHeartbeat | imuse.c | 52 |
 | 10004820 | Im_ApplyFXPreset | imuse.c | 69 |
-| 10004970 | FUN_10004970 | imuse.c | 17 |
+| 10004970 | FUN_10004970 | imuse.c | 1 |
 | 100049b0 | Im_GroupsInit | imuse.c | 20 |
 | 100049e0 | Im_SetGroupVolImpl | imuse.c | 41 |
 | 10004a80 | Im_GetGroupVol | imuse.c | 10 |

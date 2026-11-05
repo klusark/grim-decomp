@@ -1586,7 +1586,7 @@ int __cdecl Palette_ApplyGamma(void *dst,void *src,int count,int gammaIdx)
 
 
 /* ---- 0x00474e40  Display_DrawText ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* GDI TextOut of the debug font onto the back buffer (DIB or locked DirectDraw DC) */
 
@@ -2624,7 +2624,7 @@ void DDraw_Release(void)
 }
 
 /* ---- 0x004761b0  FUN_004761b0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 undefined * __stdcall FUN_004761b0(int a1,int a2,int a3,int a4)
 
@@ -2930,7 +2930,7 @@ void * DDraw_Get(void)
 }
 
 /* ---- 0x004767d0  DDraw_CreateSurfaces ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Sets the display mode and creates the primary (+ back buffer when triple buffering) surfaces and

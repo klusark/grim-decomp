@@ -135,7 +135,7 @@ undefined4 Cos_Load(undefined4 param_1)
 }
 
 /* ---- 0x10001770  Cos_LoadEntry ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -1765,7 +1765,7 @@ uint FUN_10004170(int param_1,int param_2,int param_3,undefined4 param_4)
 }
 
 /* ---- 0x100041e0  FUN_100041e0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 undefined4 FUN_100041e0(undefined4 param_1,undefined4 param_2,uint param_3)
 
@@ -1865,7 +1865,7 @@ uint FUN_10004320(int param_1,undefined4 param_2,int param_3)
 }
 
 /* ---- 0x10004390  FUN_10004390 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -2058,7 +2058,7 @@ uint FUN_10004770(int param_1,int param_2,int param_3,undefined4 param_4,int par
 }
 
 /* ---- 0x100047f0  FUN_100047f0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 undefined4 FUN_100047f0(undefined4 param_1,int param_2,undefined4 param_3)
 
@@ -2142,7 +2142,7 @@ undefined4 FUN_100047f0(undefined4 param_1,int param_2,undefined4 param_3)
 
 
 /* ---- 0x10004970  FUN_10004970 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/CHORE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 

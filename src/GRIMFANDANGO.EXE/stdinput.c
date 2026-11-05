@@ -526,7 +526,7 @@ void Input_MarkAxisUsed(uint param_1)
 }
 
 /* ---- 0x00477730  Input_PollKeyboard ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Buffered DirectInput key events plus the immediate key state; each key has a 7-dword record {?,
    lastDown, down, downTime, upTime, pressCount, doubleTap} */
@@ -877,7 +877,7 @@ LAB_00477bd5:
 
 
 /* ---- 0x00477c20  Input_PollMouse ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Removing unreachable block (ram,0x00477cd3) */
 /* WARNING: Removing unreachable block (ram,0x00477cd5) */
@@ -962,7 +962,7 @@ LAB_00477da3:
 
 
 /* ---- 0x00477dc0  Input_FlushJoystick ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 void Input_FlushJoystick(void)
 

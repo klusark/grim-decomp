@@ -172,7 +172,7 @@ undefined4 rdPuppet_PlayTrack(int param_1,int param_2)
 }
 
 /* ---- 0x00450720  rdPuppet_FadeInTrack ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 int __cdecl rdPuppet_FadeInTrack(void *puppet,int track,float seconds)
 
@@ -192,7 +192,7 @@ int __cdecl rdPuppet_FadeInTrack(void *puppet,int track,float seconds)
 
 
 /* ---- 0x00450780  rdPuppet_FadeOutTrack ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 int __cdecl rdPuppet_FadeOutTrack(void *puppet,int track,float seconds)
 
@@ -343,7 +343,7 @@ void __cdecl rdPuppet_AdvanceTrack(void *puppet,int track,float dt)
 
 
 /* ---- 0x00450a90  rdPuppet_Advance ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_14 */
 

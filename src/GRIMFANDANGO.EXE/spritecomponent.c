@@ -188,7 +188,7 @@ undefined4 SpriteComponent_Destroy(undefined4 param_1,undefined4 param_2,int *pa
 }
 
 /* ---- 0x004985c0  FUN_004985c0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 undefined4 * FUN_004985c0(int param_1,undefined4 *param_2,int param_3)
 

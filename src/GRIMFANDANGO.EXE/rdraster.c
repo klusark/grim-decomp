@@ -523,7 +523,7 @@ LAB_0040f4ea:
 
 
 /* ---- 0x0040f5f0  rdRaster_Select_Flat ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Select Flat). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -560,7 +560,7 @@ void rdRaster_Select_Flat(float *param_1,int param_2)
 
 
 /* ---- 0x0040f650  rdRaster_SpanFlatSetup ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Span callback installed by the flat-colour selector: picks the 8/16-bit flat colour and draws the
    span */
@@ -597,7 +597,7 @@ void rdRaster_SpanFlatSetup(int *param_1)
 
 
 /* ---- 0x0040f6d0  rdRaster_SpanOutline8 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Wireframe span: plots only the two end pixels */
 
@@ -617,7 +617,7 @@ void rdRaster_SpanOutline8(int *param_1)
 
 
 /* ---- 0x0040f710  rdRaster_SpanOutline16 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: SpanR Flat). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -639,7 +639,7 @@ void rdRaster_SpanOutline16(int *param_1)
 
 
 /* ---- 0x0040f750  rdRaster_EdgeStepFlat ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Advances an edge record one scanline (x += dx, attribute += dAttr) */
 
@@ -745,7 +745,7 @@ undefined4 rdRaster_EdgeSetup_Flat(undefined4 *param_1,int *param_2,int param_3,
 
 
 /* ---- 0x0040fa20  rdRaster_Select_Flat_2 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Select Flat). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -782,7 +782,7 @@ void rdRaster_Select_Flat_2(float *param_1,int param_2)
 
 
 /* ---- 0x0040fa80  rdRaster_SpanTexSetup ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 void rdRaster_SpanTexSetup(int *param_1)
 
@@ -987,7 +987,7 @@ void rdRaster_Select_TexLit(float *param_1,int param_2,float param_3)
 
 
 /* ---- 0x0040ff20  rdRaster_SpanLitSetup ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Loads the light step from the poly record (+0x19c) before filling */
 
@@ -1130,7 +1130,7 @@ undefined4 rdRaster_EdgeSetup_Flat_3(undefined4 *param_1,int *param_2,int param_
 
 
 /* ---- 0x00410290  rdRaster_Select_FlatLit ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Select Flat Lit). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -1254,7 +1254,7 @@ void FUN_00410330(int param_1)
 
 
 /* ---- 0x004104b0  FUN_004104b0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 void FUN_004104b0(int param_1)
 
@@ -1368,7 +1368,7 @@ undefined4 rdRaster_EdgeSetup_Flat_4(undefined4 *param_1,int *param_2,int param_
 
 
 /* ---- 0x004108b0  rdRaster_Select_FlatLit_2 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Select Flat Lit). Calls
    0040ea50. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.
@@ -1607,7 +1607,7 @@ undefined4 rdRaster_EdgeSetup_Flat_5(undefined4 *param_1,int *param_2,int param_
 
 
 /* ---- 0x00411270  rdRaster_Select_FlatLit_3 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Select Flat Lit). Calls
    0040ea50. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.
@@ -1640,7 +1640,7 @@ void rdRaster_Select_FlatLit_3(int *param_1,int param_2)
 
 
 /* ---- 0x00411330  FUN_00411330 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -1947,7 +1947,7 @@ void FUN_00411740(int param_1)
 
 
 /* ---- 0x00411b70  FUN_00411b70 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 void FUN_00411b70(int param_1)
 
@@ -2109,7 +2109,7 @@ void rdRaster_Select_FlatLit_5(int *param_1,int param_2,float param_3)
 
 
 /* ---- 0x004121a0  FUN_004121a0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -2291,7 +2291,7 @@ void rdRaster_SpanR16_TexKey_2(int *param_1)
 
 
 /* ---- 0x004124f0  rdRaster_Select_FlatLit_6 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Select Flat Lit). Calls
    0040ea50. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.
@@ -2424,7 +2424,7 @@ void FUN_004125c0(int param_1)
 
 
 /* ---- 0x004129f0  FUN_004129f0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 void FUN_004129f0(int param_1)
 
@@ -2564,7 +2564,7 @@ undefined4 rdRaster_EdgeSetup_Flat_7(undefined4 *param_1,int *param_2,int param_
 
 
 /* ---- 0x00413040  rdRaster_Select_FlatLit_7 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Select Flat Lit). Calls
    0040ea50. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.
@@ -2600,7 +2600,7 @@ void rdRaster_Select_FlatLit_7(int *param_1,int param_2)
 
 
 /* ---- 0x00413110  FUN_00413110 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -3063,7 +3063,7 @@ void rdRaster_Select_FlatLit_9(int *param_1,int param_2)
 
 
 /* ---- 0x00413dd0  FUN_00413dd0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -3711,7 +3711,7 @@ void FUN_00414d20(int param_1)
 
 
 /* ---- 0x00415180  FUN_00415180 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 void FUN_00415180(int param_1)
 
@@ -3726,7 +3726,7 @@ void FUN_00415180(int param_1)
 
 
 /* ---- 0x004151c0  FUN_004151c0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 void FUN_004151c0(int param_1)
 
@@ -3867,7 +3867,7 @@ void rdRaster_Select_FlatLit_11(int *param_1,int param_2,float param_3)
 
 
 /* ---- 0x00415600  FUN_00415600 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -4521,7 +4521,7 @@ void FUN_00416580(int param_1)
 
 
 /* ---- 0x004169f0  FUN_004169f0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 void FUN_004169f0(int param_1)
 
@@ -4537,7 +4537,7 @@ void FUN_004169f0(int param_1)
 
 
 /* ---- 0x00416a30  FUN_00416a30 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 void FUN_00416a30(int param_1)
 
@@ -4690,7 +4690,7 @@ undefined4 rdRaster_Select_FlatLit_13(int *param_1,int param_2)
 
 
 /* ---- 0x00416f80  FUN_00416f80 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -5942,7 +5942,7 @@ void rdRaster_Draw16_FlatLit(int param_1,int param_2)
 
 
 /* ---- 0x004195f0  rdRaster_Span16_Flat ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Flat). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -6348,7 +6348,7 @@ void rdRaster_Draw16_FlatLit_2(int param_1,int param_2,float param_3)
 
 
 /* ---- 0x00419e60  rdRaster_Span_Flat ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Flat). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -6394,7 +6394,7 @@ void rdRaster_Span_Flat(uint *param_1,uint *param_2)
 
 
 /* ---- 0x00419ee0  rdRaster_Span16_Flat_2 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Flat). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -6499,7 +6499,7 @@ undefined4 rdRaster_Edge_Flat_3(int *param_1)
 
 
 /* ---- 0x0041a130  rdRaster_Edge_Flat_4 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Edge Flat). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -6566,7 +6566,7 @@ undefined4 rdRaster_Edge_Flat_4(int *param_1)
 
 
 /* ---- 0x0041a2f0  rdRaster_Draw16_TexLit_2 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit). Calls
    00419f70, 0041a130, 0041a4f0, 0041a580. Grimjedi RDroid Rdraster; verify the exact pixel format
@@ -6665,7 +6665,7 @@ void rdRaster_Draw16_TexLit_2(int param_1,int param_2,float param_3)
 
 
 /* ---- 0x0041a4f0  rdRaster_Span_Tex ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -6704,7 +6704,7 @@ void rdRaster_Span_Tex(uint *param_1,uint *param_2)
 
 
 /* ---- 0x0041a580  rdRaster_Span16_Tex_2 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -6746,7 +6746,7 @@ void rdRaster_Span16_Tex_2(uint *param_1,uint *param_2)
 
 
 /* ---- 0x0041a640  rdRaster_Draw_FlatLit ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Draw Flat Lit). Calls
    0041a810, 0041a900, 0041aa10, 0041ac60. Grimjedi RDroid Rdraster; verify the exact pixel format
@@ -6849,7 +6849,7 @@ void rdRaster_Draw_FlatLit(int param_1,int param_2)
 
 
 /* ---- 0x0041a810  rdRaster_Span8_Flat ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Flat). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -6909,7 +6909,7 @@ void rdRaster_Span8_Flat(uint *param_1,uint *param_2)
 
 
 /* ---- 0x0041a900  rdRaster_Span16_Flat_3 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Flat). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -6969,7 +6969,7 @@ void rdRaster_Span16_Flat_3(uint *param_1,uint *param_2)
 
 
 /* ---- 0x0041aa10  rdRaster_Edge_Flat_5 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Edge Flat). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -7040,7 +7040,7 @@ undefined4 rdRaster_Edge_Flat_5(int *param_1)
 
 
 /* ---- 0x0041ac60  rdRaster_Edge_Flat_6 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Edge Flat). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -7109,7 +7109,7 @@ undefined4 rdRaster_Edge_Flat_6(int *param_1)
 
 
 /* ---- 0x0041aeb0  rdRaster_Draw16_TexLit_3 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit). Calls
    0041aa10, 0041ac60, 0041b0d0, 0041b1e0. Grimjedi RDroid Rdraster; verify the exact pixel format
@@ -7218,7 +7218,7 @@ void rdRaster_Draw16_TexLit_3(int param_1,int param_2)
 
 
 /* ---- 0x0041b0d0  rdRaster_Span_Tex_2 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -7281,7 +7281,7 @@ void rdRaster_Span_Tex_2(uint *param_1,uint *param_2)
 
 
 /* ---- 0x0041b1e0  rdRaster_Span16_Tex_3 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -7345,7 +7345,7 @@ void rdRaster_Span16_Tex_3(uint *param_1,uint *param_2)
 
 
 /* ---- 0x0041b310  rdRaster_Draw16_TexLit_4 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit). Calls
    00418550, 0041b6f0, 0041b880, 0041ba30, 0041bd20. Grimjedi RDroid Rdraster; verify the exact
@@ -7493,7 +7493,7 @@ void rdRaster_Draw16_TexLit_4(int param_1,int param_2)
 
 
 /* ---- 0x0041b6f0  rdRaster_Span_Flat_2 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Flat). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -7564,7 +7564,7 @@ void rdRaster_Span_Flat_2(uint *param_1,uint *param_2)
 
 
 /* ---- 0x0041b880  rdRaster_Span16_Tex_4 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -7639,7 +7639,7 @@ void rdRaster_Span16_Tex_4(uint *param_1,uint *param_2)
 
 
 /* ---- 0x0041ba30  rdRaster_Edge_Flat_7 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Edge Flat). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -7715,7 +7715,7 @@ undefined4 rdRaster_Edge_Flat_7(int *param_1)
 
 
 /* ---- 0x0041bd20  rdRaster_Edge_Flat_8 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Edge Flat). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -7791,7 +7791,7 @@ undefined4 rdRaster_Edge_Flat_8(int *param_1)
 
 
 /* ---- 0x0041c010  rdRaster_Draw16_TexLit_5 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit). Calls
    00418550, 0041ba30, 0041bd20, 0041c260, 0041c410. Grimjedi RDroid Rdraster; verify the exact
@@ -7911,7 +7911,7 @@ void rdRaster_Draw16_TexLit_5(int param_1,int param_2)
 
 
 /* ---- 0x0041c260  rdRaster_Span_Tex_3 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -7983,7 +7983,7 @@ void rdRaster_Span_Tex_3(uint *param_1,uint *param_2)
 
 
 /* ---- 0x0041c410  rdRaster_Span16_Tex_5 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -8061,7 +8061,7 @@ void rdRaster_Span16_Tex_5(uint *param_1,uint *param_2)
 
 
 /* ---- 0x0041c5e0  rdRaster_Draw16_TexLitKey ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit Key). Calls
    00418550, 0041ba30, 0041bd20, 0041c810, 0041c9b0. Grimjedi RDroid Rdraster; verify the exact
@@ -8179,7 +8179,7 @@ void rdRaster_Draw16_TexLitKey(int param_1,int param_2)
 
 
 /* ---- 0x0041c810  rdRaster_Span_FlatKey ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Flat Key). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -8253,7 +8253,7 @@ void rdRaster_Span_FlatKey(uint *param_1,uint *param_2)
 
 
 /* ---- 0x0041c9b0  rdRaster_Span16_TexKey ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Key). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -8329,7 +8329,7 @@ void rdRaster_Span16_TexKey(uint *param_1,uint *param_2)
 
 
 /* ---- 0x0041cb80  rdRaster_Draw16_TexLitKey_2 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit Key). Calls
    00418550, 0041ba30, 0041bd20, 0041cdd0, 0041cf90. Grimjedi RDroid Rdraster; verify the exact
@@ -8449,7 +8449,7 @@ void rdRaster_Draw16_TexLitKey_2(int param_1,int param_2)
 
 
 /* ---- 0x0041cdd0  rdRaster_Span_TexKey ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Key). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -8523,7 +8523,7 @@ void rdRaster_Span_TexKey(uint *param_1,uint *param_2)
 
 
 /* ---- 0x0041cf90  rdRaster_Span16_TexKey_2 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Key). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -8602,7 +8602,7 @@ void rdRaster_Span16_TexKey_2(uint *param_1,uint *param_2)
 
 
 /* ---- 0x0041d180  rdRaster_Draw_FlatLit_2 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Draw Flat Lit). Calls
    00418550, 0041d710, 0041da00. Grimjedi RDroid Rdraster; verify the exact pixel format before
@@ -8748,7 +8748,7 @@ void rdRaster_Draw_FlatLit_2(int param_1,int param_2,float param_3)
 
 
 /* ---- 0x0041d560  rdRaster_Span16_Tex_6 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -8823,7 +8823,7 @@ void rdRaster_Span16_Tex_6(uint *param_1,uint *param_2)
 
 
 /* ---- 0x0041d710  rdRaster_Edge_Flat_9 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Edge Flat). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -8899,7 +8899,7 @@ undefined4 rdRaster_Edge_Flat_9(int *param_1)
 
 
 /* ---- 0x0041da00  rdRaster_Edge_Flat_10 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Edge Flat). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -8975,7 +8975,7 @@ undefined4 rdRaster_Edge_Flat_10(int *param_1)
 
 
 /* ---- 0x0041dcf0  rdRaster_Draw16_TexLit_6 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit). Calls
    00418550, 0041d710, 0041da00, 0041df60, 0041e120. Grimjedi RDroid Rdraster; verify the exact
@@ -9098,7 +9098,7 @@ void rdRaster_Draw16_TexLit_6(int param_1,int param_2,float param_3)
 
 
 /* ---- 0x0041df60  rdRaster_Span_Tex_4 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -9172,7 +9172,7 @@ void rdRaster_Span_Tex_4(uint *param_1,uint *param_2)
 
 
 /* ---- 0x0041e120  rdRaster_Span16_Tex_7 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -9253,7 +9253,7 @@ void rdRaster_Span16_Tex_7(uint *param_1,uint *param_2)
 
 
 /* ---- 0x0041e300  rdRaster_Draw_TexLitKey ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit Key). Calls
    00418550, 0041d710, 0041da00, 0041e550, 0041e700. Grimjedi RDroid Rdraster; verify the exact
@@ -9374,7 +9374,7 @@ void rdRaster_Draw_TexLitKey(int param_1,int param_2,float param_3)
 
 
 /* ---- 0x0041e550  rdRaster_Span8_TexKey ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Key). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -9449,7 +9449,7 @@ void rdRaster_Span8_TexKey(uint *param_1,uint *param_2)
 
 
 /* ---- 0x0041e700  rdRaster_Span16_TexKey_3 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Key). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -9525,7 +9525,7 @@ void rdRaster_Span16_TexKey_3(uint *param_1,uint *param_2)
 
 
 /* ---- 0x0041e8d0  rdRaster_Draw_TexLitKey_2 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit Key). Calls
    00418550, 0041d710, 0041da00, 0041eb40, 0041ed10. Grimjedi RDroid Rdraster; verify the exact
@@ -9648,7 +9648,7 @@ void rdRaster_Draw_TexLitKey_2(int param_1,int param_2,float param_3)
 
 
 /* ---- 0x0041eb40  rdRaster_Span_TexKey_2 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Key). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -9725,7 +9725,7 @@ void rdRaster_Span_TexKey_2(uint *param_1,uint *param_2)
 
 
 /* ---- 0x0041ed10  rdRaster_Span_TexKey_3 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Key). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -9807,7 +9807,7 @@ void rdRaster_Span_TexKey_3(uint *param_1,uint *param_2)
 
 
 /* ---- 0x0041eef0  rdRaster_Draw_FlatLit_3 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Draw Flat Lit). Calls
    00418550, 0041f520, 0041f890. Grimjedi RDroid Rdraster; verify the exact pixel format before
@@ -9964,7 +9964,7 @@ void rdRaster_Draw_FlatLit_3(int param_1,int param_2)
 
 
 /* ---- 0x0041f2f0  rdRaster_Span16_Tex_8 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -10053,7 +10053,7 @@ void rdRaster_Span16_Tex_8(uint *param_1,uint *param_2)
 
 
 /* ---- 0x0041f520  rdRaster_Edge_Flat_11 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Edge Flat). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -10135,7 +10135,7 @@ undefined4 rdRaster_Edge_Flat_11(int *param_1)
 
 
 /* ---- 0x0041f890  rdRaster_Edge_Flat_12 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Edge Flat). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -10217,7 +10217,7 @@ undefined4 rdRaster_Edge_Flat_12(int *param_1)
 
 
 /* ---- 0x0041fc00  rdRaster_Draw16_TexLit_7 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit). Calls
    00418550, 0041f520, 0041f890, 0041fe90, 004200c0. Grimjedi RDroid Rdraster; verify the exact
@@ -10351,7 +10351,7 @@ void rdRaster_Draw16_TexLit_7(int param_1,int param_2)
 
 
 /* ---- 0x0041fe90  rdRaster_Span_Tex_5 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -10474,7 +10474,7 @@ void __fastcall FUN_0042003c(int param_1,int param_2)
 
 
 /* ---- 0x004200c0  rdRaster_Span16_Tex_9 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -10566,7 +10566,7 @@ void rdRaster_Span16_Tex_9(uint *param_1,uint *param_2)
 
 
 /* ---- 0x00420310  rdRaster_Draw_TexLitKey_3 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit Key). Calls
    00418550, 0041f520, 0041f890, 00420580, 004207b0. Grimjedi RDroid Rdraster; verify the exact
@@ -10698,7 +10698,7 @@ void rdRaster_Draw_TexLitKey_3(int param_1,int param_2)
 
 
 /* ---- 0x00420580  rdRaster_Span8_TexKey_2 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Key). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -10786,7 +10786,7 @@ void rdRaster_Span8_TexKey_2(uint *param_1,uint *param_2)
 
 
 /* ---- 0x004207b0  rdRaster_Span16_TexKey_4 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Key). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -10876,7 +10876,7 @@ void rdRaster_Span16_TexKey_4(uint *param_1,uint *param_2)
 
 
 /* ---- 0x004209f0  rdRaster_Draw16_TexLitKey_3 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit Key). Calls
    00418550, 0041f520, 0041f890, 00420c80, 00420ec0. Grimjedi RDroid Rdraster; verify the exact
@@ -11010,7 +11010,7 @@ void rdRaster_Draw16_TexLitKey_3(int param_1,int param_2)
 
 
 /* ---- 0x00420c80  rdRaster_Span_TexKey_4 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Key). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -11100,7 +11100,7 @@ void rdRaster_Span_TexKey_4(uint *param_1,uint *param_2)
 
 
 /* ---- 0x00420ec0  rdRaster_Span16_TexKey_5 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Key). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -11193,7 +11193,7 @@ void rdRaster_Span16_TexKey_5(uint *param_1,uint *param_2)
 
 
 /* ---- 0x00421120  rdRaster_Draw_FlatLit_4 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Software rasterizer variant (auto-classified from the decompilation: Draw Flat Lit). Calls
@@ -11550,7 +11550,7 @@ void rdRaster_Span16_Tex_10(uint *param_1,uint *param_2)
 
 
 /* ---- 0x00421b60  rdRaster_Edge_Flat_13 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Software rasterizer variant (auto-classified from the decompilation: Edge Flat). Grimjedi RDroid
@@ -11629,7 +11629,7 @@ undefined4 rdRaster_Edge_Flat_13(int *param_1)
 
 
 /* ---- 0x00421dc0  rdRaster_Edge_Flat_14 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Edge Flat). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -11696,7 +11696,7 @@ undefined4 rdRaster_Edge_Flat_14(int *param_1)
 
 
 /* ---- 0x00421f80  rdRaster_Draw16_TexLit_8 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit). Calls
@@ -12250,7 +12250,7 @@ void rdRaster_Span16_Tex_11(uint *param_1,uint *param_2)
 
 
 /* ---- 0x00422f00  rdRaster_Draw16_TexLitKey_4 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit Key). Calls
@@ -12793,7 +12793,7 @@ void rdRaster_Span16_TexKey_6(uint *param_1,uint *param_2)
 
 
 /* ---- 0x00423db0  rdRaster_Draw16_TexLitKey_5 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit Key). Calls
@@ -13349,7 +13349,7 @@ void rdRaster_Span16_TexKey_7(uint *param_1,uint *param_2)
 
 
 /* ---- 0x00424d50  rdRaster_Draw_FlatLit_5 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Software rasterizer variant (auto-classified from the decompilation: Draw Flat Lit). Calls
@@ -13710,7 +13710,7 @@ void rdRaster_Span16_Tex_12(uint *param_1,uint *param_2)
 
 
 /* ---- 0x004257a0  rdRaster_Edge_Flat_15 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Software rasterizer variant (auto-classified from the decompilation: Edge Flat). Grimjedi RDroid
@@ -13789,7 +13789,7 @@ undefined4 rdRaster_Edge_Flat_15(int *param_1)
 
 
 /* ---- 0x00425a00  rdRaster_Edge_Flat_16 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Edge Flat). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -13856,7 +13856,7 @@ undefined4 rdRaster_Edge_Flat_16(int *param_1)
 
 
 /* ---- 0x00425bc0  rdRaster_Draw16_TexLit_9 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit). Calls
@@ -14435,7 +14435,7 @@ void rdRaster_Span16_Tex_13(uint *param_1,uint *param_2)
 
 
 /* ---- 0x00426bc0  rdRaster_Draw_TexLitKey_4 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit Key). Calls
@@ -14984,7 +14984,7 @@ void rdRaster_Span16_TexKey_8(uint *param_1,uint *param_2)
 
 
 /* ---- 0x00427ae0  rdRaster_Draw16_TexLitKey_6 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit Key). Calls
@@ -15549,7 +15549,7 @@ void rdRaster_Span16_TexKey_9(uint *param_1,uint *param_2)
 
 
 /* ---- 0x00428ae0  rdRaster_Draw_FlatLit_6 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Software rasterizer variant (auto-classified from the decompilation: Draw Flat Lit). Calls
@@ -15918,7 +15918,7 @@ void rdRaster_Span16_Tex_14(uint *param_1,uint *param_2)
 
 
 /* ---- 0x00429870  rdRaster_Edge_Flat_17 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Software rasterizer variant (auto-classified from the decompilation: Edge Flat). Grimjedi RDroid
@@ -16003,7 +16003,7 @@ undefined4 rdRaster_Edge_Flat_17(int *param_1)
 
 
 /* ---- 0x00429b70  rdRaster_Edge_Flat_18 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Edge Flat). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -16074,7 +16074,7 @@ undefined4 rdRaster_Edge_Flat_18(int *param_1)
 
 
 /* ---- 0x00429dc0  rdRaster_Draw16_TexLit_10 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit). Calls
@@ -16701,7 +16701,7 @@ void rdRaster_Span16_Tex_15(uint *param_1,uint *param_2)
 
 
 /* ---- 0x0042af60  rdRaster_Draw_TexLitKey_5 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit Key). Calls
@@ -18367,7 +18367,7 @@ LAB_0042da90:
 
 
 /* ---- 0x0042dba0  rdRaster_DrawPointsZ ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 void rdRaster_DrawPointsZ(int param_1,int param_2)
 
@@ -39248,7 +39248,7 @@ void rdRaster_SpanP16_TexLit_9(uint *param_1)
 
 
 /* ---- 0x0045ff10  rdRaster_Span16_TexLitZw ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Zw). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -39355,7 +39355,7 @@ void rdRaster_Span16_TexLitZw(uint *param_1,uint *param_2)
 
 
 /* ---- 0x004602c0  rdRaster_Span16_TexLitZw_2 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Zw). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -39477,7 +39477,7 @@ LAB_004605e4:
 
 
 /* ---- 0x00460670  rdRaster_Span16_TexLitZw_3 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Zw). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -39599,7 +39599,7 @@ LAB_00460994:
 
 
 /* ---- 0x00460a20  rdRaster_Span16_TexLitZw_4 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Zw). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -39721,7 +39721,7 @@ LAB_00460d44:
 
 
 /* ---- 0x00460dd0  rdRaster_Span16_TexLitZw_5 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Zw). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -39843,7 +39843,7 @@ LAB_004610f4:
 
 
 /* ---- 0x00461180  rdRaster_Span16_TexLitZw_6 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Zw). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -39965,7 +39965,7 @@ LAB_004614a4:
 
 
 /* ---- 0x00461530  rdRaster_Span16_TexLitZw_7 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Zw). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -40087,7 +40087,7 @@ LAB_00461854:
 
 
 /* ---- 0x004618e0  rdRaster_Span16_TexLitZw_8 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Zw). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -42326,7 +42326,7 @@ LAB_0046689a:
 
 
 /* ---- 0x00466920  rdRaster_Span16_TexLitZw_15 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Zw). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -42422,7 +42422,7 @@ void rdRaster_Span16_TexLitZw_15(uint *param_1,uint *param_2)
 
 
 /* ---- 0x00466c30  rdRaster_Span16_TexLitZw_16 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Zw). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -42529,7 +42529,7 @@ LAB_00466ec0:
 
 
 /* ---- 0x00466f30  rdRaster_Span16_TexLitZw_17 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Zw). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -42636,7 +42636,7 @@ LAB_004671c0:
 
 
 /* ---- 0x00467230  rdRaster_Span16_TexLitZw_18 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Zw). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -42743,7 +42743,7 @@ LAB_004674c0:
 
 
 /* ---- 0x00467530  rdRaster_Span16_TexLitZw_19 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Zw). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -42850,7 +42850,7 @@ LAB_004677c0:
 
 
 /* ---- 0x00467830  rdRaster_Span16_TexLitZw_20 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Zw). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -42957,7 +42957,7 @@ LAB_00467ac0:
 
 
 /* ---- 0x00467b30  rdRaster_Span16_TexLitZw_21 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Zw). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -43064,7 +43064,7 @@ LAB_00467dc0:
 
 
 /* ---- 0x00467e30  rdRaster_Span16_TexLitZw_22 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Zw). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -45128,7 +45128,7 @@ LAB_0046c2c4:
 
 
 /* ---- 0x0046c330  rdRaster_Span16_TexLitZw_24 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Zw). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -45224,7 +45224,7 @@ void rdRaster_Span16_TexLitZw_24(uint *param_1,uint *param_2)
 
 
 /* ---- 0x0046c640  rdRaster_Span16_TexLitZw_25 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Zw). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -45331,7 +45331,7 @@ LAB_0046c8d0:
 
 
 /* ---- 0x0046c940  rdRaster_Span16_TexLitZw_26 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Zw). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -45438,7 +45438,7 @@ LAB_0046cbd0:
 
 
 /* ---- 0x0046cc40  rdRaster_Span16_TexLitZw_27 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Zw). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -45545,7 +45545,7 @@ LAB_0046ced0:
 
 
 /* ---- 0x0046cf40  rdRaster_Span16_TexLitZw_28 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Zw). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -45652,7 +45652,7 @@ LAB_0046d1d0:
 
 
 /* ---- 0x0046d240  rdRaster_Span16_TexLitZw_29 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Zw). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -45759,7 +45759,7 @@ LAB_0046d4d0:
 
 
 /* ---- 0x0046d540  rdRaster_Span16_TexLitZw_30 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Zw). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */

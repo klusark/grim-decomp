@@ -117,7 +117,7 @@ undefined4 CmapComponent_Destroy(undefined4 param_1,undefined4 param_2,void *par
 }
 
 /* ---- 0x004965b0  FUN_004965b0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 undefined4 FUN_004965b0(void)
 
