@@ -1,0 +1,6 @@
+                if (P1_I32(fc + 0x20) < 0) |||                 if (P1_I32(fc + 0x20) <= 0)
+                    p = P1_ALLOC(P1_I32(fc + 0x14) << 2, 0x4e); |||                     p = P1_ALLOC(P1_I32(fc + 0x14) << 2, 0x4d);
+                P1_I32(nd + k) = P1_I32(m + 0x58) + tmp * 0xb8; |||                 P1_I32(nd + k) = P1_I32(m + 0x58) + tmp * 0xb4;
+            P1_FREAD(fp, me + 0x64, 0x18); |||             P1_FREAD(fp, me + 0x64, 0x14);
+                    P1_I32(fc + 0x20) = -1; |||                     P1_I32(fc + 0x20) = 0;
+    P1_FREAD(fp, m + 0x84, 0xc); |||     P1_FREAD(fp, m + 0x84, 0x8);

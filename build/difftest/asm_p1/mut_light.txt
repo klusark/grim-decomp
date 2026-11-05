@@ -1,0 +1,7 @@
+    if (!(s >= 0.0L)) |||     if (s < 0.0L)
+        if (!(sf >= 0.0f)) |||         if (sf < 0.0f)
+    if (c > amb) { |||     if (c >= amb) {
+        volatile float sf = (float)s; |||         long double sf = s;
+        if (geo == 4 && (P1_U8(mat) & 8) == 0) |||         if (geo == 4 && (P1_U8(mat) & 4) == 0)
+        if (light >= 0 && light <= 4) |||         if (light >= 0 && light <= 3)
+        else if (cel > P1_I32(mat + 0x60) - 1) |||         else if (cel > P1_I32(mat + 0x60))

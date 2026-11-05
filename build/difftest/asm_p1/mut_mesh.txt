@@ -1,0 +1,8 @@
+reach = !(s >= r * r); ||| reach = s < r * r;
+volatile float yf = (float)y, zf = (float)z; ||| long double yf = y, zf = z;
+if (dot > 0.0L) ||| if (dot >= 0.0L)
+long double d = (a1 + a2) + a0; ||| long double d = a1 + (a2 + a0);
+reach = r > p1_fsqrt(s); ||| reach = r >= p1_fsqrt(s);
+(x * x + y * y) + z * z; ||| x * x + (y * y + z * z);
+P1_LIGHTPOS(cam, light), mt); ||| P1_LIGHTPOS(cam, light), mc);
+if (P1_I32(light + 4) != 2) ||| if (P1_I32(light + 4) != 3)

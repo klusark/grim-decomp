@@ -1,0 +1,8 @@
+    if (z < x) |||     if (z <= x)
+    return P1_F(e + 0x184) > P1_F(p + 0x184); |||     return P1_F(e + 0x184) >= P1_F(p + 0x184);
+        if ((key >> 16) < (pk >> 16)) |||         if ((key >> 16) <= (pk >> 16))
+                s16 = (float)(s * 65536.0L); |||                 s16 = (float)((float)s * 65536.0L);
+        if (s < 0 && s > -0x51e) |||         if (s < 0 && s >= -0x51e)
+    if (n >= 0x800) { |||     if (n > 0x800) {
+    P1_F(rec + 0x1c) = (float)((long double)P1_F(p + 0x184) * t + P1_F(l + 0x10)); |||     P1_F(rec + 0x1c) = (float)((long double)P1_F(p + 0x184) * (long double)d * (long double)1.5258789e-05f + P1_F(l + 0x10));
+    int count = (int)(x - P1_U32(p + 0x1f4)) >> 16; |||     int count = (int)((x - P1_U32(p + 0x1f4)) >> 16);
