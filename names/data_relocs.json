@@ -1,0 +1,37 @@
+{
+ "_comment": "Read by build/gendata.py: dword slots of the data image where its pointer heuristics disagree with the base relocation table of the original program (build/difftest/r2/relocheck.py <original PE> build/obj/<PROG>/data.s raw/<PROG>/sections.json --json <PROG>). not_pointers: values that only look like an address and must stay the original bytes (0x004daa84-0x004daa94: ten entries of the VIMA / IMA ADPCM step table 0x004daa58 used by the Smush audio decoder FUN_004cbf50; 0x004ecd40 / 0x004ecf08: glyph bits of the built-in font table used by Text_WrapLines; the rest: tables of the runtime and deflate); pointers: real pointers whose bytes look like text (the subsystem names of the table PTR_sputControl_Initialize_004e7e00). The other 82 original relocations that data.s writes as plain values point into code at addresses that are not function starts (runtime jump and exception tables of code that is not in the rebuild).",
+ "GRIMFANDANGO.EXE": {
+  "not_pointers": [
+   "004d8a44",
+   "004d8a48",
+   "004d987c",
+   "004d9890",
+   "004daa84",
+   "004daa88",
+   "004daa8c",
+   "004daa90",
+   "004daa94",
+   "004ecd40",
+   "004ecf08",
+   "004ed368",
+   "004ed388",
+   "004ed38c",
+   "004ed390",
+   "004ed394",
+   "004ed398",
+   "004ed3ac",
+   "004ed3b0",
+   "004ed3b4",
+   "004ed3ec",
+   "004ed3f0",
+   "004ed3f4",
+   "004ed674"
+  ],
+  "pointers": [
+   "004e7e14",
+   "004e7e1c",
+   "004e7e24",
+   "004e7e2c"
+  ]
+ }
+}
