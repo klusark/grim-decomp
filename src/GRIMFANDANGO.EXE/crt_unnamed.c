@@ -10619,12 +10619,16 @@ void FUN_004d6030(void)
 
 
 /* ---- 0x004d6046  FUN_004d6046 ---- */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 void FUN_004d6046(void)
 
 {
   ((code *)__CxxFrameHandler)();
   return;
 }
+#endif
+
 
 /* ---- 0x004d6050  FUN_004d6050 ---- */
 /* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
@@ -10641,12 +10645,16 @@ void FUN_004d6050(void)
 
 
 /* ---- 0x004d605b  FUN_004d605b ---- */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 void FUN_004d605b(void)
 
 {
   ((code *)__CxxFrameHandler)();
   return;
 }
+#endif
+
 
 /* ---- 0x004d6070  FUN_004d6070 ---- */
 /* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
@@ -10663,12 +10671,16 @@ void FUN_004d6070(void)
 
 
 /* ---- 0x004d607b  FUN_004d607b ---- */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 void FUN_004d607b(void)
 
 {
   ((code *)__CxxFrameHandler)();
   return;
 }
+#endif
+
 
 /* ---- 0x004d6090  FUN_004d6090 ---- */
 /* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
@@ -10713,12 +10725,16 @@ void FUN_004d60ac(void)
 
 
 /* ---- 0x004d60ba  FUN_004d60ba ---- */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 void FUN_004d60ba(void)
 
 {
   ((code *)__CxxFrameHandler)();
   return;
 }
+#endif
+
 
 /* ---- 0x004d60d0  FUN_004d60d0 ---- */
 /* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
@@ -10749,7 +10765,7 @@ void FUN_004d60db(void)
 
 
 /* ---- 0x004d60e9  FUN_004d60e9 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 void FUN_004d60e9(void)
 
@@ -10775,9 +10791,13 @@ void FUN_004d6100(void)
 
 
 /* ---- 0x004d610b  FUN_004d610b ---- */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
+#if 0
 void FUN_004d610b(void)
 
 {
   ((code *)__CxxFrameHandler)();
   return;
 }
+#endif
+

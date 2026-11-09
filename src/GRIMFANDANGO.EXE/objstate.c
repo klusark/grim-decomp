@@ -12,25 +12,18 @@
 void * __cdecl ObjectState_Create(int setupIdx,int type,char *bitmap,char *zbitmap,int visible)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   void *pvVar2;
-  #define pcStack_8 (*(code **)(_frame + (0x20 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
-  local_4 = 0xffffffff;
-  pcStack_8 = FUN_004d607b;
   pvVar2 = Set_GetCurrent();
   iVar1 = *(int *)((int)pvVar2 + 0xac) + setupIdx * 300;
   pvVar2 = Plat_Alloc(0xfc);
-  local_4 = 0;
   if (pvVar2 == (void *)0x0) {
     pvVar2 = (void *)0x0;
   }
   else {
     pvVar2 = ObjectState_Construct(pvVar2,*(int *)(iVar1 + 0x128),bitmap,zbitmap,type);
   }
-  local_4 = 0xffffffff;
   *(void **)(iVar1 + 0x128) = pvVar2;
   if (pvVar2 == (void *)0x0) {
     return (void *)0x0;
@@ -45,9 +38,6 @@ void * __cdecl ObjectState_Create(int setupIdx,int type,char *bitmap,char *zbitm
   pvVar2 = *(void **)(iVar1 + 0x128);
   return pvVar2;
 }
-#undef local_4
-#undef pcStack_8
-
 
 /* ---- 0x004a5e50  ObjectState_Free ---- */
 void __cdecl ObjectState_Free(void *state)
@@ -283,20 +273,10 @@ ObjectState_Construct(void *this,int type,char *bitmapName,char *zbufName,int se
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  uint *unaff_FS_OFFSET = (uint *)TEB_BASE();
   #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
-  #define pcStack_8 (*(code **)(_frame + (0x20 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
-  local_4 = 0xffffffff;
-  pcStack_8 = FUN_004d60e9;
-  local_c = *unaff_FS_OFFSET;
-  *unaff_FS_OFFSET = (uint)&local_c;
   StateImage_Construct((undefined4 *)((int)this + 0xc));
-  local_4 = 0;
   StateImage_Construct((undefined4 *)((int)this + 0x80));
-  local_4 = CONCAT31(PIECE(local_4,1,3),1);
   *(undefined4 *)((int)this + 8) = 0xffffffff;
   *(int *)((int)this + 4) = setupIdx;
   StateImage_Init((undefined4 *)((int)this + 0xc),bitmapName);
@@ -308,25 +288,16 @@ ObjectState_Construct(void *this,int type,char *bitmapName,char *zbufName,int se
     *(int *)((int)this + 0xf8) = type;
   }
   *(undefined4 *)this = 0xfc;
-  *unaff_FS_OFFSET = local_c;
   return this;
 }
 #undef local_10
-#undef local_4
-#undef local_c
-#undef pcStack_8
 
 
 /* ---- 0x004aa4c0  ObjectState_Destruct ---- */
 void __fastcall ObjectState_Destruct(int param_1)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  #define pcStack_8 (*(code **)(_frame + (0x20 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
-  pcStack_8 = FUN_004d610b;
-  local_4 = 0;
   if (*(int *)(param_1 + 0xf4) != 0) {
     *(undefined4 *)(*(int *)(param_1 + 0xf4) + 0xf8) = *(undefined4 *)(param_1 + 0xf8);
   }
@@ -334,13 +305,9 @@ void __fastcall ObjectState_Destruct(int param_1)
     *(undefined4 *)(*(int *)(param_1 + 0xf8) + 0xf4) = *(undefined4 *)(param_1 + 0xf4);
   }
   StateImage_Release(param_1 + 0x80);
-  local_4 = 0xffffffff;
   StateImage_Release(param_1 + 0xc);
   return;
 }
-#undef local_4
-#undef pcStack_8
-
 
 /* ---- 0x004aa540  ObjectState_LoadImages ---- */
 void __fastcall ObjectState_LoadImages(int param_1)

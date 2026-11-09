@@ -329,22 +329,16 @@ undefined4 __thiscall lvm__dbd0(void *this,int a1,int a2,int a3)
   void *pvVar2;
   #define local_14 (*(undefined4 *)(_frame + (0x30 - 0x14)))
   #define local_10 (*(undefined4 *)(_frame + (0x30 - 0x10)))
-  #define pcStack_8 (*(code **)(_frame + (0x30 - 0x8)))
-  #define local_4 (*(undefined4 *)(_frame + (0x30 - 0x4)))
   
   iVar1 = a3;
-  local_4 = 0xffffffff;
-  pcStack_8 = FUN_1002203b;
   if (a3 != 0) {
     pvVar2 = lvm__dd10(0x30);
-    local_4 = 0;
     if (pvVar2 == (void *)0x0) {
       pvVar2 = (void *)0x0;
     }
     else {
       pvVar2 = (void *)lvm__ddb0(pvVar2,0,0,0);
     }
-    local_4 = 0xffffffff;
     *(void **)((int)this + 0xc) = pvVar2;
     lvm__dbd0(pvVar2,a1,a2,iVar1 + -1);
   }
@@ -369,8 +363,6 @@ undefined4 __thiscall lvm__dbd0(void *this,int a1,int a2,int a3)
 }
 #undef local_10
 #undef local_14
-#undef local_4
-#undef pcStack_8
 
 #endif
 

@@ -1082,14 +1082,21 @@ def strip_seh_frames(body):
         return body
     prev = prevs[0]
     lines = body.split("\n")
-    # the registration statements sit together at the start of the body
+    # the registration statements sit together at the start of the body: `prev = *fs:[0]`, the handler, the state
+    # (-1 in a constructor, 0 in a destructor) and `*fs:[0] = &prev`, in any order
     first = next((i for i, l in enumerate(lines) if re.match(r"^[ \t]*%s = \*unaff_FS_OFFSET;" % prev, l)), None)
-    if first is None:
+    reg = next((i for i, l in enumerate(lines) if re.match(r"^[ \t]*\*unaff_FS_OFFSET = (?:\(\w+\))?&%s;" % prev, l)), None)
+    if first is None or reg is None:
         return body
+    lo, hi = max(0, min(first, reg) - 4), max(first, reg) + 1
     state = handler = None
-    for l in lines[max(0, first - 4):first]:
+    for i in range(lo, min(hi + 1, len(lines))):
+        l = lines[i]
         m = re.match(r"^[ 	]*(\w+) = 0xffffffff;[ 	]*$", l)
         if m:
+            state = m.group(1)
+        m = re.match(r"^[ 	]*(\w+_4) = (?:0x)?[0-9a-fA-F]+;[ 	]*$", l)  # the state slot [EBP-4] (local_4 / uStack_4)
+        if m and not state and i > min(first, reg):
             state = m.group(1)
         m = re.match(r"^[ 	]*(\w+) = (?:\(code \*\))?[A-Za-z_]\w*;[ 	]*$", l)
         if m and re.search(r"^[ 	]+code \*%s;" % m.group(1), body, re.M):
@@ -1100,9 +1107,11 @@ def strip_seh_frames(body):
                 or re.match(r"^[ \t]*\*unaff_FS_OFFSET = %s;" % prev, l):
             dropped += 1
             continue
-        if state and re.match(r"^[ \t]*%s = (?:0x)?[0-9a-fA-F]+;[ \t]*$" % state, l):
+        # state changes: the whole slot, or only its low byte (`local_4._0_1_ = 1;`, `local_4 = CONCAT31(local_4._1_3_,1);`)
+        if state and (re.match(r"^[ \t]*%s(?:\._0_1_)? = (?:0x)?[0-9a-fA-F]+;[ \t]*$" % state, l)
+                      or re.match(r"^[ \t]*%s = CONCAT31\(%s\._1_3_,(?:0x)?[0-9a-fA-F]+\);[ \t]*$" % (state, state), l)):
             continue
-        if handler and first - 4 <= i <= first and re.match(r"^[ \t]*%s = " % handler, l):
+        if handler and lo <= i <= hi and re.match(r"^[ \t]*%s = " % handler, l):
             continue
         keep.append(l)
     if dropped < 2:

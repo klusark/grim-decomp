@@ -1,11 +1,15 @@
 /* Round r2 (2026-11-09): the last assembled functions of GRIMFANDANGO.EXE that are not ordinary code paths.
  * Notes, reachability evidence and the differential tests: docs/notes/r2.md, build/difftest/r2/.
  *
- * Only two symbols need a definition here; the rest of the round is names/ data:
+ * Only one symbol needs a definition here; the rest of the round is names/ data:
  *   - the eleven SEH / C++ unwind funclets (0x4d5e1c-0x4d6100), FUN_0042003c and the seven LUA.DLL unwind funclets are
  *     in names/lib_replace.json "dead" (their only references are entries of exception tables in the data image that
  *     nothing in the rebuilt programs reads; the entries resolve to link.py's trap stubs);
  *   - _ftol is in names/lib_replace.json "host" (msvcrt.dll exports the same machine code).
+ * (Round r2 also gave FUN_004d60e9, the __CxxFrameHandler thunk that the compiled ObjectState_Construct registered in
+ * fs:[0], a declining handler here.  Round s3 made tools/build_src.py's seh_strip rule remove that registration, so
+ * nothing references the thunk any more; it and the other handler thunks are names/lib_replace.json "dead",
+ * docs/notes/s3.md.)
  */
 #ifdef GRIM_EXE
 
@@ -25,23 +29,5 @@ __asm__(".text\n"
         "\t.globl _FUN_004addf0\n"
         "_FUN_004addf0:\n"
         "\tjmp ___chkstk\n");
-
-/* OVERRIDES: FUN_004d60e9 */
-/* The exception handler that ObjectState_Construct (0x004aa410) registers in fs:[0] around the construction of its two
- * StateImage members.  In the original it is a two-instruction thunk, `mov eax, 0x004dacc8 (FuncInfo); jmp
- * __CxxFrameHandler`, whose table points to the unwind funclets 0x004d60d0 / 0x004d60db (StateImage_Release of the
- * members on [EBP-0x10], an MSVC frame layout gcc does not have).  The decompiled C of the thunk lost the EAX load
- * (`__CxxFrameHandler();` without its FuncInfo), and the compiled ObjectState_Construct still links the frame (the
- * seh_strip rule of tools/build_src.py does not match its frame_locals macros), so an exception or a longjmp unwinding
- * through the constructor would have called msvcrt's __CxxFrameHandler with a garbage FuncInfo.  This version is a
- * valid SEH handler that declines: ExceptionContinueSearch (1), for dispatch and unwind alike, i.e. the frame behaves
- * as if it were not there.  The game never throws (the exe has no _CxxThrowException) and nothing the constructor
- * calls (StateImage_Init -> Resource_Load ...) enters Lua, the only source of a longjmp, so the original cleanup never
- * ran in practice either. */
-__asm__(".text\n"
-        "\t.globl _FUN_004d60e9\n"
-        "_FUN_004d60e9:\n"
-        "\tmovl $1, %eax\n"
-        "\tret\n");
 
 #endif
