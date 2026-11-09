@@ -63,14 +63,16 @@ objects, the i686 gcc for linking). See `build/BUILD_NOTES.md` for details and
 `docs/MODDING.md` for the edit-build-run loop.
 
 ```bash
-rm -rf src && python -I tools/build_src.py && make -C build -j8   # objects + summary
+rm -f src/*/*.[ch] src/*/*.md && python -I tools/build_src.py && make -C build -j8   # objects + summary
+# keep src/<prog>/asm_funcs.s: build_src.py does not write it, tools/gen_asm.py does (needs the Ghidra bridge)
 make -C build link                                                 # link all four
 ```
 
 All four programs compile and link; the link uses the real section contents dumped from Ghidra
 (`tools/export_data.py`, `build/gendata.py`: labels at the original offsets, relocations for every pointer into the
-image) and the real Win32/DirectX import libraries (`build/stdcall_names.json`). About half of the EXE (1324 of 2604
-functions) and most of the DLLs are built from the *original machine code* re-emitted from Ghidra's disassembly
+image) and the real Win32/DirectX import libraries (`build/stdcall_names.json`). 271 of the EXE's 2604 functions
+(243 of them the software rasteriser), 10 of LUA.DLL and 4 of IMUSE.DLL are still built from the *original machine
+code* re-emitted from Ghidra's disassembly
 (`tools/gen_asm.py`, `src/<prog>/asm_funcs.s`) because Ghidra's C is wrong about x87 results, register calling
 conventions and lost arguments in those places; the rest is compiled C. The result is playable. What is still stubbed:
 11 MSVC runtime helpers (the host runtime replaces them) in the EXE.

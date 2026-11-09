@@ -1,3 +1,0 @@
-info symbol 0x54c0c3
-info symbol 0x54c195
-x/12i 0x54c0c3
