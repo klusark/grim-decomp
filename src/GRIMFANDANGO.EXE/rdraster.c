@@ -18117,7 +18117,7 @@ LAB_0042d542:
 
 
 /* ---- 0x0042d5f0  rdRaster_Grad_Flat_4 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Software rasterizer variant (auto-classified from the decompilation: Grad Flat). Grimjedi RDroid
@@ -25335,7 +25335,7 @@ void rdRaster_Span16_TexLitKeyZw_2(uint *param_1,uint *param_2)
 
 
 /* ---- 0x00437e10  rdRaster_Draw_FlatLit_10 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Software rasterizer variant (auto-classified from the decompilation: Draw Flat Lit). Calls
@@ -25507,7 +25507,7 @@ void rdRaster_Draw_FlatLit_10(int param_1,int param_2)
 
 
 /* ---- 0x004383d0  rdRaster_Span_FlatZ_2 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Software rasterizer variant (auto-classified from the decompilation: Span Flat Z). Grimjedi
@@ -25746,7 +25746,7 @@ void rdRaster_Span_FlatZ_2(uint *param_1,uint *param_2)
 
 
 /* ---- 0x00438a90  rdRaster_Span16_TexZ_2 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Z). Grimjedi RDroid
@@ -26000,7 +26000,7 @@ void rdRaster_Span16_TexZ_2(uint *param_1,uint *param_2)
 
 
 /* ---- 0x004391a0  rdRaster_SpanR_Flat_13 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Software rasterizer variant (auto-classified from the decompilation: SpanR Flat). Grimjedi RDroid
@@ -26079,7 +26079,7 @@ undefined4 rdRaster_SpanR_Flat_13(int *param_1)
 
 
 /* ---- 0x00439400  rdRaster_SpanR_Flat_14 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: SpanR Flat). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -26146,7 +26146,7 @@ undefined4 rdRaster_SpanR_Flat_14(int *param_1)
 
 
 /* ---- 0x004395c0  rdRaster_Draw_TexLitZ_7 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit Z). Calls
@@ -26266,7 +26266,7 @@ void rdRaster_Draw_TexLitZ_7(int param_1,int param_2)
 
 
 /* ---- 0x00439840  rdRaster_Span8_TexZ_2 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Z). Grimjedi RDroid
@@ -26507,7 +26507,7 @@ void rdRaster_Span8_TexZ_2(uint *param_1,uint *param_2)
 
 
 /* ---- 0x00439f50  rdRaster_Span16_TexZ_3 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Z). Grimjedi RDroid
@@ -26761,7 +26761,7 @@ void rdRaster_Span16_TexZ_3(uint *param_1,uint *param_2)
 
 
 /* ---- 0x0043a6e0  rdRaster_Draw_TexLitKeyZw_7 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit Key Zw). Calls
@@ -26879,7 +26879,7 @@ void rdRaster_Draw_TexLitKeyZw_7(int param_1,int param_2)
 
 
 /* ---- 0x0043a940  rdRaster_Span8_FlatKeyZw_2 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Software rasterizer variant (auto-classified from the decompilation: Span Flat Key Zw). Grimjedi
@@ -27127,7 +27127,7 @@ void rdRaster_Span8_FlatKeyZw_2(uint *param_1,uint *param_2)
 
 
 /* ---- 0x0043b020  rdRaster_Span16_TexKeyZw ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Key Zw). Grimjedi
@@ -27378,7 +27378,7 @@ void rdRaster_Span16_TexKeyZw(uint *param_1,uint *param_2)
 
 
 /* ---- 0x0043b760  rdRaster_Draw_TexLitKeyZw_8 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit Key Zw). Calls
@@ -27498,7 +27498,7 @@ void rdRaster_Draw_TexLitKeyZw_8(int param_1,int param_2)
 
 
 /* ---- 0x0043b9e0  rdRaster_Span8_TexKeyZw ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Key Zw). Grimjedi
@@ -27747,7 +27747,7 @@ void rdRaster_Span8_TexKeyZw(uint *param_1,uint *param_2)
 
 
 /* ---- 0x0043c130  rdRaster_Span16_TexKeyZw_2 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Key Zw). Grimjedi
@@ -28005,7 +28005,7 @@ void rdRaster_Span16_TexKeyZw_2(uint *param_1,uint *param_2)
 
 
 /* ---- 0x0043c8d0  rdRaster_Draw_FlatLit_11 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Software rasterizer variant (auto-classified from the decompilation: Draw Flat Lit). Calls
@@ -28180,7 +28180,7 @@ void rdRaster_Draw_FlatLit_11(int param_1,int param_2,float param_3)
 
 
 /* ---- 0x0043ceb0  rdRaster_Span_TexZ ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Z). Grimjedi RDroid
@@ -28422,7 +28422,7 @@ void rdRaster_Span_TexZ(uint *param_1,uint *param_2)
 
 
 /* ---- 0x0043d5b0  rdRaster_Span16_TexZ_4 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Z). Grimjedi RDroid
@@ -28676,7 +28676,7 @@ void rdRaster_Span16_TexZ_4(uint *param_1,uint *param_2)
 
 
 /* ---- 0x0043dcc0  rdRaster_SpanR_Flat_15 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Software rasterizer variant (auto-classified from the decompilation: SpanR Flat). Grimjedi RDroid
@@ -28755,7 +28755,7 @@ undefined4 rdRaster_SpanR_Flat_15(int *param_1)
 
 
 /* ---- 0x0043df20  rdRaster_SpanR_Flat_16 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: SpanR Flat). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -28822,7 +28822,7 @@ undefined4 rdRaster_SpanR_Flat_16(int *param_1)
 
 
 /* ---- 0x0043e0e0  rdRaster_Draw_TexLitZ_8 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit Z). Calls
@@ -28945,7 +28945,7 @@ void rdRaster_Draw_TexLitZ_8(int param_1,int param_2,float param_3)
 
 
 /* ---- 0x0043e380  rdRaster_Span8_TexZ_3 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Z). Grimjedi RDroid
@@ -29189,7 +29189,7 @@ void rdRaster_Span8_TexZ_3(uint *param_1,uint *param_2)
 
 
 /* ---- 0x0043eab0  rdRaster_Span16_TexZ_5 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Z). Grimjedi RDroid
@@ -29455,7 +29455,7 @@ void rdRaster_Span16_TexZ_5(uint *param_1,uint *param_2)
 
 
 /* ---- 0x0043f280  rdRaster_Draw_TexLitKeyZw_9 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit Key Zw). Calls
@@ -29576,7 +29576,7 @@ void rdRaster_Draw_TexLitKeyZw_9(int param_1,int param_2,float param_3)
 
 
 /* ---- 0x0043f500  rdRaster_Span8_TexKeyZw_2 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Key Zw). Grimjedi
@@ -29826,7 +29826,7 @@ void rdRaster_Span8_TexKeyZw_2(uint *param_1,uint *param_2)
 
 
 /* ---- 0x0043fc30  rdRaster_Span16_TexKeyZw_3 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Key Zw). Grimjedi
@@ -30077,7 +30077,7 @@ void rdRaster_Span16_TexKeyZw_3(uint *param_1,uint *param_2)
 
 
 /* ---- 0x00440370  rdRaster_Draw_TexLitKeyZw_10 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit Key Zw). Calls
@@ -30200,7 +30200,7 @@ void rdRaster_Draw_TexLitKeyZw_10(int param_1,int param_2,float param_3)
 
 
 /* ---- 0x00440610  rdRaster_Span8_TexKeyZw_3 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Key Zw). Grimjedi
@@ -30452,7 +30452,7 @@ void rdRaster_Span8_TexKeyZw_3(uint *param_1,uint *param_2)
 
 
 /* ---- 0x00440d80  rdRaster_Span16_TexKeyZw_4 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Key Zw). Grimjedi
@@ -30710,7 +30710,7 @@ void rdRaster_Span16_TexKeyZw_4(uint *param_1,uint *param_2)
 
 
 /* ---- 0x00441520  rdRaster_Draw_FlatLit_12 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Software rasterizer variant (auto-classified from the decompilation: Draw Flat Lit). Calls
@@ -30896,7 +30896,7 @@ void rdRaster_Draw_FlatLit_12(int param_1,int param_2)
 
 
 /* ---- 0x00441b20  rdRaster_Span_TexZ_2 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Z). Grimjedi RDroid
@@ -31159,7 +31159,7 @@ void rdRaster_Span_TexZ_2(uint *param_1,uint *param_2)
 
 
 /* ---- 0x004422d0  rdRaster_Span16_TexZ_6 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Z). Grimjedi RDroid
@@ -31434,7 +31434,7 @@ void rdRaster_Span16_TexZ_6(uint *param_1,uint *param_2)
 
 
 /* ---- 0x00442ab0  rdRaster_SpanR_Flat_17 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Software rasterizer variant (auto-classified from the decompilation: SpanR Flat). Grimjedi RDroid
@@ -31519,7 +31519,7 @@ undefined4 rdRaster_SpanR_Flat_17(int *param_1)
 
 
 /* ---- 0x00442db0  rdRaster_SpanR_Flat_18 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: SpanR Flat). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -31590,7 +31590,7 @@ undefined4 rdRaster_SpanR_Flat_18(int *param_1)
 
 
 /* ---- 0x00443000  rdRaster_Draw_TexLitZ_9 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit Z). Calls
@@ -31724,7 +31724,7 @@ void rdRaster_Draw_TexLitZ_9(int param_1,int param_2)
 
 
 /* ---- 0x004432c0  rdRaster_Span8_TexZ_4 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Z). Grimjedi RDroid
@@ -31992,7 +31992,7 @@ void rdRaster_Span8_TexZ_4(uint *param_1,uint *param_2)
 
 
 /* ---- 0x00443ab0  rdRaster_Span16_TexZ_7 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Z). Grimjedi RDroid
@@ -32285,7 +32285,7 @@ void rdRaster_Span16_TexZ_7(uint *param_1,uint *param_2)
 
 
 /* ---- 0x00444320  rdRaster_Draw_TexLitKeyZw_11 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit Key Zw). Calls
@@ -32417,7 +32417,7 @@ void rdRaster_Draw_TexLitKeyZw_11(int param_1,int param_2)
 
 
 /* ---- 0x004445c0  rdRaster_Span8_TexKeyZw_4 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Key Zw). Grimjedi
@@ -32688,7 +32688,7 @@ void rdRaster_Span8_TexKeyZw_4(uint *param_1,uint *param_2)
 
 
 /* ---- 0x00444d90  rdRaster_Span16_TexKeyZw_5 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Key Zw). Grimjedi
@@ -32962,7 +32962,7 @@ void rdRaster_Span16_TexKeyZw_5(uint *param_1,uint *param_2)
 
 
 /* ---- 0x00445570  rdRaster_Draw_TexLitKeyZw_12 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit Key Zw). Calls
@@ -33096,7 +33096,7 @@ void rdRaster_Draw_TexLitKeyZw_12(int param_1,int param_2)
 
 
 /* ---- 0x00445830  rdRaster_Span8_TexKeyZw_5 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Key Zw). Grimjedi
@@ -33368,7 +33368,7 @@ void rdRaster_Span8_TexKeyZw_5(uint *param_1,uint *param_2)
 
 
 /* ---- 0x00446030  rdRaster_Span16_TexKeyZw_6 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Key Zw). Grimjedi
@@ -33648,7 +33648,7 @@ void rdRaster_Span16_TexKeyZw_6(uint *param_1,uint *param_2)
 
 
 /* ---- 0x00451fa0  rdRaster_SpanR_FlatZw ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: SpanR Flat Zw). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -33702,7 +33702,7 @@ void rdRaster_SpanR_FlatZw(int *param_1)
 
 
 /* ---- 0x00452070  rdRaster_SpanR_FlatZw_2 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: SpanR Flat Zw). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -33755,7 +33755,7 @@ void rdRaster_SpanR_FlatZw_2(int *param_1)
 
 
 /* ---- 0x00452150  rdRaster_SpanR16_Tex ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: SpanR Tex). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -33797,7 +33797,7 @@ void rdRaster_SpanR16_Tex(int *param_1)
 
 
 /* ---- 0x004522b0  rdRaster_SpanR16_Tex_2 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: SpanR Tex). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -33844,7 +33844,7 @@ void rdRaster_SpanR16_Tex_2(int *param_1)
 
 
 /* ---- 0x004523f0  rdRaster_SpanR16_Tex_3 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: SpanR Tex). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -33891,7 +33891,7 @@ void rdRaster_SpanR16_Tex_3(int *param_1)
 
 
 /* ---- 0x00452530  rdRaster_SpanR16_Tex_4 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: SpanR Tex). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -33938,7 +33938,7 @@ void rdRaster_SpanR16_Tex_4(int *param_1)
 
 
 /* ---- 0x00452670  rdRaster_SpanR16_TexLit ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: SpanR Tex Lit). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -33985,7 +33985,7 @@ void rdRaster_SpanR16_TexLit(int *param_1)
 
 
 /* ---- 0x004527b0  rdRaster_SpanR16_Tex_5 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: SpanR Tex). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -34032,7 +34032,7 @@ void rdRaster_SpanR16_Tex_5(int *param_1)
 
 
 /* ---- 0x004528f0  rdRaster_SpanR16_Tex_6 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: SpanR Tex). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -34079,7 +34079,7 @@ void rdRaster_SpanR16_Tex_6(int *param_1)
 
 
 /* ---- 0x00452a30  rdRaster_SpanR16_Tex_7 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: SpanR Tex). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -34121,7 +34121,7 @@ void rdRaster_SpanR16_Tex_7(int *param_1)
 
 
 /* ---- 0x00452b90  rdRaster_SpanR16_Tex_8 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: SpanR Tex). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -34168,7 +34168,7 @@ void rdRaster_SpanR16_Tex_8(int *param_1)
 
 
 /* ---- 0x00452cd0  rdRaster_SpanR16_Tex_9 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: SpanR Tex). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -34215,7 +34215,7 @@ void rdRaster_SpanR16_Tex_9(int *param_1)
 
 
 /* ---- 0x00452e10  rdRaster_SpanR16_Tex_10 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: SpanR Tex). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -34262,7 +34262,7 @@ void rdRaster_SpanR16_Tex_10(int *param_1)
 
 
 /* ---- 0x00452f50  rdRaster_SpanR16_TexLit_2 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: SpanR Tex Lit). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -34309,7 +34309,7 @@ void rdRaster_SpanR16_TexLit_2(int *param_1)
 
 
 /* ---- 0x00453090  rdRaster_SpanR16_Tex_11 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: SpanR Tex). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -34356,7 +34356,7 @@ void rdRaster_SpanR16_Tex_11(int *param_1)
 
 
 /* ---- 0x004531d0  rdRaster_SpanR16_Tex_12 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: SpanR Tex). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -34403,7 +34403,7 @@ void rdRaster_SpanR16_Tex_12(int *param_1)
 
 
 /* ---- 0x00453310  rdRaster_SpanR16_TexLit_3 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: SpanR Tex Lit). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -34451,7 +34451,7 @@ void rdRaster_SpanR16_TexLit_3(int *param_1)
 
 
 /* ---- 0x004534d0  rdRaster_SpanR16_TexLit_4 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: SpanR Tex Lit). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -34508,7 +34508,7 @@ void rdRaster_SpanR16_TexLit_4(int *param_1)
 
 
 /* ---- 0x00453660  rdRaster_SpanR16_TexLit_5 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: SpanR Tex Lit). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -34565,7 +34565,7 @@ void rdRaster_SpanR16_TexLit_5(int *param_1)
 
 
 /* ---- 0x004537f0  rdRaster_SpanR16_TexLit_6 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: SpanR Tex Lit). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -34622,7 +34622,7 @@ void rdRaster_SpanR16_TexLit_6(int *param_1)
 
 
 /* ---- 0x00453980  rdRaster_SpanR16_TexLit_7 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: SpanR Tex Lit). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -34679,7 +34679,7 @@ void rdRaster_SpanR16_TexLit_7(int *param_1)
 
 
 /* ---- 0x00453b10  rdRaster_SpanR16_TexLit_8 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: SpanR Tex Lit). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -34736,7 +34736,7 @@ void rdRaster_SpanR16_TexLit_8(int *param_1)
 
 
 /* ---- 0x00453ca0  rdRaster_SpanR16_TexLit_9 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: SpanR Tex Lit). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
@@ -34793,7 +34793,7 @@ void rdRaster_SpanR16_TexLit_9(int *param_1)
 
 
 /* ---- 0x00453e30  rdRaster_SpanP16_Tex ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* WARNING: Restarted to delay deadcode elimination for space: stack */
@@ -34996,7 +34996,7 @@ void rdRaster_SpanP16_Tex(uint *param_1)
 
 
 /* ---- 0x00454780  rdRaster_SpanP16_Tex_2 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* WARNING: Restarted to delay deadcode elimination for space: stack */
@@ -35201,7 +35201,7 @@ void rdRaster_SpanP16_Tex_2(uint *param_1)
 
 
 /* ---- 0x00455050  rdRaster_SpanP16_Tex_3 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* WARNING: Restarted to delay deadcode elimination for space: stack */
@@ -35406,7 +35406,7 @@ void rdRaster_SpanP16_Tex_3(uint *param_1)
 
 
 /* ---- 0x00455920  rdRaster_SpanP16_Tex_4 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* WARNING: Restarted to delay deadcode elimination for space: stack */
@@ -35611,7 +35611,7 @@ void rdRaster_SpanP16_Tex_4(uint *param_1)
 
 
 /* ---- 0x004561f0  rdRaster_SpanP16_TexLit ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* WARNING: Restarted to delay deadcode elimination for space: stack */
@@ -35816,7 +35816,7 @@ void rdRaster_SpanP16_TexLit(uint *param_1)
 
 
 /* ---- 0x00456ac0  rdRaster_SpanP16_Tex_5 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* WARNING: Restarted to delay deadcode elimination for space: stack */
@@ -36021,7 +36021,7 @@ void rdRaster_SpanP16_Tex_5(uint *param_1)
 
 
 /* ---- 0x00457390  rdRaster_SpanP16_Tex_6 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* WARNING: Restarted to delay deadcode elimination for space: stack */
@@ -36226,7 +36226,7 @@ void rdRaster_SpanP16_Tex_6(uint *param_1)
 
 
 /* ---- 0x00457c60  rdRaster_SpanP16_Tex_7 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* WARNING: Restarted to delay deadcode elimination for space: stack */
@@ -36429,7 +36429,7 @@ void rdRaster_SpanP16_Tex_7(uint *param_1)
 
 
 /* ---- 0x004585b0  rdRaster_SpanP16_Tex_8 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* WARNING: Restarted to delay deadcode elimination for space: stack */
@@ -36634,7 +36634,7 @@ void rdRaster_SpanP16_Tex_8(uint *param_1)
 
 
 /* ---- 0x00458e80  rdRaster_SpanP16_Tex_9 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* WARNING: Restarted to delay deadcode elimination for space: stack */
@@ -36839,7 +36839,7 @@ void rdRaster_SpanP16_Tex_9(uint *param_1)
 
 
 /* ---- 0x00459750  rdRaster_SpanP16_Tex_10 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* WARNING: Restarted to delay deadcode elimination for space: stack */
@@ -37044,7 +37044,7 @@ void rdRaster_SpanP16_Tex_10(uint *param_1)
 
 
 /* ---- 0x0045a020  rdRaster_SpanP16_TexLit_2 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* WARNING: Restarted to delay deadcode elimination for space: stack */
@@ -37249,7 +37249,7 @@ void rdRaster_SpanP16_TexLit_2(uint *param_1)
 
 
 /* ---- 0x0045a8f0  rdRaster_SpanP16_Tex_11 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* WARNING: Restarted to delay deadcode elimination for space: stack */
@@ -37454,7 +37454,7 @@ void rdRaster_SpanP16_Tex_11(uint *param_1)
 
 
 /* ---- 0x0045b1c0  rdRaster_SpanP16_Tex_12 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* WARNING: Restarted to delay deadcode elimination for space: stack */
@@ -37659,7 +37659,7 @@ void rdRaster_SpanP16_Tex_12(uint *param_1)
 
 
 /* ---- 0x0045ba90  rdRaster_SpanP16_TexLit_3 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* WARNING: Restarted to delay deadcode elimination for space: stack */
@@ -37880,7 +37880,7 @@ void rdRaster_SpanP16_TexLit_3(uint *param_1)
 
 
 /* ---- 0x0045c4e0  rdRaster_SpanP16_TexLit_4 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* WARNING: Restarted to delay deadcode elimination for space: stack */
@@ -38108,7 +38108,7 @@ void rdRaster_SpanP16_TexLit_4(uint *param_1)
 
 
 /* ---- 0x0045ce90  rdRaster_SpanP16_TexLit_5 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* WARNING: Restarted to delay deadcode elimination for space: stack */
@@ -38336,7 +38336,7 @@ void rdRaster_SpanP16_TexLit_5(uint *param_1)
 
 
 /* ---- 0x0045d840  rdRaster_SpanP16_TexLit_6 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* WARNING: Restarted to delay deadcode elimination for space: stack */
@@ -38564,7 +38564,7 @@ void rdRaster_SpanP16_TexLit_6(uint *param_1)
 
 
 /* ---- 0x0045e1f0  rdRaster_SpanP16_TexLit_7 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* WARNING: Restarted to delay deadcode elimination for space: stack */
@@ -38792,7 +38792,7 @@ void rdRaster_SpanP16_TexLit_7(uint *param_1)
 
 
 /* ---- 0x0045eba0  rdRaster_SpanP16_TexLit_8 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* WARNING: Restarted to delay deadcode elimination for space: stack */
@@ -39020,7 +39020,7 @@ void rdRaster_SpanP16_TexLit_8(uint *param_1)
 
 
 /* ---- 0x0045f550  rdRaster_SpanP16_TexLit_9 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* WARNING: Restarted to delay deadcode elimination for space: stack */
@@ -40209,7 +40209,7 @@ LAB_00461c04:
 
 
 /* ---- 0x00461c90  rdRaster_Span16_TexZw ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* WARNING: Restarted to delay deadcode elimination for space: stack */
@@ -40478,7 +40478,7 @@ void rdRaster_Span16_TexZw(uint *param_1,uint *param_2)
 
 
 /* ---- 0x00462780  rdRaster_Span16_TexLitZw_9 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* WARNING: Restarted to delay deadcode elimination for space: stack */
@@ -40786,7 +40786,7 @@ LAB_004631ea:
 
 
 /* ---- 0x00463270  rdRaster_Span16_TexLitZw_10 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* WARNING: Restarted to delay deadcode elimination for space: stack */
@@ -41094,7 +41094,7 @@ LAB_00463cda:
 
 
 /* ---- 0x00463d60  rdRaster_Span16_TexLitZw_11 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* WARNING: Restarted to delay deadcode elimination for space: stack */
@@ -41402,7 +41402,7 @@ LAB_004647ca:
 
 
 /* ---- 0x00464850  rdRaster_Span16_TexLitZw_12 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* WARNING: Restarted to delay deadcode elimination for space: stack */
@@ -41710,7 +41710,7 @@ LAB_004652ba:
 
 
 /* ---- 0x00465340  rdRaster_Span16_TexLitZw_13 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* WARNING: Restarted to delay deadcode elimination for space: stack */
@@ -42018,7 +42018,7 @@ LAB_00465daa:
 
 
 /* ---- 0x00465e30  rdRaster_Span16_TexLitZw_14 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* WARNING: Restarted to delay deadcode elimination for space: stack */
@@ -43171,7 +43171,7 @@ LAB_004680c0:
 
 
 /* ---- 0x00468130  rdRaster_Span16_TexZw_2 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* WARNING: Restarted to delay deadcode elimination for space: stack */
@@ -43424,7 +43424,7 @@ void rdRaster_Span16_TexZw_2(uint *param_1,uint *param_2)
 
 
 /* ---- 0x00468af0  rdRaster_Span16_TexZw_3 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* WARNING: Restarted to delay deadcode elimination for space: stack */
@@ -43708,7 +43708,7 @@ LAB_004693e4:
 
 
 /* ---- 0x00469450  rdRaster_Span16_TexZw_4 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* WARNING: Restarted to delay deadcode elimination for space: stack */
@@ -43992,7 +43992,7 @@ LAB_00469d44:
 
 
 /* ---- 0x00469db0  rdRaster_Span16_TexZw_5 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* WARNING: Restarted to delay deadcode elimination for space: stack */
@@ -44276,7 +44276,7 @@ LAB_0046a6a4:
 
 
 /* ---- 0x0046a710  rdRaster_Span16_TexLitZw_23 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* WARNING: Restarted to delay deadcode elimination for space: stack */
@@ -44560,7 +44560,7 @@ LAB_0046b004:
 
 
 /* ---- 0x0046b070  rdRaster_Span16_TexZw_6 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* WARNING: Restarted to delay deadcode elimination for space: stack */
@@ -44844,7 +44844,7 @@ LAB_0046b964:
 
 
 /* ---- 0x0046b9d0  rdRaster_Span16_TexZw_7 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* WARNING: Restarted to delay deadcode elimination for space: stack */
@@ -45866,7 +45866,7 @@ LAB_0046d7d0:
 
 
 /* ---- 0x0046d840  rdRaster_Span16_TexZw_8 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* WARNING: Restarted to delay deadcode elimination for space: stack */
@@ -46119,7 +46119,7 @@ void rdRaster_Span16_TexZw_8(uint *param_1,uint *param_2)
 
 
 /* ---- 0x0046e200  rdRaster_Span16_TexZw_9 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* WARNING: Restarted to delay deadcode elimination for space: stack */
@@ -46403,7 +46403,7 @@ LAB_0046eaf4:
 
 
 /* ---- 0x0046eb60  rdRaster_Span16_TexZw_10 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* WARNING: Restarted to delay deadcode elimination for space: stack */
@@ -46687,7 +46687,7 @@ LAB_0046f454:
 
 
 /* ---- 0x0046f4c0  rdRaster_Span16_TexZw_11 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* WARNING: Restarted to delay deadcode elimination for space: stack */
@@ -46971,7 +46971,7 @@ LAB_0046fdb4:
 
 
 /* ---- 0x0046fe20  rdRaster_Span16_TexLitZw_31 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* WARNING: Restarted to delay deadcode elimination for space: stack */
@@ -47255,7 +47255,7 @@ LAB_00470714:
 
 
 /* ---- 0x00470780  rdRaster_Span16_TexZw_12 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* WARNING: Restarted to delay deadcode elimination for space: stack */
@@ -47539,7 +47539,7 @@ LAB_00471074:
 
 
 /* ---- 0x004710e0  rdRaster_Span16_TexZw_13 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* WARNING: Restarted to delay deadcode elimination for space: stack */
