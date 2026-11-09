@@ -87,7 +87,7 @@ function:
 | Program | functions (without thunks) | assembled |
 |---|---|---|
 | GRIMFANDANGO.EXE | 2604 | 14: `_ftol`, `__chkstk`, 11 SEH filter / unwind funclets and one dead loop tail (docs/ASM_REMAINING.md, docs/ASM_REMAINING_logic.md); the software rasteriser is C since round q (2026-11-09) |
-| LUA.DLL | 850 | 10 (VM core and C++ unwind funclets, docs/ASM_REMAINING_logic.md) |
+| LUA.DLL | 850 | 7 (C++ unwind funclets, docs/ASM_REMAINING_logic.md) |
 | IMUSE.DLL | 434 | 4 (docs/ASM_REMAINING_imuse.md) |
 | CHORE.DLL | 264 | 0 |
 

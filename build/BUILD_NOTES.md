@@ -956,3 +956,11 @@ Root causes fixed at the source (Ghidra, then `tools/export_changed.py`)
   ResRef_Remove <- ModelComponent_Destroy <- Engine_LoadGame in one report, inside a system DLL under Surface_Unlock
   (load progress bar) in the other. The 84 "differences" of such a run are its after-effects (the run restarts at
   save_load without the earlier state). Not caused by this round's functions (none on either stack); cause unknown.
+
+## LUA.DLL VM core in C (2026-11-09, lead)
+
+* lua_updatetasks, luaD_protectedrun, luaD_protectedparser are C (build/overrides_lua_core.c, docs/notes/lua_core.md):
+  the same `_setjmp3(buf, 0)` / msvcrt `longjmp` as the original, volatile locals across the longjmp. Differential test
+  build/difftest/lua_core (1,000,000 random scheduler / protected-call cases with nested calls and raised errors,
+  0 differences; 12 of 12 mutations caught); clean-room tests 5107 of 5107. Assembled now: LUA.DLL 7 (the C++ unwind
+  funclets), EXE 14, IMUSE.DLL 4, CHORE.DLL 0.

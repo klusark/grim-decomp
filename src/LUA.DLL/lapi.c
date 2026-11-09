@@ -959,7 +959,7 @@ undefined4 __cdecl lua_unpausetasks(void)
 }
 
 /* ---- 0x10001e10  lua_updatetasks ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 int __cdecl lua_updatetasks(int param_1)
 

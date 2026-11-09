@@ -465,7 +465,7 @@ void __cdecl luaD_message(byte *param_1)
 
 
 /* ---- 0x100046e0  luaD_protectedrun ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* setjmp-protected call (do_protectedrun) */
 
@@ -593,7 +593,7 @@ int __cdecl luaD_domain(int *param_1,int param_2)
 }
 
 /* ---- 0x10004a50  luaD_protectedparser ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/LUA.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* ldo.c: runs luaU_undump1 or luaY_parser on the open ZIO */
 
