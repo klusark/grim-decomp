@@ -572,7 +572,7 @@ LAB_0040b8c4:
 
 
 /* ---- 0x0040b8e0  rdModel3_LoadBinary ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Reader of the binary 'MODL' model format (materials, geometry sets, meshes, hierarchy nodes).
    Source file Rdmodel3.c (C:\grimjedi\Libs\RDroid\Primitives\Rdmodel3.c). */

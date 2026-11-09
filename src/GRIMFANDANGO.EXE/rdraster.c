@@ -1174,7 +1174,7 @@ void rdRaster_Select_FlatLit(float *param_1,int param_2)
 
 
 /* ---- 0x00410330  FUN_00410330 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 void FUN_00410330(int param_1)
 
@@ -1401,7 +1401,7 @@ void rdRaster_Select_FlatLit_2(int *param_1,int param_2)
 
 
 /* ---- 0x00410970  FUN_00410970 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -1850,7 +1850,7 @@ void rdRaster_Select_FlatLit_4(int *param_1,int param_2,float param_3)
 
 
 /* ---- 0x00411740  FUN_00411740 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -2327,7 +2327,7 @@ void rdRaster_Select_FlatLit_6(int *param_1,int param_2)
 
 
 /* ---- 0x004125c0  FUN_004125c0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -2836,7 +2836,7 @@ void rdRaster_Select_FlatLit_8(int *param_1,int param_2)
 
 
 /* ---- 0x00413590  FUN_00413590 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -3608,7 +3608,7 @@ void rdRaster_Select_FlatLit_10(int *param_1,int param_2,float param_3)
 
 
 /* ---- 0x00414d20  FUN_00414d20 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -4418,7 +4418,7 @@ void rdRaster_Select_FlatLit_12(int *param_1,int param_2)
 
 
 /* ---- 0x00416580  FUN_00416580 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 

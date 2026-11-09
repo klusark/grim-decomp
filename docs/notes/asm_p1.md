@@ -112,6 +112,12 @@ the exclusion is by name.  The renderer fix may want to look at them together wi
 
 ## Open questions
 
-* The uninitialised stack read behind the FUN_00410330 shot difference (above).
+* The uninitialised stack read behind the FUN_00410330 shot difference (above). **Gone after the merge onto a09980a**
+  (rdPrimit3_ClipFace reads the clipped vertex count from EAX): 2026-11-09, libcheck twice each with FUN_00410330 as C and
+  as the original machine code (`variant.sh`, the asm kept for that one function): idle, walk and set00-set04 identical
+  between the two builds; the only differences are between two runs of the same build (timing noise in idle / walk /
+  set04). This branch was made before a09980a, whose old C read an empty ST(0) and left the x87 stack one entry off.
+  The figure in set01 (ha.set) still renders as a black silhouette in both builds; whether the original does the same
+  has not been checked.
 * rdModel3_LoadBinary: a face with a uv list (+0x1c != 0) but no vertex list (+0x14 == 0) allocates and reads 0 bytes
   for the uv list; the original does the same.

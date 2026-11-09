@@ -6,7 +6,7 @@
 #include "functions.h"
 
 /* ---- 0x00409580  rdModel_ComputeMeshLighting ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Rdcamera.c: picks the light level of a mesh from the current geometry/lighting/texture modes
    (gouraud, flat, per-vertex) and hands it to the mesh draw callback at +0x14 */
@@ -440,7 +440,7 @@ void rdModel_DrawNode(int param_1)
 }
 
 /* ---- 0x0040d230  rdModel_DrawMesh ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 

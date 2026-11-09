@@ -516,7 +516,7 @@ switchD_0040dec1_default:
 
 
 /* ---- 0x0040e500  rdPrimit3_CopyFaceVerts ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Copies the face's vertex attributes (position, uv, intensity) into the cache pools without
    clipping */

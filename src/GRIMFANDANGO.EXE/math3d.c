@@ -179,7 +179,7 @@ void __cdecl Matrix_GetAngles(float *matrix,float *outAngles)
 }
 
 /* ---- 0x0044e7d0  Frustum_TestSphere ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 uint Frustum_TestSphere(int *param_1,float *param_2,float param_3)
 
@@ -283,7 +283,7 @@ uint Frustum_TestSphere(int *param_1,float *param_2,float param_3)
 
 
 /* ---- 0x0044ea50  Polygon_ClipToPlane ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 uint Polygon_ClipToPlane(float *param_1,float *param_2,float *param_3,undefined4 *param_4,
                         float *param_5,uint *param_6)
@@ -464,7 +464,7 @@ LAB_0044ed90:
 
 
 /* ---- 0x0044eeb0  Angles_ToMatrix ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 void Angles_ToMatrix(float *param_1,undefined4 *param_2,float *param_3)
 
@@ -527,7 +527,7 @@ void __cdecl Matrix_Transpose(float *out,float *m)
 }
 
 /* ---- 0x0044f080  Angles_ToMatrixNoPos ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 void Angles_ToMatrixNoPos(float *param_1,undefined4 *param_2)
 
@@ -606,7 +606,7 @@ void Matrix_BuildTranslation2(undefined4 *param_1,undefined4 *param_2)
 }
 
 /* ---- 0x0044f210  Matrix_AxisAngle ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 void Matrix_AxisAngle(float *param_1,float *param_2,float param_3)
 
