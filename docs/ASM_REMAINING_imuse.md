@@ -5,11 +5,6 @@
 | | functions |
 |---|---|
 | assembled before | 243 |
-| assembled now | 4 |
+| assembled now | 0 |
 
-| address | name | module | reason |
-|---|---|---|---|
-| 10006560 | `FUN_10006560` | imuse.c | script layer (state transition): calls FUN_100068b0 with 3 pushed arguments; the callee reads five more words from the caller's stack frame (return address, the caller's own argument, words of the MSVC-compiled dispatcher FUN_10006070). The decompiler shows them as unaff_retaddr / in_stack_*; their values depend on the stack layout of the original machine code |
-| 10006620 | `FUN_10006620` | imuse.c | script layer (sequence transition): same as FUN_10006560 (three calls of FUN_100068b0 with 3 pushed arguments) |
-| 100068b0 | `FUN_100068b0` | imuse.c | script layer (the transition itself, 8 declared parameters, only 3 pushed by its callers): parameters 4..8 are stack garbage of the callers (observed in the original at run time: 1, 0x11, a return address inside IMUSE.DLL, the state id, 0xc0c01d); they feed the fade time and the hook values of ImSwitchStream / ImSetHook |
-| 1000bae0 | `hmi__bae0` | hmi.c | MSVC _ftol: the float comes in ST0, the 64-bit result goes out in EDX:EAX; no C equivalent. No caller is left (Im_MixerInit is hand-written C in build/overrides_imuse.c) |
+Nothing of IMUSE.DLL is assembled any more. The last four (agent r1, `docs/notes/imuse_r1.md`): `FUN_10006560` / `FUN_10006620` / `FUN_100068b0` (script layer: music state / sequence transitions) are hand-written C in `build/overrides_imuse_r1.c`. `FUN_100068b0` reads only its 3 pushed arguments (its "parameters 4..8" were the decompiler's misreading of MSVC's deferred pops); the stack words of its callers' frames are read by `ImSetTrigger` (its 13th argument word), and the C passes the values the original has there explicitly. `hmi__bae0` (MSVC `_ftol`, no caller and no data reference left) is dead code: `names/lib_replace.json` IMUSE.DLL dead.

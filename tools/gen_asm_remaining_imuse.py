@@ -7,6 +7,7 @@ import glob, json, os, re
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 reasons = json.load(open(os.path.join(ROOT, "names", "imuse_asm_reasons.json")))
 before = reasons.pop("_before", 243)
+done = reasons.pop("_done", None)
 names = {f["address"]: f["name"] for f in json.load(open(os.path.join(ROOT, "raw", "IMUSE.DLL", "functions.json")))}
 module = {}
 for p in glob.glob(os.path.join(ROOT, "src", "IMUSE.DLL", "*.c")):
@@ -19,6 +20,8 @@ out = ["# IMUSE.DLL functions that are still assembled (agent N)", "",
        "`names/imuse_asm_reasons.json`.", "",
        "| | functions |", "|---|---|", "| assembled before | %d |" % before, "| assembled now | %d |" % len(asm), "",
        "| address | name | module | reason |", "|---|---|---|---|"]
+if not asm and done:                     # nothing left: the note of names/imuse_asm_reasons.json['_done'] instead of the table
+    out[-2:] = [done]
 for a in asm:
     out.append("| %s | `%s` | %s | %s |" % (a, names.get(a, "?"), module.get(a, "?"), reasons.get(a, "NO REASON RECORDED")))
 open(os.path.join(ROOT, "docs", "ASM_REMAINING_imuse.md"), "w", newline="\n").write("\n".join(out) + "\n")
