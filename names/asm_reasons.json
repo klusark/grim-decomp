@@ -14,5 +14,6 @@
  "00495730": "Costume_UpdateAll: dt * 1000 converted to unsigned through _ftol and a double bias constant",
  "0040a280": "rdCamera_BuildProjection: camera struct typed int * while its fields are floats (needs a struct type, which raw/ cannot express)",
  "0047bd20": "Math_SinCosTable: float -> int conversions through _ftol of table indices",
- "0047c120": "Math_SinDeg: float -> int conversion through _ftol of the table index"
+ "0047c120": "Math_SinDeg: float -> int conversion through _ftol of the table index",
+ "0042003c": "not a function: the dead loop tail of rdRaster_Span_Tex_5 (C since round o1); it runs on that function's registers and stack frame, its jump back is a ud2 and nothing calls it (docs/notes/asm_q6.md)"
 }

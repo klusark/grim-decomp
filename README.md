@@ -70,11 +70,13 @@ make -C build link                                                 # link all fo
 
 All four programs compile and link; the link uses the real section contents dumped from Ghidra
 (`tools/export_data.py`, `build/gendata.py`: labels at the original offsets, relocations for every pointer into the
-image) and the real Win32/DirectX import libraries (`build/stdcall_names.json`). 271 of the EXE's 2604 functions
-(243 of them the software rasteriser), 10 of LUA.DLL and 4 of IMUSE.DLL are still built from the *original machine
-code* re-emitted from Ghidra's disassembly
-(`tools/gen_asm.py`, `src/<prog>/asm_funcs.s`) because Ghidra's C is wrong about x87 results, register calling
-conventions and lost arguments in those places; the rest is compiled C. The result is playable. What is still stubbed:
+image) and the real Win32/DirectX import libraries (`build/stdcall_names.json`). 14 of the EXE's 2604 functions
+(`_ftol`, `__chkstk`, exception-handling funclets that run on their parent's frame, and one dead loop tail), 10 of
+LUA.DLL and 4 of IMUSE.DLL are still built from the *original machine code* re-emitted from Ghidra's disassembly
+(`tools/gen_asm.py`, `src/<prog>/asm_funcs.s`); everything else, the software rasteriser included, is compiled C (much of
+it hand-written in `build/overrides*.c` where Ghidra's C is wrong about x87 results, register calling conventions and
+lost arguments), verified against the original machine code by differential tests and the clean-room tests
+(`grim_tools/cleanroom`, `run.py decomp`: all 5107 the same as the original). The result is playable. What is still stubbed:
 11 MSVC runtime helpers (the host runtime replaces them) in the EXE.
 
 ## What the binary tells us about the original source

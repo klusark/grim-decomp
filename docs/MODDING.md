@@ -86,14 +86,15 @@ function:
 
 | Program | functions (without thunks) | assembled |
 |---|---|---|
-| GRIMFANDANGO.EXE | 2604 | 811 (low half 0x401000-0x49ffff: 473, of which 372 are the software rasteriser; list and reasons in docs/ASM_REMAINING.md) |
-| LUA.DLL | 850 | 178 |
-| IMUSE.DLL | 434 | 282 |
-| CHORE.DLL | 264 | 258 |
+| GRIMFANDANGO.EXE | 2604 | 14: `_ftol`, `__chkstk`, 11 SEH filter / unwind funclets and one dead loop tail (docs/ASM_REMAINING.md, docs/ASM_REMAINING_logic.md); the software rasteriser is C since round q (2026-11-09) |
+| LUA.DLL | 850 | 10 (VM core and C++ unwind funclets, docs/ASM_REMAINING_logic.md) |
+| IMUSE.DLL | 434 | 4 (docs/ASM_REMAINING_imuse.md) |
+| CHORE.DLL | 264 | 0 |
 
 **How to tell which one a function is.** Open its C text: assembled functions carry the line
 `/* NOT COMPILED: the build uses the original machine code of this function (src/<PROG>/asm_funcs.s, ...) */`
-and functions replaced by hand carry `/* replaced by the hand-written version in build/overrides.c */`.
+and functions replaced by hand carry `/* replaced by the hand-written version in build/overrides.c */` (the actual file is one of
+`build/overrides*.c`).
 Everything else is compiled C. (`names/asm_funcs.json` holds the list per program.) Editing the `#if 0` text of
 either kind does nothing - and `src/` is regenerated anyway. Almost the whole Lua API (`lua.c`), the actor and walker
 modules, the renderer and the costume DLL are assembled; the set/sector, text and save code is C.
@@ -379,7 +380,7 @@ Names below are Ghidra names (see README for the naming conventions); `src/<PROG
 | **Module protocol** | `enginemodule.c`, `engine.c` (`Engine_RegisterSubsystems`/`InitSubsystems`/`ShutdownSubsystems`/`ResetSubsystems`), `sputactor.c`, `sputroom.c`, ... | Every `sput*` module fills a 0x20-byte interface: `[0]` Initialize, `[1]` Terminate, `[2]` Start (0 = ok), `[3]` Stop, `[4]` SaveState, `[5]` RestoreState. Functions are named `<Module>_Terminate/_Start/_Stop/_SaveState/_RestoreState`. |
 | **Resources, archives** | `lab.c`, `labdir.c`, `resfile.c`, `res.c`, `resource.c`, `restype.c`, `resref.c` | see 6. `restype.c`: one handler per FOURCC (`BKND COST CMAP SET FONT KEYF MAT MODL ZBUF SYNC MEM`), `ResType_*Handler`: op 1 load, 2 free, 3 size. |
 | **Lua VM and API** | `LUA.DLL` (`lvm`/`ldo`/`llex`/`lparser`/`lundump`/`lapi`/`lgc`..., Lua 3.1 + tasks), EXE `lua.c` (the `Lua_*` API, `Lua_InitGameLibs`), `sputlua.c` | asm: `lua.c`. See 7, 8. |
-| **Renderer** | `rdroid.c`, `rdcache.c` (batching, `rdCache_Flush`), `rdraster.c` (~340 software rasterizer variants `rdRaster_<Role><Bpp>_<Features>`, auto-named), `rdcanvas.c`, `rdclip.c`, `rdprimit3.c`, `rdmodel.c` (`rdModel_DrawMesh`), `rdmodel3.c` (`.3do` loader, `rdModel3_*`), `rdthing.c`, `rdpuppet.c` (animation tracks), `rdlight.c`, `rdmaterial.c`, `rdcolormap.c`, `render.c` (`Render_*` back buffer, progress bar), `sputrender.c`, `stddisplay.c`/`std3d.c` (DirectDraw/Direct3D, DIB) | the default display device is a windowed DIB with the **software** rasterizer (`Display_InitFromConfig` in `overrides.c`). asm: `rd*`, `render*`. |
+| **Renderer** | `rdroid.c`, `rdcache.c` (batching, `rdCache_Flush`), `rdraster.c` (~340 software rasterizer variants `rdRaster_<Role><Bpp>_<Features>`, auto-named), `rdcanvas.c`, `rdclip.c`, `rdprimit3.c`, `rdmodel.c` (`rdModel_DrawMesh`), `rdmodel3.c` (`.3do` loader, `rdModel3_*`), `rdthing.c`, `rdpuppet.c` (animation tracks), `rdlight.c`, `rdmaterial.c`, `rdcolormap.c`, `render.c` (`Render_*` back buffer, progress bar), `sputrender.c`, `stddisplay.c`/`std3d.c` (DirectDraw/Direct3D, DIB) | the default display device is a windowed DIB with the **software** rasterizer (`Display_InitFromConfig` in `overrides.c`). |
 | **Sets, setups, sectors, camera** | `set.c` (`Set_MakeCurrent`, `Set_SwitchSetup`, `Set_ApplySetupCamera`), `setup.c`, `sector.c` + `sputroom.c` (`SetFile_Parse*`: the text `.set` format: `section: setups / colormaps / lights / sectors`), `rdcamera.c` (`rdCamera_*` projection) | camera setups come from the set file (position, interest, roll, fov, nclip, fclip); Lua: `MakeCurrentSet`, `GetCameraPosition`, ... |
 | **Actors, costumes, chores** | `actor.c` (`Actor_*`; record 0xa8 bytes, `extra` 0x4a0 bytes with walk/turn rates and the walker), `actors.c`, `sputactor.c`; costumes and chores: **`CHORE.DLL`** (`Cos_*`, `src/CHORE.DLL/costume.c`) driven by `costume.c`, `sputcostume.c` and the tag handlers `*component.c` (`ModelComponent_*`, `MeshComponent_*`, `KeyframeComponent_*`, `SpriteComponent_*`, `ImuseSoundComponent_*`, `LuaVarComponent_*`) | a costume is a list of chores; a chore is a set of keyed tracks (`.cos` file). Lua: `PlayActorChore`, `SetActorCostume`, ... asm: `actor.c`, `walker.c`. |
 | **Walker and path planning** | `walker.c` (`Walker_*`: sector-constrained movement, turning, `Planner_*` path search over sectors), `actor.c` (`Actor_UpdateWalker`, `Actor_FollowPath`, `Actor_WalkForward`), `collision.c` | walk step = frame time x actor time scale x walk rate (extra+0x18); example mod a changes it. |

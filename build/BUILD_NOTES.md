@@ -917,3 +917,42 @@ Root causes fixed at the source (Ghidra, then `tools/export_changed.py`)
 * `rm -rf src` before `build_src.py` deletes `asm_funcs.s`, which only `gen_asm.py` (Ghidra) writes; the instructions at the
   top of this file and in the README now delete only the generated `.c` / `.h` / `.md` files.
 
+
+## Assembly to C, round q (2026-11-09: agents q1-q6, lead)
+
+* Six work streams, one override file and one notes file each (docs/notes/asm_q1.md ... asm_q6.md), differential
+  tests in build/difftest/asm_q1 ... asm_q6 against the original machine code sliced from the 2df265d assembly
+  (1,000,000 cases per function, 0 differences, mutation checks). Every merge on main was checked with the clean-room
+  tests (`grim_tools/cleanroom`, `run.py decomp`): 5107 of 5107 the same after each merge and at the end.
+  * q1 / q2: rdClip_Line2D and the ten rdClip_Face3_* frustum clippers (one shared plane pass each file).
+  * q3: rdPuppet_AdvanceTrack, rdPuppet_UpdateFrame, rdModel3_LoadText (now `(char *path, char *model)`, what the
+    caller passes; tested on the game's 10 text .3do files and mutations of them), rdCache_DrawMeshList3D.
+  * q4 / q5 / q6: the whole software rasteriser, as macro templates per feature flag (long double for x87 values,
+    volatile stores at the original's `fstp dword`, SSE4.1 `roundss` for the FLDCW floor/ceil conversions;
+    overrides_asm_q4.c and q5 are compiled with `#pragma GCC optimize("O2")` + target sse4.1, q6 at -O0).
+    q4: the z-buffered affine half (67, everything normal play calls); q5: the perspective half (108); q6: the
+    non-z-buffered renderer, points and wireframe (67).
+  * q6 also compiles the span section of overrides_asm_o2.c (rdRaster_Span16_TexLitZw*, the per-scanline fillers of
+    the main textured drivers) at -O2 with volatile float stores at the original rounding points: bit-exact
+    (23,000,000 cases; an in-game self-check of -O0 against -O2 over 34 million calls), libcheck 1.7 -> 1.0 ms/frame.
+    Together with q4 (2.23 -> 2.13 ms/frame) the software renderer is faster than the assembled build was.
+* Assembled now: EXE 14 (`_ftol`, `__chkstk`, the SEH filter / unwind funclets at 0x4d5e1c-0x4d6100 and
+  FUN_0042003c, the dead loop tail of rdRaster_Span_Tex_5), LUA.DLL 10, IMUSE.DLL 4, CHORE.DLL 0 (from EXE 271).
+* **peephole.py bug, fixed by the port:** the original perspective span fillers set the 24-bit truncating control word
+  at their start, and their first float -> int conversion restores the default one; peephole.py removed those
+  control-word loads, so until now the whole filler ran at 24 bits and the perspective divides differed from the
+  original in the low bits. The C follows the original. build/difftest/asm_q5/peephole_fix.py is a fix for
+  peephole.py itself; no assembled function needs it any more.
+* Original behaviour kept (notes per stream): 1-pixel spans drawn with leftover register / global values, `colour << 8`
+  table indexing in Span16_TexZ_5/_7 and Span16_Tex_13/_15. Not reproducible in C (the original reads stack slots it
+  never wrote; game data never reaches them): rdModel3_LoadText with material indices outside 0..0x7f,
+  rdCache_DrawMeshList3D's mip level / first vertex colour in two odd modes, Grad_Flat_2 / SetupPolyTex when the
+  vertex next to the top is the bottom.
+* Merging: each stream removes lines from names/asm_funcs.json and bodies from asm_funcs.s, so parallel branches
+  conflict there; resolve by taking main's file and applying the branch's removals
+  (`build/difftest/asm_p2/strip_asm.py <asm_funcs.s> <asm_funcs.s> <names>` and dropping the addresses from the json).
+* **Intermittent crash in the clean-room test save_load** (twice in about ten full runs, once under heavy machine
+  load; the rerun of the same binaries passed both times, and `--only save_load` passes): an access violation in
+  ResRef_Remove <- ModelComponent_Destroy <- Engine_LoadGame in one report, inside a system DLL under Surface_Unlock
+  (load progress bar) in the other. The 84 "differences" of such a run are its after-effects (the run restarts at
+  save_load without the earlier state). Not caused by this round's functions (none on either stack); cause unknown.
