@@ -101,7 +101,7 @@ undefined4 rdModel3_Load(int param_1,undefined4 param_2)
 
 
 /* ---- 0x0040aa20  rdModel3_LoadText ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Parser of the text .3do format (stdConffile 'section:' lines). Source file Rdmodel3.c
    (C:\grimjedi\Libs\RDroid\Primitives\Rdmodel3.c). */

@@ -267,7 +267,7 @@ int __cdecl rdCache_AddMesh(void *mesh,uint vertexCount,byte flags)
 
 
 /* ---- 0x00406aa0  rdCache_DrawMeshList3D ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Direct3D path: uploads the material textures (rdMaterial_EnsureTexture) and batches the cached

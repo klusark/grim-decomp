@@ -212,7 +212,7 @@ int __cdecl rdPuppet_FadeOutTrack(void *puppet,int track,float seconds)
 
 
 /* ---- 0x004507e0  rdPuppet_AdvanceTrack ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Advances the track time, handles fades and loops, stops finished tracks */
 
@@ -425,7 +425,7 @@ void rdPuppet_ClearTrackNodes(int param_1,int param_2)
 }
 
 /* ---- 0x00450ba0  rdPuppet_UpdateFrame ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_88 */
 
