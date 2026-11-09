@@ -111,7 +111,7 @@ int __cdecl sprintf(char *buf,char *fmt,...)
 
 
 /* ---- 0x004ac6f0  _ftol ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (host): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 longlong __cdecl _ftol(double x)
 

@@ -10440,7 +10440,7 @@ void rdRaster_Span_Tex_5(uint *param_1,uint *param_2)
 
 
 /* ---- 0x0042003c  FUN_0042003c ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 void __fastcall FUN_0042003c(int param_1,int param_2)
 
