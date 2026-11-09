@@ -1,0 +1,1 @@
+    int count = (int)(x - P1_U32(p + 0x1f4)) >> 16; |||     int count = (int)((x - P1_U32(p + 0x1f4)) >> 16);
