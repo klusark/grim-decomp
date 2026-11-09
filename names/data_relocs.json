@@ -33,5 +33,12 @@
    "004e7e24",
    "004e7e2c"
   ]
+ },
+ "IMUSE.DLL": {
+  "_comment": "0x100153c4: bytes 0c..0f of MSVC's printf class / state table __lookuptable (0x100153b8, read by _output FUN_1000c670 through 0x10015398 = table - 0x20 and 0x100153b8): the classes of ',' '-' '.' '/' (00 06 02 10) look like the .data address 0x10020600. The original relocates nothing in .rdata / .data here (agent s2, relocheck.py). In the rebuild _output is the host's vsprintf (build/overrides.c), so no code reads the table; the bytes stay the original's.",
+  "not_pointers": [
+   "100153c4"
+  ],
+  "pointers": []
  }
 }
