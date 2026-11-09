@@ -2367,7 +2367,7 @@
 | 004d60ba | FUN_004d60ba | crt_unnamed.c | 6 |
 | 004d60d0 | FUN_004d60d0 | crt_unnamed.c | 1 |
 | 004d60db | FUN_004d60db | crt_unnamed.c | 1 |
-| 004d60e9 | FUN_004d60e9 | crt_unnamed.c | 6 |
+| 004d60e9 | FUN_004d60e9 | crt_unnamed.c | 1 |
 | 004d6100 | FUN_004d6100 | crt_unnamed.c | 1 |
 | 004d610b | FUN_004d610b | crt_unnamed.c | 6 |
 | 004ad260 | Clock_ElapsedMs | clock.c | 16 |

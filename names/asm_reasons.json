@@ -15,5 +15,5 @@
  "0040a280": "rdCamera_BuildProjection: camera struct typed int * while its fields are floats (needs a struct type, which raw/ cannot express)",
  "0047bd20": "Math_SinCosTable: float -> int conversions through _ftol of table indices",
  "0047c120": "Math_SinDeg: float -> int conversion through _ftol of the table index",
- "0042003c": "not a function: the dead loop tail of rdRaster_Span_Tex_5 (C since round o1); it runs on that function's registers and stack frame, its jump back is a ud2 and nothing calls it (docs/notes/asm_q6.md)"
+ "0042003c": "no longer built (round r2): the dead loop tail of rdRaster_Span_Tex_5 (not a function; nothing calls it, its only reference was a false pointer that build/gendata.py made of two entries of the VIMA step table 0x004daa58); names/lib_replace.json \"dead\""
 }

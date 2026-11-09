@@ -138,7 +138,7 @@ void FUN_004ad2b0(void)
 
 
 /* ---- 0x004addf0  FUN_004addf0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Unable to track spacebase fully for stack */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -10482,7 +10482,7 @@ undefined * FUN_004d5de0(int a1)
 
 
 /* ---- 0x004d5e1c  FUN_004d5e1c ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 int FUN_004d5e1c(void)
 
@@ -10495,7 +10495,7 @@ int FUN_004d5e1c(void)
 
 
 /* ---- 0x004d5e30  FUN_004d5e30 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 undefined4 FUN_004d5e30(void)
 
@@ -10605,7 +10605,7 @@ FUN_004d5fd0(undefined4 param_1,undefined4 param_2,undefined4 *param_3,undefined
 
 
 /* ---- 0x004d6030  FUN_004d6030 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 void FUN_004d6030(void)
 
@@ -10627,7 +10627,7 @@ void FUN_004d6046(void)
 }
 
 /* ---- 0x004d6050  FUN_004d6050 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 void FUN_004d6050(void)
 
@@ -10649,7 +10649,7 @@ void FUN_004d605b(void)
 }
 
 /* ---- 0x004d6070  FUN_004d6070 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 void FUN_004d6070(void)
 
@@ -10671,7 +10671,7 @@ void FUN_004d607b(void)
 }
 
 /* ---- 0x004d6090  FUN_004d6090 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 void FUN_004d6090(void)
 
@@ -10685,7 +10685,7 @@ void FUN_004d6090(void)
 
 
 /* ---- 0x004d609e  FUN_004d609e ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 void FUN_004d609e(void)
 
@@ -10699,7 +10699,7 @@ void FUN_004d609e(void)
 
 
 /* ---- 0x004d60ac  FUN_004d60ac ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 void FUN_004d60ac(void)
 
@@ -10721,7 +10721,7 @@ void FUN_004d60ba(void)
 }
 
 /* ---- 0x004d60d0  FUN_004d60d0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 void FUN_004d60d0(void)
 
@@ -10735,7 +10735,7 @@ void FUN_004d60d0(void)
 
 
 /* ---- 0x004d60db  FUN_004d60db ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 void FUN_004d60db(void)
 
@@ -10749,15 +10749,19 @@ void FUN_004d60db(void)
 
 
 /* ---- 0x004d60e9  FUN_004d60e9 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void FUN_004d60e9(void)
 
 {
   ((code *)__CxxFrameHandler)();
   return;
 }
+#endif
+
 
 /* ---- 0x004d6100  FUN_004d6100 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/GRIMFANDANGO.EXE/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 void FUN_004d6100(void)
 
