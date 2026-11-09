@@ -1393,7 +1393,7 @@ extern undefined4 UINT_007f31f0; /* used by 1 fn(s), first 0x0040a8f0 */
 extern undefined4 UINT_007f31f4; /* used by 1 fn(s), first 0x0040c0d0 */
 extern undefined4 UINT_007f31f8; /* used by 2 fn(s), first 0x0040cf20 */
 extern undefined4 UINT_007f31fc; /* used by 2 fn(s), first 0x0040d230 */
-extern undefined DAT_007f3200; /* used by 2 fn(s), first 0x0040c8c0 */
+extern undefined DAT_007f3200; /* used by 1 fn(s), first 0x0040c970 */
 extern uint UINT_007f3204; /* used by 3 fn(s), first 0x0040a870 */
 extern undefined DAT_007f3208; /* used by 1 fn(s), first 0x0040d880 */
 extern undefined DAT_007f320c; /* used by 2 fn(s), first 0x0040a880 */
@@ -1865,7 +1865,7 @@ extern undefined4 UINT_008ca204; /* used by 2 fn(s), first 0x0048d790 */
 extern undefined4 UINT_008ca314; /* used by 2 fn(s), first 0x0048e2c0 */
 extern undefined DAT_008ca318; /* used by 2 fn(s), first 0x0048e2c0 */
 extern undefined DAT_008ca31c; /* used by 2 fn(s), first 0x0048e2c0 */
-extern undefined DAT_008ca320; /* used by 2 fn(s), first 0x004917e0 */
+extern undefined DAT_008ca320; /* used by 4 fn(s), first 0x004917e0 */
 extern undefined DAT_008ca324; /* used by 3 fn(s), first 0x00492680 */
 extern undefined DAT_008ca328; /* used by 3 fn(s), first 0x00492680 */
 extern uint UINT_008ca32c; /* used by 11 fn(s), first 0x0048e2c0 */
@@ -2339,25 +2339,25 @@ extern undefined4 UINT_008dde2c; /* used by 1 fn(s), first 0x00401950 */
 extern uint UINT_008dde40; /* used by 42 fn(s), first 0x00452150 */
 extern undefined4 UINT_008dde44; /* used by 30 fn(s), first 0x0042e820 */
 extern undefined4 UINT_008dde48; /* used by 78 fn(s), first 0x00430a20 */
-extern undefined DAT_008dde4c; /* used by 57 fn(s), first 0x00437e10 */
+extern undefined DAT_008dde4c; /* used by 12 fn(s), first 0x00437e10 */
 extern undefined4 UINT_008dde50; /* used by 94 fn(s), first 0x0042d190 */
 extern undefined4 UINT_008dde54; /* used by 118 fn(s), first 0x0042d190 */
 extern undefined4 UINT_008dde58; /* used by 116 fn(s), first 0x00430a20 */
 extern undefined4 UINT_008dde5c; /* used by 100 fn(s), first 0x0042e820 */
 extern undefined DAT_008dde60; /* used by 61 fn(s), first 0x0042d5f0 */
-extern undefined DAT_008dde64; /* used by 4 fn(s), first 0x0042d5f0 */
+extern undefined DAT_008dde64; /* used by 1 fn(s), first 0x0042d5f0 */
 extern undefined4 UINT_008dde68; /* used by 6 fn(s), first 0x00430a20 */
 extern undefined4 UINT_008dde6c; /* used by 36 fn(s), first 0x0042fa10 */
 extern undefined2 DAT_008dde70; /* used by 9 fn(s), first 0x0042dba0 */
-extern undefined DAT_008dde74; /* used by 57 fn(s), first 0x00437e10 */
+extern undefined DAT_008dde74; /* used by 12 fn(s), first 0x00437e10 */
 extern undefined4 UINT_008dde78; /* used by 94 fn(s), first 0x0042d190 */
 extern undefined4 UINT_008dde7c; /* used by 116 fn(s), first 0x00430a20 */
 extern undefined DAT_008dde80; /* used by 61 fn(s), first 0x0042d5f0 */
-extern undefined DAT_008dde84; /* used by 4 fn(s), first 0x0042d5f0 */
+extern undefined DAT_008dde84; /* used by 1 fn(s), first 0x0042d5f0 */
 extern undefined4 UINT_008dde88; /* used by 46 fn(s), first 0x0042d5f0 */
 extern undefined4 UINT_008dde8c; /* used by 78 fn(s), first 0x00430a20 */
 extern undefined4 UINT_008dde90; /* used by 45 fn(s), first 0x0042e820 */
-extern undefined DAT_008dde94; /* used by 57 fn(s), first 0x00437e10 */
+extern undefined DAT_008dde94; /* used by 12 fn(s), first 0x00437e10 */
 extern undefined DAT_008dde98; /* used by 18 fn(s), first 0x0042dba0 */
 extern undefined DAT_008dde9c; /* used by 4 fn(s), first 0x0042d5f0 */
 extern undefined DAT_008ddea0; /* used by 61 fn(s), first 0x0042d5f0 */
@@ -2372,19 +2372,19 @@ extern undefined1 DAT_008ddec0; /* used by 16 fn(s), first 0x00418fe0 */
 extern undefined DAT_008ddec4; /* used by 4 fn(s), first 0x00418a00 */
 extern undefined DAT_008ddec8; /* used by 37 fn(s), first 0x00418a00 */
 extern undefined4 UINT_008ddecc; /* used by 68 fn(s), first 0x0041b310 */
-extern undefined DAT_008dded0; /* used by 33 fn(s), first 0x00421120 */
+extern undefined DAT_008dded0; /* used by 12 fn(s), first 0x00421120 */
 extern undefined4 UINT_008dded4; /* used by 30 fn(s), first 0x00419a00 */
 extern undefined4 UINT_008dded8; /* used by 68 fn(s), first 0x0041b310 */
-extern undefined DAT_008ddedc; /* used by 37 fn(s), first 0x00418a00 */
+extern undefined DAT_008ddedc; /* used by 1 fn(s), first 0x00418a00 */
 extern undefined DAT_008ddee0; /* used by 4 fn(s), first 0x00418a00 */
 extern undefined4 UINT_008ddee4; /* used by 69 fn(s), first 0x00418550 */
 extern int UINT_008ddee8; /* used by 68 fn(s), first 0x0041b310 */
-extern undefined DAT_008ddeec; /* used by 33 fn(s), first 0x00421120 */
+extern undefined DAT_008ddeec; /* used by 12 fn(s), first 0x00421120 */
 extern undefined DAT_008ddef0; /* used by 4 fn(s), first 0x00418a00 */
 extern undefined DAT_008ddef4; /* used by 37 fn(s), first 0x00418a00 */
 extern undefined4 UINT_008ddef8; /* used by 45 fn(s), first 0x00418550 */
 extern undefined4 UINT_008ddefc; /* used by 68 fn(s), first 0x0041b310 */
-extern undefined DAT_008ddf00; /* used by 33 fn(s), first 0x00421120 */
+extern undefined DAT_008ddf00; /* used by 12 fn(s), first 0x00421120 */
 extern undefined4 UINT_008ddf04; /* used by 39 fn(s), first 0x00410970 */
 extern undefined2 DAT_008ddf08; /* used by 3 fn(s), first 0x0040f650 */
 extern undefined4 UINT_008ddf0c; /* used by 13 fn(s), first 0x00410330 */
@@ -2783,8 +2783,6 @@ extern undefined4 in_stack_ffffffe8; /* used by 2 fn(s), first 0x0040dc30 */
 #define _DAT_004ddb70 (*(undefined4 *)&DAT_004ddb70) /* same address as DAT_004ddb70, other width */
 #define _DAT_004ddb74 (*(undefined4 *)&DAT_004ddb74) /* same address as DAT_004ddb74, other width */
 #define _DAT_004ddb78 (*(undefined4 *)&DAT_004ddb78) /* same address as DAT_004ddb78, other width */
-#define _DAT_004dea44 (*(float *)&DAT_004dea44) /* same address as DAT_004dea44, other width */
-#define _DAT_004dea48 (*(undefined4 *)&DAT_004dea48) /* same address as DAT_004dea48, other width */
 #define _DAT_004dee54 (*(int *)&DAT_004dee54) /* same address as DAT_004dee54, other width */
 #define _DAT_004ed534 (*(undefined4 *)&DAT_004ed534) /* same address as DAT_004ed534, other width */
 #define _DAT_004efba0 (*(undefined4 *)&DAT_004efba0) /* same address as DAT_004efba0, other width */
@@ -2821,68 +2819,16 @@ extern undefined4 in_stack_ffffffe8; /* used by 2 fn(s), first 0x0040dc30 */
 #define _DAT_007f3208 (*(undefined4 *)&DAT_007f3208) /* same address as DAT_007f3208, other width */
 #define _DAT_007f320c (*(undefined4 *)&DAT_007f320c) /* same address as DAT_007f320c, other width */
 #define _DAT_007f3210 (*(undefined4 *)&DAT_007f3210) /* same address as DAT_007f3210, other width */
-#define _DAT_007f4240 (*(undefined4 *)&DAT_007f4240) /* same address as DAT_007f4240, other width */
 #define _DAT_007f4248 (*(undefined4 *)&DAT_007f4248) /* same address as DAT_007f4248, other width */
-#define _DAT_007f4258 (*(undefined4 *)&DAT_007f4258) /* same address as DAT_007f4258, other width */
-#define _DAT_007f42e0 (*(float *)&DAT_007f42e0) /* same address as DAT_007f42e0, other width */
-#define _DAT_007f42e4 (*(undefined4 *)&DAT_007f42e4) /* same address as DAT_007f42e4, other width */
-#define _DAT_007f42f0 (*(undefined4 *)&DAT_007f42f0) /* same address as DAT_007f42f0, other width */
-#define _DAT_007f42f4 (*(float *)&DAT_007f42f4) /* same address as DAT_007f42f4, other width */
-#define _DAT_007f43a0 (*(float *)&DAT_007f43a0) /* same address as DAT_007f43a0, other width */
 #define _DAT_007f43a4 (*(float *)&DAT_007f43a4) /* same address as DAT_007f43a4, other width */
-#define _DAT_007f43c0 (*(float *)&DAT_007f43c0) /* same address as DAT_007f43c0, other width */
-#define _DAT_007f43c4 (*(float *)&DAT_007f43c4) /* same address as DAT_007f43c4, other width */
-#define _DAT_007f4448 (*(undefined4 *)&DAT_007f4448) /* same address as DAT_007f4448, other width */
 #define _DAT_007f444c (*(undefined4 *)&DAT_007f444c) /* same address as DAT_007f444c, other width */
-#define _DAT_007f4ac8 (*(undefined4 *)&DAT_007f4ac8) /* same address as DAT_007f4ac8, other width */
 #define _DAT_007f4ad4 (*(undefined4 *)&DAT_007f4ad4) /* same address as DAT_007f4ad4, other width */
-#define _DAT_007f4ae4 (*(undefined4 *)&DAT_007f4ae4) /* same address as DAT_007f4ae4, other width */
-#define _DAT_007f4aec (*(float *)&DAT_007f4aec) /* same address as DAT_007f4aec, other width */
-#define _DAT_007f4af0 (*(undefined4 *)&DAT_007f4af0) /* same address as DAT_007f4af0, other width */
-#define _DAT_007f4af4 (*(undefined4 *)&DAT_007f4af4) /* same address as DAT_007f4af4, other width */
-#define _DAT_007f4af8 (*(float *)&DAT_007f4af8) /* same address as DAT_007f4af8, other width */
-#define _DAT_007f4b34 (*(float *)&DAT_007f4b34) /* same address as DAT_007f4b34, other width */
 #define _DAT_007f4b38 (*(float *)&DAT_007f4b38) /* same address as DAT_007f4b38, other width */
-#define _DAT_007f4b58 (*(float *)&DAT_007f4b58) /* same address as DAT_007f4b58, other width */
-#define _DAT_007f4b5c (*(float *)&DAT_007f4b5c) /* same address as DAT_007f4b5c, other width */
-#define _DAT_007f4b60 (*(undefined4 *)&DAT_007f4b60) /* same address as DAT_007f4b60, other width */
 #define _DAT_007f4b64 (*(undefined4 *)&DAT_007f4b64) /* same address as DAT_007f4b64, other width */
-#define _DAT_007f4e80 (*(undefined4 *)&DAT_007f4e80) /* same address as DAT_007f4e80, other width */
-#define _DAT_007f4e84 (*(undefined4 *)&DAT_007f4e84) /* same address as DAT_007f4e84, other width */
-#define _DAT_007f4e88 (*(undefined4 *)&DAT_007f4e88) /* same address as DAT_007f4e88, other width */
-#define _DAT_007f4e8c (*(undefined4 *)&DAT_007f4e8c) /* same address as DAT_007f4e8c, other width */
-#define _DAT_007f4e90 (*(undefined4 *)&DAT_007f4e90) /* same address as DAT_007f4e90, other width */
-#define _DAT_007f4e94 (*(undefined4 *)&DAT_007f4e94) /* same address as DAT_007f4e94, other width */
-#define _DAT_007f4e98 (*(undefined4 *)&DAT_007f4e98) /* same address as DAT_007f4e98, other width */
-#define _DAT_007f4e9c (*(undefined4 *)&DAT_007f4e9c) /* same address as DAT_007f4e9c, other width */
-#define _DAT_007f4ea0 (*(undefined4 *)&DAT_007f4ea0) /* same address as DAT_007f4ea0, other width */
-#define _DAT_007f4ea4 (*(undefined4 *)&DAT_007f4ea4) /* same address as DAT_007f4ea4, other width */
-#define _DAT_007f4ea8 (*(undefined4 *)&DAT_007f4ea8) /* same address as DAT_007f4ea8, other width */
-#define _DAT_007f4eac (*(undefined4 *)&DAT_007f4eac) /* same address as DAT_007f4eac, other width */
-#define _DAT_007f5000 (*(undefined4 *)&DAT_007f5000) /* same address as DAT_007f5000, other width */
 #define _DAT_007f5004 (*(undefined4 *)&DAT_007f5004) /* same address as DAT_007f5004, other width */
-#define _DAT_007f5008 (*(undefined4 *)&DAT_007f5008) /* same address as DAT_007f5008, other width */
-#define _DAT_007f500c (*(undefined4 *)&DAT_007f500c) /* same address as DAT_007f500c, other width */
 #define _DAT_007f5010 (*(undefined4 *)&DAT_007f5010) /* same address as DAT_007f5010, other width */
-#define _DAT_007f5014 (*(undefined4 *)&DAT_007f5014) /* same address as DAT_007f5014, other width */
-#define _DAT_007f5018 (*(undefined4 *)&DAT_007f5018) /* same address as DAT_007f5018, other width */
 #define _DAT_007f501c (*(undefined4 *)&DAT_007f501c) /* same address as DAT_007f501c, other width */
-#define _DAT_007f5020 (*(undefined4 *)&DAT_007f5020) /* same address as DAT_007f5020, other width */
-#define _DAT_007f5024 (*(undefined4 *)&DAT_007f5024) /* same address as DAT_007f5024, other width */
 #define _DAT_007f5028 (*(undefined4 *)&DAT_007f5028) /* same address as DAT_007f5028, other width */
-#define _DAT_007f502c (*(undefined4 *)&DAT_007f502c) /* same address as DAT_007f502c, other width */
-#define _DAT_007f5f08 (*(undefined4 *)&DAT_007f5f08) /* same address as DAT_007f5f08, other width */
-#define _DAT_007f5f0c (*(undefined4 *)&DAT_007f5f0c) /* same address as DAT_007f5f0c, other width */
-#define _DAT_007f5f10 (*(undefined4 *)&DAT_007f5f10) /* same address as DAT_007f5f10, other width */
-#define _DAT_007f5f14 (*(undefined4 *)&DAT_007f5f14) /* same address as DAT_007f5f14, other width */
-#define _DAT_007f5f18 (*(undefined4 *)&DAT_007f5f18) /* same address as DAT_007f5f18, other width */
-#define _DAT_007f5f1c (*(undefined4 *)&DAT_007f5f1c) /* same address as DAT_007f5f1c, other width */
-#define _DAT_007f5f20 (*(undefined4 *)&DAT_007f5f20) /* same address as DAT_007f5f20, other width */
-#define _DAT_007f5f24 (*(undefined4 *)&DAT_007f5f24) /* same address as DAT_007f5f24, other width */
-#define _DAT_007f5f28 (*(undefined4 *)&DAT_007f5f28) /* same address as DAT_007f5f28, other width */
-#define _DAT_007f5f2c (*(undefined4 *)&DAT_007f5f2c) /* same address as DAT_007f5f2c, other width */
-#define _DAT_007f5f30 (*(undefined4 *)&DAT_007f5f30) /* same address as DAT_007f5f30, other width */
-#define _DAT_007f5f34 (*(undefined4 *)&DAT_007f5f34) /* same address as DAT_007f5f34, other width */
 #define _DAT_007f6490 (*(undefined4 *)&DAT_007f6490) /* same address as DAT_007f6490, other width */
 #define _DAT_007feac8 (*(undefined4 *)&DAT_007feac8) /* same address as DAT_007feac8, other width */
 #define _DAT_007feacc (*(undefined4 *)&DAT_007feacc) /* same address as DAT_007feacc, other width */
@@ -2939,19 +2885,12 @@ extern undefined4 in_stack_ffffffe8; /* used by 2 fn(s), first 0x0040dc30 */
 #define _DAT_008ca1f8 (*(undefined4 *)&DAT_008ca1f8) /* same address as DAT_008ca1f8, other width */
 #define _DAT_008ca318 (*(undefined4 *)&DAT_008ca318) /* same address as DAT_008ca318, other width */
 #define _DAT_008ca31c (*(undefined4 *)&DAT_008ca31c) /* same address as DAT_008ca31c, other width */
-#define _DAT_008ca320 (*(undefined4 *)&DAT_008ca320) /* same address as DAT_008ca320, other width */
-#define _DAT_008ca324 (*(undefined4 *)&DAT_008ca324) /* same address as DAT_008ca324, other width */
-#define _DAT_008ca328 (*(undefined4 *)&DAT_008ca328) /* same address as DAT_008ca328, other width */
-#define _DAT_008ca338 (*(undefined4 *)&DAT_008ca338) /* same address as DAT_008ca338, other width */
 #define _DAT_008ca33c (*(undefined4 *)&DAT_008ca33c) /* same address as DAT_008ca33c, other width */
 #define _DAT_008ca340 (*(undefined4 *)&DAT_008ca340) /* same address as DAT_008ca340, other width */
-#define _DAT_008ca348 (*(undefined4 *)&DAT_008ca348) /* same address as DAT_008ca348, other width */
 #define _DAT_008ca34c (*(undefined4 *)&DAT_008ca34c) /* same address as DAT_008ca34c, other width */
 #define _DAT_008ca350 (*(undefined4 *)&DAT_008ca350) /* same address as DAT_008ca350, other width */
 #define _DAT_008ca7b4 (*(void * *)&DAT_008ca7b4) /* same address as DAT_008ca7b4, other width */
 #define _DAT_008cab94 (*(undefined4 *)&DAT_008cab94) /* same address as DAT_008cab94, other width */
-#define _DAT_008cf264 (*(float *)&DAT_008cf264) /* same address as DAT_008cf264, other width */
-#define _DAT_008cf268 (*(float *)&DAT_008cf268) /* same address as DAT_008cf268, other width */
 #define _DAT_008cf284 (*(undefined4 *)&DAT_008cf284) /* same address as DAT_008cf284, other width */
 #define _DAT_008d098c (*(GrimServices * *)&DAT_008d098c) /* same address as DAT_008d098c, other width */
 #define _DAT_008d09e0 (*(int *)&DAT_008d09e0) /* same address as DAT_008d09e0, other width */
@@ -3000,7 +2939,6 @@ extern undefined4 in_stack_ffffffe8; /* used by 2 fn(s), first 0x0040dc30 */
 #define _DAT_008da86c (*(undefined4 *)&DAT_008da86c) /* same address as DAT_008da86c, other width */
 #define _DAT_008da888 (*(undefined4 *)&DAT_008da888) /* same address as DAT_008da888, other width */
 #define _DAT_008db1e8 (*(undefined4 *)&DAT_008db1e8) /* same address as DAT_008db1e8, other width */
-#define _DAT_008db200 (*(undefined4 *)&DAT_008db200) /* same address as DAT_008db200, other width */
 #define _DAT_008db20c (*(undefined4 *)&DAT_008db20c) /* same address as DAT_008db20c, other width */
 #define _DAT_008db214 (*(undefined4 *)&DAT_008db214) /* same address as DAT_008db214, other width */
 #define _DAT_008db218 (*(undefined4 *)&DAT_008db218) /* same address as DAT_008db218, other width */
@@ -3062,12 +3000,6 @@ extern undefined4 in_stack_ffffffe8; /* used by 2 fn(s), first 0x0040dc30 */
 #define _DAT_00900560 (*(undefined4 *)&DAT_00900560) /* same address as DAT_00900560, other width */
 #define _DAT_00900564 (*(undefined4 *)&DAT_00900564) /* same address as DAT_00900564, other width */
 #define _DAT_00900568 (*(undefined4 *)&DAT_00900568) /* same address as DAT_00900568, other width */
-#define _DAT_009005a0 (*(undefined4 *)&DAT_009005a0) /* same address as DAT_009005a0, other width */
-#define _DAT_009005a4 (*(undefined4 *)&DAT_009005a4) /* same address as DAT_009005a4, other width */
-#define _DAT_009005c0 (*(undefined4 *)&DAT_009005c0) /* same address as DAT_009005c0, other width */
-#define _DAT_009005c4 (*(undefined4 *)&DAT_009005c4) /* same address as DAT_009005c4, other width */
-#define _DAT_009005e0 (*(undefined4 *)&DAT_009005e0) /* same address as DAT_009005e0, other width */
-#define _DAT_009005e4 (*(undefined4 *)&DAT_009005e4) /* same address as DAT_009005e4, other width */
 #define _DAT_00901400 (*(undefined4 *)&DAT_00901400) /* same address as DAT_00901400, other width */
 #define _DAT_00901408 (*(undefined4 *)&DAT_00901408) /* same address as DAT_00901408, other width */
 #define _DAT_00901458 (*(undefined4 *)&DAT_00901458) /* same address as DAT_00901458, other width */

@@ -477,8 +477,8 @@ void Angles_ToMatrix(float *param_1,undefined4 *param_2,float *param_3)
   
   puVar1 = param_2;
   Math_SinCosTable(*param_2,&param_2,local_1c);
-  Math_SinCosTable(puVar1[1],local_1c + 2,local_10);
-  Math_SinCosTable(puVar1[2],local_1c + 1,local_10 + 1);
+  Math_SinCosTable(PUN(float,puVar1[1]),local_1c + 2,local_10);
+  Math_SinCosTable(PUN(float,puVar1[2]),local_1c + 1,local_10 + 1);
   *param_1 = -(local_1c[1] * local_1c[2]) * PUN(float,param_2) + local_10[1] * local_10[0];
   param_1[1] = local_1c[1] * local_10[0] * PUN(float,param_2) + local_10[1] * local_1c[2];
   param_1[2] = -local_1c[1] * local_1c[0];
@@ -540,8 +540,8 @@ void Angles_ToMatrixNoPos(float *param_1,undefined4 *param_2)
   
   puVar1 = param_2;
   Math_SinCosTable(*param_2,&param_2,local_1c);
-  Math_SinCosTable(puVar1[1],local_1c + 2,local_10);
-  Math_SinCosTable(puVar1[2],local_1c + 1,local_10 + 1);
+  Math_SinCosTable(PUN(float,puVar1[1]),local_1c + 2,local_10);
+  Math_SinCosTable(PUN(float,puVar1[2]),local_1c + 1,local_10 + 1);
   *param_1 = -(local_1c[1] * local_1c[2]) * PUN(float,param_2) + local_10[1] * local_10[0];
   param_1[1] = local_1c[1] * local_10[0] * PUN(float,param_2) + local_10[1] * local_1c[2];
   param_1[2] = -local_1c[1] * local_1c[0];
@@ -736,7 +736,7 @@ void Camera_BuildBasis(float *param_1,float *param_2,float *param_3,undefined4 p
   param_1[4] = param_3[1] - param_2[1];
   param_1[5] = param_3[2] - param_2[2];
   Vec3_Normalize(pfVar1);
-  Matrix_AxisAngle(local_30,pfVar1,param_4);
+  Matrix_AxisAngle(local_30,pfVar1,PUN(float,param_4));
   fVar2 = *pfVar1 * 0.0 + param_1[4] * 0.0 + param_1[5] * 1.0;
   if (fVar2 < 0.0) {
     fVar2 = -fVar2;

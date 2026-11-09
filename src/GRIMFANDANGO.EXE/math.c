@@ -19,6 +19,8 @@ int __cdecl Math_Log2Int(int n)
 }
 
 /* ---- 0x0047bbe0  Math_PowInt ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 float __cdecl Math_PowInt(float x,int n)
 
 {
@@ -34,6 +36,8 @@ float __cdecl Math_PowInt(float x,int n)
 }
 #undef local_8
 #undef local_c
+
+#endif
 
 
 /* ---- 0x0047bc20  Math_NormalizeAngle360 ---- */
@@ -79,6 +83,8 @@ float __cdecl Math_NormalizeAngle360(float degrees)
 
 
 /* ---- 0x0047bce0  Math_NormalizeAngle180 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 float __cdecl Math_NormalizeAngle180(float param_1)
 
 {
@@ -92,6 +98,8 @@ float __cdecl Math_NormalizeAngle180(float param_1)
   return local_8;
 }
 #undef local_8
+
+#endif
 
 
 /* ---- 0x0047bd20  Math_SinCosTable ---- */
@@ -365,6 +373,8 @@ float10 Math_SinDeg(float param_1)
 
 
 /* ---- 0x0047c3b0  Math_AsinDegrees ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Variable defined which should be unmapped: local_18 */
 
 float __cdecl Math_AsinDegrees(float x)
@@ -401,15 +411,23 @@ float __cdecl Math_AsinDegrees(float x)
 #undef local_18
 #undef local_8
 
+#endif
+
 
 /* ---- 0x0047c490  Math_Sqrt ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 float __cdecl Math_Sqrt(float param_1)
 
 {
   return SQRT(param_1);
 }
+#endif
+
 
 /* ---- 0x0047c4a0  Math_AsinDegreesSeries ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Variable defined which should be unmapped: local_28 */
 
 float __cdecl Math_AsinDegreesSeries(float param_1)
@@ -460,8 +478,12 @@ float __cdecl Math_AsinDegreesSeries(float param_1)
 #undef local_28
 #undef local_8
 
+#endif
+
 
 /* ---- 0x0047c5f0  Math_Atan2Deg ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 float __cdecl Math_Atan2Deg(float y,float x)
 
 {
@@ -538,4 +560,6 @@ float __cdecl Math_Atan2Deg(float y,float x)
 #undef local_34
 #undef local_8
 #undef local_c
+
+#endif
 

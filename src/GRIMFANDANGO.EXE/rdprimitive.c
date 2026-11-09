@@ -42,33 +42,33 @@ undefined4 rdPolyline_Draw(int param_1,float *param_2)
   local_38[1] = *(float *)(iVar1 + 0x20);
   local_38[2] = 0.0;
   Vec3_Sub(local_88 + 1,local_38,local_78);
-  _DAT_007f4e84 = local_88[2] - -0.001;
-  _DAT_007f4e80 = local_88[1] - *(float *)(iVar1 + 0x28);
-  _DAT_007f4e88 = local_7c - *(float *)(iVar1 + 0x28);
-  _DAT_007f4e8c = local_88[1] + *(float *)(iVar1 + 0x28);
-  _DAT_007f4e94 = local_7c - *(float *)(iVar1 + 0x28);
-  _DAT_007f4e98 = local_88[1] + *(float *)(iVar1 + 0x28);
-  _DAT_007f4ea0 = local_7c + *(float *)(iVar1 + 0x28);
-  _DAT_007f4ea4 = local_88[1] - *(float *)(iVar1 + 0x28);
-  _DAT_007f4eac = local_7c + *(float *)(iVar1 + 0x28);
+  *(float *)&DAT_007f4e84 = local_88[2] - -0.001;
+  *(float *)&DAT_007f4e80 = local_88[1] - *(float *)(iVar1 + 0x28);
+  *(float *)&DAT_007f4e88 = local_7c - *(float *)(iVar1 + 0x28);
+  *(float *)&DAT_007f4e8c = local_88[1] + *(float *)(iVar1 + 0x28);
+  *(float *)&DAT_007f4e94 = local_7c - *(float *)(iVar1 + 0x28);
+  *(float *)&DAT_007f4e98 = local_88[1] + *(float *)(iVar1 + 0x28);
+  *(float *)&DAT_007f4ea0 = local_7c + *(float *)(iVar1 + 0x28);
+  *(float *)&DAT_007f4ea4 = local_88[1] - *(float *)(iVar1 + 0x28);
+  *(float *)&DAT_007f4eac = local_7c + *(float *)(iVar1 + 0x28);
   local_1c = *(uint *)(iVar1 + 0xd4);
-  _DAT_007f4e90 = _DAT_007f4e84;
-  _DAT_007f4e9c = _DAT_007f4e84;
-  _DAT_007f4ea8 = _DAT_007f4e84;
+  *(float *)&DAT_007f4e90 = *(float *)&DAT_007f4e84;
+  *(float *)&DAT_007f4e9c = *(float *)&DAT_007f4e84;
+  *(float *)&DAT_007f4ea8 = *(float *)&DAT_007f4e84;
   rdPolyline_DrawFace(param_1,iVar1 + 0x84,&DAT_007f4e80,local_2c);
-  _DAT_007f4e84 = local_54[1] - -0.001;
-  _DAT_007f4e80 = local_54[0] - *(float *)(iVar1 + 0x24);
-  _DAT_007f4e88 = local_54[2] - *(float *)(iVar1 + 0x24);
-  _DAT_007f4e8c = local_54[0] + *(float *)(iVar1 + 0x24);
-  _DAT_007f4e94 = local_54[2] - *(float *)(iVar1 + 0x24);
-  _DAT_007f4e98 = local_54[0] + *(float *)(iVar1 + 0x24);
-  _DAT_007f4ea0 = local_54[2] + *(float *)(iVar1 + 0x24);
-  _DAT_007f4ea4 = local_54[0] - *(float *)(iVar1 + 0x24);
-  _DAT_007f4eac = local_54[2] + *(float *)(iVar1 + 0x24);
+  *(float *)&DAT_007f4e84 = local_54[1] - -0.001;
+  *(float *)&DAT_007f4e80 = local_54[0] - *(float *)(iVar1 + 0x24);
+  *(float *)&DAT_007f4e88 = local_54[2] - *(float *)(iVar1 + 0x24);
+  *(float *)&DAT_007f4e8c = local_54[0] + *(float *)(iVar1 + 0x24);
+  *(float *)&DAT_007f4e94 = local_54[2] - *(float *)(iVar1 + 0x24);
+  *(float *)&DAT_007f4e98 = local_54[0] + *(float *)(iVar1 + 0x24);
+  *(float *)&DAT_007f4ea0 = local_54[2] + *(float *)(iVar1 + 0x24);
+  *(float *)&DAT_007f4ea4 = local_54[0] - *(float *)(iVar1 + 0x24);
+  *(float *)&DAT_007f4eac = local_54[2] + *(float *)(iVar1 + 0x24);
   local_1c = *(uint *)(iVar1 + 0xd4);
-  _DAT_007f4e90 = _DAT_007f4e84;
-  _DAT_007f4e9c = _DAT_007f4e84;
-  _DAT_007f4ea8 = _DAT_007f4e84;
+  *(float *)&DAT_007f4e90 = *(float *)&DAT_007f4e84;
+  *(float *)&DAT_007f4e9c = *(float *)&DAT_007f4e84;
+  *(float *)&DAT_007f4ea8 = *(float *)&DAT_007f4e84;
   rdPolyline_DrawFace(param_1,iVar1 + 0x84,&DAT_007f4e80,local_2c);
   local_94[1] = local_88[1] - local_54[0];
   fVar2 = local_7c - local_54[2];
@@ -83,19 +83,19 @@ undefined4 rdPolyline_Draw(int param_1,float *param_2)
     }
   }
   Math_SinCosTable(local_9c,local_88,local_94);
-  _DAT_007f4e84 = local_88[2];
-  _DAT_007f4e80 = (*(float *)(iVar1 + 0x28) * local_94[0] - local_88[0] * fVar3) + local_54[0];
-  _DAT_007f4e88 = *(float *)(iVar1 + 0x28) * local_88[0] + local_94[0] * fVar3 + local_54[2];
-  _DAT_007f4e8c = (-*(float *)(iVar1 + 0x28) * local_94[0] - local_88[0] * fVar3) + local_54[0];
+  *(float *)&DAT_007f4e84 = local_88[2];
+  *(float *)&DAT_007f4e80 = (*(float *)(iVar1 + 0x28) * local_94[0] - local_88[0] * fVar3) + local_54[0];
+  *(float *)&DAT_007f4e88 = *(float *)(iVar1 + 0x28) * local_88[0] + local_94[0] * fVar3 + local_54[2];
+  *(float *)&DAT_007f4e8c = (-*(float *)(iVar1 + 0x28) * local_94[0] - local_88[0] * fVar3) + local_54[0];
   local_94[1] = 0.0;
-  _DAT_007f4e94 = -*(float *)(iVar1 + 0x28) * local_88[0] + local_94[0] * fVar3 + local_54[2];
-  _DAT_007f4e98 = (-*(float *)(iVar1 + 0x24) * local_94[0] - 0.0) + local_54[0];
-  _DAT_007f4ea0 = -*(float *)(iVar1 + 0x24) * local_88[0] + 0.0 + local_54[2];
-  _DAT_007f4e90 = local_88[2];
-  _DAT_007f4e9c = local_54[1];
-  _DAT_007f4ea4 = (*(float *)(iVar1 + 0x24) * local_94[0] - 0.0) + local_54[0];
-  _DAT_007f4eac = *(float *)(iVar1 + 0x24) * local_88[0] + 0.0 + local_54[2];
-  _DAT_007f4ea8 = local_54[1];
+  *(float *)&DAT_007f4e94 = -*(float *)(iVar1 + 0x28) * local_88[0] + local_94[0] * fVar3 + local_54[2];
+  *(float *)&DAT_007f4e98 = (-*(float *)(iVar1 + 0x24) * local_94[0] - 0.0) + local_54[0];
+  *(float *)&DAT_007f4ea0 = -*(float *)(iVar1 + 0x24) * local_88[0] + 0.0 + local_54[2];
+  *(float *)&DAT_007f4e90 = local_88[2];
+  *(float *)&DAT_007f4e9c = local_54[1];
+  *(float *)&DAT_007f4ea4 = (*(float *)(iVar1 + 0x24) * local_94[0] - 0.0) + local_54[0];
+  *(float *)&DAT_007f4eac = *(float *)(iVar1 + 0x24) * local_88[0] + 0.0 + local_54[2];
+  *(float *)&DAT_007f4ea8 = local_54[1];
   local_1c = *(uint *)(iVar1 + 0xd0);
   rdPolyline_DrawFace(param_1,iVar1 + 0x38,&DAT_007f4e80,local_2c);
   return 1;
@@ -297,8 +297,7 @@ int __cdecl rdSprite_DrawThing(void *thing,void *sprite)
     iVar2 = *(int *)((int)thing + 0x44);
   }
   else {
-    iVar2 = Frustum_TestSphere(*(undefined4 *)((int)g_pRdCurrentCamera + 0x48),local_3c,
-                               *(undefined4 *)(iVar1 + 0x3c));
+    iVar2 = Frustum_TestSphere(*(undefined4 *)((int)g_pRdCurrentCamera + 0x48),local_3c,PUN(float,*(undefined4 *)(iVar1 + 0x3c)));
   }
   if (iVar2 == 2) {
     return 0;
@@ -334,18 +333,18 @@ int __cdecl rdSprite_DrawThing(void *thing,void *sprite)
       if (iVar2 == 0) {
         return 0;
       }
-      _DAT_007f5000 = PUN(float,puVar3[-1]) - *(float *)(iVar1 + 0x34);
+      *(float *)&DAT_007f5000 = PUN(float,puVar3[-1]) - *(float *)(iVar1 + 0x34);
       _DAT_007f5004 = *puVar3;
-      _DAT_007f5008 = PUN(float,puVar3[1]) - *(float *)(iVar1 + 0x34);
+      *(float *)&DAT_007f5008 = PUN(float,puVar3[1]) - *(float *)(iVar1 + 0x34);
       _DAT_007f5010 = *puVar3;
-      _DAT_007f500c = PUN(float,puVar3[-1]) + *(float *)(iVar1 + 0x34);
+      *(float *)&DAT_007f500c = PUN(float,puVar3[-1]) + *(float *)(iVar1 + 0x34);
       _DAT_007f501c = *puVar3;
-      _DAT_007f5014 = PUN(float,puVar3[1]) - *(float *)(iVar1 + 0x34);
+      *(float *)&DAT_007f5014 = PUN(float,puVar3[1]) - *(float *)(iVar1 + 0x34);
       _DAT_007f5028 = *puVar3;
-      _DAT_007f5018 = PUN(float,puVar3[-1]) + *(float *)(iVar1 + 0x34);
-      _DAT_007f5020 = PUN(float,puVar3[1]) + *(float *)(iVar1 + 0x34);
-      _DAT_007f5024 = PUN(float,puVar3[-1]) - *(float *)(iVar1 + 0x34);
-      _DAT_007f502c = PUN(float,puVar3[1]) + *(float *)(iVar1 + 0x34);
+      *(float *)&DAT_007f5018 = PUN(float,puVar3[-1]) + *(float *)(iVar1 + 0x34);
+      *(float *)&DAT_007f5020 = PUN(float,puVar3[1]) + *(float *)(iVar1 + 0x34);
+      *(float *)&DAT_007f5024 = PUN(float,puVar3[-1]) - *(float *)(iVar1 + 0x34);
+      *(float *)&DAT_007f502c = PUN(float,puVar3[1]) + *(float *)(iVar1 + 0x34);
       vertexCount = rdClip_Face3_Pos_2(*(undefined4 *)((int)g_pRdCurrentCamera + 0x48),&DAT_007f5000
                                        ,4);
       if (2 < vertexCount) {
@@ -572,18 +571,17 @@ undefined4 rdSprite_Draw(int param_1,float *param_2)
     iVar4 = *(int *)(param_1 + 0x44);
   }
   else {
-    iVar4 = Frustum_TestSphere(*(undefined4 *)((int)g_pRdCurrentCamera + 0x48),&local_64,
-                               *(undefined4 *)(iVar1 + 0x24));
+    iVar4 = Frustum_TestSphere(*(undefined4 *)((int)g_pRdCurrentCamera + 0x48),&local_64,PUN(float,*(undefined4 *)(iVar1 + 0x24)));
   }
   if ((iVar4 != 2) && (iVar4 = rdCache_AllocMesh(), iVar4 != 0)) {
-    _DAT_007f5f0c = local_6c[0] + local_60[0];
-    _DAT_007f5f10 = local_6c[1] + local_60[1];
-    _DAT_007f5f08 = local_64 + (local_70 - local_78[0]);
-    _DAT_007f5f14 = local_64 + local_78[0] + local_70;
-    _DAT_007f5f20 = local_64 + local_78[0] + local_70;
-    _DAT_007f5f28 = local_60[1] + *(float *)(iVar1 + 0x58) + *(float *)(iVar1 + 0x58) + local_6c[1];
-    _DAT_007f5f2c = local_64 + (local_70 - local_78[0]);
-    _DAT_007f5f34 = local_60[1] + *(float *)(iVar1 + 0x58) + *(float *)(iVar1 + 0x58) + local_6c[1];
+    *(float *)&DAT_007f5f0c = local_6c[0] + local_60[0];
+    *(float *)&DAT_007f5f10 = local_6c[1] + local_60[1];
+    *(float *)&DAT_007f5f08 = local_64 + (local_70 - local_78[0]);
+    *(float *)&DAT_007f5f14 = local_64 + local_78[0] + local_70;
+    *(float *)&DAT_007f5f20 = local_64 + local_78[0] + local_70;
+    *(float *)&DAT_007f5f28 = local_60[1] + *(float *)(iVar1 + 0x58) + *(float *)(iVar1 + 0x58) + local_6c[1];
+    *(float *)&DAT_007f5f2c = local_64 + (local_70 - local_78[0]);
+    *(float *)&DAT_007f5f34 = local_60[1] + *(float *)(iVar1 + 0x58) + *(float *)(iVar1 + 0x58) + local_6c[1];
     local_2c = *(uint *)(iVar1 + 0x70);
     local_28 = *(uint *)(iVar1 + 0x74);
     local_24 = *(uint *)(iVar1 + 0x78);
@@ -604,10 +602,10 @@ undefined4 rdSprite_Draw(int param_1,float *param_2)
     if ((iVar9 < *(int *)(param_1 + 0x38)) && (iVar7 = iVar2, g_nRdroidGeometryMode < iVar2)) {
       iVar7 = g_nRdroidGeometryMode;
     }
-    _DAT_007f5f18 = _DAT_007f5f0c;
-    _DAT_007f5f1c = _DAT_007f5f10;
-    _DAT_007f5f24 = _DAT_007f5f0c;
-    _DAT_007f5f30 = _DAT_007f5f0c;
+    *(float *)&DAT_007f5f18 = *(float *)&DAT_007f5f0c;
+    *(float *)&DAT_007f5f1c = *(float *)&DAT_007f5f10;
+    *(float *)&DAT_007f5f24 = *(float *)&DAT_007f5f0c;
+    *(float *)&DAT_007f5f30 = *(float *)&DAT_007f5f0c;
     *(int *)(iVar4 + 8) = iVar7;
     if ((((byte)g_dwRdroidFlags & 2) == 0) || (*(float *)((int)g_pRdCurrentCamera + 0x54) < 1.0)) {
       iVar2 = *(int *)(iVar1 + 0x68);

@@ -732,8 +732,8 @@ undefined4 rdRaster_EdgeSetup_Flat(undefined4 *param_1,int *param_2,int param_3,
     param_1 = PUN(undefined4 *,(float)fVar5);
   }
   fVar3 = (fVar3 - PUN(float,param_2[param_3 + 1])) * PUN(float,param_1);
-  puVar6[5] = fVar3;
-  puVar6[4] = PUN(float,local_8) * fVar3 + PUN(float,param_2[param_3 + 1]);
+  puVar6[5] = PUN(undefined4,(float)(fVar3));
+  puVar6[4] = PUN(undefined4,(float)(PUN(float,local_8) * fVar3 + PUN(float,param_2[param_3 + 1])));
   return 1;
 }
 #undef local_10
@@ -935,8 +935,8 @@ undefined4 rdRaster_EdgeSetup_Flat_2(undefined4 *param_1,int *param_2,int param_
     param_1 = PUN(undefined4 *,(float)fVar5);
   }
   fVar3 = (fVar3 - PUN(float,param_2[param_3 + 1])) * PUN(float,param_1);
-  puVar6[5] = fVar3;
-  puVar6[4] = PUN(float,local_8) * fVar3 + PUN(float,param_2[param_3 + 1]);
+  puVar6[5] = PUN(undefined4,(float)(fVar3));
+  puVar6[4] = PUN(undefined4,(float)(PUN(float,local_8) * fVar3 + PUN(float,param_2[param_3 + 1])));
   return 1;
 }
 #undef local_10
@@ -1117,8 +1117,8 @@ undefined4 rdRaster_EdgeSetup_Flat_3(undefined4 *param_1,int *param_2,int param_
     param_1 = PUN(undefined4 *,(float)fVar5);
   }
   fVar3 = (fVar3 - PUN(float,param_2[param_3 + 1])) * PUN(float,param_1);
-  puVar6[5] = fVar3;
-  puVar6[4] = PUN(float,local_8) * fVar3 + PUN(float,param_2[param_3 + 1]);
+  puVar6[5] = PUN(undefined4,(float)(fVar3));
+  puVar6[4] = PUN(undefined4,(float)(PUN(float,local_8) * fVar3 + PUN(float,param_2[param_3 + 1])));
   return 1;
 }
 #undef local_10
@@ -1328,8 +1328,8 @@ undefined4 rdRaster_EdgeSetup_Flat_4(undefined4 *param_1,int *param_2,int param_
     param_1[0x10] =
          (int)ROUND((fVar7 * fVar5 + *(float *)(*(int *)(iVar4 + 0x28) + param_3 * 4)) * 65536.0);
     fVar6 = (PUN(float,param_2[param_4 + 1]) - PUN(float,param_2[param_3 + 1])) * fVar6;
-    param_1[5] = fVar6;
-    param_1[4] = fVar5 * fVar6 + PUN(float,param_2[param_3 + 1]);
+    param_1[5] = PUN(undefined4,(float)(fVar6));
+    param_1[4] = PUN(undefined4,(float)(fVar5 * fVar6 + PUN(float,param_2[param_3 + 1])));
     return 1;
   }
   *param_1 = 0;
@@ -1355,8 +1355,8 @@ undefined4 rdRaster_EdgeSetup_Flat_4(undefined4 *param_1,int *param_2,int param_
   param_1[0x10] =
        (int)ROUND((fVar7 * fVar6 + *(float *)(*(int *)(iVar4 + 0x28) + param_4 * 4)) * 65536.0);
   fVar5 = (PUN(float,param_2[param_3 + 1]) - PUN(float,param_2[param_4 + 1])) * fVar5;
-  param_1[5] = fVar5;
-  param_1[4] = fVar6 * fVar5 + PUN(float,param_2[param_4 + 1]);
+  param_1[5] = PUN(undefined4,(float)(fVar5));
+  param_1[4] = PUN(undefined4,(float)(fVar6 * fVar5 + PUN(float,param_2[param_4 + 1])));
   return 1;
 }
 #undef local_10
@@ -1561,8 +1561,8 @@ undefined4 rdRaster_EdgeSetup_Flat_5(undefined4 *param_1,int *param_2,int param_
     param_1[0xe] = (int)ROUND((fVar7 * fVar5 + *(float *)(*(int *)(iVar4 + 0x24) + 4 + param_3 * 8))
                               * 65536.0);
     fVar6 = (PUN(float,param_2[param_4 + 1]) - PUN(float,param_2[param_3 + 1])) * fVar6;
-    param_1[5] = fVar6;
-    param_1[4] = fVar5 * fVar6 + PUN(float,param_2[param_3 + 1]);
+    param_1[5] = PUN(undefined4,(float)(fVar6));
+    param_1[4] = PUN(undefined4,(float)(fVar5 * fVar6 + PUN(float,param_2[param_3 + 1])));
     return 1;
   }
   *param_1 = 0;
@@ -1594,8 +1594,8 @@ undefined4 rdRaster_EdgeSetup_Flat_5(undefined4 *param_1,int *param_2,int param_
   param_1[0xe] = (int)ROUND((fVar7 * fVar6 + *(float *)(*(int *)(iVar4 + 0x24) + 4 + param_4 * 8)) *
                             65536.0);
   fVar5 = (PUN(float,param_2[param_3 + 1]) - PUN(float,param_2[param_4 + 1])) * fVar5;
-  param_1[5] = fVar5;
-  param_1[4] = fVar6 * fVar5 + PUN(float,param_2[param_4 + 1]);
+  param_1[5] = PUN(undefined4,(float)(fVar5));
+  param_1[4] = PUN(undefined4,(float)(fVar6 * fVar5 + PUN(float,param_2[param_4 + 1])));
   return 1;
 }
 #undef local_10
@@ -2028,8 +2028,8 @@ undefined4 rdRaster_EdgeSetup_Flat_6(undefined4 *param_1,int *param_2,int param_
     param_1[0xe] = (int)ROUND((fVar7 * fVar5 + *(float *)(*(int *)(iVar4 + 0x24) + 4 + param_3 * 8))
                               * 65536.0);
     fVar6 = (PUN(float,param_2[param_4 + 1]) - PUN(float,param_2[param_3 + 1])) * fVar6;
-    param_1[5] = fVar6;
-    param_1[4] = fVar5 * fVar6 + PUN(float,param_2[param_3 + 1]);
+    param_1[5] = PUN(undefined4,(float)(fVar6));
+    param_1[4] = PUN(undefined4,(float)(fVar5 * fVar6 + PUN(float,param_2[param_3 + 1])));
     return 1;
   }
   *param_1 = 0;
@@ -2061,8 +2061,8 @@ undefined4 rdRaster_EdgeSetup_Flat_6(undefined4 *param_1,int *param_2,int param_
   param_1[0xe] = (int)ROUND((fVar7 * fVar6 + *(float *)(*(int *)(iVar4 + 0x24) + 4 + param_4 * 8)) *
                             65536.0);
   fVar5 = (PUN(float,param_2[param_3 + 1]) - PUN(float,param_2[param_4 + 1])) * fVar5;
-  param_1[5] = fVar5;
-  param_1[4] = fVar6 * fVar5 + PUN(float,param_2[param_4 + 1]);
+  param_1[5] = PUN(undefined4,(float)(fVar5));
+  param_1[4] = PUN(undefined4,(float)(fVar6 * fVar5 + PUN(float,param_2[param_4 + 1])));
   return 1;
 }
 #undef local_10
@@ -2512,8 +2512,8 @@ undefined4 rdRaster_EdgeSetup_Flat_7(undefined4 *param_1,int *param_2,int param_
     param_1[0x10] =
          (int)ROUND((fVar7 * fVar5 + *(float *)(*(int *)(iVar4 + 0x28) + param_3 * 4)) * 65536.0);
     fVar6 = (PUN(float,param_2[param_4 + 1]) - PUN(float,param_2[param_3 + 1])) * fVar6;
-    param_1[5] = fVar6;
-    param_1[4] = fVar5 * fVar6 + PUN(float,param_2[param_3 + 1]);
+    param_1[5] = PUN(undefined4,(float)(fVar6));
+    param_1[4] = PUN(undefined4,(float)(fVar5 * fVar6 + PUN(float,param_2[param_3 + 1])));
     return 1;
   }
   *param_1 = 0;
@@ -2550,8 +2550,8 @@ undefined4 rdRaster_EdgeSetup_Flat_7(undefined4 *param_1,int *param_2,int param_
   param_1[0x10] =
        (int)ROUND((fVar7 * fVar6 + *(float *)(*(int *)(iVar4 + 0x28) + param_4 * 4)) * 65536.0);
   fVar5 = (PUN(float,param_2[param_3 + 1]) - PUN(float,param_2[param_4 + 1])) * fVar5;
-  param_1[5] = fVar5;
-  param_1[4] = fVar6 * fVar5 + PUN(float,param_2[param_4 + 1]);
+  param_1[5] = PUN(undefined4,(float)(fVar5));
+  param_1[4] = PUN(undefined4,(float)(fVar6 * fVar5 + PUN(float,param_2[param_4 + 1])));
   return 1;
 }
 #undef local_10
@@ -2988,9 +2988,9 @@ undefined4 rdRaster_EdgeSetup_Flat_8(undefined4 *param_1,int *param_2,int param_
       param_1[0xb] = (int)ROUND(fVar3 * 65536.0);
       fVar6 = fVar3 * fVar4 + *(float *)(iVar9 + *(int *)(iVar5 + 0x20));
       param_1[10] = (int)ROUND(fVar6 * 65536.0);
-      param_1[5] = PUN(float,param_2[0x61]) * fVar3 + PUN(float,param_2[0x62]);
-      param_1[7] = PUN(float,param_2[99]) * fVar3 + PUN(float,param_2[100]);
-      param_1[9] = PUN(float,param_2[0x65]) * fVar3 + PUN(float,param_2[0x66]);
+      param_1[5] = PUN(undefined4,(float)(PUN(float,param_2[0x61]) * fVar3 + PUN(float,param_2[0x62])));
+      param_1[7] = PUN(undefined4,(float)(PUN(float,param_2[99]) * fVar3 + PUN(float,param_2[100])));
+      param_1[9] = PUN(undefined4,(float)(PUN(float,param_2[0x65]) * fVar3 + PUN(float,param_2[0x66])));
       param_1 = PUN(undefined4 *,(float)fVar6);
     }
     fVar3 = PUN(float,param_1) - *(float *)(iVar9 + *(int *)(iVar5 + 0x20));
@@ -3790,9 +3790,9 @@ undefined4 rdRaster_EdgeSetup_Flat_9(undefined4 *param_1,int *param_2,int param_
       param_1[0xb] = (int)ROUND(fVar3 * 65536.0);
       fVar6 = fVar3 * fVar4 + *(float *)(iVar9 + *(int *)(iVar5 + 0x20));
       param_1[10] = (int)ROUND(fVar6 * 65536.0);
-      param_1[5] = PUN(float,param_2[0x61]) * fVar3 + PUN(float,param_2[0x62]);
-      param_1[7] = PUN(float,param_2[99]) * fVar3 + PUN(float,param_2[100]);
-      param_1[9] = PUN(float,param_2[0x65]) * fVar3 + PUN(float,param_2[0x66]);
+      param_1[5] = PUN(undefined4,(float)(PUN(float,param_2[0x61]) * fVar3 + PUN(float,param_2[0x62])));
+      param_1[7] = PUN(undefined4,(float)(PUN(float,param_2[99]) * fVar3 + PUN(float,param_2[100])));
+      param_1[9] = PUN(undefined4,(float)(PUN(float,param_2[0x65]) * fVar3 + PUN(float,param_2[0x66])));
       param_1 = PUN(undefined4 *,(float)fVar6);
     }
     fVar3 = PUN(float,param_1) - *(float *)(iVar9 + *(int *)(iVar5 + 0x20));
@@ -4603,9 +4603,9 @@ undefined4 rdRaster_EdgeSetup_Flat_10(undefined4 *param_1,int *param_2,int param
       param_1[0xb] = (int)ROUND(fVar6 * 65536.0);
       local_c = (uint)(fVar6 * fVar4 + *(float *)(*(int *)(iVar3 + 0x20) + iVar9));
       param_1[10] = (int)ROUND(PUN(float,local_c) * 65536.0);
-      param_1[5] = PUN(float,param_2[0x61]) * fVar6 + PUN(float,param_2[0x62]);
-      param_1[7] = PUN(float,param_2[99]) * fVar6 + PUN(float,param_2[100]);
-      param_1[9] = PUN(float,param_2[0x65]) * fVar6 + PUN(float,param_2[0x66]);
+      param_1[5] = PUN(undefined4,(float)(PUN(float,param_2[0x61]) * fVar6 + PUN(float,param_2[0x62])));
+      param_1[7] = PUN(undefined4,(float)(PUN(float,param_2[99]) * fVar6 + PUN(float,param_2[100])));
+      param_1[9] = PUN(undefined4,(float)(PUN(float,param_2[0x65]) * fVar6 + PUN(float,param_2[0x66])));
       fVar5 = (*(float *)(*(int *)(iVar3 + 0x28) + param_4 * 4) -
               *(float *)(*(int *)(iVar3 + 0x28) + param_3 * 4)) * fVar5;
       param_1[0x11] = (int)ROUND(fVar5 * 65536.0);
@@ -5592,12 +5592,12 @@ LAB_00418b68:
   fVar4 = pfVar6[local_1c * 3] - *pfVar13;
   fVar2 = (pfVar6 + local_18 * 3)[1] - pfVar13[1];
   fVar3 = pfVar6[local_1c * 3 + 1] - pfVar13[1];
-  _DAT_008ddedc = 1.0 / (fVar2 * fVar4 - fVar3 * fVar5);
-  _DAT_008ddee0 = -_DAT_008ddedc;
+  *(float *)&DAT_008ddedc = 1.0 / (fVar2 * fVar4 - fVar3 * fVar5);
+  _DAT_008ddee0 = -*(float *)&DAT_008ddedc;
   _DAT_008ddef4 =
        (((float)(&UINT_007f43c8)[local_1c] - (float)(&UINT_007f43c8)[local_24]) * fVar2 -
        ((float)(&UINT_007f43c8)[local_18] - (float)(&UINT_007f43c8)[local_24]) * fVar3) *
-       _DAT_008ddedc;
+       *(float *)&DAT_008ddedc;
   _DAT_008ddef0 =
        (((float)(&UINT_007f43c8)[local_1c] - (float)(&UINT_007f43c8)[local_24]) * fVar5 -
        ((float)(&UINT_007f43c8)[local_18] - (float)(&UINT_007f43c8)[local_24]) * fVar4) *
@@ -5605,15 +5605,15 @@ LAB_00418b68:
   _DAT_008ddec8 =
        (((float)(&UINT_007f4260)[local_1c] - (float)(&UINT_007f4260)[local_24]) * fVar2 -
        ((float)(&UINT_007f4260)[local_18] - (float)(&UINT_007f4260)[local_24]) * fVar3) *
-       _DAT_008ddedc;
+       *(float *)&DAT_008ddedc;
   _DAT_008ddec4 =
        (((float)(&UINT_007f4260)[local_1c] - (float)(&UINT_007f4260)[local_24]) * fVar5 -
        ((float)(&UINT_007f4260)[local_18] - (float)(&UINT_007f4260)[local_24]) * fVar4) *
        _DAT_008ddee0;
-  _DAT_008ddedc =
+  *(float *)&DAT_008ddedc =
        (((float)(&UINT_007f4310)[local_1c] - (float)(&UINT_007f4310)[local_24]) * fVar2 -
        ((float)(&UINT_007f4310)[local_18] - (float)(&UINT_007f4310)[local_24]) * fVar3) *
-       _DAT_008ddedc;
+       *(float *)&DAT_008ddedc;
   _DAT_008ddee0 =
        (((float)(&UINT_007f4310)[local_1c] - (float)(&UINT_007f4310)[local_24]) * fVar5 -
        ((float)(&UINT_007f4310)[local_18] - (float)(&UINT_007f4310)[local_24]) * fVar4) *
@@ -5667,7 +5667,7 @@ LAB_00418ede:
   else {
     UINT_008ddef8 = 0x8000;
   }
-  fVar2 = (float)(&UINT_007f43c8)[local_18] * _DAT_008ddedc -
+  fVar2 = (float)(&UINT_007f43c8)[local_18] * *(float *)&DAT_008ddedc -
           (float)(&UINT_007f4310)[local_18] * _DAT_008ddef4;
   if (0.0 < fVar2) {
     UINT_008ddeac = 0x8000;
@@ -7394,7 +7394,7 @@ void rdRaster_Draw16_TexLit_4(int param_1,int param_2)
     g_nRdRasterStepA = -1;
     g_nRdRasterStepB = 1;
   }
-  rdRaster_Grad_Flat(*(undefined4 *)(param_1 + 100));
+  rdRaster_Grad_Flat(PUN(float,*(undefined4 *)(param_1 + 100)));
   UINT_008ddee8 = *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + UINT_008ddee4 * 4) + 0x5c);
   UINT_008dded8 = *(int *)(*(int *)(param_2 + 0x1c) + 0xc) - UINT_008ddee4;
   UINT_008ddeb4 = *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + UINT_008ddee4 * 4) + 0x18);
@@ -7842,7 +7842,7 @@ void rdRaster_Draw16_TexLit_5(int param_1,int param_2)
     g_nRdRasterStepA = -1;
     g_nRdRasterStepB = 1;
   }
-  rdRaster_Grad_Flat(*(undefined4 *)(param_1 + 100));
+  rdRaster_Grad_Flat(PUN(float,*(undefined4 *)(param_1 + 100)));
   UINT_008ddee8 = *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + UINT_008ddee4 * 4) + 0x5c);
   UINT_008dded8 = *(int *)(*(int *)(param_2 + 0x1c) + 0xc) - UINT_008ddee4;
   UINT_008ddecc =
@@ -8110,7 +8110,7 @@ void rdRaster_Draw16_TexLitKey(int param_1,int param_2)
     g_nRdRasterStepA = -1;
     g_nRdRasterStepB = 1;
   }
-  rdRaster_Grad_Flat(*(undefined4 *)(param_1 + 100));
+  rdRaster_Grad_Flat(PUN(float,*(undefined4 *)(param_1 + 100)));
   UINT_008ddee8 = *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + UINT_008ddee4 * 4) + 0x5c);
   UINT_008dded8 = *(int *)(*(int *)(param_2 + 0x1c) + 0xc) - UINT_008ddee4;
   UINT_008ddecc =
@@ -8380,7 +8380,7 @@ void rdRaster_Draw16_TexLitKey_2(int param_1,int param_2)
     g_nRdRasterStepA = -1;
     g_nRdRasterStepB = 1;
   }
-  rdRaster_Grad_Flat(*(undefined4 *)(param_1 + 100));
+  rdRaster_Grad_Flat(PUN(float,*(undefined4 *)(param_1 + 100)));
   UINT_008ddee8 = *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + UINT_008ddee4 * 4) + 0x5c);
   UINT_008dded8 = *(int *)(*(int *)(param_2 + 0x1c) + 0xc) - UINT_008ddee4;
   UINT_008ddecc =
@@ -8654,7 +8654,7 @@ void rdRaster_Draw_FlatLit_2(int param_1,int param_2,float param_3)
     g_nRdRasterStepA = -1;
     g_nRdRasterStepB = 1;
   }
-  rdRaster_Grad_Flat(*(undefined4 *)(param_1 + 100));
+  rdRaster_Grad_Flat(PUN(float,*(undefined4 *)(param_1 + 100)));
   UINT_008ddee8 = *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + UINT_008ddee4 * 4) + 0x5c);
   UINT_008dded8 = *(int *)(*(int *)(param_2 + 0x1c) + 0xc) - UINT_008ddee4;
   UINT_008ddeb4 = *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + UINT_008ddee4 * 4) + 0x18);
@@ -9029,7 +9029,7 @@ void rdRaster_Draw16_TexLit_6(int param_1,int param_2,float param_3)
     g_nRdRasterStepA = -1;
     g_nRdRasterStepB = 1;
   }
-  rdRaster_Grad_Flat(*(undefined4 *)(param_1 + 100));
+  rdRaster_Grad_Flat(PUN(float,*(undefined4 *)(param_1 + 100)));
   UINT_008ddee8 = *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + UINT_008ddee4 * 4) + 0x5c);
   UINT_008dded8 = *(int *)(*(int *)(param_2 + 0x1c) + 0xc) - UINT_008ddee4;
   UINT_008ddecc =
@@ -9305,7 +9305,7 @@ void rdRaster_Draw_TexLitKey(int param_1,int param_2,float param_3)
     g_nRdRasterStepA = -1;
     g_nRdRasterStepB = 1;
   }
-  rdRaster_Grad_Flat(*(undefined4 *)(param_1 + 100));
+  rdRaster_Grad_Flat(PUN(float,*(undefined4 *)(param_1 + 100)));
   UINT_008ddee8 = *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + UINT_008ddee4 * 4) + 0x5c);
   UINT_008dded8 = *(int *)(*(int *)(param_2 + 0x1c) + 0xc) - UINT_008ddee4;
   UINT_008ddecc =
@@ -9579,7 +9579,7 @@ void rdRaster_Draw_TexLitKey_2(int param_1,int param_2,float param_3)
     g_nRdRasterStepA = -1;
     g_nRdRasterStepB = 1;
   }
-  rdRaster_Grad_Flat(*(undefined4 *)(param_1 + 100));
+  rdRaster_Grad_Flat(PUN(float,*(undefined4 *)(param_1 + 100)));
   UINT_008ddee8 = *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + UINT_008ddee4 * 4) + 0x5c);
   UINT_008dded8 = *(int *)(*(int *)(param_2 + 0x1c) + 0xc) - UINT_008ddee4;
   UINT_008ddecc =
@@ -9864,7 +9864,7 @@ void rdRaster_Draw_FlatLit_3(int param_1,int param_2)
     g_nRdRasterStepA = -1;
     g_nRdRasterStepB = 1;
   }
-  rdRaster_Grad_Flat(*(undefined4 *)(param_1 + 100));
+  rdRaster_Grad_Flat(PUN(float,*(undefined4 *)(param_1 + 100)));
   UINT_008ddee8 = *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + UINT_008ddee4 * 4) + 0x5c);
   UINT_008dded8 = *(int *)(*(int *)(param_2 + 0x1c) + 0xc) - UINT_008ddee4;
   UINT_008ddeb4 = *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + UINT_008ddee4 * 4) + 0x18);
@@ -10276,7 +10276,7 @@ void rdRaster_Draw16_TexLit_7(int param_1,int param_2)
     g_nRdRasterStepA = -1;
     g_nRdRasterStepB = 1;
   }
-  rdRaster_Grad_Flat(*(undefined4 *)(param_1 + 100));
+  rdRaster_Grad_Flat(PUN(float,*(undefined4 *)(param_1 + 100)));
   UINT_008ddee8 = *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + UINT_008ddee4 * 4) + 0x5c);
   UINT_008dded8 = *(int *)(*(int *)(param_2 + 0x1c) + 0xc) - UINT_008ddee4;
   UINT_008ddecc =
@@ -10623,7 +10623,7 @@ void rdRaster_Draw_TexLitKey_3(int param_1,int param_2)
     g_nRdRasterStepA = -1;
     g_nRdRasterStepB = 1;
   }
-  rdRaster_Grad_Flat(*(undefined4 *)(param_1 + 100));
+  rdRaster_Grad_Flat(PUN(float,*(undefined4 *)(param_1 + 100)));
   UINT_008ddee8 = *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + UINT_008ddee4 * 4) + 0x5c);
   UINT_008dded8 = *(int *)(*(int *)(param_2 + 0x1c) + 0xc) - UINT_008ddee4;
   UINT_008ddecc =
@@ -10935,7 +10935,7 @@ void rdRaster_Draw16_TexLitKey_3(int param_1,int param_2)
     g_nRdRasterStepA = -1;
     g_nRdRasterStepB = 1;
   }
-  rdRaster_Grad_Flat(*(undefined4 *)(param_1 + 100));
+  rdRaster_Grad_Flat(PUN(float,*(undefined4 *)(param_1 + 100)));
   UINT_008ddee8 = *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + UINT_008ddee4 * 4) + 0x5c);
   UINT_008dded8 = *(int *)(*(int *)(param_2 + 0x1c) + 0xc) - UINT_008ddee4;
   UINT_008ddecc =
@@ -11241,16 +11241,16 @@ void rdRaster_Draw_FlatLit_4(int param_1,int param_2)
     g_nRdRasterStepA = -1;
     g_nRdRasterStepB = 1;
   }
-  rdRaster_Grad_Flat_2(*(undefined4 *)(param_1 + 100));
-  _DAT_008ddeec = _DAT_008ddef4 * 16.0;
+  rdRaster_Grad_Flat_2(PUN(float,*(undefined4 *)(param_1 + 100)));
+  *(float *)&DAT_008ddeec = _DAT_008ddef4 * 16.0;
   UINT_008ddee8 = *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + UINT_008ddee4 * 4) + 0x5c);
   UINT_008dded8 = *(int *)(*(int *)(param_2 + 0x1c) + 0xc) - UINT_008ddee4;
   UINT_008ddeb4 = *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + UINT_008ddee4 * 4) + 0x18);
   UINT_008ddecc =
        (*(uint *)(*(int *)(param_2 + 0x1c) + 0x10) >> ((byte)UINT_008ddee4 & 0x1f)) << 0x10;
-  _DAT_008dded0 = _DAT_008ddec8 * 16.0;
+  *(float *)&DAT_008dded0 = _DAT_008ddec8 * 16.0;
   local_7c = g_nRdRasterStartVertex;
-  _DAT_008ddf00 = _DAT_008ddedc * 16.0;
+  *(float *)&DAT_008ddf00 = _DAT_008ddedc * 16.0;
   UINT_008ddefc =
        (*(uint *)(*(int *)(param_2 + 0x1c) + 0x14) >> ((byte)UINT_008ddee4 & 0x1f)) <<
        ((byte)UINT_008dded8 & 0x1f);
@@ -11746,15 +11746,15 @@ void rdRaster_Draw16_TexLit_8(int param_1,int param_2)
     g_nRdRasterStepA = -1;
     g_nRdRasterStepB = 1;
   }
-  rdRaster_Grad_Flat_2(*(undefined4 *)(param_1 + 100));
-  _DAT_008ddeec = _DAT_008ddef4 * 16.0;
+  rdRaster_Grad_Flat_2(PUN(float,*(undefined4 *)(param_1 + 100)));
+  *(float *)&DAT_008ddeec = _DAT_008ddef4 * 16.0;
   UINT_008ddee8 = *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + UINT_008ddee4 * 4) + 0x5c);
   UINT_008dded8 = *(int *)(*(int *)(param_2 + 0x1c) + 0xc) - UINT_008ddee4;
   UINT_008ddecc =
        (*(uint *)(*(int *)(param_2 + 0x1c) + 0x10) >> ((byte)UINT_008ddee4 & 0x1f)) << 0x10;
-  _DAT_008dded0 = _DAT_008ddec8 * 16.0;
+  *(float *)&DAT_008dded0 = _DAT_008ddec8 * 16.0;
   local_7c = g_nRdRasterStartVertex;
-  _DAT_008ddf00 = _DAT_008ddedc * 16.0;
+  *(float *)&DAT_008ddf00 = _DAT_008ddedc * 16.0;
   UINT_008ddefc =
        (*(uint *)(*(int *)(param_2 + 0x1c) + 0x14) >> ((byte)UINT_008ddee4 & 0x1f)) <<
        ((byte)UINT_008dded8 & 0x1f);
@@ -12298,15 +12298,15 @@ void rdRaster_Draw16_TexLitKey_4(int param_1,int param_2)
     g_nRdRasterStepA = -1;
     g_nRdRasterStepB = 1;
   }
-  rdRaster_Grad_Flat_2(*(undefined4 *)(param_1 + 100));
-  _DAT_008ddeec = _DAT_008ddef4 * 16.0;
+  rdRaster_Grad_Flat_2(PUN(float,*(undefined4 *)(param_1 + 100)));
+  *(float *)&DAT_008ddeec = _DAT_008ddef4 * 16.0;
   UINT_008ddee8 = *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + UINT_008ddee4 * 4) + 0x5c);
   UINT_008dded8 = *(int *)(*(int *)(param_2 + 0x1c) + 0xc) - UINT_008ddee4;
   UINT_008ddecc =
        (*(uint *)(*(int *)(param_2 + 0x1c) + 0x10) >> ((byte)UINT_008ddee4 & 0x1f)) << 0x10;
-  _DAT_008dded0 = _DAT_008ddec8 * 16.0;
+  *(float *)&DAT_008dded0 = _DAT_008ddec8 * 16.0;
   local_7c = g_nRdRasterStartVertex;
-  _DAT_008ddf00 = _DAT_008ddedc * 16.0;
+  *(float *)&DAT_008ddf00 = _DAT_008ddedc * 16.0;
   UINT_008ddefc =
        (*(uint *)(*(int *)(param_2 + 0x1c) + 0x14) >> ((byte)UINT_008ddee4 & 0x1f)) <<
        ((byte)UINT_008dded8 & 0x1f);
@@ -12843,15 +12843,15 @@ void rdRaster_Draw16_TexLitKey_5(int param_1,int param_2)
     g_nRdRasterStepA = -1;
     g_nRdRasterStepB = 1;
   }
-  rdRaster_Grad_Flat_2(*(undefined4 *)(param_1 + 100));
-  _DAT_008ddeec = _DAT_008ddef4 * 16.0;
+  rdRaster_Grad_Flat_2(PUN(float,*(undefined4 *)(param_1 + 100)));
+  *(float *)&DAT_008ddeec = _DAT_008ddef4 * 16.0;
   UINT_008ddee8 = *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + UINT_008ddee4 * 4) + 0x5c);
   UINT_008dded8 = *(int *)(*(int *)(param_2 + 0x1c) + 0xc) - UINT_008ddee4;
   UINT_008ddecc =
        (*(uint *)(*(int *)(param_2 + 0x1c) + 0x10) >> ((byte)UINT_008ddee4 & 0x1f)) << 0x10;
-  _DAT_008dded0 = _DAT_008ddec8 * 16.0;
+  *(float *)&DAT_008dded0 = _DAT_008ddec8 * 16.0;
   local_7c = g_nRdRasterStartVertex;
-  _DAT_008ddf00 = _DAT_008ddedc * 16.0;
+  *(float *)&DAT_008ddf00 = _DAT_008ddedc * 16.0;
   UINT_008ddefc =
        (*(uint *)(*(int *)(param_2 + 0x1c) + 0x14) >> ((byte)UINT_008ddee4 & 0x1f)) <<
        ((byte)UINT_008dded8 & 0x1f);
@@ -13400,16 +13400,16 @@ void rdRaster_Draw_FlatLit_5(int param_1,int param_2,float param_3)
     g_nRdRasterStepA = -1;
     g_nRdRasterStepB = 1;
   }
-  rdRaster_Grad_Flat_2(*(undefined4 *)(param_1 + 100));
-  _DAT_008ddeec = _DAT_008ddef4 * 16.0;
+  rdRaster_Grad_Flat_2(PUN(float,*(undefined4 *)(param_1 + 100)));
+  *(float *)&DAT_008ddeec = _DAT_008ddef4 * 16.0;
   UINT_008ddee8 = *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + UINT_008ddee4 * 4) + 0x5c);
   UINT_008dded8 = *(int *)(*(int *)(param_2 + 0x1c) + 0xc) - UINT_008ddee4;
   UINT_008ddeb4 = *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + UINT_008ddee4 * 4) + 0x18);
   UINT_008ddecc =
        (*(uint *)(*(int *)(param_2 + 0x1c) + 0x10) >> ((byte)UINT_008ddee4 & 0x1f)) << 0x10;
-  _DAT_008dded0 = _DAT_008ddec8 * 16.0;
+  *(float *)&DAT_008dded0 = _DAT_008ddec8 * 16.0;
   local_3c = g_nRdRasterStartVertex;
-  _DAT_008ddf00 = _DAT_008ddedc * 16.0;
+  *(float *)&DAT_008ddf00 = _DAT_008ddedc * 16.0;
   UINT_008ddefc =
        (*(uint *)(*(int *)(param_2 + 0x1c) + 0x14) >> ((byte)UINT_008ddee4 & 0x1f)) <<
        ((byte)UINT_008dded8 & 0x1f);
@@ -13909,15 +13909,15 @@ void rdRaster_Draw16_TexLit_9(int param_1,int param_2,float param_3)
     g_nRdRasterStepA = -1;
     g_nRdRasterStepB = 1;
   }
-  rdRaster_Grad_Flat_2(*(undefined4 *)(param_1 + 100));
-  _DAT_008ddeec = _DAT_008ddef4 * 16.0;
+  rdRaster_Grad_Flat_2(PUN(float,*(undefined4 *)(param_1 + 100)));
+  *(float *)&DAT_008ddeec = _DAT_008ddef4 * 16.0;
   UINT_008ddee8 = *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + UINT_008ddee4 * 4) + 0x5c);
   UINT_008dded8 = *(int *)(*(int *)(param_2 + 0x1c) + 0xc) - UINT_008ddee4;
   UINT_008ddecc =
        (*(uint *)(*(int *)(param_2 + 0x1c) + 0x10) >> ((byte)UINT_008ddee4 & 0x1f)) << 0x10;
-  _DAT_008dded0 = _DAT_008ddec8 * 16.0;
+  *(float *)&DAT_008dded0 = _DAT_008ddec8 * 16.0;
   local_3c = g_nRdRasterStartVertex;
-  _DAT_008ddf00 = _DAT_008ddedc * 16.0;
+  *(float *)&DAT_008ddf00 = _DAT_008ddedc * 16.0;
   UINT_008ddefc =
        (*(uint *)(*(int *)(param_2 + 0x1c) + 0x14) >> ((byte)UINT_008ddee4 & 0x1f)) <<
        ((byte)UINT_008dded8 & 0x1f);
@@ -14486,15 +14486,15 @@ void rdRaster_Draw_TexLitKey_4(int param_1,int param_2,float param_3)
     g_nRdRasterStepA = -1;
     g_nRdRasterStepB = 1;
   }
-  rdRaster_Grad_Flat_2(*(undefined4 *)(param_1 + 100));
-  _DAT_008ddeec = _DAT_008ddef4 * 16.0;
+  rdRaster_Grad_Flat_2(PUN(float,*(undefined4 *)(param_1 + 100)));
+  *(float *)&DAT_008ddeec = _DAT_008ddef4 * 16.0;
   UINT_008ddee8 = *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + UINT_008ddee4 * 4) + 0x5c);
   UINT_008dded8 = *(int *)(*(int *)(param_2 + 0x1c) + 0xc) - UINT_008ddee4;
   UINT_008ddecc =
        (*(uint *)(*(int *)(param_2 + 0x1c) + 0x10) >> ((byte)UINT_008ddee4 & 0x1f)) << 0x10;
-  _DAT_008dded0 = _DAT_008ddec8 * 16.0;
+  *(float *)&DAT_008dded0 = _DAT_008ddec8 * 16.0;
   local_3c = g_nRdRasterStartVertex;
-  _DAT_008ddf00 = _DAT_008ddedc * 16.0;
+  *(float *)&DAT_008ddf00 = _DAT_008ddedc * 16.0;
   UINT_008ddefc =
        (*(uint *)(*(int *)(param_2 + 0x1c) + 0x14) >> ((byte)UINT_008ddee4 & 0x1f)) <<
        ((byte)UINT_008dded8 & 0x1f);
@@ -15037,15 +15037,15 @@ void rdRaster_Draw16_TexLitKey_6(int param_1,int param_2,float param_3)
     g_nRdRasterStepA = -1;
     g_nRdRasterStepB = 1;
   }
-  rdRaster_Grad_Flat_2(*(undefined4 *)(param_1 + 100));
-  _DAT_008ddeec = _DAT_008ddef4 * 16.0;
+  rdRaster_Grad_Flat_2(PUN(float,*(undefined4 *)(param_1 + 100)));
+  *(float *)&DAT_008ddeec = _DAT_008ddef4 * 16.0;
   UINT_008ddee8 = *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + UINT_008ddee4 * 4) + 0x5c);
   UINT_008dded8 = *(int *)(*(int *)(param_2 + 0x1c) + 0xc) - UINT_008ddee4;
   UINT_008ddecc =
        (*(uint *)(*(int *)(param_2 + 0x1c) + 0x10) >> ((byte)UINT_008ddee4 & 0x1f)) << 0x10;
-  _DAT_008dded0 = _DAT_008ddec8 * 16.0;
+  *(float *)&DAT_008dded0 = _DAT_008ddec8 * 16.0;
   local_3c = g_nRdRasterStartVertex;
-  _DAT_008ddf00 = _DAT_008ddedc * 16.0;
+  *(float *)&DAT_008ddf00 = _DAT_008ddedc * 16.0;
   UINT_008ddefc =
        (*(uint *)(*(int *)(param_2 + 0x1c) + 0x14) >> ((byte)UINT_008ddee4 & 0x1f)) <<
        ((byte)UINT_008dded8 & 0x1f);
@@ -15605,16 +15605,16 @@ void rdRaster_Draw_FlatLit_6(int param_1,int param_2)
     g_nRdRasterStepA = -1;
     g_nRdRasterStepB = 1;
   }
-  rdRaster_Grad_Flat_2(*(undefined4 *)(param_1 + 100));
-  _DAT_008ddeec = _DAT_008ddef4 * 16.0;
+  rdRaster_Grad_Flat_2(PUN(float,*(undefined4 *)(param_1 + 100)));
+  *(float *)&DAT_008ddeec = _DAT_008ddef4 * 16.0;
   UINT_008ddee8 = *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + UINT_008ddee4 * 4) + 0x5c);
   UINT_008dded8 = *(int *)(*(int *)(param_2 + 0x1c) + 0xc) - UINT_008ddee4;
   UINT_008ddeb4 = *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + UINT_008ddee4 * 4) + 0x18);
   UINT_008ddecc =
        (*(uint *)(*(int *)(param_2 + 0x1c) + 0x10) >> ((byte)UINT_008ddee4 & 0x1f)) << 0x10;
-  _DAT_008dded0 = _DAT_008ddec8 * 16.0;
+  *(float *)&DAT_008dded0 = _DAT_008ddec8 * 16.0;
   local_7c = g_nRdRasterStartVertex;
-  _DAT_008ddf00 = _DAT_008ddedc * 16.0;
+  *(float *)&DAT_008ddf00 = _DAT_008ddedc * 16.0;
   UINT_008ddefc =
        (*(uint *)(*(int *)(param_2 + 0x1c) + 0x14) >> ((byte)UINT_008ddee4 & 0x1f)) <<
        ((byte)UINT_008dded8 & 0x1f);
@@ -15767,9 +15767,9 @@ void rdRaster_Span16_Tex_14(uint *param_1,uint *param_2)
       }
     }
     fVar3 = (float)(int)(uVar11 - *param_1) * 1.5258789e-05;
-    _DAT_007f42f4 = fVar3 * _DAT_008ddef4 + (float)param_1[4];
-    _DAT_007f4258 = fVar3 * _DAT_008ddec8 + (float)param_1[6];
-    _DAT_007f42e4 = fVar3 * _DAT_008ddedc + (float)param_1[8];
+    *(float *)&DAT_007f42f4 = fVar3 * _DAT_008ddef4 + (float)param_1[4];
+    *(float *)&DAT_007f4258 = fVar3 * _DAT_008ddec8 + (float)param_1[6];
+    *(float *)&DAT_007f42e4 = fVar3 * _DAT_008ddedc + (float)param_1[8];
     lVar2 = (longlong)(int)(param_2[0xe] - param_1[0xe]) *
             (longlong)*(int *)(&DAT_008fbfc0 + uVar5 * 4);
     UINT_007f439c = (uint)lVar2 >> 0x10 | (int)((ulonglong)lVar2 >> 0x20) << 0x10;
@@ -15778,36 +15778,36 @@ void rdRaster_Span16_Tex_14(uint *param_1,uint *param_2)
       UINT_007f439c = 0;
     }
     lVar2 = (longlong)(int)(uVar11 - *param_1) * (longlong)(int)UINT_007f439c;
-    _DAT_007f4448 = 1.0 / _DAT_007f42f4;
+    *(float *)&DAT_007f4448 = 1.0 / *(float *)&DAT_007f42f4;
     UINT_007f4450 = ((uint)lVar2 >> 0x10 | (int)((ulonglong)lVar2 >> 0x20) << 0x10) + param_1[0xe];
-    _DAT_007f43c0 = _DAT_007f4448 * _DAT_007f4258;
-    _DAT_007f43c4 = _DAT_007f4448 * _DAT_007f42e4;
+    *(float *)&DAT_007f43c0 = *(float *)&DAT_007f4448 * *(float *)&DAT_007f4258;
+    *(float *)&DAT_007f43c4 = *(float *)&DAT_007f4448 * *(float *)&DAT_007f42e4;
     iVar1 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
     PTR_007f43a8 = (int *)(*(int *)(iVar1 + 0x5c) +
                           (param_1[0x10] * (*(uint *)(iVar1 + 0x18) >> 1) + uVar10) * 2);
     if (UINT_007f43ac == 0) {
-      _DAT_007f43a4 = _DAT_008ddeec + _DAT_007f42f4;
-      _DAT_007f444c = _DAT_008dded0 + _DAT_007f4258;
-      _DAT_007f4248 = _DAT_008ddf00 + _DAT_007f42e4;
+      _DAT_007f43a4 = _DAT_008ddeec + *(float *)&DAT_007f42f4;
+      _DAT_007f444c = _DAT_008dded0 + *(float *)&DAT_007f4258;
+      _DAT_007f4248 = _DAT_008ddf00 + *(float *)&DAT_007f42e4;
     }
     else {
-      _DAT_007f42f0 = (float)(int)UINT_007f43ac;
-      _DAT_007f43a0 = (float)(&UINT_008fe000)[UINT_007f43ac];
-      _DAT_007f43a4 = _DAT_008ddef4 * _DAT_007f42f0 + _DAT_007f42f4;
-      _DAT_007f444c = _DAT_008ddec8 * _DAT_007f42f0 + _DAT_007f4258;
-      _DAT_007f4248 = _DAT_008ddedc * _DAT_007f42f0 + _DAT_007f42e4;
+      *(float *)&DAT_007f42f0 = (float)(int)UINT_007f43ac;
+      *(float *)&DAT_007f43a0 = (float)(&UINT_008fe000)[UINT_007f43ac];
+      _DAT_007f43a4 = _DAT_008ddef4 * *(float *)&DAT_007f42f0 + *(float *)&DAT_007f42f4;
+      _DAT_007f444c = _DAT_008ddec8 * *(float *)&DAT_007f42f0 + *(float *)&DAT_007f4258;
+      _DAT_007f4248 = _DAT_008ddedc * *(float *)&DAT_007f42f0 + *(float *)&DAT_007f42e4;
       UINT_007f43b8 = (uint)(1.0 / _DAT_007f43a4);
       UINT_007f43b0 = (uint)((float)UINT_007f43b8 * _DAT_007f444c);
       UINT_007f43b4 = (uint)((float)UINT_007f43b8 * _DAT_007f4248);
       bVar7 = (byte)UINT_008ddee4;
       UINT_007f43bc =
-           (int)ROUND(((float)UINT_007f43b0 - _DAT_007f43c0) * _DAT_007f43a0 * 65536.0) >>
+           (int)ROUND(((float)UINT_007f43b0 - *(float *)&DAT_007f43c0) * *(float *)&DAT_007f43a0 * 65536.0) >>
            (bVar7 & 0x1f);
       UINT_007f4254 =
-           (int)ROUND(((float)UINT_007f43b4 - _DAT_007f43c4) * _DAT_007f43a0 * 65536.0) >>
+           (int)ROUND(((float)UINT_007f43b4 - *(float *)&DAT_007f43c4) * *(float *)&DAT_007f43a0 * 65536.0) >>
            (bVar7 & 0x1f);
-      UINT_007f4454 = ((int)ROUND(_DAT_007f43c0 * 65536.0) >> (bVar7 & 0x1f)) + UINT_008ddef8;
-      UINT_007f4458 = ((int)ROUND(_DAT_007f43c4 * 65536.0) >> (bVar7 & 0x1f)) + UINT_008ddeac;
+      UINT_007f4454 = ((int)ROUND(*(float *)&DAT_007f43c0 * 65536.0) >> (bVar7 & 0x1f)) + UINT_008ddef8;
+      UINT_007f4458 = ((int)ROUND(*(float *)&DAT_007f43c4 * 65536.0) >> (bVar7 & 0x1f)) + UINT_008ddeac;
       if (0 < (int)UINT_007f43ac) {
         do {
           *(undefined2 *)PTR_007f43a8 =
@@ -15828,9 +15828,9 @@ void rdRaster_Span16_Tex_14(uint *param_1,uint *param_2)
       _DAT_007f43a4 = _DAT_008ddeec + _DAT_007f43a4;
       _DAT_007f444c = _DAT_008dded0 + _DAT_007f444c;
       _DAT_007f4248 = _DAT_008ddf00 + _DAT_007f4248;
-      _DAT_007f43c0 = (float)UINT_007f43b0;
-      _DAT_007f43c4 = (float)UINT_007f43b4;
-      _DAT_007f4448 = (float)UINT_007f43b8;
+      *(float *)&DAT_007f43c0 = (float)UINT_007f43b0;
+      *(float *)&DAT_007f43c4 = (float)UINT_007f43b4;
+      *(float *)&DAT_007f4448 = (float)UINT_007f43b8;
     }
     while( true ) {
       bVar4 = (int)UINT_007f4390 < 1;
@@ -15841,12 +15841,12 @@ void rdRaster_Span16_Tex_14(uint *param_1,uint *param_2)
       UINT_007f43b0 = (uint)((float)UINT_007f43b8 * _DAT_007f444c);
       UINT_007f43b4 = (uint)((float)UINT_007f43b8 * _DAT_007f4248);
       UINT_007f43bc =
-           (int)ROUND(((float)UINT_007f43b0 - _DAT_007f43c0) * 0.0625 * 65536.0) >> (bVar7 & 0x1f);
+           (int)ROUND(((float)UINT_007f43b0 - *(float *)&DAT_007f43c0) * 0.0625 * 65536.0) >> (bVar7 & 0x1f);
       UINT_007f4254 =
-           (int)ROUND(((float)UINT_007f43b4 - _DAT_007f43c4) * 0.0625 * 65536.0) >> (bVar7 & 0x1f);
-      UINT_007f4454 = ((int)ROUND(_DAT_007f43c0 * 65536.0) >> (bVar7 & 0x1f)) + UINT_008ddef8;
+           (int)ROUND(((float)UINT_007f43b4 - *(float *)&DAT_007f43c4) * 0.0625 * 65536.0) >> (bVar7 & 0x1f);
+      UINT_007f4454 = ((int)ROUND(*(float *)&DAT_007f43c0 * 65536.0) >> (bVar7 & 0x1f)) + UINT_008ddef8;
       iVar6 = 0x10;
-      UINT_007f4458 = ((int)ROUND(_DAT_007f43c4 * 65536.0) >> (bVar7 & 0x1f)) + UINT_008ddeac;
+      UINT_007f4458 = ((int)ROUND(*(float *)&DAT_007f43c4 * 65536.0) >> (bVar7 & 0x1f)) + UINT_008ddeac;
       do {
         *(undefined2 *)PTR_007f43a8 =
              *(undefined2 *)
@@ -15864,29 +15864,29 @@ void rdRaster_Span16_Tex_14(uint *param_1,uint *param_2)
       _DAT_007f43a4 = _DAT_008ddeec + _DAT_007f43a4;
       _DAT_007f444c = _DAT_008dded0 + _DAT_007f444c;
       _DAT_007f4248 = _DAT_008ddf00 + _DAT_007f4248;
-      _DAT_007f43c0 = (float)UINT_007f43b0;
-      _DAT_007f43c4 = (float)UINT_007f43b4;
-      _DAT_007f4448 = (float)UINT_007f43b8;
+      *(float *)&DAT_007f43c0 = (float)UINT_007f43b0;
+      *(float *)&DAT_007f43c4 = (float)UINT_007f43b4;
+      *(float *)&DAT_007f4448 = (float)UINT_007f43b8;
     }
     if (UINT_007f4244 != 0) {
       UINT_007f4244 = UINT_007f4244 - 1;
       if (UINT_007f4244 != 0) {
-        _DAT_007f4240 = (float)(int)UINT_007f4244;
-        _DAT_007f42e0 = (float)(&UINT_008fe000)[UINT_007f4244];
-        _DAT_007f43a4 = (_DAT_008ddef4 * _DAT_007f4240 - _DAT_008ddeec) + _DAT_007f43a4;
-        _DAT_007f444c = (_DAT_008ddec8 * _DAT_007f4240 - _DAT_008dded0) + _DAT_007f444c;
-        _DAT_007f4248 = (_DAT_008ddedc * _DAT_007f4240 - _DAT_008ddf00) + _DAT_007f4248;
+        *(float *)&DAT_007f4240 = (float)(int)UINT_007f4244;
+        *(float *)&DAT_007f42e0 = (float)(&UINT_008fe000)[UINT_007f4244];
+        _DAT_007f43a4 = (_DAT_008ddef4 * *(float *)&DAT_007f4240 - _DAT_008ddeec) + _DAT_007f43a4;
+        _DAT_007f444c = (_DAT_008ddec8 * *(float *)&DAT_007f4240 - _DAT_008dded0) + _DAT_007f444c;
+        _DAT_007f4248 = (_DAT_008ddedc * *(float *)&DAT_007f4240 - _DAT_008ddf00) + _DAT_007f4248;
         UINT_007f43b8 = (uint)(1.0 / _DAT_007f43a4);
         UINT_007f43b0 = (uint)((float)UINT_007f43b8 * _DAT_007f444c);
         UINT_007f43b4 = (uint)((float)UINT_007f43b8 * _DAT_007f4248);
         UINT_007f43bc =
-             (int)ROUND(((float)UINT_007f43b0 - _DAT_007f43c0) * _DAT_007f42e0 * 65536.0) >>
+             (int)ROUND(((float)UINT_007f43b0 - *(float *)&DAT_007f43c0) * *(float *)&DAT_007f42e0 * 65536.0) >>
              (bVar7 & 0x1f);
         UINT_007f4254 =
-             (int)ROUND(((float)UINT_007f43b4 - _DAT_007f43c4) * _DAT_007f42e0 * 65536.0) >>
+             (int)ROUND(((float)UINT_007f43b4 - *(float *)&DAT_007f43c4) * *(float *)&DAT_007f42e0 * 65536.0) >>
              (bVar7 & 0x1f);
-        UINT_007f4454 = ((int)ROUND(_DAT_007f43c0 * 65536.0) >> (bVar7 & 0x1f)) + UINT_008ddef8;
-        UINT_007f4458 = ((int)ROUND(_DAT_007f43c4 * 65536.0) >> (bVar7 & 0x1f)) + UINT_008ddeac;
+        UINT_007f4454 = ((int)ROUND(*(float *)&DAT_007f43c0 * 65536.0) >> (bVar7 & 0x1f)) + UINT_008ddef8;
+        UINT_007f4458 = ((int)ROUND(*(float *)&DAT_007f43c4 * 65536.0) >> (bVar7 & 0x1f)) + UINT_008ddeac;
       }
       iVar6 = 0;
       if (-1 < (int)UINT_007f4244) {
@@ -16132,15 +16132,15 @@ void rdRaster_Draw16_TexLit_10(int param_1,int param_2)
     g_nRdRasterStepA = -1;
     g_nRdRasterStepB = 1;
   }
-  rdRaster_Grad_Flat_2(*(undefined4 *)(param_1 + 100));
-  _DAT_008ddeec = _DAT_008ddef4 * 16.0;
+  rdRaster_Grad_Flat_2(PUN(float,*(undefined4 *)(param_1 + 100)));
+  *(float *)&DAT_008ddeec = _DAT_008ddef4 * 16.0;
   UINT_008ddee8 = *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + UINT_008ddee4 * 4) + 0x5c);
   UINT_008dded8 = *(int *)(*(int *)(param_2 + 0x1c) + 0xc) - UINT_008ddee4;
   UINT_008ddecc =
        (*(uint *)(*(int *)(param_2 + 0x1c) + 0x10) >> ((byte)UINT_008ddee4 & 0x1f)) << 0x10;
-  _DAT_008dded0 = _DAT_008ddec8 * 16.0;
+  *(float *)&DAT_008dded0 = _DAT_008ddec8 * 16.0;
   local_7c = g_nRdRasterStartVertex;
-  _DAT_008ddf00 = _DAT_008ddedc * 16.0;
+  *(float *)&DAT_008ddf00 = _DAT_008ddedc * 16.0;
   UINT_008ddefc =
        (*(uint *)(*(int *)(param_2 + 0x1c) + 0x14) >> ((byte)UINT_008ddee4 & 0x1f)) <<
        ((byte)UINT_008dded8 & 0x1f);
@@ -16757,15 +16757,15 @@ void rdRaster_Draw_TexLitKey_5(int param_1,int param_2)
     g_nRdRasterStepA = -1;
     g_nRdRasterStepB = 1;
   }
-  rdRaster_Grad_Flat_2(*(undefined4 *)(param_1 + 100));
-  _DAT_008ddeec = _DAT_008ddef4 * 16.0;
+  rdRaster_Grad_Flat_2(PUN(float,*(undefined4 *)(param_1 + 100)));
+  *(float *)&DAT_008ddeec = _DAT_008ddef4 * 16.0;
   UINT_008ddee8 = *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + UINT_008ddee4 * 4) + 0x5c);
   UINT_008dded8 = *(int *)(*(int *)(param_2 + 0x1c) + 0xc) - UINT_008ddee4;
   UINT_008ddecc =
        (*(uint *)(*(int *)(param_2 + 0x1c) + 0x10) >> ((byte)UINT_008ddee4 & 0x1f)) << 0x10;
-  _DAT_008dded0 = _DAT_008ddec8 * 16.0;
+  *(float *)&DAT_008dded0 = _DAT_008ddec8 * 16.0;
   local_7c = g_nRdRasterStartVertex;
-  _DAT_008ddf00 = _DAT_008ddedc * 16.0;
+  *(float *)&DAT_008ddf00 = _DAT_008ddedc * 16.0;
   UINT_008ddefc =
        (*(uint *)(*(int *)(param_2 + 0x1c) + 0x14) >> ((byte)UINT_008ddee4 & 0x1f)) <<
        ((byte)UINT_008dded8 & 0x1f);
@@ -17355,15 +17355,15 @@ void rdRaster_Draw16_TexLitKey_7(int param_1,int param_2)
     g_nRdRasterStepA = -1;
     g_nRdRasterStepB = 1;
   }
-  rdRaster_Grad_Flat_2(*(undefined4 *)(param_1 + 100));
-  _DAT_008ddeec = _DAT_008ddef4 * 16.0;
+  rdRaster_Grad_Flat_2(PUN(float,*(undefined4 *)(param_1 + 100)));
+  *(float *)&DAT_008ddeec = _DAT_008ddef4 * 16.0;
   UINT_008ddee8 = *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + UINT_008ddee4 * 4) + 0x5c);
   UINT_008dded8 = *(int *)(*(int *)(param_2 + 0x1c) + 0xc) - UINT_008ddee4;
   UINT_008ddecc =
        (*(uint *)(*(int *)(param_2 + 0x1c) + 0x10) >> ((byte)UINT_008ddee4 & 0x1f)) << 0x10;
-  _DAT_008dded0 = _DAT_008ddec8 * 16.0;
+  *(float *)&DAT_008dded0 = _DAT_008ddec8 * 16.0;
   local_7c = g_nRdRasterStartVertex;
-  _DAT_008ddf00 = _DAT_008ddedc * 16.0;
+  *(float *)&DAT_008ddf00 = _DAT_008ddedc * 16.0;
   UINT_008ddefc =
        (*(uint *)(*(int *)(param_2 + 0x1c) + 0x14) >> ((byte)UINT_008ddee4 & 0x1f)) <<
        ((byte)UINT_008dded8 & 0x1f);
@@ -18285,11 +18285,11 @@ void rdRaster_Grad_Flat_4(float param_1)
   _DAT_008dde60 =
        (float)(((float10)(fVar18 - fVar4) * extraout_ST0 - (float10)(fVar15 - fVar5) * extraout_ST1)
               * (float10)fVar8);
-  _DAT_008dde64 = ((fVar18 - fVar4) * fVar10 - (fVar15 - fVar5) * fVar9) * fVar11;
+  *(float *)&DAT_008dde64 = ((fVar18 - fVar4) * fVar10 - (fVar15 - fVar5) * fVar9) * fVar11;
   _DAT_008dde80 =
        (float)(((float10)(fVar2 - fVar6) * extraout_ST0 - (float10)(fVar3 - fVar7) * extraout_ST1) *
               (float10)fVar8);
-  _DAT_008dde84 = ((fVar2 - fVar6) * fVar10 - (fVar3 - fVar7) * fVar9) * fVar11;
+  *(float *)&DAT_008dde84 = ((fVar2 - fVar6) * fVar10 - (fVar3 - fVar7) * fVar9) * fVar11;
   if (UINT_007f4464 == 0) {
     UINT_008dde54 = 0;
     goto LAB_0042da90;
@@ -18331,7 +18331,7 @@ LAB_0042da90:
   if (fVar17 <= 0.0) {
     if ((fVar17 < 0.0) ||
        (UINT_008dde78 = 0x8000,
-       (float)(&UINT_007f4588)[local_1c] * _DAT_008dde64 -
+       (float)(&UINT_007f4588)[local_1c] * *(float *)&DAT_008dde64 -
        (float)(&UINT_007f4468)[local_1c] * _DAT_008dde9c < 0.0)) {
       UINT_008dde78 = 0x7fff;
     }
@@ -18347,7 +18347,7 @@ LAB_0042da90:
   }
   if ((fVar17 < 0.0) ||
      (UINT_008dde50 = 0x8000,
-     (float)(&UINT_007f4588)[local_1c] * _DAT_008dde84 -
+     (float)(&UINT_007f4588)[local_1c] * *(float *)&DAT_008dde84 -
      (float)(&UINT_007f4500)[local_1c] * _DAT_008dde9c < 0.0)) {
     UINT_008dde50 = 0x7fff;
   }
@@ -20633,7 +20633,7 @@ void rdRaster_Draw_FlatLit_7(int param_1,int param_2)
     UINT_007f44ec = 0xffffffff;
     UINT_007f4580 = 1;
   }
-  rdRaster_Grad_Flat_3(*(undefined4 *)(param_1 + 100));
+  rdRaster_Grad_Flat_3(PUN(float,*(undefined4 *)(param_1 + 100)));
   UINT_008dde7c = *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + UINT_008dde54 * 4) + 0x5c);
   UINT_008dde8c = *(int *)(*(int *)(param_2 + 0x1c) + 0xc) - UINT_008dde54;
   UINT_008dde68 = *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + UINT_008dde54 * 4) + 0x18);
@@ -21166,7 +21166,7 @@ void rdRaster_Draw_TexLitZ_4(int param_1,int param_2)
     UINT_007f44ec = 0xffffffff;
     UINT_007f4580 = 1;
   }
-  rdRaster_Grad_Flat_3(*(undefined4 *)(param_1 + 100));
+  rdRaster_Grad_Flat_3(PUN(float,*(undefined4 *)(param_1 + 100)));
   UINT_008dde7c = *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + UINT_008dde54 * 4) + 0x5c);
   UINT_008dde8c = *(int *)(*(int *)(param_2 + 0x1c) + 0xc) - UINT_008dde54;
   UINT_008dde48 =
@@ -21491,7 +21491,7 @@ void rdRaster_Draw_TexLitKeyZw(int param_1,int param_2)
     UINT_007f44ec = 0xffffffff;
     UINT_007f4580 = 1;
   }
-  rdRaster_Grad_Flat_3(*(undefined4 *)(param_1 + 100));
+  rdRaster_Grad_Flat_3(PUN(float,*(undefined4 *)(param_1 + 100)));
   UINT_008dde7c = *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + UINT_008dde54 * 4) + 0x5c);
   UINT_008dde8c = *(int *)(*(int *)(param_2 + 0x1c) + 0xc) - UINT_008dde54;
   UINT_008dde48 =
@@ -21811,7 +21811,7 @@ void rdRaster_Draw_TexLitKeyZw_2(int param_1,int param_2)
     UINT_007f44ec = 0xffffffff;
     UINT_007f4580 = 1;
   }
-  rdRaster_Grad_Flat_3(*(undefined4 *)(param_1 + 100));
+  rdRaster_Grad_Flat_3(PUN(float,*(undefined4 *)(param_1 + 100)));
   UINT_008dde7c = *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + UINT_008dde54 * 4) + 0x5c);
   UINT_008dde8c = *(int *)(*(int *)(param_2 + 0x1c) + 0xc) - UINT_008dde54;
   UINT_008dde48 =
@@ -22138,7 +22138,7 @@ void rdRaster_Draw_FlatLit_8(int param_1,int param_2,float param_3)
     UINT_007f44ec = 0xffffffff;
     UINT_007f4580 = 1;
   }
-  rdRaster_Grad_Flat_3(*(undefined4 *)(param_1 + 100));
+  rdRaster_Grad_Flat_3(PUN(float,*(undefined4 *)(param_1 + 100)));
   UINT_008dde7c = *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + UINT_008dde54 * 4) + 0x5c);
   UINT_008dde8c = *(int *)(*(int *)(param_2 + 0x1c) + 0xc) - UINT_008dde54;
   UINT_008dde68 = *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + UINT_008dde54 * 4) + 0x18);
@@ -22680,7 +22680,7 @@ void rdRaster_Draw_TexLitZ_5(int param_1,int param_2,float param_3)
     UINT_007f44ec = 0xffffffff;
     UINT_007f4580 = 1;
   }
-  rdRaster_Grad_Flat_3(*(undefined4 *)(param_1 + 100));
+  rdRaster_Grad_Flat_3(PUN(float,*(undefined4 *)(param_1 + 100)));
   UINT_008dde7c = *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + UINT_008dde54 * 4) + 0x5c);
   UINT_008dde8c = *(int *)(*(int *)(param_2 + 0x1c) + 0xc) - UINT_008dde54;
   UINT_008dde48 =
@@ -23011,7 +23011,7 @@ void rdRaster_Draw_TexLitKeyZw_3(int param_1,int param_2,float param_3)
     UINT_007f44ec = 0xffffffff;
     UINT_007f4580 = 1;
   }
-  rdRaster_Grad_Flat_3(*(undefined4 *)(param_1 + 100));
+  rdRaster_Grad_Flat_3(PUN(float,*(undefined4 *)(param_1 + 100)));
   UINT_008dde7c = *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + UINT_008dde54 * 4) + 0x5c);
   UINT_008dde8c = *(int *)(*(int *)(param_2 + 0x1c) + 0xc) - UINT_008dde54;
   UINT_008dde48 =
@@ -23337,7 +23337,7 @@ void rdRaster_Draw_TexLitKeyZw_4(int param_1,int param_2,float param_3)
     UINT_007f44ec = 0xffffffff;
     UINT_007f4580 = 1;
   }
-  rdRaster_Grad_Flat_3(*(undefined4 *)(param_1 + 100));
+  rdRaster_Grad_Flat_3(PUN(float,*(undefined4 *)(param_1 + 100)));
   UINT_008dde7c = *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + UINT_008dde54 * 4) + 0x5c);
   UINT_008dde8c = *(int *)(*(int *)(param_2 + 0x1c) + 0xc) - UINT_008dde54;
   UINT_008dde48 =
@@ -23670,7 +23670,7 @@ void rdRaster_Draw_FlatLit_9(int param_1,int param_2)
     UINT_007f44ec = 0xffffffff;
     UINT_007f4580 = 1;
   }
-  rdRaster_Grad_Flat_3(*(undefined4 *)(param_1 + 100));
+  rdRaster_Grad_Flat_3(PUN(float,*(undefined4 *)(param_1 + 100)));
   UINT_008dde7c = *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + UINT_008dde54 * 4) + 0x5c);
   UINT_008dde8c = *(int *)(*(int *)(param_2 + 0x1c) + 0xc) - UINT_008dde54;
   UINT_008dde68 = *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + UINT_008dde54 * 4) + 0x18);
@@ -24293,7 +24293,7 @@ void rdRaster_Draw_TexLitZ_6(int param_1,int param_2)
     UINT_007f44ec = 0xffffffff;
     UINT_007f4580 = 1;
   }
-  rdRaster_Grad_Flat_3(*(undefined4 *)(param_1 + 100));
+  rdRaster_Grad_Flat_3(PUN(float,*(undefined4 *)(param_1 + 100)));
   UINT_008dde7c = *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + UINT_008dde54 * 4) + 0x5c);
   UINT_008dde8c = *(int *)(*(int *)(param_2 + 0x1c) + 0xc) - UINT_008dde54;
   UINT_008dde48 =
@@ -24663,7 +24663,7 @@ void rdRaster_Draw_TexLitKeyZw_5(int param_1,int param_2)
     UINT_007f44ec = 0xffffffff;
     UINT_007f4580 = 1;
   }
-  rdRaster_Grad_Flat_3(*(undefined4 *)(param_1 + 100));
+  rdRaster_Grad_Flat_3(PUN(float,*(undefined4 *)(param_1 + 100)));
   UINT_008dde7c = *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + UINT_008dde54 * 4) + 0x5c);
   UINT_008dde8c = *(int *)(*(int *)(param_2 + 0x1c) + 0xc) - UINT_008dde54;
   UINT_008dde48 =
@@ -25029,7 +25029,7 @@ void rdRaster_Draw_TexLitKeyZw_6(int param_1,int param_2)
     UINT_007f44ec = 0xffffffff;
     UINT_007f4580 = 1;
   }
-  rdRaster_Grad_Flat_3(*(undefined4 *)(param_1 + 100));
+  rdRaster_Grad_Flat_3(PUN(float,*(undefined4 *)(param_1 + 100)));
   UINT_008dde7c = *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + UINT_008dde54 * 4) + 0x5c);
   UINT_008dde8c = *(int *)(*(int *)(param_2 + 0x1c) + 0xc) - UINT_008dde54;
   UINT_008dde48 =
@@ -25384,16 +25384,16 @@ void rdRaster_Draw_FlatLit_10(int param_1,int param_2)
     UINT_007f44ec = 0xffffffff;
     UINT_007f4580 = 1;
   }
-  rdRaster_Grad_Flat_4(*(undefined4 *)(param_1 + 100));
-  _DAT_008dde4c = _DAT_008ddea0 * 16.0;
+  rdRaster_Grad_Flat_4(PUN(float,*(undefined4 *)(param_1 + 100)));
+  *(float *)&DAT_008dde4c = _DAT_008ddea0 * 16.0;
   UINT_008dde7c = *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + UINT_008dde54 * 4) + 0x5c);
   UINT_008dde8c = *(int *)(*(int *)(param_2 + 0x1c) + 0xc) - UINT_008dde54;
   UINT_008dde68 = *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + UINT_008dde54 * 4) + 0x18);
   UINT_008dde48 =
        (*(uint *)(*(int *)(param_2 + 0x1c) + 0x10) >> ((byte)UINT_008dde54 & 0x1f)) << 0x10;
-  _DAT_008dde94 = _DAT_008dde60 * 16.0;
+  *(float *)&DAT_008dde94 = _DAT_008dde60 * 16.0;
   local_7c = UINT_007f44e8;
-  _DAT_008dde74 = _DAT_008dde80 * 16.0;
+  *(float *)&DAT_008dde74 = _DAT_008dde80 * 16.0;
   UINT_008dde58 =
        (*(uint *)(*(int *)(param_2 + 0x1c) + 0x14) >> ((byte)UINT_008dde54 & 0x1f)) <<
        ((byte)UINT_008dde8c & 0x1f);
@@ -26197,15 +26197,15 @@ void rdRaster_Draw_TexLitZ_7(int param_1,int param_2)
     UINT_007f44ec = 0xffffffff;
     UINT_007f4580 = 1;
   }
-  rdRaster_Grad_Flat_4(*(undefined4 *)(param_1 + 100));
-  _DAT_008dde4c = _DAT_008ddea0 * 16.0;
+  rdRaster_Grad_Flat_4(PUN(float,*(undefined4 *)(param_1 + 100)));
+  *(float *)&DAT_008dde4c = _DAT_008ddea0 * 16.0;
   UINT_008dde7c = *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + UINT_008dde54 * 4) + 0x5c);
   UINT_008dde8c = *(int *)(*(int *)(param_2 + 0x1c) + 0xc) - UINT_008dde54;
   UINT_008dde48 =
        (*(uint *)(*(int *)(param_2 + 0x1c) + 0x10) >> ((byte)UINT_008dde54 & 0x1f)) << 0x10;
-  _DAT_008dde94 = _DAT_008dde60 * 16.0;
+  *(float *)&DAT_008dde94 = _DAT_008dde60 * 16.0;
   local_7c = UINT_007f44e8;
-  _DAT_008dde74 = _DAT_008dde80 * 16.0;
+  *(float *)&DAT_008dde74 = _DAT_008dde80 * 16.0;
   UINT_008dde58 =
        (*(uint *)(*(int *)(param_2 + 0x1c) + 0x14) >> ((byte)UINT_008dde54 & 0x1f)) <<
        ((byte)UINT_008dde8c & 0x1f);
@@ -26810,15 +26810,15 @@ void rdRaster_Draw_TexLitKeyZw_7(int param_1,int param_2)
     UINT_007f44ec = 0xffffffff;
     UINT_007f4580 = 1;
   }
-  rdRaster_Grad_Flat_4(*(undefined4 *)(param_1 + 100));
-  _DAT_008dde4c = _DAT_008ddea0 * 16.0;
+  rdRaster_Grad_Flat_4(PUN(float,*(undefined4 *)(param_1 + 100)));
+  *(float *)&DAT_008dde4c = _DAT_008ddea0 * 16.0;
   UINT_008dde7c = *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + UINT_008dde54 * 4) + 0x5c);
   UINT_008dde8c = *(int *)(*(int *)(param_2 + 0x1c) + 0xc) - UINT_008dde54;
   UINT_008dde48 =
        (*(uint *)(*(int *)(param_2 + 0x1c) + 0x10) >> ((byte)UINT_008dde54 & 0x1f)) << 0x10;
-  _DAT_008dde94 = _DAT_008dde60 * 16.0;
+  *(float *)&DAT_008dde94 = _DAT_008dde60 * 16.0;
   local_7c = UINT_007f44e8;
-  _DAT_008dde74 = _DAT_008dde80 * 16.0;
+  *(float *)&DAT_008dde74 = _DAT_008dde80 * 16.0;
   UINT_008dde58 =
        (*(uint *)(*(int *)(param_2 + 0x1c) + 0x14) >> ((byte)UINT_008dde54 & 0x1f)) <<
        ((byte)UINT_008dde8c & 0x1f);
@@ -27429,15 +27429,15 @@ void rdRaster_Draw_TexLitKeyZw_8(int param_1,int param_2)
     UINT_007f44ec = 0xffffffff;
     UINT_007f4580 = 1;
   }
-  rdRaster_Grad_Flat_4(*(undefined4 *)(param_1 + 100));
-  _DAT_008dde4c = _DAT_008ddea0 * 16.0;
+  rdRaster_Grad_Flat_4(PUN(float,*(undefined4 *)(param_1 + 100)));
+  *(float *)&DAT_008dde4c = _DAT_008ddea0 * 16.0;
   UINT_008dde7c = *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + UINT_008dde54 * 4) + 0x5c);
   UINT_008dde8c = *(int *)(*(int *)(param_2 + 0x1c) + 0xc) - UINT_008dde54;
   UINT_008dde48 =
        (*(uint *)(*(int *)(param_2 + 0x1c) + 0x10) >> ((byte)UINT_008dde54 & 0x1f)) << 0x10;
-  _DAT_008dde94 = _DAT_008dde60 * 16.0;
+  *(float *)&DAT_008dde94 = _DAT_008dde60 * 16.0;
   local_7c = UINT_007f44e8;
-  _DAT_008dde74 = _DAT_008dde80 * 16.0;
+  *(float *)&DAT_008dde74 = _DAT_008dde80 * 16.0;
   UINT_008dde58 =
        (*(uint *)(*(int *)(param_2 + 0x1c) + 0x14) >> ((byte)UINT_008dde54 & 0x1f)) <<
        ((byte)UINT_008dde8c & 0x1f);
@@ -28057,16 +28057,16 @@ void rdRaster_Draw_FlatLit_11(int param_1,int param_2,float param_3)
     UINT_007f44ec = 0xffffffff;
     UINT_007f4580 = 1;
   }
-  rdRaster_Grad_Flat_4(*(undefined4 *)(param_1 + 100));
-  _DAT_008dde4c = _DAT_008ddea0 * 16.0;
+  rdRaster_Grad_Flat_4(PUN(float,*(undefined4 *)(param_1 + 100)));
+  *(float *)&DAT_008dde4c = _DAT_008ddea0 * 16.0;
   UINT_008dde7c = *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + UINT_008dde54 * 4) + 0x5c);
   UINT_008dde8c = *(int *)(*(int *)(param_2 + 0x1c) + 0xc) - UINT_008dde54;
   UINT_008dde68 = *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + UINT_008dde54 * 4) + 0x18);
   UINT_008dde48 =
        (*(uint *)(*(int *)(param_2 + 0x1c) + 0x10) >> ((byte)UINT_008dde54 & 0x1f)) << 0x10;
-  _DAT_008dde94 = _DAT_008dde60 * 16.0;
+  *(float *)&DAT_008dde94 = _DAT_008dde60 * 16.0;
   local_3c = UINT_007f44e8;
-  _DAT_008dde74 = _DAT_008dde80 * 16.0;
+  *(float *)&DAT_008dde74 = _DAT_008dde80 * 16.0;
   UINT_008dde58 =
        (*(uint *)(*(int *)(param_2 + 0x1c) + 0x14) >> ((byte)UINT_008dde54 & 0x1f)) <<
        ((byte)UINT_008dde8c & 0x1f);
@@ -28876,15 +28876,15 @@ void rdRaster_Draw_TexLitZ_8(int param_1,int param_2,float param_3)
     UINT_007f44ec = 0xffffffff;
     UINT_007f4580 = 1;
   }
-  rdRaster_Grad_Flat_4(*(undefined4 *)(param_1 + 100));
-  _DAT_008dde4c = _DAT_008ddea0 * 16.0;
+  rdRaster_Grad_Flat_4(PUN(float,*(undefined4 *)(param_1 + 100)));
+  *(float *)&DAT_008dde4c = _DAT_008ddea0 * 16.0;
   UINT_008dde7c = *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + UINT_008dde54 * 4) + 0x5c);
   UINT_008dde8c = *(int *)(*(int *)(param_2 + 0x1c) + 0xc) - UINT_008dde54;
   UINT_008dde48 =
        (*(uint *)(*(int *)(param_2 + 0x1c) + 0x10) >> ((byte)UINT_008dde54 & 0x1f)) << 0x10;
-  _DAT_008dde94 = _DAT_008dde60 * 16.0;
+  *(float *)&DAT_008dde94 = _DAT_008dde60 * 16.0;
   local_3c = UINT_007f44e8;
-  _DAT_008dde74 = _DAT_008dde80 * 16.0;
+  *(float *)&DAT_008dde74 = _DAT_008dde80 * 16.0;
   UINT_008dde58 =
        (*(uint *)(*(int *)(param_2 + 0x1c) + 0x14) >> ((byte)UINT_008dde54 & 0x1f)) <<
        ((byte)UINT_008dde8c & 0x1f);
@@ -29507,15 +29507,15 @@ void rdRaster_Draw_TexLitKeyZw_9(int param_1,int param_2,float param_3)
     UINT_007f44ec = 0xffffffff;
     UINT_007f4580 = 1;
   }
-  rdRaster_Grad_Flat_4(*(undefined4 *)(param_1 + 100));
-  _DAT_008dde4c = _DAT_008ddea0 * 16.0;
+  rdRaster_Grad_Flat_4(PUN(float,*(undefined4 *)(param_1 + 100)));
+  *(float *)&DAT_008dde4c = _DAT_008ddea0 * 16.0;
   UINT_008dde7c = *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + UINT_008dde54 * 4) + 0x5c);
   UINT_008dde8c = *(int *)(*(int *)(param_2 + 0x1c) + 0xc) - UINT_008dde54;
   UINT_008dde48 =
        (*(uint *)(*(int *)(param_2 + 0x1c) + 0x10) >> ((byte)UINT_008dde54 & 0x1f)) << 0x10;
-  _DAT_008dde94 = _DAT_008dde60 * 16.0;
+  *(float *)&DAT_008dde94 = _DAT_008dde60 * 16.0;
   local_3c = UINT_007f44e8;
-  _DAT_008dde74 = _DAT_008dde80 * 16.0;
+  *(float *)&DAT_008dde74 = _DAT_008dde80 * 16.0;
   UINT_008dde58 =
        (*(uint *)(*(int *)(param_2 + 0x1c) + 0x14) >> ((byte)UINT_008dde54 & 0x1f)) <<
        ((byte)UINT_008dde8c & 0x1f);
@@ -30131,15 +30131,15 @@ void rdRaster_Draw_TexLitKeyZw_10(int param_1,int param_2,float param_3)
     UINT_007f44ec = 0xffffffff;
     UINT_007f4580 = 1;
   }
-  rdRaster_Grad_Flat_4(*(undefined4 *)(param_1 + 100));
-  _DAT_008dde4c = _DAT_008ddea0 * 16.0;
+  rdRaster_Grad_Flat_4(PUN(float,*(undefined4 *)(param_1 + 100)));
+  *(float *)&DAT_008dde4c = _DAT_008ddea0 * 16.0;
   UINT_008dde7c = *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + UINT_008dde54 * 4) + 0x5c);
   UINT_008dde8c = *(int *)(*(int *)(param_2 + 0x1c) + 0xc) - UINT_008dde54;
   UINT_008dde48 =
        (*(uint *)(*(int *)(param_2 + 0x1c) + 0x10) >> ((byte)UINT_008dde54 & 0x1f)) << 0x10;
-  _DAT_008dde94 = _DAT_008dde60 * 16.0;
+  *(float *)&DAT_008dde94 = _DAT_008dde60 * 16.0;
   local_3c = UINT_007f44e8;
-  _DAT_008dde74 = _DAT_008dde80 * 16.0;
+  *(float *)&DAT_008dde74 = _DAT_008dde80 * 16.0;
   UINT_008dde58 =
        (*(uint *)(*(int *)(param_2 + 0x1c) + 0x14) >> ((byte)UINT_008dde54 & 0x1f)) <<
        ((byte)UINT_008dde8c & 0x1f);
@@ -30767,16 +30767,16 @@ void rdRaster_Draw_FlatLit_12(int param_1,int param_2)
     UINT_007f44ec = 0xffffffff;
     UINT_007f4580 = 1;
   }
-  rdRaster_Grad_Flat_4(*(undefined4 *)(param_1 + 100));
-  _DAT_008dde4c = _DAT_008ddea0 * 16.0;
+  rdRaster_Grad_Flat_4(PUN(float,*(undefined4 *)(param_1 + 100)));
+  *(float *)&DAT_008dde4c = _DAT_008ddea0 * 16.0;
   UINT_008dde7c = *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + UINT_008dde54 * 4) + 0x5c);
   UINT_008dde8c = *(int *)(*(int *)(param_2 + 0x1c) + 0xc) - UINT_008dde54;
   UINT_008dde68 = *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + UINT_008dde54 * 4) + 0x18);
   UINT_008dde48 =
        (*(uint *)(*(int *)(param_2 + 0x1c) + 0x10) >> ((byte)UINT_008dde54 & 0x1f)) << 0x10;
-  _DAT_008dde94 = _DAT_008dde60 * 16.0;
+  *(float *)&DAT_008dde94 = _DAT_008dde60 * 16.0;
   local_7c = UINT_007f44e8;
-  _DAT_008dde74 = _DAT_008dde80 * 16.0;
+  *(float *)&DAT_008dde74 = _DAT_008dde80 * 16.0;
   UINT_008dde58 =
        (*(uint *)(*(int *)(param_2 + 0x1c) + 0x14) >> ((byte)UINT_008dde54 & 0x1f)) <<
        ((byte)UINT_008dde8c & 0x1f);
@@ -31649,15 +31649,15 @@ void rdRaster_Draw_TexLitZ_9(int param_1,int param_2)
     UINT_007f44ec = 0xffffffff;
     UINT_007f4580 = 1;
   }
-  rdRaster_Grad_Flat_4(*(undefined4 *)(param_1 + 100));
-  _DAT_008dde4c = _DAT_008ddea0 * 16.0;
+  rdRaster_Grad_Flat_4(PUN(float,*(undefined4 *)(param_1 + 100)));
+  *(float *)&DAT_008dde4c = _DAT_008ddea0 * 16.0;
   UINT_008dde7c = *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + UINT_008dde54 * 4) + 0x5c);
   UINT_008dde8c = *(int *)(*(int *)(param_2 + 0x1c) + 0xc) - UINT_008dde54;
   UINT_008dde48 =
        (*(uint *)(*(int *)(param_2 + 0x1c) + 0x10) >> ((byte)UINT_008dde54 & 0x1f)) << 0x10;
-  _DAT_008dde94 = _DAT_008dde60 * 16.0;
+  *(float *)&DAT_008dde94 = _DAT_008dde60 * 16.0;
   local_7c = UINT_007f44e8;
-  _DAT_008dde74 = _DAT_008dde80 * 16.0;
+  *(float *)&DAT_008dde74 = _DAT_008dde80 * 16.0;
   UINT_008dde58 =
        (*(uint *)(*(int *)(param_2 + 0x1c) + 0x14) >> ((byte)UINT_008dde54 & 0x1f)) <<
        ((byte)UINT_008dde8c & 0x1f);
@@ -32342,15 +32342,15 @@ void rdRaster_Draw_TexLitKeyZw_11(int param_1,int param_2)
     UINT_007f44ec = 0xffffffff;
     UINT_007f4580 = 1;
   }
-  rdRaster_Grad_Flat_4(*(undefined4 *)(param_1 + 100));
-  _DAT_008dde4c = _DAT_008ddea0 * 16.0;
+  rdRaster_Grad_Flat_4(PUN(float,*(undefined4 *)(param_1 + 100)));
+  *(float *)&DAT_008dde4c = _DAT_008ddea0 * 16.0;
   UINT_008dde7c = *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + UINT_008dde54 * 4) + 0x5c);
   UINT_008dde8c = *(int *)(*(int *)(param_2 + 0x1c) + 0xc) - UINT_008dde54;
   UINT_008dde48 =
        (*(uint *)(*(int *)(param_2 + 0x1c) + 0x10) >> ((byte)UINT_008dde54 & 0x1f)) << 0x10;
-  _DAT_008dde94 = _DAT_008dde60 * 16.0;
+  *(float *)&DAT_008dde94 = _DAT_008dde60 * 16.0;
   local_7c = UINT_007f44e8;
-  _DAT_008dde74 = _DAT_008dde80 * 16.0;
+  *(float *)&DAT_008dde74 = _DAT_008dde80 * 16.0;
   UINT_008dde58 =
        (*(uint *)(*(int *)(param_2 + 0x1c) + 0x14) >> ((byte)UINT_008dde54 & 0x1f)) <<
        ((byte)UINT_008dde8c & 0x1f);
@@ -33021,15 +33021,15 @@ void rdRaster_Draw_TexLitKeyZw_12(int param_1,int param_2)
     UINT_007f44ec = 0xffffffff;
     UINT_007f4580 = 1;
   }
-  rdRaster_Grad_Flat_4(*(undefined4 *)(param_1 + 100));
-  _DAT_008dde4c = _DAT_008ddea0 * 16.0;
+  rdRaster_Grad_Flat_4(PUN(float,*(undefined4 *)(param_1 + 100)));
+  *(float *)&DAT_008dde4c = _DAT_008ddea0 * 16.0;
   UINT_008dde7c = *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + UINT_008dde54 * 4) + 0x5c);
   UINT_008dde8c = *(int *)(*(int *)(param_2 + 0x1c) + 0xc) - UINT_008dde54;
   UINT_008dde48 =
        (*(uint *)(*(int *)(param_2 + 0x1c) + 0x10) >> ((byte)UINT_008dde54 & 0x1f)) << 0x10;
-  _DAT_008dde94 = _DAT_008dde60 * 16.0;
+  *(float *)&DAT_008dde94 = _DAT_008dde60 * 16.0;
   local_7c = UINT_007f44e8;
-  _DAT_008dde74 = _DAT_008dde80 * 16.0;
+  *(float *)&DAT_008dde74 = _DAT_008dde80 * 16.0;
   UINT_008dde58 =
        (*(uint *)(*(int *)(param_2 + 0x1c) + 0x14) >> ((byte)UINT_008dde54 & 0x1f)) <<
        ((byte)UINT_008dde8c & 0x1f);
@@ -34841,43 +34841,43 @@ void rdRaster_SpanP16_Tex(uint *param_1)
       UINT_007f4acc = 0x10;
     }
   }
-  _DAT_007f4af8 = (float)param_1[7];
-  _DAT_007f4ae4 = (float)param_1[3];
-  _DAT_007f4b60 = 1.0 / _DAT_007f4af8;
-  _DAT_007f4af0 = (float)param_1[4];
-  _DAT_007f4b58 = _DAT_007f4b60 * _DAT_007f4ae4;
-  _DAT_007f4b5c = _DAT_007f4b60 * _DAT_007f4af0;
+  *(float *)&DAT_007f4af8 = (float)param_1[7];
+  *(float *)&DAT_007f4ae4 = (float)param_1[3];
+  *(float *)&DAT_007f4b60 = 1.0 / *(float *)&DAT_007f4af8;
+  *(float *)&DAT_007f4af0 = (float)param_1[4];
+  *(float *)&DAT_007f4b58 = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4ae4;
+  *(float *)&DAT_007f4b5c = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4af0;
   iVar6 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
   uVar3 = *(int *)(iVar6 + 0x5c) + (param_1[2] * (*(uint *)(iVar6 + 0x18) >> 1) + *param_1) * 2;
   UINT_007f4b44 = uVar5;
   if (uVar5 == 0) {
-    _DAT_007f4b38 = _DAT_007f4af8 + _DAT_008ddf28;
-    _DAT_007f4b64 = _DAT_007f4ae4 + _DAT_008ddf2c;
-    _DAT_007f4ad4 = _DAT_007f4af0 + _DAT_008ddf48;
+    _DAT_007f4b38 = *(float *)&DAT_007f4af8 + _DAT_008ddf28;
+    _DAT_007f4b64 = *(float *)&DAT_007f4ae4 + _DAT_008ddf2c;
+    _DAT_007f4ad4 = *(float *)&DAT_007f4af0 + _DAT_008ddf48;
     uVar7 = UINT_007f4acc;
     uVar5 = UINT_008ddf30;
   }
   else {
-    _DAT_007f4af4 = (float)(int)uVar5;
-    _DAT_007f4b34 = (float)(&UINT_008fe000)[uVar5];
-    _DAT_007f4b38 = _DAT_007f4af4 * _DAT_008ddf1c + _DAT_007f4af8;
-    _DAT_007f4b64 = _DAT_007f4af4 * _DAT_008ddf20 + _DAT_007f4ae4;
-    _DAT_007f4ad4 = _DAT_007f4af4 * _DAT_008ddf38 + _DAT_007f4af0;
+    *(float *)&DAT_007f4af4 = (float)(int)uVar5;
+    *(float *)&DAT_007f4b34 = (float)(&UINT_008fe000)[uVar5];
+    _DAT_007f4b38 = *(float *)&DAT_007f4af4 * _DAT_008ddf1c + *(float *)&DAT_007f4af8;
+    _DAT_007f4b64 = *(float *)&DAT_007f4af4 * _DAT_008ddf20 + *(float *)&DAT_007f4ae4;
+    _DAT_007f4ad4 = *(float *)&DAT_007f4af4 * _DAT_008ddf38 + *(float *)&DAT_007f4af0;
     UINT_007f4b50 = (uint)(1.0 / _DAT_007f4b38);
     UINT_007f4b48 = (uint)((float)UINT_007f4b50 * _DAT_007f4b64);
     UINT_007f4b4c = (uint)((float)UINT_007f4b50 * _DAT_007f4ad4);
     bVar2 = (byte)UINT_008ddf04;
     UINT_007f4b54 =
-         (int)ROUND(((float)UINT_007f4b48 - _DAT_007f4b58) * _DAT_007f4b34 * 65536.0) >>
+         (int)ROUND(((float)UINT_007f4b48 - *(float *)&DAT_007f4b58) * *(float *)&DAT_007f4b34 * 65536.0) >>
          (bVar2 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND(((float)UINT_007f4b4c - _DAT_007f4b5c) * _DAT_007f4b34 * 65536.0) >>
+         (int)ROUND(((float)UINT_007f4b4c - *(float *)&DAT_007f4b5c) * *(float *)&DAT_007f4b34 * 65536.0) >>
          (bVar2 & 0x1f);
     UINT_007f4b6c =
-         ((int)ROUND(_DAT_007f4b58 * 65536.0) >> (bVar2 & 0x1f)) + UINT_008ddf44 +
+         ((int)ROUND(*(float *)&DAT_007f4b58 * 65536.0) >> (bVar2 & 0x1f)) + UINT_008ddf44 +
          UINT_007f4b54 * (uVar5 - 1);
     UINT_007f4b70 =
-         ((int)ROUND(_DAT_007f4b5c * 65536.0) >> (bVar2 & 0x1f)) +
+         ((int)ROUND(*(float *)&DAT_007f4b5c * 65536.0) >> (bVar2 & 0x1f)) +
          UINT_008ddf18 + UINT_007f4adc * (uVar5 - 1);
     UINT_007f4b3c = uVar3;
     UINT_008dde40 = uVar5;
@@ -34898,9 +34898,9 @@ void rdRaster_SpanP16_Tex(uint *param_1)
     UINT_007f4b70 = UINT_007f4b70 + UINT_007f4adc * (UINT_008dde40 + 1);
     uVar3 = UINT_007f4b3c + UINT_008dde40 * 2;
     uVar7 = UINT_007f4acc;
-    _DAT_007f4b58 = (float)UINT_007f4b48;
-    _DAT_007f4b5c = (float)UINT_007f4b4c;
-    _DAT_007f4b60 = (float)UINT_007f4b50;
+    *(float *)&DAT_007f4b58 = (float)UINT_007f4b48;
+    *(float *)&DAT_007f4b5c = (float)UINT_007f4b4c;
+    *(float *)&DAT_007f4b60 = (float)UINT_007f4b50;
     uVar5 = UINT_008ddf30;
   }
   while( true ) {
@@ -34915,16 +34915,16 @@ void rdRaster_SpanP16_Tex(uint *param_1)
     UINT_007f4b48 = (uint)((float)UINT_007f4b50 * _DAT_007f4b64);
     UINT_007f4b4c = (uint)((float)UINT_007f4b50 * _DAT_007f4ad4);
     UINT_007f4b54 =
-         (int)ROUND(((float)UINT_007f4b48 - _DAT_007f4b58) * 0.0625 * 65536.0) >> (bVar2 & 0x1f);
+         (int)ROUND(((float)UINT_007f4b48 - *(float *)&DAT_007f4b58) * 0.0625 * 65536.0) >> (bVar2 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND(((float)UINT_007f4b4c - _DAT_007f4b5c) * 0.0625 * 65536.0) >> (bVar2 & 0x1f);
+         (int)ROUND(((float)UINT_007f4b4c - *(float *)&DAT_007f4b5c) * 0.0625 * 65536.0) >> (bVar2 & 0x1f);
     UINT_008dde40 = 0x10;
     UINT_007f4b6c =
          UINT_007f4b54 * 0xf +
-         ((int)ROUND(_DAT_007f4b58 * 65536.0) >> (bVar2 & 0x1f)) + UINT_008ddf44;
+         ((int)ROUND(*(float *)&DAT_007f4b58 * 65536.0) >> (bVar2 & 0x1f)) + UINT_008ddf44;
     UINT_007f4b70 =
          UINT_007f4adc * 0xf +
-         UINT_008ddf18 + ((int)ROUND(_DAT_007f4b5c * 65536.0) >> (bVar2 & 0x1f));
+         UINT_008ddf18 + ((int)ROUND(*(float *)&DAT_007f4b5c * 65536.0) >> (bVar2 & 0x1f));
     iVar6 = 0x10;
     do {
       iVar6 = iVar6 + -1;
@@ -34943,30 +34943,30 @@ void rdRaster_SpanP16_Tex(uint *param_1)
     UINT_007f4b70 = UINT_007f4b70 + UINT_007f4adc * (UINT_008dde40 + 1);
     uVar3 = UINT_007f4b3c + UINT_008dde40 * 2;
     uVar7 = UINT_007f4acc;
-    _DAT_007f4b58 = (float)UINT_007f4b48;
-    _DAT_007f4b5c = (float)UINT_007f4b4c;
-    _DAT_007f4b60 = (float)UINT_007f4b50;
+    *(float *)&DAT_007f4b58 = (float)UINT_007f4b48;
+    *(float *)&DAT_007f4b5c = (float)UINT_007f4b4c;
+    *(float *)&DAT_007f4b60 = (float)UINT_007f4b50;
     uVar5 = UINT_008ddf30;
   }
   if (uVar7 != 0) {
     UINT_007f4acc = uVar7 - 1;
     if (UINT_007f4acc != 0) {
-      _DAT_007f4ac8 = (float)(int)UINT_007f4acc;
-      _DAT_007f4aec = (float)(&UINT_008fe000)[UINT_007f4acc];
-      _DAT_007f4b38 = (_DAT_007f4ac8 * _DAT_008ddf1c - _DAT_008ddf28) + _DAT_007f4b38;
-      _DAT_007f4b64 = (_DAT_007f4ac8 * _DAT_008ddf20 - _DAT_008ddf2c) + _DAT_007f4b64;
-      _DAT_007f4ad4 = (_DAT_007f4ac8 * _DAT_008ddf38 - _DAT_008ddf48) + _DAT_007f4ad4;
+      *(float *)&DAT_007f4ac8 = (float)(int)UINT_007f4acc;
+      *(float *)&DAT_007f4aec = (float)(&UINT_008fe000)[UINT_007f4acc];
+      _DAT_007f4b38 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf1c - _DAT_008ddf28) + _DAT_007f4b38;
+      _DAT_007f4b64 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf20 - _DAT_008ddf2c) + _DAT_007f4b64;
+      _DAT_007f4ad4 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf38 - _DAT_008ddf48) + _DAT_007f4ad4;
       UINT_007f4b50 = (uint)(1.0 / _DAT_007f4b38);
       UINT_007f4b48 = (uint)((float)UINT_007f4b50 * _DAT_007f4b64);
       UINT_007f4b4c = (uint)((float)UINT_007f4b50 * _DAT_007f4ad4);
       UINT_007f4b54 =
-           (int)ROUND(((float)UINT_007f4b48 - _DAT_007f4b58) * _DAT_007f4aec * 65536.0) >>
+           (int)ROUND(((float)UINT_007f4b48 - *(float *)&DAT_007f4b58) * *(float *)&DAT_007f4aec * 65536.0) >>
            (bVar2 & 0x1f);
       UINT_007f4adc =
-           (int)ROUND(((float)UINT_007f4b4c - _DAT_007f4b5c) * _DAT_007f4aec * 65536.0) >>
+           (int)ROUND(((float)UINT_007f4b4c - *(float *)&DAT_007f4b5c) * *(float *)&DAT_007f4aec * 65536.0) >>
            (bVar2 & 0x1f);
-      UINT_007f4b6c = ((int)ROUND(_DAT_007f4b58 * 65536.0) >> (bVar2 & 0x1f)) + UINT_008ddf44;
-      UINT_007f4b70 = ((int)ROUND(_DAT_007f4b5c * 65536.0) >> (bVar2 & 0x1f)) + UINT_008ddf18;
+      UINT_007f4b6c = ((int)ROUND(*(float *)&DAT_007f4b58 * 65536.0) >> (bVar2 & 0x1f)) + UINT_008ddf44;
+      UINT_007f4b70 = ((int)ROUND(*(float *)&DAT_007f4b5c * 65536.0) >> (bVar2 & 0x1f)) + UINT_008ddf18;
     }
     UINT_007f4b6c = UINT_007f4b6c + UINT_007f4b54 * UINT_007f4acc;
     UINT_007f4b70 = UINT_007f4b70 + UINT_007f4adc * UINT_007f4acc;
@@ -35045,40 +35045,40 @@ void rdRaster_SpanP16_Tex_2(uint *param_1)
       UINT_007f4acc = 0x10;
     }
   }
-  _DAT_007f4af8 = (float)param_1[7];
-  _DAT_007f4ae4 = (float)param_1[3];
-  _DAT_007f4b60 = 1.0 / _DAT_007f4af8;
-  _DAT_007f4af0 = (float)param_1[4];
-  _DAT_007f4b58 = _DAT_007f4b60 * _DAT_007f4ae4;
-  _DAT_007f4b5c = _DAT_007f4b60 * _DAT_007f4af0;
+  *(float *)&DAT_007f4af8 = (float)param_1[7];
+  *(float *)&DAT_007f4ae4 = (float)param_1[3];
+  *(float *)&DAT_007f4b60 = 1.0 / *(float *)&DAT_007f4af8;
+  *(float *)&DAT_007f4af0 = (float)param_1[4];
+  *(float *)&DAT_007f4b58 = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4ae4;
+  *(float *)&DAT_007f4b5c = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4af0;
   iVar9 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
   uVar5 = *(int *)(iVar9 + 0x5c) + (param_1[2] * (*(uint *)(iVar9 + 0x18) >> 1) + *param_1) * 2;
   UINT_007f4b44 = uVar8;
   if (uVar8 == 0) {
-    _DAT_007f4b38 = _DAT_007f4af8 + _DAT_008ddf28;
-    _DAT_007f4b64 = _DAT_007f4ae4 + _DAT_008ddf2c;
-    _DAT_007f4ad4 = _DAT_007f4af0 + _DAT_008ddf48;
+    _DAT_007f4b38 = *(float *)&DAT_007f4af8 + _DAT_008ddf28;
+    _DAT_007f4b64 = *(float *)&DAT_007f4ae4 + _DAT_008ddf2c;
+    _DAT_007f4ad4 = *(float *)&DAT_007f4af0 + _DAT_008ddf48;
     uVar8 = UINT_007f4acc;
   }
   else {
-    _DAT_007f4af4 = (float)(int)uVar8;
-    _DAT_007f4b34 = (float)(&UINT_008fe000)[uVar8];
-    _DAT_007f4b38 = _DAT_007f4af4 * _DAT_008ddf1c + _DAT_007f4af8;
-    _DAT_007f4b64 = _DAT_007f4af4 * _DAT_008ddf20 + _DAT_007f4ae4;
-    _DAT_007f4ad4 = _DAT_007f4af4 * _DAT_008ddf38 + _DAT_007f4af0;
+    *(float *)&DAT_007f4af4 = (float)(int)uVar8;
+    *(float *)&DAT_007f4b34 = (float)(&UINT_008fe000)[uVar8];
+    _DAT_007f4b38 = *(float *)&DAT_007f4af4 * _DAT_008ddf1c + *(float *)&DAT_007f4af8;
+    _DAT_007f4b64 = *(float *)&DAT_007f4af4 * _DAT_008ddf20 + *(float *)&DAT_007f4ae4;
+    _DAT_007f4ad4 = *(float *)&DAT_007f4af4 * _DAT_008ddf38 + *(float *)&DAT_007f4af0;
     UINT_007f4b50 = (uint)(1.0 / _DAT_007f4b38);
     UINT_007f4b48 = (uint)((float)UINT_007f4b50 * _DAT_007f4b64);
     UINT_007f4b4c = (uint)((float)UINT_007f4b50 * _DAT_007f4ad4);
     bVar3 = (byte)UINT_008ddf04;
     UINT_007f4b54 =
-         (int)ROUND(((float)UINT_007f4b48 - _DAT_007f4b58) * _DAT_007f4b34 * 65536.0) >>
+         (int)ROUND(((float)UINT_007f4b48 - *(float *)&DAT_007f4b58) * *(float *)&DAT_007f4b34 * 65536.0) >>
          (bVar3 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND(((float)UINT_007f4b4c - _DAT_007f4b5c) * _DAT_007f4b34 * 65536.0) >>
+         (int)ROUND(((float)UINT_007f4b4c - *(float *)&DAT_007f4b5c) * *(float *)&DAT_007f4b34 * 65536.0) >>
          (bVar3 & 0x1f);
-    uVar7 = ((int)ROUND(_DAT_007f4b58 * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf44 +
+    uVar7 = ((int)ROUND(*(float *)&DAT_007f4b58 * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf44 +
             UINT_007f4b54 * (uVar8 - 1);
-    uVar6 = ((int)ROUND(_DAT_007f4b5c * 65536.0) >> (bVar3 & 0x1f)) +
+    uVar6 = ((int)ROUND(*(float *)&DAT_007f4b5c * 65536.0) >> (bVar3 & 0x1f)) +
             UINT_008ddf18 + UINT_007f4adc * (uVar8 - 1);
     UINT_007f4b3c = uVar5;
     UINT_007f4b6c = uVar7;
@@ -35102,9 +35102,9 @@ void rdRaster_SpanP16_Tex_2(uint *param_1)
     _DAT_007f4ad4 = _DAT_007f4ad4 + _DAT_008ddf48;
     uVar5 = UINT_007f4b3c + UINT_008dde40 * 2;
     uVar8 = UINT_007f4acc;
-    _DAT_007f4b58 = (float)UINT_007f4b48;
-    _DAT_007f4b5c = (float)UINT_007f4b4c;
-    _DAT_007f4b60 = (float)UINT_007f4b50;
+    *(float *)&DAT_007f4b58 = (float)UINT_007f4b48;
+    *(float *)&DAT_007f4b5c = (float)UINT_007f4b4c;
+    *(float *)&DAT_007f4b60 = (float)UINT_007f4b50;
   }
   while( true ) {
     bVar1 = (int)UINT_007f4b2c < 1;
@@ -35117,14 +35117,14 @@ void rdRaster_SpanP16_Tex_2(uint *param_1)
     UINT_007f4b48 = (uint)((float)UINT_007f4b50 * _DAT_007f4b64);
     UINT_007f4b4c = (uint)((float)UINT_007f4b50 * _DAT_007f4ad4);
     UINT_007f4b54 =
-         (int)ROUND(((float)UINT_007f4b48 - _DAT_007f4b58) * 0.0625 * 65536.0) >> (bVar3 & 0x1f);
+         (int)ROUND(((float)UINT_007f4b48 - *(float *)&DAT_007f4b58) * 0.0625 * 65536.0) >> (bVar3 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND(((float)UINT_007f4b4c - _DAT_007f4b5c) * 0.0625 * 65536.0) >> (bVar3 & 0x1f);
+         (int)ROUND(((float)UINT_007f4b4c - *(float *)&DAT_007f4b5c) * 0.0625 * 65536.0) >> (bVar3 & 0x1f);
     UINT_008dde40 = 0x10;
     uVar6 = UINT_007f4b54 * 0xf +
-            ((int)ROUND(_DAT_007f4b58 * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf44;
+            ((int)ROUND(*(float *)&DAT_007f4b58 * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf44;
     uVar8 = UINT_007f4adc * 0xf +
-            UINT_008ddf18 + ((int)ROUND(_DAT_007f4b5c * 65536.0) >> (bVar3 & 0x1f));
+            UINT_008ddf18 + ((int)ROUND(*(float *)&DAT_007f4b5c * 65536.0) >> (bVar3 & 0x1f));
     iVar9 = 0x10;
     UINT_007f4b6c = uVar6;
     UINT_007f4b70 = uVar8;
@@ -35146,29 +35146,29 @@ void rdRaster_SpanP16_Tex_2(uint *param_1)
     _DAT_007f4b64 = _DAT_007f4b64 + _DAT_008ddf2c;
     _DAT_007f4ad4 = _DAT_007f4ad4 + _DAT_008ddf48;
     uVar8 = UINT_007f4acc;
-    _DAT_007f4b58 = (float)UINT_007f4b48;
-    _DAT_007f4b5c = (float)UINT_007f4b4c;
-    _DAT_007f4b60 = (float)UINT_007f4b50;
+    *(float *)&DAT_007f4b58 = (float)UINT_007f4b48;
+    *(float *)&DAT_007f4b5c = (float)UINT_007f4b4c;
+    *(float *)&DAT_007f4b60 = (float)UINT_007f4b50;
   }
   if (uVar8 != 0) {
     UINT_007f4acc = uVar8 - 1;
     if (UINT_007f4acc != 0) {
-      _DAT_007f4ac8 = (float)(int)UINT_007f4acc;
-      _DAT_007f4aec = (float)(&UINT_008fe000)[UINT_007f4acc];
-      _DAT_007f4b38 = (_DAT_007f4ac8 * _DAT_008ddf1c - _DAT_008ddf28) + _DAT_007f4b38;
-      _DAT_007f4b64 = (_DAT_007f4ac8 * _DAT_008ddf20 - _DAT_008ddf2c) + _DAT_007f4b64;
-      _DAT_007f4ad4 = (_DAT_007f4ac8 * _DAT_008ddf38 - _DAT_008ddf48) + _DAT_007f4ad4;
+      *(float *)&DAT_007f4ac8 = (float)(int)UINT_007f4acc;
+      *(float *)&DAT_007f4aec = (float)(&UINT_008fe000)[UINT_007f4acc];
+      _DAT_007f4b38 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf1c - _DAT_008ddf28) + _DAT_007f4b38;
+      _DAT_007f4b64 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf20 - _DAT_008ddf2c) + _DAT_007f4b64;
+      _DAT_007f4ad4 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf38 - _DAT_008ddf48) + _DAT_007f4ad4;
       UINT_007f4b50 = (uint)(1.0 / _DAT_007f4b38);
       UINT_007f4b48 = (uint)((float)UINT_007f4b50 * _DAT_007f4b64);
       UINT_007f4b4c = (uint)((float)UINT_007f4b50 * _DAT_007f4ad4);
       UINT_007f4b54 =
-           (int)ROUND(((float)UINT_007f4b48 - _DAT_007f4b58) * _DAT_007f4aec * 65536.0) >>
+           (int)ROUND(((float)UINT_007f4b48 - *(float *)&DAT_007f4b58) * *(float *)&DAT_007f4aec * 65536.0) >>
            (bVar3 & 0x1f);
       UINT_007f4adc =
-           (int)ROUND(((float)UINT_007f4b4c - _DAT_007f4b5c) * _DAT_007f4aec * 65536.0) >>
+           (int)ROUND(((float)UINT_007f4b4c - *(float *)&DAT_007f4b5c) * *(float *)&DAT_007f4aec * 65536.0) >>
            (bVar3 & 0x1f);
-      UINT_007f4b6c = ((int)ROUND(_DAT_007f4b58 * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf44;
-      UINT_007f4b70 = ((int)ROUND(_DAT_007f4b5c * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf18;
+      UINT_007f4b6c = ((int)ROUND(*(float *)&DAT_007f4b58 * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf44;
+      UINT_007f4b70 = ((int)ROUND(*(float *)&DAT_007f4b5c * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf18;
     }
     uVar6 = UINT_007f4b6c + UINT_007f4b54 * UINT_007f4acc;
     uVar7 = UINT_007f4b70 + UINT_007f4adc * UINT_007f4acc;
@@ -35250,40 +35250,40 @@ void rdRaster_SpanP16_Tex_3(uint *param_1)
       UINT_007f4acc = 0x10;
     }
   }
-  _DAT_007f4af8 = (float)param_1[7];
-  _DAT_007f4ae4 = (float)param_1[3];
-  _DAT_007f4b60 = 1.0 / _DAT_007f4af8;
-  _DAT_007f4af0 = (float)param_1[4];
-  _DAT_007f4b58 = _DAT_007f4b60 * _DAT_007f4ae4;
-  _DAT_007f4b5c = _DAT_007f4b60 * _DAT_007f4af0;
+  *(float *)&DAT_007f4af8 = (float)param_1[7];
+  *(float *)&DAT_007f4ae4 = (float)param_1[3];
+  *(float *)&DAT_007f4b60 = 1.0 / *(float *)&DAT_007f4af8;
+  *(float *)&DAT_007f4af0 = (float)param_1[4];
+  *(float *)&DAT_007f4b58 = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4ae4;
+  *(float *)&DAT_007f4b5c = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4af0;
   iVar9 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
   uVar5 = *(int *)(iVar9 + 0x5c) + (param_1[2] * (*(uint *)(iVar9 + 0x18) >> 1) + *param_1) * 2;
   UINT_007f4b44 = uVar8;
   if (uVar8 == 0) {
-    _DAT_007f4b38 = _DAT_007f4af8 + _DAT_008ddf28;
-    _DAT_007f4b64 = _DAT_007f4ae4 + _DAT_008ddf2c;
-    _DAT_007f4ad4 = _DAT_007f4af0 + _DAT_008ddf48;
+    _DAT_007f4b38 = *(float *)&DAT_007f4af8 + _DAT_008ddf28;
+    _DAT_007f4b64 = *(float *)&DAT_007f4ae4 + _DAT_008ddf2c;
+    _DAT_007f4ad4 = *(float *)&DAT_007f4af0 + _DAT_008ddf48;
     uVar8 = UINT_007f4acc;
   }
   else {
-    _DAT_007f4af4 = (float)(int)uVar8;
-    _DAT_007f4b34 = (float)(&UINT_008fe000)[uVar8];
-    _DAT_007f4b38 = _DAT_007f4af4 * _DAT_008ddf1c + _DAT_007f4af8;
-    _DAT_007f4b64 = _DAT_007f4af4 * _DAT_008ddf20 + _DAT_007f4ae4;
-    _DAT_007f4ad4 = _DAT_007f4af4 * _DAT_008ddf38 + _DAT_007f4af0;
+    *(float *)&DAT_007f4af4 = (float)(int)uVar8;
+    *(float *)&DAT_007f4b34 = (float)(&UINT_008fe000)[uVar8];
+    _DAT_007f4b38 = *(float *)&DAT_007f4af4 * _DAT_008ddf1c + *(float *)&DAT_007f4af8;
+    _DAT_007f4b64 = *(float *)&DAT_007f4af4 * _DAT_008ddf20 + *(float *)&DAT_007f4ae4;
+    _DAT_007f4ad4 = *(float *)&DAT_007f4af4 * _DAT_008ddf38 + *(float *)&DAT_007f4af0;
     UINT_007f4b50 = (uint)(1.0 / _DAT_007f4b38);
     UINT_007f4b48 = (uint)((float)UINT_007f4b50 * _DAT_007f4b64);
     UINT_007f4b4c = (uint)((float)UINT_007f4b50 * _DAT_007f4ad4);
     bVar3 = (byte)UINT_008ddf04;
     UINT_007f4b54 =
-         (int)ROUND(((float)UINT_007f4b48 - _DAT_007f4b58) * _DAT_007f4b34 * 65536.0) >>
+         (int)ROUND(((float)UINT_007f4b48 - *(float *)&DAT_007f4b58) * *(float *)&DAT_007f4b34 * 65536.0) >>
          (bVar3 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND(((float)UINT_007f4b4c - _DAT_007f4b5c) * _DAT_007f4b34 * 65536.0) >>
+         (int)ROUND(((float)UINT_007f4b4c - *(float *)&DAT_007f4b5c) * *(float *)&DAT_007f4b34 * 65536.0) >>
          (bVar3 & 0x1f);
-    uVar7 = ((int)ROUND(_DAT_007f4b58 * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf44 +
+    uVar7 = ((int)ROUND(*(float *)&DAT_007f4b58 * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf44 +
             UINT_007f4b54 * (uVar8 - 1);
-    uVar6 = ((int)ROUND(_DAT_007f4b5c * 65536.0) >> (bVar3 & 0x1f)) +
+    uVar6 = ((int)ROUND(*(float *)&DAT_007f4b5c * 65536.0) >> (bVar3 & 0x1f)) +
             UINT_008ddf18 + UINT_007f4adc * (uVar8 - 1);
     UINT_007f4b3c = uVar5;
     UINT_007f4b6c = uVar7;
@@ -35307,9 +35307,9 @@ void rdRaster_SpanP16_Tex_3(uint *param_1)
     _DAT_007f4ad4 = _DAT_007f4ad4 + _DAT_008ddf48;
     uVar5 = UINT_007f4b3c + UINT_008dde40 * 2;
     uVar8 = UINT_007f4acc;
-    _DAT_007f4b58 = (float)UINT_007f4b48;
-    _DAT_007f4b5c = (float)UINT_007f4b4c;
-    _DAT_007f4b60 = (float)UINT_007f4b50;
+    *(float *)&DAT_007f4b58 = (float)UINT_007f4b48;
+    *(float *)&DAT_007f4b5c = (float)UINT_007f4b4c;
+    *(float *)&DAT_007f4b60 = (float)UINT_007f4b50;
   }
   while( true ) {
     bVar1 = (int)UINT_007f4b2c < 1;
@@ -35322,14 +35322,14 @@ void rdRaster_SpanP16_Tex_3(uint *param_1)
     UINT_007f4b48 = (uint)((float)UINT_007f4b50 * _DAT_007f4b64);
     UINT_007f4b4c = (uint)((float)UINT_007f4b50 * _DAT_007f4ad4);
     UINT_007f4b54 =
-         (int)ROUND(((float)UINT_007f4b48 - _DAT_007f4b58) * 0.0625 * 65536.0) >> (bVar3 & 0x1f);
+         (int)ROUND(((float)UINT_007f4b48 - *(float *)&DAT_007f4b58) * 0.0625 * 65536.0) >> (bVar3 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND(((float)UINT_007f4b4c - _DAT_007f4b5c) * 0.0625 * 65536.0) >> (bVar3 & 0x1f);
+         (int)ROUND(((float)UINT_007f4b4c - *(float *)&DAT_007f4b5c) * 0.0625 * 65536.0) >> (bVar3 & 0x1f);
     UINT_008dde40 = 0x10;
     uVar6 = UINT_007f4b54 * 0xf +
-            ((int)ROUND(_DAT_007f4b58 * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf44;
+            ((int)ROUND(*(float *)&DAT_007f4b58 * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf44;
     uVar8 = UINT_007f4adc * 0xf +
-            UINT_008ddf18 + ((int)ROUND(_DAT_007f4b5c * 65536.0) >> (bVar3 & 0x1f));
+            UINT_008ddf18 + ((int)ROUND(*(float *)&DAT_007f4b5c * 65536.0) >> (bVar3 & 0x1f));
     iVar9 = 0x10;
     UINT_007f4b6c = uVar6;
     UINT_007f4b70 = uVar8;
@@ -35351,29 +35351,29 @@ void rdRaster_SpanP16_Tex_3(uint *param_1)
     _DAT_007f4b64 = _DAT_007f4b64 + _DAT_008ddf2c;
     _DAT_007f4ad4 = _DAT_007f4ad4 + _DAT_008ddf48;
     uVar8 = UINT_007f4acc;
-    _DAT_007f4b58 = (float)UINT_007f4b48;
-    _DAT_007f4b5c = (float)UINT_007f4b4c;
-    _DAT_007f4b60 = (float)UINT_007f4b50;
+    *(float *)&DAT_007f4b58 = (float)UINT_007f4b48;
+    *(float *)&DAT_007f4b5c = (float)UINT_007f4b4c;
+    *(float *)&DAT_007f4b60 = (float)UINT_007f4b50;
   }
   if (uVar8 != 0) {
     UINT_007f4acc = uVar8 - 1;
     if (UINT_007f4acc != 0) {
-      _DAT_007f4ac8 = (float)(int)UINT_007f4acc;
-      _DAT_007f4aec = (float)(&UINT_008fe000)[UINT_007f4acc];
-      _DAT_007f4b38 = (_DAT_007f4ac8 * _DAT_008ddf1c - _DAT_008ddf28) + _DAT_007f4b38;
-      _DAT_007f4b64 = (_DAT_007f4ac8 * _DAT_008ddf20 - _DAT_008ddf2c) + _DAT_007f4b64;
-      _DAT_007f4ad4 = (_DAT_007f4ac8 * _DAT_008ddf38 - _DAT_008ddf48) + _DAT_007f4ad4;
+      *(float *)&DAT_007f4ac8 = (float)(int)UINT_007f4acc;
+      *(float *)&DAT_007f4aec = (float)(&UINT_008fe000)[UINT_007f4acc];
+      _DAT_007f4b38 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf1c - _DAT_008ddf28) + _DAT_007f4b38;
+      _DAT_007f4b64 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf20 - _DAT_008ddf2c) + _DAT_007f4b64;
+      _DAT_007f4ad4 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf38 - _DAT_008ddf48) + _DAT_007f4ad4;
       UINT_007f4b50 = (uint)(1.0 / _DAT_007f4b38);
       UINT_007f4b48 = (uint)((float)UINT_007f4b50 * _DAT_007f4b64);
       UINT_007f4b4c = (uint)((float)UINT_007f4b50 * _DAT_007f4ad4);
       UINT_007f4b54 =
-           (int)ROUND(((float)UINT_007f4b48 - _DAT_007f4b58) * _DAT_007f4aec * 65536.0) >>
+           (int)ROUND(((float)UINT_007f4b48 - *(float *)&DAT_007f4b58) * *(float *)&DAT_007f4aec * 65536.0) >>
            (bVar3 & 0x1f);
       UINT_007f4adc =
-           (int)ROUND(((float)UINT_007f4b4c - _DAT_007f4b5c) * _DAT_007f4aec * 65536.0) >>
+           (int)ROUND(((float)UINT_007f4b4c - *(float *)&DAT_007f4b5c) * *(float *)&DAT_007f4aec * 65536.0) >>
            (bVar3 & 0x1f);
-      UINT_007f4b6c = ((int)ROUND(_DAT_007f4b58 * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf44;
-      UINT_007f4b70 = ((int)ROUND(_DAT_007f4b5c * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf18;
+      UINT_007f4b6c = ((int)ROUND(*(float *)&DAT_007f4b58 * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf44;
+      UINT_007f4b70 = ((int)ROUND(*(float *)&DAT_007f4b5c * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf18;
     }
     uVar6 = UINT_007f4b6c + UINT_007f4b54 * UINT_007f4acc;
     uVar7 = UINT_007f4b70 + UINT_007f4adc * UINT_007f4acc;
@@ -35455,40 +35455,40 @@ void rdRaster_SpanP16_Tex_4(uint *param_1)
       UINT_007f4acc = 0x10;
     }
   }
-  _DAT_007f4af8 = (float)param_1[7];
-  _DAT_007f4ae4 = (float)param_1[3];
-  _DAT_007f4b60 = 1.0 / _DAT_007f4af8;
-  _DAT_007f4af0 = (float)param_1[4];
-  _DAT_007f4b58 = _DAT_007f4b60 * _DAT_007f4ae4;
-  _DAT_007f4b5c = _DAT_007f4b60 * _DAT_007f4af0;
+  *(float *)&DAT_007f4af8 = (float)param_1[7];
+  *(float *)&DAT_007f4ae4 = (float)param_1[3];
+  *(float *)&DAT_007f4b60 = 1.0 / *(float *)&DAT_007f4af8;
+  *(float *)&DAT_007f4af0 = (float)param_1[4];
+  *(float *)&DAT_007f4b58 = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4ae4;
+  *(float *)&DAT_007f4b5c = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4af0;
   iVar9 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
   uVar5 = *(int *)(iVar9 + 0x5c) + (param_1[2] * (*(uint *)(iVar9 + 0x18) >> 1) + *param_1) * 2;
   UINT_007f4b44 = uVar8;
   if (uVar8 == 0) {
-    _DAT_007f4b38 = _DAT_007f4af8 + _DAT_008ddf28;
-    _DAT_007f4b64 = _DAT_007f4ae4 + _DAT_008ddf2c;
-    _DAT_007f4ad4 = _DAT_007f4af0 + _DAT_008ddf48;
+    _DAT_007f4b38 = *(float *)&DAT_007f4af8 + _DAT_008ddf28;
+    _DAT_007f4b64 = *(float *)&DAT_007f4ae4 + _DAT_008ddf2c;
+    _DAT_007f4ad4 = *(float *)&DAT_007f4af0 + _DAT_008ddf48;
     uVar8 = UINT_007f4acc;
   }
   else {
-    _DAT_007f4af4 = (float)(int)uVar8;
-    _DAT_007f4b34 = (float)(&UINT_008fe000)[uVar8];
-    _DAT_007f4b38 = _DAT_007f4af4 * _DAT_008ddf1c + _DAT_007f4af8;
-    _DAT_007f4b64 = _DAT_007f4af4 * _DAT_008ddf20 + _DAT_007f4ae4;
-    _DAT_007f4ad4 = _DAT_007f4af4 * _DAT_008ddf38 + _DAT_007f4af0;
+    *(float *)&DAT_007f4af4 = (float)(int)uVar8;
+    *(float *)&DAT_007f4b34 = (float)(&UINT_008fe000)[uVar8];
+    _DAT_007f4b38 = *(float *)&DAT_007f4af4 * _DAT_008ddf1c + *(float *)&DAT_007f4af8;
+    _DAT_007f4b64 = *(float *)&DAT_007f4af4 * _DAT_008ddf20 + *(float *)&DAT_007f4ae4;
+    _DAT_007f4ad4 = *(float *)&DAT_007f4af4 * _DAT_008ddf38 + *(float *)&DAT_007f4af0;
     UINT_007f4b50 = (uint)(1.0 / _DAT_007f4b38);
     UINT_007f4b48 = (uint)((float)UINT_007f4b50 * _DAT_007f4b64);
     UINT_007f4b4c = (uint)((float)UINT_007f4b50 * _DAT_007f4ad4);
     bVar3 = (byte)UINT_008ddf04;
     UINT_007f4b54 =
-         (int)ROUND(((float)UINT_007f4b48 - _DAT_007f4b58) * _DAT_007f4b34 * 65536.0) >>
+         (int)ROUND(((float)UINT_007f4b48 - *(float *)&DAT_007f4b58) * *(float *)&DAT_007f4b34 * 65536.0) >>
          (bVar3 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND(((float)UINT_007f4b4c - _DAT_007f4b5c) * _DAT_007f4b34 * 65536.0) >>
+         (int)ROUND(((float)UINT_007f4b4c - *(float *)&DAT_007f4b5c) * *(float *)&DAT_007f4b34 * 65536.0) >>
          (bVar3 & 0x1f);
-    uVar7 = ((int)ROUND(_DAT_007f4b58 * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf44 +
+    uVar7 = ((int)ROUND(*(float *)&DAT_007f4b58 * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf44 +
             UINT_007f4b54 * (uVar8 - 1);
-    uVar6 = ((int)ROUND(_DAT_007f4b5c * 65536.0) >> (bVar3 & 0x1f)) +
+    uVar6 = ((int)ROUND(*(float *)&DAT_007f4b5c * 65536.0) >> (bVar3 & 0x1f)) +
             UINT_008ddf18 + UINT_007f4adc * (uVar8 - 1);
     UINT_007f4b3c = uVar5;
     UINT_007f4b6c = uVar7;
@@ -35512,9 +35512,9 @@ void rdRaster_SpanP16_Tex_4(uint *param_1)
     _DAT_007f4ad4 = _DAT_007f4ad4 + _DAT_008ddf48;
     uVar5 = UINT_007f4b3c + UINT_008dde40 * 2;
     uVar8 = UINT_007f4acc;
-    _DAT_007f4b58 = (float)UINT_007f4b48;
-    _DAT_007f4b5c = (float)UINT_007f4b4c;
-    _DAT_007f4b60 = (float)UINT_007f4b50;
+    *(float *)&DAT_007f4b58 = (float)UINT_007f4b48;
+    *(float *)&DAT_007f4b5c = (float)UINT_007f4b4c;
+    *(float *)&DAT_007f4b60 = (float)UINT_007f4b50;
   }
   while( true ) {
     bVar1 = (int)UINT_007f4b2c < 1;
@@ -35527,14 +35527,14 @@ void rdRaster_SpanP16_Tex_4(uint *param_1)
     UINT_007f4b48 = (uint)((float)UINT_007f4b50 * _DAT_007f4b64);
     UINT_007f4b4c = (uint)((float)UINT_007f4b50 * _DAT_007f4ad4);
     UINT_007f4b54 =
-         (int)ROUND(((float)UINT_007f4b48 - _DAT_007f4b58) * 0.0625 * 65536.0) >> (bVar3 & 0x1f);
+         (int)ROUND(((float)UINT_007f4b48 - *(float *)&DAT_007f4b58) * 0.0625 * 65536.0) >> (bVar3 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND(((float)UINT_007f4b4c - _DAT_007f4b5c) * 0.0625 * 65536.0) >> (bVar3 & 0x1f);
+         (int)ROUND(((float)UINT_007f4b4c - *(float *)&DAT_007f4b5c) * 0.0625 * 65536.0) >> (bVar3 & 0x1f);
     UINT_008dde40 = 0x10;
     uVar6 = UINT_007f4b54 * 0xf +
-            ((int)ROUND(_DAT_007f4b58 * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf44;
+            ((int)ROUND(*(float *)&DAT_007f4b58 * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf44;
     uVar8 = UINT_007f4adc * 0xf +
-            UINT_008ddf18 + ((int)ROUND(_DAT_007f4b5c * 65536.0) >> (bVar3 & 0x1f));
+            UINT_008ddf18 + ((int)ROUND(*(float *)&DAT_007f4b5c * 65536.0) >> (bVar3 & 0x1f));
     iVar9 = 0x10;
     UINT_007f4b6c = uVar6;
     UINT_007f4b70 = uVar8;
@@ -35556,29 +35556,29 @@ void rdRaster_SpanP16_Tex_4(uint *param_1)
     _DAT_007f4b64 = _DAT_007f4b64 + _DAT_008ddf2c;
     _DAT_007f4ad4 = _DAT_007f4ad4 + _DAT_008ddf48;
     uVar8 = UINT_007f4acc;
-    _DAT_007f4b58 = (float)UINT_007f4b48;
-    _DAT_007f4b5c = (float)UINT_007f4b4c;
-    _DAT_007f4b60 = (float)UINT_007f4b50;
+    *(float *)&DAT_007f4b58 = (float)UINT_007f4b48;
+    *(float *)&DAT_007f4b5c = (float)UINT_007f4b4c;
+    *(float *)&DAT_007f4b60 = (float)UINT_007f4b50;
   }
   if (uVar8 != 0) {
     UINT_007f4acc = uVar8 - 1;
     if (UINT_007f4acc != 0) {
-      _DAT_007f4ac8 = (float)(int)UINT_007f4acc;
-      _DAT_007f4aec = (float)(&UINT_008fe000)[UINT_007f4acc];
-      _DAT_007f4b38 = (_DAT_007f4ac8 * _DAT_008ddf1c - _DAT_008ddf28) + _DAT_007f4b38;
-      _DAT_007f4b64 = (_DAT_007f4ac8 * _DAT_008ddf20 - _DAT_008ddf2c) + _DAT_007f4b64;
-      _DAT_007f4ad4 = (_DAT_007f4ac8 * _DAT_008ddf38 - _DAT_008ddf48) + _DAT_007f4ad4;
+      *(float *)&DAT_007f4ac8 = (float)(int)UINT_007f4acc;
+      *(float *)&DAT_007f4aec = (float)(&UINT_008fe000)[UINT_007f4acc];
+      _DAT_007f4b38 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf1c - _DAT_008ddf28) + _DAT_007f4b38;
+      _DAT_007f4b64 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf20 - _DAT_008ddf2c) + _DAT_007f4b64;
+      _DAT_007f4ad4 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf38 - _DAT_008ddf48) + _DAT_007f4ad4;
       UINT_007f4b50 = (uint)(1.0 / _DAT_007f4b38);
       UINT_007f4b48 = (uint)((float)UINT_007f4b50 * _DAT_007f4b64);
       UINT_007f4b4c = (uint)((float)UINT_007f4b50 * _DAT_007f4ad4);
       UINT_007f4b54 =
-           (int)ROUND(((float)UINT_007f4b48 - _DAT_007f4b58) * _DAT_007f4aec * 65536.0) >>
+           (int)ROUND(((float)UINT_007f4b48 - *(float *)&DAT_007f4b58) * *(float *)&DAT_007f4aec * 65536.0) >>
            (bVar3 & 0x1f);
       UINT_007f4adc =
-           (int)ROUND(((float)UINT_007f4b4c - _DAT_007f4b5c) * _DAT_007f4aec * 65536.0) >>
+           (int)ROUND(((float)UINT_007f4b4c - *(float *)&DAT_007f4b5c) * *(float *)&DAT_007f4aec * 65536.0) >>
            (bVar3 & 0x1f);
-      UINT_007f4b6c = ((int)ROUND(_DAT_007f4b58 * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf44;
-      UINT_007f4b70 = ((int)ROUND(_DAT_007f4b5c * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf18;
+      UINT_007f4b6c = ((int)ROUND(*(float *)&DAT_007f4b58 * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf44;
+      UINT_007f4b70 = ((int)ROUND(*(float *)&DAT_007f4b5c * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf18;
     }
     uVar6 = UINT_007f4b6c + UINT_007f4b54 * UINT_007f4acc;
     uVar7 = UINT_007f4b70 + UINT_007f4adc * UINT_007f4acc;
@@ -35660,40 +35660,40 @@ void rdRaster_SpanP16_TexLit(uint *param_1)
       UINT_007f4acc = 0x10;
     }
   }
-  _DAT_007f4af8 = (float)param_1[7];
-  _DAT_007f4ae4 = (float)param_1[3];
-  _DAT_007f4b60 = 1.0 / _DAT_007f4af8;
-  _DAT_007f4af0 = (float)param_1[4];
-  _DAT_007f4b58 = _DAT_007f4b60 * _DAT_007f4ae4;
-  _DAT_007f4b5c = _DAT_007f4b60 * _DAT_007f4af0;
+  *(float *)&DAT_007f4af8 = (float)param_1[7];
+  *(float *)&DAT_007f4ae4 = (float)param_1[3];
+  *(float *)&DAT_007f4b60 = 1.0 / *(float *)&DAT_007f4af8;
+  *(float *)&DAT_007f4af0 = (float)param_1[4];
+  *(float *)&DAT_007f4b58 = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4ae4;
+  *(float *)&DAT_007f4b5c = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4af0;
   iVar9 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
   uVar5 = *(int *)(iVar9 + 0x5c) + (param_1[2] * (*(uint *)(iVar9 + 0x18) >> 1) + *param_1) * 2;
   UINT_007f4b44 = uVar8;
   if (uVar8 == 0) {
-    _DAT_007f4b38 = _DAT_007f4af8 + _DAT_008ddf28;
-    _DAT_007f4b64 = _DAT_007f4ae4 + _DAT_008ddf2c;
-    _DAT_007f4ad4 = _DAT_007f4af0 + _DAT_008ddf48;
+    _DAT_007f4b38 = *(float *)&DAT_007f4af8 + _DAT_008ddf28;
+    _DAT_007f4b64 = *(float *)&DAT_007f4ae4 + _DAT_008ddf2c;
+    _DAT_007f4ad4 = *(float *)&DAT_007f4af0 + _DAT_008ddf48;
     uVar8 = UINT_007f4acc;
   }
   else {
-    _DAT_007f4af4 = (float)(int)uVar8;
-    _DAT_007f4b34 = (float)(&UINT_008fe000)[uVar8];
-    _DAT_007f4b38 = _DAT_007f4af4 * _DAT_008ddf1c + _DAT_007f4af8;
-    _DAT_007f4b64 = _DAT_007f4af4 * _DAT_008ddf20 + _DAT_007f4ae4;
-    _DAT_007f4ad4 = _DAT_007f4af4 * _DAT_008ddf38 + _DAT_007f4af0;
+    *(float *)&DAT_007f4af4 = (float)(int)uVar8;
+    *(float *)&DAT_007f4b34 = (float)(&UINT_008fe000)[uVar8];
+    _DAT_007f4b38 = *(float *)&DAT_007f4af4 * _DAT_008ddf1c + *(float *)&DAT_007f4af8;
+    _DAT_007f4b64 = *(float *)&DAT_007f4af4 * _DAT_008ddf20 + *(float *)&DAT_007f4ae4;
+    _DAT_007f4ad4 = *(float *)&DAT_007f4af4 * _DAT_008ddf38 + *(float *)&DAT_007f4af0;
     UINT_007f4b50 = (uint)(1.0 / _DAT_007f4b38);
     UINT_007f4b48 = (uint)((float)UINT_007f4b50 * _DAT_007f4b64);
     UINT_007f4b4c = (uint)((float)UINT_007f4b50 * _DAT_007f4ad4);
     bVar3 = (byte)UINT_008ddf04;
     UINT_007f4b54 =
-         (int)ROUND(((float)UINT_007f4b48 - _DAT_007f4b58) * _DAT_007f4b34 * 65536.0) >>
+         (int)ROUND(((float)UINT_007f4b48 - *(float *)&DAT_007f4b58) * *(float *)&DAT_007f4b34 * 65536.0) >>
          (bVar3 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND(((float)UINT_007f4b4c - _DAT_007f4b5c) * _DAT_007f4b34 * 65536.0) >>
+         (int)ROUND(((float)UINT_007f4b4c - *(float *)&DAT_007f4b5c) * *(float *)&DAT_007f4b34 * 65536.0) >>
          (bVar3 & 0x1f);
-    uVar7 = ((int)ROUND(_DAT_007f4b58 * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf44 +
+    uVar7 = ((int)ROUND(*(float *)&DAT_007f4b58 * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf44 +
             UINT_007f4b54 * (uVar8 - 1);
-    uVar6 = ((int)ROUND(_DAT_007f4b5c * 65536.0) >> (bVar3 & 0x1f)) +
+    uVar6 = ((int)ROUND(*(float *)&DAT_007f4b5c * 65536.0) >> (bVar3 & 0x1f)) +
             UINT_008ddf18 + UINT_007f4adc * (uVar8 - 1);
     UINT_007f4b3c = uVar5;
     UINT_007f4b6c = uVar7;
@@ -35717,9 +35717,9 @@ void rdRaster_SpanP16_TexLit(uint *param_1)
     _DAT_007f4ad4 = _DAT_007f4ad4 + _DAT_008ddf48;
     uVar5 = UINT_007f4b3c + UINT_008dde40 * 2;
     uVar8 = UINT_007f4acc;
-    _DAT_007f4b58 = (float)UINT_007f4b48;
-    _DAT_007f4b5c = (float)UINT_007f4b4c;
-    _DAT_007f4b60 = (float)UINT_007f4b50;
+    *(float *)&DAT_007f4b58 = (float)UINT_007f4b48;
+    *(float *)&DAT_007f4b5c = (float)UINT_007f4b4c;
+    *(float *)&DAT_007f4b60 = (float)UINT_007f4b50;
   }
   while( true ) {
     bVar1 = (int)UINT_007f4b2c < 1;
@@ -35732,14 +35732,14 @@ void rdRaster_SpanP16_TexLit(uint *param_1)
     UINT_007f4b48 = (uint)((float)UINT_007f4b50 * _DAT_007f4b64);
     UINT_007f4b4c = (uint)((float)UINT_007f4b50 * _DAT_007f4ad4);
     UINT_007f4b54 =
-         (int)ROUND(((float)UINT_007f4b48 - _DAT_007f4b58) * 0.0625 * 65536.0) >> (bVar3 & 0x1f);
+         (int)ROUND(((float)UINT_007f4b48 - *(float *)&DAT_007f4b58) * 0.0625 * 65536.0) >> (bVar3 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND(((float)UINT_007f4b4c - _DAT_007f4b5c) * 0.0625 * 65536.0) >> (bVar3 & 0x1f);
+         (int)ROUND(((float)UINT_007f4b4c - *(float *)&DAT_007f4b5c) * 0.0625 * 65536.0) >> (bVar3 & 0x1f);
     UINT_008dde40 = 0x10;
     uVar6 = UINT_007f4b54 * 0xf +
-            ((int)ROUND(_DAT_007f4b58 * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf44;
+            ((int)ROUND(*(float *)&DAT_007f4b58 * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf44;
     uVar8 = UINT_007f4adc * 0xf +
-            UINT_008ddf18 + ((int)ROUND(_DAT_007f4b5c * 65536.0) >> (bVar3 & 0x1f));
+            UINT_008ddf18 + ((int)ROUND(*(float *)&DAT_007f4b5c * 65536.0) >> (bVar3 & 0x1f));
     iVar9 = 0x10;
     UINT_007f4b6c = uVar6;
     UINT_007f4b70 = uVar8;
@@ -35761,29 +35761,29 @@ void rdRaster_SpanP16_TexLit(uint *param_1)
     _DAT_007f4b64 = _DAT_007f4b64 + _DAT_008ddf2c;
     _DAT_007f4ad4 = _DAT_007f4ad4 + _DAT_008ddf48;
     uVar8 = UINT_007f4acc;
-    _DAT_007f4b58 = (float)UINT_007f4b48;
-    _DAT_007f4b5c = (float)UINT_007f4b4c;
-    _DAT_007f4b60 = (float)UINT_007f4b50;
+    *(float *)&DAT_007f4b58 = (float)UINT_007f4b48;
+    *(float *)&DAT_007f4b5c = (float)UINT_007f4b4c;
+    *(float *)&DAT_007f4b60 = (float)UINT_007f4b50;
   }
   if (uVar8 != 0) {
     UINT_007f4acc = uVar8 - 1;
     if (UINT_007f4acc != 0) {
-      _DAT_007f4ac8 = (float)(int)UINT_007f4acc;
-      _DAT_007f4aec = (float)(&UINT_008fe000)[UINT_007f4acc];
-      _DAT_007f4b38 = (_DAT_007f4ac8 * _DAT_008ddf1c - _DAT_008ddf28) + _DAT_007f4b38;
-      _DAT_007f4b64 = (_DAT_007f4ac8 * _DAT_008ddf20 - _DAT_008ddf2c) + _DAT_007f4b64;
-      _DAT_007f4ad4 = (_DAT_007f4ac8 * _DAT_008ddf38 - _DAT_008ddf48) + _DAT_007f4ad4;
+      *(float *)&DAT_007f4ac8 = (float)(int)UINT_007f4acc;
+      *(float *)&DAT_007f4aec = (float)(&UINT_008fe000)[UINT_007f4acc];
+      _DAT_007f4b38 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf1c - _DAT_008ddf28) + _DAT_007f4b38;
+      _DAT_007f4b64 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf20 - _DAT_008ddf2c) + _DAT_007f4b64;
+      _DAT_007f4ad4 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf38 - _DAT_008ddf48) + _DAT_007f4ad4;
       UINT_007f4b50 = (uint)(1.0 / _DAT_007f4b38);
       UINT_007f4b48 = (uint)((float)UINT_007f4b50 * _DAT_007f4b64);
       UINT_007f4b4c = (uint)((float)UINT_007f4b50 * _DAT_007f4ad4);
       UINT_007f4b54 =
-           (int)ROUND(((float)UINT_007f4b48 - _DAT_007f4b58) * _DAT_007f4aec * 65536.0) >>
+           (int)ROUND(((float)UINT_007f4b48 - *(float *)&DAT_007f4b58) * *(float *)&DAT_007f4aec * 65536.0) >>
            (bVar3 & 0x1f);
       UINT_007f4adc =
-           (int)ROUND(((float)UINT_007f4b4c - _DAT_007f4b5c) * _DAT_007f4aec * 65536.0) >>
+           (int)ROUND(((float)UINT_007f4b4c - *(float *)&DAT_007f4b5c) * *(float *)&DAT_007f4aec * 65536.0) >>
            (bVar3 & 0x1f);
-      UINT_007f4b6c = ((int)ROUND(_DAT_007f4b58 * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf44;
-      UINT_007f4b70 = ((int)ROUND(_DAT_007f4b5c * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf18;
+      UINT_007f4b6c = ((int)ROUND(*(float *)&DAT_007f4b58 * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf44;
+      UINT_007f4b70 = ((int)ROUND(*(float *)&DAT_007f4b5c * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf18;
     }
     uVar6 = UINT_007f4b6c + UINT_007f4b54 * UINT_007f4acc;
     uVar7 = UINT_007f4b70 + UINT_007f4adc * UINT_007f4acc;
@@ -35865,40 +35865,40 @@ void rdRaster_SpanP16_Tex_5(uint *param_1)
       UINT_007f4acc = 0x10;
     }
   }
-  _DAT_007f4af8 = (float)param_1[7];
-  _DAT_007f4ae4 = (float)param_1[3];
-  _DAT_007f4b60 = 1.0 / _DAT_007f4af8;
-  _DAT_007f4af0 = (float)param_1[4];
-  _DAT_007f4b58 = _DAT_007f4b60 * _DAT_007f4ae4;
-  _DAT_007f4b5c = _DAT_007f4b60 * _DAT_007f4af0;
+  *(float *)&DAT_007f4af8 = (float)param_1[7];
+  *(float *)&DAT_007f4ae4 = (float)param_1[3];
+  *(float *)&DAT_007f4b60 = 1.0 / *(float *)&DAT_007f4af8;
+  *(float *)&DAT_007f4af0 = (float)param_1[4];
+  *(float *)&DAT_007f4b58 = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4ae4;
+  *(float *)&DAT_007f4b5c = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4af0;
   iVar9 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
   uVar5 = *(int *)(iVar9 + 0x5c) + (param_1[2] * (*(uint *)(iVar9 + 0x18) >> 1) + *param_1) * 2;
   UINT_007f4b44 = uVar8;
   if (uVar8 == 0) {
-    _DAT_007f4b38 = _DAT_007f4af8 + _DAT_008ddf28;
-    _DAT_007f4b64 = _DAT_007f4ae4 + _DAT_008ddf2c;
-    _DAT_007f4ad4 = _DAT_007f4af0 + _DAT_008ddf48;
+    _DAT_007f4b38 = *(float *)&DAT_007f4af8 + _DAT_008ddf28;
+    _DAT_007f4b64 = *(float *)&DAT_007f4ae4 + _DAT_008ddf2c;
+    _DAT_007f4ad4 = *(float *)&DAT_007f4af0 + _DAT_008ddf48;
     uVar8 = UINT_007f4acc;
   }
   else {
-    _DAT_007f4af4 = (float)(int)uVar8;
-    _DAT_007f4b34 = (float)(&UINT_008fe000)[uVar8];
-    _DAT_007f4b38 = _DAT_007f4af4 * _DAT_008ddf1c + _DAT_007f4af8;
-    _DAT_007f4b64 = _DAT_007f4af4 * _DAT_008ddf20 + _DAT_007f4ae4;
-    _DAT_007f4ad4 = _DAT_007f4af4 * _DAT_008ddf38 + _DAT_007f4af0;
+    *(float *)&DAT_007f4af4 = (float)(int)uVar8;
+    *(float *)&DAT_007f4b34 = (float)(&UINT_008fe000)[uVar8];
+    _DAT_007f4b38 = *(float *)&DAT_007f4af4 * _DAT_008ddf1c + *(float *)&DAT_007f4af8;
+    _DAT_007f4b64 = *(float *)&DAT_007f4af4 * _DAT_008ddf20 + *(float *)&DAT_007f4ae4;
+    _DAT_007f4ad4 = *(float *)&DAT_007f4af4 * _DAT_008ddf38 + *(float *)&DAT_007f4af0;
     UINT_007f4b50 = (uint)(1.0 / _DAT_007f4b38);
     UINT_007f4b48 = (uint)((float)UINT_007f4b50 * _DAT_007f4b64);
     UINT_007f4b4c = (uint)((float)UINT_007f4b50 * _DAT_007f4ad4);
     bVar3 = (byte)UINT_008ddf04;
     UINT_007f4b54 =
-         (int)ROUND(((float)UINT_007f4b48 - _DAT_007f4b58) * _DAT_007f4b34 * 65536.0) >>
+         (int)ROUND(((float)UINT_007f4b48 - *(float *)&DAT_007f4b58) * *(float *)&DAT_007f4b34 * 65536.0) >>
          (bVar3 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND(((float)UINT_007f4b4c - _DAT_007f4b5c) * _DAT_007f4b34 * 65536.0) >>
+         (int)ROUND(((float)UINT_007f4b4c - *(float *)&DAT_007f4b5c) * *(float *)&DAT_007f4b34 * 65536.0) >>
          (bVar3 & 0x1f);
-    uVar7 = ((int)ROUND(_DAT_007f4b58 * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf44 +
+    uVar7 = ((int)ROUND(*(float *)&DAT_007f4b58 * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf44 +
             UINT_007f4b54 * (uVar8 - 1);
-    uVar6 = ((int)ROUND(_DAT_007f4b5c * 65536.0) >> (bVar3 & 0x1f)) +
+    uVar6 = ((int)ROUND(*(float *)&DAT_007f4b5c * 65536.0) >> (bVar3 & 0x1f)) +
             UINT_008ddf18 + UINT_007f4adc * (uVar8 - 1);
     UINT_007f4b3c = uVar5;
     UINT_007f4b6c = uVar7;
@@ -35922,9 +35922,9 @@ void rdRaster_SpanP16_Tex_5(uint *param_1)
     _DAT_007f4ad4 = _DAT_007f4ad4 + _DAT_008ddf48;
     uVar5 = UINT_007f4b3c + UINT_008dde40 * 2;
     uVar8 = UINT_007f4acc;
-    _DAT_007f4b58 = (float)UINT_007f4b48;
-    _DAT_007f4b5c = (float)UINT_007f4b4c;
-    _DAT_007f4b60 = (float)UINT_007f4b50;
+    *(float *)&DAT_007f4b58 = (float)UINT_007f4b48;
+    *(float *)&DAT_007f4b5c = (float)UINT_007f4b4c;
+    *(float *)&DAT_007f4b60 = (float)UINT_007f4b50;
   }
   while( true ) {
     bVar1 = (int)UINT_007f4b2c < 1;
@@ -35937,14 +35937,14 @@ void rdRaster_SpanP16_Tex_5(uint *param_1)
     UINT_007f4b48 = (uint)((float)UINT_007f4b50 * _DAT_007f4b64);
     UINT_007f4b4c = (uint)((float)UINT_007f4b50 * _DAT_007f4ad4);
     UINT_007f4b54 =
-         (int)ROUND(((float)UINT_007f4b48 - _DAT_007f4b58) * 0.0625 * 65536.0) >> (bVar3 & 0x1f);
+         (int)ROUND(((float)UINT_007f4b48 - *(float *)&DAT_007f4b58) * 0.0625 * 65536.0) >> (bVar3 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND(((float)UINT_007f4b4c - _DAT_007f4b5c) * 0.0625 * 65536.0) >> (bVar3 & 0x1f);
+         (int)ROUND(((float)UINT_007f4b4c - *(float *)&DAT_007f4b5c) * 0.0625 * 65536.0) >> (bVar3 & 0x1f);
     UINT_008dde40 = 0x10;
     uVar6 = UINT_007f4b54 * 0xf +
-            ((int)ROUND(_DAT_007f4b58 * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf44;
+            ((int)ROUND(*(float *)&DAT_007f4b58 * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf44;
     uVar8 = UINT_007f4adc * 0xf +
-            UINT_008ddf18 + ((int)ROUND(_DAT_007f4b5c * 65536.0) >> (bVar3 & 0x1f));
+            UINT_008ddf18 + ((int)ROUND(*(float *)&DAT_007f4b5c * 65536.0) >> (bVar3 & 0x1f));
     iVar9 = 0x10;
     UINT_007f4b6c = uVar6;
     UINT_007f4b70 = uVar8;
@@ -35966,29 +35966,29 @@ void rdRaster_SpanP16_Tex_5(uint *param_1)
     _DAT_007f4b64 = _DAT_007f4b64 + _DAT_008ddf2c;
     _DAT_007f4ad4 = _DAT_007f4ad4 + _DAT_008ddf48;
     uVar8 = UINT_007f4acc;
-    _DAT_007f4b58 = (float)UINT_007f4b48;
-    _DAT_007f4b5c = (float)UINT_007f4b4c;
-    _DAT_007f4b60 = (float)UINT_007f4b50;
+    *(float *)&DAT_007f4b58 = (float)UINT_007f4b48;
+    *(float *)&DAT_007f4b5c = (float)UINT_007f4b4c;
+    *(float *)&DAT_007f4b60 = (float)UINT_007f4b50;
   }
   if (uVar8 != 0) {
     UINT_007f4acc = uVar8 - 1;
     if (UINT_007f4acc != 0) {
-      _DAT_007f4ac8 = (float)(int)UINT_007f4acc;
-      _DAT_007f4aec = (float)(&UINT_008fe000)[UINT_007f4acc];
-      _DAT_007f4b38 = (_DAT_007f4ac8 * _DAT_008ddf1c - _DAT_008ddf28) + _DAT_007f4b38;
-      _DAT_007f4b64 = (_DAT_007f4ac8 * _DAT_008ddf20 - _DAT_008ddf2c) + _DAT_007f4b64;
-      _DAT_007f4ad4 = (_DAT_007f4ac8 * _DAT_008ddf38 - _DAT_008ddf48) + _DAT_007f4ad4;
+      *(float *)&DAT_007f4ac8 = (float)(int)UINT_007f4acc;
+      *(float *)&DAT_007f4aec = (float)(&UINT_008fe000)[UINT_007f4acc];
+      _DAT_007f4b38 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf1c - _DAT_008ddf28) + _DAT_007f4b38;
+      _DAT_007f4b64 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf20 - _DAT_008ddf2c) + _DAT_007f4b64;
+      _DAT_007f4ad4 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf38 - _DAT_008ddf48) + _DAT_007f4ad4;
       UINT_007f4b50 = (uint)(1.0 / _DAT_007f4b38);
       UINT_007f4b48 = (uint)((float)UINT_007f4b50 * _DAT_007f4b64);
       UINT_007f4b4c = (uint)((float)UINT_007f4b50 * _DAT_007f4ad4);
       UINT_007f4b54 =
-           (int)ROUND(((float)UINT_007f4b48 - _DAT_007f4b58) * _DAT_007f4aec * 65536.0) >>
+           (int)ROUND(((float)UINT_007f4b48 - *(float *)&DAT_007f4b58) * *(float *)&DAT_007f4aec * 65536.0) >>
            (bVar3 & 0x1f);
       UINT_007f4adc =
-           (int)ROUND(((float)UINT_007f4b4c - _DAT_007f4b5c) * _DAT_007f4aec * 65536.0) >>
+           (int)ROUND(((float)UINT_007f4b4c - *(float *)&DAT_007f4b5c) * *(float *)&DAT_007f4aec * 65536.0) >>
            (bVar3 & 0x1f);
-      UINT_007f4b6c = ((int)ROUND(_DAT_007f4b58 * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf44;
-      UINT_007f4b70 = ((int)ROUND(_DAT_007f4b5c * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf18;
+      UINT_007f4b6c = ((int)ROUND(*(float *)&DAT_007f4b58 * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf44;
+      UINT_007f4b70 = ((int)ROUND(*(float *)&DAT_007f4b5c * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf18;
     }
     uVar6 = UINT_007f4b6c + UINT_007f4b54 * UINT_007f4acc;
     uVar7 = UINT_007f4b70 + UINT_007f4adc * UINT_007f4acc;
@@ -36070,40 +36070,40 @@ void rdRaster_SpanP16_Tex_6(uint *param_1)
       UINT_007f4acc = 0x10;
     }
   }
-  _DAT_007f4af8 = (float)param_1[7];
-  _DAT_007f4ae4 = (float)param_1[3];
-  _DAT_007f4b60 = 1.0 / _DAT_007f4af8;
-  _DAT_007f4af0 = (float)param_1[4];
-  _DAT_007f4b58 = _DAT_007f4b60 * _DAT_007f4ae4;
-  _DAT_007f4b5c = _DAT_007f4b60 * _DAT_007f4af0;
+  *(float *)&DAT_007f4af8 = (float)param_1[7];
+  *(float *)&DAT_007f4ae4 = (float)param_1[3];
+  *(float *)&DAT_007f4b60 = 1.0 / *(float *)&DAT_007f4af8;
+  *(float *)&DAT_007f4af0 = (float)param_1[4];
+  *(float *)&DAT_007f4b58 = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4ae4;
+  *(float *)&DAT_007f4b5c = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4af0;
   iVar9 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
   uVar5 = *(int *)(iVar9 + 0x5c) + (param_1[2] * (*(uint *)(iVar9 + 0x18) >> 1) + *param_1) * 2;
   UINT_007f4b44 = uVar8;
   if (uVar8 == 0) {
-    _DAT_007f4b38 = _DAT_007f4af8 + _DAT_008ddf28;
-    _DAT_007f4b64 = _DAT_007f4ae4 + _DAT_008ddf2c;
-    _DAT_007f4ad4 = _DAT_007f4af0 + _DAT_008ddf48;
+    _DAT_007f4b38 = *(float *)&DAT_007f4af8 + _DAT_008ddf28;
+    _DAT_007f4b64 = *(float *)&DAT_007f4ae4 + _DAT_008ddf2c;
+    _DAT_007f4ad4 = *(float *)&DAT_007f4af0 + _DAT_008ddf48;
     uVar8 = UINT_007f4acc;
   }
   else {
-    _DAT_007f4af4 = (float)(int)uVar8;
-    _DAT_007f4b34 = (float)(&UINT_008fe000)[uVar8];
-    _DAT_007f4b38 = _DAT_007f4af4 * _DAT_008ddf1c + _DAT_007f4af8;
-    _DAT_007f4b64 = _DAT_007f4af4 * _DAT_008ddf20 + _DAT_007f4ae4;
-    _DAT_007f4ad4 = _DAT_007f4af4 * _DAT_008ddf38 + _DAT_007f4af0;
+    *(float *)&DAT_007f4af4 = (float)(int)uVar8;
+    *(float *)&DAT_007f4b34 = (float)(&UINT_008fe000)[uVar8];
+    _DAT_007f4b38 = *(float *)&DAT_007f4af4 * _DAT_008ddf1c + *(float *)&DAT_007f4af8;
+    _DAT_007f4b64 = *(float *)&DAT_007f4af4 * _DAT_008ddf20 + *(float *)&DAT_007f4ae4;
+    _DAT_007f4ad4 = *(float *)&DAT_007f4af4 * _DAT_008ddf38 + *(float *)&DAT_007f4af0;
     UINT_007f4b50 = (uint)(1.0 / _DAT_007f4b38);
     UINT_007f4b48 = (uint)((float)UINT_007f4b50 * _DAT_007f4b64);
     UINT_007f4b4c = (uint)((float)UINT_007f4b50 * _DAT_007f4ad4);
     bVar3 = (byte)UINT_008ddf04;
     UINT_007f4b54 =
-         (int)ROUND(((float)UINT_007f4b48 - _DAT_007f4b58) * _DAT_007f4b34 * 65536.0) >>
+         (int)ROUND(((float)UINT_007f4b48 - *(float *)&DAT_007f4b58) * *(float *)&DAT_007f4b34 * 65536.0) >>
          (bVar3 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND(((float)UINT_007f4b4c - _DAT_007f4b5c) * _DAT_007f4b34 * 65536.0) >>
+         (int)ROUND(((float)UINT_007f4b4c - *(float *)&DAT_007f4b5c) * *(float *)&DAT_007f4b34 * 65536.0) >>
          (bVar3 & 0x1f);
-    uVar7 = ((int)ROUND(_DAT_007f4b58 * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf44 +
+    uVar7 = ((int)ROUND(*(float *)&DAT_007f4b58 * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf44 +
             UINT_007f4b54 * (uVar8 - 1);
-    uVar6 = ((int)ROUND(_DAT_007f4b5c * 65536.0) >> (bVar3 & 0x1f)) +
+    uVar6 = ((int)ROUND(*(float *)&DAT_007f4b5c * 65536.0) >> (bVar3 & 0x1f)) +
             UINT_008ddf18 + UINT_007f4adc * (uVar8 - 1);
     UINT_007f4b3c = uVar5;
     UINT_007f4b6c = uVar7;
@@ -36127,9 +36127,9 @@ void rdRaster_SpanP16_Tex_6(uint *param_1)
     _DAT_007f4ad4 = _DAT_007f4ad4 + _DAT_008ddf48;
     uVar5 = UINT_007f4b3c + UINT_008dde40 * 2;
     uVar8 = UINT_007f4acc;
-    _DAT_007f4b58 = (float)UINT_007f4b48;
-    _DAT_007f4b5c = (float)UINT_007f4b4c;
-    _DAT_007f4b60 = (float)UINT_007f4b50;
+    *(float *)&DAT_007f4b58 = (float)UINT_007f4b48;
+    *(float *)&DAT_007f4b5c = (float)UINT_007f4b4c;
+    *(float *)&DAT_007f4b60 = (float)UINT_007f4b50;
   }
   while( true ) {
     bVar1 = (int)UINT_007f4b2c < 1;
@@ -36142,14 +36142,14 @@ void rdRaster_SpanP16_Tex_6(uint *param_1)
     UINT_007f4b48 = (uint)((float)UINT_007f4b50 * _DAT_007f4b64);
     UINT_007f4b4c = (uint)((float)UINT_007f4b50 * _DAT_007f4ad4);
     UINT_007f4b54 =
-         (int)ROUND(((float)UINT_007f4b48 - _DAT_007f4b58) * 0.0625 * 65536.0) >> (bVar3 & 0x1f);
+         (int)ROUND(((float)UINT_007f4b48 - *(float *)&DAT_007f4b58) * 0.0625 * 65536.0) >> (bVar3 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND(((float)UINT_007f4b4c - _DAT_007f4b5c) * 0.0625 * 65536.0) >> (bVar3 & 0x1f);
+         (int)ROUND(((float)UINT_007f4b4c - *(float *)&DAT_007f4b5c) * 0.0625 * 65536.0) >> (bVar3 & 0x1f);
     UINT_008dde40 = 0x10;
     uVar6 = UINT_007f4b54 * 0xf +
-            ((int)ROUND(_DAT_007f4b58 * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf44;
+            ((int)ROUND(*(float *)&DAT_007f4b58 * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf44;
     uVar8 = UINT_007f4adc * 0xf +
-            UINT_008ddf18 + ((int)ROUND(_DAT_007f4b5c * 65536.0) >> (bVar3 & 0x1f));
+            UINT_008ddf18 + ((int)ROUND(*(float *)&DAT_007f4b5c * 65536.0) >> (bVar3 & 0x1f));
     iVar9 = 0x10;
     UINT_007f4b6c = uVar6;
     UINT_007f4b70 = uVar8;
@@ -36171,29 +36171,29 @@ void rdRaster_SpanP16_Tex_6(uint *param_1)
     _DAT_007f4b64 = _DAT_007f4b64 + _DAT_008ddf2c;
     _DAT_007f4ad4 = _DAT_007f4ad4 + _DAT_008ddf48;
     uVar8 = UINT_007f4acc;
-    _DAT_007f4b58 = (float)UINT_007f4b48;
-    _DAT_007f4b5c = (float)UINT_007f4b4c;
-    _DAT_007f4b60 = (float)UINT_007f4b50;
+    *(float *)&DAT_007f4b58 = (float)UINT_007f4b48;
+    *(float *)&DAT_007f4b5c = (float)UINT_007f4b4c;
+    *(float *)&DAT_007f4b60 = (float)UINT_007f4b50;
   }
   if (uVar8 != 0) {
     UINT_007f4acc = uVar8 - 1;
     if (UINT_007f4acc != 0) {
-      _DAT_007f4ac8 = (float)(int)UINT_007f4acc;
-      _DAT_007f4aec = (float)(&UINT_008fe000)[UINT_007f4acc];
-      _DAT_007f4b38 = (_DAT_007f4ac8 * _DAT_008ddf1c - _DAT_008ddf28) + _DAT_007f4b38;
-      _DAT_007f4b64 = (_DAT_007f4ac8 * _DAT_008ddf20 - _DAT_008ddf2c) + _DAT_007f4b64;
-      _DAT_007f4ad4 = (_DAT_007f4ac8 * _DAT_008ddf38 - _DAT_008ddf48) + _DAT_007f4ad4;
+      *(float *)&DAT_007f4ac8 = (float)(int)UINT_007f4acc;
+      *(float *)&DAT_007f4aec = (float)(&UINT_008fe000)[UINT_007f4acc];
+      _DAT_007f4b38 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf1c - _DAT_008ddf28) + _DAT_007f4b38;
+      _DAT_007f4b64 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf20 - _DAT_008ddf2c) + _DAT_007f4b64;
+      _DAT_007f4ad4 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf38 - _DAT_008ddf48) + _DAT_007f4ad4;
       UINT_007f4b50 = (uint)(1.0 / _DAT_007f4b38);
       UINT_007f4b48 = (uint)((float)UINT_007f4b50 * _DAT_007f4b64);
       UINT_007f4b4c = (uint)((float)UINT_007f4b50 * _DAT_007f4ad4);
       UINT_007f4b54 =
-           (int)ROUND(((float)UINT_007f4b48 - _DAT_007f4b58) * _DAT_007f4aec * 65536.0) >>
+           (int)ROUND(((float)UINT_007f4b48 - *(float *)&DAT_007f4b58) * *(float *)&DAT_007f4aec * 65536.0) >>
            (bVar3 & 0x1f);
       UINT_007f4adc =
-           (int)ROUND(((float)UINT_007f4b4c - _DAT_007f4b5c) * _DAT_007f4aec * 65536.0) >>
+           (int)ROUND(((float)UINT_007f4b4c - *(float *)&DAT_007f4b5c) * *(float *)&DAT_007f4aec * 65536.0) >>
            (bVar3 & 0x1f);
-      UINT_007f4b6c = ((int)ROUND(_DAT_007f4b58 * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf44;
-      UINT_007f4b70 = ((int)ROUND(_DAT_007f4b5c * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf18;
+      UINT_007f4b6c = ((int)ROUND(*(float *)&DAT_007f4b58 * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf44;
+      UINT_007f4b70 = ((int)ROUND(*(float *)&DAT_007f4b5c * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf18;
     }
     uVar6 = UINT_007f4b6c + UINT_007f4b54 * UINT_007f4acc;
     uVar7 = UINT_007f4b70 + UINT_007f4adc * UINT_007f4acc;
@@ -36274,43 +36274,43 @@ void rdRaster_SpanP16_Tex_7(uint *param_1)
       UINT_007f4acc = 0x10;
     }
   }
-  _DAT_007f4af8 = (float)param_1[7];
-  _DAT_007f4ae4 = (float)param_1[3];
-  _DAT_007f4b60 = 1.0 / _DAT_007f4af8;
-  _DAT_007f4af0 = (float)param_1[4];
-  _DAT_007f4b58 = _DAT_007f4b60 * _DAT_007f4ae4;
-  _DAT_007f4b5c = _DAT_007f4b60 * _DAT_007f4af0;
+  *(float *)&DAT_007f4af8 = (float)param_1[7];
+  *(float *)&DAT_007f4ae4 = (float)param_1[3];
+  *(float *)&DAT_007f4b60 = 1.0 / *(float *)&DAT_007f4af8;
+  *(float *)&DAT_007f4af0 = (float)param_1[4];
+  *(float *)&DAT_007f4b58 = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4ae4;
+  *(float *)&DAT_007f4b5c = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4af0;
   iVar6 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
   uVar3 = *(int *)(iVar6 + 0x5c) + (param_1[2] * (*(uint *)(iVar6 + 0x18) >> 1) + *param_1) * 2;
   UINT_007f4b44 = uVar5;
   if (uVar5 == 0) {
-    _DAT_007f4b38 = _DAT_007f4af8 + _DAT_008ddf28;
-    _DAT_007f4b64 = _DAT_007f4ae4 + _DAT_008ddf2c;
-    _DAT_007f4ad4 = _DAT_007f4af0 + _DAT_008ddf48;
+    _DAT_007f4b38 = *(float *)&DAT_007f4af8 + _DAT_008ddf28;
+    _DAT_007f4b64 = *(float *)&DAT_007f4ae4 + _DAT_008ddf2c;
+    _DAT_007f4ad4 = *(float *)&DAT_007f4af0 + _DAT_008ddf48;
     uVar7 = UINT_007f4acc;
     uVar5 = UINT_008ddf30;
   }
   else {
-    _DAT_007f4af4 = (float)(int)uVar5;
-    _DAT_007f4b34 = (float)(&UINT_008fe000)[uVar5];
-    _DAT_007f4b38 = _DAT_007f4af4 * _DAT_008ddf1c + _DAT_007f4af8;
-    _DAT_007f4b64 = _DAT_007f4af4 * _DAT_008ddf20 + _DAT_007f4ae4;
-    _DAT_007f4ad4 = _DAT_007f4af4 * _DAT_008ddf38 + _DAT_007f4af0;
+    *(float *)&DAT_007f4af4 = (float)(int)uVar5;
+    *(float *)&DAT_007f4b34 = (float)(&UINT_008fe000)[uVar5];
+    _DAT_007f4b38 = *(float *)&DAT_007f4af4 * _DAT_008ddf1c + *(float *)&DAT_007f4af8;
+    _DAT_007f4b64 = *(float *)&DAT_007f4af4 * _DAT_008ddf20 + *(float *)&DAT_007f4ae4;
+    _DAT_007f4ad4 = *(float *)&DAT_007f4af4 * _DAT_008ddf38 + *(float *)&DAT_007f4af0;
     UINT_007f4b50 = (uint)(1.0 / _DAT_007f4b38);
     UINT_007f4b48 = (uint)((float)UINT_007f4b50 * _DAT_007f4b64);
     UINT_007f4b4c = (uint)((float)UINT_007f4b50 * _DAT_007f4ad4);
     bVar2 = (byte)UINT_008ddf04;
     UINT_007f4b54 =
-         (int)ROUND(((float)UINT_007f4b48 - _DAT_007f4b58) * _DAT_007f4b34 * 65536.0) >>
+         (int)ROUND(((float)UINT_007f4b48 - *(float *)&DAT_007f4b58) * *(float *)&DAT_007f4b34 * 65536.0) >>
          (bVar2 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND(((float)UINT_007f4b4c - _DAT_007f4b5c) * _DAT_007f4b34 * 65536.0) >>
+         (int)ROUND(((float)UINT_007f4b4c - *(float *)&DAT_007f4b5c) * *(float *)&DAT_007f4b34 * 65536.0) >>
          (bVar2 & 0x1f);
     UINT_007f4b6c =
-         ((int)ROUND(_DAT_007f4b58 * 65536.0) >> (bVar2 & 0x1f)) + UINT_008ddf44 +
+         ((int)ROUND(*(float *)&DAT_007f4b58 * 65536.0) >> (bVar2 & 0x1f)) + UINT_008ddf44 +
          UINT_007f4b54 * (uVar5 - 1);
     UINT_007f4b70 =
-         ((int)ROUND(_DAT_007f4b5c * 65536.0) >> (bVar2 & 0x1f)) +
+         ((int)ROUND(*(float *)&DAT_007f4b5c * 65536.0) >> (bVar2 & 0x1f)) +
          UINT_008ddf18 + UINT_007f4adc * (uVar5 - 1);
     UINT_007f4b3c = uVar3;
     UINT_008dde40 = uVar5;
@@ -36331,9 +36331,9 @@ void rdRaster_SpanP16_Tex_7(uint *param_1)
     UINT_007f4b70 = UINT_007f4b70 + UINT_007f4adc * (UINT_008dde40 + 1);
     uVar3 = UINT_007f4b3c + UINT_008dde40 * 2;
     uVar7 = UINT_007f4acc;
-    _DAT_007f4b58 = (float)UINT_007f4b48;
-    _DAT_007f4b5c = (float)UINT_007f4b4c;
-    _DAT_007f4b60 = (float)UINT_007f4b50;
+    *(float *)&DAT_007f4b58 = (float)UINT_007f4b48;
+    *(float *)&DAT_007f4b5c = (float)UINT_007f4b4c;
+    *(float *)&DAT_007f4b60 = (float)UINT_007f4b50;
     uVar5 = UINT_008ddf30;
   }
   while( true ) {
@@ -36348,16 +36348,16 @@ void rdRaster_SpanP16_Tex_7(uint *param_1)
     UINT_007f4b48 = (uint)((float)UINT_007f4b50 * _DAT_007f4b64);
     UINT_007f4b4c = (uint)((float)UINT_007f4b50 * _DAT_007f4ad4);
     UINT_007f4b54 =
-         (int)ROUND(((float)UINT_007f4b48 - _DAT_007f4b58) * 0.0625 * 65536.0) >> (bVar2 & 0x1f);
+         (int)ROUND(((float)UINT_007f4b48 - *(float *)&DAT_007f4b58) * 0.0625 * 65536.0) >> (bVar2 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND(((float)UINT_007f4b4c - _DAT_007f4b5c) * 0.0625 * 65536.0) >> (bVar2 & 0x1f);
+         (int)ROUND(((float)UINT_007f4b4c - *(float *)&DAT_007f4b5c) * 0.0625 * 65536.0) >> (bVar2 & 0x1f);
     UINT_008dde40 = 0x10;
     UINT_007f4b6c =
          UINT_007f4b54 * 0xf +
-         ((int)ROUND(_DAT_007f4b58 * 65536.0) >> (bVar2 & 0x1f)) + UINT_008ddf44;
+         ((int)ROUND(*(float *)&DAT_007f4b58 * 65536.0) >> (bVar2 & 0x1f)) + UINT_008ddf44;
     UINT_007f4b70 =
          UINT_007f4adc * 0xf +
-         UINT_008ddf18 + ((int)ROUND(_DAT_007f4b5c * 65536.0) >> (bVar2 & 0x1f));
+         UINT_008ddf18 + ((int)ROUND(*(float *)&DAT_007f4b5c * 65536.0) >> (bVar2 & 0x1f));
     iVar6 = 0x10;
     do {
       iVar6 = iVar6 + -1;
@@ -36376,30 +36376,30 @@ void rdRaster_SpanP16_Tex_7(uint *param_1)
     UINT_007f4b70 = UINT_007f4b70 + UINT_007f4adc * (UINT_008dde40 + 1);
     uVar3 = UINT_007f4b3c + UINT_008dde40 * 2;
     uVar7 = UINT_007f4acc;
-    _DAT_007f4b58 = (float)UINT_007f4b48;
-    _DAT_007f4b5c = (float)UINT_007f4b4c;
-    _DAT_007f4b60 = (float)UINT_007f4b50;
+    *(float *)&DAT_007f4b58 = (float)UINT_007f4b48;
+    *(float *)&DAT_007f4b5c = (float)UINT_007f4b4c;
+    *(float *)&DAT_007f4b60 = (float)UINT_007f4b50;
     uVar5 = UINT_008ddf30;
   }
   if (uVar7 != 0) {
     UINT_007f4acc = uVar7 - 1;
     if (UINT_007f4acc != 0) {
-      _DAT_007f4ac8 = (float)(int)UINT_007f4acc;
-      _DAT_007f4aec = (float)(&UINT_008fe000)[UINT_007f4acc];
-      _DAT_007f4b38 = (_DAT_007f4ac8 * _DAT_008ddf1c - _DAT_008ddf28) + _DAT_007f4b38;
-      _DAT_007f4b64 = (_DAT_007f4ac8 * _DAT_008ddf20 - _DAT_008ddf2c) + _DAT_007f4b64;
-      _DAT_007f4ad4 = (_DAT_007f4ac8 * _DAT_008ddf38 - _DAT_008ddf48) + _DAT_007f4ad4;
+      *(float *)&DAT_007f4ac8 = (float)(int)UINT_007f4acc;
+      *(float *)&DAT_007f4aec = (float)(&UINT_008fe000)[UINT_007f4acc];
+      _DAT_007f4b38 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf1c - _DAT_008ddf28) + _DAT_007f4b38;
+      _DAT_007f4b64 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf20 - _DAT_008ddf2c) + _DAT_007f4b64;
+      _DAT_007f4ad4 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf38 - _DAT_008ddf48) + _DAT_007f4ad4;
       UINT_007f4b50 = (uint)(1.0 / _DAT_007f4b38);
       UINT_007f4b48 = (uint)((float)UINT_007f4b50 * _DAT_007f4b64);
       UINT_007f4b4c = (uint)((float)UINT_007f4b50 * _DAT_007f4ad4);
       UINT_007f4b54 =
-           (int)ROUND(((float)UINT_007f4b48 - _DAT_007f4b58) * _DAT_007f4aec * 65536.0) >>
+           (int)ROUND(((float)UINT_007f4b48 - *(float *)&DAT_007f4b58) * *(float *)&DAT_007f4aec * 65536.0) >>
            (bVar2 & 0x1f);
       UINT_007f4adc =
-           (int)ROUND(((float)UINT_007f4b4c - _DAT_007f4b5c) * _DAT_007f4aec * 65536.0) >>
+           (int)ROUND(((float)UINT_007f4b4c - *(float *)&DAT_007f4b5c) * *(float *)&DAT_007f4aec * 65536.0) >>
            (bVar2 & 0x1f);
-      UINT_007f4b6c = ((int)ROUND(_DAT_007f4b58 * 65536.0) >> (bVar2 & 0x1f)) + UINT_008ddf44;
-      UINT_007f4b70 = ((int)ROUND(_DAT_007f4b5c * 65536.0) >> (bVar2 & 0x1f)) + UINT_008ddf18;
+      UINT_007f4b6c = ((int)ROUND(*(float *)&DAT_007f4b58 * 65536.0) >> (bVar2 & 0x1f)) + UINT_008ddf44;
+      UINT_007f4b70 = ((int)ROUND(*(float *)&DAT_007f4b5c * 65536.0) >> (bVar2 & 0x1f)) + UINT_008ddf18;
     }
     UINT_007f4b6c = UINT_007f4b6c + UINT_007f4b54 * UINT_007f4acc;
     UINT_007f4b70 = UINT_007f4b70 + UINT_007f4adc * UINT_007f4acc;
@@ -36478,40 +36478,40 @@ void rdRaster_SpanP16_Tex_8(uint *param_1)
       UINT_007f4acc = 0x10;
     }
   }
-  _DAT_007f4af8 = (float)param_1[7];
-  _DAT_007f4ae4 = (float)param_1[3];
-  _DAT_007f4b60 = 1.0 / _DAT_007f4af8;
-  _DAT_007f4af0 = (float)param_1[4];
-  _DAT_007f4b58 = _DAT_007f4b60 * _DAT_007f4ae4;
-  _DAT_007f4b5c = _DAT_007f4b60 * _DAT_007f4af0;
+  *(float *)&DAT_007f4af8 = (float)param_1[7];
+  *(float *)&DAT_007f4ae4 = (float)param_1[3];
+  *(float *)&DAT_007f4b60 = 1.0 / *(float *)&DAT_007f4af8;
+  *(float *)&DAT_007f4af0 = (float)param_1[4];
+  *(float *)&DAT_007f4b58 = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4ae4;
+  *(float *)&DAT_007f4b5c = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4af0;
   iVar9 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
   uVar5 = *(int *)(iVar9 + 0x5c) + (param_1[2] * (*(uint *)(iVar9 + 0x18) >> 1) + *param_1) * 2;
   UINT_007f4b44 = uVar8;
   if (uVar8 == 0) {
-    _DAT_007f4b38 = _DAT_007f4af8 + _DAT_008ddf28;
-    _DAT_007f4b64 = _DAT_007f4ae4 + _DAT_008ddf2c;
-    _DAT_007f4ad4 = _DAT_007f4af0 + _DAT_008ddf48;
+    _DAT_007f4b38 = *(float *)&DAT_007f4af8 + _DAT_008ddf28;
+    _DAT_007f4b64 = *(float *)&DAT_007f4ae4 + _DAT_008ddf2c;
+    _DAT_007f4ad4 = *(float *)&DAT_007f4af0 + _DAT_008ddf48;
     uVar8 = UINT_007f4acc;
   }
   else {
-    _DAT_007f4af4 = (float)(int)uVar8;
-    _DAT_007f4b34 = (float)(&UINT_008fe000)[uVar8];
-    _DAT_007f4b38 = _DAT_007f4af4 * _DAT_008ddf1c + _DAT_007f4af8;
-    _DAT_007f4b64 = _DAT_007f4af4 * _DAT_008ddf20 + _DAT_007f4ae4;
-    _DAT_007f4ad4 = _DAT_007f4af4 * _DAT_008ddf38 + _DAT_007f4af0;
+    *(float *)&DAT_007f4af4 = (float)(int)uVar8;
+    *(float *)&DAT_007f4b34 = (float)(&UINT_008fe000)[uVar8];
+    _DAT_007f4b38 = *(float *)&DAT_007f4af4 * _DAT_008ddf1c + *(float *)&DAT_007f4af8;
+    _DAT_007f4b64 = *(float *)&DAT_007f4af4 * _DAT_008ddf20 + *(float *)&DAT_007f4ae4;
+    _DAT_007f4ad4 = *(float *)&DAT_007f4af4 * _DAT_008ddf38 + *(float *)&DAT_007f4af0;
     UINT_007f4b50 = (uint)(1.0 / _DAT_007f4b38);
     UINT_007f4b48 = (uint)((float)UINT_007f4b50 * _DAT_007f4b64);
     UINT_007f4b4c = (uint)((float)UINT_007f4b50 * _DAT_007f4ad4);
     bVar3 = (byte)UINT_008ddf04;
     UINT_007f4b54 =
-         (int)ROUND(((float)UINT_007f4b48 - _DAT_007f4b58) * _DAT_007f4b34 * 65536.0) >>
+         (int)ROUND(((float)UINT_007f4b48 - *(float *)&DAT_007f4b58) * *(float *)&DAT_007f4b34 * 65536.0) >>
          (bVar3 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND(((float)UINT_007f4b4c - _DAT_007f4b5c) * _DAT_007f4b34 * 65536.0) >>
+         (int)ROUND(((float)UINT_007f4b4c - *(float *)&DAT_007f4b5c) * *(float *)&DAT_007f4b34 * 65536.0) >>
          (bVar3 & 0x1f);
-    uVar7 = ((int)ROUND(_DAT_007f4b58 * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf44 +
+    uVar7 = ((int)ROUND(*(float *)&DAT_007f4b58 * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf44 +
             UINT_007f4b54 * (uVar8 - 1);
-    uVar6 = ((int)ROUND(_DAT_007f4b5c * 65536.0) >> (bVar3 & 0x1f)) +
+    uVar6 = ((int)ROUND(*(float *)&DAT_007f4b5c * 65536.0) >> (bVar3 & 0x1f)) +
             UINT_008ddf18 + UINT_007f4adc * (uVar8 - 1);
     UINT_007f4b3c = uVar5;
     UINT_007f4b6c = uVar7;
@@ -36535,9 +36535,9 @@ void rdRaster_SpanP16_Tex_8(uint *param_1)
     _DAT_007f4ad4 = _DAT_007f4ad4 + _DAT_008ddf48;
     uVar5 = UINT_007f4b3c + UINT_008dde40 * 2;
     uVar8 = UINT_007f4acc;
-    _DAT_007f4b58 = (float)UINT_007f4b48;
-    _DAT_007f4b5c = (float)UINT_007f4b4c;
-    _DAT_007f4b60 = (float)UINT_007f4b50;
+    *(float *)&DAT_007f4b58 = (float)UINT_007f4b48;
+    *(float *)&DAT_007f4b5c = (float)UINT_007f4b4c;
+    *(float *)&DAT_007f4b60 = (float)UINT_007f4b50;
   }
   while( true ) {
     bVar1 = (int)UINT_007f4b2c < 1;
@@ -36550,14 +36550,14 @@ void rdRaster_SpanP16_Tex_8(uint *param_1)
     UINT_007f4b48 = (uint)((float)UINT_007f4b50 * _DAT_007f4b64);
     UINT_007f4b4c = (uint)((float)UINT_007f4b50 * _DAT_007f4ad4);
     UINT_007f4b54 =
-         (int)ROUND(((float)UINT_007f4b48 - _DAT_007f4b58) * 0.0625 * 65536.0) >> (bVar3 & 0x1f);
+         (int)ROUND(((float)UINT_007f4b48 - *(float *)&DAT_007f4b58) * 0.0625 * 65536.0) >> (bVar3 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND(((float)UINT_007f4b4c - _DAT_007f4b5c) * 0.0625 * 65536.0) >> (bVar3 & 0x1f);
+         (int)ROUND(((float)UINT_007f4b4c - *(float *)&DAT_007f4b5c) * 0.0625 * 65536.0) >> (bVar3 & 0x1f);
     UINT_008dde40 = 0x10;
     uVar6 = UINT_007f4b54 * 0xf +
-            ((int)ROUND(_DAT_007f4b58 * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf44;
+            ((int)ROUND(*(float *)&DAT_007f4b58 * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf44;
     uVar8 = UINT_007f4adc * 0xf +
-            UINT_008ddf18 + ((int)ROUND(_DAT_007f4b5c * 65536.0) >> (bVar3 & 0x1f));
+            UINT_008ddf18 + ((int)ROUND(*(float *)&DAT_007f4b5c * 65536.0) >> (bVar3 & 0x1f));
     iVar9 = 0x10;
     UINT_007f4b6c = uVar6;
     UINT_007f4b70 = uVar8;
@@ -36579,29 +36579,29 @@ void rdRaster_SpanP16_Tex_8(uint *param_1)
     _DAT_007f4b64 = _DAT_007f4b64 + _DAT_008ddf2c;
     _DAT_007f4ad4 = _DAT_007f4ad4 + _DAT_008ddf48;
     uVar8 = UINT_007f4acc;
-    _DAT_007f4b58 = (float)UINT_007f4b48;
-    _DAT_007f4b5c = (float)UINT_007f4b4c;
-    _DAT_007f4b60 = (float)UINT_007f4b50;
+    *(float *)&DAT_007f4b58 = (float)UINT_007f4b48;
+    *(float *)&DAT_007f4b5c = (float)UINT_007f4b4c;
+    *(float *)&DAT_007f4b60 = (float)UINT_007f4b50;
   }
   if (uVar8 != 0) {
     UINT_007f4acc = uVar8 - 1;
     if (UINT_007f4acc != 0) {
-      _DAT_007f4ac8 = (float)(int)UINT_007f4acc;
-      _DAT_007f4aec = (float)(&UINT_008fe000)[UINT_007f4acc];
-      _DAT_007f4b38 = (_DAT_007f4ac8 * _DAT_008ddf1c - _DAT_008ddf28) + _DAT_007f4b38;
-      _DAT_007f4b64 = (_DAT_007f4ac8 * _DAT_008ddf20 - _DAT_008ddf2c) + _DAT_007f4b64;
-      _DAT_007f4ad4 = (_DAT_007f4ac8 * _DAT_008ddf38 - _DAT_008ddf48) + _DAT_007f4ad4;
+      *(float *)&DAT_007f4ac8 = (float)(int)UINT_007f4acc;
+      *(float *)&DAT_007f4aec = (float)(&UINT_008fe000)[UINT_007f4acc];
+      _DAT_007f4b38 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf1c - _DAT_008ddf28) + _DAT_007f4b38;
+      _DAT_007f4b64 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf20 - _DAT_008ddf2c) + _DAT_007f4b64;
+      _DAT_007f4ad4 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf38 - _DAT_008ddf48) + _DAT_007f4ad4;
       UINT_007f4b50 = (uint)(1.0 / _DAT_007f4b38);
       UINT_007f4b48 = (uint)((float)UINT_007f4b50 * _DAT_007f4b64);
       UINT_007f4b4c = (uint)((float)UINT_007f4b50 * _DAT_007f4ad4);
       UINT_007f4b54 =
-           (int)ROUND(((float)UINT_007f4b48 - _DAT_007f4b58) * _DAT_007f4aec * 65536.0) >>
+           (int)ROUND(((float)UINT_007f4b48 - *(float *)&DAT_007f4b58) * *(float *)&DAT_007f4aec * 65536.0) >>
            (bVar3 & 0x1f);
       UINT_007f4adc =
-           (int)ROUND(((float)UINT_007f4b4c - _DAT_007f4b5c) * _DAT_007f4aec * 65536.0) >>
+           (int)ROUND(((float)UINT_007f4b4c - *(float *)&DAT_007f4b5c) * *(float *)&DAT_007f4aec * 65536.0) >>
            (bVar3 & 0x1f);
-      UINT_007f4b6c = ((int)ROUND(_DAT_007f4b58 * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf44;
-      UINT_007f4b70 = ((int)ROUND(_DAT_007f4b5c * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf18;
+      UINT_007f4b6c = ((int)ROUND(*(float *)&DAT_007f4b58 * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf44;
+      UINT_007f4b70 = ((int)ROUND(*(float *)&DAT_007f4b5c * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf18;
     }
     uVar6 = UINT_007f4b6c + UINT_007f4b54 * UINT_007f4acc;
     uVar7 = UINT_007f4b70 + UINT_007f4adc * UINT_007f4acc;
@@ -36683,40 +36683,40 @@ void rdRaster_SpanP16_Tex_9(uint *param_1)
       UINT_007f4acc = 0x10;
     }
   }
-  _DAT_007f4af8 = (float)param_1[7];
-  _DAT_007f4ae4 = (float)param_1[3];
-  _DAT_007f4b60 = 1.0 / _DAT_007f4af8;
-  _DAT_007f4af0 = (float)param_1[4];
-  _DAT_007f4b58 = _DAT_007f4b60 * _DAT_007f4ae4;
-  _DAT_007f4b5c = _DAT_007f4b60 * _DAT_007f4af0;
+  *(float *)&DAT_007f4af8 = (float)param_1[7];
+  *(float *)&DAT_007f4ae4 = (float)param_1[3];
+  *(float *)&DAT_007f4b60 = 1.0 / *(float *)&DAT_007f4af8;
+  *(float *)&DAT_007f4af0 = (float)param_1[4];
+  *(float *)&DAT_007f4b58 = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4ae4;
+  *(float *)&DAT_007f4b5c = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4af0;
   iVar9 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
   uVar5 = *(int *)(iVar9 + 0x5c) + (param_1[2] * (*(uint *)(iVar9 + 0x18) >> 1) + *param_1) * 2;
   UINT_007f4b44 = uVar8;
   if (uVar8 == 0) {
-    _DAT_007f4b38 = _DAT_007f4af8 + _DAT_008ddf28;
-    _DAT_007f4b64 = _DAT_007f4ae4 + _DAT_008ddf2c;
-    _DAT_007f4ad4 = _DAT_007f4af0 + _DAT_008ddf48;
+    _DAT_007f4b38 = *(float *)&DAT_007f4af8 + _DAT_008ddf28;
+    _DAT_007f4b64 = *(float *)&DAT_007f4ae4 + _DAT_008ddf2c;
+    _DAT_007f4ad4 = *(float *)&DAT_007f4af0 + _DAT_008ddf48;
     uVar8 = UINT_007f4acc;
   }
   else {
-    _DAT_007f4af4 = (float)(int)uVar8;
-    _DAT_007f4b34 = (float)(&UINT_008fe000)[uVar8];
-    _DAT_007f4b38 = _DAT_007f4af4 * _DAT_008ddf1c + _DAT_007f4af8;
-    _DAT_007f4b64 = _DAT_007f4af4 * _DAT_008ddf20 + _DAT_007f4ae4;
-    _DAT_007f4ad4 = _DAT_007f4af4 * _DAT_008ddf38 + _DAT_007f4af0;
+    *(float *)&DAT_007f4af4 = (float)(int)uVar8;
+    *(float *)&DAT_007f4b34 = (float)(&UINT_008fe000)[uVar8];
+    _DAT_007f4b38 = *(float *)&DAT_007f4af4 * _DAT_008ddf1c + *(float *)&DAT_007f4af8;
+    _DAT_007f4b64 = *(float *)&DAT_007f4af4 * _DAT_008ddf20 + *(float *)&DAT_007f4ae4;
+    _DAT_007f4ad4 = *(float *)&DAT_007f4af4 * _DAT_008ddf38 + *(float *)&DAT_007f4af0;
     UINT_007f4b50 = (uint)(1.0 / _DAT_007f4b38);
     UINT_007f4b48 = (uint)((float)UINT_007f4b50 * _DAT_007f4b64);
     UINT_007f4b4c = (uint)((float)UINT_007f4b50 * _DAT_007f4ad4);
     bVar3 = (byte)UINT_008ddf04;
     UINT_007f4b54 =
-         (int)ROUND(((float)UINT_007f4b48 - _DAT_007f4b58) * _DAT_007f4b34 * 65536.0) >>
+         (int)ROUND(((float)UINT_007f4b48 - *(float *)&DAT_007f4b58) * *(float *)&DAT_007f4b34 * 65536.0) >>
          (bVar3 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND(((float)UINT_007f4b4c - _DAT_007f4b5c) * _DAT_007f4b34 * 65536.0) >>
+         (int)ROUND(((float)UINT_007f4b4c - *(float *)&DAT_007f4b5c) * *(float *)&DAT_007f4b34 * 65536.0) >>
          (bVar3 & 0x1f);
-    uVar7 = ((int)ROUND(_DAT_007f4b58 * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf44 +
+    uVar7 = ((int)ROUND(*(float *)&DAT_007f4b58 * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf44 +
             UINT_007f4b54 * (uVar8 - 1);
-    uVar6 = ((int)ROUND(_DAT_007f4b5c * 65536.0) >> (bVar3 & 0x1f)) +
+    uVar6 = ((int)ROUND(*(float *)&DAT_007f4b5c * 65536.0) >> (bVar3 & 0x1f)) +
             UINT_008ddf18 + UINT_007f4adc * (uVar8 - 1);
     UINT_007f4b3c = uVar5;
     UINT_007f4b6c = uVar7;
@@ -36740,9 +36740,9 @@ void rdRaster_SpanP16_Tex_9(uint *param_1)
     _DAT_007f4ad4 = _DAT_007f4ad4 + _DAT_008ddf48;
     uVar5 = UINT_007f4b3c + UINT_008dde40 * 2;
     uVar8 = UINT_007f4acc;
-    _DAT_007f4b58 = (float)UINT_007f4b48;
-    _DAT_007f4b5c = (float)UINT_007f4b4c;
-    _DAT_007f4b60 = (float)UINT_007f4b50;
+    *(float *)&DAT_007f4b58 = (float)UINT_007f4b48;
+    *(float *)&DAT_007f4b5c = (float)UINT_007f4b4c;
+    *(float *)&DAT_007f4b60 = (float)UINT_007f4b50;
   }
   while( true ) {
     bVar1 = (int)UINT_007f4b2c < 1;
@@ -36755,14 +36755,14 @@ void rdRaster_SpanP16_Tex_9(uint *param_1)
     UINT_007f4b48 = (uint)((float)UINT_007f4b50 * _DAT_007f4b64);
     UINT_007f4b4c = (uint)((float)UINT_007f4b50 * _DAT_007f4ad4);
     UINT_007f4b54 =
-         (int)ROUND(((float)UINT_007f4b48 - _DAT_007f4b58) * 0.0625 * 65536.0) >> (bVar3 & 0x1f);
+         (int)ROUND(((float)UINT_007f4b48 - *(float *)&DAT_007f4b58) * 0.0625 * 65536.0) >> (bVar3 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND(((float)UINT_007f4b4c - _DAT_007f4b5c) * 0.0625 * 65536.0) >> (bVar3 & 0x1f);
+         (int)ROUND(((float)UINT_007f4b4c - *(float *)&DAT_007f4b5c) * 0.0625 * 65536.0) >> (bVar3 & 0x1f);
     UINT_008dde40 = 0x10;
     uVar6 = UINT_007f4b54 * 0xf +
-            ((int)ROUND(_DAT_007f4b58 * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf44;
+            ((int)ROUND(*(float *)&DAT_007f4b58 * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf44;
     uVar8 = UINT_007f4adc * 0xf +
-            UINT_008ddf18 + ((int)ROUND(_DAT_007f4b5c * 65536.0) >> (bVar3 & 0x1f));
+            UINT_008ddf18 + ((int)ROUND(*(float *)&DAT_007f4b5c * 65536.0) >> (bVar3 & 0x1f));
     iVar9 = 0x10;
     UINT_007f4b6c = uVar6;
     UINT_007f4b70 = uVar8;
@@ -36784,29 +36784,29 @@ void rdRaster_SpanP16_Tex_9(uint *param_1)
     _DAT_007f4b64 = _DAT_007f4b64 + _DAT_008ddf2c;
     _DAT_007f4ad4 = _DAT_007f4ad4 + _DAT_008ddf48;
     uVar8 = UINT_007f4acc;
-    _DAT_007f4b58 = (float)UINT_007f4b48;
-    _DAT_007f4b5c = (float)UINT_007f4b4c;
-    _DAT_007f4b60 = (float)UINT_007f4b50;
+    *(float *)&DAT_007f4b58 = (float)UINT_007f4b48;
+    *(float *)&DAT_007f4b5c = (float)UINT_007f4b4c;
+    *(float *)&DAT_007f4b60 = (float)UINT_007f4b50;
   }
   if (uVar8 != 0) {
     UINT_007f4acc = uVar8 - 1;
     if (UINT_007f4acc != 0) {
-      _DAT_007f4ac8 = (float)(int)UINT_007f4acc;
-      _DAT_007f4aec = (float)(&UINT_008fe000)[UINT_007f4acc];
-      _DAT_007f4b38 = (_DAT_007f4ac8 * _DAT_008ddf1c - _DAT_008ddf28) + _DAT_007f4b38;
-      _DAT_007f4b64 = (_DAT_007f4ac8 * _DAT_008ddf20 - _DAT_008ddf2c) + _DAT_007f4b64;
-      _DAT_007f4ad4 = (_DAT_007f4ac8 * _DAT_008ddf38 - _DAT_008ddf48) + _DAT_007f4ad4;
+      *(float *)&DAT_007f4ac8 = (float)(int)UINT_007f4acc;
+      *(float *)&DAT_007f4aec = (float)(&UINT_008fe000)[UINT_007f4acc];
+      _DAT_007f4b38 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf1c - _DAT_008ddf28) + _DAT_007f4b38;
+      _DAT_007f4b64 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf20 - _DAT_008ddf2c) + _DAT_007f4b64;
+      _DAT_007f4ad4 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf38 - _DAT_008ddf48) + _DAT_007f4ad4;
       UINT_007f4b50 = (uint)(1.0 / _DAT_007f4b38);
       UINT_007f4b48 = (uint)((float)UINT_007f4b50 * _DAT_007f4b64);
       UINT_007f4b4c = (uint)((float)UINT_007f4b50 * _DAT_007f4ad4);
       UINT_007f4b54 =
-           (int)ROUND(((float)UINT_007f4b48 - _DAT_007f4b58) * _DAT_007f4aec * 65536.0) >>
+           (int)ROUND(((float)UINT_007f4b48 - *(float *)&DAT_007f4b58) * *(float *)&DAT_007f4aec * 65536.0) >>
            (bVar3 & 0x1f);
       UINT_007f4adc =
-           (int)ROUND(((float)UINT_007f4b4c - _DAT_007f4b5c) * _DAT_007f4aec * 65536.0) >>
+           (int)ROUND(((float)UINT_007f4b4c - *(float *)&DAT_007f4b5c) * *(float *)&DAT_007f4aec * 65536.0) >>
            (bVar3 & 0x1f);
-      UINT_007f4b6c = ((int)ROUND(_DAT_007f4b58 * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf44;
-      UINT_007f4b70 = ((int)ROUND(_DAT_007f4b5c * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf18;
+      UINT_007f4b6c = ((int)ROUND(*(float *)&DAT_007f4b58 * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf44;
+      UINT_007f4b70 = ((int)ROUND(*(float *)&DAT_007f4b5c * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf18;
     }
     uVar6 = UINT_007f4b6c + UINT_007f4b54 * UINT_007f4acc;
     uVar7 = UINT_007f4b70 + UINT_007f4adc * UINT_007f4acc;
@@ -36888,40 +36888,40 @@ void rdRaster_SpanP16_Tex_10(uint *param_1)
       UINT_007f4acc = 0x10;
     }
   }
-  _DAT_007f4af8 = (float)param_1[7];
-  _DAT_007f4ae4 = (float)param_1[3];
-  _DAT_007f4b60 = 1.0 / _DAT_007f4af8;
-  _DAT_007f4af0 = (float)param_1[4];
-  _DAT_007f4b58 = _DAT_007f4b60 * _DAT_007f4ae4;
-  _DAT_007f4b5c = _DAT_007f4b60 * _DAT_007f4af0;
+  *(float *)&DAT_007f4af8 = (float)param_1[7];
+  *(float *)&DAT_007f4ae4 = (float)param_1[3];
+  *(float *)&DAT_007f4b60 = 1.0 / *(float *)&DAT_007f4af8;
+  *(float *)&DAT_007f4af0 = (float)param_1[4];
+  *(float *)&DAT_007f4b58 = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4ae4;
+  *(float *)&DAT_007f4b5c = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4af0;
   iVar9 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
   uVar5 = *(int *)(iVar9 + 0x5c) + (param_1[2] * (*(uint *)(iVar9 + 0x18) >> 1) + *param_1) * 2;
   UINT_007f4b44 = uVar8;
   if (uVar8 == 0) {
-    _DAT_007f4b38 = _DAT_007f4af8 + _DAT_008ddf28;
-    _DAT_007f4b64 = _DAT_007f4ae4 + _DAT_008ddf2c;
-    _DAT_007f4ad4 = _DAT_007f4af0 + _DAT_008ddf48;
+    _DAT_007f4b38 = *(float *)&DAT_007f4af8 + _DAT_008ddf28;
+    _DAT_007f4b64 = *(float *)&DAT_007f4ae4 + _DAT_008ddf2c;
+    _DAT_007f4ad4 = *(float *)&DAT_007f4af0 + _DAT_008ddf48;
     uVar8 = UINT_007f4acc;
   }
   else {
-    _DAT_007f4af4 = (float)(int)uVar8;
-    _DAT_007f4b34 = (float)(&UINT_008fe000)[uVar8];
-    _DAT_007f4b38 = _DAT_007f4af4 * _DAT_008ddf1c + _DAT_007f4af8;
-    _DAT_007f4b64 = _DAT_007f4af4 * _DAT_008ddf20 + _DAT_007f4ae4;
-    _DAT_007f4ad4 = _DAT_007f4af4 * _DAT_008ddf38 + _DAT_007f4af0;
+    *(float *)&DAT_007f4af4 = (float)(int)uVar8;
+    *(float *)&DAT_007f4b34 = (float)(&UINT_008fe000)[uVar8];
+    _DAT_007f4b38 = *(float *)&DAT_007f4af4 * _DAT_008ddf1c + *(float *)&DAT_007f4af8;
+    _DAT_007f4b64 = *(float *)&DAT_007f4af4 * _DAT_008ddf20 + *(float *)&DAT_007f4ae4;
+    _DAT_007f4ad4 = *(float *)&DAT_007f4af4 * _DAT_008ddf38 + *(float *)&DAT_007f4af0;
     UINT_007f4b50 = (uint)(1.0 / _DAT_007f4b38);
     UINT_007f4b48 = (uint)((float)UINT_007f4b50 * _DAT_007f4b64);
     UINT_007f4b4c = (uint)((float)UINT_007f4b50 * _DAT_007f4ad4);
     bVar3 = (byte)UINT_008ddf04;
     UINT_007f4b54 =
-         (int)ROUND(((float)UINT_007f4b48 - _DAT_007f4b58) * _DAT_007f4b34 * 65536.0) >>
+         (int)ROUND(((float)UINT_007f4b48 - *(float *)&DAT_007f4b58) * *(float *)&DAT_007f4b34 * 65536.0) >>
          (bVar3 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND(((float)UINT_007f4b4c - _DAT_007f4b5c) * _DAT_007f4b34 * 65536.0) >>
+         (int)ROUND(((float)UINT_007f4b4c - *(float *)&DAT_007f4b5c) * *(float *)&DAT_007f4b34 * 65536.0) >>
          (bVar3 & 0x1f);
-    uVar7 = ((int)ROUND(_DAT_007f4b58 * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf44 +
+    uVar7 = ((int)ROUND(*(float *)&DAT_007f4b58 * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf44 +
             UINT_007f4b54 * (uVar8 - 1);
-    uVar6 = ((int)ROUND(_DAT_007f4b5c * 65536.0) >> (bVar3 & 0x1f)) +
+    uVar6 = ((int)ROUND(*(float *)&DAT_007f4b5c * 65536.0) >> (bVar3 & 0x1f)) +
             UINT_008ddf18 + UINT_007f4adc * (uVar8 - 1);
     UINT_007f4b3c = uVar5;
     UINT_007f4b6c = uVar7;
@@ -36945,9 +36945,9 @@ void rdRaster_SpanP16_Tex_10(uint *param_1)
     _DAT_007f4ad4 = _DAT_007f4ad4 + _DAT_008ddf48;
     uVar5 = UINT_007f4b3c + UINT_008dde40 * 2;
     uVar8 = UINT_007f4acc;
-    _DAT_007f4b58 = (float)UINT_007f4b48;
-    _DAT_007f4b5c = (float)UINT_007f4b4c;
-    _DAT_007f4b60 = (float)UINT_007f4b50;
+    *(float *)&DAT_007f4b58 = (float)UINT_007f4b48;
+    *(float *)&DAT_007f4b5c = (float)UINT_007f4b4c;
+    *(float *)&DAT_007f4b60 = (float)UINT_007f4b50;
   }
   while( true ) {
     bVar1 = (int)UINT_007f4b2c < 1;
@@ -36960,14 +36960,14 @@ void rdRaster_SpanP16_Tex_10(uint *param_1)
     UINT_007f4b48 = (uint)((float)UINT_007f4b50 * _DAT_007f4b64);
     UINT_007f4b4c = (uint)((float)UINT_007f4b50 * _DAT_007f4ad4);
     UINT_007f4b54 =
-         (int)ROUND(((float)UINT_007f4b48 - _DAT_007f4b58) * 0.0625 * 65536.0) >> (bVar3 & 0x1f);
+         (int)ROUND(((float)UINT_007f4b48 - *(float *)&DAT_007f4b58) * 0.0625 * 65536.0) >> (bVar3 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND(((float)UINT_007f4b4c - _DAT_007f4b5c) * 0.0625 * 65536.0) >> (bVar3 & 0x1f);
+         (int)ROUND(((float)UINT_007f4b4c - *(float *)&DAT_007f4b5c) * 0.0625 * 65536.0) >> (bVar3 & 0x1f);
     UINT_008dde40 = 0x10;
     uVar6 = UINT_007f4b54 * 0xf +
-            ((int)ROUND(_DAT_007f4b58 * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf44;
+            ((int)ROUND(*(float *)&DAT_007f4b58 * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf44;
     uVar8 = UINT_007f4adc * 0xf +
-            UINT_008ddf18 + ((int)ROUND(_DAT_007f4b5c * 65536.0) >> (bVar3 & 0x1f));
+            UINT_008ddf18 + ((int)ROUND(*(float *)&DAT_007f4b5c * 65536.0) >> (bVar3 & 0x1f));
     iVar9 = 0x10;
     UINT_007f4b6c = uVar6;
     UINT_007f4b70 = uVar8;
@@ -36989,29 +36989,29 @@ void rdRaster_SpanP16_Tex_10(uint *param_1)
     _DAT_007f4b64 = _DAT_007f4b64 + _DAT_008ddf2c;
     _DAT_007f4ad4 = _DAT_007f4ad4 + _DAT_008ddf48;
     uVar8 = UINT_007f4acc;
-    _DAT_007f4b58 = (float)UINT_007f4b48;
-    _DAT_007f4b5c = (float)UINT_007f4b4c;
-    _DAT_007f4b60 = (float)UINT_007f4b50;
+    *(float *)&DAT_007f4b58 = (float)UINT_007f4b48;
+    *(float *)&DAT_007f4b5c = (float)UINT_007f4b4c;
+    *(float *)&DAT_007f4b60 = (float)UINT_007f4b50;
   }
   if (uVar8 != 0) {
     UINT_007f4acc = uVar8 - 1;
     if (UINT_007f4acc != 0) {
-      _DAT_007f4ac8 = (float)(int)UINT_007f4acc;
-      _DAT_007f4aec = (float)(&UINT_008fe000)[UINT_007f4acc];
-      _DAT_007f4b38 = (_DAT_007f4ac8 * _DAT_008ddf1c - _DAT_008ddf28) + _DAT_007f4b38;
-      _DAT_007f4b64 = (_DAT_007f4ac8 * _DAT_008ddf20 - _DAT_008ddf2c) + _DAT_007f4b64;
-      _DAT_007f4ad4 = (_DAT_007f4ac8 * _DAT_008ddf38 - _DAT_008ddf48) + _DAT_007f4ad4;
+      *(float *)&DAT_007f4ac8 = (float)(int)UINT_007f4acc;
+      *(float *)&DAT_007f4aec = (float)(&UINT_008fe000)[UINT_007f4acc];
+      _DAT_007f4b38 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf1c - _DAT_008ddf28) + _DAT_007f4b38;
+      _DAT_007f4b64 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf20 - _DAT_008ddf2c) + _DAT_007f4b64;
+      _DAT_007f4ad4 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf38 - _DAT_008ddf48) + _DAT_007f4ad4;
       UINT_007f4b50 = (uint)(1.0 / _DAT_007f4b38);
       UINT_007f4b48 = (uint)((float)UINT_007f4b50 * _DAT_007f4b64);
       UINT_007f4b4c = (uint)((float)UINT_007f4b50 * _DAT_007f4ad4);
       UINT_007f4b54 =
-           (int)ROUND(((float)UINT_007f4b48 - _DAT_007f4b58) * _DAT_007f4aec * 65536.0) >>
+           (int)ROUND(((float)UINT_007f4b48 - *(float *)&DAT_007f4b58) * *(float *)&DAT_007f4aec * 65536.0) >>
            (bVar3 & 0x1f);
       UINT_007f4adc =
-           (int)ROUND(((float)UINT_007f4b4c - _DAT_007f4b5c) * _DAT_007f4aec * 65536.0) >>
+           (int)ROUND(((float)UINT_007f4b4c - *(float *)&DAT_007f4b5c) * *(float *)&DAT_007f4aec * 65536.0) >>
            (bVar3 & 0x1f);
-      UINT_007f4b6c = ((int)ROUND(_DAT_007f4b58 * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf44;
-      UINT_007f4b70 = ((int)ROUND(_DAT_007f4b5c * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf18;
+      UINT_007f4b6c = ((int)ROUND(*(float *)&DAT_007f4b58 * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf44;
+      UINT_007f4b70 = ((int)ROUND(*(float *)&DAT_007f4b5c * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf18;
     }
     uVar6 = UINT_007f4b6c + UINT_007f4b54 * UINT_007f4acc;
     uVar7 = UINT_007f4b70 + UINT_007f4adc * UINT_007f4acc;
@@ -37093,40 +37093,40 @@ void rdRaster_SpanP16_TexLit_2(uint *param_1)
       UINT_007f4acc = 0x10;
     }
   }
-  _DAT_007f4af8 = (float)param_1[7];
-  _DAT_007f4ae4 = (float)param_1[3];
-  _DAT_007f4b60 = 1.0 / _DAT_007f4af8;
-  _DAT_007f4af0 = (float)param_1[4];
-  _DAT_007f4b58 = _DAT_007f4b60 * _DAT_007f4ae4;
-  _DAT_007f4b5c = _DAT_007f4b60 * _DAT_007f4af0;
+  *(float *)&DAT_007f4af8 = (float)param_1[7];
+  *(float *)&DAT_007f4ae4 = (float)param_1[3];
+  *(float *)&DAT_007f4b60 = 1.0 / *(float *)&DAT_007f4af8;
+  *(float *)&DAT_007f4af0 = (float)param_1[4];
+  *(float *)&DAT_007f4b58 = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4ae4;
+  *(float *)&DAT_007f4b5c = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4af0;
   iVar9 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
   uVar5 = *(int *)(iVar9 + 0x5c) + (param_1[2] * (*(uint *)(iVar9 + 0x18) >> 1) + *param_1) * 2;
   UINT_007f4b44 = uVar8;
   if (uVar8 == 0) {
-    _DAT_007f4b38 = _DAT_007f4af8 + _DAT_008ddf28;
-    _DAT_007f4b64 = _DAT_007f4ae4 + _DAT_008ddf2c;
-    _DAT_007f4ad4 = _DAT_007f4af0 + _DAT_008ddf48;
+    _DAT_007f4b38 = *(float *)&DAT_007f4af8 + _DAT_008ddf28;
+    _DAT_007f4b64 = *(float *)&DAT_007f4ae4 + _DAT_008ddf2c;
+    _DAT_007f4ad4 = *(float *)&DAT_007f4af0 + _DAT_008ddf48;
     uVar8 = UINT_007f4acc;
   }
   else {
-    _DAT_007f4af4 = (float)(int)uVar8;
-    _DAT_007f4b34 = (float)(&UINT_008fe000)[uVar8];
-    _DAT_007f4b38 = _DAT_007f4af4 * _DAT_008ddf1c + _DAT_007f4af8;
-    _DAT_007f4b64 = _DAT_007f4af4 * _DAT_008ddf20 + _DAT_007f4ae4;
-    _DAT_007f4ad4 = _DAT_007f4af4 * _DAT_008ddf38 + _DAT_007f4af0;
+    *(float *)&DAT_007f4af4 = (float)(int)uVar8;
+    *(float *)&DAT_007f4b34 = (float)(&UINT_008fe000)[uVar8];
+    _DAT_007f4b38 = *(float *)&DAT_007f4af4 * _DAT_008ddf1c + *(float *)&DAT_007f4af8;
+    _DAT_007f4b64 = *(float *)&DAT_007f4af4 * _DAT_008ddf20 + *(float *)&DAT_007f4ae4;
+    _DAT_007f4ad4 = *(float *)&DAT_007f4af4 * _DAT_008ddf38 + *(float *)&DAT_007f4af0;
     UINT_007f4b50 = (uint)(1.0 / _DAT_007f4b38);
     UINT_007f4b48 = (uint)((float)UINT_007f4b50 * _DAT_007f4b64);
     UINT_007f4b4c = (uint)((float)UINT_007f4b50 * _DAT_007f4ad4);
     bVar3 = (byte)UINT_008ddf04;
     UINT_007f4b54 =
-         (int)ROUND(((float)UINT_007f4b48 - _DAT_007f4b58) * _DAT_007f4b34 * 65536.0) >>
+         (int)ROUND(((float)UINT_007f4b48 - *(float *)&DAT_007f4b58) * *(float *)&DAT_007f4b34 * 65536.0) >>
          (bVar3 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND(((float)UINT_007f4b4c - _DAT_007f4b5c) * _DAT_007f4b34 * 65536.0) >>
+         (int)ROUND(((float)UINT_007f4b4c - *(float *)&DAT_007f4b5c) * *(float *)&DAT_007f4b34 * 65536.0) >>
          (bVar3 & 0x1f);
-    uVar7 = ((int)ROUND(_DAT_007f4b58 * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf44 +
+    uVar7 = ((int)ROUND(*(float *)&DAT_007f4b58 * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf44 +
             UINT_007f4b54 * (uVar8 - 1);
-    uVar6 = ((int)ROUND(_DAT_007f4b5c * 65536.0) >> (bVar3 & 0x1f)) +
+    uVar6 = ((int)ROUND(*(float *)&DAT_007f4b5c * 65536.0) >> (bVar3 & 0x1f)) +
             UINT_008ddf18 + UINT_007f4adc * (uVar8 - 1);
     UINT_007f4b3c = uVar5;
     UINT_007f4b6c = uVar7;
@@ -37150,9 +37150,9 @@ void rdRaster_SpanP16_TexLit_2(uint *param_1)
     _DAT_007f4ad4 = _DAT_007f4ad4 + _DAT_008ddf48;
     uVar5 = UINT_007f4b3c + UINT_008dde40 * 2;
     uVar8 = UINT_007f4acc;
-    _DAT_007f4b58 = (float)UINT_007f4b48;
-    _DAT_007f4b5c = (float)UINT_007f4b4c;
-    _DAT_007f4b60 = (float)UINT_007f4b50;
+    *(float *)&DAT_007f4b58 = (float)UINT_007f4b48;
+    *(float *)&DAT_007f4b5c = (float)UINT_007f4b4c;
+    *(float *)&DAT_007f4b60 = (float)UINT_007f4b50;
   }
   while( true ) {
     bVar1 = (int)UINT_007f4b2c < 1;
@@ -37165,14 +37165,14 @@ void rdRaster_SpanP16_TexLit_2(uint *param_1)
     UINT_007f4b48 = (uint)((float)UINT_007f4b50 * _DAT_007f4b64);
     UINT_007f4b4c = (uint)((float)UINT_007f4b50 * _DAT_007f4ad4);
     UINT_007f4b54 =
-         (int)ROUND(((float)UINT_007f4b48 - _DAT_007f4b58) * 0.0625 * 65536.0) >> (bVar3 & 0x1f);
+         (int)ROUND(((float)UINT_007f4b48 - *(float *)&DAT_007f4b58) * 0.0625 * 65536.0) >> (bVar3 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND(((float)UINT_007f4b4c - _DAT_007f4b5c) * 0.0625 * 65536.0) >> (bVar3 & 0x1f);
+         (int)ROUND(((float)UINT_007f4b4c - *(float *)&DAT_007f4b5c) * 0.0625 * 65536.0) >> (bVar3 & 0x1f);
     UINT_008dde40 = 0x10;
     uVar6 = UINT_007f4b54 * 0xf +
-            ((int)ROUND(_DAT_007f4b58 * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf44;
+            ((int)ROUND(*(float *)&DAT_007f4b58 * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf44;
     uVar8 = UINT_007f4adc * 0xf +
-            UINT_008ddf18 + ((int)ROUND(_DAT_007f4b5c * 65536.0) >> (bVar3 & 0x1f));
+            UINT_008ddf18 + ((int)ROUND(*(float *)&DAT_007f4b5c * 65536.0) >> (bVar3 & 0x1f));
     iVar9 = 0x10;
     UINT_007f4b6c = uVar6;
     UINT_007f4b70 = uVar8;
@@ -37194,29 +37194,29 @@ void rdRaster_SpanP16_TexLit_2(uint *param_1)
     _DAT_007f4b64 = _DAT_007f4b64 + _DAT_008ddf2c;
     _DAT_007f4ad4 = _DAT_007f4ad4 + _DAT_008ddf48;
     uVar8 = UINT_007f4acc;
-    _DAT_007f4b58 = (float)UINT_007f4b48;
-    _DAT_007f4b5c = (float)UINT_007f4b4c;
-    _DAT_007f4b60 = (float)UINT_007f4b50;
+    *(float *)&DAT_007f4b58 = (float)UINT_007f4b48;
+    *(float *)&DAT_007f4b5c = (float)UINT_007f4b4c;
+    *(float *)&DAT_007f4b60 = (float)UINT_007f4b50;
   }
   if (uVar8 != 0) {
     UINT_007f4acc = uVar8 - 1;
     if (UINT_007f4acc != 0) {
-      _DAT_007f4ac8 = (float)(int)UINT_007f4acc;
-      _DAT_007f4aec = (float)(&UINT_008fe000)[UINT_007f4acc];
-      _DAT_007f4b38 = (_DAT_007f4ac8 * _DAT_008ddf1c - _DAT_008ddf28) + _DAT_007f4b38;
-      _DAT_007f4b64 = (_DAT_007f4ac8 * _DAT_008ddf20 - _DAT_008ddf2c) + _DAT_007f4b64;
-      _DAT_007f4ad4 = (_DAT_007f4ac8 * _DAT_008ddf38 - _DAT_008ddf48) + _DAT_007f4ad4;
+      *(float *)&DAT_007f4ac8 = (float)(int)UINT_007f4acc;
+      *(float *)&DAT_007f4aec = (float)(&UINT_008fe000)[UINT_007f4acc];
+      _DAT_007f4b38 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf1c - _DAT_008ddf28) + _DAT_007f4b38;
+      _DAT_007f4b64 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf20 - _DAT_008ddf2c) + _DAT_007f4b64;
+      _DAT_007f4ad4 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf38 - _DAT_008ddf48) + _DAT_007f4ad4;
       UINT_007f4b50 = (uint)(1.0 / _DAT_007f4b38);
       UINT_007f4b48 = (uint)((float)UINT_007f4b50 * _DAT_007f4b64);
       UINT_007f4b4c = (uint)((float)UINT_007f4b50 * _DAT_007f4ad4);
       UINT_007f4b54 =
-           (int)ROUND(((float)UINT_007f4b48 - _DAT_007f4b58) * _DAT_007f4aec * 65536.0) >>
+           (int)ROUND(((float)UINT_007f4b48 - *(float *)&DAT_007f4b58) * *(float *)&DAT_007f4aec * 65536.0) >>
            (bVar3 & 0x1f);
       UINT_007f4adc =
-           (int)ROUND(((float)UINT_007f4b4c - _DAT_007f4b5c) * _DAT_007f4aec * 65536.0) >>
+           (int)ROUND(((float)UINT_007f4b4c - *(float *)&DAT_007f4b5c) * *(float *)&DAT_007f4aec * 65536.0) >>
            (bVar3 & 0x1f);
-      UINT_007f4b6c = ((int)ROUND(_DAT_007f4b58 * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf44;
-      UINT_007f4b70 = ((int)ROUND(_DAT_007f4b5c * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf18;
+      UINT_007f4b6c = ((int)ROUND(*(float *)&DAT_007f4b58 * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf44;
+      UINT_007f4b70 = ((int)ROUND(*(float *)&DAT_007f4b5c * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf18;
     }
     uVar6 = UINT_007f4b6c + UINT_007f4b54 * UINT_007f4acc;
     uVar7 = UINT_007f4b70 + UINT_007f4adc * UINT_007f4acc;
@@ -37298,40 +37298,40 @@ void rdRaster_SpanP16_Tex_11(uint *param_1)
       UINT_007f4acc = 0x10;
     }
   }
-  _DAT_007f4af8 = (float)param_1[7];
-  _DAT_007f4ae4 = (float)param_1[3];
-  _DAT_007f4b60 = 1.0 / _DAT_007f4af8;
-  _DAT_007f4af0 = (float)param_1[4];
-  _DAT_007f4b58 = _DAT_007f4b60 * _DAT_007f4ae4;
-  _DAT_007f4b5c = _DAT_007f4b60 * _DAT_007f4af0;
+  *(float *)&DAT_007f4af8 = (float)param_1[7];
+  *(float *)&DAT_007f4ae4 = (float)param_1[3];
+  *(float *)&DAT_007f4b60 = 1.0 / *(float *)&DAT_007f4af8;
+  *(float *)&DAT_007f4af0 = (float)param_1[4];
+  *(float *)&DAT_007f4b58 = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4ae4;
+  *(float *)&DAT_007f4b5c = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4af0;
   iVar9 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
   uVar5 = *(int *)(iVar9 + 0x5c) + (param_1[2] * (*(uint *)(iVar9 + 0x18) >> 1) + *param_1) * 2;
   UINT_007f4b44 = uVar8;
   if (uVar8 == 0) {
-    _DAT_007f4b38 = _DAT_007f4af8 + _DAT_008ddf28;
-    _DAT_007f4b64 = _DAT_007f4ae4 + _DAT_008ddf2c;
-    _DAT_007f4ad4 = _DAT_007f4af0 + _DAT_008ddf48;
+    _DAT_007f4b38 = *(float *)&DAT_007f4af8 + _DAT_008ddf28;
+    _DAT_007f4b64 = *(float *)&DAT_007f4ae4 + _DAT_008ddf2c;
+    _DAT_007f4ad4 = *(float *)&DAT_007f4af0 + _DAT_008ddf48;
     uVar8 = UINT_007f4acc;
   }
   else {
-    _DAT_007f4af4 = (float)(int)uVar8;
-    _DAT_007f4b34 = (float)(&UINT_008fe000)[uVar8];
-    _DAT_007f4b38 = _DAT_007f4af4 * _DAT_008ddf1c + _DAT_007f4af8;
-    _DAT_007f4b64 = _DAT_007f4af4 * _DAT_008ddf20 + _DAT_007f4ae4;
-    _DAT_007f4ad4 = _DAT_007f4af4 * _DAT_008ddf38 + _DAT_007f4af0;
+    *(float *)&DAT_007f4af4 = (float)(int)uVar8;
+    *(float *)&DAT_007f4b34 = (float)(&UINT_008fe000)[uVar8];
+    _DAT_007f4b38 = *(float *)&DAT_007f4af4 * _DAT_008ddf1c + *(float *)&DAT_007f4af8;
+    _DAT_007f4b64 = *(float *)&DAT_007f4af4 * _DAT_008ddf20 + *(float *)&DAT_007f4ae4;
+    _DAT_007f4ad4 = *(float *)&DAT_007f4af4 * _DAT_008ddf38 + *(float *)&DAT_007f4af0;
     UINT_007f4b50 = (uint)(1.0 / _DAT_007f4b38);
     UINT_007f4b48 = (uint)((float)UINT_007f4b50 * _DAT_007f4b64);
     UINT_007f4b4c = (uint)((float)UINT_007f4b50 * _DAT_007f4ad4);
     bVar3 = (byte)UINT_008ddf04;
     UINT_007f4b54 =
-         (int)ROUND(((float)UINT_007f4b48 - _DAT_007f4b58) * _DAT_007f4b34 * 65536.0) >>
+         (int)ROUND(((float)UINT_007f4b48 - *(float *)&DAT_007f4b58) * *(float *)&DAT_007f4b34 * 65536.0) >>
          (bVar3 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND(((float)UINT_007f4b4c - _DAT_007f4b5c) * _DAT_007f4b34 * 65536.0) >>
+         (int)ROUND(((float)UINT_007f4b4c - *(float *)&DAT_007f4b5c) * *(float *)&DAT_007f4b34 * 65536.0) >>
          (bVar3 & 0x1f);
-    uVar7 = ((int)ROUND(_DAT_007f4b58 * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf44 +
+    uVar7 = ((int)ROUND(*(float *)&DAT_007f4b58 * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf44 +
             UINT_007f4b54 * (uVar8 - 1);
-    uVar6 = ((int)ROUND(_DAT_007f4b5c * 65536.0) >> (bVar3 & 0x1f)) +
+    uVar6 = ((int)ROUND(*(float *)&DAT_007f4b5c * 65536.0) >> (bVar3 & 0x1f)) +
             UINT_008ddf18 + UINT_007f4adc * (uVar8 - 1);
     UINT_007f4b3c = uVar5;
     UINT_007f4b6c = uVar7;
@@ -37355,9 +37355,9 @@ void rdRaster_SpanP16_Tex_11(uint *param_1)
     _DAT_007f4ad4 = _DAT_007f4ad4 + _DAT_008ddf48;
     uVar5 = UINT_007f4b3c + UINT_008dde40 * 2;
     uVar8 = UINT_007f4acc;
-    _DAT_007f4b58 = (float)UINT_007f4b48;
-    _DAT_007f4b5c = (float)UINT_007f4b4c;
-    _DAT_007f4b60 = (float)UINT_007f4b50;
+    *(float *)&DAT_007f4b58 = (float)UINT_007f4b48;
+    *(float *)&DAT_007f4b5c = (float)UINT_007f4b4c;
+    *(float *)&DAT_007f4b60 = (float)UINT_007f4b50;
   }
   while( true ) {
     bVar1 = (int)UINT_007f4b2c < 1;
@@ -37370,14 +37370,14 @@ void rdRaster_SpanP16_Tex_11(uint *param_1)
     UINT_007f4b48 = (uint)((float)UINT_007f4b50 * _DAT_007f4b64);
     UINT_007f4b4c = (uint)((float)UINT_007f4b50 * _DAT_007f4ad4);
     UINT_007f4b54 =
-         (int)ROUND(((float)UINT_007f4b48 - _DAT_007f4b58) * 0.0625 * 65536.0) >> (bVar3 & 0x1f);
+         (int)ROUND(((float)UINT_007f4b48 - *(float *)&DAT_007f4b58) * 0.0625 * 65536.0) >> (bVar3 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND(((float)UINT_007f4b4c - _DAT_007f4b5c) * 0.0625 * 65536.0) >> (bVar3 & 0x1f);
+         (int)ROUND(((float)UINT_007f4b4c - *(float *)&DAT_007f4b5c) * 0.0625 * 65536.0) >> (bVar3 & 0x1f);
     UINT_008dde40 = 0x10;
     uVar6 = UINT_007f4b54 * 0xf +
-            ((int)ROUND(_DAT_007f4b58 * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf44;
+            ((int)ROUND(*(float *)&DAT_007f4b58 * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf44;
     uVar8 = UINT_007f4adc * 0xf +
-            UINT_008ddf18 + ((int)ROUND(_DAT_007f4b5c * 65536.0) >> (bVar3 & 0x1f));
+            UINT_008ddf18 + ((int)ROUND(*(float *)&DAT_007f4b5c * 65536.0) >> (bVar3 & 0x1f));
     iVar9 = 0x10;
     UINT_007f4b6c = uVar6;
     UINT_007f4b70 = uVar8;
@@ -37399,29 +37399,29 @@ void rdRaster_SpanP16_Tex_11(uint *param_1)
     _DAT_007f4b64 = _DAT_007f4b64 + _DAT_008ddf2c;
     _DAT_007f4ad4 = _DAT_007f4ad4 + _DAT_008ddf48;
     uVar8 = UINT_007f4acc;
-    _DAT_007f4b58 = (float)UINT_007f4b48;
-    _DAT_007f4b5c = (float)UINT_007f4b4c;
-    _DAT_007f4b60 = (float)UINT_007f4b50;
+    *(float *)&DAT_007f4b58 = (float)UINT_007f4b48;
+    *(float *)&DAT_007f4b5c = (float)UINT_007f4b4c;
+    *(float *)&DAT_007f4b60 = (float)UINT_007f4b50;
   }
   if (uVar8 != 0) {
     UINT_007f4acc = uVar8 - 1;
     if (UINT_007f4acc != 0) {
-      _DAT_007f4ac8 = (float)(int)UINT_007f4acc;
-      _DAT_007f4aec = (float)(&UINT_008fe000)[UINT_007f4acc];
-      _DAT_007f4b38 = (_DAT_007f4ac8 * _DAT_008ddf1c - _DAT_008ddf28) + _DAT_007f4b38;
-      _DAT_007f4b64 = (_DAT_007f4ac8 * _DAT_008ddf20 - _DAT_008ddf2c) + _DAT_007f4b64;
-      _DAT_007f4ad4 = (_DAT_007f4ac8 * _DAT_008ddf38 - _DAT_008ddf48) + _DAT_007f4ad4;
+      *(float *)&DAT_007f4ac8 = (float)(int)UINT_007f4acc;
+      *(float *)&DAT_007f4aec = (float)(&UINT_008fe000)[UINT_007f4acc];
+      _DAT_007f4b38 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf1c - _DAT_008ddf28) + _DAT_007f4b38;
+      _DAT_007f4b64 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf20 - _DAT_008ddf2c) + _DAT_007f4b64;
+      _DAT_007f4ad4 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf38 - _DAT_008ddf48) + _DAT_007f4ad4;
       UINT_007f4b50 = (uint)(1.0 / _DAT_007f4b38);
       UINT_007f4b48 = (uint)((float)UINT_007f4b50 * _DAT_007f4b64);
       UINT_007f4b4c = (uint)((float)UINT_007f4b50 * _DAT_007f4ad4);
       UINT_007f4b54 =
-           (int)ROUND(((float)UINT_007f4b48 - _DAT_007f4b58) * _DAT_007f4aec * 65536.0) >>
+           (int)ROUND(((float)UINT_007f4b48 - *(float *)&DAT_007f4b58) * *(float *)&DAT_007f4aec * 65536.0) >>
            (bVar3 & 0x1f);
       UINT_007f4adc =
-           (int)ROUND(((float)UINT_007f4b4c - _DAT_007f4b5c) * _DAT_007f4aec * 65536.0) >>
+           (int)ROUND(((float)UINT_007f4b4c - *(float *)&DAT_007f4b5c) * *(float *)&DAT_007f4aec * 65536.0) >>
            (bVar3 & 0x1f);
-      UINT_007f4b6c = ((int)ROUND(_DAT_007f4b58 * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf44;
-      UINT_007f4b70 = ((int)ROUND(_DAT_007f4b5c * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf18;
+      UINT_007f4b6c = ((int)ROUND(*(float *)&DAT_007f4b58 * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf44;
+      UINT_007f4b70 = ((int)ROUND(*(float *)&DAT_007f4b5c * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf18;
     }
     uVar6 = UINT_007f4b6c + UINT_007f4b54 * UINT_007f4acc;
     uVar7 = UINT_007f4b70 + UINT_007f4adc * UINT_007f4acc;
@@ -37503,40 +37503,40 @@ void rdRaster_SpanP16_Tex_12(uint *param_1)
       UINT_007f4acc = 0x10;
     }
   }
-  _DAT_007f4af8 = (float)param_1[7];
-  _DAT_007f4ae4 = (float)param_1[3];
-  _DAT_007f4b60 = 1.0 / _DAT_007f4af8;
-  _DAT_007f4af0 = (float)param_1[4];
-  _DAT_007f4b58 = _DAT_007f4b60 * _DAT_007f4ae4;
-  _DAT_007f4b5c = _DAT_007f4b60 * _DAT_007f4af0;
+  *(float *)&DAT_007f4af8 = (float)param_1[7];
+  *(float *)&DAT_007f4ae4 = (float)param_1[3];
+  *(float *)&DAT_007f4b60 = 1.0 / *(float *)&DAT_007f4af8;
+  *(float *)&DAT_007f4af0 = (float)param_1[4];
+  *(float *)&DAT_007f4b58 = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4ae4;
+  *(float *)&DAT_007f4b5c = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4af0;
   iVar9 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
   uVar5 = *(int *)(iVar9 + 0x5c) + (param_1[2] * (*(uint *)(iVar9 + 0x18) >> 1) + *param_1) * 2;
   UINT_007f4b44 = uVar8;
   if (uVar8 == 0) {
-    _DAT_007f4b38 = _DAT_007f4af8 + _DAT_008ddf28;
-    _DAT_007f4b64 = _DAT_007f4ae4 + _DAT_008ddf2c;
-    _DAT_007f4ad4 = _DAT_007f4af0 + _DAT_008ddf48;
+    _DAT_007f4b38 = *(float *)&DAT_007f4af8 + _DAT_008ddf28;
+    _DAT_007f4b64 = *(float *)&DAT_007f4ae4 + _DAT_008ddf2c;
+    _DAT_007f4ad4 = *(float *)&DAT_007f4af0 + _DAT_008ddf48;
     uVar8 = UINT_007f4acc;
   }
   else {
-    _DAT_007f4af4 = (float)(int)uVar8;
-    _DAT_007f4b34 = (float)(&UINT_008fe000)[uVar8];
-    _DAT_007f4b38 = _DAT_007f4af4 * _DAT_008ddf1c + _DAT_007f4af8;
-    _DAT_007f4b64 = _DAT_007f4af4 * _DAT_008ddf20 + _DAT_007f4ae4;
-    _DAT_007f4ad4 = _DAT_007f4af4 * _DAT_008ddf38 + _DAT_007f4af0;
+    *(float *)&DAT_007f4af4 = (float)(int)uVar8;
+    *(float *)&DAT_007f4b34 = (float)(&UINT_008fe000)[uVar8];
+    _DAT_007f4b38 = *(float *)&DAT_007f4af4 * _DAT_008ddf1c + *(float *)&DAT_007f4af8;
+    _DAT_007f4b64 = *(float *)&DAT_007f4af4 * _DAT_008ddf20 + *(float *)&DAT_007f4ae4;
+    _DAT_007f4ad4 = *(float *)&DAT_007f4af4 * _DAT_008ddf38 + *(float *)&DAT_007f4af0;
     UINT_007f4b50 = (uint)(1.0 / _DAT_007f4b38);
     UINT_007f4b48 = (uint)((float)UINT_007f4b50 * _DAT_007f4b64);
     UINT_007f4b4c = (uint)((float)UINT_007f4b50 * _DAT_007f4ad4);
     bVar3 = (byte)UINT_008ddf04;
     UINT_007f4b54 =
-         (int)ROUND(((float)UINT_007f4b48 - _DAT_007f4b58) * _DAT_007f4b34 * 65536.0) >>
+         (int)ROUND(((float)UINT_007f4b48 - *(float *)&DAT_007f4b58) * *(float *)&DAT_007f4b34 * 65536.0) >>
          (bVar3 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND(((float)UINT_007f4b4c - _DAT_007f4b5c) * _DAT_007f4b34 * 65536.0) >>
+         (int)ROUND(((float)UINT_007f4b4c - *(float *)&DAT_007f4b5c) * *(float *)&DAT_007f4b34 * 65536.0) >>
          (bVar3 & 0x1f);
-    uVar7 = ((int)ROUND(_DAT_007f4b58 * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf44 +
+    uVar7 = ((int)ROUND(*(float *)&DAT_007f4b58 * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf44 +
             UINT_007f4b54 * (uVar8 - 1);
-    uVar6 = ((int)ROUND(_DAT_007f4b5c * 65536.0) >> (bVar3 & 0x1f)) +
+    uVar6 = ((int)ROUND(*(float *)&DAT_007f4b5c * 65536.0) >> (bVar3 & 0x1f)) +
             UINT_008ddf18 + UINT_007f4adc * (uVar8 - 1);
     UINT_007f4b3c = uVar5;
     UINT_007f4b6c = uVar7;
@@ -37560,9 +37560,9 @@ void rdRaster_SpanP16_Tex_12(uint *param_1)
     _DAT_007f4ad4 = _DAT_007f4ad4 + _DAT_008ddf48;
     uVar5 = UINT_007f4b3c + UINT_008dde40 * 2;
     uVar8 = UINT_007f4acc;
-    _DAT_007f4b58 = (float)UINT_007f4b48;
-    _DAT_007f4b5c = (float)UINT_007f4b4c;
-    _DAT_007f4b60 = (float)UINT_007f4b50;
+    *(float *)&DAT_007f4b58 = (float)UINT_007f4b48;
+    *(float *)&DAT_007f4b5c = (float)UINT_007f4b4c;
+    *(float *)&DAT_007f4b60 = (float)UINT_007f4b50;
   }
   while( true ) {
     bVar1 = (int)UINT_007f4b2c < 1;
@@ -37575,14 +37575,14 @@ void rdRaster_SpanP16_Tex_12(uint *param_1)
     UINT_007f4b48 = (uint)((float)UINT_007f4b50 * _DAT_007f4b64);
     UINT_007f4b4c = (uint)((float)UINT_007f4b50 * _DAT_007f4ad4);
     UINT_007f4b54 =
-         (int)ROUND(((float)UINT_007f4b48 - _DAT_007f4b58) * 0.0625 * 65536.0) >> (bVar3 & 0x1f);
+         (int)ROUND(((float)UINT_007f4b48 - *(float *)&DAT_007f4b58) * 0.0625 * 65536.0) >> (bVar3 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND(((float)UINT_007f4b4c - _DAT_007f4b5c) * 0.0625 * 65536.0) >> (bVar3 & 0x1f);
+         (int)ROUND(((float)UINT_007f4b4c - *(float *)&DAT_007f4b5c) * 0.0625 * 65536.0) >> (bVar3 & 0x1f);
     UINT_008dde40 = 0x10;
     uVar6 = UINT_007f4b54 * 0xf +
-            ((int)ROUND(_DAT_007f4b58 * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf44;
+            ((int)ROUND(*(float *)&DAT_007f4b58 * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf44;
     uVar8 = UINT_007f4adc * 0xf +
-            UINT_008ddf18 + ((int)ROUND(_DAT_007f4b5c * 65536.0) >> (bVar3 & 0x1f));
+            UINT_008ddf18 + ((int)ROUND(*(float *)&DAT_007f4b5c * 65536.0) >> (bVar3 & 0x1f));
     iVar9 = 0x10;
     UINT_007f4b6c = uVar6;
     UINT_007f4b70 = uVar8;
@@ -37604,29 +37604,29 @@ void rdRaster_SpanP16_Tex_12(uint *param_1)
     _DAT_007f4b64 = _DAT_007f4b64 + _DAT_008ddf2c;
     _DAT_007f4ad4 = _DAT_007f4ad4 + _DAT_008ddf48;
     uVar8 = UINT_007f4acc;
-    _DAT_007f4b58 = (float)UINT_007f4b48;
-    _DAT_007f4b5c = (float)UINT_007f4b4c;
-    _DAT_007f4b60 = (float)UINT_007f4b50;
+    *(float *)&DAT_007f4b58 = (float)UINT_007f4b48;
+    *(float *)&DAT_007f4b5c = (float)UINT_007f4b4c;
+    *(float *)&DAT_007f4b60 = (float)UINT_007f4b50;
   }
   if (uVar8 != 0) {
     UINT_007f4acc = uVar8 - 1;
     if (UINT_007f4acc != 0) {
-      _DAT_007f4ac8 = (float)(int)UINT_007f4acc;
-      _DAT_007f4aec = (float)(&UINT_008fe000)[UINT_007f4acc];
-      _DAT_007f4b38 = (_DAT_007f4ac8 * _DAT_008ddf1c - _DAT_008ddf28) + _DAT_007f4b38;
-      _DAT_007f4b64 = (_DAT_007f4ac8 * _DAT_008ddf20 - _DAT_008ddf2c) + _DAT_007f4b64;
-      _DAT_007f4ad4 = (_DAT_007f4ac8 * _DAT_008ddf38 - _DAT_008ddf48) + _DAT_007f4ad4;
+      *(float *)&DAT_007f4ac8 = (float)(int)UINT_007f4acc;
+      *(float *)&DAT_007f4aec = (float)(&UINT_008fe000)[UINT_007f4acc];
+      _DAT_007f4b38 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf1c - _DAT_008ddf28) + _DAT_007f4b38;
+      _DAT_007f4b64 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf20 - _DAT_008ddf2c) + _DAT_007f4b64;
+      _DAT_007f4ad4 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf38 - _DAT_008ddf48) + _DAT_007f4ad4;
       UINT_007f4b50 = (uint)(1.0 / _DAT_007f4b38);
       UINT_007f4b48 = (uint)((float)UINT_007f4b50 * _DAT_007f4b64);
       UINT_007f4b4c = (uint)((float)UINT_007f4b50 * _DAT_007f4ad4);
       UINT_007f4b54 =
-           (int)ROUND(((float)UINT_007f4b48 - _DAT_007f4b58) * _DAT_007f4aec * 65536.0) >>
+           (int)ROUND(((float)UINT_007f4b48 - *(float *)&DAT_007f4b58) * *(float *)&DAT_007f4aec * 65536.0) >>
            (bVar3 & 0x1f);
       UINT_007f4adc =
-           (int)ROUND(((float)UINT_007f4b4c - _DAT_007f4b5c) * _DAT_007f4aec * 65536.0) >>
+           (int)ROUND(((float)UINT_007f4b4c - *(float *)&DAT_007f4b5c) * *(float *)&DAT_007f4aec * 65536.0) >>
            (bVar3 & 0x1f);
-      UINT_007f4b6c = ((int)ROUND(_DAT_007f4b58 * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf44;
-      UINT_007f4b70 = ((int)ROUND(_DAT_007f4b5c * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf18;
+      UINT_007f4b6c = ((int)ROUND(*(float *)&DAT_007f4b58 * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf44;
+      UINT_007f4b70 = ((int)ROUND(*(float *)&DAT_007f4b5c * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf18;
     }
     uVar6 = UINT_007f4b6c + UINT_007f4b54 * UINT_007f4acc;
     uVar7 = UINT_007f4b70 + UINT_007f4adc * UINT_007f4acc;
@@ -37707,46 +37707,46 @@ void rdRaster_SpanP16_TexLit_3(uint *param_1)
       UINT_007f4acc = 0x10;
     }
   }
-  _DAT_007f4af8 = (float)param_1[7];
-  _DAT_007f4ae4 = (float)param_1[3];
-  _DAT_007f4b60 = 1.0 / _DAT_007f4af8;
-  _DAT_007f4af0 = (float)param_1[4];
+  *(float *)&DAT_007f4af8 = (float)param_1[7];
+  *(float *)&DAT_007f4ae4 = (float)param_1[3];
+  *(float *)&DAT_007f4b60 = 1.0 / *(float *)&DAT_007f4af8;
+  *(float *)&DAT_007f4af0 = (float)param_1[4];
   UINT_007f4b30 = param_1[9];
   UINT_007f4b68 = param_1[8];
-  _DAT_007f4b58 = _DAT_007f4b60 * _DAT_007f4ae4;
-  _DAT_007f4b5c = _DAT_007f4b60 * _DAT_007f4af0;
+  *(float *)&DAT_007f4b58 = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4ae4;
+  *(float *)&DAT_007f4b5c = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4af0;
   iVar2 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
   uVar4 = *(int *)(iVar2 + 0x5c) + (param_1[2] * (*(uint *)(iVar2 + 0x18) >> 1) + *param_1) * 2;
   UINT_007f4b44 = uVar6;
   if (uVar6 == 0) {
-    _DAT_007f4b38 = _DAT_007f4af8 + _DAT_008ddf28;
-    _DAT_007f4b64 = _DAT_007f4ae4 + _DAT_008ddf2c;
-    _DAT_007f4ad4 = _DAT_007f4af0 + _DAT_008ddf48;
+    _DAT_007f4b38 = *(float *)&DAT_007f4af8 + _DAT_008ddf28;
+    _DAT_007f4b64 = *(float *)&DAT_007f4ae4 + _DAT_008ddf2c;
+    _DAT_007f4ad4 = *(float *)&DAT_007f4af0 + _DAT_008ddf48;
     uVar7 = UINT_007f4acc;
     uVar6 = UINT_008ddf30;
   }
   else {
-    _DAT_007f4af4 = (float)(int)uVar6;
-    _DAT_007f4b34 = (float)(&UINT_008fe000)[uVar6];
-    _DAT_007f4b38 = _DAT_007f4af4 * _DAT_008ddf1c + _DAT_007f4af8;
-    _DAT_007f4b64 = _DAT_007f4af4 * _DAT_008ddf20 + _DAT_007f4ae4;
-    _DAT_007f4ad4 = _DAT_007f4af4 * _DAT_008ddf38 + _DAT_007f4af0;
+    *(float *)&DAT_007f4af4 = (float)(int)uVar6;
+    *(float *)&DAT_007f4b34 = (float)(&UINT_008fe000)[uVar6];
+    _DAT_007f4b38 = *(float *)&DAT_007f4af4 * _DAT_008ddf1c + *(float *)&DAT_007f4af8;
+    _DAT_007f4b64 = *(float *)&DAT_007f4af4 * _DAT_008ddf20 + *(float *)&DAT_007f4ae4;
+    _DAT_007f4ad4 = *(float *)&DAT_007f4af4 * _DAT_008ddf38 + *(float *)&DAT_007f4af0;
     UINT_007f4b50 = (uint)(1.0 / _DAT_007f4b38);
     UINT_007f4b48 = (uint)((float)UINT_007f4b50 * _DAT_007f4b64);
     UINT_007f4b4c = (uint)((float)UINT_007f4b50 * _DAT_007f4ad4);
     bVar3 = (byte)UINT_008ddf04;
     UINT_007f4b54 =
-         (int)ROUND(((float)UINT_007f4b48 - _DAT_007f4b58) * _DAT_007f4b34 * 65536.0) >>
+         (int)ROUND(((float)UINT_007f4b48 - *(float *)&DAT_007f4b58) * *(float *)&DAT_007f4b34 * 65536.0) >>
          (bVar3 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND(((float)UINT_007f4b4c - _DAT_007f4b5c) * _DAT_007f4b34 * 65536.0) >>
+         (int)ROUND(((float)UINT_007f4b4c - *(float *)&DAT_007f4b5c) * *(float *)&DAT_007f4b34 * 65536.0) >>
          (bVar3 & 0x1f);
     iVar2 = uVar6 - 1;
     UINT_007f4b6c =
-         ((int)ROUND(_DAT_007f4b58 * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf44 +
+         ((int)ROUND(*(float *)&DAT_007f4b58 * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf44 +
          UINT_007f4b54 * iVar2;
     UINT_007f4b70 =
-         ((int)ROUND(_DAT_007f4b5c * 65536.0) >> (bVar3 & 0x1f)) +
+         ((int)ROUND(*(float *)&DAT_007f4b5c * 65536.0) >> (bVar3 & 0x1f)) +
          UINT_008ddf18 + UINT_007f4adc * iVar2;
     UINT_007f4b68 = UINT_007f4b68 + UINT_007f4b30 * iVar2;
     UINT_007f4b3c = uVar4;
@@ -37772,9 +37772,9 @@ void rdRaster_SpanP16_TexLit_3(uint *param_1)
     UINT_007f4b68 = UINT_007f4b68 + UINT_007f4b30 * iVar2;
     uVar4 = UINT_007f4b3c + UINT_008dde40 * 2;
     uVar7 = UINT_007f4acc;
-    _DAT_007f4b58 = (float)UINT_007f4b48;
-    _DAT_007f4b5c = (float)UINT_007f4b4c;
-    _DAT_007f4b60 = (float)UINT_007f4b50;
+    *(float *)&DAT_007f4b58 = (float)UINT_007f4b48;
+    *(float *)&DAT_007f4b5c = (float)UINT_007f4b4c;
+    *(float *)&DAT_007f4b60 = (float)UINT_007f4b50;
     uVar6 = UINT_008ddf30;
   }
   while( true ) {
@@ -37789,16 +37789,16 @@ void rdRaster_SpanP16_TexLit_3(uint *param_1)
     UINT_007f4b48 = (uint)((float)UINT_007f4b50 * _DAT_007f4b64);
     UINT_007f4b4c = (uint)((float)UINT_007f4b50 * _DAT_007f4ad4);
     UINT_007f4b54 =
-         (int)ROUND(((float)UINT_007f4b48 - _DAT_007f4b58) * 0.0625 * 65536.0) >> (bVar3 & 0x1f);
+         (int)ROUND(((float)UINT_007f4b48 - *(float *)&DAT_007f4b58) * 0.0625 * 65536.0) >> (bVar3 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND(((float)UINT_007f4b4c - _DAT_007f4b5c) * 0.0625 * 65536.0) >> (bVar3 & 0x1f);
+         (int)ROUND(((float)UINT_007f4b4c - *(float *)&DAT_007f4b5c) * 0.0625 * 65536.0) >> (bVar3 & 0x1f);
     UINT_008dde40 = 0x10;
     UINT_007f4b6c =
          UINT_007f4b54 * 0xf +
-         ((int)ROUND(_DAT_007f4b58 * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf44;
+         ((int)ROUND(*(float *)&DAT_007f4b58 * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf44;
     UINT_007f4b70 =
          UINT_007f4adc * 0xf +
-         UINT_008ddf18 + ((int)ROUND(_DAT_007f4b5c * 65536.0) >> (bVar3 & 0x1f));
+         UINT_008ddf18 + ((int)ROUND(*(float *)&DAT_007f4b5c * 65536.0) >> (bVar3 & 0x1f));
     UINT_007f4b68 = UINT_007f4b30 * 0xf + UINT_007f4b68;
     iVar2 = 0x10;
     do {
@@ -37822,30 +37822,30 @@ void rdRaster_SpanP16_TexLit_3(uint *param_1)
     UINT_007f4b68 = UINT_007f4b68 + UINT_007f4b30 * iVar2;
     uVar4 = UINT_007f4b3c + UINT_008dde40 * 2;
     uVar7 = UINT_007f4acc;
-    _DAT_007f4b58 = (float)UINT_007f4b48;
-    _DAT_007f4b5c = (float)UINT_007f4b4c;
-    _DAT_007f4b60 = (float)UINT_007f4b50;
+    *(float *)&DAT_007f4b58 = (float)UINT_007f4b48;
+    *(float *)&DAT_007f4b5c = (float)UINT_007f4b4c;
+    *(float *)&DAT_007f4b60 = (float)UINT_007f4b50;
     uVar6 = UINT_008ddf30;
   }
   if (uVar7 != 0) {
     UINT_007f4acc = uVar7 - 1;
     if (UINT_007f4acc != 0) {
-      _DAT_007f4ac8 = (float)(int)UINT_007f4acc;
-      _DAT_007f4aec = (float)(&UINT_008fe000)[UINT_007f4acc];
-      _DAT_007f4b38 = (_DAT_007f4ac8 * _DAT_008ddf1c - _DAT_008ddf28) + _DAT_007f4b38;
-      _DAT_007f4b64 = (_DAT_007f4ac8 * _DAT_008ddf20 - _DAT_008ddf2c) + _DAT_007f4b64;
-      _DAT_007f4ad4 = (_DAT_007f4ac8 * _DAT_008ddf38 - _DAT_008ddf48) + _DAT_007f4ad4;
+      *(float *)&DAT_007f4ac8 = (float)(int)UINT_007f4acc;
+      *(float *)&DAT_007f4aec = (float)(&UINT_008fe000)[UINT_007f4acc];
+      _DAT_007f4b38 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf1c - _DAT_008ddf28) + _DAT_007f4b38;
+      _DAT_007f4b64 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf20 - _DAT_008ddf2c) + _DAT_007f4b64;
+      _DAT_007f4ad4 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf38 - _DAT_008ddf48) + _DAT_007f4ad4;
       UINT_007f4b50 = (uint)(1.0 / _DAT_007f4b38);
       UINT_007f4b48 = (uint)((float)UINT_007f4b50 * _DAT_007f4b64);
       UINT_007f4b4c = (uint)((float)UINT_007f4b50 * _DAT_007f4ad4);
       UINT_007f4b54 =
-           (int)ROUND(((float)UINT_007f4b48 - _DAT_007f4b58) * _DAT_007f4aec * 65536.0) >>
+           (int)ROUND(((float)UINT_007f4b48 - *(float *)&DAT_007f4b58) * *(float *)&DAT_007f4aec * 65536.0) >>
            (bVar3 & 0x1f);
       UINT_007f4adc =
-           (int)ROUND(((float)UINT_007f4b4c - _DAT_007f4b5c) * _DAT_007f4aec * 65536.0) >>
+           (int)ROUND(((float)UINT_007f4b4c - *(float *)&DAT_007f4b5c) * *(float *)&DAT_007f4aec * 65536.0) >>
            (bVar3 & 0x1f);
-      UINT_007f4b6c = ((int)ROUND(_DAT_007f4b58 * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf44;
-      UINT_007f4b70 = ((int)ROUND(_DAT_007f4b5c * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf18;
+      UINT_007f4b6c = ((int)ROUND(*(float *)&DAT_007f4b58 * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf44;
+      UINT_007f4b70 = ((int)ROUND(*(float *)&DAT_007f4b5c * 65536.0) >> (bVar3 & 0x1f)) + UINT_008ddf18;
     }
     UINT_007f4b70 = UINT_007f4b70 + UINT_007f4adc * UINT_007f4acc;
     UINT_007f4b6c = UINT_007f4b6c + UINT_007f4b54 * UINT_007f4acc;
@@ -37931,43 +37931,43 @@ void rdRaster_SpanP16_TexLit_4(uint *param_1)
       UINT_007f4acc = 0x10;
     }
   }
-  _DAT_007f4af8 = (float)param_1[7];
-  _DAT_007f4ae4 = (float)param_1[3];
-  _DAT_007f4b60 = 1.0 / _DAT_007f4af8;
-  _DAT_007f4af0 = (float)param_1[4];
+  *(float *)&DAT_007f4af8 = (float)param_1[7];
+  *(float *)&DAT_007f4ae4 = (float)param_1[3];
+  *(float *)&DAT_007f4b60 = 1.0 / *(float *)&DAT_007f4af8;
+  *(float *)&DAT_007f4af0 = (float)param_1[4];
   UINT_007f4b30 = param_1[9];
   UINT_007f4b68 = param_1[8];
-  _DAT_007f4b58 = _DAT_007f4b60 * _DAT_007f4ae4;
-  _DAT_007f4b5c = _DAT_007f4b60 * _DAT_007f4af0;
+  *(float *)&DAT_007f4b58 = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4ae4;
+  *(float *)&DAT_007f4b5c = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4af0;
   iVar2 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
   uVar5 = *(int *)(iVar2 + 0x5c) + (param_1[2] * (*(uint *)(iVar2 + 0x18) >> 1) + *param_1) * 2;
   UINT_007f4b44 = uVar9;
   if (uVar9 == 0) {
-    _DAT_007f4b38 = _DAT_007f4af8 + _DAT_008ddf28;
-    _DAT_007f4b64 = _DAT_007f4ae4 + _DAT_008ddf2c;
-    _DAT_007f4ad4 = _DAT_007f4af0 + _DAT_008ddf48;
+    _DAT_007f4b38 = *(float *)&DAT_007f4af8 + _DAT_008ddf28;
+    _DAT_007f4b64 = *(float *)&DAT_007f4ae4 + _DAT_008ddf2c;
+    _DAT_007f4ad4 = *(float *)&DAT_007f4af0 + _DAT_008ddf48;
     uVar9 = UINT_007f4acc;
   }
   else {
-    _DAT_007f4af4 = (float)(int)uVar9;
-    _DAT_007f4b34 = (float)(&UINT_008fe000)[uVar9];
-    _DAT_007f4b38 = _DAT_007f4af4 * _DAT_008ddf1c + _DAT_007f4af8;
-    _DAT_007f4b64 = _DAT_007f4af4 * _DAT_008ddf20 + _DAT_007f4ae4;
-    _DAT_007f4ad4 = _DAT_007f4af4 * _DAT_008ddf38 + _DAT_007f4af0;
+    *(float *)&DAT_007f4af4 = (float)(int)uVar9;
+    *(float *)&DAT_007f4b34 = (float)(&UINT_008fe000)[uVar9];
+    _DAT_007f4b38 = *(float *)&DAT_007f4af4 * _DAT_008ddf1c + *(float *)&DAT_007f4af8;
+    _DAT_007f4b64 = *(float *)&DAT_007f4af4 * _DAT_008ddf20 + *(float *)&DAT_007f4ae4;
+    _DAT_007f4ad4 = *(float *)&DAT_007f4af4 * _DAT_008ddf38 + *(float *)&DAT_007f4af0;
     UINT_007f4b50 = (uint)(1.0 / _DAT_007f4b38);
     UINT_007f4b48 = (uint)((float)UINT_007f4b50 * _DAT_007f4b64);
     UINT_007f4b4c = (uint)((float)UINT_007f4b50 * _DAT_007f4ad4);
     bVar4 = (byte)UINT_008ddf04;
     UINT_007f4b54 =
-         (int)ROUND(((float)UINT_007f4b48 - _DAT_007f4b58) * _DAT_007f4b34 * 65536.0) >>
+         (int)ROUND(((float)UINT_007f4b48 - *(float *)&DAT_007f4b58) * *(float *)&DAT_007f4b34 * 65536.0) >>
          (bVar4 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND(((float)UINT_007f4b4c - _DAT_007f4b5c) * _DAT_007f4b34 * 65536.0) >>
+         (int)ROUND(((float)UINT_007f4b4c - *(float *)&DAT_007f4b5c) * *(float *)&DAT_007f4b34 * 65536.0) >>
          (bVar4 & 0x1f);
     iVar2 = uVar9 - 1;
-    uVar8 = ((int)ROUND(_DAT_007f4b58 * 65536.0) >> (bVar4 & 0x1f)) + UINT_008ddf44 +
+    uVar8 = ((int)ROUND(*(float *)&DAT_007f4b58 * 65536.0) >> (bVar4 & 0x1f)) + UINT_008ddf44 +
             UINT_007f4b54 * iVar2;
-    uVar10 = ((int)ROUND(_DAT_007f4b5c * 65536.0) >> (bVar4 & 0x1f)) +
+    uVar10 = ((int)ROUND(*(float *)&DAT_007f4b5c * 65536.0) >> (bVar4 & 0x1f)) +
              UINT_008ddf18 + UINT_007f4adc * iVar2;
     uVar11 = UINT_007f4b68 + UINT_007f4b30 * iVar2;
     UINT_007f4b3c = uVar5;
@@ -37997,9 +37997,9 @@ void rdRaster_SpanP16_TexLit_4(uint *param_1)
     _DAT_007f4ad4 = _DAT_007f4ad4 + _DAT_008ddf48;
     uVar5 = UINT_007f4b3c + UINT_008dde40 * 2;
     uVar9 = UINT_007f4acc;
-    _DAT_007f4b58 = (float)UINT_007f4b48;
-    _DAT_007f4b5c = (float)UINT_007f4b4c;
-    _DAT_007f4b60 = (float)UINT_007f4b50;
+    *(float *)&DAT_007f4b58 = (float)UINT_007f4b48;
+    *(float *)&DAT_007f4b5c = (float)UINT_007f4b4c;
+    *(float *)&DAT_007f4b60 = (float)UINT_007f4b50;
   }
   while( true ) {
     bVar1 = (int)UINT_007f4b2c < 1;
@@ -38012,14 +38012,14 @@ void rdRaster_SpanP16_TexLit_4(uint *param_1)
     UINT_007f4b48 = (uint)((float)UINT_007f4b50 * _DAT_007f4b64);
     UINT_007f4b4c = (uint)((float)UINT_007f4b50 * _DAT_007f4ad4);
     UINT_007f4b54 =
-         (int)ROUND(((float)UINT_007f4b48 - _DAT_007f4b58) * 0.0625 * 65536.0) >> (bVar4 & 0x1f);
+         (int)ROUND(((float)UINT_007f4b48 - *(float *)&DAT_007f4b58) * 0.0625 * 65536.0) >> (bVar4 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND(((float)UINT_007f4b4c - _DAT_007f4b5c) * 0.0625 * 65536.0) >> (bVar4 & 0x1f);
+         (int)ROUND(((float)UINT_007f4b4c - *(float *)&DAT_007f4b5c) * 0.0625 * 65536.0) >> (bVar4 & 0x1f);
     UINT_008dde40 = 0x10;
     uVar8 = UINT_007f4b54 * 0xf +
-            ((int)ROUND(_DAT_007f4b58 * 65536.0) >> (bVar4 & 0x1f)) + UINT_008ddf44;
+            ((int)ROUND(*(float *)&DAT_007f4b58 * 65536.0) >> (bVar4 & 0x1f)) + UINT_008ddf44;
     uVar9 = UINT_007f4adc * 0xf +
-            UINT_008ddf18 + ((int)ROUND(_DAT_007f4b5c * 65536.0) >> (bVar4 & 0x1f));
+            UINT_008ddf18 + ((int)ROUND(*(float *)&DAT_007f4b5c * 65536.0) >> (bVar4 & 0x1f));
     uVar11 = UINT_007f4b30 * 0xf + UINT_007f4b68;
     iVar2 = 0x10;
     UINT_007f4b68 = uVar11;
@@ -38047,29 +38047,29 @@ void rdRaster_SpanP16_TexLit_4(uint *param_1)
     uVar5 = UINT_007f4b3c + UINT_008dde40 * 2;
     _DAT_007f4ad4 = _DAT_007f4ad4 + _DAT_008ddf48;
     uVar9 = UINT_007f4acc;
-    _DAT_007f4b58 = (float)UINT_007f4b48;
-    _DAT_007f4b5c = (float)UINT_007f4b4c;
-    _DAT_007f4b60 = (float)UINT_007f4b50;
+    *(float *)&DAT_007f4b58 = (float)UINT_007f4b48;
+    *(float *)&DAT_007f4b5c = (float)UINT_007f4b4c;
+    *(float *)&DAT_007f4b60 = (float)UINT_007f4b50;
   }
   if (uVar9 != 0) {
     UINT_007f4acc = uVar9 - 1;
     if (UINT_007f4acc != 0) {
-      _DAT_007f4ac8 = (float)(int)UINT_007f4acc;
-      _DAT_007f4aec = (float)(&UINT_008fe000)[UINT_007f4acc];
-      _DAT_007f4b38 = (_DAT_007f4ac8 * _DAT_008ddf1c - _DAT_008ddf28) + _DAT_007f4b38;
-      _DAT_007f4b64 = (_DAT_007f4ac8 * _DAT_008ddf20 - _DAT_008ddf2c) + _DAT_007f4b64;
-      _DAT_007f4ad4 = (_DAT_007f4ac8 * _DAT_008ddf38 - _DAT_008ddf48) + _DAT_007f4ad4;
+      *(float *)&DAT_007f4ac8 = (float)(int)UINT_007f4acc;
+      *(float *)&DAT_007f4aec = (float)(&UINT_008fe000)[UINT_007f4acc];
+      _DAT_007f4b38 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf1c - _DAT_008ddf28) + _DAT_007f4b38;
+      _DAT_007f4b64 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf20 - _DAT_008ddf2c) + _DAT_007f4b64;
+      _DAT_007f4ad4 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf38 - _DAT_008ddf48) + _DAT_007f4ad4;
       UINT_007f4b50 = (uint)(1.0 / _DAT_007f4b38);
       UINT_007f4b48 = (uint)((float)UINT_007f4b50 * _DAT_007f4b64);
       UINT_007f4b4c = (uint)((float)UINT_007f4b50 * _DAT_007f4ad4);
       UINT_007f4b54 =
-           (int)ROUND(((float)UINT_007f4b48 - _DAT_007f4b58) * _DAT_007f4aec * 65536.0) >>
+           (int)ROUND(((float)UINT_007f4b48 - *(float *)&DAT_007f4b58) * *(float *)&DAT_007f4aec * 65536.0) >>
            (bVar4 & 0x1f);
       UINT_007f4adc =
-           (int)ROUND(((float)UINT_007f4b4c - _DAT_007f4b5c) * _DAT_007f4aec * 65536.0) >>
+           (int)ROUND(((float)UINT_007f4b4c - *(float *)&DAT_007f4b5c) * *(float *)&DAT_007f4aec * 65536.0) >>
            (bVar4 & 0x1f);
-      UINT_007f4b6c = ((int)ROUND(_DAT_007f4b58 * 65536.0) >> (bVar4 & 0x1f)) + UINT_008ddf44;
-      UINT_007f4b70 = ((int)ROUND(_DAT_007f4b5c * 65536.0) >> (bVar4 & 0x1f)) + UINT_008ddf18;
+      UINT_007f4b6c = ((int)ROUND(*(float *)&DAT_007f4b58 * 65536.0) >> (bVar4 & 0x1f)) + UINT_008ddf44;
+      UINT_007f4b70 = ((int)ROUND(*(float *)&DAT_007f4b5c * 65536.0) >> (bVar4 & 0x1f)) + UINT_008ddf18;
     }
     uVar10 = UINT_007f4b70 + UINT_007f4adc * UINT_007f4acc;
     uVar11 = UINT_007f4b6c + UINT_007f4b54 * UINT_007f4acc;
@@ -38159,43 +38159,43 @@ void rdRaster_SpanP16_TexLit_5(uint *param_1)
       UINT_007f4acc = 0x10;
     }
   }
-  _DAT_007f4af8 = (float)param_1[7];
-  _DAT_007f4ae4 = (float)param_1[3];
-  _DAT_007f4b60 = 1.0 / _DAT_007f4af8;
-  _DAT_007f4af0 = (float)param_1[4];
+  *(float *)&DAT_007f4af8 = (float)param_1[7];
+  *(float *)&DAT_007f4ae4 = (float)param_1[3];
+  *(float *)&DAT_007f4b60 = 1.0 / *(float *)&DAT_007f4af8;
+  *(float *)&DAT_007f4af0 = (float)param_1[4];
   UINT_007f4b30 = param_1[9];
   UINT_007f4b68 = param_1[8];
-  _DAT_007f4b58 = _DAT_007f4b60 * _DAT_007f4ae4;
-  _DAT_007f4b5c = _DAT_007f4b60 * _DAT_007f4af0;
+  *(float *)&DAT_007f4b58 = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4ae4;
+  *(float *)&DAT_007f4b5c = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4af0;
   iVar2 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
   uVar5 = *(int *)(iVar2 + 0x5c) + (param_1[2] * (*(uint *)(iVar2 + 0x18) >> 1) + *param_1) * 2;
   UINT_007f4b44 = uVar9;
   if (uVar9 == 0) {
-    _DAT_007f4b38 = _DAT_007f4af8 + _DAT_008ddf28;
-    _DAT_007f4b64 = _DAT_007f4ae4 + _DAT_008ddf2c;
-    _DAT_007f4ad4 = _DAT_007f4af0 + _DAT_008ddf48;
+    _DAT_007f4b38 = *(float *)&DAT_007f4af8 + _DAT_008ddf28;
+    _DAT_007f4b64 = *(float *)&DAT_007f4ae4 + _DAT_008ddf2c;
+    _DAT_007f4ad4 = *(float *)&DAT_007f4af0 + _DAT_008ddf48;
     uVar9 = UINT_007f4acc;
   }
   else {
-    _DAT_007f4af4 = (float)(int)uVar9;
-    _DAT_007f4b34 = (float)(&UINT_008fe000)[uVar9];
-    _DAT_007f4b38 = _DAT_007f4af4 * _DAT_008ddf1c + _DAT_007f4af8;
-    _DAT_007f4b64 = _DAT_007f4af4 * _DAT_008ddf20 + _DAT_007f4ae4;
-    _DAT_007f4ad4 = _DAT_007f4af4 * _DAT_008ddf38 + _DAT_007f4af0;
+    *(float *)&DAT_007f4af4 = (float)(int)uVar9;
+    *(float *)&DAT_007f4b34 = (float)(&UINT_008fe000)[uVar9];
+    _DAT_007f4b38 = *(float *)&DAT_007f4af4 * _DAT_008ddf1c + *(float *)&DAT_007f4af8;
+    _DAT_007f4b64 = *(float *)&DAT_007f4af4 * _DAT_008ddf20 + *(float *)&DAT_007f4ae4;
+    _DAT_007f4ad4 = *(float *)&DAT_007f4af4 * _DAT_008ddf38 + *(float *)&DAT_007f4af0;
     UINT_007f4b50 = (uint)(1.0 / _DAT_007f4b38);
     UINT_007f4b48 = (uint)((float)UINT_007f4b50 * _DAT_007f4b64);
     UINT_007f4b4c = (uint)((float)UINT_007f4b50 * _DAT_007f4ad4);
     bVar4 = (byte)UINT_008ddf04;
     UINT_007f4b54 =
-         (int)ROUND(((float)UINT_007f4b48 - _DAT_007f4b58) * _DAT_007f4b34 * 65536.0) >>
+         (int)ROUND(((float)UINT_007f4b48 - *(float *)&DAT_007f4b58) * *(float *)&DAT_007f4b34 * 65536.0) >>
          (bVar4 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND(((float)UINT_007f4b4c - _DAT_007f4b5c) * _DAT_007f4b34 * 65536.0) >>
+         (int)ROUND(((float)UINT_007f4b4c - *(float *)&DAT_007f4b5c) * *(float *)&DAT_007f4b34 * 65536.0) >>
          (bVar4 & 0x1f);
     iVar2 = uVar9 - 1;
-    uVar8 = ((int)ROUND(_DAT_007f4b58 * 65536.0) >> (bVar4 & 0x1f)) + UINT_008ddf44 +
+    uVar8 = ((int)ROUND(*(float *)&DAT_007f4b58 * 65536.0) >> (bVar4 & 0x1f)) + UINT_008ddf44 +
             UINT_007f4b54 * iVar2;
-    uVar10 = ((int)ROUND(_DAT_007f4b5c * 65536.0) >> (bVar4 & 0x1f)) +
+    uVar10 = ((int)ROUND(*(float *)&DAT_007f4b5c * 65536.0) >> (bVar4 & 0x1f)) +
              UINT_008ddf18 + UINT_007f4adc * iVar2;
     uVar11 = UINT_007f4b68 + UINT_007f4b30 * iVar2;
     UINT_007f4b3c = uVar5;
@@ -38225,9 +38225,9 @@ void rdRaster_SpanP16_TexLit_5(uint *param_1)
     _DAT_007f4ad4 = _DAT_007f4ad4 + _DAT_008ddf48;
     uVar5 = UINT_007f4b3c + UINT_008dde40 * 2;
     uVar9 = UINT_007f4acc;
-    _DAT_007f4b58 = (float)UINT_007f4b48;
-    _DAT_007f4b5c = (float)UINT_007f4b4c;
-    _DAT_007f4b60 = (float)UINT_007f4b50;
+    *(float *)&DAT_007f4b58 = (float)UINT_007f4b48;
+    *(float *)&DAT_007f4b5c = (float)UINT_007f4b4c;
+    *(float *)&DAT_007f4b60 = (float)UINT_007f4b50;
   }
   while( true ) {
     bVar1 = (int)UINT_007f4b2c < 1;
@@ -38240,14 +38240,14 @@ void rdRaster_SpanP16_TexLit_5(uint *param_1)
     UINT_007f4b48 = (uint)((float)UINT_007f4b50 * _DAT_007f4b64);
     UINT_007f4b4c = (uint)((float)UINT_007f4b50 * _DAT_007f4ad4);
     UINT_007f4b54 =
-         (int)ROUND(((float)UINT_007f4b48 - _DAT_007f4b58) * 0.0625 * 65536.0) >> (bVar4 & 0x1f);
+         (int)ROUND(((float)UINT_007f4b48 - *(float *)&DAT_007f4b58) * 0.0625 * 65536.0) >> (bVar4 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND(((float)UINT_007f4b4c - _DAT_007f4b5c) * 0.0625 * 65536.0) >> (bVar4 & 0x1f);
+         (int)ROUND(((float)UINT_007f4b4c - *(float *)&DAT_007f4b5c) * 0.0625 * 65536.0) >> (bVar4 & 0x1f);
     UINT_008dde40 = 0x10;
     uVar8 = UINT_007f4b54 * 0xf +
-            ((int)ROUND(_DAT_007f4b58 * 65536.0) >> (bVar4 & 0x1f)) + UINT_008ddf44;
+            ((int)ROUND(*(float *)&DAT_007f4b58 * 65536.0) >> (bVar4 & 0x1f)) + UINT_008ddf44;
     uVar9 = UINT_007f4adc * 0xf +
-            UINT_008ddf18 + ((int)ROUND(_DAT_007f4b5c * 65536.0) >> (bVar4 & 0x1f));
+            UINT_008ddf18 + ((int)ROUND(*(float *)&DAT_007f4b5c * 65536.0) >> (bVar4 & 0x1f));
     uVar11 = UINT_007f4b30 * 0xf + UINT_007f4b68;
     iVar2 = 0x10;
     UINT_007f4b68 = uVar11;
@@ -38275,29 +38275,29 @@ void rdRaster_SpanP16_TexLit_5(uint *param_1)
     uVar5 = UINT_007f4b3c + UINT_008dde40 * 2;
     _DAT_007f4ad4 = _DAT_007f4ad4 + _DAT_008ddf48;
     uVar9 = UINT_007f4acc;
-    _DAT_007f4b58 = (float)UINT_007f4b48;
-    _DAT_007f4b5c = (float)UINT_007f4b4c;
-    _DAT_007f4b60 = (float)UINT_007f4b50;
+    *(float *)&DAT_007f4b58 = (float)UINT_007f4b48;
+    *(float *)&DAT_007f4b5c = (float)UINT_007f4b4c;
+    *(float *)&DAT_007f4b60 = (float)UINT_007f4b50;
   }
   if (uVar9 != 0) {
     UINT_007f4acc = uVar9 - 1;
     if (UINT_007f4acc != 0) {
-      _DAT_007f4ac8 = (float)(int)UINT_007f4acc;
-      _DAT_007f4aec = (float)(&UINT_008fe000)[UINT_007f4acc];
-      _DAT_007f4b38 = (_DAT_007f4ac8 * _DAT_008ddf1c - _DAT_008ddf28) + _DAT_007f4b38;
-      _DAT_007f4b64 = (_DAT_007f4ac8 * _DAT_008ddf20 - _DAT_008ddf2c) + _DAT_007f4b64;
-      _DAT_007f4ad4 = (_DAT_007f4ac8 * _DAT_008ddf38 - _DAT_008ddf48) + _DAT_007f4ad4;
+      *(float *)&DAT_007f4ac8 = (float)(int)UINT_007f4acc;
+      *(float *)&DAT_007f4aec = (float)(&UINT_008fe000)[UINT_007f4acc];
+      _DAT_007f4b38 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf1c - _DAT_008ddf28) + _DAT_007f4b38;
+      _DAT_007f4b64 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf20 - _DAT_008ddf2c) + _DAT_007f4b64;
+      _DAT_007f4ad4 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf38 - _DAT_008ddf48) + _DAT_007f4ad4;
       UINT_007f4b50 = (uint)(1.0 / _DAT_007f4b38);
       UINT_007f4b48 = (uint)((float)UINT_007f4b50 * _DAT_007f4b64);
       UINT_007f4b4c = (uint)((float)UINT_007f4b50 * _DAT_007f4ad4);
       UINT_007f4b54 =
-           (int)ROUND(((float)UINT_007f4b48 - _DAT_007f4b58) * _DAT_007f4aec * 65536.0) >>
+           (int)ROUND(((float)UINT_007f4b48 - *(float *)&DAT_007f4b58) * *(float *)&DAT_007f4aec * 65536.0) >>
            (bVar4 & 0x1f);
       UINT_007f4adc =
-           (int)ROUND(((float)UINT_007f4b4c - _DAT_007f4b5c) * _DAT_007f4aec * 65536.0) >>
+           (int)ROUND(((float)UINT_007f4b4c - *(float *)&DAT_007f4b5c) * *(float *)&DAT_007f4aec * 65536.0) >>
            (bVar4 & 0x1f);
-      UINT_007f4b6c = ((int)ROUND(_DAT_007f4b58 * 65536.0) >> (bVar4 & 0x1f)) + UINT_008ddf44;
-      UINT_007f4b70 = ((int)ROUND(_DAT_007f4b5c * 65536.0) >> (bVar4 & 0x1f)) + UINT_008ddf18;
+      UINT_007f4b6c = ((int)ROUND(*(float *)&DAT_007f4b58 * 65536.0) >> (bVar4 & 0x1f)) + UINT_008ddf44;
+      UINT_007f4b70 = ((int)ROUND(*(float *)&DAT_007f4b5c * 65536.0) >> (bVar4 & 0x1f)) + UINT_008ddf18;
     }
     uVar10 = UINT_007f4b70 + UINT_007f4adc * UINT_007f4acc;
     uVar11 = UINT_007f4b6c + UINT_007f4b54 * UINT_007f4acc;
@@ -38387,43 +38387,43 @@ void rdRaster_SpanP16_TexLit_6(uint *param_1)
       UINT_007f4acc = 0x10;
     }
   }
-  _DAT_007f4af8 = (float)param_1[7];
-  _DAT_007f4ae4 = (float)param_1[3];
-  _DAT_007f4b60 = 1.0 / _DAT_007f4af8;
-  _DAT_007f4af0 = (float)param_1[4];
+  *(float *)&DAT_007f4af8 = (float)param_1[7];
+  *(float *)&DAT_007f4ae4 = (float)param_1[3];
+  *(float *)&DAT_007f4b60 = 1.0 / *(float *)&DAT_007f4af8;
+  *(float *)&DAT_007f4af0 = (float)param_1[4];
   UINT_007f4b30 = param_1[9];
   UINT_007f4b68 = param_1[8];
-  _DAT_007f4b58 = _DAT_007f4b60 * _DAT_007f4ae4;
-  _DAT_007f4b5c = _DAT_007f4b60 * _DAT_007f4af0;
+  *(float *)&DAT_007f4b58 = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4ae4;
+  *(float *)&DAT_007f4b5c = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4af0;
   iVar2 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
   uVar5 = *(int *)(iVar2 + 0x5c) + (param_1[2] * (*(uint *)(iVar2 + 0x18) >> 1) + *param_1) * 2;
   UINT_007f4b44 = uVar9;
   if (uVar9 == 0) {
-    _DAT_007f4b38 = _DAT_007f4af8 + _DAT_008ddf28;
-    _DAT_007f4b64 = _DAT_007f4ae4 + _DAT_008ddf2c;
-    _DAT_007f4ad4 = _DAT_007f4af0 + _DAT_008ddf48;
+    _DAT_007f4b38 = *(float *)&DAT_007f4af8 + _DAT_008ddf28;
+    _DAT_007f4b64 = *(float *)&DAT_007f4ae4 + _DAT_008ddf2c;
+    _DAT_007f4ad4 = *(float *)&DAT_007f4af0 + _DAT_008ddf48;
     uVar9 = UINT_007f4acc;
   }
   else {
-    _DAT_007f4af4 = (float)(int)uVar9;
-    _DAT_007f4b34 = (float)(&UINT_008fe000)[uVar9];
-    _DAT_007f4b38 = _DAT_007f4af4 * _DAT_008ddf1c + _DAT_007f4af8;
-    _DAT_007f4b64 = _DAT_007f4af4 * _DAT_008ddf20 + _DAT_007f4ae4;
-    _DAT_007f4ad4 = _DAT_007f4af4 * _DAT_008ddf38 + _DAT_007f4af0;
+    *(float *)&DAT_007f4af4 = (float)(int)uVar9;
+    *(float *)&DAT_007f4b34 = (float)(&UINT_008fe000)[uVar9];
+    _DAT_007f4b38 = *(float *)&DAT_007f4af4 * _DAT_008ddf1c + *(float *)&DAT_007f4af8;
+    _DAT_007f4b64 = *(float *)&DAT_007f4af4 * _DAT_008ddf20 + *(float *)&DAT_007f4ae4;
+    _DAT_007f4ad4 = *(float *)&DAT_007f4af4 * _DAT_008ddf38 + *(float *)&DAT_007f4af0;
     UINT_007f4b50 = (uint)(1.0 / _DAT_007f4b38);
     UINT_007f4b48 = (uint)((float)UINT_007f4b50 * _DAT_007f4b64);
     UINT_007f4b4c = (uint)((float)UINT_007f4b50 * _DAT_007f4ad4);
     bVar4 = (byte)UINT_008ddf04;
     UINT_007f4b54 =
-         (int)ROUND(((float)UINT_007f4b48 - _DAT_007f4b58) * _DAT_007f4b34 * 65536.0) >>
+         (int)ROUND(((float)UINT_007f4b48 - *(float *)&DAT_007f4b58) * *(float *)&DAT_007f4b34 * 65536.0) >>
          (bVar4 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND(((float)UINT_007f4b4c - _DAT_007f4b5c) * _DAT_007f4b34 * 65536.0) >>
+         (int)ROUND(((float)UINT_007f4b4c - *(float *)&DAT_007f4b5c) * *(float *)&DAT_007f4b34 * 65536.0) >>
          (bVar4 & 0x1f);
     iVar2 = uVar9 - 1;
-    uVar8 = ((int)ROUND(_DAT_007f4b58 * 65536.0) >> (bVar4 & 0x1f)) + UINT_008ddf44 +
+    uVar8 = ((int)ROUND(*(float *)&DAT_007f4b58 * 65536.0) >> (bVar4 & 0x1f)) + UINT_008ddf44 +
             UINT_007f4b54 * iVar2;
-    uVar10 = ((int)ROUND(_DAT_007f4b5c * 65536.0) >> (bVar4 & 0x1f)) +
+    uVar10 = ((int)ROUND(*(float *)&DAT_007f4b5c * 65536.0) >> (bVar4 & 0x1f)) +
              UINT_008ddf18 + UINT_007f4adc * iVar2;
     uVar11 = UINT_007f4b68 + UINT_007f4b30 * iVar2;
     UINT_007f4b3c = uVar5;
@@ -38453,9 +38453,9 @@ void rdRaster_SpanP16_TexLit_6(uint *param_1)
     _DAT_007f4ad4 = _DAT_007f4ad4 + _DAT_008ddf48;
     uVar5 = UINT_007f4b3c + UINT_008dde40 * 2;
     uVar9 = UINT_007f4acc;
-    _DAT_007f4b58 = (float)UINT_007f4b48;
-    _DAT_007f4b5c = (float)UINT_007f4b4c;
-    _DAT_007f4b60 = (float)UINT_007f4b50;
+    *(float *)&DAT_007f4b58 = (float)UINT_007f4b48;
+    *(float *)&DAT_007f4b5c = (float)UINT_007f4b4c;
+    *(float *)&DAT_007f4b60 = (float)UINT_007f4b50;
   }
   while( true ) {
     bVar1 = (int)UINT_007f4b2c < 1;
@@ -38468,14 +38468,14 @@ void rdRaster_SpanP16_TexLit_6(uint *param_1)
     UINT_007f4b48 = (uint)((float)UINT_007f4b50 * _DAT_007f4b64);
     UINT_007f4b4c = (uint)((float)UINT_007f4b50 * _DAT_007f4ad4);
     UINT_007f4b54 =
-         (int)ROUND(((float)UINT_007f4b48 - _DAT_007f4b58) * 0.0625 * 65536.0) >> (bVar4 & 0x1f);
+         (int)ROUND(((float)UINT_007f4b48 - *(float *)&DAT_007f4b58) * 0.0625 * 65536.0) >> (bVar4 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND(((float)UINT_007f4b4c - _DAT_007f4b5c) * 0.0625 * 65536.0) >> (bVar4 & 0x1f);
+         (int)ROUND(((float)UINT_007f4b4c - *(float *)&DAT_007f4b5c) * 0.0625 * 65536.0) >> (bVar4 & 0x1f);
     UINT_008dde40 = 0x10;
     uVar8 = UINT_007f4b54 * 0xf +
-            ((int)ROUND(_DAT_007f4b58 * 65536.0) >> (bVar4 & 0x1f)) + UINT_008ddf44;
+            ((int)ROUND(*(float *)&DAT_007f4b58 * 65536.0) >> (bVar4 & 0x1f)) + UINT_008ddf44;
     uVar9 = UINT_007f4adc * 0xf +
-            UINT_008ddf18 + ((int)ROUND(_DAT_007f4b5c * 65536.0) >> (bVar4 & 0x1f));
+            UINT_008ddf18 + ((int)ROUND(*(float *)&DAT_007f4b5c * 65536.0) >> (bVar4 & 0x1f));
     uVar11 = UINT_007f4b30 * 0xf + UINT_007f4b68;
     iVar2 = 0x10;
     UINT_007f4b68 = uVar11;
@@ -38503,29 +38503,29 @@ void rdRaster_SpanP16_TexLit_6(uint *param_1)
     uVar5 = UINT_007f4b3c + UINT_008dde40 * 2;
     _DAT_007f4ad4 = _DAT_007f4ad4 + _DAT_008ddf48;
     uVar9 = UINT_007f4acc;
-    _DAT_007f4b58 = (float)UINT_007f4b48;
-    _DAT_007f4b5c = (float)UINT_007f4b4c;
-    _DAT_007f4b60 = (float)UINT_007f4b50;
+    *(float *)&DAT_007f4b58 = (float)UINT_007f4b48;
+    *(float *)&DAT_007f4b5c = (float)UINT_007f4b4c;
+    *(float *)&DAT_007f4b60 = (float)UINT_007f4b50;
   }
   if (uVar9 != 0) {
     UINT_007f4acc = uVar9 - 1;
     if (UINT_007f4acc != 0) {
-      _DAT_007f4ac8 = (float)(int)UINT_007f4acc;
-      _DAT_007f4aec = (float)(&UINT_008fe000)[UINT_007f4acc];
-      _DAT_007f4b38 = (_DAT_007f4ac8 * _DAT_008ddf1c - _DAT_008ddf28) + _DAT_007f4b38;
-      _DAT_007f4b64 = (_DAT_007f4ac8 * _DAT_008ddf20 - _DAT_008ddf2c) + _DAT_007f4b64;
-      _DAT_007f4ad4 = (_DAT_007f4ac8 * _DAT_008ddf38 - _DAT_008ddf48) + _DAT_007f4ad4;
+      *(float *)&DAT_007f4ac8 = (float)(int)UINT_007f4acc;
+      *(float *)&DAT_007f4aec = (float)(&UINT_008fe000)[UINT_007f4acc];
+      _DAT_007f4b38 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf1c - _DAT_008ddf28) + _DAT_007f4b38;
+      _DAT_007f4b64 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf20 - _DAT_008ddf2c) + _DAT_007f4b64;
+      _DAT_007f4ad4 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf38 - _DAT_008ddf48) + _DAT_007f4ad4;
       UINT_007f4b50 = (uint)(1.0 / _DAT_007f4b38);
       UINT_007f4b48 = (uint)((float)UINT_007f4b50 * _DAT_007f4b64);
       UINT_007f4b4c = (uint)((float)UINT_007f4b50 * _DAT_007f4ad4);
       UINT_007f4b54 =
-           (int)ROUND(((float)UINT_007f4b48 - _DAT_007f4b58) * _DAT_007f4aec * 65536.0) >>
+           (int)ROUND(((float)UINT_007f4b48 - *(float *)&DAT_007f4b58) * *(float *)&DAT_007f4aec * 65536.0) >>
            (bVar4 & 0x1f);
       UINT_007f4adc =
-           (int)ROUND(((float)UINT_007f4b4c - _DAT_007f4b5c) * _DAT_007f4aec * 65536.0) >>
+           (int)ROUND(((float)UINT_007f4b4c - *(float *)&DAT_007f4b5c) * *(float *)&DAT_007f4aec * 65536.0) >>
            (bVar4 & 0x1f);
-      UINT_007f4b6c = ((int)ROUND(_DAT_007f4b58 * 65536.0) >> (bVar4 & 0x1f)) + UINT_008ddf44;
-      UINT_007f4b70 = ((int)ROUND(_DAT_007f4b5c * 65536.0) >> (bVar4 & 0x1f)) + UINT_008ddf18;
+      UINT_007f4b6c = ((int)ROUND(*(float *)&DAT_007f4b58 * 65536.0) >> (bVar4 & 0x1f)) + UINT_008ddf44;
+      UINT_007f4b70 = ((int)ROUND(*(float *)&DAT_007f4b5c * 65536.0) >> (bVar4 & 0x1f)) + UINT_008ddf18;
     }
     uVar10 = UINT_007f4b70 + UINT_007f4adc * UINT_007f4acc;
     uVar11 = UINT_007f4b6c + UINT_007f4b54 * UINT_007f4acc;
@@ -38615,43 +38615,43 @@ void rdRaster_SpanP16_TexLit_7(uint *param_1)
       UINT_007f4acc = 0x10;
     }
   }
-  _DAT_007f4af8 = (float)param_1[7];
-  _DAT_007f4ae4 = (float)param_1[3];
-  _DAT_007f4b60 = 1.0 / _DAT_007f4af8;
-  _DAT_007f4af0 = (float)param_1[4];
+  *(float *)&DAT_007f4af8 = (float)param_1[7];
+  *(float *)&DAT_007f4ae4 = (float)param_1[3];
+  *(float *)&DAT_007f4b60 = 1.0 / *(float *)&DAT_007f4af8;
+  *(float *)&DAT_007f4af0 = (float)param_1[4];
   UINT_007f4b30 = param_1[9];
   UINT_007f4b68 = param_1[8];
-  _DAT_007f4b58 = _DAT_007f4b60 * _DAT_007f4ae4;
-  _DAT_007f4b5c = _DAT_007f4b60 * _DAT_007f4af0;
+  *(float *)&DAT_007f4b58 = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4ae4;
+  *(float *)&DAT_007f4b5c = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4af0;
   iVar2 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
   uVar5 = *(int *)(iVar2 + 0x5c) + (param_1[2] * (*(uint *)(iVar2 + 0x18) >> 1) + *param_1) * 2;
   UINT_007f4b44 = uVar9;
   if (uVar9 == 0) {
-    _DAT_007f4b38 = _DAT_007f4af8 + _DAT_008ddf28;
-    _DAT_007f4b64 = _DAT_007f4ae4 + _DAT_008ddf2c;
-    _DAT_007f4ad4 = _DAT_007f4af0 + _DAT_008ddf48;
+    _DAT_007f4b38 = *(float *)&DAT_007f4af8 + _DAT_008ddf28;
+    _DAT_007f4b64 = *(float *)&DAT_007f4ae4 + _DAT_008ddf2c;
+    _DAT_007f4ad4 = *(float *)&DAT_007f4af0 + _DAT_008ddf48;
     uVar9 = UINT_007f4acc;
   }
   else {
-    _DAT_007f4af4 = (float)(int)uVar9;
-    _DAT_007f4b34 = (float)(&UINT_008fe000)[uVar9];
-    _DAT_007f4b38 = _DAT_007f4af4 * _DAT_008ddf1c + _DAT_007f4af8;
-    _DAT_007f4b64 = _DAT_007f4af4 * _DAT_008ddf20 + _DAT_007f4ae4;
-    _DAT_007f4ad4 = _DAT_007f4af4 * _DAT_008ddf38 + _DAT_007f4af0;
+    *(float *)&DAT_007f4af4 = (float)(int)uVar9;
+    *(float *)&DAT_007f4b34 = (float)(&UINT_008fe000)[uVar9];
+    _DAT_007f4b38 = *(float *)&DAT_007f4af4 * _DAT_008ddf1c + *(float *)&DAT_007f4af8;
+    _DAT_007f4b64 = *(float *)&DAT_007f4af4 * _DAT_008ddf20 + *(float *)&DAT_007f4ae4;
+    _DAT_007f4ad4 = *(float *)&DAT_007f4af4 * _DAT_008ddf38 + *(float *)&DAT_007f4af0;
     UINT_007f4b50 = (uint)(1.0 / _DAT_007f4b38);
     UINT_007f4b48 = (uint)((float)UINT_007f4b50 * _DAT_007f4b64);
     UINT_007f4b4c = (uint)((float)UINT_007f4b50 * _DAT_007f4ad4);
     bVar4 = (byte)UINT_008ddf04;
     UINT_007f4b54 =
-         (int)ROUND(((float)UINT_007f4b48 - _DAT_007f4b58) * _DAT_007f4b34 * 65536.0) >>
+         (int)ROUND(((float)UINT_007f4b48 - *(float *)&DAT_007f4b58) * *(float *)&DAT_007f4b34 * 65536.0) >>
          (bVar4 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND(((float)UINT_007f4b4c - _DAT_007f4b5c) * _DAT_007f4b34 * 65536.0) >>
+         (int)ROUND(((float)UINT_007f4b4c - *(float *)&DAT_007f4b5c) * *(float *)&DAT_007f4b34 * 65536.0) >>
          (bVar4 & 0x1f);
     iVar2 = uVar9 - 1;
-    uVar8 = ((int)ROUND(_DAT_007f4b58 * 65536.0) >> (bVar4 & 0x1f)) + UINT_008ddf44 +
+    uVar8 = ((int)ROUND(*(float *)&DAT_007f4b58 * 65536.0) >> (bVar4 & 0x1f)) + UINT_008ddf44 +
             UINT_007f4b54 * iVar2;
-    uVar10 = ((int)ROUND(_DAT_007f4b5c * 65536.0) >> (bVar4 & 0x1f)) +
+    uVar10 = ((int)ROUND(*(float *)&DAT_007f4b5c * 65536.0) >> (bVar4 & 0x1f)) +
              UINT_008ddf18 + UINT_007f4adc * iVar2;
     uVar11 = UINT_007f4b68 + UINT_007f4b30 * iVar2;
     UINT_007f4b3c = uVar5;
@@ -38681,9 +38681,9 @@ void rdRaster_SpanP16_TexLit_7(uint *param_1)
     _DAT_007f4ad4 = _DAT_007f4ad4 + _DAT_008ddf48;
     uVar5 = UINT_007f4b3c + UINT_008dde40 * 2;
     uVar9 = UINT_007f4acc;
-    _DAT_007f4b58 = (float)UINT_007f4b48;
-    _DAT_007f4b5c = (float)UINT_007f4b4c;
-    _DAT_007f4b60 = (float)UINT_007f4b50;
+    *(float *)&DAT_007f4b58 = (float)UINT_007f4b48;
+    *(float *)&DAT_007f4b5c = (float)UINT_007f4b4c;
+    *(float *)&DAT_007f4b60 = (float)UINT_007f4b50;
   }
   while( true ) {
     bVar1 = (int)UINT_007f4b2c < 1;
@@ -38696,14 +38696,14 @@ void rdRaster_SpanP16_TexLit_7(uint *param_1)
     UINT_007f4b48 = (uint)((float)UINT_007f4b50 * _DAT_007f4b64);
     UINT_007f4b4c = (uint)((float)UINT_007f4b50 * _DAT_007f4ad4);
     UINT_007f4b54 =
-         (int)ROUND(((float)UINT_007f4b48 - _DAT_007f4b58) * 0.0625 * 65536.0) >> (bVar4 & 0x1f);
+         (int)ROUND(((float)UINT_007f4b48 - *(float *)&DAT_007f4b58) * 0.0625 * 65536.0) >> (bVar4 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND(((float)UINT_007f4b4c - _DAT_007f4b5c) * 0.0625 * 65536.0) >> (bVar4 & 0x1f);
+         (int)ROUND(((float)UINT_007f4b4c - *(float *)&DAT_007f4b5c) * 0.0625 * 65536.0) >> (bVar4 & 0x1f);
     UINT_008dde40 = 0x10;
     uVar8 = UINT_007f4b54 * 0xf +
-            ((int)ROUND(_DAT_007f4b58 * 65536.0) >> (bVar4 & 0x1f)) + UINT_008ddf44;
+            ((int)ROUND(*(float *)&DAT_007f4b58 * 65536.0) >> (bVar4 & 0x1f)) + UINT_008ddf44;
     uVar9 = UINT_007f4adc * 0xf +
-            UINT_008ddf18 + ((int)ROUND(_DAT_007f4b5c * 65536.0) >> (bVar4 & 0x1f));
+            UINT_008ddf18 + ((int)ROUND(*(float *)&DAT_007f4b5c * 65536.0) >> (bVar4 & 0x1f));
     uVar11 = UINT_007f4b30 * 0xf + UINT_007f4b68;
     iVar2 = 0x10;
     UINT_007f4b68 = uVar11;
@@ -38731,29 +38731,29 @@ void rdRaster_SpanP16_TexLit_7(uint *param_1)
     uVar5 = UINT_007f4b3c + UINT_008dde40 * 2;
     _DAT_007f4ad4 = _DAT_007f4ad4 + _DAT_008ddf48;
     uVar9 = UINT_007f4acc;
-    _DAT_007f4b58 = (float)UINT_007f4b48;
-    _DAT_007f4b5c = (float)UINT_007f4b4c;
-    _DAT_007f4b60 = (float)UINT_007f4b50;
+    *(float *)&DAT_007f4b58 = (float)UINT_007f4b48;
+    *(float *)&DAT_007f4b5c = (float)UINT_007f4b4c;
+    *(float *)&DAT_007f4b60 = (float)UINT_007f4b50;
   }
   if (uVar9 != 0) {
     UINT_007f4acc = uVar9 - 1;
     if (UINT_007f4acc != 0) {
-      _DAT_007f4ac8 = (float)(int)UINT_007f4acc;
-      _DAT_007f4aec = (float)(&UINT_008fe000)[UINT_007f4acc];
-      _DAT_007f4b38 = (_DAT_007f4ac8 * _DAT_008ddf1c - _DAT_008ddf28) + _DAT_007f4b38;
-      _DAT_007f4b64 = (_DAT_007f4ac8 * _DAT_008ddf20 - _DAT_008ddf2c) + _DAT_007f4b64;
-      _DAT_007f4ad4 = (_DAT_007f4ac8 * _DAT_008ddf38 - _DAT_008ddf48) + _DAT_007f4ad4;
+      *(float *)&DAT_007f4ac8 = (float)(int)UINT_007f4acc;
+      *(float *)&DAT_007f4aec = (float)(&UINT_008fe000)[UINT_007f4acc];
+      _DAT_007f4b38 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf1c - _DAT_008ddf28) + _DAT_007f4b38;
+      _DAT_007f4b64 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf20 - _DAT_008ddf2c) + _DAT_007f4b64;
+      _DAT_007f4ad4 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf38 - _DAT_008ddf48) + _DAT_007f4ad4;
       UINT_007f4b50 = (uint)(1.0 / _DAT_007f4b38);
       UINT_007f4b48 = (uint)((float)UINT_007f4b50 * _DAT_007f4b64);
       UINT_007f4b4c = (uint)((float)UINT_007f4b50 * _DAT_007f4ad4);
       UINT_007f4b54 =
-           (int)ROUND(((float)UINT_007f4b48 - _DAT_007f4b58) * _DAT_007f4aec * 65536.0) >>
+           (int)ROUND(((float)UINT_007f4b48 - *(float *)&DAT_007f4b58) * *(float *)&DAT_007f4aec * 65536.0) >>
            (bVar4 & 0x1f);
       UINT_007f4adc =
-           (int)ROUND(((float)UINT_007f4b4c - _DAT_007f4b5c) * _DAT_007f4aec * 65536.0) >>
+           (int)ROUND(((float)UINT_007f4b4c - *(float *)&DAT_007f4b5c) * *(float *)&DAT_007f4aec * 65536.0) >>
            (bVar4 & 0x1f);
-      UINT_007f4b6c = ((int)ROUND(_DAT_007f4b58 * 65536.0) >> (bVar4 & 0x1f)) + UINT_008ddf44;
-      UINT_007f4b70 = ((int)ROUND(_DAT_007f4b5c * 65536.0) >> (bVar4 & 0x1f)) + UINT_008ddf18;
+      UINT_007f4b6c = ((int)ROUND(*(float *)&DAT_007f4b58 * 65536.0) >> (bVar4 & 0x1f)) + UINT_008ddf44;
+      UINT_007f4b70 = ((int)ROUND(*(float *)&DAT_007f4b5c * 65536.0) >> (bVar4 & 0x1f)) + UINT_008ddf18;
     }
     uVar10 = UINT_007f4b70 + UINT_007f4adc * UINT_007f4acc;
     uVar11 = UINT_007f4b6c + UINT_007f4b54 * UINT_007f4acc;
@@ -38843,43 +38843,43 @@ void rdRaster_SpanP16_TexLit_8(uint *param_1)
       UINT_007f4acc = 0x10;
     }
   }
-  _DAT_007f4af8 = (float)param_1[7];
-  _DAT_007f4ae4 = (float)param_1[3];
-  _DAT_007f4b60 = 1.0 / _DAT_007f4af8;
-  _DAT_007f4af0 = (float)param_1[4];
+  *(float *)&DAT_007f4af8 = (float)param_1[7];
+  *(float *)&DAT_007f4ae4 = (float)param_1[3];
+  *(float *)&DAT_007f4b60 = 1.0 / *(float *)&DAT_007f4af8;
+  *(float *)&DAT_007f4af0 = (float)param_1[4];
   UINT_007f4b30 = param_1[9];
   UINT_007f4b68 = param_1[8];
-  _DAT_007f4b58 = _DAT_007f4b60 * _DAT_007f4ae4;
-  _DAT_007f4b5c = _DAT_007f4b60 * _DAT_007f4af0;
+  *(float *)&DAT_007f4b58 = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4ae4;
+  *(float *)&DAT_007f4b5c = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4af0;
   iVar2 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
   uVar5 = *(int *)(iVar2 + 0x5c) + (param_1[2] * (*(uint *)(iVar2 + 0x18) >> 1) + *param_1) * 2;
   UINT_007f4b44 = uVar9;
   if (uVar9 == 0) {
-    _DAT_007f4b38 = _DAT_007f4af8 + _DAT_008ddf28;
-    _DAT_007f4b64 = _DAT_007f4ae4 + _DAT_008ddf2c;
-    _DAT_007f4ad4 = _DAT_007f4af0 + _DAT_008ddf48;
+    _DAT_007f4b38 = *(float *)&DAT_007f4af8 + _DAT_008ddf28;
+    _DAT_007f4b64 = *(float *)&DAT_007f4ae4 + _DAT_008ddf2c;
+    _DAT_007f4ad4 = *(float *)&DAT_007f4af0 + _DAT_008ddf48;
     uVar9 = UINT_007f4acc;
   }
   else {
-    _DAT_007f4af4 = (float)(int)uVar9;
-    _DAT_007f4b34 = (float)(&UINT_008fe000)[uVar9];
-    _DAT_007f4b38 = _DAT_007f4af4 * _DAT_008ddf1c + _DAT_007f4af8;
-    _DAT_007f4b64 = _DAT_007f4af4 * _DAT_008ddf20 + _DAT_007f4ae4;
-    _DAT_007f4ad4 = _DAT_007f4af4 * _DAT_008ddf38 + _DAT_007f4af0;
+    *(float *)&DAT_007f4af4 = (float)(int)uVar9;
+    *(float *)&DAT_007f4b34 = (float)(&UINT_008fe000)[uVar9];
+    _DAT_007f4b38 = *(float *)&DAT_007f4af4 * _DAT_008ddf1c + *(float *)&DAT_007f4af8;
+    _DAT_007f4b64 = *(float *)&DAT_007f4af4 * _DAT_008ddf20 + *(float *)&DAT_007f4ae4;
+    _DAT_007f4ad4 = *(float *)&DAT_007f4af4 * _DAT_008ddf38 + *(float *)&DAT_007f4af0;
     UINT_007f4b50 = (uint)(1.0 / _DAT_007f4b38);
     UINT_007f4b48 = (uint)((float)UINT_007f4b50 * _DAT_007f4b64);
     UINT_007f4b4c = (uint)((float)UINT_007f4b50 * _DAT_007f4ad4);
     bVar4 = (byte)UINT_008ddf04;
     UINT_007f4b54 =
-         (int)ROUND(((float)UINT_007f4b48 - _DAT_007f4b58) * _DAT_007f4b34 * 65536.0) >>
+         (int)ROUND(((float)UINT_007f4b48 - *(float *)&DAT_007f4b58) * *(float *)&DAT_007f4b34 * 65536.0) >>
          (bVar4 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND(((float)UINT_007f4b4c - _DAT_007f4b5c) * _DAT_007f4b34 * 65536.0) >>
+         (int)ROUND(((float)UINT_007f4b4c - *(float *)&DAT_007f4b5c) * *(float *)&DAT_007f4b34 * 65536.0) >>
          (bVar4 & 0x1f);
     iVar2 = uVar9 - 1;
-    uVar8 = ((int)ROUND(_DAT_007f4b58 * 65536.0) >> (bVar4 & 0x1f)) + UINT_008ddf44 +
+    uVar8 = ((int)ROUND(*(float *)&DAT_007f4b58 * 65536.0) >> (bVar4 & 0x1f)) + UINT_008ddf44 +
             UINT_007f4b54 * iVar2;
-    uVar10 = ((int)ROUND(_DAT_007f4b5c * 65536.0) >> (bVar4 & 0x1f)) +
+    uVar10 = ((int)ROUND(*(float *)&DAT_007f4b5c * 65536.0) >> (bVar4 & 0x1f)) +
              UINT_008ddf18 + UINT_007f4adc * iVar2;
     uVar11 = UINT_007f4b68 + UINT_007f4b30 * iVar2;
     UINT_007f4b3c = uVar5;
@@ -38909,9 +38909,9 @@ void rdRaster_SpanP16_TexLit_8(uint *param_1)
     _DAT_007f4ad4 = _DAT_007f4ad4 + _DAT_008ddf48;
     uVar5 = UINT_007f4b3c + UINT_008dde40 * 2;
     uVar9 = UINT_007f4acc;
-    _DAT_007f4b58 = (float)UINT_007f4b48;
-    _DAT_007f4b5c = (float)UINT_007f4b4c;
-    _DAT_007f4b60 = (float)UINT_007f4b50;
+    *(float *)&DAT_007f4b58 = (float)UINT_007f4b48;
+    *(float *)&DAT_007f4b5c = (float)UINT_007f4b4c;
+    *(float *)&DAT_007f4b60 = (float)UINT_007f4b50;
   }
   while( true ) {
     bVar1 = (int)UINT_007f4b2c < 1;
@@ -38924,14 +38924,14 @@ void rdRaster_SpanP16_TexLit_8(uint *param_1)
     UINT_007f4b48 = (uint)((float)UINT_007f4b50 * _DAT_007f4b64);
     UINT_007f4b4c = (uint)((float)UINT_007f4b50 * _DAT_007f4ad4);
     UINT_007f4b54 =
-         (int)ROUND(((float)UINT_007f4b48 - _DAT_007f4b58) * 0.0625 * 65536.0) >> (bVar4 & 0x1f);
+         (int)ROUND(((float)UINT_007f4b48 - *(float *)&DAT_007f4b58) * 0.0625 * 65536.0) >> (bVar4 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND(((float)UINT_007f4b4c - _DAT_007f4b5c) * 0.0625 * 65536.0) >> (bVar4 & 0x1f);
+         (int)ROUND(((float)UINT_007f4b4c - *(float *)&DAT_007f4b5c) * 0.0625 * 65536.0) >> (bVar4 & 0x1f);
     UINT_008dde40 = 0x10;
     uVar8 = UINT_007f4b54 * 0xf +
-            ((int)ROUND(_DAT_007f4b58 * 65536.0) >> (bVar4 & 0x1f)) + UINT_008ddf44;
+            ((int)ROUND(*(float *)&DAT_007f4b58 * 65536.0) >> (bVar4 & 0x1f)) + UINT_008ddf44;
     uVar9 = UINT_007f4adc * 0xf +
-            UINT_008ddf18 + ((int)ROUND(_DAT_007f4b5c * 65536.0) >> (bVar4 & 0x1f));
+            UINT_008ddf18 + ((int)ROUND(*(float *)&DAT_007f4b5c * 65536.0) >> (bVar4 & 0x1f));
     uVar11 = UINT_007f4b30 * 0xf + UINT_007f4b68;
     iVar2 = 0x10;
     UINT_007f4b68 = uVar11;
@@ -38959,29 +38959,29 @@ void rdRaster_SpanP16_TexLit_8(uint *param_1)
     uVar5 = UINT_007f4b3c + UINT_008dde40 * 2;
     _DAT_007f4ad4 = _DAT_007f4ad4 + _DAT_008ddf48;
     uVar9 = UINT_007f4acc;
-    _DAT_007f4b58 = (float)UINT_007f4b48;
-    _DAT_007f4b5c = (float)UINT_007f4b4c;
-    _DAT_007f4b60 = (float)UINT_007f4b50;
+    *(float *)&DAT_007f4b58 = (float)UINT_007f4b48;
+    *(float *)&DAT_007f4b5c = (float)UINT_007f4b4c;
+    *(float *)&DAT_007f4b60 = (float)UINT_007f4b50;
   }
   if (uVar9 != 0) {
     UINT_007f4acc = uVar9 - 1;
     if (UINT_007f4acc != 0) {
-      _DAT_007f4ac8 = (float)(int)UINT_007f4acc;
-      _DAT_007f4aec = (float)(&UINT_008fe000)[UINT_007f4acc];
-      _DAT_007f4b38 = (_DAT_007f4ac8 * _DAT_008ddf1c - _DAT_008ddf28) + _DAT_007f4b38;
-      _DAT_007f4b64 = (_DAT_007f4ac8 * _DAT_008ddf20 - _DAT_008ddf2c) + _DAT_007f4b64;
-      _DAT_007f4ad4 = (_DAT_007f4ac8 * _DAT_008ddf38 - _DAT_008ddf48) + _DAT_007f4ad4;
+      *(float *)&DAT_007f4ac8 = (float)(int)UINT_007f4acc;
+      *(float *)&DAT_007f4aec = (float)(&UINT_008fe000)[UINT_007f4acc];
+      _DAT_007f4b38 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf1c - _DAT_008ddf28) + _DAT_007f4b38;
+      _DAT_007f4b64 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf20 - _DAT_008ddf2c) + _DAT_007f4b64;
+      _DAT_007f4ad4 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf38 - _DAT_008ddf48) + _DAT_007f4ad4;
       UINT_007f4b50 = (uint)(1.0 / _DAT_007f4b38);
       UINT_007f4b48 = (uint)((float)UINT_007f4b50 * _DAT_007f4b64);
       UINT_007f4b4c = (uint)((float)UINT_007f4b50 * _DAT_007f4ad4);
       UINT_007f4b54 =
-           (int)ROUND(((float)UINT_007f4b48 - _DAT_007f4b58) * _DAT_007f4aec * 65536.0) >>
+           (int)ROUND(((float)UINT_007f4b48 - *(float *)&DAT_007f4b58) * *(float *)&DAT_007f4aec * 65536.0) >>
            (bVar4 & 0x1f);
       UINT_007f4adc =
-           (int)ROUND(((float)UINT_007f4b4c - _DAT_007f4b5c) * _DAT_007f4aec * 65536.0) >>
+           (int)ROUND(((float)UINT_007f4b4c - *(float *)&DAT_007f4b5c) * *(float *)&DAT_007f4aec * 65536.0) >>
            (bVar4 & 0x1f);
-      UINT_007f4b6c = ((int)ROUND(_DAT_007f4b58 * 65536.0) >> (bVar4 & 0x1f)) + UINT_008ddf44;
-      UINT_007f4b70 = ((int)ROUND(_DAT_007f4b5c * 65536.0) >> (bVar4 & 0x1f)) + UINT_008ddf18;
+      UINT_007f4b6c = ((int)ROUND(*(float *)&DAT_007f4b58 * 65536.0) >> (bVar4 & 0x1f)) + UINT_008ddf44;
+      UINT_007f4b70 = ((int)ROUND(*(float *)&DAT_007f4b5c * 65536.0) >> (bVar4 & 0x1f)) + UINT_008ddf18;
     }
     uVar10 = UINT_007f4b70 + UINT_007f4adc * UINT_007f4acc;
     uVar11 = UINT_007f4b6c + UINT_007f4b54 * UINT_007f4acc;
@@ -39071,43 +39071,43 @@ void rdRaster_SpanP16_TexLit_9(uint *param_1)
       UINT_007f4acc = 0x10;
     }
   }
-  _DAT_007f4af8 = (float)param_1[7];
-  _DAT_007f4ae4 = (float)param_1[3];
-  _DAT_007f4b60 = 1.0 / _DAT_007f4af8;
-  _DAT_007f4af0 = (float)param_1[4];
+  *(float *)&DAT_007f4af8 = (float)param_1[7];
+  *(float *)&DAT_007f4ae4 = (float)param_1[3];
+  *(float *)&DAT_007f4b60 = 1.0 / *(float *)&DAT_007f4af8;
+  *(float *)&DAT_007f4af0 = (float)param_1[4];
   UINT_007f4b30 = param_1[9];
   UINT_007f4b68 = param_1[8];
-  _DAT_007f4b58 = _DAT_007f4b60 * _DAT_007f4ae4;
-  _DAT_007f4b5c = _DAT_007f4b60 * _DAT_007f4af0;
+  *(float *)&DAT_007f4b58 = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4ae4;
+  *(float *)&DAT_007f4b5c = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4af0;
   iVar2 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
   uVar5 = *(int *)(iVar2 + 0x5c) + (param_1[2] * (*(uint *)(iVar2 + 0x18) >> 1) + *param_1) * 2;
   UINT_007f4b44 = uVar9;
   if (uVar9 == 0) {
-    _DAT_007f4b38 = _DAT_007f4af8 + _DAT_008ddf28;
-    _DAT_007f4b64 = _DAT_007f4ae4 + _DAT_008ddf2c;
-    _DAT_007f4ad4 = _DAT_007f4af0 + _DAT_008ddf48;
+    _DAT_007f4b38 = *(float *)&DAT_007f4af8 + _DAT_008ddf28;
+    _DAT_007f4b64 = *(float *)&DAT_007f4ae4 + _DAT_008ddf2c;
+    _DAT_007f4ad4 = *(float *)&DAT_007f4af0 + _DAT_008ddf48;
     uVar9 = UINT_007f4acc;
   }
   else {
-    _DAT_007f4af4 = (float)(int)uVar9;
-    _DAT_007f4b34 = (float)(&UINT_008fe000)[uVar9];
-    _DAT_007f4b38 = _DAT_007f4af4 * _DAT_008ddf1c + _DAT_007f4af8;
-    _DAT_007f4b64 = _DAT_007f4af4 * _DAT_008ddf20 + _DAT_007f4ae4;
-    _DAT_007f4ad4 = _DAT_007f4af4 * _DAT_008ddf38 + _DAT_007f4af0;
+    *(float *)&DAT_007f4af4 = (float)(int)uVar9;
+    *(float *)&DAT_007f4b34 = (float)(&UINT_008fe000)[uVar9];
+    _DAT_007f4b38 = *(float *)&DAT_007f4af4 * _DAT_008ddf1c + *(float *)&DAT_007f4af8;
+    _DAT_007f4b64 = *(float *)&DAT_007f4af4 * _DAT_008ddf20 + *(float *)&DAT_007f4ae4;
+    _DAT_007f4ad4 = *(float *)&DAT_007f4af4 * _DAT_008ddf38 + *(float *)&DAT_007f4af0;
     UINT_007f4b50 = (uint)(1.0 / _DAT_007f4b38);
     UINT_007f4b48 = (uint)((float)UINT_007f4b50 * _DAT_007f4b64);
     UINT_007f4b4c = (uint)((float)UINT_007f4b50 * _DAT_007f4ad4);
     bVar4 = (byte)UINT_008ddf04;
     UINT_007f4b54 =
-         (int)ROUND(((float)UINT_007f4b48 - _DAT_007f4b58) * _DAT_007f4b34 * 65536.0) >>
+         (int)ROUND(((float)UINT_007f4b48 - *(float *)&DAT_007f4b58) * *(float *)&DAT_007f4b34 * 65536.0) >>
          (bVar4 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND(((float)UINT_007f4b4c - _DAT_007f4b5c) * _DAT_007f4b34 * 65536.0) >>
+         (int)ROUND(((float)UINT_007f4b4c - *(float *)&DAT_007f4b5c) * *(float *)&DAT_007f4b34 * 65536.0) >>
          (bVar4 & 0x1f);
     iVar2 = uVar9 - 1;
-    uVar8 = ((int)ROUND(_DAT_007f4b58 * 65536.0) >> (bVar4 & 0x1f)) + UINT_008ddf44 +
+    uVar8 = ((int)ROUND(*(float *)&DAT_007f4b58 * 65536.0) >> (bVar4 & 0x1f)) + UINT_008ddf44 +
             UINT_007f4b54 * iVar2;
-    uVar10 = ((int)ROUND(_DAT_007f4b5c * 65536.0) >> (bVar4 & 0x1f)) +
+    uVar10 = ((int)ROUND(*(float *)&DAT_007f4b5c * 65536.0) >> (bVar4 & 0x1f)) +
              UINT_008ddf18 + UINT_007f4adc * iVar2;
     uVar11 = UINT_007f4b68 + UINT_007f4b30 * iVar2;
     UINT_007f4b3c = uVar5;
@@ -39137,9 +39137,9 @@ void rdRaster_SpanP16_TexLit_9(uint *param_1)
     _DAT_007f4ad4 = _DAT_007f4ad4 + _DAT_008ddf48;
     uVar5 = UINT_007f4b3c + UINT_008dde40 * 2;
     uVar9 = UINT_007f4acc;
-    _DAT_007f4b58 = (float)UINT_007f4b48;
-    _DAT_007f4b5c = (float)UINT_007f4b4c;
-    _DAT_007f4b60 = (float)UINT_007f4b50;
+    *(float *)&DAT_007f4b58 = (float)UINT_007f4b48;
+    *(float *)&DAT_007f4b5c = (float)UINT_007f4b4c;
+    *(float *)&DAT_007f4b60 = (float)UINT_007f4b50;
   }
   while( true ) {
     bVar1 = (int)UINT_007f4b2c < 1;
@@ -39152,14 +39152,14 @@ void rdRaster_SpanP16_TexLit_9(uint *param_1)
     UINT_007f4b48 = (uint)((float)UINT_007f4b50 * _DAT_007f4b64);
     UINT_007f4b4c = (uint)((float)UINT_007f4b50 * _DAT_007f4ad4);
     UINT_007f4b54 =
-         (int)ROUND(((float)UINT_007f4b48 - _DAT_007f4b58) * 0.0625 * 65536.0) >> (bVar4 & 0x1f);
+         (int)ROUND(((float)UINT_007f4b48 - *(float *)&DAT_007f4b58) * 0.0625 * 65536.0) >> (bVar4 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND(((float)UINT_007f4b4c - _DAT_007f4b5c) * 0.0625 * 65536.0) >> (bVar4 & 0x1f);
+         (int)ROUND(((float)UINT_007f4b4c - *(float *)&DAT_007f4b5c) * 0.0625 * 65536.0) >> (bVar4 & 0x1f);
     UINT_008dde40 = 0x10;
     uVar8 = UINT_007f4b54 * 0xf +
-            ((int)ROUND(_DAT_007f4b58 * 65536.0) >> (bVar4 & 0x1f)) + UINT_008ddf44;
+            ((int)ROUND(*(float *)&DAT_007f4b58 * 65536.0) >> (bVar4 & 0x1f)) + UINT_008ddf44;
     uVar9 = UINT_007f4adc * 0xf +
-            UINT_008ddf18 + ((int)ROUND(_DAT_007f4b5c * 65536.0) >> (bVar4 & 0x1f));
+            UINT_008ddf18 + ((int)ROUND(*(float *)&DAT_007f4b5c * 65536.0) >> (bVar4 & 0x1f));
     uVar11 = UINT_007f4b30 * 0xf + UINT_007f4b68;
     iVar2 = 0x10;
     UINT_007f4b68 = uVar11;
@@ -39187,29 +39187,29 @@ void rdRaster_SpanP16_TexLit_9(uint *param_1)
     uVar5 = UINT_007f4b3c + UINT_008dde40 * 2;
     _DAT_007f4ad4 = _DAT_007f4ad4 + _DAT_008ddf48;
     uVar9 = UINT_007f4acc;
-    _DAT_007f4b58 = (float)UINT_007f4b48;
-    _DAT_007f4b5c = (float)UINT_007f4b4c;
-    _DAT_007f4b60 = (float)UINT_007f4b50;
+    *(float *)&DAT_007f4b58 = (float)UINT_007f4b48;
+    *(float *)&DAT_007f4b5c = (float)UINT_007f4b4c;
+    *(float *)&DAT_007f4b60 = (float)UINT_007f4b50;
   }
   if (uVar9 != 0) {
     UINT_007f4acc = uVar9 - 1;
     if (UINT_007f4acc != 0) {
-      _DAT_007f4ac8 = (float)(int)UINT_007f4acc;
-      _DAT_007f4aec = (float)(&UINT_008fe000)[UINT_007f4acc];
-      _DAT_007f4b38 = (_DAT_007f4ac8 * _DAT_008ddf1c - _DAT_008ddf28) + _DAT_007f4b38;
-      _DAT_007f4b64 = (_DAT_007f4ac8 * _DAT_008ddf20 - _DAT_008ddf2c) + _DAT_007f4b64;
-      _DAT_007f4ad4 = (_DAT_007f4ac8 * _DAT_008ddf38 - _DAT_008ddf48) + _DAT_007f4ad4;
+      *(float *)&DAT_007f4ac8 = (float)(int)UINT_007f4acc;
+      *(float *)&DAT_007f4aec = (float)(&UINT_008fe000)[UINT_007f4acc];
+      _DAT_007f4b38 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf1c - _DAT_008ddf28) + _DAT_007f4b38;
+      _DAT_007f4b64 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf20 - _DAT_008ddf2c) + _DAT_007f4b64;
+      _DAT_007f4ad4 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf38 - _DAT_008ddf48) + _DAT_007f4ad4;
       UINT_007f4b50 = (uint)(1.0 / _DAT_007f4b38);
       UINT_007f4b48 = (uint)((float)UINT_007f4b50 * _DAT_007f4b64);
       UINT_007f4b4c = (uint)((float)UINT_007f4b50 * _DAT_007f4ad4);
       UINT_007f4b54 =
-           (int)ROUND(((float)UINT_007f4b48 - _DAT_007f4b58) * _DAT_007f4aec * 65536.0) >>
+           (int)ROUND(((float)UINT_007f4b48 - *(float *)&DAT_007f4b58) * *(float *)&DAT_007f4aec * 65536.0) >>
            (bVar4 & 0x1f);
       UINT_007f4adc =
-           (int)ROUND(((float)UINT_007f4b4c - _DAT_007f4b5c) * _DAT_007f4aec * 65536.0) >>
+           (int)ROUND(((float)UINT_007f4b4c - *(float *)&DAT_007f4b5c) * *(float *)&DAT_007f4aec * 65536.0) >>
            (bVar4 & 0x1f);
-      UINT_007f4b6c = ((int)ROUND(_DAT_007f4b58 * 65536.0) >> (bVar4 & 0x1f)) + UINT_008ddf44;
-      UINT_007f4b70 = ((int)ROUND(_DAT_007f4b5c * 65536.0) >> (bVar4 & 0x1f)) + UINT_008ddf18;
+      UINT_007f4b6c = ((int)ROUND(*(float *)&DAT_007f4b58 * 65536.0) >> (bVar4 & 0x1f)) + UINT_008ddf44;
+      UINT_007f4b70 = ((int)ROUND(*(float *)&DAT_007f4b5c * 65536.0) >> (bVar4 & 0x1f)) + UINT_008ddf18;
     }
     uVar10 = UINT_007f4b70 + UINT_007f4adc * UINT_007f4acc;
     uVar11 = UINT_007f4b6c + UINT_007f4b54 * UINT_007f4acc;

@@ -104,7 +104,7 @@ undefined4 SpriteComponent_Create(uint param_1,int param_2,int param_3,float par
       local_40[0] = local_50[0];
       local_40[1] = local_50[1];
       local_40[2] = param_4;
-      iVar7 = rdPolyline_New(0,pcVar5,pcVar5,local_44,local_50[2],5,0,1,0,local_40);
+      iVar7 = rdPolyline_New(0,pcVar5,pcVar5,PUN(undefined4,(float)(local_44)),PUN(undefined4,(float)(local_50[2])),5,0,1,0,local_40);
       *piVar6 = iVar7;
       uVar2 = 0xffffffff;
       do {

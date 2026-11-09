@@ -219,21 +219,21 @@ Collision_SegmentHitsBox
     goto LAB_00492801;
   }
   fVar1 = 1.0;
-  fVar5 = _DAT_008ca320;
-  fVar6 = _DAT_008ca324;
-  fVar7 = _DAT_008ca328;
+  fVar5 = *(float *)&DAT_008ca320;
+  fVar6 = *(float *)&DAT_008ca324;
+  fVar7 = *(float *)&DAT_008ca328;
 LAB_00492801:
-  _DAT_008ca328 = fVar7;
-  _DAT_008ca324 = fVar6;
-  _DAT_008ca320 = fVar5;
+  *(float *)&DAT_008ca328 = fVar7;
+  *(float *)&DAT_008ca324 = fVar6;
+  *(float *)&DAT_008ca320 = fVar5;
   if (((local_24[1] < param_5) && (param_5 < local_c[1])) &&
      (fVar5 = (param_5 - local_24[1]) / fVar3, fVar5 < fVar1)) {
     fVar6 = fVar5 * fVar2 + local_24[0];
     if ((param_4 < fVar6) && (fVar6 < param_7)) {
       fVar1 = fVar5;
-      _DAT_008ca320 = fVar6;
-      _DAT_008ca324 = fVar5 * fVar3 + local_24[1];
-      _DAT_008ca328 = fVar5 * fVar4 + local_24[2];
+      *(float *)&DAT_008ca320 = fVar6;
+      *(float *)&DAT_008ca324 = fVar5 * fVar3 + local_24[1];
+      *(float *)&DAT_008ca328 = fVar5 * fVar4 + local_24[2];
     }
   }
   if (((param_7 < local_24[0]) && (local_c[0] < param_7)) &&
@@ -241,9 +241,9 @@ LAB_00492801:
     fVar6 = fVar5 * fVar3 + local_24[1];
     if ((param_5 < fVar6) && (fVar6 < param_8)) {
       fVar1 = fVar5;
-      _DAT_008ca320 = fVar5 * fVar2 + local_24[0];
-      _DAT_008ca324 = fVar6;
-      _DAT_008ca328 = fVar5 * fVar4 + local_24[2];
+      *(float *)&DAT_008ca320 = fVar5 * fVar2 + local_24[0];
+      *(float *)&DAT_008ca324 = fVar6;
+      *(float *)&DAT_008ca328 = fVar5 * fVar4 + local_24[2];
     }
   }
   if (((local_24[0] < param_4) && (param_4 < local_c[0])) &&
@@ -251,9 +251,9 @@ LAB_00492801:
     fVar3 = fVar5 * fVar3 + local_24[1];
     if ((param_5 < fVar3) && (fVar3 < param_8)) {
       fVar1 = fVar5;
-      _DAT_008ca320 = fVar5 * fVar2 + local_24[0];
-      _DAT_008ca324 = fVar3;
-      _DAT_008ca328 = fVar5 * fVar4 + local_24[2];
+      *(float *)&DAT_008ca320 = fVar5 * fVar2 + local_24[0];
+      *(float *)&DAT_008ca324 = fVar3;
+      *(float *)&DAT_008ca328 = fVar5 * fVar4 + local_24[2];
     }
   }
   if (fVar1 == 1.0) {
@@ -424,18 +424,18 @@ undefined4 Collision_TestActorAgainstOthers(void *param_1)
             pfVar6 = (float *)((int)param_1 + 0xc);
             *(undefined4 *)(*(int *)((int)actor + 0xa4) + 0x3f8) = 1;
             local_2c[2] = fVar3 - local_68[2];
-            _DAT_008ca348 = *pfVar6;
+            *(float *)&DAT_008ca348 = *pfVar6;
             _DAT_008ca34c = *(undefined4 *)((int)param_1 + 0x10);
             _DAT_008ca350 = *(undefined4 *)((int)param_1 + 0x14);
             Vec3_Normalize(local_2c + 2);
             bVar1 = *(byte *)((int)param_1 + 8);
             ((code *)Actor_SetPositionClamped)();
-            _DAT_008ca338 = *pfVar6;
+            *(float *)&DAT_008ca338 = *pfVar6;
             _DAT_008ca33c = *(undefined4 *)((int)param_1 + 0x10);
             _DAT_008ca340 = *(undefined4 *)((int)param_1 + 0x14);
-            _DAT_008ca320 = *pfVar6;
-            _DAT_008ca324 = *(float *)((int)param_1 + 0x10);
-            _DAT_008ca328 = *(float *)((int)param_1 + 0x14);
+            *(float *)&DAT_008ca320 = *pfVar6;
+            *(float *)&DAT_008ca324 = *(float *)((int)param_1 + 0x10);
+            *(float *)&DAT_008ca328 = *(float *)((int)param_1 + 0x14);
             if ((bVar1 & 1) != 0) {
               *(uint *)((int)param_1 + 8) = *(uint *)((int)param_1 + 8) | 1;
             }
@@ -461,7 +461,7 @@ undefined4 Collision_TestActorAgainstOthers(void *param_1)
                   (*(float *)(iVar8 + 0x6c) * *(float *)(iVar2 + 0x3f4) + fVar4 <= local_a4[0]))))))
                || (local_2c[1] <= local_a4[2])) goto LAB_004940c6;
             *(undefined4 *)(*(int *)((int)param_1 + 0xa4) + 0x3f8) = 1;
-            _DAT_008ca348 = *(float *)((int)param_1 + 0xc);
+            *(float *)&DAT_008ca348 = *(float *)((int)param_1 + 0xc);
             _DAT_008ca34c = *(undefined4 *)((int)param_1 + 0x10);
             _DAT_008ca350 = *(undefined4 *)((int)param_1 + 0x14);
             local_8c[1] = (local_98[0] + *(float *)((int)param_1 + 0x18)) - local_68[2];
@@ -504,12 +504,12 @@ undefined4 Collision_TestActorAgainstOthers(void *param_1)
             *(undefined4 *)((int)param_1 + 0x20) = *(undefined4 *)((int)param_1 + 0x14);
             pfVar6 = Actor_GetFrame(actor);
             Vec3_Rotate3x3((float *)&DAT_008ca320,pfVar6);
-            _DAT_008ca320 = _DAT_008ca320 - local_98[0];
-            _DAT_008ca324 = _DAT_008ca324 - local_98[1];
-            _DAT_008ca328 = _DAT_008ca328 - local_98[2];
+            *(float *)&DAT_008ca320 = *(float *)&DAT_008ca320 - local_98[0];
+            *(float *)&DAT_008ca324 = *(float *)&DAT_008ca324 - local_98[1];
+            *(float *)&DAT_008ca328 = *(float *)&DAT_008ca328 - local_98[2];
             bVar1 = *(byte *)((int)param_1 + 8);
             ((code *)Actor_SetPositionClamped)();
-            _DAT_008ca338 = *(float *)((int)param_1 + 0xc);
+            *(float *)&DAT_008ca338 = *(float *)((int)param_1 + 0xc);
             _DAT_008ca33c = *(undefined4 *)((int)param_1 + 0x10);
             _DAT_008ca340 = *(undefined4 *)((int)param_1 + 0x14);
             if ((bVar1 & 1) != 0) {
@@ -742,9 +742,9 @@ Collision_BoxSlide(float *param_1,float *param_2,float param_3,float param_4,flo
   *param_9 = fVar5 * fVar10 + *param_1;
   param_9[1] = fVar5 * fVar1 + param_1[1];
   param_9[2] = fVar5 * fVar3 + param_1[2];
-  _DAT_008ca320 = *param_9;
-  _DAT_008ca324 = param_9[1];
-  _DAT_008ca328 = param_9[2];
+  *(float *)&DAT_008ca320 = *param_9;
+  *(float *)&DAT_008ca324 = param_9[1];
+  *(float *)&DAT_008ca328 = param_9[2];
   fVar11 = fVar5;
   if (fVar5 < 0.0) {
     fVar11 = -fVar5;

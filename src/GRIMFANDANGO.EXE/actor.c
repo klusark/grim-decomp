@@ -1884,14 +1884,14 @@ void Actor_SetShadowPlane(int param_1,char *param_2)
     puVar1[2] = *(undefined4 *)((int)pvVar7 + 0x60);
     puVar1[3] = *(undefined4 *)((int)pvVar7 + 100);
     fVar2 = *(float *)((int)pvVar7 + 0x68);
-    puVar1[4] = fVar2;
+    puVar1[4] = PUN(undefined4,(float)(fVar2));
     iVar6 = *(int *)((int)pvVar7 + 0x38);
     fVar3 = *(float *)(iVar6 + 8);
     fVar4 = *(float *)(iVar6 + 0xc);
     fVar5 = *(float *)(iVar6 + 4);
     *puVar1 = 1;
     puVar1[1] = 0;
-    puVar1[5] = -(fVar5 * PUN(float,puVar1[2]) + fVar3 * PUN(float,puVar1[3]) + fVar4 * fVar2);
+    puVar1[5] = PUN(undefined4,(float)(-(fVar5 * PUN(float,puVar1[2]) + fVar3 * PUN(float,puVar1[3]) + fVar4 * fVar2)));
   }
   return;
 }
@@ -2012,6 +2012,8 @@ float * __cdecl Actor_GetFrame(void *actor)
 }
 
 /* ---- 0x004937c0  Actor_ToClean ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua ActorToClean: marks the actor's rectangle to be restored from the clean background */
 
 void __cdecl Actor_ToClean(void *actor)
@@ -2104,6 +2106,8 @@ void __cdecl Actor_ToClean(void *actor)
 #undef iStack_8
 #undef iStack_c
 #undef local_10
+
+#endif
 
 
 /* ---- 0x00494690  Actor_CountCostumes ---- */

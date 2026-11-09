@@ -37,7 +37,12 @@ int FUN_10005740(unsigned char *a, unsigned char *b)
 extern int lua_dostring(const char *);   /* LUA.DLL */
 extern char *GRIM_getenv(const char *) __asm__("_getenv");   /* host C runtime */
 #include "globals.h"
+/* (stdFile_Read / stdFile_Gets return the C runtime's result here; Ghidra's prototypes say void) */
+#define stdFile_Read stdFile_Read__ghidra
+#define stdFile_Gets stdFile_Gets__ghidra
 #include "functions.h"
+#undef stdFile_Read
+#undef stdFile_Gets
 
 
 /* Test hook: run Lua statements in the game without any keyboard or mouse events. If the environment
@@ -318,12 +323,32 @@ void __cdecl Costume_ApplyScale(void *actor, void *componentList)
  * this build links the host msvcrt, whose text-mode ftell() returns 0 after a one-byte fread() (checked with a
  * stand-alone program). Lua's dofile reads the first character of a script, calls ftell and seeks back by one, so
  * every *text* script (a loose _system.lua, mod.lua ...; TextAllowed=TRUE) lost its first character and silently
- * failed to parse. Read-mode opens are therefore done in binary mode (Lua 3.1 treats "\r\n" as white space). */
+ * failed to parse. Read-mode opens are therefore done in binary mode, and the reads of such a file (stdFile_Read,
+ * stdFile_Gets below) turn "\r\n" into "\n" themselves, as the original's text mode did: the costume reader of
+ * CHORE.DLL skips a line that starts with '\n' and rejects "\r" (a text costume with Windows line ends did not load,
+ * found by grim_tools/cleanroom). ftell / fseek keep the raw file offsets, as the original's text mode did. */
 extern void *GRIM_host_fopen(const char *, const char *) __asm__("_fopen");
+extern int GRIM_host_fclose(void *) __asm__("_fclose");
+extern unsigned GRIM_host_fread(void *, unsigned, unsigned, void *) __asm__("_fread");
+extern char *GRIM_host_fgets(char *, int, void *) __asm__("_fgets");
+extern int GRIM_host_getc(void *) __asm__("_fgetc");
+extern int GRIM_host_ungetc(int, void *) __asm__("_ungetc");
+static void *grim_text_files[128];   /* the files opened for reading in text mode (as binary, see above) */
+
+static int grim_is_text(void *f)
+{
+    int i;
+    for (i = 0; i < 128; i++)
+        if (grim_text_files[i] == f)
+            return 1;
+    return 0;
+}
+
 undefined * __cdecl stdFile_Open(uint param_1, uint param_2)
 {
     const char *name = (const char *)param_1, *mode = (const char *)param_2;
     char m[8];
+    void *f;
     int i = 0, has_b = 0, has_plus = 0, is_r = (mode[0] == 'r');
     for (; mode[i] && i < 6; i++) {
         m[i] = mode[i];
@@ -333,7 +358,78 @@ undefined * __cdecl stdFile_Open(uint param_1, uint param_2)
     if (is_r && !has_b && !has_plus)
         m[i++] = 'b';
     m[i] = 0;
-    return (undefined *)GRIM_host_fopen(name, m);
+    f = GRIM_host_fopen(name, m);
+    if (f && is_r && !has_b && !has_plus)
+        for (i = 0; i < 128; i++)
+            if (grim_text_files[i] == 0) {
+                grim_text_files[i] = f;
+                break;
+            }
+    return (undefined *)f;
+}
+
+/* stdFile_Close (0x473450): fclose */
+void stdFile_Close(undefined4 param_1)
+{
+    int i;
+    for (i = 0; i < 128; i++)
+        if (grim_text_files[i] == (void *)param_1)
+            grim_text_files[i] = 0;
+    GRIM_host_fclose((void *)param_1);
+}
+
+/* stdFile_Read (0x473460): fread(buf, 1, n, file); "\r\n" read as "\n" in a text file. Returns fread's count (the
+ * original returned what fread left in EAX). */
+uint stdFile_Read(undefined4 param_1, undefined4 param_2, undefined4 param_3)
+{
+    void *f = (void *)param_1;
+    unsigned char *out = (unsigned char *)param_2;
+    uint n = param_3, k = 0;
+    int c, d;
+    if (!grim_is_text(f))
+        return GRIM_host_fread(out, 1, n, f);
+    while (k < n) {
+        if ((c = GRIM_host_getc(f)) < 0)
+            break;
+        if (c == '\r') {
+            if ((d = GRIM_host_getc(f)) == '\n')
+                c = '\n';
+            else if (d >= 0)
+                GRIM_host_ungetc(d, f);
+        }
+        out[k++] = (unsigned char)c;
+    }
+    return k;
+}
+
+/* stdFile_Gets (0x4734a0): fgets; "\r\n" read as "\n" in a text file. Returns fgets's result (the original left it
+ * in EAX; ResFile_Gets passes it on). */
+char *stdFile_Gets(undefined4 param_1, undefined4 param_2, undefined4 param_3)
+{
+    void *f = (void *)param_1;
+    char *buf = (char *)param_2;
+    int size = (int)param_3, k = 0, c, d;
+    if (!grim_is_text(f))
+        return GRIM_host_fgets(buf, size, f);
+    if (size <= 0)
+        return 0;
+    while (k < size - 1) {
+        if ((c = GRIM_host_getc(f)) < 0)
+            break;
+        if (c == '\r') {
+            if ((d = GRIM_host_getc(f)) == '\n')
+                c = '\n';
+            else if (d >= 0)
+                GRIM_host_ungetc(d, f);
+        }
+        buf[k++] = (char)c;
+        if (c == '\n')
+            break;
+    }
+    if (k == 0)
+        return 0;
+    buf[k] = 0;
+    return buf;
 }
 
 
@@ -448,9 +544,23 @@ void GRIM_RegisterModApiLib(void)
     lua_recognizelib((int)mod_api, sizeof mod_api / sizeof mod_api[0]);
 }
 
+/* GRIM_MODS=1: the decomp's additions for mods (the Lua functions above). Off by default, so the game has the
+ * original exe's builtins (grim_tools/cleanroom compares the two). */
+int GRIM_ModsOn(void)
+{
+    static int on = -1;
+    if (on < 0) {
+        const char *e = GRIM_getenv("GRIM_MODS");
+        on = e != 0 && e[0] == '1';
+    }
+    return on;
+}
+
 void GRIM_RegisterModApi(void)
 {
     unsigned i;
+    if (!GRIM_ModsOn())
+        return;   /* (the library stays recognised, GRIM_RegisterModApiLib: save ids do not depend on GRIM_MODS) */
     for (i = 0; i < sizeof mod_api / sizeof mod_api[0]; i++) {
         lua_pushCclosure((int)mod_api[i].fn, 0);
         lua_setglobal((int)mod_api[i].name);
@@ -576,14 +686,16 @@ __asm__(".text\n"
  *   - the EXE calls GRIM_ImSimStep(ms) once per frame (GRIM_lua_cmd_poll): the cursor moves and ImHeartbeat runs once per 20 ms
  *     of game time (fades, mixing, retiring of finished tracks), whatever the real time between the calls;
  *   - the two loops that wait for the heartbeat (SoundsFloodMusicBuffer, SoundsFillStreamsWhileMusicCritical) tick it themselves.
- * The DirectSound buffer is still written and played (muted), so the rest of iMUSE does not notice. Off without GRIM_SIMTIME. */
+ * The DirectSound buffer is still written and played (muted), so the rest of iMUSE does not notice. Off without GRIM_SIMTIME,
+ * and off with GRIM_IMUSE_REALTIME=1: then only the frames have the fixed time and iMUSE keeps its timer thread and the
+ * hardware's pace, as on the original exe with grimlaunch's simtime patch (grim_tools/cleanroom compares with that). */
 extern char *GRIM_getenv(const char *) __asm__("_getenv");
 int GRIM_ImSimOn(void)
 {
     static int on = -1;
     if (on < 0) {
-        const char *e = GRIM_getenv("GRIM_SIMTIME");
-        on = (e != 0 && e[0] >= '1' && e[0] <= '9');
+        const char *e = GRIM_getenv("GRIM_SIMTIME"), *rt = GRIM_getenv("GRIM_IMUSE_REALTIME");
+        on = (e != 0 && e[0] >= '1' && e[0] <= '9') && !(rt != 0 && rt[0] == '1');
     }
     return on;
 }

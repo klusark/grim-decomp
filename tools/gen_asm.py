@@ -296,6 +296,12 @@ def select(prog):
     for ep in sorted(glob.glob(os.path.join(ROOT, "names", "asm_exclude*.json"))):
         skip |= set(json.load(open(ep)).get(prog, []))
     out = [a for a in out if a not in skip]
+    # GEN_ASM_FORCE=<file.json> ({prog: [addresses]}): a debugging aid that assembles these functions even when an
+    # exclude list keeps them as C, to find which C function makes a test differ from the original (the original
+    # machine code is the reference; grim_tools/cleanroom). Never set it for a build that is kept.
+    force = os.environ.get("GEN_ASM_FORCE")
+    if force:
+        out += json.load(open(force)).get(prog, [])
     # names/lib_replace.json: library code the system C runtime / zlib replaces (or that is dead): never assembled
     import build_src as _bs
     out = [a for a in out if a not in _bs.load_lib_replace(prog)]

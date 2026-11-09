@@ -613,10 +613,10 @@ void LightEd_UpdateDialog(int param_1)
       LightEd_EnableControls(1);
       CheckDlgButton(param_1,0x3fa,(uint)(*(int *)(uVar1 + 0x34) != 0));
       CheckDlgButton(param_1,0x3fe,(uint)((&UINT_008d1734)[g_nLightEdSelected * 5] != 0));
-      LightEd_SetDlgFloat(param_1,0x3ec,*(undefined4 *)(uVar1 + 0x44),1);
-      LightEd_SetDlgFloat(param_1,0x3ef,*(undefined4 *)(uVar1 + 0x20),1);
-      LightEd_SetDlgFloat(param_1,0x3f0,*(undefined4 *)(uVar1 + 0x24),1);
-      LightEd_SetDlgFloat(param_1,0x3f1,*(undefined4 *)(uVar1 + 0x28),1);
+      LightEd_SetDlgFloat(param_1,0x3ec,PUN(float,*(undefined4 *)(uVar1 + 0x44)),1);
+      LightEd_SetDlgFloat(param_1,0x3ef,PUN(float,*(undefined4 *)(uVar1 + 0x20)),1);
+      LightEd_SetDlgFloat(param_1,0x3f0,PUN(float,*(undefined4 *)(uVar1 + 0x24)),1);
+      LightEd_SetDlgFloat(param_1,0x3f1,PUN(float,*(undefined4 *)(uVar1 + 0x28)),1);
       if ((*(int *)(uVar1 + 0x30) == 1) || (*(int *)(uVar1 + 0x30) == 0)) {
         iVar3 = 1;
       }
@@ -635,9 +635,9 @@ void LightEd_UpdateDialog(int param_1)
         iVar4 = 0;
         iVar3 = GetDlgItem(param_1,0x3ee);
         EnableWindow(iVar3,iVar4);
-        LightEd_SetDlgFloat(param_1,0x3f2,(&UINT_008d1738)[g_nLightEdSelected * 5],0);
-        LightEd_SetDlgFloat(param_1,0x3f4,(&UINT_008d173c)[g_nLightEdSelected * 5],0);
-        LightEd_SetDlgFloat(param_1,0x3f5,(&UINT_008d1740)[g_nLightEdSelected * 5],0);
+        LightEd_SetDlgFloat(param_1,0x3f2,PUN(float,(&UINT_008d1738)[g_nLightEdSelected * 5]),0);
+        LightEd_SetDlgFloat(param_1,0x3f4,PUN(float,(&UINT_008d173c)[g_nLightEdSelected * 5]),0);
+        LightEd_SetDlgFloat(param_1,0x3f5,PUN(float,(&UINT_008d1740)[g_nLightEdSelected * 5]),0);
         LightEd_MoveMarkerActor();
         bVar2 = true;
         break;
@@ -662,13 +662,11 @@ void LightEd_UpdateDialog(int param_1)
         bVar2 = true;
         break;
       case 3:
-        LightEd_SetDlgFloat(param_1,0x3f2,(&UINT_008d1738)[g_nLightEdSelected * 5],0);
-        LightEd_SetDlgFloat(param_1,0x3f4,(&UINT_008d173c)[g_nLightEdSelected * 5],0);
-        LightEd_SetDlgFloat(param_1,0x3f5,(&UINT_008d1740)[g_nLightEdSelected * 5],0);
-        LightEd_SetDlgFloat(param_1,0x3ed,
-                            *(undefined4 *)((&UINT_008d1730)[g_nLightEdSelected * 5] + 0x4c),1);
-        LightEd_SetDlgFloat(param_1,0x3ee,
-                            *(undefined4 *)((&UINT_008d1730)[g_nLightEdSelected * 5] + 0x54),1);
+        LightEd_SetDlgFloat(param_1,0x3f2,PUN(float,(&UINT_008d1738)[g_nLightEdSelected * 5]),0);
+        LightEd_SetDlgFloat(param_1,0x3f4,PUN(float,(&UINT_008d173c)[g_nLightEdSelected * 5]),0);
+        LightEd_SetDlgFloat(param_1,0x3f5,PUN(float,(&UINT_008d1740)[g_nLightEdSelected * 5]),0);
+        LightEd_SetDlgFloat(param_1,0x3ed,PUN(float,*(undefined4 *)((&UINT_008d1730)[g_nLightEdSelected * 5] + 0x4c)),1);
+        LightEd_SetDlgFloat(param_1,0x3ee,PUN(float,*(undefined4 *)((&UINT_008d1730)[g_nLightEdSelected * 5] + 0x54)),1);
         LightEd_MoveMarkerActor();
         bVar2 = true;
       }
@@ -916,22 +914,22 @@ LAB_004bf718:
     SendDlgItemMessageA(hdlg,a2,0x467,0,a5);
     break;
   case 0x3ef:
-    LightEd_SetLightPosComponent(g_nLightEdSelected,0,outer);
+    LightEd_SetLightPosComponent(g_nLightEdSelected,0,PUN(undefined4,(float)(outer)));
     break;
   case 0x3f0:
-    LightEd_SetLightPosComponent(g_nLightEdSelected,1,outer);
+    LightEd_SetLightPosComponent(g_nLightEdSelected,1,PUN(undefined4,(float)(outer)));
     break;
   case 0x3f1:
-    LightEd_SetLightPosComponent(g_nLightEdSelected,2,outer);
+    LightEd_SetLightPosComponent(g_nLightEdSelected,2,PUN(undefined4,(float)(outer)));
     break;
   case 0x3f2:
-    LightEd_SetLightAngle(g_nLightEdSelected,0,outer);
+    LightEd_SetLightAngle(g_nLightEdSelected,0,PUN(uint,(float)(outer)));
     break;
   case 0x3f4:
-    LightEd_SetLightAngle(g_nLightEdSelected,1,outer);
+    LightEd_SetLightAngle(g_nLightEdSelected,1,PUN(uint,(float)(outer)));
     break;
   case 0x3f5:
-    LightEd_SetLightAngle(g_nLightEdSelected,2,outer);
+    LightEd_SetLightAngle(g_nLightEdSelected,2,PUN(uint,(float)(outer)));
   }
   if (g_nLightEdBusy == 0) {
     LightEd_MoveMarkerActor();
@@ -1153,7 +1151,7 @@ LAB_004c0263:
           else {
             lParam = PUN(uint,(float)(PUN(float,lParam) - 360.0));
           }
-          LightEd_SetDlgFloat(g_hLightEdDialog,0x3f4,lParam,1);
+          LightEd_SetDlgFloat(g_hLightEdDialog,0x3f4,PUN(float,lParam),1);
           return 1;
         }
         lParam = PUN(uint,(float)((float)(&UINT_008d1740)[g_nLightEdSelected * 5] - g_flLightEdAngleStep));
@@ -1184,7 +1182,7 @@ LAB_004c041f:
           else {
             lParam = PUN(uint,(float)(PUN(float,lParam) - 360.0));
           }
-          LightEd_SetDlgFloat(g_hLightEdDialog,0x3f5,lParam,1);
+          LightEd_SetDlgFloat(g_hLightEdDialog,0x3f5,PUN(float,lParam),1);
           return 1;
         }
         lParam = PUN(uint,(float)((float)(&UINT_008d173c)[g_nLightEdSelected * 5] + g_flLightEdAngleStep));
@@ -1212,7 +1210,7 @@ LAB_004c041f:
         else {
           lParam = PUN(uint,(float)(PUN(float,lParam) - 360.0));
         }
-        LightEd_SetDlgFloat(g_hLightEdDialog,0x3f2,lParam,1);
+        LightEd_SetDlgFloat(g_hLightEdDialog,0x3f2,PUN(float,lParam),1);
         return 1;
       }
     }

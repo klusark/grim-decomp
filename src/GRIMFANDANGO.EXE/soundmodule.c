@@ -1632,7 +1632,7 @@ void __cdecl SoundModule_AdvanceClock(double ticks)
   longlong lVar3;
   undefined4 unaff_retaddr;
   
-  _DAT_008db200 = _DAT_008db200 + ticks;
+  *(float *)&DAT_008db200 = *(float *)&DAT_008db200 + ticks;
   if (UINT_008db1f8 != 0) {
     iVar1 = (**(code **)(UINT_008dad48 + 0x18))();
     if ((int)UINT_008db1f8 < iVar1) {
@@ -1640,7 +1640,7 @@ void __cdecl SoundModule_AdvanceClock(double ticks)
       ticks = (double)(ulonglong)uVar2;
       if ((int)uVar2 / 5 < 0x1234dc) {
         UINT_008db1f8 = 0;
-        _DAT_008db200 = _DAT_008db200 - (double)(int)uVar2;
+        *(float *)&DAT_008db200 = *(float *)&DAT_008db200 - (double)(int)uVar2;
         ticks = (double)(ulonglong)uVar2;
       }
     }
@@ -1648,7 +1648,7 @@ void __cdecl SoundModule_AdvanceClock(double ticks)
   lVar3 = _ftol((double)CONCAT44(PIECE(ticks,0,4),unaff_retaddr));
   (**(code **)(UINT_008dad48 + 0x20))((int)lVar3);
   lVar3 = _ftol((double)CONCAT44(PIECE(ticks,0,4),unaff_retaddr));
-  _DAT_008db200 = _DAT_008db200 - (double)(int)lVar3;
+  *(float *)&DAT_008db200 = *(float *)&DAT_008db200 - (double)(int)lVar3;
   return;
 }
 #endif

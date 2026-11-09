@@ -318,7 +318,7 @@ void __cdecl luaU_LoadConstants(int param_1,undefined4 *param_2)
         else if (uVar4 == 0x4e) {
           *puVar1 = 0xffffffff;
           fVar6 = luaU_LoadNumber(param_2);
-          puVar1[1] = fVar6;
+          puVar1[1] = PUN(undefined4,(float)(fVar6));
         }
         else if (uVar4 == 0x53) {
           *puVar1 = 0xfffffffe;

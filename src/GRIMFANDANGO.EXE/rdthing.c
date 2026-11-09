@@ -32,8 +32,7 @@ int __cdecl rdThing_Draw(void *thing,float *position)
   }
   else {
     UINT_007f30a4 =
-         Frustum_TestSphere(*(undefined4 *)((int)g_pRdCurrentCamera + 0x48),local_c,
-                            *(undefined4 *)((int)g_pRdCurrentModel + 0x5c));
+         Frustum_TestSphere(*(undefined4 *)((int)g_pRdCurrentCamera + 0x48),local_c,PUN(float,*(undefined4 *)((int)g_pRdCurrentModel + 0x5c)));
   }
   if (UINT_007f30a4 != 2) {
     UINT_007f30a4 = 1;

@@ -125,6 +125,8 @@ void * __cdecl LabDir_Open(char *dir)
 
 
 /* ---- 0x00481cf0  LabDir_FindEntry ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Directory-backed archive lookup; fills the entry with the full path and the file size */
 
 undefined4
@@ -213,3 +215,5 @@ LAB_00481d43:
   param_5[4] = 0;
   return 1;
 }
+#endif
+

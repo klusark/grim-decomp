@@ -17,6 +17,7 @@ while getopts "d:t:r:" o; do case $o in d) DATA="$OPTARG";; t) TAG="$OPTARG";; r
 GRIM_CMD="${GRIM_CMD:-$HOME/grim_cmd.lua}"; GRIM_LOG="${GRIM_LOG:-$HOME/grim_log.txt}"
 : > "$GRIM_CMD"; : > "$GRIM_LOG"
 export GRIM_MULTI="$TAG" GRIM_NOMOVIE=1 GRIM_ACTIVE=1
+export GRIM_MODS="${GRIM_MODS:-1}"   # the mod additions (docs/MODDING.md): the extra Lua functions of example mod 10 b
 export GRIM_LUA_FILE="$(cygpath -w "$GRIM_CMD")" GRIM_LUA_LOG="$(cygpath -w "$GRIM_LOG")"   # Windows backslash paths!
 cd "$DATA"
 "$RUN/grimfandango.exe" > "$HOME/grim_stdout.txt" 2>&1 &

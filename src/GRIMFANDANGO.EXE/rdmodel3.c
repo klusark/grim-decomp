@@ -1341,8 +1341,8 @@ void rdModel3_AccumulateNodeRadius(int param_1,int param_2,float *param_3)
         Vec3_Sub(local_a8,a,local_60);
         fVar2 = SQRT(local_a8[2] * local_a8[2] +
                      local_a8[1] * local_a8[1] + local_a8[0] * local_a8[0]);
-        if (_DAT_007f3200 < fVar2) {
-          _DAT_007f3200 = fVar2;
+        if (*(float *)&DAT_007f3200 < fVar2) {
+          *(float *)&DAT_007f3200 = fVar2;
         }
         a = a + 3;
         uVar3 = uVar3 + 1;

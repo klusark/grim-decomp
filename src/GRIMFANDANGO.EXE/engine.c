@@ -282,7 +282,7 @@ void Engine_UpdateFrame(int param_1,int param_2)
     Profile_Begin(1);
     uVar1 = Timer_GetFrameMs();
     fVar2 = Timer_GetFrameSeconds();
-    Engine_RunShutdownHooks(fVar2,uVar1);
+    Engine_RunShutdownHooks(PUN(undefined4,(float)(fVar2)),uVar1);
     Profile_End(1);
     if ((UINT_008a8c40 != 1) || (param_2 != 0)) {
       UINT_008a8c3c = UINT_008a8c3c + 1;

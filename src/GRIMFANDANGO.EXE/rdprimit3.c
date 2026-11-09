@@ -378,7 +378,7 @@ void rdPrimit3_ClipFace(undefined4 param_1,undefined4 param_2,int param_3,undefi
         *param_6 = uVar7;
         return;
       }
-      uVar7 = rdClip_Face3_PosUvLit(param_1,param_6[3],param_6[5],*param_5);
+      uVar7 = PUN(undefined4,(float)(rdClip_Face3_PosUvLit(param_1,param_6[3],param_6[5],*param_5)));
       *param_6 = uVar7;
       return;
     default:
@@ -412,7 +412,7 @@ void rdPrimit3_ClipFace(undefined4 param_1,undefined4 param_2,int param_3,undefi
           } while (uVar8 < *puVar6);
         }
         if (*(int *)g_pRdCurrentCamera == 1) {
-          uVar7 = rdClip_Face3_PosUvLit_2(param_1,param_6[3],param_6[4],*puVar6);
+          uVar7 = PUN(undefined4,(float)(rdClip_Face3_PosUvLit_2(param_1,param_6[3],param_6[4],*puVar6)));
           *param_6 = uVar7;
           return;
         }
@@ -494,7 +494,7 @@ void rdPrimit3_ClipFace(undefined4 param_1,undefined4 param_2,int param_3,undefi
           *puVar9 = uVar7;
           return;
         }
-        uVar7 = rdClip_Face3_PosUvLitColor(param_1,puVar9[3],puVar9[4],puVar9[5],*puVar6);
+        uVar7 = PUN(undefined4,(float)(rdClip_Face3_PosUvLitColor(param_1,puVar9[3],puVar9[4],puVar9[5],*puVar6)));
         *puVar9 = uVar7;
         return;
       }

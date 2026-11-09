@@ -488,8 +488,7 @@ void __cdecl rdModel_DrawMesh(void *mesh,float *matrix)
     }
     else {
       UINT_007f1898 =
-           Frustum_TestSphere(*(undefined4 *)((int)g_pRdCurrentCamera + 0x48),local_48,
-                              *(undefined4 *)((int)PTR_007f30a0 + 0x60));
+           Frustum_TestSphere(*(undefined4 *)((int)g_pRdCurrentCamera + 0x48),local_48,PUN(float,*(undefined4 *)((int)PTR_007f30a0 + 0x60)));
     }
     if ((UINT_007f1898 != 2) &&
        ((UINT_007f3204 == 0 ||

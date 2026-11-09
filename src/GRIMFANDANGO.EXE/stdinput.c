@@ -155,14 +155,14 @@ void Input_Update(void)
     UINT_00805fbc = timeGetTime();
     uVar1 = UINT_00805fbc - UINT_00805fc0;
     if (uVar1 != 0) {
-      _DAT_004dea44 = 1.0 / (float)uVar1;
+      *(float *)&DAT_004dea44 = 1.0 / (float)uVar1;
       puVar3 = &UINT_00803fd0;
       UINT_00805fc8 = uVar1;
       for (iVar2 = 0xf; iVar2 != 0; iVar2 = iVar2 + -1) {
         *puVar3 = 0;
         puVar3 = puVar3 + 1;
       }
-      _DAT_004dea48 = _DAT_004dea44 * 1000.0;
+      *(float *)&DAT_004dea48 = *(float *)&DAT_004dea44 * 1000.0;
       Input_PollKeyboard();
       if (UINT_00805fb8 != 0) {
         Input_PollJoysticks();

@@ -14,13 +14,13 @@ void math_abs(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  #define uStack_4 (*(float *)(_frame + (0x20 - 0x4)))
+  #define uStack_4 (*(undefined4 *)(_frame + (0x20 - 0x4)))
   
-  uStack_4 = luaL_check_number(1);
+  uStack_4 = PUN(undefined4,(float)(luaL_check_number(1)));
   if (uStack_4 < 0.0) {
     uStack_4 = -uStack_4;
   }
-  lua_pushnumber(uStack_4);
+  lua_pushnumber(PUN(float,uStack_4));
   return;
 }
 #undef uStack_4

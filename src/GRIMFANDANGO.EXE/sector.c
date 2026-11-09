@@ -1165,6 +1165,8 @@ int __thiscall Sector_ContainsPoint(void *this,float *point,int checkActive)
 
 
 /* ---- 0x004a6b30  Sector_ClampPoint ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 int __thiscall Sector_ClampPoint(void *this,int a1)
 
 {
@@ -1257,6 +1259,8 @@ int __thiscall Sector_ClampPoint(void *this,int a1)
 #undef local_4
 #undef local_8
 #undef local_c
+
+#endif
 
 
 /* ---- 0x004a6d10  Sector_FindExitPoint ---- */
@@ -1728,8 +1732,8 @@ float * __thiscall Sector_EdgeFollowDirection(void *this,float *walker)
   if (iVar1 != -1) {
     iVar2 = *(int *)((int)this + iVar1 * 4 + 0x38);
     fVar5 = *(float *)(iVar2 + 4) - g_vEdgeFollowDir;
-    fVar12 = *(float *)(iVar2 + 8) - _DAT_008cf264;
-    fVar4 = *(float *)(iVar2 + 0xc) - _DAT_008cf268;
+    fVar12 = *(float *)(iVar2 + 8) - *(float *)&DAT_008cf264;
+    fVar4 = *(float *)(iVar2 + 0xc) - *(float *)&DAT_008cf268;
     if (0.0025 <= fVar4 * fVar4 + fVar12 * fVar12 + fVar5 * fVar5) {
       uVar10 = iVar1 - 1;
       uVar9 = uVar10;
@@ -1746,10 +1750,10 @@ float * __thiscall Sector_EdgeFollowDirection(void *this,float *walker)
         uVar7 = *(int *)((int)this + 0x34) - 1;
         local_38 = *(int *)((int)this + 0x34) - 1;
       }
-      if ((*(float *)(*(int *)((int)this + local_38 * 4 + 0x38) + 0xc) - _DAT_008cf268) *
-          (*(float *)(*(int *)((int)this + uVar9 * 4 + 0x38) + 0xc) - _DAT_008cf268) +
-          (*(float *)(*(int *)((int)this + uVar11 * 4 + 0x38) + 8) - _DAT_008cf264) *
-          (*(float *)(*(int *)((int)this + uVar8 * 4 + 0x38) + 8) - _DAT_008cf264) +
+      if ((*(float *)(*(int *)((int)this + local_38 * 4 + 0x38) + 0xc) - *(float *)&DAT_008cf268) *
+          (*(float *)(*(int *)((int)this + uVar9 * 4 + 0x38) + 0xc) - *(float *)&DAT_008cf268) +
+          (*(float *)(*(int *)((int)this + uVar11 * 4 + 0x38) + 8) - *(float *)&DAT_008cf264) *
+          (*(float *)(*(int *)((int)this + uVar8 * 4 + 0x38) + 8) - *(float *)&DAT_008cf264) +
           (*(float *)(*(int *)((int)this + uVar7 * 4 + 0x38) + 4) - g_vEdgeFollowDir) *
           (*(float *)(*(int *)((int)this + uVar6 * 4 + 0x38) + 4) - g_vEdgeFollowDir) < 0.0025) {
         uVar8 = uVar10;
@@ -1825,7 +1829,7 @@ float * __thiscall Sector_EdgeFollowDirection(void *this,float *walker)
       fVar5 = 0.0;
     }
     if (fVar5 == 0.0) {
-      fVar12 = (_DAT_008cf264 - *(float *)(iVar2 + 8)) /
+      fVar12 = (*(float *)&DAT_008cf264 - *(float *)(iVar2 + 8)) /
                (*(float *)(iVar3 + 8) - *(float *)(iVar2 + 8));
     }
     else {
@@ -1846,13 +1850,13 @@ float * __thiscall Sector_EdgeFollowDirection(void *this,float *walker)
     g_vEdgeFollowDir =
          ((*(float *)(iVar1 + 4) - *(float *)(iVar3 + 4)) * fVar12 + *(float *)(iVar3 + 4)) -
          g_vEdgeFollowDir;
-    _DAT_008cf264 = local_8 - _DAT_008cf264;
-    _DAT_008cf268 = local_4 - _DAT_008cf268;
+    *(float *)&DAT_008cf264 = local_8 - *(float *)&DAT_008cf264;
+    *(float *)&DAT_008cf268 = local_4 - *(float *)&DAT_008cf268;
     Vec3_Normalize(&g_vEdgeFollowDir);
     if (walker[0x10] < 0.0) {
       g_vEdgeFollowDir = g_vEdgeFollowDir * -1.0;
-      _DAT_008cf264 = _DAT_008cf264 * -1.0;
-      _DAT_008cf268 = _DAT_008cf268 * -1.0;
+      *(float *)&DAT_008cf264 = *(float *)&DAT_008cf264 * -1.0;
+      *(float *)&DAT_008cf268 = *(float *)&DAT_008cf268 * -1.0;
     }
     return &g_vEdgeFollowDir;
   }

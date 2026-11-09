@@ -20,14 +20,20 @@ undefined * __cdecl stdFile_Open(uint param_1,uint param_2)
 
 
 /* ---- 0x00473450  stdFile_Close ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void stdFile_Close(undefined4 param_1)
 
 {
   fclose(param_1);
   return;
 }
+#endif
+
 
 /* ---- 0x00473460  stdFile_Read ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* GrimServices.pFread of the platform table: fread(buf, 1, n, file). */
 
 void stdFile_Read(undefined4 param_1,undefined4 param_2,undefined4 param_3)
@@ -36,6 +42,8 @@ void stdFile_Read(undefined4 param_1,undefined4 param_2,undefined4 param_3)
   fread(param_2,1,param_3,param_1);
   return;
 }
+#endif
+
 
 /* ---- 0x00473480  stdFile_Write ---- */
 void stdFile_Write(undefined4 param_1,undefined4 param_2,undefined4 param_3)
@@ -46,6 +54,8 @@ void stdFile_Write(undefined4 param_1,undefined4 param_2,undefined4 param_3)
 }
 
 /* ---- 0x004734a0  stdFile_Gets ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* GrimServices.pFgets of the platform table: fgets. */
 
 void stdFile_Gets(undefined4 param_1,undefined4 param_2,undefined4 param_3)
@@ -54,6 +64,8 @@ void stdFile_Gets(undefined4 param_1,undefined4 param_2,undefined4 param_3)
   fgets(param_2,param_3,param_1);
   return;
 }
+#endif
+
 
 /* ---- 0x004734c0  FUN_004734c0 ---- */
 void FUN_004734c0(undefined4 param_1,undefined4 param_2,undefined4 param_3)

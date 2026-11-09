@@ -2101,7 +2101,7 @@ void Lua_SetSoundParameters(void)
     else {
       local_20[0] = local_4;
     }
-    Set_SetSoundParams(set,local_20[0],uVar8,uVar7,local_20[2],local_20[1]);
+    Set_SetSoundParams(set,PUN(undefined4,(float)(local_20[0])),uVar8,uVar7,PUN(undefined4,(float)(local_20[2])),PUN(undefined4,(float)(local_20[1])));
   }
   return;
 }
@@ -6797,7 +6797,7 @@ void Lua_SetSoundPosition(void)
     lVar7 = (longlong)lua_getnumber(iVar2);
     iVar2 = (int)lVar7;
   }
-  Sound_SetPosition(iVar2,local_c,local_24 & 0xff,local_28 & 0xff,local_20[0],0x3f4ccccd);
+  Sound_SetPosition(iVar2,local_c,local_24 & 0xff,local_28 & 0xff,PUN(uint,(float)(local_20[0])),0x3f4ccccd);
   return;
 }
 #undef local_10
@@ -7583,7 +7583,7 @@ LAB_0049f40e:
   g_pCameraSetup[1] = fVar5;
   fVar5 = lua_getnumber(iVar3);
   g_pCameraSetup[2] = fVar5;
-  Camera_BuildBasis(g_pCameraSetup + 0xc,g_pCameraSetup,g_pCameraSetup + 3,g_pCameraSetup[6]);
+  Camera_BuildBasis(g_pCameraSetup + 0xc,g_pCameraSetup,g_pCameraSetup + 3,PUN(undefined4,(float)(g_pCameraSetup[6])));
   rdCamera_SetFrame(g_pCameraSetup + 0xc);
   return;
 }
@@ -7627,7 +7627,7 @@ LAB_0049f4de:
   g_pCameraSetup[4] = fVar5;
   fVar5 = lua_getnumber(iVar3);
   g_pCameraSetup[5] = fVar5;
-  Camera_BuildBasis(g_pCameraSetup + 0xc,g_pCameraSetup,g_pCameraSetup + 3,g_pCameraSetup[6]);
+  Camera_BuildBasis(g_pCameraSetup + 0xc,g_pCameraSetup,g_pCameraSetup + 3,PUN(undefined4,(float)(g_pCameraSetup[6])));
   rdCamera_SetFrame(g_pCameraSetup + 0xc);
   return;
 }
@@ -7871,7 +7871,7 @@ void Lua_SetCameraRoll(void)
   }
   fVar3 = lua_getnumber(iVar1);
   g_pCameraSetup[6] = fVar3;
-  Camera_BuildBasis(g_pCameraSetup + 0xc,g_pCameraSetup,g_pCameraSetup + 3,g_pCameraSetup[6]);
+  Camera_BuildBasis(g_pCameraSetup + 0xc,g_pCameraSetup,g_pCameraSetup + 3,PUN(undefined4,(float)(g_pCameraSetup[6])));
   rdCamera_SetFrame(g_pCameraSetup + 0xc);
   return;
 }
@@ -11420,7 +11420,7 @@ void Lua_SubmitSaveGameData(void)
     lua_pushobject(iVar2);
     local_4 = PUN(uint,(float)(float)(int)local_10);
     local_10 = local_10 + 1;
-    lua_pushnumber((float)local_4);
+    lua_pushnumber(PUN(float,local_4));
     iVar3 = lua_gettable();
     iVar4 = lua_isnil(iVar3);
     if (iVar4 != 0) {
@@ -11431,7 +11431,7 @@ void Lua_SubmitSaveGameData(void)
           lua_pushobject(iVar2);
           local_4 = PUN(uint,(float)(float)(int)local_10);
           local_10 = local_10 + 1;
-          lua_pushnumber((float)local_4);
+          lua_pushnumber(PUN(float,local_4));
           iVar3 = lua_gettable();
           iVar4 = lua_isnil(iVar3);
           if (iVar4 != 0) break;
@@ -11506,7 +11506,7 @@ void Lua_GetSaveGameData(void)
         lua_pushobject(iVar1);
         local_84 = PUN(uint,(float)(float)(int)local_90);
         local_90 = local_90 + 1;
-        lua_pushnumber((float)local_84);
+        lua_pushnumber(PUN(float,local_84));
         lua_pushstring(local_80);
         lua_settable();
       }

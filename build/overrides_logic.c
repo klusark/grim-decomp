@@ -1103,7 +1103,7 @@ int __cdecl rdSprite_DrawThing(void *thing, void *sprite)
     if ((DAT_00900068 & 2) == 0)
         visible = *(int *)(t + 0x44);
     else
-        visible = Frustum_TestSphere(*(undefined4 *)(cam + 0x48), campos, *(undefined4 *)(data + 0x3c));
+        visible = Frustum_TestSphere(*(undefined4 *)(cam + 0x48), campos, *(float *)(data + 0x3c));   /* (the radius's bits, not a conversion: grim_tools/cleanroom) */
     if (visible == 2)
         return 0;
     Matrix_Mul34(mat, (float *)(cam + 8), sprite);
@@ -3006,7 +3006,7 @@ void __cdecl ImuseSoundComponent_OnKey(int tag, int snd, undefined4 p3, int slot
         loud = o2 & 0xff;
         if ((int)loud <= (int)*(uint *)(snd + 0x28))
             loud = *(uint *)(snd + 0x28);
-        Sound_SetPosition(handle, (int)actors + actor * 0xa8 + 0xc, loud, quiet, o1, o5);
+        Sound_SetPosition(handle, (int)actors + actor * 0xa8 + 0xc, loud, quiet, *(uint *)&o1, *(uint *)&o5);   /* (the floats' bits) */
         return;
     }
     if (state[slot] == 1) {
@@ -3217,9 +3217,9 @@ Collision_BoxSlide(float *param_1,float *param_2,float param_3,float param_4,flo
   *param_9 = fVar5 * fVar10 + *param_1;
   param_9[1] = fVar5 * fVar1 + param_1[1];
   param_9[2] = fVar5 * fVar3 + param_1[2];
-  _DAT_008ca320 = *param_9;
-  _DAT_008ca324 = param_9[1];
-  _DAT_008ca328 = param_9[2];
+  *(float *)&DAT_008ca320 = *param_9;   /* (the floats themselves: an undefined4 view converted them, grim_tools/cleanroom) */
+  *(float *)&DAT_008ca324 = param_9[1];
+  *(float *)&DAT_008ca328 = param_9[2];
   fVar11 = fVar5;
   if (fVar5 < 0.0) {
     fVar11 = -fVar5;

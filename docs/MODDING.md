@@ -172,6 +172,8 @@ Environment variables read by the rebuilt EXE (set them before `tools/run_game.s
 | `GRIM_LUA_LOG=<file>` | target of `grimlog("text")` and of the hook's `rc=0: <line>` result lines | same |
 | `GRIM_DISPLAY_DEVICE=<n>` | pick another enumerated display device (1 = DirectDraw); default 0 = windowed DIB, software renderer | `Display_InitFromConfig` |
 | `GRIM_WALK_SCALE=<float>` | example mod 10 a: walk speed factor | `overrides.c` |
+| `GRIM_MODS=1` | the Lua functions of example mod 10 b; off = the original exe's builtins (`tools/run_game.sh` sets it) | `GRIM_ModsOn`, `overrides.c` |
+| `GRIM_INI=<file>`, `GRIM_IMUSE_REALTIME=1` | settings from an ini file instead of the registry; iMUSE on real time under `GRIM_SIMTIME` (grim_tools/cleanroom, `build/cleanroom/README.md`) | `build/cleanroom/`, `overrides.c` |
 | `GRIM_SAVETRACE=<file>` | log every `SaveGame_Write` / `SaveGame_Read` (offset, size, caller) = the layout of a save; read it with `tools/savetrace.py` (BUILD_NOTES "Saves of the original game") | `overrides.c` |
 
 `GRIM_LUA_FILE` and `GRIM_LUA_LOG` take **Windows paths with backslashes** (`C:\Users\Joel\x.lua`): a forward-slash MSYS
@@ -184,6 +186,11 @@ An unhandled exception writes `grim_crash.txt` (registers, three frame arguments
 directory; resolve the addresses with `nm -n build/obj/GRIMFANDANGO.EXE/grimfandango.exe`.
 
 ## 6. Where the game finds its files, and how to override them
+
+> The order below is the original exe's (checked with grim_tools/cleanroom: a name that is both loose in the working
+> directory and in a `.LAB` there is read from the loose file). A build of this tree read such a name from the `.LAB`
+> for a while: `Lab_FindFile` passed the directory lookup three of its five arguments, so a loose file was only found
+> through the `fopen` fallback, for names no archive has (fixed in `build/overrides_cleanroom.c`).
 
 All reads of game data go through one layer, `ResFile_Open` (`src/GRIMFANDANGO.EXE/resfile.c`), the file services that
 Lua, the resource loader and the set parser use (`Res_InstallFileServices`). For a read-mode open of a name without a
@@ -428,6 +435,8 @@ cat mods/walk_speed/measure_walk.lua >> ~/grim_cmd.lua                      # ru
 no rebuild, is example c.
 
 ### b) Add new Lua functions: `GetEngineVersionString`, `SetWalkSpeedScale`, `GetWalkSpeedScale`
+
+(They exist only with `GRIM_MODS=1`, which `tools/run_game.sh` sets: the default build has the original's builtins.)
 
 Implemented exactly as the recipe in 8 (`build/overrides.c`: three `static int Lua_...(void)` functions, the `mod_api[]`
 table, `GRIM_RegisterModApiLib` / `GRIM_RegisterModApi`, plus the two entries in `names/asm_patches.json`). Before the build the names are

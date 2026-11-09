@@ -34,7 +34,7 @@ undefined4 Walker_UpdateYaw(void *param_1,float *param_2)
   if (*(float *)(*(int *)((int)param_1 + 0xa4) + 0x24) != 0.0) {
     uVar6 = *(undefined4 *)(*(int *)((int)param_1 + 0xa4) + 0x24);
     pfVar3 = Actor_GetFrame(param_1);
-    Matrix_AxisAngle(local_30,pfVar3 + 6,uVar6);
+    Matrix_AxisAngle(local_30,pfVar3 + 6,PUN(float,uVar6));
     Vec3_Transform(local_48,local_30);
   }
   local_48[0] = local_48[0] + *param_2;

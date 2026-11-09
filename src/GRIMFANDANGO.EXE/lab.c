@@ -218,6 +218,8 @@ void Lab_Unlink(int *param_1)
 }
 
 /* ---- 0x00481630  Lab_FindFile ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Searches every open archive (or dev directory) for the file; fills a 0x210-byte entry {type,
    archiveFh, offset, size, inArchive, name} */
 
@@ -245,6 +247,8 @@ int __cdecl Lab_FindFile(char *name,void *outEntry)
   return iVar1;
 }
 #undef local_104
+
+#endif
 
 
 /* ---- 0x004816b0  Lab_Open ---- */

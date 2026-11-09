@@ -520,6 +520,11 @@ def fix_casts(body, vt, ctx):
     Ghidra means a bit-for-bit reinterpretation, i.e. PUN()."""
     casts = [m for m in CAST_AT_RE.finditer(body) if is_type(m.group(1), ctx.known_types)]
     has_fild, has_fist = int_float_conversions(CUR_FN_ADDR)
+    # an int variable that gets a float's bits (`v = (uint)(float)x;` -> PUN below) holds a float: `(float)v` reads those
+    # bits back, also in a function that has FILD for other conversions (`local_4 = (uint)(float)(int)i;
+    # lua_pushnumber((float)local_4);` in Lua_SubmitSaveGameData pushed 1065353216 for index 1, found by grim_tools/cleanroom)
+    float_slots = set() if has_fist else set(re.findall(
+        r"\b(\w+)\s*=\s*\(\s*(?:u?int|undefined4|ulong|long|dword)\s*\)\s*\(\s*float\s*\)", body))
 
     for m in reversed(casts):
         T = " ".join(m.group(1).split())
@@ -536,7 +541,8 @@ def fix_casts(body, vt, ctx):
             continue
         operand = body[s:e]
         ok = type_kind(type_of(operand, vt, ctx))
-        if tk == "float" and ok == "int" and not has_fild and not NUM_RE.fullmatch(operand.strip()) \
+        if tk == "float" and ok == "int" and (not has_fild or operand.strip() in float_slots) \
+                and not NUM_RE.fullmatch(operand.strip()) \
                 and CAST_AT_RE.sub("", operand.strip()) != "" and not operand.lstrip().startswith("ROUND"):
             new = f"PUN({T},{operand.strip()})"  # int slot read as float
         elif tk == "int" and ok == "float" and not has_fist and re.fullmatch(r"(?:u?int|undefined4|uint|ulong|long|dword)", T) \
@@ -871,6 +877,70 @@ def fix_fnptr_calls(body, vt, ctx):
     return re.sub(r"\(\*(\**\s*[A-Za-z_]\w*(?:->\w+)?)\)\s*\(", rep, body)
 
 
+DWORD_DEREF_RE = re.compile(r"\s*\*\s*\(\s*(?:undefined4|uint|int|dword|ulong|long)\s*\*\s*\)\s*\(")
+
+
+DWORD_TYPES = ("undefined4", "uint", "int", "dword", "ulong", "long")
+
+
+def is_dword_type(t):
+    t = " ".join((t or "").replace("unsigned int", "uint").replace("unsigned long", "ulong").split())
+    return t in DWORD_TYPES
+
+
+def is_dword_lvalue(a, ctx=None):
+    """`v`, `v[i]`, `(&v)[i]` or `*(undefined4 *)(...)`: a dword read as it is, no arithmetic on it."""
+    if re.fullmatch(r"\s*[A-Za-z_]\w*(?:\s*\[[^\]]*\])?\s*", a):
+        return True
+    if re.fullmatch(r"\s*\(\s*&\s*[A-Za-z_]\w*\s*\)\s*\[.*\]\s*", a) and match_paren(a, a.index("[")) == len(a.rstrip()) - 1:
+        return True
+    m = DWORD_DEREF_RE.match(a)
+    if not m:
+        return False
+    j = match_paren(a, m.end() - 1)
+    return j is not None and j >= 0 and a[j + 1:].strip() == ""
+
+
+ASSIGN_RE = re.compile(r"(?m)^([ \t]*)([^;=\n{}]*?[\w\])])\s*=\s*([^;=\n][^;\n]*);[ \t]*$")
+
+
+def fix_assign_bits(body, vt, ctx, stats):
+    """`dword = float-expression;` stores the float's bits in the machine code (FSTP to the dword); C would convert the
+    value. Ghidra writes a real conversion as ROUND()/(int)(...), so an implicit one is a bit copy:
+    `_DAT_008ca320 = fVar7;` -> PUN(undefined4,(float)(fVar7)). (Collision_*, rdModel3, rdPrimitive and std3d stored
+    floats this way, found by grim_tools/cleanroom with gcc -Wfloat-conversion.)"""
+    def repl(m):
+        ind, lhs, rhs = m.groups()
+        if "==" in rhs or lhs.rstrip().endswith(("!", "<", ">", "+", "-", "*", "/", "|", "&", "^", "%")):
+            return m.group(0)
+        rk = "float" if re.fullmatch(r"\s*\*\(float \*\)&DAT_[0-9a-f]{8}\s*", rhs) else type_kind(type_of(rhs.strip(), vt, ctx))
+        if rk != "float" or NUM_RE.fullmatch(rhs.strip()) or rhs.lstrip().startswith("PUN("):
+            return m.group(0)
+        g = re.fullmatch(r"\s*_?(DAT_[0-9a-f]{8})\s*", lhs)
+        if g and type_of(lhs.strip(), vt, ctx) is None:
+            # an unnamed global gets its C type later (from all its uses), as a dword when it is also used as one:
+            # store the float through a float view of its address, which is right whatever that type is
+            stats["args"] += 1
+            return f"{ind}*(float *)&{g.group(1)} = {rhs.strip()};"
+        lt = type_of(lhs.strip(), vt, ctx)
+        if not is_dword_type(lt):
+            return m.group(0)
+        stats["args"] += 1
+        return f"{ind}{lhs} = PUN({' '.join(lt.split())},(float)({rhs.strip()}));"
+    for _ in range(8):   # (until nothing changes: a value copied from one such global to another)
+        before = body
+        body = ASSIGN_RE.sub(repl, body)
+        # the other uses of a global stored as a float above are floats too (`fVar5 = _DAT_008ca320;`, `_DAT_x - v`)
+        for g in sorted(set(re.findall(r"\*\(float \*\)&(DAT_[0-9a-f]{8}) = ", body))):
+            body = re.sub(r"(?<![\w&])_?" + g + r"\b", "*(float *)&" + g, body)
+            body = body.replace("*(float *)&*(float *)&" + g, "*(float *)&" + g)
+            # (a store that was given the dword's bits before the global became a float view takes the float itself)
+            body = re.sub(r"(?m)^([ \t]*\*\(float \*\)&" + g + r" = )PUN\([\w ]+,\(float\)\((.*)\)\);[ \t]*$", r"\1\2;", body)
+        if body == before:
+            break
+    return body
+
+
 def fix_call_args(body, vt, ctx, stats):
     """A float parameter given a pointer-typed variable (or the reverse) is again one
     register reused by Ghidra: PUN the argument."""
@@ -894,6 +964,18 @@ def fix_call_args(body, vt, ctx, stats):
             elif pk == "float" and re.fullmatch(r"\s*0x[0-9a-f]{6,8}\s*", a) and int(a, 16) >= 0x00800000:
                 # a float constant the decompiler printed as the hex of its bits (callee's float parameter)
                 args[i] = f"FBITS({a.strip()})"
+            elif pk == "float" and is_dword_lvalue(a, ctx) and (
+                    (ak == "int" and is_dword_type(type_of(a, vt, ctx))) or
+                    (ak is None and re.match(r"\s*\(?\s*&?\s*(?:UINT|INT|DAT|_DAT)_[0-9a-f]{8}\b", a))):
+                # a dword variable (or a dword read through a pointer) for a float parameter: the machine code pushes
+                # its bits (Ghidra writes (float) for a FILD conversion). Camera_BuildBasis passed the roll (undefined4)
+                # to Matrix_AxisAngle's float angle, and C converted 5.0's bits to 1084227584.0; rdThing_Draw passed the
+                # model radius `*(undefined4 *)(model + 0x5c)` to Frustum_TestSphere (found by grim_tools/cleanroom)
+                args[i] = f"PUN(float,{a.strip()})"
+            elif pk == "int" and ak == "float" and is_dword_type(pt) and not NUM_RE.fullmatch(a.strip()):
+                # the reverse: a float for a dword parameter is pushed as its bits (Ghidra writes the conversion as
+                # ROUND()/(int) otherwise); the sprite component's rdPolyline_New got the width truncated to an int
+                args[i] = f"PUN({' '.join(pt.split())},(float)({a.strip()}))"
             else:
                 continue
             changed = True
@@ -1076,6 +1158,7 @@ def fix_function(code, ctx, stats):
     body = fix_calls(body, vt, ctx, stats)
     body = fix_fnptr_calls(body, vt, ctx)
     body = fix_call_args(body, vt, ctx, stats)
+    body = fix_assign_bits(body, vt, ctx, stats)
     body = fix_switch(body, vt, ctx)
     body = fix_casts(body, vt, ctx)
     body = fix_negative_stack(body)
