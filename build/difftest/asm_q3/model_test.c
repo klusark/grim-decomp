@@ -294,6 +294,28 @@ static void make_case(int fi)
         /* the assertion: 0x80 or more materials (the next line then fails to parse) */
         cl[matfirst - 1] = pdup(R(2) ? "materials 128" : "materials 200");
     }
+    /* follow the loader to its material slots: an index outside 0..0x7f is a write past the original's stack slots,
+     * and a hole among the slots it then loads is a read of uninitialised stack; such a case goes back unmutated */
+    {
+        char tmp[4096];
+        int nm2 = 0, idx, bad = 0, ok = 1;
+        static unsigned char seen[0x80];
+        if (ncl >= 4 && r_sscanf(cl[0], " section: %s", tmp) == 1 && r_sscanf(cl[2], " section: %s", tmp) == 1
+            && r_sscanf(cl[3], " materials %d", &nm2) == 1 && nm2 != 0) {
+            memset(seen, 0, sizeof seen);
+            for (i = 0; i < nm2; i++) {
+                if (4 + i >= ncl || r_sscanf(cl[4 + i], " %d: %s", &idx, tmp) != 2) { ok = 0; break; }
+                if ((uint)idx >= 0x80) { bad = 1; break; }
+                seen[idx] = 1;
+            }
+            if (ok && !bad)
+                for (i = 0; i < nm2; i++) if ((uint)i >= 0x80 || !seen[i]) { bad = 1; break; }
+        }
+        if (bad) {
+            ncl = fnl[fi];
+            for (i = 0; i < ncl; i++) cl[i] = src[i];
+        }
+    }
     alloc_fail_at = R(8) == 0 ? 1 + R(40) : -1;
     mat_fail_at = R(10) == 0 ? 1 + R(6) : -1;
     open_fail = R(60) == 0;

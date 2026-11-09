@@ -1,4 +1,5 @@
-/* Readable C for assembled GRIMFANDANGO.EXE functions, agent asm_q3 (see docs/notes/asm_q3.md).
+/* Readable C for assembled GRIMFANDANGO.EXE functions, agent asm_q3 (see docs/notes/asm_q3.md): rdPuppet_AdvanceTrack,
+ * rdPuppet_UpdateFrame, rdModel3_LoadText, rdCache_DrawMeshList3D.
  *
  * Every function here was written by hand from the original 1.01 machine code (src/GRIMFANDANGO.EXE/asm_funcs.s as of
  * 2df265d) and checked against it with a differential test in build/difftest/asm_q3/ (original bytes and this C on the
@@ -673,5 +674,403 @@ undefined4 rdModel3_LoadText(char *path, char *m)
 fail:
     stdConffile_Close();
     return 0;
+}
+
+
+/* ==== rdCache_DrawMeshList3D (0x00406aa0) ====
+ * The Direct3D path of the mesh cache: for each cached mesh (G 0x008ddfa0 of them, 0x78-byte entries at 0x008ddfc0)
+ * picks the geometry mode (entry+8, at most G 0x00900008) and lighting mode (entry+0xc, at most G 0x00900000), the
+ * material cel (entry+0x3c, -1: the material's current cel +0x64, clamped to 0..count-1) and, for a texture with flag
+ * 0x8, the mip level from the distance entry+0x64 (texture types 1-4; the thresholds 10 / 20 / 40 are the floats at 0x004dda90..98), uploads it
+ * (rdMaterial_EnsureTexture; on failure flush, reset and retry once, then return 0), then
+ *   - computes the light levels (lighting 3: per vertex, entry+0x28 or the three arrays +0x2c/+0x30/+0x34 when
+ *     G 0x0090004c is 1 (geometry 3: all four); lighting 1 / 2: one level entry+0x44, lighting 2 adding it to the
+ *     ambient entry+0x48), clamped to 0..1 with the floor entry+0x40 (when G 0x00900064 & 2), times 255 (textured)
+ *     or 63 (geometry 3);
+ *   - writes one 0x20-byte D3D vertex per mesh vertex at 0x006f0fb8 (count G 0x0068bfa8, flushed first when it would
+ *     pass G 0x00806940): x / y rounded with the control word DAT_0090052a, 1/(z +- 1) (geometry 4 writes z +- 1 back
+ *     into the mesh), the colour from the light level / palette / tints / channel masks / global scale, the uvs
+ *     divided by the texture size (geometry 4) or 0;
+ *   - writes a fan of triangles (0x14 bytes: three vertex indexes, the render flags, the texture) to the textured
+ *     list 0x006cbfb0 (count G 0x0060bfa0) or the untextured list 0x00606fa0 (count G 0x006f0fb0); a mesh of 3 or
+ *     fewer vertices writes one triangle.
+ * Then rdCache_Flush3DBatch and returns 1.
+ * x87 and integer details kept: the light clamp compares the extended sum with 0 but the float of it with 1 and in
+ * the second pass (q3_light); the products with the palette factors / tints / scale are extended and truncated by
+ * _ftol (q3_ftol); the tint factors are r - (g/2 + b/2) style with the r/2 of the third one stored as a float.
+ * Kept from the original that look odd: the "force alpha" flag (no alpha in the device caps) stays set for the
+ * following meshes; the mip level, the colour of the previous vertex and the texture size carry over from the previous
+ * mesh (geometry 3 with lighting 3 and G 0x0090004c set uses the previous vertex's colour); the 0x8000 flag of the
+ * palette path stays for the rest of the mesh.  The original keeps the mip level and the colours in stack slots that
+ * are never initialised; the C starts them at 0 (they are only read before being written when the first mesh has a
+ * texture type outside 1-4, or uses geometry 3 + lighting 3 + G 0x0090004c on its first vertex). */
+#define Q3G(va) (*(uint *)IMG_ADDR(va))
+#define Q3GI(va) (*(int *)IMG_ADDR(va))
+#define Q3GF(va) (*(float *)IMG_ADDR(va))
+#define Q3_VB(n, off) (*(uint *)(IMG_ADDR(0x006f0fb8) + (uint)(n) * 0x20 + (off)))
+#define Q3_VBF(n, off) (*(float *)(IMG_ADDR(0x006f0fb8) + (uint)(n) * 0x20 + (off)))
+
+/* _ftol: truncation to a 64-bit integer, low dword */
+static inline int q3_ftol(long double x)
+{
+    return (int)(long long)x;
+}
+
+/* fldcw [DAT_0090052a]; fld x; frndint; fstp float; fldcw [DAT_00900524] */
+static inline float q3_frndint_52a(float x)
+{
+    float r;
+    __asm__ volatile("fldcw %2\n\tflds %1\n\tfrndint\n\tfstps %0\n\tfldcw %3"
+                     : "=m"(r) : "m"(x), "m"(DAT_0090052a), "m"(DAT_00900524));
+    return r;
+}
+
+/* The light clamp: s is the (extended) level, f its float (stored first).  First pass: s < 0 (or NaN) -> 0, f > 1
+ * -> 1, else f; at or below the floor (or NaN) -> the floor; otherwise the same clamp again on f; times mul. */
+static float q3_light(long double s, float fl, long double mul)
+{
+    float f = q3_f(s);
+    long double c, r;
+
+    if (!(s >= 0.0L))
+        c = 0.0L;
+    else if ((long double)f > 1.0L)
+        c = 1.0L;
+    else
+        c = f;
+    if (!(c > (long double)fl))
+        r = fl;
+    else if (!((long double)f >= 0.0L))
+        r = 0.0L;
+    else if ((long double)f > 1.0L)
+        r = 1.0L;
+    else
+        r = f;
+    return q3_f(r * mul);
+}
+
+static inline int q3_clamp255(int v)
+{
+    return v < 0 ? 0 : v > 0xff ? 0xff : v;
+}
+
+/* the light pre-pass of one mesh (geometry 4: 255 and the arrays +0x2c..+0x34; geometry 3: 63 and +0x28..+0x34) */
+static void q3_mesh_light(char *e, int light, float fl, long double mul, int first_array)
+{
+    uint i;
+    int a;
+
+    if (light == 3) {
+        if (Q3GI(0x0090004c) == 1) {
+            for (i = 0; i < Q3U(e, 0x1c); i++)
+                for (a = first_array; a <= 0x34; a += 4) {
+                    float *p = (float *)Q3P(e, a) + i;
+                    *p = q3_light((long double)Q3F(e, 0x48) + (long double)*p, fl, mul);
+                }
+        } else {
+            for (i = 0; i < Q3U(e, 0x1c); i++) {
+                float *p = (float *)Q3P(e, 0x28) + i;
+                *p = q3_light((long double)Q3F(e, 0x48) + (long double)*p, fl, mul);
+            }
+        }
+    } else if (light == 2) {
+        Q3F(e, 0x44) = q3_light((long double)Q3F(e, 0x48) + (long double)Q3F(e, 0x44), fl, mul);
+    } else if (light == 1) {
+        Q3F(e, 0x44) = q3_light((long double)Q3F(e, 0x48), fl, mul);
+    }
+}
+
+/* a fan of n - 2 triangles over the mesh's vertices base..base+n-1, or one triangle when n <= 3 */
+static void q3_mesh_fan(uint countva, uint listva, uint n, int base, uint flags, uint tex)
+{
+    if (n <= 3) {
+        uint t = Q3G(countva);
+        uint *r = (uint *)(IMG_ADDR(listva) + t * 0x14);
+        r[2] = base;
+        r[1] = base + 1;
+        r[0] = base + 2;
+        r[3] = flags;
+        r[4] = tex;
+        Q3G(countva) = t + 1;
+    } else {
+        int cnt = (int)n - 2, k, lo = 1, hi = (int)n - 1, prev = 0;
+        uint t = Q3G(countva);
+        uint *r = (uint *)(IMG_ADDR(listva) + t * 0x14);
+        Q3G(countva) = t + cnt;
+        for (k = 0; k < cnt; k++, r += 5) {
+            r[2] = prev + base;
+            r[1] = lo + base;
+            r[0] = base + hi;
+            r[3] = flags;
+            r[4] = tex;
+            if ((k & 1) == 0)
+                prev = lo++;
+            else
+                prev = hi--;
+        }
+    }
+}
+
+/* OVERRIDES: rdCache_DrawMeshList3D */
+undefined4 rdCache_DrawMeshList3D(void)
+{
+    uint baseflags = 0x33, flags;
+    int tint = 0, mask = 0, force = 0, mip = 0;
+    int cR = 0, cG = 0, cB = 0;
+    float tR = 0, tG = 0, tB = 0, texw = 0, texh = 0;
+    uint m;
+    char *e;
+
+    switch (Q3GI(0x00900050)) {
+    case 1: baseflags = 0x1033; break;
+    case 2: baseflags = 0x1833; break;
+    case 3: baseflags = 0x833; break;
+    }
+    if ((long double)Q3GF(0x0090002c) > 0.0L || (long double)Q3GF(0x00900030) > 0.0L
+        || (long double)Q3GF(0x00900034) > 0.0L) {
+        long double g5 = (long double)Q3GF(0x00900030) * 0.5L;
+        long double b5 = (long double)Q3GF(0x00900034) * 0.5L;
+        long double r5 = (long double)Q3GF(0x0090002c) * 0.5L;
+        float r5f;
+        tint = 1;
+        tR = q3_f((long double)Q3GF(0x0090002c) - (b5 + g5));
+        r5f = q3_f(r5);
+        tG = q3_f((long double)Q3GF(0x00900030) - (r5 + b5));
+        tB = q3_f((long double)Q3GF(0x00900034) - ((long double)r5f + g5));
+    }
+    if (Q3G(0x00900020) != 0 || Q3G(0x00900024) != 0 || Q3G(0x00900028) != 0)
+        mask = 1;
+    if (tint || mask || Q3GI(0x0090004c) == 1)
+        baseflags |= 0x8000;
+    rdCache_Begin3DBatch();
+
+    e = (char *)IMG_ADDR(0x008ddfc0);
+    for (m = 0; m < Q3G(0x008ddfa0); m++, e += 0x78) {
+        float fl;
+        int geo, light, base, alpha;
+        uint tex3c = 0, i;
+        char *mat, *tex = 0;
+
+        flags = baseflags;
+        if (*(unsigned char *)IMG_ADDR(0x00900064) & 2)
+            *(uint *)&fl = Q3U(e, 0x40);
+        else
+            fl = 0.0f;
+        if (Q3G(0x0068bfa8) + Q3U(e, 0x1c) >= Q3G(0x00806940)) {
+            rdCache_Flush3DBatch();
+            rdCache_Begin3DBatch();
+        }
+        base = Q3GI(0x0068bfa8);
+        geo = Q3I(e, 8);
+        if (geo >= Q3GI(0x00900008))
+            geo = Q3GI(0x00900008);
+        light = Q3I(e, 0xc);
+        if (light >= Q3GI(0x00900000))
+            light = Q3GI(0x00900000);
+        if (*(unsigned char *)(e + 4) & 2) {
+            flags |= 0x200;
+            alpha = 0xc8;
+        } else
+            alpha = 0xff;
+        if (alpha != 0xff && Q3I(Q3P(IMG_ADDR(0x0080692c), 0), 0x18) == 0
+            && Q3I(Q3P(IMG_ADDR(0x0080692c), 0), 0x14) == 0) {
+            alpha = 0xff;
+            force = 1;
+        }
+        mat = Q3P(e, 0x38);
+        if (mat == 0)
+            continue;
+        {
+            int cel = Q3I(e, 0x3c);
+            if (cel == -1)
+                cel = Q3I(mat, 0x64);
+            if (cel < 0)
+                cel = 0;
+            else if (cel > Q3I(mat, 0x60) - 1)
+                cel = Q3I(mat, 0x60) - 1;
+            tex = Q3P(mat, 0x68 + cel * 4);
+        }
+        if (geo == 4 && (*(unsigned char *)tex & 8) == 0)
+            geo = 3;
+        if (tex != 0 && (*(unsigned char *)tex & 8) != 0) {
+            char *info = Q3P(tex, 0x1c), *mi;
+            long double z = Q3F(e, 0x64);
+            switch (Q3I(info, 0x18)) {
+            case 1:
+                mip = 0;
+                break;
+            case 2:
+                mip = z > Q3GF(0x004dda94) ? 1 : 0;
+                break;
+            case 3:
+                mip = !(z > Q3GF(0x004dda90)) ? 0 : !(z > Q3GF(0x004dda94)) ? 1 : 2;
+                break;
+            case 4:
+                mip = !(z > Q3GF(0x004dda90)) ? 0 : !(z > Q3GF(0x004dda94)) ? 1 : !(z > Q3GF(0x004dda98)) ? 2 : 3;
+                break;
+            }
+            if ((*(unsigned char *)info & 1) && Q3I(Q3P(IMG_ADDR(0x0080692c), 0), 0x10) != 0)
+                flags |= 0x400;
+            tex3c = (uint)(info + mip * 0x98);
+            if (Q3I(info, mip * 0x98 + 0xa4) == 0)
+                Display_SetPalette3D(Q3P(e, 0x4c) + 0x30, 0x5a);
+            if (rdMaterial_EnsureTexture(mat, (uint *)info, mip, force) == 0) {
+                rdCache_Flush3DBatch();
+                rdCache_Begin3DBatch();
+                D3D_ResetTextures();
+                if (rdMaterial_EnsureTexture(mat, (uint *)info, mip, force) == 0)
+                    return 0;
+            }
+            tex3c += force == 0 ? 0x2c : 0x28c;
+            {
+                uint w, h;
+                mi = Q3P(info, 0x1c + mip * 4);
+                D3D_ClampTextureSize(Q3U(mi, 0xc), Q3U(mi, 0x10), &w, &h);
+                texw = q3_f(Q3_FILD_U(w << (mip & 31)));
+                texh = q3_f(Q3_FILD_U(h << (mip & 31)));
+            }
+        }
+
+        if (geo == 4) {
+            q3_mesh_light(e, light, fl, 255.0L, 0x2c);
+            for (i = 0; i < Q3U(e, 0x1c); i++) {
+                char *v = Q3P(e, 0x20) + i * 12;
+                uint n = Q3G(0x0068bfa8), col;
+                long double q;
+                int R, G, B;
+
+                Q3_VBF(n, 0) = q3_frndint_52a(Q3F(v, 0));
+                Q3_VBF(n, 4) = q3_frndint_52a(Q3F(v, 4));
+                if (!Q3_NE_ORD(Q3F(v, 8), 0.0f)) {
+                    q = 0.0L;
+                } else {
+                    int d = Q3GI(0x00900534) == 0x10 ? 1 : -1;
+                    Q3F(v, 8) = q3_f((long double)d + (long double)Q3F(v, 8));
+                    q = 1.0L / (long double)Q3F(v, 8);
+                }
+                Q3_VBF(n, 8) = q3_f(q);
+                Q3_VBF(n, 0xc) = q3_f(q);
+                Q3_VB(n, 0x14) = 0;
+                if (light == 0) {
+                    cR = cG = cB = 0xff;
+                } else if (light == 3) {
+                    if (Q3GI(0x0090004c) == 1) {
+                        cR = q3_ftol(((float *)Q3P(e, 0x2c))[i]);
+                        cG = q3_ftol(((float *)Q3P(e, 0x30))[i]);
+                        cB = q3_ftol(((float *)Q3P(e, 0x34))[i]);
+                    } else
+                        cR = cG = cB = q3_ftol(((float *)Q3P(e, 0x28))[i]);
+                } else
+                    cR = cG = cB = q3_ftol(Q3F(e, 0x44));
+                if (Q3P(e, 0x4c) != (char *)Q3G(0x004f5ec4)) {
+                    char *pal = Q3P(e, 0x4c);
+                    cR = q3_ftol((long double)Q3F(pal, 0x24) * (long double)cR) & 0xff;
+                    cG = q3_ftol((long double)Q3F(pal, 0x28) * (long double)cG) & 0xff;
+                    cB = q3_ftol((long double)Q3F(pal, 0x2c) * (long double)cB) & 0xff;
+                    flags |= 0x8000;
+                }
+                if (mask) {
+                    if (Q3G(0x00900020) == 0)
+                        cR = 0;
+                    if (Q3G(0x00900024) == 0)
+                        cG = 0;
+                    if (Q3G(0x00900028) == 0)
+                        cB = 0;
+                }
+                if (tint) {
+                    cR += q3_ftol((long double)cR * (long double)tR);
+                    cG += q3_ftol((long double)cG * (long double)tG);
+                    cB += q3_ftol((long double)cB * (long double)tB);
+                }
+                R = cR; G = cG; B = cB;
+                if (!((long double)Q3GF(0x00900044) >= 1.0L)) {
+                    R = q3_ftol((long double)cR * (long double)Q3GF(0x00900044));
+                    G = q3_ftol((long double)cG * (long double)Q3GF(0x00900044));
+                    B = q3_ftol((long double)cB * (long double)Q3GF(0x00900044));
+                }
+                cR = q3_clamp255(R);
+                cG = q3_clamp255(G);
+                cB = q3_clamp255(B);
+                col = ((((uint)cR | ((uint)alpha << 8)) << 8 | (uint)cG) << 8) | (uint)cB;
+                Q3_VB(n, 0x10) = col;
+                Q3_VBF(n, 0x18) = q3_f((long double)((float *)Q3P(e, 0x24))[i * 2] / (long double)texw);
+                Q3_VBF(n, 0x1c) = q3_f((long double)((float *)Q3P(e, 0x24))[i * 2 + 1] / (long double)texh);
+                Q3G(0x0068bfa8) = n + 1;
+            }
+            q3_mesh_fan(0x0060bfa0, 0x006cbfb0, Q3U(e, 0x1c), base, flags, tex3c);
+        } else if (geo == 3) {
+            q3_mesh_light(e, light, fl, 63.0L, 0x28);
+            for (i = 0; i < Q3U(e, 0x1c); i++) {
+                char *v = Q3P(e, 0x20) + i * 12;
+                uint n = Q3G(0x0068bfa8), col;
+                long double q;
+                int R, G, B;
+
+                Q3_VBF(n, 0) = q3_frndint_52a(Q3F(v, 0));
+                Q3_VBF(n, 4) = q3_frndint_52a(Q3F(v, 4));
+                if (!Q3_NE_ORD(Q3F(v, 8), 0.0f))
+                    q = 0.0L;
+                else
+                    q = 1.0L / ((long double)(Q3GI(0x00900534) == 0x10 ? 1 : -1) + (long double)Q3F(v, 8));
+                Q3_VBF(n, 8) = q3_f(q);
+                Q3_VBF(n, 0xc) = q3_f(q * 0.03125L);
+                Q3_VB(n, 0x14) = 0;
+                if (light == 0) {
+                    unsigned char *p = (unsigned char *)Q3P(e, 0x4c) + Q3I(tex, 4) * 3 + 0x30;
+                    cR = p[0]; cG = p[1]; cB = p[2];
+                } else if (light == 3) {
+                    if (Q3GI(0x0090004c) != 1) {
+                        long double k = (long double)((float *)Q3P(e, 0x28))[i] * 0.015625L;
+                        unsigned char *p = (unsigned char *)Q3P(e, 0x4c) + Q3I(tex, 4) * 3 + 0x30;
+                        cR = q3_ftol((long double)(int)p[0] * k);
+                        cG = q3_ftol((long double)(int)p[1] * k);
+                        cB = q3_ftol((long double)(int)p[2] * k);
+                    }
+                } else {
+                    long double k = (long double)Q3F(e, 0x44) * 0.015625L;
+                    unsigned char *p = (unsigned char *)Q3P(e, 0x4c) + Q3I(tex, 4) * 3 + 0x30;
+                    cR = q3_ftol((long double)(int)p[0] * k);
+                    cG = q3_ftol((long double)(int)p[1] * k);
+                    cB = q3_ftol((long double)(int)p[2] * k);
+                }
+                if (Q3P(e, 0x4c) != (char *)Q3G(0x004f5ec4)) {
+                    cR = q3_ftol((long double)Q3F(Q3P(e, 0x4c), 0x24) * (long double)cR) & 0xff;
+                    cG = q3_ftol((long double)Q3F(Q3P(e, 0x4c), 0x28) * (long double)cG) & 0xff;
+                    cB = q3_ftol((long double)Q3F(Q3P(e, 0x4c), 0x2c) * (long double)cB) & 0xff;
+                }
+                flags |= 0x8000;
+                if (mask) {
+                    if (Q3G(0x00900020) == 0)
+                        cR = 0;
+                    if (Q3G(0x00900024) == 0)
+                        cG = 0;
+                    if (Q3G(0x00900028) == 0)
+                        cB = 0;
+                }
+                if (tint) {
+                    cR += q3_ftol((long double)cR * (long double)tR);
+                    cG += q3_ftol((long double)cG * (long double)tG);
+                    cB += q3_ftol((long double)cB * (long double)tB);
+                }
+                R = cR; G = cG; B = cB;
+                if (!((long double)Q3GF(0x00900044) >= 1.0L)) {
+                    R = q3_ftol((long double)cR * (long double)Q3GF(0x00900044));
+                    G = q3_ftol((long double)cG * (long double)Q3GF(0x00900044));
+                    B = q3_ftol((long double)cB * (long double)Q3GF(0x00900044));
+                }
+                cR = q3_clamp255(R);
+                cG = q3_clamp255(G);
+                cB = q3_clamp255(B);
+                col = ((((uint)cR | ((uint)alpha << 8)) << 8 | (uint)cG) << 8) | (uint)cB;
+                Q3_VB(n, 0x10) = col;
+                Q3_VB(n, 0x18) = 0;
+                Q3_VB(n, 0x1c) = 0;
+                Q3G(0x0068bfa8) = n + 1;
+            }
+            q3_mesh_fan(0x006f0fb0, 0x00606fa0, Q3U(e, 0x1c), base, flags, 0);
+        }
+    }
+    rdCache_Flush3DBatch();
+    return 1;
 }
 #endif
