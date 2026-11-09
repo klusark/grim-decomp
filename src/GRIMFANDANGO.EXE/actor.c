@@ -850,11 +850,7 @@ void Actor_CreateWalker(void *param_1,int param_2)
   float *pfVar2;
   void *p;
   #define local_18 (*(float (*)[3])(_frame + (0x30 - 0x18)))
-  #define pcStack_8 (*(code **)(_frame + (0x30 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
   
-  local_4 = 0xffffffff;
-  pcStack_8 = FUN_004d605b;
   p = (void *)0x0;
   if ((param_2 == 0) &&
      (pvVar1 = *(void **)(*(int *)((int)param_1 + 0xa4) + 0x1b4), pvVar1 != (void *)0x0)) {
@@ -865,11 +861,9 @@ void Actor_CreateWalker(void *param_1,int param_2)
   }
   if (*(int *)(*(int *)((int)param_1 + 0xa4) + 0x1b4) == 0) {
     pvVar1 = Plat_Alloc(0x60);
-    local_4 = 0;
     if (pvVar1 != (void *)0x0) {
       p = Walker_Create(pvVar1,*(float *)(*(int *)((int)param_1 + 0xa4) + 0x1c0));
     }
-    local_4 = 0xffffffff;
     Mem_CheckAlloc(p,s_C__grimsrc_libs_grimlib_Engine_s_004e9e40,0x665);
     Walker_SetPosition(p,(float *)((int)param_1 + 0xc));
     pfVar2 = Actor_GetFrame(param_1);
@@ -882,8 +876,6 @@ void Actor_CreateWalker(void *param_1,int param_2)
   return;
 }
 #undef local_18
-#undef local_4
-#undef pcStack_8
 
 
 /* ---- 0x00490870  Actor_SetPositionClamped ---- */
