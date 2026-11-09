@@ -64,6 +64,9 @@ anyway: the state table (181 entries at 0x100172e8) and the sequence table (41 e
 
 ## What stays assembled (4 functions)
 
+(Superseded: all four are C or dropped since agent r1, `docs/notes/imuse_r1.md`; FUN_100068b0 reads only its 3 arguments, the
+stack words below are read by ImSetTrigger, and the "1, 0x11" were the rebuilt DLL's values, the original has 0xffffffff.)
+
 * `FUN_10006560` / `FUN_10006620` / `FUN_100068b0` (script layer: state / sequence transitions): `FUN_100068b0` reads five parameters
   (4..8) that its two callers never push: it takes them from the caller's stack frame (its return address, the caller's own
   argument, and three words of the dispatcher's frame, `FUN_10006070`).  Used as fade time and hook values of the music

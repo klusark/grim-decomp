@@ -1,11 +1,6 @@
 {
  "LUA.DLL": [],
  "GRIMFANDANGO.EXE": [],
- "IMUSE.DLL": [
-  "10006560",
-  "10006620",
-  "100068b0",
-  "1000bae0"
- ],
+ "IMUSE.DLL": [],
  "CHORE.DLL": []
 }

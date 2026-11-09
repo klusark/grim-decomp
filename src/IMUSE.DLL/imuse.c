@@ -2858,6 +2858,8 @@ int __cdecl FUN_10006470(undefined4 *param_1)
 }
 
 /* ---- 0x100064d0  FUN_100064d0 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 undefined4 FUN_100064d0(void)
 
 {
@@ -2887,9 +2889,11 @@ LAB_10006549:
   ImFlushSounds();
   return 0;
 }
+#endif
+
 
 /* ---- 0x10006560  FUN_10006560 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 undefined4 __cdecl FUN_10006560(int param_1)
 
@@ -2935,7 +2939,7 @@ undefined4 __cdecl FUN_10006560(int param_1)
 
 
 /* ---- 0x10006620  FUN_10006620 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 undefined4 __cdecl FUN_10006620(int param_1)
 
@@ -3094,7 +3098,7 @@ undefined4 __cdecl FUN_100067b0(uint param_1,char *param_2)
 }
 
 /* ---- 0x100068b0  FUN_100068b0 ---- */
-/* NOT COMPILED: the build uses the original machine code of this function (src/IMUSE.DLL/asm_funcs.s, tools/gen_asm.py); this C text is only for reading */
+/* replaced by the hand-written version in build/overrides.c */
 #if 0
 void __cdecl
 FUN_100068b0(char *param_1,uint param_2,int param_3,uint param_4,int param_5,uint param_6,
