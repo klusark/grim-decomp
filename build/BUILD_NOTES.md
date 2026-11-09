@@ -964,3 +964,25 @@ Root causes fixed at the source (Ghidra, then `tools/export_changed.py`)
   build/difftest/lua_core (1,000,000 random scheduler / protected-call cases with nested calls and raised errors,
   0 differences; 12 of 12 mutations caught); clean-room tests 5107 of 5107. Assembled now: LUA.DLL 7 (the C++ unwind
   funclets), EXE 14, IMUSE.DLL 4, CHORE.DLL 0.
+
+## No assembly left (2026-11-09, round r: agents r1 / r2, lead)
+
+* names/asm_funcs.json is empty for all four programs; every function is C (or, for dead code and runtime helpers,
+  the host runtime / a trap stub). Clean-room tests 5107 of 5107 on the merged tree.
+* r2 (docs/notes/r2.md): EXE `_ftol` -> msvcrt.dll's `_ftol` (names/lib_replace.json "host"; no caller left, compiled C
+  uses FTOL()), `__chkstk` -> libgcc `___chkstk` (build/overrides_r2.c); the 11 EXE and 7 LUA.DLL exception funclets
+  and FUN_0042003c are dead (only named by scope tables / FuncInfo records no rebuilt code installs; no C++ throw in
+  either binary): lib_replace "dead", proved with trap stubs under the clean-room suite. ObjectState_Construct still
+  registers an fs:[0] frame (the seh_strip rule of build_src.py misses it: its locals are frame_locals #defines); its
+  handler is now one that returns ExceptionContinueSearch. Open: fix the strip rule itself.
+* r2 also found false relocations in the data image: gendata relocated values that only look like addresses (the
+  VIMA/IMA ADPCM step table at 0x4daa58 used by the Smush audio decoder held relocated addresses in entries 22-31; font
+  glyph bits of Text_WrapLines; runtime / deflate tables) and missed 4 real pointers. names/data_relocs.json corrects
+  the EXE against the original .reloc table (build/difftest/r2/relocheck.py). Movie sound was not re-measured.
+  IMUSE.DLL has one more false pointer (0x100153c4), not fixed.
+* r1 (docs/notes/imuse_r1.md): FUN_10006560 / FUN_10006620 / FUN_100068b0 are C. The "parameters 4..8" Ghidra showed
+  are the function's own argument slots reused after MSVC's late pops; the stack garbage is ImSetTrigger's 13th word,
+  which the C now passes as the original's value (the caller's ESI or a fixed return address). Only transition types
+  4, 6, 9-12 reach it and the shipped tables have none. hmi__bae0 (_ftol) dropped as dead. Seen on the way, already
+  in 85dd22f and not followed up: after ImSetState(1000) and 250 frames the original still finds the fading stream at
+  ImSetState(1001), the rebuilt DLL starts it again (docs/notes/imuse_r1.md).

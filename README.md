@@ -70,10 +70,9 @@ make -C build link                                                 # link all fo
 
 All four programs compile and link; the link uses the real section contents dumped from Ghidra
 (`tools/export_data.py`, `build/gendata.py`: labels at the original offsets, relocations for every pointer into the
-image) and the real Win32/DirectX import libraries (`build/stdcall_names.json`). 14 of the EXE's 2604 functions
-(`_ftol`, `__chkstk`, exception-handling funclets that run on their parent's frame, and one dead loop tail), 7 of
-LUA.DLL (C++ unwind funclets) and 4 of IMUSE.DLL are still built from the *original machine code* re-emitted from Ghidra's disassembly
-(`tools/gen_asm.py`, `src/<prog>/asm_funcs.s`); everything else, the software rasteriser included, is compiled C (much of
+image) and the real Win32/DirectX import libraries (`build/stdcall_names.json`). No function of the four programs is built from the original machine code any more (since 2026-11-09;
+`tools/gen_asm.py` and the empty `src/<prog>/asm_funcs.s` remain for the method): everything, the software rasteriser
+included, is compiled C (much of
 it hand-written in `build/overrides*.c` where Ghidra's C is wrong about x87 results, register calling conventions and
 lost arguments), verified against the original machine code by differential tests and the clean-room tests
 (`grim_tools/cleanroom`, `run.py decomp`: all 5107 the same as the original). The result is playable. What is still stubbed:
