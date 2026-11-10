@@ -25,7 +25,7 @@ void sputLua_Update(void)
     GRIM_lua_cmd_poll();                                /* test hook: run the Lua lines appended to GRIM_LUA_FILE */
 
     g_dwSputLua_Update_movieTimeMsec = (uint)SmushPlay_GetMovieTime();
-    frameMs = Timer_GetFrameMs();
+    frameMs = sputTime_GetFrameTime();
     g_dwSputLua_Update_collectionTime = g_dwSputLua_Update_collectionTime + frameMs;
     if ((float)g_dwSputLua_Update_collectionTime > 10000.0f) {           /* every 10 seconds */
         lua_collectgarbage(0);
@@ -87,7 +87,7 @@ extern int GRIM_SimTime(void);   /* overrides.c: GRIM_SIMTIME=<ms> test knob (fi
  * One pass of the main loop: re-selects the display after a mode change, runs the engine for one frame (the frame time
  * in ms is the one-shot global g_fixedFrameMs, 0 = measure it from the wall clock), counts frames, updates the FPS
  * counter once a second, draws the optional FPS / profile overlays and presents.  Written by hand: Ghidra lost the
- * second argument of Engine_UpdateFrame / Engine_InvalidateRect / sputRender_Dim and the second Win_RemoveMessageHook
+ * second argument of grimlib_UpdateManual / grimlib_MarkDirtyRect / sputRender_Dim and the second Win_RemoveMessageHook
  * argument is a function pointer; and the GRIM_SIMTIME hook (names/asm_patches.json used to patch the assembled copy)
  * is just a line here. */
 void Main_Service(void)
@@ -113,7 +113,7 @@ void Main_Service(void)
     frameMs = GRIM_SimTime();                    /* test hook: fixed frame time */
     if (frameMs == 0)
         frameMs = g_fixedFrameMs;
-    Engine_UpdateFrame(g_dwZg_App_bAppActive, frameMs);
+    grimlib_UpdateManual(g_dwZg_App_bAppActive, frameMs);
     g_dwMain_Service_frameCount = g_dwMain_Service_frameCount + 1;
     g_fixedFrameMs = 0;
 
@@ -127,19 +127,19 @@ void Main_Service(void)
     }
     if (_g_bDrawFrameRate != 0) {
         sprintf(&g_bStd_genBuffer, s__02_3f_004dd680, (double)g_flMain_Service_frameRate);
-        Display_DrawText(&g_bStd_genBuffer, 4, 4);
-        Engine_InvalidateRect(rect, 0);
+        stdDisplay_TextOut(&g_bStd_genBuffer, 4, 4);
+        grimlib_MarkDirtyRect(rect, 0);
     }
-    if (g_nDrawPerfData != 0) {                   /* one line per profiled section (Profile_Begin/End) */
+    if (g_nDrawPerfData != 0) {                   /* one line per profiled section (PerfBegin/End) */
         prof = &g_dwGrimlib_PerfData;
         do {
             sprintf(&g_bStd_genBuffer, s__s__02_3f_004dd674, prof - 10, *prof);
-            Display_DrawText(&g_bStd_genBuffer, 4, y);
+            stdDisplay_TextOut(&g_bStd_genBuffer, 4, y);
             rect[0] = 4;
             rect[1] = y;
             rect[2] = 0xbe;
             rect[3] = 0x14;
-            Engine_InvalidateRect(rect, 0);
+            grimlib_MarkDirtyRect(rect, 0);
             prof[0] = 0;
             prof[1] = 0;
             y += 0x14;
@@ -147,7 +147,7 @@ void Main_Service(void)
         } while (y < 0x122);
     }
     if (g_dwZg_App_bAppActive != 0)
-        Engine_PresentFrame();
+        grimlib_Display();
     if (g_nQuitApp != 0) {                  /* quit requested during the frame: tear the window down */
         Win_RemoveMessageHook(Win_WndProc);
         Win_RemoveMessageHook(Win_IsSysCommandBlocked);
@@ -271,25 +271,25 @@ void sputLua_GetShrinkPosition(void)
  * decompiler cannot follow): a C `(int)` cast does the same truncation. */
 void sputLua_EngineDisplay(void)
 {
-    Render_SetDrawEnabled((int)lua_getnumber(lua_lua2C(1)));
+    sputRender_SetPageFlip((int)lua_getnumber(lua_lua2C(1)));
 }
 
 void sputLua_MakeCurrentSetupL(void)
 {
     int arg = lua_lua2C(1);
     if (lua_isnumber(arg))
-        Set_ChangeSetup((uint)(int)lua_getnumber(arg));
+        grimlib_MakeCurrentSetup((uint)(int)lua_getnumber(arg));
 }
 
 /* ==== costume component tag handlers: NewInstance of the Keyframe, Colormap and Mesh components ====
- * (KeyframeComponent_NewInstance 0x00497d10, CmapComponent_NewInstance 0x00496370, MeshComponent_NewInstance 0x00496d70)
+ * (KeyframeInstancer 0x00497d10, ColormapInstancer 0x00496370, MeshInstancer 0x00496d70)
  * Slot 5 of the tag: build (create != 0) or free (create == 0) the per-instance data of one component of a costume
  * instance.  Cos_InstComponentInfo(inst, component, &a, &info, &b) returns the component's record in `info` (for
  * keyframes and colormaps record[0] is the resource-valid flag and record[1] the resource) and the index of the parent
  * component in `b`.  By hand because the original passes the addresses of its own *parameter slots* as the output
  * pointers; Ghidra reused the slots as differently named variables (`&param_3`, `&param_2`, `&param_1`), the C text read
  * the wrong ones. */
-int *KeyframeComponent_NewInstance(int inst, int component, int create)
+int *KeyframeInstancer(int inst, int component, int create)
 {
     int aux, parent;
     int *info, *data, i;
@@ -315,7 +315,7 @@ int *KeyframeComponent_NewInstance(int inst, int component, int create)
     return data;
 }
 
-int *CmapComponent_NewInstance(int inst, int component, int create)
+int *ColormapInstancer(int inst, int component, int create)
 {
     int aux, parent, i;
     int *info, *data;
@@ -337,7 +337,7 @@ int *CmapComponent_NewInstance(int inst, int component, int create)
     return data;
 }
 
-int *MeshComponent_NewInstance(int inst, int component, int create)
+int *MeshInstancer(int inst, int component, int create)
 {
     int aux, parent;
     int *data;
@@ -354,28 +354,28 @@ int *MeshComponent_NewInstance(int inst, int component, int create)
     return data;
 }
 
-/* ==== file / save-game helpers: stdFile_ReadByte, stdFile_WriteByte, SaveFile_CheckFUTBHeader, Res_SysSave,
- *      sputPrimitive_SaveState, sputPrimitive_RestoreState (0x004735f0 ... 0x004896b0) ====
+/* ==== file / save-game helpers: stdFGetc, stdFPutc, FileUtil_SysRestore, Res_SysSave,
+ *      sputPrimitive_Save, sputPrimitive_Restore (0x004735f0 ... 0x004896b0) ====
  * The save-game code hands every module a callback (`write(buf, n)` / `read(buf, n)`, non-zero result = failure) and
  * each module streams its own state through it.  By hand because all of them pass the address of one of their own
  * *parameter slots* as the buffer (`&param_1`), which Ghidra splits into differently named variables. */
 typedef int (*SaveIO)(void *buf, int n);
 
 /* one byte from a file through the main service table (pFread); the byte lands in the low byte of the buffer */
-uint stdFile_ReadByte(uint file)
+uint stdFGetc(uint file)
 {
     uint value = 0;
     (*g_pStd_HS->pFread)(file, &value, 1);
     return value & 0xff;
 }
 
-void stdFile_WriteByte(undefined4 value, undefined4 file)
+void stdFPutc(undefined4 value, undefined4 file)
 {
     (*g_pStd_HS->pFwrite)(file, &value, 1);
 }
 
 /* the save file starts with 'FUTB', version 1, flags 0; returns 0 when the header matches, 1 otherwise */
-undefined4 SaveFile_CheckFUTBHeader(code *readFn)
+undefined4 FileUtil_SysRestore(code *readFn)
 {
     SaveIO read = (SaveIO)readFn;
     int magic, version, flags;
@@ -422,7 +422,7 @@ undefined4 Res_SysSave(code *writeFn)
 }
 
 /* sputPrimitive module, save-game writer: the screen primitives (list head in g_dwPrimitiveQ, next pointer at +0) */
-undefined4 sputPrimitive_SaveState(code *writeFn)
+undefined4 sputPrimitive_Save(code *writeFn)
 {
     SaveIO write = (SaveIO)writeFn;
     int count = 0, id;
@@ -446,7 +446,7 @@ undefined4 sputPrimitive_SaveState(code *writeFn)
 }
 
 /* ... and the reader: clears the list, re-creates every primitive (PrimitiveList_Append) and fills in its fields */
-undefined4 sputPrimitive_RestoreState(code *readFn)
+undefined4 sputPrimitive_Restore(code *readFn)
 {
     SaveIO read = (SaveIO)readFn;
     int count, kind, id, layer, color, f28, f2c;

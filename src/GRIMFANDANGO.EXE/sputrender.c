@@ -15,13 +15,13 @@ undefined4 sputRender_Initialize(GrimServices *param_1,undefined4 *param_2)
   g_pSputRendHS = param_1;
   *param_2 = sputRender_Initialize;
   param_2[1] = sputRender_Terminate;
-  param_2[2] = sputRender_Start;
-  param_2[3] = sputRender_Stop;
-  param_2[4] = Render_SaveState;
-  param_2[5] = Render_RestoreState;
+  param_2[2] = sputRender_Startup;
+  param_2[3] = sputRender_Shutdown;
+  param_2[4] = sputRender_Save;
+  param_2[5] = sputRender_Restore;
   param_2[6] = 0;
   param_2[7] = 0;
-  sputControl_AddCallback(FUN_00484a50);
+  sputControl_AddCallback(sputRender_ControlHandler);
   g_dwSputRendInitialize = 1;
   return 0;
 }
@@ -40,43 +40,45 @@ void sputRender_Terminate(void)
   return;
 }
 
-/* ---- 0x00486070  sputRender_Start ---- */
+/* ---- 0x00486070  sputRender_Startup ---- */
 /* Module interface slot 2 (sputRender): called by Engine_InitSubsystems, returns 0 on success
    (non-zero makes the whole start-up unwind). _Start creates the dirty-rectangle pool, _Stop frees
-   the cache rects and the pool. */
+   the cache rects and the pool. Original name sputRender_Startup (the remaster's GrimFandango
+   (Linux): aligned call in sputRender_Initialize); was sputRender_Start. */
 
-int sputRender_Start(void)
+int sputRender_Startup(void)
 
 {
   bool bVar1;
   
-  bVar1 = UINT_008c978c != 0;
+  bVar1 = g_dwSputRendStartup != 0;
   if (!bVar1) {
-    UINT_008c978c = 1;
-    UINT_008a9510 = 4;
+    g_dwSputRendStartup = 1;
+    g_dwRenderVars = 4;
     UINT_008a9514 = 3;
     UINT_008a9518 = 1;
     UINT_008a951c = 1;
     UINT_008a9520 = 0;
     UINT_008a9524 = 0;
     UINT_008a9528 = 2;
-    g_pDirtyRectPool = (void **)Pool_Create(0x24,0x20,8);
+    g_pDirtyRectPool = (void **)Memory_AllocatePool(0x24,0x20,8);
   }
   return bVar1;
 }
 
-/* ---- 0x004860d0  sputRender_Stop ---- */
+/* ---- 0x004860d0  sputRender_Shutdown ---- */
 /* Module interface slot 3 (sputRender): called by Engine_ShutdownSubsystems in reverse order;
-   releases what _Start created. */
+   releases what _Start created. Original name sputRender_Shutdown (the remaster's GrimFandango
+   (Linux): aligned call in sputRender_Initialize); was sputRender_Stop. */
 
-void sputRender_Stop(void)
+void sputRender_Shutdown(void)
 
 {
   CacheRect_FreeAll();
   if (g_pDirtyRectPool != (void **)0x0) {
-    Pool_Destroy(g_pDirtyRectPool);
+    Memory_FreePool(g_pDirtyRectPool);
     g_pDirtyRectPool = (void **)0x0;
   }
-  UINT_008c978c = 0;
+  g_dwSputRendStartup = 0;
   return;
 }

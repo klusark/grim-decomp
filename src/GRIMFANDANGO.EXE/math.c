@@ -5,8 +5,11 @@
 #include "globals.h"
 #include "functions.h"
 
-/* ---- 0x004735d0  Math_Log2Int ---- */
-int __cdecl Math_Log2Int(int n)
+/* ---- 0x004735d0  stdCalcBitPos ---- */
+/* Original name stdCalcBitPos (the remaster's GrimFandango (Linux): aligned call in
+   rdMaterial_LoadEntry); was Math_Log2Int. */
+
+int __cdecl stdCalcBitPos(int n)
 
 {
   int iVar1;
@@ -267,13 +270,15 @@ float __cdecl Math_Floor(float param_1)
 #endif
 
 
-/* ---- 0x0047c120  Math_SinDeg ---- */
+/* ---- 0x0047c120  stdMath_Tan ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_30 */
-/* Table/polynomial sine of an angle in degrees */
+/* Table/polynomial sine of an angle in degrees Original name stdMath_Tan (the remaster's
+   GrimFandango (Linux): aligned call in rdCamera_BuildFOV; the second (tangent) table and its
+   quadrant signs); was Math_SinDeg. */
 
-float10 Math_SinDeg(float param_1)
+float10 stdMath_Tan(float param_1)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -319,43 +324,43 @@ float10 Math_SinDeg(float param_1)
   switch(local_1c) {
   case 0:
     if (iVar2 < 0x1000) {
-      local_8 = *(float *)(&DAT_004e3600 + iVar2 * 4);
+      local_8 = *(float *)(&g_aTanTable + iVar2 * 4);
     }
     else {
-      local_8 = -*(float *)(&DAT_004e3600 + (0xfff - (iVar1 + -0xfff)) * 4);
+      local_8 = -*(float *)(&g_aTanTable + (0xfff - (iVar1 + -0xfff)) * 4);
     }
-    local_10[0] = (local_8 - *(float *)(&DAT_004e3600 + iVar1 * 4)) * fVar4 +
-                  *(float *)(&DAT_004e3600 + iVar1 * 4);
+    local_10[0] = (local_8 - *(float *)(&g_aTanTable + iVar1 * 4)) * fVar4 +
+                  *(float *)(&g_aTanTable + iVar1 * 4);
     break;
   case 1:
     if (iVar2 < 0x2000) {
-      local_8 = -*(float *)(&DAT_004e3600 + (0xfff - (iVar1 + -0xfff)) * 4);
+      local_8 = -*(float *)(&g_aTanTable + (0xfff - (iVar1 + -0xfff)) * 4);
     }
     else {
       local_8 = *(float *)("DialogBoxIndirectParamA" + iVar2 * 4 + 2);
     }
-    local_10[0] = (local_8 - -*(float *)(&DAT_004e3600 + (0xfff - (iVar1 + -0x1000)) * 4)) * fVar4 +
-                  -*(float *)(&DAT_004e3600 + (0xfff - (iVar1 + -0x1000)) * 4);
+    local_10[0] = (local_8 - -*(float *)(&g_aTanTable + (0xfff - (iVar1 + -0x1000)) * 4)) * fVar4 +
+                  -*(float *)(&g_aTanTable + (0xfff - (iVar1 + -0x1000)) * 4);
     break;
   case 2:
     if (iVar2 < 0x3000) {
       local_8 = *(float *)("DialogBoxIndirectParamA" + iVar2 * 4 + 2);
     }
     else {
-      local_8 = -*(float *)(&DAT_004e3600 + (0xfff - (iVar1 + -0x2fff)) * 4);
+      local_8 = -*(float *)(&g_aTanTable + (0xfff - (iVar1 + -0x2fff)) * 4);
     }
     local_10[0] = (local_8 - *(float *)("DialogBoxIndirectParamA" + iVar1 * 4 + 2)) * fVar4 +
                   *(float *)("DialogBoxIndirectParamA" + iVar1 * 4 + 2);
     break;
   case 3:
     if (iVar2 < 0x4000) {
-      local_8 = -*(float *)(&DAT_004e3600 + (0xfff - (iVar1 + -0x2fff)) * 4);
+      local_8 = -*(float *)(&g_aTanTable + (0xfff - (iVar1 + -0x2fff)) * 4);
     }
     else {
       local_8 = *(float *)(iVar2 * 4 + 0x4d3600);
     }
-    local_10[0] = (local_8 - -*(float *)(&DAT_004e3600 + (0xfff - (iVar1 + -0x3000)) * 4)) * fVar4 +
-                  -*(float *)(&DAT_004e3600 + (0xfff - (iVar1 + -0x3000)) * 4);
+    local_10[0] = (local_8 - -*(float *)(&g_aTanTable + (0xfff - (iVar1 + -0x3000)) * 4)) * fVar4 +
+                  -*(float *)(&g_aTanTable + (0xfff - (iVar1 + -0x3000)) * 4);
   }
   return (float10)local_10[0];
 }

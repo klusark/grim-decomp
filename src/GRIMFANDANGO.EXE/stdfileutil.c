@@ -135,10 +135,13 @@ undefined4 stdFile_Printf(undefined4 param_1,char *param_2)
   return 0;
 }
 
-/* ---- 0x004735f0  stdFile_ReadByte ---- */
+/* ---- 0x004735f0  stdFGetc ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-uint stdFile_ReadByte(uint param_1)
+/* Original name stdFGetc (the remaster's GrimFandango (Linux): aligned call in stdGif_Load,
+   stdLbm_Load, stdPcx_Load); was stdFile_ReadByte. */
+
+uint stdFGetc(uint param_1)
 
 {
   (*g_pStd_HS->pFread)(param_1,&param_1,1);
@@ -147,10 +150,13 @@ uint stdFile_ReadByte(uint param_1)
 #endif
 
 
-/* ---- 0x00473610  stdFile_WriteByte ---- */
+/* ---- 0x00473610  stdFPutc ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-void stdFile_WriteByte(undefined4 param_1,undefined4 param_2)
+/* Original name stdFPutc (the remaster's GrimFandango (Linux): aligned call in stdPcx_Write); was
+   stdFile_WriteByte. */
+
+void stdFPutc(undefined4 param_1,undefined4 param_2)
 
 {
   (*g_pStd_HS->pFwrite)(param_2,&param_1,1);

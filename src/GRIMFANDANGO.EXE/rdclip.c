@@ -96,10 +96,12 @@ uint rdClip_Outcode2D(int param_1,int param_2,int param_3)
   return uVar1;
 }
 
-/* ---- 0x00446ec0  rdClip_PointInFrustum ---- */
-/* Near/far, then left/right/top/bottom; perspective frustums scale the side planes by depth */
+/* ---- 0x00446ec0  rdClip_Point3 ---- */
+/* Near/far, then left/right/top/bottom; perspective frustums scale the side planes by depth
+   Original name rdClip_Point3 (the remaster's GrimFandango (Linux): aligned call in
+   rdPrimit3_GetScreenCoord); was rdClip_PointInFrustum. */
 
-int __cdecl rdClip_PointInFrustum(void *frustum,float *point)
+int __cdecl rdClip_Point3(void *frustum,float *point)
 
 {
   float fVar1;
@@ -488,13 +490,15 @@ int __cdecl rdClip_Line3(void *frustum,float *p0,float *p1,int *clipped0,int *cl
   return 1;
 }
 
-/* ---- 0x004478c0  rdClip_Face3_Pos ---- */
+/* ---- 0x004478c0  rdClip_Face3W ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Frustum clip of a face with position-only vertices (output into the rdClip work buffers at
-   g_RdClipVerts). Attribute set inferred from the parameter list */
+   g_RdClipVerts). Attribute set inferred from the parameter list Original name rdClip_Face3W (the
+   remaster's GrimFandango (Linux): the matching branch of the rdPrimit3_ClipFace switch
+   (geometry/lighting mode, perspective or ortho camera)); was rdClip_Face3_Pos. */
 
-uint rdClip_Face3_Pos(int *param_1,float *param_2,uint param_3)
+uint rdClip_Face3W(int *param_1,float *param_2,uint param_3)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -519,10 +523,10 @@ uint rdClip_Face3_Pos(int *param_1,float *param_2,uint param_3)
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   uVar12 = 0;
-  puVar14 = &UINT_007f48c0;
-  UINT_007f4ac4 = 0;
-  UINT_007f47b8 = (uint)param_2;
-  UINT_007f46ac = (uint)&UINT_007f48c0;
+  puVar14 = &g_dwWorkVerts;
+  g_dwRdClip_faceStatus = 0;
+  g_dwSourceVert = (uint)param_2;
+  g_dwDestVert = (uint)&g_dwWorkVerts;
   if (0 < (int)param_3) {
     iVar11 = 0;
     local_4 = param_3;
@@ -557,11 +561,11 @@ uint rdClip_Face3_Pos(int *param_1,float *param_2,uint param_3)
           }
           *(float *)((int)puVar14 + iVar11) = PUN(float,param_1[9]) * fVar5;
           uVar12 = uVar12 + 1;
-          *(float *)(UINT_007f46ac + 4 + iVar11) = fVar5;
+          *(float *)(g_dwDestVert + 4 + iVar11) = fVar5;
           iVar11 = iVar11 + 0xc;
-          *(float *)((UINT_007f46ac - 4) + iVar11) = (pfVar8[2] - pfVar15[2]) * fVar2 + pfVar15[2];
-          UINT_007f4ac4 = UINT_007f4ac4 | 0x10;
-          puVar14 = (uint *)UINT_007f46ac;
+          *(float *)((g_dwDestVert - 4) + iVar11) = (pfVar8[2] - pfVar15[2]) * fVar2 + pfVar15[2];
+          g_dwRdClip_faceStatus = g_dwRdClip_faceStatus | 0x10;
+          puVar14 = (uint *)g_dwDestVert;
         }
         if (fVar3 <= *pfVar8) {
           pfVar15 = (float *)((int)puVar14 + iVar11);
@@ -570,7 +574,7 @@ uint rdClip_Face3_Pos(int *param_1,float *param_2,uint param_3)
           *pfVar15 = *pfVar8;
           pfVar15[1] = pfVar8[1];
           pfVar15[2] = pfVar8[2];
-          puVar14 = (uint *)UINT_007f46ac;
+          puVar14 = (uint *)g_dwDestVert;
         }
       }
       local_4 = local_4 - 1;
@@ -580,13 +584,13 @@ uint rdClip_Face3_Pos(int *param_1,float *param_2,uint param_3)
   }
   if (2 < (int)uVar12) {
     uVar13 = 0;
-    uVar17 = UINT_007f47b8;
-    UINT_007f46ac = UINT_007f47b8;
+    uVar17 = g_dwSourceVert;
+    g_dwDestVert = g_dwSourceVert;
     pfVar15 = (float *)puVar14;
     if (0 < (int)uVar12) {
       iVar11 = 0;
       pfVar8 = (float *)(puVar14 + uVar12 * 3 + -3);
-      UINT_007f47b8 = (uint)puVar14;
+      g_dwSourceVert = (uint)puVar14;
       local_4 = uVar12;
       do {
         fVar2 = PUN(float,param_1[10]) * pfVar8[1];
@@ -617,12 +621,12 @@ uint rdClip_Face3_Pos(int *param_1,float *param_2,uint param_3)
             }
             *(float *)(uVar17 + iVar11) = PUN(float,param_1[10]) * fVar5;
             uVar13 = uVar13 + 1;
-            *(float *)(UINT_007f46ac + 4 + iVar11) = fVar5;
+            *(float *)(g_dwDestVert + 4 + iVar11) = fVar5;
             iVar11 = iVar11 + 0xc;
-            *(float *)((UINT_007f46ac - 4) + iVar11) =
+            *(float *)((g_dwDestVert - 4) + iVar11) =
                  (PUN(float,puVar14[2]) - pfVar8[2]) * fVar2 + pfVar8[2];
-            UINT_007f4ac4 = UINT_007f4ac4 | 0x20;
-            uVar17 = UINT_007f46ac;
+            g_dwRdClip_faceStatus = g_dwRdClip_faceStatus | 0x20;
+            uVar17 = g_dwDestVert;
           }
           if (PUN(float,*puVar14) <= fVar3) {
             pfVar15 = (float *)(uVar17 + iVar11);
@@ -631,26 +635,26 @@ uint rdClip_Face3_Pos(int *param_1,float *param_2,uint param_3)
             *pfVar15 = PUN(float,*puVar14);
             pfVar15[1] = PUN(float,puVar14[1]);
             pfVar15[2] = PUN(float,puVar14[2]);
-            uVar17 = UINT_007f46ac;
+            uVar17 = g_dwDestVert;
           }
         }
         local_4 = local_4 - 1;
         pfVar8 = (float *)puVar14;
         puVar14 = puVar14 + 3;
-        pfVar15 = (float *)UINT_007f47b8;
+        pfVar15 = (float *)g_dwSourceVert;
       } while (local_4 != 0);
     }
-    UINT_007f47b8 = (uint)pfVar15;
+    g_dwSourceVert = (uint)pfVar15;
     uVar12 = uVar13;
     if (2 < (int)uVar12) {
       uVar13 = 0;
-      UINT_007f46ac = UINT_007f47b8;
+      g_dwDestVert = g_dwSourceVert;
       pfVar15 = (float *)((uVar17 - 0xc) + uVar12 * 0xc);
-      uVar16 = UINT_007f47b8;
+      uVar16 = g_dwSourceVert;
       if (0 < (int)uVar12) {
         iVar11 = 0;
         pfVar8 = (float *)(uVar17 + 8);
-        UINT_007f47b8 = uVar17;
+        g_dwSourceVert = uVar17;
         local_4 = uVar12;
         do {
           fVar2 = PUN(float,param_1[7]) * pfVar15[1];
@@ -683,10 +687,10 @@ uint rdClip_Face3_Pos(int *param_1,float *param_2,uint param_3)
               uVar13 = uVar13 + 1;
               iVar11 = iVar11 + 0xc;
               *(float *)((uVar16 - 0xc) + iVar11) = (pfVar8[-2] - *pfVar15) * fVar2 + *pfVar15;
-              *(float *)((UINT_007f46ac - 8) + iVar11) = fVar5;
-              *(float *)((UINT_007f46ac - 4) + iVar11) = fVar1 * fVar5;
-              UINT_007f4ac4 = UINT_007f4ac4 | 4;
-              uVar16 = UINT_007f46ac;
+              *(float *)((g_dwDestVert - 8) + iVar11) = fVar5;
+              *(float *)((g_dwDestVert - 4) + iVar11) = fVar1 * fVar5;
+              g_dwRdClip_faceStatus = g_dwRdClip_faceStatus | 4;
+              uVar16 = g_dwDestVert;
             }
             if (*pfVar8 <= fVar3) {
               pfVar15 = (float *)(uVar16 + iVar11);
@@ -695,26 +699,26 @@ uint rdClip_Face3_Pos(int *param_1,float *param_2,uint param_3)
               *pfVar15 = pfVar8[-2];
               pfVar15[1] = pfVar8[-1];
               pfVar15[2] = *pfVar8;
-              uVar16 = UINT_007f46ac;
+              uVar16 = g_dwDestVert;
             }
           }
           pfVar15 = pfVar8 + -2;
           pfVar8 = pfVar8 + 3;
           local_4 = local_4 - 1;
-          uVar17 = UINT_007f47b8;
+          uVar17 = g_dwSourceVert;
         } while (local_4 != 0);
       }
-      UINT_007f47b8 = uVar17;
+      g_dwSourceVert = uVar17;
       uVar12 = uVar13;
       if (2 < (int)uVar12) {
         uVar13 = 0;
-        UINT_007f46ac = UINT_007f47b8;
+        g_dwDestVert = g_dwSourceVert;
         pfVar15 = (float *)((uVar16 - 0xc) + uVar12 * 0xc);
-        uVar17 = UINT_007f47b8;
+        uVar17 = g_dwSourceVert;
         if (0 < (int)uVar12) {
           iVar11 = 0;
           pfVar8 = (float *)(uVar16 + 8);
-          UINT_007f47b8 = uVar16;
+          g_dwSourceVert = uVar16;
           local_4 = uVar12;
           do {
             fVar2 = PUN(float,param_1[8]) * pfVar15[1];
@@ -747,10 +751,10 @@ uint rdClip_Face3_Pos(int *param_1,float *param_2,uint param_3)
                 uVar13 = uVar13 + 1;
                 iVar11 = iVar11 + 0xc;
                 *(float *)((uVar17 - 0xc) + iVar11) = (pfVar8[-2] - *pfVar15) * fVar2 + *pfVar15;
-                *(float *)((UINT_007f46ac - 8) + iVar11) = fVar5;
-                *(float *)((UINT_007f46ac - 4) + iVar11) = fVar1 * fVar5;
-                UINT_007f4ac4 = UINT_007f4ac4 | 8;
-                uVar17 = UINT_007f46ac;
+                *(float *)((g_dwDestVert - 8) + iVar11) = fVar5;
+                *(float *)((g_dwDestVert - 4) + iVar11) = fVar1 * fVar5;
+                g_dwRdClip_faceStatus = g_dwRdClip_faceStatus | 8;
+                uVar17 = g_dwDestVert;
               }
               if (fVar3 <= *pfVar8) {
                 pfVar15 = (float *)(uVar17 + iVar11);
@@ -759,26 +763,26 @@ uint rdClip_Face3_Pos(int *param_1,float *param_2,uint param_3)
                 *pfVar15 = pfVar8[-2];
                 pfVar15[1] = pfVar8[-1];
                 pfVar15[2] = *pfVar8;
-                uVar17 = UINT_007f46ac;
+                uVar17 = g_dwDestVert;
               }
             }
             pfVar15 = pfVar8 + -2;
             pfVar8 = pfVar8 + 3;
             local_4 = local_4 - 1;
-            uVar16 = UINT_007f47b8;
+            uVar16 = g_dwSourceVert;
           } while (local_4 != 0);
         }
-        UINT_007f47b8 = uVar16;
+        g_dwSourceVert = uVar16;
         uVar12 = uVar13;
         if (2 < (int)uVar12) {
           uVar13 = 0;
-          UINT_007f46ac = UINT_007f47b8;
+          g_dwDestVert = g_dwSourceVert;
           pfVar15 = (float *)((uVar17 - 0xc) + uVar12 * 0xc);
-          pfVar8 = (float *)UINT_007f47b8;
+          pfVar8 = (float *)g_dwSourceVert;
           if (0 < (int)uVar12) {
             iVar11 = 0;
             pfVar9 = (float *)(uVar17 + 4);
-            UINT_007f47b8 = uVar17;
+            g_dwSourceVert = uVar17;
             param_3 = uVar12;
             do {
               if ((PUN(float,param_1[1]) <= pfVar15[1]) || (PUN(float,param_1[1]) <= *pfVar9)) {
@@ -788,12 +792,12 @@ uint rdClip_Face3_Pos(int *param_1,float *param_2,uint param_3)
                   fVar2 = (PUN(float,param_1[1]) - pfVar15[1]) / (*pfVar9 - pfVar15[1]);
                   *(int *)((int)pfVar8 + iVar11 + 4) = param_1[1];
                   iVar11 = iVar11 + 0xc;
-                  *(float *)((UINT_007f46ac - 4) + iVar11) =
+                  *(float *)((g_dwDestVert - 4) + iVar11) =
                        (pfVar9[1] - pfVar15[2]) * fVar2 + pfVar15[2];
-                  *(float *)((UINT_007f46ac - 0xc) + iVar11) =
+                  *(float *)((g_dwDestVert - 0xc) + iVar11) =
                        (pfVar9[-1] - *pfVar15) * fVar2 + *pfVar15;
-                  UINT_007f4ac4 = UINT_007f4ac4 | 1;
-                  pfVar8 = (float *)UINT_007f46ac;
+                  g_dwRdClip_faceStatus = g_dwRdClip_faceStatus | 1;
+                  pfVar8 = (float *)g_dwDestVert;
                 }
                 if (PUN(float,param_1[1]) <= *pfVar9) {
                   pfVar8 = (float *)((int)pfVar8 + iVar11);
@@ -802,18 +806,18 @@ uint rdClip_Face3_Pos(int *param_1,float *param_2,uint param_3)
                   *pfVar8 = pfVar9[-1];
                   pfVar8[1] = *pfVar9;
                   pfVar8[2] = pfVar9[1];
-                  pfVar8 = (float *)UINT_007f46ac;
+                  pfVar8 = (float *)g_dwDestVert;
                 }
               }
               pfVar15 = pfVar9 + -1;
               pfVar9 = pfVar9 + 3;
               param_3 = param_3 - 1;
-              uVar17 = UINT_007f47b8;
+              uVar17 = g_dwSourceVert;
             } while (param_3 != 0);
           }
-          UINT_007f47b8 = uVar17;
+          g_dwSourceVert = uVar17;
           if ((int)uVar13 < 3) {
-            UINT_007f4ac4 = UINT_007f4ac4 | 0x40;
+            g_dwRdClip_faceStatus = g_dwRdClip_faceStatus | 0x40;
             return uVar13;
           }
           uVar12 = uVar13;
@@ -821,12 +825,12 @@ uint rdClip_Face3_Pos(int *param_1,float *param_2,uint param_3)
           if (*param_1 != 0) {
             uVar12 = 0;
             pfVar9 = pfVar8 + uVar13 * 3 + -3;
-            pfVar15 = (float *)UINT_007f47b8;
-            UINT_007f46ac = UINT_007f47b8;
+            pfVar15 = (float *)g_dwSourceVert;
+            g_dwDestVert = g_dwSourceVert;
             if (0 < (int)uVar13) {
               iVar11 = 0;
               pfVar10 = pfVar8 + 1;
-              UINT_007f47b8 = (uint)pfVar8;
+              g_dwSourceVert = (uint)pfVar8;
               param_3 = uVar13;
               do {
                 if ((pfVar9[1] <= PUN(float,param_1[2])) || (*pfVar10 <= PUN(float,param_1[2]))) {
@@ -836,12 +840,12 @@ uint rdClip_Face3_Pos(int *param_1,float *param_2,uint param_3)
                     fVar2 = (PUN(float,param_1[2]) - pfVar9[1]) / (*pfVar10 - pfVar9[1]);
                     *(int *)((int)pfVar15 + iVar11 + 4) = param_1[2];
                     iVar11 = iVar11 + 0xc;
-                    *(float *)((UINT_007f46ac - 4) + iVar11) =
+                    *(float *)((g_dwDestVert - 4) + iVar11) =
                          (pfVar10[1] - pfVar9[2]) * fVar2 + pfVar9[2];
-                    *(float *)((UINT_007f46ac - 0xc) + iVar11) =
+                    *(float *)((g_dwDestVert - 0xc) + iVar11) =
                          (pfVar10[-1] - *pfVar9) * fVar2 + *pfVar9;
-                    UINT_007f4ac4 = UINT_007f4ac4 | 2;
-                    pfVar15 = (float *)UINT_007f46ac;
+                    g_dwRdClip_faceStatus = g_dwRdClip_faceStatus | 2;
+                    pfVar15 = (float *)g_dwDestVert;
                   }
                   if (*pfVar10 <= PUN(float,param_1[2])) {
                     pfVar15 = (float *)((int)pfVar15 + iVar11);
@@ -850,16 +854,16 @@ uint rdClip_Face3_Pos(int *param_1,float *param_2,uint param_3)
                     *pfVar15 = pfVar10[-1];
                     pfVar15[1] = *pfVar10;
                     pfVar15[2] = pfVar10[1];
-                    pfVar15 = (float *)UINT_007f46ac;
+                    pfVar15 = (float *)g_dwDestVert;
                   }
                 }
                 pfVar9 = pfVar10 + -1;
                 pfVar10 = pfVar10 + 3;
                 param_3 = param_3 - 1;
-                pfVar8 = (float *)UINT_007f47b8;
+                pfVar8 = (float *)g_dwSourceVert;
               } while (param_3 != 0);
             }
-            UINT_007f47b8 = (uint)pfVar8;
+            g_dwSourceVert = (uint)pfVar8;
             if ((int)uVar12 < 3) {
               return uVar12;
             }
@@ -888,12 +892,15 @@ uint rdClip_Face3_Pos(int *param_1,float *param_2,uint param_3)
 #endif
 
 
-/* ---- 0x00448260  rdClip_Face3_PosB ---- */
+/* ---- 0x00448260  rdClip_Face3WOrtho ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-/* Second position-only face clipper (likely the orthographic variant) */
+/* Second position-only face clipper (likely the orthographic variant) Original name
+   rdClip_Face3WOrtho (the remaster's GrimFandango (Linux): the matching branch of the
+   rdPrimit3_ClipFace switch (geometry/lighting mode, perspective or ortho camera)); was
+   rdClip_Face3_PosB. */
 
-int rdClip_Face3_PosB(int *param_1,float *param_2,int param_3)
+int rdClip_Face3WOrtho(int *param_1,float *param_2,int param_3)
 
 {
   float fVar1;
@@ -911,11 +918,11 @@ int rdClip_Face3_PosB(int *param_1,float *param_2,int param_3)
   float *pfVar13;
   
   iVar7 = 0;
-  puVar10 = &UINT_007f48c0;
+  puVar10 = &g_dwWorkVerts;
   iVar9 = 0;
-  UINT_007f4ac4 = 0;
-  UINT_007f47b8 = (uint)param_2;
-  UINT_007f46ac = (uint)&UINT_007f48c0;
+  g_dwRdClip_faceStatus = 0;
+  g_dwSourceVert = (uint)param_2;
+  g_dwDestVert = (uint)&g_dwWorkVerts;
   pfVar11 = param_2 + param_3 * 3 + -3;
   pfVar13 = param_2;
   if (0 < param_3) {
@@ -930,10 +937,10 @@ int rdClip_Face3_PosB(int *param_1,float *param_2,int param_3)
           iVar9 = iVar9 + 1;
           iVar8 = iVar7 + 0xc;
           *(float *)((int)puVar10 + iVar7) = fVar2;
-          *(float *)((UINT_007f46ac - 8) + iVar8) = (pfVar13[1] - pfVar11[1]) * fVar3 + pfVar11[1];
-          *(float *)((UINT_007f46ac - 4) + iVar8) = (pfVar13[2] - pfVar11[2]) * fVar3 + pfVar11[2];
-          UINT_007f4ac4 = UINT_007f4ac4 | 0x10;
-          puVar10 = (uint *)UINT_007f46ac;
+          *(float *)((g_dwDestVert - 8) + iVar8) = (pfVar13[1] - pfVar11[1]) * fVar3 + pfVar11[1];
+          *(float *)((g_dwDestVert - 4) + iVar8) = (pfVar13[2] - pfVar11[2]) * fVar3 + pfVar11[2];
+          g_dwRdClip_faceStatus = g_dwRdClip_faceStatus | 0x10;
+          puVar10 = (uint *)g_dwDestVert;
         }
         iVar7 = iVar8;
         if (fVar1 <= *pfVar13) {
@@ -943,7 +950,7 @@ int rdClip_Face3_PosB(int *param_1,float *param_2,int param_3)
           *pfVar11 = *pfVar13;
           pfVar11[1] = pfVar13[1];
           pfVar11[2] = pfVar13[2];
-          puVar10 = (uint *)UINT_007f46ac;
+          puVar10 = (uint *)g_dwDestVert;
         }
       }
       param_3 = param_3 + -1;
@@ -953,13 +960,13 @@ int rdClip_Face3_PosB(int *param_1,float *param_2,int param_3)
   }
   if (2 < iVar9) {
     iVar7 = 0;
-    uVar5 = UINT_007f47b8;
-    UINT_007f46ac = UINT_007f47b8;
+    uVar5 = g_dwSourceVert;
+    g_dwDestVert = g_dwSourceVert;
     pfVar11 = (float *)puVar10;
     if (0 < iVar9) {
       iVar8 = 0;
       pfVar13 = (float *)(puVar10 + iVar9 * 3 + -3);
-      UINT_007f47b8 = (uint)puVar10;
+      g_dwSourceVert = (uint)puVar10;
       param_3 = iVar9;
       do {
         fVar2 = PUN(float,param_1[5]);
@@ -971,12 +978,12 @@ int rdClip_Face3_PosB(int *param_1,float *param_2,int param_3)
             iVar7 = iVar7 + 1;
             iVar8 = iVar8 + 0xc;
             *(float *)((uVar5 - 0xc) + iVar8) = fVar2;
-            *(float *)((UINT_007f46ac - 8) + iVar8) =
+            *(float *)((g_dwDestVert - 8) + iVar8) =
                  (PUN(float,puVar10[1]) - pfVar13[1]) * fVar3 + pfVar13[1];
-            *(float *)((UINT_007f46ac - 4) + iVar8) =
+            *(float *)((g_dwDestVert - 4) + iVar8) =
                  (PUN(float,puVar10[2]) - pfVar13[2]) * fVar3 + pfVar13[2];
-            UINT_007f4ac4 = UINT_007f4ac4 | 0x20;
-            uVar5 = UINT_007f46ac;
+            g_dwRdClip_faceStatus = g_dwRdClip_faceStatus | 0x20;
+            uVar5 = g_dwDestVert;
           }
           if (PUN(float,*puVar10) <= fVar1) {
             pfVar11 = (float *)(uVar5 + iVar8);
@@ -985,26 +992,26 @@ int rdClip_Face3_PosB(int *param_1,float *param_2,int param_3)
             *pfVar11 = PUN(float,*puVar10);
             pfVar11[1] = PUN(float,puVar10[1]);
             pfVar11[2] = PUN(float,puVar10[2]);
-            uVar5 = UINT_007f46ac;
+            uVar5 = g_dwDestVert;
           }
         }
         param_3 = param_3 + -1;
         pfVar13 = (float *)puVar10;
         puVar10 = puVar10 + 3;
-        pfVar11 = (float *)UINT_007f47b8;
+        pfVar11 = (float *)g_dwSourceVert;
       } while (param_3 != 0);
     }
-    UINT_007f47b8 = (uint)pfVar11;
+    g_dwSourceVert = (uint)pfVar11;
     iVar9 = iVar7;
     if (2 < iVar9) {
       iVar7 = 0;
       pfVar11 = (float *)((uVar5 - 0xc) + iVar9 * 0xc);
-      uVar12 = UINT_007f47b8;
-      UINT_007f46ac = UINT_007f47b8;
+      uVar12 = g_dwSourceVert;
+      g_dwDestVert = g_dwSourceVert;
       if (0 < iVar9) {
         pfVar13 = (float *)(uVar5 + 8);
         iVar8 = 0;
-        UINT_007f47b8 = uVar5;
+        g_dwSourceVert = uVar5;
         param_3 = iVar9;
         do {
           fVar2 = PUN(float,param_1[4]);
@@ -1016,11 +1023,11 @@ int rdClip_Face3_PosB(int *param_1,float *param_2,int param_3)
               iVar7 = iVar7 + 1;
               iVar8 = iVar8 + 0xc;
               *(float *)((uVar12 - 0xc) + iVar8) = (pfVar13[-2] - *pfVar11) * fVar3 + *pfVar11;
-              *(float *)((UINT_007f46ac - 8) + iVar8) =
+              *(float *)((g_dwDestVert - 8) + iVar8) =
                    (pfVar13[-1] - pfVar11[1]) * fVar3 + pfVar11[1];
-              *(float *)((UINT_007f46ac - 4) + iVar8) = fVar2;
-              UINT_007f4ac4 = UINT_007f4ac4 | 4;
-              uVar12 = UINT_007f46ac;
+              *(float *)((g_dwDestVert - 4) + iVar8) = fVar2;
+              g_dwRdClip_faceStatus = g_dwRdClip_faceStatus | 4;
+              uVar12 = g_dwDestVert;
             }
             if (*pfVar13 <= fVar1) {
               pfVar11 = (float *)(uVar12 + iVar8);
@@ -1029,26 +1036,26 @@ int rdClip_Face3_PosB(int *param_1,float *param_2,int param_3)
               *pfVar11 = pfVar13[-2];
               pfVar11[1] = pfVar13[-1];
               pfVar11[2] = *pfVar13;
-              uVar12 = UINT_007f46ac;
+              uVar12 = g_dwDestVert;
             }
           }
           pfVar11 = pfVar13 + -2;
           pfVar13 = pfVar13 + 3;
           param_3 = param_3 + -1;
-          uVar5 = UINT_007f47b8;
+          uVar5 = g_dwSourceVert;
         } while (param_3 != 0);
       }
-      UINT_007f47b8 = uVar5;
+      g_dwSourceVert = uVar5;
       iVar9 = iVar7;
       if (2 < iVar9) {
         iVar7 = 0;
         pfVar11 = (float *)((uVar12 - 0xc) + iVar9 * 0xc);
-        uVar5 = UINT_007f47b8;
-        UINT_007f46ac = UINT_007f47b8;
+        uVar5 = g_dwSourceVert;
+        g_dwDestVert = g_dwSourceVert;
         if (0 < iVar9) {
           pfVar13 = (float *)(uVar12 + 8);
           iVar8 = 0;
-          UINT_007f47b8 = uVar12;
+          g_dwSourceVert = uVar12;
           param_3 = iVar9;
           do {
             fVar2 = PUN(float,param_1[6]);
@@ -1060,11 +1067,11 @@ int rdClip_Face3_PosB(int *param_1,float *param_2,int param_3)
                 iVar7 = iVar7 + 1;
                 iVar8 = iVar8 + 0xc;
                 *(float *)((uVar5 - 0xc) + iVar8) = (pfVar13[-2] - *pfVar11) * fVar3 + *pfVar11;
-                *(float *)((UINT_007f46ac - 8) + iVar8) =
+                *(float *)((g_dwDestVert - 8) + iVar8) =
                      (pfVar13[-1] - pfVar11[1]) * fVar3 + pfVar11[1];
-                *(float *)((UINT_007f46ac - 4) + iVar8) = fVar2;
-                UINT_007f4ac4 = UINT_007f4ac4 | 8;
-                uVar5 = UINT_007f46ac;
+                *(float *)((g_dwDestVert - 4) + iVar8) = fVar2;
+                g_dwRdClip_faceStatus = g_dwRdClip_faceStatus | 8;
+                uVar5 = g_dwDestVert;
               }
               if (fVar1 <= *pfVar13) {
                 pfVar11 = (float *)(uVar5 + iVar8);
@@ -1073,26 +1080,26 @@ int rdClip_Face3_PosB(int *param_1,float *param_2,int param_3)
                 *pfVar11 = pfVar13[-2];
                 pfVar11[1] = pfVar13[-1];
                 pfVar11[2] = *pfVar13;
-                uVar5 = UINT_007f46ac;
+                uVar5 = g_dwDestVert;
               }
             }
             pfVar11 = pfVar13 + -2;
             pfVar13 = pfVar13 + 3;
             param_3 = param_3 + -1;
-            uVar12 = UINT_007f47b8;
+            uVar12 = g_dwSourceVert;
           } while (param_3 != 0);
         }
-        UINT_007f47b8 = uVar12;
+        g_dwSourceVert = uVar12;
         iVar9 = iVar7;
         if (2 < iVar9) {
           iVar7 = 0;
           pfVar11 = (float *)((uVar5 - 0xc) + iVar9 * 0xc);
-          pfVar13 = (float *)UINT_007f47b8;
-          UINT_007f46ac = UINT_007f47b8;
+          pfVar13 = (float *)g_dwSourceVert;
+          g_dwDestVert = g_dwSourceVert;
           if (0 < iVar9) {
             pfVar4 = (float *)(uVar5 + 4);
             iVar8 = 0;
-            UINT_007f47b8 = uVar5;
+            g_dwSourceVert = uVar5;
             param_3 = iVar9;
             do {
               if ((PUN(float,param_1[1]) <= pfVar11[1]) || (PUN(float,param_1[1]) <= *pfVar4)) {
@@ -1102,12 +1109,12 @@ int rdClip_Face3_PosB(int *param_1,float *param_2,int param_3)
                   fVar1 = (PUN(float,param_1[1]) - pfVar11[1]) / (*pfVar4 - pfVar11[1]);
                   *(int *)((int)pfVar13 + iVar8 + 4) = param_1[1];
                   iVar8 = iVar8 + 0xc;
-                  *(float *)((UINT_007f46ac - 4) + iVar8) =
+                  *(float *)((g_dwDestVert - 4) + iVar8) =
                        (pfVar4[1] - pfVar11[2]) * fVar1 + pfVar11[2];
-                  *(float *)((UINT_007f46ac - 0xc) + iVar8) =
+                  *(float *)((g_dwDestVert - 0xc) + iVar8) =
                        (pfVar4[-1] - *pfVar11) * fVar1 + *pfVar11;
-                  UINT_007f4ac4 = UINT_007f4ac4 | 1;
-                  pfVar13 = (float *)UINT_007f46ac;
+                  g_dwRdClip_faceStatus = g_dwRdClip_faceStatus | 1;
+                  pfVar13 = (float *)g_dwDestVert;
                 }
                 if (PUN(float,param_1[1]) <= *pfVar4) {
                   pfVar13 = (float *)((int)pfVar13 + iVar8);
@@ -1116,18 +1123,18 @@ int rdClip_Face3_PosB(int *param_1,float *param_2,int param_3)
                   *pfVar13 = pfVar4[-1];
                   pfVar13[1] = *pfVar4;
                   pfVar13[2] = pfVar4[1];
-                  pfVar13 = (float *)UINT_007f46ac;
+                  pfVar13 = (float *)g_dwDestVert;
                 }
               }
               pfVar11 = pfVar4 + -1;
               pfVar4 = pfVar4 + 3;
               param_3 = param_3 + -1;
-              uVar5 = UINT_007f47b8;
+              uVar5 = g_dwSourceVert;
             } while (param_3 != 0);
           }
-          UINT_007f47b8 = uVar5;
+          g_dwSourceVert = uVar5;
           if (iVar7 < 3) {
-            UINT_007f4ac4 = UINT_007f4ac4 | 0x40;
+            g_dwRdClip_faceStatus = g_dwRdClip_faceStatus | 0x40;
             return iVar7;
           }
           iVar9 = iVar7;
@@ -1135,12 +1142,12 @@ int rdClip_Face3_PosB(int *param_1,float *param_2,int param_3)
           if (*param_1 != 0) {
             iVar9 = 0;
             pfVar4 = pfVar13 + iVar7 * 3 + -3;
-            pfVar11 = (float *)UINT_007f47b8;
-            UINT_007f46ac = UINT_007f47b8;
+            pfVar11 = (float *)g_dwSourceVert;
+            g_dwDestVert = g_dwSourceVert;
             if (0 < iVar7) {
               pfVar6 = pfVar13 + 1;
               iVar8 = 0;
-              UINT_007f47b8 = (uint)pfVar13;
+              g_dwSourceVert = (uint)pfVar13;
               param_3 = iVar7;
               do {
                 if ((pfVar4[1] <= PUN(float,param_1[2])) || (*pfVar6 <= PUN(float,param_1[2]))) {
@@ -1150,12 +1157,12 @@ int rdClip_Face3_PosB(int *param_1,float *param_2,int param_3)
                     fVar1 = (PUN(float,param_1[2]) - pfVar4[1]) / (*pfVar6 - pfVar4[1]);
                     *(int *)((int)pfVar11 + iVar8 + 4) = param_1[2];
                     iVar8 = iVar8 + 0xc;
-                    *(float *)((UINT_007f46ac - 4) + iVar8) =
+                    *(float *)((g_dwDestVert - 4) + iVar8) =
                          (pfVar6[1] - pfVar4[2]) * fVar1 + pfVar4[2];
-                    *(float *)((UINT_007f46ac - 0xc) + iVar8) =
+                    *(float *)((g_dwDestVert - 0xc) + iVar8) =
                          (pfVar6[-1] - *pfVar4) * fVar1 + *pfVar4;
-                    UINT_007f4ac4 = UINT_007f4ac4 | 2;
-                    pfVar11 = (float *)UINT_007f46ac;
+                    g_dwRdClip_faceStatus = g_dwRdClip_faceStatus | 2;
+                    pfVar11 = (float *)g_dwDestVert;
                   }
                   if (*pfVar6 <= PUN(float,param_1[2])) {
                     pfVar11 = (float *)((int)pfVar11 + iVar8);
@@ -1164,16 +1171,16 @@ int rdClip_Face3_PosB(int *param_1,float *param_2,int param_3)
                     *pfVar11 = pfVar6[-1];
                     pfVar11[1] = *pfVar6;
                     pfVar11[2] = pfVar6[1];
-                    pfVar11 = (float *)UINT_007f46ac;
+                    pfVar11 = (float *)g_dwDestVert;
                   }
                 }
                 pfVar4 = pfVar6 + -1;
                 pfVar6 = pfVar6 + 3;
                 param_3 = param_3 + -1;
-                pfVar13 = (float *)UINT_007f47b8;
+                pfVar13 = (float *)g_dwSourceVert;
               } while (param_3 != 0);
             }
-            UINT_007f47b8 = (uint)pfVar13;
+            g_dwSourceVert = (uint)pfVar13;
             if (iVar9 < 3) {
               return iVar9;
             }
@@ -1199,10 +1206,14 @@ int rdClip_Face3_PosB(int *param_1,float *param_2,int param_3)
 #endif
 
 
-/* ---- 0x004489b0  rdClip_Face3_Pos_2 ---- */
+/* ---- 0x004489b0  rdClip_Face3S ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-uint rdClip_Face3_Pos_2(int *param_1,float *param_2,uint param_3)
+/* Original name rdClip_Face3S (the remaster's GrimFandango (Linux): the matching branch of the
+   rdPrimit3_ClipFace switch (geometry/lighting mode, perspective or ortho camera)); was
+   rdClip_Face3_Pos_2. */
+
+uint rdClip_Face3S(int *param_1,float *param_2,uint param_3)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1227,10 +1238,10 @@ uint rdClip_Face3_Pos_2(int *param_1,float *param_2,uint param_3)
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   uVar12 = 0;
-  puVar14 = &UINT_007f48c0;
-  UINT_007f4ac4 = 0;
-  UINT_007f47b8 = (uint)param_2;
-  UINT_007f46ac = (uint)&UINT_007f48c0;
+  puVar14 = &g_dwWorkVerts;
+  g_dwRdClip_faceStatus = 0;
+  g_dwSourceVert = (uint)param_2;
+  g_dwDestVert = (uint)&g_dwWorkVerts;
   if (0 < (int)param_3) {
     iVar11 = 0;
     local_4 = param_3;
@@ -1265,11 +1276,11 @@ uint rdClip_Face3_Pos_2(int *param_1,float *param_2,uint param_3)
           }
           *(float *)((int)puVar14 + iVar11) = PUN(float,param_1[0xc]) * fVar5;
           uVar12 = uVar12 + 1;
-          *(float *)(UINT_007f46ac + 4 + iVar11) = fVar5;
+          *(float *)(g_dwDestVert + 4 + iVar11) = fVar5;
           iVar11 = iVar11 + 0xc;
-          *(float *)((UINT_007f46ac - 4) + iVar11) = (pfVar8[2] - pfVar15[2]) * fVar2 + pfVar15[2];
-          UINT_007f4ac4 = UINT_007f4ac4 | 0x10;
-          puVar14 = (uint *)UINT_007f46ac;
+          *(float *)((g_dwDestVert - 4) + iVar11) = (pfVar8[2] - pfVar15[2]) * fVar2 + pfVar15[2];
+          g_dwRdClip_faceStatus = g_dwRdClip_faceStatus | 0x10;
+          puVar14 = (uint *)g_dwDestVert;
         }
         if (fVar3 <= *pfVar8) {
           pfVar15 = (float *)((int)puVar14 + iVar11);
@@ -1278,7 +1289,7 @@ uint rdClip_Face3_Pos_2(int *param_1,float *param_2,uint param_3)
           *pfVar15 = *pfVar8;
           pfVar15[1] = pfVar8[1];
           pfVar15[2] = pfVar8[2];
-          puVar14 = (uint *)UINT_007f46ac;
+          puVar14 = (uint *)g_dwDestVert;
         }
       }
       local_4 = local_4 - 1;
@@ -1288,13 +1299,13 @@ uint rdClip_Face3_Pos_2(int *param_1,float *param_2,uint param_3)
   }
   if (2 < (int)uVar12) {
     uVar13 = 0;
-    uVar17 = UINT_007f47b8;
-    UINT_007f46ac = UINT_007f47b8;
+    uVar17 = g_dwSourceVert;
+    g_dwDestVert = g_dwSourceVert;
     pfVar15 = (float *)puVar14;
     if (0 < (int)uVar12) {
       iVar11 = 0;
       pfVar8 = (float *)(puVar14 + uVar12 * 3 + -3);
-      UINT_007f47b8 = (uint)puVar14;
+      g_dwSourceVert = (uint)puVar14;
       local_4 = uVar12;
       do {
         fVar2 = PUN(float,param_1[10]) * pfVar8[1];
@@ -1325,12 +1336,12 @@ uint rdClip_Face3_Pos_2(int *param_1,float *param_2,uint param_3)
             }
             *(float *)(uVar17 + iVar11) = PUN(float,param_1[10]) * fVar5;
             uVar13 = uVar13 + 1;
-            *(float *)(UINT_007f46ac + 4 + iVar11) = fVar5;
+            *(float *)(g_dwDestVert + 4 + iVar11) = fVar5;
             iVar11 = iVar11 + 0xc;
-            *(float *)((UINT_007f46ac - 4) + iVar11) =
+            *(float *)((g_dwDestVert - 4) + iVar11) =
                  (PUN(float,puVar14[2]) - pfVar8[2]) * fVar2 + pfVar8[2];
-            UINT_007f4ac4 = UINT_007f4ac4 | 0x20;
-            uVar17 = UINT_007f46ac;
+            g_dwRdClip_faceStatus = g_dwRdClip_faceStatus | 0x20;
+            uVar17 = g_dwDestVert;
           }
           if (PUN(float,*puVar14) <= fVar3) {
             pfVar15 = (float *)(uVar17 + iVar11);
@@ -1339,26 +1350,26 @@ uint rdClip_Face3_Pos_2(int *param_1,float *param_2,uint param_3)
             *pfVar15 = PUN(float,*puVar14);
             pfVar15[1] = PUN(float,puVar14[1]);
             pfVar15[2] = PUN(float,puVar14[2]);
-            uVar17 = UINT_007f46ac;
+            uVar17 = g_dwDestVert;
           }
         }
         local_4 = local_4 - 1;
         pfVar8 = (float *)puVar14;
         puVar14 = puVar14 + 3;
-        pfVar15 = (float *)UINT_007f47b8;
+        pfVar15 = (float *)g_dwSourceVert;
       } while (local_4 != 0);
     }
-    UINT_007f47b8 = (uint)pfVar15;
+    g_dwSourceVert = (uint)pfVar15;
     uVar12 = uVar13;
     if (2 < (int)uVar12) {
       uVar13 = 0;
-      UINT_007f46ac = UINT_007f47b8;
+      g_dwDestVert = g_dwSourceVert;
       pfVar15 = (float *)((uVar17 - 0xc) + uVar12 * 0xc);
-      uVar16 = UINT_007f47b8;
+      uVar16 = g_dwSourceVert;
       if (0 < (int)uVar12) {
         iVar11 = 0;
         pfVar8 = (float *)(uVar17 + 8);
-        UINT_007f47b8 = uVar17;
+        g_dwSourceVert = uVar17;
         local_4 = uVar12;
         do {
           fVar2 = PUN(float,param_1[0xb]) * pfVar15[1];
@@ -1391,10 +1402,10 @@ uint rdClip_Face3_Pos_2(int *param_1,float *param_2,uint param_3)
               uVar13 = uVar13 + 1;
               iVar11 = iVar11 + 0xc;
               *(float *)((uVar16 - 0xc) + iVar11) = (pfVar8[-2] - *pfVar15) * fVar2 + *pfVar15;
-              *(float *)((UINT_007f46ac - 8) + iVar11) = fVar5;
-              *(float *)((UINT_007f46ac - 4) + iVar11) = fVar1 * fVar5;
-              UINT_007f4ac4 = UINT_007f4ac4 | 4;
-              uVar16 = UINT_007f46ac;
+              *(float *)((g_dwDestVert - 8) + iVar11) = fVar5;
+              *(float *)((g_dwDestVert - 4) + iVar11) = fVar1 * fVar5;
+              g_dwRdClip_faceStatus = g_dwRdClip_faceStatus | 4;
+              uVar16 = g_dwDestVert;
             }
             if (*pfVar8 <= fVar3) {
               pfVar15 = (float *)(uVar16 + iVar11);
@@ -1403,26 +1414,26 @@ uint rdClip_Face3_Pos_2(int *param_1,float *param_2,uint param_3)
               *pfVar15 = pfVar8[-2];
               pfVar15[1] = pfVar8[-1];
               pfVar15[2] = *pfVar8;
-              uVar16 = UINT_007f46ac;
+              uVar16 = g_dwDestVert;
             }
           }
           pfVar15 = pfVar8 + -2;
           pfVar8 = pfVar8 + 3;
           local_4 = local_4 - 1;
-          uVar17 = UINT_007f47b8;
+          uVar17 = g_dwSourceVert;
         } while (local_4 != 0);
       }
-      UINT_007f47b8 = uVar17;
+      g_dwSourceVert = uVar17;
       uVar12 = uVar13;
       if (2 < (int)uVar12) {
         uVar13 = 0;
-        UINT_007f46ac = UINT_007f47b8;
+        g_dwDestVert = g_dwSourceVert;
         pfVar15 = (float *)((uVar16 - 0xc) + uVar12 * 0xc);
-        uVar17 = UINT_007f47b8;
+        uVar17 = g_dwSourceVert;
         if (0 < (int)uVar12) {
           iVar11 = 0;
           pfVar8 = (float *)(uVar16 + 8);
-          UINT_007f47b8 = uVar16;
+          g_dwSourceVert = uVar16;
           local_4 = uVar12;
           do {
             fVar2 = PUN(float,param_1[8]) * pfVar15[1];
@@ -1455,10 +1466,10 @@ uint rdClip_Face3_Pos_2(int *param_1,float *param_2,uint param_3)
                 uVar13 = uVar13 + 1;
                 iVar11 = iVar11 + 0xc;
                 *(float *)((uVar17 - 0xc) + iVar11) = (pfVar8[-2] - *pfVar15) * fVar2 + *pfVar15;
-                *(float *)((UINT_007f46ac - 8) + iVar11) = fVar5;
-                *(float *)((UINT_007f46ac - 4) + iVar11) = fVar1 * fVar5;
-                UINT_007f4ac4 = UINT_007f4ac4 | 8;
-                uVar17 = UINT_007f46ac;
+                *(float *)((g_dwDestVert - 8) + iVar11) = fVar5;
+                *(float *)((g_dwDestVert - 4) + iVar11) = fVar1 * fVar5;
+                g_dwRdClip_faceStatus = g_dwRdClip_faceStatus | 8;
+                uVar17 = g_dwDestVert;
               }
               if (fVar3 <= *pfVar8) {
                 pfVar15 = (float *)(uVar17 + iVar11);
@@ -1467,26 +1478,26 @@ uint rdClip_Face3_Pos_2(int *param_1,float *param_2,uint param_3)
                 *pfVar15 = pfVar8[-2];
                 pfVar15[1] = pfVar8[-1];
                 pfVar15[2] = *pfVar8;
-                uVar17 = UINT_007f46ac;
+                uVar17 = g_dwDestVert;
               }
             }
             pfVar15 = pfVar8 + -2;
             pfVar8 = pfVar8 + 3;
             local_4 = local_4 - 1;
-            uVar16 = UINT_007f47b8;
+            uVar16 = g_dwSourceVert;
           } while (local_4 != 0);
         }
-        UINT_007f47b8 = uVar16;
+        g_dwSourceVert = uVar16;
         uVar12 = uVar13;
         if (2 < (int)uVar12) {
           uVar13 = 0;
-          UINT_007f46ac = UINT_007f47b8;
+          g_dwDestVert = g_dwSourceVert;
           pfVar15 = (float *)((uVar17 - 0xc) + uVar12 * 0xc);
-          pfVar8 = (float *)UINT_007f47b8;
+          pfVar8 = (float *)g_dwSourceVert;
           if (0 < (int)uVar12) {
             iVar11 = 0;
             pfVar9 = (float *)(uVar17 + 4);
-            UINT_007f47b8 = uVar17;
+            g_dwSourceVert = uVar17;
             param_3 = uVar12;
             do {
               if ((PUN(float,param_1[1]) <= pfVar15[1]) || (PUN(float,param_1[1]) <= *pfVar9)) {
@@ -1496,12 +1507,12 @@ uint rdClip_Face3_Pos_2(int *param_1,float *param_2,uint param_3)
                   fVar2 = (PUN(float,param_1[1]) - pfVar15[1]) / (*pfVar9 - pfVar15[1]);
                   *(int *)((int)pfVar8 + iVar11 + 4) = param_1[1];
                   iVar11 = iVar11 + 0xc;
-                  *(float *)((UINT_007f46ac - 4) + iVar11) =
+                  *(float *)((g_dwDestVert - 4) + iVar11) =
                        (pfVar9[1] - pfVar15[2]) * fVar2 + pfVar15[2];
-                  *(float *)((UINT_007f46ac - 0xc) + iVar11) =
+                  *(float *)((g_dwDestVert - 0xc) + iVar11) =
                        (pfVar9[-1] - *pfVar15) * fVar2 + *pfVar15;
-                  UINT_007f4ac4 = UINT_007f4ac4 | 1;
-                  pfVar8 = (float *)UINT_007f46ac;
+                  g_dwRdClip_faceStatus = g_dwRdClip_faceStatus | 1;
+                  pfVar8 = (float *)g_dwDestVert;
                 }
                 if (PUN(float,param_1[1]) <= *pfVar9) {
                   pfVar8 = (float *)((int)pfVar8 + iVar11);
@@ -1510,18 +1521,18 @@ uint rdClip_Face3_Pos_2(int *param_1,float *param_2,uint param_3)
                   *pfVar8 = pfVar9[-1];
                   pfVar8[1] = *pfVar9;
                   pfVar8[2] = pfVar9[1];
-                  pfVar8 = (float *)UINT_007f46ac;
+                  pfVar8 = (float *)g_dwDestVert;
                 }
               }
               pfVar15 = pfVar9 + -1;
               pfVar9 = pfVar9 + 3;
               param_3 = param_3 - 1;
-              uVar17 = UINT_007f47b8;
+              uVar17 = g_dwSourceVert;
             } while (param_3 != 0);
           }
-          UINT_007f47b8 = uVar17;
+          g_dwSourceVert = uVar17;
           if ((int)uVar13 < 3) {
-            UINT_007f4ac4 = UINT_007f4ac4 | 0x40;
+            g_dwRdClip_faceStatus = g_dwRdClip_faceStatus | 0x40;
             return uVar13;
           }
           uVar12 = uVar13;
@@ -1529,12 +1540,12 @@ uint rdClip_Face3_Pos_2(int *param_1,float *param_2,uint param_3)
           if (*param_1 != 0) {
             uVar12 = 0;
             pfVar9 = pfVar8 + uVar13 * 3 + -3;
-            pfVar15 = (float *)UINT_007f47b8;
-            UINT_007f46ac = UINT_007f47b8;
+            pfVar15 = (float *)g_dwSourceVert;
+            g_dwDestVert = g_dwSourceVert;
             if (0 < (int)uVar13) {
               iVar11 = 0;
               pfVar10 = pfVar8 + 1;
-              UINT_007f47b8 = (uint)pfVar8;
+              g_dwSourceVert = (uint)pfVar8;
               param_3 = uVar13;
               do {
                 if ((pfVar9[1] <= PUN(float,param_1[2])) || (*pfVar10 <= PUN(float,param_1[2]))) {
@@ -1544,12 +1555,12 @@ uint rdClip_Face3_Pos_2(int *param_1,float *param_2,uint param_3)
                     fVar2 = (PUN(float,param_1[2]) - pfVar9[1]) / (*pfVar10 - pfVar9[1]);
                     *(int *)((int)pfVar15 + iVar11 + 4) = param_1[2];
                     iVar11 = iVar11 + 0xc;
-                    *(float *)((UINT_007f46ac - 4) + iVar11) =
+                    *(float *)((g_dwDestVert - 4) + iVar11) =
                          (pfVar10[1] - pfVar9[2]) * fVar2 + pfVar9[2];
-                    *(float *)((UINT_007f46ac - 0xc) + iVar11) =
+                    *(float *)((g_dwDestVert - 0xc) + iVar11) =
                          (pfVar10[-1] - *pfVar9) * fVar2 + *pfVar9;
-                    UINT_007f4ac4 = UINT_007f4ac4 | 2;
-                    pfVar15 = (float *)UINT_007f46ac;
+                    g_dwRdClip_faceStatus = g_dwRdClip_faceStatus | 2;
+                    pfVar15 = (float *)g_dwDestVert;
                   }
                   if (*pfVar10 <= PUN(float,param_1[2])) {
                     pfVar15 = (float *)((int)pfVar15 + iVar11);
@@ -1558,16 +1569,16 @@ uint rdClip_Face3_Pos_2(int *param_1,float *param_2,uint param_3)
                     *pfVar15 = pfVar10[-1];
                     pfVar15[1] = *pfVar10;
                     pfVar15[2] = pfVar10[1];
-                    pfVar15 = (float *)UINT_007f46ac;
+                    pfVar15 = (float *)g_dwDestVert;
                   }
                 }
                 pfVar9 = pfVar10 + -1;
                 pfVar10 = pfVar10 + 3;
                 param_3 = param_3 - 1;
-                pfVar8 = (float *)UINT_007f47b8;
+                pfVar8 = (float *)g_dwSourceVert;
               } while (param_3 != 0);
             }
-            UINT_007f47b8 = (uint)pfVar8;
+            g_dwSourceVert = (uint)pfVar8;
             if ((int)uVar12 < 3) {
               return uVar12;
             }
@@ -1596,10 +1607,14 @@ uint rdClip_Face3_Pos_2(int *param_1,float *param_2,uint param_3)
 #endif
 
 
-/* ---- 0x00449350  rdClip_Face3_PosB_2 ---- */
+/* ---- 0x00449350  rdClip_Face3SOrtho ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-int rdClip_Face3_PosB_2(int *param_1,float *param_2,int param_3)
+/* Original name rdClip_Face3SOrtho (the remaster's GrimFandango (Linux): the matching branch of the
+   rdPrimit3_ClipFace switch (geometry/lighting mode, perspective or ortho camera)); was
+   rdClip_Face3_PosB_2. */
+
+int rdClip_Face3SOrtho(int *param_1,float *param_2,int param_3)
 
 {
   float fVar1;
@@ -1617,11 +1632,11 @@ int rdClip_Face3_PosB_2(int *param_1,float *param_2,int param_3)
   float *pfVar13;
   
   iVar7 = 0;
-  puVar10 = &UINT_007f48c0;
+  puVar10 = &g_dwWorkVerts;
   iVar9 = 0;
-  UINT_007f4ac4 = 0;
-  UINT_007f47b8 = (uint)param_2;
-  UINT_007f46ac = (uint)&UINT_007f48c0;
+  g_dwRdClip_faceStatus = 0;
+  g_dwSourceVert = (uint)param_2;
+  g_dwDestVert = (uint)&g_dwWorkVerts;
   pfVar11 = param_2 + param_3 * 3 + -3;
   pfVar13 = param_2;
   if (0 < param_3) {
@@ -1636,10 +1651,10 @@ int rdClip_Face3_PosB_2(int *param_1,float *param_2,int param_3)
           iVar9 = iVar9 + 1;
           iVar8 = iVar7 + 0xc;
           *(float *)((int)puVar10 + iVar7) = fVar2;
-          *(float *)((UINT_007f46ac - 8) + iVar8) = (pfVar13[1] - pfVar11[1]) * fVar3 + pfVar11[1];
-          *(float *)((UINT_007f46ac - 4) + iVar8) = (pfVar13[2] - pfVar11[2]) * fVar3 + pfVar11[2];
-          UINT_007f4ac4 = UINT_007f4ac4 | 0x10;
-          puVar10 = (uint *)UINT_007f46ac;
+          *(float *)((g_dwDestVert - 8) + iVar8) = (pfVar13[1] - pfVar11[1]) * fVar3 + pfVar11[1];
+          *(float *)((g_dwDestVert - 4) + iVar8) = (pfVar13[2] - pfVar11[2]) * fVar3 + pfVar11[2];
+          g_dwRdClip_faceStatus = g_dwRdClip_faceStatus | 0x10;
+          puVar10 = (uint *)g_dwDestVert;
         }
         iVar7 = iVar8;
         if (fVar1 <= *pfVar13) {
@@ -1649,7 +1664,7 @@ int rdClip_Face3_PosB_2(int *param_1,float *param_2,int param_3)
           *pfVar11 = *pfVar13;
           pfVar11[1] = pfVar13[1];
           pfVar11[2] = pfVar13[2];
-          puVar10 = (uint *)UINT_007f46ac;
+          puVar10 = (uint *)g_dwDestVert;
         }
       }
       param_3 = param_3 + -1;
@@ -1659,13 +1674,13 @@ int rdClip_Face3_PosB_2(int *param_1,float *param_2,int param_3)
   }
   if (2 < iVar9) {
     iVar7 = 0;
-    uVar5 = UINT_007f47b8;
-    UINT_007f46ac = UINT_007f47b8;
+    uVar5 = g_dwSourceVert;
+    g_dwDestVert = g_dwSourceVert;
     pfVar11 = (float *)puVar10;
     if (0 < iVar9) {
       iVar8 = 0;
       pfVar13 = (float *)(puVar10 + iVar9 * 3 + -3);
-      UINT_007f47b8 = (uint)puVar10;
+      g_dwSourceVert = (uint)puVar10;
       param_3 = iVar9;
       do {
         fVar2 = PUN(float,param_1[5]);
@@ -1677,12 +1692,12 @@ int rdClip_Face3_PosB_2(int *param_1,float *param_2,int param_3)
             iVar7 = iVar7 + 1;
             iVar8 = iVar8 + 0xc;
             *(float *)((uVar5 - 0xc) + iVar8) = fVar2;
-            *(float *)((UINT_007f46ac - 8) + iVar8) =
+            *(float *)((g_dwDestVert - 8) + iVar8) =
                  (PUN(float,puVar10[1]) - pfVar13[1]) * fVar3 + pfVar13[1];
-            *(float *)((UINT_007f46ac - 4) + iVar8) =
+            *(float *)((g_dwDestVert - 4) + iVar8) =
                  (PUN(float,puVar10[2]) - pfVar13[2]) * fVar3 + pfVar13[2];
-            UINT_007f4ac4 = UINT_007f4ac4 | 0x20;
-            uVar5 = UINT_007f46ac;
+            g_dwRdClip_faceStatus = g_dwRdClip_faceStatus | 0x20;
+            uVar5 = g_dwDestVert;
           }
           if (PUN(float,*puVar10) <= fVar1) {
             pfVar11 = (float *)(uVar5 + iVar8);
@@ -1691,26 +1706,26 @@ int rdClip_Face3_PosB_2(int *param_1,float *param_2,int param_3)
             *pfVar11 = PUN(float,*puVar10);
             pfVar11[1] = PUN(float,puVar10[1]);
             pfVar11[2] = PUN(float,puVar10[2]);
-            uVar5 = UINT_007f46ac;
+            uVar5 = g_dwDestVert;
           }
         }
         param_3 = param_3 + -1;
         pfVar13 = (float *)puVar10;
         puVar10 = puVar10 + 3;
-        pfVar11 = (float *)UINT_007f47b8;
+        pfVar11 = (float *)g_dwSourceVert;
       } while (param_3 != 0);
     }
-    UINT_007f47b8 = (uint)pfVar11;
+    g_dwSourceVert = (uint)pfVar11;
     iVar9 = iVar7;
     if (2 < iVar9) {
       iVar7 = 0;
       pfVar11 = (float *)((uVar5 - 0xc) + iVar9 * 0xc);
-      uVar12 = UINT_007f47b8;
-      UINT_007f46ac = UINT_007f47b8;
+      uVar12 = g_dwSourceVert;
+      g_dwDestVert = g_dwSourceVert;
       if (0 < iVar9) {
         pfVar13 = (float *)(uVar5 + 8);
         iVar8 = 0;
-        UINT_007f47b8 = uVar5;
+        g_dwSourceVert = uVar5;
         param_3 = iVar9;
         do {
           fVar2 = PUN(float,param_1[4]);
@@ -1722,11 +1737,11 @@ int rdClip_Face3_PosB_2(int *param_1,float *param_2,int param_3)
               iVar7 = iVar7 + 1;
               iVar8 = iVar8 + 0xc;
               *(float *)((uVar12 - 0xc) + iVar8) = (pfVar13[-2] - *pfVar11) * fVar3 + *pfVar11;
-              *(float *)((UINT_007f46ac - 8) + iVar8) =
+              *(float *)((g_dwDestVert - 8) + iVar8) =
                    (pfVar13[-1] - pfVar11[1]) * fVar3 + pfVar11[1];
-              *(float *)((UINT_007f46ac - 4) + iVar8) = fVar2;
-              UINT_007f4ac4 = UINT_007f4ac4 | 4;
-              uVar12 = UINT_007f46ac;
+              *(float *)((g_dwDestVert - 4) + iVar8) = fVar2;
+              g_dwRdClip_faceStatus = g_dwRdClip_faceStatus | 4;
+              uVar12 = g_dwDestVert;
             }
             if (*pfVar13 <= fVar1) {
               pfVar11 = (float *)(uVar12 + iVar8);
@@ -1735,26 +1750,26 @@ int rdClip_Face3_PosB_2(int *param_1,float *param_2,int param_3)
               *pfVar11 = pfVar13[-2];
               pfVar11[1] = pfVar13[-1];
               pfVar11[2] = *pfVar13;
-              uVar12 = UINT_007f46ac;
+              uVar12 = g_dwDestVert;
             }
           }
           pfVar11 = pfVar13 + -2;
           pfVar13 = pfVar13 + 3;
           param_3 = param_3 + -1;
-          uVar5 = UINT_007f47b8;
+          uVar5 = g_dwSourceVert;
         } while (param_3 != 0);
       }
-      UINT_007f47b8 = uVar5;
+      g_dwSourceVert = uVar5;
       iVar9 = iVar7;
       if (2 < iVar9) {
         iVar7 = 0;
         pfVar11 = (float *)((uVar12 - 0xc) + iVar9 * 0xc);
-        uVar5 = UINT_007f47b8;
-        UINT_007f46ac = UINT_007f47b8;
+        uVar5 = g_dwSourceVert;
+        g_dwDestVert = g_dwSourceVert;
         if (0 < iVar9) {
           pfVar13 = (float *)(uVar12 + 8);
           iVar8 = 0;
-          UINT_007f47b8 = uVar12;
+          g_dwSourceVert = uVar12;
           param_3 = iVar9;
           do {
             fVar2 = PUN(float,param_1[6]);
@@ -1766,11 +1781,11 @@ int rdClip_Face3_PosB_2(int *param_1,float *param_2,int param_3)
                 iVar7 = iVar7 + 1;
                 iVar8 = iVar8 + 0xc;
                 *(float *)((uVar5 - 0xc) + iVar8) = (pfVar13[-2] - *pfVar11) * fVar3 + *pfVar11;
-                *(float *)((UINT_007f46ac - 8) + iVar8) =
+                *(float *)((g_dwDestVert - 8) + iVar8) =
                      (pfVar13[-1] - pfVar11[1]) * fVar3 + pfVar11[1];
-                *(float *)((UINT_007f46ac - 4) + iVar8) = fVar2;
-                UINT_007f4ac4 = UINT_007f4ac4 | 8;
-                uVar5 = UINT_007f46ac;
+                *(float *)((g_dwDestVert - 4) + iVar8) = fVar2;
+                g_dwRdClip_faceStatus = g_dwRdClip_faceStatus | 8;
+                uVar5 = g_dwDestVert;
               }
               if (fVar1 <= *pfVar13) {
                 pfVar11 = (float *)(uVar5 + iVar8);
@@ -1779,26 +1794,26 @@ int rdClip_Face3_PosB_2(int *param_1,float *param_2,int param_3)
                 *pfVar11 = pfVar13[-2];
                 pfVar11[1] = pfVar13[-1];
                 pfVar11[2] = *pfVar13;
-                uVar5 = UINT_007f46ac;
+                uVar5 = g_dwDestVert;
               }
             }
             pfVar11 = pfVar13 + -2;
             pfVar13 = pfVar13 + 3;
             param_3 = param_3 + -1;
-            uVar12 = UINT_007f47b8;
+            uVar12 = g_dwSourceVert;
           } while (param_3 != 0);
         }
-        UINT_007f47b8 = uVar12;
+        g_dwSourceVert = uVar12;
         iVar9 = iVar7;
         if (2 < iVar9) {
           iVar7 = 0;
           pfVar11 = (float *)((uVar5 - 0xc) + iVar9 * 0xc);
-          pfVar13 = (float *)UINT_007f47b8;
-          UINT_007f46ac = UINT_007f47b8;
+          pfVar13 = (float *)g_dwSourceVert;
+          g_dwDestVert = g_dwSourceVert;
           if (0 < iVar9) {
             pfVar4 = (float *)(uVar5 + 4);
             iVar8 = 0;
-            UINT_007f47b8 = uVar5;
+            g_dwSourceVert = uVar5;
             param_3 = iVar9;
             do {
               if ((PUN(float,param_1[1]) <= pfVar11[1]) || (PUN(float,param_1[1]) <= *pfVar4)) {
@@ -1808,12 +1823,12 @@ int rdClip_Face3_PosB_2(int *param_1,float *param_2,int param_3)
                   fVar1 = (PUN(float,param_1[1]) - pfVar11[1]) / (*pfVar4 - pfVar11[1]);
                   *(int *)((int)pfVar13 + iVar8 + 4) = param_1[1];
                   iVar8 = iVar8 + 0xc;
-                  *(float *)((UINT_007f46ac - 4) + iVar8) =
+                  *(float *)((g_dwDestVert - 4) + iVar8) =
                        (pfVar4[1] - pfVar11[2]) * fVar1 + pfVar11[2];
-                  *(float *)((UINT_007f46ac - 0xc) + iVar8) =
+                  *(float *)((g_dwDestVert - 0xc) + iVar8) =
                        (pfVar4[-1] - *pfVar11) * fVar1 + *pfVar11;
-                  UINT_007f4ac4 = UINT_007f4ac4 | 1;
-                  pfVar13 = (float *)UINT_007f46ac;
+                  g_dwRdClip_faceStatus = g_dwRdClip_faceStatus | 1;
+                  pfVar13 = (float *)g_dwDestVert;
                 }
                 if (PUN(float,param_1[1]) <= *pfVar4) {
                   pfVar13 = (float *)((int)pfVar13 + iVar8);
@@ -1822,18 +1837,18 @@ int rdClip_Face3_PosB_2(int *param_1,float *param_2,int param_3)
                   *pfVar13 = pfVar4[-1];
                   pfVar13[1] = *pfVar4;
                   pfVar13[2] = pfVar4[1];
-                  pfVar13 = (float *)UINT_007f46ac;
+                  pfVar13 = (float *)g_dwDestVert;
                 }
               }
               pfVar11 = pfVar4 + -1;
               pfVar4 = pfVar4 + 3;
               param_3 = param_3 + -1;
-              uVar5 = UINT_007f47b8;
+              uVar5 = g_dwSourceVert;
             } while (param_3 != 0);
           }
-          UINT_007f47b8 = uVar5;
+          g_dwSourceVert = uVar5;
           if (iVar7 < 3) {
-            UINT_007f4ac4 = UINT_007f4ac4 | 0x40;
+            g_dwRdClip_faceStatus = g_dwRdClip_faceStatus | 0x40;
             return iVar7;
           }
           iVar9 = iVar7;
@@ -1841,12 +1856,12 @@ int rdClip_Face3_PosB_2(int *param_1,float *param_2,int param_3)
           if (*param_1 != 0) {
             iVar9 = 0;
             pfVar4 = pfVar13 + iVar7 * 3 + -3;
-            pfVar11 = (float *)UINT_007f47b8;
-            UINT_007f46ac = UINT_007f47b8;
+            pfVar11 = (float *)g_dwSourceVert;
+            g_dwDestVert = g_dwSourceVert;
             if (0 < iVar7) {
               pfVar6 = pfVar13 + 1;
               iVar8 = 0;
-              UINT_007f47b8 = (uint)pfVar13;
+              g_dwSourceVert = (uint)pfVar13;
               param_3 = iVar7;
               do {
                 if ((pfVar4[1] <= PUN(float,param_1[2])) || (*pfVar6 <= PUN(float,param_1[2]))) {
@@ -1856,12 +1871,12 @@ int rdClip_Face3_PosB_2(int *param_1,float *param_2,int param_3)
                     fVar1 = (PUN(float,param_1[2]) - pfVar4[1]) / (*pfVar6 - pfVar4[1]);
                     *(int *)((int)pfVar11 + iVar8 + 4) = param_1[2];
                     iVar8 = iVar8 + 0xc;
-                    *(float *)((UINT_007f46ac - 4) + iVar8) =
+                    *(float *)((g_dwDestVert - 4) + iVar8) =
                          (pfVar6[1] - pfVar4[2]) * fVar1 + pfVar4[2];
-                    *(float *)((UINT_007f46ac - 0xc) + iVar8) =
+                    *(float *)((g_dwDestVert - 0xc) + iVar8) =
                          (pfVar6[-1] - *pfVar4) * fVar1 + *pfVar4;
-                    UINT_007f4ac4 = UINT_007f4ac4 | 2;
-                    pfVar11 = (float *)UINT_007f46ac;
+                    g_dwRdClip_faceStatus = g_dwRdClip_faceStatus | 2;
+                    pfVar11 = (float *)g_dwDestVert;
                   }
                   if (*pfVar6 <= PUN(float,param_1[2])) {
                     pfVar11 = (float *)((int)pfVar11 + iVar8);
@@ -1870,16 +1885,16 @@ int rdClip_Face3_PosB_2(int *param_1,float *param_2,int param_3)
                     *pfVar11 = pfVar6[-1];
                     pfVar11[1] = *pfVar6;
                     pfVar11[2] = pfVar6[1];
-                    pfVar11 = (float *)UINT_007f46ac;
+                    pfVar11 = (float *)g_dwDestVert;
                   }
                 }
                 pfVar4 = pfVar6 + -1;
                 pfVar6 = pfVar6 + 3;
                 param_3 = param_3 + -1;
-                pfVar13 = (float *)UINT_007f47b8;
+                pfVar13 = (float *)g_dwSourceVert;
               } while (param_3 != 0);
             }
-            UINT_007f47b8 = (uint)pfVar13;
+            g_dwSourceVert = (uint)pfVar13;
             if (iVar9 < 3) {
               return iVar9;
             }
@@ -1905,12 +1920,15 @@ int rdClip_Face3_PosB_2(int *param_1,float *param_2,int param_3)
 #endif
 
 
-/* ---- 0x00449aa0  rdClip_Face3_PosUvLit ---- */
+/* ---- 0x00449aa0  rdClip_Face3GS ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-/* Face clipper interpolating position, texture coordinate and intensity */
+/* Face clipper interpolating position, texture coordinate and intensity Original name
+   rdClip_Face3GS (the remaster's GrimFandango (Linux): the matching branch of the
+   rdPrimit3_ClipFace switch (geometry/lighting mode, perspective or ortho camera)); was
+   rdClip_Face3_PosUvLit. */
 
-float rdClip_Face3_PosUvLit(int *param_1,float *param_2,float *param_3,float *param_4)
+float rdClip_Face3GS(int *param_1,float *param_2,float *param_3,float *param_4)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1936,12 +1954,12 @@ float rdClip_Face3_PosUvLit(int *param_1,float *param_2,float *param_3,float *pa
   #define local_4 (*(float *)(_frame + (0x20 - 0x4)))
   
   fVar11 = 0.0;
-  puVar14 = &UINT_007f48c0;
-  UINT_007f4ac4 = 0;
-  UINT_007f47b8 = (uint)param_2;
-  UINT_007f4618 = (uint)param_3;
-  UINT_007f46ac = (uint)&UINT_007f48c0;
-  UINT_007f46b0 = (uint)&UINT_007f47c0;
+  puVar14 = &g_dwWorkVerts;
+  g_dwRdClip_faceStatus = 0;
+  g_dwSourceVert = (uint)param_2;
+  g_dwSourceIVert = (uint)param_3;
+  g_dwDestVert = (uint)&g_dwWorkVerts;
+  g_dwDestIVert = (uint)&g_dwWorkIVerts;
   if (0 < (int)param_4) {
     iVar7 = 0;
     local_4 = PUN(float,param_4);
@@ -1980,13 +1998,13 @@ float rdClip_Face3_PosUvLit(int *param_1,float *param_2,float *param_3,float *pa
           }
           *(float *)((int)puVar14 + iVar7) = PUN(float,param_1[0xc]) * fVar4;
           iVar7 = iVar7 + 0xc;
-          *(float *)((UINT_007f46ac - 8) + iVar7) = fVar4;
+          *(float *)((g_dwDestVert - 8) + iVar7) = fVar4;
           fVar11 = PUN(float,(PUN(int,(float)fVar11) + 1));
-          *(float *)((UINT_007f46ac - 4) + iVar7) = (pfVar10[2] - pfVar18[2]) * fVar12 + pfVar18[2];
-          *(float *)((UINT_007f46b0 - 4) + PUN(int,(float)fVar11) * 4) =
+          *(float *)((g_dwDestVert - 4) + iVar7) = (pfVar10[2] - pfVar18[2]) * fVar12 + pfVar18[2];
+          *(float *)((g_dwDestIVert - 4) + PUN(int,(float)fVar11) * 4) =
                (*pfVar13 - *PUN(float *,(float)local_10[0])) * fVar12 + *PUN(float *,(float)local_10[0]);
-          UINT_007f4ac4 = UINT_007f4ac4 | 0x10;
-          puVar14 = (uint *)UINT_007f46ac;
+          g_dwRdClip_faceStatus = g_dwRdClip_faceStatus | 0x10;
+          puVar14 = (uint *)g_dwDestVert;
         }
         if (fVar2 <= *pfVar10) {
           pfVar15 = (float *)((int)puVar14 + iVar7);
@@ -1995,8 +2013,8 @@ float rdClip_Face3_PosUvLit(int *param_1,float *param_2,float *param_3,float *pa
           *pfVar15 = *pfVar10;
           pfVar15[1] = pfVar10[1];
           pfVar15[2] = pfVar10[2];
-          *(float *)((UINT_007f46b0 - 4) + PUN(int,(float)fVar11) * 4) = *pfVar13;
-          puVar14 = (uint *)UINT_007f46ac;
+          *(float *)((g_dwDestIVert - 4) + PUN(int,(float)fVar11) * 4) = *pfVar13;
+          puVar14 = (uint *)g_dwDestVert;
         }
       }
       local_4 = PUN(float,(PUN(int,(float)local_4) + -1));
@@ -2006,20 +2024,20 @@ float rdClip_Face3_PosUvLit(int *param_1,float *param_2,float *param_3,float *pa
       local_10[0] = PUN(float,pfVar13);
     } while (local_4 != 0.0);
   }
-  uVar9 = UINT_007f4618;
+  uVar9 = g_dwSourceIVert;
   if (2 < PUN(int,(float)fVar11)) {
-    UINT_007f4618 = UINT_007f46b0;
-    iVar7 = UINT_007f46b0 - 4;
+    g_dwSourceIVert = g_dwDestIVert;
+    iVar7 = g_dwDestIVert - 4;
     fVar12 = 0.0;
-    uVar17 = UINT_007f47b8;
-    UINT_007f46ac = UINT_007f47b8;
+    uVar17 = g_dwSourceVert;
+    g_dwDestVert = g_dwSourceVert;
     pfVar15 = (float *)puVar14;
     if (0 < PUN(int,(float)fVar11)) {
       iVar8 = 0;
-      pfVar16 = (float *)UINT_007f46b0;
+      pfVar16 = (float *)g_dwDestIVert;
       pfVar18 = (float *)(puVar14 + PUN(int,(float)fVar11) * 3 + -3);
-      UINT_007f46b0 = uVar9;
-      UINT_007f47b8 = (uint)puVar14;
+      g_dwDestIVert = uVar9;
+      g_dwSourceVert = (uint)puVar14;
       local_10[0] = PUN(float,(iVar7 + PUN(int,(float)fVar11) * 4));
       local_4 = fVar11;
       do {
@@ -2053,14 +2071,14 @@ float rdClip_Face3_PosUvLit(int *param_1,float *param_2,float *param_3,float *pa
             }
             *(float *)(uVar17 + iVar8) = PUN(float,param_1[10]) * fVar4;
             iVar8 = iVar8 + 0xc;
-            *(float *)((UINT_007f46ac - 8) + iVar8) = fVar4;
+            *(float *)((g_dwDestVert - 8) + iVar8) = fVar4;
             fVar12 = PUN(float,(PUN(int,(float)fVar12) + 1));
-            *(float *)((UINT_007f46ac - 4) + iVar8) =
-                 (pfVar15[2] - pfVar18[2]) * fVar11 + pfVar18[2];
-            *(float *)((UINT_007f46b0 - 4) + PUN(int,(float)fVar12) * 4) =
+            *(float *)((g_dwDestVert - 4) + iVar8) = (pfVar15[2] - pfVar18[2]) * fVar11 + pfVar18[2]
+            ;
+            *(float *)((g_dwDestIVert - 4) + PUN(int,(float)fVar12) * 4) =
                  (*pfVar10 - *PUN(float *,(float)local_10[0])) * fVar11 + *PUN(float *,(float)local_10[0]);
-            UINT_007f4ac4 = UINT_007f4ac4 | 0x20;
-            uVar17 = UINT_007f46ac;
+            g_dwRdClip_faceStatus = g_dwRdClip_faceStatus | 0x20;
+            uVar17 = g_dwDestVert;
           }
           if (*pfVar15 <= fVar2) {
             pfVar16 = (float *)(uVar17 + iVar8);
@@ -2069,34 +2087,34 @@ float rdClip_Face3_PosUvLit(int *param_1,float *param_2,float *param_3,float *pa
             *pfVar16 = *pfVar15;
             pfVar16[1] = pfVar15[1];
             pfVar16[2] = pfVar15[2];
-            *(float *)((UINT_007f46b0 - 4) + PUN(int,(float)fVar12) * 4) = *pfVar10;
-            uVar17 = UINT_007f46ac;
+            *(float *)((g_dwDestIVert - 4) + PUN(int,(float)fVar12) * 4) = *pfVar10;
+            uVar17 = g_dwDestVert;
           }
         }
         local_4 = PUN(float,(PUN(int,(float)local_4) + -1));
         puVar14 = (uint *)(pfVar15 + 3);
         pfVar16 = pfVar10 + 1;
         pfVar18 = pfVar15;
-        uVar9 = UINT_007f46b0;
-        pfVar15 = (float *)UINT_007f47b8;
+        uVar9 = g_dwDestIVert;
+        pfVar15 = (float *)g_dwSourceVert;
         local_10[0] = PUN(float,pfVar10);
       } while (local_4 != 0.0);
     }
-    UINT_007f47b8 = (uint)pfVar15;
-    UINT_007f46b0 = uVar9;
+    g_dwSourceVert = (uint)pfVar15;
+    g_dwDestIVert = uVar9;
     fVar11 = fVar12;
-    pfVar15 = (float *)UINT_007f46b0;
+    pfVar15 = (float *)g_dwDestIVert;
     if (2 < PUN(int,(float)fVar11)) {
-      UINT_007f46b0 = UINT_007f4618;
+      g_dwDestIVert = g_dwSourceIVert;
       fVar12 = 0.0;
-      UINT_007f46ac = UINT_007f47b8;
+      g_dwDestVert = g_dwSourceVert;
       pfVar16 = (float *)((uVar17 - 0xc) + PUN(int,(float)fVar11) * 0xc);
-      UINT_007f4618 = (uint)pfVar15;
-      uVar9 = UINT_007f47b8;
+      g_dwSourceIVert = (uint)pfVar15;
+      uVar9 = g_dwSourceVert;
       if (0 < PUN(int,(float)fVar11)) {
         iVar7 = 0;
         pfVar18 = (float *)(uVar17 + 8);
-        UINT_007f47b8 = uVar17;
+        g_dwSourceVert = uVar17;
         local_10[0] = PUN(float,(((int)pfVar15 - 4U) + PUN(int,(float)fVar11) * 4));
         local_4 = fVar11;
         do {
@@ -2131,12 +2149,12 @@ float rdClip_Face3_PosUvLit(int *param_1,float *param_2,float *param_3,float *pa
               iVar7 = iVar7 + 0xc;
               fVar12 = PUN(float,(PUN(int,(float)fVar12) + 1));
               *(float *)((uVar9 - 0xc) + iVar7) = (pfVar18[-2] - *pfVar16) * fVar11 + *pfVar16;
-              *(float *)((UINT_007f46ac - 8) + iVar7) = fVar4;
-              *(float *)((UINT_007f46ac - 4) + iVar7) = fVar1 * fVar4;
-              *(float *)((UINT_007f46b0 - 4) + PUN(int,(float)fVar12) * 4) =
+              *(float *)((g_dwDestVert - 8) + iVar7) = fVar4;
+              *(float *)((g_dwDestVert - 4) + iVar7) = fVar1 * fVar4;
+              *(float *)((g_dwDestIVert - 4) + PUN(int,(float)fVar12) * 4) =
                    (*pfVar10 - *PUN(float *,(float)local_10[0])) * fVar11 + *PUN(float *,(float)local_10[0]);
-              UINT_007f4ac4 = UINT_007f4ac4 | 4;
-              uVar9 = UINT_007f46ac;
+              g_dwRdClip_faceStatus = g_dwRdClip_faceStatus | 4;
+              uVar9 = g_dwDestVert;
             }
             if (*pfVar18 <= fVar2) {
               pfVar15 = (float *)(uVar9 + iVar7);
@@ -2145,32 +2163,32 @@ float rdClip_Face3_PosUvLit(int *param_1,float *param_2,float *param_3,float *pa
               *pfVar15 = pfVar18[-2];
               pfVar15[1] = pfVar18[-1];
               pfVar15[2] = *pfVar18;
-              *(float *)((UINT_007f46b0 - 4) + PUN(int,(float)fVar12) * 4) = *pfVar10;
-              uVar9 = UINT_007f46ac;
+              *(float *)((g_dwDestIVert - 4) + PUN(int,(float)fVar12) * 4) = *pfVar10;
+              uVar9 = g_dwDestVert;
             }
           }
           pfVar16 = pfVar18 + -2;
           pfVar18 = pfVar18 + 3;
           local_4 = PUN(float,(PUN(int,(float)local_4) + -1));
           pfVar15 = pfVar10 + 1;
-          uVar17 = UINT_007f47b8;
+          uVar17 = g_dwSourceVert;
           local_10[0] = PUN(float,pfVar10);
         } while (local_4 != 0.0);
       }
-      UINT_007f47b8 = uVar17;
+      g_dwSourceVert = uVar17;
       fVar11 = fVar12;
-      pfVar15 = (float *)UINT_007f46b0;
+      pfVar15 = (float *)g_dwDestIVert;
       if (2 < PUN(int,(float)fVar11)) {
-        UINT_007f46b0 = UINT_007f4618;
+        g_dwDestIVert = g_dwSourceIVert;
         fVar12 = 0.0;
-        UINT_007f46ac = UINT_007f47b8;
+        g_dwDestVert = g_dwSourceVert;
         pfVar16 = (float *)((uVar9 - 0xc) + PUN(int,(float)fVar11) * 0xc);
-        UINT_007f4618 = (uint)pfVar15;
-        uVar17 = UINT_007f47b8;
+        g_dwSourceIVert = (uint)pfVar15;
+        uVar17 = g_dwSourceVert;
         if (0 < PUN(int,(float)fVar11)) {
           iVar7 = 0;
           pfVar18 = (float *)(uVar9 + 8);
-          UINT_007f47b8 = uVar9;
+          g_dwSourceVert = uVar9;
           local_10[0] = PUN(float,(((int)pfVar15 - 4U) + PUN(int,(float)fVar11) * 4));
           local_4 = fVar11;
           do {
@@ -2205,12 +2223,12 @@ float rdClip_Face3_PosUvLit(int *param_1,float *param_2,float *param_3,float *pa
                 iVar7 = iVar7 + 0xc;
                 fVar12 = PUN(float,(PUN(int,(float)fVar12) + 1));
                 *(float *)((uVar17 - 0xc) + iVar7) = (pfVar18[-2] - *pfVar16) * fVar11 + *pfVar16;
-                *(float *)((UINT_007f46ac - 8) + iVar7) = fVar4;
-                *(float *)((UINT_007f46ac - 4) + iVar7) = fVar1 * fVar4;
-                *(float *)((UINT_007f46b0 - 4) + PUN(int,(float)fVar12) * 4) =
+                *(float *)((g_dwDestVert - 8) + iVar7) = fVar4;
+                *(float *)((g_dwDestVert - 4) + iVar7) = fVar1 * fVar4;
+                *(float *)((g_dwDestIVert - 4) + PUN(int,(float)fVar12) * 4) =
                      (*pfVar10 - *PUN(float *,(float)local_10[0])) * fVar11 + *PUN(float *,(float)local_10[0]);
-                UINT_007f4ac4 = UINT_007f4ac4 | 8;
-                uVar17 = UINT_007f46ac;
+                g_dwRdClip_faceStatus = g_dwRdClip_faceStatus | 8;
+                uVar17 = g_dwDestVert;
               }
               if (fVar2 <= *pfVar18) {
                 pfVar15 = (float *)(uVar17 + iVar7);
@@ -2219,33 +2237,33 @@ float rdClip_Face3_PosUvLit(int *param_1,float *param_2,float *param_3,float *pa
                 *pfVar15 = pfVar18[-2];
                 pfVar15[1] = pfVar18[-1];
                 pfVar15[2] = *pfVar18;
-                *(float *)((UINT_007f46b0 - 4) + PUN(int,(float)fVar12) * 4) = *pfVar10;
-                uVar17 = UINT_007f46ac;
+                *(float *)((g_dwDestIVert - 4) + PUN(int,(float)fVar12) * 4) = *pfVar10;
+                uVar17 = g_dwDestVert;
               }
             }
             pfVar16 = pfVar18 + -2;
             pfVar18 = pfVar18 + 3;
             local_4 = PUN(float,(PUN(int,(float)local_4) + -1));
             pfVar15 = pfVar10 + 1;
-            uVar9 = UINT_007f47b8;
+            uVar9 = g_dwSourceVert;
             local_10[0] = PUN(float,pfVar10);
           } while (local_4 != 0.0);
         }
-        UINT_007f47b8 = uVar9;
+        g_dwSourceVert = uVar9;
         fVar11 = fVar12;
-        param_4 = (float *)UINT_007f46b0;
+        param_4 = (float *)g_dwDestIVert;
         if (2 < PUN(int,(float)fVar11)) {
-          UINT_007f46b0 = UINT_007f4618;
+          g_dwDestIVert = g_dwSourceIVert;
           fVar12 = 0.0;
           local_10[0] = PUN(float,(((int)param_4 - 4U) + PUN(int,(float)fVar11) * 4));
-          UINT_007f46ac = UINT_007f47b8;
-          UINT_007f4618 = (uint)param_4;
+          g_dwDestVert = g_dwSourceVert;
+          g_dwSourceIVert = (uint)param_4;
           pfVar15 = (float *)((uVar17 - 0xc) + PUN(int,(float)fVar11) * 0xc);
-          pfVar16 = (float *)UINT_007f47b8;
+          pfVar16 = (float *)g_dwSourceVert;
           if (0 < PUN(int,(float)fVar11)) {
             iVar7 = 0;
             pfVar18 = (float *)(uVar17 + 4);
-            UINT_007f47b8 = uVar17;
+            g_dwSourceVert = uVar17;
             local_4 = fVar11;
             do {
               if ((PUN(float,param_1[1]) <= pfVar15[1]) || (PUN(float,param_1[1]) <= *pfVar18)) {
@@ -2255,14 +2273,14 @@ float rdClip_Face3_PosUvLit(int *param_1,float *param_2,float *param_3,float *pa
                   *(int *)((int)pfVar16 + iVar7 + 4) = param_1[1];
                   iVar7 = iVar7 + 0xc;
                   fVar12 = PUN(float,(PUN(int,(float)fVar12) + 1));
-                  *(float *)((UINT_007f46ac - 4) + iVar7) =
+                  *(float *)((g_dwDestVert - 4) + iVar7) =
                        (pfVar18[1] - pfVar15[2]) * fVar11 + pfVar15[2];
-                  *(float *)((UINT_007f46ac - 0xc) + iVar7) =
+                  *(float *)((g_dwDestVert - 0xc) + iVar7) =
                        (pfVar18[-1] - *pfVar15) * fVar11 + *pfVar15;
-                  *(float *)((UINT_007f46b0 - 4) + PUN(int,(float)fVar12) * 4) =
+                  *(float *)((g_dwDestIVert - 4) + PUN(int,(float)fVar12) * 4) =
                        (*param_4 - *PUN(float *,(float)local_10[0])) * fVar11 + *PUN(float *,(float)local_10[0]);
-                  UINT_007f4ac4 = UINT_007f4ac4 | 1;
-                  pfVar16 = (float *)UINT_007f46ac;
+                  g_dwRdClip_faceStatus = g_dwRdClip_faceStatus | 1;
+                  pfVar16 = (float *)g_dwDestVert;
                 }
                 if (PUN(float,param_1[1]) <= *pfVar18) {
                   pfVar16 = (float *)((int)pfVar16 + iVar7);
@@ -2271,8 +2289,8 @@ float rdClip_Face3_PosUvLit(int *param_1,float *param_2,float *param_3,float *pa
                   *pfVar16 = pfVar18[-1];
                   pfVar16[1] = *pfVar18;
                   pfVar16[2] = pfVar18[1];
-                  *(float *)((UINT_007f46b0 - 4) + PUN(int,(float)fVar12) * 4) = *param_4;
-                  pfVar16 = (float *)UINT_007f46ac;
+                  *(float *)((g_dwDestIVert - 4) + PUN(int,(float)fVar12) * 4) = *param_4;
+                  pfVar16 = (float *)g_dwDestVert;
                 }
               }
               pfVar15 = pfVar18 + -1;
@@ -2280,29 +2298,29 @@ float rdClip_Face3_PosUvLit(int *param_1,float *param_2,float *param_3,float *pa
               param_4 = param_4 + 1;
               pfVar18 = pfVar18 + 3;
               local_4 = PUN(float,(PUN(int,(float)local_4) + -1));
-              uVar17 = UINT_007f47b8;
+              uVar17 = g_dwSourceVert;
             } while (local_4 != 0.0);
           }
-          UINT_007f47b8 = uVar17;
-          param_4 = (float *)UINT_007f46b0;
+          g_dwSourceVert = uVar17;
+          param_4 = (float *)g_dwDestIVert;
           if (PUN(int,(float)fVar12) < 3) {
-            UINT_007f4ac4 = UINT_007f4ac4 | 0x40;
+            g_dwRdClip_faceStatus = g_dwRdClip_faceStatus | 0x40;
             return fVar12;
           }
           fVar11 = fVar12;
           pfVar15 = pfVar16;
           if (*param_1 != 0) {
-            UINT_007f46b0 = UINT_007f4618;
+            g_dwDestIVert = g_dwSourceIVert;
             fVar11 = 0.0;
             local_10[0] = PUN(float,(((int)param_4 - 4U) + PUN(int,(float)fVar12) * 4));
-            UINT_007f46ac = UINT_007f47b8;
-            UINT_007f4618 = (uint)param_4;
+            g_dwDestVert = g_dwSourceVert;
+            g_dwSourceIVert = (uint)param_4;
             pfVar18 = pfVar16 + PUN(int,(float)fVar12) * 3 + -3;
-            pfVar15 = (float *)UINT_007f47b8;
+            pfVar15 = (float *)g_dwSourceVert;
             if (0 < PUN(int,(float)fVar12)) {
               iVar7 = 0;
               pfVar10 = pfVar16 + 1;
-              UINT_007f47b8 = (uint)pfVar16;
+              g_dwSourceVert = (uint)pfVar16;
               local_4 = fVar12;
               do {
                 if ((pfVar18[1] <= PUN(float,param_1[2])) || (*pfVar10 <= PUN(float,param_1[2]))) {
@@ -2312,14 +2330,14 @@ float rdClip_Face3_PosUvLit(int *param_1,float *param_2,float *param_3,float *pa
                     *(int *)((int)pfVar15 + iVar7 + 4) = param_1[2];
                     iVar7 = iVar7 + 0xc;
                     fVar11 = PUN(float,(PUN(int,(float)fVar11) + 1));
-                    *(float *)((UINT_007f46ac - 4) + iVar7) =
+                    *(float *)((g_dwDestVert - 4) + iVar7) =
                          (pfVar10[1] - pfVar18[2]) * fVar12 + pfVar18[2];
-                    *(float *)((UINT_007f46ac - 0xc) + iVar7) =
+                    *(float *)((g_dwDestVert - 0xc) + iVar7) =
                          (pfVar10[-1] - *pfVar18) * fVar12 + *pfVar18;
-                    *(float *)((UINT_007f46b0 - 4) + PUN(int,(float)fVar11) * 4) =
+                    *(float *)((g_dwDestIVert - 4) + PUN(int,(float)fVar11) * 4) =
                          (*param_4 - *PUN(float *,(float)local_10[0])) * fVar12 + *PUN(float *,(float)local_10[0]);
-                    UINT_007f4ac4 = UINT_007f4ac4 | 2;
-                    pfVar15 = (float *)UINT_007f46ac;
+                    g_dwRdClip_faceStatus = g_dwRdClip_faceStatus | 2;
+                    pfVar15 = (float *)g_dwDestVert;
                   }
                   if (*pfVar10 <= PUN(float,param_1[2])) {
                     pfVar15 = (float *)((int)pfVar15 + iVar7);
@@ -2328,8 +2346,8 @@ float rdClip_Face3_PosUvLit(int *param_1,float *param_2,float *param_3,float *pa
                     *pfVar15 = pfVar10[-1];
                     pfVar15[1] = *pfVar10;
                     pfVar15[2] = pfVar10[1];
-                    *(float *)((UINT_007f46b0 - 4) + PUN(int,(float)fVar11) * 4) = *param_4;
-                    pfVar15 = (float *)UINT_007f46ac;
+                    *(float *)((g_dwDestIVert - 4) + PUN(int,(float)fVar11) * 4) = *param_4;
+                    pfVar15 = (float *)g_dwDestVert;
                   }
                 }
                 pfVar18 = pfVar10 + -1;
@@ -2337,10 +2355,10 @@ float rdClip_Face3_PosUvLit(int *param_1,float *param_2,float *param_3,float *pa
                 param_4 = param_4 + 1;
                 pfVar10 = pfVar10 + 3;
                 local_4 = PUN(float,(PUN(int,(float)local_4) + -1));
-                pfVar16 = (float *)UINT_007f47b8;
+                pfVar16 = (float *)g_dwSourceVert;
               } while (local_4 != 0.0);
             }
-            UINT_007f47b8 = (uint)pfVar16;
+            g_dwSourceVert = (uint)pfVar16;
             if (PUN(int,(float)fVar11) < 3) {
               return fVar11;
             }
@@ -2351,7 +2369,7 @@ float rdClip_Face3_PosUvLit(int *param_1,float *param_2,float *param_3,float *pa
               pfVar15 = pfVar15 + 1;
               param_2 = param_2 + 1;
             }
-            for (iVar7 = 0; fVar12 = fVar11, pfVar16 = (float *)UINT_007f46b0, iVar7 != 0;
+            for (iVar7 = 0; fVar12 = fVar11, pfVar16 = (float *)g_dwDestIVert, iVar7 != 0;
                 iVar7 = iVar7 + -1) {
               *(undefined1 *)param_2 = *(undefined1 *)pfVar15;
               pfVar15 = (float *)((int)pfVar15 + 1);
@@ -2375,10 +2393,14 @@ float rdClip_Face3_PosUvLit(int *param_1,float *param_2,float *param_3,float *pa
 #endif
 
 
-/* ---- 0x0044a6d0  rdClip_Face3_PosUv ---- */
+/* ---- 0x0044a6d0  rdClip_Face3GSOrtho ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-uint rdClip_Face3_PosUv(int *param_1,float *param_2,float *param_3,uint param_4)
+/* Original name rdClip_Face3GSOrtho (the remaster's GrimFandango (Linux): the matching branch of
+   the rdPrimit3_ClipFace switch (geometry/lighting mode, perspective or ortho camera)); was
+   rdClip_Face3_PosUv. */
+
+uint rdClip_Face3GSOrtho(int *param_1,float *param_2,float *param_3,uint param_4)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -2401,12 +2423,12 @@ uint rdClip_Face3_PosUv(int *param_1,float *param_2,float *param_3,uint param_4)
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   local_4 = 0;
-  puVar8 = &UINT_007f48c0;
-  UINT_007f4ac4 = 0;
-  UINT_007f47b8 = (uint)param_2;
-  UINT_007f4618 = (uint)param_3;
-  UINT_007f46ac = (uint)&UINT_007f48c0;
-  UINT_007f46b0 = (uint)&UINT_007f47c0;
+  puVar8 = &g_dwWorkVerts;
+  g_dwRdClip_faceStatus = 0;
+  g_dwSourceVert = (uint)param_2;
+  g_dwSourceIVert = (uint)param_3;
+  g_dwDestVert = (uint)&g_dwWorkVerts;
+  g_dwDestIVert = (uint)&g_dwWorkIVerts;
   if (0 < (int)param_4) {
     iVar13 = 0;
     pfVar9 = param_2 + param_4 * 3 + -3;
@@ -2425,12 +2447,12 @@ uint rdClip_Face3_PosUv(int *param_1,float *param_2,float *param_3,uint param_4)
           iVar14 = iVar13 + 0xc;
           local_4 = local_4 + 1;
           *(float *)((int)puVar8 + iVar13) = fVar2;
-          *(float *)((UINT_007f46ac - 8) + iVar14) = (pfVar12[1] - pfVar9[1]) * fVar3 + pfVar9[1];
-          *(float *)((UINT_007f46ac - 4) + iVar14) = (pfVar12[2] - pfVar9[2]) * fVar3 + pfVar9[2];
-          *(float *)((UINT_007f46b0 - 4) + local_4 * 4) =
+          *(float *)((g_dwDestVert - 8) + iVar14) = (pfVar12[1] - pfVar9[1]) * fVar3 + pfVar9[1];
+          *(float *)((g_dwDestVert - 4) + iVar14) = (pfVar12[2] - pfVar9[2]) * fVar3 + pfVar9[2];
+          *(float *)((g_dwDestIVert - 4) + local_4 * 4) =
                (*pfVar6 - *PUN(float *,(float)local_8)) * fVar3 + *PUN(float *,(float)local_8);
-          UINT_007f4ac4 = UINT_007f4ac4 | 0x10;
-          puVar8 = (uint *)UINT_007f46ac;
+          g_dwRdClip_faceStatus = g_dwRdClip_faceStatus | 0x10;
+          puVar8 = (uint *)g_dwDestVert;
         }
         iVar13 = iVar14;
         if (fVar1 <= *pfVar12) {
@@ -2440,8 +2462,8 @@ uint rdClip_Face3_PosUv(int *param_1,float *param_2,float *param_3,uint param_4)
           *pfVar9 = *pfVar12;
           pfVar9[1] = pfVar12[1];
           pfVar9[2] = pfVar12[2];
-          *(float *)((UINT_007f46b0 - 4) + local_4 * 4) = *pfVar6;
-          puVar8 = (uint *)UINT_007f46ac;
+          *(float *)((g_dwDestIVert - 4) + local_4 * 4) = *pfVar6;
+          puVar8 = (uint *)g_dwDestVert;
         }
       }
       param_4 = param_4 + -1;
@@ -2451,20 +2473,20 @@ uint rdClip_Face3_PosUv(int *param_1,float *param_2,float *param_3,uint param_4)
       local_8 = PUN(float,pfVar6);
     } while (param_4 != 0);
   }
-  uVar5 = UINT_007f4618;
+  uVar5 = g_dwSourceIVert;
   if (2 < (int)local_4) {
-    iVar13 = UINT_007f46b0 - 4;
+    iVar13 = g_dwDestIVert - 4;
     uVar7 = 0;
-    UINT_007f4618 = UINT_007f46b0;
-    uVar11 = UINT_007f47b8;
-    UINT_007f46ac = UINT_007f47b8;
+    g_dwSourceIVert = g_dwDestIVert;
+    uVar11 = g_dwSourceVert;
+    g_dwDestVert = g_dwSourceVert;
     pfVar9 = (float *)puVar8;
     if (0 < (int)local_4) {
       iVar14 = 0;
       pfVar12 = (float *)(puVar8 + local_4 * 3 + -3);
-      pfVar4 = (float *)UINT_007f46b0;
-      UINT_007f46b0 = uVar5;
-      UINT_007f47b8 = (uint)puVar8;
+      pfVar4 = (float *)g_dwDestIVert;
+      g_dwDestIVert = uVar5;
+      g_dwSourceVert = (uint)puVar8;
       param_4 = local_4;
       local_8 = PUN(float,(iVar13 + local_4 * 4));
       do {
@@ -2478,14 +2500,14 @@ uint rdClip_Face3_PosUv(int *param_1,float *param_2,float *param_3,uint param_4)
             iVar14 = iVar14 + 0xc;
             uVar7 = uVar7 + 1;
             *(float *)((uVar11 - 0xc) + iVar14) = fVar2;
-            *(float *)((UINT_007f46ac - 8) + iVar14) =
+            *(float *)((g_dwDestVert - 8) + iVar14) =
                  (PUN(float,puVar8[1]) - pfVar12[1]) * fVar3 + pfVar12[1];
-            *(float *)((UINT_007f46ac - 4) + iVar14) =
+            *(float *)((g_dwDestVert - 4) + iVar14) =
                  (PUN(float,puVar8[2]) - pfVar12[2]) * fVar3 + pfVar12[2];
-            *(float *)((UINT_007f46b0 - 4) + uVar7 * 4) =
+            *(float *)((g_dwDestIVert - 4) + uVar7 * 4) =
                  (*pfVar6 - *PUN(float *,(float)local_8)) * fVar3 + *PUN(float *,(float)local_8);
-            UINT_007f4ac4 = UINT_007f4ac4 | 0x20;
-            uVar11 = UINT_007f46ac;
+            g_dwRdClip_faceStatus = g_dwRdClip_faceStatus | 0x20;
+            uVar11 = g_dwDestVert;
           }
           if (PUN(float,*puVar8) <= fVar1) {
             pfVar9 = (float *)(uVar11 + iVar14);
@@ -2494,36 +2516,36 @@ uint rdClip_Face3_PosUv(int *param_1,float *param_2,float *param_3,uint param_4)
             *pfVar9 = PUN(float,*puVar8);
             pfVar9[1] = PUN(float,puVar8[1]);
             pfVar9[2] = PUN(float,puVar8[2]);
-            *(float *)((UINT_007f46b0 - 4) + uVar7 * 4) = *pfVar6;
-            uVar11 = UINT_007f46ac;
+            *(float *)((g_dwDestIVert - 4) + uVar7 * 4) = *pfVar6;
+            uVar11 = g_dwDestVert;
           }
         }
         param_4 = param_4 - 1;
         pfVar12 = (float *)puVar8;
         puVar8 = puVar8 + 3;
         pfVar4 = pfVar6 + 1;
-        uVar5 = UINT_007f46b0;
-        pfVar9 = (float *)UINT_007f47b8;
+        uVar5 = g_dwDestIVert;
+        pfVar9 = (float *)g_dwSourceVert;
         local_8 = PUN(float,pfVar6);
       } while (param_4 != 0);
     }
-    UINT_007f47b8 = (uint)pfVar9;
-    UINT_007f46b0 = uVar5;
+    g_dwSourceVert = (uint)pfVar9;
+    g_dwDestIVert = uVar5;
     local_4 = uVar7;
-    uVar5 = UINT_007f4618;
+    uVar5 = g_dwSourceIVert;
     if (2 < (int)local_4) {
-      iVar13 = UINT_007f46b0 - 4;
+      iVar13 = g_dwDestIVert - 4;
       uVar7 = 0;
-      UINT_007f4618 = UINT_007f46b0;
+      g_dwSourceIVert = g_dwDestIVert;
       pfVar9 = (float *)((uVar11 - 0xc) + local_4 * 0xc);
-      uVar10 = UINT_007f47b8;
-      UINT_007f46ac = UINT_007f47b8;
+      uVar10 = g_dwSourceVert;
+      g_dwDestVert = g_dwSourceVert;
       if (0 < (int)local_4) {
         pfVar12 = (float *)(uVar11 + 8);
         iVar14 = 0;
-        pfVar4 = (float *)UINT_007f46b0;
-        UINT_007f46b0 = uVar5;
-        UINT_007f47b8 = uVar11;
+        pfVar4 = (float *)g_dwDestIVert;
+        g_dwDestIVert = uVar5;
+        g_dwSourceVert = uVar11;
         local_8 = PUN(float,(iVar13 + local_4 * 4));
         do {
           pfVar6 = pfVar4;
@@ -2536,13 +2558,13 @@ uint rdClip_Face3_PosUv(int *param_1,float *param_2,float *param_3,uint param_4)
               iVar14 = iVar14 + 0xc;
               uVar7 = uVar7 + 1;
               *(float *)((uVar10 - 0xc) + iVar14) = (pfVar12[-2] - *pfVar9) * fVar3 + *pfVar9;
-              *(float *)((UINT_007f46ac - 8) + iVar14) =
+              *(float *)((g_dwDestVert - 8) + iVar14) =
                    (pfVar12[-1] - pfVar9[1]) * fVar3 + pfVar9[1];
-              *(float *)((UINT_007f46ac - 4) + iVar14) = fVar2;
-              *(float *)((UINT_007f46b0 - 4) + uVar7 * 4) =
+              *(float *)((g_dwDestVert - 4) + iVar14) = fVar2;
+              *(float *)((g_dwDestIVert - 4) + uVar7 * 4) =
                    (*pfVar6 - *PUN(float *,(float)local_8)) * fVar3 + *PUN(float *,(float)local_8);
-              UINT_007f4ac4 = UINT_007f4ac4 | 4;
-              uVar10 = UINT_007f46ac;
+              g_dwRdClip_faceStatus = g_dwRdClip_faceStatus | 4;
+              uVar10 = g_dwDestVert;
             }
             if (*pfVar12 <= fVar1) {
               pfVar9 = (float *)(uVar10 + iVar14);
@@ -2551,36 +2573,36 @@ uint rdClip_Face3_PosUv(int *param_1,float *param_2,float *param_3,uint param_4)
               *pfVar9 = pfVar12[-2];
               pfVar9[1] = pfVar12[-1];
               pfVar9[2] = *pfVar12;
-              *(float *)((UINT_007f46b0 - 4) + uVar7 * 4) = *pfVar6;
-              uVar10 = UINT_007f46ac;
+              *(float *)((g_dwDestIVert - 4) + uVar7 * 4) = *pfVar6;
+              uVar10 = g_dwDestVert;
             }
           }
           pfVar9 = pfVar12 + -2;
           pfVar12 = pfVar12 + 3;
           local_4 = local_4 - 1;
           pfVar4 = pfVar6 + 1;
-          uVar5 = UINT_007f46b0;
-          uVar11 = UINT_007f47b8;
+          uVar5 = g_dwDestIVert;
+          uVar11 = g_dwSourceVert;
           local_8 = PUN(float,pfVar6);
         } while (local_4 != 0);
       }
-      UINT_007f47b8 = uVar11;
-      UINT_007f46b0 = uVar5;
+      g_dwSourceVert = uVar11;
+      g_dwDestIVert = uVar5;
       local_4 = uVar7;
-      uVar5 = UINT_007f4618;
+      uVar5 = g_dwSourceIVert;
       if (2 < (int)local_4) {
         uVar7 = 0;
-        local_8 = (float)((UINT_007f46b0 - 4) + local_4 * 4);
-        UINT_007f4618 = UINT_007f46b0;
+        local_8 = (float)((g_dwDestIVert - 4) + local_4 * 4);
+        g_dwSourceIVert = g_dwDestIVert;
         pfVar9 = (float *)((uVar10 - 0xc) + local_4 * 0xc);
-        local_c = UINT_007f46b0;
-        uVar11 = UINT_007f47b8;
-        UINT_007f46ac = UINT_007f47b8;
-        UINT_007f46b0 = uVar5;
+        local_c = g_dwDestIVert;
+        uVar11 = g_dwSourceVert;
+        g_dwDestVert = g_dwSourceVert;
+        g_dwDestIVert = uVar5;
         if (0 < (int)local_4) {
           iVar13 = 0;
           pfVar12 = (float *)(uVar10 + 8);
-          UINT_007f47b8 = uVar10;
+          g_dwSourceVert = uVar10;
           do {
             fVar2 = PUN(float,param_1[6]);
             fVar1 = PUN(float,param_1[6]);
@@ -2591,13 +2613,13 @@ uint rdClip_Face3_PosUv(int *param_1,float *param_2,float *param_3,uint param_4)
                 iVar13 = iVar13 + 0xc;
                 uVar7 = uVar7 + 1;
                 *(float *)((uVar11 - 0xc) + iVar13) = (pfVar12[-2] - *pfVar9) * fVar3 + *pfVar9;
-                *(float *)((UINT_007f46ac - 8) + iVar13) =
+                *(float *)((g_dwDestVert - 8) + iVar13) =
                      (pfVar12[-1] - pfVar9[1]) * fVar3 + pfVar9[1];
-                *(float *)((UINT_007f46ac - 4) + iVar13) = fVar2;
-                *(float *)((UINT_007f46b0 - 4) + uVar7 * 4) =
+                *(float *)((g_dwDestVert - 4) + iVar13) = fVar2;
+                *(float *)((g_dwDestIVert - 4) + uVar7 * 4) =
                      (*(float *)local_c - *PUN(float *,(float)local_8)) * fVar3 + *PUN(float *,(float)local_8);
-                UINT_007f4ac4 = UINT_007f4ac4 | 8;
-                uVar11 = UINT_007f46ac;
+                g_dwRdClip_faceStatus = g_dwRdClip_faceStatus | 8;
+                uVar11 = g_dwDestVert;
               }
               if (fVar1 <= *pfVar12) {
                 pfVar9 = (float *)(uVar11 + iVar13);
@@ -2606,8 +2628,8 @@ uint rdClip_Face3_PosUv(int *param_1,float *param_2,float *param_3,uint param_4)
                 *pfVar9 = pfVar12[-2];
                 pfVar9[1] = pfVar12[-1];
                 pfVar9[2] = *pfVar12;
-                *(undefined4 *)((UINT_007f46b0 - 4) + uVar7 * 4) = *(undefined4 *)local_c;
-                uVar11 = UINT_007f46ac;
+                *(undefined4 *)((g_dwDestIVert - 4) + uVar7 * 4) = *(undefined4 *)local_c;
+                uVar11 = g_dwDestVert;
               }
             }
             pfVar9 = pfVar12 + -2;
@@ -2615,25 +2637,25 @@ uint rdClip_Face3_PosUv(int *param_1,float *param_2,float *param_3,uint param_4)
             local_c = local_c + 4;
             pfVar12 = pfVar12 + 3;
             local_4 = local_4 - 1;
-            uVar10 = UINT_007f47b8;
+            uVar10 = g_dwSourceVert;
           } while (local_4 != 0);
         }
-        UINT_007f47b8 = uVar10;
+        g_dwSourceVert = uVar10;
         local_4 = uVar7;
-        uVar5 = UINT_007f4618;
+        uVar5 = g_dwSourceIVert;
         if (2 < (int)local_4) {
-          local_8 = (float)((UINT_007f46b0 - 4) + local_4 * 4);
+          local_8 = (float)((g_dwDestIVert - 4) + local_4 * 4);
           uVar7 = 0;
-          UINT_007f4618 = UINT_007f46b0;
+          g_dwSourceIVert = g_dwDestIVert;
           pfVar9 = (float *)((uVar11 - 0xc) + local_4 * 0xc);
-          local_c = UINT_007f46b0;
-          pfVar12 = (float *)UINT_007f47b8;
-          UINT_007f46ac = UINT_007f47b8;
-          UINT_007f46b0 = uVar5;
+          local_c = g_dwDestIVert;
+          pfVar12 = (float *)g_dwSourceVert;
+          g_dwDestVert = g_dwSourceVert;
+          g_dwDestIVert = uVar5;
           if (0 < (int)local_4) {
             pfVar4 = (float *)(uVar11 + 4);
             iVar13 = 0;
-            UINT_007f47b8 = uVar11;
+            g_dwSourceVert = uVar11;
             param_4 = local_4;
             do {
               if ((PUN(float,param_1[1]) <= pfVar9[1]) || (PUN(float,param_1[1]) <= *pfVar4)) {
@@ -2643,14 +2665,14 @@ uint rdClip_Face3_PosUv(int *param_1,float *param_2,float *param_3,uint param_4)
                   *(int *)((int)pfVar12 + iVar13 + 4) = param_1[1];
                   iVar13 = iVar13 + 0xc;
                   uVar7 = uVar7 + 1;
-                  *(float *)((UINT_007f46ac - 4) + iVar13) =
+                  *(float *)((g_dwDestVert - 4) + iVar13) =
                        (pfVar4[1] - pfVar9[2]) * fVar1 + pfVar9[2];
-                  *(float *)((UINT_007f46ac - 0xc) + iVar13) =
+                  *(float *)((g_dwDestVert - 0xc) + iVar13) =
                        (pfVar4[-1] - *pfVar9) * fVar1 + *pfVar9;
-                  *(float *)((UINT_007f46b0 - 4) + uVar7 * 4) =
+                  *(float *)((g_dwDestIVert - 4) + uVar7 * 4) =
                        (*(float *)local_c - *PUN(float *,(float)local_8)) * fVar1 + *PUN(float *,(float)local_8);
-                  UINT_007f4ac4 = UINT_007f4ac4 | 1;
-                  pfVar12 = (float *)UINT_007f46ac;
+                  g_dwRdClip_faceStatus = g_dwRdClip_faceStatus | 1;
+                  pfVar12 = (float *)g_dwDestVert;
                 }
                 if (PUN(float,param_1[1]) <= *pfVar4) {
                   pfVar12 = (float *)((int)pfVar12 + iVar13);
@@ -2659,8 +2681,8 @@ uint rdClip_Face3_PosUv(int *param_1,float *param_2,float *param_3,uint param_4)
                   *pfVar12 = pfVar4[-1];
                   pfVar12[1] = *pfVar4;
                   pfVar12[2] = pfVar4[1];
-                  *(undefined4 *)((UINT_007f46b0 - 4) + uVar7 * 4) = *(undefined4 *)local_c;
-                  pfVar12 = (float *)UINT_007f46ac;
+                  *(undefined4 *)((g_dwDestIVert - 4) + uVar7 * 4) = *(undefined4 *)local_c;
+                  pfVar12 = (float *)g_dwDestVert;
                 }
               }
               pfVar9 = pfVar4 + -1;
@@ -2668,30 +2690,30 @@ uint rdClip_Face3_PosUv(int *param_1,float *param_2,float *param_3,uint param_4)
               local_c = local_c + 4;
               pfVar4 = pfVar4 + 3;
               param_4 = param_4 - 1;
-              uVar11 = UINT_007f47b8;
+              uVar11 = g_dwSourceVert;
             } while (param_4 != 0);
           }
-          UINT_007f47b8 = uVar11;
-          uVar5 = UINT_007f4618;
+          g_dwSourceVert = uVar11;
+          uVar5 = g_dwSourceIVert;
           if ((int)uVar7 < 3) {
-            UINT_007f4ac4 = UINT_007f4ac4 | 0x40;
+            g_dwRdClip_faceStatus = g_dwRdClip_faceStatus | 0x40;
             return uVar7;
           }
           local_4 = uVar7;
           pfVar9 = pfVar12;
           if (*param_1 != 0) {
-            local_8 = (float)((UINT_007f46b0 - 4) + uVar7 * 4);
+            local_8 = (float)((g_dwDestIVert - 4) + uVar7 * 4);
             local_4 = 0;
-            UINT_007f4618 = UINT_007f46b0;
+            g_dwSourceIVert = g_dwDestIVert;
             pfVar4 = pfVar12 + uVar7 * 3 + -3;
-            local_c = UINT_007f46b0;
-            pfVar9 = (float *)UINT_007f47b8;
-            UINT_007f46ac = UINT_007f47b8;
-            UINT_007f46b0 = uVar5;
+            local_c = g_dwDestIVert;
+            pfVar9 = (float *)g_dwSourceVert;
+            g_dwDestVert = g_dwSourceVert;
+            g_dwDestIVert = uVar5;
             if (0 < (int)uVar7) {
               pfVar6 = pfVar12 + 1;
               iVar13 = 0;
-              UINT_007f47b8 = (uint)pfVar12;
+              g_dwSourceVert = (uint)pfVar12;
               param_4 = uVar7;
               do {
                 if ((pfVar4[1] <= PUN(float,param_1[2])) || (*pfVar6 <= PUN(float,param_1[2]))) {
@@ -2701,14 +2723,14 @@ uint rdClip_Face3_PosUv(int *param_1,float *param_2,float *param_3,uint param_4)
                     *(int *)((int)pfVar9 + iVar13 + 4) = param_1[2];
                     iVar13 = iVar13 + 0xc;
                     local_4 = local_4 + 1;
-                    *(float *)((UINT_007f46ac - 4) + iVar13) =
+                    *(float *)((g_dwDestVert - 4) + iVar13) =
                          (pfVar6[1] - pfVar4[2]) * fVar1 + pfVar4[2];
-                    *(float *)((UINT_007f46ac - 0xc) + iVar13) =
+                    *(float *)((g_dwDestVert - 0xc) + iVar13) =
                          (pfVar6[-1] - *pfVar4) * fVar1 + *pfVar4;
-                    *(float *)((UINT_007f46b0 - 4) + local_4 * 4) =
+                    *(float *)((g_dwDestIVert - 4) + local_4 * 4) =
                          (*(float *)local_c - *PUN(float *,(float)local_8)) * fVar1 + *PUN(float *,(float)local_8);
-                    UINT_007f4ac4 = UINT_007f4ac4 | 2;
-                    pfVar9 = (float *)UINT_007f46ac;
+                    g_dwRdClip_faceStatus = g_dwRdClip_faceStatus | 2;
+                    pfVar9 = (float *)g_dwDestVert;
                   }
                   if (*pfVar6 <= PUN(float,param_1[2])) {
                     pfVar9 = (float *)((int)pfVar9 + iVar13);
@@ -2717,8 +2739,8 @@ uint rdClip_Face3_PosUv(int *param_1,float *param_2,float *param_3,uint param_4)
                     *pfVar9 = pfVar6[-1];
                     pfVar9[1] = *pfVar6;
                     pfVar9[2] = pfVar6[1];
-                    *(undefined4 *)((UINT_007f46b0 - 4) + local_4 * 4) = *(undefined4 *)local_c;
-                    pfVar9 = (float *)UINT_007f46ac;
+                    *(undefined4 *)((g_dwDestIVert - 4) + local_4 * 4) = *(undefined4 *)local_c;
+                    pfVar9 = (float *)g_dwDestVert;
                   }
                 }
                 pfVar4 = pfVar6 + -1;
@@ -2726,10 +2748,10 @@ uint rdClip_Face3_PosUv(int *param_1,float *param_2,float *param_3,uint param_4)
                 local_c = local_c + 4;
                 pfVar6 = pfVar6 + 3;
                 param_4 = param_4 - 1;
-                pfVar12 = (float *)UINT_007f47b8;
+                pfVar12 = (float *)g_dwSourceVert;
               } while (param_4 != 0);
             }
-            UINT_007f47b8 = (uint)pfVar12;
+            g_dwSourceVert = (uint)pfVar12;
             if ((int)local_4 < 3) {
               return local_4;
             }
@@ -2740,7 +2762,7 @@ uint rdClip_Face3_PosUv(int *param_1,float *param_2,float *param_3,uint param_4)
               pfVar9 = pfVar9 + 1;
               param_2 = param_2 + 1;
             }
-            for (iVar13 = 0; uVar5 = local_4, pfVar12 = (float *)UINT_007f46b0, iVar13 != 0;
+            for (iVar13 = 0; uVar5 = local_4, pfVar12 = (float *)g_dwDestIVert, iVar13 != 0;
                 iVar13 = iVar13 + -1) {
               *(undefined1 *)param_2 = *(undefined1 *)pfVar9;
               pfVar9 = (float *)((int)pfVar9 + 1);
@@ -2765,10 +2787,14 @@ uint rdClip_Face3_PosUv(int *param_1,float *param_2,float *param_3,uint param_4)
 #endif
 
 
-/* ---- 0x0044b0a0  rdClip_Face3_PosUvLit_2 ---- */
+/* ---- 0x0044b0a0  rdClip_Face3T ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-float rdClip_Face3_PosUvLit_2(int *param_1,float *param_2,float *param_3,float *param_4)
+/* Original name rdClip_Face3T (the remaster's GrimFandango (Linux): the matching branch of the
+   rdPrimit3_ClipFace switch (geometry/lighting mode, perspective or ortho camera)); was
+   rdClip_Face3_PosUvLit_2. */
+
+float rdClip_Face3T(int *param_1,float *param_2,float *param_3,float *param_4)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -2794,13 +2820,13 @@ float rdClip_Face3_PosUvLit_2(int *param_1,float *param_2,float *param_3,float *
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(float *)(_frame + (0x20 - 0x4)))
   
-  UINT_007f4ac4 = 0;
+  g_dwRdClip_faceStatus = 0;
   local_10 = 0;
-  puVar14 = &UINT_007f48c0;
-  UINT_007f47b8 = (uint)param_2;
-  UINT_007f46ac = (uint)&UINT_007f48c0;
-  UINT_007f461c = (uint)param_3;
-  UINT_007f46a8 = (uint)&UINT_007f46b8;
+  puVar14 = &g_dwWorkVerts;
+  g_dwSourceVert = (uint)param_2;
+  g_dwDestVert = (uint)&g_dwWorkVerts;
+  g_dwSourceTVert = (uint)param_3;
+  g_dwDestTVert = (uint)&g_dwWorkTVerts;
   if (0 < (int)param_4) {
     iVar6 = 0;
     local_4 = PUN(float,param_4);
@@ -2836,26 +2862,26 @@ float rdClip_Face3_PosUvLit_2(int *param_1,float *param_2,float *param_3,float *
             fVar10 = (fVar3 - pfVar8[1]) / fVar10;
           }
           *(float *)((int)puVar14 + iVar6) = PUN(float,param_1[0xc]) * fVar3;
-          *(float *)(UINT_007f46ac + 4 + iVar6) = fVar3;
+          *(float *)(g_dwDestVert + 4 + iVar6) = fVar3;
           iVar7 = local_10 * 8;
           local_10 = local_10 + 1;
           iVar6 = iVar6 + 0xc;
-          *(float *)((UINT_007f46ac - 4) + iVar6) = (pfVar12[2] - pfVar8[2]) * fVar10 + pfVar8[2];
-          *(float *)(UINT_007f46a8 + iVar7) = (*pfVar16 - *pfVar15) * fVar10 + *pfVar15;
-          *(float *)(UINT_007f46a8 + 4 + iVar7) = (pfVar16[1] - pfVar15[1]) * fVar10 + pfVar15[1];
-          UINT_007f4ac4 = UINT_007f4ac4 | 0x10;
-          puVar14 = (uint *)UINT_007f46ac;
+          *(float *)((g_dwDestVert - 4) + iVar6) = (pfVar12[2] - pfVar8[2]) * fVar10 + pfVar8[2];
+          *(float *)(g_dwDestTVert + iVar7) = (*pfVar16 - *pfVar15) * fVar10 + *pfVar15;
+          *(float *)(g_dwDestTVert + 4 + iVar7) = (pfVar16[1] - pfVar15[1]) * fVar10 + pfVar15[1];
+          g_dwRdClip_faceStatus = g_dwRdClip_faceStatus | 0x10;
+          puVar14 = (uint *)g_dwDestVert;
         }
         if (fVar11 <= *pfVar12) {
           pfVar15 = (float *)((int)puVar14 + iVar6);
           *pfVar15 = *pfVar12;
           pfVar15[1] = pfVar12[1];
           pfVar15[2] = pfVar12[2];
-          *(float *)(UINT_007f46a8 + local_10 * 8) = *pfVar16;
-          *(float *)(UINT_007f46a8 + 4 + local_10 * 8) = pfVar16[1];
+          *(float *)(g_dwDestTVert + local_10 * 8) = *pfVar16;
+          *(float *)(g_dwDestTVert + 4 + local_10 * 8) = pfVar16[1];
           local_10 = local_10 + 1;
           iVar6 = iVar6 + 0xc;
-          puVar14 = (uint *)UINT_007f46ac;
+          puVar14 = (uint *)g_dwDestVert;
         }
       }
       local_4 = PUN(float,(PUN(int,(float)local_4) + -1));
@@ -2866,23 +2892,23 @@ float rdClip_Face3_PosUvLit_2(int *param_1,float *param_2,float *param_3,float *
     } while (local_4 != 0.0);
   }
   local_4 = PUN(float,local_10);
-  uVar9 = UINT_007f461c;
+  uVar9 = g_dwSourceTVert;
   if ((int)local_10 < 3) {
     return PUN(float,local_10);
   }
-  UINT_007f461c = UINT_007f46a8;
+  g_dwSourceTVert = g_dwDestTVert;
   iVar6 = local_10 * 8;
   local_10 = 0;
-  uVar17 = UINT_007f47b8;
-  UINT_007f46ac = UINT_007f47b8;
+  uVar17 = g_dwSourceVert;
+  g_dwDestVert = g_dwSourceVert;
   pfVar15 = (float *)puVar14;
   if (0 < PUN(int,(float)local_4)) {
     iVar7 = 0;
-    pfVar16 = (float *)((UINT_007f46a8 - 8) + iVar6);
-    pfVar8 = (float *)UINT_007f46a8;
+    pfVar16 = (float *)((g_dwDestTVert - 8) + iVar6);
+    pfVar8 = (float *)g_dwDestTVert;
     pfVar12 = (float *)(puVar14 + PUN(int,(float)local_4) * 3 + -3);
-    UINT_007f46a8 = uVar9;
-    UINT_007f47b8 = (uint)puVar14;
+    g_dwDestTVert = uVar9;
+    g_dwSourceVert = (uint)puVar14;
     do {
       pfVar15 = (float *)puVar14;
       fVar10 = PUN(float,param_1[10]) * pfVar12[1];
@@ -2912,26 +2938,26 @@ float rdClip_Face3_PosUvLit_2(int *param_1,float *param_2,float *param_3,float *
             fVar10 = (fVar3 - pfVar12[1]) / fVar10;
           }
           *(float *)(uVar17 + iVar7) = PUN(float,param_1[10]) * fVar3;
-          *(float *)(UINT_007f46ac + 4 + iVar7) = fVar3;
+          *(float *)(g_dwDestVert + 4 + iVar7) = fVar3;
           iVar6 = local_10 * 8;
           local_10 = local_10 + 1;
           iVar7 = iVar7 + 0xc;
-          *(float *)((UINT_007f46ac - 4) + iVar7) = (pfVar15[2] - pfVar12[2]) * fVar10 + pfVar12[2];
-          *(float *)(UINT_007f46a8 + iVar6) = (*pfVar8 - *pfVar16) * fVar10 + *pfVar16;
-          *(float *)(UINT_007f46a8 + 4 + iVar6) = (pfVar8[1] - pfVar16[1]) * fVar10 + pfVar16[1];
-          UINT_007f4ac4 = UINT_007f4ac4 | 0x20;
-          uVar17 = UINT_007f46ac;
+          *(float *)((g_dwDestVert - 4) + iVar7) = (pfVar15[2] - pfVar12[2]) * fVar10 + pfVar12[2];
+          *(float *)(g_dwDestTVert + iVar6) = (*pfVar8 - *pfVar16) * fVar10 + *pfVar16;
+          *(float *)(g_dwDestTVert + 4 + iVar6) = (pfVar8[1] - pfVar16[1]) * fVar10 + pfVar16[1];
+          g_dwRdClip_faceStatus = g_dwRdClip_faceStatus | 0x20;
+          uVar17 = g_dwDestVert;
         }
         if (*pfVar15 <= fVar11) {
           pfVar16 = (float *)(uVar17 + iVar7);
           *pfVar16 = *pfVar15;
           pfVar16[1] = pfVar15[1];
           pfVar16[2] = pfVar15[2];
-          *(float *)(UINT_007f46a8 + local_10 * 8) = *pfVar8;
-          *(float *)(UINT_007f46a8 + 4 + local_10 * 8) = pfVar8[1];
+          *(float *)(g_dwDestTVert + local_10 * 8) = *pfVar8;
+          *(float *)(g_dwDestTVert + 4 + local_10 * 8) = pfVar8[1];
           local_10 = local_10 + 1;
           iVar7 = iVar7 + 0xc;
-          uVar17 = UINT_007f46ac;
+          uVar17 = g_dwDestVert;
         }
       }
       local_4 = PUN(float,(PUN(int,(float)local_4) + -1));
@@ -2939,28 +2965,28 @@ float rdClip_Face3_PosUvLit_2(int *param_1,float *param_2,float *param_3,float *
       puVar14 = (uint *)(pfVar15 + 3);
       pfVar8 = pfVar8 + 2;
       pfVar12 = pfVar15;
-      uVar9 = UINT_007f46a8;
-      pfVar15 = (float *)UINT_007f47b8;
+      uVar9 = g_dwDestTVert;
+      pfVar15 = (float *)g_dwSourceVert;
     } while (local_4 != 0.0);
   }
-  UINT_007f47b8 = (uint)pfVar15;
-  UINT_007f46a8 = uVar9;
+  g_dwSourceVert = (uint)pfVar15;
+  g_dwDestTVert = uVar9;
   local_4 = PUN(float,local_10);
-  pfVar15 = (float *)UINT_007f46a8;
+  pfVar15 = (float *)g_dwDestTVert;
   if ((int)local_10 < 3) {
     return PUN(float,local_10);
   }
-  UINT_007f46a8 = UINT_007f461c;
+  g_dwDestTVert = g_dwSourceTVert;
   iVar6 = 0;
-  UINT_007f46ac = UINT_007f47b8;
+  g_dwDestVert = g_dwSourceVert;
   pfVar16 = (float *)((uVar17 - 0xc) + local_10 * 0xc);
-  UINT_007f461c = (uint)pfVar15;
+  g_dwSourceTVert = (uint)pfVar15;
   local_10 = 0;
-  uVar9 = UINT_007f47b8;
+  uVar9 = g_dwSourceVert;
   if (0 < PUN(int,(float)local_4)) {
     pfVar12 = (float *)(uVar17 + 8);
     pfVar8 = (float *)(((int)pfVar15 - 8U) + PUN(int,(float)local_4) * 8);
-    UINT_007f47b8 = uVar17;
+    g_dwSourceVert = uVar17;
     do {
       fVar10 = PUN(float,param_1[0xb]) * pfVar16[1];
       fVar11 = pfVar12[-1] * PUN(float,param_1[0xb]);
@@ -2993,23 +3019,23 @@ float rdClip_Face3_PosUvLit_2(int *param_1,float *param_2,float *param_3,float *
           iVar7 = local_10 * 8;
           local_10 = local_10 + 1;
           *(float *)((uVar9 - 0xc) + iVar6) = (pfVar12[-2] - *pfVar16) * fVar10 + *pfVar16;
-          *(float *)((UINT_007f46ac - 8) + iVar6) = fVar3;
-          *(float *)((UINT_007f46ac - 4) + iVar6) = fVar1 * fVar3;
-          *(float *)(UINT_007f46a8 + iVar7) = (*pfVar15 - *pfVar8) * fVar10 + *pfVar8;
-          *(float *)(UINT_007f46a8 + 4 + iVar7) = (pfVar15[1] - pfVar8[1]) * fVar10 + pfVar8[1];
-          UINT_007f4ac4 = UINT_007f4ac4 | 4;
-          uVar9 = UINT_007f46ac;
+          *(float *)((g_dwDestVert - 8) + iVar6) = fVar3;
+          *(float *)((g_dwDestVert - 4) + iVar6) = fVar1 * fVar3;
+          *(float *)(g_dwDestTVert + iVar7) = (*pfVar15 - *pfVar8) * fVar10 + *pfVar8;
+          *(float *)(g_dwDestTVert + 4 + iVar7) = (pfVar15[1] - pfVar8[1]) * fVar10 + pfVar8[1];
+          g_dwRdClip_faceStatus = g_dwRdClip_faceStatus | 4;
+          uVar9 = g_dwDestVert;
         }
         if (*pfVar12 <= fVar11) {
           pfVar16 = (float *)(uVar9 + iVar6);
           *pfVar16 = pfVar12[-2];
           pfVar16[1] = pfVar12[-1];
           pfVar16[2] = *pfVar12;
-          *(float *)(UINT_007f46a8 + local_10 * 8) = *pfVar15;
-          *(float *)(UINT_007f46a8 + 4 + local_10 * 8) = pfVar15[1];
+          *(float *)(g_dwDestTVert + local_10 * 8) = *pfVar15;
+          *(float *)(g_dwDestTVert + 4 + local_10 * 8) = pfVar15[1];
           local_10 = local_10 + 1;
           iVar6 = iVar6 + 0xc;
-          uVar9 = UINT_007f46ac;
+          uVar9 = g_dwDestVert;
         }
       }
       pfVar16 = pfVar12 + -2;
@@ -3017,26 +3043,26 @@ float rdClip_Face3_PosUvLit_2(int *param_1,float *param_2,float *param_3,float *
       local_4 = PUN(float,(PUN(int,(float)local_4) + -1));
       pfVar8 = pfVar15;
       pfVar15 = pfVar15 + 2;
-      uVar17 = UINT_007f47b8;
+      uVar17 = g_dwSourceVert;
     } while (local_4 != 0.0);
   }
-  UINT_007f47b8 = uVar17;
+  g_dwSourceVert = uVar17;
   local_4 = PUN(float,local_10);
-  pfVar15 = (float *)UINT_007f46a8;
+  pfVar15 = (float *)g_dwDestTVert;
   if ((int)local_10 < 3) {
     return PUN(float,local_10);
   }
-  UINT_007f46a8 = UINT_007f461c;
+  g_dwDestTVert = g_dwSourceTVert;
   iVar6 = 0;
-  UINT_007f46ac = UINT_007f47b8;
+  g_dwDestVert = g_dwSourceVert;
   pfVar16 = (float *)((uVar9 - 0xc) + local_10 * 0xc);
-  UINT_007f461c = (uint)pfVar15;
+  g_dwSourceTVert = (uint)pfVar15;
   local_10 = 0;
-  uVar17 = UINT_007f47b8;
+  uVar17 = g_dwSourceVert;
   if (0 < PUN(int,(float)local_4)) {
     pfVar12 = (float *)(uVar9 + 8);
     pfVar8 = (float *)(((int)pfVar15 - 8U) + PUN(int,(float)local_4) * 8);
-    UINT_007f47b8 = uVar9;
+    g_dwSourceVert = uVar9;
     do {
       fVar10 = PUN(float,param_1[8]) * pfVar16[1];
       fVar11 = pfVar12[-1] * PUN(float,param_1[8]);
@@ -3069,23 +3095,23 @@ float rdClip_Face3_PosUvLit_2(int *param_1,float *param_2,float *param_3,float *
           iVar7 = local_10 * 8;
           local_10 = local_10 + 1;
           *(float *)((uVar17 - 0xc) + iVar6) = (pfVar12[-2] - *pfVar16) * fVar10 + *pfVar16;
-          *(float *)((UINT_007f46ac - 8) + iVar6) = fVar3;
-          *(float *)((UINT_007f46ac - 4) + iVar6) = fVar1 * fVar3;
-          *(float *)(UINT_007f46a8 + iVar7) = (*pfVar15 - *pfVar8) * fVar10 + *pfVar8;
-          *(float *)(UINT_007f46a8 + 4 + iVar7) = (pfVar15[1] - pfVar8[1]) * fVar10 + pfVar8[1];
-          UINT_007f4ac4 = UINT_007f4ac4 | 8;
-          uVar17 = UINT_007f46ac;
+          *(float *)((g_dwDestVert - 8) + iVar6) = fVar3;
+          *(float *)((g_dwDestVert - 4) + iVar6) = fVar1 * fVar3;
+          *(float *)(g_dwDestTVert + iVar7) = (*pfVar15 - *pfVar8) * fVar10 + *pfVar8;
+          *(float *)(g_dwDestTVert + 4 + iVar7) = (pfVar15[1] - pfVar8[1]) * fVar10 + pfVar8[1];
+          g_dwRdClip_faceStatus = g_dwRdClip_faceStatus | 8;
+          uVar17 = g_dwDestVert;
         }
         if (fVar11 <= *pfVar12) {
           pfVar16 = (float *)(uVar17 + iVar6);
           *pfVar16 = pfVar12[-2];
           pfVar16[1] = pfVar12[-1];
           pfVar16[2] = *pfVar12;
-          *(float *)(UINT_007f46a8 + local_10 * 8) = *pfVar15;
-          *(float *)(UINT_007f46a8 + 4 + local_10 * 8) = pfVar15[1];
+          *(float *)(g_dwDestTVert + local_10 * 8) = *pfVar15;
+          *(float *)(g_dwDestTVert + 4 + local_10 * 8) = pfVar15[1];
           local_10 = local_10 + 1;
           iVar6 = iVar6 + 0xc;
-          uVar17 = UINT_007f46ac;
+          uVar17 = g_dwDestVert;
         }
       }
       pfVar16 = pfVar12 + -2;
@@ -3093,23 +3119,23 @@ float rdClip_Face3_PosUvLit_2(int *param_1,float *param_2,float *param_3,float *
       local_4 = PUN(float,(PUN(int,(float)local_4) + -1));
       pfVar8 = pfVar15;
       pfVar15 = pfVar15 + 2;
-      uVar9 = UINT_007f47b8;
+      uVar9 = g_dwSourceVert;
     } while (local_4 != 0.0);
   }
-  UINT_007f47b8 = uVar9;
-  param_4 = (float *)UINT_007f46a8;
+  g_dwSourceVert = uVar9;
+  param_4 = (float *)g_dwDestTVert;
   if (2 < (int)local_10) {
-    UINT_007f46a8 = UINT_007f461c;
+    g_dwDestTVert = g_dwSourceTVert;
     fVar10 = 0.0;
-    UINT_007f46ac = UINT_007f47b8;
-    UINT_007f461c = (uint)param_4;
+    g_dwDestVert = g_dwSourceVert;
+    g_dwSourceTVert = (uint)param_4;
     pfVar15 = (float *)((uVar17 - 0xc) + local_10 * 0xc);
-    pfVar16 = (float *)UINT_007f47b8;
+    pfVar16 = (float *)g_dwSourceVert;
     if (0 < (int)local_10) {
       pfVar12 = (float *)(uVar17 + 4);
       pfVar8 = (float *)(((int)param_4 - 8U) + local_10 * 8);
       iVar6 = 0;
-      UINT_007f47b8 = uVar17;
+      g_dwSourceVert = uVar17;
       local_4 = PUN(float,local_10);
       do {
         iVar7 = iVar6;
@@ -3121,14 +3147,13 @@ float rdClip_Face3_PosUvLit_2(int *param_1,float *param_2,float *param_3,float *
             *(int *)((int)pfVar16 + iVar6 + 4) = param_1[1];
             iVar6 = PUN(int,(float)fVar10) * 8;
             fVar10 = PUN(float,(PUN(int,(float)fVar10) + 1));
-            *(float *)((UINT_007f46ac - 4) + iVar7) =
-                 (pfVar12[1] - pfVar15[2]) * fVar11 + pfVar15[2];
-            *(float *)((UINT_007f46ac - 0xc) + iVar7) = (pfVar12[-1] - *pfVar15) * fVar11 + *pfVar15
+            *(float *)((g_dwDestVert - 4) + iVar7) = (pfVar12[1] - pfVar15[2]) * fVar11 + pfVar15[2]
             ;
-            *(float *)(UINT_007f46a8 + iVar6) = (*param_4 - *pfVar8) * fVar11 + *pfVar8;
-            *(float *)(UINT_007f46a8 + 4 + iVar6) = (param_4[1] - pfVar8[1]) * fVar11 + pfVar8[1];
-            UINT_007f4ac4 = UINT_007f4ac4 | 1;
-            pfVar16 = (float *)UINT_007f46ac;
+            *(float *)((g_dwDestVert - 0xc) + iVar7) = (pfVar12[-1] - *pfVar15) * fVar11 + *pfVar15;
+            *(float *)(g_dwDestTVert + iVar6) = (*param_4 - *pfVar8) * fVar11 + *pfVar8;
+            *(float *)(g_dwDestTVert + 4 + iVar6) = (param_4[1] - pfVar8[1]) * fVar11 + pfVar8[1];
+            g_dwRdClip_faceStatus = g_dwRdClip_faceStatus | 1;
+            pfVar16 = (float *)g_dwDestVert;
           }
           if (PUN(float,param_1[1]) <= *pfVar12) {
             pfVar16 = (float *)((int)pfVar16 + iVar7);
@@ -3137,9 +3162,9 @@ float rdClip_Face3_PosUvLit_2(int *param_1,float *param_2,float *param_3,float *
             *pfVar16 = pfVar12[-1];
             pfVar16[1] = *pfVar12;
             pfVar16[2] = pfVar12[1];
-            *(float *)((UINT_007f46a8 - 8) + PUN(int,(float)fVar10) * 8) = *param_4;
-            *(float *)((UINT_007f46a8 - 4) + PUN(int,(float)fVar10) * 8) = param_4[1];
-            pfVar16 = (float *)UINT_007f46ac;
+            *(float *)((g_dwDestTVert - 8) + PUN(int,(float)fVar10) * 8) = *param_4;
+            *(float *)((g_dwDestTVert - 4) + PUN(int,(float)fVar10) * 8) = param_4[1];
+            pfVar16 = (float *)g_dwDestVert;
           }
         }
         pfVar15 = pfVar12 + -1;
@@ -3147,32 +3172,32 @@ float rdClip_Face3_PosUvLit_2(int *param_1,float *param_2,float *param_3,float *
         local_4 = PUN(float,(PUN(int,(float)local_4) + -1));
         pfVar8 = param_4;
         iVar6 = iVar7;
-        uVar17 = UINT_007f47b8;
+        uVar17 = g_dwSourceVert;
         param_4 = param_4 + 2;
       } while (local_4 != 0.0);
     }
-    UINT_007f47b8 = uVar17;
-    uVar9 = UINT_007f461c;
+    g_dwSourceVert = uVar17;
+    uVar9 = g_dwSourceTVert;
     if (PUN(int,(float)fVar10) < 3) {
-      UINT_007f4ac4 = UINT_007f4ac4 | 0x40;
+      g_dwRdClip_faceStatus = g_dwRdClip_faceStatus | 0x40;
       return fVar10;
     }
     fVar11 = fVar10;
     pfVar15 = pfVar16;
     if (*param_1 != 0) {
       fVar11 = 0.0;
-      UINT_007f461c = UINT_007f46a8;
+      g_dwSourceTVert = g_dwDestTVert;
       pfVar8 = pfVar16 + PUN(int,(float)fVar10) * 3 + -3;
-      iVar6 = UINT_007f46a8 - 8;
-      param_4 = (float *)UINT_007f46a8;
-      pfVar15 = (float *)UINT_007f47b8;
-      UINT_007f46a8 = uVar9;
-      UINT_007f46ac = UINT_007f47b8;
+      iVar6 = g_dwDestTVert - 8;
+      param_4 = (float *)g_dwDestTVert;
+      pfVar15 = (float *)g_dwSourceVert;
+      g_dwDestTVert = uVar9;
+      g_dwDestVert = g_dwSourceVert;
       if (0 < PUN(int,(float)fVar10)) {
         pfVar13 = pfVar16 + 1;
         pfVar12 = (float *)(iVar6 + PUN(int,(float)fVar10) * 8);
         iVar6 = 0;
-        UINT_007f47b8 = (uint)pfVar16;
+        g_dwSourceVert = (uint)pfVar16;
         local_4 = fVar10;
         do {
           iVar7 = iVar6;
@@ -3184,15 +3209,14 @@ float rdClip_Face3_PosUvLit_2(int *param_1,float *param_2,float *param_3,float *
               *(int *)((int)pfVar15 + iVar6 + 4) = param_1[2];
               iVar6 = PUN(int,(float)fVar11) * 8;
               fVar11 = PUN(float,(PUN(int,(float)fVar11) + 1));
-              *(float *)((UINT_007f46ac - 4) + iVar7) =
-                   (pfVar13[1] - pfVar8[2]) * fVar10 + pfVar8[2];
-              *(float *)((UINT_007f46ac - 0xc) + iVar7) = (pfVar13[-1] - *pfVar8) * fVar10 + *pfVar8
+              *(float *)((g_dwDestVert - 4) + iVar7) = (pfVar13[1] - pfVar8[2]) * fVar10 + pfVar8[2]
               ;
-              *(float *)(UINT_007f46a8 + iVar6) = (*param_4 - *pfVar12) * fVar10 + *pfVar12;
-              *(float *)(UINT_007f46a8 + 4 + iVar6) =
+              *(float *)((g_dwDestVert - 0xc) + iVar7) = (pfVar13[-1] - *pfVar8) * fVar10 + *pfVar8;
+              *(float *)(g_dwDestTVert + iVar6) = (*param_4 - *pfVar12) * fVar10 + *pfVar12;
+              *(float *)(g_dwDestTVert + 4 + iVar6) =
                    (param_4[1] - pfVar12[1]) * fVar10 + pfVar12[1];
-              UINT_007f4ac4 = UINT_007f4ac4 | 2;
-              pfVar15 = (float *)UINT_007f46ac;
+              g_dwRdClip_faceStatus = g_dwRdClip_faceStatus | 2;
+              pfVar15 = (float *)g_dwDestVert;
             }
             if (*pfVar13 <= PUN(float,param_1[2])) {
               pfVar15 = (float *)((int)pfVar15 + iVar7);
@@ -3201,9 +3225,9 @@ float rdClip_Face3_PosUvLit_2(int *param_1,float *param_2,float *param_3,float *
               *pfVar15 = pfVar13[-1];
               pfVar15[1] = *pfVar13;
               pfVar15[2] = pfVar13[1];
-              *(float *)((UINT_007f46a8 - 8) + PUN(int,(float)fVar11) * 8) = *param_4;
-              *(float *)((UINT_007f46a8 - 4) + PUN(int,(float)fVar11) * 8) = param_4[1];
-              pfVar15 = (float *)UINT_007f46ac;
+              *(float *)((g_dwDestTVert - 8) + PUN(int,(float)fVar11) * 8) = *param_4;
+              *(float *)((g_dwDestTVert - 4) + PUN(int,(float)fVar11) * 8) = param_4[1];
+              pfVar15 = (float *)g_dwDestVert;
             }
           }
           pfVar8 = pfVar13 + -1;
@@ -3211,11 +3235,11 @@ float rdClip_Face3_PosUvLit_2(int *param_1,float *param_2,float *param_3,float *
           local_4 = PUN(float,(PUN(int,(float)local_4) + -1));
           pfVar12 = param_4;
           iVar6 = iVar7;
-          pfVar16 = (float *)UINT_007f47b8;
+          pfVar16 = (float *)g_dwSourceVert;
           param_4 = param_4 + 2;
         } while (local_4 != 0.0);
       }
-      UINT_007f47b8 = (uint)pfVar16;
+      g_dwSourceVert = (uint)pfVar16;
       if (PUN(int,(float)fVar11) < 3) {
         return fVar11;
       }
@@ -3231,7 +3255,7 @@ float rdClip_Face3_PosUvLit_2(int *param_1,float *param_2,float *param_3,float *
         pfVar15 = (float *)((int)pfVar15 + 1);
         param_2 = (float *)((int)param_2 + 1);
       }
-      pfVar15 = (float *)UINT_007f46a8;
+      pfVar15 = (float *)g_dwDestTVert;
       for (iVar6 = (PUN(uint,(float)fVar11) & 0x1fffffff) << 1; iVar6 != 0; iVar6 = iVar6 + -1) {
         *param_3 = *pfVar15;
         pfVar15 = pfVar15 + 1;
@@ -3255,10 +3279,14 @@ float rdClip_Face3_PosUvLit_2(int *param_1,float *param_2,float *param_3,float *
 #endif
 
 
-/* ---- 0x0044be80  rdClip_Face3_PosUvFlags ---- */
+/* ---- 0x0044be80  rdClip_Face3TOrtho ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-uint rdClip_Face3_PosUvFlags(int *param_1,float *param_2,float *param_3,uint param_4)
+/* Original name rdClip_Face3TOrtho (the remaster's GrimFandango (Linux): the matching branch of the
+   rdPrimit3_ClipFace switch (geometry/lighting mode, perspective or ortho camera)); was
+   rdClip_Face3_PosUvFlags. */
+
+uint rdClip_Face3TOrtho(int *param_1,float *param_2,float *param_3,uint param_4)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -3281,13 +3309,13 @@ uint rdClip_Face3_PosUvFlags(int *param_1,float *param_2,float *param_3,uint par
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
-  UINT_007f4ac4 = 0;
+  g_dwRdClip_faceStatus = 0;
   local_c = 0;
-  puVar9 = &UINT_007f48c0;
-  UINT_007f47b8 = (uint)param_2;
-  UINT_007f46ac = (uint)&UINT_007f48c0;
-  UINT_007f461c = (uint)param_3;
-  UINT_007f46a8 = (uint)&UINT_007f46b8;
+  puVar9 = &g_dwWorkVerts;
+  g_dwSourceVert = (uint)param_2;
+  g_dwDestVert = (uint)&g_dwWorkVerts;
+  g_dwSourceTVert = (uint)param_3;
+  g_dwDestTVert = (uint)&g_dwWorkTVerts;
   if (0 < (int)param_4) {
     iVar13 = 0;
     local_8 = param_4;
@@ -3307,12 +3335,12 @@ uint rdClip_Face3_PosUvFlags(int *param_1,float *param_2,float *param_3,uint par
           iVar4 = local_c * 8;
           local_c = local_c + 1;
           *(float *)((int)puVar9 + iVar13) = fVar2;
-          *(float *)((UINT_007f46ac - 8) + iVar14) = (pfVar12[1] - pfVar10[1]) * fVar3 + pfVar10[1];
-          *(float *)((UINT_007f46ac - 4) + iVar14) = (pfVar12[2] - pfVar10[2]) * fVar3 + pfVar10[2];
-          *(float *)(UINT_007f46a8 + iVar4) = (*pfVar8 - *pfVar5) * fVar3 + *pfVar5;
-          *(float *)(UINT_007f46a8 + 4 + iVar4) = (pfVar8[1] - pfVar5[1]) * fVar3 + pfVar5[1];
-          UINT_007f4ac4 = UINT_007f4ac4 | 0x10;
-          puVar9 = (uint *)UINT_007f46ac;
+          *(float *)((g_dwDestVert - 8) + iVar14) = (pfVar12[1] - pfVar10[1]) * fVar3 + pfVar10[1];
+          *(float *)((g_dwDestVert - 4) + iVar14) = (pfVar12[2] - pfVar10[2]) * fVar3 + pfVar10[2];
+          *(float *)(g_dwDestTVert + iVar4) = (*pfVar8 - *pfVar5) * fVar3 + *pfVar5;
+          *(float *)(g_dwDestTVert + 4 + iVar4) = (pfVar8[1] - pfVar5[1]) * fVar3 + pfVar5[1];
+          g_dwRdClip_faceStatus = g_dwRdClip_faceStatus | 0x10;
+          puVar9 = (uint *)g_dwDestVert;
         }
         iVar13 = iVar14;
         if (fVar1 <= *pfVar12) {
@@ -3320,11 +3348,11 @@ uint rdClip_Face3_PosUvFlags(int *param_1,float *param_2,float *param_3,uint par
           *pfVar10 = *pfVar12;
           pfVar10[1] = pfVar12[1];
           pfVar10[2] = pfVar12[2];
-          *(float *)(UINT_007f46a8 + local_c * 8) = *pfVar8;
-          *(float *)(UINT_007f46a8 + 4 + local_c * 8) = pfVar8[1];
+          *(float *)(g_dwDestTVert + local_c * 8) = *pfVar8;
+          *(float *)(g_dwDestTVert + 4 + local_c * 8) = pfVar8[1];
           local_c = local_c + 1;
           iVar13 = iVar14 + 0xc;
-          puVar9 = (uint *)UINT_007f46ac;
+          puVar9 = (uint *)g_dwDestVert;
         }
       }
       local_8 = local_8 - 1;
@@ -3335,20 +3363,20 @@ uint rdClip_Face3_PosUvFlags(int *param_1,float *param_2,float *param_3,uint par
     } while (local_8 != 0);
   }
   local_8 = local_c;
-  uVar6 = UINT_007f461c;
+  uVar6 = g_dwSourceTVert;
   if (2 < (int)local_c) {
-    UINT_007f46ac = UINT_007f47b8;
-    UINT_007f461c = UINT_007f46a8;
+    g_dwDestVert = g_dwSourceVert;
+    g_dwSourceTVert = g_dwDestTVert;
     local_c = 0;
-    uVar11 = UINT_007f47b8;
+    uVar11 = g_dwSourceVert;
     pfVar10 = (float *)puVar9;
     if (0 < (int)local_8) {
       iVar13 = 0;
       pfVar12 = (float *)(puVar9 + local_8 * 3 + -3);
-      pfVar5 = (float *)((UINT_007f46a8 - 8) + local_8 * 8);
-      pfVar8 = (float *)UINT_007f46a8;
-      UINT_007f46a8 = uVar6;
-      UINT_007f47b8 = (uint)puVar9;
+      pfVar5 = (float *)((g_dwDestTVert - 8) + local_8 * 8);
+      pfVar8 = (float *)g_dwDestTVert;
+      g_dwDestTVert = uVar6;
+      g_dwSourceVert = (uint)puVar9;
       do {
         fVar2 = PUN(float,param_1[5]);
         fVar1 = PUN(float,param_1[5]);
@@ -3360,25 +3388,25 @@ uint rdClip_Face3_PosUvFlags(int *param_1,float *param_2,float *param_3,uint par
             iVar14 = local_c * 8;
             local_c = local_c + 1;
             *(float *)((uVar11 - 0xc) + iVar13) = fVar2;
-            *(float *)((UINT_007f46ac - 8) + iVar13) =
+            *(float *)((g_dwDestVert - 8) + iVar13) =
                  (PUN(float,puVar9[1]) - pfVar12[1]) * fVar3 + pfVar12[1];
-            *(float *)((UINT_007f46ac - 4) + iVar13) =
+            *(float *)((g_dwDestVert - 4) + iVar13) =
                  (PUN(float,puVar9[2]) - pfVar12[2]) * fVar3 + pfVar12[2];
-            *(float *)(UINT_007f46a8 + iVar14) = (*pfVar8 - *pfVar5) * fVar3 + *pfVar5;
-            *(float *)(UINT_007f46a8 + 4 + iVar14) = (pfVar8[1] - pfVar5[1]) * fVar3 + pfVar5[1];
-            UINT_007f4ac4 = UINT_007f4ac4 | 0x20;
-            uVar11 = UINT_007f46ac;
+            *(float *)(g_dwDestTVert + iVar14) = (*pfVar8 - *pfVar5) * fVar3 + *pfVar5;
+            *(float *)(g_dwDestTVert + 4 + iVar14) = (pfVar8[1] - pfVar5[1]) * fVar3 + pfVar5[1];
+            g_dwRdClip_faceStatus = g_dwRdClip_faceStatus | 0x20;
+            uVar11 = g_dwDestVert;
           }
           if (PUN(float,*puVar9) <= fVar1) {
             pfVar10 = (float *)(uVar11 + iVar13);
             *pfVar10 = PUN(float,*puVar9);
             pfVar10[1] = PUN(float,puVar9[1]);
             pfVar10[2] = PUN(float,puVar9[2]);
-            *(float *)(UINT_007f46a8 + local_c * 8) = *pfVar8;
-            *(float *)(UINT_007f46a8 + 4 + local_c * 8) = pfVar8[1];
+            *(float *)(g_dwDestTVert + local_c * 8) = *pfVar8;
+            *(float *)(g_dwDestTVert + 4 + local_c * 8) = pfVar8[1];
             local_c = local_c + 1;
             iVar13 = iVar13 + 0xc;
-            uVar11 = UINT_007f46ac;
+            uVar11 = g_dwDestVert;
           }
         }
         local_8 = local_8 - 1;
@@ -3386,27 +3414,27 @@ uint rdClip_Face3_PosUvFlags(int *param_1,float *param_2,float *param_3,uint par
         puVar9 = puVar9 + 3;
         pfVar5 = pfVar8;
         pfVar8 = pfVar8 + 2;
-        uVar6 = UINT_007f46a8;
-        pfVar10 = (float *)UINT_007f47b8;
+        uVar6 = g_dwDestTVert;
+        pfVar10 = (float *)g_dwSourceVert;
       } while (local_8 != 0);
     }
-    UINT_007f47b8 = (uint)pfVar10;
-    UINT_007f46a8 = uVar6;
+    g_dwSourceVert = (uint)pfVar10;
+    g_dwDestTVert = uVar6;
     param_4 = local_c;
-    uVar6 = UINT_007f461c;
+    uVar6 = g_dwSourceTVert;
     if (2 < (int)local_c) {
-      UINT_007f46ac = UINT_007f47b8;
-      UINT_007f461c = UINT_007f46a8;
+      g_dwDestVert = g_dwSourceVert;
+      g_dwSourceTVert = g_dwDestTVert;
       local_c = 0;
       pfVar10 = (float *)((uVar11 - 0xc) + param_4 * 0xc);
-      uVar7 = UINT_007f47b8;
+      uVar7 = g_dwSourceVert;
       if (0 < (int)param_4) {
         pfVar12 = (float *)(uVar11 + 8);
         iVar13 = 0;
-        pfVar5 = (float *)((UINT_007f46a8 - 8) + param_4 * 8);
-        pfVar8 = (float *)UINT_007f46a8;
-        UINT_007f46a8 = uVar6;
-        UINT_007f47b8 = uVar11;
+        pfVar5 = (float *)((g_dwDestTVert - 8) + param_4 * 8);
+        pfVar8 = (float *)g_dwDestTVert;
+        g_dwDestTVert = uVar6;
+        g_dwSourceVert = uVar11;
         do {
           fVar2 = PUN(float,param_1[4]);
           fVar1 = PUN(float,param_1[4]);
@@ -3418,24 +3446,24 @@ uint rdClip_Face3_PosUvFlags(int *param_1,float *param_2,float *param_3,uint par
               iVar14 = local_c * 8;
               local_c = local_c + 1;
               *(float *)((uVar7 - 0xc) + iVar13) = (pfVar12[-2] - *pfVar10) * fVar3 + *pfVar10;
-              *(float *)((UINT_007f46ac - 8) + iVar13) =
+              *(float *)((g_dwDestVert - 8) + iVar13) =
                    (pfVar12[-1] - pfVar10[1]) * fVar3 + pfVar10[1];
-              *(float *)((UINT_007f46ac - 4) + iVar13) = fVar2;
-              *(float *)(UINT_007f46a8 + iVar14) = (*pfVar8 - *pfVar5) * fVar3 + *pfVar5;
-              *(float *)(UINT_007f46a8 + 4 + iVar14) = (pfVar8[1] - pfVar5[1]) * fVar3 + pfVar5[1];
-              UINT_007f4ac4 = UINT_007f4ac4 | 4;
-              uVar7 = UINT_007f46ac;
+              *(float *)((g_dwDestVert - 4) + iVar13) = fVar2;
+              *(float *)(g_dwDestTVert + iVar14) = (*pfVar8 - *pfVar5) * fVar3 + *pfVar5;
+              *(float *)(g_dwDestTVert + 4 + iVar14) = (pfVar8[1] - pfVar5[1]) * fVar3 + pfVar5[1];
+              g_dwRdClip_faceStatus = g_dwRdClip_faceStatus | 4;
+              uVar7 = g_dwDestVert;
             }
             if (*pfVar12 <= fVar1) {
               pfVar10 = (float *)(uVar7 + iVar13);
               *pfVar10 = pfVar12[-2];
               pfVar10[1] = pfVar12[-1];
               pfVar10[2] = *pfVar12;
-              *(float *)(UINT_007f46a8 + local_c * 8) = *pfVar8;
-              *(float *)(UINT_007f46a8 + 4 + local_c * 8) = pfVar8[1];
+              *(float *)(g_dwDestTVert + local_c * 8) = *pfVar8;
+              *(float *)(g_dwDestTVert + 4 + local_c * 8) = pfVar8[1];
               local_c = local_c + 1;
               iVar13 = iVar13 + 0xc;
-              uVar7 = UINT_007f46ac;
+              uVar7 = g_dwDestVert;
             }
           }
           pfVar10 = pfVar12 + -2;
@@ -3443,27 +3471,27 @@ uint rdClip_Face3_PosUvFlags(int *param_1,float *param_2,float *param_3,uint par
           param_4 = param_4 - 1;
           pfVar5 = pfVar8;
           pfVar8 = pfVar8 + 2;
-          uVar6 = UINT_007f46a8;
-          uVar11 = UINT_007f47b8;
+          uVar6 = g_dwDestTVert;
+          uVar11 = g_dwSourceVert;
         } while (param_4 != 0);
       }
-      UINT_007f47b8 = uVar11;
-      UINT_007f46a8 = uVar6;
+      g_dwSourceVert = uVar11;
+      g_dwDestTVert = uVar6;
       param_4 = local_c;
-      uVar6 = UINT_007f461c;
+      uVar6 = g_dwSourceTVert;
       if (2 < (int)local_c) {
-        UINT_007f461c = UINT_007f46a8;
+        g_dwSourceTVert = g_dwDestTVert;
         local_c = 0;
         pfVar10 = (float *)((uVar7 - 0xc) + param_4 * 0xc);
-        uVar11 = UINT_007f47b8;
-        UINT_007f46ac = UINT_007f47b8;
+        uVar11 = g_dwSourceVert;
+        g_dwDestVert = g_dwSourceVert;
         if (0 < (int)param_4) {
           pfVar12 = (float *)(uVar7 + 8);
           iVar13 = 0;
-          pfVar5 = (float *)((UINT_007f46a8 - 8) + param_4 * 8);
-          pfVar8 = (float *)UINT_007f46a8;
-          UINT_007f46a8 = uVar6;
-          UINT_007f47b8 = uVar7;
+          pfVar5 = (float *)((g_dwDestTVert - 8) + param_4 * 8);
+          pfVar8 = (float *)g_dwDestTVert;
+          g_dwDestTVert = uVar6;
+          g_dwSourceVert = uVar7;
           do {
             fVar2 = PUN(float,param_1[6]);
             fVar1 = PUN(float,param_1[6]);
@@ -3475,25 +3503,25 @@ uint rdClip_Face3_PosUvFlags(int *param_1,float *param_2,float *param_3,uint par
                 iVar14 = local_c * 8;
                 local_c = local_c + 1;
                 *(float *)((uVar11 - 0xc) + iVar13) = (pfVar12[-2] - *pfVar10) * fVar3 + *pfVar10;
-                *(float *)((UINT_007f46ac - 8) + iVar13) =
+                *(float *)((g_dwDestVert - 8) + iVar13) =
                      (pfVar12[-1] - pfVar10[1]) * fVar3 + pfVar10[1];
-                *(float *)((UINT_007f46ac - 4) + iVar13) = fVar2;
-                *(float *)(UINT_007f46a8 + iVar14) = (*pfVar8 - *pfVar5) * fVar3 + *pfVar5;
-                *(float *)(UINT_007f46a8 + 4 + iVar14) = (pfVar8[1] - pfVar5[1]) * fVar3 + pfVar5[1]
+                *(float *)((g_dwDestVert - 4) + iVar13) = fVar2;
+                *(float *)(g_dwDestTVert + iVar14) = (*pfVar8 - *pfVar5) * fVar3 + *pfVar5;
+                *(float *)(g_dwDestTVert + 4 + iVar14) = (pfVar8[1] - pfVar5[1]) * fVar3 + pfVar5[1]
                 ;
-                UINT_007f4ac4 = UINT_007f4ac4 | 8;
-                uVar11 = UINT_007f46ac;
+                g_dwRdClip_faceStatus = g_dwRdClip_faceStatus | 8;
+                uVar11 = g_dwDestVert;
               }
               if (fVar1 <= *pfVar12) {
                 pfVar10 = (float *)(uVar11 + iVar13);
                 *pfVar10 = pfVar12[-2];
                 pfVar10[1] = pfVar12[-1];
                 pfVar10[2] = *pfVar12;
-                *(float *)(UINT_007f46a8 + local_c * 8) = *pfVar8;
-                *(float *)(UINT_007f46a8 + 4 + local_c * 8) = pfVar8[1];
+                *(float *)(g_dwDestTVert + local_c * 8) = *pfVar8;
+                *(float *)(g_dwDestTVert + 4 + local_c * 8) = pfVar8[1];
                 local_c = local_c + 1;
                 iVar13 = iVar13 + 0xc;
-                uVar11 = UINT_007f46ac;
+                uVar11 = g_dwDestVert;
               }
             }
             pfVar10 = pfVar12 + -2;
@@ -3501,30 +3529,30 @@ uint rdClip_Face3_PosUvFlags(int *param_1,float *param_2,float *param_3,uint par
             param_4 = param_4 - 1;
             pfVar5 = pfVar8;
             pfVar8 = pfVar8 + 2;
-            uVar6 = UINT_007f46a8;
-            uVar7 = UINT_007f47b8;
+            uVar6 = g_dwDestTVert;
+            uVar7 = g_dwSourceVert;
           } while (param_4 != 0);
         }
-        UINT_007f47b8 = uVar7;
-        UINT_007f46a8 = uVar6;
-        uVar6 = UINT_007f461c;
+        g_dwSourceVert = uVar7;
+        g_dwDestTVert = uVar6;
+        uVar6 = g_dwSourceTVert;
         if ((int)local_c < 3) {
           return local_c;
         }
         uVar7 = 0;
-        UINT_007f461c = UINT_007f46a8;
+        g_dwSourceTVert = g_dwDestTVert;
         pfVar10 = (float *)((uVar11 - 0xc) + local_c * 0xc);
-        iVar13 = UINT_007f46a8 - 8;
-        local_8 = UINT_007f46a8;
-        pfVar12 = (float *)UINT_007f47b8;
-        UINT_007f46a8 = uVar6;
-        UINT_007f46ac = UINT_007f47b8;
+        iVar13 = g_dwDestTVert - 8;
+        local_8 = g_dwDestTVert;
+        pfVar12 = (float *)g_dwSourceVert;
+        g_dwDestTVert = uVar6;
+        g_dwDestVert = g_dwSourceVert;
         if (0 < (int)local_c) {
           pfVar5 = (float *)(uVar11 + 4);
           iVar14 = 0;
           param_4 = local_c;
           pfVar8 = (float *)(iVar13 + local_c * 8);
-          UINT_007f47b8 = uVar11;
+          g_dwSourceVert = uVar11;
           do {
             if ((PUN(float,param_1[1]) <= pfVar10[1]) || (PUN(float,param_1[1]) <= *pfVar5)) {
               if (((pfVar10[1] != PUN(float,param_1[1])) && (*pfVar5 != PUN(float,param_1[1]))) &&
@@ -3534,16 +3562,16 @@ uint rdClip_Face3_PosUvFlags(int *param_1,float *param_2,float *param_3,uint par
                 *(int *)((int)pfVar12 + iVar14 + 4) = param_1[1];
                 iVar13 = uVar7 * 8;
                 uVar7 = uVar7 + 1;
-                *(float *)((UINT_007f46ac - 4) + iVar4) =
+                *(float *)((g_dwDestVert - 4) + iVar4) =
                      (pfVar5[1] - pfVar10[2]) * fVar1 + pfVar10[2];
-                *(float *)((UINT_007f46ac - 0xc) + iVar4) =
+                *(float *)((g_dwDestVert - 0xc) + iVar4) =
                      (pfVar5[-1] - *pfVar10) * fVar1 + *pfVar10;
-                *(float *)(UINT_007f46a8 + iVar13) = (*(float *)local_8 - *pfVar8) * fVar1 + *pfVar8
+                *(float *)(g_dwDestTVert + iVar13) = (*(float *)local_8 - *pfVar8) * fVar1 + *pfVar8
                 ;
-                *(float *)(UINT_007f46a8 + 4 + iVar13) =
+                *(float *)(g_dwDestTVert + 4 + iVar13) =
                      (*(float *)(local_8 + 4) - pfVar8[1]) * fVar1 + pfVar8[1];
-                UINT_007f4ac4 = UINT_007f4ac4 | 1;
-                pfVar12 = (float *)UINT_007f46ac;
+                g_dwRdClip_faceStatus = g_dwRdClip_faceStatus | 1;
+                pfVar12 = (float *)g_dwDestVert;
                 iVar14 = iVar4;
               }
               if (PUN(float,param_1[1]) <= *pfVar5) {
@@ -3553,41 +3581,41 @@ uint rdClip_Face3_PosUvFlags(int *param_1,float *param_2,float *param_3,uint par
                 *pfVar12 = pfVar5[-1];
                 pfVar12[1] = *pfVar5;
                 pfVar12[2] = pfVar5[1];
-                *(undefined4 *)((UINT_007f46a8 - 8) + uVar7 * 8) = *(undefined4 *)local_8;
-                *(undefined4 *)((UINT_007f46a8 - 4) + uVar7 * 8) = *(undefined4 *)(local_8 + 4);
-                pfVar12 = (float *)UINT_007f46ac;
+                *(undefined4 *)((g_dwDestTVert - 8) + uVar7 * 8) = *(undefined4 *)local_8;
+                *(undefined4 *)((g_dwDestTVert - 4) + uVar7 * 8) = *(undefined4 *)(local_8 + 4);
+                pfVar12 = (float *)g_dwDestVert;
               }
             }
             pfVar10 = pfVar5 + -1;
             pfVar5 = pfVar5 + 3;
             param_4 = param_4 - 1;
             pfVar8 = (float *)local_8;
-            uVar11 = UINT_007f47b8;
+            uVar11 = g_dwSourceVert;
             local_8 = local_8 + 8;
           } while (param_4 != 0);
         }
-        UINT_007f47b8 = uVar11;
-        uVar6 = UINT_007f461c;
+        g_dwSourceVert = uVar11;
+        uVar6 = g_dwSourceTVert;
         if ((int)uVar7 < 3) {
-          UINT_007f4ac4 = UINT_007f4ac4 | 0x40;
+          g_dwRdClip_faceStatus = g_dwRdClip_faceStatus | 0x40;
           return uVar7;
         }
         local_c = uVar7;
         pfVar10 = pfVar12;
         if (*param_1 != 0) {
           local_c = 0;
-          UINT_007f46ac = UINT_007f47b8;
-          UINT_007f461c = UINT_007f46a8;
+          g_dwDestVert = g_dwSourceVert;
+          g_dwSourceTVert = g_dwDestTVert;
           pfVar5 = pfVar12 + uVar7 * 3 + -3;
-          iVar13 = UINT_007f46a8 - 8;
-          local_8 = UINT_007f46a8;
-          pfVar10 = (float *)UINT_007f47b8;
-          UINT_007f46a8 = uVar6;
+          iVar13 = g_dwDestTVert - 8;
+          local_8 = g_dwDestTVert;
+          pfVar10 = (float *)g_dwSourceVert;
+          g_dwDestTVert = uVar6;
           if (0 < (int)uVar7) {
             iVar14 = 0;
             pfVar15 = pfVar12 + 1;
             pfVar8 = (float *)(iVar13 + uVar7 * 8);
-            UINT_007f47b8 = (uint)pfVar12;
+            g_dwSourceVert = (uint)pfVar12;
             param_4 = uVar7;
             do {
               if ((pfVar5[1] <= PUN(float,param_1[2])) || (*pfVar15 <= PUN(float,param_1[2]))) {
@@ -3598,17 +3626,17 @@ uint rdClip_Face3_PosUvFlags(int *param_1,float *param_2,float *param_3,uint par
                   *(int *)((int)pfVar10 + iVar14 + 4) = param_1[2];
                   iVar13 = local_c * 8;
                   local_c = local_c + 1;
-                  *(float *)((UINT_007f46ac - 4) + iVar4) =
+                  *(float *)((g_dwDestVert - 4) + iVar4) =
                        (pfVar15[1] - pfVar5[2]) * fVar1 + pfVar5[2];
-                  *(float *)((UINT_007f46ac - 0xc) + iVar4) =
+                  *(float *)((g_dwDestVert - 0xc) + iVar4) =
                        (pfVar15[-1] - *pfVar5) * fVar1 + *pfVar5;
-                  *(float *)(UINT_007f46a8 + iVar13) =
+                  *(float *)(g_dwDestTVert + iVar13) =
                        (*(float *)local_8 - *pfVar8) * fVar1 + *pfVar8;
-                  *(float *)(UINT_007f46a8 + 4 + iVar13) =
+                  *(float *)(g_dwDestTVert + 4 + iVar13) =
                        (*(float *)(local_8 + 4) - pfVar8[1]) * fVar1 + pfVar8[1];
-                  UINT_007f4ac4 = UINT_007f4ac4 | 2;
+                  g_dwRdClip_faceStatus = g_dwRdClip_faceStatus | 2;
                   iVar14 = iVar4;
-                  pfVar10 = (float *)UINT_007f46ac;
+                  pfVar10 = (float *)g_dwDestVert;
                 }
                 if (*pfVar15 <= PUN(float,param_1[2])) {
                   pfVar10 = (float *)((int)pfVar10 + iVar14);
@@ -3617,20 +3645,20 @@ uint rdClip_Face3_PosUvFlags(int *param_1,float *param_2,float *param_3,uint par
                   *pfVar10 = pfVar15[-1];
                   pfVar10[1] = *pfVar15;
                   pfVar10[2] = pfVar15[1];
-                  *(undefined4 *)((UINT_007f46a8 - 8) + local_c * 8) = *(undefined4 *)local_8;
-                  *(undefined4 *)((UINT_007f46a8 - 4) + local_c * 8) = *(undefined4 *)(local_8 + 4);
-                  pfVar10 = (float *)UINT_007f46ac;
+                  *(undefined4 *)((g_dwDestTVert - 8) + local_c * 8) = *(undefined4 *)local_8;
+                  *(undefined4 *)((g_dwDestTVert - 4) + local_c * 8) = *(undefined4 *)(local_8 + 4);
+                  pfVar10 = (float *)g_dwDestVert;
                 }
               }
               pfVar5 = pfVar15 + -1;
               pfVar15 = pfVar15 + 3;
               param_4 = param_4 - 1;
               pfVar8 = (float *)local_8;
-              pfVar12 = (float *)UINT_007f47b8;
+              pfVar12 = (float *)g_dwSourceVert;
               local_8 = local_8 + 8;
             } while (param_4 != 0);
           }
-          UINT_007f47b8 = (uint)pfVar12;
+          g_dwSourceVert = (uint)pfVar12;
           if ((int)local_c < 3) {
             return local_c;
           }
@@ -3646,7 +3674,7 @@ uint rdClip_Face3_PosUvFlags(int *param_1,float *param_2,float *param_3,uint par
             pfVar10 = (float *)((int)pfVar10 + 1);
             param_2 = (float *)((int)param_2 + 1);
           }
-          pfVar10 = (float *)UINT_007f46a8;
+          pfVar10 = (float *)g_dwDestTVert;
           for (iVar13 = (local_c & 0x1fffffff) << 1; iVar13 != 0; iVar13 = iVar13 + -1) {
             *param_3 = *pfVar10;
             pfVar10 = pfVar10 + 1;
@@ -3670,11 +3698,14 @@ uint rdClip_Face3_PosUvFlags(int *param_1,float *param_2,float *param_3,uint par
 #endif
 
 
-/* ---- 0x0044c9d0  rdClip_Face3_PosUvLitColor ---- */
+/* ---- 0x0044c9d0  rdClip_Face3GT ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-float rdClip_Face3_PosUvLitColor
-                (int *param_1,float *param_2,float *param_3,undefined4 *param_4,float *param_5)
+/* Original name rdClip_Face3GT (the remaster's GrimFandango (Linux): the matching branch of the
+   rdPrimit3_ClipFace switch (geometry/lighting mode, perspective or ortho camera)); was
+   rdClip_Face3_PosUvLitColor. */
+
+float rdClip_Face3GT(int *param_1,float *param_2,float *param_3,undefined4 *param_4,float *param_5)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -3703,16 +3734,16 @@ float rdClip_Face3_PosUvLitColor
   #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
   #define local_4 (*(float *)(_frame + (0x30 - 0x4)))
   
-  UINT_007f4618 = (uint)param_4;
+  g_dwSourceIVert = (uint)param_4;
   local_14[0] = PUN(float,(param_4 + (int)param_5 + -1));
   fVar7 = 0.0;
-  puVar13 = &UINT_007f48c0;
-  UINT_007f4ac4 = 0;
-  UINT_007f47b8 = (uint)param_2;
-  UINT_007f46ac = (uint)&UINT_007f48c0;
-  UINT_007f461c = (uint)param_3;
-  UINT_007f46a8 = (uint)&UINT_007f46b8;
-  UINT_007f46b0 = (uint)&UINT_007f47c0;
+  puVar13 = &g_dwWorkVerts;
+  g_dwRdClip_faceStatus = 0;
+  g_dwSourceVert = (uint)param_2;
+  g_dwDestVert = (uint)&g_dwWorkVerts;
+  g_dwSourceTVert = (uint)param_3;
+  g_dwDestTVert = (uint)&g_dwWorkTVerts;
+  g_dwDestIVert = (uint)&g_dwWorkIVerts;
   local_18 = (uint)param_4;
   if (0 < (int)param_5) {
     iVar10 = 0;
@@ -3752,18 +3783,17 @@ float rdClip_Face3_PosUvLitColor
           }
           *(float *)((int)puVar13 + iVar10) = PUN(float,param_1[0xc]) * fVar4;
           iVar10 = iVar10 + 0xc;
-          *(float *)((UINT_007f46ac - 8) + iVar10) = fVar4;
+          *(float *)((g_dwDestVert - 8) + iVar10) = fVar4;
           fVar7 = PUN(float,(PUN(int,(float)fVar7) + 1));
-          *(float *)((UINT_007f46ac - 4) + iVar10) = (pfVar12[2] - param_5[2]) * fVar11 + param_5[2]
+          *(float *)((g_dwDestVert - 4) + iVar10) = (pfVar12[2] - param_5[2]) * fVar11 + param_5[2];
+          *(float *)((g_dwDestTVert - 8) + PUN(int,(float)fVar7) * 8) = (*pfVar19 - *pfVar8) * fVar11 + *pfVar8
           ;
-          *(float *)((UINT_007f46a8 - 8) + PUN(int,(float)fVar7) * 8) = (*pfVar19 - *pfVar8) * fVar11 + *pfVar8
-          ;
-          *(float *)((UINT_007f46a8 - 4) + PUN(int,(float)fVar7) * 8) =
+          *(float *)((g_dwDestTVert - 4) + PUN(int,(float)fVar7) * 8) =
                (pfVar19[1] - pfVar8[1]) * fVar11 + pfVar8[1];
-          *(float *)((UINT_007f46b0 - 4) + PUN(int,(float)fVar7) * 4) =
+          *(float *)((g_dwDestIVert - 4) + PUN(int,(float)fVar7) * 4) =
                (*(float *)local_18 - *PUN(float *,(float)local_14[0])) * fVar11 + *PUN(float *,(float)local_14[0]);
-          UINT_007f4ac4 = UINT_007f4ac4 | 0x10;
-          puVar13 = (uint *)UINT_007f46ac;
+          g_dwRdClip_faceStatus = g_dwRdClip_faceStatus | 0x10;
+          puVar13 = (uint *)g_dwDestVert;
         }
         if (fVar2 <= *pfVar12) {
           pfVar14 = (float *)((int)puVar13 + iVar10);
@@ -3772,10 +3802,10 @@ float rdClip_Face3_PosUvLitColor
           *pfVar14 = *pfVar12;
           pfVar14[1] = pfVar12[1];
           pfVar14[2] = pfVar12[2];
-          *(float *)((UINT_007f46a8 - 8) + PUN(int,(float)fVar7) * 8) = *pfVar19;
-          *(float *)((UINT_007f46a8 - 4) + PUN(int,(float)fVar7) * 8) = pfVar19[1];
-          *(undefined4 *)((UINT_007f46b0 - 4) + PUN(int,(float)fVar7) * 4) = *(undefined4 *)local_18;
-          puVar13 = (uint *)UINT_007f46ac;
+          *(float *)((g_dwDestTVert - 8) + PUN(int,(float)fVar7) * 8) = *pfVar19;
+          *(float *)((g_dwDestTVert - 4) + PUN(int,(float)fVar7) * 8) = pfVar19[1];
+          *(undefined4 *)((g_dwDestIVert - 4) + PUN(int,(float)fVar7) * 4) = *(undefined4 *)local_18;
+          puVar13 = (uint *)g_dwDestVert;
         }
       }
       local_14[0] = PUN(float,local_18);
@@ -3787,25 +3817,25 @@ float rdClip_Face3_PosUvLitColor
       param_5 = pfVar12;
     } while (local_4 != 0.0);
   }
-  local_18 = UINT_007f46b0;
-  uVar9 = UINT_007f461c;
+  local_18 = g_dwDestIVert;
+  uVar9 = g_dwSourceTVert;
   if (PUN(int,(float)fVar7) < 3) {
     return fVar7;
   }
-  UINT_007f461c = UINT_007f46a8;
-  UINT_007f46b0 = UINT_007f4618;
-  UINT_007f4618 = local_18;
+  g_dwSourceTVert = g_dwDestTVert;
+  g_dwDestIVert = g_dwSourceIVert;
+  g_dwSourceIVert = local_18;
   fVar11 = 0.0;
   local_14[0] = PUN(float,((local_18 - 4) + PUN(int,(float)fVar7) * 4));
-  uVar17 = UINT_007f47b8;
-  UINT_007f46ac = UINT_007f47b8;
+  uVar17 = g_dwSourceVert;
+  g_dwDestVert = g_dwSourceVert;
   pfVar14 = (float *)puVar13;
   if (0 < PUN(int,(float)fVar7)) {
     iVar10 = 0;
-    pfVar15 = (float *)UINT_007f46a8;
-    pfVar8 = (float *)((UINT_007f46a8 - 8) + PUN(int,(float)fVar7) * 8);
-    UINT_007f46a8 = uVar9;
-    UINT_007f47b8 = (uint)puVar13;
+    pfVar15 = (float *)g_dwDestTVert;
+    pfVar8 = (float *)((g_dwDestTVert - 8) + PUN(int,(float)fVar7) * 8);
+    g_dwDestTVert = uVar9;
+    g_dwSourceVert = (uint)puVar13;
     param_5 = (float *)(puVar13 + PUN(int,(float)fVar7) * 3 + -3);
     local_4 = fVar7;
     do {
@@ -3839,17 +3869,17 @@ float rdClip_Face3_PosUvLitColor
           }
           *(float *)(uVar17 + iVar10) = PUN(float,param_1[10]) * fVar4;
           iVar10 = iVar10 + 0xc;
-          *(float *)((UINT_007f46ac - 8) + iVar10) = fVar4;
+          *(float *)((g_dwDestVert - 8) + iVar10) = fVar4;
           fVar11 = PUN(float,(PUN(int,(float)fVar11) + 1));
-          *(float *)((UINT_007f46ac - 4) + iVar10) = (pfVar12[2] - param_5[2]) * fVar7 + param_5[2];
-          *(float *)((UINT_007f46a8 - 8) + PUN(int,(float)fVar11) * 8) = (*pfVar14 - *pfVar8) * fVar7 + *pfVar8
+          *(float *)((g_dwDestVert - 4) + iVar10) = (pfVar12[2] - param_5[2]) * fVar7 + param_5[2];
+          *(float *)((g_dwDestTVert - 8) + PUN(int,(float)fVar11) * 8) = (*pfVar14 - *pfVar8) * fVar7 + *pfVar8
           ;
-          *(float *)((UINT_007f46a8 - 4) + PUN(int,(float)fVar11) * 8) =
+          *(float *)((g_dwDestTVert - 4) + PUN(int,(float)fVar11) * 8) =
                (pfVar14[1] - pfVar8[1]) * fVar7 + pfVar8[1];
-          *(float *)((UINT_007f46b0 - 4) + PUN(int,(float)fVar11) * 4) =
+          *(float *)((g_dwDestIVert - 4) + PUN(int,(float)fVar11) * 4) =
                (*(float *)local_18 - *PUN(float *,(float)local_14[0])) * fVar7 + *PUN(float *,(float)local_14[0]);
-          UINT_007f4ac4 = UINT_007f4ac4 | 0x20;
-          uVar17 = UINT_007f46ac;
+          g_dwRdClip_faceStatus = g_dwRdClip_faceStatus | 0x20;
+          uVar17 = g_dwDestVert;
         }
         if (*pfVar12 <= fVar2) {
           pfVar15 = (float *)(uVar17 + iVar10);
@@ -3858,10 +3888,10 @@ float rdClip_Face3_PosUvLitColor
           *pfVar15 = *pfVar12;
           pfVar15[1] = pfVar12[1];
           pfVar15[2] = pfVar12[2];
-          *(float *)((UINT_007f46a8 - 8) + PUN(int,(float)fVar11) * 8) = *pfVar14;
-          *(float *)((UINT_007f46a8 - 4) + PUN(int,(float)fVar11) * 8) = pfVar14[1];
-          *(undefined4 *)((UINT_007f46b0 - 4) + PUN(int,(float)fVar11) * 4) = *(undefined4 *)local_18;
-          uVar17 = UINT_007f46ac;
+          *(float *)((g_dwDestTVert - 8) + PUN(int,(float)fVar11) * 8) = *pfVar14;
+          *(float *)((g_dwDestTVert - 4) + PUN(int,(float)fVar11) * 8) = pfVar14[1];
+          *(undefined4 *)((g_dwDestIVert - 4) + PUN(int,(float)fVar11) * 4) = *(undefined4 *)local_18;
+          uVar17 = g_dwDestVert;
         }
       }
       local_14[0] = PUN(float,local_18);
@@ -3870,31 +3900,31 @@ float rdClip_Face3_PosUvLitColor
       pfVar15 = pfVar14 + 2;
       puVar13 = (uint *)(pfVar12 + 3);
       pfVar8 = pfVar14;
-      uVar9 = UINT_007f46a8;
-      pfVar14 = (float *)UINT_007f47b8;
+      uVar9 = g_dwDestTVert;
+      pfVar14 = (float *)g_dwSourceVert;
       param_5 = pfVar12;
     } while (local_4 != 0.0);
   }
-  UINT_007f47b8 = (uint)pfVar14;
-  UINT_007f46a8 = uVar9;
-  local_18 = UINT_007f46b0;
-  pfVar14 = (float *)UINT_007f46a8;
-  uVar9 = UINT_007f4618;
+  g_dwSourceVert = (uint)pfVar14;
+  g_dwDestTVert = uVar9;
+  local_18 = g_dwDestIVert;
+  pfVar14 = (float *)g_dwDestTVert;
+  uVar9 = g_dwSourceIVert;
   if (2 < PUN(int,(float)fVar11)) {
-    UINT_007f46a8 = UINT_007f461c;
-    UINT_007f4618 = UINT_007f46b0;
-    UINT_007f461c = (uint)pfVar14;
-    UINT_007f46b0 = uVar9;
+    g_dwDestTVert = g_dwSourceTVert;
+    g_dwSourceIVert = g_dwDestIVert;
+    g_dwSourceTVert = (uint)pfVar14;
+    g_dwDestIVert = uVar9;
     fVar7 = 0.0;
-    UINT_007f46ac = UINT_007f47b8;
+    g_dwDestVert = g_dwSourceVert;
     pfVar15 = (float *)((uVar17 - 0xc) + PUN(int,(float)fVar11) * 0xc);
     local_14[0] = PUN(float,((local_18 - 4) + PUN(int,(float)fVar11) * 4));
-    uVar9 = UINT_007f47b8;
+    uVar9 = g_dwSourceVert;
     if (0 < PUN(int,(float)fVar11)) {
       iVar10 = 0;
       local_c = uVar17 + 8;
       pfVar8 = (float *)(((int)pfVar14 - 8U) + PUN(int,(float)fVar11) * 8);
-      UINT_007f47b8 = uVar17;
+      g_dwSourceVert = uVar17;
       local_4 = fVar11;
       do {
         pfVar12 = pfVar14;
@@ -3929,16 +3959,16 @@ float rdClip_Face3_PosUvLitColor
             fVar7 = PUN(float,(PUN(int,(float)fVar7) + 1));
             *(float *)((uVar9 - 0xc) + iVar10) =
                  (*(float *)(local_c - 8) - *pfVar15) * fVar11 + *pfVar15;
-            *(float *)((UINT_007f46ac - 8) + iVar10) = fVar4;
-            *(float *)((UINT_007f46ac - 4) + iVar10) = fVar1 * fVar4;
-            *(float *)((UINT_007f46a8 - 8) + PUN(int,(float)fVar7) * 8) =
+            *(float *)((g_dwDestVert - 8) + iVar10) = fVar4;
+            *(float *)((g_dwDestVert - 4) + iVar10) = fVar1 * fVar4;
+            *(float *)((g_dwDestTVert - 8) + PUN(int,(float)fVar7) * 8) =
                  (*pfVar12 - *pfVar8) * fVar11 + *pfVar8;
-            *(float *)((UINT_007f46a8 - 4) + PUN(int,(float)fVar7) * 8) =
+            *(float *)((g_dwDestTVert - 4) + PUN(int,(float)fVar7) * 8) =
                  (pfVar12[1] - pfVar8[1]) * fVar11 + pfVar8[1];
-            *(float *)((UINT_007f46b0 - 4) + PUN(int,(float)fVar7) * 4) =
+            *(float *)((g_dwDestIVert - 4) + PUN(int,(float)fVar7) * 4) =
                  (*(float *)local_18 - *PUN(float *,(float)local_14[0])) * fVar11 + *PUN(float *,(float)local_14[0]);
-            UINT_007f4ac4 = UINT_007f4ac4 | 4;
-            uVar9 = UINT_007f46ac;
+            g_dwRdClip_faceStatus = g_dwRdClip_faceStatus | 4;
+            uVar9 = g_dwDestVert;
           }
           if (*(float *)local_c <= fVar2) {
             puVar16 = (undefined4 *)(uVar9 + iVar10);
@@ -3947,10 +3977,10 @@ float rdClip_Face3_PosUvLitColor
             *puVar16 = *(undefined4 *)(local_c - 8);
             puVar16[1] = *(undefined4 *)(local_c - 4);
             puVar16[2] = *(undefined4 *)local_c;
-            *(float *)((UINT_007f46a8 - 8) + PUN(int,(float)fVar7) * 8) = *pfVar12;
-            *(float *)((UINT_007f46a8 - 4) + PUN(int,(float)fVar7) * 8) = pfVar12[1];
-            *(undefined4 *)((UINT_007f46b0 - 4) + PUN(int,(float)fVar7) * 4) = *(undefined4 *)local_18;
-            uVar9 = UINT_007f46ac;
+            *(float *)((g_dwDestTVert - 8) + PUN(int,(float)fVar7) * 8) = *pfVar12;
+            *(float *)((g_dwDestTVert - 4) + PUN(int,(float)fVar7) * 8) = pfVar12[1];
+            *(undefined4 *)((g_dwDestIVert - 4) + PUN(int,(float)fVar7) * 4) = *(undefined4 *)local_18;
+            uVar9 = g_dwDestVert;
           }
         }
         pfVar15 = (float *)(local_c - 8);
@@ -3960,29 +3990,29 @@ float rdClip_Face3_PosUvLitColor
         local_4 = PUN(float,(PUN(int,(float)local_4) + -1));
         pfVar14 = pfVar12 + 2;
         pfVar8 = pfVar12;
-        uVar17 = UINT_007f47b8;
+        uVar17 = g_dwSourceVert;
       } while (local_4 != 0.0);
     }
-    UINT_007f47b8 = uVar17;
-    local_18 = UINT_007f46b0;
-    pfVar14 = (float *)UINT_007f46a8;
+    g_dwSourceVert = uVar17;
+    local_18 = g_dwDestIVert;
+    pfVar14 = (float *)g_dwDestTVert;
     if (PUN(int,(float)fVar7) < 3) {
       return fVar7;
     }
-    UINT_007f46a8 = UINT_007f461c;
-    UINT_007f46b0 = UINT_007f4618;
-    UINT_007f4618 = local_18;
+    g_dwDestTVert = g_dwSourceTVert;
+    g_dwDestIVert = g_dwSourceIVert;
+    g_dwSourceIVert = local_18;
     fVar11 = 0.0;
     local_14[0] = PUN(float,((local_18 - 4) + PUN(int,(float)fVar7) * 4));
     pfVar15 = (float *)((uVar9 - 0xc) + PUN(int,(float)fVar7) * 0xc);
-    UINT_007f46ac = UINT_007f47b8;
-    UINT_007f461c = (uint)pfVar14;
-    uVar17 = UINT_007f47b8;
+    g_dwDestVert = g_dwSourceVert;
+    g_dwSourceTVert = (uint)pfVar14;
+    uVar17 = g_dwSourceVert;
     if (0 < PUN(int,(float)fVar7)) {
       iVar10 = 0;
       local_c = uVar9 + 8;
       pfVar8 = (float *)(((int)pfVar14 - 8U) + PUN(int,(float)fVar7) * 8);
-      UINT_007f47b8 = uVar9;
+      g_dwSourceVert = uVar9;
       local_4 = fVar7;
       do {
         pfVar12 = pfVar14;
@@ -4017,16 +4047,16 @@ float rdClip_Face3_PosUvLitColor
             fVar11 = PUN(float,(PUN(int,(float)fVar11) + 1));
             *(float *)((uVar17 - 0xc) + iVar10) =
                  (*(float *)(local_c - 8) - *pfVar15) * fVar7 + *pfVar15;
-            *(float *)((UINT_007f46ac - 8) + iVar10) = fVar4;
-            *(float *)((UINT_007f46ac - 4) + iVar10) = fVar1 * fVar4;
-            *(float *)((UINT_007f46a8 - 8) + PUN(int,(float)fVar11) * 8) =
+            *(float *)((g_dwDestVert - 8) + iVar10) = fVar4;
+            *(float *)((g_dwDestVert - 4) + iVar10) = fVar1 * fVar4;
+            *(float *)((g_dwDestTVert - 8) + PUN(int,(float)fVar11) * 8) =
                  (*pfVar12 - *pfVar8) * fVar7 + *pfVar8;
-            *(float *)((UINT_007f46a8 - 4) + PUN(int,(float)fVar11) * 8) =
+            *(float *)((g_dwDestTVert - 4) + PUN(int,(float)fVar11) * 8) =
                  (pfVar12[1] - pfVar8[1]) * fVar7 + pfVar8[1];
-            *(float *)((UINT_007f46b0 - 4) + PUN(int,(float)fVar11) * 4) =
+            *(float *)((g_dwDestIVert - 4) + PUN(int,(float)fVar11) * 4) =
                  (*(float *)local_18 - *PUN(float *,(float)local_14[0])) * fVar7 + *PUN(float *,(float)local_14[0]);
-            UINT_007f4ac4 = UINT_007f4ac4 | 8;
-            uVar17 = UINT_007f46ac;
+            g_dwRdClip_faceStatus = g_dwRdClip_faceStatus | 8;
+            uVar17 = g_dwDestVert;
           }
           if (fVar2 <= *(float *)local_c) {
             puVar16 = (undefined4 *)(uVar17 + iVar10);
@@ -4035,10 +4065,10 @@ float rdClip_Face3_PosUvLitColor
             *puVar16 = *(undefined4 *)(local_c - 8);
             puVar16[1] = *(undefined4 *)(local_c - 4);
             puVar16[2] = *(undefined4 *)local_c;
-            *(float *)((UINT_007f46a8 - 8) + PUN(int,(float)fVar11) * 8) = *pfVar12;
-            *(float *)((UINT_007f46a8 - 4) + PUN(int,(float)fVar11) * 8) = pfVar12[1];
-            *(undefined4 *)((UINT_007f46b0 - 4) + PUN(int,(float)fVar11) * 4) = *(undefined4 *)local_18;
-            uVar17 = UINT_007f46ac;
+            *(float *)((g_dwDestTVert - 8) + PUN(int,(float)fVar11) * 8) = *pfVar12;
+            *(float *)((g_dwDestTVert - 4) + PUN(int,(float)fVar11) * 8) = pfVar12[1];
+            *(undefined4 *)((g_dwDestIVert - 4) + PUN(int,(float)fVar11) * 4) = *(undefined4 *)local_18;
+            uVar17 = g_dwDestVert;
           }
         }
         pfVar15 = (float *)(local_c - 8);
@@ -4048,29 +4078,29 @@ float rdClip_Face3_PosUvLitColor
         local_4 = PUN(float,(PUN(int,(float)local_4) + -1));
         pfVar14 = pfVar12 + 2;
         pfVar8 = pfVar12;
-        uVar9 = UINT_007f47b8;
+        uVar9 = g_dwSourceVert;
       } while (local_4 != 0.0);
     }
-    UINT_007f47b8 = uVar9;
-    local_18 = UINT_007f46b0;
-    param_5 = (float *)UINT_007f46a8;
+    g_dwSourceVert = uVar9;
+    local_18 = g_dwDestIVert;
+    param_5 = (float *)g_dwDestTVert;
     if (PUN(int,(float)fVar11) < 3) {
       return fVar11;
     }
-    UINT_007f46a8 = UINT_007f461c;
-    UINT_007f46b0 = UINT_007f4618;
-    UINT_007f461c = (uint)param_5;
-    UINT_007f4618 = local_18;
+    g_dwDestTVert = g_dwSourceTVert;
+    g_dwDestIVert = g_dwSourceIVert;
+    g_dwSourceTVert = (uint)param_5;
+    g_dwSourceIVert = local_18;
     fVar7 = 0.0;
     local_14[0] = PUN(float,((local_18 - 4) + PUN(int,(float)fVar11) * 4));
     pfVar14 = (float *)((uVar17 - 0xc) + PUN(int,(float)fVar11) * 0xc);
-    UINT_007f46ac = UINT_007f47b8;
-    pfVar15 = (float *)UINT_007f47b8;
+    g_dwDestVert = g_dwSourceVert;
+    pfVar15 = (float *)g_dwSourceVert;
     if (0 < PUN(int,(float)fVar11)) {
       pfVar12 = (float *)(uVar17 + 4);
       pfVar8 = (float *)(((int)param_5 - 8U) + PUN(int,(float)fVar11) * 8);
       iVar10 = 0;
-      UINT_007f47b8 = uVar17;
+      g_dwSourceVert = uVar17;
       local_4 = fVar11;
       do {
         iVar18 = iVar10;
@@ -4081,18 +4111,18 @@ float rdClip_Face3_PosUvLitColor
             fVar7 = PUN(float,(PUN(int,(float)fVar7) + 1));
             fVar11 = (PUN(float,param_1[1]) - pfVar14[1]) / (*pfVar12 - pfVar14[1]);
             *(int *)((int)pfVar15 + iVar10 + 4) = param_1[1];
-            *(float *)((UINT_007f46ac - 4) + iVar18) =
+            *(float *)((g_dwDestVert - 4) + iVar18) =
                  (pfVar12[1] - pfVar14[2]) * fVar11 + pfVar14[2];
-            *(float *)((UINT_007f46ac - 0xc) + iVar18) =
-                 (pfVar12[-1] - *pfVar14) * fVar11 + *pfVar14;
-            *(float *)((UINT_007f46a8 - 8) + PUN(int,(float)fVar7) * 8) =
+            *(float *)((g_dwDestVert - 0xc) + iVar18) = (pfVar12[-1] - *pfVar14) * fVar11 + *pfVar14
+            ;
+            *(float *)((g_dwDestTVert - 8) + PUN(int,(float)fVar7) * 8) =
                  (*param_5 - *pfVar8) * fVar11 + *pfVar8;
-            *(float *)((UINT_007f46a8 - 4) + PUN(int,(float)fVar7) * 8) =
+            *(float *)((g_dwDestTVert - 4) + PUN(int,(float)fVar7) * 8) =
                  (param_5[1] - pfVar8[1]) * fVar11 + pfVar8[1];
-            *(float *)((UINT_007f46b0 - 4) + PUN(int,(float)fVar7) * 4) =
+            *(float *)((g_dwDestIVert - 4) + PUN(int,(float)fVar7) * 4) =
                  (*(float *)local_18 - *PUN(float *,(float)local_14[0])) * fVar11 + *PUN(float *,(float)local_14[0]);
-            UINT_007f4ac4 = UINT_007f4ac4 | 1;
-            pfVar15 = (float *)UINT_007f46ac;
+            g_dwRdClip_faceStatus = g_dwRdClip_faceStatus | 1;
+            pfVar15 = (float *)g_dwDestVert;
           }
           if (PUN(float,param_1[1]) <= *pfVar12) {
             pfVar15 = (float *)((int)pfVar15 + iVar18);
@@ -4101,10 +4131,10 @@ float rdClip_Face3_PosUvLitColor
             *pfVar15 = pfVar12[-1];
             pfVar15[1] = *pfVar12;
             pfVar15[2] = pfVar12[1];
-            *(float *)((UINT_007f46a8 - 8) + PUN(int,(float)fVar7) * 8) = *param_5;
-            *(float *)((UINT_007f46a8 - 4) + PUN(int,(float)fVar7) * 8) = param_5[1];
-            *(undefined4 *)((UINT_007f46b0 - 4) + PUN(int,(float)fVar7) * 4) = *(undefined4 *)local_18;
-            pfVar15 = (float *)UINT_007f46ac;
+            *(float *)((g_dwDestTVert - 8) + PUN(int,(float)fVar7) * 8) = *param_5;
+            *(float *)((g_dwDestTVert - 4) + PUN(int,(float)fVar7) * 8) = param_5[1];
+            *(undefined4 *)((g_dwDestIVert - 4) + PUN(int,(float)fVar7) * 4) = *(undefined4 *)local_18;
+            pfVar15 = (float *)g_dwDestVert;
           }
         }
         pfVar14 = pfVar12 + -1;
@@ -4114,37 +4144,37 @@ float rdClip_Face3_PosUvLitColor
         local_4 = PUN(float,(PUN(int,(float)local_4) + -1));
         pfVar8 = param_5;
         iVar10 = iVar18;
-        uVar17 = UINT_007f47b8;
+        uVar17 = g_dwSourceVert;
         param_5 = param_5 + 2;
       } while (local_4 != 0.0);
     }
-    UINT_007f47b8 = uVar17;
-    uVar17 = UINT_007f461c;
-    uVar9 = UINT_007f4618;
+    g_dwSourceVert = uVar17;
+    uVar17 = g_dwSourceTVert;
+    uVar9 = g_dwSourceIVert;
     if (PUN(int,(float)fVar7) < 3) {
-      UINT_007f4ac4 = UINT_007f4ac4 | 0x40;
+      g_dwRdClip_faceStatus = g_dwRdClip_faceStatus | 0x40;
       return fVar7;
     }
     fVar11 = fVar7;
     pfVar14 = pfVar15;
     if (*param_1 != 0) {
-      UINT_007f461c = UINT_007f46a8;
-      UINT_007f4618 = UINT_007f46b0;
+      g_dwSourceTVert = g_dwDestTVert;
+      g_dwSourceIVert = g_dwDestIVert;
       fVar11 = 0.0;
-      param_5 = (float *)UINT_007f46a8;
-      local_14[0] = (float)((UINT_007f46b0 - 4) + PUN(int,(float)fVar7) * 4);
+      param_5 = (float *)g_dwDestTVert;
+      local_14[0] = (float)((g_dwDestIVert - 4) + PUN(int,(float)fVar7) * 4);
       pfVar8 = pfVar15 + PUN(int,(float)fVar7) * 3 + -3;
-      iVar10 = UINT_007f46a8 - 8;
-      local_18 = UINT_007f46b0;
-      pfVar14 = (float *)UINT_007f47b8;
-      UINT_007f46a8 = uVar17;
-      UINT_007f46ac = UINT_007f47b8;
-      UINT_007f46b0 = uVar9;
+      iVar10 = g_dwDestTVert - 8;
+      local_18 = g_dwDestIVert;
+      pfVar14 = (float *)g_dwSourceVert;
+      g_dwDestTVert = uVar17;
+      g_dwDestVert = g_dwSourceVert;
+      g_dwDestIVert = uVar9;
       if (0 < PUN(int,(float)fVar7)) {
         pfVar19 = pfVar15 + 1;
         pfVar12 = (float *)(iVar10 + PUN(int,(float)fVar7) * 8);
         iVar10 = 0;
-        UINT_007f47b8 = (uint)pfVar15;
+        g_dwSourceVert = (uint)pfVar15;
         local_4 = fVar7;
         do {
           iVar18 = iVar10;
@@ -4155,18 +4185,17 @@ float rdClip_Face3_PosUvLitColor
               fVar11 = PUN(float,(PUN(int,(float)fVar11) + 1));
               fVar7 = (PUN(float,param_1[2]) - pfVar8[1]) / (*pfVar19 - pfVar8[1]);
               *(int *)((int)pfVar14 + iVar10 + 4) = param_1[2];
-              *(float *)((UINT_007f46ac - 4) + iVar18) =
-                   (pfVar19[1] - pfVar8[2]) * fVar7 + pfVar8[2];
-              *(float *)((UINT_007f46ac - 0xc) + iVar18) = (pfVar19[-1] - *pfVar8) * fVar7 + *pfVar8
+              *(float *)((g_dwDestVert - 4) + iVar18) = (pfVar19[1] - pfVar8[2]) * fVar7 + pfVar8[2]
               ;
-              *(float *)((UINT_007f46a8 - 8) + PUN(int,(float)fVar11) * 8) =
+              *(float *)((g_dwDestVert - 0xc) + iVar18) = (pfVar19[-1] - *pfVar8) * fVar7 + *pfVar8;
+              *(float *)((g_dwDestTVert - 8) + PUN(int,(float)fVar11) * 8) =
                    (*param_5 - *pfVar12) * fVar7 + *pfVar12;
-              *(float *)((UINT_007f46a8 - 4) + PUN(int,(float)fVar11) * 8) =
+              *(float *)((g_dwDestTVert - 4) + PUN(int,(float)fVar11) * 8) =
                    (param_5[1] - pfVar12[1]) * fVar7 + pfVar12[1];
-              *(float *)((UINT_007f46b0 - 4) + PUN(int,(float)fVar11) * 4) =
+              *(float *)((g_dwDestIVert - 4) + PUN(int,(float)fVar11) * 4) =
                    (*(float *)local_18 - *PUN(float *,(float)local_14[0])) * fVar7 + *PUN(float *,(float)local_14[0]);
-              UINT_007f4ac4 = UINT_007f4ac4 | 2;
-              pfVar14 = (float *)UINT_007f46ac;
+              g_dwRdClip_faceStatus = g_dwRdClip_faceStatus | 2;
+              pfVar14 = (float *)g_dwDestVert;
             }
             if (*pfVar19 <= PUN(float,param_1[2])) {
               pfVar14 = (float *)((int)pfVar14 + iVar18);
@@ -4175,10 +4204,10 @@ float rdClip_Face3_PosUvLitColor
               *pfVar14 = pfVar19[-1];
               pfVar14[1] = *pfVar19;
               pfVar14[2] = pfVar19[1];
-              *(float *)((UINT_007f46a8 - 8) + PUN(int,(float)fVar11) * 8) = *param_5;
-              *(float *)((UINT_007f46a8 - 4) + PUN(int,(float)fVar11) * 8) = param_5[1];
-              *(undefined4 *)((UINT_007f46b0 - 4) + PUN(int,(float)fVar11) * 4) = *(undefined4 *)local_18;
-              pfVar14 = (float *)UINT_007f46ac;
+              *(float *)((g_dwDestTVert - 8) + PUN(int,(float)fVar11) * 8) = *param_5;
+              *(float *)((g_dwDestTVert - 4) + PUN(int,(float)fVar11) * 8) = param_5[1];
+              *(undefined4 *)((g_dwDestIVert - 4) + PUN(int,(float)fVar11) * 4) = *(undefined4 *)local_18;
+              pfVar14 = (float *)g_dwDestVert;
             }
           }
           pfVar8 = pfVar19 + -1;
@@ -4188,11 +4217,11 @@ float rdClip_Face3_PosUvLitColor
           local_4 = PUN(float,(PUN(int,(float)local_4) + -1));
           pfVar12 = param_5;
           iVar10 = iVar18;
-          pfVar15 = (float *)UINT_007f47b8;
+          pfVar15 = (float *)g_dwSourceVert;
           param_5 = param_5 + 2;
         } while (local_4 != 0.0);
       }
-      UINT_007f47b8 = (uint)pfVar15;
+      g_dwSourceVert = (uint)pfVar15;
       if (PUN(int,(float)fVar11) < 3) {
         return fVar11;
       }
@@ -4208,13 +4237,13 @@ float rdClip_Face3_PosUvLitColor
         pfVar14 = (float *)((int)pfVar14 + 1);
         param_2 = (float *)((int)param_2 + 1);
       }
-      pfVar14 = (float *)UINT_007f46a8;
+      pfVar14 = (float *)g_dwDestTVert;
       for (iVar10 = (PUN(uint,(float)fVar11) & 0x1fffffff) << 1; iVar10 != 0; iVar10 = iVar10 + -1) {
         *param_3 = *pfVar14;
         pfVar14 = pfVar14 + 1;
         param_3 = param_3 + 1;
       }
-      for (iVar10 = 0; fVar7 = fVar11, puVar16 = (undefined4 *)UINT_007f46b0, iVar10 != 0;
+      for (iVar10 = 0; fVar7 = fVar11, puVar16 = (undefined4 *)g_dwDestIVert, iVar10 != 0;
           iVar10 = iVar10 + -1) {
         *(undefined1 *)param_3 = *(undefined1 *)pfVar14;
         pfVar14 = (float *)((int)pfVar14 + 1);
@@ -4238,11 +4267,15 @@ float rdClip_Face3_PosUvLitColor
 #endif
 
 
-/* ---- 0x0044da40  rdClip_Face3_PosUvLitFlags ---- */
+/* ---- 0x0044da40  rdClip_Face3GTOrtho ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-uint rdClip_Face3_PosUvLitFlags
-               (int *param_1,float *param_2,undefined4 *param_3,undefined4 *param_4,uint param_5)
+/* Original name rdClip_Face3GTOrtho (the remaster's GrimFandango (Linux): the matching branch of
+   the rdPrimit3_ClipFace switch (geometry/lighting mode, perspective or ortho camera)); was
+   rdClip_Face3_PosUvLitFlags. */
+
+uint rdClip_Face3GTOrtho(int *param_1,float *param_2,undefined4 *param_3,undefined4 *param_4,
+                        uint param_5)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -4271,18 +4304,18 @@ uint rdClip_Face3_PosUvLitFlags
   #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
   
-  UINT_007f4618 = (uint)param_4;
-  UINT_007f47b8 = (uint)param_2;
+  g_dwSourceIVert = (uint)param_4;
+  g_dwSourceVert = (uint)param_2;
   uVar7 = 0;
-  puVar12 = &UINT_007f48c0;
+  puVar12 = &g_dwWorkVerts;
   local_c = (uint)(param_4 + param_5 + -1);
   local_10 = (uint)param_3;
   local_14 = (uint)param_4;
-  UINT_007f4ac4 = 0;
-  UINT_007f46ac = (uint)&UINT_007f48c0;
-  UINT_007f461c = (uint)param_3;
-  UINT_007f46a8 = (uint)&UINT_007f46b8;
-  UINT_007f46b0 = (uint)&UINT_007f47c0;
+  g_dwRdClip_faceStatus = 0;
+  g_dwDestVert = (uint)&g_dwWorkVerts;
+  g_dwSourceTVert = (uint)param_3;
+  g_dwDestTVert = (uint)&g_dwWorkTVerts;
+  g_dwDestIVert = (uint)&g_dwWorkIVerts;
   if (0 < (int)param_5) {
     iVar18 = 0;
     pfVar13 = param_2 + param_5 * 3 + -3;
@@ -4298,16 +4331,16 @@ uint rdClip_Face3_PosUvLitFlags
           iVar19 = iVar18 + 0xc;
           uVar7 = uVar7 + 1;
           *(float *)((int)puVar12 + iVar18) = fVar2;
-          *(float *)((UINT_007f46ac - 8) + iVar19) = (pfVar15[1] - pfVar13[1]) * fVar3 + pfVar13[1];
-          *(float *)((UINT_007f46ac - 4) + iVar19) = (pfVar15[2] - pfVar13[2]) * fVar3 + pfVar13[2];
-          *(float *)((UINT_007f46a8 - 8) + uVar7 * 8) =
+          *(float *)((g_dwDestVert - 8) + iVar19) = (pfVar15[1] - pfVar13[1]) * fVar3 + pfVar13[1];
+          *(float *)((g_dwDestVert - 4) + iVar19) = (pfVar15[2] - pfVar13[2]) * fVar3 + pfVar13[2];
+          *(float *)((g_dwDestTVert - 8) + uVar7 * 8) =
                (*(float *)local_10 - *pfVar5) * fVar3 + *pfVar5;
-          *(float *)((UINT_007f46a8 - 4) + uVar7 * 8) =
+          *(float *)((g_dwDestTVert - 4) + uVar7 * 8) =
                (*(float *)(local_10 + 4) - pfVar5[1]) * fVar3 + pfVar5[1];
-          *(float *)((UINT_007f46b0 - 4) + uVar7 * 4) =
+          *(float *)((g_dwDestIVert - 4) + uVar7 * 4) =
                (*(float *)local_14 - *(float *)local_c) * fVar3 + *(float *)local_c;
-          UINT_007f4ac4 = UINT_007f4ac4 | 0x10;
-          puVar12 = (uint *)UINT_007f46ac;
+          g_dwRdClip_faceStatus = g_dwRdClip_faceStatus | 0x10;
+          puVar12 = (uint *)g_dwDestVert;
           iVar18 = iVar19;
         }
         if (fVar1 <= *pfVar15) {
@@ -4317,10 +4350,10 @@ uint rdClip_Face3_PosUvLitFlags
           *pfVar13 = *pfVar15;
           pfVar13[1] = pfVar15[1];
           pfVar13[2] = pfVar15[2];
-          *(undefined4 *)((UINT_007f46a8 - 8) + uVar7 * 8) = *(undefined4 *)local_10;
-          *(undefined4 *)((UINT_007f46a8 - 4) + uVar7 * 8) = *(undefined4 *)(local_10 + 4);
-          *(undefined4 *)((UINT_007f46b0 - 4) + uVar7 * 4) = *(undefined4 *)local_14;
-          puVar12 = (uint *)UINT_007f46ac;
+          *(undefined4 *)((g_dwDestTVert - 8) + uVar7 * 8) = *(undefined4 *)local_10;
+          *(undefined4 *)((g_dwDestTVert - 4) + uVar7 * 8) = *(undefined4 *)(local_10 + 4);
+          *(undefined4 *)((g_dwDestIVert - 4) + uVar7 * 4) = *(undefined4 *)local_14;
+          puVar12 = (uint *)g_dwDestVert;
         }
       }
       local_c = local_14;
@@ -4332,26 +4365,26 @@ uint rdClip_Face3_PosUvLitFlags
       local_10 = local_10 + 8;
     } while (param_5 != 0);
   }
-  uVar4 = UINT_007f461c;
-  uVar6 = UINT_007f4618;
+  uVar4 = g_dwSourceTVert;
+  uVar6 = g_dwSourceIVert;
   if (2 < (int)uVar7) {
-    iVar18 = UINT_007f46a8 - 8;
-    local_c = (UINT_007f46b0 - 4) + uVar7 * 4;
+    iVar18 = g_dwDestTVert - 8;
+    local_c = (g_dwDestIVert - 4) + uVar7 * 4;
     uVar9 = 0;
-    UINT_007f461c = UINT_007f46a8;
-    UINT_007f4618 = UINT_007f46b0;
-    local_10 = UINT_007f46a8;
-    local_14 = UINT_007f46b0;
-    uVar8 = UINT_007f47b8;
-    UINT_007f46a8 = uVar4;
-    UINT_007f46ac = UINT_007f47b8;
-    UINT_007f46b0 = uVar6;
+    g_dwSourceTVert = g_dwDestTVert;
+    g_dwSourceIVert = g_dwDestIVert;
+    local_10 = g_dwDestTVert;
+    local_14 = g_dwDestIVert;
+    uVar8 = g_dwSourceVert;
+    g_dwDestTVert = uVar4;
+    g_dwDestVert = g_dwSourceVert;
+    g_dwDestIVert = uVar6;
     pfVar13 = (float *)puVar12;
     if (0 < (int)uVar7) {
       iVar19 = 0;
       pfVar15 = (float *)(puVar12 + uVar7 * 3 + -3);
       pfVar5 = (float *)(iVar18 + uVar7 * 8);
-      UINT_007f47b8 = (uint)puVar12;
+      g_dwSourceVert = (uint)puVar12;
       param_5 = uVar7;
       do {
         fVar2 = PUN(float,param_1[5]);
@@ -4363,18 +4396,18 @@ uint rdClip_Face3_PosUvLitFlags
             iVar19 = iVar19 + 0xc;
             uVar9 = uVar9 + 1;
             *(float *)((uVar8 - 0xc) + iVar19) = fVar2;
-            *(float *)((UINT_007f46ac - 8) + iVar19) =
+            *(float *)((g_dwDestVert - 8) + iVar19) =
                  (PUN(float,puVar12[1]) - pfVar15[1]) * fVar3 + pfVar15[1];
-            *(float *)((UINT_007f46ac - 4) + iVar19) =
+            *(float *)((g_dwDestVert - 4) + iVar19) =
                  (PUN(float,puVar12[2]) - pfVar15[2]) * fVar3 + pfVar15[2];
-            *(float *)((UINT_007f46a8 - 8) + uVar9 * 8) =
+            *(float *)((g_dwDestTVert - 8) + uVar9 * 8) =
                  (*(float *)local_10 - *pfVar5) * fVar3 + *pfVar5;
-            *(float *)((UINT_007f46a8 - 4) + uVar9 * 8) =
+            *(float *)((g_dwDestTVert - 4) + uVar9 * 8) =
                  (*(float *)(local_10 + 4) - pfVar5[1]) * fVar3 + pfVar5[1];
-            *(float *)((UINT_007f46b0 - 4) + uVar9 * 4) =
+            *(float *)((g_dwDestIVert - 4) + uVar9 * 4) =
                  (*(float *)local_14 - *(float *)local_c) * fVar3 + *(float *)local_c;
-            UINT_007f4ac4 = UINT_007f4ac4 | 0x20;
-            uVar8 = UINT_007f46ac;
+            g_dwRdClip_faceStatus = g_dwRdClip_faceStatus | 0x20;
+            uVar8 = g_dwDestVert;
           }
           if (PUN(float,*puVar12) <= fVar1) {
             pfVar13 = (float *)(uVar8 + iVar19);
@@ -4383,10 +4416,10 @@ uint rdClip_Face3_PosUvLitFlags
             *pfVar13 = PUN(float,*puVar12);
             pfVar13[1] = PUN(float,puVar12[1]);
             pfVar13[2] = PUN(float,puVar12[2]);
-            *(undefined4 *)((UINT_007f46a8 - 8) + uVar9 * 8) = *(undefined4 *)local_10;
-            *(undefined4 *)((UINT_007f46a8 - 4) + uVar9 * 8) = *(undefined4 *)(local_10 + 4);
-            *(undefined4 *)((UINT_007f46b0 - 4) + uVar9 * 4) = *(undefined4 *)local_14;
-            uVar8 = UINT_007f46ac;
+            *(undefined4 *)((g_dwDestTVert - 8) + uVar9 * 8) = *(undefined4 *)local_10;
+            *(undefined4 *)((g_dwDestTVert - 4) + uVar9 * 8) = *(undefined4 *)(local_10 + 4);
+            *(undefined4 *)((g_dwDestIVert - 4) + uVar9 * 4) = *(undefined4 *)local_14;
+            uVar8 = g_dwDestVert;
           }
         }
         local_c = local_14;
@@ -4395,33 +4428,33 @@ uint rdClip_Face3_PosUvLitFlags
         pfVar15 = (float *)puVar12;
         puVar12 = puVar12 + 3;
         pfVar5 = (float *)local_10;
-        pfVar13 = (float *)UINT_007f47b8;
+        pfVar13 = (float *)g_dwSourceVert;
         local_10 = local_10 + 8;
       } while (param_5 != 0);
     }
-    UINT_007f47b8 = (uint)pfVar13;
-    uVar4 = UINT_007f461c;
-    uVar6 = UINT_007f4618;
+    g_dwSourceVert = (uint)pfVar13;
+    uVar4 = g_dwSourceTVert;
+    uVar6 = g_dwSourceIVert;
     if ((int)uVar9 < 3) {
       return uVar9;
     }
     pfVar13 = (float *)((uVar8 - 0xc) + uVar9 * 0xc);
-    iVar18 = UINT_007f46a8 - 8;
-    local_c = (UINT_007f46b0 - 4) + uVar9 * 4;
+    iVar18 = g_dwDestTVert - 8;
+    local_c = (g_dwDestIVert - 4) + uVar9 * 4;
     uVar7 = 0;
-    UINT_007f46ac = UINT_007f47b8;
-    UINT_007f461c = UINT_007f46a8;
-    UINT_007f4618 = UINT_007f46b0;
-    local_10 = UINT_007f46a8;
-    local_14 = UINT_007f46b0;
-    uVar14 = UINT_007f47b8;
-    UINT_007f46a8 = uVar4;
-    UINT_007f46b0 = uVar6;
+    g_dwDestVert = g_dwSourceVert;
+    g_dwSourceTVert = g_dwDestTVert;
+    g_dwSourceIVert = g_dwDestIVert;
+    local_10 = g_dwDestTVert;
+    local_14 = g_dwDestIVert;
+    uVar14 = g_dwSourceVert;
+    g_dwDestTVert = uVar4;
+    g_dwDestIVert = uVar6;
     if (0 < (int)uVar9) {
       iVar19 = 0;
       pfVar15 = (float *)(uVar8 + 8);
       pfVar5 = (float *)(iVar18 + uVar9 * 8);
-      UINT_007f47b8 = uVar8;
+      g_dwSourceVert = uVar8;
       param_5 = uVar9;
       do {
         fVar2 = PUN(float,param_1[4]);
@@ -4433,17 +4466,17 @@ uint rdClip_Face3_PosUvLitFlags
             iVar19 = iVar19 + 0xc;
             uVar7 = uVar7 + 1;
             *(float *)((uVar14 - 0xc) + iVar19) = (pfVar15[-2] - *pfVar13) * fVar3 + *pfVar13;
-            *(float *)((UINT_007f46ac - 8) + iVar19) =
+            *(float *)((g_dwDestVert - 8) + iVar19) =
                  (pfVar15[-1] - pfVar13[1]) * fVar3 + pfVar13[1];
-            *(float *)((UINT_007f46ac - 4) + iVar19) = fVar2;
-            *(float *)((UINT_007f46a8 - 8) + uVar7 * 8) =
+            *(float *)((g_dwDestVert - 4) + iVar19) = fVar2;
+            *(float *)((g_dwDestTVert - 8) + uVar7 * 8) =
                  (*(float *)local_10 - *pfVar5) * fVar3 + *pfVar5;
-            *(float *)((UINT_007f46a8 - 4) + uVar7 * 8) =
+            *(float *)((g_dwDestTVert - 4) + uVar7 * 8) =
                  (*(float *)(local_10 + 4) - pfVar5[1]) * fVar3 + pfVar5[1];
-            *(float *)((UINT_007f46b0 - 4) + uVar7 * 4) =
+            *(float *)((g_dwDestIVert - 4) + uVar7 * 4) =
                  (*(float *)local_14 - *(float *)local_c) * fVar3 + *(float *)local_c;
-            UINT_007f4ac4 = UINT_007f4ac4 | 4;
-            uVar14 = UINT_007f46ac;
+            g_dwRdClip_faceStatus = g_dwRdClip_faceStatus | 4;
+            uVar14 = g_dwDestVert;
           }
           if (*pfVar15 <= fVar1) {
             pfVar13 = (float *)(uVar14 + iVar19);
@@ -4452,10 +4485,10 @@ uint rdClip_Face3_PosUvLitFlags
             *pfVar13 = pfVar15[-2];
             pfVar13[1] = pfVar15[-1];
             pfVar13[2] = *pfVar15;
-            *(undefined4 *)((UINT_007f46a8 - 8) + uVar7 * 8) = *(undefined4 *)local_10;
-            *(undefined4 *)((UINT_007f46a8 - 4) + uVar7 * 8) = *(undefined4 *)(local_10 + 4);
-            *(undefined4 *)((UINT_007f46b0 - 4) + uVar7 * 4) = *(undefined4 *)local_14;
-            uVar14 = UINT_007f46ac;
+            *(undefined4 *)((g_dwDestTVert - 8) + uVar7 * 8) = *(undefined4 *)local_10;
+            *(undefined4 *)((g_dwDestTVert - 4) + uVar7 * 8) = *(undefined4 *)(local_10 + 4);
+            *(undefined4 *)((g_dwDestIVert - 4) + uVar7 * 4) = *(undefined4 *)local_14;
+            uVar14 = g_dwDestVert;
           }
         }
         pfVar13 = pfVar15 + -2;
@@ -4464,31 +4497,31 @@ uint rdClip_Face3_PosUvLitFlags
         pfVar15 = pfVar15 + 3;
         param_5 = param_5 - 1;
         pfVar5 = (float *)local_10;
-        uVar8 = UINT_007f47b8;
+        uVar8 = g_dwSourceVert;
         local_10 = local_10 + 8;
       } while (param_5 != 0);
     }
-    UINT_007f47b8 = uVar8;
-    uVar4 = UINT_007f461c;
-    uVar6 = UINT_007f4618;
+    g_dwSourceVert = uVar8;
+    uVar4 = g_dwSourceTVert;
+    uVar6 = g_dwSourceIVert;
     if (2 < (int)uVar7) {
-      UINT_007f46ac = UINT_007f47b8;
+      g_dwDestVert = g_dwSourceVert;
       uVar8 = 0;
-      UINT_007f461c = UINT_007f46a8;
-      UINT_007f4618 = UINT_007f46b0;
-      local_10 = UINT_007f46a8;
-      local_14 = UINT_007f46b0;
+      g_dwSourceTVert = g_dwDestTVert;
+      g_dwSourceIVert = g_dwDestIVert;
+      local_10 = g_dwDestTVert;
+      local_14 = g_dwDestIVert;
       pfVar13 = (float *)((uVar14 - 0xc) + uVar7 * 0xc);
-      iVar18 = UINT_007f46a8 - 8;
-      local_c = (UINT_007f46b0 - 4) + uVar7 * 4;
-      uVar9 = UINT_007f47b8;
-      UINT_007f46a8 = uVar4;
-      UINT_007f46b0 = uVar6;
+      iVar18 = g_dwDestTVert - 8;
+      local_c = (g_dwDestIVert - 4) + uVar7 * 4;
+      uVar9 = g_dwSourceVert;
+      g_dwDestTVert = uVar4;
+      g_dwDestIVert = uVar6;
       if (0 < (int)uVar7) {
         iVar19 = 0;
         pfVar15 = (float *)(uVar14 + 8);
         pfVar5 = (float *)(iVar18 + uVar7 * 8);
-        UINT_007f47b8 = uVar14;
+        g_dwSourceVert = uVar14;
         param_5 = uVar7;
         do {
           fVar2 = PUN(float,param_1[6]);
@@ -4500,17 +4533,17 @@ uint rdClip_Face3_PosUvLitFlags
               iVar19 = iVar19 + 0xc;
               uVar8 = uVar8 + 1;
               *(float *)((uVar9 - 0xc) + iVar19) = (pfVar15[-2] - *pfVar13) * fVar3 + *pfVar13;
-              *(float *)((UINT_007f46ac - 8) + iVar19) =
+              *(float *)((g_dwDestVert - 8) + iVar19) =
                    (pfVar15[-1] - pfVar13[1]) * fVar3 + pfVar13[1];
-              *(float *)((UINT_007f46ac - 4) + iVar19) = fVar2;
-              *(float *)((UINT_007f46a8 - 8) + uVar8 * 8) =
+              *(float *)((g_dwDestVert - 4) + iVar19) = fVar2;
+              *(float *)((g_dwDestTVert - 8) + uVar8 * 8) =
                    (*(float *)local_10 - *pfVar5) * fVar3 + *pfVar5;
-              *(float *)((UINT_007f46a8 - 4) + uVar8 * 8) =
+              *(float *)((g_dwDestTVert - 4) + uVar8 * 8) =
                    (*(float *)(local_10 + 4) - pfVar5[1]) * fVar3 + pfVar5[1];
-              *(float *)((UINT_007f46b0 - 4) + uVar8 * 4) =
+              *(float *)((g_dwDestIVert - 4) + uVar8 * 4) =
                    (*(float *)local_14 - *(float *)local_c) * fVar3 + *(float *)local_c;
-              UINT_007f4ac4 = UINT_007f4ac4 | 8;
-              uVar9 = UINT_007f46ac;
+              g_dwRdClip_faceStatus = g_dwRdClip_faceStatus | 8;
+              uVar9 = g_dwDestVert;
             }
             if (fVar1 <= *pfVar15) {
               pfVar13 = (float *)(uVar9 + iVar19);
@@ -4519,10 +4552,10 @@ uint rdClip_Face3_PosUvLitFlags
               *pfVar13 = pfVar15[-2];
               pfVar13[1] = pfVar15[-1];
               pfVar13[2] = *pfVar15;
-              *(undefined4 *)((UINT_007f46a8 - 8) + uVar8 * 8) = *(undefined4 *)local_10;
-              *(undefined4 *)((UINT_007f46a8 - 4) + uVar8 * 8) = *(undefined4 *)(local_10 + 4);
-              *(undefined4 *)((UINT_007f46b0 - 4) + uVar8 * 4) = *(undefined4 *)local_14;
-              uVar9 = UINT_007f46ac;
+              *(undefined4 *)((g_dwDestTVert - 8) + uVar8 * 8) = *(undefined4 *)local_10;
+              *(undefined4 *)((g_dwDestTVert - 4) + uVar8 * 8) = *(undefined4 *)(local_10 + 4);
+              *(undefined4 *)((g_dwDestIVert - 4) + uVar8 * 4) = *(undefined4 *)local_14;
+              uVar9 = g_dwDestVert;
             }
           }
           pfVar13 = pfVar15 + -2;
@@ -4531,32 +4564,32 @@ uint rdClip_Face3_PosUvLitFlags
           pfVar15 = pfVar15 + 3;
           param_5 = param_5 - 1;
           pfVar5 = (float *)local_10;
-          uVar14 = UINT_007f47b8;
+          uVar14 = g_dwSourceVert;
           local_10 = local_10 + 8;
         } while (param_5 != 0);
       }
-      UINT_007f47b8 = uVar14;
+      g_dwSourceVert = uVar14;
       uVar7 = uVar8;
-      uVar4 = UINT_007f461c;
-      uVar6 = UINT_007f4618;
+      uVar4 = g_dwSourceTVert;
+      uVar6 = g_dwSourceIVert;
       if (2 < (int)uVar7) {
-        UINT_007f46ac = UINT_007f47b8;
+        g_dwDestVert = g_dwSourceVert;
         uVar8 = 0;
-        UINT_007f461c = UINT_007f46a8;
-        UINT_007f4618 = UINT_007f46b0;
-        local_10 = UINT_007f46a8;
-        local_14 = UINT_007f46b0;
+        g_dwSourceTVert = g_dwDestTVert;
+        g_dwSourceIVert = g_dwDestIVert;
+        local_10 = g_dwDestTVert;
+        local_14 = g_dwDestIVert;
         pfVar13 = (float *)((uVar9 - 0xc) + uVar7 * 0xc);
-        iVar18 = UINT_007f46a8 - 8;
-        local_c = (UINT_007f46b0 - 4) + uVar7 * 4;
-        pfVar15 = (float *)UINT_007f47b8;
-        UINT_007f46a8 = uVar4;
-        UINT_007f46b0 = uVar6;
+        iVar18 = g_dwDestTVert - 8;
+        local_c = (g_dwDestIVert - 4) + uVar7 * 4;
+        pfVar15 = (float *)g_dwSourceVert;
+        g_dwDestTVert = uVar4;
+        g_dwDestIVert = uVar6;
         if (0 < (int)uVar7) {
           iVar19 = 0;
           pfVar5 = (float *)(uVar9 + 4);
           pfVar11 = (float *)(iVar18 + uVar7 * 8);
-          UINT_007f47b8 = uVar9;
+          g_dwSourceVert = uVar9;
           param_5 = uVar7;
           do {
             if ((PUN(float,param_1[1]) <= pfVar13[1]) || (PUN(float,param_1[1]) <= *pfVar5)) {
@@ -4566,18 +4599,18 @@ uint rdClip_Face3_PosUvLitFlags
                 uVar8 = uVar8 + 1;
                 fVar1 = (PUN(float,param_1[1]) - pfVar13[1]) / (*pfVar5 - pfVar13[1]);
                 *(int *)((int)pfVar15 + iVar19 + 4) = param_1[1];
-                *(float *)((UINT_007f46ac - 4) + iVar18) =
+                *(float *)((g_dwDestVert - 4) + iVar18) =
                      (pfVar5[1] - pfVar13[2]) * fVar1 + pfVar13[2];
-                *(float *)((UINT_007f46ac - 0xc) + iVar18) =
+                *(float *)((g_dwDestVert - 0xc) + iVar18) =
                      (pfVar5[-1] - *pfVar13) * fVar1 + *pfVar13;
-                *(float *)((UINT_007f46a8 - 8) + uVar8 * 8) =
+                *(float *)((g_dwDestTVert - 8) + uVar8 * 8) =
                      (*(float *)local_10 - *pfVar11) * fVar1 + *pfVar11;
-                *(float *)((UINT_007f46a8 - 4) + uVar8 * 8) =
+                *(float *)((g_dwDestTVert - 4) + uVar8 * 8) =
                      (*(float *)(local_10 + 4) - pfVar11[1]) * fVar1 + pfVar11[1];
-                *(float *)((UINT_007f46b0 - 4) + uVar8 * 4) =
+                *(float *)((g_dwDestIVert - 4) + uVar8 * 4) =
                      (*(float *)local_14 - *(float *)local_c) * fVar1 + *(float *)local_c;
-                UINT_007f4ac4 = UINT_007f4ac4 | 1;
-                pfVar15 = (float *)UINT_007f46ac;
+                g_dwRdClip_faceStatus = g_dwRdClip_faceStatus | 1;
+                pfVar15 = (float *)g_dwDestVert;
                 iVar19 = iVar18;
               }
               if (PUN(float,param_1[1]) <= *pfVar5) {
@@ -4587,10 +4620,10 @@ uint rdClip_Face3_PosUvLitFlags
                 *pfVar15 = pfVar5[-1];
                 pfVar15[1] = *pfVar5;
                 pfVar15[2] = pfVar5[1];
-                *(undefined4 *)((UINT_007f46a8 - 8) + uVar8 * 8) = *(undefined4 *)local_10;
-                *(undefined4 *)((UINT_007f46a8 - 4) + uVar8 * 8) = *(undefined4 *)(local_10 + 4);
-                *(undefined4 *)((UINT_007f46b0 - 4) + uVar8 * 4) = *(undefined4 *)local_14;
-                pfVar15 = (float *)UINT_007f46ac;
+                *(undefined4 *)((g_dwDestTVert - 8) + uVar8 * 8) = *(undefined4 *)local_10;
+                *(undefined4 *)((g_dwDestTVert - 4) + uVar8 * 8) = *(undefined4 *)(local_10 + 4);
+                *(undefined4 *)((g_dwDestIVert - 4) + uVar8 * 4) = *(undefined4 *)local_14;
+                pfVar15 = (float *)g_dwDestVert;
               }
             }
             pfVar13 = pfVar5 + -1;
@@ -4599,37 +4632,37 @@ uint rdClip_Face3_PosUvLitFlags
             pfVar5 = pfVar5 + 3;
             param_5 = param_5 - 1;
             pfVar11 = (float *)local_10;
-            uVar9 = UINT_007f47b8;
+            uVar9 = g_dwSourceVert;
             local_10 = local_10 + 8;
           } while (param_5 != 0);
         }
-        UINT_007f47b8 = uVar9;
-        uVar4 = UINT_007f461c;
-        uVar6 = UINT_007f4618;
+        g_dwSourceVert = uVar9;
+        uVar4 = g_dwSourceTVert;
+        uVar6 = g_dwSourceIVert;
         if ((int)uVar8 < 3) {
-          UINT_007f4ac4 = UINT_007f4ac4 | 0x40;
+          g_dwRdClip_faceStatus = g_dwRdClip_faceStatus | 0x40;
           return uVar8;
         }
         uVar7 = uVar8;
         pfVar13 = pfVar15;
         if (*param_1 != 0) {
-          UINT_007f46ac = UINT_007f47b8;
-          UINT_007f4618 = UINT_007f46b0;
-          local_14 = UINT_007f46b0;
+          g_dwDestVert = g_dwSourceVert;
+          g_dwSourceIVert = g_dwDestIVert;
+          local_14 = g_dwDestIVert;
           uVar7 = 0;
-          UINT_007f461c = UINT_007f46a8;
-          local_10 = UINT_007f46a8;
+          g_dwSourceTVert = g_dwDestTVert;
+          local_10 = g_dwDestTVert;
           pfVar5 = pfVar15 + uVar8 * 3 + -3;
-          iVar18 = UINT_007f46a8 - 8;
-          local_c = (UINT_007f46b0 - 4) + uVar8 * 4;
-          pfVar13 = (float *)UINT_007f47b8;
-          UINT_007f46a8 = uVar4;
-          UINT_007f46b0 = uVar6;
+          iVar18 = g_dwDestTVert - 8;
+          local_c = (g_dwDestIVert - 4) + uVar8 * 4;
+          pfVar13 = (float *)g_dwSourceVert;
+          g_dwDestTVert = uVar4;
+          g_dwDestIVert = uVar6;
           if (0 < (int)uVar8) {
             iVar19 = 0;
             pfVar10 = pfVar15 + 1;
             pfVar11 = (float *)(iVar18 + uVar8 * 8);
-            UINT_007f47b8 = (uint)pfVar15;
+            g_dwSourceVert = (uint)pfVar15;
             param_5 = uVar8;
             do {
               if ((pfVar5[1] <= PUN(float,param_1[2])) || (*pfVar10 <= PUN(float,param_1[2]))) {
@@ -4639,18 +4672,18 @@ uint rdClip_Face3_PosUvLitFlags
                   uVar7 = uVar7 + 1;
                   fVar1 = (PUN(float,param_1[2]) - pfVar5[1]) / (*pfVar10 - pfVar5[1]);
                   *(int *)((int)pfVar13 + iVar19 + 4) = param_1[2];
-                  *(float *)((UINT_007f46ac - 4) + iVar18) =
+                  *(float *)((g_dwDestVert - 4) + iVar18) =
                        (pfVar10[1] - pfVar5[2]) * fVar1 + pfVar5[2];
-                  *(float *)((UINT_007f46ac - 0xc) + iVar18) =
+                  *(float *)((g_dwDestVert - 0xc) + iVar18) =
                        (pfVar10[-1] - *pfVar5) * fVar1 + *pfVar5;
-                  *(float *)((UINT_007f46a8 - 8) + uVar7 * 8) =
+                  *(float *)((g_dwDestTVert - 8) + uVar7 * 8) =
                        (*(float *)local_10 - *pfVar11) * fVar1 + *pfVar11;
-                  *(float *)((UINT_007f46a8 - 4) + uVar7 * 8) =
+                  *(float *)((g_dwDestTVert - 4) + uVar7 * 8) =
                        (*(float *)(local_10 + 4) - pfVar11[1]) * fVar1 + pfVar11[1];
-                  *(float *)((UINT_007f46b0 - 4) + uVar7 * 4) =
+                  *(float *)((g_dwDestIVert - 4) + uVar7 * 4) =
                        (*(float *)local_14 - *(float *)local_c) * fVar1 + *(float *)local_c;
-                  UINT_007f4ac4 = UINT_007f4ac4 | 2;
-                  pfVar13 = (float *)UINT_007f46ac;
+                  g_dwRdClip_faceStatus = g_dwRdClip_faceStatus | 2;
+                  pfVar13 = (float *)g_dwDestVert;
                   iVar19 = iVar18;
                 }
                 if (*pfVar10 <= PUN(float,param_1[2])) {
@@ -4660,10 +4693,10 @@ uint rdClip_Face3_PosUvLitFlags
                   *pfVar13 = pfVar10[-1];
                   pfVar13[1] = *pfVar10;
                   pfVar13[2] = pfVar10[1];
-                  *(undefined4 *)((UINT_007f46a8 - 8) + uVar7 * 8) = *(undefined4 *)local_10;
-                  *(undefined4 *)((UINT_007f46a8 - 4) + uVar7 * 8) = *(undefined4 *)(local_10 + 4);
-                  *(undefined4 *)((UINT_007f46b0 - 4) + uVar7 * 4) = *(undefined4 *)local_14;
-                  pfVar13 = (float *)UINT_007f46ac;
+                  *(undefined4 *)((g_dwDestTVert - 8) + uVar7 * 8) = *(undefined4 *)local_10;
+                  *(undefined4 *)((g_dwDestTVert - 4) + uVar7 * 8) = *(undefined4 *)(local_10 + 4);
+                  *(undefined4 *)((g_dwDestIVert - 4) + uVar7 * 4) = *(undefined4 *)local_14;
+                  pfVar13 = (float *)g_dwDestVert;
                 }
               }
               pfVar5 = pfVar10 + -1;
@@ -4672,11 +4705,11 @@ uint rdClip_Face3_PosUvLitFlags
               pfVar10 = pfVar10 + 3;
               param_5 = param_5 - 1;
               pfVar11 = (float *)local_10;
-              pfVar15 = (float *)UINT_007f47b8;
+              pfVar15 = (float *)g_dwSourceVert;
               local_10 = local_10 + 8;
             } while (param_5 != 0);
           }
-          UINT_007f47b8 = (uint)pfVar15;
+          g_dwSourceVert = (uint)pfVar15;
           if ((int)uVar7 < 3) {
             return uVar7;
           }
@@ -4692,13 +4725,13 @@ uint rdClip_Face3_PosUvLitFlags
             pfVar13 = (float *)((int)pfVar13 + 1);
             param_2 = (float *)((int)param_2 + 1);
           }
-          puVar16 = (undefined4 *)UINT_007f46a8;
+          puVar16 = (undefined4 *)g_dwDestTVert;
           for (iVar18 = (uVar7 & 0x1fffffff) << 1; iVar18 != 0; iVar18 = iVar18 + -1) {
             *param_3 = *puVar16;
             puVar16 = puVar16 + 1;
             param_3 = param_3 + 1;
           }
-          for (iVar18 = 0; uVar6 = uVar7, puVar17 = (undefined4 *)UINT_007f46b0, iVar18 != 0;
+          for (iVar18 = 0; uVar6 = uVar7, puVar17 = (undefined4 *)g_dwDestIVert, iVar18 != 0;
               iVar18 = iVar18 + -1) {
             *(undefined1 *)param_3 = *(undefined1 *)puVar16;
             puVar16 = (undefined4 *)((int)puVar16 + 1);

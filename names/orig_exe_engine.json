@@ -4,7 +4,7 @@
   "addr": "004016a0",
   "old": "Game_FrameUpdate",
   "name": "Main_Service",
-  "comment": "Per-frame function of the main loop. Passes the one-shot global DAT_004f5a48 (\"fixed frame time\", ms) to Engine_UpdateFrame and zeroes it. The load of that global at 0x401721 is what tools/patch_simtime.py replaces with `mov eax,17` to run on a fixed 17 ms frame. The call at 0x401753 (timeGetTime) is the hook of the frame limiter (grimdlg.dll GrimFrameLimit). Original name Main_Service (the remaster's GrimFandango (Linux): strings: '%02.3f' | '%s %02.3f'); was Game_FrameUpdate."
+  "comment": "Per-frame function of the main loop. Passes the one-shot global DAT_004f5a48 (\"fixed frame time\", ms) to grimlib_UpdateManual and zeroes it. The load of that global at 0x401721 is what tools/patch_simtime.py replaces with `mov eax,17` to run on a fixed 17 ms frame. The call at 0x401753 (timeGetTime) is the hook of the frame limiter (grimdlg.dll GrimFrameLimit). Original name Main_Service (the remaster's GrimFandango (Linux): strings: '%02.3f' | '%s %02.3f'); was Game_FrameUpdate."
  },
  {
   "program": "/v101/GRIMFANDANGO.EXE",
@@ -774,7 +774,7 @@
   "addr": "00496670",
   "old": "MaterialComponent_Create",
   "name": "MaterialRequester",
-  "comment": "Costume tag handler for 'RDroid Animated Material' (registered by sputCostume_Start through Cos_NewStateBasedTag/Cos_NewIntTag): slot 1, parses a key or asks for a .mat file ('Select mat file to animate...') for a model/sprite component. Original name MaterialRequester (the remaster's GrimFandango (Linux): strings: 'Select mat file to animate...'); was MaterialComponent_Create."
+  "comment": "Costume tag handler for 'RDroid Animated Material' (registered by sputCostume_Startup through Cos_NewStateBasedTag/Cos_NewIntTag): slot 1, parses a key or asks for a .mat file ('Select mat file to animate...') for a model/sprite component. Original name MaterialRequester (the remaster's GrimFandango (Linux): strings: 'Select mat file to animate...'); was MaterialComponent_Create."
  },
  {
   "program": "/v101/GRIMFANDANGO.EXE",
@@ -802,77 +802,77 @@
   "addr": "004971a0",
   "old": "ImuseSoundComponent_OnKey",
   "name": "SoundChanger",
-  "comment": "Costume tag handler for 'iMuse Streamed / Resident Sound FX' (registered by sputCostume_Start through Cos_NewStateBasedTag/Cos_NewIntTag): slot 0, starts the sound (SoundStartVoiceStream for streamed, SoundsLoadStartSound + positional parameters from the current set for resident sounds) unless it already plays. Original name SoundChanger (the remaster's GrimFandango (Linux): the only unmatched caller of Set_GetSoundParams; 2 matched neighbours agree, 0 disagree); was ImuseSoundComponent_OnKey."
+  "comment": "Costume tag handler for 'iMuse Streamed / Resident Sound FX' (registered by sputCostume_Startup through Cos_NewStateBasedTag/Cos_NewIntTag): slot 0, starts the sound (SoundStartVoiceStream for streamed, SoundsLoadStartSound + positional parameters from the current set for resident sounds) unless it already plays. Original name SoundChanger (the remaster's GrimFandango (Linux): the only unmatched caller of Set_GetSoundParams; 2 matched neighbours agree, 0 disagree); was ImuseSoundComponent_OnKey."
  },
  {
   "program": "/v101/GRIMFANDANGO.EXE",
   "addr": "00497320",
   "old": "ImuseSoundComponent_EditKey",
   "name": "SoundAdjuster",
-  "comment": "Costume tag handler for 'iMuse Streamed / Resident Sound FX' (registered by sputCostume_Start through Cos_NewStateBasedTag/Cos_NewIntTag): slot 4, editor dialog for Maximum Volume / Priority / Minimum Volume. Original name SoundAdjuster (the remaster's GrimFandango (Linux): strings: '%s,%d,%d,%d,%d'); was ImuseSoundComponent_EditKey."
+  "comment": "Costume tag handler for 'iMuse Streamed / Resident Sound FX' (registered by sputCostume_Startup through Cos_NewStateBasedTag/Cos_NewIntTag): slot 4, editor dialog for Maximum Volume / Priority / Minimum Volume. Original name SoundAdjuster (the remaster's GrimFandango (Linux): strings: '%s,%d,%d,%d,%d'); was ImuseSoundComponent_EditKey."
  },
  {
   "program": "/v101/GRIMFANDANGO.EXE",
   "addr": "00497460",
   "old": "ImuseSoundComponent_Create",
   "name": "SoundRequester",
-  "comment": "Costume tag handler for 'iMuse Streamed / Resident Sound FX' (registered by sputCostume_Start through Cos_NewStateBasedTag/Cos_NewIntTag): slot 1, builds a sound key or asks for an .imu/.imc/.wvc file. Original name SoundRequester (the remaster's GrimFandango (Linux): strings: 'Select sound file to add...' | 'Sound files (*.imu, *.imc, *.wvc, *.wav)'); was ImuseSoundComponent_Create."
+  "comment": "Costume tag handler for 'iMuse Streamed / Resident Sound FX' (registered by sputCostume_Startup through Cos_NewStateBasedTag/Cos_NewIntTag): slot 1, builds a sound key or asks for an .imu/.imc/.wvc file. Original name SoundRequester (the remaster's GrimFandango (Linux): strings: 'Select sound file to add...' | 'Sound files (*.imu, *.imc, *.wvc, *.wav)'); was ImuseSoundComponent_Create."
  },
  {
   "program": "/v101/GRIMFANDANGO.EXE",
   "addr": "004976a0",
   "old": "LuaVarComponent_EditKey",
   "name": "LuaVarAdjuster",
-  "comment": "Costume tag handler for 'Lua Variable' (registered by sputCostume_Start through Cos_NewStateBasedTag/Cos_NewIntTag): slot 4, editor dialog 'Change variable properties'. Original name LuaVarAdjuster (the remaster's GrimFandango (Linux): strings: 'Change variable properties'); was LuaVarComponent_EditKey."
+  "comment": "Costume tag handler for 'Lua Variable' (registered by sputCostume_Startup through Cos_NewStateBasedTag/Cos_NewIntTag): slot 4, editor dialog 'Change variable properties'. Original name LuaVarAdjuster (the remaster's GrimFandango (Linux): strings: 'Change variable properties'); was LuaVarComponent_EditKey."
  },
  {
   "program": "/v101/GRIMFANDANGO.EXE",
   "addr": "00497710",
   "old": "LuaVarComponent_Create",
   "name": "LuaVarRequester",
-  "comment": "Costume tag handler for 'Lua Variable' (registered by sputCostume_Start through Cos_NewStateBasedTag/Cos_NewIntTag): slot 1, asks for the variable name ('Name of variable') in the editor. Original name LuaVarRequester (the remaster's GrimFandango (Linux): strings: 'Name of variable'); was LuaVarComponent_Create."
+  "comment": "Costume tag handler for 'Lua Variable' (registered by sputCostume_Startup through Cos_NewStateBasedTag/Cos_NewIntTag): slot 1, asks for the variable name ('Name of variable') in the editor. Original name LuaVarRequester (the remaster's GrimFandango (Linux): strings: 'Name of variable'); was LuaVarComponent_Create."
  },
  {
   "program": "/v101/GRIMFANDANGO.EXE",
   "addr": "00497890",
   "old": "KeyframeComponent_OnKey",
   "name": "KeyframeChanger",
-  "comment": "Costume tag handler for 'RDroid Keyframe (KEY)' (registered by sputCostume_Start through Cos_NewStateBasedTag/Cos_NewIntTag): slot 0, applies a keyframe key to the actor's puppet: finds or adds the track (rdPuppet_AddTrack) and plays/loops/stops/fades it according to the key type 0..14. Original name KeyframeChanger (the remaster's GrimFandango (Linux): the only unmatched caller of rdPuppet_PlayTrack; 5 matched neighbours agree, 0 disagree); was KeyframeComponent_OnKey."
+  "comment": "Costume tag handler for 'RDroid Keyframe (KEY)' (registered by sputCostume_Startup through Cos_NewStateBasedTag/Cos_NewIntTag): slot 0, applies a keyframe key to the actor's puppet: finds or adds the track (rdPuppet_AddTrack) and plays/loops/stops/fades it according to the key type 0..14. Original name KeyframeChanger (the remaster's GrimFandango (Linux): the only unmatched caller of rdPuppet_PlayTrack; 5 matched neighbours agree, 0 disagree); was KeyframeComponent_OnKey."
  },
  {
   "program": "/v101/GRIMFANDANGO.EXE",
   "addr": "00497cb0",
   "old": "KeyframeComponent_TrackCallback",
   "name": "sputCostume_PuppetHook",
-  "comment": "Track user-data callback installed by KeyframeComponent_OnKey (rdPuppet_SetTrackUserData): forwards track markers of the playing animation to Lua_CallCostumeMarkerHandler for the actor and drops the keyframe ResRef when the track ends. Original name sputCostume_PuppetHook (the remaster's GrimFandango (Linux): the only unmatched caller of Lua_CallCostumeMarkerHandler; 1 matched neighbours agree, 0 disagree); was KeyframeComponent_TrackCallback."
+  "comment": "Track user-data callback installed by KeyframeComponent_OnKey (rdPuppet_SetCallback): forwards track markers of the playing animation to Lua_CallCostumeMarkerHandler for the actor and drops the keyframe ResRef when the track ends. Original name sputCostume_PuppetHook (the remaster's GrimFandango (Linux): the only unmatched caller of Lua_CallCostumeMarkerHandler; 1 matched neighbours agree, 0 disagree); was KeyframeComponent_TrackCallback."
  },
  {
   "program": "/v101/GRIMFANDANGO.EXE",
   "addr": "00498160",
   "old": "SmushComponent_OnKey",
   "name": "SmushChanger",
-  "comment": "Costume tag handler for 'Smush Movie' (registered by sputCostume_Start through Cos_NewStateBasedTag/Cos_NewIntTag): slot 0, blits the current movie frame to the back buffer when the key is 0. Original name SmushChanger (the remaster's GrimFandango (Linux): the only unmatched caller of Engine_BlitToBackBuffer; 1 matched neighbours agree, 0 disagree); was SmushComponent_OnKey."
+  "comment": "Costume tag handler for 'Smush Movie' (registered by sputCostume_Startup through Cos_NewStateBasedTag/Cos_NewIntTag): slot 0, blits the current movie frame to the back buffer when the key is 0. Original name SmushChanger (the remaster's GrimFandango (Linux): the only unmatched caller of Engine_BlitToBackBuffer; 1 matched neighbours agree, 0 disagree); was SmushComponent_OnKey."
  },
  {
   "program": "/v101/GRIMFANDANGO.EXE",
   "addr": "00498190",
   "old": "SmushComponent_Create",
   "name": "SmushRequester",
-  "comment": "Costume tag handler for 'Smush Movie' (registered by sputCostume_Start through Cos_NewStateBasedTag/Cos_NewIntTag): slot 1, asks for a .snm file ('Select smush file') in the editor and stores its name. Original name SmushRequester (the remaster's GrimFandango (Linux): strings: 'Select smush file...' | 'Smush files (*.snm)'); was SmushComponent_Create."
+  "comment": "Costume tag handler for 'Smush Movie' (registered by sputCostume_Startup through Cos_NewStateBasedTag/Cos_NewIntTag): slot 1, asks for a .snm file ('Select smush file') in the editor and stores its name. Original name SmushRequester (the remaster's GrimFandango (Linux): strings: 'Select smush file...' | 'Smush files (*.snm)'); was SmushComponent_Create."
  },
  {
   "program": "/v101/GRIMFANDANGO.EXE",
   "addr": "00498280",
   "old": "SpriteComponent_Create",
   "name": "SpriteRequester",
-  "comment": "Costume tag handler for 'Sprite' (registered by sputCostume_Start through Cos_NewStateBasedTag/Cos_NewIntTag): slot 1, builds a sprite key; asks for a .mat file ('Select mat file for sprite') and creates the polyline. Original name SpriteRequester (the remaster's GrimFandango (Linux): strings: 'Select mat file for sprite...'); was SpriteComponent_Create."
+  "comment": "Costume tag handler for 'Sprite' (registered by sputCostume_Startup through Cos_NewStateBasedTag/Cos_NewIntTag): slot 1, builds a sprite key; asks for a .mat file ('Select mat file for sprite') and creates the polyline. Original name SpriteRequester (the remaster's GrimFandango (Linux): strings: 'Select mat file for sprite...'); was SpriteComponent_Create."
  },
  {
   "program": "/v101/GRIMFANDANGO.EXE",
   "addr": "00498580",
   "old": "SpriteComponent_Destroy",
   "name": "SpriteFreer",
-  "comment": "Costume tag handler, slot 2 of the 'Sprite' tag: frees the key data. (Was named KeyframeComponent_Destroy.) Original name SpriteFreer (the remaster's GrimFandango (Linux): the only unmatched caller of rdMaterial_Free; the only unmatched caller of rdSprite_Free; 2 matched neighbours agree, 0 disagree); was SpriteComponent_Destroy."
+  "comment": "Costume tag handler, slot 2 of the 'Sprite' tag: frees the key data. (Was named KeyframeFreer.) Original name SpriteFreer (the remaster's GrimFandango (Linux): the only unmatched caller of rdMaterial_Free; the only unmatched caller of rdSprite_Free; 2 matched neighbours agree, 0 disagree); was SpriteComponent_Destroy."
  },
  {
   "program": "/v101/GRIMFANDANGO.EXE",
@@ -886,7 +886,7 @@
   "addr": "004986e0",
   "old": "SpriteComponent_EditKey",
   "name": "SpriteAdjuster",
-  "comment": "Costume tag handler for 'Sprite' (registered by sputCostume_Start through Cos_NewStateBasedTag/Cos_NewIntTag): slot 4, editor dialog for the sprite's Width and Height. Original name SpriteAdjuster (the remaster's GrimFandango (Linux): strings: '%s,%d,%d,%d,%d,%d'); was SpriteComponent_EditKey."
+  "comment": "Costume tag handler for 'Sprite' (registered by sputCostume_Startup through Cos_NewStateBasedTag/Cos_NewIntTag): slot 4, editor dialog for the sprite's Width and Height. Original name SpriteAdjuster (the remaster's GrimFandango (Linux): strings: '%s,%d,%d,%d,%d,%d'); was SpriteComponent_EditKey."
  },
  {
   "program": "/v101/GRIMFANDANGO.EXE",
@@ -1033,7 +1033,7 @@
   "addr": "004a4b00",
   "old": "SetFile_Parse",
   "name": "sputRoom_LoadRoom",
-  "comment": "Remembers the set being parsed (g_dwLoadingRoom), stores its base file name (+0, 0x7f chars) and parses the sections with SetFile_ParseSections. Original name sputRoom_LoadRoom (the remaster's GrimFandango (Linux): the only unmatched caller of SetFile_ParseSections; 1 matched neighbours agree, 0 disagree); was SetFile_Parse."
+  "comment": "Remembers the set being parsed (g_dwLoadingRoom), stores its base file name (+0, 0x7f chars) and parses the sections with sputRoom_LoadRoomEntry. Original name sputRoom_LoadRoom (the remaster's GrimFandango (Linux): the only unmatched caller of sputRoom_LoadRoomEntry; 1 matched neighbours agree, 0 disagree); was SetFile_Parse."
  },
  {
   "program": "/v101/GRIMFANDANGO.EXE",
@@ -1110,7 +1110,7 @@
   "addr": "004a82c0",
   "old": "Walker_ReattachToSet",
   "name": "Puck_Validate",
-  "comment": "Called after Actor_PutInSet when the actor has a walker so it picks up the new set's sectors Original name Puck_Validate (the remaster's GrimFandango (Linux): Puck::Validate in the remaster (a C++ method there); the only unmatched callee of Actor_SetFollowBoxes; 4 matched neighbours agree, 1 disagree); was Walker_ReattachToSet."
+  "comment": "Called after sputRoom_AddActor when the actor has a walker so it picks up the new set's sectors Original name Puck_Validate (the remaster's GrimFandango (Linux): Puck::Validate in the remaster (a C++ method there); the only unmatched callee of Actor_SetFollowBoxes; 4 matched neighbours agree, 1 disagree); was Walker_ReattachToSet."
  },
  {
   "program": "/v101/GRIMFANDANGO.EXE",

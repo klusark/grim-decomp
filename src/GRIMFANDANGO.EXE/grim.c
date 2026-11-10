@@ -113,8 +113,8 @@ int __cdecl Grim_FindDataOnDrives(char *subdir)
   }
   if (!bVar2) {
     uVar11 = 0;
-    pcVar5 = Polyglot_Lookup(s__engn007_Grim_Fandango_could_not_004dd4dc);
-    pcVar4 = Polyglot_Lookup(s__engn006_Please_make_sure_that_t_004dd47c);
+    pcVar5 = PolyglotGetString(s__engn007_Grim_Fandango_could_not_004dd4dc);
+    pcVar4 = PolyglotGetString(s__engn006_Please_make_sure_that_t_004dd47c);
     uVar11 = ((code *)Win_GetMainHwnd)(pcVar4,pcVar5,uVar11);
     ((code *)Grim_FatalMessageBox)(uVar11);
     return 0;
@@ -171,7 +171,7 @@ undefined4 Grim_Init(char *param_1)
   Polyglot_LoadTable(s_grim_tab_004dd238);
   Grim_OpenRegistry();
   Grim_DecodeRegKeyName((char *)&local_80);
-  Reg_GetString((char *)&local_80,acStack_40,0x40,(char *)0x0);
+  wuRegistry_GetStr((char *)&local_80,acStack_40,0x40,(char *)0x0);
   iVar5 = _stricmp(acStack_40,&DAT_004dd660);
   if (iVar5 == 0) {
     INT_004f5a24 = 1;
@@ -198,8 +198,8 @@ undefined4 Grim_Init(char *param_1)
   ReleaseDC(0,iVar5);
   if (iVar1 < 8) {
     uVar7 = 0;
-    pcVar2 = Polyglot_Lookup(s__engn001_Grim_Fandango_004dd638);
-    pcVar3 = Polyglot_Lookup(s__engn002_System_must_be_in_256_c_004dd5f8);
+    pcVar2 = PolyglotGetString(s__engn001_Grim_Fandango_004dd638);
+    pcVar3 = PolyglotGetString(s__engn002_System_must_be_in_256_c_004dd5f8);
     uVar7 = ((code *)Win_GetMainHwnd)(pcVar3,pcVar2,uVar7);
     ((code *)Grim_FatalMessageBox)(uVar7);
     return 0;
@@ -223,8 +223,8 @@ undefined4 Grim_Init(char *param_1)
   iVar5 = (*(code *)UINT_008dde28)();
   if (iVar5 != 0) {
     uVar7 = 0;
-    pcVar2 = Polyglot_Lookup(s__engn005_Grim_Fandango_could_not_004dd5a8);
-    pcVar3 = Polyglot_Lookup(s__engn004_Please_make_sure_you_ar_004dd534);
+    pcVar2 = PolyglotGetString(s__engn005_Grim_Fandango_could_not_004dd5a8);
+    pcVar3 = PolyglotGetString(s__engn004_Please_make_sure_you_ar_004dd534);
     uVar7 = ((code *)Win_GetMainHwnd)(pcVar3,pcVar2,uVar7);
     ((code *)Grim_FatalMessageBox)(uVar7);
     return 0;
@@ -234,14 +234,14 @@ undefined4 Grim_Init(char *param_1)
   Engine_SetRenderUserCallback(Grim_OnDisplayModeChange);
   Engine_SetFlipCallback(Display_Flip);
   Engine_SetDebugKeysCallback(DebugLog_Init);
-  Resource_OpenArchives();
+  grimlib_FindResources();
   Grim_ShowSplash();
   DebugLog_Init(1);
   iVar5 = Engine_RunSystemScript();
   if (iVar5 != 0) {
     uVar7 = 0;
-    pcVar2 = Polyglot_Lookup(s__engn007_Grim_Fandango_could_not_004dd4dc);
-    pcVar3 = Polyglot_Lookup(s__engn006_Please_make_sure_that_t_004dd47c);
+    pcVar2 = PolyglotGetString(s__engn007_Grim_Fandango_could_not_004dd4dc);
+    pcVar3 = PolyglotGetString(s__engn006_Please_make_sure_that_t_004dd47c);
     uVar7 = ((code *)Win_GetMainHwnd)(pcVar3,pcVar2,uVar7);
     ((code *)Grim_FatalMessageBox)(uVar7);
     return 0;
@@ -309,7 +309,7 @@ void Grim_ShutdownDisplay(void)
   if (g_nDisplayDeviceOpen != 0) {
     Engine_CloseRenderer();
     if (g_pD3dDriver == (void *)0x0) {
-      Surface_Free((void *)UINT_004f5a34);
+      stdDisplay_VBufferFree((void *)UINT_004f5a34);
     }
     else {
       Display_Shutdown3D();
@@ -334,7 +334,7 @@ void Grim_Shutdown(void)
   uint uVar3;
   
   if (UINT_004f44e0 != 0) {
-    ResFile_Close(UINT_004f44e0);
+    Res_FClose(UINT_004f44e0);
     UINT_004f44e0 = 0;
     UINT_004f5a18 = 0;
   }
@@ -662,11 +662,11 @@ void Grim_OpenRegistry(void)
   #define local_104 (*(char (*)[260])(_frame + (0x120 - 0x104)))
   
   Reg_Open(0x80000002,s_SOFTWARE_LucasArts_Entertainment_004dd958,&DAT_004dd998);
-  iVar1 = Reg_GetString(s_GrimDataDir_004dd94c,local_104,0x104,&DAT_004f5a98);
+  iVar1 = wuRegistry_GetStr(s_GrimDataDir_004dd94c,local_104,0x104,&DAT_004f5a98);
   if (iVar1 == 0) {
     iVar1 = GetCurrentDirectoryA(0x104,(int)local_104);
     if (iVar1 != 0) {
-      Reg_SetString(s_GrimDataDir_004dd94c,local_104);
+      wuRegistry_SaveStr(s_GrimDataDir_004dd94c,local_104);
     }
   }
   return;

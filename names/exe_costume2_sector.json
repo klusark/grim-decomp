@@ -1,5 +1,5 @@
 [
- {"addr": "004947c0", "name": "Actor_Destroy", "proto": "void Actor_Destroy(void * actor)", "comment": "Removes the actor from its set, kills shadows, frees costumes, walker, extra and colormap reference", "tags": "actor"},
+ {"addr": "004947c0", "name": "sputActor_FreeActor", "proto": "void sputActor_FreeActor(void * actor)", "comment": "Removes the actor from its set, kills shadows, frees costumes, walker, extra and colormap reference", "tags": "actor"},
  {"addr": "00494940", "comment": "Draws the actor's shadow onto one shadow plane: every mesh face of each model is projected through the plane, clipped to each of the plane's sectors and drawn with shadow.mat / shadow.cmp"},
  {"addr": "008cab38", "global": "g_pShadowMaterial", "type": "void *", "comment": "shadow.mat material used for actor shadows"},
  {"addr": "008ca790", "global": "g_pShadowColormap", "type": "void *", "comment": "shadow.cmp colormap used for actor shadows"},

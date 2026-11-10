@@ -89,7 +89,7 @@ void stdConffile_Close(void)
     }
     UINT_0080cbd0 = 0;
     (*g_pStd_HS->pFree)(g_dwStdConffile_aLine);
-    if (UINT_0080cbd8 != 0) {
+    if (g_dwStackLevel != 0) {
       stdConffile_Pop();
       return;
     }
@@ -189,7 +189,7 @@ void stdConffile_Push(void)
   } while (cVar1 != '\0');
   uVar2 = ~uVar2;
   pcVar5 = pcVar7 + -uVar2;
-  pcVar7 = &DAT_00806c88 + UINT_0080cbd8 * 0x80;
+  pcVar7 = &DAT_00806c88 + g_dwStackLevel * 0x80;
   for (uVar3 = uVar2 >> 2; uVar3 != 0; uVar3 = uVar3 - 1) {
     *(undefined4 *)pcVar7 = *(undefined4 *)pcVar5;
     pcVar5 = pcVar5 + 4;
@@ -201,19 +201,19 @@ void stdConffile_Push(void)
     pcVar7 = pcVar7 + 1;
   }
   g_dwStdConffile_linenum = 0;
-  *(uint *)(&DAT_008076d8 + UINT_0080cbd8 * 4) = uVar3;
-  *(uint *)(&DAT_0080c778 + UINT_0080cbd8 * 4) = UINT_0080cbd0;
+  *(uint *)(&DAT_008076d8 + g_dwStackLevel * 4) = uVar3;
+  *(uint *)(&DAT_0080c778 + g_dwStackLevel * 4) = UINT_0080cbd0;
   uVar2 = g_dwStdConffile_aLine;
   UINT_0080cbd0 = 0;
   puVar6 = &UINT_00900080;
-  puVar8 = (uint *)(&DAT_00807728 + UINT_0080cbd8 * 0x404);
+  puVar8 = (uint *)(&DAT_00807728 + g_dwStackLevel * 0x404);
   for (iVar4 = 0x101; iVar4 != 0; iVar4 = iVar4 + -1) {
     *puVar8 = *puVar6;
     puVar6 = puVar6 + 1;
     puVar8 = puVar8 + 1;
   }
-  *(uint *)(&DAT_00807688 + UINT_0080cbd8 * 4) = uVar2;
-  UINT_0080cbd8 = UINT_0080cbd8 + 1;
+  *(uint *)(&DAT_00807688 + g_dwStackLevel * 4) = uVar2;
+  g_dwStackLevel = g_dwStackLevel + 1;
   return;
 }
 
@@ -234,8 +234,8 @@ void stdConffile_Pop(void)
   char *pcVar8;
   uint *puVar9;
   
-  if (UINT_0080cbd8 != 0) {
-    uVar5 = UINT_0080cbd8 - 1;
+  if (g_dwStackLevel != 0) {
+    uVar5 = g_dwStackLevel - 1;
     uVar2 = 0xffffffff;
     pcVar6 = &DAT_00806c88 + uVar5 * 0x80;
     do {
@@ -249,7 +249,7 @@ void stdConffile_Pop(void)
     uVar2 = ~uVar2;
     pcVar6 = pcVar8 + -uVar2;
     pcVar8 = &g_bStdConffile_pFilename;
-    UINT_0080cbd8 = uVar5;
+    g_dwStackLevel = uVar5;
     for (uVar3 = uVar2 >> 2; uVar3 != 0; uVar3 = uVar3 - 1) {
       *(undefined4 *)pcVar8 = *(undefined4 *)pcVar6;
       pcVar6 = pcVar6 + 4;

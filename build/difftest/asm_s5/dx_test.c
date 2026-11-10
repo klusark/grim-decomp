@@ -1,9 +1,9 @@
 /* Differential test of the DirectInput / Direct3D functions of build/overrides_asm_o2.c against the original machine code:
- * Input_PollKeyboard, Input_PollMouse, Input_FlushJoystick, D3D_ExecuteBuffer, D3D_CreateViewport.  The COM objects are
+ * Input_PollKeyboard, Input_PollMouse, Input_FlushJoystick, std3D_DrawRenderList, D3D_CreateViewport.  The COM objects are
  * recorder objects (fx_com); their effects fill the caller's buffers (device state, buffered events, counts) from a
  * seed that is the same for both runs, and capture the structures passed in (D3DEXECUTEDATA, D3DVIEWPORT).
  * Build: build/difftest/asm_s5/build.sh build/difftest/asm_s5/dx_test.c build/difftest/asm_s5/out/dx_test.exe \
- *   Input_PollKeyboard Input_PollMouse Input_FlushJoystick D3D_ExecuteBuffer D3D_CreateViewport */
+ *   Input_PollKeyboard Input_PollMouse Input_FlushJoystick std3D_DrawRenderList D3D_CreateViewport */
 #include <windows.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -13,7 +13,7 @@
 extern void orig_Input_PollKeyboard(void), Input_PollKeyboard(void);
 extern void orig_Input_PollMouse(void), Input_PollMouse(void);
 extern void orig_Input_FlushJoystick(void), Input_FlushJoystick(void);
-extern int orig_D3D_ExecuteBuffer(void), D3D_ExecuteBuffer(void);
+extern int orig_std3D_DrawRenderList(void), std3D_DrawRenderList(void);
 extern int orig_D3D_CreateViewport(unsigned, unsigned), D3D_CreateViewport(unsigned, unsigned);
 
 static unsigned R(unsigned n) { return (unsigned)(fx_rnd() % n); }
@@ -118,7 +118,7 @@ int main(int argc, char **argv)
             case 0: pass ? Input_PollKeyboard() : orig_Input_PollKeyboard(); break;
             case 1: pass ? Input_PollMouse() : orig_Input_PollMouse(); break;
             case 2: pass ? Input_FlushJoystick() : orig_Input_FlushJoystick(); break;
-            case 3: ret[pass] = pass ? D3D_ExecuteBuffer() : orig_D3D_ExecuteBuffer(); break;
+            case 3: ret[pass] = pass ? std3D_DrawRenderList() : orig_std3D_DrawRenderList(); break;
             case 4: ret[pass] = pass ? D3D_CreateViewport(w, h) : orig_D3D_CreateViewport(w, h); break;
             }
             if (pass == 0) {

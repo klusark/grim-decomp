@@ -120,9 +120,9 @@ Output of `tools/stats.py` (regenerate after changes):
 
 | Program | Functions | Named | of which auto/module-level | Unnamed (FUN_) |
 |---|---|---|---|---|
-| GRIMFANDANGO.EXE | 2671 | 2338 | 378 | 333 |
-| LUA.DLL | 852 | 689 | 98 | 163 |
-| IMUSE.DLL | 451 | 293 | 52 | 158 |
+| GRIMFANDANGO.EXE | 2671 | 2344 | 378 | 327 |
+| LUA.DLL | 852 | 689 | 43 | 163 |
+| IMUSE.DLL | 451 | 301 | 28 | 150 |
 | CHORE.DLL | 264 | 112 | 0 | 152 (all of them dead MSVC runtime copies) |
 
 Files in src/: 214
@@ -148,8 +148,8 @@ Files in src/: 214
   `libLua.so`) replace FUN_ and guessed names where the match is clear
   (docs/notes/orig_names.md): the Lua bindings are `sputLua_*`, LUA.DLL's VM
   is `ExecutionState_CrunchOpcodes`, ... Each renamed function's plate comment
-  says "was X". Globals too: EXE 463 of 2274 named, LUA.DLL 69 of 367,
-  IMUSE.DLL 51 of 366 (docs/notes/orig_globals.md). The generated
+  says "was X". Globals too: EXE 590 of 2274 named, LUA.DLL 69 of 367,
+  IMUSE.DLL 92 of 366 (docs/notes/orig_globals.md, orig_3.md). The generated
   `rdRaster_*` names are not done yet.
 * CHORE.DLL is fully named (names from the remaster's unstripped `libchore.so`,
   docs/notes/chore_naming.md) and its costume / chore / key records are typed;

@@ -5,11 +5,13 @@
 #include "globals.h"
 #include "functions.h"
 
-/* ---- 0x0048c470  TextObject_Activate ---- */
+/* ---- 0x0048c470  sputText_AddToQueue ---- */
 /* Links a new text object into g_pTextQueue with its lifetime (ms, -1 = until killed) and flags (1
-   keep, 2 hidden, 4 speech, 8 always draw) */
+   keep, 2 hidden, 4 speech, 8 always draw) Original name sputText_AddToQueue (the remaster's
+   GrimFandango (Linux): aligned call in sputActor_SayLine, sputText_MakeTextObjectL,
+   sputText_PrintLineL); was TextObject_Activate. */
 
-void __cdecl TextObject_Activate(void *obj,int durationMs,int flags)
+void __cdecl sputText_AddToQueue(void *obj,int durationMs,int flags)
 
 {
   int iVar1;
@@ -39,7 +41,7 @@ void * __cdecl TextObject_New(void *ctx,char *text,int durationMs,int flags)
   undefined4 *puVar3;
   undefined4 *puVar4;
   
-  puVar1 = (undefined4 *)Pool_Alloc(g_pTextEventPool);
+  puVar1 = (undefined4 *)Memory_AllocFixed(g_pTextEventPool);
   if (puVar1 != (undefined4 *)0x0) {
     *puVar1 = 0;
     puVar1[1] = 0;
@@ -100,8 +102,8 @@ void __cdecl TextObject_Draw(void *obj,int invalidate)
     iVar4 = *(int *)(**(int **)((int)obj + 0x210) + 8) + *(int *)((int)obj + 0x23c);
     *(int *)((int)obj + 0x218) = iVar4;
     local_c = iVar4 - *(int *)(**(int **)((int)obj + 0x210) + 8);
-    local_8 = Text_MeasureWidth((void *)((int)obj + 0x208),(char *)((int)obj + 8));
-    local_4 = Text_MeasureHeight((void *)((int)obj + 0x208),(char *)((int)obj + 8));
+    local_8 = Text_GetStringWidth((void *)((int)obj + 0x208),(char *)((int)obj + 8));
+    local_4 = Text_GetStringHeight((void *)((int)obj + 0x208),(char *)((int)obj + 8));
     if ((*(byte *)((int)obj + 0x230) & 1) != 0) {
       local_10 = local_10 - (int)local_8 / 2;
     }

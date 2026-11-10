@@ -5,10 +5,11 @@
 #include "globals.h"
 #include "functions.h"
 
-/* ---- 0x00451460  rdLight_Init ---- */
-/* Defaults: type 2, on, white (0xffffff), intensity 1.0 */
+/* ---- 0x00451460  rdLight_NewEntry ---- */
+/* Defaults: type 2, on, white (0xffffff), intensity 1.0 Original name rdLight_NewEntry (the
+   remaster's GrimFandango (Linux): aligned call in sputRoom_ParseLights); was rdLight_Init. */
 
-undefined4 rdLight_Init(int param_1)
+undefined4 rdLight_NewEntry(int param_1)
 
 {
   *(undefined4 *)(param_1 + 4) = 2;

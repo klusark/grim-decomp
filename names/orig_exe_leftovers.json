@@ -137,7 +137,7 @@
   "addr": "00496340",
   "old": "BitmapComponent_Destroy",
   "name": "BitmapFreer",
-  "comment": "Costume tag handler, slot 2 of the 'General Bitmap' / 'Animation (old use Bitmap)' tags: frees the key data. (Was named SpriteComponent_Destroy; the tag table in sputCostume_Start pairs it with the bitmap tags.) Original name BitmapFreer (the remaster's GrimFandango (Linux): frees a bitmap component key (RecentBM, Res_RemoveReference, psputCosHS free)); was BitmapComponent_Destroy."
+  "comment": "Costume tag handler, slot 2 of the 'General Bitmap' / 'Animation (old use Bitmap)' tags: frees the key data. (Was named SpriteComponent_Destroy; the tag table in sputCostume_Startup pairs it with the bitmap tags.) Original name BitmapFreer (the remaster's GrimFandango (Linux): frees a bitmap component key (RecentBM, Res_RemoveReference, psputCosHS free)); was BitmapComponent_Destroy."
  },
  {
   "program": "/v101/GRIMFANDANGO.EXE",

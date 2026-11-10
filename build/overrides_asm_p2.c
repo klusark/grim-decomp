@@ -18,9 +18,9 @@
 #ifdef GRIM_EXE
 #include "globals.h"
 #define rdLight_CalcVertexIntensities rdLight_CalcVertexIntensities__ghidra
-#define Matrix_AxisAngle Matrix_AxisAngle__ghidra
+#define rdMatrix_BuildFromVectorAngle34 Matrix_AxisAngle__ghidra
 #include "functions.h"
-#undef Matrix_AxisAngle
+#undef rdMatrix_BuildFromVectorAngle34
 #undef rdLight_CalcVertexIntensities
 
 #define U32(lv) (*(uint *)&(lv))
@@ -52,7 +52,7 @@ static inline int p2_ftol(long double x)
     return (int)(long long)x;
 }
 
-/* ==== Frustum_TestSphere (0x0044e7d0) ====
+/* ==== rdClip_SphereInFrustrum (0x0044e7d0) ====
  * Tests a sphere (centre c, radius r) against the view frustum record f: returns 2 when it is fully outside one plane,
  * 1 when it crosses a plane, 0 when it is fully inside.  f[0] != 0 enables the far plane f[2]; f[1] is the near plane.
  * The depth axis is y.  With the camera's projection type 1 (perspective) the side planes scale with depth: the bound
@@ -60,8 +60,8 @@ static inline int p2_ftol(long double x)
  * planes are the constants f[3] .. f[6] (left / top / right / bottom; the asm compares x against f[3], f[5] and z
  * against f[4], f[6]).  The "x - r" style values are stored as floats, the first "y + r" is compared unrounded.
  * The asm stores y - r into its first parameter slot and k*(y+r) into the second / third (no effect on the caller). */
-/* OVERRIDES: Frustum_TestSphere */
-uint Frustum_TestSphere(int *param_1, float *param_2, float param_3)
+/* OVERRIDES: rdClip_SphereInFrustrum */
+uint rdClip_SphereInFrustrum(int *param_1, float *param_2, float param_3)
 {
     float *ff = (float *)param_1;
     float *c = param_2;
@@ -140,7 +140,7 @@ uint Frustum_TestSphere(int *param_1, float *param_2, float param_3)
     return inside == 0;
 }
 
-/* ==== Polygon_ClipToPlane (0x0044ea50) ====
+/* ==== rdClip_FaceToPlane (0x0044ea50) ====
  * Clips a polygon of `n` vertices (12-byte positions `v`, optional 8-byte texture coordinates `uv`, optional float
  * intensities `in`) against the plane through `pt` with normal `nrm` (keeps the side where dot(p - pt, nrm) >= 0),
  * Sutherland-Hodgman style, into the static buffers 0x007f48c0 (positions), 0x007f46b8 (uv), 0x007f47c0 (intensities),
@@ -152,8 +152,8 @@ uint Frustum_TestSphere(int *param_1, float *param_2, float param_3)
  *   - a vertex that is kept copies THREE dwords of uv (the third is the next vertex's u; it is overwritten by the next
  *     output vertex or stays behind the last one), and its intensity goes through FLD/FSTP.
  *   - the last vertex (index n - 1) and its intensity are read even when n <= 0. */
-/* OVERRIDES: Polygon_ClipToPlane */
-uint Polygon_ClipToPlane(float *param_1, float *param_2, float *param_3, undefined4 *param_4, float *param_5,
+/* OVERRIDES: rdClip_FaceToPlane */
+uint rdClip_FaceToPlane(float *param_1, float *param_2, float *param_3, undefined4 *param_4, float *param_5,
                          uint *param_6)
 {
     float *nrm = param_1, *pt = param_2, *v = param_3, *uv = (float *)param_4, *in = param_5;
@@ -170,7 +170,7 @@ uint Polygon_ClipToPlane(float *param_1, float *param_2, float *param_3, undefin
     if (in != 0)
         iprev = st_f(in[n - 1]);
     if (n > 0) {
-        float *ov = (float *)&UINT_007f48c0, *ouv = (float *)&UINT_007f46b8, *oi = (float *)&UINT_007f47c0;
+        float *ov = (float *)&g_dwWorkVerts, *ouv = (float *)&g_dwWorkTVerts, *oi = (float *)&g_dwWorkIVerts;
         float *cur = v, *curuv = uv, *curi = in, *uvp = 0;
         int left = n;
         do {
@@ -233,7 +233,7 @@ uint Polygon_ClipToPlane(float *param_1, float *param_2, float *param_3, undefin
         } while (--left != 0);
     }
     if (cnt > 0) {
-        float *ov = (float *)&UINT_007f48c0, *ouv = (float *)&UINT_007f46b8, *oi = (float *)&UINT_007f47c0;
+        float *ov = (float *)&g_dwWorkVerts, *ouv = (float *)&g_dwWorkTVerts, *oi = (float *)&g_dwWorkIVerts;
         int i;
         for (i = 0; i < cnt; i++) {
             U32(v[i * 3]) = U32(ov[i * 3]);
@@ -250,14 +250,14 @@ uint Polygon_ClipToPlane(float *param_1, float *param_2, float *param_3, undefin
     return (uint)cnt;
 }
 
-/* ==== Angles_ToMatrix (0x0044eeb0), Angles_ToMatrixNoPos (0x0044f080) ====
+/* ==== rdMatrix_Build34 (0x0044eeb0), rdMatrix_BuildRotate34 (0x0044f080) ====
  * Builds the 3x4 matrix (rows of 3 floats; translation in m[9..11]) of the Euler angles ang[0..2] (pitch, yaw, roll)
  * from stdMath_SinCos(angle, &a, &b) of each angle.  With a1, b1 / a2, b2 / a3, b3 the outputs for ang[0] / [1] / [2]:
  *   P1 = a3*a2, P2 = a3*b2, P3 = b3*a2, P4 = b3*b2 (extended), S2 / S3 = P2 / P3 stored as floats;
  *   m0 = -P1*a1 + P4   m1 = P2*a1 + S3   m2 = -a3*b1
  *   m3 = -a2*b1        m4 = b2*b1        m5 = a1
  *   m6 = P3*a1 + S2    m7 = -a1*P4 + P1  m8 = b3*b1
- * Angles_ToMatrix copies pos[0..2] (dwords) to m[9..11]; Angles_ToMatrixNoPos stores 0 there. */
+ * rdMatrix_Build34 copies pos[0..2] (dwords) to m[9..11]; rdMatrix_BuildRotate34 stores 0 there. */
 static void p2_angles_rot(float *m, undefined4 *ang)
 {
     float a1, b1, a2, b2, a3, b3;
@@ -284,8 +284,8 @@ static void p2_angles_rot(float *m, undefined4 *ang)
     m[8] = st_f((long double)b3 * b1);
 }
 
-/* OVERRIDES: Angles_ToMatrix */
-void Angles_ToMatrix(float *param_1, undefined4 *param_2, float *param_3)
+/* OVERRIDES: rdMatrix_Build34 */
+void rdMatrix_Build34(float *param_1, undefined4 *param_2, float *param_3)
 {
     p2_angles_rot(param_1, param_2);
     U32(param_1[9]) = U32(param_3[0]);
@@ -293,8 +293,8 @@ void Angles_ToMatrix(float *param_1, undefined4 *param_2, float *param_3)
     U32(param_1[11]) = U32(param_3[2]);
 }
 
-/* OVERRIDES: Angles_ToMatrixNoPos */
-void Angles_ToMatrixNoPos(float *param_1, undefined4 *param_2)
+/* OVERRIDES: rdMatrix_BuildRotate34 */
+void rdMatrix_BuildRotate34(float *param_1, undefined4 *param_2)
 {
     p2_angles_rot(param_1, param_2);
     U32(param_1[9]) = 0;
@@ -302,7 +302,7 @@ void Angles_ToMatrixNoPos(float *param_1, undefined4 *param_2)
     U32(param_1[11]) = 0;
 }
 
-/* ==== Matrix_AxisAngle (0x0044f210) ====
+/* ==== rdMatrix_BuildFromVectorAngle34 (0x0044f210) ====
  * Rotation matrix (3x4, translation 0) of `angle` around the unit axis `ax`, with s, c from stdMath_SinCos(angle).
  * Axis (almost) +z (|1 - z| <= 1e-5f or NaN) and (almost) -z (|z + 1| <= 1e-5f) are special cases (a plain rotation in
  * the x-y plane, m[0] / m[3] via FLD/FSTP, m[4] / m[1] as dword copies).  Otherwise, with xx = x*x, yy = y*y stored as
@@ -313,9 +313,9 @@ void Angles_ToMatrixNoPos(float *param_1, undefined4 *param_2)
  * Which value is stored as a float before use follows the asm exactly (see the test).
  * The angle is declared as its dword (the original only passes it on): with a float parameter gcc -O2 copies it with
  * FLD/FSTP, which changes a signalling NaN. */
-void Matrix_AxisAngle(float *param_1, float *param_2, uint param_3) __asm__("_Matrix_AxisAngle");
-/* OVERRIDES: Matrix_AxisAngle */
-void Matrix_AxisAngle(float *param_1, float *param_2, uint param_3)
+void rdMatrix_BuildFromVectorAngle34(float *param_1, float *param_2, uint param_3) __asm__("_rdMatrix_BuildFromVectorAngle34");
+/* OVERRIDES: rdMatrix_BuildFromVectorAngle34 */
+void rdMatrix_BuildFromVectorAngle34(float *param_1, float *param_2, uint param_3)
 {
     float *m = param_1, *ax = param_2;
     float s, c;

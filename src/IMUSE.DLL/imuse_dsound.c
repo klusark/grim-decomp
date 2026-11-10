@@ -24,10 +24,11 @@ int iMUSE_dsound__3a80(void)
 #endif
 
 
-/* ---- 0x10004540  iMUSE_dsound__4540 ---- */
-/* Unidentified function of iMUSE_dsound.c (DirectSound output) */
+/* ---- 0x10004540  FmGetSoundAddr ---- */
+/* Original name FmGetSoundAddr (the remaster's GrimFandango (Linux): aligned call in
+   DpProcessTrack); was iMUSE_dsound__4540. */
 
-undefined4 __cdecl iMUSE_dsound__4540(uint param_1)
+undefined4 __cdecl FmGetSoundAddr(uint param_1)
 
 {
   code *pcVar1;
@@ -35,7 +36,7 @@ undefined4 __cdecl iMUSE_dsound__4540(uint param_1)
   undefined4 uVar3;
   
   pcVar1 = DAT_100336a4;
-  iVar2 = iMUSE_dsound__45a0(param_1);
+  iVar2 = FmValidateSoundId(param_1);
   if ((iVar2 != 0) && (pcVar1 != (code *)0x0)) {
     uVar3 = (*pcVar1)(param_1);
     return uVar3;
@@ -43,18 +44,19 @@ undefined4 __cdecl iMUSE_dsound__4540(uint param_1)
   return 0;
 }
 
-/* ---- 0x10004570  iMUSE_dsound__4570 ---- */
-/* Unidentified function of iMUSE_dsound.c (DirectSound output) */
+/* ---- 0x10004570  FmGetMapAddr ---- */
+/* Original name FmGetMapAddr (the remaster's GrimFandango (Linux): aligned call in ImStartSound);
+   was iMUSE_dsound__4570. */
 
-undefined4 __cdecl iMUSE_dsound__4570(uint param_1)
+undefined4 __cdecl FmGetMapAddr(uint param_1)
 
 {
   code *pcVar1;
   int iVar2;
   undefined4 uVar3;
   
-  pcVar1 = DAT_100336a0;
-  iVar2 = iMUSE_dsound__45a0(param_1);
+  pcVar1 = g_dwImuseInitData;
+  iVar2 = FmValidateSoundId(param_1);
   if ((iVar2 != 0) && (pcVar1 != (code *)0x0)) {
     uVar3 = (*pcVar1)(param_1);
     return uVar3;
@@ -62,10 +64,11 @@ undefined4 __cdecl iMUSE_dsound__4570(uint param_1)
   return 0;
 }
 
-/* ---- 0x100045a0  iMUSE_dsound__45a0 ---- */
-/* Unidentified function of iMUSE_dsound.c (DirectSound output) */
+/* ---- 0x100045a0  FmValidateSoundId ---- */
+/* Original name FmValidateSoundId (the remaster's GrimFandango (Linux): aligned call in
+   FmGetMapAddr, FmGetSoundAddr, ImStartStream); was iMUSE_dsound__45a0. */
 
-undefined4 __cdecl iMUSE_dsound__45a0(uint param_1)
+undefined4 __cdecl FmValidateSoundId(uint param_1)
 
 {
   if ((param_1 != 0) && (param_1 < 0xfffffff0)) {
@@ -74,10 +77,11 @@ undefined4 __cdecl iMUSE_dsound__45a0(uint param_1)
   return 0;
 }
 
-/* ---- 0x100045c0  iMUSE_dsound__45c0 ---- */
-/* Unidentified function of iMUSE_dsound.c (DirectSound output) */
+/* ---- 0x100045c0  FmSeek ---- */
+/* Original name FmSeek (the remaster's GrimFandango (Linux): aligned call in LoadData,
+   StStartStream); was iMUSE_dsound__45c0. */
 
-undefined4 __cdecl iMUSE_dsound__45c0(uint param_1,undefined4 param_2,undefined4 param_3)
+undefined4 __cdecl FmSeek(uint param_1,undefined4 param_2,undefined4 param_3)
 
 {
   code *pcVar1;
@@ -85,7 +89,7 @@ undefined4 __cdecl iMUSE_dsound__45c0(uint param_1,undefined4 param_2,undefined4
   undefined4 uVar3;
   
   pcVar1 = DAT_100336ac;
-  iVar2 = iMUSE_dsound__45a0(param_1);
+  iVar2 = FmValidateSoundId(param_1);
   if ((iVar2 != 0) && (pcVar1 != (code *)0x0)) {
     uVar3 = (*pcVar1)(param_1,param_2,param_3);
     return uVar3;
@@ -93,10 +97,11 @@ undefined4 __cdecl iMUSE_dsound__45c0(uint param_1,undefined4 param_2,undefined4
   return 0;
 }
 
-/* ---- 0x10004600  iMUSE_dsound__4600 ---- */
-/* Unidentified function of iMUSE_dsound.c (DirectSound output) */
+/* ---- 0x10004600  FmRead ---- */
+/* Original name FmRead (the remaster's GrimFandango (Linux): aligned call in LoadData); was
+   iMUSE_dsound__4600. */
 
-undefined4 __cdecl iMUSE_dsound__4600(uint param_1,undefined4 param_2,undefined4 param_3)
+undefined4 __cdecl FmRead(uint param_1,undefined4 param_2,undefined4 param_3)
 
 {
   code *pcVar1;
@@ -104,7 +109,7 @@ undefined4 __cdecl iMUSE_dsound__4600(uint param_1,undefined4 param_2,undefined4
   undefined4 uVar3;
   
   pcVar1 = DAT_100336b0;
-  iVar2 = iMUSE_dsound__45a0(param_1);
+  iVar2 = FmValidateSoundId(param_1);
   if ((iVar2 != 0) && (pcVar1 != (code *)0x0)) {
     uVar3 = (*pcVar1)(param_1,param_2,param_3);
     return uVar3;
@@ -112,10 +117,11 @@ undefined4 __cdecl iMUSE_dsound__4600(uint param_1,undefined4 param_2,undefined4
   return 0;
 }
 
-/* ---- 0x10004640  iMUSE_dsound__4640 ---- */
-/* Unidentified function of iMUSE_dsound.c (DirectSound output) */
+/* ---- 0x10004640  FmGetBufInfo ---- */
+/* Original name FmGetBufInfo (the remaster's GrimFandango (Linux): aligned call in StStartStream);
+   was iMUSE_dsound__4640. */
 
-undefined4 __cdecl iMUSE_dsound__4640(int param_1)
+undefined4 __cdecl FmGetBufInfo(int param_1)
 
 {
   undefined4 uVar1;

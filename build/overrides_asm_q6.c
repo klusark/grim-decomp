@@ -396,7 +396,7 @@ extern int UINT_008ddee4;            /* mip level */
 extern int UINT_008ddef8, UINT_008ddeac; /* u / v rounding bias (0x8000 / 0x7fff) */
 extern float DAT_008ddef4, DAT_008ddef0, DAT_008ddec8, DAT_008ddec4, DAT_008ddedc, DAT_008ddee0;  /* plane gradients */
 extern float UINT_007f43c8[], UINT_007f4260[], UINT_007f4310[];  /* per vertex 1/z, u/z, v/z (Grad_Flat_2) */
-extern float DAT_004dda90, DAT_004dda94, DAT_004dda98;  /* mip distance thresholds (10, 20, 40) */
+extern float DAT_004dda90, g_aRdroid_MipDistances, DAT_004dda98;  /* mip distance thresholds (10, 20, 40) */
 
 /* _ftol: truncation of the x87 value to a 64-bit integer, low dword */
 static int q6_ftol(long double x)
@@ -472,13 +472,13 @@ static void q6_mip_level(float dist, int mode, int *level)
         *level = 0;
         break;
     case 1:
-        *level = dist > DAT_004dda94 ? 1 : 0;
+        *level = dist > g_aRdroid_MipDistances ? 1 : 0;
         break;
     case 2:
-        *level = !(dist > DAT_004dda90) ? 0 : !(dist > DAT_004dda94) ? 1 : 2;
+        *level = !(dist > DAT_004dda90) ? 0 : !(dist > g_aRdroid_MipDistances) ? 1 : 2;
         break;
     case 3:
-        *level = !(dist > DAT_004dda90) ? 0 : !(dist > DAT_004dda94) ? 1 : !(dist > DAT_004dda98) ? 2 : 3;
+        *level = !(dist > DAT_004dda90) ? 0 : !(dist > g_aRdroid_MipDistances) ? 1 : !(dist > DAT_004dda98) ? 2 : 3;
         break;
     }
 }
@@ -647,8 +647,8 @@ extern int UINT_008dded8;             /* log2 width of the mip level */
 extern int UINT_008ddecc;             /* u mask << 16 */
 extern int UINT_008ddefc;             /* v mask << log2 width */
 extern float DAT_008ddeec, DAT_008dded0, DAT_008ddf00;  /* the plane gradients times 16 */
-extern int DAT_008fbfc0[];            /* 65536 / n */
-extern float UINT_008fe000[];         /* 1.0f / n */
+extern int g_aRdRaster_OneOverNFixed[];            /* 65536 / n */
+extern float g_dwRdRaster_aOneOverNFlex[];         /* 1.0f / n */
 
 static void q6_fldcw(unsigned short *cw)
 {
@@ -782,7 +782,7 @@ static void q6_pspan(int *L, int *R, int kind, int bpp16, int key, int mode)
         runs = tail = 0;
     frac = xs - L[0];
     if (s.lit) {
-        s.dl = q6_mul16(R[14] - L[14], DAT_008fbfc0[n]);
+        s.dl = q6_mul16(R[14] - L[14], g_aRdRaster_OneOverNFixed[n]);
         if (s.dl < 0 && s.dl > -0x51e)
             s.dl = 0;
         s.l = q6_mul16(frac, s.dl) + L[14];
@@ -805,7 +805,7 @@ static void q6_pspan(int *L, int *R, int kind, int bpp16, int key, int mode)
         s.d8 = (unsigned char *)(L[0x10] * Q6_I(Q6_CBUF(), 0x18) + Q6_I(Q6_CBUF(), 0x5c) + xl);
     if (head) {
         h = head;
-        inv = q6_copy(UINT_008fe000[head]);
+        inv = q6_copy(g_dwRdRaster_aOneOverNFlex[head]);
         p0 = q6_f(h * DAT_008ddef4 + p0);
         p1 = q6_f(h * DAT_008ddec8 + p1);
         p2 = q6_f(h * DAT_008ddedc + p2x);
@@ -857,7 +857,7 @@ static void q6_pspan(int *L, int *R, int kind, int bpp16, int key, int mode)
                 s.dv = q6_pstep(((long double)v1 - v0) / tf * 65536.0f);
             } else {
                 h = t;
-                inv = q6_copy(UINT_008fe000[t]);
+                inv = q6_copy(g_dwRdRaster_aOneOverNFlex[t]);
                 r = 1.0L / (h * DAT_008ddef4 - DAT_008ddeec + p0);
                 u1 = q6_f((h * DAT_008ddec8 - DAT_008dded0 + p1) * r);
                 v1 = q6_f((h * DAT_008ddedc - DAT_008ddf00 + p2) * r);
@@ -1002,7 +1002,7 @@ void rdRaster_Span16_Tex_14(int *L, int *R)
     DAT_007f42f4 = q6_f(sub * DAT_008ddef4 + ((float *)L)[4]);
     DAT_007f4258 = q6_f(sub * DAT_008ddec8 + ((float *)L)[6]);
     DAT_007f42e4 = q6_f(sub * DAT_008ddedc + ((float *)L)[8]);
-    UINT_007f439c = q6_mul16(R[14] - L[14], DAT_008fbfc0[n]);
+    UINT_007f439c = q6_mul16(R[14] - L[14], g_aRdRaster_OneOverNFixed[n]);
     if (UINT_007f439c < 0 && UINT_007f439c > -0x51e)
         UINT_007f439c = 0;
     UINT_007f4450 = q6_mul16(frac, UINT_007f439c) + L[14];
@@ -1013,7 +1013,7 @@ void rdRaster_Span16_Tex_14(int *L, int *R)
     PTR_007f43a8 = Q6_I(Q6_CBUF(), 0x5c) + (L[0x10] * ((unsigned)Q6_I(Q6_CBUF(), 0x18) >> 1) + xl) * 2;
     if (UINT_007f43ac) {
         DAT_007f42f0 = q6_f((long double)UINT_007f43ac);
-        DAT_007f43a0 = q6_copy(UINT_008fe000[UINT_007f43ac]);
+        DAT_007f43a0 = q6_copy(g_dwRdRaster_aOneOverNFlex[UINT_007f43ac]);
         DAT_007f43a4 = q6_f((long double)DAT_008ddef4 * DAT_007f42f0 + DAT_007f42f4);
         DAT_007f444c = q6_f((long double)DAT_008ddec8 * DAT_007f42f0 + DAT_007f4258);
         DAT_007f4248 = q6_f((long double)DAT_008ddedc * DAT_007f42f0 + DAT_007f42e4);
@@ -1034,7 +1034,7 @@ void rdRaster_Span16_Tex_14(int *L, int *R)
     if (UINT_007f4244) {
         if (--UINT_007f4244) {
             DAT_007f4240 = q6_f((long double)UINT_007f4244);
-            DAT_007f42e0 = q6_copy(UINT_008fe000[UINT_007f4244]);
+            DAT_007f42e0 = q6_copy(g_dwRdRaster_aOneOverNFlex[UINT_007f4244]);
             DAT_007f43a4 = q6_f((long double)DAT_008ddef4 * DAT_007f4240 - DAT_008ddeec + DAT_007f43a4);
             DAT_007f444c = q6_f((long double)DAT_008ddec8 * DAT_007f4240 - DAT_008dded0 + DAT_007f444c);
             DAT_007f4248 = q6_f((long double)DAT_008ddedc * DAT_007f4240 - DAT_008ddf00 + DAT_007f4248);
@@ -1658,7 +1658,7 @@ static void q6_spanp(int *node, int bpp16, int mode, int nohead_colour)
     v = (q6_floor_i(q6_f(v0 * 65536.0L)) >> (UINT_008ddf04 & 31)) + UINT_008ddf18
     if (head) {
         h = head;
-        inv = q6_copy(UINT_008fe000[head]);
+        inv = q6_copy(g_dwRdRaster_aOneOverNFlex[head]);
         p0 = q6_f(h * DAT_008ddf1c + p0);
         p1 = q6_f(h * DAT_008ddf20 + p1);
         p2 = q6_f(h * DAT_008ddf38 + p2);
@@ -1698,7 +1698,7 @@ static void q6_spanp(int *node, int bpp16, int mode, int nohead_colour)
         t = tail - 1;
         if (t) {
             h = t;
-            inv = q6_copy(UINT_008fe000[t]);
+            inv = q6_copy(g_dwRdRaster_aOneOverNFlex[t]);
             r = 1.0L / (h * DAT_008ddf1c - DAT_008ddf28 + p0);
             u1 = q6_f((h * DAT_008ddf20 - DAT_008ddf2c + p1) * r);
             v1 = q6_f((h * DAT_008ddf38 - DAT_008ddf48 + p2) * r);

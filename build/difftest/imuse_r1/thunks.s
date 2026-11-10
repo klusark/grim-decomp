@@ -2,7 +2,7 @@
 	.intel_syntax noprefix
 	.text
 
-# int call_orig_6560(int id, unsigned esi, unsigned edi): ESI / EDI as the dispatcher FUN_10006070 has them at its call
+# int call_orig_6560(int id, unsigned esi, unsigned edi): ESI / EDI as the dispatcher ScriptCall has them at its call
 # (ESI = 0xffffffff there); FUN_10006560 saves both under its return address, where ImSetTrigger reads them.
 	.globl _call_orig_6560
 _call_orig_6560:
@@ -32,7 +32,7 @@ _call_orig_6620:
 	mov esi, [esp+0x18]
 	mov edi, [esp+0x1c]
 	push eax
-	call _orig_FUN_10006620
+	call _orig_Script_SetSequence
 	add esp, 4
 	pop ebp
 	pop edi
@@ -56,7 +56,7 @@ _call_orig_64d0:
 	pop ebx
 	ret
 
-# void call_orig_68b0(char *entry, int index, int no_attr, unsigned w10, unsigned w14): FUN_100068b0 with the two words
+# void call_orig_68b0(char *entry, int index, int no_attr, unsigned w10, unsigned w14): Script_Trans with the two words
 # its callers' frames hold at [entry+0x10] / [entry+0x14] (the callers' saved EDI / ESI); its return address is
 # _orig68b0_ret.
 	.globl _call_orig_68b0
@@ -75,7 +75,7 @@ _call_orig_68b0:
 	mov esi, 0x5e5e5e5e
 	mov edi, 0xd1d1d1d1
 	mov ebp, 0xb9b9b9b9
-	call _orig_FUN_100068b0
+	call _orig_Script_Trans
 _orig68b0_ret:
 	add esp, 0x14
 	pop ebp
@@ -94,7 +94,7 @@ _orig_FUN_100064d0:
 	test eax, eax
 	je 1f
 	push 0
-	call _orig_FUN_10006620
+	call _orig_Script_SetSequence
 	add esp, 4
 	mov dword ptr [_sect_data+0x17304], 0
 1:	push 0
@@ -127,7 +127,7 @@ _orig_FUN_100064d0:
 	test eax, eax
 	je 6f
 	push 0
-	call _orig_FUN_10006620
+	call _orig_Script_SetSequence
 	add esp, 4
 6:	call _ImFlushSounds
 	xor eax, eax

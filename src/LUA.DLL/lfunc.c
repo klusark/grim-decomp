@@ -43,10 +43,12 @@ undefined4 * luaF_newclosure(void)
   return puVar1;
 }
 
-/* ---- 0x10004c40  luaF_freeclosure ---- */
-/* Unidentified function of lfunc.c (prototypes and closures) */
+/* ---- 0x10004c40  luaF_freeproto ---- */
+/* Original name luaF_freeproto (the remaster's libLua.so: remaster luaF_freeproto: walks the
+   prototype list (luaF_freeproto(rootproto) in lua_close), nblocks -= gcsizeproto, freefunc); was
+   luaF_freeclosure. */
 
-void __cdecl luaF_freeclosure(undefined4 *param_1)
+void __cdecl luaF_freeproto(undefined4 *param_1)
 
 {
   undefined4 *puVar1;
@@ -54,16 +56,17 @@ void __cdecl luaF_freeclosure(undefined4 *param_1)
   while (param_1 != (undefined4 *)0x0) {
     puVar1 = (undefined4 *)*param_1;
     g_dwLState_nblocks = g_dwLState_nblocks + -5;
-    luaF_freeproto((int)param_1);
+    freefunc((int)param_1);
     param_1 = puVar1;
   }
   return;
 }
 
-/* ---- 0x10004c70  luaF_freeproto ---- */
-/* Unidentified function of lfunc.c (prototypes and closures) */
+/* ---- 0x10004c70  freefunc ---- */
+/* Named freefunc (not in the remaster, gcc inlined it there): Lua 3.1 source name (lfunc.c static
+   freefunc: frees code, locvars, consts and the prototype); was luaF_freeproto. */
 
-void __cdecl luaF_freeproto(int param_1)
+void __cdecl freefunc(int param_1)
 
 {
   (**(code **)(g_dwLuaHS + 0x24))(*(undefined4 *)(param_1 + 0x10));
@@ -73,10 +76,11 @@ void __cdecl luaF_freeproto(int param_1)
   return;
 }
 
-/* ---- 0x10004cc0  lfunc__4cc0 ---- */
-/* Unidentified function of lfunc.c (prototypes and closures) */
+/* ---- 0x10004cc0  luaF_freeclosure ---- */
+/* Original name luaF_freeclosure (the remaster's libLua.so: remaster luaF_freeclosure: walks the
+   closure list (rootcl), nblocks--, frees each); was lfunc__4cc0. */
 
-void __cdecl lfunc__4cc0(undefined4 *param_1)
+void __cdecl luaF_freeclosure(undefined4 *param_1)
 
 {
   undefined4 *puVar1;

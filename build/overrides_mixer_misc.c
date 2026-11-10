@@ -1,7 +1,7 @@
 /* Readable C for the rest of the assembled functions between 0x004bdf00 and 0x004d4100:
- *   - Smush_GetLengthMs (movie length from the file header),
+ *   - SmushPlay_GetMovieLength (movie length from the file header),
  *   - the light editor's text field reader and keyboard hook (LightEd_ReadControl, LightEd_KeyboardProc),
- *   - LecShare_Resolve (lookup of a shared module through the override list),
+ *   - LecShare_Subscribe (lookup of a shared module through the override list),
  *   - AnimPlay, the Smush frame player (create, destroy, once-per-frame update, reset, open),
  *   - the small glue around zlib 1.1.3 gzio.c (gz_open with the file service table, gz_putLong, Zfile_Close) and the
  *     StdFile position helpers.
@@ -16,21 +16,21 @@
 #define SVC_CALL(svc, i, ret, args) ((ret(*) args)(((void **)(svc))[i]))
 
 /* ===================================================================================================================
- *  Smush_GetLengthMs
+ *  SmushPlay_GetMovieLength
  * =================================================================================================================== */
 
-extern void **g_pInsaneFileOps __asm__("_PTR_008d10c8");     /* [0] open(path, mode), [1] close, [2] read(file, buf, n), [4] tell, [5] seek */
+extern void **g_pInsaneFileOps __asm__("_g_pSmushPlay_file_services");     /* [0] open(path, mode), [1] close, [2] read(file, buf, n), [4] tell, [5] seek */
 
 /* Opens a movie file, reads its header and returns the length in milliseconds (a 16 bit header field times 66.67, the
  * milliseconds of a frame at 15 frames per second); 0 if the file cannot be opened. */
-int Smush_GetLengthMs(char *path)
+int SmushPlay_GetMovieLength(char *path)
 {
     byte header[0x420];
     void *file = SVC_CALL(g_pInsaneFileOps, 0, void *, (char *, const void *))(path, &DAT_004dda54);
 
     if (file == 0)
         return 0;
-    Insane_ReadFrameHeader((int)file, (int)header);
+    smushplay_GetInfo((int)file, (int)header);
     SVC_CALL(g_pInsaneFileOps, 1, void, (void *))(file);
     return (int)((double)(int)*(short *)(header + 2) * 66.666664f);
 }
@@ -184,10 +184,10 @@ int LightEd_KeyboardProc(int code, uint wParam, uint lParam)
 }
 
 /* ===================================================================================================================
- *  LecShare_Resolve
+ *  LecShare_Subscribe
  * =================================================================================================================== */
 
-extern int g_nLecShareActive __asm__("_UINT_008d56e8");     /* the override list is in use */
+extern int g_nLecShareActive __asm__("_g_dwPrivateData");     /* the override list is in use */
 extern char *g_pszLecShareDefault __asm__("_UINT_008d56ec");
 extern char *g_pszLecShareOverride __asm__("_UINT_008d56f0");
 
@@ -202,7 +202,7 @@ static void str_append(char *dst, const char *src)
 /* Looks a shared module up by name: the application's override pattern list (the pattern of the application, the one passed
  * in and the default) may replace the name by "<name>=<replacement>"; without a matching pattern the best of the
  * registered versions is taken.  Returns the entry's pointer and counts the use, or 0. */
-void *LecShare_Resolve(char *name, char *pattern)
+void *LecShare_Subscribe(char *name, char *pattern)
 {
     char local[100];
     byte *match = 0;
@@ -212,22 +212,22 @@ void *LecShare_Resolve(char *name, char *pattern)
     if (g_nLecShareActive == 0)
         return 0;
     if (g_pszLecShareOverride != 0)
-        match = Str_WildcardMatch(name, g_pszLecShareOverride);
+        match = FindMatch(name, g_pszLecShareOverride);
     if (match == 0) {
         if (pattern != 0)
-            match = Str_WildcardMatch(name, pattern);
+            match = FindMatch(name, pattern);
         if (match == 0 && g_pszLecShareDefault != 0)
-            match = Str_WildcardMatch(name, g_pszLecShareDefault);
+            match = FindMatch(name, g_pszLecShareDefault);
     }
     length = Str_ModuleNameLength((byte *)name);
     strncpy((uint *)local, (uint *)name, length);
     local[length] = 0;
     if (match == 0) {
-        int count = LecShare_CountMatching(local);
+        int count = GetCatalogCount(local);
 
         if (count == 0)
             return 0;
-        strncpy((uint *)local, (uint *)LecShare_Subscribe(local, count - 1), 99);
+        strncpy((uint *)local, (uint *)GetCatalogEntry(local, count - 1), 99);
     } else {
         str_append(local, "=");
         str_append(local, (char *)match);
@@ -247,7 +247,7 @@ typedef struct AnimPlay {           /* 0x70 bytes */
     int timerSync;                  /* 00 timer id of the clock timer */
     int timerFrame;                 /* 04 timer id of the frame timer */
     uint flags;                     /* 08 */
-    int f0c;                        /* 0c (cleared by AnimPlay_ResetState) */
+    int f0c;                        /* 0c (cleared by anm_animator_Initialize) */
     int failed;                     /* 10 set when the player gave up */
     int frameDue;                   /* 14 set by the frame timer: a frame must be shown */
     int syncTicks;                  /* 18 ticks the player is ahead (counted down once per frame) */
@@ -295,11 +295,11 @@ int anm_Start(void **pout, char *name, int fps, int streamArg1, int streamArg2, 
     p->targetDelay = delay;
     p->delay = delay;
     *out = p;
-    if (AnimPlay_ResetState(p) != 0) {
+    if (anm_animator_Initialize(p) != 0) {
         ANIM_MSG(s_AnimPlay_Module__Cannot_init_Ani_004f1554);
         goto freeStream;
     }
-    if (AnimPlay_OpenFile(*out, name, flags, -1, -1, 0) != 0) {
+    if (anm_animator_NewAnim(*out, name, flags, -1, -1, 0) != 0) {
         SVC_CALL(g_pAnm_virtherc_services, 3, void, (const char *, ...))(s_AnimPlay_Module__Cannot_open_fil_004f1584, name);
         Mem_DumpLog();
         goto freeStream;
@@ -373,7 +373,7 @@ int anm_Render(void *pIn, int a2, int a3, int a4, int a5, int a6, int a7, int a8
         g_nAnimDelayTotal = 0;
     }
     g_nAnimDelayTotal += p->delay;
-    lead = (int)(((double)Sound_VoiceSampleCount(0) - (double)g_nBretsFrameCount * 66.66666666667) * 0.0149999999999925);
+    lead = (int)(((double)sou_engine_QueryTime(0) - (double)g_nBretsFrameCount * 66.66666666667) * 0.0149999999999925);
     p->syncTicks--;
     p->frameDue = 0;
     base = p->targetDelay;
@@ -426,7 +426,7 @@ int anm_Render(void *pIn, int a2, int a3, int a4, int a5, int a6, int a7, int a8
 }
 
 /* Puts the decoder state of a player back to "no file open" (the object is zeroed in parts; the streamer is reset). */
-int AnimPlay_ResetState(void *pIn)
+int anm_animator_Initialize(void *pIn)
 {
     AnimPlay *p = (AnimPlay *)pIn;
     SVC_CALL(g_pAnm_streamer_services, 6, void, (void *))(p->stream);
@@ -443,7 +443,7 @@ int AnimPlay_ResetState(void *pIn)
 }
 
 /* Opens the file through the streamer and hands the decoder its buffers; 0 or -1. */
-int AnimPlay_OpenFile(void *pIn, char *name, uint flags, int a4, int a5, int a6)
+int anm_animator_NewAnim(void *pIn, char *name, uint flags, int a4, int a5, int a6)
 {
     AnimPlay *p = (AnimPlay *)pIn;
 

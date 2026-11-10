@@ -1,0 +1,436 @@
+[
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000aa40",
+  "old": "luaY_syntaxerror",
+  "name": "close_func",
+  "comment": "lua.stx: lua.stx error reporting Original name close_func (the remaster's libLua.so: remaster close_func (same body: shrinks code, constants and locvars with the lua.stx line numbers, pops the FuncState); was misnamed luaY_syntaxerror); was luaY_syntaxerror."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000a6f0",
+  "old": "luaY_error",
+  "name": "luaY_syntaxerror",
+  "comment": "lua.stx: 'last token read: %50s' error Original name luaY_syntaxerror (the remaster's libLua.so: remaster luaY_syntaxerror(msg, token): the same '<eof>' and 'last token read' message); was luaY_error."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000a730",
+  "old": "lparser__a730",
+  "name": "luaY_error",
+  "comment": "Unidentified function of lua.stx (yacc parser) and code generation Original name luaY_error (the remaster's libLua.so: remaster luaY_error(msg): luaY_syntaxerror(msg, luaX_lasttoken())); was lparser__a730."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10004c70",
+  "old": "luaF_freeproto",
+  "name": "freefunc",
+  "comment": "Named freefunc (not in the remaster, gcc inlined it there): Lua 3.1 source name (lfunc.c static freefunc: frees code, locvars, consts and the prototype); was luaF_freeproto."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10004c40",
+  "old": "luaF_freeclosure",
+  "name": "luaF_freeproto",
+  "comment": "Original name luaF_freeproto (the remaster's libLua.so: remaster luaF_freeproto: walks the prototype list (luaF_freeproto(rootproto) in lua_close), nblocks -= gcsizeproto, freefunc); was luaF_freeclosure."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10004cc0",
+  "old": "lfunc__4cc0",
+  "name": "luaF_freeclosure",
+  "comment": "Original name luaF_freeclosure (the remaster's libLua.so: remaster luaF_freeclosure: walks the closure list (rootcl), nblocks--, frees each); was lfunc__4cc0."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000a7d0",
+  "old": "luaY_code_byte",
+  "name": "check_pc",
+  "comment": "lua.stx: code size overflow Named check_pc (not in the remaster, gcc inlined it there): Lua 3.1 source name (lua.stx: grows f->code for n more bytes, 'code size overflow'); was luaY_code_byte."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000a790",
+  "old": "luaY_code_opcode_arg",
+  "name": "code_oparg",
+  "comment": "Unidentified function of lua.stx (yacc parser) and code generation Named code_oparg (not in the remaster, gcc inlined it there): Lua 3.1 source name (lua.stx: check_pc(3), pc += code_oparg_at(pc, ...)); was luaY_code_opcode_arg."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000ab50",
+  "old": "luaY_growvector",
+  "name": "luaI_registerlocalvar",
+  "comment": "Unidentified function of lua.stx (yacc parser) and code generation Named luaI_registerlocalvar (not in the remaster, gcc inlined it there): Lua 3.1 source name (lua.stx: appends {varname, line} to f->locvars when debug info is on); was luaY_growvector."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "100012e0",
+  "old": "lapi__12e0",
+  "name": "put_luaObjectonTop",
+  "comment": "Named put_luaObjectonTop (not in the remaster, gcc inlined it there): Lua 3.1 source name (lapi.c: luaD_openstack, moves the top value to the C stack slot); was lapi__12e0."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10001430",
+  "old": "lapi__1430",
+  "name": "put_luaObject",
+  "comment": "Named put_luaObject (not in the remaster, gcc inlined it there): Lua 3.1 source name (lapi.c: luaD_openstack, stores *o in the next C stack slot); was lapi__1430."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10002e40",
+  "old": "lbuiltin__2e40",
+  "name": "pushstring",
+  "comment": "Named pushstring (not in the remaster, gcc inlined it there): Lua 3.1 source name (lbuiltin.c: TObject {LUA_T_STRING, ts} pushed with luaA_pushobject, used by nextvar / foreachvar); was lbuiltin__2e40."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10003ba0",
+  "old": "lbuiltin__3ba0",
+  "name": "getnarg",
+  "comment": "Named getnarg (not in the remaster, gcc inlined it there): Lua 3.1 source name (lbuiltin.c: rawgettable(table, \"n\"), number or MAX_WORD, used by luaI_call); was lbuiltin__3ba0."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "100044e0",
+  "old": "ldo__44e0",
+  "name": "callC",
+  "comment": "Named callC (not in the remaster, gcc inlined it there): Lua 3.1 source name (ldo.c: saves the C stack frame, runs the call hook, calls the C function, used by luaD_call / luaD_callC); was ldo__44e0."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10004fc0",
+  "old": "lgc__4fc0",
+  "name": "invalidaterefs",
+  "comment": "Named invalidaterefs (not in the remaster, gcc inlined it there): Lua 3.1 source name (lgc.c: HOLD references whose object is not marked become COLLECTED); was lgc__4fc0."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10005010",
+  "old": "lgc__5010",
+  "name": "ismarked",
+  "comment": "Named ismarked (not in the remaster, gcc inlined it there): Lua 3.1 source name (lgc.c: the mark bit by object type, used by invalidaterefs); was lgc__5010."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10005070",
+  "old": "lgc__5070",
+  "name": "listcollect",
+  "comment": "Named listcollect (not in the remaster, gcc inlined it there): Lua 3.1 source name (lgc.c: unlinks the unmarked nodes of a GC list and returns them); was lgc__5070."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10005c70",
+  "old": "llex__5c70",
+  "name": "firstline",
+  "comment": "Named firstline (not in the remaster, gcc inlined it there): Lua 3.1 source name (llex.c: skips a first line starting with '#', called by luaX_setinput); was llex__5c70."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10006c30",
+  "old": "llex__6c30",
+  "name": "ifskip",
+  "comment": "Named ifskip (not in the remaster, gcc inlined it there): Lua 3.1 source name (llex.c: skips input while the $if level is false, 'input ends inside a $if'); was llex__6c30."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10006cb0",
+  "old": "llex__6cb0",
+  "name": "read_long_string",
+  "comment": "Named read_long_string (not in the remaster, gcc inlined it there): Lua 3.1 source name (llex.c: [[ ... ]] strings with nesting, called by luaY_lex); was llex__6cb0."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10008f10",
+  "old": "lstring__8f10",
+  "name": "hash",
+  "comment": "Named hash (not in the remaster, gcc inlined it there): Lua 3.1 source name (lstring.c: h = h*31 ^ c for strings, the pointer otherwise, used by insert); was lstring__8f10."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "100093e0",
+  "old": "lstring__93e0",
+  "name": "remove_from_list",
+  "comment": "Named remove_from_list (not in the remaster, gcc inlined it there): Lua 3.1 source name (lstring.c: unlinks the unmarked nodes, used by luaS_collector); was lstring__93e0."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000c1d0",
+  "old": "ltable__c1d0",
+  "name": "freeHash",
+  "comment": "Named freeHash (not in the remaster, gcc inlined it there): Lua 3.1 source name (ltable.c: frees the node vector and the table, used by luaH_free); was ltable__c1d0."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000c810",
+  "old": "ltable__c810",
+  "name": "hashnext",
+  "comment": "Named hashnext (not in the remaster, gcc inlined it there): Lua 3.1 source name (ltable.c: the next node with non-nil key and value, used by luaH_next); was ltable__c810."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000c8a0",
+  "old": "ltm__c8a0",
+  "name": "init_entry",
+  "comment": "Named init_entry (not in the remaster, gcc inlined it there): Lua 3.1 source name (ltm.c: sets the tag methods of a tag to nil, used by luaT_init / lua_newtag); was ltm__c8a0."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000cfa0",
+  "old": "lundump__cfa0",
+  "name": "LoadWord",
+  "comment": "Named LoadWord (not in the remaster, gcc inlined it there): Lua 3.1 source name (lundump.c: two ezgetc bytes, high first); was lundump__cfa0."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000cfd0",
+  "old": "lundump__cfd0",
+  "name": "ezgetc",
+  "comment": "Named ezgetc (not in the remaster, gcc inlined it there): Lua 3.1 source name (lundump.c: zgetc, unexpected end of file on EOZ); was lundump__cfd0."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000d0f0",
+  "old": "lundump__d0f0",
+  "name": "Undump_LoadString",
+  "comment": "Named Undump_LoadString (the bridge refuses the bare name LoadString beside LoadTString) (not in the remaster, gcc inlined it there): Lua 3.1 source name (lundump.c: LoadWord size, luaL_openspace, LoadBlock); was lundump__d0f0."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000a810",
+  "old": "lparser__a810",
+  "name": "code_oparg_at",
+  "comment": "Unidentified function of lua.stx (yacc parser) and code generation Named code_oparg_at (not in the remaster, gcc inlined it there): Lua 3.1 source name (lua.stx: writes op/arg in the shortest form at pc, deltastack); was lparser__a810."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000a8b0",
+  "old": "lparser__a8b0",
+  "name": "deltastack",
+  "comment": "Unidentified function of lua.stx (yacc parser) and code generation Named deltastack (not in the remaster, gcc inlined it there): Lua 3.1 source name (lua.stx: stacksize += delta, 'function/expression too complex'); was lparser__a8b0."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000a980",
+  "old": "lparser__a980",
+  "name": "init_state",
+  "comment": "Unidentified function of lua.stx (yacc parser) and code generation Named init_state (not in the remaster, gcc inlined it there): Lua 3.1 source name (lua.stx: a new prototype and a fresh FuncState, locvars only with lua_debug); was lparser__a980."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000c100",
+  "old": "lparser__c100",
+  "name": "init_func",
+  "comment": "Unidentified function of lua.stx (yacc parser) and code generation Named init_func (not in the remaster, gcc inlined it there): Lua 3.1 source name (lua.stx: 'too many nested functions', next FuncState, init_state, luaY_codedebugline); was lparser__c100."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000aa10",
+  "old": "lparser__aa10",
+  "name": "code_byte",
+  "comment": "Unidentified function of lua.stx (yacc parser) and code generation Named code_byte (not in the remaster, gcc inlined it there): Lua 3.1 source name (lua.stx: check_pc(1), f->code[pc++] = c); was lparser__aa10."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000ab30",
+  "old": "lparser__ab30",
+  "name": "code_opcode",
+  "comment": "Unidentified function of lua.stx (yacc parser) and code generation Named code_opcode (not in the remaster, gcc inlined it there): Lua 3.1 source name (lua.stx: deltastack(delta), code_byte(op)); was lparser__ab30."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000ab20",
+  "old": "lparser__ab20",
+  "name": "code_neutralop",
+  "comment": "Unidentified function of lua.stx (yacc parser) and code generation Named code_neutralop (not in the remaster, gcc inlined it there): Lua 3.1 source name (lua.stx: code_opcode(op, 0)); was lparser__ab20."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000b800",
+  "old": "lparser__b800",
+  "name": "code_pop",
+  "comment": "Unidentified function of lua.stx (yacc parser) and code generation Named code_pop (not in the remaster, gcc inlined it there): Lua 3.1 source name (lua.stx: code_opcode(op, -1)); was lparser__b800."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000b770",
+  "old": "lparser__b770",
+  "name": "fix_opcode",
+  "comment": "Unidentified function of lua.stx (yacc parser) and code generation Named fix_opcode (not in the remaster, gcc inlined it there): Lua 3.1 source name (lua.stx: rewrites the op at pc, moving the code when the argument shrinks); was lparser__b770."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000b8c0",
+  "old": "lparser__b8c0",
+  "name": "code_constant",
+  "comment": "Unidentified function of lua.stx (yacc parser) and code generation Named code_constant (not in the remaster, gcc inlined it there): Lua 3.1 source name (lua.stx: code_oparg(PUSHCONSTANT, 8, c, 1)); was lparser__b8c0."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000b8a0",
+  "old": "lparser__b8a0",
+  "name": "code_string",
+  "comment": "Unidentified function of lua.stx (yacc parser) and code generation Named code_string (not in the remaster, gcc inlined it there): Lua 3.1 source name (lua.stx: code_constant(string_constant(s, fs))); was lparser__b8a0."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000b9c0",
+  "old": "lparser__b9c0",
+  "name": "flush_record",
+  "comment": "Unidentified function of lua.stx (yacc parser) and code generation Named flush_record (not in the remaster, gcc inlined it there): Lua 3.1 source name (lua.stx: SETMAP n-1 with delta -2n); was lparser__b9c0."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000b9e0",
+  "old": "lparser__b9e0",
+  "name": "flush_list",
+  "comment": "Unidentified function of lua.stx (yacc parser) and code generation Named flush_list (not in the remaster, gcc inlined it there): Lua 3.1 source name (lua.stx: SETLIST m with delta -n, then the count byte); was lparser__b9e0."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000ba10",
+  "old": "lparser__ba10",
+  "name": "luaI_unregisterlocalvar",
+  "comment": "Unidentified function of lua.stx (yacc parser) and code generation Named luaI_unregisterlocalvar (not in the remaster, gcc inlined it there): Lua 3.1 source name (lua.stx: luaI_registerlocalvar(NULL, line)); was lparser__ba10."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000ba20",
+  "old": "lparser__ba20",
+  "name": "store_localvar",
+  "comment": "Unidentified function of lua.stx (yacc parser) and code generation Named store_localvar (not in the remaster, gcc inlined it there): Lua 3.1 source name (lua.stx: 'too many local variables', localvar[nlocalvar+n] = name, luaI_registerlocalvar); was lparser__ba20."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000ba70",
+  "old": "lparser__ba70",
+  "name": "add_localvar",
+  "comment": "Unidentified function of lua.stx (yacc parser) and code generation Named add_localvar (not in the remaster, gcc inlined it there): Lua 3.1 source name (lua.stx: store_localvar(name, 0), nlocalvar++); was lparser__ba70."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000bad0",
+  "old": "lparser__bad0",
+  "name": "var2store",
+  "comment": "Unidentified function of lua.stx (yacc parser) and code generation Named var2store (not in the remaster, gcc inlined it there): Lua 3.1 source name (lua.stx: a dotted variable codes its constant and becomes 0, used by add_varbuffer); was lparser__bad0."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000bba0",
+  "old": "lparser__bba0",
+  "name": "aux_localname",
+  "comment": "Unidentified function of lua.stx (yacc parser) and code generation Named aux_localname (not in the remaster, gcc inlined it there): Lua 3.1 source name (lua.stx: the index of a local name in a FuncState or -1); was lparser__bba0."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000baf0",
+  "old": "lparser__baf0",
+  "name": "singlevar",
+  "comment": "Unidentified function of lua.stx (yacc parser) and code generation Named singlevar (not in the remaster, gcc inlined it there): Lua 3.1 source name (lua.stx: local, global or 'cannot access a variable in outer scope'); was lparser__baf0."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000bc40",
+  "old": "lparser__bc40",
+  "name": "indexupvalue",
+  "comment": "Unidentified function of lua.stx (yacc parser) and code generation Named indexupvalue (not in the remaster, gcc inlined it there): Lua 3.1 source name (lua.stx: index of an upvalue, added if new); was lparser__bc40."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000bbd0",
+  "old": "lparser__bbd0",
+  "name": "pushupvalue",
+  "comment": "Unidentified function of lua.stx (yacc parser) and code generation Named pushupvalue (not in the remaster, gcc inlined it there): Lua 3.1 source name (lua.stx: 'cannot access upvalue in main', PUSHUPVALUE indexupvalue(n)); was lparser__bbd0."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000bcc0",
+  "old": "lparser__bcc0",
+  "name": "adjuststack",
+  "comment": "Unidentified function of lua.stx (yacc parser) and code generation Named adjuststack (not in the remaster, gcc inlined it there): Lua 3.1 source name (lua.stx: POP n or PUSHNIL -n); was lparser__bcc0."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000bd00",
+  "old": "lparser__bd00",
+  "name": "adjust_functioncall",
+  "comment": "Unidentified function of lua.stx (yacc parser) and code generation Named adjust_functioncall (not in the remaster, gcc inlined it there): Lua 3.1 source name (lua.stx: fixes the result count of a call); was lparser__bd00."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000bd80",
+  "old": "lparser__bd80",
+  "name": "adjust_mult_assign",
+  "comment": "Unidentified function of lua.stx (yacc parser) and code generation Named adjust_mult_assign (not in the remaster, gcc inlined it there): Lua 3.1 source name (lua.stx: adjust_functioncall / adjuststack for vars = exps); was lparser__bd80."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000bde0",
+  "old": "lparser__bde0",
+  "name": "code_args",
+  "comment": "Unidentified function of lua.stx (yacc parser) and code generation Named code_args (not in the remaster, gcc inlined it there): Lua 3.1 source name (lua.stx: nlocalvar += nparams, VARARGS when dots); was lparser__bde0."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000be60",
+  "old": "lparser__be60",
+  "name": "lua_pushvar",
+  "comment": "Unidentified function of lua.stx (yacc parser) and code generation Named lua_pushvar (not in the remaster, gcc inlined it there): Lua 3.1 source name (lua.stx: PUSHLOCAL / GETGLOBAL / GETTABLE / GETDOTTED by vardesc); was lparser__be60."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000bec0",
+  "old": "lparser__bec0",
+  "name": "storevar",
+  "comment": "Unidentified function of lua.stx (yacc parser) and code generation Named storevar (not in the remaster, gcc inlined it there): Lua 3.1 source name (lua.stx: SETLOCAL / SETGLOBAL / SETTABLE0 by vardesc); was lparser__bec0."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000bf00",
+  "old": "lparser__bf00",
+  "name": "lua_codestore",
+  "comment": "Unidentified function of lua.stx (yacc parser) and code generation Named lua_codestore (not in the remaster, gcc inlined it there): Lua 3.1 source name (lua.stx: the store of assignment i, SETTABLE when left items are on the stack); was lparser__bf00."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000bf50",
+  "old": "lparser__bf50",
+  "name": "fix_jump",
+  "comment": "Unidentified function of lua.stx (yacc parser) and code generation Named fix_jump (not in the remaster, gcc inlined it there): Lua 3.1 source name (lua.stx: fix_opcode(pc, op, 0, n - pc - 2)); was lparser__bf50."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000bf70",
+  "old": "lparser__bf70",
+  "name": "fix_upjmp",
+  "comment": "Unidentified function of lua.stx (yacc parser) and code generation Named fix_upjmp (not in the remaster, gcc inlined it there): Lua 3.1 source name (lua.stx: a backward jump to pos); was lparser__bf70."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000bfa0",
+  "old": "lparser__bfa0",
+  "name": "codeIf",
+  "comment": "Unidentified function of lua.stx (yacc parser) and code generation Named codeIf (not in the remaster, gcc inlined it there): Lua 3.1 source name (lua.stx: fix_jump of the then part and of the jump over the else part); was lparser__bfa0."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000c000",
+  "old": "lparser__c000",
+  "name": "code_shortcircuit",
+  "comment": "Unidentified function of lua.stx (yacc parser) and code generation Named code_shortcircuit (not in the remaster, gcc inlined it there): Lua 3.1 source name (lua.stx: fix_jump(pc, jmp, pc of the end)); was lparser__c000."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000c020",
+  "old": "lparser__c020",
+  "name": "codereturn",
+  "comment": "Unidentified function of lua.stx (yacc parser) and code generation Named codereturn (not in the remaster, gcc inlined it there): Lua 3.1 source name (lua.stx: RETCODE nlocalvar, stacksize = nlocalvar); was lparser__c020."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000c060",
+  "old": "lparser__c060",
+  "name": "func_onstack",
+  "comment": "Unidentified function of lua.stx (yacc parser) and code generation Named func_onstack (not in the remaster, gcc inlined it there): Lua 3.1 source name (lua.stx: a LUA_T_PROTO constant for the new function, its upvalues, CLOSURE); was lparser__c060."
+ }
+]

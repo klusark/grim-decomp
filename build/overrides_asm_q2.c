@@ -1,7 +1,7 @@
 /* Readable C for five assembled GRIMFANDANGO.EXE face clippers (agent q2; see docs/notes/asm_q2.md).
  *
- * rdClip_Face3_PosUvLit (0x00449aa0), rdClip_Face3_PosUvLit_2 (0x0044b0a0), rdClip_Face3_PosUvFlags (0x0044be80),
- * rdClip_Face3_PosUvLitColor (0x0044c9d0), rdClip_Face3_PosUvLitFlags (0x0044da40).
+ * rdClip_Face3GS (0x00449aa0), rdClip_Face3T (0x0044b0a0), rdClip_Face3TOrtho (0x0044be80),
+ * rdClip_Face3GT (0x0044c9d0), rdClip_Face3GTOrtho (0x0044da40).
  *
  * Every function here was written by hand from the original 1.01 machine code (src/GRIMFANDANGO.EXE/asm_funcs.s as of
  * 2df265d) and checked against it with a differential test in build/difftest/asm_q2/ (original bytes and this C on the
@@ -14,7 +14,7 @@
  *                                                        z <= f[11]*y (0x04), z >= f[8]*y (0x08)
  *   orthographic (PosUvFlags, PosUvLitFlags):            x >= f[3] (0x10), x <= f[5] (0x20), z <= f[4] (0x04), z >= f[6] (0x08)
  *   then y >= f[1] (near, 0x01) and, when f[0] != 0, y <= f[2] (far, 0x02).
- * A plane that clips something ORs its flag into the global UINT_007f4ac4 (cleared at the start); a polygon that the
+ * A plane that clips something ORs its flag into the global g_dwRdClip_faceStatus (cleared at the start); a polygon that the
  * near plane reduces below 3 vertices also sets 0x40.  The vertex attributes (12-byte positions, optional 8-byte uv,
  * optional float intensity) ping-pong between the caller's arrays and the static buffers 0x007f48c0 (positions),
  * 0x007f46b8 (uv), 0x007f47c0 (intensity): plane 1 writes the static buffers, plane 2 the caller's arrays, and so on.
@@ -42,17 +42,17 @@
 
 #ifdef GRIM_EXE
 #include "globals.h"
-#define rdClip_Face3_PosUvLit rdClip_Face3_PosUvLit__ghidra
-#define rdClip_Face3_PosUvLit_2 rdClip_Face3_PosUvLit_2__ghidra
-#define rdClip_Face3_PosUvFlags rdClip_Face3_PosUvFlags__ghidra
-#define rdClip_Face3_PosUvLitColor rdClip_Face3_PosUvLitColor__ghidra
-#define rdClip_Face3_PosUvLitFlags rdClip_Face3_PosUvLitFlags__ghidra
+#define rdClip_Face3GS rdClip_Face3_PosUvLit__ghidra
+#define rdClip_Face3T rdClip_Face3_PosUvLit_2__ghidra
+#define rdClip_Face3TOrtho rdClip_Face3_PosUvFlags__ghidra
+#define rdClip_Face3GT rdClip_Face3_PosUvLitColor__ghidra
+#define rdClip_Face3GTOrtho rdClip_Face3_PosUvLitFlags__ghidra
 #include "functions.h"
-#undef rdClip_Face3_PosUvLit
-#undef rdClip_Face3_PosUvLit_2
-#undef rdClip_Face3_PosUvFlags
-#undef rdClip_Face3_PosUvLitColor
-#undef rdClip_Face3_PosUvLitFlags
+#undef rdClip_Face3GS
+#undef rdClip_Face3T
+#undef rdClip_Face3TOrtho
+#undef rdClip_Face3GT
+#undef rdClip_Face3GTOrtho
 
 #define Q2_U32(lv) (*(uint *)&(lv))
 /* C3 of an x87 compare: equal or unordered */
@@ -184,7 +184,7 @@ static int q2_clip_plane(const float *f, int persp, const q2_plane *pl, const q2
                 }
                 if (in->li)
                     out->li[cnt] = q2_st_f(((long double)*ci - *pi) * t + *pi);
-                UINT_007f4ac4 |= pl->flag;
+                g_dwRdClip_faceStatus |= pl->flag;
                 cnt++;
             }
             if (keep) {
@@ -228,95 +228,95 @@ static int q2_clip(const int *frustum, int persp, float *pos, float *uv, float *
     const q2_plane *planes = persp ? q2_persp : q2_ortho;
     int p;
 
-    UINT_007f4ac4 = 0;
-    UINT_007f47b8 = (uint)pos;
-    UINT_007f46ac = (uint)&UINT_007f48c0;
+    g_dwRdClip_faceStatus = 0;
+    g_dwSourceVert = (uint)pos;
+    g_dwDestVert = (uint)&g_dwWorkVerts;
     if (uv) {
-        UINT_007f461c = (uint)uv;
-        UINT_007f46a8 = (uint)&UINT_007f46b8;
+        g_dwSourceTVert = (uint)uv;
+        g_dwDestTVert = (uint)&g_dwWorkTVerts;
     }
     if (li) {
-        UINT_007f4618 = (uint)li;
-        UINT_007f46b0 = (uint)&UINT_007f47c0;
+        g_dwSourceIVert = (uint)li;
+        g_dwDestIVert = (uint)&g_dwWorkIVerts;
     }
     for (p = 0; p < 6; p++) {
         q2_bufs in, out;
         if (p == 5 && frustum[0] == 0)
             break;
         if (p > 0) {
-            uint s = UINT_007f47b8;
-            UINT_007f47b8 = UINT_007f46ac;
-            UINT_007f46ac = s;
+            uint s = g_dwSourceVert;
+            g_dwSourceVert = g_dwDestVert;
+            g_dwDestVert = s;
             if (uv) {
-                s = UINT_007f461c;
-                UINT_007f461c = UINT_007f46a8;
-                UINT_007f46a8 = s;
+                s = g_dwSourceTVert;
+                g_dwSourceTVert = g_dwDestTVert;
+                g_dwDestTVert = s;
             }
             if (li) {
-                s = UINT_007f4618;
-                UINT_007f4618 = UINT_007f46b0;
-                UINT_007f46b0 = s;
+                s = g_dwSourceIVert;
+                g_dwSourceIVert = g_dwDestIVert;
+                g_dwDestIVert = s;
             }
         }
-        in.pos = (float *)UINT_007f47b8;
-        out.pos = (float *)UINT_007f46ac;
-        in.uv = uv ? (float *)UINT_007f461c : 0;
-        out.uv = uv ? (float *)UINT_007f46a8 : 0;
-        in.li = li ? (float *)UINT_007f4618 : 0;
-        out.li = li ? (float *)UINT_007f46b0 : 0;
+        in.pos = (float *)g_dwSourceVert;
+        out.pos = (float *)g_dwDestVert;
+        in.uv = uv ? (float *)g_dwSourceTVert : 0;
+        out.uv = uv ? (float *)g_dwDestTVert : 0;
+        in.li = li ? (float *)g_dwSourceIVert : 0;
+        out.li = li ? (float *)g_dwDestIVert : 0;
         n = q2_clip_plane(f, persp, &planes[p], &in, &out, n);
         if (n < 3) {
             if (p == 4)
-                UINT_007f4ac4 |= 0x40;
+                g_dwRdClip_faceStatus |= 0x40;
             return n;
         }
     }
-    if ((float *)UINT_007f46ac != pos) {
-        q2_copy((uint *)pos, (const uint *)UINT_007f46ac, n * 3);
+    if ((float *)g_dwDestVert != pos) {
+        q2_copy((uint *)pos, (const uint *)g_dwDestVert, n * 3);
         if (uv)
-            q2_copy((uint *)uv, (const uint *)UINT_007f46a8, n * 2);
+            q2_copy((uint *)uv, (const uint *)g_dwDestTVert, n * 2);
         if (li)
-            q2_copy((uint *)li, (const uint *)UINT_007f46b0, n);
+            q2_copy((uint *)li, (const uint *)g_dwDestIVert, n);
     }
     return n;
 }
 
-/* ==== rdClip_Face3_PosUvLit (0x00449aa0) ====
+/* ==== rdClip_Face3GS (0x00449aa0) ====
  * Perspective clip of positions + one intensity per vertex.  Returns the count (Ghidra: float). */
-/* OVERRIDES: rdClip_Face3_PosUvLit */
-uint rdClip_Face3_PosUvLit(int *param_1, float *param_2, float *param_3, int param_4)
+/* OVERRIDES: rdClip_Face3GS */
+uint rdClip_Face3GS(int *param_1, float *param_2, float *param_3, int param_4)
 {
     return (uint)q2_clip(param_1, 1, param_2, 0, param_3, param_4);
 }
 
-/* ==== rdClip_Face3_PosUvLit_2 (0x0044b0a0) ====
+/* ==== rdClip_Face3T (0x0044b0a0) ====
  * Perspective clip of positions + uv.  Returns the count (Ghidra: float). */
-/* OVERRIDES: rdClip_Face3_PosUvLit_2 */
-uint rdClip_Face3_PosUvLit_2(int *param_1, float *param_2, float *param_3, int param_4)
+/* OVERRIDES: rdClip_Face3T */
+uint rdClip_Face3T(int *param_1, float *param_2, float *param_3, int param_4)
 {
     return (uint)q2_clip(param_1, 1, param_2, param_3, 0, param_4);
 }
 
-/* ==== rdClip_Face3_PosUvFlags (0x0044be80) ====
+/* ==== rdClip_Face3TOrtho (0x0044be80) ====
  * Orthographic clip of positions + uv. */
-/* OVERRIDES: rdClip_Face3_PosUvFlags */
-uint rdClip_Face3_PosUvFlags(int *param_1, float *param_2, float *param_3, int param_4)
+/* OVERRIDES: rdClip_Face3TOrtho */
+uint rdClip_Face3TOrtho(int *param_1, float *param_2, float *param_3, int param_4)
 {
     return (uint)q2_clip(param_1, 0, param_2, param_3, 0, param_4);
 }
 
-/* ==== rdClip_Face3_PosUvLitColor (0x0044c9d0) ====
+/* ==== rdClip_Face3GT (0x0044c9d0) ====
  * Perspective clip of positions + uv + intensity.  Returns the count (Ghidra: float). */
-/* OVERRIDES: rdClip_Face3_PosUvLitColor */
-uint rdClip_Face3_PosUvLitColor(int *param_1, float *param_2, float *param_3, float *param_4, int param_5)
+/* OVERRIDES: rdClip_Face3GT */
+uint rdClip_Face3GT(int *param_1, float *param_2, float *param_3, float *param_4, int param_5)
 {
     return (uint)q2_clip(param_1, 1, param_2, param_3, param_4, param_5);
 }
 
-/* ==== rdClip_Face3_PosUvLitFlags (0x0044da40) ====
+/* ==== rdClip_Face3GTOrtho (0x0044da40) ====
  * Orthographic clip of positions + uv + intensity. */
-/* OVERRIDES: rdClip_Face3_PosUvLitFlags */
-uint rdClip_Face3_PosUvLitFlags(int *param_1, float *param_2, float *param_3, float *param_4, int param_5)
+/* OVERRIDES: rdClip_Face3GTOrtho */
+uint rdClip_Face3GTOrtho(int *param_1, float *param_2, float *param_3, float *param_4, int param_5)
 {
     return (uint)q2_clip(param_1, 0, param_2, param_3, param_4, param_5);
 }

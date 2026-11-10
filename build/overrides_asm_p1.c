@@ -260,15 +260,15 @@ void FUN_00416580(int param_1)
 /* ------------------------------------------------------------------------------------------------------------------
  * rdCanvas: the scanline span builder of the software canvas.
  *
- * Edge-list records (linked by +0x50, from UINT_004f6f20 to the sentinel DAT_005e6f40): +0x00 non-zero for a leading
+ * Edge-list records (linked by +0x50, from UINT_004f6f20 to the sentinel g_aActiveEdgeTail): +0x00 non-zero for a leading
  * edge, +0x04 the polygon record, +0x10 z at the crossing (float), +0x28 x (16.16).  Polygon records: +0x000 the
  * material / mode record (+0x08 geometry mode, +0x0c light mode, +0x10 texture mode, +0x74 sort key: low half must
  * match, high half orders), +0x184 dz/dx (float), +0x18c / +0x194 du/dx, dv/dx (float), +0x19c dz/dx * 65536 (int),
  * +0x1b8 / +0x1bc span list head / tail, +0x1c0 texture shift, +0x1d0 flat colour, +0x1ec / +0x1f0 left / right edge
  * (+0x10 z, +0x18 u, +0x20 v (floats), +0x28 x, +0x30 u, +0x38 v, +0x40 light (16.16)), +0x1f4 x where the polygon
  * became the front one, +0x1f8 crossing count, +0x1fc / +0x200 previous / next in the active list.
- * Span records (0x2c bytes, DAT_004f6f30[UINT_004f6f2c], flushed by rdCanvas_FlushSpans at 0x800): +0x00 x, +0x04
- * count, +0x08 row (UINT_0050cf30), +0x0c / +0x10 u, du (or the colour, or float u / v), +0x14 / +0x18 v, dv,
+ * Span records (0x2c bytes, DAT_004f6f30[g_dwNumActiveSpans], flushed by rdCanvas_FlushSpans at 0x800): +0x00 x, +0x04
+ * count, +0x08 row (g_dwYCurScanLine), +0x0c / +0x10 u, du (or the colour, or float u / v), +0x14 / +0x18 v, dv,
  * +0x1c z (float), +0x20 / +0x24 light, dlight, +0x28 next. */
 
 /* 16.16 x rounded up to a whole pixel */
@@ -327,16 +327,16 @@ static void p1_canvas_emit(int p, uint x)
 
     if (count <= 0)
         return;
-    n = UINT_004f6f2c;
+    n = g_dwNumActiveSpans;
     if (n >= 0x800) {
         rdCanvas_FlushSpans();
-        n = UINT_004f6f2c;
+        n = g_dwNumActiveSpans;
     }
-    UINT_004f6f2c = n + 1;
+    g_dwNumActiveSpans = n + 1;
     rec = (int)&DAT_004f6f30 + n * 0x2c;
     P1_I32(rec) = P1_I32(p + 0x1f4) >> 16;
     P1_I32(rec + 4) = count;
-    P1_U32(rec + 8) = UINT_0050cf30;
+    P1_U32(rec + 8) = g_dwYCurScanLine;
     P1_I32(rec + 0x28) = 0;
     l = P1_I32(p + 0x1ec);
     r = P1_I32(p + 0x1f0);
@@ -349,7 +349,7 @@ static void p1_canvas_emit(int p, uint x)
         P1_U32(rec + 0xc) = P1_U32(p + 0x1d0);
     }
     else if (P1_I32(poly + 0x10) == 0) {
-        int inv = (&_DAT_008fbfc0)[w];
+        int inv = (&_g_aRdRaster_OneOverNFixed)[w];
         int s;
         sh = P1_I32(p + 0x1c0) & 31;
         s = P1_FMUL(P1_I32(r + 0x30) - P1_I32(l + 0x30), inv);
@@ -365,7 +365,7 @@ static void p1_canvas_emit(int p, uint x)
         P1_F(rec + 0x10) = (float)((long double)P1_F(p + 0x194) * t + P1_F(l + 0x20));
     }
     if (P1_I32(P1_I32(p) + 0xc) == 3) {
-        int s = P1_FMUL(P1_I32(r + 0x40) - P1_I32(l + 0x40), (&_DAT_008fbfc0)[w]);
+        int s = P1_FMUL(P1_I32(r + 0x40) - P1_I32(l + 0x40), (&_g_aRdRaster_OneOverNFixed)[w]);
         P1_I32(rec + 0x24) = s;
         if (s < 0 && s > -0x51e)
             P1_I32(rec + 0x24) = 0;
@@ -378,22 +378,22 @@ static void p1_canvas_emit(int p, uint x)
     P1_I32(p + 0x1bc) = rec;
 }
 
-/* OVERRIDES: rdCanvas_EmitSpans */
-/* ==== rdCanvas_EmitSpans (0x00404e00) ====
+/* OVERRIDES: rdActive_BuildSpans */
+/* ==== rdActive_BuildSpans (0x00404e00) ====
  * Walks the edge crossings of one scanline from left to right and keeps the list of polygons covering the current
  * x, front polygon first.  A leading edge whose polygon becomes covered computes the polygon's dz/dx (float +0x184
  * and, rounded through the DAT_00900526 control word, +0x19c) unless it is a perspective-textured polygon, then is
  * sorted into the list; becoming the front polygon closes the previous front polygon's span.  A trailing edge whose
  * polygon is no longer covered closes its span if it was the front one (the next one becomes the front from here),
  * or unlinks it. */
-void rdCanvas_EmitSpans(void)
+void rdActive_BuildSpans(void)
 {
     int act = 0;
     int cur;
 
-    if (UINT_005e6f38 == 0)
+    if (g_dwNumActiveEdges == 0)
         return;
-    for (cur = (int)UINT_004f6f20; cur != (int)&DAT_005e6f40; cur = P1_I32(cur + 0x50)) {
+    for (cur = (int)UINT_004f6f20; cur != (int)&g_aActiveEdgeTail; cur = P1_I32(cur + 0x50)) {
         int e = P1_I32(cur + 4);
 
         if (P1_I32(cur) != 0) {
@@ -408,7 +408,7 @@ void rdCanvas_EmitSpans(void)
                 uint xr = p1_ceil16(P1_U32(P1_I32(e + 0x1f0) + 0x28));
                 uint xl = p1_ceil16(P1_U32(P1_I32(e + 0x1ec) + 0x28));
                 long double s = ((long double)P1_F(P1_I32(e + 0x1f0) + 0x10) - P1_F(P1_I32(e + 0x1ec) + 0x10)) *
-                                ((float *)&UINT_008fe000)[(xr - xl) >> 16];   /* 1 / width table */
+                                ((float *)&g_dwRdRaster_aOneOverNFlex)[(xr - xl) >> 16];   /* 1 / width table */
                 volatile float s16;
                 P1_F(e + 0x184) = (float)s;
                 s16 = (float)(s * 65536.0L);
@@ -490,17 +490,17 @@ static void p1_prep_draw(int face, int poly, int cel, void *sel, int lit, uint l
     }
 }
 
-/* OVERRIDES: rdCanvas_PreparePolygon */
-/* ==== rdCanvas_PreparePolygon (0x00405770) ====
- * Takes the next polygon record of the canvas (UINT_00565f38 + UINT_005e6f3c * 0x204, at most 0x400; returns 0 when
+/* OVERRIDES: rdActive_AddActiveFace */
+/* ==== rdActive_AddActiveFace (0x00405770) ====
+ * Takes the next polygon record of the canvas (UINT_00565f38 + g_dwNumActiveFaces * 0x204, at most 0x400; returns 0 when
  * full or when the geometry mode is 0), clears its span list and edges, and picks the rasteriser selector by the
  * clamped modes of the face (geometry +0x08, lighting +0x0c, texture +0x10; the cel and the ambient floor as in
- * rdModel_ComputeMeshLighting).  Geometry 2 is flat (lighting 0..4); 3 is untextured; 4 is textured, with the
+ * rdCache_DrawFaceUser).  Geometry 2 is flat (lighting 0..4); 3 is untextured; 4 is textured, with the
  * selector set by the cel's colour-key flag (cel +0x1c -> bit 0) and the texture mode (0, or 1..2).  For each of these
  * the lighting mode picks: 0 the unlit selector, 1 / 2 the lit selector with the level of +0x48 (+ +0x44), stored in
- * +0x44, 3 the per-vertex levels of +0x28 and the per-vertex selector.  Counts the polygon (UINT_005e6f3c,
+ * +0x44, 3 the per-vertex levels of +0x28 and the per-vertex selector.  Counts the polygon (g_dwNumActiveFaces,
  * UINT_005e6f98) and returns 1 also when no selector applies. */
-undefined4 rdCanvas_PreparePolygon(byte *param_1)
+undefined4 rdActive_AddActiveFace(byte *param_1)
 {
     /* per group: lit (lighting 1 and 2), unlit (0), per-vertex (3) */
     static void *const sel[5][3] = {
@@ -511,7 +511,7 @@ undefined4 rdCanvas_PreparePolygon(byte *param_1)
         {(void *)rdRaster_Select_TexLit, (void *)rdRaster_Select_Flat_2, (void *)rdRaster_Select_FlatLit},
     };
     int face = (int)param_1;
-    uint idx = UINT_005e6f3c;
+    uint idx = g_dwNumActiveFaces;
     int geo, light, tex, poly, cel, c, grp, n;
     float amb;
 
@@ -599,7 +599,7 @@ undefined4 rdCanvas_PreparePolygon(byte *param_1)
             break;
         }
     }
-    UINT_005e6f3c = UINT_005e6f3c + 1;
+    g_dwNumActiveFaces = g_dwNumActiveFaces + 1;
     UINT_005e6f98 = UINT_005e6f98 + 1;
     return 1;
 }
@@ -617,8 +617,8 @@ static float p1_clamp01(long double v)
     return (float)v;
 }
 
-/* OVERRIDES: rdPrimit3_CopyFaceVerts */
-/* ==== rdPrimit3_CopyFaceVerts (0x0040e500) ====
+/* OVERRIDES: rdPrimit3_NoClipFace */
+/* ==== rdPrimit3_NoClipFace (0x0040e500) ====
  * Copies a face that needs no clipping into the output vertex pools.  src (param_4) and dst (param_5) are vertex
  * pool records: +0x00 count, +0x04 position index list, +0x08 uv index list, +0x0c positions (12 bytes each),
  * +0x10 uvs (8 bytes), +0x14 intensities, +0x18 per-vertex extra intensity (src only, may be 0).  The geometry mode
@@ -626,7 +626,7 @@ static float p1_clamp01(long double v)
  * select what is copied; param_6 is the uv offset added to every uv; param_3 is unused.  The intensity is clamped to
  * [0, 1] on the x87 (with the extra term, the sum is clamped before rounding to float).  Unknown modes copy nothing
  * and leave dst->count alone.  The loops re-read src->count every pass, as the original does. */
-void rdPrimit3_CopyFaceVerts(undefined4 param_1,int param_2,undefined4 param_3,uint *param_4,uint *param_5,
+void rdPrimit3_NoClipFace(undefined4 param_1,int param_2,undefined4 param_3,uint *param_4,uint *param_5,
                              float *param_6)
 {
     uint *src = param_4, *dst = param_5;
@@ -849,7 +849,7 @@ static inline long double p1_fsqrt(long double x)
     return x;
 }
 
-/* the light level of rdModel_ComputeMeshLighting: the intensity clamped to [0, 1] (the first test against 0 is made
+/* the light level of rdCache_DrawFaceUser: the intensity clamped to [0, 1] (the first test against 0 is made
  * on s, the x87 value, the others on its float copy sf), raised to the ambient floor amb, times 63, rounded to
  * float.  The original clamps a second time, on sf only, when the clamped value is above the floor. */
 static float p1_light_level(long double s, float sf, float amb)
@@ -871,8 +871,8 @@ static float p1_light_level(long double s, float sf, float amb)
     return (float)((long double)r * 63.0f);
 }
 
-/* OVERRIDES: rdModel_ComputeMeshLighting */
-/* ==== rdModel_ComputeMeshLighting (0x00409580) ====
+/* OVERRIDES: rdCache_DrawFaceUser */
+/* ==== rdCache_DrawFaceUser (0x00409580) ====
  * Light level of a mesh face before it is drawn.  The face's geometry / lighting / texture modes (+0x08, +0x0c,
  * +0x10) are clamped to the renderer's (g_nRdroid*Mode); geometry 0 returns 0.  The material (+0x38) gives the
  * texture cel (+0x3c, -1 = the material's current cel +0x64, clamped to its +0x60 cels); a textured face whose cel
@@ -881,7 +881,7 @@ static float p1_light_level(long double s, float sf, float amb)
  * (stored back in +0x28[i]); the level of 1 and 2 is stored in +0x44 and passed (as its raw dword) to the face's draw
  * callback +0x14 (face, cel, level); lighting 0 and 3 pass 0.  Geometry 1 and 2 only call the callback (level 0) for
  * lighting 0..4.  Unknown modes skip the callback.  Returns 1. */
-undefined4 rdModel_ComputeMeshLighting(byte *param_1)
+undefined4 rdCache_DrawFaceUser(byte *param_1)
 {
     int p = (int)param_1;
     int geo, light, tex, mat, cel, n;
@@ -964,7 +964,7 @@ undefined4 rdModel_ComputeMeshLighting(byte *param_1)
     return 1;
 }
 
-/* the light records of the current scene (g_apGeoLights[UINT_007f31f8]): +0x00 index of the light position in the
+/* the light records of the current scene (g_apGeoLights[g_dwNumGeoLights]): +0x00 index of the light position in the
  * camera (camera + 0x15c + index * 12), +0x04 type (2 = point light without a direction), +0x08 enabled,
  * +0x0c direction, +0x34 range (float) */
 #define P1_LIGHTPOS(cam, l)  ((cam) + (P1_I32(l) + 0x1d) * 12)
@@ -982,7 +982,7 @@ static void p1_light_dir(int light, float *mt, int slot)
     dir[0] = -P1_F(light + 0xc);
     dir[1] = -P1_F(light + 0x10);
     dir[2] = -P1_F(light + 0x14);
-    Matrix34_TransformPoint((float *)((int)&g_aLocalLightDir + slot * 12), dir, mt);
+    rdMatrix_TransformPoint34((float *)((int)&g_aLocalLightDir + slot * 12), dir, mt);
     ((uint *)mt)[9] = t0;
     ((uint *)mt)[10] = t1;
     ((uint *)mt)[11] = t2;
@@ -992,7 +992,7 @@ static void p1_light_dir(int light, float *mt, int slot)
 /* ==== rdModel3_DrawMeshImpl (0x0040d230) ====
  * Draws one mesh of a model with the model matrix (12 floats, translation at +9).  The mesh (g_pCurMesh) is
  * frustum tested (g_dwMeshFrustrumCull: 0 inside, 1 crossing, 2 outside, which returns), culled against the clip plane of
- * UINT_007f3204, its vertices are transformed into the camera frame (DAT_007f18a0), the geometry / texture / light
+ * g_dwClipPlaneActive, its vertices are transformed into the camera frame (g_aRdModel3_View), the geometry / texture / light
  * modes are clamped to the renderer limits, and by the light mode: 2 or 3 collect the lights that reach the mesh
  * (UINT_007f30e0 list, positions g_aLocalLightPos and directions g_aLocalLightDir in the model frame); 3 also computes the
  * vertex intensities; 6 copies the mesh intensity into every face.  Last, every face whose plane faces the eye (the
@@ -1013,18 +1013,18 @@ void __cdecl rdModel3_DrawMeshImpl(void *mesh,float *matrix)
     g_pCurMesh = mesh;
     if (P1_I32((int)mesh + 0x24) == 0)
         return;
-    Matrix34_TransformPoint(rel, matrix + 9, (float *)((int)g_pRdCamera_CurCamera + 8));
+    rdMatrix_TransformPoint34(rel, matrix + 9, (float *)((int)g_pRdCamera_CurCamera + 8));
     if (g_dwThingFrustrumCull == 0)
         n = 0;
     else if ((g_bRdroid_curCullFlags & 1) == 0)
         n = 1;
     else
-        n = ((uint (*)(int *, float *, uint))Frustum_TestSphere)(*(int **)((int)g_pRdCamera_CurCamera + 0x48), rel,
+        n = ((uint (*)(int *, float *, uint))rdClip_SphereInFrustrum)(*(int **)((int)g_pRdCamera_CurCamera + 0x48), rel,
                                                                    P1_U32((int)g_pCurMesh + 0x60));
     g_dwMeshFrustrumCull = n;
     if (n == 2)
         return;
-    if (UINT_007f3204 != 0) {
+    if (g_dwClipPlaneActive != 0) {
         long double a1 = ((long double)matrix[10] - P1_F(&DAT_007f320c)) * P1_F(&DAT_004ddb74);
         long double a2 = ((long double)matrix[11] - P1_F(&DAT_007f3210)) * P1_F(&DAT_004ddb78);
         long double a0 = ((long double)matrix[9] - P1_F(&DAT_007f3208)) * P1_F(&DAT_004ddb70);
@@ -1032,23 +1032,23 @@ void __cdecl rdModel3_DrawMeshImpl(void *mesh,float *matrix)
         if (-(long double)P1_F((int)g_pCurMesh + 0x60) > d)
             return;
     }
-    Matrix_Mul34(mc, (float *)((int)g_pRdCamera_CurCamera + 8), matrix);
-    Matrix_TransformPoints(mc, *(float **)((int)g_pCurMesh + 0x30), (float *)&DAT_007f18a0,
+    rdMatrix_Multiply34(mc, (float *)((int)g_pRdCamera_CurCamera + 8), matrix);
+    rdMatrix_TransformPointLst34(mc, *(float **)((int)g_pCurMesh + 0x30), (float *)&g_aRdModel3_View,
                            P1_I32((int)g_pCurMesh + 0x48));
-    Matrix34_InvertRigid(mt, matrix);
+    rdMatrix_InvertOrtho34(mt, matrix);
     {
         int m = (int)g_pCurMesh;
         int v;
 
         v = P1_I32(m + 0x24);
-        g_dwGeometryMode = v < (int)UINT_007f1494 ? v : (int)UINT_007f1494;
+        g_dwGeometryMode = v < (int)g_dwCurTextureMode ? v : (int)g_dwCurTextureMode;
         v = P1_I32(m + 0x2c);
         g_dwTextureMode = v < (int)UINT_007f189c ? v : (int)UINT_007f189c;
         mode = P1_I32(m + 0x28);
         if (mode != 6 && mode >= (int)UINT_007f30dc)
             mode = (int)UINT_007f30dc;
         g_dwLightingMode = mode;
-        _DAT_007f30b4 = (int)&DAT_007f18a0;
+        _DAT_007f30b4 = (int)&g_aRdModel3_View;
         _DAT_007f30b8 = P1_I32(m + 0x34);
         _DAT_007f30bc = P1_I32(m + 0x3c);
         _DAT_007f30c0 = 0;
@@ -1056,7 +1056,7 @@ void __cdecl rdModel3_DrawMeshImpl(void *mesh,float *matrix)
     }
     if (mode == 2 || mode == 3) {
         g_dwNumMeshLights = 0;
-        for (i = 0; i < UINT_007f31f8; i++) {
+        for (i = 0; i < g_dwNumGeoLights; i++) {
             int light = (&g_apGeoLights)[i];
             int cam = (int)g_pRdCamera_CurCamera;
             int pos, reach;
@@ -1084,7 +1084,7 @@ void __cdecl rdModel3_DrawMeshImpl(void *mesh,float *matrix)
             if (!reach)
                 continue;
             (&UINT_007f30e0)[g_dwNumMeshLights] = light;
-            Matrix34_TransformPoint((float *)((int)&g_aLocalLightPos + g_dwNumMeshLights * 12), (float *)P1_LIGHTPOS(cam, light), mt);
+            rdMatrix_TransformPoint34((float *)((int)&g_aLocalLightPos + g_dwNumMeshLights * 12), (float *)P1_LIGHTPOS(cam, light), mt);
             if (P1_I32(light + 4) != 2)
                 p1_light_dir(light, mt, g_dwNumMeshLights);
             g_dwNumMeshLights = g_dwNumMeshLights + 1;
@@ -1107,7 +1107,7 @@ void __cdecl rdModel3_DrawMeshImpl(void *mesh,float *matrix)
     eye[0] = UINT_008ddf84;
     eye[1] = UINT_008ddf88;
     eye[2] = UINT_008ddf8c;
-    Matrix34_TransformPoint((float *)&DAT_007f0fd8, (float *)eye, mt);
+    rdMatrix_TransformPoint34((float *)&DAT_007f0fd8, (float *)eye, mt);
     {
         int face = P1_I32((int)mesh + 0x40);
 

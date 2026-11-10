@@ -53,8 +53,11 @@ int __cdecl grimPlat_QueryDialog(char *text,char *caption,uint flags)
   return iVar1;
 }
 
-/* ---- 0x00487690  Plat_SetDialogDirectory ---- */
-void Plat_SetDialogDirectory(undefined4 param_1)
+/* ---- 0x00487690  grimPlat_SetDefaultOpenPath ---- */
+/* Original name grimPlat_SetDefaultOpenPath (the remaster's GrimFandango (Linux): aligned call in
+   BitmapRequester, ColormapRequester, MaterialRequester); was Plat_SetDialogDirectory. */
+
+void grimPlat_SetDefaultOpenPath(undefined4 param_1)
 
 {
   strncpy(g_szDialogOpenDir,param_1,0x103);
@@ -62,15 +65,21 @@ void Plat_SetDialogDirectory(undefined4 param_1)
   return;
 }
 
-/* ---- 0x004876b0  Plat_GetDialogFileName ---- */
-char * Plat_GetDialogFileName(void)
+/* ---- 0x004876b0  grimPlat_GetDefaultOpenPath ---- */
+/* Original name grimPlat_GetDefaultOpenPath (the remaster's GrimFandango (Linux): aligned call in
+   BitmapRequester, ColormapRequester, MaterialRequester); was Plat_GetDialogFileName. */
+
+char * grimPlat_GetDefaultOpenPath(void)
 
 {
   return g_szDialogOpenDir;
 }
 
-/* ---- 0x004876c0  Plat_OpenFileDialog ---- */
-int __cdecl Plat_OpenFileDialog(char *title,char *filter)
+/* ---- 0x004876c0  grimPlat_OpenFileRequest ---- */
+/* Original name grimPlat_OpenFileRequest (the remaster's GrimFandango (Linux): aligned call in
+   BitmapRequester, ColormapRequester, MaterialRequester); was Plat_OpenFileDialog. */
+
+int __cdecl grimPlat_OpenFileRequest(char *title,char *filter)
 
 {
   unsigned char _frame[0x160] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -192,11 +201,13 @@ int __cdecl Plat_SaveFileDialog(char *title,char *filter)
 #undef local_150
 
 
-/* ---- 0x004878c0  Plat_PromptDialog ---- */
+/* ---- 0x004878c0  grimPlat_SpinDialog ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
-/* Editor prompt dialog with labelled numeric fields */
+/* Editor prompt dialog with labelled numeric fields Original name grimPlat_SpinDialog (the
+   remaster's GrimFandango (Linux): aligned call in KeyframeAdjuster, SoundAdjuster, ThingAdjuster);
+   was Plat_PromptDialog. */
 
-int Plat_PromptDialog(int param_1,int param_2,undefined4 *param_3,uint param_4)
+int grimPlat_SpinDialog(int param_1,int param_2,undefined4 *param_3,uint param_4)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -323,10 +334,12 @@ int Plat_PromptDialog(int param_1,int param_2,undefined4 *param_3,uint param_4)
 #undef local_2c
 
 
-/* ---- 0x00487c10  Plat_TreeSelectDialog ---- */
-/* Editor 'Tree Select' dialog; returns the chosen index or -1 */
+/* ---- 0x00487c10  grimPlat_TreeDialog ---- */
+/* Editor 'Tree Select' dialog; returns the chosen index or -1 Original name grimPlat_TreeDialog
+   (the remaster's GrimFandango (Linux): aligned call in MeshRequester); was Plat_TreeSelectDialog.
+    */
 
-int __cdecl Plat_TreeSelectDialog(char *title,char **items,int count,int *recursive)
+int __cdecl grimPlat_TreeDialog(char *title,char **items,int count,int *recursive)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */

@@ -1,6 +1,6 @@
-/* Differential test: rdModel_DrawMesh (0x0040d230).  Random camera, model matrix, mesh, faces and lights; every
- * callee (Vec3_Sub, Matrix_Mul34, Matrix_TransformPoints, Matrix_Transpose, Frustum_TestSphere,
- * rdLight_CalcVertexIntensities, rdModel_AddMeshToCache) is a recorder.  Arguments that point to the caller's stack
+/* Differential test: rdModel3_DrawMeshImpl (0x0040d230).  Random camera, model matrix, mesh, faces and lights; every
+ * callee (Vec3_Sub, rdMatrix_Multiply34, rdMatrix_TransformPointLst34, Matrix_Transpose, rdClip_SphereInFrustrum,
+ * rdLight_CalcVertexIntensities, rdModel3_DrawFace) is a recorder.  Arguments that point to the caller's stack
  * are logged by content (their addresses differ between the two sides).  The recorders' results depend only on
  * their inputs. */
 #include "harness.h"
@@ -141,8 +141,8 @@ static void setup(int *args)
     G(0x900064) = rnd();
     args[0] = MESH; args[1] = MAT;
 }
-extern void rdModel_DrawMesh(void);
-static const Fn fns[] = {{"rdModel_DrawMesh", 0x40d230, (void *)rdModel_DrawMesh, setup, 0}};
+extern void rdModel3_DrawMeshImpl(void);
+static const Fn fns[] = {{"rdModel3_DrawMeshImpl", 0x40d230, (void *)rdModel3_DrawMeshImpl, setup, 0}};
 int main(int argc, char **argv)
 {
     rt_init();

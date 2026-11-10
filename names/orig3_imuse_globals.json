@@ -1,0 +1,371 @@
+[
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "100172c0",
+  "old": "DAT_100172c0",
+  "global": "g_dwWvSlicingHalted",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name wvSlicingHalted (the remaster's GrimFandango (Linux): 7/8 aligned uses (of 7 for the symbol) in ImInitialize, ImHeartbeat, ImWaveHalt); was DAT_100172c0."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "1001e8a4",
+  "old": "DAT_1001e8a4",
+  "global": "g_dwTAIL_BYTES",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name TAIL_BYTES (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in ihost_fseek); was DAT_1001e8a4."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "10024dcc",
+  "old": "DAT_10024dcc",
+  "global": "g_dwLargeFadeBufs",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name largeFadeBufs (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in DpInitialize); was DAT_10024dcc."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "10024dd0",
+  "old": "DAT_10024dd0",
+  "global": "g_dwLargeFadeFlags",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name largeFadeFlags (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in DpSwitchStream); was DAT_10024dd0."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "10024dd4",
+  "old": "DAT_10024dd4",
+  "global": "g_dwSmallFadeBufs",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name smallFadeBufs (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 2 for the symbol) in DpInitialize); was DAT_10024dd4."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "10024dd8",
+  "old": "DAT_10024dd8",
+  "global": "g_dwPredictStream_jumpHook",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name PredictStream.jumpHook (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in PredictStream); was DAT_10024dd8."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "10024ddc",
+  "old": "DAT_10024ddc",
+  "global": "g_dwDpProcessTrack_critSize",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name DpProcessTrack.critSize (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in DpProcessTrack); was DAT_10024ddc."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "10024de0",
+  "old": "DAT_10024de0",
+  "global": "g_dwFadeStartedFlag",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name fadeStartedFlag (the remaster's GrimFandango (Linux): 3/3 aligned uses (of 3 for the symbol) in DpProcessTrack, GoToNextRegion); was DAT_10024de0."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "10024de8",
+  "old": "DAT_10024de8",
+  "global": "g_dwStreamZones",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name streamZones (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in DpInitialize); was DAT_10024de8."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "10025298",
+  "old": "PTR_10025298",
+  "global": "g_pSmallFadeFlags",
+  "oldtype": "int *",
+  "names_only": true,
+  "comment": "Original name smallFadeFlags (the remaster's GrimFandango (Linux): 2/2 aligned uses (of 2 for the symbol) in DpInitialize); was PTR_10025298."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "100252a0",
+  "old": "DAT_100252a0",
+  "global": "g_dwDispatches",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name dispatches (the remaster's GrimFandango (Linux): 2/4 aligned uses (of 3 for the symbol) in DpGetDp, DpSwitchStream); was DAT_100252a0."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "1002d7e0",
+  "old": "DAT_1002d7e0",
+  "global": "g_dwDpProcessTrack_curLevel",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name DpProcessTrack.curLevel (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in DpProcessTrack); was DAT_1002d7e0."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "1002d7e4",
+  "old": "DAT_1002d7e4",
+  "global": "g_dwDpProcessTrack_pauseFlag",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name DpProcessTrack.pauseFlag (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in DpProcessTrack); was DAT_1002d7e4."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "1002d7e8",
+  "old": "DAT_1002d7e8",
+  "global": "g_dwGoToNextRegion_fadeSize",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name GoToNextRegion.fadeSize (the remaster's GrimFandango (Linux): 4/5 aligned uses (of 4 for the symbol) in GoToNextRegion); was DAT_1002d7e8."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "1002d808",
+  "old": "DAT_1002d808",
+  "global": "g_dwMemAddr",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name memAddr (the remaster's GrimFandango (Linux): 6/6 aligned uses (of 7 for the symbol) in DpInitialize, DpTerminate); was DAT_1002d808."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "1002d80c",
+  "old": "DAT_1002d80c",
+  "global": "g_dwPrepareToJump_fadeSize",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name PrepareToJump.fadeSize (the remaster's GrimFandango (Linux): 8/8 aligned uses (of 8 for the symbol) in PrepareToJump); was DAT_1002d80c."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "1002d810",
+  "old": "DAT_1002d810",
+  "global": "g_dwDpProcessTrack_bufSize",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name DpProcessTrack.bufSize (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in DpProcessTrack); was DAT_1002d810."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "1002d84c",
+  "old": "DAT_1002d84c",
+  "global": "g_dwCurrentWriteIndex",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name currentWriteIndex (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in DwQuery); was DAT_1002d84c."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "1002d858",
+  "old": "DAT_1002d858",
+  "global": "g_dwFadesOn",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name fadesOn (the remaster's GrimFandango (Linux): 4/4 aligned uses (of 4 for the symbol) in FdInitialize, FdRestore, FdIntHandler); was DAT_1002d858."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "1002d860",
+  "old": "DAT_1002d860",
+  "global": "g_dwFades",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name fades (the remaster's GrimFandango (Linux): 3/3 aligned uses (of 3 for the symbol) in FdInitialize, FdSave, FdRestore); was DAT_1002d860."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "1002dd80",
+  "old": "DAT_1002dd80",
+  "global": "g_dwGroupVols",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name groupVols (the remaster's GrimFandango (Linux): 5/6 aligned uses (of 6 for the symbol) in GrSetGroupVol); was DAT_1002dd80."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "1002ddc0",
+  "old": "DAT_1002ddc0",
+  "global": "g_dwGroupEffVols",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name groupEffVols (the remaster's GrimFandango (Linux): 2/3 aligned uses (of 3 for the symbol) in GrSetGroupVol); was DAT_1002ddc0."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "1002df30",
+  "old": "DAT_1002df30",
+  "global": "g_aMxEndMix_wavHeader",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name MxEndMix.wavHeader (the remaster's GrimFandango (Linux): 2/2 aligned uses (of 2 for the symbol) in MxEndMix); was DAT_1002df30."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "1002eb10",
+  "old": "DAT_1002eb10",
+  "global": "g_aStreamID",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name streamID (the remaster's GrimFandango (Linux): 4/7 aligned uses (of 4 for the symbol) in SoundsRegisterVoice, SoundsCloseVoiceFile, ihost_fseek); was DAT_1002eb10."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "100303a0",
+  "old": "DAT_100303a0",
+  "global": "g_aMcmpFileHandles",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name aMcmpFileHandles (the remaster's GrimFandango (Linux): 4/5 aligned uses (of 22 for the symbol) in iRes_FOPEN, iRes_FREAD); was DAT_100303a0."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "10031d2c",
+  "old": "DAT_10031d2c",
+  "global": "g_iMuseMasterVolHold",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name iMuseMasterVolHold (the remaster's GrimFandango (Linux): 2/2 aligned uses (of 2 for the symbol) in sounds_pause, sounds_resume); was DAT_10031d2c."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "10031e70",
+  "old": "DAT_10031e70",
+  "global": "g_dwLipStreamID",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name lipStreamID (the remaster's GrimFandango (Linux): 2/2 aligned uses (of 2 for the symbol) in LoadLip); was DAT_10031e70."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "10031e88",
+  "old": "DAT_10031e88",
+  "global": "g_dwNextToAllocate",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name nextToAllocate (the remaster's GrimFandango (Linux): 2/2 aligned uses (of 2 for the symbol) in iRes_FOPEN); was DAT_10031e88."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "10031e8c",
+  "old": "DAT_10031e8c",
+  "global": "g_dwIRes_csInit",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name csInit (the remaster's GrimFandango (Linux): 2/2 aligned uses (of 3 for the symbol) in iRes_FOPEN); was DAT_10031e8c."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "10031e90",
+  "old": "DAT_10031e90",
+  "global": "g_dwLastStreamLoaded",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name lastStreamLoaded (the remaster's GrimFandango (Linux): 7/7 aligned uses (of 7 for the symbol) in StInitialize, StSpliceStream, StStopStream); was DAT_10031e90."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "10031e94",
+  "old": "DAT_10031e94",
+  "global": "g_dwBailFlag",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name bailFlag (the remaster's GrimFandango (Linux): 5/5 aligned uses (of 5 for the symbol) in StSpliceStream, StEraseFromMid, StEraseFromFront); was DAT_10031e94."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "10031e98",
+  "old": "DAT_10031e98",
+  "global": "g_dwStreams",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name streams (the remaster's GrimFandango (Linux): 4/4 aligned uses (of 4 for the symbol) in StInitialize, StStartStream, StProcessStreams); was DAT_10031e98."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "100322e8",
+  "old": "DAT_100322e8",
+  "global": "g_dwTrIntHandler_outSampleRate",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name TrIntHandler.outSampleRate (the remaster's GrimFandango (Linux): 2/2 aligned uses (of 2 for the symbol) in TrIntHandler); was DAT_100322e8."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "100322f0",
+  "old": "DAT_100322f0",
+  "global": "g_aTrInitialize_waveDriverInfo",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name TrInitialize.waveDriverInfo (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in TrInitialize); was DAT_100322f0."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "10032300",
+  "old": "DAT_10032300",
+  "global": "g_dwTrackList",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name trackList (the remaster's GrimFandango (Linux): 15/15 aligned uses (of 15 for the symbol) in TrInitialize, TrRestore, TrIntHandler); was DAT_10032300."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "10032304",
+  "old": "DAT_10032304",
+  "global": "g_dwTrIntHandler_outFramesNeeded",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name TrIntHandler.outFramesNeeded (the remaster's GrimFandango (Linux): 5/5 aligned uses (of 5 for the symbol) in TrIntHandler); was DAT_10032304."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "10032314",
+  "old": "DAT_10032314",
+  "global": "g_dwTrIntHandler_outPtr",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name TrIntHandler.outPtr (the remaster's GrimFandango (Linux): 3/3 aligned uses (of 3 for the symbol) in TrIntHandler); was DAT_10032314."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "10032320",
+  "old": "DAT_10032320",
+  "global": "g_dwTrigs",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name trigs (the remaster's GrimFandango (Linux): 2/2 aligned uses (of 2 for the symbol) in TgInitialize, TgRestore); was DAT_10032320."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "10032f44",
+  "old": "DAT_10032f44",
+  "global": "g_dwMidProcessing",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name midProcessing (the remaster's GrimFandango (Linux): 2/2 aligned uses (of 2 for the symbol) in TgInitialize, TgClearTrigger); was DAT_10032f44."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "1003350c",
+  "old": "DAT_1003350c",
+  "global": "g_dwTrackCount",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name trackCount (the remaster's GrimFandango (Linux): 9/9 aligned uses (of 9 for the symbol) in TrInitialize, TrRestore, DpConcludeRestore); was DAT_1003350c."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "100336a0",
+  "old": "DAT_100336a0",
+  "global": "g_dwImuseInitData",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name imuseInitData (the remaster's GrimFandango (Linux): 2/2 aligned uses (of 2 for the symbol) in ImInitializeScript, sounds_startup); was DAT_100336a0."
+ }
+]

@@ -124,13 +124,15 @@ void * __cdecl LabDir_Open(char *dir)
 #undef local_8
 
 
-/* ---- 0x00481cf0  LabDir_FindEntry ---- */
+/* ---- 0x00481cf0  res_FindDirectoryEntry ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-/* Directory-backed archive lookup; fills the entry with the full path and the file size */
+/* Directory-backed archive lookup; fills the entry with the full path and the file size Original
+   name res_FindDirectoryEntry (the remaster's GrimFandango (Linux): aligned call in
+   Res_FindExternalFile, res_FindInternalFile); was LabDir_FindEntry. */
 
 undefined4
-LabDir_FindEntry(int param_1,undefined4 param_2,byte *param_3,int param_4,undefined4 *param_5)
+res_FindDirectoryEntry(int param_1,undefined4 param_2,byte *param_3,int param_4,undefined4 *param_5)
 
 {
   int *piVar1;
@@ -170,9 +172,9 @@ LAB_00481d3e:
       iVar4 = 0;
 LAB_00481d43:
       if (iVar4 == 0) {
-        *(int **)(&DAT_00825f00 + UINT_008a85e0 * 4) = piVar9;
-        *(int *)(&DAT_008a8578 + UINT_008a85e0 * 4) = param_1;
-        UINT_008a85e0 = UINT_008a85e0 + 1 & 0xf;
+        *(int **)(&g_aFoundFiles + g_dwLastFound * 4) = piVar9;
+        *(int *)(&g_aFoundFileNodes + g_dwLastFound * 4) = param_1;
+        g_dwLastFound = g_dwLastFound + 1 & 0xf;
         break;
       }
     }

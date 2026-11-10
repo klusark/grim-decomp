@@ -47,7 +47,7 @@ void * __cdecl rdPrimit3_DrawPolygon(float *verts,int count,void *material)
     iVar4 = count;
     out = &local_300;
     do {
-      Matrix34_TransformPoint
+      rdMatrix_TransformPoint34
                 (out,(float *)(((int)verts - (int)&local_300) + (int)out),
                  (float *)((int)g_pRdCamera_CurCamera + 8));
       local_330[0] = local_330[0] + *out;
@@ -58,13 +58,12 @@ void * __cdecl rdPrimit3_DrawPolygon(float *verts,int count,void *material)
     } while (iVar4 != 0);
   }
   fVar1 = (float)count;
-  vertexCount = rdClip_Face3_Pos_2(*(undefined4 *)((int)g_pRdCamera_CurCamera + 0x48),&local_300,
-                                   count);
+  vertexCount = rdClip_Face3S(*(undefined4 *)((int)g_pRdCamera_CurCamera + 0x48),&local_300,count);
   if ((int)vertexCount < 3) {
     return (void *)0x0;
   }
   (**(code **)((int)g_pRdCamera_CurCamera + 0x50))(local_180,&local_300,vertexCount);
-  puVar2 = (undefined4 *)rdCache_AllocMesh();
+  puVar2 = (undefined4 *)rdCache_GetProcEntry();
   *puVar2 = 0;
   puVar2[0x11] = 0;
   puVar2[0x12] = 0;
@@ -97,7 +96,7 @@ void * __cdecl rdPrimit3_DrawPolygon(float *verts,int count,void *material)
   puVar2[0x14] = (uint)(0.0 < fStack_310 * (local_330[2] / fVar1) +
                               fStack_314 * (local_330[1] / fVar1) +
                               fStack_318 * (local_330[0] / fVar1));
-  rdCache_AddMesh((void *)0x0,vertexCount,1);
+  rdCache_AddProcFace((void *)0x0,vertexCount,1);
   return puVar2;
 }
 #undef fStack_2e0
@@ -149,8 +148,8 @@ rdPrimit3_DrawLine(float *a,float *b,int *outA,int *outB,int *clipA,int *clipB,u
   #define local_18 (*(float (*)[3])(_frame + (0x40 - 0x18)))
   #define local_c (*(float (*)[3])(_frame + (0x40 - 0xc)))
   
-  Matrix34_TransformPoint(local_18,a,(float *)((int)g_pRdCamera_CurCamera + 8));
-  Matrix34_TransformPoint(local_c,b,(float *)((int)g_pRdCamera_CurCamera + 8));
+  rdMatrix_TransformPoint34(local_18,a,(float *)((int)g_pRdCamera_CurCamera + 8));
+  rdMatrix_TransformPoint34(local_c,b,(float *)((int)g_pRdCamera_CurCamera + 8));
   iVar1 = rdClip_Line3(*(void **)((int)g_pRdCamera_CurCamera + 0x48),local_18,local_c,clipA,clipB);
   if (iVar1 != 0) {
     (**(code **)((int)g_pRdCamera_CurCamera + 0x4c))(local_30,local_18);
@@ -202,7 +201,7 @@ void __cdecl rdPrimit3_DrawPoint(float *world,float radius,uint a3,uint a4,uint 
   #define local_18 (*(float (*)[3])(_frame + (0x40 - 0x18)))
   #define afStack_c (*(float (*)[3])(_frame + (0x40 - 0xc)))
   
-  Matrix34_TransformPoint(&local_30,world,(float *)((int)g_pRdCamera_CurCamera + 8));
+  rdMatrix_TransformPoint34(&local_30,world,(float *)((int)g_pRdCamera_CurCamera + 8));
   local_24[0] = local_30 + radius;
   local_24[1] = local_2c[0];
   local_24[2] = local_2c[1];
@@ -282,11 +281,11 @@ void rdPrimit3_ClipFace(undefined4 param_1,undefined4 param_2,int param_3,undefi
       } while (uVar8 < *param_5);
     }
     if (*(int *)g_pRdCamera_CurCamera != 1) {
-      uVar7 = rdClip_Face3_PosB(param_1,param_6[3],*param_5);
+      uVar7 = rdClip_Face3WOrtho(param_1,param_6[3],*param_5);
       *param_6 = uVar7;
       return;
     }
-    uVar7 = ((code *)rdClip_Face3_Pos)();
+    uVar7 = ((code *)rdClip_Face3W)();
     *param_6 = uVar7;
     return;
   case 3:
@@ -375,11 +374,11 @@ void rdPrimit3_ClipFace(undefined4 param_1,undefined4 param_2,int param_3,undefi
         }
       }
       if (*(int *)g_pRdCamera_CurCamera != 1) {
-        uVar7 = rdClip_Face3_PosUv(param_1,param_6[3],param_6[5],*param_5);
+        uVar7 = rdClip_Face3GSOrtho(param_1,param_6[3],param_6[5],*param_5);
         *param_6 = uVar7;
         return;
       }
-      uVar7 = PUN(undefined4,(float)(rdClip_Face3_PosUvLit(param_1,param_6[3],param_6[5],*param_5)));
+      uVar7 = PUN(undefined4,(float)(rdClip_Face3GS(param_1,param_6[3],param_6[5],*param_5)));
       *param_6 = uVar7;
       return;
     default:
@@ -413,11 +412,11 @@ void rdPrimit3_ClipFace(undefined4 param_1,undefined4 param_2,int param_3,undefi
           } while (uVar8 < *puVar6);
         }
         if (*(int *)g_pRdCamera_CurCamera == 1) {
-          uVar7 = PUN(undefined4,(float)(rdClip_Face3_PosUvLit_2(param_1,param_6[3],param_6[4],*puVar6)));
+          uVar7 = PUN(undefined4,(float)(rdClip_Face3T(param_1,param_6[3],param_6[4],*puVar6)));
           *param_6 = uVar7;
           return;
         }
-        uVar7 = rdClip_Face3_PosUvFlags(param_1,param_6[3],param_6[4],*puVar6);
+        uVar7 = rdClip_Face3TOrtho(param_1,param_6[3],param_6[4],*puVar6);
         *param_6 = uVar7;
       }
       else if (param_3 == 3) {
@@ -491,11 +490,11 @@ void rdPrimit3_ClipFace(undefined4 param_1,undefined4 param_2,int param_3,undefi
           }
         }
         if (*(int *)g_pRdCamera_CurCamera != 1) {
-          uVar7 = rdClip_Face3_PosUvLitFlags(param_1,puVar9[3],puVar9[4],puVar9[5],*puVar6);
+          uVar7 = rdClip_Face3GTOrtho(param_1,puVar9[3],puVar9[4],puVar9[5],*puVar6);
           *puVar9 = uVar7;
           return;
         }
-        uVar7 = PUN(undefined4,(float)(rdClip_Face3_PosUvLitColor(param_1,puVar9[3],puVar9[4],puVar9[5],*puVar6)));
+        uVar7 = PUN(undefined4,(float)(rdClip_Face3GT(param_1,puVar9[3],puVar9[4],puVar9[5],*puVar6)));
         *puVar9 = uVar7;
         return;
       }
@@ -505,24 +504,25 @@ switchD_0040dec1_default:
     return;
   }
   if (*(int *)g_pRdCamera_CurCamera != 1) {
-    uVar7 = rdClip_Face3_PosB_2(param_1,param_6[3],*param_5);
+    uVar7 = rdClip_Face3SOrtho(param_1,param_6[3],*param_5);
     *param_6 = uVar7;
     return;
   }
-  uVar7 = ((code *)rdClip_Face3_Pos_2)();
+  uVar7 = ((code *)rdClip_Face3S)();
   *param_6 = uVar7;
   return;
 }
 #endif
 
 
-/* ---- 0x0040e500  rdPrimit3_CopyFaceVerts ---- */
+/* ---- 0x0040e500  rdPrimit3_NoClipFace ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Copies the face's vertex attributes (position, uv, intensity) into the cache pools without
-   clipping */
+   clipping Original name rdPrimit3_NoClipFace (the remaster's GrimFandango (Linux): aligned call in
+   rdModel3_DrawFace); was rdPrimit3_CopyFaceVerts. */
 
-void rdPrimit3_CopyFaceVerts
+void rdPrimit3_NoClipFace
                (undefined4 param_1,int param_2,undefined4 param_3,uint *param_4,uint *param_5,
                float *param_6)
 

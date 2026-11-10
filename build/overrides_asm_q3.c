@@ -1,5 +1,5 @@
 /* Readable C for assembled GRIMFANDANGO.EXE functions, agent asm_q3 (see docs/notes/asm_q3.md): rdPuppet_AdvanceTrack,
- * rdPuppet_UpdateFrame, rdModel3_LoadEntryText, rdCache_DrawMeshList3D.
+ * rdPuppet_UpdateFrame, rdModel3_LoadEntryText, rdCache_SendFaceListToHardware.
  *
  * Every function here was written by hand from the original 1.01 machine code (src/GRIMFANDANGO.EXE/asm_funcs.s as of
  * 2df265d) and checked against it with a differential test in build/difftest/asm_q3/ (original bytes and this C on the
@@ -148,7 +148,7 @@ void __cdecl rdPuppet_AdvanceTrack(void *puppet, int track, float dt)
     }
 
     if (stop) {
-        rdPuppet_StopTrack(puppet, track);
+        rdPuppet_RemoveTrack(puppet, track);
         return;
     }
     Q3U(rec, 0x124) = Q3U(rec, 0x120);
@@ -169,7 +169,7 @@ void __cdecl rdPuppet_AdvanceTrack(void *puppet, int track, float dt)
  *     moves the best one to the second; a track below the best is only taken while the best weight is < 1 (or NaN).
  *     Then: best weight < 1 (or NaN) and second weight > 0: second scaled by 1/weight when its weight > 1, and best +=
  *     second * (1 - best weight) (product and 1-w extended); otherwise the best is scaled by 1/weight when > 1.
- *     Rotations through Math_NormalizeAngle180, rest position / rotation added back, Angles_ToMatrix, then
+ *     Rotations through Math_NormalizeAngle180, rest position / rotation added back, rdMatrix_Build34, then
  *     Matrix_BuildTransform with the joint's scale (thing+0x24, 12 bytes per node) when one component is ordered
  *     non-zero.
  * Then rdThing_BuildNodeMatrix(thing, joints, frame) and thing+0x1c = UINT_004f5eb4.
@@ -379,7 +379,7 @@ void __cdecl rdPuppet_UpdateFrame(void *model, float *frame)
             R0[1] = q3_f((long double)Q3F(j, 0x3c) + (long double)R0[1]);
             R0[2] = q3_f((long double)Q3F(j, 0x40) + (long double)nz);
             mat = Q3P(thing, 0x20) + off48;
-            Angles_ToMatrix((float *)mat, (undefined4 *)R0, P0);
+            rdMatrix_Build34((float *)mat, (undefined4 *)R0, P0);
             v = (float *)(Q3P(thing, 0x24) + off12);
             if (Q3_NE_ORD(v[0], 0.0f) || Q3_NE_ORD(v[1], 0.0f) || Q3_NE_ORD(v[2], 0.0f))
                 Matrix_BuildTransform((float *)(Q3P(thing, 0x20) + off48), (undefined4)v);
@@ -438,7 +438,7 @@ undefined4 rdModel3_LoadEntryText(char *path, char *m)
     char *gp, *mesh, *fp;
 
     rdModel3_NewEntry((undefined4 *)m);
-    strncpy((uint *)m, (uint *)Str_FileNameFromPath(path), 0x1f);
+    strncpy((uint *)m, (uint *)stdFileFromPath(path), 0x1f);
     m[0x1f] = 0;
     if (((int (*)(char *))stdConffile_Open)(path) == 0)
         return 0;
@@ -677,12 +677,12 @@ fail:
 }
 
 
-/* ==== rdCache_DrawMeshList3D (0x00406aa0) ====
+/* ==== rdCache_SendFaceListToHardware (0x00406aa0) ====
  * The Direct3D path of the mesh cache: for each cached mesh (G 0x008ddfa0 of them, 0x78-byte entries at 0x008ddfc0)
  * picks the geometry mode (entry+8, at most G 0x00900008) and lighting mode (entry+0xc, at most G 0x00900000), the
  * material cel (entry+0x3c, -1: the material's current cel +0x64, clamped to 0..count-1) and, for a texture with flag
  * 0x8, the mip level from the distance entry+0x64 (texture types 1-4; the thresholds 10 / 20 / 40 are the floats at 0x004dda90..98), uploads it
- * (rdMaterial_EnsureTexture; on failure flush, reset and retry once, then return 0), then
+ * (rdMaterial_AddToTextureCache; on failure flush, reset and retry once, then return 0), then
  *   - computes the light levels (lighting 3: per vertex, entry+0x28 or the three arrays +0x2c/+0x30/+0x34 when
  *     G 0x0090004c is 1 (geometry 3: all four); lighting 1 / 2: one level entry+0x44, lighting 2 adding it to the
  *     ambient entry+0x48), clamped to 0..1 with the floor entry+0x40 (when G 0x00900064 & 2), times 255 (textured)
@@ -694,7 +694,7 @@ fail:
  *   - writes a fan of triangles (0x14 bytes: three vertex indexes, the render flags, the texture) to the textured
  *     list 0x006cbfb0 (count G 0x0060bfa0) or the untextured list 0x00606fa0 (count G 0x006f0fb0); a mesh of 3 or
  *     fewer vertices writes one triangle.
- * Then rdCache_Flush3DBatch and returns 1.
+ * Then rdCache_DrawRenderList and returns 1.
  * x87 and integer details kept: the light clamp compares the extended sum with 0 but the float of it with 1 and in
  * the second pass (q3_light); the products with the palette factors / tints / scale are extended and truncated by
  * _ftol (q3_ftol); the tint factors are r - (g/2 + b/2) style with the r/2 of the third one stored as a float.
@@ -811,8 +811,8 @@ static void q3_mesh_fan(uint countva, uint listva, uint n, int base, uint flags,
     }
 }
 
-/* OVERRIDES: rdCache_DrawMeshList3D */
-undefined4 rdCache_DrawMeshList3D(void)
+/* OVERRIDES: rdCache_SendFaceListToHardware */
+undefined4 rdCache_SendFaceListToHardware(void)
 {
     uint baseflags = 0x33, flags;
     int tint = 0, mask = 0, force = 0, mip = 0;
@@ -842,7 +842,7 @@ undefined4 rdCache_DrawMeshList3D(void)
         mask = 1;
     if (tint || mask || Q3GI(0x0090004c) == 1)
         baseflags |= 0x8000;
-    rdCache_Begin3DBatch();
+    std3D_ResetRenderList();
 
     e = (char *)IMG_ADDR(0x008ddfc0);
     for (m = 0; m < Q3G(0x008ddfa0); m++, e += 0x78) {
@@ -857,8 +857,8 @@ undefined4 rdCache_DrawMeshList3D(void)
         else
             fl = 0.0f;
         if (Q3G(0x0068bfa8) + Q3U(e, 0x1c) >= Q3G(0x00806940)) {
-            rdCache_Flush3DBatch();
-            rdCache_Begin3DBatch();
+            rdCache_DrawRenderList();
+            std3D_ResetRenderList();
         }
         base = Q3GI(0x0068bfa8);
         geo = Q3I(e, 8);
@@ -914,18 +914,18 @@ undefined4 rdCache_DrawMeshList3D(void)
             tex3c = (uint)(info + mip * 0x98);
             if (Q3I(info, mip * 0x98 + 0xa4) == 0)
                 std3D_SetCurrentPalette(Q3P(e, 0x4c) + 0x30, 0x5a);
-            if (rdMaterial_EnsureTexture(mat, (uint *)info, mip, force) == 0) {
-                rdCache_Flush3DBatch();
-                rdCache_Begin3DBatch();
-                D3D_ResetTextures();
-                if (rdMaterial_EnsureTexture(mat, (uint *)info, mip, force) == 0)
+            if (rdMaterial_AddToTextureCache(mat, (uint *)info, mip, force) == 0) {
+                rdCache_DrawRenderList();
+                std3D_ResetRenderList();
+                std3D_PurgeTextureCache();
+                if (rdMaterial_AddToTextureCache(mat, (uint *)info, mip, force) == 0)
                     return 0;
             }
             tex3c += force == 0 ? 0x2c : 0x28c;
             {
                 uint w, h;
                 mi = Q3P(info, 0x1c + mip * 4);
-                D3D_ClampTextureSize(Q3U(mi, 0xc), Q3U(mi, 0x10), &w, &h);
+                std3D_GetValidDimensions(Q3U(mi, 0xc), Q3U(mi, 0x10), &w, &h);
                 texw = q3_f(Q3_FILD_U(w << (mip & 31)));
                 texh = q3_f(Q3_FILD_U(h << (mip & 31)));
             }
@@ -1070,7 +1070,7 @@ undefined4 rdCache_DrawMeshList3D(void)
             q3_mesh_fan(0x006f0fb0, 0x00606fa0, Q3U(e, 0x1c), base, flags, 0);
         }
     }
-    rdCache_Flush3DBatch();
+    rdCache_DrawRenderList();
     return 1;
 }
 #endif

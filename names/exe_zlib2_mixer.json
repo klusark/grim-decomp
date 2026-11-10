@@ -34,7 +34,7 @@
  {"addr": "004ce1d0", "name": "Mixer_ServiceVoices", "comment": "setjmp-protected per-tick voice servicing", "tags": "sound,mixer"},
  {"addr": "004ce260", "name": "Mixer_ScheduleVoices", "tags": "sound,mixer"},
  {"addr": "004d0c20", "name": "Sound_DriverQuery", "comment": "Calls entry +0x14 of the installed sound driver vtable", "tags": "sound"},
- {"addr": "004d0cf0", "name": "Sound_VoiceSampleCount", "comment": "Converts the byte count of a 0x34-byte voice record to samples depending on its format code (halved for 8/16-bit mono formats 1,2,4)", "tags": "sound"},
+ {"addr": "004d0cf0", "name": "sou_engine_QueryTime", "comment": "Converts the byte count of a 0x34-byte voice record to samples depending on its format code (halved for 8/16-bit mono formats 1,2,4)", "tags": "sound"},
  {"addr": "004d27d0", "name": "DSound_FillStreamBuffer", "comment": "Locks the next 0x1800-byte block(s) of the streaming buffer behind the play cursor and fills them from the mixer", "tags": "sound,mixer"},
  {"addr": "004d2c60", "name": "DSound_GetPlayBlock", "comment": "IDirectSoundBuffer::GetCurrentPosition / 0x1800 modulo the block count", "tags": "sound,mixer"},
  {"addr": "004d2e60", "name": "Mixer_Output", "tags": "sound,mixer"},

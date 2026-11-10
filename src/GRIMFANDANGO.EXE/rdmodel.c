@@ -5,13 +5,15 @@
 #include "globals.h"
 #include "functions.h"
 
-/* ---- 0x00409580  rdModel_ComputeMeshLighting ---- */
+/* ---- 0x00409580  rdCache_DrawFaceUser ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Rdcamera.c: picks the light level of a mesh from the current geometry/lighting/texture modes
-   (gouraud, flat, per-vertex) and hands it to the mesh draw callback at +0x14 */
+   (gouraud, flat, per-vertex) and hands it to the mesh draw callback at +0x14 Original name
+   rdCache_DrawFaceUser (the remaster's GrimFandango (Linux): aligned call in rdCache_Flush); was
+   rdModel_ComputeMeshLighting. */
 
-undefined4 rdModel_ComputeMeshLighting(byte *param_1)
+undefined4 rdCache_DrawFaceUser(byte *param_1)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -382,8 +384,11 @@ switchD_00409661_default:
 #endif
 
 
-/* ---- 0x00409d20  FUN_00409d20 ---- */
-undefined4 FUN_00409d20(int param_1,int param_2)
+/* ---- 0x00409d20  rdCache_ProcFaceCompare ---- */
+/* Original name rdCache_ProcFaceCompare (the remaster's GrimFandango (Linux): aligned call in
+   rdCache_Flush); was FUN_00409d20. */
+
+undefined4 rdCache_ProcFaceCompare(int param_1,int param_2)
 
 {
   if (*(float *)(param_1 + 100) == *(float *)(param_2 + 100)) {
@@ -482,7 +487,7 @@ void __cdecl rdModel3_DrawMeshImpl(void *mesh,float *matrix)
   g_pCurMesh = mesh;
   if (*(int *)((int)mesh + 0x24) != 0) {
     a = matrix + 9;
-    Matrix34_TransformPoint(local_48,a,(float *)((int)g_pRdCamera_CurCamera + 8));
+    rdMatrix_TransformPoint34(local_48,a,(float *)((int)g_pRdCamera_CurCamera + 8));
     if (g_dwThingFrustrumCull == 0) {
       g_dwMeshFrustrumCull = 0;
     }
@@ -491,22 +496,23 @@ void __cdecl rdModel3_DrawMeshImpl(void *mesh,float *matrix)
     }
     else {
       g_dwMeshFrustrumCull =
-           Frustum_TestSphere(*(undefined4 *)((int)g_pRdCamera_CurCamera + 0x48),local_48,PUN(float,*(undefined4 *)((int)g_pCurMesh + 0x60)));
+           rdClip_SphereInFrustrum
+                     (*(undefined4 *)((int)g_pRdCamera_CurCamera + 0x48),local_48,PUN(float,*(undefined4 *)((int)g_pCurMesh + 0x60)));
     }
     if ((g_dwMeshFrustrumCull != 2) &&
-       ((UINT_007f3204 == 0 ||
+       ((g_dwClipPlaneActive == 0 ||
         (-*(float *)((int)g_pCurMesh + 0x60) <=
          (*a - _DAT_007f3208) * _DAT_004ddb70 +
          (matrix[0xb] - _DAT_007f3210) * _DAT_004ddb78 +
          (matrix[10] - _DAT_007f320c) * _DAT_004ddb74)))) {
-      Matrix_Mul34(local_30,(float *)((int)g_pRdCamera_CurCamera + 8),matrix);
-      Matrix_TransformPoints
-                (local_30,*(float **)((int)g_pCurMesh + 0x30),(float *)&DAT_007f18a0,
+      rdMatrix_Multiply34(local_30,(float *)((int)g_pRdCamera_CurCamera + 8),matrix);
+      rdMatrix_TransformPointLst34
+                (local_30,*(float **)((int)g_pCurMesh + 0x30),(float *)&g_aRdModel3_View,
                  *(int *)((int)g_pCurMesh + 0x48));
-      Matrix34_InvertRigid(local_84,matrix);
+      rdMatrix_InvertOrtho34(local_84,matrix);
       g_dwGeometryMode = *(uint *)((int)g_pCurMesh + 0x24);
-      if ((int)UINT_007f1494 <= (int)g_dwGeometryMode) {
-        g_dwGeometryMode = UINT_007f1494;
+      if ((int)g_dwCurTextureMode <= (int)g_dwGeometryMode) {
+        g_dwGeometryMode = g_dwCurTextureMode;
       }
       g_dwTextureMode = *(uint *)((int)g_pCurMesh + 0x2c);
       if ((int)UINT_007f189c <= (int)g_dwTextureMode) {
@@ -519,7 +525,7 @@ void __cdecl rdModel3_DrawMeshImpl(void *mesh,float *matrix)
       else if ((int)UINT_007f30dc <= (int)g_dwLightingMode) {
         g_dwLightingMode = UINT_007f30dc;
       }
-      _DAT_007f30b4 = &DAT_007f18a0;
+      _DAT_007f30b4 = &g_aRdModel3_View;
       _DAT_007f30b8 = *(undefined4 *)((int)g_pCurMesh + 0x34);
       _DAT_007f30bc = *(undefined4 *)((int)g_pCurMesh + 0x3c);
       _DAT_007f30c0 = 0;
@@ -529,7 +535,7 @@ void __cdecl rdModel3_DrawMeshImpl(void *mesh,float *matrix)
         uVar10 = 0;
         g_dwNumMeshLights = 0;
         local_a8 = 0;
-        if (UINT_007f31f8 != 0) {
+        if (g_dwNumGeoLights != 0) {
           local_ac = (uint)&g_apGeoLights;
           pvVar9 = g_pRdCamera_CurCamera;
           pvVar11 = g_pCurMesh;
@@ -543,7 +549,7 @@ void __cdecl rdModel3_DrawMeshImpl(void *mesh,float *matrix)
                SQRT(fVar5 * fVar5 + fVar13 * fVar13 + fVar4 * fVar4) <
                PUN(float,piVar3[0xd]) + *(float *)((int)pvVar11 + 0x60))) {
               (&UINT_007f30e0)[uVar10] = (uint)piVar3;
-              Matrix34_TransformPoint
+              rdMatrix_TransformPoint34
                         ((float *)(&g_aLocalLightPos + uVar10 * 0xc),
                          (float *)((int)pvVar9 + (*piVar3 + 0x1d) * 0xc),local_84);
               if (piVar3[1] != 2) {
@@ -554,7 +560,7 @@ void __cdecl rdModel3_DrawMeshImpl(void *mesh,float *matrix)
                 local_a0[0] = -PUN(float,piVar3[3]);
                 local_a0[1] = -PUN(float,piVar3[4]);
                 local_a0[2] = -PUN(float,piVar3[5]);
-                ((code *)Matrix34_TransformPoint)((float *)(&g_aLocalLightDir + g_dwNumMeshLights * 0xc),local_a0,local_84)
+                ((code *)rdMatrix_TransformPoint34)((float *)(&g_aLocalLightDir + g_dwNumMeshLights * 0xc),local_a0,local_84)
                 ;
                 local_58 = local_34;
               }
@@ -565,7 +571,7 @@ void __cdecl rdModel3_DrawMeshImpl(void *mesh,float *matrix)
             }
             local_a8 = local_a8 + 1;
             local_ac = local_ac + 4;
-          } while (local_a8 < UINT_007f31f8);
+          } while (local_a8 < g_dwNumGeoLights);
         }
         break;
       case 3:
@@ -574,7 +580,7 @@ void __cdecl rdModel3_DrawMeshImpl(void *mesh,float *matrix)
         local_a8 = 0;
         pvVar9 = g_pRdCamera_CurCamera;
         pvVar11 = g_pCurMesh;
-        if (UINT_007f31f8 != 0) {
+        if (g_dwNumGeoLights != 0) {
           local_ac = (uint)&g_apGeoLights;
           do {
             piVar3 = *(int **)local_ac;
@@ -592,7 +598,7 @@ void __cdecl rdModel3_DrawMeshImpl(void *mesh,float *matrix)
               fVar4 = PUN(float,piVar3[0xd]) + *(float *)((int)pvVar11 + 0x60);
               if (fVar13 < fVar4 * fVar4) {
                 (&UINT_007f30e0)[uVar10] = (uint)piVar3;
-                Matrix34_TransformPoint
+                rdMatrix_TransformPoint34
                           ((float *)(&g_aLocalLightPos + uVar10 * 0xc),
                            (float *)((int)pvVar9 + (*piVar3 + 0x1d) * 0xc),local_84);
                 uVar6 = local_58;
@@ -603,7 +609,7 @@ void __cdecl rdModel3_DrawMeshImpl(void *mesh,float *matrix)
                   local_a0[0] = -PUN(float,piVar3[3]);
                   local_a0[1] = -PUN(float,piVar3[4]);
                   local_a0[2] = -PUN(float,piVar3[5]);
-                  Matrix34_TransformPoint
+                  rdMatrix_TransformPoint34
                             ((float *)(&g_aLocalLightDir + g_dwNumMeshLights * 0xc),local_a0,
                              local_84);
                 }
@@ -616,7 +622,7 @@ void __cdecl rdModel3_DrawMeshImpl(void *mesh,float *matrix)
             }
             local_a8 = local_a8 + 1;
             local_ac = local_ac + 4;
-          } while (local_a8 < UINT_007f31f8);
+          } while (local_a8 < g_dwNumGeoLights);
         }
         fVar13 = rdLight_CalcVertexIntensities
                            ((int *)&UINT_007f30e0,(float *)&g_aLocalLightPos,IMG_ADDR(0x007f1168),uVar10,
@@ -639,7 +645,7 @@ void __cdecl rdModel3_DrawMeshImpl(void *mesh,float *matrix)
       local_54[0] = (float)UINT_008ddf84;
       local_54[1] = (float)UINT_008ddf88;
       local_54[2] = (float)UINT_008ddf8c;
-      Matrix34_TransformPoint((float *)&DAT_007f0fd8,local_54,local_84);
+      rdMatrix_TransformPoint34((float *)&DAT_007f0fd8,local_54,local_84);
       iVar12 = *(int *)((int)mesh + 0x40);
       uVar10 = 0;
       if (*(int *)((int)mesh + 0x50) != 0) {
@@ -709,7 +715,7 @@ undefined4 rdModel3_DrawFace(int param_1,int param_2)
   #define local_18 (*(float (*)[3])(_frame + (0x40 - 0x18)))
   #define local_c (*(float (*)[3])(_frame + (0x40 - 0xc)))
   
-  iVar2 = rdCache_AllocMesh();
+  iVar2 = rdCache_GetProcEntry();
   if (iVar2 == 0) {
     return 0;
   }
@@ -734,13 +740,13 @@ undefined4 rdModel3_DrawFace(int param_1,int param_2)
   UINT_007f1490 = *(uint *)(iVar2 + 0x20);
   UINT_007f1478 = *(uint *)(iVar2 + 0x24);
   UINT_007f147c = *(uint *)(iVar2 + 0x28);
-  _DAT_007f30a8 = *(undefined4 *)(param_1 + 0x14);
+  _g_aVertexSrc = *(undefined4 *)(param_1 + 0x14);
   _DAT_007f30ac = *(undefined4 *)(param_1 + 0x18);
   _DAT_007f30b0 = *(undefined4 *)(param_1 + 0x1c);
   if (g_dwMeshFrustrumCull == 0) {
-    rdPrimit3_CopyFaceVerts
+    rdPrimit3_NoClipFace
               (*(undefined4 *)(iVar2 + 8),*(undefined4 *)(iVar2 + 0xc),*(undefined4 *)(iVar2 + 0x10)
-               ,&DAT_007f30a8,&g_dwVertexDst,param_1 + 0x28);
+               ,&g_aVertexSrc,&g_dwVertexDst,param_1 + 0x28);
   }
   else {
     ((code *)rdPrimit3_ClipFace)(*(undefined4 *)((int)g_pRdCamera_CurCamera + 0x48));
@@ -748,12 +754,13 @@ undefined4 rdModel3_DrawFace(int param_1,int param_2)
   if (g_dwVertexDst < 3) {
     return 0;
   }
-  if (UINT_007f3204 != 0) {
-    Vec3_Copy(local_c,(float *)&DAT_004ddb70,(float *)((int)g_pRdCamera_CurCamera + 8));
-    Matrix34_TransformPoint
+  if (g_dwClipPlaneActive != 0) {
+    rdMatrix_TransformVector34
+              (local_c,(float *)&DAT_004ddb70,(float *)((int)g_pRdCamera_CurCamera + 8));
+    rdMatrix_TransformPoint34
               (local_18,(float *)&DAT_007f3208,(float *)((int)g_pRdCamera_CurCamera + 8));
-    uVar3 = Polygon_ClipToPlane(local_c,local_18,UINT_007f1474,UINT_007f1478,UINT_007f147c,
-                                g_dwVertexDst);
+    uVar3 = rdClip_FaceToPlane(local_c,local_18,UINT_007f1474,UINT_007f1478,UINT_007f147c,
+                               g_dwVertexDst);
     if ((int)uVar3 < 2) {
       return 0;
     }
@@ -791,7 +798,7 @@ undefined4 rdModel3_DrawFace(int param_1,int param_2)
     iVar5 = *(int *)(*(int *)(param_1 + 0x20) + 100);
   }
   *(int *)(iVar2 + 0x3c) = iVar5;
-  bVar6 = UINT_004f5ec0 != g_dwRdColormap_pCurMap;
+  bVar6 = g_dwRdColormap_pIdentityMap != g_dwRdColormap_pCurMap;
   if (*(float *)(iVar2 + 0x40) < 1.0) {
     if (*(int *)(iVar2 + 0xc) == 2) {
       if ((*(float *)(iVar2 + 0x44) < 1.0) || (bVar6)) {
@@ -852,7 +859,7 @@ LAB_0040dbd3:
   *(undefined4 *)(iVar2 + 4) = *(undefined4 *)(param_1 + 4);
   *(undefined4 *)(iVar2 + 0x48) = *(undefined4 *)(param_1 + 0x30);
   *(undefined4 *)(iVar2 + 0x38) = *(undefined4 *)(param_1 + 0x20);
-  rdCache_AddMesh((void *)0x0,g_dwVertexDst,flags);
+  rdCache_AddProcFace((void *)0x0,g_dwVertexDst,flags);
   return 1;
 }
 #undef local_18

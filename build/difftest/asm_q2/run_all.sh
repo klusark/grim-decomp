@@ -8,7 +8,7 @@ cd "$(dirname "$0")/../../.." || exit 1
 N=${1:-1000000}
 O=build/difftest/asm_q2/out; mkdir -p $O
 [ -s $O/base_asm_funcs.s ] || git show 2df265d:src/GRIMFANDANGO.EXE/asm_funcs.s > $O/base_asm_funcs.s
-F="rdClip_Face3_PosUvLit rdClip_Face3_PosUvLit_2 rdClip_Face3_PosUvFlags rdClip_Face3_PosUvLitColor rdClip_Face3_PosUvLitFlags"
+F="rdClip_Face3GS rdClip_Face3T rdClip_Face3TOrtho rdClip_Face3GT rdClip_Face3GTOrtho"
 T=build/difftest/asm_q2/clip_test.c
 rc=0
 LINKPY=1 bash build/difftest/asm_q2/build.sh $T $O/clip_test_link.exe $F >/dev/null || exit 1

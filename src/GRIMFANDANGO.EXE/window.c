@@ -113,7 +113,7 @@ undefined * Win_WndProc(undefined4 param_1,uint param_2,int param_3)
           break;
         case 0x54:
           if (g_bDebugChordHeld != 0) {
-            D3D_ResetTextures();
+            std3D_PurgeTextureCache();
             return (undefined *)0x1;
           }
           break;

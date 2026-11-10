@@ -22,16 +22,16 @@ LecShare_Initialize(undefined *param_1,undefined4 *param_2,undefined4 param_3,un
     PTR_LecShare_Nop_004f1220 = param_1;
   }
   LecShare_Reset(param_3,param_4);
-  UINT_008d56e8 = 0;
+  g_dwPrivateData = 0;
   pcVar2 = (code *)*param_2;
   while (pcVar2 != (code *)0x0) {
-    (*pcVar2)(&PTR_LecShare_Register_004f1200,param_2[1]);
+    (*pcVar2)(&g_pLecShareServices,param_2[1]);
     puVar1 = param_2 + 2;
     param_2 = param_2 + 2;
     pcVar2 = (code *)*puVar1;
   }
-  UINT_008d56e8 = 1;
-  return &PTR_LecShare_Register_004f1200;
+  g_dwPrivateData = 1;
+  return &g_pLecShareServices;
 }
 
 /* ---- 0x004c13f0  LecShare_Terminate ---- */
@@ -152,7 +152,7 @@ void LecShare_Reset(uint param_1,uint param_2)
   int iVar1;
   uint *puVar2;
   
-  puVar2 = &UINT_008d56e8;
+  puVar2 = &g_dwPrivateData;
   for (iVar1 = 0x605; iVar1 != 0; iVar1 = iVar1 + -1) {
     *puVar2 = 0;
     puVar2 = puVar2 + 1;
@@ -231,12 +231,14 @@ uint LecShare_Unregister(undefined4 param_1)
   return 1;
 }
 
-/* ---- 0x004c16c0  LecShare_Resolve ---- */
+/* ---- 0x004c16c0  LecShare_Subscribe ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-/* Looks a module up by name (wildcards allowed), honouring the application's override list */
+/* Looks a module up by name (wildcards allowed), honouring the application's override list Original
+   name Subscribe, written LecShare_Subscribe because the bridge refuses one-token names (the
+   remaster's GrimFandango (Linux): aligned call in BatchSubscribe); was LecShare_Resolve. */
 
-void * __cdecl LecShare_Resolve(char *name,char *pattern)
+void * __cdecl LecShare_Subscribe(char *name,char *pattern)
 
 {
   unsigned char _frame[0x80] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -254,27 +256,27 @@ void * __cdecl LecShare_Resolve(char *name,char *pattern)
   #define local_64 (*(char (*)[100])(_frame + (0x80 - 0x64)))
   
   pbVar7 = (byte *)0x0;
-  if (UINT_008d56e8 != 0) {
+  if (g_dwPrivateData != 0) {
     if (UINT_008d56f0 != 0) {
-      pbVar7 = Str_WildcardMatch(name,(char *)UINT_008d56f0);
+      pbVar7 = FindMatch(name,(char *)UINT_008d56f0);
     }
     if (pbVar7 == (byte *)0x0) {
       if (pattern != (char *)0x0) {
-        pbVar7 = Str_WildcardMatch(name,pattern);
+        pbVar7 = FindMatch(name,pattern);
       }
       if ((pbVar7 == (byte *)0x0) && (UINT_008d56ec != 0)) {
-        pbVar7 = Str_WildcardMatch(name,(char *)UINT_008d56ec);
+        pbVar7 = FindMatch(name,(char *)UINT_008d56ec);
       }
     }
     iVar3 = Str_ModuleNameLength(name);
     strncpy(local_64,name,iVar3);
     local_64[iVar3] = '\0';
     if (pbVar7 == (byte *)0x0) {
-      iVar3 = LecShare_CountMatching(local_64);
+      iVar3 = GetCatalogCount(local_64);
       if (iVar3 == 0) {
         return (void *)0x0;
       }
-      uVar4 = ((code *)LecShare_Subscribe)(local_64,iVar3 + -1,99);
+      uVar4 = ((code *)GetCatalogEntry)(local_64,iVar3 + -1,99);
       ((code *)strncpy)(local_64,uVar4);
     }
     else {
@@ -403,15 +405,15 @@ undefined4 BatchSubscribe(int *param_1,char *param_2)
       *(undefined4 *)*param_1 = 0;
     }
     else {
-      pvVar2 = LecShare_Resolve((char *)param_1[1],pattern);
+      pvVar2 = LecShare_Subscribe((char *)param_1[1],pattern);
       *(void **)*param_1 = pvVar2;
     }
     if (((*(int *)*param_1 == 0) && (param_2 != (char *)0x0)) && (*param_2 != '\0')) {
-      pvVar2 = LecShare_Resolve((char *)param_1[1],param_2);
+      pvVar2 = LecShare_Subscribe((char *)param_1[1],param_2);
       *(void **)*param_1 = pvVar2;
     }
     if (*(int *)*param_1 == 0) {
-      pvVar2 = LecShare_Resolve((char *)param_1[1],(char *)0x0);
+      pvVar2 = LecShare_Subscribe((char *)param_1[1],(char *)0x0);
       *(void **)*param_1 = pvVar2;
     }
     if (*(int *)*param_1 == 0) break;
@@ -427,8 +429,11 @@ undefined4 BatchSubscribe(int *param_1,char *param_2)
   return 1;
 }
 
-/* ---- 0x004c1990  LecShare_Subscribe ---- */
-uint LecShare_Subscribe(char *param_1,uint param_2)
+/* ---- 0x004c1990  GetCatalogEntry ---- */
+/* Original name GetCatalogEntry (the remaster's GrimFandango (Linux): aligned call in Subscribe);
+   was LecShare_Subscribe. */
+
+uint GetCatalogEntry(char *param_1,uint param_2)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -460,10 +465,10 @@ LAB_004c1a7f:
   }
   else {
     if (param_1 == (char *)0x0) {
-      if (DAT_008d3680 != '\0') goto LAB_004c1a7f;
+      if (g_bGetCatalogEntry_pLastType != '\0') goto LAB_004c1a7f;
     }
     else {
-      iVar2 = Str_CompareNoCase(param_1,&DAT_008d3680);
+      iVar2 = Str_CompareNoCase(param_1,&g_bGetCatalogEntry_pLastType);
       if (iVar2 != 0) goto LAB_004c1a7f;
     }
     if (param_2 == UINT_008d6efc) {
@@ -484,10 +489,10 @@ LAB_004c1a7f:
   }
   UINT_008d6efc = param_2;
   if (param_1 == (char *)0x0) {
-    DAT_008d3680 = '\0';
+    g_bGetCatalogEntry_pLastType = '\0';
   }
   else {
-    strncpy(&DAT_008d3680,param_1,99);
+    strncpy(&g_bGetCatalogEntry_pLastType,param_1,99);
     DAT_008d36e3 = 0;
   }
   if (uVar5 == 0) {
@@ -534,8 +539,11 @@ LAB_004c1b0c:
 #undef local_4
 
 
-/* ---- 0x004c1b60  LecShare_CountMatching ---- */
-uint LecShare_CountMatching(char *param_1)
+/* ---- 0x004c1b60  GetCatalogCount ---- */
+/* Original name GetCatalogCount (the remaster's GrimFandango (Linux): aligned call in Subscribe);
+   was LecShare_CountMatching. */
+
+uint GetCatalogCount(char *param_1)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */

@@ -1040,9 +1040,9 @@ def fix_call_args(body, vt, ctx, stats):
                     (ak == "int" and is_dword_type(type_of(a, vt, ctx))) or
                     (ak is None and re.match(r"\s*\(?\s*&?\s*(?:UINT|INT|DAT|_DAT)_[0-9a-f]{8}\b", a))):
                 # a dword variable (or a dword read through a pointer) for a float parameter: the machine code pushes
-                # its bits (Ghidra writes (float) for a FILD conversion). Camera_BuildBasis passed the roll (undefined4)
-                # to Matrix_AxisAngle's float angle, and C converted 5.0's bits to 1084227584.0; rdThing_Draw passed the
-                # model radius `*(undefined4 *)(model + 0x5c)` to Frustum_TestSphere (found by grim_tools/cleanroom)
+                # its bits (Ghidra writes (float) for a FILD conversion). rdMatrix_LookAt passed the roll (undefined4)
+                # to rdMatrix_BuildFromVectorAngle34's float angle, and C converted 5.0's bits to 1084227584.0; rdThing_Draw passed the
+                # model radius `*(undefined4 *)(model + 0x5c)` to rdClip_SphereInFrustrum (found by grim_tools/cleanroom)
                 args[i] = f"PUN(float,{a.strip()})"
             elif pk == "int" and ak == "float" and is_dword_type(pt) and not NUM_RE.fullmatch(a.strip()):
                 # the reverse: a float for a dword parameter is pushed as its bits (Ghidra writes the conversion as
@@ -1732,7 +1732,7 @@ def build(prog):
             w.write("\n".join(lines))
 
     # one-instruction `JMP target` wrappers Ghidra marks as thunks (sputLua_Display ->
-    # Render_Present, ImTerminate -> Im_ShutdownSubsystems ...). They have no C body;
+    # Render_Present, ImTerminate -> TrTerminate ...). They have no C body;
     # a jump in inline asm defines the symbol so callers and function-pointer
     # tables (data.s) resolve. Thunks that share their target's name are the same
     # symbol already; import thunks (`JMP [IAT]`) resolve to the import library.

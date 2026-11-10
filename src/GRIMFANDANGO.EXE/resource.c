@@ -23,11 +23,11 @@ undefined4 Res_SysInitialize(uint param_1,undefined4 *param_2)
     g_dwResSysInitialized = 1;
     if (param_2 != (undefined4 *)0x0) {
       *param_2 = Res_SysInitialize;
-      param_2[1] = Resource_Filio_Terminate;
-      param_2[2] = Resource_Filio_Start;
-      param_2[3] = Resource_Filio_Stop;
+      param_2[1] = Res_SysTerminate;
+      param_2[2] = Res_SysStartup;
+      param_2[3] = Res_SysShutdown;
       param_2[4] = Res_SysSave;
-      param_2[5] = Resource_Filio_RestoreState;
+      param_2[5] = Res_SysLoad;
       param_2[6] = 0;
       param_2[7] = 0;
     }
@@ -55,11 +55,11 @@ undefined4 __fastcall FUN_00480020(uint param_1,int param_2,undefined4 param_3,u
     g_dwResSysInitialized = 1;
     if (param_4 != (undefined4 *)0x0) {
       *param_4 = Res_SysInitialize;
-      param_4[1] = Resource_Filio_Terminate;
-      param_4[2] = Resource_Filio_Start;
-      param_4[3] = Resource_Filio_Stop;
+      param_4[1] = Res_SysTerminate;
+      param_4[2] = Res_SysStartup;
+      param_4[3] = Res_SysShutdown;
       param_4[4] = Res_SysSave;
-      param_4[5] = Resource_Filio_RestoreState;
+      param_4[5] = Res_SysLoad;
       param_4[6] = 0;
       param_4[7] = 0;
     }
@@ -75,59 +75,63 @@ undefined4 __fastcall FUN_00480020(uint param_1,int param_2,undefined4 param_3,u
   return uVar1;
 }
 
-/* ---- 0x004800a0  Resource_Filio_Terminate ---- */
+/* ---- 0x004800a0  Res_SysTerminate ---- */
 /* Module interface slot 1 (Resource_Filio): called by Engine_ResetSubsystems / when registration
-   fails; drops the service table pointer and clears the initialised flag. */
+   fails; drops the service table pointer and clears the initialised flag. Original name
+   Res_SysTerminate (the remaster's GrimFandango (Linux): aligned call in Res_SysInitialize); was
+   Resource_Filio_Terminate. */
 
-void Resource_Filio_Terminate(void)
+void Res_SysTerminate(void)
 
 {
   g_dwResSysInitialized = 0;
   return;
 }
 
-/* ---- 0x004800b0  Resource_Filio_Start ---- */
+/* ---- 0x004800b0  Res_SysStartup ---- */
 /* Module interface slot 2 (Resource_Filio): called by Engine_InitSubsystems, returns 0 on success
    (non-zero makes the whole start-up unwind). Pools for the LAB archive records are created in
-   _Start. */
+   _Start. Original name Res_SysStartup (the remaster's GrimFandango (Linux): aligned call in
+   Res_SysInitialize); was Resource_Filio_Start. */
 
-undefined4 Resource_Filio_Start(void)
+undefined4 Res_SysStartup(void)
 
 {
   undefined4 uVar1;
   
   uVar1 = 1;
-  if ((g_dwResSysInitialized != 0) && (UINT_008a85bc == 0)) {
-    UINT_008a85bc = 1;
-    g_dwResTypePool = Pool_Create(0x10,0x20,8);
-    g_dwResFilePool = Pool_Create(0x120,0x20,8);
-    g_dwResNodePool = Pool_Create(0x120,0x200,0x200);
+  if ((g_dwResSysInitialized != 0) && (g_dwResSysStarted == 0)) {
+    g_dwResSysStarted = 1;
+    g_dwResTypePool = Memory_AllocatePool(0x10,0x20,8);
+    g_dwResFilePool = Memory_AllocatePool(0x120,0x20,8);
+    g_dwResNodePool = Memory_AllocatePool(0x120,0x200,0x200);
     uVar1 = 0;
   }
   return uVar1;
 }
 
-/* ---- 0x00480140  Resource_Filio_Stop ---- */
+/* ---- 0x00480140  Res_SysShutdown ---- */
 /* Module interface slot 3 (Resource_Filio): called by Engine_ShutdownSubsystems in reverse order;
-   releases what _Start created. */
+   releases what _Start created. Original name Res_SysShutdown (the remaster's GrimFandango (Linux):
+   aligned call in Res_SysInitialize); was Resource_Filio_Stop. */
 
-void Resource_Filio_Stop(void)
+void Res_SysShutdown(void)
 
 {
-  if (UINT_008a85bc != 0) {
-    Lab_CloseAll();
-    Engine_ResetState();
+  if (g_dwResSysStarted != 0) {
+    Res_FileCloseAll();
+    Res_FreeAll();
     if (g_dwResTypePool != 0) {
-      Pool_Destroy(g_dwResTypePool);
+      Memory_FreePool(g_dwResTypePool);
     }
     if (g_dwResFilePool != 0) {
-      Pool_Destroy(g_dwResFilePool);
+      Memory_FreePool(g_dwResFilePool);
     }
     if (g_dwResNodePool != 0) {
-      Pool_Destroy(g_dwResNodePool);
+      Memory_FreePool(g_dwResNodePool);
     }
   }
-  UINT_008a85bc = 0;
+  g_dwResSysStarted = 0;
   return;
 }
 
@@ -203,11 +207,12 @@ undefined4 Res_SysSave(code *param_1)
 #endif
 
 
-/* ---- 0x00482380  Resource_Filio_RestoreState ---- */
+/* ---- 0x00482380  Res_SysLoad ---- */
 /* Module interface slot 5 (Resource_Filio): save-game reader, calls the SaveGame_Read callback it
-   is handed; returns non-zero on a short read. */
+   is handed; returns non-zero on a short read. Original name Res_SysLoad (the remaster's
+   GrimFandango (Linux): aligned call in Res_SysInitialize); was Resource_Filio_RestoreState. */
 
-undefined4 Resource_Filio_RestoreState(code *param_1)
+undefined4 Res_SysLoad(code *param_1)
 
 {
   unsigned char _frame[0x120] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -240,7 +245,7 @@ undefined4 Resource_Filio_RestoreState(code *param_1)
     acStack_100[iStack_110] = '\0';
     iVar2 = (*param_1)(&iStack_108,4);
     if (iVar2 != 0) break;
-    pvVar3 = Res_LoadInternal(iStack_108,acStack_100,&iStack_104);
+    pvVar3 = res_Load(iStack_108,acStack_100,&iStack_104);
     if (iStack_104 == 0) {
       return 1;
     }
@@ -291,7 +296,7 @@ void * __cdecl sputResource_Alloc(int fourcc,char *name)
       daTotalAllocated();
       local_34 = 0;
       Res_SetReference(&local_34,data,s_C__grimsrc_libs_grimlib_Main_spu_004e9c30,0xfb);
-      Res_FreeUnreferenced(g_dwPurgeAmount,(uint *)&name);
+      Res_SysPurgeBySize(g_dwPurgeAmount,(uint *)&name);
       daTotalAllocated();
       Res_RemoveReference(&local_34);
     }
@@ -301,20 +306,25 @@ void * __cdecl sputResource_Alloc(int fourcc,char *name)
 #undef local_34
 
 
-/* ---- 0x0048d3e0  Resource_CloseArchives ---- */
-/* Lua DetachFromResources: closes the LAB files so the CD can be swapped */
+/* ---- 0x0048d3e0  sputResource_CloseResources ---- */
+/* Lua DetachFromResources: closes the LAB files so the CD can be swapped Original name
+   sputResource_CloseResources (the remaster's GrimFandango (Linux): aligned call in
+   sputLua_AttachToResourcesL, sputLua_DetachFromResourcesL, sputLua_SearchForFileOrSwapCDsL); was
+   Resource_CloseArchives. */
 
-undefined4 Resource_CloseArchives(void)
+undefined4 sputResource_CloseResources(void)
 
 {
-  Lab_CloseAll();
+  Res_FileCloseAll();
   return 1;
 }
 
-/* ---- 0x0048d3f0  Resource_OpenArchives ---- */
-/* Lua AttachToResources: reopens the game's LAB files */
+/* ---- 0x0048d3f0  grimlib_FindResources ---- */
+/* Lua AttachToResources: reopens the game's LAB files Original name grimlib_FindResources (the
+   remaster's GrimFandango (Linux): aligned call in sputLua_AttachToResourcesL,
+   sputLua_SearchForFileOrSwapCDsL); was Resource_OpenArchives. */
 
-undefined4 Resource_OpenArchives(void)
+undefined4 grimlib_FindResources(void)
 
 {
   unsigned char _frame[0x110] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -323,7 +333,7 @@ undefined4 Resource_OpenArchives(void)
   #define local_80 (*(char (*)[128])(_frame + (0x110 - 0x80)))
   
   GetCurrentDirectoryA(0x80,(int)local_80);
-  Reg_GetString(s_GrimDataDir_004dd94c,acStack_100,0x80,&DAT_004f5a98);
+  wuRegistry_GetStr(s_GrimDataDir_004dd94c,acStack_100,0x80,&DAT_004f5a98);
   iVar1 = _stricmp(local_80,acStack_100);
   if (iVar1 != 0) {
     Resource_OpenArchivesInDir(acStack_100);
@@ -599,7 +609,7 @@ undefined4 Resource_RegisterTypes(void)
   
   puVar2 = &g_ResTypeTable;
   do {
-    iVar1 = ResType_Register(*puVar2,(void *)puVar2[1]);
+    iVar1 = Res_SysRegisterHandler(*puVar2,(void *)puVar2[1]);
     if (iVar1 != 1) {
       return 0;
     }
@@ -644,7 +654,7 @@ void Resource_ReloadBitmaps(void)
   #define local_4 (*(undefined1 (*)[4])(_frame + (0x20 - 0x4)))
   
   local_8 = 0;
-  Res_FindByHandleOrNull(local_4,&local_c,0x444e4b42);
+  Res_GetFirstType(local_4,&local_c,0x444e4b42);
   name = (char *)local_c;
   while (name != (char *)0x0) {
     local_c = (uint)name;
@@ -669,7 +679,7 @@ void Resource_ReloadBitmaps(void)
       if (0 < *(int *)(name + 100)) {
         do {
           pvVar3 = *(void **)(*(int *)(name + 0x78) + iVar4 * 4);
-          Surface_Lock(pvVar3);
+          stdDisplay_VBufferLock(pvVar3);
           iVar5 = 0;
           if (0 < *(int *)((int)pvVar3 + 0x10)) {
             do {
@@ -680,7 +690,7 @@ void Resource_ReloadBitmaps(void)
               iVar5 = iVar5 + 1;
             } while (iVar5 < *(int *)((int)pvVar3 + 0x10));
           }
-          Surface_Unlock(pvVar3);
+          stdDisplay_VBufferUnlock(pvVar3);
           iVar4 = iVar4 + 1;
         } while (iVar4 < *(int *)(name + 100));
       }
@@ -698,7 +708,7 @@ void Resource_ReloadBitmaps(void)
       } while (iVar4 < *(int *)(name + 100));
     }
     local_8 = local_8 + *(int *)(name + 100);
-    Res_NextInList(local_4,&local_c,0x444e4b42);
+    Res_GetNextType(local_4,&local_c,0x444e4b42);
     name = (char *)local_c;
   }
   return;
@@ -747,13 +757,12 @@ void Resource_RebuildColormaps(void)
   local_c = 0;
   local_8 = 0;
   local_4 = 0;
-  Res_FindByHandleOrNull(local_3c,&local_40,0x50414d43);
+  Res_GetFirstType(local_3c,&local_40,0x50414d43);
   while (local_40 != 0) {
     puVar1 = (undefined4 *)(local_40 + 0x348);
-    rdColormap_Build16bitTables
-              ((undefined2 *)*puVar1,(ushort *)(local_40 + 0x30),0,0,0,(int)&local_38);
+    rdColormap_BuildRGB16((undefined2 *)*puVar1,(ushort *)(local_40 + 0x30),0,0,0,(int)&local_38);
     sputRender_ColorCorrect((ushort *)*puVar1,0x4000);
-    Res_NextInList(local_3c,&local_40,0x50414d43);
+    Res_GetNextType(local_3c,&local_40,0x50414d43);
   }
   return;
 }
@@ -775,35 +784,37 @@ void Resource_RebuildColormaps(void)
 #undef local_c
 
 
-/* ---- 0x0048e170  Resource_MaterialLoadHook ---- */
+/* ---- 0x0048e170  sputResource_MatLoader ---- */
 /* rdMaterial load hook (rdMaterial_SetLoadHook): loads the 'MAT ' resource and counts a reference
-   (+0x24), locking it on the first one. */
+   (+0x24), locking it on the first one. Original name sputResource_MatLoader (the remaster's
+   GrimFandango (Linux): aligned call in sputResource_Startup); was Resource_MaterialLoadHook. */
 
-void * Resource_MaterialLoadHook(char *param_1)
+void * sputResource_MatLoader(char *param_1)
 
 {
   void *data;
   
   data = sputResource_Alloc(0x2054414d,param_1);
   if ((data != (void *)0x0) && (*(int *)((int)data + 0x24) == 0)) {
-    Res_SetLocked(data,0);
+    Res_SetPurgable(data,0);
   }
   *(int *)((int)data + 0x24) = *(int *)((int)data + 0x24) + 1;
   return data;
 }
 
-/* ---- 0x0048e1b0  Resource_MaterialFreeHook ---- */
+/* ---- 0x0048e1b0  sputResource_MatUnloader ---- */
 /* rdMaterial free hook (rdMaterial_SetFreeHook): drops a reference and unlocks the resource when
-   the count reaches 0. */
+   the count reaches 0. Original name sputResource_MatUnloader (the remaster's GrimFandango (Linux):
+   aligned call in sputResource_Startup); was Resource_MaterialFreeHook. */
 
-void Resource_MaterialFreeHook(void *param_1)
+void sputResource_MatUnloader(void *param_1)
 
 {
   if (*(int *)((int)param_1 + 0x24) != 0) {
     *(int *)((int)param_1 + 0x24) = *(int *)((int)param_1 + 0x24) + -1;
   }
   if ((param_1 != (void *)0x0) && (*(int *)((int)param_1 + 0x24) == 0)) {
-    Res_SetLocked(param_1,1);
+    Res_SetPurgable(param_1,1);
   }
   return;
 }

@@ -1,6 +1,6 @@
 /* Differential test (agent r1): the music state / sequence transitions of IMUSE.DLL, original machine code against the C
  * of build/overrides_imuse_r1.c.
- *   orig_FUN_10006560 / orig_FUN_10006620 / orig_FUN_100068b0: sliced from the base assembly (85dd22f), called through
+ *   orig_FUN_10006560 / orig_Script_SetSequence / orig_Script_Trans: sliced from the base assembly (85dd22f), called through
  *   thunks.s with the frames of the original callers (ESI = 0xffffffff of the dispatcher, random EDI / saved words);
  *   orig_FUN_100064d0: transcribed from the original DLL (thunks.s).
  * Stand-ins for the iMUSE API they call (ImGetNextSound, ImGetParam, ImOpenSound, ImSetTrigger, ...) log every call and
@@ -28,9 +28,9 @@ void call_orig_68b0(char *entry, int index, int no_attr, unsigned w10, unsigned 
 extern char orig68b0_ret[];
 extern char orig_ret_100065f3[], orig_ret_100066eb[], orig_ret_1000672c[], orig_ret_10006778[];
 int FUN_10006560(int id);
-int FUN_10006620(int id);
+int Script_SetSequence(int id);
 int FUN_100064d0(void);
-void FUN_100068b0(char *entry, int index, int no_attr, unsigned caller_esi, unsigned ret_word);
+void Script_Trans(char *entry, int index, int no_attr, unsigned caller_esi, unsigned ret_word);
 
 /* ---- random numbers ---- */
 static uint64_t seed = 0x9e3779b97f4a7c15ull;
@@ -315,10 +315,10 @@ int main(int argc, char **argv)
             restore();
             switch (which) {
             case 0: r = side ? FUN_10006560(id) : call_orig_6560(id, 0xffffffffu, edi); break;
-            case 1: r = side ? FUN_10006620(id) : call_orig_6620(id, 0xffffffffu, edi); break;
+            case 1: r = side ? Script_SetSequence(id) : call_orig_6620(id, 0xffffffffu, edi); break;
             case 2: case 4: r = side ? FUN_100064d0() : call_orig_64d0(0xffffffffu, edi); break;
             default:
-                if (side) FUN_100068b0(entry, index, no_attr, w14, (unsigned)(uintptr_t)orig68b0_ret);
+                if (side) Script_Trans(entry, index, no_attr, w14, (unsigned)(uintptr_t)orig68b0_ret);
                 else call_orig_68b0(entry, index, no_attr, w10, w14);
                 r = 0;
                 break;
@@ -329,13 +329,13 @@ int main(int argc, char **argv)
         count[which]++;
         if (r0 != r1 || nlog[0] != nlog[1] || memcmp(logbuf[0], logbuf[1], nlog[0] * sizeof(Ev))
             || memcmp(glob_a, D(GLOB_LO), sizeof glob_a) || flag_a != DW(0x1001e688))
-            fail(which == 0 ? "FUN_10006560" : which == 1 ? "FUN_10006620" : which == 3 ? "FUN_100068b0" : "FUN_100064d0", i, r0, r1);
+            fail(which == 0 ? "FUN_10006560" : which == 1 ? "Script_SetSequence" : which == 3 ? "Script_Trans" : "FUN_100064d0", i, r0, r1);
     }
-    printf("cases %ld: FUN_10006560 %ld, FUN_10006620 %ld, FUN_100064d0 %ld, FUN_100068b0 %ld\n",
+    printf("cases %ld: FUN_10006560 %ld, Script_SetSequence %ld, FUN_100064d0 %ld, Script_Trans %ld\n",
            n, count[0], count[1], count[2] + count[4], count[3]);
     printf("ImSetTrigger: %ld calls, %ld with p9 = a return address of FUN_10006560/10006620, %ld command-0 triggers"
            " (p9 = caller ESI), %ld of them with ESI 0\n", cov_trig, cov_ret, cov_cmd0, cov_esi0);
-    printf("FUN_100068b0 entry types 0..14,other:");
+    printf("Script_Trans entry types 0..14,other:");
     for (i = 0; i < 16; i++) printf(" %ld", ntypes[i]);
     printf("\n%ld differences\n", fails);
     return fails != 0;

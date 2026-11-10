@@ -52,7 +52,7 @@ void __cdecl DirtyRect_Add(int *rect,int flag,int bufferIdx)
   do {
     while( true ) {
       if (item == (int *)0x0) {
-        puVar8 = (undefined4 *)Pool_Alloc(g_pDirtyRectPool);
+        puVar8 = (undefined4 *)Memory_AllocFixed(g_pDirtyRectPool);
         if (puVar8 == (undefined4 *)0x0) {
           return;
         }
@@ -263,10 +263,10 @@ void __cdecl DirtyRect_Flush(void *dst,void *zdst)
           g_pDirtyRectList = (void *)*item;
         }
         if ((((byte)g_dwDebugFlags & 1) != 0) && (((byte)g_dwDebugFlags & 0x10) != 0)) {
-          Surface_Lock(&g_dwStdDisplay_backBuffer);
+          stdDisplay_VBufferLock(&g_dwStdDisplay_backBuffer);
           rdPrimit2_DrawRect(*(void **)((int)g_pRdCamera_CurCamera + 4),*piVar2,item[6],
                              item[7] + *piVar2,item[8] + item[6],UINT_008c9820 & 0xffff,-1);
-          Surface_Unlock(&g_dwStdDisplay_backBuffer);
+          stdDisplay_VBufferUnlock(&g_dwStdDisplay_backBuffer);
         }
         piVar2 = (int *)*item;
         g_nDirtyRectCount = g_nDirtyRectCount + -1;

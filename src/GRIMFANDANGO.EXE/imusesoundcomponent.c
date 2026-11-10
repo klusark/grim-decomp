@@ -61,7 +61,7 @@ SoundChanger(int tag,int snd,undefined4 param_3,int slot,uint param_5,uint param
     if ((int)(inst & 0xff) <= (int)*(uint *)(iVar2 + 0x28)) {
       uVar7 = *(uint *)(iVar2 + 0x28);
     }
-    Sound_SetPosition(iVar6,(int)pvVar1 + iVar4 * 0xa8 + 0xc,uVar7,bVar3,snd,slot);
+    sputRoom_SetSoundPosition(iVar6,(int)pvVar1 + iVar4 * 0xa8 + 0xc,uVar7,bVar3,snd,slot);
     return;
   }
   if (*(int *)(&g_aSoundCommands + iVar6 * 4) == 1) {
@@ -119,7 +119,7 @@ undefined4 SoundAdjuster(int *param_1,undefined4 param_2)
   local_3c = (uint)*(char *)(iVar1 + 0x21);
   local_38 = *(uint *)(iVar1 + 0x24);
   local_34 = *(uint *)(iVar1 + 0x28);
-  iVar2 = Plat_PromptDialog(param_2,&local_30,&local_40,4);
+  iVar2 = grimPlat_SpinDialog(param_2,&local_30,&local_40,4);
   if ((iVar2 != 0) && ((int)local_34 <= (int)local_40)) {
     iVar2 = strtok(param_2,&DAT_004ea52c);
     if ((int)local_40 < 0) {
@@ -221,17 +221,18 @@ int SoundRequester(uint param_1,int param_2,int param_3,int param_4,char *param_
   }
   if (param_5 == (char *)0x0) {
     if (g_bSoundPath != '\0') {
-      Plat_SetDialogDirectory(&g_bSoundPath);
+      grimPlat_SetDefaultOpenPath(&g_bSoundPath);
     }
-    iVar4 = Plat_OpenFileDialog(s_Select_sound_file_to_add____004ea6b8,
-                                s_Sound_files____imu____imc____wvc_004ea6d4);
+    iVar4 = grimPlat_OpenFileRequest
+                      (s_Select_sound_file_to_add____004ea6b8,
+                       s_Sound_files____imu____imc____wvc_004ea6d4);
     if (iVar4 == 0) {
       return false;
     }
-    uVar2 = ((code *)Plat_GetDialogFileName)(0x7f);
+    uVar2 = ((code *)grimPlat_GetDefaultOpenPath)(0x7f);
     ((code *)strncpy)(&g_bSoundPath,uVar2);
     DAT_008caab7 = 0;
-    param_5 = Str_Basename(g_szGrimlib_aFilename);
+    param_5 = stdFnames_FindMedName(g_szGrimlib_aFilename);
   }
   else {
     strncpy(&local_20,param_5,0x1f);
@@ -274,22 +275,26 @@ int SoundRequester(uint param_1,int param_2,int param_3,int param_4,char *param_
 #undef local_25
 
 
-/* ---- 0x00497640  ImuseSoundComponent_Destroy ---- */
+/* ---- 0x00497640  SoundFreer ---- */
 /* Costume tag handler for 'iMuse Streamed / Resident Sound FX' (registered by sputCostume_Start
-   through Cos_NewStateBasedTag/Cos_NewIntTag): slot 2, frees the key data. */
+   through Cos_NewStateBasedTag/Cos_NewIntTag): slot 2, frees the key data. Original name SoundFreer
+   (the remaster's GrimFandango (Linux): the same handler slot (freer) of the same costume tag
+   registration in sputCostume_Startup); was ImuseSoundComponent_Destroy. */
 
-undefined4 ImuseSoundComponent_Destroy(undefined4 param_1,undefined4 param_2,undefined4 param_3)
+undefined4 SoundFreer(undefined4 param_1,undefined4 param_2,undefined4 param_3)
 
 {
   (*g_pSputCosHS->pFree)(param_3);
   return 1;
 }
 
-/* ---- 0x00497660  ImuseSoundComponent_Stop ---- */
+/* ---- 0x00497660  SoundStopper ---- */
 /* Costume tag handler for 'iMuse Streamed / Resident Sound FX' (registered by sputCostume_Start
-   through Cos_NewStateBasedTag/Cos_NewIntTag): slot 3, SoundsStopSound. */
+   through Cos_NewStateBasedTag/Cos_NewIntTag): slot 3, SoundsStopSound. Original name SoundStopper
+   (the remaster's GrimFandango (Linux): the same handler slot (stopper) of the same costume tag
+   registration in sputCostume_Startup); was ImuseSoundComponent_Stop. */
 
-undefined4 ImuseSoundComponent_Stop(int param_1)
+undefined4 SoundStopper(int param_1)
 
 {
   SoundsStopSound(param_1);

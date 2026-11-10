@@ -5,11 +5,13 @@
 #include "globals.h"
 #include "functions.h"
 
-/* ---- 0x004a5cc0  Light_Get ---- */
+/* ---- 0x004a5cc0  sputRoom_GetLight ---- */
 /* Light record: +0x20 position, +0x2c/+0x38 orientation, +0x30 type (1 parallel/global, 2 omni, 3
-   spot), +0x34 on, +0x44 intensity, +0x4c/+0x54 cone angles */
+   spot), +0x34 on, +0x44 intensity, +0x4c/+0x54 cone angles Original name sputRoom_GetLight (the
+   remaster's GrimFandango (Linux): aligned call in sputLua_IsLightOn, sputLua_SetLightType,
+   sputLua_TurnLightOn); was Light_Get. */
 
-void * __cdecl Light_Get(void *set,int index)
+void * __cdecl sputRoom_GetLight(void *set,int index)
 
 {
   if (set == (void *)0x0) {

@@ -5,11 +5,13 @@
 #include "globals.h"
 #include "functions.h"
 
-/* ---- 0x00404c00  rdCanvas_InitEdgeTables ---- */
+/* ---- 0x00404c00  rdActive_AdvanceFrame ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
-/* Clears the per-scanline edge buckets for the current canvas height */
+/* Clears the per-scanline edge buckets for the current canvas height Original name
+   rdActive_AdvanceFrame (the remaster's GrimFandango (Linux): aligned call in rdCache_Flush); was
+   rdCanvas_InitEdgeTables. */
 
-void rdCanvas_InitEdgeTables(void)
+void rdActive_AdvanceFrame(void)
 
 {
   uint uVar1;
@@ -21,9 +23,9 @@ void rdCanvas_InitEdgeTables(void)
   iVar4 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x1c);
   _DAT_004f6ef8 = 0xffff0000;
   uVar1 = (*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x24) - iVar4) + 1;
-  UINT_004f6f20 = (uint)&DAT_005e6f40;
-  _DAT_005e6f8c = &DAT_004f6ed0;
-  puVar5 = (undefined4 *)(&DAT_004f5ec8 + iVar4 * 4);
+  UINT_004f6f20 = (uint)&g_aActiveEdgeTail;
+  _DAT_005e6f8c = &g_aActiveEdgeHead;
+  puVar5 = (undefined4 *)(&g_apNewActiveEdges + iVar4 * 4);
   for (uVar2 = uVar1 & 0x3fffffff; uVar2 != 0; uVar2 = uVar2 - 1) {
     *puVar5 = 0;
     puVar5 = puVar5 + 1;
@@ -32,7 +34,7 @@ void rdCanvas_InitEdgeTables(void)
     *(undefined1 *)puVar5 = 0;
     puVar5 = (undefined4 *)((int)puVar5 + 1);
   }
-  puVar5 = (undefined4 *)(&DAT_0050cf38 + iVar4 * 4);
+  puVar5 = (undefined4 *)(&g_apRemoveActiveEdges + iVar4 * 4);
   for (uVar1 = uVar1 & 0x3fffffff; uVar1 != 0; uVar1 = uVar1 - 1) {
     *puVar5 = 0;
     puVar5 = puVar5 + 1;
@@ -41,14 +43,14 @@ void rdCanvas_InitEdgeTables(void)
     *(undefined1 *)puVar5 = 0;
     puVar5 = (undefined4 *)((int)puVar5 + 1);
   }
-  UINT_004f6ec8 = 0x7fffffff;
-  UINT_004f6f28 = 0;
+  g_dwYMinEdge = 0x7fffffff;
+  g_dwYMaxEdge = 0;
   _DAT_004f6f1c = 0;
   _DAT_005e6f68 = 0x7fffffff;
   _DAT_005e6f90 = 0;
-  UINT_005e6f3c = 0;
-  UINT_005e6f38 = 0;
-  UINT_004f6f2c = 0;
+  g_dwNumActiveFaces = 0;
+  g_dwNumActiveEdges = 0;
+  g_dwNumActiveSpans = 0;
   return;
 }
 
@@ -60,11 +62,12 @@ void rdCanvas_ResetPolyCount(void)
   return;
 }
 
-/* ---- 0x00404cb0  rdCanvas_ScanConvert ---- */
+/* ---- 0x00404cb0  rdActive_DrawScene ---- */
 /* Rdcanvas.c: active-edge scanline loop over all queued polygons; merges edges per scanline, emits
-   spans, flushes them */
+   spans, flushes them Original name rdActive_DrawScene (the remaster's GrimFandango (Linux):
+   aligned call in rdCache_Flush); was rdCanvas_ScanConvert. */
 
-void rdCanvas_ScanConvert(void)
+void rdActive_DrawScene(void)
 
 {
   int iVar1;
@@ -75,11 +78,11 @@ void rdCanvas_ScanConvert(void)
   undefined *puVar6;
   undefined *puVar7;
   
-  rdCanvas_BuildEdgeLists();
-  UINT_0050cf30 = UINT_004f6ec8;
-  if (UINT_004f6ec8 <= UINT_004f6f28) {
+  rdActive_BuildEdges();
+  g_dwYCurScanLine = g_dwYMinEdge;
+  if (g_dwYMinEdge <= g_dwYMaxEdge) {
     do {
-      piVar4 = *(int **)(&DAT_004f5ec8 + UINT_0050cf30 * 4);
+      piVar4 = *(int **)(&g_apNewActiveEdges + g_dwYCurScanLine * 4);
       uVar5 = UINT_004f6f20;
       while (piVar4 != (int *)0x0) {
         iVar1 = piVar4[10];
@@ -104,14 +107,14 @@ void rdCanvas_ScanConvert(void)
           piVar4 = piVar3;
         }
       }
-      rdCanvas_EmitSpans();
-      for (iVar2 = *(int *)(&DAT_0050cf38 + UINT_0050cf30 * 4); iVar2 != 0;
+      rdActive_BuildSpans();
+      for (iVar2 = *(int *)(&g_apRemoveActiveEdges + g_dwYCurScanLine * 4); iVar2 != 0;
           iVar2 = *(int *)(iVar2 + 0x54)) {
         *(undefined4 *)(*(int *)(iVar2 + 0x50) + 0x4c) = *(undefined4 *)(iVar2 + 0x4c);
         *(undefined4 *)(*(int *)(iVar2 + 0x4c) + 0x50) = *(undefined4 *)(iVar2 + 0x50);
       }
       puVar6 = (undefined *)UINT_004f6f20;
-      if ((undefined *)UINT_004f6f20 != &DAT_005e6f40) {
+      if ((undefined *)UINT_004f6f20 != &g_aActiveEdgeTail) {
         do {
           (**(code **)(puVar6 + 0x48))(puVar6);
           if (*(int *)(puVar6 + 0x28) < *(int *)(*(int *)(puVar6 + 0x4c) + 0x28)) {
@@ -134,22 +137,23 @@ void rdCanvas_ScanConvert(void)
             puVar7 = *(undefined **)(puVar6 + 0x50);
           }
           puVar6 = puVar7;
-        } while (puVar7 != &DAT_005e6f40);
+        } while (puVar7 != &g_aActiveEdgeTail);
       }
-      UINT_0050cf30 = UINT_0050cf30 + 1;
-    } while (UINT_0050cf30 <= UINT_004f6f28);
+      g_dwYCurScanLine = g_dwYCurScanLine + 1;
+    } while (g_dwYCurScanLine <= g_dwYMaxEdge);
   }
   rdCanvas_FlushSpans();
   return;
 }
 
-/* ---- 0x00404e00  rdCanvas_EmitSpans ---- */
+/* ---- 0x00404e00  rdActive_BuildSpans ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Walks the active edge list for one scanline, computing 0x2c-byte span records with interpolated
-   z/u/v/light */
+   z/u/v/light Original name rdActive_BuildSpans (the remaster's GrimFandango (Linux): aligned call
+   in rdActive_DrawScene); was rdCanvas_EmitSpans. */
 
-void rdCanvas_EmitSpans(void)
+void rdActive_BuildSpans(void)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -181,9 +185,9 @@ void rdCanvas_EmitSpans(void)
   #define local_c (*(uint *)(_frame + (0x40 - 0xc)))
   #define local_8 (*(uint *)(_frame + (0x40 - 0x8)))
   
-  if ((UINT_005e6f38 != 0) &&
+  if ((g_dwNumActiveEdges != 0) &&
      (piVar17 = (int *)0x0, piVar13 = (int *)UINT_004f6f20,
-     (undefined *)UINT_004f6f20 != &DAT_005e6f40)) {
+     (undefined *)UINT_004f6f20 != &g_aActiveEdgeTail)) {
     do {
       piVar2 = (int *)piVar13[1];
       if (*piVar13 == 0) {
@@ -197,17 +201,17 @@ void rdCanvas_EmitSpans(void)
             }
             iVar10 = (int)(uVar9 - piVar17[0x7d]) >> 0x10;
             if (0 < iVar10) {
-              if (0x7ff < UINT_004f6f2c) {
+              if (0x7ff < g_dwNumActiveSpans) {
                 rdCanvas_FlushSpans();
               }
               iVar3 = piVar17[0x7b];
               iVar4 = piVar17[0x7c];
-              iVar1 = UINT_004f6f2c * 0x2c;
+              iVar1 = g_dwNumActiveSpans * 0x2c;
               piVar2 = (int *)(&DAT_004f6f30 + iVar1);
-              UINT_004f6f2c = UINT_004f6f2c + 1;
+              g_dwNumActiveSpans = g_dwNumActiveSpans + 1;
               *piVar2 = piVar17[0x7d] >> 0x10;
               *(int *)(&DAT_004f6f34 + iVar1) = iVar10;
-              *(uint *)(&DAT_004f6f38 + iVar1) = UINT_0050cf30;
+              *(uint *)(&DAT_004f6f38 + iVar1) = g_dwYCurScanLine;
               *(undefined4 *)(&DAT_004f6f58 + iVar1) = 0;
               uVar14 = *(uint *)(iVar4 + 0x28);
               if ((uVar14 & 0xffff) != 0) {
@@ -226,7 +230,7 @@ void rdCanvas_EmitSpans(void)
               if (*(int *)(*piVar17 + 8) == 4) {
                 iVar5 = *(int *)(*piVar17 + 0x10);
                 if (iVar5 == 0) {
-                  iVar5 = *(int *)(&DAT_008fbfc0 + uVar14 * 4);
+                  iVar5 = *(int *)(&g_aRdRaster_OneOverNFixed + uVar14 * 4);
                   lVar6 = (longlong)(*(int *)(iVar4 + 0x30) - *(int *)(iVar3 + 0x30)) *
                           (longlong)iVar5;
                   uVar11 = (uint)lVar6 >> 0x10 | (int)((ulonglong)lVar6 >> 0x20) << 0x10;
@@ -258,7 +262,7 @@ void rdCanvas_EmitSpans(void)
               }
               if (*(int *)(*piVar17 + 0xc) == 3) {
                 lVar6 = (longlong)(*(int *)(iVar4 + 0x40) - *(int *)(iVar3 + 0x40)) *
-                        (longlong)*(int *)(&DAT_008fbfc0 + uVar14 * 4);
+                        (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + uVar14 * 4);
                 uVar14 = (uint)lVar6 >> 0x10 | (int)((ulonglong)lVar6 >> 0x20) << 0x10;
                 *(uint *)(&DAT_004f6f54 + iVar1) = uVar14;
                 if (((int)uVar14 < 0) && (-0x51e < (int)uVar14)) {
@@ -308,7 +312,7 @@ void rdCanvas_EmitSpans(void)
               uVar14 = uVar14 + 0x10000 & 0xffff0000;
             }
             fVar7 = (*(float *)(piVar2[0x7c] + 0x10) - *(float *)(piVar2[0x7b] + 0x10)) *
-                    (float)(&UINT_008fe000)[uVar9 - uVar14 >> 0x10];
+                    (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9 - uVar14 >> 0x10];
             piVar2[0x61] = (int)fVar7;
             piVar2[0x67] = (int)ROUND(fVar7 * 65536.0);
           }
@@ -357,17 +361,17 @@ LAB_00404f44:
               }
               iVar10 = (int)(uVar9 - piVar17[0x7d]) >> 0x10;
               if (0 < iVar10) {
-                if (0x7ff < UINT_004f6f2c) {
+                if (0x7ff < g_dwNumActiveSpans) {
                   rdCanvas_FlushSpans();
                 }
                 iVar3 = piVar17[0x7b];
-                iVar1 = UINT_004f6f2c * 0x2c;
+                iVar1 = g_dwNumActiveSpans * 0x2c;
                 piVar16 = (int *)(&DAT_004f6f30 + iVar1);
                 iVar4 = piVar17[0x7c];
-                UINT_004f6f2c = UINT_004f6f2c + 1;
+                g_dwNumActiveSpans = g_dwNumActiveSpans + 1;
                 *piVar16 = piVar17[0x7d] >> 0x10;
                 *(int *)(&DAT_004f6f34 + iVar1) = iVar10;
-                uVar14 = UINT_0050cf30;
+                uVar14 = g_dwYCurScanLine;
                 *(undefined4 *)(&DAT_004f6f58 + iVar1) = 0;
                 *(uint *)(&DAT_004f6f38 + iVar1) = uVar14;
                 uVar14 = *(uint *)(iVar4 + 0x28);
@@ -386,7 +390,7 @@ LAB_00404f44:
                 if (*(int *)(*piVar17 + 8) == 4) {
                   iVar5 = *(int *)(*piVar17 + 0x10);
                   if (iVar5 == 0) {
-                    iVar5 = *(int *)(&DAT_008fbfc0 + uVar14 * 4);
+                    iVar5 = *(int *)(&g_aRdRaster_OneOverNFixed + uVar14 * 4);
                     lVar6 = (longlong)(*(int *)(iVar4 + 0x30) - *(int *)(iVar3 + 0x30)) *
                             (longlong)iVar5;
                     uVar11 = (uint)lVar6 >> 0x10 | (int)((ulonglong)lVar6 >> 0x20) << 0x10;
@@ -418,7 +422,7 @@ LAB_00404f44:
                 }
                 if (*(int *)(*piVar17 + 0xc) == 3) {
                   lVar6 = (longlong)(*(int *)(iVar4 + 0x40) - *(int *)(iVar3 + 0x40)) *
-                          (longlong)*(int *)(&DAT_008fbfc0 + uVar14 * 4);
+                          (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + uVar14 * 4);
                   uVar14 = (uint)lVar6 >> 0x10 | (int)((ulonglong)lVar6 >> 0x20) << 0x10;
                   *(uint *)(&DAT_004f6f54 + iVar1) = uVar14;
                   if (((int)uVar14 < 0) && (-0x51e < (int)uVar14)) {
@@ -497,7 +501,7 @@ LAB_00405252:
 LAB_004055a9:
       piVar2 = piVar13 + 0x14;
       piVar13 = (int *)*piVar2;
-    } while ((int *)*piVar2 != (int *)&DAT_005e6f40);
+    } while ((int *)*piVar2 != (int *)&g_aActiveEdgeTail);
   }
   return;
 }
@@ -525,7 +529,7 @@ void rdCanvas_FlushSpans(void)
   uint uVar2;
   
   uVar2 = 0;
-  if (UINT_005e6f3c != 0) {
+  if (g_dwNumActiveFaces != 0) {
     puVar1 = &UINT_005660f0;
     do {
       if (*puVar1 != 0) {
@@ -535,17 +539,18 @@ void rdCanvas_FlushSpans(void)
       }
       puVar1 = puVar1 + 0x81;
       uVar2 = uVar2 + 1;
-    } while (uVar2 < UINT_005e6f3c);
+    } while (uVar2 < g_dwNumActiveFaces);
   }
-  UINT_004f6f2c = 0;
+  g_dwNumActiveSpans = 0;
   return;
 }
 
-/* ---- 0x00405620  rdCanvas_BuildEdgeLists ---- */
+/* ---- 0x00405620  rdActive_BuildEdges ---- */
 /* For every queued polygon, runs its edge-setup callback on each edge and inserts the edges into
-   the per-scanline buckets */
+   the per-scanline buckets Original name rdActive_BuildEdges (the remaster's GrimFandango (Linux):
+   aligned call in rdActive_DrawScene); was rdCanvas_BuildEdgeLists. */
 
-void rdCanvas_BuildEdgeLists(void)
+void rdActive_BuildEdges(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -566,7 +571,7 @@ void rdCanvas_BuildEdgeLists(void)
   puVar8 = &g_bRdCache_aProcFaces;
   if (g_dwRdCache_numProcFaces != 0) {
     do {
-      rdCanvas_PreparePolygon(puVar8);
+      rdActive_AddActiveFace(puVar8);
       puVar8 = puVar8 + 0x78;
       uVar10 = uVar10 + 1;
     } while (uVar10 < g_dwRdCache_numProcFaces);
@@ -574,7 +579,7 @@ void rdCanvas_BuildEdgeLists(void)
   puVar11 = &UINT_00565f38;
   puVar9 = &DAT_0050df38;
   local_4 = 0;
-  if (UINT_005e6f3c != 0) {
+  if (g_dwNumActiveFaces != 0) {
     do {
       uVar10 = *puVar11;
       uVar4 = *(uint *)(uVar10 + 0x1c);
@@ -591,10 +596,10 @@ void rdCanvas_BuildEdgeLists(void)
           iVar6 = (*(code *)puVar11[0x7a])(puVar9,puVar11,uVar4,uVar7);
           if (iVar6 != 0) {
             *(uint **)(puVar9 + 4) = puVar11;
-            iVar6 = *(int *)(&DAT_004f5ec8 + *(int *)(puVar9 + 8) * 4);
+            iVar6 = *(int *)(&g_apNewActiveEdges + *(int *)(puVar9 + 8) * 4);
             if ((iVar6 == 0) || (*(int *)(puVar9 + 0x28) <= *(int *)(iVar6 + 0x28))) {
               *(int *)(puVar9 + 0x50) = iVar6;
-              *(undefined **)(&DAT_004f5ec8 + *(int *)(puVar9 + 8) * 4) = puVar9;
+              *(undefined **)(&g_apNewActiveEdges + *(int *)(puVar9 + 8) * 4) = puVar9;
             }
             else {
               for (iVar3 = *(int *)(iVar6 + 0x50);
@@ -607,17 +612,17 @@ void rdCanvas_BuildEdgeLists(void)
             }
             uVar7 = *(uint *)(puVar9 + 8);
             uVar4 = *(int *)(puVar9 + 0xc) + -1 + uVar7;
-            uVar2 = *(undefined4 *)(&DAT_0050cf38 + uVar4 * 4);
-            *(undefined **)(&DAT_0050cf38 + uVar4 * 4) = puVar9;
+            uVar2 = *(undefined4 *)(&g_apRemoveActiveEdges + uVar4 * 4);
+            *(undefined **)(&g_apRemoveActiveEdges + uVar4 * 4) = puVar9;
             *(undefined4 *)(puVar9 + 0x54) = uVar2;
-            if (uVar7 < UINT_004f6ec8) {
-              UINT_004f6ec8 = uVar7;
+            if (uVar7 < g_dwYMinEdge) {
+              g_dwYMinEdge = uVar7;
             }
-            if (UINT_004f6f28 < uVar4) {
-              UINT_004f6f28 = uVar4;
+            if (g_dwYMaxEdge < uVar4) {
+              g_dwYMaxEdge = uVar4;
             }
             puVar9 = puVar9 + 0x58;
-            UINT_005e6f38 = UINT_005e6f38 + 1;
+            g_dwNumActiveEdges = g_dwNumActiveEdges + 1;
           }
           uVar4 = *(uint *)(uVar10 + 0x1c);
           uVar7 = uVar1;
@@ -625,17 +630,20 @@ void rdCanvas_BuildEdgeLists(void)
       }
       puVar11 = puVar11 + 0x81;
       local_4 = local_4 + 1;
-    } while (local_4 < UINT_005e6f3c);
+    } while (local_4 < g_dwNumActiveFaces);
   }
   return;
 }
 #undef local_4
 
 
-/* ---- 0x00405770  rdCanvas_PreparePolygon ---- */
+/* ---- 0x00405770  rdActive_AddActiveFace ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-undefined4 rdCanvas_PreparePolygon(byte *param_1)
+/* Original name rdActive_AddActiveFace (the remaster's GrimFandango (Linux): aligned call in
+   rdActive_BuildEdges); was rdCanvas_PreparePolygon. */
+
+undefined4 rdActive_AddActiveFace(byte *param_1)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -653,8 +661,8 @@ undefined4 rdCanvas_PreparePolygon(byte *param_1)
   #define local_4 (*(float *)(_frame + (0x20 - 0x4)))
   
   pbVar5 = param_1;
-  uVar8 = UINT_005e6f3c;
-  if (0x3ff < UINT_005e6f3c) {
+  uVar8 = g_dwNumActiveFaces;
+  if (0x3ff < g_dwNumActiveFaces) {
     return 0;
   }
   local_4 = *(float *)(param_1 + 8);
@@ -672,8 +680,8 @@ undefined4 rdCanvas_PreparePolygon(byte *param_1)
   if (local_4 == 0.0) {
     return 0;
   }
-  iVar1 = UINT_005e6f3c * 0x204;
-  puVar2 = &UINT_00565f38 + UINT_005e6f3c * 0x81;
+  iVar1 = g_dwNumActiveFaces * 0x204;
+  puVar2 = &UINT_00565f38 + g_dwNumActiveFaces * 0x81;
   *puVar2 = (uint)pbVar5;
   (&UINT_005660f0)[uVar8 * 0x81] = 0;
   (&UINT_005660f4)[uVar8 * 0x81] = 0;
@@ -1325,7 +1333,7 @@ LAB_0040585d:
     }
   }
   UINT_005e6f98 = UINT_005e6f98 + 1;
-  UINT_005e6f3c = UINT_005e6f3c + 1;
+  g_dwNumActiveFaces = g_dwNumActiveFaces + 1;
   return 1;
 }
 #undef local_4

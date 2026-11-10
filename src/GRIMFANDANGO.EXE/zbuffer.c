@@ -53,6 +53,6 @@ void ZBuffer_Free(undefined4 param_1)
 void ZBuffer_FreeData(void *param_1)
 
 {
-  Surface_Free(param_1);
+  stdDisplay_VBufferFree(param_1);
   return;
 }

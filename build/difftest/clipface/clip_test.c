@@ -4,7 +4,7 @@
  *
  * Each case picks the geometry mode (param_2 0..4 plus out-of-range values), the lighting mode (param_3 -1..4), the camera
  * projection type (0, 1, 2), a vertex count 0..24, random index arrays and random position / uv / intensity pools, with and
- * without the per-vertex extra intensity array (src[6]).  Both versions run on the same start state.  The ten rdClip_Face3_*
+ * without the per-vertex extra intensity array (src[6]).  Both versions run on the same start state.  The ten rdClip_Face3*
  * clippers are stand-ins that log their name and arguments and return a random count in EAX (like the real ones, which leave
  * the x87 stack empty).  Compared: the call log, the output count (dst[0]) and all of dst / src headers, the whole position /
  * uv / intensity output buffers, the x87 control word, the x87 stack depth (TOP) and the invalid / stack fault flags. */
@@ -13,7 +13,7 @@
 #include <string.h>
 #include <stdint.h>
 
-extern void *g_pRdCurrentCamera;
+extern void *g_pRdCamera_CurCamera;
 
 typedef void clipface_fn(void *, int, int, int, uint32_t *, uint32_t *, float *);
 extern clipface_fn orig_rdPrimit3_ClipFace, rdPrimit3_ClipFace;
@@ -49,14 +49,13 @@ static void rec(int id, int n, uint32_t a0, uint32_t a1, uint32_t a2, uint32_t a
     c = &logbuf[side][nlog[side]++];
     c->id = id; c->n = n; c->a[0] = a0; c->a[1] = a1; c->a[2] = a2; c->a[3] = a3; c->a[4] = a4; c->ret = retval;
 }
-static const char *names[] = {"?", "Pos", "PosB", "Pos_2", "PosB_2", "PosUvLit", "PosUv", "PosUvLit_2", "PosUvFlags",
-                              "PosUvLitColor", "PosUvLitFlags"};
-#define C3(nm, id) uint32_t rdClip_Face3_##nm(uint32_t a, uint32_t b, uint32_t c) { rec(id, 3, a, b, c, 0, 0); return retval; }
-#define C4(nm, id) uint32_t rdClip_Face3_##nm(uint32_t a, uint32_t b, uint32_t c, uint32_t d) { rec(id, 4, a, b, c, d, 0); return retval; }
-#define C5(nm, id) uint32_t rdClip_Face3_##nm(uint32_t a, uint32_t b, uint32_t c, uint32_t d, uint32_t e) { rec(id, 5, a, b, c, d, e); return retval; }
-C3(Pos, 1) C3(PosB, 2) C3(Pos_2, 3) C3(PosB_2, 4)
-C4(PosUvLit, 5) C4(PosUv, 6) C4(PosUvLit_2, 7) C4(PosUvFlags, 8)
-C5(PosUvLitColor, 9) C5(PosUvLitFlags, 10)
+static const char *names[] = {"?", "W", "WOrtho", "S", "SOrtho", "GS", "GSOrtho", "T", "TOrtho", "GT", "GTOrtho"};
+#define C3(nm, id) uint32_t rdClip_Face3##nm(uint32_t a, uint32_t b, uint32_t c) { rec(id, 3, a, b, c, 0, 0); return retval; }
+#define C4(nm, id) uint32_t rdClip_Face3##nm(uint32_t a, uint32_t b, uint32_t c, uint32_t d) { rec(id, 4, a, b, c, d, 0); return retval; }
+#define C5(nm, id) uint32_t rdClip_Face3##nm(uint32_t a, uint32_t b, uint32_t c, uint32_t d, uint32_t e) { rec(id, 5, a, b, c, d, e); return retval; }
+C3(W, 1) C3(WOrtho, 2) C3(S, 3) C3(SOrtho, 4)
+C4(GS, 5) C4(GSOrtho, 6) C4(T, 7) C4(TOrtho, 8)
+C5(GT, 9) C5(GTOrtho, 10)
 
 /* ---- the memory both versions work on ---- */
 #define NV 64
@@ -106,7 +105,7 @@ int main(int argc, char **argv)
 {
     int cases = argc > 1 ? atoi(argv[1]) : 200000, diffs = 0, k, i, shown = 0;
     int hist[6][6] = {{0}};
-    void *savedcam = g_pRdCurrentCamera;
+    void *savedcam = g_pRdCamera_CurCamera;
 
     for (k = 0; k < cases; k++) {
         int p2, p3, n, extra_on = R(2);
@@ -136,14 +135,14 @@ int main(int argc, char **argv)
             setup(&m[side], extra_on);
             m[side].src[0] = n;
             nlog[side] = 0;
-            g_pRdCurrentCamera = m[side].cam;
+            g_pRdCamera_CurCamera = m[side].cam;
             fpu_reset(cw0);
             (side ? rdPrimit3_ClipFace : orig_rdPrimit3_ClipFace)(m[side].frustum, p2, p3, 0x4444, m[side].src,
                                                                     m[side].dst, m[side].off);
             fpu_state(&cw[side], &sw[side]);
             fpu_reset(0x037f);
         }
-        g_pRdCurrentCamera = savedcam;
+        g_pRdCamera_CurCamera = savedcam;
 
         /* compare: pointers inside m[1] are shifted by the distance between the two copies */
         {

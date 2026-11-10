@@ -19,10 +19,10 @@ undefined4 Debug_CameraFovKeys(void)
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   if ((g_nGrimlib_bDebugKeys != 0) &&
-     (iVar1 = Input_GetButtonState(0x1d,(int *)0x0,(int *)0x0), iVar1 != 0)) {
-    iVar1 = Input_GetButtonState(0x4e,(int *)0x0,(int *)0x0);
+     (iVar1 = stdControl_ReadKey(0x1d,(int *)0x0,(int *)0x0), iVar1 != 0)) {
+    iVar1 = stdControl_ReadKey(0x4e,(int *)0x0,(int *)0x0);
     if (iVar1 == 0) {
-      iVar1 = Input_GetButtonState(0x4a,(int *)0x0,(int *)0x0);
+      iVar1 = stdControl_ReadKey(0x4a,(int *)0x0,(int *)0x0);
       if (iVar1 == 0) {
         return 0;
       }

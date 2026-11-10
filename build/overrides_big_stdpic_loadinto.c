@@ -7,14 +7,14 @@
  * every packet must have size 8, the list ends with chained == 0.  Then for each row, for each packet: width pixels of the
  * packet's channels, type 0 uncompressed, any other type "mixed RLE" (n < 0x80: n + 1 literal pixels; 0x80: 16 bit
  * big-endian count + one pixel; n > 0x80: n - 0x7f copies of one pixel).  The picture is stored 24 bit RGB (3 bytes per
- * pixel, R G B at +0 +1 +2, the surface pitch between rows) in a surface made with Surface_Create; alpha is read and dropped.
+ * pixel, R G B at +0 +1 +2, the surface pitch between rows) in a surface made with stdDisplay_VBufferNew; alpha is read and dropped.
  * `bm` (0x7c bytes) gets the file name, the colour format and a 4 byte block holding the surface pointer at +0x78.
  *
  * What the C keeps from the machine code:
  *  - The function's stack frame from ESP+0x60 to ESP+0x15c is one array `fr`: the packet types are stored at
  *    ESP+0x60 + 4 * index with no bound, so a file with more than 4 packets writes its types over the header (packet 27
- *    replaces width / height with type, 0), the colour format block (packets 30-43, which then goes to `bm` and Surface_Create)
- *    and the Surface_Create description (44-62), and the later pixel loop reads those slots back as types.  From 63 packets
+ *    replaces width / height with type, 0), the colour format block (packets 30-43, which then goes to `bm` and stdDisplay_VBufferNew)
+ *    and the stdDisplay_VBufferNew description (44-62), and the later pixel loop reads those slots back as types.  From 63 packets
  *    on the original overwrites its return address and arguments (and crashes); the C drops such stores (see FR_N).
  *  - The version and ratio floats are byte-swapped the way the original does it: _ftol of the float read in the wrong byte
  *    order, swap the integer, convert back (the operand of _ftol that Ghidra lost is that float).  Dead values, kept.
@@ -113,7 +113,7 @@ undefined4 stdPic_LoadEntry(char *path, undefined4 *bm_, int videoMem, int sysMe
 
     /* the bitmap record */
     for (i = 0; i < 0x7c; i++) bm[i] = 0;
-    strncpy((uint *)bm, (uint *)Str_FileNameFromPath(path), 0x1f);
+    strncpy((uint *)bm, (uint *)stdFileFromPath(path), 0x1f);
     bm[0x1f] = 0;
     *(uint *)(bm + 0x20) = 0;
     *(uint *)(bm + 0x24) = 0;
@@ -126,15 +126,15 @@ undefined4 stdPic_LoadEntry(char *path, undefined4 *bm_, int videoMem, int sysMe
     if (*(int *)(bm + 0x78) == 0)
         (*g_pStd_HS->pAssertFail)(s_Unable_to_allocate_memory__004e76d4, s_C__grimjedi_Libs_Std_General_std_004e77d8,
                                    (int)*(short *)&DAT_004e77d0 + 0x6e);
-    /* Surface_Create description at ESP+0x110: width, height, three dwords Surface_Create overwrites, format */
+    /* stdDisplay_VBufferNew description at ESP+0x110: width, height, three dwords stdDisplay_VBufferNew overwrites, format */
     for (i = 0; i < 14; i++) ((uint *)FRB(0x124))[i] = ((uint *)(bm + 0x28))[i];
     FRD(0x110) = FRW(0xcc);
     FRD(0x114) = FRW(0xce);
-    **(void ***)(bm + 0x78) = Surface_Create(FRB(0x110), videoMem, sysMem, 0);
+    **(void ***)(bm + 0x78) = stdDisplay_VBufferNew(FRB(0x110), videoMem, sysMem, 0);
     if (**(void ***)(bm + 0x78) == 0)
         (*g_pStd_HS->pAssertFail)(s_Unable_to_allocate_memory__004e76d4, s_C__grimjedi_Libs_Std_General_std_004e77d8,
                                    (int)*(short *)&DAT_004e77d0 + 0x76);
-    if (Surface_Lock(**(void ***)(bm + 0x78)) == 0)
+    if (stdDisplay_VBufferLock(**(void ***)(bm + 0x78)) == 0)
         (*g_pStd_HS->pAssertFail)(s_Unable_to_lock_VBuffer_memory__004e76b4, s_C__grimjedi_Libs_Std_General_std_004e77d8,
                                    (int)*(short *)&DAT_004e77d0 + 0x7c);
 
@@ -196,7 +196,7 @@ undefined4 stdPic_LoadEntry(char *path, undefined4 *bm_, int videoMem, int sysMe
             } while (x < (int)FRW(0xcc));
         }
     }
-    Surface_Unlock(**(void ***)(bm + 0x78));
+    stdDisplay_VBufferUnlock(**(void ***)(bm + 0x78));
     (*g_pStd_HS->pFclose)(fp);
     return 1;
 }

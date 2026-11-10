@@ -285,7 +285,7 @@ switchD_1000422b_caseD_fffffff9:
     case 0xfffffffb:
       *puVar1 = 0xfffffff5;
       param_1 = (code *)puVar1[1];
-      pvVar3 = (void *)ldo__44e0(param_1,iVar4);
+      pvVar3 = (void *)callC(param_1,iVar4);
       param_2 = pvVar3;
       break;
     case 0xfffffffc:
@@ -355,10 +355,12 @@ LAB_10004474:
 #endif
 
 
-/* ---- 0x100044e0  ldo__44e0 ---- */
-/* Unidentified function of ldo.c (stack and call machinery, Grim task marks) */
+/* ---- 0x100044e0  callC ---- */
+/* Named callC (not in the remaster, gcc inlined it there): Lua 3.1 source name (ldo.c: saves the C
+   stack frame, runs the call hook, calls the C function, used by luaD_call / luaD_callC); was
+   ldo__44e0. */
 
-int __cdecl ldo__44e0(undefined *param_1,int param_2)
+int __cdecl callC(undefined *param_1,int param_2)
 
 {
   int *piVar1;
@@ -420,7 +422,7 @@ int __cdecl luaD_callC(int param_1,undefined *param_2,int param_3)
     puVar4 = (undefined4 *)((int)puVar4 + 1);
   }
   g_pLuaState[7] = g_pLuaState[7] + uVar1 * 8;
-  iVar2 = ldo__44e0(param_2,param_3);
+  iVar2 = callC(param_2,param_3);
   return iVar2;
 }
 

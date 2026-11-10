@@ -17,7 +17,7 @@ import sys
 ORIG = "C:/GOG Games/GRIMDATA/GRIMFANDANGO.exe"
 ORIG_ADDRS = ("4cbc00", "8da4ec", "8da4f0", "8d7860")
 NM = "C:/msys64/mingw32/bin/nm.exe"
-SYMS = ("_FUN_004cbc00", "_UINT_008da4ec", "_PTR_008da4f0", "_UINT_008d7860")
+SYMS = ("_FUN_004cbc00", "_g_dwSoundServices", "_g_pDWave_outputBuffer", "_UINT_008d7860")
 
 
 def addrs_of(image):

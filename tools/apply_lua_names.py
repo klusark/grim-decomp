@@ -56,7 +56,7 @@ for addr, names in sorted(by_addr.items()):
     tag_assignments.append({"function": addr, "tags": "lua-binding,src:Scripts/sputLua.cpp"})
 
 # the registration wrapper and the tables themselves
-g.rename_function(P, "0049ca60", "Lua_OpenEngineLib")
+g.rename_function(P, "0049ca60", "sputLua_RegisterFunctions")
 g.set_plate_comment(P, "0049ca60", "lua_openlib() wrapper used to register the 279-entry engine opcode table at 0x004ea8b0")
 g.rename_or_label(P, "004ea8b0", "g_engineLuaLib")
 g.rename_or_label(P, "004ea890", "g_engineLuaFallbacks")

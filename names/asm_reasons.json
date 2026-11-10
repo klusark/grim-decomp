@@ -14,6 +14,6 @@
  "00495730": "sputCostume_Update: dt * 1000 converted to unsigned through _ftol and a double bias constant",
  "0040a280": "rdCamera_BuildFOV: camera struct typed int * while its fields are floats (needs a struct type, which raw/ cannot express)",
  "0047bd20": "stdMath_SinCos: float -> int conversions through _ftol of table indices",
- "0047c120": "Math_SinDeg: float -> int conversion through _ftol of the table index",
+ "0047c120": "stdMath_Tan: float -> int conversion through _ftol of the table index",
  "0042003c": "no longer built (round r2): the dead loop tail of rdRaster_Span_Tex_5 (not a function; nothing calls it, its only reference was a false pointer that build/gendata.py made of two entries of the VIMA step table 0x004daa58); names/lib_replace.json \"dead\""
 }

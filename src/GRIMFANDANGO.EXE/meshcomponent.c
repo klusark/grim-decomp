@@ -5,12 +5,14 @@
 #include "globals.h"
 #include "functions.h"
 
-/* ---- 0x00496d40  MeshComponent_OnKey ---- */
+/* ---- 0x00496d40  MeshChanger ---- */
 /* Costume tag handler for 'RDroid Thing Mesh' (registered by sputCostume_Start through
    Cos_NewStateBasedTag/Cos_NewIntTag): slot 0, shows or hides the mesh according to the key value
-   (table DAT_004e9f38). */
+   (table DAT_004e9f38). Original name MeshChanger (the remaster's GrimFandango (Linux): the same
+   handler slot (changer) of the same costume tag registration in sputCostume_Startup); was
+   MeshComponent_OnKey. */
 
-void MeshComponent_OnKey(undefined4 param_1,int *param_2,undefined4 param_3,int param_4)
+void MeshChanger(undefined4 param_1,int *param_2,undefined4 param_3,int param_4)
 
 {
   int iVar1;
@@ -23,13 +25,15 @@ void MeshComponent_OnKey(undefined4 param_1,int *param_2,undefined4 param_3,int 
   return;
 }
 
-/* ---- 0x00496d70  MeshComponent_NewInstance ---- */
+/* ---- 0x00496d70  MeshInstancer ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Costume tag handler, slot 5 of the 'RDroid Thing Mesh' tag: per-instance data of a mesh
-   component. (Was named SpriteComponent_NewInstance.) */
+   component. (Was named SpriteComponent_NewInstance.) Original name MeshInstancer (the remaster's
+   GrimFandango (Linux): the same handler slot (instancer) of the same costume tag registration in
+   sputCostume_Startup); was MeshComponent_NewInstance. */
 
-int * __cdecl MeshComponent_NewInstance(int inst,int component,int create)
+int * __cdecl MeshInstancer(int inst,int component,int create)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -57,11 +61,13 @@ int * __cdecl MeshComponent_NewInstance(int inst,int component,int create)
 #endif
 
 
-/* ---- 0x00496e10  MeshComponent_Stop ---- */
+/* ---- 0x00496e10  MeshStopper ---- */
 /* Costume tag handler for 'RDroid Thing Mesh' (registered by sputCostume_Start through
-   Cos_NewStateBasedTag/Cos_NewIntTag): slot 3, sets the visible flag (+8) to 1 again. */
+   Cos_NewStateBasedTag/Cos_NewIntTag): slot 3, sets the visible flag (+8) to 1 again. Original name
+   MeshStopper (the remaster's GrimFandango (Linux): the same handler slot (stopper) of the same
+   costume tag registration in sputCostume_Startup); was MeshComponent_Stop. */
 
-void MeshComponent_Stop(int param_1)
+void MeshStopper(int param_1)
 
 {
   *(undefined4 *)(param_1 + 8) = 1;
@@ -135,9 +141,8 @@ undefined4 MeshRequester(uint param_1,int param_2,int *param_3,int param_4,char 
       } while (uStack_c < *(uint *)(iVar6 + 0x54));
     }
     puVar4 = (undefined *)
-             Plat_TreeSelectDialog
-                       (s_Select_mesh_node_to_add____004ea65c,items,*(int *)(iVar6 + 0x54),
-                        (int *)&local_8);
+             grimPlat_TreeDialog(s_Select_mesh_node_to_add____004ea65c,items,*(int *)(iVar6 + 0x54),
+                                 (int *)&local_8);
     if (((local_8 != 0) && (-1 < (int)puVar4)) &&
        (puVar12 = puVar4 + 1, puVar12 < *(undefined **)(iVar6 + 0x54))) {
       iStack_4 = (int)puVar4 * 0xb8;
@@ -227,8 +232,11 @@ LAB_004970d4:
 #undef uStack_c
 
 
-/* ---- 0x00497180  FUN_00497180 ---- */
-int FUN_00497180(undefined4 param_1,undefined4 param_2)
+/* ---- 0x00497180  MeshAdjuster ---- */
+/* Original name MeshAdjuster (the remaster's GrimFandango (Linux): the same handler slot (adjuster)
+   of the same costume tag registration in sputCostume_Startup); was FUN_00497180. */
+
+int MeshAdjuster(undefined4 param_1,undefined4 param_2)
 
 {
   int iVar1;

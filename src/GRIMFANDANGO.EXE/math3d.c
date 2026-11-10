@@ -12,8 +12,11 @@ float __cdecl Vec3_Dot(float *a,float *b)
   return *a * *b + a[1] * b[1];
 }
 
-/* ---- 0x004468a0  Vec3_Dot2 ---- */
-float __cdecl Vec3_Dot2(float *a,float *b)
+/* ---- 0x004468a0  rdVector_Dot3 ---- */
+/* Original name rdVector_Dot3 (the remaster's GrimFandango (Linux): aligned call in Intersection);
+   was Vec3_Dot2. */
+
+float __cdecl rdVector_Dot3(float *a,float *b)
 
 {
   return *a * *b + b[2] * a[2] + a[1] * b[1];
@@ -82,11 +85,13 @@ float __cdecl rdVector_Normalize3Acc(float *param_1)
 #undef local_4
 
 
-/* ---- 0x00446a10  Vec3_NormalizeApprox ---- */
+/* ---- 0x00446a10  rdVector_Normalize3QuickAcc ---- */
 /* Rough vector length: with the absolute values sorted max >= mid >= min, len = max + 0.34375 * mid
-   + 0.25 * min. Also divides the vector by it (in place, in floats) and returns the length. */
+   + 0.25 * min. Also divides the vector by it (in place, in floats) and returns the length.
+   Original name rdVector_Normalize3QuickAcc (the remaster's GrimFandango (Linux): aligned call in
+   SetSoundPosition); was Vec3_NormalizeApprox. */
 
-float __cdecl Vec3_NormalizeApprox(float *param_1)
+float __cdecl rdVector_Normalize3QuickAcc(float *param_1)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -164,8 +169,8 @@ void __cdecl rdVector_Rotate3Acc(float *vec,float *rot)
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   #define local_30 (*(float (*)[12])(_frame + (0x40 - 0x30)))
   
-  Angles_ToMatrixNoPos(local_30,rot);
-  Vec3_Transform(vec,local_30);
+  rdMatrix_BuildRotate34(local_30,rot);
+  rdMatrix_TransformVector34Acc(vec,local_30);
   return;
 }
 #undef local_30
@@ -185,10 +190,13 @@ void __cdecl Matrix_GetAngles(float *matrix,float *outAngles)
   return;
 }
 
-/* ---- 0x0044e7d0  Frustum_TestSphere ---- */
+/* ---- 0x0044e7d0  rdClip_SphereInFrustrum ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-uint Frustum_TestSphere(int *param_1,float *param_2,float param_3)
+/* Original name rdClip_SphereInFrustrum (the remaster's GrimFandango (Linux): aligned call in
+   rdModel3_DrawMeshImpl, rdSprite_Draw, rdThing_Draw); was Frustum_TestSphere. */
+
+uint rdClip_SphereInFrustrum(int *param_1,float *param_2,float param_3)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -289,11 +297,14 @@ uint Frustum_TestSphere(int *param_1,float *param_2,float param_3)
 #endif
 
 
-/* ---- 0x0044ea50  Polygon_ClipToPlane ---- */
+/* ---- 0x0044ea50  rdClip_FaceToPlane ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-uint Polygon_ClipToPlane(float *param_1,float *param_2,float *param_3,undefined4 *param_4,
-                        float *param_5,uint *param_6)
+/* Original name rdClip_FaceToPlane (the remaster's GrimFandango (Linux): aligned call in
+   rdModel3_DrawFace); was Polygon_ClipToPlane. */
+
+uint rdClip_FaceToPlane(float *param_1,float *param_2,float *param_3,undefined4 *param_4,
+                       float *param_5,uint *param_6)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -331,11 +342,11 @@ uint Polygon_ClipToPlane(float *param_1,float *param_2,float *param_3,undefined4
     local_18[2] = param_5[(int)param_6 + -1];
   }
   if (0 < (int)param_6) {
-    local_24 = (uint)&UINT_007f47c0;
+    local_24 = (uint)&g_dwWorkIVerts;
     local_c[1] = PUN(float,param_5);
     local_c[0] = PUN(float,param_4);
-    param_6 = &UINT_007f46b8;
-    puVar12 = &UINT_007f48c0;
+    param_6 = &g_dwWorkTVerts;
+    puVar12 = &g_dwWorkVerts;
     local_1c = (uint)&UINT_007f46bc;
     puVar9 = &UINT_007f48c8;
     puVar14 = &UINT_007f48c4;
@@ -436,7 +447,7 @@ LAB_0044ed90:
     } while (local_c[2] != 0.0);
   }
   if (0 < (int)local_20) {
-    iVar10 = (int)&UINT_007f48c0 - (int)param_3;
+    iVar10 = (int)&g_dwWorkVerts - (int)param_3;
     iVar3 = -(int)param_4;
     param_4 = (undefined4 *)local_20;
     pfVar6 = param_5;
@@ -447,11 +458,11 @@ LAB_0044ed90:
       param_3[1] = pfVar11[1];
       param_3[2] = pfVar11[2];
       if (puVar5 != (undefined4 *)0x0) {
-        *puVar13 = *(undefined4 *)((int)&UINT_007f46b8 + iVar3 + (int)puVar13);
+        *puVar13 = *(undefined4 *)((int)&g_dwWorkTVerts + iVar3 + (int)puVar13);
         puVar13[1] = *(undefined4 *)((int)&UINT_007f46bc + iVar3 + (int)puVar13);
       }
       if (param_5 != (float *)0x0) {
-        *pfVar6 = *(float *)(((int)&UINT_007f47c0 - (int)param_5) + (int)pfVar6);
+        *pfVar6 = *(float *)(((int)&g_dwWorkIVerts - (int)param_5) + (int)pfVar6);
       }
       param_3 = param_3 + 3;
       puVar13 = puVar13 + 2;
@@ -470,10 +481,14 @@ LAB_0044ed90:
 #endif
 
 
-/* ---- 0x0044eeb0  Angles_ToMatrix ---- */
+/* ---- 0x0044eeb0  rdMatrix_Build34 ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-void Angles_ToMatrix(float *param_1,undefined4 *param_2,float *param_3)
+/* Original name rdMatrix_Build34 (the remaster's GrimFandango (Linux): aligned call in
+   rdModel3_BuildExpandedRadius, rdModel3_CalcModelBoundingBox, rdThing_SetModel3); was
+   Angles_ToMatrix. */
+
+void rdMatrix_Build34(float *param_1,undefined4 *param_2,float *param_3)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -507,11 +522,13 @@ void Angles_ToMatrix(float *param_1,undefined4 *param_2,float *param_3)
 #endif
 
 
-/* ---- 0x0044efd0  Matrix34_InvertRigid ---- */
+/* ---- 0x0044efd0  rdMatrix_InvertOrtho34 ---- */
 /* Rigid inverse of a 3x4 matrix: rotation transposed, translation = -(R^T t). Was misnamed
-   Matrix_Transpose. Not a true inverse when the matrix has scale. */
+   Matrix_Transpose. Not a true inverse when the matrix has scale. Original name
+   rdMatrix_InvertOrtho34 (the remaster's GrimFandango (Linux): aligned call in rdCamera_Update,
+   rdModel3_DrawMeshImpl); was Matrix34_InvertRigid. */
 
-void __cdecl Matrix34_InvertRigid(float *out,float *m)
+void __cdecl rdMatrix_InvertOrtho34(float *out,float *m)
 
 {
   float fVar1;
@@ -536,10 +553,13 @@ void __cdecl Matrix34_InvertRigid(float *out,float *m)
   return;
 }
 
-/* ---- 0x0044f080  Angles_ToMatrixNoPos ---- */
+/* ---- 0x0044f080  rdMatrix_BuildRotate34 ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-void Angles_ToMatrixNoPos(float *param_1,undefined4 *param_2)
+/* Original name rdMatrix_BuildRotate34 (the remaster's GrimFandango (Linux): aligned call in
+   rdVector_Rotate3Acc, sputActor_SetActorRotation); was Angles_ToMatrixNoPos. */
+
+void rdMatrix_BuildRotate34(float *param_1,undefined4 *param_2)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -573,10 +593,12 @@ void Angles_ToMatrixNoPos(float *param_1,undefined4 *param_2)
 #endif
 
 
-/* ---- 0x0044f1a0  Matrix_BuildTranslation ---- */
-/* Identity 3x4 (from g_flRdroid_identMatrix34) with the translation column set */
+/* ---- 0x0044f1a0  rdMatrix_BuildTranslate34 ---- */
+/* Identity 3x4 (from g_flRdroid_identMatrix34) with the translation column set Original name
+   rdMatrix_BuildTranslate34 (the remaster's GrimFandango (Linux): aligned call in
+   rdModel3_BuildExpandedRadius, rdModel3_CalcModelBoundingBox); was Matrix_BuildTranslation. */
 
-void __cdecl Matrix_BuildTranslation(float *m,float *pos)
+void __cdecl rdMatrix_BuildTranslate34(float *m,float *pos)
 
 {
   int iVar1;
@@ -596,8 +618,11 @@ void __cdecl Matrix_BuildTranslation(float *m,float *pos)
   return;
 }
 
-/* ---- 0x0044f1d0  Matrix_BuildTranslation2 ---- */
-void Matrix_BuildTranslation2(undefined4 *param_1,undefined4 *param_2)
+/* ---- 0x0044f1d0  rdMatrix_BuildScale34 ---- */
+/* Original name rdMatrix_BuildScale34 (the remaster's GrimFandango (Linux): aligned call in
+   rdMatrix_PreScale34); was Matrix_BuildTranslation2. */
+
+void rdMatrix_BuildScale34(undefined4 *param_1,undefined4 *param_2)
 
 {
   *param_1 = *param_2;
@@ -615,10 +640,13 @@ void Matrix_BuildTranslation2(undefined4 *param_1,undefined4 *param_2)
   return;
 }
 
-/* ---- 0x0044f210  Matrix_AxisAngle ---- */
+/* ---- 0x0044f210  rdMatrix_BuildFromVectorAngle34 ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-void Matrix_AxisAngle(float *param_1,float *param_2,float param_3)
+/* Original name rdMatrix_BuildFromVectorAngle34 (the remaster's GrimFandango (Linux): aligned call
+   in Rotate, rdMatrix_LookAt); was Matrix_AxisAngle. */
+
+void rdMatrix_BuildFromVectorAngle34(float *param_1,float *param_2,float param_3)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -723,13 +751,15 @@ void Matrix_AxisAngle(float *param_1,float *param_2,float param_3)
 #endif
 
 
-/* ---- 0x0044f490  Camera_BuildBasis ---- */
+/* ---- 0x0044f490  rdMatrix_LookAt ---- */
 /* Camera basis from (position, interest, roll) into out[0..11]: out+0 right = normalise(forward x
    rolledUp), out+0xc forward = normalise(interest - position), out+0x18 up = right-forward cross,
    out+0x24 position. The up used is (0,0,1) rolled about the forward by roll with Matrix_AxisAngle
-   ((0,1,0) or (-0,-1,-0) when the forward is within 0.999 of vertical). */
+   ((0,1,0) or (-0,-1,-0) when the forward is within 0.999 of vertical). Original name
+   rdMatrix_LookAt (the remaster's GrimFandango (Linux): aligned call in sputLua_SetCameraInterestL,
+   sputLua_SetCameraPositionL, sputLua_SetCameraRollL); was Camera_BuildBasis. */
 
-void Camera_BuildBasis(float *param_1,float *param_2,float *param_3,undefined4 param_4)
+void rdMatrix_LookAt(float *param_1,float *param_2,float *param_3,undefined4 param_4)
 
 {
   unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -746,7 +776,7 @@ void Camera_BuildBasis(float *param_1,float *param_2,float *param_3,undefined4 p
   param_1[4] = param_3[1] - param_2[1];
   param_1[5] = param_3[2] - param_2[2];
   rdVector_Normalize3Acc(pfVar1);
-  Matrix_AxisAngle(local_30,pfVar1,PUN(float,param_4));
+  rdMatrix_BuildFromVectorAngle34(local_30,pfVar1,PUN(float,param_4));
   fVar2 = *pfVar1 * 0.0 + param_1[4] * 0.0 + param_1[5] * 1.0;
   if (fVar2 < 0.0) {
     fVar2 = -fVar2;
@@ -763,7 +793,7 @@ void Camera_BuildBasis(float *param_1,float *param_2,float *param_3,undefined4 p
     v = local_3c;
     local_3c[2] = -0.0;
   }
-  Vec3_Copy(&local_48,v,local_30);
+  rdMatrix_TransformVector34(&local_48,v,local_30);
   *param_1 = param_1[4] * local_44[1] - param_1[5] * local_44[0];
   param_1[1] = param_1[5] * local_48 - *pfVar1 * local_44[1];
   param_1[2] = *pfVar1 * local_44[0] - param_1[4] * local_48;
@@ -783,10 +813,12 @@ void Camera_BuildBasis(float *param_1,float *param_2,float *param_3,undefined4 p
 #undef local_48
 
 
-/* ---- 0x0044f650  Matrix_ToAngles ---- */
+/* ---- 0x0044f650  rdMatrix_ExtractAngles34 ---- */
 /* WARNING: Variable defined which should be unmapped: local_28 */
+/* Original name rdMatrix_ExtractAngles34 (the remaster's GrimFandango (Linux): aligned call in
+   rdCamera_Update); was Matrix_ToAngles. */
 
-void Matrix_ToAngles(float *param_1,float *param_2)
+void rdMatrix_ExtractAngles34(float *param_1,float *param_2)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -902,10 +934,12 @@ void __cdecl rdMatrix_Identity34(float *m)
   return;
 }
 
-/* ---- 0x0044f8a0  Matrix_Mul34 ---- */
-/* 3x4 affine matrix product */
+/* ---- 0x0044f8a0  rdMatrix_Multiply34 ---- */
+/* 3x4 affine matrix product Original name rdMatrix_Multiply34 (the remaster's GrimFandango (Linux):
+   aligned call in rdModel3_BuildExpandedRadius, rdModel3_CalcModelBoundingBox,
+   rdModel3_DrawMeshImpl); was Matrix_Mul34. */
 
-void __cdecl Matrix_Mul34(float *out,float *a,float *b)
+void __cdecl rdMatrix_Multiply34(float *out,float *a,float *b)
 
 {
   *out = *a * *b + a[3] * b[1] + b[2] * a[6];
@@ -923,10 +957,12 @@ void __cdecl Matrix_Mul34(float *out,float *a,float *b)
   return;
 }
 
-/* ---- 0x0044fa70  Matrix_BuildRotation ---- */
-/* Rotation 3x4 from pitch/yaw/roll angles in degrees */
+/* ---- 0x0044fa70  rdMatrix_PreMultiply34 ---- */
+/* Rotation 3x4 from pitch/yaw/roll angles in degrees Original name rdMatrix_PreMultiply34 (the
+   remaster's GrimFandango (Linux): aligned call in rdMatrix_PreScale34); was Matrix_BuildRotation.
+    */
 
-void __cdecl Matrix_BuildRotation(float *m,float *angles)
+void __cdecl rdMatrix_PreMultiply34(float *m,float *angles)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -973,8 +1009,11 @@ void __cdecl Matrix_BuildRotation(float *m,float *angles)
 #undef local_c
 
 
-/* ---- 0x0044fc60  Matrix_Multiply ---- */
-void Matrix_Multiply(float *param_1,float *param_2)
+/* ---- 0x0044fc60  rdMatrix_PostMultiply34 ---- */
+/* Original name rdMatrix_PostMultiply34 (the remaster's GrimFandango (Linux): aligned call in
+   rdModel3_BuildExpandedRadius, rdModel3_CalcModelBoundingBox); was Matrix_Multiply. */
+
+void rdMatrix_PostMultiply34(float *param_1,float *param_2)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1031,15 +1070,18 @@ void Matrix_BuildTransform(float *param_1,undefined4 param_2)
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   #define local_30 (*(float (*)[12])(_frame + (0x40 - 0x30)))
   
-  Angles_ToMatrixNoPos(local_30,param_2);
-  Matrix_BuildRotation(param_1,local_30);
+  rdMatrix_BuildRotate34(local_30,param_2);
+  rdMatrix_PreMultiply34(param_1,local_30);
   return;
 }
 #undef local_30
 
 
-/* ---- 0x0044fe80  Matrix_SetTranslation ---- */
-void Matrix_SetTranslation(int param_1,float *param_2)
+/* ---- 0x0044fe80  rdMatrix_PostTranslate34 ---- */
+/* Original name rdMatrix_PostTranslate34 (the remaster's GrimFandango (Linux): aligned call in
+   rdModel3_BuildExpandedRadius, rdModel3_CalcModelBoundingBox); was Matrix_SetTranslation. */
+
+void rdMatrix_PostTranslate34(int param_1,float *param_2)
 
 {
   *(float *)(param_1 + 0x24) = *param_2 + *(float *)(param_1 + 0x24);
@@ -1048,22 +1090,28 @@ void Matrix_SetTranslation(int param_1,float *param_2)
   return;
 }
 
-/* ---- 0x0044feb0  Matrix_BuildTransform2 ---- */
-void Matrix_BuildTransform2(float *param_1,undefined4 param_2)
+/* ---- 0x0044feb0  rdMatrix_PreScale34 ---- */
+/* Original name rdMatrix_PreScale34 (the remaster's GrimFandango (Linux): aligned call in
+   sputActor_DrawToClean, sputRender_Update); was Matrix_BuildTransform2. */
+
+void rdMatrix_PreScale34(float *param_1,undefined4 param_2)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   #define local_30 (*(float (*)[12])(_frame + (0x40 - 0x30)))
   
-  Matrix_BuildTranslation2(local_30,param_2);
-  Matrix_BuildRotation(param_1,local_30);
+  rdMatrix_BuildScale34(local_30,param_2);
+  rdMatrix_PreMultiply34(param_1,local_30);
   return;
 }
 #undef local_30
 
 
-/* ---- 0x0044fee0  Vec3_Copy ---- */
-void __cdecl Vec3_Copy(float *out,float *v,float *param_3)
+/* ---- 0x0044fee0  rdMatrix_TransformVector34 ---- */
+/* Original name rdMatrix_TransformVector34 (the remaster's GrimFandango (Linux): aligned call in
+   rdMatrix_LookAt, rdModel3_DrawFace, rdSprite_Draw); was Vec3_Copy. */
+
+void __cdecl rdMatrix_TransformVector34(float *out,float *v,float *param_3)
 
 {
   *out = *v * *param_3 + v[1] * param_3[3] + v[2] * param_3[6];
@@ -1082,10 +1130,12 @@ void __cdecl Vec3_TransformTo(float *out,float *v,float *m)
   return;
 }
 
-/* ---- 0x0044ffc0  Vec3_Transform ---- */
-/* Transforms the point in place by the 3x4 matrix */
+/* ---- 0x0044ffc0  rdMatrix_TransformVector34Acc ---- */
+/* Transforms the point in place by the 3x4 matrix Original name rdMatrix_TransformVector34Acc (the
+   remaster's GrimFandango (Linux): aligned call in rdSprite_Draw, rdVector_Rotate3Acc,
+   sputLua_WalkActorVectorL); was Vec3_Transform. */
 
-void __cdecl Vec3_Transform(float *vec,float *m)
+void __cdecl rdMatrix_TransformVector34Acc(float *vec,float *m)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1121,12 +1171,14 @@ void __cdecl Vec3_Transform(float *vec,float *m)
 #undef local_c
 
 
-/* ---- 0x00450060  Matrix34_TransformPoint ---- */
+/* ---- 0x00450060  rdMatrix_TransformPoint34 ---- */
 /* out = a * R + t for a 3x4 matrix (rotation in [0..8], translation in [9..11]). Was misnamed
    Vec3_Sub. rdModel_DrawMesh uses it with a zeroed translation (saved and restored around the call)
-   to rotate light directions. */
+   to rotate light directions. Original name rdMatrix_TransformPoint34 (the remaster's GrimFandango
+   (Linux): aligned call in rdModel3_BuildExpandedRadius, rdModel3_CalcModelBoundingBox,
+   rdThing_Draw); was Matrix34_TransformPoint. */
 
-void __cdecl Matrix34_TransformPoint(float *out,float *a,float *b)
+void __cdecl rdMatrix_TransformPoint34(float *out,float *a,float *b)
 
 {
   *out = *a * *b + a[1] * b[3] + a[2] * b[6] + b[9];
@@ -1178,8 +1230,11 @@ void __cdecl Vec3_Rotate3x3(float *vec,float *m)
 #undef local_c
 
 
-/* ---- 0x00450170  Matrix_TransformPoints ---- */
-void __cdecl Matrix_TransformPoints(float *m,float *in,float *out,int count)
+/* ---- 0x00450170  rdMatrix_TransformPointLst34 ---- */
+/* Original name rdMatrix_TransformPointLst34 (the remaster's GrimFandango (Linux): aligned call in
+   rdModel3_DrawMeshImpl); was Matrix_TransformPoints. */
+
+void __cdecl rdMatrix_TransformPointLst34(float *m,float *in,float *out,int count)
 
 {
   for (; count != 0; count = count + -1) {
@@ -1212,8 +1267,11 @@ undefined4 FUN_00450220(undefined4 *param_1)
   return 1;
 }
 
-/* ---- 0x00450260  FUN_00450260 ---- */
-void FUN_00450260(int param_1)
+/* ---- 0x00450260  rdFace_FreeEntry ---- */
+/* Original name rdFace_FreeEntry (the remaster's GrimFandango (Linux): aligned call in
+   rdModel3_FreeEntry); was FUN_00450260. */
+
+void rdFace_FreeEntry(int param_1)
 
 {
   if (*(int *)(param_1 + 0x18) != 0) {
@@ -1301,10 +1359,12 @@ void Vec3_ZeroSmallComponents(float *param_1,float param_2)
   return;
 }
 
-/* ---- 0x00450410  Math3D_PointsCollinear ---- */
-/* True when the normalised edges p1-p0 and p2-p0 are parallel (|dot| within 0.999..1.001). */
+/* ---- 0x00450410  rdMath_PointsCollinear ---- */
+/* True when the normalised edges p1-p0 and p2-p0 are parallel (|dot| within 0.999..1.001). Original
+   name rdMath_PointsCollinear (the remaster's GrimFandango (Linux): aligned call in
+   rdModel3_CalcFaceNormals); was Math3D_PointsCollinear. */
 
-undefined4 Math3D_PointsCollinear(float *param_1,float *param_2,float *param_3)
+undefined4 rdMath_PointsCollinear(float *param_1,float *param_2,float *param_3)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */

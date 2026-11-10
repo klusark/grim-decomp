@@ -1,4 +1,4 @@
-/* Differential test: rdModel_ComputeMeshLighting (0x00409580).  Random face records (all mode combinations, the
+/* Differential test: rdCache_DrawFaceUser (0x00409580).  Random face records (all mode combinations, the
  * renderer limits, materials with cel lists, intensities around [0, 1] with NaN / infinities / denormals / -0, per-
  * vertex arrays); the face's draw callback (+0x14) is a recorder (it is the patched entry of an unrelated function,
  * 0x0040aa20, which this test does not run). */
@@ -42,8 +42,8 @@ static void setup(int *args)
     for (int i = 0; i < 10; i++) SF(VERTS + 4 * i);
     args[0] = FACE;
 }
-extern void rdModel_ComputeMeshLighting(void);
-static const Fn fns[] = {{"rdModel_ComputeMeshLighting", 0x409580, (void *)rdModel_ComputeMeshLighting, setup, 1}};
+extern void rdCache_DrawFaceUser(void);
+static const Fn fns[] = {{"rdCache_DrawFaceUser", 0x409580, (void *)rdCache_DrawFaceUser, setup, 1}};
 int main(int argc, char **argv)
 {
     rt_init();

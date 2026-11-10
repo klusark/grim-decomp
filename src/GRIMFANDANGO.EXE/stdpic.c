@@ -215,7 +215,7 @@ undefined4 stdPic_LoadEntry(char *param_1,undefined4 *param_2,int param_3,int pa
             puVar15 = puVar15 + 1;
           }
           iStack_12c = iVar13;
-          pcVar8 = Str_FileNameFromPath(param_1);
+          pcVar8 = stdFileFromPath(param_1);
           strncpy(param_2,pcVar8,uVar20);
           *(undefined1 *)((int)param_2 + 0x1f) = 0;
           param_2[8] = 0;
@@ -247,14 +247,14 @@ undefined4 stdPic_LoadEntry(char *param_1,undefined4 *param_2,int param_3,int pa
             puVar17 = puVar17 + 1;
           }
           uStack_48 = (uint)CONCAT11(uStack_8d,uStack_8e);
-          pvVar9 = Surface_Create(&uStack_4c,param_3,param_4,0);
+          pvVar9 = stdDisplay_VBufferNew(&uStack_4c,param_3,param_4,0);
           *(void **)param_2[0x1e] = pvVar9;
           if (*(int *)param_2[0x1e] == 0) {
             (*g_pStd_HS->pAssertFail)
                       (s_Unable_to_allocate_memory__004e76d4,
                        s_C__grimjedi_Libs_Std_General_std_004e77d8,DAT_004e77d0 + 0x76);
           }
-          iVar6 = Surface_Lock(*(void **)param_2[0x1e]);
+          iVar6 = stdDisplay_VBufferLock(*(void **)param_2[0x1e]);
           if (iVar6 == 0) {
             (*g_pStd_HS->pAssertFail)
                       (s_Unable_to_lock_VBuffer_memory__004e76b4,
@@ -384,7 +384,7 @@ undefined4 stdPic_LoadEntry(char *param_1,undefined4 *param_2,int param_3,int pa
               iVar6 = iStack_13c;
             } while (iStack_104 < (int)(uint)CONCAT11(uStack_8d,uStack_8e));
           }
-          Surface_Unlock(*(void **)param_2[0x1e]);
+          stdDisplay_VBufferUnlock(*(void **)param_2[0x1e]);
           (*g_pStd_HS->pFclose)(iVar5);
           return 1;
         }

@@ -49,10 +49,11 @@ void __cdecl luaC_strcallIM(undefined4 *param_1)
 #undef local_8
 
 
-/* ---- 0x10004fc0  lgc__4fc0 ---- */
-/* Unidentified function of lgc.c (garbage collector) */
+/* ---- 0x10004fc0  invalidaterefs ---- */
+/* Named invalidaterefs (not in the remaster, gcc inlined it there): Lua 3.1 source name (lgc.c:
+   HOLD references whose object is not marked become COLLECTED); was lgc__4fc0. */
 
-void lgc__4fc0(void)
+void invalidaterefs(void)
 
 {
   int iVar1;
@@ -64,7 +65,7 @@ void lgc__4fc0(void)
     iVar2 = 0;
     do {
       if ((((undefined4 *)(g_dwLState_refArray + iVar2))[2] == 1) &&
-         (iVar1 = lgc__5010((undefined4 *)(g_dwLState_refArray + iVar2)), iVar1 == 0)) {
+         (iVar1 = ismarked((undefined4 *)(g_dwLState_refArray + iVar2)), iVar1 == 0)) {
         *(undefined4 *)(g_dwLState_refArray + 8 + iVar2) = 3;
       }
       uVar3 = uVar3 + 1;
@@ -74,10 +75,11 @@ void lgc__4fc0(void)
   return;
 }
 
-/* ---- 0x10005010  lgc__5010 ---- */
-/* Unidentified function of lgc.c (garbage collector) */
+/* ---- 0x10005010  ismarked ---- */
+/* Named ismarked (not in the remaster, gcc inlined it there): Lua 3.1 source name (lgc.c: the mark
+   bit by object type, used by invalidaterefs); was lgc__5010. */
 
-undefined4 __cdecl lgc__5010(undefined4 *param_1)
+undefined4 __cdecl ismarked(undefined4 *param_1)
 
 {
   switch(*param_1) {
@@ -94,10 +96,11 @@ undefined4 __cdecl lgc__5010(undefined4 *param_1)
   }
 }
 
-/* ---- 0x10005070  lgc__5070 ---- */
-/* Unidentified function of lgc.c (garbage collector) */
+/* ---- 0x10005070  listcollect ---- */
+/* Named listcollect (not in the remaster, gcc inlined it there): Lua 3.1 source name (lgc.c:
+   unlinks the unmarked nodes of a GC list and returns them); was lgc__5070. */
 
-int __cdecl lgc__5070(undefined4 *param_1)
+int __cdecl listcollect(undefined4 *param_1)
 
 {
   undefined4 *puVar1;

@@ -52,7 +52,7 @@ int __cdecl Display_Select(int deviceIdx,int modeIdx,int threeDIdx)
     if ((*(int *)((int)g_pDisplayDevice + 0x110) == 0) || (UINT_004f5a84 != 0)) {
 LAB_00402747:
       puVar4 = (uint *)((int)g_pVideoMode + 0x1c);
-      puVar6 = &UINT_004ddaa0;
+      puVar6 = &g_dwRdColormap_colorInfo;
       for (iVar1 = 0xe; iVar1 != 0; iVar1 = iVar1 + -1) {
         *puVar6 = *puVar4;
         puVar4 = puVar4 + 1;
@@ -71,7 +71,7 @@ LAB_00402747:
           puVar7 = puVar7 + 1;
         }
         uStack_88 = 0x10;
-        UINT_004f5a34 = (uint)Surface_Create(auStack_a0,0,0,0);
+        UINT_004f5a34 = (uint)stdDisplay_VBufferNew(auStack_a0,0,0,0);
       }
       else {
         UINT_004f5a34 = (uint)&DAT_00901400;
@@ -977,7 +977,7 @@ void Display_ResumeAfterDialog(void)
     uVar1 = ((code *)Win_GetMainHwnd)(UINT_00803fb0);
     iVar2 = (**(code_std **)(iVar2 + 0x50))(g_pDirectDraw,uVar1);
     if (iVar2 == 0) {
-      D3D_ResetTextures();
+      std3D_PurgeTextureCache();
     }
   }
   return;
@@ -1013,13 +1013,14 @@ int Display_Flip(void)
 #endif
 
 
-/* ---- 0x00474480  Surface_Create ---- */
+/* ---- 0x00474480  stdDisplay_VBufferNew ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Std/Win95/Stddisplay.c: creates a surface record (0xd8 bytes) from a 19-dword format/size
-   description */
+   description Original name stdDisplay_VBufferNew (the remaster's GrimFandango (Linux): aligned
+   call in rdMaterial_LoadEntry, stdBmp_LoadEntry, stdPic_LoadEntry); was Surface_Create. */
 
-void * __cdecl Surface_Create(void *info,int videoMem,int b,int c)
+void * __cdecl stdDisplay_VBufferNew(void *info,int videoMem,int b,int c)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1127,8 +1128,11 @@ void * __cdecl Surface_Create(void *info,int videoMem,int b,int c)
 #endif
 
 
-/* ---- 0x004746d0  Surface_Free ---- */
-void __cdecl Surface_Free(void *surface)
+/* ---- 0x004746d0  stdDisplay_VBufferFree ---- */
+/* Original name stdDisplay_VBufferFree (the remaster's GrimFandango (Linux): aligned call in
+   sputLua_FreeImage, sputRender_Close, stdDisplay_VBufferConvertColorFormat); was Surface_Free. */
+
+void __cdecl stdDisplay_VBufferFree(void *surface)
 
 {
   if (surface != (void *)0x0) {
@@ -1174,8 +1178,11 @@ void __cdecl Surface_Release(void *surface)
   return;
 }
 
-/* ---- 0x00474750  Surface_Lock ---- */
-int __cdecl Surface_Lock(void *surface)
+/* ---- 0x00474750  stdDisplay_VBufferLock ---- */
+/* Original name stdDisplay_VBufferLock (the remaster's GrimFandango (Linux): aligned call in
+   rdMaterial_LoadEntry, stdBmp_LoadEntry, stdPic_LoadEntry); was Surface_Lock. */
+
+int __cdecl stdDisplay_VBufferLock(void *surface)
 
 {
   int iVar1;
@@ -1201,8 +1208,11 @@ int __cdecl Surface_Lock(void *surface)
   return 1;
 }
 
-/* ---- 0x004747b0  Surface_Unlock ---- */
-int __cdecl Surface_Unlock(void *surface)
+/* ---- 0x004747b0  stdDisplay_VBufferUnlock ---- */
+/* Original name stdDisplay_VBufferUnlock (the remaster's GrimFandango (Linux): aligned call in
+   rdMaterial_LoadEntry, stdBmp_LoadEntry, stdPic_LoadEntry); was Surface_Unlock. */
+
+int __cdecl stdDisplay_VBufferUnlock(void *surface)
 
 {
   int iVar1;
@@ -1381,8 +1391,11 @@ int __cdecl Surface_Blit(void *dst,void *src,int x,int y,int *srcRect,int colorK
   return 1;
 }
 
-/* ---- 0x00474ae0  Surface_SetColorKey ---- */
-int __cdecl Surface_SetColorKey(void *surface,int color)
+/* ---- 0x00474ae0  stdDisplay_VBufferSetColorKey ---- */
+/* Original name stdDisplay_VBufferSetColorKey (the remaster's GrimFandango (Linux): aligned call in
+   rdMaterial_LoadEntry, stdBitmap_ConvertColorFormat); was Surface_SetColorKey. */
+
+int __cdecl stdDisplay_VBufferSetColorKey(void *surface,int color)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1404,10 +1417,12 @@ int __cdecl Surface_SetColorKey(void *surface,int color)
 #undef local_8
 
 
-/* ---- 0x00474b30  Surface_Decompress ---- */
-/* Turns a type 2 (LZSS compressed) surface into a plain system memory surface */
+/* ---- 0x00474b30  stdDisplay_VBufferDeCompress ---- */
+/* Turns a type 2 (LZSS compressed) surface into a plain system memory surface Original name
+   stdDisplay_VBufferDeCompress (the remaster's GrimFandango (Linux): aligned call in
+   stdBitmap_DeCompress); was Surface_Decompress. */
 
-void __cdecl Surface_Decompress(void *surface)
+void __cdecl stdDisplay_VBufferDeCompress(void *surface)
 
 {
   void *dst;
@@ -1429,21 +1444,27 @@ void __cdecl Surface_Decompress(void *surface)
   return;
 }
 
-/* ---- 0x00474ba0  Surface_CopyConvert ---- */
-int __cdecl Surface_CopyConvert(void *src,void *dst)
+/* ---- 0x00474ba0  stdDisplay_VBufferDeCompressTo ---- */
+/* Original name stdDisplay_VBufferDeCompressTo (the remaster's GrimFandango (Linux): aligned call
+   in sputRender_Decompress, sputRender_UseSetup); was Surface_CopyConvert. */
+
+int __cdecl stdDisplay_VBufferDeCompressTo(void *src,void *dst)
 
 {
   int iVar1;
   
-  Surface_Lock(dst);
+  stdDisplay_VBufferLock(dst);
   stdCompress_Decompress
             (*(void **)((int)dst + 0x5c),*(void **)((int)src + 0x5c),*(int *)((int)src + 0x14));
-  iVar1 = Surface_Unlock(dst);
+  iVar1 = stdDisplay_VBufferUnlock(dst);
   return iVar1;
 }
 
-/* ---- 0x00474be0  Surface_CreateFromBitmap ---- */
-void * Surface_CreateFromBitmap(int *param_1,void *param_2)
+/* ---- 0x00474be0  stdDisplay_VBufferConvertColorFormat ---- */
+/* Original name stdDisplay_VBufferConvertColorFormat (the remaster's GrimFandango (Linux): aligned
+   call in stdBitmap_ConvertColorFormat); was Surface_CreateFromBitmap. */
+
+void * stdDisplay_VBufferConvertColorFormat(int *param_1,void *param_2)
 
 {
   unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1491,28 +1512,28 @@ void * Surface_CreateFromBitmap(int *param_1,void *param_2)
       piVar4 = piVar4 + 1;
       piVar6 = piVar6 + 1;
     }
-    surface = Surface_Create(local_4c,0,0,0);
+    surface = stdDisplay_VBufferNew(local_4c,0,0,0);
     if (surface == (void *)0x0) {
       return (void *)0x0;
     }
   }
-  Surface_Lock(param_2);
-  Surface_Lock(surface);
+  stdDisplay_VBufferLock(param_2);
+  stdDisplay_VBufferLock(surface);
   iVar2 = 0;
   if (0 < *(int *)((int)surface + 0x10)) {
     do {
-      Pixel_Convert((ushort *)
-                    (iVar2 * *(int *)((int)surface + 0x18) + *(int *)((int)surface + 0x5c)),
-                    (int)param_1,
-                    (ushort *)
-                    (iVar2 * *(int *)((int)param_2 + 0x18) + *(int *)((int)param_2 + 0x5c)),
-                    (int)param_2 + 0x20,*(uint *)((int)surface + 0xc));
+      stdColor_ColorConvertOneRow
+                ((ushort *)(iVar2 * *(int *)((int)surface + 0x18) + *(int *)((int)surface + 0x5c)),
+                 (int)param_1,
+                 (ushort *)(iVar2 * *(int *)((int)param_2 + 0x18) + *(int *)((int)param_2 + 0x5c)),
+                 (int)param_2 + 0x20,*(uint *)((int)surface + 0xc));
       iVar2 = iVar2 + 1;
     } while (iVar2 < *(int *)((int)surface + 0x10));
   }
-  Surface_Unlock(param_2);
-  Surface_Unlock(surface);
-  uVar1 = Pixel_ConvertOne(param_1,*(undefined4 *)((int)param_2 + 0x60),(int)param_2 + 0x20);
+  stdDisplay_VBufferUnlock(param_2);
+  stdDisplay_VBufferUnlock(surface);
+  uVar1 = stdColor_ColorConvertOnePixel
+                    (param_1,*(undefined4 *)((int)param_2 + 0x60),(int)param_2 + 0x20);
   *(undefined4 *)((int)surface + 0x60) = uVar1;
   piVar4 = (int *)((int)surface + 0x20);
   for (iVar2 = 0xe; iVar2 != 0; iVar2 = iVar2 + -1) {
@@ -1521,7 +1542,7 @@ void * Surface_CreateFromBitmap(int *param_1,void *param_2)
     piVar4 = piVar4 + 1;
   }
   if (surface != param_2) {
-    Surface_Free(param_2);
+    stdDisplay_VBufferFree(param_2);
   }
   return surface;
 }
@@ -1590,14 +1611,15 @@ int __cdecl Palette_ApplyGamma(void *dst,void *src,int count,int gammaIdx)
 #endif
 
 
-/* ---- 0x00474e40  Display_DrawText ---- */
+/* ---- 0x00474e40  stdDisplay_TextOut ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* GDI TextOut of the debug font onto the back buffer (DIB or locked DirectDraw DC)
    Ported to C (build/overrides_asm_o2.c): differential test, 0 differences (docs/notes/asm_o2.md).
-    */
+   Original name stdDisplay_TextOut (the remaster's GrimFandango (Linux): aligned call in
+   Main_Service); was Display_DrawText. */
 
-int __cdecl Display_DrawText(char *text,int x,int y)
+int __cdecl stdDisplay_TextOut(char *text,int x,int y)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -2223,7 +2245,7 @@ Surface_BlitLockedSrc
       iVar9 = (uVar8 - (int)param_3) + 1;
       if (iVar9 != 0) {
         uVar4 = (*(uint *)(iVar3 + 0x24) >> 3) * iVar9;
-        Surface_Lock(param_1);
+        stdDisplay_VBufferLock(param_1);
         iVar10 = *(int *)(iVar3 + 0x24);
         if (iVar10 == 8) {
           if (((uint)param_6 & 1) == 0) {
@@ -2353,7 +2375,7 @@ Surface_BlitLockedSrc
             }
           }
         }
-        Surface_Unlock(param_1);
+        stdDisplay_VBufferUnlock(param_1);
       }
       return 1;
     }
@@ -2430,7 +2452,7 @@ Surface_BlitLockedDst
       iVar4 = (uVar8 - (int)param_3) + 1;
       if (iVar4 != 0) {
         n = (*(uint *)((int)surface + 0x24) >> 3) * iVar4;
-        Surface_Lock(surface);
+        stdDisplay_VBufferLock(surface);
         iVar2 = *(int *)((int)surface + 0x24);
         if (iVar2 == 8) {
           if (((uint)param_6 & 1) == 0) {
@@ -2472,7 +2494,7 @@ Surface_BlitLockedDst
                 pcVar13 = pcVar13 + (iVar2 - iVar4);
                 iVar7 = iVar7 + -1;
               } while (iVar7 != 0);
-              Surface_Unlock(surface);
+              stdDisplay_VBufferUnlock(surface);
               return 1;
             }
           }
@@ -2491,7 +2513,7 @@ Surface_BlitLockedDst
                 iVar4 = iVar4 + -1;
                 param_3 = (void *)((int)param_3 + *(int *)(iVar7 + 0x1c) * 2);
               } while (iVar4 != 0);
-              Surface_Unlock(surface);
+              stdDisplay_VBufferUnlock(surface);
               return 1;
             }
           }
@@ -2519,7 +2541,7 @@ Surface_BlitLockedDst
                 psVar5 = psVar5 + (iVar1 - iVar4);
                 psVar12 = psVar12 + (iVar2 - iVar4);
               } while (iVar7 != 0);
-              Surface_Unlock(surface);
+              stdDisplay_VBufferUnlock(surface);
               return 1;
             }
           }
@@ -2538,7 +2560,7 @@ Surface_BlitLockedDst
                 iVar4 = iVar4 + -1;
                 param_3 = (void *)((int)param_3 + *(int *)(iVar7 + 0x1c) * 4);
               } while (iVar4 != 0);
-              Surface_Unlock(surface);
+              stdDisplay_VBufferUnlock(surface);
               return 1;
             }
           }
@@ -2566,12 +2588,12 @@ Surface_BlitLockedDst
                 piVar3 = piVar3 + (iVar1 - iVar4);
                 piVar10 = piVar10 + (iVar2 - iVar4);
               } while (iVar7 != 0);
-              Surface_Unlock(surface);
+              stdDisplay_VBufferUnlock(surface);
               return 1;
             }
           }
         }
-        Surface_Unlock(surface);
+        stdDisplay_VBufferUnlock(surface);
       }
       return 1;
     }
@@ -2771,7 +2793,8 @@ undefined * __stdcall DDraw_EnumModesCallback(int a1,int a2)
         iVar3 = iVar3 + 1;
       }
       *(int *)(&DAT_00901790 + iVar1) = iVar3;
-      iVar3 = Math_Log2Int((int)(0xff / (ulonglong)(*(uint *)(a1 + 0x58) >> ((byte)iVar3 & 0x1f))));
+      iVar3 = stdCalcBitPos((int)(0xff / (ulonglong)(*(uint *)(a1 + 0x58) >> ((byte)iVar3 & 0x1f))))
+      ;
       *(int *)(&DAT_0090179c + iVar1) = iVar3;
       iVar3 = 0;
       for (; (uVar4 & 1) != 0; uVar4 = uVar4 >> 1) {
@@ -2783,7 +2806,8 @@ undefined * __stdcall DDraw_EnumModesCallback(int a1,int a2)
         iVar3 = iVar3 + 1;
       }
       *(int *)(&DAT_00901794 + iVar1) = iVar3;
-      iVar3 = Math_Log2Int((int)(0xff / (ulonglong)(*(uint *)(a1 + 0x5c) >> ((byte)iVar3 & 0x1f))));
+      iVar3 = stdCalcBitPos((int)(0xff / (ulonglong)(*(uint *)(a1 + 0x5c) >> ((byte)iVar3 & 0x1f))))
+      ;
       *(int *)(&DAT_009017a0 + iVar1) = iVar3;
       iVar3 = 0;
       for (; (uVar4 & 1) != 0; uVar4 = uVar4 >> 1) {
@@ -2795,7 +2819,8 @@ undefined * __stdcall DDraw_EnumModesCallback(int a1,int a2)
         iVar3 = iVar3 + 1;
       }
       *(int *)(&DAT_00901798 + iVar1) = iVar3;
-      iVar3 = Math_Log2Int((int)(0xff / (ulonglong)(*(uint *)(a1 + 0x60) >> ((byte)iVar3 & 0x1f))));
+      iVar3 = stdCalcBitPos((int)(0xff / (ulonglong)(*(uint *)(a1 + 0x60) >> ((byte)iVar3 & 0x1f))))
+      ;
       *(int *)(&DAT_009017a4 + iVar1) = iVar3;
       iVar3 = 0;
       for (; (uVar4 & 1) != 0; uVar4 = uVar4 >> 1) {
@@ -2870,7 +2895,8 @@ undefined * __stdcall DDraw_EnumModesCallback320(int a1,int a2)
         iVar2 = iVar2 + 1;
       }
       *(int *)(&DAT_00901790 + iVar1) = iVar2;
-      iVar2 = Math_Log2Int((int)(0xff / (ulonglong)(*(uint *)(a1 + 0x58) >> ((byte)iVar2 & 0x1f))));
+      iVar2 = stdCalcBitPos((int)(0xff / (ulonglong)(*(uint *)(a1 + 0x58) >> ((byte)iVar2 & 0x1f))))
+      ;
       *(int *)(&DAT_0090179c + iVar1) = iVar2;
       iVar2 = 0;
       for (; (uVar3 & 1) != 0; uVar3 = uVar3 >> 1) {
@@ -2882,7 +2908,8 @@ undefined * __stdcall DDraw_EnumModesCallback320(int a1,int a2)
         iVar2 = iVar2 + 1;
       }
       *(int *)(&DAT_00901794 + iVar1) = iVar2;
-      iVar2 = Math_Log2Int((int)(0xff / (ulonglong)(*(uint *)(a1 + 0x5c) >> ((byte)iVar2 & 0x1f))));
+      iVar2 = stdCalcBitPos((int)(0xff / (ulonglong)(*(uint *)(a1 + 0x5c) >> ((byte)iVar2 & 0x1f))))
+      ;
       *(int *)(&DAT_009017a0 + iVar1) = iVar2;
       iVar2 = 0;
       for (; (uVar3 & 1) != 0; uVar3 = uVar3 >> 1) {
@@ -2894,7 +2921,8 @@ undefined * __stdcall DDraw_EnumModesCallback320(int a1,int a2)
         iVar2 = iVar2 + 1;
       }
       *(int *)(&DAT_00901798 + iVar1) = iVar2;
-      iVar2 = Math_Log2Int((int)(0xff / (ulonglong)(*(uint *)(a1 + 0x60) >> ((byte)iVar2 & 0x1f))));
+      iVar2 = stdCalcBitPos((int)(0xff / (ulonglong)(*(uint *)(a1 + 0x60) >> ((byte)iVar2 & 0x1f))))
+      ;
       *(int *)(&DAT_009017a4 + iVar1) = iVar2;
       iVar2 = 0;
       for (; (uVar3 & 1) != 0; uVar3 = uVar3 >> 1) {
@@ -3376,12 +3404,15 @@ void __cdecl Palette_FromFloatTable(byte *out,byte *in,int n,double gamma)
 #endif
 
 
-/* ---- 0x0047b8a0  Pixel_Convert ---- */
+/* ---- 0x0047b8a0  stdColor_ColorConvertOneRow ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-/* Converts pixels between the 16-bit RGB layouts described by the format records */
+/* Converts pixels between the 16-bit RGB layouts described by the format records Original name
+   stdColor_ColorConvertOneRow (the remaster's GrimFandango (Linux): aligned call in
+   stdColor_ColorConvertOnePixel, stdDisplay_VBufferConvertColorFormat); was Pixel_Convert. */
 
-void __cdecl Pixel_Convert(ushort *dst,int dstFormat,ushort *src,int srcFormat,uint count)
+void __cdecl
+stdColor_ColorConvertOneRow(ushort *dst,int dstFormat,ushort *src,int srcFormat,uint count)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -3410,7 +3441,7 @@ void __cdecl Pixel_Convert(ushort *dst,int dstFormat,ushort *src,int srcFormat,u
   #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
   byte bVar12;
   
-  UINT_00806c80 = UINT_00806c80 + 1;
+  g_dwStdColor_ColorConvertOneRow_row = g_dwStdColor_ColorConvertOneRow_row + 1;
   cVar10 = (char)*(undefined4 *)(srcFormat + 8);
   lVar13 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
   lVar14 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
@@ -3418,7 +3449,7 @@ void __cdecl Pixel_Convert(ushort *dst,int dstFormat,ushort *src,int srcFormat,u
   bVar11 = (byte)*(undefined4 *)(dstFormat + 0x14);
   bVar12 = (byte)*(undefined4 *)(dstFormat + 0x18);
   if ((*(int *)(srcFormat + 4) == 0x18) && (*(int *)(dstFormat + 4) == 0x10)) {
-    uVar9 = UINT_00806c80 & 3;
+    uVar9 = g_dwStdColor_ColorConvertOneRow_row & 3;
     do {
       iVar2 = *(int *)(&DAT_004d86a0 + (count & 3) * 4 + uVar9 * 0x10);
       *dst = (ushort)(((int)((uint)(byte)*src * (int)lVar13 + iVar2) >> 0x10) << (bVar11 & 0x1f)) |
@@ -3488,13 +3519,16 @@ void __cdecl Pixel_Convert(ushort *dst,int dstFormat,ushort *src,int srcFormat,u
 #endif
 
 
-/* ---- 0x0047bbb0  Pixel_ConvertOne ---- */
+/* ---- 0x0047bbb0  stdColor_ColorConvertOnePixel ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-int Pixel_ConvertOne(int param_1,undefined4 param_2,int param_3)
+/* Original name stdColor_ColorConvertOnePixel (the remaster's GrimFandango (Linux): aligned call in
+   stdBitmap_ConvertColorFormat, stdDisplay_VBufferConvertColorFormat); was Pixel_ConvertOne. */
+
+int stdColor_ColorConvertOnePixel(int param_1,undefined4 param_2,int param_3)
 
 {
-  Pixel_Convert((ushort *)&param_3,param_1,(ushort *)&param_2,param_3,1);
+  stdColor_ColorConvertOneRow((ushort *)&param_3,param_1,(ushort *)&param_2,param_3,1);
   return param_3;
 }
 #endif

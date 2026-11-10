@@ -5,10 +5,12 @@
 #include "globals.h"
 #include "functions.h"
 
-/* ---- 0x00482460  Engine_ResetState ---- */
-/* Called when nuking resources and before a restore */
+/* ---- 0x00482460  Res_FreeAll ---- */
+/* Called when nuking resources and before a restore Original name Res_FreeAll (the remaster's
+   GrimFandango (Linux): aligned call in Res_SysShutdown, sputLua_NukeResourcesL); was
+   Engine_ResetState. */
 
-void Engine_ResetState(void)
+void Res_FreeAll(void)
 
 {
   int *piVar1;
@@ -194,8 +196,11 @@ undefined4 Engine_CallSystemFunction(int param_1,char *param_2)
   return 0;
 }
 
-/* ---- 0x00482800  Engine_InvalidateRect ---- */
-void Engine_InvalidateRect(int *param_1,int param_2)
+/* ---- 0x00482800  grimlib_MarkDirtyRect ---- */
+/* Original name grimlib_MarkDirtyRect (the remaster's GrimFandango (Linux): aligned call in
+   Main_Service); was Engine_InvalidateRect. */
+
+void grimlib_MarkDirtyRect(int *param_1,int param_2)
 
 {
   Render_InvalidateRectLastBuffer(param_1,param_2);
@@ -271,14 +276,16 @@ undefined * __cdecl Engine_CallCharacterHandler(int param_1)
   return puVar1;
 }
 
-/* ---- 0x00482990  Engine_UpdateFrame ---- */
+/* ---- 0x00482990  grimlib_UpdateManual ---- */
 /* WARNING: Variable defined which should be unmapped: local_8 */
 /* WARNING: Variable defined which should be unmapped: local_c */
 /* Engine_UpdateFrame(draw, fixedMs). Runs the frame: sound (SoundsPeriodic), then the timer
    (Timer_UpdateFromWallClock when fixedMs==0, Timer_UpdateFixedStep(fixedMs) otherwise), the Lua
-   tasks (FUN_0049c8f0) and the actor update (FUN_0048fcf0 with the frame seconds). */
+   tasks (FUN_0049c8f0) and the actor update (FUN_0048fcf0 with the frame seconds). Original name
+   grimlib_UpdateManual (the remaster's GrimFandango (Linux): aligned call in Main_Service); was
+   Engine_UpdateFrame. */
 
-void Engine_UpdateFrame(int param_1,int param_2)
+void grimlib_UpdateManual(int param_1,int param_2)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -293,44 +300,44 @@ void Engine_UpdateFrame(int param_1,int param_2)
   if (g_dwDoLoad != 0) {
     Engine_LoadGame();
   }
-  Profile_Begin(0);
-  Profile_Begin(10);
+  PerfBegin(0);
+  PerfBegin(10);
   SoundsPeriodic();
-  Profile_End(10);
+  PerfEnd(10);
   if (g_dwGrimlib_mode != 0) {
-    Profile_Begin(1);
-    uVar1 = Timer_GetFrameMs();
+    PerfBegin(1);
+    uVar1 = sputTime_GetFrameTime();
     fVar2 = sputTime_GetFrameTimeFlex();
-    Engine_RunShutdownHooks(PUN(undefined4,(float)(fVar2)),uVar1);
-    Profile_End(1);
+    sputControl_Update(PUN(undefined4,(float)(fVar2)),uVar1);
+    PerfEnd(1);
     if ((g_dwGrimlib_mode != 1) || (param_2 != 0)) {
-      UINT_008a8c3c = UINT_008a8c3c + 1;
+      g_dwGrimlib_frameNumber = g_dwGrimlib_frameNumber + 1;
       if (param_2 == 0) {
-        Timer_UpdateFromWallClock();
+        sputTime_Advance();
       }
       else {
-        Timer_UpdateFixedStep(param_2);
+        sputTime_AdvanceManual(param_2);
       }
-      if (UINT_004e7d98 != 0) {
-        Profile_Begin(2);
+      if (g_dwUpdateLua != 0) {
+        PerfBegin(2);
         sputLua_Update();
-        Profile_End(2);
+        PerfEnd(2);
       }
       if ((g_dwGrimlib_mode != 3) && (g_dwGrimlib_mode != 4)) {
-        Profile_Begin(3);
+        PerfBegin(3);
         fVar2 = sputTime_GetFrameTimeFlex();
-        Actors_UpdateAll(fVar2);
-        Profile_End(3);
+        sputActor_UpdateActors(fVar2);
+        PerfEnd(3);
       }
     }
     if ((param_1 != 0) && ((g_dwGrimlib_mode != 1 || (param_2 != 0)))) {
       sputRender_Update();
       UINT_008a8c60 = 1;
     }
-    Profile_End(0);
-    if (UINT_004e7e30 != 0xffffffff) {
-      ImSetState(UINT_004e7e30);
-      UINT_004e7e30 = 0xffffffff;
+    PerfEnd(0);
+    if (g_dwGrimlib_NewImuseState != 0xffffffff) {
+      ImSetState(g_dwGrimlib_NewImuseState);
+      g_dwGrimlib_NewImuseState = 0xffffffff;
     }
   }
   return;
@@ -339,37 +346,39 @@ void Engine_UpdateFrame(int param_1,int param_2)
 #undef local_c
 
 
-/* ---- 0x00482ae0  Engine_SetIMuseState ---- */
-/* Lua ImSetState */
+/* ---- 0x00482ae0  gimlib_SetImuseState ---- */
+/* Lua ImSetState Original name gimlib_SetImuseState (the remaster's GrimFandango (Linux): aligned
+   call in sputLua_ImSetState); was Engine_SetIMuseState. */
 
-void __cdecl Engine_SetIMuseState(int state)
+void __cdecl gimlib_SetImuseState(int state)
 
 {
-  UINT_004e7e30 = state;
+  g_dwGrimlib_NewImuseState = state;
   return;
 }
 
-/* ---- 0x00482af0  Engine_PresentFrame ---- */
-/* Profile slot 8: presents the back buffer when the game state is 3 */
+/* ---- 0x00482af0  grimlib_Display ---- */
+/* Profile slot 8: presents the back buffer when the game state is 3 Original name grimlib_Display
+   (the remaster's GrimFandango (Linux): aligned call in Main_Service); was Engine_PresentFrame. */
 
-void Engine_PresentFrame(void)
+void grimlib_Display(void)
 
 {
   int iVar1;
   
-  Profile_Begin(8);
+  PerfBegin(8);
   if (g_dwGrimlib_mode == 3) {
     iVar1 = Render_CanvasIsPaletted();
     if (iVar1 == 0) {
       Render_Present();
-      Profile_End(8);
+      PerfEnd(8);
       return;
     }
   }
   else {
     if (g_dwGrimlib_mode == 2) {
       Render_Present();
-      Profile_End(8);
+      PerfEnd(8);
       return;
     }
     if ((g_dwGrimlib_mode == 1) && (UINT_008a8c60 != 0)) {
@@ -377,7 +386,7 @@ void Engine_PresentFrame(void)
       UINT_008a8c60 = 0;
     }
   }
-  Profile_End(8);
+  PerfEnd(8);
   return;
 }
 
@@ -502,10 +511,12 @@ undefined4 Engine_ResetSubsystems(int param_1,int param_2)
   return 0;
 }
 
-/* ---- 0x00482e30  Profile_Begin ---- */
-/* Source: Main/sputmain.cpp (line 1453, from __FILE__/__LINE__ passed to the allocator) */
+/* ---- 0x00482e30  PerfBegin ---- */
+/* Source: Main/sputmain.cpp (line 1453, from __FILE__/__LINE__ passed to the allocator) Original
+   name PerfBegin (the remaster's GrimFandango (Linux): aligned call in grimlib_Display,
+   sputCostume_DrawActorShadow, sputRender_Update); was Profile_Begin. */
 
-void Profile_Begin(int param_1)
+void PerfBegin(int param_1)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -523,12 +534,14 @@ void Profile_Begin(int param_1)
 #undef local_8
 
 
-/* ---- 0x00482e80  Profile_End ---- */
+/* ---- 0x00482e80  PerfEnd ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-/* Source: Main/sputmain.cpp (line 1462, from __FILE__/__LINE__ passed to the allocator) */
+/* Source: Main/sputmain.cpp (line 1462, from __FILE__/__LINE__ passed to the allocator) Original
+   name PerfEnd (the remaster's GrimFandango (Linux): aligned call in grimlib_Display,
+   sputCostume_DrawActorShadow, sputRender_Update); was Profile_End. */
 
-undefined * __cdecl Profile_End(int param_1)
+undefined * __cdecl PerfEnd(int param_1)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -579,8 +592,8 @@ grimlib_PlayMovie(undefined4 param_1,int param_2,undefined4 param_3,undefined4 p
   else {
     surface = &g_dwStdDisplay_frontBuffer;
   }
-  Movie_SetTarget(surface);
-  iVar1 = Movie_Start(param_1,param_3,param_4,param_5);
+  sputSmush_SetTarget(surface);
+  iVar1 = sputSmush_StartMovie(param_1,param_3,param_4,param_5);
   if (iVar1 == 0) {
     if (param_2 != 0) {
       g_dwGrimlib_mode = 3;
@@ -695,10 +708,10 @@ void Engine_SaveGame(void)
   if ((void *)UINT_008a8770 != (void *)0x0) {
     sputLua_SaveGameCallback(SaveGame_Write);
     pvVar1 = sputRender_ScreenShot(0xfa,0xbc);
-    pvVar1 = (void *)Surface_CreateFromBitmap(&local_38,pvVar1);
+    pvVar1 = (void *)stdDisplay_VBufferConvertColorFormat(&local_38,pvVar1);
     SaveGame_Write((int *)((int)pvVar1 + 0x14),4);
     SaveGame_Write(*(void **)((int)pvVar1 + 0x5c),*(int *)((int)pvVar1 + 0x14));
-    Surface_Free(pvVar1);
+    stdDisplay_VBufferFree(pvVar1);
     Render_DrawProgressBar(0.2);
     Cos_Save(SaveGame_Write);
     Render_DrawProgressBar(0.3);
@@ -711,7 +724,7 @@ void Engine_SaveGame(void)
     (*(code *)UINT_008a87c8)(SaveGame_Write);
     (*(code *)UINT_008a8808)(SaveGame_Write);
     (*(code *)UINT_008a8828)(SaveGame_Write);
-    SaveGame_Write(&UINT_008a8c48,4);
+    SaveGame_Write(&g_dwGrimlib_prevmode,4);
     Render_DrawProgressBar(0.75);
     lua_Save((int *)SaveGame_Write);
     Render_DrawProgressBar(1.0);
@@ -763,9 +776,9 @@ void Engine_LoadGame(void)
     Render_SetWaitCursorEnabled(0);
     Render_DrawProgressBar(0.1);
     ImStopAllSounds();
-    Movie_Stop();
-    Movie_PollPlayback();
-    Engine_ResetState();
+    sputSmush_StopMovie();
+    sputSmush_Periodic();
+    Res_FreeAll();
     g_pShadowMaterial = (void *)0x0;
     Resource_SetNoPurge(1);
     SaveGame_Read(&local_18,4);
@@ -784,7 +797,7 @@ void Engine_LoadGame(void)
     (*(code *)UINT_008a880c)(SaveGame_Read);
     (*(code *)UINT_008a882c)(SaveGame_Read);
     g_dwGrimlib_mode = 4;
-    SaveGame_Read(&UINT_008a8c48,4);
+    SaveGame_Read(&g_dwGrimlib_prevmode,4);
     Render_DrawProgressBar(0.75);
     lua_Restore(SaveGame_Read);
     Render_DrawProgressBar(1.0);
@@ -799,7 +812,7 @@ void Engine_LoadGame(void)
     else {
       setupIdx = *(int *)((int)set + 0xb4);
     }
-    Set_SwitchSetup(set,setupIdx);
+    sputRender_UseSetup(set,setupIdx);
     gzclose(UINT_008a8770);
     lua_dofile(s_patch05_bin_004e7fe8);
     g_dwJustLoaded = 1;
@@ -819,13 +832,15 @@ void Engine_LoadGame(void)
 #endif
 
 
-/* ---- 0x004835f0  Engine_SetSavedValue ---- */
-/* Stores the dword that Engine_SaveGame writes after the module hooks */
+/* ---- 0x004835f0  SetPrevMode ---- */
+/* Stores the dword that Engine_SaveGame writes after the module hooks Original name SetPrevMode
+   (the remaster's GrimFandango (Linux): aligned call in sputLua_RenderModeUser); was
+   Engine_SetSavedValue. */
 
-void Engine_SetSavedValue(uint param_1)
+void SetPrevMode(uint param_1)
 
 {
-  UINT_008a8c48 = param_1;
+  g_dwGrimlib_prevmode = param_1;
   return;
 }
 
@@ -833,7 +848,7 @@ void Engine_SetSavedValue(uint param_1)
 uint Engine_GetSavedValue(void)
 
 {
-  return UINT_008a8c48;
+  return g_dwGrimlib_prevmode;
 }
 
 /* ---- 0x00484000  Engine_CreateCameraActor ---- */
@@ -883,8 +898,8 @@ void sputRender_Update(void)
   
   if (g_dwGrimlib_mode != 0) {
     if (g_dwGrimlib_mode == 3) {
-      Movie_SetTarget(&g_dwStdDisplay_backBuffer);
-      iVar4 = Movie_PollPlayback();
+      sputSmush_SetTarget(&g_dwStdDisplay_backBuffer);
+      iVar4 = sputSmush_Periodic();
       if (iVar4 != 0) {
         iVar4 = 0;
         g_dwGrimlib_mode = 2;
@@ -898,14 +913,14 @@ void sputRender_Update(void)
           } while (iVar4 < g_nNumPages);
         }
         sputRender_ForceRefresh();
-        UINT_008c97f8 = 1;
+        g_dwMovieJustFinished = 1;
       }
       local_1c[0] = sputTime_GetFrameTimeFlex();
-      Actors_UpdateTalking(local_1c[0]);
-      Surface_Lock(&g_dwStdDisplay_backBuffer);
+      sputActor_UpdateSpeechOnly(local_1c[0]);
+      stdDisplay_VBufferLock(&g_dwStdDisplay_backBuffer);
       UINT_008a94b8 = UINT_0090563c;
-      TextObjects_Update(0);
-      Surface_Unlock(&g_dwStdDisplay_backBuffer);
+      sputText_Update(0);
+      stdDisplay_VBufferUnlock(&g_dwStdDisplay_backBuffer);
       Render_Present();
       return;
     }
@@ -932,7 +947,7 @@ void sputRender_Update(void)
         DirtyRect_Clear();
         g_pRenderedSet = sputRoom_GetCurrentRoom();
         g_nSputRender_Update_RenderSetup = *(int *)((int)g_pRenderedSet + 0xb4);
-        Set_SwitchSetup(g_pRenderedSet,g_nSputRender_Update_RenderSetup);
+        sputRender_UseSetup(g_pRenderedSet,g_nSputRender_Update_RenderSetup);
         sputLua_PostCameraChange(g_nSputRender_Update_RenderSetup);
       }
       fVar8 = (float)(*(int *)((int)g_pRenderedSet + 0xac) + g_nSputRender_Update_RenderSetup * 300)
@@ -943,16 +958,16 @@ void sputRender_Update(void)
           pvVar5 = *(void **)((int)pvVar5 + 0xf8)) {
         ObjectState_Draw(pvVar5,3,g_pSputRender_CleanBuffer,g_pSputRender_CleanZBuffer);
       }
-      Profile_Begin(4);
+      PerfBegin(4);
       if (g_nDoTheFlip != 0) {
         DirtyRect_Flush(&g_dwStdDisplay_backBuffer,(void *)UINT_008c97a4);
       }
-      Profile_End(4);
-      Movie_SetTarget(&g_dwStdDisplay_backBuffer);
-      Movie_PollPlayback();
-      Surface_Lock(&g_dwStdDisplay_backBuffer);
-      Primitives_DrawAll(1);
-      Surface_Unlock(&g_dwStdDisplay_backBuffer);
+      PerfEnd(4);
+      sputSmush_SetTarget(&g_dwStdDisplay_backBuffer);
+      sputSmush_Periodic();
+      stdDisplay_VBufferLock(&g_dwStdDisplay_backBuffer);
+      sputPrimitive_Update(1);
+      stdDisplay_VBufferUnlock(&g_dwStdDisplay_backBuffer);
       for (pvVar5 = *(void **)(PUN(int,(float)fVar8) + 0x128); pvVar5 != (void *)0x0;
           pvVar5 = *(void **)((int)pvVar5 + 0xf8)) {
         ObjectState_Draw(pvVar5,1,&g_dwStdDisplay_backBuffer,(void *)UINT_008c97a4);
@@ -960,23 +975,22 @@ void sputRender_Update(void)
       rdroid_BeginFrame();
       Render_BuildActorDrawList();
       if ((g_dwTotDrawItems != 0) || (((byte)g_dwDebugFlags & 1) != 0)) {
-        Profile_Begin(5);
+        PerfBegin(5);
         iVar4 = 0;
         if (0 < (int)g_dwTotDrawItems) {
           puVar9 = &g_dwDrawItems;
           do {
             if (*(char *)*puVar9 == '\0') {
-              Costume_TouchComponents
-                        (**(undefined4 **)
-                           ((int)g_pActors + *(int *)((char *)*puVar9 + 8) * 0xa8 + 0xa0));
+              sputCostume_Draw2D(**(undefined4 **)
+                                   ((int)g_pActors + *(int *)((char *)*puVar9 + 8) * 0xa8 + 0xa0));
             }
             iVar4 = iVar4 + 1;
             puVar9 = puVar9 + 1;
           } while (iVar4 < (int)g_dwTotDrawItems);
         }
-        Profile_End(5);
+        PerfEnd(5);
         if (((byte)g_dwDebugFlags & 1) != 0) {
-          Surface_Lock(&g_dwStdDisplay_backBuffer);
+          stdDisplay_VBufferLock(&g_dwStdDisplay_backBuffer);
           if (((byte)g_dwDebugFlags & 8) == 0) {
             Render_DrawDebugGrid();
           }
@@ -984,9 +998,9 @@ void sputRender_Update(void)
             sputRoom_GetCurrentRoom();
             Sector_DrawAllDebug();
           }
-          Surface_Unlock(&g_dwStdDisplay_backBuffer);
+          stdDisplay_VBufferUnlock(&g_dwStdDisplay_backBuffer);
         }
-        Profile_Begin(6);
+        PerfBegin(6);
         if (iVar4 != 0) {
           puVar9 = &g_dwDrawItems + iVar4 + -1;
           do {
@@ -997,8 +1011,8 @@ void sputRender_Update(void)
               pfVar7 = &fStack_c;
               fStack_4 = (float)actor[0xc];
               fStack_c = fVar8;
-              pfVar6 = Actor_GetFrame(actor);
-              Matrix_BuildTransform2(pfVar6,pfVar7);
+              pfVar6 = sputActor_GetOrientMatrix(actor);
+              rdMatrix_PreScale34(pfVar6,pfVar7);
             }
             if (*(char *)*puVar9 == '\0') {
               piVar1 = (int *)*actor;
@@ -1033,19 +1047,19 @@ void sputRender_Update(void)
                 iVar2 = piVar1[1];
               }
               (*(code *)UINT_008c97b8)(iVar2 + 0x30,0);
-              pfVar7 = Actor_GetFrame(actor);
-              Actor_DrawCostumes(actor[0x28],pfVar7);
+              pfVar7 = sputActor_GetOrientMatrix(actor);
+              sputCostume_Draw3D(actor[0x28],pfVar7);
               if (((byte)g_dwDebugFlags & 1) != 0) {
                 Actor_DrawDebugWalker(actor);
               }
             }
             else if (*(char *)*puVar9 == '\x01') {
               if (g_nSputRender_b3DAcceleration == 0) {
-                Surface_Lock(&g_dwStdDisplay_backBuffer);
+                stdDisplay_VBufferLock(&g_dwStdDisplay_backBuffer);
               }
               Actor_ComputeScreenBox(actor);
               if (g_nSputRender_b3DAcceleration == 0) {
-                Surface_Unlock(&g_dwStdDisplay_backBuffer);
+                stdDisplay_VBufferUnlock(&g_dwStdDisplay_backBuffer);
               }
               Render_InvalidateRectLastBuffer(actor + 0x1b,1);
             }
@@ -1054,26 +1068,26 @@ void sputRender_Update(void)
               pfVar7 = &fStack_c;
               fStack_8 = fStack_c;
               fStack_4 = fStack_c;
-              pfVar6 = Actor_GetFrame(actor);
-              Matrix_BuildTransform2(pfVar6,pfVar7);
+              pfVar6 = sputActor_GetOrientMatrix(actor);
+              rdMatrix_PreScale34(pfVar6,pfVar7);
             }
             iVar4 = iVar4 + -1;
             puVar9 = puVar9 + -1;
             fVar8 = local_1c[0];
           } while (iVar4 != 0);
         }
-        Profile_End(6);
-        Profile_Begin(7);
+        PerfEnd(6);
+        PerfBegin(7);
         rdroid_EndFrame();
-        Profile_End(7);
+        PerfEnd(7);
         for (pvVar5 = *(void **)(PUN(int,(float)fVar8) + 0x128); pvVar5 != (void *)0x0;
             pvVar5 = *(void **)((int)pvVar5 + 0xf8)) {
           ObjectState_Draw(pvVar5,2,&g_dwStdDisplay_backBuffer,(void *)UINT_008c97a4);
         }
       }
-      Surface_Lock(&g_dwStdDisplay_backBuffer);
-      Primitives_DrawAll(2);
-      Surface_Unlock(&g_dwStdDisplay_backBuffer);
+      stdDisplay_VBufferLock(&g_dwStdDisplay_backBuffer);
+      sputPrimitive_Update(2);
+      stdDisplay_VBufferUnlock(&g_dwStdDisplay_backBuffer);
       if (((byte)g_dwDebugFlags & 1) != 0) {
         pvVar5 = sputRoom_GetCurrentRoom();
         if (((byte)g_dwDebugFlags & 2) != 0) {
@@ -1084,7 +1098,7 @@ void sputRender_Update(void)
         }
       }
       if ((g_dwRenderFlags & 4) != 0) {
-        iVar4 = Timer_GetTotalMs();
+        iVar4 = sputTime_GetGameTime();
         local_1c[1] = 0.0;
         local_1c[0] = (float)(iVar4 - g_dwIrisStart) / g_flIrisDuration;
         if (local_1c[0] < 0.0) {
@@ -1105,7 +1119,7 @@ void sputRender_Update(void)
         if (g_flIrisDuration <= 0.0) {
           local_1c[0] = 1.0 - local_1c[0];
         }
-        Render_DrawIris(local_1c[0],g_nIrisX,g_nIrisY);
+        sputRender_DrawIrisEffect(local_1c[0],g_nIrisX,g_nIrisY);
         if (g_flIrisDuration < 0.0) {
           local_1c[1] = 0.0;
           local_1c[0] = 0.0;
@@ -1113,10 +1127,10 @@ void sputRender_Update(void)
           MarkDirtyRect((int *)local_1c,0);
         }
       }
-      Surface_Lock(&g_dwStdDisplay_backBuffer);
+      stdDisplay_VBufferLock(&g_dwStdDisplay_backBuffer);
       UINT_008a94b8 = UINT_0090563c;
-      TextObjects_Update(1);
-      Surface_Unlock(&g_dwStdDisplay_backBuffer);
+      sputText_Update(1);
+      stdDisplay_VBufferUnlock(&g_dwStdDisplay_backBuffer);
     }
     g_nSputRender_Reset = 0;
   }
@@ -1146,10 +1160,12 @@ void __cdecl sputControl_AddCallback(void *fn)
   return;
 }
 
-/* ---- 0x0048d1c0  Engine_RunShutdownHooks ---- */
-/* Runs the registered shutdown hooks (Engine_RegisterShutdownHook) then dumps the memory log */
+/* ---- 0x0048d1c0  sputControl_Update ---- */
+/* Runs the registered shutdown hooks (Engine_RegisterShutdownHook) then dumps the memory log
+   Original name sputControl_Update (the remaster's GrimFandango (Linux): aligned call in
+   grimlib_UpdateManual); was Engine_RunShutdownHooks. */
 
-void __cdecl Engine_RunShutdownHooks(undefined4 param_1,undefined4 param_2)
+void __cdecl sputControl_Update(undefined4 param_1,undefined4 param_2)
 
 {
   int iVar1;
@@ -1157,7 +1173,7 @@ void __cdecl Engine_RunShutdownHooks(undefined4 param_1,undefined4 param_2)
   int iVar3;
   
   if (0 < g_nNumControlCallbacks) {
-    Input_Update();
+    stdControl_ReadControls();
     iVar3 = 0;
     if (0 < g_nNumControlCallbacks) {
       ppvVar2 = &g_apControlCallbacks;

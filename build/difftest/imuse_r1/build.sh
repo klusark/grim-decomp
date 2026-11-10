@@ -1,8 +1,8 @@
 #!/bin/bash
 # usage: build/difftest/imuse_r1/build.sh [out.exe]     (then: out.exe [cases] [seed])
-# Differential test of build/overrides_imuse_r1.c against the original machine code (agent r1): FUN_10006560, FUN_10006620,
-# FUN_100068b0 sliced from the base assembly of commit 85dd22f (where they are still assembled) with
-# build/mixdiff/slice_orig.py, renamed orig_<name>; their return addresses after the calls of FUN_100068b0 are exported as
+# Differential test of build/overrides_imuse_r1.c against the original machine code (agent r1): FUN_10006560, Script_SetSequence,
+# Script_Trans sliced from the base assembly of commit 85dd22f (where they are still assembled) with
+# build/mixdiff/slice_orig.py, renamed orig_<name>; their return addresses after the calls of Script_Trans are exported as
 # _orig_ret_<original address> so the test can map them; FUN_100064d0 transcribed in thunks.s.  The C is compiled with
 # the flags build/link.py uses for override files (EXTRA_CFLAGS=-O2 for an optimised variant, OVR=<file> for a mutant).
 # Links the original data image of IMUSE.DLL (build/obj/IMUSE.DLL/data_s.o); int3 stubs for anything else.
@@ -12,7 +12,7 @@ PROG=IMUSE.DLL
 OUT=${1:-build/difftest/imuse_r1/out/r1_test.exe}
 W=build/difftest/imuse_r1/out/$(basename $OUT .exe); mkdir -p $W; rm -f $W/*.o
 [ -f build/difftest/imuse_r1/out/base_asm_funcs.s ] || git show 85dd22f:src/IMUSE.DLL/asm_funcs.s > build/difftest/imuse_r1/out/base_asm_funcs.s
-python -I build/mixdiff/slice_orig.py build/difftest/imuse_r1/out/base_asm_funcs.s $W/orig.s FUN_10006560 FUN_10006620 FUN_100068b0
+python -I build/mixdiff/slice_orig.py build/difftest/imuse_r1/out/base_asm_funcs.s $W/orig.s FUN_10006560 Script_SetSequence Script_Trans
 sed -i -E 's/^(\.L1000(6560|6620)_(100065f3|100066eb|1000672c|10006778):)/\t.globl _orig_ret_\3\n_orig_ret_\3:\n\1/' $W/orig.s
 test $(grep -c "^_orig_ret_" $W/orig.s) = 4
 /ucrt64/bin/gcc -m32 -c $W/orig.s -o $W/orig.o

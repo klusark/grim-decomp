@@ -23,8 +23,8 @@ PROGS = {
         # original table address -> what it is (parent, how the parent reached it)
         tables={0x4dac00: "scope table of FUN_004d5de0 (push 0x4dac00 / _except_handler3), funclets 4d5e1c 4d5e30",
                 0x4dac10: "FuncInfo of PrimitiveList_Append (thunk 4d6046), funclets 4d6030 4d603b",
-                0x4dac40: "FuncInfo of Actor_CreateWalker (thunk 4d605b), funclet 4d6050",
-                0x4dac68: "FuncInfo of ObjectState_Create (thunk 4d607b), funclet 4d6070",
+                0x4dac40: "FuncInfo of sputActor_EnablePuck (thunk 4d605b), funclet 4d6050",
+                0x4dac68: "FuncInfo of sputRoom_AddObjectState (thunk 4d607b), funclet 4d6070",
                 0x4dac90: "FuncInfo of SetFile_ParseSectors (thunk 4d60ba), funclets 4d60ac 4d6090 4d609e",
                 0x4dacc8: "FuncInfo of ObjectState_Construct (thunk 4d60e9), funclets 4d60d0 4d60db",
                 0x4dacf8: "FuncInfo of ObjectState_Destruct (thunk 4d610b), funclet 4d6100"}),
@@ -32,12 +32,12 @@ PROGS = {
         syms=["_FUN_10021fb0", "_FUN_10021fd0", "_FUN_10021fdb", "_FUN_10021ff0", "_FUN_10022010", "_FUN_10022030",
               "_FUN_10022050"],
         rdata=0x10023000, data=0x10026000,
-        tables={0x10024df8: "FuncInfo of lbuiltin__3260 (thunk 10021fbb), funclet 10021fb0",
+        tables={0x10024df8: "FuncInfo of luaI_startscript (thunk 10021fbb), funclet 10021fb0",
                 0x10024e20: "FuncInfo of luaD_call (thunk 10021fe6), funclets 10021fd0 10021fdb",
-                0x10024e50: "FuncInfo of lstate__87f0 (thunk 10021ffb), funclet 10021ff0",
-                0x10024e78: "FuncInfo of lstate__8ad0 (thunk 1002201b), funclet 10022010",
-                0x10024ea0: "FuncInfo of lvm__dbd0 (thunk 1002203b), funclet 10022030",
-                0x10024ec8: "FuncInfo of lvm__dd10 (thunk 1002205b), funclet 10022050"}),
+                0x10024e50: "FuncInfo of LState_Restore (thunk 10021ffb), funclet 10021ff0",
+                0x10024e78: "FuncInfo of lua_newstate (thunk 1002201b), funclet 10022010",
+                0x10024ea0: "FuncInfo of ExecutionState_Restore (thunk 1002203b), funclet 10022030",
+                0x10024ec8: "FuncInfo of ExecutionState_New (thunk 1002205b), funclet 10022050"}),
 }
 
 

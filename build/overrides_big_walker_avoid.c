@@ -52,7 +52,7 @@ static void wav_copy3(float *dst, const float *src)
 
 /* Frame slots (original ESP offsets):
  *  0x10 radius of `self` (float) / current corner index    0x14 number of points written to out
- *  0x18 out cursor / path pointer of Planner_GetPath        0x1c count-1 / step (+1 or -1) / loop counter
+ *  0x18 out cursor / path pointer of GetPath        0x1c count-1 / step (+1 or -1) / loop counter
  *  0x20 last input point / corner counter / end of out      0x24 segment index / "corner a reachable"
  *  0x28 path length / path pointer                          0x2c offset vector (3)
  *  0x38 corner b / path length - 1                          0x3c detour corner picked
@@ -89,10 +89,10 @@ uint Walker_AvoidActorPath(void *self, void *other, undefined4 *pts, uint count,
 
     c1 = *(unsigned char **)(*(unsigned char **)(*(unsigned char **)((unsigned char *)self + 0xa0) + 4) + 4);
     WAV_F(0x10) = (long double)*(float *)(*(unsigned char **)((unsigned char *)self + 0xa4) + 0x3f4) * *(float *)(c1 + 0x5c);
-    Vec3_Copy(WAV_P(0x108), (float *)(c1 + 0x78), Actor_GetFrame(self));
+    rdMatrix_TransformVector34(WAV_P(0x108), (float *)(c1 + 0x78), sputActor_GetOrientMatrix(self));
     c2 = *(unsigned char **)(*(unsigned char **)(*(unsigned char **)((unsigned char *)other + 0xa0) + 4) + 4);
-    Matrix34_TransformPoint(WAV_P(0x8c), (float *)(c2 + 0x78), Actor_GetFrame(other));
-    Vec3_Copy(WAV_P(0x2c), (float *)(c2 + 0x78), Actor_GetFrame(other));
+    rdMatrix_TransformPoint34(WAV_P(0x8c), (float *)(c2 + 0x78), sputActor_GetOrientMatrix(other));
+    rdMatrix_TransformVector34(WAV_P(0x2c), (float *)(c2 + 0x78), sputActor_GetOrientMatrix(other));
     s2 = *(unsigned char **)((unsigned char *)other + 0xa4);
     WAV_U(0x20) = (uint32_t)(uintptr_t)pts + count * 12u - 12u;
     scale = *(float *)(s2 + 0x3f4);
@@ -104,10 +104,10 @@ uint Walker_AvoidActorPath(void *self, void *other, undefined4 *pts, uint count,
     WAV_F(0xac) = (long double)*(float *)(c2 + 0x74) * scale + WAV_F(0x10);
 
     /* both ends of the path are pushed out of the other actor's box */
-    frame = Actor_GetFrame(other);
+    frame = sputActor_GetOrientMatrix(other);
     ((wav_pushout_t)Collision_PushOutOfBox)((float *)(uintptr_t)WAV_U(0x20), WAV_BOX, frame,
                                             (float *)((unsigned char *)other + 0xc));
-    frame = Actor_GetFrame(other);
+    frame = sputActor_GetOrientMatrix(other);
     ((wav_pushout_t)Collision_PushOutOfBox)((float *)pts, WAV_BOX, frame, (float *)((unsigned char *)other + 0xc));
     wav_copy3(WAV_P(0x44), (float *)(uintptr_t)WAV_U(0x20));
     if (SectorList_FindByPoint(WAV_P(0x44), 0xffffffff) == 0)
@@ -130,7 +130,7 @@ uint Walker_AvoidActorPath(void *self, void *other, undefined4 *pts, uint count,
             WAV_F(0x78) = (long double)pt[4] + WAV_F(0x30);
             WAV_F(0x7c) = (long double)pt[5] + WAV_F(0x34);
             wav_copy3(cursor, pt);
-            frame = Actor_GetFrame(other);
+            frame = sputActor_GetOrientMatrix(other);
             if (((wav_seghit_t)Collision_SegmentHitsBox)(WAV_P(0xb0), WAV_P(0x74), WAV_P(0x8c), WAV_BOX, frame) != 0)
                 goto hit;
             WAV_I(0x24) = WAV_I(0x24) + 1;
@@ -146,12 +146,12 @@ uint Walker_AvoidActorPath(void *self, void *other, undefined4 *pts, uint count,
 
 hit:
     /* the four corners of the other actor's box (grown by this actor's radius + 0.02) */
-    frame = Actor_GetFrame(other);
-    Matrix34_TransformPoint(WAV_P(0xbc), (float *)&DAT_008ca320, frame);
+    frame = sputActor_GetOrientMatrix(other);
+    rdMatrix_TransformPoint34(WAV_P(0xbc), (float *)&DAT_008ca320, frame);
     WalkPlane_SnapTo(SectorList_FindNearestPoint(WAV_P(0xbc), 0xffffffff), WAV_P(0xbc));
     {
         uint32_t z = WAV_U(0xc4);
-        frame = Actor_GetFrame(other);
+        frame = sputActor_GetOrientMatrix(other);
         ((wav_corners_t)Collision_BoxCorners)(c2, (float)((long double)WAV_F(0x10) - (long double)-0.02f), frame, z,
                                               WAV_P(0xc8));
     }
@@ -164,7 +164,7 @@ hit:
         WAV_F(0x74) = (long double)WAV_F(0x2c) + cp[0];
         WAV_F(0x78) = (long double)cp[1] + WAV_F(0x30);
         WAV_F(0x7c) = (long double)WAV_F(0x34) + cp[2];
-        frame = Actor_GetFrame(other);
+        frame = sputActor_GetOrientMatrix(other);
         if (((wav_seghit_t)Collision_SegmentHitsBox)(WAV_P(0xb0), WAV_P(0x74), WAV_P(0x8c), WAV_BOX, frame) == 0 &&
             ((wav_plan_t)Planner_PlanPath)(WAV_AT(pts, (uint32_t)WAV_I(0x24) * 12u), cp, 0) != 0)
             *flagp = 1;
@@ -178,7 +178,7 @@ hit:
     if (idx == -1)
         return WAV_I(0x14);
     ((wav_plan_t)Planner_PlanPath)(WAV_AT(pts, (uint32_t)WAV_I(0x24) * 12u), WAV_CORNER(idx), 0);
-    n = ((wav_getpath_t)Planner_GetPath)(WAV_FR(0x18));
+    n = ((wav_getpath_t)GetPath)(WAV_FR(0x18));
     total = WAV_I(0x14);
     if (n > 0) {
         dst = WAV_AT(out, (uint32_t)total * 12u);
@@ -195,10 +195,10 @@ hit:
     dst = WAV_AT(out, (uint32_t)total * 12u);
     WAV_U(0x20) = (uint32_t)(uintptr_t)dst;
     lastout = dst - 3;
-    frame = Actor_GetFrame(other);
+    frame = sputActor_GetOrientMatrix(other);
     if (((wav_ptinbox_t)Collision_PointInBox)(lastout, WAV_P(0x44), WAV_P(0x8c), WAV_BOX, frame, WAV_P(0x2c)) != 0) {
         /* the target is reachable from the corner: append that path */
-        n = ((wav_getpath_t)Planner_GetPath)(WAV_FR(0x18));
+        n = ((wav_getpath_t)GetPath)(WAV_FR(0x18));
         if (n < 1)
             return WAV_I(0x14);
         WAV_U(0x14) = WAV_U(0x14) + (uint32_t)n;
@@ -270,7 +270,7 @@ take_b:
     lastout = (float *)(uintptr_t)(WAV_U(0x20) - 12u);
     for (;;) {
         ((wav_plan_t)Planner_PlanPath)(lastout, WAV_CORNER(cur), 0);
-        n = ((wav_getpath_t)Planner_GetPath)(WAV_FR(0x18));
+        n = ((wav_getpath_t)GetPath)(WAV_FR(0x18));
         WAV_I(0x28) = n;
         WAV_I(0x38) = n - 1;
         if (n - 1 > 0) {
@@ -284,7 +284,7 @@ take_b:
                 WAV_F(0x80) = (long double)path[3] + WAV_F(0x2c);
                 WAV_F(0x84) = (long double)path[4] + WAV_F(0x30);
                 WAV_F(0x88) = (long double)path[5] + WAV_F(0x34);
-                frame = Actor_GetFrame(other);
+                frame = sputActor_GetOrientMatrix(other);
                 if (((wav_seghit_t)Collision_SegmentHitsBox)(WAV_P(0x68), WAV_P(0x80), WAV_P(0x8c), WAV_BOX, frame) != 0)
                     return 0;
                 j++;
@@ -307,7 +307,7 @@ take_b:
         dst = WAV_AT(out, (uint32_t)total * 12u);
         WAV_U(0x20) = (uint32_t)(uintptr_t)dst;
         lastout = dst - 3;
-        frame = Actor_GetFrame(other);
+        frame = sputActor_GetOrientMatrix(other);
         if (((wav_ptinbox_t)Collision_PointInBox)(lastout, WAV_P(0x44), WAV_P(0x8c), WAV_BOX, frame, WAV_P(0x2c)) != 0)
             break;
         cur = (int)(WAV_U(0x1c) + WAV_U(0x10) + 4u) % 4;     /* lea: wraps */
@@ -317,7 +317,7 @@ take_b:
     }
 
     /* the target is reachable from this corner: check and append the final path */
-    n = ((wav_getpath_t)Planner_GetPath)(WAV_FR(0x28));
+    n = ((wav_getpath_t)GetPath)(WAV_FR(0x28));
     WAV_I(0x40) = n;
     WAV_I(0x1c) = 0;
     WAV_I(0x38) = n - 1;
@@ -331,7 +331,7 @@ take_b:
             WAV_F(0x68) = (long double)path[3] + WAV_F(0x2c);
             WAV_F(0x6c) = (long double)path[4] + WAV_F(0x30);
             WAV_F(0x70) = (long double)path[5] + WAV_F(0x34);
-            frame = Actor_GetFrame(other);
+            frame = sputActor_GetOrientMatrix(other);
             if (((wav_seghit_t)Collision_SegmentHitsBox)(WAV_P(0x80), WAV_P(0x68), WAV_P(0x8c), WAV_BOX, frame) != 0)
                 return 0;
             WAV_I(0x1c) = WAV_I(0x1c) + 1;

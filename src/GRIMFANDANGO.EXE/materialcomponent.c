@@ -5,23 +5,27 @@
 #include "globals.h"
 #include "functions.h"
 
-/* ---- 0x004965d0  MaterialComponent_OnKey ---- */
+/* ---- 0x004965d0  MaterialChanger ---- */
 /* Costume tag handler for 'RDroid Animated Material' (registered by sputCostume_Start through
    Cos_NewStateBasedTag/Cos_NewIntTag): slot 0, stores the key value as the current frame of the
-   animated material (+8). */
+   animated material (+8). Original name MaterialChanger (the remaster's GrimFandango (Linux): the
+   same handler slot (changer) of the same costume tag registration in sputCostume_Startup); was
+   MaterialComponent_OnKey. */
 
-void MaterialComponent_OnKey(undefined4 param_1,int param_2,undefined4 param_3,undefined4 param_4)
+void MaterialChanger(undefined4 param_1,int param_2,undefined4 param_3,undefined4 param_4)
 
 {
   *(undefined4 *)(param_2 + 8) = param_4;
   return;
 }
 
-/* ---- 0x004965e0  MaterialComponent_NewInstance ---- */
+/* ---- 0x004965e0  MaterialInstancer ---- */
 /* Costume tag handler, slot 5 of the 'RDroid Animated Material' tag: instance data for an animated
-   material. (Was named CmapComponent_NewInstance.) */
+   material. (Was named CmapComponent_NewInstance.) Original name MaterialInstancer (the remaster's
+   GrimFandango (Linux): the same handler slot (instancer) of the same costume tag registration in
+   sputCostume_Startup); was MaterialComponent_NewInstance. */
 
-void * __cdecl MaterialComponent_NewInstance(void *cosInst,int componentIdx,int create)
+void * __cdecl MaterialInstancer(void *cosInst,int componentIdx,int create)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -84,17 +88,17 @@ int MaterialRequester(uint param_1,int param_2,int *param_3,int param_4,char *pa
   iVar5 = param_3[1];
   if (param_5 == (char *)0x0) {
     if (g_bMaterialPath != '\0') {
-      Plat_SetDialogDirectory(&g_bMaterialPath);
+      grimPlat_SetDefaultOpenPath(&g_bMaterialPath);
     }
-    iVar2 = Plat_OpenFileDialog(s_Select_mat_file_to_animate____004ea584,
-                                s_Material_files____mat__004ea5a4);
+    iVar2 = grimPlat_OpenFileRequest
+                      (s_Select_mat_file_to_animate____004ea584,s_Material_files____mat__004ea5a4);
     if (iVar2 == 0) {
       return false;
     }
-    uVar3 = ((code *)Plat_GetDialogFileName)(0x7f);
+    uVar3 = ((code *)grimPlat_GetDefaultOpenPath)(0x7f);
     ((code *)strncpy)(&g_bMaterialPath,uVar3);
     DAT_008ca9b7 = 0;
-    pcStack_18 = Str_Basename(g_szGrimlib_aFilename);
+    pcStack_18 = stdFnames_FindMedName(g_szGrimlib_aFilename);
   }
   uVar7 = 0;
   uStack_1c = 0;

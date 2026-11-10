@@ -1,7 +1,7 @@
 {
  "_comment": "IMUSE.DLL prototype fixes (agent N): {address: [prototype, calling convention]}; applied by tools/set_imuse_protos.py",
  "10003730": [
-  "int Im_DSoundHeartbeat(int **buf_out, uint *count_out, int *rate_out)",
+  "int DwQuery(int **buf_out, uint *count_out, int *rate_out)",
   "__cdecl"
  ],
  "100088d0": [
@@ -25,7 +25,7 @@
   "__cdecl"
  ],
  "10004f70": [
-  "uint Im_DispatchCommand(uint cmd, int a2, int a3, int a4, int a5, int a6, int a7, int a8, int a9, int a10, int a11)",
+  "uint ImSoundCall(uint cmd, int a2, int a3, int a4, int a5, int a6, int a7, int a8, int a9, int a10, int a11)",
   "__cdecl"
  ],
  "100070e0": [

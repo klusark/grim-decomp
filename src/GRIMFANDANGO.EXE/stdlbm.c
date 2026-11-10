@@ -61,15 +61,15 @@ void * stdLbm_Load(char *param_1,int param_2,int param_3)
     if (iVar7 == 0) {
       uStack_54 = Std_Swap32(uStack_54);
       (*g_pStd_HS->pFseek)(iVar6,0,0);
-      cVar3 = stdFile_ReadByte(iVar6);
+      cVar3 = stdFGetc(iVar6);
       bVar2 = false;
       do {
         iVar7 = (*g_pStd_HS->pFeof)(iVar6);
         if (iVar7 != 0) break;
         if (cVar3 == 'B') {
-          cVar3 = stdFile_ReadByte(iVar6);
-          if (((cVar3 == 'M') && (cVar3 = stdFile_ReadByte(iVar6), cVar3 == 'H')) &&
-             (cVar3 = stdFile_ReadByte(iVar6), cVar3 == 'D')) {
+          cVar3 = stdFGetc(iVar6);
+          if (((cVar3 == 'M') && (cVar3 = stdFGetc(iVar6), cVar3 == 'H')) &&
+             (cVar3 = stdFGetc(iVar6), cVar3 == 'D')) {
             ppvVar1 = &g_pStd_HS->pFseek;
             iVar7 = (*g_pStd_HS->pFtell)(iVar6,0);
             (*(code *)*ppvVar1)(iVar6,iVar7 + -4);
@@ -78,7 +78,7 @@ void * stdLbm_Load(char *param_1,int param_2,int param_3)
           }
         }
         else {
-          cVar3 = stdFile_ReadByte(iVar6);
+          cVar3 = stdFGetc(iVar6);
         }
       } while (!bVar2);
       if (!bVar2) {
@@ -89,20 +89,19 @@ void * stdLbm_Load(char *param_1,int param_2,int param_3)
       stdLbm_SwapHeader(&uStack_74);
       uVar12 = (int)uStack_84 >> 0x1f;
       if (((uStack_84 ^ uVar12) - uVar12 & 1 ^ uVar12) != uVar12) {
-        stdFile_ReadByte(iVar6);
+        stdFGetc(iVar6);
       }
       uVar12 = (int)uStack_84 >> 0x1f;
       if (((uStack_84 ^ uVar12) - uVar12 & 1 ^ uVar12) != uVar12) {
-        stdFile_ReadByte(iVar6);
+        stdFGetc(iVar6);
       }
       bVar2 = false;
       do {
         iVar7 = (*g_pStd_HS->pFeof)(iVar6);
         if (iVar7 != 0) break;
-        cVar3 = stdFile_ReadByte(iVar6);
-        if (((cVar3 == 'B') && (cVar3 = stdFile_ReadByte(iVar6), cVar3 == 'O')) &&
-           ((cVar3 = stdFile_ReadByte(iVar6), cVar3 == 'D' &&
-            (cVar3 = stdFile_ReadByte(iVar6), cVar3 == 'Y')))) {
+        cVar3 = stdFGetc(iVar6);
+        if (((cVar3 == 'B') && (cVar3 = stdFGetc(iVar6), cVar3 == 'O')) &&
+           ((cVar3 = stdFGetc(iVar6), cVar3 == 'D' && (cVar3 = stdFGetc(iVar6), cVar3 == 'Y')))) {
           ppvVar1 = &g_pStd_HS->pFseek;
           iVar7 = (*g_pStd_HS->pFtell)(iVar6,0);
           (*(code *)*ppvVar1)(iVar6,iVar7 + -4);
@@ -115,7 +114,7 @@ void * stdLbm_Load(char *param_1,int param_2,int param_3)
       }
       iStack_7c = Std_Swap32(iStack_7c);
       uVar15 = 0x1f;
-      pcVar8 = Str_FileNameFromPath(param_1);
+      pcVar8 = stdFileFromPath(param_1);
       strncpy(bitmap,pcVar8,uVar15);
       *(undefined1 *)((int)bitmap + 0x1f) = 0;
       *(undefined4 *)((int)bitmap + 0x20) = 0;
@@ -137,17 +136,17 @@ void * stdLbm_Load(char *param_1,int param_2,int param_3)
         uStack_48 = (uint)uStack_72;
         uStack_38 = 0;
         uStack_34 = 8;
-        pvVar9 = Surface_Create(&uStack_4c,param_2,param_3,0);
+        pvVar9 = stdDisplay_VBufferNew(&uStack_4c,param_2,param_3,0);
         **(undefined4 **)((int)bitmap + 0x78) = pvVar9;
         if ((void *)**(undefined4 **)((int)bitmap + 0x78) != (void *)0x0) {
-          Surface_Lock((void *)**(undefined4 **)((int)bitmap + 0x78));
+          stdDisplay_VBufferLock((void *)**(undefined4 **)((int)bitmap + 0x78));
           iVar13 = 0;
           iVar7 = *(int *)(**(int **)((int)bitmap + 0x78) + 0x5c);
           iStack_78 = iVar7;
           if ((uStack_6a & 0xff) == 0) {
             if (0 < iStack_7c) {
               do {
-                uVar5 = stdFile_ReadByte(iVar6);
+                uVar5 = stdFGetc(iVar6);
                 *(undefined1 *)(iVar13 + iVar7) = uVar5;
                 iVar13 = iVar13 + 1;
               } while (iVar13 < iStack_7c);
@@ -160,11 +159,11 @@ void * stdLbm_Load(char *param_1,int param_2,int param_3)
               do {
                 iStack_94 = 0;
                 do {
-                  bVar4 = stdFile_ReadByte(iVar6);
+                  bVar4 = stdFGetc(iVar6);
                   uVar12 = (uint)(char)bVar4;
                   if (((bVar4 & 0x80) == 0x80) && (((int)(char)bVar4 | 0x80U) != 0x80)) {
                     uVar12 = 1 - (uVar12 | 0xffffff00);
-                    uVar5 = stdFile_ReadByte(iVar6);
+                    uVar5 = stdFGetc(iVar6);
                     if (uVar12 != 0) {
                       puVar14 = (undefined4 *)(iVar13 + iVar7);
                       for (uVar11 = uVar12 >> 2; uVar11 != 0; uVar11 = uVar11 - 1) {
@@ -184,7 +183,7 @@ void * stdLbm_Load(char *param_1,int param_2,int param_3)
                   else if ((uVar12 != 0x80) && (iVar10 = uVar12 + 1, 0 < iVar10)) {
                     iStack_94 = iStack_94 + iVar10;
                     do {
-                      uVar5 = stdFile_ReadByte(iVar6);
+                      uVar5 = stdFGetc(iVar6);
                       *(undefined1 *)(iVar13 + iVar7) = uVar5;
                       iVar13 = iVar13 + 1;
                       iVar10 = iVar10 + -1;
@@ -196,7 +195,7 @@ void * stdLbm_Load(char *param_1,int param_2,int param_3)
               } while (iStack_8c < (int)(uint)uStack_72);
             }
           }
-          Surface_Unlock((void *)**(undefined4 **)((int)bitmap + 0x78));
+          stdDisplay_VBufferUnlock((void *)**(undefined4 **)((int)bitmap + 0x78));
           iVar7 = (*g_pStd_HS->pAlloc)
                             (0x300,s_C__grimjedi_Libs_Std_General_Std_004e78ec,DAT_004e78e0 + 0xc2);
           *(int *)((int)bitmap + 0x60) = iVar7;
@@ -206,10 +205,10 @@ void * stdLbm_Load(char *param_1,int param_2,int param_3)
             do {
               iVar7 = (*g_pStd_HS->pFeof)(iVar6);
               if (iVar7 != 0) break;
-              cVar3 = stdFile_ReadByte(iVar6);
-              if ((((cVar3 == 'C') && (cVar3 = stdFile_ReadByte(iVar6), cVar3 == 'M')) &&
-                  (cVar3 = stdFile_ReadByte(iVar6), cVar3 == 'A')) &&
-                 (cVar3 = stdFile_ReadByte(iVar6), cVar3 == 'P')) {
+              cVar3 = stdFGetc(iVar6);
+              if ((((cVar3 == 'C') && (cVar3 = stdFGetc(iVar6), cVar3 == 'M')) &&
+                  (cVar3 = stdFGetc(iVar6), cVar3 == 'A')) &&
+                 (cVar3 = stdFGetc(iVar6), cVar3 == 'P')) {
                 ppvVar1 = &g_pStd_HS->pFseek;
                 iVar7 = (*g_pStd_HS->pFtell)(iVar6,0);
                 (*(code *)*ppvVar1)(iVar6,iVar7 + -4);
@@ -295,7 +294,7 @@ undefined4 stdLbm_Write(undefined4 param_1,int param_2)
   (*g_pStd_HS->pFwrite)(iVar2,*(undefined4 *)(param_2 + 0x60),0x300);
   iStack_7d4 = (*g_pStd_HS->pFtell)(iVar2);
   (*g_pStd_HS->pFwrite)(iVar2,s_BODYxxxx_004e7914,8);
-  Surface_Lock((void *)**(undefined4 **)(param_2 + 0x78));
+  stdDisplay_VBufferLock((void *)**(undefined4 **)(param_2 + 0x78));
   uVar4 = 0;
   iVar3 = **(int **)(param_2 + 0x78);
   iVar5 = *(int *)(iVar3 + 0x5c);
@@ -308,7 +307,7 @@ undefined4 stdLbm_Write(undefined4 param_1,int param_2)
       uVar4 = uVar4 + 1;
     } while (uVar4 < *(uint *)(**(int **)(param_2 + 0x78) + 0x10));
   }
-  Surface_Unlock((void *)**(undefined4 **)(param_2 + 0x78));
+  stdDisplay_VBufferUnlock((void *)**(undefined4 **)(param_2 + 0x78));
   iStack_7ec = (*g_pStd_HS->pFtell)(iVar2);
   iVar3 = iStack_7d4;
   iStack_7ec = iStack_7ec + (-8 - iStack_7d4);

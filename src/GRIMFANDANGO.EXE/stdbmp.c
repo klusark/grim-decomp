@@ -89,7 +89,7 @@ undefined4 stdBmp_LoadEntry(char *param_1,undefined4 *param_2,int param_3,int pa
       puVar12 = puVar12 + 1;
     }
     uVar16 = 0x1f;
-    pcVar6 = Str_FileNameFromPath(param_1);
+    pcVar6 = stdFileFromPath(param_1);
     strncpy(param_2,pcVar6,uVar16);
     *(undefined1 *)((int)param_2 + 0x1f) = 0;
     param_2[8] = 0;
@@ -163,14 +163,14 @@ undefined4 stdBmp_LoadEntry(char *param_1,undefined4 *param_2,int param_3,int pa
     if (bVar15) {
       aiStack_84[1] = -aiStack_84[1];
     }
-    pvVar7 = Surface_Create(aiStack_84,param_3,param_4,local_98);
+    pvVar7 = stdDisplay_VBufferNew(aiStack_84,param_3,param_4,local_98);
     *(void **)param_2[0x1e] = pvVar7;
     if (*(int *)param_2[0x1e] == 0) {
       (*g_pStd_HS->pAssertFail)
                 (s_Unable_to_allocate_memory__004e76d4,s_C__grimjedi_Libs_Std_General_Std_004e7644,
                  DAT_004e763c + 0x81);
     }
-    iVar4 = Surface_Lock(*(void **)param_2[0x1e]);
+    iVar4 = stdDisplay_VBufferLock(*(void **)param_2[0x1e]);
     if (iVar4 == 0) {
       (*g_pStd_HS->pAssertFail)
                 (s_Unable_to_lock_VBuffer_memory__004e76b4,
@@ -228,7 +228,7 @@ undefined4 stdBmp_LoadEntry(char *param_1,undefined4 *param_2,int param_3,int pa
         local_98 = local_98 - 1;
       } while (local_98 != 0);
     }
-    Surface_Unlock(*(void **)param_2[0x1e]);
+    stdDisplay_VBufferUnlock(*(void **)param_2[0x1e]);
     (*g_pStd_HS->pFclose)(iVar3);
     return 1;
   }
@@ -243,8 +243,11 @@ undefined4 stdBmp_LoadEntry(char *param_1,undefined4 *param_2,int param_3,int pa
 #undef uStack_2a
 
 
-/* ---- 0x0047d050  stdBmp_Save ---- */
-undefined4 stdBmp_Save(undefined4 param_1,int param_2)
+/* ---- 0x0047d050  stdBmp_Write ---- */
+/* Original name stdBmp_Write (the remaster's GrimFandango (Linux): aligned call in stdWriteImage);
+   was stdBmp_Save. */
+
+undefined4 stdBmp_Write(undefined4 param_1,int param_2)
 
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */

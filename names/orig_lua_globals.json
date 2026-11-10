@@ -258,7 +258,7 @@
   "global": "g_dwLState_nblocks",
   "oldtype": "undefined4",
   "names_only": true,
-  "comment": "Original name LState::nblocks (the remaster's libLua.so: the GC block count of luaF_newproto / luaF_newclosure / luaF_freeclosure / do_main); was DAT_1002beec."
+  "comment": "Original name LState::nblocks (the remaster's libLua.so: the GC block count of luaF_newproto / luaF_newclosure / luaF_freeproto / do_main); was DAT_1002beec."
  },
  {
   "program": "/LUA.DLL",

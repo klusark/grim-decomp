@@ -102,9 +102,9 @@ undefined4 Memory_SysInitialize(GrimServices *param_1,undefined4 *param_2)
     g_dwMemorySysInitialized = 1;
     if (param_2 != (undefined4 *)0x0) {
       *param_2 = Memory_SysInitialize;
-      param_2[1] = Memory_Sys_Terminate;
-      param_2[2] = Memory_Sys_Start;
-      param_2[3] = Memory_Sys_Stop;
+      param_2[1] = Memory_SysTerminate;
+      param_2[2] = Memory_SysStartup;
+      param_2[3] = Memory_SysShutdown;
       param_2[4] = 0;
       param_2[5] = 0;
       param_2[6] = 0;
@@ -115,50 +115,56 @@ undefined4 Memory_SysInitialize(GrimServices *param_1,undefined4 *param_2)
   return uVar1;
 }
 
-/* ---- 0x00488930  Memory_Sys_Terminate ---- */
+/* ---- 0x00488930  Memory_SysTerminate ---- */
 /* Module interface slot 1 (Memory_Sys): called by Engine_ResetSubsystems / when registration fails;
-   drops the service table pointer and clears the initialised flag. */
+   drops the service table pointer and clears the initialised flag. Original name
+   Memory_SysTerminate (the remaster's GrimFandango (Linux): aligned call in Memory_SysInitialize);
+   was Memory_Sys_Terminate. */
 
-void Memory_Sys_Terminate(void)
+void Memory_SysTerminate(void)
 
 {
   g_dwMemorySysInitialized = 0;
   return;
 }
 
-/* ---- 0x00488940  Memory_Sys_Start ---- */
+/* ---- 0x00488940  Memory_SysStartup ---- */
 /* Module interface slot 2 (Memory_Sys): called by Engine_InitSubsystems, returns 0 on success
-   (non-zero makes the whole start-up unwind).  */
+   (non-zero makes the whole start-up unwind). Original name Memory_SysStartup (the remaster's
+   GrimFandango (Linux): aligned call in Memory_SysInitialize); was Memory_Sys_Start. */
 
-undefined4 Memory_Sys_Start(void)
+undefined4 Memory_SysStartup(void)
 
 {
   undefined4 uVar1;
   
   uVar1 = 1;
-  if ((g_dwMemorySysInitialized != 0) && (UINT_008c9a78 == 0)) {
-    UINT_008c9a78 = 1;
+  if ((g_dwMemorySysInitialized != 0) && (g_dwMemorySysStarted == 0)) {
+    g_dwMemorySysStarted = 1;
     uVar1 = 0;
   }
   return uVar1;
 }
 
-/* ---- 0x00488970  Memory_Sys_Stop ---- */
+/* ---- 0x00488970  Memory_SysShutdown ---- */
 /* Module interface slot 3 (Memory_Sys): called by Engine_ShutdownSubsystems in reverse order;
-   releases what _Start created. */
+   releases what _Start created. Original name Memory_SysShutdown (the remaster's GrimFandango
+   (Linux): aligned call in Memory_SysInitialize); was Memory_Sys_Stop. */
 
-void Memory_Sys_Stop(void)
+void Memory_SysShutdown(void)
 
 {
-  UINT_008c9a78 = 0;
+  g_dwMemorySysStarted = 0;
   return;
 }
 
-/* ---- 0x00488980  Pool_Create ---- */
+/* ---- 0x00488980  Memory_AllocatePool ---- */
 /* Temp/Memory.c: fixed-size item pool. Items are 8-byte-headed (next, pool) blocks carved from
-   grown chunks; pools are kept in the g_poolList singly linked list. */
+   grown chunks; pools are kept in the g_poolList singly linked list. Original name
+   Memory_AllocatePool (the remaster's GrimFandango (Linux): aligned call in Res_SysStartup,
+   sputRoom_Startup, sputText_Startup); was Pool_Create. */
 
-void ** Pool_Create(int param_1,void *param_2,void *param_3)
+void ** Memory_AllocatePool(int param_1,void *param_2,void *param_3)
 
 {
   void **ppvVar1;
@@ -201,10 +207,12 @@ void ** Pool_Create(int param_1,void *param_2,void *param_3)
   return ppvVar1;
 }
 
-/* ---- 0x00488a70  Pool_Destroy ---- */
-/* Source: Temp/Memory.c (lines 896-897, from __FILE__/__LINE__ passed to the allocator) */
+/* ---- 0x00488a70  Memory_FreePool ---- */
+/* Source: Temp/Memory.c (lines 896-897, from __FILE__/__LINE__ passed to the allocator) Original
+   name Memory_FreePool (the remaster's GrimFandango (Linux): aligned call in sputCostume_Shutdown,
+   sputRoom_Shutdown, sputText_Shutdown); was Pool_Destroy. */
 
-void Pool_Destroy(void **param_1)
+void Memory_FreePool(void **param_1)
 
 {
   undefined4 *puVar1;
@@ -240,11 +248,12 @@ void Pool_Destroy(void **param_1)
   return;
 }
 
-/* ---- 0x00488b10  Pool_Alloc ---- */
+/* ---- 0x00488b10  Memory_AllocFixed ---- */
 /* Pops an item off the free list, growing the pool by growBy when empty. Returns the payload (item
-   header + 8). */
+   header + 8). Original name Memory_AllocFixed (the remaster's GrimFandango (Linux): aligned call
+   in Res_SysRegisterHandler, sputText_Restore); was Pool_Alloc. */
 
-int * Pool_Alloc(int *param_1)
+int * Memory_AllocFixed(int *param_1)
 
 {
   int *piVar1;

@@ -54,8 +54,8 @@ extern unsigned short DAT_008dde70;  /* flat colour, 16 bpp */
 extern unsigned char *UINT_008dde90; /* translucency table (256 x 256) */
 extern unsigned char DAT_008dde98;   /* flat colour, 8 bpp (palette index) */
 extern int UINT_008ddea4;            /* z-buffer shift */
-extern int DAT_008fbfc0[];           /* 65536 / n (span length) */
-extern float UINT_008fe000[];        /* 1.0f / n */
+extern int g_aRdRaster_OneOverNFixed[];           /* 65536 / n (span length) */
+extern float g_dwRdRaster_aOneOverNFlex[];        /* 1.0f / n */
 extern char *g_dwRdColormap_pCurMap;          /* the colormap; +0x338: the translucency table */
 extern char *g_pRdCamera_CurCamera;     /* 0x007f0fc8; +4: the canvas (+4 colour buffer, +0x10 z-buffer, +0x14 z shift) */
 extern int UINT_008dde48;            /* texture u mask << 16 */
@@ -66,7 +66,7 @@ extern int UINT_008dde68;            /* width of the mip level (selects the C sp
 extern int UINT_008dde78;            /* u rounding bias */
 extern unsigned char *UINT_008dde7c; /* texels of the mip level */
 extern int UINT_008dde8c;            /* log2 width of the mip level */
-extern float DAT_004dda90, DAT_004dda94, DAT_004dda98;  /* mip distance thresholds (10, 20, 40) */
+extern float DAT_004dda90, g_aRdroid_MipDistances, DAT_004dda98;  /* mip distance thresholds (10, 20, 40) */
 extern void Mem_DumpLog(void);       /* an empty function: the 8 bpp "span filler" of the FlatLit drivers */
 
 typedef struct q4_edge {
@@ -243,14 +243,14 @@ Q4_EDGE_FN(rdRaster_SpanR_Flat_12, UINT_007f4580, 1, 1)
     frac = xs - x0;                                                                                         \
     sub = q4_f((long double)frac * (1.0f / 65536.0f));                                                      \
     if (LIT) {                                                                                              \
-        dl = q4_mul16(R->l - L->l, DAT_008fbfc0[n]);                                                        \
+        dl = q4_mul16(R->l - L->l, g_aRdRaster_OneOverNFixed[n]);                                                        \
         if (dl < 0 && dl > -0x51e)                                                                          \
             dl = 0;                                                                                         \
         l = q4_mul16(frac, dl) + L->l;                                                                      \
     }                                                                                                       \
     {                                                                                                       \
         float tf_;                                                                                          \
-        t = ((long double)R->z - L->z) * UINT_008fe000[n];                                                  \
+        t = ((long double)R->z - L->z) * g_dwRdRaster_aOneOverNFlex[n];                                                  \
         tf_ = q4_f(t);                                                                                      \
         dz = q4_floor_i(q4_f(t * 65536.0f));                                                                \
         z = q4_floor_i(q4_f(((long double)tf_ * sub + L->z) * 65536.0f));                                   \
@@ -646,13 +646,13 @@ void rdRaster_Grad_Flat_3(int dbits)
             UINT_008dde54 = 0;
             break;
         case 1:
-            UINT_008dde54 = dist > DAT_004dda94 ? 1 : 0;
+            UINT_008dde54 = dist > g_aRdroid_MipDistances ? 1 : 0;
             break;
         case 2:
-            UINT_008dde54 = !(dist > DAT_004dda90) ? 0 : !(dist > DAT_004dda94) ? 1 : 2;
+            UINT_008dde54 = !(dist > DAT_004dda90) ? 0 : !(dist > g_aRdroid_MipDistances) ? 1 : 2;
             break;
         case 3:
-            UINT_008dde54 = !(dist > DAT_004dda90) ? 0 : !(dist > DAT_004dda94) ? 1 : !(dist > DAT_004dda98) ? 2 : 3;
+            UINT_008dde54 = !(dist > DAT_004dda90) ? 0 : !(dist > g_aRdroid_MipDistances) ? 1 : !(dist > DAT_004dda98) ? 2 : 3;
             break;
         }
         if (dudx > 0.0f)
@@ -687,7 +687,7 @@ void rdRaster_Grad_Flat_3(int dbits)
     if (n <= 0)                                                                                             \
         return;                                                                                             \
     frac = xs - x0;                                                                                         \
-    irn = DAT_008fbfc0[n];                                                                                  \
+    irn = g_aRdRaster_OneOverNFixed[n];                                                                                  \
     sub = q4_f((long double)frac * (1.0f / 65536.0f));                                                      \
     mip = UINT_008dde54 & 31;                                                                               \
     du = q4_mul16(R->u - L->u, irn);                                                                        \
@@ -704,7 +704,7 @@ void rdRaster_Grad_Flat_3(int dbits)
     }                                                                                                       \
     {                                                                                                       \
         float tf_;                                                                                          \
-        t = ((long double)R->z - L->z) * UINT_008fe000[n];                                                  \
+        t = ((long double)R->z - L->z) * g_dwRdRaster_aOneOverNFlex[n];                                                  \
         tf_ = q4_f(t);                                                                                      \
         dz = q4_floor_i(q4_f(t * 65536.0f));                                                                \
         z = q4_floor_i(q4_f(((long double)tf_ * sub + L->z) * 65536.0f));                                   \

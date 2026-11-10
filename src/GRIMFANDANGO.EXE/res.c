@@ -17,10 +17,13 @@ int daTotalAllocated(void)
   return g_dwStdMemory_curState;
 }
 
-/* ---- 0x00480230  Res_Register ---- */
-/* Called by type handlers after loading to create the resource record */
+/* ---- 0x00480230  Res_SysAddHandle ---- */
+/* Called by type handlers after loading to create the resource record Original name
+   Res_SysAddHandle (the remaster's GrimFandango (Linux): aligned call in
+   sputResource_ColormapHandler, sputResource_KeyframeHandler, sputResource_MaterialHandler); was
+   Res_Register. */
 
-void * __cdecl Res_Register(int fourcc,char *name,void *data)
+void * __cdecl Res_SysAddHandle(int fourcc,char *name,void *data)
 
 {
   undefined4 *puVar1;
@@ -33,10 +36,10 @@ void * __cdecl Res_Register(int fourcc,char *name,void *data)
   if (pvVar2 == (void *)0x0) {
     pvVar2 = Res_CreateRecord(fourcc,name,data);
     if (pvVar2 != (void *)0x0) {
-      if (UINT_008a85e4 != 0) {
+      if (g_dwLogFile != 0) {
         puVar1 = (undefined4 *)(g_dwResHS + 0x54);
         iVar3 = Res_GetSize(pvVar2);
-        (*(code *)*puVar1)(UINT_008a85e4,s_Resource____12s__allocated___8ld_004e79f4,name,iVar3);
+        (*(code *)*puVar1)(g_dwLogFile,s_Resource____12s__allocated___8ld_004e79f4,name,iVar3);
       }
       return (void *)0x1;
     }
@@ -47,8 +50,11 @@ void * __cdecl Res_Register(int fourcc,char *name,void *data)
   return pvVar4;
 }
 
-/* ---- 0x004802b0  Res_GetFilePath ---- */
-int __cdecl Res_GetFilePath(char *name,char *buf,int size)
+/* ---- 0x004802b0  Res_FindExternalFile ---- */
+/* Original name Res_FindExternalFile (the remaster's GrimFandango (Linux): aligned call in
+   sputSmush_GetMovieLength); was Res_GetFilePath. */
+
+int __cdecl Res_FindExternalFile(char *name,char *buf,int size)
 
 {
   unsigned char _frame[0x330] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -68,7 +74,7 @@ int __cdecl Res_GetFilePath(char *name,char *buf,int size)
     if (iVar4 != 0) goto LAB_0048030d;
     iVar4 = 0;
     if ((*(byte *)(piVar1 + 0x45) & 2) == 0) {
-      iVar4 = LabDir_FindEntry(piVar1,0,local_31c,uVar2,local_218);
+      iVar4 = res_FindDirectoryEntry(piVar1,0,local_31c,uVar2,local_218);
     }
   }
   if (iVar4 != 0) {
@@ -106,7 +112,7 @@ void * __cdecl Res_Load(int type,char *name)
   void *pvVar1;
   
   pvVar1 = (void *)0x0;
-  res = Res_LoadInternal(type,name,(int *)&name);
+  res = res_Load(type,name,(int *)&name);
   if (res != (void *)0x0) {
     Res_MoveToFront(res);
     pvVar1 = *(void **)((int)res + 0x14);
@@ -114,10 +120,13 @@ void * __cdecl Res_Load(int type,char *name)
   return pvVar1;
 }
 
-/* ---- 0x00480560  Res_SetLocked ---- */
-/* Locks (flag 8) a resource against Res_FreeUnreferenced; returns the previous unlocked state */
+/* ---- 0x00480560  Res_SetPurgable ---- */
+/* Locks (flag 8) a resource against Res_FreeUnreferenced; returns the previous unlocked state
+   Original name Res_SetPurgable (the remaster's GrimFandango (Linux): aligned call in
+   sputResource_MatLoader, sputResource_MatUnloader, sputResource_MaterialHandler); was
+   Res_SetLocked. */
 
-uint __cdecl Res_SetLocked(void *data,int unlock)
+uint __cdecl Res_SetPurgable(void *data,int unlock)
 
 {
   ushort uVar1;
@@ -138,11 +147,12 @@ uint __cdecl Res_SetLocked(void *data,int unlock)
   return uVar3;
 }
 
-/* ---- 0x004805b0  Res_FreeUnreferenced ---- */
+/* ---- 0x004805b0  Res_SysPurgeBySize ---- */
 /* Walks the LRU list from the oldest end freeing unreferenced, unlocked resources until bytesWanted
-   is reached; calls the yield hook every 5 items */
+   is reached; calls the yield hook every 5 items Original name Res_SysPurgeBySize (the remaster's
+   GrimFandango (Linux): aligned call in sputResource_Alloc); was Res_FreeUnreferenced. */
 
-int __cdecl Res_FreeUnreferenced(uint bytesWanted,uint *bytesFreed)
+int __cdecl Res_SysPurgeBySize(uint bytesWanted,uint *bytesFreed)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -164,8 +174,8 @@ int __cdecl Res_FreeUnreferenced(uint bytesWanted,uint *bytesFreed)
       while (res = pvVar1, res != (void *)0x0) {
         if (bytesWanted <= *bytesFreed) goto LAB_0048065f;
         local_8 = local_8 + 1;
-        if (((code *)UINT_008a85e8 != (code *)0x0) && ((int)local_8 % 5 == 0)) {
-          (*(code *)UINT_008a85e8)();
+        if (((code *)g_dwRes_pPeriodicCallback != (code *)0x0) && ((int)local_8 % 5 == 0)) {
+          (*(code *)g_dwRes_pPeriodicCallback)();
         }
         pvVar1 = *(void **)((int)res + 4);
         if ((*(int *)((int)res + 0x24) == 0) && ((*(byte *)((int)res + 0x1c) & 8) == 0)) {
@@ -208,7 +218,7 @@ int __cdecl Res_Dump(char *filename,int type)
   
   local_4 = 0;
   iVar4 = 0;
-  fh = ResFile_Open(filename,&DAT_004dd478);
+  fh = Res_FOpen(filename,&DAT_004dd478);
   res = g_pNewestResNode;
   if (fh != 0) {
     for (; res != (int *)0x0; res = (int *)*res) {
@@ -226,7 +236,7 @@ int __cdecl Res_Dump(char *filename,int type)
       }
     }
     (**(code **)(g_dwResHS + 0x54))(fh,s_Total___d_items___d_bytes_004e7a40,local_4,iVar4);
-    ResFile_Close(fh);
+    Res_FClose(fh);
     return 1;
   }
   return 0;
@@ -239,22 +249,23 @@ int __cdecl Res_OpenLog(char *filename)
 
 {
   if (filename != (char *)0x0) {
-    UINT_008a85e4 = (**(code **)(g_dwResHS + 0x30))(filename,&DAT_004dd478);
+    g_dwLogFile = (**(code **)(g_dwResHS + 0x30))(filename,&DAT_004dd478);
     return 1;
   }
-  if (UINT_008a85e4 != 0) {
-    (**(code **)(g_dwResHS + 0x34))(UINT_008a85e4);
-    UINT_008a85e4 = 0;
+  if (g_dwLogFile != 0) {
+    (**(code **)(g_dwResHS + 0x34))(g_dwLogFile);
+    g_dwLogFile = 0;
   }
   return 1;
 }
 
-/* ---- 0x00480790  Res_InstallFileServices ---- */
+/* ---- 0x00480790  Res_OverrideFileCalls ---- */
 /* Temp/Res.c: keeps a copy of the raw file services in g_ResFileServices and replaces
    svc->fopen..fprintf with the ResFile_* versions so every open goes through the LAB archive system
-    */
+   Original name Res_OverrideFileCalls (the remaster's GrimFandango (Linux): aligned call in
+   sputResource_Startup); was Res_InstallFileServices. */
 
-void __cdecl Res_InstallFileServices(GrimServices *svc)
+void __cdecl Res_OverrideFileCalls(GrimServices *svc)
 
 {
   int iVar1;
@@ -269,16 +280,16 @@ void __cdecl Res_InstallFileServices(GrimServices *svc)
     pGVar3 = (GrimServices *)&pGVar3->pPrintf;
   }
   g_dwLowLevelHS = (uint)&g_ResFileServices;
-  svc->pFopen = ResFile_Open;
-  svc->pFclose = ResFile_Close;
-  svc->pFread = ResFile_Read;
-  svc->pFgets = ResFile_Gets;
-  svc->pFwrite = ResFile_Write;
-  svc->pFeof = ResFile_Eof;
-  svc->pFtell = ResFile_Tell;
-  svc->pFseek = ResFile_Seek;
-  svc->pFileSize = ResFile_Size;
-  svc->pFprintf = ResFile_Printf;
+  svc->pFopen = Res_FOpen;
+  svc->pFclose = Res_FClose;
+  svc->pFread = Res_FRead;
+  svc->pFgets = Res_FGets;
+  svc->pFwrite = Res_FWrite;
+  svc->pFeof = Res_FEOF;
+  svc->pFtell = Res_FTell;
+  svc->pFseek = Res_FSeek;
+  svc->pFileSize = Res_FSize;
+  svc->pFprintf = Res_FPrintf;
   return;
 }
 
@@ -317,8 +328,11 @@ void * __cdecl Res_FindByData(void *data)
   return piVar1;
 }
 
-/* ---- 0x00481100  Res_DataFromHandle ---- */
-void * __cdecl Res_DataFromHandle(void *handle)
+/* ---- 0x00481100  Res_HandleFromSerialNumber ---- */
+/* Original name Res_HandleFromSerialNumber (the remaster's GrimFandango (Linux): aligned call in
+   sputLua_RestoreIndirector, sputRoom_Restore, sputText_Restore); was Res_DataFromHandle. */
+
+void * __cdecl Res_HandleFromSerialNumber(void *handle)
 
 {
   void *pvVar1;
@@ -347,8 +361,11 @@ void * __cdecl Res_FindByHandle(void *handle)
   return piVar1;
 }
 
-/* ---- 0x00481140  Res_Find ---- */
-void * __cdecl Res_Find(int type,char *name)
+/* ---- 0x00481140  Res_Loaded ---- */
+/* Original name Res_Loaded (the remaster's GrimFandango (Linux): aligned call in
+   sputLua_GetCurrentSetupL, sputLua_PutActorInSetL); was Res_Find. */
+
+void * __cdecl Res_Loaded(int type,char *name)
 
 {
   void *pvVar1;
@@ -413,11 +430,12 @@ LAB_004811d5:
 #undef local_104
 
 
-/* ---- 0x00481210  Res_LoadInternal ---- */
+/* ---- 0x00481210  res_Load ---- */
 /* Asks the type handler to load {op=1, name, type}; on status 1 finds the new record and asks the
-   handler for its size {op=3} */
+   handler for its size {op=3} Original name res_Load (the remaster's GrimFandango (Linux): aligned
+   call in Res_Load, Res_SysLoad); was Res_LoadInternal. */
 
-void * __cdecl Res_LoadInternal(int type,char *name,int *status)
+void * __cdecl res_Load(int type,char *name,int *status)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -442,7 +460,7 @@ void * __cdecl Res_LoadInternal(int type,char *name,int *status)
   local_14 = 1;
   local_10 = (uint)name;
   local_c = type;
-  Render_UpdateWaitCursor();
+  sputRender_DrawLoadingImage();
   if (pvVar1 == (void *)0x0) {
     iVar2 = (*(code *)PTR_ResType_DefaultHandler_004e79ac)(&local_14);
     *status = iVar2;
@@ -451,8 +469,8 @@ void * __cdecl Res_LoadInternal(int type,char *name,int *status)
     iVar2 = (**(code **)((int)pvVar1 + 0xc))(&local_14);
     *status = iVar2;
   }
-  if (UINT_008a85e8 != 0) {
-    (*(code *)UINT_008a85e8)();
+  if (g_dwRes_pPeriodicCallback != 0) {
+    (*(code *)g_dwRes_pPeriodicCallback)();
   }
   puVar3 = (undefined *)0x0;
   if (*status == 1) {
@@ -556,7 +574,7 @@ void * __cdecl Res_CreateRecord(int type,char *name,void *data)
   uint uVar5;
   int iVar6;
   
-  res = (int *)Pool_Alloc(g_dwResNodePool);
+  res = (int *)Memory_AllocFixed(g_dwResNodePool);
   if (res != (int *)0x0) {
     res[4] = type;
     res[5] = (int)data;
@@ -567,10 +585,10 @@ void * __cdecl Res_CreateRecord(int type,char *name,void *data)
     res[8] = 0;
     iVar6 = 1;
     do {
-      piVar2 = *(int **)(&DAT_00825f00 + (UINT_008a85e0 - iVar6 & 0xf) * 4);
+      piVar2 = *(int **)(&g_aFoundFiles + (g_dwLastFound - iVar6 & 0xf) * 4);
       if ((piVar2 != (int *)0x0) && (iVar3 = _stricmp(name,piVar2[1]), iVar3 == 0)) {
         res[2] = piVar2[1];
-        res[8] = *(int *)(&DAT_008a8578 + (UINT_008a85e0 - iVar6 & 0xf) * 4);
+        res[8] = *(int *)(&g_aFoundFileNodes + (g_dwLastFound - iVar6 & 0xf) * 4);
         res[3] = *piVar2;
         break;
       }
@@ -638,9 +656,9 @@ void __cdecl Res_CallUnload(void *res)
     local_8 = *(uint *)((int)res + 0x14);
     local_14 = 2;
     iVar3 = (**(code **)((int)pvVar2 + 0xc))(&local_14);
-    if ((iVar3 == 1) && (UINT_008a85e4 != 0)) {
+    if ((iVar3 == 1) && (g_dwLogFile != 0)) {
       (**(code **)(g_dwResHS + 0x54))
-                (UINT_008a85e4,s_Resource____12s__freed___d_refer_004e7ab8,
+                (g_dwLogFile,s_Resource____12s__freed___d_refer_004e7ab8,
                  *(undefined4 *)((int)res + 8),iVar4);
     }
   }
@@ -742,8 +760,11 @@ uint __cdecl Res_HashName(char *name,char *outLower)
   return uVar2;
 }
 
-/* ---- 0x00482170  Res_FindByHandleOrNull ---- */
-void Res_FindByHandleOrNull(int *param_1,int *param_2,int param_3)
+/* ---- 0x00482170  Res_GetFirstType ---- */
+/* Original name Res_GetFirstType (the remaster's GrimFandango (Linux): aligned call in
+   sputRoom_Save); was Res_FindByHandleOrNull. */
+
+void Res_GetFirstType(int *param_1,int *param_2,int param_3)
 
 {
   int *piVar1;
@@ -763,8 +784,11 @@ void Res_FindByHandleOrNull(int *param_1,int *param_2,int param_3)
   return;
 }
 
-/* ---- 0x004821b0  Res_NextInList ---- */
-void Res_NextInList(int *param_1,int *param_2,int param_3)
+/* ---- 0x004821b0  Res_GetNextType ---- */
+/* Original name Res_GetNextType (the remaster's GrimFandango (Linux): aligned call in
+   sputRoom_Save); was Res_NextInList. */
+
+void Res_GetNextType(int *param_1,int *param_2,int param_3)
 
 {
   int *piVar1;
@@ -788,12 +812,14 @@ void Res_NextInList(int *param_1,int *param_2,int param_3)
   return;
 }
 
-/* ---- 0x00482200  Res_TouchByData ---- */
+/* ---- 0x00482200  Res_Touch ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-/* Moves the record owning the data pointer to the front of the LRU list */
+/* Moves the record owning the data pointer to the front of the LRU list Original name Res_Touch
+   (the remaster's GrimFandango (Linux): aligned call in sputRoom_GetSetupBackground,
+   sputRoom_GetSetupZBackground, sputRoom_LoadResources); was Res_TouchByData. */
 
-undefined * __cdecl Res_TouchByData(void *param_1)
+undefined * __cdecl Res_Touch(void *param_1)
 
 {
   void *res;

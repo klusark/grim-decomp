@@ -10,7 +10,7 @@
  *   /c/msys64/mingw32/bin/gcc -O1 -w vimadiff.c -o vimadiff.exe -Wl,--image-base=0x30000000 -Wl,--disable-dynamicbase \
  *       -Wl,--stack,0x80000
  *
- * usage: vimadiff <image> <FUN_004cbc00> <UINT_008da4ec> <PTR_008da4f0> <UINT_008d7860> <total> <waves> <out>
+ * usage: vimadiff <image> <FUN_004cbc00> <g_dwSoundServices> <g_pDWave_outputBuffer> <UINT_008d7860> <total> <waves> <out>
  *   addresses in hex (the original's, or nm's for a rebuilt image); <total> = the sample total of the FLHD Wave entry
  *   (UINT_008d7860, written by FUN_004cbbe0); <waves> = u32 count, then u32 size + payload per Wave chunk (snmparse.py);
  *   <out> gets, per chunk: "CALL" u32 len + the buffer passed to the callback (header + PCM, len = BE size field + 8), then

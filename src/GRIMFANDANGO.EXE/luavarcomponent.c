@@ -5,13 +5,15 @@
 #include "globals.h"
 #include "functions.h"
 
-/* ---- 0x00497680  LuaVarComponent_OnKey ---- */
+/* ---- 0x00497680  LuaVarChanger ---- */
 /* WARNING: Variable defined which should be unmapped: local_4 */
 /* Costume tag handler for 'Lua Variable' (registered by sputCostume_Start through
    Cos_NewStateBasedTag/Cos_NewIntTag): slot 0, sets the named Lua global to the key value
-   (lua_pushnumber + lua_setglobal). */
+   (lua_pushnumber + lua_setglobal). Original name LuaVarChanger (the remaster's GrimFandango
+   (Linux): the same handler slot (changer) of the same costume tag registration in
+   sputCostume_Startup); was LuaVarComponent_OnKey. */
 
-void LuaVarComponent_OnKey(undefined4 param_1,char *param_2,undefined4 param_3,int param_4)
+void LuaVarChanger(undefined4 param_1,char *param_2,undefined4 param_3,int param_4)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -107,22 +109,26 @@ int LuaVarRequester(uint param_1,int param_2,int param_3,int param_4,int param_5
 #undef local_20
 
 
-/* ---- 0x004977f0  LuaVarComponent_Destroy ---- */
+/* ---- 0x004977f0  LuaVarFreer ---- */
 /* Costume tag handler for 'Lua Variable' (registered by sputCostume_Start through
-   Cos_NewStateBasedTag/Cos_NewIntTag): slot 2, frees the key data. */
+   Cos_NewStateBasedTag/Cos_NewIntTag): slot 2, frees the key data. Original name LuaVarFreer (the
+   remaster's GrimFandango (Linux): the same handler slot (freer) of the same costume tag
+   registration in sputCostume_Startup); was LuaVarComponent_Destroy. */
 
-undefined4 LuaVarComponent_Destroy(undefined4 param_1,undefined4 param_2,undefined4 param_3)
+undefined4 LuaVarFreer(undefined4 param_1,undefined4 param_2,undefined4 param_3)
 
 {
   (*g_pSputCosHS->pFree)(param_3);
   return 1;
 }
 
-/* ---- 0x00497810  LuaVarComponent_Stop ---- */
+/* ---- 0x00497810  LuaVarStopper ---- */
 /* Costume tag handler for 'Lua Variable' (registered by sputCostume_Start through
-   Cos_NewStateBasedTag/Cos_NewIntTag): slot 3, sets the Lua global to nil. */
+   Cos_NewStateBasedTag/Cos_NewIntTag): slot 3, sets the Lua global to nil. Original name
+   LuaVarStopper (the remaster's GrimFandango (Linux): the same handler slot (stopper) of the same
+   costume tag registration in sputCostume_Startup); was LuaVarComponent_Stop. */
 
-undefined4 LuaVarComponent_Stop(char *param_1)
+undefined4 LuaVarStopper(char *param_1)
 
 {
   lua_pushnil();

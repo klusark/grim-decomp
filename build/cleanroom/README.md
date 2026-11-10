@@ -8,7 +8,7 @@ Everything here is off unless its environment variable is set, so a normal run o
 
 | grimlaunch patch | here | knob |
 |---|---|---|
-| `config`: grim.ini instead of the registry | `cleanroom.c` wraps `Reg_Open` ... `Reg_SetString` | `GRIM_INI=<file>` |
+| `config`: grim.ini instead of the registry | `cleanroom.c` wraps `Reg_Open` ... `wuRegistry_SaveStr` | `GRIM_INI=<file>` |
 | `debuglog`: PrintDebug to a log | `Lua_Print_NoOp` in `../overrides.c` | `GRIM_DEBUGLOG=<file>` |
 | patch.dll's `CRSNAP:<file>` screenshots | `cleanroom.c` wraps `Lua_Print_NoOp` | `GRIM_DEBUGLOG` set |
 | `simtime`: fixed frame time | `Main_Service` in `../overrides_exe.c` | `GRIM_SIMTIME=17` |

@@ -1,11 +1,11 @@
-/* Readable C for the Smush sound module ("insane_sound": SOUND insane, 0x004d0300 - 0x004d2340 and Sound_VoiceSampleCount):
+/* Readable C for the Smush sound module ("insane_sound": SOUND insane, 0x004d0300 - 0x004d2340 and sou_engine_QueryTime):
  * the track manager that the Smush movie player feeds with sound chunks and that the DirectSound driver pulls the mixed
  * samples from.  Differential tests against the original machine code: build/mixdiff/snd_test.c (docs/notes/mixer.md).
  *
  * Model: up to 16 "voices" (SndVoice, 0x34 bytes) each own a ring buffer.  A chunk handed to SoundModule_PlayChunk
  * ("Crea" Creative VOC, "PSAD"/"PVOC"/"SAUD" Smush audio) is copied into a free or the least important voice.  The voice
  * data holds a small command stream (SAUD sub-chunks: 1 = play a block of samples, 2/8/9/10/11 = conditional jump on a
- * variable, 3 = set, 4 = add, 6/7 = start a sample run, anything else ends the voice); SoundModule_MixCallback runs it
+ * variable, 3 = set, 4 = add, 6/7 = start a sample run, anything else ends the voice); sou_engine_fill runs it
  * for every voice (SndTrack, 0x3c bytes, the play state) and hands the PCM blocks to the mixer callback it is given. */
 #include "ghidra_types.h"
 
@@ -55,26 +55,26 @@ typedef struct SndTrack {           /* 0x3c bytes, array at 0x008da8f0, one per 
 #define SND_VOICES 16
 extern SndVoice g_aSndVoices[SND_VOICES] __asm__("_UINT_008dad58");
 extern SndTrack g_aSndTracks[SND_VOICES] __asm__("_UINT_008da8f0");
-extern int g_nSndVoiceCount __asm__("_UINT_004f3e30");
-extern uint g_dwSndMasterVolume __asm__("_UINT_004f3e34");     /* default volume of sounds without one (0x7f), also read by command streams */
-extern uint g_dwSndRate __asm__("_UINT_004f3e38");             /* sample rate the driver mixes at */
+extern int g_nSndVoiceCount __asm__("_g_dwSou_chans");
+extern uint g_dwSndMasterVolume __asm__("_g_dwSou_global_volume");     /* default volume of sounds without one (0x7f), also read by command streams */
+extern uint g_dwSndRate __asm__("_g_dwSou_sample_rate");             /* sample rate the driver mixes at */
 extern int g_nSndDuckMin __asm__("_UINT_004f3e3c");
-extern uint g_dwSndDuckRate __asm__("_UINT_004f3e40");
-extern int g_nSndDuckLevel __asm__("_UINT_004f3e44");          /* 0x100 = voices not ducked by music */
-extern int g_bSndClearTracks __asm__("_UINT_004f3e48");
-extern int g_anSndFormatBytes[6] __asm__("_DAT_004f3e18");     /* bytes per sample frame of the formats */
+extern uint g_dwSndDuckRate __asm__("_g_dwSou_damp_rate");
+extern int g_nSndDuckLevel __asm__("_g_dwSou_engine_fill_damp_vol");          /* 0x100 = voices not ducked by music */
+extern int g_bSndClearTracks __asm__("_g_dwSou_engine_fill_first");
+extern int g_anSndFormatBytes[6] __asm__("_g_aSou_samplesize");     /* bytes per sample frame of the formats */
 extern byte g_abSndVars[256] __asm__("_DAT_008db0e8");         /* variables of the command streams */
-extern int g_bSndClass0 __asm__("_UINT_008dad44");             /* play effects / voice-over / music */
-extern int g_bSndClass1 __asm__("_UINT_008dad40");
-extern int g_bSndClass2 __asm__("_UINT_008dad4c");
-extern int g_bSndSwapPan __asm__("_UINT_008dad50");
+extern int g_bSndClass0 __asm__("_g_dwSound_sound_on");             /* play effects / voice-over / music */
+extern int g_bSndClass1 __asm__("_g_dwSound_music_on");
+extern int g_bSndClass2 __asm__("_g_dwSound_voice_on");
+extern int g_bSndSwapPan __asm__("_g_dwSound_flipped");
 extern int *g_pSndMemory __asm__("_g_pSoundModule_memory_services");             /* "MEMORY workspace": allocator [0](size, file, line), free [1](ptr, file, line) */
 extern int *g_pSndDriver __asm__("_g_pSoundModule_snddriver_services");             /* sound driver: [0] open(rate, voices, mixCallback), [1] close, [2], [3], [4] setRate, [5] getRate */
 extern int *g_pSndServices __asm__("_g_pSoundModule_share_services");           /* module manager service table */
 extern int *g_pSndClock __asm__("_g_dwSoundModule_timer_services");             /* TIMER external_sync: [6] get sync time, [8] set */
-extern int g_nSndMixCalls __asm__("_UINT_008dacf4");
+extern int g_nSndMixCalls __asm__("_g_dwSound_ticks");
 extern int g_nSndPause __asm__("_UINT_008db1ec");
-extern int g_bSndDriverOpen __asm__("_UINT_008db1f0");
+extern int g_bSndDriverOpen __asm__("_g_dwSou_active_flag");
 extern int g_nSndSyncTime __asm__("_UINT_008db1f8");
 extern double g_dSndClock __asm__("_DAT_008db200");
 extern uint g_dwSndModuleSize __asm__("_g_dwSoundModule_share_config");
@@ -169,7 +169,7 @@ void SoundModule_Shutdown(void)
 }
 
 /* rate / limit, then a zero terminated list of voice buffer sizes (one voice per entry).  Opens the driver with
- * SoundModule_MixCallback.  Returns 0 or -1. */
+ * sou_engine_fill.  Returns 0 or -1. */
 int engine_Initialize(int rate, int limit, uint size, ...)
 {
     __builtin_va_list ap;
@@ -189,7 +189,7 @@ int engine_Initialize(int rate, int limit, uint size, ...)
         size = __builtin_va_arg(ap, uint);
     }
     __builtin_va_end(ap);
-    g_bSndDriverOpen = (((int (*)(int, int, void *))g_pSndDriver[0])(rate, g_nSndVoiceCount, SoundModule_MixCallback) == 0);
+    g_bSndDriverOpen = (((int (*)(int, int, void *))g_pSndDriver[0])(rate, g_nSndVoiceCount, sou_engine_fill) == 0);
     g_dwSndRate = ((uint (*)(void))g_pSndDriver[5])();
     g_nSndMixCalls = 0;
     g_bSndClass1 = 1;
@@ -446,7 +446,7 @@ int SoundModule_GetPosition(uint id)
 }
 
 /* Length of the played part of voice `voice` in milliseconds */
-int Sound_VoiceSampleCount(int voice)
+int sou_engine_QueryTime(int voice)
 {
     int bytes = g_aSndVoices[voice].position;
 
@@ -657,7 +657,7 @@ void SoundModule_PlayVoc(byte *src, uint size, int id, int volume, int pan, uint
         b[9] = (byte)size;
         b[10] = 0;
         b[11] = 0;
-        Insane_MemCopyCdecl(v->buffer + 12, src, size);
+        msc_MemCopy(v->buffer + 12, src, size);
         v->chunk = v->buffer;
         v->pcm = v->buffer + 12;
         v->ringSize = v->size - 12;
@@ -766,7 +766,7 @@ void SoundModule_PlaySaud(byte *data, int size, int id, int volume, int pan, uin
                 bytes = v->size;
                 if (size < v->size)
                     bytes = size;
-                Insane_MemCopyCdecl(v->buffer, data, bytes);
+                msc_MemCopy(v->buffer, data, bytes);
                 v->chunk = v->buffer + 0x10;
                 bytes = v->size;
             }
@@ -816,7 +816,7 @@ void SoundModule_PlaySaud(byte *data, int size, int id, int volume, int pan, uin
             int n;
 
             if (ring < off + size) {
-                Insane_MemCopyCdecl(v->pcm + off, data, ring - off);
+                msc_MemCopy(v->pcm + off, data, ring - off);
                 data = (data - off) + v->ringSize;
                 dst = v->pcm;
                 n = (off + size) - v->ringSize;
@@ -824,7 +824,7 @@ void SoundModule_PlaySaud(byte *data, int size, int id, int volume, int pan, uin
                 dst = v->pcm + off;
                 n = size;
             }
-            Insane_MemCopyCdecl(dst, data, n);
+            msc_MemCopy(dst, data, n);
         }
         if (-1 < volume && volume < 0x7f)
             v->volume = (signed char)volume;
@@ -843,7 +843,7 @@ typedef void (*SndMixFn)(void *data, int accumOffset, int outFrames, int srcByte
 /* Called by the driver (DSound_FillStreamBuffer) for every block it needs: `frames` output frames at the driver's rate.
  * Every voice contributes the samples that belong to this time slice through mix() (Mixer_MixVoiceByFormat), after its
  * command stream has been run up to the next sample run. */
-void SoundModule_MixCallback(int frames, void *mixFn)
+void sou_engine_fill(int frames, void *mixFn)
 {
     SndMixFn mix = (SndMixFn)mixFn;
     int vi;

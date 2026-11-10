@@ -19,7 +19,7 @@ uint __cdecl Phoneme_ToTalkChore(void *unused,int phoneme)
     return 0;
   }
   local_8 = phoneme;
-  iVar1 = bsearch(&local_8,&g_PhonemeTable,g_nPhonemeCount,8,FUN_00490e50);
+  iVar1 = bsearch(&local_8,&g_PhonemeTable,g_nPhonemeCount,8,ComparePhonemes);
   if (iVar1 != 0) {
     return *(ushort *)(iVar1 + 4);
   }
@@ -28,8 +28,11 @@ uint __cdecl Phoneme_ToTalkChore(void *unused,int phoneme)
 #undef local_8
 
 
-/* ---- 0x00490e50  FUN_00490e50 ---- */
-int FUN_00490e50(int *param_1,int *param_2)
+/* ---- 0x00490e50  ComparePhonemes ---- */
+/* Original name ComparePhonemes (the remaster's GrimFandango (Linux): aligned call in
+   sputActor_Startup); was FUN_00490e50. */
+
+int ComparePhonemes(int *param_1,int *param_2)
 
 {
   return *param_1 - *param_2;

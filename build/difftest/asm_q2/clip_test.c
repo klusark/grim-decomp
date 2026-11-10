@@ -19,12 +19,12 @@
 
 typedef uint32_t fn4(int *, float *, float *, int);
 typedef uint32_t fn5(int *, float *, float *, float *, int);
-extern fn4 orig_rdClip_Face3_PosUvLit, rdClip_Face3_PosUvLit;
-extern fn4 orig_rdClip_Face3_PosUvLit_2, rdClip_Face3_PosUvLit_2;
-extern fn4 orig_rdClip_Face3_PosUvFlags, rdClip_Face3_PosUvFlags;
-extern fn5 orig_rdClip_Face3_PosUvLitColor, rdClip_Face3_PosUvLitColor;
-extern fn5 orig_rdClip_Face3_PosUvLitFlags, rdClip_Face3_PosUvLitFlags;
-extern uint32_t UINT_007f46ac;
+extern fn4 orig_rdClip_Face3GS, rdClip_Face3GS;
+extern fn4 orig_rdClip_Face3T, rdClip_Face3T;
+extern fn4 orig_rdClip_Face3TOrtho, rdClip_Face3TOrtho;
+extern fn5 orig_rdClip_Face3GT, rdClip_Face3GT;
+extern fn5 orig_rdClip_Face3GTOrtho, rdClip_Face3GTOrtho;
+extern uint32_t g_dwDestVert;
 
 static uint64_t seed = 0x9E3779B97F4A7C15ull;
 static uint32_t rnd(void) { seed ^= seed << 13; seed ^= seed >> 7; seed ^= seed << 17; return (uint32_t)(seed >> 11); }
@@ -77,7 +77,7 @@ static struct mem {
     float pos[NV * 3], uv[NV * 2], li[NV];
     uint8_t wa[WA_HI - WA_LO];
 } m0, mo;
-static uint8_t *wa_ptr(void) { return (uint8_t *)&UINT_007f46ac - (0x007f46acu - WA_LO); }
+static uint8_t *wa_ptr(void) { return (uint8_t *)&g_dwDestVert - (0x007f46acu - WA_LO); }
 
 static uint16_t get_sw(void) { uint16_t sw; __asm__ volatile("fnstsw %0" : "=m"(sw)); return sw; }
 static uint16_t get_cw(void) { uint16_t cw; __asm__ volatile("fnstcw %0" : "=m"(cw)); return cw; }
@@ -86,13 +86,13 @@ static void fpu_reset(uint16_t cw) { __asm__ volatile("fninit"); __asm__ volatil
 static struct mem cur;
 static uint32_t call(int fi, int side, int n)
 {
-    static fn4 *o4[] = {orig_rdClip_Face3_PosUvLit, orig_rdClip_Face3_PosUvLit_2, orig_rdClip_Face3_PosUvFlags};
-    static fn4 *c4[] = {rdClip_Face3_PosUvLit, rdClip_Face3_PosUvLit_2, rdClip_Face3_PosUvFlags};
+    static fn4 *o4[] = {orig_rdClip_Face3GS, orig_rdClip_Face3T, orig_rdClip_Face3TOrtho};
+    static fn4 *c4[] = {rdClip_Face3GS, rdClip_Face3T, rdClip_Face3TOrtho};
     switch (fi) {
     case 0: return (side ? c4[0] : o4[0])(cur.frustum, cur.pos, cur.li, n);
     case 1: case 2: return (side ? c4[fi] : o4[fi])(cur.frustum, cur.pos, cur.uv, n);
-    case 3: return (side ? rdClip_Face3_PosUvLitColor : orig_rdClip_Face3_PosUvLitColor)(cur.frustum, cur.pos, cur.uv, cur.li, n);
-    default: return (side ? rdClip_Face3_PosUvLitFlags : orig_rdClip_Face3_PosUvLitFlags)(cur.frustum, cur.pos, cur.uv, cur.li, n);
+    case 3: return (side ? rdClip_Face3GT : orig_rdClip_Face3GT)(cur.frustum, cur.pos, cur.uv, cur.li, n);
+    default: return (side ? rdClip_Face3GTOrtho : orig_rdClip_Face3GTOrtho)(cur.frustum, cur.pos, cur.uv, cur.li, n);
     }
 }
 static const char *fname[] = {"PosUvLit", "PosUvLit_2", "PosUvFlags", "PosUvLitColor", "PosUvLitFlags"};

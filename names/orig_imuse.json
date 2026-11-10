@@ -53,34 +53,34 @@
   "addr": "10008ec0",
   "old": "Sounds_ResolveName_LoadIfNeeded",
   "name": "CacheGetSoundId",
-  "comment": "Name (or handle) -> sound slot id (100..131) of the 32-slot sound cache. A name that is not cached is LOADED here (a free slot, or Sounds_EvictOldestIdleSlot). A handle (0x457..0x556, the number Lua gets from ImStartSound; one per cached SOUND, not per playing instance, reused when the slot is) that is not in the cache gives 0. Returns 0 when it cannot load. Callers: SoundsGetParam returns 1 (!) for 0, so ImGetParam(name or stale handle, anything) reads 1, i.e. 'playing', when the sound is not resolvable (sound_playing loops). Original name CacheGetSoundId (the remaster's GrimFandango (Linux): the only unmatched callee of SoundsFadeParam; the only unmatched callee of SoundsGetParam; the only unmatched callee of SoundsIsSoundInUse; the only unmatched callee of SoundsIsSoundPlaying; the only unmatched callee of SoundsLoadStartSound; the only unmatched callee of SoundsSetParam; the only unmatched callee of SoundsStopSound; the only unmatched callee of iMUSE_GetHook; the only unmatched callee of iMUSE_SetHook; 10 matched neighbours agree, 1 disagree); was Sounds_ResolveName_LoadIfNeeded."
+  "comment": "Name (or handle) -> sound slot id (100..131) of the 32-slot sound cache. A name that is not cached is LOADED here (a free slot, or CachePurgeOldestStoppedSound). A handle (0x457..0x556, the number Lua gets from ImStartSound; one per cached SOUND, not per playing instance, reused when the slot is) that is not in the cache gives 0. Returns 0 when it cannot load. Callers: SoundsGetParam returns 1 (!) for 0, so ImGetParam(name or stale handle, anything) reads 1, i.e. 'playing', when the sound is not resolvable (sound_playing loops). Original name CacheGetSoundId (the remaster's GrimFandango (Linux): the only unmatched callee of SoundsFadeParam; the only unmatched callee of SoundsGetParam; the only unmatched callee of SoundsIsSoundInUse; the only unmatched callee of SoundsIsSoundPlaying; the only unmatched callee of SoundsLoadStartSound; the only unmatched callee of SoundsSetParam; the only unmatched callee of SoundsStopSound; the only unmatched callee of iMUSE_GetHook; the only unmatched callee of iMUSE_SetHook; 10 matched neighbours agree, 1 disagree); was Sounds_ResolveName_LoadIfNeeded."
  },
  {
   "program": "/v101/IMUSE.DLL",
   "addr": "1000a8d0",
   "old": "Im_PauseImpl",
   "name": "TrPause",
-  "comment": "Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred Original name TrPause (the remaster's GrimFandango (Linux): the only unmatched callee of ImPause; 1 matched neighbours agree, 0 disagree); was Im_PauseImpl."
+  "comment": "Unidentified function of stream tracks (Stream_LoadData and friends) - module name inferred Original name TrPause (the remaster's GrimFandango (Linux): the only unmatched callee of ImPause; 1 matched neighbours agree, 0 disagree); was Im_PauseImpl."
  },
  {
   "program": "/v101/IMUSE.DLL",
   "addr": "1000a8f0",
   "old": "Im_ResumeImpl",
   "name": "TrResume",
-  "comment": "Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred Original name TrResume (the remaster's GrimFandango (Linux): the only unmatched callee of ImResume; 1 matched neighbours agree, 0 disagree); was Im_ResumeImpl."
+  "comment": "Unidentified function of stream tracks (Stream_LoadData and friends) - module name inferred Original name TrResume (the remaster's GrimFandango (Linux): the only unmatched callee of ImResume; 1 matched neighbours agree, 0 disagree); was Im_ResumeImpl."
  },
  {
   "program": "/v101/IMUSE.DLL",
   "addr": "1000b220",
   "old": "Im_SetTriggerImpl",
   "name": "TgSetTrigger",
-  "comment": "Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred Original name TgSetTrigger (the remaster's GrimFandango (Linux): the only unmatched callee of ImSetTrigger; 1 matched neighbours agree, 0 disagree); was Im_SetTriggerImpl."
+  "comment": "Unidentified function of stream tracks (Stream_LoadData and friends) - module name inferred Original name TgSetTrigger (the remaster's GrimFandango (Linux): the only unmatched callee of ImSetTrigger; 1 matched neighbours agree, 0 disagree); was Im_SetTriggerImpl."
  },
  {
   "program": "/v101/IMUSE.DLL",
   "addr": "1000b570",
   "old": "Im_DeferCommandImpl",
   "name": "TgDeferCommand",
-  "comment": "Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred Original name TgDeferCommand (the remaster's GrimFandango (Linux): the only unmatched callee of ImDeferCommand; 1 matched neighbours agree, 0 disagree); was Im_DeferCommandImpl."
+  "comment": "Unidentified function of stream tracks (Stream_LoadData and friends) - module name inferred Original name TgDeferCommand (the remaster's GrimFandango (Linux): the only unmatched callee of ImDeferCommand; 1 matched neighbours agree, 0 disagree); was Im_DeferCommandImpl."
  }
 ]

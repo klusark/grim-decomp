@@ -37,8 +37,11 @@ int Str_ComparePtrs(undefined4 *param_1,undefined4 *param_2)
   return (1 - (uint)bVar4) - (uint)(bVar4 != 0);
 }
 
-/* ---- 0x004735b0  Str_FileNameFromPath ---- */
-char * __cdecl Str_FileNameFromPath(char *path)
+/* ---- 0x004735b0  stdFileFromPath ---- */
+/* Original name stdFileFromPath (the remaster's GrimFandango (Linux): aligned call in
+   rdColormap_LoadEntry, rdMaterial_LoadEntry, rdModel3_LoadEntryText); was Str_FileNameFromPath. */
+
+char * __cdecl stdFileFromPath(char *path)
 
 {
   int iVar1;
@@ -75,8 +78,11 @@ char * __cdecl Str_ToLower(char *s)
 #endif
 
 
-/* ---- 0x0047fd20  Str_Basename ---- */
-char * __cdecl Str_Basename(char *path)
+/* ---- 0x0047fd20  stdFnames_FindMedName ---- */
+/* Original name stdFnames_FindMedName (the remaster's GrimFandango (Linux): aligned call in
+   BitmapRequester, ColormapRequester, MaterialRequester); was Str_Basename. */
+
+char * __cdecl stdFnames_FindMedName(char *path)
 
 {
   char *pcVar1;
@@ -96,8 +102,11 @@ char * __cdecl Str_Basename(char *path)
   return path;
 }
 
-/* ---- 0x0047fd50  Str_FileExtension ---- */
-char * __cdecl Str_FileExtension(char *path)
+/* ---- 0x0047fd50  stdFnames_FindExt ---- */
+/* Original name stdFnames_FindExt (the remaster's GrimFandango (Linux): aligned call in
+   stdWriteImage); was Str_FileExtension. */
+
+char * __cdecl stdFnames_FindExt(char *path)
 
 {
   char *pcVar1;
@@ -105,7 +114,7 @@ char * __cdecl Str_FileExtension(char *path)
   int iVar3;
   int iVar4;
   
-  pcVar1 = Str_Basename(path);
+  pcVar1 = stdFnames_FindMedName(path);
   iVar2 = strrchr(pcVar1,0x2e);
   if (iVar2 != 0) {
     iVar3 = strrchr(iVar2 + 1,0x2e);
@@ -125,7 +134,7 @@ void Str_StripExtension(char *param_1)
 {
   char *pcVar1;
   
-  pcVar1 = Str_FileExtension(param_1);
+  pcVar1 = stdFnames_FindExt(param_1);
   if (pcVar1 != (char *)0x0) {
     pcVar1[-1] = '\0';
   }
@@ -138,7 +147,7 @@ void __cdecl Str_CopyBasenameNoExt(char *dst,int size,char *path)
 {
   char *pcVar1;
   
-  pcVar1 = Str_Basename(path);
+  pcVar1 = stdFnames_FindMedName(path);
   strncpy(dst,pcVar1,size + -1);
   dst[size + -1] = '\0';
   Str_StripExtension(dst);
@@ -267,8 +276,11 @@ uint * String_ContainsSubstring(uint *param_1,char *param_2)
   } while( true );
 }
 
-/* ---- 0x004c1c30  Str_WildcardMatch ---- */
-byte * __cdecl Str_WildcardMatch(char *str,char *pattern)
+/* ---- 0x004c1c30  FindMatch ---- */
+/* Original name FindMatch (the remaster's GrimFandango (Linux): aligned call in Subscribe); was
+   Str_WildcardMatch. */
+
+byte * __cdecl FindMatch(char *str,char *pattern)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -308,7 +320,7 @@ byte * __cdecl Str_WildcardMatch(char *str,char *pattern)
   else {
     iVar7 = 0x1fff;
   }
-  strncpy(&DAT_008d36e8,pattern,iVar7);
+  strncpy(&g_bFindMatch_stringBuffer,pattern,iVar7);
   uVar6 = 0xffffffff;
   pcVar10 = pattern;
   do {
@@ -330,9 +342,9 @@ byte * __cdecl Str_WildcardMatch(char *str,char *pattern)
   else {
     iVar7 = 0x1fff;
   }
-  (&DAT_008d36e8)[iVar7] = 0;
-  pbVar8 = &DAT_008d36e8;
-  bVar1 = DAT_008d36e8;
+  (&g_bFindMatch_stringBuffer)[iVar7] = 0;
+  pbVar8 = &g_bFindMatch_stringBuffer;
+  bVar1 = g_bFindMatch_stringBuffer;
   do {
     if (bVar1 == 0) {
       return (byte *)local_4;

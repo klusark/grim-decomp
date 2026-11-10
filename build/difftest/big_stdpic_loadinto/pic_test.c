@@ -1,13 +1,13 @@
-/* Differential test of stdPic_LoadInto (build/overrides_big_stdpic_loadinto.c) against the original machine code
- * (orig_stdPic_LoadInto, sliced from src/GRIMFANDANGO.EXE/asm_funcs.s together with its _ftol).
+/* Differential test of stdPic_LoadEntry (build/overrides_big_stdpic_loadinto.c) against the original machine code
+ * (orig_stdPic_LoadEntry, sliced from src/GRIMFANDANGO.EXE/asm_funcs.s together with its _ftol).
  * Build and run: build/difftest/big_stdpic_loadinto/run.sh [cases]
  *
  * Each case builds an in-memory .pic file (valid Softimage PIC images of random size / channel packets / compression,
  * damaged copies of them, random tails, wrong headers, more than 4 and up to 62 packets) and runs both versions on the same
- * start state.  The services (fopen / fread / fclose / alloc / assert) and Surface_Create / Lock / Unlock,
- * Str_FileNameFromPath and strncpy are fakes that log every call (arguments, return values; pointers into the pixel buffer as
+ * start state.  The services (fopen / fread / fclose / alloc / assert) and stdDisplay_VBufferNew / Lock / Unlock,
+ * stdFileFromPath and strncpy are fakes that log every call (arguments, return values; pointers into the pixel buffer as
  * offsets, other buffers by class) into a hash.  Compared: return value, call log (count + hash), the 0x7c byte bitmap
- * record plus 0x40 bytes after it, the 4 byte surface block, the Surface_Create description (all 19 dwords) and the whole
+ * record plus 0x40 bytes after it, the 4 byte surface block, the stdDisplay_VBufferNew description (all 19 dwords) and the whole
  * reachable pixel buffer.  Before each call 16 KB of stack below the caller are zeroed, so the bytes the original never
  * initialises are 0, as in the C. */
 #include <stdio.h>
@@ -18,8 +18,8 @@
 extern unsigned char sect_data[] __asm__("_sect_data");
 #define DATA(va) (sect_data + ((va) - 0x4dd000))
 
-extern int orig_stdPic_LoadInto(char *, void *, int, int);
-extern int stdPic_LoadInto(char *, void *, int, int);
+extern int orig_stdPic_LoadEntry(char *, void *, int, int);
+extern int stdPic_LoadEntry(char *, void *, int, int);
 
 static uint64_t seed = 0x1234567;
 static uint32_t rnd(void) { seed ^= seed << 13; seed ^= seed >> 7; seed ^= seed << 17; return (uint32_t)(seed >> 11); }
@@ -71,15 +71,15 @@ static void *s_alloc(int n, char *f, int line) { LOGS(f); LOG(4, n, line, 0, 0);
 static int s_assert(char *m, char *f, int line) { LOGS(m); LOGS(f); LOG(5, line, 0, 0, 0); return 0; }
 static int s_other(void) { LOG(99, 0, 0, 0, 0); return 0; }
 
-void *Surface_Create(uint32_t *d, int a, int b, int c)
+void *stdDisplay_VBufferNew(uint32_t *d, int a, int b, int c)
 {
     for (int i = 0; i < 19; i++) { desc[i] = d[i]; L(d[i]); }
     LOG(6, a, b, c, 0);
     return surfrec;
 }
-int Surface_Lock(void *s) { LOG(7, s == surfrec, 0, 0, !lock_fail); return !lock_fail; }
-int Surface_Unlock(void *s) { LOG(8, s == surfrec, 0, 0, 0); return 0; }
-char *Str_FileNameFromPath(char *p)
+int stdDisplay_VBufferLock(void *s) { LOG(7, s == surfrec, 0, 0, !lock_fail); return !lock_fail; }
+int stdDisplay_VBufferUnlock(void *s) { LOG(8, s == surfrec, 0, 0, 0); return 0; }
+char *stdFileFromPath(char *p)
 {
     char *r = p;
     for (; *p; p++) if (*p == '\\' || *p == '/' || *p == ':') r = p + 1;
@@ -259,10 +259,10 @@ int main(int argc, char **argv)
         }
         for (int k = 0; k < (int)sizeof bm0; k++) bm0[k] = (unsigned char)rnd();
 
-        run(orig_stdPic_LoadInto, path, va, vb, &a);
+        run(orig_stdPic_LoadEntry, path, va, vb, &a);
         static unsigned char pa[PIXSZ];
         memcpy(pa, pix, reach);
-        run(stdPic_LoadInto, path, va, vb, &b);
+        run(stdPic_LoadEntry, path, va, vb, &b);
         int bad = 0;
         if (a.ret != b.ret) bad |= 1;
         if (a.lh != b.lh || a.ln != b.ln) bad |= 2;
@@ -276,7 +276,7 @@ int main(int argc, char **argv)
             fails++;
         }
     }
-    printf("stdPic_LoadInto: %ld cases (%ld loaded, %ld skipped), %ld with differences; kinds", n, ok1, skipped, fails);
+    printf("stdPic_LoadEntry: %ld cases (%ld loaded, %ld skipped), %ld with differences; kinds", n, ok1, skipped, fails);
     for (i = 0; i < 8; i++) printf(" %ld", kinds[i]);
     printf("\n");
     return fails != 0;

@@ -846,7 +846,7 @@
   "global": "g_dwIrisStart",
   "oldtype": "uint",
   "names_only": true,
-  "comment": "Timer_GetTotalMs value when the iris transition started Original name IrisStart (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in sputRender_Update); was g_dwIrisStartMs."
+  "comment": "sputTime_GetGameTime value when the iris transition started Original name IrisStart (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in sputRender_Update); was g_dwIrisStartMs."
  },
  {
   "program": "/v101/GRIMFANDANGO.EXE",
@@ -1656,7 +1656,7 @@
   "global": "g_pSoundPool",
   "oldtype": "void * *",
   "names_only": true,
-  "comment": "Pool of 0x24-byte positioned sound records Original name pSoundPool (the remaster's GrimFandango (Linux): the positioned sound pool sputRoom_Startup creates (Pool_Create(0x24, 0x10, 8) / Memory_AllocatePool(0x24, 0x10, 8))); was g_pPositionedSoundPool."
+  "comment": "Pool of 0x24-byte positioned sound records Original name pSoundPool (the remaster's GrimFandango (Linux): the positioned sound pool sputRoom_Startup creates (Memory_AllocatePool(0x24, 0x10, 8) / Memory_AllocatePool(0x24, 0x10, 8))); was g_pPositionedSoundPool."
  },
  {
   "program": "/v101/GRIMFANDANGO.EXE",

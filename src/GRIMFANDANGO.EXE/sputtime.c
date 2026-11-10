@@ -16,8 +16,8 @@ undefined4 sputTime_Initialize(undefined4 param_1,undefined4 *param_2)
   _g_pSputTimeHS = param_1;
   *param_2 = sputTime_Initialize;
   param_2[1] = sputTime_Terminate;
-  param_2[2] = sputTime_Start;
-  param_2[3] = sputTime_Stop;
+  param_2[2] = sputTime_Startup;
+  param_2[3] = sputTime_Shutdown;
   param_2[4] = 0;
   param_2[5] = 0;
   param_2[6] = 0;
@@ -41,28 +41,31 @@ void sputTime_Terminate(void)
   return;
 }
 
-/* ---- 0x004a3d70  sputTime_Start ---- */
+/* ---- 0x004a3d70  sputTime_Startup ---- */
 /* Module interface slot 2 (sputTime): called by Engine_InitSubsystems, returns 0 on success
-   (non-zero makes the whole start-up unwind). _Start resets the frame timer. */
+   (non-zero makes the whole start-up unwind). _Start resets the frame timer. Original name
+   sputTime_Startup (the remaster's GrimFandango (Linux): aligned call in sputTime_Initialize); was
+   sputTime_Start. */
 
-undefined4 sputTime_Start(void)
+undefined4 sputTime_Startup(void)
 
 {
-  if (UINT_008cab9c != 0) {
+  if (g_dwSputTimeStartup != 0) {
     return 1;
   }
-  UINT_008cab9c = 1;
+  g_dwSputTimeStartup = 1;
   Timer_Reset();
   return 0;
 }
 
-/* ---- 0x004a3da0  sputTime_Stop ---- */
+/* ---- 0x004a3da0  sputTime_Shutdown ---- */
 /* Module interface slot 3 (sputTime): called by Engine_ShutdownSubsystems in reverse order;
-   releases what _Start created. */
+   releases what _Start created. Original name sputTime_Shutdown (the remaster's GrimFandango
+   (Linux): aligned call in sputTime_Initialize); was sputTime_Stop. */
 
-void sputTime_Stop(void)
+void sputTime_Shutdown(void)
 
 {
-  UINT_008cab9c = 0;
+  g_dwSputTimeStartup = 0;
   return;
 }

@@ -4,12 +4,12 @@
  * World built per case: 1..7 actors in the drawable list (0x008ca358, count 0x008ca330), each with a costume chain
  * (+0xa0 -> +4 -> +4 = model: radius +0x5c, box +0x60..+0x74, centre +0x78), a walker record (+0xa4: collision mode
  * +0x3f0, scale +0x3f4, collided flag +0x3f8, path +0x38, points +0x3c, index +0x44) or none, a frame at +0x38
- * (rotation about a random axis + translation, as Actor_GetFrame builds it), position, previous position, flags.
+ * (rotation about a random axis + translation, as sputActor_GetOrientMatrix builds it), position, previous position, flags.
  * The tested actor is in the list or not; actors are placed so that sphere and box overlaps are frequent; special
  * values (0, -0, NaN, inf, exact boundary values) are mixed in.
  *
  * The callees are models defined here (both implementations call the same ones): the Vec3 helpers compute what the
- * originals compute (decompiled formulas), Vec3_Normalize returns the length in ST0, Actor_SetPositionClamped moves the
+ * originals compute (decompiled formulas), rdVector_Normalize3Acc returns the length in ST0, sputActor_SetActorPosition moves the
  * actor (sometimes clamped, sometimes flips actor flags: the order of the flag reads is observable), Collision_BoxSlide
  * returns 0/1 and writes its output and the hit point 0x008ca320, Collision_PushOutOfBox moves its point, the others
  * only record.  Every call is logged with the CONTENTS of its pointer arguments (stack addresses differ) and global
@@ -77,13 +77,13 @@ static void put3(Ev *e, int at, const float *p) { memcpy(&e->v[at], p, 12); }
 static unsigned fb(float f) { unsigned u; memcpy(&u, &f, 4); return u; }
 
 /* ---- callee models ---- */
-float *Actor_GetFrame(void *actor)
+float *sputActor_GetOrientMatrix(void *actor)
 {
     Ev *e = ev(1); e->v[1] = (unsigned)(uintptr_t)actor;
     if (*(int *)((char *)actor + 0x34) == 0) *(int *)((char *)actor + 0x34) = 1;   /* frame kept as built */
     return (float *)((char *)actor + 0x38);
 }
-void Vec3_Copy(float *out, float *v, float *m)
+void rdMatrix_TransformVector34(float *out, float *v, float *m)
 {
     Ev *e = ev(2); put3(e, 1, v); e->v[4] = (unsigned)(uintptr_t)v; e->v[5] = (unsigned)(uintptr_t)m;
     float x = v[0], y = v[1], z = v[2];
@@ -117,14 +117,14 @@ void Vec3_Rotate3x3(float *vec, float *m)
     vec[1] = m[1] * x + y * m[4] + z * m[7] + m[10];
     vec[2] = m[2] * x + z * m[8] + m[5] * y + m[11];
 }
-float Vec3_Normalize(float *v)
+float rdVector_Normalize3Acc(float *v)
 {
     Ev *e = ev(6); put3(e, 1, v);
     float l = sqrtf(v[0] * v[0] + v[2] * v[2] + v[1] * v[1]);
     if (l != 0.0f) { float k = 1.0f / l; v[0] *= k; v[1] *= k; v[2] *= k; }
     return l;
 }
-void Actor_SetPositionClamped(int actor, float *p)
+void sputActor_SetActorPosition(int actor, float *p)
 {
     Ev *e = ev(7); e->v[1] = actor; put3(e, 2, p);
     float *pos = (float *)((char *)actor + 0xc);
@@ -153,12 +153,12 @@ void Collision_PushOutOfBox(float *p, float x0, float y0, float z0, float x1, fl
     e->v[10] = (unsigned)(uintptr_t)frame; e->v[11] = (unsigned)(uintptr_t)pos;
     p[0] = x0 - 0.01f; p[1] = p[1] + pos[1]; p[2] = frame[9] + z1;
 }
-void Walker_ReplanPath(int self, int goal, unsigned *path, unsigned other)
+void sputActor_ActorWalkTo(int self, int goal, unsigned *path, unsigned other)
 {
     Ev *e = ev(10); e->v[1] = self; put3(e, 2, (float *)goal); e->v[5] = (unsigned)(uintptr_t)path; e->v[6] = other;
     if (CR(2)) *(int *)((char *)self + 8) |= 0x20;
 }
-void Sector_IntersectSegment(int self, int other, float *a, float *b, float *c)
+void sputLua_CollisionHandler(int self, int other, float *a, float *b, float *c)
 {
     Ev *e = ev(11); e->v[1] = self; e->v[2] = other;
     e->v[3] = (unsigned)(uintptr_t)a; e->v[4] = (unsigned)(uintptr_t)b; e->v[5] = (unsigned)(uintptr_t)c;

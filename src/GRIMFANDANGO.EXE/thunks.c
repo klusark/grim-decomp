@@ -10,7 +10,7 @@ __asm__(".text\n.globl _sputLua_RevertCache\n_sputLua_RevertCache:\n\tjmp _Secto
 /* sputLua_DumpMemoryLogL @ 0x00498ff0 */
 __asm__(".text\n.globl _sputLua_DumpMemoryLogL\n_sputLua_DumpMemoryLogL:\n\tjmp _Mem_DumpLog\n");
 /* sputLua_StopMovieL @ 0x0049e850 */
-__asm__(".text\n.globl _sputLua_StopMovieL\n_sputLua_StopMovieL:\n\tjmp _Movie_Stop\n");
+__asm__(".text\n.globl _sputLua_StopMovieL\n_sputLua_StopMovieL:\n\tjmp _sputSmush_StopMovie\n");
 /* sputLua_SpewStartup @ 0x0049efa0 */
 __asm__(".text\n.globl _sputLua_SpewStartup\n_sputLua_SpewStartup:\n\tjmp _Spew_Startup\n");
 /* sputLua_SpewShutdown @ 0x0049efb0 */
@@ -30,7 +30,7 @@ __asm__(".text\n.globl _sputLua_CleanBuffer\n_sputLua_CleanBuffer:\n\tjmp _Rende
 /* sputLua_Display @ 0x004a1ad0 */
 __asm__(".text\n.globl _sputLua_Display\n_sputLua_Display:\n\tjmp _Render_Present\n");
 /* sputLua_ResetTexturesL @ 0x004a3ad0 */
-__asm__(".text\n.globl _sputLua_ResetTexturesL\n_sputLua_ResetTexturesL:\n\tjmp _D3D_ResetTextures\n");
+__asm__(".text\n.globl _sputLua_ResetTexturesL\n_sputLua_ResetTexturesL:\n\tjmp _std3D_PurgeTextureCache\n");
 /* sputLua_SaveIMuse @ 0x004a3bc0 */
 __asm__(".text\n.globl _sputLua_SaveIMuse\n_sputLua_SaveIMuse:\n\tjmp _IMuse_SaveToTemp\n");
 /* sputLua_RestoreIMuse @ 0x004a3bd0 */

@@ -133,9 +133,9 @@ int __cdecl D3D_SelectDriver(uint driverIdx,int useZBuffer)
   _DAT_008063f4 = 1;
   _DAT_008063f8 = 0;
   UINT_00806400 = 0;
-  UINT_00806940 = *(uint *)((int)g_pD3dDriver + 0x44);
-  if ((UINT_00806940 == 0) || (0x1ff < UINT_00806940)) {
-    UINT_00806940 = 0x200;
+  g_dwStd3D_maxVertices = *(uint *)((int)g_pD3dDriver + 0x44);
+  if ((g_dwStd3D_maxVertices == 0) || (0x1ff < g_dwStd3D_maxVertices)) {
+    g_dwStd3D_maxVertices = 0x200;
   }
   _DAT_00806958 = _DAT_008063fc;
   (**(code_std **)(*(int *)g_pD3dDevice + 0x18))(g_pD3dDevice,&DAT_008063f0,&g_pD3dExecuteBuffer,0);
@@ -173,7 +173,7 @@ int __cdecl D3D_SelectDriver(uint driverIdx,int useZBuffer)
         puVar2 = puVar2 + 1;
         puVar3 = puVar3 + 1;
       }
-      UINT_00806950 = (uint)Surface_Create(&uStack_74,1,0,0);
+      UINT_00806950 = (uint)stdDisplay_VBufferNew(&uStack_74,1,0,0);
     }
   }
   ((code *)D3D_SetVertexLimit)((int)g_pD3dDriver + 0x148,(int)g_pD3dDriver + 0x14c);
@@ -197,7 +197,7 @@ void D3D_ReleaseDriver(void)
 {
   if (UINT_00806970 != 0) {
     if (UINT_00806950 != 0) {
-      Surface_Free((void *)UINT_00806950);
+      stdDisplay_VBufferFree((void *)UINT_00806950);
       UINT_00806950 = 0;
     }
     (**(code_std **)(*(int *)g_pD3dExecuteBuffer + 8))(g_pD3dExecuteBuffer);
@@ -278,16 +278,18 @@ undefined4 D3D_BeginExecuteBuffer(void)
   return 1;
 }
 
-/* ---- 0x004787d0  D3D_AddVertices ---- */
-/* Copies 32-byte TLVERTEX records into the execute buffer */
+/* ---- 0x004787d0  std3D_AddRenderListVertices ---- */
+/* Copies 32-byte TLVERTEX records into the execute buffer Original name std3D_AddRenderListVertices
+   (the remaster's GrimFandango (Linux): the (vertices, count) call of rdCache_DrawRenderList); was
+   D3D_AddVertices. */
 
-int __cdecl D3D_AddVertices(void *verts,uint count)
+int __cdecl std3D_AddRenderListVertices(void *verts,uint count)
 
 {
   int iVar1;
   int *piVar2;
   
-  if (UINT_00806940 < count + UINT_0080695c) {
+  if (g_dwStd3D_maxVertices < count + UINT_0080695c) {
     return 0;
   }
   if (PTR_00806918 != verts) {
@@ -308,10 +310,12 @@ int __cdecl D3D_AddVertices(void *verts,uint count)
   return 1;
 }
 
-/* ---- 0x00478840  D3D_BeginInstructions ---- */
-/* Emits the PROCESSVERTICES instruction for everything added so far */
+/* ---- 0x00478840  std3D_RenderListVerticesFinish ---- */
+/* Emits the PROCESSVERTICES instruction for everything added so far Original name
+   std3D_RenderListVerticesFinish (the remaster's GrimFandango (Linux): aligned call in
+   rdCache_DrawRenderList); was D3D_BeginInstructions. */
 
-undefined4 D3D_BeginInstructions(void)
+undefined4 std3D_RenderListVerticesFinish(void)
 
 {
   UINT_0080691c = (uint)PTR_00806918;
@@ -328,11 +332,12 @@ undefined4 D3D_BeginInstructions(void)
   return 1;
 }
 
-/* ---- 0x004788c0  D3D_AddTriangles ---- */
+/* ---- 0x004788c0  std3D_AddRenderListTris ---- */
 /* Emits TRIANGLE instructions, grouped by texture handle, switching render state and texture as
-   needed */
+   needed Original name std3D_AddRenderListTris (the remaster's GrimFandango (Linux): aligned call
+   in rdCache_DrawRenderList); was D3D_AddTriangles. */
 
-int __cdecl D3D_AddTriangles(void *tris,uint count)
+int __cdecl std3D_AddRenderListTris(void *tris,uint count)
 
 {
   uint uVar1;
@@ -418,14 +423,16 @@ int __cdecl D3D_AddTriangles(void *tris,uint count)
   return 1;
 }
 
-/* ---- 0x00478b40  D3D_ExecuteBuffer ---- */
+/* ---- 0x00478b40  std3D_DrawRenderList ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Terminates and executes the buffer on the device
    Ported to C (build/overrides_asm_o2.c): differential test, 0 differences (docs/notes/asm_o2.md).
-    */
+   Original name std3D_DrawRenderList (the remaster's GrimFandango (Linux): the argument-less flush
+   call of rdCache_DrawRenderList (the remaster stub shares its address with
+   std3D_AddRenderListVertices)); was D3D_ExecuteBuffer. */
 
-int D3D_ExecuteBuffer(void)
+int std3D_DrawRenderList(void)
 
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -586,8 +593,11 @@ void __cdecl D3D_SetRenderFlags(uint flags)
   return;
 }
 
-/* ---- 0x00479070  D3D_ClampTextureSize ---- */
-void D3D_ClampTextureSize(uint param_1,uint param_2,uint *param_3,uint *param_4)
+/* ---- 0x00479070  std3D_GetValidDimensions ---- */
+/* Original name std3D_GetValidDimensions (the remaster's GrimFandango (Linux): aligned call in
+   rdCache_SendFaceListToHardware); was D3D_ClampTextureSize. */
+
+void std3D_GetValidDimensions(uint param_1,uint param_2,uint *param_3,uint *param_4)
 
 {
   if (param_1 == 0) {
@@ -624,10 +634,12 @@ void D3D_ClampTextureSize(uint param_1,uint param_2,uint *param_3,uint *param_4)
   return;
 }
 
-/* ---- 0x00479110  D3D_ResetTextures ---- */
-/* Lua ResetTextures: frees every texture record */
+/* ---- 0x00479110  std3D_PurgeTextureCache ---- */
+/* Lua ResetTextures: frees every texture record Original name std3D_PurgeTextureCache (the
+   remaster's GrimFandango (Linux): aligned call in rdCache_SendFaceListToHardware); was
+   D3D_ResetTextures. */
 
-void D3D_ResetTextures(void)
+void std3D_PurgeTextureCache(void)
 
 {
   while (g_pD3dTextureList != (void *)0x0) {
@@ -641,12 +653,13 @@ void D3D_ResetTextures(void)
   return;
 }
 
-/* ---- 0x00479170  D3D_CreateTexture ---- */
+/* ---- 0x00479170  std3D_AddToTextureCache ---- */
 /* Builds a 0x98-byte texture record {sysSurface, vidSurface, ..., +0x74 handle, +0x78 valid, +0x80
    w, +0x88 h, +0x88 size, +0x8c frameStamp, +0x90 prev, +0x94 next}; scales to the driver's size
-   limits and converts 8-bit sources to 16-bit */
+   limits and converts 8-bit sources to 16-bit Original name std3D_AddToTextureCache (the remaster's
+   GrimFandango (Linux): aligned call in rdMaterial_AddToTextureCache); was D3D_CreateTexture. */
 
-int __cdecl D3D_CreateTexture(void *surface,void *texture,int usePalette,int colorKey)
+int __cdecl std3D_AddToTextureCache(void *surface,void *texture,int usePalette,int colorKey)
 
 {
   unsigned char _frame[0x170] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -740,7 +753,7 @@ int __cdecl D3D_CreateTexture(void *surface,void *texture,int usePalette,int col
     local_ec = local_ec * uVar10;
     local_34 = uVar10;
     local_20 = pvVar6;
-    local_30 = (uint)Surface_Create(&local_f0,0,0,0);
+    local_30 = (uint)stdDisplay_VBufferNew(&local_f0,0,0,0);
     if (uVar10 != 0) {
       local_34 = 0;
       fStack_1c = (float)uVar10;
@@ -804,7 +817,7 @@ int __cdecl D3D_CreateTexture(void *surface,void *texture,int usePalette,int col
   if (iVar4 != 0) goto LAB_0047940a;
   iVar4 = *(int *)((int)pvVar7 + 0x20);
   if (iVar4 == 0) {
-    Surface_Lock(pvVar7);
+    stdDisplay_VBufferLock(pvVar7);
     if ((usePalette == 0) || (*(int *)((int)g_pD3dDriver + 0x10) == 0)) {
       if (colorKey == 0) {
         pvVar3 = (void *)0x0;
@@ -884,10 +897,10 @@ int __cdecl D3D_CreateTexture(void *surface,void *texture,int usePalette,int col
       }
     }
 LAB_00479709:
-    Surface_Unlock(pvVar7);
+    stdDisplay_VBufferUnlock(pvVar7);
   }
   else if ((0 < iVar4) && (iVar4 < 3)) {
-    Surface_Lock(pvVar7);
+    stdDisplay_VBufferLock(pvVar7);
     pvVar3 = (void *)0x0;
     if (surface != (void *)0x0) {
       do {
@@ -939,7 +952,7 @@ LAB_00479709:
             (**(code_std **)(*(int *)local_8 + 8))(local_8);
             local_8 = 0;
             if (local_30 != 0) {
-              Surface_Free((void *)local_30);
+              stdDisplay_VBufferFree((void *)local_30);
             }
             *(uint *)texture = local_14;
             *(uint *)((int)texture + 4) = local_18;
@@ -973,7 +986,7 @@ LAB_0047940a:
     (**(code_std **)(*(int *)local_10 + 8))(local_10);
   }
   if (local_30 != 0) {
-    Surface_Free((void *)local_30);
+    stdDisplay_VBufferFree((void *)local_30);
   }
   if (local_18 != 0) {
     (**(code_std **)(*(int *)local_18 + 8))(local_18);
@@ -1138,8 +1151,11 @@ undefined4 D3D_SetVertexLimit(void)
 #undef uStack_4
 
 
-/* ---- 0x00479a70  D3D_TouchTexture ---- */
-void D3D_TouchTexture(int param_1)
+/* ---- 0x00479a70  std3D_UpdateFrameCount ---- */
+/* Original name std3D_UpdateFrameCount (the remaster's GrimFandango (Linux): aligned call in
+   rdMaterial_AddToTextureCache); was D3D_TouchTexture. */
+
+void std3D_UpdateFrameCount(int param_1)
 
 {
   *(uint *)(param_1 + 0x8c) = UINT_004dee58;
@@ -1749,7 +1765,8 @@ undefined * __stdcall D3D_EnumTextureFormatsCallback(int a1,int a2)
         iVar3 = iVar3 + 1;
       }
       *(int *)(&DAT_00900634 + iVar1) = iVar3;
-      iVar3 = Math_Log2Int((int)(0xff / (ulonglong)(*(uint *)(a1 + 0x58) >> ((byte)iVar3 & 0x1f))));
+      iVar3 = stdCalcBitPos((int)(0xff / (ulonglong)(*(uint *)(a1 + 0x58) >> ((byte)iVar3 & 0x1f))))
+      ;
       *(int *)(&DAT_00900640 + iVar1) = iVar3;
       iVar3 = 0;
       for (; (uVar4 & 1) != 0; uVar4 = uVar4 >> 1) {
@@ -1761,7 +1778,8 @@ undefined * __stdcall D3D_EnumTextureFormatsCallback(int a1,int a2)
         iVar3 = iVar3 + 1;
       }
       *(int *)(&DAT_00900638 + iVar1) = iVar3;
-      iVar3 = Math_Log2Int((int)(0xff / (ulonglong)(*(uint *)(a1 + 0x5c) >> ((byte)iVar3 & 0x1f))));
+      iVar3 = stdCalcBitPos((int)(0xff / (ulonglong)(*(uint *)(a1 + 0x5c) >> ((byte)iVar3 & 0x1f))))
+      ;
       *(int *)(&DAT_00900644 + iVar1) = iVar3;
       iVar3 = 0;
       for (; (uVar4 & 1) != 0; uVar4 = uVar4 >> 1) {
@@ -1773,7 +1791,8 @@ undefined * __stdcall D3D_EnumTextureFormatsCallback(int a1,int a2)
         iVar3 = iVar3 + 1;
       }
       *(int *)(&DAT_0090063c + iVar1) = iVar3;
-      iVar3 = Math_Log2Int((int)(0xff / (ulonglong)(*(uint *)(a1 + 0x60) >> ((byte)iVar3 & 0x1f))));
+      iVar3 = stdCalcBitPos((int)(0xff / (ulonglong)(*(uint *)(a1 + 0x60) >> ((byte)iVar3 & 0x1f))))
+      ;
       *(int *)(&DAT_00900648 + iVar1) = iVar3;
       iVar3 = 0;
       for (; (uVar4 & 1) != 0; uVar4 = uVar4 >> 1) {
@@ -1785,7 +1804,7 @@ undefined * __stdcall D3D_EnumTextureFormatsCallback(int a1,int a2)
         iVar3 = iVar3 + 1;
       }
       *(int *)(&DAT_00900650 + iVar1) = iVar3;
-      iVar3 = Math_Log2Int((int)(0xff / (ulonglong)(*(uint *)(a1 + 100) >> ((byte)iVar3 & 0x1f))));
+      iVar3 = stdCalcBitPos((int)(0xff / (ulonglong)(*(uint *)(a1 + 100) >> ((byte)iVar3 & 0x1f))));
       *(int *)(&DAT_00900654 + iVar1) = iVar3;
       iVar3 = 0;
       for (; (uVar4 & 1) != 0; uVar4 = uVar4 >> 1) {
@@ -1801,7 +1820,7 @@ undefined * __stdcall D3D_EnumTextureFormatsCallback(int a1,int a2)
       iVar3 = iVar3 + 1;
     }
     *(int *)(&DAT_00900634 + iVar1) = iVar3;
-    iVar3 = Math_Log2Int((int)(0xff / (ulonglong)(*(uint *)(a1 + 0x58) >> ((byte)iVar3 & 0x1f))));
+    iVar3 = stdCalcBitPos((int)(0xff / (ulonglong)(*(uint *)(a1 + 0x58) >> ((byte)iVar3 & 0x1f))));
     *(int *)(&DAT_00900640 + iVar1) = iVar3;
     iVar3 = 0;
     for (; (uVar4 & 1) != 0; uVar4 = uVar4 >> 1) {
@@ -1813,7 +1832,7 @@ undefined * __stdcall D3D_EnumTextureFormatsCallback(int a1,int a2)
       iVar3 = iVar3 + 1;
     }
     *(int *)(&DAT_00900638 + iVar1) = iVar3;
-    iVar3 = Math_Log2Int((int)(0xff / (ulonglong)(*(uint *)(a1 + 0x5c) >> ((byte)iVar3 & 0x1f))));
+    iVar3 = stdCalcBitPos((int)(0xff / (ulonglong)(*(uint *)(a1 + 0x5c) >> ((byte)iVar3 & 0x1f))));
     *(int *)(&DAT_00900644 + iVar1) = iVar3;
     iVar3 = 0;
     for (; (uVar4 & 1) != 0; uVar4 = uVar4 >> 1) {
@@ -1825,7 +1844,7 @@ undefined * __stdcall D3D_EnumTextureFormatsCallback(int a1,int a2)
       iVar3 = iVar3 + 1;
     }
     *(int *)(&DAT_0090063c + iVar1) = iVar3;
-    iVar3 = Math_Log2Int((int)(0xff / (ulonglong)(*(uint *)(a1 + 0x60) >> ((byte)iVar3 & 0x1f))));
+    iVar3 = stdCalcBitPos((int)(0xff / (ulonglong)(*(uint *)(a1 + 0x60) >> ((byte)iVar3 & 0x1f))));
     *(int *)(&DAT_00900648 + iVar1) = iVar3;
     iVar3 = 0;
     for (; (uVar4 & 1) != 0; uVar4 = uVar4 >> 1) {

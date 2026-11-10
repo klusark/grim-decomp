@@ -58,7 +58,7 @@ undefined * __cdecl insert(byte *param_1,uint param_2,uint *param_3)
   bool bVar10;
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   
-  pbVar3 = lstring__8f10(param_1,param_2);
+  pbVar3 = hash(param_1,param_2);
   uVar5 = *param_3;
   local_8 = 0xffffffff;
   if ((int)(uVar5 * 2) <= (int)(param_3[1] * 3)) {
@@ -131,10 +131,11 @@ LAB_10008e86:
 #undef local_8
 
 
-/* ---- 0x10008f10  lstring__8f10 ---- */
-/* Unidentified function of lstring.c (string table) */
+/* ---- 0x10008f10  hash ---- */
+/* Named hash (not in the remaster, gcc inlined it there): Lua 3.1 source name (lstring.c: h = h*31
+   ^ c for strings, the pointer otherwise, used by insert); was lstring__8f10. */
 
-byte * __cdecl lstring__8f10(byte *param_1,int param_2)
+byte * __cdecl hash(byte *param_1,int param_2)
 
 {
   byte *pbVar1;
@@ -503,7 +504,7 @@ int luaS_collector(void)
   int *piVar5;
   
   piVar5 = (int *)0x0;
-  lstring__93e0(&g_dwLState_rootglobal);
+  remove_from_list(&g_dwLState_rootglobal);
   iVar3 = 0;
   do {
     iVar4 = 0;
@@ -529,10 +530,11 @@ int luaS_collector(void)
   return (int)piVar5;
 }
 
-/* ---- 0x100093e0  lstring__93e0 ---- */
-/* Unidentified function of lstring.c (string table) */
+/* ---- 0x100093e0  remove_from_list ---- */
+/* Named remove_from_list (not in the remaster, gcc inlined it there): Lua 3.1 source name
+   (lstring.c: unlinks the unmarked nodes, used by luaS_collector); was lstring__93e0. */
 
-void __cdecl lstring__93e0(undefined4 *param_1)
+void __cdecl remove_from_list(undefined4 *param_1)
 
 {
   undefined4 *puVar1;

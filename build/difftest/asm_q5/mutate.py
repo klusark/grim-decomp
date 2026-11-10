@@ -22,7 +22,7 @@ MUT = [
     ("=Span16_TexZ_2", r"(Q5_PSPAN16\(rdRaster_Span16_TexZ_2, 0, 0, )Q5_GPIX", r"\1Q5_GZ"),
     ("=Span16_TexKeyZw_6", r"(Q5_PSPAN16\(rdRaster_Span16_TexKeyZw_6, 1, 1, )Q5_GZF", r"\1Q5_GL"),
     # the first part's 1/k from the table
-    ("=Span8_TexKeyZw_2", r"float rk = UINT_008fe000\[first\];", "float rk = 1.0f / first;"),
+    ("=Span8_TexKeyZw_2", r"float rk = g_dwRdRaster_aOneOverNFlex\[first\];", "float rk = 1.0f / first;"),
     # Span16_TexZ_5's misplaced << 8 (the intended lookup)
     ("=Span16_TexZ_5", r"UINT_008dde44\[UINT_008dde5c\[tx\] << 8\] \+ UINT_008dde44\[\*pix\]", "(UINT_008dde44[UINT_008dde5c[tx]] << 8) + UINT_008dde44[*pix]"),
     # key ignored

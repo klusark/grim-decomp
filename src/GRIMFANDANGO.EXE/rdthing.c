@@ -25,14 +25,15 @@ int __cdecl rdThing_Draw(void *thing,float *position)
   
   g_pRdCurrentThing = thing;
   g_pRdCurrentModel = *(void **)((int)thing + 4);
-  Matrix34_TransformPoint(local_c,(float *)((int)g_pRdCurrentModel + 0x78),position);
+  rdMatrix_TransformPoint34(local_c,(float *)((int)g_pRdCurrentModel + 0x78),position);
   Vec3_Rotate3x3(local_c,(float *)((int)g_pRdCamera_CurCamera + 8));
   if (*(int *)((int)thing + 0x44) == 0) {
     g_dwThingFrustrumCull = 1;
   }
   else {
     g_dwThingFrustrumCull =
-         Frustum_TestSphere(*(undefined4 *)((int)g_pRdCamera_CurCamera + 0x48),local_c,PUN(float,*(undefined4 *)((int)g_pRdCurrentModel + 0x5c)));
+         rdClip_SphereInFrustrum
+                   (*(undefined4 *)((int)g_pRdCamera_CurCamera + 0x48),local_c,PUN(float,*(undefined4 *)((int)g_pRdCurrentModel + 0x5c)));
   }
   if (g_dwThingFrustrumCull != 2) {
     g_dwThingFrustrumCull = 1;
@@ -45,9 +46,9 @@ int __cdecl rdThing_Draw(void *thing,float *position)
     UINT_007f0fd0 = (int)g_pRdCurrentModel + iVar5 * 8 + 0x24;
     rdPuppet_UpdateFrame(g_pRdCurrentThing,position);
     pvVar4 = g_pRdCamera_CurCamera;
-    UINT_007f1494 = *(uint *)((int)g_pRdCurrentThing + 0x38);
-    if (g_nRdroidGeometryMode <= (int)UINT_007f1494) {
-      UINT_007f1494 = g_nRdroidGeometryMode;
+    g_dwCurTextureMode = *(uint *)((int)g_pRdCurrentThing + 0x38);
+    if (g_nRdroidGeometryMode <= (int)g_dwCurTextureMode) {
+      g_dwCurTextureMode = g_nRdroidGeometryMode;
     }
     if ((((byte)g_dwRdroid_curRenderOptions & 2) == 0) ||
        (*(float *)((int)g_pRdCamera_CurCamera + 0x54) < 1.0)) {
@@ -64,7 +65,7 @@ int __cdecl rdThing_Draw(void *thing,float *position)
       UINT_007f189c = g_nRdroid_curTextureMode;
     }
     if (1 < (int)UINT_007f30dc) {
-      UINT_007f31f8 = 0;
+      g_dwNumGeoLights = 0;
       uVar7 = 0;
       if (*(int *)((int)g_pRdCamera_CurCamera + 0x58) != 0) {
         pfVar6 = (float *)((int)g_pRdCamera_CurCamera + 0x160);
@@ -82,8 +83,8 @@ int __cdecl rdThing_Draw(void *thing,float *position)
             }
             fVar3 = *(float *)(uVar1 + 0x34) + *(float *)((int)g_pRdCurrentModel + 0x5c);
             if (fVar2 < fVar3 * fVar3) {
-              (&g_apGeoLights)[UINT_007f31f8] = uVar1;
-              UINT_007f31f8 = UINT_007f31f8 + 1;
+              (&g_apGeoLights)[g_dwNumGeoLights] = uVar1;
+              g_dwNumGeoLights = g_dwNumGeoLights + 1;
             }
           }
           uVar7 = uVar7 + 1;
@@ -186,7 +187,7 @@ void rdThing_FreeEntry(int *param_1)
       iVar1 = 0;
       do {
         if (*(int *)(iVar1 + 8 + param_1[5]) != 0) {
-          rdPuppet_StopTrack((void *)param_1[5],track);
+          rdPuppet_RemoveTrack((void *)param_1[5],track);
         }
         iVar1 = iVar1 + 0x134;
         track = track + 1;
@@ -200,8 +201,11 @@ void rdThing_FreeEntry(int *param_1)
   return;
 }
 
-/* ---- 0x00471bd0  rdThing_SetModel ---- */
-void __cdecl rdThing_SetModel(void *thing,void *model)
+/* ---- 0x00471bd0  rdThing_SetModel3 ---- */
+/* Original name rdThing_SetModel3 (the remaster's GrimFandango (Linux): aligned call in
+   ThingInstancer); was rdThing_SetModel. */
+
+void __cdecl rdThing_SetModel3(void *thing,void *model)
 
 {
   undefined4 uVar1;
@@ -260,7 +264,7 @@ void __cdecl rdThing_SetModel(void *thing,void *model)
         if (*(int *)((int)model + 0x54) != 0) {
           iVar4 = *(int *)((int)model + 0x58) + 0x7c;
           do {
-            Angles_ToMatrix(iVar4 + 0xc,iVar4,iVar4 + -0xc);
+            rdMatrix_Build34(iVar4 + 0xc,iVar4,iVar4 + -0xc);
             iVar4 = iVar4 + 0xb8;
             uVar3 = uVar3 + 1;
           } while (uVar3 < *(uint *)((int)model + 0x54));
@@ -336,17 +340,17 @@ void rdThing_BuildNodeMatrix(int param_1,int param_2,float *param_3)
   #define local_3c (*(float (*)[3])(_frame + (0x50 - 0x3c)))
   #define local_30 (*(float (*)[12])(_frame + (0x50 - 0x30)))
   
-  Matrix_BuildTranslation(local_30,(float *)(param_2 + 100));
-  Matrix_Multiply(local_30,*(int *)(param_2 + 0x44) * 0x30 + *(int *)(param_1 + 0x20));
+  rdMatrix_BuildTranslate34(local_30,(float *)(param_2 + 100));
+  rdMatrix_PostMultiply34(local_30,*(int *)(param_2 + 0x44) * 0x30 + *(int *)(param_1 + 0x20));
   iVar2 = *(int *)(param_2 + 0x54);
   if (iVar2 != 0) {
     local_3c[0] = -*(float *)(iVar2 + 100);
     local_3c[1] = -*(float *)(iVar2 + 0x68);
     local_3c[2] = -*(float *)(iVar2 + 0x6c);
-    Matrix_SetTranslation(local_30,local_3c);
+    rdMatrix_PostTranslate34(local_30,local_3c);
   }
-  Matrix_Mul34((float *)(*(int *)(param_2 + 0x44) * 0x30 + *(int *)(param_1 + 0x20)),param_3,
-               local_30);
+  rdMatrix_Multiply34((float *)(*(int *)(param_2 + 0x44) * 0x30 + *(int *)(param_1 + 0x20)),param_3,
+                      local_30);
   if (*(int *)(param_2 + 0x58) != 0) {
     iVar2 = *(int *)(param_2 + 0x5c);
     uVar1 = 0;

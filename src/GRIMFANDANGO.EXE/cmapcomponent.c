@@ -5,15 +5,17 @@
 #include "globals.h"
 #include "functions.h"
 
-/* ---- 0x00496370  CmapComponent_NewInstance ---- */
+/* ---- 0x00496370  ColormapInstancer ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Costume tag handler for 'RDroid Colormap' (registered by sputCostume_Start through
    Cos_NewStateBasedTag/Cos_NewIntTag): slot 5, instance data for a colormap component (0x38 bytes
    holding a ResRef to the colormap, 'Bad Colormap Reference' assertion); with param 0 it frees the
-   instance. */
+   instance. Original name ColormapInstancer (the remaster's GrimFandango (Linux): the same handler
+   slot (instancer) of the same costume tag registration in sputCostume_Startup); was
+   CmapComponent_NewInstance. */
 
-int * __cdecl CmapComponent_NewInstance(int inst,int component,int create)
+int * __cdecl ColormapInstancer(int inst,int component,int create)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -76,17 +78,17 @@ int ColormapRequester(uint param_1,int param_2,int param_3,int param_4,char *par
   name = param_5;
   if (param_5 == (char *)0x0) {
     if (g_bColormapPath != '\0') {
-      Plat_SetDialogDirectory(&g_bColormapPath);
+      grimPlat_SetDefaultOpenPath(&g_bColormapPath);
     }
-    iVar3 = Plat_OpenFileDialog(s_Select_colormap_file_to_add____004ea530,
-                                s_Colormap_files____cmp__004ea550);
+    iVar3 = grimPlat_OpenFileRequest
+                      (s_Select_colormap_file_to_add____004ea530,s_Colormap_files____cmp__004ea550);
     if (iVar3 == 0) {
       return false;
     }
-    uVar1 = ((code *)Plat_GetDialogFileName)(0x7f);
+    uVar1 = ((code *)grimPlat_GetDefaultOpenPath)(0x7f);
     ((code *)strncpy)(&g_bColormapPath,uVar1);
     DAT_008ca937 = 0;
-    param_5 = Str_Basename(g_szGrimlib_aFilename);
+    param_5 = stdFnames_FindMedName(g_szGrimlib_aFilename);
     name = g_szGrimlib_aFilename;
   }
   data = sputResource_Alloc(0x50414d43,name);
@@ -108,8 +110,11 @@ int ColormapRequester(uint param_1,int param_2,int param_3,int param_4,char *par
   return false;
 }
 
-/* ---- 0x00496580  CmapComponent_Destroy ---- */
-undefined4 CmapComponent_Destroy(undefined4 param_1,undefined4 param_2,void *param_3)
+/* ---- 0x00496580  ColormapFreer ---- */
+/* Original name ColormapFreer (the remaster's GrimFandango (Linux): the same handler slot (freer)
+   of the same costume tag registration in sputCostume_Startup); was CmapComponent_Destroy. */
+
+undefined4 ColormapFreer(undefined4 param_1,undefined4 param_2,void *param_3)
 
 {
   Res_RemoveReference(param_3);
@@ -117,13 +122,15 @@ undefined4 CmapComponent_Destroy(undefined4 param_1,undefined4 param_2,void *par
   return 1;
 }
 
-/* ---- 0x004965b0  FUN_004965b0 ---- */
+/* ---- 0x004965b0  MaterialInstanceSaveLoad ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Ported to C (build/overrides_asm_o2.c): differential test, 0 differences (docs/notes/asm_o2.md).
-    */
+   Original name MaterialInstanceSaveLoad (the remaster's GrimFandango (Linux): the same handler
+   slot (instancesaveload) of the same costume tag registration in sputCostume_Startup); was
+   FUN_004965b0. */
 
-undefined4 FUN_004965b0(void)
+undefined4 MaterialInstanceSaveLoad(void)
 
 {
   int in_stack_00000010;

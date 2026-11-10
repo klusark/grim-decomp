@@ -1,9 +1,9 @@
 /* Differential test of Walker_AvoidActorPath (build/overrides_big_walker_avoid.c) against the original machine code
  * (orig_Walker_AvoidActorPath, sliced from src/GRIMFANDANGO.EXE/asm_funcs.s).
  *
- * Every callee (Actor_GetFrame, Vec3_Copy, Vec3_Sub, Collision_PushOutOfBox, SectorList_FindByPoint,
- * Collision_SegmentHitsBox, SectorList_FindNearestPoint, Sector_SnapToPlane, Collision_BoxCorners, Planner_PlanPath,
- * Collision_PickDetour, Planner_GetPath, Collision_PointInBox) is a recorder defined here.  Each call logs:
+ * Every callee (sputActor_GetOrientMatrix, rdMatrix_TransformVector34, Vec3_Sub, Collision_PushOutOfBox, SectorList_FindByPoint,
+ * Collision_SegmentHitsBox, SectorList_FindNearestPoint, WalkPlane_SnapTo, Collision_BoxCorners, Planner_PlanPath,
+ * Collision_PickDetour, GetPath, Collision_PointInBox) is a recorder defined here.  Each call logs:
  *   - every argument: pointers into the test's own buffers absolutely, pointers into (or computed from) the caller's
  *     frame relative to the frame base, plus the dwords they point to (3, 6 or 16);
  *   - the whole 0x104-byte frame of the function under test (original ESP+0x10 .. +0x113) at the moment of the call;
@@ -12,7 +12,7 @@
  * random stream that is reset to the same state for both runs.  Both versions run on a private stack that is filled with
  * the same byte pattern first, so stale frame slots compare equal too.  After the run the return value, the output buffer
  * (with guard space), the input points (written by the push-out recorder) and DAT_008ca320 are compared.
- * The frame base is taken from the first Vec3_Copy (its output is the frame slot 0x108).
+ * The frame base is taken from the first rdMatrix_TransformVector34 (its output is the frame slot 0x108).
  * Cases cycle through the x87 precision controls 24, 53 and 64 bits.
  * usage: wav_test.exe [cases] */
 #include <windows.h>
@@ -118,7 +118,7 @@ static int ev_end(Ev *e, int r) { e->ret = r; return r; }
 static void rand_pt(float *p) { p[0] = rfl(); p[1] = rfl(); p[2] = rfl(); }
 
 /* ---- recorders ---- */
-float *Actor_GetFrame(void *a)
+float *sputActor_GetOrientMatrix(void *a)
 {
     uint32_t ar[1] = {(uint32_t)(uintptr_t)a}; static const int k[1] = {0};
     Ev *e = ev_begin(1, 1, ar, k);
@@ -126,7 +126,7 @@ float *Actor_GetFrame(void *a)
     ev_end(e, (int)(uintptr_t)m);
     return m;
 }
-void Vec3_Copy(float *out, float *v, float *m)
+void rdMatrix_TransformVector34(float *out, float *v, float *m)
 {
     uint32_t ar[3] = {(uint32_t)(uintptr_t)out, (uint32_t)(uintptr_t)v, (uint32_t)(uintptr_t)m}; static const int k[3] = {3, 3, 12};
     if (!fbase) fbase = (uint32_t)(uintptr_t)out - 0x108;
@@ -168,7 +168,7 @@ void *SectorList_FindNearestPoint(uint32_t p, uint32_t f)
     Ev *e = ev_begin(7, 2, ar, k);
     return (void *)(uintptr_t)ev_end(e, (int)(uintptr_t)(sector_dummy + 4));
 }
-void __attribute__((thiscall)) Sector_SnapToPlane(void *self, float *pos)
+void __attribute__((thiscall)) WalkPlane_SnapTo(void *self, float *pos)
 {
     uint32_t ar[2] = {(uint32_t)(uintptr_t)self, (uint32_t)(uintptr_t)pos}; static const int k[2] = {0, 3};
     Ev *e = ev_begin(8, 2, ar, k);
@@ -207,7 +207,7 @@ int Collision_PickDetour(uint32_t a, uint32_t t, uint32_t corners)
     Ev *e = ev_begin(11, 3, ar, k);
     return ev_end(e, (int)(R() % 5) - 1);
 }
-int Planner_GetPath(uint32_t pp)
+int GetPath(uint32_t pp)
 {
     uint32_t ar[1] = {pp}; static const int k[1] = {1};
     static const int lens[8] = {-1, 0, 1, 2, 2, 3, 4, 6};

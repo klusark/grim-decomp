@@ -9,10 +9,10 @@
  * Inputs: small integers and halves (ties with key / marker times and frame counts), random floats, and 0, -0,
  * +-inf, quiet and signalling NaN, denormals; frame counts 0, small, and above 2^31 (the FILD of a uint); dt values
  * that land exactly on the frame count; the control word of DAT_00900526 with each rounding mode.
- * The stand-ins: rdPuppet_FadeOutTrack / rdPuppet_StopTrack change the track flags as the real ones do; the marker
+ * The stand-ins: rdPuppet_FadeOutTrack / rdPuppet_RemoveTrack change the track flags as the real ones do; the marker
  * callback sometimes changes the track's times, the marker count, the animation or the callback itself (the original
  * reads them again after each call); Math_NormalizeAngle180 returns an extended value (not a float) from a per-case
- * stream; Angles_ToMatrix logs the angles and position it gets and writes the matrix.
+ * stream; rdMatrix_Build34 logs the angles and position it gets and writes the matrix.
  * usage: puppet_test.exe [cases per function]   (P3_NAN=1: no signalling NaN inputs) */
 #include <windows.h>
 #include <stdio.h>
@@ -94,7 +94,7 @@ int __cdecl rdPuppet_FadeOutTrack(void *p, int track, uint secbits)
     U(rec, 0x1c) = 0x40800000;
     return 1;
 }
-void __cdecl rdPuppet_StopTrack(void *p, int track)
+void __cdecl rdPuppet_RemoveTrack(void *p, int track)
 {
     char *rec = (char *)p + 8 + track * 0x134;
     L(0x5709000); L((uint)p); L(track);
@@ -111,7 +111,7 @@ long double __cdecl Math_NormalizeAngle180(uint bits)
     r = (long double)bitsf(bits) / 3.0L + (long double)(snext() % 1000) / 7.0L;
     return r;
 }
-void __cdecl Angles_ToMatrix(uint *m, uint *ang, uint *pos)
+void __cdecl rdMatrix_Build34(uint *m, uint *ang, uint *pos)
 {
     int k;
     L(0xa0700000); L((uint)m);

@@ -17,8 +17,8 @@ undefined4 sputControl_Initialize(undefined4 param_1,undefined4 *param_2)
     _g_pSputConHS = param_1;
     *param_2 = sputControl_Initialize;
     param_2[1] = sputControl_Terminate;
-    param_2[2] = sputControl_Start;
-    param_2[3] = sputControl_Stop;
+    param_2[2] = sputControl_Startup;
+    param_2[3] = sputControl_Shutdown;
     param_2[4] = 0;
     param_2[5] = 0;
     param_2[6] = 0;
@@ -43,38 +43,41 @@ void sputControl_Terminate(void)
   return;
 }
 
-/* ---- 0x0048d2e0  sputControl_Start ---- */
+/* ---- 0x0048d2e0  sputControl_Startup ---- */
 /* Module interface slot 2 (sputControl): called by Engine_InitSubsystems, returns 0 on success
-   (non-zero makes the whole start-up unwind). _Start initialises input and resets all controls. */
+   (non-zero makes the whole start-up unwind). _Start initialises input and resets all controls.
+   Original name sputControl_Startup (the remaster's GrimFandango (Linux): aligned call in
+   sputControl_Initialize); was sputControl_Start. */
 
-undefined4 sputControl_Start(void)
+undefined4 sputControl_Startup(void)
 
 {
   undefined *puVar1;
   
-  if (UINT_008ca1c0 != 0) {
+  if (g_dwSputConStartup != 0) {
     return 1;
   }
-  if (UINT_00805f98 == 0) {
-    puVar1 = Input_Init();
+  if (g_dwStdControl_bStartup == 0) {
+    puVar1 = stdControl_Startup();
     if (puVar1 == (undefined *)0x0) {
       return 1;
     }
   }
   Controls_ResetAll();
   sputControl_AddCallback(Controls_DebugKeysHook);
-  UINT_008ca1c0 = 1;
+  g_dwSputConStartup = 1;
   return 0;
 }
 
-/* ---- 0x0048d330  sputControl_Stop ---- */
+/* ---- 0x0048d330  sputControl_Shutdown ---- */
 /* Module interface slot 3 (sputControl): called by Engine_ShutdownSubsystems in reverse order;
-   releases what _Start created. */
+   releases what _Start created. Original name sputControl_Shutdown (the remaster's GrimFandango
+   (Linux): aligned call in sputControl_Initialize); was sputControl_Stop. */
 
-void sputControl_Stop(void)
+void sputControl_Shutdown(void)
 
 {
-  Input_Shutdown();
-  UINT_008ca1c0 = 0;
+  stdControl_Shutdown();
+  g_dwSputConStartup = 0;
   return;
 }

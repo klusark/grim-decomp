@@ -18,15 +18,16 @@ void luaT_init(void)
   g_dwLState_IMtable =
        (**(code **)(g_dwLuaHS + 0x20))(0x900,s_C__grimsrc_libs_lua_src_ltm_cpp_10027ed4,0x4e);
   for (iVar1 = g_dwLState_last_tag; iVar1 < 1; iVar1 = iVar1 + 1) {
-    ltm__c8a0(iVar1);
+    init_entry(iVar1);
   }
   return;
 }
 
-/* ---- 0x1000c8a0  ltm__c8a0 ---- */
-/* Unidentified function of ltm.c (tag methods) */
+/* ---- 0x1000c8a0  init_entry ---- */
+/* Named init_entry (not in the remaster, gcc inlined it there): Lua 3.1 source name (ltm.c: sets
+   the tag methods of a tag to nil, used by luaT_init / lua_newtag); was ltm__c8a0. */
 
-void __cdecl ltm__c8a0(int param_1)
+void __cdecl init_entry(int param_1)
 
 {
   int iVar1;

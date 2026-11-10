@@ -75,7 +75,7 @@ int __cdecl rdColormap_LoadEntry(char *name,void *cmp)
     return 0;
   }
   uVar12 = 0x1f;
-  pcVar8 = Str_FileNameFromPath(name);
+  pcVar8 = stdFileFromPath(name);
   strncpy(cmp,pcVar8,uVar12);
   *(undefined1 *)((int)cmp + 0x1f) = 0;
   (*g_pRdroid_HS->pFread)(iVar7,auStack_40,0x40);
@@ -137,7 +137,7 @@ int __cdecl rdColormap_LoadEntry(char *name,void *cmp)
                         (0x8000,s_C__grimjedi_Libs_RDroid_Engine_R_004ddae4,DAT_004ddadc + 0x4b);
     *(undefined2 **)((int)cmp + 0x348) = puVar10;
     if (puVar10 == (undefined2 *)0x0) goto LAB_00404659;
-    rdColormap_Build16bitTables(puVar10,puVar1,0,0,0,IMG_ADDR(0x004ddaa0));
+    rdColormap_BuildRGB16(puVar10,puVar1,0,0,0,IMG_ADDR(0x004ddaa0));
   }
   if ((*(byte *)((int)cmp + 0x20) & 1) != 0) {
     uVar11 = (*g_pRdroid_HS->pAlloc)
@@ -222,14 +222,16 @@ void rdColormap_FreeEntry(int param_1)
   return;
 }
 
-/* ---- 0x004047e0  rdColormap_Build16bitTables ---- */
+/* ---- 0x004047e0  rdColormap_BuildRGB16 ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Converts the 256-entry palette into 16-bit pixel values for 64 light levels using the
-   pixel-format shifts */
+   pixel-format shifts Original name rdColormap_BuildRGB16 (the remaster's GrimFandango (Linux):
+   aligned call in rdColormap_LoadEntry, sputResource_ColormapHandler); was
+   rdColormap_Build16bitTables. */
 
 undefined8 __cdecl
-rdColormap_Build16bitTables
+rdColormap_BuildRGB16
           (undefined2 *param_1,ushort *param_2,uint param_3,uint param_4,uint param_5,int param_6)
 
 {

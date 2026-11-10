@@ -1,7 +1,7 @@
 #!/bin/bash
 # usage: build/difftest/asm_q1/build.sh <out.exe>
 # Differential test build of build/overrides_asm_q1.c (as build/difftest/asm_p2/build.sh): the original machine code of
-# rdClip_Line2D, rdClip_Face3_Pos / PosB / Pos_2 / PosB_2 / PosUv and _ftol, sliced from $BASE_ASM and renamed orig_<name>;
+# rdClip_Line2D, rdClip_Face3W / PosB / Pos_2 / PosB_2 / PosUv and _ftol, sliced from $BASE_ASM and renamed orig_<name>;
 # the C of $OVR (default build/overrides_asm_q1.c) compiled with the build's GHIDRA_CFLAGS plus $EXTRA_CFLAGS (e.g. -O2),
 # or with LINKPY=1 the flags build/link.py compiles override files with (the C actually linked); the original data image
 # ($DATA_O); int3 stubs for anything else.
@@ -16,8 +16,8 @@ DATA_O=${DATA_O:-build/obj/$PROG/data_s.o}
 [ -f "$DATA_O" ] || DATA_O=/c/Users/Joel/grim-decomp/build/obj/$PROG/data_s.o
 OUT=$1
 W=$D/out/$(basename $OUT .exe); mkdir -p $W; rm -f $W/*.o
-python -I build/mixdiff/slice_orig.py $BASE_ASM $W/orig.s rdClip_Line2D rdClip_Face3_Pos rdClip_Face3_PosB \
-    rdClip_Face3_Pos_2 rdClip_Face3_PosB_2 rdClip_Face3_PosUv _ftol > /dev/null
+python -I build/mixdiff/slice_orig.py $BASE_ASM $W/orig.s rdClip_Line2D rdClip_Face3W rdClip_Face3WOrtho \
+    rdClip_Face3S rdClip_Face3SOrtho rdClip_Face3GSOrtho _ftol > /dev/null
 /ucrt64/bin/gcc -m32 -c $W/orig.s -o $W/orig.o
 CF="-O0 -m32 -march=i686 -std=gnu11 -fpermissive -w -fno-builtin -fno-strict-aliasing -fwrapv -fsingle-precision-constant -fno-common -ffreestanding -include build/compat.h -Ibuild -Isrc/$PROG -DGRIM_EXE"
 if [ -n "$LINKPY" ]; then

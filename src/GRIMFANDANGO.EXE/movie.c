@@ -5,8 +5,11 @@
 #include "globals.h"
 #include "functions.h"
 
-/* ---- 0x00489030  Movie_SaveState ---- */
-int __cdecl Movie_SaveState(void *fn)
+/* ---- 0x00489030  sputSmush_Save ---- */
+/* Original name sputSmush_Save (the remaster's GrimFandango (Linux): aligned call in
+   sputSmush_Initialize); was Movie_SaveState. */
+
+int __cdecl sputSmush_Save(void *fn)
 
 {
   (*(code *)fn)(&g_nMoviePlaying,4);
@@ -14,37 +17,40 @@ int __cdecl Movie_SaveState(void *fn)
   (*(code *)fn)(&g_nMovieStopRequested,4);
   (*(code *)fn)(g_szMovieName,0x80);
   (*(code *)fn)(&g_nMovieFullscreen,4);
-  (*(code *)fn)(&UINT_008c9fb0,4);
-  (*(code *)fn)(&UINT_008c9fb4,4);
+  (*(code *)fn)(&g_dwSmushX,4);
+  (*(code *)fn)(&g_dwSmushY,4);
   return 0;
 }
 
-/* ---- 0x00489090  Movie_RestoreState ---- */
+/* ---- 0x00489090  sputSmush_Restore ---- */
 /* Module slot 5 of sputSmush: reads the movie state saved by Movie_SaveState (playing/paused/stop
    flag, file name, fullscreen, position) and restarts the movie with Movie_Start if one was
-   playing. */
+   playing. Original name sputSmush_Restore (the remaster's GrimFandango (Linux): aligned call in
+   sputSmush_Initialize); was Movie_RestoreState. */
 
-undefined4 Movie_RestoreState(code *param_1)
+undefined4 sputSmush_Restore(code *param_1)
 
 {
-  Movie_SetTarget(&g_dwStdDisplay_frontBuffer);
+  sputSmush_SetTarget(&g_dwStdDisplay_frontBuffer);
   (*param_1)(&g_nMoviePlaying,4);
   (*param_1)(&g_nSmushPaused,4);
   (*param_1)(&g_nMovieStopRequested,4);
   (*param_1)(g_szMovieName,0x80);
   (*param_1)(&g_nMovieFullscreen,4);
-  (*param_1)(&UINT_008c9fb0,4);
-  (*param_1)(&UINT_008c9fb4,4);
+  (*param_1)(&g_dwSmushX,4);
+  (*param_1)(&g_dwSmushY,4);
   if (g_nMoviePlaying != 0) {
-    Movie_Start(g_szMovieName,g_nMovieFullscreen,UINT_008c9fb0,UINT_008c9fb4);
+    sputSmush_StartMovie(g_szMovieName,g_nMovieFullscreen,g_dwSmushX,g_dwSmushY);
   }
   return 0;
 }
 
-/* ---- 0x004891b0  Movie_PollPlayback ---- */
+/* ---- 0x004891b0  sputSmush_Periodic ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+/* Original name sputSmush_Periodic (the remaster's GrimFandango (Linux): aligned call in
+   sputRender_Update); was Movie_PollPlayback. */
 
-undefined4 Movie_PollPlayback(void)
+undefined4 sputSmush_Periodic(void)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -61,10 +67,10 @@ undefined4 Movie_PollPlayback(void)
   if (g_nSmushPaused != 0) {
     return 0;
   }
-  Smush_SetColorTable(&g_wSputRender_ColorLookup);
+  SmushPlay_SetTranslationTable(&g_wSputRender_ColorLookup);
   timeGetTime();
   if (g_nMovieStopRequested == 0) {
-    iVar1 = Smush_Advance((int *)&local_14);
+    iVar1 = SmushPlay_UpdateMovie((int *)&local_14);
     if (iVar1 != 0) goto LAB_00489259;
   }
   if ((local_14 == 0) && (g_nMovieStopRequested == 0)) {
@@ -72,12 +78,12 @@ undefined4 Movie_PollPlayback(void)
   }
   else {
     g_nMoviePlaying = 0;
-    Smush_Close();
-    Smush_GetFrameRect(aiStack_10,0);
+    SmushPlay_StopMovie();
+    SmushPlay_GetFrameRect(aiStack_10,0);
     MarkDirtyRect(aiStack_10,0);
   }
 LAB_00489259:
-  Smush_Idle(0);
+  SmushPlay_SysConfigureColorLookup(0);
   _DAT_008ca098 = timeGetTime();
   return uVar2;
 }
@@ -85,8 +91,11 @@ LAB_00489259:
 #undef local_14
 
 
-/* ---- 0x00489280  Movie_SetTarget ---- */
-int __cdecl Movie_SetTarget(void *surface)
+/* ---- 0x00489280  sputSmush_SetTarget ---- */
+/* Original name sputSmush_SetTarget (the remaster's GrimFandango (Linux): aligned call in
+   grimlib_PlayMovie, sputRender_Dim, sputRender_Update); was Movie_SetTarget. */
+
+int __cdecl sputSmush_SetTarget(void *surface)
 
 {
   if (g_nSputSmushStarted == 0) {
@@ -96,23 +105,25 @@ int __cdecl Movie_SetTarget(void *surface)
   return 0;
 }
 
-/* ---- 0x004892a0  Movie_Start ---- */
+/* ---- 0x004892a0  sputSmush_StartMovie ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+/* Original name sputSmush_StartMovie (the remaster's GrimFandango (Linux): aligned call in
+   grimlib_PlayMovie, sputSmush_Restore); was Movie_Start. */
 
-undefined4 Movie_Start(char *param_1,int param_2,uint param_3,uint param_4)
+undefined4 sputSmush_StartMovie(char *param_1,int param_2,uint param_3,uint param_4)
 
 {
   int iVar1;
   
   if (g_nSputSmushStarted != 0) {
     if (g_nMoviePlaying != 0) {
-      Smush_Close();
+      SmushPlay_StopMovie();
       g_nMoviePlaying = 0;
     }
-    Smush_SetColorTable(&g_wSputRender_ColorLookup);
+    SmushPlay_SetTranslationTable(&g_wSputRender_ColorLookup);
     g_nMovieFullscreen = param_2;
-    UINT_008c9fb0 = param_3;
-    UINT_008c9fb4 = param_4;
+    g_dwSmushX = param_3;
+    g_dwSmushY = param_4;
     iVar1 = Smush_Open(param_1,-(uint)(param_2 != 0) & 0x10,100000,param_3,param_4,
                        *(int *)((int)g_pPresentBuf + 0xc),*(int *)((int)g_pPresentBuf + 0x10),0,
                        (uint)(UINT_009016ac != 6));
@@ -121,15 +132,18 @@ undefined4 Movie_Start(char *param_1,int param_2,uint param_3,uint param_4)
       g_nSmushPaused = iVar1;
       g_nMovieStopRequested = iVar1;
       strncpy(g_szMovieName,param_1,0x80);
-      _DAT_008c9ff8 = timeGetTime();
+      _g_dwSmushStartTime = timeGetTime();
       return 0;
     }
   }
   return 1;
 }
 
-/* ---- 0x00489370  Movie_Stop ---- */
-void Movie_Stop(void)
+/* ---- 0x00489370  sputSmush_StopMovie ---- */
+/* Original name sputSmush_StopMovie (the remaster's GrimFandango (Linux): aligned call in
+   sputLua_DetachFromResourcesL); was Movie_Stop. */
+
+void sputSmush_StopMovie(void)
 
 {
   if (g_nSputSmushStarted != 0) {
@@ -151,11 +165,11 @@ int sputSmush_GetMovieLength(char *param_1)
   int iVar1;
   #define local_80 (*(char (*)[128])(_frame + (0x90 - 0x80)))
   
-  iVar1 = Res_GetFilePath(param_1,local_80,0x80);
+  iVar1 = Res_FindExternalFile(param_1,local_80,0x80);
   if (iVar1 != 1) {
     return 0;
   }
-  iVar1 = Smush_GetLengthMs(local_80);
+  iVar1 = SmushPlay_GetMovieLength(local_80);
   return iVar1;
 }
 #undef local_80
@@ -193,7 +207,7 @@ undefined4 Movie_LockSurface(undefined4 *param_1,undefined4 *param_2)
   if (g_nSputSmushStarted == 0) {
     return 1;
   }
-  Surface_Lock(g_pPresentBuf);
+  stdDisplay_VBufferLock(g_pPresentBuf);
   param_1[3] = *(uint *)((int)g_pPresentBuf + 0x24) >> 3;
   *param_1 = *(undefined4 *)((int)g_pPresentBuf + 0x5c);
   param_1[2] = *(undefined4 *)((int)g_pPresentBuf + 0x10);
@@ -215,7 +229,7 @@ undefined4 Movie_UnlockSurface(void)
   if (g_nSputSmushStarted == 0) {
     return 1;
   }
-  Surface_Unlock(g_pPresentBuf);
+  stdDisplay_VBufferUnlock(g_pPresentBuf);
   return 0;
 }
 
@@ -242,9 +256,9 @@ void sputSmush_Pause(int paused)
 {
   g_nSmushPaused = paused;
   if (paused != 0) {
-    Smush_Pause();
+    SmushPlay_Pause();
     return;
   }
-  Smush_Resume();
+  SmushPlay_Resume();
   return;
 }

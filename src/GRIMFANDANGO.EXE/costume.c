@@ -102,8 +102,11 @@ void __cdecl sputCostume_PrintCostumeInfo(void *costume)
 #undef local_4
 
 
-/* ---- 0x00494dc0  Costume_FreeList ---- */
-void __cdecl Costume_FreeList(void *list,int free)
+/* ---- 0x00494dc0  sputCostume_FreeCostumeNodes ---- */
+/* Original name sputCostume_FreeCostumeNodes (the remaster's GrimFandango (Linux): aligned call in
+   sputActor_FreeActor); was Costume_FreeList. */
+
+void __cdecl sputCostume_FreeCostumeNodes(void *list,int free)
 
 {
   int *piVar1;
@@ -136,26 +139,31 @@ void * __cdecl sputCostume_PopCostume(void *list,int free)
     pvVar1 = *(void **)((int)list + 0xb0);
     *(undefined4 *)((int)list + 0xb0) = 0;
     Cos_InstStopChores(*(uint *)list);
-    Costume_FreeList(list,free);
+    sputCostume_FreeCostumeNodes(list,free);
   }
   return pvVar1;
 }
 
-/* ---- 0x00494e50  Costume_ReplaceTop ---- */
-void * __cdecl Costume_ReplaceTop(void *list,void *costumeRes,int flags)
+/* ---- 0x00494e50  sputCostume_SetCostume ---- */
+/* Original name sputCostume_SetCostume (the remaster's GrimFandango (Linux): aligned call in
+   sputActor_SetCostume); was Costume_ReplaceTop. */
+
+void * __cdecl sputCostume_SetCostume(void *list,void *costumeRes,int flags)
 
 {
   void *pvVar1;
   
   pvVar1 = sputCostume_PopCostume(list,1);
-  pvVar1 = Costume_Push(pvVar1,costumeRes,flags);
+  pvVar1 = sputCostume_PushCostume(pvVar1,costumeRes,flags);
   return pvVar1;
 }
 
-/* ---- 0x00494e80  Costume_Push ---- */
-/* Source: Engine/sputCostume.cpp (line 1146, from __FILE__/__LINE__ passed to the allocator) */
+/* ---- 0x00494e80  sputCostume_PushCostume ---- */
+/* Source: Engine/sputCostume.cpp (line 1146, from __FILE__/__LINE__ passed to the allocator)
+   Original name sputCostume_PushCostume (the remaster's GrimFandango (Linux): aligned call in
+   sputActor_PushCostume, sputCostume_SetCostume); was Costume_Push. */
 
-void * __cdecl Costume_Push(void *list,void *costumeRes,int flags)
+void * __cdecl sputCostume_PushCostume(void *list,void *costumeRes,int flags)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -218,7 +226,7 @@ undefined4 Costume_AllocRecord(void)
 {
   undefined4 uVar1;
   
-  uVar1 = Pool_Alloc(g_pCostumePool);
+  uVar1 = Memory_AllocFixed(g_pCostumePool);
   Costume_InitRecord(uVar1);
   return uVar1;
 }
@@ -397,17 +405,19 @@ void __cdecl Costume_ApplyComponentState(void *cosInst)
 #undef local_4
 
 
-/* ---- 0x004956a0  Costume_UpdateAttachedFrame ---- */
-/* Recursively positions a model hung on a parent model's node */
+/* ---- 0x004956a0  sputCostume_BuildThingStateMatrices ---- */
+/* Recursively positions a model hung on a parent model's node Original name
+   sputCostume_BuildThingStateMatrices (the remaster's GrimFandango (Linux): aligned call in
+   sputCostume_InternalDraw3D); was Costume_UpdateAttachedFrame. */
 
-void __cdecl Costume_UpdateAttachedFrame(void *component,float *frame)
+void __cdecl sputCostume_BuildThingStateMatrices(void *component,float *frame)
 
 {
   void *model;
   
   model = *(void **)((int)component + 0x40);
   if (*(void **)((int)component + 0x44) != (void *)0x0) {
-    Costume_UpdateAttachedFrame(*(void **)((int)component + 0x44),frame);
+    sputCostume_BuildThingStateMatrices(*(void **)((int)component + 0x44),frame);
     rdPuppet_UpdateFrame
               (model,(float *)(*(int *)((int)component + 0x48) * 0x30 +
                               *(int *)(*(int *)(*(int *)((int)component + 0x44) + 0x40) + 0x20)));
@@ -417,8 +427,11 @@ void __cdecl Costume_UpdateAttachedFrame(void *component,float *frame)
   return;
 }
 
-/* ---- 0x004956f0  Costume_TouchComponents ---- */
-void Costume_TouchComponents(int param_1)
+/* ---- 0x004956f0  sputCostume_Draw2D ---- */
+/* Original name sputCostume_Draw2D (the remaster's GrimFandango (Linux): aligned call in
+   sputRender_Update); was Costume_TouchComponents. */
+
+void sputCostume_Draw2D(int param_1)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -528,7 +541,7 @@ undefined4 Costume_SaveChoreListFile(char *param_1,uint *param_2,undefined4 para
       pcVar4 = pcVar4 + 1;
       pcVar9 = pcVar9 + 1;
     }
-    pcVar4 = Str_FileExtension(g_szGrimlib_aFilename);
+    pcVar4 = stdFnames_FindExt(g_szGrimlib_aFilename);
     sprintf(pcVar4,&DAT_004ea45c);
   }
   else {
@@ -541,7 +554,7 @@ undefined4 Costume_SaveChoreListFile(char *param_1,uint *param_2,undefined4 para
   iVar3 = (*g_pSputCosHS->pFopen)(g_szGrimlib_aFilename,&DAT_004dd478);
   if (iVar3 != 0) {
     ppvVar1 = &g_pSputCosHS->pFprintf;
-    pcVar4 = Str_Basename(param_1);
+    pcVar4 = stdFnames_FindMedName(param_1);
     (*(code *)*ppvVar1)(iVar3,s____Chore_numbering_for__s__004ea3d4,pcVar4);
     (*g_pSputCosHS->pFprintf)(iVar3,s_____s_004ea3cc,param_3);
     Str_CopyBasenameNoExt(acStack_20,0x20,param_1);

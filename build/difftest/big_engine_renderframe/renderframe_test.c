@@ -1,5 +1,5 @@
-/* Differential test of Engine_RenderFrame (build/overrides_big_engine_renderframe.c) against the original 1.01 machine code
- * (orig_Engine_RenderFrame, sliced from src/GRIMFANDANGO.EXE/asm_funcs.s and corrected with fix_orig.sed, see run.sh).
+/* Differential test of sputRender_Update (build/overrides_big_engine_renderframe.c) against the original 1.01 machine code
+ * (orig_sputRender_Update, sliced from src/GRIMFANDANGO.EXE/asm_funcs.s and corrected with fix_orig.sed, see run.sh).
  *
  * Both run on the same random start state: the globals the function reads and writes (data image), two sets with
  * setup records (300 bytes each) and object-state chains, an actor table of 8 actors (0xa8 bytes), the draw list
@@ -15,8 +15,8 @@
 #include <string.h>
 #include "fx.h"
 
-extern void orig_Engine_RenderFrame(void);
-extern void Engine_RenderFrame(void);
+extern void orig_sputRender_Update(void);
+extern void sputRender_Update(void);
 
 static unsigned R(unsigned n) { return (unsigned)(fx_rnd() % n); }
 static unsigned eseed;
@@ -57,7 +57,7 @@ static unsigned char setcm[NSET][4 * 0x34];  /* set colormap records */
 static int costumes[NACT];
 static float frames[NACT][16];
 static unsigned svc[16];
-static int setq[8], nsetq, posq;             /* Set_GetCurrent results, then the last one repeats */
+static int setq[8], nsetq, posq;             /* sputRoom_GetCurrentRoom results, then the last one repeats */
 static int poll_ret, poll2_ret, mode_effects;
 static unsigned total_ms;
 static unsigned frame_sec_bits;
@@ -78,27 +78,27 @@ static unsigned rndfloat(void)
 static void *any_set(void) { return R(8) == 0 ? (void *)0 : sets[R(NSET)]; }
 
 /* ---- recorders ---- */
-int Movie_SetTarget(void *s) { ev(T_SETTARGET, 1, U(s), 0, 0, 0); return 7; }
-int Movie_PollPlayback(void) { int r = posq == -1 ? poll2_ret : poll_ret; ev(T_POLL, 0, 0, 0, 0, 0)->ret = r; posq = posq == -1 ? -2 : posq; return r; }
+int sputSmush_SetTarget(void *s) { ev(T_SETTARGET, 1, U(s), 0, 0, 0); return 7; }
+int sputSmush_Periodic(void) { int r = posq == -1 ? poll2_ret : poll_ret; ev(T_POLL, 0, 0, 0, 0, 0)->ret = r; posq = posq == -1 ? -2 : posq; return r; }
 void DirtyRect_Add(int *rect, int flag, int idx)
 {
     FxEv *e = ev(T_DRADD, 2, flag, idx, 0, 0);
     memcpy(e->deref[0], rect, 16);
-    if (mode_effects && E(4) == 0) FXI32(0x4e8074) = (int)E(6) - 1;     /* g_nBufferCount reread each iteration */
+    if (mode_effects && E(4) == 0) FXI32(0x4e8074) = (int)E(6) - 1;     /* g_nNumPages reread each iteration */
     if (mode_effects && E(8) == 0) rect[E(4)] = (int)E(1000);
 }
-void Render_RequestFullRedraw(void) { ev(T_FULLREDRAW, 0, 0, 0, 0, 0); }
-float Timer_GetFrameSeconds(void) { ev(T_FRAMESEC, 0, 0, 0, 0, 0); return *(float *)&frame_sec_bits; }
-void Actors_UpdateTalking(unsigned bits) { ev(T_TALK, 1, bits, 0, 0, 0); }
-int Surface_Lock(void *s) { ev(T_LOCK, 1, U(s), 0, 0, 0); if (mode_effects && E(6) == 0) FXU32(0x90563c) = E(100000); return 1; }
-int Surface_Unlock(void *s) { ev(T_UNLOCK, 1, U(s), 0, 0, 0); return 1; }
-void TextObjects_Update(int a) { ev(T_TEXT, 2, a, FXU32(0x8a94b8), 0, 0); }
+void sputRender_ForceRefresh(void) { ev(T_FULLREDRAW, 0, 0, 0, 0, 0); }
+float sputTime_GetFrameTimeFlex(void) { ev(T_FRAMESEC, 0, 0, 0, 0, 0); return *(float *)&frame_sec_bits; }
+void sputActor_UpdateSpeechOnly(unsigned bits) { ev(T_TALK, 1, bits, 0, 0, 0); }
+int stdDisplay_VBufferLock(void *s) { ev(T_LOCK, 1, U(s), 0, 0, 0); if (mode_effects && E(6) == 0) FXU32(0x90563c) = E(100000); return 1; }
+int stdDisplay_VBufferUnlock(void *s) { ev(T_UNLOCK, 1, U(s), 0, 0, 0); return 1; }
+void sputText_Update(int a) { ev(T_TEXT, 2, a, FXU32(0x8a94b8), 0, 0); }
 void Render_Present(void) { ev(T_PRESENT, 0, 0, 0, 0, 0); }
-void Engine_CallUserPaint(void) { ev(T_USERPAINT, 0, 0, 0, 0, 0); }
+void grimlib_UserPaint(void) { ev(T_USERPAINT, 0, 0, 0, 0, 0); }
 int lps_fn(int a) __asm__("_lua_printstack");
 int lps_fn(int a) { ev(T_PRINTSTACK, 1, a, 0, 0, 0); return 0; }
 void *lps_imp __asm__("__imp__lua_printstack") = lps_fn;
-void *Set_GetCurrent(void)
+void *sputRoom_GetCurrentRoom(void)
 {
     void *r;
     if (posq < 0) posq = 0;
@@ -108,17 +108,17 @@ void *Set_GetCurrent(void)
     return r;
 }
 void DirtyRect_Clear(void) { ev(T_DRCLEAR, 0, 0, 0, 0, 0); }
-void Set_SwitchSetup(unsigned char *set, int setup)
+void sputRender_UseSetup(unsigned char *set, int setup)
 {
     ev(T_SWITCH, 2, U(set), setup, 0, 0);
     if (mode_effects && E(3) == 0) *(int *)(set + 0xb4) = (int)E(NSETUP);
 }
-void Lua_CallPostCamChangeHandler(int setup)
+void sputLua_PostCameraChange(int setup)
 {
     ev(T_POSTCAM, 1, setup, 0, 0, 0);
-    if (mode_effects && E(3) == 0) FXI32(0x4e8084) = (int)E(NSETUP);       /* g_nRenderedSetup changed by the handler */
+    if (mode_effects && E(3) == 0) FXI32(0x4e8084) = (int)E(NSETUP);       /* g_nSputRender_Update_RenderSetup changed by the handler */
 }
-void Set_ApplySetupCamera(void *set, int setup) { ev(T_APPLYCAM, 2, U(set), setup, 0, 0); }
+void sputRender_SyncCamera(void *set, int setup) { ev(T_APPLYCAM, 2, U(set), setup, 0, 0); }
 void __stdcall os_draw(unsigned char *self, int type, void *dst, void *z) __asm__("_os_draw@16");
 void __stdcall os_draw(unsigned char *self, int type, void *dst, void *z)
 {
@@ -128,29 +128,29 @@ void __stdcall os_draw(unsigned char *self, int type, void *dst, void *z)
 }
 /* __thiscall ObjectState_Draw(this = ECX, type, dst, zdst): forward to the stdcall recorder with ECX as first argument */
 __asm__(".globl _ObjectState_Draw\n_ObjectState_Draw:\n\tpopl %eax\n\tpushl %ecx\n\tpushl %eax\n\tjmp _os_draw@16\n");
-void Profile_Begin(int a) { ev(T_PBEGIN, 1, a, 0, 0, 0); }
-void *Profile_End(int a) { ev(T_PEND, 1, a, 0, 0, 0); return 0; }
+void PerfBegin(int a) { ev(T_PBEGIN, 1, a, 0, 0, 0); }
+void *PerfEnd(int a) { ev(T_PEND, 1, a, 0, 0, 0); return 0; }
 void DirtyRect_Flush(void *d, void *z) { ev(T_DRFLUSH, 2, U(d), U(z), 0, 0); }
-void Primitives_DrawAll(unsigned m) { ev(T_PRIMS, 1, m, 0, 0, 0); }
+void sputPrimitive_Update(unsigned m) { ev(T_PRIMS, 1, m, 0, 0, 0); }
 void rdroid_BeginFrame(void) { ev(T_BEGIN, 0, 0, 0, 0, 0); }
 void Render_BuildActorDrawList(void)
 {
     ev(T_BUILDLIST, 0, 0, 0, 0, 0);
     if (mode_effects && E(4) == 0) FXU32(0x8a952c) = E(NENT + 1);
 }
-void Costume_TouchComponents(int c)
+void sputCostume_Draw2D(int c)
 {
     ev(T_TOUCH, 1, c, 0, 0, 0);
     if (mode_effects && E(8) == 0) FXU32(0x8a952c) = E(NENT + 1);           /* loop bound reread */
 }
 void Sector_DrawAllDebug(void *set) { ev(T_SECTORDBG, 1, U(set), 0, 0, 0); }
 void Render_DrawDebugGrid(void) { ev(T_GRID, 0, 0, 0, 0, 0); }
-float *Actor_GetFrame(unsigned char *a)
+float *sputActor_GetOrientMatrix(unsigned char *a)
 {
     ev(T_GETFRAME, 1, U(a), 0, 0, 0);
     return frames[((a - actors) / 0xa8) & 7];
 }
-void Matrix_BuildTransform2(float *m, unsigned *v)
+void rdMatrix_PreScale34(float *m, unsigned *v)
 {
     FxEv *e = ev(T_MATRIX, 1, U(m), 0, 0, 0);
     memcpy(e->deref[0], v, 12);
@@ -160,7 +160,7 @@ void Actor_ComputeScreenBox(unsigned char *a)
 {
     ev(T_SCREENBOX, 1, U(a), 0, 0, 0);
     if (mode_effects && E(4) == 0) *(unsigned *)(a + 0x30) = E(2) ? 0x3f800000 : eseed;
-    if (mode_effects && E(6) == 0) FXI32(0x8c9784) ^= 1;                   /* g_nZBufferEnabled reread */
+    if (mode_effects && E(6) == 0) FXI32(0x8c9784) ^= 1;                   /* g_nSputRender_b3DAcceleration reread */
 }
 void Render_InvalidateRectLastBuffer(int *r, int f) { ev(T_INVLAST, 2, U(r), f, 0, 0); }
 unsigned rdroid_SetColormap(unsigned c)
@@ -176,7 +176,7 @@ unsigned rdroid_SetColormap(unsigned c)
     }
     return 0;
 }
-void Actor_DrawCostumes(unsigned c, unsigned f)
+void sputCostume_Draw3D(unsigned c, unsigned f)
 {
     ev(T_DRAWCOS, 2, c, f, 0, 0);
     if (mode_effects && E(4) == 0) { unsigned k = E(NACT); *(unsigned *)(actors + k * 0xa8 + 0x30) = E(2) ? 0x3f800000 : (E(2) ? 0x3f000000 + E(0x1000000) : eseed); }
@@ -186,13 +186,13 @@ void Actor_DrawDebugWalker(void *a) { ev(T_DBGWALKER, 1, U(a), 0, 0, 0); }
 void rdroid_EndFrame(void) { ev(T_END, 0, 0, 0, 0, 0); }
 void Set_DrawDebugLights(void *s) { ev(T_LIGHTS, 1, U(s), 0, 0, 0); if (mode_effects && E(3) == 0) FXU32(0x4e8078) ^= 4; }
 void Set_DrawDebugCameras(void *s, unsigned k) { ev(T_CAMS, 2, U(s), k, 0, 0); }
-unsigned Timer_GetTotalMs(void) { ev(T_TOTALMS, 0, 0, 0, 0, 0); return total_ms; }
-void Render_DrawIris(unsigned bits, int x, int y)
+unsigned sputTime_GetGameTime(void) { ev(T_TOTALMS, 0, 0, 0, 0, 0); return total_ms; }
+void sputRender_DrawIrisEffect(unsigned bits, int x, int y)
 {
     ev(T_IRIS, 3, bits, x, y, 0);
     if (mode_effects && E(4) == 0) { float f = (float)((int)E(2001) - 1000); FXU32(0x8c9778) = *(unsigned *)&f; }
 }
-void Render_InvalidateRect(int *r, int f) { FxEv *e = ev(T_INVRECT, 1, f, 0, 0, 0); memcpy(e->deref[0], r, 16); }
+void MarkDirtyRect(int *r, int f) { FxEv *e = ev(T_INVRECT, 1, f, 0, 0, 0); memcpy(e->deref[0], r, 16); }
 static void cmap_cb(unsigned a, unsigned b) { ev(T_CMAPCB, 2, a, b, 0, 0); }
 static void assert_cb(char *a, char *b, int line) { ev(T_ASSERT, 3, U(a), U(b), line, 0); }
 
@@ -243,13 +243,13 @@ static void randomize(void)
     FXU32(0x8ca758) = U(actors);
     FXU32(0x8a952c) = R(4) ? R(NENT + 1) : 0;
     { static const unsigned modes[] = {0, 1, 2, 2, 2, 2, 3, 3, 4, 4, 5}; FXU32(0x8a8c40) = modes[R(11)]; }
-    FXU32(0x4e8074) = R(5);                     /* g_nBufferCount */
-    FXI32(0x8c97f0) = R(3) == 0;                /* g_nFullRedrawPending */
+    FXU32(0x4e8074) = R(5);                     /* g_nNumPages */
+    FXI32(0x8c97f0) = R(3) == 0;                /* g_nSputRender_Reset */
     FXU32(0x8c9804) = R(4) == 0;
     FXU32(0x8c9800) = U(any_set());             /* g_pRenderedSet */
     if (FXU32(0x8c9800) == 0) FXU32(0x8c9800) = U(sets[0]);
-    FXI32(0x4e8084) = (int)R(NSETUP);           /* g_nRenderedSetup */
-    FXU32(0x4e8080) = R(2);                     /* g_nDrawEnabled */
+    FXI32(0x4e8084) = (int)R(NSETUP);           /* g_nSputRender_Update_RenderSetup */
+    FXU32(0x4e8080) = R(2);                     /* g_nDoTheFlip */
     FXU32(0x4e8078) = R(3) ? 0 : (unsigned)fx_rnd();   /* debug flags */
     FXU32(0x8c9784) = R(2);                     /* z-buffer enabled */
     FXU32(0x8c97b0) = (unsigned)fx_rnd(); FXU32(0x8c97b4) = (unsigned)fx_rnd(); FXU32(0x8c97a4) = (unsigned)fx_rnd();
@@ -273,7 +273,7 @@ static void randomize(void)
     FXU32(0x90563c) = (unsigned)fx_rnd(); FXU32(0x8a94b8) = (unsigned)fx_rnd(); FXU32(0x8c97f8) = (unsigned)fx_rnd();
     frame_sec_bits = rndfloat();
     poll_ret = R(2); poll2_ret = R(2);
-    /* Set_GetCurrent: mostly the rendered set, sometimes the other one; only the first call may return none (the
+    /* sputRoom_GetCurrentRoom: mostly the rendered set, sometimes the other one; only the first call may return none (the
      * original dereferences the later results without a test) */
     nsetq = 1 + R(5);
     for (k = 0; k < nsetq; k++) {
@@ -292,7 +292,7 @@ int main(int argc, char **argv)
     fx_region(sets, sizeof sets); fx_region(setups, sizeof setups); fx_region(objs, sizeof objs);
     fx_region(actors, sizeof actors); fx_region(ents, sizeof ents); fx_region(cmaps, sizeof cmaps);
     fx_region(setcm, sizeof setcm); fx_region(costumes, sizeof costumes); fx_region(frames, sizeof frames);
-    fx_region(FXDATA(0x4e8060), 0x30);          /* iris x/y, g_nBufferCount, debug flags, draw enabled, rendered setup */
+    fx_region(FXDATA(0x4e8060), 0x30);          /* iris x/y, g_nNumPages, debug flags, draw enabled, rendered setup */
     fx_region(FXDATA(0x8a8c40), 4); fx_region(FXDATA(0x8a94b8), 4); fx_region(FXDATA(0x8a952c), 4);
     fx_region(FXDATA(0x8c9560), 0x40);          /* draw list */
     fx_region(FXDATA(0x8c9770), 0x98);          /* iris, flags, surfaces, pending, rendered set ... 0x8c9808 */
@@ -310,7 +310,7 @@ int main(int argc, char **argv)
         for (pass = 0; pass < 2; pass++) {
             eseed = seed; posq = -1; fx_nlog = 0;
             set_fpu_pc(pc);
-            if (pass) Engine_RenderFrame(); else orig_Engine_RenderFrame();
+            if (pass) sputRender_Update(); else orig_sputRender_Update();
             set_fpu_pc(3);
             if (pass == 0) { fx_snap_a(); fx_restore(); }
         }

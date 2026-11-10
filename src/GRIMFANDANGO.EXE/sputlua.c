@@ -126,7 +126,7 @@ void sputLua_Update(void)
   #define local_1c (*(uint *)(_frame + (0x30 - 0x1c)))
   
   g_dwSputLua_Update_movieTimeMsec = SmushPlay_GetMovieTime();
-  uVar1 = Timer_GetFrameMs();
+  uVar1 = sputTime_GetFrameTime();
   g_dwSputLua_Update_collectionTime = g_dwSputLua_Update_collectionTime + uVar1;
   if (10000.0 < (float)g_dwSputLua_Update_collectionTime) {
     lua_collectgarbage(0);

@@ -13,12 +13,12 @@ MUT = [
     ("top not reset after error", "        GL[7] = GL[8] + GL[10] * 8;\n", "\n"),
     ("errorJmp not restored (run)", "    GL[0xd] = oldjmp;\n    GL[2]", "    GL[2]"),
     ("yield hook before the flag", "GL[4] = 1;", "GL[4] = 2;"),
-    ("lvm__de20 chain: next read first", "for (c = (int *)t[0]; c != 0; c = (int *)c[3])\n                lvm__de20((int)c);",
-     "for (c = (int *)t[0]; c != 0; ) { int *n2 = (int *)c[3]; lvm__de20((int)c); c = n2; }"),
+    ("ExecutionState_resetcounter chain: next read first", "for (c = (int *)t[0]; c != 0; c = (int *)c[3])\n                ExecutionState_resetcounter((int)c);",
+     "for (c = (int *)t[0]; c != 0; ) { int *n2 = (int *)c[3]; ExecutionState_resetcounter((int)c); c = n2; }"),
     ("restart scan ignores the marked flag", "if (t[4] == 0 && t[5] == 0)", "if (t[4] == 0)"),
-    ("unwind frees before unlinking", "            GL[0] = ((int *)e)[3];\n            lvm__dd90(e);", "            lvm__dd90(e);\n            GL[0] = ((int *)e)[3];"),
+    ("unwind frees before unlinking", "            GL[0] = ((int *)e)[3];\n            ExecutionState_Delete(e);", "            ExecutionState_Delete(e);\n            GL[0] = ((int *)e)[3];"),
     ("closure tag", "= -4;", "= -3;"),
-    ("updatetasks return inverted", "return lstate__8bf0((int)PTR_1002bf6c) != 0;", "return lstate__8bf0((int)PTR_1002bf6c) == 0;"),
+    ("updatetasks return inverted", "return LState_next((int)g_pLuaState) != 0;", "return LState_next((int)g_pLuaState) == 0;"),
 ]
 text = open(SRC).read()
 caught = 0

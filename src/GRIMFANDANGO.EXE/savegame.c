@@ -41,10 +41,12 @@ int __cdecl SaveGame_Read(void *buf,int n)
 #endif
 
 
-/* ---- 0x00483490  SaveGame_LoadThumbnail ---- */
-/* Returns a 250x188 16-bit bitmap read from the head of a save file */
+/* ---- 0x00483490  sputMain_GetSaveGameImage ---- */
+/* Returns a 250x188 16-bit bitmap read from the head of a save file Original name
+   sputMain_GetSaveGameImage (the remaster's GrimFandango (Linux): aligned call in
+   sputLua_GetSaveGameImage); was SaveGame_LoadThumbnail. */
 
-void * __cdecl SaveGame_LoadThumbnail(char *filename)
+void * __cdecl sputMain_GetSaveGameImage(char *filename)
 
 {
   unsigned char _frame[0xa0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -106,7 +108,7 @@ void * __cdecl SaveGame_LoadThumbnail(char *filename)
     puVar4 = puVar4 + 1;
     puVar5 = puVar5 + 1;
   }
-  pvVar2 = Surface_Create(&local_4c,0,0,0);
+  pvVar2 = stdDisplay_VBufferNew(&local_4c,0,0,0);
   if (pvVar2 == (void *)0x0) {
     gzclose(pvVar1);
     return (void *)0x0;

@@ -1,5 +1,5 @@
 /* Differential test of build/overrides_asm_p2.c against the original 1.01 machine code (sliced from the assembly of
- * bb04517): Frustum_TestSphere, Polygon_ClipToPlane, Angles_ToMatrix, Angles_ToMatrixNoPos, Matrix_AxisAngle,
+ * bb04517): rdClip_SphereInFrustrum, rdClip_FaceToPlane, rdMatrix_Build34, rdMatrix_BuildRotate34, rdMatrix_BuildFromVectorAngle34,
  * rdLight_CalcVertexIntensities, rdCanvas_DrawPoint.
  *
  * Each case builds random inputs (small integers and halves that make ties, random floats, and the special values
@@ -7,7 +7,7 @@
  * same state under the x87 precision control 24, 53 or 64 bits (rotating), and compares: the return value (the x87
  * long double bits for rdLight_CalcVertexIntensities), every output buffer and the static clip buffers of the data
  * image, the call log of the stand-in callees (arguments as dwords), the x87 control word and the x87 stack top.
- * The callees are stand-ins: Math_SinCosTable and Vec3_Normalize write values from a per-case stream (so both runs
+ * The callees are stand-ins: stdMath_SinCos and rdVector_Normalize3Acc write values from a per-case stream (so both runs
  * see the same values when they call in the same order), rdPrimit2_DrawLine records its arguments.
  * usage: math_test.exe [cases per function] */
 #include <windows.h>
@@ -21,12 +21,12 @@
 
 typedef unsigned uint;
 /* float-by-value parameters are declared uint so the exact bits are pushed (no FLD/FSTP in the test) */
-extern uint orig_Frustum_TestSphere(int *, float *, uint), Frustum_TestSphere(int *, float *, uint);
-extern uint orig_Polygon_ClipToPlane(float *, float *, float *, float *, float *, int),
-    Polygon_ClipToPlane(float *, float *, float *, float *, float *, int);
-extern void orig_Angles_ToMatrix(float *, uint *, float *), Angles_ToMatrix(float *, uint *, float *);
-extern void orig_Angles_ToMatrixNoPos(float *, uint *), Angles_ToMatrixNoPos(float *, uint *);
-extern void orig_Matrix_AxisAngle(float *, float *, uint), Matrix_AxisAngle(float *, float *, uint);
+extern uint orig_rdClip_SphereInFrustrum(int *, float *, uint), rdClip_SphereInFrustrum(int *, float *, uint);
+extern uint orig_rdClip_FaceToPlane(float *, float *, float *, float *, float *, int),
+    rdClip_FaceToPlane(float *, float *, float *, float *, float *, int);
+extern void orig_rdMatrix_Build34(float *, uint *, float *), rdMatrix_Build34(float *, uint *, float *);
+extern void orig_rdMatrix_BuildRotate34(float *, uint *), rdMatrix_BuildRotate34(float *, uint *);
+extern void orig_rdMatrix_BuildFromVectorAngle34(float *, float *, uint), rdMatrix_BuildFromVectorAngle34(float *, float *, uint);
 extern long double orig_rdLight_CalcVertexIntensities(int **, float *, float *, uint, float *, float *, float *, float *, uint, uint),
     rdLight_CalcVertexIntensities(int **, float *, float *, uint, float *, float *, float *, float *, uint, uint);
 extern void orig_rdCanvas_DrawPoint(void *, int, int, uint, uint, int, int), rdCanvas_DrawPoint(void *, int, int, uint, uint, int, int);
@@ -71,7 +71,7 @@ static uint stream_f(void)
     if (k < 6) return fbits((float)((int)(snext() % 9) - 4) * 0.25f);
     return fbits((float)(((double)(snext() % 2000001) - 1000000.0) / 1000000.0));
 }
-void __cdecl Math_SinCosTable(uint ang, float *a, float *b)
+void __cdecl stdMath_SinCos(uint ang, float *a, float *b)
 {
     uint u = stream_f(), v = stream_f();
     L(0x5c5c0000); L(ang);
@@ -79,7 +79,7 @@ void __cdecl Math_SinCosTable(uint ang, float *a, float *b)
 }
 static int (*cur_lrec)[16];
 static float *cur_dir;
-long double __cdecl Vec3_Normalize(float *p)
+long double __cdecl rdVector_Normalize3Acc(float *p)
 {
     uint i, u;
     long double r;
@@ -113,8 +113,8 @@ static unsigned char stA[MAXS], stB[MAXS];
 static uint lgA[8192]; static int nlgA;
 static uint cwA, swA;
 static long nf[8], nc[8];
-static const char *fname[8] = {"Frustum_TestSphere", "Polygon_ClipToPlane", "Angles_ToMatrix", "Angles_ToMatrixNoPos",
-                               "Matrix_AxisAngle", "rdLight_CalcVertexIntensities", "rdCanvas_DrawPoint", ""};
+static const char *fname[8] = {"rdClip_SphereInFrustrum", "rdClip_FaceToPlane", "rdMatrix_Build34", "rdMatrix_BuildRotate34",
+                               "rdMatrix_BuildFromVectorAngle34", "rdLight_CalcVertexIntensities", "rdCanvas_DrawPoint", ""};
 static long nnan[8];
 /* 0: equal; 1: differ only in entries that are NaN in both (the NaN payload / sign the x87 picks); 2: real difference */
 static int fkind(const void *a, const void *b, int n)
@@ -144,7 +144,7 @@ static void endB(int f, long i)
     if (nlg != nlgA || memcmp(lg, lgA, nlg * 4)) fail(f, i, "call log");
 }
 
-/* ---- Frustum_TestSphere ---- */
+/* ---- rdClip_SphereInFrustrum ---- */
 static int cam[4];
 static void t_frustum(long i)
 {
@@ -179,14 +179,14 @@ static void t_frustum(long i)
     cam[0] = R(3) ? 1 : (int)R(3);
     FXU32(0x7f0fc8) = (uint)(uintptr_t)cam;
     memcpy(frB, fr, sizeof fr); memcpy(cB, c, sizeof c);
-    begin(seed, pc); ra = orig_Frustum_TestSphere(fr, c, r); endA();
-    begin(seed, pc); rb = Frustum_TestSphere(frB, cB, r); endB(0, i);
+    begin(seed, pc); ra = orig_rdClip_SphereInFrustrum(fr, c, r); endA();
+    begin(seed, pc); rb = rdClip_SphereInFrustrum(frB, cB, r); endB(0, i);
     if (ra != rb) fail(0, i, "return");
     if (memcmp(fr, frB, sizeof fr) || memcmp(c, cB, sizeof c)) fail(0, i, "inputs changed");
     nc[0]++;
 }
 
-/* ---- Polygon_ClipToPlane ---- */
+/* ---- rdClip_FaceToPlane ---- */
 #define CLIP_LO 0x7f4600
 #define CLIP_HI 0x7f4c00
 static void t_clip(long i)
@@ -210,12 +210,12 @@ static void t_clip(long i)
     memcpy(clipA, FXDATA(CLIP_LO), sizeof clipA);
     /* vertex 0 is at index 1 of the buffers (n = 0 reads index -1) */
     begin(seed, pc);
-    ra = orig_Polygon_ClipToPlane(nrm, pt, vb + 3, has_uv ? uvb + 2 : 0, has_i ? ib + 1 : 0, n);
+    ra = orig_rdClip_FaceToPlane(nrm, pt, vb + 3, has_uv ? uvb + 2 : 0, has_i ? ib + 1 : 0, n);
     endA();
     memcpy(stA, FXDATA(CLIP_LO), CLIP_HI - CLIP_LO);
     memcpy(FXDATA(CLIP_LO), clipA, sizeof clipA);
     begin(seed, pc);
-    rb = Polygon_ClipToPlane(nrm, pt, vB + 3, has_uv ? uvB + 2 : 0, has_i ? iB + 1 : 0, n);
+    rb = rdClip_FaceToPlane(nrm, pt, vB + 3, has_uv ? uvB + 2 : 0, has_i ? iB + 1 : 0, n);
     endB(1, i);
     if (ra != rb) fail(1, i, "return");
     if (memcmp(vb, vB, sizeof vb)) fail(1, i, "vertices");
@@ -230,7 +230,7 @@ static void t_clip(long i)
     nc[1]++;
 }
 
-/* ---- Angles_ToMatrix / NoPos ---- */
+/* ---- rdMatrix_Build34 / NoPos ---- */
 static void t_angles(long i, int nopos)
 {
     float m[16], mB[16], pos[3];
@@ -241,10 +241,10 @@ static void t_angles(long i, int nopos)
     for (k = 0; k < 3; k++) { ang[k] = fbits(rf(360)); pos[k] = R(8) ? rf(100) : bitsf(special_bits(R(64))); }
     memcpy(mB, m, sizeof m);
     begin(seed, pc);
-    if (nopos) orig_Angles_ToMatrixNoPos(m, ang); else orig_Angles_ToMatrix(m, ang, pos);
+    if (nopos) orig_rdMatrix_BuildRotate34(m, ang); else orig_rdMatrix_Build34(m, ang, pos);
     endA();
     begin(seed, pc);
-    if (nopos) Angles_ToMatrixNoPos(mB, ang); else Angles_ToMatrix(mB, ang, pos);
+    if (nopos) rdMatrix_BuildRotate34(mB, ang); else rdMatrix_Build34(mB, ang, pos);
     endB(2 + nopos, i);
     if ((k = fkind(m, mB, 16)) == 1) nnan[2 + nopos]++;
     else if (k) {
@@ -256,7 +256,7 @@ static void t_angles(long i, int nopos)
     nc[2 + nopos]++;
 }
 
-/* ---- Matrix_AxisAngle ---- */
+/* ---- rdMatrix_BuildFromVectorAngle34 ---- */
 static void t_axis(long i)
 {
     float m[16], mB[16], ax[3];
@@ -275,8 +275,8 @@ static void t_axis(long i)
     }
     ang = R(10) ? fbits(rf(360)) : special_bits(R(64));
     memcpy(mB, m, sizeof m);
-    begin(seed, pc); orig_Matrix_AxisAngle(m, ax, ang); endA();
-    begin(seed, pc); Matrix_AxisAngle(mB, ax, ang); endB(4, i);
+    begin(seed, pc); orig_rdMatrix_BuildFromVectorAngle34(m, ax, ang); endA();
+    begin(seed, pc); rdMatrix_BuildFromVectorAngle34(mB, ax, ang); endB(4, i);
     if ((k = fkind(m, mB, 16)) == 1) nnan[4]++;
     else if (k) {
         fail(4, i, "matrix");
@@ -321,7 +321,7 @@ static void t_light(long i)
         }
         memcpy(lrecB, lrec, sizeof lrec);
     }
-    shared = R(3) == 0;   /* one direction for every light: Vec3_Normalize may set cone ties (see there) */
+    shared = R(3) == 0;   /* one direction for every light: rdVector_Normalize3Acc may set cone ties (see there) */
     if (shared) for (k = 3; k < 18; k++) ldir[k] = ldir[k % 3];
     begin(seed, pc);
     if (shared) { cur_lrec = lrec; cur_dir = ldir; }

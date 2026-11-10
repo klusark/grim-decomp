@@ -5,11 +5,13 @@
 #include "globals.h"
 #include "functions.h"
 
-/* ---- 0x00476f10  Input_Init ---- */
+/* ---- 0x00476f10  stdControl_Startup ---- */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
-/* Creates DirectInput, the keyboard and mouse devices and scans the joysticks */
+/* Creates DirectInput, the keyboard and mouse devices and scans the joysticks Original name
+   stdControl_Startup (the remaster's GrimFandango (Linux): aligned call in sputControl_Startup);
+   was Input_Init. */
 
-undefined * Input_Init(void)
+undefined * stdControl_Startup(void)
 
 {
   int iVar1;
@@ -37,16 +39,19 @@ undefined * Input_Init(void)
   Input_InitJoysticks();
   Input_CreateMouse();
   Input_ResetState();
-  UINT_00805f98 = 1;
+  g_dwStdControl_bStartup = 1;
   return (undefined *)0x1;
 }
 
-/* ---- 0x00476f70  Input_Shutdown ---- */
-void Input_Shutdown(void)
+/* ---- 0x00476f70  stdControl_Shutdown ---- */
+/* Original name stdControl_Shutdown (the remaster's GrimFandango (Linux): aligned call in
+   sputControl_Shutdown); was Input_Shutdown. */
+
+void stdControl_Shutdown(void)
 
 {
-  if (UINT_00805f98 != 0) {
-    UINT_00805f98 = 0;
+  if (g_dwStdControl_bStartup != 0) {
+    g_dwStdControl_bStartup = 0;
     if (g_pDInputMouse != (void *)0x0) {
       (**(code_std **)(*(int *)g_pDInputMouse + 8))(g_pDInputMouse);
     }
@@ -140,11 +145,13 @@ int __cdecl Input_EnableAxis(uint axis)
   return 1;
 }
 
-/* ---- 0x004770d0  Input_Update ---- */
+/* ---- 0x004770d0  stdControl_ReadControls ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
-/* Once per frame: polls keyboard, joysticks and mouse and records press/release times */
+/* Once per frame: polls keyboard, joysticks and mouse and records press/release times Original name
+   stdControl_ReadControls (the remaster's GrimFandango (Linux): aligned call in
+   sputControl_Update); was Input_Update. */
 
-void Input_Update(void)
+void stdControl_ReadControls(void)
 
 {
   uint uVar1;
@@ -152,9 +159,9 @@ void Input_Update(void)
   uint *puVar3;
   
   if (g_nInputAcquired != 0) {
-    UINT_00805fa4 = 1;
+    g_dwStdControl_bControlsIdle = 1;
     g_dwCurReadTime = timeGetTime();
-    uVar1 = g_dwCurReadTime - UINT_00805fc0;
+    uVar1 = g_dwCurReadTime - g_dwLastReadTime;
     if (uVar1 != 0) {
       *(float *)&DAT_004dea44 = 1.0 / (float)uVar1;
       puVar3 = &UINT_00803fd0;
@@ -169,14 +176,17 @@ void Input_Update(void)
         Input_PollJoysticks();
       }
       Input_PollMouse();
-      UINT_00805fc0 = g_dwCurReadTime;
+      g_dwLastReadTime = g_dwCurReadTime;
     }
   }
   return;
 }
 
-/* ---- 0x00477160  Input_GetAxis ---- */
-float __cdecl Input_GetAxis(int inputId)
+/* ---- 0x00477160  stdControl_ReadAxis ---- */
+/* Original name stdControl_ReadAxis (the remaster's GrimFandango (Linux): aligned call in
+   sputLua_GetControlStateL, sputLua_NotifyControlHandlers); was Input_GetAxis. */
+
+float __cdecl stdControl_ReadAxis(int inputId)
 
 {
   float fVar1;
@@ -213,19 +223,23 @@ float __cdecl Input_GetAxis(int inputId)
   if (fVar2 <= 1e-05) {
     fVar1 = 0.0;
   }
-  if ((UINT_00805fa4 != 0) && (fVar1 != 0.0)) {
-    UINT_00805fa4 = 0;
+  if ((g_dwStdControl_bControlsIdle != 0) && (fVar1 != 0.0)) {
+    g_dwStdControl_bControlsIdle = 0;
   }
   return fVar1;
 }
 
-/* ---- 0x00477230  Input_GetButtonState ---- */
-int __cdecl Input_GetButtonState(int inputId,int *down,int *justPressed)
+/* ---- 0x00477230  stdControl_ReadKey ---- */
+/* Original name stdControl_ReadKey (the remaster's GrimFandango (Linux): aligned call in
+   sputLua_GetControlStateL, sputLua_NotifyControlHandlers, sputRender_ControlHandler); was
+   Input_GetButtonState. */
+
+int __cdecl stdControl_ReadKey(int inputId,int *down,int *justPressed)
 
 {
   if ((g_nInputAcquired != 0) && (UINT_00805fa0 == 0)) {
-    if ((UINT_00805fa4 != 0) && ((&UINT_00804018)[inputId * 7] != 0)) {
-      UINT_00805fa4 = 0;
+    if ((g_dwStdControl_bControlsIdle != 0) && ((&g_dwKeyInfo)[inputId * 7] != 0)) {
+      g_dwStdControl_bControlsIdle = 0;
     }
     if (down != (int *)0x0) {
       *down = (&UINT_0080402c)[inputId * 7];
@@ -233,7 +247,7 @@ int __cdecl Input_GetButtonState(int inputId,int *down,int *justPressed)
     if (justPressed != (int *)0x0) {
       *justPressed = (&UINT_00804030)[inputId * 7];
     }
-    return (&UINT_00804018)[inputId * 7];
+    return (&g_dwKeyInfo)[inputId * 7];
   }
   if (down != (int *)0x0) {
     *down = 0;
@@ -590,7 +604,7 @@ LAB_0047780b:
           (&UINT_00804024)[uVar1 * 7] = uVar2;
           if (uVar7 != 0) {
             (&UINT_0080402c)[uVar1 * 7] = (&UINT_0080402c)[uVar1 * 7] + 1;
-            (&UINT_00804018)[uVar1 * 7] = uVar7;
+            (&g_dwKeyInfo)[uVar1 * 7] = uVar7;
             goto LAB_0047780b;
           }
         }

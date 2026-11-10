@@ -149,7 +149,7 @@ undefined4 rdClip_Line2D(undefined4 param_1, undefined4 *param_2, undefined4 *pa
  *   orthographic plane (bound k): t = (k - P.c) / (C.c - P.c); the clipped coordinate is FLD/FSTP of k, the others
  *     (C - P)*t + P.  Intensity (PosUv): (C.i - P.i)*t + P.i.
  *   near / far: t = (k - P.y) / (C.y - P.y); y is a dword copy of fr[1] / fr[2]; z, then x as above; then intensity.
- * Every intersection ORs the plane's bit into the clip flags UINT_007f4ac4. */
+ * Every intersection ORs the plane's bit into the clip flags g_dwRdClip_faceStatus. */
 enum { Q1_GE, Q1_LE, Q1_NEAR, Q1_FAR };
 
 static int q1_pass(float *fr, int kidx, int c, int pat, int persp, uint flag, int n, float *in, float *out,
@@ -260,7 +260,7 @@ static int q1_pass(float *fr, int kidx, int c, int pat, int persp, uint flag, in
                 }
                 if (iin != 0)
                     iout[cnt - 1] = q1_st_f(((long double)*IC - *IP) * t + *IP);
-                UINT_007f4ac4 |= flag;
+                g_dwRdClip_faceStatus |= flag;
             }
             if (inC) {
                 float *o = out + cnt * 3;
@@ -283,20 +283,20 @@ static int q1_pass(float *fr, int kidx, int c, int pat, int persp, uint flag, in
 }
 
 /* The whole clip: the four side planes, near, far (when fr[0] != 0).  Positions ping-pong between the caller's array
- * and the static buffer UINT_007f48c0 (UINT_007f46ac = output, UINT_007f47b8 = input of the current pass); with
- * intensities (PosUv) they ping-pong between the caller's array and UINT_007f47c0 (UINT_007f46b0 = output,
- * UINT_007f4618 = input).  A pass that leaves fewer than 3 vertices ends the clip and returns that count (the near
+ * and the static buffer g_dwWorkVerts (g_dwDestVert = output, g_dwSourceVert = input of the current pass); with
+ * intensities (PosUv) they ping-pong between the caller's array and g_dwWorkIVerts (g_dwDestIVert = output,
+ * g_dwSourceIVert = input).  A pass that leaves fewer than 3 vertices ends the clip and returns that count (the near
  * pass also sets flag 0x40 then); otherwise the result is copied back (dwords) when it ended in the static buffer.
  * side[] = slope / bound indices of the x GE, x LE, z LE and z GE planes. */
 static uint q1_clip(int *param_1, float *pos, float *inten, int n, const int *side, int persp)
 {
     float *fr = (float *)param_1;
-    float *src = pos, *dst = (float *)&UINT_007f48c0, *isrc = inten, *idst = (float *)&UINT_007f47c0, *tmp;
+    float *src = pos, *dst = (float *)&g_dwWorkVerts, *isrc = inten, *idst = (float *)&g_dwWorkIVerts, *tmp;
     static const int coord[4] = {0, 0, 2, 2}, pat[4] = {Q1_GE, Q1_LE, Q1_LE, Q1_GE};
     static const uint bit[4] = {0x10, 0x20, 4, 8};
     int cnt = n, i;
 
-    UINT_007f4ac4 = 0;
+    g_dwRdClip_faceStatus = 0;
     for (i = 0; i < 6; i++) {
         if (i > 0) {
             if (i == 5 && param_1[0] == 0)
@@ -304,11 +304,11 @@ static uint q1_clip(int *param_1, float *pos, float *inten, int n, const int *si
             tmp = src; src = dst; dst = tmp;
             tmp = isrc; isrc = idst; idst = tmp;
         }
-        UINT_007f47b8 = (uint)src;
-        UINT_007f46ac = (uint)dst;
+        g_dwSourceVert = (uint)src;
+        g_dwDestVert = (uint)dst;
         if (inten != 0) {
-            UINT_007f4618 = (uint)isrc;
-            UINT_007f46b0 = (uint)idst;
+            g_dwSourceIVert = (uint)isrc;
+            g_dwDestIVert = (uint)idst;
         }
         if (i < 4)
             cnt = q1_pass(fr, side[i], coord[i], pat[i], persp, bit[i], cnt, src, dst, inten ? isrc : 0, idst);
@@ -318,7 +318,7 @@ static uint q1_clip(int *param_1, float *pos, float *inten, int n, const int *si
             cnt = q1_pass(fr, 2, 1, Q1_FAR, 0, 2, cnt, src, dst, inten ? isrc : 0, idst);
         if (cnt < 3) {
             if (i == 4)
-                UINT_007f4ac4 |= 0x40;
+                g_dwRdClip_faceStatus |= 0x40;
             return (uint)cnt;
         }
     }
@@ -332,48 +332,48 @@ static uint q1_clip(int *param_1, float *pos, float *inten, int n, const int *si
     return (uint)cnt;
 }
 
-/* ==== rdClip_Face3_Pos (0x004478c0) ====
+/* ==== rdClip_Face3W (0x004478c0) ====
  * Perspective clip of a position-only polygon: side slopes fr[9] (x, GE), fr[10] (x, LE), fr[7] (z, LE), fr[8] (z, GE).
  * Returns the new vertex count (cdecl, EAX; the x87 stack is left empty). */
-/* OVERRIDES: rdClip_Face3_Pos */
-uint rdClip_Face3_Pos(int *param_1, float *param_2, uint param_3)
+/* OVERRIDES: rdClip_Face3W */
+uint rdClip_Face3W(int *param_1, float *param_2, uint param_3)
 {
     static const int side[4] = {9, 10, 7, 8};
     return q1_clip(param_1, param_2, 0, (int)param_3, side, 1);
 }
 
-/* ==== rdClip_Face3_Pos_2 (0x004489b0) ====
- * Same machine code as rdClip_Face3_Pos with the slopes fr[12] (x, GE), fr[10] (x, LE), fr[11] (z, LE), fr[8] (z, GE)
+/* ==== rdClip_Face3S (0x004489b0) ====
+ * Same machine code as rdClip_Face3W with the slopes fr[12] (x, GE), fr[10] (x, LE), fr[11] (z, LE), fr[8] (z, GE)
  * (the zero constant it compares with is another copy of 0.0f). */
-/* OVERRIDES: rdClip_Face3_Pos_2 */
-uint rdClip_Face3_Pos_2(int *param_1, float *param_2, uint param_3)
+/* OVERRIDES: rdClip_Face3S */
+uint rdClip_Face3S(int *param_1, float *param_2, uint param_3)
 {
     static const int side[4] = {12, 10, 11, 8};
     return q1_clip(param_1, param_2, 0, (int)param_3, side, 1);
 }
 
-/* ==== rdClip_Face3_PosB (0x00448260), rdClip_Face3_PosB_2 (0x00449350) ====
+/* ==== rdClip_Face3WOrtho (0x00448260), rdClip_Face3SOrtho (0x00449350) ====
  * Orthographic clip of a position-only polygon: x bounds fr[3] (GE) / fr[5] (LE), z bounds fr[4] (LE) / fr[6] (GE).
  * The two functions are identical machine code. */
-/* OVERRIDES: rdClip_Face3_PosB */
-int rdClip_Face3_PosB(int *param_1, float *param_2, int param_3)
+/* OVERRIDES: rdClip_Face3WOrtho */
+int rdClip_Face3WOrtho(int *param_1, float *param_2, int param_3)
 {
     static const int side[4] = {3, 5, 4, 6};
     return (int)q1_clip(param_1, param_2, 0, param_3, side, 0);
 }
 
-/* OVERRIDES: rdClip_Face3_PosB_2 */
-int rdClip_Face3_PosB_2(int *param_1, float *param_2, int param_3)
+/* OVERRIDES: rdClip_Face3SOrtho */
+int rdClip_Face3SOrtho(int *param_1, float *param_2, int param_3)
 {
     static const int side[4] = {3, 5, 4, 6};
     return (int)q1_clip(param_1, param_2, 0, param_3, side, 0);
 }
 
-/* ==== rdClip_Face3_PosUv (0x0044a6d0) ====
+/* ==== rdClip_Face3GSOrtho (0x0044a6d0) ====
  * Orthographic clip (as PosB) of a polygon with one intensity per vertex (param_3; Ghidra's name is a guess, there are
  * no uvs).  rdPrimit3_ClipFace uses it for geometry 3 / lighting 3 with a non-perspective camera. */
-/* OVERRIDES: rdClip_Face3_PosUv */
-uint rdClip_Face3_PosUv(int *param_1, float *param_2, float *param_3, uint param_4)
+/* OVERRIDES: rdClip_Face3GSOrtho */
+uint rdClip_Face3GSOrtho(int *param_1, float *param_2, float *param_3, uint param_4)
 {
     static const int side[4] = {3, 5, 4, 6};
     return q1_clip(param_1, param_2, param_3, (int)param_4, side, 0);

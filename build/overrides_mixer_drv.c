@@ -641,7 +641,7 @@ void Insane_MemCopy(void *dst, void *src, uint n)
     memcpy(dst, src, n);
 }
 
-void Insane_MemCopyCdecl(void *dst, void *src, uint n)
+void msc_MemCopy(void *dst, void *src, uint n)
 {
     Insane_MemCopy(dst, src, n);
 }

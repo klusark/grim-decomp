@@ -76,13 +76,13 @@ extern float DAT_008dde94;           /* 16 * d(u/z)/dx */
 extern float DAT_008dde9c;           /* d(1/z)/dy */
 extern float DAT_008ddea0;           /* d(1/z)/dx */
 extern int UINT_008ddea4;            /* z-buffer shift */
-extern int DAT_008fbfc0[];           /* 65536 / n (span length) */
-extern float UINT_008fe000[];        /* 1.0f / n */
+extern int g_aRdRaster_OneOverNFixed[];           /* 65536 / n (span length) */
+extern float g_dwRdRaster_aOneOverNFlex[];        /* 1.0f / n */
 extern unsigned short DAT_00900524;  /* x87 control word: default */
 extern unsigned short DAT_00900528;  /* x87 control word: round toward zero, 24-bit precision */
 extern char *g_dwRdColormap_pCurMap;          /* the colormap; +0x338: the translucency table */
 extern char *g_pRdCamera_CurCamera;     /* 0x007f0fc8; +4: the canvas (+4 colour buffer, +0x10 z-buffer, +0x14 z shift) */
-extern float DAT_004dda90, DAT_004dda94, DAT_004dda98;  /* mip distance thresholds (10, 20, 40) */
+extern float DAT_004dda90, g_aRdroid_MipDistances, DAT_004dda98;  /* mip distance thresholds (10, 20, 40) */
 extern void Mem_DumpLog(void);       /* an empty function: the 8 bpp "span filler" of the opaque drivers */
 
 /* the edge record (0x44 bytes, on the driver's stack): x, dx (16.16), h (scan lines left), idx (current vertex); the
@@ -253,13 +253,13 @@ void rdRaster_Grad_Flat_4(int dbits)
         UINT_008dde54 = 0;
         break;
     case 1:
-        UINT_008dde54 = dist > DAT_004dda94 ? 1 : 0;
+        UINT_008dde54 = dist > g_aRdroid_MipDistances ? 1 : 0;
         break;
     case 2:
-        UINT_008dde54 = !(dist > DAT_004dda90) ? 0 : !(dist > DAT_004dda94) ? 1 : 2;
+        UINT_008dde54 = !(dist > DAT_004dda90) ? 0 : !(dist > g_aRdroid_MipDistances) ? 1 : 2;
         break;
     case 3:
-        UINT_008dde54 = !(dist > DAT_004dda90) ? 0 : !(dist > DAT_004dda94) ? 1 : !(dist > DAT_004dda98) ? 2 : 3;
+        UINT_008dde54 = !(dist > DAT_004dda90) ? 0 : !(dist > g_aRdroid_MipDistances) ? 1 : !(dist > DAT_004dda98) ? 2 : 3;
         break;
     }
     {
@@ -454,7 +454,7 @@ void NAME(q5_edge *L, q5_edge *R)                                               
         chunks = 0;                                                                                         \
     frac = xs - x0;                                                                                         \
     if (LIT) {                                                                                              \
-        dl = q5_mul16(R->l - L->l, DAT_008fbfc0[n]);                                                        \
+        dl = q5_mul16(R->l - L->l, g_aRdRaster_OneOverNFixed[n]);                                                        \
         if (dl < 0 && dl > -0x51e)                                                                          \
             dl = 0;                                                                                         \
         l = q5_mul16(frac, dl) + L->l;                                                                      \
@@ -478,7 +478,7 @@ void NAME(q5_edge *L, q5_edge *R)                                               
     v0 = q5_f(w * ovz);                                                                                     \
     if (first) {                                                                                            \
         long double k = first;                                                                              \
-        float rk = UINT_008fe000[first];                                                                    \
+        float rk = g_dwRdRaster_aOneOverNFlex[first];                                                                    \
         float oz1 = q5_f(k * DAT_008ddea0 + oz), uz1 = q5_f(k * DAT_008dde60 + ouz),                         \
               vz1 = q5_f(k * DAT_008dde80 + ovz);                                                           \
         w = 1.0f / (long double)oz1;                                                                        \
@@ -512,7 +512,7 @@ void NAME(q5_edge *L, q5_edge *R)                                               
     if (rem) {                                                                                              \
         if (--rem) {                                                                                        \
             long double k = rem;                                                                            \
-            float rk = UINT_008fe000[rem];                                                                  \
+            float rk = g_dwRdRaster_aOneOverNFlex[rem];                                                                  \
             w = 1.0f / ((k * DAT_008ddea0 - DAT_008dde4c) + oz);                                            \
             u1 = q5_f(((k * DAT_008dde60 - DAT_008dde94) + ouz) * w);                                       \
             v1 = q5_f(((k * DAT_008dde80 - DAT_008dde74) + ovz) * w);                                       \
@@ -678,7 +678,7 @@ void NAME(q5_edge *L, q5_edge *R)                                               
         chunks = 0;                                                                                         \
     frac = xs - x0;                                                                                         \
     if (LIT) {                                                                                              \
-        int dl = q5_mul16(R->l - L->l, DAT_008fbfc0[n]);                                                    \
+        int dl = q5_mul16(R->l - L->l, g_aRdRaster_OneOverNFixed[n]);                                                    \
         if (dl < 0 && dl > -0x51e)                                                                          \
             dl = 0;                                                                                         \
         UINT_007f4cb4 = dl;                                                                                 \
@@ -701,7 +701,7 @@ void NAME(q5_edge *L, q5_edge *R)                                               
     v0 = q5_f(w * ovz);                                                                                     \
     if (first) {                                                                                            \
         long double k = first;                                                                              \
-        float rk = UINT_008fe000[first];                                                                    \
+        float rk = g_dwRdRaster_aOneOverNFlex[first];                                                                    \
         float oz1 = q5_f(k * DAT_008ddea0 + oz), uz1 = q5_f(k * DAT_008dde60 + ouz),                         \
               vz1 = q5_f(k * DAT_008dde80 + ovz);                                                           \
         w = 1.0f / (long double)oz1;                                                                        \
@@ -734,7 +734,7 @@ void NAME(q5_edge *L, q5_edge *R)                                               
     if (rem) {                                                                                              \
         if (--rem) {                                                                                        \
             long double k = rem;                                                                            \
-            float rk = UINT_008fe000[rem];                                                                  \
+            float rk = g_dwRdRaster_aOneOverNFlex[rem];                                                                  \
             w = 1.0f / ((k * DAT_008ddea0 - DAT_008dde4c) + oz);                                            \
             u1 = q5_f(((k * DAT_008dde60 - DAT_008dde94) + ouz) * w);                                       \
             v1 = q5_f(((k * DAT_008dde80 - DAT_008dde74) + ovz) * w);                                       \
@@ -1262,7 +1262,7 @@ void NAME(int *s)                                                               
     UINT_007f4b3c = Q5_I(cd, 0x5c) + (((unsigned)Q5_I(cd, 0x18) >> 1) * s[2] + s[0]) * 2;                   \
     if (UINT_007f4b44) {                                                                                    \
         Q5_GF(DAT_007f4af4) = q5_f((long double)UINT_007f4b44);                                             \
-        Q5_GF(DAT_007f4b34) = q5_copy(UINT_008fe000[UINT_007f4b44]);                                        \
+        Q5_GF(DAT_007f4b34) = q5_copy(g_dwRdRaster_aOneOverNFlex[UINT_007f4b44]);                                        \
         Q5_GF(DAT_007f4b38) = q5_f((long double)Q5_GF(DAT_007f4af4) * DAT_008ddf1c + Q5_GF(DAT_007f4af8));  \
         Q5_GF(DAT_007f4b64) = q5_f((long double)Q5_GF(DAT_007f4af4) * DAT_008ddf20 + Q5_GF(DAT_007f4ae4));  \
         Q5_GF(DAT_007f4ad4) = q5_f((long double)Q5_GF(DAT_007f4af4) * DAT_008ddf38 + Q5_GF(DAT_007f4af0));  \
@@ -1290,7 +1290,7 @@ void NAME(int *s)                                                               
         k = --UINT_007f4acc;                                                                                \
         if (k) {                                                                                            \
             Q5_GF(DAT_007f4ac8) = q5_f((long double)k);                                                     \
-            Q5_GF(DAT_007f4aec) = q5_copy(UINT_008fe000[k]);                                                \
+            Q5_GF(DAT_007f4aec) = q5_copy(g_dwRdRaster_aOneOverNFlex[k]);                                                \
             Q5_GF(DAT_007f4b38) =                                                                           \
                 q5_f(((long double)Q5_GF(DAT_007f4ac8) * DAT_008ddf1c - DAT_008ddf28) + Q5_GF(DAT_007f4b38));\
             Q5_GF(DAT_007f4b64) =                                                                           \

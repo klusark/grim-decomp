@@ -596,11 +596,12 @@ Im_DecodeSoundBlock(undefined4 *param_1,int param_2,uint param_3,uint param_4,ui
   return (int)puVar2 - (int)param_1;
 }
 
-/* ---- 0x10001ba0  Im_CodecInit ---- */
+/* ---- 0x10001ba0  AudioLib_ResetCompressor ---- */
 /* Unidentified function of compressed audio decoding (VIMA/ADPCM style tables) - module name
-   inferred */
+   inferred Original name AudioLib_ResetCompressor (the remaster's GrimFandango (Linux): aligned
+   call in iRes_FOPEN); was Im_CodecInit. */
 
-void __cdecl Im_CodecInit(undefined1 *param_1)
+void __cdecl AudioLib_ResetCompressor(undefined1 *param_1)
 
 {
   param_1[1] = 0;
@@ -610,11 +611,12 @@ void __cdecl Im_CodecInit(undefined1 *param_1)
   return;
 }
 
-/* ---- 0x10001bc0  Im_ConvertBlock ---- */
+/* ---- 0x10001bc0  AudioLib_UncompressBlock ---- */
 /* Unidentified function of compressed audio decoding (VIMA/ADPCM style tables) - module name
-   inferred */
+   inferred Original name AudioLib_UncompressBlock (the remaster's GrimFandango (Linux): aligned
+   call in iRes_FREAD); was Im_ConvertBlock. */
 
-void __cdecl Im_ConvertBlock(byte *param_1,undefined2 *param_2,byte *param_3,uint param_4)
+void __cdecl AudioLib_UncompressBlock(byte *param_1,undefined2 *param_2,byte *param_3,uint param_4)
 
 {
   byte bVar1;
@@ -785,32 +787,34 @@ Im_ConvertBlockImpl(short *param_1,undefined2 *param_2,byte *param_3,int param_4
 #undef local_8
 
 
-/* ---- 0x10001f10  Im_DispatchInit ---- */
-/* iMUSE_Dispatch.c: allocates the dispatch slots */
+/* ---- 0x10001f10  DpInitialize ---- */
+/* iMUSE_Dispatch.c: allocates the dispatch slots Original name DpInitialize (the remaster's
+   GrimFandango (Linux): aligned call in TrInitialize); was Im_DispatchInit. */
 
-undefined4 Im_DispatchInit(void)
+undefined4 DpInitialize(void)
 
 {
   int iVar1;
   undefined4 *puVar2;
   
-  DAT_1002d808 = (**(code **)(g_dwSounds_pHS + 0x20))
-                           (g_dwImLargeFadeCount * g_dwImLargeFadeSize +
-                            g_dwImSmallFadeCount * g_dwImSmallFadeSize +
-                            (g_dwImSmallFadeCount + g_dwImLargeFadeCount) * 4,
-                            s_C__grimsrc_libs_iMUSE_Dispatch_c_100170c0,0x41);
-  if (DAT_1002d808 == 0) {
+  g_dwMemAddr = (**(code **)(g_dwSounds_pHS + 0x20))
+                          (g_dwImLargeFadeCount * g_dwImLargeFadeSize +
+                           g_dwImSmallFadeCount * g_dwImSmallFadeSize +
+                           (g_dwImSmallFadeCount + g_dwImLargeFadeCount) * 4,
+                           s_C__grimsrc_libs_iMUSE_Dispatch_c_100170c0,0x41);
+  if (g_dwMemAddr == 0) {
     return 0xffffffff;
   }
-  DAT_10024dd4 = DAT_1002d808 + g_dwImLargeFadeCount * g_dwImLargeFadeSize;
-  PTR_10025298 = (int *)((g_dwImLargeFadeSize + 4) * g_dwImLargeFadeCount + DAT_1002d808 +
-                        g_dwImSmallFadeCount * g_dwImSmallFadeSize);
-  PTR_10024dc8 = (int *)(DAT_1002d808 + g_dwImSmallFadeCount * g_dwImSmallFadeSize +
+  g_dwSmallFadeBufs = g_dwMemAddr + g_dwImLargeFadeCount * g_dwImLargeFadeSize;
+  g_pSmallFadeFlags =
+       (int *)((g_dwImLargeFadeSize + 4) * g_dwImLargeFadeCount + g_dwMemAddr +
+              g_dwImSmallFadeCount * g_dwImSmallFadeSize);
+  PTR_10024dc8 = (int *)(g_dwMemAddr + g_dwImSmallFadeCount * g_dwImSmallFadeSize +
                         g_dwImLargeFadeCount * g_dwImLargeFadeSize);
-  DAT_10024dcc = DAT_1002d808;
+  g_dwLargeFadeBufs = g_dwMemAddr;
   *PTR_10024dc8 = 0;
-  *PTR_10025298 = 0;
-  puVar2 = &DAT_10024de8;
+  *g_pSmallFadeFlags = 0;
+  puVar2 = &g_dwStreamZones;
   for (iVar1 = 300; iVar1 != 0; iVar1 = iVar1 + -1) {
     *puVar2 = 0;
     puVar2 = puVar2 + 1;
@@ -818,11 +822,13 @@ undefined4 Im_DispatchInit(void)
   return 0;
 }
 
-/* ---- 0x10002260  Im_SwitchStreamImpl ---- */
-/* Body of ImSwitchStream (sound, offset, fade, flags) */
+/* ---- 0x10002260  DpSwitchStream ---- */
+/* Body of ImSwitchStream (sound, offset, fade, flags) Original name DpSwitchStream (the remaster's
+   GrimFandango (Linux): case 0x1a of ImSoundCall calls it where the v1.01 dispatcher calls the
+   exported API that calls this function); was Im_SwitchStreamImpl. */
 
 undefined4 __cdecl
-Im_SwitchStreamImpl(int param_1,undefined4 param_2,uint param_3,uint param_4,uint param_5)
+DpSwitchStream(int param_1,undefined4 param_2,uint param_3,uint param_4,uint param_5)
 
 {
   int *piVar1;
@@ -834,26 +840,26 @@ Im_SwitchStreamImpl(int param_1,undefined4 param_2,uint param_3,uint param_4,uin
   int *piVar7;
   undefined4 *puVar8;
   
-  piVar7 = &DAT_100252a0;
-  Im_GuardEnter();
+  piVar7 = &g_dwDispatches;
+  ImWaveHalt();
   if (2000 < param_3) {
     param_3 = 2000;
   }
   iVar2 = 0;
-  if (0 < DAT_1003350c) {
+  if (0 < g_dwTrackCount) {
     do {
       if (((param_1 != 0) && (param_1 == *(int *)(*piVar7 + 0xc))) && (piVar7[0x207] != 0)) break;
       iVar2 = iVar2 + 1;
       piVar7 = piVar7 + 0x215;
-    } while (iVar2 < DAT_1003350c);
+    } while (iVar2 < g_dwTrackCount);
   }
-  if (iVar2 == DAT_1003350c) {
-    Im_GuardLeave();
+  if (iVar2 == g_dwTrackCount) {
+    ImWaveProceed();
     return 0xffffffff;
   }
   if (piVar7[0x209] != 0) {
     if (piVar7[1] == 0) {
-      Im_GuardLeave();
+      ImWaveProceed();
       return 0xffffffff;
     }
     if (piVar7[0x20b] != 0) {
@@ -863,10 +869,10 @@ Im_SwitchStreamImpl(int param_1,undefined4 param_2,uint param_3,uint param_4,uin
     if (*(uint *)(piVar7[0x209] + 0x10) <= uVar3) {
       uVar3 = *(uint *)(piVar7[0x209] + 0x10);
     }
-    DAT_10024dd0 = uVar3 - ((piVar7[1] >> 3) * piVar7[3] - 1U & uVar3);
-    iVar2 = iMUSE_Dispatch__35a0(&DAT_10024dd0);
+    g_dwLargeFadeFlags = uVar3 - ((piVar7[1] >> 3) * piVar7[3] - 1U & uVar3);
+    iVar2 = iMUSE_Dispatch__35a0(&g_dwLargeFadeFlags);
     piVar7[0x20b] = iVar2;
-    uVar3 = DAT_10024dd0;
+    uVar3 = g_dwLargeFadeFlags;
     if (iVar2 != 0) {
       piVar7[0x20e] = piVar7[1];
       piVar7[0x210] = piVar7[3];
@@ -884,9 +890,9 @@ Im_SwitchStreamImpl(int param_1,undefined4 param_2,uint param_3,uint param_4,uin
           if (0x3fff < uVar4) {
             uVar4 = 0x4000;
           }
-          puVar5 = (undefined4 *)iMUSE_stream__a420(piVar7[0x207],uVar4);
+          puVar5 = (undefined4 *)StReadData(piVar7[0x207],uVar4);
           if (puVar5 < (undefined4 *)0x10000) {
-            uVar4 = DAT_10024dd0 - piVar7[0x20d];
+            uVar4 = g_dwLargeFadeFlags - piVar7[0x20d];
             puVar5 = (undefined4 *)(piVar7[0x20d] + piVar7[0x20b]);
             for (uVar3 = uVar4 >> 2; uVar3 != 0; uVar3 = uVar3 - 1) {
               *puVar5 = 0;
@@ -896,7 +902,7 @@ Im_SwitchStreamImpl(int param_1,undefined4 param_2,uint param_3,uint param_4,uin
               *(undefined1 *)puVar5 = 0;
               puVar5 = (undefined4 *)((int)puVar5 + 1);
             }
-            piVar7[0x20d] = DAT_10024dd0;
+            piVar7[0x20d] = g_dwLargeFadeFlags;
             break;
           }
           puVar8 = (undefined4 *)(piVar7[0x20b] + piVar7[0x20d]);
@@ -905,7 +911,7 @@ Im_SwitchStreamImpl(int param_1,undefined4 param_2,uint param_3,uint param_4,uin
             puVar5 = puVar5 + 1;
             puVar8 = puVar8 + 1;
           }
-          for (uVar6 = uVar4 & 3; uVar3 = DAT_10024dd0, uVar6 != 0; uVar6 = uVar6 - 1) {
+          for (uVar6 = uVar4 & 3; uVar3 = g_dwLargeFadeFlags, uVar6 != 0; uVar6 = uVar6 - 1) {
             *(undefined1 *)puVar8 = *(undefined1 *)puVar5;
             puVar5 = (undefined4 *)((int)puVar5 + 1);
             puVar8 = (undefined4 *)((int)puVar8 + 1);
@@ -916,49 +922,50 @@ Im_SwitchStreamImpl(int param_1,undefined4 param_2,uint param_3,uint param_4,uin
       }
     }
   }
-  Im_FadesClearSound(*(int *)(*piVar7 + 0xc),-1);
-  Im_ClearTriggerImpl(*(int *)(*piVar7 + 0xc),(byte *)0xffffffff,-1);
+  FdStopFade(*(int *)(*piVar7 + 0xc),-1);
+  TgClearTrigger(*(int *)(*piVar7 + 0xc),(byte *)0xffffffff,-1);
   *(undefined4 *)(*piVar7 + 0xc) = param_2;
-  uVar3 = Im_FindTrack(piVar7[0x207]);
-  iMUSE_stream__a500(piVar7[0x207],uVar3);
+  uVar3 = StGetValidSize(piVar7[0x207]);
+  StEraseFromFront(piVar7[0x207],uVar3);
   if ((param_5 != 0) && (piVar1 = piVar7 + 0x209, piVar7[0x209] != 0)) {
-    iMUSE_stream__a5a0((undefined4 *)piVar7[0x207],param_2,piVar7[5]);
+    StSpliceStream((undefined4 *)piVar7[0x207],param_2,piVar7[5]);
     iVar2 = *(int *)(*piVar1 + 4);
     while (iVar2 != 0) {
       *(undefined4 *)(iVar2 + 8) = 0;
-      iMUSE_stream__b7a0((int *)(*piVar1 + 4),*(int **)(*piVar1 + 4));
+      UtRemoveFromList((int *)(*piVar1 + 4),*(int **)(*piVar1 + 4));
       iVar2 = *(int *)(*piVar1 + 4);
     }
     *(undefined4 *)(*piVar1 + 0x10) = 0;
-    Im_GuardLeave();
+    ImWaveProceed();
     return 0;
   }
-  iMUSE_stream__a5a0((undefined4 *)piVar7[0x207],param_2,0);
+  StSpliceStream((undefined4 *)piVar7[0x207],param_2,0);
   piVar1 = piVar7 + 0x209;
   iVar2 = piVar7[0x209];
   while (iVar2 != 0) {
     *(undefined4 *)(iVar2 + 8) = 0;
-    iMUSE_stream__b7a0(piVar1,(int *)*piVar1);
+    UtRemoveFromList(piVar1,(int *)*piVar1);
     iVar2 = *piVar1;
   }
   *(undefined1 *)(piVar7 + 7) = 0;
   piVar7[6] = 0;
   piVar7[5] = 0;
-  iVar2 = Im_DispatchAllocBuffers(piVar7);
+  iVar2 = GoToNextRegion(piVar7);
   if ((iVar2 != 0) && (iVar2 != -3)) {
-    Im_FreeTrack((int *)*piVar7);
-    Im_GuardLeave();
+    TrStopTrack((int *)*piVar7);
+    ImWaveProceed();
     return 0xffffffff;
   }
-  Im_GuardLeave();
+  ImWaveProceed();
   return 0;
 }
 
-/* ---- 0x10002570  Im_DispatchMixTrack ---- */
+/* ---- 0x10002570  DpProcessTrack ---- */
 /* WARNING: Removing unreachable block (ram,0x10002950) */
-/* Pulls decoded data for one track and mixes it (Im_MixSamples) */
+/* Pulls decoded data for one track and mixes it (Im_MixSamples) Original name DpProcessTrack (the
+   remaster's GrimFandango (Linux): aligned call in TrIntHandler); was Im_DispatchMixTrack. */
 
-void __cdecl Im_DispatchMixTrack(int *param_1,uint param_2,uint param_3)
+void __cdecl DpProcessTrack(int *param_1,uint param_2,uint param_3)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -974,7 +981,7 @@ void __cdecl Im_DispatchMixTrack(int *param_1,uint param_2,uint param_3)
   
   piVar1 = (int *)param_1[2];
   if ((piVar1[0x207] != 0) && (piVar1[0x209] != 0)) {
-    iMUSE_Dispatch__3130(piVar1);
+    PredictStream(piVar1);
   }
   if (piVar1[0x20b] != 0) {
     uVar2 = (uint)(piVar1[0x20d] << 3) / (uint)(piVar1[0x20e] * piVar1[0x210]);
@@ -990,8 +997,8 @@ void __cdecl Im_DispatchMixTrack(int *param_1,uint param_2,uint param_3)
     if (uVar3 != 0) {
       uVar2 = uVar3 * piVar1[0x20e] * piVar1[0x210] >> 3;
       iVar4 = iMUSE_Dispatch__3510(piVar1,uVar2);
-      Im_MixSamples((short *)(piVar1[0x20b] + piVar1[0x20c]),uVar3,piVar1[0x20e],piVar1[0x210],
-                    piVar1[4],local_8,0,iVar4,param_1[9]);
+      Mixer_MxMix((short *)(piVar1[0x20b] + piVar1[0x20c]),uVar3,piVar1[0x20e],piVar1[0x210],
+                  piVar1[4],local_8,0,iVar4,param_1[9]);
       iVar4 = piVar1[0x20d];
       piVar1[0x20c] = piVar1[0x20c] + uVar2;
       piVar1[0x20d] = iVar4 - uVar2;
@@ -1004,11 +1011,11 @@ LAB_10002693:
   local_4 = 0;
   do {
     if (piVar1[6] == 0) {
-      DAT_10024de0 = 0;
-      iVar4 = Im_DispatchAllocBuffers(piVar1);
+      g_dwFadeStartedFlag = 0;
+      iVar4 = GoToNextRegion(piVar1);
       if (iVar4 != 0) {
         if (iVar4 == -1) {
-          Im_FreeTrack(param_1);
+          TrStopTrack(param_1);
         }
         if (piVar1[0x20b] == 0) {
           return;
@@ -1019,7 +1026,7 @@ LAB_10002693:
         piVar1[0x212] = piVar1[0x212] + param_2;
         return;
       }
-      if (DAT_10024de0 != 0) {
+      if (g_dwFadeStartedFlag != 0) {
         uVar2 = (uint)(piVar1[0x20d] << 3) / (uint)(piVar1[0x20e] * piVar1[0x210]);
         uVar6 = piVar1[0x20f] * param_1[0xc] >> 8;
         uVar3 = (param_2 * uVar6) / param_3;
@@ -1030,8 +1037,8 @@ LAB_10002693:
         }
         uVar2 = uVar3 * piVar1[0x20e] * piVar1[0x210] >> 3;
         iVar4 = iMUSE_Dispatch__3510(piVar1,uVar2);
-        Im_MixSamples((short *)(piVar1[0x20b] + piVar1[0x20c]),uVar3,piVar1[0x20e],piVar1[0x210],
-                      piVar1[4],local_8,local_4,iVar4,param_1[9]);
+        Mixer_MxMix((short *)(piVar1[0x20b] + piVar1[0x20c]),uVar3,piVar1[0x20e],piVar1[0x210],
+                    piVar1[4],local_8,local_4,iVar4,param_1[9]);
         iVar4 = piVar1[0x20d];
         piVar1[0x20c] = piVar1[0x20c] + uVar2;
         piVar1[0x20d] = iVar4 - uVar2;
@@ -1053,26 +1060,27 @@ LAB_10002693:
       local_8 = uVar2;
     }
     if (local_8 == 0) {
-      Im_FreeTrack(param_1);
+      TrStopTrack(param_1);
       return;
     }
     uVar2 = local_8 * piVar1[3] * piVar1[1] >> 3;
     if (piVar1[0x207] == 0) {
-      iVar4 = iMUSE_dsound__4540(param_1[3]);
+      iVar4 = FmGetSoundAddr(param_1[3]);
       if (iVar4 == 0) {
         return;
       }
       psVar5 = (short *)(iVar4 + piVar1[5]);
     }
     else {
-      psVar5 = (short *)iMUSE_stream__a420(piVar1[0x207],uVar2);
+      psVar5 = (short *)StReadData(piVar1[0x207],uVar2);
       if (psVar5 == (short *)0x0) {
         piVar1[0x20a] = 1;
         if ((piVar1[0x20b] != 0) && (piVar1[0x211] != 0)) {
           piVar1[0x212] = piVar1[0x212] + param_2;
         }
-        Im_QueryStreamTrack(piVar1[0x207],(undefined4 *)&DAT_1002d810,(undefined4 *)&DAT_10024ddc,
-                            (int *)&DAT_1002d7e0,(undefined4 *)&DAT_1002d7e4);
+        StQueryStream(piVar1[0x207],(undefined4 *)&g_dwDpProcessTrack_bufSize,
+                      (undefined4 *)&g_dwDpProcessTrack_critSize,(int *)&g_dwDpProcessTrack_curLevel
+                      ,(undefined4 *)&g_dwDpProcessTrack_pauseFlag);
         return;
       }
       *(uint *)(piVar1[0x209] + 0xc) = *(int *)(piVar1[0x209] + 0xc) + uVar2;
@@ -1097,7 +1105,7 @@ LAB_100028ef:
       if (piVar1[0x20b] == 0) goto LAB_100028ef;
       iVar4 = iMUSE_Dispatch__34b0(piVar1);
     }
-    Im_MixSamples(psVar5,local_8,piVar1[1],piVar1[3],piVar1[4],uVar3,local_4,iVar4,param_1[9]);
+    Mixer_MxMix(psVar5,local_8,piVar1[1],piVar1[3],piVar1[4],uVar3,local_4,iVar4,param_1[9]);
     local_4 = local_4 + uVar3;
     piVar1[5] = piVar1[5] + uVar2;
     piVar1[6] = piVar1[6] - uVar2;
@@ -1108,11 +1116,12 @@ LAB_100028ef:
 #undef local_8
 
 
-/* ---- 0x10002a60  Im_DispatchAllocBuffers ---- */
+/* ---- 0x10002a60  GoToNextRegion ---- */
 /* WARNING: Removing unreachable block (ram,0x10002cfb) */
-/* Unidentified function of iMUSE_Dispatch.c (command dispatch, fades, triggers) */
+/* Original name GoToNextRegion (the remaster's GrimFandango (Linux): aligned call in
+   DpProcessTrack, DpStartSound, DpSwitchStream); was Im_DispatchAllocBuffers. */
 
-int __cdecl Im_DispatchAllocBuffers(int *param_1)
+int __cdecl GoToNextRegion(int *param_1)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1151,16 +1160,16 @@ int __cdecl Im_DispatchAllocBuffers(int *param_1)
                 puVar4 = (undefined4 *)param_1[0x209];
                 piVar1 = param_1 + 0x209;
                 if ((puVar4[4] != 0) || (puVar4[1] == 0)) {
-                  iMUSE_Dispatch__3250(param_1,puVar4,(int)piVar7,1);
+                  PrepareToJump(param_1,puVar4,(int)piVar7,1);
                 }
                 *(undefined4 *)(*piVar1 + 8) = 0;
-                iMUSE_stream__b7a0(piVar1,(int *)*piVar1);
+                UtRemoveFromList(piVar1,(int *)*piVar1);
                 if (*(int *)(*piVar1 + 0x14) != 0) {
                   if (param_1[0x20b] != 0) {
                     iMUSE_Dispatch__3640(param_1[0x20b]);
                   }
-                  DAT_1002d7e8 = *(uint *)(*piVar1 + 0x10);
-                  iVar3 = iMUSE_Dispatch__35a0(&DAT_1002d7e8);
+                  g_dwGoToNextRegion_fadeSize = *(uint *)(*piVar1 + 0x10);
+                  iVar3 = iMUSE_Dispatch__35a0(&g_dwGoToNextRegion_fadeSize);
                   param_1[0x20b] = iVar3;
                   if (iVar3 != 0) {
                     param_1[0x20c] = 0;
@@ -1172,13 +1181,13 @@ int __cdecl Im_DispatchAllocBuffers(int *param_1)
                     param_1[0x212] = 0;
                     param_1[0x213] = 0x7f0000;
                     param_1[0x214] = 0;
-                    if (DAT_1002d7e8 != 0) {
+                    if (g_dwGoToNextRegion_fadeSize != 0) {
                       do {
-                        uVar6 = DAT_1002d7e8 - param_1[0x20d];
+                        uVar6 = g_dwGoToNextRegion_fadeSize - param_1[0x20d];
                         if (0x3fff < uVar6) {
                           uVar6 = 0x4000;
                         }
-                        puVar4 = (undefined4 *)iMUSE_stream__a420(param_1[0x207],uVar6);
+                        puVar4 = (undefined4 *)StReadData(param_1[0x207],uVar6);
                         puVar8 = (undefined4 *)(param_1[0x20d] + param_1[0x20b]);
                         for (uVar5 = uVar6 >> 2; uVar5 != 0; uVar5 = uVar5 - 1) {
                           *puVar8 = *puVar4;
@@ -1192,12 +1201,12 @@ int __cdecl Im_DispatchAllocBuffers(int *param_1)
                         }
                         iVar3 = param_1[0x20d];
                         param_1[0x20d] = iVar3 + uVar6;
-                      } while (iVar3 + uVar6 < DAT_1002d7e8);
+                      } while (iVar3 + uVar6 < g_dwGoToNextRegion_fadeSize);
                     }
-                    DAT_10024de0 = 1;
+                    g_dwFadeStartedFlag = 1;
                   }
                   *(undefined4 *)(param_1[0x209] + 8) = 0;
-                  iMUSE_stream__b7a0(param_1 + 0x209,(int *)param_1[0x209]);
+                  UtRemoveFromList(param_1 + 0x209,(int *)param_1[0x209]);
                 }
               }
               piVar7 = (int *)0x0;
@@ -1275,7 +1284,7 @@ int __cdecl Im_DispatchFetchNext(int *param_1)
   }
   piVar3 = param_1 + 0x207;
   if (*piVar3 == 0) {
-    puVar5 = (undefined1 *)iMUSE_dsound__4570(*(uint *)(*param_1 + 0xc));
+    puVar5 = (undefined1 *)FmGetMapAddr(*(uint *)(*param_1 + 0xc));
     if (puVar5 == (undefined1 *)0x0) {
       return -1;
     }
@@ -1330,7 +1339,7 @@ int __cdecl Im_DispatchFetchNext(int *param_1)
       puVar8 = Im_VimaDecompress(puVar7,(int *)0x0,&local_54,(uint *)0x0,&local_58,(int *)0x0,
                                  (uint *)&param_1);
       piVar4[5] = (int)puVar8 - (int)puVar7;
-      iVar6 = iMUSE_stream__a420(piVar4[0x207],(int)puVar8 - (int)puVar7);
+      iVar6 = StReadData(piVar4[0x207],(int)puVar8 - (int)puVar7);
       if (iVar6 == 0) {
         return -1;
       }
@@ -1374,7 +1383,7 @@ int __cdecl Im_DispatchFetchNext(int *param_1)
   if (iVar6 == 0) {
     return -3;
   }
-  puVar9 = (undefined4 *)iMUSE_stream__a420(piVar4[0x207],uVar2);
+  puVar9 = (undefined4 *)StReadData(piVar4[0x207],uVar2);
   if (puVar9 == (undefined4 *)0x0) {
     return -1;
   }
@@ -1392,7 +1401,7 @@ LAB_10002f3c:
       piVar4[0x209] = (int)puVar9;
       if (puVar9 != (undefined4 *)0x0) {
         puVar9[3] = piVar4[5];
-        iVar6 = Im_FindTrack(piVar4[0x207]);
+        iVar6 = StGetValidSize(piVar4[0x207]);
         *(int *)(piVar4[0x209] + 0x10) = iVar6;
         *(undefined4 *)(piVar4[0x209] + 0x14) = 0;
         return 0;
@@ -1407,10 +1416,11 @@ LAB_10002f3c:
 #undef local_58
 
 
-/* ---- 0x100036b0  Im_DSoundInit ---- */
-/* iMUSE_dsound.c */
+/* ---- 0x100036b0  DwInitialize ---- */
+/* iMUSE_dsound.c Original name DwInitialize (the remaster's GrimFandango (Linux): aligned call in
+   TrInitialize); was Im_DSoundInit. */
 
-undefined4 __cdecl Im_DSoundInit(undefined4 param_1,undefined4 *param_2)
+undefined4 __cdecl DwInitialize(undefined4 param_1,undefined4 *param_2)
 
 {
   int iVar1;
@@ -1434,12 +1444,13 @@ undefined4 __cdecl Im_DSoundInit(undefined4 param_1,undefined4 *param_2)
   return 0;
 }
 
-/* ---- 0x10003730  Im_DSoundHeartbeat ---- */
+/* ---- 0x10003730  DwQuery ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-/* Fills the DirectSound stream buffer from the mixer once per tick */
+/* Fills the DirectSound stream buffer from the mixer once per tick Original name DwQuery (the
+   remaster's GrimFandango (Linux): aligned call in TrIntHandler); was Im_DSoundHeartbeat. */
 
-int __cdecl Im_DSoundHeartbeat(int **buf_out,uint *count_out,int *rate_out)
+int __cdecl DwQuery(int **buf_out,uint *count_out,int *rate_out)
 
 {
   int iVar1;
@@ -1458,7 +1469,7 @@ int __cdecl Im_DSoundHeartbeat(int **buf_out,uint *count_out,int *rate_out)
     DAT_1002d848 = DAT_1002d848 ^ 1;
     if (DAT_1002d848 == 0) {
       piVar3 = (int *)0x0;
-      if (DAT_1002d84c != 0) {
+      if (g_dwCurrentWriteIndex != 0) {
         DAT_1002d848 = 0;
         if ((DAT_1002d854 != (undefined4 *)0x0) && (DAT_1002d820 != 0)) {
           piVar3 = DAT_1002d818;
@@ -1488,7 +1499,7 @@ int __cdecl Im_DSoundHeartbeat(int **buf_out,uint *count_out,int *rate_out)
         }
         iVar1 = (**(code_std **)(*PTR_1002d83c + 0x4c))
                           (PTR_1002d83c,DAT_1002d850,DAT_1002d82c,DAT_1002d854,DAT_1002d820);
-        DAT_1002d84c = 0;
+        g_dwCurrentWriteIndex = 0;
         return iVar1;
       }
     }
@@ -1519,7 +1530,7 @@ int __cdecl Im_DSoundHeartbeat(int **buf_out,uint *count_out,int *rate_out)
               piVar2 = piVar7;
             }
             *puVar8 = 0x5622;
-            DAT_1002d84c = 1;
+            g_dwCurrentWriteIndex = 1;
             piVar3 = piVar2;
           }
         }
@@ -1531,12 +1542,13 @@ int __cdecl Im_DSoundHeartbeat(int **buf_out,uint *count_out,int *rate_out)
 #endif
 
 
-/* ---- 0x100038d0  Im_DSoundShutdown ---- */
+/* ---- 0x100038d0  DwTerminate ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-/* Unidentified function of iMUSE_dsound.c (DirectSound output) */
+/* Original name DwTerminate (the remaster's GrimFandango (Linux): called by TrTerminate at the same
+   place); was Im_DSoundShutdown. */
 
-undefined4 Im_DSoundShutdown(void)
+undefined4 DwTerminate(void)
 
 {
   DAT_1002d844 = 1;
@@ -1646,28 +1658,30 @@ void __cdecl Im_DSoundCreateBuffer(int param_1)
 #endif
 
 
-/* ---- 0x10003ac0  Im_DSoundReset ---- */
-/* Unidentified function of iMUSE_dsound.c (DirectSound output) */
+/* ---- 0x10003ac0  FdInitialize ---- */
+/* Original name FdInitialize (the remaster's GrimFandango (Linux): aligned call in ImInitialize);
+   was Im_DSoundReset. */
 
-undefined4 Im_DSoundReset(void)
+undefined4 FdInitialize(void)
 
 {
   int iVar1;
   undefined4 *puVar2;
   
-  puVar2 = &DAT_1002d860;
+  puVar2 = &g_dwFades;
   for (iVar1 = 0xa0; iVar1 != 0; iVar1 = iVar1 + -1) {
     *puVar2 = 0;
     puVar2 = puVar2 + 1;
   }
-  DAT_1002d858 = 0;
+  g_dwFadesOn = 0;
   return 0;
 }
 
-/* ---- 0x10003ae0  Im_DSoundSave ---- */
-/* Unidentified function of iMUSE_dsound.c (DirectSound output) */
+/* ---- 0x10003ae0  FdSave ---- */
+/* Original name FdSave (the remaster's GrimFandango (Linux): aligned call in ImSave); was
+   Im_DSoundSave. */
 
-undefined4 __cdecl Im_DSoundSave(undefined4 *param_1,uint param_2)
+undefined4 __cdecl FdSave(undefined4 *param_1,uint param_2)
 
 {
   int iVar1;
@@ -1676,7 +1690,7 @@ undefined4 __cdecl Im_DSoundSave(undefined4 *param_1,uint param_2)
   if (param_2 < 0x280) {
     return 0xfffffffb;
   }
-  puVar2 = &DAT_1002d860;
+  puVar2 = &g_dwFades;
   for (iVar1 = 0xa0; iVar1 != 0; iVar1 = iVar1 + -1) {
     *param_1 = *puVar2;
     puVar2 = puVar2 + 1;
@@ -1685,29 +1699,32 @@ undefined4 __cdecl Im_DSoundSave(undefined4 *param_1,uint param_2)
   return 0x280;
 }
 
-/* ---- 0x10003b10  Im_DSoundRestore ---- */
-/* Unidentified function of iMUSE_dsound.c (DirectSound output) */
+/* ---- 0x10003b10  FdRestore ---- */
+/* Original name FdRestore (the remaster's GrimFandango (Linux): aligned call in ImRestore); was
+   Im_DSoundRestore. */
 
-undefined4 __cdecl Im_DSoundRestore(undefined4 *param_1)
+undefined4 __cdecl FdRestore(undefined4 *param_1)
 
 {
   int iVar1;
   undefined4 *puVar2;
   
-  puVar2 = &DAT_1002d860;
+  puVar2 = &g_dwFades;
   for (iVar1 = 0xa0; iVar1 != 0; iVar1 = iVar1 + -1) {
     *puVar2 = *param_1;
     param_1 = param_1 + 1;
     puVar2 = puVar2 + 1;
   }
-  DAT_1002d858 = 1;
+  g_dwFadesOn = 1;
   return 0x280;
 }
 
-/* ---- 0x10003b40  Im_FadeParamImpl ---- */
-/* Body of ImFadeParam: allocates a fade slot for (sound, param, target, duration) */
+/* ---- 0x10003b40  FdFadeParam ---- */
+/* Body of ImFadeParam: allocates a fade slot for (sound, param, target, duration) Original name
+   FdFadeParam (the remaster's GrimFandango (Linux): case 0xe of ImSoundCall calls it where the
+   v1.01 dispatcher calls the exported API that calls this function); was Im_FadeParamImpl. */
 
-undefined4 __cdecl Im_FadeParamImpl(int param_1,int param_2,uint param_3,int param_4)
+undefined4 __cdecl FdFadeParam(int param_1,int param_2,uint param_3,int param_4)
 
 {
   int iVar1;
@@ -1715,13 +1732,13 @@ undefined4 __cdecl Im_FadeParamImpl(int param_1,int param_2,uint param_3,int par
   uint uVar3;
   int *piVar4;
   
-  piVar4 = &DAT_1002d860;
+  piVar4 = &g_dwFades;
   if (((param_1 == 0) || (param_4 < 0)) ||
      ((param_2 != 0x500 && (((param_2 != 0x600 && (param_2 != 0x700)) && (param_2 != 0x800)))))) {
     return 0xfffffffb;
   }
   iVar1 = (param_4 * 5) / 6;
-  Im_FadesClearSound(param_1,param_2);
+  FdStopFade(param_1,param_2);
   if (iVar1 != 0) {
     iVar2 = 0;
     do {
@@ -1740,7 +1757,7 @@ undefined4 __cdecl Im_FadeParamImpl(int param_1,int param_2,uint param_3,int par
         }
         piVar4[8] = 0;
         *piVar4 = 1;
-        DAT_1002d858 = 1;
+        g_dwFadesOn = 1;
         piVar4[7] = iVar2 % iVar1;
         return 0;
       }
@@ -1757,16 +1774,17 @@ undefined4 __cdecl Im_FadeParamImpl(int param_1,int param_2,uint param_3,int par
   return 0;
 }
 
-/* ---- 0x10003c70  Im_FadesClearSound ---- */
-/* Unidentified function of iMUSE_dsound.c (DirectSound output) */
+/* ---- 0x10003c70  FdStopFade ---- */
+/* Original name FdStopFade (the remaster's GrimFandango (Linux): aligned call in DpSwitchStream,
+   FdFadeParam, TrStopTrack); was Im_FadesClearSound. */
 
-void __cdecl Im_FadesClearSound(int param_1,int param_2)
+void __cdecl FdStopFade(int param_1,int param_2)
 
 {
   int *piVar1;
   int iVar2;
   
-  piVar1 = &DAT_1002d860;
+  piVar1 = &g_dwFades;
   iVar2 = 0x10;
   do {
     if (((*piVar1 != 0) && (piVar1[1] == param_1)) && ((piVar1[2] == param_2 || (param_2 == -1)))) {
@@ -1778,10 +1796,11 @@ void __cdecl Im_FadesClearSound(int param_1,int param_2)
   return;
 }
 
-/* ---- 0x10003cb0  Im_FadesHeartbeat ---- */
-/* Steps every active fade and applies the parameter */
+/* ---- 0x10003cb0  FdIntHandler ---- */
+/* Steps every active fade and applies the parameter Original name FdIntHandler (the remaster's
+   GrimFandango (Linux): aligned call in ImHeartbeat); was Im_FadesHeartbeat. */
 
-uint Im_FadesHeartbeat(void)
+uint FdIntHandler(void)
 
 {
   uint uVar1;
@@ -1790,15 +1809,15 @@ uint Im_FadesHeartbeat(void)
   uint *puVar4;
   int iVar5;
   
-  uVar1 = DAT_1002d858;
-  if (DAT_1002d858 != 0) {
-    DAT_1002d858 = 0;
+  uVar1 = g_dwFadesOn;
+  if (g_dwFadesOn != 0) {
+    g_dwFadesOn = 0;
     puVar4 = &DAT_1002d880;
     iVar5 = 0x10;
     do {
       if (puVar4[-8] != 0) {
         uVar1 = puVar4[-4];
-        DAT_1002d858 = 1;
+        g_dwFadesOn = 1;
         puVar4[-4] = uVar1 - 1;
         if (uVar1 - 1 == 0) {
           puVar4[-8] = 0;
@@ -1922,21 +1941,22 @@ void FUN_10004970(void)
   return;
 }
 
-/* ---- 0x100049b0  Im_GroupsInit ---- */
-/* Unidentified function of iMUSE_dsound.c (DirectSound output) */
+/* ---- 0x100049b0  GrInitialize ---- */
+/* Original name GrInitialize (the remaster's GrimFandango (Linux): aligned call in ImInitialize);
+   was Im_GroupsInit. */
 
-undefined4 Im_GroupsInit(void)
+undefined4 GrInitialize(void)
 
 {
   int iVar1;
   undefined4 *puVar2;
   
-  puVar2 = &DAT_1002ddc0;
+  puVar2 = &g_dwGroupEffVols;
   for (iVar1 = 0x10; iVar1 != 0; iVar1 = iVar1 + -1) {
     *puVar2 = 0x7f;
     puVar2 = puVar2 + 1;
   }
-  puVar2 = &DAT_1002dd80;
+  puVar2 = &g_dwGroupVols;
   for (iVar1 = 0x10; iVar1 != 0; iVar1 = iVar1 + -1) {
     *puVar2 = 0x7f;
     puVar2 = puVar2 + 1;
@@ -1944,10 +1964,11 @@ undefined4 Im_GroupsInit(void)
   return 0;
 }
 
-/* ---- 0x100049e0  Im_SetGroupVolImpl ---- */
-/* Unidentified function of iMUSE_dsound.c (DirectSound output) */
+/* ---- 0x100049e0  GrSetGroupVol ---- */
+/* Original name GrSetGroupVol (the remaster's GrimFandango (Linux): aligned call in ImHeartbeat,
+   ImSetGroupVol); was Im_SetGroupVolImpl. */
 
-undefined4 __cdecl Im_SetGroupVolImpl(uint param_1,uint param_2)
+undefined4 __cdecl GrSetGroupVol(uint param_1,uint param_2)
 
 {
   undefined4 uVar1;
@@ -1958,15 +1979,15 @@ undefined4 __cdecl Im_SetGroupVolImpl(uint param_1,uint param_2)
     return 0xfffffffb;
   }
   if (param_2 == 0xffffffff) {
-    return (&DAT_1002dd80)[param_1];
+    return (&g_dwGroupVols)[param_1];
   }
   if (0x7f < param_2) {
     return 0xfffffffb;
   }
-  uVar1 = (&DAT_1002dd80)[param_1];
+  uVar1 = (&g_dwGroupVols)[param_1];
   if (param_1 == 0) {
-    DAT_1002dd80 = param_2;
-    DAT_1002ddc0 = param_2;
+    g_dwGroupVols = param_2;
+    g_dwGroupEffVols = param_2;
     iVar2 = 0;
     do {
       iVar3 = iVar2 + 4;
@@ -1974,74 +1995,81 @@ undefined4 __cdecl Im_SetGroupVolImpl(uint param_1,uint param_2)
            (int)((*(int *)((int)&DAT_1002dd84 + iVar2) + 1) * param_2) >> 7;
       iVar2 = iVar3;
     } while (iVar3 < 0x3c);
-    Im_GuardEnter();
-    Im_UpdateGroupVolumes();
-    Im_GuardLeave();
+    ImWaveHalt();
+    TrUpdateVols();
+    ImWaveProceed();
     return uVar1;
   }
-  (&DAT_1002dd80)[param_1] = param_2;
-  (&DAT_1002ddc0)[param_1] = (int)((param_2 + 1) * DAT_1002dd80) >> 7;
-  Im_GuardEnter();
-  Im_UpdateGroupVolumes();
-  Im_GuardLeave();
+  (&g_dwGroupVols)[param_1] = param_2;
+  (&g_dwGroupEffVols)[param_1] = (int)((param_2 + 1) * g_dwGroupVols) >> 7;
+  ImWaveHalt();
+  TrUpdateVols();
+  ImWaveProceed();
   return uVar1;
 }
 
-/* ---- 0x10004a80  Im_GetGroupVol ---- */
-/* Unidentified function of iMUSE_dsound.c (DirectSound output) */
+/* ---- 0x10004a80  GrGetGroupEffVol ---- */
+/* Original name GrGetGroupEffVol (the remaster's GrimFandango (Linux): aligned call in TrSetParam,
+   TrStartSound, TrUpdateVols); was Im_GetGroupVol. */
 
-undefined4 __cdecl Im_GetGroupVol(uint param_1)
+undefined4 __cdecl GrGetGroupEffVol(uint param_1)
 
 {
   if (0xf < param_1) {
     return 0xfffffffb;
   }
-  return (&DAT_1002ddc0)[param_1];
+  return (&g_dwGroupEffVols)[param_1];
 }
 
-/* ---- 0x10004f50  Im_GuardEnter ---- */
+/* ---- 0x10004f50  ImWaveHalt ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-/* Guard enter: INC [DAT_100172c0], NOT atomic (no LOCK) and NOT a lock: it does not exclude any
+/* Guard enter: INC [g_dwWvSlicingHalted], NOT atomic (no LOCK) and NOT a lock: it does not exclude any
    thread, ImHeartbeat only skips itself while it is nonzero. Called at the start of most Im* entry
-   points. */
+   points. Original name ImWaveHalt (the remaster's GrimFandango (Linux): aligned call in
+   ImGetParam, ImStartStream, ImStopAllSounds); was Im_GuardEnter. */
 
-void Im_GuardEnter(void)
+void ImWaveHalt(void)
 
 {
-  DAT_100172c0 = DAT_100172c0 + 1;
+  g_dwWvSlicingHalted = g_dwWvSlicingHalted + 1;
   return;
 }
 #endif
 
 
-/* ---- 0x10004f60  Im_GuardLeave ---- */
+/* ---- 0x10004f60  ImWaveProceed ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Guard leave: load, if nonzero decrement, store (three separate steps, not atomic). Two threads
    leaving at the same moment both read 2 and both store 1: the counter stays 1 for good (a lost
    update), and ImHeartbeat (which only runs at 0) never runs again: every track freezes and every
    wait for a sound spins forever. Seen on the original with the heartbeat (WINMM timer thread) and
-   ImGetParam of the main thread 171 us apart. */
+   ImGetParam of the main thread 171 us apart. Original name ImWaveProceed (the remaster's
+   GrimFandango (Linux): aligned call in ImGetParam, ImStartStream, ImStopAllSounds); was
+   Im_GuardLeave. */
 
-int Im_GuardLeave(void)
+int ImWaveProceed(void)
 
 {
-  if (DAT_100172c0 != 0) {
-    DAT_100172c0 = DAT_100172c0 + -1;
+  if (g_dwWvSlicingHalted != 0) {
+    g_dwWvSlicingHalted = g_dwWvSlicingHalted + -1;
   }
-  return DAT_100172c0;
+  return g_dwWvSlicingHalted;
 }
 #endif
 
 
-/* ---- 0x10004f70  Im_DispatchCommand ---- */
+/* ---- 0x10004f70  ImSoundCall ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-/* Single-entry command dispatcher: switches on the command id and calls the Im* API */
+/* Single-entry command dispatcher: switches on the command id and calls the Im* API Original name
+   ImSoundCall (the remaster's GrimFandango (Linux): the command switch: the same case numbers
+   0..0x1d call the same API (ImSoundCall calls the Tr, Fd and Tg handlers, the API inlined)); was
+   Im_DispatchCommand. */
 
 uint __cdecl
-Im_DispatchCommand(uint cmd,int a2,int a3,int a4,int a5,int a6,int a7,int a8,int a9,int a10,int a11)
+ImSoundCall(uint cmd,int a2,int a3,int a4,int a5,int a6,int a7,int a8,int a9,int a10,int a11)
 
 {
   uint uVar1;
@@ -2139,13 +2167,14 @@ Im_DispatchCommand(uint cmd,int a2,int a3,int a4,int a5,int a6,int a7,int a8,int
 #endif
 
 
-/* ---- 0x10005360  Im_MixerInit ---- */
+/* ---- 0x10005360  MxInitialize ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
-/* iMUSE_Mixer.c */
+/* iMUSE_Mixer.c Original name MxInitialize (the remaster's GrimFandango (Linux): called by
+   TrInitialize (paired) at the same place); was Im_MixerInit. */
 
-undefined4 __cdecl Im_MixerInit(undefined4 *param_1)
+undefined4 __cdecl MxInitialize(undefined4 *param_1)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -2196,10 +2225,11 @@ undefined4 __cdecl Im_MixerInit(undefined4 *param_1)
 #endif
 
 
-/* ---- 0x10005490  Im_MixerReset ---- */
-/* Unidentified function of iMUSE_Mixer.c (software mixing / resampling) */
+/* ---- 0x10005490  MxTerminate ---- */
+/* Original name MxTerminate (the remaster's GrimFandango (Linux): called by TrTerminate at the same
+   place, body similarity); was Im_MixerReset. */
 
-undefined4 Im_MixerReset(void)
+undefined4 MxTerminate(void)
 
 {
   (**(code **)(g_dwSounds_pHS + 0x24))(g_dwSoftLTable);
@@ -2207,10 +2237,11 @@ undefined4 Im_MixerReset(void)
   return 0;
 }
 
-/* ---- 0x100054c0  Im_MixerHeartbeat ---- */
-/* Unidentified function of iMUSE_Mixer.c (software mixing / resampling) */
+/* ---- 0x100054c0  MxBeginMix ---- */
+/* Original name MxBeginMix (the remaster's GrimFandango (Linux): aligned call in TrIntHandler); was
+   Im_MixerHeartbeat. */
 
-undefined4 Im_MixerHeartbeat(void)
+undefined4 MxBeginMix(void)
 
 {
   uint uVar1;
@@ -2230,12 +2261,14 @@ undefined4 Im_MixerHeartbeat(void)
   return 0;
 }
 
-/* ---- 0x100054f0  Im_MixSamples ---- */
-/* Dispatches to the four mix loops by channel count and volume mode */
+/* ---- 0x100054f0  Mixer_MxMix ---- */
+/* Dispatches to the four mix loops by channel count and volume mode Original name MxMix, written
+   Mixer_MxMix (the mixer module; the bridge refuses the bare name) (the remaster's GrimFandango
+   (Linux): aligned call in DpProcessTrack); was Im_MixSamples. */
 
 void __cdecl
-Im_MixSamples(short *param_1,int param_2,int param_3,int param_4,int param_5,uint param_6,
-             uint param_7,int param_8,int param_9)
+Mixer_MxMix(short *param_1,int param_2,int param_3,int param_4,int param_5,uint param_6,uint param_7
+           ,int param_8,int param_9)
 
 {
   uint uVar1;
@@ -2333,8 +2366,9 @@ undefined4 __cdecl MxEndMix(int *param_1,int param_2)
           if (iVar3 == 0) {
             if (g_dwRecordFile != (int *)0x0) {
               ImFile_Read(g_dwRecordFile,0,0);
-              Im_DecodeSoundBlock((undefined4 *)&DAT_1002df30,5,0x5622,0x10,2,g_dwDataSizeInBytes);
-              ImFile_Open(&DAT_1002df30,0x2c,1,g_dwRecordFile);
+              Im_DecodeSoundBlock((undefined4 *)&g_aMxEndMix_wavHeader,5,0x5622,0x10,2,
+                                  g_dwDataSizeInBytes);
+              ImFile_Open(&g_aMxEndMix_wavHeader,0x2c,1,g_dwRecordFile);
               ImFile_Close(g_dwRecordFile);
               g_dwRecordFile = (int *)0x0;
             }
@@ -3436,10 +3470,11 @@ void FUN_10007110(void)
   return;
 }
 
-/* ---- 0x100089b0  Im_SoundsFindByName ---- */
-/* Unidentified function of iMUSE_sounds.c (sound resource slots) */
+/* ---- 0x100089b0  LoadLip ---- */
+/* Original name LoadLip (the remaster's GrimFandango (Linux): aligned call in CacheGetSoundId,
+   SoundsRegisterVoice); was Im_SoundsFindByName. */
 
-undefined4 __cdecl Im_SoundsFindByName(undefined4 param_1,char *param_2)
+undefined4 __cdecl LoadLip(undefined4 param_1,char *param_2)
 
 {
   int iVar1;
@@ -3460,7 +3495,7 @@ undefined4 __cdecl Im_SoundsFindByName(undefined4 param_1,char *param_2)
       return 1;
     }
     if (param_2 == (char *)0x2710) {
-      DAT_10031e70 = param_2;
+      g_dwLipStreamID = param_2;
       iVar3 = 0;
       param_2 = &DAT_1002f3e8;
     }
@@ -3498,7 +3533,7 @@ undefined4 __cdecl Im_SoundsFindByName(undefined4 param_1,char *param_2)
         if (!bVar5) {
           switch(iVar3) {
           case 0:
-            DAT_10031e70 = (char *)0x0;
+            g_dwLipStreamID = (char *)0x0;
             return 0;
           case 1:
             DAT_10031e74 = (char *)0x0;
@@ -3526,8 +3561,8 @@ undefined4 __cdecl Im_SoundsFindByName(undefined4 param_1,char *param_2)
 void __cdecl Im_SoundsFreeSlot(int param_1)
 
 {
-  if (param_1 == DAT_10031e70) {
-    DAT_10031e70 = 0;
+  if (param_1 == g_dwLipStreamID) {
+    g_dwLipStreamID = 0;
   }
   if (param_1 == DAT_10031e74) {
     DAT_10031e74 = 0;
@@ -3551,7 +3586,7 @@ int iMUSE_GetPhoneme(int param_1,int param_2)
   int iVar4;
   
                     /* 0x8bb0  78  iMUSE_GetPhoneme */
-  if (param_1 == DAT_10031e70) {
+  if (param_1 == g_dwLipStreamID) {
     iVar1 = SoundGetVoiceTime();
     iVar1 = FUN_10008c40(param_1,iVar1 + param_2);
     return iVar1;
@@ -3588,7 +3623,7 @@ int __cdecl FUN_10008c40(int param_1,int param_2)
   int iVar4;
   
   if (param_1 == 10000) {
-    if (DAT_10031e70 == 0) {
+    if (g_dwLipStreamID == 0) {
       return 0;
     }
     puVar1 = &DAT_1002f3e8;
@@ -3848,7 +3883,7 @@ uint * grimSound_LipSyncLoad(uint *param_1)
     (**(code **)(g_dwSounds_pHS + 0x18))(IMG_ADDR(0x1001e99c),s_C__grimsrc_libs_iMUSE_sounds_c_1001e8e0,0x845)
     ;
   }
-  piVar1 = Im_SoundsLoad(param_1,&DAT_1001e900);
+  piVar1 = iRes_FOPEN(param_1,&DAT_1001e900);
   if (piVar1 == (int *)0x0) {
     return (uint *)0x0;
   }
@@ -3869,8 +3904,8 @@ uint * grimSound_LipSyncLoad(uint *param_1)
            (**(code **)(g_dwSounds_pHS + 0x20))
                      (uVar3,s_C__grimsrc_libs_iMUSE_sounds_c_1001e8e0,0x85e);
   puVar2[9] = (uint)puVar4;
-  Im_SoundsReadBlock(piVar1,puVar4,uVar3);
-  Im_SoundsUnload(piVar1);
+  iRes_FREAD(piVar1,puVar4,uVar3);
+  iRes_FCLOSE(piVar1);
   return puVar2;
 }
 
@@ -3900,10 +3935,12 @@ void FUN_10009700(void)
   return;
 }
 
-/* ---- 0x10009710  Im_SoundsLoad ---- */
-/* iMUSE_sounds.c: opens the sound file into a slot */
+/* ---- 0x10009710  iRes_FOPEN ---- */
+/* iMUSE_sounds.c: opens the sound file into a slot Original name iRes_FOPEN (the remaster's
+   GrimFandango (Linux): aligned call in CacheGetSoundId, SoundsRegisterVoice,
+   grimSound_LipSyncLoad); was Im_SoundsLoad. */
 
-int * __cdecl Im_SoundsLoad(uint *param_1,char *param_2)
+int * __cdecl iRes_FOPEN(uint *param_1,char *param_2)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -3949,25 +3986,25 @@ int * __cdecl Im_SoundsLoad(uint *param_1,char *param_2)
     (**(code **)(g_dwSounds_pHS + 0x4c))(piVar2,0,0);
     return piVar2;
   }
-  if (DAT_10031e8c == 0) {
+  if (g_dwIRes_csInit == 0) {
     InitializeCriticalSection(IMG_ADDR(0x1002fbb8));
-    DAT_10031e8c = 1;
+    g_dwIRes_csInit = 1;
   }
   EnterCriticalSection(IMG_ADDR(0x1002fbb8));
-  iVar7 = *(int *)(&DAT_100303a0 + DAT_10031e88 * 0x8c);
-  iVar8 = DAT_10031e88;
+  iVar7 = *(int *)(&g_aMcmpFileHandles + g_dwNextToAllocate * 0x8c);
+  iVar8 = g_dwNextToAllocate;
   while (iVar7 != 0) {
     uVar9 = (int)(iVar8 + 1U) >> 0x1f;
     iVar3 = ((iVar8 + 1U ^ uVar9) - uVar9 & 0x1f ^ uVar9) - uVar9;
-    if (iVar3 == DAT_10031e88) break;
+    if (iVar3 == g_dwNextToAllocate) break;
     iVar8 = iVar3;
-    iVar7 = *(int *)(&DAT_100303a0 + iVar3 * 0x8c);
+    iVar7 = *(int *)(&g_aMcmpFileHandles + iVar3 * 0x8c);
   }
   iVar7 = iVar8 * 0x8c;
-  if (*(int *)(&DAT_100303a0 + iVar8 * 0x8c) == 0) {
-    DAT_10031e88 = iVar8;
+  if (*(int *)(&g_aMcmpFileHandles + iVar8 * 0x8c) == 0) {
+    g_dwNextToAllocate = iVar8;
     LeaveCriticalSection(IMG_ADDR(0x1002fbb8));
-    *(int **)(&DAT_100303a0 + iVar7) = piVar2;
+    *(int **)(&g_aMcmpFileHandles + iVar7) = piVar2;
     *(undefined4 *)(&DAT_100303a8 + iVar7) = 0;
     (**(code **)(g_dwSounds_pHS + 0x38))(piVar2,&param_2,2);
     uVar6 = CONCAT11((char)param_2,(char)((uint)param_2 >> 8));
@@ -4030,13 +4067,13 @@ int * __cdecl Im_SoundsLoad(uint *param_1,char *param_2)
     *(int *)(&DAT_100303a4 + iVar7) = iVar3;
     *(int *)(*(int *)(&DAT_100303c4 + iVar7) + ((uint)param_2 & 0xffff) * 4) = iStack_10;
     (**(code **)(g_dwSounds_pHS + 0x24))(pbStack_4);
-    Im_CodecInit((undefined1 *)(iVar7 + IMG_ADDR(0x100303d4)));
+    AudioLib_ResetCompressor((undefined1 *)(iVar7 + IMG_ADDR(0x100303d4)));
     *(undefined4 *)(&DAT_100303cc + iVar7) = 0;
     *(undefined4 *)(&DAT_100303d0 + iVar7) = 0;
     *(undefined4 *)(&DAT_100303c8 + iVar7) = 0xffffffff;
     Im_MemCopy((uint *)(iVar7 + IMG_ADDR(0x100303da)),param_1,0x50);
     (&DAT_10030429)[iVar7] = 0;
-    return (int *)(&DAT_100303a0 + iVar7);
+    return (int *)(&g_aMcmpFileHandles + iVar7);
   }
   (**(code **)(g_dwSounds_pHS + 0x34))(piVar2);
   return (int *)0x0;
@@ -4048,10 +4085,11 @@ int * __cdecl Im_SoundsLoad(uint *param_1,char *param_2)
 #undef uStack_14
 
 
-/* ---- 0x10009b20  Im_SoundsUnload ---- */
-/* Unidentified function of iMUSE_sounds.c (sound resource slots) */
+/* ---- 0x10009b20  iRes_FCLOSE ---- */
+/* Original name iRes_FCLOSE (the remaster's GrimFandango (Linux): the close of the iRes_FOPEN /
+   iRes_FREAD file layer, body similarity); was Im_SoundsUnload. */
 
-undefined4 __cdecl Im_SoundsUnload(undefined4 *param_1)
+undefined4 __cdecl iRes_FCLOSE(undefined4 *param_1)
 
 {
   undefined4 uVar1;
@@ -4077,10 +4115,11 @@ undefined4 __cdecl Im_SoundsUnload(undefined4 *param_1)
   return uVar1;
 }
 
-/* ---- 0x10009b90  Im_SoundsReadBlock ---- */
-/* Unidentified function of iMUSE_sounds.c (sound resource slots) */
+/* ---- 0x10009b90  iRes_FREAD ---- */
+/* Original name iRes_FREAD (the remaster's GrimFandango (Linux): aligned call in CacheGetSoundId,
+   grimSound_LipSyncLoad); was Im_SoundsReadBlock. */
 
-uint __cdecl Im_SoundsReadBlock(undefined4 *param_1,undefined4 *param_2,uint param_3)
+uint __cdecl iRes_FREAD(undefined4 *param_1,undefined4 *param_2,uint param_3)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -4104,7 +4143,7 @@ uint __cdecl Im_SoundsReadBlock(undefined4 *param_1,undefined4 *param_2,uint par
   
   local_c = (byte *)0x0;
   local_4 = 0;
-  if ((param_1 < &DAT_100303a0) || ((undefined4 *)IMG_ADDR(0x1003151f) < param_1)) {
+  if ((param_1 < &g_aMcmpFileHandles) || ((undefined4 *)IMG_ADDR(0x1003151f) < param_1)) {
     uVar7 = (**(code **)(g_dwSounds_pHS + 0x38))(param_1,param_2,param_3);
     return uVar7;
   }
@@ -4161,7 +4200,7 @@ uint __cdecl Im_SoundsReadBlock(undefined4 *param_1,undefined4 *param_2,uint par
         pcVar12 = pcVar12 + 1;
       } while (bVar15);
       if (bVar15) {
-        Im_ConvertBlock((byte *)(param_1 + 0xd),(undefined2 *)param_1[0xc],local_c,uVar7);
+        AudioLib_UncompressBlock((byte *)(param_1 + 0xd),(undefined2 *)param_1[0xc],local_c,uVar7);
       }
       else {
         uVar6 = *(uint *)(param_1[8] + iVar8 * 4);
@@ -4324,28 +4363,31 @@ int __cdecl iMUSE_SetVoiceEffect(uint *param_1)
   return g_dwUseVoxFx;
 }
 
-/* ---- 0x1000a1e0  Im_TracksInit ---- */
+/* ---- 0x1000a1e0  StInitialize ---- */
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
-    */
+   Original name StInitialize (the remaster's GrimFandango (Linux): aligned call in TrInitialize);
+   was Im_TracksInit. */
 
-undefined4 Im_TracksInit(void)
+undefined4 StInitialize(void)
 
 {
   undefined4 *puVar1;
   
-  puVar1 = &DAT_10031e98;
+  puVar1 = &g_dwStreams;
   do {
     *puVar1 = 0;
     puVar1 = puVar1 + 0xc;
   } while ((int)puVar1 < IMG_ADDR(0x10031f28));
-  DAT_10031e90 = 0;
+  g_dwLastStreamLoaded = 0;
   return 0;
 }
 
-/* ---- 0x1000a300  Im_ProcessStreamsImpl ---- */
-/* Refills every streaming track (Im_RefillStreamTrack) */
+/* ---- 0x1000a300  StProcessStreams ---- */
+/* Refills every streaming track (Im_RefillStreamTrack) Original name StProcessStreams (the
+   remaster's GrimFandango (Linux): case 0x1b of ImSoundCall calls it where the v1.01 dispatcher
+   calls the exported API that calls this function); was Im_ProcessStreamsImpl. */
 
-undefined4 Im_ProcessStreamsImpl(void)
+undefined4 StProcessStreams(void)
 
 {
   uint uVar1;
@@ -4357,9 +4399,9 @@ undefined4 Im_ProcessStreamsImpl(void)
   uint *puVar7;
   
   puVar5 = (uint *)0x0;
-  Im_GuardEnter();
-  iMUSE_Dispatch__2a00();
-  puVar2 = &DAT_10031e98;
+  ImWaveHalt();
+  DpPredictStreams();
+  puVar2 = &g_dwStreams;
   puVar6 = (uint *)0x0;
   do {
     puVar7 = puVar6;
@@ -4377,49 +4419,50 @@ LAB_1000a408:
   else {
     if (puVar5 == (uint *)0x0) {
       if (puVar7 != (uint *)0x0) {
-        Im_RefillStreamTrack(puVar7);
-        Im_GuardLeave();
+        Stream_LoadData(puVar7);
+        ImWaveProceed();
         return 0;
       }
       goto LAB_1000a408;
     }
-    uVar3 = Im_FindTrack((int)puVar7);
+    uVar3 = StGetValidSize((int)puVar7);
     uVar1 = puVar7[7];
-    uVar4 = Im_FindTrack((int)puVar5);
+    uVar4 = StGetValidSize((int)puVar5);
     if (uVar3 < uVar1) {
       if (puVar5[7] <= uVar4) {
-        Im_RefillStreamTrack(puVar7);
-        Im_GuardLeave();
+        Stream_LoadData(puVar7);
+        ImWaveProceed();
         return 0;
       }
-      if (DAT_10031e90 == puVar7) {
-        Im_RefillStreamTrack(puVar7);
-        Im_RefillStreamTrack(puVar5);
-        Im_GuardLeave();
+      if (g_dwLastStreamLoaded == puVar7) {
+        Stream_LoadData(puVar7);
+        Stream_LoadData(puVar5);
+        ImWaveProceed();
         return 0;
       }
-      Im_RefillStreamTrack(puVar5);
-      Im_RefillStreamTrack(puVar7);
-      Im_GuardLeave();
+      Stream_LoadData(puVar5);
+      Stream_LoadData(puVar7);
+      ImWaveProceed();
       return 0;
     }
-    if ((puVar5[7] <= uVar4) && (DAT_10031e90 == puVar7)) {
-      Im_RefillStreamTrack(puVar7);
-      Im_GuardLeave();
+    if ((puVar5[7] <= uVar4) && (g_dwLastStreamLoaded == puVar7)) {
+      Stream_LoadData(puVar7);
+      ImWaveProceed();
       return 0;
     }
   }
-  Im_RefillStreamTrack(puVar5);
+  Stream_LoadData(puVar5);
 LAB_1000a415:
-  Im_GuardLeave();
+  ImWaveProceed();
   return 0;
 }
 
-/* ---- 0x1000a580  Im_FindTrack ---- */
+/* ---- 0x1000a580  StGetValidSize ---- */
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
-    */
+   Original name StGetValidSize (the remaster's GrimFandango (Linux): aligned call in PredictStream,
+   StQueryStream, StReadData); was Im_FindTrack. */
 
-int __cdecl Im_FindTrack(int param_1)
+int __cdecl StGetValidSize(int param_1)
 
 {
   int iVar1;
@@ -4431,32 +4474,32 @@ int __cdecl Im_FindTrack(int param_1)
   return iVar1;
 }
 
-/* ---- 0x1000a5e0  Im_QueryStreamTrack ---- */
+/* ---- 0x1000a5e0  StQueryStream ---- */
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
-    */
+   Original name StQueryStream (the remaster's GrimFandango (Linux): aligned call in DpProcessTrack,
+   TrQueryStream); was Im_QueryStreamTrack. */
 
 undefined4 __cdecl
-Im_QueryStreamTrack(int param_1,undefined4 *param_2,undefined4 *param_3,int *param_4,
-                   undefined4 *param_5)
+StQueryStream(int param_1,undefined4 *param_2,undefined4 *param_3,int *param_4,undefined4 *param_5)
 
 {
   int iVar1;
   
-  iMUSE_Dispatch__2a00();
+  DpPredictStreams();
   *param_2 = *(undefined4 *)(param_1 + 0x14);
   *param_3 = *(undefined4 *)(param_1 + 0x1c);
-  iVar1 = Im_FindTrack(param_1);
+  iVar1 = StGetValidSize(param_1);
   *param_4 = iVar1;
   *param_5 = *(undefined4 *)(param_1 + 0x2c);
   return 0;
 }
 
-/* ---- 0x1000a620  Im_FeedStreamTrack ---- */
+/* ---- 0x1000a620  StFeedStream ---- */
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
-    */
+   Original name StFeedStream (the remaster's GrimFandango (Linux): called by TrFeedStream at the
+   same place, body similarity); was Im_FeedStreamTrack. */
 
-undefined4 __cdecl
-Im_FeedStreamTrack(int param_1,undefined4 *param_2,uint param_3,undefined4 param_4)
+undefined4 __cdecl StFeedStream(int param_1,undefined4 *param_2,uint param_3,undefined4 param_4)
 
 {
   int iVar1;
@@ -4472,7 +4515,7 @@ Im_FeedStreamTrack(int param_1,undefined4 *param_2,uint param_3,undefined4 param
   }
   if (iVar1 + -4 < (int)param_3) {
     iVar1 = param_3 - (iVar1 + -4);
-    iMUSE_stream__a500(param_1,(iVar1 - iVar1 % 0xc) + 0xc);
+    StEraseFromFront(param_1,(iVar1 - iVar1 % 0xc) + 0xc);
   }
   if (0 < (int)param_3) {
     uVar3 = *(uint *)(param_1 + 0x14);
@@ -4508,12 +4551,14 @@ Im_FeedStreamTrack(int param_1,undefined4 *param_2,uint param_3,undefined4 param
   return 0;
 }
 
-/* ---- 0x1000a6d0  Im_RefillStreamTrack ---- */
+/* ---- 0x1000a6d0  Stream_LoadData ---- */
 /* Refills the stream buffer of one track from its file. Drops the guard (Im_GuardLeave) around the
    blocking read and takes it again after: net 0 only when the caller holds the guard
-   (Im_Scheduler_a300 does). */
+   (Im_Scheduler_a300 does). Original name LoadData, written Stream_LoadData (the stream module; the
+   bridge refuses the bare name) (the remaster's GrimFandango (Linux): aligned call in
+   StProcessStreams); was Im_RefillStreamTrack. */
 
-undefined4 __cdecl Im_RefillStreamTrack(uint *param_1)
+undefined4 __cdecl Stream_LoadData(uint *param_1)
 
 {
   uint uVar1;
@@ -4523,7 +4568,7 @@ undefined4 __cdecl Im_RefillStreamTrack(uint *param_1)
   uint uVar5;
   
   if (param_1[2] == 0) {
-    uVar1 = iMUSE_dsound__45c0(*param_1,0,2);
+    uVar1 = FmSeek(*param_1,0,2);
     param_1[2] = uVar1;
   }
   iVar2 = param_1[10] - param_1[9];
@@ -4547,21 +4592,21 @@ undefined4 __cdecl Im_RefillStreamTrack(uint *param_1)
       if ((int)(param_1[5] - param_1[9]) <= (int)uVar1) {
         uVar3 = param_1[5] - param_1[9];
       }
-      uVar4 = iMUSE_dsound__45c0(*param_1,param_1[1],0);
+      uVar4 = FmSeek(*param_1,param_1[1],0);
       if (uVar4 != param_1[1]) {
         param_1[0xb] = 1;
         return 0;
       }
-      DAT_10031e94 = 0;
-      Im_GuardLeave();
-      uVar4 = iMUSE_dsound__4600(*param_1,param_1[4] + param_1[9],uVar3);
-      Im_GuardEnter();
-      if (DAT_10031e94 != 0) {
+      g_dwBailFlag = 0;
+      ImWaveProceed();
+      uVar4 = FmRead(*param_1,param_1[4] + param_1[9],uVar3);
+      ImWaveHalt();
+      if (g_dwBailFlag != 0) {
         return 0;
       }
       uVar1 = uVar1 - uVar4;
       param_1[1] = param_1[1] + uVar4;
-      DAT_10031e90 = param_1;
+      g_dwLastStreamLoaded = param_1;
       uVar5 = param_1[9] + uVar4;
       param_1[9] = uVar5;
       if (param_1[5] <= uVar5) {
@@ -4572,16 +4617,17 @@ undefined4 __cdecl Im_RefillStreamTrack(uint *param_1)
         return 0;
       }
     }
-    DAT_10031e90 = (uint *)0x0;
+    g_dwLastStreamLoaded = (uint *)0x0;
   }
   return 0;
 }
 
-/* ---- 0x1000a7e0  Im_InitSubsystems ---- */
+/* ---- 0x1000a7e0  TrInitialize ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
-/* DirectSound, mixer, dispatch and track tables */
+/* DirectSound, mixer, dispatch and track tables Original name TrInitialize (the remaster's
+   GrimFandango (Linux): aligned call in ImInitialize); was Im_InitSubsystems. */
 
-undefined4 Im_InitSubsystems(void)
+undefined4 TrInitialize(void)
 
 {
   int iVar1;
@@ -4589,36 +4635,36 @@ undefined4 Im_InitSubsystems(void)
   undefined4 *puVar3;
   undefined4 *puVar4;
   
-  DAT_1003350c = g_dwImWaveMixCount;
+  g_dwTrackCount = g_dwImWaveMixCount;
   g_dwPauseTimer = 0;
-  DAT_10032300 = 0;
+  g_dwTrackList = 0;
   _DAT_10032308 = 0x5622;
-  iVar2 = Im_DSoundInit(0x5622,(undefined4 *)&DAT_100322f0);
+  iVar2 = DwInitialize(0x5622,(undefined4 *)&g_aTrInitialize_waveDriverInfo);
   if (iVar2 != 0) {
     return 0xffffffff;
   }
-  iVar2 = Im_MixerInit((undefined4 *)&DAT_100322f0);
+  iVar2 = MxInitialize((undefined4 *)&g_aTrInitialize_waveDriverInfo);
   if (iVar2 != 0) {
     return 0xffffffff;
   }
-  iVar2 = Im_DispatchInit();
+  iVar2 = DpInitialize();
   if (iVar2 != 0) {
     return 0xffffffff;
   }
-  iVar2 = Im_TracksInit();
+  iVar2 = StInitialize();
   if (iVar2 != 0) {
     return 0xffffffff;
   }
   iVar2 = 0;
-  if (0 < DAT_1003350c) {
+  if (0 < g_dwTrackCount) {
     puVar4 = &DAT_10031f30;
     do {
       puVar4[-1] = 0;
       puVar4[-2] = 0;
-      puVar3 = iMUSE_Dispatch__1ff0(iVar2);
+      puVar3 = DpGetDp(iVar2);
       *puVar4 = puVar3;
       *puVar3 = puVar4 + -2;
-      iVar1 = DAT_1003350c;
+      iVar1 = g_dwTrackCount;
       puVar4[1] = 0;
       puVar4 = puVar4 + 0xf;
       iVar2 = iVar2 + 1;
@@ -4627,25 +4673,27 @@ undefined4 Im_InitSubsystems(void)
   return 0;
 }
 
-/* ---- 0x1000a8a0  Im_ShutdownSubsystems ---- */
+/* ---- 0x1000a8a0  TrTerminate ---- */
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
-    */
+   Original name TrTerminate (the remaster's GrimFandango (Linux): case 0x1 of ImSoundCall calls it
+   where the v1.01 dispatcher calls the exported API that calls this function); was
+   Im_ShutdownSubsystems. */
 
-int Im_ShutdownSubsystems(void)
+int TrTerminate(void)
 
 {
   int iVar1;
   
-  Im_StopAllSoundsImpl();
-  iVar1 = Im_DSoundShutdown();
+  TrStopAllSounds();
+  iVar1 = DwTerminate();
   if (iVar1 != 0) {
     return -1;
   }
-  iVar1 = iMUSE_Dispatch__1fd0();
+  iVar1 = DpTerminate();
   if (iVar1 != 0) {
     return -1;
   }
-  iVar1 = Im_MixerReset();
+  iVar1 = MxTerminate();
   return -(uint)(iVar1 != 0);
 }
 
@@ -4657,9 +4705,9 @@ int Im_ShutdownSubsystems(void)
 void TrPause(void)
 
 {
-  Im_GuardEnter();
+  ImWaveHalt();
   g_dwPauseTimer = 1;
-  Im_GuardLeave();
+  ImWaveProceed();
   return;
 }
 
@@ -4671,17 +4719,18 @@ void TrPause(void)
 void TrResume(void)
 
 {
-  Im_GuardEnter();
+  ImWaveHalt();
   g_dwPauseTimer = 0;
-  Im_GuardLeave();
+  ImWaveProceed();
   return;
 }
 
-/* ---- 0x1000a910  Im_SaveImpl ---- */
+/* ---- 0x1000a910  TrSave ---- */
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
-    */
+   Original name TrSave (the remaster's GrimFandango (Linux): aligned call in ImSave); was
+   Im_SaveImpl. */
 
-int __cdecl Im_SaveImpl(undefined4 *param_1,uint param_2)
+int __cdecl TrSave(undefined4 *param_1,uint param_2)
 
 {
   int iVar1;
@@ -4689,14 +4738,14 @@ int __cdecl Im_SaveImpl(undefined4 *param_1,uint param_2)
   undefined4 *puVar3;
   undefined4 *puVar4;
   
-  Im_GuardEnter();
-  iVar1 = iMUSE_Dispatch__2010(param_1,param_2);
+  ImWaveHalt();
+  iVar1 = DpSave(param_1,param_2);
   if (iVar1 < 0) {
-    Im_GuardLeave();
+    ImWaveProceed();
     return iVar1;
   }
   if (param_2 - iVar1 < 0x3c0) {
-    Im_GuardLeave();
+    ImWaveProceed();
     return -5;
   }
   puVar3 = &DAT_10031f28;
@@ -4706,15 +4755,16 @@ int __cdecl Im_SaveImpl(undefined4 *param_1,uint param_2)
     puVar3 = puVar3 + 1;
     puVar4 = puVar4 + 1;
   }
-  Im_GuardLeave();
+  ImWaveProceed();
   return iVar1 + 0x3c0;
 }
 
-/* ---- 0x1000a970  Im_RestoreImpl ---- */
+/* ---- 0x1000a970  TrRestore ---- */
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
-    */
+   Original name TrRestore (the remaster's GrimFandango (Linux): aligned call in ImRestore); was
+   Im_RestoreImpl. */
 
-int __cdecl Im_RestoreImpl(undefined4 *param_1)
+int __cdecl TrRestore(undefined4 *param_1)
 
 {
   int iVar1;
@@ -4725,10 +4775,10 @@ int __cdecl Im_RestoreImpl(undefined4 *param_1)
   undefined4 *puVar6;
   
   piVar5 = &DAT_10031f28;
-  Im_GuardEnter();
-  DAT_10032300 = 0;
-  iVar2 = iMUSE_Dispatch__2040(param_1);
-  iVar1 = DAT_1003350c;
+  ImWaveHalt();
+  g_dwTrackList = 0;
+  iVar2 = DpBeginRestore(param_1);
+  iVar1 = g_dwTrackCount;
   puVar3 = (undefined4 *)((int)param_1 + iVar2);
   puVar6 = &DAT_10031f28;
   for (iVar4 = 0xf0; iVar4 != 0; iVar4 = iVar4 + -1) {
@@ -4741,46 +4791,48 @@ int __cdecl Im_RestoreImpl(undefined4 *param_1)
     do {
       *piVar5 = 0;
       piVar5[1] = 0;
-      puVar3 = iMUSE_Dispatch__1ff0(iVar4);
+      puVar3 = DpGetDp(iVar4);
       piVar5[2] = (int)puVar3;
       *puVar3 = piVar5;
       if (piVar5[3] != 0) {
-        iMUSE_stream__b760(&DAT_10032300,piVar5);
+        UtAddToList(&g_dwTrackList,piVar5);
       }
       iVar4 = iVar4 + 1;
       piVar5 = piVar5 + 0xf;
-    } while (iVar4 < DAT_1003350c);
+    } while (iVar4 < g_dwTrackCount);
   }
-  iMUSE_Dispatch__20c0();
-  Im_GuardLeave();
+  DpConcludeRestore();
+  ImWaveProceed();
   return iVar2 + 0x3c0;
 }
 
-/* ---- 0x1000aa00  Im_UpdateGroupVolumes ---- */
+/* ---- 0x1000aa00  TrUpdateVols ---- */
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
-    */
+   Original name TrUpdateVols (the remaster's GrimFandango (Linux): aligned call in GrSetGroupVol);
+   was Im_UpdateGroupVolumes. */
 
-undefined4 Im_UpdateGroupVolumes(void)
+undefined4 TrUpdateVols(void)
 
 {
   int iVar1;
   int iVar2;
   
-  iVar1 = DAT_10032300;
-  Im_GuardEnter();
+  iVar1 = g_dwTrackList;
+  ImWaveHalt();
   for (; iVar1 != 0; iVar1 = *(int *)(iVar1 + 4)) {
-    iVar2 = Im_GetGroupVol(*(uint *)(iVar1 + 0x14));
+    iVar2 = GrGetGroupEffVol(*(uint *)(iVar1 + 0x14));
     *(int *)(iVar1 + 0x20) = iVar2 * (*(int *)(iVar1 + 0x1c) + 1) >> 7;
   }
-  Im_GuardLeave();
+  ImWaveProceed();
   return 0;
 }
 
-/* ---- 0x1000aa40  Im_HeartbeatBody ---- */
+/* ---- 0x1000aa40  TrIntHandler ---- */
 /* Body of ImHeartbeat once its guards pass: refill the streams, advance the 20 ms mixing step for
-   every playing track (FUN_10002570), retire finished ones. */
+   every playing track (FUN_10002570), retire finished ones. Original name TrIntHandler (the
+   remaster's GrimFandango (Linux): aligned call in ImHeartbeat); was Im_HeartbeatBody. */
 
-void Im_HeartbeatBody(void)
+void TrIntHandler(void)
 
 {
   int *piVar1;
@@ -4794,32 +4846,35 @@ void Im_HeartbeatBody(void)
     g_dwPauseTimer = 3;
   }
   do {
-    iMUSE_Dispatch__2a00();
-    Im_DSoundHeartbeat(&DAT_10032314,&DAT_10032304,(int *)&DAT_100322e8);
-    DAT_10032310 = DAT_10032304;
-    if (DAT_10032304 != 0) {
-      Im_MixerHeartbeat();
-      piVar2 = DAT_10032300;
+    DpPredictStreams();
+    DwQuery(&g_dwTrIntHandler_outPtr,&g_dwTrIntHandler_outFramesNeeded,
+            (int *)&g_dwTrIntHandler_outSampleRate);
+    DAT_10032310 = g_dwTrIntHandler_outFramesNeeded;
+    if (g_dwTrIntHandler_outFramesNeeded != 0) {
+      MxBeginMix();
+      piVar2 = g_dwTrackList;
       if (g_dwPauseTimer == 0) {
         while (piVar2 != (int *)0x0) {
           piVar1 = (int *)piVar2[1];
-          Im_DispatchMixTrack(piVar2,DAT_10032304,DAT_100322e8);
+          DpProcessTrack(piVar2,g_dwTrIntHandler_outFramesNeeded,g_dwTrIntHandler_outSampleRate);
           piVar2 = piVar1;
         }
       }
-      MxEndMix(DAT_10032314,DAT_10032304);
-      Im_DSoundHeartbeat(&DAT_10032314,&DAT_10032304,(int *)0x0);
+      MxEndMix(g_dwTrIntHandler_outPtr,g_dwTrIntHandler_outFramesNeeded);
+      DwQuery(&g_dwTrIntHandler_outPtr,&g_dwTrIntHandler_outFramesNeeded,(int *)0x0);
     }
   } while (DAT_10032310 != 0);
   return;
 }
 
-/* ---- 0x1000ab00  Im_StartSoundImpl ---- */
+/* ---- 0x1000ab00  TrStartSound ---- */
 /* Starts a track for a sound id: priority clamped 0..127, Im_AllocTrackOrSteal, fills the track
    (+0xc id, +0x18 priority, +0x1c volume 127, +0x24 pan 64, +0x30 = 0x100 ...), links it into the
-   playing list DAT_10032300. Returns 0, -1 (could not start) or -6 (no track). */
+   playing list g_dwTrackList. Returns 0, -1 (could not start) or -6 (no track). Original name
+   TrStartSound (the remaster's GrimFandango (Linux): aligned call in ImStartSound, ImStartStream);
+   was Im_StartSoundImpl. */
 
-undefined4 __cdecl Im_StartSoundImpl(int param_1,int param_2,uint param_3)
+undefined4 __cdecl TrStartSound(int param_1,int param_2,uint param_3)
 
 {
   int *piVar1;
@@ -4837,13 +4892,13 @@ undefined4 __cdecl Im_StartSoundImpl(int param_1,int param_2,uint param_3)
   if (piVar1 == (int *)0x0) {
     return 0xfffffffa;
   }
-  Im_GuardEnter();
+  ImWaveHalt();
   piVar1[3] = param_1;
   piVar1[4] = 0;
   piVar1[5] = 0;
   piVar1[6] = param_2;
   piVar1[7] = 0x7f;
-  iVar2 = Im_GetGroupVol(0);
+  iVar2 = GrGetGroupEffVol(0);
   piVar1[8] = iVar2;
   piVar1[9] = 0x40;
   piVar1[10] = 0;
@@ -4851,180 +4906,190 @@ undefined4 __cdecl Im_StartSoundImpl(int param_1,int param_2,uint param_3)
   piVar1[0xc] = 0x100;
   piVar1[0xd] = 0;
   piVar1[0xe] = 0;
-  iVar2 = iMUSE_Dispatch__2170((int)piVar1,param_3);
+  iVar2 = DpStartSound((int)piVar1,param_3);
   if (iVar2 != 0) {
     piVar1[3] = 0;
-    Im_GuardLeave();
+    ImWaveProceed();
     return 0xffffffff;
   }
-  iMUSE_stream__b760(&DAT_10032300,piVar1);
-  Im_GuardLeave();
+  UtAddToList(&g_dwTrackList,piVar1);
+  ImWaveProceed();
   return 0;
 }
 
-/* ---- 0x1000abb0  Im_StopSoundImpl ---- */
+/* ---- 0x1000abb0  TrStopSound ---- */
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
-    */
+   Original name TrStopSound (the remaster's GrimFandango (Linux): case 0x9 of ImSoundCall calls it
+   where the v1.01 dispatcher calls the exported API that calls this function); was
+   Im_StopSoundImpl. */
 
-undefined4 __cdecl Im_StopSoundImpl(int param_1)
+undefined4 __cdecl TrStopSound(int param_1)
 
 {
   int *piVar1;
   int *piVar2;
   undefined4 uVar3;
   
-  piVar1 = DAT_10032300;
+  piVar1 = g_dwTrackList;
   uVar3 = 0xffffffff;
-  Im_GuardEnter();
+  ImWaveHalt();
   while (piVar2 = piVar1, piVar2 != (int *)0x0) {
     piVar1 = (int *)piVar2[1];
     if (piVar2[3] == param_1) {
-      Im_FreeTrack(piVar2);
+      TrStopTrack(piVar2);
       uVar3 = 0;
     }
   }
-  Im_GuardLeave();
+  ImWaveProceed();
   return uVar3;
 }
 
-/* ---- 0x1000ac00  Im_StopAllSoundsImpl ---- */
+/* ---- 0x1000ac00  TrStopAllSounds ---- */
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
-    */
+   Original name TrStopAllSounds (the remaster's GrimFandango (Linux): aligned call in
+   ImStopAllSounds, TrTerminate); was Im_StopAllSoundsImpl. */
 
-undefined4 Im_StopAllSoundsImpl(void)
+undefined4 TrStopAllSounds(void)
 
 {
   int *piVar1;
   int *piVar2;
   
-  piVar2 = DAT_10032300;
+  piVar2 = g_dwTrackList;
   while (piVar2 != (int *)0x0) {
     piVar1 = (int *)piVar2[1];
-    Im_FreeTrack(piVar2);
+    TrStopTrack(piVar2);
     piVar2 = piVar1;
   }
   return 0;
 }
 
-/* ---- 0x1000ac20  Im_GetNextSoundImpl ---- */
+/* ---- 0x1000ac20  TrGetNextSound ---- */
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
-    */
+   Original name TrGetNextSound (the remaster's GrimFandango (Linux): case 0xb of ImSoundCall calls
+   it where the v1.01 dispatcher calls the exported API that calls this function); was
+   Im_GetNextSoundImpl. */
 
-uint __cdecl Im_GetNextSoundImpl(uint param_1)
+uint __cdecl TrGetNextSound(uint param_1)
 
 {
   uint uVar1;
   int iVar2;
   uint uVar3;
   
-  iVar2 = DAT_10032300;
+  iVar2 = g_dwTrackList;
   uVar3 = 0;
-  Im_GuardEnter();
+  ImWaveHalt();
   for (; iVar2 != 0; iVar2 = *(int *)(iVar2 + 4)) {
     uVar1 = *(uint *)(iVar2 + 0xc);
     if ((param_1 < uVar1) && ((uVar3 == 0 || (uVar1 < uVar3)))) {
       uVar3 = uVar1;
     }
   }
-  Im_GuardLeave();
+  ImWaveProceed();
   return uVar3;
 }
 
-/* ---- 0x1000ac60  Im_QueryStreamImpl ---- */
+/* ---- 0x1000ac60  TrQueryStream ---- */
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
-    */
+   Original name TrQueryStream (the remaster's GrimFandango (Linux): case 0x1c of ImSoundCall calls
+   it where the v1.01 dispatcher calls the exported API that calls this function); was
+   Im_QueryStreamImpl. */
 
 undefined4 __cdecl
-Im_QueryStreamImpl(int param_1,undefined4 *param_2,undefined4 *param_3,int *param_4,
-                  undefined4 *param_5)
+TrQueryStream(int param_1,undefined4 *param_2,undefined4 *param_3,int *param_4,undefined4 *param_5)
 
 {
   int iVar1;
   
-  iVar1 = DAT_10032300;
-  Im_GuardEnter();
+  iVar1 = g_dwTrackList;
+  ImWaveHalt();
   if (iVar1 == 0) {
-    Im_GuardLeave();
+    ImWaveProceed();
     return 0xffffffff;
   }
   while (((*(int *)(iVar1 + 0xc) == 0 || (*(int *)(iVar1 + 0xc) != param_1)) ||
          (*(int *)(*(int *)(iVar1 + 8) + 0x81c) == 0))) {
     iVar1 = *(int *)(iVar1 + 4);
     if (iVar1 == 0) {
-      Im_GuardLeave();
+      ImWaveProceed();
       return 0xffffffff;
     }
   }
-  Im_QueryStreamTrack(*(int *)(*(int *)(iVar1 + 8) + 0x81c),param_2,param_3,param_4,param_5);
-  Im_GuardLeave();
+  StQueryStream(*(int *)(*(int *)(iVar1 + 8) + 0x81c),param_2,param_3,param_4,param_5);
+  ImWaveProceed();
   return 0;
 }
 
-/* ---- 0x1000ace0  Im_FeedStreamImpl ---- */
+/* ---- 0x1000ace0  TrFeedStream ---- */
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
-    */
+   Original name TrFeedStream (the remaster's GrimFandango (Linux): case 0x1d of ImSoundCall calls
+   it where the v1.01 dispatcher calls the exported API that calls this function); was
+   Im_FeedStreamImpl. */
 
-undefined4 __cdecl
-Im_FeedStreamImpl(int param_1,undefined4 *param_2,uint param_3,undefined4 param_4)
+undefined4 __cdecl TrFeedStream(int param_1,undefined4 *param_2,uint param_3,undefined4 param_4)
 
 {
   undefined4 uVar1;
   int iVar2;
   
-  iVar2 = DAT_10032300;
-  Im_GuardEnter();
+  iVar2 = g_dwTrackList;
+  ImWaveHalt();
   if (iVar2 == 0) {
-    Im_GuardLeave();
+    ImWaveProceed();
     return 0xffffffff;
   }
   while (((*(int *)(iVar2 + 0xc) == 0 || (*(int *)(iVar2 + 0xc) != param_1)) ||
          (*(int *)(*(int *)(iVar2 + 8) + 0x81c) == 0))) {
     iVar2 = *(int *)(iVar2 + 4);
     if (iVar2 == 0) {
-      Im_GuardLeave();
+      ImWaveProceed();
       return 0xffffffff;
     }
   }
-  Im_GuardLeave();
-  uVar1 = Im_FeedStreamTrack(*(int *)(*(int *)(iVar2 + 8) + 0x81c),param_2,param_3,param_4);
+  ImWaveProceed();
+  uVar1 = StFeedStream(*(int *)(*(int *)(iVar2 + 8) + 0x81c),param_2,param_3,param_4);
   return uVar1;
 }
 
-/* ---- 0x1000ad50  Im_FreeTrack ---- */
-/* Releases a track: dispatch, fades, stream */
+/* ---- 0x1000ad50  TrStopTrack ---- */
+/* Releases a track: dispatch, fades, stream Original name TrStopTrack (the remaster's GrimFandango
+   (Linux): aligned call in DpProcessTrack, TrStopAllSounds, TrStopSound); was Im_FreeTrack. */
 
-void __cdecl Im_FreeTrack(int *param_1)
+void __cdecl TrStopTrack(int *param_1)
 
 {
-  iMUSE_stream__b7a0(&DAT_10032300,param_1);
-  iMUSE_Dispatch__2200((int)param_1);
-  Im_FadesClearSound(param_1[3],-1);
-  Im_ClearTriggerImpl(param_1[3],(byte *)0xffffffff,-1);
+  UtRemoveFromList(&g_dwTrackList,param_1);
+  DpStopTrack((int)param_1);
+  FdStopFade(param_1[3],-1);
+  TgClearTrigger(param_1[3],(byte *)0xffffffff,-1);
   param_1[3] = 0;
   return;
 }
 
-/* ---- 0x1000ada0  Im_SetParamImpl ---- */
+/* ---- 0x1000ada0  TrSetParam ---- */
 /* ImSetParam on a sound id. LEAK: with param 0x400 (group) and a value >= 0x10 it returns without
    Im_GuardLeave: the guard counter stays raised for good (ImStartSound with a group >= 16 reaches
-   it too). No Lua script of the game passes such a group. */
+   it too). No Lua script of the game passes such a group. Original name TrSetParam (the remaster's
+   GrimFandango (Linux): case 0xc of ImSoundCall calls it where the v1.01 dispatcher calls the
+   exported API that calls this function); was Im_SetParamImpl. */
 
-undefined4 __cdecl Im_SetParamImpl(int param_1,int param_2,uint param_3)
+undefined4 __cdecl TrSetParam(int param_1,int param_2,uint param_3)
 
 {
   int iVar1;
   int iVar2;
   
-  iVar2 = DAT_10032300;
-  Im_GuardEnter();
+  iVar2 = g_dwTrackList;
+  ImWaveHalt();
   if (iVar2 == 0) {
-    Im_GuardLeave();
+    ImWaveProceed();
     return 0xfffffffc;
   }
   while (*(int *)(iVar2 + 0xc) != param_1) {
     iVar2 = *(int *)(iVar2 + 4);
     if (iVar2 == 0) {
-      Im_GuardLeave();
+      ImWaveProceed();
       return 0xfffffffc;
     }
   }
@@ -5032,18 +5097,18 @@ undefined4 __cdecl Im_SetParamImpl(int param_1,int param_2,uint param_3)
     if (param_2 == 0x500) {
       if (param_3 < 0x80) {
         *(uint *)(iVar2 + 0x18) = param_3;
-        Im_GuardLeave();
+        ImWaveProceed();
         return 0;
       }
-      Im_GuardLeave();
+      ImWaveProceed();
       return 0xfffffffb;
     }
     if (param_2 == 0x400) {
       if (param_3 < 0x10) {
         *(uint *)(iVar2 + 0x14) = param_3;
-        iVar1 = Im_GetGroupVol(param_3);
+        iVar1 = GrGetGroupEffVol(param_3);
         *(int *)(iVar2 + 0x20) = iVar1 * (*(int *)(iVar2 + 0x1c) + 1) >> 7;
-        Im_GuardLeave();
+        ImWaveProceed();
         return 0;
       }
       return 0xfffffffb;
@@ -5053,21 +5118,21 @@ undefined4 __cdecl Im_SetParamImpl(int param_1,int param_2,uint param_3)
     if (param_2 == 0x700) {
       if (param_3 < 0x80) {
         *(uint *)(iVar2 + 0x24) = param_3;
-        Im_GuardLeave();
+        ImWaveProceed();
         return 0;
       }
-      Im_GuardLeave();
+      ImWaveProceed();
       return 0xfffffffb;
     }
     if (param_2 == 0x600) {
       if (param_3 < 0x80) {
         *(uint *)(iVar2 + 0x1c) = param_3;
-        iVar1 = Im_GetGroupVol(*(uint *)(iVar2 + 0x14));
+        iVar1 = GrGetGroupEffVol(*(uint *)(iVar2 + 0x14));
         *(int *)(iVar2 + 0x20) = (int)(iVar1 * (param_3 + 1)) >> 7;
-        Im_GuardLeave();
+        ImWaveProceed();
         return 0;
       }
-      Im_GuardLeave();
+      ImWaveProceed();
       return 0xfffffffb;
     }
   }
@@ -5075,7 +5140,7 @@ undefined4 __cdecl Im_SetParamImpl(int param_1,int param_2,uint param_3)
     if ((-0x2401 < (int)param_3) && ((int)param_3 < 0x2401)) {
       *(uint *)(iVar2 + 0x28) = param_3;
       *(uint *)(iVar2 + 0x30) = *(int *)(iVar2 + 0x2c) * 0x100 + param_3;
-      Im_GuardLeave();
+      ImWaveProceed();
       return 0;
     }
   }
@@ -5083,37 +5148,38 @@ undefined4 __cdecl Im_SetParamImpl(int param_1,int param_2,uint param_3)
     if (param_2 != 0x900) {
       if (param_2 == 0xa00) {
         *(uint *)(iVar2 + 0x34) = param_3;
-        Im_GuardLeave();
+        ImWaveProceed();
         return 0;
       }
-      Im_GuardLeave();
+      ImWaveProceed();
       return 0xfffffffb;
     }
     if ((-1 < (int)param_3) && ((int)param_3 < 0x1000)) {
       *(uint *)(iVar2 + 0x30) = param_3;
-      Im_GuardLeave();
+      ImWaveProceed();
       return 0;
     }
   }
-  Im_GuardLeave();
+  ImWaveProceed();
   return 0xfffffffb;
 }
 
-/* ---- 0x1000af50  Im_GetParamImpl ---- */
-/* ImGetParam on a sound id: walks the list of playing tracks (DAT_10032300, next at +4) whose +0xc
+/* ---- 0x1000af50  TrGetParam ---- */
+/* ImGetParam on a sound id: walks the list of playing tracks (g_dwTrackList, next at +4) whose +0xc
    equals the id. 0x100 PLAY_COUNT = number of such tracks; the other params read the first match
    (0x300 prio-ish +0x10, 0x400 +0x14, 0x500 +0x18, 0x600 volume +0x1c, 0x700 pan +0x24, 0x800
    +0x28, 0x900 +0x2c, 0xa00 +0x34, 0x1800/0x1900/0x1a00 stream info); no track: 0 for PLAY_COUNT,
-   -4 for the rest, -1 for param 0. */
+   -4 for the rest, -1 for param 0. Original name TrGetParam (the remaster's GrimFandango (Linux):
+   aligned call in ImGetParam); was Im_GetParamImpl. */
 
-uint __cdecl Im_GetParamImpl(int param_1,int param_2)
+uint __cdecl TrGetParam(int param_1,int param_2)
 
 {
   int iVar1;
   uint uVar2;
   
   uVar2 = 0;
-  iVar1 = DAT_10032300;
+  iVar1 = g_dwTrackList;
   do {
     if (iVar1 == 0) {
       if (param_2 != 0x100) {
@@ -5192,11 +5258,13 @@ uint __cdecl Im_GetParamImpl(int param_1,int param_2)
   } while( true );
 }
 
-/* ---- 0x1000b0a0  Im_SetHookImpl ---- */
+/* ---- 0x1000b0a0  TrSetHook ---- */
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
+   Original name TrSetHook (the remaster's GrimFandango (Linux): case 0xf of ImSoundCall calls it
+   where the v1.01 dispatcher calls the exported API that calls this function); was Im_SetHookImpl.
     */
 
-undefined4 __cdecl Im_SetHookImpl(int param_1,uint param_2)
+undefined4 __cdecl TrSetHook(int param_1,uint param_2)
 
 {
   int *piVar1;
@@ -5205,8 +5273,8 @@ undefined4 __cdecl Im_SetHookImpl(int param_1,uint param_2)
   if (0x80 < param_2) {
     return 0xfffffffb;
   }
-  iVar2 = DAT_10032300;
-  if (DAT_10032300 == 0) {
+  iVar2 = g_dwTrackList;
+  if (g_dwTrackList == 0) {
     return 0xfffffffc;
   }
   do {
@@ -5220,18 +5288,20 @@ undefined4 __cdecl Im_SetHookImpl(int param_1,uint param_2)
   return 0xfffffffc;
 }
 
-/* ---- 0x1000b0e0  Im_GetHookImpl ---- */
+/* ---- 0x1000b0e0  TrGetHook ---- */
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
+   Original name TrGetHook (the remaster's GrimFandango (Linux): case 0x10 of ImSoundCall calls it
+   where the v1.01 dispatcher calls the exported API that calls this function); was Im_GetHookImpl.
     */
 
-undefined4 __cdecl Im_GetHookImpl(int param_1)
+undefined4 __cdecl TrGetHook(int param_1)
 
 {
   int *piVar1;
   int iVar2;
   
-  iVar2 = DAT_10032300;
-  if (DAT_10032300 == 0) {
+  iVar2 = g_dwTrackList;
+  if (g_dwTrackList == 0) {
     return 0xfffffffc;
   }
   do {
@@ -5245,7 +5315,7 @@ undefined4 __cdecl Im_GetHookImpl(int param_1)
 }
 
 /* ---- 0x1000b110  Im_AllocTrackOrSteal ---- */
-/* Track pool (0x3c bytes each, DAT_1003350c of them, first at 10031f28): a free track (+0xc == 0),
+/* Track pool (0x3c bytes each, g_dwTrackCount of them, first at 10031f28): a free track (+0xc == 0),
    else the lowest-priority playing track when its priority <= the new one (it is stopped,
    FUN_1000ad50), else NULL (the start fails with -6). */
 
@@ -5258,41 +5328,42 @@ int * __cdecl Im_AllocTrackOrSteal(int param_1)
   
   iVar2 = 0;
   piVar1 = &DAT_10031f28;
-  if (0 < DAT_1003350c) {
+  if (0 < g_dwTrackCount) {
     do {
       if (piVar1[3] == 0) {
         return piVar1;
       }
       piVar1 = piVar1 + 0xf;
       iVar2 = iVar2 + 1;
-    } while (iVar2 < DAT_1003350c);
+    } while (iVar2 < g_dwTrackCount);
   }
   piVar3 = (int *)0x0;
   iVar2 = 0x7f;
-  for (piVar1 = DAT_10032300; piVar1 != (int *)0x0; piVar1 = (int *)piVar1[1]) {
+  for (piVar1 = g_dwTrackList; piVar1 != (int *)0x0; piVar1 = (int *)piVar1[1]) {
     if (piVar1[6] <= iVar2) {
       iVar2 = piVar1[6];
       piVar3 = piVar1;
     }
   }
   if ((piVar3 != (int *)0x0) && (iVar2 <= param_1)) {
-    Im_FreeTrack(piVar3);
+    TrStopTrack(piVar3);
     return piVar3;
   }
   return (int *)0x0;
 }
 
-/* ---- 0x1000b170  Im_TriggersInit ---- */
+/* ---- 0x1000b170  TgInitialize ---- */
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
-    */
+   Original name TgInitialize (the remaster's GrimFandango (Linux): aligned call in ImInitialize);
+   was Im_TriggersInit. */
 
-undefined4 Im_TriggersInit(void)
+undefined4 TgInitialize(void)
 
 {
   int iVar1;
   undefined4 *puVar2;
   
-  puVar2 = &DAT_10032320;
+  puVar2 = &g_dwTrigs;
   for (iVar1 = 0x268; iVar1 != 0; iVar1 = iVar1 + -1) {
     *puVar2 = 0;
     puVar2 = puVar2 + 1;
@@ -5303,15 +5374,16 @@ undefined4 Im_TriggersInit(void)
     puVar2 = puVar2 + 1;
   }
   g_dwDefersOn = 0;
-  DAT_10032f44 = 0;
+  g_dwMidProcessing = 0;
   return 0;
 }
 
-/* ---- 0x1000b1a0  Im_TriggersSave ---- */
+/* ---- 0x1000b1a0  TgSave ---- */
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
-    */
+   Original name TgSave (the remaster's GrimFandango (Linux): aligned call in ImSave); was
+   Im_TriggersSave. */
 
-undefined4 __cdecl Im_TriggersSave(undefined4 *param_1,int param_2)
+undefined4 __cdecl TgSave(undefined4 *param_1,int param_2)
 
 {
   int iVar1;
@@ -5321,7 +5393,7 @@ undefined4 __cdecl Im_TriggersSave(undefined4 *param_1,int param_2)
   if (param_2 < 0xb20) {
     return 0xfffffffb;
   }
-  puVar2 = &DAT_10032320;
+  puVar2 = &g_dwTrigs;
   puVar3 = param_1;
   for (iVar1 = 0x268; iVar1 != 0; iVar1 = iVar1 + -1) {
     *puVar3 = *puVar2;
@@ -5338,11 +5410,12 @@ undefined4 __cdecl Im_TriggersSave(undefined4 *param_1,int param_2)
   return 0xb20;
 }
 
-/* ---- 0x1000b1e0  Im_TriggersRestore ---- */
+/* ---- 0x1000b1e0  TgRestore ---- */
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
-    */
+   Original name TgRestore (the remaster's GrimFandango (Linux): aligned call in ImRestore); was
+   Im_TriggersRestore. */
 
-undefined4 __cdecl Im_TriggersRestore(undefined4 *param_1)
+undefined4 __cdecl TgRestore(undefined4 *param_1)
 
 {
   int iVar1;
@@ -5350,7 +5423,7 @@ undefined4 __cdecl Im_TriggersRestore(undefined4 *param_1)
   undefined4 *puVar3;
   
   puVar2 = param_1;
-  puVar3 = &DAT_10032320;
+  puVar3 = &g_dwTrigs;
   for (iVar1 = 0x268; iVar1 != 0; iVar1 = iVar1 + -1) {
     *puVar3 = *puVar2;
     puVar2 = puVar2 + 1;
@@ -5389,7 +5462,7 @@ TgSetTrigger(int sound,char *marker,int cmd,int p0,int p1,int p2,int p3,int p4,i
   char *pcVar8;
   int *piVar9;
   
-  piVar6 = &DAT_10032320;
+  piVar6 = &g_dwTrigs;
   if (sound == 0) {
     return 0xfffffffb;
   }
@@ -5454,11 +5527,13 @@ TgSetTrigger(int sound,char *marker,int cmd,int p0,int p1,int p2,int p3,int p4,i
 #endif
 
 
-/* ---- 0x1000b2e0  Im_CheckTriggerImpl ---- */
+/* ---- 0x1000b2e0  TgCheckTrigger ---- */
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
-    */
+   Original name TgCheckTrigger (the remaster's GrimFandango (Linux): case 0x12 of ImSoundCall calls
+   it where the v1.01 dispatcher calls the exported API that calls this function); was
+   Im_CheckTriggerImpl. */
 
-int __cdecl Im_CheckTriggerImpl(int param_1,byte *param_2,int param_3)
+int __cdecl TgCheckTrigger(int param_1,byte *param_2,int param_3)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -5472,7 +5547,7 @@ int __cdecl Im_CheckTriggerImpl(int param_1,byte *param_2,int param_3)
   #define local_4 (*(int *)(_frame + (0x20 - 0x4)))
   
   local_8 = 0;
-  piVar5 = &DAT_10032320;
+  piVar5 = &g_dwTrigs;
   local_4 = 8;
   do {
     if ((*piVar5 != 0) && ((param_1 == -1 || (param_1 == *piVar5)))) {
@@ -5514,11 +5589,12 @@ LAB_1000b35f:
 #undef local_8
 
 
-/* ---- 0x1000b380  Im_ClearTriggerImpl ---- */
+/* ---- 0x1000b380  TgClearTrigger ---- */
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
-    */
+   Original name TgClearTrigger (the remaster's GrimFandango (Linux): aligned call in
+   DpSwitchStream, ImClearTrigger, TrStopTrack); was Im_ClearTriggerImpl. */
 
-undefined4 __cdecl Im_ClearTriggerImpl(int param_1,byte *param_2,int param_3)
+undefined4 __cdecl TgClearTrigger(int param_1,byte *param_2,int param_3)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -5530,7 +5606,7 @@ undefined4 __cdecl Im_ClearTriggerImpl(int param_1,byte *param_2,int param_3)
   bool bVar6;
   #define local_4 (*(int *)(_frame + (0x20 - 0x4)))
   
-  piVar5 = &DAT_10032320;
+  piVar5 = &g_dwTrigs;
   local_4 = 8;
   do {
     if ((*piVar5 != 0) && ((param_1 == -1 || (param_1 == *piVar5)))) {
@@ -5557,7 +5633,7 @@ LAB_1000b3e0:
         if (iVar3 != 0) goto LAB_1000b40c;
       }
       if ((param_3 == -1) || (param_3 == piVar5[0x41])) {
-        if (DAT_10032f44 == 0) {
+        if (g_dwMidProcessing == 0) {
           *piVar5 = 0;
         }
         else {
@@ -5627,13 +5703,13 @@ undefined4 * __cdecl Im_FireTriggers(int param_1,char *param_2)
       pcVar10 = pcVar10 + 4;
       pcVar12 = pcVar12 + 4;
     }
-    DAT_10032f44 = (undefined4 *)((int)DAT_10032f44 + 1);
+    g_dwMidProcessing = (undefined4 *)((int)g_dwMidProcessing + 1);
     for (uVar7 = uVar7 & 3; uVar7 != 0; uVar7 = uVar7 - 1) {
       *pcVar12 = *pcVar10;
       pcVar10 = pcVar10 + 1;
       pcVar12 = pcVar12 + 1;
     }
-    piVar13 = &DAT_10032320;
+    piVar13 = &g_dwTrigs;
     do {
       if ((*piVar13 != 0) && (param_1 == *piVar13)) {
         pbVar11 = (byte *)(piVar13 + 1);
@@ -5682,11 +5758,11 @@ LAB_1000b52c:
       piVar13 = piVar13 + 0x4d;
       iVar9 = iVar9 + -1;
     } while (iVar9 != 0);
-    puVar4 = (undefined4 *)((int)DAT_10032f44 + -1);
-    DAT_10032f44 = puVar4;
+    puVar4 = (undefined4 *)((int)g_dwMidProcessing + -1);
+    g_dwMidProcessing = puVar4;
     if (puVar4 == (undefined4 *)0x0) {
       iVar9 = 8;
-      puVar4 = &DAT_10032320;
+      puVar4 = &g_dwTrigs;
       do {
         if (puVar4[0x4c] != 0) {
           *puVar4 = 0;
@@ -5749,11 +5825,12 @@ TgDeferCommand(int time,int cmd,int p0,int p1,int p2,int p3,int p4,int p5,int p6
 #endif
 
 
-/* ---- 0x1000b5e0  Im_ProcessDeferred ---- */
+/* ---- 0x1000b5e0  TgIntHandler ---- */
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
-    */
+   Original name TgIntHandler (the remaster's GrimFandango (Linux): aligned call in ImHeartbeat);
+   was Im_ProcessDeferred. */
 
-void Im_ProcessDeferred(void)
+void TgIntHandler(void)
 
 {
   int iVar1;
@@ -5780,11 +5857,12 @@ void Im_ProcessDeferred(void)
   return;
 }
 
-/* ---- 0x1000b630  Im_GetTriggerParam ---- */
+/* ---- 0x1000b630  TgGetPendCount ---- */
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
-    */
+   Original name TgGetPendCount (the remaster's GrimFandango (Linux): aligned call in ImGetParam);
+   was Im_GetTriggerParam. */
 
-int __cdecl Im_GetTriggerParam(int param_1)
+int __cdecl TgGetPendCount(int param_1)
 
 {
   int iVar1;
@@ -5841,7 +5919,7 @@ void __cdecl Im_RunTriggerCommand(undefined4 *param_1,undefined4 param_2)
   }
   a2 = param_1[0x4b];
   if (cmd < (code *)0x1e) {
-    Im_DispatchCommand((uint)cmd,a2,a2,a2,a2,a2,a2,a2,a2,a2,a2);
+    ImSoundCall((uint)cmd,a2,a2,a2,a2,a2,a2,a2,a2,a2,a2);
     return;
   }
   (*cmd)(param_2);
@@ -5873,7 +5951,7 @@ void __cdecl Im_RunDeferredCommand(int param_1)
   else {
     a2 = *(int *)(param_1 + 0x2c);
     if (cmd < (code *)0x1e) {
-      Im_DispatchCommand((uint)cmd,a2,a2,a2,a2,a2,a2,a2,a2,a2,a2);
+      ImSoundCall((uint)cmd,a2,a2,a2,a2,a2,a2,a2,a2,a2,a2);
       return;
     }
   }

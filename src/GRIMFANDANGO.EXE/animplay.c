@@ -35,9 +35,9 @@ int __cdecl anm_Start(void **out,char *name,int fps,int streamArg1,int streamArg
     p[7] = iVar1;
     p[8] = iVar1;
     *out = p;
-    iVar1 = AnimPlay_ResetState(p);
+    iVar1 = anm_animator_Initialize(p);
     if (iVar1 == 0) {
-      iVar1 = AnimPlay_OpenFile(*out,name,flags,-1,-1,0);
+      iVar1 = anm_animator_NewAnim(*out,name,flags,-1,-1,0);
       if (iVar1 == 0) {
         iVar1 = (*(code *)*g_pAnimPlay_timer_services)(FUN_004c2a70,1,2,p);
         *p = iVar1;
@@ -151,7 +151,7 @@ int __cdecl anm_Render(void *p,int a2,int a3,int a4,int a5,int a6,int a7,int a8,
       g_dwRenderHandler_totalTime = 0;
     }
     g_dwRenderHandler_totalTime = g_dwRenderHandler_totalTime + *(int *)((int)p + 0x20);
-    Sound_VoiceSampleCount(0);
+    sou_engine_QueryTime(0);
     lVar8 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
     iVar2 = (int)lVar8;
     *(int *)((int)p + 0x18) = *(int *)((int)p + 0x18) + -1;
@@ -241,12 +241,14 @@ int __cdecl anm_Render(void *p,int a2,int a3,int a4,int a5,int a6,int a7,int a8,
 #endif
 
 
-/* ---- 0x004c36b0  AnimPlay_ResetState ---- */
+/* ---- 0x004c36b0  anm_animator_Initialize ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-/* Resets the decoder state fields of an AnimPlay frame player and its streamer */
+/* Resets the decoder state fields of an AnimPlay frame player and its streamer Original name
+   anm_animator_Initialize (the remaster's GrimFandango (Linux): aligned call in anm_Start); was
+   AnimPlay_ResetState. */
 
-int __cdecl AnimPlay_ResetState(void *p)
+int __cdecl anm_animator_Initialize(void *p)
 
 {
   (*(code *)g_pAnm_streamer_services[6])(*(undefined4 *)((int)p + 0x60));
@@ -264,12 +266,14 @@ int __cdecl AnimPlay_ResetState(void *p)
 #endif
 
 
-/* ---- 0x004c3d30  AnimPlay_OpenFile ---- */
+/* ---- 0x004c3d30  anm_animator_NewAnim ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-/* Opens the movie file of an AnimPlay frame player through the streamer */
+/* Opens the movie file of an AnimPlay frame player through the streamer Original name
+   anm_animator_NewAnim (the remaster's GrimFandango (Linux): aligned call in anm_Start); was
+   AnimPlay_OpenFile. */
 
-int __cdecl AnimPlay_OpenFile(void *p,char *name,uint flags,int a4,int a5,int a6)
+int __cdecl anm_animator_NewAnim(void *p,char *name,uint flags,int a4,int a5,int a6)
 
 {
   int iVar1;
