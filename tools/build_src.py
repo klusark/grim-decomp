@@ -1429,6 +1429,57 @@ def global_decl(g, u, ctx):
     return f"extern undefined {g};"
 
 
+def load_global_aliases(prog, rawdir):
+    """Globals renamed by names-only batches (tools/orig_gbatch.py: "global" + "old" + "oldtype"), new -> old name.
+
+    While a renamed global keeps the Ghidra type it had at the rename, the build treats it as its old name: the
+    raw text is read with the old name and the old name is replaced by the new one in the written files. So the
+    declarations (DAT_ globals get a type inferred from use, named ones their Ghidra type) and every fix-up that
+    looks at the name stay as they were, and the generated C only changes in the name. A global retyped in Ghidra
+    later (its type no longer the "oldtype") is taken as named, with its new type."""
+    path = PROG_PATHS.get(prog)
+    m = {}
+    for f in sorted(glob.glob(os.path.join(ROOT, "names", "*.json"))):
+        try:
+            data = json.load(open(f, encoding="utf-8"))
+        except ValueError:
+            continue
+        if not isinstance(data, list):
+            continue
+        for e in data:
+            if isinstance(e, dict) and e.get("names_only") and e.get("program") == path and e.get("old") \
+                    and e.get("global") and e["old"] != e["global"]:
+                m[e["global"]] = (e["old"], e.get("oldtype", ""))
+    cur = {}
+    try:
+        for line in read_text(os.path.join(rawdir, "globals.json")).splitlines():
+            gm = re.match(r"^(\S+) @ ([0-9a-f]+) \[\w+\] \((.*)\) xrefs=\d+$", line.strip())
+            if gm:
+                cur.setdefault(gm.group(1), gm.group(3))
+    except FileNotFoundError:
+        pass
+    out = {}
+    for new, (old, t) in m.items():
+        seen = {new}
+        while old in m and old not in seen:   # chains: a -> b in one batch, b -> c in a later one
+            seen.add(old)
+            old, t = m[old]
+        if new in cur and (cur[new] or "") == (t or ""):
+            out[new] = old
+    return out
+
+
+def alias_re(names):
+    # NAME, Ghidra's other-width view _NAME and its piece NAME_2 (DAT_x_2)
+    return re.compile(r"\b(_?)(" + "|".join(map(re.escape, sorted(names, key=len, reverse=True))) + r")(_\d+)?\b") \
+        if names else None
+
+
+GLOBAL_ALIAS = {}
+PROG_PATHS = {"GRIMFANDANGO.EXE": "/v101/GRIMFANDANGO.EXE", "LUA.DLL": "/LUA.DLL", "IMUSE.DLL": "/v101/IMUSE.DLL",
+              "CHORE.DLL": "/CHORE.DLL"}
+
+
 def build(prog):
     prog_ov = OVERRIDES_BY_PROG.get(prog, OVERRIDES)   # hand-written functions of this program
     rawdir = os.path.join(RAW, prog)
@@ -1541,6 +1592,9 @@ def build(prog):
     for f, m in sorted(assigned, key=lambda t: int(t[0]["address"], 16)):
         by_mod.setdefault(m, []).append(f)
 
+    global GLOBAL_ALIAS
+    GLOBAL_ALIAS = load_global_aliases(prog, rawdir)
+    alias_in = alias_re(GLOBAL_ALIAS)
     ctx = Ctx()
     ctx.import_ints = {i["name"] for i in imports}
     named_globals = {}
@@ -1548,7 +1602,10 @@ def build(prog):
         for line in read_text(os.path.join(rawdir, "globals.json")).splitlines():
             gm = re.match(r"^(\S+) @ ([0-9a-f]+) \[\w+\] \((.*)\) xrefs=\d+$", line.strip())
             if gm:
-                named_globals.setdefault(gm.group(1), (gm.group(2), gm.group(3)))
+                gname = GLOBAL_ALIAS.get(gm.group(1), gm.group(1))
+                if gname != gm.group(1) and SYM_RE.fullmatch(gname):
+                    continue   # renamed DAT_/PTR_/UINT_ global: unnamed data, as before the rename
+                named_globals.setdefault(gname, (gm.group(2), gm.group(3)))
     except FileNotFoundError:
         pass
     for g, (_, t) in named_globals.items():
@@ -1571,6 +1628,8 @@ def build(prog):
                 missing.append(f["address"])
                 continue
             code = read_text(path).strip("\n")
+            if alias_in:
+                code = alias_in.sub(lambda m: m.group(1) + GLOBAL_ALIAS[m.group(2)] + (m.group(3) or ""), code)
             name = f["name"]
             seen_names[name] += 1
             if seen_names[name] > 1:
@@ -1832,6 +1891,17 @@ def build(prog):
         w.write("| address | name | module | lines |\n|---|---|---|---|\n")
         for a, n, m, l in index_rows:
             w.write(f"| {a} | {n} | {m}.c | {l} |\n")
+    if GLOBAL_ALIAS:
+        back = {o: n for n, o in GLOBAL_ALIAS.items()}
+        alias_out = alias_re(back)
+        for fn in os.listdir(out):
+            if fn.endswith((".c", ".h")):
+                fp = os.path.join(out, fn)
+                t = open(fp, encoding="utf-8", newline="").read()
+                t2 = alias_out.sub(lambda m: m.group(1) + back[m.group(2)] + (m.group(3) or ""), t)
+                if t2 != t:
+                    open(fp, "w", encoding="utf-8", newline="").write(t2)
+        print(prog, "renamed globals (built under their old names):", len(GLOBAL_ALIAS))
     print(prog, "modules:", {m: len(v) for m, v in by_mod.items()})
     if FIXUPS:
         print(prog, "fix-ups:", dict(stats))

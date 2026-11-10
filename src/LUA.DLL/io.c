@@ -51,7 +51,7 @@ void __cdecl io_setfile(byte *param_1)
   
   ppuVar1 = (undefined **)io_getfilebyname(param_1);
   if ((ppuVar1 != &PTR_DAT_100282d0) && (ppuVar1 != (undefined **)&DAT_100282f0)) {
-    (**(code **)(DAT_1002beb8 + 0x34))(ppuVar1);
+    (**(code **)(g_dwLuaHS + 0x34))(ppuVar1);
     iVar2 = lua_getglobal(param_1);
     lua_pushobject(iVar2);
     lVar3 = io_getint(2);
@@ -157,7 +157,7 @@ void io_writeto(void)
     pbVar3 = (byte *)0x0;
   }
   else {
-    pbVar3 = (byte *)(**(code **)(DAT_1002beb8 + 0x30))(pcVar4,&DAT_10026c54);
+    pbVar3 = (byte *)(**(code **)(g_dwLuaHS + 0x30))(pcVar4,&DAT_10026c54);
   }
   if (pbVar3 == (byte *)0x0) {
     io_pushresult(0);
@@ -178,7 +178,7 @@ void io_appendto(void)
   byte *pbVar2;
   
   uVar1 = luaL_check_string(3);
-  pbVar2 = (byte *)(**(code **)(DAT_1002beb8 + 0x30))(uVar1,&DAT_10026c60);
+  pbVar2 = (byte *)(**(code **)(g_dwLuaHS + 0x30))(uVar1,&DAT_10026c60);
   if (pbVar2 != (byte *)0x0) {
     io_setreturn(pbVar2,(byte *)s__OUTPUT_10026c58);
     return;
@@ -333,7 +333,7 @@ LAB_1000583c:
         cVar1 = *pcVar7;
         pcVar7 = pcVar7 + 1;
       } while (cVar1 != '\0');
-      iVar6 = (**(code **)(DAT_1002beb8 + 0x40))(iVar3,pcVar4,~uVar5 - 1);
+      iVar6 = (**(code **)(g_dwLuaHS + 0x40))(iVar3,pcVar4,~uVar5 - 1);
       if (iVar6 == -1) goto LAB_1000583c;
       iVar6 = 1;
     }
@@ -464,7 +464,7 @@ void setloc(void)
     luaL_argerror(2,IMG_ADDR(0x10026cb0));
   }
   puVar2 = (uint *)luaL_check_string(1);
-  pbVar3 = (byte *)setlocale(*(int *)(&DAT_10026ae8 + iVar1 * 4),puVar2);
+  pbVar3 = (byte *)setlocale(*(int *)(&g_aSetloc_cat + iVar1 * 4),puVar2);
   lua_pushstring(pbVar3);
   return;
 }
@@ -476,7 +476,7 @@ void io_exit(void)
 
 {
   lua_lua2C(1);
-  (**(code **)(DAT_1002beb8 + 0x18))
+  (**(code **)(g_dwLuaHS + 0x18))
             (s_FALSE_10026cc0,s_C__grimsrc_libs_lua_src_liolib_c_10026cc8,0x134);
   return;
 }
@@ -496,7 +496,7 @@ void io_debug(void)
   #define abStack_fc (*(byte (*)[252])(_frame + (0x110 - 0xfc)))
   
   do {
-    iVar2 = (**(code **)(DAT_1002beb8 + 0x3c))(&PTR_DAT_100282d0,abStack_fc,0xfa);
+    iVar2 = (**(code **)(g_dwLuaHS + 0x3c))(&PTR_DAT_100282d0,abStack_fc,0xfa);
     if (iVar2 == 0) {
       return;
     }

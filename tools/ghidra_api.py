@@ -81,7 +81,10 @@ def post(path, **body):
     if body.get("program"):
         # the bridge takes the program of a write from the query string (a `program` in the JSON body is ignored and
         # the write goes to its current program, which switch_program does not always change)
-        url += "?" + urllib.parse.urlencode({"program": body["program"]})
+        q = {"program": body["program"]}
+        if body.get("strict_mode"):   # (like program, read from the query string)
+            q["strict_mode"] = body["strict_mode"]
+        url += "?" + urllib.parse.urlencode(q)
     data = json.dumps(body).encode()
     req = urllib.request.Request(url, data=data, headers={"Content-Type": "application/json"})
     for attempt in range(4):

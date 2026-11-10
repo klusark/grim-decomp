@@ -33,7 +33,7 @@ void __cdecl luaX_setinput(undefined4 param_1)
 {
   undefined4 *puVar1;
   
-  puVar1 = (undefined4 *)PTR_1002bf6c[0x10];
+  puVar1 = (undefined4 *)g_pLuaState[0x10];
   puVar1[3] = 0;
   puVar1[2] = 0;
   puVar1[5] = 0;
@@ -121,7 +121,7 @@ uint __cdecl luaY_lex(float *param_1)
   #define local_10 (*(double *)(_frame + (0x20 - 0x10)))
   #define local_8 (*(double *)(_frame + (0x20 - 0x8)))
   
-  puVar2 = (uint *)PTR_1002bf6c[0x10];
+  puVar2 = (uint *)g_pLuaState[0x10];
   luaL_resetbuffer();
   if (lua_debug != 0) {
     luaY_codedebugline(puVar2[3]);
@@ -160,7 +160,7 @@ uint __cdecl luaY_lex(float *param_1)
         uVar4 = FUN_1000f650(uVar4);
       } while ((uVar4 != 0) || (*puVar2 == 0x5f));
       luaL_addchar(0);
-      fVar6 = PUN(float,luaS_new(DAT_1002befc));
+      fVar6 = PUN(float,luaS_new(g_dwLState_Mbuffbase));
       if ((int)*(uint *)(PUN(int,(float)fVar6) + 4) < 0x100) {
         *param_1 = fVar6;
         return 0x112;
@@ -557,9 +557,9 @@ joined_r0x100060f4:
     }
     *puVar2 = uVar4;
     luaL_addchar(0);
-    fVar6 = PUN(float,luaS_new(DAT_1002befc + 1));
+    fVar6 = PUN(float,luaS_new(g_dwLState_Mbuffbase + 1));
     *param_1 = fVar6;
-    *(undefined1 *)(DAT_1002bf4c + -1 + DAT_1002bf40) = uVar10;
+    *(undefined1 *)(g_dwLState_Mbuffnext + -1 + g_dwLState_Mbuffer) = uVar10;
     return 0x113;
   }
   uVar5 = *puVar2;
@@ -687,7 +687,7 @@ void __cdecl inclinenumber(uint *param_1)
   }
   *param_1 = uVar3;
   readname(param_1,(int)local_18);
-  iVar4 = luaO_findstring(local_18,&PTR_s_debug_10026da0);
+  iVar4 = luaO_findstring(local_18,&g_pInclinenumber_pragmas);
   switch(iVar4) {
   case 0:
     if (uVar2 == 0) {
@@ -946,10 +946,10 @@ LAB_10006cb8:
       piVar2[1] = (int)((byte *)piVar2[1] + 1);
     }
     *param_1 = uVar3;
-    *(undefined1 *)(DAT_1002bf4c + -2 + DAT_1002bf40) = 0;
-    uVar4 = luaS_new((byte *)(DAT_1002befc + 2));
+    *(undefined1 *)(g_dwLState_Mbuffnext + -2 + g_dwLState_Mbuffer) = 0;
+    uVar4 = luaS_new((byte *)(g_dwLState_Mbuffbase + 2));
     *param_2 = uVar4;
-    *(undefined1 *)(DAT_1002bf4c + -2 + DAT_1002bf40) = 0x5d;
+    *(undefined1 *)(g_dwLState_Mbuffnext + -2 + g_dwLState_Mbuffer) = 0x5d;
     return 0x113;
   }
   iVar5 = iVar5 + -1;

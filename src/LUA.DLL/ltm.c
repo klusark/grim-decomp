@@ -13,11 +13,11 @@ void luaT_init(void)
 {
   int iVar1;
   
-  DAT_1002bef0 = 0x10;
-  DAT_1002bee8 = -7;
-  DAT_1002bf48 = (**(code **)(DAT_1002beb8 + 0x20))
-                           (0x900,s_C__grimsrc_libs_lua_src_ltm_cpp_10027ed4,0x4e);
-  for (iVar1 = DAT_1002bee8; iVar1 < 1; iVar1 = iVar1 + 1) {
+  g_dwLState_IMtable_size = 0x10;
+  g_dwLState_last_tag = -7;
+  g_dwLState_IMtable =
+       (**(code **)(g_dwLuaHS + 0x20))(0x900,s_C__grimsrc_libs_lua_src_ltm_cpp_10027ed4,0x4e);
+  for (iVar1 = g_dwLState_last_tag; iVar1 < 1; iVar1 = iVar1 + 1) {
     ltm__c8a0(iVar1);
   }
   return;
@@ -36,7 +36,7 @@ void __cdecl ltm__c8a0(int param_1)
   do {
     iVar1 = iVar2 + param_1 * -0x90;
     iVar2 = iVar2 + 8;
-    *(undefined4 *)(DAT_1002bf48 + iVar1) = 0xfffffff9;
+    *(undefined4 *)(g_dwLState_IMtable + iVar1) = 0xfffffff9;
   } while (iVar2 < 0x90);
   return;
 }
@@ -48,7 +48,7 @@ void __cdecl ltm__c8a0(int param_1)
 void __cdecl luaT_realtag(int param_1)
 
 {
-  if ((param_1 < DAT_1002bee8) || (-8 < param_1)) {
+  if ((param_1 < g_dwLState_last_tag) || (-8 < param_1)) {
     luaL_verror(s_tag__d_is_not_result_of__newtag__10027ef4,param_1);
   }
   return;
@@ -74,7 +74,7 @@ int __cdecl luaT_gettm(int param_1,int param_2)
 void __cdecl luaT_checktag(int param_1)
 
 {
-  if ((param_1 < DAT_1002bee8) || (0 < param_1)) {
+  if ((param_1 < g_dwLState_last_tag) || (0 < param_1)) {
     luaL_verror(s__d_is_not_a_valid_tag_10027f18,param_1);
   }
   return;
@@ -115,13 +115,13 @@ undefined * __cdecl luaT_gettagmethod(int param_1,byte *param_2)
   int iVar1;
   int iVar2;
   
-  iVar1 = luaI_checkevent(param_2,&PTR_s_gettable_10027d48);
+  iVar1 = luaI_checkevent(param_2,&g_pLuaT_eventname);
   luaT_checktag(param_1);
   iVar2 = luaT_gettm(param_1,iVar1);
   if (iVar2 != 0) {
-    return (undefined *)(DAT_1002bf48 + (iVar1 + param_1 * -0x12) * 8);
+    return (undefined *)(g_dwLState_IMtable + (iVar1 + param_1 * -0x12) * 8);
   }
-  return &DAT_100270e0;
+  return &g_LuaO_nilobject;
 }
 
 /* ---- 0x1000cab0  luaI_checkevent ---- */
@@ -154,19 +154,18 @@ void __cdecl luaT_settagmethod(int param_1,byte *param_2,undefined4 *param_3)
   
   uVar1 = param_3[1];
   uVar2 = *param_3;
-  iVar3 = luaI_checkevent(param_2,&PTR_s_gettable_10027d48);
+  iVar3 = luaI_checkevent(param_2,&g_pLuaT_eventname);
   luaT_checktag(param_1);
   iVar4 = luaT_gettm(param_1,iVar3);
   if (iVar4 == 0) {
-    luaL_verror(s_settagmethod__cannot_change_inte_10027f54,(&PTR_s_gettable_10027d48)[iVar3],
-                param_1);
+    luaL_verror(s_settagmethod__cannot_change_inte_10027f54,(&g_pLuaT_eventname)[iVar3],param_1);
   }
   iVar3 = (iVar3 + param_1 * -0x12) * 8;
-  puVar5 = (undefined4 *)(DAT_1002bf48 + iVar3);
+  puVar5 = (undefined4 *)(g_dwLState_IMtable + iVar3);
   *param_3 = *puVar5;
   param_3[1] = puVar5[1];
-  *(undefined4 *)(DAT_1002bf48 + iVar3) = uVar2;
-  *(undefined4 *)(DAT_1002bf48 + 4 + iVar3) = uVar1;
+  *(undefined4 *)(g_dwLState_IMtable + iVar3) = uVar2;
+  *(undefined4 *)(g_dwLState_IMtable + 4 + iVar3) = uVar1;
   return;
 }
 
@@ -182,25 +181,25 @@ char * __cdecl luaT_travtagmethods(undefined *param_1)
   int iVar3;
   int iVar4;
   
-  iVar1 = (*(code *)param_1)(&DAT_1002bf58);
+  iVar1 = (*(code *)param_1)(&g_dwLState_errorim);
   if (iVar1 != 0) {
     return s_error_10026648;
   }
   iVar2 = 0;
-  iVar1 = DAT_1002bee8;
+  iVar1 = g_dwLState_last_tag;
   do {
     iVar4 = 0;
     if (iVar1 < 1) {
       iVar3 = iVar2 * 8;
       do {
-        iVar1 = (*(code *)param_1)(DAT_1002bf48 + iVar3);
+        iVar1 = (*(code *)param_1)(g_dwLState_IMtable + iVar3);
         if (iVar1 != 0) {
-          return (&PTR_s_gettable_10027d48)[iVar2];
+          return (&g_pLuaT_eventname)[iVar2];
         }
         iVar4 = iVar4 + -1;
         iVar3 = iVar3 + 0x90;
-        iVar1 = DAT_1002bee8;
-      } while (DAT_1002bee8 <= iVar4);
+        iVar1 = g_dwLState_last_tag;
+      } while (g_dwLState_last_tag <= iVar4);
     }
     iVar2 = iVar2 + 1;
   } while (iVar2 < 0x12);
@@ -270,28 +269,28 @@ void luaT_setfallback(void)
   if (iVar3 == 0) {
     luaL_argerror(2,IMG_ADDR(0x10026390));
   }
-  iVar3 = luaO_findstring(pbVar1,&PTR_s_error_10027e40);
+  iVar3 = luaO_findstring(pbVar1,&g_pLuaT_setfallback_oldnames);
   switch(iVar3) {
   case 0:
-    local_8 = DAT_1002bf58;
+    local_8 = g_dwLState_errorim;
     local_4 = DAT_1002bf5c;
     piVar4 = (int *)luaA_Address(iVar2);
-    DAT_1002bf58 = *piVar4;
+    g_dwLState_errorim = *piVar4;
     DAT_1002bf5c = piVar4[1];
     pcVar6 = errorFB;
     break;
   case 1:
-    local_8 = *(int *)(DAT_1002bf48 + 0x408);
-    local_4 = *(int *)(DAT_1002bf48 + 0x40c);
+    local_8 = *(int *)(g_dwLState_IMtable + 0x408);
+    local_4 = *(int *)(g_dwLState_IMtable + 0x40c);
     puVar5 = (undefined4 *)luaA_Address(iVar2);
-    *(undefined4 *)(DAT_1002bf48 + 0x408) = *puVar5;
-    *(undefined4 *)(DAT_1002bf48 + 0x40c) = puVar5[1];
+    *(undefined4 *)(g_dwLState_IMtable + 0x408) = *puVar5;
+    *(undefined4 *)(g_dwLState_IMtable + 0x40c) = puVar5[1];
     pcVar6 = nilFB;
     break;
   case 2:
     iVar3 = 5;
-    local_8 = *(int *)(DAT_1002bf48 + 0xd8);
-    local_4 = *(int *)(DAT_1002bf48 + 0xdc);
+    local_8 = *(int *)(g_dwLState_IMtable + 0xd8);
+    local_4 = *(int *)(g_dwLState_IMtable + 0xdc);
     do {
       puVar5 = (undefined4 *)luaA_Address(iVar2);
       luaT_gettmbyObj(iVar3,puVar5);
@@ -301,8 +300,8 @@ void luaT_setfallback(void)
     break;
   case 3:
     iVar3 = 0xb;
-    local_8 = *(int *)(DAT_1002bf48 + 0x448);
-    local_4 = *(int *)(DAT_1002bf48 + 0x44c);
+    local_8 = *(int *)(g_dwLState_IMtable + 0x448);
+    local_4 = *(int *)(g_dwLState_IMtable + 0x44c);
     do {
       puVar5 = (undefined4 *)luaA_Address(iVar2);
       luaT_gettmbyObj(iVar3,puVar5);
@@ -311,14 +310,14 @@ void luaT_setfallback(void)
     pcVar6 = typeFB;
     break;
   default:
-    iVar3 = luaO_findstring(pbVar1,&PTR_s_gettable_10027d48);
+    iVar3 = luaO_findstring(pbVar1,&g_pLuaT_eventname);
     if (iVar3 < 0) {
       luaL_verror(s____50s__is_not_a_valid_fallback_n_10027fa4,pbVar1);
       pcVar6 = (code *)0x0;
     }
     else {
-      local_8 = *(int *)(DAT_1002bf48 + 0x3f0 + iVar3 * 8);
-      local_4 = *(int *)(DAT_1002bf48 + 0x3f4 + iVar3 * 8);
+      local_8 = *(int *)(g_dwLState_IMtable + 0x3f0 + iVar3 * 8);
+      local_4 = *(int *)(g_dwLState_IMtable + 0x3f4 + iVar3 * 8);
       puVar5 = (undefined4 *)luaA_Address(iVar2);
       luaT_gettmbyObj(iVar3,puVar5);
       if ((iVar3 == 0x10) || (iVar3 == 2)) {
@@ -355,8 +354,8 @@ void __cdecl luaT_gettmbyObj(int param_1,undefined4 *param_2)
   do {
     iVar1 = luaT_gettm(iVar2,param_1);
     if (iVar1 != 0) {
-      *(undefined4 *)(DAT_1002bf48 + iVar3) = *param_2;
-      *(undefined4 *)(DAT_1002bf48 + 4 + iVar3) = param_2[1];
+      *(undefined4 *)(g_dwLState_IMtable + iVar3) = *param_2;
+      *(undefined4 *)(g_dwLState_IMtable + 4 + iVar3) = param_2[1];
     }
     iVar2 = iVar2 + 1;
     iVar3 = iVar3 + -0x90;

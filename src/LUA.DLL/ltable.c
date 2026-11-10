@@ -16,7 +16,7 @@ void __cdecl luaH_free(undefined4 *param_1)
   
   while (param_1 != (undefined4 *)0x0) {
     puVar1 = (undefined4 *)*param_1;
-    DAT_1002beec = DAT_1002beec + (-1 - ((uint)param_1[3] >> 4));
+    g_dwLState_nblocks = g_dwLState_nblocks + (-1 - ((uint)param_1[3] >> 4));
     ltable__c1d0((int)param_1);
     param_1 = puVar1;
   }
@@ -29,8 +29,8 @@ void __cdecl luaH_free(undefined4 *param_1)
 void __cdecl ltable__c1d0(int param_1)
 
 {
-  (**(code **)(DAT_1002beb8 + 0x24))(*(undefined4 *)(param_1 + 8));
-  (**(code **)(DAT_1002beb8 + 0x24))(param_1);
+  (**(code **)(g_dwLuaHS + 0x24))(*(undefined4 *)(param_1 + 8));
+  (**(code **)(g_dwLuaHS + 0x24))(param_1);
   return;
 }
 
@@ -79,7 +79,7 @@ void __cdecl luaH_save(undefined *param_1,int param_2)
     } while (uVar3 < *(uint *)(param_2 + 0xc));
   }
   if (local_4 != local_8) {
-    (**(code **)(DAT_1002beb8 + 0x18))
+    (**(code **)(g_dwLuaHS + 0x18))
               (s_writtenItems____numItems_10027cd8,s_C__grimsrc_libs_lua_src_ltable_c_10027cf4,0x8a)
     ;
   }
@@ -102,14 +102,13 @@ undefined4 * __cdecl luaH_load(undefined *param_1)
   int iVar4;
   
   puVar1 = (undefined4 *)
-           (**(code **)(DAT_1002beb8 + 0x20))(0x18,s_C__grimsrc_libs_lua_src_ltable_c_10027cf4,0x91)
-  ;
+           (**(code **)(g_dwLuaHS + 0x20))(0x18,s_C__grimsrc_libs_lua_src_ltable_c_10027cf4,0x91);
   (*(code *)param_1)(puVar1 + 3,4);
   (*(code *)param_1)(puVar1 + 4,4);
   (*(code *)param_1)(puVar1 + 5,4);
   uVar2 = luaH_hashnodecreate(puVar1[3]);
   puVar1[2] = uVar2;
-  luaO_insertlist(&DAT_1002bf18,puVar1);
+  luaO_insertlist(&g_dwLState_roottable,puVar1);
   uVar3 = 0;
   if (puVar1[4] != 0) {
     iVar4 = 0;
@@ -135,7 +134,7 @@ undefined4 * __cdecl luaH_hashnodecreate(int param_1)
   undefined4 *puVar2;
   
   puVar1 = (undefined4 *)
-           (**(code **)(DAT_1002beb8 + 0x20))
+           (**(code **)(g_dwLuaHS + 0x20))
                      (param_1 << 4,s_C__grimsrc_libs_lua_src_ltable_c_10027cf4,0x53);
   puVar2 = puVar1;
   if (0 < param_1) {
@@ -163,8 +162,7 @@ undefined4 * __cdecl luaH_new(int a1)
   longlong lVar4;
   
   puVar1 = (undefined4 *)
-           (**(code **)(DAT_1002beb8 + 0x20))(0x18,s_C__grimsrc_libs_lua_src_ltable_c_10027cf4,0xa4)
-  ;
+           (**(code **)(g_dwLuaHS + 0x20))(0x18,s_C__grimsrc_libs_lua_src_ltable_c_10027cf4,0xa4);
   lVar4 = _ftol();
   iVar2 = luaO_redimension((int)lVar4);
   uVar3 = luaH_hashnodecreate(iVar2);
@@ -172,8 +170,8 @@ undefined4 * __cdecl luaH_new(int a1)
   puVar1[3] = iVar2;
   puVar1[4] = 0;
   puVar1[5] = 0xfffffffd;
-  luaO_insertlist(&DAT_1002bf18,puVar1);
-  DAT_1002beec = DAT_1002beec + 1 + ((int)(iVar2 + (iVar2 >> 0x1f & 0xfU)) >> 4);
+  luaO_insertlist(&g_dwLState_roottable,puVar1);
+  g_dwLState_nblocks = g_dwLState_nblocks + 1 + ((int)(iVar2 + (iVar2 >> 0x1f & 0xfU)) >> 4);
   return puVar1;
 }
 #endif
@@ -212,7 +210,7 @@ void __cdecl luaH_forcerehash(int param_1)
       piVar6 = piVar6 + 4;
     } while (uVar5 < *(uint *)(param_1 + 0x10));
   }
-  (**(code **)(DAT_1002beb8 + 0x24))(piVar1);
+  (**(code **)(g_dwLuaHS + 0x24))(piVar1);
   return;
 }
 
@@ -374,9 +372,10 @@ void __cdecl luaH_rehash(int param_1)
       piVar7 = piVar7 + 4;
     } while (iVar3 != 0);
   }
-  DAT_1002beec = DAT_1002beec +
-                 ((*(uint *)(param_1 + 0xc) >> 4) - ((int)(iVar1 + (iVar1 >> 0x1f & 0xfU)) >> 4));
-  (**(code **)(DAT_1002beb8 + 0x24))(piVar2);
+  g_dwLState_nblocks =
+       g_dwLState_nblocks +
+       ((*(uint *)(param_1 + 0xc) >> 4) - ((int)(iVar1 + (iVar1 >> 0x1f & 0xfU)) >> 4));
+  (**(code **)(g_dwLuaHS + 0x24))(piVar2);
   return;
 }
 

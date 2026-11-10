@@ -145,8 +145,8 @@ undefined4 * __cdecl lundump__d030(uint param_1,uint *param_2)
   undefined4 *puVar1;
   
   puVar1 = (undefined4 *)
-           (**(code **)(DAT_1002beb8 + 0x20))
-                     (param_1,s_C__grimsrc_libs_lua_src_lundump__1002800c,0x31);
+           (**(code **)(g_dwLuaHS + 0x20))(param_1,s_C__grimsrc_libs_lua_src_lundump__1002800c,0x31)
+  ;
   luaU_LoadBlock(param_2,puVar1,param_1);
   return puVar1;
 }
@@ -269,7 +269,7 @@ void __cdecl luaU_LoadLocals(int param_1,uint *param_2)
   
   uVar1 = lundump__cfa0((int *)param_2);
   if (uVar1 != 0) {
-    uVar2 = (**(code **)(DAT_1002beb8 + 0x20))
+    uVar2 = (**(code **)(g_dwLuaHS + 0x20))
                       (uVar1 * 8 + 8,s_C__grimsrc_libs_lua_src_lundump__1002800c,0xa4);
     iVar4 = 0;
     *(undefined4 *)(param_1 + 0x1c) = uVar2;
@@ -306,7 +306,7 @@ void __cdecl luaU_LoadConstants(int param_1,undefined4 *param_2)
   uVar2 = lundump__cfa0((int *)*param_2);
   *(uint *)(param_1 + 0xc) = uVar2;
   if (uVar2 != 0) {
-    uVar3 = (**(code **)(DAT_1002beb8 + 0x20))
+    uVar3 = (**(code **)(g_dwLuaHS + 0x20))
                       (uVar2 * 8,s_C__grimsrc_libs_lua_src_lundump__1002800c,0xb3);
     iVar5 = 0;
     *(undefined4 *)(param_1 + 8) = uVar3;

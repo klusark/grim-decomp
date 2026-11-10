@@ -2,7 +2,10 @@
 
 Usage: python -I rename_refs.py [--dry] names/orig_lua.json [more batches...]      (run from tools/)
 
-Each batch entry with "old" and "name" (tools/orig_batch.py writes them) is a rename old -> new in its program.
+Each batch entry with "old" and "name" (tools/orig_batch.py writes them) is a rename old -> new in its program; a
+names-only global entry ("old" and "global", tools/orig_gbatch.py) is one too, and is also carried into Ghidra's
+other-width view `_OLD` and its pieces `OLD_2` (a DAT_1000xxxx name of one DLL can be a global of another: the owners
+are read from raw/<prog>/data_items.txt, globals.json and the decompiled code).
 All renames are applied in one pass per file (so swaps and chains such as luaH_free -> luaH_hashnodecreate,
 ltable__c190 -> luaH_free work), whole words only:
   * build/*.c, build/*.h, build/cleanroom/*.[ch]: only where the #ifdef GRIM_<PROG> guards put the text in the renamed function's program,
@@ -66,23 +69,48 @@ def line_progs(text):
 def main():
     args = [a for a in sys.argv[1:] if not a.startswith("--")]
     dry = "--dry" in sys.argv
-    owners = {}   # name -> programs that have a function of that name (before the renames)
+    owners = {}   # name -> programs that have a function or global of that name (before the renames)
     for p in PROGS:
         for f in json.load(open(os.path.join(ROOT, "raw", p, "functions.json"))):
             owners.setdefault(f["name"], set()).add(p)
     ren = {p: {} for p in PROGS}
     by_addr = {}
+    gold = set()   # old names of renamed globals
     for b in args:
         for e in json.load(open(b)):
-            if "old" in e and "name" in e and e["old"] != e["name"]:
+            new = e.get("name") or (e.get("global") if e.get("names_only") else None)
+            if "old" in e and new and e["old"] != new:
                 p = PATH_PROG[e.get("program", "/v101/GRIMFANDANGO.EXE")]
-                ren[p][e["old"]] = e["name"]
-                by_addr[(p, e["addr"])] = (e["old"], e["name"])
+                ren[p][e["old"]] = new
+                by_addr[(p, e["addr"])] = (e["old"], new)
                 owners.setdefault(e["old"], set()).add(p)
+                if "global" in e:
+                    gold.add(e["old"])
+    if gold:
+        # a global name (DAT_1000xxxx) can be another DLL's global too: every data symbol and every address-named
+        # symbol the decompiled code of a program uses counts
+        sym = re.compile(r"\b_?([A-Za-z]\w*?_[0-9a-f]{8})\b")
+        for p in PROGS:
+            names = set()
+            for fn in ("data_items.txt", "globals.json"):
+                fp = os.path.join(ROOT, "raw", p, fn)
+                if os.path.exists(fp):
+                    for line in open(fp, encoding="utf-8", errors="replace"):
+                        m = re.match(r"^(\S+) @ ", line)
+                        if m:
+                            names.add(m.group(1))
+            for fp in glob.glob(os.path.join(ROOT, "raw", p, "functions", "*.c")):
+                names.update(sym.findall(open(fp, encoding="utf-8", errors="replace").read()))
+            for n in names & gold:
+                owners.setdefault(n, set()).add(p)
     word = {p: re.compile(r"\b(" + "|".join(map(re.escape, sorted(m, key=len, reverse=True))) + r")\b") if m else None
             for p, m in ren.items()}
     # whole words, and the assembler names "_Name" of __asm__("_Name") declarations
-    allold = re.compile(r"(?:\b|(?<=\"_))(" + "|".join(re.escape(o) for m in ren.values() for o in m) + r")\b")
+    # globals also as Ghidra's other-width view `_DAT_x` and its piece `DAT_x_2`
+    falt = "|".join(re.escape(o) for m in ren.values() for o in m if o not in gold)
+    galt = "|".join(re.escape(o) for o in sorted(gold, key=len, reverse=True))
+    allold = re.compile("|".join(([r"(?:\b|(?<=\"_))(" + falt + r")\b"] if falt else [r"(?!x)x()"]) +
+                                 ([r"\b(_?)(" + galt + r")(_\d+)?\b"] if galt else [])))
     skipped = []
 
     def unique_owner(old):
@@ -101,7 +129,10 @@ def main():
         import bisect
 
         def rep(m):
-            old = m.group(1)
+            if m.group(1) is not None:
+                old, pre, suf = m.group(1), "", ""
+            else:
+                old, pre, suf = m.group(3), m.group(2), m.group(4) or ""
             p = unique_owner(old)
             if p is None and old in extra:
                 ps = [q for q in PROGS if old in ren[q]]
@@ -115,8 +146,8 @@ def main():
             if p is None:
                 line = text.count("\n", 0, m.start()) + 1
                 skipped.append(f"{fname}:{line}: {old}")
-                return old
-            return ren[p][old]
+                return m.group(0)
+            return pre + ren[p][old] + suf
         return allold.sub(rep, text)
 
     changed = []
@@ -152,7 +183,7 @@ def main():
                 if "addr" in x:
                     p = PATH_PROG.get(x.get("program", "/v101/GRIMFANDANGO.EXE"))
                     k = by_addr.get((p, x["addr"]))
-                    for key in ("name", "old"):
+                    for key in ("name", "old", "global"):
                         v = x.get(key)
                         if isinstance(v, str) and allold.fullmatch(v):
                             (safe if k and k[0] == v else bad).add(v)
@@ -168,7 +199,7 @@ def main():
     # tools and docs
     for path in sorted(glob.glob(os.path.join(ROOT, "tools", "*.py")) + glob.glob(os.path.join(ROOT, "docs", "*.md")) +
                        glob.glob(os.path.join(ROOT, "build", "*.py")) + glob.glob(os.path.join(ROOT, "build", "cleanroom", "*.md"))):
-        if os.path.basename(path) in ("rename_refs.py", "orig_match.py", "orig_batch.py", "orig_dump.py"):
+        if os.path.basename(path) in ("rename_refs.py", "orig_match.py", "orig_batch.py", "orig_dump.py", "orig_gbatch.py"):
             continue
         text = open(path, encoding="utf-8").read()
         new = sub_free(text, os.path.relpath(path, ROOT))

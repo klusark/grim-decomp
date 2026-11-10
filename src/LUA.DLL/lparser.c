@@ -15,8 +15,8 @@ void __cdecl luaY_error(char *msg,char *token)
     token = s__eof__10027b00;
   }
   luaL_verror(s___100s__last_token_read_____50s__10027ac4,msg,token,
-              *(undefined4 *)(PTR_1002bf6c[0x10] + 8),
-              *(int *)(*(int *)PTR_1002bf6c[0xe] + 0x18) + 0x18);
+              *(undefined4 *)(g_pLuaState[0x10] + 8),
+              *(int *)(*(int *)g_pLuaState[0xe] + 0x18) + 0x18);
   return;
 }
 
@@ -42,9 +42,9 @@ void __cdecl lparser__a730(char *msg)
 void __cdecl luaY_codedebugline(uint param_1)
 
 {
-  if ((lua_debug != 0) && (param_1 != *(uint *)(PTR_1002bf6c[0x10] + 0x10))) {
+  if ((lua_debug != 0) && (param_1 != *(uint *)(g_pLuaState[0x10] + 0x10))) {
     luaY_code_opcode_arg('|',0,param_1,0);
-    *(uint *)(PTR_1002bf6c[0x10] + 0x10) = param_1;
+    *(uint *)(g_pLuaState[0x10] + 0x10) = param_1;
   }
   return;
 }
@@ -59,7 +59,7 @@ void __cdecl luaY_code_opcode_arg(char param_1,int param_2,uint param_3,int para
   int iVar2;
   
   luaY_code_byte(3);
-  iVar1 = PTR_1002bf6c[0xf];
+  iVar1 = g_pLuaState[0xf];
   iVar2 = lparser__a810(*(int *)(iVar1 + 4),param_1,param_2,param_3,param_4);
   *(int *)(iVar1 + 4) = *(int *)(iVar1 + 4) + iVar2;
   return;
@@ -74,7 +74,7 @@ void __cdecl luaY_code_byte(int param_1)
   int *piVar1;
   uint uVar2;
   
-  piVar1 = (int *)PTR_1002bf6c[0xf];
+  piVar1 = (int *)g_pLuaState[0xf];
   if (piVar1[0x27] < piVar1[1] + param_1) {
     uVar2 = luaM_growaux((undefined4 *)(*piVar1 + 0x10),piVar1[0x27],1,
                          (byte *)s_code_size_overflow_10027b08,0x7ffffffd);
@@ -92,7 +92,7 @@ undefined4 __cdecl lparser__a810(int param_1,char param_2,int param_3,uint param
   int iVar1;
   char cVar2;
   
-  iVar1 = *(int *)(*(int *)PTR_1002bf6c[0xf] + 0x10);
+  iVar1 = *(int *)(*(int *)g_pLuaState[0xf] + 0x10);
   lparser__a8b0(param_5);
   cVar2 = (char)param_4;
   if ((int)param_4 < param_3) {
@@ -123,7 +123,7 @@ void __cdecl lparser__a8b0(int param_1)
   int iVar1;
   int iVar2;
   
-  iVar1 = PTR_1002bf6c[0xf];
+  iVar1 = g_pLuaState[0xf];
   iVar2 = *(int *)(iVar1 + 0x88) + param_1;
   *(int *)(iVar1 + 0x88) = iVar2;
   if (*(int *)(iVar1 + 0x8c) < iVar2) {
@@ -146,9 +146,9 @@ int __cdecl luaY_parser(int param_1)
   #define local_870 (*(undefined1 (*)[2160])(_frame + (0x8e0 - 0x870)))
   
                     /* 0xa900  4  luaY_parser */
-  PTR_1002bf6c[0xe] = (int)local_870;
-  PTR_1002bf6c[0xf] = PTR_1002bf6c[0xe];
-  PTR_1002bf6c[0x10] = (int)local_8c4;
+  g_pLuaState[0xe] = (int)local_870;
+  g_pLuaState[0xf] = g_pLuaState[0xe];
+  g_pLuaState[0x10] = (int)local_8c4;
   luaX_setinput(param_1);
   uVar1 = luaS_new(*(byte **)(param_1 + 0x10));
   lparser__a980(uVar1);
@@ -173,7 +173,7 @@ void __cdecl lparser__a980(undefined4 param_1)
   undefined4 *puVar2;
   
   puVar2 = luaF_newclosure();
-  puVar1 = (undefined4 *)PTR_1002bf6c[0xf];
+  puVar1 = (undefined4 *)g_pLuaState[0xf];
   puVar1[0x22] = 0;
   puVar1[0x23] = 0;
   puVar1[0x24] = 0;
@@ -193,7 +193,7 @@ void __cdecl lparser__a980(undefined4 param_1)
   }
   lparser__aa10(0);
   lparser__aa10(0);
-  *(undefined4 *)(PTR_1002bf6c[0x10] + 0x10) = 0;
+  *(undefined4 *)(g_pLuaState[0x10] + 0x10) = 0;
   return;
 }
 
@@ -204,9 +204,9 @@ void __cdecl lparser__aa10(undefined1 param_1)
 
 {
   luaY_code_byte(1);
-  *(undefined1 *)(((int *)PTR_1002bf6c[0xf])[1] + *(int *)(*(int *)PTR_1002bf6c[0xf] + 0x10)) =
+  *(undefined1 *)(((int *)g_pLuaState[0xf])[1] + *(int *)(*(int *)g_pLuaState[0xf] + 0x10)) =
        param_1;
-  *(int *)(PTR_1002bf6c[0xf] + 4) = *(int *)(PTR_1002bf6c[0xf] + 4) + 1;
+  *(int *)(g_pLuaState[0xf] + 4) = *(int *)(g_pLuaState[0xf] + 4) + 1;
   return;
 }
 
@@ -219,25 +219,25 @@ int luaY_syntaxerror(void)
   int iVar1;
   undefined4 uVar2;
   
-  iVar1 = *(int *)PTR_1002bf6c[0xf];
+  iVar1 = *(int *)g_pLuaState[0xf];
   lparser__ab20(0);
-  **(undefined1 **)(iVar1 + 0x10) = *(undefined1 *)(PTR_1002bf6c[0xf] + 0x8c);
-  uVar2 = (**(code **)(DAT_1002beb8 + 0x28))
-                    (*(undefined4 *)(iVar1 + 0x10),*(undefined4 *)(PTR_1002bf6c[0xf] + 4),
+  **(undefined1 **)(iVar1 + 0x10) = *(undefined1 *)(g_pLuaState[0xf] + 0x8c);
+  uVar2 = (**(code **)(g_dwLuaHS + 0x28))
+                    (*(undefined4 *)(iVar1 + 0x10),*(undefined4 *)(g_pLuaState[0xf] + 4),
                      s_lua_stx_10027b64,0x25c);
   *(undefined4 *)(iVar1 + 0x10) = uVar2;
-  uVar2 = (**(code **)(DAT_1002beb8 + 0x28))
+  uVar2 = (**(code **)(g_dwLuaHS + 0x28))
                     (*(undefined4 *)(iVar1 + 8),*(int *)(iVar1 + 0xc) << 3,s_lua_stx_10027b64,0x25d)
   ;
   *(undefined4 *)(iVar1 + 8) = uVar2;
-  if (*(int *)(PTR_1002bf6c[0xf] + 0xa0) != -1) {
+  if (*(int *)(g_pLuaState[0xf] + 0xa0) != -1) {
     luaY_growvector(0,0xffffffff);
-    uVar2 = (**(code **)(DAT_1002beb8 + 0x28))
-                      (*(undefined4 *)(iVar1 + 0x1c),*(int *)(PTR_1002bf6c[0xf] + 0x98) << 3,
+    uVar2 = (**(code **)(g_dwLuaHS + 0x28))
+                      (*(undefined4 *)(iVar1 + 0x1c),*(int *)(g_pLuaState[0xf] + 0x98) << 3,
                        s_lua_stx_10027b64,0x260);
     *(undefined4 *)(iVar1 + 0x1c) = uVar2;
   }
-  PTR_1002bf6c[0xf] = PTR_1002bf6c[0xf] + -0x168;
+  g_pLuaState[0xf] = g_pLuaState[0xf] + -0x168;
   return iVar1;
 }
 
@@ -271,7 +271,7 @@ void __cdecl luaY_growvector(undefined4 param_1,undefined4 param_2)
   int *piVar1;
   uint uVar2;
   
-  piVar1 = (int *)PTR_1002bf6c[0xf];
+  piVar1 = (int *)g_pLuaState[0xf];
   uVar2 = piVar1[0x28];
   if (uVar2 != 0xffffffff) {
     if ((int)uVar2 <= piVar1[0x26]) {
@@ -338,10 +338,10 @@ LAB_1000b47d:
     return 2;
   }
 LAB_1000ac11:
-  sVar1 = (&DAT_10023610)[iVar8];
+  sVar1 = (&g_wYypact)[iVar8];
   if (sVar1 == -0x8000) {
 LAB_1000b4fe:
-    local_bd4 = (int)(short)(&DAT_10023448)[iVar8];
+    local_bd4 = (int)(short)(&g_wYydefact)[iVar8];
     if (local_bd4 == 0) {
 LAB_1000b512:
       if (local_bdc == 0) {
@@ -356,10 +356,10 @@ LAB_1000b512:
       }
       local_bdc = 3;
       do {
-        if ((((short)(&DAT_10023610)[iVar8] != -0x8000) &&
-            (iVar8 = (short)(&DAT_10023610)[iVar8] + 1, -1 < iVar8)) &&
-           ((iVar8 < 0x107 && (*(short *)(&DAT_100239e8 + iVar8 * 2) == 1)))) {
-          local_bd4 = (int)*(short *)(&DAT_100237d8 + iVar8 * 2);
+        if ((((short)(&g_wYypact)[iVar8] != -0x8000) &&
+            (iVar8 = (short)(&g_wYypact)[iVar8] + 1, -1 < iVar8)) &&
+           ((iVar8 < 0x107 && (*(short *)(&g_aYycheck + iVar8 * 2) == 1)))) {
+          local_bd4 = (int)*(short *)(&g_aYytable + iVar8 * 2);
           if (local_bd4 < 0) {
             if (local_bd4 != -0x8000) {
               local_bd4 = -local_bd4;
@@ -377,7 +377,7 @@ LAB_1000b512:
       } while( true );
     }
 LAB_1000acaa:
-    iVar8 = (int)*(short *)(&DAT_10023378 + local_bd4 * 2);
+    iVar8 = (int)*(short *)(&g_aYyr2 + local_bd4 * 2);
     if (0 < iVar8) {
       fVar9 = pfVar9[1 - iVar8];
     }
@@ -387,7 +387,7 @@ LAB_1000acaa:
       lparser__bfa0(pfVar9[-5],pfVar9[-2]);
       break;
     case 8:
-      piVar2 = (int *)PTR_1002bf6c[0xf];
+      piVar2 = (int *)g_pLuaState[0xf];
       uVar6 = pfVar9[-3] - pfVar9[-4];
       local_bc8 = pfVar9[-4] + 2;
       local_bc0 = uVar6;
@@ -430,22 +430,22 @@ LAB_1000acaa:
       lparser__bd00(*pfVar9,0);
       break;
     case 0xc:
-      *(int *)(PTR_1002bf6c[0xf] + 0x90) = *(int *)(PTR_1002bf6c[0xf] + 0x90) + pfVar9[-1];
+      *(int *)(g_pLuaState[0xf] + 0x90) = *(int *)(g_pLuaState[0xf] + 0x90) + pfVar9[-1];
       lparser__bd80(pfVar9[-1],*pfVar9);
       break;
     case 0xd:
       lparser__bec0(pfVar9[-1]);
       break;
     case 0xe:
-      fVar9 = *(int *)(PTR_1002bf6c[0xf] + 0x90);
+      fVar9 = *(int *)(g_pLuaState[0xf] + 0x90);
       break;
     case 0xf:
-      lparser__bcc0(*(int *)(PTR_1002bf6c[0xf] + 0x90) - pfVar9[-1]);
-      if (pfVar9[-1] < *(int *)(PTR_1002bf6c[0xf] + 0x90)) {
+      lparser__bcc0(*(int *)(g_pLuaState[0xf] + 0x90) - pfVar9[-1]);
+      if (pfVar9[-1] < *(int *)(g_pLuaState[0xf] + 0x90)) {
         do {
-          lparser__ba10(*(undefined4 *)(PTR_1002bf6c[0x10] + 8));
-          *(int *)(PTR_1002bf6c[0xf] + 0x90) = *(int *)(PTR_1002bf6c[0xf] + 0x90) + -1;
-        } while (pfVar9[-1] < *(int *)(PTR_1002bf6c[0xf] + 0x90));
+          lparser__ba10(*(undefined4 *)(g_pLuaState[0x10] + 8));
+          *(int *)(g_pLuaState[0xf] + 0x90) = *(int *)(g_pLuaState[0xf] + 0x90) + -1;
+        } while (pfVar9[-1] < *(int *)(g_pLuaState[0xf] + 0x90));
       }
       break;
     case 0x10:
@@ -480,12 +480,12 @@ LAB_1000acaa:
       lparser__c020();
       break;
     case 0x1b:
-      fVar9 = *(int *)(PTR_1002bf6c[0xf] + 4);
+      fVar9 = *(int *)(g_pLuaState[0xf] + 4);
       break;
     case 0x1c:
-      fVar9 = *(int *)(PTR_1002bf6c[0xf] + 4);
+      fVar9 = *(int *)(g_pLuaState[0xf] + 4);
       luaY_code_byte(2);
-      *(int *)(PTR_1002bf6c[0xf] + 4) = *(int *)(PTR_1002bf6c[0xf] + 4) + 2;
+      *(int *)(g_pLuaState[0xf] + 4) = *(int *)(g_pLuaState[0xf] + 4) + 2;
       break;
     case 0x1d:
       fVar9 = *pfVar9;
@@ -609,11 +609,11 @@ switchD_1000acd8_caseD_1f:
       fVar9 = 0;
       break;
     case 0x3f:
-      iVar4 = luaY_string_constant(*pfVar9,(int *)PTR_1002bf6c[0xf]);
+      iVar4 = luaY_string_constant(*pfVar9,(int *)g_pLuaState[0xf]);
       fVar9 = -1 - iVar4;
       break;
     case 0x40:
-      fVar9 = lparser__baf0(*pfVar9,(int *)PTR_1002bf6c[0xf]);
+      fVar9 = lparser__baf0(*pfVar9,(int *)g_pLuaState[0xf]);
       break;
     case 0x41:
       lparser__b770(pfVar9[-2],'=',2,pfVar9[-1]);
@@ -621,12 +621,12 @@ switchD_1000acd8_caseD_1f:
     case 0x42:
       lparser__aa10(0);
       lparser__aa10(*(char *)(pfVar9 + -1) + *(char *)pfVar9);
-      fVar9 = *(int *)(PTR_1002bf6c[0xf] + 4);
+      fVar9 = *(int *)(g_pLuaState[0xf] + 4);
       lparser__aa10(0);
       break;
     case 0x44:
       iVar4 = 1;
-      uVar7 = luaY_string_constant(*pfVar9,(int *)PTR_1002bf6c[0xf]);
+      uVar7 = luaY_string_constant(*pfVar9,(int *)g_pLuaState[0xf]);
       luaY_code_opcode_arg('3',8,uVar7,iVar4);
       fVar9 = 1;
       break;
@@ -648,7 +648,7 @@ switchD_1000acd8_caseD_1f:
       break;
     case 0x4c:
       if (PUN(float,*pfVar9) != 0.0) {
-        *(char *)(*(int *)(*(int *)PTR_1002bf6c[0xf] + 0x10) + *pfVar9) = *(char *)(pfVar9 + -1);
+        *(char *)(*(int *)(*(int *)g_pLuaState[0xf] + 0x10) + *pfVar9) = *(char *)(pfVar9 + -1);
         goto switchD_1000acd8_caseD_1f;
       }
       fVar9 = -1 - pfVar9[-1];
@@ -726,13 +726,13 @@ switchD_1000acd8_caseD_1f:
     local_bd8 = local_bd8 + -iVar8;
     pfVar9 = pfVar9 + (1 - iVar8);
     *pfVar9 = fVar9;
-    iVar8 = (int)*(short *)(&DAT_1002371e + *(short *)(&DAT_100232a8 + local_bd4 * 2) * 2) +
+    iVar8 = (int)*(short *)(&g_aYypgoto + *(short *)(&g_aYyr1 + local_bd4 * 2) * 2) +
             (int)*local_bd8;
-    if (((iVar8 < 0) || (0x106 < iVar8)) || (*(short *)(&DAT_100239e8 + iVar8 * 2) != *local_bd8)) {
-      local_bd4 = (int)*(short *)(&DAT_10023556 + *(short *)(&DAT_100232a8 + local_bd4 * 2) * 2);
+    if (((iVar8 < 0) || (0x106 < iVar8)) || (*(short *)(&g_aYycheck + iVar8 * 2) != *local_bd8)) {
+      local_bd4 = (int)*(short *)(&g_aYydefgoto + *(short *)(&g_aYyr1 + local_bd4 * 2) * 2);
     }
     else {
-      local_bd4 = (int)*(short *)(&DAT_100237d8 + iVar8 * 2);
+      local_bd4 = (int)*(short *)(&g_aYytable + iVar8 * 2);
     }
   }
   else {
@@ -744,15 +744,15 @@ switchD_1000acd8_caseD_1f:
       local_be0 = 0;
     }
     else if (local_be0 < 0x11d) {
-      iVar4 = (int)(char)(&DAT_10023188)[local_be0];
+      iVar4 = (int)(char)(&g_aYytranslate)[local_be0];
     }
     else {
       iVar4 = 0x5d;
     }
     iVar10 = sVar1 + iVar4;
-    if (((iVar10 < 0) || (0x106 < iVar10)) || (*(short *)(&DAT_100239e8 + iVar10 * 2) != iVar4))
+    if (((iVar10 < 0) || (0x106 < iVar10)) || (*(short *)(&g_aYycheck + iVar10 * 2) != iVar4))
     goto LAB_1000b4fe;
-    local_bd4 = (int)*(short *)(&DAT_100237d8 + iVar10 * 2);
+    local_bd4 = (int)*(short *)(&g_aYytable + iVar10 * 2);
     if (local_bd4 < 0) {
       if (local_bd4 == -0x8000) goto LAB_1000b512;
       local_bd4 = -local_bd4;
@@ -811,7 +811,7 @@ int __cdecl lparser__b770(int param_1,char param_2,int param_3,uint param_4)
   int *piVar2;
   int iVar3;
   
-  piVar2 = (int *)PTR_1002bf6c[0xf];
+  piVar2 = (int *)g_pLuaState[0xf];
   if ((int)param_4 < param_3) {
     iVar3 = *(int *)(*piVar2 + 0x10) + param_1;
     memcpy((undefined4 *)(iVar3 + 1),(undefined4 *)(iVar3 + 2),(piVar2[1] - param_1) - 2);
@@ -890,7 +890,7 @@ void __cdecl lparser__b8a0(int param_1)
 {
   uint uVar1;
   
-  uVar1 = luaY_string_constant(param_1,(int *)PTR_1002bf6c[0xf]);
+  uVar1 = luaY_string_constant(param_1,(int *)g_pLuaState[0xf]);
   lparser__b8c0(uVar1);
   return;
 }
@@ -941,7 +941,7 @@ int __cdecl luaY_real_constant(float param_1)
   int *piVar3;
   int iVar4;
   
-  iVar1 = *(int *)PTR_1002bf6c[0xf];
+  iVar1 = *(int *)g_pLuaState[0xf];
   iVar2 = *(int *)(iVar1 + 0xc);
   if (iVar2 < 0x14) {
     iVar4 = 0;
@@ -960,8 +960,8 @@ int __cdecl luaY_real_constant(float param_1)
       piVar3 = piVar3 + -2;
     } while (iVar4 <= iVar2);
   }
-  iVar2 = luaY_next_constant((int *)PTR_1002bf6c[0xf]);
-  iVar1 = *(int *)(*(int *)PTR_1002bf6c[0xf] + 8);
+  iVar2 = luaY_next_constant((int *)g_pLuaState[0xf]);
+  iVar1 = *(int *)(*(int *)g_pLuaState[0xf] + 8);
   *(undefined4 *)(iVar1 + iVar2 * 8) = 0xffffffff;
   *(float *)(iVar1 + 4 + iVar2 * 8) = param_1;
   return iVar2;
@@ -1010,14 +1010,14 @@ void __cdecl lparser__ba20(undefined4 param_1,int param_2)
 {
   int iVar1;
   
-  iVar1 = *(int *)(PTR_1002bf6c[0xf] + 0x90) + param_2;
+  iVar1 = *(int *)(g_pLuaState[0xf] + 0x90) + param_2;
   if (iVar1 < 0x20) {
-    *(undefined4 *)(PTR_1002bf6c[0xf] + 8 + iVar1 * 4) = param_1;
+    *(undefined4 *)(g_pLuaState[0xf] + 8 + iVar1 * 4) = param_1;
   }
   else {
     lparser__a730(s_too_many_local_variables__limit__10027bc0);
   }
-  luaY_growvector(param_1,*(undefined4 *)(PTR_1002bf6c[0x10] + 8));
+  luaY_growvector(param_1,*(undefined4 *)(g_pLuaState[0x10] + 8));
   return;
 }
 
@@ -1028,7 +1028,7 @@ void __cdecl lparser__ba70(undefined4 param_1)
 
 {
   lparser__ba20(param_1,0);
-  *(int *)(PTR_1002bf6c[0xf] + 0x90) = *(int *)(PTR_1002bf6c[0xf] + 0x90) + 1;
+  *(int *)(g_pLuaState[0xf] + 0x90) = *(int *)(g_pLuaState[0xf] + 0x90) + 1;
   return;
 }
 
@@ -1046,7 +1046,7 @@ void __cdecl add_varbuffer(int param_1,int param_2)
     lparser__a730(s_variable_buffer_overflow__limit__10027be4);
   }
   iVar1 = lparser__bad0(param_1);
-  *(int *)(PTR_1002bf6c[0xf] + 0xa8 + param_2 * 4) = iVar1;
+  *(int *)(g_pLuaState[0xf] + 0xa8 + param_2 * 4) = iVar1;
   return;
 }
 
@@ -1079,7 +1079,7 @@ int __cdecl lparser__baf0(int param_1,int *param_2)
   }
   iVar2 = 1;
   piVar1 = param_2;
-  if (0 < ((int)param_2 - PTR_1002bf6c[0xe]) / 0x168) {
+  if (0 < ((int)param_2 - g_pLuaState[0xe]) / 0x168) {
     do {
       iVar3 = lparser__bba0(param_1,(int)(piVar1 + -0x5a));
       if (-1 < iVar3) {
@@ -1087,7 +1087,7 @@ int __cdecl lparser__baf0(int param_1,int *param_2)
       }
       iVar2 = iVar2 + 1;
       piVar1 = piVar1 + -0x5a;
-    } while (iVar2 <= ((int)param_2 - PTR_1002bf6c[0xe]) / 0x168);
+    } while (iVar2 <= ((int)param_2 - g_pLuaState[0xe]) / 0x168);
   }
   iVar2 = luaY_string_constant(param_1,param_2);
   return iVar2 + 0x21;
@@ -1125,10 +1125,10 @@ void __cdecl lparser__bbd0(int param_1)
   int iVar1;
   uint uVar2;
   
-  if (PTR_1002bf6c[0xf] == PTR_1002bf6c[0xe]) {
+  if (g_pLuaState[0xf] == g_pLuaState[0xe]) {
     lparser__a730(s_cannot_access_upvalue_in_main_10027c5c);
   }
-  iVar1 = lparser__bba0(param_1,PTR_1002bf6c[0xf]);
+  iVar1 = lparser__bba0(param_1,g_pLuaState[0xf]);
   if (-1 < iVar1) {
     luaY_error(s_cannot_access_an_upvalue_in_curr_10027c30,(char *)(param_1 + 0x18));
   }
@@ -1149,9 +1149,9 @@ int __cdecl lparser__bc40(int param_1)
   int *piVar4;
   int iVar5;
   
-  iVar3 = lparser__baf0(param_1,(int *)(PTR_1002bf6c[0xf] + -0x168));
+  iVar3 = lparser__baf0(param_1,(int *)(g_pLuaState[0xf] + -0x168));
   iVar5 = 0;
-  iVar1 = PTR_1002bf6c[0xf];
+  iVar1 = g_pLuaState[0xf];
   iVar2 = *(int *)(iVar1 + 0x94);
   if (0 < iVar2) {
     piVar4 = (int *)(iVar1 + 0x128);
@@ -1164,10 +1164,10 @@ int __cdecl lparser__bc40(int param_1)
     } while (iVar5 < iVar2);
   }
   *(int *)(iVar1 + 0x94) = iVar2 + 1;
-  if (0x10 < *(int *)(PTR_1002bf6c[0xf] + 0x94)) {
+  if (0x10 < *(int *)(g_pLuaState[0xf] + 0x94)) {
     lparser__a730(s_too_many_upvalues_in_a_single_fu_10027c7c);
   }
-  *(int *)(PTR_1002bf6c[0xf] + 0x128 + iVar5 * 4) = iVar3;
+  *(int *)(g_pLuaState[0xf] + 0x128 + iVar5 * 4) = iVar3;
   return iVar5;
 }
 
@@ -1201,11 +1201,11 @@ int __cdecl lparser__bd00(int param_1,uint param_2)
   if (param_1 < 1) {
     return -param_1;
   }
-  pbVar3 = (byte *)(*(int *)(*(int *)PTR_1002bf6c[0xf] + 0x10) + param_1);
+  pbVar3 = (byte *)(*(int *)(*(int *)g_pLuaState[0xf] + 0x10) + param_1);
   bVar1 = *pbVar3;
   bVar2 = pbVar3[-1];
   iVar4 = lparser__b770(param_1 + -2,'x',2,param_2);
-  *(byte *)(*(int *)(*(int *)PTR_1002bf6c[0xf] + 0x10) + param_1 + iVar4) = bVar2;
+  *(byte *)(*(int *)(*(int *)g_pLuaState[0xf] + 0x10) + param_1 + iVar4) = bVar2;
   if (param_2 != 0xff) {
     lparser__a8b0(param_2);
   }
@@ -1225,7 +1225,7 @@ void __cdecl lparser__bd80(int param_1,int param_2)
     lparser__bcc0(-(param_2 + param_1));
     return;
   }
-  iVar1 = (uint)*(byte *)(*(int *)(*(int *)PTR_1002bf6c[0xf] + 0x10) + param_2) - param_1;
+  iVar1 = (uint)*(byte *)(*(int *)(*(int *)g_pLuaState[0xf] + 0x10) + param_2) - param_1;
   if (iVar1 < 0) {
     lparser__bd00(param_2,-iVar1);
     return;
@@ -1245,8 +1245,8 @@ void __cdecl lparser__bde0(int param_1,int param_2)
   int iVar2;
   undefined4 uVar3;
   
-  *(int *)(PTR_1002bf6c[0xf] + 0x90) = *(int *)(PTR_1002bf6c[0xf] + 0x90) + param_1;
-  piVar1 = (int *)PTR_1002bf6c[0xf];
+  *(int *)(g_pLuaState[0xf] + 0x90) = *(int *)(g_pLuaState[0xf] + 0x90) + param_1;
+  piVar1 = (int *)g_pLuaState[0xf];
   iVar2 = piVar1[0x24];
   if (param_2 == 0) {
     *(char *)(*(int *)(*piVar1 + 0x10) + 1) = (char)iVar2;
@@ -1308,7 +1308,7 @@ int __cdecl lparser__bf00(int param_1,int param_2)
 {
   int iVar1;
   
-  iVar1 = *(int *)(PTR_1002bf6c[0xf] + 0xa8 + param_1 * 4);
+  iVar1 = *(int *)(g_pLuaState[0xf] + 0xa8 + param_1 * 4);
   if ((iVar1 == 0) && (param_1 + param_2 != 0)) {
     luaY_code_opcode_arg('U',0,param_1 + param_2,-1);
     return param_2 + 2;
@@ -1338,7 +1338,7 @@ void __cdecl lparser__bf70(char param_1,int param_2)
   int iVar1;
   uint uVar2;
   
-  iVar1 = *(int *)(PTR_1002bf6c[0xf] + 4) - param_2;
+  iVar1 = *(int *)(g_pLuaState[0xf] + 4) - param_2;
   uVar2 = iVar1 + 2;
   if (0xff < (int)uVar2) {
     uVar2 = iVar1 + 3;
@@ -1355,10 +1355,10 @@ void __cdecl lparser__bfa0(int param_1,int param_2)
 {
   int iVar1;
   
-  iVar1 = *(int *)(PTR_1002bf6c[0xf] + 4);
+  iVar1 = *(int *)(g_pLuaState[0xf] + 4);
   if (iVar1 == param_2 + 2) {
-    *(int *)(PTR_1002bf6c[0xf] + 4) = iVar1 + -2;
-    lparser__bf50(param_1,'o',*(int *)(PTR_1002bf6c[0xf] + 4));
+    *(int *)(g_pLuaState[0xf] + 4) = iVar1 + -2;
+    lparser__bf50(param_1,'o',*(int *)(g_pLuaState[0xf] + 4));
     return;
   }
   iVar1 = lparser__bf50(param_2,'m',iVar1);
@@ -1372,7 +1372,7 @@ void __cdecl lparser__bfa0(int param_1,int param_2)
 void __cdecl lparser__c000(int param_1,char param_2)
 
 {
-  lparser__bf50(param_1,param_2,*(int *)(PTR_1002bf6c[0xf] + 4));
+  lparser__bf50(param_1,param_2,*(int *)(g_pLuaState[0xf] + 4));
   return;
 }
 
@@ -1382,8 +1382,8 @@ void __cdecl lparser__c000(int param_1,char param_2)
 void lparser__c020(void)
 
 {
-  ((code *)luaY_code_opcode_arg)('{',0,*(uint *)(PTR_1002bf6c[0xf] + 0x90),0);
-  *(undefined4 *)(PTR_1002bf6c[0xf] + 0x88) = *(undefined4 *)(PTR_1002bf6c[0xf] + 0x90);
+  ((code *)luaY_code_opcode_arg)('{',0,*(uint *)(g_pLuaState[0xf] + 0x90),0);
+  *(undefined4 *)(g_pLuaState[0xf] + 0x88) = *(undefined4 *)(g_pLuaState[0xf] + 0x90);
   return;
 }
 
@@ -1398,17 +1398,17 @@ void lparser__c060(void)
   int iVar3;
   uint uVar4;
   
-  uVar1 = ((int *)PTR_1002bf6c[0xf])[0x7f];
-  uVar2 = luaY_next_constant((int *)PTR_1002bf6c[0xf]);
-  *(undefined4 *)(*(int *)(*(int *)PTR_1002bf6c[0xf] + 8) + uVar2 * 8) = 0xfffffffc;
-  *(int *)(*(int *)(*(int *)PTR_1002bf6c[0xf] + 8) + 4 + uVar2 * 8) =
-       ((int *)PTR_1002bf6c[0xf])[0x5a];
+  uVar1 = ((int *)g_pLuaState[0xf])[0x7f];
+  uVar2 = luaY_next_constant((int *)g_pLuaState[0xf]);
+  *(undefined4 *)(*(int *)(*(int *)g_pLuaState[0xf] + 8) + uVar2 * 8) = 0xfffffffc;
+  *(int *)(*(int *)(*(int *)g_pLuaState[0xf] + 8) + 4 + uVar2 * 8) = ((int *)g_pLuaState[0xf])[0x5a]
+  ;
   if (uVar1 != 0) {
     if (0 < (int)uVar1) {
       iVar3 = 0x290;
       uVar4 = uVar1;
       do {
-        lparser__be60(*(int *)(PTR_1002bf6c[0xf] + iVar3));
+        lparser__be60(*(int *)(g_pLuaState[0xf] + iVar3));
         iVar3 = iVar3 + 4;
         uVar4 = uVar4 - 1;
       } while (uVar4 != 0);
@@ -1427,12 +1427,12 @@ void lparser__c060(void)
 void lparser__c100(void)
 
 {
-  if (4 < (PTR_1002bf6c[0xf] - PTR_1002bf6c[0xe]) / 0x168) {
+  if (4 < (g_pLuaState[0xf] - g_pLuaState[0xe]) / 0x168) {
     lparser__a730(s_too_many_nested_functions__limit_10027cb4);
   }
-  PTR_1002bf6c[0xf] = PTR_1002bf6c[0xf] + 0x168;
-  lparser__a980(*(undefined4 *)(*(int *)PTR_1002bf6c[0xe] + 0x18));
-  luaY_codedebugline(*(uint *)(PTR_1002bf6c[0x10] + 8));
-  *(undefined4 *)(*(int *)PTR_1002bf6c[0xf] + 0x14) = *(undefined4 *)(PTR_1002bf6c[0x10] + 8);
+  g_pLuaState[0xf] = g_pLuaState[0xf] + 0x168;
+  lparser__a980(*(undefined4 *)(*(int *)g_pLuaState[0xe] + 0x18));
+  luaY_codedebugline(*(uint *)(g_pLuaState[0x10] + 8));
+  *(undefined4 *)(*(int *)g_pLuaState[0xf] + 0x14) = *(undefined4 *)(g_pLuaState[0x10] + 8);
   return;
 }

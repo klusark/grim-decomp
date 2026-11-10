@@ -29,10 +29,9 @@ undefined4 * __fastcall LState_Construct(undefined4 *param_1)
   param_1[1] = 0;
   param_1[0x33] = 0;
   param_1[0x34] = 0;
-  param_1[0x30] = DAT_1002bf78;
-  DAT_1002bf78 = DAT_1002bf78 + 1;
-  iVar1 = (**(code **)(DAT_1002beb8 + 0x20))
-                    (0x400,s_C__grimsrc_libs_lua_src_lstate_c_100277cc,0x10e);
+  param_1[0x30] = g_dwLState_numThreads;
+  g_dwLState_numThreads = g_dwLState_numThreads + 1;
+  iVar1 = (**(code **)(g_dwLuaHS + 0x20))(0x400,s_C__grimsrc_libs_lua_src_lstate_c_100277cc,0x10e);
   param_1[8] = iVar1;
   param_1[7] = iVar1;
   param_1[9] = iVar1 + 0x3f8;
@@ -59,43 +58,44 @@ undefined4 __stdcall LState_SerialToPtr(int a1)
   local_8 = 0;
   iVar1 = *(int *)(a1 + 4);
   local_4 = 0;
-  if ((((DAT_1002bf44 == (undefined1 *)0x0) || (DAT_1002bf60 == (undefined1 *)0x0)) ||
-      (DAT_1002bf10 == (undefined1 *)0x0)) ||
-     (puVar3 = DAT_1002bf44, DAT_1002bf68 == (undefined1 *)0x0)) {
+  if ((((g_dwLState_aStringPtrs == (undefined1 *)0x0) ||
+       (g_dwLState_aClosurePtrs == (undefined1 *)0x0)) ||
+      (g_dwLState_aTablePtrs == (undefined1 *)0x0)) ||
+     (puVar3 = g_dwLState_aStringPtrs, g_dwLState_aProtoPtrs == (undefined1 *)0x0)) {
     puVar3 = (undefined1 *)
-             (**(code **)(DAT_1002beb8 + 0x18))
+             (**(code **)(g_dwLuaHS + 0x18))
                        (s_aStringPtrs____aClosurePtrs____a_100277f0,
                         s_C__grimsrc_libs_lua_src_lstate_c_100277cc,0x128);
   }
-  if (DAT_1002bf7c == 0) {
-    qsort(DAT_1002bf44,DAT_1002bf30,8,comparePtrIDs);
-    qsort(DAT_1002bf60,DAT_1002bf50,8,comparePtrIDs);
-    qsort(DAT_1002bf10,DAT_1002bf2c,8,comparePtrIDs);
-    puVar3 = (undefined1 *)((code *)qsort)(DAT_1002bf68,DAT_1002bef8,8,comparePtrIDs);
-    DAT_1002bf7c = 1;
+  if (g_dwLState_bPtrsSorted == 0) {
+    qsort(g_dwLState_aStringPtrs,g_dwLState_stringPtrTotal,8,comparePtrIDs);
+    qsort(g_dwLState_aClosurePtrs,g_dwLState_closurePtrTotal,8,comparePtrIDs);
+    qsort(g_dwLState_aTablePtrs,g_dwLState_tablePtrTotal,8,comparePtrIDs);
+    puVar3 = (undefined1 *)((code *)qsort)(g_dwLState_aProtoPtrs,g_dwLState_protoPtrTotal,8,comparePtrIDs);
+    g_dwLState_bPtrsSorted = 1;
   }
   if (iVar1 == 0) goto LAB_100077c9;
   switch(*(undefined4 *)a1) {
   case 0xfffffff6:
   case 0xfffffffc:
-    puVar3 = DAT_1002bf68;
-    uVar5 = DAT_1002bef8;
+    puVar3 = g_dwLState_aProtoPtrs;
+    uVar5 = g_dwLState_protoPtrTotal;
     break;
   default:
     puVar4 = (undefined4 *)0x0;
     goto LAB_100077b7;
   case 0xfffffff8:
-    puVar3 = DAT_1002bf60;
-    uVar5 = DAT_1002bf50;
+    puVar3 = g_dwLState_aClosurePtrs;
+    uVar5 = g_dwLState_closurePtrTotal;
     break;
   case 0xfffffffd:
-    puVar3 = DAT_1002bf10;
-    uVar5 = DAT_1002bf2c;
+    puVar3 = g_dwLState_aTablePtrs;
+    uVar5 = g_dwLState_tablePtrTotal;
     break;
   case 0xfffffffe:
   case 0:
-    puVar3 = DAT_1002bf44;
-    uVar5 = DAT_1002bf30;
+    puVar3 = g_dwLState_aStringPtrs;
+    uVar5 = g_dwLState_stringPtrTotal;
   }
   local_4 = iVar1;
   puVar4 = (undefined4 *)bsearch(&local_8,(uint)puVar3,uVar5,8,comparePtrIDs);
@@ -217,27 +217,27 @@ undefined4 __stdcall LState_LoadResolvedObject(int a1,int a2)
 undefined4 __stdcall LState_GlobalEndRestore(int a1)
 
 {
-  if (DAT_1002bf44 != 0) {
-    (**(code **)(DAT_1002beb8 + 0x24))(DAT_1002bf44);
-    DAT_1002bf30 = 0;
-    DAT_1002bf44 = 0;
+  if (g_dwLState_aStringPtrs != 0) {
+    (**(code **)(g_dwLuaHS + 0x24))(g_dwLState_aStringPtrs);
+    g_dwLState_stringPtrTotal = 0;
+    g_dwLState_aStringPtrs = 0;
   }
-  if (DAT_1002bf60 != 0) {
-    (**(code **)(DAT_1002beb8 + 0x24))(DAT_1002bf60);
-    DAT_1002bf50 = 0;
-    DAT_1002bf60 = 0;
+  if (g_dwLState_aClosurePtrs != 0) {
+    (**(code **)(g_dwLuaHS + 0x24))(g_dwLState_aClosurePtrs);
+    g_dwLState_closurePtrTotal = 0;
+    g_dwLState_aClosurePtrs = 0;
   }
-  if (DAT_1002bf10 != 0) {
-    (**(code **)(DAT_1002beb8 + 0x24))(DAT_1002bf10);
-    DAT_1002bf2c = 0;
-    DAT_1002bf10 = 0;
+  if (g_dwLState_aTablePtrs != 0) {
+    (**(code **)(g_dwLuaHS + 0x24))(g_dwLState_aTablePtrs);
+    g_dwLState_tablePtrTotal = 0;
+    g_dwLState_aTablePtrs = 0;
   }
-  if (DAT_1002bf68 != 0) {
-    (**(code **)(DAT_1002beb8 + 0x24))(DAT_1002bf68);
-    DAT_1002bef8 = 0;
-    DAT_1002bf68 = 0;
+  if (g_dwLState_aProtoPtrs != 0) {
+    (**(code **)(g_dwLuaHS + 0x24))(g_dwLState_aProtoPtrs);
+    g_dwLState_protoPtrTotal = 0;
+    g_dwLState_aProtoPtrs = 0;
   }
-  DAT_1002bf7c = 0;
+  g_dwLState_bPtrsSorted = 0;
   return 0;
 }
 
@@ -273,19 +273,20 @@ undefined4 __stdcall LState_GlobalBeginRestore(int a1)
   #define iStack_4 (*(int *)(_frame + (0x40 - 0x4)))
   
   a2 = a1;
-  (*(code *)a1)(&DAT_1002bf30,4);
-  (*(code *)a1)(&DAT_1002bf50,4);
-  (*(code *)a1)(&DAT_1002bf2c,4);
-  (*(code *)a1)(&DAT_1002bef8,4);
+  (*(code *)a1)(&g_dwLState_stringPtrTotal,4);
+  (*(code *)a1)(&g_dwLState_closurePtrTotal,4);
+  (*(code *)a1)(&g_dwLState_tablePtrTotal,4);
+  (*(code *)a1)(&g_dwLState_protoPtrTotal,4);
   (*(code *)a1)(&uStack_c,4);
-  piVar2 = (int *)(**(code **)(DAT_1002beb8 + 0x20))
-                            (DAT_1002bf30 * 8,s_C__grimsrc_libs_lua_src_lstate_c_100277cc,0x1cf);
-  DAT_1002bf44 = piVar2;
+  piVar2 = (int *)(**(code **)(g_dwLuaHS + 0x20))
+                            (g_dwLState_stringPtrTotal * 8,
+                             s_C__grimsrc_libs_lua_src_lstate_c_100277cc,0x1cf);
+  g_dwLState_aStringPtrs = piVar2;
   (*(code *)a1)(&iStack_8,4);
-  pbVar3 = (byte *)(**(code **)(DAT_1002beb8 + 0x20))
+  pbVar3 = (byte *)(**(code **)(g_dwLuaHS + 0x20))
                              (iStack_8 + 5,s_C__grimsrc_libs_lua_src_lstate_c_100277cc,0x1d3);
   a1 = 0;
-  if (DAT_1002bf30 != 0) {
+  if (g_dwLState_stringPtrTotal != 0) {
     piStack_2c = piVar2 + 1;
     do {
       (*(code *)a2)(piStack_2c,4);
@@ -317,23 +318,24 @@ undefined4 __stdcall LState_GlobalBeginRestore(int a1)
       piStack_2c = piStack_2c + 2;
       a1 = a1 + 1;
       piVar2 = piVar2 + 2;
-    } while ((uint)a1 < DAT_1002bf30);
+    } while ((uint)a1 < g_dwLState_stringPtrTotal);
   }
-  (**(code **)(DAT_1002beb8 + 0x24))(pbVar3);
-  DAT_1002bf60 = (undefined4 *)
-                 (**(code **)(DAT_1002beb8 + 0x20))
-                           (DAT_1002bf50 * 8,s_C__grimsrc_libs_lua_src_lstate_c_100277cc,0x207);
+  (**(code **)(g_dwLuaHS + 0x24))(pbVar3);
+  g_dwLState_aClosurePtrs =
+       (undefined4 *)
+       (**(code **)(g_dwLuaHS + 0x20))
+                 (g_dwLState_closurePtrTotal * 8,s_C__grimsrc_libs_lua_src_lstate_c_100277cc,0x207);
   a1 = 0;
-  if (DAT_1002bf50 != 0) {
-    puStack_28 = DAT_1002bf60 + 1;
-    piStack_2c = DAT_1002bf60;
+  if (g_dwLState_closurePtrTotal != 0) {
+    puStack_28 = g_dwLState_aClosurePtrs + 1;
+    piStack_2c = g_dwLState_aClosurePtrs;
     do {
       (*(code *)a2)(puStack_28,4);
       (*(code *)a2)(&iStack_14,4);
       puVar5 = (undefined4 *)
-               (**(code **)(DAT_1002beb8 + 0x20))
+               (**(code **)(g_dwLuaHS + 0x20))
                          (iStack_14 * 8 + 0x14,s_C__grimsrc_libs_lua_src_lstate_c_100277cc,0x211);
-      luaO_insertlist(&DAT_1002bf20,puVar5);
+      luaO_insertlist(&g_dwLState_rootcl,puVar5);
       puVar5[2] = iStack_14;
       uVar9 = 0;
       puVar6 = puVar5 + 3;
@@ -346,14 +348,15 @@ undefined4 __stdcall LState_GlobalBeginRestore(int a1)
       piStack_2c = piStack_2c + 2;
       puStack_28 = puStack_28 + 2;
       a1 = a1 + 1;
-    } while ((uint)a1 < DAT_1002bf50);
+    } while ((uint)a1 < g_dwLState_closurePtrTotal);
   }
   puVar6 = (undefined4 *)
-           (**(code **)(DAT_1002beb8 + 0x20))
-                     (DAT_1002bf2c * 8,s_C__grimsrc_libs_lua_src_lstate_c_100277cc,0x220);
+           (**(code **)(g_dwLuaHS + 0x20))
+                     (g_dwLState_tablePtrTotal * 8,s_C__grimsrc_libs_lua_src_lstate_c_100277cc,0x220
+                     );
   uVar9 = 0;
-  DAT_1002bf10 = puVar6;
-  if (DAT_1002bf2c != 0) {
+  g_dwLState_aTablePtrs = puVar6;
+  if (g_dwLState_tablePtrTotal != 0) {
     puVar5 = puVar6 + 1;
     do {
       (*(code *)a2)(puVar5,4);
@@ -362,26 +365,27 @@ undefined4 __stdcall LState_GlobalBeginRestore(int a1)
       puVar6 = puVar6 + 2;
       puVar5 = puVar5 + 2;
       uVar9 = uVar9 + 1;
-    } while (uVar9 < DAT_1002bf2c);
+    } while (uVar9 < g_dwLState_tablePtrTotal);
   }
-  DAT_1002bf68 = (undefined4 *)
-                 (**(code **)(DAT_1002beb8 + 0x20))
-                           (DAT_1002bef8 * 8,s_C__grimsrc_libs_lua_src_lstate_c_100277cc,0x22c);
+  g_dwLState_aProtoPtrs =
+       (undefined4 *)
+       (**(code **)(g_dwLuaHS + 0x20))
+                 (g_dwLState_protoPtrTotal * 8,s_C__grimsrc_libs_lua_src_lstate_c_100277cc,0x22c);
   a1 = 0;
-  if (DAT_1002bef8 != 0) {
-    puStack_24 = DAT_1002bf68 + 1;
-    piStack_2c = DAT_1002bf68;
+  if (g_dwLState_protoPtrTotal != 0) {
+    puStack_24 = g_dwLState_aProtoPtrs + 1;
+    piStack_2c = g_dwLState_aProtoPtrs;
     do {
       (*(code *)a2)(puStack_24,4);
       puVar6 = (undefined4 *)
-               (**(code **)(DAT_1002beb8 + 0x20))
+               (**(code **)(g_dwLuaHS + 0x20))
                          (0x20,s_C__grimsrc_libs_lua_src_lstate_c_100277cc,0x235);
-      luaO_insertlist(&DAT_1002bf38,puVar6);
+      luaO_insertlist(&g_dwLState_rootproto,puVar6);
       (*(code *)a2)(puVar6 + 6,4);
       (*(code *)a2)(puVar6 + 5,4);
       puVar1 = puVar6 + 3;
       (*(code *)a2)(puVar1,4);
-      uVar8 = (**(code **)(DAT_1002beb8 + 0x20))
+      uVar8 = (**(code **)(g_dwLuaHS + 0x20))
                         (*puVar1 << 3,s_C__grimsrc_libs_lua_src_lstate_c_100277cc,0x23a);
       puVar6[2] = uVar8;
       uVar9 = 0;
@@ -397,7 +401,7 @@ undefined4 __stdcall LState_GlobalBeginRestore(int a1)
         puVar6[7] = 0;
       }
       else {
-        uVar8 = (**(code **)(DAT_1002beb8 + 0x20))
+        uVar8 = (**(code **)(g_dwLuaHS + 0x20))
                           ((int)puStack_28 * 8,s_C__grimsrc_libs_lua_src_lstate_c_100277cc,0x244);
         puVar6[7] = uVar8;
       }
@@ -409,7 +413,7 @@ undefined4 __stdcall LState_GlobalBeginRestore(int a1)
         } while (puVar5 < puStack_28);
       }
       (*(code *)a2)(&iStack_14,4);
-      uVar8 = (**(code **)(DAT_1002beb8 + 0x20))
+      uVar8 = (**(code **)(g_dwLuaHS + 0x20))
                         (iStack_14,s_C__grimsrc_libs_lua_src_lstate_c_100277cc,0x250);
       puVar6[4] = uVar8;
       (*(code *)a2)(uVar8,iStack_14);
@@ -417,10 +421,10 @@ undefined4 __stdcall LState_GlobalBeginRestore(int a1)
       piStack_2c = piStack_2c + 2;
       puStack_24 = puStack_24 + 2;
       a1 = a1 + 1;
-    } while ((uint)a1 < DAT_1002bef8);
+    } while ((uint)a1 < g_dwLState_protoPtrTotal);
   }
-  luaS_resolvestrings(DAT_1002bef4);
-  for (puVar6 = DAT_1002bf38; puVar5 = DAT_1002bf18, puVar6 != (undefined4 *)0x0;
+  luaS_resolvestrings(g_dwLState_string_root);
+  for (puVar6 = g_dwLState_rootproto; puVar5 = g_dwLState_roottable, puVar6 != (undefined4 *)0x0;
       puVar6 = (undefined4 *)*puVar6) {
     iStack_14 = -2;
     puStack_10 = (undefined4 *)puVar6[6];
@@ -446,7 +450,7 @@ undefined4 __stdcall LState_GlobalBeginRestore(int a1)
       } while (puVar5[1] != -1);
     }
   }
-  for (; puVar6 = DAT_1002bf20, puVar5 != (undefined4 *)0x0; puVar5 = (undefined4 *)*puVar5) {
+  for (; puVar6 = g_dwLState_rootcl, puVar5 != (undefined4 *)0x0; puVar5 = (undefined4 *)*puVar5) {
     uVar9 = 0;
     if (puVar5[4] != 0) {
       iVar4 = 0;
@@ -469,7 +473,7 @@ undefined4 __stdcall LState_GlobalBeginRestore(int a1)
     } while (uVar9 <= (uint)puVar6[2]);
   }
   uVar9 = 0;
-  puVar6 = &DAT_1002bf00;
+  puVar6 = &g_dwLState_rootglobal;
   puVar5 = puVar6;
   if (uStack_c != 0) {
     do {
@@ -478,7 +482,7 @@ undefined4 __stdcall LState_GlobalBeginRestore(int a1)
       LState_ResolveObject((int)&iStack_14);
       puVar6 = puStack_10;
       if (puStack_10 == (undefined4 *)0x0) {
-        (**(code **)(DAT_1002beb8 + 0x18))
+        (**(code **)(g_dwLuaHS + 0x18))
                   (s_pTString_10027828,s_C__grimsrc_libs_lua_src_lstate_c_100277cc,0x2aa);
       }
       *puVar5 = puVar6;
@@ -487,17 +491,18 @@ undefined4 __stdcall LState_GlobalBeginRestore(int a1)
     } while (uVar9 < uStack_c);
   }
   *puVar6 = 0;
-  (*(code *)a2)(&DAT_1002bf74,4);
+  (*(code *)a2)(&g_dwLState_lstate_class_initialized,4);
   LState_LoadResolvedObject(IMG_ADDR(0x1002bf58),a2);
-  (*(code *)a2)(&DAT_1002bef0,4);
-  DAT_1002bf48 = (**(code **)(DAT_1002beb8 + 0x20))
-                           (DAT_1002bef0 * 0x90,s_C__grimsrc_libs_lua_src_lstate_c_100277cc,0x2b6);
+  (*(code *)a2)(&g_dwLState_IMtable_size,4);
+  g_dwLState_IMtable =
+       (**(code **)(g_dwLuaHS + 0x20))
+                 (g_dwLState_IMtable_size * 0x90,s_C__grimsrc_libs_lua_src_lstate_c_100277cc,0x2b6);
   a1 = 0;
-  if (DAT_1002bef0 != 0) {
+  if (g_dwLState_IMtable_size != 0) {
     local_20 = 0;
     do {
       iVar10 = 0x12;
-      iVar4 = DAT_1002bf48 + local_20;
+      iVar4 = g_dwLState_IMtable + local_20;
       do {
         LState_LoadResolvedObject(iVar4,a2);
         iVar4 = iVar4 + 8;
@@ -505,32 +510,34 @@ undefined4 __stdcall LState_GlobalBeginRestore(int a1)
       } while (iVar10 != 0);
       a1 = a1 + 1;
       local_20 = local_20 + 0x90;
-    } while ((uint)a1 < DAT_1002bef0);
+    } while ((uint)a1 < g_dwLState_IMtable_size);
   }
-  (*(code *)a2)(&DAT_1002bee8,4);
-  (*(code *)a2)(&DAT_1002bf08,4);
-  DAT_1002bf34 = (**(code **)(DAT_1002beb8 + 0x20))
-                           (DAT_1002bf08 * 0xc,s_C__grimsrc_libs_lua_src_lstate_c_100277cc,0x2c2);
+  (*(code *)a2)(&g_dwLState_last_tag,4);
+  (*(code *)a2)(&g_dwLState_refSize,4);
+  g_dwLState_refArray =
+       (**(code **)(g_dwLuaHS + 0x20))
+                 (g_dwLState_refSize * 0xc,s_C__grimsrc_libs_lua_src_lstate_c_100277cc,0x2c2);
   uVar9 = 0;
-  if (DAT_1002bf08 != 0) {
+  if (g_dwLState_refSize != 0) {
     iVar4 = 0;
     do {
-      LState_LoadResolvedObject(DAT_1002bf34 + iVar4,a2);
-      (*(code *)a2)(DAT_1002bf34 + 8 + iVar4,4);
+      LState_LoadResolvedObject(g_dwLState_refArray + iVar4,a2);
+      (*(code *)a2)(g_dwLState_refArray + 8 + iVar4,4);
       uVar9 = uVar9 + 1;
       iVar4 = iVar4 + 0xc;
-    } while (uVar9 < DAT_1002bf08);
+    } while (uVar9 < g_dwLState_refSize);
   }
-  (*(code *)a2)(&DAT_1002bf64,4);
-  (*(code *)a2)(&DAT_1002beec,4);
-  (*(code *)a2)(&DAT_1002bf28,4);
-  DAT_1002bf40 = (**(code **)(DAT_1002beb8 + 0x20))
-                           (DAT_1002bf28,s_C__grimsrc_libs_lua_src_lstate_c_100277cc,0x2ce);
-  (*(code *)a2)(DAT_1002bf40,DAT_1002bf28);
+  (*(code *)a2)(&g_dwLState_GCthreshold,4);
+  (*(code *)a2)(&g_dwLState_nblocks,4);
+  (*(code *)a2)(&g_dwLState_Mbuffsize,4);
+  g_dwLState_Mbuffer =
+       (**(code **)(g_dwLuaHS + 0x20))
+                 (g_dwLState_Mbuffsize,s_C__grimsrc_libs_lua_src_lstate_c_100277cc,0x2ce);
+  (*(code *)a2)(g_dwLState_Mbuffer,g_dwLState_Mbuffsize);
   (*(code *)a2)(&iStack_4,4);
-  DAT_1002befc = iStack_4 + DAT_1002bf40;
-  (*(code *)a2)(&DAT_1002bf4c,4);
-  (*(code *)a2)(&DAT_1002bf78,4);
+  g_dwLState_Mbuffbase = iStack_4 + g_dwLState_Mbuffer;
+  (*(code *)a2)(&g_dwLState_Mbuffnext,4);
+  (*(code *)a2)(&g_dwLState_numThreads,4);
   return 0;
 }
 #undef iStack_14
@@ -580,16 +587,18 @@ undefined4 __stdcall LState_SaveGlobals(int a1)
   local_28 = 0;
   local_24 = 0;
   local_10 = 0;
-  local_10 = luaS_count(DAT_1002bef4,&local_8);
+  local_10 = luaS_count(g_dwLState_string_root,&local_8);
   a2 = a1;
-  for (puVar1 = DAT_1002bf20; puVar2 = DAT_1002bf18, puVar1 != (undefined4 *)0x0;
+  for (puVar1 = g_dwLState_rootcl; puVar2 = g_dwLState_roottable, puVar1 != (undefined4 *)0x0;
       puVar1 = (undefined4 *)*puVar1) {
     local_28 = local_28 + 1;
   }
-  for (; puVar1 = DAT_1002bf38, puVar2 != (undefined4 *)0x0; puVar2 = (undefined4 *)*puVar2) {
+  for (; puVar1 = g_dwLState_rootproto, puVar2 != (undefined4 *)0x0; puVar2 = (undefined4 *)*puVar2)
+  {
     local_24 = local_24 + 1;
   }
-  for (; puVar2 = DAT_1002bf00, puVar1 != (undefined4 *)0x0; puVar1 = (undefined4 *)*puVar1) {
+  for (; puVar2 = g_dwLState_rootglobal, puVar1 != (undefined4 *)0x0; puVar1 = (undefined4 *)*puVar1
+      ) {
     local_20 = local_20 + 1;
   }
   for (; puVar2 != (undefined4 *)0x0; puVar2 = (undefined4 *)*puVar2) {
@@ -602,9 +611,9 @@ undefined4 __stdcall LState_SaveGlobals(int a1)
   (*(code *)a2)(&local_1c,4);
   (*(code *)a2)(&local_8,4);
   luaA_ResetSaveCount();
-  luaS_writestrings((undefined *)a2,DAT_1002bef4);
+  luaS_writestrings((undefined *)a2,g_dwLState_string_root);
   luaA_ResetSaveCount();
-  for (puStack_30 = DAT_1002bf20; puStack_30 != (undefined4 *)0x0;
+  for (puStack_30 = g_dwLState_rootcl; puStack_30 != (undefined4 *)0x0;
       puStack_30 = (undefined4 *)*puStack_30) {
     (*(code *)a2)(&puStack_30,4);
     (*(code *)a2)(puStack_30 + 2,4);
@@ -615,13 +624,13 @@ undefined4 __stdcall LState_SaveGlobals(int a1)
     } while (uVar4 <= (uint)puStack_30[2]);
   }
   luaA_ResetSaveCount();
-  for (puStack_2c = DAT_1002bf18; puStack_2c != (undefined4 *)0x0;
+  for (puStack_2c = g_dwLState_roottable; puStack_2c != (undefined4 *)0x0;
       puStack_2c = (undefined4 *)*puStack_2c) {
     (*(code *)a2)(&puStack_2c,4);
     luaH_save((undefined *)a2,(int)puStack_2c);
   }
   luaA_ResetSaveCount();
-  for (puStack_34 = DAT_1002bf38; puStack_34 != (undefined4 *)0x0;
+  for (puStack_34 = g_dwLState_rootproto; puStack_34 != (undefined4 *)0x0;
       puStack_34 = (undefined4 *)*puStack_34) {
     (*(code *)a2)(&puStack_34,4);
     (*(code *)a2)(puStack_34 + 6,4);
@@ -657,7 +666,7 @@ undefined4 __stdcall LState_SaveGlobals(int a1)
     (*(code *)a2)(puStack_34[4],pbStack_c);
   }
   luaA_ResetSaveCount();
-  puVar2 = DAT_1002bf00;
+  puVar2 = g_dwLState_rootglobal;
   puVar1 = _DAT_1002bf0c;
   while (_DAT_1002bf0c = puVar2, apuStack_18[0] = _DAT_1002bf0c, _DAT_1002bf0c != (undefined4 *)0x0)
   {
@@ -667,12 +676,12 @@ undefined4 __stdcall LState_SaveGlobals(int a1)
   }
   _DAT_1002bf0c = puVar1;
   luaA_ResetSaveCount();
-  (*(code *)a2)(&DAT_1002bf74,4);
+  (*(code *)a2)(&g_dwLState_lstate_class_initialized,4);
   LState_SaveObject(IMG_ADDR(0x1002bf58),a2);
-  (*(code *)a2)(&DAT_1002bef0,4);
+  (*(code *)a2)(&g_dwLState_IMtable_size,4);
   uVar4 = 0;
-  iVar5 = DAT_1002bf48;
-  if (DAT_1002bef0 != 0) {
+  iVar5 = g_dwLState_IMtable;
+  if (g_dwLState_IMtable_size != 0) {
     do {
       iVar3 = 0x12;
       do {
@@ -681,28 +690,28 @@ undefined4 __stdcall LState_SaveGlobals(int a1)
         iVar3 = iVar3 + -1;
       } while (iVar3 != 0);
       uVar4 = uVar4 + 1;
-    } while (uVar4 < DAT_1002bef0);
+    } while (uVar4 < g_dwLState_IMtable_size);
   }
   uVar4 = 0;
-  (*(code *)a2)(&DAT_1002bee8,4);
-  (*(code *)a2)(&DAT_1002bf08,4);
-  if (DAT_1002bf08 != 0) {
+  (*(code *)a2)(&g_dwLState_last_tag,4);
+  (*(code *)a2)(&g_dwLState_refSize,4);
+  if (g_dwLState_refSize != 0) {
     iVar5 = 0;
     do {
-      LState_SaveObject(DAT_1002bf34 + iVar5,a2);
-      (*(code *)a2)(DAT_1002bf34 + 8 + iVar5,4);
+      LState_SaveObject(g_dwLState_refArray + iVar5,a2);
+      (*(code *)a2)(g_dwLState_refArray + 8 + iVar5,4);
       uVar4 = uVar4 + 1;
       iVar5 = iVar5 + 0xc;
-    } while (uVar4 < DAT_1002bf08);
+    } while (uVar4 < g_dwLState_refSize);
   }
-  (*(code *)a2)(&DAT_1002bf64,4);
-  (*(code *)a2)(&DAT_1002beec,4);
-  (*(code *)a2)(&DAT_1002bf28,4);
-  (*(code *)a2)(DAT_1002bf40,DAT_1002bf28);
-  iStack_4 = DAT_1002befc - DAT_1002bf40;
+  (*(code *)a2)(&g_dwLState_GCthreshold,4);
+  (*(code *)a2)(&g_dwLState_nblocks,4);
+  (*(code *)a2)(&g_dwLState_Mbuffsize,4);
+  (*(code *)a2)(g_dwLState_Mbuffer,g_dwLState_Mbuffsize);
+  iStack_4 = g_dwLState_Mbuffbase - g_dwLState_Mbuffer;
   (*(code *)a2)(&iStack_4,4);
-  (*(code *)a2)(&DAT_1002bf4c,4);
-  (*(code *)a2)(&DAT_1002bf78,4);
+  (*(code *)a2)(&g_dwLState_Mbuffnext,4);
+  (*(code *)a2)(&g_dwLState_numThreads,4);
   luaA_ResetSaveCount();
   return 0;
 }
@@ -735,7 +744,7 @@ byte * __cdecl lstate__85e0(int param_1)
   do {
     uVar1 = (uint)*pbVar3;
     if (0x80 < uVar1) {
-      (**(code **)(DAT_1002beb8 + 0x18))
+      (**(code **)(g_dwLuaHS + 0x18))
                 (s_op____sizeof_opcodeDirectory__si_10027834,
                  s_C__grimsrc_libs_lua_src_lstate_c_100277cc,0xef);
     }
@@ -761,7 +770,7 @@ undefined4 __thiscall LState_Save(void *this,int a1)
   local_8 = 0;
   local_4 = -1;
   if ((*(int *)this == 0) && (*(int *)((int)this + 4) != 0)) {
-    (**(code **)(DAT_1002beb8 + 0x18))
+    (**(code **)(g_dwLuaHS + 0x18))
               (s_pExecutionState_____pPreviousSta_10027870,
                s_C__grimsrc_libs_lua_src_lstate_c_100277cc,0x39e);
   }
@@ -877,9 +886,9 @@ undefined4 __thiscall LState_Restore(void *this,int a1)
   (*(code *)a1_00)((int)this + 0x18,4);
   (*(code *)a1_00)(&iStack_18,4);
   if (*(int *)((int)this + 0x20) != 0) {
-    (**(code **)(DAT_1002beb8 + 0x24))(*(int *)((int)this + 0x20));
+    (**(code **)(g_dwLuaHS + 0x24))(*(int *)((int)this + 0x20));
   }
-  iVar2 = (**(code **)(DAT_1002beb8 + 0x20))
+  iVar2 = (**(code **)(g_dwLuaHS + 0x20))
                     (iStack_18 * 8,s_C__grimsrc_libs_lua_src_lstate_c_100277cc,0x41e);
   *(int *)((int)this + 0x20) = iVar2;
   *(int *)((int)this + 0x24) = iVar2 + -8 + iStack_18 * 8;
@@ -931,15 +940,15 @@ undefined4 * lua_newstate(void)
   undefined4 *puVar2;
   int *piVar3;
   
-  piVar1 = PTR_1002bf6c;
+  piVar1 = g_pLuaState;
   puVar2 = luaM_malloc(0xd4);
   piVar3 = (int *)0x0;
   if (puVar2 != (undefined4 *)0x0) {
     piVar3 = LState_Construct(puVar2);
   }
-  PTR_1002bf6c = piVar3;
+  g_pLuaState = piVar3;
   LState_initglobals();
-  PTR_1002bf6c = piVar1;
+  g_pLuaState = piVar1;
   return piVar3;
 }
 #endif
@@ -1012,6 +1021,6 @@ void __fastcall LState_Destruct(int *param_1)
   if (*param_1 != 0) {
     luaD_deletestates(*param_1);
   }
-  (**(code **)(DAT_1002beb8 + 0x24))(param_1[8]);
+  (**(code **)(g_dwLuaHS + 0x24))(param_1[8]);
   return;
 }

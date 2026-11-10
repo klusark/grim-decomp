@@ -11,7 +11,7 @@
 void __cdecl luaL_addsize(int param_1)
 
 {
-  DAT_1002bf4c = DAT_1002bf4c + param_1;
+  g_dwLState_Mbuffnext = g_dwLState_Mbuffnext + param_1;
   return;
 }
 
@@ -24,11 +24,11 @@ int __cdecl luaL_newbuffer(int param_1)
 {
   int iVar1;
   
-  iVar1 = DAT_1002befc - DAT_1002bf40;
-  if (DAT_1002bf28 < (uint)(param_1 + DAT_1002bf4c)) {
+  iVar1 = g_dwLState_Mbuffbase - g_dwLState_Mbuffer;
+  if (g_dwLState_Mbuffsize < (uint)(param_1 + g_dwLState_Mbuffnext)) {
     luaL_growbuffer(param_1);
   }
-  DAT_1002befc = DAT_1002bf4c + DAT_1002bf40;
+  g_dwLState_Mbuffbase = g_dwLState_Mbuffnext + g_dwLState_Mbuffer;
   return iVar1;
 }
 
@@ -39,8 +39,8 @@ int __cdecl luaL_newbuffer(int param_1)
 void __cdecl luaL_oldbuffer(int param_1)
 
 {
-  DAT_1002bf4c = DAT_1002befc - DAT_1002bf40;
-  DAT_1002befc = param_1 + DAT_1002bf40;
+  g_dwLState_Mbuffnext = g_dwLState_Mbuffbase - g_dwLState_Mbuffer;
+  g_dwLState_Mbuffbase = param_1 + g_dwLState_Mbuffer;
   return;
 }
 
@@ -50,7 +50,7 @@ void __cdecl luaL_oldbuffer(int param_1)
 undefined4 luaL_buffer(void)
 
 {
-  return DAT_1002befc;
+  return g_dwLState_Mbuffbase;
 }
 
 /* ---- 0x10002db0  nextvar ---- */
@@ -66,7 +66,7 @@ void nextvar(void)
   
   iVar1 = luaL_nonnullarg(1);
   piVar2 = (int *)luaA_Address(iVar1);
-  piVar3 = DAT_1002bf00;
+  piVar3 = g_dwLState_rootglobal;
   if (*piVar2 != -7) {
     if (*piVar2 != -2) {
       luaL_argerror(1,IMG_ADDR(0x100266a0));
@@ -126,28 +126,28 @@ void foreachvar(void)
   puVar2 = (undefined4 *)luaA_Address(iVar1);
   uStack_8 = *puVar2;
   uStack_4 = puVar2[1];
-  iVar1 = PTR_1002bf6c[10] * 8;
-  PTR_1002bf6c[10] = PTR_1002bf6c[10] + 1;
-  *(undefined4 *)(PTR_1002bf6c[8] + iVar1) = 0xfffffff9;
-  PTR_1002bf6c[7] = PTR_1002bf6c[7] + 8;
-  puVar2 = DAT_1002bf00;
+  iVar1 = g_pLuaState[10] * 8;
+  g_pLuaState[10] = g_pLuaState[10] + 1;
+  *(undefined4 *)(g_pLuaState[8] + iVar1) = 0xfffffff9;
+  g_pLuaState[7] = g_pLuaState[7] + 8;
+  puVar2 = g_dwLState_rootglobal;
   do {
     if (puVar2 == (undefined4 *)0x0) {
       return;
     }
     if (puVar2[4] != -7) {
-      *(undefined4 *)(PTR_1002bf6c[8] + iVar1) = 0xfffffffe;
-      *(undefined4 **)(PTR_1002bf6c[8] + 4 + iVar1) = puVar2;
+      *(undefined4 *)(g_pLuaState[8] + iVar1) = 0xfffffffe;
+      *(undefined4 **)(g_pLuaState[8] + 4 + iVar1) = puVar2;
       luaA_pushobject(&uStack_8);
       lbuiltin__2e40(puVar2);
       luaA_pushobject(puVar2 + 4);
-      PTR_1002bf6c[2] = PTR_1002bf6c[2] + 1;
-      luaD_call((PTR_1002bf6c[7] - PTR_1002bf6c[8] >> 3) + -2,1);
-      PTR_1002bf6c[2] = PTR_1002bf6c[2] + -1;
-      if (*(int *)(PTR_1002bf6c[7] + -8) != -7) {
+      g_pLuaState[2] = g_pLuaState[2] + 1;
+      luaD_call((g_pLuaState[7] - g_pLuaState[8] >> 3) + -2,1);
+      g_pLuaState[2] = g_pLuaState[2] + -1;
+      if (*(int *)(g_pLuaState[7] + -8) != -7) {
         return;
       }
-      PTR_1002bf6c[7] = PTR_1002bf6c[7] + -8;
+      g_pLuaState[7] = g_pLuaState[7] + -8;
     }
     puVar2 = (undefined4 *)*puVar2;
   } while( true );
@@ -210,13 +210,13 @@ void foreach(void)
         luaA_pushobject(&uStack_8);
         luaA_pushobject(piVar4);
         luaA_pushobject(piVar4 + 2);
-        PTR_1002bf6c[2] = PTR_1002bf6c[2] + 1;
-        luaD_call((PTR_1002bf6c[7] - PTR_1002bf6c[8] >> 3) + -2,1);
-        PTR_1002bf6c[2] = PTR_1002bf6c[2] + -1;
-        if (*(int *)(PTR_1002bf6c[7] + -8) != -7) {
+        g_pLuaState[2] = g_pLuaState[2] + 1;
+        luaD_call((g_pLuaState[7] - g_pLuaState[8] >> 3) + -2,1);
+        g_pLuaState[2] = g_pLuaState[2] + -1;
+        if (*(int *)(g_pLuaState[7] + -8) != -7) {
           return;
         }
-        PTR_1002bf6c[7] = PTR_1002bf6c[7] + -8;
+        g_pLuaState[7] = g_pLuaState[7] + -8;
       }
       uStack_10 = uStack_10 + 1;
       iVar2 = iVar2 + 0x10;
@@ -372,18 +372,18 @@ void luaI_startscript(void)
       this = LState_Construct(puVar5);
     }
     this[3] = 0;
-    LState_attach(this,(int)PTR_1002bf6c);
-    iVar4 = PTR_1002bf6c[8];
+    LState_attach(this,(int)g_pLuaState);
+    iVar4 = g_pLuaState[8];
     this[0x31] = *(int *)(iVar4 + -8 + iVar3 * 8);
     this[0x32] = *(int *)(iVar4 + -4 + iVar3 * 8);
-    piVar2 = PTR_1002bf6c;
+    piVar2 = g_pLuaState;
     iVar4 = lua_lua2C(2);
     iVar3 = 3;
     while (iVar4 != 0) {
-      piVar1 = PTR_1002bf6c + 8;
-      PTR_1002bf6c = this;
+      piVar1 = g_pLuaState + 8;
+      g_pLuaState = this;
       luaA_pushobject((undefined4 *)(*piVar1 + -8 + iVar4 * 8));
-      PTR_1002bf6c = piVar2;
+      g_pLuaState = piVar2;
       iVar4 = lua_lua2C(iVar3);
       iVar3 = iVar3 + 1;
     }
@@ -423,9 +423,9 @@ void luaI_stopscript(void)
   if (iVar2 == 0) {
     iVar2 = lua_isfunction(iVar1);
     if (iVar2 != 0) {
-      uStack_8 = *(undefined4 *)(PTR_1002bf6c[8] + -8 + iVar1 * 8);
-      uStack_4 = *(undefined4 *)(PTR_1002bf6c[8] + -4 + iVar1 * 8);
-      piVar3 = (int *)LState_next(DAT_1002bf70);
+      uStack_8 = *(undefined4 *)(g_pLuaState[8] + -8 + iVar1 * 8);
+      uStack_4 = *(undefined4 *)(g_pLuaState[8] + -4 + iVar1 * 8);
+      piVar3 = (int *)LState_next(g_dwL_Main);
       while (block = piVar3, block != (int *)0x0) {
         iVar1 = 8;
         bVar5 = true;
@@ -438,7 +438,7 @@ void luaI_stopscript(void)
           piVar3 = (int *)((int)piVar3 + 1);
           pcVar4 = pcVar4 + 1;
         } while (bVar5);
-        if ((bVar5) && (block != PTR_1002bf6c)) {
+        if ((bVar5) && (block != g_pLuaState)) {
           piVar3 = (int *)LState_next((int)block);
           if (block != (int *)0x0) {
             LState_Destruct(block);
@@ -453,14 +453,14 @@ void luaI_stopscript(void)
   }
   else {
     iVar1 = lua_gettask(iVar1);
-    piVar3 = (int *)LState_next(DAT_1002bf70);
+    piVar3 = (int *)LState_next(g_dwL_Main);
     if (piVar3 != (int *)0x0) {
       do {
         if (piVar3[0x30] == iVar1) break;
         piVar3 = (int *)LState_next((int)piVar3);
       } while (piVar3 != (int *)0x0);
       if (piVar3 != (int *)0x0) {
-        if (piVar3 == PTR_1002bf6c) {
+        if (piVar3 == g_pLuaState) {
           lua_error((byte *)s_Current_task_is_committing_suici_10026734);
           return;
         }
@@ -507,9 +507,9 @@ void luaI_findscript(void)
   if (iVar2 == 0) {
     iVar2 = lua_isfunction(iVar1);
     if (iVar2 != 0) {
-      uStack_8 = *(undefined4 *)(PTR_1002bf6c[8] + -8 + iVar1 * 8);
-      uStack_4 = *(undefined4 *)(PTR_1002bf6c[8] + -4 + iVar1 * 8);
-      iVar2 = LState_next(DAT_1002bf70);
+      uStack_8 = *(undefined4 *)(g_pLuaState[8] + -8 + iVar1 * 8);
+      uStack_4 = *(undefined4 *)(g_pLuaState[8] + -4 + iVar1 * 8);
+      iVar2 = LState_next(g_dwL_Main);
       iVar1 = 0;
       for (; iVar2 != 0; iVar2 = LState_next(iVar2)) {
         iVar3 = 8;
@@ -537,7 +537,7 @@ void luaI_findscript(void)
   }
   else {
     iVar2 = lua_gettask(iVar1);
-    for (iVar4 = LState_next(DAT_1002bf70); iVar4 != 0; iVar4 = LState_next(iVar4)) {
+    for (iVar4 = LState_next(g_dwL_Main); iVar4 != 0; iVar4 = LState_next(iVar4)) {
       if (*(int *)(iVar4 + 0xc0) == iVar2) {
         lua_pushobject(iVar1);
         lua_pushnumber(1.0);
@@ -572,7 +572,7 @@ void luaI_identifyscript(void)
     lua_error((byte *)s_Argument_to_identifyscript_must_b_10026870);
   }
   iVar1 = lua_gettask(iVar1);
-  iVar2 = LState_next(DAT_1002bf70);
+  iVar2 = LState_next(g_dwL_Main);
   if (iVar2 != 0) {
     do {
       if (*(int *)(iVar2 + 0xc0) == iVar1) {
@@ -609,7 +609,7 @@ void luaI_nextscript(void)
   iVar2 = lua_istask(iVar1);
   if (iVar2 != 0) {
     iVar2 = lua_gettask(iVar1);
-    for (iVar1 = LState_next(DAT_1002bf70); iVar1 != 0; iVar1 = LState_next(iVar1)) {
+    for (iVar1 = LState_next(g_dwL_Main); iVar1 != 0; iVar1 = LState_next(iVar1)) {
       if (*(int *)(iVar1 + 0xc0) == iVar2) {
         iVar1 = LState_next(iVar1);
         if (iVar1 != 0) {
@@ -620,7 +620,7 @@ void luaI_nextscript(void)
       }
     }
   }
-  iVar1 = LState_next(DAT_1002bf70);
+  iVar1 = LState_next(g_dwL_Main);
   if (iVar1 != 0) {
     lua_pushtask(*(int *)(iVar1 + 0xc0));
     return;
@@ -674,7 +674,7 @@ void luaI_type(void)
   
   iVar1 = luaL_nonnullarg(1);
   piVar2 = (int *)luaA_Address(iVar1);
-  lua_pushstring((&PTR_s_userdata_100270a8)[-*piVar2]);
+  lua_pushstring((&g_pLuaO_typenames)[-*piVar2]);
   iVar1 = lua_tag(iVar1);
   lua_pushnumber((float)iVar1);
   return;
@@ -1102,7 +1102,7 @@ void luaB_predefine(void)
 {
   luaS_newfixedstring((byte *)s_table_overflow_100269c8);
   luaS_newfixedstring((byte *)s_not_enough_memory_100269b4);
-  luaL_openlib(&PTR_s_setfallback_100263d8,0x24);
+  luaL_openlib(&g_pInt_funcs,0x24);
   lua_pushstring((byte *)s_Lua_3_1__alpha__100269a4);
   lua_setglobal((byte *)s__VERSION_10026998);
   return;

@@ -1,0 +1,524 @@
+[
+ {
+  "program": "/LUA.DLL",
+  "addr": "10023188",
+  "old": "DAT_10023188",
+  "global": "g_aYytranslate",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name yytranslate (the remaster's libLua.so: the parser table luaY_parse reads first (bison yytranslate), 0x120 bytes before yyr1); was DAT_10023188."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "100232a8",
+  "old": "DAT_100232a8",
+  "global": "g_aYyr1",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name yyr1 (the remaster's libLua.so: bison table order yytranslate/yyr1/yyr2/yydefact/yydefgoto/yypact/yypgoto/yytable/yycheck in luaY_parse, 103 shorts); was DAT_100232a8."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10023378",
+  "old": "DAT_10023378",
+  "global": "g_aYyr2",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name yyr2 (the remaster's libLua.so: bison table order in luaY_parse, 103 shorts); was DAT_10023378."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10023448",
+  "old": "DAT_10023448",
+  "global": "g_wYydefact",
+  "oldtype": "undefined2",
+  "names_only": true,
+  "comment": "Original name yydefact (the remaster's libLua.so: bison table order in luaY_parse (same size as yypact)); was DAT_10023448."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10023556",
+  "old": "DAT_10023556",
+  "global": "g_aYydefgoto",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name yydefgoto (the remaster's libLua.so: bison table order in luaY_parse (same size as yypgoto)); was DAT_10023556."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10023610",
+  "old": "DAT_10023610",
+  "global": "g_wYypact",
+  "oldtype": "undefined2",
+  "names_only": true,
+  "comment": "Original name yypact (the remaster's libLua.so: bison table order in luaY_parse); was DAT_10023610."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1002371e",
+  "old": "DAT_1002371e",
+  "global": "g_aYypgoto",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name yypgoto (the remaster's libLua.so: bison table order in luaY_parse); was DAT_1002371e."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "100237d8",
+  "old": "DAT_100237d8",
+  "global": "g_aYytable",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name yytable (the remaster's libLua.so: bison table order in luaY_parse (same size as yycheck)); was DAT_100237d8."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "100239e8",
+  "old": "DAT_100239e8",
+  "global": "g_aYycheck",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name yycheck (the remaster's libLua.so: bison table order in luaY_parse); was DAT_100239e8."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "100263d8",
+  "old": "PTR_s_setfallback_100263d8",
+  "global": "g_pInt_funcs",
+  "oldtype": "undefined *",
+  "names_only": true,
+  "comment": "Original name int_funcs (the remaster's libLua.so: the {name, function} table luaB_predefine registers); was PTR_s_setfallback_100263d8."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10026ae8",
+  "old": "DAT_10026ae8",
+  "global": "g_aSetloc_cat",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name setloc.cat (the remaster's libLua.so: static table of setloc (os.setlocale categories)); was DAT_10026ae8."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10026b00",
+  "old": "PTR_s_setlocale_10026b00",
+  "global": "g_pIolib",
+  "oldtype": "undefined *",
+  "names_only": true,
+  "comment": "Original name iolib (the remaster's libLua.so: the {name, function} table lua_iolibopen registers); was PTR_s_setlocale_10026b00."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10026da0",
+  "old": "PTR_s_debug_10026da0",
+  "global": "g_pInclinenumber_pragmas",
+  "oldtype": "undefined *",
+  "names_only": true,
+  "comment": "Original name inclinenumber::pragmas (the remaster's libLua.so: the pragma names inclinenumber looks up (\"debug\", ...)); was PTR_s_debug_10026da0."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10026f30",
+  "old": "PTR_DAT_10026f30",
+  "global": "g_pMathlib",
+  "oldtype": "undefined *",
+  "names_only": true,
+  "comment": "Original name mathlib (the remaster's libLua.so: the {name, function} table lua_mathlibopen registers); was PTR_DAT_10026f30."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "100270a8",
+  "old": "PTR_s_userdata_100270a8",
+  "global": "g_pLuaO_typenames",
+  "oldtype": "undefined *",
+  "names_only": true,
+  "comment": "Original name luaO_typenames (the remaster's libLua.so: type name table of luaI_type / lua_settag (\"userdata\", ...)); was PTR_s_userdata_100270a8."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "100270e0",
+  "old": "DAT_100270e0",
+  "global": "g_LuaO_nilobject",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name luaO_nilobject (the remaster's libLua.so: the nil TObject lua_collectgarbage / lua_close / luaT_gettagmethod use); was DAT_100270e0."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "100270e8",
+  "old": "DAT_100270e8",
+  "global": "g_dwDimensions",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name dimensions (the remaster's libLua.so: table of luaO_redimension); was DAT_100270e8."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10027898",
+  "old": "DAT_10027898",
+  "global": "g_EMPTY",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name EMPTY (the remaster's libLua.so: the empty TaggedString of lstring.c (insert, luaS_writestrings, luaS_resolvestrings, luaS_count)); was DAT_10027898."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "100278d8",
+  "old": "PTR_s_strlen_100278d8",
+  "global": "g_pStrlib",
+  "oldtype": "undefined *",
+  "names_only": true,
+  "comment": "Original name strlib (the remaster's libLua.so: the {name, function} table lua_strlibopen registers); was PTR_s_strlen_100278d8."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10027d48",
+  "old": "PTR_s_gettable_10027d48",
+  "global": "g_pLuaT_eventname",
+  "oldtype": "undefined *",
+  "names_only": true,
+  "comment": "Original name luaT_eventname (the remaster's libLua.so: event name table (\"gettable\", ...) of luaT_gettagmethod / luaT_settagmethod / luaT_travtagmethods / luaT_setfallback); was PTR_s_gettable_10027d48."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10027e40",
+  "old": "PTR_s_error_10027e40",
+  "global": "g_pLuaT_setfallback_oldnames",
+  "oldtype": "undefined *",
+  "names_only": true,
+  "comment": "Original name luaT_setfallback::oldnames (the remaster's libLua.so: old fallback names (\"error\", ...) of luaT_setfallback); was PTR_s_error_10027e40."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1002beb0",
+  "old": "DAT_1002beb0",
+  "global": "g_dwSaveFunc",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name pSaveFunc (the remaster's libLua.so: the save callback lua_Save stores and LuaSaveWriter calls); was DAT_1002beb0."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1002beb4",
+  "old": "DAT_1002beb4",
+  "global": "g_dwLua_totalBytesSaved",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name lua_totalBytesSaved (the remaster's libLua.so: the byte count LuaSaveWriter adds to); was DAT_1002beb4."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1002beb8",
+  "old": "DAT_1002beb8",
+  "global": "g_dwLuaHS",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name pLuaHS (the remaster's libLua.so: the host service table (alloc +0x20, free +0x24, file i/o): every service call of lua_Initialize, lua_openlib, luaM_*, io lib); was DAT_1002beb8."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1002bebc",
+  "old": "DAT_1002bebc",
+  "global": "g_nLuaInitialize",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name bLuaInitialize (the remaster's libLua.so: set by lua_Initialize, cleared by Lua_Terminate); was DAT_1002bebc."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1002bec0",
+  "old": "DAT_1002bec0",
+  "global": "g_nLuaStartup",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name bLuaStartup (the remaster's libLua.so: set by Lua_Startup, cleared by Lua_Shutdown); was DAT_1002bec0."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1002bec4",
+  "old": "DAT_1002bec4",
+  "global": "g_dwFirstFuncArray",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name pFirstFuncArray (the remaster's libLua.so: the registered C function arrays of lua_recognizelib / lua_FuncPtrToID / lua_IDToFuncPtr / lua_closelibs); was DAT_1002bec4."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1002bee8",
+  "old": "DAT_1002bee8",
+  "global": "g_dwLState_last_tag",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name LState::last_tag (the remaster's libLua.so: luaT_init / lua_newtag; saved after the IM table by LState_SaveGlobals); was DAT_1002bee8."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1002beec",
+  "old": "DAT_1002beec",
+  "global": "g_dwLState_nblocks",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name LState::nblocks (the remaster's libLua.so: the GC block count of luaF_newproto / luaF_newclosure / luaF_freeclosure / do_main); was DAT_1002beec."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1002bef0",
+  "old": "DAT_1002bef0",
+  "global": "g_dwLState_IMtable_size",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name LState::IMtable_size (the remaster's libLua.so: luaT_init / lua_newtag; the IM table count saved by LState_SaveGlobals); was DAT_1002bef0."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1002bef4",
+  "old": "DAT_1002bef4",
+  "global": "g_dwLState_string_root",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name LState::string_root (the remaster's libLua.so: luaS_init / luaS_new; luaS_count / luaS_writestrings argument in LState_SaveGlobals); was DAT_1002bef4."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1002bef8",
+  "old": "DAT_1002bef8",
+  "global": "g_dwLState_protoPtrTotal",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name LState::protoPtrTotal (the remaster's libLua.so: fourth count read by LState_GlobalBeginRestore (string, closure, table, proto)); was DAT_1002bef8."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1002befc",
+  "old": "DAT_1002befc",
+  "global": "g_dwLState_Mbuffbase",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name LState::Mbuffbase (the remaster's libLua.so: luaL_newbuffer / luaL_oldbuffer; saved as Mbuffbase - Mbuffer); was DAT_1002befc."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1002bf00",
+  "old": "DAT_1002bf00",
+  "global": "g_dwLState_rootglobal",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name LState::rootglobal (the remaster's libLua.so: fourth GC list (luaS_rawsetglobal, foreachvar)); was DAT_1002bf00."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1002bf08",
+  "old": "DAT_1002bf08",
+  "global": "g_dwLState_refSize",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name LState::refSize (the remaster's libLua.so: luaC_ref / luaC_getref; refArray count in LState_SaveGlobals); was DAT_1002bf08."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1002bf10",
+  "old": "DAT_1002bf10",
+  "global": "g_dwLState_aTablePtrs",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name LState::aTablePtrs (the remaster's libLua.so: allocated by LState_GlobalBeginRestore with tablePtrTotal * 8); was DAT_1002bf10."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1002bf18",
+  "old": "DAT_1002bf18",
+  "global": "g_dwLState_roottable",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name LState::roottable (the remaster's libLua.so: luaH_new / luaH_load; table list saved with luaH_save); was DAT_1002bf18."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1002bf20",
+  "old": "DAT_1002bf20",
+  "global": "g_dwLState_rootcl",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name LState::rootcl (the remaster's libLua.so: closure list (first list counted and saved by LState_SaveGlobals; luaO_insertlist target of the closure restore)); was DAT_1002bf20."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1002bf28",
+  "old": "DAT_1002bf28",
+  "global": "g_dwLState_Mbuffsize",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name LState::Mbuffsize (the remaster's libLua.so: luaL_openspace / luaL_addchar; size of the Mbuffer write); was DAT_1002bf28."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1002bf2c",
+  "old": "DAT_1002bf2c",
+  "global": "g_dwLState_tablePtrTotal",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name LState::tablePtrTotal (the remaster's libLua.so: third count read by LState_GlobalBeginRestore); was DAT_1002bf2c."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1002bf30",
+  "old": "DAT_1002bf30",
+  "global": "g_dwLState_stringPtrTotal",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name LState::stringPtrTotal (the remaster's libLua.so: first count read by LState_GlobalBeginRestore); was DAT_1002bf30."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1002bf34",
+  "old": "DAT_1002bf34",
+  "global": "g_dwLState_refArray",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name LState::refArray (the remaster's libLua.so: luaC_ref / luaC_getref; allocated with refSize * 12 by LState_GlobalBeginRestore); was DAT_1002bf34."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1002bf38",
+  "old": "DAT_1002bf38",
+  "global": "g_dwLState_rootproto",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name LState::rootproto (the remaster's libLua.so: prototype list (luaF_newproto; luaO_insertlist target of the proto restore)); was DAT_1002bf38."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1002bf40",
+  "old": "DAT_1002bf40",
+  "global": "g_dwLState_Mbuffer",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name LState::Mbuffer (the remaster's libLua.so: luaL_openspace / luaL_newbuffer; allocated with Mbuffsize by LState_GlobalBeginRestore); was DAT_1002bf40."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1002bf44",
+  "old": "DAT_1002bf44",
+  "global": "g_dwLState_aStringPtrs",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name LState::aStringPtrs (the remaster's libLua.so: allocated by LState_GlobalBeginRestore with stringPtrTotal * 8); was DAT_1002bf44."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1002bf48",
+  "old": "DAT_1002bf48",
+  "global": "g_dwLState_IMtable",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name LState::IMtable (the remaster's libLua.so: the tag method table (luaD_call, luaD_gcIM, luaT_*); allocated with IMtable_size * 0x90); was DAT_1002bf48."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1002bf4c",
+  "old": "DAT_1002bf4c",
+  "global": "g_dwLState_Mbuffnext",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name LState::Mbuffnext (the remaster's libLua.so: luaL_addchar / luaL_newbuffer; saved after Mbuffbase); was DAT_1002bf4c."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1002bf50",
+  "old": "DAT_1002bf50",
+  "global": "g_dwLState_closurePtrTotal",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name LState::closurePtrTotal (the remaster's libLua.so: second count read by LState_GlobalBeginRestore); was DAT_1002bf50."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1002bf58",
+  "old": "DAT_1002bf58",
+  "global": "g_dwLState_errorim",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name LState::errorim (the remaster's libLua.so: the error method TObject (lua_seterrormethod, luaT_setfallback; saved by LState_SaveGlobals after lstate_class_initialized)); was DAT_1002bf58."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1002bf60",
+  "old": "DAT_1002bf60",
+  "global": "g_dwLState_aClosurePtrs",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name LState::aClosurePtrs (the remaster's libLua.so: allocated by LState_GlobalBeginRestore with closurePtrTotal * 8); was DAT_1002bf60."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1002bf64",
+  "old": "DAT_1002bf64",
+  "global": "g_dwLState_GCthreshold",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name LState::GCthreshold (the remaster's libLua.so: do_main / lua_collectgarbage / luaC_checkGC); was DAT_1002bf64."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1002bf68",
+  "old": "DAT_1002bf68",
+  "global": "g_dwLState_aProtoPtrs",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name LState::aProtoPtrs (the remaster's libLua.so: allocated by LState_GlobalBeginRestore with protoPtrTotal * 8); was DAT_1002bf68."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1002bf6c",
+  "old": "PTR_1002bf6c",
+  "global": "g_pLuaState",
+  "oldtype": "int *",
+  "names_only": true,
+  "comment": "Original name L (the remaster's libLua.so: the current lua_State (stack top / base of every lua_* API function)); was PTR_1002bf6c."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1002bf70",
+  "old": "DAT_1002bf70",
+  "global": "g_dwL_Main",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name L_Main (the remaster's libLua.so: the main thread's state (lua_pausetasks, lua_Save, lua_Restore, luaI_nextscript)); was DAT_1002bf70."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1002bf74",
+  "old": "DAT_1002bf74",
+  "global": "g_dwLState_lstate_class_initialized",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name LState::lstate_class_initialized (the remaster's libLua.so: first value LState_SaveGlobals writes after the lists); was DAT_1002bf74."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1002bf78",
+  "old": "DAT_1002bf78",
+  "global": "g_dwLState_numThreads",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name LState::numThreads (the remaster's libLua.so: lua_Restore / LState_Construct; last value LState_SaveGlobals writes); was DAT_1002bf78."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1002bf7c",
+  "old": "DAT_1002bf7c",
+  "global": "g_dwLState_bPtrsSorted",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name LState::bPtrsSorted (the remaster's libLua.so: LState_SerialToPtr / LState_GlobalEndRestore); was DAT_1002bf7c."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1002bf84",
+  "old": "PTR_1002bf84",
+  "global": "g_pExecutionState_pFreeStates",
+  "oldtype": "void *",
+  "names_only": true,
+  "comment": "Original name ExecutionState::pFreeStates (the remaster's libLua.so: the free list of ExecutionState_New / ExecutionState_Delete / ExecutionState_CleanUp); was PTR_1002bf84."
+ }
+]

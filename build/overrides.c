@@ -1394,7 +1394,7 @@ void math_randomseed(void)
 void __cdecl luaD_message(byte *msg)
 {
     undefined4 tm[2];
-    tm[0] = DAT_1002bf58;
+    tm[0] = g_dwLState_errorim;
     tm[1] = DAT_1002bf5c;
     if (tm[0] != (undefined4)-7) {
         lua_pushstring(msg);
@@ -1478,14 +1478,14 @@ int __cdecl luaH_hashindex(undefined4 *key)
 /* new hash table with room for about size / 0.7 nodes */
 undefined4 * __cdecl luaH_new(int size)
 {
-    undefined4 *t = (undefined4 *)(*(code **)(DAT_1002beb8 + 0x20))(0x18, s_C__grimsrc_libs_lua_src_ltable_c_10027cf4, 0xa4);
+    undefined4 *t = (undefined4 *)(*(code **)(g_dwLuaHS + 0x20))(0x18, s_C__grimsrc_libs_lua_src_ltable_c_10027cf4, 0xa4);
     int nnodes = luaO_redimension((int)(long long)((double)size * 1.4285714285714286));
     t[2] = (undefined4)luaH_hashnodecreate(nnodes);
     t[3] = nnodes;
     t[4] = 0;
     t[5] = (undefined4)-3;   /* tag: a table */
-    luaO_insertlist(&DAT_1002bf18, t);
-    DAT_1002beec = DAT_1002beec + 1 + ((nnodes + ((nnodes >> 31) & 15)) >> 4);
+    luaO_insertlist(&g_dwLState_roottable, t);
+    g_dwLState_nblocks = g_dwLState_nblocks + 1 + ((nnodes + ((nnodes >> 31) & 15)) >> 4);
     return t;
 }
 
@@ -1507,7 +1507,7 @@ int __cdecl lua_gettask(int obj)
 {
     int *stack;
     if (obj != 0) {
-        stack = (int *)PTR_1002bf6c[8];
+        stack = (int *)g_pLuaState[8];
         if (stack[(obj - 1) * 2] == -6)
             return (int)(long long)*(float *)&stack[(obj - 1) * 2 + 1];
     }
@@ -1646,7 +1646,7 @@ undefined4 __cdecl luaV_tonumber(int *o)
 /* pack the n stack values starting at slot `first` into a table {[1]=v1 ... [n]=vn, n=n}; result is the object that receives it */
 void __cdecl luaV_pack(int first, int n, undefined4 *result)
 {
-    int *src = (int *)(PTR_1002bf6c[8] + first * 8);
+    int *src = (int *)(g_pLuaState[8] + first * 8);
     int key[2];
     int *slot;
     int i;
@@ -1685,7 +1685,7 @@ int __cdecl lbuiltin__3ba0(int t)
 int __cdecl luaFGetc(undefined4 stream)
 {
     char c;
-    uint got = (*(uint (**)(undefined4, char *, int))(DAT_1002beb8 + 0x38))(stream, &c, 1);
+    uint got = (*(uint (**)(undefined4, char *, int))(g_dwLuaHS + 0x38))(stream, &c, 1);
     if (got < 1)
         return -1;
     return (int)c;
@@ -1741,7 +1741,7 @@ void __cdecl luaU_LoadConstants(int fn, undefined4 *ld)
     *(uint *)(fn + 0xc) = n;
     if (n == 0)
         return;
-    *(undefined4 *)(fn + 8) = (*(undefined4 (**)(uint, char *, int))(DAT_1002beb8 + 0x20))(n * 8, s_C__grimsrc_libs_lua_src_lundump__1002800c, 0xb3);
+    *(undefined4 *)(fn + 8) = (*(undefined4 (**)(uint, char *, int))(g_dwLuaHS + 0x20))(n * 8, s_C__grimsrc_libs_lua_src_lundump__1002800c, 0xb3);
     for (i = 0; i < (int)n; i++) {
         undefined4 *k = (undefined4 *)(*(int *)(fn + 8) + i * 8);   /* the {tag, value} slot */
         uint type = lundump__cfd0((int *)ld[0]);
@@ -1813,7 +1813,7 @@ int __thiscall LState_attach(void *self, int after)
  *       function 'name' at line N [in file F]       global function
  *       `name' tag method ...                        tag method
  *       main of F / F / function (F:N) ...           anonymous chunk or function (no "in file" part) */
-#define LUA_PRINT(out, ...) do { if (out) (*(void (__cdecl **)(int, const char *, ...))(DAT_1002beb8 + 0x54))((out), __VA_ARGS__); } while (0)
+#define LUA_PRINT(out, ...) do { if (out) (*(void (__cdecl **)(int, const char *, ...))(g_dwLuaHS + 0x54))((out), __VA_ARGS__); } while (0)
 undefined4 __cdecl lua_printstack(int out)
 {
     int level = 2;
@@ -1920,7 +1920,7 @@ char * __cdecl match(char *s, int *pat, int *cap)
 }
 
 /* ---- agentJ: luaY_lex (LUA.DLL 0x10005d00), the Lua 3.1 tokenizer ----
- * ls = PTR_1002bf6c[0x10] is the lexer state: ls[0] current character (-1 at the end of input), ls[1] the input stream (a
+ * ls = g_pLuaState[0x10] is the lexer state: ls[0] current character (-1 at the end of input), ls[1] the input stream (a
  * zio: {chars left, next char pointer, refill function}), ls[2] current line, ls[3] line of the token being read, ls[5] depth
  * of $if nesting.  Every token's text is collected in the string buffer (luaL_addchar).  The result is the token: a single
  * character stands for itself, the rest are the codes below; names and strings are returned in *value as a TaggedString
@@ -1943,7 +1943,7 @@ static uint lx_zgetc(int *z)
 
 uint __cdecl luaY_lex(float *value)
 {
-    uint *ls = (uint *)PTR_1002bf6c[0x10];
+    uint *ls = (uint *)g_pLuaState[0x10];
     luaL_resetbuffer();
     if (lua_debug != 0)
         luaY_codedebugline(ls[3]);
@@ -1963,7 +1963,7 @@ uint __cdecl luaY_lex(float *value)
             } while (FUN_1000f650((int)ls[0]) != 0 || ls[0] == '_');
             luaL_addchar(0);
             {
-                uint *ts = (uint *)luaS_new((byte *)DAT_1002befc);
+                uint *ts = (uint *)luaS_new((byte *)g_dwLState_Mbuffbase);
                 if ((int)ts[1] < 0x100) {                        /* a plain name */
                     *(uint *)value = (uint)ts;
                     return LX_NAME;
@@ -1984,8 +1984,8 @@ uint __cdecl luaY_lex(float *value)
                 if (ls[0] == del) {
                     LX_NEXT();
                     luaL_addchar(0);
-                    *(uint *)value = (uint)luaS_new((byte *)(DAT_1002befc + 1));   /* without the opening quote */
-                    *(char *)(DAT_1002bf4c - 1 + DAT_1002bf40) = (char)del;           /* put the closing quote back */
+                    *(uint *)value = (uint)luaS_new((byte *)(g_dwLState_Mbuffbase + 1));   /* without the opening quote */
+                    *(char *)(g_dwLState_Mbuffnext - 1 + g_dwLState_Mbuffer) = (char)del;           /* put the closing quote back */
                     return LX_STRING;
                 }
                 if (ls[0] == LX_EOZ || ls[0] == '\n') {          /* unfinished string */
@@ -2128,26 +2128,26 @@ uint __cdecl luaY_lex(float *value)
  * These were C++ code with exception frames around `new`/constructors; the frames only free half-built objects when an
  * exception passes, so they are left out here.  A task state is a 0xd4-byte record built by LState_Construct (the
  * `lua_State`: +0 call frame, +4 current frame, +0x20 stack base, +0x28.. counters, +0xcc/+0xd0 neighbours in the task list);
- * a call frame is a 0x30-byte record from a free list (PTR_1002bf84) built by ExecutionState_Construct.  Save games are written and read
+ * a call frame is a 0x30-byte record from a free list (g_pExecutionState_pFreeStates) built by ExecutionState_Construct.  Save games are written and read
  * through a callback (buffer, size). */
 typedef int (__cdecl *LuaIO)(void *buf, int size);
-#define LUA_HOST(slot) (DAT_1002beb8 + (slot))      /* the host's service table: +0x18 assert, +0x20 malloc, +0x24 free, +0x28 realloc */
+#define LUA_HOST(slot) (g_dwLuaHS + (slot))      /* the host's service table: +0x18 assert, +0x20 malloc, +0x24 free, +0x28 realloc */
 
 /* next free call-frame record; an empty pool is refilled with ten new records first.  (`size` is not used.) */
 void * __cdecl ExecutionState_New(int size)
 {
-    void *rec = PTR_1002bf84;
+    void *rec = g_pExecutionState_pFreeStates;
     (void)size;
     if (rec == 0) {
         int n;
         for (n = 10; n != 0; n--) {
             rec = luaM_malloc(0x30);
             if (rec != 0)
-                rec = (void *)ExecutionState_Construct(rec, (int)PTR_1002bf84, 0, 0);      /* link in front of the pool */
-            PTR_1002bf84 = rec;
+                rec = (void *)ExecutionState_Construct(rec, (int)g_pExecutionState_pFreeStates, 0, 0);      /* link in front of the pool */
+            g_pExecutionState_pFreeStates = rec;
         }
     }
-    PTR_1002bf84 = *(void **)((int)rec + 0xc);
+    g_pExecutionState_pFreeStates = *(void **)((int)rec + 0xc);
     return rec;
 }
 
@@ -2239,12 +2239,12 @@ undefined4 __thiscall LState_Restore(void *self, int read)
 /* a new task state, initialised (the current state is left as it was) */
 undefined4 * lua_newstate(void)
 {
-    int *saved = PTR_1002bf6c;
+    int *saved = g_pLuaState;
     undefined4 *mem = luaM_malloc(0xd4);
     undefined4 *st = mem != 0 ? LState_Construct(mem) : 0;
-    PTR_1002bf6c = (int *)st;
+    g_pLuaState = (int *)st;
     LState_initglobals();
-    PTR_1002bf6c = saved;
+    g_pLuaState = saved;
     return st;
 }
 
@@ -2257,16 +2257,16 @@ void luaI_startscript(void)
         int *task = mem != 0 ? (int *)LState_Construct(mem) : 0;
         int *cur, arg, n;
         task[3] = 0;
-        LState_attach(task, (int)PTR_1002bf6c);         /* into the task list after the running one */
-        task[0x31] = *(int *)(PTR_1002bf6c[8] - 8 + fn * 8);       /* the function object */
-        task[0x32] = *(int *)(PTR_1002bf6c[8] - 4 + fn * 8);
-        cur = PTR_1002bf6c;
+        LState_attach(task, (int)g_pLuaState);         /* into the task list after the running one */
+        task[0x31] = *(int *)(g_pLuaState[8] - 8 + fn * 8);       /* the function object */
+        task[0x32] = *(int *)(g_pLuaState[8] - 4 + fn * 8);
+        cur = g_pLuaState;
         arg = lua_lua2C(2);
         for (n = 3; arg != 0; n++) {
-            int *stack = PTR_1002bf6c + 8;
-            PTR_1002bf6c = task;                       /* push the argument onto the new task's stack */
+            int *stack = g_pLuaState + 8;
+            g_pLuaState = task;                       /* push the argument onto the new task's stack */
             luaA_pushobject((undefined4 *)(*stack - 8 + arg * 8));
-            PTR_1002bf6c = cur;
+            g_pLuaState = cur;
             arg = lua_lua2C(n);
         }
         lua_pushtask(task[0x30]);
@@ -2285,17 +2285,17 @@ undefined4 lua_Restore(code *param_1)
     int *prev;
     lua_close();
     mem = luaM_malloc(0xd4);
-    PTR_1002bf6c = mem != 0 ? (int *)LState_Construct(mem) : 0;
-    DAT_1002bf70 = PTR_1002bf6c;
+    g_pLuaState = mem != 0 ? (int *)LState_Construct(mem) : 0;
+    g_dwL_Main = g_pLuaState;
     LState_initglobals();
     LState_GlobalBeginRestore((int)param_1);
-    saved78 = DAT_1002bf78;
+    saved78 = g_dwLState_numThreads;
     rd(&numTasks, 4);
     if (numTasks == 0)
         (*(void (__cdecl **)(char *, char *, int))LUA_HOST(0x18))(s_numTasks___0_100262f4, s_C__grimsrc_libs_lua_src_lapi_cpp_100260d4, 0x499);
     rd(&depth, 4);
-    LState_Restore(DAT_1002bf70, (int)param_1);
-    prev = DAT_1002bf70;
+    LState_Restore(g_dwL_Main, (int)param_1);
+    prev = g_dwL_Main;
     for (i = 1; i < numTasks; i++) {
         int *task;
         mem = luaM_malloc(0xd4);
@@ -2306,9 +2306,9 @@ undefined4 lua_Restore(code *param_1)
         prev = task;
     }
     while (depth-- != 0)
-        PTR_1002bf6c = (int *)LState_next((int)PTR_1002bf6c);
+        g_pLuaState = (int *)LState_next((int)g_pLuaState);
     LState_GlobalEndRestore((int)param_1);
-    DAT_1002bf78 = saved78;
+    g_dwLState_numThreads = saved78;
     return 0;
 }
 
@@ -2327,40 +2327,40 @@ undefined4 luaD_call(code *param_1, void *param_2)
     int pos = (int)param_1;                             /* stack position of the function to call */
     int nres = (int)param_2;                            /* number of results wanted (0xff: all) */
     int res = nres;                                     /* the last handler's result */
-    int base = *PTR_1002bf6c;                           /* call frame to return at */
-    if (base == 0 || PTR_1002bf6c[6] != 0) {            /* no frame yet, or inside a C call: push a frame for this call */
+    int base = *g_pLuaState;                           /* call frame to return at */
+    if (base == 0 || g_pLuaState[6] != 0) {            /* no frame yet, or inside a C call: push a frame for this call */
         void *rec = ExecutionState_New(0x30);
-        int frame = rec != 0 ? ExecutionState_Construct(rec, *PTR_1002bf6c, pos, nres) : 0;
-        *PTR_1002bf6c = frame;
+        int frame = rec != 0 ? ExecutionState_Construct(rec, *g_pLuaState, pos, nres) : 0;
+        *g_pLuaState = frame;
         res = (int)rec;
     } else {
-        base = PTR_1002bf6c[1];
+        base = g_pLuaState[1];
     }
     for (;;) {
-        int *obj = (int *)(PTR_1002bf6c[8] + pos * 8 - 8);
+        int *obj = (int *)(g_pLuaState[8] + pos * 8 - 8);
         int fn = 0;                                     /* the function that was run, if it was a C function */
         switch (obj[0]) {
         case -11:
             printf(s_unexpected_cmark_at__d_10026a50, pos);
-            if (((int *)*PTR_1002bf6c)[6] == 0)
+            if (((int *)*g_pLuaState)[6] == 0)
                 goto call_tag_method;
             break;
         case -10:
-            if (((int *)*PTR_1002bf6c)[6] == 0)
+            if (((int *)*g_pLuaState)[6] == 0)
                 goto call_tag_method;
-            res = ExecutionState_execute((int *)*PTR_1002bf6c);
+            res = ExecutionState_execute((int *)*g_pLuaState);
             break;
         case -9:
-            if (((int *)*PTR_1002bf6c)[6] == 0)
+            if (((int *)*g_pLuaState)[6] == 0)
                 goto call_tag_method;
             if (*(int *)(obj[1] + 0xc) != -5)
-                res = ExecutionState_execute((int *)*PTR_1002bf6c);
+                res = ExecutionState_execute((int *)*g_pLuaState);
             break;
         case -8:
             obj[0] = -9;
             if (*(int *)(obj[1] + 0xc) != -5) {         /* a Lua function: enter it */
-                ExecutionState_setvalues((void *)*PTR_1002bf6c, obj[1], *(int *)(obj[1] + 0x10), pos);
-                res = ExecutionState_execute((int *)*PTR_1002bf6c);
+                ExecutionState_setvalues((void *)*g_pLuaState, obj[1], *(int *)(obj[1] + 0x10), pos);
+                res = ExecutionState_execute((int *)*g_pLuaState);
             } else {                                    /* a C function */
                 fn = obj[1];
                 res = luaD_callC(fn, (undefined *)*(int *)(fn + 0x10), pos);
@@ -2373,53 +2373,53 @@ undefined4 luaD_call(code *param_1, void *param_2)
             break;
         case -4:
             obj[0] = -10;
-            ExecutionState_setvalues((void *)*PTR_1002bf6c, 0, obj[1], pos);
-            res = ExecutionState_execute((int *)*PTR_1002bf6c);
+            ExecutionState_setvalues((void *)*g_pLuaState, 0, obj[1], pos);
+            res = ExecutionState_execute((int *)*g_pLuaState);
             break;
         default:
         call_tag_method: {                              /* not a function: call its "function" tag method */
                 uint tag = luaT_efectivetag((uint *)obj);
-                undefined4 *tm = (undefined4 *)(DAT_1002bf48 - tag * 0x90 + 0x88);
+                undefined4 *tm = (undefined4 *)(g_dwLState_IMtable - tag * 0x90 + 0x88);
                 if ((int)*tm == -7)
                     lua_error((byte *)s_call_expression_not_a_function_10026a30);
-                luaD_callTM(tm, ((PTR_1002bf6c[7] - PTR_1002bf6c[8]) >> 3) - pos + 1, (void *)nres);
+                luaD_callTM(tm, ((g_pLuaState[7] - g_pLuaState[8]) >> 3) - pos + 1, (void *)nres);
             }
             goto next;
         }
         if (res <= 0) {                                 /* call the function at -res next, in a new frame */
             void *rec;
             pos = -res;
-            nres = (int)ExecutionState_getaux(*PTR_1002bf6c);
+            nres = (int)ExecutionState_getaux(*g_pLuaState);
             rec = ExecutionState_New(0x30);
-            *PTR_1002bf6c = rec != 0 ? ExecutionState_Construct(rec, *PTR_1002bf6c, pos, nres) : 0;
+            *g_pLuaState = rec != 0 ? ExecutionState_Construct(rec, *g_pLuaState, pos, nres) : 0;
         } else {                                        /* finished: move the results down over the function, pop the frame */
-            int *frame = (int *)*PTR_1002bf6c;
+            int *frame = (int *)*g_pLuaState;
             int dst = frame[4] - 1;                     /* where the function was (0-based) */
             int count, i;
             int *stack;
             if (frame[5] != 0xff)
                 luaD_adjusttop(res + frame[5]);
-            count = ((PTR_1002bf6c[7] - PTR_1002bf6c[8]) - res * 8) >> 3;
+            count = ((g_pLuaState[7] - g_pLuaState[8]) - res * 8) >> 3;
             for (i = 0; i < count; i++) {
-                stack = (int *)PTR_1002bf6c[8];
+                stack = (int *)g_pLuaState[8];
                 stack[(dst + i) * 2] = stack[(res + i) * 2];
                 stack[(dst + i) * 2 + 1] = stack[(res + i) * 2 + 1];
             }
-            PTR_1002bf6c[7] += (dst - res) * 8;
-            frame = (int *)*PTR_1002bf6c;
-            *PTR_1002bf6c = frame[3];
+            g_pLuaState[7] += (dst - res) * 8;
+            frame = (int *)*g_pLuaState;
+            *g_pLuaState = frame[3];
             ExecutionState_Delete((int)frame);
-            if (*PTR_1002bf6c != 0) {                   /* continue in the frame below */
-                pos = ((int *)*PTR_1002bf6c)[4];
-                nres = ((int *)*PTR_1002bf6c)[5];
+            if (*g_pLuaState != 0) {                   /* continue in the frame below */
+                pos = ((int *)*g_pLuaState)[4];
+                nres = ((int *)*g_pLuaState)[5];
             }
-            if (fn == (int)luaI_breakhere && PTR_1002bf6c[2] == 0) {      /* the task function returned */
-                PTR_1002bf6c[1] = base;
+            if (fn == (int)luaI_breakhere && g_pLuaState[2] == 0) {      /* the task function returned */
+                g_pLuaState[1] = base;
                 return 1;
             }
         }
     next:
-        if (*PTR_1002bf6c == base)
+        if (*g_pLuaState == base)
             return 0;
     }
 }
