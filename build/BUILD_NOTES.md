@@ -986,3 +986,37 @@ Root causes fixed at the source (Ghidra, then `tools/export_changed.py`)
   4, 6, 9-12 reach it and the shipped tables have none. hmi__bae0 (_ftol) dropped as dead. Seen on the way, already
   in 85dd22f and not followed up: after ImSetState(1000) and 250 frames the original still finds the fading stream at
   ImSetState(1001), the rebuilt DLL starts it again (docs/notes/imuse_r1.md).
+
+## Round s: open problems after the last assembly (2026-11-09, agents s1-s3, lead)
+
+* **The intermittent save_load crash is fixed** (s1, docs/notes/s1.md, build/overrides_s1_chore.c). A latent bug of
+  the original CHORE.DLL: the costume and instance slot allocators (FUN_10004e50, FUN_10005090) mark the records of a
+  grown table free from the "in use" count, not from the old size, and Cos_Load does not lower that count when a load
+  fails. After the suite's `LoadCostume("no_such.cos")` the 33rd costume grows the table 32 -> 40 with used = 33, so
+  record 32 keeps the bytes of the reallocated heap block; when they read as "in use", Cos_Restore (first Load())
+  frees a costume of garbage: ResRef_Remove(NULL), or heap corruption seen later under the progress bar. The bytes
+  depend on the heap and the other threads, hence intermittent and more frequent under load. The C marks from the old
+  size and grows in steps of 8 until the record fits (the original grows once and would write past the end after more
+  than 8 failed loads); handles, counts and realloc sizes are the original's. Before: 7 crashes in 16 harness runs;
+  after: 0 in 32, and 12 full clean-room runs in a row (8 of them under extra load), 5107 of 5107 each.
+  This is a deliberate difference from the original (the original has the bug; its heap usually hands back zeroed or
+  harmless bytes there).
+* Not this bug, still open: one boot crashed in the splash screen (Mem_Copy <- Surface_BlitSoftware <-
+  Grim_ShowSplash) while the clean-room suite ran (s2); seen once.
+* iMUSE (s2, docs/notes/s2.md): the scenario-3 "fade" difference of round r is the time base of the test (the rebuilt DLL
+  heartbeats on game time under GRIM_SIMTIME, the original DLL has no GRIM_ImSimStep and stays on its real-time timer);
+  on the same time base both give identical calls. The fade code is the original's (1,000,000 differential cases).
+  IMUSE.DLL's false pointer 0x100153c4 (printf class table) is in names/data_relocs.json; relocheck: IMUSE.DLL and
+  CHORE.DLL 0 false / 0 missed, LUA.DLL 0 false and 68 "missed" that are jump-table entries of dead runtime code.
+  Note: C:\GOG Games\GRIMDATA\IMUSE.DLL is a patched copy (Im_GuardEnter/Leave made atomic, one extra .reloc entry);
+  IMUSE.DLL.unpatched beside it is the shipped file and matches raw/IMUSE.DLL.
+* SEH (s3, docs/notes/s3.md): the seh_strip rule of build_src.py now handles the CONCAT31 / `_0_1_` state stores and
+  handler / state stores on both sides of the fs:[0] registration; no rebuilt function touches fs:[0] or references an
+  exception handler any more (build/difftest/s3/seh_scan.py: 47 instructions at 6da2d60, 0 now). The
+  __CxxFrameHandler thunks are lib_replace "dead"; r2's ExceptionContinueSearch handler is gone.
+* **Movie sound was broken before 6da2d60** (s3): with the relocated VIMA step table entries 22-31 the Smush audio
+  decoder produced wrong samples in every loud passage (7 of 8 tested movies: 4.7-25% of samples wrong, about half
+  clipped at +-32767; intro +8.5 dB error over signal). Since 6da2d60 all 8 movies decode identically to the original
+  exe (build/difftest/s3/vimadiff.c loads the original or rebuilt exe in a suspended child and feeds the Wave chunks).
+* build/link.py: a program whose file does not compile is reported as "NOT linked" and `make link` fails (it used to
+  return 0 and keep the previous binary).

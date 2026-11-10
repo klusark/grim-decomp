@@ -351,6 +351,7 @@ def link(cc, src, obj, prog, env):
         for l in errors[:15]:
             print("   ", l)
         print(f"    (full log: {os.path.relpath(os.path.join(d, 'link.log'))})")
+    return rc == 0
 
 
 def main(cc, src, obj, progs):
@@ -361,8 +362,12 @@ def main(cc, src, obj, progs):
     if not os.path.exists(cc) and not os.path.exists(cc + ".exe"):
         print(f"no i686 toolchain at {cc}: install mingw-w64-i686-gcc (pacman -S mingw-w64-i686-gcc)")
         return 1
-    for prog in [p for p in ORDER if p in progs]:
-        link(cc, src, obj, prog, env)
+    # link() returns True only when the program linked; an early return (a file that does not compile) gives None and
+    # leaves the previous binary in place, so the whole run fails then instead of silently keeping the old program
+    failed = [prog for prog in [p for p in ORDER if p in progs] if not link(cc, src, obj, prog, env)]
+    if failed:
+        print("link.py: NOT linked: " + ", ".join(failed))
+        return 1
     return 0
 
 
