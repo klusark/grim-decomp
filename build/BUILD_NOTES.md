@@ -1110,3 +1110,21 @@ Root causes fixed at the source (Ghidra, then `tools/export_changed.py`)
 * Regenerated src equals the previous src after the renames; stubs unchanged. Clean-room: 5167 of 5167 the same (the
   suite has 5167 tests now).
 * Left: struct-field globals (`aView`+n, ...), the rdRaster_* names, most iMUSE internals (94 pair), build/difftest.
+
+## Original names, round 3 (2026-11-10, agent orig-3, lead)
+
+* EXE functions 2338 -> 2344 named (325 renames, 319 replace hand-made names: module slots `sputX_Start`/`_Stop` ->
+  `_Startup`/`_Shutdown`, the Jedi libraries `Matrix_*`/`Vec3_*` -> `rdMatrix_*`/`rdVector_*`, `Surface_*` ->
+  `stdDisplay_VBuffer*`, `rdCanvas_*` -> `rdActive_*`, `D3D_*` -> `std3D_*`, `Reg_*` -> `wuRegistry_*`; some were wrong:
+  `Math_SinDeg` is stdMath_Tan, `Vec3_Copy` rdMatrix_TransformVector34), globals 463 -> 590. IMUSE.DLL functions
+  293 -> 301 (60 hand-made names replaced, `Im_DispatchCommand` -> ImSoundCall, ...), globals 51 -> 92. LUA.DLL: 63 -> 8
+  generated `l<module>__<addr>` names (Lua 3.1 source names for what gcc inlined; luaY_error / luaY_syntaxerror /
+  close_func and luaF_freeproto / luaF_freeclosure / freefunc were swapped). Batches names/orig3_*.json.
+* build/difftest carries the renames of all three rounds (tools/orig_history.py: earliest -> current name per
+  address); asm_p1, clipface and lua_core harnesses build and run again (0 differences). asm_s5 / big_* slice from the
+  now empty asm_funcs.s and s1 needs the pre-naming CHORE globals: broken on main too, not by the names.
+* Code, data and rdata of the four binaries are byte-identical to main's (only build time, export tables and import
+  hints differ). Clean-room: the suite grew to 5319 tests from another session's uncommitted grim_tools expected/
+  files; 2 of the new tests (gco_kf_badj, ims_ids|id_plus_1) differ for main's build and this one alike.
+* Left: rdRaster_* (the remaster's rdNRaster_* / rdZRaster_* pair 86 of them at 0.45-0.85 similarity: not done), LUA.DLL
+  globals beyond the 69, the doubtful list in docs/notes/orig_3.md.
