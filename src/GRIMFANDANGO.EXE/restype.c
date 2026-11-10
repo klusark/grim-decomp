@@ -16,8 +16,8 @@ int __cdecl ResType_Register(int fourcc,void *handler)
     PTR_ResType_DefaultHandler_004e79ac = handler;
     return 1;
   }
-  piVar1 = (int *)UINT_008a85cc;
-  if (UINT_008a85cc != 0) {
+  piVar1 = (int *)g_dwResTypeList;
+  if (g_dwResTypeList != 0) {
     do {
       if (piVar1[2] == fourcc) break;
       piVar1 = (int *)*piVar1;
@@ -26,18 +26,18 @@ int __cdecl ResType_Register(int fourcc,void *handler)
       return 2;
     }
   }
-  puVar2 = (uint *)Pool_Alloc(UINT_008a85c8);
+  puVar2 = (uint *)Pool_Alloc(g_dwResTypePool);
   if (puVar2 == (uint *)0x0) {
     return 3;
   }
   puVar2[2] = fourcc;
   puVar2[3] = (uint)handler;
-  *puVar2 = UINT_008a85cc;
-  if (UINT_008a85cc != 0) {
-    *(uint **)(UINT_008a85cc + 4) = puVar2;
+  *puVar2 = g_dwResTypeList;
+  if (g_dwResTypeList != 0) {
+    *(uint **)(g_dwResTypeList + 4) = puVar2;
   }
   puVar2[1] = 0;
-  UINT_008a85cc = (uint)puVar2;
+  g_dwResTypeList = (uint)puVar2;
   return 1;
 }
 
@@ -49,7 +49,7 @@ void * __cdecl ResType_Find(int fourcc)
 {
   undefined4 *puVar1;
   
-  puVar1 = (undefined4 *)UINT_008a85cc;
+  puVar1 = (undefined4 *)g_dwResTypeList;
   while( true ) {
     if (puVar1 == (undefined4 *)0x0) {
       return (void *)0x0;
@@ -80,11 +80,11 @@ int __cdecl ResType_DefaultHandler(void *msg)
       fh = ResFile_Open(*(char **)((int)msg + 4),&DAT_004ddb18);
       if (fh != 0) {
         n = ResFile_Size(*(char **)((int)msg + 4));
-        data = (void *)(**(code **)(UINT_008a856c + 0x5c))(n);
+        data = (void *)(**(code **)(g_dwResHS + 0x5c))(n);
         if (data != (void *)0x0) {
-          buf = (void *)(**(code **)(UINT_008a856c + 0x68))(data);
+          buf = (void *)(**(code **)(g_dwResHS + 0x68))(data);
           ResFile_Read(fh,buf,n);
-          (**(code **)(UINT_008a856c + 0x6c))(data);
+          (**(code **)(g_dwResHS + 0x6c))(data);
           Res_Register(*(int *)((int)msg + 8),*(char **)((int)msg + 4),data);
         }
         local_4 = (uint)(data != (void *)0x0);
@@ -95,7 +95,7 @@ int __cdecl ResType_DefaultHandler(void *msg)
     }
   }
   else if (*(int *)msg == 2) {
-    (**(code **)(UINT_008a856c + 0x60))(*(undefined4 *)((int)msg + 0xc));
+    (**(code **)(g_dwResHS + 0x60))(*(undefined4 *)((int)msg + 0xc));
     return 0;
   }
   return local_4;
@@ -431,14 +431,14 @@ void * sputResource_MaterialHandler(int *param_1)
   }
   iVar1 = *param_1;
   if (iVar1 == 1) {
-    material = (void *)(**(code **)(UINT_008ca1d0 + 0x20))
+    material = (void *)(**(code **)(g_dwSputResHS + 0x20))
                                  (0xb0,s_C__grimsrc_libs_grimlib_Main_spu_004e9c30,0x49f);
     iVar1 = rdMaterial_LoadEntry((char *)param_1[1],material,0,0);
     if (iVar1 == 0) {
       iVar1 = rdMaterial_LoadEntry(s_dflt_mat_004e9c68,material,0,0);
       if (iVar1 == 0) {
         rdMaterial_FreeContents(material);
-        (**(code **)(UINT_008ca1d0 + 0x24))(material);
+        (**(code **)(g_dwSputResHS + 0x24))(material);
         return (void *)0x0;
       }
     }
@@ -448,7 +448,7 @@ void * sputResource_MaterialHandler(int *param_1)
   else {
     if (iVar1 == 2) {
       rdMaterial_FreeContents(param_1[3]);
-      (**(code **)(UINT_008ca1d0 + 0x24))(param_1[3]);
+      (**(code **)(g_dwSputResHS + 0x24))(param_1[3]);
       return (void *)0x1;
     }
     if (iVar1 == 3) {
@@ -572,8 +572,8 @@ undefined4 ResType_MemoryHandler(int *param_1)
   if (iVar1 != 1) {
     if (iVar1 == 2) {
       puVar2 = (undefined4 *)param_1[3];
-      (**(code **)(UINT_008ca1d0 + 0x24))(*puVar2);
-      (**(code **)(UINT_008ca1d0 + 0x24))(puVar2);
+      (**(code **)(g_dwSputResHS + 0x24))(*puVar2);
+      (**(code **)(g_dwSputResHS + 0x24))(puVar2);
     }
     else if (iVar1 == 3) {
       param_1[4] = *(int *)(param_1[3] + 4);

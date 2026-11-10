@@ -15,7 +15,7 @@ int __cdecl StdFile_Tell(void *file)
 {
   int iVar1;
   
-  iVar1 = (*(code *)g_pStdFileIo[4])(file);
+  iVar1 = (*(code *)g_pStdFile_filio_services[4])(file);
   return iVar1;
 }
 #endif
@@ -30,10 +30,10 @@ int __cdecl StdFile_Size(void *file)
   undefined4 uVar1;
   int iVar2;
   
-  uVar1 = (*(code *)g_pStdFileIo[4])(file);
-  (*(code *)g_pStdFileIo[5])(file,0,2);
-  iVar2 = (*(code *)g_pStdFileIo[4])(file);
-  (*(code *)g_pStdFileIo[5])(file,uVar1,0);
+  uVar1 = (*(code *)g_pStdFile_filio_services[4])(file);
+  (*(code *)g_pStdFile_filio_services[5])(file,0,2);
+  iVar2 = (*(code *)g_pStdFile_filio_services[4])(file);
+  (*(code *)g_pStdFile_filio_services[5])(file,uVar1,0);
   return iVar2;
 }
 

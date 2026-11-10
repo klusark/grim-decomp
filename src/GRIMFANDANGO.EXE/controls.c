@@ -26,8 +26,8 @@ void Controls_ResetAll(void)
   uint *puVar1;
   int iVar2;
   
-  puVar1 = &g_ControlTable;
-  for (iVar2 = g_nControlCount; iVar2 != 0; iVar2 = iVar2 + -1) {
+  puVar1 = &g_dwSputControl_aControlSymbols;
+  for (iVar2 = g_nSputControl_numControlSymbols; iVar2 != 0; iVar2 = iVar2 + -1) {
     *puVar1 = *puVar1 & 0xfffffff6;
     puVar1[2] = 0;
     puVar1 = puVar1 + 4;

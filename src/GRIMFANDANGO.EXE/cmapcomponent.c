@@ -27,10 +27,10 @@ int * __cdecl CmapComponent_NewInstance(int inst,int component,int create)
   if (create == 0) {
     iVar1 = Cos_InstGetInstanceData(inst,component,(int *)0x0);
     Res_RemoveReference((void *)(iVar1 + 4));
-    (*g_pSvcCostume->pFree)(iVar1);
+    (*g_pSputCosHS->pFree)(iVar1);
     return (int *)0x0;
   }
-  piVar2 = (int *)(*g_pSvcCostume->pAlloc)(0x38,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0x8fa);
+  piVar2 = (int *)(*g_pSputCosHS->pAlloc)(0x38,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0x8fa);
   Cos_InstComponentInfo(inst,component,(int)auStack_4,(int)&create,(int)&iStack_8);
   iVar1 = create;
   piVar4 = piVar2;
@@ -39,8 +39,8 @@ int * __cdecl CmapComponent_NewInstance(int inst,int component,int create)
     piVar4 = piVar4 + 1;
   }
   if (*(int *)create == 0) {
-    (*g_pSvcMain->pAssertFail)
-              (s_Bad_Colormap_Reference_004e8090,s_main_sputResource_h_004e80a8,0x9f);
+    (*g_pStd_HS->pAssertFail)(s_Bad_Colormap_Reference_004e8090,s_main_sputResource_h_004e80a8,0x9f)
+    ;
   }
   Res_SetReference(piVar2 + 1,*(void **)(iVar1 + 4),s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,
                    0x8ff);
@@ -75,8 +75,8 @@ int ColormapRequester(uint param_1,int param_2,int param_3,int param_4,char *par
   }
   name = param_5;
   if (param_5 == (char *)0x0) {
-    if (DAT_008ca8b8 != '\0') {
-      Plat_SetDialogDirectory(&DAT_008ca8b8);
+    if (g_bColormapPath != '\0') {
+      Plat_SetDialogDirectory(&g_bColormapPath);
     }
     iVar3 = Plat_OpenFileDialog(s_Select_colormap_file_to_add____004ea530,
                                 s_Colormap_files____cmp__004ea550);
@@ -84,15 +84,15 @@ int ColormapRequester(uint param_1,int param_2,int param_3,int param_4,char *par
       return false;
     }
     uVar1 = ((code *)Plat_GetDialogFileName)(0x7f);
-    ((code *)strncpy)(&DAT_008ca8b8,uVar1);
+    ((code *)strncpy)(&g_bColormapPath,uVar1);
     DAT_008ca937 = 0;
-    param_5 = Str_Basename(g_szDialogFileName);
-    name = g_szDialogFileName;
+    param_5 = Str_Basename(g_szGrimlib_aFilename);
+    name = g_szGrimlib_aFilename;
   }
   data = sputResource_Alloc(0x50414d43,name);
   if (data != (void *)0x0) {
     ref = (undefined4 *)
-          (*g_pSvcCostume->pAlloc)(0x34,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0x938);
+          (*g_pSputCosHS->pAlloc)(0x34,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0x938);
     puVar4 = ref;
     for (iVar3 = 0xd; iVar3 != 0; iVar3 = iVar3 + -1) {
       *puVar4 = 0;
@@ -113,7 +113,7 @@ undefined4 CmapComponent_Destroy(undefined4 param_1,undefined4 param_2,void *par
 
 {
   Res_RemoveReference(param_3);
-  (*g_pSvcCostume->pFree)(param_3);
+  (*g_pSputCosHS->pFree)(param_3);
   return 1;
 }
 

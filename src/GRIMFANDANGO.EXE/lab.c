@@ -9,8 +9,8 @@
 void Lab_CloseAll(void)
 
 {
-  while (PTR_008a85c4 != (int *)0x0) {
-    Lab_Close((char *)(PTR_008a85c4 + 2));
+  while (g_pResFileList != (int *)0x0) {
+    Lab_Close((char *)(g_pResFileList + 2));
   }
   return;
 }
@@ -60,7 +60,7 @@ int __cdecl Lab_Close(char *name)
   char *pcVar8;
   
   pvVar3 = Lab_Find(name);
-  piVar2 = PTR_008a85d4;
+  piVar2 = g_pNewestResNode;
   if (pvVar3 != (void *)0x0) {
     while (res = piVar2, res != (int *)0x0) {
       piVar2 = (int *)*res;
@@ -78,7 +78,7 @@ int __cdecl Lab_Close(char *name)
             cVar1 = *pcVar7;
             pcVar7 = pcVar7 + 1;
           } while (cVar1 != '\0');
-          pcVar4 = (char *)(**(code **)(UINT_008a856c + 0x20))
+          pcVar4 = (char *)(**(code **)(g_dwResHS + 0x20))
                                      (~uVar5,s_C__grimsrc_libs_grimlib_Temp_Res_004e7a1c,0x2fe);
           uVar5 = 0xffffffff;
           pcVar7 = (char *)res[2];
@@ -113,10 +113,10 @@ int __cdecl Lab_Close(char *name)
       ResFile_Close(*(int *)((int)pvVar3 + 0x10c));
     }
     if (*(int *)((int)pvVar3 + 0x118) != 0) {
-      (**(code **)(UINT_008a856c + 0x24))(*(int *)((int)pvVar3 + 0x118));
+      (**(code **)(g_dwResHS + 0x24))(*(int *)((int)pvVar3 + 0x118));
     }
     if (*(int *)((int)pvVar3 + 0x11c) != 0) {
-      (**(code **)(UINT_008a856c + 0x24))(*(int *)((int)pvVar3 + 0x11c));
+      (**(code **)(g_dwResHS + 0x24))(*(int *)((int)pvVar3 + 0x11c));
     }
     Lab_Unlink(pvVar3);
   }
@@ -141,16 +141,16 @@ int __cdecl Lab_MoveToFront(char *name)
     if (*piVar1 != 0) {
       *(int *)(*piVar1 + 4) = piVar1[1];
     }
-    if (PTR_008a85c4 == piVar1) {
-      PTR_008a85c4 = (int *)*piVar1;
+    if (g_pResFileList == piVar1) {
+      g_pResFileList = (int *)*piVar1;
     }
-    *piVar1 = (int)PTR_008a85c4;
-    if (PTR_008a85c4 != (int *)0x0) {
-      PTR_008a85c4[1] = (int)piVar1;
+    *piVar1 = (int)g_pResFileList;
+    if (g_pResFileList != (int *)0x0) {
+      g_pResFileList[1] = (int)piVar1;
     }
     piVar1[1] = 0;
     iVar2 = 1;
-    PTR_008a85c4 = piVar1;
+    g_pResFileList = piVar1;
   }
   return iVar2;
 }
@@ -166,8 +166,8 @@ void * __cdecl Lab_Find(char *name)
   int *piVar5;
   bool bVar6;
   
-  piVar5 = PTR_008a85c4;
-  if (PTR_008a85c4 == (int *)0x0) {
+  piVar5 = g_pResFileList;
+  if (g_pResFileList == (int *)0x0) {
     return (void *)0x0;
   }
   do {
@@ -210,8 +210,8 @@ void Lab_Unlink(int *param_1)
   if (*param_1 != 0) {
     *(int *)(*param_1 + 4) = param_1[1];
   }
-  if (PTR_008a85c4 == param_1) {
-    PTR_008a85c4 = (int *)*param_1;
+  if (g_pResFileList == param_1) {
+    g_pResFileList = (int *)*param_1;
   }
   Pool_Free(param_1);
   return;
@@ -234,7 +234,7 @@ int __cdecl Lab_FindFile(char *name,void *outEntry)
   
   iVar1 = 0;
   hash = Res_HashName(name,local_104);
-  lab = PTR_008a85c4;
+  lab = g_pResFileList;
   while ((lab != (int *)0x0 && (iVar1 == 0))) {
     if ((*(byte *)(lab + 0x45) & 2) == 0) {
       iVar1 = ((code *)LabDir_FindEntry)(lab,0,local_104);
@@ -293,7 +293,7 @@ void * __cdecl Lab_Open(char *name)
       pcVar7 = pcVar7 + 1;
     }
     *(int *)((int)lab + 0x10c) = iVar2;
-    uVar3 = (**(code **)(UINT_008a856c + 0x50))(name);
+    uVar3 = (**(code **)(g_dwResHS + 0x50))(name);
     *(undefined4 *)((int)lab + 0x110) = uVar3;
     *(undefined4 *)((int)lab + 0x114) = 2;
     *(undefined4 *)((int)lab + 0x118) = 0;
@@ -317,7 +317,7 @@ int * Lab_AllocRecord(void)
   int iVar2;
   int *piVar3;
   
-  piVar1 = (int *)Pool_Alloc(UINT_008a85c0);
+  piVar1 = (int *)Pool_Alloc(g_dwResFilePool);
   if (piVar1 == (int *)0x0) {
     return (int *)0x0;
   }
@@ -326,12 +326,12 @@ int * Lab_AllocRecord(void)
     *piVar3 = 0;
     piVar3 = piVar3 + 1;
   }
-  *piVar1 = (int)PTR_008a85c4;
-  if (PTR_008a85c4 != (int *)0x0) {
-    PTR_008a85c4[1] = (int)piVar1;
+  *piVar1 = (int)g_pResFileList;
+  if (g_pResFileList != (int *)0x0) {
+    g_pResFileList[1] = (int)piVar1;
   }
   piVar1[1] = 0;
-  PTR_008a85c4 = piVar1;
+  g_pResFileList = piVar1;
   return piVar1;
 }
 
@@ -361,12 +361,11 @@ int __cdecl Lab_ReadDirectory(void *lab)
      (((lab < (void *)0x10001 &&
        (uVar2 = ResFile_Read(*(int *)((int)pvVar1 + 0x10c),&lab,4), pvVar7 = lab, uVar2 == 4)) &&
       (uVar2 = ResFile_Read(*(int *)((int)pvVar1 + 0x10c),&lab,4), n = lab, uVar2 == 4)))) {
-    iVar3 = (**(code **)(UINT_008a856c + 0x20))
+    iVar3 = (**(code **)(g_dwResHS + 0x20))
                       (((int)pvVar7 + 1) * 0x1c,s_C__grimsrc_libs_grimlib_Temp_Res_004e7a1c,0xbdc);
     *(int *)((int)pvVar1 + 0x118) = iVar3;
     if (iVar3 != 0) {
-      iVar3 = (**(code **)(UINT_008a856c + 0x20))
-                        (n,s_C__grimsrc_libs_grimlib_Temp_Res_004e7a1c,0xbdf);
+      iVar3 = (**(code **)(g_dwResHS + 0x20))(n,s_C__grimsrc_libs_grimlib_Temp_Res_004e7a1c,0xbdf);
       *(int *)((int)pvVar1 + 0x11c) = iVar3;
       if (iVar3 != 0) {
         puVar6 = *(undefined4 **)((int)pvVar1 + 0x118);
@@ -410,10 +409,10 @@ int __cdecl Lab_ReadDirectory(void *lab)
   }
 LAB_00481994:
   if (*(int *)((int)pvVar1 + 0x118) != 0) {
-    (**(code **)(UINT_008a856c + 0x24))(*(int *)((int)pvVar1 + 0x118));
+    (**(code **)(g_dwResHS + 0x24))(*(int *)((int)pvVar1 + 0x118));
   }
   if (*(int *)((int)pvVar1 + 0x11c) != 0) {
-    (**(code **)(UINT_008a856c + 0x24))(*(int *)((int)pvVar1 + 0x11c));
+    (**(code **)(g_dwResHS + 0x24))(*(int *)((int)pvVar1 + 0x11c));
   }
   return 0;
 }

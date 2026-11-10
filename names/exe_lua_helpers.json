@@ -12,9 +12,9 @@
  {"addr": "0049c660", "name": "Lua_CallCamChangeHandler", "proto": "void Lua_CallCamChangeHandler(int fromSetup, int toSetup)", "comment": "system.camChangeHandler(from, to)", "tags": "lua-binding"},
  {"addr": "0049c6e0", "name": "sputLua_PostCameraChange", "proto": "void sputLua_PostCameraChange(int setup)", "comment": "system.postCamChangeHandler(setup)", "tags": "lua-binding"},
  {"addr": "0049c8f0", "name": "sputLua_Update", "comment": "Per frame: stores system.frameTime and system.movieTime, collects garbage every 10 s, runs lua_updatetasks", "tags": "lua-binding,engine"},
- {"addr": "008cab40", "global": "g_nLuaSystemTableRef", "type": "int", "comment": "lua_ref of the global `system` table"},
- {"addr": "008cab90", "global": "g_dwLuaGcTimerMs", "type": "uint", "comment": "Milliseconds since the last Lua garbage collection"},
- {"addr": "008cab74", "global": "g_dwMovieTime", "type": "uint", "comment": "Current movie time published as system.movieTime"},
+ {"addr": "008cab40", "global": "g_nLrSystemTable", "type": "int", "comment": "lua_ref of the global `system` table"},
+ {"addr": "008cab90", "global": "g_dwSputLua_Update_collectionTime", "type": "uint", "comment": "Milliseconds since the last Lua garbage collection"},
+ {"addr": "008cab74", "global": "g_dwSputLua_Update_movieTimeMsec", "type": "uint", "comment": "Current movie time published as system.movieTime"},
  {"addr": "0049d550", "name": "sputLua_DoCostumeOverrideCallback", "proto": "void sputLua_DoCostumeOverrideCallback(void * actor, int flag)", "tags": "lua-binding"},
  {"addr": "0049d670", "name": "sputLua_DoCostumeMarkerCallback", "proto": "void sputLua_DoCostumeMarkerCallback(void * actor, uint marker)", "comment": "system.costumeMarkerHandler(actor, marker) from keyframe markers", "tags": "lua-binding"},
  {"addr": "0049d7b0", "name": "sputLua_DoUserPaintCallback", "comment": "system.userPaintHandler() after a restore", "tags": "lua-binding"},
@@ -25,6 +25,6 @@
  {"addr": "0049e020", "name": "Lua_RestoreUserdataHook", "comment": "lua_restorehook: rebuilds STAT, FONT and TEXT userdata pointers from their saved ids", "tags": "lua-binding,savegame"},
  {"addr": "0049e0b0", "name": "Lua_DispatchControlHandlers", "comment": "Calls system.buttonHandler / system.axisHandler for every enabled control whose state changed (last value kept at control+8)", "tags": "lua-binding,input"},
  {"addr": "0049e380", "name": "Lua_CreateSystemTable", "comment": "Creates the global `system` table with the controls table and stub camChange/axis/button handlers; returns its ref", "tags": "lua-binding"},
- {"addr": "0049e460", "name": "Lua_CreateControlsTable", "comment": "system.controls[name] = index for every entry of g_ControlTable (name at control+0xc)", "tags": "lua-binding,input"},
+ {"addr": "0049e460", "name": "Lua_CreateControlsTable", "comment": "system.controls[name] = index for every entry of g_dwSputControl_aControlSymbols (name at control+0xc)", "tags": "lua-binding,input"},
  {"addr": "004a34c0", "name": "sputLua_SaveGameCallback", "proto": "void sputLua_SaveGameCallback(void * writeFn)", "comment": "system.saveGameCallback(); the script answers with SubmitSaveGameData", "tags": "lua-binding,savegame"}
 ]

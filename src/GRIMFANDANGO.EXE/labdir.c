@@ -76,15 +76,15 @@ void * __cdecl LabDir_Open(char *dir)
       pcVar11 = pcVar11 + 1;
     }
     *(undefined4 *)((int)pvVar6 + 0x114) = 1;
-    iVar9 = (**(code **)(UINT_008a856c + 0x20))
+    iVar9 = (**(code **)(g_dwResHS + 0x20))
                       ((iVar9 + 1) * 0xc,s_C__grimsrc_libs_grimlib_Temp_Res_004e7a1c,0xc63);
     *(int *)((int)pvVar6 + 0x118) = iVar9;
     if (iVar9 != 0) {
-      iVar7 = (**(code **)(UINT_008a856c + 0x20))
+      iVar7 = (**(code **)(g_dwResHS + 0x20))
                         (iVar7,s_C__grimsrc_libs_grimlib_Temp_Res_004e7a1c,0xc67);
       *(int *)((int)pvVar6 + 0x11c) = iVar7;
       if (iVar7 == 0) {
-        (**(code **)(UINT_008a856c + 0x24))(*(undefined4 *)((int)pvVar6 + 0x118));
+        (**(code **)(g_dwResHS + 0x24))(*(undefined4 *)((int)pvVar6 + 0x118));
         *(undefined4 *)((int)pvVar6 + 0x118) = 0;
       }
       else {
@@ -209,7 +209,7 @@ LAB_00481d43:
   *param_5 = param_2;
   sprintf((char *)((int)param_5 + 0x115),&DAT_004e7af8,param_1 + 8,param_3);
   param_5[1] = 0;
-  uVar5 = (**(code **)(UINT_008a8570 + 0x50))((char *)((int)param_5 + 0x115));
+  uVar5 = (**(code **)(g_dwLowLevelHS + 0x50))((char *)((int)param_5 + 0x115));
   param_5[2] = uVar5;
   param_5[3] = 0;
   param_5[4] = 0;

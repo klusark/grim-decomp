@@ -31,10 +31,10 @@ void * __cdecl MaterialComponent_NewInstance(void *cosInst,int componentIdx,int 
   
   if (create == 0) {
     iVar1 = Cos_InstGetInstanceData((int)cosInst,componentIdx,(int *)0x0);
-    (*g_pSvcCostume->pFree)(iVar1);
+    (*g_pSputCosHS->pFree)(iVar1);
     return (void *)0x0;
   }
-  piVar2 = (int *)(*g_pSvcCostume->pAlloc)(0xc,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0x9a1);
+  piVar2 = (int *)(*g_pSputCosHS->pAlloc)(0xc,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0x9a1);
   Cos_InstComponentInfo((int)cosInst,componentIdx,(int)auStack_4,(int)(piVar2 + 1),(int)&create);
   iVar1 = Cos_InstGetInstanceData((int)cosInst,create,(int *)0x0);
   *piVar2 = iVar1;
@@ -79,12 +79,12 @@ int MaterialRequester(uint param_1,int param_2,int *param_3,int param_4,char *pa
     return false;
   }
   if (*param_3 == 0) {
-    (*g_pSvcMain->pAssertFail)(s_Bad_model_Reference_004e9e08,s_main_sputResource_h_004e80a8,0xae);
+    (*g_pStd_HS->pAssertFail)(s_Bad_model_Reference_004e9e08,s_main_sputResource_h_004e80a8,0xae);
   }
   iVar5 = param_3[1];
   if (param_5 == (char *)0x0) {
-    if (DAT_008ca938 != '\0') {
-      Plat_SetDialogDirectory(&DAT_008ca938);
+    if (g_bMaterialPath != '\0') {
+      Plat_SetDialogDirectory(&g_bMaterialPath);
     }
     iVar2 = Plat_OpenFileDialog(s_Select_mat_file_to_animate____004ea584,
                                 s_Material_files____mat__004ea5a4);
@@ -92,9 +92,9 @@ int MaterialRequester(uint param_1,int param_2,int *param_3,int param_4,char *pa
       return false;
     }
     uVar3 = ((code *)Plat_GetDialogFileName)(0x7f);
-    ((code *)strncpy)(&DAT_008ca938,uVar3);
+    ((code *)strncpy)(&g_bMaterialPath,uVar3);
     DAT_008ca9b7 = 0;
-    pcStack_18 = Str_Basename(g_szDialogFileName);
+    pcStack_18 = Str_Basename(g_szGrimlib_aFilename);
   }
   uVar7 = 0;
   uStack_1c = 0;
@@ -115,11 +115,11 @@ int MaterialRequester(uint param_1,int param_2,int *param_3,int param_4,char *pa
     local_14 = *(uint *)(iVar5 + 0x60);
     local_10 = 0;
     local_c = 0;
-    if (UINT_008ca7a4 != 0) {
-      (*g_pSvcCostume->pFree)(UINT_008ca7a4);
+    if (g_dwLECBitmaps != 0) {
+      (*g_pSputCosHS->pFree)(g_dwLECBitmaps);
     }
-    UINT_008ca7a4 =
-         (*g_pSvcCostume->pAlloc)(local_14 << 4,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0x9ee);
+    g_dwLECBitmaps =
+         (*g_pSputCosHS->pAlloc)(local_14 << 4,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0x9ee);
     if (*(int *)(iVar5 + 0x60) != 0) {
       iVar2 = 0;
       piVar6 = (int *)(iVar5 + 0x68);
@@ -129,14 +129,14 @@ int MaterialRequester(uint param_1,int param_2,int *param_3,int param_4,char *pa
         piVar6 = piVar6 + 1;
         iVar2 = iVar2 + 0x10;
         iVar1 = *(int *)(*(int *)(iVar1 + 0x1c) + 0x1c);
-        *(undefined4 *)((UINT_008ca7a4 - 0xc) + iVar2) = *(undefined4 *)(iVar1 + 0xc);
-        *(undefined4 *)((UINT_008ca7a4 - 8) + iVar2) = *(undefined4 *)(iVar1 + 0x10);
-        *(undefined4 *)((UINT_008ca7a4 - 0x10) + iVar2) = *(undefined4 *)(iVar1 + 0x5c);
-        *(undefined4 *)((UINT_008ca7a4 - 4) + iVar2) = 1;
+        *(undefined4 *)((g_dwLECBitmaps - 0xc) + iVar2) = *(undefined4 *)(iVar1 + 0xc);
+        *(undefined4 *)((g_dwLECBitmaps - 8) + iVar2) = *(undefined4 *)(iVar1 + 0x10);
+        *(undefined4 *)((g_dwLECBitmaps - 0x10) + iVar2) = *(undefined4 *)(iVar1 + 0x5c);
+        *(undefined4 *)((g_dwLECBitmaps - 4) + iVar2) = 1;
       } while (uVar7 < *(uint *)(iVar5 + 0x60));
     }
     local_4 = 0;
-    local_8 = UINT_008ca7a4;
+    local_8 = g_dwLECBitmaps;
     if (param_5 == (char *)0x0) {
       param_5 = pcStack_18;
     }

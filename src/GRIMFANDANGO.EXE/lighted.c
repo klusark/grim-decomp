@@ -417,7 +417,7 @@ void LightEd_SaveSetFile(void)
   if (iVar2 == 0) {
     return;
   }
-  iVar2 = (*g_pSvcMain->pFopen)(g_pLightEdSet,&DAT_004ec5bc);
+  iVar2 = (*g_pStd_HS->pFopen)(g_pLightEdSet,&DAT_004ec5bc);
   file = (void *)0x0;
   acStack_208[0] = '\0';
   if (iVar2 == 0) {
@@ -430,54 +430,54 @@ void LightEd_SaveSetFile(void)
   if (iVar3 == 0) {
 LAB_004becb0:
     if (file != (void *)0x0) {
-      (*g_pSvcMain->pFclose)(file);
+      (*g_pStd_HS->pFclose)(file);
       goto LAB_004becd7;
     }
   }
   else {
-    file = (void *)(*g_pSvcMain->pFopen)(acStack_208,&DAT_004dee34);
+    file = (void *)(*g_pStd_HS->pFopen)(acStack_208,&DAT_004dee34);
     if (file != (void *)0x0) {
-      iVar3 = (*g_pSvcMain->pFeof)(iVar2);
+      iVar3 = (*g_pStd_HS->pFeof)(iVar2);
       while (iVar3 == 0) {
-        (*g_pSvcMain->pFgets)(iVar2,acStack_30c,0x104);
+        (*g_pStd_HS->pFgets)(iVar2,acStack_30c,0x104);
         iVar3 = String_ContainsSubstring(acStack_30c,s_section__004f0e00);
         if ((iVar3 != 0) &&
            (iVar3 = String_ContainsSubstring(acStack_30c,s_lights_004ec724), iVar3 != 0)) break;
-        (*g_pSvcMain->pFprintf)(file,acStack_30c);
-        iVar3 = (*g_pSvcMain->pFeof)(iVar2);
+        (*g_pStd_HS->pFprintf)(file,acStack_30c);
+        iVar3 = (*g_pStd_HS->pFeof)(iVar2);
       }
-      iVar3 = (*g_pSvcMain->pFeof)(iVar2);
+      iVar3 = (*g_pStd_HS->pFeof)(iVar2);
       if (iVar3 == 0) {
         LightEd_WriteLightsSection(g_pLightEdSet,file);
-        iVar3 = (*g_pSvcMain->pFeof)(iVar2);
+        iVar3 = (*g_pStd_HS->pFeof)(iVar2);
         while (iVar3 == 0) {
-          (*g_pSvcMain->pFgets)(iVar2,acStack_30c,0x104);
+          (*g_pStd_HS->pFgets)(iVar2,acStack_30c,0x104);
           iVar3 = String_ContainsSubstring(acStack_30c,s_section__004f0e00);
           if (iVar3 != 0) {
-            (*g_pSvcMain->pFprintf)(file,acStack_30c);
+            (*g_pStd_HS->pFprintf)(file,acStack_30c);
             break;
           }
-          iVar3 = (*g_pSvcMain->pFeof)(iVar2);
+          iVar3 = (*g_pStd_HS->pFeof)(iVar2);
         }
-        iVar3 = (*g_pSvcMain->pFeof)(iVar2);
+        iVar3 = (*g_pStd_HS->pFeof)(iVar2);
         if (iVar3 == 0) {
-          iVar3 = (*g_pSvcMain->pFeof)(iVar2);
+          iVar3 = (*g_pStd_HS->pFeof)(iVar2);
           while (iVar3 == 0) {
-            (*g_pSvcMain->pFgets)(iVar2,acStack_30c,0x104);
-            (*g_pSvcMain->pFprintf)(file,acStack_30c);
-            iVar3 = (*g_pSvcMain->pFeof)(iVar2);
+            (*g_pStd_HS->pFgets)(iVar2,acStack_30c,0x104);
+            (*g_pStd_HS->pFprintf)(file,acStack_30c);
+            iVar3 = (*g_pStd_HS->pFeof)(iVar2);
           }
-          (*g_pSvcMain->pFclose)(iVar2);
-          (*g_pSvcMain->pFclose)(file);
-          iVar2 = (*g_pSvcMain->pFopen)(acStack_208,&DAT_004ec5bc);
-          file = (void *)(*g_pSvcMain->pFopen)(local_104,&DAT_004dee34);
+          (*g_pStd_HS->pFclose)(iVar2);
+          (*g_pStd_HS->pFclose)(file);
+          iVar2 = (*g_pStd_HS->pFopen)(acStack_208,&DAT_004ec5bc);
+          file = (void *)(*g_pStd_HS->pFopen)(local_104,&DAT_004dee34);
           if (iVar2 != 0) {
             if (file == (void *)0x0) goto LAB_004becb4;
-            iVar3 = (*g_pSvcMain->pFeof)(iVar2);
+            iVar3 = (*g_pStd_HS->pFeof)(iVar2);
             while (iVar3 == 0) {
-              (*g_pSvcMain->pFgets)(iVar2,acStack_30c,0x104);
-              (*g_pSvcMain->pFprintf)(file,acStack_30c);
-              iVar3 = (*g_pSvcMain->pFeof)(iVar2);
+              (*g_pStd_HS->pFgets)(iVar2,acStack_30c,0x104);
+              (*g_pStd_HS->pFprintf)(file,acStack_30c);
+              iVar3 = (*g_pStd_HS->pFeof)(iVar2);
             }
           }
         }
@@ -488,7 +488,7 @@ LAB_004becb0:
 LAB_004becb4:
   MessageBoxA(0,IMG_ADDR(0x004f0de4),(int)PTR_s_Error_004f0d14,0x30);
 LAB_004becd7:
-  (*g_pSvcMain->pFclose)(iVar2);
+  (*g_pStd_HS->pFclose)(iVar2);
   if (acStack_208[0] == '\0') {
     return;
   }
@@ -524,25 +524,25 @@ void __cdecl LightEd_WriteLightsSection(void *set,void *file)
   uint uVar1;
   int iVar2;
   
-  (*g_pSvcMain->pFprintf)(file,s_section__lights_004ec6fc);
-  (*g_pSvcMain->pFprintf)();
+  (*g_pStd_HS->pFprintf)(file,s_section__lights_004ec6fc);
+  (*g_pStd_HS->pFprintf)();
   iVar2 = (int)set + 0xbc;
   uVar1 = 0;
   if (*(int *)((int)set + 0xb8) != 0) {
     do {
-      (*g_pSvcMain->pFprintf)();
-      (*g_pSvcMain->pFprintf)();
-      (*g_pSvcMain->pFprintf)
+      (*g_pStd_HS->pFprintf)();
+      (*g_pStd_HS->pFprintf)();
+      (*g_pStd_HS->pFprintf)
                 (file,s_position__f__f__f_004ec6a4,(double)*(float *)(iVar2 + 0x20),
                  (double)*(float *)(iVar2 + 0x24),(double)*(float *)(iVar2 + 0x28));
-      (*g_pSvcMain->pFprintf)
+      (*g_pStd_HS->pFprintf)
                 (file,s_direction__f__f__f_004ec68c,(double)*(float *)(iVar2 + 0x38),
                  (double)*(float *)(iVar2 + 0x3c),(double)*(float *)(iVar2 + 0x40));
-      (*g_pSvcMain->pFprintf)(file,s_intensity__f_004ec67c,(double)*(float *)(iVar2 + 0x44));
-      (*g_pSvcMain->pFprintf)(file,s_umbraangle__f_004ec668,(double)*(float *)(iVar2 + 0x4c));
-      (*g_pSvcMain->pFprintf)(file,s_penumbraangle__f_004ec654,(double)*(float *)(iVar2 + 0x54));
-      (*g_pSvcMain->pFprintf)();
-      (*g_pSvcMain->pFprintf)(file,&UINT_004ddd74);
+      (*g_pStd_HS->pFprintf)(file,s_intensity__f_004ec67c,(double)*(float *)(iVar2 + 0x44));
+      (*g_pStd_HS->pFprintf)(file,s_umbraangle__f_004ec668,(double)*(float *)(iVar2 + 0x4c));
+      (*g_pStd_HS->pFprintf)(file,s_penumbraangle__f_004ec654,(double)*(float *)(iVar2 + 0x54));
+      (*g_pStd_HS->pFprintf)();
+      (*g_pStd_HS->pFprintf)(file,&UINT_004ddd74);
       iVar2 = iVar2 + 0x68;
       uVar1 = uVar1 + 1;
     } while (uVar1 < *(uint *)((int)set + 0xb8));

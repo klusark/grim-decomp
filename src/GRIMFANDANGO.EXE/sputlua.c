@@ -125,23 +125,23 @@ void sputLua_Update(void)
   int iVar2;
   #define local_1c (*(uint *)(_frame + (0x30 - 0x1c)))
   
-  g_dwMovieTime = Insane_Poll();
+  g_dwSputLua_Update_movieTimeMsec = Insane_Poll();
   uVar1 = Timer_GetFrameMs();
-  g_dwLuaGcTimerMs = g_dwLuaGcTimerMs + uVar1;
-  if (10000.0 < (float)g_dwLuaGcTimerMs) {
+  g_dwSputLua_Update_collectionTime = g_dwSputLua_Update_collectionTime + uVar1;
+  if (10000.0 < (float)g_dwSputLua_Update_collectionTime) {
     lua_collectgarbage(0);
-    g_dwLuaGcTimerMs = 0;
+    g_dwSputLua_Update_collectionTime = 0;
   }
   lua_beginblock();
-  iVar2 = lua_getref(g_nLuaSystemTableRef);
+  iVar2 = lua_getref(g_nLrSystemTable);
   lua_pushobject(iVar2);
   lua_pushstring(s_frameTime_004ec41c);
   lua_pushnumber((float)uVar1);
   lua_settable();
-  iVar2 = lua_getref(g_nLuaSystemTableRef);
+  iVar2 = lua_getref(g_nLrSystemTable);
   lua_pushobject(iVar2);
   lua_pushstring(s_movieTime_004ec410);
-  lua_pushnumber((float)(int)g_dwMovieTime);
+  lua_pushnumber((float)(int)g_dwSputLua_Update_movieTimeMsec);
   lua_settable();
   lua_endblock();
   lua_updatetasks(0);
@@ -161,7 +161,7 @@ undefined4 sputLua_Initialize(GrimServices *param_1,undefined4 *param_2)
 {
   int iVar1;
   
-  g_pSvcLua = param_1;
+  g_pSputLuaHS = param_1;
   *param_2 = sputLua_Initialize;
   param_2[1] = sputLua_Terminate;
   param_2[2] = sputLua_Startup;
@@ -170,12 +170,12 @@ undefined4 sputLua_Initialize(GrimServices *param_1,undefined4 *param_2)
   param_2[5] = 0;
   param_2[6] = 0;
   param_2[7] = 0;
-  iVar1 = lua_Initialize((int)param_1,(int *)&DAT_008cab50);
+  iVar1 = lua_Initialize((int)param_1,(int *)&g_aLuaMS);
   if (iVar1 != 0) {
-    UINT_008cab7c = 0;
+    g_dwSputLuaInitialize = 0;
     return 1;
   }
-  UINT_008cab7c = 1;
+  g_dwSputLuaInitialize = 1;
   return 0;
 }
 
@@ -275,7 +275,7 @@ void sputLua_TypeOverride(void)
     return;
   }
 LAB_0049d199:
-  iVar2 = lua_getref(UINT_008cab48);
+  iVar2 = lua_getref(g_dwLrTypeFunction);
   lua_pushobject(iVar1);
   lua_callfunction(iVar2);
   iVar1 = lua_lua2C(1);
@@ -289,16 +289,16 @@ LAB_0049d199:
 
 
 /* ---- 0x0049e500  sputLua_Terminate ---- */
-/* Module slot 1 of sputLua: clears g_pSvcLua and calls the Lua shutdown hook if the Lua state
+/* Module slot 1 of sputLua: clears g_pSputLuaHS and calls the Lua shutdown hook if the Lua state
    exists. */
 
 void sputLua_Terminate(void)
 
 {
-  g_pSvcLua = (GrimServices *)0x0;
-  if (UINT_008cab7c != 0) {
+  g_pSputLuaHS = (GrimServices *)0x0;
+  if (g_dwSputLuaInitialize != 0) {
     (*(code *)UINT_008cab54)();
-    UINT_008cab7c = 0;
+    g_dwSputLuaInitialize = 0;
   }
   return;
 }
@@ -312,11 +312,11 @@ void sputLua_Terminate(void)
 void sputLua_Shutdown(void)
 
 {
-  if (g_pLuaFileFind != (void *)0x0) {
-    stdFileUtil_DisposeFind(g_pLuaFileFind);
-    g_pLuaFileFind = (void *)0x0;
+  if (g_pFrFileReq != (void *)0x0) {
+    stdFileUtil_DisposeFind(g_pFrFileReq);
+    g_pFrFileReq = (void *)0x0;
   }
-  lua_unref(g_nLuaSystemTableRef);
+  lua_unref(g_nLrSystemTable);
   *(undefined4 *)lua_savehook_exref = 0;
   *(undefined4 *)lua_restorehook_exref = 0;
   (*(code *)UINT_008cab5c)();
@@ -887,7 +887,7 @@ void sputLua_SubmitSaveGameData(void)
   
   local_10 = 0;
   iVar2 = lua_lua2C(1);
-  g_nLuaSaveStringCount = 0;
+  g_nTotSaveBytes = 0;
   do {
     lua_pushobject(iVar2);
     local_4 = PUN(uint,(float)(float)(int)local_10);
@@ -896,8 +896,8 @@ void sputLua_SubmitSaveGameData(void)
     iVar3 = lua_gettable();
     iVar4 = lua_isnil(iVar3);
     if (iVar4 != 0) {
-      if (g_nLuaSaveStringCount != 0) {
-        (*(code *)g_pfnLuaSaveWrite)(&g_nLuaSaveStringCount,4);
+      if (g_nTotSaveBytes != 0) {
+        (*(code *)g_pTheWriter)(&g_nTotSaveBytes,4);
         local_10 = 0;
         while( true ) {
           lua_pushobject(iVar2);
@@ -917,8 +917,8 @@ void sputLua_SubmitSaveGameData(void)
             pcVar5 = pcVar5 + 1;
           } while (cVar1 != '\0');
           uStack_8 = ~uStack_8;
-          (*(code *)g_pfnLuaSaveWrite)(&uStack_8,4);
-          (*(code *)g_pfnLuaSaveWrite)(pcVar6,uStack_8);
+          (*(code *)g_pTheWriter)(&uStack_8,4);
+          (*(code *)g_pTheWriter)(pcVar6,uStack_8);
         }
       }
       return;
@@ -935,7 +935,7 @@ void sputLua_SubmitSaveGameData(void)
       cVar1 = *pcVar5;
       pcVar5 = pcVar5 + 1;
     } while (cVar1 != '\0');
-    g_nLuaSaveStringCount = g_nLuaSaveStringCount + ~uVar7 + 4;
+    g_nTotSaveBytes = g_nTotSaveBytes + ~uVar7 + 4;
   } while( true );
 }
 #undef local_10

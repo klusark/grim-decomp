@@ -40,10 +40,10 @@ int * __cdecl MeshComponent_NewInstance(int inst,int component,int create)
   
   if (create == 0) {
     iVar2 = Cos_InstGetInstanceData(inst,component,(int *)0x0);
-    (*g_pSvcCostume->pFree)(iVar2);
+    (*g_pSputCosHS->pFree)(iVar2);
     return (int *)0x0;
   }
-  piVar3 = (int *)(*g_pSvcCostume->pAlloc)(0xc,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0xb54);
+  piVar3 = (int *)(*g_pSputCosHS->pAlloc)(0xc,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0xb54);
   piVar1 = piVar3 + 1;
   Cos_InstComponentInfo(inst,component,(int)auStack_4,(int)piVar1,(int)&create);
   *piVar1 = *piVar1 >> 0x10;
@@ -100,12 +100,12 @@ undefined4 MeshRequester(uint param_1,int param_2,int *param_3,int param_4,char 
     return 0;
   }
   if (*param_3 == 0) {
-    (*g_pSvcMain->pAssertFail)(s_Bad_model_Reference_004e9e08,s_main_sputResource_h_004e80a8,0xae);
+    (*g_pStd_HS->pAssertFail)(s_Bad_model_Reference_004e9e08,s_main_sputResource_h_004e80a8,0xae);
   }
   iVar6 = param_3[1];
-  buf = (char *)(*g_pSvcCostume->pAlloc)(0x2d,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0xb94);
+  buf = (char *)(*g_pSputCosHS->pAlloc)(0x2d,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0xb94);
   if (param_5 == (char *)0x0) {
-    items = (char **)(*g_pSvcCostume->pAlloc)
+    items = (char **)(*g_pSputCosHS->pAlloc)
                                (*(int *)(iVar6 + 0x54) << 2,
                                 s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0xbb1);
     uStack_c = 0;
@@ -113,7 +113,7 @@ undefined4 MeshRequester(uint param_1,int param_2,int *param_3,int param_4,char 
       iVar3 = 0;
       ppcVar9 = items;
       do {
-        pcVar8 = (char *)(*g_pSvcCostume->pAlloc)
+        pcVar8 = (char *)(*g_pSputCosHS->pAlloc)
                                    (0x2a,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,2999);
         *ppcVar9 = pcVar8;
         iVar5 = 1;
@@ -155,12 +155,12 @@ undefined4 MeshRequester(uint param_1,int param_2,int *param_3,int param_4,char 
     ppcVar9 = items;
     if (*(int *)(iVar6 + 0x54) != 0) {
       do {
-        (*g_pSvcCostume->pFree)(*ppcVar9);
+        (*g_pSputCosHS->pFree)(*ppcVar9);
         uVar7 = uVar7 + 1;
         ppcVar9 = ppcVar9 + 1;
       } while (uVar7 < *(uint *)(iVar6 + 0x54));
     }
-    (*g_pSvcCostume->pFree)(items);
+    (*g_pSputCosHS->pFree)(items);
     if ((int)puVar4 < 0) goto LAB_004970d4;
     sprintf(buf,s_Mesh__d___s__004ea64c,puVar4,*(int *)(iVar6 + 0x58) + (int)puVar4 * 0xb8);
   }
@@ -183,7 +183,7 @@ undefined4 MeshRequester(uint param_1,int param_2,int *param_3,int param_4,char 
     iVar3 = isdigit((int)*pcVar8);
     if (iVar3 == 0) {
 LAB_004970d4:
-      (*g_pSvcCostume->pFree)(buf);
+      (*g_pSputCosHS->pFree)(buf);
       return 0;
     }
     puVar4 = atoi((uint)pcVar8);
@@ -216,10 +216,10 @@ LAB_004970d4:
                     (param_1,(int)buf,(int)puVar4 << 0x10 | (uint)param_3 & 0xffff,param_2,
                      (int)param_3,param_4,IMG_ADDR(0x004e9f48));
   if (iVar6 == 0) {
-    (*g_pSvcCostume->pFree)();
+    (*g_pSputCosHS->pFree)();
     return 0;
   }
-  (*g_pSvcCostume->pFree)(buf);
+  (*g_pSputCosHS->pFree)(buf);
   return 1;
 }
 #undef iStack_4

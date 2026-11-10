@@ -158,36 +158,36 @@ void stdMath_SinCos(float param_1,float *param_2,float *param_3)
   switch(local_1c) {
   case 0:
     if (iVar2 < 0x1000) {
-      local_8 = *(float *)(&DAT_004df600 + iVar2 * 4);
+      local_8 = *(float *)(&g_aSinTable + iVar2 * 4);
     }
     else {
-      local_8 = *(float *)(&DAT_004df600 + (0xfff - (iVar1 + -0xfff)) * 4);
+      local_8 = *(float *)(&g_aSinTable + (0xfff - (iVar1 + -0xfff)) * 4);
     }
-    *param_2 = (local_8 - *(float *)(&DAT_004df600 + iVar1 * 4)) * fVar5 +
-               *(float *)(&DAT_004df600 + iVar1 * 4);
+    *param_2 = (local_8 - *(float *)(&g_aSinTable + iVar1 * 4)) * fVar5 +
+               *(float *)(&g_aSinTable + iVar1 * 4);
     if (iVar2 < 0x1000) {
-      local_8 = *(float *)(&DAT_004df600 + (0xfff - iVar2) * 4);
+      local_8 = *(float *)(&g_aSinTable + (0xfff - iVar2) * 4);
     }
     else {
       local_8 = -*(float *)("DialogBoxIndirectParamA" + iVar2 * 4 + 2);
     }
-    *param_3 = (local_8 - *(float *)(&DAT_004df600 + (0xfff - iVar1) * 4)) * fVar5 +
-               *(float *)(&DAT_004df600 + (0xfff - iVar1) * 4);
+    *param_3 = (local_8 - *(float *)(&g_aSinTable + (0xfff - iVar1) * 4)) * fVar5 +
+               *(float *)(&g_aSinTable + (0xfff - iVar1) * 4);
     break;
   case 1:
     if (iVar2 < 0x2000) {
-      local_8 = *(float *)(&DAT_004df600 + (0xfff - (iVar1 + -0xfff)) * 4);
+      local_8 = *(float *)(&g_aSinTable + (0xfff - (iVar1 + -0xfff)) * 4);
     }
     else {
       local_8 = -*(float *)(&DAT_004d7600 + iVar2 * 4);
     }
-    *param_2 = (local_8 - *(float *)(&DAT_004df600 + (0xfff - (iVar1 + -0x1000)) * 4)) * fVar5 +
-               *(float *)(&DAT_004df600 + (0xfff - (iVar1 + -0x1000)) * 4);
+    *param_2 = (local_8 - *(float *)(&g_aSinTable + (0xfff - (iVar1 + -0x1000)) * 4)) * fVar5 +
+               *(float *)(&g_aSinTable + (0xfff - (iVar1 + -0x1000)) * 4);
     if (iVar2 < 0x2000) {
       fVar4 = *(float *)("DialogBoxIndirectParamA" + iVar2 * 4 + 2);
     }
     else {
-      fVar4 = *(float *)(&DAT_004df600 + (0xfff - (iVar1 + -0x1fff)) * 4);
+      fVar4 = *(float *)(&g_aSinTable + (0xfff - (iVar1 + -0x1fff)) * 4);
     }
     local_8 = -fVar4;
     *param_3 = (local_8 - -*(float *)("DialogBoxIndirectParamA" + iVar1 * 4 + 2)) * fVar5 +
@@ -198,35 +198,35 @@ void stdMath_SinCos(float param_1,float *param_2,float *param_3)
       fVar4 = *(float *)(&DAT_004d7600 + iVar2 * 4);
     }
     else {
-      fVar4 = *(float *)(&DAT_004df600 + (0xfff - (iVar1 + -0x2fff)) * 4);
+      fVar4 = *(float *)(&g_aSinTable + (0xfff - (iVar1 + -0x2fff)) * 4);
     }
     local_8 = -fVar4;
     *param_2 = (local_8 - -*(float *)(&DAT_004d7600 + iVar1 * 4)) * fVar5 +
                -*(float *)(&DAT_004d7600 + iVar1 * 4);
     if (iVar2 < 0x3000) {
-      local_8 = -*(float *)(&DAT_004df600 + (0xfff - (iVar1 + -0x1fff)) * 4);
+      local_8 = -*(float *)(&g_aSinTable + (0xfff - (iVar1 + -0x1fff)) * 4);
     }
     else {
       local_8 = *(float *)(iVar2 * 4 + 0x4d3600);
     }
-    *param_3 = (local_8 - -*(float *)(&DAT_004df600 + (0xfff - (iVar1 + -0x2000)) * 4)) * fVar5 +
-               -*(float *)(&DAT_004df600 + (0xfff - (iVar1 + -0x2000)) * 4);
+    *param_3 = (local_8 - -*(float *)(&g_aSinTable + (0xfff - (iVar1 + -0x2000)) * 4)) * fVar5 +
+               -*(float *)(&g_aSinTable + (0xfff - (iVar1 + -0x2000)) * 4);
     break;
   case 3:
     if (iVar2 < 0x4000) {
-      local_8 = -*(float *)(&DAT_004df600 + (0xfff - (iVar1 + -0x2fff)) * 4);
+      local_8 = -*(float *)(&g_aSinTable + (0xfff - (iVar1 + -0x2fff)) * 4);
     }
     else {
       local_8 = *(float *)(iVar2 * 4 + 0x4cf600);
     }
-    *param_2 = (local_8 - -*(float *)(&DAT_004df600 + (0xfff - (iVar1 + -0x3000)) * 4)) * fVar5 +
-               -*(float *)(&DAT_004df600 + (0xfff - (iVar1 + -0x3000)) * 4);
+    *param_2 = (local_8 - -*(float *)(&g_aSinTable + (0xfff - (iVar1 + -0x3000)) * 4)) * fVar5 +
+               -*(float *)(&g_aSinTable + (0xfff - (iVar1 + -0x3000)) * 4);
     fVar4 = *(float *)(iVar1 * 4 + 0x4d3600);
     if (iVar2 < 0x4000) {
       local_8 = *(float *)(iVar2 * 4 + 0x4d3600);
     }
     else {
-      local_8 = *(float *)(&DAT_004df600 + (0xfff - (iVar1 + -0x3fff)) * 4);
+      local_8 = *(float *)(&g_aSinTable + (0xfff - (iVar1 + -0x3fff)) * 4);
     }
     *param_3 = (local_8 - fVar4) * fVar5 + fVar4;
   }

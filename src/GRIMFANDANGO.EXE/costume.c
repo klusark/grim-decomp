@@ -384,7 +384,7 @@ void __cdecl Costume_ApplyComponentState(void *cosInst)
       }
       else if ((cosInst != (void *)0x4853454d) && (cosInst == (void *)0x70616d63)) {
         if (piVar4[1] == 0) {
-          (*g_pSvcMain->pAssertFail)
+          (*g_pStd_HS->pAssertFail)
                     (s_Bad_Colormap_Reference_004e8090,s_main_sputResource_h_004e80a8,0x9f);
         }
         *(int *)(*piVar4 + 0x4c) = piVar4[2];
@@ -517,7 +517,7 @@ undefined4 Costume_SaveChoreListFile(char *param_1,uint *param_2,undefined4 para
     } while (cVar2 != '\0');
     uVar6 = ~uVar6;
     pcVar4 = pcVar9 + -uVar6;
-    pcVar9 = g_szDialogFileName;
+    pcVar9 = g_szGrimlib_aFilename;
     for (uVar8 = uVar6 >> 2; uVar8 != 0; uVar8 = uVar8 - 1) {
       *(undefined4 *)pcVar9 = *(undefined4 *)pcVar4;
       pcVar4 = pcVar4 + 4;
@@ -528,7 +528,7 @@ undefined4 Costume_SaveChoreListFile(char *param_1,uint *param_2,undefined4 para
       pcVar4 = pcVar4 + 1;
       pcVar9 = pcVar9 + 1;
     }
-    pcVar4 = Str_FileExtension(g_szDialogFileName);
+    pcVar4 = Str_FileExtension(g_szGrimlib_aFilename);
     sprintf(pcVar4,&DAT_004ea45c);
   }
   else {
@@ -538,26 +538,26 @@ undefined4 Costume_SaveChoreListFile(char *param_1,uint *param_2,undefined4 para
       return 0;
     }
   }
-  iVar3 = (*g_pSvcCostume->pFopen)(g_szDialogFileName,&DAT_004dd478);
+  iVar3 = (*g_pSputCosHS->pFopen)(g_szGrimlib_aFilename,&DAT_004dd478);
   if (iVar3 != 0) {
-    ppvVar1 = &g_pSvcCostume->pFprintf;
+    ppvVar1 = &g_pSputCosHS->pFprintf;
     pcVar4 = Str_Basename(param_1);
     (*(code *)*ppvVar1)(iVar3,s____Chore_numbering_for__s__004ea3d4,pcVar4);
-    (*g_pSvcCostume->pFprintf)(iVar3,s_____s_004ea3cc,param_3);
+    (*g_pSputCosHS->pFprintf)(iVar3,s_____s_004ea3cc,param_3);
     Str_CopyBasenameNoExt(acStack_20,0x20,param_1);
     iVar5 = Cos_CreateCosInstance(param_2,0);
     uVar6 = Cos_InstCountChores(iVar5);
     uVar8 = 0;
     if (uVar6 != 0) {
       do {
-        ppvVar1 = &g_pSvcCostume->pFprintf;
+        ppvVar1 = &g_pSputCosHS->pFprintf;
         uVar10 = uVar8;
         iVar7 = Cos_InstChoreName(iVar5,uVar8);
         (*(code *)*ppvVar1)(iVar3,s__s__s____d_004ea3bc,acStack_20,iVar7,uVar10);
         uVar8 = uVar8 + 1;
       } while (uVar8 < uVar6);
     }
-    (*g_pSvcCostume->pFclose)(iVar3);
+    (*g_pSputCosHS->pFclose)(iVar3);
     Cos_FreeCosInstance(iVar5);
     return 1;
   }

@@ -15,22 +15,22 @@ void Engine_ResetState(void)
   int *res;
   int *res_00;
   
-  res = PTR_008a85d4;
-  res_00 = PTR_008a85d4;
-  if (PTR_008a85d4 != (int *)0x0) {
+  res = g_pNewestResNode;
+  res_00 = g_pNewestResNode;
+  if (g_pNewestResNode != (int *)0x0) {
     do {
       piVar1 = (int *)*res_00;
       if ((*(byte *)(res_00 + 7) & 8) == 0) {
         Res_CallUnload(res_00);
         Res_Unlink(res_00);
-        res = PTR_008a85d4;
+        res = g_pNewestResNode;
       }
       res_00 = piVar1;
     } while (piVar1 != (int *)0x0);
     while (res != (int *)0x0) {
       Res_CallUnload(res);
-      Res_Unlink(PTR_008a85d4);
-      res = PTR_008a85d4;
+      Res_Unlink(g_pNewestResNode);
+      res = g_pNewestResNode;
     }
   }
   return;
@@ -81,10 +81,10 @@ void grimlib_RestoreSelectedActorCostume(void)
 int __cdecl grimlib_SetDisplay(void *mode,int flags)
 
 {
-  sputRender_PageCountIs(UINT_00803fa0);
+  sputRender_PageCountIs(g_dwStdDisplay_numDrawBuffers);
   sputRender_SetDisplay
             (mode,flags,0,0,*(int *)((int)mode + 0xc) + -1,*(int *)((int)mode + 0x10) + -1,
-             &DAT_004e7da0);
+             &g_aGrimlib_renderOptions);
   return 0;
 }
 
@@ -103,7 +103,7 @@ void Engine_ShutdownGame(void)
 
 {
   if (UINT_008a8c78 != 0) {
-    UINT_008a8c40 = 0;
+    g_dwGrimlib_mode = 0;
     Control_Release();
     sputRender_Close();
     sputRoom_SetCurrentRoom((void *)0x0,0);
@@ -184,7 +184,7 @@ undefined4 Engine_CallSystemFunction(int param_1,char *param_2)
   if (iVar1 == 0) {
     return 1;
   }
-  UINT_008a8c40 = 2;
+  g_dwGrimlib_mode = 2;
   Engine_CreateCameraActor();
   puVar2 = Control_Capture();
   if (puVar2 == (undefined *)0x0) {
@@ -237,12 +237,12 @@ void __cdecl Engine_Quit(int exitCode)
 void __cdecl grimlib_SetPause(int paused)
 
 {
-  if (UINT_008a8c40 != 0) {
+  if (g_dwGrimlib_mode != 0) {
     if (paused != 0) {
-      if (UINT_008a8c40 != 1) {
-        UINT_008a8c90 = UINT_008a8c40;
-        UINT_008a8c94 = UINT_008a8c44;
-        UINT_008a8c40 = 1;
+      if (g_dwGrimlib_mode != 1) {
+        UINT_008a8c90 = g_dwGrimlib_mode;
+        g_dwGrimlib_SetPause_oldmode = UINT_008a8c44;
+        g_dwGrimlib_mode = 1;
         ImPause();
         sputSmush_Pause(1);
         return;
@@ -251,9 +251,9 @@ void __cdecl grimlib_SetPause(int paused)
         return;
       }
     }
-    if (UINT_008a8c40 == 1) {
-      UINT_008a8c40 = UINT_008a8c90;
-      UINT_008a8c44 = UINT_008a8c94;
+    if (g_dwGrimlib_mode == 1) {
+      g_dwGrimlib_mode = UINT_008a8c90;
+      UINT_008a8c44 = g_dwGrimlib_SetPause_oldmode;
       ImResume();
       sputSmush_Pause(0);
     }
@@ -290,20 +290,20 @@ void Engine_UpdateFrame(int param_1,int param_2)
   if (UINT_008a8c7c != 0) {
     Engine_SaveGame();
   }
-  if (UINT_008a8c80 != 0) {
+  if (g_dwDoLoad != 0) {
     Engine_LoadGame();
   }
   Profile_Begin(0);
   Profile_Begin(10);
   SoundsPeriodic();
   Profile_End(10);
-  if (UINT_008a8c40 != 0) {
+  if (g_dwGrimlib_mode != 0) {
     Profile_Begin(1);
     uVar1 = Timer_GetFrameMs();
     fVar2 = sputTime_GetFrameTimeFlex();
     Engine_RunShutdownHooks(PUN(undefined4,(float)(fVar2)),uVar1);
     Profile_End(1);
-    if ((UINT_008a8c40 != 1) || (param_2 != 0)) {
+    if ((g_dwGrimlib_mode != 1) || (param_2 != 0)) {
       UINT_008a8c3c = UINT_008a8c3c + 1;
       if (param_2 == 0) {
         Timer_UpdateFromWallClock();
@@ -316,14 +316,14 @@ void Engine_UpdateFrame(int param_1,int param_2)
         sputLua_Update();
         Profile_End(2);
       }
-      if ((UINT_008a8c40 != 3) && (UINT_008a8c40 != 4)) {
+      if ((g_dwGrimlib_mode != 3) && (g_dwGrimlib_mode != 4)) {
         Profile_Begin(3);
         fVar2 = sputTime_GetFrameTimeFlex();
         Actors_UpdateAll(fVar2);
         Profile_End(3);
       }
     }
-    if ((param_1 != 0) && ((UINT_008a8c40 != 1 || (param_2 != 0)))) {
+    if ((param_1 != 0) && ((g_dwGrimlib_mode != 1 || (param_2 != 0)))) {
       sputRender_Update();
       UINT_008a8c60 = 1;
     }
@@ -358,7 +358,7 @@ void Engine_PresentFrame(void)
   int iVar1;
   
   Profile_Begin(8);
-  if (UINT_008a8c40 == 3) {
+  if (g_dwGrimlib_mode == 3) {
     iVar1 = Render_CanvasIsPaletted();
     if (iVar1 == 0) {
       Render_Present();
@@ -367,12 +367,12 @@ void Engine_PresentFrame(void)
     }
   }
   else {
-    if (UINT_008a8c40 == 2) {
+    if (g_dwGrimlib_mode == 2) {
       Render_Present();
       Profile_End(8);
       return;
     }
-    if ((UINT_008a8c40 == 1) && (UINT_008a8c60 != 0)) {
+    if ((g_dwGrimlib_mode == 1) && (UINT_008a8c60 != 0)) {
       Render_Present();
       UINT_008a8c60 = 0;
     }
@@ -548,7 +548,7 @@ undefined * __cdecl Profile_End(int param_1)
   QueryPerformanceFrequency((int)(_stkneg + 24));
   dStack_8 = (double)CONCAT44(uStack_14,in_stack_ffffffe8);
   QueryPerformanceCounter((int)&lStack_10);
-  *(double *)(&UINT_004e7b50 + param_1 * 0xc) =
+  *(double *)(&g_dwGrimlib_PerfData + param_1 * 0xc) =
        (((double)lStack_10 - *(double *)(&DAT_004e7b48 + param_1 * 0x30)) / dStack_8) * 1000.0;
   lVar1 = _ftol((double)CONCAT44(in_stack_ffffffe8,unaff_ESI));
   return (undefined *)lVar1;
@@ -577,17 +577,17 @@ grimlib_PlayMovie(undefined4 param_1,int param_2,undefined4 param_3,undefined4 p
     surface = (uint *)Render_GetBackBuffer();
   }
   else {
-    surface = &g_PrimarySurface;
+    surface = &g_dwStdDisplay_frontBuffer;
   }
   Movie_SetTarget(surface);
   iVar1 = Movie_Start(param_1,param_3,param_4,param_5);
   if (iVar1 == 0) {
     if (param_2 != 0) {
-      UINT_008a8c40 = 3;
+      g_dwGrimlib_mode = 3;
       return 1;
     }
-    if (UINT_008a8c40 == 3) {
-      UINT_008a8c40 = 2;
+    if (g_dwGrimlib_mode == 3) {
+      g_dwGrimlib_mode = 2;
     }
     return 1;
   }
@@ -602,7 +602,7 @@ grimlib_PlayMovie(undefined4 param_1,int param_2,undefined4 param_3,undefined4 p
 void grimlib_UserPaint(void)
 
 {
-  if (UINT_008a8c40 == 4) {
+  if (g_dwGrimlib_mode == 4) {
     sputLua_DoUserPaintCallback();
     return;
   }
@@ -627,7 +627,7 @@ void Engine_RequestSave(char *param_1)
 void grimlib_Load(char *param_1)
 
 {
-  UINT_008a8c80 = 1;
+  g_dwDoLoad = 1;
   g_pSaveFileName = param_1;
   return;
 }
@@ -641,8 +641,8 @@ uint grimlib_JustLoaded(void)
 {
   uint uVar1;
   
-  uVar1 = UINT_008a8c84;
-  UINT_008a8c84 = 0;
+  uVar1 = g_dwJustLoaded;
+  g_dwJustLoaded = 0;
   return uVar1;
 }
 
@@ -753,7 +753,7 @@ void Engine_LoadGame(void)
   #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
   #define aiStack_10 (*(int (*)[4])(_frame + (0x30 - 0x10)))
   
-  UINT_008a8c80 = 0;
+  g_dwDoLoad = 0;
   name = g_pSaveFileName;
   if (g_pSaveFileName == (char *)0x0) {
     name = s_grim_sav_004e7fc8;
@@ -783,7 +783,7 @@ void Engine_LoadGame(void)
     (*(code *)UINT_008a87cc)(SaveGame_Read);
     (*(code *)UINT_008a880c)(SaveGame_Read);
     (*(code *)UINT_008a882c)(SaveGame_Read);
-    UINT_008a8c40 = 4;
+    g_dwGrimlib_mode = 4;
     SaveGame_Read(&UINT_008a8c48,4);
     Render_DrawProgressBar(0.75);
     lua_Restore(SaveGame_Read);
@@ -802,7 +802,7 @@ void Engine_LoadGame(void)
     Set_SwitchSetup(set,setupIdx);
     gzclose(UINT_008a8770);
     lua_dofile(s_patch05_bin_004e7fe8);
-    UINT_008a8c84 = 1;
+    g_dwJustLoaded = 1;
     Render_SetWaitCursorEnabled(1);
     aiStack_10[0] = 0;
     aiStack_10[1] = 0;
@@ -844,8 +844,8 @@ undefined4 Engine_CreateCameraActor(void)
 {
   int iVar1;
   
-  g_nCameraActor = sputActor_AllocateActor();
-  iVar1 = sputActor_ActorDeref(g_nCameraActor);
+  g_nCamActorIndex = sputActor_AllocateActor();
+  iVar1 = sputActor_ActorDeref(g_nCamActorIndex);
   *(uint *)(iVar1 + 4) = *(uint *)(iVar1 + 4) | 1;
   return 1;
 }
@@ -881,38 +881,38 @@ void sputRender_Update(void)
   #define fStack_8 (*(float *)(_frame + (0x30 - 0x8)))
   #define fStack_4 (*(float *)(_frame + (0x30 - 0x4)))
   
-  if (UINT_008a8c40 != 0) {
-    if (UINT_008a8c40 == 3) {
-      Movie_SetTarget(&g_BackBuffer);
+  if (g_dwGrimlib_mode != 0) {
+    if (g_dwGrimlib_mode == 3) {
+      Movie_SetTarget(&g_dwStdDisplay_backBuffer);
       iVar4 = Movie_PollPlayback();
       if (iVar4 != 0) {
         iVar4 = 0;
-        UINT_008a8c40 = 2;
+        g_dwGrimlib_mode = 2;
         local_1c[0] = 0.0;
         local_1c[1] = 0.0;
         local_1c[2] = 8.96831e-43;
-        if (0 < g_nBufferCount) {
+        if (0 < g_nNumPages) {
           do {
             DirtyRect_Add((int *)local_1c,1,iVar4);
             iVar4 = iVar4 + 1;
-          } while (iVar4 < g_nBufferCount);
+          } while (iVar4 < g_nNumPages);
         }
         sputRender_ForceRefresh();
         UINT_008c97f8 = 1;
       }
       local_1c[0] = sputTime_GetFrameTimeFlex();
       Actors_UpdateTalking(local_1c[0]);
-      Surface_Lock(&g_BackBuffer);
+      Surface_Lock(&g_dwStdDisplay_backBuffer);
       UINT_008a94b8 = UINT_0090563c;
       TextObjects_Update(0);
-      Surface_Unlock(&g_BackBuffer);
+      Surface_Unlock(&g_dwStdDisplay_backBuffer);
       Render_Present();
       return;
     }
-    if (UINT_008a8c40 == 4) {
-      if (g_nFullRedrawPending != 0) {
+    if (g_dwGrimlib_mode == 4) {
+      if (g_nSputRender_Reset != 0) {
         grimlib_UserPaint();
-        g_nFullRedrawPending = 0;
+        g_nSputRender_Reset = 0;
         return;
       }
     }
@@ -926,70 +926,72 @@ void sputRender_Update(void)
       }
       pvVar5 = sputRoom_GetCurrentRoom();
       if (((g_pRenderedSet != pvVar5) ||
-          (pvVar5 = sputRoom_GetCurrentRoom(), *(int *)((int)pvVar5 + 0xb4) != g_nRenderedSetup)) ||
-         (g_nFullRedrawPending != 0)) {
+          (pvVar5 = sputRoom_GetCurrentRoom(),
+          *(int *)((int)pvVar5 + 0xb4) != g_nSputRender_Update_RenderSetup)) ||
+         (g_nSputRender_Reset != 0)) {
         DirtyRect_Clear();
         g_pRenderedSet = sputRoom_GetCurrentRoom();
-        g_nRenderedSetup = *(int *)((int)g_pRenderedSet + 0xb4);
-        Set_SwitchSetup(g_pRenderedSet,g_nRenderedSetup);
-        sputLua_PostCameraChange(g_nRenderedSetup);
+        g_nSputRender_Update_RenderSetup = *(int *)((int)g_pRenderedSet + 0xb4);
+        Set_SwitchSetup(g_pRenderedSet,g_nSputRender_Update_RenderSetup);
+        sputLua_PostCameraChange(g_nSputRender_Update_RenderSetup);
       }
-      fVar8 = (float)(*(int *)((int)g_pRenderedSet + 0xac) + g_nRenderedSetup * 300);
+      fVar8 = (float)(*(int *)((int)g_pRenderedSet + 0xac) + g_nSputRender_Update_RenderSetup * 300)
+      ;
       local_1c[0] = fVar8;
-      sputRender_SyncCamera(g_pRenderedSet,g_nRenderedSetup);
+      sputRender_SyncCamera(g_pRenderedSet,g_nSputRender_Update_RenderSetup);
       for (pvVar5 = *(void **)(PUN(int,(float)fVar8) + 0x128); pvVar5 != (void *)0x0;
           pvVar5 = *(void **)((int)pvVar5 + 0xf8)) {
-        ObjectState_Draw(pvVar5,3,g_pBackgroundSurface,g_pZBufferSurface);
+        ObjectState_Draw(pvVar5,3,g_pSputRender_CleanBuffer,g_pSputRender_CleanZBuffer);
       }
       Profile_Begin(4);
-      if (g_nDrawEnabled != 0) {
-        DirtyRect_Flush(&g_BackBuffer,(void *)UINT_008c97a4);
+      if (g_nDoTheFlip != 0) {
+        DirtyRect_Flush(&g_dwStdDisplay_backBuffer,(void *)UINT_008c97a4);
       }
       Profile_End(4);
-      Movie_SetTarget(&g_BackBuffer);
+      Movie_SetTarget(&g_dwStdDisplay_backBuffer);
       Movie_PollPlayback();
-      Surface_Lock(&g_BackBuffer);
+      Surface_Lock(&g_dwStdDisplay_backBuffer);
       Primitives_DrawAll(1);
-      Surface_Unlock(&g_BackBuffer);
+      Surface_Unlock(&g_dwStdDisplay_backBuffer);
       for (pvVar5 = *(void **)(PUN(int,(float)fVar8) + 0x128); pvVar5 != (void *)0x0;
           pvVar5 = *(void **)((int)pvVar5 + 0xf8)) {
-        ObjectState_Draw(pvVar5,1,&g_BackBuffer,(void *)UINT_008c97a4);
+        ObjectState_Draw(pvVar5,1,&g_dwStdDisplay_backBuffer,(void *)UINT_008c97a4);
       }
       rdroid_BeginFrame();
       Render_BuildActorDrawList();
-      if ((UINT_008a952c != 0) || (((byte)g_dwRenderDebugFlags & 1) != 0)) {
+      if ((g_dwTotDrawItems != 0) || (((byte)g_dwDebugFlags & 1) != 0)) {
         Profile_Begin(5);
         iVar4 = 0;
-        if (0 < (int)UINT_008a952c) {
-          puVar9 = &UINT_008c9568;
+        if (0 < (int)g_dwTotDrawItems) {
+          puVar9 = &g_dwDrawItems;
           do {
             if (*(char *)*puVar9 == '\0') {
               Costume_TouchComponents
                         (**(undefined4 **)
-                           ((int)g_pActorTable + *(int *)((char *)*puVar9 + 8) * 0xa8 + 0xa0));
+                           ((int)g_pActors + *(int *)((char *)*puVar9 + 8) * 0xa8 + 0xa0));
             }
             iVar4 = iVar4 + 1;
             puVar9 = puVar9 + 1;
-          } while (iVar4 < (int)UINT_008a952c);
+          } while (iVar4 < (int)g_dwTotDrawItems);
         }
         Profile_End(5);
-        if (((byte)g_dwRenderDebugFlags & 1) != 0) {
-          Surface_Lock(&g_BackBuffer);
-          if (((byte)g_dwRenderDebugFlags & 8) == 0) {
+        if (((byte)g_dwDebugFlags & 1) != 0) {
+          Surface_Lock(&g_dwStdDisplay_backBuffer);
+          if (((byte)g_dwDebugFlags & 8) == 0) {
             Render_DrawDebugGrid();
           }
           else {
             sputRoom_GetCurrentRoom();
             Sector_DrawAllDebug();
           }
-          Surface_Unlock(&g_BackBuffer);
+          Surface_Unlock(&g_dwStdDisplay_backBuffer);
         }
         Profile_Begin(6);
         if (iVar4 != 0) {
-          puVar9 = &UINT_008c9568 + iVar4 + -1;
+          puVar9 = &g_dwDrawItems + iVar4 + -1;
           do {
-            actor = (int *)((int)g_pActorTable + *(int *)(*puVar9 + 8) * 0xa8);
-            fVar8 = *(float *)((int)g_pActorTable + *(int *)(*puVar9 + 8) * 0xa8 + 0x30);
+            actor = (int *)((int)g_pActors + *(int *)(*puVar9 + 8) * 0xa8);
+            fVar8 = *(float *)((int)g_pActors + *(int *)(*puVar9 + 8) * 0xa8 + 0x30);
             if (fVar8 != 1.0) {
               fStack_8 = (float)actor[0xc];
               pfVar7 = &fStack_c;
@@ -1005,27 +1007,27 @@ void sputRender_Update(void)
                 iVar2 = *(int *)((int)g_pRenderedSet + 0x88);
                 iVar3 = *(int *)((int)g_pRenderedSet + 0x80);
                 if (*(int *)(iVar3 + iVar2 * 0x34) == 0) {
-                  (*g_pSvcMain->pAssertFail)
+                  (*g_pStd_HS->pAssertFail)
                             (s_Bad_Colormap_Reference_004e8090,s_main_sputResource_h_004e80a8,0x9f);
                 }
                 rdroid_SetColormap(*(undefined4 *)(iVar3 + iVar2 * 0x34 + 4));
                 iVar2 = *(int *)((int)g_pRenderedSet + 0x88);
                 iVar3 = *(int *)((int)g_pRenderedSet + 0x80);
                 if (*(int *)(iVar3 + iVar2 * 0x34) == 0) {
-                  (*g_pSvcMain->pAssertFail)
+                  (*g_pStd_HS->pAssertFail)
                             (s_Bad_Colormap_Reference_004e8090,s_main_sputResource_h_004e80a8,0x9f);
                 }
                 iVar2 = *(int *)(iVar3 + iVar2 * 0x34 + 4);
               }
               else {
                 if (iVar2 == 0) {
-                  (*g_pSvcMain->pAssertFail)
+                  (*g_pStd_HS->pAssertFail)
                             (s_Bad_Colormap_Reference_004e8090,s_main_sputResource_h_004e80a8,0x9f);
                 }
                 rdroid_SetColormap(piVar1[1]);
                 piVar1 = (int *)*actor;
                 if (*piVar1 == 0) {
-                  (*g_pSvcMain->pAssertFail)
+                  (*g_pStd_HS->pAssertFail)
                             (s_Bad_Colormap_Reference_004e8090,s_main_sputResource_h_004e80a8,0x9f);
                 }
                 iVar2 = piVar1[1];
@@ -1033,17 +1035,17 @@ void sputRender_Update(void)
               (*(code *)UINT_008c97b8)(iVar2 + 0x30,0);
               pfVar7 = Actor_GetFrame(actor);
               Actor_DrawCostumes(actor[0x28],pfVar7);
-              if (((byte)g_dwRenderDebugFlags & 1) != 0) {
+              if (((byte)g_dwDebugFlags & 1) != 0) {
                 Actor_DrawDebugWalker(actor);
               }
             }
             else if (*(char *)*puVar9 == '\x01') {
-              if (g_nZBufferEnabled == 0) {
-                Surface_Lock(&g_BackBuffer);
+              if (g_nSputRender_b3DAcceleration == 0) {
+                Surface_Lock(&g_dwStdDisplay_backBuffer);
               }
               Actor_ComputeScreenBox(actor);
-              if (g_nZBufferEnabled == 0) {
-                Surface_Unlock(&g_BackBuffer);
+              if (g_nSputRender_b3DAcceleration == 0) {
+                Surface_Unlock(&g_dwStdDisplay_backBuffer);
               }
               Render_InvalidateRectLastBuffer(actor + 0x1b,1);
             }
@@ -1066,25 +1068,25 @@ void sputRender_Update(void)
         Profile_End(7);
         for (pvVar5 = *(void **)(PUN(int,(float)fVar8) + 0x128); pvVar5 != (void *)0x0;
             pvVar5 = *(void **)((int)pvVar5 + 0xf8)) {
-          ObjectState_Draw(pvVar5,2,&g_BackBuffer,(void *)UINT_008c97a4);
+          ObjectState_Draw(pvVar5,2,&g_dwStdDisplay_backBuffer,(void *)UINT_008c97a4);
         }
       }
-      Surface_Lock(&g_BackBuffer);
+      Surface_Lock(&g_dwStdDisplay_backBuffer);
       Primitives_DrawAll(2);
-      Surface_Unlock(&g_BackBuffer);
-      if (((byte)g_dwRenderDebugFlags & 1) != 0) {
+      Surface_Unlock(&g_dwStdDisplay_backBuffer);
+      if (((byte)g_dwDebugFlags & 1) != 0) {
         pvVar5 = sputRoom_GetCurrentRoom();
-        if (((byte)g_dwRenderDebugFlags & 2) != 0) {
+        if (((byte)g_dwDebugFlags & 2) != 0) {
           Set_DrawDebugLights(pvVar5);
         }
-        if (((byte)g_dwRenderDebugFlags & 4) != 0) {
+        if (((byte)g_dwDebugFlags & 4) != 0) {
           Set_DrawDebugCameras(pvVar5,0xffffffff);
         }
       }
       if ((g_dwRenderFlags & 4) != 0) {
         iVar4 = Timer_GetTotalMs();
         local_1c[1] = 0.0;
-        local_1c[0] = (float)(iVar4 - g_dwIrisStartMs) / g_flIrisDurationMs;
+        local_1c[0] = (float)(iVar4 - g_dwIrisStart) / g_flIrisDuration;
         if (local_1c[0] < 0.0) {
           local_1c[0] = -local_1c[0];
         }
@@ -1093,30 +1095,30 @@ void sputRender_Update(void)
         }
         else {
           local_1c[0] = 1.0;
-          if (0.0 <= g_flIrisDurationMs) {
+          if (0.0 <= g_flIrisDuration) {
             g_dwRenderFlags = g_dwRenderFlags | 8;
           }
           else {
             g_dwRenderFlags = g_dwRenderFlags & 0xfffffffb;
           }
         }
-        if (g_flIrisDurationMs <= 0.0) {
+        if (g_flIrisDuration <= 0.0) {
           local_1c[0] = 1.0 - local_1c[0];
         }
         Render_DrawIris(local_1c[0],g_nIrisX,g_nIrisY);
-        if (g_flIrisDurationMs < 0.0) {
+        if (g_flIrisDuration < 0.0) {
           local_1c[1] = 0.0;
           local_1c[0] = 0.0;
           local_1c[2] = 8.96831e-43;
           MarkDirtyRect((int *)local_1c,0);
         }
       }
-      Surface_Lock(&g_BackBuffer);
+      Surface_Lock(&g_dwStdDisplay_backBuffer);
       UINT_008a94b8 = UINT_0090563c;
       TextObjects_Update(1);
-      Surface_Unlock(&g_BackBuffer);
+      Surface_Unlock(&g_dwStdDisplay_backBuffer);
     }
-    g_nFullRedrawPending = 0;
+    g_nSputRender_Reset = 0;
   }
   return;
 }
@@ -1130,16 +1132,16 @@ void sputRender_Update(void)
 
 
 /* ---- 0x0048d1a0  sputControl_AddCallback ---- */
-/* Appends fn to the 9-slot hook array g_pShutdownHooks Original name sputControl_AddCallback (the
-   remaster's GrimFandango (Linux): the only unmatched callee of sputRender_Initialize; 2 matched
-   neighbours agree, 0 disagree); was Engine_RegisterShutdownHook. */
+/* Appends fn to the 9-slot hook array g_apControlCallbacks Original name sputControl_AddCallback
+   (the remaster's GrimFandango (Linux): the only unmatched callee of sputRender_Initialize; 2
+   matched neighbours agree, 0 disagree); was Engine_RegisterShutdownHook. */
 
 void __cdecl sputControl_AddCallback(void *fn)
 
 {
-  if (g_nShutdownHookCount < 9) {
-    (&g_pShutdownHooks)[g_nShutdownHookCount] = fn;
-    g_nShutdownHookCount = g_nShutdownHookCount + 1;
+  if (g_nNumControlCallbacks < 9) {
+    (&g_apControlCallbacks)[g_nNumControlCallbacks] = fn;
+    g_nNumControlCallbacks = g_nNumControlCallbacks + 1;
   }
   return;
 }
@@ -1154,11 +1156,11 @@ void __cdecl Engine_RunShutdownHooks(undefined4 param_1,undefined4 param_2)
   void **ppvVar2;
   int iVar3;
   
-  if (0 < g_nShutdownHookCount) {
+  if (0 < g_nNumControlCallbacks) {
     Input_Update();
     iVar3 = 0;
-    if (0 < g_nShutdownHookCount) {
-      ppvVar2 = &g_pShutdownHooks;
+    if (0 < g_nNumControlCallbacks) {
+      ppvVar2 = &g_apControlCallbacks;
       do {
         if (*ppvVar2 != (code *)0x0) {
           iVar1 = (*(code *)*ppvVar2)(param_1);
@@ -1166,7 +1168,7 @@ void __cdecl Engine_RunShutdownHooks(undefined4 param_1,undefined4 param_2)
         }
         iVar3 = iVar3 + 1;
         ppvVar2 = ppvVar2 + 1;
-      } while (iVar3 < g_nShutdownHookCount);
+      } while (iVar3 < g_nNumControlCallbacks);
     }
     Mem_DumpLog();
   }

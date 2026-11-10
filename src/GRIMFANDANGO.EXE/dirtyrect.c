@@ -220,21 +220,23 @@ void __cdecl DirtyRect_Flush(void *dst,void *zdst)
   item = g_pDirtyRectList;
   pvVar3 = sputRoom_GetCurrentRoom();
   if (pvVar3 != (void *)0x0) {
-    if (((byte)g_dwRenderDebugFlags & 1) != 0) {
-      local_10 = *(uint *)((int)g_pCanvas + 0x18);
-      local_c = *(uint *)((int)g_pCanvas + 0x1c);
-      local_8 = (*(int *)((int)g_pCanvas + 0x20) - *(int *)((int)g_pCanvas + 0x18)) + 1;
-      local_4 = (*(int *)((int)g_pCanvas + 0x24) - *(int *)((int)g_pCanvas + 0x1c)) + 1;
-      Surface_Blit(dst,g_pBackgroundSurface,local_10,local_c,(int *)&local_10,0);
+    if (((byte)g_dwDebugFlags & 1) != 0) {
+      local_10 = *(uint *)((int)g_pSputRender_Canvas + 0x18);
+      local_c = *(uint *)((int)g_pSputRender_Canvas + 0x1c);
+      local_8 = (*(int *)((int)g_pSputRender_Canvas + 0x20) -
+                *(int *)((int)g_pSputRender_Canvas + 0x18)) + 1;
+      local_4 = (*(int *)((int)g_pSputRender_Canvas + 0x24) -
+                *(int *)((int)g_pSputRender_Canvas + 0x1c)) + 1;
+      Surface_Blit(dst,g_pSputRender_CleanBuffer,local_10,local_c,(int *)&local_10,0);
     }
     PIECE(UINT_008c9820,0,2) = (short)UINT_008c9820 + 1;
     while (item != (int *)0x0) {
       piVar2 = item + 5;
       if ((zdst != (void *)0x0) && (item[2] != 0)) {
         if (((byte)g_dwRenderFlags & 2) == 0) {
-          Surface_Blit(zdst,g_pZBufferSurface,*piVar2,item[6],piVar2,0);
+          Surface_Blit(zdst,g_pSputRender_CleanZBuffer,*piVar2,item[6],piVar2,0);
         }
-        else if (g_nZBufferEnabled == 0) {
+        else if (g_nSputRender_b3DAcceleration == 0) {
           Surface_Fill(zdst,0,piVar2);
         }
         else {
@@ -246,7 +248,7 @@ void __cdecl DirtyRect_Flush(void *dst,void *zdst)
       item[4] = iVar1 + -1;
       if (iVar1 < 1) {
         if (((byte)g_dwRenderFlags & 1) == 0) {
-          Surface_Blit(dst,g_pBackgroundSurface,*piVar2,item[6],piVar2,0);
+          Surface_Blit(dst,g_pSputRender_CleanBuffer,*piVar2,item[6],piVar2,0);
         }
         else {
           Surface_Fill(dst,0,piVar2);
@@ -260,11 +262,11 @@ void __cdecl DirtyRect_Flush(void *dst,void *zdst)
         if (item == g_pDirtyRectList) {
           g_pDirtyRectList = (void *)*item;
         }
-        if ((((byte)g_dwRenderDebugFlags & 1) != 0) && (((byte)g_dwRenderDebugFlags & 0x10) != 0)) {
-          Surface_Lock(&g_BackBuffer);
-          rdPrimit2_DrawRect(*(void **)((int)g_pRdCurrentCamera + 4),*piVar2,item[6],
+        if ((((byte)g_dwDebugFlags & 1) != 0) && (((byte)g_dwDebugFlags & 0x10) != 0)) {
+          Surface_Lock(&g_dwStdDisplay_backBuffer);
+          rdPrimit2_DrawRect(*(void **)((int)g_pRdCamera_CurCamera + 4),*piVar2,item[6],
                              item[7] + *piVar2,item[8] + item[6],UINT_008c9820 & 0xffff,-1);
-          Surface_Unlock(&g_BackBuffer);
+          Surface_Unlock(&g_dwStdDisplay_backBuffer);
         }
         piVar2 = (int *)*item;
         g_nDirtyRectCount = g_nDirtyRectCount + -1;

@@ -87,7 +87,7 @@ uint Frustum_TestSphere(int *param_1, float *param_2, float param_3)
 
     hi2 = st_f((long double)r + c[2]);
     lo2 = st_f((long double)c[2] - r);
-    cam = *(int *)g_pRdCurrentCamera;
+    cam = *(int *)g_pRdCamera_CurCamera;
     if (cam == 1) {
         A = (long double)ff[7] * loF;
         B = st_f((long double)ff[7] * hiF);

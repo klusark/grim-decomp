@@ -13,8 +13,8 @@ void __cdecl Control_Enable(int control)
 {
   uint *puVar1;
   
-  if ((uint)control <= g_nControlCount - 1U) {
-    puVar1 = &g_ControlTable + control * 4;
+  if ((uint)control <= g_nSputControl_numControlSymbols - 1U) {
+    puVar1 = &g_dwSputControl_aControlSymbols + control * 4;
     if ((*puVar1 & 2) != 0) {
       Input_EnableAxis(*(uint *)(&DAT_004e87cc + control * 0x10));
     }
@@ -33,10 +33,10 @@ void __cdecl Control_Disable(int control)
 {
   uint uVar1;
   
-  if ((uint)control <= g_nControlCount - 1U) {
-    uVar1 = (&g_ControlTable)[control * 4];
+  if ((uint)control <= g_nSputControl_numControlSymbols - 1U) {
+    uVar1 = (&g_dwSputControl_aControlSymbols)[control * 4];
     if ((uVar1 & 1) != 0) {
-      (&g_ControlTable)[control * 4] = uVar1 & 0xfffffffe;
+      (&g_dwSputControl_aControlSymbols)[control * 4] = uVar1 & 0xfffffffe;
     }
   }
   return;

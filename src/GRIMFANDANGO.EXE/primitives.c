@@ -10,7 +10,7 @@ void __cdecl Primitives_DrawAll(uint layerMask)
 
 {
   if (g_nPrimitivesHidden == 0) {
-    PrimitiveList_Draw(&UINT_008ca0a0,*(void **)((int)g_pRdCurrentCamera + 4),layerMask);
+    PrimitiveList_Draw(&g_dwPrimitiveQ,*(void **)((int)g_pRdCamera_CurCamera + 4),layerMask);
   }
   return;
 }
@@ -21,7 +21,7 @@ void __cdecl Primitives_DrawAll(uint layerMask)
 void Primitives_Hide(void)
 
 {
-  PrimitiveList_Invalidate(&UINT_008ca0a0,3);
+  PrimitiveList_Invalidate(&g_dwPrimitiveQ,3);
   g_nPrimitivesHidden = 1;
   return;
 }

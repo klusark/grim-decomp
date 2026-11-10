@@ -12,8 +12,8 @@ void DrawList_Reset(void)
   undefined *puVar1;
   uint *puVar2;
   
-  UINT_008a952c = 0;
-  puVar2 = &UINT_008c9568;
+  g_dwTotDrawItems = 0;
+  puVar2 = &g_dwDrawItems;
   puVar1 = &DAT_008a8ca8;
   do {
     *puVar2 = (uint)puVar1;
@@ -31,9 +31,9 @@ undefined * DrawList_Alloc(void)
 {
   uint uVar1;
   
-  uVar1 = UINT_008a952c;
-  if ((int)UINT_008a952c < 0x80) {
-    UINT_008a952c = UINT_008a952c + 1;
+  uVar1 = g_dwTotDrawItems;
+  if ((int)g_dwTotDrawItems < 0x80) {
+    g_dwTotDrawItems = g_dwTotDrawItems + 1;
     return &DAT_008a8ca8 + uVar1 * 0xc;
   }
   return (undefined *)0x0;

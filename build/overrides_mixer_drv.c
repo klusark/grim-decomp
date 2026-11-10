@@ -33,7 +33,7 @@
 #define DSB_SETVOLUME         0x3c
 #define DSB_UNLOCK            0x4c
 
-/* the module manager's service table (g_pDsndServices / g_pTimerServices): cdecl function pointers */
+/* the module manager's service table (g_pDsndDriver_share_services / g_pInsaneTimer_share_services): cdecl function pointers */
 typedef void *(*SvcGetModule)(const char *name, uint arg);
 typedef void (*SvcName)(const char *name);
 typedef void (*SvcLog)(const char *fmt, ...);
@@ -62,7 +62,7 @@ extern int g_nTimerSavedBusy __asm__("_UINT_008da868");
 extern int g_nTimerInTick __asm__("_DAT_008da86c");
 extern int g_nTimerSavedBusy2 __asm__("_UINT_008da870");
 extern int g_nTimerThread __asm__("_UINT_008da858");
-extern uint g_dwTimerWorkspaceSize __asm__("_UINT_008da85c");
+extern uint g_dwTimerWorkspaceSize __asm__("_g_dwInsaneTimer_share_config");
 extern int g_nMixerRunning __asm__("_UINT_008da874");
 extern int g_nTimerHold __asm__("_UINT_008da878");        /* InsaneTimer_Hold counter: nothing runs while nonzero */
 extern int g_nTimerBusyA __asm__("_UINT_008da87c");
@@ -71,24 +71,24 @@ extern int g_nTimerDeferredFlag __asm__("_UINT_008da884");
 extern int g_nTimerRunningDeferred __asm__("_DAT_008da888");
 extern int g_nTimerSkip __asm__("_UINT_008da88c");
 extern int g_nTimerRate __asm__("_UINT_008da544");       /* ticks per second the workspace was started with (300) */
-extern void *g_pTimerWorkspace __asm__("_UINT_008da540");
+extern void *g_pTimerWorkspace __asm__("_g_dwInsaneTimer_memory_services");
 extern int g_nTimerState __asm__("_DAT_008da5d0");
 extern int g_nTimerStateSrc __asm__("_UINT_008da5d4");
 
 int InsaneTimer_Register(int *services, uint workspaceSize)
 {
-    g_pTimerServices = services;
+    g_pInsaneTimer_share_services = services;
     g_dwTimerWorkspaceSize = workspaceSize;
     ((void (*)(const char *, void *))services[0])(s_LECMODULE_insane_timer_004f3c40, &g_apfnInsaneTimerModule);
-    ((void (*)(const char *, void *))g_pTimerServices[0])(s_TIMER_insane_004f3c30, &g_apfnInsaneTimerInterface);
+    ((void (*)(const char *, void *))g_pInsaneTimer_share_services[0])(s_TIMER_insane_004f3c30, &g_apfnInsaneTimerInterface);
     g_nTimerRate = 300;
     return 0;
 }
 
 void InsaneTimer_Unregister(void)
 {
-    ((void (*)(const char *))g_pTimerServices[1])(s_TIMER_insane_004f3c30);
-    ((void (*)(const char *))g_pTimerServices[1])(s_LECMODULE_insane_timer_004f3c40);
+    ((void (*)(const char *))g_pInsaneTimer_share_services[1])(s_TIMER_insane_004f3c30);
+    ((void (*)(const char *))g_pInsaneTimer_share_services[1])(s_LECMODULE_insane_timer_004f3c40);
 }
 
 /* The thread: ticks every 16 ms of timeGetTime, sleeps (an event that is never set) for the time to the next tick,
@@ -151,9 +151,9 @@ void InsaneTimer_StopThread(void)
 
 int InsaneTimer_module_startup(void)
 {
-    g_pTimerWorkspace = ((void *(*)(const char *, uint))g_pTimerServices[2])(s_MEMORY_workspace_004f14ec, g_dwTimerWorkspaceSize);
+    g_pTimerWorkspace = ((void *(*)(const char *, uint))g_pInsaneTimer_share_services[2])(s_MEMORY_workspace_004f14ec, g_dwTimerWorkspaceSize);
     if (g_pTimerWorkspace == 0) {
-        ((void (*)(const char *))g_pTimerServices[8])(s_Timer_Module__Cannot_allocate_me_004f3c58);
+        ((void (*)(const char *))g_pInsaneTimer_share_services[8])(s_Timer_Module__Cannot_allocate_me_004f3c58);
         return 0xffffffff;
     }
     return InsaneTimer_StartThread();
@@ -161,7 +161,7 @@ int InsaneTimer_module_startup(void)
 
 void InsaneTimer_Shutdown(void)
 {
-    ((void (*)(void *))g_pTimerServices[3])(g_pTimerWorkspace);
+    ((void (*)(void *))g_pInsaneTimer_share_services[3])(g_pTimerWorkspace);
     InsaneTimer_StopThread();
 }
 
@@ -312,7 +312,7 @@ void InsaneTimer_RunDeferred(void)
  * =================================================================================================================== */
 
 extern int *g_pDsndMemSvc __asm__("_UINT_008db208");              /* "MEMORY mixertable": allocator for Mixer_Init */
-extern uint g_dwDsndModuleSize __asm__("_UINT_008db430");
+extern uint g_dwDsndModuleSize __asm__("_g_dwDsndDriver_share_config");
 extern int g_aiStreamVolumeTable[128] __asm__("_UINT_008db210");  /* DirectSound volume (1/100 dB) for 0..127 */
 extern byte g_abStreamScratch[0x1800] __asm__("_UINT_008db438");  /* mixes a block that wraps around the buffer end */
 extern int g_nStreamPlayPos __asm__("_UINT_008db428");
@@ -332,10 +332,10 @@ typedef struct DsndClock {      /* TIMER clock interface (cdecl) */
 
 int DsndDriver_Register(int *services, uint moduleSize)
 {
-    g_pDsndServices = services;
+    g_pDsndDriver_share_services = services;
     g_dwDsndModuleSize = moduleSize;
     ((void (*)(const char *, void *))services[0])(s_LECMODULE_insane_dsnd_004f3fec, &g_apfnDsndDriverModule);
-    ((void (*)(const char *, void *))g_pDsndServices[0])(s_SNDDRIVER_insane_dsnd_004f3fd4, &g_apfnDsndDriverInterface);
+    ((void (*)(const char *, void *))g_pDsndDriver_share_services[0])(s_SNDDRIVER_insane_dsnd_004f3fd4, &g_apfnDsndDriverInterface);
     _DAT_008db414 = 0xffffffff;
     _DAT_008db20c = 0xffffffff;
     _DAT_008dcc38 = 0xffffffff;
@@ -345,20 +345,20 @@ int DsndDriver_Register(int *services, uint moduleSize)
 
 void DsndDriver_Unregister(void)
 {
-    ((void (*)(const char *))g_pDsndServices[1])(s_SNDDRIVER_insane_dsnd_004f3fd4);
-    ((void (*)(const char *))g_pDsndServices[1])(s_LECMODULE_insane_dsnd_004f3fec);
+    ((void (*)(const char *))g_pDsndDriver_share_services[1])(s_SNDDRIVER_insane_dsnd_004f3fd4);
+    ((void (*)(const char *))g_pDsndDriver_share_services[1])(s_LECMODULE_insane_dsnd_004f3fec);
 }
 
 int DsndDriver_module_startup(void)
 {
-    g_pDsndClock = ((int *(*)(const char *, uint))g_pDsndServices[2])(s_TIMER_clock_004f4054, g_dwDsndModuleSize);
-    if (g_pDsndClock == 0) {
-        ((void (*)(const char *))g_pDsndServices[8])(s_DirectSoundDriver_Module__Cannot_004f4018);
+    g_pDsndDriver_timer_services = ((int *(*)(const char *, uint))g_pDsndDriver_share_services[2])(s_TIMER_clock_004f4054, g_dwDsndModuleSize);
+    if (g_pDsndDriver_timer_services == 0) {
+        ((void (*)(const char *))g_pDsndDriver_share_services[8])(s_DirectSoundDriver_Module__Cannot_004f4018);
         return 0xffffffff;
     }
-    g_pDsndMemSvc = ((int *(*)(const char *, uint))g_pDsndServices[2])(s_MEMORY_mixertable_004f4004, g_dwDsndModuleSize);
+    g_pDsndMemSvc = ((int *(*)(const char *, uint))g_pDsndDriver_share_services[2])(s_MEMORY_mixertable_004f4004, g_dwDsndModuleSize);
     if (g_pDsndMemSvc == 0) {
-        ((void (*)(const char *))g_pDsndServices[8])(s_DirectSoundDriver_Module__Cannot_004f4018);
+        ((void (*)(const char *))g_pDsndDriver_share_services[8])(s_DirectSoundDriver_Module__Cannot_004f4018);
         return 0xffffffff;
     }
     return 0;
@@ -366,8 +366,8 @@ int DsndDriver_module_startup(void)
 
 void DsndDriver_Shutdown(void)
 {
-    ((void (*)(void *))g_pDsndServices[3])(g_pDsndClock);
-    ((void (*)(void *))g_pDsndServices[3])(g_pDsndMemSvc);
+    ((void (*)(void *))g_pDsndDriver_share_services[3])(g_pDsndDriver_timer_services);
+    ((void (*)(void *))g_pDsndDriver_share_services[3])(g_pDsndMemSvc);
 }
 
 /* rate: sample rate (at least 22050); mix: callback (frames, Mixer_MixVoiceByFormat) that mixes into the accumulator.
@@ -385,7 +385,7 @@ int DsndDriver_Open(int rate, int unused, void *mix)
         return 0xffffffff;
     g_pfnStreamMix = mix;
     g_dwStreamRate = rate;
-    clock = (DsndClock *)g_pDsndClock;
+    clock = (DsndClock *)g_pDsndDriver_timer_services;
     g_nStreamTimerId = clock->addTimer(DSound_FillStreamBuffer, 0x1234dc / ((rate + ((rate >> 31) & 0x3ff)) >> 10), 2, 0);
     return 0;
 }
@@ -393,7 +393,7 @@ int DsndDriver_Open(int rate, int unused, void *mix)
 void DsndDriver_Close(void)
 {
     if (g_nStreamTimerId != 0)
-        ((DsndClock *)g_pDsndClock)->removeTimer(g_nStreamTimerId);
+        ((DsndClock *)g_pDsndDriver_timer_services)->removeTimer(g_nStreamTimerId);
     g_nStreamTimerId = 0;
     Mixer_Free(g_pDsndMemSvc);
     DsndDriver_ReleaseDirectSound();
@@ -566,7 +566,7 @@ void DSound_FillStreamBuffer(void)
             COMX(g_pStreamDSBuffer, DSB_UNLOCK, p1, n1, p2, n2);
         }
     }
-    ((DsndClock *)g_pDsndClock)->setPeriod(g_nStreamTimerId, 0x1234dc / (((int)g_dwStreamRate + (((int)g_dwStreamRate >> 31) & 0x3ff)) >> 10));
+    ((DsndClock *)g_pDsndDriver_timer_services)->setPeriod(g_nStreamTimerId, 0x1234dc / (((int)g_dwStreamRate + (((int)g_dwStreamRate >> 31) & 0x3ff)) >> 10));
 }
 
 /* Releases the DirectSound objects of the main sound system (DSound_Init) */

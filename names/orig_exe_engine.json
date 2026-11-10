@@ -438,7 +438,7 @@
   "addr": "00489130",
   "old": "sputSmush_Start",
   "name": "sputSmush_Startup",
-  "comment": "Module slot 2 of sputSmush: honours the StartSmush registry value (FALSE disables movies), otherwise initialises the Smush player through the LecShare table and sets g_nMovieAvailable. Original name sputSmush_Startup (the remaster's GrimFandango (Linux): strings: 'StartSmush'); was sputSmush_Start."
+  "comment": "Module slot 2 of sputSmush: honours the StartSmush registry value (FALSE disables movies), otherwise initialises the Smush player through the LecShare table and sets g_nSputSmushStarted. Original name sputSmush_Startup (the remaster's GrimFandango (Linux): strings: 'StartSmush'); was sputSmush_Start."
  },
  {
   "program": "/v101/GRIMFANDANGO.EXE",
@@ -466,14 +466,14 @@
   "addr": "0048d1a0",
   "old": "Engine_RegisterShutdownHook",
   "name": "sputControl_AddCallback",
-  "comment": "Appends fn to the 9-slot hook array g_pShutdownHooks Original name sputControl_AddCallback (the remaster's GrimFandango (Linux): the only unmatched callee of sputRender_Initialize; 2 matched neighbours agree, 0 disagree); was Engine_RegisterShutdownHook."
+  "comment": "Appends fn to the 9-slot hook array g_apControlCallbacks Original name sputControl_AddCallback (the remaster's GrimFandango (Linux): the only unmatched callee of sputRender_Initialize; 2 matched neighbours agree, 0 disagree); was Engine_RegisterShutdownHook."
  },
  {
   "program": "/v101/GRIMFANDANGO.EXE",
   "addr": "0048d350",
   "old": "Resource_Load",
   "name": "sputResource_Alloc",
-  "comment": "sputresource.cpp: Res_Load plus the memory budget check that frees unreferenced resources above g_nResMemoryBudget Original name sputResource_Alloc (the remaster's GrimFandango (Linux): the only unmatched callee of Lua_LoadCostume; 11 matched neighbours agree, 1 disagree); was Resource_Load."
+  "comment": "sputresource.cpp: Res_Load plus the memory budget check that frees unreferenced resources above g_nMaxRealMemoryUsage Original name sputResource_Alloc (the remaster's GrimFandango (Linux): the only unmatched callee of Lua_LoadCostume; 11 matched neighbours agree, 1 disagree); was Resource_Load."
  },
  {
   "program": "/v101/GRIMFANDANGO.EXE",
@@ -1033,7 +1033,7 @@
   "addr": "004a4b00",
   "old": "SetFile_Parse",
   "name": "sputRoom_LoadRoom",
-  "comment": "Remembers the set being parsed (UINT_008cb0a8), stores its base file name (+0, 0x7f chars) and parses the sections with SetFile_ParseSections. Original name sputRoom_LoadRoom (the remaster's GrimFandango (Linux): the only unmatched caller of SetFile_ParseSections; 1 matched neighbours agree, 0 disagree); was SetFile_Parse."
+  "comment": "Remembers the set being parsed (g_dwLoadingRoom), stores its base file name (+0, 0x7f chars) and parses the sections with SetFile_ParseSections. Original name sputRoom_LoadRoom (the remaster's GrimFandango (Linux): the only unmatched caller of SetFile_ParseSections; 1 matched neighbours agree, 0 disagree); was SetFile_Parse."
  },
  {
   "program": "/v101/GRIMFANDANGO.EXE",

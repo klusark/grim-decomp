@@ -10,7 +10,7 @@ void Component_SetBitmapFrame(undefined4 param_1,int *param_2,undefined4 param_3
 
 {
   if (*param_2 == 0) {
-    (*g_pSvcMain->pAssertFail)(s_Bad_Bitmap_Reference_004e8114,s_main_sputResource_h_004e80a8,0x90);
+    (*g_pStd_HS->pAssertFail)(s_Bad_Bitmap_Reference_004e8114,s_main_sputResource_h_004e80a8,0x90);
   }
   *(int *)(param_2[1] + 0x68) = param_4 + -1;
   return;

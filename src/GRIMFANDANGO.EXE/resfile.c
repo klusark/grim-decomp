@@ -81,7 +81,7 @@ int __cdecl ResFile_Open(char *name,char *mode)
         *(uint *)(iVar1 + IMG_ADDR(0x00825f54)) = local_20c;
         return iVar7 + 1;
       }
-      uVar5 = (**(code **)(UINT_008a8570 + 0x30))(local_103,mode);
+      uVar5 = (**(code **)(g_dwLowLevelHS + 0x30))(local_103,mode);
       *puVar3 = uVar5;
       if (uVar5 == 0) {
         return 0;
@@ -89,7 +89,7 @@ int __cdecl ResFile_Open(char *name,char *mode)
       *(undefined4 *)(iVar1 + IMG_ADDR(0x00825f5c)) = 1;
       return iVar7 + 1;
     }
-    uVar5 = (**(code **)(UINT_008a8570 + 0x30))(name,mode);
+    uVar5 = (**(code **)(g_dwLowLevelHS + 0x30))(name,mode);
     *puVar3 = uVar5;
     if (uVar5 != 0) {
       *(undefined4 *)(iVar1 + IMG_ADDR(0x00825f5c)) = 1;
@@ -117,7 +117,7 @@ int __cdecl ResFile_Close(int fh)
   int *piVar2;
   
   if ((fh < 1) || (0x80 < fh)) {
-    (**(code **)(UINT_008a856c + 0x18))
+    (**(code **)(g_dwResHS + 0x18))
               (s__int_fh___0_____int_fh____MAX_OP_004e7a8c,
                s_C__grimsrc_libs_grimlib_Temp_Res_004e7a1c,0x734);
   }
@@ -126,7 +126,7 @@ int __cdecl ResFile_Close(int fh)
     return 1;
   }
   if (*(int *)(&DAT_00824f30 + fh * 0x102c) != 0) {
-    (**(code **)(UINT_008a8570 + 0x34))(iVar1);
+    (**(code **)(g_dwLowLevelHS + 0x34))(iVar1);
   }
   piVar2 = (int *)(&DAT_00824f14 + fh * 0x102c);
   for (iVar1 = 0x40b; iVar1 != 0; iVar1 = iVar1 + -1) {
@@ -155,7 +155,7 @@ uint __cdecl ResFile_Read(int fh,void *buf,uint n)
   iVar1 = fh * 0x102c;
   entry = (int *)(&DAT_00824f14 + iVar1);
   if ((fh < 1) || (0x80 < fh)) {
-    (**(code **)(UINT_008a856c + 0x18))
+    (**(code **)(g_dwResHS + 0x18))
               (s__int_fh___0_____int_fh____MAX_OP_004e7a8c,
                s_C__grimsrc_libs_grimlib_Temp_Res_004e7a1c,0x76b);
   }
@@ -163,7 +163,7 @@ uint __cdecl ResFile_Read(int fh,void *buf,uint n)
     return 0;
   }
   if (*(int *)(&DAT_00824f30 + iVar1) != 0) {
-    uVar3 = (**(code **)(UINT_008a8570 + 0x38))(*entry,buf,n);
+    uVar3 = (**(code **)(g_dwLowLevelHS + 0x38))(*entry,buf,n);
     return uVar3;
   }
   *(uint *)(&DAT_00824f2c + iVar1) =
@@ -231,7 +231,7 @@ char * ResFile_Gets(int param_1,char *param_2,uint param_3)
   param_1 = 0;
   iVar1 = iVar2 * 0x102c;
   if ((iVar2 < 1) || (0x80 < iVar2)) {
-    (**(code **)(UINT_008a856c + 0x18))
+    (**(code **)(g_dwResHS + 0x18))
               (s__int_fh___0_____int_fh____MAX_OP_004e7a8c,
                s_C__grimsrc_libs_grimlib_Temp_Res_004e7a1c,0x7bc);
   }
@@ -240,7 +240,7 @@ char * ResFile_Gets(int param_1,char *param_2,uint param_3)
     return (char *)0x0;
   }
   if (*(int *)(&DAT_00824f30 + iVar1) != 0) {
-    pcVar3 = (char *)(**(code **)(UINT_008a8570 + 0x3c))(iVar2,param_2,param_3);
+    pcVar3 = (char *)(**(code **)(g_dwLowLevelHS + 0x3c))(iVar2,param_2,param_3);
     return pcVar3;
   }
   if (*(uint *)(&DAT_00824f20 + iVar1) < param_3) {
@@ -289,13 +289,13 @@ undefined4 ResFile_Write(int param_1,undefined4 param_2,undefined4 param_3)
   
   if (param_1 != 0) {
     if ((param_1 < 1) || (0x80 < param_1)) {
-      (**(code **)(UINT_008a856c + 0x18))
+      (**(code **)(g_dwResHS + 0x18))
                 (s__int_fh___0_____int_fh____MAX_OP_004e7a8c,
                  s_C__grimsrc_libs_grimlib_Temp_Res_004e7a1c,0x81b);
     }
     if ((*(int *)(&DAT_00824f14 + param_1 * 0x102c) != 0) &&
        (*(int *)(&DAT_00824f30 + param_1 * 0x102c) != 0)) {
-      uVar1 = (**(code **)(UINT_008a8570 + 0x40))
+      uVar1 = (**(code **)(g_dwLowLevelHS + 0x40))
                         (*(int *)(&DAT_00824f14 + param_1 * 0x102c),param_2,param_3);
       return uVar1;
     }
@@ -314,7 +314,7 @@ undefined4 ResFile_Eof(int param_1)
   
   iVar1 = param_1 * 0x102c;
   if ((param_1 < 1) || (0x80 < param_1)) {
-    (**(code **)(UINT_008a856c + 0x18))
+    (**(code **)(g_dwResHS + 0x18))
               (s__int_fh___0_____int_fh____MAX_OP_004e7a8c,
                s_C__grimsrc_libs_grimlib_Temp_Res_004e7a1c,0x84c);
   }
@@ -322,7 +322,7 @@ undefined4 ResFile_Eof(int param_1)
     return 1;
   }
   if (*(int *)(&DAT_00824f30 + iVar1) != 0) {
-    uVar2 = (**(code **)(UINT_008a8570 + 0x44))(*(int *)(&DAT_00824f14 + iVar1));
+    uVar2 = (**(code **)(g_dwLowLevelHS + 0x44))(*(int *)(&DAT_00824f14 + iVar1));
     return uVar2;
   }
   return *(undefined4 *)(&DAT_00824f2c + iVar1);
@@ -340,7 +340,7 @@ undefined4 ResFile_Tell(int param_1)
   
   iVar1 = param_1 * 0x102c;
   if ((param_1 < 1) || (0x80 < param_1)) {
-    (**(code **)(UINT_008a856c + 0x18))
+    (**(code **)(g_dwResHS + 0x18))
               (s__int_fh___0_____int_fh____MAX_OP_004e7a8c,
                s_C__grimsrc_libs_grimlib_Temp_Res_004e7a1c,0x87e);
   }
@@ -348,7 +348,7 @@ undefined4 ResFile_Tell(int param_1)
     return 0xffffffff;
   }
   if (*(int *)(&DAT_00824f30 + iVar1) != 0) {
-    uVar2 = (**(code **)(UINT_008a8570 + 0x48))(*(int *)(&DAT_00824f14 + iVar1));
+    uVar2 = (**(code **)(g_dwLowLevelHS + 0x48))(*(int *)(&DAT_00824f14 + iVar1));
     return uVar2;
   }
   return *(undefined4 *)(&DAT_00824f18 + iVar1);
@@ -366,7 +366,7 @@ int __cdecl ResFile_Seek(int fh,int offset,int whence)
   
   iVar2 = fh * 0x102c;
   if ((fh < 1) || (0x80 < fh)) {
-    (**(code **)(UINT_008a856c + 0x18))
+    (**(code **)(g_dwResHS + 0x18))
               (s__int_fh___0_____int_fh____MAX_OP_004e7a8c,
                s_C__grimsrc_libs_grimlib_Temp_Res_004e7a1c,0x8b1);
   }
@@ -375,10 +375,10 @@ int __cdecl ResFile_Seek(int fh,int offset,int whence)
     return 1;
   }
   if (*(int *)(&DAT_00824f30 + iVar2) != 0) {
-    if ((whence == 0) && (iVar1 = (**(code **)(UINT_008a8570 + 0x48))(iVar1), iVar1 == offset)) {
+    if ((whence == 0) && (iVar1 = (**(code **)(g_dwLowLevelHS + 0x48))(iVar1), iVar1 == offset)) {
       return 0;
     }
-    iVar2 = (**(code **)(UINT_008a8570 + 0x4c))(*(int *)(&DAT_00824f14 + iVar2),offset,whence);
+    iVar2 = (**(code **)(g_dwLowLevelHS + 0x4c))(*(int *)(&DAT_00824f14 + iVar2),offset,whence);
     return (uint)(iVar2 == 0);
   }
   if (whence != 0) {
@@ -420,7 +420,7 @@ int __cdecl ResFile_Size(char *name)
   if (iVar1 != 0) {
     return local_210;
   }
-  iVar1 = (**(code **)(UINT_008a8570 + 0x50))(name);
+  iVar1 = (**(code **)(g_dwLowLevelHS + 0x50))(name);
   return iVar1;
 }
 #undef local_210
@@ -443,13 +443,13 @@ int __cdecl ResFile_Printf(int fh,char *fmt,...)
     return 0;
   }
   if ((fh < 1) || (0x80 < fh)) {
-    (**(code **)(UINT_008a856c + 0x18))
+    (**(code **)(g_dwResHS + 0x18))
               (s__int_fh___0_____int_fh____MAX_OP_004e7a8c,
                s_C__grimsrc_libs_grimlib_Temp_Res_004e7a1c,0x926);
   }
   if ((*piVar1 != 0) && (*(int *)(&DAT_00824f30 + fh * 0x102c) != 0)) {
     vsprintf(local_400,fmt,&STACK0X(0x0000000c));
-    iVar2 = (**(code **)(UINT_008a8570 + 0x54))(*piVar1,local_400);
+    iVar2 = (**(code **)(g_dwLowLevelHS + 0x54))(*piVar1,local_400);
     fflush(*piVar1);
     return iVar2;
   }

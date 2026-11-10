@@ -1,0 +1,2516 @@
+[
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004d75a0",
+  "old": "g_MatrixIdentity",
+  "global": "g_flRdroid_identMatrix34",
+  "oldtype": "float[12]",
+  "names_only": true,
+  "comment": "Original name rdroid_identMatrix34 (the remaster's GrimFandango (Linux): 2/2 aligned uses (of 2 for the symbol) in rdModel3_CalcBoundingBoxes, rdModel3_CalcRadii); was g_MatrixIdentity."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004d9838",
+  "old": "DAT_004d9838",
+  "global": "g_aConfiguration_table",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name configuration_table (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in deflate); was DAT_004d9838."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004d98a8",
+  "old": "DAT_004d98a8",
+  "global": "g_aCrc_table",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name crc_table (the remaster's GrimFandango (Linux): 9/9 aligned uses (of 9 for the symbol) in crc32); was DAT_004d98a8."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004dd384",
+  "old": "DAT_004dd384",
+  "global": "g_dwDeadmanCounter",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name deadmanCounter (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in Main_Service); was DAT_004dd384."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004df600",
+  "old": "DAT_004df600",
+  "global": "g_aSinTable",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name aSinTable (the remaster's GrimFandango (Linux): 4/4 aligned uses (of 4 for the symbol) in stdMath_SinCos); was DAT_004df600."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004e7b20",
+  "old": "UINT_004e7b20",
+  "global": "g_dwMax_ram",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name max_ram (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in grimlib_GameStartup); was UINT_004e7b20."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004e7b50",
+  "old": "UINT_004e7b50",
+  "global": "g_dwGrimlib_PerfData",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name grimlib_PerfData (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in Main_Service); was UINT_004e7b50."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004e7da0",
+  "old": "DAT_004e7da0",
+  "global": "g_aGrimlib_renderOptions",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name grimlib_renderOptions (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in grimlib_SetDisplay); was DAT_004e7da0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004e8064",
+  "old": "g_nIrisX",
+  "global": "g_nIrisX",
+  "oldtype": "int",
+  "names_only": true,
+  "comment": "Horizontal centre of the iris rectangle Original name IrisX (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in sputRender_Update)."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004e8068",
+  "old": "g_nIrisY",
+  "global": "g_nIrisY",
+  "oldtype": "int",
+  "names_only": true,
+  "comment": "Vertical centre of the iris rectangle Original name IrisY (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in sputRender_Update)."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004e8070",
+  "old": "g_flGamma",
+  "global": "g_flSputRender_GammaCorrection",
+  "oldtype": "float",
+  "names_only": true,
+  "comment": "Current display gamma used to build the colour remap table Original name sputRender_GammaCorrection (the remaster's GrimFandango (Linux): 2/2 aligned uses (of 2 for the symbol) in sputRender_SetGamma); was g_flGamma."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004e8074",
+  "old": "g_nBufferCount",
+  "global": "g_nNumPages",
+  "oldtype": "int",
+  "names_only": true,
+  "comment": "Number of display buffers whose dirty rectangles must be tracked Original name gNumPages (the remaster's GrimFandango (Linux): 6/6 aligned uses (of 7 for the symbol) in sputRender_PageCountIs, sputRender_Update, sputRender_PreRendered); was g_nBufferCount."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004e8078",
+  "old": "g_dwRenderDebugFlags",
+  "global": "g_dwDebugFlags",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Debug overlay bits: 1 overlay on, 2 draw sectors, 4 draw actor boxes Original name debugFlags (the remaster's GrimFandango (Linux): 7/7 aligned uses (of 7 for the symbol) in sputRender_Update); was g_dwRenderDebugFlags."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004e8080",
+  "old": "g_nDrawEnabled",
+  "global": "g_nDoTheFlip",
+  "oldtype": "int",
+  "names_only": true,
+  "comment": "Scene drawing and presenting are enabled Original name doTheFlip (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in sputRender_Update); was g_nDrawEnabled."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004e8084",
+  "old": "g_nRenderedSetup",
+  "global": "g_nSputRender_Update_RenderSetup",
+  "oldtype": "int",
+  "names_only": true,
+  "comment": "Setup index whose background is currently prepared for drawing Original name sputRender_Update::RenderSetup (the remaster's GrimFandango (Linux): 3/4 aligned uses (of 3 for the symbol) in sputRender_Update); was g_nRenderedSetup."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004e8338",
+  "old": "PTR_Movie_CheckSurfaceFormat_004e8338",
+  "global": "g_pSputVideoCallBacks",
+  "oldtype": "undefined *",
+  "names_only": true,
+  "comment": "Original name sputVideoCallBacks (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in sputSmush_Initialize); was PTR_Movie_CheckSurfaceFormat_004e8338."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004e8528",
+  "old": "PTR_s_IsMessageGoing_004e8528",
+  "global": "g_pTextFunctionsToRegister",
+  "oldtype": "undefined *",
+  "names_only": true,
+  "comment": "Original name textFunctionsToRegister (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in sputText_Startup); was PTR_s_IsMessageGoing_004e8528."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004e87c8",
+  "old": "g_ControlTable",
+  "global": "g_dwSputControl_aControlSymbols",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name sputControl_aControlSymbols (the remaster's GrimFandango (Linux): the 16-byte control table sputLua_GetControlStateL indexes (flags 4 / 8 at +0)); was g_ControlTable."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004e9238",
+  "old": "g_nControlCount",
+  "global": "g_nSputControl_numControlSymbols",
+  "oldtype": "int",
+  "names_only": true,
+  "comment": "Number of entries in the 16-byte control descriptor table g_ControlTable Original name sputControl_numControlSymbols (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in sputLua_GetControlStateL); was g_nControlCount."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004e9a2c",
+  "old": "g_nResMemoryBudget",
+  "global": "g_nMaxRealMemoryUsage",
+  "oldtype": "int",
+  "names_only": true,
+  "comment": "Resource memory size above which unreferenced resources are freed on load Original name MaxRealMemoryUsage (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in sputResource_Alloc); was g_nResMemoryBudget."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004e9a30",
+  "old": "UINT_004e9a30",
+  "global": "g_dwPurgeAmount",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name PurgeAmount (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in sputResource_Alloc); was UINT_004e9a30."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004e9c80",
+  "old": "g_nActorCapacity",
+  "global": "g_nMaxActors",
+  "oldtype": "int",
+  "names_only": true,
+  "comment": "Allocated size of g_pActorTable in actors (grows by 32) Original name maxActors (the remaster's GrimFandango (Linux): 13/13 aligned uses (of 16 for the symbol) in sputActor_NukeCostumeStacks, sputActor_Restore, sputActor_SetSelectedActor); was g_nActorCapacity."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004e9dfc",
+  "old": "g_dwSpeechMode",
+  "global": "g_dwSmSpeechMode",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Speech mode bits: 1 text, 2 voice Original name smSpeechMode (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in sputActor_GetSpeechMode); was g_dwSpeechMode."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004e9e00",
+  "old": "g_nTextSpeed",
+  "global": "g_nTextRate",
+  "oldtype": "int",
+  "names_only": true,
+  "comment": "Subtitle speed 1-10 used to time text-only speech Original name textRate (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in sputActor_GetActorTextRate); was g_nTextSpeed."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004e9e04",
+  "old": "g_nChoreFadeMs",
+  "global": "g_nWALKSYSTEM_FADE_TIME",
+  "oldtype": "int",
+  "names_only": true,
+  "comment": "Fade time (ms) used when move chores start and stop Original name WALKSYSTEM_FADE_TIME (the remaster's GrimFandango (Linux): 2/2 aligned uses (of 2 for the symbol) in sputActor_SetWalkChore); was g_nChoreFadeMs."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004e9f60",
+  "old": "DAT_004e9f60",
+  "global": "g_aKeyCommands",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name keyCommands (the remaster's GrimFandango (Linux): 2/2 aligned uses (of 2 for the symbol) in KeyframeChanger); was DAT_004e9f60."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004e9ff8",
+  "old": "DAT_004e9ff8",
+  "global": "g_aSoundCommands",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name soundCommands (the remaster's GrimFandango (Linux): 2/2 aligned uses (of 2 for the symbol) in SoundChanger); was DAT_004e9ff8."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004f0b70",
+  "old": "PTR_PTR_004f0b70",
+  "global": "g_pSubscription_info",
+  "oldtype": "pointer",
+  "names_only": true,
+  "comment": "Original name subscription_info (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in SmushPlay_SysStartup); was PTR_PTR_004f0b70.",
+  "strict_mode": "warn"
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004f1720",
+  "old": "UINT_004f1720",
+  "global": "g_dwAnm_overlay_flobdec",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name anm_overlay_flobdec (the remaster's GrimFandango (Linux): 2/2 aligned uses (of 2 for the symbol) in anm_DecodeBody); was UINT_004f1720."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004f2058",
+  "old": "PTR_DAT_004f2058",
+  "global": "g_pStatic_l_desc",
+  "oldtype": "pointer",
+  "names_only": true,
+  "comment": "Original name static_l_desc (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in _tr_init); was PTR_DAT_004f2058.",
+  "strict_mode": "warn"
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004f2070",
+  "old": "PTR_DAT_004f2070",
+  "global": "g_pStatic_d_desc",
+  "oldtype": "pointer",
+  "names_only": true,
+  "comment": "Original name static_d_desc (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in _tr_init); was PTR_DAT_004f2070.",
+  "strict_mode": "warn"
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004f2088",
+  "old": "DAT_004f2088",
+  "global": "g_aStatic_bl_desc",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name static_bl_desc (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in _tr_init); was DAT_004f2088."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004f44e4",
+  "old": "g_measuredFps",
+  "global": "g_flMain_Service_frameRate",
+  "oldtype": "float",
+  "names_only": true,
+  "comment": "Original name Main_Service.frameRate (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in Main_Service); was g_measuredFps."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004f5a0c",
+  "old": "g_quitRequested",
+  "global": "g_nQuitApp",
+  "oldtype": "int",
+  "names_only": true,
+  "comment": "Original name bQuitApp (the remaster's GrimFandango (Linux): 2/2 aligned uses (of 2 for the symbol) in Main_Service); was g_quitRequested."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004f5a2c",
+  "old": "g_bShowFps",
+  "global": "g_bDrawFrameRate",
+  "oldtype": "bool",
+  "names_only": true,
+  "comment": "Draw the measured frames per second overlay Original name bDrawFrameRate (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in Main_Service); was g_bShowFps."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004f5a30",
+  "old": "g_bShowProfile",
+  "global": "g_nDrawPerfData",
+  "oldtype": "int",
+  "names_only": true,
+  "comment": "Original name bDrawPerfData (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in Main_Service); was g_bShowProfile."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004f5a58",
+  "old": "g_dwFrameCounter",
+  "global": "g_dwMain_Service_frameCount",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Number of engine frames rendered since startup Original name Main_Service.frameCount (the remaster's GrimFandango (Linux): 2/2 aligned uses (of 2 for the symbol) in Main_Service); was g_dwFrameCounter."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004f5a60",
+  "old": "DAT_004f5a60",
+  "global": "g_dwMain_Service_frameTime",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name Main_Service.frameTime (the remaster's GrimFandango (Linux): 2/2 aligned uses (of 3 for the symbol) in Main_Service); was DAT_004f5a60."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004f5a64",
+  "old": "UINT_004f5a64",
+  "global": "g_dwMain_Service_frameTime0",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name Main_Service.frameTime0 (the remaster's GrimFandango (Linux): 2/2 aligned uses (of 2 for the symbol) in Main_Service); was UINT_004f5a64."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004f5aa0",
+  "old": "DAT_004f5aa0",
+  "global": "g_aBuffer",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name buffer (the remaster's GrimFandango (Linux): 6/6 aligned uses (of 6 for the symbol) in defaultWarningPrint, defaultErrorPrint, defaultDebugPrint); was DAT_004f5aa0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004f5ec4",
+  "old": "UINT_004f5ec4",
+  "global": "g_dwRdColormap_pCurMap",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name rdColormap_pCurMap (the remaster's GrimFandango (Linux): the current colormap rdColormap_SetCurrent compares and sets); was UINT_004f5ec4."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "007f0fb8",
+  "old": "DAT_007f0fb8",
+  "global": "g_dwRdCache_drawnFaces",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name rdCache_drawnFaces (the remaster's GrimFandango (Linux): 2/2 aligned uses (of 2 for the symbol) in rdCache_Flush); was DAT_007f0fb8."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "007f0fbc",
+  "old": "UINT_007f0fbc",
+  "global": "g_dwNumUsedVertices",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name numUsedVertices (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in rdCache_Reset); was UINT_007f0fbc."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "007f0fc0",
+  "old": "UINT_007f0fc0",
+  "global": "g_dwNumUsedTexVertices",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name numUsedTexVertices (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in rdCache_Reset); was UINT_007f0fc0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "007f0fc4",
+  "old": "UINT_007f0fc4",
+  "global": "g_dwNumUsedIntensities",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name numUsedIntensities (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in rdCache_Reset); was UINT_007f0fc4."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "007f0fc8",
+  "old": "g_pRdCurrentCamera",
+  "global": "g_pRdCamera_CurCamera",
+  "oldtype": "void *",
+  "names_only": true,
+  "comment": "Camera the RDroid renderer is currently drawing with (canvas at +4, position at +8, frustum at +0x48) Original name rdCamera_pCurCamera (the remaster's GrimFandango (Linux): 48/51 aligned uses (of 48 for the symbol) in rdCamera_SetCurrent, rdCamera_OrthoProject, rdCamera_OrthoProjectLst); was g_pRdCurrentCamera."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "007f1168",
+  "old": "DAT_007f1168",
+  "global": "g_aLocalLightDir",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name aLocalLightDir (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in rdModel3_DrawMeshImpl); was DAT_007f1168."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "007f1468",
+  "old": "UINT_007f1468",
+  "global": "g_dwVertexDst",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name vertexDst (the remaster's GrimFandango (Linux): 5/6 aligned uses (of 6 for the symbol) in rdModel3_DrawFace); was UINT_007f1468."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "007f1498",
+  "old": "UINT_007f1498",
+  "global": "g_apGeoLights",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name apGeoLights (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in rdModel3_DrawMeshImpl); was UINT_007f1498."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "007f1598",
+  "old": "DAT_007f1598",
+  "global": "g_aLocalLightPos",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name aLocalLightPos (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in rdModel3_DrawMeshImpl); was DAT_007f1598."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "007f1898",
+  "old": "UINT_007f1898",
+  "global": "g_dwMeshFrustrumCull",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name meshFrustrumCull (the remaster's GrimFandango (Linux): 4/5 aligned uses (of 4 for the symbol) in rdModel3_DrawMeshImpl, rdModel3_DrawFace); was UINT_007f1898."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "007f30a0",
+  "old": "PTR_007f30a0",
+  "global": "g_pCurMesh",
+  "oldtype": "void *",
+  "names_only": true,
+  "comment": "Original name pCurMesh (the remaster's GrimFandango (Linux): 12/13 aligned uses (of 14 for the symbol) in rdModel3_DrawMeshImpl, rdModel3_DrawFace); was PTR_007f30a0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "007f30a4",
+  "old": "UINT_007f30a4",
+  "global": "g_dwThingFrustrumCull",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name thingFrustrumCull (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in rdModel3_DrawMeshImpl); was UINT_007f30a4."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "007f30d8",
+  "old": "UINT_007f30d8",
+  "global": "g_dwTextureMode",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name textureMode (the remaster's GrimFandango (Linux): 2/2 aligned uses (of 3 for the symbol) in rdModel3_DrawFace); was UINT_007f30d8."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "007f31e4",
+  "old": "UINT_007f31e4",
+  "global": "g_dwLightingMode",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name lightingMode (the remaster's GrimFandango (Linux): 3/3 aligned uses (of 3 for the symbol) in rdModel3_DrawMeshImpl, rdModel3_DrawFace); was UINT_007f31e4."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "007f31e8",
+  "old": "UINT_007f31e8",
+  "global": "g_dwGeometryMode",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name geometryMode (the remaster's GrimFandango (Linux): 3/5 aligned uses (of 3 for the symbol) in rdModel3_DrawMeshImpl, rdModel3_DrawFace); was UINT_007f31e8."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "007f31f4",
+  "old": "UINT_007f31f4",
+  "global": "g_dwModel3Unloader",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name pModel3Unloader (the remaster's GrimFandango (Linux): 2/2 aligned uses (of 2 for the symbol) in rdModel3_Free); was UINT_007f31f4."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "007f31fc",
+  "old": "UINT_007f31fc",
+  "global": "g_dwNumMeshLights",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name numMeshLights (the remaster's GrimFandango (Linux): 3/3 aligned uses (of 4 for the symbol) in rdModel3_DrawMeshImpl); was UINT_007f31fc."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "007f3200",
+  "old": "DAT_007f3200",
+  "global": "g_dwMaxGeoRadius",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name maxGeoRadius (the remaster's GrimFandango (Linux): 3/3 aligned uses (of 3 for the symbol) in rdModel3_CalcRadii, rdModel3_BuildExpandedRadius); was DAT_007f3200."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "007f4238",
+  "old": "UINT_007f4238",
+  "global": "g_dwMaterialsLoader",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name pMaterialsLoader (the remaster's GrimFandango (Linux): 2/2 aligned uses (of 2 for the symbol) in rdMaterial_Load); was UINT_007f4238."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "007f423c",
+  "old": "UINT_007f423c",
+  "global": "g_dwMaterialsUnloader",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name pMaterialsUnloader (the remaster's GrimFandango (Linux): the material unload hook rdMaterial_Free calls when set); was UINT_007f423c."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00803f80",
+  "old": "DAT_00803f80",
+  "global": "g_bStdDisplay_Startup",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name stdDisplay_bStartup (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in stdDisplay_Startup); was DAT_00803f80."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00803f8c",
+  "old": "g_dwDisplayDeviceCount",
+  "global": "g_dwStdDisplay_numDevices",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Number of enumerated display devices in the device table Original name stdDisplay_numDevices (the remaster's GrimFandango (Linux): 5/6 aligned uses (of 5 for the symbol) in stdDisplay_Startup); was g_dwDisplayDeviceCount."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00803fa0",
+  "old": "UINT_00803fa0",
+  "global": "g_dwStdDisplay_numDrawBuffers",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name stdDisplay_numDrawBuffers (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in grimlib_SetDisplay); was UINT_00803fa0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00805fbc",
+  "old": "UINT_00805fbc",
+  "global": "g_dwCurReadTime",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name curReadTime (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in stdControl_Flush); was UINT_00805fbc."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00805fd4",
+  "old": "UINT_00805fd4",
+  "global": "g_dwStdPlatform_Assert_enteredOnce",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name stdPlatform_Assert(char*,char*,int)::enteredOnce (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in stdPlatform_Assert); was UINT_00805fd4."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0080cbc8",
+  "old": "UINT_0080cbc8",
+  "global": "g_dwStdConffile_linenum",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name stdConffile_linenum (the remaster's GrimFandango (Linux): 2/2 aligned uses (of 2 for the symbol) in stdConffile_ReadLine); was UINT_0080cbc8."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0080cbcc",
+  "old": "UINT_0080cbcc",
+  "global": "g_dwStdConffile_bOpen",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name stdConffile_bOpen (the remaster's GrimFandango (Linux): 4/5 aligned uses (of 4 for the symbol) in stdConffile_OpenMode, stdConffile_Close); was UINT_0080cbcc."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00825e7c",
+  "old": "UINT_00825e7c",
+  "global": "g_dwStdMemory_curState",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name stdMemory_curState (the remaster's GrimFandango (Linux): the allocated byte count stdMemory_Free subtracts the block size from); was UINT_00825e7c."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008a856c",
+  "old": "UINT_008a856c",
+  "global": "g_dwResHS",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name pResHS (the remaster's GrimFandango (Linux): 4/4 aligned uses (of 4 for the symbol) in Res_SysInitialize, Res_Dump, Res_SetReference); was UINT_008a856c."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008a8570",
+  "old": "UINT_008a8570",
+  "global": "g_dwLowLevelHS",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name pLowLevelHS (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in Res_SysInitialize); was UINT_008a8570."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008a85b8",
+  "old": "UINT_008a85b8",
+  "global": "g_dwResSysInitialized",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name fResSysInitialized (the remaster's GrimFandango (Linux): 2/2 aligned uses (of 2 for the symbol) in Res_SysInitialize); was UINT_008a85b8."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008a85c0",
+  "old": "UINT_008a85c0",
+  "global": "g_dwResFilePool",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name pResFilePool (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in Res_SysInitialize); was UINT_008a85c0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008a85c4",
+  "old": "PTR_008a85c4",
+  "global": "g_pResFileList",
+  "oldtype": "int *",
+  "names_only": true,
+  "comment": "Original name pResFileList (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in Res_SysInitialize); was PTR_008a85c4."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008a85c8",
+  "old": "UINT_008a85c8",
+  "global": "g_dwResTypePool",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name pResTypePool (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in Res_SysInitialize); was UINT_008a85c8."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008a85cc",
+  "old": "UINT_008a85cc",
+  "global": "g_dwResTypeList",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name pResTypeList (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in Res_SysInitialize); was UINT_008a85cc."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008a85d0",
+  "old": "UINT_008a85d0",
+  "global": "g_dwResNodePool",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name pResNodePool (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in Res_SysInitialize); was UINT_008a85d0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008a85d4",
+  "old": "PTR_008a85d4",
+  "global": "g_pNewestResNode",
+  "oldtype": "int *",
+  "names_only": true,
+  "comment": "Original name pNewestResNode (the remaster's GrimFandango (Linux): 2/2 aligned uses (of 2 for the symbol) in Res_SysInitialize, Res_SysSave); was PTR_008a85d4."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008a85d8",
+  "old": "UINT_008a85d8",
+  "global": "g_dwOldestResNode",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name pOldestResNode (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in Res_SysInitialize); was UINT_008a85d8."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008a85f0",
+  "old": "DAT_008a85f0",
+  "global": "g_aGrimlib_Filenames",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name grimlib_aFilenames (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in grimlib_GameStartup); was DAT_008a85f0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008a86f0",
+  "old": "g_szDialogFileName",
+  "global": "g_szGrimlib_aFilename",
+  "oldtype": "char[128]",
+  "names_only": true,
+  "comment": "File name chosen in the last file dialog, 0x80 bytes Original name grimlib_aFilename (the remaster's GrimFandango (Linux): 10/10 aligned uses (of 10 for the symbol) in BitmapRequester, ColormapRequester, MaterialRequester); was g_szDialogFileName."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008a8778",
+  "old": "DAT_008a8778",
+  "global": "g_aBaseModuleServices",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name BaseModuleServices (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in grimlib_GameStartup); was DAT_008a8778."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008a8c40",
+  "old": "UINT_008a8c40",
+  "global": "g_dwGrimlib_mode",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name grimlib_mode (the remaster's GrimFandango (Linux): 17/19 aligned uses (of 18 for the symbol) in grimlib_SetPause, grimlib_PlayMovie, grimlib_UserPaint); was UINT_008a8c40."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008a8c54",
+  "old": "g_nDebugKeysEnabled",
+  "global": "g_nGrimlib_bDebugKeys",
+  "oldtype": "int",
+  "names_only": true,
+  "comment": "Lua EnableDebugKeys turned on the Backspace debug key chords Original name grimlib_bDebugKeys (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in sputLua_EnableDebugKeysL); was g_nDebugKeysEnabled."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008a8c5c",
+  "old": "UINT_008a8c5c",
+  "global": "g_dwSputmStartup",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name bsputmStartup (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in grimlib_GameStartup); was UINT_008a8c5c."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008a8c80",
+  "old": "UINT_008a8c80",
+  "global": "g_dwDoLoad",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name doLoad (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in grimlib_Load); was UINT_008a8c80."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008a8c84",
+  "old": "UINT_008a8c84",
+  "global": "g_dwJustLoaded",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name justLoaded (the remaster's GrimFandango (Linux): 2/2 aligned uses (of 2 for the symbol) in grimlib_JustLoaded); was UINT_008a8c84."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008a8c94",
+  "old": "UINT_008a8c94",
+  "global": "g_dwGrimlib_SetPause_oldmode",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name grimlib_SetPause::oldmode (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in grimlib_SetPause); was UINT_008a8c94."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008a952c",
+  "old": "UINT_008a952c",
+  "global": "g_dwTotDrawItems",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name TotDrawItems (the remaster's GrimFandango (Linux): 2/2 aligned uses (of 4 for the symbol) in sputRender_Update); was UINT_008a952c."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008a9530",
+  "old": "g_wColorTable",
+  "global": "g_wSputRender_ColorLookup",
+  "oldtype": "ushort",
+  "names_only": true,
+  "comment": "65536-entry 16-bit pixel remap table used for gamma and background conversion Original name sputRender_ColorLookup (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in sputRender_ColorCorrect); was g_wColorTable."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008c9530",
+  "old": "g_nCameraActor",
+  "global": "g_nCamActorIndex",
+  "oldtype": "int",
+  "names_only": true,
+  "comment": "Handle of the hidden camera actor Original name gCamActorIndex (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in sputLua_GetCameraActorL); was g_nCameraActor."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008c9568",
+  "old": "UINT_008c9568",
+  "global": "g_dwDrawItems",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name pDrawItems (the remaster's GrimFandango (Linux): the draw item array sputRender_Update walks for TotDrawItems entries); was UINT_008c9568."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008c9768",
+  "old": "g_pSvcRender",
+  "global": "g_pSputRendHS",
+  "oldtype": "GrimServices *",
+  "names_only": true,
+  "comment": "Service table pointer used by Engine/sputRender.cpp Original name psputRendHS (the remaster's GrimFandango (Linux): 2/2 aligned uses (of 2 for the symbol) in sputRender_Initialize, sputRender_Terminate); was g_pSvcRender."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008c9774",
+  "old": "g_dwIrisStartMs",
+  "global": "g_dwIrisStart",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Timer_GetTotalMs value when the iris transition started Original name IrisStart (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in sputRender_Update); was g_dwIrisStartMs."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008c9778",
+  "old": "g_flIrisDurationMs",
+  "global": "g_flIrisDuration",
+  "oldtype": "float",
+  "names_only": true,
+  "comment": "Length of the iris transition in ms, negative when opening Original name IrisDuration (the remaster's GrimFandango (Linux): 4/4 aligned uses (of 4 for the symbol) in sputRender_Update); was g_flIrisDurationMs."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008c977c",
+  "old": "g_pCameraSetup",
+  "global": "g_pSputRender_Camera",
+  "oldtype": "float *",
+  "names_only": true,
+  "comment": "Points into the current setup record at its camera block (position, interest, frame) Original name sputRender_pCamera (the remaster's GrimFandango (Linux): 25/25 aligned uses (of 25 for the symbol) in sputLua_GetCameraPositionL, sputLua_GetCameraInterestL, sputLua_GetCameraFOVL); was g_pCameraSetup."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008c9784",
+  "old": "g_nZBufferEnabled",
+  "global": "g_nSputRender_b3DAcceleration",
+  "oldtype": "int",
+  "names_only": true,
+  "comment": "Non-zero when the depth buffer surface is created and used Original name sputRender_b3DAcceleration (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in sputLua_HardwareAccelerated); was g_nZBufferEnabled."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008c9788",
+  "old": "UINT_008c9788",
+  "global": "g_dwSputRendInitialize",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name bsputRendInitialize (the remaster's GrimFandango (Linux): 3/3 aligned uses (of 3 for the symbol) in sputRender_Initialize, sputRender_Terminate); was UINT_008c9788."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008c9798",
+  "old": "g_dwRenderFlags",
+  "global": "g_dwRenderFlags",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Render state bits: 2 no depth image, 4 fade in progress, 8 fade finished Original name renderFlags (the remaster's GrimFandango (Linux): 14/15 aligned uses (of 14 for the symbol) in sputRender_Update, sputRender_PreRendered, sputRender_IrisComplete)."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008c97a8",
+  "old": "g_pCanvas",
+  "global": "g_pSputRender_Canvas",
+  "oldtype": "void *",
+  "names_only": true,
+  "comment": "RDroid canvas the 3D scene is rendered on Original name sputRender_pCanvas (the remaster's GrimFandango (Linux): 6/6 aligned uses (of 6 for the symbol) in sputRender_SyncCamera, sputRender_SetDisplay, sputRender_Close); was g_pCanvas."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008c97ac",
+  "old": "g_pTempSurface",
+  "global": "g_pSputRender_DecompressionBuffer",
+  "oldtype": "void *",
+  "names_only": true,
+  "comment": "Scratch surface used when converting compressed backgrounds Original name sputRender_pDecompressionBuffer (the remaster's GrimFandango (Linux): 4/4 aligned uses (of 4 for the symbol) in sputRender_SetDisplay, sputRender_Close); was g_pTempSurface."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008c97b0",
+  "old": "g_pBackgroundSurface",
+  "global": "g_pSputRender_CleanBuffer",
+  "oldtype": "void *",
+  "names_only": true,
+  "comment": "Current setup's background image Original name sputRender_pCleanBuffer (the remaster's GrimFandango (Linux): 10/10 aligned uses (of 10 for the symbol) in sputRender_SetDisplay, sputRender_Close, sputRender_Update); was g_pBackgroundSurface."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008c97b4",
+  "old": "g_pZBufferSurface",
+  "global": "g_pSputRender_CleanZBuffer",
+  "oldtype": "void *",
+  "names_only": true,
+  "comment": "Current setup's 16-bit depth image Original name sputRender_pCleanZBuffer (the remaster's GrimFandango (Linux): 5/5 aligned uses (of 5 for the symbol) in sputRender_SetDisplay, sputRender_Close, sputRender_Update); was g_pZBufferSurface."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008c97f0",
+  "old": "g_nFullRedrawPending",
+  "global": "g_nSputRender_Reset",
+  "oldtype": "int",
+  "names_only": true,
+  "comment": "The next Engine_RenderFrame must redraw the whole scene Original name sputRender_Reset (the remaster's GrimFandango (Linux): 5/6 aligned uses (of 8 for the symbol) in sputRender_Update, sputRender_ForceRefresh, sputRender_ScreenShot); was g_nFullRedrawPending."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008c9a70",
+  "old": "g_pSvcMemory",
+  "global": "g_pMemoryHS",
+  "oldtype": "GrimServices *",
+  "names_only": true,
+  "comment": "Service table pointer used by Temp/Memory.c pools Original name pMemoryHS (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in Memory_SysInitialize); was g_pSvcMemory."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008c9a74",
+  "old": "UINT_008c9a74",
+  "global": "g_dwMemorySysInitialized",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name fMemorySysInitialized (the remaster's GrimFandango (Linux): 2/2 aligned uses (of 2 for the symbol) in Memory_SysInitialize); was UINT_008c9a74."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008c9a94",
+  "old": "UINT_008c9a94",
+  "global": "g_dwFileUtilSysInitialized",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name fFileUtilSysInitialized (the remaster's GrimFandango (Linux): 2/2 aligned uses (of 2 for the symbol) in FileUtil_SysInitialize); was UINT_008c9a94."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008c9aa0",
+  "old": "g_pMovieSurface",
+  "global": "g_pPresentBuf",
+  "oldtype": "void *",
+  "names_only": true,
+  "comment": "Surface the movie frames are decoded into Original name PresentBuf (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in sputSmush_Initialize); was g_pMovieSurface."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008c9ca8",
+  "old": "DAT_008c9ca8",
+  "global": "g_dwSmushHS",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name SmushHS (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in sputSmush_Initialize); was DAT_008c9ca8."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008c9fb8",
+  "old": "DAT_008c9fb8",
+  "global": "g_aSmushPlayMS",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name smushPlayMS (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in sputSmush_Initialize); was DAT_008c9fb8."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ca080",
+  "old": "DAT_008ca080",
+  "global": "g_dwSmushBuf",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name SmushBuf (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in sputSmush_Initialize); was DAT_008ca080."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ca084",
+  "old": "g_nMovieAvailable",
+  "global": "g_nSputSmushStarted",
+  "oldtype": "int",
+  "names_only": true,
+  "comment": "SMUSH movie player initialised Original name bsputSmushStarted (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in sputSmush_Startup); was g_nMovieAvailable."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ca08c",
+  "old": "g_nMoviePaused",
+  "global": "g_nSmushPaused",
+  "oldtype": "int",
+  "names_only": true,
+  "comment": "Movie playback is paused Original name SmushPaused (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in sputSmush_Pause); was g_nMoviePaused."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ca0a0",
+  "old": "UINT_008ca0a0",
+  "global": "g_dwPrimitiveQ",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name PrimitiveQ (the remaster's GrimFandango (Linux): 4/5 aligned uses (of 4 for the symbol) in sputPrimitive_DrawPolygon, sputPrimitive_ChangePrimitive, sputPrimitive_KillPrimitive); was UINT_008ca0a0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ca0a8",
+  "old": "UINT_008ca0a8",
+  "global": "g_dwSputPrimitiveInitialize",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name bsputPrimitiveInitialize (the remaster's GrimFandango (Linux): 3/3 aligned uses (of 3 for the symbol) in sputPrimitive_Initialize, sputPrimitive_Terminate); was UINT_008ca0a8."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ca0b0",
+  "old": "DAT_008ca0b0",
+  "global": "g_pSputPrimitiveHS",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name psputPrimitiveHS (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in sputPrimitive_Initialize); was DAT_008ca0b0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ca0b8",
+  "old": "DAT_008ca0b8",
+  "global": "g_aTextMS",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name textMS (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in sputText_Initialize); was DAT_008ca0b8."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ca0d8",
+  "old": "UINT_008ca0d8",
+  "global": "g_dwLrHeight",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name lrHeight (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in sputText_Startup); was UINT_008ca0d8."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ca0dc",
+  "old": "UINT_008ca0dc",
+  "global": "g_dwLrX",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name lrX (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in sputText_Startup); was UINT_008ca0dc."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ca0e0",
+  "old": "UINT_008ca0e0",
+  "global": "g_dwLrY",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name lrY (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in sputText_Startup); was UINT_008ca0e0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ca0e4",
+  "old": "UINT_008ca0e4",
+  "global": "g_dwLrBackground",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name lrBackground (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in sputText_Startup); was UINT_008ca0e4."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ca0e8",
+  "old": "UINT_008ca0e8",
+  "global": "g_dwLrHiColor",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name lrHiColor (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in sputText_Startup); was UINT_008ca0e8."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ca0ec",
+  "old": "UINT_008ca0ec",
+  "global": "g_dwLrDuration",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name lrDuration (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in sputText_Startup); was UINT_008ca0ec."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ca0f0",
+  "old": "UINT_008ca0f0",
+  "global": "g_dwLrFXColor",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name lrFXColor (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in sputText_Startup); was UINT_008ca0f0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ca0f4",
+  "old": "UINT_008ca0f4",
+  "global": "g_dwLrCenter",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name lrCenter (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in sputText_Startup); was UINT_008ca0f4."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ca0f8",
+  "old": "UINT_008ca0f8",
+  "global": "g_dwLrWidth",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name lrWidth (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in sputText_Startup); was UINT_008ca0f8."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ca0fc",
+  "old": "UINT_008ca0fc",
+  "global": "g_dwLrBGColor",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name lrBGColor (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in sputText_Startup); was UINT_008ca0fc."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ca100",
+  "old": "UINT_008ca100",
+  "global": "g_dwLrVolume",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name lrVolume (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in sputText_Startup); was UINT_008ca100."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ca104",
+  "old": "UINT_008ca104",
+  "global": "g_dwLrFont",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name lrFont (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in sputText_Startup); was UINT_008ca104."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ca108",
+  "old": "UINT_008ca108",
+  "global": "g_dwLrLJustify",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name lrLJustify (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in sputText_Startup); was UINT_008ca108."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ca10c",
+  "old": "UINT_008ca10c",
+  "global": "g_dwLrRJustify",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name lrRJustify (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in sputText_Startup); was UINT_008ca10c."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ca110",
+  "old": "UINT_008ca110",
+  "global": "g_dwLrFGColor",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name lrFGColor (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in sputText_Startup); was UINT_008ca110."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ca114",
+  "old": "UINT_008ca114",
+  "global": "g_dwLrPan",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name lrPan (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in sputText_Startup); was UINT_008ca114."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ca118",
+  "old": "DAT_008ca118",
+  "global": "g_aGraphMS",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name graphMS (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in sputText_Initialize); was DAT_008ca118."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ca138",
+  "old": "UINT_008ca138",
+  "global": "g_dwSputtextInitialize",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name bsputtextInitialize (the remaster's GrimFandango (Linux): 3/3 aligned uses (of 3 for the symbol) in sputText_Initialize, sputText_Terminate); was UINT_008ca138."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ca140",
+  "old": "g_nTranslationMode",
+  "global": "g_nTranslationType",
+  "oldtype": "int",
+  "names_only": true,
+  "comment": "Lua SetTranslationMode: 0 translate ids, 1 show the id, 2 show the raw line Original name translationType (the remaster's GrimFandango (Linux): 3/3 aligned uses (of 3 for the symbol) in sputText_GetTranslationModeL, sputText_SetTranslationModeL); was g_nTranslationMode."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ca144",
+  "old": "DAT_008ca144",
+  "global": "g_pSputtextHS",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name psputtextHS (the remaster's GrimFandango (Linux): 2/2 aligned uses (of 2 for the symbol) in sputText_Initialize, sputText_Terminate); was DAT_008ca144."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ca148",
+  "old": "UINT_008ca148",
+  "global": "g_hFont",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name hFont (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in sputText_Startup); was UINT_008ca148."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ca14c",
+  "old": "g_pOverrideFont",
+  "global": "g_hEmergencyFont",
+  "oldtype": "void *",
+  "names_only": true,
+  "comment": "Font set by Lua that overrides the per-text font Original name hEmergencyFont (the remaster's GrimFandango (Linux): 3/3 aligned uses (of 3 for the symbol) in sputText_SetEmergencyFontL); was g_pOverrideFont."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ca150",
+  "old": "g_pTextObjectList",
+  "global": "g_pTextQueue",
+  "oldtype": "void *",
+  "names_only": true,
+  "comment": "Head of the live text objects {next, prev, text[0x200], ctx, x, y, ..., +0x250 remaining ms, +0x254 actor, +0x258 flags} Original name textQueue (the remaster's GrimFandango (Linux): 3/3 aligned uses (of 3 for the symbol) in sputText_IsMessageGoingL, sputText_ExpireTextQueueL, sputText_PurgeTextQueueL); was g_pTextObjectList."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ca154",
+  "old": "g_pTextObjectPool",
+  "global": "g_pTextEventPool",
+  "oldtype": "void * *",
+  "names_only": true,
+  "comment": "Pool of 0x260-byte text object records Original name pTextEventPool (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in sputText_Startup); was g_pTextObjectPool."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ca160",
+  "old": "g_nShutdownHookCount",
+  "global": "g_nNumControlCallbacks",
+  "oldtype": "int",
+  "names_only": true,
+  "comment": "Number of registered shutdown hooks Original name numControlCallbacks (the remaster's GrimFandango (Linux): 4/4 aligned uses (of 4 for the symbol) in sputControl_AddCallback); was g_nShutdownHookCount."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ca198",
+  "old": "g_pShutdownHooks",
+  "global": "g_apControlCallbacks",
+  "oldtype": "void *",
+  "names_only": true,
+  "comment": "Up to nine shutdown callbacks Original name apControlCallbacks (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in sputControl_AddCallback); was g_pShutdownHooks."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ca1b8",
+  "old": "DAT_008ca1b8",
+  "global": "g_pSputConHS",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name psputConHS (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in sputControl_Initialize); was DAT_008ca1b8."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ca1bc",
+  "old": "UINT_008ca1bc",
+  "global": "g_dwSputConInitialize",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name bsputConInitialize (the remaster's GrimFandango (Linux): 4/4 aligned uses (of 4 for the symbol) in sputControl_Initialize, sputControl_Terminate); was UINT_008ca1bc."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ca1d0",
+  "old": "UINT_008ca1d0",
+  "global": "g_dwSputResHS",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name psputResHS (the remaster's GrimFandango (Linux): 4/4 aligned uses (of 4 for the symbol) in sputResource_Initialize, sputResource_Terminate, sputResource_MaterialHandler); was UINT_008ca1d0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ca1d8",
+  "old": "DAT_008ca1d8",
+  "global": "g_aResModServices",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name resModServices (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in sputResource_Initialize); was DAT_008ca1d8."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ca30c",
+  "old": "g_nResNoPurge",
+  "global": "g_nStopPurge",
+  "oldtype": "int",
+  "names_only": true,
+  "comment": "When set, Resource_Load does not free unreferenced resources over budget (used during restore) Original name StopPurge (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in sputResource_Alloc); was g_nResNoPurge."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ca32c",
+  "old": "UINT_008ca32c",
+  "global": "g_dwSputActHS",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name psputActHS (the remaster's GrimFandango (Linux): 10/10 aligned uses (of 11 for the symbol) in sputActor_Initialize, sputActor_Restore, sputActor_AllocateActor); was UINT_008ca32c."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ca758",
+  "old": "g_pActorTable",
+  "global": "g_pActors",
+  "oldtype": "void *",
+  "names_only": true,
+  "comment": "Array of 0xa8-byte actor records Original name aActors (the remaster's GrimFandango (Linux): 14/18 aligned uses (of 14 for the symbol) in sputRender_Update, sputActor_NukeCostumeStacks, sputActor_Restore); was g_pActorTable."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ca75c",
+  "old": "g_nActorCount",
+  "global": "g_nNumActors",
+  "oldtype": "int",
+  "names_only": true,
+  "comment": "Number of actors created so far Original name numActors (the remaster's GrimFandango (Linux): 5/5 aligned uses (of 5 for the symbol) in sputActor_Restore, sputActor_AllocateActor); was g_nActorCount."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ca760",
+  "old": "g_pSelectedActor",
+  "global": "g_pSelectedActor",
+  "oldtype": "void *",
+  "names_only": true,
+  "comment": "Actor record the player currently controls (Lua SetSelectedActor) Original name pSelectedActor (the remaster's GrimFandango (Linux): 16/20 aligned uses (of 16 for the symbol) in grimlib_OverrideSelectedActorCostume, grimlib_RestoreSelectedActorCostume, sputText_SayLineL)."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ca764",
+  "old": "g_nTalkingActorCount",
+  "global": "g_nNumActorsTalking",
+  "oldtype": "int",
+  "names_only": true,
+  "comment": "Number of actors currently speaking Original name numActorsTalking (the remaster's GrimFandango (Linux): 5/6 aligned uses (of 5 for the symbol) in sputActor_Restore, sputActor_GetNumActorsTalking, sputActor_ShutUp); was g_nTalkingActorCount."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ca770",
+  "old": "DAT_008ca770",
+  "global": "g_aChoreMS",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name choreMS (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in sputCostume_Initialize); was DAT_008ca770."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ca790",
+  "old": "g_pShadowColormap",
+  "global": "g_pShadowColormap",
+  "oldtype": "void *",
+  "names_only": true,
+  "comment": "shadow.cmp colormap used for actor shadows Original name pShadowColormap (the remaster's GrimFandango (Linux): 5/5 aligned uses (of 5 for the symbol) in sputCostume_SetShadowColor, sputCostume_Terminate)."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ca798",
+  "old": "UINT_008ca798",
+  "global": "g_dwSputCosInitialize",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name bsputCosInitialize (the remaster's GrimFandango (Linux): 3/3 aligned uses (of 3 for the symbol) in sputCostume_Initialize, sputCostume_Terminate); was UINT_008ca798."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ca7a0",
+  "old": "g_pSvcCostume",
+  "global": "g_pSputCosHS",
+  "oldtype": "GrimServices *",
+  "names_only": true,
+  "comment": "Service table pointer used by Engine/sputCostume.cpp Original name psputCosHS (the remaster's GrimFandango (Linux): 18/18 aligned uses (of 18 for the symbol) in sputCostume_Initialize, sputCostume_Terminate, BitmapRequester); was g_pSvcCostume."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ca7a4",
+  "old": "UINT_008ca7a4",
+  "global": "g_dwLECBitmaps",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name aLECBitmaps (the remaster's GrimFandango (Linux): 6/6 aligned uses (of 6 for the symbol) in BitmapRequester, MaterialRequester); was UINT_008ca7a4."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ca7b4",
+  "old": "DAT_008ca7b4",
+  "global": "g_dwRecentBM",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name RecentBM (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in BitmapRequester); was DAT_008ca7b4."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ca7b8",
+  "old": "DAT_008ca7b8",
+  "global": "g_bKeyframePath",
+  "oldtype": "undefined1",
+  "names_only": true,
+  "comment": "Original name keyframePath (the remaster's GrimFandango (Linux): 3/3 aligned uses (of 3 for the symbol) in KeyframeRequester); was DAT_008ca7b8."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ca838",
+  "old": "DAT_008ca838",
+  "global": "g_bBitmapPath",
+  "oldtype": "undefined1",
+  "names_only": true,
+  "comment": "Original name bitmapPath (the remaster's GrimFandango (Linux): 3/3 aligned uses (of 3 for the symbol) in BitmapRequester); was DAT_008ca838."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ca8b8",
+  "old": "DAT_008ca8b8",
+  "global": "g_bColormapPath",
+  "oldtype": "undefined1",
+  "names_only": true,
+  "comment": "Original name colormapPath (the remaster's GrimFandango (Linux): 3/3 aligned uses (of 3 for the symbol) in ColormapRequester); was DAT_008ca8b8."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ca938",
+  "old": "DAT_008ca938",
+  "global": "g_bMaterialPath",
+  "oldtype": "undefined1",
+  "names_only": true,
+  "comment": "Original name materialPath (the remaster's GrimFandango (Linux): 6/6 aligned uses (of 6 for the symbol) in MaterialRequester, SpriteRequester); was DAT_008ca938."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ca9b8",
+  "old": "DAT_008ca9b8",
+  "global": "g_bModelPath",
+  "oldtype": "undefined1",
+  "names_only": true,
+  "comment": "Original name modelPath (the remaster's GrimFandango (Linux): 3/3 aligned uses (of 3 for the symbol) in ThingRequester); was DAT_008ca9b8."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008caa38",
+  "old": "DAT_008caa38",
+  "global": "g_bSoundPath",
+  "oldtype": "undefined1",
+  "names_only": true,
+  "comment": "Original name soundPath (the remaster's GrimFandango (Linux): 3/3 aligned uses (of 3 for the symbol) in SoundRequester); was DAT_008caa38."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008caab8",
+  "old": "DAT_008caab8",
+  "global": "g_bSmushPath",
+  "oldtype": "undefined1",
+  "names_only": true,
+  "comment": "Original name smushPath (the remaster's GrimFandango (Linux): 3/3 aligned uses (of 3 for the symbol) in SmushRequester); was DAT_008caab8."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008cab40",
+  "old": "g_nLuaSystemTableRef",
+  "global": "g_nLrSystemTable",
+  "oldtype": "int",
+  "names_only": true,
+  "comment": "lua_ref of the global `system` table Original name lrSystemTable (the remaster's GrimFandango (Linux): 12/12 aligned uses (of 12 for the symbol) in sputLua_PostCameraChange, sputLua_CollisionHandler, sputLua_Update); was g_nLuaSystemTableRef."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008cab44",
+  "old": "UINT_008cab44",
+  "global": "g_dwLrOldConcatFallback",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name lrOldConcatFallback (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in sputLua_Startup); was UINT_008cab44."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008cab48",
+  "old": "UINT_008cab48",
+  "global": "g_dwLrTypeFunction",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name lrTypeFunction (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in sputLua_Startup); was UINT_008cab48."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008cab50",
+  "old": "DAT_008cab50",
+  "global": "g_aLuaMS",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name LuaMS (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in sputLua_Initialize); was DAT_008cab50."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008cab70",
+  "old": "g_pfnLuaSaveWrite",
+  "global": "g_pTheWriter",
+  "oldtype": "void *",
+  "names_only": true,
+  "comment": "Write function handed to the Lua SubmitSaveGameData hook Original name theWriter (the remaster's GrimFandango (Linux): 4/4 aligned uses (of 4 for the symbol) in sputLua_SaveGameCallback, sputLua_SubmitSaveGameData); was g_pfnLuaSaveWrite."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008cab74",
+  "old": "g_dwMovieTime",
+  "global": "g_dwSputLua_Update_movieTimeMsec",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Current movie time published as system.movieTime Original name sputLua_Update::movieTimeMsec (the remaster's GrimFandango (Linux): the movie time sputLua_Update reads each frame and pushes as a number); was g_dwMovieTime."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008cab78",
+  "old": "g_nLuaSaveStringCount",
+  "global": "g_nTotSaveBytes",
+  "oldtype": "int",
+  "names_only": true,
+  "comment": "Number of strings Lua submitted for the save game Original name TotSaveBytes (the remaster's GrimFandango (Linux): 6/6 aligned uses (of 6 for the symbol) in sputLua_SaveGameCallback, sputLua_SubmitSaveGameData); was g_nLuaSaveStringCount."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008cab7c",
+  "old": "UINT_008cab7c",
+  "global": "g_dwSputLuaInitialize",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name bsputLuaInitialize (the remaster's GrimFandango (Linux): 2/2 aligned uses (of 2 for the symbol) in sputLua_Terminate); was UINT_008cab7c."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008cab84",
+  "old": "g_pSvcLua",
+  "global": "g_pSputLuaHS",
+  "oldtype": "GrimServices *",
+  "names_only": true,
+  "comment": "Service table pointer used by Scripts/sputLua.cpp Original name psputLuaHS (the remaster's GrimFandango (Linux): 5/5 aligned uses (of 8 for the symbol) in sputLua_Initialize, sputLua_CheckForFileL, sputLua_SearchForFileOrSwapCDsL); was g_pSvcLua."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008cab88",
+  "old": "g_pLuaFileFind",
+  "global": "g_pFrFileReq",
+  "oldtype": "void *",
+  "names_only": true,
+  "comment": "stdFileUtil find handle used by Lua FileFindFirst/FileFindNext Original name frFileReq (the remaster's GrimFandango (Linux): 10/10 aligned uses (of 10 for the symbol) in sputLua_Shutdown, sputLua_FileFindFirst, sputLua_FileFindNext); was g_pLuaFileFind."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008cab8c",
+  "old": "UINT_008cab8c",
+  "global": "g_dwDebugToggleFunc",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name pDebugToggleFunc (the remaster's GrimFandango (Linux): 2/2 aligned uses (of 2 for the symbol) in sputLua_EnableDebugKeysL); was UINT_008cab8c."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008cab90",
+  "old": "g_dwLuaGcTimerMs",
+  "global": "g_dwSputLua_Update_collectionTime",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Milliseconds since the last Lua garbage collection Original name sputLua_Update::collectionTime (the remaster's GrimFandango (Linux): the time sum after which sputLua_Update collects garbage); was g_dwLuaGcTimerMs."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008cab94",
+  "old": "DAT_008cab94",
+  "global": "g_pSputTimeHS",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name psputTimeHS (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in sputTime_Initialize); was DAT_008cab94."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008cab98",
+  "old": "UINT_008cab98",
+  "global": "g_dwSputTimeInitialize",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name bsputTimeInitialize (the remaster's GrimFandango (Linux): 3/3 aligned uses (of 3 for the symbol) in sputTime_Initialize, sputTime_Terminate); was UINT_008cab98."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008cabac",
+  "old": "g_flTimerFrameSeconds",
+  "global": "g_flSputTime_frameTimeSeconds",
+  "oldtype": "float",
+  "names_only": true,
+  "comment": "Length of the current frame in seconds Original name sputTime_frameTimeSeconds (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in sputTime_GetFrameTimeFlex); was g_flTimerFrameSeconds."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008cabb0",
+  "old": "g_CurrentSetRef",
+  "global": "g_dwSputRoom_pCurrentRoom",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name sputRoom_pCurrentRoom (the remaster's GrimFandango (Linux): 9/10 aligned uses (of 9 for the symbol) in sputRoom_SetCurrentRoom, sputRoom_GetCurrentRoom, sputRoom_Restore); was g_CurrentSetRef."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008cabe8",
+  "old": "g_szCurrentSetName",
+  "global": "g_szSputRoom_CurrentRoomName",
+  "oldtype": "char[32]",
+  "names_only": true,
+  "comment": "Name of the current set, 32 bytes Original name sputRoom_CurrentRoomName (the remaster's GrimFandango (Linux): 3/3 aligned uses (of 3 for the symbol) in sputRoom_SetCurrentRoom, sputRoom_Restore); was g_szCurrentSetName."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008cb088",
+  "old": "g_pPositionedSoundPool",
+  "global": "g_pSoundPool",
+  "oldtype": "void * *",
+  "names_only": true,
+  "comment": "Pool of 0x24-byte positioned sound records Original name pSoundPool (the remaster's GrimFandango (Linux): the positioned sound pool sputRoom_Startup creates (Pool_Create(0x24, 0x10, 8) / Memory_AllocatePool(0x24, 0x10, 8))); was g_pPositionedSoundPool."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008cb090",
+  "old": "g_pSvcRoom",
+  "global": "g_pSputRoomHS",
+  "oldtype": "GrimServices *",
+  "names_only": true,
+  "comment": "Service table pointer used by Engine/sputRoom.cpp Original name psputRoomHS (the remaster's GrimFandango (Linux): 3/3 aligned uses (of 3 for the symbol) in sputRoom_Initialize, sputRoom_Terminate, sputRoom_ParseSetups); was g_pSvcRoom."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008cb098",
+  "old": "UINT_008cb098",
+  "global": "g_dwSputRoomInitialize",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name bsputRoomInitialize (the remaster's GrimFandango (Linux): 3/3 aligned uses (of 3 for the symbol) in sputRoom_Initialize, sputRoom_Terminate); was UINT_008cb098."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008cb09c",
+  "old": "UINT_008cb09c",
+  "global": "g_dwSputRoomStartup",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name bsputRoomStartup (the remaster's GrimFandango (Linux): 2/2 aligned uses (of 2 for the symbol) in sputRoom_Startup); was UINT_008cb09c."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008cb0a8",
+  "old": "UINT_008cb0a8",
+  "global": "g_dwLoadingRoom",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name pLoadingRoom (the remaster's GrimFandango (Linux): 6/7 aligned uses (of 6 for the symbol) in sputRoom_ParseLights, sputRoom_ParseSetups, sputRoom_ParseColormaps); was UINT_008cb0a8."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008cf280",
+  "old": "g_pSectorList",
+  "global": "g_pWalkPlane_wp_head",
+  "oldtype": "void *",
+  "names_only": true,
+  "comment": "Head of the current set's sector list Original name WalkPlane::wp_head (the remaster's GrimFandango (Linux): 5/5 aligned uses (of 5 for the symbol) in sputLua_IsActorInSector, sputLua_IsPointInSector, sputRoom_Restore); was g_pSectorList."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008d0a70",
+  "old": "UINT_008d0a70",
+  "global": "g_dwZg_App_bAppActive",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name zg_App_bAppActive (the remaster's GrimFandango (Linux): 2/2 aligned uses (of 2 for the symbol) in Main_Service); was UINT_008d0a70."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008d16a0",
+  "old": "UINT_008d16a0",
+  "global": "g_dwSmushPlaySysInitialized",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name fSmushPlaySysInitialized (the remaster's GrimFandango (Linux): set by SmushPlay_SysInitialize (v1.01 0x4bd3a0), cleared by SmushPlay_SysTerminate (0x4bd430); first flag SmushPlay_SysStartup tests); was UINT_008d16a0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008d16a4",
+  "old": "UINT_008d16a4",
+  "global": "g_dwSmushPlaySysStarted",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name fSmushPlaySysStarted (the remaster's GrimFandango (Linux): set by SmushPlay_SysStartup, cleared by SmushPlay_SysShutdown (v1.01 0x4bd4d0)); was UINT_008d16a4."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008d364c",
+  "old": "UINT_008d364c",
+  "global": "g_dwKeyframeLoader",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name pKeyframeLoader (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in rdKeyframe_Load); was UINT_008d364c."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008d3650",
+  "old": "UINT_008d3650",
+  "global": "g_dwKeyframeUnloader",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name pKeyframeUnloader (the remaster's GrimFandango (Linux): 2/2 aligned uses (of 2 for the symbol) in rdKeyframe_Free); was UINT_008d3650."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008d6f10",
+  "old": "g_pAnimTimer",
+  "global": "g_pAnimPlay_timer_services",
+  "oldtype": "int *",
+  "names_only": true,
+  "comment": "TIMER clocks service of the AnimPlay module Original name timer_services (the remaster's GrimFandango (Linux): static of the AnimPlay module, 5/5 aligned uses in anm_Start, anm_Render, AnimPlay_module_startup); was g_pAnimTimer."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008d6f14",
+  "old": "UINT_008d6f14",
+  "global": "g_dwAnimPlay_share_config",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name share_config (the remaster's GrimFandango (Linux): static of the AnimPlay module, 7/7 aligned uses in AnimPlay_module_startup); was UINT_008d6f14."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008d6f18",
+  "old": "g_pAnimLipsync",
+  "global": "g_pAnimPlay_sound_services",
+  "oldtype": "int *",
+  "names_only": true,
+  "comment": "SOUND lipsync service of the AnimPlay module Original name sound_services (the remaster's GrimFandango (Linux): static of the AnimPlay module, 1/1 aligned uses in AnimPlay_module_startup); was g_pAnimLipsync."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008d6f1c",
+  "old": "g_nAnimFramesDecoded",
+  "global": "g_nBretsFrameCount",
+  "oldtype": "int",
+  "names_only": true,
+  "comment": "Frames decoded since the movie started, counted by the frame decoder Original name BretsFrameCount (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in anm_Render); was g_nAnimFramesDecoded."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008d6f28",
+  "old": "UINT_008d6f28",
+  "global": "g_dwRenderHandler_totalTime",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name RenderHandler.totalTime (the remaster's GrimFandango (Linux): 3/3 aligned uses (of 3 for the symbol) in anm_Render); was UINT_008d6f28."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008d6f30",
+  "old": "UINT_008d6f30",
+  "global": "g_dwAnm_flobdec_types",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name anm_flobdec_types (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in anm_DecodeBody); was UINT_008d6f30."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008d70c0",
+  "old": "UINT_008d70c0",
+  "global": "g_dwAnm_flobdec_services",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name anm_flobdec_services (the remaster's GrimFandango (Linux): 5/5 aligned uses (of 5 for the symbol) in anm_DecodeBody, AnimFrame_module_startup); was UINT_008d70c0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008d7250",
+  "old": "UINT_008d7250",
+  "global": "g_dwAnm_flobdec_ids",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name anm_flobdec_ids (the remaster's GrimFandango (Linux): 2/2 aligned uses (of 2 for the symbol) in anm_DecodeBody, AnimFrame_module_startup); was UINT_008d7250."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008d73e0",
+  "old": "UINT_008d73e0",
+  "global": "g_dwAnimFrame_share_config",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name share_config (the remaster's GrimFandango (Linux): static of the AnimFrame module, 4/4 aligned uses in AnimFrame_module_startup); was UINT_008d73e0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008d73e8",
+  "old": "DAT_008d73e8",
+  "global": "g_aAnm_transform_palette",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name anm_transform_palette (the remaster's GrimFandango (Linux): 2/2 aligned uses (of 2 for the symbol) in anm_DecodeBody); was DAT_008d73e8."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008d77ec",
+  "old": "UINT_008d77ec",
+  "global": "g_dwAnm_flobdec_count",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name anm_flobdec_count (the remaster's GrimFandango (Linux): 3/3 aligned uses (of 3 for the symbol) in anm_DecodeBody, AnimFrame_module_startup); was UINT_008d77ec."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008d77f0",
+  "old": "UINT_008d77f0",
+  "global": "g_dwAnm_overlay_buffer",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name anm_overlay_buffer (the remaster's GrimFandango (Linux): 7/7 aligned uses (of 7 for the symbol) in anm_DecodeBody, AnimFrame_module_startup); was UINT_008d77f0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008d77f4",
+  "old": "UINT_008d77f4",
+  "global": "g_dwAnm_preload_buffer",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name anm_preload_buffer (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in AnimFrame_module_startup); was UINT_008d77f4."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008d77f8",
+  "old": "UINT_008d77f8",
+  "global": "g_dwAnm_overlay_size",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name anm_overlay_size (the remaster's GrimFandango (Linux): 3/3 aligned uses (of 3 for the symbol) in anm_DecodeBody, AnimFrame_module_startup); was UINT_008d77f8."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008d7804",
+  "old": "UINT_008d7804",
+  "global": "g_dwAnm_transform_count",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name anm_transform_count (the remaster's GrimFandango (Linux): 2/2 aligned uses (of 2 for the symbol) in anm_DecodeBody); was UINT_008d7804."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008d7814",
+  "old": "PTR_008d7814",
+  "global": "g_pStreamer_memory_services",
+  "oldtype": "int *",
+  "names_only": true,
+  "comment": "Original name memory_services (the remaster's GrimFandango (Linux): static of the Streamer module, 2/2 aligned uses in Streamer_module_startup); was PTR_008d7814."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008d7818",
+  "old": "PTR_008d7818",
+  "global": "g_pStreamer_share_services",
+  "oldtype": "int *",
+  "names_only": true,
+  "comment": "Original name share_services (the remaster's GrimFandango (Linux): static of the Streamer module, 3/3 aligned uses in fle_StreamerDispense, Streamer_module_startup); was PTR_008d7818."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008d781c",
+  "old": "PTR_008d781c",
+  "global": "g_pStreamer_filio_services",
+  "oldtype": "int *",
+  "names_only": true,
+  "comment": "Original name filio_services (the remaster's GrimFandango (Linux): static of the Streamer module, 1/1 aligned uses in Streamer_module_startup); was PTR_008d781c."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008d7820",
+  "old": "UINT_008d7820",
+  "global": "g_dwStreamer_share_config",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name share_config (the remaster's GrimFandango (Linux): static of the Streamer module, 2/2 aligned uses in Streamer_module_startup); was UINT_008d7820."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008d7824",
+  "old": "UINT_008d7824",
+  "global": "g_dwFle_StreamerDispense_incremented",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name fle_StreamerDispense.incremented (the remaster's GrimFandango (Linux): 4/4 aligned uses (of 4 for the symbol) in fle_StreamerDispense); was UINT_008d7824."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008d7828",
+  "old": "UINT_008d7828",
+  "global": "g_dwDirectory_file_services",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name file_services (the remaster's GrimFandango (Linux): static of the Directory module, 2/2 aligned uses in Directory_module_startup); was UINT_008d7828."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008d782c",
+  "old": "PTR_008d782c",
+  "global": "g_pDirectory_share_services",
+  "oldtype": "int *",
+  "names_only": true,
+  "comment": "Original name share_services (the remaster's GrimFandango (Linux): static of the Directory module, 2/2 aligned uses in Directory_module_startup); was PTR_008d782c."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008d7830",
+  "old": "UINT_008d7830",
+  "global": "g_dwDirectory_share_config",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name share_config (the remaster's GrimFandango (Linux): static of the Directory module, 1/1 aligned uses in Directory_module_startup); was UINT_008d7830."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008d7834",
+  "old": "g_pZfileMemory",
+  "global": "g_pZfile_memory_services",
+  "oldtype": "int *",
+  "names_only": true,
+  "comment": "MEMORY buffers service of the Zfile module Original name memory_services (the remaster's GrimFandango (Linux): static of the Zfile module, 3/3 aligned uses in Zfile_module_startup, Zfile_fle_Open); was g_pZfileMemory."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008d7838",
+  "old": "PTR_008d7838",
+  "global": "g_pZfile_share_services",
+  "oldtype": "int *",
+  "names_only": true,
+  "comment": "Original name share_services (the remaster's GrimFandango (Linux): static of the Zfile module, 3/3 aligned uses in Zfile_module_startup); was PTR_008d7838."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008d783c",
+  "old": "UINT_008d783c",
+  "global": "g_dwZfile_virtherc_services",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name virtherc_services (the remaster's GrimFandango (Linux): static of the Zfile module, 3/3 aligned uses in Zfile_module_startup, Zfile_fle_Open); was UINT_008d783c."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008d7840",
+  "old": "UINT_008d7840",
+  "global": "g_dwZfile_share_config",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name share_config (the remaster's GrimFandango (Linux): static of the Zfile module, 3/3 aligned uses in Zfile_module_startup); was UINT_008d7840."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008d7844",
+  "old": "PTR_008d7844",
+  "global": "g_pStdFile_share_services",
+  "oldtype": "int *",
+  "names_only": true,
+  "comment": "Original name share_services (the remaster's GrimFandango (Linux): static of the StdFile module, 2/2 aligned uses in StdFile_module_startup); was PTR_008d7844."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008d7848",
+  "old": "g_pStdFileIo",
+  "global": "g_pStdFile_filio_services",
+  "oldtype": "int *",
+  "names_only": true,
+  "comment": "FILIO chainto file service of the StdFile module Original name filio_services (the remaster's GrimFandango (Linux): static of the StdFile module, 2/2 aligned uses in StdFile_module_startup); was g_pStdFileIo."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008d784c",
+  "old": "UINT_008d784c",
+  "global": "g_dwStdFile_share_config",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name share_config (the remaster's GrimFandango (Linux): static of the StdFile module, 1/1 aligned uses in StdFile_module_startup); was UINT_008d784c."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008d7850",
+  "old": "PTR_008d7850",
+  "global": "g_pMemoryServices",
+  "oldtype": "int *",
+  "names_only": true,
+  "comment": "Original name memoryServices (the remaster's GrimFandango (Linux): 2/2 aligned uses (of 2 for the symbol) in DWave_module_startup); was PTR_008d7850."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008d7864",
+  "old": "PTR_008d7864",
+  "global": "g_pDWave_share_services",
+  "oldtype": "int *",
+  "names_only": true,
+  "comment": "Original name share_services (the remaster's GrimFandango (Linux): static of the DWave module, 1/1 aligned uses in DWave_module_startup); was PTR_008d7864."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008da4e8",
+  "old": "UINT_008da4e8",
+  "global": "g_dwDWave_share_config",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name share_config (the remaster's GrimFandango (Linux): static of the DWave module, 2/2 aligned uses in DWave_module_startup); was UINT_008da4e8."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008da4ec",
+  "old": "UINT_008da4ec",
+  "global": "g_dwSoundServices",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name soundServices (the remaster's GrimFandango (Linux): 2/2 aligned uses (of 2 for the symbol) in DWave_module_startup); was UINT_008da4ec."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008da4f0",
+  "old": "PTR_008da4f0",
+  "global": "g_pDWave_outputBuffer",
+  "oldtype": "int *",
+  "names_only": true,
+  "comment": "Original name outputBuffer (the remaster's GrimFandango (Linux): static of the DWave module, 2/2 aligned uses in DWave_module_startup); was PTR_008da4f0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008da4f8",
+  "old": "PTR_008da4f8",
+  "global": "g_pBlocky16_memory_services",
+  "oldtype": "int *",
+  "names_only": true,
+  "comment": "Original name memory_services (the remaster's GrimFandango (Linux): static of the Blocky16 module, 1/1 aligned uses in Blocky16_module_startup); was PTR_008da4f8."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008da4fc",
+  "old": "PTR_008da4fc",
+  "global": "g_pBlocky16_bitmap_services",
+  "oldtype": "int *",
+  "names_only": true,
+  "comment": "Original name bitmap_services (the remaster's GrimFandango (Linux): static of the Blocky16 module, 2/2 aligned uses in Blocky16_module_startup); was PTR_008da4fc."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008da500",
+  "old": "PTR_008da500",
+  "global": "g_pBlocky16_share_services",
+  "oldtype": "int *",
+  "names_only": true,
+  "comment": "Original name share_services (the remaster's GrimFandango (Linux): static of the Blocky16 module, 2/2 aligned uses in Blocky16_module_startup); was PTR_008da500."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008da504",
+  "old": "UINT_008da504",
+  "global": "g_dwBlocky16_share_config",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name share_config (the remaster's GrimFandango (Linux): static of the Blocky16 module, 2/2 aligned uses in Blocky16_module_startup); was UINT_008da504."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008da540",
+  "old": "UINT_008da540",
+  "global": "g_dwInsaneTimer_memory_services",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name memory_services (the remaster's GrimFandango (Linux): static of the InsaneTimer module, 2/2 aligned uses in InsaneTimer_module_startup); was UINT_008da540."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008da5cc",
+  "old": "g_pTimerServices",
+  "global": "g_pInsaneTimer_share_services",
+  "oldtype": "int *",
+  "names_only": true,
+  "comment": "Service table of the module manager handed to InsaneTimer_Register Original name share_services (the remaster's GrimFandango (Linux): static of the InsaneTimer module, 2/2 aligned uses in InsaneTimer_module_startup); was g_pTimerServices."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008da85c",
+  "old": "UINT_008da85c",
+  "global": "g_dwInsaneTimer_share_config",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name share_config (the remaster's GrimFandango (Linux): static of the InsaneTimer module, 1/1 aligned uses in InsaneTimer_module_startup); was UINT_008da85c."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008da890",
+  "old": "PTR_008da890",
+  "global": "g_pVideo_memory_services",
+  "oldtype": "int *",
+  "names_only": true,
+  "comment": "Original name memory_services (the remaster's GrimFandango (Linux): static of the Video module, 2/2 aligned uses in Video_module_startup); was PTR_008da890."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008da894",
+  "old": "PTR_008da894",
+  "global": "g_pVideo_share_services",
+  "oldtype": "int *",
+  "names_only": true,
+  "comment": "Original name share_services (the remaster's GrimFandango (Linux): static of the Video module, 3/3 aligned uses in Video_module_startup); was PTR_008da894."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008da898",
+  "old": "UINT_008da898",
+  "global": "g_dwVideo_share_config",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name share_config (the remaster's GrimFandango (Linux): static of the Video module, 2/2 aligned uses in Video_module_startup); was UINT_008da898."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008da89c",
+  "old": "UINT_008da89c",
+  "global": "g_dwVideo_video_services",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name video_services (the remaster's GrimFandango (Linux): static of the Video module, 1/1 aligned uses in Video_module_startup); was UINT_008da89c."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008da8a8",
+  "old": "PTR_008da8a8",
+  "global": "g_pSoundModule_memory_services",
+  "oldtype": "int *",
+  "names_only": true,
+  "comment": "Original name memory_services (the remaster's GrimFandango (Linux): static of the SoundModule module, 2/2 aligned uses in SoundModule_module_startup); was PTR_008da8a8."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008dacb0",
+  "old": "UINT_008dacb0",
+  "global": "g_dwSound_bufsize",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name sound_bufsize (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in SoundModule_module_startup); was UINT_008dacb0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008dacf0",
+  "old": "PTR_008dacf0",
+  "global": "g_pSoundModule_snddriver_services",
+  "oldtype": "int *",
+  "names_only": true,
+  "comment": "Original name snddriver_services (the remaster's GrimFandango (Linux): static of the SoundModule module, 2/2 aligned uses in SoundModule_module_startup); was PTR_008dacf0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008dacf8",
+  "old": "PTR_008dacf8",
+  "global": "g_pSoundModule_share_services",
+  "oldtype": "int *",
+  "names_only": true,
+  "comment": "Original name share_services (the remaster's GrimFandango (Linux): static of the SoundModule module, 3/3 aligned uses in SoundModule_module_startup); was PTR_008dacf8."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008dacfc",
+  "old": "UINT_008dacfc",
+  "global": "g_dwSound_reserveram",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name sound_reserveram (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in SoundModule_module_startup); was UINT_008dacfc."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008dad48",
+  "old": "UINT_008dad48",
+  "global": "g_dwSoundModule_timer_services",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name timer_services (the remaster's GrimFandango (Linux): static of the SoundModule module, 2/2 aligned uses in SoundModule_module_startup); was UINT_008dad48."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008db098",
+  "old": "UINT_008db098",
+  "global": "g_dwSoundModule_share_config",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name share_config (the remaster's GrimFandango (Linux): static of the SoundModule module, 3/3 aligned uses in SoundModule_module_startup); was UINT_008db098."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008db09c",
+  "old": "UINT_008db09c",
+  "global": "g_dwSound_samplerate",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name sound_samplerate (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in SoundModule_module_startup); was UINT_008db09c."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008db0a0",
+  "old": "UINT_008db0a0",
+  "global": "g_dwSound_name",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name sound_name (the remaster's GrimFandango (Linux): 2/2 aligned uses (of 2 for the symbol) in SoundModule_module_startup); was UINT_008db0a0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008db41c",
+  "old": "g_pDsndServices",
+  "global": "g_pDsndDriver_share_services",
+  "oldtype": "int *",
+  "names_only": true,
+  "comment": "Service table of the module manager handed to DsndDriver_Register Original name share_services (the remaster's GrimFandango (Linux): static of the DsndDriver module, 2/2 aligned uses in DsndDriver_module_startup); was g_pDsndServices."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008db424",
+  "old": "g_pDsndClock",
+  "global": "g_pDsndDriver_timer_services",
+  "oldtype": "int *",
+  "names_only": true,
+  "comment": "Interface of the TIMER clock module used by the DirectSound sound driver Original name timer_services (the remaster's GrimFandango (Linux): static of the DsndDriver module, 2/2 aligned uses in DsndDriver_module_startup); was g_pDsndClock."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008db430",
+  "old": "UINT_008db430",
+  "global": "g_dwDsndDriver_share_config",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name share_config (the remaster's GrimFandango (Linux): static of the DsndDriver module, 1/1 aligned uses in DsndDriver_module_startup); was UINT_008db430."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ddfa0",
+  "old": "g_dwRdCacheMeshCount",
+  "global": "g_dwRdCache_numProcFaces",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Number of meshes waiting in the rdCache mesh list Original name rdCache_numProcFaces (the remaster's GrimFandango (Linux): 6/6 aligned uses (of 6 for the symbol) in rdCache_Reset, rdCache_Flush); was g_dwRdCacheMeshCount."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ddfc0",
+  "old": "DAT_008ddfc0",
+  "global": "g_bRdCache_aProcFaces",
+  "oldtype": "undefined1",
+  "names_only": true,
+  "comment": "Original name rdCache_aProcFaces (the remaster's GrimFandango (Linux): 3/3 aligned uses (of 3 for the symbol) in rdCache_Flush); was DAT_008ddfc0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00900000",
+  "old": "g_nRdroidLightingMode",
+  "global": "g_nRdroid_curLightingMode",
+  "oldtype": "int",
+  "names_only": true,
+  "comment": "Global upper limit for the lighting mode of drawn meshes Original name rdroid_curLightingMode (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in rdSprite_Draw); was g_nRdroidLightingMode."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00900004",
+  "old": "g_pSvcRdroid",
+  "global": "g_pRdroid_HS",
+  "oldtype": "GrimServices *",
+  "names_only": true,
+  "comment": "Service table pointer used by the RDroid renderer library Original name rdroid_pHS (the remaster's GrimFandango (Linux): 51/51 aligned uses (of 55 for the symbol) in rdColormap_Load, rdColormap_LoadEntry, rdColormap_FreeEntry); was g_pSvcRdroid."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00900048",
+  "old": "g_nRdroidOcclusionMode",
+  "global": "g_nRdroid_curOcclusionMethod",
+  "oldtype": "int",
+  "names_only": true,
+  "comment": "Selects the software drawing path in rdCache_Flush Original name rdroid_curOcclusionMethod (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in rdCache_Flush); was g_nRdroidOcclusionMode."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00900050",
+  "old": "g_nRdroidZBufferMode",
+  "global": "g_nRdroid_curZBufferMethod",
+  "oldtype": "int",
+  "names_only": true,
+  "comment": "Selects the z-buffered software path in rdCache_Flush Original name rdroid_curZBufferMethod (the remaster's GrimFandango (Linux): 2/2 aligned uses (of 2 for the symbol) in rdCache_Flush); was g_nRdroidZBufferMode."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00900058",
+  "old": "g_nRdroidSortMode",
+  "global": "g_nRdroid_curSortingMethod",
+  "oldtype": "int",
+  "names_only": true,
+  "comment": "Mesh cache sorting method (2 sorts by depth) Original name rdroid_curSortingMethod (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in rdCache_Flush); was g_nRdroidSortMode."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0090005c",
+  "old": "g_nRdroid3DAccel",
+  "global": "g_nRdroid_curAcceleration",
+  "oldtype": "int",
+  "names_only": true,
+  "comment": "Positive when Direct3D hardware rendering is active Original name rdroid_curAcceleration (the remaster's GrimFandango (Linux): 2/2 aligned uses (of 2 for the symbol) in rdColormap_SetCurrent, rdCache_Flush); was g_nRdroid3DAccel."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00900060",
+  "old": "g_nRdroidTextureMode",
+  "global": "g_nRdroid_curTextureMode",
+  "oldtype": "int",
+  "names_only": true,
+  "comment": "Global upper limit for the texture mode of drawn meshes Original name rdroid_curTextureMode (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in rdSprite_Draw); was g_nRdroidTextureMode."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00900064",
+  "old": "g_dwRdroidFlags",
+  "global": "g_dwRdroid_curRenderOptions",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Renderer option bits set by rdroid_SetRenderFlags Original name rdroid_curRenderOptions (the remaster's GrimFandango (Linux): 4/4 aligned uses (of 4 for the symbol) in rdModel3_DrawMeshImpl, rdModel3_DrawFace, rdSprite_Draw); was g_dwRdroidFlags."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00900068",
+  "old": "DAT_00900068",
+  "global": "g_bRdroid_curCullFlags",
+  "oldtype": "undefined1",
+  "names_only": true,
+  "comment": "Original name rdroid_curCullFlags (the remaster's GrimFandango (Linux): 2/2 aligned uses (of 2 for the symbol) in rdModel3_DrawMeshImpl, rdSprite_Draw); was DAT_00900068."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "009004a0",
+  "old": "DAT_009004a0",
+  "global": "g_bStdConffile_pFilename",
+  "oldtype": "undefined1",
+  "names_only": true,
+  "comment": "Original name stdConffile_pFilename (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 2 for the symbol) in stdConffile_OpenMode); was DAT_009004a0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00900520",
+  "old": "UINT_00900520",
+  "global": "g_dwStdConffile_aLine",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name stdConffile_aLine (the remaster's GrimFandango (Linux): 60/60 aligned uses (of 60 for the symbol) in rdModel3_LoadEntryText, stdConffile_OpenMode, stdConffile_Close); was UINT_00900520."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00901680",
+  "old": "g_PrimarySurface",
+  "global": "g_dwStdDisplay_frontBuffer",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name stdDisplay_frontBuffer (the remaster's GrimFandango (Linux): 1/1 aligned uses (of 1 for the symbol) in grimlib_PlayMovie); was g_PrimarySurface."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "009055e0",
+  "old": "g_BackBuffer",
+  "global": "g_dwStdDisplay_backBuffer",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name stdDisplay_backBuffer (the remaster's GrimFandango (Linux): 9/15 aligned uses (of 10 for the symbol) in sputRender_Update, sputRender_Dim, sputRender_SaveScreen); was g_BackBuffer."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "009056c0",
+  "old": "DAT_009056c0",
+  "global": "g_bStd_genBuffer",
+  "oldtype": "undefined1",
+  "names_only": true,
+  "comment": "Original name std_genBuffer (the remaster's GrimFandango (Linux): 5/5 aligned uses (of 5 for the symbol) in Main_Service, rdKeyframe_LoadEntry); was DAT_009056c0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00905ac0",
+  "old": "g_pSvcMain",
+  "global": "g_pStd_HS",
+  "oldtype": "GrimServices *",
+  "names_only": true,
+  "comment": "Service table pointer used by grimdemo.c and grimplat.cpp code Original name std_pHS (the remaster's GrimFandango (Linux): 114/114 aligned uses (of 117 for the symbol) in stdConffile_OpenMode, stdConffile_Close, stdBmp_Load); was g_pSvcMain."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00906c1c",
+  "old": "PTR_00906c1c",
+  "global": "g_pAnimFrame_memory_services",
+  "oldtype": "int *",
+  "names_only": true,
+  "comment": "Original name memory_services (the remaster's GrimFandango (Linux): static of the AnimFrame module, 4/4 aligned uses in AnimFrame_module_startup); was PTR_00906c1c."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00906c20",
+  "old": "UINT_00906c20",
+  "global": "g_dwAnimFrame_bitmap_services",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name bitmap_services (the remaster's GrimFandango (Linux): static of the AnimFrame module, 2/2 aligned uses in AnimFrame_module_startup); was UINT_00906c20."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00906c24",
+  "old": "PTR_00906c24",
+  "global": "g_pAnimFrame_share_services",
+  "oldtype": "int *",
+  "names_only": true,
+  "comment": "Original name share_services (the remaster's GrimFandango (Linux): static of the AnimFrame module, 5/5 aligned uses in AnimFrame_module_startup); was PTR_00906c24."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00906c2c",
+  "old": "UINT_00906c2c",
+  "global": "g_dwAnimFrame_video_services",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name video_services (the remaster's GrimFandango (Linux): static of the AnimFrame module, 1/1 aligned uses in AnimFrame_module_startup); was UINT_00906c2c."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00906c30",
+  "old": "g_pAnimDebug",
+  "global": "g_pAnm_virtherc_services",
+  "oldtype": "int *",
+  "names_only": true,
+  "comment": "VIRTHERC debug service of the AnimPlay module Original name anm_virtherc_services (the remaster's GrimFandango (Linux): 15/15 aligned uses (of 15 for the symbol) in anm_Start, anm_Render, AnimPlay_module_startup); was g_pAnimDebug."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00906c34",
+  "old": "g_pAnimFrame",
+  "global": "g_pAnm_animframe_services",
+  "oldtype": "int *",
+  "names_only": true,
+  "comment": "ANIMFRAME render service of the AnimPlay module Original name anm_animframe_services (the remaster's GrimFandango (Linux): 2/2 aligned uses (of 3 for the symbol) in anm_animator_Render, AnimPlay_module_startup); was g_pAnimFrame."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00906c38",
+  "old": "g_pAnimStreamer",
+  "global": "g_pAnm_streamer_services",
+  "oldtype": "int *",
+  "names_only": true,
+  "comment": "STREAMER spooler service of the AnimPlay module Original name anm_streamer_services (the remaster's GrimFandango (Linux): 4/5 aligned uses (of 5 for the symbol) in anm_Start, anm_animator_Render, AnimPlay_module_startup); was g_pAnimStreamer."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00906c3c",
+  "old": "g_pAnimMemory",
+  "global": "g_pAnm_memory_services",
+  "oldtype": "int *",
+  "names_only": true,
+  "comment": "MEMORY workspace service of the AnimPlay module Original name anm_memory_services (the remaster's GrimFandango (Linux): 4/4 aligned uses (of 4 for the symbol) in anm_Start, AnimPlay_module_startup); was g_pAnimMemory."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00906c40",
+  "old": "PTR_00906c40",
+  "global": "g_pAnm_share_services",
+  "oldtype": "int *",
+  "names_only": true,
+  "comment": "Original name anm_share_services (the remaster's GrimFandango (Linux): 7/8 aligned uses (of 7 for the symbol) in AnimPlay_module_startup); was PTR_00906c40."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00906c44",
+  "old": "g_pZfileFileIo",
+  "global": "g_pZf_filio_services",
+  "oldtype": "int *",
+  "names_only": true,
+  "comment": "FILIO chainto file service of the Zfile module Original name zf_filio_services (the remaster's GrimFandango (Linux): 15/15 aligned uses (of 15 for the symbol) in gz_open, gzread, gzwrite); was g_pZfileFileIo."
+ }
+]

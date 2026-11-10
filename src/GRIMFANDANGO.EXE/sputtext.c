@@ -15,7 +15,7 @@ undefined4 sputText_Initialize(GrimServices *param_1,undefined4 *param_2)
 {
   int iVar1;
   
-  _DAT_008ca144 = param_1;
+  _g_pSputtextHS = param_1;
   *param_2 = sputText_Initialize;
   param_2[1] = sputText_Terminate;
   param_2[2] = sputText_Startup;
@@ -24,11 +24,11 @@ undefined4 sputText_Initialize(GrimServices *param_1,undefined4 *param_2)
   param_2[5] = sputText_RestoreState;
   param_2[6] = 0;
   param_2[7] = 0;
-  iVar1 = PlatModule_Init(param_1,&DAT_008ca118);
+  iVar1 = PlatModule_Init(param_1,&g_aGraphMS);
   if (iVar1 == 0) {
-    iVar1 = TextModule_Init(param_1,&DAT_008ca0b8);
+    iVar1 = TextModule_Init(param_1,&g_aTextMS);
     if (iVar1 == 0) {
-      UINT_008ca138 = 1;
+      g_dwSputtextInitialize = 1;
       return 0;
     }
   }
@@ -43,11 +43,11 @@ undefined4 sputText_Initialize(GrimServices *param_1,undefined4 *param_2)
 void sputText_Terminate(void)
 
 {
-  _DAT_008ca144 = 0;
+  _g_pSputtextHS = 0;
   (*(code *)UINT_008ca11c)();
   (*(code *)UINT_008ca0bc)();
-  if (UINT_008ca138 != 0) {
-    UINT_008ca138 = 0;
+  if (g_dwSputtextInitialize != 0) {
+    g_dwSputtextInitialize = 0;
   }
   return;
 }
@@ -70,41 +70,41 @@ undefined4 sputText_Startup(void)
         UINT_004e84a0 = Text_GetDefaultFont();
         UINT_004e84d0 = UINT_004e84a0;
         UINT_004e8500 = UINT_004e84a0;
-        UINT_008ca148 = UINT_004e84a0;
-        Lua_OpenEngineLib(&PTR_s_IsMessageGoing_004e8528,UINT_004e85d8);
+        g_hFont = UINT_004e84a0;
+        Lua_OpenEngineLib(&g_pTextFunctionsToRegister,UINT_004e85d8);
         lua_pushstring(&DAT_004e8454);
-        UINT_008ca0dc = lua_ref(1);
+        g_dwLrX = lua_ref(1);
         lua_pushstring(&DAT_004e8450);
-        UINT_008ca0e0 = lua_ref(1);
+        g_dwLrY = lua_ref(1);
         lua_pushstring(&DAT_004e87c0);
-        UINT_008ca104 = lua_ref(1);
+        g_dwLrFont = lua_ref(1);
         lua_pushstring(s_width_004e8440);
-        UINT_008ca0f8 = lua_ref(1);
+        g_dwLrWidth = lua_ref(1);
         lua_pushstring(s_height_004e8438);
-        UINT_008ca0d8 = lua_ref(1);
+        g_dwLrHeight = lua_ref(1);
         lua_pushstring(s_fgcolor_004e87b8);
-        UINT_008ca110 = lua_ref(1);
+        g_dwLrFGColor = lua_ref(1);
         lua_pushstring(s_bgcolor_004e87b0);
-        UINT_008ca0fc = lua_ref(1);
+        g_dwLrBGColor = lua_ref(1);
         lua_pushstring(s_fxcolor_004e87a8);
-        UINT_008ca0f0 = lua_ref(1);
+        g_dwLrFXColor = lua_ref(1);
         lua_pushstring(s_hicolor_004e87a0);
-        UINT_008ca0e8 = lua_ref(1);
+        g_dwLrHiColor = lua_ref(1);
         lua_pushstring(s_duration_004e8794);
-        UINT_008ca0ec = lua_ref(1);
+        g_dwLrDuration = lua_ref(1);
         lua_pushstring(s_center_004e878c);
-        UINT_008ca0f4 = lua_ref(1);
+        g_dwLrCenter = lua_ref(1);
         lua_pushstring(s_ljustify_004e8780);
-        UINT_008ca108 = lua_ref(1);
+        g_dwLrLJustify = lua_ref(1);
         lua_pushstring(s_rjustify_004e8774);
-        UINT_008ca10c = lua_ref(1);
+        g_dwLrRJustify = lua_ref(1);
         lua_pushstring(s_volume_004e876c);
-        UINT_008ca100 = lua_ref(1);
+        g_dwLrVolume = lua_ref(1);
         lua_pushstring(&DAT_004e8768);
-        UINT_008ca114 = lua_ref(1);
+        g_dwLrPan = lua_ref(1);
         lua_pushstring(s_background_004e875c);
-        UINT_008ca0e4 = lua_ref(1);
-        g_pTextObjectPool = (void **)Pool_Create(0x260,0x10,8);
+        g_dwLrBackground = lua_ref(1);
+        g_pTextEventPool = (void **)Pool_Create(0x260,0x10,8);
         UINT_008ca13c = 1;
         return 0;
       }
@@ -122,25 +122,25 @@ void sputText_Stop(void)
 {
   (*(code *)UINT_008ca124)();
   (*(code *)UINT_008ca0c4)();
-  lua_unref(UINT_008ca0dc);
-  lua_unref(UINT_008ca0e0);
-  lua_unref(UINT_008ca104);
-  lua_unref(UINT_008ca0f8);
-  lua_unref(UINT_008ca0d8);
-  lua_unref(UINT_008ca110);
-  lua_unref(UINT_008ca0fc);
-  lua_unref(UINT_008ca0f0);
-  lua_unref(UINT_008ca0e8);
-  lua_unref(UINT_008ca0ec);
-  lua_unref(UINT_008ca0f4);
-  lua_unref(UINT_008ca108);
-  lua_unref(UINT_008ca10c);
-  lua_unref(UINT_008ca100);
-  lua_unref(UINT_008ca114);
-  lua_unref(UINT_008ca0e4);
-  if (g_pTextObjectPool != (void **)0x0) {
-    Pool_Destroy(g_pTextObjectPool);
-    g_pTextObjectPool = (void **)0x0;
+  lua_unref(g_dwLrX);
+  lua_unref(g_dwLrY);
+  lua_unref(g_dwLrFont);
+  lua_unref(g_dwLrWidth);
+  lua_unref(g_dwLrHeight);
+  lua_unref(g_dwLrFGColor);
+  lua_unref(g_dwLrBGColor);
+  lua_unref(g_dwLrFXColor);
+  lua_unref(g_dwLrHiColor);
+  lua_unref(g_dwLrDuration);
+  lua_unref(g_dwLrCenter);
+  lua_unref(g_dwLrLJustify);
+  lua_unref(g_dwLrRJustify);
+  lua_unref(g_dwLrVolume);
+  lua_unref(g_dwLrPan);
+  lua_unref(g_dwLrBackground);
+  if (g_pTextEventPool != (void **)0x0) {
+    Pool_Destroy(g_pTextEventPool);
+    g_pTextEventPool = (void **)0x0;
   }
   UINT_008ca13c = 0;
   return;
@@ -159,11 +159,11 @@ undefined4 sputText_SaveState(code *param_1)
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   local_4 = 0;
-  for (puVar1 = g_pTextObjectList; puVar1 != (undefined4 *)0x0; puVar1 = (undefined4 *)*puVar1) {
+  for (puVar1 = g_pTextQueue; puVar1 != (undefined4 *)0x0; puVar1 = (undefined4 *)*puVar1) {
     local_4 = local_4 + 1;
   }
   iVar2 = (*param_1)(&local_4,4);
-  puVar1 = g_pTextObjectList;
+  puVar1 = g_pTextQueue;
   if (iVar2 != 0) {
     return 1;
   }
@@ -217,15 +217,15 @@ undefined4 sputText_RestoreState(code *param_1)
   #define local_4 (*(int *)(_frame + (0x20 - 0x4)))
   
   pcVar3 = param_1;
-  while (g_pTextObjectList != (void *)0x0) {
-    List_Unlink(g_pTextObjectList);
+  while (g_pTextQueue != (void *)0x0) {
+    List_Unlink(g_pTextQueue);
   }
   iVar4 = (*param_1)(&local_4,4);
   if (iVar4 == 0) {
     param_1 = (code *)0x0;
     if (0 < local_4) {
       do {
-        puVar5 = (undefined4 *)Pool_Alloc(g_pTextObjectPool);
+        puVar5 = (undefined4 *)Pool_Alloc(g_pTextEventPool);
         (*pcVar3)(puVar5 + 2,0x200);
         piVar1 = puVar5 + 0x82;
         (*pcVar3)(piVar1,4);
@@ -260,29 +260,29 @@ undefined4 sputText_RestoreState(code *param_1)
         }
         puVar5[0x8d] = g_wTextColors;
         puVar5[1] = 0;
-        *puVar5 = g_pTextObjectList;
-        if (g_pTextObjectList != (void *)0x0) {
-          *(undefined4 **)((int)g_pTextObjectList + 4) = puVar5;
+        *puVar5 = g_pTextQueue;
+        if (g_pTextQueue != (void *)0x0) {
+          *(undefined4 **)((int)g_pTextQueue + 4) = puVar5;
         }
         param_1 = (code *)((int)param_1 + 1);
-        g_pTextObjectList = puVar5;
+        g_pTextQueue = puVar5;
       } while ((int)param_1 < local_4);
     }
     (*pcVar3)(&UINT_004e84a0,4);
     (*pcVar3)(&UINT_004e84d0,4);
     (*pcVar3)(&UINT_004e8500,4);
-    UINT_008ca148 = Text_GetDefaultFont();
+    g_hFont = Text_GetDefaultFont();
     UINT_004e84a0 = (uint)Res_DataFromHandle((void *)UINT_004e84a0);
     UINT_004e84d0 = (uint)Res_DataFromHandle((void *)UINT_004e84d0);
     UINT_004e8500 = (uint)Res_DataFromHandle((void *)UINT_004e8500);
     if (UINT_004e84a0 == 0) {
-      UINT_004e84a0 = UINT_008ca148;
+      UINT_004e84a0 = g_hFont;
     }
     if (UINT_004e84d0 == 0) {
-      UINT_004e84d0 = UINT_008ca148;
+      UINT_004e84d0 = g_hFont;
     }
     if ((void *)UINT_004e8500 == (void *)0x0) {
-      UINT_004e8500 = UINT_008ca148;
+      UINT_004e8500 = g_hFont;
     }
     return 0;
   }

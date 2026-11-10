@@ -13,8 +13,8 @@ undefined4 __cdecl Svc_Printf(char *fmt,...)
 {
   undefined4 uVar1;
   
-  uVar1 = vsprintf(&DAT_004f5aa0,fmt,&STACK0X(0x00000008));
-  printf(&DAT_004dda18,&DAT_004f5aa0);
+  uVar1 = vsprintf(&g_aBuffer,fmt,&STACK0X(0x00000008));
+  printf(&DAT_004dda18,&g_aBuffer);
   return uVar1;
 }
 
@@ -24,8 +24,8 @@ undefined4 Svc_Printf2(undefined4 param_1)
 {
   undefined4 uVar1;
   
-  uVar1 = vsprintf(&DAT_004f5aa0,param_1,&STACK0X(0x00000008));
-  printf(&DAT_004dda18,&DAT_004f5aa0);
+  uVar1 = vsprintf(&g_aBuffer,param_1,&STACK0X(0x00000008));
+  printf(&DAT_004dda18,&g_aBuffer);
   return uVar1;
 }
 
@@ -38,8 +38,8 @@ undefined4 defaultWarningPrint(undefined4 param_1)
 {
   undefined4 uVar1;
   
-  uVar1 = vsprintf(&DAT_004f5aa0,param_1,&STACK0X(0x00000008));
-  printf(s_WARNING___s_004dda1c,&DAT_004f5aa0);
+  uVar1 = vsprintf(&g_aBuffer,param_1,&STACK0X(0x00000008));
+  printf(s_WARNING___s_004dda1c,&g_aBuffer);
   return uVar1;
 }
 
@@ -52,8 +52,8 @@ undefined4 defaultErrorPrint(undefined4 param_1)
 {
   undefined4 uVar1;
   
-  uVar1 = vsprintf(&DAT_004f5aa0,param_1,&STACK0X(0x00000008));
-  printf(s_ERROR___s_004dda28,&DAT_004f5aa0);
+  uVar1 = vsprintf(&g_aBuffer,param_1,&STACK0X(0x00000008));
+  printf(s_ERROR___s_004dda28,&g_aBuffer);
   return uVar1;
 }
 
@@ -66,8 +66,8 @@ undefined4 defaultDebugPrint(undefined4 param_1)
 {
   undefined4 uVar1;
   
-  uVar1 = vsprintf(&DAT_004f5aa0,param_1,&STACK0X(0x00000008));
-  printf(s_DEBUG___s_004dda34,&DAT_004f5aa0);
+  uVar1 = vsprintf(&g_aBuffer,param_1,&STACK0X(0x00000008));
+  printf(s_DEBUG___s_004dda34,&g_aBuffer);
   return uVar1;
 }
 
@@ -259,7 +259,7 @@ void __cdecl Services_SetCurrent(GrimServices *svc)
   int iVar2;
   undefined2 in_FPUControlWord;
   
-  g_pSvcMain = svc;
+  g_pStd_HS = svc;
   iVar2 = Plat_ReturnTrue();
   if (iVar2 == 0) {
     return;
@@ -299,7 +299,7 @@ void Services_InitPlatform(GrimServices *param_1)
 undefined4 __cdecl Svc_DebugPrintf(char *fmt,...)
 
 {
-  _snprintf(&DAT_009056c0,0x400,fmt,&STACK0X(0x00000008));
+  _snprintf(&g_bStd_genBuffer,0x400,fmt,&STACK0X(0x00000008));
   OutputDebugStringA(IMG_ADDR(0x009056c0));
   return 1;
 }

@@ -28,8 +28,41 @@ OWN = ["pfn", "pp", "ap", "sz", "dw", "fl", "lp", "by", "ch", "ul", "ui", "p", "
        "l", "u", "e"]
 
 
+ELF = {"LUA.DLL": "C:/GOG Games/Grim Fandango Remastered/libLua.so",
+       "GRIMFANDANGO.EXE": "C:/GOG Games/Grim Fandango Remastered/GrimFandango",
+       "IMUSE.DLL": "C:/GOG Games/Grim Fandango Remastered/GrimFandango"}
+
+
+def elf_data_sizes(path):
+    """demangled data symbol name (also its last :: part and the C static `f.x` as f_x) -> sizes, from the .symtab"""
+    import struct, subprocess
+    d = open(path, "rb").read()
+    shoff, = struct.unpack_from("<I", d, 0x20)
+    shentsize, shnum = struct.unpack_from("<HH", d, 0x2e)
+    sh = [struct.unpack_from("<IIIIIIIIII", d, shoff + i * shentsize) for i in range(shnum)]
+    syms = []
+    for s in sh:
+        if s[1] == 2:
+            strtab = sh[s[6]]
+            for i in range(s[5] // 16):
+                nm, val, size, info, _, _ = struct.unpack_from("<IIIBBH", d, s[4] + i * 16)
+                if info & 15 == 1 and val:
+                    syms.append((d[strtab[4] + nm:d.index(b"\0", strtab[4] + nm)].decode(), size))
+    dem = subprocess.run(["c++filt"], input="\n".join(n for n, _ in syms), capture_output=True,
+                         text=True).stdout.split("\n")
+    out = {}
+    for (n, size), dn in zip(syms, dem):
+        dn = re.sub(r"\(.*?\)", "", dn.strip() or n)
+        for k in {dn, dn.split("::")[-1], re.sub(r"\.\d+$", "", dn)}:
+            out.setdefault(k, set()).add(size)
+    return out
+
+
 def type_prefixes(t, size):
     t = (t or "").strip()
+    if "[" in t:   # arrays: the bridge takes no plain `a`
+        base = t.split("[")[0].strip()
+        return {"char": ["sz"], "float": ["fl"], "byte": ["ab"], "undefined1": ["ab"]}.get(base, ["ab", "dw"])
     if t in ("undefined4", "dword"):
         return ["dw", "n"]
     if t in ("int", "long"):
@@ -46,8 +79,8 @@ def type_prefixes(t, size):
         return ["sz", "p"]
     if "*" in t or t == "pointer":
         return ["p", "pfn"]
-    if not t or t == "undefined":   # no data item (only address-taken: a table or a structure); force a name with =<name> otherwise
-        return ["a"]
+    if not t or t == "undefined":   # no data item: by the remaster's size, a scalar or a table / structure
+        return ["dw", "n"] if 0 < size <= 4 else ["a"]
     return ["a", "dw", "n", "p"]
 
 
@@ -64,23 +97,27 @@ def dry(prog, addr, name, strict=""):
 
 
 def split_own(body):
+    """-> (own Hungarian prefix, rest, body without the global marker)"""
     m = re.match(r"^g([A-Z].*)$", body)          # gNumPages: the 'g' is the global marker
     if m:
         body = m.group(1)
     for p in OWN:
         if body.startswith(p) and len(body) > len(p) and body[len(p)].isupper():
-            return p, body[len(p):]
-    return "", body
+            return p, body[len(p):], body
+    m = re.match(r"^([pbf])(sput\w+)$", body)    # psputRendHS, bsputRendInitialize: prefix + the sput module name
+    if m:
+        return m.group(1), cap(m.group(2)), body
+    return "", body, body
 
 
 def cap(s):
     return s[:1].upper() + s[1:]
 
 
-def new_name(prog, addr, orig, cur_type, size):
+def new_name(prog, addr, orig, cur_type, size, cur=""):
     body = re.sub(r"\.\d+$", "", orig).replace("::", "_").replace(".", "_")
     body = re.sub(r"\(.*?\)", "", body)
-    own, stem = split_own(body)
+    own, stem, body = split_own(body)
     rest = stem if own else cap(body)    # after another prefix than the original's
     m = re.match(r"^([A-Za-z][A-Za-z0-9]*)_([a-z]+)([A-Z]\w*)$", body)
     if not own and m and m.group(2) in OWN:
@@ -95,7 +132,7 @@ def new_name(prog, addr, orig, cur_type, size):
     for t in tps:
         cands.append(("g_" + t + rest, ""))
     for c, s in cands:
-        if dry(prog, addr, c, s):
+        if c == cur or dry(prog, addr, c, s):   # (the bridge refuses a dry run of the current name)
             return c, s
     # the bridge takes no prefix for Ghidra's generic `pointer` type: keep the pointer prefix, warn mode
     t = type_prefixes(cur_type, size)[0]
@@ -105,6 +142,8 @@ def new_name(prog, addr, orig, cur_type, size):
 def main():
     prog, spec, out = sys.argv[1:4]
     path = PROG_PATH[prog]
+    global ELF_SIZES
+    ELF_SIZES = elf_data_sizes(ELF[prog])
     taken = set()
     for f in json.load(open(os.path.join(ROOT, "raw", prog, "functions.json"))):
         taken.add(f["name"])
@@ -125,10 +164,13 @@ def main():
             print("NO SYMBOL", addr, orig, a)
             continue
         size = int(a.get("length") or 0)
+        if cur_type == "undefined":
+            sz = ELF_SIZES.get(orig.split("(")[0] if "::" not in orig else re.sub(r"\(.*?\)", "", orig)) or set()
+            size = max(sz) if len(sz) == 1 else 0
         if force:
             name, strict = force, ("" if dry(path, addr, force) else "warn")
         else:
-            name, strict = new_name(path, addr, body or orig, cur_type, size)
+            name, strict = new_name(path, addr, body or orig, cur_type, size, old)
         if name in taken and name != old:
             print("NAME TAKEN", addr, name)
             continue

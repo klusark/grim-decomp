@@ -96,10 +96,10 @@ undefined4 Memory_SysInitialize(GrimServices *param_1,undefined4 *param_2)
 {
   undefined4 uVar1;
   
-  g_pSvcMemory = param_1;
+  g_pMemoryHS = param_1;
   uVar1 = 1;
-  if (UINT_008c9a74 == 0) {
-    UINT_008c9a74 = 1;
+  if (g_dwMemorySysInitialized == 0) {
+    g_dwMemorySysInitialized = 1;
     if (param_2 != (undefined4 *)0x0) {
       *param_2 = Memory_SysInitialize;
       param_2[1] = Memory_Sys_Terminate;
@@ -122,7 +122,7 @@ undefined4 Memory_SysInitialize(GrimServices *param_1,undefined4 *param_2)
 void Memory_Sys_Terminate(void)
 
 {
-  UINT_008c9a74 = 0;
+  g_dwMemorySysInitialized = 0;
   return;
 }
 
@@ -136,7 +136,7 @@ undefined4 Memory_Sys_Start(void)
   undefined4 uVar1;
   
   uVar1 = 1;
-  if ((UINT_008c9a74 != 0) && (UINT_008c9a78 == 0)) {
+  if ((g_dwMemorySysInitialized != 0) && (UINT_008c9a78 == 0)) {
     UINT_008c9a78 = 1;
     uVar1 = 0;
   }
@@ -166,18 +166,16 @@ void ** Pool_Create(int param_1,void *param_2,void *param_3)
   void **ppvVar3;
   
   if (param_1 == 0) {
-    (*g_pSvcMemory->pAssertFail)
+    (*g_pMemoryHS->pAssertFail)
               (s_itemSize___0_004e82cc,s_C__grimsrc_libs_grimlib_Temp_Mem_004e8264,0x349);
   }
   if (param_3 == (void *)0x0) {
-    (*g_pSvcMemory->pAssertFail)
+    (*g_pMemoryHS->pAssertFail)
               (s_itemGrowBy___0_004e82bc,s_C__grimsrc_libs_grimlib_Temp_Mem_004e8264,0x34b);
   }
-  ppvVar1 = (void **)(*g_pSvcMemory->pAlloc)(0x24,s_C__grimsrc_libs_grimlib_Temp_Mem_004e8264,0x34f)
-  ;
+  ppvVar1 = (void **)(*g_pMemoryHS->pAlloc)(0x24,s_C__grimsrc_libs_grimlib_Temp_Mem_004e8264,0x34f);
   if (ppvVar1 == (void **)0x0) {
-    (*g_pSvcMemory->pAssertFail)(s_pPool_004e82b4,s_C__grimsrc_libs_grimlib_Temp_Mem_004e8264,0x350)
-    ;
+    (*g_pMemoryHS->pAssertFail)(s_pPool_004e82b4,s_C__grimsrc_libs_grimlib_Temp_Mem_004e8264,0x350);
   }
   ppvVar3 = ppvVar1;
   for (iVar2 = 9; iVar2 != 0; iVar2 = iVar2 + -1) {
@@ -196,7 +194,7 @@ void ** Pool_Create(int param_1,void *param_2,void *param_3)
     Pool_Grow(ppvVar1,param_2);
   }
   if (ppvVar1[5] != param_2) {
-    (*g_pSvcMemory->pAssertFail)
+    (*g_pMemoryHS->pAssertFail)
               (s_pPool__poolItems____itemCount_004e8294,s_C__grimsrc_libs_grimlib_Temp_Mem_004e8264,
                0x362);
   }
@@ -215,10 +213,10 @@ void Pool_Destroy(void **param_1)
   undefined4 *puVar4;
   
   if (param_1 == (void **)0x0) {
-    (*g_pSvcMemory->pAssertFail)(&DAT_004e82f4,s_C__grimsrc_libs_grimlib_Temp_Mem_004e8264,0x380);
+    (*g_pMemoryHS->pAssertFail)(&DAT_004e82f4,s_C__grimsrc_libs_grimlib_Temp_Mem_004e8264,0x380);
   }
   if (*param_1 != param_1) {
-    (*g_pSvcMemory->pAssertFail)
+    (*g_pMemoryHS->pAssertFail)
               (s_pPool__pPool____pPool_004e82dc,s_C__grimsrc_libs_grimlib_Temp_Mem_004e8264,0x381);
   }
   ppvVar2 = (void **)0x0;
@@ -235,10 +233,10 @@ void Pool_Destroy(void **param_1)
   puVar4 = param_1[8];
   while (puVar4 != (undefined4 *)0x0) {
     puVar1 = (undefined4 *)*puVar4;
-    (*g_pSvcMemory->pFree)(puVar4);
+    (*g_pMemoryHS->pFree)(puVar4);
     puVar4 = puVar1;
   }
-  (*g_pSvcMemory->pFree)(param_1);
+  (*g_pMemoryHS->pFree)(param_1);
   return;
 }
 
@@ -253,10 +251,10 @@ int * Pool_Alloc(int *param_1)
   uint uVar2;
   
   if (param_1 == (int *)0x0) {
-    (*g_pSvcMemory->pAssertFail)(&DAT_004e82f4,s_C__grimsrc_libs_grimlib_Temp_Mem_004e8264,0x42a);
+    (*g_pMemoryHS->pAssertFail)(&DAT_004e82f4,s_C__grimsrc_libs_grimlib_Temp_Mem_004e8264,0x42a);
   }
   if ((int *)*param_1 != param_1) {
-    (*g_pSvcMemory->pAssertFail)
+    (*g_pMemoryHS->pAssertFail)
               (s_pPool__pPool____pPool_004e82dc,s_C__grimsrc_libs_grimlib_Temp_Mem_004e8264,0x42b);
   }
   if (param_1[3] == param_1[5]) {
@@ -288,12 +286,11 @@ void __cdecl Pool_Free(void *item)
   int *piVar1;
   
   if (item == (void *)0x0) {
-    (*g_pSvcMemory->pAssertFail)(s_pData_004e828c,s_C__grimsrc_libs_grimlib_Temp_Mem_004e8264,0x45c)
-    ;
+    (*g_pMemoryHS->pAssertFail)(s_pData_004e828c,s_C__grimsrc_libs_grimlib_Temp_Mem_004e8264,0x45c);
   }
   piVar1 = *(int **)((int)item + -4);
   if ((int *)*piVar1 != piVar1) {
-    (*g_pSvcMemory->pAssertFail)
+    (*g_pMemoryHS->pAssertFail)
               (s_pPool__pPool____pPool_004e82dc,s_C__grimsrc_libs_grimlib_Temp_Mem_004e8264,0x462);
   }
   *(int *)((int)item + -8) = piVar1[7];
@@ -313,7 +310,7 @@ void Pool_Grow(int param_1,int param_2)
   int iVar3;
   
   puVar2 = (undefined4 *)
-           (*g_pSvcMemory->pAlloc)
+           (*g_pMemoryHS->pAlloc)
                      ((*(int *)(param_1 + 8) + 8) * param_2 + 8,
                       s_C__grimsrc_libs_grimlib_Temp_Mem_004e8264,0x906);
   if (puVar2 != (undefined4 *)0x0) {

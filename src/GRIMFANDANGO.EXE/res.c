@@ -14,7 +14,7 @@
 int daTotalAllocated(void)
 
 {
-  return UINT_00825e7c;
+  return g_dwStdMemory_curState;
 }
 
 /* ---- 0x00480230  Res_Register ---- */
@@ -34,7 +34,7 @@ void * __cdecl Res_Register(int fourcc,char *name,void *data)
     pvVar2 = Res_CreateRecord(fourcc,name,data);
     if (pvVar2 != (void *)0x0) {
       if (UINT_008a85e4 != 0) {
-        puVar1 = (undefined4 *)(UINT_008a856c + 0x54);
+        puVar1 = (undefined4 *)(g_dwResHS + 0x54);
         iVar3 = Res_GetSize(pvVar2);
         (*(code *)*puVar1)(UINT_008a85e4,s_Resource____12s__allocated___8ld_004e79f4,name,iVar3);
       }
@@ -64,7 +64,7 @@ int __cdecl Res_GetFilePath(char *name,char *buf,int size)
   iVar3 = 0;
   iVar4 = 0;
   uVar2 = Res_HashName(name,local_31c);
-  for (piVar1 = PTR_008a85c4; piVar1 != (int *)0x0; piVar1 = (int *)*piVar1) {
+  for (piVar1 = g_pResFileList; piVar1 != (int *)0x0; piVar1 = (int *)*piVar1) {
     if (iVar4 != 0) goto LAB_0048030d;
     iVar4 = 0;
     if ((*(byte *)(piVar1 + 0x45) & 2) == 0) {
@@ -160,7 +160,7 @@ int __cdecl Res_FreeUnreferenced(uint bytesWanted,uint *bytesFreed)
   if (bytesWanted != 0) {
     while (bVar2) {
       bVar2 = false;
-      pvVar1 = (void *)UINT_008a85d8;
+      pvVar1 = (void *)g_dwOldestResNode;
       while (res = pvVar1, res != (void *)0x0) {
         if (bytesWanted <= *bytesFreed) goto LAB_0048065f;
         local_8 = local_8 + 1;
@@ -209,7 +209,7 @@ int __cdecl Res_Dump(char *filename,int type)
   local_4 = 0;
   iVar4 = 0;
   fh = ResFile_Open(filename,&DAT_004dd478);
-  res = PTR_008a85d4;
+  res = g_pNewestResNode;
   if (fh != 0) {
     for (; res != (int *)0x0; res = (int *)*res) {
       if ((type == 0) || (res[4] == type)) {
@@ -217,7 +217,7 @@ int __cdecl Res_Dump(char *filename,int type)
         if (res[9] == 0) {
           pcVar2 = &DAT_004f5a98;
         }
-        puVar1 = (undefined4 *)(UINT_008a856c + 0x54);
+        puVar1 = (undefined4 *)(g_dwResHS + 0x54);
         iVar3 = Res_GetSize(res);
         (*(code *)*puVar1)(fh,s_Resource___12s__size____7ld__s_004e7a5c,res[2],iVar3,pcVar2);
         iVar3 = Res_GetSize(res);
@@ -225,7 +225,7 @@ int __cdecl Res_Dump(char *filename,int type)
         local_4 = local_4 + 1;
       }
     }
-    (**(code **)(UINT_008a856c + 0x54))(fh,s_Total___d_items___d_bytes_004e7a40,local_4,iVar4);
+    (**(code **)(g_dwResHS + 0x54))(fh,s_Total___d_items___d_bytes_004e7a40,local_4,iVar4);
     ResFile_Close(fh);
     return 1;
   }
@@ -239,11 +239,11 @@ int __cdecl Res_OpenLog(char *filename)
 
 {
   if (filename != (char *)0x0) {
-    UINT_008a85e4 = (**(code **)(UINT_008a856c + 0x30))(filename,&DAT_004dd478);
+    UINT_008a85e4 = (**(code **)(g_dwResHS + 0x30))(filename,&DAT_004dd478);
     return 1;
   }
   if (UINT_008a85e4 != 0) {
-    (**(code **)(UINT_008a856c + 0x34))(UINT_008a85e4);
+    (**(code **)(g_dwResHS + 0x34))(UINT_008a85e4);
     UINT_008a85e4 = 0;
   }
   return 1;
@@ -268,7 +268,7 @@ void __cdecl Res_InstallFileServices(GrimServices *svc)
     pGVar2 = (GrimServices *)&pGVar2->pPrintf;
     pGVar3 = (GrimServices *)&pGVar3->pPrintf;
   }
-  UINT_008a8570 = (uint)&g_ResFileServices;
+  g_dwLowLevelHS = (uint)&g_ResFileServices;
   svc->pFopen = ResFile_Open;
   svc->pFclose = ResFile_Close;
   svc->pFread = ResFile_Read;
@@ -286,17 +286,17 @@ void __cdecl Res_InstallFileServices(GrimServices *svc)
 void __cdecl Res_RestoreFileServices(GrimServices *svc)
 
 {
-  svc->pFopen = *(void **)(UINT_008a8570 + 0x30);
-  svc->pFclose = *(void **)(UINT_008a8570 + 0x34);
-  svc->pFread = *(void **)(UINT_008a8570 + 0x38);
-  svc->pFgets = *(void **)(UINT_008a8570 + 0x3c);
-  svc->pFwrite = *(void **)(UINT_008a8570 + 0x40);
-  svc->pFeof = *(void **)(UINT_008a8570 + 0x44);
-  svc->pFtell = *(void **)(UINT_008a8570 + 0x48);
-  svc->pFseek = *(void **)(UINT_008a8570 + 0x4c);
-  svc->pFileSize = *(void **)(UINT_008a8570 + 0x50);
-  svc->pFprintf = *(void **)(UINT_008a8570 + 0x54);
-  UINT_008a8570 = UINT_008a856c;
+  svc->pFopen = *(void **)(g_dwLowLevelHS + 0x30);
+  svc->pFclose = *(void **)(g_dwLowLevelHS + 0x34);
+  svc->pFread = *(void **)(g_dwLowLevelHS + 0x38);
+  svc->pFgets = *(void **)(g_dwLowLevelHS + 0x3c);
+  svc->pFwrite = *(void **)(g_dwLowLevelHS + 0x40);
+  svc->pFeof = *(void **)(g_dwLowLevelHS + 0x44);
+  svc->pFtell = *(void **)(g_dwLowLevelHS + 0x48);
+  svc->pFseek = *(void **)(g_dwLowLevelHS + 0x4c);
+  svc->pFileSize = *(void **)(g_dwLowLevelHS + 0x50);
+  svc->pFprintf = *(void **)(g_dwLowLevelHS + 0x54);
+  g_dwLowLevelHS = g_dwResHS;
   return;
 }
 
@@ -306,7 +306,7 @@ void * __cdecl Res_FindByData(void *data)
 {
   int *piVar1;
   
-  piVar1 = PTR_008a85d4;
+  piVar1 = g_pNewestResNode;
   while( true ) {
     if (piVar1 == (int *)0x0) {
       return (void *)0x0;
@@ -336,7 +336,7 @@ void * __cdecl Res_FindByHandle(void *handle)
 {
   int *piVar1;
   
-  piVar1 = PTR_008a85d4;
+  piVar1 = g_pNewestResNode;
   while( true ) {
     if (piVar1 == (int *)0x0) {
       return (void *)0x0;
@@ -375,8 +375,8 @@ void * __cdecl Res_FindByName(int type,char *name)
   #define local_104 (*(byte (*)[260])(_frame + (0x120 - 0x104)))
   
   uVar2 = Res_HashName(name,(char *)local_104);
-  piVar6 = PTR_008a85d4;
-  if (PTR_008a85d4 == (int *)0x0) {
+  piVar6 = g_pNewestResNode;
+  if (g_pNewestResNode == (int *)0x0) {
     return (void *)0x0;
   }
   do {
@@ -485,7 +485,7 @@ undefined * __cdecl Res_FindByNameFrom(uint param_1,uint param_2)
 {
   undefined *puVar1;
   
-  puVar1 = (undefined *)Res_FindByNameInList(param_1,param_2,PTR_008a85d4);
+  puVar1 = (undefined *)Res_FindByNameInList(param_1,param_2,g_pNewestResNode);
   return puVar1;
 }
 
@@ -556,7 +556,7 @@ void * __cdecl Res_CreateRecord(int type,char *name,void *data)
   uint uVar5;
   int iVar6;
   
-  res = (int *)Pool_Alloc(UINT_008a85d0);
+  res = (int *)Pool_Alloc(g_dwResNodePool);
   if (res != (int *)0x0) {
     res[4] = type;
     res[5] = (int)data;
@@ -585,22 +585,22 @@ void * __cdecl Res_CreateRecord(int type,char *name,void *data)
         cVar1 = *pcVar4;
         pcVar4 = pcVar4 + 1;
       } while (cVar1 != '\0');
-      pcVar4 = (char *)(**(code **)(UINT_008a856c + 0x20))
+      pcVar4 = (char *)(**(code **)(g_dwResHS + 0x20))
                                  (~uVar5,s_C__grimsrc_libs_grimlib_Temp_Res_004e7a1c,0xaed);
       res[2] = (int)pcVar4;
       uVar5 = Res_HashName(name,pcVar4);
       *(byte *)(res + 7) = *(byte *)(res + 7) | 4;
       res[3] = uVar5;
     }
-    *res = (int)PTR_008a85d4;
-    if (PTR_008a85d4 != (int *)0x0) {
-      PTR_008a85d4[1] = (int)res;
+    *res = (int)g_pNewestResNode;
+    if (g_pNewestResNode != (int *)0x0) {
+      g_pNewestResNode[1] = (int)res;
     }
     res[1] = 0;
-    if (UINT_008a85d8 == 0) {
-      UINT_008a85d8 = (uint)res;
+    if (g_dwOldestResNode == 0) {
+      g_dwOldestResNode = (uint)res;
     }
-    PTR_008a85d4 = res;
+    g_pNewestResNode = res;
     Res_MoveToFront(res);
   }
   return res;
@@ -627,7 +627,7 @@ void __cdecl Res_CallUnload(void *res)
   for (piVar1 = *(int **)((int)res + 0x24); piVar1 != (int *)0x0; piVar1 = (int *)piVar1[0xc]) {
     iVar4 = iVar4 + 1;
     if (*piVar1 == 0) {
-      (**(code **)(UINT_008a856c + 0x18))
+      (**(code **)(g_dwResHS + 0x18))
                 (s_ref__valid____0_004e7ae0,s_C__grimsrc_libs_grimlib_Temp_Res_004e7a1c,0xb19);
     }
     *piVar1 = 0;
@@ -639,7 +639,7 @@ void __cdecl Res_CallUnload(void *res)
     local_14 = 2;
     iVar3 = (**(code **)((int)pvVar2 + 0xc))(&local_14);
     if ((iVar3 == 1) && (UINT_008a85e4 != 0)) {
-      (**(code **)(UINT_008a856c + 0x54))
+      (**(code **)(g_dwResHS + 0x54))
                 (UINT_008a85e4,s_Resource____12s__freed___d_refer_004e7ab8,
                  *(undefined4 *)((int)res + 8),iVar4);
     }
@@ -662,14 +662,14 @@ int __cdecl Res_Unlink(void *res)
   if (*(int *)res != 0) {
     *(undefined4 *)(*(int *)res + 4) = *(undefined4 *)((int)res + 4);
   }
-  if (PTR_008a85d4 == res) {
-    PTR_008a85d4 = *(int **)res;
+  if (g_pNewestResNode == res) {
+    g_pNewestResNode = *(int **)res;
   }
-  if ((void *)UINT_008a85d8 == res) {
-    UINT_008a85d8 = *(uint *)((int)res + 4);
+  if ((void *)g_dwOldestResNode == res) {
+    g_dwOldestResNode = *(uint *)((int)res + 4);
   }
   if ((*(byte *)((int)res + 0x1c) & 4) != 0) {
-    (**(code **)(UINT_008a856c + 0x24))(*(undefined4 *)((int)res + 8));
+    (**(code **)(g_dwResHS + 0x24))(*(undefined4 *)((int)res + 8));
   }
   Pool_Free(res);
   return 1;
@@ -691,20 +691,20 @@ int __cdecl Res_GetSize(void *res)
 void __cdecl Res_MoveToFront(void *res)
 
 {
-  if (PTR_008a85d4 != res) {
+  if (g_pNewestResNode != res) {
     if (*(undefined4 **)((int)res + 4) != (undefined4 *)0x0) {
       **(undefined4 **)((int)res + 4) = *(undefined4 *)res;
     }
     if (*(int *)res != 0) {
       *(undefined4 *)(*(int *)res + 4) = *(undefined4 *)((int)res + 4);
     }
-    if ((void *)UINT_008a85d8 == res) {
-      UINT_008a85d8 = *(uint *)((int)res + 4);
+    if ((void *)g_dwOldestResNode == res) {
+      g_dwOldestResNode = *(uint *)((int)res + 4);
     }
-    *(int **)res = PTR_008a85d4;
-    PTR_008a85d4[1] = (int)res;
+    *(int **)res = g_pNewestResNode;
+    g_pNewestResNode[1] = (int)res;
     *(undefined4 *)((int)res + 4) = 0;
-    PTR_008a85d4 = res;
+    g_pNewestResNode = res;
   }
   return;
 }
@@ -748,7 +748,7 @@ void Res_FindByHandleOrNull(int *param_1,int *param_2,int param_3)
 {
   int *piVar1;
   
-  piVar1 = PTR_008a85d4;
+  piVar1 = g_pNewestResNode;
   while( true ) {
     if (piVar1 == (int *)0x0) {
       *param_2 = 0;
@@ -835,7 +835,7 @@ int Res_CountChildren(uint param_1,uint param_2)
 void Res_SetCacheSizeMB(int param_1)
 
 {
-  UINT_004e7b20 = param_1 << 0x14;
+  g_dwMax_ram = param_1 << 0x14;
   return;
 }
 

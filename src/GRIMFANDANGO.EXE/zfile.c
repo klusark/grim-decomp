@@ -15,14 +15,14 @@ void __cdecl Zfile_Close(int *z)
 {
   if (*z != 0) {
     if (z[1] == 0) {
-      (*(code *)g_pZfileFileIo[1])(*z);
+      (*(code *)g_pZf_filio_services[1])(*z);
     }
     else {
       ((code *)gzclose)();
     }
   }
   if (z != (int *)0x0) {
-    (*(code *)g_pZfileMemory[1])(z,s_C__grimsrc_libs_lecsmush_insane__004f1df4,0x11b);
+    (*(code *)g_pZfile_memory_services[1])(z,s_C__grimsrc_libs_lecsmush_insane__004f1df4,0x11b);
   }
   return;
 }

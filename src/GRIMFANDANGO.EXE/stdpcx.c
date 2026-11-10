@@ -131,20 +131,20 @@ undefined4 * stdPcx_Load(undefined4 param_1,int param_2,int param_3)
   #define sStack_76 (*(short *)(_frame + (0xe0 - 0x76)))
   #define sStack_3e (*(short *)(_frame + (0xe0 - 0x3e)))
   
-  iVar3 = (*g_pSvcMain->pFopen)(param_1,&DAT_004ddb18);
+  iVar3 = (*g_pStd_HS->pFopen)(param_1,&DAT_004ddb18);
   if (iVar3 == 0) {
     return (undefined4 *)0x0;
   }
   bitmap = (undefined4 *)
-           (*g_pSvcMain->pAlloc)
-                     (0x7c,s_C__grimjedi_Libs_Std_General_Std_004e78b8,DAT_004e78b4 + 0xe);
+           (*g_pStd_HS->pAlloc)(0x7c,s_C__grimjedi_Libs_Std_General_Std_004e78b8,DAT_004e78b4 + 0xe)
+  ;
   if (bitmap != (undefined4 *)0x0) {
     puVar9 = bitmap;
     for (iVar6 = 0x1f; iVar6 != 0; iVar6 = iVar6 + -1) {
       *puVar9 = 0;
       puVar9 = puVar9 + 1;
     }
-    (*g_pSvcMain->pFread)(iVar3,acStack_80,0x80);
+    (*g_pStd_HS->pFread)(iVar3,acStack_80,0x80);
     if (acStack_80[0] == '\n') {
       bitmap[8] = 0;
       bitmap[9] = 2;
@@ -152,7 +152,7 @@ undefined4 * stdPcx_Load(undefined4 param_1,int param_2,int param_3)
       bitmap[0x1a] = 0;
       bitmap[10] = 0;
       bitmap[0xb] = uStack_7d & 0xff;
-      iVar6 = (*g_pSvcMain->pAlloc)
+      iVar6 = (*g_pStd_HS->pAlloc)
                         (4,s_C__grimjedi_Libs_Std_General_Std_004e78b8,DAT_004e78b4 + 0x33);
       bitmap[0x1e] = iVar6;
       if (iVar6 != 0) {
@@ -198,20 +198,20 @@ undefined4 * stdPcx_Load(undefined4 param_1,int param_2,int param_3)
                      *(uint *)(*(int *)bitmap[0x1e] + 0x14));
           }
           Surface_Unlock(*(void **)bitmap[0x1e]);
-          iVar6 = (*g_pSvcMain->pAlloc)
+          iVar6 = (*g_pStd_HS->pAlloc)
                             (0x300,s_C__grimjedi_Libs_Std_General_Std_004e78b8,DAT_004e78b4 + 0x6c);
           bitmap[0x18] = iVar6;
           if (iVar6 != 0) {
             stdFile_ReadByte(iVar3);
-            (*g_pSvcMain->pFread)(iVar3,bitmap[0x18],0x300);
-            (*g_pSvcMain->pFclose)(iVar3);
+            (*g_pStd_HS->pFread)(iVar3,bitmap[0x18],0x300);
+            (*g_pStd_HS->pFclose)(iVar3);
             return bitmap;
           }
         }
       }
     }
   }
-  (*g_pSvcMain->pFclose)(iVar3);
+  (*g_pStd_HS->pFclose)(iVar3);
   stdBitmap_Free(bitmap);
   return (undefined4 *)0x0;
 }
@@ -287,11 +287,11 @@ undefined4 stdPcx_Save(undefined4 param_1,int param_2)
     puVar10 = puVar10 + 1;
   }
   *(undefined2 *)puVar10 = 0;
-  iVar7 = (*g_pSvcMain->pFopen)(param_1,&DAT_004ddd78);
+  iVar7 = (*g_pStd_HS->pFopen)(param_1,&DAT_004ddd78);
   if (iVar7 == 0) {
     return 0;
   }
-  (*g_pSvcMain->pFwrite)(iVar7,&local_80,0x80);
+  (*g_pStd_HS->pFwrite)(iVar7,&local_80,0x80);
   iVar4 = **(int **)(param_2 + 0x78);
   iVar3 = *(int *)(iVar4 + 0x5c);
   uStack_8c = 0;
@@ -331,8 +331,8 @@ undefined4 stdPcx_Save(undefined4 param_1,int param_2)
     } while (uStack_8c < *(uint *)(iVar4 + 0x10));
   }
   stdFile_WriteByte(0xc,iVar7);
-  (*g_pSvcMain->pFwrite)(iVar7,*(undefined4 *)(param_2 + 0x60),0x300);
-  (*g_pSvcMain->pFclose)(iVar7);
+  (*g_pStd_HS->pFwrite)(iVar7,*(undefined4 *)(param_2 + 0x60),0x300);
+  (*g_pStd_HS->pFclose)(iVar7);
   return 1;
 }
 #undef local_3a

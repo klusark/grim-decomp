@@ -23,7 +23,7 @@ void * __cdecl CacheRect_Create(int x,int y,int w,int h)
   #define aiStack_4c (*(int (*)[19])(_frame + (0x60 - 0x4c)))
   
   puVar1 = (undefined4 *)
-           (*g_pSvcRender->pAlloc)(0x20,s_C__grimsrc_libs_grimlib_Engine_s_004e80bc,0x9ba);
+           (*g_pSputRendHS->pAlloc)(0x20,s_C__grimsrc_libs_grimlib_Engine_s_004e80bc,0x9ba);
   if (puVar1 == (undefined4 *)0x0) {
     return (void *)0x0;
   }
@@ -38,7 +38,7 @@ void * __cdecl CacheRect_Create(int x,int y,int w,int h)
   puVar1[2] = y;
   puVar1[3] = w;
   puVar1[4] = h;
-  piVar4 = (int *)((int)g_pBackgroundSurface + 0xc);
+  piVar4 = (int *)((int)g_pSputRender_CleanBuffer + 0xc);
   piVar6 = aiStack_4c;
   for (iVar3 = 0x13; iVar3 != 0; iVar3 = iVar3 + -1) {
     *piVar6 = *piVar4;
@@ -49,8 +49,8 @@ void * __cdecl CacheRect_Create(int x,int y,int w,int h)
   aiStack_4c[0] = w;
   pvVar2 = Surface_Create(aiStack_4c,0,0,0);
   puVar1[5] = pvVar2;
-  Surface_Blit(pvVar2,g_pBackgroundSurface,0,0,srcRect,0);
-  piVar4 = (int *)((int)g_pZBufferSurface + 0xc);
+  Surface_Blit(pvVar2,g_pSputRender_CleanBuffer,0,0,srcRect,0);
+  piVar4 = (int *)((int)g_pSputRender_CleanZBuffer + 0xc);
   piVar6 = aiStack_4c;
   for (iVar3 = 0x13; iVar3 != 0; iVar3 = iVar3 + -1) {
     *piVar6 = *piVar4;
@@ -61,7 +61,7 @@ void * __cdecl CacheRect_Create(int x,int y,int w,int h)
   aiStack_4c[1] = h;
   pvVar2 = Surface_Create(aiStack_4c,0,0,0);
   puVar1[6] = pvVar2;
-  Surface_Blit(pvVar2,g_pZBufferSurface,0,0,srcRect,0);
+  Surface_Blit(pvVar2,g_pSputRender_CleanZBuffer,0,0,srcRect,0);
   puVar1[7] = g_pCacheRectList;
   g_pCacheRectList = puVar1;
   return puVar1;
@@ -82,10 +82,11 @@ void CacheRect_Restore(void)
   pvVar2 = g_pCacheRectList;
   piVar1 = (int *)((int)g_pCacheRectList + 8);
   rect = (int *)((int)g_pCacheRectList + 4);
-  Surface_Blit(g_pBackgroundSurface,*(void **)((int)g_pCacheRectList + 0x14),
+  Surface_Blit(g_pSputRender_CleanBuffer,*(void **)((int)g_pCacheRectList + 0x14),
                *(int *)((int)g_pCacheRectList + 4),*(int *)((int)g_pCacheRectList + 8),(int *)0x0,0)
   ;
-  Surface_Blit(g_pZBufferSurface,*(void **)((int)pvVar2 + 0x18),*rect,*piVar1,(int *)0x0,0);
+  Surface_Blit(g_pSputRender_CleanZBuffer,*(void **)((int)pvVar2 + 0x18),*rect,*piVar1,(int *)0x0,0)
+  ;
   MarkDirtyRect(rect,1);
   return;
 }
@@ -105,7 +106,7 @@ void CacheRect_FreeAll(void)
     if (*(void **)((int)pvVar1 + 0x18) != (void *)0x0) {
       Surface_Free(*(void **)((int)pvVar1 + 0x18));
     }
-    (*g_pSvcRender->pFree)(pvVar1);
+    (*g_pSputRendHS->pFree)(pvVar1);
     pvVar1 = g_pCacheRectList;
   }
   g_pCacheRectList = pvVar1;

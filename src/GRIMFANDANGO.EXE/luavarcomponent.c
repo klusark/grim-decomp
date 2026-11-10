@@ -93,7 +93,7 @@ int LuaVarRequester(uint param_1,int param_2,int param_3,int param_4,int param_5
     strncpy(&local_20,param_5,0x1f);
     local_1 = 0;
   }
-  iVar1 = (*g_pSvcCostume->pAlloc)(0x20,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0xd86);
+  iVar1 = (*g_pSputCosHS->pAlloc)(0x20,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0xd86);
   if (iVar1 == 0) {
     return false;
   }
@@ -114,7 +114,7 @@ int LuaVarRequester(uint param_1,int param_2,int param_3,int param_4,int param_5
 undefined4 LuaVarComponent_Destroy(undefined4 param_1,undefined4 param_2,undefined4 param_3)
 
 {
-  (*g_pSvcCostume->pFree)(param_3);
+  (*g_pSputCosHS->pFree)(param_3);
   return 1;
 }
 

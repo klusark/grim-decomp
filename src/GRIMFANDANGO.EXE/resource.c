@@ -16,11 +16,11 @@ undefined4 Res_SysInitialize(uint param_1,undefined4 *param_2)
 {
   undefined4 uVar1;
   
-  UINT_008a856c = param_1;
-  UINT_008a8570 = param_1;
+  g_dwResHS = param_1;
+  g_dwLowLevelHS = param_1;
   uVar1 = 1;
-  if (UINT_008a85b8 == 0) {
-    UINT_008a85b8 = 1;
+  if (g_dwResSysInitialized == 0) {
+    g_dwResSysInitialized = 1;
     if (param_2 != (undefined4 *)0x0) {
       *param_2 = Res_SysInitialize;
       param_2[1] = Resource_Filio_Terminate;
@@ -31,13 +31,13 @@ undefined4 Res_SysInitialize(uint param_1,undefined4 *param_2)
       param_2[6] = 0;
       param_2[7] = 0;
     }
-    UINT_008a85d0 = 0;
-    UINT_008a85c8 = 0;
-    UINT_008a85c0 = 0;
-    PTR_008a85c4 = (int *)0x0;
-    UINT_008a85cc = 0;
-    UINT_008a85d8 = 0;
-    PTR_008a85d4 = (int *)0x0;
+    g_dwResNodePool = 0;
+    g_dwResTypePool = 0;
+    g_dwResFilePool = 0;
+    g_pResFileList = (int *)0x0;
+    g_dwResTypeList = 0;
+    g_dwOldestResNode = 0;
+    g_pNewestResNode = (int *)0x0;
     uVar1 = 0;
   }
   return uVar1;
@@ -50,9 +50,9 @@ undefined4 __fastcall FUN_00480020(uint param_1,int param_2,undefined4 param_3,u
   undefined4 uVar1;
   
   uVar1 = 1;
-  UINT_008a8570 = param_1;
+  g_dwLowLevelHS = param_1;
   if (param_2 == 0) {
-    UINT_008a85b8 = 1;
+    g_dwResSysInitialized = 1;
     if (param_4 != (undefined4 *)0x0) {
       *param_4 = Res_SysInitialize;
       param_4[1] = Resource_Filio_Terminate;
@@ -63,13 +63,13 @@ undefined4 __fastcall FUN_00480020(uint param_1,int param_2,undefined4 param_3,u
       param_4[6] = 0;
       param_4[7] = 0;
     }
-    UINT_008a85d0 = 0;
-    UINT_008a85c8 = 0;
-    UINT_008a85c0 = 0;
-    PTR_008a85c4 = (int *)0x0;
-    UINT_008a85cc = 0;
-    UINT_008a85d8 = 0;
-    PTR_008a85d4 = (int *)0x0;
+    g_dwResNodePool = 0;
+    g_dwResTypePool = 0;
+    g_dwResFilePool = 0;
+    g_pResFileList = (int *)0x0;
+    g_dwResTypeList = 0;
+    g_dwOldestResNode = 0;
+    g_pNewestResNode = (int *)0x0;
     uVar1 = 0;
   }
   return uVar1;
@@ -82,7 +82,7 @@ undefined4 __fastcall FUN_00480020(uint param_1,int param_2,undefined4 param_3,u
 void Resource_Filio_Terminate(void)
 
 {
-  UINT_008a85b8 = 0;
+  g_dwResSysInitialized = 0;
   return;
 }
 
@@ -97,11 +97,11 @@ undefined4 Resource_Filio_Start(void)
   undefined4 uVar1;
   
   uVar1 = 1;
-  if ((UINT_008a85b8 != 0) && (UINT_008a85bc == 0)) {
+  if ((g_dwResSysInitialized != 0) && (UINT_008a85bc == 0)) {
     UINT_008a85bc = 1;
-    UINT_008a85c8 = Pool_Create(0x10,0x20,8);
-    UINT_008a85c0 = Pool_Create(0x120,0x20,8);
-    UINT_008a85d0 = Pool_Create(0x120,0x200,0x200);
+    g_dwResTypePool = Pool_Create(0x10,0x20,8);
+    g_dwResFilePool = Pool_Create(0x120,0x20,8);
+    g_dwResNodePool = Pool_Create(0x120,0x200,0x200);
     uVar1 = 0;
   }
   return uVar1;
@@ -117,14 +117,14 @@ void Resource_Filio_Stop(void)
   if (UINT_008a85bc != 0) {
     Lab_CloseAll();
     Engine_ResetState();
-    if (UINT_008a85c8 != 0) {
-      Pool_Destroy(UINT_008a85c8);
+    if (g_dwResTypePool != 0) {
+      Pool_Destroy(g_dwResTypePool);
     }
-    if (UINT_008a85c0 != 0) {
-      Pool_Destroy(UINT_008a85c0);
+    if (g_dwResFilePool != 0) {
+      Pool_Destroy(g_dwResFilePool);
     }
-    if (UINT_008a85d0 != 0) {
-      Pool_Destroy(UINT_008a85d0);
+    if (g_dwResNodePool != 0) {
+      Pool_Destroy(g_dwResNodePool);
     }
   }
   UINT_008a85bc = 0;
@@ -152,7 +152,7 @@ undefined4 Res_SysSave(code *param_1)
   
   local_4 = 0;
   pcVar2 = param_1;
-  for (piVar5 = PTR_008a85d4; param_1 = pcVar2, piVar5 != (int *)0x0; piVar5 = (int *)*piVar5) {
+  for (piVar5 = g_pNewestResNode; param_1 = pcVar2, piVar5 != (int *)0x0; piVar5 = (int *)*piVar5) {
     if (((piVar5[9] != 0) && (iVar3 = String_ContainsSubstring(piVar5[2],&DAT_004e7b14), iVar3 == 0)
         ) || ((*(byte *)(piVar5 + 7) & 8) != 0)) {
       local_4 = local_4 + 1;
@@ -164,8 +164,8 @@ undefined4 Res_SysSave(code *param_1)
     return 1;
   }
   local_4 = 0;
-  piVar5 = PTR_008a85d4;
-  if (PTR_008a85d4 == (int *)0x0) {
+  piVar5 = g_pNewestResNode;
+  if (g_pNewestResNode == (int *)0x0) {
     return 0;
   }
   do {
@@ -266,13 +266,13 @@ undefined4 Resource_Filio_RestoreState(code *param_1)
 void __cdecl Resource_SetNoPurge(int noPurge)
 
 {
-  g_nResNoPurge = noPurge;
+  g_nStopPurge = noPurge;
   return;
 }
 
 /* ---- 0x0048d350  sputResource_Alloc ---- */
 /* sputresource.cpp: Res_Load plus the memory budget check that frees unreferenced resources above
-   g_nResMemoryBudget Original name sputResource_Alloc (the remaster's GrimFandango (Linux): the
+   g_nMaxRealMemoryUsage Original name sputResource_Alloc (the remaster's GrimFandango (Linux): the
    only unmatched callee of Lua_LoadCostume; 11 matched neighbours agree, 1 disagree); was
    Resource_Load. */
 
@@ -287,11 +287,11 @@ void * __cdecl sputResource_Alloc(int fourcc,char *name)
   data = Res_Load(fourcc,name);
   if (data != (void *)0x0) {
     iVar1 = daTotalAllocated();
-    if ((g_nResMemoryBudget < iVar1) && (g_nResNoPurge == 0)) {
+    if ((g_nMaxRealMemoryUsage < iVar1) && (g_nStopPurge == 0)) {
       daTotalAllocated();
       local_34 = 0;
       Res_SetReference(&local_34,data,s_C__grimsrc_libs_grimlib_Main_spu_004e9c30,0xfb);
-      Res_FreeUnreferenced(UINT_004e9a30,(uint *)&name);
+      Res_FreeUnreferenced(g_dwPurgeAmount,(uint *)&name);
       daTotalAllocated();
       Res_RemoveReference(&local_34);
     }
@@ -615,10 +615,10 @@ void __cdecl Resource_SetMemoryUsage(int budget,int b)
 
 {
   if (budget != 0) {
-    g_nResMemoryBudget = budget;
+    g_nMaxRealMemoryUsage = budget;
   }
   if (b != 0) {
-    UINT_004e9a30 = b;
+    g_dwPurgeAmount = b;
   }
   return;
 }

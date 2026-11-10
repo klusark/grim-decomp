@@ -106,7 +106,7 @@ void Walker_ReplanPath(int param_1,int param_2,undefined4 *param_3,undefined4 pa
   
   *(uint *)(param_1 + 8) = *(uint *)(param_1 + 8) & 0xfffffffe;
   iVar2 = *(int *)(*(int *)(param_1 + 0xa4) + 0x1b4);
-  if ((iVar2 != 0) && (g_pSectorList != (void *)0x0)) {
+  if ((iVar2 != 0) && (g_pWalkPlane_wp_head != (void *)0x0)) {
     this = (void *)SectorList_FindNearestPoint(param_2,0x1000);
     if (this != (void *)0x0) {
       Sector_ClampPoint(this,param_2);
@@ -623,7 +623,7 @@ LAB_00491fa5:
 void __cdecl Walker_SetFadeTime(int ms)
 
 {
-  g_nChoreFadeMs = ms;
+  g_nWALKSYSTEM_FADE_TIME = ms;
   return;
 }
 
@@ -1282,7 +1282,8 @@ uint Planner_CollectSharedCorners(void *param_1,float *param_2,uint *param_3)
   
   uVar10 = 0;
   local_1e8 = 0;
-  for (pvVar4 = g_pSectorList; pvVar4 != (void *)0x0; pvVar4 = *(void **)((int)pvVar4 + 0x70)) {
+  for (pvVar4 = g_pWalkPlane_wp_head; pvVar4 != (void *)0x0; pvVar4 = *(void **)((int)pvVar4 + 0x70)
+      ) {
     if ((((pvVar4 != param_1) && (*(int *)((int)pvVar4 + 0x2c) != 0)) &&
         ((*(uint *)((int)pvVar4 + 0x24) & 0x1000) != 0)) &&
        (local_1ec = 0, 0 < *(int *)((int)pvVar4 + 0x34))) {

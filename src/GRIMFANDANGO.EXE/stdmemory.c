@@ -14,7 +14,7 @@ void stdMemory_CheckMagic(int param_1)
 
 {
   if (*(int *)(param_1 + -4) != 0x12345678) {
-    (*g_pSvcMain->pAssertFail)
+    (*g_pStd_HS->pAssertFail)
               (s_allocation__magic____0x12345678_004e7948,
                s_C__grimjedi_Libs_Std_General_Std_004e7968,DAT_004e7940 + 3);
   }
@@ -31,13 +31,13 @@ void * __cdecl stdMemory_Alloc(uint size,char *file,int line)
   
   puVar1 = (undefined4 *)malloc(size + 0x1c);
   if (puVar1 == (undefined4 *)0x0) {
-    (*g_pSvcMain->pAssertFail)
+    (*g_pStd_HS->pAssertFail)
               (s_allocation_004e7994,s_C__grimjedi_Libs_Std_General_Std_004e7968,DAT_004e7944 + 8);
   }
   UINT_00825e78 = UINT_00825e78 + 1;
-  UINT_00825e7c = UINT_00825e7c + size;
-  if ((int)UINT_00825e80 <= (int)UINT_00825e7c) {
-    UINT_00825e80 = UINT_00825e7c;
+  g_dwStdMemory_curState = g_dwStdMemory_curState + size;
+  if ((int)UINT_00825e80 <= (int)g_dwStdMemory_curState) {
+    UINT_00825e80 = g_dwStdMemory_curState;
   }
   *puVar1 = 0;
   puVar1[1] = UINT_00825e84;
@@ -63,7 +63,7 @@ void __cdecl stdMemory_Free(void *p)
     piVar1 = (int *)((int)p + -0x1c);
     stdMemory_CheckMagic(p);
     UINT_00825e78 = UINT_00825e78 - 1;
-    UINT_00825e7c = UINT_00825e7c - *(int *)((int)p + -8);
+    g_dwStdMemory_curState = g_dwStdMemory_curState - *(int *)((int)p + -8);
     if (piVar1 == (int *)UINT_00825e84) {
       UINT_00825e84 = *(uint *)((int)p + -0x18);
     }

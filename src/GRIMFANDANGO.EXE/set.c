@@ -95,13 +95,13 @@ void __cdecl sputRender_SyncCamera(void *set,int setupIdx)
   iVar2 = *(int *)((int)set + 0x88);
   iVar3 = *(int *)((int)set + 0x80);
   if (*(int *)(iVar3 + iVar2 * 0x34) == 0) {
-    (*g_pSvcMain->pAssertFail)
-              (s_Bad_Colormap_Reference_004e8090,s_main_sputResource_h_004e80a8,0x9f);
+    (*g_pStd_HS->pAssertFail)(s_Bad_Colormap_Reference_004e8090,s_main_sputResource_h_004e80a8,0x9f)
+    ;
   }
   rdroid_SetColormap(*(undefined4 *)(iVar3 + iVar2 * 0x34 + 4));
   rdCamera_SetCurrent(*(undefined4 *)(iVar1 + 0x48));
-  if (g_pCanvas != (void *)0x0) {
-    rdCamera_SetCanvas(*(void **)(iVar1 + 0x48),g_pCanvas);
+  if (g_pSputRender_Canvas != (void *)0x0) {
+    rdCamera_SetCanvas(*(void **)(iVar1 + 0x48),g_pSputRender_Canvas);
   }
   rdCamera_SetZoom(*(void **)(iVar1 + 0x48),1.0);
   rdCamera_SetFrame((float *)(iVar1 + 0x50));
@@ -110,8 +110,9 @@ void __cdecl sputRender_SyncCamera(void *set,int setupIdx)
 
 /* ---- 0x00483b50  Set_SwitchSetup ---- */
 /* Makes setupIdx current: applies its camera, copies its frame into the camera actor, blits the
-   background bitmap into g_pBackgroundSurface and the depth bitmap into g_pZBufferSurface (clearing
-   it when absent), draws the object states and invalidates the view */
+   background bitmap into g_pSputRender_CleanBuffer and the depth bitmap into
+   g_pSputRender_CleanZBuffer (clearing it when absent), draws the object states and invalidates the
+   view */
 
 void __cdecl Set_SwitchSetup(void *set,int setupIdx)
 
@@ -135,8 +136,8 @@ void __cdecl Set_SwitchSetup(void *set,int setupIdx)
     CacheRect_FreeAll();
     sputRender_SyncCamera(set,setupIdx);
     g_dwRenderFlags = g_dwRenderFlags & 0xfffffffc;
-    g_pCameraSetup = (float *)(iVar1 + 0x20);
-    pvVar2 = (void *)sputActor_ActorDeref(g_nCameraActor);
+    g_pSputRender_Camera = (float *)(iVar1 + 0x20);
+    pvVar2 = (void *)sputActor_ActorDeref(g_nCamActorIndex);
     pfVar3 = Actor_GetFrame(pvVar2);
     pfVar6 = (float *)(iVar1 + 0x50);
     for (iVar5 = 0xc; iVar5 != 0; iVar5 = iVar5 + -1) {
@@ -148,13 +149,13 @@ void __cdecl Set_SwitchSetup(void *set,int setupIdx)
     if (piVar4 != (int *)0x0) {
       if (*piVar4 == 2) {
         Render_ConvertBackground(piVar4);
-        piVar4 = g_pTempSurface;
+        piVar4 = g_pSputRender_DecompressionBuffer;
       }
-      Surface_Blit(g_pBackgroundSurface,piVar4,0,0,(int *)0x0,0);
+      Surface_Blit(g_pSputRender_CleanBuffer,piVar4,0,0,(int *)0x0,0);
     }
     piVar4 = Setup_GetZBufferBitmap(set,setupIdx);
     if (piVar4 == (int *)0x0) {
-      puVar7 = *(undefined4 **)((int)g_pZBufferSurface + 0x5c);
+      puVar7 = *(undefined4 **)((int)g_pSputRender_CleanZBuffer + 0x5c);
       for (iVar5 = 0x25800; iVar5 != 0; iVar5 = iVar5 + -1) {
         *puVar7 = 0;
         puVar7 = puVar7 + 1;
@@ -162,33 +163,35 @@ void __cdecl Set_SwitchSetup(void *set,int setupIdx)
       g_dwRenderFlags = g_dwRenderFlags | 2;
     }
     else if (*piVar4 == 2) {
-      puVar7 = (undefined4 *)((int)g_pZBufferSurface + 0xc);
-      puVar8 = (undefined4 *)((int)g_pTempSurface + 0xc);
+      puVar7 = (undefined4 *)((int)g_pSputRender_CleanZBuffer + 0xc);
+      puVar8 = (undefined4 *)((int)g_pSputRender_DecompressionBuffer + 0xc);
       for (iVar5 = 0x13; iVar5 != 0; iVar5 = iVar5 + -1) {
         *puVar8 = *puVar7;
         puVar7 = puVar7 + 1;
         puVar8 = puVar8 + 1;
       }
-      if (*(int *)((int)g_pZBufferSurface + 8) == 0) {
-        Surface_CopyConvert(piVar4,g_pZBufferSurface);
+      if (*(int *)((int)g_pSputRender_CleanZBuffer + 8) == 0) {
+        Surface_CopyConvert(piVar4,g_pSputRender_CleanZBuffer);
       }
       else {
-        Surface_CopyConvert(piVar4,g_pTempSurface);
-        Surface_Blit(g_pZBufferSurface,g_pTempSurface,0,0,(int *)0x0,0);
+        Surface_CopyConvert(piVar4,g_pSputRender_DecompressionBuffer);
+        Surface_Blit(g_pSputRender_CleanZBuffer,g_pSputRender_DecompressionBuffer,0,0,(int *)0x0,0);
       }
     }
     else {
-      Surface_Blit(g_pZBufferSurface,piVar4,0,0,(int *)0x0,0);
+      Surface_Blit(g_pSputRender_CleanZBuffer,piVar4,0,0,(int *)0x0,0);
     }
     for (pvVar2 = *(void **)(iVar1 + 0x128); pvVar2 != (void *)0x0;
         pvVar2 = *(void **)((int)pvVar2 + 0xf8)) {
       ObjectState_LoadImages((int)pvVar2);
-      ObjectState_CaptureBackground(pvVar2,g_pBackgroundSurface,g_pZBufferSurface);
+      ObjectState_CaptureBackground(pvVar2,g_pSputRender_CleanBuffer,g_pSputRender_CleanZBuffer);
     }
-    local_10 = *(uint *)((int)g_pCanvas + 0x18);
-    local_c = *(uint *)((int)g_pCanvas + 0x1c);
-    local_8 = (*(int *)((int)g_pCanvas + 0x20) - *(int *)((int)g_pCanvas + 0x18)) + 1;
-    local_4 = (*(int *)((int)g_pCanvas + 0x24) - *(int *)((int)g_pCanvas + 0x1c)) + 1;
+    local_10 = *(uint *)((int)g_pSputRender_Canvas + 0x18);
+    local_c = *(uint *)((int)g_pSputRender_Canvas + 0x1c);
+    local_8 = (*(int *)((int)g_pSputRender_Canvas + 0x20) -
+              *(int *)((int)g_pSputRender_Canvas + 0x18)) + 1;
+    local_4 = (*(int *)((int)g_pSputRender_Canvas + 0x24) -
+              *(int *)((int)g_pSputRender_Canvas + 0x1c)) + 1;
     MarkDirtyRect((int *)&local_10,1);
   }
   return;
@@ -360,20 +363,21 @@ sputRoom_GetSoundParameters(void *set,float *minVol,char *maxVol,char *c,float *
 void __cdecl sputRoom_SetCurrentRoom(void *set,int param_2)
 
 {
-  if ((g_CurrentSetRef == 0) || (g_pCurrentSet != set)) {
-    if (g_CurrentSetRef != 0) {
+  if ((g_dwSputRoom_pCurrentRoom == 0) || (g_pCurrentSet != set)) {
+    if (g_dwSputRoom_pCurrentRoom != 0) {
       Set_ReleaseResources(g_pCurrentSet);
-      Res_RemoveReference(&g_CurrentSetRef);
-      g_szCurrentSetName[0] = '\0';
+      Res_RemoveReference(&g_dwSputRoom_pCurrentRoom);
+      g_szSputRoom_CurrentRoomName[0] = '\0';
     }
     if (set != (void *)0x0) {
-      Res_SetReference(&g_CurrentSetRef,set,s_C__grimsrc_libs_grimlib_Engine_s_004ec5e0,0x15d);
-      if (g_CurrentSetRef == 0) {
-        (*g_pSvcMain->pAssertFail)
-                  (s_Bad_room_Reference_004ec62c,s_main_sputResource_h_004e80a8,0xa4);
+      Res_SetReference(&g_dwSputRoom_pCurrentRoom,set,s_C__grimsrc_libs_grimlib_Engine_s_004ec5e0,
+                       0x15d);
+      if (g_dwSputRoom_pCurrentRoom == 0) {
+        (*g_pStd_HS->pAssertFail)(s_Bad_room_Reference_004ec62c,s_main_sputResource_h_004e80a8,0xa4)
+        ;
       }
       sputRoom_LoadResources(g_pCurrentSet);
-      strncpy(g_szCurrentSetName,set,0x20);
+      strncpy(g_szSputRoom_CurrentRoomName,set,0x20);
       Set_SetSoundParams(set,0x41000000,0x14,0x7f,0x3fc00000,0x3f4ccccd);
     }
   }
@@ -388,7 +392,7 @@ void __cdecl sputRoom_SetCurrentRoom(void *set,int param_2)
 void * sputRoom_GetCurrentRoom(void)
 
 {
-  return (void *)(-(uint)(g_CurrentSetRef != 0) & (uint)g_pCurrentSet);
+  return (void *)(-(uint)(g_dwSputRoom_pCurrentRoom != 0) & (uint)g_pCurrentSet);
 }
 
 /* ---- 0x004a41d0  Set_GetCurrentName ---- */
@@ -397,7 +401,7 @@ void * sputRoom_GetCurrentRoom(void)
 char * Set_GetCurrentName(void)
 
 {
-  return g_szCurrentSetName;
+  return g_szSputRoom_CurrentRoomName;
 }
 
 /* ---- 0x004a41e0  Set_SaveState ---- */
@@ -445,7 +449,7 @@ int __cdecl Set_SaveState(void *writeFn)
           (*pcVar2)((int)pvStack_c + 0x1afc,4);
           (*pcVar2)((int)pvStack_c + 0x1b00,4);
           (*pcVar2)((int)pvStack_c + 0x1b04,4);
-          for (pvVar1 = g_pSectorList; pvVar1 != (void *)0x0;
+          for (pvVar1 = g_pWalkPlane_wp_head; pvVar1 != (void *)0x0;
               pvVar1 = *(void **)((int)pvVar1 + 0x70)) {
             writeFn = *(void **)((int)pvVar1 + 0x20);
             (*pcVar2)(&writeFn,4);
@@ -486,7 +490,7 @@ int __cdecl Set_SaveState(void *writeFn)
               (*pcVar2)(iVar4 + 0x94,0x20);
               (*pcVar2)(iVar4 + 0x7c,4);
               if (*(int *)(iVar4 + 0x40) == 0) {
-                (*g_pSvcMain->pAssertFail)
+                (*g_pStd_HS->pAssertFail)
                           (s_Bad_Bitmap_Reference_004e8114,s_main_sputResource_h_004e80a8,0x90);
               }
               (*pcVar2)(*(int *)(iVar4 + 0x44) + 0x68,4);
@@ -554,16 +558,17 @@ int __cdecl sputRoom_Restore(void *readFn)
         return 1;
       }
       (*(code *)readFn)((int)pvVar4 + 0xb4,4);
-      if (g_CurrentSetRef != 0) {
-        Res_RemoveReference(&g_CurrentSetRef);
+      if (g_dwSputRoom_pCurrentRoom != 0) {
+        Res_RemoveReference(&g_dwSputRoom_pCurrentRoom);
       }
-      Res_SetReference(&g_CurrentSetRef,pvVar4,s_C__grimsrc_libs_grimlib_Engine_s_004ec5e0,0x210);
-      if (g_CurrentSetRef == 0) {
-        (*g_pSvcMain->pAssertFail)
-                  (s_Bad_room_Reference_004ec62c,s_main_sputResource_h_004e80a8,0xa4);
+      Res_SetReference(&g_dwSputRoom_pCurrentRoom,pvVar4,s_C__grimsrc_libs_grimlib_Engine_s_004ec5e0
+                       ,0x210);
+      if (g_dwSputRoom_pCurrentRoom == 0) {
+        (*g_pStd_HS->pAssertFail)(s_Bad_room_Reference_004ec62c,s_main_sputResource_h_004e80a8,0xa4)
+        ;
       }
       sputRoom_LoadResources(g_pCurrentSet);
-      strncpy(g_szCurrentSetName,pvVar4,0x20);
+      strncpy(g_szSputRoom_CurrentRoomName,pvVar4,0x20);
       (*(code *)readFn)(&iStack_58,4);
       if (iStack_58 != 0) {
         Res_SetReference((void *)((int)pvVar4 + 0x1ac0),pvVar4,
@@ -589,7 +594,7 @@ int __cdecl sputRoom_Restore(void *readFn)
               iVar1 = *(int *)(iVar6 + 0x40);
               if (iVar1 != 0) {
                 if (iVar1 == 0) {
-                  (*g_pSvcMain->pAssertFail)
+                  (*g_pStd_HS->pAssertFail)
                             (s_Bad_Bitmap_Reference_004e8114,s_main_sputResource_h_004e80a8,0x90);
                 }
                 *(undefined4 *)(*(int *)(iVar6 + 0x44) + 0x68) = uStack_4c;
@@ -598,7 +603,7 @@ int __cdecl sputRoom_Restore(void *readFn)
               iVar1 = *(int *)(iVar6 + 0xb4);
               if (iVar1 != 0) {
                 if (iVar1 == 0) {
-                  (*g_pSvcMain->pAssertFail)
+                  (*g_pStd_HS->pAssertFail)
                             (s_Bad_Bitmap_Reference_004e8114,s_main_sputResource_h_004e80a8,0x90);
                 }
                 *(int *)(*(int *)(iVar6 + 0xb8) + 0x68) = iStack_48;
@@ -632,7 +637,8 @@ int __cdecl sputRoom_Restore(void *readFn)
     (*(code *)readFn)((int)pvVar4 + 0x1afc,4);
     (*(code *)readFn)((int)pvVar4 + 0x1b00,4);
     (*(code *)readFn)((int)pvVar4 + 0x1b04,4);
-    for (pvVar4 = g_pSectorList; pvVar4 != (void *)0x0; pvVar4 = *(void **)((int)pvVar4 + 0x70)) {
+    for (pvVar4 = g_pWalkPlane_wp_head; pvVar4 != (void *)0x0;
+        pvVar4 = *(void **)((int)pvVar4 + 0x70)) {
       (*(code *)readFn)(&iStack_48,4);
       if (iStack_48 == *(int *)((int)pvVar4 + 0x20)) {
         (*(code *)readFn)(&uStack_74,4);
@@ -686,7 +692,7 @@ undefined4 * sputResource_SetHandler(char *param_1)
   undefined4 *puVar5;
   
   puVar2 = (undefined4 *)
-           (*g_pSvcRoom->pAlloc)(0x1b08,s_C__grimsrc_libs_grimlib_Engine_s_004ec5e0,0x306);
+           (*g_pSputRoomHS->pAlloc)(0x1b08,s_C__grimsrc_libs_grimlib_Engine_s_004ec5e0,0x306);
   if (puVar2 != (undefined4 *)0x0) {
     puVar5 = puVar2;
     for (iVar4 = 0x6c2; iVar4 != 0; iVar4 = iVar4 + -1) {
@@ -703,7 +709,7 @@ undefined4 * sputResource_SetHandler(char *param_1)
       puVar2[0x6af] = pvVar3;
       for (piVar1 = *(int **)((int)pvVar3 + 0x80); piVar1 != (int *)0x0; piVar1 = (int *)piVar1[2])
       {
-        iVar4 = *(int *)((int)g_pActorTable + *piVar1 * 0xa8 + 0xa4);
+        iVar4 = *(int *)((int)g_pActors + *piVar1 * 0xa8 + 0xa4);
         if (((iVar4 != 0) && (*(void **)(iVar4 + 0x1b4) != (void *)0x0)) &&
            (*(int *)(iVar4 + 0x1b8) != 0)) {
           Puck_Validate(*(void **)(iVar4 + 0x1b4));
@@ -801,7 +807,7 @@ void Set_Free(undefined4 param_1)
 
 {
   Set_FreeContents(param_1);
-  (*g_pSvcRoom->pFree)(param_1);
+  (*g_pSputRoomHS->pFree)(param_1);
   return;
 }
 
@@ -817,7 +823,7 @@ void Set_FreeContents(char *param_1)
   
   Set_ReleaseResources(param_1);
   if (*(int *)(param_1 + 0x80) != 0) {
-    (*g_pSvcRoom->pFree)(*(int *)(param_1 + 0x80));
+    (*g_pSputRoomHS->pFree)(*(int *)(param_1 + 0x80));
   }
   Set_FreeSetups(param_1);
   Set_FreeSectors(param_1);
@@ -825,8 +831,8 @@ void Set_FreeContents(char *param_1)
   if (iVar1 != 0) {
     piVar2 = *(int **)(iVar1 + 0x80);
     while (piVar2 != (int *)0x0) {
-      sputActor_ResetShadows((void *)((int)g_pActorTable + *piVar2 * 0xa8));
-      Actor_RemoveFromSet(param_1,(void *)((int)g_pActorTable + **(int **)(iVar1 + 0x80) * 0xa8));
+      sputActor_ResetShadows((void *)((int)g_pActors + *piVar2 * 0xa8));
+      Actor_RemoveFromSet(param_1,(void *)((int)g_pActors + **(int **)(iVar1 + 0x80) * 0xa8));
       piVar2 = *(int **)(iVar1 + 0x80);
     }
     SetActorList_Free(iVar1);
@@ -856,7 +862,7 @@ void Set_FreeSetups(int param_1)
       iVar1 = iVar1 + 300;
     } while (uVar2 < *(uint *)(param_1 + 0xb0));
     if ((*(uint *)(param_1 + 0xb0) != 0) && (*(int *)(param_1 + 0xac) != 0)) {
-      (*g_pSvcRoom->pFree)(*(int *)(param_1 + 0xac));
+      (*g_pSputRoomHS->pFree)(*(int *)(param_1 + 0xac));
     }
   }
   *(undefined4 *)(param_1 + 0xac) = 0;
@@ -990,7 +996,7 @@ int __cdecl sputRoom_LoadResources(void *set)
         Res_TouchByData((void *)ref[1]);
 LAB_004a51bd:
         if (*ref == 0) {
-          (*g_pSvcMain->pAssertFail)
+          (*g_pStd_HS->pAssertFail)
                     (s_Bad_Bitmap_Reference_004e8114,s_main_sputResource_h_004e80a8,0x90);
         }
       }
@@ -1002,7 +1008,7 @@ LAB_004a51bd:
           Res_SetReference(piVar9,pvVar4,s_C__grimsrc_libs_grimlib_Engine_s_004ec5e0,0x720);
         }
         if ((*piVar9 != 0) && (Res_TouchByData((void *)ref[0xe]), *piVar9 == 0)) {
-          (*g_pSvcMain->pAssertFail)
+          (*g_pStd_HS->pAssertFail)
                     (s_Bad_ZBuffer_Reference_004ec614,s_main_sputResource_h_004e80a8,0x95);
         }
       }
@@ -1157,7 +1163,7 @@ void * __cdecl Set_NormalizeName(char *setName)
   char *pcVar6;
   char *pcVar7;
   
-  pcVar2 = (char *)(*g_pSvcRoom->pAlloc)(0x88,s_C__grimsrc_libs_grimlib_Engine_s_004ec5e0,0xa32);
+  pcVar2 = (char *)(*g_pSputRoomHS->pAlloc)(0x88,s_C__grimsrc_libs_grimlib_Engine_s_004ec5e0,0xa32);
   pcVar6 = pcVar2;
   for (iVar3 = 0x22; iVar3 != 0; iVar3 = iVar3 + -1) {
     pcVar6[0] = '\0';
@@ -1194,7 +1200,7 @@ void * __cdecl Set_NormalizeName(char *setName)
 }
 
 /* ---- 0x004a7100  Set_FreeSectors ---- */
-/* Deactivates the set's sectors and frees every sector in g_pSectorList (Sector_Unlink +
+/* Deactivates the set's sectors and frees every sector in g_pWalkPlane_wp_head (Sector_Unlink +
    Plat_Free), then restores the previous list head. */
 
 void Set_FreeSectors(void *param_1)
@@ -1203,26 +1209,26 @@ void Set_FreeSectors(void *param_1)
   void *p;
   void *pvVar1;
   
-  pvVar1 = g_pSectorList;
+  pvVar1 = g_pWalkPlane_wp_head;
   Set_ActivateSectors(param_1);
-  p = g_pSectorList;
-  if (pvVar1 == g_pSectorList) {
+  p = g_pWalkPlane_wp_head;
+  if (pvVar1 == g_pWalkPlane_wp_head) {
     pvVar1 = (void *)0x0;
   }
   while (p != (void *)0x0) {
-    g_pSectorList = p;
+    g_pWalkPlane_wp_head = p;
     Sector_Unlink(p);
     Plat_Free(p);
-    p = g_pSectorList;
+    p = g_pWalkPlane_wp_head;
   }
-  g_pSectorList = pvVar1;
+  g_pWalkPlane_wp_head = pvVar1;
   return;
 }
 
 /* ---- 0x004a7150  Set_ActivateSectors ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
-/* Points g_pSectorList at the sector list cached for the named set (table of 0x28-byte {list, name}
-   entries) */
+/* Points g_pWalkPlane_wp_head at the sector list cached for the named set (table of 0x28-byte
+   {list, name} entries) */
 
 void __cdecl Set_ActivateSectors(void *set)
 
@@ -1266,11 +1272,11 @@ LAB_004a7187:
     if (IMG_ADDR(0x008d086b) < (int)pbVar5) {
 LAB_004a719c:
       if (0x8b < iVar3) {
-        g_pSectorList = (void *)0x0;
+        g_pWalkPlane_wp_head = (void *)0x0;
         _DAT_008cf284 = (undefined1 *)0x0;
         return;
       }
-      g_pSectorList = (void *)(&UINT_008cf288)[iVar3 * 10];
+      g_pWalkPlane_wp_head = (void *)(&UINT_008cf288)[iVar3 * 10];
       _DAT_008cf284 = &DAT_008cf28c + iVar3 * 0x28;
       return;
     }

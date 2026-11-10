@@ -57,8 +57,8 @@ undefined4 SpriteRequester(uint param_1,int param_2,int param_3,float param_4,ch
   local_40[2] = 0.0;
   if ((param_3 != 0) && (param_4 == 216341.2)) {
     if (param_5 == (char *)0x0) {
-      if (DAT_008ca938 != '\0') {
-        Plat_SetDialogDirectory(&DAT_008ca938);
+      if (g_bMaterialPath != '\0') {
+        Plat_SetDialogDirectory(&g_bMaterialPath);
       }
       iVar7 = Plat_OpenFileDialog(s_Select_mat_file_for_sprite____004ea834,
                                   s_Material_files____mat__004ea5a4);
@@ -66,9 +66,9 @@ undefined4 SpriteRequester(uint param_1,int param_2,int param_3,float param_4,ch
         return 0;
       }
       uVar4 = ((code *)Plat_GetDialogFileName)(0x7f);
-      ((code *)strncpy)(&DAT_008ca938,uVar4);
+      ((code *)strncpy)(&g_bMaterialPath,uVar4);
       DAT_008ca9b7 = 0;
-      pcVar5 = Str_Basename(g_szDialogFileName);
+      pcVar5 = Str_Basename(g_szGrimlib_aFilename);
       param_5 = pcVar5;
     }
     else {
@@ -94,8 +94,8 @@ undefined4 SpriteRequester(uint param_1,int param_2,int param_3,float param_4,ch
         param_4 = (float)(int)puVar3 * 0.01;
       }
     }
-    piVar6 = (int *)(*g_pSvcCostume->pAlloc)
-                              (0x24,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0x1026);
+    piVar6 = (int *)(*g_pSputCosHS->pAlloc)(0x24,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0x1026)
+    ;
     if (piVar6 != (int *)0x0) {
       piVar12 = piVar6;
       for (iVar7 = 9; iVar7 != 0; iVar7 = iVar7 + -1) {
@@ -138,7 +138,7 @@ undefined4 SpriteRequester(uint param_1,int param_2,int param_3,float param_4,ch
         return 1;
       }
       if (local_30 != 0) {
-        (*g_pSvcCostume->pFree)(local_30);
+        (*g_pSputCosHS->pFree)(local_30);
         return 0;
       }
     }
@@ -186,7 +186,7 @@ undefined4 SpriteFreer(undefined4 param_1,undefined4 param_2,int *param_3)
 {
   rdMaterial_Free(*(undefined4 *)(*param_3 + 0x7c));
   rdSprite_Free(*param_3);
-  (*g_pSvcCostume->pFree)(param_3);
+  (*g_pSputCosHS->pFree)(param_3);
   return 1;
 }
 
@@ -212,13 +212,13 @@ undefined4 * SpriteInstancer(int param_1,undefined4 *param_2,int param_3)
     *(int *)(iVar1 + 0x50) = iVar2;
     if (iVar2 == 0) {
       rdThing_Free(*(undefined4 *)(iVar1 + 0x40));
-      (*g_pSvcCostume->pFree)(iVar1);
+      (*g_pSputCosHS->pFree)(iVar1);
     }
     return (undefined4 *)0x0;
   }
   Cos_InstComponentInfo(param_1,(int)param_2,(int)&param_3,(int)&param_2,(int)&param_1);
   puVar3 = (undefined4 *)
-           (*g_pSvcCostume->pAlloc)(0x194,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0x1070);
+           (*g_pSputCosHS->pAlloc)(0x194,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0x1070);
   puVar4 = puVar3;
   for (iVar2 = 0x65; iVar2 != 0; iVar2 = iVar2 + -1) {
     *puVar4 = 0;

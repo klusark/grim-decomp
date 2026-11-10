@@ -158,19 +158,19 @@ undefined4 __fastcall StateImage_GetFrameSurface(int param_1)
 {
   if (-1 < *(int *)(param_1 + 0x6c)) {
     if (*(int *)(param_1 + 0x34) == 0) {
-      (*g_pSvcMain->pAssertFail)
-                (s_Bad_Bitmap_Reference_004e8114,s_main_sputResource_h_004e80a8,0x90);
+      (*g_pStd_HS->pAssertFail)(s_Bad_Bitmap_Reference_004e8114,s_main_sputResource_h_004e80a8,0x90)
+      ;
     }
     if (*(int *)(*(int *)(param_1 + 0x38) + 100) <= *(int *)(param_1 + 0x6c)) {
       if (*(int *)(param_1 + 0x34) == 0) {
-        (*g_pSvcMain->pAssertFail)
+        (*g_pStd_HS->pAssertFail)
                   (s_Bad_Bitmap_Reference_004e8114,s_main_sputResource_h_004e80a8,0x90);
       }
       *(int *)(param_1 + 0x6c) = *(int *)(*(int *)(param_1 + 0x38) + 100) + -1;
     }
     if (*(int *)(param_1 + 0x34) == 0) {
-      (*g_pSvcMain->pAssertFail)
-                (s_Bad_Bitmap_Reference_004e8114,s_main_sputResource_h_004e80a8,0x90);
+      (*g_pStd_HS->pAssertFail)(s_Bad_Bitmap_Reference_004e8114,s_main_sputResource_h_004e80a8,0x90)
+      ;
     }
     return *(undefined4 *)(*(int *)(*(int *)(param_1 + 0x38) + 0x78) + *(int *)(param_1 + 0x6c) * 4)
     ;
@@ -191,8 +191,8 @@ void __thiscall StateImage_CaptureFrom(void *this,void *surface)
   }
   if (*(int *)((int)this + 0x34) != 0) {
     if (*(int *)((int)this + 0x34) == 0) {
-      (*g_pSvcMain->pAssertFail)
-                (s_Bad_Bitmap_Reference_004e8114,s_main_sputResource_h_004e80a8,0x90);
+      (*g_pStd_HS->pAssertFail)(s_Bad_Bitmap_Reference_004e8114,s_main_sputResource_h_004e80a8,0x90)
+      ;
     }
     dst = Surface_Create((void *)(**(int **)(*(int *)((int)this + 0x38) + 0x78) + 0xc),0,0,0);
     *(void **)((int)this + 0x68) = dst;
@@ -219,7 +219,7 @@ void __thiscall StateImage_Draw(void *this,void *dst)
     iVar4 = *(int *)((int)this + 0x70);
     if (*(int *)((int)this + 0x34) != 0) {
       if (*(int *)((int)this + 0x34) == 0) {
-        (*g_pSvcMain->pAssertFail)
+        (*g_pStd_HS->pAssertFail)
                   (s_Bad_Bitmap_Reference_004e8114,s_main_sputResource_h_004e80a8,0x90);
       }
       iVar5 = *(int *)((int)this + 0x38);
@@ -238,7 +238,7 @@ void __thiscall StateImage_Draw(void *this,void *dst)
           y = *(int *)(iVar5 + 0x70);
           iVar5 = *(int *)(iVar5 + 0x6c);
           piVar2 = (int *)0x0;
-          src = g_pTempSurface;
+          src = g_pSputRender_DecompressionBuffer;
         }
         else {
           y = *(int *)(iVar5 + 0x70);
@@ -365,7 +365,7 @@ void __thiscall ObjectState_Draw(void *this,int type,void *dst,void *zdst)
         StateImage_Draw((void *)((int)this + 0xc),dst);
         if ((*(int *)((int)this + 0xb4) != 0) && (zdst != (void *)0x0)) {
           if (*(int *)((int)this + 0xb4) == 0) {
-            (*g_pSvcMain->pAssertFail)
+            (*g_pStd_HS->pAssertFail)
                       (s_Bad_Bitmap_Reference_004e8114,s_main_sputResource_h_004e80a8,0x90);
           }
           *(undefined4 *)(*(int *)((int)this + 0xb8) + 0x68) = *(undefined4 *)((int)this + 0x78);

@@ -29,41 +29,43 @@ void Main_Service(void)
   #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
   #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
   
-  uVar1 = UINT_008a8c40;
+  uVar1 = g_dwGrimlib_mode;
   y = 0x1e;
   local_18 = 0;
   local_14 = 0;
   local_10 = 0x50;
   local_c = 0x1e;
-  if (g_quitRequested == 0) {
+  if (g_nQuitApp == 0) {
     if (UINT_004f5a50 != 0) {
       Display_Select(UINT_004dd340,UINT_004dd344,UINT_004dd348);
-      UINT_008a8c40 = 2;
+      g_dwGrimlib_mode = 2;
       ((code *)sputRender_Dim)(1);
       UINT_004f5a50 = 0;
     }
-    _DAT_004dd384 = 300;
-    UINT_008a8c40 = uVar1;
-    ((code *)Engine_UpdateFrame)(UINT_008d0a70);
-    g_dwFrameCounter = g_dwFrameCounter + 1;
+    _g_dwDeadmanCounter = 300;
+    g_dwGrimlib_mode = uVar1;
+    ((code *)Engine_UpdateFrame)(g_dwZg_App_bAppActive);
+    g_dwMain_Service_frameCount = g_dwMain_Service_frameCount + 1;
     g_fixedFrameMs = 0;
-    _DAT_004f5a60 = timeGetTime();
-    if (1000 < _DAT_004f5a60 - UINT_004f5a64) {
-      iVar2 = g_dwFrameCounter - UINT_004f5a5c;
-      UINT_004f5a5c = g_dwFrameCounter;
-      g_measuredFps = ((float)iVar2 * 1000.0) / (float)(_DAT_004f5a60 - UINT_004f5a64);
-      UINT_004f5a64 = _DAT_004f5a60;
+    _g_dwMain_Service_frameTime = timeGetTime();
+    if (1000 < _g_dwMain_Service_frameTime - g_dwMain_Service_frameTime0) {
+      iVar2 = g_dwMain_Service_frameCount - UINT_004f5a5c;
+      UINT_004f5a5c = g_dwMain_Service_frameCount;
+      g_flMain_Service_frameRate =
+           ((float)iVar2 * 1000.0) /
+           (float)(_g_dwMain_Service_frameTime - g_dwMain_Service_frameTime0);
+      g_dwMain_Service_frameTime0 = _g_dwMain_Service_frameTime;
     }
-    if (_g_bShowFps != 0) {
-      sprintf(&DAT_009056c0,s__02_3f_004dd680,(double)g_measuredFps);
-      Display_DrawText(&DAT_009056c0,4,4);
+    if (_g_bDrawFrameRate != 0) {
+      sprintf(&g_bStd_genBuffer,s__02_3f_004dd680,(double)g_flMain_Service_frameRate);
+      Display_DrawText(&g_bStd_genBuffer,4,4);
       ((code *)Engine_InvalidateRect)(&local_18);
     }
-    if (g_bShowProfile != 0) {
-      puVar3 = &UINT_004e7b50;
+    if (g_nDrawPerfData != 0) {
+      puVar3 = &g_dwGrimlib_PerfData;
       do {
-        sprintf(&DAT_009056c0,s__s__02_3f_004dd674,puVar3 + -10,*puVar3);
-        Display_DrawText(&DAT_009056c0,4,y);
+        sprintf(&g_bStd_genBuffer,s__s__02_3f_004dd674,puVar3 + -10,*puVar3);
+        Display_DrawText(&g_bStd_genBuffer,4,y);
         local_18 = 4;
         local_10 = 0xbe;
         local_c = 0x14;
@@ -75,10 +77,10 @@ void Main_Service(void)
         puVar3 = puVar3 + 0xc;
       } while ((int)y < 0x122);
     }
-    if (UINT_008d0a70 != 0) {
+    if (g_dwZg_App_bAppActive != 0) {
       Engine_PresentFrame();
     }
-    if (g_quitRequested != 0) {
+    if (g_nQuitApp != 0) {
       ((code *)Win_RemoveMessageHook)();
       ((code *)Win_RemoveMessageHook)();
       iVar2 = Win_GetMainHwnd();

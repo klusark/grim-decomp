@@ -14,7 +14,8 @@ int Insane_Poll(void)
 {
   int iVar1;
   
-  if (((UINT_008d16a0 != 0) && (UINT_008d16a4 != 0)) && (UINT_008d16a8 != 0)) {
+  if (((g_dwSmushPlaySysInitialized != 0) && (g_dwSmushPlaySysStarted != 0)) && (UINT_008d16a8 != 0)
+     ) {
     iVar1 = Sound_VoiceSampleCount(0);
     return iVar1;
   }
@@ -32,13 +33,13 @@ undefined4 Insane_RegisterFilio(uint param_1,undefined4 *param_2)
   
   UINT_008d11f4 = param_1;
   uVar1 = 1;
-  if (UINT_008d16a0 == 0) {
+  if (g_dwSmushPlaySysInitialized == 0) {
     PTR_008d11d4 = (int *)LecShare_Startup(0,&PTR_FUN_004f0ba0,s_FILIO_insane_zfilio_004f0ca0,
                                            &DAT_004f5a98);
     if (PTR_008d11d4 == (int *)0x0) {
       return 1;
     }
-    UINT_008d16a0 = 1;
+    g_dwSmushPlaySysInitialized = 1;
     if (param_2 != (undefined4 *)0x0) {
       *param_2 = Insane_RegisterFilio;
       param_2[1] = SmushPlay_SysShutdown;
@@ -64,7 +65,7 @@ void SmushPlay_SysShutdown(void)
 
 {
   LecShare_Shutdown();
-  UINT_008d16a0 = 0;
+  g_dwSmushPlaySysInitialized = 0;
   return;
 }
 
@@ -81,16 +82,16 @@ undefined4 SmushPlay_SysStartup(void)
   undefined4 uVar2;
   
   uVar2 = 1;
-  if ((UINT_008d16a0 != 0) && (UINT_008d16a4 == 0)) {
+  if ((g_dwSmushPlaySysInitialized != 0) && (g_dwSmushPlaySysStarted == 0)) {
     ((code *)fle_zfilio_config)(1,&DAT_004f0cc4,0);
     ((code *)fle_zfilio_config)(1,&DAT_004f0cbc,0);
     ((code *)fle_zfilio_config)(1,&DAT_004f0cb8,0);
     ((code *)fle_zfilio_config)(1,&DAT_004f0cb4,0);
     iVar1 = LecShare_StartupModules();
     if (iVar1 == 0) {
-      iVar1 = (*(code *)PTR_008d11d4[4])(&PTR_PTR_004f0b70,0);
+      iVar1 = (*(code *)PTR_008d11d4[4])(&g_pSubscription_info,0);
       if (iVar1 == 0) {
-        UINT_008d16a4 = 1;
+        g_dwSmushPlaySysStarted = 1;
         uVar2 = 0;
       }
     }
@@ -105,10 +106,10 @@ undefined4 SmushPlay_SysStartup(void)
 void Insane_Stop(void)
 
 {
-  if (UINT_008d16a4 != 0) {
-    (*(code *)PTR_008d11d4[5])(&PTR_PTR_004f0b70);
+  if (g_dwSmushPlaySysStarted != 0) {
+    (*(code *)PTR_008d11d4[5])(&g_pSubscription_info);
     LecShare_UnwindStartup();
-    UINT_008d16a4 = 0;
+    g_dwSmushPlaySysStarted = 0;
   }
   return;
 }

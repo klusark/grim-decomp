@@ -29,7 +29,7 @@
 #ifdef GRIM_EXE
 
 /* ---- globals (names as in globals.h; not included, the types here are the ones the code needs) ---- */
-extern char *g_pRdCurrentCamera;     /* 0x007f0fc8; +4: the canvas (+4 colour buffer: +0x18 pitch, +0x24 bpp, +0x5c pixels) */
+extern char *g_pRdCamera_CurCamera;     /* 0x007f0fc8; +4: the canvas (+4 colour buffer: +0x18 pitch, +0x24 bpp, +0x5c pixels) */
 extern int g_nRdRasterVertCount;     /* 0x007f424c */
 extern int UINT_007f4250;            /* mip count - 1 (Grad_*: the mip mode) */
 extern int g_nRdRasterStartVertex;   /* 0x007f42e8 top vertex */
@@ -47,7 +47,7 @@ extern unsigned short DAT_008ddeb8;  /* 16 bpp colour */
 extern unsigned short *UINT_008ddebc;/* 16 bpp palette (64 rows of 256) */
 extern unsigned char DAT_008ddec0;   /* colour / light level byte */
 extern unsigned char *UINT_008dded4; /* 16 bpp colour -> palette index */
-extern char *UINT_004f5ec4;          /* the colormap; +0x338: the translucency table */
+extern char *g_dwRdColormap_pCurMap;          /* the colormap; +0x338: the translucency table */
 extern int UINT_007f4460;            /* the z-buffered rasteriser's vertex count (DrawWireframeZ) */
 extern float *PTR_007f44fc;         /* the z-buffered rasteriser's vertices (DrawWireframeZ) */
 extern unsigned short DAT_008dde70;  /* 16 bpp colour (z-buffered half) */
@@ -59,7 +59,7 @@ extern unsigned short DAT_00900524, DAT_00900526, DAT_00900528, DAT_0090052a;  /
 #define q6_u32(f) (*(int *)&(f))
 
 /* the canvas of the current camera, its colour buffer and bits per pixel */
-#define Q6_C4() (*(char **)(g_pRdCurrentCamera + 4))
+#define Q6_C4() (*(char **)(g_pRdCamera_CurCamera + 4))
 #define Q6_CBUF() (*(char **)(Q6_C4() + 4))
 #define Q6_BPP() Q6_I(Q6_CBUF(), 0x24)
 
@@ -341,7 +341,7 @@ void rdRaster_Draw16_TexLit(int p, int mat)
         DAT_008ddec0 = UINT_008dded4[DAT_008ddeb8];
     }
     q6_poly_globals(p);
-    UINT_008ddea8 = *(unsigned char **)(UINT_004f5ec4 + 0x338);
+    UINT_008ddea8 = *(unsigned char **)(g_dwRdColormap_pCurMap + 0x338);
     q6_walk_x(bpp, rdRaster_Edge_Flat, rdRaster_Edge_Flat_2, rdRaster_Span_Tex, rdRaster_Span16_Tex);
 }
 
@@ -1069,7 +1069,7 @@ void rdRaster_Draw16_TexLitKey_7(int p, int mat)
         UINT_008ddebc = *(unsigned short **)(tb + 0x348);
         UINT_008dded4 = *(unsigned char **)(tb + 0x34c);
     }
-    UINT_008ddea8 = *(unsigned char **)(UINT_004f5ec4 + 0x338);
+    UINT_008ddea8 = *(unsigned char **)(g_dwRdColormap_pCurMap + 0x338);
     q6_poly_globals(p);
     rdRaster_Grad_Flat_2(Q6_I(p, 0x64));
     mip = UINT_008ddee4;

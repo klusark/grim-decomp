@@ -68,20 +68,20 @@ extern int g_bSndClass0 __asm__("_UINT_008dad44");             /* play effects /
 extern int g_bSndClass1 __asm__("_UINT_008dad40");
 extern int g_bSndClass2 __asm__("_UINT_008dad4c");
 extern int g_bSndSwapPan __asm__("_UINT_008dad50");
-extern int *g_pSndMemory __asm__("_PTR_008da8a8");             /* "MEMORY workspace": allocator [0](size, file, line), free [1](ptr, file, line) */
-extern int *g_pSndDriver __asm__("_PTR_008dacf0");             /* sound driver: [0] open(rate, voices, mixCallback), [1] close, [2], [3], [4] setRate, [5] getRate */
-extern int *g_pSndServices __asm__("_PTR_008dacf8");           /* module manager service table */
-extern int *g_pSndClock __asm__("_UINT_008dad48");             /* TIMER external_sync: [6] get sync time, [8] set */
+extern int *g_pSndMemory __asm__("_g_pSoundModule_memory_services");             /* "MEMORY workspace": allocator [0](size, file, line), free [1](ptr, file, line) */
+extern int *g_pSndDriver __asm__("_g_pSoundModule_snddriver_services");             /* sound driver: [0] open(rate, voices, mixCallback), [1] close, [2], [3], [4] setRate, [5] getRate */
+extern int *g_pSndServices __asm__("_g_pSoundModule_share_services");           /* module manager service table */
+extern int *g_pSndClock __asm__("_g_dwSoundModule_timer_services");             /* TIMER external_sync: [6] get sync time, [8] set */
 extern int g_nSndMixCalls __asm__("_UINT_008dacf4");
 extern int g_nSndPause __asm__("_UINT_008db1ec");
 extern int g_bSndDriverOpen __asm__("_UINT_008db1f0");
 extern int g_nSndSyncTime __asm__("_UINT_008db1f8");
 extern double g_dSndClock __asm__("_DAT_008db200");
-extern uint g_dwSndModuleSize __asm__("_UINT_008db098");
-extern int g_nSndOpenRate __asm__("_UINT_008db09c");
-extern uint g_dwSndDriverModuleSize __asm__("_UINT_008db0a0");
-extern int g_nSndOpenLimit __asm__("_UINT_008dacfc");
-extern uint g_adwSndBufferSizes[16] __asm__("_UINT_008dacb0");
+extern uint g_dwSndModuleSize __asm__("_g_dwSoundModule_share_config");
+extern int g_nSndOpenRate __asm__("_g_dwSound_samplerate");
+extern uint g_dwSndDriverModuleSize __asm__("_g_dwSound_name");
+extern int g_nSndOpenLimit __asm__("_g_dwSound_reserveram");
+extern uint g_adwSndBufferSizes[16] __asm__("_g_dwSound_bufsize");
 extern int g_nSndTrackExtra __asm__("_DAT_008db1e8");
 extern int g_anSndPlayCount[16] __asm__("_g_anSndChunkCount");     /* per voice: number of chunks received for a streamed sound */
 extern int g_anSndStreamKeys[16] __asm__("_g_anSndStreamKey");

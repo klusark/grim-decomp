@@ -9,7 +9,7 @@
 void rdCache_BeginScene3D(void)
 
 {
-  if (0 < g_nRdroid3DAccel) {
+  if (0 < g_nRdroid_curAcceleration) {
     D3D_BeginScene();
     return;
   }
@@ -20,7 +20,7 @@ void rdCache_BeginScene3D(void)
 void rdCache_EndScene3D(void)
 
 {
-  if (0 < g_nRdroid3DAccel) {
+  if (0 < g_nRdroid_curAcceleration) {
     D3D_EndScene();
     return;
   }
@@ -34,10 +34,10 @@ void rdCache_EndScene3D(void)
 void rdCache_Reset(void)
 
 {
-  g_dwRdCacheMeshCount = 0;
-  UINT_007f0fbc = 0;
-  UINT_007f0fc0 = 0;
-  UINT_007f0fc4 = 0;
+  g_dwRdCache_numProcFaces = 0;
+  g_dwNumUsedVertices = 0;
+  g_dwNumUsedTexVertices = 0;
+  g_dwNumUsedIntensities = 0;
   return;
 }
 
@@ -47,7 +47,7 @@ void rdCache_Reset(void)
 void rdCache_ClearStats(void)
 
 {
-  _DAT_007f0fb8 = 0;
+  _g_dwRdCache_drawnFaces = 0;
   return;
 }
 
@@ -61,27 +61,28 @@ undefined1 * rdCache_AllocMesh(void)
   int iVar1;
   uint uVar2;
   
-  if (0x3ff < g_dwRdCacheMeshCount) {
+  if (0x3ff < g_dwRdCache_numProcFaces) {
     rdCache_Flush();
   }
-  uVar2 = g_dwRdCacheMeshCount;
-  if (0x8000 - UINT_007f0fbc < 0x20) {
+  uVar2 = g_dwRdCache_numProcFaces;
+  if (0x8000 - g_dwNumUsedVertices < 0x20) {
     return (undefined1 *)0x0;
   }
-  if (0x8000 - UINT_007f0fc0 < 0x20) {
+  if (0x8000 - g_dwNumUsedTexVertices < 0x20) {
     return (undefined1 *)0x0;
   }
-  if (0x8000 - UINT_007f0fc4 < 0x20) {
+  if (0x8000 - g_dwNumUsedIntensities < 0x20) {
     return (undefined1 *)0x0;
   }
-  iVar1 = g_dwRdCacheMeshCount * 0x78;
-  (&UINT_008ddfe0)[g_dwRdCacheMeshCount * 0x1e] = (uint)(&DAT_0062bfa8 + UINT_007f0fbc * 0xc);
-  *(undefined **)(&DAT_008ddfe4 + iVar1) = &DAT_0068bfb0 + UINT_007f0fc0 * 8;
-  (&UINT_008ddfe8)[uVar2 * 0x1e] = (uint)(&DAT_0060bfa8 + UINT_007f0fc4 * 4);
-  (&UINT_008ddfec)[uVar2 * 0x1e] = (uint)(&DAT_0060bfa8 + UINT_007f0fc4 * 4);
-  (&UINT_008ddff0)[uVar2 * 0x1e] = (uint)(&DAT_005e6fa0 + UINT_007f0fc4 * 4);
-  (&UINT_008ddff4)[uVar2 * 0x1e] = (uint)(&DAT_006d0fb0 + UINT_007f0fc4 * 4);
-  return &DAT_008ddfc0 + iVar1;
+  iVar1 = g_dwRdCache_numProcFaces * 0x78;
+  (&UINT_008ddfe0)[g_dwRdCache_numProcFaces * 0x1e] =
+       (uint)(&DAT_0062bfa8 + g_dwNumUsedVertices * 0xc);
+  *(undefined **)(&DAT_008ddfe4 + iVar1) = &DAT_0068bfb0 + g_dwNumUsedTexVertices * 8;
+  (&UINT_008ddfe8)[uVar2 * 0x1e] = (uint)(&DAT_0060bfa8 + g_dwNumUsedIntensities * 4);
+  (&UINT_008ddfec)[uVar2 * 0x1e] = (uint)(&DAT_0060bfa8 + g_dwNumUsedIntensities * 4);
+  (&UINT_008ddff0)[uVar2 * 0x1e] = (uint)(&DAT_005e6fa0 + g_dwNumUsedIntensities * 4);
+  (&UINT_008ddff4)[uVar2 * 0x1e] = (uint)(&DAT_006d0fb0 + g_dwNumUsedIntensities * 4);
+  return &g_bRdCache_aProcFaces + iVar1;
 }
 
 /* ---- 0x00406770  rdCache_Flush ---- */
@@ -95,16 +96,16 @@ void rdCache_Flush(void)
   byte *pbVar1;
   uint uVar2;
   
-  if (g_dwRdCacheMeshCount != 0) {
-    if (g_nRdroidSortMode == 2) {
-      qsort(&DAT_008ddfc0,g_dwRdCacheMeshCount,0x78,FUN_00409d20);
+  if (g_dwRdCache_numProcFaces != 0) {
+    if (g_nRdroid_curSortingMethod == 2) {
+      qsort(&g_bRdCache_aProcFaces,g_dwRdCache_numProcFaces,0x78,FUN_00409d20);
     }
-    if (g_nRdroid3DAccel < 1) {
-      if (g_nRdroidOcclusionMode == 0) {
-        if (g_nRdroidZBufferMode == 0) {
+    if (g_nRdroid_curAcceleration < 1) {
+      if (g_nRdroid_curOcclusionMethod == 0) {
+        if (g_nRdroid_curZBufferMethod == 0) {
           uVar2 = 0;
-          pbVar1 = &DAT_008ddfc0;
-          if (g_dwRdCacheMeshCount != 0) {
+          pbVar1 = &g_bRdCache_aProcFaces;
+          if (g_dwRdCache_numProcFaces != 0) {
             do {
               if ((*pbVar1 & 1) == 0) {
                 rdCache_DrawMesh(pbVar1);
@@ -114,13 +115,13 @@ void rdCache_Flush(void)
               }
               pbVar1 = pbVar1 + 0x78;
               uVar2 = uVar2 + 1;
-            } while (uVar2 < g_dwRdCacheMeshCount);
+            } while (uVar2 < g_dwRdCache_numProcFaces);
           }
         }
-        else if (g_nRdroidZBufferMode == 2) {
+        else if (g_nRdroid_curZBufferMethod == 2) {
           uVar2 = 0;
-          pbVar1 = &DAT_008ddfc0;
-          if (g_dwRdCacheMeshCount != 0) {
+          pbVar1 = &g_bRdCache_aProcFaces;
+          if (g_dwRdCache_numProcFaces != 0) {
             do {
               if ((*pbVar1 & 1) == 0) {
                 rdCache_DrawMeshZ(pbVar1);
@@ -130,11 +131,11 @@ void rdCache_Flush(void)
               }
               pbVar1 = pbVar1 + 0x78;
               uVar2 = uVar2 + 1;
-            } while (uVar2 < g_dwRdCacheMeshCount);
+            } while (uVar2 < g_dwRdCache_numProcFaces);
           }
         }
       }
-      else if (g_nRdroidOcclusionMode == 1) {
+      else if (g_nRdroid_curOcclusionMethod == 1) {
         rdCanvas_InitEdgeTables();
         rdCanvas_ScanConvert();
       }
@@ -142,7 +143,7 @@ void rdCache_Flush(void)
     else {
       rdCache_DrawMeshList3D();
     }
-    _DAT_007f0fb8 = _DAT_007f0fb8 + g_dwRdCacheMeshCount;
+    _g_dwRdCache_drawnFaces = _g_dwRdCache_drawnFaces + g_dwRdCache_numProcFaces;
     rdCache_Reset();
   }
   return;
@@ -171,13 +172,13 @@ int __cdecl rdCache_AddMesh(void *mesh,uint vertexCount,byte flags)
   longlong lVar10;
   #define local_10 (*(float (*)[3])(_frame + (0x20 - 0x10)))
   
-  uVar7 = g_dwRdCacheMeshCount;
-  if (0x3ff < g_dwRdCacheMeshCount) {
+  uVar7 = g_dwRdCache_numProcFaces;
+  if (0x3ff < g_dwRdCache_numProcFaces) {
     return 0;
   }
-  iVar1 = g_dwRdCacheMeshCount * 0x78;
-  pfVar4 = (float *)(&UINT_008ddfe0)[g_dwRdCacheMeshCount * 0x1e];
-  *(void **)(&DAT_008ddfc0 + iVar1) = mesh;
+  iVar1 = g_dwRdCache_numProcFaces * 0x78;
+  pfVar4 = (float *)(&UINT_008ddfe0)[g_dwRdCache_numProcFaces * 0x1e];
+  *(void **)(&g_bRdCache_aProcFaces + iVar1) = mesh;
   (&UINT_008ddfdc)[uVar7 * 0x1e] = vertexCount;
   *(uint *)(&DAT_008de034 + iVar1) = UINT_00900054;
   local_10[1] = *pfVar4;
@@ -233,16 +234,16 @@ int __cdecl rdCache_AddMesh(void *mesh,uint vertexCount,byte flags)
       lVar10 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
       *(int *)(&DAT_008de020 + iVar1) = (int)lVar10;
       if ((flags & 1) != 0) {
-        UINT_007f0fbc = UINT_007f0fbc + vertexCount;
+        g_dwNumUsedVertices = g_dwNumUsedVertices + vertexCount;
       }
       if ((flags & 2) != 0) {
-        UINT_007f0fc0 = UINT_007f0fc0 + vertexCount;
+        g_dwNumUsedTexVertices = g_dwNumUsedTexVertices + vertexCount;
       }
       if ((flags & 4) != 0) {
-        UINT_007f0fc4 = UINT_007f0fc4 + vertexCount;
+        g_dwNumUsedIntensities = g_dwNumUsedIntensities + vertexCount;
       }
       (&UINT_008de00c)[uVar7 * 0x1e] = UINT_004f5ec0;
-      g_dwRdCacheMeshCount = g_dwRdCacheMeshCount + 1;
+      g_dwRdCache_numProcFaces = g_dwRdCache_numProcFaces + 1;
       if (*(uint *)(&DAT_008de014 + iVar1) < (uint)g_nDrawBoxMinX) {
         g_nDrawBoxMinX = *(uint *)(&DAT_008de014 + iVar1);
       }
@@ -332,13 +333,13 @@ undefined4 rdCache_DrawMeshList3D(void)
   bVar7 = false;
   local_4c = 0;
   local_44 = 0x33;
-  if (g_nRdroidZBufferMode == 1) {
+  if (g_nRdroid_curZBufferMethod == 1) {
     local_44 = 0x1033;
   }
-  else if (g_nRdroidZBufferMode == 2) {
+  else if (g_nRdroid_curZBufferMethod == 2) {
     local_44 = 0x1833;
   }
-  else if (g_nRdroidZBufferMode == 3) {
+  else if (g_nRdroid_curZBufferMethod == 3) {
     local_44 = 0x833;
   }
   if (((0.0 < _DAT_0090002c) || (0.0 < _DAT_00900030)) || (0.0 < _DAT_00900034)) {
@@ -354,15 +355,15 @@ undefined4 rdCache_DrawMeshList3D(void)
     local_44 = local_44 | 0x8000;
   }
   rdCache_Begin3DBatch();
-  puVar14 = &DAT_008ddfc0;
+  puVar14 = &g_bRdCache_aProcFaces;
   local_64 = 0;
-  if (g_dwRdCacheMeshCount == 0) {
+  if (g_dwRdCache_numProcFaces == 0) {
     rdCache_Flush3DBatch();
     return 1;
   }
   do {
     uVar15 = local_28;
-    if (((byte)g_dwRdroidFlags & 2) == 0) {
+    if (((byte)g_dwRdroid_curRenderOptions & 2) == 0) {
       local_c = 0;
     }
     else {
@@ -379,8 +380,8 @@ undefined4 rdCache_DrawMeshList3D(void)
       local_8 = g_nRdroidGeometryMode;
     }
     local_34 = *(uint *)(puVar14 + 0xc);
-    if (g_nRdroidLightingMode <= (int)local_34) {
-      local_34 = g_nRdroidLightingMode;
+    if (g_nRdroid_curLightingMode <= (int)local_34) {
+      local_34 = g_nRdroid_curLightingMode;
     }
     if ((puVar14[4] & 2) == 0) {
       iVar11 = 0xff;
@@ -748,7 +749,7 @@ LAB_00407a22:
               local_18 = (uint)lVar16;
             }
             uVar15 = local_10;
-            if (*(uint *)(puVar14 + 0x4c) != UINT_004f5ec4) {
+            if (*(uint *)(puVar14 + 0x4c) != g_dwRdColormap_pCurMap) {
               lVar16 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
               local_1c = (uint)lVar16 & 0xff;
               lVar16 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
@@ -1085,7 +1086,7 @@ LAB_004071fa:
               local_18 = local_1c;
               local_10 = local_1c;
             }
-            if (*(uint *)(puVar14 + 0x4c) != UINT_004f5ec4) {
+            if (*(uint *)(puVar14 + 0x4c) != g_dwRdColormap_pCurMap) {
               lVar16 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
               uVar15 = (uint)lVar16 & 0xff;
               local_1c = uVar15;
@@ -1202,7 +1203,7 @@ LAB_004071fa:
 LAB_00407e89:
     puVar14 = puVar14 + 0x78;
     local_64 = local_64 + 1;
-    if (g_dwRdCacheMeshCount <= local_64) {
+    if (g_dwRdCache_numProcFaces <= local_64) {
       rdCache_Flush3DBatch();
       return 1;
     }
@@ -1264,7 +1265,7 @@ void rdCache_Flush3DBatch(void)
       D3D_AddVertices(&DAT_006f0fb8,UINT_0068bfa8);
     }
     D3D_BeginInstructions();
-    if (g_nRdroidZBufferMode == 2) {
+    if (g_nRdroid_curZBufferMethod == 2) {
       qsort(&DAT_006cbfb0,UINT_0060bfa0,0x14,rdCache_CompareBatchEntries);
     }
     if (UINT_006f0fb0 != 0) {
@@ -1322,12 +1323,12 @@ int __cdecl rdCache_DrawMesh(void *mesh)
     iVar8 = g_nRdroidGeometryMode;
   }
   iVar9 = *(int *)((int)mesh + 0xc);
-  if (g_nRdroidLightingMode <= *(int *)((int)mesh + 0xc)) {
-    iVar9 = g_nRdroidLightingMode;
+  if (g_nRdroid_curLightingMode <= *(int *)((int)mesh + 0xc)) {
+    iVar9 = g_nRdroid_curLightingMode;
   }
   mesh = *(void **)((int)mesh + 0x10);
-  if (g_nRdroidTextureMode <= (int)mesh) {
-    mesh = (void *)g_nRdroidTextureMode;
+  if (g_nRdroid_curTextureMode <= (int)mesh) {
+    mesh = (void *)g_nRdroid_curTextureMode;
   }
   if (iVar8 == 0) {
     return 0;
@@ -1363,7 +1364,7 @@ LAB_0040804e:
     iVar8 = 3;
   }
 LAB_00408067:
-  if (((byte)g_dwRdroidFlags & 2) == 0) {
+  if (((byte)g_dwRdroid_curRenderOptions & 2) == 0) {
     local_4 = 0.0;
   }
   else {
@@ -1812,12 +1813,12 @@ int __cdecl rdCache_DrawMeshZ(void *mesh)
     iVar7 = g_nRdroidGeometryMode;
   }
   iVar8 = *(int *)((int)mesh + 0xc);
-  if (g_nRdroidLightingMode <= *(int *)((int)mesh + 0xc)) {
-    iVar8 = g_nRdroidLightingMode;
+  if (g_nRdroid_curLightingMode <= *(int *)((int)mesh + 0xc)) {
+    iVar8 = g_nRdroid_curLightingMode;
   }
   mesh = *(void **)((int)mesh + 0x10);
-  if (g_nRdroidTextureMode <= (int)mesh) {
-    mesh = (void *)g_nRdroidTextureMode;
+  if (g_nRdroid_curTextureMode <= (int)mesh) {
+    mesh = (void *)g_nRdroid_curTextureMode;
   }
   if (iVar7 == 0) {
     return 0;
@@ -1853,7 +1854,7 @@ LAB_00408b6e:
       iVar7 = 3;
     }
   }
-  if (((byte)g_dwRdroidFlags & 2) == 0) {
+  if (((byte)g_dwRdroid_curRenderOptions & 2) == 0) {
     local_4 = 0.0;
   }
   else {

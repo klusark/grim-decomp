@@ -12,7 +12,7 @@ void * __cdecl rdCamera_New(float fov,int type,float aspectX,float aspectY,float
   void *camera;
   int iVar1;
   
-  camera = (void *)(*g_pSvcRdroid->pAlloc)
+  camera = (void *)(*g_pRdroid_HS->pAlloc)
                              (0x464,s_C__grimjedi_Libs_RDroid_Engine_R_004ddb44,DAT_004ddb3c + 3);
   if (camera == (void *)0x0) {
     return (void *)0x0;
@@ -31,7 +31,7 @@ rdCamera_Init(void *camera,float fov,int projType,float aspectX,float aspectY,fl
 {
   int *piVar1;
   
-  piVar1 = (int *)(*g_pSvcRdroid->pAlloc)
+  piVar1 = (int *)(*g_pRdroid_HS->pAlloc)
                             (0x34,s_C__grimjedi_Libs_RDroid_Engine_R_004ddb44,DAT_004ddb40 + 1);
   *(int **)((int)camera + 0x48) = piVar1;
   if (piVar1 != (int *)0x0) {
@@ -66,7 +66,7 @@ void rdCamera_Free(int param_1)
 {
   if (param_1 != 0) {
     rdCamera_FreeProjection(param_1);
-    (*g_pSvcRdroid->pFree)(param_1);
+    (*g_pRdroid_HS->pFree)(param_1);
   }
   return;
 }
@@ -78,7 +78,7 @@ void rdCamera_FreeProjection(int param_1)
 
 {
   if (*(int *)(param_1 + 0x48) != 0) {
-    (*g_pSvcRdroid->pFree)(*(int *)(param_1 + 0x48));
+    (*g_pRdroid_HS->pFree)(*(int *)(param_1 + 0x48));
   }
   return;
 }
@@ -96,8 +96,8 @@ void __cdecl rdCamera_SetCanvas(void *camera,void *canvas)
 undefined4 rdCamera_SetCurrent(void *param_1)
 
 {
-  if (g_pRdCurrentCamera != param_1) {
-    g_pRdCurrentCamera = param_1;
+  if (g_pRdCamera_CurCamera != param_1) {
+    g_pRdCamera_CurCamera = param_1;
   }
   return 1;
 }
@@ -250,7 +250,7 @@ void __cdecl rdCamera_SetFrame(float *frame)
   int iVar1;
   float *pfVar2;
   
-  Matrix34_InvertRigid((float *)((int)g_pRdCurrentCamera + 8),frame);
+  Matrix34_InvertRigid((float *)((int)g_pRdCamera_CurCamera + 8),frame);
   pfVar2 = (float *)&UINT_008ddf60;
   for (iVar1 = 0xc; iVar1 != 0; iVar1 = iVar1 + -1) {
     *pfVar2 = *frame;
@@ -271,10 +271,10 @@ void rdCamera_OrthoProject(float *param_1,float *param_2)
 {
   int iVar1;
   
-  iVar1 = *(int *)((int)g_pRdCurrentCamera + 4);
-  *param_1 = *(float *)((int)g_pRdCurrentCamera + 0x44) * *param_2 + *(float *)(iVar1 + 8);
-  param_1[1] = -(param_2[2] * *(float *)((int)g_pRdCurrentCamera + 0x44)) *
-               *(float *)((int)g_pRdCurrentCamera + 0x40) + *(float *)(iVar1 + 0xc);
+  iVar1 = *(int *)((int)g_pRdCamera_CurCamera + 4);
+  *param_1 = *(float *)((int)g_pRdCamera_CurCamera + 0x44) * *param_2 + *(float *)(iVar1 + 8);
+  param_1[1] = -(param_2[2] * *(float *)((int)g_pRdCamera_CurCamera + 0x44)) *
+               *(float *)((int)g_pRdCamera_CurCamera + 0x40) + *(float *)(iVar1 + 0xc);
   param_1[2] = param_2[1];
   return;
 }
@@ -296,10 +296,10 @@ void rdCamera_OrthoProjectLst(float *param_1,float *param_2,int param_3)
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
-  fVar3 = *(float *)((int)g_pRdCurrentCamera + 0x44);
-  fVar1 = *(float *)((int)g_pRdCurrentCamera + 0x40);
-  fVar2 = *(float *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0xc);
-  fVar4 = *(float *)(*(int *)((int)g_pRdCurrentCamera + 4) + 8);
+  fVar3 = *(float *)((int)g_pRdCamera_CurCamera + 0x44);
+  fVar1 = *(float *)((int)g_pRdCamera_CurCamera + 0x40);
+  fVar2 = *(float *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0xc);
+  fVar4 = *(float *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 8);
   for (; param_3 != 0; param_3 = param_3 + -1) {
     *param_1 = fVar3 * *param_2 + fVar4;
     param_1[1] = fVar2 - param_2[2] * fVar1 * fVar3;
@@ -324,9 +324,9 @@ void rdCamera_OrthoProjectSquare(float *param_1,float *param_2)
 {
   int iVar1;
   
-  iVar1 = *(int *)((int)g_pRdCurrentCamera + 4);
-  *param_1 = *(float *)((int)g_pRdCurrentCamera + 0x44) * *param_2 + *(float *)(iVar1 + 8);
-  param_1[1] = *(float *)(iVar1 + 0xc) - param_2[2] * *(float *)((int)g_pRdCurrentCamera + 0x44);
+  iVar1 = *(int *)((int)g_pRdCamera_CurCamera + 4);
+  *param_1 = *(float *)((int)g_pRdCamera_CurCamera + 0x44) * *param_2 + *(float *)(iVar1 + 8);
+  param_1[1] = *(float *)(iVar1 + 0xc) - param_2[2] * *(float *)((int)g_pRdCamera_CurCamera + 0x44);
   param_1[2] = param_2[1];
   return;
 }
@@ -347,9 +347,9 @@ void rdCamera_OrthoProjectSquareLst(float *param_1,float *param_2,int param_3)
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
-  fVar1 = *(float *)((int)g_pRdCurrentCamera + 0x44);
-  fVar2 = *(float *)(*(int *)((int)g_pRdCurrentCamera + 4) + 8);
-  fVar3 = *(float *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0xc);
+  fVar1 = *(float *)((int)g_pRdCamera_CurCamera + 0x44);
+  fVar2 = *(float *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 8);
+  fVar3 = *(float *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0xc);
   for (; param_3 != 0; param_3 = param_3 + -1) {
     *param_1 = fVar1 * *param_2 + fVar2;
     param_1[1] = fVar3 - param_2[2] * fVar1;
@@ -376,9 +376,9 @@ void rdCamera_PerspProject(float *param_1,float *param_2)
   int iVar2;
   float fVar3;
   
-  fVar3 = *(float *)((int)g_pRdCurrentCamera + 0x3c) / param_2[1];
-  iVar2 = *(int *)((int)g_pRdCurrentCamera + 4);
-  fVar1 = *(float *)((int)g_pRdCurrentCamera + 0x40);
+  fVar3 = *(float *)((int)g_pRdCamera_CurCamera + 0x3c) / param_2[1];
+  iVar2 = *(int *)((int)g_pRdCamera_CurCamera + 4);
+  fVar1 = *(float *)((int)g_pRdCamera_CurCamera + 0x40);
   *param_1 = fVar3 * *param_2 + *(float *)(iVar2 + 8);
   param_1[1] = *(float *)(iVar2 + 0xc) - param_2[2] * fVar1 * fVar3;
   param_1[2] = param_2[1];
@@ -401,11 +401,11 @@ void rdCamera_PerspProjectLst(float *param_1,float *param_2,int param_3)
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
-  fVar2 = *(float *)(*(int *)((int)g_pRdCurrentCamera + 4) + 8);
-  fVar3 = *(float *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0xc);
+  fVar2 = *(float *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 8);
+  fVar3 = *(float *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0xc);
   for (; param_3 != 0; param_3 = param_3 + -1) {
-    fVar4 = *(float *)((int)g_pRdCurrentCamera + 0x3c) / param_2[1];
-    fVar1 = *(float *)((int)g_pRdCurrentCamera + 0x40);
+    fVar4 = *(float *)((int)g_pRdCamera_CurCamera + 0x3c) / param_2[1];
+    fVar1 = *(float *)((int)g_pRdCamera_CurCamera + 0x40);
     *param_1 = fVar4 * *param_2 + fVar2;
     param_1[1] = fVar3 - param_2[2] * fVar1 * fVar4;
     param_1[2] = param_2[1];
@@ -429,8 +429,8 @@ void rdCamera_PerspProjectSquare(float *param_1,float *param_2)
   int iVar1;
   float fVar2;
   
-  fVar2 = *(float *)((int)g_pRdCurrentCamera + 0x3c) / param_2[1];
-  iVar1 = *(int *)((int)g_pRdCurrentCamera + 4);
+  fVar2 = *(float *)((int)g_pRdCamera_CurCamera + 0x3c) / param_2[1];
+  iVar1 = *(int *)((int)g_pRdCamera_CurCamera + 4);
   *param_1 = fVar2 * *param_2 + *(float *)(iVar1 + 8);
   param_1[1] = *(float *)(iVar1 + 0xc) - param_2[2] * fVar2;
   param_1[2] = param_2[1];
@@ -452,10 +452,10 @@ void rdCamera_PerspProjectSquareLst(float *param_1,float *param_2,int param_3)
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
-  fVar1 = *(float *)(*(int *)((int)g_pRdCurrentCamera + 4) + 8);
-  fVar2 = *(float *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0xc);
+  fVar1 = *(float *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 8);
+  fVar2 = *(float *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0xc);
   for (; param_3 != 0; param_3 = param_3 + -1) {
-    fVar3 = *(float *)((int)g_pRdCurrentCamera + 0x3c) / param_2[1];
+    fVar3 = *(float *)((int)g_pRdCamera_CurCamera + 0x3c) / param_2[1];
     *param_1 = fVar3 * *param_2 + fVar1;
     param_1[1] = fVar2 - param_2[2] * fVar3;
     param_1[2] = param_2[1];
@@ -513,10 +513,10 @@ void rdCamera_ClearCanvas(void)
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
-  if (((g_pRdCurrentCamera != (void *)0x0) &&
-      (puVar1 = *(uint **)((int)g_pRdCurrentCamera + 4), (g_dwRdroidFlags & 0x100) != 0)) &&
-     ((*puVar1 & 2) != 0)) {
-    if (0 < g_nRdroid3DAccel) {
+  if (((g_pRdCamera_CurCamera != (void *)0x0) &&
+      (puVar1 = *(uint **)((int)g_pRdCamera_CurCamera + 4),
+      (g_dwRdroid_curRenderOptions & 0x100) != 0)) && ((*puVar1 & 2) != 0)) {
+    if (0 < g_nRdroid_curAcceleration) {
       D3D_ClearZBuffer();
       return;
     }
@@ -565,10 +565,10 @@ int __cdecl rdPrimit3_GetScreenCoord(float *world,float *outScreen)
   #define fStack_10 (*(float *)(_frame + (0x20 - 0x10)))
   #define local_c (*(float (*)[3])(_frame + (0x20 - 0xc)))
   
-  Matrix34_TransformPoint(local_c,world,(float *)((int)g_pRdCurrentCamera + 8));
-  iVar1 = rdClip_PointInFrustum(*(void **)((int)g_pRdCurrentCamera + 0x48),local_c);
+  Matrix34_TransformPoint(local_c,world,(float *)((int)g_pRdCamera_CurCamera + 8));
+  iVar1 = rdClip_PointInFrustum(*(void **)((int)g_pRdCamera_CurCamera + 0x48),local_c);
   if (iVar1 != 0) {
-    (**(code **)((int)g_pRdCurrentCamera + 0x4c))((_stkneg + 24),local_c);
+    (**(code **)((int)g_pRdCamera_CurCamera + 0x4c))((_stkneg + 24),local_c);
     if (outScreen != (float *)0x0) {
       lVar2 = _ftol((double)CONCAT44(in_stack_ffffffe8,unaff_ESI));
       *outScreen = PUN(float,lVar2);

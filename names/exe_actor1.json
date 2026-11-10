@@ -11,8 +11,8 @@
  {"addr": "004e9c88", "global": "g_PhonemeTable", "type": "undefined4", "comment": "Sorted {phoneme code, talk chore index} pairs used for lip sync"},
  {"addr": "004e9df8", "global": "g_nPhonemeCount", "type": "int", "comment": "Number of entries in g_PhonemeTable"},
  {"addr": "004934b0", "name": "Actor_IsVoicePlaying", "proto": "int Actor_IsVoicePlaying(void * actor)", "tags": "actor"},
- {"addr": "004e9c80", "global": "g_nActorCapacity", "type": "int", "comment": "Allocated size of g_pActorTable in actors (grows by 32)"},
- {"addr": "008ca75c", "global": "g_nActorCount", "type": "int", "comment": "Number of actors created so far"},
+ {"addr": "004e9c80", "global": "g_nMaxActors", "type": "int", "comment": "Allocated size of g_pActors in actors (grows by 32)"},
+ {"addr": "008ca75c", "global": "g_nNumActors", "type": "int", "comment": "Number of actors created so far"},
  {"addr": "0044f880", "name": "rdMatrix_Identity34", "proto": "void rdMatrix_Identity34(float * m)", "tags": "math3d"},
  {"addr": "004a8270", "name": "Walker_Destroy", "tags": "walker"},
  {"addr": "004a8200", "name": "Walker_Create", "proto": "void * Walker_Create(float radius)", "comment": "Allocates the 0x60-byte walker record", "tags": "walker"},
@@ -39,5 +39,5 @@
  {"addr": "00492510", "name": "Collision_PointInBox", "tags": "collision"},
  {"addr": "004925c0", "name": "Collision_BoxCorners", "comment": "Computes the four detour points around an actor's collision box", "tags": "collision"},
  {"addr": "00492a50", "name": "Collision_PickDetour", "comment": "Chooses the detour corner that keeps the path shortest", "tags": "collision"},
- {"addr": "004e9e04", "global": "g_nChoreFadeMs", "type": "int", "comment": "Fade time (ms) used when move chores start and stop"}
+ {"addr": "004e9e04", "global": "g_nWALKSYSTEM_FADE_TIME", "type": "int", "comment": "Fade time (ms) used when move chores start and stop"}
 ]

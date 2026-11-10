@@ -14,10 +14,11 @@
 int __cdecl DsndDriver_Register(int *services,uint moduleSize)
 
 {
-  g_pDsndServices = services;
-  UINT_008db430 = moduleSize;
+  g_pDsndDriver_share_services = services;
+  g_dwDsndDriver_share_config = moduleSize;
   (*(code *)*services)(s_LECMODULE_insane_dsnd_004f3fec,&g_apfnDsndDriverModule);
-  (*(code *)*g_pDsndServices)(s_SNDDRIVER_insane_dsnd_004f3fd4,&g_apfnDsndDriverInterface);
+  (*(code *)*g_pDsndDriver_share_services)
+            (s_SNDDRIVER_insane_dsnd_004f3fd4,&g_apfnDsndDriverInterface);
   _DAT_008db414 = 0xffffffff;
   _DAT_008db20c = 0xffffffff;
   _DAT_008dcc38 = 0xffffffff;
@@ -35,8 +36,8 @@ int __cdecl DsndDriver_Register(int *services,uint moduleSize)
 void DsndDriver_Unregister(void)
 
 {
-  (*(code *)g_pDsndServices[1])(s_SNDDRIVER_insane_dsnd_004f3fd4);
-  (*(code *)g_pDsndServices[1])(s_LECMODULE_insane_dsnd_004f3fec);
+  (*(code *)g_pDsndDriver_share_services[1])(s_SNDDRIVER_insane_dsnd_004f3fd4);
+  (*(code *)g_pDsndDriver_share_services[1])(s_LECMODULE_insane_dsnd_004f3fec);
   return;
 }
 #endif
@@ -55,14 +56,18 @@ void DsndDriver_Unregister(void)
 int DsndDriver_module_startup(void)
 
 {
-  g_pDsndClock = (int *)(*(code *)g_pDsndServices[2])(s_TIMER_clock_004f4054,UINT_008db430);
-  if (g_pDsndClock == (int *)0x0) {
-    (*(code *)g_pDsndServices[8])(s_DirectSoundDriver_Module__Cannot_004f4018);
+  g_pDsndDriver_timer_services =
+       (int *)(*(code *)g_pDsndDriver_share_services[2])
+                        (s_TIMER_clock_004f4054,g_dwDsndDriver_share_config);
+  if (g_pDsndDriver_timer_services == (int *)0x0) {
+    (*(code *)g_pDsndDriver_share_services[8])(s_DirectSoundDriver_Module__Cannot_004f4018);
     return -1;
   }
-  UINT_008db208 = (*(code *)g_pDsndServices[2])(s_MEMORY_mixertable_004f4004,UINT_008db430);
+  UINT_008db208 =
+       (*(code *)g_pDsndDriver_share_services[2])
+                 (s_MEMORY_mixertable_004f4004,g_dwDsndDriver_share_config);
   if (UINT_008db208 == 0) {
-    (*(code *)g_pDsndServices[8])(s_DirectSoundDriver_Module__Cannot_004f4018);
+    (*(code *)g_pDsndDriver_share_services[8])(s_DirectSoundDriver_Module__Cannot_004f4018);
     return -1;
   }
   return 0;
@@ -78,8 +83,8 @@ int DsndDriver_module_startup(void)
 void DsndDriver_Shutdown(void)
 
 {
-  (*(code *)g_pDsndServices[3])(g_pDsndClock);
-  (*(code *)g_pDsndServices[3])(UINT_008db208);
+  (*(code *)g_pDsndDriver_share_services[3])(g_pDsndDriver_timer_services);
+  (*(code *)g_pDsndDriver_share_services[3])(UINT_008db208);
   return;
 }
 #endif
@@ -111,7 +116,7 @@ int __cdecl DsndDriver_Open(int rate,int unused,void *mix)
   g_pfnStreamMix = mix;
   g_dwStreamRate = rate;
   g_nStreamTimerId =
-       (*(code *)*g_pDsndClock)
+       (*(code *)*g_pDsndDriver_timer_services)
                  (DSound_FillStreamBuffer,
                   (int)(0x1234dc / (longlong)((int)(rate + (rate >> 0x1f & 0x3ffU)) >> 10)),2,0);
   return 0;
@@ -128,7 +133,7 @@ void DsndDriver_Close(void)
 
 {
   if (g_nStreamTimerId != 0) {
-    (*(code *)g_pDsndClock[1])(g_nStreamTimerId);
+    (*(code *)g_pDsndDriver_timer_services[1])(g_nStreamTimerId);
   }
   g_nStreamTimerId = 0;
   FUN_004d2d70(UINT_008db208);

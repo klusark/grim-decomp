@@ -9,7 +9,8 @@
 undefined4 rdColormap_SetCurrent(uint param_1)
 
 {
-  if ((UINT_004f5ec4 != param_1) && (UINT_004f5ec4 = param_1, 0 < g_nRdroid3DAccel)) {
+  if ((g_dwRdColormap_pCurMap != param_1) &&
+     (g_dwRdColormap_pCurMap = param_1, 0 < g_nRdroid_curAcceleration)) {
     Display_SetPalette3D((void *)(param_1 + 0x30),0x5a);
   }
   return 1;
@@ -27,7 +28,7 @@ void * __cdecl rdColormap_Load(char *name)
   undefined4 *puVar2;
   
   cmp = (undefined4 *)
-        (*g_pSvcRdroid->pAlloc)(0x350,s_C__grimjedi_Libs_RDroid_Engine_R_004ddae4,DAT_004ddad8 + 4);
+        (*g_pRdroid_HS->pAlloc)(0x350,s_C__grimjedi_Libs_RDroid_Engine_R_004ddae4,DAT_004ddad8 + 4);
   if (cmp != (undefined4 *)0x0) {
     puVar2 = cmp;
     for (iVar1 = 0xd4; iVar1 != 0; iVar1 = iVar1 + -1) {
@@ -69,7 +70,7 @@ int __cdecl rdColormap_LoadEntry(char *name,void *cmp)
   #define uStack_30 (*(undefined4 *)(_frame + (0x50 - 0x30)))
   #define uStack_2c (*(undefined4 *)(_frame + (0x50 - 0x2c)))
   
-  iVar7 = (*g_pSvcRdroid->pFopen)(name,&DAT_004ddb18);
+  iVar7 = (*g_pRdroid_HS->pFopen)(name,&DAT_004ddb18);
   if (iVar7 == 0) {
     return 0;
   }
@@ -77,19 +78,19 @@ int __cdecl rdColormap_LoadEntry(char *name,void *cmp)
   pcVar8 = Str_FileNameFromPath(name);
   strncpy(cmp,pcVar8,uVar12);
   *(undefined1 *)((int)cmp + 0x1f) = 0;
-  (*g_pSvcRdroid->pFread)(iVar7,auStack_40,0x40);
+  (*g_pRdroid_HS->pFread)(iVar7,auStack_40,0x40);
   *(undefined4 *)((int)cmp + 0x24) = uStack_34;
   *(undefined4 *)((int)cmp + 0x20) = uStack_38;
   *(undefined4 *)((int)cmp + 0x28) = uStack_30;
   *(undefined4 *)((int)cmp + 0x2c) = uStack_2c;
   iVar9 = strncmp(auStack_40,&DAT_004ddb10,4);
   if (iVar9 != 0) {
-    (*g_pSvcRdroid->pFclose)(iVar7);
+    (*g_pRdroid_HS->pFclose)(iVar7);
     rdColormap_BuildGreyRamp(cmp);
     return 1;
   }
   puVar1 = (ushort *)((int)cmp + 0x30);
-  (*g_pSvcRdroid->pFread)(iVar7,puVar1,0x300);
+  (*g_pRdroid_HS->pFread)(iVar7,puVar1,0x300);
   bVar2 = *(byte *)puVar1;
   bVar3 = *(byte *)((int)cmp + 0x31);
   bVar4 = *(byte *)((int)cmp + 0x32);
@@ -132,19 +133,19 @@ int __cdecl rdColormap_LoadEntry(char *name,void *cmp)
   }
   else {
     puVar10 = (undefined2 *)
-              (*g_pSvcRdroid->pAlloc)
+              (*g_pRdroid_HS->pAlloc)
                         (0x8000,s_C__grimjedi_Libs_RDroid_Engine_R_004ddae4,DAT_004ddadc + 0x4b);
     *(undefined2 **)((int)cmp + 0x348) = puVar10;
     if (puVar10 == (undefined2 *)0x0) goto LAB_00404659;
     rdColormap_Build16bitTables(puVar10,puVar1,0,0,0,IMG_ADDR(0x004ddaa0));
   }
   if ((*(byte *)((int)cmp + 0x20) & 1) != 0) {
-    uVar11 = (*g_pSvcRdroid->pAlloc)
+    uVar11 = (*g_pRdroid_HS->pAlloc)
                        (0x10100,s_C__grimjedi_Libs_RDroid_Engine_R_004ddae4,DAT_004ddadc + 0x68);
     *(uint *)((int)cmp + 0x33c) = uVar11;
     if (uVar11 == 0) {
 LAB_00404659:
-      (*g_pSvcRdroid->pFclose)(iVar7);
+      (*g_pRdroid_HS->pFclose)(iVar7);
       rdColormap_BuildGreyRamp(cmp);
       return 1;
     }
@@ -152,32 +153,32 @@ LAB_00404659:
     if ((uVar11 & 0xff) != 0) {
       *(uint *)((int)cmp + 0x338) = (uVar11 - (uVar11 & 0xff)) + 0x100;
     }
-    (*g_pSvcRdroid->pFread)(iVar7,*(undefined4 *)((int)cmp + 0x338),0x10000);
+    (*g_pRdroid_HS->pFread)(iVar7,*(undefined4 *)((int)cmp + 0x338),0x10000);
     if ((*(byte *)((int)cmp + 0x20) & 4) == 0) {
       *(undefined4 *)((int)cmp + 0x34c) = 0;
       *(undefined4 *)((int)cmp + 0x340) = 0;
       *(undefined4 *)((int)cmp + 0x344) = 0;
     }
     else {
-      iVar9 = (*g_pSvcRdroid->pAlloc)
+      iVar9 = (*g_pRdroid_HS->pAlloc)
                         (0x10000,s_C__grimjedi_Libs_RDroid_Engine_R_004ddae4,DAT_004ddadc + 0x76);
       *(int *)((int)cmp + 0x34c) = iVar9;
       if (iVar9 == 0) goto LAB_00404659;
       if (UINT_004ddaac == 5) {
-        (*g_pSvcRdroid->pFseek)(iVar7,0x10000,1);
-        (*g_pSvcRdroid->pFread)(iVar7,*(undefined4 *)((int)cmp + 0x34c),0x10000);
+        (*g_pRdroid_HS->pFseek)(iVar7,0x10000,1);
+        (*g_pRdroid_HS->pFread)(iVar7,*(undefined4 *)((int)cmp + 0x34c),0x10000);
         *(undefined4 *)((int)cmp + 0x340) = 0;
         *(undefined4 *)((int)cmp + 0x344) = 0;
       }
       else {
-        (*g_pSvcRdroid->pFread)(iVar7,iVar9,0x10000);
-        (*g_pSvcRdroid->pFseek)(iVar7,0x10000,1);
+        (*g_pRdroid_HS->pFread)(iVar7,iVar9,0x10000);
+        (*g_pRdroid_HS->pFseek)(iVar7,0x10000,1);
         *(undefined4 *)((int)cmp + 0x340) = 0;
         *(undefined4 *)((int)cmp + 0x344) = 0;
       }
     }
   }
-  (*g_pSvcRdroid->pFclose)(iVar7);
+  (*g_pRdroid_HS->pFclose)(iVar7);
   return 1;
 }
 #undef auStack_40
@@ -192,7 +193,7 @@ void rdColormap_Free(undefined4 param_1)
 
 {
   rdColormap_FreeEntry(param_1);
-  (*g_pSvcRdroid->pFree)(param_1);
+  (*g_pRdroid_HS->pFree)(param_1);
   return;
 }
 
@@ -201,20 +202,20 @@ void rdColormap_FreeEntry(int param_1)
 
 {
   if (*(int *)(param_1 + 0x334) != 0) {
-    (*g_pSvcRdroid->pFree)(*(int *)(param_1 + 0x334));
+    (*g_pRdroid_HS->pFree)(*(int *)(param_1 + 0x334));
     *(undefined4 *)(param_1 + 0x334) = 0;
   }
   if (*(int *)(param_1 + 0x348) != 0) {
-    (*g_pSvcRdroid->pFree)(*(int *)(param_1 + 0x348));
+    (*g_pRdroid_HS->pFree)(*(int *)(param_1 + 0x348));
     *(undefined4 *)(param_1 + 0x348) = 0;
   }
   if ((*(byte *)(param_1 + 0x20) & 1) != 0) {
     if (*(int *)(param_1 + 0x33c) != 0) {
-      (*g_pSvcRdroid->pFree)(*(int *)(param_1 + 0x33c));
+      (*g_pRdroid_HS->pFree)(*(int *)(param_1 + 0x33c));
       *(undefined4 *)(param_1 + 0x33c) = 0;
     }
     if (*(int *)(param_1 + 0x34c) != 0) {
-      (*g_pSvcRdroid->pFree)(*(int *)(param_1 + 0x34c));
+      (*g_pRdroid_HS->pFree)(*(int *)(param_1 + 0x34c));
       *(undefined4 *)(param_1 + 0x34c) = 0;
     }
   }
@@ -331,7 +332,7 @@ undefined4 rdColormap_BuildGreyRamp(undefined4 *param_1)
   param_1[9] = 0x3f800000;
   param_1[10] = 0x3f800000;
   param_1[0xb] = 0x3f800000;
-  uVar3 = (*g_pSvcRdroid->pAlloc)
+  uVar3 = (*g_pRdroid_HS->pAlloc)
                     (0x4100,s_C__grimjedi_Libs_RDroid_Engine_R_004ddae4,DAT_004ddae0 + 0x10);
   param_1[0xcd] = uVar3;
   if (uVar3 == 0) {

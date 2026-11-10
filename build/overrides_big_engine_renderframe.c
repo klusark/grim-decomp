@@ -14,12 +14,12 @@
 /* "Bad Colormap Reference" assertion of sputResource.h, line 0x9f (through the main service table, cdecl) */
 static void er_colormap_assert(void)
 {
-    ((void (__cdecl *)(char *, char *, int))g_pSvcMain->pAssertFail)(s_Bad_Colormap_Reference_004e8090,
+    ((void (__cdecl *)(char *, char *, int))g_pStd_HS->pAssertFail)(s_Bad_Colormap_Reference_004e8090,
                                                                        s_main_sputResource_h_004e80a8, 0x9f);
 }
 
 /* Draws one frame.
- *   mode (UINT_008a8c40) 0: nothing.
+ *   mode (g_dwGrimlib_mode) 0: nothing.
  *   3: movie playback: polls the movie; when it has ended, mode 2, every buffer gets a full-screen dirty rectangle and a
  *      full redraw is requested; then talking actors are updated, the text objects drawn and the frame presented.
  *   4: if a full redraw is pending the user paint callback runs.  The pending flag is cleared.
@@ -33,11 +33,11 @@ static void er_colormap_assert(void)
  * Returns nothing (EAX is not used by the callers). */
 void sputRender_Update(void)
 {
-    uint mode = UINT_008a8c40;
+    uint mode = g_dwGrimlib_mode;
     int rect[4];
     uint vec[3];                /* scale vector passed to Matrix_BuildTransform2 (float bit patterns) */
     byte *set, *rec, *os, *actor, *entry, *cm;
-    uint *list = &UINT_008c9568;
+    uint *list = &g_dwDrawItems;
     int setup, n, k, cnt;
     void *cur;
 
@@ -46,38 +46,38 @@ void sputRender_Update(void)
 
     if (mode == 3) {
         float dt;
-        Movie_SetTarget(&g_BackBuffer);
+        Movie_SetTarget(&g_dwStdDisplay_backBuffer);
         if (Movie_PollPlayback() != 0) {
-            cnt = g_nBufferCount;
-            UINT_008a8c40 = 2;
+            cnt = g_nNumPages;
+            g_dwGrimlib_mode = 2;
             rect[0] = 0; rect[1] = 0; rect[2] = 0x280; rect[3] = 0x1e0;
             if (cnt > 0) {
                 n = 0;
                 do {
                     DirtyRect_Add(rect, 1, n);
                     n++;
-                } while (n < g_nBufferCount);
+                } while (n < g_nNumPages);
             }
             sputRender_ForceRefresh();
             UINT_008c97f8 = 1;
         }
         dt = sputTime_GetFrameTimeFlex();
         Actors_UpdateTalking(dt);
-        Surface_Lock(&g_BackBuffer);
+        Surface_Lock(&g_dwStdDisplay_backBuffer);
         UINT_008a94b8 = UINT_0090563c;
         TextObjects_Update(0);
-        Surface_Unlock(&g_BackBuffer);
+        Surface_Unlock(&g_dwStdDisplay_backBuffer);
         Render_Present();
         return;
     }
 
     if (mode == 4) {
-        if (g_nFullRedrawPending != 0) {
+        if (g_nSputRender_Reset != 0) {
             grimlib_UserPaint();
-            g_nFullRedrawPending = 0;
+            g_nSputRender_Reset = 0;
             return;
         }
-        g_nFullRedrawPending = 0;
+        g_nSputRender_Reset = 0;
         return;
     }
 
@@ -94,7 +94,7 @@ void sputRender_Update(void)
             changed = 1;
         else {
             cur = sputRoom_GetCurrentRoom();
-            if (*(int *)((byte *)cur + 0xb4) != g_nRenderedSetup || g_nFullRedrawPending != 0)
+            if (*(int *)((byte *)cur + 0xb4) != g_nSputRender_Update_RenderSetup || g_nSputRender_Reset != 0)
                 changed = 1;
         }
         if (changed) {
@@ -102,63 +102,63 @@ void sputRender_Update(void)
             set = (byte *)sputRoom_GetCurrentRoom();
             g_pRenderedSet = set;
             setup = *(int *)(set + 0xb4);
-            g_nRenderedSetup = setup;
+            g_nSputRender_Update_RenderSetup = setup;
             Set_SwitchSetup(set, setup);
-            sputLua_PostCameraChange(g_nRenderedSetup);
+            sputLua_PostCameraChange(g_nSputRender_Update_RenderSetup);
         }
     }
 
     /* the setup record (300 bytes per setup).  The original keeps this pointer in EBX and spills it to [ESP+0x10], the slot
      * that also holds the frame time (mode 3) and the iris value: it is an address, never a float. */
-    setup = g_nRenderedSetup;
+    setup = g_nSputRender_Update_RenderSetup;
     set = (byte *)g_pRenderedSet;
     rec = (byte *)(ER_U32(set, 0xac) + (uint)setup * 300u);
     sputRender_SyncCamera(set, setup);
 
     for (os = ER_PTR(rec, 0x128); os != 0; os = ER_PTR(os, 0xf8))
-        ObjectState_Draw(os, 3, g_pBackgroundSurface, g_pZBufferSurface);
+        ObjectState_Draw(os, 3, g_pSputRender_CleanBuffer, g_pSputRender_CleanZBuffer);
 
     Profile_Begin(4);
-    if (g_nDrawEnabled != 0)
-        DirtyRect_Flush(&g_BackBuffer, (void *)UINT_008c97a4);
+    if (g_nDoTheFlip != 0)
+        DirtyRect_Flush(&g_dwStdDisplay_backBuffer, (void *)UINT_008c97a4);
     Profile_End(4);
-    Movie_SetTarget(&g_BackBuffer);
+    Movie_SetTarget(&g_dwStdDisplay_backBuffer);
     Movie_PollPlayback();
-    Surface_Lock(&g_BackBuffer);
+    Surface_Lock(&g_dwStdDisplay_backBuffer);
     Primitives_DrawAll(1);
-    Surface_Unlock(&g_BackBuffer);
+    Surface_Unlock(&g_dwStdDisplay_backBuffer);
     for (os = ER_PTR(rec, 0x128); os != 0; os = ER_PTR(os, 0xf8))
-        ObjectState_Draw(os, 1, &g_BackBuffer, (void *)UINT_008c97a4);
+        ObjectState_Draw(os, 1, &g_dwStdDisplay_backBuffer, (void *)UINT_008c97a4);
     rdroid_BeginFrame();
     Render_BuildActorDrawList();
 
-    if (UINT_008a952c != 0 || ((byte)g_dwRenderDebugFlags & 1) != 0) {
+    if (g_dwTotDrawItems != 0 || ((byte)g_dwDebugFlags & 1) != 0) {
         Profile_Begin(5);
         n = 0;
-        if ((int)UINT_008a952c > 0) {
+        if ((int)g_dwTotDrawItems > 0) {
             do {
                 entry = (byte *)list[n];
-                actor = (byte *)g_pActorTable + *(int *)(entry + 8) * 0xa8;
+                actor = (byte *)g_pActors + *(int *)(entry + 8) * 0xa8;
                 if (entry[0] == 0)
                     Costume_TouchComponents(*(int *)ER_PTR(actor, 0xa0));
                 n++;
-            } while (n < (int)UINT_008a952c);
+            } while (n < (int)g_dwTotDrawItems);
         }
         Profile_End(5);
-        if (((byte)g_dwRenderDebugFlags & 1) != 0) {
-            Surface_Lock(&g_BackBuffer);
-            if (((byte)g_dwRenderDebugFlags & 8) != 0)
+        if (((byte)g_dwDebugFlags & 1) != 0) {
+            Surface_Lock(&g_dwStdDisplay_backBuffer);
+            if (((byte)g_dwDebugFlags & 8) != 0)
                 ((void (__cdecl *)(void *))Sector_DrawAllDebug)(sputRoom_GetCurrentRoom());
             else
                 Render_DrawDebugGrid();
-            Surface_Unlock(&g_BackBuffer);
+            Surface_Unlock(&g_dwStdDisplay_backBuffer);
         }
 
         Profile_Begin(6);
         /* the draw list from the last entry to the first */
         for (k = n; k != 0; k--) {
             entry = (byte *)list[k - 1];
-            actor = (byte *)g_pActorTable + *(int *)(entry + 8) * 0xa8;
+            actor = (byte *)g_pActors + *(int *)(entry + 8) * 0xa8;
             if (ER_U32(actor, 0x30) != 0x3f800000) {          /* integer compare of the float scale with 1.0f */
                 vec[0] = ER_U32(actor, 0x30);
                 vec[1] = ER_U32(actor, 0x30);
@@ -191,15 +191,15 @@ void sputRender_Update(void)
                     float *frame = Actor_GetFrame(actor);
                     Actor_DrawCostumes(ER_U32(actor, 0xa0), (undefined4)frame);
                 }
-                if (((byte)g_dwRenderDebugFlags & 1) != 0)
+                if (((byte)g_dwDebugFlags & 1) != 0)
                     Actor_DrawDebugWalker(actor);
                 break;
             case 1:
-                if (g_nZBufferEnabled == 0)
-                    Surface_Lock(&g_BackBuffer);
+                if (g_nSputRender_b3DAcceleration == 0)
+                    Surface_Lock(&g_dwStdDisplay_backBuffer);
                 Actor_ComputeScreenBox(actor);
-                if (g_nZBufferEnabled == 0)
-                    Surface_Unlock(&g_BackBuffer);
+                if (g_nSputRender_b3DAcceleration == 0)
+                    Surface_Unlock(&g_dwStdDisplay_backBuffer);
                 Render_InvalidateRectLastBuffer((int *)(actor + 0x6c), 1);
                 break;
             }
@@ -218,17 +218,17 @@ void sputRender_Update(void)
         rdroid_EndFrame();
         Profile_End(7);
         for (os = ER_PTR(rec, 0x128); os != 0; os = ER_PTR(os, 0xf8))
-            ObjectState_Draw(os, 2, &g_BackBuffer, (void *)UINT_008c97a4);
+            ObjectState_Draw(os, 2, &g_dwStdDisplay_backBuffer, (void *)UINT_008c97a4);
     }
 
-    Surface_Lock(&g_BackBuffer);
+    Surface_Lock(&g_dwStdDisplay_backBuffer);
     Primitives_DrawAll(2);
-    Surface_Unlock(&g_BackBuffer);
-    if (((byte)g_dwRenderDebugFlags & 1) != 0) {
+    Surface_Unlock(&g_dwStdDisplay_backBuffer);
+    if (((byte)g_dwDebugFlags & 1) != 0) {
         cur = sputRoom_GetCurrentRoom();
-        if (((byte)g_dwRenderDebugFlags & 2) != 0)
+        if (((byte)g_dwDebugFlags & 2) != 0)
             Set_DrawDebugLights((int)cur);
-        if (((byte)g_dwRenderDebugFlags & 4) != 0)
+        if (((byte)g_dwDebugFlags & 4) != 0)
             Set_DrawDebugCameras(cur, 0xffffffff);
     }
 
@@ -237,8 +237,8 @@ void sputRender_Update(void)
          * high dword is 0), so a clock behind the start time gives a large positive value, not a negative one.
          * The compares are x87 FCOM + TEST AH: "C0" (below or unordered) and "C0|C3" (below, equal or unordered).
          * `volatile` keeps every step on v as written (at -O2 gcc rewrote the FCHS / 1 - v pair and flipped NaN signs). */
-        uint diff = Timer_GetTotalMs() - g_dwIrisStartMs;
-        volatile long double v = (long double)(unsigned long long)diff / (long double)g_flIrisDurationMs;
+        uint diff = Timer_GetTotalMs() - g_dwIrisStart;
+        volatile long double v = (long double)(unsigned long long)diff / (long double)g_flIrisDuration;
         float out;
         if (!(v >= 0.0L))
             v = -v;
@@ -246,25 +246,25 @@ void sputRender_Update(void)
             g_dwRenderFlags &= ~8u;
         else {
             v = 1.0L;
-            if (!(g_flIrisDurationMs >= 0.0f))
+            if (!(g_flIrisDuration >= 0.0f))
                 g_dwRenderFlags &= ~4u;
             else
                 g_dwRenderFlags |= 8u;
         }
-        if (!(g_flIrisDurationMs > 0.0f))
+        if (!(g_flIrisDuration > 0.0f))
             v = 1.0L - v;
         out = (float)v;
         Render_DrawIris(out, g_nIrisX, g_nIrisY);
-        if (!(g_flIrisDurationMs >= 0.0f)) {
+        if (!(g_flIrisDuration >= 0.0f)) {
             rect[0] = 0; rect[1] = 0; rect[2] = 0x280; rect[3] = 0x1e0;
             MarkDirtyRect(rect, 0);
         }
     }
 
-    Surface_Lock(&g_BackBuffer);
+    Surface_Lock(&g_dwStdDisplay_backBuffer);
     UINT_008a94b8 = UINT_0090563c;
     TextObjects_Update(1);
-    Surface_Unlock(&g_BackBuffer);
-    g_nFullRedrawPending = 0;
+    Surface_Unlock(&g_dwStdDisplay_backBuffer);
+    g_nSputRender_Reset = 0;
 }
 #endif

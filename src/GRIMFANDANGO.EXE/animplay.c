@@ -20,9 +20,10 @@ int __cdecl anm_Start(void **out,char *name,int fps,int streamArg1,int streamArg
   int *p;
   int iVar1;
   
-  p = (int *)(*(code *)*g_pAnimMemory)(0x70,s_C__grimsrc_libs_lecsmush_insane__004f1608,0x140);
+  p = (int *)(*(code *)*g_pAnm_memory_services)
+                       (0x70,s_C__grimsrc_libs_lecsmush_insane__004f1608,0x140);
   if (p == (int *)0x0) goto LAB_004c257d;
-  iVar1 = (*(code *)*g_pAnimStreamer)(p + 0x18,streamArg1,streamArg2);
+  iVar1 = (*(code *)*g_pAnm_streamer_services)(p + 0x18,streamArg1,streamArg2);
   if (iVar1 == 0) {
     iVar1 = (int)(0x1234dc / (longlong)fps);
     p[2] = flags;
@@ -38,42 +39,43 @@ int __cdecl anm_Start(void **out,char *name,int fps,int streamArg1,int streamArg
     if (iVar1 == 0) {
       iVar1 = AnimPlay_OpenFile(*out,name,flags,-1,-1,0);
       if (iVar1 == 0) {
-        iVar1 = (*(code *)*g_pAnimTimer)(FUN_004c2a70,1,2,p);
+        iVar1 = (*(code *)*g_pAnimPlay_timer_services)(FUN_004c2a70,1,2,p);
         *p = iVar1;
         if (iVar1 == 0) {
-          if ((g_pAnimDebug == (int *)0x0) || ((UINT_008d6f20 & 0x20000) == 0)) goto LAB_004c251c;
-          (*(code *)g_pAnimDebug[3])(s_AnimPlay_Module__Cannot_allocate_004f15ac);
+          if ((g_pAnm_virtherc_services == (int *)0x0) || ((UINT_008d6f20 & 0x20000) == 0))
+          goto LAB_004c251c;
+          (*(code *)g_pAnm_virtherc_services[3])(s_AnimPlay_Module__Cannot_allocate_004f15ac);
           ((code *)Mem_DumpLog)(*out);
         }
         else {
-          iVar1 = (*(code *)*g_pAnimTimer)(FUN_004c2a80,p[7],8,p);
+          iVar1 = (*(code *)*g_pAnimPlay_timer_services)(FUN_004c2a80,p[7],8,p);
           p[1] = iVar1;
           if (iVar1 != 0) {
             p[4] = 0;
             return 0;
           }
-          if ((g_pAnimDebug != (int *)0x0) && ((UINT_008d6f20 & 0x20000) != 0)) {
-            (*(code *)g_pAnimDebug[3])(s_AnimPlay_Module__Cannot_allocate_004f15d8);
+          if ((g_pAnm_virtherc_services != (int *)0x0) && ((UINT_008d6f20 & 0x20000) != 0)) {
+            (*(code *)g_pAnm_virtherc_services[3])(s_AnimPlay_Module__Cannot_allocate_004f15d8);
           }
-          (*(code *)g_pAnimTimer[1])(*p);
+          (*(code *)g_pAnimPlay_timer_services[1])(*p);
           ((code *)Mem_DumpLog)(*out);
         }
       }
       else {
-        (*(code *)g_pAnimDebug[3])(s_AnimPlay_Module__Cannot_open_fil_004f1584,name);
+        (*(code *)g_pAnm_virtherc_services[3])(s_AnimPlay_Module__Cannot_open_fil_004f1584,name);
 LAB_004c251c:
         ((code *)Mem_DumpLog)(*out);
       }
     }
     else {
-      (*(code *)g_pAnimDebug[3])(s_AnimPlay_Module__Cannot_init_Ani_004f1554);
+      (*(code *)g_pAnm_virtherc_services[3])(s_AnimPlay_Module__Cannot_init_Ani_004f1554);
     }
-    (*(code *)g_pAnimStreamer[1])(p + 0x18);
+    (*(code *)g_pAnm_streamer_services[1])(p + 0x18);
   }
-  else if ((g_pAnimDebug != (int *)0x0) && ((UINT_008d6f20 & 0x20000) != 0)) {
-    (*(code *)g_pAnimDebug[3])(s_AnimPlay_Module__Cannot_allocate_004f1520);
+  else if ((g_pAnm_virtherc_services != (int *)0x0) && ((UINT_008d6f20 & 0x20000) != 0)) {
+    (*(code *)g_pAnm_virtherc_services[3])(s_AnimPlay_Module__Cannot_allocate_004f1520);
   }
-  (*(code *)g_pAnimMemory[1])(p,s_C__grimsrc_libs_lecsmush_insane__004f1608,0x175);
+  (*(code *)g_pAnm_memory_services[1])(p,s_C__grimsrc_libs_lecsmush_insane__004f1608,0x175);
 LAB_004c257d:
   *out = (void *)0x0;
   return -1;
@@ -92,18 +94,18 @@ void __cdecl AnimPlay_Destroy(void **pp)
   undefined4 *puVar1;
   
   puVar1 = *pp;
-  (*(code *)g_pAnimTimer[1])(*puVar1);
-  (*(code *)g_pAnimTimer[1])(puVar1[1]);
-  if ((UINT_008d6f24 != 0) && (g_pAnimLipsync != (int *)0x0)) {
-    (*(code *)g_pAnimLipsync[3])();
+  (*(code *)g_pAnimPlay_timer_services[1])(*puVar1);
+  (*(code *)g_pAnimPlay_timer_services[1])(puVar1[1]);
+  if ((UINT_008d6f24 != 0) && (g_pAnimPlay_sound_services != (int *)0x0)) {
+    (*(code *)g_pAnimPlay_sound_services[3])();
   }
   ((code *)Mem_DumpLog)(puVar1);
-  (*(code *)g_pAnimStreamer[1])(puVar1 + 0x18);
+  (*(code *)g_pAnm_streamer_services[1])(puVar1 + 0x18);
   if (*pp != (void *)0x0) {
-    (*(code *)g_pAnimMemory[1])(*pp,s_C__grimsrc_libs_lecsmush_insane__004f1608,0x1d4);
+    (*(code *)g_pAnm_memory_services[1])(*pp,s_C__grimsrc_libs_lecsmush_insane__004f1608,0x1d4);
   }
   *pp = (void *)0x0;
-  (*(code *)*g_pAnimFrame)();
+  (*(code *)*g_pAnm_animframe_services)();
   return;
 }
 #endif
@@ -143,12 +145,12 @@ int __cdecl anm_Render(void *p,int a2,int a3,int a4,int a5,int a6,int a7,int a8,
     iVar2 = 6;
   }
   else {
-    uVar3 = (*(code *)g_pAnimStreamer[7])(*(undefined4 *)((int)p + 0x60));
+    uVar3 = (*(code *)g_pAnm_streamer_services[7])(*(undefined4 *)((int)p + 0x60));
     if (*(int *)((int)p + 0x6c) == 0) {
-      g_nAnimFramesDecoded = 0;
-      UINT_008d6f28 = 0;
+      g_nBretsFrameCount = 0;
+      g_dwRenderHandler_totalTime = 0;
     }
-    UINT_008d6f28 = UINT_008d6f28 + *(int *)((int)p + 0x20);
+    g_dwRenderHandler_totalTime = g_dwRenderHandler_totalTime + *(int *)((int)p + 0x20);
     Sound_VoiceSampleCount(0);
     lVar8 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
     iVar2 = (int)lVar8;
@@ -195,7 +197,7 @@ int __cdecl anm_Render(void *p,int a2,int a3,int a4,int a5,int a6,int a7,int a8,
         *(int *)((int)p + 0x20) = iVar5;
       }
     }
-    (*(code *)g_pAnimTimer[4])(*(undefined4 *)p,*(undefined4 *)((int)p + 0x20));
+    (*(code *)g_pAnimPlay_timer_services[4])(*(undefined4 *)p,*(undefined4 *)((int)p + 0x20));
     if (iVar2 < 3) {
       if (iVar2 < 1) {
         *(undefined4 *)((int)p + 100) = 0;
@@ -212,17 +214,18 @@ int __cdecl anm_Render(void *p,int a2,int a3,int a4,int a5,int a6,int a7,int a8,
     }
     uVar7 = anm_animator_Render(p,a2,a3,a4,a5,a6,a7,a8,uVar6,a9,a10);
     *(undefined4 *)((int)p + 0x68) = uVar7;
-    if ((g_pAnimDebug != (int *)0x0) && ((UINT_008d6f20 & 0xc0000000) != 0)) {
-      piVar1 = g_pAnimDebug + 5;
-      uVar7 = (*(code *)g_pAnimDebug[7])(4,0x20);
+    if ((g_pAnm_virtherc_services != (int *)0x0) && ((UINT_008d6f20 & 0xc0000000) != 0)) {
+      piVar1 = g_pAnm_virtherc_services + 5;
+      uVar7 = (*(code *)g_pAnm_virtherc_services[7])(4,0x20);
       (*(code *)*piVar1)(0,10,uVar7);
-      (*(code *)*g_pAnimDebug)(0,10);
-      (*(code *)g_pAnimDebug[3])(s_Buffer___ld___004f1694,uVar3);
-      (*(code *)g_pAnimDebug[3])
+      (*(code *)*g_pAnm_virtherc_services)(0,10);
+      (*(code *)g_pAnm_virtherc_services[3])(s_Buffer___ld___004f1694,uVar3);
+      (*(code *)g_pAnm_virtherc_services[3])
                 (s_Frame_Delay___ld___ld_target__004f1670,*(undefined4 *)((int)p + 0x20),
                  *(undefined4 *)((int)p + 0x1c));
-      (*(code *)g_pAnimDebug[3])(s_Sync_Ticks___ld_004f1658,*(undefined4 *)((int)p + 0x18));
-      (*(code *)g_pAnimDebug[3])(s_State___d_004f1640,*(undefined4 *)((int)p + 0x68));
+      (*(code *)g_pAnm_virtherc_services[3])
+                (s_Sync_Ticks___ld_004f1658,*(undefined4 *)((int)p + 0x18));
+      (*(code *)g_pAnm_virtherc_services[3])(s_State___d_004f1640,*(undefined4 *)((int)p + 0x68));
     }
     iVar2 = *(int *)((int)p + 0x68);
     if (iVar2 < 0) {
@@ -246,7 +249,7 @@ int __cdecl anm_Render(void *p,int a2,int a3,int a4,int a5,int a6,int a7,int a8,
 int __cdecl AnimPlay_ResetState(void *p)
 
 {
-  (*(code *)g_pAnimStreamer[6])(*(undefined4 *)((int)p + 0x60));
+  (*(code *)g_pAnm_streamer_services[6])(*(undefined4 *)((int)p + 0x60));
   *(undefined4 *)((int)p + 0xc) = 0;
   *(undefined4 *)((int)p + 0x28) = 0;
   *(undefined4 *)((int)p + 0x34) = 0x6e756c6c;
@@ -273,7 +276,7 @@ int __cdecl AnimPlay_OpenFile(void *p,char *name,uint flags,int a4,int a5,int a6
   
   *(int *)((int)p + 0x40) = a6;
   *(uint *)((int)p + 0x3c) = flags;
-  iVar1 = (*(code *)g_pAnimStreamer[2])(*(undefined4 *)((int)p + 0x60),name,8);
+  iVar1 = (*(code *)g_pAnm_streamer_services[2])(*(undefined4 *)((int)p + 0x60),name,8);
   if (iVar1 != 0) {
     return -1;
   }

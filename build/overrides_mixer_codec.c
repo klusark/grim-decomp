@@ -104,7 +104,7 @@ extern byte *vOutput __asm__("_g_pbBlkOutput");              /* the buffer the l
 extern byte *vPrev2 __asm__("_g_pbBlkPrev2");                /* frame before the previous one */
 extern byte *vPrev __asm__("_g_pbBlkPrev");                  /* previous frame */
 extern int vLastSeq __asm__("_g_nBlkLastSeq");               /* number of the last frame decoded (-1 at the start) */
-extern int vFrameCount __asm__("_g_nAnimFramesDecoded");
+extern int vFrameCount __asm__("_g_nBretsFrameCount");
 
 static inline uint ld32(const void *p) { uint v; __builtin_memcpy(&v, p, 4); return v; }
 static inline void st32(void *p, uint v) { __builtin_memcpy(p, &v, 4); }

@@ -142,7 +142,7 @@ void * __cdecl Actor_CreateSubtitle(void *actor,char *text,int x,int y)
   local_1c = *(uint *)(*(int *)((int)actor + 0xa4) + 0x418);
   local_18 = 0;
   local_14 = 0;
-  if ((*(int *)((int)actor + 0x68) == 0) || (UINT_008a8c40 == 3)) {
+  if ((*(int *)((int)actor + 0x68) == 0) || (g_dwGrimlib_mode == 3)) {
     pfVar2 = local_50;
     if ((*(int *)((int)actor + 0xa0) == 0) || ((*(byte *)((int)actor + 4) & 2) != 0)) {
       pcVar3 = Set_GetCurrentName();
@@ -234,7 +234,7 @@ int __cdecl sputActor_SetCostume(void *actor,char *name,int param_3)
   }
   pvVar1 = Costume_ReplaceTop(pvVar1,costumeRes,param_3);
   *(void **)((int)actor + 0xa0) = pvVar1;
-  Cos_InstSetUserData(**(int **)((int)actor + 0xa0),((int)actor - (int)g_pActorTable) / 0xa8);
+  Cos_InstSetUserData(**(int **)((int)actor + 0xa0),((int)actor - (int)g_pActors) / 0xa8);
   Actor_SetFrustumCull(actor,~*(uint *)((int)actor + 4) >> 2 & 1);
   return 1;
 }
@@ -427,7 +427,7 @@ void Actor_UpdateMovement(void *param_1,float param_2)
   *(undefined4 *)((int)param_1 + 0x20) = *(undefined4 *)((int)param_1 + 0x14);
   if ((iVar1 != 0) && (*(int *)(iVar1 + 0x7c) != 0)) {
     if (*(int *)(iVar1 + 0x7c) == 0) {
-      (*g_pSvcMain->pAssertFail)
+      (*g_pStd_HS->pAssertFail)
                 (s_Bad_costume_Reference_004e9e90,s_main_sputResource_h_004e80a8,0xb8);
     }
     Cos_InstRescue(**(int **)((int)param_1 + 0xa0),*(int *)(iVar1 + 0x80));
@@ -485,7 +485,7 @@ void __cdecl Actor_UpdateLookAt(void *actor,float dt)
   bVar5 = false;
   iVar1 = *(int *)((int)actor + 0xa0);
   if (*(int *)((int)actor + 0xa4) == 0) {
-    (**(code **)(UINT_008ca32c + 0x18))
+    (**(code **)(g_dwSputActHS + 0x18))
               (s_pActor__pExtra_004e9ea8,s_C__grimsrc_libs_grimlib_Engine_s_004e9e40,0x47a);
   }
   if (((iVar1 != 0) && (piVar8 = (int *)(iVar1 + 0xc), -1 < *(int *)(iVar1 + 0xc))) &&
@@ -669,8 +669,8 @@ int __cdecl sputActor_SetSelectedActor(int handle)
   if (g_pSelectedActor != (void *)0x0) {
     iVar1 = sputActor_GetActorHandle(g_pSelectedActor,unaff_retaddr);
   }
-  if ((-1 < handle) && (handle < g_nActorCapacity)) {
-    g_pSelectedActor = (void *)((int)g_pActorTable + handle * 0xa8);
+  if ((-1 < handle) && (handle < g_nMaxActors)) {
+    g_pSelectedActor = (void *)((int)g_pActors + handle * 0xa8);
   }
   return iVar1;
 }
@@ -692,7 +692,7 @@ int __cdecl sputActor_SetSelectedActor(int handle)
 void * sputActor_ActorDeref(int param_1)
 
 {
-  return (void *)((int)g_pActorTable + param_1 * 0xa8);
+  return (void *)((int)g_pActors + param_1 * 0xa8);
 }
 
 /* ---- 0x00490380  sputActor_GetActorHandle ---- */
@@ -703,7 +703,7 @@ void * sputActor_ActorDeref(int param_1)
 int __cdecl sputActor_GetActorHandle(void *actor,int tag)
 
 {
-  return ((int)actor - (int)g_pActorTable) / 0xa8;
+  return ((int)actor - (int)g_pActors) / 0xa8;
 }
 
 /* ---- 0x004903a0  sputActor_AllocateActor ---- */
@@ -726,41 +726,40 @@ int sputActor_AllocateActor(void)
   
   iVar2 = 0;
   puVar5 = (undefined4 *)0x0;
-  if (0 < g_nActorCapacity) {
-    piVar4 = (int *)((int)g_pActorTable + 0x9c);
+  if (0 < g_nMaxActors) {
+    piVar4 = (int *)((int)g_pActors + 0x9c);
     do {
       if (*piVar4 == 0) {
-        puVar5 = (undefined4 *)((int)g_pActorTable + iVar2 * 0xa8);
+        puVar5 = (undefined4 *)((int)g_pActors + iVar2 * 0xa8);
         break;
       }
       iVar2 = iVar2 + 1;
       piVar4 = piVar4 + 0x2a;
-    } while (iVar2 < g_nActorCapacity);
+    } while (iVar2 < g_nMaxActors);
   }
   if (puVar5 == (undefined4 *)0x0) {
     iVar2 = 0;
     do {
       if (*(int *)((int)&g_pTalkingActors + iVar2) != 0) {
         *(int *)((int)aiStack_10 + iVar2) =
-             (*(int *)((int)&g_pTalkingActors + iVar2) - (int)g_pActorTable) / 0xa8;
+             (*(int *)((int)&g_pTalkingActors + iVar2) - (int)g_pActors) / 0xa8;
       }
       iVar2 = iVar2 + 4;
     } while (iVar2 < 0x10);
     if (g_pSelectedActor != (void *)0x0) {
-      local_14 = ((int)g_pSelectedActor - (int)g_pActorTable) / 0xa8;
+      local_14 = ((int)g_pSelectedActor - (int)g_pActors) / 0xa8;
     }
-    g_pActorTable =
-         (void *)(**(code **)(UINT_008ca32c + 0x28))
-                           (g_pActorTable,(g_nActorCapacity + 0x20) * 0xa8,
-                            s_C__grimsrc_libs_grimlib_Engine_s_004e9e40,0x5f6);
-    puVar5 = (undefined4 *)((int)g_pActorTable + g_nActorCapacity * 0xa8);
-    for (iVar2 = 0x540; pvVar1 = g_pActorTable, iVar2 != 0; iVar2 = iVar2 + -1) {
+    g_pActors = (void *)(**(code **)(g_dwSputActHS + 0x28))
+                                  (g_pActors,(g_nMaxActors + 0x20) * 0xa8,
+                                   s_C__grimsrc_libs_grimlib_Engine_s_004e9e40,0x5f6);
+    puVar5 = (undefined4 *)((int)g_pActors + g_nMaxActors * 0xa8);
+    for (iVar2 = 0x540; pvVar1 = g_pActors, iVar2 != 0; iVar2 = iVar2 + -1) {
       *puVar5 = 0;
       puVar5 = puVar5 + 1;
     }
     iVar2 = 0;
-    puVar5 = (undefined4 *)((int)g_pActorTable + g_nActorCapacity * 0xa8);
-    g_nActorCapacity = g_nActorCapacity + 0x20;
+    puVar5 = (undefined4 *)((int)g_pActors + g_nMaxActors * 0xa8);
+    g_nMaxActors = g_nMaxActors + 0x20;
     do {
       if (*(int *)((int)&g_pTalkingActors + iVar2) != 0) {
         *(void **)((int)&g_pTalkingActors + iVar2) =
@@ -772,7 +771,7 @@ int sputActor_AllocateActor(void)
       g_pSelectedActor = (void *)((int)pvVar1 + local_14 * 0xa8);
     }
   }
-  g_nActorCount = g_nActorCount + 1;
+  g_nNumActors = g_nNumActors + 1;
   puVar3 = puVar5;
   for (iVar2 = 0x2a; iVar2 != 0; iVar2 = iVar2 + -1) {
     *puVar3 = 0;
@@ -783,7 +782,7 @@ int sputActor_AllocateActor(void)
   puVar5[0xc] = 0x3f800000;
   puVar5[0x28] = 0;
   puVar3 = (undefined4 *)
-           (**(code **)(UINT_008ca32c + 0x20))
+           (**(code **)(g_dwSputActHS + 0x20))
                      (0x34,s_C__grimsrc_libs_grimlib_Engine_s_004e9e40,0x60e);
   *puVar5 = puVar3;
   for (iVar2 = 0xd; iVar2 != 0; iVar2 = iVar2 + -1) {
@@ -791,7 +790,7 @@ int sputActor_AllocateActor(void)
     puVar3 = puVar3 + 1;
   }
   puVar5[0x27] = 1;
-  return ((int)puVar5 - (int)g_pActorTable) / 0xa8;
+  return ((int)puVar5 - (int)g_pActors) / 0xa8;
 }
 #undef aiStack_10
 #undef local_14
@@ -817,15 +816,15 @@ void sputActor_AllocateActorExtra(int param_1)
   undefined4 *puVar2;
   
   if ((param_1 == 0) || (*(int *)(param_1 + 0xa4) != 0)) {
-    (**(code **)(UINT_008ca32c + 0x18))
+    (**(code **)(g_dwSputActHS + 0x18))
               (s_pActor_____pActor__pExtra_004e9eb8,s_C__grimsrc_libs_grimlib_Engine_s_004e9e40,
                0x619);
   }
-  iVar1 = (**(code **)(UINT_008ca32c + 0x20))
+  iVar1 = (**(code **)(g_dwSputActHS + 0x20))
                     (0x4a0,s_C__grimsrc_libs_grimlib_Engine_s_004e9e40,0x61b);
   *(int *)(param_1 + 0xa4) = iVar1;
   if (iVar1 == 0) {
-    (**(code **)(UINT_008ca32c + 0x18))
+    (**(code **)(g_dwSputActHS + 0x18))
               (s_pActor__pExtra_004e9ea8,s_C__grimsrc_libs_grimlib_Engine_s_004e9e40,0x61c);
   }
   puVar2 = *(undefined4 **)(param_1 + 0xa4);
@@ -1142,7 +1141,7 @@ int __cdecl sputActor_PushCostume(void *actor,char *name,int param_3)
   }
   pvVar1 = Costume_Push(pvVar1,costumeRes,param_3);
   *(void **)((int)actor + 0xa0) = pvVar1;
-  Cos_InstSetUserData(**(int **)((int)actor + 0xa0),((int)actor - (int)g_pActorTable) / 0xa8);
+  Cos_InstSetUserData(**(int **)((int)actor + 0xa0),((int)actor - (int)g_pActors) / 0xa8);
   Actor_SetFrustumCull(actor,~*(uint *)((int)actor + 4) >> 2 & 1);
   return 1;
 }
@@ -1332,12 +1331,12 @@ void Actor_UpdateMoveChores(int param_1)
       if (iVar1 == 0) {
 LAB_00491477:
         if (((uVar2 & 1) != 0) && ((*(byte *)(param_1 + 8) & 1) == 0)) {
-          FadeOutChore((void *)*piVar4,piVar4[10],g_nChoreFadeMs);
+          FadeOutChore((void *)*piVar4,piVar4[10],g_nWALKSYSTEM_FADE_TIME);
         }
       }
       else if (uVar2 == 0) {
         *(undefined4 *)(*(int *)(param_1 + 0xa4) + 0x14) = 0;
-        FadeInChore(*piVar4,piVar4[10],g_nChoreFadeMs);
+        FadeInChore(*piVar4,piVar4[10],g_nWALKSYSTEM_FADE_TIME);
       }
       else if (iVar1 == 0) goto LAB_00491477;
     }
@@ -1359,12 +1358,12 @@ LAB_00491477:
         if (iVar3 < 1) {
 LAB_00491517:
           if ((uVar2 & 1) != 0) {
-            FadeOutChore((void *)*piVar4,piVar4[0xb],g_nChoreFadeMs);
+            FadeOutChore((void *)*piVar4,piVar4[0xb],g_nWALKSYSTEM_FADE_TIME);
           }
         }
         else if (uVar2 == 0) {
           *(undefined4 *)(*(int *)(param_1 + 0xa4) + 0x14) = 0;
-          FadeInChore(*piVar4,piVar4[0xb],g_nChoreFadeMs);
+          FadeInChore(*piVar4,piVar4[0xb],g_nWALKSYSTEM_FADE_TIME);
         }
         else if (iVar3 < 1) goto LAB_00491517;
       }
@@ -1374,14 +1373,14 @@ LAB_00491517:
         if (iVar1 < 0) {
           if (uVar2 == 0) {
             *(undefined4 *)(*(int *)(param_1 + 0xa4) + 0x14) = 0;
-            FadeInChore(*piVar4,piVar4[0xc],g_nChoreFadeMs);
+            FadeInChore(*piVar4,piVar4[0xc],g_nWALKSYSTEM_FADE_TIME);
           }
           else if (-1 < iVar1) goto LAB_0049157a;
         }
         else {
 LAB_0049157a:
           if ((uVar2 & 1) != 0) {
-            FadeOutChore((void *)*piVar4,piVar4[0xc],g_nChoreFadeMs);
+            FadeOutChore((void *)*piVar4,piVar4[0xc],g_nWALKSYSTEM_FADE_TIME);
           }
         }
       }
@@ -1403,13 +1402,13 @@ LAB_0049157a:
       iVar1 = *(int *)(*(int *)(param_1 + 0xa4) + 0x14);
       if (iVar1 != 0) {
         if (iVar3 == 0) {
-          FadeInChore(*piVar5,piVar5[0xd],g_nChoreFadeMs);
+          FadeInChore(*piVar5,piVar5[0xd],g_nWALKSYSTEM_FADE_TIME);
           goto LAB_0049162b;
         }
         if (iVar1 != 0) goto LAB_0049162b;
       }
       if (iVar3 != 0) {
-        FadeOutChore((void *)*piVar5,piVar5[0xd],g_nChoreFadeMs);
+        FadeOutChore((void *)*piVar5,piVar5[0xd],g_nWALKSYSTEM_FADE_TIME);
       }
     }
   }
@@ -1454,22 +1453,22 @@ void __cdecl Actor_SayLine(void *actor,char *text,int background,int volume,int 
   if (*(int *)((int)actor + 0xa4) == 0) {
     sputActor_AllocateActorExtra(actor);
   }
-  uVar4 = g_dwSpeechMode & 1;
-  uVar16 = g_dwSpeechMode & 2;
+  uVar4 = g_dwSmSpeechMode & 1;
+  uVar16 = g_dwSmSpeechMode & 2;
   text_00 = Text_ParseLineId(text,(char *)local_44);
   local_24[0] = '\0';
   if (local_44[0] != 0) {
     sprintf(local_24,s__s_wvc_004e9eec,local_44);
-    iVar5 = (**(code **)(UINT_008ca32c + 0x30))(local_24,&DAT_004ddb18);
+    iVar5 = (**(code **)(g_dwSputActHS + 0x30))(local_24,&DAT_004ddb18);
     if (iVar5 == 0) {
       sprintf(local_24,s__s_wav_004e9ee4,local_44);
-      iVar5 = (**(code **)(UINT_008ca32c + 0x30))(local_24,&DAT_004ddb18);
+      iVar5 = (**(code **)(g_dwSputActHS + 0x30))(local_24,&DAT_004ddb18);
       if (iVar5 == 0) {
         sprintf(local_24,s__s_imc_004e9edc,local_44);
-        iVar5 = (**(code **)(UINT_008ca32c + 0x30))(local_24,&DAT_004ddb18);
+        iVar5 = (**(code **)(g_dwSputActHS + 0x30))(local_24,&DAT_004ddb18);
         if (iVar5 == 0) {
           sprintf(local_24,s__s_imu_004e9ed4,local_44);
-          iVar5 = (**(code **)(UINT_008ca32c + 0x30))(local_24,&DAT_004ddb18);
+          iVar5 = (**(code **)(g_dwSputActHS + 0x30))(local_24,&DAT_004ddb18);
           if (iVar5 == 0) {
             local_24[0] = '\0';
             goto LAB_00492c61;
@@ -1477,7 +1476,7 @@ void __cdecl Actor_SayLine(void *actor,char *text,int background,int volume,int 
         }
       }
     }
-    (**(code **)(UINT_008ca32c + 0x34))(iVar5);
+    (**(code **)(g_dwSputActHS + 0x34))(iVar5);
   }
 LAB_00492c61:
   if (*(int *)(*(int *)((int)actor + 0xa4) + 0x1c4) != 0) {
@@ -1510,7 +1509,7 @@ LAB_00492cab:
   *(undefined4 *)(*(int *)((int)actor + 0xa4) + 0x1cc) = 0;
   *(undefined4 *)(*(int *)((int)actor + 0xa4) + 0x1c4) = 1;
   strncpy(*(int *)((int)actor + 0xa4) + 0x1d0,local_44,0xc);
-  g_nTalkingActorCount = g_nTalkingActorCount + 1;
+  g_nNumActorsTalking = g_nNumActorsTalking + 1;
   iVar5 = 0;
   ppvVar7 = &g_pTalkingActors;
   do {
@@ -1592,7 +1591,7 @@ LAB_00492e6b:
         text_00 = text_00 + 1;
       } while (cVar2 != '\0');
       *(uint *)(*(int *)((int)actor + 0xa4) + 0x1cc) =
-           (~uVar4 - 1) * (0xb - g_nTextSpeed) * 0xf + 0x280;
+           (~uVar4 - 1) * (0xb - g_nTextRate) * 0xf + 0x280;
     }
     TextObject_Activate(pvVar8,-1,0xd);
     ppvVar7 = &g_pTalkingActors;
@@ -1724,8 +1723,8 @@ void __cdecl sputActor_ShutUp(void *actor)
     *(undefined4 *)(*(int *)((int)actor + 0xa4) + 0x1ec) = 0;
     *(undefined1 *)(*(int *)((int)actor + 0xa4) + 0x1d0) = 0;
     *(undefined4 *)(*(int *)((int)actor + 0xa4) + 0x1c4) = 0;
-    if (0 < g_nTalkingActorCount) {
-      g_nTalkingActorCount = g_nTalkingActorCount + -1;
+    if (0 < g_nNumActorsTalking) {
+      g_nNumActorsTalking = g_nNumActorsTalking + -1;
     }
   }
   return;
@@ -2098,7 +2097,7 @@ void __cdecl sputActor_DrawToClean(void *actor)
       pvVar6 = sputRoom_GetCurrentRoom();
       iVar5 = *(int *)((int)pvVar6 + 0x80);
       if (*(int *)(iVar5 + iVar2 * 0x34) == 0) {
-        (*g_pSvcMain->pAssertFail)
+        (*g_pStd_HS->pAssertFail)
                   (s_Bad_Colormap_Reference_004e8090,s_main_sputResource_h_004e80a8,0x9f);
       }
       rdroid_SetColormap(*(undefined4 *)(iVar5 + iVar2 * 0x34 + 4));
@@ -2107,20 +2106,20 @@ void __cdecl sputActor_DrawToClean(void *actor)
       pvVar6 = sputRoom_GetCurrentRoom();
       piVar10 = (int *)(*(int *)((int)pvVar6 + 0x80) + iVar2 * 0x34);
       if (*piVar10 == 0) {
-        (*g_pSvcMain->pAssertFail)
+        (*g_pStd_HS->pAssertFail)
                   (s_Bad_Colormap_Reference_004e8090,s_main_sputResource_h_004e80a8,0x9f);
       }
       iVar2 = piVar10[1];
     }
     else {
       if (iVar2 == 0) {
-        (*g_pSvcMain->pAssertFail)
+        (*g_pStd_HS->pAssertFail)
                   (s_Bad_Colormap_Reference_004e8090,s_main_sputResource_h_004e80a8,0x9f);
       }
       rdroid_SetColormap(piVar10[1]);
       piVar10 = *(int **)actor;
       if (*piVar10 == 0) {
-        (*g_pSvcMain->pAssertFail)
+        (*g_pStd_HS->pAssertFail)
                   (s_Bad_Colormap_Reference_004e8090,s_main_sputResource_h_004e80a8,0x9f);
       }
       iVar2 = piVar10[1];
@@ -2249,16 +2248,16 @@ void __cdecl Actor_Destroy(void *actor)
       Plat_Free(p);
       *(undefined4 *)(*(int *)((int)actor + 0xa4) + 0x1b4) = 0;
     }
-    (**(code **)(UINT_008ca32c + 0x24))(*(undefined4 *)((int)actor + 0xa4));
+    (**(code **)(g_dwSputActHS + 0x24))(*(undefined4 *)((int)actor + 0xa4));
     *(undefined4 *)((int)actor + 0xa4) = 0;
   }
   if (*(void **)actor != (void *)0x0) {
     Res_RemoveReference(*(void **)actor);
-    (**(code **)(UINT_008ca32c + 0x24))(*(undefined4 *)actor);
+    (**(code **)(g_dwSputActHS + 0x24))(*(undefined4 *)actor);
     *(undefined4 *)actor = 0;
   }
   *(undefined4 *)((int)actor + 0x9c) = 0;
-  g_nActorCount = g_nActorCount + -1;
+  g_nNumActors = g_nNumActors + -1;
   return;
 }
 
@@ -2343,7 +2342,7 @@ void Actor_DrawShadowPlane(void *costumeList,void *shadow)
             }
             if (g_pShadowMaterial != (void *)0x0) {
               rdroid_SetColormap(g_pShadowColormap);
-              if (g_nZBufferEnabled != 0) {
+              if (g_nSputRender_b3DAcceleration != 0) {
                 Display_SetPalette3D((void *)((int)g_pShadowColormap + 0x30),0);
               }
               Shadow_DrawClippedPoly(local_c0,4,local_fc,local_e4,shadow);
@@ -2436,7 +2435,7 @@ void Actor_DrawCostumeMeshes(int *param_1,float *param_2)
     Costume_ApplyComponentState((void *)*piVar1);
   }
   iVar5 = Cos_InstGetUserData(*param_1);
-  piVar1 = (int *)((int)g_pActorTable + iVar5 * 0xa8);
+  piVar1 = (int *)((int)g_pActors + iVar5 * 0xa8);
   if ((piVar1[0x29] == 0) || (*(int *)(piVar1[0x29] + 0x3fc) == 0)) {
     Renderer_EnableClipPlane(0);
   }
@@ -2466,11 +2465,11 @@ void Actor_DrawCostumeMeshes(int *param_1,float *param_2)
       if (*(int *)(iVar5 + 0x44) == 0) {
         if (*(int *)(iVar5 + 0x4c) == 0) {
 LAB_004951ab:
-          if (g_nZBufferEnabled == 0) goto LAB_004951b3;
+          if (g_nSputRender_b3DAcceleration == 0) goto LAB_004951b3;
         }
         else {
           rdroid_SetColormap(*(int *)(iVar5 + 0x4c));
-          if (g_nZBufferEnabled != 0) {
+          if (g_nSputRender_b3DAcceleration != 0) {
             Display_SetPalette3D((void *)(*(int *)(iVar5 + 0x4c) + 0x30),0);
             goto LAB_004951ab;
           }
@@ -2485,7 +2484,7 @@ LAB_004951b3:
         else {
           piVar1[0x1a] = 1;
         }
-        if (g_nZBufferEnabled == 0) {
+        if (g_nSputRender_b3DAcceleration == 0) {
           pvVar6 = (void *)Render_GetBackBuffer();
           Surface_Unlock(pvVar6);
         }
@@ -2494,14 +2493,14 @@ LAB_004951b3:
         for (; (iVar7 != 0 && (*(int *)(iVar7 + 0x4c) == 0)); iVar7 = *(int *)(iVar7 + 0x44)) {
         }
         if (((iVar7 != 0) && (*(int *)(iVar7 + 0x4c) != 0)) &&
-           (rdroid_SetColormap(*(int *)(iVar7 + 0x4c)), g_nZBufferEnabled != 0)) {
+           (rdroid_SetColormap(*(int *)(iVar7 + 0x4c)), g_nSputRender_b3DAcceleration != 0)) {
           Display_SetPalette3D((void *)(*(int *)(iVar7 + 0x4c) + 0x30),0);
         }
         Costume_UpdateAttachedFrame(*(void **)(iVar5 + 0x44),param_2);
         iVar8 = *(int *)(*(int *)(iVar5 + 0x44) + 0x40);
         iVar7 = *(int *)(*(int *)(iVar8 + 4) + 0x58) + *(int *)(iVar5 + 0x48) * 0xb8;
         iVar2 = *(int *)(*(int *)(*(int *)(iVar5 + 0x40) + 4) + 0x58);
-        if (g_nZBufferEnabled == 0) {
+        if (g_nSputRender_b3DAcceleration == 0) {
           pvVar6 = (void *)Render_GetBackBuffer();
           Surface_Lock(pvVar6);
         }
@@ -2539,7 +2538,7 @@ LAB_004951b3:
           *(undefined4 *)(iVar7 + 0x88) = uStack_18;
           *(undefined4 *)(iVar7 + 0x8c) = uStack_14;
         }
-        if (g_nZBufferEnabled == 0) {
+        if (g_nSputRender_b3DAcceleration == 0) {
           pvVar6 = (void *)Render_GetBackBuffer();
           Surface_Unlock(pvVar6);
         }
@@ -2548,14 +2547,14 @@ LAB_004951b3:
       iVar7 = *piVar4;
       if (iVar7 != 0) {
         if (iVar7 == 0) {
-          (*g_pSvcMain->pAssertFail)
+          (*g_pStd_HS->pAssertFail)
                     (s_Bad_Colormap_Reference_004e8090,s_main_sputResource_h_004e80a8,0x9f);
         }
         rdroid_SetColormap(piVar4[1]);
-        if (g_nZBufferEnabled != 0) {
+        if (g_nSputRender_b3DAcceleration != 0) {
           piVar4 = (int *)*piVar1;
           if (*piVar4 == 0) {
-            (*g_pSvcMain->pAssertFail)
+            (*g_pStd_HS->pAssertFail)
                       (s_Bad_Colormap_Reference_004e8090,s_main_sputResource_h_004e80a8,0x9f);
           }
           Display_SetPalette3D((void *)(piVar4[1] + 0x30),0);
@@ -2600,7 +2599,7 @@ void __cdecl Actor_RemoveFromSet(char *setName,void *actor)
     piVar3 = *(int **)(iVar2 + 0x80);
     if (piVar3 != (int *)0x0) {
       do {
-        if ((void *)((int)g_pActorTable + *piVar3 * 0xa8) == actor) break;
+        if ((void *)((int)g_pActors + *piVar3 * 0xa8) == actor) break;
         piVar3 = (int *)piVar3[2];
       } while (piVar3 != (int *)0x0);
       if (piVar3 != (int *)0x0) {
@@ -2617,7 +2616,7 @@ void __cdecl Actor_RemoveFromSet(char *setName,void *actor)
         if (*(int **)(iVar2 + 0x80) == piVar3) {
           *(int *)(iVar2 + 0x80) = piVar3[2];
         }
-        (*g_pSvcRoom->pFree)(piVar3);
+        (*g_pSputRoomHS->pFree)(piVar3);
         *(undefined1 *)((int)actor + 0x7c) = 0;
       }
     }
@@ -2680,15 +2679,15 @@ LAB_004a5fa6:
       pvVar4 = Set_NormalizeName(actor);
     }
     for (piVar5 = *(int **)((int)pvVar4 + 0x80); piVar5 != (int *)0x0; piVar5 = (int *)piVar5[2]) {
-      if ((char *)((int)g_pActorTable + *piVar5 * 0xa8) == setName) {
+      if ((char *)((int)g_pActors + *piVar5 * 0xa8) == setName) {
         return;
       }
     }
-    piVar5 = (int *)(*g_pSvcRoom->pAlloc)(0xc,s_C__grimsrc_libs_grimlib_Engine_s_004ec5e0,0xa09);
+    piVar5 = (int *)(*g_pSputRoomHS->pAlloc)(0xc,s_C__grimsrc_libs_grimlib_Engine_s_004ec5e0,0xa09);
     *piVar5 = 0;
     piVar5[1] = 0;
     piVar5[2] = 0;
-    *piVar5 = ((int)setName - (int)g_pActorTable) / 0xa8;
+    *piVar5 = ((int)setName - (int)g_pActors) / 0xa8;
     iVar3 = *(int *)((int)pvVar4 + 0x80);
     piVar5[2] = iVar3;
     if (iVar3 != 0) {

@@ -13,7 +13,7 @@
 undefined4 sputPrimitive_Initialize(undefined4 param_1,undefined4 *param_2)
 
 {
-  _DAT_008ca0b0 = param_1;
+  _g_pSputPrimitiveHS = param_1;
   *param_2 = sputPrimitive_Initialize;
   param_2[1] = sputPrimitive_Terminate;
   param_2[2] = sputPrimitive_Start;
@@ -22,7 +22,7 @@ undefined4 sputPrimitive_Initialize(undefined4 param_1,undefined4 *param_2)
   param_2[5] = sputPrimitive_RestoreState;
   param_2[6] = 0;
   param_2[7] = 0;
-  UINT_008ca0a8 = 1;
+  g_dwSputPrimitiveInitialize = 1;
   return 0;
 }
 
@@ -42,12 +42,12 @@ undefined4 sputPrimitive_SaveState(code *param_1)
   
   pcVar2 = param_1;
   local_4 = 0;
-  for (puVar1 = (undefined4 *)UINT_008ca0a0; puVar1 != (undefined4 *)0x0;
+  for (puVar1 = (undefined4 *)g_dwPrimitiveQ; puVar1 != (undefined4 *)0x0;
       puVar1 = (undefined4 *)*puVar1) {
     local_4 = local_4 + 1;
   }
   (*param_1)(&local_4,4);
-  for (puVar1 = (undefined4 *)UINT_008ca0a0; puVar1 != (undefined4 *)0x0;
+  for (puVar1 = (undefined4 *)g_dwPrimitiveQ; puVar1 != (undefined4 *)0x0;
       puVar1 = (undefined4 *)*puVar1) {
     param_1 = (code *)puVar1[2];
     (*pcVar2)(&param_1,4);
@@ -89,7 +89,7 @@ undefined4 sputPrimitive_RestoreState(code *param_1)
   #define uStack_8 (*(undefined4 *)(_frame + (0x40 - 0x8)))
   #define uStack_4 (*(undefined4 *)(_frame + (0x40 - 0x4)))
   
-  PrimitiveList_Clear((int *)&UINT_008ca0a0);
+  PrimitiveList_Clear((int *)&g_dwPrimitiveQ);
   pcVar1 = param_1;
   (*param_1)(&local_28,4);
   while (local_28 != 0) {
@@ -106,7 +106,7 @@ undefined4 sputPrimitive_RestoreState(code *param_1)
     (*pcVar1)(&uStack_1c,4);
     (*pcVar1)(&uStack_18,4);
     (*pcVar1)(&uStack_14,4);
-    pvVar2 = PrimitiveList_Append(&UINT_008ca0a0,(int)param_1,iStack_24);
+    pvVar2 = PrimitiveList_Append(&g_dwPrimitiveQ,(int)param_1,iStack_24);
     if (pvVar2 != (void *)0x0) {
       *(undefined4 *)((int)pvVar2 + 8) = uStack_20;
       *(undefined4 *)((int)pvVar2 + 0x14) = uStack_10;
@@ -143,9 +143,9 @@ undefined4 sputPrimitive_RestoreState(code *param_1)
 void sputPrimitive_Terminate(void)
 
 {
-  _DAT_008ca0b0 = 0;
-  if (UINT_008ca0a8 != 0) {
-    UINT_008ca0a8 = 0;
+  _g_pSputPrimitiveHS = 0;
+  if (g_dwSputPrimitiveInitialize != 0) {
+    g_dwSputPrimitiveInitialize = 0;
   }
   return;
 }
@@ -173,7 +173,7 @@ undefined4 sputPrimitive_Start(void)
 void sputPrimitive_Stop(void)
 
 {
-  PrimitiveList_Clear((int *)&UINT_008ca0a0);
+  PrimitiveList_Clear((int *)&g_dwPrimitiveQ);
   UINT_008ca0ac = 0;
   return;
 }

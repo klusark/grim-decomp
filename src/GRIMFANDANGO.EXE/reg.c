@@ -64,7 +64,7 @@ void Reg_CacheValueNames(void)
   RegOpenKeyExA(g_pRegRootKey,(char *)UINT_004f5eac,0,0xf003f,&local_c);
   RegQueryInfoKeyA((int)local_c,0,0,0,0,0,0,IMG_ADDR(0x004f5ea4),(int)&iStack_8,0,0,0);
   g_ppRegValueNames =
-       (char **)(*g_pSvcMain->pAlloc)
+       (char **)(*g_pStd_HS->pAlloc)
                           (g_dwRegValueCount * 4,s_C__grimjedi_Libs_W32Util_Wuregis_004dda68,
                            DAT_004dda58 + 0x25);
   ppcVar3 = g_ppRegValueNames;
@@ -76,7 +76,7 @@ void Reg_CacheValueNames(void)
   if (g_dwRegValueCount != 0) {
     do {
       iStack_4 = iStack_8 + 1;
-      pcVar1 = (char *)(*g_pSvcMain->pAlloc)
+      pcVar1 = (char *)(*g_pStd_HS->pAlloc)
                                  (iStack_4,s_C__grimjedi_Libs_W32Util_Wuregis_004dda68,
                                   DAT_004dda58 + 0x31);
       g_ppRegValueNames[uVar2] = pcVar1;
@@ -115,11 +115,11 @@ void Reg_FreeValueNames(void)
   uVar1 = 0;
   if (g_dwRegValueCount != 0) {
     do {
-      (*g_pSvcMain->pFree)(g_ppRegValueNames[uVar1]);
+      (*g_pStd_HS->pFree)(g_ppRegValueNames[uVar1]);
       uVar1 = uVar1 + 1;
     } while (uVar1 < g_dwRegValueCount);
   }
-  (*g_pSvcMain->pFree)(g_ppRegValueNames);
+  (*g_pStd_HS->pFree)(g_ppRegValueNames);
   g_ppRegValueNames = (char **)0x0;
   return;
 }
@@ -159,7 +159,7 @@ int __cdecl Reg_AddValueName(char *name)
   if (iVar2 == 0) {
     g_dwRegValueCount = g_dwRegValueCount + 1;
     g_ppRegValueNames =
-         (char **)(*g_pSvcMain->pRealloc)
+         (char **)(*g_pStd_HS->pRealloc)
                             (g_ppRegValueNames,g_dwRegValueCount * 4,
                              s_C__grimjedi_Libs_W32Util_Wuregis_004dda68,DAT_004dda5c + 7);
     uVar4 = 0xffffffff;
@@ -170,7 +170,7 @@ int __cdecl Reg_AddValueName(char *name)
       cVar1 = *pcVar3;
       pcVar3 = pcVar3 + 1;
     } while (cVar1 != '\0');
-    pcVar3 = (char *)(*g_pSvcMain->pAlloc)
+    pcVar3 = (char *)(*g_pStd_HS->pAlloc)
                                (~uVar4,s_C__grimjedi_Libs_W32Util_Wuregis_004dda68,DAT_004dda5c + 8)
     ;
     g_ppRegValueNames[g_dwRegValueCount - 1] = pcVar3;

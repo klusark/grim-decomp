@@ -30,7 +30,7 @@ undefined4 ZBuffer_LoadFile(char *param_1)
     return 0;
   }
   uVar1 = **(undefined4 **)((int)bitmap + 0x78);
-  (*g_pSvcRoom->pFree)(*(undefined4 **)((int)bitmap + 0x78));
+  (*g_pSputRoomHS->pFree)(*(undefined4 **)((int)bitmap + 0x78));
   *(undefined4 *)((int)bitmap + 0x78) = 0;
   *(undefined4 *)((int)bitmap + 100) = 0;
   stdBitmap_Free(bitmap);

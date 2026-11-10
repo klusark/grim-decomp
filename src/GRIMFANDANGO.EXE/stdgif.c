@@ -52,32 +52,32 @@ void * stdGif_Load(char *param_1,int param_2,int param_3)
   #define uStack_38 (*(undefined4 *)(_frame + (0xa0 - 0x38)))
   #define uStack_34 (*(undefined4 *)(_frame + (0xa0 - 0x34)))
   
-  iVar3 = (*g_pSvcMain->pFopen)(param_1,&DAT_004ddb18);
+  iVar3 = (*g_pStd_HS->pFopen)(param_1,&DAT_004ddb18);
   if (iVar3 == 0) {
     return (void *)0x0;
   }
   iStack_6c = iVar3;
-  bitmap = (void *)(*g_pSvcMain->pAlloc)
+  bitmap = (void *)(*g_pStd_HS->pAlloc)
                              (0x7c,s_C__grimjedi_Libs_Std_General_Std_004e7884,DAT_004e787c + 0x13);
   if (bitmap != (void *)0x0) {
     *(undefined4 *)((int)bitmap + 0x60) = 0;
     *(undefined4 *)((int)bitmap + 0x78) = 0;
-    (*g_pSvcMain->pFread)(iVar3,&cStack_5c,3);
+    (*g_pStd_HS->pFread)(iVar3,&cStack_5c,3);
     iVar4 = toupper((int)cStack_5c);
     if (((iVar4 == 0x47) && (iVar4 = toupper((int)cStack_5b), iVar4 == 0x49)) &&
        (iVar4 = toupper((int)cStack_5a), iVar4 == 0x46)) {
-      (*g_pSvcMain->pFread)(iVar3,&cStack_59,3);
-      (*g_pSvcMain->pFread)(iVar3,auStack_56,2);
-      (*g_pSvcMain->pFread)(iVar3,auStack_54,2);
-      (*g_pSvcMain->pFread)(iVar3,&bStack_52,1);
-      (*g_pSvcMain->pFread)(iVar3,&uStack_51,1);
-      (*g_pSvcMain->pFread)(iVar3,auStack_50,1);
+      (*g_pStd_HS->pFread)(iVar3,&cStack_59,3);
+      (*g_pStd_HS->pFread)(iVar3,auStack_56,2);
+      (*g_pStd_HS->pFread)(iVar3,auStack_54,2);
+      (*g_pStd_HS->pFread)(iVar3,&bStack_52,1);
+      (*g_pStd_HS->pFread)(iVar3,&uStack_51,1);
+      (*g_pStd_HS->pFread)(iVar3,auStack_50,1);
       if ((bStack_52 & 0x80) != 0) {
-        iVar4 = (*g_pSvcMain->pAlloc)
+        iVar4 = (*g_pStd_HS->pAlloc)
                           (0x300,s_C__grimjedi_Libs_Std_General_Std_004e7884,DAT_004e787c + 0x3b);
         *(int *)((int)bitmap + 0x60) = iVar4;
         if (iVar4 == 0) goto LAB_0047e02f;
-        (*g_pSvcMain->pFread)(iVar3,iVar4,(short)(1 << (bStack_52 & 7) + 1) * 3);
+        (*g_pStd_HS->pFread)(iVar3,iVar4,(short)(1 << (bStack_52 & 7) + 1) * 3);
       }
       if (((cStack_59 == '8') && (cStack_58 == '9')) &&
          (iVar4 = toupper((int)cStack_57), iVar4 == 0x41)) {
@@ -94,11 +94,11 @@ void * stdGif_Load(char *param_1,int param_2,int param_3)
         cVar1 = stdFile_ReadByte(iVar3);
       }
       if (cVar1 == ',') {
-        (*g_pSvcMain->pFread)(iVar3,&sStack_66,2);
-        (*g_pSvcMain->pFread)(iVar3,auStack_64,2);
-        (*g_pSvcMain->pFread)(iVar3,&sStack_62,2);
-        (*g_pSvcMain->pFread)(iVar3,&sStack_60,2);
-        (*g_pSvcMain->pFread)(iVar3,abStack_5e,1);
+        (*g_pStd_HS->pFread)(iVar3,&sStack_66,2);
+        (*g_pStd_HS->pFread)(iVar3,auStack_64,2);
+        (*g_pStd_HS->pFread)(iVar3,&sStack_62,2);
+        (*g_pStd_HS->pFread)(iVar3,&sStack_60,2);
+        (*g_pStd_HS->pFread)(iVar3,abStack_5e,1);
         uVar10 = 0x1f;
         pcVar5 = Str_FileNameFromPath(param_1);
         strncpy(bitmap,pcVar5,uVar10);
@@ -109,7 +109,7 @@ void * stdGif_Load(char *param_1,int param_2,int param_3)
         *(undefined4 *)((int)bitmap + 0x68) = 0;
         *(undefined4 *)((int)bitmap + 0x28) = 0;
         *(undefined4 *)((int)bitmap + 0x2c) = 8;
-        iVar4 = (*g_pSvcMain->pAlloc)
+        iVar4 = (*g_pStd_HS->pAlloc)
                           (4,s_C__grimjedi_Libs_Std_General_Std_004e7884,DAT_004e787c + 0x73);
         *(int *)((int)bitmap + 0x78) = iVar4;
         if (iVar4 != 0) {
@@ -123,21 +123,21 @@ void * stdGif_Load(char *param_1,int param_2,int param_3)
             if ((abStack_5e[0] & 0x80) != 0) {
               bVar2 = abStack_5e[0] & 7;
               if (*(int *)((int)bitmap + 0x60) == 0) {
-                iVar4 = (*g_pSvcMain->pAlloc)
+                iVar4 = (*g_pStd_HS->pAlloc)
                                   (0x300,s_C__grimjedi_Libs_Std_General_Std_004e7884,
                                    DAT_004e787c + 0x8a);
                 *(int *)((int)bitmap + 0x60) = iVar4;
                 if (iVar4 == 0) goto LAB_0047e02f;
               }
-              (*g_pSvcMain->pFread)
+              (*g_pStd_HS->pFread)
                         (iVar3,*(undefined4 *)((int)bitmap + 0x60),(short)(1 << bVar2 + 1) * 3);
             }
-            iVar4 = (*g_pSvcMain->pAlloc)
+            iVar4 = (*g_pStd_HS->pAlloc)
                               (*(int *)(**(int **)((int)bitmap + 0x78) + 0xc) + (int)sStack_66,
                                s_C__grimjedi_Libs_Std_General_Std_004e7884,DAT_004e787c + 0x95);
             iStack_7c = iVar4;
             if (iVar4 != 0) {
-              (*g_pSvcMain->pFread)(iVar3,&cStack_81,1);
+              (*g_pStd_HS->pFread)(iVar3,&cStack_81,1);
               stdGif_LzwInitDecoder((short)cStack_81);
               iVar9 = 0;
               iStack_74 = (-(uint)((abStack_5e[0] & 2) != 0) & 7) + 1;
@@ -154,7 +154,7 @@ void * stdGif_Load(char *param_1,int param_2,int param_3)
                       bVar2 = stdGif_LzwDecodeNext(iVar3);
                       *(byte *)(iVar4 + iStack_7c) = bVar2;
                       if (bVar2 == 0xffffffff) {
-                        (*g_pSvcMain->pFree)(iStack_7c);
+                        (*g_pStd_HS->pFree)(iStack_7c);
                         goto LAB_0047e02f;
                       }
                       iVar4 = iVar4 + 1;
@@ -191,9 +191,9 @@ void * stdGif_Load(char *param_1,int param_2,int param_3)
                 } while (iStack_70 < *(int *)(iVar7 + 0x10));
               }
               Surface_Unlock((void *)**(undefined4 **)((int)bitmap + 0x78));
-              (*g_pSvcMain->pFree)(iVar4);
-              (*g_pSvcMain->pFread)(iVar3,&cStack_81,1);
-              (*g_pSvcMain->pFclose)(iVar3);
+              (*g_pStd_HS->pFree)(iVar4);
+              (*g_pStd_HS->pFread)(iVar3,&cStack_81,1);
+              (*g_pStd_HS->pFclose)(iVar3);
               return bitmap;
             }
           }
@@ -202,7 +202,7 @@ void * stdGif_Load(char *param_1,int param_2,int param_3)
     }
   }
 LAB_0047e02f:
-  (*g_pSvcMain->pFclose)(iVar3);
+  (*g_pStd_HS->pFclose)(iVar3);
   if (bitmap != (void *)0x0) {
     stdBitmap_Free(bitmap);
   }
@@ -268,35 +268,35 @@ undefined4 stdGif_Save(undefined4 param_1,int param_2)
   #define auStack_4 (*(undefined1 (*)[4])(_frame + (0x30 - 0x4)))
   
   iVar5 = param_2;
-  iVar2 = (*g_pSvcMain->pFopen)(param_1,&DAT_004ddd78);
+  iVar2 = (*g_pStd_HS->pFopen)(param_1,&DAT_004ddd78);
   if (iVar2 != 0) {
     strncpy(auStack_10,&DAT_004e78b0,3);
-    (*g_pSvcMain->pFwrite)(iVar2,auStack_10,3);
+    (*g_pStd_HS->pFwrite)(iVar2,auStack_10,3);
     strncpy(auStack_d,&DAT_004e78ac,3);
-    (*g_pSvcMain->pFwrite)(iVar2,auStack_d,3);
+    (*g_pStd_HS->pFwrite)(iVar2,auStack_d,3);
     uStack_a = *(undefined2 *)(**(int **)(param_2 + 0x78) + 0xc);
     uStack_8 = *(undefined2 *)(**(int **)(param_2 + 0x78) + 0x10);
     uStack_6 = 0xf7;
     uStack_5 = 0;
     auStack_4[0] = 0;
-    (*g_pSvcMain->pFwrite)(iVar2,&uStack_a,2);
-    (*g_pSvcMain->pFwrite)(iVar2,&uStack_8,2);
-    (*g_pSvcMain->pFwrite)(iVar2,&uStack_6,1);
-    (*g_pSvcMain->pFwrite)(iVar2,&uStack_5,1);
-    (*g_pSvcMain->pFwrite)(iVar2,auStack_4,1);
-    (*g_pSvcMain->pFwrite)(iVar2,*(undefined4 *)(param_2 + 0x60),0x300);
+    (*g_pStd_HS->pFwrite)(iVar2,&uStack_a,2);
+    (*g_pStd_HS->pFwrite)(iVar2,&uStack_8,2);
+    (*g_pStd_HS->pFwrite)(iVar2,&uStack_6,1);
+    (*g_pStd_HS->pFwrite)(iVar2,&uStack_5,1);
+    (*g_pStd_HS->pFwrite)(iVar2,auStack_4,1);
+    (*g_pStd_HS->pFwrite)(iVar2,*(undefined4 *)(param_2 + 0x60),0x300);
     auStack_1c[0] = 0x2c;
     uStack_1a = 0;
     uStack_18 = 0;
     uStack_16 = *(undefined2 *)(**(int **)(param_2 + 0x78) + 0xc);
     uStack_14 = *(undefined2 *)(**(int **)(param_2 + 0x78) + 0x10);
     abStack_12[0] = 0;
-    (*g_pSvcMain->pFwrite)(iVar2,auStack_1c,1);
-    (*g_pSvcMain->pFwrite)(iVar2,&uStack_1a,2);
-    (*g_pSvcMain->pFwrite)(iVar2,&uStack_18,2);
-    (*g_pSvcMain->pFwrite)(iVar2,&uStack_16,2);
-    (*g_pSvcMain->pFwrite)(iVar2,&uStack_14,2);
-    (*g_pSvcMain->pFwrite)(iVar2,abStack_12,1);
+    (*g_pStd_HS->pFwrite)(iVar2,auStack_1c,1);
+    (*g_pStd_HS->pFwrite)(iVar2,&uStack_1a,2);
+    (*g_pStd_HS->pFwrite)(iVar2,&uStack_18,2);
+    (*g_pStd_HS->pFwrite)(iVar2,&uStack_16,2);
+    (*g_pStd_HS->pFwrite)(iVar2,&uStack_14,2);
+    (*g_pStd_HS->pFwrite)(iVar2,abStack_12,1);
     iVar8 = 1;
     iVar10 = 0;
     iVar3 = 1 << (abStack_12[0] & 7) + 1;
@@ -312,7 +312,7 @@ undefined4 stdGif_Save(undefined4 param_1,int param_2)
     sVar1 = stdGif_LzwInitEncoder(iVar2,iVar10);
     if ((sVar1 == 0) &&
        (puVar4 = (undefined4 *)
-                 (*g_pSvcMain->pAlloc)
+                 (*g_pStd_HS->pAlloc)
                            (*(undefined4 *)(**(int **)(param_2 + 0x78) + 0xc),
                             s_C__grimjedi_Libs_Std_General_Std_004e7884,DAT_004e7880 + 0x55),
        puVar4 != (undefined4 *)0x0)) {
@@ -339,8 +339,8 @@ undefined4 stdGif_Save(undefined4 param_1,int param_2)
             do {
               sVar1 = stdGif_LzwEncodePixel(iVar2,*(undefined1 *)((int)puVar4 + iVar3));
               if (sVar1 != 0) {
-                (*g_pSvcMain->pFree)(puVar4);
-                (*g_pSvcMain->pFclose)(iVar2);
+                (*g_pStd_HS->pFree)(puVar4);
+                (*g_pStd_HS->pFclose)(iVar2);
                 return 0;
               }
               iVar3 = iVar3 + 1;
@@ -353,19 +353,19 @@ undefined4 stdGif_Save(undefined4 param_1,int param_2)
       Surface_Unlock((void *)**(undefined4 **)(iVar5 + 0x78));
       stdGif_LzwFinishEncode(iVar2);
       *(undefined1 *)puVar4 = 0;
-      iVar5 = (*g_pSvcMain->pFwrite)(iVar2,puVar4,1);
+      iVar5 = (*g_pStd_HS->pFwrite)(iVar2,puVar4,1);
       if (iVar5 == 1) {
         *(undefined1 *)puVar4 = 0x3b;
-        iVar5 = (*g_pSvcMain->pFwrite)(iVar2,puVar4,1);
+        iVar5 = (*g_pStd_HS->pFwrite)(iVar2,puVar4,1);
         if (iVar5 == 1) {
-          (*g_pSvcMain->pFree)(puVar4);
-          (*g_pSvcMain->pFclose)(iVar2);
+          (*g_pStd_HS->pFree)(puVar4);
+          (*g_pStd_HS->pFclose)(iVar2);
           return 1;
         }
       }
     }
   }
-  (*g_pSvcMain->pFclose)(iVar2);
+  (*g_pStd_HS->pFclose)(iVar2);
   return 0;
 }
 #undef abStack_12
@@ -567,11 +567,11 @@ uint stdGif_ReadByte(undefined4 param_1)
   
   if (DAT_00811b28 == DAT_008155f0) {
     DAT_008155f0 = 0;
-    iVar1 = (*g_pSvcMain->pFread)(param_1,&DAT_008155f0,1);
+    iVar1 = (*g_pStd_HS->pFread)(param_1,&DAT_008155f0,1);
     if (iVar1 != 1) {
       return 0xffff;
     }
-    iVar1 = (*g_pSvcMain->pFread)(param_1,&DAT_0080cbf8,(int)DAT_008155f0);
+    iVar1 = (*g_pStd_HS->pFread)(param_1,&DAT_0080cbf8,(int)DAT_008155f0);
     if (iVar1 != DAT_008155f0) {
       return 0xffff;
     }
@@ -612,7 +612,7 @@ uint stdGif_LzwInitEncoder(undefined4 param_1,undefined4 param_2)
     puVar2 = puVar2 + 1;
   }
   DAT_0080cbf0 = 1;
-  iVar1 = (*g_pSvcMain->pFwrite)(param_1,&param_2,1);
+  iVar1 = (*g_pStd_HS->pFwrite)(param_1,&param_2,1);
   if (iVar1 != 1) {
     return 1;
   }
@@ -810,7 +810,7 @@ void stdGif_WriteSubBlock(undefined4 param_1,short param_2)
   int iVar1;
   
   DAT_0080cbf8 = (undefined1)param_2;
-  iVar1 = (*g_pSvcMain->pFwrite)(param_1,&DAT_0080cbf8,param_2 + 1);
+  iVar1 = (*g_pStd_HS->pFwrite)(param_1,&DAT_0080cbf8,param_2 + 1);
   if (iVar1 != param_2 + 1) {
     _DAT_008155f8 = _DAT_008155f8 + 1;
   }

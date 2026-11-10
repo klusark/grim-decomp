@@ -12,10 +12,11 @@
 undefined4 Blocky16_Register(int *param_1,uint param_2)
 
 {
-  PTR_008da500 = param_1;
-  UINT_008da504 = param_2;
+  g_pBlocky16_share_services = param_1;
+  g_dwBlocky16_share_config = param_2;
   (*(code *)*param_1)(s_LECMODULE_insane_blocky16_flobde_004f3a04,&PTR_Blocky16_Register_004f34b8);
-  (*(code *)*PTR_008da500)(s_FLOBDEC_insane_blocky16_004f39ec,&PTR_Blocky16_GetInfoString_004f34c8);
+  (*(code *)*g_pBlocky16_share_services)
+            (s_FLOBDEC_insane_blocky16_004f39ec,&PTR_Blocky16_GetInfoString_004f34c8);
   return 0;
 }
 
@@ -53,8 +54,8 @@ int __cdecl Blocky16_SetOption(int key,...)
 void Blocky16_Unregister(void)
 
 {
-  (*(code *)PTR_008da500[1])(s_FLOBDEC_insane_blocky16_004f39ec);
-  (*(code *)PTR_008da500[1])(s_LECMODULE_insane_blocky16_flobde_004f3a04);
+  (*(code *)g_pBlocky16_share_services[1])(s_FLOBDEC_insane_blocky16_004f39ec);
+  (*(code *)g_pBlocky16_share_services[1])(s_LECMODULE_insane_blocky16_flobde_004f3a04);
   return;
 }
 
@@ -69,14 +70,18 @@ void Blocky16_Unregister(void)
 undefined4 Blocky16_module_startup(void)
 
 {
-  PTR_008da4fc = (int *)(*(code *)PTR_008da500[2])(s_BITMAP_clear_004f3aa0,UINT_008da504);
-  PTR_008da4f8 = (int *)(*(code *)PTR_008da500[2])(s_MEMORY_workspace_004f14ec,UINT_008da504);
-  if (PTR_008da4fc == (int *)0x0) {
-    (*(code *)PTR_008da500[8])(s_FlobDec_Blocky16_Module__Cannot_a_004f3a64);
+  g_pBlocky16_bitmap_services =
+       (int *)(*(code *)g_pBlocky16_share_services[2])
+                        (s_BITMAP_clear_004f3aa0,g_dwBlocky16_share_config);
+  g_pBlocky16_memory_services =
+       (int *)(*(code *)g_pBlocky16_share_services[2])
+                        (s_MEMORY_workspace_004f14ec,g_dwBlocky16_share_config);
+  if (g_pBlocky16_bitmap_services == (int *)0x0) {
+    (*(code *)g_pBlocky16_share_services[8])(s_FlobDec_Blocky16_Module__Cannot_a_004f3a64);
     return 0xffffffff;
   }
-  if (PTR_008da4f8 == (int *)0x0) {
-    (*(code *)PTR_008da500[8])(s_FlobDec_Blocky16_Module__Cannot_a_004f3a28);
+  if (g_pBlocky16_memory_services == (int *)0x0) {
+    (*(code *)g_pBlocky16_share_services[8])(s_FlobDec_Blocky16_Module__Cannot_a_004f3a28);
     return 0xffffffff;
   }
   return 0;
@@ -89,8 +94,8 @@ void Blocky16_Shutdown(void)
 
 {
   Blocky16_FreeBuffers();
-  (*(code *)PTR_008da500[3])(PTR_008da4fc);
-  (*(code *)PTR_008da500[3])(PTR_008da4f8);
+  (*(code *)g_pBlocky16_share_services[3])(g_pBlocky16_bitmap_services);
+  (*(code *)g_pBlocky16_share_services[3])(g_pBlocky16_memory_services);
   return;
 }
 
@@ -156,11 +161,11 @@ int Blocky16_AllocBuffers(int param_1,int param_2,int param_3)
   g_nBlkShiftR = 0;
   g_nBlkShiftG = 0;
   g_nBlkShiftB = 0;
-  iVar1 = (*(code *)*PTR_008da4fc)(&g_pBlkBitmap0,param_1,param_2,param_3);
+  iVar1 = (*(code *)*g_pBlocky16_bitmap_services)(&g_pBlkBitmap0,param_1,param_2,param_3);
   if (iVar1 == 0) {
-    iVar1 = (*(code *)*PTR_008da4fc)(&g_pBlkBitmap1,param_1,param_2,param_3);
+    iVar1 = (*(code *)*g_pBlocky16_bitmap_services)(&g_pBlkBitmap1,param_1,param_2,param_3);
     if (iVar1 == 0) {
-      iVar1 = (*(code *)*PTR_008da4fc)(&g_pBlkBitmap2,param_1,param_2,param_3);
+      iVar1 = (*(code *)*g_pBlocky16_bitmap_services)(&g_pBlkBitmap2,param_1,param_2,param_3);
       if (iVar1 == 0) {
         g_nBlkDepth = param_3;
         g_pbBlkPrev2 = (byte *)*g_pBlkBitmap0;
@@ -170,17 +175,17 @@ int Blocky16_AllocBuffers(int param_1,int param_2,int param_3)
         FUN_004d5e50(g_pbBlkPrev,0,g_nBlkPixels * 2);
         FUN_004d5e50(g_pbBlkCur,0,g_nBlkPixels * 2);
         g_pbBlkExpand =
-             (byte *)(*(code *)*PTR_008da4f8)
+             (byte *)(*(code *)*g_pBlocky16_memory_services)
                                (0x20000,s_C__grimsrc_libs_lecsmush_insane__004f3bbc,0x13e);
         iVar1 = (g_pbBlkExpand != (byte *)0x0) - 1;
         if (iVar1 == 0) {
           return 0;
         }
-        (*(code *)PTR_008da4fc[2])(&g_pBlkBitmap2);
+        (*(code *)g_pBlocky16_bitmap_services[2])(&g_pBlkBitmap2);
       }
-      (*(code *)PTR_008da4fc[2])(&g_pBlkBitmap1);
+      (*(code *)g_pBlocky16_bitmap_services[2])(&g_pBlkBitmap1);
     }
-    (*(code *)PTR_008da4fc[2])(&g_pBlkBitmap0);
+    (*(code *)g_pBlocky16_bitmap_services[2])(&g_pBlkBitmap0);
   }
   return iVar1;
 }
@@ -192,16 +197,17 @@ void Blocky16_FreeBuffers(void)
 
 {
   if (g_pBlkBitmap0 != (int *)0x0) {
-    (*(code *)PTR_008da4fc[2])(&g_pBlkBitmap0);
+    (*(code *)g_pBlocky16_bitmap_services[2])(&g_pBlkBitmap0);
   }
   if (g_pBlkBitmap1 != (int *)0x0) {
-    (*(code *)PTR_008da4fc[2])(&g_pBlkBitmap1);
+    (*(code *)g_pBlocky16_bitmap_services[2])(&g_pBlkBitmap1);
   }
   if (g_pBlkBitmap2 != (int *)0x0) {
-    (*(code *)PTR_008da4fc[2])(&g_pBlkBitmap2);
+    (*(code *)g_pBlocky16_bitmap_services[2])(&g_pBlkBitmap2);
   }
   if (g_pbBlkExpand != (byte *)0x0) {
-    (*(code *)PTR_008da4f8[1])(g_pbBlkExpand,s_C__grimsrc_libs_lecsmush_insane__004f3bbc,0x156);
+    (*(code *)g_pBlocky16_memory_services[1])
+              (g_pbBlkExpand,s_C__grimsrc_libs_lecsmush_insane__004f3bbc,0x156);
     g_pbBlkExpand = (byte *)0x0;
   }
   g_nBlkPixels = 0;
@@ -705,7 +711,7 @@ int __cdecl Blocky16_DecodeFrame(void *dst,uint *clip,int x,int y,int palette,by
     Video_FillPixels(g_pbBlkPrev,g_pBlkBitmap0,g_pBlkBitmap0[1] * g_pBlkBitmap0[2],hdr + 0x20);
     g_nBlkLastSeq = -1;
   }
-  g_nAnimFramesDecoded = g_nAnimFramesDecoded + 1;
+  g_nBretsFrameCount = g_nBretsFrameCount + 1;
   switch(hdr[0x12]) {
   case 0:
     goto LAB_004ccf61;

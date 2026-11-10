@@ -18,7 +18,7 @@ undefined4 Debug_CameraFovKeys(void)
   void *pvVar2;
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
-  if ((g_nDebugKeysEnabled != 0) &&
+  if ((g_nGrimlib_bDebugKeys != 0) &&
      (iVar1 = Input_GetButtonState(0x1d,(int *)0x0,(int *)0x0), iVar1 != 0)) {
     iVar1 = Input_GetButtonState(0x4e,(int *)0x0,(int *)0x0);
     if (iVar1 == 0) {

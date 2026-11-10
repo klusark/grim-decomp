@@ -24,23 +24,23 @@ void sputLua_Update(void)
 
     GRIM_lua_cmd_poll();                                /* test hook: run the Lua lines appended to GRIM_LUA_FILE */
 
-    g_dwMovieTime = (uint)Insane_Poll();
+    g_dwSputLua_Update_movieTimeMsec = (uint)Insane_Poll();
     frameMs = Timer_GetFrameMs();
-    g_dwLuaGcTimerMs = g_dwLuaGcTimerMs + frameMs;
-    if ((float)g_dwLuaGcTimerMs > 10000.0f) {           /* every 10 seconds */
+    g_dwSputLua_Update_collectionTime = g_dwSputLua_Update_collectionTime + frameMs;
+    if ((float)g_dwSputLua_Update_collectionTime > 10000.0f) {           /* every 10 seconds */
         lua_collectgarbage(0);
-        g_dwLuaGcTimerMs = 0;
+        g_dwSputLua_Update_collectionTime = 0;
     }
     lua_beginblock();
-    sys = lua_getref(g_nLuaSystemTableRef);             /* the "system" table */
+    sys = lua_getref(g_nLrSystemTable);             /* the "system" table */
     lua_pushobject(sys);
     lua_pushstring(s_frameTime_004ec41c);
     lua_pushnumber((float)frameMs);
     lua_settable();
-    sys = lua_getref(g_nLuaSystemTableRef);
+    sys = lua_getref(g_nLrSystemTable);
     lua_pushobject(sys);
     lua_pushstring(s_movieTime_004ec410);
-    lua_pushnumber((float)(int)g_dwMovieTime);
+    lua_pushnumber((float)(int)g_dwSputLua_Update_movieTimeMsec);
     lua_settable();
     lua_endblock();
     lua_updatetasks(0);
@@ -48,8 +48,8 @@ void sputLua_Update(void)
 
 /* ==== sputLua_SetCameraFOVL (0x0049f8d0) ====
  * SetCameraFOV(fov): stores the field of view in the camera setup (float at +0x1c) and in the rdCamera object the
- * setup points to (pointer at +0x28, float at +0x38).  By hand because Ghidra types g_pCameraSetup as float *, so the
- * pointer field at +0x28 came out as `(int)g_pCameraSetup[10]` (a float -> int conversion of the pointer bits).
+ * setup points to (pointer at +0x28, float at +0x38).  By hand because Ghidra types g_pSputRender_Camera as float *, so the
+ * pointer field at +0x28 came out as `(int)g_pSputRender_Camera[10]` (a float -> int conversion of the pointer bits).
  * The original has no `return` after the two lua_pushnil() calls (missing early-outs: it carries on and dereferences
  * a null setup); kept as it is. */
 void sputLua_SetCameraFOVL(void)
@@ -57,12 +57,12 @@ void sputLua_SetCameraFOVL(void)
     int arg;
     float *setup;
 
-    if (g_pCameraSetup == (float *)0)
+    if (g_pSputRender_Camera == (float *)0)
         lua_pushnil();
     arg = lua_lua2C(1);
     if (!lua_isnumber(arg))
         lua_pushnil();
-    setup = g_pCameraSetup;
+    setup = g_pSputRender_Camera;
     setup[7] = lua_getnumber(arg);                                  /* fov */
     *(float *)(*(char **)(setup + 10) + 0x38) = setup[7];           /* rdCamera.fov */
 }
@@ -93,48 +93,48 @@ extern int GRIM_SimTime(void);   /* overrides.c: GRIM_SIMTIME=<ms> test knob (fi
 void Main_Service(void)
 {
     int rect[4] = { 0, 0, 0x50, 0x1e };          /* x, y, width, height of the overlay text box */
-    int savedMode = UINT_008a8c40;
+    int savedMode = g_dwGrimlib_mode;
     int y = 0x1e;
     int frameMs, now, frames;
     uint *prof;
 
-    if (g_quitRequested != 0)
+    if (g_nQuitApp != 0)
         return;
 
     if (UINT_004f5a50 != 0) {                    /* display change pending: reselect it and dim the back buffer */
         Display_Select(UINT_004dd340, UINT_004dd344, UINT_004dd348);
-        UINT_008a8c40 = 2;
+        g_dwGrimlib_mode = 2;
         ((void (*)(int, int))sputRender_Dim)(1, 2);
         UINT_004f5a50 = 0;
     }
-    _DAT_004dd384 = 300;
-    UINT_008a8c40 = savedMode;
+    _g_dwDeadmanCounter = 300;
+    g_dwGrimlib_mode = savedMode;
 
     frameMs = GRIM_SimTime();                    /* test hook: fixed frame time */
     if (frameMs == 0)
         frameMs = g_fixedFrameMs;
-    Engine_UpdateFrame(UINT_008d0a70, frameMs);
-    g_dwFrameCounter = g_dwFrameCounter + 1;
+    Engine_UpdateFrame(g_dwZg_App_bAppActive, frameMs);
+    g_dwMain_Service_frameCount = g_dwMain_Service_frameCount + 1;
     g_fixedFrameMs = 0;
 
     now = timeGetTime();                         /* (the hook point of the frame limiter of grimdlg.dll) */
-    _DAT_004f5a60 = now;
-    if ((uint)(now - UINT_004f5a64) > 1000) {    /* once a second: frames per second */
-        frames = g_dwFrameCounter - UINT_004f5a5c;
-        UINT_004f5a5c = g_dwFrameCounter;
-        g_measuredFps = ((float)frames * 1000.0) / (float)(uint)(now - UINT_004f5a64);
-        UINT_004f5a64 = now;
+    _g_dwMain_Service_frameTime = now;
+    if ((uint)(now - g_dwMain_Service_frameTime0) > 1000) {    /* once a second: frames per second */
+        frames = g_dwMain_Service_frameCount - UINT_004f5a5c;
+        UINT_004f5a5c = g_dwMain_Service_frameCount;
+        g_flMain_Service_frameRate = ((float)frames * 1000.0) / (float)(uint)(now - g_dwMain_Service_frameTime0);
+        g_dwMain_Service_frameTime0 = now;
     }
-    if (_g_bShowFps != 0) {
-        sprintf(&DAT_009056c0, s__02_3f_004dd680, (double)g_measuredFps);
-        Display_DrawText(&DAT_009056c0, 4, 4);
+    if (_g_bDrawFrameRate != 0) {
+        sprintf(&g_bStd_genBuffer, s__02_3f_004dd680, (double)g_flMain_Service_frameRate);
+        Display_DrawText(&g_bStd_genBuffer, 4, 4);
         Engine_InvalidateRect(rect, 0);
     }
-    if (g_bShowProfile != 0) {                   /* one line per profiled section (Profile_Begin/End) */
-        prof = &UINT_004e7b50;
+    if (g_nDrawPerfData != 0) {                   /* one line per profiled section (Profile_Begin/End) */
+        prof = &g_dwGrimlib_PerfData;
         do {
-            sprintf(&DAT_009056c0, s__s__02_3f_004dd674, prof - 10, *prof);
-            Display_DrawText(&DAT_009056c0, 4, y);
+            sprintf(&g_bStd_genBuffer, s__s__02_3f_004dd674, prof - 10, *prof);
+            Display_DrawText(&g_bStd_genBuffer, 4, y);
             rect[0] = 4;
             rect[1] = y;
             rect[2] = 0xbe;
@@ -146,9 +146,9 @@ void Main_Service(void)
             prof += 0xc;
         } while (y < 0x122);
     }
-    if (UINT_008d0a70 != 0)
+    if (g_dwZg_App_bAppActive != 0)
         Engine_PresentFrame();
-    if (g_quitRequested != 0) {                  /* quit requested during the frame: tear the window down */
+    if (g_nQuitApp != 0) {                  /* quit requested during the frame: tear the window down */
         Win_RemoveMessageHook(Win_WndProc);
         Win_RemoveMessageHook(Win_IsSysCommandBlocked);
         DestroyWindow(Win_GetMainHwnd());
@@ -298,14 +298,14 @@ int *KeyframeComponent_NewInstance(int inst, int component, int create)
     if (create == 0) {
         int d = Cos_InstGetInstanceData(inst, component, (int *)0);
         Res_RemoveReference((void *)(d + 4));
-        (*g_pSvcCostume->pFree)(d);
+        (*g_pSputCosHS->pFree)(d);
         return (int *)0;
     }
     Cos_InstComponentInfo(inst, component, (int)&aux, (int)&info, (int)&parent);
     if (*info == 0)
-        (*g_pSvcMain->pAssertFail)(s_Bad_keyframe_Reference_004ea1e0, s_main_sputResource_h_004e80a8, 0xb3);
+        (*g_pStd_HS->pAssertFail)(s_Bad_keyframe_Reference_004ea1e0, s_main_sputResource_h_004e80a8, 0xb3);
     res = (void *)info[1];
-    data = (int *)(*g_pSvcCostume->pAlloc)(0x40, s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0, 0xed8);
+    data = (int *)(*g_pSputCosHS->pAlloc)(0x40, s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0, 0xed8);
     for (i = 0; i < 0x10; i++)
         data[i] = 0;
     Res_SetReference(data + 1, res, s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0, 0xeda);
@@ -323,15 +323,15 @@ int *CmapComponent_NewInstance(int inst, int component, int create)
     if (create == 0) {
         int d = Cos_InstGetInstanceData(inst, component, (int *)0);
         Res_RemoveReference((void *)(d + 4));
-        (*g_pSvcCostume->pFree)(d);
+        (*g_pSputCosHS->pFree)(d);
         return (int *)0;
     }
-    data = (int *)(*g_pSvcCostume->pAlloc)(0x38, s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0, 0x8fa);
+    data = (int *)(*g_pSputCosHS->pAlloc)(0x38, s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0, 0x8fa);
     Cos_InstComponentInfo(inst, component, (int)&aux, (int)&info, (int)&parent);
     for (i = 0; i < 0xe; i++)
         data[i] = 0;
     if (*info == 0)
-        (*g_pSvcMain->pAssertFail)(s_Bad_Colormap_Reference_004e8090, s_main_sputResource_h_004e80a8, 0x9f);
+        (*g_pStd_HS->pAssertFail)(s_Bad_Colormap_Reference_004e8090, s_main_sputResource_h_004e80a8, 0x9f);
     Res_SetReference(data + 1, (void *)info[1], s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0, 0x8ff);
     data[0] = Cos_InstGetInstanceData(inst, parent, (int *)0);
     return data;
@@ -343,10 +343,10 @@ int *MeshComponent_NewInstance(int inst, int component, int create)
     int *data;
 
     if (create == 0) {
-        (*g_pSvcCostume->pFree)(Cos_InstGetInstanceData(inst, component, (int *)0));
+        (*g_pSputCosHS->pFree)(Cos_InstGetInstanceData(inst, component, (int *)0));
         return (int *)0;
     }
-    data = (int *)(*g_pSvcCostume->pAlloc)(0xc, s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0, 0xb54);
+    data = (int *)(*g_pSputCosHS->pAlloc)(0xc, s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0, 0xb54);
     Cos_InstComponentInfo(inst, component, (int)&aux, (int)(data + 1), (int)&parent);   /* data[1] = the component's value */
     data[1] = data[1] >> 16;
     data[0] = Cos_InstGetInstanceData(inst, parent, (int *)0);
@@ -365,13 +365,13 @@ typedef int (*SaveIO)(void *buf, int n);
 uint stdFile_ReadByte(uint file)
 {
     uint value = 0;
-    (*g_pSvcMain->pFread)(file, &value, 1);
+    (*g_pStd_HS->pFread)(file, &value, 1);
     return value & 0xff;
 }
 
 void stdFile_WriteByte(undefined4 value, undefined4 file)
 {
-    (*g_pSvcMain->pFwrite)(file, &value, 1);
+    (*g_pStd_HS->pFwrite)(file, &value, 1);
 }
 
 /* the save file starts with 'FUTB', version 1, flags 0; returns 0 when the header matches, 1 otherwise */
@@ -392,7 +392,7 @@ undefined4 SaveFile_CheckFUTBHeader(code *readFn)
     return 0;
 }
 
-/* Resource_Filio module, save-game writer: the list of loaded files (PTR_008a85d4) -> count, then per saved file its name
+/* Resource_Filio module, save-game writer: the list of loaded files (g_pNewestResNode) -> count, then per saved file its name
  * (length + bytes), its flags word and its "loaded" word.  A file is saved when it has a handle (+0x24) and its name
  * does not contain the temporary-file marker, or when bit 3 of its flags is set. */
 undefined4 Res_SysSave(code *writeFn)
@@ -402,12 +402,12 @@ undefined4 Res_SysSave(code *writeFn)
     int *file;
 
 #define FILE_IS_SAVED(f) ((((f)[9] != 0 && String_ContainsSubstring((uint *)(f)[2], &DAT_004e7b14) == 0) || (*(byte *)((f) + 7) & 8) != 0))
-    for (file = PTR_008a85d4; file != 0; file = (int *)*file)
+    for (file = g_pNewestResNode; file != 0; file = (int *)*file)
         if (FILE_IS_SAVED(file))
             count++;
     if (write(&count, 4) != 0)
         return 1;
-    for (file = PTR_008a85d4; file != 0; file = (int *)*file) {
+    for (file = g_pNewestResNode; file != 0; file = (int *)*file) {
         if (!FILE_IS_SAVED(file))
             continue;
         len = strlen((char *)file[2]);
@@ -421,17 +421,17 @@ undefined4 Res_SysSave(code *writeFn)
     return 0;
 }
 
-/* sputPrimitive module, save-game writer: the screen primitives (list head in UINT_008ca0a0, next pointer at +0) */
+/* sputPrimitive module, save-game writer: the screen primitives (list head in g_dwPrimitiveQ, next pointer at +0) */
 undefined4 sputPrimitive_SaveState(code *writeFn)
 {
     SaveIO write = (SaveIO)writeFn;
     int count = 0, id;
     int *prim;
 
-    for (prim = (int *)UINT_008ca0a0; prim != 0; prim = (int *)*prim)
+    for (prim = (int *)g_dwPrimitiveQ; prim != 0; prim = (int *)*prim)
         count++;
     write(&count, 4);
-    for (prim = (int *)UINT_008ca0a0; prim != 0; prim = (int *)*prim) {
+    for (prim = (int *)g_dwPrimitiveQ; prim != 0; prim = (int *)*prim) {
         id = prim[2];
         write(&id, 4);
         write(prim + 3, 4);          /* id used by DrawLine & co */
@@ -453,7 +453,7 @@ undefined4 sputPrimitive_RestoreState(code *readFn)
     int rect[4];
     int *prim;
 
-    PrimitiveList_Clear((int *)&UINT_008ca0a0);
+    PrimitiveList_Clear((int *)&g_dwPrimitiveQ);
     read(&count, 4);
     while (count != 0) {
         count--;
@@ -466,7 +466,7 @@ undefined4 sputPrimitive_RestoreState(code *readFn)
         read(&color, 4);
         read(&f28, 4);
         read(&f2c, 4);
-        prim = (int *)PrimitiveList_Append(&UINT_008ca0a0, id, layer);
+        prim = (int *)PrimitiveList_Append(&g_dwPrimitiveQ, id, layer);
         if (prim != 0) {
             prim[2] = kind;
             prim[5] = rect[0];

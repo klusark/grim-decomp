@@ -13,7 +13,7 @@
 undefined4 sputSmush_Initialize(undefined4 param_1,undefined4 *param_2)
 
 {
-  _DAT_008c9ca8 = param_1;
+  _g_dwSmushHS = param_1;
   *param_2 = sputSmush_Initialize;
   param_2[1] = &DAT_004891a0;
   param_2[2] = sputSmush_Startup;
@@ -22,16 +22,16 @@ undefined4 sputSmush_Initialize(undefined4 param_1,undefined4 *param_2)
   param_2[5] = Movie_RestoreState;
   param_2[6] = 0;
   param_2[7] = 0;
-  Insane_RegisterFilio(param_1,&DAT_008c9fb8);
-  Insane_SetOutputParams(&PTR_Movie_CheckSurfaceFormat_004e8338);
-  g_pMovieSurface = (void *)0x0;
-  _DAT_008ca080 = 1;
+  Insane_RegisterFilio(param_1,&g_aSmushPlayMS);
+  Insane_SetOutputParams(&g_pSputVideoCallBacks);
+  g_pPresentBuf = (void *)0x0;
+  _g_dwSmushBuf = 1;
   return 0;
 }
 
 /* ---- 0x00489130  sputSmush_Startup ---- */
 /* Module slot 2 of sputSmush: honours the StartSmush registry value (FALSE disables movies),
-   otherwise initialises the Smush player through the LecShare table and sets g_nMovieAvailable.
+   otherwise initialises the Smush player through the LecShare table and sets g_nSputSmushStarted.
    Original name sputSmush_Startup (the remaster's GrimFandango (Linux): strings: 'StartSmush'); was
    sputSmush_Start. */
 
@@ -48,7 +48,7 @@ undefined4 sputSmush_Startup(void)
   }
   iVar1 = (*(code *)UINT_008c9fc0)();
   if (iVar1 == 0) {
-    g_nMovieAvailable = 1;
+    g_nSputSmushStarted = 1;
     return 0;
   }
   return 1;
@@ -64,7 +64,7 @@ undefined4 sputSmush_Startup(void)
 void sputSmush_Stop(void)
 
 {
-  if (g_nMovieAvailable != 0) {
+  if (g_nSputSmushStarted != 0) {
                     /* WARNING: Could not recover jumptable at 0x00489199. Too many branches */
                     /* WARNING: Treating indirect jump as call */
     (*_DAT_008c9fc4)();

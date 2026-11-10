@@ -42,7 +42,8 @@ MUTATING = {"rename_function_by_address", "rename_function", "create_function", 
             "set_plate_comment", "rename_data", "rename_or_label", "set_global", "create_label",
             "apply_data_type", "set_function_no_return", "delete_function", "rename_variable",
             "rename_variables", "set_decompiler_comment", "set_comment", "set_parameter_type",
-            "set_local_variable_type", "batch_rename_function_components", "batch_create_labels"}
+            "set_local_variable_type", "batch_rename_function_components", "batch_create_labels",
+            "rename_label", "delete_label"}
 _touched = {}
 
 

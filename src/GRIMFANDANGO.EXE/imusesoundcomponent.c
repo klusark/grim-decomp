@@ -34,9 +34,9 @@ SoundChanger(int tag,int snd,undefined4 param_3,int slot,uint param_5,uint param
   iVar4 = Cos_InstGetUserData(inst);
   iVar6 = slot;
   iVar2 = snd;
-  pvVar1 = g_pActorTable;
-  if ((*(int *)(&DAT_004e9ff8 + slot * 4) == 0) && (iVar5 = SoundsIsSoundPlaying(snd), iVar5 == 0))
-  {
+  pvVar1 = g_pActors;
+  if ((*(int *)(&g_aSoundCommands + slot * 4) == 0) &&
+     (iVar5 = SoundsIsSoundPlaying(snd), iVar5 == 0)) {
     if (tag != 0x736c6d69) {
       if (tag != 0x73736d69) {
         return;
@@ -64,7 +64,7 @@ SoundChanger(int tag,int snd,undefined4 param_3,int slot,uint param_5,uint param
     Sound_SetPosition(iVar6,(int)pvVar1 + iVar4 * 0xa8 + 0xc,uVar7,bVar3,snd,slot);
     return;
   }
-  if (*(int *)(&DAT_004e9ff8 + iVar6 * 4) == 1) {
+  if (*(int *)(&g_aSoundCommands + iVar6 * 4) == 1) {
     if (tag == 0x736c6d69) {
       SoundsStopSound(iVar2);
       return;
@@ -74,7 +74,7 @@ SoundChanger(int tag,int snd,undefined4 param_3,int slot,uint param_5,uint param
       return;
     }
   }
-  else if (*(int *)(&DAT_004e9ff8 + iVar6 * 4) == 2) {
+  else if (*(int *)(&g_aSoundCommands + iVar6 * 4) == 2) {
     iMUSE_SetHook(iVar2,0x80);
   }
   return;
@@ -220,8 +220,8 @@ int SoundRequester(uint param_1,int param_2,int param_3,int param_4,char *param_
     return false;
   }
   if (param_5 == (char *)0x0) {
-    if (DAT_008caa38 != '\0') {
-      Plat_SetDialogDirectory(&DAT_008caa38);
+    if (g_bSoundPath != '\0') {
+      Plat_SetDialogDirectory(&g_bSoundPath);
     }
     iVar4 = Plat_OpenFileDialog(s_Select_sound_file_to_add____004ea6b8,
                                 s_Sound_files____imu____imc____wvc_004ea6d4);
@@ -229,9 +229,9 @@ int SoundRequester(uint param_1,int param_2,int param_3,int param_4,char *param_
       return false;
     }
     uVar2 = ((code *)Plat_GetDialogFileName)(0x7f);
-    ((code *)strncpy)(&DAT_008caa38,uVar2);
+    ((code *)strncpy)(&g_bSoundPath,uVar2);
     DAT_008caab7 = 0;
-    param_5 = Str_Basename(g_szDialogFileName);
+    param_5 = Str_Basename(g_szGrimlib_aFilename);
   }
   else {
     strncpy(&local_20,param_5,0x1f);
@@ -250,7 +250,7 @@ int SoundRequester(uint param_1,int param_2,int param_3,int param_4,char *param_
       local_24 = (uint)atoi(uVar1);
     }
   }
-  iVar4 = (*g_pSvcCostume->pAlloc)(0x2c,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0xcee);
+  iVar4 = (*g_pSputCosHS->pAlloc)(0x2c,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0xcee);
   if (iVar4 == 0) {
     return false;
   }
@@ -281,7 +281,7 @@ int SoundRequester(uint param_1,int param_2,int param_3,int param_4,char *param_
 undefined4 ImuseSoundComponent_Destroy(undefined4 param_1,undefined4 param_2,undefined4 param_3)
 
 {
-  (*g_pSvcCostume->pFree)(param_3);
+  (*g_pSputCosHS->pFree)(param_3);
   return 1;
 }
 

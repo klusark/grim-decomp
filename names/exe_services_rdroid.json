@@ -23,9 +23,9 @@
  {"addr": "00403870", "name": "Svc_Identity", "comment": "Default GrimServices.translate: returns its argument unchanged", "tags": "services"},
  {"addr": "004dd9a8", "global": "g_DefaultServices", "type": "GrimServices", "comment": "Template service table copied by Services_InitDefaults (version 1000.0, stdio and malloc shims)"},
  {"addr": "008ddda0", "global": "g_MainServices", "type": "GrimServices", "comment": "The live service table of the executable, handed to every library module"},
- {"addr": "00905ac0", "global": "g_pSvcMain", "type": "GrimServices *", "comment": "Service table pointer used by grimdemo.c and grimplat.cpp code"},
- {"addr": "00900004", "global": "g_pSvcRdroid", "type": "GrimServices *", "comment": "Service table pointer used by the RDroid renderer library"},
- {"addr": "008c9a70", "global": "g_pSvcMemory", "type": "GrimServices *", "comment": "Service table pointer used by Temp/Memory.c pools"},
+ {"addr": "00905ac0", "global": "g_pStd_HS", "type": "GrimServices *", "comment": "Service table pointer used by grimdemo.c and grimplat.cpp code"},
+ {"addr": "00900004", "global": "g_pRdroid_HS", "type": "GrimServices *", "comment": "Service table pointer used by the RDroid renderer library"},
+ {"addr": "008c9a70", "global": "g_pMemoryHS", "type": "GrimServices *", "comment": "Service table pointer used by Temp/Memory.c pools"},
  {"addr": "008c9a90", "global": "g_pSvcFileutil", "type": "GrimServices *", "comment": "Service table pointer used by Temp/Fileutil.c"},
  {"addr": "008a8c98", "global": "g_pSvcIMuseModule", "type": "GrimServices *", "comment": "Service table pointer stored by IMuseModule_Init"},
  {"addr": "008a8c74", "global": "g_pSvcEngineModule", "type": "GrimServices *", "comment": "Service table pointer stored by EngineModule_Init"},
@@ -71,8 +71,8 @@
 
  {"addr": "00402fd0", "comment": "grimdemo.c window procedure. WM_ACTIVATEAPP pauses/resumes the engine, WM_KEYDOWN handles the Backspace-chord debug keys (C choreface, F fps, P profile, S screenshot, T reset textures, Z z-buffer dump, F12 grimpatch.bin, NumLock spew)."},
  {"addr": "004f5a88", "global": "g_bDebugChordHeld", "type": "int", "comment": "Backspace is held down, enabling the debug key chords"},
- {"addr": "004f5a2c", "global": "g_bShowFps", "type": "int", "comment": "Draw the measured frames per second overlay"},
- {"addr": "004f5a30", "global": "g_bShowProfile", "type": "int", "comment": "Draw the per-subsystem profile timing overlay"},
+ {"addr": "004f5a2c", "global": "g_bDrawFrameRate", "type": "int", "comment": "Draw the measured frames per second overlay"},
+ {"addr": "004f5a30", "global": "g_nDrawPerfData", "type": "int", "comment": "Draw the per-subsystem profile timing overlay"},
  {"addr": "004f5a20", "global": "g_bWindowedMode", "type": "int", "comment": "Game runs in a window instead of full screen"},
  {"addr": "004dd38c", "global": "g_bAppActive", "type": "int", "comment": "Application window is currently the active application"}
 ]

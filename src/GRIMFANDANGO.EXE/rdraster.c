@@ -576,7 +576,7 @@ void rdRaster_SpanFlatSetup(int *param_1)
   int iVar2;
   
   iVar2 = param_1[0x6e];
-  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
+  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   if (iVar1 == 8) {
     DAT_008ddf40 = (undefined1)param_1[0x74];
     if (iVar2 != 0) {
@@ -613,7 +613,7 @@ void rdRaster_SpanOutline8(int *param_1)
   int iVar1;
   undefined1 *puVar2;
   
-  iVar1 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+  iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
   puVar2 = (undefined1 *)(param_1[2] * *(int *)(iVar1 + 0x18) + *(int *)(iVar1 + 0x5c) + *param_1);
   *puVar2 = DAT_008ddf40;
   puVar2[param_1[1] + -1] = DAT_008ddf40;
@@ -636,7 +636,7 @@ void rdRaster_SpanOutline16(int *param_1)
   undefined2 *puVar1;
   int iVar2;
   
-  iVar2 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+  iVar2 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
   puVar1 = (undefined2 *)
            (*(int *)(iVar2 + 0x5c) + (param_1[2] * (*(uint *)(iVar2 + 0x18) >> 1) + *param_1) * 2);
   *puVar1 = DAT_008ddf08;
@@ -810,7 +810,7 @@ void rdRaster_SpanTexSetup(int *param_1)
   int iVar6;
   undefined4 *puVar7;
   
-  iVar6 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
+  iVar6 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   if (iVar6 == 8) {
     DAT_008ddf40 = (undefined1)param_1[0x74];
   }
@@ -825,7 +825,7 @@ void rdRaster_SpanTexSetup(int *param_1)
     for (piVar1 = (int *)param_1[0x6e]; DAT_008ddf40 = uVar2, piVar1 != (int *)0x0;
         piVar1 = (int *)piVar1[10]) {
       uVar5 = piVar1[1];
-      iVar6 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+      iVar6 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
       puVar7 = (undefined4 *)(piVar1[2] * *(int *)(iVar6 + 0x18) + *(int *)(iVar6 + 0x5c) + *piVar1)
       ;
       for (uVar4 = uVar5 >> 2; uVar4 != 0; uVar4 = uVar4 - 1) {
@@ -841,7 +841,7 @@ void rdRaster_SpanTexSetup(int *param_1)
   }
   else if (iVar6 == 0x10) {
     for (piVar1 = (int *)param_1[0x6e]; piVar1 != (int *)0x0; piVar1 = (int *)piVar1[10]) {
-      iVar6 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+      iVar6 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
       puVar3 = (undefined2 *)
                (*(int *)(iVar6 + 0x5c) + (piVar1[2] * (*(uint *)(iVar6 + 0x18) >> 1) + *piVar1) * 2)
       ;
@@ -852,7 +852,7 @@ void rdRaster_SpanTexSetup(int *param_1)
     }
   }
   iVar6 = param_1[0x6e];
-  if (*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x14) == 0) {
+  if (*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x14) == 0) {
     if (iVar6 != 0) {
       do {
         rdRaster_SpanR_FlatZw(iVar6);
@@ -1022,7 +1022,7 @@ void rdRaster_SpanLitSetup(int param_1)
   uVar2 = *(undefined1 *)(param_1 + 0x1d0);
   for (piVar1 = *(int **)(param_1 + 0x1b8); DAT_008ddf40 = uVar2, piVar1 != (int *)0x0;
       piVar1 = (int *)piVar1[10]) {
-    iVar5 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar5 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     uVar4 = piVar1[1];
     puVar6 = (undefined4 *)(piVar1[2] * *(int *)(iVar5 + 0x18) + *(int *)(iVar5 + 0x5c) + *piVar1);
     for (uVar3 = uVar4 >> 2; uVar3 != 0; uVar3 = uVar3 - 1) {
@@ -1036,7 +1036,7 @@ void rdRaster_SpanLitSetup(int param_1)
     uVar2 = DAT_008ddf40;
   }
   iVar5 = *(int *)(param_1 + 0x1b8);
-  if (*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x14) == 0) {
+  if (*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x14) == 0) {
     if (iVar5 != 0) {
       do {
         rdRaster_SpanR_FlatZw(iVar5);
@@ -1166,7 +1166,7 @@ void rdRaster_Select_FlatLit(float *param_1,int param_2)
   
   uVar6 = 0;
   fVar2 = *param_1;
-  iVar3 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
+  iVar3 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   if (*(int *)(PUN(int,(float)fVar2) + 0x1c) != 0) {
     iVar5 = 0;
     pfVar4 = param_1;
@@ -1208,7 +1208,7 @@ void FUN_00410330(int param_1)
   int iVar8;
   int iVar9;
   
-  iVar9 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
+  iVar9 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   DAT_008ddf40 = *(byte *)(param_1 + 0x1d0);
   if (iVar9 == 8) {
     UINT_008ddf0c = *(uint *)(param_1 + 0x1dc);
@@ -1217,7 +1217,7 @@ void FUN_00410330(int param_1)
     UINT_008ddf30 = *(uint *)(param_1 + 0x1e0);
   }
   UINT_008ddf24 = *(uint *)(param_1 + 0x19c);
-  pvVar7 = g_pRdCurrentCamera;
+  pvVar7 = g_pRdCamera_CurCamera;
   if (iVar9 == 8) {
     for (piVar1 = *(int **)(param_1 + 0x1b8); piVar1 != (int *)0x0; piVar1 = (int *)piVar1[10]) {
       iVar9 = piVar1[9];
@@ -1230,7 +1230,7 @@ void FUN_00410330(int param_1)
         iVar8 = iVar8 + iVar9;
         *puVar4 = *(undefined1 *)((uVar6 & 0x3f00) + UINT_008ddf0c + (uint)DAT_008ddf40);
         puVar4 = puVar4 + 1;
-        pvVar7 = g_pRdCurrentCamera;
+        pvVar7 = g_pRdCamera_CurCamera;
       }
     }
   }
@@ -1248,7 +1248,7 @@ void FUN_00410330(int param_1)
         *puVar3 = *(undefined2 *)(UINT_008ddf30 + ((uVar6 & 0x3f) * 0x100 + (uint)DAT_008ddf40) * 2)
         ;
         puVar3 = puVar3 + 1;
-        pvVar7 = g_pRdCurrentCamera;
+        pvVar7 = g_pRdCamera_CurCamera;
       }
     }
   }
@@ -1403,7 +1403,7 @@ void rdRaster_Select_FlatLit_2(int *param_1,int param_2)
   int iVar1;
   int iVar2;
   
-  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
+  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   rdRaster_SetupPoly(param_1,*(int *)(*(int *)(param_2 + 0x1c) + 0x18) + -1);
   iVar2 = param_1[0x70];
   param_1[0x71] = *(int *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + iVar2 * 4) + 0x5c);
@@ -1433,7 +1433,7 @@ void FUN_00410970(int param_1)
 {
   int iVar1;
   
-  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
+  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   if (iVar1 == 0x10) {
     UINT_008ddf30 = *(uint *)(param_1 + 0x1e0);
   }
@@ -1498,7 +1498,7 @@ void FUN_00410970(int param_1)
     (*(code *)UINT_007f3214)(iVar1);
   }
   iVar1 = *(int *)(param_1 + 0x1b8);
-  if (*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x14) == 0) {
+  if (*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x14) == 0) {
     if (iVar1 != 0) {
       do {
         rdRaster_SpanR_FlatZw(iVar1);
@@ -1643,7 +1643,7 @@ void rdRaster_Select_FlatLit_3(int *param_1,int param_2)
   int iVar1;
   int iVar2;
   
-  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
+  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   rdRaster_SetupPoly(param_1,*(int *)(*(int *)(param_2 + 0x1c) + 0x18) + -1);
   iVar2 = param_1[0x70];
   param_1[0x71] = *(int *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + iVar2 * 4) + 0x5c);
@@ -1676,7 +1676,7 @@ void FUN_00411330(int param_1)
   int iVar1;
   int iVar2;
   
-  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
+  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   if (iVar1 == 0x10) {
     UINT_008ddf30 = *(uint *)(param_1 + 0x1e0);
   }
@@ -1730,13 +1730,13 @@ void rdRaster_SpanR8_TexKey(int *param_1)
   #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
   
   uVar5 = UINT_008ddf24;
-  uVar2 = *(undefined4 *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x14);
+  uVar2 = *(undefined4 *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x14);
   iVar3 = param_1[4];
   iVar4 = param_1[6];
   uVar11 = param_1[3];
   iVar9 = param_1[5];
   iVar10 = (int)ROUND(PUN(float,param_1[7]) * 65536.0);
-  iVar7 = *(int *)((int)g_pRdCurrentCamera + 4);
+  iVar7 = *(int *)((int)g_pRdCamera_CurCamera + 4);
   pcVar6 = (char *)(*(int *)(*(int *)(iVar7 + 4) + 0x18) * param_1[2] +
                     *(int *)(*(int *)(iVar7 + 4) + 0x5c) + *param_1);
   puVar8 = (undefined2 *)
@@ -1799,13 +1799,13 @@ void rdRaster_SpanR16_TexKey(int *param_1)
   #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
   
   uVar5 = UINT_008ddf24;
-  uVar2 = *(undefined4 *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x14);
+  uVar2 = *(undefined4 *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x14);
   iVar3 = param_1[4];
   uVar9 = param_1[3];
   iVar4 = param_1[6];
   iVar6 = param_1[5];
   iVar11 = (int)ROUND(PUN(float,param_1[7]) * 65536.0);
-  iVar7 = *(int *)((int)g_pRdCurrentCamera + 4);
+  iVar7 = *(int *)((int)g_pRdCamera_CurCamera + 4);
   puVar8 = (undefined2 *)
            (*(int *)(*(int *)(iVar7 + 4) + 0x5c) +
            ((*(uint *)(*(int *)(iVar7 + 4) + 0x18) >> 1) * param_1[2] + *param_1) * 2);
@@ -1853,7 +1853,7 @@ void rdRaster_Select_FlatLit_4(int *param_1,int param_2,float param_3)
   int iVar1;
   uint uVar2;
   
-  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
+  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   rdRaster_SetupPoly(param_1,*(int *)(*(int *)(param_2 + 0x1c) + 0x18) + -1);
   param_1[0x71] = *(int *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + param_1[0x70] * 4) + 0x5c);
   if (iVar1 == 8) {
@@ -1886,7 +1886,7 @@ void FUN_00411740(int param_1)
   int iVar1;
   
   UINT_008ddf04 = *(uint *)(param_1 + 0x1c0);
-  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
+  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   UINT_008ddf3c = *(uint *)(param_1 + 0x1c4);
   if (iVar1 == 8) {
     UINT_008ddf0c = *(uint *)(param_1 + 0x1dc);
@@ -1953,7 +1953,7 @@ void FUN_00411740(int param_1)
     (*(code *)UINT_007f3214)(iVar1);
   }
   iVar1 = *(int *)(param_1 + 0x1b8);
-  if (*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x14) == 0) {
+  if (*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x14) == 0) {
     if (iVar1 != 0) {
       do {
         rdRaster_SpanR_FlatZw(iVar1);
@@ -2115,7 +2115,7 @@ void rdRaster_Select_FlatLit_5(int *param_1,int param_2,float param_3)
   int iVar1;
   uint uVar2;
   
-  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
+  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   rdRaster_SetupPoly(param_1,*(int *)(*(int *)(param_2 + 0x1c) + 0x18) + -1);
   param_1[0x71] = *(int *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + param_1[0x70] * 4) + 0x5c);
   if (iVar1 == 8) {
@@ -2151,7 +2151,7 @@ void FUN_004121a0(int param_1)
   int iVar2;
   
   UINT_008ddf04 = *(uint *)(param_1 + 0x1c0);
-  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
+  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   UINT_008ddf3c = *(uint *)(param_1 + 0x1c4);
   if (iVar1 == 8) {
     UINT_008ddf0c = *(uint *)(param_1 + 0x1dc);
@@ -2209,13 +2209,13 @@ void rdRaster_SpanR8_TexKey_2(int *param_1)
   #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
   
   uVar5 = UINT_008ddf24;
-  uVar2 = *(undefined4 *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x14);
+  uVar2 = *(undefined4 *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x14);
   iVar3 = param_1[4];
   iVar4 = param_1[6];
   uVar11 = param_1[3];
   iVar9 = param_1[5];
   iVar10 = (int)ROUND(PUN(float,param_1[7]) * 65536.0);
-  iVar7 = *(int *)((int)g_pRdCurrentCamera + 4);
+  iVar7 = *(int *)((int)g_pRdCamera_CurCamera + 4);
   puVar6 = (undefined1 *)
            (*(int *)(*(int *)(iVar7 + 4) + 0x18) * param_1[2] + *(int *)(*(int *)(iVar7 + 4) + 0x5c)
            + *param_1);
@@ -2280,13 +2280,13 @@ void rdRaster_SpanR16_TexKey_2(int *param_1)
   #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
   
   uVar5 = UINT_008ddf24;
-  uVar2 = *(undefined4 *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x14);
+  uVar2 = *(undefined4 *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x14);
   iVar3 = param_1[4];
   uVar9 = param_1[3];
   iVar4 = param_1[6];
   iVar6 = param_1[5];
   iVar11 = (int)ROUND(PUN(float,param_1[7]) * 65536.0);
-  iVar7 = *(int *)((int)g_pRdCurrentCamera + 4);
+  iVar7 = *(int *)((int)g_pRdCamera_CurCamera + 4);
   puVar8 = (undefined2 *)
            (*(int *)(*(int *)(iVar7 + 4) + 0x5c) +
            ((*(uint *)(*(int *)(iVar7 + 4) + 0x18) >> 1) * param_1[2] + *param_1) * 2);
@@ -2336,7 +2336,7 @@ void rdRaster_Select_FlatLit_6(int *param_1,int param_2)
   int iVar2;
   uint uVar3;
   
-  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
+  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   rdRaster_SetupPoly(param_1,*(int *)(*(int *)(param_2 + 0x1c) + 0x18) + -1);
   iVar2 = param_1[0x70];
   param_1[0x71] = *(int *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + iVar2 * 4) + 0x5c);
@@ -2369,7 +2369,7 @@ void FUN_004125c0(int param_1)
   int iVar1;
   
   UINT_008ddf04 = *(uint *)(param_1 + 0x1c0);
-  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
+  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   UINT_008ddf3c = *(uint *)(param_1 + 0x1c4);
   if (iVar1 == 8) {
     UINT_008ddf0c = *(uint *)(param_1 + 0x1dc);
@@ -2436,7 +2436,7 @@ void FUN_004125c0(int param_1)
     (*(code *)UINT_007f3214)(iVar1);
   }
   iVar1 = *(int *)(param_1 + 0x1b8);
-  if (*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x14) == 0) {
+  if (*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x14) == 0) {
     if (iVar1 != 0) {
       do {
         rdRaster_SpanR_FlatZw(iVar1);
@@ -2613,7 +2613,7 @@ void rdRaster_Select_FlatLit_7(int *param_1,int param_2)
   int iVar2;
   uint uVar3;
   
-  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
+  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   rdRaster_SetupPoly(param_1,*(int *)(*(int *)(param_2 + 0x1c) + 0x18) + -1);
   iVar2 = param_1[0x70];
   param_1[0x71] = *(int *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + iVar2 * 4) + 0x5c);
@@ -2649,7 +2649,7 @@ void FUN_00413110(int param_1)
   int iVar2;
   
   UINT_008ddf04 = *(uint *)(param_1 + 0x1c0);
-  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
+  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   UINT_008ddf3c = *(uint *)(param_1 + 0x1c4);
   if (iVar1 == 8) {
     UINT_008ddf0c = *(uint *)(param_1 + 0x1dc);
@@ -2711,7 +2711,7 @@ void rdRaster_SpanR8_TexKey_3(int *param_1)
   #define local_8 (*(uint *)(_frame + (0x40 - 0x8)))
   
   uVar7 = UINT_008ddf24;
-  uVar2 = *(undefined4 *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x14);
+  uVar2 = *(undefined4 *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x14);
   iVar3 = param_1[4];
   iVar4 = param_1[6];
   uVar13 = param_1[3];
@@ -2719,7 +2719,7 @@ void rdRaster_SpanR8_TexKey_3(int *param_1)
   iVar12 = (int)ROUND(PUN(float,param_1[7]) * 65536.0);
   iVar5 = param_1[9];
   iVar6 = param_1[8];
-  iVar9 = *(int *)((int)g_pRdCurrentCamera + 4);
+  iVar9 = *(int *)((int)g_pRdCamera_CurCamera + 4);
   puVar8 = (undefined1 *)
            (*(int *)(*(int *)(iVar9 + 4) + 0x18) * param_1[2] + *(int *)(*(int *)(iVar9 + 4) + 0x5c)
            + *param_1);
@@ -2791,7 +2791,7 @@ void rdRaster_SpanR16_TexKey_3(int *param_1)
   #define local_8 (*(uint *)(_frame + (0x40 - 0x8)))
   
   uVar6 = UINT_008ddf24;
-  uVar2 = *(undefined4 *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x14);
+  uVar2 = *(undefined4 *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x14);
   iVar3 = param_1[4];
   uVar11 = param_1[3];
   iVar4 = param_1[6];
@@ -2799,7 +2799,7 @@ void rdRaster_SpanR16_TexKey_3(int *param_1)
   iVar13 = (int)ROUND(PUN(float,param_1[7]) * 65536.0);
   iVar5 = param_1[9];
   iVar9 = param_1[8];
-  iVar8 = *(int *)((int)g_pRdCurrentCamera + 4);
+  iVar8 = *(int *)((int)g_pRdCamera_CurCamera + 4);
   puVar10 = (undefined2 *)
             (*(int *)(*(int *)(iVar8 + 4) + 0x5c) +
             ((*(uint *)(*(int *)(iVar8 + 4) + 0x18) >> 1) * param_1[2] + *param_1) * 2);
@@ -2850,7 +2850,7 @@ void rdRaster_Select_FlatLit_8(int *param_1,int param_2)
   int iVar1;
   int iVar2;
   
-  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
+  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   rdRaster_SetupPolyTex(param_1,*(int *)(*(int *)(param_2 + 0x1c) + 0x18) + -1);
   iVar2 = param_1[0x70];
   param_1[0x6a] = PUN(int,(float)(PUN(float,param_1[0x61]) * 16.0));
@@ -2883,7 +2883,7 @@ void FUN_00413590(int param_1)
 {
   int iVar1;
   
-  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
+  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   if (iVar1 == 0x10) {
     UINT_008ddf30 = *(uint *)(param_1 + 0x1e0);
   }
@@ -2954,7 +2954,7 @@ void FUN_00413590(int param_1)
     (*(code *)UINT_007f3214)(iVar1);
   }
   iVar1 = *(int *)(param_1 + 0x1b8);
-  if (*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x14) == 0) {
+  if (*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x14) == 0) {
     if (iVar1 != 0) {
       do {
         rdRaster_SpanR_FlatZw(iVar1);
@@ -3077,7 +3077,7 @@ void rdRaster_Select_FlatLit_9(int *param_1,int param_2)
   int iVar1;
   int iVar2;
   
-  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
+  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   rdRaster_SetupPolyTex(param_1,*(int *)(*(int *)(param_2 + 0x1c) + 0x18) + -1);
   iVar2 = param_1[0x70];
   param_1[0x6a] = PUN(int,(float)(PUN(float,param_1[0x61]) * 16.0));
@@ -3113,7 +3113,7 @@ void FUN_00413dd0(int param_1)
   int iVar1;
   int iVar2;
   
-  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
+  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   if (iVar1 == 0x10) {
     UINT_008ddf30 = *(uint *)(param_1 + 0x1e0);
   }
@@ -3222,14 +3222,14 @@ void rdRaster_SpanP8_TexKeyZw(uint *param_1)
   fVar2 = (float)param_1[3];
   fVar3 = (float)param_1[4];
   local_8 = (uint)ROUND((float)local_30 * 65536.0);
-  iVar14 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
-  iVar4 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+  iVar14 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
+  iVar4 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
   local_18 = (uint)((1.0 / (float)local_30) * fVar2);
   pcVar16 = (char *)(*(int *)(iVar14 + 0x18) * param_1[2] + *(int *)(iVar14 + 0x5c) + *param_1);
   puVar13 = (undefined2 *)
             (*(int *)(iVar4 + 0x18) * param_1[2] + *(int *)(iVar4 + 0x5c) + *param_1 * 2);
   local_1c = (uint)((1.0 / (float)local_30) * fVar3);
-  bVar9 = (byte)*(undefined4 *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x14);
+  bVar9 = (byte)*(undefined4 *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x14);
   param_1 = (uint *)puVar13;
   if (local_40 == 0) {
     local_c = (uint)((float)local_30 + _DAT_008ddf28);
@@ -3451,8 +3451,8 @@ void rdRaster_SpanP16_TexKeyZw(uint *param_1)
   fVar1 = (float)param_1[3];
   fVar2 = (float)param_1[4];
   local_8 = (uint)ROUND((float)local_34 * 65536.0);
-  iVar13 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
-  iVar3 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+  iVar13 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
+  iVar3 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
   puVar12 = (undefined2 *)
             (*(int *)(iVar13 + 0x5c) + ((*(uint *)(iVar13 + 0x18) >> 1) * param_1[2] + *param_1) * 2
             );
@@ -3460,7 +3460,7 @@ void rdRaster_SpanP16_TexKeyZw(uint *param_1)
   local_1c = (uint)((1.0 / (float)local_34) * fVar2);
   puVar15 = (undefined2 *)
             (*(int *)(iVar3 + 0x18) * param_1[2] + *param_1 * 2 + *(int *)(iVar3 + 0x5c));
-  bVar8 = (byte)*(undefined4 *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x14);
+  bVar8 = (byte)*(undefined4 *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x14);
   param_1 = (uint *)puVar12;
   if (local_44 == 0) {
     local_c = (uint)((float)local_34 + _DAT_008ddf28);
@@ -3622,7 +3622,7 @@ void rdRaster_Select_FlatLit_10(int *param_1,int param_2,float param_3)
   int iVar1;
   uint uVar2;
   
-  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
+  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   rdRaster_SetupPolyTex(param_1,*(int *)(*(int *)(param_2 + 0x1c) + 0x18) + -1);
   param_1[0x6a] = (int)(PUN(float,param_1[0x61]) * 16.0);
   param_1[0x6b] = (int)(PUN(float,param_1[99]) * 16.0);
@@ -3658,7 +3658,7 @@ void FUN_00414d20(int param_1)
   int iVar1;
   
   UINT_008ddf04 = *(uint *)(param_1 + 0x1c0);
-  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
+  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   if (iVar1 == 8) {
     UINT_008ddf0c = *(uint *)(param_1 + 0x1dc);
   }
@@ -3731,7 +3731,7 @@ void FUN_00414d20(int param_1)
     (*(code *)UINT_007f3214)(iVar1);
   }
   iVar1 = *(int *)(param_1 + 0x1b8);
-  if (*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x14) == 0) {
+  if (*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x14) == 0) {
     if (iVar1 != 0) {
       do {
         rdRaster_SpanR_FlatZw(iVar1);
@@ -3887,7 +3887,7 @@ void rdRaster_Select_FlatLit_11(int *param_1,int param_2,float param_3)
   int iVar1;
   uint uVar2;
   
-  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
+  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   rdRaster_SetupPolyTex(param_1,*(int *)(*(int *)(param_2 + 0x1c) + 0x18) + -1);
   param_1[0x6a] = (int)(PUN(float,param_1[0x61]) * 16.0);
   param_1[0x6b] = (int)(PUN(float,param_1[99]) * 16.0);
@@ -3926,7 +3926,7 @@ void FUN_00415600(int param_1)
   int iVar2;
   
   UINT_008ddf04 = *(uint *)(param_1 + 0x1c0);
-  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
+  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   if (iVar1 == 8) {
     UINT_008ddf0c = *(uint *)(param_1 + 0x1dc);
   }
@@ -4036,15 +4036,15 @@ void rdRaster_SpanP8_TexKeyZw_2(uint *param_1)
   fVar1 = (float)param_1[3];
   fVar2 = (float)param_1[4];
   local_8 = (uint)ROUND((float)local_34 * 65536.0);
-  iVar13 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
-  iVar3 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+  iVar13 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
+  iVar3 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
   local_18 = (uint)((1.0 / (float)local_34) * fVar1);
   puVar15 = (undefined1 *)
             (*(int *)(iVar13 + 0x18) * param_1[2] + *(int *)(iVar13 + 0x5c) + *param_1);
   puVar12 = (undefined2 *)
             (*(int *)(iVar3 + 0x18) * param_1[2] + *(int *)(iVar3 + 0x5c) + *param_1 * 2);
   local_1c = (uint)((1.0 / (float)local_34) * fVar2);
-  bVar8 = (byte)*(undefined4 *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x14);
+  bVar8 = (byte)*(undefined4 *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x14);
   param_1 = (uint *)puVar12;
   if (local_44 == 0) {
     local_c = (uint)((float)local_34 + _DAT_008ddf28);
@@ -4269,8 +4269,8 @@ void rdRaster_SpanP16_TexKeyZw_2(uint *param_1)
   fVar1 = (float)param_1[3];
   fVar2 = (float)param_1[4];
   local_8 = (uint)ROUND((float)local_34 * 65536.0);
-  iVar13 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
-  iVar3 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+  iVar13 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
+  iVar3 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
   puVar12 = (undefined2 *)
             (*(int *)(iVar13 + 0x5c) + ((*(uint *)(iVar13 + 0x18) >> 1) * param_1[2] + *param_1) * 2
             );
@@ -4278,7 +4278,7 @@ void rdRaster_SpanP16_TexKeyZw_2(uint *param_1)
   local_1c = (uint)((1.0 / (float)local_34) * fVar2);
   puVar15 = (undefined2 *)
             (*(int *)(iVar3 + 0x18) * param_1[2] + *param_1 * 2 + *(int *)(iVar3 + 0x5c));
-  bVar8 = (byte)*(undefined4 *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x14);
+  bVar8 = (byte)*(undefined4 *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x14);
   param_1 = (uint *)puVar12;
   if (local_44 == 0) {
     local_c = (uint)((float)local_34 + _DAT_008ddf28);
@@ -4440,7 +4440,7 @@ void rdRaster_Select_FlatLit_12(int *param_1,int param_2)
   int iVar1;
   uint uVar2;
   
-  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
+  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   rdRaster_SetupPolyTex(param_1,*(int *)(*(int *)(param_2 + 0x1c) + 0x18) + -1);
   param_1[0x6a] = PUN(int,(float)(PUN(float,param_1[0x61]) * 16.0));
   param_1[0x6b] = PUN(int,(float)(PUN(float,param_1[99]) * 16.0));
@@ -4476,7 +4476,7 @@ void FUN_00416580(int param_1)
   int iVar1;
   
   UINT_008ddf04 = *(uint *)(param_1 + 0x1c0);
-  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
+  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   if (iVar1 == 8) {
     UINT_008ddf0c = *(uint *)(param_1 + 0x1dc);
   }
@@ -4549,7 +4549,7 @@ void FUN_00416580(int param_1)
     (*(code *)UINT_007f3214)(iVar1);
   }
   iVar1 = *(int *)(param_1 + 0x1b8);
-  if (*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x14) == 0) {
+  if (*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x14) == 0) {
     if (iVar1 != 0) {
       do {
         rdRaster_SpanR_FlatZw(iVar1);
@@ -4718,7 +4718,7 @@ undefined4 rdRaster_Select_FlatLit_13(int *param_1,int param_2)
   int iVar1;
   uint uVar2;
   
-  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
+  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   rdRaster_SetupPolyTex(param_1,*(int *)(*(int *)(param_2 + 0x1c) + 0x18) + -1);
   param_1[0x6a] = PUN(int,(float)(PUN(float,param_1[0x61]) * 16.0));
   param_1[0x6b] = PUN(int,(float)(PUN(float,param_1[99]) * 16.0));
@@ -4757,7 +4757,7 @@ void FUN_00416f80(int param_1)
   int iVar2;
   
   UINT_008ddf04 = *(uint *)(param_1 + 0x1c0);
-  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
+  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   if (iVar1 == 8) {
     UINT_008ddf0c = *(uint *)(param_1 + 0x1dc);
   }
@@ -4871,15 +4871,15 @@ void rdRaster_SpanP8_TexKeyZw_3(uint *param_1)
   uVar11 = param_1[9];
   local_8 = param_1[8];
   local_c = (uint)ROUND((float)local_38 * 65536.0);
-  iVar13 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
-  iVar3 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+  iVar13 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
+  iVar3 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
   local_1c = (uint)((1.0 / (float)local_38) * fVar1);
   puVar15 = (undefined1 *)
             (*(int *)(iVar13 + 0x18) * param_1[2] + *(int *)(iVar13 + 0x5c) + *param_1);
   puVar10 = (undefined2 *)
             (*(int *)(iVar3 + 0x18) * param_1[2] + *param_1 * 2 + *(int *)(iVar3 + 0x5c));
   local_20 = (uint)((1.0 / (float)local_38) * fVar2);
-  bVar8 = (byte)*(undefined4 *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x14);
+  bVar8 = (byte)*(undefined4 *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x14);
   param_1 = (uint *)puVar10;
   if (local_4c == 0) {
     local_10 = (uint)((float)local_38 + _DAT_008ddf28);
@@ -5113,8 +5113,8 @@ void rdRaster_SpanP16_TexKeyZw_3(uint *param_1)
   uVar10 = param_1[9];
   local_8 = param_1[8];
   local_c = (uint)ROUND((float)local_38 * 65536.0);
-  iVar13 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
-  iVar3 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+  iVar13 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
+  iVar3 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
   puVar15 = (undefined2 *)
             (*(int *)(iVar13 + 0x5c) + ((*(uint *)(iVar13 + 0x18) >> 1) * param_1[2] + *param_1) * 2
             );
@@ -5122,7 +5122,7 @@ void rdRaster_SpanP16_TexKeyZw_3(uint *param_1)
   local_20 = (uint)((1.0 / (float)local_38) * fVar2);
   puVar12 = (undefined2 *)
             (*(int *)(iVar3 + 0x18) * param_1[2] + *(int *)(iVar3 + 0x5c) + *param_1 * 2);
-  bVar8 = (byte)*(undefined4 *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x14);
+  bVar8 = (byte)*(undefined4 *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x14);
   param_1 = (uint *)puVar12;
   if (local_4c == 0) {
     local_10 = (uint)((float)local_38 + _DAT_008ddf28);
@@ -5768,7 +5768,7 @@ void rdRaster_DrawPoints(int param_1,int param_2)
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   
   g_pRdRasterVerts = *(float **)(param_1 + 0x20);
-  iVar5 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
+  iVar5 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   g_nRdRasterVertCount = *(int *)(param_1 + 0x1c);
   if (iVar5 == 8) {
     DAT_008ddec0 = *(undefined1 *)(param_2 + 4);
@@ -5779,7 +5779,7 @@ void rdRaster_DrawPoints(int param_1,int param_2)
         iVar3 = iVar4 + 4;
         pfVar1 = (float *)((int)g_pRdRasterVerts + iVar4);
         iVar4 = iVar4 + 0xc;
-        iVar2 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+        iVar2 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
         iVar5 = iVar5 + 1;
         *(undefined1 *)
          (*(int *)(iVar2 + 0x18) * (int)ROUND(*(float *)((int)g_pRdRasterVerts + iVar3)) +
@@ -5799,7 +5799,7 @@ void rdRaster_DrawPoints(int param_1,int param_2)
         iVar3 = iVar4 + 4;
         pfVar1 = (float *)((int)g_pRdRasterVerts + iVar4);
         iVar4 = iVar4 + 0xc;
-        iVar2 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+        iVar2 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
         iVar5 = iVar5 + 1;
         *(undefined2 *)
          (*(int *)(iVar2 + 0x5c) +
@@ -5839,7 +5839,7 @@ void rdRaster_DrawWireframe(int param_1,int param_2)
   #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
   
   g_pRdRasterVerts = *(float **)(param_1 + 0x20);
-  iVar6 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
+  iVar6 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   g_nRdRasterVertCount = *(int *)(param_1 + 0x1c);
   if (iVar6 == 8) {
     iVar6 = 0;
@@ -5847,7 +5847,7 @@ void rdRaster_DrawWireframe(int param_1,int param_2)
     if (g_nRdRasterVertCount != 1 && -1 < g_nRdRasterVertCount + -1) {
       iVar5 = 0;
       do {
-        rdCanvas_DrawLine(*(void **)((int)g_pRdCurrentCamera + 4),
+        rdCanvas_DrawLine(*(void **)((int)g_pRdCamera_CurCamera + 4),
                           (int)ROUND(*(float *)((int)g_pRdRasterVerts + iVar5)),
                           (int)ROUND(((float *)((int)g_pRdRasterVerts + iVar5))[1]),
                           (int)ROUND(*(float *)((int)g_pRdRasterVerts + iVar5 + 0xc)),
@@ -5874,7 +5874,7 @@ void rdRaster_DrawWireframe(int param_1,int param_2)
     if (g_nRdRasterVertCount != 1 && -1 < g_nRdRasterVertCount + -1) {
       iVar5 = 0;
       do {
-        rdCanvas_DrawLine(*(void **)((int)g_pRdCurrentCamera + 4),
+        rdCanvas_DrawLine(*(void **)((int)g_pRdCamera_CurCamera + 4),
                           (int)ROUND(*(float *)((int)g_pRdRasterVerts + iVar5)),
                           (int)ROUND(((float *)((int)g_pRdRasterVerts + iVar5))[1]),
                           (int)ROUND(*(float *)((int)g_pRdRasterVerts + iVar5 + 0xc)),
@@ -5890,7 +5890,7 @@ void rdRaster_DrawWireframe(int param_1,int param_2)
     fVar4 = g_pRdRasterVerts[iVar6 * 3];
     color = DAT_008ddeb8;
   }
-  rdCanvas_DrawLine(*(void **)((int)g_pRdCurrentCamera + 4),(int)ROUND(fVar4),(int)ROUND(fVar3),
+  rdCanvas_DrawLine(*(void **)((int)g_pRdCamera_CurCamera + 4),(int)ROUND(fVar4),(int)ROUND(fVar3),
                     (int)ROUND(fVar2),(int)ROUND(fVar1),color,0xffffffff);
   return;
 }
@@ -5928,7 +5928,7 @@ void rdRaster_Draw16_FlatLit(int param_1,int param_2)
   #define local_38 (*(uint *)(_frame + (0xa0 - 0x38)))
   #define local_4 (*(uint *)(_frame + (0xa0 - 0x4)))
   
-  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
+  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   if (iVar1 == 8) {
     DAT_008ddec0 = *(undefined1 *)(param_2 + 4);
   }
@@ -6023,7 +6023,7 @@ void rdRaster_Span16_Flat(uint *param_1,uint *param_2)
   }
   iVar4 = (uVar3 >> 0x10) - (uVar2 >> 0x10);
   if (0 < iVar4) {
-    iVar1 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     PTR_007f43a8 = (int *)(*(int *)(iVar1 + 0x5c) +
                           (param_1[0x10] * (*(uint *)(iVar1 + 0x18) >> 1) + (uVar2 >> 0x10)) * 2);
     do {
@@ -6195,7 +6195,7 @@ void rdRaster_Draw16_TexLit(int param_1,int param_2)
   #define local_38 (*(uint *)(_frame + (0xa0 - 0x38)))
   #define local_4 (*(uint *)(_frame + (0xa0 - 0x4)))
   
-  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
+  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   if (iVar1 == 8) {
     DAT_008ddec0 = *(undefined1 *)(param_2 + 4);
   }
@@ -6211,7 +6211,7 @@ void rdRaster_Draw16_TexLit(int param_1,int param_2)
   g_nRdRasterVertCount = *(int *)(param_1 + 0x1c);
   g_nRdRasterStartVertex = *(uint *)(param_1 + 0x6c);
   g_nRdRasterEndVertex = *(int *)(param_1 + 0x70);
-  UINT_008ddea8 = *(uint *)(UINT_004f5ec4 + 0x338);
+  UINT_008ddea8 = *(uint *)(g_dwRdColormap_pCurMap + 0x338);
   if (*(int *)(param_1 + 0x50) == 0) {
     g_nRdRasterStepA = 1;
     g_nRdRasterStepB = -1;
@@ -6292,7 +6292,7 @@ void rdRaster_Span16_Tex(uint *param_1,uint *param_2)
   }
   iVar4 = (uVar3 >> 0x10) - (uVar2 >> 0x10);
   if (0 < iVar4) {
-    iVar1 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     PTR_007f43a8 = (int *)(*(int *)(iVar1 + 0x5c) +
                           (param_1[0x10] * (*(uint *)(iVar1 + 0x18) >> 1) + (uVar2 >> 0x10)) * 2);
     do {
@@ -6334,7 +6334,7 @@ void rdRaster_Draw16_FlatLit_2(int param_1,int param_2,float param_3)
   #define local_3c (*(uint *)(_frame + (0xa0 - 0x3c)))
   #define local_8 (*(uint *)(_frame + (0xa0 - 0x8)))
   
-  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
+  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   if (iVar1 == 8) {
     DAT_008ddec0 = *(undefined1 *)
                     (*(int *)(param_2 + 4) + *(int *)(*(int *)(param_1 + 0x4c) + 0x330) +
@@ -6435,7 +6435,7 @@ void rdRaster_Span_Flat(uint *param_1,uint *param_2)
   }
   uVar4 = (uVar4 >> 0x10) - (uVar3 >> 0x10);
   if (0 < (int)uVar4) {
-    iVar1 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     uVar6 = CONCAT11(DAT_008ddec0,DAT_008ddec0);
     puVar7 = (undefined4 *)
              (param_1[0x10] * *(int *)(iVar1 + 0x18) + *(int *)(iVar1 + 0x5c) + (uVar3 >> 0x10));
@@ -6479,7 +6479,7 @@ void rdRaster_Span16_Flat_2(uint *param_1,uint *param_2)
   }
   iVar4 = (uVar3 >> 0x10) - (uVar2 >> 0x10);
   if (0 < iVar4) {
-    iVar1 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     PTR_007f43a8 = (int *)(*(int *)(iVar1 + 0x5c) +
                           (param_1[0x10] * (*(uint *)(iVar1 + 0x18) >> 1) + (uVar2 >> 0x10)) * 2);
     do {
@@ -6655,7 +6655,7 @@ void rdRaster_Draw16_TexLit_2(int param_1,int param_2,float param_3)
   #define local_3c (*(uint *)(_frame + (0xa0 - 0x3c)))
   #define local_8 (*(uint *)(_frame + (0xa0 - 0x8)))
   
-  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
+  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   if (iVar1 == 8) {
     DAT_008ddec0 = *(undefined1 *)
                     (*(int *)(param_2 + 4) + *(int *)(*(int *)(param_1 + 0x4c) + 0x330) +
@@ -6673,7 +6673,7 @@ void rdRaster_Draw16_TexLit_2(int param_1,int param_2,float param_3)
   g_nRdRasterVertCount = *(int *)(param_1 + 0x1c);
   g_nRdRasterStartVertex = *(uint *)(param_1 + 0x6c);
   g_nRdRasterEndVertex = *(int *)(param_1 + 0x70);
-  UINT_008ddea8 = *(uint *)(UINT_004f5ec4 + 0x338);
+  UINT_008ddea8 = *(uint *)(g_dwRdColormap_pCurMap + 0x338);
   if (*(int *)(param_1 + 0x50) == 0) {
     g_nRdRasterStepA = 1;
     g_nRdRasterStepB = -1;
@@ -6757,7 +6757,7 @@ void rdRaster_Span_Tex(uint *param_1,uint *param_2)
   }
   iVar4 = (uVar3 >> 0x10) - (uVar2 >> 0x10);
   if (0 < iVar4) {
-    iVar1 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     pbVar5 = (byte *)(param_1[0x10] * *(int *)(iVar1 + 0x18) + *(int *)(iVar1 + 0x5c) +
                      (uVar2 >> 0x10));
     do {
@@ -6797,7 +6797,7 @@ void rdRaster_Span16_Tex_2(uint *param_1,uint *param_2)
   }
   iVar4 = (uVar3 >> 0x10) - (uVar2 >> 0x10);
   if (0 < iVar4) {
-    iVar1 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     PTR_007f43a8 = (int *)(*(int *)(iVar1 + 0x5c) +
                           (param_1[0x10] * (*(uint *)(iVar1 + 0x18) >> 1) + (uVar2 >> 0x10)) * 2);
     do {
@@ -6846,7 +6846,7 @@ void rdRaster_Draw_FlatLit(int param_1,int param_2)
   #define local_4 (*(uint *)(_frame + (0xa0 - 0x4)))
   
   DAT_008ddec0 = *(undefined1 *)(param_2 + 4);
-  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
+  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   g_pRdRasterVerts = *(float **)(param_1 + 0x20);
   UINT_007f4304 = *(uint *)(param_1 + 0x28);
   g_nRdRasterVertCount = *(int *)(param_1 + 0x1c);
@@ -6962,7 +6962,7 @@ void rdRaster_Span8_Flat(uint *param_1,uint *param_2)
     }
     lVar2 = (longlong)(int)(uVar3 - uVar8) * (longlong)(int)param_2;
     iVar4 = ((uint)lVar2 >> 0x10 | (int)((ulonglong)lVar2 >> 0x20) << 0x10) + param_1[0xe];
-    iVar1 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     puVar5 = (undefined1 *)
              (param_1[0x10] * *(int *)(iVar1 + 0x18) + *(int *)(iVar1 + 0x5c) + ((int)uVar3 >> 0x10)
              );
@@ -7023,7 +7023,7 @@ void rdRaster_Span16_Flat_3(uint *param_1,uint *param_2)
     }
     lVar2 = (longlong)(int)(uVar3 - uVar7) * (longlong)(int)param_2;
     iVar4 = ((uint)lVar2 >> 0x10 | (int)((ulonglong)lVar2 >> 0x20) << 0x10) + param_1[0xe];
-    iVar1 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     PTR_007f43a8 = (int *)(*(int *)(iVar1 + 0x5c) +
                           (param_1[0x10] * (*(uint *)(iVar1 + 0x18) >> 1) + ((int)uVar3 >> 0x10)) *
                           2);
@@ -7218,7 +7218,7 @@ void rdRaster_Draw16_TexLit_3(int param_1,int param_2)
   #define local_8 (*(uint *)(_frame + (0xa0 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0xa0 - 0x4)))
   
-  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
+  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   if (iVar1 == 8) {
     DAT_008ddec0 = *(undefined1 *)(param_2 + 4);
     UINT_008ddeb0 = *(uint *)(*(int *)(param_1 + 0x4c) + 0x330);
@@ -7234,7 +7234,7 @@ void rdRaster_Draw16_TexLit_3(int param_1,int param_2)
   g_pRdRasterVerts = *(float **)(param_1 + 0x20);
   UINT_007f4304 = *(uint *)(param_1 + 0x28);
   g_nRdRasterVertCount = *(int *)(param_1 + 0x1c);
-  UINT_008ddea8 = *(uint *)(UINT_004f5ec4 + 0x338);
+  UINT_008ddea8 = *(uint *)(g_dwRdColormap_pCurMap + 0x338);
   g_nRdRasterStartVertex = *(uint *)(param_1 + 0x6c);
   g_nRdRasterEndVertex = *(int *)(param_1 + 0x70);
   if (*(int *)(param_1 + 0x50) == 0) {
@@ -7341,7 +7341,7 @@ void rdRaster_Span_Tex_2(uint *param_1,uint *param_2)
     }
     lVar2 = (longlong)(int)(uVar3 - uVar8) * (longlong)(int)param_2;
     iVar4 = ((uint)lVar2 >> 0x10 | (int)((ulonglong)lVar2 >> 0x20) << 0x10) + param_1[0xe];
-    iVar1 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     pbVar5 = (byte *)(param_1[0x10] * *(int *)(iVar1 + 0x18) + *(int *)(iVar1 + 0x5c) +
                      ((int)uVar3 >> 0x10));
     param_1 = (uint *)iVar7;
@@ -7405,7 +7405,7 @@ void rdRaster_Span16_Tex_3(uint *param_1,uint *param_2)
     }
     lVar2 = (longlong)(int)(uVar3 - uVar7) * (longlong)(int)param_2;
     iVar4 = ((uint)lVar2 >> 0x10 | (int)((ulonglong)lVar2 >> 0x20) << 0x10) + param_1[0xe];
-    iVar1 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     PTR_007f43a8 = (int *)(*(int *)(iVar1 + 0x5c) +
                           (param_1[0x10] * (*(uint *)(iVar1 + 0x18) >> 1) + ((int)uVar3 >> 0x10)) *
                           2);
@@ -7464,7 +7464,7 @@ void rdRaster_Draw16_TexLit_4(int param_1,int param_2)
   #define local_10 (*(uint *)(_frame + (0xa0 - 0x10)))
   #define local_4 (*(uint *)(_frame + (0xa0 - 0x4)))
   
-  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
+  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   if (iVar1 == 0x10) {
     UINT_008ddebc = *(int *)(*(int *)(param_1 + 0x4c) + 0x348) + 0x7e00;
   }
@@ -7631,7 +7631,7 @@ void rdRaster_Span_Flat_2(uint *param_1,uint *param_2)
     UINT_007f4458 =
          ((int)(((uint)lVar4 >> 0x10 | (int)((ulonglong)lVar4 >> 0x20) << 0x10) + param_1[0xc]) >>
          (bVar6 & 0x1f)) + UINT_008ddeac;
-    iVar2 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar2 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     PTR_007f4300 = (byte *)(param_1[0x10] * *(int *)(iVar2 + 0x18) + *(int *)(iVar2 + 0x5c) +
                            ((int)uVar5 >> 0x10));
     do {
@@ -7704,7 +7704,7 @@ void rdRaster_Span16_Tex_4(uint *param_1,uint *param_2)
     UINT_007f4458 =
          ((int)(((uint)lVar4 >> 0x10 | (int)((ulonglong)lVar4 >> 0x20) << 0x10) + param_1[0xc]) >>
          (bVar6 & 0x1f)) + UINT_008ddeac;
-    iVar2 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar2 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     PTR_007f43a8 = (int *)(*(int *)(iVar2 + 0x5c) +
                           (param_1[0x10] * (*(uint *)(iVar2 + 0x18) >> 1) + ((int)uVar5 >> 0x10)) *
                           2);
@@ -7920,7 +7920,7 @@ void rdRaster_Draw16_TexLit_5(int param_1,int param_2)
   #define local_10 (*(uint *)(_frame + (0xa0 - 0x10)))
   #define local_4 (*(uint *)(_frame + (0xa0 - 0x4)))
   
-  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
+  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   if (iVar1 == 0x10) {
     UINT_008ddebc = *(int *)(*(int *)(param_1 + 0x4c) + 0x348) + 0x7e00;
     UINT_008dded4 = *(uint *)(*(int *)(param_1 + 0x4c) + 0x34c);
@@ -7931,7 +7931,7 @@ void rdRaster_Draw16_TexLit_5(int param_1,int param_2)
   g_nRdRasterVertCount = *(int *)(param_1 + 0x1c);
   g_nRdRasterStartVertex = *(int *)(param_1 + 0x6c);
   g_nRdRasterEndVertex = *(int *)(param_1 + 0x70);
-  UINT_008ddea8 = *(uint *)(UINT_004f5ec4 + 0x338);
+  UINT_008ddea8 = *(uint *)(g_dwRdColormap_pCurMap + 0x338);
   if (*(int *)(param_1 + 0x50) == 0) {
     g_nRdRasterStepA = 1;
     g_nRdRasterStepB = -1;
@@ -8059,7 +8059,7 @@ void rdRaster_Span_Tex_3(uint *param_1,uint *param_2)
     UINT_007f4458 =
          ((int)(((uint)lVar4 >> 0x10 | (int)((ulonglong)lVar4 >> 0x20) << 0x10) + param_1[0xc]) >>
          (bVar6 & 0x1f)) + UINT_008ddeac;
-    iVar2 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar2 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     PTR_007f4300 = (byte *)(param_1[0x10] * *(int *)(iVar2 + 0x18) + *(int *)(iVar2 + 0x5c) +
                            ((int)uVar5 >> 0x10));
     do {
@@ -8133,7 +8133,7 @@ void rdRaster_Span16_Tex_5(uint *param_1,uint *param_2)
     UINT_007f4458 =
          ((int)(((uint)lVar4 >> 0x10 | (int)((ulonglong)lVar4 >> 0x20) << 0x10) + param_1[0xc]) >>
          (bVar6 & 0x1f)) + UINT_008ddeac;
-    iVar2 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar2 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     PTR_007f43a8 = (int *)(*(int *)(iVar2 + 0x5c) +
                           (param_1[0x10] * (*(uint *)(iVar2 + 0x18) >> 1) + ((int)uVar5 >> 0x10)) *
                           2);
@@ -8196,7 +8196,7 @@ void rdRaster_Draw16_TexLitKey(int param_1,int param_2)
   #define local_10 (*(uint *)(_frame + (0xa0 - 0x10)))
   #define local_4 (*(uint *)(_frame + (0xa0 - 0x4)))
   
-  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
+  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   if (iVar1 == 0x10) {
     UINT_008ddebc = *(int *)(*(int *)(param_1 + 0x4c) + 0x348) + 0x7e00;
   }
@@ -8333,7 +8333,7 @@ void rdRaster_Span_FlatKey(uint *param_1,uint *param_2)
     UINT_007f4458 =
          ((int)(((uint)lVar4 >> 0x10 | (int)((ulonglong)lVar4 >> 0x20) << 0x10) + param_1[0xc]) >>
          (bVar6 & 0x1f)) + UINT_008ddeac;
-    iVar2 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar2 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     PTR_007f4300 = (byte *)(param_1[0x10] * *(int *)(iVar2 + 0x18) + *(int *)(iVar2 + 0x5c) +
                            ((int)uVar5 >> 0x10));
     do {
@@ -8409,7 +8409,7 @@ void rdRaster_Span16_TexKey(uint *param_1,uint *param_2)
     UINT_007f4458 =
          ((int)(((uint)lVar4 >> 0x10 | (int)((ulonglong)lVar4 >> 0x20) << 0x10) + param_1[0xc]) >>
          (bVar6 & 0x1f)) + UINT_008ddeac;
-    iVar2 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar2 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     PTR_007f43a8 = (int *)(*(int *)(iVar2 + 0x5c) +
                           (param_1[0x10] * (*(uint *)(iVar2 + 0x18) >> 1) + ((int)uVar5 >> 0x10)) *
                           2);
@@ -8470,7 +8470,7 @@ void rdRaster_Draw16_TexLitKey_2(int param_1,int param_2)
   #define local_10 (*(uint *)(_frame + (0xa0 - 0x10)))
   #define local_4 (*(uint *)(_frame + (0xa0 - 0x4)))
   
-  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
+  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   if (iVar1 == 0x10) {
     UINT_008ddebc = *(int *)(*(int *)(param_1 + 0x4c) + 0x348) + 0x7e00;
     UINT_008dded4 = *(uint *)(*(int *)(param_1 + 0x4c) + 0x34c);
@@ -8481,7 +8481,7 @@ void rdRaster_Draw16_TexLitKey_2(int param_1,int param_2)
   g_nRdRasterVertCount = *(int *)(param_1 + 0x1c);
   g_nRdRasterStartVertex = *(int *)(param_1 + 0x6c);
   g_nRdRasterEndVertex = *(int *)(param_1 + 0x70);
-  UINT_008ddea8 = *(uint *)(UINT_004f5ec4 + 0x338);
+  UINT_008ddea8 = *(uint *)(g_dwRdColormap_pCurMap + 0x338);
   if (*(int *)(param_1 + 0x50) == 0) {
     g_nRdRasterStepA = 1;
     g_nRdRasterStepB = -1;
@@ -8609,7 +8609,7 @@ void rdRaster_Span_TexKey(uint *param_1,uint *param_2)
     UINT_007f4458 =
          ((int)(((uint)lVar4 >> 0x10 | (int)((ulonglong)lVar4 >> 0x20) << 0x10) + param_1[0xc]) >>
          (bVar6 & 0x1f)) + UINT_008ddeac;
-    iVar2 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar2 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     PTR_007f4300 = (byte *)(param_1[0x10] * *(int *)(iVar2 + 0x18) + *(int *)(iVar2 + 0x5c) +
                            ((int)uVar5 >> 0x10));
     do {
@@ -8685,7 +8685,7 @@ void rdRaster_Span16_TexKey_2(uint *param_1,uint *param_2)
     UINT_007f4458 =
          ((int)(((uint)lVar4 >> 0x10 | (int)((ulonglong)lVar4 >> 0x20) << 0x10) + param_1[0xc]) >>
          (bVar6 & 0x1f)) + UINT_008ddeac;
-    iVar2 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar2 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     PTR_007f43a8 = (int *)(*(int *)(iVar2 + 0x5c) +
                           (param_1[0x10] * (*(uint *)(iVar2 + 0x18) >> 1) + ((int)uVar5 >> 0x10)) *
                           2);
@@ -8749,7 +8749,7 @@ void rdRaster_Draw_FlatLit_2(int param_1,int param_2,float param_3)
   #define local_14 (*(uint *)(_frame + (0xa0 - 0x14)))
   #define local_8 (*(uint *)(_frame + (0xa0 - 0x8)))
   
-  iVar2 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
+  iVar2 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   UINT_007f4250 = *(int *)(*(int *)(param_2 + 0x1c) + 0x18) - 1;
   g_pRdRasterVerts = *(float **)(param_1 + 0x20);
   UINT_007f4398 = *(uint *)(param_1 + 0x24);
@@ -8914,7 +8914,7 @@ void rdRaster_Span16_Tex_6(uint *param_1,uint *param_2)
     UINT_007f4458 =
          ((int)(((uint)lVar4 >> 0x10 | (int)((ulonglong)lVar4 >> 0x20) << 0x10) + param_1[0xc]) >>
          (bVar6 & 0x1f)) + UINT_008ddeac;
-    iVar2 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar2 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     PTR_007f43a8 = (int *)(*(int *)(iVar2 + 0x5c) +
                           (param_1[0x10] * (*(uint *)(iVar2 + 0x18) >> 1) + ((int)uVar5 >> 0x10)) *
                           2);
@@ -9130,7 +9130,7 @@ void rdRaster_Draw16_TexLit_6(int param_1,int param_2,float param_3)
   #define local_14 (*(uint *)(_frame + (0xa0 - 0x14)))
   #define local_8 (*(uint *)(_frame + (0xa0 - 0x8)))
   
-  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
+  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   UINT_007f4250 = *(int *)(*(int *)(param_2 + 0x1c) + 0x18) - 1;
   g_pRdRasterVerts = *(float **)(param_1 + 0x20);
   UINT_007f4398 = *(uint *)(param_1 + 0x24);
@@ -9141,7 +9141,7 @@ void rdRaster_Draw16_TexLit_6(int param_1,int param_2,float param_3)
     UINT_008ddebc = (int)ROUND(param_3) * 0x200 + *(int *)(*(int *)(param_1 + 0x4c) + 0x348);
     UINT_008dded4 = *(uint *)(*(int *)(param_1 + 0x4c) + 0x34c);
   }
-  UINT_008ddea8 = *(uint *)(UINT_004f5ec4 + 0x338);
+  UINT_008ddea8 = *(uint *)(g_dwRdColormap_pCurMap + 0x338);
   g_nRdRasterVertCount = *(int *)(param_1 + 0x1c);
   g_nRdRasterStartVertex = *(int *)(param_1 + 0x6c);
   g_nRdRasterEndVertex = *(int *)(param_1 + 0x70);
@@ -9272,7 +9272,7 @@ void rdRaster_Span_Tex_4(uint *param_1,uint *param_2)
     UINT_007f4458 =
          ((int)(((uint)lVar4 >> 0x10 | (int)((ulonglong)lVar4 >> 0x20) << 0x10) + param_1[0xc]) >>
          (bVar6 & 0x1f)) + UINT_008ddeac;
-    iVar2 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar2 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     PTR_007f4300 = (byte *)(param_1[0x10] * *(int *)(iVar2 + 0x18) + *(int *)(iVar2 + 0x5c) +
                            ((int)uVar5 >> 0x10));
     do {
@@ -9348,7 +9348,7 @@ void rdRaster_Span16_Tex_7(uint *param_1,uint *param_2)
     UINT_007f4458 =
          ((int)(((uint)lVar4 >> 0x10 | (int)((ulonglong)lVar4 >> 0x20) << 0x10) + param_1[0xc]) >>
          (bVar6 & 0x1f)) + UINT_008ddeac;
-    iVar2 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar2 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     PTR_007f43a8 = (int *)(*(int *)(iVar2 + 0x5c) +
                           (param_1[0x10] * (*(uint *)(iVar2 + 0x18) >> 1) + ((int)uVar5 >> 0x10)) *
                           2);
@@ -9414,7 +9414,7 @@ void rdRaster_Draw_TexLitKey(int param_1,int param_2,float param_3)
   #define local_14 (*(uint *)(_frame + (0xa0 - 0x14)))
   #define local_8 (*(uint *)(_frame + (0xa0 - 0x8)))
   
-  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
+  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   UINT_007f4250 = *(int *)(*(int *)(param_2 + 0x1c) + 0x18) - 1;
   g_pRdRasterVerts = *(float **)(param_1 + 0x20);
   UINT_007f4398 = *(uint *)(param_1 + 0x24);
@@ -9554,7 +9554,7 @@ void rdRaster_Span8_TexKey(uint *param_1,uint *param_2)
     UINT_007f4458 =
          ((int)(((uint)lVar4 >> 0x10 | (int)((ulonglong)lVar4 >> 0x20) << 0x10) + param_1[0xc]) >>
          (bVar6 & 0x1f)) + UINT_008ddeac;
-    iVar2 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar2 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     PTR_007f4300 = (byte *)(param_1[0x10] * *(int *)(iVar2 + 0x18) + *(int *)(iVar2 + 0x5c) +
                            ((int)uVar5 >> 0x10));
     do {
@@ -9631,7 +9631,7 @@ void rdRaster_Span16_TexKey_3(uint *param_1,uint *param_2)
     UINT_007f4458 =
          ((int)(((uint)lVar4 >> 0x10 | (int)((ulonglong)lVar4 >> 0x20) << 0x10) + param_1[0xc]) >>
          (bVar6 & 0x1f)) + UINT_008ddeac;
-    iVar2 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar2 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     PTR_007f43a8 = (int *)(*(int *)(iVar2 + 0x5c) +
                           (param_1[0x10] * (*(uint *)(iVar2 + 0x18) >> 1) + ((int)uVar5 >> 0x10)) *
                           2);
@@ -9692,7 +9692,7 @@ void rdRaster_Draw_TexLitKey_2(int param_1,int param_2,float param_3)
   #define local_14 (*(uint *)(_frame + (0xa0 - 0x14)))
   #define local_8 (*(uint *)(_frame + (0xa0 - 0x8)))
   
-  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
+  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   UINT_007f4250 = *(int *)(*(int *)(param_2 + 0x1c) + 0x18) - 1;
   g_pRdRasterVerts = *(float **)(param_1 + 0x20);
   UINT_007f4398 = *(uint *)(param_1 + 0x24);
@@ -9703,7 +9703,7 @@ void rdRaster_Draw_TexLitKey_2(int param_1,int param_2,float param_3)
     UINT_008ddebc = (int)ROUND(param_3) * 0x200 + *(int *)(*(int *)(param_1 + 0x4c) + 0x348);
     UINT_008dded4 = *(uint *)(*(int *)(param_1 + 0x4c) + 0x34c);
   }
-  UINT_008ddea8 = *(uint *)(UINT_004f5ec4 + 0x338);
+  UINT_008ddea8 = *(uint *)(g_dwRdColormap_pCurMap + 0x338);
   g_nRdRasterVertCount = *(int *)(param_1 + 0x1c);
   g_nRdRasterStartVertex = *(int *)(param_1 + 0x6c);
   g_nRdRasterEndVertex = *(int *)(param_1 + 0x70);
@@ -9834,7 +9834,7 @@ void rdRaster_Span_TexKey_2(uint *param_1,uint *param_2)
     UINT_007f4458 =
          ((int)(((uint)lVar4 >> 0x10 | (int)((ulonglong)lVar4 >> 0x20) << 0x10) + param_1[0xc]) >>
          (bVar6 & 0x1f)) + UINT_008ddeac;
-    iVar2 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar2 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     PTR_007f4300 = (byte *)(param_1[0x10] * *(int *)(iVar2 + 0x18) + *(int *)(iVar2 + 0x5c) +
                            ((int)uVar5 >> 0x10));
     do {
@@ -9914,7 +9914,7 @@ void rdRaster_Span_TexKey_3(uint *param_1,uint *param_2)
     UINT_007f4458 =
          ((int)(((uint)lVar4 >> 0x10 | (int)((ulonglong)lVar4 >> 0x20) << 0x10) + param_1[0xc]) >>
          (bVar7 & 0x1f)) + UINT_008ddeac;
-    iVar2 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar2 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     pbVar6 = (byte *)(param_1[0x10] * *(int *)(iVar2 + 0x18) + *(int *)(iVar2 + 0x5c) +
                      ((int)uVar5 >> 0x10));
     PTR_007f4300 = pbVar6;
@@ -9984,7 +9984,7 @@ void rdRaster_Draw_FlatLit_3(int param_1,int param_2)
   #define local_8 (*(uint *)(_frame + (0xa0 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0xa0 - 0x4)))
   
-  iVar2 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
+  iVar2 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   UINT_007f4250 = *(int *)(*(int *)(param_2 + 0x1c) + 0x18) - 1;
   g_pRdRasterVerts = *(float **)(param_1 + 0x20);
   UINT_007f4398 = *(uint *)(param_1 + 0x24);
@@ -10168,7 +10168,7 @@ void rdRaster_Span16_Tex_8(uint *param_1,uint *param_2)
     UINT_007f4458 =
          ((int)(((uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10) + param_1[0xc]) >>
          (bVar8 & 0x1f)) + UINT_008ddeac;
-    iVar1 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     PTR_007f43a8 = (int *)(*(int *)(iVar1 + 0x5c) +
                           (param_1[0x10] * (*(uint *)(iVar1 + 0x18) >> 1) + ((int)uVar5 >> 0x10)) *
                           2);
@@ -10402,7 +10402,7 @@ void rdRaster_Draw16_TexLit_7(int param_1,int param_2)
   #define local_8 (*(uint *)(_frame + (0xa0 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0xa0 - 0x4)))
   
-  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
+  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   UINT_007f4250 = *(int *)(*(int *)(param_2 + 0x1c) + 0x18) - 1;
   g_pRdRasterVerts = *(float **)(param_1 + 0x20);
   UINT_007f4398 = *(uint *)(param_1 + 0x24);
@@ -10414,7 +10414,7 @@ void rdRaster_Draw16_TexLit_7(int param_1,int param_2)
     UINT_008ddebc = *(uint *)(*(int *)(param_1 + 0x4c) + 0x348);
     UINT_008dded4 = *(uint *)(*(int *)(param_1 + 0x4c) + 0x34c);
   }
-  UINT_008ddea8 = *(uint *)(UINT_004f5ec4 + 0x338);
+  UINT_008ddea8 = *(uint *)(g_dwRdColormap_pCurMap + 0x338);
   g_nRdRasterVertCount = *(int *)(param_1 + 0x1c);
   g_nRdRasterStartVertex = *(int *)(param_1 + 0x6c);
   g_nRdRasterEndVertex = *(int *)(param_1 + 0x70);
@@ -10563,7 +10563,7 @@ void rdRaster_Span_Tex_5(uint *param_1,uint *param_2)
     UINT_007f4458 =
          ((int)(((uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10) + param_1[0xc]) >>
          (bVar8 & 0x1f)) + UINT_008ddeac;
-    iVar1 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     PTR_007f4300 = (byte *)(param_1[0x10] * *(int *)(iVar1 + 0x18) + *(int *)(iVar1 + 0x5c) +
                            ((int)uVar5 >> 0x10));
     do {
@@ -10688,7 +10688,7 @@ void rdRaster_Span16_Tex_9(uint *param_1,uint *param_2)
     UINT_007f4458 =
          ((int)(((uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10) + param_1[0xc]) >>
          (bVar8 & 0x1f)) + UINT_008ddeac;
-    iVar1 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     PTR_007f43a8 = (int *)(*(int *)(iVar1 + 0x5c) +
                           (param_1[0x10] * (*(uint *)(iVar1 + 0x18) >> 1) + ((int)uVar5 >> 0x10)) *
                           2);
@@ -10757,7 +10757,7 @@ void rdRaster_Draw_TexLitKey_3(int param_1,int param_2)
   #define local_8 (*(uint *)(_frame + (0xa0 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0xa0 - 0x4)))
   
-  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
+  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   UINT_007f4250 = *(int *)(*(int *)(param_2 + 0x1c) + 0x18) - 1;
   g_pRdRasterVerts = *(float **)(param_1 + 0x20);
   UINT_007f4398 = *(uint *)(param_1 + 0x24);
@@ -10915,7 +10915,7 @@ void rdRaster_Span8_TexKey_2(uint *param_1,uint *param_2)
     UINT_007f4458 =
          ((int)(((uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10) + param_1[0xc]) >>
          (bVar8 & 0x1f)) + UINT_008ddeac;
-    iVar1 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     PTR_007f4300 = (byte *)(param_1[0x10] * *(int *)(iVar1 + 0x18) + *(int *)(iVar1 + 0x5c) +
                            ((int)uVar5 >> 0x10));
     do {
@@ -11005,7 +11005,7 @@ void rdRaster_Span16_TexKey_4(uint *param_1,uint *param_2)
     UINT_007f4458 =
          ((int)(((uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10) + param_1[0xc]) >>
          (bVar8 & 0x1f)) + UINT_008ddeac;
-    iVar1 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     PTR_007f43a8 = (int *)(*(int *)(iVar1 + 0x5c) +
                           (param_1[0x10] * (*(uint *)(iVar1 + 0x18) >> 1) + ((int)uVar5 >> 0x10)) *
                           2);
@@ -11073,7 +11073,7 @@ void rdRaster_Draw16_TexLitKey_3(int param_1,int param_2)
   #define local_8 (*(uint *)(_frame + (0xa0 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0xa0 - 0x4)))
   
-  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
+  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   UINT_007f4250 = *(int *)(*(int *)(param_2 + 0x1c) + 0x18) - 1;
   g_pRdRasterVerts = *(float **)(param_1 + 0x20);
   UINT_007f4398 = *(uint *)(param_1 + 0x24);
@@ -11085,7 +11085,7 @@ void rdRaster_Draw16_TexLitKey_3(int param_1,int param_2)
     UINT_008ddebc = *(uint *)(*(int *)(param_1 + 0x4c) + 0x348);
     UINT_008dded4 = *(uint *)(*(int *)(param_1 + 0x4c) + 0x34c);
   }
-  UINT_008ddea8 = *(uint *)(UINT_004f5ec4 + 0x338);
+  UINT_008ddea8 = *(uint *)(g_dwRdColormap_pCurMap + 0x338);
   g_nRdRasterVertCount = *(int *)(param_1 + 0x1c);
   g_nRdRasterStartVertex = *(int *)(param_1 + 0x6c);
   g_nRdRasterEndVertex = *(int *)(param_1 + 0x70);
@@ -11233,7 +11233,7 @@ void rdRaster_Span_TexKey_4(uint *param_1,uint *param_2)
     UINT_007f4458 =
          ((int)(((uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10) + param_1[0xc]) >>
          (bVar8 & 0x1f)) + UINT_008ddeac;
-    iVar1 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     PTR_007f4300 = (byte *)(param_1[0x10] * *(int *)(iVar1 + 0x18) + *(int *)(iVar1 + 0x5c) +
                            ((int)uVar5 >> 0x10));
     do {
@@ -11325,7 +11325,7 @@ void rdRaster_Span16_TexKey_5(uint *param_1,uint *param_2)
     UINT_007f4458 =
          ((int)(((uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10) + param_1[0xc]) >>
          (bVar8 & 0x1f)) + UINT_008ddeac;
-    iVar1 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     PTR_007f43a8 = (int *)(*(int *)(iVar1 + 0x5c) +
                           (param_1[0x10] * (*(uint *)(iVar1 + 0x18) >> 1) + ((int)uVar5 >> 0x10)) *
                           2);
@@ -11391,7 +11391,7 @@ void rdRaster_Draw_FlatLit_4(int param_1,int param_2)
   #define local_38 (*(uint *)(_frame + (0xa0 - 0x38)))
   #define local_4 (*(uint *)(_frame + (0xa0 - 0x4)))
   
-  iVar2 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
+  iVar2 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   if (iVar2 == 0x10) {
     UINT_008ddebc = *(int *)(*(int *)(param_1 + 0x4c) + 0x348) + 0x7e00;
   }
@@ -11579,7 +11579,7 @@ void rdRaster_Span16_Tex_10(uint *param_1,uint *param_2)
       }
     }
     fVar1 = (float)(int)(uVar12 - *param_1) * 1.5258789e-05;
-    iVar7 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar7 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     fVar4 = fVar1 * _DAT_008ddef4 + (float)param_1[4];
     local_20 = (uint)(fVar1 * _DAT_008ddec8 + (float)param_1[6]);
     fVar1 = fVar1 * _DAT_008ddedc + (float)param_1[8];
@@ -11900,7 +11900,7 @@ void rdRaster_Draw16_TexLit_8(int param_1,int param_2)
   #define local_38 (*(uint *)(_frame + (0xa0 - 0x38)))
   #define local_4 (*(uint *)(_frame + (0xa0 - 0x4)))
   
-  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
+  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   if (iVar1 == 0x10) {
     UINT_008ddebc = *(int *)(*(int *)(param_1 + 0x4c) + 0x348) + 0x7e00;
     UINT_008dded4 = *(uint *)(*(int *)(param_1 + 0x4c) + 0x34c);
@@ -11911,7 +11911,7 @@ void rdRaster_Draw16_TexLit_8(int param_1,int param_2)
   g_nRdRasterVertCount = *(int *)(param_1 + 0x1c);
   g_nRdRasterStartVertex = *(int *)(param_1 + 0x6c);
   g_nRdRasterEndVertex = *(int *)(param_1 + 0x70);
-  UINT_008ddea8 = *(uint *)(UINT_004f5ec4 + 0x338);
+  UINT_008ddea8 = *(uint *)(g_dwRdColormap_pCurMap + 0x338);
   if (*(int *)(param_1 + 0x50) == 0) {
     g_nRdRasterStepA = 1;
     g_nRdRasterStepB = -1;
@@ -12067,7 +12067,7 @@ void rdRaster_Span_Tex_6(uint *param_1,uint *param_2)
       }
     }
     fVar1 = (float)(int)(uVar12 - *param_1) * 1.5258789e-05;
-    iVar7 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar7 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     fVar4 = fVar1 * _DAT_008ddef4 + (float)param_1[4];
     local_24 = (uint)(fVar1 * _DAT_008ddec8 + (float)param_1[6]);
     fVar1 = fVar1 * _DAT_008ddedc + (float)param_1[8];
@@ -12280,7 +12280,7 @@ void rdRaster_Span16_Tex_11(uint *param_1,uint *param_2)
       }
     }
     fVar1 = (float)(int)(uVar10 - *param_1) * 1.5258789e-05;
-    iVar8 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar8 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     fVar4 = fVar1 * _DAT_008ddef4 + (float)param_1[4];
     local_24 = (uint)(fVar1 * _DAT_008ddec8 + (float)param_1[6]);
     fVar1 = fVar1 * _DAT_008ddedc + (float)param_1[8];
@@ -12456,7 +12456,7 @@ void rdRaster_Draw16_TexLitKey_4(int param_1,int param_2)
   #define local_38 (*(uint *)(_frame + (0xa0 - 0x38)))
   #define local_4 (*(uint *)(_frame + (0xa0 - 0x4)))
   
-  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
+  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   if (iVar1 == 0x10) {
     UINT_008ddebc = *(int *)(*(int *)(param_1 + 0x4c) + 0x348) + 0x7e00;
   }
@@ -12622,7 +12622,7 @@ void rdRaster_Span_FlatKey_2(uint *param_1,uint *param_2)
       }
     }
     fVar1 = (float)(int)(uVar15 - *param_1) * 1.5258789e-05;
-    iVar9 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar9 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     fVar5 = fVar1 * _DAT_008ddef4 + (float)param_1[4];
     local_24 = (uint)(fVar1 * _DAT_008ddec8 + (float)param_1[6]);
     fVar1 = fVar1 * _DAT_008ddedc + (float)param_1[8];
@@ -12833,7 +12833,7 @@ void rdRaster_Span16_TexKey_6(uint *param_1,uint *param_2)
       }
     }
     fVar1 = (float)(int)(uVar10 - *param_1) * 1.5258789e-05;
-    iVar8 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar8 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     fVar4 = fVar1 * _DAT_008ddef4 + (float)param_1[4];
     local_24 = (uint)(fVar1 * _DAT_008ddec8 + (float)param_1[6]);
     fVar1 = fVar1 * _DAT_008ddedc + (float)param_1[8];
@@ -13001,7 +13001,7 @@ void rdRaster_Draw16_TexLitKey_5(int param_1,int param_2)
   #define local_38 (*(uint *)(_frame + (0xa0 - 0x38)))
   #define local_4 (*(uint *)(_frame + (0xa0 - 0x4)))
   
-  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
+  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   if (iVar1 == 0x10) {
     UINT_008ddebc = *(int *)(*(int *)(param_1 + 0x4c) + 0x348) + 0x7e00;
     UINT_008dded4 = *(uint *)(*(int *)(param_1 + 0x4c) + 0x34c);
@@ -13012,7 +13012,7 @@ void rdRaster_Draw16_TexLitKey_5(int param_1,int param_2)
   g_nRdRasterVertCount = *(int *)(param_1 + 0x1c);
   g_nRdRasterStartVertex = *(int *)(param_1 + 0x6c);
   g_nRdRasterEndVertex = *(int *)(param_1 + 0x70);
-  UINT_008ddea8 = *(uint *)(UINT_004f5ec4 + 0x338);
+  UINT_008ddea8 = *(uint *)(g_dwRdColormap_pCurMap + 0x338);
   if (*(int *)(param_1 + 0x50) == 0) {
     g_nRdRasterStepA = 1;
     g_nRdRasterStepB = -1;
@@ -13167,7 +13167,7 @@ void rdRaster_Span_TexKey_5(uint *param_1,uint *param_2)
       }
     }
     fVar1 = (float)(int)(uVar12 - *param_1) * 1.5258789e-05;
-    iVar7 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar7 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     fVar4 = fVar1 * _DAT_008ddef4 + (float)param_1[4];
     local_28 = (uint)(fVar1 * _DAT_008ddec8 + (float)param_1[6]);
     fVar1 = fVar1 * _DAT_008ddedc + (float)param_1[8];
@@ -13379,7 +13379,7 @@ void rdRaster_Span16_TexKey_7(uint *param_1,uint *param_2)
       }
     }
     fVar1 = (float)(int)(uVar10 - *param_1) * 1.5258789e-05;
-    iVar8 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar8 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     fVar4 = fVar1 * _DAT_008ddef4 + (float)param_1[4];
     local_24 = (uint)(fVar1 * _DAT_008ddec8 + (float)param_1[6]);
     fVar1 = fVar1 * _DAT_008ddedc + (float)param_1[8];
@@ -13559,7 +13559,7 @@ void rdRaster_Draw_FlatLit_5(int param_1,int param_2,float param_3)
   #define local_24 (*(uint *)(_frame + (0xa0 - 0x24)))
   #define local_8 (*(uint *)(_frame + (0xa0 - 0x8)))
   
-  iVar2 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
+  iVar2 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   UINT_007f4250 = *(int *)(*(int *)(param_2 + 0x1c) + 0x18) - 1;
   g_pRdRasterVerts = *(float **)(param_1 + 0x20);
   UINT_007f4398 = *(uint *)(param_1 + 0x24);
@@ -13750,7 +13750,7 @@ void rdRaster_Span16_Tex_12(uint *param_1,uint *param_2)
       }
     }
     fVar3 = (float)(int)(uVar12 - *param_1) * 1.5258789e-05;
-    iVar7 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar7 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     fVar4 = fVar3 * _DAT_008ddef4 + (float)param_1[4];
     local_20 = (uint)(fVar3 * _DAT_008ddec8 + (float)param_1[6]);
     fVar3 = fVar3 * _DAT_008ddedc + (float)param_1[8];
@@ -14072,7 +14072,7 @@ void rdRaster_Draw16_TexLit_9(int param_1,int param_2,float param_3)
   #define local_24 (*(uint *)(_frame + (0xa0 - 0x24)))
   #define local_8 (*(uint *)(_frame + (0xa0 - 0x8)))
   
-  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
+  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   UINT_007f4250 = *(int *)(*(int *)(param_2 + 0x1c) + 0x18) - 1;
   g_pRdRasterVerts = *(float **)(param_1 + 0x20);
   UINT_007f4398 = *(uint *)(param_1 + 0x24);
@@ -14083,7 +14083,7 @@ void rdRaster_Draw16_TexLit_9(int param_1,int param_2,float param_3)
     UINT_008ddebc = (int)ROUND(param_3) * 0x200 + *(int *)(*(int *)(param_1 + 0x4c) + 0x348);
     UINT_008dded4 = *(uint *)(*(int *)(param_1 + 0x4c) + 0x34c);
   }
-  UINT_008ddea8 = *(uint *)(UINT_004f5ec4 + 0x338);
+  UINT_008ddea8 = *(uint *)(g_dwRdColormap_pCurMap + 0x338);
   g_nRdRasterVertCount = *(int *)(param_1 + 0x1c);
   g_nRdRasterStartVertex = *(int *)(param_1 + 0x6c);
   g_nRdRasterEndVertex = *(int *)(param_1 + 0x70);
@@ -14242,7 +14242,7 @@ void rdRaster_Span_Tex_7(uint *param_1,uint *param_2)
       }
     }
     fVar3 = (float)(int)(uVar12 - *param_1) * 1.5258789e-05;
-    iVar7 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar7 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     fVar4 = fVar3 * _DAT_008ddef4 + (float)param_1[4];
     local_24 = (uint)(fVar3 * _DAT_008ddec8 + (float)param_1[6]);
     fVar3 = fVar3 * _DAT_008ddedc + (float)param_1[8];
@@ -14463,7 +14463,7 @@ void rdRaster_Span16_Tex_13(uint *param_1,uint *param_2)
       }
     }
     fVar3 = (float)(int)(uVar10 - *param_1) * 1.5258789e-05;
-    iVar8 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar8 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     fVar4 = fVar3 * _DAT_008ddef4 + (float)param_1[4];
     local_24 = (uint)(fVar3 * _DAT_008ddec8 + (float)param_1[6]);
     fVar3 = fVar3 * _DAT_008ddedc + (float)param_1[8];
@@ -14653,7 +14653,7 @@ void rdRaster_Draw_TexLitKey_4(int param_1,int param_2,float param_3)
   #define local_24 (*(uint *)(_frame + (0xa0 - 0x24)))
   #define local_8 (*(uint *)(_frame + (0xa0 - 0x8)))
   
-  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
+  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   UINT_007f4250 = *(int *)(*(int *)(param_2 + 0x1c) + 0x18) - 1;
   g_pRdRasterVerts = *(float **)(param_1 + 0x20);
   UINT_007f4398 = *(uint *)(param_1 + 0x24);
@@ -14820,7 +14820,7 @@ void rdRaster_Span8_TexKey_3(uint *param_1,uint *param_2)
       }
     }
     fVar3 = (float)(int)(uVar12 - *param_1) * 1.5258789e-05;
-    iVar7 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar7 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     fVar4 = fVar3 * _DAT_008ddef4 + (float)param_1[4];
     local_28 = (uint)(fVar3 * _DAT_008ddec8 + (float)param_1[6]);
     fVar3 = fVar3 * _DAT_008ddedc + (float)param_1[8];
@@ -15035,7 +15035,7 @@ void rdRaster_Span16_TexKey_8(uint *param_1,uint *param_2)
       }
     }
     fVar3 = (float)(int)(uVar10 - *param_1) * 1.5258789e-05;
-    iVar8 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar8 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     fVar4 = fVar3 * _DAT_008ddef4 + (float)param_1[4];
     local_24 = (uint)(fVar3 * _DAT_008ddec8 + (float)param_1[6]);
     fVar3 = fVar3 * _DAT_008ddedc + (float)param_1[8];
@@ -15204,7 +15204,7 @@ void rdRaster_Draw16_TexLitKey_6(int param_1,int param_2,float param_3)
   #define local_24 (*(uint *)(_frame + (0xa0 - 0x24)))
   #define local_8 (*(uint *)(_frame + (0xa0 - 0x8)))
   
-  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
+  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   UINT_007f4250 = *(int *)(*(int *)(param_2 + 0x1c) + 0x18) - 1;
   g_pRdRasterVerts = *(float **)(param_1 + 0x20);
   UINT_007f4398 = *(uint *)(param_1 + 0x24);
@@ -15215,7 +15215,7 @@ void rdRaster_Draw16_TexLitKey_6(int param_1,int param_2,float param_3)
     UINT_008ddebc = (int)ROUND(param_3) * 0x200 + *(int *)(*(int *)(param_1 + 0x4c) + 0x348);
     UINT_008dded4 = *(uint *)(*(int *)(param_1 + 0x4c) + 0x34c);
   }
-  UINT_008ddea8 = *(uint *)(UINT_004f5ec4 + 0x338);
+  UINT_008ddea8 = *(uint *)(g_dwRdColormap_pCurMap + 0x338);
   g_nRdRasterVertCount = *(int *)(param_1 + 0x1c);
   g_nRdRasterStartVertex = *(int *)(param_1 + 0x6c);
   g_nRdRasterEndVertex = *(int *)(param_1 + 0x70);
@@ -15373,7 +15373,7 @@ void rdRaster_Span_TexKey_6(uint *param_1,uint *param_2)
       }
     }
     fVar3 = (float)(int)(uVar12 - *param_1) * 1.5258789e-05;
-    iVar7 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar7 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     fVar4 = fVar3 * _DAT_008ddef4 + (float)param_1[4];
     local_28 = (uint)(fVar3 * _DAT_008ddec8 + (float)param_1[6]);
     fVar3 = fVar3 * _DAT_008ddedc + (float)param_1[8];
@@ -15590,7 +15590,7 @@ void rdRaster_Span16_TexKey_9(uint *param_1,uint *param_2)
       }
     }
     fVar3 = (float)(int)(uVar10 - *param_1) * 1.5258789e-05;
-    iVar8 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar8 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     fVar4 = fVar3 * _DAT_008ddef4 + (float)param_1[4];
     local_24 = (uint)(fVar3 * _DAT_008ddec8 + (float)param_1[6]);
     fVar3 = fVar3 * _DAT_008ddedc + (float)param_1[8];
@@ -15775,7 +15775,7 @@ void rdRaster_Draw_FlatLit_6(int param_1,int param_2)
   #define local_8 (*(uint *)(_frame + (0xa0 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0xa0 - 0x4)))
   
-  iVar2 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
+  iVar2 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   UINT_007f4250 = *(int *)(*(int *)(param_2 + 0x1c) + 0x18) - 1;
   g_pRdRasterVerts = *(float **)(param_1 + 0x20);
   UINT_007f4398 = *(uint *)(param_1 + 0x24);
@@ -15974,7 +15974,7 @@ void rdRaster_Span16_Tex_14(uint *param_1,uint *param_2)
     UINT_007f4450 = ((uint)lVar2 >> 0x10 | (int)((ulonglong)lVar2 >> 0x20) << 0x10) + param_1[0xe];
     *(float *)&DAT_007f43c0 = *(float *)&DAT_007f4448 * *(float *)&DAT_007f4258;
     *(float *)&DAT_007f43c4 = *(float *)&DAT_007f4448 * *(float *)&DAT_007f42e4;
-    iVar1 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     PTR_007f43a8 = (int *)(*(int *)(iVar1 + 0x5c) +
                           (param_1[0x10] * (*(uint *)(iVar1 + 0x18) >> 1) + uVar10) * 2);
     if (UINT_007f43ac == 0) {
@@ -16306,7 +16306,7 @@ void rdRaster_Draw16_TexLit_10(int param_1,int param_2)
   #define local_8 (*(uint *)(_frame + (0xa0 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0xa0 - 0x4)))
   
-  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
+  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   UINT_007f4250 = *(int *)(*(int *)(param_2 + 0x1c) + 0x18) - 1;
   g_pRdRasterVerts = *(float **)(param_1 + 0x20);
   UINT_007f4398 = *(uint *)(param_1 + 0x24);
@@ -16318,7 +16318,7 @@ void rdRaster_Draw16_TexLit_10(int param_1,int param_2)
     UINT_008ddebc = *(uint *)(*(int *)(param_1 + 0x4c) + 0x348);
     UINT_008dded4 = *(uint *)(*(int *)(param_1 + 0x4c) + 0x34c);
   }
-  UINT_008ddea8 = *(uint *)(UINT_004f5ec4 + 0x338);
+  UINT_008ddea8 = *(uint *)(g_dwRdColormap_pCurMap + 0x338);
   g_nRdRasterVertCount = *(int *)(param_1 + 0x1c);
   g_nRdRasterStartVertex = *(int *)(param_1 + 0x6c);
   g_nRdRasterEndVertex = *(int *)(param_1 + 0x70);
@@ -16496,7 +16496,7 @@ void rdRaster_Span_Tex_8(uint *param_1,uint *param_2)
     }
     lVar1 = (longlong)(int)(uVar14 - *param_1) * (longlong)(int)local_2c;
     uVar14 = ((uint)lVar1 >> 0x10 | (int)((ulonglong)lVar1 >> 0x20) << 0x10) + param_1[0xe];
-    iVar8 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar8 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     local_10 = (uint)((1.0 / fVar5) * (float)local_24);
     pbVar9 = (byte *)(param_1[0x10] * *(int *)(iVar8 + 0x18) + *(int *)(iVar8 + 0x5c) + uVar15);
     local_14 = (uint)((1.0 / fVar5) * fVar4);
@@ -16733,7 +16733,7 @@ void rdRaster_Span16_Tex_15(uint *param_1,uint *param_2)
     }
     lVar1 = (longlong)(int)(uVar14 - *param_1) * (longlong)(int)local_2c;
     local_1c = ((uint)lVar1 >> 0x10 | (int)((ulonglong)lVar1 >> 0x20) << 0x10) + param_1[0xe];
-    iVar8 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar8 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     local_c = (uint)((1.0 / fVar5) * (float)local_24);
     PTR_007f43a8 = (int *)(*(int *)(iVar8 + 0x5c) +
                           (param_1[0x10] * (*(uint *)(iVar8 + 0x18) >> 1) + uVar15) * 2);
@@ -16935,7 +16935,7 @@ void rdRaster_Draw_TexLitKey_5(int param_1,int param_2)
   #define local_8 (*(uint *)(_frame + (0xa0 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0xa0 - 0x4)))
   
-  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
+  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   UINT_007f4250 = *(int *)(*(int *)(param_2 + 0x1c) + 0x18) - 1;
   g_pRdRasterVerts = *(float **)(param_1 + 0x20);
   UINT_007f4398 = *(uint *)(param_1 + 0x24);
@@ -17122,7 +17122,7 @@ void rdRaster_Span8_TexKey_4(uint *param_1,uint *param_2)
     }
     lVar1 = (longlong)(int)(uVar12 - *param_1) * (longlong)(int)local_30;
     uVar12 = ((uint)lVar1 >> 0x10 | (int)((ulonglong)lVar1 >> 0x20) << 0x10) + param_1[0xe];
-    iVar8 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar8 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     local_10 = (uint)((1.0 / fVar5) * (float)local_28);
     puVar14 = (undefined1 *)
               (param_1[0x10] * *(int *)(iVar8 + 0x18) + *(int *)(iVar8 + 0x5c) + uVar13);
@@ -17353,7 +17353,7 @@ void rdRaster_Span16_TexKey_10(uint *param_1,uint *param_2)
     }
     lVar1 = (longlong)(int)(uVar15 - *param_1) * (longlong)(int)local_2c;
     iVar9 = ((uint)lVar1 >> 0x10 | (int)((ulonglong)lVar1 >> 0x20) << 0x10) + param_1[0xe];
-    iVar8 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar8 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     local_c = (uint)((1.0 / fVar5) * (float)local_24);
     PTR_007f43a8 = (int *)(*(int *)(iVar8 + 0x5c) +
                           (param_1[0x10] * (*(uint *)(iVar8 + 0x18) >> 1) + uVar16) * 2);
@@ -17531,7 +17531,7 @@ void rdRaster_Draw16_TexLitKey_7(int param_1,int param_2)
   #define local_8 (*(uint *)(_frame + (0xa0 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0xa0 - 0x4)))
   
-  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
+  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   UINT_007f4250 = *(int *)(*(int *)(param_2 + 0x1c) + 0x18) - 1;
   g_pRdRasterVerts = *(float **)(param_1 + 0x20);
   UINT_007f4398 = *(uint *)(param_1 + 0x24);
@@ -17543,7 +17543,7 @@ void rdRaster_Draw16_TexLitKey_7(int param_1,int param_2)
     UINT_008ddebc = *(uint *)(*(int *)(param_1 + 0x4c) + 0x348);
     UINT_008dded4 = *(uint *)(*(int *)(param_1 + 0x4c) + 0x34c);
   }
-  UINT_008ddea8 = *(uint *)(UINT_004f5ec4 + 0x338);
+  UINT_008ddea8 = *(uint *)(g_dwRdColormap_pCurMap + 0x338);
   g_nRdRasterVertCount = *(int *)(param_1 + 0x1c);
   g_nRdRasterStartVertex = *(int *)(param_1 + 0x6c);
   g_nRdRasterEndVertex = *(int *)(param_1 + 0x70);
@@ -17720,7 +17720,7 @@ void rdRaster_Span_TexKey_7(uint *param_1,uint *param_2)
     }
     lVar1 = (longlong)(int)(uVar12 - *param_1) * (longlong)(int)local_30;
     uVar12 = ((uint)lVar1 >> 0x10 | (int)((ulonglong)lVar1 >> 0x20) << 0x10) + param_1[0xe];
-    iVar8 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar8 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     local_10 = (uint)((1.0 / fVar5) * (float)local_28);
     pbVar14 = (byte *)(param_1[0x10] * *(int *)(iVar8 + 0x18) + *(int *)(iVar8 + 0x5c) + uVar13);
     local_14 = (uint)((1.0 / fVar5) * fVar4);
@@ -17956,7 +17956,7 @@ void rdRaster_Span16_TexKey_11(uint *param_1,uint *param_2)
     }
     lVar1 = (longlong)(int)(uVar15 - *param_1) * (longlong)(int)local_2c;
     iVar9 = ((uint)lVar1 >> 0x10 | (int)((ulonglong)lVar1 >> 0x20) << 0x10) + param_1[0xe];
-    iVar8 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar8 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     local_c = (uint)((1.0 / fVar5) * (float)local_24);
     PTR_007f43a8 = (int *)(*(int *)(iVar8 + 0x5c) +
                           (param_1[0x10] * (*(uint *)(iVar8 + 0x18) >> 1) + uVar16) * 2);
@@ -18584,7 +18584,7 @@ void rdRaster_DrawPointsZ(int param_1,int param_2)
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   
   PTR_007f44fc = *(int **)(param_1 + 0x20);
-  iVar5 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
+  iVar5 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   UINT_007f4460 = *(uint *)(param_1 + 0x1c);
   if (iVar5 == 8) {
     DAT_008dde98 = *(undefined1 *)(param_2 + 4);
@@ -18595,7 +18595,7 @@ void rdRaster_DrawPointsZ(int param_1,int param_2)
         iVar3 = iVar4 + 4;
         pfVar1 = (float *)((int)PTR_007f44fc + iVar4);
         iVar4 = iVar4 + 0xc;
-        iVar2 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+        iVar2 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
         iVar5 = iVar5 + 1;
         *(undefined1 *)
          (*(int *)(iVar2 + 0x18) * (int)ROUND(*(float *)((int)PTR_007f44fc + iVar3)) +
@@ -18615,7 +18615,7 @@ void rdRaster_DrawPointsZ(int param_1,int param_2)
         iVar3 = iVar4 + 4;
         pfVar1 = (float *)((int)PTR_007f44fc + iVar4);
         iVar4 = iVar4 + 0xc;
-        iVar2 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+        iVar2 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
         iVar5 = iVar5 + 1;
         *(undefined2 *)
          (*(int *)(iVar2 + 0x5c) +
@@ -18653,7 +18653,7 @@ void rdRaster_DrawWireframeZ(int param_1,int param_2)
   #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
   
   PTR_007f44fc = *(int **)(param_1 + 0x20);
-  iVar6 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
+  iVar6 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   UINT_007f4460 = *(uint *)(param_1 + 0x1c);
   if (iVar6 == 8) {
     iVar6 = 0;
@@ -18661,7 +18661,7 @@ void rdRaster_DrawWireframeZ(int param_1,int param_2)
     if (UINT_007f4460 != 1 && -1 < (int)(UINT_007f4460 - 1)) {
       iVar5 = 0;
       do {
-        rdCanvas_DrawLine(*(void **)((int)g_pRdCurrentCamera + 4),
+        rdCanvas_DrawLine(*(void **)((int)g_pRdCamera_CurCamera + 4),
                           (int)ROUND(*(float *)((int)PTR_007f44fc + iVar5)),
                           (int)ROUND(((float *)((int)PTR_007f44fc + iVar5))[1]),
                           (int)ROUND(*(float *)((int)PTR_007f44fc + iVar5 + 0xc)),
@@ -18688,7 +18688,7 @@ void rdRaster_DrawWireframeZ(int param_1,int param_2)
     if (UINT_007f4460 != 1 && -1 < (int)(UINT_007f4460 - 1)) {
       iVar5 = 0;
       do {
-        rdCanvas_DrawLine(*(void **)((int)g_pRdCurrentCamera + 4),
+        rdCanvas_DrawLine(*(void **)((int)g_pRdCamera_CurCamera + 4),
                           (int)ROUND(*(float *)((int)PTR_007f44fc + iVar5)),
                           (int)ROUND(((float *)((int)PTR_007f44fc + iVar5))[1]),
                           (int)ROUND(*(float *)((int)PTR_007f44fc + iVar5 + 0xc)),
@@ -18704,7 +18704,7 @@ void rdRaster_DrawWireframeZ(int param_1,int param_2)
     fVar4 = (float)PTR_007f44fc[iVar6 * 3];
     color = DAT_008dde70;
   }
-  rdCanvas_DrawLine(*(void **)((int)g_pRdCurrentCamera + 4),(int)ROUND(fVar4),(int)ROUND(fVar3),
+  rdCanvas_DrawLine(*(void **)((int)g_pRdCamera_CurCamera + 4),(int)ROUND(fVar4),(int)ROUND(fVar3),
                     (int)ROUND(fVar2),(int)ROUND(fVar1),color,0xffffffff);
   return;
 }
@@ -18750,7 +18750,7 @@ void rdRaster_Draw_FlatLitZ(int param_1,int param_2)
   #define local_30 (*(uint *)(_frame + (0xa0 - 0x30)))
   #define local_4 (*(uint *)(_frame + (0xa0 - 0x4)))
   
-  iVar2 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
+  iVar2 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   if (iVar2 == 8) {
     DAT_008dde98 = *(undefined1 *)(param_2 + 4);
   }
@@ -18763,7 +18763,7 @@ void rdRaster_Draw_FlatLitZ(int param_1,int param_2)
   uVar6 = *(uint *)(param_1 + 0x1c);
   local_7c = *(uint *)(param_1 + 0x6c);
   UINT_007f44f4 = *(uint *)(param_1 + 0x70);
-  UINT_008ddea4 = *(uint *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x14);
+  UINT_008ddea4 = *(uint *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x14);
   if (*(int *)(param_1 + 0x50) == 0) {
     UINT_007f44ec = 1;
     UINT_007f4580 = 0xffffffff;
@@ -18879,8 +18879,8 @@ void rdRaster_Span8_FlatZ(uint *param_1,uint *param_2)
     fVar4 = ((float)param_2[4] - (float)param_1[4]) * (float)(&UINT_008fe000)[iVar9];
     iVar12 = (int)ROUND((fVar4 * (float)(int)(uVar5 - uVar1) * 1.5258789e-05 + (float)param_1[4]) *
                         65536.0);
-    iVar2 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
-    iVar3 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+    iVar2 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
+    iVar3 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     puVar6 = (undefined1 *)(*(int *)(iVar2 + 0x18) * param_1[0x10] + *(int *)(iVar2 + 0x5c) + iVar7)
     ;
     puVar10 = (ushort *)
@@ -18946,11 +18946,11 @@ void rdRaster_Span16_FlatZ(uint *param_1,uint *param_2)
     fVar3 = ((float)param_2[4] - (float)param_1[4]) * (float)(&UINT_008fe000)[iVar9];
     iVar11 = (int)ROUND((fVar3 * (float)(int)(uVar4 - uVar1) * 1.5258789e-05 + (float)param_1[4]) *
                         65536.0);
-    iVar2 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar2 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     puVar10 = (undefined2 *)
               (*(int *)(iVar2 + 0x5c) + ((*(uint *)(iVar2 + 0x18) >> 1) * param_1[0x10] + iVar6) * 2
               );
-    iVar2 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+    iVar2 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     puVar5 = (ushort *)(*(int *)(iVar2 + 0x18) * param_1[0x10] + iVar6 * 2 + *(int *)(iVar2 + 0x5c))
     ;
     do {
@@ -19144,7 +19144,7 @@ void rdRaster_Draw_TexLitZ(int param_1,int param_2)
   #define local_30 (*(uint *)(_frame + (0xa0 - 0x30)))
   #define local_4 (*(uint *)(_frame + (0xa0 - 0x4)))
   
-  iVar2 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
+  iVar2 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   if (iVar2 == 8) {
     DAT_008dde98 = *(undefined1 *)(param_2 + 4);
   }
@@ -19160,8 +19160,8 @@ void rdRaster_Draw_TexLitZ(int param_1,int param_2)
   uVar6 = *(uint *)(param_1 + 0x1c);
   local_7c = *(uint *)(param_1 + 0x6c);
   UINT_007f44f4 = *(uint *)(param_1 + 0x70);
-  UINT_008ddea4 = *(uint *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x14);
-  UINT_008dde90 = *(uint *)(UINT_004f5ec4 + 0x338);
+  UINT_008ddea4 = *(uint *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x14);
+  UINT_008dde90 = *(uint *)(g_dwRdColormap_pCurMap + 0x338);
   if (*(int *)(param_1 + 0x50) == 0) {
     UINT_007f44ec = 1;
     UINT_007f4580 = 0xffffffff;
@@ -19273,8 +19273,8 @@ void rdRaster_Span8_TexLitZ(uint *param_1,uint *param_2)
   iVar10 = (uVar9 >> 0x10) - iVar7;
   if (0 < iVar10) {
     fVar4 = ((float)param_2[4] - (float)param_1[4]) * (float)(&UINT_008fe000)[iVar10];
-    iVar2 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
-    iVar3 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+    iVar2 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
+    iVar3 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     pbVar6 = (byte *)(*(int *)(iVar2 + 0x18) * param_1[0x10] + *(int *)(iVar2 + 0x5c) + iVar7);
     puVar8 = (ushort *)(*(int *)(iVar3 + 0x18) * param_1[0x10] + iVar7 * 2 + *(int *)(iVar3 + 0x5c))
     ;
@@ -19337,11 +19337,11 @@ void rdRaster_Span16_TexLitZ(uint *param_1,uint *param_2)
   iVar9 = (uVar8 >> 0x10) - iVar6;
   if (0 < iVar9) {
     fVar3 = ((float)param_2[4] - (float)param_1[4]) * (float)(&UINT_008fe000)[iVar9];
-    iVar2 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar2 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     puVar10 = (ushort *)
               (*(int *)(iVar2 + 0x5c) + ((*(uint *)(iVar2 + 0x18) >> 1) * param_1[0x10] + iVar6) * 2
               );
-    iVar2 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+    iVar2 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     puVar5 = (ushort *)(*(int *)(iVar2 + 0x18) * param_1[0x10] + iVar6 * 2 + *(int *)(iVar2 + 0x5c))
     ;
     param_1 = (uint *)(int)ROUND((fVar3 * (float)(int)(uVar4 - uVar1) * 1.5258789e-05 +
@@ -19402,7 +19402,7 @@ void rdRaster_Draw_FlatLitZ_2(int param_1,int param_2,float param_3)
   #define local_34 (*(uint *)(_frame + (0xa0 - 0x34)))
   #define local_8 (*(uint *)(_frame + (0xa0 - 0x8)))
   
-  iVar2 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
+  iVar2 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   if (iVar2 == 8) {
     DAT_008dde98 = *(undefined1 *)
                     (*(int *)(param_2 + 4) + *(int *)(*(int *)(param_1 + 0x4c) + 0x330) +
@@ -19417,7 +19417,7 @@ void rdRaster_Draw_FlatLitZ_2(int param_1,int param_2,float param_3)
   uVar6 = *(uint *)(param_1 + 0x1c);
   local_3c = *(uint *)(param_1 + 0x6c);
   UINT_007f44f4 = *(uint *)(param_1 + 0x70);
-  UINT_008ddea4 = *(uint *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x14);
+  UINT_008ddea4 = *(uint *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x14);
   if (*(int *)(param_1 + 0x50) == 0) {
     UINT_007f44ec = 1;
     UINT_007f4580 = 0xffffffff;
@@ -19533,8 +19533,8 @@ void rdRaster_Span8_FlatZ_2(uint *param_1,uint *param_2)
     fVar4 = ((float)param_2[4] - (float)param_1[4]) * (float)(&UINT_008fe000)[iVar9];
     iVar12 = (int)ROUND((fVar4 * (float)(int)(uVar5 - uVar1) * 1.5258789e-05 + (float)param_1[4]) *
                         65536.0);
-    iVar2 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
-    iVar3 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+    iVar2 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
+    iVar3 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     puVar6 = (undefined1 *)(*(int *)(iVar2 + 0x18) * param_1[0x10] + *(int *)(iVar2 + 0x5c) + iVar7)
     ;
     puVar10 = (ushort *)
@@ -19600,11 +19600,11 @@ void rdRaster_Span16_FlatZ_2(uint *param_1,uint *param_2)
     fVar3 = ((float)param_2[4] - (float)param_1[4]) * (float)(&UINT_008fe000)[iVar9];
     iVar11 = (int)ROUND((fVar3 * (float)(int)(uVar4 - uVar1) * 1.5258789e-05 + (float)param_1[4]) *
                         65536.0);
-    iVar2 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar2 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     puVar10 = (undefined2 *)
               (*(int *)(iVar2 + 0x5c) + ((*(uint *)(iVar2 + 0x18) >> 1) * param_1[0x10] + iVar6) * 2
               );
-    iVar2 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+    iVar2 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     puVar5 = (ushort *)(*(int *)(iVar2 + 0x18) * param_1[0x10] + iVar6 * 2 + *(int *)(iVar2 + 0x5c))
     ;
     do {
@@ -19798,7 +19798,7 @@ void rdRaster_Draw_TexLitZ_2(int param_1,int param_2,float param_3)
   #define local_34 (*(uint *)(_frame + (0xa0 - 0x34)))
   #define local_8 (*(uint *)(_frame + (0xa0 - 0x8)))
   
-  iVar2 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
+  iVar2 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   if (iVar2 == 8) {
     DAT_008dde98 = *(undefined1 *)
                     (*(int *)(param_2 + 4) + *(int *)(*(int *)(param_1 + 0x4c) + 0x330) +
@@ -19816,8 +19816,8 @@ void rdRaster_Draw_TexLitZ_2(int param_1,int param_2,float param_3)
   uVar6 = *(uint *)(param_1 + 0x1c);
   local_3c = *(uint *)(param_1 + 0x6c);
   UINT_007f44f4 = *(uint *)(param_1 + 0x70);
-  UINT_008ddea4 = *(uint *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x14);
-  UINT_008dde90 = *(uint *)(UINT_004f5ec4 + 0x338);
+  UINT_008ddea4 = *(uint *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x14);
+  UINT_008dde90 = *(uint *)(g_dwRdColormap_pCurMap + 0x338);
   if (*(int *)(param_1 + 0x50) == 0) {
     UINT_007f44ec = 1;
     UINT_007f4580 = 0xffffffff;
@@ -19929,8 +19929,8 @@ void rdRaster_Span8_TexLitZ_2(uint *param_1,uint *param_2)
   iVar10 = (uVar9 >> 0x10) - iVar7;
   if (0 < iVar10) {
     fVar4 = ((float)param_2[4] - (float)param_1[4]) * (float)(&UINT_008fe000)[iVar10];
-    iVar2 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
-    iVar3 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+    iVar2 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
+    iVar3 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     pbVar6 = (byte *)(*(int *)(iVar2 + 0x18) * param_1[0x10] + *(int *)(iVar2 + 0x5c) + iVar7);
     puVar8 = (ushort *)(*(int *)(iVar3 + 0x18) * param_1[0x10] + iVar7 * 2 + *(int *)(iVar3 + 0x5c))
     ;
@@ -19993,11 +19993,11 @@ void rdRaster_Span16_TexLitZ_2(uint *param_1,uint *param_2)
   iVar9 = (uVar8 >> 0x10) - iVar6;
   if (0 < iVar9) {
     fVar3 = ((float)param_2[4] - (float)param_1[4]) * (float)(&UINT_008fe000)[iVar9];
-    iVar2 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar2 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     puVar10 = (ushort *)
               (*(int *)(iVar2 + 0x5c) + ((*(uint *)(iVar2 + 0x18) >> 1) * param_1[0x10] + iVar6) * 2
               );
-    iVar2 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+    iVar2 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     puVar5 = (ushort *)(*(int *)(iVar2 + 0x18) * param_1[0x10] + iVar6 * 2 + *(int *)(iVar2 + 0x5c))
     ;
     param_1 = (uint *)(int)ROUND((fVar3 * (float)(int)(uVar4 - uVar1) * 1.5258789e-05 +
@@ -20062,7 +20062,7 @@ void rdRaster_Draw_FlatLitZ_3(int param_1,int param_2)
   #define local_8 (*(uint *)(_frame + (0xa0 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0xa0 - 0x4)))
   
-  iVar2 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
+  iVar2 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   DAT_008dde98 = *(undefined1 *)(param_2 + 4);
   PTR_007f44fc = *(int **)(param_1 + 0x20);
   UINT_007f44f8 = *(uint *)(param_1 + 0x28);
@@ -20075,7 +20075,7 @@ void rdRaster_Draw_FlatLitZ_3(int param_1,int param_2)
   }
   local_7c = *(uint *)(param_1 + 0x6c);
   UINT_007f44f4 = *(uint *)(param_1 + 0x70);
-  UINT_008ddea4 = *(uint *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x14);
+  UINT_008ddea4 = *(uint *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x14);
   if (*(int *)(param_1 + 0x50) == 0) {
     UINT_007f44ec = 1;
     UINT_007f4580 = 0xffffffff;
@@ -20207,9 +20207,9 @@ void rdRaster_Span8_FlatZ_3(uint *param_1,uint *param_2)
     fVar4 = ((float)param_2[4] - (float)puVar5[4]) * (float)(&UINT_008fe000)[local_8];
     param_2 = (uint *)(int)ROUND((fVar4 * (float)(int)(uVar6 - uVar1) * 1.5258789e-05 +
                                  (float)puVar5[4]) * 65536.0);
-    iVar2 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar2 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     puVar8 = (undefined1 *)(*(int *)(iVar2 + 0x18) * puVar5[0x10] + *(int *)(iVar2 + 0x5c) + iVar9);
-    iVar2 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+    iVar2 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     puVar10 = (ushort *)(*(int *)(iVar2 + 0x18) * puVar5[0x10] + iVar9 * 2 + *(int *)(iVar2 + 0x5c))
     ;
     do {
@@ -20287,11 +20287,11 @@ void rdRaster_Span16_FlatZ_3(uint *param_1,uint *param_2)
     fVar4 = ((float)param_2[4] - (float)puVar5[4]) * (float)(&UINT_008fe000)[local_8];
     iVar12 = (int)ROUND((fVar4 * (float)(int)(uVar6 - uVar1) * 1.5258789e-05 + (float)puVar5[4]) *
                         65536.0);
-    iVar2 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar2 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     puVar13 = (undefined2 *)
               (*(int *)(iVar2 + 0x5c) + ((*(uint *)(iVar2 + 0x18) >> 1) * puVar5[0x10] + iVar10) * 2
               );
-    iVar2 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+    iVar2 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     puVar8 = (ushort *)(*(int *)(iVar2 + 0x18) * puVar5[0x10] + iVar10 * 2 + *(int *)(iVar2 + 0x5c))
     ;
     do {
@@ -20506,7 +20506,7 @@ void rdRaster_Draw_TexLitZ_3(int param_1,int param_2)
   #define local_4 (*(uint *)(_frame + (0xa0 - 0x4)))
   
   PTR_007f44fc = *(int **)(param_1 + 0x20);
-  iVar2 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
+  iVar2 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   UINT_007f44f8 = *(uint *)(param_1 + 0x28);
   uVar6 = *(uint *)(param_1 + 0x1c);
   if (iVar2 == 8) {
@@ -20521,10 +20521,10 @@ void rdRaster_Draw_TexLitZ_3(int param_1,int param_2)
     UINT_008dde44 = *(uint *)(*(int *)(param_1 + 0x4c) + 0x34c);
     DAT_008dde98 = *(undefined1 *)(DAT_008dde70 + UINT_008dde44);
   }
-  UINT_008dde90 = *(uint *)(UINT_004f5ec4 + 0x338);
+  UINT_008dde90 = *(uint *)(g_dwRdColormap_pCurMap + 0x338);
   local_7c = *(uint *)(param_1 + 0x6c);
   UINT_007f44f4 = *(uint *)(param_1 + 0x70);
-  UINT_008ddea4 = *(uint *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x14);
+  UINT_008ddea4 = *(uint *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x14);
   if (*(int *)(param_1 + 0x50) == 0) {
     UINT_007f44ec = 1;
     UINT_007f4580 = 0xffffffff;
@@ -20660,8 +20660,8 @@ void rdRaster_Span8_TexZ(uint *param_1,uint *param_2)
     fVar6 = (*pfVar1 - (float)puVar7[4]) * (float)(&UINT_008fe000)[local_c];
     local_8 = (uint)ROUND((fVar6 * (float)(int)(uVar8 - uVar2) * 1.5258789e-05 + (float)puVar7[4]) *
                           65536.0);
-    iVar3 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
-    iVar4 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+    iVar3 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
+    iVar4 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     pbVar9 = (byte *)(*(int *)(iVar3 + 0x18) * puVar7[0x10] + *(int *)(iVar3 + 0x5c) + iVar11);
     puVar10 = (ushort *)
               (*(int *)(iVar4 + 0x18) * puVar7[0x10] + iVar11 * 2 + *(int *)(iVar4 + 0x5c));
@@ -20746,11 +20746,11 @@ void rdRaster_Span16_TexZ(uint *param_1,uint *param_2)
     fVar5 = (*pfVar1 - (float)puVar6[4]) * (float)(&UINT_008fe000)[local_c];
     iVar13 = (int)ROUND((fVar5 * (float)(int)(uVar7 - uVar2) * 1.5258789e-05 + (float)puVar6[4]) *
                         65536.0);
-    iVar3 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar3 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     puVar11 = (ushort *)
               (*(int *)(iVar3 + 0x5c) + ((*(uint *)(iVar3 + 0x18) >> 1) * puVar6[0x10] + iVar10) * 2
               );
-    iVar3 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+    iVar3 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     puVar8 = (ushort *)(*(int *)(iVar3 + 0x18) * puVar6[0x10] + iVar10 * 2 + *(int *)(iVar3 + 0x5c))
     ;
     do {
@@ -20817,7 +20817,7 @@ void rdRaster_Draw_FlatLit_7(int param_1,int param_2)
   #define local_10 (*(uint *)(_frame + (0xa0 - 0x10)))
   #define local_4 (*(uint *)(_frame + (0xa0 - 0x4)))
   
-  iVar2 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
+  iVar2 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   if (iVar2 == 0x10) {
     UINT_008dde5c = *(int *)(*(int *)(param_1 + 0x4c) + 0x348) + 0x7e00;
   }
@@ -20827,7 +20827,7 @@ void rdRaster_Draw_FlatLit_7(int param_1,int param_2)
   UINT_007f4460 = *(uint *)(param_1 + 0x1c);
   UINT_007f44e8 = *(uint *)(param_1 + 0x6c);
   UINT_007f44f4 = *(uint *)(param_1 + 0x70);
-  UINT_008ddea4 = *(uint *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x14);
+  UINT_008ddea4 = *(uint *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x14);
   if (*(int *)(param_1 + 0x50) == 0) {
     UINT_007f44ec = 1;
     UINT_007f4580 = 0xffffffff;
@@ -21023,10 +21023,10 @@ void rdRaster_Span_FlatZ(uint *param_1,uint *param_2)
             (bVar8 & 0x1f)) + UINT_008dde78;
     iVar11 = ((int)(((uint)lVar2 >> 0x10 | (int)((ulonglong)lVar2 >> 0x20) << 0x10) + param_1[0xc])
              >> (bVar8 & 0x1f)) + UINT_008dde50;
-    iVar4 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar4 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     puVar7 = (undefined1 *)
              (*(int *)(iVar4 + 0x18) * param_1[0x10] + *(int *)(iVar4 + 0x5c) + iVar13);
-    iVar4 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+    iVar4 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     puVar10 = (ushort *)
               (*(int *)(iVar4 + 0x18) * param_1[0x10] + iVar13 * 2 + *(int *)(iVar4 + 0x5c));
     do {
@@ -21114,7 +21114,7 @@ void rdRaster_Span16_TexLit(uint *param_1,uint *param_2)
              >> (bVar9 & 0x1f)) + UINT_008dde78;
     iVar10 = ((int)(((uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10) + param_1[0xc])
              >> (bVar9 & 0x1f)) + UINT_008dde50;
-    iVar1 = *(int *)((int)g_pRdCurrentCamera + 4);
+    iVar1 = *(int *)((int)g_pRdCamera_CurCamera + 4);
     param_2 = (uint *)(*(int *)(*(int *)(iVar1 + 4) + 0x5c) +
                       ((*(uint *)(*(int *)(iVar1 + 4) + 0x18) >> 1) * param_1[0x10] + iVar13) * 2);
     puVar8 = (ushort *)
@@ -21348,7 +21348,7 @@ void rdRaster_Draw_TexLitZ_4(int param_1,int param_2)
   #define local_10 (*(uint *)(_frame + (0xa0 - 0x10)))
   #define local_4 (*(uint *)(_frame + (0xa0 - 0x4)))
   
-  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
+  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   if (iVar1 == 0x10) {
     UINT_008dde5c = *(int *)(*(int *)(param_1 + 0x4c) + 0x348) + 0x7e00;
     UINT_008dde44 = *(uint *)(*(int *)(param_1 + 0x4c) + 0x34c);
@@ -21359,8 +21359,8 @@ void rdRaster_Draw_TexLitZ_4(int param_1,int param_2)
   UINT_007f4460 = *(uint *)(param_1 + 0x1c);
   UINT_007f44e8 = *(uint *)(param_1 + 0x6c);
   UINT_007f44f4 = *(uint *)(param_1 + 0x70);
-  UINT_008ddea4 = *(uint *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x14);
-  UINT_008dde90 = *(uint *)(UINT_004f5ec4 + 0x338);
+  UINT_008ddea4 = *(uint *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x14);
+  UINT_008dde90 = *(uint *)(g_dwRdColormap_pCurMap + 0x338);
   if (*(int *)(param_1 + 0x50) == 0) {
     UINT_007f44ec = 1;
     UINT_007f4580 = 0xffffffff;
@@ -21502,9 +21502,9 @@ void rdRaster_Span8_TexLitZ_3(uint *param_1,uint *param_2)
             (bVar8 & 0x1f)) + UINT_008dde78;
     iVar11 = ((int)(((uint)lVar2 >> 0x10 | (int)((ulonglong)lVar2 >> 0x20) << 0x10) + param_1[0xc])
              >> (bVar8 & 0x1f)) + UINT_008dde50;
-    iVar4 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar4 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     pbVar7 = (byte *)(*(int *)(iVar4 + 0x18) * param_1[0x10] + *(int *)(iVar4 + 0x5c) + iVar13);
-    iVar4 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+    iVar4 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     puVar10 = (ushort *)
               (*(int *)(iVar4 + 0x18) * param_1[0x10] + iVar13 * 2 + *(int *)(iVar4 + 0x5c));
     do {
@@ -21598,7 +21598,7 @@ void rdRaster_Span16_TexLit_2(uint *param_1,uint *param_2)
              >> (bVar8 & 0x1f)) + UINT_008dde78;
     iVar9 = ((int)(((uint)lVar2 >> 0x10 | (int)((ulonglong)lVar2 >> 0x20) << 0x10) + param_1[0xc])
             >> (bVar8 & 0x1f)) + UINT_008dde50;
-    iVar4 = *(int *)((int)g_pRdCurrentCamera + 4);
+    iVar4 = *(int *)((int)g_pRdCamera_CurCamera + 4);
     puVar12 = (ushort *)
               (*(int *)(*(int *)(iVar4 + 4) + 0x5c) +
               ((*(uint *)(*(int *)(iVar4 + 4) + 0x18) >> 1) * param_1[0x10] + iVar13) * 2);
@@ -21675,7 +21675,7 @@ void rdRaster_Draw_TexLitKeyZw(int param_1,int param_2)
   #define local_10 (*(uint *)(_frame + (0xa0 - 0x10)))
   #define local_4 (*(uint *)(_frame + (0xa0 - 0x4)))
   
-  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
+  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   if (iVar1 == 0x10) {
     UINT_008dde5c = *(int *)(*(int *)(param_1 + 0x4c) + 0x348) + 0x7e00;
   }
@@ -21685,7 +21685,7 @@ void rdRaster_Draw_TexLitKeyZw(int param_1,int param_2)
   UINT_007f4460 = *(uint *)(param_1 + 0x1c);
   UINT_007f44e8 = *(uint *)(param_1 + 0x6c);
   UINT_007f44f4 = *(uint *)(param_1 + 0x70);
-  UINT_008ddea4 = *(uint *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x14);
+  UINT_008ddea4 = *(uint *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x14);
   if (*(int *)(param_1 + 0x50) == 0) {
     UINT_007f44ec = 1;
     UINT_007f4580 = 0xffffffff;
@@ -21825,8 +21825,8 @@ void rdRaster_Span8_FlatKeyZw(uint *param_1,uint *param_2)
                                  65536.0);
     uVar12 = ((int)(((uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10) + param_1[10])
              >> (bVar10 & 0x1f)) + UINT_008dde78;
-    iVar6 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
-    iVar2 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+    iVar6 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
+    iVar2 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     pcVar9 = (char *)(*(int *)(iVar6 + 0x18) * param_1[0x10] + *(int *)(iVar6 + 0x5c) + iVar14);
     puVar11 = (ushort *)
               (*(int *)(iVar2 + 0x18) * param_1[0x10] + iVar14 * 2 + *(int *)(iVar2 + 0x5c));
@@ -21919,7 +21919,7 @@ void rdRaster_Span16_TexLitKey(uint *param_1,uint *param_2)
              >> (bVar10 & 0x1f)) + UINT_008dde78;
     iVar11 = ((int)(((uint)lVar4 >> 0x10 | (int)((ulonglong)lVar4 >> 0x20) << 0x10) + param_1[0xc])
              >> (bVar10 & 0x1f)) + UINT_008dde50;
-    iVar2 = *(int *)((int)g_pRdCurrentCamera + 4);
+    iVar2 = *(int *)((int)g_pRdCamera_CurCamera + 4);
     param_2 = (uint *)(*(int *)(*(int *)(iVar2 + 4) + 0x5c) +
                       ((*(uint *)(*(int *)(iVar2 + 4) + 0x18) >> 1) * param_1[0x10] + iVar14) * 2);
     puVar9 = (ushort *)
@@ -21993,7 +21993,7 @@ void rdRaster_Draw_TexLitKeyZw_2(int param_1,int param_2)
   #define local_10 (*(uint *)(_frame + (0xa0 - 0x10)))
   #define local_4 (*(uint *)(_frame + (0xa0 - 0x4)))
   
-  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
+  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   if (iVar1 == 0x10) {
     UINT_008dde5c = *(int *)(*(int *)(param_1 + 0x4c) + 0x348) + 0x7e00;
     UINT_008dde44 = *(uint *)(*(int *)(param_1 + 0x4c) + 0x34c);
@@ -22004,8 +22004,8 @@ void rdRaster_Draw_TexLitKeyZw_2(int param_1,int param_2)
   UINT_007f4460 = *(uint *)(param_1 + 0x1c);
   UINT_007f44e8 = *(uint *)(param_1 + 0x6c);
   UINT_007f44f4 = *(uint *)(param_1 + 0x70);
-  UINT_008ddea4 = *(uint *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x14);
-  UINT_008dde90 = *(uint *)(UINT_004f5ec4 + 0x338);
+  UINT_008ddea4 = *(uint *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x14);
+  UINT_008dde90 = *(uint *)(g_dwRdColormap_pCurMap + 0x338);
   if (*(int *)(param_1 + 0x50) == 0) {
     UINT_007f44ec = 1;
     UINT_007f4580 = 0xffffffff;
@@ -22146,8 +22146,8 @@ void rdRaster_Span8_TexLitKeyZw(uint *param_1,uint *param_2)
                                  65536.0);
     uVar12 = ((int)(((uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10) + param_1[10])
              >> (bVar10 & 0x1f)) + UINT_008dde78;
-    iVar6 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
-    iVar2 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+    iVar6 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
+    iVar2 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     pbVar9 = (byte *)(*(int *)(iVar6 + 0x18) * param_1[0x10] + *(int *)(iVar6 + 0x5c) + iVar14);
     puVar11 = (ushort *)
               (*(int *)(iVar2 + 0x18) * param_1[0x10] + iVar14 * 2 + *(int *)(iVar2 + 0x5c));
@@ -22241,7 +22241,7 @@ void rdRaster_Span16_TexLitKey_2(uint *param_1,uint *param_2)
              >> (bVar10 & 0x1f)) + UINT_008dde78;
     iVar11 = ((int)(((uint)lVar4 >> 0x10 | (int)((ulonglong)lVar4 >> 0x20) << 0x10) + param_1[0xc])
              >> (bVar10 & 0x1f)) + UINT_008dde50;
-    iVar2 = *(int *)((int)g_pRdCurrentCamera + 4);
+    iVar2 = *(int *)((int)g_pRdCamera_CurCamera + 4);
     param_2 = (uint *)(*(int *)(*(int *)(iVar2 + 4) + 0x5c) +
                       ((*(uint *)(*(int *)(iVar2 + 4) + 0x18) >> 1) * param_1[0x10] + iVar14) * 2);
     puVar9 = (ushort *)
@@ -22319,7 +22319,7 @@ void rdRaster_Draw_FlatLit_8(int param_1,int param_2,float param_3)
   #define local_14 (*(uint *)(_frame + (0xa0 - 0x14)))
   #define local_8 (*(uint *)(_frame + (0xa0 - 0x8)))
   
-  iVar2 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
+  iVar2 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   UINT_007f4464 = *(int *)(*(int *)(param_2 + 0x1c) + 0x18) - 1;
   PTR_007f44fc = *(int **)(param_1 + 0x20);
   UINT_007f4584 = *(uint *)(param_1 + 0x24);
@@ -22332,7 +22332,7 @@ void rdRaster_Draw_FlatLit_8(int param_1,int param_2,float param_3)
   UINT_007f4460 = *(uint *)(param_1 + 0x1c);
   UINT_007f44e8 = *(uint *)(param_1 + 0x6c);
   UINT_007f44f4 = *(uint *)(param_1 + 0x70);
-  UINT_008ddea4 = *(uint *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x14);
+  UINT_008ddea4 = *(uint *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x14);
   if (*(int *)(param_1 + 0x50) == 0) {
     UINT_007f44ec = 1;
     UINT_007f4580 = 0xffffffff;
@@ -22531,10 +22531,10 @@ void rdRaster_Span_TexLitZ(uint *param_1,uint *param_2)
             (bVar8 & 0x1f)) + UINT_008dde78;
     iVar11 = ((int)(((uint)lVar2 >> 0x10 | (int)((ulonglong)lVar2 >> 0x20) << 0x10) + param_1[0xc])
              >> (bVar8 & 0x1f)) + UINT_008dde50;
-    iVar4 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar4 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     puVar7 = (undefined1 *)
              (*(int *)(iVar4 + 0x18) * param_1[0x10] + *(int *)(iVar4 + 0x5c) + iVar13);
-    iVar4 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+    iVar4 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     puVar10 = (ushort *)
               (*(int *)(iVar4 + 0x18) * param_1[0x10] + iVar13 * 2 + *(int *)(iVar4 + 0x5c));
     do {
@@ -22624,7 +22624,7 @@ void rdRaster_Span16_TexLit_3(uint *param_1,uint *param_2)
              >> (bVar9 & 0x1f)) + UINT_008dde78;
     iVar10 = ((int)(((uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10) + param_1[0xc])
              >> (bVar9 & 0x1f)) + UINT_008dde50;
-    iVar1 = *(int *)((int)g_pRdCurrentCamera + 4);
+    iVar1 = *(int *)((int)g_pRdCamera_CurCamera + 4);
     param_2 = (uint *)(*(int *)(*(int *)(iVar1 + 4) + 0x5c) +
                       ((*(uint *)(*(int *)(iVar1 + 4) + 0x18) >> 1) * param_1[0x10] + iVar13) * 2);
     puVar8 = (ushort *)
@@ -22859,7 +22859,7 @@ void rdRaster_Draw_TexLitZ_5(int param_1,int param_2,float param_3)
   #define local_14 (*(uint *)(_frame + (0xa0 - 0x14)))
   #define local_8 (*(uint *)(_frame + (0xa0 - 0x8)))
   
-  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
+  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   UINT_007f4464 = *(int *)(*(int *)(param_2 + 0x1c) + 0x18) - 1;
   PTR_007f44fc = *(int **)(param_1 + 0x20);
   UINT_007f4584 = *(uint *)(param_1 + 0x24);
@@ -22870,11 +22870,11 @@ void rdRaster_Draw_TexLitZ_5(int param_1,int param_2,float param_3)
     UINT_008dde5c = (int)ROUND(param_3) * 0x200 + *(int *)(*(int *)(param_1 + 0x4c) + 0x348);
     UINT_008dde44 = *(uint *)(*(int *)(param_1 + 0x4c) + 0x34c);
   }
-  UINT_008dde90 = *(uint *)(UINT_004f5ec4 + 0x338);
+  UINT_008dde90 = *(uint *)(g_dwRdColormap_pCurMap + 0x338);
   UINT_007f4460 = *(uint *)(param_1 + 0x1c);
   UINT_007f44e8 = *(uint *)(param_1 + 0x6c);
   UINT_007f44f4 = *(uint *)(param_1 + 0x70);
-  UINT_008ddea4 = *(uint *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x14);
+  UINT_008ddea4 = *(uint *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x14);
   if (*(int *)(param_1 + 0x50) == 0) {
     UINT_007f44ec = 1;
     UINT_007f4580 = 0xffffffff;
@@ -23016,9 +23016,9 @@ void rdRaster_Span8_TexLitZ_4(uint *param_1,uint *param_2)
             (bVar8 & 0x1f)) + UINT_008dde78;
     iVar11 = ((int)(((uint)lVar2 >> 0x10 | (int)((ulonglong)lVar2 >> 0x20) << 0x10) + param_1[0xc])
              >> (bVar8 & 0x1f)) + UINT_008dde50;
-    iVar4 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar4 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     pbVar7 = (byte *)(*(int *)(iVar4 + 0x18) * param_1[0x10] + *(int *)(iVar4 + 0x5c) + iVar13);
-    iVar4 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+    iVar4 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     puVar10 = (ushort *)
               (*(int *)(iVar4 + 0x18) * param_1[0x10] + iVar13 * 2 + *(int *)(iVar4 + 0x5c));
     do {
@@ -23112,11 +23112,11 @@ void rdRaster_Span16_TexLitZ_3(uint *param_1,uint *param_2)
              >> (bVar8 & 0x1f)) + UINT_008dde50;
     uVar9 = ((int)(((uint)lVar1 >> 0x10 | (int)((ulonglong)lVar1 >> 0x20) << 0x10) + param_1[10]) >>
             (bVar8 & 0x1f)) + UINT_008dde78;
-    iVar4 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar4 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     puVar10 = (ushort *)
               (*(int *)(iVar4 + 0x5c) +
               ((*(uint *)(iVar4 + 0x18) >> 1) * param_1[0x10] + iVar13) * 2);
-    iVar4 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+    iVar4 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     puVar7 = (ushort *)
              (*(int *)(iVar4 + 0x18) * param_1[0x10] + iVar13 * 2 + *(int *)(iVar4 + 0x5c));
     do {
@@ -23192,7 +23192,7 @@ void rdRaster_Draw_TexLitKeyZw_3(int param_1,int param_2,float param_3)
   #define local_14 (*(uint *)(_frame + (0xa0 - 0x14)))
   #define local_8 (*(uint *)(_frame + (0xa0 - 0x8)))
   
-  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
+  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   UINT_007f4464 = *(int *)(*(int *)(param_2 + 0x1c) + 0x18) - 1;
   PTR_007f44fc = *(int **)(param_1 + 0x20);
   UINT_007f4584 = *(uint *)(param_1 + 0x24);
@@ -23205,7 +23205,7 @@ void rdRaster_Draw_TexLitKeyZw_3(int param_1,int param_2,float param_3)
   UINT_007f4460 = *(uint *)(param_1 + 0x1c);
   UINT_007f44e8 = *(uint *)(param_1 + 0x6c);
   UINT_007f44f4 = *(uint *)(param_1 + 0x70);
-  UINT_008ddea4 = *(uint *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x14);
+  UINT_008ddea4 = *(uint *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x14);
   if (*(int *)(param_1 + 0x50) == 0) {
     UINT_007f44ec = 1;
     UINT_007f4580 = 0xffffffff;
@@ -23346,8 +23346,8 @@ void rdRaster_Span8_TexLitKeyZw_2(uint *param_1,uint *param_2)
                                  65536.0);
     uVar12 = ((int)(((uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10) + param_1[10])
              >> (bVar10 & 0x1f)) + UINT_008dde78;
-    iVar6 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
-    iVar2 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+    iVar6 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
+    iVar2 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     puVar9 = (undefined1 *)
              (*(int *)(iVar6 + 0x18) * param_1[0x10] + *(int *)(iVar6 + 0x5c) + iVar14);
     puVar11 = (ushort *)
@@ -23442,7 +23442,7 @@ void rdRaster_Span16_TexLitKey_3(uint *param_1,uint *param_2)
              >> (bVar10 & 0x1f)) + UINT_008dde78;
     iVar11 = ((int)(((uint)lVar4 >> 0x10 | (int)((ulonglong)lVar4 >> 0x20) << 0x10) + param_1[0xc])
              >> (bVar10 & 0x1f)) + UINT_008dde50;
-    iVar2 = *(int *)((int)g_pRdCurrentCamera + 4);
+    iVar2 = *(int *)((int)g_pRdCamera_CurCamera + 4);
     param_2 = (uint *)(*(int *)(*(int *)(iVar2 + 4) + 0x5c) +
                       ((*(uint *)(*(int *)(iVar2 + 4) + 0x18) >> 1) * param_1[0x10] + iVar14) * 2);
     puVar9 = (ushort *)
@@ -23516,7 +23516,7 @@ void rdRaster_Draw_TexLitKeyZw_4(int param_1,int param_2,float param_3)
   #define local_14 (*(uint *)(_frame + (0xa0 - 0x14)))
   #define local_8 (*(uint *)(_frame + (0xa0 - 0x8)))
   
-  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
+  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   UINT_007f4464 = *(int *)(*(int *)(param_2 + 0x1c) + 0x18) - 1;
   PTR_007f44fc = *(int **)(param_1 + 0x20);
   UINT_007f4584 = *(uint *)(param_1 + 0x24);
@@ -23527,11 +23527,11 @@ void rdRaster_Draw_TexLitKeyZw_4(int param_1,int param_2,float param_3)
     UINT_008dde5c = (int)ROUND(param_3) * 0x200 + *(int *)(*(int *)(param_1 + 0x4c) + 0x348);
     UINT_008dde44 = *(uint *)(*(int *)(param_1 + 0x4c) + 0x34c);
   }
-  UINT_008dde90 = *(uint *)(UINT_004f5ec4 + 0x338);
+  UINT_008dde90 = *(uint *)(g_dwRdColormap_pCurMap + 0x338);
   UINT_007f4460 = *(uint *)(param_1 + 0x1c);
   UINT_007f44e8 = *(uint *)(param_1 + 0x6c);
   UINT_007f44f4 = *(uint *)(param_1 + 0x70);
-  UINT_008ddea4 = *(uint *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x14);
+  UINT_008ddea4 = *(uint *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x14);
   if (*(int *)(param_1 + 0x50) == 0) {
     UINT_007f44ec = 1;
     UINT_007f4580 = 0xffffffff;
@@ -23672,8 +23672,8 @@ void rdRaster_Span8_TexLitKeyZw_3(uint *param_1,uint *param_2)
                                  65536.0);
     uVar12 = ((int)(((uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10) + param_1[10])
              >> (bVar10 & 0x1f)) + UINT_008dde78;
-    iVar6 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
-    iVar2 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+    iVar6 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
+    iVar2 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     pbVar9 = (byte *)(*(int *)(iVar6 + 0x18) * param_1[0x10] + *(int *)(iVar6 + 0x5c) + iVar14);
     puVar11 = (ushort *)
               (*(int *)(iVar2 + 0x18) * param_1[0x10] + iVar14 * 2 + *(int *)(iVar2 + 0x5c));
@@ -23768,7 +23768,7 @@ void rdRaster_Span16_TexLitKey_4(uint *param_1,uint *param_2)
              >> (bVar10 & 0x1f)) + UINT_008dde78;
     iVar11 = ((int)(((uint)lVar4 >> 0x10 | (int)((ulonglong)lVar4 >> 0x20) << 0x10) + param_1[0xc])
              >> (bVar10 & 0x1f)) + UINT_008dde50;
-    iVar2 = *(int *)((int)g_pRdCurrentCamera + 4);
+    iVar2 = *(int *)((int)g_pRdCamera_CurCamera + 4);
     param_2 = (uint *)(*(int *)(*(int *)(iVar2 + 4) + 0x5c) +
                       ((*(uint *)(*(int *)(iVar2 + 4) + 0x18) >> 1) * param_1[0x10] + iVar14) * 2);
     puVar9 = (ushort *)
@@ -23850,7 +23850,7 @@ void rdRaster_Draw_FlatLit_9(int param_1,int param_2)
   #define local_8 (*(uint *)(_frame + (0xa0 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0xa0 - 0x4)))
   
-  iVar2 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
+  iVar2 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   UINT_007f4464 = *(int *)(*(int *)(param_2 + 0x1c) + 0x18) - 1;
   PTR_007f44fc = *(int **)(param_1 + 0x20);
   UINT_007f4584 = *(uint *)(param_1 + 0x24);
@@ -23864,7 +23864,7 @@ void rdRaster_Draw_FlatLit_9(int param_1,int param_2)
   UINT_007f4460 = *(uint *)(param_1 + 0x1c);
   UINT_007f44e8 = *(uint *)(param_1 + 0x6c);
   UINT_007f44f4 = *(uint *)(param_1 + 0x70);
-  UINT_008ddea4 = *(uint *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x14);
+  UINT_008ddea4 = *(uint *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x14);
   if (*(int *)(param_1 + 0x50) == 0) {
     UINT_007f44ec = 1;
     UINT_007f4580 = 0xffffffff;
@@ -24077,10 +24077,10 @@ void rdRaster_Span_TexLitZ_2(uint *param_1,uint *param_2)
              >> (bVar10 & 0x1f)) + UINT_008dde78;
     iVar13 = ((int)(((uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10) + param_1[0xc])
              >> (bVar10 & 0x1f)) + UINT_008dde50;
-    iVar1 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     puVar9 = (undefined1 *)
              (*(int *)(iVar1 + 0x18) * param_1[0x10] + *(int *)(iVar1 + 0x5c) + iVar15);
-    iVar1 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+    iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     puVar12 = (ushort *)
               (*(int *)(iVar1 + 0x18) * param_1[0x10] + iVar15 * 2 + *(int *)(iVar1 + 0x5c));
     param_1 = (uint *)(((uint)((longlong)iVar6 * (longlong)(int)local_8) >> 0x10 |
@@ -24203,8 +24203,8 @@ void rdRaster_Span16_TexLitZ_4(uint *param_1,uint *param_2)
               >> (bVar9 & 0x1f)) + UINT_008dde50;
     local_1c = ((int)(((uint)lVar2 >> 0x10 | (int)((ulonglong)lVar2 >> 0x20) << 0x10) + param_1[10])
                >> (bVar9 & 0x1f)) + UINT_008dde78;
-    iVar1 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
-    iVar7 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+    iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
+    iVar7 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     puVar14 = (ushort *)
               (*(int *)(iVar7 + 0x18) * param_1[0x10] + iVar13 * 2 + *(int *)(iVar7 + 0x5c));
     local_14 = (local_18 - 1) + iVar13;
@@ -24471,7 +24471,7 @@ void rdRaster_Draw_TexLitZ_6(int param_1,int param_2)
   #define local_8 (*(uint *)(_frame + (0xa0 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0xa0 - 0x4)))
   
-  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
+  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   UINT_007f4464 = *(int *)(*(int *)(param_2 + 0x1c) + 0x18) - 1;
   PTR_007f44fc = *(int **)(param_1 + 0x20);
   UINT_007f4584 = *(uint *)(param_1 + 0x24);
@@ -24483,11 +24483,11 @@ void rdRaster_Draw_TexLitZ_6(int param_1,int param_2)
     UINT_008dde5c = *(uint *)(*(int *)(param_1 + 0x4c) + 0x348);
     UINT_008dde44 = *(uint *)(*(int *)(param_1 + 0x4c) + 0x34c);
   }
-  UINT_008dde90 = *(uint *)(UINT_004f5ec4 + 0x338);
+  UINT_008dde90 = *(uint *)(g_dwRdColormap_pCurMap + 0x338);
   UINT_007f4460 = *(uint *)(param_1 + 0x1c);
   UINT_007f44e8 = *(uint *)(param_1 + 0x6c);
   UINT_007f44f4 = *(uint *)(param_1 + 0x70);
-  UINT_008ddea4 = *(uint *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x14);
+  UINT_008ddea4 = *(uint *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x14);
   if (*(int *)(param_1 + 0x50) == 0) {
     UINT_007f44ec = 1;
     UINT_007f4580 = 0xffffffff;
@@ -24643,9 +24643,9 @@ void rdRaster_Span8_TexLitZ_5(uint *param_1,uint *param_2)
              >> (bVar10 & 0x1f)) + UINT_008dde78;
     iVar13 = ((int)(((uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10) + param_1[0xc])
              >> (bVar10 & 0x1f)) + UINT_008dde50;
-    iVar1 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     pbVar9 = (byte *)(*(int *)(iVar1 + 0x18) * param_1[0x10] + *(int *)(iVar1 + 0x5c) + iVar15);
-    iVar1 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+    iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     puVar12 = (ushort *)
               (*(int *)(iVar1 + 0x18) * param_1[0x10] + iVar15 * 2 + *(int *)(iVar1 + 0x5c));
     param_1 = (uint *)(((uint)((longlong)iVar6 * (longlong)(int)local_8) >> 0x10 |
@@ -24755,11 +24755,11 @@ void rdRaster_Span16_TexLitZ_5(uint *param_1,uint *param_2)
              >> (bVar10 & 0x1f)) + UINT_008dde50;
     uVar11 = ((int)(((uint)lVar2 >> 0x10 | (int)((ulonglong)lVar2 >> 0x20) << 0x10) + param_1[10])
              >> (bVar10 & 0x1f)) + UINT_008dde78;
-    iVar1 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     puVar12 = (ushort *)
               (*(int *)(iVar1 + 0x5c) +
               ((*(uint *)(iVar1 + 0x18) >> 1) * param_1[0x10] + iVar15) * 2);
-    iVar1 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+    iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     puVar9 = (ushort *)
              (*(int *)(iVar1 + 0x18) * param_1[0x10] + iVar15 * 2 + *(int *)(iVar1 + 0x5c));
     param_1 = (uint *)(((uint)((longlong)iVar6 * (longlong)(int)local_8) >> 0x10 |
@@ -24843,7 +24843,7 @@ void rdRaster_Draw_TexLitKeyZw_5(int param_1,int param_2)
   #define local_8 (*(uint *)(_frame + (0xa0 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0xa0 - 0x4)))
   
-  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
+  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   UINT_007f4464 = *(int *)(*(int *)(param_2 + 0x1c) + 0x18) - 1;
   PTR_007f44fc = *(int **)(param_1 + 0x20);
   UINT_007f4584 = *(uint *)(param_1 + 0x24);
@@ -24857,7 +24857,7 @@ void rdRaster_Draw_TexLitKeyZw_5(int param_1,int param_2)
   UINT_007f4460 = *(uint *)(param_1 + 0x1c);
   UINT_007f44e8 = *(uint *)(param_1 + 0x6c);
   UINT_007f44f4 = *(uint *)(param_1 + 0x70);
-  UINT_008ddea4 = *(uint *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x14);
+  UINT_008ddea4 = *(uint *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x14);
   if (*(int *)(param_1 + 0x50) == 0) {
     UINT_007f44ec = 1;
     UINT_007f4580 = 0xffffffff;
@@ -25015,8 +25015,8 @@ void rdRaster_Span8_TexLitKeyZw_4(uint *param_1,uint *param_2)
                              param_1[0xc]) >> (bVar12 & 0x1f)) + UINT_008dde50);
     uVar13 = ((int)(((uint)lVar4 >> 0x10 | (int)((ulonglong)lVar4 >> 0x20) << 0x10) + param_1[10])
              >> (bVar12 & 0x1f)) + UINT_008dde78;
-    iVar2 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
-    iVar3 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+    iVar2 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
+    iVar3 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     puVar11 = (undefined1 *)
               (*(int *)(iVar2 + 0x18) * param_1[0x10] + *(int *)(iVar2 + 0x5c) + iVar16);
     puVar14 = (ushort *)
@@ -25124,10 +25124,10 @@ void rdRaster_Span16_TexLitKeyZw(uint *param_1,uint *param_2)
              >> (bVar11 & 0x1f)) + UINT_008dde50;
     uVar12 = ((int)(((uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10) + param_1[10])
              >> (bVar11 & 0x1f)) + UINT_008dde78;
-    iVar2 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar2 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     param_2 = (uint *)(*(int *)(iVar2 + 0x5c) +
                       ((*(uint *)(iVar2 + 0x18) >> 1) * param_1[0x10] + iVar15) * 2);
-    iVar2 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+    iVar2 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     puVar10 = (ushort *)
               (*(int *)(iVar2 + 0x18) * param_1[0x10] + iVar15 * 2 + *(int *)(iVar2 + 0x5c));
     param_1 = (uint *)(int)ROUND((fVar6 * (float)iVar7 * 1.5258789e-05 + (float)param_1[4]) *
@@ -25207,7 +25207,7 @@ void rdRaster_Draw_TexLitKeyZw_6(int param_1,int param_2)
   #define local_8 (*(uint *)(_frame + (0xa0 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0xa0 - 0x4)))
   
-  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
+  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   UINT_007f4464 = *(int *)(*(int *)(param_2 + 0x1c) + 0x18) - 1;
   PTR_007f44fc = *(int **)(param_1 + 0x20);
   UINT_007f4584 = *(uint *)(param_1 + 0x24);
@@ -25219,11 +25219,11 @@ void rdRaster_Draw_TexLitKeyZw_6(int param_1,int param_2)
     UINT_008dde5c = *(uint *)(*(int *)(param_1 + 0x4c) + 0x348);
     UINT_008dde44 = *(uint *)(*(int *)(param_1 + 0x4c) + 0x34c);
   }
-  UINT_008dde90 = *(uint *)(UINT_004f5ec4 + 0x338);
+  UINT_008dde90 = *(uint *)(g_dwRdColormap_pCurMap + 0x338);
   UINT_007f4460 = *(uint *)(param_1 + 0x1c);
   UINT_007f44e8 = *(uint *)(param_1 + 0x6c);
   UINT_007f44f4 = *(uint *)(param_1 + 0x70);
-  UINT_008ddea4 = *(uint *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x14);
+  UINT_008ddea4 = *(uint *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x14);
   if (*(int *)(param_1 + 0x50) == 0) {
     UINT_007f44ec = 1;
     UINT_007f4580 = 0xffffffff;
@@ -25381,8 +25381,8 @@ void rdRaster_Span8_TexLitKeyZw_5(uint *param_1,uint *param_2)
                              param_1[0xc]) >> (bVar12 & 0x1f)) + UINT_008dde50);
     uVar13 = ((int)(((uint)lVar4 >> 0x10 | (int)((ulonglong)lVar4 >> 0x20) << 0x10) + param_1[10])
              >> (bVar12 & 0x1f)) + UINT_008dde78;
-    iVar2 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
-    iVar3 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+    iVar2 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
+    iVar3 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     pbVar11 = (byte *)(*(int *)(iVar2 + 0x18) * param_1[0x10] + *(int *)(iVar2 + 0x5c) + iVar16);
     puVar14 = (ushort *)
               (*(int *)(iVar3 + 0x18) * param_1[0x10] + iVar16 * 2 + *(int *)(iVar3 + 0x5c));
@@ -25491,11 +25491,11 @@ void rdRaster_Span16_TexLitKeyZw_2(uint *param_1,uint *param_2)
                              param_1[0xc]) >> (bVar11 & 0x1f)) + UINT_008dde50);
     uVar12 = ((int)(((uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10) + param_1[10])
              >> (bVar11 & 0x1f)) + UINT_008dde78;
-    iVar2 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar2 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     puVar13 = (ushort *)
               (*(int *)(iVar2 + 0x5c) +
               ((*(uint *)(iVar2 + 0x18) >> 1) * param_1[0x10] + iVar15) * 2);
-    iVar2 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+    iVar2 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     puVar10 = (ushort *)
               (*(int *)(iVar2 + 0x18) * param_1[0x10] + iVar15 * 2 + *(int *)(iVar2 + 0x5c));
     param_1 = (uint *)(int)ROUND((fVar6 * (float)iVar7 * 1.5258789e-05 + (float)param_1[4]) *
@@ -25568,7 +25568,7 @@ void rdRaster_Draw_FlatLit_10(int param_1,int param_2)
   #define local_38 (*(uint *)(_frame + (0xa0 - 0x38)))
   #define local_4 (*(uint *)(_frame + (0xa0 - 0x4)))
   
-  iVar2 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
+  iVar2 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   if (iVar2 == 0x10) {
     UINT_008dde5c = *(int *)(*(int *)(param_1 + 0x4c) + 0x348) + 0x7e00;
   }
@@ -25578,7 +25578,7 @@ void rdRaster_Draw_FlatLit_10(int param_1,int param_2)
   UINT_007f4460 = *(uint *)(param_1 + 0x1c);
   UINT_007f44e8 = *(uint *)(param_1 + 0x6c);
   UINT_007f44f4 = *(uint *)(param_1 + 0x70);
-  UINT_008ddea4 = *(uint *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x14);
+  UINT_008ddea4 = *(uint *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x14);
   if (*(int *)(param_1 + 0x50) == 0) {
     UINT_007f44ec = 1;
     UINT_007f4580 = 0xffffffff;
@@ -25797,8 +25797,8 @@ void rdRaster_Span_FlatZ_2(uint *param_1,uint *param_2)
     local_2c = (uint)(fVar4 * _DAT_008dde60 + (float)param_1[6]);
     fVar4 = fVar4 * _DAT_008dde80 + (float)param_1[8];
     uVar13 = (uint)ROUND(fVar5 * 65536.0);
-    iVar9 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
-    iVar1 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+    iVar9 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
+    iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     local_10 = (uint)((1.0 / fVar5) * (float)local_2c);
     local_20 = *(int *)(iVar9 + 0x18) * param_1[0x10] + *(int *)(iVar9 + 0x5c) + uVar14;
     puVar15 = (ushort *)
@@ -26038,8 +26038,8 @@ void rdRaster_Span16_TexZ_2(uint *param_1,uint *param_2)
     local_24 = (uint)(fVar4 * _DAT_008dde60 + (float)param_1[6]);
     fVar4 = fVar4 * _DAT_008dde80 + (float)param_1[8];
     param_2 = (uint *)(int)ROUND((float)local_30 * 65536.0);
-    iVar9 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
-    iVar1 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+    iVar9 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
+    iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     puVar12 = (undefined2 *)
               (*(int *)(iVar9 + 0x5c) +
               ((*(uint *)(iVar9 + 0x18) >> 1) * param_1[0x10] + uVar16) * 2);
@@ -26379,7 +26379,7 @@ void rdRaster_Draw_TexLitZ_7(int param_1,int param_2)
   #define local_38 (*(uint *)(_frame + (0xa0 - 0x38)))
   #define local_4 (*(uint *)(_frame + (0xa0 - 0x4)))
   
-  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
+  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   if (iVar1 == 0x10) {
     UINT_008dde5c = *(int *)(*(int *)(param_1 + 0x4c) + 0x348) + 0x7e00;
     UINT_008dde44 = *(uint *)(*(int *)(param_1 + 0x4c) + 0x34c);
@@ -26390,8 +26390,8 @@ void rdRaster_Draw_TexLitZ_7(int param_1,int param_2)
   UINT_007f4460 = *(uint *)(param_1 + 0x1c);
   UINT_007f44e8 = *(uint *)(param_1 + 0x6c);
   UINT_007f44f4 = *(uint *)(param_1 + 0x70);
-  UINT_008ddea4 = *(uint *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x14);
-  UINT_008dde90 = *(uint *)(UINT_004f5ec4 + 0x338);
+  UINT_008ddea4 = *(uint *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x14);
+  UINT_008dde90 = *(uint *)(g_dwRdColormap_pCurMap + 0x338);
   if (*(int *)(param_1 + 0x50) == 0) {
     UINT_007f44ec = 1;
     UINT_007f4580 = 0xffffffff;
@@ -26556,8 +26556,8 @@ void rdRaster_Span8_TexZ_2(uint *param_1,uint *param_2)
     local_2c = (uint)(fVar4 * _DAT_008dde60 + (float)param_1[6]);
     fVar4 = fVar4 * _DAT_008dde80 + (float)param_1[8];
     uVar14 = (uint)ROUND(fVar5 * 65536.0);
-    iVar9 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
-    iVar1 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+    iVar9 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
+    iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     pbVar12 = (byte *)(*(int *)(iVar9 + 0x18) * param_1[0x10] + *(int *)(iVar9 + 0x5c) + uVar15);
     local_10 = (uint)((1.0 / fVar5) * (float)local_2c);
     local_14 = (uint)((1.0 / fVar5) * fVar4);
@@ -26798,8 +26798,8 @@ void rdRaster_Span16_TexZ_3(uint *param_1,uint *param_2)
     local_30 = (uint)(fVar4 * _DAT_008dde60 + (float)param_1[6]);
     fVar4 = fVar4 * _DAT_008dde80 + (float)param_1[8];
     uVar13 = (uint)ROUND(fVar5 * 65536.0);
-    iVar9 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
-    iVar1 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+    iVar9 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
+    iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     local_20 = *(int *)(iVar9 + 0x5c) +
                ((*(uint *)(iVar9 + 0x18) >> 1) * param_1[0x10] + uVar14) * 2;
     local_10 = (uint)((1.0 / fVar5) * (float)local_30);
@@ -26994,7 +26994,7 @@ void rdRaster_Draw_TexLitKeyZw_7(int param_1,int param_2)
   #define local_38 (*(uint *)(_frame + (0xa0 - 0x38)))
   #define local_4 (*(uint *)(_frame + (0xa0 - 0x4)))
   
-  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
+  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   if (iVar1 == 0x10) {
     UINT_008dde5c = *(int *)(*(int *)(param_1 + 0x4c) + 0x348) + 0x7e00;
   }
@@ -27004,7 +27004,7 @@ void rdRaster_Draw_TexLitKeyZw_7(int param_1,int param_2)
   UINT_007f4460 = *(uint *)(param_1 + 0x1c);
   UINT_007f44e8 = *(uint *)(param_1 + 0x6c);
   UINT_007f44f4 = *(uint *)(param_1 + 0x70);
-  UINT_008ddea4 = *(uint *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x14);
+  UINT_008ddea4 = *(uint *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x14);
   if (*(int *)(param_1 + 0x50) == 0) {
     UINT_007f44ec = 1;
     UINT_007f4580 = 0xffffffff;
@@ -27172,8 +27172,8 @@ void rdRaster_Span8_FlatKeyZw_2(uint *param_1,uint *param_2)
     fVar6 = fVar5 * _DAT_008dde60 + (float)param_1[6];
     fVar5 = fVar5 * _DAT_008dde80 + (float)param_1[8];
     param_2 = (uint *)(int)ROUND((float)local_30 * 65536.0);
-    iVar11 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
-    iVar2 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+    iVar11 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
+    iVar2 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     local_14 = (uint)((1.0 / (float)local_30) * fVar6);
     pcVar15 = (char *)(*(int *)(iVar11 + 0x18) * param_1[0x10] + *(int *)(iVar11 + 0x5c) + uVar17);
     puVar18 = (ushort *)
@@ -27420,8 +27420,8 @@ void rdRaster_Span16_TexKeyZw(uint *param_1,uint *param_2)
     fVar5 = fVar4 * _DAT_008dde60 + (float)param_1[6];
     fVar4 = fVar4 * _DAT_008dde80 + (float)param_1[8];
     param_2 = (uint *)(int)ROUND((float)local_34 * 65536.0);
-    iVar10 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
-    iVar1 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+    iVar10 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
+    iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     puVar13 = (undefined2 *)
               (*(int *)(iVar10 + 0x5c) +
               ((*(uint *)(iVar10 + 0x18) >> 1) * param_1[0x10] + uVar16) * 2);
@@ -27611,7 +27611,7 @@ void rdRaster_Draw_TexLitKeyZw_8(int param_1,int param_2)
   #define local_38 (*(uint *)(_frame + (0xa0 - 0x38)))
   #define local_4 (*(uint *)(_frame + (0xa0 - 0x4)))
   
-  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
+  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   if (iVar1 == 0x10) {
     UINT_008dde5c = *(int *)(*(int *)(param_1 + 0x4c) + 0x348) + 0x7e00;
     UINT_008dde44 = *(uint *)(*(int *)(param_1 + 0x4c) + 0x34c);
@@ -27622,8 +27622,8 @@ void rdRaster_Draw_TexLitKeyZw_8(int param_1,int param_2)
   UINT_007f4460 = *(uint *)(param_1 + 0x1c);
   UINT_007f44e8 = *(uint *)(param_1 + 0x6c);
   UINT_007f44f4 = *(uint *)(param_1 + 0x70);
-  UINT_008ddea4 = *(uint *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x14);
-  UINT_008dde90 = *(uint *)(UINT_004f5ec4 + 0x338);
+  UINT_008ddea4 = *(uint *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x14);
+  UINT_008dde90 = *(uint *)(g_dwRdColormap_pCurMap + 0x338);
   if (*(int *)(param_1 + 0x50) == 0) {
     UINT_007f44ec = 1;
     UINT_007f4580 = 0xffffffff;
@@ -27791,8 +27791,8 @@ void rdRaster_Span8_TexKeyZw(uint *param_1,uint *param_2)
     fVar5 = fVar4 * _DAT_008dde60 + (float)param_1[6];
     fVar4 = fVar4 * _DAT_008dde80 + (float)param_1[8];
     param_2 = (uint *)(int)ROUND((float)local_34 * 65536.0);
-    iVar9 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
-    iVar1 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+    iVar9 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
+    iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     pbVar12 = (byte *)(*(int *)(iVar9 + 0x18) * param_1[0x10] + *(int *)(iVar9 + 0x5c) + uVar16);
     local_14 = (uint)((1.0 / (float)local_34) * fVar5);
     local_18 = (uint)((1.0 / (float)local_34) * fVar4);
@@ -28038,11 +28038,11 @@ void rdRaster_Span16_TexKeyZw_2(uint *param_1,uint *param_2)
     local_30 = (uint)(fVar3 * _DAT_008dde60 + (float)param_1[6]);
     fVar3 = fVar3 * _DAT_008dde80 + (float)param_1[8];
     param_2 = (uint *)(int)ROUND((float)local_34 * 65536.0);
-    iVar8 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar8 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     puVar16 = (ushort *)
               (*(int *)(iVar8 + 0x5c) +
               ((*(uint *)(iVar8 + 0x18) >> 1) * param_1[0x10] + uVar13) * 2);
-    iVar8 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+    iVar8 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     local_14 = (uint)((1.0 / (float)local_34) * (float)local_30);
     local_18 = (uint)((1.0 / (float)local_34) * fVar3);
     param_1 = (uint *)(*(int *)(iVar8 + 0x18) * param_1[0x10] + uVar13 * 2 + *(int *)(iVar8 + 0x5c))
@@ -28238,7 +28238,7 @@ void rdRaster_Draw_FlatLit_11(int param_1,int param_2,float param_3)
   #define local_24 (*(uint *)(_frame + (0xa0 - 0x24)))
   #define local_8 (*(uint *)(_frame + (0xa0 - 0x8)))
   
-  iVar2 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
+  iVar2 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   UINT_007f4464 = *(int *)(*(int *)(param_2 + 0x1c) + 0x18) - 1;
   PTR_007f44fc = *(int **)(param_1 + 0x20);
   UINT_007f4584 = *(uint *)(param_1 + 0x24);
@@ -28251,7 +28251,7 @@ void rdRaster_Draw_FlatLit_11(int param_1,int param_2,float param_3)
   UINT_007f4460 = *(uint *)(param_1 + 0x1c);
   UINT_007f44e8 = *(uint *)(param_1 + 0x6c);
   UINT_007f44f4 = *(uint *)(param_1 + 0x70);
-  UINT_008ddea4 = *(uint *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x14);
+  UINT_008ddea4 = *(uint *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x14);
   if (*(int *)(param_1 + 0x50) == 0) {
     UINT_007f44ec = 1;
     UINT_007f4580 = 0xffffffff;
@@ -28470,8 +28470,8 @@ void rdRaster_Span_TexZ(uint *param_1,uint *param_2)
     local_2c = (uint)(fVar4 * _DAT_008dde60 + (float)param_1[6]);
     fVar4 = fVar4 * _DAT_008dde80 + (float)param_1[8];
     uVar13 = (uint)ROUND(fVar5 * 65536.0);
-    iVar9 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
-    iVar1 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+    iVar9 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
+    iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     local_10 = (uint)((1.0 / fVar5) * (float)local_2c);
     local_20 = *(int *)(iVar9 + 0x18) * param_1[0x10] + *(int *)(iVar9 + 0x5c) + uVar14;
     puVar15 = (ushort *)
@@ -28714,8 +28714,8 @@ void rdRaster_Span16_TexZ_4(uint *param_1,uint *param_2)
     local_24 = (uint)(fVar4 * _DAT_008dde60 + (float)param_1[6]);
     fVar4 = fVar4 * _DAT_008dde80 + (float)param_1[8];
     param_2 = (uint *)(int)ROUND((float)local_30 * 65536.0);
-    iVar9 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
-    iVar1 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+    iVar9 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
+    iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     puVar12 = (undefined2 *)
               (*(int *)(iVar9 + 0x5c) +
               ((*(uint *)(iVar9 + 0x18) >> 1) * param_1[0x10] + uVar16) * 2);
@@ -29055,7 +29055,7 @@ void rdRaster_Draw_TexLitZ_8(int param_1,int param_2,float param_3)
   #define local_24 (*(uint *)(_frame + (0xa0 - 0x24)))
   #define local_8 (*(uint *)(_frame + (0xa0 - 0x8)))
   
-  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
+  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   UINT_007f4464 = *(int *)(*(int *)(param_2 + 0x1c) + 0x18) - 1;
   PTR_007f44fc = *(int **)(param_1 + 0x20);
   UINT_007f4584 = *(uint *)(param_1 + 0x24);
@@ -29069,8 +29069,8 @@ void rdRaster_Draw_TexLitZ_8(int param_1,int param_2,float param_3)
   UINT_007f4460 = *(uint *)(param_1 + 0x1c);
   UINT_007f44e8 = *(uint *)(param_1 + 0x6c);
   UINT_007f44f4 = *(uint *)(param_1 + 0x70);
-  UINT_008ddea4 = *(uint *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x14);
-  UINT_008dde90 = *(uint *)(UINT_004f5ec4 + 0x338);
+  UINT_008ddea4 = *(uint *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x14);
+  UINT_008dde90 = *(uint *)(g_dwRdColormap_pCurMap + 0x338);
   if (*(int *)(param_1 + 0x50) == 0) {
     UINT_007f44ec = 1;
     UINT_007f4580 = 0xffffffff;
@@ -29235,8 +29235,8 @@ void rdRaster_Span8_TexZ_3(uint *param_1,uint *param_2)
     local_2c = (uint)(fVar4 * _DAT_008dde60 + (float)param_1[6]);
     fVar4 = fVar4 * _DAT_008dde80 + (float)param_1[8];
     uVar14 = (uint)ROUND(fVar5 * 65536.0);
-    iVar9 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
-    iVar1 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+    iVar9 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
+    iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     pbVar12 = (byte *)(*(int *)(iVar9 + 0x18) * param_1[0x10] + *(int *)(iVar9 + 0x5c) + uVar15);
     local_10 = (uint)((1.0 / fVar5) * (float)local_2c);
     local_14 = (uint)((1.0 / fVar5) * fVar4);
@@ -29480,8 +29480,8 @@ void rdRaster_Span16_TexZ_5(uint *param_1,uint *param_2)
     local_30 = (uint)(fVar4 * _DAT_008dde60 + (float)param_1[6]);
     fVar4 = fVar4 * _DAT_008dde80 + (float)param_1[8];
     uVar13 = (uint)ROUND(fVar5 * 65536.0);
-    iVar9 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
-    iVar1 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+    iVar9 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
+    iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     local_20 = *(int *)(iVar9 + 0x5c) +
                ((*(uint *)(iVar9 + 0x18) >> 1) * param_1[0x10] + uVar14) * 2;
     local_10 = (uint)((1.0 / fVar5) * (float)local_30);
@@ -29688,7 +29688,7 @@ void rdRaster_Draw_TexLitKeyZw_9(int param_1,int param_2,float param_3)
   #define local_24 (*(uint *)(_frame + (0xa0 - 0x24)))
   #define local_8 (*(uint *)(_frame + (0xa0 - 0x8)))
   
-  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
+  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   UINT_007f4464 = *(int *)(*(int *)(param_2 + 0x1c) + 0x18) - 1;
   PTR_007f44fc = *(int **)(param_1 + 0x20);
   UINT_007f4584 = *(uint *)(param_1 + 0x24);
@@ -29701,7 +29701,7 @@ void rdRaster_Draw_TexLitKeyZw_9(int param_1,int param_2,float param_3)
   UINT_007f4460 = *(uint *)(param_1 + 0x1c);
   UINT_007f44e8 = *(uint *)(param_1 + 0x6c);
   UINT_007f44f4 = *(uint *)(param_1 + 0x70);
-  UINT_008ddea4 = *(uint *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x14);
+  UINT_008ddea4 = *(uint *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x14);
   if (*(int *)(param_1 + 0x50) == 0) {
     UINT_007f44ec = 1;
     UINT_007f4580 = 0xffffffff;
@@ -29869,8 +29869,8 @@ void rdRaster_Span8_TexKeyZw_2(uint *param_1,uint *param_2)
     fVar5 = fVar4 * _DAT_008dde60 + (float)param_1[6];
     fVar4 = fVar4 * _DAT_008dde80 + (float)param_1[8];
     param_2 = (uint *)(int)ROUND((float)local_34 * 65536.0);
-    iVar10 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
-    iVar1 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+    iVar10 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
+    iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     local_14 = (uint)((1.0 / (float)local_34) * fVar5);
     puVar14 = (undefined1 *)
               (*(int *)(iVar10 + 0x18) * param_1[0x10] + *(int *)(iVar10 + 0x5c) + uVar16);
@@ -30119,8 +30119,8 @@ void rdRaster_Span16_TexKeyZw_3(uint *param_1,uint *param_2)
     fVar5 = fVar4 * _DAT_008dde60 + (float)param_1[6];
     fVar4 = fVar4 * _DAT_008dde80 + (float)param_1[8];
     param_2 = (uint *)(int)ROUND((float)local_34 * 65536.0);
-    iVar10 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
-    iVar1 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+    iVar10 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
+    iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     puVar13 = (undefined2 *)
               (*(int *)(iVar10 + 0x5c) +
               ((*(uint *)(iVar10 + 0x18) >> 1) * param_1[0x10] + uVar16) * 2);
@@ -30310,7 +30310,7 @@ void rdRaster_Draw_TexLitKeyZw_10(int param_1,int param_2,float param_3)
   #define local_24 (*(uint *)(_frame + (0xa0 - 0x24)))
   #define local_8 (*(uint *)(_frame + (0xa0 - 0x8)))
   
-  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
+  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   UINT_007f4464 = *(int *)(*(int *)(param_2 + 0x1c) + 0x18) - 1;
   PTR_007f44fc = *(int **)(param_1 + 0x20);
   UINT_007f4584 = *(uint *)(param_1 + 0x24);
@@ -30321,11 +30321,11 @@ void rdRaster_Draw_TexLitKeyZw_10(int param_1,int param_2,float param_3)
     UINT_008dde5c = (int)ROUND(param_3) * 0x200 + *(int *)(*(int *)(param_1 + 0x4c) + 0x348);
     UINT_008dde44 = *(uint *)(*(int *)(param_1 + 0x4c) + 0x34c);
   }
-  UINT_008dde90 = *(uint *)(UINT_004f5ec4 + 0x338);
+  UINT_008dde90 = *(uint *)(g_dwRdColormap_pCurMap + 0x338);
   UINT_007f4460 = *(uint *)(param_1 + 0x1c);
   UINT_007f44e8 = *(uint *)(param_1 + 0x6c);
   UINT_007f44f4 = *(uint *)(param_1 + 0x70);
-  UINT_008ddea4 = *(uint *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x14);
+  UINT_008ddea4 = *(uint *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x14);
   if (*(int *)(param_1 + 0x50) == 0) {
     UINT_007f44ec = 1;
     UINT_007f4580 = 0xffffffff;
@@ -30493,8 +30493,8 @@ void rdRaster_Span8_TexKeyZw_3(uint *param_1,uint *param_2)
     fVar5 = fVar4 * _DAT_008dde60 + (float)param_1[6];
     fVar4 = fVar4 * _DAT_008dde80 + (float)param_1[8];
     param_2 = (uint *)(int)ROUND((float)local_34 * 65536.0);
-    iVar9 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
-    iVar1 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+    iVar9 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
+    iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     pbVar12 = (byte *)(*(int *)(iVar9 + 0x18) * param_1[0x10] + *(int *)(iVar9 + 0x5c) + uVar16);
     local_14 = (uint)((1.0 / (float)local_34) * fVar5);
     local_18 = (uint)((1.0 / (float)local_34) * fVar4);
@@ -30743,11 +30743,11 @@ void rdRaster_Span16_TexKeyZw_4(uint *param_1,uint *param_2)
     local_30 = (uint)(fVar3 * _DAT_008dde60 + (float)param_1[6]);
     fVar3 = fVar3 * _DAT_008dde80 + (float)param_1[8];
     param_2 = (uint *)(int)ROUND((float)local_34 * 65536.0);
-    iVar8 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar8 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     puVar16 = (ushort *)
               (*(int *)(iVar8 + 0x5c) +
               ((*(uint *)(iVar8 + 0x18) >> 1) * param_1[0x10] + uVar13) * 2);
-    iVar8 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+    iVar8 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     local_14 = (uint)((1.0 / (float)local_34) * (float)local_30);
     local_18 = (uint)((1.0 / (float)local_34) * fVar3);
     param_1 = (uint *)(*(int *)(iVar8 + 0x18) * param_1[0x10] + uVar13 * 2 + *(int *)(iVar8 + 0x5c))
@@ -30947,7 +30947,7 @@ void rdRaster_Draw_FlatLit_12(int param_1,int param_2)
   #define local_8 (*(uint *)(_frame + (0xa0 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0xa0 - 0x4)))
   
-  iVar2 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
+  iVar2 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   UINT_007f4464 = *(int *)(*(int *)(param_2 + 0x1c) + 0x18) - 1;
   PTR_007f44fc = *(int **)(param_1 + 0x20);
   UINT_007f4584 = *(uint *)(param_1 + 0x24);
@@ -30961,7 +30961,7 @@ void rdRaster_Draw_FlatLit_12(int param_1,int param_2)
   UINT_007f4460 = *(uint *)(param_1 + 0x1c);
   UINT_007f44e8 = *(uint *)(param_1 + 0x6c);
   UINT_007f44f4 = *(uint *)(param_1 + 0x70);
-  UINT_008ddea4 = *(uint *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x14);
+  UINT_008ddea4 = *(uint *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x14);
   if (*(int *)(param_1 + 0x50) == 0) {
     UINT_007f44ec = 1;
     UINT_007f4580 = 0xffffffff;
@@ -31198,8 +31198,8 @@ void rdRaster_Span_TexZ_2(uint *param_1,uint *param_2)
     lVar2 = (longlong)(int)(uVar16 - *param_1) * (longlong)(int)local_38;
     uVar16 = ((uint)lVar2 >> 0x10 | (int)((ulonglong)lVar2 >> 0x20) << 0x10) + param_1[0xe];
     local_18 = (uint)ROUND(fVar5 * 65536.0);
-    iVar10 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
-    iVar1 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+    iVar10 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
+    iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     local_10 = (uint)((1.0 / fVar5) * (float)local_34);
     local_2c = *(int *)(iVar10 + 0x18) * param_1[0x10] + *(int *)(iVar10 + 0x5c) + uVar12;
     puVar17 = (ushort *)
@@ -31464,8 +31464,8 @@ void rdRaster_Span16_TexZ_6(uint *param_1,uint *param_2)
     lVar2 = (longlong)(int)(uVar19 - *param_1) * (longlong)(int)local_38;
     iVar11 = ((uint)lVar2 >> 0x10 | (int)((ulonglong)lVar2 >> 0x20) << 0x10) + param_1[0xe];
     local_1c = (uint)ROUND((float)local_34 * 65536.0);
-    iVar10 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
-    iVar1 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+    iVar10 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
+    iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     puVar12 = (undefined2 *)
               (*(int *)(iVar10 + 0x5c) +
               ((*(uint *)(iVar10 + 0x18) >> 1) * param_1[0x10] + uVar9) * 2);
@@ -31827,7 +31827,7 @@ void rdRaster_Draw_TexLitZ_9(int param_1,int param_2)
   #define local_8 (*(uint *)(_frame + (0xa0 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0xa0 - 0x4)))
   
-  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
+  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   UINT_007f4464 = *(int *)(*(int *)(param_2 + 0x1c) + 0x18) - 1;
   PTR_007f44fc = *(int **)(param_1 + 0x20);
   UINT_007f4584 = *(uint *)(param_1 + 0x24);
@@ -31839,11 +31839,11 @@ void rdRaster_Draw_TexLitZ_9(int param_1,int param_2)
     UINT_008dde5c = *(uint *)(*(int *)(param_1 + 0x4c) + 0x348);
     UINT_008dde44 = *(uint *)(*(int *)(param_1 + 0x4c) + 0x34c);
   }
-  UINT_008dde90 = *(uint *)(UINT_004f5ec4 + 0x338);
+  UINT_008dde90 = *(uint *)(g_dwRdColormap_pCurMap + 0x338);
   UINT_007f4460 = *(uint *)(param_1 + 0x1c);
   UINT_007f44e8 = *(uint *)(param_1 + 0x6c);
   UINT_007f44f4 = *(uint *)(param_1 + 0x70);
-  UINT_008ddea4 = *(uint *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x14);
+  UINT_008ddea4 = *(uint *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x14);
   if (*(int *)(param_1 + 0x50) == 0) {
     UINT_007f44ec = 1;
     UINT_007f4580 = 0xffffffff;
@@ -32026,8 +32026,8 @@ void rdRaster_Span8_TexZ_4(uint *param_1,uint *param_2)
     lVar2 = (longlong)(int)(uVar17 - *param_1) * (longlong)(int)local_38;
     uVar17 = ((uint)lVar2 >> 0x10 | (int)((ulonglong)lVar2 >> 0x20) << 0x10) + param_1[0xe];
     local_18 = (uint)ROUND(fVar5 * 65536.0);
-    iVar10 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
-    iVar1 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+    iVar10 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
+    iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     local_10 = (uint)((1.0 / fVar5) * (float)local_34);
     pbVar11 = (byte *)(*(int *)(iVar10 + 0x18) * param_1[0x10] + *(int *)(iVar10 + 0x5c) + uVar13);
     local_2c = *(int *)(iVar1 + 0x18) * param_1[0x10] + uVar13 * 2 + *(int *)(iVar1 + 0x5c);
@@ -32297,8 +32297,8 @@ void rdRaster_Span16_TexZ_7(uint *param_1,uint *param_2)
     fVar17 = (float)local_38 * 65536.0;
     iVar11 = ((uint)lVar2 >> 0x10 | (int)((ulonglong)lVar2 >> 0x20) << 0x10) + param_1[0xe];
     local_1c = (uint)ROUND(fVar17);
-    iVar10 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
-    iVar1 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+    iVar10 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
+    iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     puVar12 = (ushort *)
               (*(int *)(iVar10 + 0x5c) +
               ((*(uint *)(iVar10 + 0x18) >> 1) * param_1[0x10] + uVar9) * 2);
@@ -32522,7 +32522,7 @@ void rdRaster_Draw_TexLitKeyZw_11(int param_1,int param_2)
   #define local_8 (*(uint *)(_frame + (0xa0 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0xa0 - 0x4)))
   
-  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
+  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   UINT_007f4464 = *(int *)(*(int *)(param_2 + 0x1c) + 0x18) - 1;
   PTR_007f44fc = *(int **)(param_1 + 0x20);
   UINT_007f4584 = *(uint *)(param_1 + 0x24);
@@ -32536,7 +32536,7 @@ void rdRaster_Draw_TexLitKeyZw_11(int param_1,int param_2)
   UINT_007f4460 = *(uint *)(param_1 + 0x1c);
   UINT_007f44e8 = *(uint *)(param_1 + 0x6c);
   UINT_007f44f4 = *(uint *)(param_1 + 0x70);
-  UINT_008ddea4 = *(uint *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x14);
+  UINT_008ddea4 = *(uint *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x14);
   if (*(int *)(param_1 + 0x50) == 0) {
     UINT_007f44ec = 1;
     UINT_007f4580 = 0xffffffff;
@@ -32722,8 +32722,8 @@ void rdRaster_Span8_TexKeyZw_4(uint *param_1,uint *param_2)
     lVar2 = (longlong)(int)(uVar19 - *param_1) * (longlong)(int)local_3c;
     iVar11 = ((uint)lVar2 >> 0x10 | (int)((ulonglong)lVar2 >> 0x20) << 0x10) + param_1[0xe];
     local_8 = (uint)ROUND((float)local_38 * 65536.0);
-    iVar10 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
-    iVar1 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+    iVar10 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
+    iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     puVar16 = (undefined1 *)
               (*(int *)(iVar10 + 0x18) * param_1[0x10] + *(int *)(iVar10 + 0x5c) + uVar20);
     local_18 = (uint)((1.0 / (float)local_38) * fVar6);
@@ -32992,11 +32992,11 @@ void rdRaster_Span16_TexKeyZw_5(uint *param_1,uint *param_2)
     lVar1 = (longlong)(int)(uVar18 - *param_1) * (longlong)(int)local_3c;
     iVar10 = ((uint)lVar1 >> 0x10 | (int)((ulonglong)lVar1 >> 0x20) << 0x10) + param_1[0xe];
     local_8 = (uint)ROUND((float)local_38 * 65536.0);
-    iVar9 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar9 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     puVar15 = (undefined2 *)
               (*(int *)(iVar9 + 0x5c) +
               ((*(uint *)(iVar9 + 0x18) >> 1) * param_1[0x10] + uVar19) * 2);
-    iVar9 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+    iVar9 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     local_18 = (uint)((1.0 / (float)local_38) * fVar5);
     local_1c = (uint)((1.0 / (float)local_38) * fVar4);
     puVar11 = (ushort *)
@@ -33199,7 +33199,7 @@ void rdRaster_Draw_TexLitKeyZw_12(int param_1,int param_2)
   #define local_8 (*(uint *)(_frame + (0xa0 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0xa0 - 0x4)))
   
-  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4) + 0x24);
+  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   UINT_007f4464 = *(int *)(*(int *)(param_2 + 0x1c) + 0x18) - 1;
   PTR_007f44fc = *(int **)(param_1 + 0x20);
   UINT_007f4584 = *(uint *)(param_1 + 0x24);
@@ -33211,11 +33211,11 @@ void rdRaster_Draw_TexLitKeyZw_12(int param_1,int param_2)
     UINT_008dde5c = *(uint *)(*(int *)(param_1 + 0x4c) + 0x348);
     UINT_008dde44 = *(uint *)(*(int *)(param_1 + 0x4c) + 0x34c);
   }
-  UINT_008dde90 = *(uint *)(UINT_004f5ec4 + 0x338);
+  UINT_008dde90 = *(uint *)(g_dwRdColormap_pCurMap + 0x338);
   UINT_007f4460 = *(uint *)(param_1 + 0x1c);
   UINT_007f44e8 = *(uint *)(param_1 + 0x6c);
   UINT_007f44f4 = *(uint *)(param_1 + 0x70);
-  UINT_008ddea4 = *(uint *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x14);
+  UINT_008ddea4 = *(uint *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x14);
   if (*(int *)(param_1 + 0x50) == 0) {
     UINT_007f44ec = 1;
     UINT_007f4580 = 0xffffffff;
@@ -33402,8 +33402,8 @@ void rdRaster_Span8_TexKeyZw_5(uint *param_1,uint *param_2)
     fVar20 = (float)local_38 * 65536.0;
     iVar11 = ((uint)lVar2 >> 0x10 | (int)((ulonglong)lVar2 >> 0x20) << 0x10) + param_1[0xe];
     local_1c = (uint)ROUND(fVar20);
-    iVar10 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
-    iVar1 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+    iVar10 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
+    iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     pbVar12 = (byte *)(*(int *)(iVar10 + 0x18) * param_1[0x10] + *(int *)(iVar10 + 0x5c) + uVar14);
     local_14 = (uint)((1.0 / (float)local_38) * (float)local_34);
     local_18 = (uint)((1.0 / (float)local_38) * fVar5);
@@ -33674,8 +33674,8 @@ void rdRaster_Span16_TexKeyZw_6(uint *param_1,uint *param_2)
     fVar20 = (float)local_38 * 65536.0;
     iVar11 = ((uint)lVar2 >> 0x10 | (int)((ulonglong)lVar2 >> 0x20) << 0x10) + param_1[0xe];
     local_1c = (uint)ROUND(fVar20);
-    iVar10 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
-    iVar1 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+    iVar10 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
+    iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     puVar12 = (ushort *)
               (*(int *)(iVar10 + 0x5c) +
               ((*(uint *)(iVar10 + 0x18) >> 1) * param_1[0x10] + uVar9) * 2);
@@ -33871,7 +33871,7 @@ void rdRaster_SpanR_FlatZw(int *param_1)
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   
   uVar1 = UINT_008ddf24;
-  iVar6 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+  iVar6 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
   puVar3 = (undefined4 *)
            (param_1[2] * *(int *)(iVar6 + 0x18) + *param_1 * 2 + *(int *)(iVar6 + 0x5c));
   UINT_007f4b74 = (uint)ROUND(PUN(float,param_1[7]) * 65536.0);
@@ -33925,10 +33925,10 @@ void rdRaster_SpanR_FlatZw_2(int *param_1)
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   
   uVar2 = UINT_008ddf24;
-  iVar1 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+  iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
   puVar8 = (undefined4 *)
            (param_1[2] * *(int *)(iVar1 + 0x18) + *param_1 * 2 + *(int *)(iVar1 + 0x5c));
-  UINT_007f4b40 = *(uint *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x14);
+  UINT_007f4b40 = *(uint *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x14);
   UINT_007f4b74 = (uint)ROUND(PUN(float,param_1[7]) * 65536.0);
   UINT_007f4ad0 = param_1[1];
   bVar4 = (byte)UINT_007f4b40;
@@ -33974,7 +33974,7 @@ void rdRaster_SpanR16_Tex(int *param_1)
   uVar3 = UINT_008ddf30;
   UINT_007f4b54 = param_1[4];
   UINT_007f4adc = param_1[6];
-  iVar2 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+  iVar2 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
   uVar1 = *(int *)(iVar2 + 0x5c) + (param_1[2] * (*(uint *)(iVar2 + 0x18) >> 1) + *param_1) * 2;
   uVar4 = param_1[1];
   UINT_007f4b6c = param_1[3] + UINT_008ddf44 + UINT_007f4b54 * (uVar4 - 1);
@@ -34018,7 +34018,7 @@ void rdRaster_SpanR16_Tex_2(int *param_1)
   
   UINT_007f4b54 = param_1[4];
   UINT_007f4adc = param_1[6];
-  iVar2 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+  iVar2 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
   uVar1 = *(int *)(iVar2 + 0x5c) + (param_1[2] * (*(uint *)(iVar2 + 0x18) >> 1) + *param_1) * 2;
   uVar6 = param_1[1];
   uVar5 = param_1[3] + UINT_008ddf44 + UINT_007f4b54 * (uVar6 - 1);
@@ -34065,7 +34065,7 @@ void rdRaster_SpanR16_Tex_3(int *param_1)
   
   UINT_007f4b54 = param_1[4];
   UINT_007f4adc = param_1[6];
-  iVar2 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+  iVar2 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
   uVar1 = *(int *)(iVar2 + 0x5c) + (param_1[2] * (*(uint *)(iVar2 + 0x18) >> 1) + *param_1) * 2;
   uVar6 = param_1[1];
   uVar5 = param_1[3] + UINT_008ddf44 + UINT_007f4b54 * (uVar6 - 1);
@@ -34112,7 +34112,7 @@ void rdRaster_SpanR16_Tex_4(int *param_1)
   
   UINT_007f4b54 = param_1[4];
   UINT_007f4adc = param_1[6];
-  iVar2 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+  iVar2 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
   uVar1 = *(int *)(iVar2 + 0x5c) + (param_1[2] * (*(uint *)(iVar2 + 0x18) >> 1) + *param_1) * 2;
   uVar6 = param_1[1];
   uVar5 = param_1[3] + UINT_008ddf44 + UINT_007f4b54 * (uVar6 - 1);
@@ -34159,7 +34159,7 @@ void rdRaster_SpanR16_TexLit(int *param_1)
   
   UINT_007f4b54 = param_1[4];
   UINT_007f4adc = param_1[6];
-  iVar2 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+  iVar2 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
   uVar1 = *(int *)(iVar2 + 0x5c) + (param_1[2] * (*(uint *)(iVar2 + 0x18) >> 1) + *param_1) * 2;
   uVar6 = param_1[1];
   uVar5 = param_1[3] + UINT_008ddf44 + UINT_007f4b54 * (uVar6 - 1);
@@ -34206,7 +34206,7 @@ void rdRaster_SpanR16_Tex_5(int *param_1)
   
   UINT_007f4b54 = param_1[4];
   UINT_007f4adc = param_1[6];
-  iVar2 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+  iVar2 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
   uVar1 = *(int *)(iVar2 + 0x5c) + (param_1[2] * (*(uint *)(iVar2 + 0x18) >> 1) + *param_1) * 2;
   uVar6 = param_1[1];
   uVar5 = param_1[3] + UINT_008ddf44 + UINT_007f4b54 * (uVar6 - 1);
@@ -34253,7 +34253,7 @@ void rdRaster_SpanR16_Tex_6(int *param_1)
   
   UINT_007f4b54 = param_1[4];
   UINT_007f4adc = param_1[6];
-  iVar2 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+  iVar2 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
   uVar1 = *(int *)(iVar2 + 0x5c) + (param_1[2] * (*(uint *)(iVar2 + 0x18) >> 1) + *param_1) * 2;
   uVar6 = param_1[1];
   uVar5 = param_1[3] + UINT_008ddf44 + UINT_007f4b54 * (uVar6 - 1);
@@ -34298,7 +34298,7 @@ void rdRaster_SpanR16_Tex_7(int *param_1)
   uVar3 = UINT_008ddf30;
   UINT_007f4b54 = param_1[4];
   UINT_007f4adc = param_1[6];
-  iVar2 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+  iVar2 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
   uVar1 = *(int *)(iVar2 + 0x5c) + (param_1[2] * (*(uint *)(iVar2 + 0x18) >> 1) + *param_1) * 2;
   uVar4 = param_1[1];
   UINT_007f4b6c = param_1[3] + UINT_008ddf44 + UINT_007f4b54 * (uVar4 - 1);
@@ -34342,7 +34342,7 @@ void rdRaster_SpanR16_Tex_8(int *param_1)
   
   UINT_007f4b54 = param_1[4];
   UINT_007f4adc = param_1[6];
-  iVar2 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+  iVar2 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
   uVar1 = *(int *)(iVar2 + 0x5c) + (param_1[2] * (*(uint *)(iVar2 + 0x18) >> 1) + *param_1) * 2;
   uVar6 = param_1[1];
   uVar5 = param_1[3] + UINT_008ddf44 + UINT_007f4b54 * (uVar6 - 1);
@@ -34389,7 +34389,7 @@ void rdRaster_SpanR16_Tex_9(int *param_1)
   
   UINT_007f4b54 = param_1[4];
   UINT_007f4adc = param_1[6];
-  iVar2 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+  iVar2 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
   uVar1 = *(int *)(iVar2 + 0x5c) + (param_1[2] * (*(uint *)(iVar2 + 0x18) >> 1) + *param_1) * 2;
   uVar6 = param_1[1];
   uVar5 = param_1[3] + UINT_008ddf44 + UINT_007f4b54 * (uVar6 - 1);
@@ -34436,7 +34436,7 @@ void rdRaster_SpanR16_Tex_10(int *param_1)
   
   UINT_007f4b54 = param_1[4];
   UINT_007f4adc = param_1[6];
-  iVar2 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+  iVar2 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
   uVar1 = *(int *)(iVar2 + 0x5c) + (param_1[2] * (*(uint *)(iVar2 + 0x18) >> 1) + *param_1) * 2;
   uVar6 = param_1[1];
   uVar5 = param_1[3] + UINT_008ddf44 + UINT_007f4b54 * (uVar6 - 1);
@@ -34483,7 +34483,7 @@ void rdRaster_SpanR16_TexLit_2(int *param_1)
   
   UINT_007f4b54 = param_1[4];
   UINT_007f4adc = param_1[6];
-  iVar2 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+  iVar2 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
   uVar1 = *(int *)(iVar2 + 0x5c) + (param_1[2] * (*(uint *)(iVar2 + 0x18) >> 1) + *param_1) * 2;
   uVar6 = param_1[1];
   uVar5 = param_1[3] + UINT_008ddf44 + UINT_007f4b54 * (uVar6 - 1);
@@ -34530,7 +34530,7 @@ void rdRaster_SpanR16_Tex_11(int *param_1)
   
   UINT_007f4b54 = param_1[4];
   UINT_007f4adc = param_1[6];
-  iVar2 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+  iVar2 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
   uVar1 = *(int *)(iVar2 + 0x5c) + (param_1[2] * (*(uint *)(iVar2 + 0x18) >> 1) + *param_1) * 2;
   uVar6 = param_1[1];
   uVar5 = param_1[3] + UINT_008ddf44 + UINT_007f4b54 * (uVar6 - 1);
@@ -34577,7 +34577,7 @@ void rdRaster_SpanR16_Tex_12(int *param_1)
   
   UINT_007f4b54 = param_1[4];
   UINT_007f4adc = param_1[6];
-  iVar2 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+  iVar2 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
   uVar1 = *(int *)(iVar2 + 0x5c) + (param_1[2] * (*(uint *)(iVar2 + 0x18) >> 1) + *param_1) * 2;
   uVar6 = param_1[1];
   uVar5 = param_1[3] + UINT_008ddf44 + UINT_007f4b54 * (uVar6 - 1);
@@ -34623,7 +34623,7 @@ void rdRaster_SpanR16_TexLit_3(int *param_1)
   UINT_007f4b54 = param_1[4];
   UINT_007f4adc = param_1[6];
   UINT_007f4b30 = param_1[9];
-  iVar3 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+  iVar3 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
   uVar1 = *(int *)(iVar3 + 0x5c) + (param_1[2] * (*(uint *)(iVar3 + 0x18) >> 1) + *param_1) * 2;
   uVar4 = param_1[1];
   iVar3 = uVar4 - 1;
@@ -34675,7 +34675,7 @@ void rdRaster_SpanR16_TexLit_4(int *param_1)
   UINT_007f4b54 = param_1[4];
   UINT_007f4adc = param_1[6];
   UINT_007f4b30 = param_1[9];
-  iVar2 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+  iVar2 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
   uVar1 = *(int *)(iVar2 + 0x5c) + (param_1[2] * (*(uint *)(iVar2 + 0x18) >> 1) + *param_1) * 2;
   uVar7 = param_1[1];
   iVar2 = uVar7 - 1;
@@ -34732,7 +34732,7 @@ void rdRaster_SpanR16_TexLit_5(int *param_1)
   UINT_007f4b54 = param_1[4];
   UINT_007f4adc = param_1[6];
   UINT_007f4b30 = param_1[9];
-  iVar2 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+  iVar2 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
   uVar1 = *(int *)(iVar2 + 0x5c) + (param_1[2] * (*(uint *)(iVar2 + 0x18) >> 1) + *param_1) * 2;
   uVar7 = param_1[1];
   iVar2 = uVar7 - 1;
@@ -34789,7 +34789,7 @@ void rdRaster_SpanR16_TexLit_6(int *param_1)
   UINT_007f4b54 = param_1[4];
   UINT_007f4adc = param_1[6];
   UINT_007f4b30 = param_1[9];
-  iVar2 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+  iVar2 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
   uVar1 = *(int *)(iVar2 + 0x5c) + (param_1[2] * (*(uint *)(iVar2 + 0x18) >> 1) + *param_1) * 2;
   uVar7 = param_1[1];
   iVar2 = uVar7 - 1;
@@ -34846,7 +34846,7 @@ void rdRaster_SpanR16_TexLit_7(int *param_1)
   UINT_007f4b54 = param_1[4];
   UINT_007f4adc = param_1[6];
   UINT_007f4b30 = param_1[9];
-  iVar2 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+  iVar2 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
   uVar1 = *(int *)(iVar2 + 0x5c) + (param_1[2] * (*(uint *)(iVar2 + 0x18) >> 1) + *param_1) * 2;
   uVar7 = param_1[1];
   iVar2 = uVar7 - 1;
@@ -34903,7 +34903,7 @@ void rdRaster_SpanR16_TexLit_8(int *param_1)
   UINT_007f4b54 = param_1[4];
   UINT_007f4adc = param_1[6];
   UINT_007f4b30 = param_1[9];
-  iVar2 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+  iVar2 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
   uVar1 = *(int *)(iVar2 + 0x5c) + (param_1[2] * (*(uint *)(iVar2 + 0x18) >> 1) + *param_1) * 2;
   uVar7 = param_1[1];
   iVar2 = uVar7 - 1;
@@ -34960,7 +34960,7 @@ void rdRaster_SpanR16_TexLit_9(int *param_1)
   UINT_007f4b54 = param_1[4];
   UINT_007f4adc = param_1[6];
   UINT_007f4b30 = param_1[9];
-  iVar2 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+  iVar2 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
   uVar1 = *(int *)(iVar2 + 0x5c) + (param_1[2] * (*(uint *)(iVar2 + 0x18) >> 1) + *param_1) * 2;
   uVar7 = param_1[1];
   iVar2 = uVar7 - 1;
@@ -35050,7 +35050,7 @@ void rdRaster_SpanP16_Tex(uint *param_1)
   *(float *)&DAT_007f4af0 = (float)param_1[4];
   *(float *)&DAT_007f4b58 = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4ae4;
   *(float *)&DAT_007f4b5c = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4af0;
-  iVar6 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+  iVar6 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
   uVar3 = *(int *)(iVar6 + 0x5c) + (param_1[2] * (*(uint *)(iVar6 + 0x18) >> 1) + *param_1) * 2;
   UINT_007f4b44 = uVar5;
   if (uVar5 == 0) {
@@ -35254,7 +35254,7 @@ void rdRaster_SpanP16_Tex_2(uint *param_1)
   *(float *)&DAT_007f4af0 = (float)param_1[4];
   *(float *)&DAT_007f4b58 = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4ae4;
   *(float *)&DAT_007f4b5c = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4af0;
-  iVar9 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+  iVar9 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
   uVar5 = *(int *)(iVar9 + 0x5c) + (param_1[2] * (*(uint *)(iVar9 + 0x18) >> 1) + *param_1) * 2;
   UINT_007f4b44 = uVar8;
   if (uVar8 == 0) {
@@ -35459,7 +35459,7 @@ void rdRaster_SpanP16_Tex_3(uint *param_1)
   *(float *)&DAT_007f4af0 = (float)param_1[4];
   *(float *)&DAT_007f4b58 = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4ae4;
   *(float *)&DAT_007f4b5c = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4af0;
-  iVar9 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+  iVar9 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
   uVar5 = *(int *)(iVar9 + 0x5c) + (param_1[2] * (*(uint *)(iVar9 + 0x18) >> 1) + *param_1) * 2;
   UINT_007f4b44 = uVar8;
   if (uVar8 == 0) {
@@ -35664,7 +35664,7 @@ void rdRaster_SpanP16_Tex_4(uint *param_1)
   *(float *)&DAT_007f4af0 = (float)param_1[4];
   *(float *)&DAT_007f4b58 = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4ae4;
   *(float *)&DAT_007f4b5c = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4af0;
-  iVar9 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+  iVar9 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
   uVar5 = *(int *)(iVar9 + 0x5c) + (param_1[2] * (*(uint *)(iVar9 + 0x18) >> 1) + *param_1) * 2;
   UINT_007f4b44 = uVar8;
   if (uVar8 == 0) {
@@ -35869,7 +35869,7 @@ void rdRaster_SpanP16_TexLit(uint *param_1)
   *(float *)&DAT_007f4af0 = (float)param_1[4];
   *(float *)&DAT_007f4b58 = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4ae4;
   *(float *)&DAT_007f4b5c = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4af0;
-  iVar9 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+  iVar9 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
   uVar5 = *(int *)(iVar9 + 0x5c) + (param_1[2] * (*(uint *)(iVar9 + 0x18) >> 1) + *param_1) * 2;
   UINT_007f4b44 = uVar8;
   if (uVar8 == 0) {
@@ -36074,7 +36074,7 @@ void rdRaster_SpanP16_Tex_5(uint *param_1)
   *(float *)&DAT_007f4af0 = (float)param_1[4];
   *(float *)&DAT_007f4b58 = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4ae4;
   *(float *)&DAT_007f4b5c = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4af0;
-  iVar9 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+  iVar9 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
   uVar5 = *(int *)(iVar9 + 0x5c) + (param_1[2] * (*(uint *)(iVar9 + 0x18) >> 1) + *param_1) * 2;
   UINT_007f4b44 = uVar8;
   if (uVar8 == 0) {
@@ -36279,7 +36279,7 @@ void rdRaster_SpanP16_Tex_6(uint *param_1)
   *(float *)&DAT_007f4af0 = (float)param_1[4];
   *(float *)&DAT_007f4b58 = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4ae4;
   *(float *)&DAT_007f4b5c = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4af0;
-  iVar9 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+  iVar9 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
   uVar5 = *(int *)(iVar9 + 0x5c) + (param_1[2] * (*(uint *)(iVar9 + 0x18) >> 1) + *param_1) * 2;
   UINT_007f4b44 = uVar8;
   if (uVar8 == 0) {
@@ -36483,7 +36483,7 @@ void rdRaster_SpanP16_Tex_7(uint *param_1)
   *(float *)&DAT_007f4af0 = (float)param_1[4];
   *(float *)&DAT_007f4b58 = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4ae4;
   *(float *)&DAT_007f4b5c = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4af0;
-  iVar6 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+  iVar6 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
   uVar3 = *(int *)(iVar6 + 0x5c) + (param_1[2] * (*(uint *)(iVar6 + 0x18) >> 1) + *param_1) * 2;
   UINT_007f4b44 = uVar5;
   if (uVar5 == 0) {
@@ -36687,7 +36687,7 @@ void rdRaster_SpanP16_Tex_8(uint *param_1)
   *(float *)&DAT_007f4af0 = (float)param_1[4];
   *(float *)&DAT_007f4b58 = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4ae4;
   *(float *)&DAT_007f4b5c = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4af0;
-  iVar9 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+  iVar9 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
   uVar5 = *(int *)(iVar9 + 0x5c) + (param_1[2] * (*(uint *)(iVar9 + 0x18) >> 1) + *param_1) * 2;
   UINT_007f4b44 = uVar8;
   if (uVar8 == 0) {
@@ -36892,7 +36892,7 @@ void rdRaster_SpanP16_Tex_9(uint *param_1)
   *(float *)&DAT_007f4af0 = (float)param_1[4];
   *(float *)&DAT_007f4b58 = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4ae4;
   *(float *)&DAT_007f4b5c = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4af0;
-  iVar9 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+  iVar9 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
   uVar5 = *(int *)(iVar9 + 0x5c) + (param_1[2] * (*(uint *)(iVar9 + 0x18) >> 1) + *param_1) * 2;
   UINT_007f4b44 = uVar8;
   if (uVar8 == 0) {
@@ -37097,7 +37097,7 @@ void rdRaster_SpanP16_Tex_10(uint *param_1)
   *(float *)&DAT_007f4af0 = (float)param_1[4];
   *(float *)&DAT_007f4b58 = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4ae4;
   *(float *)&DAT_007f4b5c = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4af0;
-  iVar9 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+  iVar9 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
   uVar5 = *(int *)(iVar9 + 0x5c) + (param_1[2] * (*(uint *)(iVar9 + 0x18) >> 1) + *param_1) * 2;
   UINT_007f4b44 = uVar8;
   if (uVar8 == 0) {
@@ -37302,7 +37302,7 @@ void rdRaster_SpanP16_TexLit_2(uint *param_1)
   *(float *)&DAT_007f4af0 = (float)param_1[4];
   *(float *)&DAT_007f4b58 = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4ae4;
   *(float *)&DAT_007f4b5c = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4af0;
-  iVar9 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+  iVar9 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
   uVar5 = *(int *)(iVar9 + 0x5c) + (param_1[2] * (*(uint *)(iVar9 + 0x18) >> 1) + *param_1) * 2;
   UINT_007f4b44 = uVar8;
   if (uVar8 == 0) {
@@ -37507,7 +37507,7 @@ void rdRaster_SpanP16_Tex_11(uint *param_1)
   *(float *)&DAT_007f4af0 = (float)param_1[4];
   *(float *)&DAT_007f4b58 = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4ae4;
   *(float *)&DAT_007f4b5c = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4af0;
-  iVar9 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+  iVar9 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
   uVar5 = *(int *)(iVar9 + 0x5c) + (param_1[2] * (*(uint *)(iVar9 + 0x18) >> 1) + *param_1) * 2;
   UINT_007f4b44 = uVar8;
   if (uVar8 == 0) {
@@ -37712,7 +37712,7 @@ void rdRaster_SpanP16_Tex_12(uint *param_1)
   *(float *)&DAT_007f4af0 = (float)param_1[4];
   *(float *)&DAT_007f4b58 = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4ae4;
   *(float *)&DAT_007f4b5c = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4af0;
-  iVar9 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+  iVar9 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
   uVar5 = *(int *)(iVar9 + 0x5c) + (param_1[2] * (*(uint *)(iVar9 + 0x18) >> 1) + *param_1) * 2;
   UINT_007f4b44 = uVar8;
   if (uVar8 == 0) {
@@ -37918,7 +37918,7 @@ void rdRaster_SpanP16_TexLit_3(uint *param_1)
   UINT_007f4b68 = param_1[8];
   *(float *)&DAT_007f4b58 = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4ae4;
   *(float *)&DAT_007f4b5c = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4af0;
-  iVar2 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+  iVar2 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
   uVar4 = *(int *)(iVar2 + 0x5c) + (param_1[2] * (*(uint *)(iVar2 + 0x18) >> 1) + *param_1) * 2;
   UINT_007f4b44 = uVar6;
   if (uVar6 == 0) {
@@ -38142,7 +38142,7 @@ void rdRaster_SpanP16_TexLit_4(uint *param_1)
   UINT_007f4b68 = param_1[8];
   *(float *)&DAT_007f4b58 = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4ae4;
   *(float *)&DAT_007f4b5c = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4af0;
-  iVar2 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+  iVar2 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
   uVar5 = *(int *)(iVar2 + 0x5c) + (param_1[2] * (*(uint *)(iVar2 + 0x18) >> 1) + *param_1) * 2;
   UINT_007f4b44 = uVar9;
   if (uVar9 == 0) {
@@ -38370,7 +38370,7 @@ void rdRaster_SpanP16_TexLit_5(uint *param_1)
   UINT_007f4b68 = param_1[8];
   *(float *)&DAT_007f4b58 = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4ae4;
   *(float *)&DAT_007f4b5c = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4af0;
-  iVar2 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+  iVar2 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
   uVar5 = *(int *)(iVar2 + 0x5c) + (param_1[2] * (*(uint *)(iVar2 + 0x18) >> 1) + *param_1) * 2;
   UINT_007f4b44 = uVar9;
   if (uVar9 == 0) {
@@ -38598,7 +38598,7 @@ void rdRaster_SpanP16_TexLit_6(uint *param_1)
   UINT_007f4b68 = param_1[8];
   *(float *)&DAT_007f4b58 = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4ae4;
   *(float *)&DAT_007f4b5c = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4af0;
-  iVar2 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+  iVar2 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
   uVar5 = *(int *)(iVar2 + 0x5c) + (param_1[2] * (*(uint *)(iVar2 + 0x18) >> 1) + *param_1) * 2;
   UINT_007f4b44 = uVar9;
   if (uVar9 == 0) {
@@ -38826,7 +38826,7 @@ void rdRaster_SpanP16_TexLit_7(uint *param_1)
   UINT_007f4b68 = param_1[8];
   *(float *)&DAT_007f4b58 = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4ae4;
   *(float *)&DAT_007f4b5c = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4af0;
-  iVar2 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+  iVar2 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
   uVar5 = *(int *)(iVar2 + 0x5c) + (param_1[2] * (*(uint *)(iVar2 + 0x18) >> 1) + *param_1) * 2;
   UINT_007f4b44 = uVar9;
   if (uVar9 == 0) {
@@ -39054,7 +39054,7 @@ void rdRaster_SpanP16_TexLit_8(uint *param_1)
   UINT_007f4b68 = param_1[8];
   *(float *)&DAT_007f4b58 = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4ae4;
   *(float *)&DAT_007f4b5c = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4af0;
-  iVar2 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+  iVar2 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
   uVar5 = *(int *)(iVar2 + 0x5c) + (param_1[2] * (*(uint *)(iVar2 + 0x18) >> 1) + *param_1) * 2;
   UINT_007f4b44 = uVar9;
   if (uVar9 == 0) {
@@ -39282,7 +39282,7 @@ void rdRaster_SpanP16_TexLit_9(uint *param_1)
   UINT_007f4b68 = param_1[8];
   *(float *)&DAT_007f4b58 = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4ae4;
   *(float *)&DAT_007f4b5c = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4af0;
-  iVar2 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+  iVar2 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
   uVar5 = *(int *)(iVar2 + 0x5c) + (param_1[2] * (*(uint *)(iVar2 + 0x18) >> 1) + *param_1) * 2;
   UINT_007f4b44 = uVar9;
   if (uVar9 == 0) {
@@ -39506,10 +39506,10 @@ void rdRaster_Span16_TexLitZw(uint *param_1,uint *param_2)
     }
     fVar5 = ((float)param_2[4] - (float)param_1[4]) * (float)(&UINT_008fe000)[uVar9];
     UINT_007f4c54 = (uint)ROUND(fVar5 * 65536.0);
-    iVar1 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     UINT_007f4cc4 =
          *(int *)(iVar1 + 0x5c) + ((*(uint *)(iVar1 + 0x18) >> 1) * param_1[0x10] + iVar10) * 2;
-    iVar1 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+    iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     UINT_007f4ca4 = *(int *)(iVar1 + 0x18) * param_1[0x10] + iVar10 * 2 + *(int *)(iVar1 + 0x5c);
     iVar10 = uVar9 - 1;
     UINT_007f4cfc =
@@ -39619,10 +39619,10 @@ void rdRaster_Span16_TexLitZw_2(uint *param_1,uint *param_2)
     }
     fVar6 = ((float)param_2[4] - (float)param_1[4]) * (float)(&UINT_008fe000)[UINT_007f4cac];
     UINT_007f4c54 = (uint)ROUND(fVar6 * 65536.0);
-    iVar1 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     UINT_007f4cc4 =
          *(int *)(iVar1 + 0x5c) + ((*(uint *)(iVar1 + 0x18) >> 1) * param_1[0x10] + iVar13) * 2;
-    iVar1 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+    iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     UINT_007f4ca4 = *(int *)(iVar1 + 0x18) * param_1[0x10] + iVar13 * 2 + *(int *)(iVar1 + 0x5c);
     iVar13 = UINT_007f4cac - 1;
     uVar15 = UINT_007f4c54 * iVar13 +
@@ -39743,10 +39743,10 @@ void rdRaster_Span16_TexLitZw_3(uint *param_1,uint *param_2)
     }
     fVar6 = ((float)param_2[4] - (float)param_1[4]) * (float)(&UINT_008fe000)[UINT_007f4cac];
     UINT_007f4c54 = (uint)ROUND(fVar6 * 65536.0);
-    iVar1 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     UINT_007f4cc4 =
          *(int *)(iVar1 + 0x5c) + ((*(uint *)(iVar1 + 0x18) >> 1) * param_1[0x10] + iVar13) * 2;
-    iVar1 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+    iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     UINT_007f4ca4 = *(int *)(iVar1 + 0x18) * param_1[0x10] + iVar13 * 2 + *(int *)(iVar1 + 0x5c);
     iVar13 = UINT_007f4cac - 1;
     uVar15 = UINT_007f4c54 * iVar13 +
@@ -39867,10 +39867,10 @@ void rdRaster_Span16_TexLitZw_4(uint *param_1,uint *param_2)
     }
     fVar6 = ((float)param_2[4] - (float)param_1[4]) * (float)(&UINT_008fe000)[UINT_007f4cac];
     UINT_007f4c54 = (uint)ROUND(fVar6 * 65536.0);
-    iVar1 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     UINT_007f4cc4 =
          *(int *)(iVar1 + 0x5c) + ((*(uint *)(iVar1 + 0x18) >> 1) * param_1[0x10] + iVar13) * 2;
-    iVar1 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+    iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     UINT_007f4ca4 = *(int *)(iVar1 + 0x18) * param_1[0x10] + iVar13 * 2 + *(int *)(iVar1 + 0x5c);
     iVar13 = UINT_007f4cac - 1;
     uVar15 = UINT_007f4c54 * iVar13 +
@@ -39991,10 +39991,10 @@ void rdRaster_Span16_TexLitZw_5(uint *param_1,uint *param_2)
     }
     fVar6 = ((float)param_2[4] - (float)param_1[4]) * (float)(&UINT_008fe000)[UINT_007f4cac];
     UINT_007f4c54 = (uint)ROUND(fVar6 * 65536.0);
-    iVar1 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     UINT_007f4cc4 =
          *(int *)(iVar1 + 0x5c) + ((*(uint *)(iVar1 + 0x18) >> 1) * param_1[0x10] + iVar13) * 2;
-    iVar1 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+    iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     UINT_007f4ca4 = *(int *)(iVar1 + 0x18) * param_1[0x10] + iVar13 * 2 + *(int *)(iVar1 + 0x5c);
     iVar13 = UINT_007f4cac - 1;
     uVar15 = UINT_007f4c54 * iVar13 +
@@ -40115,10 +40115,10 @@ void rdRaster_Span16_TexLitZw_6(uint *param_1,uint *param_2)
     }
     fVar6 = ((float)param_2[4] - (float)param_1[4]) * (float)(&UINT_008fe000)[UINT_007f4cac];
     UINT_007f4c54 = (uint)ROUND(fVar6 * 65536.0);
-    iVar1 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     UINT_007f4cc4 =
          *(int *)(iVar1 + 0x5c) + ((*(uint *)(iVar1 + 0x18) >> 1) * param_1[0x10] + iVar13) * 2;
-    iVar1 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+    iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     UINT_007f4ca4 = *(int *)(iVar1 + 0x18) * param_1[0x10] + iVar13 * 2 + *(int *)(iVar1 + 0x5c);
     iVar13 = UINT_007f4cac - 1;
     uVar15 = UINT_007f4c54 * iVar13 +
@@ -40239,10 +40239,10 @@ void rdRaster_Span16_TexLitZw_7(uint *param_1,uint *param_2)
     }
     fVar6 = ((float)param_2[4] - (float)param_1[4]) * (float)(&UINT_008fe000)[UINT_007f4cac];
     UINT_007f4c54 = (uint)ROUND(fVar6 * 65536.0);
-    iVar1 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     UINT_007f4cc4 =
          *(int *)(iVar1 + 0x5c) + ((*(uint *)(iVar1 + 0x18) >> 1) * param_1[0x10] + iVar13) * 2;
-    iVar1 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+    iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     UINT_007f4ca4 = *(int *)(iVar1 + 0x18) * param_1[0x10] + iVar13 * 2 + *(int *)(iVar1 + 0x5c);
     iVar13 = UINT_007f4cac - 1;
     uVar15 = UINT_007f4c54 * iVar13 +
@@ -40363,10 +40363,10 @@ void rdRaster_Span16_TexLitZw_8(uint *param_1,uint *param_2)
     }
     fVar6 = ((float)param_2[4] - (float)param_1[4]) * (float)(&UINT_008fe000)[UINT_007f4cac];
     UINT_007f4c54 = (uint)ROUND(fVar6 * 65536.0);
-    iVar1 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     UINT_007f4cc4 =
          *(int *)(iVar1 + 0x5c) + ((*(uint *)(iVar1 + 0x18) >> 1) * param_1[0x10] + iVar13) * 2;
-    iVar1 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+    iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     UINT_007f4ca4 = *(int *)(iVar1 + 0x18) * param_1[0x10] + iVar13 * 2 + *(int *)(iVar1 + 0x5c);
     iVar13 = UINT_007f4cac - 1;
     uVar15 = UINT_007f4c54 * iVar13 +
@@ -40515,10 +40515,10 @@ void rdRaster_Span16_TexZw(uint *param_1,uint *param_2)
     UINT_007f4cf0 = param_1[0xe] + ((uint)lVar1 >> 0x10 | (int)((ulonglong)lVar1 >> 0x20) << 0x10);
     UINT_007f4c54 = UINT_008dde88;
     UINT_007f4cfc = (uint)ROUND(fVar6 * 65536.0);
-    iVar8 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar8 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     UINT_007f4cc4 =
          *(int *)(iVar8 + 0x5c) + ((*(uint *)(iVar8 + 0x18) >> 1) * param_1[0x10] + uVar13) * 2;
-    iVar8 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+    iVar8 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     local_c = (uint)((1.0 / fVar6) * fVar5);
     local_10 = (uint)((1.0 / fVar6) * fVar4);
     UINT_007f4ca4 = *(int *)(iVar8 + 0x18) * param_1[0x10] + uVar13 * 2 + *(int *)(iVar8 + 0x5c);
@@ -40786,10 +40786,10 @@ void rdRaster_Span16_TexLitZw_9(uint *param_1,uint *param_2)
     UINT_007f4cf0 = param_1[0xe] + ((uint)lVar2 >> 0x10 | (int)((ulonglong)lVar2 >> 0x20) << 0x10);
     UINT_007f4c54 = UINT_008dde88;
     UINT_007f4cfc = (uint)ROUND(fVar7 * 65536.0);
-    iVar9 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar9 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     UINT_007f4cc4 =
          *(int *)(iVar9 + 0x5c) + ((*(uint *)(iVar9 + 0x18) >> 1) * param_1[0x10] + uVar15) * 2;
-    iVar9 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+    iVar9 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     local_c = (uint)((1.0 / fVar7) * fVar6);
     local_10 = (uint)((1.0 / fVar7) * fVar5);
     UINT_007f4ca4 = *(int *)(iVar9 + 0x18) * param_1[0x10] + uVar15 * 2 + *(int *)(iVar9 + 0x5c);
@@ -41094,10 +41094,10 @@ void rdRaster_Span16_TexLitZw_10(uint *param_1,uint *param_2)
     UINT_007f4cf0 = param_1[0xe] + ((uint)lVar2 >> 0x10 | (int)((ulonglong)lVar2 >> 0x20) << 0x10);
     UINT_007f4c54 = UINT_008dde88;
     UINT_007f4cfc = (uint)ROUND(fVar7 * 65536.0);
-    iVar9 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar9 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     UINT_007f4cc4 =
          *(int *)(iVar9 + 0x5c) + ((*(uint *)(iVar9 + 0x18) >> 1) * param_1[0x10] + uVar15) * 2;
-    iVar9 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+    iVar9 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     local_c = (uint)((1.0 / fVar7) * fVar6);
     local_10 = (uint)((1.0 / fVar7) * fVar5);
     UINT_007f4ca4 = *(int *)(iVar9 + 0x18) * param_1[0x10] + uVar15 * 2 + *(int *)(iVar9 + 0x5c);
@@ -41402,10 +41402,10 @@ void rdRaster_Span16_TexLitZw_11(uint *param_1,uint *param_2)
     UINT_007f4cf0 = param_1[0xe] + ((uint)lVar2 >> 0x10 | (int)((ulonglong)lVar2 >> 0x20) << 0x10);
     UINT_007f4c54 = UINT_008dde88;
     UINT_007f4cfc = (uint)ROUND(fVar7 * 65536.0);
-    iVar9 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar9 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     UINT_007f4cc4 =
          *(int *)(iVar9 + 0x5c) + ((*(uint *)(iVar9 + 0x18) >> 1) * param_1[0x10] + uVar15) * 2;
-    iVar9 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+    iVar9 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     local_c = (uint)((1.0 / fVar7) * fVar6);
     local_10 = (uint)((1.0 / fVar7) * fVar5);
     UINT_007f4ca4 = *(int *)(iVar9 + 0x18) * param_1[0x10] + uVar15 * 2 + *(int *)(iVar9 + 0x5c);
@@ -41710,10 +41710,10 @@ void rdRaster_Span16_TexLitZw_12(uint *param_1,uint *param_2)
     UINT_007f4cf0 = param_1[0xe] + ((uint)lVar2 >> 0x10 | (int)((ulonglong)lVar2 >> 0x20) << 0x10);
     UINT_007f4c54 = UINT_008dde88;
     UINT_007f4cfc = (uint)ROUND(fVar7 * 65536.0);
-    iVar9 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar9 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     UINT_007f4cc4 =
          *(int *)(iVar9 + 0x5c) + ((*(uint *)(iVar9 + 0x18) >> 1) * param_1[0x10] + uVar15) * 2;
-    iVar9 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+    iVar9 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     local_c = (uint)((1.0 / fVar7) * fVar6);
     local_10 = (uint)((1.0 / fVar7) * fVar5);
     UINT_007f4ca4 = *(int *)(iVar9 + 0x18) * param_1[0x10] + uVar15 * 2 + *(int *)(iVar9 + 0x5c);
@@ -42018,10 +42018,10 @@ void rdRaster_Span16_TexLitZw_13(uint *param_1,uint *param_2)
     UINT_007f4cf0 = param_1[0xe] + ((uint)lVar2 >> 0x10 | (int)((ulonglong)lVar2 >> 0x20) << 0x10);
     UINT_007f4c54 = UINT_008dde88;
     UINT_007f4cfc = (uint)ROUND(fVar7 * 65536.0);
-    iVar9 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar9 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     UINT_007f4cc4 =
          *(int *)(iVar9 + 0x5c) + ((*(uint *)(iVar9 + 0x18) >> 1) * param_1[0x10] + uVar15) * 2;
-    iVar9 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+    iVar9 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     local_c = (uint)((1.0 / fVar7) * fVar6);
     local_10 = (uint)((1.0 / fVar7) * fVar5);
     UINT_007f4ca4 = *(int *)(iVar9 + 0x18) * param_1[0x10] + uVar15 * 2 + *(int *)(iVar9 + 0x5c);
@@ -42326,10 +42326,10 @@ void rdRaster_Span16_TexLitZw_14(uint *param_1,uint *param_2)
     UINT_007f4cf0 = param_1[0xe] + ((uint)lVar2 >> 0x10 | (int)((ulonglong)lVar2 >> 0x20) << 0x10);
     UINT_007f4c54 = UINT_008dde88;
     UINT_007f4cfc = (uint)ROUND(fVar7 * 65536.0);
-    iVar9 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar9 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     UINT_007f4cc4 =
          *(int *)(iVar9 + 0x5c) + ((*(uint *)(iVar9 + 0x18) >> 1) * param_1[0x10] + uVar15) * 2;
-    iVar9 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+    iVar9 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     local_c = (uint)((1.0 / fVar7) * fVar6);
     local_10 = (uint)((1.0 / fVar7) * fVar5);
     UINT_007f4ca4 = *(int *)(iVar9 + 0x18) * param_1[0x10] + uVar15 * 2 + *(int *)(iVar9 + 0x5c);
@@ -42595,10 +42595,10 @@ void rdRaster_Span16_TexLitZw_15(uint *param_1,uint *param_2)
     lVar3 = (longlong)iVar6 * (longlong)(int)uVar5;
     fVar4 = ((float)param_2[4] - (float)param_1[4]) * (float)(&UINT_008fe000)[uVar8];
     UINT_007f4c54 = (uint)ROUND(fVar4 * 65536.0);
-    iVar1 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     UINT_007f4cc4 =
          *(int *)(iVar1 + 0x5c) + ((*(uint *)(iVar1 + 0x18) >> 1) * param_1[0x10] + iVar9) * 2;
-    iVar1 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+    iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     UINT_007f4ca4 = *(int *)(iVar1 + 0x18) * param_1[0x10] + iVar9 * 2 + *(int *)(iVar1 + 0x5c);
     iVar9 = uVar8 - 1;
     UINT_007f4cfc =
@@ -42696,10 +42696,10 @@ void rdRaster_Span16_TexLitZw_16(uint *param_1,uint *param_2)
     lVar4 = (longlong)iVar7 * (longlong)(int)uVar6;
     fVar5 = ((float)param_2[4] - (float)param_1[4]) * (float)(&UINT_008fe000)[UINT_007f4cac];
     UINT_007f4c54 = (uint)ROUND(fVar5 * 65536.0);
-    iVar1 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     UINT_007f4cc4 =
          *(int *)(iVar1 + 0x5c) + ((*(uint *)(iVar1 + 0x18) >> 1) * param_1[0x10] + iVar12) * 2;
-    iVar1 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+    iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     UINT_007f4ca4 = *(int *)(iVar1 + 0x18) * param_1[0x10] + iVar12 * 2 + *(int *)(iVar1 + 0x5c);
     iVar12 = UINT_007f4cac - 1;
     uVar13 = UINT_007f4c54 * iVar12 +
@@ -42805,10 +42805,10 @@ void rdRaster_Span16_TexLitZw_17(uint *param_1,uint *param_2)
     lVar4 = (longlong)iVar7 * (longlong)(int)uVar6;
     fVar5 = ((float)param_2[4] - (float)param_1[4]) * (float)(&UINT_008fe000)[UINT_007f4cac];
     UINT_007f4c54 = (uint)ROUND(fVar5 * 65536.0);
-    iVar1 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     UINT_007f4cc4 =
          *(int *)(iVar1 + 0x5c) + ((*(uint *)(iVar1 + 0x18) >> 1) * param_1[0x10] + iVar12) * 2;
-    iVar1 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+    iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     UINT_007f4ca4 = *(int *)(iVar1 + 0x18) * param_1[0x10] + iVar12 * 2 + *(int *)(iVar1 + 0x5c);
     iVar12 = UINT_007f4cac - 1;
     uVar13 = UINT_007f4c54 * iVar12 +
@@ -42914,10 +42914,10 @@ void rdRaster_Span16_TexLitZw_18(uint *param_1,uint *param_2)
     lVar4 = (longlong)iVar7 * (longlong)(int)uVar6;
     fVar5 = ((float)param_2[4] - (float)param_1[4]) * (float)(&UINT_008fe000)[UINT_007f4cac];
     UINT_007f4c54 = (uint)ROUND(fVar5 * 65536.0);
-    iVar1 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     UINT_007f4cc4 =
          *(int *)(iVar1 + 0x5c) + ((*(uint *)(iVar1 + 0x18) >> 1) * param_1[0x10] + iVar12) * 2;
-    iVar1 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+    iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     UINT_007f4ca4 = *(int *)(iVar1 + 0x18) * param_1[0x10] + iVar12 * 2 + *(int *)(iVar1 + 0x5c);
     iVar12 = UINT_007f4cac - 1;
     uVar13 = UINT_007f4c54 * iVar12 +
@@ -43023,10 +43023,10 @@ void rdRaster_Span16_TexLitZw_19(uint *param_1,uint *param_2)
     lVar4 = (longlong)iVar7 * (longlong)(int)uVar6;
     fVar5 = ((float)param_2[4] - (float)param_1[4]) * (float)(&UINT_008fe000)[UINT_007f4cac];
     UINT_007f4c54 = (uint)ROUND(fVar5 * 65536.0);
-    iVar1 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     UINT_007f4cc4 =
          *(int *)(iVar1 + 0x5c) + ((*(uint *)(iVar1 + 0x18) >> 1) * param_1[0x10] + iVar12) * 2;
-    iVar1 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+    iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     UINT_007f4ca4 = *(int *)(iVar1 + 0x18) * param_1[0x10] + iVar12 * 2 + *(int *)(iVar1 + 0x5c);
     iVar12 = UINT_007f4cac - 1;
     uVar13 = UINT_007f4c54 * iVar12 +
@@ -43132,10 +43132,10 @@ void rdRaster_Span16_TexLitZw_20(uint *param_1,uint *param_2)
     lVar4 = (longlong)iVar7 * (longlong)(int)uVar6;
     fVar5 = ((float)param_2[4] - (float)param_1[4]) * (float)(&UINT_008fe000)[UINT_007f4cac];
     UINT_007f4c54 = (uint)ROUND(fVar5 * 65536.0);
-    iVar1 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     UINT_007f4cc4 =
          *(int *)(iVar1 + 0x5c) + ((*(uint *)(iVar1 + 0x18) >> 1) * param_1[0x10] + iVar12) * 2;
-    iVar1 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+    iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     UINT_007f4ca4 = *(int *)(iVar1 + 0x18) * param_1[0x10] + iVar12 * 2 + *(int *)(iVar1 + 0x5c);
     iVar12 = UINT_007f4cac - 1;
     uVar13 = UINT_007f4c54 * iVar12 +
@@ -43241,10 +43241,10 @@ void rdRaster_Span16_TexLitZw_21(uint *param_1,uint *param_2)
     lVar4 = (longlong)iVar7 * (longlong)(int)uVar6;
     fVar5 = ((float)param_2[4] - (float)param_1[4]) * (float)(&UINT_008fe000)[UINT_007f4cac];
     UINT_007f4c54 = (uint)ROUND(fVar5 * 65536.0);
-    iVar1 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     UINT_007f4cc4 =
          *(int *)(iVar1 + 0x5c) + ((*(uint *)(iVar1 + 0x18) >> 1) * param_1[0x10] + iVar12) * 2;
-    iVar1 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+    iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     UINT_007f4ca4 = *(int *)(iVar1 + 0x18) * param_1[0x10] + iVar12 * 2 + *(int *)(iVar1 + 0x5c);
     iVar12 = UINT_007f4cac - 1;
     uVar13 = UINT_007f4c54 * iVar12 +
@@ -43350,10 +43350,10 @@ void rdRaster_Span16_TexLitZw_22(uint *param_1,uint *param_2)
     lVar4 = (longlong)iVar7 * (longlong)(int)uVar6;
     fVar5 = ((float)param_2[4] - (float)param_1[4]) * (float)(&UINT_008fe000)[UINT_007f4cac];
     UINT_007f4c54 = (uint)ROUND(fVar5 * 65536.0);
-    iVar1 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     UINT_007f4cc4 =
          *(int *)(iVar1 + 0x5c) + ((*(uint *)(iVar1 + 0x18) >> 1) * param_1[0x10] + iVar12) * 2;
-    iVar1 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+    iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     UINT_007f4ca4 = *(int *)(iVar1 + 0x18) * param_1[0x10] + iVar12 * 2 + *(int *)(iVar1 + 0x5c);
     iVar12 = UINT_007f4cac - 1;
     uVar13 = UINT_007f4c54 * iVar12 +
@@ -43486,10 +43486,10 @@ void rdRaster_Span16_TexZw_2(uint *param_1,uint *param_2)
     fVar3 = fVar3 * _DAT_008dde80 + (float)puVar6[8];
     UINT_007f4c54 = UINT_008dde88;
     UINT_007f4cfc = (uint)ROUND(fVar5 * 65536.0);
-    iVar8 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar8 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     UINT_007f4cc4 =
          *(int *)(iVar8 + 0x5c) + ((*(uint *)(iVar8 + 0x18) >> 1) * puVar6[0x10] + uVar13) * 2;
-    iVar8 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+    iVar8 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     local_10 = (uint)((1.0 / fVar5) * fVar4);
     local_14 = (uint)((1.0 / fVar5) * fVar3);
     UINT_007f4ca4 = *(int *)(iVar8 + 0x18) * puVar6[0x10] + uVar13 * 2 + *(int *)(iVar8 + 0x5c);
@@ -43740,10 +43740,10 @@ void rdRaster_Span16_TexZw_3(uint *param_1,uint *param_2)
     fVar4 = fVar4 * _DAT_008dde80 + (float)puVar7[8];
     UINT_007f4c54 = UINT_008dde88;
     UINT_007f4cfc = (uint)ROUND(fVar6 * 65536.0);
-    iVar9 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar9 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     UINT_007f4cc4 =
          *(int *)(iVar9 + 0x5c) + ((*(uint *)(iVar9 + 0x18) >> 1) * puVar7[0x10] + uVar14) * 2;
-    iVar9 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+    iVar9 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     local_10 = (uint)((1.0 / fVar6) * fVar5);
     local_14 = (uint)((1.0 / fVar6) * fVar4);
     UINT_007f4ca4 = *(int *)(iVar9 + 0x18) * puVar7[0x10] + uVar14 * 2 + *(int *)(iVar9 + 0x5c);
@@ -44024,10 +44024,10 @@ void rdRaster_Span16_TexZw_4(uint *param_1,uint *param_2)
     fVar4 = fVar4 * _DAT_008dde80 + (float)puVar7[8];
     UINT_007f4c54 = UINT_008dde88;
     UINT_007f4cfc = (uint)ROUND(fVar6 * 65536.0);
-    iVar9 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar9 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     UINT_007f4cc4 =
          *(int *)(iVar9 + 0x5c) + ((*(uint *)(iVar9 + 0x18) >> 1) * puVar7[0x10] + uVar14) * 2;
-    iVar9 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+    iVar9 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     local_10 = (uint)((1.0 / fVar6) * fVar5);
     local_14 = (uint)((1.0 / fVar6) * fVar4);
     UINT_007f4ca4 = *(int *)(iVar9 + 0x18) * puVar7[0x10] + uVar14 * 2 + *(int *)(iVar9 + 0x5c);
@@ -44308,10 +44308,10 @@ void rdRaster_Span16_TexZw_5(uint *param_1,uint *param_2)
     fVar4 = fVar4 * _DAT_008dde80 + (float)puVar7[8];
     UINT_007f4c54 = UINT_008dde88;
     UINT_007f4cfc = (uint)ROUND(fVar6 * 65536.0);
-    iVar9 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar9 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     UINT_007f4cc4 =
          *(int *)(iVar9 + 0x5c) + ((*(uint *)(iVar9 + 0x18) >> 1) * puVar7[0x10] + uVar14) * 2;
-    iVar9 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+    iVar9 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     local_10 = (uint)((1.0 / fVar6) * fVar5);
     local_14 = (uint)((1.0 / fVar6) * fVar4);
     UINT_007f4ca4 = *(int *)(iVar9 + 0x18) * puVar7[0x10] + uVar14 * 2 + *(int *)(iVar9 + 0x5c);
@@ -44592,10 +44592,10 @@ void rdRaster_Span16_TexLitZw_23(uint *param_1,uint *param_2)
     fVar4 = fVar4 * _DAT_008dde80 + (float)puVar7[8];
     UINT_007f4c54 = UINT_008dde88;
     UINT_007f4cfc = (uint)ROUND(fVar6 * 65536.0);
-    iVar9 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar9 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     UINT_007f4cc4 =
          *(int *)(iVar9 + 0x5c) + ((*(uint *)(iVar9 + 0x18) >> 1) * puVar7[0x10] + uVar14) * 2;
-    iVar9 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+    iVar9 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     local_10 = (uint)((1.0 / fVar6) * fVar5);
     local_14 = (uint)((1.0 / fVar6) * fVar4);
     UINT_007f4ca4 = *(int *)(iVar9 + 0x18) * puVar7[0x10] + uVar14 * 2 + *(int *)(iVar9 + 0x5c);
@@ -44876,10 +44876,10 @@ void rdRaster_Span16_TexZw_6(uint *param_1,uint *param_2)
     fVar4 = fVar4 * _DAT_008dde80 + (float)puVar7[8];
     UINT_007f4c54 = UINT_008dde88;
     UINT_007f4cfc = (uint)ROUND(fVar6 * 65536.0);
-    iVar9 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar9 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     UINT_007f4cc4 =
          *(int *)(iVar9 + 0x5c) + ((*(uint *)(iVar9 + 0x18) >> 1) * puVar7[0x10] + uVar14) * 2;
-    iVar9 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+    iVar9 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     local_10 = (uint)((1.0 / fVar6) * fVar5);
     local_14 = (uint)((1.0 / fVar6) * fVar4);
     UINT_007f4ca4 = *(int *)(iVar9 + 0x18) * puVar7[0x10] + uVar14 * 2 + *(int *)(iVar9 + 0x5c);
@@ -45160,10 +45160,10 @@ void rdRaster_Span16_TexZw_7(uint *param_1,uint *param_2)
     fVar4 = fVar4 * _DAT_008dde80 + (float)puVar7[8];
     UINT_007f4c54 = UINT_008dde88;
     UINT_007f4cfc = (uint)ROUND(fVar6 * 65536.0);
-    iVar9 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar9 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     UINT_007f4cc4 =
          *(int *)(iVar9 + 0x5c) + ((*(uint *)(iVar9 + 0x18) >> 1) * puVar7[0x10] + uVar14) * 2;
-    iVar9 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+    iVar9 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     local_10 = (uint)((1.0 / fVar6) * fVar5);
     local_14 = (uint)((1.0 / fVar6) * fVar4);
     UINT_007f4ca4 = *(int *)(iVar9 + 0x18) * puVar7[0x10] + uVar14 * 2 + *(int *)(iVar9 + 0x5c);
@@ -45413,10 +45413,10 @@ void rdRaster_Span16_TexLitZw_24(uint *param_1,uint *param_2)
     lVar3 = (longlong)iVar6 * (longlong)(int)uVar5;
     fVar4 = ((float)param_2[4] - (float)param_1[4]) * (float)(&UINT_008fe000)[uVar8];
     UINT_007f4c54 = (uint)ROUND(fVar4 * 65536.0);
-    iVar1 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     UINT_007f4cc4 =
          *(int *)(iVar1 + 0x5c) + ((*(uint *)(iVar1 + 0x18) >> 1) * param_1[0x10] + iVar9) * 2;
-    iVar1 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+    iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     UINT_007f4ca4 = *(int *)(iVar1 + 0x18) * param_1[0x10] + iVar9 * 2 + *(int *)(iVar1 + 0x5c);
     iVar9 = uVar8 - 1;
     UINT_007f4cfc =
@@ -45514,10 +45514,10 @@ void rdRaster_Span16_TexLitZw_25(uint *param_1,uint *param_2)
     lVar4 = (longlong)iVar7 * (longlong)(int)uVar6;
     fVar5 = ((float)param_2[4] - (float)param_1[4]) * (float)(&UINT_008fe000)[UINT_007f4cac];
     UINT_007f4c54 = (uint)ROUND(fVar5 * 65536.0);
-    iVar1 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     UINT_007f4cc4 =
          *(int *)(iVar1 + 0x5c) + ((*(uint *)(iVar1 + 0x18) >> 1) * param_1[0x10] + iVar12) * 2;
-    iVar1 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+    iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     UINT_007f4ca4 = *(int *)(iVar1 + 0x18) * param_1[0x10] + iVar12 * 2 + *(int *)(iVar1 + 0x5c);
     iVar12 = UINT_007f4cac - 1;
     uVar13 = UINT_007f4c54 * iVar12 +
@@ -45623,10 +45623,10 @@ void rdRaster_Span16_TexLitZw_26(uint *param_1,uint *param_2)
     lVar4 = (longlong)iVar7 * (longlong)(int)uVar6;
     fVar5 = ((float)param_2[4] - (float)param_1[4]) * (float)(&UINT_008fe000)[UINT_007f4cac];
     UINT_007f4c54 = (uint)ROUND(fVar5 * 65536.0);
-    iVar1 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     UINT_007f4cc4 =
          *(int *)(iVar1 + 0x5c) + ((*(uint *)(iVar1 + 0x18) >> 1) * param_1[0x10] + iVar12) * 2;
-    iVar1 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+    iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     UINT_007f4ca4 = *(int *)(iVar1 + 0x18) * param_1[0x10] + iVar12 * 2 + *(int *)(iVar1 + 0x5c);
     iVar12 = UINT_007f4cac - 1;
     uVar13 = UINT_007f4c54 * iVar12 +
@@ -45732,10 +45732,10 @@ void rdRaster_Span16_TexLitZw_27(uint *param_1,uint *param_2)
     lVar4 = (longlong)iVar7 * (longlong)(int)uVar6;
     fVar5 = ((float)param_2[4] - (float)param_1[4]) * (float)(&UINT_008fe000)[UINT_007f4cac];
     UINT_007f4c54 = (uint)ROUND(fVar5 * 65536.0);
-    iVar1 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     UINT_007f4cc4 =
          *(int *)(iVar1 + 0x5c) + ((*(uint *)(iVar1 + 0x18) >> 1) * param_1[0x10] + iVar12) * 2;
-    iVar1 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+    iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     UINT_007f4ca4 = *(int *)(iVar1 + 0x18) * param_1[0x10] + iVar12 * 2 + *(int *)(iVar1 + 0x5c);
     iVar12 = UINT_007f4cac - 1;
     uVar13 = UINT_007f4c54 * iVar12 +
@@ -45841,10 +45841,10 @@ void rdRaster_Span16_TexLitZw_28(uint *param_1,uint *param_2)
     lVar4 = (longlong)iVar7 * (longlong)(int)uVar6;
     fVar5 = ((float)param_2[4] - (float)param_1[4]) * (float)(&UINT_008fe000)[UINT_007f4cac];
     UINT_007f4c54 = (uint)ROUND(fVar5 * 65536.0);
-    iVar1 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     UINT_007f4cc4 =
          *(int *)(iVar1 + 0x5c) + ((*(uint *)(iVar1 + 0x18) >> 1) * param_1[0x10] + iVar12) * 2;
-    iVar1 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+    iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     UINT_007f4ca4 = *(int *)(iVar1 + 0x18) * param_1[0x10] + iVar12 * 2 + *(int *)(iVar1 + 0x5c);
     iVar12 = UINT_007f4cac - 1;
     uVar13 = UINT_007f4c54 * iVar12 +
@@ -45950,10 +45950,10 @@ void rdRaster_Span16_TexLitZw_29(uint *param_1,uint *param_2)
     lVar4 = (longlong)iVar7 * (longlong)(int)uVar6;
     fVar5 = ((float)param_2[4] - (float)param_1[4]) * (float)(&UINT_008fe000)[UINT_007f4cac];
     UINT_007f4c54 = (uint)ROUND(fVar5 * 65536.0);
-    iVar1 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     UINT_007f4cc4 =
          *(int *)(iVar1 + 0x5c) + ((*(uint *)(iVar1 + 0x18) >> 1) * param_1[0x10] + iVar12) * 2;
-    iVar1 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+    iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     UINT_007f4ca4 = *(int *)(iVar1 + 0x18) * param_1[0x10] + iVar12 * 2 + *(int *)(iVar1 + 0x5c);
     iVar12 = UINT_007f4cac - 1;
     uVar13 = UINT_007f4c54 * iVar12 +
@@ -46059,10 +46059,10 @@ void rdRaster_Span16_TexLitZw_30(uint *param_1,uint *param_2)
     lVar4 = (longlong)iVar7 * (longlong)(int)uVar6;
     fVar5 = ((float)param_2[4] - (float)param_1[4]) * (float)(&UINT_008fe000)[UINT_007f4cac];
     UINT_007f4c54 = (uint)ROUND(fVar5 * 65536.0);
-    iVar1 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     UINT_007f4cc4 =
          *(int *)(iVar1 + 0x5c) + ((*(uint *)(iVar1 + 0x18) >> 1) * param_1[0x10] + iVar12) * 2;
-    iVar1 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+    iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     UINT_007f4ca4 = *(int *)(iVar1 + 0x18) * param_1[0x10] + iVar12 * 2 + *(int *)(iVar1 + 0x5c);
     iVar12 = UINT_007f4cac - 1;
     uVar13 = UINT_007f4c54 * iVar12 +
@@ -46195,10 +46195,10 @@ void rdRaster_Span16_TexZw_8(uint *param_1,uint *param_2)
     fVar3 = fVar3 * _DAT_008dde80 + (float)puVar6[8];
     UINT_007f4c54 = UINT_008dde88;
     UINT_007f4cfc = (uint)ROUND(fVar5 * 65536.0);
-    iVar8 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar8 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     UINT_007f4cc4 =
          *(int *)(iVar8 + 0x5c) + ((*(uint *)(iVar8 + 0x18) >> 1) * puVar6[0x10] + uVar13) * 2;
-    iVar8 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+    iVar8 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     local_10 = (uint)((1.0 / fVar5) * fVar4);
     local_14 = (uint)((1.0 / fVar5) * fVar3);
     UINT_007f4ca4 = *(int *)(iVar8 + 0x18) * puVar6[0x10] + uVar13 * 2 + *(int *)(iVar8 + 0x5c);
@@ -46449,10 +46449,10 @@ void rdRaster_Span16_TexZw_9(uint *param_1,uint *param_2)
     fVar4 = fVar4 * _DAT_008dde80 + (float)puVar7[8];
     UINT_007f4c54 = UINT_008dde88;
     UINT_007f4cfc = (uint)ROUND(fVar6 * 65536.0);
-    iVar9 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar9 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     UINT_007f4cc4 =
          *(int *)(iVar9 + 0x5c) + ((*(uint *)(iVar9 + 0x18) >> 1) * puVar7[0x10] + uVar14) * 2;
-    iVar9 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+    iVar9 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     local_10 = (uint)((1.0 / fVar6) * fVar5);
     local_14 = (uint)((1.0 / fVar6) * fVar4);
     UINT_007f4ca4 = *(int *)(iVar9 + 0x18) * puVar7[0x10] + uVar14 * 2 + *(int *)(iVar9 + 0x5c);
@@ -46733,10 +46733,10 @@ void rdRaster_Span16_TexZw_10(uint *param_1,uint *param_2)
     fVar4 = fVar4 * _DAT_008dde80 + (float)puVar7[8];
     UINT_007f4c54 = UINT_008dde88;
     UINT_007f4cfc = (uint)ROUND(fVar6 * 65536.0);
-    iVar9 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar9 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     UINT_007f4cc4 =
          *(int *)(iVar9 + 0x5c) + ((*(uint *)(iVar9 + 0x18) >> 1) * puVar7[0x10] + uVar14) * 2;
-    iVar9 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+    iVar9 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     local_10 = (uint)((1.0 / fVar6) * fVar5);
     local_14 = (uint)((1.0 / fVar6) * fVar4);
     UINT_007f4ca4 = *(int *)(iVar9 + 0x18) * puVar7[0x10] + uVar14 * 2 + *(int *)(iVar9 + 0x5c);
@@ -47017,10 +47017,10 @@ void rdRaster_Span16_TexZw_11(uint *param_1,uint *param_2)
     fVar4 = fVar4 * _DAT_008dde80 + (float)puVar7[8];
     UINT_007f4c54 = UINT_008dde88;
     UINT_007f4cfc = (uint)ROUND(fVar6 * 65536.0);
-    iVar9 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar9 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     UINT_007f4cc4 =
          *(int *)(iVar9 + 0x5c) + ((*(uint *)(iVar9 + 0x18) >> 1) * puVar7[0x10] + uVar14) * 2;
-    iVar9 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+    iVar9 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     local_10 = (uint)((1.0 / fVar6) * fVar5);
     local_14 = (uint)((1.0 / fVar6) * fVar4);
     UINT_007f4ca4 = *(int *)(iVar9 + 0x18) * puVar7[0x10] + uVar14 * 2 + *(int *)(iVar9 + 0x5c);
@@ -47301,10 +47301,10 @@ void rdRaster_Span16_TexLitZw_31(uint *param_1,uint *param_2)
     fVar4 = fVar4 * _DAT_008dde80 + (float)puVar7[8];
     UINT_007f4c54 = UINT_008dde88;
     UINT_007f4cfc = (uint)ROUND(fVar6 * 65536.0);
-    iVar9 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar9 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     UINT_007f4cc4 =
          *(int *)(iVar9 + 0x5c) + ((*(uint *)(iVar9 + 0x18) >> 1) * puVar7[0x10] + uVar14) * 2;
-    iVar9 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+    iVar9 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     local_10 = (uint)((1.0 / fVar6) * fVar5);
     local_14 = (uint)((1.0 / fVar6) * fVar4);
     UINT_007f4ca4 = *(int *)(iVar9 + 0x18) * puVar7[0x10] + uVar14 * 2 + *(int *)(iVar9 + 0x5c);
@@ -47585,10 +47585,10 @@ void rdRaster_Span16_TexZw_12(uint *param_1,uint *param_2)
     fVar4 = fVar4 * _DAT_008dde80 + (float)puVar7[8];
     UINT_007f4c54 = UINT_008dde88;
     UINT_007f4cfc = (uint)ROUND(fVar6 * 65536.0);
-    iVar9 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar9 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     UINT_007f4cc4 =
          *(int *)(iVar9 + 0x5c) + ((*(uint *)(iVar9 + 0x18) >> 1) * puVar7[0x10] + uVar14) * 2;
-    iVar9 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+    iVar9 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     local_10 = (uint)((1.0 / fVar6) * fVar5);
     local_14 = (uint)((1.0 / fVar6) * fVar4);
     UINT_007f4ca4 = *(int *)(iVar9 + 0x18) * puVar7[0x10] + uVar14 * 2 + *(int *)(iVar9 + 0x5c);
@@ -47869,10 +47869,10 @@ void rdRaster_Span16_TexZw_13(uint *param_1,uint *param_2)
     fVar4 = fVar4 * _DAT_008dde80 + (float)puVar7[8];
     UINT_007f4c54 = UINT_008dde88;
     UINT_007f4cfc = (uint)ROUND(fVar6 * 65536.0);
-    iVar9 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    iVar9 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     UINT_007f4cc4 =
          *(int *)(iVar9 + 0x5c) + ((*(uint *)(iVar9 + 0x18) >> 1) * puVar7[0x10] + uVar14) * 2;
-    iVar9 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x10);
+    iVar9 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     local_10 = (uint)((1.0 / fVar6) * fVar5);
     local_14 = (uint)((1.0 / fVar6) * fVar4);
     UINT_007f4ca4 = *(int *)(iVar9 + 0x18) * puVar7[0x10] + uVar14 * 2 + *(int *)(iVar9 + 0x5c);

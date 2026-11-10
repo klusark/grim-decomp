@@ -22,7 +22,7 @@
  {"addr": "00450500", "name": "rdPuppet_New", "tags": "rdroid"},
  {"addr": "00450a90", "name": "rdPuppet_UpdateTracks", "proto": "void rdPuppet_UpdateTracks(void * puppet, float seconds)", "tags": "rdroid"},
  {"addr": "00478fc0", "name": "Display_SetPalette", "proto": "void Display_SetPalette(void * palette, int flags)", "tags": "display"},
- {"addr": "008ca7a0", "global": "g_pSvcCostume", "type": "GrimServices *", "comment": "Service table pointer used by Engine/sputCostume.cpp"},
+ {"addr": "008ca7a0", "global": "g_pSputCosHS", "type": "GrimServices *", "comment": "Service table pointer used by Engine/sputCostume.cpp"},
  {"addr": "008ddf90", "global": "g_nDrawBoxMinX", "type": "int", "comment": "Left edge of the screen box touched by the last model draw"},
  {"addr": "008ddf94", "global": "g_nDrawBoxMinY", "type": "int", "comment": "Top edge of the screen box touched by the last model draw"},
  {"addr": "008ddf98", "global": "g_nDrawBoxMaxX", "type": "int", "comment": "Right edge of the screen box touched by the last model draw"},

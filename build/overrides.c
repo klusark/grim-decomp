@@ -112,11 +112,11 @@ void GRIM_lua_cmd_poll(void)
     if (nomovie < 0)
         nomovie = GRIM_getenv("GRIM_NOMOVIE") != 0;
     if (nomovie)
-        g_nMovieAvailable = 0;
+        g_nSputSmushStarted = 0;
     /* GRIM_ACTIVE=1: draw and present even when the window is not the foreground window (the engine only
      * draws while WM_ACTIVATEAPP says the application is active); lets a test run behind other windows */
     if (GRIM_getenv("GRIM_ACTIVE")) {
-        UINT_008d0a70 = 1;
+        g_dwZg_App_bAppActive = 1;
         UINT_008d0a6c = 1;
     }
     if (lua_cmd_state < 0)
@@ -265,7 +265,7 @@ undefined *Display_InitFromConfig(void)
     GRIM_GetEnv("GRIM_DISPLAY_DEVICE", e, sizeof e);
     dev = (e[0] >= '0' && e[0] <= '9') ? e[0] - '0' : 0;
     unsigned mode;
-    if ((unsigned)dev >= (unsigned)g_dwDisplayDeviceCount)
+    if ((unsigned)dev >= (unsigned)g_dwStdDisplay_numDevices)
         dev = 0;
     mode = Display_FindClosestMode(&UINT_004f4d38,
                                    (void *)((unsigned *)g_pDisplayModes)[dev * 4 + 1],
@@ -630,7 +630,7 @@ float __thiscall Sector_EdgeDistance(void *this, int edge, float *point)
     float sinA, cosA, angle, dist;
 
     if (numVerts <= edge)
-        (*g_pSvcMain->pAssertFail)(s_edge_index___num_verts_004ec9b8, s_C__grimsrc_libs_grimlib_Engine_W_004ec8c8, 0x6c8);
+        (*g_pStd_HS->pAssertFail)(s_edge_index___num_verts_004ec9b8, s_C__grimsrc_libs_grimlib_Engine_W_004ec8c8, 0x6c8);
     v0 = *(float **)((int)this + edge * 4 + 0x38);
     v1 = *(float **)((int)this + ((edge + 1) % *(int *)((int)this + 0x34)) * 4 + 0x38);
     edgeDir[0] = v1[1] - v0[1];
@@ -1173,14 +1173,14 @@ int __cdecl SaveGame_Read(void *buf, int n)
  * no actor points at (they would be dereferenced by sputText_ExpireTextQueueL). */
 static void GRIM_FixTextActors(void)
 {
-    char *table = (char *)g_pActorTable;
+    char *table = (char *)g_pActors;
     int *t;
     int i;
 
-    for (t = (int *)g_pTextObjectList; t; t = (int *)t[0])
+    for (t = (int *)g_pTextQueue; t; t = (int *)t[0])
         if (t[0x96] & 4)
             t[0x95] = 0;                       /* "no speaker" until an actor claims it below */
-    for (i = 0; i < g_nActorCapacity; i++) {
+    for (i = 0; i < g_nMaxActors; i++) {
         char *actor = table + i * 0xa8;
         int extra, text;
         if (*(int *)(actor + 0x9c) == 0)
@@ -1189,13 +1189,13 @@ static void GRIM_FixTextActors(void)
         if (extra == 0)
             continue;
         text = *(int *)(extra + 0x1ec);
-        for (t = (int *)g_pTextObjectList; t; t = (int *)t[0])
+        for (t = (int *)g_pTextQueue; t; t = (int *)t[0])
             if ((int)t == text) {
                 t[0x95] = (int)actor;
                 break;
             }
     }
-    for (t = (int *)g_pTextObjectList; t; t = (int *)t[0])
+    for (t = (int *)g_pTextQueue; t; t = (int *)t[0])
         if ((t[0x96] & 4) && t[0x95] == 0)
             t[0x96] &= ~4;
 }
@@ -1209,7 +1209,7 @@ void Engine_LoadGame(void)
     void *set;
     int setupIdx;
 
-    UINT_008a8c80 = 0;
+    g_dwDoLoad = 0;
     name = g_pSaveFileName;
     if (name == 0)
         name = s_grim_sav_004e7fc8;
@@ -1238,7 +1238,7 @@ void Engine_LoadGame(void)
         (*(code *)UINT_008a87cc)(SaveGame_Read);
         (*(code *)UINT_008a880c)(SaveGame_Read);
         (*(code *)UINT_008a882c)(SaveGame_Read);
-        UINT_008a8c40 = 4;
+        g_dwGrimlib_mode = 4;
         SaveGame_Read(&UINT_008a8c48, 4);
         Render_DrawProgressBar(0.75);
         lua_Restore(SaveGame_Read);
@@ -1252,7 +1252,7 @@ void Engine_LoadGame(void)
         Set_SwitchSetup(set, setupIdx);
         gzclose((int)UINT_008a8770);
         lua_dofile(s_patch05_bin_004e7fe8);
-        UINT_008a8c84 = 1;
+        g_dwJustLoaded = 1;
         Render_SetWaitCursorEnabled(1);
         rect[0] = 0;
         rect[1] = 0;
