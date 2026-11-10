@@ -120,9 +120,9 @@ Output of `tools/stats.py` (regenerate after changes):
 
 | Program | Functions | Named | of which auto/module-level | Unnamed (FUN_) |
 |---|---|---|---|---|
-| GRIMFANDANGO.EXE | 2671 | 2319 | 378 | 352 |
-| LUA.DLL | 852 | 623 | 158 | 229 |
-| IMUSE.DLL | 451 | 285 | 52 | 166 |
+| GRIMFANDANGO.EXE | 2671 | 2334 | 378 | 337 |
+| LUA.DLL | 852 | 689 | 98 | 163 |
+| IMUSE.DLL | 451 | 292 | 52 | 159 |
 | CHORE.DLL | 264 | 112 | 0 | 152 (all of them dead MSVC runtime copies) |
 
 Files in src/: 214
@@ -144,6 +144,11 @@ Files in src/: 214
   defined; the new ones are the Lua io/string libraries and more C runtime,
   now named, apart from ~100 small runtime fragments (x87 helpers, locale
   tables, exception-handling thunks).
+* Original names from the remaster's unstripped Linux build (`GrimFandango`,
+  `libLua.so`) replace FUN_ and guessed names where the match is clear
+  (docs/notes/orig_names.md): the Lua bindings are `sputLua_*`, LUA.DLL's VM
+  is `ExecutionState_CrunchOpcodes`, ... Each renamed function's plate comment
+  says "was X". Globals and the generated `rdRaster_*` names are not done yet.
 * CHORE.DLL is fully named (names from the remaster's unstripped `libchore.so`,
   docs/notes/chore_naming.md) and its costume / chore / key records are typed;
   the 152 `FUN_` left are dead copies of the C runtime.
