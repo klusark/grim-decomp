@@ -14,7 +14,7 @@ uint stdPic_Load(undefined4 param_1,undefined4 param_2,undefined4 param_3)
   uint uVar1;
   int iVar2;
   
-  uVar1 = (*g_pSvcMain->pAlloc)(0x7c,s_C__grimjedi_Libs_Std_General_std_004e77d8,DAT_004e77cc + 4);
+  uVar1 = (*g_pStd_HS->pAlloc)(0x7c,s_C__grimjedi_Libs_Std_General_std_004e77d8,DAT_004e77cc + 4);
   if (uVar1 == 0) {
     return 0;
   }
@@ -130,11 +130,11 @@ undefined4 stdPic_LoadEntry(char *param_1,undefined4 *param_2,int param_3,int pa
   local_58 = 0;
   local_54 = 0;
   local_50 = 0;
-  iVar5 = (*g_pSvcMain->pFopen)(param_1,&DAT_004ddb18);
+  iVar5 = (*g_pStd_HS->pFopen)(param_1,&DAT_004ddb18);
   if (iVar5 == 0) {
     return 0;
   }
-  iVar6 = (*g_pSvcMain->pFread)(iVar5,&uStack_ec,0x68);
+  iVar6 = (*g_pStd_HS->pFread)(iVar5,&uStack_ec,0x68);
   if (iVar6 != 0x68) {
     return 0;
   }
@@ -171,7 +171,7 @@ undefined4 stdPic_LoadEntry(char *param_1,undefined4 *param_2,int param_3,int pa
     iStack_134 = -1;
     iStack_130 = -1;
     iVar13 = 0;
-    iVar6 = (*g_pSvcMain->pFread)(iVar5,&cStack_10c,4);
+    iVar6 = (*g_pStd_HS->pFread)(iVar5,&cStack_10c,4);
     if (iVar6 == 4) {
       puVar14 = &local_fc;
       while( true ) {
@@ -230,11 +230,11 @@ undefined4 stdPic_LoadEntry(char *param_1,undefined4 *param_2,int param_3,int pa
             puVar14 = puVar14 + 1;
             puVar17 = puVar17 + 1;
           }
-          iVar6 = (*g_pSvcMain->pAlloc)
+          iVar6 = (*g_pStd_HS->pAlloc)
                             (4,s_C__grimjedi_Libs_Std_General_std_004e77d8,DAT_004e77d0 + 0x6d);
           param_2[0x1e] = iVar6;
           if (iVar6 == 0) {
-            (*g_pSvcMain->pAssertFail)
+            (*g_pStd_HS->pAssertFail)
                       (s_Unable_to_allocate_memory__004e76d4,
                        s_C__grimjedi_Libs_Std_General_std_004e77d8,DAT_004e77d0 + 0x6e);
           }
@@ -250,13 +250,13 @@ undefined4 stdPic_LoadEntry(char *param_1,undefined4 *param_2,int param_3,int pa
           pvVar9 = Surface_Create(&uStack_4c,param_3,param_4,0);
           *(void **)param_2[0x1e] = pvVar9;
           if (*(int *)param_2[0x1e] == 0) {
-            (*g_pSvcMain->pAssertFail)
+            (*g_pStd_HS->pAssertFail)
                       (s_Unable_to_allocate_memory__004e76d4,
                        s_C__grimjedi_Libs_Std_General_std_004e77d8,DAT_004e77d0 + 0x76);
           }
           iVar6 = Surface_Lock(*(void **)param_2[0x1e]);
           if (iVar6 == 0) {
-            (*g_pSvcMain->pAssertFail)
+            (*g_pStd_HS->pAssertFail)
                       (s_Unable_to_lock_VBuffer_memory__004e76b4,
                        s_C__grimjedi_Libs_Std_General_std_004e77d8,DAT_004e77d0 + 0x7c);
           }
@@ -277,16 +277,16 @@ undefined4 stdPic_LoadEntry(char *param_1,undefined4 *param_2,int param_3,int pa
                       puVar15 = (undefined4 *)(iStack_13c + 2);
                       do {
                         if (iStack_140 == iVar6) {
-                          (*g_pSvcMain->pFread)(iVar5,(int)puVar15 + -2,uStack_128);
+                          (*g_pStd_HS->pFread)(iVar5,(int)puVar15 + -2,uStack_128);
                         }
                         if (iStack_138 == iVar6) {
-                          (*g_pSvcMain->pFread)(iVar5,(int)puVar15 + -1,uStack_118);
+                          (*g_pStd_HS->pFread)(iVar5,(int)puVar15 + -1,uStack_118);
                         }
                         if (iStack_134 == iVar6) {
-                          (*g_pSvcMain->pFread)(iVar5,puVar15,uStack_11c);
+                          (*g_pStd_HS->pFread)(iVar5,puVar15,uStack_11c);
                         }
                         if (iStack_130 == iVar6) {
-                          (*g_pSvcMain->pFread)(iVar5,auStack_100,uStack_124);
+                          (*g_pStd_HS->pFread)(iVar5,auStack_100,uStack_124);
                         }
                         iVar13 = iVar13 + 1;
                         puVar15 = (undefined4 *)((int)puVar15 + 3);
@@ -298,22 +298,22 @@ undefined4 stdPic_LoadEntry(char *param_1,undefined4 *param_2,int param_3,int pa
                     iVar13 = 0;
                     if (CONCAT11(uStack_8f,uStack_90) != 0) {
                       do {
-                        (*g_pSvcMain->pFread)(iVar5,&bStack_14b,1);
+                        (*g_pStd_HS->pFread)(iVar5,&bStack_14b,1);
                         if (bStack_14b < 0x80) {
                           if (bStack_14b != 0xff) {
                             puVar15 = (undefined4 *)(iVar13 * 3 + 2 + iStack_13c);
                             do {
                               if (iStack_140 == iVar6) {
-                                (*g_pSvcMain->pFread)(iVar5,(int)puVar15 + -2,uStack_128);
+                                (*g_pStd_HS->pFread)(iVar5,(int)puVar15 + -2,uStack_128);
                               }
                               if (iStack_138 == iVar6) {
-                                (*g_pSvcMain->pFread)(iVar5,(int)puVar15 + -1,uStack_118);
+                                (*g_pStd_HS->pFread)(iVar5,(int)puVar15 + -1,uStack_118);
                               }
                               if (iStack_134 == iVar6) {
-                                (*g_pSvcMain->pFread)(iVar5,puVar15,uStack_11c);
+                                (*g_pStd_HS->pFread)(iVar5,puVar15,uStack_11c);
                               }
                               if (iStack_130 == iVar6) {
-                                (*g_pSvcMain->pFread)(iVar5,auStack_100,uStack_124);
+                                (*g_pStd_HS->pFread)(iVar5,auStack_100,uStack_124);
                               }
                               iVar13 = iVar13 + 1;
                               puVar15 = (undefined4 *)((int)puVar15 + 3);
@@ -325,7 +325,7 @@ undefined4 stdPic_LoadEntry(char *param_1,undefined4 *param_2,int param_3,int pa
                         }
                         else {
                           if (bStack_14b == 0x80) {
-                            (*g_pSvcMain->pFread)(iVar5,&puStack_148,2);
+                            (*g_pStd_HS->pFread)(iVar5,&puStack_148,2);
                             puStack_148 = (undefined4 *)
                                           (uint)CONCAT11((char)puStack_148,
                                                          (char)((uint)puStack_148 >> 8));
@@ -336,16 +336,16 @@ undefined4 stdPic_LoadEntry(char *param_1,undefined4 *param_2,int param_3,int pa
                                                     (ushort)bStack_14b) - 0x7f);
                           }
                           if (iStack_140 == iVar6) {
-                            (*g_pSvcMain->pFread)(iVar5,&bStack_14a,uStack_128);
+                            (*g_pStd_HS->pFread)(iVar5,&bStack_14a,uStack_128);
                           }
                           if (iStack_138 == iVar6) {
-                            (*g_pSvcMain->pFread)(iVar5,&bStack_149,uStack_118);
+                            (*g_pStd_HS->pFread)(iVar5,&bStack_149,uStack_118);
                           }
                           if (iStack_134 == iVar6) {
-                            (*g_pSvcMain->pFread)(iVar5,&uStack_141,uStack_11c);
+                            (*g_pStd_HS->pFread)(iVar5,&uStack_141,uStack_11c);
                           }
                           if (iStack_130 == iVar6) {
-                            (*g_pSvcMain->pFread)(iVar5,auStack_100,uStack_124);
+                            (*g_pStd_HS->pFread)(iVar5,auStack_100,uStack_124);
                           }
                           sVar1 = (short)puStack_148;
                           puVar15 = (undefined4 *)((int)puStack_148 + 0xffff);
@@ -385,10 +385,10 @@ undefined4 stdPic_LoadEntry(char *param_1,undefined4 *param_2,int param_3,int pa
             } while (iStack_104 < (int)(uint)CONCAT11(uStack_8d,uStack_8e));
           }
           Surface_Unlock(*(void **)param_2[0x1e]);
-          (*g_pSvcMain->pFclose)(iVar5);
+          (*g_pStd_HS->pFclose)(iVar5);
           return 1;
         }
-        iVar6 = (*g_pSvcMain->pFread)(iVar5,&cStack_10c,4);
+        iVar6 = (*g_pStd_HS->pFread)(iVar5,&cStack_10c,4);
         if (iVar6 != 4) {
           return 0;
         }

@@ -32,7 +32,7 @@ undefined4 stdConffile_OpenMode(byte *param_1,undefined4 param_2)
   byte *pbVar4;
   bool bVar5;
   
-  if (UINT_0080cbcc != 0) {
+  if (g_dwStdConffile_bOpen != 0) {
     stdConffile_Push();
   }
   pbVar4 = &DAT_004e7630;
@@ -58,21 +58,21 @@ LAB_0047c827:
     UINT_0080cbd0 = 0;
   }
   else {
-    UINT_0080cbd0 = (*g_pSvcMain->pFopen)(param_1,param_2);
+    UINT_0080cbd0 = (*g_pStd_HS->pFopen)(param_1,param_2);
     if ((int)UINT_0080cbd0 < 1) {
       UINT_0080cbd0 = 0;
-      if (UINT_0080cbcc != 0) {
+      if (g_dwStdConffile_bOpen != 0) {
         stdConffile_Pop();
       }
       return 0;
     }
   }
-  UINT_00900520 =
-       (*g_pSvcMain->pAlloc)(0x400,s_C__grimjedi_Libs_Std_General_Std_004e7604,DAT_004e7600 + 0x1d);
-  strncpy(&DAT_009004a0,param_1,0x7f);
+  g_dwStdConffile_aLine =
+       (*g_pStd_HS->pAlloc)(0x400,s_C__grimjedi_Libs_Std_General_Std_004e7604,DAT_004e7600 + 0x1d);
+  strncpy(&g_bStdConffile_pFilename,param_1,0x7f);
   DAT_0090051f = 0;
-  UINT_0080cbc8 = 0;
-  UINT_0080cbcc = 1;
+  g_dwStdConffile_linenum = 0;
+  g_dwStdConffile_bOpen = 1;
   return 1;
 }
 
@@ -83,24 +83,24 @@ LAB_0047c827:
 void stdConffile_Close(void)
 
 {
-  if (UINT_0080cbcc != 0) {
+  if (g_dwStdConffile_bOpen != 0) {
     if (UINT_0080cbd0 != 0) {
-      (*g_pSvcMain->pFclose)(UINT_0080cbd0);
+      (*g_pStd_HS->pFclose)(UINT_0080cbd0);
     }
     UINT_0080cbd0 = 0;
-    (*g_pSvcMain->pFree)(UINT_00900520);
+    (*g_pStd_HS->pFree)(g_dwStdConffile_aLine);
     if (UINT_0080cbd8 != 0) {
       stdConffile_Pop();
       return;
     }
-    UINT_0080cbcc = 0;
+    g_dwStdConffile_bOpen = 0;
   }
   return;
 }
 
 /* ---- 0x0047c920  stdConffile_ReadLine ---- */
-/* Reads the next line of the open stdConffile into the line buffer UINT_00900520 (skips ';' '#' and
-   blank lines, strips '#' comments, lower-cases, joins lines ending in a backslash) */
+/* Reads the next line of the open stdConffile into the line buffer g_dwStdConffile_aLine (skips ';'
+   '#' and blank lines, strips '#' comments, lower-cases, joins lines ending in a backslash) */
 
 undefined4 stdConffile_ReadLine(void)
 
@@ -116,16 +116,16 @@ undefined4 stdConffile_ReadLine(void)
   
   bVar2 = false;
   iVar6 = 0x3ff;
-  pcVar7 = (char *)UINT_00900520;
+  pcVar7 = (char *)g_dwStdConffile_aLine;
   do {
     if (iVar6 == 0) {
       return 1;
     }
-    iVar3 = (*g_pSvcMain->pFgets)(UINT_0080cbd0,pcVar7,iVar6);
+    iVar3 = (*g_pStd_HS->pFgets)(UINT_0080cbd0,pcVar7,iVar6);
     if (iVar3 == 0) {
       return 0;
     }
-    UINT_0080cbc8 = UINT_0080cbc8 + 1;
+    g_dwStdConffile_linenum = g_dwStdConffile_linenum + 1;
     cVar1 = *pcVar7;
     if ((((cVar1 != ';') && (cVar1 != '#')) && (cVar1 != '\n')) && (cVar1 != '\r')) {
       puVar4 = (undefined1 *)strchr(pcVar7,0x23);
@@ -134,7 +134,7 @@ undefined4 stdConffile_ReadLine(void)
       }
       _strlwr(pcVar7);
       uVar5 = 0xffffffff;
-      pcVar8 = (char *)UINT_00900520;
+      pcVar8 = (char *)g_dwStdConffile_aLine;
       do {
         if (uVar5 == 0) break;
         uVar5 = uVar5 - 1;
@@ -142,15 +142,15 @@ undefined4 stdConffile_ReadLine(void)
         pcVar8 = pcVar8 + 1;
       } while (cVar1 != '\0');
       uVar5 = ~uVar5;
-      if (*(char *)((uVar5 - 3) + UINT_00900520) == '\\') {
+      if (*(char *)((uVar5 - 3) + g_dwStdConffile_aLine) == '\\') {
         iVar6 = 0x400 - (uVar5 - 1);
-        pcVar7 = (char *)((uVar5 - 3) + UINT_00900520);
+        pcVar7 = (char *)((uVar5 - 3) + g_dwStdConffile_aLine);
       }
       else {
-        cVar1 = *(char *)((uVar5 - 2) + UINT_00900520);
+        cVar1 = *(char *)((uVar5 - 2) + g_dwStdConffile_aLine);
         bVar2 = true;
         if ((cVar1 == '\r') || (cVar1 == '\n')) {
-          *(undefined1 *)((uVar5 - 2) + UINT_00900520) = 0;
+          *(undefined1 *)((uVar5 - 2) + g_dwStdConffile_aLine) = 0;
         }
       }
     }
@@ -178,7 +178,7 @@ void stdConffile_Push(void)
   uint *puVar8;
   
   uVar2 = 0xffffffff;
-  pcVar5 = &DAT_009004a0;
+  pcVar5 = &g_bStdConffile_pFilename;
   do {
     pcVar7 = pcVar5;
     if (uVar2 == 0) break;
@@ -195,15 +195,15 @@ void stdConffile_Push(void)
     pcVar5 = pcVar5 + 4;
     pcVar7 = pcVar7 + 4;
   }
-  for (uVar2 = uVar2 & 3; uVar3 = UINT_0080cbc8, uVar2 != 0; uVar2 = uVar2 - 1) {
+  for (uVar2 = uVar2 & 3; uVar3 = g_dwStdConffile_linenum, uVar2 != 0; uVar2 = uVar2 - 1) {
     *pcVar7 = *pcVar5;
     pcVar5 = pcVar5 + 1;
     pcVar7 = pcVar7 + 1;
   }
-  UINT_0080cbc8 = 0;
+  g_dwStdConffile_linenum = 0;
   *(uint *)(&DAT_008076d8 + UINT_0080cbd8 * 4) = uVar3;
   *(uint *)(&DAT_0080c778 + UINT_0080cbd8 * 4) = UINT_0080cbd0;
-  uVar2 = UINT_00900520;
+  uVar2 = g_dwStdConffile_aLine;
   UINT_0080cbd0 = 0;
   puVar6 = &UINT_00900080;
   puVar8 = (uint *)(&DAT_00807728 + UINT_0080cbd8 * 0x404);
@@ -248,7 +248,7 @@ void stdConffile_Pop(void)
     } while (cVar1 != '\0');
     uVar2 = ~uVar2;
     pcVar6 = pcVar8 + -uVar2;
-    pcVar8 = &DAT_009004a0;
+    pcVar8 = &g_bStdConffile_pFilename;
     UINT_0080cbd8 = uVar5;
     for (uVar3 = uVar2 >> 2; uVar3 != 0; uVar3 = uVar3 - 1) {
       *(undefined4 *)pcVar8 = *(undefined4 *)pcVar6;
@@ -261,8 +261,8 @@ void stdConffile_Pop(void)
       pcVar6 = pcVar6 + 1;
       pcVar8 = pcVar8 + 1;
     }
-    UINT_0080cbc8 = *(uint *)(&DAT_008076d8 + uVar5 * 4);
-    UINT_00900520 = *(uint *)(&DAT_00807688 + uVar5 * 4);
+    g_dwStdConffile_linenum = *(uint *)(&DAT_008076d8 + uVar5 * 4);
+    g_dwStdConffile_aLine = *(uint *)(&DAT_00807688 + uVar5 * 4);
     puVar7 = (uint *)(&DAT_00807728 + uVar5 * 0x404);
     puVar9 = &UINT_00900080;
     for (iVar4 = 0x101; iVar4 != 0; iVar4 = iVar4 + -1) {

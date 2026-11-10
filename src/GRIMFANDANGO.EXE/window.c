@@ -77,7 +77,7 @@ undefined * Win_WndProc(undefined4 param_1,uint param_2,int param_3)
       if (param_2 == 0x100) {
         switch(param_3) {
         case 8:
-          if (g_nDebugKeysEnabled != 0) {
+          if (g_nGrimlib_bDebugKeys != 0) {
             g_bDebugChordHeld = 1;
             return (undefined *)0x0;
           }
@@ -93,13 +93,13 @@ undefined * Win_WndProc(undefined4 param_1,uint param_2,int param_3)
           break;
         case 0x46:
           if (g_bDebugChordHeld != 0) {
-            _g_bShowFps = (uint)(_g_bShowFps == 0);
+            _g_bDrawFrameRate = (uint)(_g_bDrawFrameRate == 0);
             return (undefined *)0x1;
           }
           break;
         case 0x50:
           if (g_bDebugChordHeld != 0) {
-            g_bShowProfile = (uint)(g_bShowProfile == 0);
+            g_nDrawPerfData = (uint)(g_nDrawPerfData == 0);
             return (undefined *)0x1;
           }
           break;
@@ -188,7 +188,7 @@ switchD_0040336f_caseD_105:
   if (param_2 != 6) {
     return (undefined *)0x0;
   }
-  if (UINT_008d0a70 == 0) {
+  if (g_dwZg_App_bAppActive == 0) {
     return (undefined *)0x0;
   }
   sVar5 = (short)param_3;
@@ -518,7 +518,7 @@ undefined * __stdcall Win_KernelWndProc(int a1,int a2,int a3,int a4)
   bVar1 = true;
   switch(a2) {
   case 1:
-    UINT_008d0a70 = 0;
+    g_dwZg_App_bAppActive = 0;
     UINT_008d0a6c = 0;
     break;
   case 2:
@@ -536,7 +536,7 @@ undefined * __stdcall Win_KernelWndProc(int a1,int a2,int a3,int a4)
       SetFocus((int)g_pWinMainHwnd);
     }
     else {
-      if ((((UINT_008d09dc == 1) && (UINT_008d0a8c != 0)) && (UINT_008d0a70 != 0)) &&
+      if ((((UINT_008d09dc == 1) && (UINT_008d0a8c != 0)) && (g_dwZg_App_bAppActive != 0)) &&
          (UINT_008d0a90 == 0)) {
         bVar6 = a4 != 0;
         local_8 = 0;
@@ -553,9 +553,9 @@ undefined * __stdcall Win_KernelWndProc(int a1,int a2,int a3,int a4)
     }
     break;
   case 0x1c:
-    UINT_008d0a70 = (uint)(a3 != 0);
+    g_dwZg_App_bAppActive = (uint)(a3 != 0);
   }
-  if ((UINT_008d0a70 == 0) || (_DAT_008d0a68 = 1, UINT_008d0a6c == 0)) {
+  if ((g_dwZg_App_bAppActive == 0) || (_DAT_008d0a68 = 1, UINT_008d0a6c == 0)) {
     _DAT_008d0a68 = 0;
   }
   if ((bVar1) && (iVar3 = 0, 0 < (int)UINT_008d0a7c)) {

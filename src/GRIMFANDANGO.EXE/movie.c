@@ -10,7 +10,7 @@ int __cdecl Movie_SaveState(void *fn)
 
 {
   (*(code *)fn)(&g_nMoviePlaying,4);
-  (*(code *)fn)(&g_nMoviePaused,4);
+  (*(code *)fn)(&g_nSmushPaused,4);
   (*(code *)fn)(&g_nMovieStopRequested,4);
   (*(code *)fn)(g_szMovieName,0x80);
   (*(code *)fn)(&g_nMovieFullscreen,4);
@@ -27,9 +27,9 @@ int __cdecl Movie_SaveState(void *fn)
 undefined4 Movie_RestoreState(code *param_1)
 
 {
-  Movie_SetTarget(&g_PrimarySurface);
+  Movie_SetTarget(&g_dwStdDisplay_frontBuffer);
   (*param_1)(&g_nMoviePlaying,4);
-  (*param_1)(&g_nMoviePaused,4);
+  (*param_1)(&g_nSmushPaused,4);
   (*param_1)(&g_nMovieStopRequested,4);
   (*param_1)(g_szMovieName,0x80);
   (*param_1)(&g_nMovieFullscreen,4);
@@ -55,13 +55,13 @@ undefined4 Movie_PollPlayback(void)
   
   local_14 = 0;
   uVar2 = 1;
-  if ((g_nMovieAvailable == 0) || (g_nMoviePlaying == 0)) {
+  if ((g_nSputSmushStarted == 0) || (g_nMoviePlaying == 0)) {
     return 1;
   }
-  if (g_nMoviePaused != 0) {
+  if (g_nSmushPaused != 0) {
     return 0;
   }
-  Smush_SetColorTable(&g_wColorTable);
+  Smush_SetColorTable(&g_wSputRender_ColorLookup);
   timeGetTime();
   if (g_nMovieStopRequested == 0) {
     iVar1 = Smush_Advance((int *)&local_14);
@@ -89,10 +89,10 @@ LAB_00489259:
 int __cdecl Movie_SetTarget(void *surface)
 
 {
-  if (g_nMovieAvailable == 0) {
+  if (g_nSputSmushStarted == 0) {
     return 1;
   }
-  g_pMovieSurface = surface;
+  g_pPresentBuf = surface;
   return 0;
 }
 
@@ -104,21 +104,21 @@ undefined4 Movie_Start(char *param_1,int param_2,uint param_3,uint param_4)
 {
   int iVar1;
   
-  if (g_nMovieAvailable != 0) {
+  if (g_nSputSmushStarted != 0) {
     if (g_nMoviePlaying != 0) {
       Smush_Close();
       g_nMoviePlaying = 0;
     }
-    Smush_SetColorTable(&g_wColorTable);
+    Smush_SetColorTable(&g_wSputRender_ColorLookup);
     g_nMovieFullscreen = param_2;
     UINT_008c9fb0 = param_3;
     UINT_008c9fb4 = param_4;
     iVar1 = Smush_Open(param_1,-(uint)(param_2 != 0) & 0x10,100000,param_3,param_4,
-                       *(int *)((int)g_pMovieSurface + 0xc),*(int *)((int)g_pMovieSurface + 0x10),0,
+                       *(int *)((int)g_pPresentBuf + 0xc),*(int *)((int)g_pPresentBuf + 0x10),0,
                        (uint)(UINT_009016ac != 6));
     if (iVar1 == 0) {
       g_nMoviePlaying = 1;
-      g_nMoviePaused = iVar1;
+      g_nSmushPaused = iVar1;
       g_nMovieStopRequested = iVar1;
       strncpy(g_szMovieName,param_1,0x80);
       _DAT_008c9ff8 = timeGetTime();
@@ -132,9 +132,9 @@ undefined4 Movie_Start(char *param_1,int param_2,uint param_3,uint param_4)
 void Movie_Stop(void)
 
 {
-  if (g_nMovieAvailable != 0) {
+  if (g_nSputSmushStarted != 0) {
     g_nMovieStopRequested = 1;
-    g_nMoviePaused = 0;
+    g_nSmushPaused = 0;
   }
   return;
 }
@@ -168,9 +168,9 @@ int sputSmush_GetMovieLength(char *param_1)
 undefined4 Movie_CheckSurfaceFormat(int param_1,int param_2,int param_3)
 
 {
-  if ((((g_nMovieAvailable != 0) && (*(int *)((int)g_pMovieSurface + 0xc) == param_1)) &&
-      (*(int *)((int)g_pMovieSurface + 0x10) == param_2)) &&
-     (*(int *)((int)g_pMovieSurface + 0x24) == param_3)) {
+  if ((((g_nSputSmushStarted != 0) && (*(int *)((int)g_pPresentBuf + 0xc) == param_1)) &&
+      (*(int *)((int)g_pPresentBuf + 0x10) == param_2)) &&
+     (*(int *)((int)g_pPresentBuf + 0x24) == param_3)) {
     return 0;
   }
   return 1;
@@ -180,7 +180,7 @@ undefined4 Movie_CheckSurfaceFormat(int param_1,int param_2,int param_3)
 int FUN_00489410(void)
 
 {
-  return g_nMovieAvailable == 0;
+  return g_nSputSmushStarted == 0;
 }
 
 /* ---- 0x00489420  Movie_LockSurface ---- */
@@ -190,19 +190,19 @@ int FUN_00489410(void)
 undefined4 Movie_LockSurface(undefined4 *param_1,undefined4 *param_2)
 
 {
-  if (g_nMovieAvailable == 0) {
+  if (g_nSputSmushStarted == 0) {
     return 1;
   }
-  Surface_Lock(g_pMovieSurface);
-  param_1[3] = *(uint *)((int)g_pMovieSurface + 0x24) >> 3;
-  *param_1 = *(undefined4 *)((int)g_pMovieSurface + 0x5c);
-  param_1[2] = *(undefined4 *)((int)g_pMovieSurface + 0x10);
-  param_1[1] = *(undefined4 *)((int)g_pMovieSurface + 0xc);
-  param_1[5] = *(undefined4 *)((int)g_pMovieSurface + 0x18);
+  Surface_Lock(g_pPresentBuf);
+  param_1[3] = *(uint *)((int)g_pPresentBuf + 0x24) >> 3;
+  *param_1 = *(undefined4 *)((int)g_pPresentBuf + 0x5c);
+  param_1[2] = *(undefined4 *)((int)g_pPresentBuf + 0x10);
+  param_1[1] = *(undefined4 *)((int)g_pPresentBuf + 0xc);
+  param_1[5] = *(undefined4 *)((int)g_pPresentBuf + 0x18);
   param_2[1] = 0;
   *param_2 = 0;
-  param_2[3] = *(undefined4 *)((int)g_pMovieSurface + 0x10);
-  param_2[2] = *(undefined4 *)((int)g_pMovieSurface + 0xc);
+  param_2[3] = *(undefined4 *)((int)g_pPresentBuf + 0x10);
+  param_2[2] = *(undefined4 *)((int)g_pPresentBuf + 0xc);
   return 0;
 }
 
@@ -212,10 +212,10 @@ undefined4 Movie_LockSurface(undefined4 *param_1,undefined4 *param_2)
 undefined4 Movie_UnlockSurface(void)
 
 {
-  if (g_nMovieAvailable == 0) {
+  if (g_nSputSmushStarted == 0) {
     return 1;
   }
-  Surface_Unlock(g_pMovieSurface);
+  Surface_Unlock(g_pPresentBuf);
   return 0;
 }
 
@@ -223,7 +223,7 @@ undefined4 Movie_UnlockSurface(void)
 int FUN_004894d0(void)
 
 {
-  return g_nMovieAvailable == 0;
+  return g_nSputSmushStarted == 0;
 }
 
 /* ---- 0x004894e0  Movie_IsPlaying ---- */
@@ -240,7 +240,7 @@ int Movie_IsPlaying(void)
 void sputSmush_Pause(int paused)
 
 {
-  g_nMoviePaused = paused;
+  g_nSmushPaused = paused;
   if (paused != 0) {
     Smush_Pause();
     return;

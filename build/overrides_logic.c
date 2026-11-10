@@ -197,7 +197,7 @@ static void clipface_light(const uint *src, uint *dst, uint i)
 }
 
 /* the camera type is read after the vertices are gathered, like the original does */
-static int clipface_persp(void) { return *(int *)g_pRdCurrentCamera == 1; }
+static int clipface_persp(void) { return *(int *)g_pRdCamera_CurCamera == 1; }
 
 void rdPrimit3_ClipFace(undefined4 param_1,undefined4 param_2,int param_3,undefined4 param_4,
                        uint *param_5,undefined4 *param_6,float *param_7)
@@ -290,18 +290,18 @@ undefined4 rdModel3_DrawFace(int param_1,int param_2)
     return 0;
   }
   uVar3 = *(uint *)(param_1 + 8);
-  if ((int)UINT_007f31e8 < (int)*(uint *)(param_1 + 8)) {
-    uVar3 = UINT_007f31e8;
+  if ((int)g_dwGeometryMode < (int)*(uint *)(param_1 + 8)) {
+    uVar3 = g_dwGeometryMode;
   }
   *(uint *)(iVar2 + 8) = uVar3;
   uVar3 = *(uint *)(param_1 + 0xc);
-  if ((int)UINT_007f31e4 < (int)*(uint *)(param_1 + 0xc)) {
-    uVar3 = UINT_007f31e4;
+  if ((int)g_dwLightingMode < (int)*(uint *)(param_1 + 0xc)) {
+    uVar3 = g_dwLightingMode;
   }
   *(uint *)(iVar2 + 0xc) = uVar3;
   uVar3 = *(uint *)(param_1 + 0x10);
-  if ((int)UINT_007f30d8 < (int)*(uint *)(param_1 + 0x10)) {
-    uVar3 = UINT_007f30d8;
+  if ((int)g_dwTextureMode < (int)*(uint *)(param_1 + 0x10)) {
+    uVar3 = g_dwTextureMode;
   }
   *(uint *)(iVar2 + 0x10) = uVar3;
   if ((*(byte *)(param_1 + 4) & 0x10) != 0) {
@@ -313,61 +313,61 @@ undefined4 rdModel3_DrawFace(int param_1,int param_2)
   _DAT_007f30a8 = *(undefined4 *)(param_1 + 0x14);
   _DAT_007f30ac = *(undefined4 *)(param_1 + 0x18);
   _DAT_007f30b0 = *(undefined4 *)(param_1 + 0x1c);
-  if (UINT_007f1898 == 0) {
+  if (g_dwMeshFrustrumCull == 0) {
     rdPrimit3_CopyFaceVerts
               (*(undefined4 *)(iVar2 + 8),*(undefined4 *)(iVar2 + 0xc),*(undefined4 *)(iVar2 + 0x10)
-               ,&DAT_007f30a8,&UINT_007f1468,param_1 + 0x28);
+               ,&DAT_007f30a8,&g_dwVertexDst,param_1 + 0x28);
   }
   else {
-    rdPrimit3_ClipFace(*(undefined4 *)((int)g_pRdCurrentCamera + 0x48),*(undefined4 *)(iVar2 + 8),*(int *)(iVar2 + 0xc),
-               *(undefined4 *)(iVar2 + 0x10),(uint *)&DAT_007f30a8,&UINT_007f1468,(float *)(param_1 + 0x28));
+    rdPrimit3_ClipFace(*(undefined4 *)((int)g_pRdCamera_CurCamera + 0x48),*(undefined4 *)(iVar2 + 8),*(int *)(iVar2 + 0xc),
+               *(undefined4 *)(iVar2 + 0x10),(uint *)&DAT_007f30a8,&g_dwVertexDst,(float *)(param_1 + 0x28));
   }
-  if (UINT_007f1468 < 3) {
+  if (g_dwVertexDst < 3) {
     return 0;
   }
   if (UINT_007f3204 != 0) {
-    Vec3_Copy(local_c,(float *)&DAT_004ddb70,(float *)((int)g_pRdCurrentCamera + 8));
-    Matrix34_TransformPoint(local_18,(float *)&DAT_007f3208,(float *)((int)g_pRdCurrentCamera + 8));
+    Vec3_Copy(local_c,(float *)&DAT_004ddb70,(float *)((int)g_pRdCamera_CurCamera + 8));
+    Matrix34_TransformPoint(local_18,(float *)&DAT_007f3208,(float *)((int)g_pRdCamera_CurCamera + 8));
     uVar3 = Polygon_ClipToPlane(local_c,local_18,UINT_007f1474,UINT_007f1478,UINT_007f147c,
-                                UINT_007f1468);
+                                g_dwVertexDst);
     if ((int)uVar3 < 2) {
       return 0;
     }
-    UINT_007f1468 = uVar3;
+    g_dwVertexDst = uVar3;
     *(uint *)(iVar2 + 0x1c) = uVar3;
   }
   if (*(int *)(iVar2 + 0xc) == 2) {
     if (param_2 == 0) {
-      fVar7 = *(float *)((int)g_pRdCurrentCamera + 0x45c);
-      iVar5 = *(int *)((int)PTR_007f30a0 + 0x30);
+      fVar7 = *(float *)((int)g_pRdCamera_CurCamera + 0x45c);
+      iVar5 = *(int *)((int)g_pCurMesh + 0x30);
       pfVar4 = (float *)(param_1 + 0x40);
     }
     else {
       local_24 = -*(float *)(param_1 + 0x40);
       local_20[0] = -*(float *)(param_1 + 0x44);
       local_20[1] = -*(float *)(param_1 + 0x48);
-      fVar7 = *(float *)((int)g_pRdCurrentCamera + 0x45c);
-      iVar5 = *(int *)((int)PTR_007f30a0 + 0x30);
+      fVar7 = *(float *)((int)g_pRdCamera_CurCamera + 0x45c);
+      iVar5 = *(int *)((int)g_pCurMesh + 0x30);
       pfVar4 = &local_24;
     }
     fVar7 = rdLight_CalcFaceIntensity
-                      ((int *)&UINT_007f30e0,IMG_ADDR(0x007f1598),IMG_ADDR(0x007f1168),UINT_007f31fc,param_1,pfVar4,iVar5,
+                      ((int *)&UINT_007f30e0,IMG_ADDR(0x007f1598),IMG_ADDR(0x007f1168),g_dwNumMeshLights,param_1,pfVar4,iVar5,
                        fVar7);
     *(float *)(iVar2 + 0x44) = fVar7;
   }
-  (**(code **)((int)g_pRdCurrentCamera + 0x50))(UINT_007f1490,UINT_007f1474,UINT_007f1468);
-  if (((byte)g_dwRdroidFlags & 2) == 0) {
+  (**(code **)((int)g_pRdCamera_CurCamera + 0x50))(UINT_007f1490,UINT_007f1474,g_dwVertexDst);
+  if (((byte)g_dwRdroid_curRenderOptions & 2) == 0) {
     *(undefined4 *)(iVar2 + 0x40) = 0;
   }
   else {
-    *(undefined4 *)(iVar2 + 0x40) = *(undefined4 *)((int)g_pRdCurrentCamera + 0x54);
+    *(undefined4 *)(iVar2 + 0x40) = *(undefined4 *)((int)g_pRdCamera_CurCamera + 0x54);
   }
   iVar5 = *(int *)(param_1 + 0x24);
   if ((iVar5 == -1) && (*(int *)(param_1 + 0x20) != 0)) {
     iVar5 = *(int *)(*(int *)(param_1 + 0x20) + 100);
   }
   *(int *)(iVar2 + 0x3c) = iVar5;
-  bVar6 = UINT_004f5ec0 != UINT_004f5ec4;
+  bVar6 = UINT_004f5ec0 != g_dwRdColormap_pCurMap;
   if (*(float *)(iVar2 + 0x40) < 1.0) {
     if (*(int *)(iVar2 + 0xc) == 2) {
       if ((*(float *)(iVar2 + 0x44) < 1.0) || (bVar6)) {
@@ -384,16 +384,16 @@ undefined4 rdModel3_DrawFace(int param_1,int param_2)
     pfVar4 = *(float **)(iVar2 + 0x28);
     fVar7 = *pfVar4;
     uVar3 = 1;
-    if (1 < UINT_007f1468) {
+    if (1 < g_dwVertexDst) {
       do {
         pfVar4 = pfVar4 + 1;
         fVar1 = *pfVar4 - fVar7;
         if (fVar1 < 0.0) {
           fVar1 = -fVar1;
         }
-      } while ((fVar1 <= 0.015625) && (uVar3 = uVar3 + 1, uVar3 < UINT_007f1468));
+      } while ((fVar1 <= 0.015625) && (uVar3 = uVar3 + 1, uVar3 < g_dwVertexDst));
     }
-    if (uVar3 != UINT_007f1468) goto LAB_0040dbd3;
+    if (uVar3 != g_dwVertexDst) goto LAB_0040dbd3;
     if (fVar7 != 1.0) {
       if (fVar7 == 0.0) {
         *(undefined4 *)(iVar2 + 0xc) = 1;
@@ -428,7 +428,7 @@ LAB_0040dbd3:
   *(undefined4 *)(iVar2 + 4) = *(undefined4 *)(param_1 + 4);
   *(undefined4 *)(iVar2 + 0x48) = *(undefined4 *)(param_1 + 0x30);
   *(undefined4 *)(iVar2 + 0x38) = *(undefined4 *)(param_1 + 0x20);
-  rdCache_AddMesh((void *)0x0,UINT_007f1468,flags);
+  rdCache_AddMesh((void *)0x0,g_dwVertexDst,flags);
   return 1;
 }
 #undef local_18
@@ -465,12 +465,12 @@ int __cdecl rdCache_DrawMeshZ(void *mesh)
     iVar7 = g_nRdroidGeometryMode;
   }
   iVar8 = *(int *)((int)mesh + 0xc);
-  if (g_nRdroidLightingMode <= *(int *)((int)mesh + 0xc)) {
-    iVar8 = g_nRdroidLightingMode;
+  if (g_nRdroid_curLightingMode <= *(int *)((int)mesh + 0xc)) {
+    iVar8 = g_nRdroid_curLightingMode;
   }
   mesh = *(void **)((int)mesh + 0x10);
-  if (g_nRdroidTextureMode <= (int)mesh) {
-    mesh = (void *)g_nRdroidTextureMode;
+  if (g_nRdroid_curTextureMode <= (int)mesh) {
+    mesh = (void *)g_nRdroid_curTextureMode;
   }
   if (iVar7 == 0) {
     return 0;
@@ -506,7 +506,7 @@ LAB_00408b6e:
       iVar7 = 3;
     }
   }
-  if (((byte)g_dwRdroidFlags & 2) == 0) {
+  if (((byte)g_dwRdroid_curRenderOptions & 2) == 0) {
     local_4 = 0.0;
   }
   else {
@@ -908,16 +908,16 @@ undefined4 rdModel3_Load(int name, undefined4 model)
     int file, ok;
     int magic;
 
-    file = (*g_pSvcRdroid->pFopen)(name, &DAT_004ddb18);
+    file = (*g_pRdroid_HS->pFopen)(name, &DAT_004ddb18);
     if (file == 0)
         return 0;
-    (*g_pSvcRdroid->pFread)(file, &magic, 4);
+    (*g_pRdroid_HS->pFread)(file, &magic, 4);
     if (magic == 0x4d4f444c) {
         ok = rdModel3_LoadEntryBinary(file, model);
-        (*g_pSvcRdroid->pFclose)(file);
+        (*g_pRdroid_HS->pFclose)(file);
         return ok != 0;
     }
-    (*g_pSvcRdroid->pFclose)(file);
+    (*g_pRdroid_HS->pFclose)(file);
     return ((undefined4 (*)(int, undefined4))rdModel3_LoadEntryText)(name, model);
 }
 /* ==== rdPrimit3_DrawPolygon (0x00409d50) ====
@@ -929,7 +929,7 @@ undefined4 rdModel3_Load(int name, undefined4 model)
 void * __cdecl rdPrimit3_DrawPolygon(float *verts, int count, void *material)
 {
     float cv[96], proj[96], cen[3], e1[3], e2[3], n[3], avg[3];
-    char *cam = (char *)g_pRdCurrentCamera;
+    char *cam = (char *)g_pRdCamera_CurCamera;
     uint *e;
     uint vc;
     int i;
@@ -1004,8 +1004,8 @@ void rdModel3_CalcRadii(int model)
         }
         *(float *)(rec + 0x60) = (float)((long double)mx * 0.1f + mx);
     }
-    _DAT_007f3200 = 0;
-    rdModel3_BuildExpandedRadius(model, *(undefined4 *)(model + 0x58), g_MatrixIdentity);
+    _g_dwMaxGeoRadius = 0;
+    rdModel3_BuildExpandedRadius(model, *(undefined4 *)(model + 0x58), g_flRdroid_identMatrix34);
 }
 /* ==== rdModel3_CalcVertexNormals (0x0040cc30) ====
  * Averages the normals of the faces that share a vertex into the mesh's vertex normal array and normalises them.  For every
@@ -1092,7 +1092,7 @@ int __cdecl rdSprite_DrawThing(void *thing, void *sprite)
 {
     char *t = (char *)thing;
     char *data = *(char **)(t + 4);
-    char *cam = (char *)g_pRdCurrentCamera;
+    char *cam = (char *)g_pRdCamera_CurCamera;
     float campos[3], mat[12];
     float alpha, size;
     int visible, mode;
@@ -1100,14 +1100,14 @@ int __cdecl rdSprite_DrawThing(void *thing, void *sprite)
     float *pt;
 
     Matrix34_TransformPoint(campos, (float *)((char *)sprite + 0x24), (float *)(cam + 8));
-    if ((DAT_00900068 & 2) == 0)
+    if ((g_bRdroid_curCullFlags & 2) == 0)
         visible = *(int *)(t + 0x44);
     else
         visible = Frustum_TestSphere(*(undefined4 *)(cam + 0x48), campos, *(float *)(data + 0x3c));   /* (the radius's bits, not a conversion: grim_tools/cleanroom) */
     if (visible == 2)
         return 0;
     Matrix_Mul34(mat, (float *)(cam + 8), sprite);
-    alpha = ((byte)g_dwRdroidFlags & 2) == 0 ? 0.0f : *(float *)(cam + 0x54);
+    alpha = ((byte)g_dwRdroid_curRenderOptions & 2) == 0 ? 0.0f : *(float *)(cam + 0x54);
     if (alpha < 1.0f)
         mode = (0.0f < alpha) ? *(int *)(data + 0x20) : 1;
     else
@@ -1159,7 +1159,7 @@ static inline float sincos_lerp(float v0, float v1, float frac)
 
 void stdMath_SinCos(float deg, float *outSin, float *outCos)
 {
-    const float *T = (const float *)&DAT_004df600;
+    const float *T = (const float *)&g_aSinTable;
     volatile float a, t, frac;
     int q, i1, i2;
     float v0, v1;
@@ -1247,7 +1247,7 @@ float10 Math_SinDeg(float deg)
  * integers (x and y truncated by _ftol, the decompiler lost both operands) followed by the depth as a float. */
 int rdPrimit3_GetScreenCoord(float *world, float *outScreen)
 {
-    char *cam = (char *)g_pRdCurrentCamera;
+    char *cam = (char *)g_pRdCamera_CurCamera;
     float local[3], proj[3];
 
     Matrix34_TransformPoint(local, world, (float *)(cam + 8));
@@ -1268,7 +1268,7 @@ int rdPrimit3_GetScreenCoord(float *world, float *outScreen)
  * screen position (x + 0.5, y + 0.5 truncated) and the size.  The prototype in Ghidra lacked the two trailing arguments. */
 void rdPrimit3_DrawPoint(float *world, float radius, uint a3, uint a4, uint a5)
 {
-    char *cam = (char *)g_pRdCurrentCamera;
+    char *cam = (char *)g_pRdCamera_CurCamera;
     float p[3], q[3], s1[3], s2[3], size;
     int ix, iy;
 
@@ -1296,7 +1296,7 @@ extern double (*msvcrt_pow)(double, double) __asm__("__imp__pow");   /* the impo
  * depth (float bits) of the end points.  param_7 is a full dword in the original (the Ghidra prototype said ushort). */
 undefined4 rdPrimit3_DrawLine(float *a, float *b, int *outA, int *outB, int *clipA, int *clipB, uint color, uint pattern)
 {
-    char *cam = (char *)g_pRdCurrentCamera;
+    char *cam = (char *)g_pRdCamera_CurCamera;
     float v1[3], v2[3], s1[3], s2[3];
     int x1, y1, x2, y2;
 
@@ -1448,7 +1448,7 @@ int __cdecl Palette_ApplyGamma(void *dst, void *src, int count, int gammaIdx)
 }
 
 /* ==== Render_BuildColorTable (0x004864a0) ====
- * Builds the 65536 entry colour remap table g_wColorTable for a gamma value: every RGB565 value is split into its
+ * Builds the 65536 entry colour remap table g_wSputRender_ColorLookup for a gamma value: every RGB565 value is split into its
  * channels, each channel is normalised (r, b / 31, g / 63), raised to `gamma` (msvcrt pow, rounded to float like the
  * stores of the original), scaled to the channel size of the display format `fmt` (bits at +8 / +0xc / +0x10, left shifts
  * at +0x14 / +0x18 / +0x1c) and truncated.  The decompiler lost the operands of _CIpow and _ftol. */
@@ -1468,11 +1468,11 @@ void Render_BuildColorTable(int fmt, float gamma)
         fr = (float)((long double)((1 << (f[2] & 31)) - 1) * fr);
         fg = (float)((long double)((1 << (f[3] & 31)) - 1) * fg);
         fb = (float)((long double)((1 << (f[4] & 31)) - 1) * fb);
-        (&g_wColorTable)[i] = (ushort)((((int)(long long)fr) << (f[5] & 31)) |
+        (&g_wSputRender_ColorLookup)[i] = (ushort)((((int)(long long)fr) << (f[5] & 31)) |
                                        (((int)(long long)fg) << (f[6] & 31)) |
                                        (((int)(long long)fb) << (f[7] & 31)));
     }
-    g_flGamma = gamma;
+    g_flSputRender_GammaCorrection = gamma;
 }
 
 /* ==== Render_FillRect (0x004870e0) ====
@@ -1481,14 +1481,14 @@ void Render_BuildColorTable(int fmt, float gamma)
  * (The Ghidra prototype had three float arguments; the code only reads one, used for all channels.) */
 void Render_FillRect(int x, int y, int w, int h, float scale)
 {
-    const uint *fmt = (const uint *)&g_BackBuffer;   /* the back buffer record: bits per channel at +0x28.., shifts at +0x34.. */
+    const uint *fmt = (const uint *)&g_dwStdDisplay_backBuffer;   /* the back buffer record: bits per channel at +0x28.., shifts at +0x34.. */
     uint mr = 0xffffffffu >> ((32 - fmt[10]) & 31);
     uint mg = 0xffffffffu >> ((32 - fmt[11]) & 31);
     uint mb = 0xffffffffu >> ((32 - fmt[12]) & 31);
     ushort *row;
     int cy, cx;
 
-    Surface_Lock(&g_BackBuffer);
+    Surface_Lock(&g_dwStdDisplay_backBuffer);
     row = (ushort *)(UINT_0090563c + y * UINT_009055f8 + x * 2);
     for (cy = h; cy > 0; cy--) {
         ushort *p = row;
@@ -1501,7 +1501,7 @@ void Render_FillRect(int x, int y, int w, int h, float scale)
         }
         row = (ushort *)((char *)row + UINT_009055f8);
     }
-    Surface_Unlock(&g_BackBuffer);
+    Surface_Unlock(&g_dwStdDisplay_backBuffer);
 }
 
 /* ==== Render_DrawProgressBar (0x004873d0) ====
@@ -1519,7 +1519,7 @@ void Render_DrawProgressBar(float fraction)
         fraction = 1.0f;
     filled = (int)(long long)((long double)fraction * 540.0f);
     sputRender_ColorCorrect((ushort *)&color, 1);
-    Surface_Lock(&g_PrimarySurface);
+    Surface_Lock(&g_dwStdDisplay_frontBuffer);
     line = (char *)(UINT_00901698 * 0x1c7 + UINT_009016dc);
     p = (ushort *)(line + 100);
     for (n = 0x21c; n != 0; n--)
@@ -1537,7 +1537,7 @@ void Render_DrawProgressBar(float fraction)
     p = (ushort *)(line + 100);
     for (n = 0x21c; n != 0; n--)
         *p++ = (ushort)color;
-    Surface_Unlock(&g_PrimarySurface);
+    Surface_Unlock(&g_dwStdDisplay_frontBuffer);
 }
 
 /* ==== Render_DrawIris (0x00486d00) ====
@@ -1552,7 +1552,7 @@ void Render_DrawIris(float percent, int x, int y)
     char *p;
 
     if (!(percent >= 0.0f) || percent > 1.0f) {
-        (*g_pSvcRender->pAssertFail)(s__percent____0_0f______percent____004e80ec, s_C__grimsrc_libs_grimlib_Engine_s_004e80bc, 0x9f2);
+        (*g_pSputRendHS->pAssertFail)(s__percent____0_0f______percent____004e80ec, s_C__grimsrc_libs_grimlib_Engine_s_004e80bc, 0x9f2);
     }
     top = (int)(long long)((long double)y * percent);
     left = (int)(long long)((long double)x * percent);
@@ -1560,7 +1560,7 @@ void Render_DrawIris(float percent, int x, int y)
     right = (int)(long long)((long double)(0x280 - x) * percent);
     base = UINT_0090563c;
     pitch = UINT_009055f8;
-    Surface_Lock(&g_BackBuffer);
+    Surface_Lock(&g_dwStdDisplay_backBuffer);
     for (row = 0; row < top; row++)                   /* top rows: all black */
         memset((char *)base + (uint)row * pitch, 0, 0x500);
     if (row < 0)
@@ -1576,7 +1576,7 @@ void Render_DrawIris(float percent, int x, int y)
     }
     for (; row < 0x1e0; row++)                         /* bottom rows: all black */
         memset((char *)base + row * pitch, 0, 0x500);
-    Surface_Unlock(&g_BackBuffer);
+    Surface_Unlock(&g_dwStdDisplay_backBuffer);
 }
 
 /* ==== sputRender_ScreenShot (0x00486f90) ====
@@ -1585,21 +1585,21 @@ void Render_DrawIris(float percent, int x, int y)
  * the x87 stack, the steps are floats).  Returns the new surface (save game thumbnail). */
 void *sputRender_ScreenShot(int w, int h)
 {
-    uint savedMode = UINT_008a8c40;
+    uint savedMode = g_dwGrimlib_mode;
     void *bg, *thumb;
     uint info[0x13];
     float stepX, stepY;
     long double yacc = 0.0f;
     int row, col;
 
-    UINT_008a8c40 = 2;
-    g_nFullRedrawPending = 1;
+    g_dwGrimlib_mode = 2;
+    g_nSputRender_Reset = 1;
     ((void (*)(int, int))sputRender_Dim)(1, 0);
-    bg = g_pBackgroundSurface;
+    bg = g_pSputRender_CleanBuffer;
     memcpy(info, (char *)bg + 0xc, 0x4c);
     info[0] = w;
     info[1] = h;
-    UINT_008a8c40 = savedMode;
+    g_dwGrimlib_mode = savedMode;
     thumb = Surface_Create(info, 0, 0, 0);
     stepX = (float)(640.0f / (long double)w);
     stepY = (float)(480.0f / (long double)h);
@@ -1618,7 +1618,7 @@ void *sputRender_ScreenShot(int w, int h)
     }
     Surface_Unlock(thumb);
     Surface_Unlock(bg);
-    g_nFullRedrawPending = 1;
+    g_nSputRender_Reset = 1;
     return thumb;
 }
 /* ==== sputLua_DimRegion (0x004a1a00), sputLua_RestoreCacheRect (0x004a26b0) ====
@@ -1797,7 +1797,7 @@ static inline int ceil_to_int(float x)
 
 int rdCache_AddMesh(void *mesh, uint vertexCount, byte flags)
 {
-    uint idx = g_dwRdCacheMeshCount;
+    uint idx = g_dwRdCache_numProcFaces;
     char *e;
     float *v;
     float xlo, xhi, ylo, yhi, zlo, zhi;
@@ -1805,7 +1805,7 @@ int rdCache_AddMesh(void *mesh, uint vertexCount, byte flags)
 
     if (idx >= 0x400)
         return 0;
-    e = (char *)&DAT_008ddfc0 + idx * 0x78;
+    e = (char *)&g_bRdCache_aProcFaces + idx * 0x78;
     v = *(float **)(e + 0x20);
     *(void **)e = mesh;
     *(uint *)(e + 0x1c) = vertexCount;
@@ -1845,13 +1845,13 @@ int rdCache_AddMesh(void *mesh, uint vertexCount, byte flags)
     *(int *)(e + 0x5c) = ceil_to_int(ylo);
     *(int *)(e + 0x60) = ceil_to_int(yhi);
     if (flags & 1)
-        UINT_007f0fbc = UINT_007f0fbc + vertexCount;
+        g_dwNumUsedVertices = g_dwNumUsedVertices + vertexCount;
     if (flags & 2)
-        UINT_007f0fc0 = UINT_007f0fc0 + vertexCount;
+        g_dwNumUsedTexVertices = g_dwNumUsedTexVertices + vertexCount;
     if (flags & 4)
-        UINT_007f0fc4 = UINT_007f0fc4 + vertexCount;
+        g_dwNumUsedIntensities = g_dwNumUsedIntensities + vertexCount;
     *(uint *)(e + 0x4c) = UINT_004f5ec0;
-    g_dwRdCacheMeshCount = g_dwRdCacheMeshCount + 1;
+    g_dwRdCache_numProcFaces = g_dwRdCache_numProcFaces + 1;
     if (*(uint *)(e + 0x54) < (uint)g_nDrawBoxMinX)
         g_nDrawBoxMinX = *(uint *)(e + 0x54);
     if ((uint)g_nDrawBoxMaxX < *(uint *)(e + 0x58))
@@ -1899,7 +1899,7 @@ void sputPrimitive_ChangePrimitive(void)
     if ((iVar4 != 0) && (iVar4 = lua_tag(iVar3), iVar4 == 0x524c4f43)) {
       uVar5 = lua_getuserdata(iVar3);
       /* the Lua colour is 0x00BBGGRR-style bytes; each channel loses its low bits and moves to the display's channel position */
-      Primitive_SetColor(&UINT_008ca0a0,iVar1,
+      Primitive_SetColor(&g_dwPrimitiveQ,iVar1,
                          ((((uVar5 >> 16) & 0xff) >> (UINT_004ddac8 & 0x1f)) << (UINT_004ddabc & 0x1f) & 0xffff) |
                          ((((uVar5 >> 8) & 0xff) >> (UINT_004ddac4 & 0x1f)) << (UINT_004ddab8 & 0x1f) & 0xffff) |
                          (((uVar5 & 0xff) >> (UINT_004ddac0 & 0x1f)) << (UINT_004ddab4 & 0x1f) & 0xffff));
@@ -1910,7 +1910,7 @@ void sputPrimitive_ChangePrimitive(void)
     iVar4 = lua_isnumber(iVar3);
     if (iVar4 != 0) {
       lVar7 = (longlong)lua_getnumber(iVar3);
-      Primitive_SetLayer(&UINT_008ca0a0,iVar1,(int)lVar7);
+      Primitive_SetLayer(&g_dwPrimitiveQ,iVar1,(int)lVar7);
     }
     lua_pushobject(iVar2);
     lua_pushstring(PTR_s_xoffset_004e836c);
@@ -1934,7 +1934,7 @@ void sputPrimitive_ChangePrimitive(void)
         lVar7 = (longlong)lua_getnumber(iVar4);
         iVar3 = (int)lVar7;
       }
-      Primitive_Offset(&UINT_008ca0a0,iVar1,local_8,iVar3);
+      Primitive_Offset(&g_dwPrimitiveQ,iVar1,local_8,iVar3);
     }
     lua_pushobject(iVar2);
     lua_pushstring(PTR_DAT_004e8374);
@@ -1958,7 +1958,7 @@ void sputPrimitive_ChangePrimitive(void)
         lVar7 = (longlong)lua_getnumber(iVar4);
         iVar3 = (int)lVar7;
       }
-      Primitive_MoveTo(&UINT_008ca0a0,iVar1,local_8,iVar3);
+      Primitive_MoveTo(&g_dwPrimitiveQ,iVar1,local_8,iVar3);
     }
     lua_pushobject(iVar2);
     lua_pushstring(PTR_DAT_004e837c);
@@ -1982,7 +1982,7 @@ void sputPrimitive_ChangePrimitive(void)
         lVar7 = (longlong)lua_getnumber(iVar4);
         iVar3 = (int)lVar7;
       }
-      Primitive_SetEnd(&UINT_008ca0a0,iVar1,local_8,iVar3);
+      Primitive_SetEnd(&g_dwPrimitiveQ,iVar1,local_8,iVar3);
     }
     lua_pushobject(iVar2);
     lua_pushstring(PTR_s_width_004e8384);
@@ -2008,7 +2008,7 @@ void sputPrimitive_ChangePrimitive(void)
       lVar7 = (longlong)lua_getnumber(iVar2);
       iVar6 = (int)lVar7;
     }
-    Primitive_SetSize(&UINT_008ca0a0,iVar1,iVar3,iVar6);
+    Primitive_SetSize(&g_dwPrimitiveQ,iVar1,iVar3,iVar6);
     return;
   }
   return;
@@ -2022,7 +2022,7 @@ void __cdecl Services_SetCurrent(GrimServices *svc)
 {
     ushort cw;
 
-    g_pSvcMain = svc;
+    g_pStd_HS = svc;
     if (Plat_ReturnTrue() == 0)
         return;
     __asm__ volatile("fnstcw %0" : "=m"(cw));
@@ -2154,8 +2154,8 @@ void Actor_DrawShadowPlane(void *costumeList, void *shadow)
                 g_pShadowColormap = rdColormap_Load(s_shadow_cmp_004ea190);
             if (g_pShadowMaterial != (void *)0) {
                 rdroid_SetColormap((uint)g_pShadowColormap);
-                if (g_nZBufferEnabled != 0)
-                    Display_SetPalette3D((void *)((int)g_pShadowColormap + 0x30), 0);
+                if (g_nSputRender_b3DAcceleration != 0)
+                    std3D_SetCurrentPalette((void *)((int)g_pShadowColormap + 0x30), 0);
                 Shadow_DrawClippedPoly(pts, 4, minXY, maxXY, shadow);
                 Shadow_DrawClippedPoly(pts + 12, 4, minXY, maxXY, shadow);
                 Shadow_DrawClippedPoly(pts + 24, 4, minXY, maxXY, shadow);
@@ -2196,7 +2196,7 @@ void __cdecl ShrinkBoxes(float radius)
         return;
     memset(acc, 0, sizeof(acc));
     memset(cnt, 0, sizeof(cnt));
-    for (s = (char *)g_pSectorList; s != (char *)0; s = *(char **)(s + 0x70)) {
+    for (s = (char *)g_pWalkPlane_wp_head; s != (char *)0; s = *(char **)(s + 0x70)) {
         if ((*(uint *)(s + 0x24) & 0x1000) == 0 || *(int *)(s + 0x28) == 0)
             continue;
         for (;;) {
@@ -2309,8 +2309,8 @@ int __cdecl sputActor_SetSelectedActor(int handle)
 
     if (g_pSelectedActor != (void *)0)
         old = ((int (*)(void *))sputActor_GetActorHandle)(g_pSelectedActor);
-    if (-1 < handle && handle < g_nActorCapacity)
-        g_pSelectedActor = (void *)((int)g_pActorTable + handle * 0xa8);
+    if (-1 < handle && handle < g_nMaxActors)
+        g_pSelectedActor = (void *)((int)g_pActors + handle * 0xa8);
     return old;
 }
 /* ==== sputLua_GetDiskFreeSpaceL (0x00498da0) ====
@@ -2426,7 +2426,7 @@ undefined4 Lua_DispatchControlHandlers(void)
     uint *rec;
 
     lua_beginblock();
-    sys = lua_getref(g_nLuaSystemTableRef);
+    sys = lua_getref(g_nLrSystemTable);
     lua_pushobject(sys);
     lua_pushstring(s_buttonHandler_004ec574);
     btnTab = lua_gettable();
@@ -2445,7 +2445,7 @@ undefined4 Lua_DispatchControlHandlers(void)
             hasBtn = 1;
         }
     }
-    sys = lua_getref(g_nLuaSystemTableRef);
+    sys = lua_getref(g_nLrSystemTable);
     lua_pushobject(sys);
     lua_pushstring(s_axisHandler_004ec568);
     axisTab = lua_gettable();
@@ -2465,7 +2465,7 @@ undefined4 Lua_DispatchControlHandlers(void)
         }
     }
     rec = &UINT_004e87d0;
-    for (i = 0; i < (uint)g_nControlCount; i++, rec += 4) {
+    for (i = 0; i < (uint)g_nSputControl_numControlSymbols; i++, rec += 4) {
         if ((rec[-2] & 1) == 0)
             continue;
         if ((rec[-2] & 4) == 0) {
@@ -2522,7 +2522,7 @@ void Actor_UpdateMovement(void *actor, float dt)
     *(undefined4 *)(a + 0x20) = *(undefined4 *)(a + 0x14);
     if (costume != 0 && *(int *)(costume + 0x7c) != 0) {
         if (*(int *)(costume + 0x7c) == 0) {
-            (*g_pSvcMain->pAssertFail)(s_Bad_costume_Reference_004e9e90, s_main_sputResource_h_004e80a8, 0xb8);
+            (*g_pStd_HS->pAssertFail)(s_Bad_costume_Reference_004e9e90, s_main_sputResource_h_004e80a8, 0xb8);
         }
         Cos_InstRescue(**(int **)(a + 0xa0), *(int *)(costume + 0x80));
     }
@@ -2613,7 +2613,7 @@ void * __cdecl Actor_CreateSubtitle(void *actor, char *text, int x, int y)
     ctx[5] = *(int *)(*(int *)(a + 0xa4) + 0x418);
     ctx[6] = 0;
     ctx[7] = 0;
-    if (*(int *)(a + 0x68) == 0 || UINT_008a8c40 == 3) {
+    if (*(int *)(a + 0x68) == 0 || g_dwGrimlib_mode == 3) {
         anchor = pt;
         if (*(int *)(a + 0xa0) == 0 || (*(byte *)(a + 4) & 2) != 0) {
             char *setName = Set_GetCurrentName();
@@ -2705,7 +2705,7 @@ void sputText_PrintLineL(void)
     if (iVar4 != 0) {
       pcVar6 = local_50;
       pcVar5 = (char *)lua_getstring(iVar2);
-      pcVar6 = Text_ParseLineId(pcVar5,pcVar6);
+      pcVar6 = sputText_ExtractSayLineData(pcVar5,pcVar6);
       if (local_58 < 0) {
         /* display time: (length * ms per character + base ms) * 16.666668 truncated */
         uint *msTab = (uint *)&UINT_004e8480 - 4;
@@ -2740,7 +2740,7 @@ void * __cdecl Surface_Create(void *info, int videoMem, int b, int palette)
     const byte *pal;
     byte entries[256 * 4];
 
-    s = (uint *)(*g_pSvcMain->pAlloc)(0xd8, file, lineBase + 0xd);
+    s = (uint *)(*g_pStd_HS->pAlloc)(0xd8, file, lineBase + 0xd);
     if (s == (uint *)0)
         return (void *)0;
     s[0x16] = palette;
@@ -2756,7 +2756,7 @@ void * __cdecl Surface_Create(void *info, int videoMem, int b, int palette)
     if (videoMem == 0 || g_nDisplayDeviceOpen == 0 || *(int *)((char *)g_pDisplayDevice + 0x100) != 1) {
         s[0] = 0;
         s[2] = 0;
-        s[0x17] = (uint)(*g_pSvcMain->pAlloc)(size, file, lineBase + 0x2a);
+        s[0x17] = (uint)(*g_pStd_HS->pAlloc)(size, file, lineBase + 0x2a);
         if (s[0x17] == 0)
             return (void *)0;
         s[1] = 1;
@@ -2978,8 +2978,8 @@ void Polyglot_LoadTable(undefined *name)
 void __cdecl SoundChanger(int tag, int snd, undefined4 p3, int slot, uint p5, uint p6, uint p7, uint inst)
 {
     int actor = Cos_InstGetUserData(inst);
-    void *actors = g_pActorTable;
-    const uint *state = (const uint *)&DAT_004e9ff8;
+    void *actors = g_pActors;
+    const uint *state = (const uint *)&g_aSoundCommands;
     float o1, o4, o5;
     uint o2 = 0, o3 = 0, loud;
     byte quiet;

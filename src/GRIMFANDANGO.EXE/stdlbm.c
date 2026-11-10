@@ -49,31 +49,31 @@ void * stdLbm_Load(char *param_1,int param_2,int param_3)
   #define uStack_38 (*(undefined4 *)(_frame + (0xb0 - 0x38)))
   #define uStack_34 (*(undefined4 *)(_frame + (0xb0 - 0x34)))
   
-  iVar6 = (*g_pSvcMain->pFopen)(param_1,&DAT_004ddb18);
+  iVar6 = (*g_pStd_HS->pFopen)(param_1,&DAT_004ddb18);
   if (iVar6 == 0) {
     return (void *)0x0;
   }
-  bitmap = (void *)(*g_pSvcMain->pAlloc)
+  bitmap = (void *)(*g_pStd_HS->pAlloc)
                              (0x7c,s_C__grimjedi_Libs_Std_General_Std_004e78ec,DAT_004e78e0 + 0x11);
   if (bitmap != (void *)0x0) {
-    (*g_pSvcMain->pFread)(iVar6,auStack_58,0xc);
+    (*g_pStd_HS->pFread)(iVar6,auStack_58,0xc);
     iVar7 = strncmp(auStack_58,&DAT_004e78e4,4);
     if (iVar7 == 0) {
       uStack_54 = Std_Swap32(uStack_54);
-      (*g_pSvcMain->pFseek)(iVar6,0,0);
+      (*g_pStd_HS->pFseek)(iVar6,0,0);
       cVar3 = stdFile_ReadByte(iVar6);
       bVar2 = false;
       do {
-        iVar7 = (*g_pSvcMain->pFeof)(iVar6);
+        iVar7 = (*g_pStd_HS->pFeof)(iVar6);
         if (iVar7 != 0) break;
         if (cVar3 == 'B') {
           cVar3 = stdFile_ReadByte(iVar6);
           if (((cVar3 == 'M') && (cVar3 = stdFile_ReadByte(iVar6), cVar3 == 'H')) &&
              (cVar3 = stdFile_ReadByte(iVar6), cVar3 == 'D')) {
-            ppvVar1 = &g_pSvcMain->pFseek;
-            iVar7 = (*g_pSvcMain->pFtell)(iVar6,0);
+            ppvVar1 = &g_pStd_HS->pFseek;
+            iVar7 = (*g_pStd_HS->pFtell)(iVar6,0);
             (*(code *)*ppvVar1)(iVar6,iVar7 + -4);
-            (*g_pSvcMain->pFread)(iVar6,auStack_88,8);
+            (*g_pStd_HS->pFread)(iVar6,auStack_88,8);
             bVar2 = true;
           }
         }
@@ -85,7 +85,7 @@ void * stdLbm_Load(char *param_1,int param_2,int param_3)
         return (void *)0x0;
       }
       uStack_84 = Std_Swap32(uStack_84);
-      (*g_pSvcMain->pFread)(iVar6,&uStack_74,0x14);
+      (*g_pStd_HS->pFread)(iVar6,&uStack_74,0x14);
       stdLbm_SwapHeader(&uStack_74);
       uVar12 = (int)uStack_84 >> 0x1f;
       if (((uStack_84 ^ uVar12) - uVar12 & 1 ^ uVar12) != uVar12) {
@@ -97,16 +97,16 @@ void * stdLbm_Load(char *param_1,int param_2,int param_3)
       }
       bVar2 = false;
       do {
-        iVar7 = (*g_pSvcMain->pFeof)(iVar6);
+        iVar7 = (*g_pStd_HS->pFeof)(iVar6);
         if (iVar7 != 0) break;
         cVar3 = stdFile_ReadByte(iVar6);
         if (((cVar3 == 'B') && (cVar3 = stdFile_ReadByte(iVar6), cVar3 == 'O')) &&
            ((cVar3 = stdFile_ReadByte(iVar6), cVar3 == 'D' &&
             (cVar3 = stdFile_ReadByte(iVar6), cVar3 == 'Y')))) {
-          ppvVar1 = &g_pSvcMain->pFseek;
-          iVar7 = (*g_pSvcMain->pFtell)(iVar6,0);
+          ppvVar1 = &g_pStd_HS->pFseek;
+          iVar7 = (*g_pStd_HS->pFtell)(iVar6,0);
           (*(code *)*ppvVar1)(iVar6,iVar7 + -4);
-          (*g_pSvcMain->pFread)(iVar6,auStack_80,8);
+          (*g_pStd_HS->pFread)(iVar6,auStack_80,8);
           bVar2 = true;
         }
       } while (!bVar2);
@@ -124,7 +124,7 @@ void * stdLbm_Load(char *param_1,int param_2,int param_3)
       *(undefined4 *)((int)bitmap + 0x68) = 0;
       *(undefined4 *)((int)bitmap + 0x28) = 0;
       *(undefined4 *)((int)bitmap + 0x2c) = 8;
-      iVar7 = (*g_pSvcMain->pAlloc)
+      iVar7 = (*g_pStd_HS->pAlloc)
                         (4,s_C__grimjedi_Libs_Std_General_Std_004e78ec,DAT_004e78e0 + 0x72);
       *(int *)((int)bitmap + 0x78) = iVar7;
       if (iVar7 != 0) {
@@ -197,30 +197,30 @@ void * stdLbm_Load(char *param_1,int param_2,int param_3)
             }
           }
           Surface_Unlock((void *)**(undefined4 **)((int)bitmap + 0x78));
-          iVar7 = (*g_pSvcMain->pAlloc)
+          iVar7 = (*g_pStd_HS->pAlloc)
                             (0x300,s_C__grimjedi_Libs_Std_General_Std_004e78ec,DAT_004e78e0 + 0xc2);
           *(int *)((int)bitmap + 0x60) = iVar7;
           if (iVar7 != 0) {
-            (*g_pSvcMain->pFseek)(iVar6,0,0);
+            (*g_pStd_HS->pFseek)(iVar6,0,0);
             bVar2 = false;
             do {
-              iVar7 = (*g_pSvcMain->pFeof)(iVar6);
+              iVar7 = (*g_pStd_HS->pFeof)(iVar6);
               if (iVar7 != 0) break;
               cVar3 = stdFile_ReadByte(iVar6);
               if ((((cVar3 == 'C') && (cVar3 = stdFile_ReadByte(iVar6), cVar3 == 'M')) &&
                   (cVar3 = stdFile_ReadByte(iVar6), cVar3 == 'A')) &&
                  (cVar3 = stdFile_ReadByte(iVar6), cVar3 == 'P')) {
-                ppvVar1 = &g_pSvcMain->pFseek;
-                iVar7 = (*g_pSvcMain->pFtell)(iVar6,0);
+                ppvVar1 = &g_pStd_HS->pFseek;
+                iVar7 = (*g_pStd_HS->pFtell)(iVar6,0);
                 (*(code *)*ppvVar1)(iVar6,iVar7 + -4);
-                (*g_pSvcMain->pFread)(iVar6,auStack_60,8);
+                (*g_pStd_HS->pFread)(iVar6,auStack_60,8);
                 bVar2 = true;
               }
             } while (!bVar2);
             if (bVar2) {
               uStack_5c = Std_Swap32(uStack_5c);
-              (*g_pSvcMain->pFread)(iVar6,*(undefined4 *)((int)bitmap + 0x60),uStack_5c);
-              (*g_pSvcMain->pFclose)(iVar6);
+              (*g_pStd_HS->pFread)(iVar6,*(undefined4 *)((int)bitmap + 0x60),uStack_5c);
+              (*g_pStd_HS->pFclose)(iVar6);
               return bitmap;
             }
             return (void *)0x0;
@@ -229,7 +229,7 @@ void * stdLbm_Load(char *param_1,int param_2,int param_3)
       }
     }
   }
-  (*g_pSvcMain->pFclose)(iVar6);
+  (*g_pStd_HS->pFclose)(iVar6);
   stdBitmap_Free(bitmap);
   return (void *)0x0;
 }
@@ -280,21 +280,21 @@ undefined4 stdLbm_Write(undefined4 param_1,int param_2)
   #define iStack_7d4 (*(int *)(_frame + (0x800 - 0x7d4)))
   #define auStack_7d0 (*(undefined1 (*)[2000])(_frame + (0x800 - 0x7d0)))
   
-  iVar2 = (*g_pSvcMain->pFopen)(param_1,&DAT_004ddd78);
+  iVar2 = (*g_pStd_HS->pFopen)(param_1,&DAT_004ddd78);
   if (iVar2 == 0) {
     return 0;
   }
-  (*g_pSvcMain->pFwrite)(iVar2,s_FORMxxxxPBM_BMHD_004e7928,0x10);
+  (*g_pStd_HS->pFwrite)(iVar2,s_FORMxxxxPBM_BMHD_004e7928,0x10);
   iStack_7ec = Std_Swap32(0x14);
-  (*g_pSvcMain->pFwrite)(iVar2,&iStack_7ec,4);
+  (*g_pStd_HS->pFwrite)(iVar2,&iStack_7ec,4);
   stdLbm_SwapHeader(&uStack_7e8);
-  (*g_pSvcMain->pFwrite)(iVar2,&uStack_7e8,0x14);
-  (*g_pSvcMain->pFwrite)(iVar2,&DAT_004e7920,4);
+  (*g_pStd_HS->pFwrite)(iVar2,&uStack_7e8,0x14);
+  (*g_pStd_HS->pFwrite)(iVar2,&DAT_004e7920,4);
   iStack_7ec = Std_Swap32(0x300);
-  (*g_pSvcMain->pFwrite)(iVar2,&iStack_7ec,4);
-  (*g_pSvcMain->pFwrite)(iVar2,*(undefined4 *)(param_2 + 0x60),0x300);
-  iStack_7d4 = (*g_pSvcMain->pFtell)(iVar2);
-  (*g_pSvcMain->pFwrite)(iVar2,s_BODYxxxx_004e7914,8);
+  (*g_pStd_HS->pFwrite)(iVar2,&iStack_7ec,4);
+  (*g_pStd_HS->pFwrite)(iVar2,*(undefined4 *)(param_2 + 0x60),0x300);
+  iStack_7d4 = (*g_pStd_HS->pFtell)(iVar2);
+  (*g_pStd_HS->pFwrite)(iVar2,s_BODYxxxx_004e7914,8);
   Surface_Lock((void *)**(undefined4 **)(param_2 + 0x78));
   uVar4 = 0;
   iVar3 = **(int **)(param_2 + 0x78);
@@ -309,14 +309,14 @@ undefined4 stdLbm_Write(undefined4 param_1,int param_2)
     } while (uVar4 < *(uint *)(**(int **)(param_2 + 0x78) + 0x10));
   }
   Surface_Unlock((void *)**(undefined4 **)(param_2 + 0x78));
-  iStack_7ec = (*g_pSvcMain->pFtell)(iVar2);
+  iStack_7ec = (*g_pStd_HS->pFtell)(iVar2);
   iVar3 = iStack_7d4;
   iStack_7ec = iStack_7ec + (-8 - iStack_7d4);
   iStack_7ec = Std_Swap32(iStack_7ec);
-  (*g_pSvcMain->pFseek)(iVar2,iVar3 + 4,0);
-  (*g_pSvcMain->pFwrite)(iVar2,&iStack_7ec,4);
-  (*g_pSvcMain->pFseek)(iVar2,0,2);
-  iStack_7ec = (*g_pSvcMain->pFtell)(iVar2);
+  (*g_pStd_HS->pFseek)(iVar2,iVar3 + 4,0);
+  (*g_pStd_HS->pFwrite)(iVar2,&iStack_7ec,4);
+  (*g_pStd_HS->pFseek)(iVar2,0,2);
+  iStack_7ec = (*g_pStd_HS->pFtell)(iVar2);
   iStack_7ec = iStack_7ec + -8;
   iStack_7ec = Std_Swap32(iStack_7ec);
   piVar1 = *(int **)(param_2 + 0x78);
@@ -332,13 +332,13 @@ undefined4 stdLbm_Write(undefined4 param_1,int param_2)
   uStack_7d9 = 5;
   uStack_7d8 = *(undefined2 *)(*piVar1 + 0xc);
   uStack_7d6 = *(undefined2 *)(*piVar1 + 0x10);
-  (*g_pSvcMain->pFseek)(iVar2,4,0);
-  (*g_pSvcMain->pFwrite)(iVar2,&iStack_7ec,4);
-  (*g_pSvcMain->pFseek)(iVar2,0x14,0);
+  (*g_pStd_HS->pFseek)(iVar2,4,0);
+  (*g_pStd_HS->pFwrite)(iVar2,&iStack_7ec,4);
+  (*g_pStd_HS->pFseek)(iVar2,0x14,0);
   stdLbm_SwapHeader(&uStack_7e8);
-  (*g_pSvcMain->pFwrite)(iVar2,&uStack_7e8,0x14);
-  (*g_pSvcMain->pFseek)(iVar2,0,2);
-  (*g_pSvcMain->pFclose)(iVar2);
+  (*g_pStd_HS->pFwrite)(iVar2,&uStack_7e8,0x14);
+  (*g_pStd_HS->pFseek)(iVar2,0,2);
+  (*g_pStd_HS->pFclose)(iVar2);
   return 1;
 }
 #undef auStack_7d0
@@ -380,7 +380,7 @@ void stdLbm_PackBits(undefined4 param_1,undefined1 *param_2,int param_3,char *pa
     *PTR_0081561c = DAT_00815610;
     UINT_00815614 = UINT_00815614 + 2;
   }
-  (*g_pSvcMain->pFwrite)(param_1,param_4,UINT_00815614);
+  (*g_pStd_HS->pFwrite)(param_1,param_4,UINT_00815614);
   return;
 }
 

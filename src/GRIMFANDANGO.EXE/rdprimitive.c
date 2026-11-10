@@ -37,7 +37,7 @@ undefined4 rdPolyline_Draw(int param_1,float *param_2)
   local_20 = (uint)&DAT_007f4e80;
   local_18 = 0;
   local_14 = 0;
-  Matrix_Mul34(local_78,(float *)((int)g_pRdCurrentCamera + 8),param_2);
+  Matrix_Mul34(local_78,(float *)((int)g_pRdCamera_CurCamera + 8),param_2);
   local_38[0] = 0.0;
   local_38[1] = *(float *)(iVar1 + 0x20);
   local_38[2] = 0.0;
@@ -160,15 +160,16 @@ void rdPolyline_DrawFace(int param_1,int param_2,undefined4 param_3,undefined4 *
       iVar6 = g_nRdroidGeometryMode;
     }
     *(int *)(iVar3 + 8) = iVar6;
-    if ((((byte)g_dwRdroidFlags & 2) == 0) || (*(float *)((int)g_pRdCurrentCamera + 0x54) < 1.0)) {
+    if ((((byte)g_dwRdroid_curRenderOptions & 2) == 0) ||
+       (*(float *)((int)g_pRdCamera_CurCamera + 0x54) < 1.0)) {
       iVar1 = *(int *)(param_2 + 0xc);
-      iVar8 = g_nRdroidLightingMode;
-      if (iVar1 <= g_nRdroidLightingMode) {
+      iVar8 = g_nRdroid_curLightingMode;
+      if (iVar1 <= g_nRdroid_curLightingMode) {
         iVar8 = iVar1;
       }
       iVar4 = *(int *)(param_1 + 0x3c);
-      if ((iVar8 < iVar4) && (iVar4 = iVar1, g_nRdroidLightingMode < iVar1)) {
-        iVar4 = g_nRdroidLightingMode;
+      if ((iVar8 < iVar4) && (iVar4 = iVar1, g_nRdroid_curLightingMode < iVar1)) {
+        iVar4 = g_nRdroid_curLightingMode;
       }
       *(int *)(iVar3 + 0xc) = iVar4;
     }
@@ -176,28 +177,28 @@ void rdPolyline_DrawFace(int param_1,int param_2,undefined4 param_3,undefined4 *
       *(undefined4 *)(iVar3 + 0xc) = 0;
     }
     iVar1 = *(int *)(param_2 + 0x10);
-    iVar8 = g_nRdroidTextureMode;
-    if (iVar1 <= g_nRdroidTextureMode) {
+    iVar8 = g_nRdroid_curTextureMode;
+    if (iVar1 <= g_nRdroid_curTextureMode) {
       iVar8 = iVar1;
     }
     iVar4 = *(int *)(param_1 + 0x40);
-    if ((iVar8 < *(int *)(param_1 + 0x40)) && (iVar4 = iVar1, g_nRdroidTextureMode < iVar1)) {
-      iVar4 = g_nRdroidTextureMode;
+    if ((iVar8 < *(int *)(param_1 + 0x40)) && (iVar4 = iVar1, g_nRdroid_curTextureMode < iVar1)) {
+      iVar4 = g_nRdroid_curTextureMode;
     }
     *(int *)(iVar3 + 0x10) = iVar4;
-    rdPrimit3_ClipFace(*(undefined4 *)((int)g_pRdCurrentCamera + 0x48),iVar6,
+    rdPrimit3_ClipFace(*(undefined4 *)((int)g_pRdCamera_CurCamera + 0x48),iVar6,
                        *(undefined4 *)(iVar3 + 0xc),iVar4,param_4,&local_2c,param_2 + 0x28);
     if (2 < local_2c) {
-      (**(code **)((int)g_pRdCurrentCamera + 0x50))(local_4,local_20,local_2c);
-      if (((byte)g_dwRdroidFlags & 2) == 0) {
+      (**(code **)((int)g_pRdCamera_CurCamera + 0x50))(local_4,local_20,local_2c);
+      if (((byte)g_dwRdroid_curRenderOptions & 2) == 0) {
         *(undefined4 *)(iVar3 + 0x40) = 0;
       }
       else {
-        *(undefined4 *)(iVar3 + 0x40) = *(undefined4 *)((int)g_pRdCurrentCamera + 0x54);
+        *(undefined4 *)(iVar3 + 0x40) = *(undefined4 *)((int)g_pRdCamera_CurCamera + 0x54);
       }
       iVar1 = *(int *)(iVar3 + 0xc);
       if (iVar1 != 0) {
-        bVar9 = UINT_004f5ec0 != UINT_004f5ec4;
+        bVar9 = UINT_004f5ec0 != g_dwRdColormap_pCurMap;
         if (*(float *)(iVar3 + 0x40) < 1.0) {
           if (iVar1 == 2) {
             if ((*(float *)(iVar3 + 0x44) < 1.0) || (bVar9)) {
@@ -293,22 +294,22 @@ int __cdecl rdSprite_DrawThing(void *thing,void *sprite)
   
   iVar1 = *(int *)((int)thing + 4);
   Matrix34_TransformPoint
-            (local_3c,(float *)((int)sprite + 0x24),(float *)((int)g_pRdCurrentCamera + 8));
-  if ((DAT_00900068 & 2) == 0) {
+            (local_3c,(float *)((int)sprite + 0x24),(float *)((int)g_pRdCamera_CurCamera + 8));
+  if ((g_bRdroid_curCullFlags & 2) == 0) {
     iVar2 = *(int *)((int)thing + 0x44);
   }
   else {
-    iVar2 = Frustum_TestSphere(*(undefined4 *)((int)g_pRdCurrentCamera + 0x48),local_3c,PUN(float,*(undefined4 *)(iVar1 + 0x3c)));
+    iVar2 = Frustum_TestSphere(*(undefined4 *)((int)g_pRdCamera_CurCamera + 0x48),local_3c,PUN(float,*(undefined4 *)(iVar1 + 0x3c)));
   }
   if (iVar2 == 2) {
     return 0;
   }
-  Matrix_Mul34(local_30,(float *)((int)g_pRdCurrentCamera + 8),sprite);
-  if (((byte)g_dwRdroidFlags & 2) == 0) {
+  Matrix_Mul34(local_30,(float *)((int)g_pRdCamera_CurCamera + 8),sprite);
+  if (((byte)g_dwRdroid_curRenderOptions & 2) == 0) {
     sprite = (void *)0x0;
   }
   else {
-    sprite = *(void **)((int)g_pRdCurrentCamera + 0x54);
+    sprite = *(void **)((int)g_pRdCamera_CurCamera + 0x54);
   }
   if (PUN(float,sprite) < 1.0) {
     if (0.0 < PUN(float,sprite)) {
@@ -346,10 +347,10 @@ int __cdecl rdSprite_DrawThing(void *thing,void *sprite)
       *(float *)&DAT_007f5020 = PUN(float,puVar3[1]) + *(float *)(iVar1 + 0x34);
       *(float *)&DAT_007f5024 = PUN(float,puVar3[-1]) - *(float *)(iVar1 + 0x34);
       *(float *)&DAT_007f502c = PUN(float,puVar3[1]) + *(float *)(iVar1 + 0x34);
-      vertexCount = rdClip_Face3_Pos_2(*(undefined4 *)((int)g_pRdCurrentCamera + 0x48),&DAT_007f5000
-                                       ,4);
+      vertexCount = rdClip_Face3_Pos_2(*(undefined4 *)((int)g_pRdCamera_CurCamera + 0x48),
+                                       &DAT_007f5000,4);
       if (2 < vertexCount) {
-        (**(code **)((int)g_pRdCurrentCamera + 0x50))
+        (**(code **)((int)g_pRdCamera_CurCamera + 0x50))
                   (*(undefined4 *)(iVar2 + 0x20),&DAT_007f5000,vertexCount);
         *(void **)(iVar2 + 0xc) = thing;
         *(void **)(iVar2 + 0x40) = sprite;
@@ -385,7 +386,7 @@ int rdSprite_New(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefi
 {
   int iVar1;
   
-  iVar1 = (*g_pSvcRdroid->pAlloc)(0xb8,s_C__grimjedi_Libs_RDroid_Primitiv_004dde64,DAT_004dde5c + 4)
+  iVar1 = (*g_pRdroid_HS->pAlloc)(0xb8,s_C__grimjedi_Libs_RDroid_Primitiv_004dde64,DAT_004dde5c + 4)
   ;
   if (iVar1 == 0) {
     return 0;
@@ -434,7 +435,7 @@ rdSprite_NewEntry(int param_1,int param_2,undefined4 param_3,char *param_4,undef
     return 0;
   }
   *(undefined4 *)(param_1 + 0x70) = 4;
-  iVar4 = (*g_pSvcRdroid->pAlloc)
+  iVar4 = (*g_pRdroid_HS->pAlloc)
                     (0x10,s_C__grimjedi_Libs_RDroid_Primitiv_004dde64,DAT_004dde60 + 0x2a);
   *(int *)(param_1 + 0x74) = iVar4;
   if (iVar4 != 0) {
@@ -456,7 +457,7 @@ LAB_00472af2:
                 *(float *)(param_1 + 0x54) * *(float *)(param_1 + 0x54));
       return 1;
     }
-    iVar4 = (*g_pSvcRdroid->pAlloc)
+    iVar4 = (*g_pRdroid_HS->pAlloc)
                       (*(int *)(param_1 + 0x70) << 2,s_C__grimjedi_Libs_RDroid_Primitiv_004dde64,
                        DAT_004dde60 + 0x31);
     *(int *)(param_1 + 0x78) = iVar4;
@@ -470,7 +471,7 @@ LAB_00472af2:
         } while (uVar5 < *(uint *)(param_1 + 0x70));
       }
       puVar6 = (undefined4 *)
-               (*g_pSvcRdroid->pAlloc)
+               (*g_pRdroid_HS->pAlloc)
                          (*(int *)(param_1 + 0x70) << 3,s_C__grimjedi_Libs_RDroid_Primitiv_004dde64,
                           DAT_004dde60 + 0x3d);
       *(undefined4 **)(param_1 + 0xa8) = puVar6;
@@ -500,7 +501,7 @@ void rdSprite_Free(int param_1)
 {
   if (param_1 != 0) {
     rdSprite_FreeContents(param_1);
-    (*g_pSvcRdroid->pFree)(param_1);
+    (*g_pRdroid_HS->pFree)(param_1);
   }
   return;
 }
@@ -510,15 +511,15 @@ void rdSprite_FreeContents(int param_1)
 
 {
   if (*(int *)(param_1 + 0xa8) != 0) {
-    (*g_pSvcRdroid->pFree)(*(int *)(param_1 + 0xa8));
+    (*g_pRdroid_HS->pFree)(*(int *)(param_1 + 0xa8));
     *(undefined4 *)(param_1 + 0xa8) = 0;
   }
   if (*(int *)(param_1 + 0x74) != 0) {
-    (*g_pSvcRdroid->pFree)(*(int *)(param_1 + 0x74));
+    (*g_pRdroid_HS->pFree)(*(int *)(param_1 + 0x74));
     *(undefined4 *)(param_1 + 0x74) = 0;
   }
   if (*(int *)(param_1 + 0x78) != 0) {
-    (*g_pSvcRdroid->pFree)(*(int *)(param_1 + 0x78));
+    (*g_pRdroid_HS->pFree)(*(int *)(param_1 + 0x78));
     *(undefined4 *)(param_1 + 0x78) = 0;
   }
   return;
@@ -563,20 +564,20 @@ undefined4 rdSprite_Draw(int param_1,float *param_2)
   #define local_14 (*(uint *)(_frame + (0x90 - 0x14)))
   
   iVar1 = *(int *)(param_1 + 4);
-  Matrix34_TransformPoint(&local_64,param_2 + 9,(float *)((int)g_pRdCurrentCamera + 8));
+  Matrix34_TransformPoint(&local_64,param_2 + 9,(float *)((int)g_pRdCamera_CurCamera + 8));
   Vec3_Copy(&local_70,(float *)(iVar1 + 0xac),param_2);
-  Vec3_Transform(&local_70,(float *)((int)g_pRdCurrentCamera + 8));
+  Vec3_Transform(&local_70,(float *)((int)g_pRdCamera_CurCamera + 8));
   if (0.0 <= local_70) {
     local_78[0] = -*(float *)(iVar1 + 0x54);
   }
   else {
     local_78[0] = *(float *)(iVar1 + 0x54);
   }
-  if ((DAT_00900068 & 2) == 0) {
+  if ((g_bRdroid_curCullFlags & 2) == 0) {
     iVar4 = *(int *)(param_1 + 0x44);
   }
   else {
-    iVar4 = Frustum_TestSphere(*(undefined4 *)((int)g_pRdCurrentCamera + 0x48),&local_64,PUN(float,*(undefined4 *)(iVar1 + 0x24)));
+    iVar4 = Frustum_TestSphere(*(undefined4 *)((int)g_pRdCamera_CurCamera + 0x48),&local_64,PUN(float,*(undefined4 *)(iVar1 + 0x24)));
   }
   if ((iVar4 != 2) && (iVar4 = rdCache_AllocMesh(), iVar4 != 0)) {
     *(float *)&DAT_007f5f0c = local_6c[0] + local_60[0];
@@ -612,15 +613,16 @@ undefined4 rdSprite_Draw(int param_1,float *param_2)
     *(float *)&DAT_007f5f24 = *(float *)&DAT_007f5f0c;
     *(float *)&DAT_007f5f30 = *(float *)&DAT_007f5f0c;
     *(int *)(iVar4 + 8) = iVar7;
-    if ((((byte)g_dwRdroidFlags & 2) == 0) || (*(float *)((int)g_pRdCurrentCamera + 0x54) < 1.0)) {
+    if ((((byte)g_dwRdroid_curRenderOptions & 2) == 0) ||
+       (*(float *)((int)g_pRdCamera_CurCamera + 0x54) < 1.0)) {
       iVar2 = *(int *)(iVar1 + 0x68);
-      iVar9 = g_nRdroidLightingMode;
-      if (iVar2 <= g_nRdroidLightingMode) {
+      iVar9 = g_nRdroid_curLightingMode;
+      if (iVar2 <= g_nRdroid_curLightingMode) {
         iVar9 = iVar2;
       }
       iVar5 = *(int *)(param_1 + 0x3c);
-      if ((iVar9 < iVar5) && (iVar5 = iVar2, g_nRdroidLightingMode < iVar2)) {
-        iVar5 = g_nRdroidLightingMode;
+      if ((iVar9 < iVar5) && (iVar5 = iVar2, g_nRdroid_curLightingMode < iVar2)) {
+        iVar5 = g_nRdroid_curLightingMode;
       }
       *(int *)(iVar4 + 0xc) = iVar5;
     }
@@ -628,28 +630,28 @@ undefined4 rdSprite_Draw(int param_1,float *param_2)
       *(undefined4 *)(iVar4 + 0xc) = 0;
     }
     iVar2 = *(int *)(iVar1 + 0x6c);
-    iVar9 = g_nRdroidTextureMode;
-    if (iVar2 <= g_nRdroidTextureMode) {
+    iVar9 = g_nRdroid_curTextureMode;
+    if (iVar2 <= g_nRdroid_curTextureMode) {
       iVar9 = iVar2;
     }
     iVar5 = *(int *)(param_1 + 0x40);
-    if ((iVar9 < *(int *)(param_1 + 0x40)) && (iVar5 = iVar2, g_nRdroidTextureMode < iVar2)) {
-      iVar5 = g_nRdroidTextureMode;
+    if ((iVar9 < *(int *)(param_1 + 0x40)) && (iVar5 = iVar2, g_nRdroid_curTextureMode < iVar2)) {
+      iVar5 = g_nRdroid_curTextureMode;
     }
     *(int *)(iVar4 + 0x10) = iVar5;
-    rdPrimit3_ClipFace(*(undefined4 *)((int)g_pRdCurrentCamera + 0x48),iVar7,
+    rdPrimit3_ClipFace(*(undefined4 *)((int)g_pRdCamera_CurCamera + 0x48),iVar7,
                        *(undefined4 *)(iVar4 + 0xc),iVar5,&local_2c,&local_58,iVar1 + 0x84);
     if (2 < local_58) {
-      (**(code **)((int)g_pRdCurrentCamera + 0x50))(local_30,local_4c,local_58);
-      if (((byte)g_dwRdroidFlags & 2) == 0) {
+      (**(code **)((int)g_pRdCamera_CurCamera + 0x50))(local_30,local_4c,local_58);
+      if (((byte)g_dwRdroid_curRenderOptions & 2) == 0) {
         *(undefined4 *)(iVar4 + 0x40) = 0;
       }
       else {
-        *(undefined4 *)(iVar4 + 0x40) = *(undefined4 *)((int)g_pRdCurrentCamera + 0x54);
+        *(undefined4 *)(iVar4 + 0x40) = *(undefined4 *)((int)g_pRdCamera_CurCamera + 0x54);
       }
       iVar2 = *(int *)(iVar4 + 0xc);
       if (iVar2 != 0) {
-        bVar10 = UINT_004f5ec0 == UINT_004f5ec4;
+        bVar10 = UINT_004f5ec0 == g_dwRdColormap_pCurMap;
         if (*(float *)(iVar4 + 0x40) < 1.0) {
           if (iVar2 == 2) {
             if ((*(float *)(iVar4 + 0x44) < 1.0) || (!bVar10)) {

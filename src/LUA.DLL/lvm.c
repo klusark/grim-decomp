@@ -18,7 +18,7 @@ void __cdecl luaV_closure(uint param_1)
   undefined4 *puVar5;
   
   if (0 < (int)param_1) {
-    piVar1 = PTR_1002bf6c + 7;
+    piVar1 = g_pLuaState + 7;
     puVar2 = luaF_newproto(param_1);
     iVar3 = *piVar1;
     puVar2[3] = *(undefined4 *)(iVar3 + -8);
@@ -55,11 +55,11 @@ void luaV_gettable(void)
   uint uVar4;
   int *piVar5;
   
-  iVar2 = PTR_1002bf6c[7];
-  piVar1 = PTR_1002bf6c + 7;
+  iVar2 = g_pLuaState[7];
+  piVar1 = g_pLuaState + 7;
   if (*(int *)(iVar2 + -0x10) == -3) {
     iVar3 = *(int *)(*(int *)(iVar2 + -0xc) + 0x14);
-    piVar5 = (int *)(DAT_1002bf48 + iVar3 * -0x90);
+    piVar5 = (int *)(g_dwLState_IMtable + iVar3 * -0x90);
     if (*piVar5 == -7) {
       piVar5 = luaH_get(*(int *)(iVar2 + -0xc),(int *)(iVar2 + -8));
       if ((piVar5 != (int *)0x0) && (*piVar5 != -7)) {
@@ -69,7 +69,7 @@ void luaV_gettable(void)
         *(int *)(iVar2 + -0xc) = piVar5[1];
         return;
       }
-      piVar5 = (int *)(DAT_1002bf48 + iVar3 * -0x90 + 0x10);
+      piVar5 = (int *)(g_dwLState_IMtable + iVar3 * -0x90 + 0x10);
       if (*piVar5 != -7) {
         luaD_callTM(piVar5,2,(void *)0x1);
         return;
@@ -82,7 +82,7 @@ void luaV_gettable(void)
   }
   else {
     uVar4 = luaT_efectivetag((uint *)(iVar2 + -0x10));
-    piVar5 = (int *)(DAT_1002bf48 + uVar4 * -0x90);
+    piVar5 = (int *)(g_dwLState_IMtable + uVar4 * -0x90);
   }
   if (*piVar5 != -7) {
     luaD_callTM(piVar5,2,(void *)0x1);
@@ -105,13 +105,13 @@ void __cdecl luaV_settable(uint *param_1,int param_2)
   int *piVar5;
   uint uVar6;
   
-  piVar1 = PTR_1002bf6c + 7;
+  piVar1 = g_pLuaState + 7;
   if (param_2 == 0) {
     piVar5 = (int *)0x0;
   }
   else {
     uVar6 = luaT_efectivetag(param_1);
-    piVar5 = (int *)(DAT_1002bf48 + uVar6 * -0x90 + 8);
+    piVar5 = (int *)(g_dwLState_IMtable + uVar6 * -0x90 + 8);
   }
   if ((*param_1 == 0xfffffffd) && ((piVar5 == (int *)0x0 || (*piVar5 == -7)))) {
     piVar5 = luaH_set(param_1[1],(int *)(param_1 + 2));
@@ -123,7 +123,7 @@ void __cdecl luaV_settable(uint *param_1,int param_2)
   }
   if ((piVar5 != (int *)0x0) && (*piVar5 != -7)) {
     if (param_2 == 2) {
-      iVar2 = PTR_1002bf6c[7];
+      iVar2 = g_pLuaState[7];
       iVar3 = *piVar1;
       *(undefined4 *)(iVar3 + 8) = *(undefined4 *)(iVar2 + -8);
       *(undefined4 *)(iVar3 + 0xc) = *(undefined4 *)(iVar2 + -4);
@@ -157,16 +157,16 @@ void __cdecl luaV_getglobal(int param_1)
   
   puVar1 = (uint *)(param_1 + 0x10);
   uVar4 = luaT_efectivetag(puVar1);
-  iVar5 = DAT_1002bf48 + uVar4 * -0x90;
+  iVar5 = g_dwLState_IMtable + uVar4 * -0x90;
   if (*(int *)(iVar5 + 0x18) == -7) {
-    puVar6 = (uint *)PTR_1002bf6c[7];
+    puVar6 = (uint *)g_pLuaState[7];
     *puVar6 = *puVar1;
     puVar6[1] = *(uint *)(param_1 + 0x14);
-    PTR_1002bf6c[7] = PTR_1002bf6c[7] + 8;
+    g_pLuaState[7] = g_pLuaState[7] + 8;
     return;
   }
-  piVar2 = PTR_1002bf6c + 7;
-  *(undefined4 *)PTR_1002bf6c[7] = 0xfffffffe;
+  piVar2 = g_pLuaState + 7;
+  *(undefined4 *)g_pLuaState[7] = 0xfffffffe;
   *(int *)(*piVar2 + 4) = param_1;
   iVar3 = *piVar2;
   puVar6 = (uint *)(iVar3 + 8);
@@ -194,13 +194,13 @@ void __cdecl luaV_setglobal(int *param_1)
   undefined4 *puVar8;
   
   uVar5 = luaT_efectivetag((uint *)(param_1 + 4));
-  iVar7 = DAT_1002bf48 + uVar5 * -0x90;
+  iVar7 = g_dwLState_IMtable + uVar5 * -0x90;
   if (*(int *)(iVar7 + 0x20) == -7) {
-    PTR_1002bf6c[7] = PTR_1002bf6c[7] + -8;
-    luaS_rawsetglobal(param_1,(int *)PTR_1002bf6c[7]);
+    g_pLuaState[7] = g_pLuaState[7] + -8;
+    luaS_rawsetglobal(param_1,(int *)g_pLuaState[7]);
     return;
   }
-  piVar6 = PTR_1002bf6c + 7;
+  piVar6 = g_pLuaState + 7;
   iVar1 = *piVar6;
   uVar2 = *(undefined4 *)(iVar1 + -8);
   uVar3 = *(undefined4 *)(iVar1 + -4);
@@ -237,7 +237,7 @@ void __cdecl luaV_pack(int param_1,int param_2,undefined4 *param_3)
   #define local_c (*(float *)(_frame + (0x20 - 0xc)))
   #define local_4 (*(float *)(_frame + (0x20 - 0x4)))
   
-  piVar5 = (int *)(PTR_1002bf6c[8] + param_1 * 8);
+  piVar5 = (int *)(g_pLuaState[8] + param_1 * 8);
   if (param_2 < 0) {
     param_2 = 0;
   }
@@ -282,13 +282,13 @@ void ExecutionState_CleanUp(void)
 {
   void *pvVar1;
   
-  if (PTR_1002bf84 != (void *)0x0) {
+  if (g_pExecutionState_pFreeStates != (void *)0x0) {
     do {
-      pvVar1 = *(void **)((int)PTR_1002bf84 + 0xc);
-      luaM_free(PTR_1002bf84);
-      PTR_1002bf84 = pvVar1;
+      pvVar1 = *(void **)((int)g_pExecutionState_pFreeStates + 0xc);
+      luaM_free(g_pExecutionState_pFreeStates);
+      g_pExecutionState_pFreeStates = pvVar1;
     } while (pvVar1 != (void *)0x0);
-    PTR_1002bf84 = (void *)0x0;
+    g_pExecutionState_pFreeStates = (void *)0x0;
   }
   return;
 }
@@ -384,8 +384,8 @@ void * __cdecl ExecutionState_New(int size)
   int iVar2;
   #define local_4 (*(undefined4 *)(_frame + (0x20 - 0x4)))
   
-  pvVar1 = PTR_1002bf84;
-  if (PTR_1002bf84 == (void *)0x0) {
+  pvVar1 = g_pExecutionState_pFreeStates;
+  if (g_pExecutionState_pFreeStates == (void *)0x0) {
     iVar2 = 10;
     do {
       local_4 = 0xffffffff;
@@ -395,13 +395,13 @@ void * __cdecl ExecutionState_New(int size)
         pvVar1 = (void *)0x0;
       }
       else {
-        pvVar1 = (void *)ExecutionState_Construct(pvVar1,(int)PTR_1002bf84,0,0);
+        pvVar1 = (void *)ExecutionState_Construct(pvVar1,(int)g_pExecutionState_pFreeStates,0,0);
       }
       iVar2 = iVar2 + -1;
-      PTR_1002bf84 = pvVar1;
+      g_pExecutionState_pFreeStates = pvVar1;
     } while (iVar2 != 0);
   }
-  PTR_1002bf84 = *(void **)((int)pvVar1 + 0xc);
+  g_pExecutionState_pFreeStates = *(void **)((int)pvVar1 + 0xc);
   return pvVar1;
 }
 #undef local_4
@@ -416,8 +416,8 @@ void * __cdecl ExecutionState_New(int size)
 void __cdecl ExecutionState_Delete(int param_1)
 
 {
-  *(void **)(param_1 + 0xc) = PTR_1002bf84;
-  PTR_1002bf84 = (void *)param_1;
+  *(void **)(param_1 + 0xc) = g_pExecutionState_pFreeStates;
+  g_pExecutionState_pFreeStates = (void *)param_1;
   return;
 }
 
@@ -462,7 +462,7 @@ int __thiscall ExecutionState_setvalues(void *this,int a1,int a2,int a3)
   *(undefined4 *)((int)this + 0x20) = *(undefined4 *)(a2 + 0x10);
   iVar1 = *(int *)(a2 + 8);
   *(int *)((int)this + 0x2c) = iVar1;
-  *(int **)((int)this + 0x1c) = PTR_1002bf6c + 7;
+  *(int **)((int)this + 0x1c) = g_pLuaState + 7;
   return iVar1;
 }
 
@@ -524,12 +524,12 @@ void __cdecl luaV_adjust_varargs(int param_1)
   #define local_8 (*(undefined4 *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(undefined4 *)(_frame + (0x20 - 0x4)))
   
-  luaV_pack(param_1,(PTR_1002bf6c[7] - PTR_1002bf6c[8] >> 3) - param_1,&local_8);
+  luaV_pack(param_1,(g_pLuaState[7] - g_pLuaState[8] >> 3) - param_1,&local_8);
   luaD_adjusttop(param_1);
-  puVar1 = (undefined4 *)PTR_1002bf6c[7];
+  puVar1 = (undefined4 *)g_pLuaState[7];
   *puVar1 = local_8;
   puVar1[1] = local_4;
-  PTR_1002bf6c[7] = PTR_1002bf6c[7] + 8;
+  g_pLuaState[7] = g_pLuaState[7] + 8;
   return;
 }
 #undef local_4
@@ -562,10 +562,10 @@ int __fastcall ExecutionState_CrunchOpcodes(int *param_1)
   int *piVar14;
   uint uVar15;
   
-  if ((PTR_1002bf6c[6] != 0) && (PTR_1002bf6c[2] == 0)) {
-    printf(s_WARNING__Lua_nesting_level_now___1002821c,PTR_1002bf6c[6]);
+  if ((g_pLuaState[6] != 0) && (g_pLuaState[2] == 0)) {
+    printf(s_WARNING__Lua_nesting_level_now___1002821c,g_pLuaState[6]);
   }
-  PTR_1002bf6c[6] = PTR_1002bf6c[6] + 1;
+  g_pLuaState[6] = g_pLuaState[6] + 1;
 switchD_1000dfaf_default:
   iVar13 = param_1[10];
   param_1[10] = iVar13 + 1;
@@ -1137,7 +1137,7 @@ switchD_1000dfaf_caseD_7b:
   }
   iVar13 = param_1[2] + uVar15;
 LAB_1000e9fd:
-  PTR_1002bf6c[6] = PTR_1002bf6c[6] + -1;
+  g_pLuaState[6] = g_pLuaState[6] + -1;
   return iVar13;
 }
 
@@ -1234,20 +1234,20 @@ void __cdecl call_binTM(int param_1,byte *param_2)
   int iVar2;
   undefined4 *puVar3;
   
-  uVar1 = luaT_efectivetag((uint *)(PTR_1002bf6c[7] + -0x10));
+  uVar1 = luaT_efectivetag((uint *)(g_pLuaState[7] + -0x10));
   iVar2 = param_1 + uVar1 * -0x12;
-  puVar3 = (undefined4 *)(DAT_1002bf48 + iVar2 * 8);
-  if (*(int *)(DAT_1002bf48 + iVar2 * 8) == -7) {
-    uVar1 = luaT_efectivetag((uint *)(PTR_1002bf6c[7] + -8));
+  puVar3 = (undefined4 *)(g_dwLState_IMtable + iVar2 * 8);
+  if (*(int *)(g_dwLState_IMtable + iVar2 * 8) == -7) {
+    uVar1 = luaT_efectivetag((uint *)(g_pLuaState[7] + -8));
     iVar2 = param_1 + uVar1 * -0x12;
-    puVar3 = (undefined4 *)(DAT_1002bf48 + iVar2 * 8);
-    if ((*(int *)(DAT_1002bf48 + iVar2 * 8) == -7) &&
-       (puVar3 = (undefined4 *)(DAT_1002bf48 + param_1 * 8),
-       *(int *)(DAT_1002bf48 + param_1 * 8) == -7)) {
+    puVar3 = (undefined4 *)(g_dwLState_IMtable + iVar2 * 8);
+    if ((*(int *)(g_dwLState_IMtable + iVar2 * 8) == -7) &&
+       (puVar3 = (undefined4 *)(g_dwLState_IMtable + param_1 * 8),
+       *(int *)(g_dwLState_IMtable + param_1 * 8) == -7)) {
       lua_error(param_2);
     }
   }
-  lua_pushstring((&PTR_s_gettable_10027d48)[param_1]);
+  lua_pushstring((&g_pLuaT_eventname)[param_1]);
   luaD_callTM(puVar3,3,(void *)0x1);
   return;
 }
@@ -1272,8 +1272,8 @@ void __cdecl luaV_comparison(undefined4 param_1,undefined4 param_2,undefined4 pa
   int iVar2;
   int iVar3;
   
-  iVar3 = PTR_1002bf6c[7];
-  piVar1 = PTR_1002bf6c + 7;
+  iVar3 = g_pLuaState[7];
+  piVar1 = g_pLuaState + 7;
   if ((*(int *)(iVar3 + -0x10) == -1) && (*(int *)(iVar3 + -8) == -1)) {
     if (*(float *)(iVar3 + -4) <= *(float *)(iVar3 + -0xc)) {
       if (*(float *)(iVar3 + -4) == *(float *)(iVar3 + -0xc)) {

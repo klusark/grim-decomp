@@ -19,23 +19,23 @@ void sputActor_NukeCostumeStacks(void)
   int iVar3;
   
   iVar3 = 0;
-  if (0 < g_nActorCapacity) {
+  if (0 < g_nMaxActors) {
     iVar2 = 0;
-    pvVar1 = g_pActorTable;
+    pvVar1 = g_pActors;
     do {
       if (*(int *)((int)pvVar1 + iVar2 + 0x9c) != 0) {
         costume = *(void **)((int)pvVar1 + iVar2 + 0xa0);
         if (costume != (void *)0x0) {
           sputCostume_PrintCostumeInfo(costume);
-          pvVar1 = g_pActorTable;
+          pvVar1 = g_pActors;
         }
         Costume_FreeList(*(void **)((int)pvVar1 + iVar2 + 0xa0),1);
-        *(undefined4 *)((int)g_pActorTable + iVar2 + 0xa0) = 0;
-        pvVar1 = g_pActorTable;
+        *(undefined4 *)((int)g_pActors + iVar2 + 0xa0) = 0;
+        pvVar1 = g_pActors;
       }
       iVar3 = iVar3 + 1;
       iVar2 = iVar2 + 0xa8;
-    } while (iVar3 < g_nActorCapacity);
+    } while (iVar3 < g_nMaxActors);
   }
   return;
 }
@@ -74,7 +74,7 @@ void __cdecl Actors_UpdateAll(float dt)
     piVar2 = *(int **)(*(int *)((int)pvVar1 + 0x1abc) + 0x80);
     if (piVar2 != (int *)0x0) {
       do {
-        pvVar1 = (void *)((int)g_pActorTable + *piVar2 * 0xa8);
+        pvVar1 = (void *)((int)g_pActors + *piVar2 * 0xa8);
         if (pvVar1 != (void *)0x0) {
           if (*(int *)((int)pvVar1 + 0xa4) != 0) {
             *(undefined4 *)(*(int *)((int)pvVar1 + 0xa4) + 0x3f8) = 0;

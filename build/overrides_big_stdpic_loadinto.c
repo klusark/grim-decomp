@@ -60,10 +60,10 @@ undefined4 stdPic_LoadEntry(char *path, undefined4 *bm_, int videoMem, int sysMe
     FRD(0xe0) = 8; FRD(0xe4) = 8; FRD(0xe8) = 8; FRD(0xf0) = 8;
     FRD(0xd8) = 1; FRD(0xdc) = 0x18; FRD(0xec) = 0x10;  /* colour format: RGB, 24 bit, 8/8/8, shifts 16/8/0 */
 
-    fp = (*g_pSvcMain->pFopen)(path, &DAT_004ddb18);
+    fp = (*g_pStd_HS->pFopen)(path, &DAT_004ddb18);
     if (fp == 0)
         return 0;
-    rd = (PicFreadFn)g_pSvcMain->pFread;
+    rd = (PicFreadFn)g_pStd_HS->pFread;
     if (rd(fp, FRB(0x70), 0x68) != 0x68)
         return 0;
 
@@ -122,9 +122,9 @@ undefined4 stdPic_LoadEntry(char *path, undefined4 *bm_, int videoMem, int sysMe
     *(uint *)(bm + 0x68) = 0;
     for (i = 0; i < 14; i++) ((uint *)(bm + 0x28))[i] = ((uint *)FRB(0xd8))[i];
     lineBase = *(short *)&DAT_004e77d0;
-    *(int *)(bm + 0x78) = (*g_pSvcMain->pAlloc)(4, s_C__grimjedi_Libs_Std_General_std_004e77d8, lineBase + 0x6d);
+    *(int *)(bm + 0x78) = (*g_pStd_HS->pAlloc)(4, s_C__grimjedi_Libs_Std_General_std_004e77d8, lineBase + 0x6d);
     if (*(int *)(bm + 0x78) == 0)
-        (*g_pSvcMain->pAssertFail)(s_Unable_to_allocate_memory__004e76d4, s_C__grimjedi_Libs_Std_General_std_004e77d8,
+        (*g_pStd_HS->pAssertFail)(s_Unable_to_allocate_memory__004e76d4, s_C__grimjedi_Libs_Std_General_std_004e77d8,
                                    (int)*(short *)&DAT_004e77d0 + 0x6e);
     /* Surface_Create description at ESP+0x110: width, height, three dwords Surface_Create overwrites, format */
     for (i = 0; i < 14; i++) ((uint *)FRB(0x124))[i] = ((uint *)(bm + 0x28))[i];
@@ -132,10 +132,10 @@ undefined4 stdPic_LoadEntry(char *path, undefined4 *bm_, int videoMem, int sysMe
     FRD(0x114) = FRW(0xce);
     **(void ***)(bm + 0x78) = Surface_Create(FRB(0x110), videoMem, sysMem, 0);
     if (**(void ***)(bm + 0x78) == 0)
-        (*g_pSvcMain->pAssertFail)(s_Unable_to_allocate_memory__004e76d4, s_C__grimjedi_Libs_Std_General_std_004e77d8,
+        (*g_pStd_HS->pAssertFail)(s_Unable_to_allocate_memory__004e76d4, s_C__grimjedi_Libs_Std_General_std_004e77d8,
                                    (int)*(short *)&DAT_004e77d0 + 0x76);
     if (Surface_Lock(**(void ***)(bm + 0x78)) == 0)
-        (*g_pSvcMain->pAssertFail)(s_Unable_to_lock_VBuffer_memory__004e76b4, s_C__grimjedi_Libs_Std_General_std_004e77d8,
+        (*g_pStd_HS->pAssertFail)(s_Unable_to_lock_VBuffer_memory__004e76b4, s_C__grimjedi_Libs_Std_General_std_004e77d8,
                                    (int)*(short *)&DAT_004e77d0 + 0x7c);
 
     surf = **(byte ***)(bm + 0x78);
@@ -197,7 +197,7 @@ undefined4 stdPic_LoadEntry(char *path, undefined4 *bm_, int videoMem, int sysMe
         }
     }
     Surface_Unlock(**(void ***)(bm + 0x78));
-    (*g_pSvcMain->pFclose)(fp);
+    (*g_pStd_HS->pFclose)(fp);
     return 1;
 }
 #endif

@@ -42,7 +42,8 @@ MUTATING = {"rename_function_by_address", "rename_function", "create_function", 
             "set_plate_comment", "rename_data", "rename_or_label", "set_global", "create_label",
             "apply_data_type", "set_function_no_return", "delete_function", "rename_variable",
             "rename_variables", "set_decompiler_comment", "set_comment", "set_parameter_type",
-            "set_local_variable_type", "batch_rename_function_components", "batch_create_labels"}
+            "set_local_variable_type", "batch_rename_function_components", "batch_create_labels",
+            "rename_label", "delete_label"}
 _touched = {}
 
 
@@ -81,7 +82,10 @@ def post(path, **body):
     if body.get("program"):
         # the bridge takes the program of a write from the query string (a `program` in the JSON body is ignored and
         # the write goes to its current program, which switch_program does not always change)
-        url += "?" + urllib.parse.urlencode({"program": body["program"]})
+        q = {"program": body["program"]}
+        if body.get("strict_mode"):   # (like program, read from the query string)
+            q["strict_mode"] = body["strict_mode"]
+        url += "?" + urllib.parse.urlencode(q)
     data = json.dumps(body).encode()
     req = urllib.request.Request(url, data=data, headers={"Content-Type": "application/json"})
     for attempt in range(4):

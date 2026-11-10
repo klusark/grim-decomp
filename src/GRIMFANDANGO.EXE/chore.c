@@ -40,7 +40,7 @@ void __cdecl sputCostume_FadeKeysIn(void *cosInst,int chore,int ms)
           do {
             iVar1 = *(int *)(*(int *)(*piVar3 + 0x40) + 0x14) + 8 + iVar4;
             if (piVar3[1] == 0) {
-              (*g_pSvcMain->pAssertFail)
+              (*g_pStd_HS->pAssertFail)
                         (s_Bad_keyframe_Reference_004ea1e0,s_main_sputResource_h_004e80a8,0xb3);
             }
             if (*(int *)(iVar1 + 0x128) == piVar3[2]) {
@@ -103,7 +103,7 @@ void __cdecl sputCostume_FadeKeysOut(void *cosInst,int chore,int ms)
           do {
             iVar1 = *(int *)(*(int *)(*piVar3 + 0x40) + 0x14);
             if (piVar3[1] == 0) {
-              (*g_pSvcMain->pAssertFail)
+              (*g_pStd_HS->pAssertFail)
                         (s_Bad_keyframe_Reference_004ea1e0,s_main_sputResource_h_004e80a8,0xb3);
             }
             if (*(int *)(iVar1 + iVar4 + 0x130) == piVar3[2]) {

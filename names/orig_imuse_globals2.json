@@ -1,0 +1,29 @@
+[
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "1002df5c",
+  "old": "PTR_1002df5c",
+  "global": "g_pMixBuf",
+  "oldtype": "int *",
+  "names_only": true,
+  "comment": "Original name mixBuf (the remaster's GrimFandango (Linux): the 32-bit mix buffer MxEndMix converts (tested first, read in order)); was PTR_1002df5c."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "1002df18",
+  "old": "DAT_1002df18",
+  "global": "g_dwOutChannelCount",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name outChannelCount (the remaster's GrimFandango (Linux): the output channel count MxEndMix doubles the sample count for (== 2)); was DAT_1002df18."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "1002df20",
+  "old": "DAT_1002df20",
+  "global": "g_dwSoftLTable",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name softLTable (the remaster's GrimFandango (Linux): the soft limiter table MxEndMix indexes with sample >> 7); was DAT_1002df20."
+ }
+]

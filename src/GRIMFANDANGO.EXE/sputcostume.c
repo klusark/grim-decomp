@@ -14,17 +14,17 @@ int sputCostume_Initialize(GrimServices *param_1,undefined4 *param_2)
 {
   int iVar1;
   
-  g_pSvcCostume = param_1;
+  g_pSputCosHS = param_1;
   *param_2 = sputCostume_Initialize;
   param_2[1] = sputCostume_Terminate;
   param_2[2] = sputCostume_Start;
-  param_2[3] = sputCostume_Stop;
+  param_2[3] = sputCostume_Shutdown;
   param_2[4] = 0;
   param_2[5] = 0;
   param_2[6] = 0;
   param_2[7] = 0;
-  iVar1 = Cos_Initialize((int)param_1,(int *)&DAT_008ca770);
-  UINT_008ca798 = (uint)(iVar1 == 0);
+  iVar1 = Cos_Initialize((int)param_1,(int *)&g_aChoreMS);
+  g_dwSputCosInitialize = (uint)(iVar1 == 0);
   return iVar1 != 0;
 }
 
@@ -35,9 +35,9 @@ int sputCostume_Initialize(GrimServices *param_1,undefined4 *param_2)
 void sputCostume_Terminate(void)
 
 {
-  g_pSvcCostume = (GrimServices *)0x0;
-  if (UINT_008ca798 != 0) {
-    UINT_008ca798 = 0;
+  g_pSputCosHS = (GrimServices *)0x0;
+  if (g_dwSputCosInitialize != 0) {
+    g_dwSputCosInitialize = 0;
     (*(code *)UINT_008ca774)();
     if (g_pShadowColormap != (void *)0x0) {
       rdColormap_Free(g_pShadowColormap);
@@ -142,7 +142,7 @@ undefined4 sputCostume_Start(void)
   }
   local_38[0] = Component_SetBitmapFrame;
   local_38[1] = BitmapRequester;
-  local_38[2] = BitmapComponent_Destroy;
+  local_38[2] = BitmapFreer;
   local_38[3] = (code *)0x0;
   local_38[4] = (code *)0x0;
   local_38[5] = (code *)0x0;
@@ -201,40 +201,42 @@ undefined4 sputCostume_Start(void)
   UINT_008ca7b0 = Cos_RegisterSaveHook(((unsigned)(uintptr_t)Costume_SaveChoreListFile));
   Lua_OpenEngineLib(&PTR_s_GetKeyLength_004ea058,UINT_004ea068);
   UINT_008ca79c = 1;
-  Config_GetPath(s_KeyframePath_004ea27c,&DAT_008ca7b8,s_Animation_004ea28c);
-  Config_GetPath(s_ColormapPath_004ea260,&DAT_008ca8b8,s_Colormaps_004ea270);
-  Config_GetPath(s_MaterialPath_004ea244,&DAT_008ca938,s_Materials_004ea254);
-  Config_GetPath(s_ModelPath_004ea230,&DAT_008ca9b8,s_Models_004ea23c);
-  Config_GetPath(s_SoundPath_004ea220,&DAT_008caa38,&DAT_004ea22c);
-  Config_GetPath(s_SmushPath_004ea20c,&DAT_008caab8,s_Movies_004ea218);
-  Config_GetPath(s_BitmapPath_004ea1f8,&DAT_008ca838,s_Objects_004ea204);
+  Config_GetPath(s_KeyframePath_004ea27c,&g_bKeyframePath,s_Animation_004ea28c);
+  Config_GetPath(s_ColormapPath_004ea260,&g_bColormapPath,s_Colormaps_004ea270);
+  Config_GetPath(s_MaterialPath_004ea244,&g_bMaterialPath,s_Materials_004ea254);
+  Config_GetPath(s_ModelPath_004ea230,&g_bModelPath,s_Models_004ea23c);
+  Config_GetPath(s_SoundPath_004ea220,&g_bSoundPath,&DAT_004ea22c);
+  Config_GetPath(s_SmushPath_004ea20c,&g_bSmushPath,s_Movies_004ea218);
+  Config_GetPath(s_BitmapPath_004ea1f8,&g_bBitmapPath,s_Objects_004ea204);
   return 0;
 }
 #undef local_38
 
 
-/* ---- 0x004988a0  sputCostume_Stop ---- */
+/* ---- 0x004988a0  sputCostume_Shutdown ---- */
 /* Module interface slot 3 (sputCostume): called by Engine_ShutdownSubsystems in reverse order;
-   releases what _Start created. */
+   releases what _Start created. Original name sputCostume_Shutdown (the remaster's GrimFandango
+   (Linux): the module's shutdown slot: writes keyframePath, bitmapPath, ... back to the
+   configuration); was sputCostume_Stop. */
 
-void sputCostume_Stop(void)
+void sputCostume_Shutdown(void)
 
 {
-  Config_SetPath(s_KeyframePath_004ea27c,&DAT_008ca7b8);
-  Config_SetPath(s_BitmapPath_004ea1f8,&DAT_008ca838);
-  Config_SetPath(s_ColormapPath_004ea260,&DAT_008ca8b8);
-  Config_SetPath(s_MaterialPath_004ea244,&DAT_008ca938);
-  Config_SetPath(s_ModelPath_004ea230,&DAT_008ca9b8);
-  Config_SetPath(s_SoundPath_004ea220,&DAT_008caa38);
-  Config_SetPath(s_SmushPath_004ea20c,&DAT_008caab8);
+  Config_SetPath(s_KeyframePath_004ea27c,&g_bKeyframePath);
+  Config_SetPath(s_BitmapPath_004ea1f8,&g_bBitmapPath);
+  Config_SetPath(s_ColormapPath_004ea260,&g_bColormapPath);
+  Config_SetPath(s_MaterialPath_004ea244,&g_bMaterialPath);
+  Config_SetPath(s_ModelPath_004ea230,&g_bModelPath);
+  Config_SetPath(s_SoundPath_004ea220,&g_bSoundPath);
+  Config_SetPath(s_SmushPath_004ea20c,&g_bSmushPath);
   if (g_pCostumePool != (void **)0x0) {
     Pool_Destroy(g_pCostumePool);
     g_pCostumePool = (void **)0x0;
   }
   UINT_008ca7ac = Cos_RegisterInstanceHook(UINT_008ca7ac);
   UINT_008ca7b0 = Cos_RegisterSaveHook(UINT_008ca7b0);
-  if (UINT_008ca7a4 != 0) {
-    (*g_pSvcCostume->pFree)(UINT_008ca7a4);
+  if (g_dwLECBitmaps != 0) {
+    (*g_pSputCosHS->pFree)(g_dwLECBitmaps);
   }
   (*(code *)UINT_008ca77c)();
   UINT_008ca79c = 0;

@@ -17,11 +17,11 @@
 #define P1_U16(a)  (*(uint16_t *)(a))
 #define P1_F(a)    (*(float *)(a))
 
-/* frame buffer descriptor of the current camera: g_pRdCurrentCamera->+4->+4 (+0x18 pitch, +0x24 bpp, +0x5c pixels) */
-#define P1_CANVAS()   P1_I32(P1_I32((int)g_pRdCurrentCamera + 4) + 4)
+/* frame buffer descriptor of the current camera: g_pRdCamera_CurCamera->+4->+4 (+0x18 pitch, +0x24 bpp, +0x5c pixels) */
+#define P1_CANVAS()   P1_I32(P1_I32((int)g_pRdCamera_CurCamera + 4) + 4)
 #define P1_BPP()      P1_I32(P1_CANVAS() + 0x24)
-/* g_pRdCurrentCamera->+4->+0x14: non-zero selects the second z-write span */
-#define P1_ZMODE()    P1_I32(P1_I32((int)g_pRdCurrentCamera + 4) + 0x14)
+/* g_pRdCamera_CurCamera->+4->+0x14: non-zero selects the second z-write span */
+#define P1_ZMODE()    P1_I32(P1_I32((int)g_pRdCamera_CurCamera + 4) + 0x14)
 
 /* ------------------------------------------------------------------------------------------------------------------
  * Polygon span drivers of the software rasteriser (the +0x1b4 callback that the rdRaster_Select_* functions store).
@@ -482,7 +482,7 @@ static void p1_prep_draw(int face, int poly, int cel, void *sel, int lit, uint l
 {
     if (P1_U8(face) & 1)
         ((void (*)(int, int, uint))P1_I32(face + 0x18))(poly, cel, lit ? level : 0);
-    else if (g_nRdroidZBufferMode == 1) {
+    else if (g_nRdroid_curZBufferMethod == 1) {
         if (lit)
             ((void (*)(int, int, uint))sel)(poly, cel, level);
         else
@@ -521,11 +521,11 @@ undefined4 rdCanvas_PreparePolygon(byte *param_1)
     if (geo >= g_nRdroidGeometryMode)
         geo = g_nRdroidGeometryMode;
     light = P1_I32(face + 0xc);
-    if (light >= g_nRdroidLightingMode)
-        light = g_nRdroidLightingMode;
+    if (light >= g_nRdroid_curLightingMode)
+        light = g_nRdroid_curLightingMode;
     tex = P1_I32(face + 0x10);
-    if (tex >= g_nRdroidTextureMode)
-        tex = g_nRdroidTextureMode;
+    if (tex >= g_nRdroid_curTextureMode)
+        tex = g_nRdroid_curTextureMode;
     if (geo == 0)
         return 0;
     poly = (int)&UINT_00565f38 + idx * 0x204;
@@ -549,7 +549,7 @@ undefined4 rdCanvas_PreparePolygon(byte *param_1)
         if (geo == 4 && (P1_U8(cel) & 8) == 0)
             geo = 3;
     }
-    if ((P1_U8(&g_dwRdroidFlags) & 2) == 0)
+    if ((P1_U8(&g_dwRdroid_curRenderOptions) & 2) == 0)
         amb = 0.0f;
     else
         P1_U32(&amb) = P1_U32(face + 0x40);
@@ -690,19 +690,19 @@ void rdPrimit3_CopyFaceVerts(undefined4 param_1,int param_2,undefined4 param_3,u
 /* ------------------------------------------------------------------------------------------------------------------
  * rdModel */
 
-/* the stdio / heap services of g_pSvcRdroid with their real argument lists */
+/* the stdio / heap services of g_pRdroid_HS with their real argument lists */
 #define P1_FREAD(fp, buf, n) \
-    ((int (*)(int, void *, int))g_pSvcRdroid->pFread)((fp), (void *)(buf), (int)(n))
+    ((int (*)(int, void *, int))g_pRdroid_HS->pFread)((fp), (void *)(buf), (int)(n))
 /* pAlloc(size, source file, line): the line is DAT_004ddb84 (a short, the line of the first call) + k */
 #define P1_ALLOC(n, k) \
-    ((int (*)(int, const char *, int))g_pSvcRdroid->pAlloc)((int)(n), s_C__grimjedi_Libs_RDroid_Primitiv_004ddb94, \
+    ((int (*)(int, const char *, int))g_pRdroid_HS->pAlloc)((int)(n), s_C__grimjedi_Libs_RDroid_Primitiv_004ddb94, \
                                                              (int)*(short *)&DAT_004ddb84 + (k))
-#define P1_FREE(p)  ((void (*)(int))g_pSvcRdroid->pFree)((int)(p))
+#define P1_FREE(p)  ((void (*)(int))g_pRdroid_HS->pFree)((int)(p))
 
 /* OVERRIDES: rdModel3_LoadEntryBinary */
 /* ==== rdModel3_LoadEntryBinary (0x0040b8e0) ====
  * Reads a binary model (param_1: the open file, param_2: the model record, reset by rdModel3_NewEntry) through the
- * g_pSvcRdroid file services: the material names (0x20 bytes each, +0x4c of them), the name (0x20) and +0x20, the
+ * g_pRdroid_HS file services: the material names (0x20 bytes each, +0x4c of them), the name (0x20) and +0x20, the
  * geometry sets (+0x44 of them at +0x24, 8 bytes each: mesh count and a zeroed 0x7c-byte mesh array), each mesh with
  * its vertices (+0x48: positions +0x30, +0x38 and +0x3c per vertex, normals +0x44), uvs (+0x4c: +0x34) and faces
  * (+0x50: 0x4c bytes each at +0x40, with vertex (+0x18) and uv (+0x1c) index lists of +0x14 entries and a material
@@ -876,7 +876,7 @@ static float p1_light_level(long double s, float sf, float amb)
  * Light level of a mesh face before it is drawn.  The face's geometry / lighting / texture modes (+0x08, +0x0c,
  * +0x10) are clamped to the renderer's (g_nRdroid*Mode); geometry 0 returns 0.  The material (+0x38) gives the
  * texture cel (+0x3c, -1 = the material's current cel +0x64, clamped to its +0x60 cels); a textured face whose cel
- * has no bit 3 in its flags draws untextured.  The ambient floor is +0x40 when g_dwRdroidFlags bit 1 is set, else 0.
+ * has no bit 3 in its flags draws untextured.  The ambient floor is +0x40 when g_dwRdroid_curRenderOptions bit 1 is set, else 0.
  * Lighting 1 uses the face intensity +0x48, 2 the sum +0x48 + +0x44, 3 the per-vertex sums +0x48 + +0x28[i]
  * (stored back in +0x28[i]); the level of 1 and 2 is stored in +0x44 and passed (as its raw dword) to the face's draw
  * callback +0x14 (face, cel, level); lighting 0 and 3 pass 0.  Geometry 1 and 2 only call the callback (level 0) for
@@ -892,11 +892,11 @@ undefined4 rdModel_ComputeMeshLighting(byte *param_1)
     if (geo >= g_nRdroidGeometryMode)
         geo = g_nRdroidGeometryMode;
     light = P1_I32(p + 0xc);
-    if (light >= g_nRdroidLightingMode)
-        light = g_nRdroidLightingMode;
+    if (light >= g_nRdroid_curLightingMode)
+        light = g_nRdroid_curLightingMode;
     tex = P1_I32(p + 0x10);
-    if (tex >= g_nRdroidTextureMode)
-        tex = g_nRdroidTextureMode;
+    if (tex >= g_nRdroid_curTextureMode)
+        tex = g_nRdroid_curTextureMode;
     if (geo == 0)
         return 0;
     mat = P1_I32(p + 0x38);
@@ -912,7 +912,7 @@ undefined4 rdModel_ComputeMeshLighting(byte *param_1)
         if (geo == 4 && (P1_U8(mat) & 8) == 0)
             geo = 3;
     }
-    if ((P1_U8(&g_dwRdroidFlags) & 2) == 0)
+    if ((P1_U8(&g_dwRdroid_curRenderOptions) & 2) == 0)
         amb = 0.0f;
     else
         P1_U32(&amb) = P1_U32(p + 0x40);
@@ -964,7 +964,7 @@ undefined4 rdModel_ComputeMeshLighting(byte *param_1)
     return 1;
 }
 
-/* the light records of the current scene (UINT_007f1498[UINT_007f31f8]): +0x00 index of the light position in the
+/* the light records of the current scene (g_apGeoLights[UINT_007f31f8]): +0x00 index of the light position in the
  * camera (camera + 0x15c + index * 12), +0x04 type (2 = point light without a direction), +0x08 enabled,
  * +0x0c direction, +0x34 range (float) */
 #define P1_LIGHTPOS(cam, l)  ((cam) + (P1_I32(l) + 0x1d) * 12)
@@ -982,7 +982,7 @@ static void p1_light_dir(int light, float *mt, int slot)
     dir[0] = -P1_F(light + 0xc);
     dir[1] = -P1_F(light + 0x10);
     dir[2] = -P1_F(light + 0x14);
-    Matrix34_TransformPoint((float *)((int)&DAT_007f1168 + slot * 12), dir, mt);
+    Matrix34_TransformPoint((float *)((int)&g_aLocalLightDir + slot * 12), dir, mt);
     ((uint *)mt)[9] = t0;
     ((uint *)mt)[10] = t1;
     ((uint *)mt)[11] = t2;
@@ -990,14 +990,14 @@ static void p1_light_dir(int light, float *mt, int slot)
 
 /* OVERRIDES: rdModel3_DrawMeshImpl */
 /* ==== rdModel3_DrawMeshImpl (0x0040d230) ====
- * Draws one mesh of a model with the model matrix (12 floats, translation at +9).  The mesh (PTR_007f30a0) is
- * frustum tested (UINT_007f1898: 0 inside, 1 crossing, 2 outside, which returns), culled against the clip plane of
+ * Draws one mesh of a model with the model matrix (12 floats, translation at +9).  The mesh (g_pCurMesh) is
+ * frustum tested (g_dwMeshFrustrumCull: 0 inside, 1 crossing, 2 outside, which returns), culled against the clip plane of
  * UINT_007f3204, its vertices are transformed into the camera frame (DAT_007f18a0), the geometry / texture / light
  * modes are clamped to the renderer limits, and by the light mode: 2 or 3 collect the lights that reach the mesh
- * (UINT_007f30e0 list, positions DAT_007f1598 and directions DAT_007f1168 in the model frame); 3 also computes the
+ * (UINT_007f30e0 list, positions g_aLocalLightPos and directions g_aLocalLightDir in the model frame); 3 also computes the
  * vertex intensities; 6 copies the mesh intensity into every face.  Last, every face whose plane faces the eye (the
  * eye in the model frame at DAT_007f0fd8) goes to rdModel3_DrawFace with flag 0; back faces go with flag 1 if
- * the face is two-sided (+0x04 bit 0) or culling is off (g_dwRdroidFlags bit 0).
+ * the face is two-sided (+0x04 bit 0) or culling is off (g_dwRdroid_curRenderOptions bit 0).
  * The distance tests are x87 expressions with the original's precision: mode 2 compares sqrt(dx*dx + dy*(float)dy +
  * (float)dz*(float)dz) against range + mesh radius (the original spills dy and dz to float slots); mode 3 compares
  * the squared distance in extended precision (NaN counts as "inside"). */
@@ -1010,18 +1010,18 @@ void __cdecl rdModel3_DrawMeshImpl(void *mesh,float *matrix)
     int mode, n;
     uint i;
 
-    PTR_007f30a0 = mesh;
+    g_pCurMesh = mesh;
     if (P1_I32((int)mesh + 0x24) == 0)
         return;
-    Matrix34_TransformPoint(rel, matrix + 9, (float *)((int)g_pRdCurrentCamera + 8));
-    if (UINT_007f30a4 == 0)
+    Matrix34_TransformPoint(rel, matrix + 9, (float *)((int)g_pRdCamera_CurCamera + 8));
+    if (g_dwThingFrustrumCull == 0)
         n = 0;
-    else if ((DAT_00900068 & 1) == 0)
+    else if ((g_bRdroid_curCullFlags & 1) == 0)
         n = 1;
     else
-        n = ((uint (*)(int *, float *, uint))Frustum_TestSphere)(*(int **)((int)g_pRdCurrentCamera + 0x48), rel,
-                                                                   P1_U32((int)PTR_007f30a0 + 0x60));
-    UINT_007f1898 = n;
+        n = ((uint (*)(int *, float *, uint))Frustum_TestSphere)(*(int **)((int)g_pRdCamera_CurCamera + 0x48), rel,
+                                                                   P1_U32((int)g_pCurMesh + 0x60));
+    g_dwMeshFrustrumCull = n;
     if (n == 2)
         return;
     if (UINT_007f3204 != 0) {
@@ -1029,25 +1029,25 @@ void __cdecl rdModel3_DrawMeshImpl(void *mesh,float *matrix)
         long double a2 = ((long double)matrix[11] - P1_F(&DAT_007f3210)) * P1_F(&DAT_004ddb78);
         long double a0 = ((long double)matrix[9] - P1_F(&DAT_007f3208)) * P1_F(&DAT_004ddb70);
         long double d = (a1 + a2) + a0;
-        if (-(long double)P1_F((int)PTR_007f30a0 + 0x60) > d)
+        if (-(long double)P1_F((int)g_pCurMesh + 0x60) > d)
             return;
     }
-    Matrix_Mul34(mc, (float *)((int)g_pRdCurrentCamera + 8), matrix);
-    Matrix_TransformPoints(mc, *(float **)((int)PTR_007f30a0 + 0x30), (float *)&DAT_007f18a0,
-                           P1_I32((int)PTR_007f30a0 + 0x48));
+    Matrix_Mul34(mc, (float *)((int)g_pRdCamera_CurCamera + 8), matrix);
+    Matrix_TransformPoints(mc, *(float **)((int)g_pCurMesh + 0x30), (float *)&DAT_007f18a0,
+                           P1_I32((int)g_pCurMesh + 0x48));
     Matrix34_InvertRigid(mt, matrix);
     {
-        int m = (int)PTR_007f30a0;
+        int m = (int)g_pCurMesh;
         int v;
 
         v = P1_I32(m + 0x24);
-        UINT_007f31e8 = v < (int)UINT_007f1494 ? v : (int)UINT_007f1494;
+        g_dwGeometryMode = v < (int)UINT_007f1494 ? v : (int)UINT_007f1494;
         v = P1_I32(m + 0x2c);
-        UINT_007f30d8 = v < (int)UINT_007f189c ? v : (int)UINT_007f189c;
+        g_dwTextureMode = v < (int)UINT_007f189c ? v : (int)UINT_007f189c;
         mode = P1_I32(m + 0x28);
         if (mode != 6 && mode >= (int)UINT_007f30dc)
             mode = (int)UINT_007f30dc;
-        UINT_007f31e4 = mode;
+        g_dwLightingMode = mode;
         _DAT_007f30b4 = (int)&DAT_007f18a0;
         _DAT_007f30b8 = P1_I32(m + 0x34);
         _DAT_007f30bc = P1_I32(m + 0x3c);
@@ -1055,10 +1055,10 @@ void __cdecl rdModel3_DrawMeshImpl(void *mesh,float *matrix)
         UINT_007f1474 = (int)&DAT_007f0fe8;
     }
     if (mode == 2 || mode == 3) {
-        UINT_007f31fc = 0;
+        g_dwNumMeshLights = 0;
         for (i = 0; i < UINT_007f31f8; i++) {
-            int light = (&UINT_007f1498)[i];
-            int cam = (int)g_pRdCurrentCamera;
+            int light = (&g_apGeoLights)[i];
+            int cam = (int)g_pRdCamera_CurCamera;
             int pos, reach;
 
             if (P1_I32(light + 8) == 0)
@@ -1070,7 +1070,7 @@ void __cdecl rdModel3_DrawMeshImpl(void *mesh,float *matrix)
                 long double z = (long double)P1_F(pos + 8) - matrix[11];
                 volatile float yf = (float)y, zf = (float)z;
                 long double s = (x * x + y * (long double)yf) + (long double)zf * (long double)zf;
-                long double r = (long double)P1_F(light + 0x34) + P1_F((int)PTR_007f30a0 + 0x60);
+                long double r = (long double)P1_F(light + 0x34) + P1_F((int)g_pCurMesh + 0x60);
                 reach = r > p1_fsqrt(s);
             }
             else {
@@ -1078,26 +1078,26 @@ void __cdecl rdModel3_DrawMeshImpl(void *mesh,float *matrix)
                 long double y = (long double)P1_F(pos + 4) - matrix[10];
                 long double z = (long double)P1_F(pos + 8) - matrix[11];
                 long double s = P1_I32(light + 4) < 2 ? 0.0L : (x * x + y * y) + z * z;
-                long double r = (long double)P1_F(light + 0x34) + P1_F((int)PTR_007f30a0 + 0x60);
+                long double r = (long double)P1_F(light + 0x34) + P1_F((int)g_pCurMesh + 0x60);
                 reach = !(s >= r * r);
             }
             if (!reach)
                 continue;
-            (&UINT_007f30e0)[UINT_007f31fc] = light;
-            Matrix34_TransformPoint((float *)((int)&DAT_007f1598 + UINT_007f31fc * 12), (float *)P1_LIGHTPOS(cam, light), mt);
+            (&UINT_007f30e0)[g_dwNumMeshLights] = light;
+            Matrix34_TransformPoint((float *)((int)&g_aLocalLightPos + g_dwNumMeshLights * 12), (float *)P1_LIGHTPOS(cam, light), mt);
             if (P1_I32(light + 4) != 2)
-                p1_light_dir(light, mt, UINT_007f31fc);
-            UINT_007f31fc = UINT_007f31fc + 1;
+                p1_light_dir(light, mt, g_dwNumMeshLights);
+            g_dwNumMeshLights = g_dwNumMeshLights + 1;
         }
         if (mode == 3) {
-            int m = (int)PTR_007f30a0;
+            int m = (int)g_pCurMesh;
             /* the float argument is pushed as its raw dword, as the original does */
             P1_F((int)mesh + 0x5c) =
                 ((float (*)(int *, float *, int, uint, int *, uint, float *, float *, uint, uint))
                      rdLight_CalcVertexIntensities)(
-                    (int *)&UINT_007f30e0, (float *)&DAT_007f1598, (int)&DAT_007f1168, UINT_007f31fc,
+                    (int *)&UINT_007f30e0, (float *)&g_aLocalLightPos, (int)&g_aLocalLightDir, g_dwNumMeshLights,
                     *(int **)(m + 0x44), P1_U32(m + 0x30), *(float **)(m + 0x38), *(float **)(m + 0x3c),
-                    P1_U32(m + 0x48), P1_U32((int)g_pRdCurrentCamera + 0x45c));
+                    P1_U32(m + 0x48), P1_U32((int)g_pRdCamera_CurCamera + 0x45c));
         }
     }
     else if (mode == 6) {
@@ -1112,7 +1112,7 @@ void __cdecl rdModel3_DrawMeshImpl(void *mesh,float *matrix)
         int face = P1_I32((int)mesh + 0x40);
 
         for (i = 0; i < P1_U32((int)mesh + 0x50); i++, face += 0x4c) {
-            int v = P1_I32((int)PTR_007f30a0 + 0x30) + P1_I32(P1_I32(face + 0x18)) * 12;
+            int v = P1_I32((int)g_pCurMesh + 0x30) + P1_I32(P1_I32(face + 0x18)) * 12;
             long double dz = (long double)P1_F(&DAT_007f0fe0) - P1_F(v + 8);
             long double dx = (long double)P1_F(&DAT_007f0fd8) - P1_F(v);
             long double dy = (long double)P1_F(&DAT_007f0fdc) - P1_F(v + 4);
@@ -1120,7 +1120,7 @@ void __cdecl rdModel3_DrawMeshImpl(void *mesh,float *matrix)
             dot = dy * P1_F(face + 0x44) + dot;
             if (dot > 0.0L)
                 rdModel3_DrawFace(face, 0);
-            else if ((P1_U8(face + 4) & 1) != 0 || (P1_U8(&g_dwRdroidFlags) & 1) == 0)
+            else if ((P1_U8(face + 4) & 1) != 0 || (P1_U8(&g_dwRdroid_curRenderOptions) & 1) == 0)
                 rdModel3_DrawFace(face, 1);
         }
     }

@@ -80,8 +80,8 @@ extern int DAT_008fbfc0[];           /* 65536 / n (span length) */
 extern float UINT_008fe000[];        /* 1.0f / n */
 extern unsigned short DAT_00900524;  /* x87 control word: default */
 extern unsigned short DAT_00900528;  /* x87 control word: round toward zero, 24-bit precision */
-extern char *UINT_004f5ec4;          /* the colormap; +0x338: the translucency table */
-extern char *g_pRdCurrentCamera;     /* 0x007f0fc8; +4: the canvas (+4 colour buffer, +0x10 z-buffer, +0x14 z shift) */
+extern char *g_dwRdColormap_pCurMap;          /* the colormap; +0x338: the translucency table */
+extern char *g_pRdCamera_CurCamera;     /* 0x007f0fc8; +4: the canvas (+4 colour buffer, +0x10 z-buffer, +0x14 z shift) */
 extern float DAT_004dda90, DAT_004dda94, DAT_004dda98;  /* mip distance thresholds (10, 20, 40) */
 extern void Mem_DumpLog(void);       /* an empty function: the 8 bpp "span filler" of the opaque drivers */
 
@@ -471,7 +471,7 @@ void NAME(q5_edge *L, q5_edge *R)                                               
     dz = UINT_008dde88;                                                                                     \
     sh = UINT_008ddea4;                                                                                     \
     w = 1.0f / (long double)oz;                                                                             \
-    c4 = *(char **)(g_pRdCurrentCamera + 4);                                                                \
+    c4 = *(char **)(g_pRdCamera_CurCamera + 4);                                                                \
     pix = BUF(c4, L->y, xl);                                                                                \
     zp = Q5_ZBUF(c4, L->y, xl);                                                                             \
     u0 = q5_f(w * ouz);                                                                                     \
@@ -694,7 +694,7 @@ void NAME(q5_edge *L, q5_edge *R)                                               
     q5_fldcw(&DAT_00900524);                                                                                \
     UINT_007f4c54 = UINT_008dde88;                                                                          \
     w = 1.0f / (long double)oz;                                                                             \
-    c4 = *(char **)(g_pRdCurrentCamera + 4);                                                                \
+    c4 = *(char **)(g_pRdCamera_CurCamera + 4);                                                                \
     UINT_007f4cc4 = (int)Q5_BUF16(c4, L->y, xl);                                                            \
     UINT_007f4ca4 = (int)Q5_ZBUF(c4, L->y, xl);                                                             \
     u0 = q5_f(w * ouz);                                                                                     \
@@ -802,7 +802,7 @@ Q5_ZSPAN(rdRaster_Span16_TexLitZw_14, 1, Q5_ZT(8, 0xff0000), Q5_ZPALL)
 #define Q5_P_DIST 0x64
 #define Q5_P_TOP 0x6c
 #define Q5_P_BOTTOM 0x70
-#define Q5_BPP() Q5_I(Q5_I(Q5_I(g_pRdCurrentCamera, 4), 4), 0x24)
+#define Q5_BPP() Q5_I(Q5_I(Q5_I(g_pRdCamera_CurCamera, 4), 4), 0x24)
 
 /* LIGHT 0: unlit (16 bpp: row 63 of the light table), 1: the polygon's light level (floor of the float argument)
  * selects the row, 2: per-vertex light.  TRANS: the translucency tables.  OPAQUE: the mip level's width for the
@@ -830,11 +830,11 @@ Q5_INLINE void q5_tex_setup(char *p, char *mat, int light_mode, int trans, int o
             UINT_008dde44 = *(unsigned char **)(tb + 0x34c);
     }
     if (trans)
-        UINT_008dde90 = *(unsigned char **)(UINT_004f5ec4 + 0x338);
+        UINT_008dde90 = *(unsigned char **)(g_dwRdColormap_pCurMap + 0x338);
     UINT_007f4460 = Q5_I(p, Q5_P_COUNT);
     UINT_007f44e8 = Q5_I(p, Q5_P_TOP);
     UINT_007f44f4 = Q5_I(p, Q5_P_BOTTOM);
-    UINT_008ddea4 = Q5_I(Q5_I(g_pRdCurrentCamera, 4), 0x14);
+    UINT_008ddea4 = Q5_I(Q5_I(g_pRdCamera_CurCamera, 4), 0x14);
     if (Q5_I(p, Q5_P_FLIP)) {
         UINT_007f44ec = -1;
         UINT_007f4580 = 1;
@@ -1015,7 +1015,7 @@ extern float DAT_008ddf1c, DAT_008ddf20, DAT_008ddf28, DAT_008ddf2c, DAT_008ddf3
 extern unsigned short *UINT_008ddf30;   /* 16 bpp palette (light row) */
 extern unsigned char *UINT_008ddf3c;    /* texels */
 #define Q5_GF(sym) (*(float *)&(sym))
-#define Q5_CANVAS() (*(char **)(g_pRdCurrentCamera + 4))
+#define Q5_CANVAS() (*(char **)(g_pRdCamera_CurCamera + 4))
 
 /* ---- SpanR_FlatZw, _2: the z-buffer pass ----
  * z = floor(float(z * 65536)), stepped by 0x008ddf24, written (>> the canvas' z shift in _2, logical) to x .. x + count

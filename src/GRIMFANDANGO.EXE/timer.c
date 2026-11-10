@@ -26,7 +26,7 @@ uint Timer_GetFrameMs(void)
 float __cdecl sputTime_GetFrameTimeFlex(void)
 
 {
-  return g_flTimerFrameSeconds;
+  return g_flSputTime_frameTimeSeconds;
 }
 
 /* ---- 0x004a3c10  Timer_UpdateFromWallClock ---- */
@@ -51,7 +51,7 @@ void Timer_UpdateFromWallClock(void)
     g_dwTimerFrameMs = 300;
   }
   g_dwTimerTotalMs = g_dwTimerTotalMs + g_dwTimerFrameMs;
-  g_flTimerFrameSeconds = (float)g_dwTimerFrameMs * 0.001;
+  g_flSputTime_frameTimeSeconds = (float)g_dwTimerFrameMs * 0.001;
   return;
 }
 
@@ -68,7 +68,7 @@ void Timer_UpdateFixedStep(uint param_1)
     g_dwTimerFrameMs = 300;
   }
   g_dwTimerTotalMs = g_dwTimerTotalMs + g_dwTimerFrameMs;
-  g_flTimerFrameSeconds = (float)g_dwTimerFrameMs * 0.001;
+  g_flSputTime_frameTimeSeconds = (float)g_dwTimerFrameMs * 0.001;
   g_dwTimerLastTick = timeGetTime();
   return;
 }
@@ -79,7 +79,7 @@ void Timer_Reset(void)
 {
   g_dwTimerTotalMs = 0;
   g_dwTimerFrameMs = 0;
-  g_flTimerFrameSeconds = 0.0;
+  g_flSputTime_frameTimeSeconds = 0.0;
   g_dwTimerLastTick = timeGetTime();
   return;
 }

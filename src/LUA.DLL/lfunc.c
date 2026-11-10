@@ -14,10 +14,10 @@ undefined4 * __cdecl luaF_newproto(int param_1)
   undefined4 *puVar1;
   
   puVar1 = (undefined4 *)
-           (**(code **)(DAT_1002beb8 + 0x20))
+           (**(code **)(g_dwLuaHS + 0x20))
                      (param_1 * 8 + 0x14,s_C__grimsrc_libs_lua_src_lfunc_cp_10026aa4,0x16);
-  luaO_insertlist(&DAT_1002bf20,puVar1);
-  DAT_1002beec = DAT_1002beec + 1;
+  luaO_insertlist(&g_dwLState_rootcl,puVar1);
+  g_dwLState_nblocks = g_dwLState_nblocks + 1;
   puVar1[2] = param_1;
   return puVar1;
 }
@@ -31,16 +31,15 @@ undefined4 * luaF_newclosure(void)
   undefined4 *puVar1;
   
   puVar1 = (undefined4 *)
-           (**(code **)(DAT_1002beb8 + 0x20))(0x20,s_C__grimsrc_libs_lua_src_lfunc_cp_10026aa4,0x20)
-  ;
+           (**(code **)(g_dwLuaHS + 0x20))(0x20,s_C__grimsrc_libs_lua_src_lfunc_cp_10026aa4,0x20);
   puVar1[4] = 0;
   puVar1[5] = 0;
   puVar1[6] = 0;
   puVar1[2] = 0;
   puVar1[3] = 0;
   puVar1[7] = 0;
-  luaO_insertlist(&DAT_1002bf38,puVar1);
-  DAT_1002beec = DAT_1002beec + 5;
+  luaO_insertlist(&g_dwLState_rootproto,puVar1);
+  g_dwLState_nblocks = g_dwLState_nblocks + 5;
   return puVar1;
 }
 
@@ -54,7 +53,7 @@ void __cdecl luaF_freeclosure(undefined4 *param_1)
   
   while (param_1 != (undefined4 *)0x0) {
     puVar1 = (undefined4 *)*param_1;
-    DAT_1002beec = DAT_1002beec + -5;
+    g_dwLState_nblocks = g_dwLState_nblocks + -5;
     luaF_freeproto((int)param_1);
     param_1 = puVar1;
   }
@@ -67,10 +66,10 @@ void __cdecl luaF_freeclosure(undefined4 *param_1)
 void __cdecl luaF_freeproto(int param_1)
 
 {
-  (**(code **)(DAT_1002beb8 + 0x24))(*(undefined4 *)(param_1 + 0x10));
-  (**(code **)(DAT_1002beb8 + 0x24))(*(undefined4 *)(param_1 + 0x1c));
-  (**(code **)(DAT_1002beb8 + 0x24))(*(undefined4 *)(param_1 + 8));
-  (**(code **)(DAT_1002beb8 + 0x24))(param_1);
+  (**(code **)(g_dwLuaHS + 0x24))(*(undefined4 *)(param_1 + 0x10));
+  (**(code **)(g_dwLuaHS + 0x24))(*(undefined4 *)(param_1 + 0x1c));
+  (**(code **)(g_dwLuaHS + 0x24))(*(undefined4 *)(param_1 + 8));
+  (**(code **)(g_dwLuaHS + 0x24))(param_1);
   return;
 }
 
@@ -84,8 +83,8 @@ void __cdecl lfunc__4cc0(undefined4 *param_1)
   
   while (param_1 != (undefined4 *)0x0) {
     puVar1 = (undefined4 *)*param_1;
-    DAT_1002beec = DAT_1002beec + -1;
-    (**(code **)(DAT_1002beb8 + 0x24))(param_1);
+    g_dwLState_nblocks = g_dwLState_nblocks + -1;
+    (**(code **)(g_dwLuaHS + 0x24))(param_1);
     param_1 = puVar1;
   }
   return;
@@ -141,34 +140,35 @@ uint __cdecl luaC_ref(int *param_1,int param_2)
   uint uVar3;
   int *piVar4;
   
-  uVar3 = DAT_1002bf08;
+  uVar3 = g_dwLState_refSize;
   if (*param_1 == -7) {
     return 0xffffffff;
   }
   uVar1 = 0;
-  if (DAT_1002bf08 != 0) {
-    piVar4 = (int *)(DAT_1002bf34 + 8);
+  if (g_dwLState_refSize != 0) {
+    piVar4 = (int *)(g_dwLState_refArray + 8);
     do {
       if (*piVar4 == 2) break;
       uVar1 = uVar1 + 1;
       piVar4 = piVar4 + 3;
-    } while (uVar1 < DAT_1002bf08);
+    } while (uVar1 < g_dwLState_refSize);
   }
-  if ((uVar1 == DAT_1002bf08) &&
-     (DAT_1002bf08 = luaM_growaux(&DAT_1002bf34,DAT_1002bf08,0xc,
-                                  (byte *)s_reference_table_overflow_10026ac8,0xfffe), uVar1 = uVar3
-     , uVar3 < DAT_1002bf08)) {
+  if ((uVar1 == g_dwLState_refSize) &&
+     (g_dwLState_refSize =
+           luaM_growaux(&g_dwLState_refArray,g_dwLState_refSize,0xc,
+                        (byte *)s_reference_table_overflow_10026ac8,0xfffe), uVar1 = uVar3,
+     uVar3 < g_dwLState_refSize)) {
     iVar2 = uVar3 * 0xc;
     do {
       uVar3 = uVar3 + 1;
-      *(undefined4 *)(DAT_1002bf34 + 8 + iVar2) = 2;
+      *(undefined4 *)(g_dwLState_refArray + 8 + iVar2) = 2;
       iVar2 = iVar2 + 0xc;
-    } while (uVar3 < DAT_1002bf08);
+    } while (uVar3 < g_dwLState_refSize);
   }
   iVar2 = uVar1 * 0xc;
-  *(int *)(DAT_1002bf34 + iVar2) = *param_1;
-  *(int *)(DAT_1002bf34 + 4 + iVar2) = param_1[1];
-  *(uint *)(DAT_1002bf34 + 8 + iVar2) = (uint)(param_2 == 0);
+  *(int *)(g_dwLState_refArray + iVar2) = *param_1;
+  *(int *)(g_dwLState_refArray + 4 + iVar2) = param_1[1];
+  *(uint *)(g_dwLState_refArray + 8 + iVar2) = (uint)(param_2 == 0);
   return uVar1;
 }
 
@@ -182,10 +182,10 @@ undefined * __cdecl luaC_getref(uint param_1)
   undefined *puVar1;
   
   if (param_1 == 0xffffffff) {
-    return &DAT_100270e0;
+    return &g_LuaO_nilobject;
   }
-  if ((-1 < (int)param_1) && (param_1 < DAT_1002bf08)) {
-    puVar1 = (undefined *)(DAT_1002bf34 + param_1 * 0xc);
+  if ((-1 < (int)param_1) && (param_1 < g_dwLState_refSize)) {
+    puVar1 = (undefined *)(g_dwLState_refArray + param_1 * 0xc);
     if (*(int *)(puVar1 + 8) == 0) {
       return puVar1;
     }

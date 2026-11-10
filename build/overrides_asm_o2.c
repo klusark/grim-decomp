@@ -141,7 +141,7 @@ uint stdGif_LzwInitEncoder(undefined4 file, undefined4 bits)
     for (i = 0x138b; i != 0; i--)
         *hash++ = 0xffffffff;
     W16(DAT_0080cbf0) = 1;
-    if ((*g_pSvcMain->pFwrite)(file, &bits, 1) != 1)
+    if ((*g_pStd_HS->pFwrite)(file, &bits, 1) != 1)
         return 1;
     stdGif_LzwWriteCode(file, S16(DAT_00811b2c));
     return W16(DAT_008155f8);
@@ -259,7 +259,7 @@ void Input_PollKeyboard(void)
     byte keys[0x100];
     uint events[0x20][4];
     void *dev = g_pDInputKeyboard;
-    uint now = UINT_00805fbc;
+    uint now = g_dwCurReadTime;
     uint *e;
     uint i;
     int ret;
@@ -282,7 +282,7 @@ void Input_PollKeyboard(void)
         return;
     if ((**(code_std **)(*(int *)g_pDInputKeyboard + 0x24))(g_pDInputKeyboard, 0x100, keys) < 0)
         return;
-    now = UINT_00805fbc;
+    now = g_dwCurReadTime;
     for (i = 0, e = INPUT_KEYS; e < (uint *)&UINT_00805c20; i++, e += 7)
         input_key_event(e, keys[i], now);
 }
@@ -324,7 +324,7 @@ void Input_PollMouse(void)
     }
     if (ret != 1)
         return;
-    now = UINT_00805fbc;
+    now = g_dwCurReadTime;
     for (i = 0, e = INPUT_MOUSE_BUTTONS; e < (uint *)&UINT_00805fa0; i++, e += 7)
         input_key_event(e, ((byte *)state)[0xc + i], now);
 }
@@ -345,7 +345,7 @@ void Input_FlushJoystick(void)
         return;
     (**(code_std **)(*(int *)g_pDInputMouse + 0x24))(g_pDInputMouse, 0x10, state);
     (**(code_std **)(*(int *)g_pDInputMouse + 0x28))(g_pDInputMouse, 0x10, 0, &count, 0);
-    now = UINT_00805fbc;
+    now = g_dwCurReadTime;
     for (i = 0, e = INPUT_MOUSE_BUTTONS; e < (uint *)&UINT_00805fa0; i++, e += 7)
         input_key_event(e, ((byte *)state)[0xc + i], now);
 }
@@ -455,7 +455,7 @@ void * __cdecl ThingInstancer(void *cosInst, int componentIdx, int create)
         if (inst[0x50 / 4] == 0) {
             Res_RemoveReference(inst);
             rdThing_Free(inst[0x40 / 4]);
-            (*g_pSvcCostume->pFree)(inst);
+            (*g_pSputCosHS->pFree)(inst);
         }
         return 0;
     }
@@ -474,9 +474,9 @@ void * __cdecl ThingInstancer(void *cosInst, int componentIdx, int create)
         }
     }
     if (record[0] == 0)
-        (*g_pSvcMain->pAssertFail)(s_Bad_model_Reference_004e9e08, s_main_sputResource_h_004e80a8, 0xae);
+        (*g_pStd_HS->pAssertFail)(s_Bad_model_Reference_004e9e08, s_main_sputResource_h_004e80a8, 0xae);
     model = (void *)record[1];
-    ref = (int *)(*g_pSvcCostume->pAlloc)(0x194, s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0, 0xa8d);
+    ref = (int *)(*g_pSputCosHS->pAlloc)(0x194, s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0, 0xa8d);
     for (i = 0; i < 0x65; i++)
         ref[i] = 0;
     Res_SetReference(ref, model, s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0, 0xa91);
@@ -520,12 +520,12 @@ undefined4 * SpriteInstancer(int cosInst, undefined4 *componentIdx, int create)
         inst[0x50 / 4] = inst[0x50 / 4] - 1;
         if (inst[0x50 / 4] == 0) {
             rdThing_Free(inst[0x40 / 4]);
-            (*g_pSvcCostume->pFree)(inst);
+            (*g_pSputCosHS->pFree)(inst);
         }
         return 0;
     }
     Cos_InstComponentInfo(cosInst, componentIdx, &tag, &record, &parent);
-    ref = (int *)(*g_pSvcCostume->pAlloc)(0x194, s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0, 0x1070);
+    ref = (int *)(*g_pSputCosHS->pAlloc)(0x194, s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0, 0x1070);
     for (i = 0; i < 0x65; i++)
         ref[i] = 0;
     ref[0x34 / 4] = record[0];
@@ -579,9 +579,9 @@ undefined4 sputLua_Startup(void)
     Lua_OpenEngineLib((int *)&PTR_s_EnginePause_004ea8b0, UINT_004eb168);
     GRIM_RegisterModApi();       /* build patch */
     lua_recognizelib(IMG_ADDR(0x004ea890), 4);
-    g_nLuaSystemTableRef = Lua_CreateSystemTable();
+    g_nLrSystemTable = Lua_CreateSystemTable();
     lua_pushobject(lua_getglobal(&DAT_004ec54c));
-    UINT_008cab48 = lua_ref(1);
+    g_dwLrTypeFunction = lua_ref(1);
     lua_pushCclosure(sputLua_TypeOverride, 0);
     lua_setglobal(&DAT_004ec54c);
     lua_pushnumber(0.0f);
@@ -595,7 +595,7 @@ undefined4 sputLua_Startup(void)
     lua_pushnumber(32768.0f);
     lua_setglobal(&DAT_004ec528);
     lua_pushobject(lua_setfallback(s_concat_004ec520, sputLua_ConcatFallback));
-    UINT_008cab44 = lua_ref(1);
+    g_dwLrOldConcatFallback = lua_ref(1);
     *(void **)lua_savehook_exref = (void *)Lua_SaveUserdataHook;
     *(void **)lua_restorehook_exref = (void *)Lua_RestoreUserdataHook;
     sputControl_AddCallback((void *)Lua_DispatchControlHandlers);
@@ -604,7 +604,7 @@ undefined4 sputLua_Startup(void)
 
 
 /* ==== FUN_004761b0 (0x004761b0): DirectDrawEnumerate callback ====
- * (guid, description, driver name, context): fills display device record g_dwDisplayDeviceCount (at most 16, 0x298
+ * (guid, description, driver name, context): fills display device record g_dwStdDisplay_numDevices (at most 16, 0x298
  * bytes each at 0x00902c60): name at +0, description at +0x80 (127 characters each), +0x100 = 1, +0x104 has a GUID,
  * +0x10c primary (no GUID), +0x110 = 1, GUID at +0x288.  Creates the DirectDraw object, sets the cooperative level twice
  * (SetCooperativeLevel, vtable 0x50) and reads the driver and HEL caps (GetCaps, 0x2c; two DDCAPS of 0x16c bytes):
@@ -614,7 +614,7 @@ undefined4 sputLua_Startup(void)
  * then the count goes up and the object is released), 0 (cancel) when there is no room or a cooperative level fails. */
 undefined * __stdcall FUN_004761b0(int a1, int a2, int a3, int a4)
 {
-    uint n = g_dwDisplayDeviceCount;
+    uint n = g_dwStdDisplay_numDevices;
     byte *rec;
     void *dd = 0;
     uint caps[0x5b];
@@ -661,7 +661,7 @@ undefined * __stdcall FUN_004761b0(int a1, int a2, int a3, int a4)
     if ((**(code_std **)(*(int *)dd + 0x50))(dd, Win_GetMainHwnd(), 8) != 0)
         return 0;
     (**(code_std **)(*(int *)dd + 8))(dd);
-    g_dwDisplayDeviceCount = g_dwDisplayDeviceCount + 1;
+    g_dwStdDisplay_numDevices = g_dwStdDisplay_numDevices + 1;
     return (undefined *)1;
 }
 
@@ -796,14 +796,14 @@ undefined4 D3D_InitRenderState(void)
  * (hwnd, video mode record, palette of 256 RGB triples); Ghidra lost the third parameter.  Sets the cooperative level
  * (0x11 exclusive + fullscreen, 0x51 with DDSCL_ALLOWMODEX when a back buffer is wanted (UINT_00803f9c) and mode[0] is
  * set; kept in UINT_00803fb0) and the display mode (SetDisplayMode 0x54: width mode[2], height mode[3], bpp mode[8]).
- * The primary surface record g_PrimarySurface (0x00901680, 0xd8 bytes: +0 1, +4 0, +8 in video memory, +0xc copy of
+ * The primary surface record g_dwStdDisplay_frontBuffer (0x00901680, 0xd8 bytes: +0 1, +4 0, +8 in video memory, +0xc copy of
  * mode[2..20], +0x18 pitch, +0x1c pitch in pixels, +0x58 palette, +0x5c 0, +0x64 surface, +0x68 DirectDraw palette,
  * +0x6c DDSURFACEDESC) is created (CreateSurface 0x18: primary, flipping with one back buffer for 3D, else plain
- * primary) and described (GetSurfaceDesc 0x58); UINT_00803fa0 = back buffer count + 1.  With a back buffer the
- * attached surface (GetAttachedSurface 0x30) gets the record g_BackBuffer (0x009055e0) the same way.  For a paletted
+ * primary) and described (GetSurfaceDesc 0x58); g_dwStdDisplay_numDrawBuffers = back buffer count + 1.  With a back buffer the
+ * attached surface (GetAttachedSurface 0x30) gets the record g_dwStdDisplay_backBuffer (0x009055e0) the same way.  For a paletted
  * mode (mode[7] == 0) the 256 palette entries (flag PC_RESERVED) start from the system palette (GetDC /
  * GetSystemPaletteEntries / ReleaseDC) and take the given colours; the DirectDraw palette (CreatePalette 0x14, caps
- * 0x4c) is set on the surfaces (SetPalette 0x7c).  Without a back buffer the primary record is copied to g_BackBuffer.
+ * 0x4c) is set on the surfaces (SetPalette 0x7c).  Without a back buffer the primary record is copied to g_dwStdDisplay_backBuffer.
  * Returns 1, or 0 when a DirectDraw call fails. */
 /* OVERRIDES: DDraw_CreateSurfaces */
 undefined4 DDraw_CreateSurfaces(undefined4 hwnd, int *mode, byte *palette)
@@ -828,7 +828,7 @@ undefined4 DDraw_CreateSurfaces(undefined4 hwnd, int *mode, byte *palette)
     if ((**(code_std **)(*dd + 0x54))(dd, mode[2], mode[3], mode[8]) != 0)
         return 0;
     bpp = (uint)mode[8] >> 3;
-    g_PrimarySurface = 1;
+    g_dwStdDisplay_frontBuffer = 1;
     _DAT_00901684 = 0;
     _DAT_00901688 = 0;
     Mem_Copy(&DAT_0090168c, mode + 2, 0x4c);
@@ -857,13 +857,13 @@ undefined4 DDraw_CreateSurfaces(undefined4 hwnd, int *mode, byte *palette)
     if ((**(code_std **)(*(int *)prim[0] + 0x58))(prim[0], prim + 2) != 0)
         return 0;
     prim = (int *)g_pDDrawPrimary;
-    UINT_00803fa0 = prim[0x1c / 4] + 1;
+    g_dwStdDisplay_numDrawBuffers = prim[0x1c / 4] + 1;
     UINT_00901698 = prim[0x18 / 4];
     _DAT_0090169c = (uint)prim[0x18 / 4] / bpp;
     if ((prim[0x70 / 4] & 0x4000) != 0)
         _DAT_00901688 = 1;
     if (UINT_00803f9c != 0) {
-        g_BackBuffer = 1;
+        g_dwStdDisplay_backBuffer = 1;
         _DAT_009055e4 = 0;
         _DAT_009055e8 = 0;
         Mem_Copy(&UINT_009055ec, mode + 2, 0x4c);
@@ -911,7 +911,7 @@ undefined4 DDraw_CreateSurfaces(undefined4 hwnd, int *mode, byte *palette)
         if ((**(code_std **)(*(int *)prim[0] + 0x7c))(prim[0], prim[1]) != 0)
             return 0;
         if (UINT_00803f9c == 0) {
-            Mem_Copy(&g_BackBuffer, &g_PrimarySurface, 0xd8);
+            Mem_Copy(&g_dwStdDisplay_backBuffer, &g_dwStdDisplay_frontBuffer, 0xd8);
             return 1;
         }
         back = *(int **)g_pDDrawBack;
@@ -919,7 +919,7 @@ undefined4 DDraw_CreateSurfaces(undefined4 hwnd, int *mode, byte *palette)
             return 0;
     }
     if (UINT_00803f9c == 0)
-        Mem_Copy(&g_BackBuffer, &g_PrimarySurface, 0xd8);
+        Mem_Copy(&g_dwStdDisplay_backBuffer, &g_dwStdDisplay_frontBuffer, 0xd8);
     return 1;
 }
 

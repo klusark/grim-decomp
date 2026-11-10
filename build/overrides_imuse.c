@@ -85,7 +85,7 @@ undefined4 Im_DSoundShutdown(void)
     if (PTR_1002d83c != 0)
         COM(PTR_1002d83c, DSB_RELEASE);
     PTR_1002d83c = 0;
-    (**(code **)(DAT_10033510 + 0x24))(PTR_1002d830);          /* services->free */
+    (**(code **)(g_dwSounds_pHS + 0x24))(PTR_1002d830);          /* services->free */
     return 0;
 }
 
@@ -102,7 +102,7 @@ int FUN_10007a80(int param_1)
  * Builds the two lookup tables of the software mixer and allocates its accumulator.  The decompiler lost the arithmetic that
  * is done in x87 registers between the calls of the _ftol helper (hmi__bae0), so it is written from the disassembly:
  *   pan weights  DAT_10033560[i][j] (17 x 17 bytes) = (int)((sin(j * 3.1415 * 0.03125) * i + 0.5) * 8.0)
- *   volume curve DAT_1002df20[k]    (DAT_1001e8d4 * 0x8000 shorts) = (int)((524272 k / (262136 + 7 k) + 1) * 0.5)
+ *   volume curve g_dwSoftLTable[k]    (g_dwImWaveMixCount * 0x8000 shorts) = (int)((524272 k / (262136 + 7 k) + 1) * 0.5)
  * The intermediate values stay in extended precision (long double) like the original x87 code. */
 static long double x87_fsin(long double x)
 {
@@ -118,15 +118,15 @@ undefined4 Im_MixerInit(undefined4 *param_1)
     for (i = 0; i < 17; i++)
         for (j = 0; j < 17; j++)
             *pan++ = (unsigned char)(long long)((x87_fsin((long double)j * 3.1415 * 0.03125) * (long double)i - -0.5) * 8.0);
-    DAT_1002df18 = *param_1;
+    g_dwOutChannelCount = *param_1;
     DAT_1002df24 = param_1[2] << 1;
-    PTR_1002df5c = (int *)(**(code **)(DAT_10033510 + 0x20))(param_1[2] << 1, s_C__grimsrc_libs_iMUSE_Mixer_c_100172c8, 0x7a);
+    g_pMixBuf = (int *)(**(code **)(g_dwSounds_pHS + 0x20))(param_1[2] << 1, s_C__grimsrc_libs_iMUSE_Mixer_c_100172c8, 0x7a);
     _DAT_1002df28 = param_1[3];
-    curve = (short *)(**(code **)(DAT_10033510 + 0x20))(DAT_1001e8d4 << 16, s_C__grimsrc_libs_iMUSE_Mixer_c_100172c8, 0x7f);
-    DAT_1002df20 = (undefined4)curve;
+    curve = (short *)(**(code **)(g_dwSounds_pHS + 0x20))(g_dwImWaveMixCount << 16, s_C__grimsrc_libs_iMUSE_Mixer_c_100172c8, 0x7f);
+    g_dwSoftLTable = (undefined4)curve;
     if (curve == 0)
         return 0xffffffff;
-    n = DAT_1001e8d4 << 15;
+    n = g_dwImWaveMixCount << 15;
     for (k = 0; k < n; k++) {
         long double x = (long double)k;
         *curve++ = (short)(long long)((x * 524272.0 / (262136.0 - x * -7.0) - -1.0) * 0.5);
@@ -196,7 +196,7 @@ undefined4 TgDeferCommand(int time, int cmd, int p0, int p1, int p2, int p3, int
             e[2] = p0; e[3] = p1; e[4] = p2; e[5] = p3; e[6] = p4;
             e[7] = p5; e[8] = p6; e[9] = p7; e[10] = p8; e[11] = p9;
             e[0] = time;
-            DAT_10032f40 = 1;                      /* something to look at in Im_ProcessDeferred */
+            g_dwDefersOn = 1;                      /* something to look at in Im_ProcessDeferred */
             return 0;
         }
     }
@@ -245,7 +245,7 @@ void Im_RunDeferredCommand(int e)
  * wrong order).  Commands 0x15..0x18 do not exist. */
 uint Im_DispatchCommand(uint cmd, int a2, int a3, int a4, int a5, int a6, int a7, int a8, int a9, int a10, int a11)
 {
-    if (DAT_1002df0c == 0 || cmd > 0x1d)
+    if (g_dwIm_initialized == 0 || cmd > 0x1d)
         return 0xffffffff;
     switch (cmd) {
     case 0x00: return ImInitialize();
@@ -319,7 +319,7 @@ void Script_Callback(char *marker)
  * unsigned: every negative sample came out as +65536 - |x| (twice as loud, from the first blocks of any stereo/big-endian sound).
  * `rate` = (count << 16) / length is the resampling step in 16.16: exactly 0x8000 (interpolating doubling: odd output frames
  * are the mean of two input frames), 0x10000 and 0x20000 (plain copy / every second frame), anything else steps by `rate`.
- * acc = the accumulators PTR_1002df5c + 2 * out (two ints per output frame; the accumulator of a stereo pair is [left, right]). */
+ * acc = the accumulators g_pMixBuf + 2 * out (two ints per output frame; the accumulator of a stereo pair is [left, right]). */
 static int bswap_s16(unsigned short v)
 {
     return (short)((v >> 8) | (v << 8));
@@ -327,7 +327,7 @@ static int bswap_s16(unsigned short v)
 
 void Im_MixLoopC(undefined2 *src, int n, uint count, int out, int wl, int wr)
 {
-    int *acc = PTR_1002df5c + out * 2;
+    int *acc = g_pMixBuf + out * 2;
     uint rate = (uint)(n << 16) / count;
     unsigned short *p = (unsigned short *)src;
     uint frac;
@@ -380,7 +380,7 @@ void Im_MixLoopC(undefined2 *src, int n, uint count, int out, int wl, int wr)
 
 void Im_MixLoopD(undefined2 *src, int n, uint count, uint out, int vol)
 {
-    int *acc = PTR_1002df5c + out * 2;
+    int *acc = g_pMixBuf + out * 2;
     uint rate = (uint)(n << 16) / count;
     unsigned short *p = (unsigned short *)src;
     uint frac;

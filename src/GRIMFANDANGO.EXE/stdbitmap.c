@@ -230,14 +230,14 @@ void * __cdecl stdBitmap_LoadResource(char *name,int a,int b)
   void *a_00;
   void *pvVar1;
   
-  a_00 = (void *)(*g_pSvcMain->pAlloc)
+  a_00 = (void *)(*g_pStd_HS->pAlloc)
                            (0x7c,s_C__grimjedi_Libs_Std_General_Std_004df574,DAT_004df550 + 4);
   if (a_00 != (void *)0x0) {
     pvVar1 = stdBitmap_LoadFromFile(name,(int)a_00,a,b);
     if (pvVar1 != (void *)0x0) {
       return a_00;
     }
-    (*g_pSvcMain->pFree)(a_00);
+    (*g_pStd_HS->pFree)(a_00);
   }
   return (void *)0x0;
 }
@@ -253,7 +253,7 @@ void * __cdecl stdBitmap_LoadFromFile(char *filename,int a,int b,int c)
   char *pcVar3;
   undefined4 uVar4;
   
-  iVar1 = (*g_pSvcMain->pFopen)(filename,&DAT_004ddb18);
+  iVar1 = (*g_pStd_HS->pFopen)(filename,&DAT_004ddb18);
   if (iVar1 == 0) {
     return (void *)0x0;
   }
@@ -262,7 +262,7 @@ void * __cdecl stdBitmap_LoadFromFile(char *filename,int a,int b,int c)
   pcVar3 = Str_FileNameFromPath(filename);
   strncpy(a,pcVar3,uVar4);
   *(undefined1 *)(a + 0x1f) = 0;
-  (*g_pSvcMain->pFclose)(iVar1);
+  (*g_pStd_HS->pFclose)(iVar1);
   return pvVar2;
 }
 
@@ -302,7 +302,7 @@ undefined4 stdBitmap_LoadBM(undefined4 param_1,int param_2,int param_3,int param
   #define auStack_4c (*(uint (*)[5])(_frame + (0xf0 - 0x4c)))
   #define auStack_38 (*(undefined4 (*)[14])(_frame + (0xf0 - 0x38)))
   
-  (*g_pSvcMain->pFread)(param_1,local_cc,0x80);
+  (*g_pStd_HS->pFread)(param_1,local_cc,0x80);
   iVar4 = strncmp(local_cc,&DAT_004df5a0,4);
   if (iVar4 != 0) {
     return 0;
@@ -320,7 +320,7 @@ undefined4 stdBitmap_LoadBM(undefined4 param_1,int param_2,int param_3,int param
     *(undefined4 *)(param_2 + 0x70) = uStack_b4;
     if (*(int *)(param_2 + 100) != 0) {
       do {
-        (*g_pSvcMain->pFread)(param_1,&uStack_d4,8);
+        (*g_pStd_HS->pFread)(param_1,&uStack_d4,8);
         auStack_4c[1] = uStack_d0;
         auStack_4c[0] = uStack_d4;
         puVar5 = (undefined4 *)(param_2 + 0x28);
@@ -344,7 +344,7 @@ undefined4 stdBitmap_LoadBM(undefined4 param_1,int param_2,int param_3,int param
           iVar1 = puVar5[3];
           if (uStack_d0 != 0) {
             do {
-              (*g_pSvcMain->pFread)(param_1,iVar4,(uVar6 >> 3) * iVar1);
+              (*g_pStd_HS->pFread)(param_1,iVar4,(uVar6 >> 3) * iVar1);
               iVar4 = iVar4 + puVar5[6];
               uVar9 = uVar9 + 1;
             } while (uVar9 < uStack_d0);
@@ -381,14 +381,14 @@ undefined4 stdBitmap_LoadBM(undefined4 param_1,int param_2,int param_3,int param
           }
         }
         else if ((iVar4 == 3) &&
-                ((*g_pSvcMain->pFread)(param_1,&uStack_dc,4), uStack_dc < (uint)puVar5[5])) {
-          uVar7 = (*g_pSvcMain->pAlloc)
+                ((*g_pStd_HS->pFread)(param_1,&uStack_dc,4), uStack_dc < (uint)puVar5[5])) {
+          uVar7 = (*g_pStd_HS->pAlloc)
                             (uStack_dc,s_C__grimjedi_Libs_Std_General_Std_004df574,
                              DAT_004df558 + 0x82);
-          (*g_pSvcMain->pFread)(param_1,uVar7,uStack_dc);
+          (*g_pStd_HS->pFread)(param_1,uVar7,uStack_dc);
           *puVar5 = 2;
           puVar5[5] = uStack_dc;
-          (*g_pSvcMain->pFree)(puVar5[0x17]);
+          (*g_pStd_HS->pFree)(puVar5[0x17]);
           puVar5[0x17] = uVar7;
         }
         Surface_Unlock(puVar5);
@@ -399,13 +399,13 @@ undefined4 stdBitmap_LoadBM(undefined4 param_1,int param_2,int param_3,int param
       } while (uStack_e0 < *(uint *)(param_2 + 100));
     }
     if ((*(byte *)(param_2 + 0x24) & 2) != 0) {
-      iVar4 = (*g_pSvcMain->pAlloc)
+      iVar4 = (*g_pStd_HS->pAlloc)
                         (0x300,s_C__grimjedi_Libs_Std_General_Std_004df574,DAT_004df558 + 0x98);
       *(int *)(param_2 + 0x60) = iVar4;
       if (iVar4 == 0) {
         return 0;
       }
-      (*g_pSvcMain->pFread)(param_1,iVar4,0x300);
+      (*g_pStd_HS->pFread)(param_1,iVar4,0x300);
     }
     return 1;
   }
@@ -434,7 +434,7 @@ void __cdecl stdBitmap_Free(void *bitmap)
 
 {
   stdBitmap_FreeSurfaces(bitmap);
-  (*g_pSvcMain->pFree)(bitmap);
+  (*g_pStd_HS->pFree)(bitmap);
   return;
 }
 
@@ -458,10 +458,10 @@ void stdBitmap_FreeSurfaces(int param_1)
         uVar1 = uVar1 + 1;
       } while (uVar1 < *(uint *)(param_1 + 100));
     }
-    (*g_pSvcMain->pFree)(*(undefined4 *)(param_1 + 0x78));
+    (*g_pStd_HS->pFree)(*(undefined4 *)(param_1 + 0x78));
   }
   if (*(int *)(param_1 + 0x60) != 0) {
-    (*g_pSvcMain->pFree)(*(int *)(param_1 + 0x60));
+    (*g_pStd_HS->pFree)(*(int *)(param_1 + 0x60));
   }
   return;
 }
@@ -526,7 +526,7 @@ undefined4 stdBitmap_WriteBM(undefined4 param_1,int param_2)
     puVar10 = puVar10 + 1;
     puVar11 = puVar11 + 1;
   }
-  iVar7 = (*g_pSvcMain->pFwrite)(param_1,&local_80,0x80);
+  iVar7 = (*g_pStd_HS->pFwrite)(param_1,&local_80,0x80);
   if (iVar7 != 0x80) {
     return 0;
   }
@@ -537,7 +537,7 @@ undefined4 stdBitmap_WriteBM(undefined4 param_1,int param_2)
       piVar3 = (int *)(*(int *)(param_2 + 0x78) + iVar7);
       iStack_94 = *(int *)(*piVar3 + 0xc);
       uStack_90 = *(uint *)(*piVar3 + 0x10);
-      iVar4 = (*g_pSvcMain->pFwrite)(param_1,&iStack_94,8);
+      iVar4 = (*g_pStd_HS->pFwrite)(param_1,&iStack_94,8);
       if (iVar4 != 8) {
         return 0;
       }
@@ -549,7 +549,7 @@ undefined4 stdBitmap_WriteBM(undefined4 param_1,int param_2)
         iVar4 = (*(uint *)(iVar4 + 0x24) >> 3) * iStack_94;
         if (uStack_90 != 0) {
           do {
-            iVar5 = (*g_pSvcMain->pFwrite)(param_1,iVar12,iVar4);
+            iVar5 = (*g_pStd_HS->pFwrite)(param_1,iVar12,iVar4);
             if (iVar5 != iVar4) {
               return 0;
             }
@@ -603,8 +603,8 @@ undefined4 stdBitmap_WriteBM(undefined4 param_1,int param_2)
       else if (local_78 == 3) {
         Surface_Lock(*(void **)(iVar7 + *(int *)(param_2 + 0x78)));
         uStack_9c = *(undefined4 *)(*(int *)(iVar7 + *(int *)(param_2 + 0x78)) + 0x14);
-        (*g_pSvcMain->pFwrite)(param_1,&uStack_9c,4);
-        (*g_pSvcMain->pFwrite)
+        (*g_pStd_HS->pFwrite)(param_1,&uStack_9c,4);
+        (*g_pStd_HS->pFwrite)
                   (param_1,*(undefined4 *)(*(int *)(iVar7 + *(int *)(param_2 + 0x78)) + 0x5c),
                    uStack_9c);
         Surface_Unlock(*(void **)(iVar7 + *(int *)(param_2 + 0x78)));
@@ -614,8 +614,8 @@ undefined4 stdBitmap_WriteBM(undefined4 param_1,int param_2)
     } while (uStack_98 < *(uint *)(param_2 + 100));
   }
   if (((*(byte *)(param_2 + 0x24) & 2) != 0) &&
-     (iVar7 = (*g_pSvcMain->pFwrite)(param_1,*(undefined4 *)(param_2 + 0x60),0x300), iVar7 != 0x300)
-     ) {
+     (iVar7 = (*g_pStd_HS->pFwrite)(param_1,*(undefined4 *)(param_2 + 0x60),0x300), iVar7 != 0x300))
+  {
     return 0;
   }
   return 1;
@@ -647,16 +647,16 @@ int __cdecl stdBitmap_SaveBM(char *filename,void *bitmap)
   int iVar1;
   int iVar2;
   
-  iVar1 = (*g_pSvcMain->pFopen)(filename,&DAT_004ddb1c);
+  iVar1 = (*g_pStd_HS->pFopen)(filename,&DAT_004ddb1c);
   if (iVar1 == 0) {
     return 0;
   }
   iVar2 = stdBitmap_WriteBM(iVar1,bitmap);
   if (iVar2 == 0) {
-    (*g_pSvcMain->pFclose)();
+    (*g_pStd_HS->pFclose)();
     return 0;
   }
-  (*g_pSvcMain->pFclose)(iVar1);
+  (*g_pStd_HS->pFclose)(iVar1);
   return 1;
 }
 
@@ -695,7 +695,7 @@ void stdBitmap_CopyFrom(int *param_1,int param_2)
           uVar1 = Surface_CreateFromBitmap(param_1,piVar3);
           *(undefined4 *)(*(int *)(param_2 + 0x78) + iVar2 * 4) = uVar1;
           if (*(int *)(*(int *)(param_2 + 0x78) + iVar2 * 4) == 0) {
-            (*g_pSvcMain->pAssertFail)
+            (*g_pStd_HS->pAssertFail)
                       (s_Unable_to_allocate_a_new_frame_w_004df5a8,
                        s_C__grimjedi_Libs_Std_General_Std_004df574,DAT_004df55c + 0x15);
           }
@@ -733,7 +733,7 @@ int __cdecl stdBitmap_Convert(void *bitmap,int format,int flags)
   undefined4 *puVar5;
   undefined4 *puVar6;
   
-  iVar2 = (*g_pSvcMain->pAlloc)(0x7c,s_C__grimjedi_Libs_Std_General_Std_004df574,DAT_004df568 + 4);
+  iVar2 = (*g_pStd_HS->pAlloc)(0x7c,s_C__grimjedi_Libs_Std_General_Std_004df574,DAT_004df568 + 4);
   *(undefined4 *)(iVar2 + 0x20) = 0;
   if (*(int *)((int)bitmap + 0x58) == 0) {
     *(undefined4 *)(iVar2 + 0x24) = 0;
@@ -745,7 +745,7 @@ int __cdecl stdBitmap_Convert(void *bitmap,int format,int flags)
   *(undefined4 *)(iVar2 + 0x68) = 0;
   *(undefined4 *)(iVar2 + 0x6c) = 0;
   *(undefined4 *)(iVar2 + 0x70) = 0;
-  iVar3 = (*g_pSvcMain->pAlloc)(4,s_C__grimjedi_Libs_Std_General_Std_004df574,DAT_004df568 + 0x14);
+  iVar3 = (*g_pStd_HS->pAlloc)(4,s_C__grimjedi_Libs_Std_General_Std_004df574,DAT_004df568 + 0x14);
   *(int *)(iVar2 + 0x78) = iVar3;
   if (iVar3 == 0) {
     return 0;
@@ -767,7 +767,7 @@ int __cdecl stdBitmap_Convert(void *bitmap,int format,int flags)
   }
   if ((bVar1 & 2) != 0) {
     puVar5 = (undefined4 *)
-             (*g_pSvcMain->pAlloc)
+             (*g_pStd_HS->pAlloc)
                        (0x300,s_C__grimjedi_Libs_Std_General_Std_004df574,DAT_004df568 + 0x29);
     *(undefined4 **)(iVar2 + 0x60) = puVar5;
     if (puVar5 == (undefined4 *)0x0) {
@@ -803,7 +803,7 @@ stdBitmap_Init(undefined4 *param_1,uint param_2,undefined4 param_3,undefined4 pa
     puVar1 = puVar1 + 1;
   }
   puVar1 = (undefined4 *)
-           (*g_pSvcMain->pAlloc)
+           (*g_pStd_HS->pAlloc)
                      (param_2 * 4,s_C__grimjedi_Libs_Std_General_Std_004df574,DAT_004df570 + 0xb);
   param_1[0x1e] = puVar1;
   if (puVar1 == (undefined4 *)0x0) {

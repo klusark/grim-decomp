@@ -221,7 +221,7 @@ uint Frustum_TestSphere(int *param_1,float *param_2,float param_3)
   }
   fVar6 = param_3 + param_2[2];
   fVar7 = param_2[2] - param_3;
-  iVar3 = *(int *)g_pRdCurrentCamera;
+  iVar3 = *(int *)g_pRdCamera_CurCamera;
   if (iVar3 == 1) {
     fVar1 = PUN(float,param_1[7]) * fVar2;
     param_2 = PUN(float *,(float)(PUN(float,param_1[7]) * fVar5));
@@ -574,7 +574,7 @@ void Angles_ToMatrixNoPos(float *param_1,undefined4 *param_2)
 
 
 /* ---- 0x0044f1a0  Matrix_BuildTranslation ---- */
-/* Identity 3x4 (from g_MatrixIdentity) with the translation column set */
+/* Identity 3x4 (from g_flRdroid_identMatrix34) with the translation column set */
 
 void __cdecl Matrix_BuildTranslation(float *m,float *pos)
 
@@ -583,7 +583,7 @@ void __cdecl Matrix_BuildTranslation(float *m,float *pos)
   float *pfVar2;
   float *pfVar3;
   
-  pfVar2 = g_MatrixIdentity;
+  pfVar2 = g_flRdroid_identMatrix34;
   pfVar3 = m;
   for (iVar1 = 0xc; iVar1 != 0; iVar1 = iVar1 + -1) {
     *pfVar3 = *pfVar2;
@@ -893,7 +893,7 @@ void __cdecl rdMatrix_Identity34(float *m)
   int iVar1;
   float *pfVar2;
   
-  pfVar2 = g_MatrixIdentity;
+  pfVar2 = g_flRdroid_identMatrix34;
   for (iVar1 = 0xc; iVar1 != 0; iVar1 = iVar1 + -1) {
     *m = *pfVar2;
     pfVar2 = pfVar2 + 1;
@@ -1217,10 +1217,10 @@ void FUN_00450260(int param_1)
 
 {
   if (*(int *)(param_1 + 0x18) != 0) {
-    (*g_pSvcRdroid->pFree)(*(int *)(param_1 + 0x18));
+    (*g_pRdroid_HS->pFree)(*(int *)(param_1 + 0x18));
   }
   if (*(int *)(param_1 + 0x1c) != 0) {
-    (*g_pSvcRdroid->pFree)(*(int *)(param_1 + 0x1c));
+    (*g_pRdroid_HS->pFree)(*(int *)(param_1 + 0x1c));
   }
   return;
 }

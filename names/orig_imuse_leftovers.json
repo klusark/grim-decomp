@@ -1,0 +1,16 @@
+[
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "10005610",
+  "old": "Im_ReadSoundData",
+  "name": "MxEndMix",
+  "comment": "Reads and decodes the next block of a sound through the file layer Original name MxEndMix (the remaster's GrimFandango (Linux): converts the mix buffer to 16-bit output through the soft limiter table (mixBuf, outChannelCount, softLTable) and feeds the recorder (recordState), as the remaster's MxEndMix); was Im_ReadSoundData."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "10007ca0",
+  "old": "FUN_10007ca0",
+  "name": "ihost_read",
+  "comment": "Original name ihost_read (the remaster's GrimFandango (Linux): the iMUSE host read callback: per-sound file handle table, voice sound 10000 with useVoxFx measures the file by seeking to the end, as the remaster's ihost_read); was FUN_10007ca0."
+ }
+]

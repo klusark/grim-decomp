@@ -30,7 +30,7 @@ int __cdecl Grim_FindDataOnDrives(char *subdir)
   bVar2 = false;
   iVar3 = GetLogicalDriveStringsA(0,0);
   if (iVar3 != 0) {
-    pcVar4 = (char *)(*g_pSvcMain->pAlloc)
+    pcVar4 = (char *)(*g_pStd_HS->pAlloc)
                                (iVar3 + 1,s_C__grimsrc_tools_grimdemo_grimde_004dd50c,0x161);
     GetLogicalDriveStringsA(iVar3,(int)pcVar4);
     pcVar5 = pcVar4;
@@ -109,7 +109,7 @@ int __cdecl Grim_FindDataOnDrives(char *subdir)
       } while (cVar1 != '\0');
       pcVar5 = pcVar5 + ~uVar6;
     }
-    (*g_pSvcMain->pFree)(pcVar4);
+    (*g_pStd_HS->pFree)(pcVar4);
   }
   if (!bVar2) {
     uVar11 = 0;
@@ -230,7 +230,7 @@ undefined4 Grim_Init(char *param_1)
     return 0;
   }
   lua_openlib((int *)&PTR_s_Is3DHardwareEnabled_004dd350,UINT_004dd380);
-  Engine_SetIdleCallback(Grim_RequestQuit);
+  Engine_SetIdleCallback(grimdemo_PleaseShutdown);
   Engine_SetRenderUserCallback(Grim_OnDisplayModeChange);
   Engine_SetFlipCallback(Display_Flip);
   Engine_SetDebugKeysCallback(DebugLog_Init);
@@ -339,23 +339,23 @@ void Grim_Shutdown(void)
     UINT_004f5a18 = 0;
   }
   uVar3 = 0;
-  if (g_dwDisplayDeviceCount != 0) {
+  if (g_dwStdDisplay_numDevices != 0) {
     iVar2 = 0;
     do {
       iVar1 = *(int *)((int)g_pDisplayModes + iVar2 + 0xc);
       if (iVar1 != 0) {
-        (*g_pSvcMain->pFree)(iVar1);
+        (*g_pStd_HS->pFree)(iVar1);
       }
       iVar1 = *(int *)((int)g_pDisplayModes + iVar2 + 4);
       if (iVar1 != 0) {
-        (*g_pSvcMain->pFree)(iVar1);
+        (*g_pStd_HS->pFree)(iVar1);
       }
       uVar3 = uVar3 + 1;
       iVar2 = iVar2 + 0x10;
-    } while (uVar3 < g_dwDisplayDeviceCount);
+    } while (uVar3 < g_dwStdDisplay_numDevices);
   }
   if (g_pDisplayModes != (void *)0x0) {
-    (*g_pSvcMain->pFree)(g_pDisplayModes);
+    (*g_pStd_HS->pFree)(g_pDisplayModes);
   }
   Spew_Shutdown();
   Engine_ShutdownGame();
@@ -421,7 +421,7 @@ void Grim_EnumDisplayModes(void)
     puVar6 = puVar6 + 1;
   }
   puVar6 = &UINT_004f4d38;
-  for (iVar2 = 0x13; uVar5 = g_dwDisplayDeviceCount, iVar2 != 0; iVar2 = iVar2 + -1) {
+  for (iVar2 = 0x13; uVar5 = g_dwStdDisplay_numDevices, iVar2 != 0; iVar2 = iVar2 + -1) {
     *puVar6 = 0;
     puVar6 = puVar6 + 1;
   }
@@ -451,9 +451,9 @@ void Grim_EnumDisplayModes(void)
   _DAT_004f4d40 = 0x280;
   _DAT_004f4d44 = 0x1e0;
   g_pDisplayModes =
-       (void *)(*g_pSvcMain->pAlloc)(uVar5 << 4,s_C__grimsrc_tools_grimdemo_grimde_004dd50c,0x313);
+       (void *)(*g_pStd_HS->pAlloc)(uVar5 << 4,s_C__grimsrc_tools_grimdemo_grimde_004dd50c,0x313);
   puVar7 = g_pDisplayModes;
-  for (iVar2 = (g_dwDisplayDeviceCount & 0xfffffff) << 2; iVar2 != 0; iVar2 = iVar2 + -1) {
+  for (iVar2 = (g_dwStdDisplay_numDevices & 0xfffffff) << 2; iVar2 != 0; iVar2 = iVar2 + -1) {
     *puVar7 = 0;
     puVar7 = puVar7 + 1;
   }
@@ -462,11 +462,11 @@ void Grim_EnumDisplayModes(void)
     *(undefined1 *)puVar7 = 0;
     puVar7 = (undefined4 *)((int)puVar7 + 1);
   }
-  if (g_dwDisplayDeviceCount != 0) {
+  if (g_dwStdDisplay_numDevices != 0) {
     do {
       Display_SelectDevice(uVar5);
       *(uint *)((int)g_pDisplayModes + iVar4) = g_dwVideoModeCount;
-      uVar1 = (*g_pSvcMain->pAlloc)
+      uVar1 = (*g_pStd_HS->pAlloc)
                         (g_dwVideoModeCount * 0x54,s_C__grimsrc_tools_grimdemo_grimde_004dd50c,0x31e
                         );
       *(undefined4 *)((int)g_pDisplayModes + iVar4 + 4) = uVar1;
@@ -488,7 +488,7 @@ void Grim_EnumDisplayModes(void)
       if (iVar2 != 0) {
         *(uint *)((int)g_pDisplayModes + iVar4 + 8) = g_dwD3dDriverCount;
         if (g_dwD3dDriverCount != 0) {
-          uVar1 = (*g_pSvcMain->pAlloc)
+          uVar1 = (*g_pStd_HS->pAlloc)
                             (g_dwD3dDriverCount * 0x22c,s_C__grimsrc_tools_grimdemo_grimde_004dd50c,
                              0x32a);
           *(undefined4 *)((int)g_pDisplayModes + iVar4 + 0xc) = uVar1;
@@ -510,7 +510,7 @@ void Grim_EnumDisplayModes(void)
       Display_CloseDevice();
       uVar5 = uVar5 + 1;
       iVar4 = iVar4 + 0x10;
-    } while (uVar5 < g_dwDisplayDeviceCount);
+    } while (uVar5 < g_dwStdDisplay_numDevices);
   }
   return;
 }
@@ -530,13 +530,14 @@ void Grim_EnumDisplayModes(void)
 #undef local_c
 
 
-/* ---- 0x00402050  Grim_RequestQuit ---- */
-/* Sets g_quitRequested. */
+/* ---- 0x00402050  grimdemo_PleaseShutdown ---- */
+/* Sets g_nQuitApp. Original name grimdemo_PleaseShutdown (the remaster's GrimFandango (Linux): sets
+   bQuitApp); was Grim_RequestQuit. */
 
-void Grim_RequestQuit(void)
+void grimdemo_PleaseShutdown(void)
 
 {
-  g_quitRequested = 1;
+  g_nQuitApp = 1;
   return;
 }
 
@@ -547,7 +548,7 @@ undefined4 Grim_OnDisplayModeChange(void *param_1,int param_2)
   Display_SetDIBPalette(param_1);
   Display_SetPalette(param_1);
   if (g_pD3dDriver != (void *)0x0) {
-    Display_SetPalette3D(param_1,param_2);
+    std3D_SetCurrentPalette(param_1,param_2);
   }
   return 1;
 }
@@ -583,7 +584,7 @@ LAB_00402f60:
       if ((iVar2 == 0) || (iVar2 = _stricmp(iVar1,&DAT_004dd908), iVar2 == 0)) {
         uVar3 = strtok(0,&DAT_004dd918);
         _DAT_004dd34c = atoi(uVar3);
-        Res_SetCacheSizeMB(_DAT_004dd34c);
+        grimlib_SetCacheMax(_DAT_004dd34c);
         goto LAB_00402f60;
       }
       iVar2 = _stricmp(iVar1,&DAT_004dd904);
@@ -696,9 +697,9 @@ void Grim_ShowSplash(void)
         iVar1 = iVar1 + 1;
       } while (iVar1 < *(int *)((int)src + 0x10));
     }
-    Surface_Blit(&g_PrimarySurface,src,0,0,(int *)0x0,0);
+    Surface_Blit(&g_dwStdDisplay_frontBuffer,src,0,0,(int *)0x0,0);
     Display_Flip();
-    Surface_Blit(&g_PrimarySurface,src,0,0,(int *)0x0,0);
+    Surface_Blit(&g_dwStdDisplay_frontBuffer,src,0,0,(int *)0x0,0);
     stdBitmap_Free(bitmap);
   }
   return;

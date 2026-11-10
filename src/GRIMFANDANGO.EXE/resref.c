@@ -18,7 +18,7 @@ void __cdecl Res_SetReference(void *ref,void *data,char *file,int line)
   
   res = Res_FindByData(data);
   if ((ref == (void *)0x0) || (*(int *)ref != 0)) {
-    (**(code **)(UINT_008a856c + 0x18))
+    (**(code **)(g_dwResHS + 0x18))
               (s_ref_____ref__valid_004e7b00,s_C__grimsrc_libs_grimlib_Temp_Res_004e7a1c,0xe4c);
   }
   if (res != (void *)0x0) {

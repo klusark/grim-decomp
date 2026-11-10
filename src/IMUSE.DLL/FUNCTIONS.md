@@ -1,6 +1,6 @@
 # IMUSE.DLL function index
 
-434 functions, 275 with real names.
+434 functions, 276 with real names.
 
 | address | name | module | lines |
 |---|---|---|---|
@@ -10,7 +10,7 @@
 | 10001ba0 | Im_CodecInit | imuse.c | 12 |
 | 10001bc0 | Im_ConvertBlock | imuse.c | 31 |
 | 10001c30 | Im_ConvertBlockImpl | imuse.c | 140 |
-| 10001f10 | Im_DispatchInit | imuse.c | 29 |
+| 10001f10 | Im_DispatchInit | imuse.c | 31 |
 | 10002260 | Im_SwitchStreamImpl | imuse.c | 134 |
 | 10002570 | Im_DispatchMixTrack | imuse.c | 152 |
 | 10002a60 | Im_DispatchAllocBuffers | imuse.c | 127 |
@@ -37,7 +37,7 @@
 | 10005490 | Im_MixerReset | imuse.c | 9 |
 | 100054c0 | Im_MixerHeartbeat | imuse.c | 21 |
 | 100054f0 | Im_MixSamples | imuse.c | 42 |
-| 10005610 | Im_ReadSoundData | imuse.c | 74 |
+| 10005610 | MxEndMix | imuse.c | 77 |
 | 100057a0 | Im_MixLoopA | imuse.c | 71 |
 | 100059a0 | Im_MixLoopB | imuse.c | 72 |
 | 10005b80 | Im_MixLoopC | imuse.c | 1 |
@@ -55,7 +55,7 @@
 | 100068b0 | Script_Trans | imuse.c | 1 |
 | 100070e0 | Script_Callback | imuse.c | 1 |
 | 10007110 | FUN_10007110 | imuse.c | 11 |
-| 100089b0 | Im_SoundsFindByName | imuse.c | 81 |
+| 100089b0 | Im_SoundsFindByName | imuse.c | 82 |
 | 10008b60 | Im_SoundsFreeSlot | imuse.c | 19 |
 | 10008bb0 | iMUSE_GetPhoneme | imuse.c | 35 |
 | 10008c40 | FUN_10008c40 | imuse.c | 46 |
@@ -66,12 +66,12 @@
 | 100093d0 | Im_SoundsPrepare | imuse.c | 59 |
 | 10009530 | FUN_10009530 | imuse.c | 8 |
 | 10009560 | FUN_10009560 | imuse.c | 8 |
-| 100095d0 | grimSound_LipSyncLoad | imuse.c | 39 |
-| 100096b0 | grimSound_LipSyncFree | imuse.c | 16 |
+| 100095d0 | grimSound_LipSyncLoad | imuse.c | 40 |
+| 100096b0 | grimSound_LipSyncFree | imuse.c | 17 |
 | 10009700 | FUN_10009700 | imuse.c | 5 |
 | 10009710 | Im_SoundsLoad | imuse.c | 146 |
 | 10009b20 | Im_SoundsUnload | imuse.c | 27 |
-| 10009b90 | Im_SoundsReadBlock | imuse.c | 139 |
+| 10009b90 | Im_SoundsReadBlock | imuse.c | 140 |
 | 1000a070 | iMUSE_DeclareBufferSizes | imuse.c | 24 |
 | 1000a0f0 | iMUSE_GetMemoryFootprint | imuse.c | 8 |
 | 1000a100 | iMUSE_GetSoundCacheSize | imuse.c | 8 |
@@ -151,11 +151,11 @@
 | 10003dc0 | ImSaveFilelist | imuse_api.c | 50 |
 | 10003e50 | ImRestoreFilelist | imuse_api.c | 61 |
 | 10003f90 | ImLoadSound | imuse_api.c | 59 |
-| 100040b0 | ImUnloadSound | imuse_api.c | 25 |
-| 10004100 | ImUnloadAll | imuse_api.c | 16 |
+| 100040b0 | ImUnloadSound | imuse_api.c | 26 |
+| 10004100 | ImUnloadAll | imuse_api.c | 17 |
 | 10004140 | ImOpenSound | imuse_api.c | 59 |
-| 10004260 | ImCloseSound | imuse_api.c | 25 |
-| 100042b0 | ImCloseAll | imuse_api.c | 16 |
+| 10004260 | ImCloseSound | imuse_api.c | 26 |
+| 100042b0 | ImCloseAll | imuse_api.c | 17 |
 | 100042f0 | ImFindSound | imuse_api.c | 41 |
 | 10004380 | ImFlushSounds | imuse_api.c | 34 |
 | 10004460 | FUN_10004460 | imuse_api.c | 15 |
@@ -227,7 +227,7 @@
 | 10007a80 | FUN_10007a80 | imuse_api.c | 1 |
 | 10007a90 | FUN_10007a90 | imuse_api.c | 68 |
 | 10007bc0 | FUN_10007bc0 | imuse_api.c | 33 |
-| 10007ca0 | FUN_10007ca0 | imuse_api.c | 239 |
+| 10007ca0 | ihost_read | imuse_api.c | 242 |
 | 10008140 | sounds_shutdown | imuse_api.c | 41 |
 | 100081f0 | FUN_100081f0 | imuse_api.c | 25 |
 | 10008250 | FUN_10008250 | imuse_api.c | 164 |

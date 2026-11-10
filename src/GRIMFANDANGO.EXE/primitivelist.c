@@ -17,12 +17,12 @@ void PrimitiveList_StaticConstruct(void)
 }
 
 /* ---- 0x00489520  PrimitiveList_InitGlobal ---- */
-/* Initialises the global primitive list (UINT_008ca0a0). */
+/* Initialises the global primitive list (g_dwPrimitiveQ). */
 
 void PrimitiveList_InitGlobal(void)
 
 {
-  PrimitiveList_Init(&UINT_008ca0a0);
+  PrimitiveList_Init(&g_dwPrimitiveQ);
   return;
 }
 
@@ -42,7 +42,7 @@ void PrimitiveList_RegisterAtExit(void)
 void PrimitiveList_AtExitClear(void)
 
 {
-  PrimitiveList_Clear((int *)&UINT_008ca0a0);
+  PrimitiveList_Clear((int *)&g_dwPrimitiveQ);
   return;
 }
 

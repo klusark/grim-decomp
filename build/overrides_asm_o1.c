@@ -22,8 +22,8 @@
 #define R8(g) (*(uint8_t *)&(g))
 #define R16(g) (*(uint16_t *)&(g))
 
-/* frame buffer descriptor of the current camera: g_pRdCurrentCamera->+4->+4 (+0x18 pitch, +0x24 bpp, +0x5c pixels) */
-#define RD_CANVAS() (*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 4))
+/* frame buffer descriptor of the current camera: g_pRdCamera_CurCamera->+4->+4 (+0x18 pitch, +0x24 bpp, +0x5c pixels) */
+#define RD_CANVAS() (*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4))
 
 /* Rasteriser state globals used by the span loops (Ghidra names, read at their real width) */
 #define RD_RECIP(n)  (((int *)&DAT_008fbfc0)[n])   /* 0x10000 / n, filled at start-up */
@@ -983,7 +983,7 @@ void rdRaster_Draw16_TexLit_3(int param_1, int param_2)
     g_pRdRasterVerts = *(float **)(param_1 + 0x20);
     U32(UINT_007f4304) = *(uint *)(param_1 + 0x28);
     g_nRdRasterVertCount = *(int *)(param_1 + 0x1c);
-    rd_pLight = *(uint *)(U32(UINT_004f5ec4) + 0x338);
+    rd_pLight = *(uint *)(U32(g_dwRdColormap_pCurMap) + 0x338);
     rd_draw_poly(param_1);
     rd_draw(bpp, rdRaster_Edge_Flat_5, rdRaster_Edge_Flat_6, rdRaster_Span_Tex_2, rdRaster_Span16_Tex_3, 0, DS_L);
 }
@@ -1004,7 +1004,7 @@ void rdRaster_Draw16_TexLit_2(int param_1, int param_2, float param_3)
     }
     g_pRdRasterVerts = *(float **)(param_1 + 0x20);
     g_nRdRasterVertCount = *(int *)(param_1 + 0x1c);
-    rd_pLight = *(uint *)(U32(UINT_004f5ec4) + 0x338);
+    rd_pLight = *(uint *)(U32(g_dwRdColormap_pCurMap) + 0x338);
     rd_draw_poly(param_1);
     rd_draw(bpp, rdRaster_Edge_Flat_3, rdRaster_Edge_Flat_4, rdRaster_Span_Tex, rdRaster_Span16_Tex_2, 0, 0);
 }
@@ -1024,7 +1024,7 @@ static void rd_draw_affine_unlit(int p1, int p2, int texpal, int light, int widt
     g_nRdRasterVertCount = *(int *)(p1 + 0x1c);
     rd_draw_poly(p1);
     if (light)
-        rd_pLight = *(uint *)(U32(UINT_004f5ec4) + 0x338);
+        rd_pLight = *(uint *)(U32(g_dwRdColormap_pCurMap) + 0x338);
     RD_GRAD(rdRaster_Grad_Flat, p1);
     rd_draw_tex(p2, width ? TS_WIDTH : 0);
 }
@@ -1088,7 +1088,7 @@ static void rd_draw_setup(int p1, int p2, int flags, float p3)
             rd_pTexPal = *(uint *)(RD_MAT(p1) + 0x34c);
     }
     if (flags & SU_LIGHT)
-        rd_pLight = *(uint *)(U32(UINT_004f5ec4) + 0x338);
+        rd_pLight = *(uint *)(U32(g_dwRdColormap_pCurMap) + 0x338);
     g_nRdRasterVertCount = *(int *)(p1 + 0x1c);
     rd_draw_poly(p1);
     if (flags & SU_PERSP)

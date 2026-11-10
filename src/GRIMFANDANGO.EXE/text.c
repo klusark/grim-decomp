@@ -24,7 +24,7 @@ int __cdecl GetTextParamsFromTable(void *ctx,void *table,void *textObj)
   
   iVar3 = *(int *)((int)ctx + 4);
   lua_pushobject((int)table);
-  iVar1 = lua_getref(UINT_008ca0dc);
+  iVar1 = lua_getref(g_dwLrX);
   lua_pushobject(iVar1);
   iVar1 = lua_gettable();
   if (iVar1 != 0) {
@@ -39,7 +39,7 @@ int __cdecl GetTextParamsFromTable(void *ctx,void *table,void *textObj)
     }
   }
   lua_pushobject((int)table);
-  iVar1 = lua_getref(UINT_008ca0e0);
+  iVar1 = lua_getref(g_dwLrY);
   lua_pushobject(iVar1);
   iVar1 = lua_gettable();
   if (iVar1 != 0) {
@@ -54,21 +54,21 @@ int __cdecl GetTextParamsFromTable(void *ctx,void *table,void *textObj)
     }
   }
   lua_pushobject((int)table);
-  iVar1 = lua_getref(UINT_008ca104);
+  iVar1 = lua_getref(g_dwLrFont);
   lua_pushobject(iVar1);
   iVar1 = lua_gettable();
   if (iVar1 != 0) {
     iVar2 = lua_isuserdata(iVar1);
     if (iVar2 != 0) {
       iVar2 = lua_tag(iVar1);
-      if ((iVar2 == 0x544e4f46) && (g_pOverrideFont == (void *)0x0)) {
+      if ((iVar2 == 0x544e4f46) && (g_hEmergencyFont == (void *)0x0)) {
         iVar1 = lua_getuserdata(iVar1);
         *(int *)((int)ctx + 8) = iVar1;
       }
     }
   }
   lua_pushobject((int)table);
-  iVar1 = lua_getref(UINT_008ca0f8);
+  iVar1 = lua_getref(g_dwLrWidth);
   lua_pushobject(iVar1);
   iVar1 = lua_gettable();
   if (iVar1 != 0) {
@@ -79,7 +79,7 @@ int __cdecl GetTextParamsFromTable(void *ctx,void *table,void *textObj)
     }
   }
   lua_pushobject((int)table);
-  iVar1 = lua_getref(UINT_008ca0d8);
+  iVar1 = lua_getref(g_dwLrHeight);
   lua_pushobject(iVar1);
   iVar1 = lua_gettable();
   if (iVar1 != 0) {
@@ -90,7 +90,7 @@ int __cdecl GetTextParamsFromTable(void *ctx,void *table,void *textObj)
     }
   }
   lua_pushobject((int)table);
-  iVar3 = lua_getref(UINT_008ca110);
+  iVar3 = lua_getref(g_dwLrFGColor);
   lua_pushobject(iVar3);
   iVar3 = lua_gettable();
   if (iVar3 != 0) {
@@ -104,7 +104,7 @@ int __cdecl GetTextParamsFromTable(void *ctx,void *table,void *textObj)
     }
   }
   lua_pushobject((int)table);
-  iVar3 = lua_getref(UINT_008ca0fc);
+  iVar3 = lua_getref(g_dwLrBGColor);
   lua_pushobject(iVar3);
   iVar3 = lua_gettable();
   if (iVar3 != 0) {
@@ -118,7 +118,7 @@ int __cdecl GetTextParamsFromTable(void *ctx,void *table,void *textObj)
     }
   }
   lua_pushobject((int)table);
-  iVar3 = lua_getref(UINT_008ca0f0);
+  iVar3 = lua_getref(g_dwLrFXColor);
   lua_pushobject(iVar3);
   iVar3 = lua_gettable();
   if (iVar3 != 0) {
@@ -132,7 +132,7 @@ int __cdecl GetTextParamsFromTable(void *ctx,void *table,void *textObj)
     }
   }
   lua_pushobject((int)table);
-  iVar3 = lua_getref(UINT_008ca0f4);
+  iVar3 = lua_getref(g_dwLrCenter);
   lua_pushobject(iVar3);
   iVar3 = lua_gettable();
   if (iVar3 != 0) {
@@ -142,7 +142,7 @@ int __cdecl GetTextParamsFromTable(void *ctx,void *table,void *textObj)
     }
   }
   lua_pushobject((int)table);
-  iVar3 = lua_getref(UINT_008ca108);
+  iVar3 = lua_getref(g_dwLrLJustify);
   lua_pushobject(iVar3);
   iVar3 = lua_gettable();
   if (iVar3 != 0) {
@@ -152,7 +152,7 @@ int __cdecl GetTextParamsFromTable(void *ctx,void *table,void *textObj)
     }
   }
   lua_pushobject((int)table);
-  iVar3 = lua_getref(UINT_008ca10c);
+  iVar3 = lua_getref(g_dwLrRJustify);
   lua_pushobject(iVar3);
   iVar3 = lua_gettable();
   if (iVar3 != 0) {
@@ -162,7 +162,7 @@ int __cdecl GetTextParamsFromTable(void *ctx,void *table,void *textObj)
     }
   }
   lua_pushobject((int)table);
-  iVar3 = lua_getref(UINT_008ca0ec);
+  iVar3 = lua_getref(g_dwLrDuration);
   lua_pushobject(iVar3);
   iVar3 = lua_gettable();
   if (iVar3 != 0) {
@@ -178,11 +178,13 @@ int __cdecl GetTextParamsFromTable(void *ctx,void *table,void *textObj)
 #undef local_8
 
 
-/* ---- 0x0048c8d0  Text_ParseLineId ---- */
+/* ---- 0x0048c8d0  sputText_ExtractSayLineData ---- */
 /* Splits a '/id/text' dialogue line: copies the id into outId and returns the text according to
-   g_nTranslationMode (translated, id only, or raw) */
+   g_nTranslationType (translated, id only, or raw) Original name sputText_ExtractSayLineData (the
+   remaster's GrimFandango (Linux): splits '/id/text' (PolyglotGetString, translationType)); was
+   Text_ParseLineId. */
 
-char * __cdecl Text_ParseLineId(char *line,char *outId)
+char * __cdecl sputText_ExtractSayLineData(char *line,char *outId)
 
 {
   char *pcVar1;
@@ -200,9 +202,9 @@ char * __cdecl Text_ParseLineId(char *line,char *outId)
       (pcVar2 + (int)outId)[-1 - (int)line] = '\0';
     }
   }
-  if (g_nTranslationMode != 1) {
+  if (g_nTranslationType != 1) {
     outId = pcVar1;
-    if (g_nTranslationMode == 2) {
+    if (g_nTranslationType == 2) {
       outId = line;
     }
     return outId;
@@ -217,7 +219,7 @@ char * __cdecl Text_ParseLineId(char *line,char *outId)
 int sputActor_GetActorTextRate(void)
 
 {
-  return g_nTextSpeed;
+  return g_nTextRate;
 }
 
 /* ---- 0x00494750  Text_SetSpeed ---- */
@@ -225,13 +227,13 @@ void __cdecl Text_SetSpeed(int speed)
 
 {
   if (speed < 1) {
-    g_nTextSpeed = 1;
+    g_nTextRate = 1;
     return;
   }
   if (10 < speed) {
     speed = 10;
   }
-  g_nTextSpeed = speed;
+  g_nTextRate = speed;
   return;
 }
 

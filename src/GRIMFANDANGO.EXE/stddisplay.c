@@ -15,7 +15,7 @@ void Display_Shutdown3D(void)
   if (iVar1 != 0) {
     D3D_ReleaseDriver();
     D3D_Release();
-    g_nRdroid3DAccel = g_nRdroid3DAccel & 0xfffffffe;
+    g_nRdroid_curAcceleration = g_nRdroid_curAcceleration & 0xfffffffe;
     Engine_SetZBufferEnabled(0);
   }
   return;
@@ -58,9 +58,9 @@ LAB_00402747:
         puVar4 = puVar4 + 1;
         puVar6 = puVar6 + 1;
       }
-      Surface_Fill(&g_BackBuffer,0,(int *)0x0);
+      Surface_Fill(&g_dwStdDisplay_backBuffer,0,(int *)0x0);
       Display_Flip();
-      Surface_Fill(&g_BackBuffer,0,(int *)0x0);
+      Surface_Fill(&g_dwStdDisplay_backBuffer,0,(int *)0x0);
       iVar1 = Display_Select3DDevice(threeDIdx);
       if (iVar1 == 0) {
         puVar5 = (undefined4 *)((int)g_pVideoMode + 8);
@@ -76,7 +76,7 @@ LAB_00402747:
       else {
         UINT_004f5a34 = (uint)&DAT_00901400;
       }
-      grimlib_SetDisplay(&g_BackBuffer,UINT_004f5a34);
+      grimlib_SetDisplay(&g_dwStdDisplay_backBuffer,UINT_004f5a34);
       Win_SetWindowedSize((uint)(*(int *)((int)g_pDisplayDevice + 0x110) != 0),
                           *(int *)((int)g_pVideoMode + 8),*(int *)((int)g_pVideoMode + 0xc));
       Reg_SetBinary(s_LastDisplayDevice_004dd738,(void *)((int)g_pDisplayDevice + 0x288),0x10);
@@ -98,7 +98,7 @@ LAB_00402747:
     iVar1 = Display_SelectDevice(deviceIdx);
     if (iVar1 != 0) {
       if (g_dwVideoModeCount != *(uint *)((int)g_pDisplayModes + iVar3)) {
-        (*g_pSvcMain->pAssertFail)
+        (*g_pStd_HS->pAssertFail)
                   (s_stdDisplay_numVideoModes____grim_004dd74c,
                    s_C__grimsrc_tools_grimdemo_grimde_004dd50c,0x60b);
       }
@@ -149,13 +149,13 @@ int __cdecl Display_Select3DDevice(int threeDNum)
     if (iVar1 != 0) {
       if ((threeDNum < 0) ||
          (*(int *)(UINT_00901758 * 0x10 + 8 + (int)g_pDisplayModes) <= threeDNum)) {
-        (*g_pSvcMain->pAssertFail)
+        (*g_pStd_HS->pAssertFail)
                   (s_threeDNum____0____threeDNum____i_004dd7a4,
                    s_C__grimsrc_tools_grimdemo_grimde_004dd50c,0x54d);
       }
       iVar1 = D3D_SelectDriver(threeDNum,1);
       if (iVar1 != 0) {
-        g_nRdroid3DAccel = g_nRdroid3DAccel | 1;
+        g_nRdroid_curAcceleration = g_nRdroid_curAcceleration | 1;
         Engine_SetZBufferEnabled(1);
         Reg_SetBinary(s_Last3DDevice_004dd794,(void *)((int)g_pD3dDriver + 0x21c),0x10);
         return 1;
@@ -261,7 +261,7 @@ int __cdecl Display_GetLastFromRegistry(uint *deviceIdx,uint *modeIdx,uint *thre
   Reg_GetBinary(s_LastDisplayDevice_004dd738,&local_20,0x10);
   Reg_GetBinary(s_Last3DDevice_004dd794,&local_30,0x10);
   uVar2 = 0;
-  if (g_dwDisplayDeviceCount != 0) {
+  if (g_dwStdDisplay_numDevices != 0) {
     pcVar6 = &DAT_00902ee8;
     do {
       iVar1 = 0x10;
@@ -278,9 +278,9 @@ int __cdecl Display_GetLastFromRegistry(uint *deviceIdx,uint *modeIdx,uint *thre
       if (bVar9) break;
       uVar2 = uVar2 + 1;
       pcVar6 = pcVar6 + 0x298;
-    } while (uVar2 < g_dwDisplayDeviceCount);
+    } while (uVar2 < g_dwStdDisplay_numDevices);
   }
-  if (uVar2 == g_dwDisplayDeviceCount) {
+  if (uVar2 == g_dwStdDisplay_numDevices) {
     OutputDebugStringA(IMG_ADDR(0x004dd838));
     return 0;
   }
@@ -632,24 +632,24 @@ int stdDisplay_Startup(void)
   int iVar1;
   
   _DAT_00902ee8 = 0x92a69f00;
-  _DAT_00803f80 = 1;
-  g_dwDisplayDeviceCount = 0;
+  _g_bStdDisplay_Startup = 1;
+  g_dwStdDisplay_numDevices = 0;
   _DAT_00902eec = 0x11d113fa;
   _DAT_00902ef0 = 0xa000c097;
   _DAT_00902ef4 = 0x5302924;
   strncpy(&DAT_00902c60,s_Window_Display_Device_004de9f8,0x7f);
-  iVar1 = g_dwDisplayDeviceCount * 0x298;
+  iVar1 = g_dwStdDisplay_numDevices * 0x298;
   (&DAT_00902cdf)[iVar1] = 0;
   strncpy(&DAT_00902ce0 + iVar1,s_DIBsection_windowed_display_004de9dc,0x7f);
-  (&DAT_00902d5f)[g_dwDisplayDeviceCount * 0x298] = 0;
-  (&UINT_00902d60)[g_dwDisplayDeviceCount * 0xa6] = 0;
-  (&UINT_00902d64)[g_dwDisplayDeviceCount * 0xa6] = 0;
-  (&UINT_00902d68)[g_dwDisplayDeviceCount * 0xa6] = 0;
-  (&UINT_00902d6c)[g_dwDisplayDeviceCount * 0xa6] = 1;
-  (&UINT_00902d70)[g_dwDisplayDeviceCount * 0xa6] = 0;
-  (&UINT_00902d74)[g_dwDisplayDeviceCount * 0xa6] = 2000000;
-  (&UINT_00902d78)[g_dwDisplayDeviceCount * 0xa6] = 2000000;
-  g_dwDisplayDeviceCount = g_dwDisplayDeviceCount + 1;
+  (&DAT_00902d5f)[g_dwStdDisplay_numDevices * 0x298] = 0;
+  (&UINT_00902d60)[g_dwStdDisplay_numDevices * 0xa6] = 0;
+  (&UINT_00902d64)[g_dwStdDisplay_numDevices * 0xa6] = 0;
+  (&UINT_00902d68)[g_dwStdDisplay_numDevices * 0xa6] = 0;
+  (&UINT_00902d6c)[g_dwStdDisplay_numDevices * 0xa6] = 1;
+  (&UINT_00902d70)[g_dwStdDisplay_numDevices * 0xa6] = 0;
+  (&UINT_00902d74)[g_dwStdDisplay_numDevices * 0xa6] = 2000000;
+  (&UINT_00902d78)[g_dwStdDisplay_numDevices * 0xa6] = 2000000;
+  g_dwStdDisplay_numDevices = g_dwStdDisplay_numDevices + 1;
   iVar1 = DirectDrawEnumerateA(((unsigned)(uintptr_t)FUN_004761b0),0);
   return iVar1 == 0;
 }
@@ -661,7 +661,7 @@ int stdDisplay_Startup(void)
 void Display_RestoreMode(void)
 
 {
-  _DAT_00803f80 = 0;
+  _g_bStdDisplay_Startup = 0;
   if ((*(int *)((int)g_pDisplayDevice + 0x100) == 1) && (g_pDirectDraw != (void *)0x0)) {
     (**(code_std **)(*(int *)g_pDirectDraw + 0x4c))(g_pDirectDraw);
   }
@@ -680,7 +680,7 @@ int __cdecl Display_SelectDevice(int deviceIdx)
   if (g_nDisplayDeviceOpen != 0) {
     return 0;
   }
-  if (g_dwDisplayDeviceCount <= (uint)deviceIdx) {
+  if (g_dwStdDisplay_numDevices <= (uint)deviceIdx) {
     return 0;
   }
   UINT_00901758 = deviceIdx;
@@ -876,7 +876,7 @@ int __cdecl Display_OpenMode(uint modeIdx,void *palette,int use3D)
   }
   UINT_00803f9c = use3D;
   _DAT_0090175c = modeIdx;
-  UINT_00803fa0 = 1;
+  g_dwStdDisplay_numDrawBuffers = 1;
   g_pVideoMode = &UINT_00901760 + modeIdx * 0x15;
   if (*(int *)((int)g_pDisplayDevice + 0x100) == 0) {
     pvVar2 = (void *)Win_GetMainHwnd();
@@ -884,13 +884,13 @@ int __cdecl Display_OpenMode(uint modeIdx,void *palette,int use3D)
     if (pvVar2 == (void *)0x0) {
       return 0;
     }
-    g_PrimarySurface = 0;
+    g_dwStdDisplay_frontBuffer = 0;
     _DAT_00901684 = 0;
     _DAT_00901688 = 0;
     Mem_Copy(&DAT_0090168c,(void *)((int)g_pVideoMode + 8),0x4c);
     _DAT_009016d8 = palette;
     UINT_009016dc = UINT_007feae0;
-    g_BackBuffer = 0;
+    g_dwStdDisplay_backBuffer = 0;
     _DAT_009055e8 = 0;
     Mem_Copy(&UINT_009055ec,(void *)((int)g_pVideoMode + 8),0x4c);
     _DAT_00905638 = palette;
@@ -905,10 +905,10 @@ int __cdecl Display_OpenMode(uint modeIdx,void *palette,int use3D)
       return 0;
     }
   }
-  Surface_Fill(&g_BackBuffer,0,(int *)0x0);
+  Surface_Fill(&g_dwStdDisplay_backBuffer,0,(int *)0x0);
   Display_Flip();
   if (use3D != 0) {
-    Surface_Fill(&g_BackBuffer,0,(int *)0x0);
+    Surface_Fill(&g_dwStdDisplay_backBuffer,0,(int *)0x0);
   }
   Display_SetPalette(palette);
   g_pDebugFont = (void *)CreateFontA((-(uint)(*(uint *)((int)g_pVideoMode + 8) < 0x280) & 0xfffffff4
@@ -929,8 +929,8 @@ void Display_CloseMode(void)
     if (*(int *)((int)g_pDisplayDevice + 0x100) == 0) {
       UINT_009016dc = 0;
       UINT_0090563c = 0;
-      Surface_Release(&g_PrimarySurface);
-      Surface_Release(&g_BackBuffer);
+      Surface_Release(&g_dwStdDisplay_frontBuffer);
+      Surface_Release(&g_dwStdDisplay_backBuffer);
       DIB_ReleaseSurface();
     }
     else if (*(int *)((int)g_pDisplayDevice + 0x100) == 1) {
@@ -1035,7 +1035,7 @@ void * __cdecl Surface_Create(void *info,int videoMem,int b,int c)
   undefined4 *puVar9;
   #define puStack_8 (*(undefined1 **)(_frame + (0x20 - 0x8)))
   
-  puVar4 = (undefined4 *)(*g_pSvcMain->pAlloc)(0xd8);
+  puVar4 = (undefined4 *)(*g_pStd_HS->pAlloc)(0xd8);
   if (puVar4 == (undefined4 *)0x0) {
     return (void *)0x0;
   }
@@ -1055,7 +1055,7 @@ void * __cdecl Surface_Create(void *info,int videoMem,int b,int c)
      (*(int *)((int)g_pDisplayDevice + 0x100) != 1)) {
     *puVar4 = 0;
     puVar4[2] = 0;
-    iVar6 = (*g_pSvcMain->pAlloc)(iVar6);
+    iVar6 = (*g_pStd_HS->pAlloc)(iVar6);
     puVar4[0x17] = iVar6;
     if (iVar6 == 0) {
       return (void *)0x0;
@@ -1133,7 +1133,7 @@ void __cdecl Surface_Free(void *surface)
 {
   if (surface != (void *)0x0) {
     Surface_Release(surface);
-    (*g_pSvcMain->pFree)(surface);
+    (*g_pStd_HS->pFree)(surface);
   }
   return;
 }
@@ -1168,7 +1168,7 @@ void __cdecl Surface_Release(void *surface)
     }
   }
   if (*(int *)((int)surface + 0x5c) != 0) {
-    (*g_pSvcMain->pFree)(*(int *)((int)surface + 0x5c));
+    (*g_pStd_HS->pFree)(*(int *)((int)surface + 0x5c));
     *(undefined4 *)((int)surface + 0x5c) = 0;
   }
   return;
@@ -1414,13 +1414,13 @@ void __cdecl Surface_Decompress(void *surface)
   int iVar1;
   
   if (*(int *)surface == 2) {
-    dst = (void *)(*g_pSvcMain->pAlloc)
+    dst = (void *)(*g_pStd_HS->pAlloc)
                             (*(int *)((int)surface + 0x18) * *(int *)((int)surface + 0x10),
                              s_C__grimjedi_Libs_Std_Win95_Stddi_004dea18,DAT_004de1d8 + 0xc);
     if (dst != (void *)0x0) {
       iVar1 = stdCompress_Decompress
                         (dst,*(void **)((int)surface + 0x5c),*(int *)((int)surface + 0x14));
-      (*g_pSvcMain->pFree)(*(undefined4 *)((int)surface + 0x5c));
+      (*g_pStd_HS->pFree)(*(undefined4 *)((int)surface + 0x5c));
       *(int *)((int)surface + 0x14) = iVar1;
       *(undefined4 *)surface = 0;
       *(void **)((int)surface + 0x5c) = dst;
@@ -1684,12 +1684,12 @@ uint Display_FindClosestDevice(uint *param_1)
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   uVar1 = 0;
-  if (g_dwDisplayDeviceCount == 0) {
+  if (g_dwStdDisplay_numDevices == 0) {
     return uVar1;
   }
   uVar4 = 0;
   local_4 = 0;
-  if (g_dwDisplayDeviceCount != 0) {
+  if (g_dwStdDisplay_numDevices != 0) {
     puVar3 = &UINT_00902d60;
     do {
       uVar2 = 0;
@@ -1704,7 +1704,7 @@ uint Display_FindClosestDevice(uint *param_1)
       }
       puVar3 = puVar3 + 0xa6;
       uVar1 = uVar1 + 1;
-    } while (uVar1 < g_dwDisplayDeviceCount);
+    } while (uVar1 < g_dwStdDisplay_numDevices);
   }
   return local_4;
 }
@@ -2654,11 +2654,11 @@ undefined * __stdcall FUN_004761b0(int a1,int a2,int a3,int a4)
   #define uStack_2b0 (*(uint *)(_frame + (0x2f0 - 0x2b0)))
   #define auStack_178 (*(undefined4 (*)[94])(_frame + (0x2f0 - 0x178)))
   
-  uVar1 = g_dwDisplayDeviceCount;
+  uVar1 = g_dwStdDisplay_numDevices;
   local_2dc = 0;
-  if (g_dwDisplayDeviceCount < 0x10) {
-    iVar2 = g_dwDisplayDeviceCount * 0x298;
-    (&UINT_00902d60)[g_dwDisplayDeviceCount * 0xa6] = 1;
+  if (g_dwStdDisplay_numDevices < 0x10) {
+    iVar2 = g_dwStdDisplay_numDevices * 0x298;
+    (&UINT_00902d60)[g_dwStdDisplay_numDevices * 0xa6] = 1;
     (&UINT_00902d70)[uVar1 * 0xa6] = 1;
     if (a1 == 0) {
       *(undefined4 *)(&DAT_00902ee8 + iVar2) = 0;
@@ -2719,7 +2719,7 @@ undefined * __stdcall FUN_004761b0(int a1,int a2,int a3,int a4)
       iVar2 = (**(code_std **)(iVar2 + 0x50))(piVar3,uVar4);
       if (iVar2 == 0) {
         (**(code_std **)(*piVar6 + 8))(piVar6);
-        g_dwDisplayDeviceCount = g_dwDisplayDeviceCount + 1;
+        g_dwStdDisplay_numDevices = g_dwStdDisplay_numDevices + 1;
         return (undefined *)0x1;
       }
     }
@@ -2978,7 +2978,7 @@ undefined4 __cdecl DDraw_CreateSurfaces(undefined4 hwnd,int *mode,byte *palette)
   if (iVar2 != 0) {
     return 0;
   }
-  g_PrimarySurface = 1;
+  g_dwStdDisplay_frontBuffer = 1;
   _DAT_00901684 = 0;
   _DAT_00901688 = 0;
   Mem_Copy(&DAT_0090168c,src,0x4c);
@@ -3013,14 +3013,14 @@ undefined4 __cdecl DDraw_CreateSurfaces(undefined4 hwnd,int *mode,byte *palette)
   if (iVar2 != 0) {
     return 0;
   }
-  UINT_00803fa0 = *(int *)((int)g_pDDrawPrimary + 0x1c) + 1;
+  g_dwStdDisplay_numDrawBuffers = *(int *)((int)g_pDDrawPrimary + 0x1c) + 1;
   UINT_00901698 = *(uint *)((int)g_pDDrawPrimary + 0x18);
   _DAT_0090169c = UINT_00901698 / (uint)pvVar7;
   if ((*(uint *)((int)g_pDDrawPrimary + 0x70) & 0x4000) != 0) {
     _DAT_00901688 = 1;
   }
   if (UINT_00803f9c != 0) {
-    g_BackBuffer = 1;
+    g_dwStdDisplay_backBuffer = 1;
     _DAT_009055e4 = 0;
     _DAT_009055e8 = 0;
     Mem_Copy(&UINT_009055ec,src,0x4c);
@@ -3093,7 +3093,7 @@ undefined4 __cdecl DDraw_CreateSurfaces(undefined4 hwnd,int *mode,byte *palette)
     return 1;
   }
 LAB_00476b98:
-  Mem_Copy(&g_BackBuffer,&g_PrimarySurface,0xd8);
+  Mem_Copy(&g_dwStdDisplay_backBuffer,&g_dwStdDisplay_frontBuffer,0xd8);
   return 1;
 }
 #undef puStack_28
@@ -3108,9 +3108,9 @@ void DDraw_ReleaseSurfaces(void)
 {
   if (UINT_00803f9c != 0) {
     UINT_00905648 = 0;
-    Surface_Release(&g_BackBuffer);
+    Surface_Release(&g_dwStdDisplay_backBuffer);
   }
-  Surface_Release(&g_PrimarySurface);
+  Surface_Release(&g_dwStdDisplay_frontBuffer);
   return;
 }
 
@@ -3325,8 +3325,12 @@ void DIB_ReleaseSurface(void)
   return;
 }
 
-/* ---- 0x00478fc0  Display_SetPalette3D ---- */
-void __cdecl Display_SetPalette3D(void *palette,int flags)
+/* ---- 0x00478fc0  std3D_SetCurrentPalette ---- */
+/* Original name std3D_SetCurrentPalette (the remaster's GrimFandango (Linux): rdColormap_SetCurrent
+   calls it with (colormap + 0x30, 0x5a) when rdroid_curAcceleration > 0); was Display_SetPalette3D.
+    */
+
+void __cdecl std3D_SetCurrentPalette(void *palette,int flags)
 
 {
   Mem_Copy(&DAT_00806618,palette,0x300);

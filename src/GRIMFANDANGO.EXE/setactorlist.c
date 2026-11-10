@@ -29,11 +29,11 @@ void SetActorList_Free(void *param_1)
     if (pvVar2 != (void *)0x0) {
       if (pvVar3 == (void *)0x0) {
         g_pSetActorLists = *(void **)((int)pvVar2 + 0x84);
-        (*g_pSvcRoom->pFree)(pvVar2);
+        (*g_pSputRoomHS->pFree)(pvVar2);
         return;
       }
       *(undefined4 *)((int)pvVar3 + 0x84) = *(undefined4 *)((int)pvVar2 + 0x84);
-      (*g_pSvcRoom->pFree)(pvVar2);
+      (*g_pSputRoomHS->pFree)(pvVar2);
     }
   }
   return;

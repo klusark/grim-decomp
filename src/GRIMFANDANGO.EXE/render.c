@@ -6,12 +6,12 @@
 #include "functions.h"
 
 /* ---- 0x004839f0  Render_GetBackBuffer ---- */
-/* Returns the back buffer surface g_BackBuffer */
+/* Returns the back buffer surface g_dwStdDisplay_backBuffer */
 
 uint * Render_GetBackBuffer(void)
 
 {
-  return &g_BackBuffer;
+  return &g_dwStdDisplay_backBuffer;
 }
 
 /* ---- 0x00483a00  Render_ToggleDebugOverlay ---- */
@@ -27,25 +27,25 @@ void Render_ToggleDebugOverlay(void)
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
-  if ((g_dwRenderDebugFlags & 1) == 0) {
-    g_dwRenderDebugFlags = g_dwRenderDebugFlags | 1;
+  if ((g_dwDebugFlags & 1) == 0) {
+    g_dwDebugFlags = g_dwDebugFlags | 1;
   }
   else {
-    g_dwRenderDebugFlags = g_dwRenderDebugFlags & 0xfffffffe;
+    g_dwDebugFlags = g_dwDebugFlags & 0xfffffffe;
   }
-  if ((g_dwRenderDebugFlags & 1) == 0) {
-    local_10 = *(uint *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x18);
-    local_c = *(uint *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x1c);
-    local_8 = (*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x20) -
-              *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x18)) + 1;
-    local_4 = (*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x24) -
-              *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x1c)) + 1;
+  if ((g_dwDebugFlags & 1) == 0) {
+    local_10 = *(uint *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x18);
+    local_c = *(uint *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x1c);
+    local_8 = (*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x20) -
+              *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x18)) + 1;
+    local_4 = (*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x24) -
+              *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x1c)) + 1;
     bufferIdx = 0;
-    if (0 < g_nBufferCount) {
+    if (0 < g_nNumPages) {
       do {
         DirtyRect_Add((int *)&local_10,1,bufferIdx);
         bufferIdx = bufferIdx + 1;
-      } while (bufferIdx < g_nBufferCount);
+      } while (bufferIdx < g_nNumPages);
     }
   }
   return;
@@ -78,14 +78,14 @@ void Render_SetFlipCallback(void *param_1)
 int __cdecl Render_SaveState(void *writeFn)
 
 {
-  (*(code *)writeFn)(&g_dwIrisStartMs,4);
-  (*(code *)writeFn)(&g_flIrisDurationMs,4);
+  (*(code *)writeFn)(&g_dwIrisStart,4);
+  (*(code *)writeFn)(&g_flIrisDuration,4);
   (*(code *)writeFn)(&g_nIrisX,4);
   (*(code *)writeFn)(&g_nIrisY,4);
-  (*(code *)writeFn)(&g_flGamma,4);
+  (*(code *)writeFn)(&g_flSputRender_GammaCorrection,4);
   (*(code *)writeFn)(&g_dwRenderFlags,4);
-  (*(code *)writeFn)(&g_nDrawEnabled,4);
-  (*(code *)writeFn)(&g_nCameraActor,4);
+  (*(code *)writeFn)(&g_nDoTheFlip,4);
+  (*(code *)writeFn)(&g_nCamActorIndex,4);
   (*(code *)writeFn)(&UINT_008c97f8,4);
   return 0;
 }
@@ -94,14 +94,14 @@ int __cdecl Render_SaveState(void *writeFn)
 int __cdecl Render_RestoreState(void *readFn)
 
 {
-  (*(code *)readFn)(&g_dwIrisStartMs,4);
-  (*(code *)readFn)(&g_flIrisDurationMs,4);
+  (*(code *)readFn)(&g_dwIrisStart,4);
+  (*(code *)readFn)(&g_flIrisDuration,4);
   (*(code *)readFn)(&g_nIrisX,4);
   (*(code *)readFn)(&g_nIrisY,4);
-  (*(code *)readFn)(&g_flGamma,4);
+  (*(code *)readFn)(&g_flSputRender_GammaCorrection,4);
   (*(code *)readFn)(&g_dwRenderFlags,4);
-  (*(code *)readFn)(&g_nDrawEnabled,4);
-  (*(code *)readFn)(&g_nCameraActor,4);
+  (*(code *)readFn)(&g_nDoTheFlip,4);
+  (*(code *)readFn)(&g_nCamActorIndex,4);
   (*(code *)readFn)(&UINT_008c97f8,4);
   return 0;
 }
@@ -110,7 +110,7 @@ int __cdecl Render_RestoreState(void *readFn)
 void Render_SetZBufferEnabled(int param_1)
 
 {
-  g_nZBufferEnabled = param_1;
+  g_nSputRender_b3DAcceleration = param_1;
   return;
 }
 
@@ -122,9 +122,9 @@ void Render_SetZBufferEnabled(int param_1)
 void __cdecl sputRender_PageCountIs(int n)
 
 {
-  g_nBufferCount = 1;
+  g_nNumPages = 1;
   if (0 < n) {
-    g_nBufferCount = n;
+    g_nNumPages = n;
   }
   return;
 }
@@ -152,7 +152,7 @@ void __cdecl Render_InvalidateRectLastBuffer(int *rect,int flag)
     if (iVar1 != 0) {
       _DAT_008a92c0 = _DAT_008a92c0 + (4 - iVar1);
     }
-    DirtyRect_Add((int *)&DAT_008a92b8,flag,g_nBufferCount + -1);
+    DirtyRect_Add((int *)&DAT_008a92b8,flag,g_nNumPages + -1);
   }
   return;
 }
@@ -184,11 +184,11 @@ void __cdecl MarkDirtyRect(int *rect,int flag)
       _DAT_008a92b0 = _DAT_008a92b0 + (4 - iVar1);
     }
     iVar1 = 0;
-    if (0 < g_nBufferCount) {
+    if (0 < g_nNumPages) {
       do {
         DirtyRect_Add((int *)&DAT_008a92a8,flag,iVar1);
         iVar1 = iVar1 + 1;
-      } while (iVar1 < g_nBufferCount);
+      } while (iVar1 < g_nNumPages);
     }
   }
   return;
@@ -216,7 +216,7 @@ sputRender_SetDisplay
   #define local_4c (*(undefined4 (*)[19])(_frame + (0x60 - 0x4c)))
   
   sputRender_Close();
-  g_pCanvas = (void *)rdCanvas_New(1,param_1,param_2,param_3,param_4,param_5,param_6,0);
+  g_pSputRender_Canvas = (void *)rdCanvas_New(1,param_1,param_2,param_3,param_4,param_5,param_6,0);
   UINT_008c97a4 = param_2;
   UINT_008c97a0 = param_1;
   puVar3 = (undefined4 *)(param_1 + 0xc);
@@ -226,17 +226,17 @@ sputRender_SetDisplay
     puVar3 = puVar3 + 1;
     puVar4 = puVar4 + 1;
   }
-  g_pTempSurface = Surface_Create(local_4c,0,0,0);
+  g_pSputRender_DecompressionBuffer = Surface_Create(local_4c,0,0,0);
   bVar5 = *(int *)(param_1 + 8) != 0;
-  g_pBackgroundSurface = Surface_Create(local_4c,(uint)bVar5,(uint)bVar5,0);
-  if ((g_nZBufferEnabled == 0) || (UINT_004e806c != 0)) {
+  g_pSputRender_CleanBuffer = Surface_Create(local_4c,(uint)bVar5,(uint)bVar5,0);
+  if ((g_nSputRender_b3DAcceleration == 0) || (UINT_004e806c != 0)) {
     iVar2 = 0;
   }
   else {
     iVar2 = 1;
   }
-  g_pZBufferSurface = Surface_Create(local_4c,iVar2,iVar2,0);
-  if ((g_pBackgroundSurface != (void *)0x0) && (g_pZBufferSurface != (void *)0x0)) {
+  g_pSputRender_CleanZBuffer = Surface_Create(local_4c,iVar2,iVar2,0);
+  if ((g_pSputRender_CleanBuffer != (void *)0x0) && (g_pSputRender_CleanZBuffer != (void *)0x0)) {
     UINT_008a94b8 = UINT_0090563c;
     _DAT_008a94c4 = UINT_00905604 >> 3;
     UINT_008a94c0 = UINT_009055f0;
@@ -276,21 +276,21 @@ sputRender_SetDisplay
 void sputRender_Close(void)
 
 {
-  if (g_pCanvas != (void *)0x0) {
-    rdCanvas_Free(g_pCanvas);
-    g_pCanvas = (void *)0x0;
+  if (g_pSputRender_Canvas != (void *)0x0) {
+    rdCanvas_Free(g_pSputRender_Canvas);
+    g_pSputRender_Canvas = (void *)0x0;
   }
-  if (g_pBackgroundSurface != (void *)0x0) {
-    Surface_Free(g_pBackgroundSurface);
-    g_pBackgroundSurface = (void *)0x0;
+  if (g_pSputRender_CleanBuffer != (void *)0x0) {
+    Surface_Free(g_pSputRender_CleanBuffer);
+    g_pSputRender_CleanBuffer = (void *)0x0;
   }
-  if (g_pZBufferSurface != (void *)0x0) {
-    Surface_Free(g_pZBufferSurface);
-    g_pZBufferSurface = (void *)0x0;
+  if (g_pSputRender_CleanZBuffer != (void *)0x0) {
+    Surface_Free(g_pSputRender_CleanZBuffer);
+    g_pSputRender_CleanZBuffer = (void *)0x0;
   }
-  if (g_pTempSurface != (void *)0x0) {
-    Surface_Free(g_pTempSurface);
-    g_pTempSurface = (void *)0x0;
+  if (g_pSputRender_DecompressionBuffer != (void *)0x0) {
+    Surface_Free(g_pSputRender_DecompressionBuffer);
+    g_pSputRender_DecompressionBuffer = (void *)0x0;
   }
   _DAT_008c9790 = 0;
   return;
@@ -302,7 +302,7 @@ void sputRender_Close(void)
 void Render_Present(void)
 
 {
-  if ((g_nDrawEnabled != 0) && (UINT_008c97f8 == 0)) {
+  if ((g_nDoTheFlip != 0) && (UINT_008c97f8 == 0)) {
     (*(code *)g_pfnFlipCallback)();
   }
   UINT_008c97f8 = 0;
@@ -342,7 +342,7 @@ undefined4 FUN_00484a50(void)
   undefined4 uVar2;
   
   uVar2 = 0;
-  if (g_nDebugKeysEnabled == 0) {
+  if (g_nGrimlib_bDebugKeys == 0) {
     return 0;
   }
   iVar1 = Input_GetButtonState(0x1d,(int *)0x0,(int *)0x0);
@@ -358,19 +358,19 @@ undefined4 FUN_00484a50(void)
         Render_ToggleDebugOverlay();
         UINT_008c9818 = 1;
       }
-      if ((g_dwRenderDebugFlags & 1) != 0) {
+      if ((g_dwDebugFlags & 1) != 0) {
         iVar1 = Input_GetButtonState(0x30,(int *)0x0,(int *)0x0);
         if (iVar1 == 0) {
           UINT_008c9810 = 0;
         }
         else if (UINT_008c9810 == 0) {
-          if ((g_dwRenderDebugFlags & 8) == 0) {
+          if ((g_dwDebugFlags & 8) == 0) {
             UINT_008c9810 = 1;
-            g_dwRenderDebugFlags = g_dwRenderDebugFlags | 8;
+            g_dwDebugFlags = g_dwDebugFlags | 8;
           }
           else {
             UINT_008c9810 = 1;
-            g_dwRenderDebugFlags = g_dwRenderDebugFlags & 0xfffffff7;
+            g_dwDebugFlags = g_dwDebugFlags & 0xfffffff7;
           }
         }
         iVar1 = Input_GetButtonState(0x26,(int *)0x0,(int *)0x0);
@@ -378,13 +378,13 @@ undefined4 FUN_00484a50(void)
           UINT_008c9808 = 0;
         }
         else if (UINT_008c9808 == 0) {
-          if ((g_dwRenderDebugFlags & 2) == 0) {
+          if ((g_dwDebugFlags & 2) == 0) {
             UINT_008c9808 = 1;
-            g_dwRenderDebugFlags = g_dwRenderDebugFlags | 2;
+            g_dwDebugFlags = g_dwDebugFlags | 2;
           }
           else {
             UINT_008c9808 = 1;
-            g_dwRenderDebugFlags = g_dwRenderDebugFlags & 0xfffffffd;
+            g_dwDebugFlags = g_dwDebugFlags & 0xfffffffd;
           }
         }
         iVar1 = Input_GetButtonState(0x2e,(int *)0x0,(int *)0x0);
@@ -392,13 +392,13 @@ undefined4 FUN_00484a50(void)
           UINT_008c980c = 0;
         }
         else if (UINT_008c980c == 0) {
-          if ((g_dwRenderDebugFlags & 4) == 0) {
+          if ((g_dwDebugFlags & 4) == 0) {
             UINT_008c980c = 1;
-            g_dwRenderDebugFlags = g_dwRenderDebugFlags | 4;
+            g_dwDebugFlags = g_dwDebugFlags | 4;
           }
           else {
             UINT_008c980c = 1;
-            g_dwRenderDebugFlags = g_dwRenderDebugFlags & 0xfffffffb;
+            g_dwDebugFlags = g_dwDebugFlags & 0xfffffffb;
           }
         }
         iVar1 = Input_GetButtonState(0x13,(int *)0x0,(int *)0x0);
@@ -406,13 +406,13 @@ undefined4 FUN_00484a50(void)
           UINT_008c9814 = 0;
         }
         else if (UINT_008c9814 == 0) {
-          if ((g_dwRenderDebugFlags & 0x10) != 0) {
+          if ((g_dwDebugFlags & 0x10) != 0) {
             UINT_008c9814 = 1;
-            g_dwRenderDebugFlags = g_dwRenderDebugFlags & 0xffffffef;
+            g_dwDebugFlags = g_dwDebugFlags & 0xffffffef;
             return 1;
           }
           UINT_008c9814 = 1;
-          g_dwRenderDebugFlags = g_dwRenderDebugFlags | 0x10;
+          g_dwDebugFlags = g_dwDebugFlags | 0x10;
           return 1;
         }
       }
@@ -429,9 +429,9 @@ undefined4 FUN_00484a50(void)
 void Render_InitColorConstants(int param_1)
 
 {
-  Render_BuildColorTable(UINT_008c9780,g_flGamma);
+  Render_BuildColorTable(UINT_008c9780,g_flSputRender_GammaCorrection);
   g_wTextColors[2] =
-       (&g_wColorTable)
+       (&g_wSputRender_ColorLookup)
        [(0 >> ((byte)*(undefined4 *)(param_1 + 0x24) & 0x1f)) <<
         ((byte)*(undefined4 *)(param_1 + 0x18) & 0x1f) & 0xffffU |
         (0 >> ((byte)*(undefined4 *)(param_1 + 0x28) & 0x1f)) <<
@@ -439,14 +439,14 @@ void Render_InitColorConstants(int param_1)
         (0 >> ((byte)*(undefined4 *)(param_1 + 0x20) & 0x1f)) <<
         ((byte)*(undefined4 *)(param_1 + 0x14) & 0x1f) & 0xffffU];
   PIECE(UINT_008c97c8,0,2) =
-       (&g_wColorTable)
+       (&g_wSputRender_ColorLookup)
        [(0x80 >> ((byte)*(undefined4 *)(param_1 + 0x24) & 0x1f)) <<
         ((byte)*(undefined4 *)(param_1 + 0x18) & 0x1f) & 0xffffU |
         (0x80 >> ((byte)*(undefined4 *)(param_1 + 0x28) & 0x1f)) <<
         ((byte)*(undefined4 *)(param_1 + 0x1c) & 0x1f) & 0xffffU |
         (0x80 >> ((byte)*(undefined4 *)(param_1 + 0x20) & 0x1f)) <<
         ((byte)*(undefined4 *)(param_1 + 0x14) & 0x1f) & 0xffffU];
-  DAT_008c97c6 = (&g_wColorTable)
+  DAT_008c97c6 = (&g_wSputRender_ColorLookup)
                  [(0xff >> ((byte)*(undefined4 *)(param_1 + 0x28) & 0x1f)) <<
                   ((byte)*(undefined4 *)(param_1 + 0x1c) & 0x1f) & 0xffffU |
                   (0xff >> ((byte)*(undefined4 *)(param_1 + 0x20) & 0x1f)) <<
@@ -454,7 +454,7 @@ void Render_InitColorConstants(int param_1)
                   (0xff >> ((byte)*(undefined4 *)(param_1 + 0x24) & 0x1f)) <<
                   ((byte)*(undefined4 *)(param_1 + 0x18) & 0x1f) & 0xffffU];
   PIECE(UINT_008c97c8,2,2) =
-       (&g_wColorTable)
+       (&g_wSputRender_ColorLookup)
        [(0xff >> ((byte)*(undefined4 *)(param_1 + 0x20) & 0x1f)) <<
         ((byte)*(undefined4 *)(param_1 + 0x14) & 0x1f) & 0xffffU |
         (0xff >> ((byte)*(undefined4 *)(param_1 + 0x24) & 0x1f)) <<
@@ -462,7 +462,7 @@ void Render_InitColorConstants(int param_1)
         (0 >> ((byte)*(undefined4 *)(param_1 + 0x28) & 0x1f)) <<
         ((byte)*(undefined4 *)(param_1 + 0x1c) & 0x1f) & 0xffffU];
   PIECE(UINT_008c97cc,0,2) =
-       (&g_wColorTable)
+       (&g_wSputRender_ColorLookup)
        [(0xff >> ((byte)*(undefined4 *)(param_1 + 0x20) & 0x1f)) <<
         ((byte)*(undefined4 *)(param_1 + 0x14) & 0x1f) & 0xffffU |
         (0 >> ((byte)*(undefined4 *)(param_1 + 0x24) & 0x1f)) <<
@@ -470,7 +470,7 @@ void Render_InitColorConstants(int param_1)
         (0 >> ((byte)*(undefined4 *)(param_1 + 0x28) & 0x1f)) <<
         ((byte)*(undefined4 *)(param_1 + 0x1c) & 0x1f) & 0xffffU];
   PIECE(UINT_008c97cc,2,2) =
-       (&g_wColorTable)
+       (&g_wSputRender_ColorLookup)
        [(0xff >> ((byte)*(undefined4 *)(param_1 + 0x24) & 0x1f)) <<
         ((byte)*(undefined4 *)(param_1 + 0x18) & 0x1f) & 0xffffU |
         (0 >> ((byte)*(undefined4 *)(param_1 + 0x28) & 0x1f)) <<
@@ -478,7 +478,7 @@ void Render_InitColorConstants(int param_1)
         (0 >> ((byte)*(undefined4 *)(param_1 + 0x20) & 0x1f)) <<
         ((byte)*(undefined4 *)(param_1 + 0x14) & 0x1f) & 0xffffU];
   PIECE(UINT_008c97d0,0,2) =
-       (&g_wColorTable)
+       (&g_wSputRender_ColorLookup)
        [(0xff >> ((byte)*(undefined4 *)(param_1 + 0x28) & 0x1f)) <<
         ((byte)*(undefined4 *)(param_1 + 0x1c) & 0x1f) & 0xffffU |
         (0 >> ((byte)*(undefined4 *)(param_1 + 0x24) & 0x1f)) <<
@@ -486,7 +486,7 @@ void Render_InitColorConstants(int param_1)
         (0 >> ((byte)*(undefined4 *)(param_1 + 0x20) & 0x1f)) <<
         ((byte)*(undefined4 *)(param_1 + 0x14) & 0x1f) & 0xffffU];
   PIECE(UINT_008c97d4,0,2) =
-       (&g_wColorTable)
+       (&g_wSputRender_ColorLookup)
        [(0x80 >> ((byte)*(undefined4 *)(param_1 + 0x20) & 0x1f)) <<
         ((byte)*(undefined4 *)(param_1 + 0x14) & 0x1f) & 0xffffU |
         (0 >> ((byte)*(undefined4 *)(param_1 + 0x24) & 0x1f)) <<
@@ -494,7 +494,7 @@ void Render_InitColorConstants(int param_1)
         (0 >> ((byte)*(undefined4 *)(param_1 + 0x28) & 0x1f)) <<
         ((byte)*(undefined4 *)(param_1 + 0x1c) & 0x1f) & 0xffffU];
   PIECE(UINT_008c97d4,2,2) =
-       (&g_wColorTable)
+       (&g_wSputRender_ColorLookup)
        [(0x80 >> ((byte)*(undefined4 *)(param_1 + 0x24) & 0x1f)) <<
         ((byte)*(undefined4 *)(param_1 + 0x18) & 0x1f) & 0xffffU |
         (0 >> ((byte)*(undefined4 *)(param_1 + 0x28) & 0x1f)) <<
@@ -502,7 +502,7 @@ void Render_InitColorConstants(int param_1)
         (0 >> ((byte)*(undefined4 *)(param_1 + 0x20) & 0x1f)) <<
         ((byte)*(undefined4 *)(param_1 + 0x14) & 0x1f) & 0xffffU];
   _DAT_008c97d8 =
-       (&g_wColorTable)
+       (&g_wSputRender_ColorLookup)
        [(0x80 >> ((byte)*(undefined4 *)(param_1 + 0x24) & 0x1f)) <<
         ((byte)*(undefined4 *)(param_1 + 0x18) & 0x1f) & 0xffffU |
         (0x80 >> ((byte)*(undefined4 *)(param_1 + 0x20) & 0x1f)) <<
@@ -510,7 +510,7 @@ void Render_InitColorConstants(int param_1)
         (0 >> ((byte)*(undefined4 *)(param_1 + 0x28) & 0x1f)) <<
         ((byte)*(undefined4 *)(param_1 + 0x1c) & 0x1f) & 0xffffU];
   _DAT_008c97da =
-       (&g_wColorTable)
+       (&g_wSputRender_ColorLookup)
        [(0x80 >> ((byte)*(undefined4 *)(param_1 + 0x28) & 0x1f)) <<
         ((byte)*(undefined4 *)(param_1 + 0x1c) & 0x1f) & 0xffffU |
         (0 >> ((byte)*(undefined4 *)(param_1 + 0x24) & 0x1f)) <<
@@ -518,7 +518,7 @@ void Render_InitColorConstants(int param_1)
         (0 >> ((byte)*(undefined4 *)(param_1 + 0x20) & 0x1f)) <<
         ((byte)*(undefined4 *)(param_1 + 0x14) & 0x1f) & 0xffffU];
   PIECE(UINT_008c97d0,2,2) =
-       (&g_wColorTable)
+       (&g_wSputRender_ColorLookup)
        [(0x80 >> ((byte)*(undefined4 *)(param_1 + 0x28) & 0x1f)) <<
         ((byte)*(undefined4 *)(param_1 + 0x1c) & 0x1f) & 0xffffU |
         (0x80 >> ((byte)*(undefined4 *)(param_1 + 0x20) & 0x1f)) <<
@@ -526,7 +526,7 @@ void Render_InitColorConstants(int param_1)
         (0 >> ((byte)*(undefined4 *)(param_1 + 0x24) & 0x1f)) <<
         ((byte)*(undefined4 *)(param_1 + 0x18) & 0x1f) & 0xffffU];
   _DAT_008c97dc =
-       (&g_wColorTable)
+       (&g_wSputRender_ColorLookup)
        [(0x80 >> ((byte)*(undefined4 *)(param_1 + 0x24) & 0x1f)) <<
         ((byte)*(undefined4 *)(param_1 + 0x18) & 0x1f) & 0xffffU |
         (0x80 >> ((byte)*(undefined4 *)(param_1 + 0x28) & 0x1f)) <<
@@ -534,7 +534,7 @@ void Render_InitColorConstants(int param_1)
         (0 >> ((byte)*(undefined4 *)(param_1 + 0x20) & 0x1f)) <<
         ((byte)*(undefined4 *)(param_1 + 0x14) & 0x1f) & 0xffffU];
   _DAT_008c97de =
-       (&g_wColorTable)
+       (&g_wSputRender_ColorLookup)
        [(0xc0 >> ((byte)*(undefined4 *)(param_1 + 0x24) & 0x1f)) <<
         ((byte)*(undefined4 *)(param_1 + 0x18) & 0x1f) & 0xffffU |
         (0xc0 >> ((byte)*(undefined4 *)(param_1 + 0x28) & 0x1f)) <<
@@ -542,7 +542,7 @@ void Render_InitColorConstants(int param_1)
         (0xc0 >> ((byte)*(undefined4 *)(param_1 + 0x20) & 0x1f)) <<
         ((byte)*(undefined4 *)(param_1 + 0x14) & 0x1f) & 0xffffU];
   PIECE(UINT_008c97e0,0,2) =
-       (&g_wColorTable)
+       (&g_wSputRender_ColorLookup)
        [(0xdc >> ((byte)*(undefined4 *)(param_1 + 0x24) & 0x1f)) <<
         ((byte)*(undefined4 *)(param_1 + 0x18) & 0x1f) & 0xffffU |
         (0xc0 >> ((byte)*(undefined4 *)(param_1 + 0x28) & 0x1f)) <<
@@ -550,7 +550,7 @@ void Render_InitColorConstants(int param_1)
         (0xc0 >> ((byte)*(undefined4 *)(param_1 + 0x20) & 0x1f)) <<
         ((byte)*(undefined4 *)(param_1 + 0x14) & 0x1f) & 0xffffU];
   PIECE(UINT_008c97e0,2,2) =
-       (&g_wColorTable)
+       (&g_wSputRender_ColorLookup)
        [(0xf0 >> ((byte)*(undefined4 *)(param_1 + 0x28) & 0x1f)) <<
         ((byte)*(undefined4 *)(param_1 + 0x1c) & 0x1f) & 0xffffU |
         (0xca >> ((byte)*(undefined4 *)(param_1 + 0x24) & 0x1f)) <<
@@ -558,7 +558,7 @@ void Render_InitColorConstants(int param_1)
         (0xa6 >> ((byte)*(undefined4 *)(param_1 + 0x20) & 0x1f)) <<
         ((byte)*(undefined4 *)(param_1 + 0x14) & 0x1f) & 0xffffU];
   PIECE(UINT_008c97e4,0,2) =
-       (&g_wColorTable)
+       (&g_wSputRender_ColorLookup)
        [(0xb4 >> ((byte)*(undefined4 *)(param_1 + 0x24) & 0x1f)) <<
         ((byte)*(undefined4 *)(param_1 + 0x18) & 0x1f) & 0xffffU |
         (0xb4 >> ((byte)*(undefined4 *)(param_1 + 0x28) & 0x1f)) <<
@@ -566,7 +566,7 @@ void Render_InitColorConstants(int param_1)
         (0xb4 >> ((byte)*(undefined4 *)(param_1 + 0x20) & 0x1f)) <<
         ((byte)*(undefined4 *)(param_1 + 0x14) & 0x1f) & 0xffffU];
   PIECE(UINT_008c97e4,2,2) =
-       (&g_wColorTable)
+       (&g_wSputRender_ColorLookup)
        [(100 >> ((byte)*(undefined4 *)(param_1 + 0x24) & 0x1f)) <<
         ((byte)*(undefined4 *)(param_1 + 0x18) & 0x1f) & 0xffffU |
         (100 >> ((byte)*(undefined4 *)(param_1 + 0x28) & 0x1f)) <<
@@ -574,7 +574,7 @@ void Render_InitColorConstants(int param_1)
         (100 >> ((byte)*(undefined4 *)(param_1 + 0x20) & 0x1f)) <<
         ((byte)*(undefined4 *)(param_1 + 0x14) & 0x1f) & 0xffffU];
   PIECE(UINT_008c97e8,0,2) =
-       (&g_wColorTable)
+       (&g_wSputRender_ColorLookup)
        [(0xff >> ((byte)*(undefined4 *)(param_1 + 0x28) & 0x1f)) <<
         ((byte)*(undefined4 *)(param_1 + 0x1c) & 0x1f) & 0xffffU |
         (0xff >> ((byte)*(undefined4 *)(param_1 + 0x20) & 0x1f)) <<
@@ -582,7 +582,7 @@ void Render_InitColorConstants(int param_1)
         (0 >> ((byte)*(undefined4 *)(param_1 + 0x24) & 0x1f)) <<
         ((byte)*(undefined4 *)(param_1 + 0x18) & 0x1f) & 0xffffU];
   PIECE(UINT_008c97e8,2,2) =
-       (&g_wColorTable)
+       (&g_wSputRender_ColorLookup)
        [(0xff >> ((byte)*(undefined4 *)(param_1 + 0x28) & 0x1f)) <<
         ((byte)*(undefined4 *)(param_1 + 0x1c) & 0x1f) & 0xffffU |
         (0xff >> ((byte)*(undefined4 *)(param_1 + 0x24) & 0x1f)) <<
@@ -667,7 +667,7 @@ void Render_DrawDebugGrid(void)
 int Render_CanvasIsPaletted(void)
 
 {
-  return **(int **)((int)g_pCanvas + 4) == 1;
+  return **(int **)((int)g_pSputRender_Canvas + 4) == 1;
 }
 
 /* ---- 0x00486120  Render_BuildActorDrawList ---- */
@@ -691,23 +691,23 @@ void Render_BuildActorDrawList(void)
   piVar1 = *(int **)(*(int *)((int)pvVar2 + 0x1abc) + 0x80);
   do {
     if (piVar1 == (int *)0x0) {
-      qsort(&UINT_008c9568,UINT_008a952c,4,FUN_004862b0);
+      qsort(&g_dwDrawItems,g_dwTotDrawItems,4,FUN_004862b0);
       return;
     }
-    pvVar2 = (void *)((int)g_pActorTable + *piVar1 * 0xa8);
+    pvVar2 = (void *)((int)g_pActors + *piVar1 * 0xa8);
     if ((pvVar2 != (void *)0x0) &&
        (*(undefined4 *)((int)pvVar2 + 0x68) = 0, (*(byte *)((int)pvVar2 + 4) & 3) == 0)) {
       puVar3 = (undefined1 *)DrawList_Alloc();
       if (puVar3 == (undefined1 *)0x0) {
         return;
       }
-      local_18 = *(float *)((int)pvVar2 + 0xc) - *g_pCameraSetup;
-      local_14[0] = *(float *)((int)pvVar2 + 0x10) - g_pCameraSetup[1];
-      local_14[1] = *(float *)((int)pvVar2 + 0x14) - g_pCameraSetup[2];
-      Vec3_TransformTo(&local_c,&local_18,g_pCameraSetup + 0xc);
+      local_18 = *(float *)((int)pvVar2 + 0xc) - *g_pSputRender_Camera;
+      local_14[0] = *(float *)((int)pvVar2 + 0x10) - g_pSputRender_Camera[1];
+      local_14[1] = *(float *)((int)pvVar2 + 0x14) - g_pSputRender_Camera[2];
+      Vec3_TransformTo(&local_c,&local_18,g_pSputRender_Camera + 0xc);
       *(uint *)(puVar3 + 4) = local_8;
       if (*(int *)((int)pvVar2 + 0xa0) == 0) {
-        *(int *)(puVar3 + 8) = ((int)pvVar2 - (int)g_pActorTable) / 0xa8;
+        *(int *)(puVar3 + 8) = ((int)pvVar2 - (int)g_pActors) / 0xa8;
         if ((*(int *)((int)pvVar2 + 0xa0) == 0) || (*(int *)(*(int *)((int)pvVar2 + 0xa0) + 4) == 0)
            ) {
           *puVar3 = 0xff;
@@ -718,7 +718,7 @@ void Render_BuildActorDrawList(void)
       }
       else {
         *puVar3 = 0;
-        *(int *)(puVar3 + 8) = ((int)pvVar2 - (int)g_pActorTable) / 0xa8;
+        *(int *)(puVar3 + 8) = ((int)pvVar2 - (int)g_pActors) / 0xa8;
       }
     }
     piVar1 = (int *)piVar1[2];
@@ -742,18 +742,18 @@ void __cdecl Render_ScreenToWorld(int x,int y,float *outPos)
   #define local_c (*(float *)(_frame + (0x20 - 0xc)))
   #define local_8 (*(float (*)[2])(_frame + (0x20 - 0x8)))
   
-  if ((g_pRdCurrentCamera != (void *)0x0) && (*(int *)((int)g_pRdCurrentCamera + 4) != 0)) {
+  if ((g_pRdCamera_CurCamera != (void *)0x0) && (*(int *)((int)g_pRdCamera_CurCamera + 4) != 0)) {
     fVar2 = (float)(int)((uint)*(ushort *)
                                 (*(int *)(UINT_008c97a4 + 0x5c) +
                                 (*(int *)(UINT_008c97a4 + 0xc) * y + x) * 2) <<
-                        ((byte)*(undefined4 *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x14) & 0x1f)
-                        ) * 1.5258789e-05;
-    fVar1 = *(float *)((int)g_pRdCurrentCamera + 0x3c) * fVar2;
+                        ((byte)*(undefined4 *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x14) &
+                        0x1f)) * 1.5258789e-05;
+    fVar1 = *(float *)((int)g_pRdCamera_CurCamera + 0x3c) * fVar2;
     local_8[0] = 1.0 / fVar2 - 1.0;
-    local_c = (1.0 / fVar1) * ((float)x - *(float *)(*(int *)((int)g_pRdCurrentCamera + 4) + 8));
+    local_c = (1.0 / fVar1) * ((float)x - *(float *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 8));
     local_8[1] = (-1.0 / fVar1) *
-                 ((float)y - *(float *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0xc));
-    Matrix34_TransformPoint(outPos,&local_c,g_pCameraSetup + 0xc);
+                 ((float)y - *(float *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0xc));
+    Matrix34_TransformPoint(outPos,&local_c,g_pSputRender_Camera + 0xc);
   }
   return;
 }
@@ -791,18 +791,18 @@ void __cdecl sputRender_PreRendered(int redrawBackground,int redrawDepth)
       if ((redrawDepth != 0) && (*(int *)(iVar2 + 0xf4) != 0)) {
         g_dwRenderFlags = g_dwRenderFlags & 0xfffffffd;
       }
-      local_10 = *(uint *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x18);
-      local_c = *(uint *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x1c);
-      local_8 = (*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x20) -
-                *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x18)) + 1;
-      local_4 = (*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x24) -
-                *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x1c)) + 1;
+      local_10 = *(uint *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x18);
+      local_c = *(uint *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x1c);
+      local_8 = (*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x20) -
+                *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x18)) + 1;
+      local_4 = (*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x24) -
+                *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x1c)) + 1;
       iVar2 = 0;
-      if (0 < g_nBufferCount) {
+      if (0 < g_nNumPages) {
         do {
           DirtyRect_Add((int *)&local_10,1,iVar2);
           iVar2 = iVar2 + 1;
-        } while (iVar2 < g_nBufferCount);
+        } while (iVar2 < g_nNumPages);
       }
     }
   }
@@ -818,7 +818,8 @@ void __cdecl sputRender_PreRendered(int redrawBackground,int redrawDepth)
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_40 */
-/* Fills the 65536-entry 16-bit remap table g_wColorTable for the pixel format and gamma */
+/* Fills the 65536-entry 16-bit remap table g_wSputRender_ColorLookup for the pixel format and gamma
+    */
 
 void Render_BuildColorTable(int param_1,float param_2)
 
@@ -858,12 +859,12 @@ void Render_BuildColorTable(int param_1,float param_2)
     lVar6 = _ftol((double)CONCAT44(iVar3,iVar4));
     uVar2 = *(undefined4 *)(param_1 + 0x18);
     lVar7 = _ftol((double)CONCAT44(iVar3,iVar4));
-    (&g_wColorTable)[local_24] =
+    (&g_wSputRender_ColorLookup)[local_24] =
          (ushort)((int)lVar5 << ((byte)uVar1 & 0x1f)) | (ushort)((int)lVar6 << ((byte)uVar2 & 0x1f))
          | (ushort)((int)lVar7 << ((byte)*(undefined4 *)(param_1 + 0x1c) & 0x1f));
     local_24 = local_24 + 1;
   } while ((int)local_24 < 0x10000);
-  g_flGamma = param_2;
+  g_flSputRender_GammaCorrection = param_2;
   return;
 }
 #undef local_10
@@ -900,15 +901,15 @@ void __cdecl sputRender_ColorCorrect(ushort *pixels,uint n)
   if (0 < iVar1) {
     do {
       puVar2 = pixels + 8;
-      *pixels = (&g_wColorTable)[*pixels];
-      pixels[1] = (&g_wColorTable)[pixels[1]];
-      pixels[2] = (&g_wColorTable)[pixels[2]];
-      pixels[3] = (&g_wColorTable)[pixels[3]];
-      pixels[4] = (&g_wColorTable)[pixels[4]];
-      pixels[5] = (&g_wColorTable)[pixels[5]];
-      pixels[6] = (&g_wColorTable)[pixels[6]];
+      *pixels = (&g_wSputRender_ColorLookup)[*pixels];
+      pixels[1] = (&g_wSputRender_ColorLookup)[pixels[1]];
+      pixels[2] = (&g_wSputRender_ColorLookup)[pixels[2]];
+      pixels[3] = (&g_wSputRender_ColorLookup)[pixels[3]];
+      pixels[4] = (&g_wSputRender_ColorLookup)[pixels[4]];
+      pixels[5] = (&g_wSputRender_ColorLookup)[pixels[5]];
+      pixels[6] = (&g_wSputRender_ColorLookup)[pixels[6]];
       iVar1 = iVar1 + -1;
-      pixels[7] = (&g_wColorTable)[pixels[7]];
+      pixels[7] = (&g_wSputRender_ColorLookup)[pixels[7]];
       pixels = puVar2;
     } while (iVar1 != 0);
   }
@@ -917,7 +918,7 @@ void __cdecl sputRender_ColorCorrect(ushort *pixels,uint n)
     puVar2 = puVar2 + (uVar3 - 1);
     do {
       uVar3 = uVar3 - 1;
-      *puVar2 = (&g_wColorTable)[*puVar2];
+      *puVar2 = (&g_wSputRender_ColorLookup)[*puVar2];
       puVar2 = puVar2 + -1;
     } while (uVar3 != 0);
   }
@@ -935,8 +936,8 @@ void __cdecl sputRender_SetGamma(float gamma)
   void *pvVar1;
   int setupIdx;
   
-  if (g_flGamma != gamma) {
-    g_flGamma = gamma;
+  if (g_flSputRender_GammaCorrection != gamma) {
+    g_flSputRender_GammaCorrection = gamma;
     Render_InitColorConstants(UINT_008c9780);
     pvVar1 = sputRoom_GetCurrentRoom();
     if (pvVar1 != (void *)0x0) {
@@ -950,7 +951,8 @@ void __cdecl sputRender_SetGamma(float gamma)
 }
 
 /* ---- 0x00486760  Render_ConvertBackground ---- */
-/* Converts a compressed (type 2) background bitmap into g_pTempSurface and remaps its pixels */
+/* Converts a compressed (type 2) background bitmap into g_pSputRender_DecompressionBuffer and
+   remaps its pixels */
 
 void Render_ConvertBackground(void *param_1)
 
@@ -963,18 +965,19 @@ void Render_ConvertBackground(void *param_1)
   
   iVar1 = *(int *)((int)param_1 + 0x10);
   iVar2 = *(int *)((int)param_1 + 0xc);
-  Surface_CopyConvert(param_1,g_pTempSurface);
+  Surface_CopyConvert(param_1,g_pSputRender_DecompressionBuffer);
   piVar4 = (int *)((int)param_1 + 0xc);
-  piVar5 = (int *)((int)g_pTempSurface + 0xc);
+  piVar5 = (int *)((int)g_pSputRender_DecompressionBuffer + 0xc);
   for (iVar3 = 0x13; iVar3 != 0; iVar3 = iVar3 + -1) {
     *piVar5 = *piVar4;
     piVar4 = piVar4 + 1;
     piVar5 = piVar5 + 1;
   }
-  *(undefined4 *)((int)g_pTempSurface + 0x60) = 0xf81f;
+  *(undefined4 *)((int)g_pSputRender_DecompressionBuffer + 0x60) = 0xf81f;
   if (*(int *)((int)param_1 + 0x20) != 5) {
-    sputRender_ColorCorrect(*(ushort **)((int)g_pTempSurface + 0x5c),iVar1 * iVar2);
-    *(uint *)((int)g_pTempSurface + 0x60) = (uint)DAT_008c856e;
+    sputRender_ColorCorrect
+              (*(ushort **)((int)g_pSputRender_DecompressionBuffer + 0x5c),iVar1 * iVar2);
+    *(uint *)((int)g_pSputRender_DecompressionBuffer + 0x60) = (uint)DAT_008c856e;
   }
   return;
 }
@@ -1009,9 +1012,9 @@ void sputRender_Dim(ushort *param_1,byte param_2)
   #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
   
-  if ((UINT_008a8c40 != 4) || (param_1 != (ushort *)0x0)) {
-    if (UINT_008a8c40 == 3) {
-      Movie_SetTarget(&g_BackBuffer);
+  if ((g_dwGrimlib_mode != 4) || (param_1 != (ushort *)0x0)) {
+    if (g_dwGrimlib_mode == 3) {
+      Movie_SetTarget(&g_dwStdDisplay_backBuffer);
     }
     else {
       TextObjects_Freeze();
@@ -1023,8 +1026,8 @@ void sputRender_Dim(ushort *param_1,byte param_2)
       Primitives_Show();
     }
     Render_CopyBackBufferToBackground();
-    surface = g_pBackgroundSurface;
-    Surface_Lock(g_pBackgroundSurface);
+    surface = g_pSputRender_CleanBuffer;
+    Surface_Lock(g_pSputRender_CleanBuffer);
     uVar1 = *(undefined4 *)((int)surface + 0x2c);
     uVar2 = *(undefined4 *)((int)surface + 0x30);
     local_1c = 0;
@@ -1091,7 +1094,7 @@ void sputRender_Dim(ushort *param_1,byte param_2)
 void Render_CopyBackBufferToBackground(void)
 
 {
-  Surface_Blit(g_pBackgroundSurface,&g_BackBuffer,0,0,(int *)0x0,0);
+  Surface_Blit(g_pSputRender_CleanBuffer,&g_dwStdDisplay_backBuffer,0,0,(int *)0x0,0);
   return;
 }
 
@@ -1107,12 +1110,12 @@ void Render_CleanBuffer(void)
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
-  if (UINT_008a8c40 == 4) {
+  if (g_dwGrimlib_mode == 4) {
     local_10 = 0;
     local_c = 0;
     local_8 = 0x280;
     local_4 = 0x1e0;
-    Surface_Blit(&g_BackBuffer,g_pBackgroundSurface,0,0,(int *)&local_10,0);
+    Surface_Blit(&g_dwStdDisplay_backBuffer,g_pSputRender_CleanBuffer,0,0,(int *)&local_10,0);
   }
   return;
 }
@@ -1129,7 +1132,7 @@ void Render_CleanBuffer(void)
 void sputRender_ForceRefresh(void)
 
 {
-  g_nFullRedrawPending = 1;
+  g_nSputRender_Reset = 1;
   return;
 }
 
@@ -1137,14 +1140,14 @@ void sputRender_ForceRefresh(void)
 void * Render_GetBackgroundSurface(void)
 
 {
-  return g_pBackgroundSurface;
+  return g_pSputRender_CleanBuffer;
 }
 
 /* ---- 0x00486b10  Render_GetZBufferSurface ---- */
 void * Render_GetZBufferSurface(void)
 
 {
-  return g_pZBufferSurface;
+  return g_pSputRender_CleanZBuffer;
 }
 
 /* ---- 0x00486b20  Render_GetUserCallback ---- */
@@ -1158,7 +1161,7 @@ uint Render_GetUserCallback(void)
 void Render_SetDrawEnabled(int param_1)
 
 {
-  g_nDrawEnabled = param_1;
+  g_nDoTheFlip = param_1;
   return;
 }
 
@@ -1188,7 +1191,7 @@ void __cdecl Render_DrawIris(float percent,int x,int y)
   longlong lVar13;
   
   if ((percent < 0.0) || (1.0 < percent)) {
-    (*g_pSvcRender->pAssertFail)
+    (*g_pSputRendHS->pAssertFail)
               (s__percent____0_0f______percent____004e80ec,
                s_C__grimsrc_libs_grimlib_Engine_s_004e80bc,0x9f2);
   }
@@ -1200,7 +1203,7 @@ void __cdecl Render_DrawIris(float percent,int x,int y)
   uVar2 = UINT_0090563c;
   uVar1 = UINT_009055f8;
   uVar4 = (uint)lVar13;
-  Surface_Lock(&g_BackBuffer);
+  Surface_Lock(&g_dwStdDisplay_backBuffer);
   puVar7 = (undefined4 *)uVar2;
   iVar8 = iVar3;
   iVar5 = 0;
@@ -1259,7 +1262,7 @@ void __cdecl Render_DrawIris(float percent,int x,int y)
       puVar7 = (undefined4 *)((int)puVar7 + uVar1);
     } while (iVar8 != 0);
   }
-  Surface_Unlock(&g_BackBuffer);
+  Surface_Unlock(&g_dwStdDisplay_backBuffer);
   return;
 }
 #endif
@@ -1271,9 +1274,9 @@ void __cdecl Render_DrawIris(float percent,int x,int y)
 void __cdecl Render_StartIrisClose(int x,int y,int durationMs)
 
 {
-  g_dwIrisStartMs = Timer_GetTotalMs();
+  g_dwIrisStart = Timer_GetTotalMs();
   g_nIrisY = y;
-  g_flIrisDurationMs = (float)durationMs;
+  g_flIrisDuration = (float)durationMs;
   g_nIrisX = x;
   g_dwRenderFlags = g_dwRenderFlags | 4;
   return;
@@ -1285,10 +1288,10 @@ void __cdecl Render_StartIrisClose(int x,int y,int durationMs)
 void __cdecl Render_StartIrisOpen(int x,int y,int durationMs)
 
 {
-  g_dwIrisStartMs = Timer_GetTotalMs();
+  g_dwIrisStart = Timer_GetTotalMs();
   g_nIrisY = y;
   g_nIrisX = x;
-  g_flIrisDurationMs = -(float)durationMs;
+  g_flIrisDuration = -(float)durationMs;
   g_dwRenderFlags = g_dwRenderFlags | 4;
   return;
 }
@@ -1337,12 +1340,12 @@ void * __cdecl sputRender_ScreenShot(int w,int h)
   #define local_4c (*(uint *)(_frame + (0x70 - 0x4c)))
   #define local_48 (*(uint *)(_frame + (0x70 - 0x48)))
   
-  uVar2 = UINT_008a8c40;
-  UINT_008a8c40 = 2;
-  g_nFullRedrawPending = 1;
+  uVar2 = g_dwGrimlib_mode;
+  g_dwGrimlib_mode = 2;
+  g_nSputRender_Reset = 1;
   sputRender_Dim(1,0);
-  surface = g_pBackgroundSurface;
-  puVar5 = (uint *)((int)g_pBackgroundSurface + 0xc);
+  surface = g_pSputRender_CleanBuffer;
+  puVar5 = (uint *)((int)g_pSputRender_CleanBuffer + 0xc);
   puVar6 = &local_4c;
   for (iVar4 = 0x13; iVar4 != 0; iVar4 = iVar4 + -1) {
     *puVar6 = *puVar5;
@@ -1351,7 +1354,7 @@ void * __cdecl sputRender_ScreenShot(int w,int h)
   }
   local_4c = w;
   local_48 = h;
-  UINT_008a8c40 = uVar2;
+  g_dwGrimlib_mode = uVar2;
   surface_00 = Surface_Create(&local_4c,0,0,0);
   Surface_Lock(surface_00);
   Surface_Lock(surface);
@@ -1377,7 +1380,7 @@ void * __cdecl sputRender_ScreenShot(int w,int h)
   }
   Surface_Unlock(surface_00);
   Surface_Unlock(surface);
-  g_nFullRedrawPending = 1;
+  g_nSputRender_Reset = 1;
   return surface_00;
 }
 #undef local_48
@@ -1414,7 +1417,7 @@ void __cdecl Render_FillRect(int x,int y,int w,int h,float scale)
   #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
   
-  Surface_Lock(&g_BackBuffer);
+  Surface_Lock(&g_dwStdDisplay_backBuffer);
   puVar2 = (ushort *)(UINT_0090563c + y * UINT_009055f8 + x * 2);
   if (0 < h) {
     local_14 = h;
@@ -1437,7 +1440,7 @@ void __cdecl Render_FillRect(int x,int y,int w,int h,float scale)
       local_14 = local_14 - 1;
     } while (local_14 != 0);
   }
-  Surface_Unlock(&g_BackBuffer);
+  Surface_Unlock(&g_dwStdDisplay_backBuffer);
   return;
 }
 #undef local_10
@@ -1491,7 +1494,7 @@ void __cdecl sputRender_SaveScreen(char *filename)
   local_8 = 0;
   local_4 = 0;
   if (filename != (char *)0x0) {
-    bitmap = (void *)stdBitmap_Convert(&g_BackBuffer,0,0);
+    bitmap = (void *)stdBitmap_Convert(&g_dwStdDisplay_backBuffer,0,0);
     stdBitmap_CopyFrom(&local_38,bitmap);
     stdWriteImage(filename,bitmap);
     stdBitmap_Free(bitmap);
@@ -1567,7 +1570,7 @@ void __cdecl sputRender_SaveDrawBuffer(char *filename)
   local_c = 0;
   local_8 = 0;
   local_4 = 0;
-  bitmap = (void *)stdBitmap_Convert(&g_BackBuffer,0,0);
+  bitmap = (void *)stdBitmap_Convert(&g_dwStdDisplay_backBuffer,0,0);
   stdBitmap_CopyFrom(&local_38,bitmap);
   stdWriteImage(filename,bitmap);
   stdBitmap_Free(bitmap);
@@ -1610,7 +1613,7 @@ void __cdecl Render_DrawProgressBar(float fraction)
   local_4 = 0xffe0;
   lVar5 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
   sputRender_ColorCorrect((ushort *)&local_4,1);
-  Surface_Lock(&g_PrimarySurface);
+  Surface_Lock(&g_dwStdDisplay_frontBuffer);
   iVar3 = 0x21c;
   iVar1 = UINT_00901698 * 0x1c7 + UINT_009016dc;
   puVar2 = (undefined2 *)(iVar1 + 100);
@@ -1642,7 +1645,7 @@ void __cdecl Render_DrawProgressBar(float fraction)
     puVar2 = puVar2 + 1;
     iVar1 = iVar1 + -1;
   } while (iVar1 != 0);
-  Surface_Unlock(&g_PrimarySurface);
+  Surface_Unlock(&g_dwStdDisplay_frontBuffer);
   return;
 }
 #undef local_4
@@ -1699,7 +1702,7 @@ void Render_UpdateWaitCursor(void)
           Res_SetReference(&UINT_008a92d0,data,s_C__grimsrc_libs_grimlib_Engine_s_004e80bc,0xb35);
           UINT_004e808c = 1;
           if (UINT_008a92d0 == 0) {
-            (*g_pSvcMain->pAssertFail)
+            (*g_pStd_HS->pAssertFail)
                       (s_Bad_Bitmap_Reference_004e8114,s_main_sputResource_h_004e80a8,0x90);
           }
         }
@@ -1707,8 +1710,8 @@ void Render_UpdateWaitCursor(void)
         piVar1 = (int *)(UINT_008a92d4 + 0x70);
         piVar2 = (int *)(UINT_008a92d4 + 0x6c);
         piVar3 = (int *)(UINT_008a92d4 + 0x78);
-        Surface_Blit(&g_PrimarySurface,*(void **)(*piVar3 + UINT_008c9824 * 4),*piVar2,*piVar1,
-                     (int *)0x0,1);
+        Surface_Blit(&g_dwStdDisplay_frontBuffer,*(void **)(*piVar3 + UINT_008c9824 * 4),*piVar2,
+                     *piVar1,(int *)0x0,1);
         iStack_10 = *piVar2;
         iStack_c = *piVar1;
         uStack_8 = *(undefined4 *)(*(int *)*piVar3 + 0xc);
@@ -1733,5 +1736,5 @@ void Render_UpdateWaitCursor(void)
 int sputActor_GetNumActorsTalking(void)
 
 {
-  return g_nTalkingActorCount;
+  return g_nNumActorsTalking;
 }

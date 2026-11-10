@@ -146,7 +146,7 @@ void * __cdecl gz_open(char *path,char *mode,int fd)
       puVar7 = (undefined4 *)_errno();
       *puVar7 = 0;
       if (fd < 0) {
-        iVar5 = (*(code *)*g_pZfileFileIo)(path);
+        iVar5 = (*(code *)*g_pZf_filio_services)(path);
       }
       else {
         iVar5 = _fdopen(fd,local_50);
@@ -160,13 +160,13 @@ void * __cdecl gz_open(char *path,char *mode,int fd)
           uStack_53 = 0;
           sprintf(&cStack_5c,s__c_c_c_c_c_c_c_c_c_c_004f1a08,UINT_004f1a00,UINT_004f1a04,8,0,0,0,0,0
                   ,0,0xb);
-          (*(code *)g_pZfileFileIo[3])(puVar2[0x10],&cStack_5c,10);
+          (*(code *)g_pZf_filio_services[3])(puVar2[0x10],&cStack_5c,10);
           puVar2[0x18] = 10;
           return puVar2;
         }
         gz_check_header(puVar2);
         if (puVar2[0x16] != 1) {
-          iVar5 = (*(code *)g_pZfileFileIo[4])(puVar2[0x10]);
+          iVar5 = (*(code *)g_pZf_filio_services[4])(puVar2[0x10]);
           puVar2[0x18] = iVar5 - puVar2[1];
           return puVar2;
         }
@@ -275,7 +275,7 @@ uint gz_get_byte(undefined4 *param_1)
   if (param_1[1] == 0) {
     puVar2 = (undefined4 *)_errno();
     *puVar2 = 0;
-    iVar3 = (*(code *)g_pZfileFileIo[2])(param_1[0x10],param_1[0x11],0x4000);
+    iVar3 = (*(code *)g_pZf_filio_services[2])(param_1[0x10],param_1[0x11],0x4000);
     param_1[1] = iVar3;
     if (iVar3 == 0) {
       param_1[0xf] = 1;
@@ -310,7 +310,7 @@ int gz_destroy(int param_1)
       }
     }
     if (*(int *)(param_1 + 0x40) != 0) {
-      (*(code *)g_pZfileFileIo[1])(*(int *)(param_1 + 0x40));
+      (*(code *)g_pZf_filio_services[1])(*(int *)(param_1 + 0x40));
       piVar1 = (int *)_errno();
       if (*piVar1 != 0x1d) {
         iVar2 = -1;
@@ -389,7 +389,7 @@ int gzread(int *param_1,int param_2,int param_3)
           piVar2[1] = piVar2[1] - uVar6;
         }
         if (piVar2[4] != 0) {
-          iVar5 = (*(code *)g_pZfileFileIo[2])(piVar2[0x10],param_1,piVar2[4]);
+          iVar5 = (*(code *)g_pZf_filio_services[2])(piVar2[0x10],param_1,piVar2[4]);
           piVar2[4] = piVar2[4] - iVar5;
         }
         param_3 = param_3 - piVar2[4];
@@ -403,7 +403,7 @@ int gzread(int *param_1,int param_2,int param_3)
       if ((uVar6 == 0) && (piVar2[0xf] == 0)) {
         puVar3 = (undefined4 *)_errno();
         *puVar3 = 0;
-        iVar4 = (*(code *)g_pZfileFileIo[2])(piVar2[0x10],piVar2[0x11],0x4000);
+        iVar4 = (*(code *)g_pZf_filio_services[2])(piVar2[0x10],piVar2[0x11],0x4000);
         piVar2[1] = iVar4;
         if (iVar4 == 0) {
           piVar2[0xf] = 1;
@@ -463,7 +463,7 @@ LAB_004c4624:
     }
     if (param_1[4] == 0) {
       param_1[3] = param_1[0x12];
-      iVar1 = (*(code *)g_pZfileFileIo[3])(param_1[0x10],param_1[0x12],0x4000);
+      iVar1 = (*(code *)g_pZf_filio_services[3])(param_1[0x10],param_1[0x12],0x4000);
       if (iVar1 != 0x4000) {
         param_1[0xe] = 0xffffffff;
         goto LAB_004c4624;
@@ -493,7 +493,7 @@ uint gz_do_flush(int param_1,undefined4 param_2)
   do {
     iVar3 = 0x4000 - *(int *)(param_1 + 0x10);
     if (iVar3 != 0) {
-      iVar2 = (*(code *)g_pZfileFileIo[3])
+      iVar2 = (*(code *)g_pZf_filio_services[3])
                         (*(undefined4 *)(param_1 + 0x40),*(undefined4 *)(param_1 + 0x48),iVar3);
       if (iVar2 != iVar3) {
         *(undefined4 *)(param_1 + 0x38) = 0xffffffff;
@@ -564,7 +564,7 @@ uint gzseek(undefined4 *param_1,uint param_2,int param_3)
         if (param_1[0x16] != 0) {
           param_1[1] = 0;
           *param_1 = param_1[0x11];
-          (*(code *)g_pZfileFileIo[5])(param_1[0x10],param_2,0);
+          (*(code *)g_pZf_filio_services[5])(param_1[0x10],param_2,0);
           param_1[5] = param_2;
           param_1[2] = param_2;
           return param_2;
@@ -619,7 +619,7 @@ undefined4 gzrewind(undefined4 *param_1)
       return 0;
     }
     inflateReset(param_1);
-    uVar1 = (*(code *)g_pZfileFileIo[5])(param_1[0x10],param_1[0x18],0);
+    uVar1 = (*(code *)g_pZf_filio_services[5])(param_1[0x10],param_1[0x18],0);
     return uVar1;
   }
   return 0xffffffff;
@@ -680,7 +680,7 @@ void __cdecl gz_putLong(void *file,uint x)
   uVar2 = x;
   do {
     file = (void *)CONCAT31(PIECE(file,1,3),(char)uVar2);
-    (*(code *)g_pZfileFileIo[3])(pvVar1,&file,1);
+    (*(code *)g_pZf_filio_services[3])(pvVar1,&file,1);
     uVar2 = uVar2 >> 8;
     iVar3 = iVar3 + -1;
   } while (iVar3 != 0);
@@ -713,7 +713,7 @@ undefined4 fle_zfilio_config(int param_1)
   
   piVar4 = (int *)&STACK0X(0x00000008);
   uVar2 = UINT_004f1c20;
-  uVar3 = UINT_008d783c;
+  uVar3 = g_dwZfile_virtherc_services;
   if (param_1 == 0) {
     return 0;
   }
@@ -731,7 +731,7 @@ undefined4 fle_zfilio_config(int param_1)
     else if (uVar3 != 0) {
       (**(code **)(uVar3 + 0xc))(s_Too_many_zfilio_extension_set_004f1d3c);
       uVar2 = UINT_004f1c20;
-      uVar3 = UINT_008d783c;
+      uVar3 = g_dwZfile_virtherc_services;
     }
     param_1 = *piVar4;
     piVar4 = piVar4 + 1;
@@ -1234,7 +1234,7 @@ LAB_004c6a65:
     if ((puVar1[0x1b] == 0) && ((param_2 == 0 || (puVar1[1] == 0x29a)))) goto LAB_004c6b1f;
   }
   else if (param_1[1] == 0) goto LAB_004c6a65;
-  iVar3 = (**(code **)(&DAT_004d9838 + puVar1[0x1f] * 0xc))(puVar1,param_2);
+  iVar3 = (**(code **)(&g_aConfiguration_table + puVar1[0x1f] * 0xc))(puVar1,param_2);
   if ((iVar3 == 2) || (iVar3 == 3)) {
     puVar1[1] = 0x29a;
   }
@@ -1444,20 +1444,20 @@ uint crc32(uint param_1,byte *param_2,uint param_3)
     uVar2 = param_3 >> 3;
     do {
       param_3 = param_3 - 8;
-      uVar1 = *(uint *)(&DAT_004d98a8 + (param_1 & 0xff ^ (uint)*param_2) * 4) ^ param_1 >> 8;
-      uVar1 = *(uint *)(&DAT_004d98a8 + (uVar1 & 0xff ^ (uint)param_2[1]) * 4) ^ uVar1 >> 8;
-      uVar1 = *(uint *)(&DAT_004d98a8 + (uVar1 & 0xff ^ (uint)param_2[2]) * 4) ^ uVar1 >> 8;
-      uVar1 = *(uint *)(&DAT_004d98a8 + (uVar1 & 0xff ^ (uint)param_2[3]) * 4) ^ uVar1 >> 8;
-      uVar1 = *(uint *)(&DAT_004d98a8 + (uVar1 & 0xff ^ (uint)param_2[4]) * 4) ^ uVar1 >> 8;
-      uVar1 = *(uint *)(&DAT_004d98a8 + (uVar1 & 0xff ^ (uint)param_2[5]) * 4) ^ uVar1 >> 8;
-      uVar1 = *(uint *)(&DAT_004d98a8 + (uVar1 & 0xff ^ (uint)param_2[6]) * 4) ^ uVar1 >> 8;
-      param_1 = uVar1 >> 8 ^ *(uint *)(&DAT_004d98a8 + (uVar1 & 0xff ^ (uint)param_2[7]) * 4);
+      uVar1 = *(uint *)(&g_aCrc_table + (param_1 & 0xff ^ (uint)*param_2) * 4) ^ param_1 >> 8;
+      uVar1 = *(uint *)(&g_aCrc_table + (uVar1 & 0xff ^ (uint)param_2[1]) * 4) ^ uVar1 >> 8;
+      uVar1 = *(uint *)(&g_aCrc_table + (uVar1 & 0xff ^ (uint)param_2[2]) * 4) ^ uVar1 >> 8;
+      uVar1 = *(uint *)(&g_aCrc_table + (uVar1 & 0xff ^ (uint)param_2[3]) * 4) ^ uVar1 >> 8;
+      uVar1 = *(uint *)(&g_aCrc_table + (uVar1 & 0xff ^ (uint)param_2[4]) * 4) ^ uVar1 >> 8;
+      uVar1 = *(uint *)(&g_aCrc_table + (uVar1 & 0xff ^ (uint)param_2[5]) * 4) ^ uVar1 >> 8;
+      uVar1 = *(uint *)(&g_aCrc_table + (uVar1 & 0xff ^ (uint)param_2[6]) * 4) ^ uVar1 >> 8;
+      param_1 = uVar1 >> 8 ^ *(uint *)(&g_aCrc_table + (uVar1 & 0xff ^ (uint)param_2[7]) * 4);
       param_2 = param_2 + 8;
       uVar2 = uVar2 - 1;
     } while (uVar2 != 0);
   }
   for (; param_3 != 0; param_3 = param_3 - 1) {
-    param_1 = param_1 >> 8 ^ *(uint *)(&DAT_004d98a8 + (param_1 & 0xff ^ (uint)*param_2) * 4);
+    param_1 = param_1 >> 8 ^ *(uint *)(&g_aCrc_table + (param_1 & 0xff ^ (uint)*param_2) * 4);
     param_2 = param_2 + 1;
   }
   return ~param_1;
@@ -2116,10 +2116,10 @@ void _tr_init(int param_1)
   Lua_Stub();
   *(int *)(param_1 + 0xb10) = param_1 + 0x8c;
   *(int *)(param_1 + 0xb28) = param_1 + 0xa74;
-  *(undefined ***)(param_1 + 0xb18) = &PTR_DAT_004f2058;
+  *(undefined ***)(param_1 + 0xb18) = &g_pStatic_l_desc;
   *(int *)(param_1 + 0xb1c) = param_1 + 0x980;
-  *(undefined ***)(param_1 + 0xb24) = &PTR_DAT_004f2070;
-  *(undefined **)(param_1 + 0xb30) = &DAT_004f2088;
+  *(undefined ***)(param_1 + 0xb24) = &g_pStatic_d_desc;
+  *(undefined **)(param_1 + 0xb30) = &g_aStatic_bl_desc;
   *(undefined2 *)(param_1 + 0x16b0) = 0;
   *(undefined4 *)(param_1 + 0x16b4) = 0;
   *(undefined4 *)(param_1 + 0x16ac) = 8;

@@ -51,8 +51,8 @@
  {"addr": "004f5a24", "global": "g_devMode", "type": "int", "comment": "Set when the registry/config says the game runs from a developer install (allows network drives, extra logging)"},
  {"addr": "004f5a48", "global": "g_fixedFrameMs", "type": "int", "comment": "One-shot fixed frame time passed to Engine_UpdateFrame, zeroed every frame"},
  {"addr": "004f5a58", "global": "g_frameCounter", "type": "uint"},
- {"addr": "004f44e4", "global": "g_measuredFps", "type": "float"},
+ {"addr": "004f44e4", "global": "g_flMain_Service_frameRate", "type": "float"},
  {"addr": "004f5a38", "global": "g_displayModes", "type": "void *", "comment": "Array of 16-byte {modeCount, modes*, driverCount, drivers*} records, one per display device"},
  {"addr": "00803f8c", "global": "g_displayDeviceCount", "type": "uint"},
- {"addr": "004f5a0c", "global": "g_quitRequested", "type": "int"}
+ {"addr": "004f5a0c", "global": "g_nQuitApp", "type": "int"}
 ]

@@ -1,0 +1,434 @@
+[
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "1001e688",
+  "old": "DAT_1001e688",
+  "global": "g_dwLocalMusic",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name localMusic (the remaster's GrimFandango (Linux): the flag Script_Trans tests first (localMusic == 0)); was DAT_1001e688."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "1001e8a8",
+  "old": "DAT_1001e8a8",
+  "global": "g_dwImVoiceBufferSize",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name imVoiceBufferSize (the remaster's GrimFandango (Linux): first size iMUSE_DeclareBufferSizes stores (voice buffer, gulp, critical; music ...; fades; non-purge cache; wave mixes; effects heap, in this order on both sides)); was DAT_1001e8a8."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "1001e8ac",
+  "old": "DAT_1001e8ac",
+  "global": "g_dwImVoiceGulpSize",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name imVoiceGulpSize (the remaster's GrimFandango (Linux): iMUSE_DeclareBufferSizes, after imVoiceBufferSize); was DAT_1001e8ac."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "1001e8b0",
+  "old": "DAT_1001e8b0",
+  "global": "g_dwImVoiceCriticalSize",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name imVoiceCriticalSize (the remaster's GrimFandango (Linux): iMUSE_DeclareBufferSizes, after imVoiceGulpSize); was DAT_1001e8b0."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "1001e8b4",
+  "old": "DAT_1001e8b4",
+  "global": "g_dwImMusicBufferSize",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name imMusicBufferSize (the remaster's GrimFandango (Linux): iMUSE_DeclareBufferSizes); was DAT_1001e8b4."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "1001e8b8",
+  "old": "DAT_1001e8b8",
+  "global": "g_dwImMusicGulpSize",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name imMusicGulpSize (the remaster's GrimFandango (Linux): iMUSE_DeclareBufferSizes); was DAT_1001e8b8."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "1001e8bc",
+  "old": "DAT_1001e8bc",
+  "global": "g_dwImMusicCriticalSize",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name imMusicCriticalSize (the remaster's GrimFandango (Linux): iMUSE_DeclareBufferSizes); was DAT_1001e8bc."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "1001e8c0",
+  "old": "DAT_1001e8c0",
+  "global": "g_dwImLargeFadeSize",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name imLargeFadeSize (the remaster's GrimFandango (Linux): iMUSE_DeclareBufferSizes); was DAT_1001e8c0."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "1001e8c4",
+  "old": "DAT_1001e8c4",
+  "global": "g_dwImLargeFadeCount",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name imLargeFadeCount (the remaster's GrimFandango (Linux): iMUSE_DeclareBufferSizes); was DAT_1001e8c4."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "1001e8c8",
+  "old": "DAT_1001e8c8",
+  "global": "g_dwImSmallFadeSize",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name imSmallFadeSize (the remaster's GrimFandango (Linux): iMUSE_DeclareBufferSizes); was DAT_1001e8c8."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "1001e8cc",
+  "old": "DAT_1001e8cc",
+  "global": "g_dwImSmallFadeCount",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name imSmallFadeCount (the remaster's GrimFandango (Linux): iMUSE_DeclareBufferSizes); was DAT_1001e8cc."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "1001e8d0",
+  "old": "DAT_1001e8d0",
+  "global": "g_dwImNonPurgeCacheSize",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name imNonPurgeCacheSize (the remaster's GrimFandango (Linux): iMUSE_DeclareBufferSizes, SoundsPeriodic); was DAT_1001e8d0."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "1001e8d4",
+  "old": "DAT_1001e8d4",
+  "global": "g_dwImWaveMixCount",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name imWaveMixCount (the remaster's GrimFandango (Linux): iMUSE_DeclareBufferSizes); was DAT_1001e8d4."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "1001e8d8",
+  "old": "DAT_1001e8d8",
+  "global": "g_dwEffectsHeapSize",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name effectsHeapSize (the remaster's GrimFandango (Linux): iMUSE_DeclareBufferSizes, iMUSE_SetVoiceEffect); was DAT_1001e8d8."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "1001e8dc",
+  "old": "DAT_1001e8dc",
+  "global": "g_bMuscriptLocal",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name bMuscriptLocal (the remaster's GrimFandango (Linux): the value SoundsSetMuscriptLocal stores); was DAT_1001e8dc."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "1002dae0",
+  "old": "DAT_1002dae0",
+  "global": "g_dwOpenSoundFunc",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name openSoundFunc (the remaster's GrimFandango (Linux): the open callback ImOpenSound / ImCloseAll use (next to closeSoundFunc)); was DAT_1002dae0."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "1002dae4",
+  "old": "DAT_1002dae4",
+  "global": "g_dwCloseSoundFunc",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name closeSoundFunc (the remaster's GrimFandango (Linux): the close callback of ImInitFilelist / ImOpenSound / ImCloseSound / ImCloseAll); was DAT_1002dae4."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "1002dcf0",
+  "old": "DAT_1002dcf0",
+  "global": "g_dwLoadSoundFunc",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name loadSoundFunc (the remaster's GrimFandango (Linux): the load callback of ImLoadSound (next to unloadSoundFunc)); was DAT_1002dcf0."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "1002dcf4",
+  "old": "DAT_1002dcf4",
+  "global": "g_dwUnloadSoundFunc",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name unloadSoundFunc (the remaster's GrimFandango (Linux): the unload callback of ImUnloadSound / ImUnloadAll / ImFlushSounds); was DAT_1002dcf4."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "1002dcf8",
+  "old": "PTR_1002dcf8",
+  "global": "g_pLoadedList",
+  "oldtype": "int *",
+  "names_only": true,
+  "comment": "Original name loadedList (the remaster's GrimFandango (Linux): the loaded sound list of ImLoadSound / ImUnloadSound / ImSaveFilelist); was PTR_1002dcf8."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "1002dcfc",
+  "old": "PTR_1002dcfc",
+  "global": "g_pOpenedList",
+  "oldtype": "int *",
+  "names_only": true,
+  "comment": "Original name openedList (the remaster's GrimFandango (Linux): the open sound list of ImOpenSound / ImCloseSound / ImSaveFilelist); was PTR_1002dcfc."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "1002dd00",
+  "old": "DAT_1002dd00",
+  "global": "g_dwInitFlag",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name initFlag (the remaster's GrimFandango (Linux): set by ImInitFilelist, tested by ImLoadSound / ImUnloadSound / ImUnloadAll); was DAT_1002dd00."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "1002df00",
+  "old": "DAT_1002df00",
+  "global": "g_dwPauseCount",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name pauseCount (the remaster's GrimFandango (Linux): the pause nesting of ImPause / ImResume, cleared by ImInitialize); was DAT_1002df00."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "1002df04",
+  "old": "DAT_1002df04",
+  "global": "g_dwRunning50HzCount",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name running50HzCount (the remaster's GrimFandango (Linux): the 50 Hz tick count of ImHeartbeat, cleared by ImInitialize); was DAT_1002df04."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "1002df08",
+  "old": "DAT_1002df08",
+  "global": "g_dwRunning10HzCount",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name running10HzCount (the remaster's GrimFandango (Linux): the 10 Hz tick count of ImHeartbeat, cleared by ImInitialize); was DAT_1002df08."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "1002df0c",
+  "old": "DAT_1002df0c",
+  "global": "g_dwIm_initialized",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name initialized (the remaster's GrimFandango (Linux): the static initialized flag of ImInitialize (several modules have one)); was DAT_1002df0c."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "1002df10",
+  "old": "DAT_1002df10",
+  "global": "g_dwIntFlag",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name intFlag (the remaster's GrimFandango (Linux): the reentry flag of ImHeartbeat); was DAT_1002df10."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "1002df1c",
+  "old": "DAT_1002df1c",
+  "global": "g_dwDataSizeInBytes",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name dataSizeInBytes (the remaster's GrimFandango (Linux): ImStartRecording); was DAT_1002df1c."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "1002df60",
+  "old": "DAT_1002df60",
+  "global": "g_dwRecordState",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name recordState (the remaster's GrimFandango (Linux): ImStartRecording / ImStopRecording); was DAT_1002df60."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "1002df64",
+  "old": "DAT_1002df64",
+  "global": "g_dwRecordFile",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name recordFile (the remaster's GrimFandango (Linux): ImStartRecording); was DAT_1002df64."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "1002df70",
+  "old": "DAT_1002df70",
+  "global": "g_dwCurrentState",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name currentState (the remaster's GrimFandango (Linux): the music state index of Script_Trans (states table index * 0x54)); was DAT_1002df70."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "1002e308",
+  "old": "DAT_1002e308",
+  "global": "g_dwCurrentSequence",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name currentSequence (the remaster's GrimFandango (Linux): Script_SetSequence); was DAT_1002e308."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "1002e30c",
+  "old": "DAT_1002e30c",
+  "global": "g_dwCurrentCuePoint",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name currentCuePoint (the remaster's GrimFandango (Linux): Script_SetSequence); was DAT_1002e30c."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "1002e310",
+  "old": "DAT_1002e310",
+  "global": "g_bTrans_name",
+  "oldtype": "undefined1",
+  "names_only": true,
+  "comment": "Original name Trans.name (the remaster's GrimFandango (Linux): static name buffer of Trans (Script_Trans)); was DAT_1002e310."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "10031528",
+  "old": "DAT_10031528",
+  "global": "g_bSoundCache",
+  "oldtype": "undefined1",
+  "names_only": true,
+  "comment": "Original name soundCache (the remaster's GrimFandango (Linux): the sound cache of SoundsIsSoundInUse / CacheGetSoundId (+32, +40, +56, +1984 are its fields on both sides)); was DAT_10031528."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "10031d30",
+  "old": "DAT_10031d30",
+  "global": "g_dwUseVoxFx",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name useVoxFx (the remaster's GrimFandango (Linux): SoundsLoadProcessStartSound / iMUSE_SetVoiceEffect); was DAT_10031d30."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "10031d3c",
+  "old": "DAT_10031d3c",
+  "global": "g_dwNextHandle",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name nextHandle (the remaster's GrimFandango (Linux): the next sound handle of CacheGetSoundId); was DAT_10031d3c."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "10031d44",
+  "old": "DAT_10031d44",
+  "global": "g_bImuseInitialized",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name bImuseInitialized (the remaster's GrimFandango (Linux): SoundsPeriodic / SoundsFloodMusicBuffer / SoundsFillStreamsWhileMusicCritical / sounds_startup); was DAT_10031d44."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "10031d50",
+  "old": "DAT_10031d50",
+  "global": "g_aLastVoiceFilename",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name lastVoiceFilename (the remaster's GrimFandango (Linux): the name SoundsReOpenVoiceFile reopens); was DAT_10031d50."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "10031e54",
+  "old": "DAT_10031e54",
+  "global": "g_bMuscriptRemote",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name bMuscriptRemote (the remaster's GrimFandango (Linux): the value SoundsSetMuscriptRemote stores); was DAT_10031e54."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "10031e60",
+  "old": "DAT_10031e60",
+  "global": "g_dwVoxFxBuf",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name voxFxBuf (the remaster's GrimFandango (Linux): the voice effect buffer sounds_shutdown frees); was DAT_10031e60."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "10031e78",
+  "old": "DAT_10031e78",
+  "global": "g_dwLipSfx2Data",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name lipSfx2Data (the remaster's GrimFandango (Linux): iMUSE_GetPhoneme); was DAT_10031e78."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "10031e7c",
+  "old": "DAT_10031e7c",
+  "global": "g_dwLipSfx3Data",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name lipSfx3Data (the remaster's GrimFandango (Linux): iMUSE_GetPhoneme); was DAT_10031e7c."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "10031e84",
+  "old": "DAT_10031e84",
+  "global": "g_dwTimerCounter",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name timerCounter (the remaster's GrimFandango (Linux): the count timer_callback advances); was DAT_10031e84."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "1003230c",
+  "old": "DAT_1003230c",
+  "global": "g_dwPauseTimer",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name pauseTimer (the remaster's GrimFandango (Linux): TrPause / TrResume); was DAT_1003230c."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "10032f40",
+  "old": "DAT_10032f40",
+  "global": "g_dwDefersOn",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name defersOn (the remaster's GrimFandango (Linux): TgDeferCommand); was DAT_10032f40."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "10033510",
+  "old": "DAT_10033510",
+  "global": "g_dwSounds_pHS",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name pHS (the remaster's GrimFandango (Linux): the sounds module's host service table (SoundsAllocateBuffer, SoundsInitialize, sounds_shutdown, CacheGetSoundId; several modules have a pHS)); was DAT_10033510."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "10033520",
+  "old": "DAT_10033520",
+  "global": "g_aVoxFxName",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name voxFxName (the remaster's GrimFandango (Linux): the voice effect name iMUSE_SetVoiceEffect copies); was DAT_10033520."
+ }
+]

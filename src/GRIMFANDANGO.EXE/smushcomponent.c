@@ -12,7 +12,7 @@
 undefined4 SmushComponent_Destroy(undefined4 param_1,undefined4 param_2,undefined4 param_3)
 
 {
-  (*g_pSvcCostume->pFree)(param_3);
+  (*g_pSputCosHS->pFree)(param_3);
   return 1;
 }
 
@@ -53,17 +53,17 @@ int SmushRequester(uint param_1,int param_2,int param_3,int param_4,char *param_
   
   pcVar4 = param_5;
   if (param_5 == (char *)0x0) {
-    if (DAT_008caab8 != '\0') {
-      Plat_SetDialogDirectory(&DAT_008caab8);
+    if (g_bSmushPath != '\0') {
+      Plat_SetDialogDirectory(&g_bSmushPath);
     }
     iVar2 = Plat_OpenFileDialog(s_Select_smush_file____004ea7ec,s_Smush_files____snm__004ea804);
     if (iVar2 == 0) {
       return false;
     }
     uVar3 = ((code *)Plat_GetDialogFileName)(0x7f);
-    ((code *)strncpy)(&DAT_008caab8,uVar3);
+    ((code *)strncpy)(&g_bSmushPath,uVar3);
     DAT_008cab37 = 0;
-    pcVar4 = Str_Basename(g_szDialogFileName);
+    pcVar4 = Str_Basename(g_szGrimlib_aFilename);
   }
   uVar6 = 0xffffffff;
   pcVar8 = pcVar4;
@@ -73,8 +73,8 @@ int SmushRequester(uint param_1,int param_2,int param_3,int param_4,char *param_
     cVar1 = *pcVar8;
     pcVar8 = pcVar8 + 1;
   } while (cVar1 != '\0');
-  pcVar5 = (char *)(*g_pSvcCostume->pAlloc)
-                             (~uVar6,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0xfe2);
+  pcVar5 = (char *)(*g_pSputCosHS->pAlloc)(~uVar6,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0xfe2)
+  ;
   uVar6 = 0xffffffff;
   pcVar8 = pcVar4;
   do {

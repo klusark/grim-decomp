@@ -111,7 +111,7 @@ int __cdecl rdClip_PointInFrustum(void *frustum,float *point)
   if ((*(int *)frustum != 0) && (*(float *)((int)frustum + 8) < point[1])) {
     return 0;
   }
-  iVar2 = *(int *)g_pRdCurrentCamera;
+  iVar2 = *(int *)g_pRdCamera_CurCamera;
   if (iVar2 == 1) {
     fVar1 = *(float *)((int)frustum + 0x24) * point[1];
   }

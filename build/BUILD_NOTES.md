@@ -1090,3 +1090,23 @@ Root causes fixed at the source (Ghidra, then `tools/export_changed.py`)
 * Left: globals (the remaster names them: pLuaHS, LState::refArray, ...), the 351 generated rdRaster_* names, most iMUSE
   internals (92 pair up), ~29 doubtful candidates (docs/notes/orig_names.md), build/difftest harnesses still use old
   names.
+
+## Original names for globals (2026-11-10, agent orig-globals, lead)
+
+* Globals named after the remaster's data symbols (`g_` + the bridge's Hungarian prefix + original name, e.g.
+  `g_dwLState_refArray`, `g_pRdroid_HS`): EXE 271 -> 463 of 2274, LUA.DLL 11 -> 69 of 367, IMUSE.DLL 0 -> 51 of 366
+  (counted over src/<prog>/globals.h without strings / labels). 87 earlier EXE `g_` guesses replaced. Matched by
+  token-aligning each paired function's decompilation with the remaster's (string literals as anchors). Batches
+  names/orig_{lua,exe,imuse}_globals*.json (tools/orig_gbatch.py). Names and comments only, no types.
+* The globals settled 29 more function names (names/orig_exe_leftovers.json, orig_imuse_leftovers.json), e.g. the
+  SmushPlay module interface (the old SmushPlay_SysShutdown was the terminate slot), LecShare_* shifted by one,
+  SoundModule_Open -> engine_Initialize, Display_SetPalette3D -> std3D_SetCurrentPalette.
+* tools/build_src.py: a renamed global whose Ghidra type is still its "oldtype" is generated as before (declaration,
+  inferred DAT_ type, fix-ups) and only the name changes in the output; retype it in Ghidra and it is taken as named.
+  tools/rename_refs.py carries global renames (`_X`, `X_2`, asm labels) and finds the owners of shared DAT_1000xxxx
+  names from each program's data. Bridge quirks: `dry_run` and `strict_mode` are read only from the query string (a
+  "dry" rename in the JSON body is real); `rename_or_label` on a no-data label adds a second label (apply_names uses
+  rename_label now).
+* Regenerated src equals the previous src after the renames; stubs unchanged. Clean-room: 5167 of 5167 the same (the
+  suite has 5167 tests now).
+* Left: struct-field globals (`aView`+n, ...), the rdRaster_* names, most iMUSE internals (94 pair), build/difftest.

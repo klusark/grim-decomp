@@ -235,7 +235,7 @@
  },
  {
   "addr": "004d0550",
-  "name": "SoundModule_Open",
+  "name": "engine_Initialize",
   "comment": "Zero-terminated list of track buffer sizes follows the three fixed arguments",
   "tags": "smush,sound"
  },
@@ -447,19 +447,19 @@
  },
  {
   "addr": "008db41c",
-  "global": "g_pDsndServices",
+  "global": "g_pDsndDriver_share_services",
   "type": "int *",
   "comment": "Service table of the module manager handed to DsndDriver_Register"
  },
  {
   "addr": "008db424",
-  "global": "g_pDsndClock",
+  "global": "g_pDsndDriver_timer_services",
   "type": "int *",
   "comment": "Interface of the TIMER clock module used by the DirectSound sound driver"
  },
  {
   "addr": "008da5cc",
-  "global": "g_pTimerServices",
+  "global": "g_pInsaneTimer_share_services",
   "type": "int *",
   "comment": "Service table of the module manager handed to InsaneTimer_Register"
  },
@@ -998,61 +998,61 @@
  },
  {
   "addr": "00906c3c",
-  "global": "g_pAnimMemory",
+  "global": "g_pAnm_memory_services",
   "type": "int *",
   "comment": "MEMORY workspace service of the AnimPlay module"
  },
  {
   "addr": "00906c30",
-  "global": "g_pAnimDebug",
+  "global": "g_pAnm_virtherc_services",
   "type": "int *",
   "comment": "VIRTHERC debug service of the AnimPlay module"
  },
  {
   "addr": "00906c38",
-  "global": "g_pAnimStreamer",
+  "global": "g_pAnm_streamer_services",
   "type": "int *",
   "comment": "STREAMER spooler service of the AnimPlay module"
  },
  {
   "addr": "00906c34",
-  "global": "g_pAnimFrame",
+  "global": "g_pAnm_animframe_services",
   "type": "int *",
   "comment": "ANIMFRAME render service of the AnimPlay module"
  },
  {
   "addr": "008d6f10",
-  "global": "g_pAnimTimer",
+  "global": "g_pAnimPlay_timer_services",
   "type": "int *",
   "comment": "TIMER clocks service of the AnimPlay module"
  },
  {
   "addr": "008d6f18",
-  "global": "g_pAnimLipsync",
+  "global": "g_pAnimPlay_sound_services",
   "type": "int *",
   "comment": "SOUND lipsync service of the AnimPlay module"
  },
  {
   "addr": "008d6f1c",
-  "global": "g_nAnimFramesDecoded",
+  "global": "g_nBretsFrameCount",
   "type": "int",
   "comment": "Frames decoded since the movie started, counted by the frame decoder"
  },
  {
   "addr": "00906c44",
-  "global": "g_pZfileFileIo",
+  "global": "g_pZf_filio_services",
   "type": "int *",
   "comment": "FILIO chainto file service of the Zfile module"
  },
  {
   "addr": "008d7834",
-  "global": "g_pZfileMemory",
+  "global": "g_pZfile_memory_services",
   "type": "int *",
   "comment": "MEMORY buffers service of the Zfile module"
  },
  {
   "addr": "008d7848",
-  "global": "g_pStdFileIo",
+  "global": "g_pStdFile_filio_services",
   "type": "int *",
   "comment": "FILIO chainto file service of the StdFile module"
  }

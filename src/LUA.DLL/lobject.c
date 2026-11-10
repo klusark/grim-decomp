@@ -16,15 +16,15 @@ undefined4 __cdecl luaO_redimension(int param_1)
   int iVar3;
   
   iVar3 = 0;
-  if (0x7ffffffc < DAT_100270e8) {
+  if (0x7ffffffc < g_dwDimensions) {
     lua_error((byte *)s_table_overflow_100269c8);
     return 0;
   }
-  puVar2 = &DAT_100270e8;
-  iVar1 = DAT_100270e8;
+  puVar2 = &g_dwDimensions;
+  iVar1 = g_dwDimensions;
   do {
     if (param_1 < iVar1) {
-      return (&DAT_100270e8)[iVar3];
+      return (&g_dwDimensions)[iVar3];
     }
     iVar1 = puVar2[1];
     puVar2 = puVar2 + 1;

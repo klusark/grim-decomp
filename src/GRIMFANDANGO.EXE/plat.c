@@ -111,8 +111,8 @@ int __cdecl Plat_OpenFileDialog(char *title,char *filter)
     if (((ushort)local_118 != 0) && ((ushort)local_118 < 0x104)) {
       *(undefined1 *)((int)&UINT_008c9854 + (local_118 & 0xffff) + 3) = 0;
     }
-    strncpy(g_szDialogFileName,local_134,0x7f);
-    g_szDialogFileName[0x7f] = '\0';
+    strncpy(g_szGrimlib_aFilename,local_134,0x7f);
+    g_szGrimlib_aFilename[0x7f] = '\0';
     UINT_004e814c = 1;
     return 1;
   }
@@ -173,8 +173,8 @@ int __cdecl Plat_SaveFileDialog(char *title,char *filter)
     if (((ushort)local_118 != 0) && ((ushort)local_118 < 0x104)) {
       (&DAT_008c995f)[local_118 & 0xffff] = 0;
     }
-    strncpy(g_szDialogFileName,local_134,0x7f);
-    g_szDialogFileName[0x7f] = '\0';
+    strncpy(g_szGrimlib_aFilename,local_134,0x7f);
+    g_szGrimlib_aFilename[0x7f] = '\0';
     return 1;
   }
   return 0;
@@ -761,7 +761,7 @@ void * __cdecl Plat_Alloc(uint size)
 {
   void *pvVar1;
   
-  pvVar1 = (void *)(*g_pSvcMain->pAlloc)(size,s_C__grimsrc_libs_grimlib_Win95_gr_004e81ec,0x49e);
+  pvVar1 = (void *)(*g_pStd_HS->pAlloc)(size,s_C__grimsrc_libs_grimlib_Win95_gr_004e81ec,0x49e);
   return pvVar1;
 }
 
@@ -769,6 +769,6 @@ void * __cdecl Plat_Alloc(uint size)
 void __cdecl Plat_Free(void *p)
 
 {
-  (*g_pSvcMain->pFree)(p);
+  (*g_pStd_HS->pFree)(p);
   return;
 }

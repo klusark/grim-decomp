@@ -50,7 +50,7 @@ extern undefined DAT_1001ae70; /* used by 1 fn(s), first 0x10006620 */
 extern undefined4 DAT_1001ae74; /* used by 1 fn(s), first 0x10006620 */
 extern char s_SEQ_NULL_1001ae78[]; /* used by 1 fn(s), first 0x10006620 */
 extern char DAT_1001bbc8; /* used by 1 fn(s), first 0x100068b0 */
-extern undefined4 DAT_1001e688; /* used by 3 fn(s), first 0x10006360 */
+extern undefined4 g_dwLocalMusic; /* used by 3 fn(s), first 0x10006360 */
 extern char s_SCRIPT_ERR__save_buffer_too_smal_1001e6f8[]; /* used by 1 fn(s), first 0x10006400 */
 extern char s_ERR__bogus_sequence____1001e720[]; /* used by 1 fn(s), first 0x10006620 */
 extern char s_ERR__bogus_attribute____1001e738[]; /* used by 1 fn(s), first 0x100067b0 */
@@ -74,20 +74,20 @@ extern char s_Trans_null____1001e860[]; /* used by 1 fn(s), first 0x100068b0 */
 extern char s_ERR_callback_got_marker______end_1001e870[]; /* used by 1 fn(s), first 0x100070e0 */
 extern char s_CALLBACK__1001e898[]; /* used by 1 fn(s), first 0x100070e0 */
 extern undefined DAT_1001e8a4; /* used by 2 fn(s), first 0x10007bc0 */
-extern undefined DAT_1001e8a8; /* used by 2 fn(s), first 0x10007920 */
-extern undefined DAT_1001e8ac; /* used by 2 fn(s), first 0x10007920 */
-extern undefined DAT_1001e8b0; /* used by 2 fn(s), first 0x10007920 */
-extern undefined DAT_1001e8b4; /* used by 2 fn(s), first 0x10007920 */
-extern undefined DAT_1001e8b8; /* used by 3 fn(s), first 0x100077c0 */
-extern undefined DAT_1001e8bc; /* used by 2 fn(s), first 0x10007920 */
-extern undefined4 DAT_1001e8c0; /* used by 4 fn(s), first 0x10001f10 */
-extern undefined4 DAT_1001e8c4; /* used by 5 fn(s), first 0x10001f10 */
-extern undefined4 DAT_1001e8c8; /* used by 4 fn(s), first 0x10001f10 */
-extern undefined4 DAT_1001e8cc; /* used by 5 fn(s), first 0x10001f10 */
-extern undefined DAT_1001e8d0; /* used by 2 fn(s), first 0x10007810 */
-extern undefined4 DAT_1001e8d4; /* used by 3 fn(s), first 0x10005360 */
-extern undefined DAT_1001e8d8; /* used by 4 fn(s), first 0x10007920 */
-extern undefined DAT_1001e8dc; /* used by 2 fn(s), first 0x100078a0 */
+extern undefined g_dwImVoiceBufferSize; /* used by 2 fn(s), first 0x10007920 */
+extern undefined g_dwImVoiceGulpSize; /* used by 2 fn(s), first 0x10007920 */
+extern undefined g_dwImVoiceCriticalSize; /* used by 2 fn(s), first 0x10007920 */
+extern undefined g_dwImMusicBufferSize; /* used by 2 fn(s), first 0x10007920 */
+extern undefined g_dwImMusicGulpSize; /* used by 3 fn(s), first 0x100077c0 */
+extern undefined g_dwImMusicCriticalSize; /* used by 2 fn(s), first 0x10007920 */
+extern undefined4 g_dwImLargeFadeSize; /* used by 4 fn(s), first 0x10001f10 */
+extern undefined4 g_dwImLargeFadeCount; /* used by 5 fn(s), first 0x10001f10 */
+extern undefined4 g_dwImSmallFadeSize; /* used by 4 fn(s), first 0x10001f10 */
+extern undefined4 g_dwImSmallFadeCount; /* used by 5 fn(s), first 0x10001f10 */
+extern undefined g_dwImNonPurgeCacheSize; /* used by 2 fn(s), first 0x10007810 */
+extern undefined4 g_dwImWaveMixCount; /* used by 3 fn(s), first 0x10005360 */
+extern undefined g_dwEffectsHeapSize; /* used by 4 fn(s), first 0x10007920 */
+extern undefined g_bMuscriptLocal; /* used by 2 fn(s), first 0x100078a0 */
 extern char s_C__grimsrc_libs_iMUSE_sounds_c_1001e8e0[]; /* used by 13 fn(s), first 0x10007210 */
 extern undefined DAT_1001e900; /* used by 5 fn(s), first 0x100072b0 */
 extern undefined4 DAT_1001e904; /* used by 2 fn(s), first 0x100072b0 */
@@ -174,13 +174,13 @@ extern undefined4 * DAT_1002d854; /* used by 1 fn(s), first 0x10003730 */
 extern uint DAT_1002d858; /* used by 4 fn(s), first 0x10003ac0 */
 extern undefined4 DAT_1002d860; /* used by 5 fn(s), first 0x10003ac0 */
 extern undefined4 DAT_1002d880; /* used by 1 fn(s), first 0x10003cb0 */
-extern code *DAT_1002dae0; /* used by 4 fn(s), first 0x10003d70 */
-extern code *DAT_1002dae4; /* used by 5 fn(s), first 0x10003d70 */
-extern code *DAT_1002dcf0; /* used by 4 fn(s), first 0x10003d70 */
-extern code *DAT_1002dcf4; /* used by 5 fn(s), first 0x10003d70 */
-extern int * PTR_1002dcf8; /* used by 7 fn(s), first 0x10003dc0 */
-extern int * PTR_1002dcfc; /* used by 7 fn(s), first 0x10003dc0 */
-extern undefined4 DAT_1002dd00; /* used by 7 fn(s), first 0x10003d70 */
+extern code *g_dwOpenSoundFunc; /* used by 4 fn(s), first 0x10003d70 */
+extern code *g_dwCloseSoundFunc; /* used by 5 fn(s), first 0x10003d70 */
+extern code *g_dwLoadSoundFunc; /* used by 4 fn(s), first 0x10003d70 */
+extern code *g_dwUnloadSoundFunc; /* used by 5 fn(s), first 0x10003d70 */
+extern int * g_pLoadedList; /* used by 7 fn(s), first 0x10003dc0 */
+extern int * g_pOpenedList; /* used by 7 fn(s), first 0x10003dc0 */
+extern undefined4 g_dwInitFlag; /* used by 7 fn(s), first 0x10003d70 */
 extern undefined DAT_1002dd08; /* used by 2 fn(s), first 0x10004750 */
 extern undefined DAT_1002dd0c; /* used by 2 fn(s), first 0x10004750 */
 extern undefined DAT_1002dd10; /* used by 1 fn(s), first 0x10004750 */
@@ -215,30 +215,30 @@ extern uint DAT_1002dd80; /* used by 2 fn(s), first 0x100049b0 */
 extern undefined4 DAT_1002dd84; /* used by 1 fn(s), first 0x100049e0 */
 extern uint DAT_1002ddc0; /* used by 3 fn(s), first 0x100049b0 */
 extern undefined4 DAT_1002ddc4; /* used by 1 fn(s), first 0x100049e0 */
-extern int DAT_1002df00; /* used by 4 fn(s), first 0x10004aa0 */
-extern undefined4 DAT_1002df04; /* used by 2 fn(s), first 0x10004aa0 */
-extern uint DAT_1002df08; /* used by 2 fn(s), first 0x10004aa0 */
-extern undefined4 DAT_1002df0c; /* used by 2 fn(s), first 0x10004aa0 */
-extern undefined4 DAT_1002df10; /* used by 2 fn(s), first 0x10004aa0 */
-extern undefined4 DAT_1002df18; /* used by 3 fn(s), first 0x10005360 */
-extern undefined4 DAT_1002df1c; /* used by 2 fn(s), first 0x10005300 */
-extern undefined4 DAT_1002df20; /* used by 3 fn(s), first 0x10005360 */
+extern int g_dwPauseCount; /* used by 4 fn(s), first 0x10004aa0 */
+extern undefined4 g_dwRunning50HzCount; /* used by 2 fn(s), first 0x10004aa0 */
+extern uint g_dwRunning10HzCount; /* used by 2 fn(s), first 0x10004aa0 */
+extern undefined4 g_dwIm_initialized; /* used by 2 fn(s), first 0x10004aa0 */
+extern undefined4 g_dwIntFlag; /* used by 2 fn(s), first 0x10004aa0 */
+extern undefined4 g_dwOutChannelCount; /* used by 3 fn(s), first 0x10005360 */
+extern undefined4 g_dwDataSizeInBytes; /* used by 2 fn(s), first 0x10005300 */
+extern undefined4 g_dwSoftLTable; /* used by 3 fn(s), first 0x10005360 */
 extern uint DAT_1002df24; /* used by 2 fn(s), first 0x10005360 */
 extern undefined DAT_1002df28; /* used by 1 fn(s), first 0x10005360 */
 extern undefined DAT_1002df30; /* used by 1 fn(s), first 0x10005610 */
-extern int * PTR_1002df5c; /* used by 9 fn(s), first 0x10005360 */
-extern undefined4 DAT_1002df60; /* used by 3 fn(s), first 0x10005300 */
-extern undefined4 DAT_1002df64; /* used by 2 fn(s), first 0x10005300 */
+extern int * g_pMixBuf; /* used by 9 fn(s), first 0x10005360 */
+extern undefined4 g_dwRecordState; /* used by 3 fn(s), first 0x10005300 */
+extern undefined4 g_dwRecordFile; /* used by 2 fn(s), first 0x10005300 */
 extern undefined DAT_1002df68; /* used by 1 fn(s), first 0x10006360 */
 extern undefined DAT_1002df6c; /* used by 1 fn(s), first 0x10006360 */
-extern uint DAT_1002df70; /* used by 7 fn(s), first 0x10006360 */
+extern uint g_dwCurrentState; /* used by 7 fn(s), first 0x10006360 */
 extern undefined4 DAT_1002df78; /* used by 5 fn(s), first 0x10006360 */
 extern undefined DAT_1002df84; /* used by 1 fn(s), first 0x100068b0 */
 extern undefined4 DAT_1002e25c; /* used by 1 fn(s), first 0x10006620 */
 extern undefined4 DAT_1002e304; /* used by 3 fn(s), first 0x100064d0 */
-extern int DAT_1002e308; /* used by 7 fn(s), first 0x10006360 */
-extern int DAT_1002e30c; /* used by 5 fn(s), first 0x10006360 */
-extern char DAT_1002e310; /* used by 1 fn(s), first 0x100068b0 */
+extern int g_dwCurrentSequence; /* used by 7 fn(s), first 0x10006360 */
+extern int g_dwCurrentCuePoint; /* used by 5 fn(s), first 0x10006360 */
+extern char g_bTrans_name; /* used by 1 fn(s), first 0x100068b0 */
 extern undefined DAT_1002e311; /* used by 1 fn(s), first 0x100068b0 */
 extern undefined DAT_1002e330; /* used by 1 fn(s), first 0x10006070 */
 extern undefined DAT_1002e338; /* used by 1 fn(s), first 0x10008ce0 */
@@ -264,7 +264,7 @@ extern undefined DAT_100303cc; /* used by 1 fn(s), first 0x10009710 */
 extern undefined DAT_100303d0; /* used by 1 fn(s), first 0x10009710 */
 extern undefined DAT_10030429; /* used by 1 fn(s), first 0x10009710 */
 extern undefined DAT_10031520; /* used by 2 fn(s), first 0x10009b20 */
-extern undefined DAT_10031528; /* used by 6 fn(s), first 0x100075d0 */
+extern undefined g_bSoundCache; /* used by 6 fn(s), first 0x100075d0 */
 extern undefined4 DAT_10031548; /* used by 6 fn(s), first 0x10007410 */
 extern undefined DAT_10031550; /* used by 3 fn(s), first 0x100075d0 */
 extern undefined DAT_10031560; /* used by 1 fn(s), first 0x10007470 */
@@ -272,27 +272,27 @@ extern undefined DAT_10031564; /* used by 2 fn(s), first 0x10007410 */
 extern undefined DAT_10031ce8; /* used by 5 fn(s), first 0x10007810 */
 extern undefined DAT_10031d28; /* used by 2 fn(s), first 0x10008ce0 */
 extern undefined DAT_10031d2c; /* used by 2 fn(s), first 0x10008860 */
-extern undefined4 DAT_10031d30; /* used by 5 fn(s), first 0x10007470 */
+extern undefined4 g_dwUseVoxFx; /* used by 5 fn(s), first 0x10007470 */
 extern undefined DAT_10031d34; /* used by 1 fn(s), first 0x100072b0 */
 extern undefined DAT_10031d38; /* used by 4 fn(s), first 0x10007a20 */
-extern undefined4 DAT_10031d3c; /* used by 3 fn(s), first 0x10008580 */
-extern undefined DAT_10031d44; /* used by 5 fn(s), first 0x10007670 */
+extern undefined4 g_dwNextHandle; /* used by 3 fn(s), first 0x10008580 */
+extern undefined g_bImuseInitialized; /* used by 5 fn(s), first 0x10007670 */
 extern undefined DAT_10031d48; /* used by 1 fn(s), first 0x1000a100 */
 extern undefined DAT_10031d4c; /* used by 1 fn(s), first 0x1000a0f0 */
-extern undefined DAT_10031d50; /* used by 4 fn(s), first 0x100072b0 */
-extern undefined DAT_10031e54; /* used by 1 fn(s), first 0x100078b0 */
+extern undefined g_aLastVoiceFilename; /* used by 4 fn(s), first 0x100072b0 */
+extern undefined g_bMuscriptRemote; /* used by 1 fn(s), first 0x100078b0 */
 extern undefined DAT_10031e58; /* used by 2 fn(s), first 0x10007ca0 */
 extern undefined DAT_10031e5c; /* used by 2 fn(s), first 0x10007ca0 */
-extern undefined DAT_10031e60; /* used by 2 fn(s), first 0x10007ca0 */
+extern undefined g_dwVoxFxBuf; /* used by 2 fn(s), first 0x10007ca0 */
 extern undefined DAT_10031e64; /* used by 1 fn(s), first 0x10007ca0 */
 extern undefined DAT_10031e68; /* used by 1 fn(s), first 0x10007ca0 */
 extern undefined DAT_10031e6c; /* used by 1 fn(s), first 0x10007ca0 */
 extern char * DAT_10031e70; /* used by 4 fn(s), first 0x100089b0 */
 extern char * DAT_10031e74; /* used by 4 fn(s), first 0x100089b0 */
-extern char * DAT_10031e78; /* used by 4 fn(s), first 0x100089b0 */
-extern char * DAT_10031e7c; /* used by 4 fn(s), first 0x100089b0 */
+extern char * g_dwLipSfx2Data; /* used by 4 fn(s), first 0x100089b0 */
+extern char * g_dwLipSfx3Data; /* used by 4 fn(s), first 0x100089b0 */
 extern undefined DAT_10031e80; /* used by 1 fn(s), first 0x10008e00 */
-extern undefined DAT_10031e84; /* used by 2 fn(s), first 0x10008ce0 */
+extern undefined g_dwTimerCounter; /* used by 2 fn(s), first 0x10008ce0 */
 extern undefined4 DAT_10031e88; /* used by 1 fn(s), first 0x10009710 */
 extern undefined4 DAT_10031e8c; /* used by 1 fn(s), first 0x10009710 */
 extern uint * DAT_10031e90; /* used by 5 fn(s), first 0x1000a1e0 */
@@ -305,7 +305,7 @@ extern undefined DAT_100322f0; /* used by 1 fn(s), first 0x1000a7e0 */
 extern int DAT_10032300; /* used by 16 fn(s), first 0x1000a7e0 */
 extern undefined4 DAT_10032304; /* used by 1 fn(s), first 0x1000aa40 */
 extern undefined DAT_10032308; /* used by 1 fn(s), first 0x1000a7e0 */
-extern undefined4 DAT_1003230c; /* used by 4 fn(s), first 0x1000a7e0 */
+extern undefined4 g_dwPauseTimer; /* used by 4 fn(s), first 0x1000a7e0 */
 extern undefined4 DAT_10032310; /* used by 1 fn(s), first 0x1000aa40 */
 extern undefined4 DAT_10032314; /* used by 1 fn(s), first 0x1000aa40 */
 extern undefined4 DAT_10032320; /* used by 7 fn(s), first 0x1000b170 */
@@ -313,7 +313,7 @@ extern undefined4 DAT_10032424; /* used by 1 fn(s), first 0x1000b630 */
 extern undefined4 DAT_10032cc0; /* used by 5 fn(s), first 0x1000b170 */
 extern undefined4 DAT_10032cc4; /* used by 1 fn(s), first 0x1000b630 */
 extern undefined4 DAT_10032e40; /* used by 1 fn(s), first 0x1000b430 */
-extern undefined4 DAT_10032f40; /* used by 4 fn(s), first 0x1000b170 */
+extern undefined4 g_dwDefersOn; /* used by 4 fn(s), first 0x1000b170 */
 extern undefined4 DAT_10032f44; /* used by 3 fn(s), first 0x1000b170 */
 extern undefined DAT_10032f48; /* used by 1 fn(s), first 0x1000b220 */
 extern undefined DAT_10032f50; /* used by 1 fn(s), first 0x1000ba80 */
@@ -371,8 +371,8 @@ extern code *DAT_10033408; /* used by 1 fn(s), first 0x10012f20 */
 extern undefined DAT_100334fc; /* used by 1 fn(s), first 0x10014690 */
 extern undefined DAT_10033500; /* used by 1 fn(s), first 0x100147c0 */
 extern int DAT_1003350c; /* used by 6 fn(s), first 0x100020c0 */
-extern undefined4 DAT_10033510; /* used by 29 fn(s), first 0x10001f10 */
-extern undefined DAT_10033520; /* used by 3 fn(s), first 0x10008250 */
+extern undefined4 g_dwSounds_pHS; /* used by 29 fn(s), first 0x10001f10 */
+extern undefined g_aVoxFxName; /* used by 3 fn(s), first 0x10008250 */
 extern undefined DAT_10033547; /* used by 1 fn(s), first 0x1000a160 */
 extern undefined DAT_10033560; /* used by 1 fn(s), first 0x10005360 */
 extern undefined DAT_10033568; /* used by 1 fn(s), first 0x100054f0 */
@@ -402,15 +402,15 @@ extern undefined DAT_10034808; /* used by 1 fn(s), first 0x1000c350 */
 #define _DAT_10017084 (*(undefined *)&DAT_10017084) /* same address as DAT_10017084, other width */
 #define _DAT_10017090 (*(undefined *)&DAT_10017090) /* same address as DAT_10017090, other width */
 #define _DAT_1001e8a4 (*(undefined4 *)&DAT_1001e8a4) /* same address as DAT_1001e8a4, other width */
-#define _DAT_1001e8a8 (*(undefined4 *)&DAT_1001e8a8) /* same address as DAT_1001e8a8, other width */
-#define _DAT_1001e8ac (*(undefined4 *)&DAT_1001e8ac) /* same address as DAT_1001e8ac, other width */
-#define _DAT_1001e8b0 (*(undefined4 *)&DAT_1001e8b0) /* same address as DAT_1001e8b0, other width */
-#define _DAT_1001e8b4 (*(undefined4 *)&DAT_1001e8b4) /* same address as DAT_1001e8b4, other width */
-#define _DAT_1001e8b8 (*(undefined4 *)&DAT_1001e8b8) /* same address as DAT_1001e8b8, other width */
-#define _DAT_1001e8bc (*(undefined4 *)&DAT_1001e8bc) /* same address as DAT_1001e8bc, other width */
-#define _DAT_1001e8d0 (*(undefined4 *)&DAT_1001e8d0) /* same address as DAT_1001e8d0, other width */
-#define _DAT_1001e8d8 (*(undefined4 *)&DAT_1001e8d8) /* same address as DAT_1001e8d8, other width */
-#define _DAT_1001e8dc (*(undefined4 *)&DAT_1001e8dc) /* same address as DAT_1001e8dc, other width */
+#define _g_dwImVoiceBufferSize (*(undefined4 *)&g_dwImVoiceBufferSize) /* same address as g_dwImVoiceBufferSize, other width */
+#define _g_dwImVoiceGulpSize (*(undefined4 *)&g_dwImVoiceGulpSize) /* same address as g_dwImVoiceGulpSize, other width */
+#define _g_dwImVoiceCriticalSize (*(undefined4 *)&g_dwImVoiceCriticalSize) /* same address as g_dwImVoiceCriticalSize, other width */
+#define _g_dwImMusicBufferSize (*(undefined4 *)&g_dwImMusicBufferSize) /* same address as g_dwImMusicBufferSize, other width */
+#define _g_dwImMusicGulpSize (*(undefined4 *)&g_dwImMusicGulpSize) /* same address as g_dwImMusicGulpSize, other width */
+#define _g_dwImMusicCriticalSize (*(undefined4 *)&g_dwImMusicCriticalSize) /* same address as g_dwImMusicCriticalSize, other width */
+#define _g_dwImNonPurgeCacheSize (*(undefined4 *)&g_dwImNonPurgeCacheSize) /* same address as g_dwImNonPurgeCacheSize, other width */
+#define _g_dwEffectsHeapSize (*(undefined4 *)&g_dwEffectsHeapSize) /* same address as g_dwEffectsHeapSize, other width */
+#define _g_bMuscriptLocal (*(undefined4 *)&g_bMuscriptLocal) /* same address as g_bMuscriptLocal, other width */
 #define _DAT_1001e90c (*(undefined4 *)&DAT_1001e90c) /* same address as DAT_1001e90c, other width */
 #define _DAT_1001e9d0 (*(code * *)&DAT_1001e9d0) /* same address as DAT_1001e9d0, other width */
 #define _DAT_1001e9ec (*(undefined4 *)&DAT_1001e9ec) /* same address as DAT_1001e9ec, other width */
@@ -462,18 +462,18 @@ extern undefined DAT_10034808; /* used by 1 fn(s), first 0x1000c350 */
 #define _DAT_10031d2c (*(undefined4 *)&DAT_10031d2c) /* same address as DAT_10031d2c, other width */
 #define _DAT_10031d34 (*(undefined4 *)&DAT_10031d34) /* same address as DAT_10031d34, other width */
 #define _DAT_10031d38 (*(int * *)&DAT_10031d38) /* same address as DAT_10031d38, other width */
-#define _DAT_10031d44 (*(undefined4 *)&DAT_10031d44) /* same address as DAT_10031d44, other width */
+#define _g_bImuseInitialized (*(undefined4 *)&g_bImuseInitialized) /* same address as g_bImuseInitialized, other width */
 #define _DAT_10031d48 (*(undefined4 *)&DAT_10031d48) /* same address as DAT_10031d48, other width */
 #define _DAT_10031d4c (*(undefined4 *)&DAT_10031d4c) /* same address as DAT_10031d4c, other width */
-#define _DAT_10031e54 (*(undefined4 *)&DAT_10031e54) /* same address as DAT_10031e54, other width */
+#define _g_bMuscriptRemote (*(undefined4 *)&g_bMuscriptRemote) /* same address as g_bMuscriptRemote, other width */
 #define _DAT_10031e58 (*(undefined4 *)&DAT_10031e58) /* same address as DAT_10031e58, other width */
 #define _DAT_10031e5c (*(undefined4 *)&DAT_10031e5c) /* same address as DAT_10031e5c, other width */
-#define _DAT_10031e60 (*(undefined4 *)&DAT_10031e60) /* same address as DAT_10031e60, other width */
+#define _g_dwVoxFxBuf (*(undefined4 *)&g_dwVoxFxBuf) /* same address as g_dwVoxFxBuf, other width */
 #define _DAT_10031e64 (*(undefined4 *)&DAT_10031e64) /* same address as DAT_10031e64, other width */
 #define _DAT_10031e68 (*(undefined4 *)&DAT_10031e68) /* same address as DAT_10031e68, other width */
 #define _DAT_10031e6c (*(undefined4 *)&DAT_10031e6c) /* same address as DAT_10031e6c, other width */
 #define _DAT_10031e80 (*(undefined4 *)&DAT_10031e80) /* same address as DAT_10031e80, other width */
-#define _DAT_10031e84 (*(undefined4 *)&DAT_10031e84) /* same address as DAT_10031e84, other width */
+#define _g_dwTimerCounter (*(undefined4 *)&g_dwTimerCounter) /* same address as g_dwTimerCounter, other width */
 #define _DAT_10032308 (*(undefined4 *)&DAT_10032308) /* same address as DAT_10032308, other width */
 #define _DAT_10032f50 (*(undefined4 *)&DAT_10032f50) /* same address as DAT_10032f50, other width */
 #define _DAT_10032f54 (*(undefined4 *)&DAT_10032f54) /* same address as DAT_10032f54, other width */
@@ -513,7 +513,7 @@ extern undefined DAT_10034808; /* used by 1 fn(s), first 0x1000c350 */
 #define _DAT_100333f0 (*(undefined4 *)&DAT_100333f0) /* same address as DAT_100333f0, other width */
 #define _DAT_100334fc (*(undefined4 *)&DAT_100334fc) /* same address as DAT_100334fc, other width */
 #define _DAT_10033500 (*(undefined4 *)&DAT_10033500) /* same address as DAT_10033500, other width */
-#define _DAT_10033520 (*(undefined4 *)&DAT_10033520) /* same address as DAT_10033520, other width */
+#define _g_aVoxFxName (*(undefined4 *)&g_aVoxFxName) /* same address as g_aVoxFxName, other width */
 #define _DAT_100336c4 (*(undefined4 *)&DAT_100336c4) /* same address as DAT_100336c4, other width */
 #define _DAT_100337f0 (*(int *)&DAT_100337f0) /* same address as DAT_100337f0, other width */
 #define _DAT_100337f4 (*(undefined4 *)&DAT_100337f4) /* same address as DAT_100337f4, other width */

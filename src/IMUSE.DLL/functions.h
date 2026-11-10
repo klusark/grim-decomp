@@ -36,7 +36,7 @@ undefined4 __cdecl Im_MixerInit(undefined4 *param_1); /* 0x10005360 */
 undefined4 Im_MixerReset(void); /* 0x10005490 */
 undefined4 Im_MixerHeartbeat(void); /* 0x100054c0 */
 void __cdecl Im_MixSamples(short *param_1,int param_2,int param_3,int param_4,int param_5,uint param_6, uint param_7,int param_8,int param_9); /* 0x100054f0 */
-undefined4 __cdecl Im_ReadSoundData(int *param_1,int param_2); /* 0x10005610 */
+undefined4 __cdecl MxEndMix(int *param_1,int param_2); /* 0x10005610 */
 void __cdecl Im_MixLoopA(short *param_1,int param_2,uint param_3,uint param_4,int param_5,int param_6); /* 0x100057a0 */
 void __cdecl Im_MixLoopB(short *param_1,int param_2,uint param_3,uint param_4,int param_5); /* 0x100059a0 */
 void __cdecl Im_MixLoopC(undefined2 *param_1,int param_2,uint param_3,int param_4,int param_5,int param_6); /* 0x10005b80 */
@@ -232,7 +232,7 @@ void FUN_10007a70(undefined4 param_1); /* 0x10007a70 */
 int FUN_10007a80(int param_1); /* 0x10007a80 */
 int FUN_10007a90(uint *param_1,int param_2); /* 0x10007a90 */
 int FUN_10007bc0(int param_1,int param_2,int param_3); /* 0x10007bc0 */
-undefined4 * FUN_10007ca0(undefined4 *param_1,undefined4 *param_2,undefined4 *param_3); /* 0x10007ca0 */
+undefined4 * ihost_read(undefined4 *param_1,undefined4 *param_2,undefined4 *param_3); /* 0x10007ca0 */
 void sounds_shutdown(void); /* 0x10008140 */
 void FUN_100081f0(void); /* 0x100081f0 */
 undefined4 FUN_10008250(code *param_1); /* 0x10008250 */

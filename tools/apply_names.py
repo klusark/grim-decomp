@@ -10,8 +10,10 @@ Each file is a JSON list of entries:
    "program": "/v101/GRIMFANDANGO.EXE"}                  # optional, default EXE
   {"addr": "00905ac0", "global": "g_pMemServices", "type": "GrimServices *", "comment": "..."}
   {"addr": "004e8238", "label": "s_spew_dll"}            # plain label/data rename
+  {"addr": "<addr>", "global": "g_dwLuaHS", "names_only": true, "old": "DAT_<addr>", "oldtype": "undefined4",
+   "comment": "..."}                                     # name + plate comment, type unchanged (orig_gbatch.py)
 Entries are idempotent; rerunning is safe."""
-import json, os, sys
+import json, os, re, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import ghidra_api as g
 
@@ -28,7 +30,23 @@ def apply(entries, log):
             results.append(("rename", g.rename_function(prog, addr, e["name"])))
         if "proto" in e:
             results.append(("proto", g.set_prototype(prog, addr, e["proto"], e.get("cc", ""))))
-        if "global" in e:
+        if "global" in e and e.get("names_only"):
+            # name and plate comment only, the Ghidra type stays (tools/orig_gbatch.py)
+            body = dict(program=prog, address=addr, name=e["global"])
+            if e.get("strict_mode"):
+                body["strict_mode"] = e["strict_mode"]
+            cur = g.get_json("audit_global", program=prog, address=addr)
+            if not cur.get("type") and cur.get("name") not in (None, e["global"])                     and not re.match(r"(?:DAT|PTR|UINT|INT|UNK|LAB|BYTE|WORD|DWORD|FLOAT|DOUBLE)_", cur["name"]):
+                # a user label without data: rename it (rename_or_label would add a second label beside it)
+                r = g.post("rename_label", program=prog, address=addr, old_name=cur["name"], new_name=e["global"])
+            else:
+                r = g.post("rename_or_label", **body)
+            if not g.ok(r) and "already exists" in str(r):
+                r = {"status": "success"}
+            if g.ok(r) and e.get("comment"):
+                r = g.post("set_comment", program=prog, address=addr, comment=e["comment"], comment_type="plate")
+            results.append(("global", r))
+        elif "global" in e:
             r = g.set_global(prog, addr, e["global"], e.get("type", "undefined4"),
                              e.get("comment", ""), e.get("array_length", 0))
             if isinstance(r, dict) and r.get("error") in ("name_quality", "prefix_type_mismatch"):

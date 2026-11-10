@@ -22,7 +22,7 @@
  {"addr": "0047c120", "name": "Math_SinDeg", "comment": "Table/polynomial sine of an angle in degrees", "tags": "math"},
  {"addr": "0047c490", "name": "Math_Sqrt", "tags": "math"},
  {"addr": "0047c5f0", "name": "Math_Atan2Deg", "proto": "float Math_Atan2Deg(float y, float x)", "tags": "math"},
- {"addr": "0047c920", "name": "stdConffile_ReadLine", "comment": "Reads the next line of the open stdConffile into the line buffer UINT_00900520 (skips ';' '#' and blank lines, strips '#' comments, lower-cases, joins lines ending in a backslash)", "tags": "jedi"},
+ {"addr": "0047c920", "name": "stdConffile_ReadLine", "comment": "Reads the next line of the open stdConffile into the line buffer g_dwStdConffile_aLine (skips ';' '#' and blank lines, strips '#' comments, lower-cases, joins lines ending in a backslash)", "tags": "jedi"},
  {"addr": "0047cb20", "name": "stdBmp_Load", "comment": "Stdbmp.c: allocates a bitmap record and reads a Windows .bmp", "tags": "jedi,bitmap"},
  {"addr": "0047cb70", "name": "stdBmp_LoadEntry", "comment": "Reads BITMAPFILEHEADER/BITMAPINFOHEADER; 8-bit paletted or 24-bit sources", "tags": "jedi,bitmap"},
  {"addr": "0047d280", "name": "stdPic_Load", "comment": "stdLoadImageData loader for '.pic' (wrapper of stdPic_LoadEntry, allocation string stdPic.c)", "tags": "jedi,bitmap"},

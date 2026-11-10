@@ -16,7 +16,7 @@ int __cdecl luaFGetc(undefined4 param_1)
 {
   int iVar1;
   
-  iVar1 = (**(code **)(DAT_1002beb8 + 0x38))(param_1,&param_1,1);
+  iVar1 = (**(code **)(g_dwLuaHS + 0x38))(param_1,&param_1,1);
   if (iVar1 == 0) {
     return -1;
   }
@@ -37,8 +37,8 @@ int __cdecl luaFUngetc(int param_1,undefined4 param_2)
   if (param_1 == -1) {
     return -1;
   }
-  iVar1 = (**(code **)(DAT_1002beb8 + 0x48))(param_2);
-  iVar1 = (**(code **)(DAT_1002beb8 + 0x4c))(param_2,iVar1 + -1,0);
+  iVar1 = (**(code **)(g_dwLuaHS + 0x48))(param_2);
+  iVar1 = (**(code **)(g_dwLuaHS + 0x4c))(param_2,iVar1 + -1,0);
   if (iVar1 != 0) {
     return -1;
   }
@@ -225,10 +225,10 @@ void __cdecl luaL_verror(char *fmt,...)
 int __cdecl luaL_openspace(int param_1)
 
 {
-  if (DAT_1002bf28 < (uint)(param_1 + DAT_1002bf4c)) {
+  if (g_dwLState_Mbuffsize < (uint)(param_1 + g_dwLState_Mbuffnext)) {
     luaL_growbuffer(param_1);
   }
-  return DAT_1002bf40 + DAT_1002bf4c;
+  return g_dwLState_Mbuffer + g_dwLState_Mbuffnext;
 }
 
 /* ---- 0x10002c50  luaL_growbuffer ---- */
@@ -239,15 +239,16 @@ void __cdecl luaL_growbuffer(int param_1)
 {
   int iVar1;
   
-  DAT_1002bf28 = DAT_1002bf28 * 2;
-  iVar1 = DAT_1002befc - DAT_1002bf40;
-  if (DAT_1002bf28 < (uint)(param_1 + DAT_1002bf4c)) {
-    DAT_1002bf28 = param_1 + DAT_1002bf4c;
+  g_dwLState_Mbuffsize = g_dwLState_Mbuffsize * 2;
+  iVar1 = g_dwLState_Mbuffbase - g_dwLState_Mbuffer;
+  if (g_dwLState_Mbuffsize < (uint)(param_1 + g_dwLState_Mbuffnext)) {
+    g_dwLState_Mbuffsize = param_1 + g_dwLState_Mbuffnext;
   }
-  DAT_1002bf40 = (**(code **)(DAT_1002beb8 + 0x28))
-                           (DAT_1002bf40,DAT_1002bf28,s_C__grimsrc_libs_lua_src_lbuffer__100263b4,
-                            0x1f);
-  DAT_1002befc = iVar1 + DAT_1002bf40;
+  g_dwLState_Mbuffer =
+       (**(code **)(g_dwLuaHS + 0x28))
+                 (g_dwLState_Mbuffer,g_dwLState_Mbuffsize,
+                  s_C__grimsrc_libs_lua_src_lbuffer__100263b4,0x1f);
+  g_dwLState_Mbuffbase = iVar1 + g_dwLState_Mbuffer;
   return;
 }
 
@@ -257,11 +258,11 @@ void __cdecl luaL_growbuffer(int param_1)
 void __cdecl luaL_addchar(undefined1 param_1)
 
 {
-  if (DAT_1002bf28 < DAT_1002bf4c + 0x20U) {
+  if (g_dwLState_Mbuffsize < g_dwLState_Mbuffnext + 0x20U) {
     luaL_growbuffer(0x20);
   }
-  *(undefined1 *)(DAT_1002bf4c + DAT_1002bf40) = param_1;
-  DAT_1002bf4c = DAT_1002bf4c + 1;
+  *(undefined1 *)(g_dwLState_Mbuffnext + g_dwLState_Mbuffer) = param_1;
+  g_dwLState_Mbuffnext = g_dwLState_Mbuffnext + 1;
   return;
 }
 
@@ -271,6 +272,6 @@ void __cdecl luaL_addchar(undefined1 param_1)
 void luaL_resetbuffer(void)
 
 {
-  DAT_1002bf4c = DAT_1002befc - DAT_1002bf40;
+  g_dwLState_Mbuffnext = g_dwLState_Mbuffbase - g_dwLState_Mbuffer;
   return;
 }

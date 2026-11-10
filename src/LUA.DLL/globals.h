@@ -17,15 +17,15 @@ extern undefined4 lua_debug; /* 0x1002bee4, undefined4 in Ghidra */
 /* ---- unnamed data (type inferred from use) ---- */
 extern code LAB_1000f3b0;  /* code label (address only) */ /* used by 2 fn(s), first 0x1000f3d2 */
 extern code LAB_1001dec8;  /* code label (address only) */ /* used by 6 fn(s), first 0x10013930 */
-extern undefined DAT_10023188; /* used by 1 fn(s), first 0x1000abd0 */
-extern undefined DAT_100232a8; /* used by 1 fn(s), first 0x1000abd0 */
-extern undefined DAT_10023378; /* used by 1 fn(s), first 0x1000abd0 */
-extern undefined2 DAT_10023448; /* used by 1 fn(s), first 0x1000abd0 */
-extern undefined DAT_10023556; /* used by 1 fn(s), first 0x1000abd0 */
-extern undefined2 DAT_10023610; /* used by 1 fn(s), first 0x1000abd0 */
-extern undefined DAT_1002371e; /* used by 1 fn(s), first 0x1000abd0 */
-extern undefined DAT_100237d8; /* used by 1 fn(s), first 0x1000abd0 */
-extern undefined DAT_100239e8; /* used by 1 fn(s), first 0x1000abd0 */
+extern undefined g_aYytranslate; /* used by 1 fn(s), first 0x1000abd0 */
+extern undefined g_aYyr1; /* used by 1 fn(s), first 0x1000abd0 */
+extern undefined g_aYyr2; /* used by 1 fn(s), first 0x1000abd0 */
+extern undefined2 g_wYydefact; /* used by 1 fn(s), first 0x1000abd0 */
+extern undefined g_aYydefgoto; /* used by 1 fn(s), first 0x1000abd0 */
+extern undefined2 g_wYypact; /* used by 1 fn(s), first 0x1000abd0 */
+extern undefined g_aYypgoto; /* used by 1 fn(s), first 0x1000abd0 */
+extern undefined g_aYytable; /* used by 1 fn(s), first 0x1000abd0 */
+extern undefined g_aYycheck; /* used by 1 fn(s), first 0x1000abd0 */
 extern undefined DAT_10023c40; /* used by 1 fn(s), first 0x1000ffd0 */
 extern undefined DAT_10023d78; /* used by 1 fn(s), first 0x10010c20 */
 extern undefined DAT_10023dc4; /* used by 1 fn(s), first 0x10011290 */
@@ -85,7 +85,7 @@ extern char s_bad_argument___d_to_function_____10026304[]; /* used by 1 fn(s), f
 extern char s_bad_argument___d_to_function_____10026334[]; /* used by 1 fn(s), first 0x100029d0 */
 extern undefined DAT_1002635c; /* used by 1 fn(s), first 0x100029d0 */
 extern char s_C__grimsrc_libs_lua_src_lbuffer__100263b4[]; /* used by 1 fn(s), first 0x10002c50 */
-extern undefined *PTR_s_setfallback_100263d8; /* used by 1 fn(s), first 0x10003df0 */
+extern undefined *g_pInt_funcs; /* used by 1 fn(s), first 0x10003df0 */
 extern char s_error_10026648[]; /* used by 1 fn(s), first 0x1000cb80 */
 extern char s_invalid_2nd_argument__probably_o_100266b8[]; /* used by 1 fn(s), first 0x100030d0 */
 extern char s_internal_error_100266e8[]; /* used by 1 fn(s), first 0x10003170 */
@@ -123,8 +123,8 @@ extern undefined DAT_10026a8c; /* used by 1 fn(s), first 0x10004890 */
 extern char s__dostring_______20s_10026a90[]; /* used by 1 fn(s), first 0x10004b20 */
 extern char s_C__grimsrc_libs_lua_src_lfunc_cp_10026aa4[]; /* used by 2 fn(s), first 0x10004ba0 */
 extern char s_reference_table_overflow_10026ac8[]; /* used by 1 fn(s), first 0x10004d40 */
-extern undefined DAT_10026ae8; /* used by 1 fn(s), first 0x100059c0 */
-extern undefined *PTR_s_setlocale_10026b00; /* used by 1 fn(s), first 0x10005ae0 */
+extern undefined g_aSetloc_cat; /* used by 1 fn(s), first 0x100059c0 */
+extern undefined *g_pIolib; /* used by 1 fn(s), first 0x10005ae0 */
 extern undefined *PTR_s_readfrom_10026b50; /* used by 1 fn(s), first 0x10005b20 */
 extern char s_write_10026b78[]; /* used by 1 fn(s), first 0x10005b20 */
 extern char s__INPUT_10026c00[]; /* used by 3 fn(s), first 0x10005320 */
@@ -146,7 +146,7 @@ extern char s__STDIN_10026d04[]; /* used by 1 fn(s), first 0x10005b20 */
 extern undefined4 DAT_10026d14; /* used by 1 fn(s), first 0x10005c00 */
 extern undefined *PTR_DAT_10026d90; /* used by 1 fn(s), first 0x10006b60 */
 extern undefined *PTR_DAT_10026d94; /* used by 1 fn(s), first 0x10005c00 */
-extern undefined *PTR_s_debug_10026da0; /* used by 1 fn(s), first 0x10006890 */
+extern undefined *g_pInclinenumber_pragmas; /* used by 1 fn(s), first 0x10006890 */
 extern char s_input_ends_inside_a__if_10026e44[]; /* used by 2 fn(s), first 0x10005d00 */
 extern char s_ambiguous_syntax__decimal_point_x_10026e5c[]; /* used by 1 fn(s), first 0x10005d00 */
 extern char s_invalid_pragma_format_10026e94[]; /* used by 1 fn(s), first 0x10006890 */
@@ -159,15 +159,15 @@ extern char s_unmatched__end_10026ef0[]; /* used by 1 fn(s), first 0x10006890 */
 extern undefined DAT_10026f00; /* used by 1 fn(s), first 0x10006890 */
 extern char s_invalid__if_condition_10026f08[]; /* used by 1 fn(s), first 0x10006b60 */
 extern char s_pragma_too_long_10026f20[]; /* used by 1 fn(s), first 0x10006bb0 */
-extern undefined *PTR_DAT_10026f30; /* used by 1 fn(s), first 0x10007320 */
+extern undefined *g_pMathlib; /* used by 1 fn(s), first 0x10007320 */
 extern undefined DAT_10027004; /* used by 1 fn(s), first 0x10007320 */
 extern undefined DAT_1002706c; /* used by 1 fn(s), first 0x10007320 */
 extern undefined DAT_10027070; /* used by 1 fn(s), first 0x10007320 */
 extern char s__TRIGMODE_10027074[]; /* used by 1 fn(s), first 0x10007320 */
 extern char s_C__grimsrc_libs_lua_src_lmem_cpp_10027080[]; /* used by 2 fn(s), first 0x100073b0 */
-extern undefined *PTR_s_userdata_100270a8; /* used by 2 fn(s), first 0x10001d30 */
-extern undefined DAT_100270e0; /* used by 4 fn(s), first 0x10004e30 */
-extern int DAT_100270e8; /* used by 1 fn(s), first 0x10007450 */
+extern undefined *g_pLuaO_typenames; /* used by 2 fn(s), first 0x10001d30 */
+extern undefined g_LuaO_nilobject; /* used by 4 fn(s), first 0x10004e30 */
+extern int g_dwDimensions; /* used by 1 fn(s), first 0x10007450 */
 extern char s_internal_error_in__lua_equalObj__10027180[]; /* used by 1 fn(s), first 0x100074b0 */
 extern undefined DAT_100271ac; /* used by 1 fn(s), first 0x100085e0 */
 extern char s_C__grimsrc_libs_lua_src_lstate_c_100277cc[]; /* used by 6 fn(s), first 0x100075e0 */
@@ -175,9 +175,9 @@ extern char s_aStringPtrs____aClosurePtrs____a_100277f0[]; /* used by 1 fn(s), f
 extern char s_pTString_10027828[]; /* used by 1 fn(s), first 0x100079d0 */
 extern char s_op____sizeof_opcodeDirectory__si_10027834[]; /* used by 1 fn(s), first 0x100085e0 */
 extern char s_pExecutionState_____pPreviousSta_10027870[]; /* used by 1 fn(s), first 0x10008640 */
-extern undefined DAT_10027898; /* used by 8 fn(s), first 0x10008dc0 */
+extern undefined g_EMPTY; /* used by 8 fn(s), first 0x10008dc0 */
 extern char s_C__grimsrc_libs_lua_src_lstring__100278b4[]; /* used by 3 fn(s), first 0x10008d40 */
-extern undefined *PTR_s_strlen_100278d8; /* used by 1 fn(s), first 0x1000a6e0 */
+extern undefined *g_pStrlib; /* used by 1 fn(s), first 0x1000a6e0 */
 extern char s_incorrect_pattern__missing______10027980[]; /* used by 1 fn(s), first 0x100097f0 */
 extern char s_incorrect_pattern__ends_with___c_100279a0[]; /* used by 1 fn(s), first 0x100097f0 */
 extern char s___________100279c4[]; /* used by 1 fn(s), first 0x10009cb0 */
@@ -212,9 +212,9 @@ extern char s_too_many_nested_functions__limit_10027cb4[]; /* used by 1 fn(s), f
 extern char s_writtenItems____numItems_10027cd8[]; /* used by 1 fn(s), first 0x1000c200 */
 extern char s_C__grimsrc_libs_lua_src_ltable_c_10027cf4[]; /* used by 4 fn(s), first 0x1000c200 */
 extern char s_unexpected_type_to_index_table_10027d18[]; /* used by 1 fn(s), first 0x1000c580 */
-extern undefined *PTR_s_gettable_10027d48; /* used by 5 fn(s), first 0x1000ca60 */
+extern undefined *g_pLuaT_eventname; /* used by 5 fn(s), first 0x1000ca60 */
 extern undefined DAT_10027db0; /* used by 1 fn(s), first 0x1000c9c0 */
-extern undefined *PTR_s_error_10027e40; /* used by 1 fn(s), first 0x1000cc30 */
+extern undefined *g_pLuaT_setfallback_oldnames; /* used by 1 fn(s), first 0x1000cc30 */
 extern char s_C__grimsrc_libs_lua_src_ltm_cpp_10027ed4[]; /* used by 1 fn(s), first 0x1000c850 */
 extern char s_tag__d_is_not_result_of__newtag__10027ef4[]; /* used by 1 fn(s), first 0x1000c920 */
 extern char s__d_is_not_a_valid_tag_10027f18[]; /* used by 1 fn(s), first 0x1000c9f0 */
@@ -341,51 +341,51 @@ extern undefined *PTR_DAT_1002bbac; /* used by 1 fn(s), first 0x100175f0 */
 extern undefined *PTR_DAT_1002bbb0; /* used by 1 fn(s), first 0x100175f0 */
 extern undefined *PTR_PTR_1002bbd8; /* used by 2 fn(s), first 0x100173f0 */
 extern undefined4 DAT_1002bbe0; /* used by 3 fn(s), first 0x10018ff0 */
-extern code *DAT_1002beb0; /* used by 2 fn(s), first 0x10002670 */
-extern undefined4 DAT_1002beb4; /* used by 2 fn(s), first 0x10002660 */
-extern undefined4 DAT_1002beb8; /* used by 55 fn(s), first 0x10001000 */
-extern undefined4 DAT_1002bebc; /* used by 2 fn(s), first 0x10001190 */
-extern undefined4 DAT_1002bec0; /* used by 2 fn(s), first 0x10002920 */
-extern int * DAT_1002bec4; /* used by 4 fn(s), first 0x10001000 */
+extern code *g_dwSaveFunc; /* used by 2 fn(s), first 0x10002670 */
+extern undefined4 g_dwLua_totalBytesSaved; /* used by 2 fn(s), first 0x10002660 */
+extern undefined4 g_dwLuaHS; /* used by 55 fn(s), first 0x10001000 */
+extern undefined4 g_nLuaInitialize; /* used by 2 fn(s), first 0x10001190 */
+extern undefined4 g_nLuaStartup; /* used by 2 fn(s), first 0x10002920 */
+extern int * g_dwFirstFuncArray; /* used by 4 fn(s), first 0x10001000 */
 extern undefined DAT_1002bedc; /* used by 8 fn(s), first 0x10002440 */
-extern int DAT_1002bee8; /* used by 7 fn(s), first 0x100079d0 */
-extern int DAT_1002beec; /* used by 15 fn(s), first 0x100049b0 */
-extern undefined4 DAT_1002bef0; /* used by 5 fn(s), first 0x100079d0 */
-extern undefined4 DAT_1002bef4; /* used by 8 fn(s), first 0x100079d0 */
-extern undefined4 DAT_1002bef8; /* used by 4 fn(s), first 0x10007660 */
-extern undefined4 DAT_1002befc; /* used by 9 fn(s), first 0x10002c50 */
-extern int * DAT_1002bf00; /* used by 10 fn(s), first 0x10002db0 */
+extern int g_dwLState_last_tag; /* used by 7 fn(s), first 0x100079d0 */
+extern int g_dwLState_nblocks; /* used by 15 fn(s), first 0x100049b0 */
+extern undefined4 g_dwLState_IMtable_size; /* used by 5 fn(s), first 0x100079d0 */
+extern undefined4 g_dwLState_string_root; /* used by 8 fn(s), first 0x100079d0 */
+extern undefined4 g_dwLState_protoPtrTotal; /* used by 4 fn(s), first 0x10007660 */
+extern undefined4 g_dwLState_Mbuffbase; /* used by 9 fn(s), first 0x10002c50 */
+extern int * g_dwLState_rootglobal; /* used by 10 fn(s), first 0x10002db0 */
 extern undefined DAT_1002bf04; /* used by 1 fn(s), first 0x10008a00 */
-extern uint DAT_1002bf08; /* used by 8 fn(s), first 0x10004d40 */
+extern uint g_dwLState_refSize; /* used by 8 fn(s), first 0x10004d40 */
 extern undefined DAT_1002bf0c; /* used by 1 fn(s), first 0x100081c0 */
-extern undefined4 DAT_1002bf10; /* used by 4 fn(s), first 0x10007660 */
-extern undefined4 DAT_1002bf18; /* used by 7 fn(s), first 0x10004ee0 */
+extern undefined4 g_dwLState_aTablePtrs; /* used by 4 fn(s), first 0x10007660 */
+extern undefined4 g_dwLState_roottable; /* used by 7 fn(s), first 0x10004ee0 */
 extern undefined DAT_1002bf1c; /* used by 1 fn(s), first 0x10008a00 */
-extern undefined4 DAT_1002bf20; /* used by 6 fn(s), first 0x10004ba0 */
+extern undefined4 g_dwLState_rootcl; /* used by 6 fn(s), first 0x10004ba0 */
 extern undefined DAT_1002bf24; /* used by 1 fn(s), first 0x10008a00 */
-extern undefined4 DAT_1002bf28; /* used by 7 fn(s), first 0x10002c20 */
-extern undefined4 DAT_1002bf2c; /* used by 4 fn(s), first 0x10007660 */
-extern undefined4 DAT_1002bf30; /* used by 4 fn(s), first 0x10007660 */
-extern undefined4 DAT_1002bf34; /* used by 9 fn(s), first 0x10004d40 */
-extern undefined4 DAT_1002bf38; /* used by 6 fn(s), first 0x10004bf0 */
+extern undefined4 g_dwLState_Mbuffsize; /* used by 7 fn(s), first 0x10002c20 */
+extern undefined4 g_dwLState_tablePtrTotal; /* used by 4 fn(s), first 0x10007660 */
+extern undefined4 g_dwLState_stringPtrTotal; /* used by 4 fn(s), first 0x10007660 */
+extern undefined4 g_dwLState_refArray; /* used by 9 fn(s), first 0x10004d40 */
+extern undefined4 g_dwLState_rootproto; /* used by 6 fn(s), first 0x10004bf0 */
 extern undefined DAT_1002bf3c; /* used by 1 fn(s), first 0x10008a00 */
-extern undefined4 DAT_1002bf40; /* used by 12 fn(s), first 0x10002c20 */
-extern undefined4 DAT_1002bf44; /* used by 4 fn(s), first 0x10007660 */
-extern undefined4 DAT_1002bf48; /* used by 20 fn(s), first 0x10004180 */
-extern undefined4 DAT_1002bf4c; /* used by 12 fn(s), first 0x10002c20 */
-extern undefined4 DAT_1002bf50; /* used by 4 fn(s), first 0x10007660 */
-extern undefined4 DAT_1002bf58; /* used by 5 fn(s), first 0x100014c0 */
+extern undefined4 g_dwLState_Mbuffer; /* used by 12 fn(s), first 0x10002c20 */
+extern undefined4 g_dwLState_aStringPtrs; /* used by 4 fn(s), first 0x10007660 */
+extern undefined4 g_dwLState_IMtable; /* used by 20 fn(s), first 0x10004180 */
+extern undefined4 g_dwLState_Mbuffnext; /* used by 12 fn(s), first 0x10002c20 */
+extern undefined4 g_dwLState_closurePtrTotal; /* used by 4 fn(s), first 0x10007660 */
+extern undefined4 g_dwLState_errorim; /* used by 5 fn(s), first 0x100014c0 */
 extern undefined4 DAT_1002bf5c; /* used by 4 fn(s), first 0x100014c0 */
-extern undefined4 * DAT_1002bf60; /* used by 4 fn(s), first 0x10007660 */
-extern undefined4 DAT_1002bf64; /* used by 7 fn(s), first 0x100049b0 */
-extern undefined4 * DAT_1002bf68; /* used by 4 fn(s), first 0x10007660 */
-extern int * PTR_1002bf6c; /* used by 117 fn(s), first 0x100011e0 */
-extern int * DAT_1002bf70; /* used by 11 fn(s), first 0x10001db0 */
-extern undefined4 DAT_1002bf74; /* used by 4 fn(s), first 0x100079d0 */
-extern undefined4 DAT_1002bf78; /* used by 4 fn(s), first 0x10002760 */
-extern undefined4 DAT_1002bf7c; /* used by 2 fn(s), first 0x10007660 */
+extern undefined4 * g_dwLState_aClosurePtrs; /* used by 4 fn(s), first 0x10007660 */
+extern undefined4 g_dwLState_GCthreshold; /* used by 7 fn(s), first 0x100049b0 */
+extern undefined4 * g_dwLState_aProtoPtrs; /* used by 4 fn(s), first 0x10007660 */
+extern int * g_pLuaState; /* used by 117 fn(s), first 0x100011e0 */
+extern int * g_dwL_Main; /* used by 11 fn(s), first 0x10001db0 */
+extern undefined4 g_dwLState_lstate_class_initialized; /* used by 4 fn(s), first 0x100079d0 */
+extern undefined4 g_dwLState_numThreads; /* used by 4 fn(s), first 0x10002760 */
+extern undefined4 g_dwLState_bPtrsSorted; /* used by 2 fn(s), first 0x10007660 */
 extern undefined4 DAT_1002bf80; /* used by 1 fn(s), first 0x1000cc30 */
-extern void * PTR_1002bf84; /* used by 3 fn(s), first 0x1000db10 */
+extern void * g_pExecutionState_pFreeStates; /* used by 3 fn(s), first 0x1000db10 */
 extern undefined4 DAT_1002bf88; /* used by 3 fn(s), first 0x10011d6d */
 extern undefined DAT_1002bf8c; /* used by 2 fn(s), first 0x1000ef20 */
 extern undefined4 DAT_1002bf90; /* used by 2 fn(s), first 0x10015060 */

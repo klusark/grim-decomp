@@ -29,7 +29,7 @@
  {"program": "/v101/IMUSE.DLL", "addr": "10005490", "name": "Im_MixerReset", "tags": "imuse_mixer"},
  {"program": "/v101/IMUSE.DLL", "addr": "100054c0", "name": "Im_MixerHeartbeat", "tags": "imuse_mixer"},
  {"program": "/v101/IMUSE.DLL", "addr": "100054f0", "name": "Im_MixSamples", "comment": "Dispatches to the four mix loops by channel count and volume mode", "tags": "imuse_mixer"},
- {"program": "/v101/IMUSE.DLL", "addr": "10005610", "name": "Im_ReadSoundData", "comment": "Reads and decodes the next block of a sound through the file layer", "tags": "imuse_mixer"},
+ {"program": "/v101/IMUSE.DLL", "addr": "10005610", "name": "MxEndMix", "comment": "Reads and decodes the next block of a sound through the file layer", "tags": "imuse_mixer"},
  {"program": "/v101/IMUSE.DLL", "addr": "100057a0", "name": "Im_MixLoopA", "comment": "Mix loop variant (16-bit source); exact channel layout not verified", "tags": "imuse_mixer"},
  {"program": "/v101/IMUSE.DLL", "addr": "100059a0", "name": "Im_MixLoopB", "tags": "imuse_mixer"},
  {"program": "/v101/IMUSE.DLL", "addr": "10005b80", "name": "Im_MixLoopC", "tags": "imuse_mixer"},

@@ -5,45 +5,52 @@
 #include "globals.h"
 #include "functions.h"
 
-/* ---- 0x004bd370  Insane_Poll ---- */
+/* ---- 0x004bd370  SmushPlay_GetMovieTime ---- */
 /* INSANE (SMUSH) movie player glue: steps the player when the file io, decoder and output modules
-   are all registered */
+   are all registered Original name SmushPlay_GetMovieTime (the remaster's GrimFandango (Linux):
+   tests fSmushPlaySysInitialized and fSmushPlaySysStarted and returns the playing movie's time
+   (sputLua_Update's movieTimeMsec)); was Insane_Poll. */
 
-int Insane_Poll(void)
+int SmushPlay_GetMovieTime(void)
 
 {
   int iVar1;
   
-  if (((UINT_008d16a0 != 0) && (UINT_008d16a4 != 0)) && (UINT_008d16a8 != 0)) {
+  if (((g_dwSmushPlaySysInitialized != 0) && (g_dwSmushPlaySysStarted != 0)) &&
+     (g_dwMovieIsPlaying != 0)) {
     iVar1 = Sound_VoiceSampleCount(0);
     return iVar1;
   }
   return 0;
 }
 
-/* ---- 0x004bd3a0  Insane_RegisterFilio ---- */
+/* ---- 0x004bd3a0  SmushPlay_SysInitialize ---- */
 /* Registers the 'FILIO' LecShare module ('insane zfilio') and fills the caller's vtable with the
-   open/read/seek/close entry points */
+   open/read/seek/close entry points Original name SmushPlay_SysInitialize (the remaster's
+   GrimFandango (Linux): stores pSmushPlayHS, LecShare_Initialize(0, modules, "FILIO=insane_zfilio",
+   ...), sets fSmushPlaySysInitialized, fills the module interface {Initialize, Terminate, Startup,
+   Shutdown}); was Insane_RegisterFilio. */
 
-undefined4 Insane_RegisterFilio(uint param_1,undefined4 *param_2)
+undefined4 SmushPlay_SysInitialize(uint param_1,undefined4 *param_2)
 
 {
   undefined4 uVar1;
   
-  UINT_008d11f4 = param_1;
+  g_dwSmushPlayHS = param_1;
   uVar1 = 1;
-  if (UINT_008d16a0 == 0) {
-    PTR_008d11d4 = (int *)LecShare_Startup(0,&PTR_FUN_004f0ba0,s_FILIO_insane_zfilio_004f0ca0,
-                                           &DAT_004f5a98);
-    if (PTR_008d11d4 == (int *)0x0) {
+  if (g_dwSmushPlaySysInitialized == 0) {
+    g_pSmushPlay_share_services =
+         (int *)LecShare_Initialize(0,&PTR_FUN_004f0ba0,s_FILIO_insane_zfilio_004f0ca0,&DAT_004f5a98
+                                   );
+    if (g_pSmushPlay_share_services == (int *)0x0) {
       return 1;
     }
-    UINT_008d16a0 = 1;
+    g_dwSmushPlaySysInitialized = 1;
     if (param_2 != (undefined4 *)0x0) {
-      *param_2 = Insane_RegisterFilio;
-      param_2[1] = SmushPlay_SysShutdown;
+      *param_2 = SmushPlay_SysInitialize;
+      param_2[1] = SmushPlay_SysTerminate;
       param_2[2] = SmushPlay_SysStartup;
-      param_2[3] = Insane_Stop;
+      param_2[3] = SmushPlay_SysShutdown;
       param_2[4] = 0;
       param_2[5] = 0;
       param_2[6] = 0;
@@ -54,17 +61,20 @@ undefined4 Insane_RegisterFilio(uint param_1,undefined4 *param_2)
   return uVar1;
 }
 
-/* ---- 0x004bd430  SmushPlay_SysShutdown ---- */
+/* ---- 0x004bd430  SmushPlay_SysTerminate ---- */
 /* Module interface slot 1 (Insane): called by Engine_ResetSubsystems / when registration fails;
    drops the service table pointer and clears the initialised flag. Original name
    SmushPlay_SysShutdown (the remaster's GrimFandango (Linux): the only unmatched caller of
-   LecShare_Shutdown; 1 matched neighbours agree, 0 disagree); was Insane_Terminate. */
+   LecShare_Shutdown; 1 matched neighbours agree, 0 disagree); was Insane_Terminate. Original name
+   SmushPlay_SysTerminate (the remaster's GrimFandango (Linux): slot 1 of the SmushPlay module
+   interface SmushPlay_SysInitialize fills; clears fSmushPlaySysInitialized after
+   LecShare_Terminate); was SmushPlay_SysShutdown. */
 
-void SmushPlay_SysShutdown(void)
+void SmushPlay_SysTerminate(void)
 
 {
-  LecShare_Shutdown();
-  UINT_008d16a0 = 0;
+  LecShare_Terminate();
+  g_dwSmushPlaySysInitialized = 0;
   return;
 }
 
@@ -81,16 +91,16 @@ undefined4 SmushPlay_SysStartup(void)
   undefined4 uVar2;
   
   uVar2 = 1;
-  if ((UINT_008d16a0 != 0) && (UINT_008d16a4 == 0)) {
+  if ((g_dwSmushPlaySysInitialized != 0) && (g_dwSmushPlaySysStarted == 0)) {
     ((code *)fle_zfilio_config)(1,&DAT_004f0cc4,0);
     ((code *)fle_zfilio_config)(1,&DAT_004f0cbc,0);
     ((code *)fle_zfilio_config)(1,&DAT_004f0cb8,0);
     ((code *)fle_zfilio_config)(1,&DAT_004f0cb4,0);
-    iVar1 = LecShare_StartupModules();
+    iVar1 = LecShare_Startup();
     if (iVar1 == 0) {
-      iVar1 = (*(code *)PTR_008d11d4[4])(&PTR_PTR_004f0b70,0);
+      iVar1 = (*(code *)g_pSmushPlay_share_services[4])(&g_pSubscription_info,0);
       if (iVar1 == 0) {
-        UINT_008d16a4 = 1;
+        g_dwSmushPlaySysStarted = 1;
         uVar2 = 0;
       }
     }
@@ -98,17 +108,19 @@ undefined4 SmushPlay_SysStartup(void)
   return uVar2;
 }
 
-/* ---- 0x004bd4d0  Insane_Stop ---- */
+/* ---- 0x004bd4d0  SmushPlay_SysShutdown ---- */
 /* Module interface slot 3 (Insane): called by Engine_ShutdownSubsystems in reverse order; releases
-   what _Start created. */
+   what _Start created. Original name SmushPlay_SysShutdown (the remaster's GrimFandango (Linux):
+   slot 3 of the module interface; clears fSmushPlaySysStarted after LecShare_Shutdown
+   (share_services +0x14 unsubscribe first)); was Insane_Stop. */
 
-void Insane_Stop(void)
+void SmushPlay_SysShutdown(void)
 
 {
-  if (UINT_008d16a4 != 0) {
-    (*(code *)PTR_008d11d4[5])(&PTR_PTR_004f0b70);
-    LecShare_UnwindStartup();
-    UINT_008d16a4 = 0;
+  if (g_dwSmushPlaySysStarted != 0) {
+    (*(code *)g_pSmushPlay_share_services[5])(&g_pSubscription_info);
+    LecShare_Shutdown();
+    g_dwSmushPlaySysStarted = 0;
   }
   return;
 }

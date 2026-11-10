@@ -52,7 +52,7 @@ void rdRaster_Span8_Flat(uint *param_1, uint *param_2)
     prod = (long long)dx * (long long)step;
     cur = (int)(prod >> 16) + (int)param_1[0xe];
 
-    camInfo = *(int *)((int)g_pRdCurrentCamera + 4);
+    camInfo = *(int *)((int)g_pRdCamera_CurCamera + 4);
     camInfo = *(int *)(camInfo + 4);
     dst = (uint8_t *)((int)param_1[0x10] * *(int *)(camInfo + 0x18) + *(int *)(camInfo + 0x5c) + ((int)xl >> 16));
 
@@ -100,7 +100,7 @@ void rdRaster_Span16_Flat_3(uint *param_1, uint *param_2)
     prod = (long long)dx * (long long)step;
     cur = (int)(prod >> 16) + (int)param_1[0xe];
 
-    camInfo = *(int *)((int)g_pRdCurrentCamera + 4);
+    camInfo = *(int *)((int)g_pRdCamera_CurCamera + 4);
     camInfo = *(int *)(camInfo + 4);
     pitch_half = *(uint *)(camInfo + 0x18) >> 1;
     xl_int = (uint)((int)xl >> 16);

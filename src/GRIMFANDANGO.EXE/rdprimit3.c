@@ -49,7 +49,7 @@ void * __cdecl rdPrimit3_DrawPolygon(float *verts,int count,void *material)
     do {
       Matrix34_TransformPoint
                 (out,(float *)(((int)verts - (int)&local_300) + (int)out),
-                 (float *)((int)g_pRdCurrentCamera + 8));
+                 (float *)((int)g_pRdCamera_CurCamera + 8));
       local_330[0] = local_330[0] + *out;
       iVar4 = iVar4 + -1;
       local_330[1] = out[1] + local_330[1];
@@ -58,12 +58,12 @@ void * __cdecl rdPrimit3_DrawPolygon(float *verts,int count,void *material)
     } while (iVar4 != 0);
   }
   fVar1 = (float)count;
-  vertexCount = rdClip_Face3_Pos_2(*(undefined4 *)((int)g_pRdCurrentCamera + 0x48),&local_300,count)
-  ;
+  vertexCount = rdClip_Face3_Pos_2(*(undefined4 *)((int)g_pRdCamera_CurCamera + 0x48),&local_300,
+                                   count);
   if ((int)vertexCount < 3) {
     return (void *)0x0;
   }
-  (**(code **)((int)g_pRdCurrentCamera + 0x50))(local_180,&local_300,vertexCount);
+  (**(code **)((int)g_pRdCamera_CurCamera + 0x50))(local_180,&local_300,vertexCount);
   puVar2 = (undefined4 *)rdCache_AllocMesh();
   *puVar2 = 0;
   puVar2[0x11] = 0;
@@ -149,12 +149,12 @@ rdPrimit3_DrawLine(float *a,float *b,int *outA,int *outB,int *clipA,int *clipB,u
   #define local_18 (*(float (*)[3])(_frame + (0x40 - 0x18)))
   #define local_c (*(float (*)[3])(_frame + (0x40 - 0xc)))
   
-  Matrix34_TransformPoint(local_18,a,(float *)((int)g_pRdCurrentCamera + 8));
-  Matrix34_TransformPoint(local_c,b,(float *)((int)g_pRdCurrentCamera + 8));
-  iVar1 = rdClip_Line3(*(void **)((int)g_pRdCurrentCamera + 0x48),local_18,local_c,clipA,clipB);
+  Matrix34_TransformPoint(local_18,a,(float *)((int)g_pRdCamera_CurCamera + 8));
+  Matrix34_TransformPoint(local_c,b,(float *)((int)g_pRdCamera_CurCamera + 8));
+  iVar1 = rdClip_Line3(*(void **)((int)g_pRdCamera_CurCamera + 0x48),local_18,local_c,clipA,clipB);
   if (iVar1 != 0) {
-    (**(code **)((int)g_pRdCurrentCamera + 0x4c))(local_30,local_18);
-    (**(code **)((int)g_pRdCurrentCamera + 0x4c))(auStack_24,local_c);
+    (**(code **)((int)g_pRdCamera_CurCamera + 0x4c))(local_30,local_18);
+    (**(code **)((int)g_pRdCamera_CurCamera + 0x4c))(auStack_24,local_c);
     lVar2 = _ftol((double)CONCAT44(unaff_ESI,unaff_EBX));
     lVar3 = _ftol((double)CONCAT44(unaff_ESI,unaff_EBX));
     if (outA != (int *)0x0) {
@@ -169,7 +169,7 @@ rdPrimit3_DrawLine(float *a,float *b,int *outA,int *outB,int *clipA,int *clipB,u
       outB[1] = (int)lVar5;
       outB[2] = iStack_1c;
     }
-    rdCanvas_DrawLine(*(void **)((int)g_pRdCurrentCamera + 4),(int)lVar2,(int)lVar3,(int)lVar4,
+    rdCanvas_DrawLine(*(void **)((int)g_pRdCamera_CurCamera + 4),(int)lVar2,(int)lVar3,(int)lVar4,
                       (int)lVar5,(ushort)color,pattern);
     return 1;
   }
@@ -202,17 +202,17 @@ void __cdecl rdPrimit3_DrawPoint(float *world,float radius,uint a3,uint a4,uint 
   #define local_18 (*(float (*)[3])(_frame + (0x40 - 0x18)))
   #define afStack_c (*(float (*)[3])(_frame + (0x40 - 0xc)))
   
-  Matrix34_TransformPoint(&local_30,world,(float *)((int)g_pRdCurrentCamera + 8));
+  Matrix34_TransformPoint(&local_30,world,(float *)((int)g_pRdCamera_CurCamera + 8));
   local_24[0] = local_30 + radius;
   local_24[1] = local_2c[0];
   local_24[2] = local_2c[1];
   if (0.0 < local_2c[0]) {
-    (**(code **)((int)g_pRdCurrentCamera + 0x4c))(local_18,&local_30);
-    (**(code **)((int)g_pRdCurrentCamera + 0x4c))(afStack_c,local_24);
+    (**(code **)((int)g_pRdCamera_CurCamera + 0x4c))(local_18,&local_30);
+    (**(code **)((int)g_pRdCamera_CurCamera + 0x4c))(afStack_c,local_24);
     fVar2 = afStack_c[0] - local_18[0];
     lVar1 = _ftol((double)CONCAT44(a3,fVar2));
     lVar1 = _ftol((double)CONCAT44(fVar2,(int)lVar1));
-    ((code *)rdCanvas_DrawPoint)(*(undefined4 *)((int)g_pRdCurrentCamera + 4),(int)lVar1);
+    ((code *)rdCanvas_DrawPoint)(*(undefined4 *)((int)g_pRdCamera_CurCamera + 4),(int)lVar1);
   }
   return;
 }
@@ -281,7 +281,7 @@ void rdPrimit3_ClipFace(undefined4 param_1,undefined4 param_2,int param_3,undefi
         puVar12[2] = puVar9[2];
       } while (uVar8 < *param_5);
     }
-    if (*(int *)g_pRdCurrentCamera != 1) {
+    if (*(int *)g_pRdCamera_CurCamera != 1) {
       uVar7 = rdClip_Face3_PosB(param_1,param_6[3],*param_5);
       *param_6 = uVar7;
       return;
@@ -374,7 +374,7 @@ void rdPrimit3_ClipFace(undefined4 param_1,undefined4 param_2,int param_3,undefi
           } while (uVar8 < *param_5);
         }
       }
-      if (*(int *)g_pRdCurrentCamera != 1) {
+      if (*(int *)g_pRdCamera_CurCamera != 1) {
         uVar7 = rdClip_Face3_PosUv(param_1,param_6[3],param_6[5],*param_5);
         *param_6 = uVar7;
         return;
@@ -412,7 +412,7 @@ void rdPrimit3_ClipFace(undefined4 param_1,undefined4 param_2,int param_3,undefi
             *(float *)(param_6[4] + 4 + iVar3) = *(float *)(param_6[4] + 4 + iVar10) + param_7[1];
           } while (uVar8 < *puVar6);
         }
-        if (*(int *)g_pRdCurrentCamera == 1) {
+        if (*(int *)g_pRdCamera_CurCamera == 1) {
           uVar7 = PUN(undefined4,(float)(rdClip_Face3_PosUvLit_2(param_1,param_6[3],param_6[4],*puVar6)));
           *param_6 = uVar7;
           return;
@@ -490,7 +490,7 @@ void rdPrimit3_ClipFace(undefined4 param_1,undefined4 param_2,int param_3,undefi
             } while (param_5 < *puVar6);
           }
         }
-        if (*(int *)g_pRdCurrentCamera != 1) {
+        if (*(int *)g_pRdCamera_CurCamera != 1) {
           uVar7 = rdClip_Face3_PosUvLitFlags(param_1,puVar9[3],puVar9[4],puVar9[5],*puVar6);
           *puVar9 = uVar7;
           return;
@@ -504,7 +504,7 @@ void rdPrimit3_ClipFace(undefined4 param_1,undefined4 param_2,int param_3,undefi
 switchD_0040dec1_default:
     return;
   }
-  if (*(int *)g_pRdCurrentCamera != 1) {
+  if (*(int *)g_pRdCamera_CurCamera != 1) {
     uVar7 = rdClip_Face3_PosB_2(param_1,param_6[3],*param_5);
     *param_6 = uVar7;
     return;

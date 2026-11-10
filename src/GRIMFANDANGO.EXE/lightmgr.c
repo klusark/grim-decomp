@@ -61,6 +61,6 @@ void LightMgr_UpdateDialog(undefined4 param_1)
     LightEd_FillListBox(param_1);
     return;
   }
-  (*g_pSvcMain->pDebug)(0,s_LightManager_UpdateDialog__No_cu_004f0e3c);
+  (*g_pStd_HS->pDebug)(0,s_LightManager_UpdateDialog__No_cu_004f0e3c);
   return;
 }

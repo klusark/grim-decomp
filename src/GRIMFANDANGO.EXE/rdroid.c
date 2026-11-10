@@ -14,7 +14,7 @@ int __cdecl rdroid_Startup(GrimServices *svc)
   if (UINT_004f5eb8 != 0) {
     return 1;
   }
-  g_pSvcRdroid = svc;
+  g_pRdroid_HS = svc;
   Plat_ReturnTrue();
   Plat_ReturnTrue();
   rdroid_BuildMathTables();
@@ -41,19 +41,19 @@ int __cdecl rdroid_Open(int flags)
 {
   if (UINT_004f5ebc == 0) {
     g_nRdroidGeometryMode = 5;
-    g_nRdroidLightingMode = 5;
-    g_nRdroidTextureMode = 3;
-    g_dwRdroidFlags = 1;
-    g_nRdroidSortMode = 0;
-    g_nRdroidOcclusionMode = 0;
-    _DAT_00900068 = 1;
+    g_nRdroid_curLightingMode = 5;
+    g_nRdroid_curTextureMode = 3;
+    g_dwRdroid_curRenderOptions = 1;
+    g_nRdroid_curSortingMethod = 0;
+    g_nRdroid_curOcclusionMethod = 0;
+    _g_bRdroid_curCullFlags = 1;
     UINT_00900054 = 0;
     stdBitmap_InitHeader(&UINT_00900020);
     UINT_0090004c = 0;
     UINT_004f5eb4 = 0;
     rdroid_InitCaches();
     UINT_004f5ebc = 1;
-    g_nRdroid3DAccel = flags;
+    g_nRdroid_curAcceleration = flags;
   }
   return 1;
 }
@@ -69,12 +69,12 @@ void rdroid_Close(void)
 }
 
 /* ---- 0x00404290  rdroid_SetRenderFlags ---- */
-/* Sets g_dwRdroidFlags (bit 1: apply camera fog/attenuation at +0x54) */
+/* Sets g_dwRdroid_curRenderOptions (bit 1: apply camera fog/attenuation at +0x54) */
 
 void rdroid_SetRenderFlags(uint param_1)
 
 {
-  g_dwRdroidFlags = param_1;
+  g_dwRdroid_curRenderOptions = param_1;
   return;
 }
 
@@ -92,7 +92,7 @@ void rdroid_SetGeometryMode(int param_1)
 void rdroid_SetLightingMode(int param_1)
 
 {
-  g_nRdroidLightingMode = param_1;
+  g_nRdroid_curLightingMode = param_1;
   return;
 }
 
@@ -100,7 +100,7 @@ void rdroid_SetLightingMode(int param_1)
 void rdroid_SetTextureMode(int param_1)
 
 {
-  g_nRdroidTextureMode = param_1;
+  g_nRdroid_curTextureMode = param_1;
   return;
 }
 
@@ -110,7 +110,7 @@ void rdroid_SetTextureMode(int param_1)
 void rdroid_SetSortMode(int param_1)
 
 {
-  g_nRdroidSortMode = param_1;
+  g_nRdroid_curSortingMethod = param_1;
   return;
 }
 
@@ -120,7 +120,7 @@ void rdroid_SetSortMode(int param_1)
 void rdroid_SetOcclusionMode(int param_1)
 
 {
-  g_nRdroidOcclusionMode = param_1;
+  g_nRdroid_curOcclusionMethod = param_1;
   return;
 }
 
@@ -130,7 +130,7 @@ void rdroid_SetOcclusionMode(int param_1)
 void rdroid_SetZBufferMode(int param_1)
 
 {
-  g_nRdroidZBufferMode = param_1;
+  g_nRdroid_curZBufferMethod = param_1;
   return;
 }
 
@@ -163,7 +163,7 @@ void rdroid_EndFrame(void)
 void rdroid_InitCaches(void)
 
 {
-  rdCache_ClearStats();
+  rdCache_ClearFrameCounters();
   rdCanvas_ResetPolyCount();
   rdCamera_ResetStats();
   return;
@@ -176,7 +176,7 @@ undefined4 rdroid_SetColormap(uint param_1)
   if (UINT_004f5ec0 != param_1) {
     UINT_004f5ec0 = param_1;
   }
-  if (UINT_004f5ec4 == 0) {
+  if (g_dwRdColormap_pCurMap == 0) {
     rdColormap_SetCurrent(param_1);
   }
   return 1;

@@ -18,8 +18,8 @@ void __cdecl List_Unlink(void *obj)
     if (*(undefined4 **)((int)obj + 4) != (undefined4 *)0x0) {
       **(undefined4 **)((int)obj + 4) = *(undefined4 *)obj;
     }
-    if (obj == g_pTextObjectList) {
-      g_pTextObjectList = *(void **)obj;
+    if (obj == g_pTextQueue) {
+      g_pTextQueue = *(void **)obj;
     }
     Pool_Free(obj);
   }

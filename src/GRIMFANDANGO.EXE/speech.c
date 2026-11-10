@@ -11,8 +11,8 @@
 void __cdecl Speech_SetMode(int mode)
 
 {
-  if ((mode != g_dwSpeechMode) && ((mode & 3U) != 0)) {
-    g_dwSpeechMode = mode;
+  if ((mode != g_dwSmSpeechMode) && ((mode & 3U) != 0)) {
+    g_dwSmSpeechMode = mode;
   }
   return;
 }
@@ -25,5 +25,5 @@ void __cdecl Speech_SetMode(int mode)
 uint sputActor_GetSpeechMode(void)
 
 {
-  return g_dwSpeechMode;
+  return g_dwSmSpeechMode;
 }

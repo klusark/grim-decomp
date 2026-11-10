@@ -41,8 +41,8 @@ int __cdecl VideoBitmap_Create(void *out,int width,int height,int format)
     iVar2 = 4;
     break;
   case -1:
-    if (UINT_008da89c == 0) goto LAB_004ce7b5;
-    iVar2 = (**(code **)(UINT_008da89c + 4))();
+    if (g_dwVideo_video_services == 0) goto LAB_004ce7b5;
+    iVar2 = (**(code **)(g_dwVideo_video_services + 4))();
     iVar2 = *(int *)(iVar2 + 0xc);
     break;
   default:
@@ -50,7 +50,7 @@ LAB_004ce7b5:
     FUN_004d5f70();
     return -1;
   }
-  iVar1 = (*(code *)*PTR_008da890)
+  iVar1 = (*(code *)*g_pVideo_memory_services)
                     (iVar2 * height * width + 0x5c + local_4 * 4,
                      s_C__grimsrc_libs_lecsmush_insane__004f3d64,200);
   if (iVar1 == 0) {

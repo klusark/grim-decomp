@@ -86,7 +86,7 @@ uint __cdecl zffilbuf(int *param_1)
   int iVar2;
   
   pbVar1 = (byte *)(param_1 + 5);
-  iVar2 = (**(code **)(DAT_1002beb8 + 0x38))(param_1[3],pbVar1,0x100);
+  iVar2 = (**(code **)(g_dwLuaHS + 0x38))(param_1[3],pbVar1,0x100);
   if (iVar2 == 0) {
     return 0xffffffff;
   }

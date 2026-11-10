@@ -60,16 +60,16 @@ void lgc__4fc0(void)
   uint uVar3;
   
   uVar3 = 0;
-  if (DAT_1002bf08 != 0) {
+  if (g_dwLState_refSize != 0) {
     iVar2 = 0;
     do {
-      if ((((undefined4 *)(DAT_1002bf34 + iVar2))[2] == 1) &&
-         (iVar1 = lgc__5010((undefined4 *)(DAT_1002bf34 + iVar2)), iVar1 == 0)) {
-        *(undefined4 *)(DAT_1002bf34 + 8 + iVar2) = 3;
+      if ((((undefined4 *)(g_dwLState_refArray + iVar2))[2] == 1) &&
+         (iVar1 = lgc__5010((undefined4 *)(g_dwLState_refArray + iVar2)), iVar1 == 0)) {
+        *(undefined4 *)(g_dwLState_refArray + 8 + iVar2) = 3;
       }
       uVar3 = uVar3 + 1;
       iVar2 = iVar2 + 0xc;
-    } while (uVar3 < DAT_1002bf08);
+    } while (uVar3 < g_dwLState_refSize);
   }
   return;
 }
@@ -141,15 +141,15 @@ void luaC_travstack(void)
   uint uVar2;
   
   uVar2 = 0;
-  if (DAT_1002bf08 != 0) {
+  if (g_dwLState_refSize != 0) {
     iVar1 = 0;
     do {
-      if (((undefined4 *)(DAT_1002bf34 + iVar1))[2] == 0) {
-        markobject((undefined4 *)(DAT_1002bf34 + iVar1));
+      if (((undefined4 *)(g_dwLState_refArray + iVar1))[2] == 0) {
+        markobject((undefined4 *)(g_dwLState_refArray + iVar1));
       }
       uVar2 = uVar2 + 1;
       iVar1 = iVar1 + 0xc;
-    } while (uVar2 < DAT_1002bf08);
+    } while (uVar2 < g_dwLState_refSize);
   }
   return;
 }
@@ -162,7 +162,8 @@ void luaC_travglobal(void)
 {
   undefined4 *puVar1;
   
-  for (puVar1 = DAT_1002bf00; puVar1 != (undefined4 *)0x0; puVar1 = (undefined4 *)*puVar1) {
+  for (puVar1 = g_dwLState_rootglobal; puVar1 != (undefined4 *)0x0; puVar1 = (undefined4 *)*puVar1)
+  {
     if (puVar1[4] != -7) {
       markobject(puVar1 + 4);
       luaC_strmark((int)puVar1);
@@ -314,7 +315,7 @@ void __cdecl hashmark(int param_1)
 void luaC_checkGC(void)
 
 {
-  if (DAT_1002bf64 <= DAT_1002beec) {
+  if (g_dwLState_GCthreshold <= g_dwLState_nblocks) {
     lua_collectgarbage(0);
   }
   return;
@@ -351,7 +352,7 @@ void io_readfrom(void)
     pbVar3 = (byte *)0x0;
   }
   else {
-    pbVar3 = (byte *)(**(code **)(DAT_1002beb8 + 0x30))(pcVar4,&DAT_10026a80);
+    pbVar3 = (byte *)(**(code **)(g_dwLuaHS + 0x30))(pcVar4,&DAT_10026a80);
   }
   if (pbVar3 == (byte *)0x0) {
     io_pushresult(0);

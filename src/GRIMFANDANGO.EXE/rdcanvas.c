@@ -18,9 +18,9 @@ void rdCanvas_InitEdgeTables(void)
   int iVar4;
   undefined4 *puVar5;
   
-  iVar4 = *(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x1c);
+  iVar4 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x1c);
   _DAT_004f6ef8 = 0xffff0000;
-  uVar1 = (*(int *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0x24) - iVar4) + 1;
+  uVar1 = (*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x24) - iVar4) + 1;
   UINT_004f6f20 = (uint)&DAT_005e6f40;
   _DAT_005e6f8c = &DAT_004f6ed0;
   puVar5 = (undefined4 *)(&DAT_004f5ec8 + iVar4 * 4);
@@ -563,13 +563,13 @@ void rdCanvas_BuildEdgeLists(void)
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   uVar10 = 0;
-  puVar8 = &DAT_008ddfc0;
-  if (g_dwRdCacheMeshCount != 0) {
+  puVar8 = &g_bRdCache_aProcFaces;
+  if (g_dwRdCache_numProcFaces != 0) {
     do {
       rdCanvas_PreparePolygon(puVar8);
       puVar8 = puVar8 + 0x78;
       uVar10 = uVar10 + 1;
-    } while (uVar10 < g_dwRdCacheMeshCount);
+    } while (uVar10 < g_dwRdCache_numProcFaces);
   }
   puVar11 = &UINT_00565f38;
   puVar9 = &DAT_0050df38;
@@ -662,12 +662,12 @@ undefined4 rdCanvas_PreparePolygon(byte *param_1)
     local_4 = PUN(float,g_nRdroidGeometryMode);
   }
   param_1 = *(byte **)(param_1 + 0xc);
-  if (g_nRdroidLightingMode <= (int)param_1) {
-    param_1 = (byte *)g_nRdroidLightingMode;
+  if (g_nRdroid_curLightingMode <= (int)param_1) {
+    param_1 = (byte *)g_nRdroid_curLightingMode;
   }
   iVar10 = *(int *)(pbVar5 + 0x10);
-  if (g_nRdroidTextureMode <= *(int *)(pbVar5 + 0x10)) {
-    iVar10 = g_nRdroidTextureMode;
+  if (g_nRdroid_curTextureMode <= *(int *)(pbVar5 + 0x10)) {
+    iVar10 = g_nRdroid_curTextureMode;
   }
   if (local_4 == 0.0) {
     return 0;
@@ -712,7 +712,7 @@ LAB_0040583c:
     fVar6 = 4.2039e-45;
   }
 LAB_0040585d:
-  if (((byte)g_dwRdroidFlags & 2) == 0) {
+  if (((byte)g_dwRdroid_curRenderOptions & 2) == 0) {
     local_4 = 0.0;
   }
   else {
@@ -721,7 +721,7 @@ LAB_0040585d:
   if (fVar6 == 2.8026e-45) {
     if ((-1 < (int)param_1) && ((int)param_1 < 5)) {
       if ((*pbVar5 & 1) == 0) {
-        if (g_nRdroidZBufferMode == 1) {
+        if (g_nRdroid_curZBufferMethod == 1) {
           rdRaster_Select_Flat(puVar2,pbVar9);
         }
       }
@@ -734,7 +734,7 @@ LAB_0040585d:
     switch((int)(param_1)) {
     case 0x0:
       if ((*pbVar5 & 1) == 0) {
-        if (g_nRdroidZBufferMode == 1) {
+        if (g_nRdroid_curZBufferMethod == 1) {
           rdRaster_Select_Flat_2(puVar2,pbVar9);
         }
       }
@@ -766,7 +766,7 @@ LAB_0040585d:
       fVar6 = local_4 * 63.0;
       *(float *)(pbVar5 + 0x44) = fVar6;
       if ((*pbVar5 & 1) == 0) {
-        if (g_nRdroidZBufferMode == 1) {
+        if (g_nRdroid_curZBufferMethod == 1) {
           rdRaster_Select_TexLit(puVar2,pbVar9,fVar6);
         }
       }
@@ -799,7 +799,7 @@ LAB_0040585d:
       fVar6 = local_4 * 63.0;
       *(float *)(pbVar5 + 0x44) = fVar6;
       if ((*pbVar5 & 1) == 0) {
-        if (g_nRdroidZBufferMode == 1) {
+        if (g_nRdroid_curZBufferMethod == 1) {
           rdRaster_Select_TexLit(puVar2,pbVar9,fVar6);
         }
       }
@@ -839,7 +839,7 @@ LAB_0040585d:
         } while (uVar8 < *(uint *)(pbVar5 + 0x1c));
       }
       if ((*pbVar5 & 1) == 0) {
-        if (g_nRdroidZBufferMode == 1) {
+        if (g_nRdroid_curZBufferMethod == 1) {
           rdRaster_Select_FlatLit(puVar2,pbVar9);
         }
       }
@@ -854,7 +854,7 @@ LAB_0040585d:
         switch((int)(param_1)) {
         case 0x0:
           if ((*pbVar5 & 1) == 0) {
-            if (g_nRdroidZBufferMode == 1) {
+            if (g_nRdroid_curZBufferMethod == 1) {
               rdRaster_Select_FlatLit_2(puVar2,pbVar9);
             }
           }
@@ -886,7 +886,7 @@ LAB_0040585d:
           fVar6 = local_4 * 63.0;
           *(float *)(pbVar5 + 0x44) = fVar6;
           if ((*pbVar5 & 1) == 0) {
-            if (g_nRdroidZBufferMode == 1) {
+            if (g_nRdroid_curZBufferMethod == 1) {
               rdRaster_Select_FlatLit_4(puVar2,pbVar9,fVar6);
             }
           }
@@ -919,7 +919,7 @@ LAB_0040585d:
           fVar6 = local_4 * 63.0;
           *(float *)(pbVar5 + 0x44) = fVar6;
           if ((*pbVar5 & 1) == 0) {
-            if (g_nRdroidZBufferMode == 1) {
+            if (g_nRdroid_curZBufferMethod == 1) {
               rdRaster_Select_FlatLit_4(puVar2,pbVar9,fVar6);
             }
           }
@@ -959,7 +959,7 @@ LAB_0040585d:
             } while (uVar8 < *(uint *)(pbVar5 + 0x1c));
           }
           if ((*pbVar5 & 1) == 0) {
-            if (g_nRdroidZBufferMode == 1) {
+            if (g_nRdroid_curZBufferMethod == 1) {
               rdRaster_Select_FlatLit_6(puVar2,pbVar9);
             }
           }
@@ -972,7 +972,7 @@ LAB_0040585d:
         switch((int)(param_1)) {
         case 0x0:
           if ((*pbVar5 & 1) == 0) {
-            if (g_nRdroidZBufferMode == 1) {
+            if (g_nRdroid_curZBufferMethod == 1) {
               rdRaster_Select_FlatLit_8(puVar2,pbVar9);
             }
           }
@@ -1004,7 +1004,7 @@ LAB_0040585d:
           fVar6 = local_4 * 63.0;
           *(float *)(pbVar5 + 0x44) = fVar6;
           if ((*pbVar5 & 1) == 0) {
-            if (g_nRdroidZBufferMode == 1) {
+            if (g_nRdroid_curZBufferMethod == 1) {
               rdRaster_Select_FlatLit_10(puVar2,pbVar9,fVar6);
             }
           }
@@ -1037,7 +1037,7 @@ LAB_0040585d:
           fVar6 = local_4 * 63.0;
           *(float *)(pbVar5 + 0x44) = fVar6;
           if ((*pbVar5 & 1) == 0) {
-            if (g_nRdroidZBufferMode == 1) {
+            if (g_nRdroid_curZBufferMethod == 1) {
               rdRaster_Select_FlatLit_10(puVar2,pbVar9,fVar6);
             }
           }
@@ -1077,7 +1077,7 @@ LAB_0040585d:
             } while (uVar8 < *(uint *)(pbVar5 + 0x1c));
           }
           if ((*pbVar5 & 1) == 0) {
-            if (g_nRdroidZBufferMode == 1) {
+            if (g_nRdroid_curZBufferMethod == 1) {
               rdRaster_Select_FlatLit_12(puVar2,pbVar9);
             }
           }
@@ -1091,7 +1091,7 @@ LAB_0040585d:
       switch((int)(param_1)) {
       case 0x0:
         if ((*pbVar5 & 1) == 0) {
-          if (g_nRdroidZBufferMode == 1) {
+          if (g_nRdroid_curZBufferMethod == 1) {
             rdRaster_Select_FlatLit_3(puVar2,pbVar9);
           }
         }
@@ -1123,7 +1123,7 @@ LAB_0040585d:
         fVar6 = local_4 * 63.0;
         *(float *)(pbVar5 + 0x44) = fVar6;
         if ((*pbVar5 & 1) == 0) {
-          if (g_nRdroidZBufferMode == 1) {
+          if (g_nRdroid_curZBufferMethod == 1) {
             rdRaster_Select_FlatLit_5(puVar2,pbVar9,fVar6);
           }
         }
@@ -1156,7 +1156,7 @@ LAB_0040585d:
         fVar6 = local_4 * 63.0;
         *(float *)(pbVar5 + 0x44) = fVar6;
         if ((*pbVar5 & 1) == 0) {
-          if (g_nRdroidZBufferMode == 1) {
+          if (g_nRdroid_curZBufferMethod == 1) {
             rdRaster_Select_FlatLit_5(puVar2,pbVar9,fVar6);
           }
         }
@@ -1196,7 +1196,7 @@ LAB_0040585d:
           } while (uVar8 < *(uint *)(pbVar5 + 0x1c));
         }
         if ((*pbVar5 & 1) == 0) {
-          if (g_nRdroidZBufferMode == 1) {
+          if (g_nRdroid_curZBufferMethod == 1) {
             rdRaster_Select_FlatLit_7(puVar2,pbVar9);
           }
         }
@@ -1209,7 +1209,7 @@ LAB_0040585d:
       switch((int)(param_1)) {
       case 0x0:
         if ((*pbVar5 & 1) == 0) {
-          if (g_nRdroidZBufferMode == 1) {
+          if (g_nRdroid_curZBufferMethod == 1) {
             rdRaster_Select_FlatLit_9(puVar2,pbVar9);
           }
         }
@@ -1241,7 +1241,7 @@ LAB_0040585d:
         fVar6 = local_4 * 63.0;
         *(float *)(pbVar5 + 0x44) = fVar6;
         if ((*pbVar5 & 1) == 0) {
-          if (g_nRdroidZBufferMode == 1) {
+          if (g_nRdroid_curZBufferMethod == 1) {
             rdRaster_Select_FlatLit_11(puVar2,pbVar9,fVar6);
           }
         }
@@ -1274,7 +1274,7 @@ LAB_0040585d:
         fVar6 = local_4 * 63.0;
         *(float *)(pbVar5 + 0x44) = fVar6;
         if ((*pbVar5 & 1) == 0) {
-          if (g_nRdroidZBufferMode == 1) {
+          if (g_nRdroid_curZBufferMethod == 1) {
             rdRaster_Select_FlatLit_11(puVar2,pbVar9,fVar6);
           }
         }
@@ -1314,7 +1314,7 @@ LAB_0040585d:
           } while (uVar8 < *(uint *)(pbVar5 + 0x1c));
         }
         if ((*pbVar5 & 1) == 0) {
-          if (g_nRdroidZBufferMode == 1) {
+          if (g_nRdroid_curZBufferMethod == 1) {
             rdRaster_Select_FlatLit_13(puVar2,pbVar9);
           }
         }
@@ -1508,7 +1508,7 @@ uint * rdCanvas_New(uint param_1,uint param_2,uint param_3,uint param_4,uint par
 {
   uint *canvas;
   
-  canvas = (uint *)(*g_pSvcRdroid->pAlloc)
+  canvas = (uint *)(*g_pRdroid_HS->pAlloc)
                              (0x28,s_C__grimjedi_Libs_RDroid_Engine_R_004f0edc,DAT_004f0ed8 + 4);
   if (canvas == (uint *)0x0) {
     return (uint *)0x0;
@@ -1552,7 +1552,7 @@ void rdCanvas_Free(int param_1)
 {
   if (param_1 != 0) {
     ((code *)Mem_DumpLog)(param_1);
-    (*g_pSvcRdroid->pFree)(param_1);
+    (*g_pRdroid_HS->pFree)(param_1);
   }
   return;
 }

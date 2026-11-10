@@ -17,7 +17,7 @@ void __cdecl Sector_DrawAllDebug(void)
   uint uVar2;
   uint color;
   
-  this = g_pSectorList;
+  this = g_pWalkPlane_wp_head;
   do {
     if (this == (void *)0x0) {
       return;
@@ -67,7 +67,7 @@ void sputLua_CollisionHandler(int param_1,int param_2,float *param_3,float *para
   bVar1 = false;
   bVar2 = false;
   lua_beginblock();
-  iVar3 = lua_getref(g_nLuaSystemTableRef);
+  iVar3 = lua_getref(g_nLrSystemTable);
   lua_pushobject(iVar3);
   lua_pushstring(s_collisionHandler_004ec3fc);
   iVar3 = lua_gettable();
@@ -98,8 +98,8 @@ void sputLua_CollisionHandler(int param_1,int param_2,float *param_3,float *para
     if (bVar2) {
       lua_pushobject(iVar3);
     }
-    lua_pushusertag((char *)((param_1 - (int)g_pActorTable) / 0xa8),0x52544341);
-    lua_pushusertag((char *)((param_2 - (int)g_pActorTable) / 0xa8),0x52544341);
+    lua_pushusertag((char *)((param_1 - (int)g_pActors) / 0xa8),0x52544341);
+    lua_pushusertag((char *)((param_2 - (int)g_pActors) / 0xa8),0x52544341);
     lua_pushnumber(*param_3);
     lua_pushnumber(param_3[1]);
     lua_pushnumber(param_3[2]);
@@ -118,7 +118,7 @@ void sputLua_CollisionHandler(int param_1,int param_2,float *param_3,float *para
 
 
 /* ---- 0x004a4b00  sputRoom_LoadRoom ---- */
-/* Remembers the set being parsed (UINT_008cb0a8), stores its base file name (+0, 0x7f chars) and
+/* Remembers the set being parsed (g_dwLoadingRoom), stores its base file name (+0, 0x7f chars) and
    parses the sections with SetFile_ParseSections. Original name sputRoom_LoadRoom (the remaster's
    GrimFandango (Linux): the only unmatched caller of SetFile_ParseSections; 1 matched neighbours
    agree, 0 disagree); was SetFile_Parse. */
@@ -131,7 +131,7 @@ int sputRoom_LoadRoom(char *param_1,uint param_2)
   undefined4 uVar3;
   
   uVar3 = 0x7f;
-  UINT_008cb0a8 = param_2;
+  g_dwLoadingRoom = param_2;
   pcVar1 = Str_Basename(param_1);
   strncpy(param_2,pcVar1,uVar3);
   *(undefined1 *)(param_2 + 0x7f) = 0;
@@ -157,7 +157,7 @@ undefined4 SetFile_ParseSections(undefined4 param_1)
   iVar1 = stdConffile_ReadLine();
   if (iVar1 != 0) {
     do {
-      iVar1 = sscanf((char *)UINT_00900520,s_section___s_004ec740,local_20);
+      iVar1 = sscanf((char *)g_dwStdConffile_aLine,s_section___s_004ec740,local_20);
       if (iVar1 == 1) {
         iVar1 = Set_IsHandleValid(local_20);
         if (iVar1 == 0) {
@@ -194,10 +194,10 @@ undefined4 sputRoom_ParseColormaps(void)
   uint uVar6;
   #define local_100 (*(undefined1 (*)[256])(_frame + (0x110 - 0x100)))
   
-  uVar3 = UINT_008cb0a8;
-  piVar1 = (int *)(UINT_008cb0a8 + 0x80);
+  uVar3 = g_dwLoadingRoom;
+  piVar1 = (int *)(g_dwLoadingRoom + 0x80);
   if (*piVar1 != 0) {
-    (*g_pSvcRoom->pAssertFail)
+    (*g_pSputRoomHS->pAssertFail)
               (s_pRoom__apColormaps____NULL_004ec88c,s_C__grimsrc_libs_grimlib_Engine_s_004ec5e0,
                0x91d);
   }
@@ -206,16 +206,16 @@ undefined4 sputRoom_ParseColormaps(void)
     return 1;
   }
   do {
-    if (*(char *)UINT_00900520 != '\0') {
+    if (*(char *)g_dwStdConffile_aLine != '\0') {
       local_100[0] = 0;
-      iVar4 = sscanf((char *)UINT_00900520,s_section___s_004ec7e0,local_100);
+      iVar4 = sscanf((char *)g_dwStdConffile_aLine,s_section___s_004ec7e0,local_100);
       if (iVar4 == 0) {
         piVar2 = (int *)(uVar3 + 0x84);
-        iVar4 = sscanf((char *)UINT_00900520,s_numcolormaps__d_004ec878,piVar2);
+        iVar4 = sscanf((char *)g_dwStdConffile_aLine,s_numcolormaps__d_004ec878,piVar2);
         if (iVar4 == 1) {
           if (*piVar2 == 0) goto LAB_004a5c4e;
           puVar5 = (undefined4 *)
-                   (*g_pSvcRoom->pAlloc)
+                   (*g_pSputRoomHS->pAlloc)
                              (*piVar2 * 0x34,s_C__grimsrc_libs_grimlib_Engine_s_004ec5e0,0x935);
           iVar4 = *piVar2;
           *piVar1 = (int)puVar5;
@@ -229,7 +229,7 @@ undefined4 sputRoom_ParseColormaps(void)
           }
         }
         if (*piVar1 != 0) {
-          sscanf((char *)UINT_00900520,s_colormap__s_004ec868,uVar3 + 0x8c);
+          sscanf((char *)g_dwStdConffile_aLine,s_colormap__s_004ec868,uVar3 + 0x8c);
         }
       }
       else {
@@ -260,7 +260,7 @@ undefined4 sputRoom_ParseSectors(void)
 {
   int iVar1;
   
-  iVar1 = SetFile_ParseSectors(UINT_008cb0a8);
+  iVar1 = SetFile_ParseSectors(g_dwLoadingRoom);
   if (iVar1 != 0) {
     Set_IsHandleValid(iVar1);
   }
@@ -285,13 +285,15 @@ void SectorList_SaveForShrink(void)
   SectorList_FreeShrinkSave();
   g_nShrinkVertexCount = 0;
   g_nShrinkSectorCount = 0;
-  for (pvVar4 = g_pSectorList; pvVar4 != (void *)0x0; pvVar4 = *(void **)((int)pvVar4 + 0x70)) {
+  for (pvVar4 = g_pWalkPlane_wp_head; pvVar4 != (void *)0x0; pvVar4 = *(void **)((int)pvVar4 + 0x70)
+      ) {
     g_nShrinkVertexCount = g_nShrinkVertexCount + *(int *)((int)pvVar4 + 0x34);
     g_nShrinkSectorCount = g_nShrinkSectorCount + 1;
   }
   g_pShrinkVertexSave = Plat_Alloc(g_nShrinkVertexCount * 0x14);
   local_4 = 0;
-  for (pvVar4 = g_pSectorList; pvVar4 != (void *)0x0; pvVar4 = *(void **)((int)pvVar4 + 0x70)) {
+  for (pvVar4 = g_pWalkPlane_wp_head; pvVar4 != (void *)0x0; pvVar4 = *(void **)((int)pvVar4 + 0x70)
+      ) {
     iVar6 = 0;
     if (0 < *(int *)((int)pvVar4 + 0x34)) {
       iVar8 = local_4 * 0x14;
@@ -312,9 +314,9 @@ void SectorList_SaveForShrink(void)
     }
   }
   g_pShrinkSectorSave = Plat_Alloc(g_nShrinkSectorCount * 0x34);
-  if (g_pSectorList != (void *)0x0) {
+  if (g_pWalkPlane_wp_head != (void *)0x0) {
     iVar6 = 0;
-    pvVar4 = g_pSectorList;
+    pvVar4 = g_pWalkPlane_wp_head;
     do {
       iVar8 = 0;
       *(void **)((int)g_pShrinkSectorSave + iVar6) = pvVar4;
@@ -374,7 +376,7 @@ void SectorList_RestoreAfterShrink(void)
   int iVar8;
   int iVar9;
   
-  pvVar2 = g_pSectorList;
+  pvVar2 = g_pWalkPlane_wp_head;
   piVar3 = g_pShrinkVertexSave;
   iVar8 = g_nShrinkVertexCount;
   if (UINT_008d0868 != 0) {
@@ -614,15 +616,15 @@ LAB_004a66ac:
     *(void **)((&UINT_008cf288)[iVar7 * 10] + 0x6c) = this;
   }
   (&UINT_008cf288)[iVar7 * 10] = (uint)this;
-  g_pSectorList = this;
+  g_pWalkPlane_wp_head = this;
   return this;
 }
 #undef local_2
 
 
 /* ---- 0x004a66e0  Sector_Unlink ---- */
-/* __fastcall: unlinks a sector from g_pSectorList and the per-type sector lists and releases its
-   vertex pool entries. */
+/* __fastcall: unlinks a sector from g_pWalkPlane_wp_head and the per-type sector lists and releases
+   its vertex pool entries. */
 
 void __fastcall Sector_Unlink(void *param_1)
 
@@ -631,8 +633,8 @@ void __fastcall Sector_Unlink(void *param_1)
   int iVar2;
   undefined4 *puVar3;
   
-  if (param_1 == g_pSectorList) {
-    g_pSectorList = *(void **)((int)param_1 + 0x70);
+  if (param_1 == g_pWalkPlane_wp_head) {
+    g_pWalkPlane_wp_head = *(void **)((int)param_1 + 0x70);
   }
   iVar2 = 0;
   puVar1 = &UINT_008cf288;
@@ -1210,8 +1212,8 @@ void * SectorList_FindByPoint(float *param_1,uint param_2)
   int iVar2;
   void *this;
   
-  this = g_pSectorList;
-  if (g_pSectorList == (void *)0x0) {
+  this = g_pWalkPlane_wp_head;
+  if (g_pWalkPlane_wp_head == (void *)0x0) {
     return (void *)0x0;
   }
   while (((*(uint *)((int)this + 0x24) & param_2) == 0 ||
@@ -1240,7 +1242,7 @@ void * __cdecl WalkPlane_PlaneNamed(char *name)
   byte *pbVar5;
   bool bVar6;
   
-  pbVar2 = g_pSectorList;
+  pbVar2 = g_pWalkPlane_wp_head;
   do {
     pbVar3 = pbVar2;
     pbVar5 = (byte *)name;
@@ -1277,7 +1279,8 @@ void * __cdecl Sector_FindById(int id)
 {
   void *pvVar1;
   
-  for (pvVar1 = g_pSectorList; (pvVar1 != (void *)0x0 && (*(int *)((int)pvVar1 + 0x20) != id));
+  for (pvVar1 = g_pWalkPlane_wp_head;
+      (pvVar1 != (void *)0x0 && (*(int *)((int)pvVar1 + 0x20) != id));
       pvVar1 = *(void **)((int)pvVar1 + 0x70)) {
   }
   return pvVar1;
@@ -1305,7 +1308,7 @@ void * SectorList_FindNearestPoint(float *param_1,uint param_2)
   local_10 = 3.4028235e+38;
   pvVar3 = (void *)SectorList_FindByPoint(param_1,param_2);
   pvVar2 = (void *)0x0;
-  this = g_pSectorList;
+  this = g_pWalkPlane_wp_head;
   if (pvVar3 == (void *)0x0) {
     for (; pvVar3 = pvVar2, this != (void *)0x0; this = *(void **)((int)this + 0x70)) {
       if ((((*(uint *)((int)this + 0x24) & param_2) != 0) && (*(int *)((int)this + 0x2c) != 0)) &&
@@ -1634,7 +1637,8 @@ void SectorList_ResetFree(void)
 {
   void *pvVar1;
   
-  for (pvVar1 = g_pSectorList; pvVar1 != (void *)0x0; pvVar1 = *(void **)((int)pvVar1 + 0x70)) {
+  for (pvVar1 = g_pWalkPlane_wp_head; pvVar1 != (void *)0x0; pvVar1 = *(void **)((int)pvVar1 + 0x70)
+      ) {
     *(undefined4 *)((int)pvVar1 + 0x2c) = 1;
   }
   return;
@@ -1653,7 +1657,7 @@ float * SectorVertexPool_GetOrAdd(undefined4 param_1,float *param_2)
   
   pfVar4 = (float *)0x0;
   if (0x3fd < (int)UINT_008cf26c) {
-    (*g_pSvcMain->pAssertFail)
+    (*g_pStd_HS->pAssertFail)
               (s_tot_verts___MAX_DB_VERTS___2_004ec8a8,s_C__grimsrc_libs_grimlib_Engine_W_004ec8c8,
                0x3ce);
   }
@@ -1768,7 +1772,7 @@ LAB_004a8147:
       return puVar8;
     }
     uVar9 = 0xffffffff;
-    pcVar11 = (char *)UINT_00900520;
+    pcVar11 = (char *)g_dwStdConffile_aLine;
     do {
       pcVar13 = pcVar11;
       if (uVar9 == 0) break;
@@ -2294,7 +2298,7 @@ float __thiscall Sector_EdgeDistance(void *this,int edge,float *point)
   #define fStack_4 (*(float *)(_frame + (0x50 - 0x4)))
   
   if (*(int *)((int)this + 0x34) <= edge) {
-    (*g_pSvcMain->pAssertFail)
+    (*g_pStd_HS->pAssertFail)
               (s_edge_index___num_verts_004ec9b8,s_C__grimsrc_libs_grimlib_Engine_W_004ec8c8,0x6c8);
   }
   iVar1 = *(int *)((int)this + edge * 4 + 0x38);
@@ -2547,8 +2551,8 @@ void __cdecl ShrinkBoxes(float radius)
       *puVar12 = 0;
       puVar12 = puVar12 + 1;
     }
-    this = g_pSectorList;
-    if (g_pSectorList != (void *)0x0) {
+    this = g_pWalkPlane_wp_head;
+    if (g_pWalkPlane_wp_head != (void *)0x0) {
 LAB_004a9d53:
       if (((*(uint *)((int)this + 0x24) & 0x1000) != 0) && (*(int *)((int)this + 0x28) != 0)) {
 LAB_004a9d6a:

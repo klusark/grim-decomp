@@ -18,7 +18,7 @@ void __cdecl TextObjects_Update(int drawAll)
   
   if (g_nTextObjectsFrozen == 0) {
     iVar2 = Timer_GetFrameMs();
-    obj = g_pTextObjectList;
+    obj = g_pTextQueue;
     while (obj != (undefined4 *)0x0) {
       if (((int)obj[0x94] < 1) && ((*(byte *)(obj + 0x96) & 1) == 0)) {
         puVar1 = (undefined4 *)*obj;

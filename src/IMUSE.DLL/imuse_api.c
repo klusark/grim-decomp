@@ -13,10 +13,10 @@ ImInitFilelist(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefine
   undefined4 *puVar1;
   
                     /* 0x3d70  14  ImInitFilelist */
-  DAT_1002dcf0 = param_1;
-  DAT_1002dcf4 = param_2;
-  DAT_1002dae4 = param_4;
-  DAT_1002dae0 = param_3;
+  g_dwLoadSoundFunc = param_1;
+  g_dwUnloadSoundFunc = param_2;
+  g_dwCloseSoundFunc = param_4;
+  g_dwOpenSoundFunc = param_3;
   puVar1 = (undefined4 *)IMG_ADDR(0x1002daec);
   do {
     puVar1[-1] = 0;
@@ -24,7 +24,7 @@ ImInitFilelist(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefine
     puVar1[1] = 0;
     puVar1 = puVar1 + 0xd;
   } while ((int)puVar1 < IMG_ADDR(0x1002dcf4));
-  DAT_1002dd00 = 1;
+  g_dwInitFlag = 1;
   return 0;
 }
 
@@ -39,13 +39,13 @@ int ImSaveFilelist(int *param_1,uint param_2)
   int *piVar5;
   int *piVar6;
   
-  piVar4 = PTR_1002dcf8;
+  piVar4 = g_pLoadedList;
                     /* 0x3dc0  29  ImSaveFilelist */
   if (0x20f < param_2) {
     iVar1 = 8;
     *param_1 = 0;
-    piVar3 = PTR_1002dcfc;
-    for (; PTR_1002dcfc = piVar3, piVar4 != (int *)0x0; piVar4 = (int *)piVar4[1]) {
+    piVar3 = g_pOpenedList;
+    for (; g_pOpenedList = piVar3, piVar4 != (int *)0x0; piVar4 = (int *)piVar4[1]) {
       *param_1 = *param_1 + 1;
       piVar3 = piVar4;
       piVar5 = (int *)(iVar1 + (int)param_1);
@@ -55,7 +55,7 @@ int ImSaveFilelist(int *param_1,uint param_2)
         piVar5 = piVar5 + 1;
       }
       iVar1 = iVar1 + 0x34;
-      piVar3 = PTR_1002dcfc;
+      piVar3 = g_pOpenedList;
     }
     param_1[1] = 0;
     if (piVar3 != (int *)0x0) {
@@ -113,8 +113,8 @@ int ImRestoreFilelist(int *param_1)
       ImPrintf(&DAT_100171b0);
       return 0;
     }
-    if (*(int *)((int)param_1 + iVar4 + 8) != PTR_1002dcf8[2]) goto LAB_10003f3a;
-    PTR_1002dcf8[0xc] = *(int *)((int)param_1 + iVar4 + 0x30);
+    if (*(int *)((int)param_1 + iVar4 + 8) != g_pLoadedList[2]) goto LAB_10003f3a;
+    g_pLoadedList[0xc] = *(int *)((int)param_1 + iVar4 + 0x30);
     iVar4 = iVar4 + 0x34;
   }
   param_1 = (int *)iVar5;
@@ -131,8 +131,8 @@ int ImRestoreFilelist(int *param_1)
       ImPrintf(fmt);
       ImPrintf(&DAT_100171b0);
     }
-    if (*(int *)((int)piVar1 + iVar4 + 8) != PTR_1002dcfc[2]) break;
-    PTR_1002dcfc[0xc] = *(int *)((int)piVar1 + iVar4 + 0x30);
+    if (*(int *)((int)piVar1 + iVar4 + 8) != g_pOpenedList[2]) break;
+    g_pOpenedList[0xc] = *(int *)((int)piVar1 + iVar4 + 0x30);
     iVar4 = iVar5;
     if (param_1 == (int *)0x0) {
       return iVar5;
@@ -154,10 +154,10 @@ int ImLoadSound(char *param_1,undefined4 param_2)
   char *fmt;
   
                     /* 0x3f90  17  ImLoadSound */
-  if ((((DAT_1002dd00 != 0) && (*param_1 != '\0')) && (DAT_1002dcf0 != (code *)0x0)) &&
-     (DAT_1002dcf4 != 0)) {
+  if ((((g_dwInitFlag != 0) && (*param_1 != '\0')) && (g_dwLoadSoundFunc != (code *)0x0)) &&
+     (g_dwUnloadSoundFunc != 0)) {
     iVar2 = ImFindSound(param_1);
-    piVar4 = PTR_1002dcf8;
+    piVar4 = g_pLoadedList;
     if (iVar2 != 0) {
       for (; piVar4 != (int *)0x0; piVar4 = (int *)piVar4[1]) {
         if (iVar2 == piVar4[2]) {
@@ -174,7 +174,7 @@ int ImLoadSound(char *param_1,undefined4 param_2)
         return 0;
       }
     }
-    iVar2 = (*DAT_1002dcf0)(param_1,param_2);
+    iVar2 = (*g_dwLoadSoundFunc)(param_1,param_2);
     if (iVar2 == 0) {
       fmt = (char *)IMG_ADDR(0x100171f4);
     }
@@ -186,7 +186,7 @@ int ImLoadSound(char *param_1,undefined4 param_2)
           *(undefined1 *)(iVar3 + 0xc + (int)piVar4) = 0;
           piVar4[2] = iVar2;
           piVar4[0xc] = 1;
-          FUN_10004460((int *)&PTR_1002dcf8,piVar4);
+          FUN_10004460((int *)&g_pLoadedList,piVar4);
           return iVar2;
         }
         if (0x1f < iVar3) break;
@@ -212,8 +212,9 @@ undefined4 __cdecl ImUnloadSound(int param_1)
   undefined4 uVar2;
   
                     /* 0x40b0  49  ImUnloadSound */
-  if (((DAT_1002dd00 == 0) || (DAT_1002dcf0 == 0)) || (piVar1 = PTR_1002dcf8, DAT_1002dcf4 == 0)) {
-    return PTR_1002dcf8;
+  if (((g_dwInitFlag == 0) || (g_dwLoadSoundFunc == 0)) ||
+     (piVar1 = g_pLoadedList, g_dwUnloadSoundFunc == 0)) {
+    return g_pLoadedList;
   }
   do {
     if (piVar1 == (int *)0x0) {
@@ -239,14 +240,15 @@ undefined4 __cdecl ImUnloadAll(void)
   undefined4 uVar2;
   
                     /* 0x4100  48  ImUnloadAll */
-  if (((DAT_1002dd00 != 0) && (DAT_1002dcf0 != 0)) && (piVar1 = PTR_1002dcf8, DAT_1002dcf4 != 0)) {
+  if (((g_dwInitFlag != 0) && (g_dwLoadSoundFunc != 0)) &&
+     (piVar1 = g_pLoadedList, g_dwUnloadSoundFunc != 0)) {
     for (; piVar1 != (int *)0x0; piVar1 = (int *)piVar1[1]) {
       piVar1[0xc] = 0;
     }
     uVar2 = ImFlushSounds();
     return uVar2;
   }
-  return PTR_1002dcf8;
+  return g_pLoadedList;
 }
 
 /* ---- 0x10004140  ImOpenSound ---- */
@@ -260,10 +262,10 @@ int ImOpenSound(char *param_1,undefined4 param_2)
   char *fmt;
   
                     /* 0x4140  18  ImOpenSound */
-  if ((((DAT_1002dd00 != 0) && (*param_1 != '\0')) && (DAT_1002dae0 != (code *)0x0)) &&
-     (DAT_1002dae4 != 0)) {
+  if ((((g_dwInitFlag != 0) && (*param_1 != '\0')) && (g_dwOpenSoundFunc != (code *)0x0)) &&
+     (g_dwCloseSoundFunc != 0)) {
     iVar2 = ImFindSound(param_1);
-    piVar4 = PTR_1002dcfc;
+    piVar4 = g_pOpenedList;
     if (iVar2 != 0) {
       for (; piVar4 != (int *)0x0; piVar4 = (int *)piVar4[1]) {
         if (iVar2 == piVar4[2]) {
@@ -280,7 +282,7 @@ int ImOpenSound(char *param_1,undefined4 param_2)
         return 0;
       }
     }
-    iVar2 = (*DAT_1002dae0)(param_1,param_2);
+    iVar2 = (*g_dwOpenSoundFunc)(param_1,param_2);
     if (iVar2 == 0) {
       fmt = (char *)IMG_ADDR(0x10017224);
     }
@@ -292,7 +294,7 @@ int ImOpenSound(char *param_1,undefined4 param_2)
           *(undefined1 *)(iVar3 + 0xc + (int)piVar4) = 0;
           piVar4[2] = iVar2;
           piVar4[0xc] = 1;
-          FUN_10004460((int *)&PTR_1002dcfc,piVar4);
+          FUN_10004460((int *)&g_pOpenedList,piVar4);
           return iVar2;
         }
         if (0x1f < iVar3) break;
@@ -318,8 +320,9 @@ undefined4 __cdecl ImCloseSound(int param_1)
   undefined4 uVar2;
   
                     /* 0x4260  4  ImCloseSound */
-  if (((DAT_1002dd00 == 0) || (DAT_1002dae0 == 0)) || (piVar1 = PTR_1002dcfc, DAT_1002dae4 == 0)) {
-    return PTR_1002dcfc;
+  if (((g_dwInitFlag == 0) || (g_dwOpenSoundFunc == 0)) ||
+     (piVar1 = g_pOpenedList, g_dwCloseSoundFunc == 0)) {
+    return g_pOpenedList;
   }
   do {
     if (piVar1 == (int *)0x0) {
@@ -345,14 +348,15 @@ undefined4 __cdecl ImCloseAll(void)
   undefined4 uVar2;
   
                     /* 0x42b0  3  ImCloseAll */
-  if (((DAT_1002dd00 != 0) && (DAT_1002dae0 != 0)) && (piVar1 = PTR_1002dcfc, DAT_1002dae4 != 0)) {
+  if (((g_dwInitFlag != 0) && (g_dwOpenSoundFunc != 0)) &&
+     (piVar1 = g_pOpenedList, g_dwCloseSoundFunc != 0)) {
     for (; piVar1 != (int *)0x0; piVar1 = (int *)piVar1[1]) {
       piVar1[0xc] = 0;
     }
     uVar2 = ImFlushSounds();
     return uVar2;
   }
-  return PTR_1002dcfc;
+  return g_pOpenedList;
 }
 
 /* ---- 0x100042f0  ImFindSound ---- */
@@ -364,8 +368,8 @@ int ImFindSound(char *param_1)
   int *piVar3;
   
                     /* 0x42f0  8  ImFindSound */
-  if (PTR_1002dcf8 != (int *)0x0) {
-    piVar3 = PTR_1002dcf8;
+  if (g_pLoadedList != (int *)0x0) {
+    piVar3 = g_pLoadedList;
     do {
       cVar1 = *param_1;
       for (iVar2 = 0; (cVar1 != '\0' && (*(char *)(iVar2 + 0xc + (int)piVar3) == cVar1));
@@ -377,10 +381,10 @@ int ImFindSound(char *param_1)
       piVar3 = (int *)piVar3[1];
     } while (piVar3 != (int *)0x0);
   }
-  if (PTR_1002dcfc == (int *)0x0) {
+  if (g_pOpenedList == (int *)0x0) {
     return 0;
   }
-  piVar3 = PTR_1002dcfc;
+  piVar3 = g_pOpenedList;
   while( true ) {
     cVar1 = *param_1;
     for (iVar2 = 0; (cVar1 != '\0' && (*(char *)(iVar2 + 0xc + (int)piVar3) == cVar1));
@@ -406,17 +410,17 @@ uint __cdecl ImFlushSounds(void)
   int *piVar2;
   uint in_EAX;
   
-  piVar1 = PTR_1002dcf8;
-  while (piVar2 = piVar1, piVar1 = PTR_1002dcfc, piVar2 != (int *)0x0) {
+  piVar1 = g_pLoadedList;
+  while (piVar2 = piVar1, piVar1 = g_pOpenedList, piVar2 != (int *)0x0) {
     in_EAX = piVar2[0xc];
     piVar1 = (int *)piVar2[1];
     if (((in_EAX == 0) && (in_EAX = ImGetParam(piVar2[2],0x100), in_EAX == 0)) &&
        (in_EAX = ImGetParam(piVar2[2],0x200), in_EAX == 0)) {
-      if (DAT_1002dcf4 != (code *)0x0) {
-        (*DAT_1002dcf4)(piVar2[2]);
+      if (g_dwUnloadSoundFunc != (code *)0x0) {
+        (*g_dwUnloadSoundFunc)(piVar2[2]);
       }
       piVar2[2] = 0;
-      in_EAX = FUN_100044b0((int *)&PTR_1002dcf8,piVar2);
+      in_EAX = FUN_100044b0((int *)&g_pLoadedList,piVar2);
     }
   }
   while (piVar2 = piVar1, piVar2 != (int *)0x0) {
@@ -424,11 +428,11 @@ uint __cdecl ImFlushSounds(void)
     piVar1 = (int *)piVar2[1];
     if (((in_EAX == 0) && (in_EAX = ImGetParam(piVar2[2],0x100), in_EAX == 0)) &&
        (in_EAX = ImGetParam(piVar2[2],0x200), in_EAX == 0)) {
-      if (DAT_1002dae4 != (code *)0x0) {
-        (*DAT_1002dae4)(piVar2[2]);
+      if (g_dwCloseSoundFunc != (code *)0x0) {
+        (*g_dwCloseSoundFunc)(piVar2[2]);
       }
       piVar2[2] = 0;
-      in_EAX = FUN_100044b0((int *)&PTR_1002dcfc,piVar2);
+      in_EAX = FUN_100044b0((int *)&g_pOpenedList,piVar2);
     }
   }
   return in_EAX;
@@ -492,9 +496,9 @@ undefined4 ImInitialize(void)
   int iVar1;
   
                     /* 0x4aa0  15  ImInitialize */
-  if (DAT_1002df0c == 0) {
-    DAT_1002df04 = 0;
-    DAT_1002df08 = 0;
+  if (g_dwIm_initialized == 0) {
+    g_dwRunning50HzCount = 0;
+    g_dwRunning10HzCount = 0;
     iVar1 = Im_GroupsInit();
     if (iVar1 == 0) {
       iVar1 = Im_DSoundReset();
@@ -504,9 +508,9 @@ undefined4 ImInitialize(void)
           iVar1 = Im_InitSubsystems();
           if (iVar1 == 0) {
             DAT_100172c0 = 0;
-            DAT_1002df10 = 0;
-            DAT_1002df00 = 0;
-            DAT_1002df0c = 1;
+            g_dwIntFlag = 0;
+            g_dwPauseCount = 0;
+            g_dwIm_initialized = 1;
             return 0x31;
           }
         }
@@ -533,13 +537,13 @@ int ImPause(void)
   bool bVar2;
   
                     /* 0x4b40  19  ImPause */
-  iVar1 = DAT_1002df00 + 1;
-  bVar2 = DAT_1002df00 == 0;
-  DAT_1002df00 = iVar1;
+  iVar1 = g_dwPauseCount + 1;
+  bVar2 = g_dwPauseCount == 0;
+  g_dwPauseCount = iVar1;
   if (bVar2) {
     TrPause();
   }
-  return DAT_1002df00;
+  return g_dwPauseCount;
 }
 
 /* ---- 0x10004b60  ImResume ---- */
@@ -547,15 +551,15 @@ int ImResume(void)
 
 {
                     /* 0x4b60  27  ImResume */
-  DAT_1002df00 = DAT_1002df00 + -1;
-  if (DAT_1002df00 == 0) {
+  g_dwPauseCount = g_dwPauseCount + -1;
+  if (g_dwPauseCount == 0) {
     TrResume();
-    return DAT_1002df00;
+    return g_dwPauseCount;
   }
-  if (DAT_1002df00 < 0) {
-    DAT_1002df00 = 0;
+  if (g_dwPauseCount < 0) {
+    g_dwPauseCount = 0;
   }
-  return DAT_1002df00;
+  return g_dwPauseCount;
 }
 
 /* ---- 0x10004ba0  ImSave ---- */
@@ -860,24 +864,24 @@ uint __cdecl ImHeartbeat(void)
   
                     /* 0x5190  13  ImHeartbeat */
   uVar1 = timeGetTime();
-  if (((DAT_1002df10 == 0) && (DAT_100172c0 == 0)) &&
+  if (((g_dwIntFlag == 0) && (DAT_100172c0 == 0)) &&
      (((int)DAT_100172bc < 0 || (0x13 < uVar1 - DAT_100172bc)))) {
-    DAT_1002df10 = 1;
+    g_dwIntFlag = 1;
     DAT_100172bc = uVar1;
     Im_HeartbeatBody();
-    uVar1 = DAT_1002df00;
-    if (DAT_1002df00 == 0) {
-      DAT_1002df04 = DAT_1002df04 + 20000;
-      while (19999 < DAT_1002df04) {
-        DAT_1002df04 = DAT_1002df04 - 20000;
+    uVar1 = g_dwPauseCount;
+    if (g_dwPauseCount == 0) {
+      g_dwRunning50HzCount = g_dwRunning50HzCount + 20000;
+      while (19999 < g_dwRunning50HzCount) {
+        g_dwRunning50HzCount = g_dwRunning50HzCount - 20000;
         Im_FadesHeartbeat();
         Im_ProcessDeferred();
       }
-      uVar1 = DAT_1002df08 + 20000;
-      DAT_1002df08 = uVar1;
+      uVar1 = g_dwRunning10HzCount + 20000;
+      g_dwRunning10HzCount = uVar1;
 joined_r0x1000522c:
-      if (199999 < DAT_1002df08) {
-        DAT_1002df08 = DAT_1002df08 - 200000;
+      if (199999 < g_dwRunning10HzCount) {
+        g_dwRunning10HzCount = g_dwRunning10HzCount - 200000;
         uVar2 = Im_SetGroupVolImpl(3,0xffffffff);
         for (uVar1 = ImGetNextSound(0); uVar1 != 0; uVar1 = ImGetNextSound(uVar1)) {
           uVar3 = ImGetParam(uVar1,0x400);
@@ -900,7 +904,7 @@ joined_r0x1000522c:
         goto LAB_100052d8;
       }
     }
-    DAT_1002df10 = 0;
+    g_dwIntFlag = 0;
   }
   return uVar1;
 LAB_100052c3:
@@ -926,15 +930,15 @@ undefined4 ImStartRecording(undefined4 param_1,int param_2)
 
 {
                     /* 0x5300  39  ImStartRecording */
-  DAT_1002df64 = (int *)FUN_1000ba60(param_1,IMG_ADDR(0x100172c4));
-  if (DAT_1002df64 == (int *)0x0) {
-    DAT_1002df60 = 0;
+  g_dwRecordFile = (int *)FUN_1000ba60(param_1,IMG_ADDR(0x100172c4));
+  if (g_dwRecordFile == (int *)0x0) {
+    g_dwRecordState = 0;
   }
   else {
-    DAT_1002df60 = 2 - (uint)(param_2 != 0);
+    g_dwRecordState = 2 - (uint)(param_2 != 0);
   }
-  DAT_1002df1c = 0;
-  ImFile_Read(DAT_1002df64,0x2c,0);
+  g_dwDataSizeInBytes = 0;
+  ImFile_Read(g_dwRecordFile,0x2c,0);
   return 0;
 }
 
@@ -943,7 +947,7 @@ undefined4 ImStopRecording(void)
 
 {
                     /* 0x5350  43  ImStopRecording */
-  DAT_1002df60 = 3;
+  g_dwRecordState = 3;
   return 0;
 }
 
@@ -1056,7 +1060,7 @@ SoundsAllocateBuffer(int param_1,undefined4 param_2,undefined4 param_3,undefined
   
                     /* 0x7210  53  SoundsAllocateBuffer */
   iVar2 = param_1 * 0x10;
-  uVar1 = (**(code **)(DAT_10033510 + 0x20))
+  uVar1 = (**(code **)(g_dwSounds_pHS + 0x20))
                     (param_2,s_C__grimsrc_libs_iMUSE_sounds_c_1001e8e0,0x11d);
   *(undefined4 *)(iVar2 + IMG_ADDR(0x1002ebe4)) = param_2;
   *(undefined4 *)(iVar2 + IMG_ADDR(0x1002ebe0)) = uVar1;
@@ -1115,7 +1119,7 @@ int * SoundsRegisterVoice(char *param_1)
   } while (cVar1 != '\0');
   uVar5 = ~uVar5;
   pcVar2 = pcVar7 + -uVar5;
-  pcVar7 = &DAT_10031d50;
+  pcVar7 = &g_aLastVoiceFilename;
   for (uVar6 = uVar5 >> 2; uVar6 != 0; uVar6 = uVar6 - 1) {
     *(undefined4 *)pcVar7 = *(undefined4 *)pcVar2;
     pcVar2 = pcVar2 + 4;
@@ -1196,9 +1200,9 @@ undefined4 __cdecl SoundsReOpenVoiceFile(void)
   
                     /* 0x73f0  66  SoundsReOpenVoiceFile */
   uVar1 = SoundsCloseVoiceFile();
-  uVar1 = CONCAT31((int3)((uint)uVar1 >> 8),DAT_10031d50);
-  if (DAT_10031d50 != '\0') {
-    uVar1 = SoundsRegisterVoice(&DAT_10031d50);
+  uVar1 = CONCAT31((int3)((uint)uVar1 >> 8),g_aLastVoiceFilename);
+  if (g_aLastVoiceFilename != '\0') {
+    uVar1 = SoundsRegisterVoice(&g_aLastVoiceFilename);
   }
   return uVar1;
 }
@@ -1237,7 +1241,7 @@ undefined4 __cdecl SoundsLoadProcessStartSound(uint *param_1,int param_2,uint pa
   if (0x7c < param_2) {
     param_2 = 0x7c;
   }
-  if (DAT_10031d30 != 0) {
+  if (g_dwUseVoxFx != 0) {
     if (((&DAT_10031548)[(uVar1 - 100) * 0x10] != 0) &&
        (*(int *)(&DAT_10031560 + (uVar1 - 100) * 0x40) == 0)) {
       Im_SoundsPrepare((&DAT_10031548)[(uVar1 - 100) * 0x10]);
@@ -1324,7 +1328,7 @@ int __cdecl SoundsIsSoundInUse(uint *param_1)
                     /* 0x75d0  61  SoundsIsSoundInUse */
   iVar1 = CacheGetSoundId(param_1);
   iVar3 = iVar1 + -100;
-  if ((((-1 < iVar3) && (iVar3 < 0x20)) && ((&DAT_10031528)[iVar3 * 0x40] != '\0')) &&
+  if ((((-1 < iVar3) && (iVar3 < 0x20)) && ((&g_bSoundCache)[iVar3 * 0x40] != '\0')) &&
      (*(int *)(&DAT_10031550 + iVar3 * 0x40) != 0)) {
     uVar2 = ImGetParam(iVar1,0x100);
     if (0 < (int)uVar2) {
@@ -1362,7 +1366,7 @@ undefined4 __cdecl SoundsFillStreamsWhileMusicCritical(int param_1)
   
                     /* 0x7670  56  SoundsFillStreamsWhileMusicCritical */
   uVar2 = 0;
-  if (_DAT_10031d44 != 0) {
+  if (_g_bImuseInitialized != 0) {
     iVar1 = FUN_100076b0();
     uVar2 = 0;
     if (iVar1 != 0) {
@@ -1450,7 +1454,7 @@ int __cdecl SoundsFloodMusicBuffer(void)
   
                     /* 0x7790  57  SoundsFloodMusicBuffer */
   iVar1 = 0;
-  if (_DAT_10031d44 != 0) {
+  if (_g_bImuseInitialized != 0) {
     iVar1 = FUN_100077c0();
     while (iVar1 == 0) {
       ImProcessStreams();
@@ -1476,7 +1480,7 @@ undefined4 FUN_100077c0(void)
   #define local_4 (*(undefined4 *)(_frame + (0x20 - 0x4)))
   
   iVar1 = FUN_10007700(&local_c,&local_4,&local_8,&local_10);
-  if (((iVar1 != 0) && (local_10 == 0)) && (local_8 <= local_c - _DAT_1001e8b8)) {
+  if (((iVar1 != 0) && (local_10 == 0)) && (local_8 <= local_c - _g_dwImMusicGulpSize)) {
     return 0;
   }
   return 1;
@@ -1498,7 +1502,7 @@ void __cdecl SoundsPeriodic(void)
   int iVar3;
   
                     /* 0x7810  65  SoundsPeriodic */
-  if (_DAT_10031d44 != 0) {
+  if (_g_bImuseInitialized != 0) {
     ImProcessStreams();
     ImRefreshScript();
     iVar2 = 0;
@@ -1511,7 +1515,7 @@ void __cdecl SoundsPeriodic(void)
       pcVar1 = pcVar1 + -0x40;
       iVar3 = iVar3 + -1;
     } while (iVar3 != 0);
-    if (_DAT_1001e8d0 < iVar2) {
+    if (_g_dwImNonPurgeCacheSize < iVar2) {
       Sounds_EvictOldestIdleSlot();
     }
     return;
@@ -1551,7 +1555,7 @@ undefined4 __cdecl SoundsSetMuscriptLocal(undefined4 param_1)
 
 {
                     /* 0x78a0  68  SoundsSetMuscriptLocal */
-  _DAT_1001e8dc = param_1;
+  _g_bMuscriptLocal = param_1;
   return param_1;
 }
 
@@ -1562,7 +1566,7 @@ undefined4 __cdecl SoundsSetMuscriptRemote(undefined4 param_1)
 
 {
                     /* 0x78b0  69  SoundsSetMuscriptRemote */
-  _DAT_10031e54 = param_1;
+  _g_bMuscriptRemote = param_1;
   return param_1;
 }
 
@@ -1580,7 +1584,7 @@ undefined4 SoundsInitialize(undefined4 param_1,undefined4 *param_2)
 
 {
                     /* 0x78d0  60  SoundsInitialize */
-  DAT_10033510 = param_1;
+  g_dwSounds_pHS = param_1;
   *param_2 = SoundsInitialize;
   param_2[1] = 0;
   param_2[2] = sounds_startup;
@@ -1605,10 +1609,10 @@ undefined4 sounds_startup(void)
   
   if (DAT_100336bc != 0) {
     FUN_10007a20();
-    if (_DAT_1001e8d8 != 0) {
-      FUN_10004660(_DAT_1001e8d8);
+    if (_g_dwEffectsHeapSize != 0) {
+      FUN_10004660(_g_dwEffectsHeapSize);
     }
-    puVar2 = (undefined4 *)&DAT_10031528;
+    puVar2 = (undefined4 *)&g_bSoundCache;
     for (iVar1 = 0x200; iVar1 != 0; iVar1 = iVar1 + -1) {
       *puVar2 = 0;
       puVar2 = puVar2 + 1;
@@ -1626,12 +1630,12 @@ undefined4 sounds_startup(void)
     DAT_100336a4 = FUN_10007a60;
     DAT_100336b4 = FUN_10007a80;
     DAT_100336ac = FUN_10007bc0;
-    DAT_100336b0 = FUN_10007ca0;
+    DAT_100336b0 = ihost_read;
     ImInitialize();
-    SoundsAllocateBuffer(2,_DAT_1001e8b4,_DAT_1001e8b8,_DAT_1001e8bc);
-    SoundsAllocateBuffer(1,_DAT_1001e8a8,_DAT_1001e8ac,_DAT_1001e8b0);
-    ImInitializeScript(((unsigned)(uintptr_t)FUN_100067a0),((unsigned)(uintptr_t)FUN_100067a0),((unsigned)(uintptr_t)FUN_10007a90),((unsigned)(uintptr_t)FUN_10007250),0,0,_DAT_1001e8dc);
-    _DAT_10031d44 = 1;
+    SoundsAllocateBuffer(2,_g_dwImMusicBufferSize,_g_dwImMusicGulpSize,_g_dwImMusicCriticalSize);
+    SoundsAllocateBuffer(1,_g_dwImVoiceBufferSize,_g_dwImVoiceGulpSize,_g_dwImVoiceCriticalSize);
+    ImInitializeScript(((unsigned)(uintptr_t)FUN_100067a0),((unsigned)(uintptr_t)FUN_100067a0),((unsigned)(uintptr_t)FUN_10007a90),((unsigned)(uintptr_t)FUN_10007250),0,0,_g_bMuscriptLocal);
+    _g_bImuseInitialized = 1;
   }
   return 0;
 }
@@ -1648,7 +1652,7 @@ void FUN_10007a20(void)
   _DAT_1002ec10 = 0x14;
   _DAT_10031d38 =
        (undefined4 *)
-       (**(code **)(DAT_10033510 + 0x20))(0x50,s_C__grimsrc_libs_iMUSE_sounds_c_1001e8e0,0x7a);
+       (**(code **)(g_dwSounds_pHS + 0x20))(0x50,s_C__grimsrc_libs_iMUSE_sounds_c_1001e8e0,0x7a);
   if (_DAT_10031d38 != (undefined4 *)0x0) {
     puVar2 = _DAT_10031d38;
     for (iVar1 = 0x14; iVar1 != 0; iVar1 = iVar1 + -1) {
@@ -1771,17 +1775,17 @@ int FUN_10007bc0(int param_1,int param_2,int param_3)
      puVar1 != (undefined *)0x0)) {
     iVar2 = iMUSE_sounds__9e40(puVar1,param_2,param_3);
     if (iVar2 == 0) {
-      if (((param_1 == 10000) && (DAT_10031d30 != 0)) && (param_3 == 2)) {
+      if (((param_1 == 10000) && (g_dwUseVoxFx != 0)) && (param_3 == 2)) {
         iVar2 = iMUSE_sounds__9e10(puVar1);
-        return (iVar2 + -0x2c + _DAT_1001e8a4) * DAT_10031d30 + 0x2c;
+        return (iVar2 + -0x2c + _DAT_1001e8a4) * g_dwUseVoxFx + 0x2c;
       }
-      if (((param_1 != 10000) || (DAT_10031d30 == 0)) || (param_3 != 0)) {
+      if (((param_1 != 10000) || (g_dwUseVoxFx == 0)) || (param_3 != 0)) {
         iVar2 = iMUSE_sounds__9e10(puVar1);
         return iVar2;
       }
       iVar2 = param_2;
       if (0x2c < param_2) {
-        iVar2 = (param_2 - 0x2cU) / DAT_10031d30 + 0x2c;
+        iVar2 = (param_2 - 0x2cU) / g_dwUseVoxFx + 0x2c;
       }
       iVar2 = iMUSE_sounds__9e40(puVar1,iVar2,0);
       if (iVar2 == 0) {
@@ -1792,11 +1796,14 @@ int FUN_10007bc0(int param_1,int param_2,int param_3)
   return 0;
 }
 
-/* ---- 0x10007ca0  FUN_10007ca0 ---- */
+/* ---- 0x10007ca0  ihost_read ---- */
 /* WARNING: Type propagation algorithm not settling */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+/* Original name ihost_read (the remaster's GrimFandango (Linux): the iMUSE host read callback:
+   per-sound file handle table, voice sound 10000 with useVoxFx measures the file by seeking to the
+   end, as the remaster's ihost_read); was FUN_10007ca0. */
 
-undefined4 * FUN_10007ca0(undefined4 *param_1,undefined4 *param_2,undefined4 *param_3)
+undefined4 * ihost_read(undefined4 *param_1,undefined4 *param_2,undefined4 *param_3)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1816,7 +1823,7 @@ undefined4 * FUN_10007ca0(undefined4 *param_1,undefined4 *param_2,undefined4 *pa
   if (puVar4 == (undefined4 *)0x0) {
     return (undefined4 *)0x0;
   }
-  if ((param_1 == (undefined4 *)0x2710) && (DAT_10031d30 != 0)) {
+  if ((param_1 == (undefined4 *)0x2710) && (g_dwUseVoxFx != 0)) {
     iVar2 = iMUSE_sounds__9e10((undefined *)puVar4);
     iMUSE_sounds__9e40((undefined *)puVar4,0,2);
     iVar3 = iMUSE_sounds__9e10((undefined *)puVar4);
@@ -1824,12 +1831,12 @@ undefined4 * FUN_10007ca0(undefined4 *param_1,undefined4 *param_2,undefined4 *pa
     puVar1 = param_3;
     if ((int)_DAT_10031e5c < (int)param_3) {
       if (_DAT_10031e58 != (undefined4 *)0x0) {
-        (**(code **)(DAT_10033510 + 0x24))(_DAT_10031e58);
+        (**(code **)(g_dwSounds_pHS + 0x24))(_DAT_10031e58);
         _DAT_10031e58 = (undefined4 *)0x0;
       }
       _DAT_10031e58 =
            (undefined4 *)
-           (**(code **)(DAT_10033510 + 0x20))
+           (**(code **)(g_dwSounds_pHS + 0x20))
                      (puVar1,s_C__grimsrc_libs_iMUSE_sounds_c_1001e8e0,0x1cd);
       _DAT_10031e5c = puVar1;
     }
@@ -1840,7 +1847,7 @@ undefined4 * FUN_10007ca0(undefined4 *param_1,undefined4 *param_2,undefined4 *pa
         if ((int)puVar1 < (int)(_DAT_10031e64 - (int)_DAT_10031e6c)) {
           puVar4 = puVar1;
         }
-        puVar8 = (undefined4 *)((int)_DAT_10031e60 + (int)_DAT_10031e6c);
+        puVar8 = (undefined4 *)((int)_g_dwVoxFxBuf + (int)_DAT_10031e6c);
         puVar10 = param_2;
         for (uVar5 = (uint)puVar4 >> 2; uVar5 != 0; uVar5 = uVar5 - 1) {
           *puVar10 = *puVar8;
@@ -1871,7 +1878,7 @@ undefined4 * FUN_10007ca0(undefined4 *param_1,undefined4 *param_2,undefined4 *pa
     }
     if (iVar2 == 0) {
       puVar8 = puVar1 + -0xb;
-      uVar5 = Im_SoundsReadBlock(puVar4,_DAT_10031e58,(uint)puVar8 / DAT_10031d30 + 0x2c);
+      uVar5 = Im_SoundsReadBlock(puVar4,_DAT_10031e58,(uint)puVar8 / g_dwUseVoxFx + 0x2c);
       iVar2 = iMUSE_sounds__9e10((undefined *)puVar4);
       puVar4 = param_2;
       uStack_c = (uint)(iVar3 <= iVar2);
@@ -1884,9 +1891,9 @@ undefined4 * FUN_10007ca0(undefined4 *param_1,undefined4 *param_2,undefined4 *pa
       }
       iVar2 = param_2[10] + _DAT_1001e8a4;
       param_2[10] = iVar2;
-      param_2[10] = DAT_10031d30 * iVar2;
-      param_2[7] = DAT_10031d30 * param_2[7];
-      if (1 < DAT_10031d30) {
+      param_2[10] = g_dwUseVoxFx * iVar2;
+      param_2[7] = g_dwUseVoxFx * param_2[7];
+      if (1 < g_dwUseVoxFx) {
         *(char *)((int)param_2 + 0x16) = *(char *)((int)param_2 + 0x16) << 1;
         *(char *)(param_2 + 8) = *(char *)(param_2 + 8) << 1;
       }
@@ -1924,19 +1931,19 @@ undefined4 * FUN_10007ca0(undefined4 *param_1,undefined4 *param_2,undefined4 *pa
           _DAT_10031e64 = (int)param_1 - (int)puVar8;
           _DAT_10031e6c = (undefined1 *)0x0;
           if ((int)_DAT_10031e68 < (int)_DAT_10031e64) {
-            if (_DAT_10031e60 != (undefined4 *)0x0) {
-              (**(code **)(DAT_10033510 + 0x24))(_DAT_10031e60);
-              _DAT_10031e60 = (undefined4 *)0x0;
+            if (_g_dwVoxFxBuf != (undefined4 *)0x0) {
+              (**(code **)(g_dwSounds_pHS + 0x24))(_g_dwVoxFxBuf);
+              _g_dwVoxFxBuf = (undefined4 *)0x0;
             }
-            _DAT_10031e60 =
+            _g_dwVoxFxBuf =
                  (undefined4 *)
-                 (**(code **)(DAT_10033510 + 0x20))
+                 (**(code **)(g_dwSounds_pHS + 0x20))
                            (_DAT_10031e64,s_C__grimsrc_libs_iMUSE_sounds_c_1001e8e0,0x212);
             _DAT_10031e68 = _DAT_10031e64;
           }
           uVar5 = _DAT_10031e64;
           puVar4 = (undefined4 *)((int)param_3 + (int)puVar8);
-          puVar8 = _DAT_10031e60;
+          puVar8 = _g_dwVoxFxBuf;
           for (uVar7 = _DAT_10031e64 >> 2; uVar7 != 0; uVar7 = uVar7 - 1) {
             *puVar8 = *puVar4;
             puVar4 = puVar4 + 1;
@@ -1956,7 +1963,7 @@ undefined4 * FUN_10007ca0(undefined4 *param_1,undefined4 *param_2,undefined4 *pa
       }
     }
     else {
-      uVar5 = Im_SoundsReadBlock(puVar4,_DAT_10031e58,(uint)puVar1 / DAT_10031d30);
+      uVar5 = Im_SoundsReadBlock(puVar4,_DAT_10031e58,(uint)puVar1 / g_dwUseVoxFx);
       iVar2 = iMUSE_sounds__9e10((undefined *)puVar4);
       puVar4 = param_2;
       uStack_c = (uint)(iVar3 <= iVar2);
@@ -1998,19 +2005,19 @@ undefined4 * FUN_10007ca0(undefined4 *param_1,undefined4 *param_2,undefined4 *pa
         _DAT_10031e64 = (int)param_1 - (int)puVar1;
         _DAT_10031e6c = (undefined1 *)0x0;
         if ((int)_DAT_10031e68 < (int)_DAT_10031e64) {
-          if (_DAT_10031e60 != (undefined4 *)0x0) {
-            (**(code **)(DAT_10033510 + 0x24))(_DAT_10031e60);
-            _DAT_10031e60 = (undefined4 *)0x0;
+          if (_g_dwVoxFxBuf != (undefined4 *)0x0) {
+            (**(code **)(g_dwSounds_pHS + 0x24))(_g_dwVoxFxBuf);
+            _g_dwVoxFxBuf = (undefined4 *)0x0;
           }
-          _DAT_10031e60 =
+          _g_dwVoxFxBuf =
                (undefined4 *)
-               (**(code **)(DAT_10033510 + 0x20))
+               (**(code **)(g_dwSounds_pHS + 0x20))
                          (_DAT_10031e64,s_C__grimsrc_libs_iMUSE_sounds_c_1001e8e0,0x23b);
           _DAT_10031e68 = _DAT_10031e64;
         }
         uVar5 = _DAT_10031e64;
         puVar4 = (undefined4 *)((int)param_3 + (int)puVar1);
-        puVar8 = _DAT_10031e60;
+        puVar8 = _g_dwVoxFxBuf;
         for (uVar7 = _DAT_10031e64 >> 2; uVar7 != 0; uVar7 = uVar7 - 1) {
           *puVar8 = *puVar4;
           puVar4 = puVar4 + 1;
@@ -2048,23 +2055,23 @@ void sounds_shutdown(void)
     ImStopAllSounds();
     ImRefreshScript();
     ImHeartbeat();
-    if (_DAT_1001e8d8 != 0) {
+    if (_g_dwEffectsHeapSize != 0) {
       FUN_10004970();
     }
     if (_DAT_10031e58 != 0) {
-      (**(code **)(DAT_10033510 + 0x24))(_DAT_10031e58);
+      (**(code **)(g_dwSounds_pHS + 0x24))(_DAT_10031e58);
       _DAT_10031e58 = 0;
     }
     _DAT_10031e5c = 0;
-    if (_DAT_10031e60 != 0) {
-      (**(code **)(DAT_10033510 + 0x24))(_DAT_10031e60);
-      _DAT_10031e60 = 0;
+    if (_g_dwVoxFxBuf != 0) {
+      (**(code **)(g_dwSounds_pHS + 0x24))(_g_dwVoxFxBuf);
+      _g_dwVoxFxBuf = 0;
     }
-    _DAT_10031d44 = 0;
+    _g_bImuseInitialized = 0;
     piVar1 = (int *)IMG_ADDR(0x1002ebe0);
     do {
       if (*piVar1 != 0) {
-        (**(code **)(DAT_10033510 + 0x24))(*piVar1);
+        (**(code **)(g_dwSounds_pHS + 0x24))(*piVar1);
         *piVar1 = 0;
       }
       piVar1 = piVar1 + 4;
@@ -2091,13 +2098,13 @@ void FUN_100081f0(void)
     if (0 < _DAT_1002ec10) {
       do {
         if (*piVar1 != 0) {
-          (**(code **)(DAT_10033510 + 0x24))(*piVar1);
+          (**(code **)(g_dwSounds_pHS + 0x24))(*piVar1);
         }
         piVar1 = piVar1 + 1;
         iVar2 = iVar2 + 1;
       } while (iVar2 < _DAT_1002ec10);
     }
-    (**(code **)(DAT_10033510 + 0x24))(_DAT_10031d38);
+    (**(code **)(g_dwSounds_pHS + 0x24))(_DAT_10031d38);
     _DAT_10031d38 = (int *)0x0;
   }
   return;
@@ -2127,17 +2134,17 @@ undefined4 FUN_10008250(code *param_1)
   
   pcVar1 = param_1;
   puVar2 = (undefined4 *)
-           (**(code **)(DAT_10033510 + 0x20))
+           (**(code **)(g_dwSounds_pHS + 0x20))
                      (0x20000,s_C__grimsrc_libs_iMUSE_sounds_c_1001e8e0,0x3f9);
   if (puVar2 == (undefined4 *)0x0) {
     return 1;
   }
-  if (DAT_10031d30 == 0) {
-    _DAT_10033520 = _DAT_1001e90c;
+  if (g_dwUseVoxFx == 0) {
+    _g_aVoxFxName = _DAT_1001e90c;
   }
-  DAT_10031d50 = 0;
+  g_aLastVoiceFilename = 0;
   puStack_4 = puVar2;
-  (*param_1)(&DAT_10033520,0x28);
+  (*param_1)(&g_aVoxFxName,0x28);
   iStack_10 = ImSave(puVar2,0x20000);
   (*param_1)(&iStack_10,4);
   (*param_1)(puVar2,iStack_10);
@@ -2173,7 +2180,7 @@ undefined4 FUN_10008250(code *param_1)
   } while ((int)piVar5 < IMG_ADDR(0x10031d50));
   (*pcVar1)(&iStack_c,4);
   param_1 = (code *)0x0;
-  pcVar6 = &DAT_10031528;
+  pcVar6 = &g_bSoundCache;
   do {
     if ((*pcVar6 != '\0') && (*(int *)(pcVar6 + 0x28) != 0)) {
       uVar3 = ImGetParam((int)param_1 + 100,0x100);
@@ -2258,7 +2265,7 @@ undefined4 FUN_10008250(code *param_1)
     piVar5 = piVar5 + 0x10;
     param_1 = (code *)((int)param_1 + 1);
     if (IMG_ADDR(0x10031d4f) < (int)piVar5) {
-      (**(code **)(DAT_10033510 + 0x24))(puStack_4);
+      (**(code **)(g_dwSounds_pHS + 0x24))(puStack_4);
       return 0;
     }
   } while( true );
@@ -2284,12 +2291,12 @@ undefined4 FUN_10008580(code *param_1,uint param_2)
   #define auStack_1c (*(uint (*)[6])(_frame + (0x40 - 0x1c)))
   #define uStack_4 (*(uint *)(_frame + (0x40 - 0x4)))
   
-  a1 = (int *)(**(code **)(DAT_10033510 + 0x20))
+  a1 = (int *)(**(code **)(g_dwSounds_pHS + 0x20))
                         (0x20000,s_C__grimsrc_libs_iMUSE_sounds_c_1001e8e0,0x46a);
   if (a1 == (int *)0x0) {
     return 1;
   }
-  iVar1 = (*param_1)(&DAT_10033520,0x28);
+  iVar1 = (*param_1)(&g_aVoxFxName,0x28);
   if (iVar1 != 0) {
     return 1;
   }
@@ -2302,8 +2309,8 @@ undefined4 FUN_10008580(code *param_1,uint param_2)
   ((code *)FUN_10009700)(IMG_ADDR(0x1001e958));
   FUN_10008e60();
   ((code *)FUN_10009700)(IMG_ADDR(0x1001e944));
-  iMUSE_SetVoiceEffect((uint *)&DAT_10033520);
-  DAT_10031d50 = 0;
+  iMUSE_SetVoiceEffect((uint *)&g_aVoxFxName);
+  g_aLastVoiceFilename = 0;
   (*param_1)(&uStack_24,4);
   (*param_1)(a1,uStack_24);
   iVar1 = ImRestore(a1);
@@ -2328,7 +2335,7 @@ undefined4 FUN_10008580(code *param_1,uint param_2)
           do {
             iVar3 = (*param_1)(auStack_1c,0x20);
             if ((iVar3 != 0) || (iVar3 = (*param_1)(&param_2,4), iVar3 != 0)) goto LAB_1000883c;
-            DAT_10031d3c = param_2 - 0x457;
+            g_dwNextHandle = param_2 - 0x457;
             iVar3 = (*param_1)(&param_2,4);
             if (iVar3 != 0) goto LAB_1000883c;
             SoundsLoadStartSound(auStack_1c,param_2,1);
@@ -2358,11 +2365,11 @@ undefined4 FUN_10008580(code *param_1,uint param_2)
         }
       }
 LAB_1000883c:
-      (**(code **)(DAT_10033510 + 0x24))(a1);
+      (**(code **)(g_dwSounds_pHS + 0x24))(a1);
       return 0;
     }
   }
-  (**(code **)(DAT_10033510 + 0x24))(a1);
+  (**(code **)(g_dwSounds_pHS + 0x24))(a1);
   return 1;
 }
 #undef auStack_1c
@@ -2503,27 +2510,27 @@ int __cdecl CacheGetSoundId(uint *param_1)
     if ((local_44 < 0) && (local_44 = Sounds_EvictOldestIdleSlot(), local_44 < 0)) {
       return 0;
     }
-    puVar9 = (uint *)(&DAT_10031528 + local_44 * 0x40);
+    puVar9 = (uint *)(&g_bSoundCache + local_44 * 0x40);
     Im_MemCopy(puVar9,param_1,0x20);
     *(undefined1 *)(local_44 * 0x40 + IMG_ADDR(0x10031547)) = 0;
     do {
       bVar12 = false;
-      uVar6 = (int)DAT_10031d3c >> 0x1f;
+      uVar6 = (int)g_dwNextHandle >> 0x1f;
       iVar1 = 0;
       do {
-        if ((DAT_10031528 != '\0') &&
-           (DAT_10031548 == (((DAT_10031d3c ^ uVar6) - uVar6 & 0xff ^ uVar6) - uVar6) + 0x457)) {
+        if ((g_bSoundCache != '\0') &&
+           (DAT_10031548 == (((g_dwNextHandle ^ uVar6) - uVar6 & 0xff ^ uVar6) - uVar6) + 0x457)) {
           bVar12 = true;
-          DAT_10031d3c = DAT_10031d3c + 1;
+          g_dwNextHandle = g_dwNextHandle + 1;
           break;
         }
         iVar1 = iVar1 + 1;
       } while (iVar1 < 0x20);
     } while (bVar12);
-    uVar6 = (int)DAT_10031d3c >> 0x1f;
+    uVar6 = (int)g_dwNextHandle >> 0x1f;
     (&DAT_10031548)[local_44 * 0x10] =
-         (((DAT_10031d3c ^ uVar6) - uVar6 & 0xff ^ uVar6) - uVar6) + 0x457;
-    DAT_10031d3c = DAT_10031d3c + 1;
+         (((g_dwNextHandle ^ uVar6) - uVar6 & 0xff ^ uVar6) - uVar6) + 0x457;
+    g_dwNextHandle = g_dwNextHandle + 1;
   }
 LAB_10009063:
   puVar9[0xe] = 0;
@@ -2548,7 +2555,7 @@ LAB_10009063:
   uVar6 = iMUSE_sounds__9e10((undefined *)piVar2);
   puVar9[0xd] = uVar6;
   iMUSE_sounds__9e40((undefined *)piVar2,0,0);
-  uVar6 = (**(code **)(DAT_10033510 + 0x20))
+  uVar6 = (**(code **)(g_dwSounds_pHS + 0x20))
                     (puVar9[0xd] + 0x50,s_C__grimsrc_libs_iMUSE_sounds_c_1001e8e0,0x774);
   puVar9[10] = uVar6;
   if (uVar6 != 0) {
@@ -2558,7 +2565,7 @@ LAB_10009063:
   puVar4 = Im_VimaDecompress((uint *)puVar9[10],&iStack_38,&uStack_24,&uStack_3c,&uStack_28,
                              &iStack_34,&uStack_40);
   if ((iStack_38 != 3) && (iStack_38 != 5)) {
-    (**(code **)(DAT_10033510 + 0x24))(puVar9[10]);
+    (**(code **)(g_dwSounds_pHS + 0x24))(puVar9[10]);
     Im_SoundsFreeSlot(puVar9[8]);
     for (iVar1 = 0x10; iVar1 != 0; iVar1 = iVar1 + -1) {
       *puVar9 = 0;
@@ -2572,7 +2579,7 @@ LAB_10009063:
     iVar1 = puVar9[0xd] - uVar7;
     iStack_30 = iVar1;
     puStack_2c = (undefined4 *)
-                 (**(code **)(DAT_10033510 + 0x20))
+                 (**(code **)(g_dwSounds_pHS + 0x20))
                            (puVar9[0xd] * 2 + 0x50,s_C__grimsrc_libs_iMUSE_sounds_c_1001e8e0,0x798);
     puVar9[0xd] = uVar7 + iVar1 * 2;
     puVar10 = (undefined4 *)puVar9[10];
@@ -2595,7 +2602,7 @@ LAB_10009063:
       puVar5 = (uint *)((int)puVar5 + 2);
       puVar4 = (uint *)((int)puVar4 + 1);
     }
-    (**(code **)(DAT_10033510 + 0x24))(puVar9[10]);
+    (**(code **)(g_dwSounds_pHS + 0x24))(puVar9[10]);
     uStack_40 = uStack_40 << 1;
     puVar9[10] = (uint)puStack_2c;
     iStack_34 = 1;
@@ -2674,12 +2681,12 @@ int Sounds_EvictOldestIdleSlot(void)
   }
   else {
     iVar3 = (&DAT_10031548)[iVar4 * 0x10];
-    (&DAT_10031528)[iVar4 * 0x40] = 0;
+    (&g_bSoundCache)[iVar4 * 0x40] = 0;
     Im_SoundsFreeSlot(iVar3);
     if (*(int *)(&DAT_10031550 + iVar4 * 0x40) != 0) {
-      (**(code **)(DAT_10033510 + 0x24))(*(int *)(&DAT_10031550 + iVar4 * 0x40));
+      (**(code **)(g_dwSounds_pHS + 0x24))(*(int *)(&DAT_10031550 + iVar4 * 0x40));
     }
-    puVar6 = (undefined4 *)(&DAT_10031528 + iVar4 * 0x40);
+    puVar6 = (undefined4 *)(&g_bSoundCache + iVar4 * 0x40);
     for (iVar3 = 0x10; iVar3 != 0; iVar3 = iVar3 + -1) {
       *puVar6 = 0;
       puVar6 = puVar6 + 1;

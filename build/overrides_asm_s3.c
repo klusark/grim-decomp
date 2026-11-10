@@ -22,13 +22,13 @@
  * in the order of the list; other depths write nothing. */
 void rdRaster_DrawPointsZ(int param_1, int param_2)
 {
-    int *cam;          /* *(g_pRdCurrentCamera + 4) + 4 : the surface record */
+    int *cam;          /* *(g_pRdCamera_CurCamera + 4) + 4 : the surface record */
     int bpp;           /* surface depth at +0x24 */
     int i;
     float *pt;
 
     PTR_007f44fc = *(int **)(param_1 + 0x20);
-    cam = *(int **)(*(int *)((int)g_pRdCurrentCamera + 4) + 4);
+    cam = *(int **)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     bpp = *(int *)((int)cam + 0x24);
     UINT_007f4460 = *(uint *)(param_1 + 0x1c);
 

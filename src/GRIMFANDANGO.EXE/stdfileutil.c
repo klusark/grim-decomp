@@ -141,7 +141,7 @@ undefined4 stdFile_Printf(undefined4 param_1,char *param_2)
 uint stdFile_ReadByte(uint param_1)
 
 {
-  (*g_pSvcMain->pFread)(param_1,&param_1,1);
+  (*g_pStd_HS->pFread)(param_1,&param_1,1);
   return param_1 & 0xff;
 }
 #endif
@@ -153,7 +153,7 @@ uint stdFile_ReadByte(uint param_1)
 void stdFile_WriteByte(undefined4 param_1,undefined4 param_2)
 
 {
-  (*g_pSvcMain->pFwrite)(param_2,&param_1,1);
+  (*g_pStd_HS->pFwrite)(param_2,&param_1,1);
   return;
 }
 #endif
@@ -280,8 +280,7 @@ void * __cdecl stdFileUtil_NewFind(char *dir,int mode,char *ext)
   char *pcVar10;
   
   puVar2 = (undefined4 *)
-           (*g_pSvcMain->pAlloc)(0x150,s_C__grimjedi_Libs_Std_General_Std_004f11d0,DAT_004f11c0 + 3)
-  ;
+           (*g_pStd_HS->pAlloc)(0x150,s_C__grimjedi_Libs_Std_General_Std_004f11d0,DAT_004f11c0 + 3);
   if (puVar2 == (undefined4 *)0x0) {
     return (void *)0x0;
   }
@@ -431,7 +430,7 @@ void stdFileUtil_DisposeFind(int param_1)
       *(undefined4 *)(param_1 + 8) = 0;
     }
     if (param_1 != 0) {
-      (*g_pSvcMain->pFree)(param_1);
+      (*g_pStd_HS->pFree)(param_1);
     }
   }
   return;

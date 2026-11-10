@@ -87,7 +87,7 @@ void * __cdecl ThingInstancer(void *cosInst,int componentIdx,int create)
     if (iVar2 == 0) {
       Res_RemoveReference(pvVar1);
       rdThing_Free(*(undefined4 *)((int)pvVar1 + 0x40));
-      (*g_pSvcCostume->pFree)(pvVar1);
+      (*g_pSputCosHS->pFree)(pvVar1);
     }
     return (void *)0x0;
   }
@@ -114,11 +114,11 @@ void * __cdecl ThingInstancer(void *cosInst,int componentIdx,int create)
   }
   iVar2 = componentIdx;
   if (*(int *)componentIdx == 0) {
-    (*g_pSvcMain->pAssertFail)(s_Bad_model_Reference_004e9e08,s_main_sputResource_h_004e80a8,0xae);
+    (*g_pStd_HS->pAssertFail)(s_Bad_model_Reference_004e9e08,s_main_sputResource_h_004e80a8,0xae);
   }
   pvVar1 = *(void **)(iVar2 + 4);
   ref = (undefined4 *)
-        (*g_pSvcCostume->pAlloc)(0x194,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0xa8d);
+        (*g_pSputCosHS->pAlloc)(0x194,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0xa8d);
   puVar6 = ref;
   for (iVar2 = 0x65; iVar2 != 0; iVar2 = iVar2 + -1) {
     *puVar6 = 0;
@@ -201,8 +201,8 @@ int ThingRequester(uint param_1,int param_2,int param_3,int param_4,char *param_
     return false;
   }
   if (param_5 == (char *)0x0) {
-    if (DAT_008ca9b8 != '\0') {
-      Plat_SetDialogDirectory(&DAT_008ca9b8);
+    if (g_bModelPath != '\0') {
+      Plat_SetDialogDirectory(&g_bModelPath);
     }
     iVar3 = Plat_OpenFileDialog(s_Select_model_file_to_add____004ea600,
                                 s_Model_files____3do__004ea61c);
@@ -210,10 +210,10 @@ int ThingRequester(uint param_1,int param_2,int param_3,int param_4,char *param_
       return false;
     }
     uVar2 = ((code *)Plat_GetDialogFileName)(0x7f);
-    ((code *)strncpy)(&DAT_008ca9b8,uVar2);
+    ((code *)strncpy)(&g_bModelPath,uVar2);
     DAT_008caa37 = 0;
-    param_5 = Str_Basename(g_szDialogFileName);
-    data = sputResource_Alloc(0x4c444f4d,g_szDialogFileName);
+    param_5 = Str_Basename(g_szGrimlib_aFilename);
+    data = sputResource_Alloc(0x4c444f4d,g_szGrimlib_aFilename);
   }
   else {
     strncpy(&local_20,param_5,0x1f);
@@ -229,7 +229,7 @@ int ThingRequester(uint param_1,int param_2,int param_3,int param_4,char *param_
     return false;
   }
   ref = (undefined4 *)
-        (*g_pSvcCostume->pAlloc)(0x38,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0xaf9);
+        (*g_pSputCosHS->pAlloc)(0x38,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0xaf9);
   puVar5 = ref;
   for (iVar3 = 0xe; iVar3 != 0; iVar3 = iVar3 + -1) {
     *puVar5 = 0;
@@ -254,6 +254,6 @@ undefined4 ModelComponent_Destroy(undefined4 param_1,undefined4 param_2,void *pa
 
 {
   Res_RemoveReference(param_3);
-  (*g_pSvcCostume->pFree)(param_3);
+  (*g_pSputCosHS->pFree)(param_3);
   return 1;
 }

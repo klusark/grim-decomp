@@ -13,14 +13,14 @@ void luaS_init(void)
 {
   int iVar1;
   
-  DAT_1002bef4 = (**(code **)(DAT_1002beb8 + 0x20))
-                           (0x2dc,s_C__grimsrc_libs_lua_src_lstring__100278b4,0x1e);
+  g_dwLState_string_root =
+       (**(code **)(g_dwLuaHS + 0x20))(0x2dc,s_C__grimsrc_libs_lua_src_lstring__100278b4,0x1e);
   iVar1 = 0;
   do {
     iVar1 = iVar1 + 0xc;
-    *(undefined4 *)(DAT_1002bef4 + -0xc + iVar1) = 0;
-    *(undefined4 *)(DAT_1002bef4 + -8 + iVar1) = 0;
-    *(undefined4 *)(DAT_1002bef4 + -4 + iVar1) = 0;
+    *(undefined4 *)(g_dwLState_string_root + -0xc + iVar1) = 0;
+    *(undefined4 *)(g_dwLState_string_root + -8 + iVar1) = 0;
+    *(undefined4 *)(g_dwLState_string_root + -4 + iVar1) = 0;
   } while (iVar1 < 0x2dc);
   return;
 }
@@ -34,7 +34,7 @@ undefined * __cdecl luaS_createudata(byte *param_1,uint param_2)
 {
   undefined *puVar1;
   
-  puVar1 = insert(param_1,param_2,(uint *)(DAT_1002bef4 + ((uint)param_1 % 0x3d) * 0xc));
+  puVar1 = insert(param_1,param_2,(uint *)(g_dwLState_string_root + ((uint)param_1 % 0x3d) * 0xc));
   return puVar1;
 }
 
@@ -79,7 +79,7 @@ undefined * __cdecl insert(byte *param_1,uint param_2,uint *param_3)
       return *(undefined **)(param_3[2] + uVar8 * 4);
     }
     local_8 = uVar7;
-    if (puVar2 != &DAT_10027898) {
+    if (puVar2 != &g_EMPTY) {
       if (*(int *)(puVar2 + 8) < 0) {
         if (((param_2 != *(uint *)(puVar2 + 0x10)) && (param_2 != 0xffffffff)) ||
            (param_1 != *(byte **)(puVar2 + 0x14))) goto LAB_10008e84;
@@ -171,7 +171,7 @@ void __cdecl luaS_grow(uint *param_1)
   
   uVar3 = luaO_redimension(*param_1);
   puVar4 = (undefined4 *)
-           (**(code **)(DAT_1002beb8 + 0x20))
+           (**(code **)(g_dwLuaHS + 0x20))
                      (uVar3 * 4,s_C__grimsrc_libs_lua_src_lstring__100278b4,0x38);
   uVar5 = uVar3;
   puVar6 = puVar4;
@@ -186,7 +186,7 @@ void __cdecl luaS_grow(uint *param_1)
   if (0 < (int)*param_1) {
     do {
       puVar1 = *(undefined **)(param_1[2] + iVar7 * 4);
-      if ((puVar1 != (undefined *)0x0) && (puVar1 != &DAT_10027898)) {
+      if ((puVar1 != (undefined *)0x0) && (puVar1 != &g_EMPTY)) {
         uVar5 = *(uint *)(puVar1 + 0xc) % uVar3;
         iVar2 = puVar4[uVar5];
         while (iVar2 != 0) {
@@ -199,7 +199,7 @@ void __cdecl luaS_grow(uint *param_1)
       iVar7 = iVar7 + 1;
     } while (iVar7 < (int)*param_1);
   }
-  (**(code **)(DAT_1002beb8 + 0x24))(param_1[2]);
+  (**(code **)(g_dwLuaHS + 0x24))(param_1[2]);
   param_1[2] = (uint)puVar4;
   *param_1 = uVar3;
   return;
@@ -229,7 +229,7 @@ int __cdecl luaS_newlstr(char *param_1,uint param_2,undefined4 param_3)
       pcVar6 = pcVar6 + 1;
     } while (cVar1 != '\0');
     iVar4 = ~uVar3 - 1;
-    iVar2 = (**(code **)(DAT_1002beb8 + 0x20))
+    iVar2 = (**(code **)(g_dwLuaHS + 0x20))
                       (~uVar3 + 0x1b,s_C__grimsrc_libs_lua_src_lstring__100278b4,0x52);
     uVar3 = 0xffffffff;
     do {
@@ -255,15 +255,14 @@ int __cdecl luaS_newlstr(char *param_1,uint param_2,undefined4 param_3)
     }
     *(undefined4 *)(iVar2 + 0x10) = 0xfffffff9;
     *(undefined4 *)(iVar2 + 8) = 0;
-    DAT_1002beec = DAT_1002beec + 1 + ((int)(iVar4 + (iVar4 >> 0x1f & 0x3fU)) >> 6);
+    g_dwLState_nblocks = g_dwLState_nblocks + 1 + ((int)(iVar4 + (iVar4 >> 0x1f & 0x3fU)) >> 6);
   }
   else {
-    iVar2 = (**(code **)(DAT_1002beb8 + 0x20))
-                      (0x1c,s_C__grimsrc_libs_lua_src_lstring__100278b4,0x59);
+    iVar2 = (**(code **)(g_dwLuaHS + 0x20))(0x1c,s_C__grimsrc_libs_lua_src_lstring__100278b4,0x59);
     *(char **)(iVar2 + 0x14) = param_1;
     *(uint *)(iVar2 + 0x10) = -(uint)(param_2 != 0xffffffff) & param_2;
     *(undefined4 *)(iVar2 + 8) = 0xffffffff;
-    DAT_1002beec = DAT_1002beec + 1;
+    g_dwLState_nblocks = g_dwLState_nblocks + 1;
   }
   *(undefined4 *)(iVar2 + 4) = 0;
   *(undefined4 *)(iVar2 + 0xc) = param_3;
@@ -279,7 +278,7 @@ undefined * __cdecl luaS_new(byte *param_1)
   
                     /* 0x90e0  2  luaS_new */
   puVar1 = insert(param_1,0xfffffffe,
-                  (uint *)(DAT_1002bef4 + ((uint)(int)(char)*param_1 % 0x3d) * 0xc));
+                  (uint *)(g_dwLState_string_root + ((uint)(int)(char)*param_1 % 0x3d) * 0xc));
   return puVar1;
 }
 
@@ -329,8 +328,8 @@ void __cdecl luaS_free(undefined4 *param_1)
       } while (cVar1 != '\0');
       iVar3 = (~uVar4 - 1 >> 6) + 1;
     }
-    DAT_1002beec = DAT_1002beec - iVar3;
-    (**(code **)(DAT_1002beb8 + 0x24))(param_1);
+    g_dwLState_nblocks = g_dwLState_nblocks - iVar3;
+    (**(code **)(g_dwLuaHS + 0x24))(param_1);
     param_1 = puVar2;
   } while( true );
 }
@@ -361,7 +360,7 @@ void __cdecl luaS_writestrings(undefined *param_1,int *param_2)
     if (0 < *piVar4) {
       do {
         param_2 = *(int **)(piVar4[2] + iVar3 * 4);
-        if ((param_2 != (int *)0x0) && (param_2 != (int *)&DAT_10027898)) {
+        if ((param_2 != (int *)0x0) && (param_2 != (int *)&g_EMPTY)) {
           (*(code *)a2)(&param_2,4);
           (*(code *)a2)(param_2 + 2,4);
           if (param_2[2] == -1) {
@@ -422,8 +421,8 @@ void __cdecl luaS_resolvestrings(int *param_1)
     if (0 < *param_1) {
       do {
         puVar1 = *(undefined **)(param_1[2] + iVar3 * 4);
-        if (((puVar1 != (undefined *)0x0) && (puVar1 != &DAT_10027898)) &&
-           (*(int *)(puVar1 + 8) != -1)) {
+        if (((puVar1 != (undefined *)0x0) && (puVar1 != &g_EMPTY)) && (*(int *)(puVar1 + 8) != -1))
+        {
           LState_ResolveObject((int)(puVar1 + 0x10));
         }
         iVar3 = iVar3 + 1;
@@ -461,7 +460,7 @@ int __cdecl luaS_count(int *param_1,uint *param_2)
     if (0 < *param_1) {
       do {
         puVar2 = *(undefined **)(param_1[2] + iVar6 * 4);
-        if (((puVar2 != (undefined *)0x0) && (puVar2 != &DAT_10027898)) &&
+        if (((puVar2 != (undefined *)0x0) && (puVar2 != &g_EMPTY)) &&
            (local_4 = local_4 + 1, *(int *)(puVar2 + 8) != -1)) {
           uVar5 = 0xffffffff;
           pcVar7 = puVar2 + 0x18;
@@ -504,12 +503,12 @@ int luaS_collector(void)
   int *piVar5;
   
   piVar5 = (int *)0x0;
-  lstring__93e0(&DAT_1002bf00);
+  lstring__93e0(&g_dwLState_rootglobal);
   iVar3 = 0;
   do {
     iVar4 = 0;
-    piVar1 = (int *)(DAT_1002bef4 + iVar3);
-    if (0 < *(int *)(DAT_1002bef4 + iVar3)) {
+    piVar1 = (int *)(g_dwLState_string_root + iVar3);
+    if (0 < *(int *)(g_dwLState_string_root + iVar3)) {
       do {
         piVar2 = *(int **)(piVar1[2] + iVar4 * 4);
         if (piVar2 != (int *)0x0) {
@@ -518,7 +517,7 @@ int luaS_collector(void)
           }
           else if (piVar2[1] == 0) {
             *piVar2 = (int)piVar5;
-            *(undefined **)(piVar1[2] + iVar4 * 4) = &DAT_10027898;
+            *(undefined **)(piVar1[2] + iVar4 * 4) = &g_EMPTY;
             piVar5 = piVar2;
           }
         }
@@ -563,17 +562,17 @@ uint * luaS_collectudata(void)
   
   puVar3 = (uint *)0x0;
   iVar5 = 0;
-  DAT_1002bf00 = 0;
+  g_dwLState_rootglobal = 0;
   do {
     iVar4 = 0;
-    piVar1 = (int *)(DAT_1002bef4 + iVar5);
-    if (0 < *(int *)(DAT_1002bef4 + iVar5)) {
+    piVar1 = (int *)(g_dwLState_string_root + iVar5);
+    if (0 < *(int *)(g_dwLState_string_root + iVar5)) {
       do {
         puVar2 = *(uint **)(piVar1[2] + iVar4 * 4);
-        if (((puVar2 != (uint *)0x0) && (puVar2 != (uint *)&DAT_10027898)) &&
-           (puVar2[2] == 0xffffffff)) {
+        if (((puVar2 != (uint *)0x0) && (puVar2 != (uint *)&g_EMPTY)) && (puVar2[2] == 0xffffffff))
+        {
           *puVar2 = (uint)puVar3;
-          *(undefined **)(piVar1[2] + iVar4 * 4) = &DAT_10027898;
+          *(undefined **)(piVar1[2] + iVar4 * 4) = &g_EMPTY;
           puVar3 = puVar2;
         }
         iVar4 = iVar4 + 1;
@@ -599,20 +598,20 @@ void luaS_freeall(void)
   iVar3 = 0;
   do {
     iVar4 = 0;
-    piVar1 = (int *)(DAT_1002bef4 + iVar3);
-    if (0 < *(int *)(DAT_1002bef4 + iVar3)) {
+    piVar1 = (int *)(g_dwLState_string_root + iVar3);
+    if (0 < *(int *)(g_dwLState_string_root + iVar3)) {
       do {
         puVar2 = *(undefined **)(piVar1[2] + iVar4 * 4);
-        if (puVar2 != &DAT_10027898) {
-          (**(code **)(DAT_1002beb8 + 0x24))(puVar2);
+        if (puVar2 != &g_EMPTY) {
+          (**(code **)(g_dwLuaHS + 0x24))(puVar2);
         }
         iVar4 = iVar4 + 1;
       } while (iVar4 < *piVar1);
     }
-    (**(code **)(DAT_1002beb8 + 0x24))(piVar1[2]);
+    (**(code **)(g_dwLuaHS + 0x24))(piVar1[2]);
     iVar3 = iVar3 + 0xc;
   } while (iVar3 < 0x2dc);
-  (**(code **)(DAT_1002beb8 + 0x24))(DAT_1002bef4);
+  (**(code **)(g_dwLuaHS + 0x24))(g_dwLState_string_root);
   return;
 }
 
@@ -626,8 +625,8 @@ void __cdecl luaS_rawsetglobal(int *param_1,int *param_2)
   param_1[4] = *param_2;
   param_1[5] = param_2[1];
   if ((int *)*param_1 == param_1) {
-    *param_1 = (int)DAT_1002bf00;
-    DAT_1002bf00 = param_1;
+    *param_1 = (int)g_dwLState_rootglobal;
+    g_dwLState_rootglobal = param_1;
   }
   return;
 }
@@ -642,8 +641,8 @@ int * __cdecl luaS_travsymbol(undefined *param_1)
   int iVar1;
   int *piVar2;
   
-  piVar2 = DAT_1002bf00;
-  if (DAT_1002bf00 == (int *)0x0) {
+  piVar2 = g_dwLState_rootglobal;
+  if (g_dwLState_rootglobal == (int *)0x0) {
     return (int *)0x0;
   }
   do {

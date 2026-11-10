@@ -180,17 +180,17 @@ void __cdecl sputActor_DrawToClean(void *actor)
         set = sputRoom_GetCurrentRoom();
         pal = (int *)(*(int *)((int)set + 0x80) + *(int *)((int)set + 0x88) * 0x34);
         if (*pal == 0)
-            (*g_pSvcMain->pAssertFail)(s_Bad_Colormap_Reference_004e8090, s_main_sputResource_h_004e80a8, 0x9f);
+            (*g_pStd_HS->pAssertFail)(s_Bad_Colormap_Reference_004e8090, s_main_sputResource_h_004e80a8, 0x9f);
         rdroid_SetColormap(pal[1]);
         set = sputRoom_GetCurrentRoom();
         pal = (int *)(*(int *)((int)set + 0x80) + *(int *)((int)set + 0x88) * 0x34);
         if (*pal == 0)
-            (*g_pSvcMain->pAssertFail)(s_Bad_Colormap_Reference_004e8090, s_main_sputResource_h_004e80a8, 0x9f);
+            (*g_pStd_HS->pAssertFail)(s_Bad_Colormap_Reference_004e8090, s_main_sputResource_h_004e80a8, 0x9f);
     } else {
         rdroid_SetColormap(pal[1]);
         pal = *(int **)actor;
         if (*pal == 0)
-            (*g_pSvcMain->pAssertFail)(s_Bad_Colormap_Reference_004e8090, s_main_sputResource_h_004e80a8, 0x9f);
+            (*g_pStd_HS->pAssertFail)(s_Bad_Colormap_Reference_004e8090, s_main_sputResource_h_004e80a8, 0x9f);
     }
     cmap = pal[1];
     ((void (*)(int, int))Render_GetUserCallback())(cmap + 0x30, 0);
@@ -238,7 +238,7 @@ undefined4 LabDir_FindEntry(int param_1, undefined4 param_2, byte *param_3, int 
     *param_5 = param_2;
     GRIM_host_sprintf((char *)param_5 + 0x115, (const char *)IMG_ADDR(0x004e7af8), (char *)(param_1 + 8), (char *)param_3);
     param_5[1] = 0;
-    param_5[2] = (undefined4)(*(code **)(UINT_008a8570 + 0x50))((char *)param_5 + 0x115);
+    param_5[2] = (undefined4)(*(code **)(g_dwLowLevelHS + 0x50))((char *)param_5 + 0x115);
     param_5[3] = 0;
     param_5[4] = 0;
     return 1;
@@ -256,7 +256,7 @@ int __cdecl Lab_FindFile(char *name, void *outEntry)
     uint hash = Res_HashName(name, lower);
     int *lab, found = 0;
 
-    for (lab = PTR_008a85c4; lab != 0 && found == 0; lab = (int *)*lab) {
+    for (lab = g_pResFileList; lab != 0 && found == 0; lab = (int *)*lab) {
         if ((*(byte *)((int)lab + 0x114) & 2) == 0)
             found = LabDir_FindEntry((int)lab, 0, (byte *)lower, (int)hash, (undefined4 *)outEntry);
         else

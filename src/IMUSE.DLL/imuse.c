@@ -794,17 +794,19 @@ undefined4 Im_DispatchInit(void)
   int iVar1;
   undefined4 *puVar2;
   
-  DAT_1002d808 = (**(code **)(DAT_10033510 + 0x20))
-                           (DAT_1001e8c4 * DAT_1001e8c0 + DAT_1001e8cc * DAT_1001e8c8 +
-                            (DAT_1001e8cc + DAT_1001e8c4) * 4,
+  DAT_1002d808 = (**(code **)(g_dwSounds_pHS + 0x20))
+                           (g_dwImLargeFadeCount * g_dwImLargeFadeSize +
+                            g_dwImSmallFadeCount * g_dwImSmallFadeSize +
+                            (g_dwImSmallFadeCount + g_dwImLargeFadeCount) * 4,
                             s_C__grimsrc_libs_iMUSE_Dispatch_c_100170c0,0x41);
   if (DAT_1002d808 == 0) {
     return 0xffffffff;
   }
-  DAT_10024dd4 = DAT_1002d808 + DAT_1001e8c4 * DAT_1001e8c0;
-  PTR_10025298 = (int *)((DAT_1001e8c0 + 4) * DAT_1001e8c4 + DAT_1002d808 +
-                        DAT_1001e8cc * DAT_1001e8c8);
-  PTR_10024dc8 = (int *)(DAT_1002d808 + DAT_1001e8cc * DAT_1001e8c8 + DAT_1001e8c4 * DAT_1001e8c0);
+  DAT_10024dd4 = DAT_1002d808 + g_dwImLargeFadeCount * g_dwImLargeFadeSize;
+  PTR_10025298 = (int *)((g_dwImLargeFadeSize + 4) * g_dwImLargeFadeCount + DAT_1002d808 +
+                        g_dwImSmallFadeCount * g_dwImSmallFadeSize);
+  PTR_10024dc8 = (int *)(DAT_1002d808 + g_dwImSmallFadeCount * g_dwImSmallFadeSize +
+                        g_dwImLargeFadeCount * g_dwImLargeFadeSize);
   DAT_10024dcc = DAT_1002d808;
   *PTR_10024dc8 = 0;
   *PTR_10025298 = 0;
@@ -1414,7 +1416,7 @@ undefined4 __cdecl Im_DSoundInit(undefined4 param_1,undefined4 *param_2)
   int iVar1;
   int *piVar2;
   
-  PTR_1002d830 = (int *)(**(code **)(DAT_10033510 + 0x20))
+  PTR_1002d830 = (int *)(**(code **)(g_dwSounds_pHS + 0x20))
                                   (0x3000,s_C__grimsrc_libs_iMUSE_dsound_c_10017104,0x50);
   DAT_1002d818 = PTR_1002d830 + 0x600;
   PTR_1002d834 = DAT_100336bc;
@@ -1546,7 +1548,7 @@ undefined4 Im_DSoundShutdown(void)
     (**(code_std **)(*PTR_1002d83c + 8))(PTR_1002d83c);
   }
   PTR_1002d83c = (int *)0x0;
-  (**(code **)(DAT_10033510 + 0x24))(PTR_1002d830);
+  (**(code **)(g_dwSounds_pHS + 0x24))(PTR_1002d830);
   return 0;
 }
 #endif
@@ -2045,7 +2047,7 @@ Im_DispatchCommand(uint cmd,int a2,int a3,int a4,int a5,int a6,int a7,int a8,int
   uint uVar1;
   int in_stack_0000003c;
   
-  if (DAT_1002df0c != 0) {
+  if (g_dwIm_initialized != 0) {
     switch(cmd) {
     case 0:
       uVar1 = ImInitialize();
@@ -2166,26 +2168,26 @@ undefined4 __cdecl Im_MixerInit(undefined4 *param_1)
     } while (local_4 < 0x11);
     iVar2 = iVar2 + 1;
   } while (iVar2 < 0x11);
-  DAT_1002df18 = *param_1;
+  g_dwOutChannelCount = *param_1;
   DAT_1002df24 = param_1[2] << 1;
-  PTR_1002df5c = (int *)(**(code **)(DAT_10033510 + 0x20))
-                                  (param_1[2] << 1,s_C__grimsrc_libs_iMUSE_Mixer_c_100172c8,0x7a);
+  g_pMixBuf = (int *)(**(code **)(g_dwSounds_pHS + 0x20))
+                               (param_1[2] << 1,s_C__grimsrc_libs_iMUSE_Mixer_c_100172c8,0x7a);
   _DAT_1002df28 = param_1[3];
   puVar1 = (undefined2 *)
-           (**(code **)(DAT_10033510 + 0x20))
-                     (DAT_1001e8d4 << 0x10,s_C__grimsrc_libs_iMUSE_Mixer_c_100172c8,0x7f);
-  DAT_1002df20 = puVar1;
+           (**(code **)(g_dwSounds_pHS + 0x20))
+                     (g_dwImWaveMixCount << 0x10,s_C__grimsrc_libs_iMUSE_Mixer_c_100172c8,0x7f);
+  g_dwSoftLTable = puVar1;
   if (puVar1 == (undefined2 *)0x0) {
     return 0xffffffff;
   }
   iVar2 = 0;
-  if (0 < DAT_1001e8d4 << 0xf) {
+  if (0 < g_dwImWaveMixCount << 0xf) {
     do {
       lVar4 = hmi__bae0();
       *puVar1 = (short)lVar4;
       puVar1 = puVar1 + 1;
       iVar2 = iVar2 + 1;
-    } while (iVar2 < DAT_1001e8d4 * 0x8000);
+    } while (iVar2 < g_dwImWaveMixCount * 0x8000);
   }
   return 0;
 }
@@ -2200,8 +2202,8 @@ undefined4 __cdecl Im_MixerInit(undefined4 *param_1)
 undefined4 Im_MixerReset(void)
 
 {
-  (**(code **)(DAT_10033510 + 0x24))(DAT_1002df20);
-  (**(code **)(DAT_10033510 + 0x24))(PTR_1002df5c);
+  (**(code **)(g_dwSounds_pHS + 0x24))(g_dwSoftLTable);
+  (**(code **)(g_dwSounds_pHS + 0x24))(g_pMixBuf);
   return 0;
 }
 
@@ -2216,7 +2218,7 @@ undefined4 Im_MixerHeartbeat(void)
   int *piVar3;
   
   uVar2 = DAT_1002df24;
-  piVar3 = PTR_1002df5c;
+  piVar3 = g_pMixBuf;
   for (uVar1 = DAT_1002df24 >> 2; uVar1 != 0; uVar1 = uVar1 - 1) {
     *piVar3 = 0;
     piVar3 = piVar3 + 1;
@@ -2239,9 +2241,9 @@ Im_MixSamples(short *param_1,int param_2,int param_3,int param_4,int param_5,uin
   uint uVar1;
   int iVar2;
   
-  if ((((PTR_1002df5c != (int *)0x0) && (param_1 != (short *)0x0)) && (param_2 != 0)) &&
+  if ((((g_pMixBuf != (int *)0x0) && (param_1 != (short *)0x0)) && (param_2 != 0)) &&
      ((param_3 == 0x10 && (0 < param_8)))) {
-    if ((param_4 == 1) && (DAT_1002df18 == 2)) {
+    if ((param_4 == 1) && (g_dwOutChannelCount == 2)) {
       uVar1 = param_8 >> 3;
       if (param_8 != 0) {
         uVar1 = uVar1 + 1;
@@ -2272,10 +2274,13 @@ Im_MixSamples(short *param_1,int param_2,int param_3,int param_4,int param_5,uin
   return;
 }
 
-/* ---- 0x10005610  Im_ReadSoundData ---- */
-/* Reads and decodes the next block of a sound through the file layer */
+/* ---- 0x10005610  MxEndMix ---- */
+/* Reads and decodes the next block of a sound through the file layer Original name MxEndMix (the
+   remaster's GrimFandango (Linux): converts the mix buffer to 16-bit output through the soft
+   limiter table (mixBuf, outChannelCount, softLTable) and feeds the recorder (recordState), as the
+   remaster's MxEndMix); was Im_ReadSoundData. */
 
-undefined4 __cdecl Im_ReadSoundData(int *param_1,int param_2)
+undefined4 __cdecl MxEndMix(int *param_1,int param_2)
 
 {
   int *piVar1;
@@ -2284,29 +2289,29 @@ undefined4 __cdecl Im_ReadSoundData(int *param_1,int param_2)
   int iVar4;
   int *piVar5;
   
-  if (((PTR_1002df5c != (int *)0x0) && (param_1 != (int *)0x0)) && (param_2 != 0)) {
+  if (((g_pMixBuf != (int *)0x0) && (param_1 != (int *)0x0)) && (param_2 != 0)) {
     piVar5 = param_1;
     iVar3 = param_2;
-    piVar1 = PTR_1002df5c;
-    if (DAT_1002df18 == 2) {
+    piVar1 = g_pMixBuf;
+    if (g_dwOutChannelCount == 2) {
       iVar3 = param_2 << 1;
     }
     for (; iVar3 != 0; iVar3 = iVar3 + -1) {
       iVar4 = *piVar1 >> 7;
       if (iVar4 < 0) {
-        sVar2 = -*(short *)(DAT_1002df20 - (iVar4 * 2 + 2));
+        sVar2 = -*(short *)(g_dwSoftLTable - (iVar4 * 2 + 2));
       }
       else {
-        sVar2 = *(short *)(DAT_1002df20 + iVar4 * 2);
+        sVar2 = *(short *)(g_dwSoftLTable + iVar4 * 2);
       }
       *(short *)piVar5 = sVar2;
       piVar5 = (int *)((int)piVar5 + 2);
       piVar1 = piVar1 + 1;
     }
-    if (DAT_1002df60 != 0) {
+    if (g_dwRecordState != 0) {
       piVar5 = param_1;
       iVar3 = param_2;
-      if (DAT_1002df60 == 1) {
+      if (g_dwRecordState == 1) {
         while( true ) {
           iVar3 = iVar3 + -1;
           if (*piVar5 != 0) break;
@@ -2315,10 +2320,10 @@ undefined4 __cdecl Im_ReadSoundData(int *param_1,int param_2)
             return 0;
           }
         }
-        DAT_1002df60 = 2;
+        g_dwRecordState = 2;
       }
-      else if (DAT_1002df60 != 2) {
-        if (DAT_1002df60 != 3) {
+      else if (g_dwRecordState != 2) {
+        if (g_dwRecordState != 3) {
           return 0;
         }
         while( true ) {
@@ -2326,22 +2331,22 @@ undefined4 __cdecl Im_ReadSoundData(int *param_1,int param_2)
           if (*piVar5 != 0) break;
           piVar5 = piVar5 + 1;
           if (iVar3 == 0) {
-            if (DAT_1002df64 != (int *)0x0) {
-              ImFile_Read(DAT_1002df64,0,0);
-              Im_DecodeSoundBlock((undefined4 *)&DAT_1002df30,5,0x5622,0x10,2,DAT_1002df1c);
-              ImFile_Open(&DAT_1002df30,0x2c,1,DAT_1002df64);
-              ImFile_Close(DAT_1002df64);
-              DAT_1002df64 = (int *)0x0;
+            if (g_dwRecordFile != (int *)0x0) {
+              ImFile_Read(g_dwRecordFile,0,0);
+              Im_DecodeSoundBlock((undefined4 *)&DAT_1002df30,5,0x5622,0x10,2,g_dwDataSizeInBytes);
+              ImFile_Open(&DAT_1002df30,0x2c,1,g_dwRecordFile);
+              ImFile_Close(g_dwRecordFile);
+              g_dwRecordFile = (int *)0x0;
             }
-            DAT_1002df60 = 0;
+            g_dwRecordState = 0;
             return 0;
           }
         }
       }
-      if (DAT_1002df64 != (int *)0x0) {
-        ImFile_Open((char *)param_1,param_2 * 4,1,DAT_1002df64);
+      if (g_dwRecordFile != (int *)0x0) {
+        ImFile_Open((char *)param_1,param_2 * 4,1,g_dwRecordFile);
       }
-      DAT_1002df1c = DAT_1002df1c + param_2 * 4;
+      g_dwDataSizeInBytes = g_dwDataSizeInBytes + param_2 * 4;
     }
     return 0;
   }
@@ -2361,7 +2366,7 @@ Im_MixLoopA(short *param_1,int param_2,uint param_3,uint param_4,int param_5,int
   uint uVar4;
   uint uVar5;
   
-  piVar3 = PTR_1002df5c + param_4 * 2;
+  piVar3 = g_pMixBuf + param_4 * 2;
   uVar2 = (uint)(param_2 << 0x10) / param_3;
   if (uVar2 == 0x8000) {
     while (param_2 = param_2 + -1, param_2 != 0) {
@@ -2434,7 +2439,7 @@ void __cdecl Im_MixLoopB(short *param_1,int param_2,uint param_3,uint param_4,in
   uint uVar5;
   int iVar6;
   
-  piVar4 = PTR_1002df5c + param_4 * 2;
+  piVar4 = g_pMixBuf + param_4 * 2;
   uVar2 = (uint)(param_2 << 0x10) / param_3;
   if (uVar2 == 0x8000) {
     while (param_2 = param_2 + -1, param_2 != 0) {
@@ -2512,7 +2517,7 @@ Im_MixLoopC(undefined2 *param_1,int param_2,uint param_3,int param_4,int param_5
   uint uVar6;
   uint uVar7;
   
-  piVar4 = PTR_1002df5c + param_4 * 2;
+  piVar4 = g_pMixBuf + param_4 * 2;
   uVar2 = (uint)(param_2 << 0x10) / param_3;
   if (uVar2 == 0x8000) {
     while (param_2 = param_2 + -1, param_2 != 0) {
@@ -2599,7 +2604,7 @@ void __cdecl Im_MixLoopD(undefined2 *param_1,int param_2,uint param_3,uint param
   uint uVar8;
   uint uVar9;
   
-  piVar4 = PTR_1002df5c + param_4 * 2;
+  piVar4 = g_pMixBuf + param_4 * 2;
   uVar3 = (uint)(param_2 << 0x10) / param_3;
   if (uVar3 == 0x8000) {
     while (param_2 = param_2 + -1, param_2 != 0) {
@@ -2765,7 +2770,7 @@ FUN_10006360(int param_1,undefined4 param_2,undefined4 param_3,undefined4 param_
   undefined4 *puVar2;
   
   *(code **)(param_1 + 8) = Script_Callback;
-  DAT_1001e688 = param_8;
+  g_dwLocalMusic = param_8;
   ImInitFilelist(param_2,param_3,param_4,param_5);
   _DAT_1002df68 = param_6;
   _DAT_1002df6c = param_7;
@@ -2774,9 +2779,9 @@ FUN_10006360(int param_1,undefined4 param_2,undefined4 param_3,undefined4 param_
     *puVar2 = 0;
     puVar2 = puVar2 + 1;
   }
-  DAT_1002df70 = 0;
-  DAT_1002e308 = 0;
-  DAT_1002e30c = 0;
+  g_dwCurrentState = 0;
+  g_dwCurrentSequence = 0;
+  g_dwCurrentCuePoint = 0;
   return 0;
 }
 
@@ -2788,14 +2793,14 @@ undefined4 FUN_100063d0(void)
   undefined4 *puVar2;
   
   FUN_10007110();
-  DAT_1002df70 = 0;
+  g_dwCurrentState = 0;
   puVar2 = &DAT_1002df78;
   for (iVar1 = 0xe4; iVar1 != 0; iVar1 = iVar1 + -1) {
     *puVar2 = 0;
     puVar2 = puVar2 + 1;
   }
-  DAT_1002e308 = 0;
-  DAT_1002e30c = 0;
+  g_dwCurrentSequence = 0;
+  g_dwCurrentCuePoint = 0;
   return 0;
 }
 
@@ -2813,9 +2818,9 @@ int __cdecl FUN_10006400(undefined4 *param_1,int param_2)
     return -1;
   }
   iVar4 = 0xc;
-  *param_1 = DAT_1002df70;
-  param_1[1] = DAT_1002e308;
-  param_1[2] = DAT_1002e30c;
+  *param_1 = g_dwCurrentState;
+  param_1[1] = g_dwCurrentSequence;
+  param_1[2] = g_dwCurrentCuePoint;
   puVar2 = &DAT_1002df78;
   do {
     uVar1 = *puVar2;
@@ -2842,9 +2847,9 @@ int __cdecl FUN_10006470(undefined4 *param_1)
   ImUnloadAll();
   ImCloseAll();
   iVar4 = 0xc;
-  DAT_1002df70 = *param_1;
-  DAT_1002e308 = param_1[1];
-  DAT_1002e30c = param_1[2];
+  g_dwCurrentState = *param_1;
+  g_dwCurrentSequence = param_1[1];
+  g_dwCurrentCuePoint = param_1[2];
   puVar2 = &DAT_1002df78;
   do {
     puVar1 = (undefined4 *)(iVar4 + (int)param_1);
@@ -2881,7 +2886,7 @@ undefined4 FUN_100064d0(void)
     } while (uVar1 != 0);
     if (uVar1 != 0) goto LAB_10006549;
   }
-  if (DAT_1002e308 != 0) {
+  if (g_dwCurrentSequence != 0) {
     Script_SetSequence(0);
   }
 LAB_10006549:
@@ -2907,7 +2912,7 @@ undefined4 __cdecl FUN_10006560(int param_1)
   uint in_stack_00000010;
   
   if (param_1 == -1) {
-    return (&DAT_1001730c)[DAT_1002df70 * 0x15];
+    return (&DAT_1001730c)[g_dwCurrentState * 0x15];
   }
   uVar4 = 0;
   piVar2 = &DAT_1001730c;
@@ -2915,8 +2920,8 @@ undefined4 __cdecl FUN_10006560(int param_1)
     if (param_1 == *piVar2) {
       ImPrintf((char *)(uVar4 * 0x54 + IMG_ADDR(0x10017310)));
       ImPrintf(&DAT_100171b0);
-      uVar1 = DAT_1002df70;
-      if ((uVar4 != DAT_1002df70) && (uVar1 = uVar4, DAT_1002e308 == 0)) {
+      uVar1 = g_dwCurrentState;
+      if ((uVar4 != g_dwCurrentState) && (uVar1 = uVar4, g_dwCurrentSequence == 0)) {
         if (uVar4 == 0) {
           pcVar3 = (char *)0x0;
         }
@@ -2926,8 +2931,8 @@ undefined4 __cdecl FUN_10006560(int param_1)
         Script_Trans(pcVar3,uVar4,0,unaff_retaddr,param_1,in_stack_00000008,in_stack_0000000c,
                      in_stack_00000010);
       }
-      DAT_1002df70 = uVar1;
-      return (&DAT_1001730c)[DAT_1002df70 * 0x15];
+      g_dwCurrentState = uVar1;
+      return (&DAT_1001730c)[g_dwCurrentState * 0x15];
     }
     piVar2 = piVar2 + 0x15;
     uVar4 = uVar4 + 1;
@@ -2958,7 +2963,7 @@ undefined4 __cdecl Script_SetSequence(int param_1)
   uint in_stack_00000010;
   
   if (param_1 == -1) {
-    return (&DAT_1001ae74)[DAT_1002e308 * 0x15];
+    return (&DAT_1001ae74)[g_dwCurrentSequence * 0x15];
   }
   iVar4 = param_1;
   if (param_1 == 0) {
@@ -2970,46 +2975,46 @@ undefined4 __cdecl Script_SetSequence(int param_1)
     if (iVar4 == *piVar2) {
       ImPrintf(s_SEQ_NULL_1001ae78 + iVar5 * 0x54);
       ImPrintf(&DAT_100171b0);
-      iVar4 = DAT_1002e308;
-      iVar1 = DAT_1002e30c;
-      if (iVar5 != DAT_1002e308) {
+      iVar4 = g_dwCurrentSequence;
+      iVar1 = g_dwCurrentCuePoint;
+      if (iVar5 != g_dwCurrentSequence) {
         if (iVar5 == 0) {
-          if (DAT_1002e30c == 0) {
-            if (DAT_1002df70 == 0) {
+          if (g_dwCurrentCuePoint == 0) {
+            if (g_dwCurrentState == 0) {
               pcVar3 = (char *)0x0;
             }
             else {
-              pcVar3 = &DAT_100172e8 + DAT_1002df70 * 0x54;
+              pcVar3 = &DAT_100172e8 + g_dwCurrentState * 0x54;
             }
-            Script_Trans(pcVar3,DAT_1002df70,1,unaff_retaddr,param_1,in_stack_00000008,
+            Script_Trans(pcVar3,g_dwCurrentState,1,unaff_retaddr,param_1,in_stack_00000008,
                          in_stack_0000000c,in_stack_00000010);
-            DAT_1002e308 = 0;
-            iVar4 = DAT_1002e308;
-            iVar1 = DAT_1002e30c;
+            g_dwCurrentSequence = 0;
+            iVar4 = g_dwCurrentSequence;
+            iVar1 = g_dwCurrentCuePoint;
           }
           else {
-            Script_Trans(&DAT_1001ae50 + DAT_1002e30c * 0x54,0,1,unaff_retaddr,param_1,
+            Script_Trans(&DAT_1001ae50 + g_dwCurrentCuePoint * 0x54,0,1,unaff_retaddr,param_1,
                          in_stack_00000008,in_stack_0000000c,in_stack_00000010);
-            iVar4 = DAT_1002e30c;
-            DAT_1002e308 = DAT_1002e30c;
-            DAT_1002e30c = 0;
+            iVar4 = g_dwCurrentCuePoint;
+            g_dwCurrentSequence = g_dwCurrentCuePoint;
+            g_dwCurrentCuePoint = 0;
             (&DAT_1002e25c)[iVar4] = 1;
-            iVar1 = DAT_1002e30c;
+            iVar1 = g_dwCurrentCuePoint;
           }
         }
-        else if ((DAT_1002e308 == 0) ||
-                ((iVar1 = iVar5, *(int *)(&DAT_1001ae70 + DAT_1002e308 * 0x54) != 4 &&
-                 (*(int *)(&DAT_1001ae70 + DAT_1002e308 * 0x54) != 6)))) {
+        else if ((g_dwCurrentSequence == 0) ||
+                ((iVar1 = iVar5, *(int *)(&DAT_1001ae70 + g_dwCurrentSequence * 0x54) != 4 &&
+                 (*(int *)(&DAT_1001ae70 + g_dwCurrentSequence * 0x54) != 6)))) {
           Script_Trans(&DAT_1001ae50 + iVar5 * 0x54,0,1,unaff_retaddr,param_1,in_stack_00000008,
                        in_stack_0000000c,in_stack_00000010);
-          DAT_1002e30c = 0;
+          g_dwCurrentCuePoint = 0;
           (&DAT_1002e25c)[iVar5] = 1;
           iVar4 = iVar5;
-          DAT_1002e308 = iVar5;
-          iVar1 = DAT_1002e30c;
+          g_dwCurrentSequence = iVar5;
+          iVar1 = g_dwCurrentCuePoint;
         }
       }
-      DAT_1002e30c = iVar1;
+      g_dwCurrentCuePoint = iVar1;
       return (&DAT_1001ae74)[iVar4 * 0x15];
     }
     piVar2 = piVar2 + 0x15;
@@ -3133,13 +3138,13 @@ Script_Trans(char *param_1,uint param_2,int param_3,uint param_4,int param_5,uin
   int in_stack_00000024;
   
   pcVar1 = param_1;
-  if (DAT_1001e688 == 0) {
+  if (g_dwLocalMusic == 0) {
     return;
   }
   if (param_1 != (char *)0x0) {
-    DAT_1002e310 = *param_1;
+    g_bTrans_name = *param_1;
     pcVar3 = &DAT_1002e311;
-    if (DAT_1002e310 != '\0') {
+    if (g_bTrans_name != '\0') {
       do {
         cVar2 = pcVar3[(int)(param_1 + -0x1002e310)];
         *pcVar3 = cVar2;
@@ -3156,12 +3161,12 @@ LAB_10006904:
         cVar2 = puVar7[1];
         iVar8 = iVar8 + 1;
       }
-      if (((iVar8 == 0) || ((&DAT_1002e310)[iVar8] != '\0')) || (puVar10[iVar8] != '\0'))
+      if (((iVar8 == 0) || ((&g_bTrans_name)[iVar8] != '\0')) || (puVar10[iVar8] != '\0'))
       goto LAB_1000692f;
-      DAT_1002e310 = puVar10[0x20];
+      g_bTrans_name = puVar10[0x20];
       pcVar3 = puVar10 + 0x20;
       pcVar11 = &DAT_1002e311;
-      cVar2 = DAT_1002e310;
+      cVar2 = g_bTrans_name;
       while (cVar2 != '\0') {
         pcVar3 = pcVar3 + 1;
         cVar2 = *pcVar3;
@@ -3231,12 +3236,12 @@ LAB_1000695e:
   case 0xb:
   case 0xc:
     ImPrintf(s_opening_1001e84c);
-    ImPrintf(&DAT_1002e310);
+    ImPrintf(&g_bTrans_name);
     ImPrintf(&DAT_100171b0);
-    uVar4 = ImOpenSound(&DAT_1002e310,0);
+    uVar4 = ImOpenSound(&g_bTrans_name,0);
     if (uVar4 == 0) {
       ImPrintf(s_SCRIPT_ERR__Unable_to_open_1001e830);
-      ImPrintf(&DAT_1002e310);
+      ImPrintf(&g_bTrans_name);
       ImPrintf(&DAT_100171b0);
       if (uVar5 == 0) {
         return;
@@ -3284,7 +3289,7 @@ LAB_1000695e:
       goto LAB_10007019;
     }
     if (((param_7 == 0) && (*(int *)(pcVar1 + 0x40) != 0)) &&
-       (*(int *)(pcVar1 + 0x40) == *(int *)(&DAT_10017328 + DAT_1002df70 * 0x54))) {
+       (*(int *)(pcVar1 + 0x40) == *(int *)(&DAT_10017328 + g_dwCurrentState * 0x54))) {
       ImSwitchStream(uVar5,uVar4,param_6,0,1);
       ImFadeParam(uVar4,0x600,*(uint *)(pcVar1 + 0x4c),iVar9);
       ImFadeParam(uVar4,0x700,*(uint *)(pcVar1 + 0x50),iVar9);
@@ -3422,7 +3427,7 @@ void __cdecl Script_Callback(char *marker)
 void FUN_10007110(void)
 
 {
-  if (DAT_1001e688 != 0) {
+  if (g_dwLocalMusic != 0) {
     ImStopAllSounds();
     ImUnloadAll();
     ImCloseAll();
@@ -3444,13 +3449,14 @@ undefined4 __cdecl Im_SoundsFindByName(undefined4 param_1,char *param_2)
   bool bVar5;
   
   iVar3 = -1;
-  iVar1 = (**(code **)(DAT_10033510 + 0x30))(param_1,&DAT_1001e900);
+  iVar1 = (**(code **)(g_dwSounds_pHS + 0x30))(param_1,&DAT_1001e900);
   if (iVar1 == 0) {
     Im_SoundsFreeSlot((int)param_2);
   }
   else if (param_2 != (char *)0x0) {
-    if (((param_2 == DAT_10031e74) || (param_2 == DAT_10031e78)) || (param_2 == DAT_10031e7c)) {
-      (**(code **)(DAT_10033510 + 0x34))(iVar1);
+    if (((param_2 == DAT_10031e74) || (param_2 == g_dwLipSfx2Data)) || (param_2 == g_dwLipSfx3Data))
+    {
+      (**(code **)(g_dwSounds_pHS + 0x34))(iVar1);
       return 1;
     }
     if (param_2 == (char *)0x2710) {
@@ -3463,22 +3469,22 @@ undefined4 __cdecl Im_SoundsFindByName(undefined4 param_1,char *param_2)
       iVar3 = 1;
       param_2 = &DAT_1002e340;
     }
-    else if (DAT_10031e78 == (char *)0x0) {
-      DAT_10031e78 = param_2;
+    else if (g_dwLipSfx2Data == (char *)0x0) {
+      g_dwLipSfx2Data = param_2;
       iVar3 = 2;
       param_2 = &DAT_1002ec18;
     }
-    else if (DAT_10031e7c == (char *)0x0) {
-      DAT_10031e7c = param_2;
+    else if (g_dwLipSfx3Data == (char *)0x0) {
+      g_dwLipSfx3Data = param_2;
       iVar3 = 3;
       param_2 = &DAT_1002fbd0;
     }
     if (-1 < iVar3) {
-      (**(code **)(DAT_10033510 + 0x4c))(iVar1,0,2);
-      iVar2 = (**(code **)(DAT_10033510 + 0x48))(iVar1);
-      (**(code **)(DAT_10033510 + 0x4c))(iVar1,0,0);
+      (**(code **)(g_dwSounds_pHS + 0x4c))(iVar1,0,2);
+      iVar2 = (**(code **)(g_dwSounds_pHS + 0x48))(iVar1);
+      (**(code **)(g_dwSounds_pHS + 0x4c))(iVar1,0,0);
       if (iVar2 < 0x7d1) {
-        (**(code **)(DAT_10033510 + 0x38))(iVar1,param_2,iVar2);
+        (**(code **)(g_dwSounds_pHS + 0x38))(iVar1,param_2,iVar2);
         iVar2 = 4;
         bVar5 = true;
         pcVar4 = &DAT_1001e994;
@@ -3498,10 +3504,10 @@ undefined4 __cdecl Im_SoundsFindByName(undefined4 param_1,char *param_2)
             DAT_10031e74 = (char *)0x0;
             return 0;
           case 2:
-            DAT_10031e78 = (char *)0x0;
+            g_dwLipSfx2Data = (char *)0x0;
             return 0;
           case 3:
-            DAT_10031e7c = (char *)0x0;
+            g_dwLipSfx3Data = (char *)0x0;
             return 0;
           }
         }
@@ -3509,7 +3515,7 @@ undefined4 __cdecl Im_SoundsFindByName(undefined4 param_1,char *param_2)
     }
   }
   if (iVar1 != 0) {
-    (**(code **)(DAT_10033510 + 0x34))(iVar1);
+    (**(code **)(g_dwSounds_pHS + 0x34))(iVar1);
   }
   return 0;
 }
@@ -3526,11 +3532,11 @@ void __cdecl Im_SoundsFreeSlot(int param_1)
   if (param_1 == DAT_10031e74) {
     DAT_10031e74 = 0;
   }
-  if (param_1 == DAT_10031e78) {
-    DAT_10031e78 = 0;
+  if (param_1 == g_dwLipSfx2Data) {
+    g_dwLipSfx2Data = 0;
   }
-  if (param_1 == DAT_10031e7c) {
-    DAT_10031e7c = 0;
+  if (param_1 == g_dwLipSfx3Data) {
+    g_dwLipSfx3Data = 0;
   }
   return;
 }
@@ -3550,7 +3556,7 @@ int iMUSE_GetPhoneme(int param_1,int param_2)
     iVar1 = FUN_10008c40(param_1,iVar1 + param_2);
     return iVar1;
   }
-  if (((param_1 == DAT_10031e74) || (param_1 == DAT_10031e78)) || (param_1 == DAT_10031e7c)) {
+  if (((param_1 == DAT_10031e74) || (param_1 == g_dwLipSfx2Data)) || (param_1 == g_dwLipSfx3Data)) {
     iVar1 = 0;
     iVar4 = 0;
     piVar2 = &DAT_10031548;
@@ -3590,11 +3596,11 @@ int __cdecl FUN_10008c40(int param_1,int param_2)
   else if (param_1 == DAT_10031e74) {
     puVar1 = &DAT_1002e340;
   }
-  else if (param_1 == DAT_10031e78) {
+  else if (param_1 == g_dwLipSfx2Data) {
     puVar1 = &DAT_1002ec18;
   }
   else {
-    if (param_1 != DAT_10031e7c) {
+    if (param_1 != g_dwLipSfx3Data) {
       return 0;
     }
     puVar1 = &DAT_1002fbd0;
@@ -3652,20 +3658,20 @@ int FUN_10008ce0(void)
     timeBeginPeriod(unaff_ESI);
     _DAT_10031d28 = timeSetEvent(_DAT_1002e338,0,((unsigned)(uintptr_t)timer_callback),0xf,1);
     iVar3 = timeGetTime();
-    _DAT_10031e84 = 0;
+    _g_dwTimerCounter = 0;
     iVar1 = 2;
     do {
-      if (_DAT_10031e84 != 0) {
-        return _DAT_10031e84;
+      if (_g_dwTimerCounter != 0) {
+        return _g_dwTimerCounter;
       }
       iVar4 = timeGetTime();
       uVar2 = iVar4 - iVar3;
       while (uVar2 < 4000) {
-        if (_DAT_10031e84 != 0) goto LAB_10008de9;
+        if (_g_dwTimerCounter != 0) goto LAB_10008de9;
         iVar4 = timeGetTime();
         uVar2 = iVar4 - iVar3;
       }
-      if (_DAT_10031e84 == 0) {
+      if (_g_dwTimerCounter == 0) {
         timeKillEvent(_DAT_10031d28);
         timeEndPeriod(_DAT_10031520);
         timeBeginPeriod(_DAT_10031520);
@@ -3676,8 +3682,8 @@ LAB_10008de9:
       bVar5 = iVar1 != 0;
       iVar1 = iVar1 + -1;
     } while (bVar5);
-    if (_DAT_10031e84 != 0) {
-      return _DAT_10031e84;
+    if (_g_dwTimerCounter != 0) {
+      return _g_dwTimerCounter;
     }
   }
   return 0;
@@ -3698,7 +3704,7 @@ undefined4 __stdcall timer_callback(int a1,int a2,int a3,int a4,int a5)
   undefined4 uVar1;
   
   _DAT_10031e80 = 1;
-  _DAT_10031e84 = _DAT_10031e84 + 1;
+  _g_dwTimerCounter = _g_dwTimerCounter + 1;
   uVar1 = ImHeartbeat();
   _DAT_10031e80 = 0;
   return uVar1;
@@ -3730,14 +3736,14 @@ void FUN_10008e60(void)
     if ((puVar1 != (undefined1 *)0x0) && (*(int *)(puVar1 + 0x28) != 0)) {
       Im_SoundsFreeSlot(*(int *)(puVar1 + 0x20));
       if (*(int *)(puVar1 + 0x28) != 0) {
-        (**(code **)(DAT_10033510 + 0x24))(*(int *)(puVar1 + 0x28));
+        (**(code **)(g_dwSounds_pHS + 0x24))(*(int *)(puVar1 + 0x28));
       }
     }
     puVar1 = puVar1 + -0x40;
     iVar2 = iVar2 + -1;
   } while (iVar2 != 0);
-  DAT_10031d3c = 0;
-  puVar3 = (undefined4 *)&DAT_10031528;
+  g_dwNextHandle = 0;
+  puVar3 = (undefined4 *)&g_bSoundCache;
   for (iVar2 = 0x200; iVar2 != 0; iVar2 = iVar2 + -1) {
     *puVar3 = 0;
     puVar3 = puVar3 + 1;
@@ -3777,12 +3783,12 @@ void __cdecl Im_SoundsPrepare(uint param_1)
                         &param_1);
       if ((local_c == 0x5622) && (((local_8 == 0x10 && (local_4 == 1)) && (0 < (int)param_1)))) {
         puVar1 = (undefined2 *)
-                 (**(code **)(DAT_10033510 + 0x20))
+                 (**(code **)(g_dwSounds_pHS + 0x20))
                            (param_1 * 2 + 0x50,s_C__grimsrc_libs_iMUSE_sounds_c_1001e8e0,0x7eb);
         if (puVar1 != (undefined2 *)0x0) {
           uVar2 = Im_ApplyFXPreset((undefined2 *)(*(int *)(puVar4 + 0x2c) + 0x50),param_1,puVar1,
                                    (int *)0x0,(int *)0x0,0);
-          (**(code **)(DAT_10033510 + 0x24))(*(undefined4 *)(puVar4 + 0x28));
+          (**(code **)(g_dwSounds_pHS + 0x24))(*(undefined4 *)(puVar4 + 0x28));
           *(undefined2 **)(puVar4 + 0x28) = puVar1;
           if (uVar2 == 2) {
             param_1 = param_1 << 1;
@@ -3839,13 +3845,14 @@ uint * grimSound_LipSyncLoad(uint *param_1)
   
                     /* 0x95d0  74  grimSound_LipSyncLoad */
   if (param_1 == (uint *)0x0) {
-    (**(code **)(DAT_10033510 + 0x18))(IMG_ADDR(0x1001e99c),s_C__grimsrc_libs_iMUSE_sounds_c_1001e8e0,0x845);
+    (**(code **)(g_dwSounds_pHS + 0x18))(IMG_ADDR(0x1001e99c),s_C__grimsrc_libs_iMUSE_sounds_c_1001e8e0,0x845)
+    ;
   }
   piVar1 = Im_SoundsLoad(param_1,&DAT_1001e900);
   if (piVar1 == (int *)0x0) {
     return (uint *)0x0;
   }
-  puVar2 = (uint *)(**(code **)(DAT_10033510 + 0x20))
+  puVar2 = (uint *)(**(code **)(g_dwSounds_pHS + 0x20))
                              (0x28,s_C__grimsrc_libs_iMUSE_sounds_c_1001e8e0,0x851);
   puVar6 = puVar2;
   for (iVar5 = 10; iVar5 != 0; iVar5 = iVar5 + -1) {
@@ -3859,8 +3866,8 @@ uint * grimSound_LipSyncLoad(uint *param_1)
   iMUSE_sounds__9e40((undefined *)piVar1,0,0);
   puVar2[8] = uVar3;
   puVar4 = (undefined4 *)
-           (**(code **)(DAT_10033510 + 0x20))(uVar3,s_C__grimsrc_libs_iMUSE_sounds_c_1001e8e0,0x85e)
-  ;
+           (**(code **)(g_dwSounds_pHS + 0x20))
+                     (uVar3,s_C__grimsrc_libs_iMUSE_sounds_c_1001e8e0,0x85e);
   puVar2[9] = (uint)puVar4;
   Im_SoundsReadBlock(piVar1,puVar4,uVar3);
   Im_SoundsUnload(piVar1);
@@ -3875,13 +3882,14 @@ undefined4 __cdecl grimSound_LipSyncFree(int param_1)
   
                     /* 0x96b0  73  grimSound_LipSyncFree */
   if (param_1 == 0) {
-    (**(code **)(DAT_10033510 + 0x18))(IMG_ADDR(0x1001e9b8),s_C__grimsrc_libs_iMUSE_sounds_c_1001e8e0,0x87c);
+    (**(code **)(g_dwSounds_pHS + 0x18))(IMG_ADDR(0x1001e9b8),s_C__grimsrc_libs_iMUSE_sounds_c_1001e8e0,0x87c)
+    ;
   }
   if (*(int *)(param_1 + 0x24) != 0) {
-    (**(code **)(DAT_10033510 + 0x24))(*(int *)(param_1 + 0x24));
+    (**(code **)(g_dwSounds_pHS + 0x24))(*(int *)(param_1 + 0x24));
     *(undefined4 *)(param_1 + 0x24) = 0;
   }
-  uVar1 = (**(code **)(DAT_10033510 + 0x24))(param_1);
+  uVar1 = (**(code **)(g_dwSounds_pHS + 0x24))(param_1);
   return uVar1;
 }
 
@@ -3918,14 +3926,14 @@ int * __cdecl Im_SoundsLoad(uint *param_1,char *param_2)
   #define pbStack_4 (*(byte **)(_frame + (0x30 - 0x4)))
   
   if (((*param_2 == 'w') || (*param_2 == 'a')) || (param_2[1] == '+')) {
-    piVar2 = (int *)(**(code **)(DAT_10033510 + 0x30))(param_1,param_2);
+    piVar2 = (int *)(**(code **)(g_dwSounds_pHS + 0x30))(param_1,param_2);
     return piVar2;
   }
-  piVar2 = (int *)(**(code **)(DAT_10033510 + 0x30))(param_1,param_2);
+  piVar2 = (int *)(**(code **)(g_dwSounds_pHS + 0x30))(param_1,param_2);
   if (piVar2 == (int *)0x0) {
     return (int *)0x0;
   }
-  (**(code **)(DAT_10033510 + 0x38))(piVar2,acStack_8,4);
+  (**(code **)(g_dwSounds_pHS + 0x38))(piVar2,acStack_8,4);
   iVar7 = 4;
   bVar12 = true;
   pcVar10 = acStack_8;
@@ -3938,7 +3946,7 @@ int * __cdecl Im_SoundsLoad(uint *param_1,char *param_2)
     pcVar11 = pcVar11 + 1;
   } while (bVar12);
   if (!bVar12) {
-    (**(code **)(DAT_10033510 + 0x4c))(piVar2,0,0);
+    (**(code **)(g_dwSounds_pHS + 0x4c))(piVar2,0,0);
     return piVar2;
   }
   if (DAT_10031e8c == 0) {
@@ -3961,20 +3969,20 @@ int * __cdecl Im_SoundsLoad(uint *param_1,char *param_2)
     LeaveCriticalSection(IMG_ADDR(0x1002fbb8));
     *(int **)(&DAT_100303a0 + iVar7) = piVar2;
     *(undefined4 *)(&DAT_100303a8 + iVar7) = 0;
-    (**(code **)(DAT_10033510 + 0x38))(piVar2,&param_2,2);
+    (**(code **)(g_dwSounds_pHS + 0x38))(piVar2,&param_2,2);
     uVar6 = CONCAT11((char)param_2,(char)((uint)param_2 >> 8));
     param_2 = (char *)(uint)uVar6;
     *(uint *)(&DAT_100303ac + iVar7) = (uint)uVar6;
-    (**(code **)(DAT_10033510 + 0x4c))(piVar2,(int)param_2 * 9 + 6,0);
+    (**(code **)(g_dwSounds_pHS + 0x4c))(piVar2,(int)param_2 * 9 + 6,0);
     PIECE(uStack_14,0,2) = PIECE(uStack_14,1,2);
-    (**(code **)(DAT_10033510 + 0x38))(piVar2,&uStack_14,2);
+    (**(code **)(g_dwSounds_pHS + 0x38))(piVar2,&uStack_14,2);
     uStack_14 = (uint)CONCAT11((char)(undefined2)uStack_14,
                                (char)((ushort)(undefined2)uStack_14 >> 8));
     iStack_c = ((uint)param_2 & 0xffff) * 9;
-    pbVar4 = (byte *)(**(code **)(DAT_10033510 + 0x20))
+    pbVar4 = (byte *)(**(code **)(g_dwSounds_pHS + 0x20))
                                (iStack_c,s_C__grimsrc_libs_iMUSE_sounds_c_1001e8e0,0x956);
     pbStack_4 = pbVar4;
-    iVar3 = (**(code **)(DAT_10033510 + 0x20))
+    iVar3 = (**(code **)(g_dwSounds_pHS + 0x20))
                       ((uStack_14 & 0xffff) + (((uint)param_2 & 0xffff) + 1) * 0x14,
                        s_C__grimsrc_libs_iMUSE_sounds_c_1001e8e0,0x958);
     *(int *)(&DAT_100303b0 + iVar7) = iVar3;
@@ -3987,9 +3995,9 @@ int * __cdecl Im_SoundsLoad(uint *param_1,char *param_2)
     iVar8 = iVar8 + 4 + ((uint)param_2 & 0xffff) * 4;
     *(int *)(&DAT_100303c0 + iVar7) = iVar8;
     *(uint *)(&DAT_100303c4 + iVar7) = iVar8 + 4 + ((uint)param_2 & 0xffff) * 4;
-    (**(code **)(DAT_10033510 + 0x38))(piVar2,iVar3,uStack_14 & 0xffff);
-    (**(code **)(DAT_10033510 + 0x4c))(piVar2,6,0);
-    (**(code **)(DAT_10033510 + 0x38))(piVar2,pbVar4,iStack_c);
+    (**(code **)(g_dwSounds_pHS + 0x38))(piVar2,iVar3,uStack_14 & 0xffff);
+    (**(code **)(g_dwSounds_pHS + 0x4c))(piVar2,6,0);
+    (**(code **)(g_dwSounds_pHS + 0x38))(piVar2,pbVar4,iStack_c);
     iVar3 = 0;
     iStack_10 = ((uint)param_2 & 0xffff) * 9 + 8 + (uStack_14 & 0xffff);
     iVar8 = 0;
@@ -4021,7 +4029,7 @@ int * __cdecl Im_SoundsLoad(uint *param_1,char *param_2)
     *(int *)(*(int *)(&DAT_100303bc + iVar7) + ((uint)param_2 & 0xffff) * 4) = iVar3;
     *(int *)(&DAT_100303a4 + iVar7) = iVar3;
     *(int *)(*(int *)(&DAT_100303c4 + iVar7) + ((uint)param_2 & 0xffff) * 4) = iStack_10;
-    (**(code **)(DAT_10033510 + 0x24))(pbStack_4);
+    (**(code **)(g_dwSounds_pHS + 0x24))(pbStack_4);
     Im_CodecInit((undefined1 *)(iVar7 + IMG_ADDR(0x100303d4)));
     *(undefined4 *)(&DAT_100303cc + iVar7) = 0;
     *(undefined4 *)(&DAT_100303d0 + iVar7) = 0;
@@ -4030,7 +4038,7 @@ int * __cdecl Im_SoundsLoad(uint *param_1,char *param_2)
     (&DAT_10030429)[iVar7] = 0;
     return (int *)(&DAT_100303a0 + iVar7);
   }
-  (**(code **)(DAT_10033510 + 0x34))(piVar2);
+  (**(code **)(g_dwSounds_pHS + 0x34))(piVar2);
   return (int *)0x0;
 }
 #undef acStack_8
@@ -4052,20 +4060,20 @@ undefined4 __cdecl Im_SoundsUnload(undefined4 *param_1)
   if (((undefined4 *)IMG_ADDR(0x1003039f) < param_1) && (param_1 < &DAT_10031520)) {
     uVar1 = *param_1;
     if (param_1[4] != 0) {
-      (**(code **)(DAT_10033510 + 0x24))(param_1[4]);
+      (**(code **)(g_dwSounds_pHS + 0x24))(param_1[4]);
       param_1[4] = 0;
     }
     if (param_1[0xc] != 0) {
-      (**(code **)(DAT_10033510 + 0x24))(param_1[0xc]);
+      (**(code **)(g_dwSounds_pHS + 0x24))(param_1[0xc]);
     }
     for (iVar2 = 0x23; iVar2 != 0; iVar2 = iVar2 + -1) {
       *param_1 = 0;
       param_1 = param_1 + 1;
     }
-    (**(code **)(DAT_10033510 + 0x34))(uVar1);
+    (**(code **)(g_dwSounds_pHS + 0x34))(uVar1);
     return 0;
   }
-  uVar1 = (**(code **)(DAT_10033510 + 0x34))(param_1);
+  uVar1 = (**(code **)(g_dwSounds_pHS + 0x34))(param_1);
   return uVar1;
 }
 
@@ -4097,7 +4105,7 @@ uint __cdecl Im_SoundsReadBlock(undefined4 *param_1,undefined4 *param_2,uint par
   local_c = (byte *)0x0;
   local_4 = 0;
   if ((param_1 < &DAT_100303a0) || ((undefined4 *)IMG_ADDR(0x1003151f) < param_1)) {
-    uVar7 = (**(code **)(DAT_10033510 + 0x38))(param_1,param_2,param_3);
+    uVar7 = (**(code **)(g_dwSounds_pHS + 0x38))(param_1,param_2,param_3);
     return uVar7;
   }
   iVar1 = iMUSE_sounds__9eb0((int)param_1,param_1[2]);
@@ -4116,7 +4124,7 @@ uint __cdecl Im_SoundsReadBlock(undefined4 *param_1,undefined4 *param_2,uint par
   do {
     if (iVar2 < iVar8) {
       if (local_c != (byte *)0x0) {
-        (**(code **)(DAT_10033510 + 0x24))(local_c);
+        (**(code **)(g_dwSounds_pHS + 0x24))(local_c);
       }
       param_1[2] = param_1[2] + param_3;
       return param_3;
@@ -4124,16 +4132,17 @@ uint __cdecl Im_SoundsReadBlock(undefined4 *param_1,undefined4 *param_2,uint par
     if ((param_1[0xc] == 0) || (iVar8 != param_1[10])) {
       uVar7 = *(uint *)(param_1[8] + iVar8 * 4);
       if (local_4 < uVar7) {
-        local_c = (byte *)(**(code **)(DAT_10033510 + 0x28))
+        local_c = (byte *)(**(code **)(g_dwSounds_pHS + 0x28))
                                     (local_c,uVar7,s_C__grimsrc_libs_iMUSE_sounds_c_1001e8e0,0xa14);
         local_4 = *(uint *)(param_1[8] + iVar8 * 4);
       }
-      (**(code **)(DAT_10033510 + 0x4c))(*param_1,*(undefined4 *)(param_1[9] + iVar8 * 4),0);
-      (**(code **)(DAT_10033510 + 0x38))(*param_1,local_c,*(undefined4 *)(param_1[8] + iVar8 * 4));
+      (**(code **)(g_dwSounds_pHS + 0x4c))(*param_1,*(undefined4 *)(param_1[9] + iVar8 * 4),0);
+      (**(code **)(g_dwSounds_pHS + 0x38))(*param_1,local_c,*(undefined4 *)(param_1[8] + iVar8 * 4))
+      ;
       uVar7 = *(uint *)(param_1[6] + iVar8 * 4);
       puVar4 = (uint *)(param_1[6] + iVar8 * 4);
       if ((uint)param_1[0xb] < uVar7) {
-        uVar3 = (**(code **)(DAT_10033510 + 0x28))
+        uVar3 = (**(code **)(g_dwSounds_pHS + 0x28))
                           (param_1[0xc],uVar7,s_C__grimsrc_libs_iMUSE_sounds_c_1001e8e0,0xa21);
         param_1[0xc] = uVar3;
         puVar4 = (uint *)(param_1[6] + iVar8 * 4);
@@ -4220,19 +4229,19 @@ void iMUSE_DeclareBufferSizes
 
 {
                     /* 0xa070  75  iMUSE_DeclareBufferSizes */
-  _DAT_1001e8a8 = param_1;
-  _DAT_1001e8ac = param_2;
-  _DAT_1001e8b0 = param_3;
-  _DAT_1001e8b4 = param_4;
-  _DAT_1001e8b8 = param_5;
-  _DAT_1001e8bc = param_6;
-  DAT_1001e8c0 = param_7;
-  DAT_1001e8c4 = param_8;
-  DAT_1001e8c8 = param_9;
-  DAT_1001e8cc = param_10;
-  _DAT_1001e8d0 = param_11;
-  DAT_1001e8d4 = param_12;
-  _DAT_1001e8d8 = 150000;
+  _g_dwImVoiceBufferSize = param_1;
+  _g_dwImVoiceGulpSize = param_2;
+  _g_dwImVoiceCriticalSize = param_3;
+  _g_dwImMusicBufferSize = param_4;
+  _g_dwImMusicGulpSize = param_5;
+  _g_dwImMusicCriticalSize = param_6;
+  g_dwImLargeFadeSize = param_7;
+  g_dwImLargeFadeCount = param_8;
+  g_dwImSmallFadeSize = param_9;
+  g_dwImSmallFadeCount = param_10;
+  _g_dwImNonPurgeCacheSize = param_11;
+  g_dwImWaveMixCount = param_12;
+  _g_dwEffectsHeapSize = 150000;
   return;
 }
 
@@ -4297,22 +4306,22 @@ int __cdecl iMUSE_SetVoiceEffect(uint *param_1)
   int iVar1;
   
                     /* 0xa160  81  iMUSE_SetVoiceEffect */
-  Im_MemCopy((uint *)&DAT_10033520,param_1,0x28);
+  Im_MemCopy((uint *)&g_aVoxFxName,param_1,0x28);
   DAT_10033547 = 0;
-  if (_DAT_1001e8d8 == 0) {
+  if (_g_dwEffectsHeapSize == 0) {
     DAT_10033547 = 0;
-    DAT_10031d30 = 0;
+    g_dwUseVoxFx = 0;
     return 0;
   }
   iVar1 = FUN_1000c0a0((int)(char)*param_1);
   if ((((iVar1 == 0x4f) && (iVar1 = FUN_1000c0a0((int)*(char *)((int)param_1 + 1)), iVar1 == 0x46))
       && (iVar1 = FUN_1000c0a0((int)*(char *)((int)param_1 + 2)), iVar1 == 0x46)) &&
      (*(char *)((int)param_1 + 3) == '\0')) {
-    DAT_10031d30 = 0;
+    g_dwUseVoxFx = 0;
     return 0;
   }
-  DAT_10031d30 = FUN_10004750((uint)param_1);
-  return DAT_10031d30;
+  g_dwUseVoxFx = FUN_10004750((uint)param_1);
+  return g_dwUseVoxFx;
 }
 
 /* ---- 0x1000a1e0  Im_TracksInit ---- */
@@ -4580,8 +4589,8 @@ undefined4 Im_InitSubsystems(void)
   undefined4 *puVar3;
   undefined4 *puVar4;
   
-  DAT_1003350c = DAT_1001e8d4;
-  DAT_1003230c = 0;
+  DAT_1003350c = g_dwImWaveMixCount;
+  g_dwPauseTimer = 0;
   DAT_10032300 = 0;
   _DAT_10032308 = 0x5622;
   iVar2 = Im_DSoundInit(0x5622,(undefined4 *)&DAT_100322f0);
@@ -4649,7 +4658,7 @@ void TrPause(void)
 
 {
   Im_GuardEnter();
-  DAT_1003230c = 1;
+  g_dwPauseTimer = 1;
   Im_GuardLeave();
   return;
 }
@@ -4663,7 +4672,7 @@ void TrResume(void)
 
 {
   Im_GuardEnter();
-  DAT_1003230c = 0;
+  g_dwPauseTimer = 0;
   Im_GuardLeave();
   return;
 }
@@ -4777,12 +4786,12 @@ void Im_HeartbeatBody(void)
   int *piVar1;
   int *piVar2;
   
-  if (DAT_1003230c != 0) {
-    if (DAT_1003230c + 1 < 3) {
-      DAT_1003230c = DAT_1003230c + 1;
+  if (g_dwPauseTimer != 0) {
+    if (g_dwPauseTimer + 1 < 3) {
+      g_dwPauseTimer = g_dwPauseTimer + 1;
       return;
     }
-    DAT_1003230c = 3;
+    g_dwPauseTimer = 3;
   }
   do {
     iMUSE_Dispatch__2a00();
@@ -4791,14 +4800,14 @@ void Im_HeartbeatBody(void)
     if (DAT_10032304 != 0) {
       Im_MixerHeartbeat();
       piVar2 = DAT_10032300;
-      if (DAT_1003230c == 0) {
+      if (g_dwPauseTimer == 0) {
         while (piVar2 != (int *)0x0) {
           piVar1 = (int *)piVar2[1];
           Im_DispatchMixTrack(piVar2,DAT_10032304,DAT_100322e8);
           piVar2 = piVar1;
         }
       }
-      Im_ReadSoundData(DAT_10032314,DAT_10032304);
+      MxEndMix(DAT_10032314,DAT_10032304);
       Im_DSoundHeartbeat(&DAT_10032314,&DAT_10032304,(int *)0x0);
     }
   } while (DAT_10032310 != 0);
@@ -5293,7 +5302,7 @@ undefined4 Im_TriggersInit(void)
     *puVar2 = 0;
     puVar2 = puVar2 + 1;
   }
-  DAT_10032f40 = 0;
+  g_dwDefersOn = 0;
   DAT_10032f44 = 0;
   return 0;
 }
@@ -5354,7 +5363,7 @@ undefined4 __cdecl Im_TriggersRestore(undefined4 *param_1)
     puVar2 = puVar2 + 1;
     puVar3 = puVar3 + 1;
   }
-  DAT_10032f40 = 1;
+  g_dwDefersOn = 1;
   return 0xb20;
 }
 
@@ -5729,7 +5738,7 @@ TgDeferCommand(int time,int cmd,int p0,int p1,int p2,int p3,int p4,int p5,int p6
         iVar2 = iVar2 + -1;
       } while (iVar2 != 0);
       *piVar5 = time;
-      DAT_10032f40 = 1;
+      g_dwDefersOn = 1;
       return 0;
     }
     iVar2 = iVar2 + 1;
@@ -5752,13 +5761,13 @@ void Im_ProcessDeferred(void)
   int *piVar3;
   
   piVar3 = &DAT_10032cc0;
-  if (DAT_10032f40 != 0) {
-    DAT_10032f40 = 0;
+  if (g_dwDefersOn != 0) {
+    g_dwDefersOn = 0;
     iVar2 = 8;
     do {
       if (*piVar3 != 0) {
         iVar1 = *piVar3 + -1;
-        DAT_10032f40 = 1;
+        g_dwDefersOn = 1;
         *piVar3 = iVar1;
         if (iVar1 == 0) {
           Im_RunDeferredCommand((int)piVar3);

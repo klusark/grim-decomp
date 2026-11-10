@@ -39,7 +39,7 @@ void rdRaster_Select_Flat(float *param_1,int param_2)
 void rdRaster_SpanFlatSetup(int *param_1)
 {
     int node = param_1[0x6e];
-    int bpp = *(int *)(*(int *)(*(int *)((char *)g_pRdCurrentCamera + 4) + 4) + 0x24);
+    int bpp = *(int *)(*(int *)(*(int *)((char *)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
 
     if (bpp == 8) {
         DAT_008ddf40 = ((unsigned char *)param_1)[0x1d0];
@@ -64,7 +64,7 @@ void rdRaster_SpanFlatSetup(int *param_1)
  * Span record: [0] x, [1] length, [2] y.  Pixel = base + y * pitch + x (camera record +4 +4, pitch +0x18, base +0x5c). */
 void rdRaster_SpanOutline8(int *param_1)
 {
-    int iVar1 = *(int *)(*(int *)((char *)g_pRdCurrentCamera + 4) + 4);
+    int iVar1 = *(int *)(*(int *)((char *)g_pRdCamera_CurCamera + 4) + 4);
     unsigned char *puVar2 = (unsigned char *)(param_1[2] * *(int *)(iVar1 + 0x18) + *(int *)(iVar1 + 0x5c) + param_1[0]);
 
     *puVar2 = DAT_008ddf40;
@@ -75,7 +75,7 @@ void rdRaster_SpanOutline8(int *param_1)
  * The same at 16 bpp: pitch is halved (unsigned), the colour is DAT_008ddf08. */
 void rdRaster_SpanOutline16(int *param_1)
 {
-    int iVar2 = *(int *)(*(int *)((char *)g_pRdCurrentCamera + 4) + 4);
+    int iVar2 = *(int *)(*(int *)((char *)g_pRdCamera_CurCamera + 4) + 4);
     unsigned short *puVar1 = (unsigned short *)
         (*(int *)(iVar2 + 0x5c) + (param_1[2] * (int)(*(unsigned int *)(iVar2 + 0x18) >> 1) + param_1[0]) * 2);
 
@@ -116,7 +116,7 @@ void rdRaster_Select_Flat_2(float *param_1,int param_2)
  * DAT_008ddf08), then sets UINT_008ddf24 and calls the per-span textured drawer of the camera's flag at +0x14. */
 void rdRaster_SpanTexSetup(int *param_1)
 {
-    int bpp = *(int *)(*(int *)(*(int *)((char *)g_pRdCurrentCamera + 4) + 4) + 0x24);
+    int bpp = *(int *)(*(int *)(*(int *)((char *)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
     int node;
     int iVar1;
     unsigned int cnt;
@@ -134,7 +134,7 @@ void rdRaster_SpanTexSetup(int *param_1)
     if (bpp == 8) {
         for (node = param_1[0x6e]; node != 0; node = *(int *)(node + 0x28)) {
             unsigned char *dst;
-            iVar1 = *(int *)(*(int *)((char *)g_pRdCurrentCamera + 4) + 4);
+            iVar1 = *(int *)(*(int *)((char *)g_pRdCamera_CurCamera + 4) + 4);
             dst = (unsigned char *)(*(int *)(node + 8) * *(int *)(iVar1 + 0x18) + *(int *)(iVar1 + 0x5c) + *(int *)node);
             cnt = *(unsigned int *)(node + 4);
             for (i = 0; i < cnt; i++) {
@@ -145,7 +145,7 @@ void rdRaster_SpanTexSetup(int *param_1)
     else if (bpp == 0x10) {
         for (node = param_1[0x6e]; node != 0; node = *(int *)(node + 0x28)) {
             unsigned short *dst;
-            iVar1 = *(int *)(*(int *)((char *)g_pRdCurrentCamera + 4) + 4);
+            iVar1 = *(int *)(*(int *)((char *)g_pRdCamera_CurCamera + 4) + 4);
             dst = (unsigned short *)(*(int *)(iVar1 + 0x5c) +
                                      (*(int *)(node + 8) * (int)(*(unsigned int *)(iVar1 + 0x18) >> 1) + *(int *)node) * 2);
             for (cnt = *(unsigned int *)(node + 4); cnt != 0; cnt--) {
@@ -156,7 +156,7 @@ void rdRaster_SpanTexSetup(int *param_1)
     }
 
     node = param_1[0x6e];
-    if (*(int *)(*(int *)((char *)g_pRdCurrentCamera + 4) + 0x14) == 0) {
+    if (*(int *)(*(int *)((char *)g_pRdCamera_CurCamera + 4) + 0x14) == 0) {
         for (; node != 0; node = *(int *)(node + 0x28)) {
             rdRaster_SpanR_FlatZw((int *)node);
         }
@@ -244,7 +244,7 @@ void FUN_00411330(int param_1)
     int iVar1;
     int iVar2;
 
-    iVar1 = *(int *)(*(int *)(*(int *)((char *)g_pRdCurrentCamera + 4) + 4) + 0x24);
+    iVar1 = *(int *)(*(int *)(*(int *)((char *)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
     if (iVar1 == 0x10) {
         UINT_008ddf30 = *(unsigned int *)(param_1 + 0x1e0);
     }
@@ -280,7 +280,7 @@ void rdRaster_SpanLitSetup(int param_1)
     DAT_008ddf40 = ((unsigned char *)param_1)[0x1d0];
     UINT_008ddf24 = *(unsigned int *)(param_1 + 0x19c);
     for (node = *(int *)(param_1 + 0x1b8); node != 0; node = *(int *)(node + 0x28)) {
-        iVar5 = *(int *)(*(int *)((char *)g_pRdCurrentCamera + 4) + 4);
+        iVar5 = *(int *)(*(int *)((char *)g_pRdCamera_CurCamera + 4) + 4);
         cnt = *(unsigned int *)(node + 4);
         dst = (unsigned char *)(*(int *)(node + 8) * *(int *)(iVar5 + 0x18) + *(int *)(iVar5 + 0x5c) + *(int *)node);
         for (i = 0; i < cnt; i++) {
@@ -289,7 +289,7 @@ void rdRaster_SpanLitSetup(int param_1)
     }
 
     node = *(int *)(param_1 + 0x1b8);
-    if (*(int *)(*(int *)((char *)g_pRdCurrentCamera + 4) + 0x14) == 0) {
+    if (*(int *)(*(int *)((char *)g_pRdCamera_CurCamera + 4) + 0x14) == 0) {
         for (; node != 0; node = *(int *)(node + 0x28)) {
             rdRaster_SpanR_FlatZw((int *)node);
         }
@@ -309,7 +309,7 @@ void rdRaster_SpanLitSetup(int param_1)
 void rdRaster_Select_FlatLit(float *param_1,int param_2)
 {
     int rec = ((int *)param_1)[0];
-    int bpp = *(int *)(*(int *)(*(int *)((char *)g_pRdCurrentCamera + 4) + 4) + 0x24);
+    int bpp = *(int *)(*(int *)(*(int *)((char *)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
     unsigned int count = *(unsigned int *)(rec + 0x1c);
     int base = *(int *)(rec + 0x20);
     unsigned int k;
@@ -337,7 +337,7 @@ void rdRaster_Select_FlatLit(float *param_1,int param_2)
  * x86 shifts do) into param_1[0x72], [0x75], [0x76], and for 16 bpp the table address (+0x7e00) into param_1[0x78]. */
 void rdRaster_Select_FlatLit_2(int *param_1,int param_2)
 {
-    int bpp = *(int *)(*(int *)(*(int *)((char *)g_pRdCurrentCamera + 4) + 4) + 0x24);
+    int bpp = *(int *)(*(int *)(*(int *)((char *)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
     int iVar2;
 
     rdRaster_SetupPoly((float *)param_1, *(int *)(*(int *)(param_2 + 0x1c) + 0x18) - 1);
@@ -360,7 +360,7 @@ void rdRaster_Select_FlatLit_2(int *param_1,int param_2)
  * palette table at +0x7e00 into param_1[0x78]. */
 void rdRaster_Select_FlatLit_3(int *param_1,int param_2)
 {
-    int iVar1 = *(int *)(*(int *)(*(int *)((char *)g_pRdCurrentCamera + 4) + 4) + 0x24);
+    int iVar1 = *(int *)(*(int *)(*(int *)((char *)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
     int iVar2;
 
     rdRaster_SetupPoly((float *)param_1, *(int *)(*(int *)(param_2 + 0x1c) + 0x18) - 1);
@@ -383,7 +383,7 @@ void rdRaster_Select_FlatLit_3(int *param_1,int param_2)
  * +0x7e00 offset that _2 / _3 add. */
 static inline void select_flatlit_nooffset(int *param_1, int param_2, int span_fn_is_6)
 {
-    int bpp = *(int *)(*(int *)(*(int *)((char *)g_pRdCurrentCamera + 4) + 4) + 0x24);
+    int bpp = *(int *)(*(int *)(*(int *)((char *)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
     int iVar2;
     int rec;
 
@@ -445,7 +445,7 @@ void rdRaster_Span16_Flat(uint *param_1,uint *param_2)
     }
     iVar4 = (int)((uVar3 >> 0x10) - (uVar2 >> 0x10));
     if (0 < iVar4) {
-        iVar1 = *(int *)(*(int *)((char *)g_pRdCurrentCamera + 4) + 4);
+        iVar1 = *(int *)(*(int *)((char *)g_pRdCamera_CurCamera + 4) + 4);
         PTR_007f43a8 = (int *)(*(int *)(iVar1 + 0x5c) +
                               ((int)param_1[0x10] * (int)(*(unsigned int *)(iVar1 + 0x18) >> 1) + (int)(uVar2 >> 0x10)) * 2);
         do {
@@ -474,7 +474,7 @@ void rdRaster_Span16_Flat_2(uint *param_1,uint *param_2)
     }
     iVar4 = (int)((uVar3 >> 0x10) - (uVar2 >> 0x10));
     if (0 < iVar4) {
-        iVar1 = *(int *)(*(int *)((char *)g_pRdCurrentCamera + 4) + 4);
+        iVar1 = *(int *)(*(int *)((char *)g_pRdCamera_CurCamera + 4) + 4);
         PTR_007f43a8 = (int *)(*(int *)(iVar1 + 0x5c) +
                               ((int)param_1[0x10] * (int)(*(unsigned int *)(iVar1 + 0x18) >> 1) + (int)(uVar2 >> 0x10)) * 2);
         do {
@@ -505,7 +505,7 @@ void rdRaster_Span_Flat(uint *param_1,uint *param_2)
     }
     uVar4 = (uVar4 >> 0x10) - (uVar3 >> 0x10);
     if (0 < (int)uVar4) {
-        iVar1 = *(int *)(*(int *)((char *)g_pRdCurrentCamera + 4) + 4);
+        iVar1 = *(int *)(*(int *)((char *)g_pRdCamera_CurCamera + 4) + 4);
         dst = (unsigned char *)((int)param_1[0x10] * *(int *)(iVar1 + 0x18) + *(int *)(iVar1 + 0x5c) + (int)(uVar3 >> 0x10));
         for (i = 0; i < uVar4; i++) {
             dst[i] = DAT_008ddec0;
@@ -521,7 +521,7 @@ void rdRaster_Span_Flat(uint *param_1,uint *param_2)
 void FUN_004121a0(int param_1)
 {
     int *p = (int *)param_1;
-    int bpp = *(int *)(*(int *)(*(int *)((char *)g_pRdCurrentCamera + 4) + 4) + 0x24);
+    int bpp = *(int *)(*(int *)(*(int *)((char *)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
     int node;
 
     UINT_008ddf04 = p[0x70];
@@ -558,7 +558,7 @@ void FUN_004121a0(int param_1)
 void FUN_00413110(int param_1)
 {
     int *p = (int *)param_1;
-    int bpp = *(int *)(*(int *)(*(int *)((char *)g_pRdCurrentCamera + 4) + 4) + 0x24);
+    int bpp = *(int *)(*(int *)(*(int *)((char *)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
     int node;
 
     UINT_008ddf04 = p[0x70];
@@ -597,7 +597,7 @@ void FUN_00413110(int param_1)
 void FUN_00415600(int param_1)
 {
     int *p = (int *)param_1;
-    int bpp = *(int *)(*(int *)(*(int *)((char *)g_pRdCurrentCamera + 4) + 4) + 0x24);
+    int bpp = *(int *)(*(int *)(*(int *)((char *)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
     int node;
 
     UINT_008ddf04 = p[0x70];
@@ -640,7 +640,7 @@ void FUN_00415600(int param_1)
 void FUN_00416f80(int param_1)
 {
     int *p = (int *)param_1;
-    int bpp = *(int *)(*(int *)(*(int *)((char *)g_pRdCurrentCamera + 4) + 4) + 0x24);
+    int bpp = *(int *)(*(int *)(*(int *)((char *)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
     int node;
 
     UINT_008ddf04 = p[0x70];
@@ -685,7 +685,7 @@ void FUN_00416f80(int param_1)
 void FUN_00413dd0(int param_1)
 {
     int *p = (int *)param_1;
-    int bpp = *(int *)(*(int *)(*(int *)((char *)g_pRdCurrentCamera + 4) + 4) + 0x24);
+    int bpp = *(int *)(*(int *)(*(int *)((char *)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
     int node;
 
     if (bpp == 0x10) {

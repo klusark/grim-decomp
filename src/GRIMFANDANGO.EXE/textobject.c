@@ -6,8 +6,8 @@
 #include "functions.h"
 
 /* ---- 0x0048c470  TextObject_Activate ---- */
-/* Links a new text object into g_pTextObjectList with its lifetime (ms, -1 = until killed) and
-   flags (1 keep, 2 hidden, 4 speech, 8 always draw) */
+/* Links a new text object into g_pTextQueue with its lifetime (ms, -1 = until killed) and flags (1
+   keep, 2 hidden, 4 speech, 8 always draw) */
 
 void __cdecl TextObject_Activate(void *obj,int durationMs,int flags)
 
@@ -21,11 +21,11 @@ void __cdecl TextObject_Activate(void *obj,int durationMs,int flags)
     iVar1 = *(int *)((int)obj + 0x218) - *(int *)(**(int **)((int)obj + 0x210) + 8);
     *(int *)((int)obj + 0x23c) = iVar1;
     *(int *)((int)obj + 0x218) = iVar1;
-    *(void **)obj = g_pTextObjectList;
-    if (g_pTextObjectList != (void *)0x0) {
-      *(void **)((int)g_pTextObjectList + 4) = obj;
+    *(void **)obj = g_pTextQueue;
+    if (g_pTextQueue != (void *)0x0) {
+      *(void **)((int)g_pTextQueue + 4) = obj;
     }
-    g_pTextObjectList = obj;
+    g_pTextQueue = obj;
   }
   return;
 }
@@ -39,7 +39,7 @@ void * __cdecl TextObject_New(void *ctx,char *text,int durationMs,int flags)
   undefined4 *puVar3;
   undefined4 *puVar4;
   
-  puVar1 = (undefined4 *)Pool_Alloc(g_pTextObjectPool);
+  puVar1 = (undefined4 *)Pool_Alloc(g_pTextEventPool);
   if (puVar1 != (undefined4 *)0x0) {
     *puVar1 = 0;
     puVar1[1] = 0;
@@ -54,8 +54,8 @@ void * __cdecl TextObject_New(void *ctx,char *text,int durationMs,int flags)
       puVar3 = puVar3 + 1;
       puVar4 = puVar4 + 1;
     }
-    if (g_pOverrideFont != (void *)0x0) {
-      puVar1[0x84] = g_pOverrideFont;
+    if (g_hEmergencyFont != (void *)0x0) {
+      puVar1[0x84] = g_hEmergencyFont;
     }
     puVar3 = puVar1 + 0x90;
     puVar1[0x8d] = g_wTextColors;
@@ -146,7 +146,7 @@ undefined4 * TextObject_FindBySelf(int param_1)
 {
   undefined4 *puVar1;
   
-  puVar1 = g_pTextObjectList;
+  puVar1 = g_pTextQueue;
   while( true ) {
     if (puVar1 == (undefined4 *)0x0) {
       return (undefined4 *)0x0;

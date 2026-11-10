@@ -16,8 +16,8 @@ undefined4 FileUtil_SysInitialize(GrimServices *param_1,undefined4 *param_2)
   
   uVar1 = 1;
   g_pSvcFileutil = param_1;
-  if (UINT_008c9a94 == 0) {
-    UINT_008c9a94 = 1;
+  if (g_dwFileUtilSysInitialized == 0) {
+    g_dwFileUtilSysInitialized = 1;
     if (param_2 != (undefined4 *)0x0) {
       *param_2 = FileUtil_SysInitialize;
       param_2[1] = FileUtil_Sys_Terminate;
@@ -40,7 +40,7 @@ undefined4 FileUtil_SysInitialize(GrimServices *param_1,undefined4 *param_2)
 void FileUtil_Sys_Terminate(void)
 
 {
-  UINT_008c9a94 = 0;
+  g_dwFileUtilSysInitialized = 0;
   return;
 }
 
@@ -54,7 +54,7 @@ undefined4 FileUtil_Sys_Start(void)
   undefined4 uVar1;
   
   uVar1 = 1;
-  if ((UINT_008c9a94 != 0) && (UINT_008c9a98 == 0)) {
+  if ((g_dwFileUtilSysInitialized != 0) && (UINT_008c9a98 == 0)) {
     UINT_008c9a98 = 1;
     uVar1 = 0;
   }

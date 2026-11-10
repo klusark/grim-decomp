@@ -88,7 +88,7 @@ undefined4 Input_Disable(void)
 void stdControl_Flush(void)
 
 {
-  UINT_00805fbc = timeGetTime();
+  g_dwCurReadTime = timeGetTime();
   if (g_pDInputKeyboard != (void *)0x0) {
     Input_FlushKeyboard();
   }
@@ -153,8 +153,8 @@ void Input_Update(void)
   
   if (g_nInputAcquired != 0) {
     UINT_00805fa4 = 1;
-    UINT_00805fbc = timeGetTime();
-    uVar1 = UINT_00805fbc - UINT_00805fc0;
+    g_dwCurReadTime = timeGetTime();
+    uVar1 = g_dwCurReadTime - UINT_00805fc0;
     if (uVar1 != 0) {
       *(float *)&DAT_004dea44 = 1.0 / (float)uVar1;
       puVar3 = &UINT_00803fd0;
@@ -169,7 +169,7 @@ void Input_Update(void)
         Input_PollJoysticks();
       }
       Input_PollMouse();
-      UINT_00805fc0 = UINT_00805fbc;
+      UINT_00805fc0 = g_dwCurReadTime;
     }
   }
   return;
@@ -553,7 +553,7 @@ void Input_PollKeyboard(void)
   #define auStack_214 (*(uint (*)[5])(_frame + (0x330 - 0x214)))
   #define local_200 (*(undefined1 (*)[512])(_frame + (0x330 - 0x200)))
   
-  uVar1 = UINT_00805fbc;
+  uVar1 = g_dwCurReadTime;
   pvVar3 = g_pDInputKeyboard;
   local_304 = 0x20;
   if ((g_pDInputKeyboard != (void *)0x0) && (UINT_00805fa0 == 0)) {
@@ -600,7 +600,7 @@ LAB_0047780b:
     }
     if ((iVar5 == 1) &&
        (iVar5 = (**(code_std **)(*(int *)g_pDInputKeyboard + 0x24))
-                          (g_pDInputKeyboard,0x100,(_stkneg + 28)), uVar1 = UINT_00805fbc,
+                          (g_pDInputKeyboard,0x100,(_stkneg + 28)), uVar1 = g_dwCurReadTime,
        -1 < iVar5)) {
       iVar5 = 0;
       puVar4 = &UINT_00804020;
@@ -653,7 +653,7 @@ void Input_FlushKeyboard(void)
   local_4 = 0xffffffff;
   if (g_pDInputKeyboard != (void *)0x0) {
     (**(code_std **)(*(int *)g_pDInputKeyboard + 0x28))(g_pDInputKeyboard,0x10,0,&local_4,0);
-    uVar1 = UINT_00805fbc;
+    uVar1 = g_dwCurReadTime;
     puVar2 = &UINT_00804020;
     do {
       if (*puVar2 != 0) {
@@ -727,7 +727,7 @@ void Input_PollJoysticks(void)
       if ((local_30 & 0x20) != 0) {
         *(uint *)(local_44 + 0x10) = local_18;
       }
-      uVar1 = UINT_00805fbc;
+      uVar1 = g_dwCurReadTime;
       puVar2 = (uint *)((int)&UINT_00804020 + uVar5);
       iVar3 = 10;
       do {
@@ -928,7 +928,7 @@ void Input_PollMouse(void)
     UINT_00805fd0 = unaff_EBX;
     iVar2 = (**(code_std **)(*(int *)g_pDInputMouse + 0x28))
                       (g_pDInputMouse,0x10,auStack_20c,(_stkneg + 16));
-    uVar1 = UINT_00805fbc;
+    uVar1 = g_dwCurReadTime;
     if (iVar2 == 1) {
       iVar2 = 0;
       puVar3 = &UINT_00805f30;
@@ -987,7 +987,7 @@ void Input_FlushJoystick(void)
   if (UINT_004dea40 != 0) {
     (**(code_std **)(*(int *)g_pDInputMouse + 0x24))(g_pDInputMouse,0x10,local_10);
     (**(code_std **)(*(int *)g_pDInputMouse + 0x28))(g_pDInputMouse,0x10,0,(_stkneg + 16),0);
-    uVar1 = UINT_00805fbc;
+    uVar1 = g_dwCurReadTime;
     iVar4 = 0;
     puVar2 = &UINT_00805f30;
     do {

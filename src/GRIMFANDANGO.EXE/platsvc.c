@@ -26,11 +26,11 @@ void stdPlatform_Assert(undefined4 param_1,char *param_2,undefined4 param_3)
   
   iVar5 = 0;
   bVar3 = false;
-  if (UINT_00805fd4 != 0) {
+  if (g_dwStdPlatform_Assert_enteredOnce != 0) {
     DebugBreak();
     exit(1);
   }
-  UINT_00805fd4 = 1;
+  g_dwStdPlatform_Assert_enteredOnce = 1;
   iVar4 = 0;
   cVar2 = *param_2;
   while (cVar2 != '\0') {

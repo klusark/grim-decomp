@@ -13,7 +13,7 @@ void * __cdecl luaM_malloc(uint size)
 {
   void *pvVar1;
   
-  pvVar1 = (void *)(**(code **)(DAT_1002beb8 + 0x20))
+  pvVar1 = (void *)(**(code **)(g_dwLuaHS + 0x20))
                              (size,s_C__grimsrc_libs_lua_src_lmem_cpp_10027080,0x11);
   return pvVar1;
 }
@@ -24,7 +24,7 @@ void * __cdecl luaM_malloc(uint size)
 void __cdecl luaM_free(void *block)
 
 {
-  (**(code **)(DAT_1002beb8 + 0x24))(block);
+  (**(code **)(g_dwLuaHS + 0x24))(block);
   return;
 }
 
@@ -49,7 +49,7 @@ uint __cdecl luaM_growaux(undefined4 *param_1,uint param_2,int param_3,byte *par
   if (param_5 < uVar2) {
     uVar2 = param_5;
   }
-  uVar1 = (**(code **)(DAT_1002beb8 + 0x28))
+  uVar1 = (**(code **)(g_dwLuaHS + 0x28))
                     (*param_1,param_3 * uVar2,s_C__grimsrc_libs_lua_src_lmem_cpp_10027080,0x22);
   *param_1 = uVar1;
   return uVar2;

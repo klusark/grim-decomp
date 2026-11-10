@@ -26,8 +26,8 @@ void KeyframeChanger(undefined4 param_1,int *param_2,undefined4 param_3,int para
   
   puppet = *(void **)(*(int *)(*param_2 + 0x40) + 0x14);
   if (param_2[1] == 0) {
-    (*g_pSvcMain->pAssertFail)
-              (s_Bad_keyframe_Reference_004ea1e0,s_main_sputResource_h_004e80a8,0xb3);
+    (*g_pStd_HS->pAssertFail)(s_Bad_keyframe_Reference_004ea1e0,s_main_sputResource_h_004e80a8,0xb3)
+    ;
   }
   data = (void *)param_2[2];
   bVar2 = false;
@@ -38,7 +38,7 @@ void KeyframeChanger(undefined4 param_1,int *param_2,undefined4 param_3,int para
     track = track + 1;
     puVar3 = puVar3 + 0x4d;
   } while ((int)track < 6);
-  if (*(uint *)(&DAT_004e9f60 + param_4 * 4) < 8) {
+  if (*(uint *)(&g_aKeyCommands + param_4 * 4) < 8) {
     if (track == 6) {
       track = rdPuppet_AddTrack(puppet,(uint)data,param_2[0xf],param_2[0xe]);
       if ((int)track < 0) {
@@ -59,7 +59,7 @@ LAB_00497960:
       return;
     }
   }
-  switch(*(undefined4 *)(&DAT_004e9f60 + param_4 * 4)) {
+  switch(*(undefined4 *)(&g_aKeyCommands + param_4 * 4)) {
   case 0:
     if (bVar2) {
       rdPuppet_AdvanceTrack(puppet,track,(float)param_5 * 0.001);
@@ -169,7 +169,7 @@ void sputCostume_PuppetHook(int param_1,int param_2,uint param_3)
   
   if (param_1 != 0) {
     iVar1 = Cos_InstGetUserData(*(int *)(param_1 + 0x18c));
-    sputLua_DoCostumeMarkerCallback((void *)((int)g_pActorTable + iVar1 * 0xa8),param_3);
+    sputLua_DoCostumeMarkerCallback((void *)((int)g_pActors + iVar1 * 0xa8),param_3);
     if (param_3 == 0) {
       Res_RemoveReference((void *)(param_1 + 0x54 + param_2 * 0x34));
     }
@@ -197,17 +197,17 @@ int * __cdecl KeyframeComponent_NewInstance(int inst,int component,int create)
   if (create == 0) {
     iVar1 = Cos_InstGetInstanceData(inst,component,(int *)0x0);
     Res_RemoveReference((void *)(iVar1 + 4));
-    (*g_pSvcCostume->pFree)(iVar1);
+    (*g_pSputCosHS->pFree)(iVar1);
     return (int *)0x0;
   }
   Cos_InstComponentInfo(inst,component,(int)&create,(int)&component,(int)&inst);
   iVar3 = component;
   if (*(int *)component == 0) {
-    (*g_pSvcMain->pAssertFail)
-              (s_Bad_keyframe_Reference_004ea1e0,s_main_sputResource_h_004e80a8,0xb3);
+    (*g_pStd_HS->pAssertFail)(s_Bad_keyframe_Reference_004ea1e0,s_main_sputResource_h_004e80a8,0xb3)
+    ;
   }
   data = *(void **)(iVar3 + 4);
-  piVar2 = (int *)(*g_pSvcCostume->pAlloc)(0x40,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0xed8);
+  piVar2 = (int *)(*g_pSputCosHS->pAlloc)(0x40,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0xed8);
   piVar4 = piVar2;
   for (iVar3 = 0x10; iVar3 != 0; iVar3 = iVar3 + -1) {
     *piVar4 = 0;
@@ -262,8 +262,8 @@ int KeyframeRequester(uint param_1,int param_2,int param_3,int param_4,uint para
       return false;
     }
     if (param_5 == 0) {
-      if (DAT_008ca7b8 != '\0') {
-        Plat_SetDialogDirectory(&DAT_008ca7b8);
+      if (g_bKeyframePath != '\0') {
+        Plat_SetDialogDirectory(&g_bKeyframePath);
       }
       iVar3 = Plat_OpenFileDialog(s_Select_keyframe_file_to_add____004ea76c,
                                   s_Keyframe_files____key__004ea78c);
@@ -271,10 +271,10 @@ int KeyframeRequester(uint param_1,int param_2,int param_3,int param_4,uint para
         return false;
       }
       uVar2 = ((code *)Plat_GetDialogFileName)(0x7f);
-      ((code *)strncpy)(&DAT_008ca7b8,uVar2);
+      ((code *)strncpy)(&g_bKeyframePath,uVar2);
       DAT_008ca837 = 0;
-      local_24 = (uint)Str_Basename(g_szDialogFileName);
-      data = sputResource_Alloc(0x4659454b,g_szDialogFileName);
+      local_24 = (uint)Str_Basename(g_szGrimlib_aFilename);
+      data = sputResource_Alloc(0x4659454b,g_szGrimlib_aFilename);
     }
     else {
       strncpy(&local_20,param_5,0x1f);
@@ -290,7 +290,7 @@ int KeyframeRequester(uint param_1,int param_2,int param_3,int param_4,uint para
     }
     if (data != (void *)0x0) {
       ref = (undefined4 *)
-            (*g_pSvcCostume->pAlloc)(0x3c,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0xf27);
+            (*g_pSputCosHS->pAlloc)(0x3c,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0xf27);
       puVar4 = ref;
       for (iVar3 = 0xf; iVar3 != 0; iVar3 = iVar3 + -1) {
         *puVar4 = 0;
@@ -365,7 +365,7 @@ undefined4 KeyframeComponent_Destroy(undefined4 param_1,undefined4 param_2,void 
 
 {
   Res_RemoveReference(param_3);
-  (*g_pSvcCostume->pFree)(param_3);
+  (*g_pSputCosHS->pFree)(param_3);
   return 1;
 }
 

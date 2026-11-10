@@ -41,9 +41,9 @@ void Setup_DrawDebugCamera(int param_1)
   local_c[1] = local_18[1];
   rdPrimit3_DrawLine(local_c,local_18,(int *)0x0,(int *)0x0,(int *)0x0,(int *)0x0,
                      UINT_008c97cc & 0xffff,0xffffffff);
-  iVar1 = sputActor_ActorDeref(g_nCameraActor);
+  iVar1 = sputActor_ActorDeref(g_nCamActorIndex);
   if (*(int *)(iVar1 + 0xa0) != 0) {
-    iVar1 = ((code *)sputActor_ActorDeref)(g_nCameraActor,param_1 + 0x50);
+    iVar1 = ((code *)sputActor_ActorDeref)(g_nCamActorIndex,param_1 + 0x50);
     ((code *)Actor_DrawCostumes)(*(undefined4 *)(iVar1 + 0xa0));
   }
   return;
@@ -114,12 +114,12 @@ void * __cdecl Setup_GetBackgroundBitmap(void *set,int setupIdx)
     Res_TouchByData(*(void **)(iVar1 + 0xc4));
   }
   if (*ref == 0) {
-    (*g_pSvcMain->pAssertFail)(s_Bad_Bitmap_Reference_004e8114,s_main_sputResource_h_004e80a8,0x90);
+    (*g_pStd_HS->pAssertFail)(s_Bad_Bitmap_Reference_004e8114,s_main_sputResource_h_004e80a8,0x90);
   }
 LAB_004a3eb6:
   iVar3 = *(int *)(iVar1 + 0xc4);
   if (*ref == 0) {
-    (*g_pSvcMain->pAssertFail)(s_Bad_Bitmap_Reference_004e8114,s_main_sputResource_h_004e80a8,0x90);
+    (*g_pStd_HS->pAssertFail)(s_Bad_Bitmap_Reference_004e8114,s_main_sputResource_h_004e80a8,0x90);
   }
   return *(void **)(*(int *)(iVar3 + 0x78) + *(int *)(*(int *)(iVar1 + 0xc4) + 0x68) * 4);
 }
@@ -172,7 +172,7 @@ LAB_004a3f66:
   }
   else {
     if (*ref == 0) {
-      (*g_pSvcMain->pAssertFail)
+      (*g_pStd_HS->pAssertFail)
                 (s_Bad_ZBuffer_Reference_004ec614,s_main_sputResource_h_004e80a8,0x95);
     }
     Res_TouchByData(*(void **)(iVar1 + 0xf8));

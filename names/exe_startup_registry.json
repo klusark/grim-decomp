@@ -1,8 +1,8 @@
 [
- {"addr": "004f5a58", "global": "g_dwFrameCounter", "type": "uint", "comment": "Number of engine frames rendered since startup"},
+ {"addr": "004f5a58", "global": "g_dwMain_Service_frameCount", "type": "uint", "comment": "Number of engine frames rendered since startup"},
  {"addr": "004f44e4", "global": "g_fMeasuredFps", "type": "float", "comment": "Frames per second measured over the last second"},
  {"addr": "004f5a38", "global": "g_pDisplayModes", "type": "void *", "comment": "Per display device table of {modeCount, modes*, driverCount, drivers*} records (16 bytes each)"},
- {"addr": "00803f8c", "global": "g_dwDisplayDeviceCount", "type": "uint", "comment": "Number of enumerated display devices in the device table"},
+ {"addr": "00803f8c", "global": "g_dwStdDisplay_numDevices", "type": "uint", "comment": "Number of enumerated display devices in the device table"},
  {"addr": "004f5a0c", "global": "g_bQuitRequested", "type": "int", "comment": "Set when the main loop should shut the game down"},
  {"addr": "008c9a6c", "global": "g_pSpewDll", "type": "void *", "comment": "Module handle of spew.dll, zero when not loaded"},
  {"addr": "008c9a64", "global": "g_pfnSpewStartup", "type": "void *", "comment": "Function pointer to the Spew_Startup export of spew.dll"},
@@ -34,7 +34,7 @@
   "comment": "Fills the 8-entry module interface {init, 0, shutdown=FUN_004c1e50, update, 0...} for the sound module", "tags": "services"},
  {"addr": "00482540", "name": "EngineModule_Init", "proto": "int EngineModule_Init(GrimServices * svc, ModuleIface * iface)",
   "comment": "Fills the engine module interface and registers the two Lua/engine callback tables (8 + 6 entries)", "tags": "services"},
- {"addr": "0048d1a0", "name": "sputControl_AddCallback", "proto": "void sputControl_AddCallback(void * fn)", "comment": "Appends fn to the 9-slot hook array g_pShutdownHooks", "tags": "services"},
+ {"addr": "0048d1a0", "name": "sputControl_AddCallback", "proto": "void sputControl_AddCallback(void * fn)", "comment": "Appends fn to the 9-slot hook array g_apControlCallbacks", "tags": "services"},
 
  {"addr": "004038a0", "name": "Reg_Open", "proto": "void Reg_Open(HKEY root, char * subkey)",
   "comment": "W32Util/wuregistry: creates/opens the game key; if its Version value differs from ours the key is deleted and recreated. Then caches all value names.", "tags": "registry"},

@@ -56,8 +56,8 @@ extern unsigned char DAT_008dde98;   /* flat colour, 8 bpp (palette index) */
 extern int UINT_008ddea4;            /* z-buffer shift */
 extern int DAT_008fbfc0[];           /* 65536 / n (span length) */
 extern float UINT_008fe000[];        /* 1.0f / n */
-extern char *UINT_004f5ec4;          /* the colormap; +0x338: the translucency table */
-extern char *g_pRdCurrentCamera;     /* 0x007f0fc8; +4: the canvas (+4 colour buffer, +0x10 z-buffer, +0x14 z shift) */
+extern char *g_dwRdColormap_pCurMap;          /* the colormap; +0x338: the translucency table */
+extern char *g_pRdCamera_CurCamera;     /* 0x007f0fc8; +4: the canvas (+4 colour buffer, +0x10 z-buffer, +0x14 z shift) */
 extern int UINT_008dde48;            /* texture u mask << 16 */
 extern int UINT_008dde50;            /* v rounding bias (0x8000 / 0x7fff, Grad_*) */
 extern int UINT_008dde54;            /* mip level (Grad_*) */
@@ -255,7 +255,7 @@ Q4_EDGE_FN(rdRaster_SpanR_Flat_12, UINT_007f4580, 1, 1)
         dz = q4_floor_i(q4_f(t * 65536.0f));                                                                \
         z = q4_floor_i(q4_f(((long double)tf_ * sub + L->z) * 65536.0f));                                   \
     }                                                                                                       \
-    c4 = *(char **)(g_pRdCurrentCamera + 4)
+    c4 = *(char **)(g_pRdCamera_CurCamera + 4)
 
 /* colour buffer row pointers; 16 bpp uses (pitch >> 1) * y + x pixels */
 #define Q4_BUF8(c4, y, x) ((unsigned char *)(Q4_I(Q4_I(c4, 4), 0x5c) + Q4_I(Q4_I(c4, 4), 0x18) * (y) + (x)))
@@ -376,7 +376,7 @@ void rdRaster_Span16_TexZ(q4_edge *L, q4_edge *R)
 #define Q4_P_BOTTOM 0x70
 
 /* bits per pixel of the colour buffer */
-#define Q4_BPP() Q4_I(Q4_I(Q4_I(g_pRdCurrentCamera, 4), 4), 0x24)
+#define Q4_BPP() Q4_I(Q4_I(Q4_I(g_pRdCamera_CurCamera, 4), 4), 0x24)
 
 /* 1/(z+1) per vertex: float(1 / (z - -1)) */
 Q4_INLINE void q4_zinv(int cnt)
@@ -395,7 +395,7 @@ Q4_INLINE void q4_setup_common(char *p, int zinv)
     UINT_007f4460 = cnt = Q4_I(p, Q4_P_COUNT);
     UINT_007f44e8 = Q4_I(p, Q4_P_TOP);
     UINT_007f44f4 = Q4_I(p, Q4_P_BOTTOM);
-    UINT_008ddea4 = Q4_I(Q4_I(g_pRdCurrentCamera, 4), 0x14);
+    UINT_008ddea4 = Q4_I(Q4_I(g_pRdCamera_CurCamera, 4), 0x14);
     if (Q4_I(p, Q4_P_FLIP)) {
         UINT_007f44ec = -1;
         UINT_007f4580 = 1;
@@ -510,7 +510,7 @@ void rdRaster_Draw_TexLitZ(char *p, char *mat)
         q4_trans16(p, DAT_008dde70);
     }
     q4_setup_common(p, 1);
-    UINT_008dde90 = *(unsigned char **)(UINT_004f5ec4 + 0x338);
+    UINT_008dde90 = *(unsigned char **)(g_dwRdColormap_pCurMap + 0x338);
     Q4_WALK(rdRaster_SpanR_Flat, rdRaster_SpanR_Flat_2,
             Q4_SPAN_BPP(bpp, rdRaster_Span8_TexLitZ, rdRaster_Span16_TexLitZ), 0, 0);
 }
@@ -529,7 +529,7 @@ void rdRaster_Draw_TexLitZ_2(char *p, char *mat, float light)
         q4_trans16(p, DAT_008dde70);
     }
     q4_setup_common(p, 1);
-    UINT_008dde90 = *(unsigned char **)(UINT_004f5ec4 + 0x338);
+    UINT_008dde90 = *(unsigned char **)(g_dwRdColormap_pCurMap + 0x338);
     Q4_WALK(rdRaster_SpanR_Flat_3, rdRaster_SpanR_Flat_4,
             Q4_SPAN_BPP(bpp, rdRaster_Span8_TexLitZ_2, rdRaster_Span16_TexLitZ_2), 0, 0);
 }
@@ -549,7 +549,7 @@ void rdRaster_Draw_TexLitZ_3(char *p, char *mat)
         DAT_008dde70 = t16[Q4_I(mat, 4) + 0x3f00];
         q4_trans16(p, DAT_008dde70);
     }
-    UINT_008dde90 = *(unsigned char **)(UINT_004f5ec4 + 0x338);
+    UINT_008dde90 = *(unsigned char **)(g_dwRdColormap_pCurMap + 0x338);
     q4_setup_common(p, 1);
     Q4_WALK(rdRaster_SpanR_Flat_5, rdRaster_SpanR_Flat_6,
             Q4_SPAN_BPP(bpp, rdRaster_Span8_TexZ, rdRaster_Span16_TexZ), 0, 1);
@@ -711,7 +711,7 @@ void rdRaster_Grad_Flat_3(int dbits)
     }                                                                                                       \
     v += UINT_008dde50;                                                                                     \
     u += UINT_008dde78;                                                                                     \
-    c4 = *(char **)(g_pRdCurrentCamera + 4)
+    c4 = *(char **)(g_pRdCamera_CurCamera + 4)
 
 #define Q4_TEXEL(u, v)                                                                                      \
     UINT_008dde7c[(((u) >> 16) & (UINT_008dde48 >> 16)) + (((v) >> ((16 - UINT_008dde8c) & 31)) & UINT_008dde58)]
@@ -865,7 +865,7 @@ Q4_INLINE void q4_tex_setup(char *p, char *mat, int light_mode, int trans, int o
             UINT_008dde44 = *(unsigned char **)(tb + 0x34c);
     }
     if (trans)
-        UINT_008dde90 = *(unsigned char **)(UINT_004f5ec4 + 0x338);
+        UINT_008dde90 = *(unsigned char **)(g_dwRdColormap_pCurMap + 0x338);
     q4_setup_common(p, 0);
     rdRaster_Grad_Flat_3(Q4_I(p, 0x64));
     mip = UINT_008dde54;

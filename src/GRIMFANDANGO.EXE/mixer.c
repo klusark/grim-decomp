@@ -228,7 +228,7 @@ void DSound_FillStreamBuffer(void)
       }
     }
   }
-  (*(code_std *)g_pDsndClock[4])
+  (*(code_std *)g_pDsndDriver_timer_services[4])
             (g_nStreamTimerId,
              (int)(0x1234dc /
                   (longlong)((int)(g_dwStreamRate + ((int)g_dwStreamRate >> 0x1f & 0x3ffU)) >> 10)))

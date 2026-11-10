@@ -5,27 +5,32 @@
 #include "globals.h"
 #include "functions.h"
 
-/* ---- 0x00417e90  rdMaterial_SetLoadHook ---- */
-/* Installs the engine's material loader callback and returns the previous one */
+/* ---- 0x00417e90  rdMaterial_RegisterLoader ---- */
+/* Installs the engine's material loader callback and returns the previous one Original name
+   rdMaterial_RegisterLoader (the remaster's GrimFandango (Linux): swaps pMaterialsLoader); was
+   rdMaterial_SetLoadHook. */
 
-uint rdMaterial_SetLoadHook(uint param_1)
+uint rdMaterial_RegisterLoader(uint param_1)
 
 {
   uint uVar1;
   
-  uVar1 = UINT_007f4238;
-  UINT_007f4238 = param_1;
+  uVar1 = g_dwMaterialsLoader;
+  g_dwMaterialsLoader = param_1;
   return uVar1;
 }
 
-/* ---- 0x00417ea0  rdMaterial_SetFreeHook ---- */
-uint rdMaterial_SetFreeHook(uint param_1)
+/* ---- 0x00417ea0  rdMaterial_RegisterUnloader ---- */
+/* Original name rdMaterial_RegisterUnloader (the remaster's GrimFandango (Linux): swaps
+   pMaterialsUnloader); was rdMaterial_SetFreeHook. */
+
+uint rdMaterial_RegisterUnloader(uint param_1)
 
 {
   uint uVar1;
   
-  uVar1 = UINT_007f423c;
-  UINT_007f423c = param_1;
+  uVar1 = g_dwMaterialsUnloader;
+  g_dwMaterialsUnloader = param_1;
   return uVar1;
 }
 
@@ -36,11 +41,11 @@ void * __cdecl rdMaterial_Load(char *name,int a,int b)
   void *pvVar1;
   int iVar2;
   
-  if (UINT_007f4238 != 0) {
-    pvVar1 = (void *)(*(code_std *)UINT_007f4238)(name,a,b);
+  if (g_dwMaterialsLoader != 0) {
+    pvVar1 = (void *)(*(code_std *)g_dwMaterialsLoader)(name,a,b);
     return pvVar1;
   }
-  pvVar1 = (void *)(*g_pSvcRdroid->pAlloc)
+  pvVar1 = (void *)(*g_pRdroid_HS->pAlloc)
                              (0xb0,s_C__grimjedi_Libs_RDroid_Engine_R_004ddd84,DAT_004ddd7c + 10);
   if (pvVar1 != (void *)0x0) {
     iVar2 = rdMaterial_LoadEntry(name,pvVar1,a,b);
@@ -108,11 +113,11 @@ int __cdecl rdMaterial_LoadEntry(char *filename,void *material,int a,int b)
     *puVar5 = 0;
     puVar5 = puVar5 + 1;
   }
-  iVar3 = (*g_pSvcRdroid->pFopen)(filename,&DAT_004ddb18);
+  iVar3 = (*g_pRdroid_HS->pFopen)(filename,&DAT_004ddb18);
   if (iVar3 == 0) {
     return 0;
   }
-  (*g_pSvcRdroid->pFread)(iVar3,auStack_38c,0x4c);
+  (*g_pRdroid_HS->pFread)(iVar3,auStack_38c,0x4c);
   iVar1 = strncmp(auStack_38c,&DAT_004dddb0,4);
   if ((iVar1 == 0) && (iStack_388 == 0x32)) {
     *(undefined4 *)((int)material + 0xa8) = uStack_37c;
@@ -131,11 +136,11 @@ int __cdecl rdMaterial_LoadEntry(char *filename,void *material,int a,int b)
       piVar10 = aiStack_340;
       piVar8 = (int *)((int)material + 0x68);
       do {
-        iVar1 = (*g_pSvcRdroid->pAlloc)
+        iVar1 = (*g_pRdroid_HS->pAlloc)
                           (0x20,s_C__grimjedi_Libs_RDroid_Engine_R_004ddd84,DAT_004ddd80 + 0x4c);
         *piVar8 = iVar1;
         if (iVar1 == 0) goto LAB_0041833a;
-        (*g_pSvcRdroid->pFread)(iVar3,&uStack_400,0x18);
+        (*g_pRdroid_HS->pFread)(iVar3,&uStack_400,0x18);
         *(uint *)*piVar8 = uStack_400;
         *(undefined4 *)(*piVar8 + 4) = uStack_3fc;
         *(undefined4 *)(*piVar8 + 8) = uStack_3f8;
@@ -143,7 +148,7 @@ int __cdecl rdMaterial_LoadEntry(char *filename,void *material,int a,int b)
         *(undefined4 *)(*piVar8 + 0x10) = uStack_3f0;
         *(undefined4 *)(*piVar8 + 0x14) = uStack_3ec;
         if ((uStack_400 & 8) != 0) {
-          (*g_pSvcRdroid->pFread)(iVar3,auStack_3e8,0x10);
+          (*g_pRdroid_HS->pFread)(iVar3,auStack_3e8,0x10);
           *(undefined4 *)(*piVar8 + 0x18) = auStack_3e8[0];
           *piVar10 = iStack_3dc;
         }
@@ -154,7 +159,7 @@ int __cdecl rdMaterial_LoadEntry(char *filename,void *material,int a,int b)
     }
     *(undefined4 *)((int)material + 0xac) = 0;
     if (*(int *)((int)material + 0xa8) != 0) {
-      iVar1 = (*g_pSvcRdroid->pAlloc)
+      iVar1 = (*g_pRdroid_HS->pAlloc)
                         (*(int *)((int)material + 0xa8) * 0x4ec,
                          s_C__grimjedi_Libs_RDroid_Engine_R_004ddd84,DAT_004ddd80 + 0x7e);
       *(int *)((int)material + 0xac) = iVar1;
@@ -164,7 +169,7 @@ int __cdecl rdMaterial_LoadEntry(char *filename,void *material,int a,int b)
     if (*(int *)((int)material + 0xa8) != 0) {
       iStack_420 = 0;
       do {
-        (*g_pSvcRdroid->pFread)(iVar3,&uStack_418,0x18);
+        (*g_pRdroid_HS->pFread)(iVar3,&uStack_418,0x18);
         pbVar7 = (byte *)(iStack_420 + *(int *)((int)material + 0xac));
         *(undefined4 *)pbVar7 = uStack_410;
         *(undefined4 *)(pbVar7 + 4) = uStack_40c;
@@ -206,7 +211,7 @@ int __cdecl rdMaterial_LoadEntry(char *filename,void *material,int a,int b)
               Surface_SetColorKey(surface,*(int *)(pbVar7 + 8));
             }
             Surface_Lock(*(void **)pbVar11);
-            (*g_pSvcRdroid->pFread)
+            (*g_pRdroid_HS->pFread)
                       (iVar3,*(undefined4 *)(*(int *)pbVar11 + 0x5c),
                        *(undefined4 *)(*(int *)pbVar11 + 0x14));
             Surface_Unlock(*(void **)pbVar11);
@@ -235,17 +240,17 @@ int __cdecl rdMaterial_LoadEntry(char *filename,void *material,int a,int b)
       } while (uVar4 < *(uint *)((int)material + 0x60));
     }
     if ((*(byte *)material & 1) != 0) {
-      (*g_pSvcRdroid->pFread)(iVar3,auStack_300,0x300);
+      (*g_pRdroid_HS->pFread)(iVar3,auStack_300,0x300);
     }
     uVar12 = 0x1f;
     pcVar2 = Str_FileNameFromPath(filename);
     strncpy((int)material + 4,pcVar2,uVar12);
     *(undefined1 *)((int)material + 0x23) = 0;
-    (*g_pSvcRdroid->pFclose)(iVar3);
+    (*g_pRdroid_HS->pFclose)(iVar3);
     return 1;
   }
 LAB_0041833a:
-  (*g_pSvcRdroid->pFclose)(iVar3);
+  (*g_pRdroid_HS->pFclose)(iVar3);
   return 0;
 }
 #undef aiStack_340
@@ -282,12 +287,12 @@ LAB_0041833a:
 void rdMaterial_Free(undefined4 param_1)
 
 {
-  if (UINT_007f423c != 0) {
-    (*(code_std *)UINT_007f423c)(param_1);
+  if (g_dwMaterialsUnloader != 0) {
+    (*(code_std *)g_dwMaterialsUnloader)(param_1);
     return;
   }
   rdMaterial_FreeContents(param_1);
-  (*g_pSvcRdroid->pFree)(param_1);
+  (*g_pRdroid_HS->pFree)(param_1);
   return;
 }
 
@@ -309,7 +314,7 @@ void rdMaterial_FreeContents(int param_1)
   if (*(int *)(param_1 + 0x60) != 0) {
     puVar1 = (undefined4 *)(param_1 + 0x68);
     do {
-      (*g_pSvcRdroid->pFree)(*puVar1);
+      (*g_pRdroid_HS->pFree)(*puVar1);
       uVar3 = uVar3 + 1;
       puVar1 = puVar1 + 1;
     } while (uVar3 < *(uint *)(param_1 + 0x60));
@@ -341,7 +346,7 @@ void rdMaterial_FreeContents(int param_1)
     } while (local_4 < *(uint *)(param_1 + 0xa8));
   }
   if (*(int *)(param_1 + 0xac) != 0) {
-    (*g_pSvcRdroid->pFree)(*(int *)(param_1 + 0xac));
+    (*g_pRdroid_HS->pFree)(*(int *)(param_1 + 0xac));
   }
   return;
 }

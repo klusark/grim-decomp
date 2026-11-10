@@ -263,11 +263,11 @@ typedef struct AnimPlay {           /* 0x70 bytes */
 
 extern uint g_dwAnimDebugFlags __asm__("_UINT_008d6f20");   /* bit 17: report failures, bits 30, 31: draw the sync overlay */
 extern int g_nAnimLipsyncOn __asm__("_UINT_008d6f24");
-extern int g_nAnimDelayTotal __asm__("_UINT_008d6f28");     /* sum of the frame delays */
+extern int g_nAnimDelayTotal __asm__("_g_dwRenderHandler_totalTime");     /* sum of the frame delays */
 
 #define ANIM_FILE s_C__grimsrc_libs_lecsmush_insane__004f1608     /* source file name given to the allocator */
-#define ANIM_MSG(msg) SVC_CALL(g_pAnimDebug, 3, void, (const char *, ...))(msg)
-#define ANIM_REPORT() (g_pAnimDebug != 0 && (g_dwAnimDebugFlags & 0x20000) != 0)
+#define ANIM_MSG(msg) SVC_CALL(g_pAnm_virtherc_services, 3, void, (const char *, ...))(msg)
+#define ANIM_REPORT() (g_pAnm_virtherc_services != 0 && (g_dwAnimDebugFlags & 0x20000) != 0)
 
 /* Creates the player: allocates the AnimPlay object, opens the streamer, sets the frame delay from the frame rate
  * (1193180 / fps, the ticks of the 1.19 MHz clock), resets the state, opens the file and starts the two timers.  Returns
@@ -275,12 +275,12 @@ extern int g_nAnimDelayTotal __asm__("_UINT_008d6f28");     /* sum of the frame 
 int anm_Start(void **pout, char *name, int fps, int streamArg1, int streamArg2, uint flags)
 {
     AnimPlay **out = (AnimPlay **)pout;
-    AnimPlay *p = SVC_CALL(g_pAnimMemory, 0, AnimPlay *, (int, const char *, int))(0x70, ANIM_FILE, 0x140);
+    AnimPlay *p = SVC_CALL(g_pAnm_memory_services, 0, AnimPlay *, (int, const char *, int))(0x70, ANIM_FILE, 0x140);
     int delay;
 
     if (p == 0)
         goto fail;
-    if (SVC_CALL(g_pAnimStreamer, 0, int, (void *, int, int))(&p->stream, streamArg1, streamArg2) != 0) {
+    if (SVC_CALL(g_pAnm_streamer_services, 0, int, (void *, int, int))(&p->stream, streamArg1, streamArg2) != 0) {
         if (ANIM_REPORT())
             ANIM_MSG(s_AnimPlay_Module__Cannot_allocate_004f1520);
         goto freeObject;
@@ -300,30 +300,30 @@ int anm_Start(void **pout, char *name, int fps, int streamArg1, int streamArg2, 
         goto freeStream;
     }
     if (AnimPlay_OpenFile(*out, name, flags, -1, -1, 0) != 0) {
-        SVC_CALL(g_pAnimDebug, 3, void, (const char *, ...))(s_AnimPlay_Module__Cannot_open_fil_004f1584, name);
+        SVC_CALL(g_pAnm_virtherc_services, 3, void, (const char *, ...))(s_AnimPlay_Module__Cannot_open_fil_004f1584, name);
         Mem_DumpLog();
         goto freeStream;
     }
-    p->timerSync = SVC_CALL(g_pAnimTimer, 0, int, (void *, int, int, void *))(FUN_004c2a70, 1, 2, p);
+    p->timerSync = SVC_CALL(g_pAnimPlay_timer_services, 0, int, (void *, int, int, void *))(FUN_004c2a70, 1, 2, p);
     if (p->timerSync == 0) {
         if (ANIM_REPORT())
             ANIM_MSG(s_AnimPlay_Module__Cannot_allocate_004f15ac);
         Mem_DumpLog();
         goto freeStream;
     }
-    p->timerFrame = SVC_CALL(g_pAnimTimer, 0, int, (void *, int, int, void *))(FUN_004c2a80, p->targetDelay, 8, p);
+    p->timerFrame = SVC_CALL(g_pAnimPlay_timer_services, 0, int, (void *, int, int, void *))(FUN_004c2a80, p->targetDelay, 8, p);
     if (p->timerFrame != 0) {
         p->failed = 0;
         return 0;
     }
     if (ANIM_REPORT())
         ANIM_MSG(s_AnimPlay_Module__Cannot_allocate_004f15d8);
-    SVC_CALL(g_pAnimTimer, 1, void, (int))(p->timerSync);
+    SVC_CALL(g_pAnimPlay_timer_services, 1, void, (int))(p->timerSync);
     Mem_DumpLog();
 freeStream:
-    SVC_CALL(g_pAnimStreamer, 1, void, (void *))(&p->stream);
+    SVC_CALL(g_pAnm_streamer_services, 1, void, (void *))(&p->stream);
 freeObject:
-    SVC_CALL(g_pAnimMemory, 1, void, (void *, const char *, int))(p, ANIM_FILE, 0x175);
+    SVC_CALL(g_pAnm_memory_services, 1, void, (void *, const char *, int))(p, ANIM_FILE, 0x175);
 fail:
     *out = 0;
     return -1;
@@ -335,16 +335,16 @@ void AnimPlay_Destroy(void **ppIn)
     AnimPlay **pp = (AnimPlay **)ppIn;
     AnimPlay *p = *pp;
 
-    SVC_CALL(g_pAnimTimer, 1, void, (int))(p->timerSync);
-    SVC_CALL(g_pAnimTimer, 1, void, (int))(p->timerFrame);
-    if (g_nAnimLipsyncOn != 0 && g_pAnimLipsync != 0)
-        SVC_CALL(g_pAnimLipsync, 3, void, (void))();
+    SVC_CALL(g_pAnimPlay_timer_services, 1, void, (int))(p->timerSync);
+    SVC_CALL(g_pAnimPlay_timer_services, 1, void, (int))(p->timerFrame);
+    if (g_nAnimLipsyncOn != 0 && g_pAnimPlay_sound_services != 0)
+        SVC_CALL(g_pAnimPlay_sound_services, 3, void, (void))();
     Mem_DumpLog();
-    SVC_CALL(g_pAnimStreamer, 1, void, (void *))(&p->stream);
+    SVC_CALL(g_pAnm_streamer_services, 1, void, (void *))(&p->stream);
     if (*pp != 0)
-        SVC_CALL(g_pAnimMemory, 1, void, (void *, const char *, int))(*pp, ANIM_FILE, 0x1d4);
+        SVC_CALL(g_pAnm_memory_services, 1, void, (void *, const char *, int))(*pp, ANIM_FILE, 0x1d4);
     *pp = 0;
-    SVC_CALL(g_pAnimFrame, 0, void, (void))();
+    SVC_CALL(g_pAnm_animframe_services, 0, void, (void))();
 }
 
 /* One step of the player, called from the main loop: shows the next frame when the frame timer has marked one as due
@@ -367,13 +367,13 @@ int anm_Render(void *pIn, int a2, int a3, int a4, int a5, int a6, int a7, int a8
     }
     if (p->frameDue == 0)
         return 6;
-    buffered = SVC_CALL(g_pAnimStreamer, 7, int, (void *))(p->stream);
+    buffered = SVC_CALL(g_pAnm_streamer_services, 7, int, (void *))(p->stream);
     if (p->started == 0) {
-        g_nAnimFramesDecoded = 0;
+        g_nBretsFrameCount = 0;
         g_nAnimDelayTotal = 0;
     }
     g_nAnimDelayTotal += p->delay;
-    lead = (int)(((double)Sound_VoiceSampleCount(0) - (double)g_nAnimFramesDecoded * 66.66666666667) * 0.0149999999999925);
+    lead = (int)(((double)Sound_VoiceSampleCount(0) - (double)g_nBretsFrameCount * 66.66666666667) * 0.0149999999999925);
     p->syncTicks--;
     p->frameDue = 0;
     base = p->targetDelay;
@@ -396,7 +396,7 @@ int anm_Render(void *pIn, int a2, int a3, int a4, int a5, int a6, int a7, int a8
         if (p->delay < base * 3 / 4)
             p->delay = base * 3 / 4;
     }
-    SVC_CALL(g_pAnimTimer, 4, void, (int, int))(p->timerSync, p->delay);
+    SVC_CALL(g_pAnimPlay_timer_services, 4, void, (int, int))(p->timerSync, p->delay);
     if (lead > 2)
         p->lagMode = 1;
     else if (lead <= 0)
@@ -405,8 +405,8 @@ int anm_Render(void *pIn, int a2, int a3, int a4, int a5, int a6, int a7, int a8
     if (p->lagMode != 0 && (flags & 2) == 0)
         flags |= 0x8000;
     p->state = anm_animator_Render((int)p, a2, a3, a4, a5, a6, a7, a8, flags, a9, a10);
-    if (g_pAnimDebug != 0 && (g_dwAnimDebugFlags & 0xc0000000) != 0) {
-        void **d = (void **)g_pAnimDebug;
+    if (g_pAnm_virtherc_services != 0 && (g_dwAnimDebugFlags & 0xc0000000) != 0) {
+        void **d = (void **)g_pAnm_virtherc_services;
         int v = SVC_CALL(d, 7, int, (int, int))(4, 0x20);
 
         SVC_CALL(d, 5, void, (int, int, int))(0, 10, v);
@@ -429,7 +429,7 @@ int anm_Render(void *pIn, int a2, int a3, int a4, int a5, int a6, int a7, int a8
 int AnimPlay_ResetState(void *pIn)
 {
     AnimPlay *p = (AnimPlay *)pIn;
-    SVC_CALL(g_pAnimStreamer, 6, void, (void *))(p->stream);
+    SVC_CALL(g_pAnm_streamer_services, 6, void, (void *))(p->stream);
     p->f0c = 0;
     p->f28 = 0;
     p->f34 = 0x6e756c6c;            /* "null" */
@@ -449,7 +449,7 @@ int AnimPlay_OpenFile(void *pIn, char *name, uint flags, int a4, int a5, int a6)
 
     p->f40 = a6;
     p->f3c = flags;
-    if (SVC_CALL(g_pAnimStreamer, 2, int, (void *, char *, int))(p->stream, name, 8) != 0)
+    if (SVC_CALL(g_pAnm_streamer_services, 2, int, (void *, char *, int))(p->stream, name, 8) != 0)
         return -1;
     p->f38 = 1;
     FUN_004c3d90((int)p, a4, a5);
@@ -487,7 +487,7 @@ void gz_putLong(void *file, uint x)
     for (n = 0; n < 4; n++) {
         byte c = (byte)x;
 
-        SVC_CALL(g_pZfileFileIo, 3, void, (void *, byte *, int))(file, &c, 1);
+        SVC_CALL(g_pZf_filio_services, 3, void, (void *, byte *, int))(file, &c, 1);
         x >>= 8;
     }
 }
@@ -497,12 +497,12 @@ void Zfile_Close(int *z)
 {
     if (z[0] != 0) {
         if (z[1] == 0)
-            SVC_CALL(g_pZfileFileIo, 1, void, (int))(z[0]);
+            SVC_CALL(g_pZf_filio_services, 1, void, (int))(z[0]);
         else
             gzclose(z[0]);
     }
     if (z != 0)
-        SVC_CALL(g_pZfileMemory, 1, void, (int *, const char *, int))(z, s_C__grimsrc_libs_lecsmush_insane__004f1df4, 0x11b);
+        SVC_CALL(g_pZfile_memory_services, 1, void, (int *, const char *, int))(z, s_C__grimsrc_libs_lecsmush_insane__004f1df4, 0x11b);
 }
 
 static int strlen_(const char *s)
@@ -591,7 +591,7 @@ void *gz_open(char *path, char *mode, int fd)
     s->avail_out = 0x4000;
     *(int *)_errno() = 0;
     if (fd < 0)
-        s->file = SVC_CALL(g_pZfileFileIo, 0, void *, (char *, char *))(path, fmode);
+        s->file = SVC_CALL(g_pZf_filio_services, 0, void *, (char *, char *))(path, fmode);
     else
         s->file = (void *)_fdopen(fd, fmode);
     if (s->file == 0)
@@ -600,14 +600,14 @@ void *gz_open(char *path, char *mode, int fd)
         char header[16];
 
         sprintf(header, s__c_c_c_c_c_c_c_c_c_c_004f1a08, UINT_004f1a00, UINT_004f1a04, 8, 0, 0, 0, 0, 0, 0, 0xb);
-        SVC_CALL(g_pZfileFileIo, 3, void, (void *, char *, int))(s->file, header, 10);
+        SVC_CALL(g_pZf_filio_services, 3, void, (void *, char *, int))(s->file, header, 10);
         s->startpos = 10;
         return s;
     }
     gz_check_header((int *)s);
     if (s->transparent == 1)
         goto destroy;
-    s->startpos = SVC_CALL(g_pZfileFileIo, 4, int, (void *))(s->file) - s->avail_in;
+    s->startpos = SVC_CALL(g_pZf_filio_services, 4, int, (void *))(s->file) - s->avail_in;
     return s;
 destroy:
     gz_destroy((int)s);
@@ -617,7 +617,7 @@ destroy:
 /* Position in a StdFile. */
 int StdFile_Tell(void *file)
 {
-    return SVC_CALL(g_pStdFileIo, 4, int, (void *))(file);
+    return SVC_CALL(g_pStdFile_filio_services, 4, int, (void *))(file);
 }
 
 /* True when the position of a StdFile is at (or past) its size. */

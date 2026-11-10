@@ -13,7 +13,7 @@
 undefined4 sputTime_Initialize(undefined4 param_1,undefined4 *param_2)
 
 {
-  _DAT_008cab94 = param_1;
+  _g_pSputTimeHS = param_1;
   *param_2 = sputTime_Initialize;
   param_2[1] = sputTime_Terminate;
   param_2[2] = sputTime_Start;
@@ -22,7 +22,7 @@ undefined4 sputTime_Initialize(undefined4 param_1,undefined4 *param_2)
   param_2[5] = 0;
   param_2[6] = 0;
   param_2[7] = 0;
-  UINT_008cab98 = 1;
+  g_dwSputTimeInitialize = 1;
   return 0;
 }
 
@@ -34,9 +34,9 @@ undefined4 sputTime_Initialize(undefined4 param_1,undefined4 *param_2)
 void sputTime_Terminate(void)
 
 {
-  _DAT_008cab94 = 0;
-  if (UINT_008cab98 != 0) {
-    UINT_008cab98 = 0;
+  _g_pSputTimeHS = 0;
+  if (g_dwSputTimeInitialize != 0) {
+    g_dwSputTimeInitialize = 0;
   }
   return;
 }

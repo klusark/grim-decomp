@@ -1,0 +1,47 @@
+[
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008d16a8",
+  "old": "UINT_008d16a8",
+  "global": "g_dwMovieIsPlaying",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name fMovieIsPlaying (the remaster's GrimFandango (Linux): the third flag SmushPlay_GetMovieTime tests (fMovieIsPlaying: the sound engine time while a movie plays)); was UINT_008d16a8."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008d11f4",
+  "old": "UINT_008d11f4",
+  "global": "g_dwSmushPlayHS",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name pSmushPlayHS (the remaster's GrimFandango (Linux): the host service table SmushPlay_SysInitialize stores first); was UINT_008d11f4."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008d11d4",
+  "old": "PTR_008d11d4",
+  "global": "g_pSmushPlay_share_services",
+  "oldtype": "int *",
+  "names_only": true,
+  "comment": "Original name share_services (the remaster's GrimFandango (Linux): the LecShare table SmushPlay_SysInitialize gets from LecShare_Initialize (subscribe +0x10 in SmushPlay_SysStartup, +0x14 in SmushPlay_SysShutdown)); was PTR_008d11d4."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008d6f04",
+  "old": "UINT_008d6f04",
+  "global": "g_dwAnimPlay_bitmap_services",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name bitmap_services (the remaster's GrimFandango (Linux): released by AnimPlay_module_shutdown between anm_animframe_services and timer_services); was UINT_008d6f04."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00906c28",
+  "old": "UINT_00906c28",
+  "global": "g_dwAnimFrame_virtherc_services",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name virtherc_services (the remaster's GrimFandango (Linux): released by AnimFrame_module_shutdown after video_services; used by anm_DecodeBody); was UINT_00906c28."
+ }
+]

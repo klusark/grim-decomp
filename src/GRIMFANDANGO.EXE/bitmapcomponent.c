@@ -42,8 +42,8 @@ undefined4 BitmapRequester(uint param_1,int param_2,int param_3,int param_4,char
   local_28 = 0;
   local_24 = 0;
   if (param_5 == (char *)0x0) {
-    if (DAT_008ca838 != '\0') {
-      Plat_SetDialogDirectory(&DAT_008ca838);
+    if (g_bBitmapPath != '\0') {
+      Plat_SetDialogDirectory(&g_bBitmapPath);
     }
     iVar7 = Plat_OpenFileDialog(s_Select_image_file_to_add____004ea4b8,
                                 s_Graphics_files____pcx____gif___l_004ea4d4);
@@ -51,9 +51,9 @@ undefined4 BitmapRequester(uint param_1,int param_2,int param_3,int param_4,char
       return 0;
     }
     uVar4 = ((code *)Plat_GetDialogFileName)(0x7f);
-    ((code *)strncpy)(&DAT_008ca838,uVar4);
+    ((code *)strncpy)(&g_bBitmapPath,uVar4);
     DAT_008ca8b7 = 0;
-    name = Str_Basename(g_szDialogFileName);
+    name = Str_Basename(g_szGrimlib_aFilename);
   }
   else {
     strncpy(local_20,param_5,0x1f);
@@ -88,7 +88,7 @@ undefined4 BitmapRequester(uint param_1,int param_2,int param_3,int param_4,char
     pcVar9 = pcVar9 + 1;
   }
   ref = (undefined4 *)
-        (*g_pSvcCostume->pAlloc)(0x34,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0x87f);
+        (*g_pSputCosHS->pAlloc)(0x34,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0x87f);
   puVar10 = ref;
   for (iVar7 = 0xd; iVar7 != 0; iVar7 = iVar7 + -1) {
     *puVar10 = 0;
@@ -97,14 +97,14 @@ undefined4 BitmapRequester(uint param_1,int param_2,int param_3,int param_4,char
   Res_SetReference(ref,data,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0x881);
   local_34 = *(int *)(data + 100) + 1;
   local_30 = 0;
-  local_30 = (*g_pSvcCostume->pAlloc)
-                       (local_34 * 4,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0x885);
+  local_30 = (*g_pSputCosHS->pAlloc)(local_34 * 4,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0x885)
+  ;
   *(undefined4 *)local_30 = 0;
-  if (UINT_008ca7a4 != 0) {
-    (*g_pSvcCostume->pFree)(UINT_008ca7a4);
+  if (g_dwLECBitmaps != 0) {
+    (*g_pSputCosHS->pFree)(g_dwLECBitmaps);
   }
-  UINT_008ca7a4 =
-       (*g_pSvcCostume->pAlloc)
+  g_dwLECBitmaps =
+       (*g_pSputCosHS->pAlloc)
                  (*(int *)(data + 100) << 4,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0x88b);
   uVar5 = 0;
   if (*(int *)(data + 100) != 0) {
@@ -115,10 +115,10 @@ undefined4 BitmapRequester(uint param_1,int param_2,int param_3,int param_4,char
       iVar7 = iVar7 + 0x10;
       iVar3 = *(int *)(iVar1 + *(int *)(data + 0x78));
       *(uint *)(local_30 + 4 + iVar1) = uVar5;
-      *(undefined4 *)((UINT_008ca7a4 - 0xc) + iVar7) = *(undefined4 *)(iVar3 + 0xc);
-      *(undefined4 *)((UINT_008ca7a4 - 8) + iVar7) = *(undefined4 *)(iVar3 + 0x10);
-      *(undefined4 *)((UINT_008ca7a4 - 0x10) + iVar7) = *(undefined4 *)(iVar3 + 0x5c);
-      *(undefined4 *)((UINT_008ca7a4 - 4) + iVar7) = 1;
+      *(undefined4 *)((g_dwLECBitmaps - 0xc) + iVar7) = *(undefined4 *)(iVar3 + 0xc);
+      *(undefined4 *)((g_dwLECBitmaps - 8) + iVar7) = *(undefined4 *)(iVar3 + 0x10);
+      *(undefined4 *)((g_dwLECBitmaps - 0x10) + iVar7) = *(undefined4 *)(iVar3 + 0x5c);
+      *(undefined4 *)((g_dwLECBitmaps - 4) + iVar7) = 1;
     } while (uVar5 < *(uint *)(data + 100));
   }
   if ((data[0x24] & 2U) == 0) {
@@ -127,7 +127,7 @@ undefined4 BitmapRequester(uint param_1,int param_2,int param_3,int param_4,char
   else {
     local_24 = (uint)(data + 0x60);
   }
-  local_28 = -(uint)((char *)local_24 != (char *)0x0) & UINT_008ca7a4;
+  local_28 = -(uint)((char *)local_24 != (char *)0x0) & g_dwLECBitmaps;
   if (param_5 == (char *)0x0) {
     param_5 = name;
   }
@@ -135,15 +135,15 @@ undefined4 BitmapRequester(uint param_1,int param_2,int param_3,int param_4,char
                     (param_1,(int)param_5,(int)ref,param_2,param_3,param_4,(int)&local_34);
   if (iVar7 != 0) {
     if (local_30 != 0) {
-      (*g_pSvcCostume->pFree)(local_30);
+      (*g_pSputCosHS->pFree)(local_30);
     }
-    _DAT_008ca7b4 = data;
+    _g_dwRecentBM = data;
     return 1;
   }
   if (local_30 != 0) {
-    (*g_pSvcCostume->pFree)(local_30);
+    (*g_pSputCosHS->pFree)(local_30);
   }
-  _DAT_008ca7b4 = (char *)0x0;
+  _g_dwRecentBM = (char *)0x0;
   return 0;
 }
 #undef local_1
@@ -155,17 +155,19 @@ undefined4 BitmapRequester(uint param_1,int param_2,int param_3,int param_4,char
 #undef local_34
 
 
-/* ---- 0x00496340  BitmapComponent_Destroy ---- */
+/* ---- 0x00496340  BitmapFreer ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Costume tag handler, slot 2 of the 'General Bitmap' / 'Animation (old use Bitmap)' tags: frees
    the key data. (Was named SpriteComponent_Destroy; the tag table in sputCostume_Start pairs it
-   with the bitmap tags.) */
+   with the bitmap tags.) Original name BitmapFreer (the remaster's GrimFandango (Linux): frees a
+   bitmap component key (RecentBM, Res_RemoveReference, psputCosHS free)); was
+   BitmapComponent_Destroy. */
 
-undefined4 BitmapComponent_Destroy(undefined4 param_1,undefined4 param_2,void *param_3)
+undefined4 BitmapFreer(undefined4 param_1,undefined4 param_2,void *param_3)
 
 {
-  _DAT_008ca7b4 = param_3;
+  _g_dwRecentBM = param_3;
   Res_RemoveReference(param_3);
-  (*g_pSvcCostume->pFree)(param_3);
+  (*g_pSputCosHS->pFree)(param_3);
   return 1;
 }

@@ -33,8 +33,8 @@ typedef struct VideoBitmap {
 } VideoBitmap;
 
 extern uint g_adwVideoMask[9] __asm__("_DAT_004f3da0");     /* mask of the top n bits of a byte (n = 0..8) */
-extern int *g_pVideoMemory __asm__("_PTR_008da890");        /* "MEMORY workspace" services: [0] allocate(size, file, line) */
-extern int *g_pVideoDisplayFormat __asm__("_UINT_008da89c"); /* [1]() returns the VideoBitmap of the display */
+extern int *g_pVideoMemory __asm__("_g_pVideo_memory_services");        /* "MEMORY workspace" services: [0] allocate(size, file, line) */
+extern int *g_pVideoDisplayFormat __asm__("_g_dwVideo_video_services"); /* [1]() returns the VideoBitmap of the display */
 extern uint g_nVideoScratchFlip __asm__("_UINT_008da8a0");
 extern byte g_abVideoScratch[2 * 0x1400] __asm__("_DAT_009272a0");   /* RGBA pixel rows (at most 0x500 pixels), two buffers */
 

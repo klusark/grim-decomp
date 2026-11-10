@@ -397,7 +397,7 @@ done:
 
 /* ==== rdModel3_LoadEntryText (0x0040aa20) ====
  * Loads a text .3do model (path, model record) through the stdConffile line reader (each line in the buffer
- * UINT_00900520 points to; the reader lower-cases and skips comments) and the game's own sscanf / strtok / atoi:
+ * g_dwStdConffile_aLine points to; the reader lower-cases and skips comments) and the game's own sscanf / strtok / atoi:
  * header and version, the material names (" %d: %s": copied into the stack slot the index names, then loaded with
  * rdMaterial_Load in slot order; an assertion when 0x80 or more), radius, insert offset, the geometry sets (+0x44 of
  * them at +0x24, 8 bytes each: mesh count and a zeroed 0x7c-byte mesh array) with their meshes (name, radius, optional
@@ -409,7 +409,7 @@ done:
  * Kept from the original: values copied with MOV are dword copies here (positions, uvs, face normals, node fields,
  * radius, offset, extra light); the vertex intensities and the vertex normals go through FLD / FSTP (q3_f); the third
  * allocation of a mesh (+0x3c, 4 bytes per vertex) is cleared for only `vertices` BYTES; the "mesh %d" and the
- * section names are scanned into the global buffer DAT_009056c0; every count is re-read from where the original keeps
+ * section names are scanned into the global buffer g_bStd_genBuffer; every count is re-read from where the original keeps
  * it; every allocation passes the original's file name and line (the short at 0x004ddb80 + offset).
  * The original's material name slots are stack memory: an index outside 0..count-1 (a hole, or a slot past 0x80)
  * reads or writes memory that differs here (the game data has none). */
@@ -417,9 +417,9 @@ typedef void *(*q3_alloc_fn)(uint, char *, int);
 typedef void (*q3_assert_fn)(char *, char *, int);
 #define Q3_LINE(n) ((int)*(short *)IMG_ADDR(0x004ddb80) + (n))
 #define Q3_FILE s_C__grimjedi_Libs_RDroid_Primitiv_004ddb94
-#define Q3_ALLOC(size, n) (((q3_alloc_fn)Q3P(g_pSvcRdroid, 0x20))((size), Q3_FILE, Q3_LINE(n)))
-#define Q3_LINEBUF ((char *)UINT_00900520)
-#define Q3_SBUF ((char *)&DAT_009056c0)
+#define Q3_ALLOC(size, n) (((q3_alloc_fn)Q3P(g_pRdroid_HS, 0x20))((size), Q3_FILE, Q3_LINE(n)))
+#define Q3_LINEBUF ((char *)g_dwStdConffile_aLine)
+#define Q3_SBUF ((char *)&g_bStd_genBuffer)
 #define Q3_READ() (stdConffile_ReadLine() != 0)
 #define Q3_TOK(s, d) ((char *)strtok((byte *)(s), (byte *)(d)))
 #define Q3_ATOI(t) ((int)atoi((uint)(t)))
@@ -453,7 +453,7 @@ undefined4 rdModel3_LoadEntryText(char *path, char *m)
         goto fail;
     if (nmats != 0) {
         if (nmats >= 0x80)
-            ((q3_assert_fn)Q3P(g_pSvcRdroid, 0x18))((char *)IMG_ADDR(0x004ddd30), Q3_FILE, Q3_LINE(0x46));
+            ((q3_assert_fn)Q3P(g_pRdroid_HS, 0x18))((char *)IMG_ADDR(0x004ddd30), Q3_FILE, Q3_LINE(0x46));
         Q3P(m, 0x48) = (char *)Q3_ALLOC(nmats * 4, 0x49);
         if (Q3P(m, 0x48) == 0)
             goto fail;
@@ -913,7 +913,7 @@ undefined4 rdCache_DrawMeshList3D(void)
                 flags |= 0x400;
             tex3c = (uint)(info + mip * 0x98);
             if (Q3I(info, mip * 0x98 + 0xa4) == 0)
-                Display_SetPalette3D(Q3P(e, 0x4c) + 0x30, 0x5a);
+                std3D_SetCurrentPalette(Q3P(e, 0x4c) + 0x30, 0x5a);
             if (rdMaterial_EnsureTexture(mat, (uint *)info, mip, force) == 0) {
                 rdCache_Flush3DBatch();
                 rdCache_Begin3DBatch();

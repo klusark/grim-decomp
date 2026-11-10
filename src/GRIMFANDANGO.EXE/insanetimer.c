@@ -14,10 +14,10 @@
 int __cdecl InsaneTimer_Register(int *services,uint workspaceSize)
 
 {
-  g_pTimerServices = services;
-  UINT_008da85c = workspaceSize;
+  g_pInsaneTimer_share_services = services;
+  g_dwInsaneTimer_share_config = workspaceSize;
   (*(code *)*services)(s_LECMODULE_insane_timer_004f3c40,&g_apfnInsaneTimerModule);
-  (*(code *)*g_pTimerServices)(s_TIMER_insane_004f3c30,&g_apfnInsaneTimerInterface);
+  (*(code *)*g_pInsaneTimer_share_services)(s_TIMER_insane_004f3c30,&g_apfnInsaneTimerInterface);
   UINT_008da544 = 300;
   return 0;
 }
@@ -32,8 +32,8 @@ int __cdecl InsaneTimer_Register(int *services,uint workspaceSize)
 void InsaneTimer_Unregister(void)
 
 {
-  (*(code *)g_pTimerServices[1])(s_TIMER_insane_004f3c30);
-  (*(code *)g_pTimerServices[1])(s_LECMODULE_insane_timer_004f3c40);
+  (*(code *)g_pInsaneTimer_share_services[1])(s_TIMER_insane_004f3c30);
+  (*(code *)g_pInsaneTimer_share_services[1])(s_LECMODULE_insane_timer_004f3c40);
   return;
 }
 #endif
@@ -53,9 +53,11 @@ int InsaneTimer_module_startup(void)
 {
   int iVar1;
   
-  UINT_008da540 = (*(code *)g_pTimerServices[2])(s_MEMORY_workspace_004f14ec,UINT_008da85c);
-  if (UINT_008da540 == 0) {
-    (*(code *)g_pTimerServices[8])(s_Timer_Module__Cannot_allocate_me_004f3c58);
+  g_dwInsaneTimer_memory_services =
+       (*(code *)g_pInsaneTimer_share_services[2])
+                 (s_MEMORY_workspace_004f14ec,g_dwInsaneTimer_share_config);
+  if (g_dwInsaneTimer_memory_services == 0) {
+    (*(code *)g_pInsaneTimer_share_services[8])(s_Timer_Module__Cannot_allocate_me_004f3c58);
     return -1;
   }
   iVar1 = InsaneTimer_StartThread();
@@ -72,7 +74,7 @@ int InsaneTimer_module_startup(void)
 void InsaneTimer_Shutdown(void)
 
 {
-  (*(code *)g_pTimerServices[3])(UINT_008da540);
+  (*(code *)g_pInsaneTimer_share_services[3])(g_dwInsaneTimer_memory_services);
   InsaneTimer_StopThread();
   return;
 }

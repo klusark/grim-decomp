@@ -80,7 +80,7 @@ PositionedSound_Add(uint param_1,undefined **param_2,uint param_3,uint param_4,u
   undefined4 *puVar1;
   
   PositionedSounds_DropFinished();
-  puVar1 = (undefined4 *)Pool_Alloc(g_pPositionedSoundPool);
+  puVar1 = (undefined4 *)Pool_Alloc(g_pSoundPool);
   puVar1[1] = param_1;
   *puVar1 = g_pPositionedSoundList;
   puVar1[2] = *param_2;
@@ -167,10 +167,10 @@ undefined4 Sound_DriverQuery(void)
 {
   undefined4 uVar1;
   
-  if (PTR_008dacf0 != (int *)0x0) {
+  if (g_pSoundModule_snddriver_services != (int *)0x0) {
                     /* WARNING: Could not recover jumptable at 0x004d0c29. Too many branches */
                     /* WARNING: Treating indirect jump as call */
-    uVar1 = (*(code *)PTR_008dacf0[5])();
+    uVar1 = (*(code *)g_pSoundModule_snddriver_services[5])();
     return uVar1;
   }
   return 0xffffffff;

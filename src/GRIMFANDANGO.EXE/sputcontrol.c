@@ -13,8 +13,8 @@
 undefined4 sputControl_Initialize(undefined4 param_1,undefined4 *param_2)
 
 {
-  if (UINT_008ca1bc == 0) {
-    _DAT_008ca1b8 = param_1;
+  if (g_dwSputConInitialize == 0) {
+    _g_pSputConHS = param_1;
     *param_2 = sputControl_Initialize;
     param_2[1] = sputControl_Terminate;
     param_2[2] = sputControl_Start;
@@ -23,7 +23,7 @@ undefined4 sputControl_Initialize(undefined4 param_1,undefined4 *param_2)
     param_2[5] = 0;
     param_2[6] = 0;
     param_2[7] = 0;
-    UINT_008ca1bc = 1;
+    g_dwSputConInitialize = 1;
   }
   return 0;
 }
@@ -36,9 +36,9 @@ undefined4 sputControl_Initialize(undefined4 param_1,undefined4 *param_2)
 void sputControl_Terminate(void)
 
 {
-  _DAT_008ca1b8 = 0;
-  if (UINT_008ca1bc != 0) {
-    UINT_008ca1bc = 0;
+  _g_pSputConHS = 0;
+  if (g_dwSputConInitialize != 0) {
+    g_dwSputConInitialize = 0;
   }
   return;
 }

@@ -15,22 +15,22 @@ undefined * __cdecl sputRoom_Initialize(uint param_1,undefined **param_2)
   int iVar1;
   uint *puVar2;
   
-  g_pSvcRoom = (GrimServices *)param_1;
+  g_pSputRoomHS = (GrimServices *)param_1;
   *param_2 = sputRoom_Initialize;
   param_2[1] = sputRoom_Terminate;
   param_2[2] = sputRoom_Startup;
-  param_2[3] = sputRoom_Stop;
+  param_2[3] = sputRoom_Shutdown;
   param_2[4] = Set_SaveState;
   param_2[5] = sputRoom_Restore;
   param_2[6] = (undefined *)0x0;
   param_2[7] = (undefined *)0x0;
-  puVar2 = &g_CurrentSetRef;
+  puVar2 = &g_dwSputRoom_pCurrentRoom;
   for (iVar1 = 0xd; iVar1 != 0; iVar1 = iVar1 + -1) {
     *puVar2 = 0;
     puVar2 = puVar2 + 1;
   }
-  UINT_008cb098 = 1;
-  g_CurrentSetRef = 0;
+  g_dwSputRoomInitialize = 1;
+  g_dwSputRoom_pCurrentRoom = 0;
   return (undefined *)0x0;
 }
 
@@ -41,9 +41,9 @@ undefined * __cdecl sputRoom_Initialize(uint param_1,undefined **param_2)
 void sputRoom_Terminate(void)
 
 {
-  g_pSvcRoom = (GrimServices *)0x0;
-  if (UINT_008cb098 != 0) {
-    UINT_008cb098 = 0;
+  g_pSputRoomHS = (GrimServices *)0x0;
+  if (g_dwSputRoomInitialize != 0) {
+    g_dwSputRoomInitialize = 0;
   }
   return;
 }
@@ -58,23 +58,24 @@ void sputRoom_Terminate(void)
 undefined4 sputRoom_Startup(void)
 
 {
-  if (UINT_008cb09c != 0) {
+  if (g_dwSputRoomStartup != 0) {
     return 1;
   }
   Set_RegisterHandle(s_colormaps_004ec734,sputRoom_ParseColormaps);
   Set_RegisterHandle(s_setups_004ec72c,sputRoom_ParseSetups);
   Set_RegisterHandle(s_lights_004ec724,sputRoom_ParseLights);
   Set_RegisterHandle(s_sectors_004ec71c,sputRoom_ParseSectors);
-  g_pPositionedSoundPool = (void **)Pool_Create(0x24,0x10,8);
-  UINT_008cb09c = 1;
+  g_pSoundPool = (void **)Pool_Create(0x24,0x10,8);
+  g_dwSputRoomStartup = 1;
   return 0;
 }
 
-/* ---- 0x004a5430  sputRoom_Stop ---- */
+/* ---- 0x004a5430  sputRoom_Shutdown ---- */
 /* Module interface slot 3 (sputRoom): called by Engine_ShutdownSubsystems in reverse order;
-   releases what _Start created. */
+   releases what _Start created. Original name sputRoom_Shutdown (the remaster's GrimFandango
+   (Linux): the module's shutdown slot: frees the room list with psputRoomHS); was sputRoom_Stop. */
 
-void sputRoom_Stop(void)
+void sputRoom_Shutdown(void)
 
 {
   int iVar1;
@@ -87,18 +88,18 @@ void sputRoom_Stop(void)
     iVar4 = *(int *)((int)pvVar3 + 0x80);
     while (iVar4 != 0) {
       iVar1 = *(int *)(iVar4 + 8);
-      (*g_pSvcRoom->pFree)(iVar4);
+      (*g_pSputRoomHS->pFree)(iVar4);
       iVar4 = iVar1;
     }
     pvVar2 = *(void **)((int)pvVar3 + 0x84);
-    (*g_pSvcRoom->pFree)(pvVar3);
+    (*g_pSputRoomHS->pFree)(pvVar3);
     pvVar3 = pvVar2;
   }
-  if (g_pPositionedSoundPool != (void **)0x0) {
-    Pool_Destroy(g_pPositionedSoundPool);
-    g_pPositionedSoundPool = (void **)0x0;
+  if (g_pSoundPool != (void **)0x0) {
+    Pool_Destroy(g_pSoundPool);
+    g_pSoundPool = (void **)0x0;
   }
-  UINT_008cb09c = 0;
+  g_dwSputRoomStartup = 0;
   return;
 }
 
@@ -127,8 +128,8 @@ undefined4 sputRoom_ParseLights(void)
   #define local_104 (*(uint *)(_frame + (0x120 - 0x104)))
   #define local_100 (*(byte (*)[256])(_frame + (0x120 - 0x100)))
   
-  uVar2 = UINT_008cb0a8;
-  puVar7 = (undefined4 *)(UINT_008cb0a8 + 0xb8);
+  uVar2 = g_dwLoadingRoom;
+  puVar7 = (undefined4 *)(g_dwLoadingRoom + 0xb8);
   *puVar7 = 0;
   pbVar6 = (byte *)0x0;
   local_10c = (uint)puVar7;
@@ -137,10 +138,10 @@ undefined4 sputRoom_ParseLights(void)
     return 1;
   }
   do {
-    if (*(char *)UINT_00900520 != '\0') {
-      iVar3 = sscanf((char *)UINT_00900520,s_section___s_004ec7e0,local_100);
+    if (*(char *)g_dwStdConffile_aLine != '\0') {
+      iVar3 = sscanf((char *)g_dwStdConffile_aLine,s_section___s_004ec7e0,local_100);
       if (iVar3 == 0) {
-        iVar3 = sscanf((char *)UINT_00900520,s_numlights__d_004ec7d0,puVar7);
+        iVar3 = sscanf((char *)g_dwStdConffile_aLine,s_numlights__d_004ec7d0,puVar7);
         pbVar8 = pbVar6;
         if (iVar3 == 1) {
           pbVar8 = (byte *)(uVar2 + 0x54);
@@ -152,7 +153,7 @@ undefined4 sputRoom_ParseLights(void)
         }
         pbVar6 = pbVar8;
         if (pbVar8 != (byte *)0x0) {
-          iVar3 = sscanf((char *)UINT_00900520,s_light__s_004ec7c4,local_100);
+          iVar3 = sscanf((char *)g_dwStdConffile_aLine,s_light__s_004ec7c4,local_100);
           if (iVar3 == 1) {
             pbVar6 = pbVar8 + 0x68;
             rdLight_Init(pbVar8 + 0x94);
@@ -180,7 +181,7 @@ undefined4 sputRoom_ParseLights(void)
               pbVar9 = pbVar9 + 1;
             }
           }
-          iVar3 = sscanf((char *)UINT_00900520,s_type__s_004ec7b8,local_100);
+          iVar3 = sscanf((char *)g_dwStdConffile_aLine,s_type__s_004ec7b8,local_100);
           if (iVar3 == 1) {
             iVar3 = _stricmp(local_100,&DAT_004ec5b4);
             if (iVar3 == 0) {
@@ -210,18 +211,18 @@ LAB_004a5767:
             }
             *(int *)(pbVar6 + 0x30) = iVar3;
           }
-          iVar3 = sscanf((char *)UINT_00900520,s_direction__f__f__f_004ec7a4,pbVar6 + 0x38,
+          iVar3 = sscanf((char *)g_dwStdConffile_aLine,s_direction__f__f__f_004ec7a4,pbVar6 + 0x38,
                          pbVar6 + 0x3c,pbVar6 + 0x40);
           if (iVar3 == 3) {
             rdVector_Normalize3Acc((float *)(pbVar6 + 0x38));
           }
-          sscanf((char *)UINT_00900520,s_position__f__f__f_004ec790,pbVar6 + 0x20,pbVar6 + 0x24,
-                 pbVar6 + 0x28);
-          sscanf((char *)UINT_00900520,s_intensity__f_004ec780,pbVar6 + 0x44);
-          sscanf((char *)UINT_00900520,s_umbraangle__f_004ec770,pbVar6 + 0x4c);
-          sscanf((char *)UINT_00900520,s_penumbraangle__f_004ec75c,pbVar6 + 0x54);
-          iVar3 = sscanf((char *)UINT_00900520,s_color__d__d__d_004ec74c,&local_104,&local_110,
-                         &local_108);
+          sscanf((char *)g_dwStdConffile_aLine,s_position__f__f__f_004ec790,pbVar6 + 0x20,
+                 pbVar6 + 0x24,pbVar6 + 0x28);
+          sscanf((char *)g_dwStdConffile_aLine,s_intensity__f_004ec780,pbVar6 + 0x44);
+          sscanf((char *)g_dwStdConffile_aLine,s_umbraangle__f_004ec770,pbVar6 + 0x4c);
+          sscanf((char *)g_dwStdConffile_aLine,s_penumbraangle__f_004ec75c,pbVar6 + 0x54);
+          iVar3 = sscanf((char *)g_dwStdConffile_aLine,s_color__d__d__d_004ec74c,&local_104,
+                         &local_110,&local_108);
           if (iVar3 == 3) {
             *(uint *)(pbVar6 + 0x48) = (local_104 << 8 | local_110) << 8 | local_108;
           }
@@ -271,8 +272,8 @@ undefined4 sputRoom_ParseSetups(void)
   #define local_104 (*(uint *)(_frame + (0x120 - 0x104)))
   #define local_100 (*(char (*)[256])(_frame + (0x120 - 0x100)))
   
-  uVar3 = UINT_008cb0a8;
-  puVar9 = (uint *)(UINT_008cb0a8 + 0xac);
+  uVar3 = g_dwLoadingRoom;
+  puVar9 = (uint *)(g_dwLoadingRoom + 0xac);
   *puVar9 = 0;
   iVar4 = stdConffile_ReadLine();
   pcVar8 = (char *)uVar3;
@@ -280,14 +281,14 @@ undefined4 sputRoom_ParseSetups(void)
     return 1;
   }
   do {
-    if (*(char *)UINT_00900520 != '\0') {
-      iVar4 = sscanf((char *)UINT_00900520,s_section___s_004ec7e0,local_100);
+    if (*(char *)g_dwStdConffile_aLine != '\0') {
+      iVar4 = sscanf((char *)g_dwStdConffile_aLine,s_section___s_004ec7e0,local_100);
       if (iVar4 == 0) {
         piVar1 = (int *)(uVar3 + 0xb0);
-        iVar4 = sscanf((char *)UINT_00900520,s_numsetups__d_004ec858,piVar1);
+        iVar4 = sscanf((char *)g_dwStdConffile_aLine,s_numsetups__d_004ec858,piVar1);
         if (iVar4 == 1) {
           puVar5 = (undefined4 *)
-                   (*g_pSvcRoom->pAlloc)
+                   (*g_pSputRoomHS->pAlloc)
                              (*piVar1 * 300,s_C__grimsrc_libs_grimlib_Engine_s_004ec5e0,0x8b5);
           iVar4 = *piVar1;
           *puVar9 = (uint)puVar5;
@@ -305,7 +306,7 @@ undefined4 sputRoom_ParseSetups(void)
           if (*puVar9 == 0) {
             return 0;
           }
-          iVar4 = sscanf((char *)UINT_00900520,s_setup__s_004ec84c,local_100);
+          iVar4 = sscanf((char *)g_dwStdConffile_aLine,s_setup__s_004ec84c,local_100);
           if (iVar4 == 1) {
             pcVar8 = pcVar8 + 300;
             if ((char *)(*puVar9 + *piVar1 * 300) <= pcVar8) {
@@ -339,21 +340,22 @@ undefined4 sputRoom_ParseSetups(void)
             if (pcVar8 < (char *)*puVar9) {
               return 0;
             }
-            iVar4 = sscanf((char *)UINT_00900520,s_background__s_004ec83c,pcVar8 + 0x80);
+            iVar4 = sscanf((char *)g_dwStdConffile_aLine,s_background__s_004ec83c,pcVar8 + 0x80);
             if (((((iVar4 != 1) &&
-                  (iVar4 = sscanf((char *)UINT_00900520,s_zbuffer__s_004ec830,pcVar8 + 0xa0),
-                  iVar4 != 1)) &&
-                 (iVar4 = sscanf((char *)UINT_00900520,s_position__f__f__f_004ec790,pcVar8 + 0x20,
-                                 pcVar8 + 0x24,pcVar8 + 0x28), iVar4 != 3)) &&
-                ((iVar4 = sscanf((char *)UINT_00900520,s_interest__f__f__f_004ec81c,pcVar8 + 0x2c,
-                                 pcVar8 + 0x30,pcVar8 + 0x34), iVar4 != 3 &&
-                 (iVar4 = sscanf((char *)UINT_00900520,s_roll__f_004ec810,pcVar8 + 0x38), iVar4 != 1
-                 )))) && ((iVar4 = sscanf((char *)UINT_00900520,s_fov__f_004ec808,pcVar8 + 0x3c),
-                          iVar4 != 1 &&
-                          ((iVar4 = sscanf((char *)UINT_00900520,s_nclip__f_004ec7fc,pcVar8 + 0x40),
-                           iVar4 != 1 &&
-                           (iVar4 = sscanf((char *)UINT_00900520,s_fclip__f_004ec7f0,pcVar8 + 0x44),
-                           iVar4 != 1)))))) {
+                  (iVar4 = sscanf((char *)g_dwStdConffile_aLine,s_zbuffer__s_004ec830,pcVar8 + 0xa0)
+                  , iVar4 != 1)) &&
+                 (iVar4 = sscanf((char *)g_dwStdConffile_aLine,s_position__f__f__f_004ec790,
+                                 pcVar8 + 0x20,pcVar8 + 0x24,pcVar8 + 0x28), iVar4 != 3)) &&
+                ((iVar4 = sscanf((char *)g_dwStdConffile_aLine,s_interest__f__f__f_004ec81c,
+                                 pcVar8 + 0x2c,pcVar8 + 0x30,pcVar8 + 0x34), iVar4 != 3 &&
+                 (iVar4 = sscanf((char *)g_dwStdConffile_aLine,s_roll__f_004ec810,pcVar8 + 0x38),
+                 iVar4 != 1)))) &&
+               ((iVar4 = sscanf((char *)g_dwStdConffile_aLine,s_fov__f_004ec808,pcVar8 + 0x3c),
+                iVar4 != 1 &&
+                ((iVar4 = sscanf((char *)g_dwStdConffile_aLine,s_nclip__f_004ec7fc,pcVar8 + 0x40),
+                 iVar4 != 1 &&
+                 (iVar4 = sscanf((char *)g_dwStdConffile_aLine,s_fclip__f_004ec7f0,pcVar8 + 0x44),
+                 iVar4 != 1)))))) {
               return 0;
             }
           }

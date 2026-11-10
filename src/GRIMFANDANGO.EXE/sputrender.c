@@ -12,7 +12,7 @@
 undefined4 sputRender_Initialize(GrimServices *param_1,undefined4 *param_2)
 
 {
-  g_pSvcRender = param_1;
+  g_pSputRendHS = param_1;
   *param_2 = sputRender_Initialize;
   param_2[1] = sputRender_Terminate;
   param_2[2] = sputRender_Start;
@@ -22,7 +22,7 @@ undefined4 sputRender_Initialize(GrimServices *param_1,undefined4 *param_2)
   param_2[6] = 0;
   param_2[7] = 0;
   sputControl_AddCallback(FUN_00484a50);
-  UINT_008c9788 = 1;
+  g_dwSputRendInitialize = 1;
   return 0;
 }
 
@@ -33,9 +33,9 @@ undefined4 sputRender_Initialize(GrimServices *param_1,undefined4 *param_2)
 void sputRender_Terminate(void)
 
 {
-  g_pSvcRender = (GrimServices *)0x0;
-  if (UINT_008c9788 != 0) {
-    UINT_008c9788 = 0;
+  g_pSputRendHS = (GrimServices *)0x0;
+  if (g_dwSputRendInitialize != 0) {
+    g_dwSputRendInitialize = 0;
   }
   return;
 }

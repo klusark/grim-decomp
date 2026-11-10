@@ -26,16 +26,16 @@ int __cdecl rdThing_Draw(void *thing,float *position)
   g_pRdCurrentThing = thing;
   g_pRdCurrentModel = *(void **)((int)thing + 4);
   Matrix34_TransformPoint(local_c,(float *)((int)g_pRdCurrentModel + 0x78),position);
-  Vec3_Rotate3x3(local_c,(float *)((int)g_pRdCurrentCamera + 8));
+  Vec3_Rotate3x3(local_c,(float *)((int)g_pRdCamera_CurCamera + 8));
   if (*(int *)((int)thing + 0x44) == 0) {
-    UINT_007f30a4 = 1;
+    g_dwThingFrustrumCull = 1;
   }
   else {
-    UINT_007f30a4 =
-         Frustum_TestSphere(*(undefined4 *)((int)g_pRdCurrentCamera + 0x48),local_c,PUN(float,*(undefined4 *)((int)g_pRdCurrentModel + 0x5c)));
+    g_dwThingFrustrumCull =
+         Frustum_TestSphere(*(undefined4 *)((int)g_pRdCamera_CurCamera + 0x48),local_c,PUN(float,*(undefined4 *)((int)g_pRdCurrentModel + 0x5c)));
   }
-  if (UINT_007f30a4 != 2) {
-    UINT_007f30a4 = 1;
+  if (g_dwThingFrustrumCull != 2) {
+    g_dwThingFrustrumCull = 1;
     if (*(int *)((int)thing + 0x34) == -1) {
       iVar5 = *(int *)((int)g_pRdCurrentModel + 0x50);
     }
@@ -44,30 +44,31 @@ int __cdecl rdThing_Draw(void *thing,float *position)
     }
     UINT_007f0fd0 = (int)g_pRdCurrentModel + iVar5 * 8 + 0x24;
     rdPuppet_UpdateFrame(g_pRdCurrentThing,position);
-    pvVar4 = g_pRdCurrentCamera;
+    pvVar4 = g_pRdCamera_CurCamera;
     UINT_007f1494 = *(uint *)((int)g_pRdCurrentThing + 0x38);
     if (g_nRdroidGeometryMode <= (int)UINT_007f1494) {
       UINT_007f1494 = g_nRdroidGeometryMode;
     }
-    if ((((byte)g_dwRdroidFlags & 2) == 0) || (*(float *)((int)g_pRdCurrentCamera + 0x54) < 1.0)) {
+    if ((((byte)g_dwRdroid_curRenderOptions & 2) == 0) ||
+       (*(float *)((int)g_pRdCamera_CurCamera + 0x54) < 1.0)) {
       UINT_007f30dc = *(uint *)((int)g_pRdCurrentThing + 0x3c);
-      if (g_nRdroidLightingMode <= (int)*(uint *)((int)g_pRdCurrentThing + 0x3c)) {
-        UINT_007f30dc = g_nRdroidLightingMode;
+      if (g_nRdroid_curLightingMode <= (int)*(uint *)((int)g_pRdCurrentThing + 0x3c)) {
+        UINT_007f30dc = g_nRdroid_curLightingMode;
       }
     }
     else {
       UINT_007f30dc = 0;
     }
     UINT_007f189c = *(uint *)((int)g_pRdCurrentThing + 0x40);
-    if (g_nRdroidTextureMode <= (int)UINT_007f189c) {
-      UINT_007f189c = g_nRdroidTextureMode;
+    if (g_nRdroid_curTextureMode <= (int)UINT_007f189c) {
+      UINT_007f189c = g_nRdroid_curTextureMode;
     }
     if (1 < (int)UINT_007f30dc) {
       UINT_007f31f8 = 0;
       uVar7 = 0;
-      if (*(int *)((int)g_pRdCurrentCamera + 0x58) != 0) {
-        pfVar6 = (float *)((int)g_pRdCurrentCamera + 0x160);
-        puVar8 = (uint *)((int)g_pRdCurrentCamera + 0x5c);
+      if (*(int *)((int)g_pRdCamera_CurCamera + 0x58) != 0) {
+        pfVar6 = (float *)((int)g_pRdCamera_CurCamera + 0x160);
+        puVar8 = (uint *)((int)g_pRdCamera_CurCamera + 0x5c);
         do {
           uVar1 = *puVar8;
           if (*(int *)(uVar1 + 8) != 0) {
@@ -81,7 +82,7 @@ int __cdecl rdThing_Draw(void *thing,float *position)
             }
             fVar3 = *(float *)(uVar1 + 0x34) + *(float *)((int)g_pRdCurrentModel + 0x5c);
             if (fVar2 < fVar3 * fVar3) {
-              (&UINT_007f1498)[UINT_007f31f8] = uVar1;
+              (&g_apGeoLights)[UINT_007f31f8] = uVar1;
               UINT_007f31f8 = UINT_007f31f8 + 1;
             }
           }
@@ -107,7 +108,7 @@ uint rdThing_New(undefined4 param_1)
   uint uVar1;
   int iVar2;
   
-  uVar1 = (*g_pSvcRdroid->pAlloc)(0x4c,s_C__grimjedi_Libs_RDroid_Engine_R_004dde14,DAT_004dde0c + 3)
+  uVar1 = (*g_pRdroid_HS->pAlloc)(0x4c,s_C__grimjedi_Libs_RDroid_Engine_R_004dde14,DAT_004dde0c + 3)
   ;
   if (uVar1 == 0) {
     return 0;
@@ -149,7 +150,7 @@ void rdThing_Free(int param_1)
 {
   if (param_1 != 0) {
     rdThing_FreeEntry(param_1);
-    (*g_pSvcRdroid->pFree)(param_1);
+    (*g_pRdroid_HS->pFree)(param_1);
   }
   return;
 }
@@ -165,19 +166,19 @@ void rdThing_FreeEntry(int *param_1)
   
   if (*param_1 == 1) {
     if (param_1[8] != 0) {
-      (*g_pSvcRdroid->pFree)(param_1[8]);
+      (*g_pRdroid_HS->pFree)(param_1[8]);
       param_1[8] = 0;
     }
     if (param_1[9] != 0) {
-      (*g_pSvcRdroid->pFree)(param_1[9]);
+      (*g_pRdroid_HS->pFree)(param_1[9]);
       param_1[9] = 0;
     }
     if (param_1[0xb] != 0) {
-      (*g_pSvcRdroid->pFree)(param_1[0xb]);
+      (*g_pRdroid_HS->pFree)(param_1[0xb]);
       param_1[0xb] = 0;
     }
     if (param_1[10] != 0) {
-      (*g_pSvcRdroid->pFree)(param_1[10]);
+      (*g_pRdroid_HS->pFree)(param_1[10]);
       param_1[10] = 0;
     }
     if (param_1[5] != 0) {
@@ -211,12 +212,12 @@ void __cdecl rdThing_SetModel(void *thing,void *model)
   *(undefined4 *)thing = 1;
   *(void **)((int)thing + 4) = model;
   *(undefined4 *)((int)thing + 0x34) = 0xffffffff;
-  uVar1 = (*g_pSvcRdroid->pAlloc)
+  uVar1 = (*g_pRdroid_HS->pAlloc)
                     (*(int *)((int)model + 0x54) * 0x30,s_C__grimjedi_Libs_RDroid_Engine_R_004dde14,
                      DAT_004dde10 + 0xd);
   *(undefined4 *)((int)thing + 0x20) = uVar1;
   puVar2 = (undefined4 *)
-           (*g_pSvcRdroid->pAlloc)
+           (*g_pRdroid_HS->pAlloc)
                      (*(int *)((int)model + 0x54) * 0xc,s_C__grimjedi_Libs_RDroid_Engine_R_004dde14,
                       DAT_004dde10 + 0x10);
   *(undefined4 **)((int)thing + 0x24) = puVar2;
@@ -230,7 +231,7 @@ void __cdecl rdThing_SetModel(void *thing,void *model)
   }
   if ((*(int *)((int)thing + 0x20) != 0) && (*(int *)((int)thing + 0x24) != 0)) {
     puVar2 = (undefined4 *)
-             (*g_pSvcRdroid->pAlloc)
+             (*g_pRdroid_HS->pAlloc)
                        (*(int *)((int)model + 0x54) << 2,s_C__grimjedi_Libs_RDroid_Engine_R_004dde14
                         ,DAT_004dde10 + 0x1a);
     *(undefined4 **)((int)thing + 0x28) = puVar2;
@@ -243,7 +244,7 @@ void __cdecl rdThing_SetModel(void *thing,void *model)
         *(undefined1 *)puVar2 = 0;
         puVar2 = (undefined4 *)((int)puVar2 + 1);
       }
-      iVar4 = (*g_pSvcRdroid->pAlloc)
+      iVar4 = (*g_pRdroid_HS->pAlloc)
                         (*(int *)((int)model + 0x54) << 2,
                          s_C__grimjedi_Libs_RDroid_Engine_R_004dde14,DAT_004dde10 + 0x23);
       *(int *)((int)thing + 0x2c) = iVar4;

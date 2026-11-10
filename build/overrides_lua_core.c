@@ -6,7 +6,7 @@
  * same two calls as the original. `_setjmp3` is declared returns_twice, and every local that is read after a longjmp
  * is volatile (msvcrt's longjmp restores EBX/ESI/EDI/EBP/ESP of the setjmp, not values that lived in registers).
  *
- * Offsets in the lua_State (the global L = PTR_1002bf6c, Grim's Lua 3.1 with tasks): +0x00 the root of the C call
+ * Offsets in the lua_State (the global L = g_pLuaState, Grim's Lua 3.1 with tasks): +0x00 the root of the C call
  * chain of this task (the "execution state" list linked through +0x0c), +0x08 call depth, +0x10 / +0x14 the "paused" /
  * "running elsewhere" flags of a task, +0x1c stack top, +0x20 stack base, +0x28 / +0x2c / +0x30 the C stack frame
  * (base, lua2C, num), +0x34 errorJmp, +0xc0 the task id passed to the task hook, +0xc4 the task's function. */
@@ -20,7 +20,7 @@
 extern int __cdecl _setjmp3(void *buf, int count, ...) __attribute__((returns_twice));
 
 #define LS(p) ((int *)(p))
-#define GL LS(PTR_1002bf6c)
+#define GL LS(g_pLuaState)
 
 /* OVERRIDES: lua_updatetasks */
 /* The task scheduler: runs every task (lua_State linked by LState_next = next task) once.
@@ -45,19 +45,19 @@ int __cdecl lua_updatetasks(int param_1)
 
     for (;;) {
         /* 1e23: mark every task's call chain, clear its paused flag */
-        for (t = (int *)LState_next((int)PTR_1002bf6c); t != 0; t = (int *)LState_next((int)t)) {
+        for (t = (int *)LState_next((int)g_pLuaState); t != 0; t = (int *)LState_next((int)t)) {
             for (c = (int *)t[0]; c != 0; c = (int *)c[3])
                 ExecutionState_resetcounter((int)c);
             t[4] = 0;
         }
         /* 1e5b: the runnable tasks after the current one */
     restart:
-        nx = (int *)LState_next((int)PTR_1002bf6c);
-        PTR_1002bf6c = nx;
+        nx = (int *)LState_next((int)g_pLuaState);
+        g_pLuaState = nx;
         if (nx != 0) {
             do {
                 if (GL[4] != 0 || GL[5] != 0) {
-                    nx = (int *)LState_next((int)PTR_1002bf6c);           /* 2019 */
+                    nx = (int *)LState_next((int)g_pLuaState);           /* 2019 */
                 } else {
                     hookarg = 4;
                     GL[0xd] = (int)buf;
@@ -82,17 +82,17 @@ int __cdecl lua_updatetasks(int param_1)
                     }
                     if (res != 0) {
                         if (GL[0] == 0)
-                            ((void (__cdecl *)(char *, char *, int))*(int *)(DAT_1002beb8 + 0x18))(
+                            ((void (__cdecl *)(char *, char *, int))*(int *)(g_dwLuaHS + 0x18))(
                                 s_L__pExecutionState_100261dc, s_C__grimsrc_libs_lua_src_lapi_cpp_100260d4, 0x2fe);
                         if (lua_taskhook != 0)
                             luaD_taskHook(GL[0x30], 1);
                         GL[4] = 1;
-                        nx = (int *)LState_next((int)PTR_1002bf6c);       /* 201b */
+                        nx = (int *)LState_next((int)g_pLuaState);       /* 201b */
                     } else {
                         int *dead;
                         if (lua_taskhook != 0)
                             luaD_taskHook(GL[0x30], hookarg);
-                        nx = (int *)LState_next((int)PTR_1002bf6c);
+                        nx = (int *)LState_next((int)g_pLuaState);
                         dead = GL;
                         if (dead != 0) {
                             LState_Destruct(dead);
@@ -100,20 +100,20 @@ int __cdecl lua_updatetasks(int param_1)
                         }
                     }
                 }
-                PTR_1002bf6c = nx;                                          /* 2020 */
+                g_pLuaState = nx;                                          /* 2020 */
             } while (nx != 0);
         }
         /* 2030: back at the start; if any later task can run, scan again from the saved L */
-        PTR_1002bf6c = saved;
+        g_pLuaState = saved;
         for (t = (int *)LState_next((int)saved); t != 0; t = (int *)LState_next((int)t)) {
             if (t[4] == 0 && t[5] == 0)
                 goto restart;
         }
         /* 2053 */
-        if (param_1 == 0 || LState_next((int)PTR_1002bf6c) == 0)
+        if (param_1 == 0 || LState_next((int)g_pLuaState) == 0)
             break;
     }
-    return LState_next((int)PTR_1002bf6c) != 0;
+    return LState_next((int)g_pLuaState) != 0;
 }
 
 /* OVERRIDES: luaD_protectedrun */
