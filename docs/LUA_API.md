@@ -172,11 +172,11 @@ function (in `src/GRIMFANDANGO.EXE`) that runs when a script calls it. Arguments
 | `NextSetup` | `grimlib_NextSetup` | 0x00482880 |
 | `PreviousSetup` | `grimlib_PreviousSetup` | 0x004828a0 |
 | `StartFullscreenMovie` | `sputLua_StartFullScreenMovieL` | 0x0049e7e0 |
-| `IsFullscreenMoviePlaying` | `Lua_IsMoviePlaying` | 0x0049e960 |
+| `IsFullscreenMoviePlaying` | `sputLua_IsMoviePlayingL` | 0x0049e960 |
 | `StartMovie` | `sputLua_StartMovieL` | 0x0049e880 |
 | `StopMovie` | `sputLua_StopMovieL` | 0x0049e850 |
 | `PauseMovie` | `sputLua_PauseMovieL` | 0x0049e860 |
-| `IsMoviePlaying` | `Lua_IsMoviePlaying` | 0x0049e960 |
+| `IsMoviePlaying` | `sputLua_IsMoviePlayingL` | 0x0049e960 |
 | `PlaySound` | `Lua_Stub` | 0x00497830 |
 | `PlaySoundAt` | `Lua_Stub` | 0x00497830 |
 | `PlaySoundAttached` | `Lua_Stub` | 0x00497830 |

@@ -12,7 +12,7 @@
 uint sputTime_GetGameTime(void)
 
 {
-  return g_dwTimerTotalMs;
+  return g_dwSputTime_gameTime_ms;
 }
 
 /* ---- 0x004a3bf0  sputTime_GetFrameTime ---- */
@@ -22,7 +22,7 @@ uint sputTime_GetGameTime(void)
 uint sputTime_GetFrameTime(void)
 
 {
-  return g_dwTimerFrameMs;
+  return g_dwSputTime_frameTime_ms;
 }
 
 /* ---- 0x004a3c00  sputTime_GetFrameTimeFlex ---- */
@@ -48,18 +48,18 @@ void sputTime_Advance(void)
   uint uVar1;
   
   uVar1 = timeGetTime();
-  if (uVar1 < g_dwTimerLastTick) {
-    g_dwTimerFrameMs = (uVar1 - g_dwTimerLastTick) - 1;
+  if (uVar1 < g_dwLastClockTime) {
+    g_dwSputTime_frameTime_ms = (uVar1 - g_dwLastClockTime) - 1;
   }
   else {
-    g_dwTimerFrameMs = uVar1 - g_dwTimerLastTick;
+    g_dwSputTime_frameTime_ms = uVar1 - g_dwLastClockTime;
   }
-  g_dwTimerLastTick = uVar1;
-  if (299 < g_dwTimerFrameMs) {
-    g_dwTimerFrameMs = 300;
+  g_dwLastClockTime = uVar1;
+  if (299 < g_dwSputTime_frameTime_ms) {
+    g_dwSputTime_frameTime_ms = 300;
   }
-  g_dwTimerTotalMs = g_dwTimerTotalMs + g_dwTimerFrameMs;
-  g_flSputTime_frameTimeSeconds = (float)g_dwTimerFrameMs * 0.001;
+  g_dwSputTime_gameTime_ms = g_dwSputTime_gameTime_ms + g_dwSputTime_frameTime_ms;
+  g_flSputTime_frameTimeSeconds = (float)g_dwSputTime_frameTime_ms * 0.001;
   return;
 }
 
@@ -72,13 +72,13 @@ void sputTime_Advance(void)
 void sputTime_AdvanceManual(uint param_1)
 
 {
-  g_dwTimerFrameMs = param_1;
+  g_dwSputTime_frameTime_ms = param_1;
   if (299 < param_1) {
-    g_dwTimerFrameMs = 300;
+    g_dwSputTime_frameTime_ms = 300;
   }
-  g_dwTimerTotalMs = g_dwTimerTotalMs + g_dwTimerFrameMs;
-  g_flSputTime_frameTimeSeconds = (float)g_dwTimerFrameMs * 0.001;
-  g_dwTimerLastTick = timeGetTime();
+  g_dwSputTime_gameTime_ms = g_dwSputTime_gameTime_ms + g_dwSputTime_frameTime_ms;
+  g_flSputTime_frameTimeSeconds = (float)g_dwSputTime_frameTime_ms * 0.001;
+  g_dwLastClockTime = timeGetTime();
   return;
 }
 
@@ -86,9 +86,9 @@ void sputTime_AdvanceManual(uint param_1)
 void Timer_Reset(void)
 
 {
-  g_dwTimerTotalMs = 0;
-  g_dwTimerFrameMs = 0;
+  g_dwSputTime_gameTime_ms = 0;
+  g_dwSputTime_frameTime_ms = 0;
   g_flSputTime_frameTimeSeconds = 0.0;
-  g_dwTimerLastTick = timeGetTime();
+  g_dwLastClockTime = timeGetTime();
   return;
 }

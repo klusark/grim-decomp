@@ -23,8 +23,8 @@ undefined4 Blocky16_Register(int *param_1,uint param_2)
 /* ---- 0x004cc250  fob_flobdec_blocky16_config ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-/* Reads key and value pairs ending with key 0; key 1 sets the output callback g_pfnBlkOutput that
-   Blocky16 hands decoded frames to; other keys are an error Original name
+/* Reads key and value pairs ending with key 0; key 1 sets the output callback g_pFob_blit_routine
+   that Blocky16 hands decoded frames to; other keys are an error Original name
    fob_flobdec_blocky16_config (the remaster's GrimFandango (Linux): aligned call in
    SmushPlay_UpdateMovie); was Blocky16_SetOption. */
 
@@ -41,7 +41,7 @@ int __cdecl fob_flobdec_blocky16_config(int key,...)
     if (key != 1) {
       return -1;
     }
-    g_pfnBlkOutput = (void *)puVar1[2];
+    g_pFob_blit_routine = (void *)puVar1[2];
     key = puVar1[3];
     puVar1 = puVar1 + 2;
   } while (key != 0);
@@ -670,8 +670,8 @@ LAB_004ccb89:
 #if 0
 /* Decodes one Blocky16 frame into the buffers g_pbBlkCur, g_pbBlkPrev and g_pbBlkPrev2 using
    g_stBlockyDecState, g_asBlockyMotion, g_aBlockySplit4 and g_aBlockySplit8 and gives it to the
-   output g_pfnBlkOutput; bitmaps g_pBlkBitmap0, g_pBlkBitmap1, g_pBlkBitmap2; tables g_pbBlkExpand,
-   g_nBlkShiftR, g_nBlkShiftG, g_nBlkShiftB, g_pbBlkOutput, g_nBlkLastSeq */
+   output g_pFob_blit_routine; bitmaps g_pBlkBitmap0, g_pBlkBitmap1, g_pBlkBitmap2; tables
+   g_pbBlkExpand, g_nBlkShiftR, g_nBlkShiftG, g_nBlkShiftB, g_pbBlkOutput, g_nBlkLastSeq */
 
 int __cdecl Blocky16_DecodeFrame(void *dst,uint *clip,int x,int y,int palette,byte *hdr,byte flags)
 
@@ -793,7 +793,7 @@ LAB_004ccf67:
     if ((g_nBlkShiftR == 0) && (g_nBlkShiftG == 0)) {
       pbVar5 = (byte *)0x0;
     }
-    if (g_pfnBlkOutput == (void *)0x0) {
+    if (g_pFob_blit_routine == (void *)0x0) {
       piVar9 = g_pBlkBitmap0;
       if (((g_pbBlkOutput == (byte *)*g_pBlkBitmap0) ||
           (piVar9 = g_pBlkBitmap1, g_pbBlkOutput == (byte *)*g_pBlkBitmap1)) ||
@@ -803,13 +803,13 @@ LAB_004ccf67:
       palette = 1;
     }
     else if (g_pbBlkOutput == (byte *)*g_pBlkBitmap0) {
-      palette = (*(code *)g_pfnBlkOutput)(dst,clip,x,y,g_pBlkBitmap0,palette,pbVar5);
+      palette = (*(code *)g_pFob_blit_routine)(dst,clip,x,y,g_pBlkBitmap0,palette,pbVar5);
     }
     else if (g_pbBlkOutput == (byte *)*g_pBlkBitmap1) {
-      palette = (*(code *)g_pfnBlkOutput)(dst,clip,x,y,g_pBlkBitmap1,palette,pbVar5);
+      palette = (*(code *)g_pFob_blit_routine)(dst,clip,x,y,g_pBlkBitmap1,palette,pbVar5);
     }
     else if (g_pbBlkOutput == (byte *)*g_pBlkBitmap2) {
-      palette = (*(code *)g_pfnBlkOutput)(dst,clip,x,y,g_pBlkBitmap2,palette,pbVar5);
+      palette = (*(code *)g_pFob_blit_routine)(dst,clip,x,y,g_pBlkBitmap2,palette,pbVar5);
     }
   }
   pbVar2 = g_pbBlkPrev;

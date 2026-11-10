@@ -93,7 +93,7 @@ void sputActor_UpdateSpeechOnly(unsigned bits) { ev(T_TALK, 1, bits, 0, 0, 0); }
 int stdDisplay_VBufferLock(void *s) { ev(T_LOCK, 1, U(s), 0, 0, 0); if (mode_effects && E(6) == 0) FXU32(0x90563c) = E(100000); return 1; }
 int stdDisplay_VBufferUnlock(void *s) { ev(T_UNLOCK, 1, U(s), 0, 0, 0); return 1; }
 void sputText_Update(int a) { ev(T_TEXT, 2, a, FXU32(0x8a94b8), 0, 0); }
-void Render_Present(void) { ev(T_PRESENT, 0, 0, 0, 0, 0); }
+void sputRender_PageFlip(void) { ev(T_PRESENT, 0, 0, 0, 0, 0); }
 void grimlib_UserPaint(void) { ev(T_USERPAINT, 0, 0, 0, 0, 0); }
 int lps_fn(int a) __asm__("_lua_printstack");
 int lps_fn(int a) { ev(T_PRINTSTACK, 1, a, 0, 0, 0); return 0; }
@@ -132,7 +132,7 @@ void PerfBegin(int a) { ev(T_PBEGIN, 1, a, 0, 0, 0); }
 void *PerfEnd(int a) { ev(T_PEND, 1, a, 0, 0, 0); return 0; }
 void DirtyRect_Flush(void *d, void *z) { ev(T_DRFLUSH, 2, U(d), U(z), 0, 0); }
 void sputPrimitive_Update(unsigned m) { ev(T_PRIMS, 1, m, 0, 0, 0); }
-void rdroid_BeginFrame(void) { ev(T_BEGIN, 0, 0, 0, 0, 0); }
+void rdAdvanceFrame(void) { ev(T_BEGIN, 0, 0, 0, 0, 0); }
 void Render_BuildActorDrawList(void)
 {
     ev(T_BUILDLIST, 0, 0, 0, 0, 0);

@@ -73,7 +73,7 @@ undefined4 sputCostume_Startup(void)
     return 1;
   }
   (*(code *)UINT_008ca778)();
-  g_pCostumePool = (void **)Memory_AllocatePool(0xb4,10,2);
+  g_pCosNodePool = (void **)Memory_AllocatePool(0xb4,10,2);
   ppcVar2 = local_38;
   for (iVar1 = 7; iVar1 != 0; iVar1 = iVar1 + -1) {
     *ppcVar2 = (code *)0x0;
@@ -199,7 +199,7 @@ undefined4 sputCostume_Startup(void)
   local_38[0xb] = LuaVarAdjuster;
   Cos_NewIntTag(0x7661756c,IMG_ADDR(0x004ea298),0,(int *)(local_38 + 7),1);
   g_dwOldInstanceHook = Cos_RegisterInstanceHook(((unsigned)(uintptr_t)Costume_InstanceHook));
-  g_dwOldSaveHook = Cos_RegisterSaveHook(((unsigned)(uintptr_t)Costume_SaveChoreListFile));
+  g_dwOldSaveHook = Cos_RegisterSaveHook(((unsigned)(uintptr_t)sputCostume_SaveHook));
   sputLua_RegisterFunctions(&g_pLuaCostumeFuncs,UINT_004ea068);
   g_dwSputCosStartup = 1;
   Config_GetPath(s_KeyframePath_004ea27c,&g_bKeyframePath,s_Animation_004ea28c);
@@ -230,9 +230,9 @@ void sputCostume_Shutdown(void)
   Config_SetPath(s_ModelPath_004ea230,&g_bModelPath);
   Config_SetPath(s_SoundPath_004ea220,&g_bSoundPath);
   Config_SetPath(s_SmushPath_004ea20c,&g_bSmushPath);
-  if (g_pCostumePool != (void **)0x0) {
-    Memory_FreePool(g_pCostumePool);
-    g_pCostumePool = (void **)0x0;
+  if (g_pCosNodePool != (void **)0x0) {
+    Memory_FreePool(g_pCosNodePool);
+    g_pCosNodePool = (void **)0x0;
   }
   g_dwOldInstanceHook = Cos_RegisterInstanceHook(g_dwOldInstanceHook);
   g_dwOldSaveHook = Cos_RegisterSaveHook(g_dwOldSaveHook);

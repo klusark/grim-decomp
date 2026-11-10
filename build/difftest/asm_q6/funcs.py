@@ -1,5 +1,5 @@
 """Reading aid (agent q6): the functions of a base assembly file (name -> list of (address, instruction)) and the q6 list
-(the non-z-buffered half of the software rasteriser, 0x0040ea50 - 0x0042d190, plus rdRaster_DrawWireframeZ)."""
+(the non-z-buffered half of the software rasteriser, 0x0040ea50 - 0x0042d190, plus rdZRaster_DrawNGonLW)."""
 import re
 
 

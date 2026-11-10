@@ -885,10 +885,12 @@ void stdBitmap_DeCompress(int param_1)
   return;
 }
 
-/* ---- 0x0047b5f0  stdBitmap_InitHeader ---- */
-/* Zeroes 10 dwords and sets the gamma/scale field to 1.0 */
+/* ---- 0x0047b5f0  stdPalEffects_ResetEffect ---- */
+/* Zeroes 10 dwords and sets the gamma/scale field to 1.0 Original name stdPalEffects_ResetEffect
+   (the remaster's GrimFandango (Linux): the call on rdroid_curColorEffects in rdOpen, same body
+   (ten words cleared, +0x24 = 1.0f)); was stdBitmap_InitHeader. */
 
-void stdBitmap_InitHeader(undefined4 *param_1)
+void stdPalEffects_ResetEffect(undefined4 *param_1)
 
 {
   int iVar1;

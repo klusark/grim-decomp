@@ -31,7 +31,7 @@ extern void orig_FUN_004d0b60(int, unsigned char), SoundModule_SetPan(int, unsig
 extern int orig_FUN_004d0b90(unsigned), SoundModule_GetPan(unsigned);
 extern void orig_FUN_004d0bd0(int), SoundModule_DriverCommand2(int);
 extern int orig_FUN_004d0bf0(void), SoundModule_DriverCommand3(void);
-extern void orig_FUN_004d0c00(unsigned), SoundModule_SetDriverRate(unsigned);
+extern void orig_FUN_004d0c00(unsigned), sou_engine_SetRate(unsigned);
 extern int orig_FUN_004d0c30(unsigned), SoundModule_GetPosition(unsigned);
 extern int orig_Sound_VoiceSampleCount(int), Sound_VoiceSampleCount(int);
 extern int orig_FUN_004d0d70(int, int, unsigned, unsigned), SoundModule_SetParam(int, int, unsigned, unsigned);
@@ -361,7 +361,7 @@ int main(int argc, char **argv)
             case 5: SoundModule_SetPan((int)id, (unsigned char)a2); break;
             case 6: rb = SoundModule_GetPan(id); break;
             case 7: SoundModule_DriverCommand2(a2); rb = SoundModule_DriverCommand3(); break;
-            case 8: SoundModule_SetDriverRate((unsigned)a2); break;
+            case 8: sou_engine_SetRate((unsigned)a2); break;
             case 9: rb = SoundModule_GetPosition(id); break;
             case 10: SoundModule_SetChannelVolume(ch, (unsigned char)a2); rb = (int)SoundModule_GetChannelVolume(ch); break;
             case 11: ya = yb = 0x1234; rb = SoundModule_GetParam(0, w1, &ya, w1 == 1 ? (unsigned *)(uintptr_t)(w2 * 37 + 5) : &yb); SoundModule_SetParam(0, w2, (unsigned)a1, (unsigned)a2); rb += (int)(ya ^ yb); break;

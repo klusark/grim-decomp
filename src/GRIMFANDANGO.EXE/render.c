@@ -56,21 +56,28 @@ void Render_ToggleDebugOverlay(void)
 #undef local_c
 
 
-/* ---- 0x00483a80  Render_SetUserCallback ---- */
-void Render_SetUserCallback(uint param_1)
+/* ---- 0x00483a80  sputRender_SetPaletteCallback ---- */
+/* Original name sputRender_SetPaletteCallback (the remaster's GrimFandango (Linux): the call of
+   grimlib_SetPaletteCallback, same body (stores sputRender_pSetPaletteFunc)); was
+   Render_SetUserCallback. */
+
+void sputRender_SetPaletteCallback(uint param_1)
 
 {
-  UINT_008c97b8 = param_1;
+  g_dwSputRender_pSetPaletteFunc = param_1;
   return;
 }
 
-/* ---- 0x00483a90  Render_SetFlipCallback ---- */
-/* Installs the function Render_Present calls to show the back buffer */
+/* ---- 0x00483a90  sputRender_SetPageFlipCallback ---- */
+/* Installs the function Render_Present calls to show the back buffer Original name
+   sputRender_SetPageFlipCallback (the remaster's GrimFandango (Linux): the only unpaired writer of
+   sputRender_pPageFlipFunc, same body; grimlib_SetPageFlipCallback jumps to it); was
+   Render_SetFlipCallback. */
 
-void Render_SetFlipCallback(void *param_1)
+void sputRender_SetPageFlipCallback(void *param_1)
 
 {
-  g_pfnFlipCallback = param_1;
+  g_pSputRender_PageFlipFunc = param_1;
   return;
 }
 
@@ -302,14 +309,17 @@ void sputRender_Close(void)
   return;
 }
 
-/* ---- 0x004849a0  Render_Present ---- */
-/* Calls the flip callback unless the frame was flagged to skip presentation */
+/* ---- 0x004849a0  sputRender_PageFlip ---- */
+/* Calls the flip callback unless the frame was flagged to skip presentation Original name
+   sputRender_PageFlip (the remaster's GrimFandango (Linux): the only unpaired user of
+   MovieJustFinished on both sides, same body (flip callback, clears MovieJustFinished)); was
+   Render_Present. */
 
-void Render_Present(void)
+void sputRender_PageFlip(void)
 
 {
   if ((g_nDoTheFlip != 0) && (g_dwMovieJustFinished == 0)) {
-    (*(code *)g_pfnFlipCallback)();
+    (*(code *)g_pSputRender_PageFlipFunc)();
   }
   g_dwMovieJustFinished = 0;
   return;
@@ -439,7 +449,7 @@ void Render_InitColorConstants(int param_1)
 
 {
   Render_BuildColorTable(UINT_008c9780,g_flSputRender_GammaCorrection);
-  g_wTextColors[2] =
+  g_abSputRender_colorMap[2] =
        (&g_wSputRender_ColorLookup)
        [(0 >> ((byte)*(undefined4 *)(param_1 + 0x24) & 0x1f)) <<
         ((byte)*(undefined4 *)(param_1 + 0x18) & 0x1f) & 0xffffU |
@@ -1172,7 +1182,7 @@ void * sputRender_CleanZBuffer(void)
 uint Render_GetUserCallback(void)
 
 {
-  return UINT_008c97b8;
+  return g_dwSputRender_pSetPaletteFunc;
 }
 
 /* ---- 0x00486b30  sputRender_SetPageFlip ---- */
@@ -1681,8 +1691,11 @@ void __cdecl Render_DrawProgressBar(float fraction)
 #endif
 
 
-/* ---- 0x004874c0  Render_SetWaitCursorEnabled ---- */
-void Render_SetWaitCursorEnabled(uint param_1)
+/* ---- 0x004874c0  sputRender_AllowLoadImage ---- */
+/* Original name sputRender_AllowLoadImage (the remaster's GrimFandango (Linux): the only unpaired
+   writer of LoadImageAllowed on both sides, same body); was Render_SetWaitCursorEnabled. */
+
+void sputRender_AllowLoadImage(uint param_1)
 
 {
   g_dwLoadImageAllowed = param_1;

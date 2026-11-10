@@ -312,7 +312,7 @@ Scope: GRIMFANDANGO.EXE >= 0x004a0000, all of LUA.DLL, IMUSE.DLL and CHORE.DLL. 
 | 1000b220 | `TgSetTrigger` | imuse.c | address of a parameter slot is taken (scanf-style outputs / reused slots) |
 | 1000b2e0 | `TgCheckTrigger` | imuse.c | not converted yet (no known artifact); see notes below |
 | 1000b380 | `TgClearTrigger` | imuse.c | not converted yet (no known artifact); see notes below |
-| 1000b430 | `Im_FireTriggers` | imuse.c | not converted yet (no known artifact); see notes below |
+| 1000b430 | `TgProcessMarker` | imuse.c | not converted yet (no known artifact); see notes below |
 | 1000b570 | `TgDeferCommand` | imuse.c | address of a parameter slot is taken (scanf-style outputs / reused slots) |
 | 1000b5e0 | `TgIntHandler` | imuse.c | not converted yet (no known artifact); see notes below |
 | 1000b630 | `TgGetPendCount` | imuse.c | not converted yet (no known artifact); see notes below |

@@ -160,7 +160,7 @@ void Memory_SysShutdown(void)
 
 /* ---- 0x00488980  Memory_AllocatePool ---- */
 /* Temp/Memory.c: fixed-size item pool. Items are 8-byte-headed (next, pool) blocks carved from
-   grown chunks; pools are kept in the g_poolList singly linked list. Original name
+   grown chunks; pools are kept in the g_pFirstPool singly linked list. Original name
    Memory_AllocatePool (the remaster's GrimFandango (Linux): aligned call in Res_SysStartup,
    sputRoom_Startup, sputText_Startup); was Pool_Create. */
 
@@ -188,8 +188,8 @@ void ** Memory_AllocatePool(int param_1,void *param_2,void *param_3)
     *ppvVar3 = (void *)0x0;
     ppvVar3 = ppvVar3 + 1;
   }
-  ppvVar1[1] = g_poolList;
-  g_poolList = ppvVar1;
+  ppvVar1[1] = g_pFirstPool;
+  g_pFirstPool = ppvVar1;
   *ppvVar1 = ppvVar1;
   ppvVar1[2] = (void *)(param_1 + 7U & 0xfffffff8);
   ppvVar1[3] = (void *)0x0;
@@ -228,12 +228,12 @@ void Memory_FreePool(void **param_1)
               (s_pPool__pPool____pPool_004e82dc,s_C__grimsrc_libs_grimlib_Temp_Mem_004e8264,0x381);
   }
   ppvVar2 = (void **)0x0;
-  for (ppvVar3 = g_poolList; (ppvVar3 != (void **)0x0 && (ppvVar3 != param_1)); ppvVar3 = ppvVar3[1]
-      ) {
+  for (ppvVar3 = g_pFirstPool; (ppvVar3 != (void **)0x0 && (ppvVar3 != param_1));
+      ppvVar3 = ppvVar3[1]) {
     ppvVar2 = ppvVar3;
   }
   if (ppvVar2 == (void **)0x0) {
-    g_poolList = param_1[1];
+    g_pFirstPool = param_1[1];
   }
   else {
     ppvVar2[1] = param_1[1];

@@ -131,7 +131,7 @@ with a differential test, see the notes), so there is no list of reasons.
 | 004d0b90 | `SoundModule_GetPan` |
 | 004d0bd0 | `SoundModule_DriverCommand2` |
 | 004d0bf0 | `SoundModule_DriverCommand3` |
-| 004d0c00 | `SoundModule_SetDriverRate` |
+| 004d0c00 | `sou_engine_SetRate` |
 | 004d0c30 | `SoundModule_GetPosition` |
 | 004d0cf0 | `sou_engine_QueryTime` |
 | 004d0d70 | `SoundModule_SetParam` |

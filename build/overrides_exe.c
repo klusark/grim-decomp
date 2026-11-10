@@ -68,7 +68,7 @@ void sputLua_SetCameraFOVL(void)
 }
 
 /* ==== Math_Floor (0x0047c100) ====
- * floor(x) for a float.  The code loads the x87 control word DAT_00900526 (round down, set up by Services_SetCurrent),
+ * floor(x) for a float.  The code loads the x87 control word DAT_00900526 (round down, set up by stdStartup),
  * executes FRNDINT and restores the default word; the decompiler does not see the FLDCW and printed a plain ROUND(),
  * so the C text rounded to nearest (Manny's initial heading came out 0.04 degrees off). */
 float Math_Floor(float x)

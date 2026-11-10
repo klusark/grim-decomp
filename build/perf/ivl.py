@@ -2,7 +2,7 @@ import gdb, time, threading, collections
 ts=[]
 class B(gdb.Breakpoint):
     def stop(s): ts.append(time.perf_counter()); return False
-B('Display_Flip',internal=True)
+B('stdDisplay_Update',internal=True)
 def kicker(): time.sleep(4); gdb.interrupt()
 threading.Thread(target=kicker,daemon=True).start()
 try: gdb.execute('continue')

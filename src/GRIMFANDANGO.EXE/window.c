@@ -192,7 +192,7 @@ switchD_0040336f_caseD_105:
     return (undefined *)0x0;
   }
   sVar5 = (short)param_3;
-  if (g_nInputEnabled != 0) {
+  if (g_nStdControl_bOpen != 0) {
     Input_SetAcquired((uint)(sVar5 != 0));
     if (sVar5 == 0) goto LAB_0040303f;
     stdControl_Flush();
@@ -296,7 +296,7 @@ Win_AbortIfAlreadyRunning
   iVar1 = GetSystemMetrics(0x20);
   iVar2 = GetSystemMetrics(0xf);
   UINT_008d0a88 = iVar2 + iVar1 * 2;
-  iVar1 = Grim_Init(cmdLine);
+  iVar1 = Main_Startup(cmdLine);
   if (iVar1 != 0) {
     UINT_008d0a8c = 1;
     do {

@@ -372,19 +372,19 @@
   "program": "/v101/IMUSE.DLL",
   "addr": "10031e78",
   "old": "DAT_10031e78",
-  "global": "g_dwLipSfx2Data",
+  "global": "g_dwLipSfx2ID",
   "oldtype": "undefined4",
   "names_only": true,
-  "comment": "Original name lipSfx2Data (the remaster's GrimFandango (Linux): iMUSE_GetPhoneme); was DAT_10031e78."
+  "comment": "Original name lipSfx2ID (the remaster's GrimFandango (Linux): the second sfx lip-sync slot of LoadLip and iMUSE_GetPhoneme (a sound id, not the data: the remaster's lipStreamID / lipSfx1ID / lipSfx2ID / lipSfx3ID are four consecutive ints, as here)); was g_dwLipSfx2Data."
  },
  {
   "program": "/v101/IMUSE.DLL",
   "addr": "10031e7c",
   "old": "DAT_10031e7c",
-  "global": "g_dwLipSfx3Data",
+  "global": "g_dwLipSfx3ID",
   "oldtype": "undefined4",
   "names_only": true,
-  "comment": "Original name lipSfx3Data (the remaster's GrimFandango (Linux): iMUSE_GetPhoneme); was DAT_10031e7c."
+  "comment": "Original name lipSfx3ID (the remaster's GrimFandango (Linux): the third sfx lip-sync slot of LoadLip and iMUSE_GetPhoneme (a sound id, not the data)); was g_dwLipSfx3Data."
  },
  {
   "program": "/v101/IMUSE.DLL",

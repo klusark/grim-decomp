@@ -59,7 +59,7 @@ LAB_00402747:
         puVar6 = puVar6 + 1;
       }
       Surface_Fill(&g_dwStdDisplay_backBuffer,0,(int *)0x0);
-      Display_Flip();
+      stdDisplay_Update();
       Surface_Fill(&g_dwStdDisplay_backBuffer,0,(int *)0x0);
       iVar1 = Display_Select3DDevice(threeDIdx);
       if (iVar1 == 0) {
@@ -157,7 +157,7 @@ int __cdecl Display_Select3DDevice(int threeDNum)
       if (iVar1 != 0) {
         g_nRdroid_curAcceleration = g_nRdroid_curAcceleration | 1;
         Engine_SetZBufferEnabled(1);
-        Reg_SetBinary(s_Last3DDevice_004dd794,(void *)((int)g_pD3dDriver + 0x21c),0x10);
+        Reg_SetBinary(s_Last3DDevice_004dd794,(void *)((int)g_pStd3D_CurDevice + 0x21c),0x10);
         return 1;
       }
     }
@@ -193,7 +193,7 @@ undefined * Display_InitFromConfig(void)
   
   iVar1 = Display_GetLastFromRegistry(&local_4,&local_8,&local_c);
   if (iVar1 == 0) {
-    if ((g_bWindowedMode == 0) || (INT_004f5a24 == 0)) {
+    if ((g_bWindowedMode == 0) || (g_nDeveloper == 0)) {
       iVar1 = 0;
     }
     else {
@@ -906,11 +906,11 @@ int __cdecl Display_OpenMode(uint modeIdx,void *palette,int use3D)
     }
   }
   Surface_Fill(&g_dwStdDisplay_backBuffer,0,(int *)0x0);
-  Display_Flip();
+  stdDisplay_Update();
   if (use3D != 0) {
     Surface_Fill(&g_dwStdDisplay_backBuffer,0,(int *)0x0);
   }
-  Display_SetPalette(palette);
+  stdDisplay_SetMasterPalette(palette);
   g_pDebugFont = (void *)CreateFontA((-(uint)(*(uint *)((int)g_pVideoMode + 8) < 0x280) & 0xfffffff4
                                      ) + 0x18,0,0,0,400,0,0,0,0,0,0,0,2,IMG_ADDR(0x004dea10));
   _DAT_007feac8 = 0;
@@ -983,12 +983,14 @@ void Display_ResumeAfterDialog(void)
   return;
 }
 
-/* ---- 0x00474420  Display_Flip ---- */
+/* ---- 0x00474420  stdDisplay_Update ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-/* BitBlt of the DIB back buffer or DirectDraw flip */
+/* BitBlt of the DIB back buffer or DirectDraw flip Original name stdDisplay_Update (the remaster's
+   GrimFandango (Linux): the page-flip callback of Main_Startup (the remaster's is the platform
+   rewrite)); was Display_Flip. */
 
-int Display_Flip(void)
+int stdDisplay_Update(void)
 
 {
   int iVar1;
@@ -1550,8 +1552,11 @@ void * stdDisplay_VBufferConvertColorFormat(int *param_1,void *param_2)
 #undef local_4c
 
 
-/* ---- 0x00474d10  Display_SetDIBPalette ---- */
-int Display_SetDIBPalette(undefined4 param_1)
+/* ---- 0x00474d10  stdDisplay_SetPalette ---- */
+/* Original name stdDisplay_SetPalette (the remaster's GrimFandango (Linux): the first call of
+   grimdemo_SetPalette; the remaster's is a stub); was Display_SetDIBPalette. */
+
+int stdDisplay_SetPalette(undefined4 param_1)
 
 {
   int iVar1;
@@ -1578,8 +1583,11 @@ int Display_SetDIBPalette(undefined4 param_1)
   return iVar1;
 }
 
-/* ---- 0x00474d90  Display_SetPalette ---- */
-void __cdecl Display_SetPalette(void *palette)
+/* ---- 0x00474d90  stdDisplay_SetMasterPalette ---- */
+/* Original name stdDisplay_SetMasterPalette (the remaster's GrimFandango (Linux): the second call
+   of grimdemo_SetPalette; the remaster's is a stub); was Display_SetPalette. */
+
+void __cdecl stdDisplay_SetMasterPalette(void *palette)
 
 {
   Mem_Copy(&DAT_007fa7b8,palette,0x300);
@@ -3365,11 +3373,11 @@ void __cdecl std3D_SetCurrentPalette(void *palette,int flags)
   if ((*(int *)UINT_00806934 == 1) && (*(int *)(UINT_00806934 + 4) == 0x10)) {
     stdPcx_DecodeRun16(palette,&UINT_00806408,UINT_00806934);
   }
-  if (*(int *)((int)g_pD3dDriver + 0x10) != 0) {
+  if (*(int *)((int)g_pStd3D_CurDevice + 0x10) != 0) {
     if ((*(int *)UINT_00806938 == 2) && (*(int *)(UINT_00806938 + 4) == 0x10)) {
       stdPcx_DecodeRun8(palette,&DAT_008061e8,UINT_00806938);
     }
-    if (((*(int *)((int)g_pD3dDriver + 0x18) == 0) && (*(int *)UINT_0080693c == 2)) &&
+    if (((*(int *)((int)g_pStd3D_CurDevice + 0x18) == 0) && (*(int *)UINT_0080693c == 2)) &&
        (*(int *)(UINT_0080693c + 4) == 0x10)) {
       stdPcx_DecodeRunMasked(palette,&DAT_00805fd8,UINT_0080693c,flags);
     }

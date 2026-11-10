@@ -8,7 +8,7 @@
  {"addr": "00409d50", "name": "rdPrimit3_DrawPolygon", "proto": "void * rdPrimit3_DrawPolygon(float * verts, int count, void * material)", "tags": "rdroid"},
  {"addr": "00494f90", "name": "Costume_AllocRecord", "tags": "costume"},
  {"addr": "00494fb0", "name": "Costume_InitRecord", "comment": "0xb4-byte costume record: [0] CHORE.DLL instance, [1] costume resource, [2] component list, [3-5] head joints, [6-8] head limits, [9] look rate, [10-13] walk/left/right/rest chores, [14-29] talk chores, [30] mumble chore, [44] next", "tags": "costume"},
- {"addr": "008ca794", "global": "g_pCostumePool", "type": "Pool *", "comment": "Pool of 0xb4-byte costume records"},
+ {"addr": "008ca794", "global": "g_pCosNodePool", "type": "Pool *", "comment": "Pool of 0xb4-byte costume records"},
  {"addr": "00495020", "name": "Costume_GetMainModel", "proto": "void * Costume_GetMainModel(void * cosInst)", "comment": "rdThing of the first MMDL component", "tags": "costume"},
  {"addr": "004a6760", "name": "Sector_SetName", "proto": "void __thiscall Sector_SetName(void * this, char * name)", "tags": "sector"},
  {"addr": "004a6790", "name": "Sector_SetType", "proto": "void __thiscall Sector_SetType(void * this, uint type)", "comment": "Stores the type bits (+0x24); 0x1000 sets a small shrink tolerance, 0x100 (edge sector) needs 4 vertices and picks the long axis (+0x78)", "tags": "sector"},

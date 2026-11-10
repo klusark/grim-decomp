@@ -7,7 +7,7 @@
  *
  * The pipeline (one polygon, called from rdCache through the per-mode driver):
  *   Draw_*      the driver: copies the polygon's arrays and the mode tables into the rasteriser globals, computes
- *               1/(z+1) per vertex (UINT_007f4588), optionally Grad_* (texture mip level and gradient direction
+ *               1/(z+1) per vertex (g_dwRdZRaster_aOneOverZ), optionally Grad_* (texture mip level and gradient direction
  *               flags), then walks a left and a right edge record down the polygon and calls the span filler per row.
  *   SpanR_*     the edge set-up: advance an edge record to the next vertex pair that spans at least one scan line,
  *               and compute the 16.16 start / step of x, u, v, light and the float start / step of 1/(z+1).
@@ -36,36 +36,36 @@
 #include <smmintrin.h>
 
 /* ---- the rasteriser globals (names as in globals.h; not included, the types here are the ones the code needs) ---- */
-extern int UINT_007f4460;            /* vertex count of the polygon */
-extern int UINT_007f4464;            /* geometry / texture mode (Grad_*: mip selection) */
-extern int UINT_007f44e8;            /* start vertex (top) */
-extern int UINT_007f44ec;            /* left edge direction (+1 / -1) */
+extern int g_dwRdZRaster_numVertices;            /* vertex count of the polygon */
+extern int g_dwRdZRaster_maxMipMap;            /* geometry / texture mode (Grad_*: mip selection) */
+extern int g_dwRdZRaster_yMinVert;            /* start vertex (top) */
+extern int g_dwRdZRaster_leftVertexStep;            /* left edge direction (+1 / -1) */
 extern void *UINT_007f44f0;          /* span filler chosen by the textured drivers */
-extern int UINT_007f44f4;            /* end vertex (bottom) */
-extern float *UINT_007f44f8;         /* per-vertex light */
-extern float *PTR_007f44fc;          /* screen vertices x, y, z (12 bytes each) */
-extern int UINT_007f4580;            /* right edge direction */
-extern float *UINT_007f4584;         /* per-vertex u, v */
-extern float UINT_007f4588[];        /* per-vertex 1 / (z + 1) */
-extern unsigned char *UINT_008dde44; /* 16 bpp colour -> palette index */
-extern unsigned short *UINT_008dde5c;/* light table, 16 bpp (64 rows of 256) */
-extern unsigned char *UINT_008dde6c; /* light table, 8 bpp */
-extern unsigned short DAT_008dde70;  /* flat colour, 16 bpp */
-extern unsigned char *UINT_008dde90; /* translucency table (256 x 256) */
-extern unsigned char DAT_008dde98;   /* flat colour, 8 bpp (palette index) */
-extern int UINT_008ddea4;            /* z-buffer shift */
+extern int g_dwRdZRaster_yMaxVert;            /* end vertex (bottom) */
+extern float *g_dwRdZRaster_aIntensities;         /* per-vertex light */
+extern float *g_pRdZRaster_aVertices;          /* screen vertices x, y, z (12 bytes each) */
+extern int g_dwRdZRaster_rightVertexStep;            /* right edge direction */
+extern float *g_dwRdZRaster_aTexVertices;         /* per-vertex u, v */
+extern float g_dwRdZRaster_aOneOverZ[];        /* per-vertex 1 / (z + 1) */
+extern unsigned char *g_dwRdZRaster_aRGBToPalette; /* 16 bpp colour -> palette index */
+extern unsigned short *g_dwRdZRaster_aRGBMap;/* light table, 16 bpp (64 rows of 256) */
+extern unsigned char *g_dwRdZRaster_aMonoMap; /* light table, 8 bpp */
+extern unsigned short g_wRdZRaster_RGBcolor;  /* flat colour, 16 bpp */
+extern unsigned char *g_dwRdZRaster_aAlphaMap; /* translucency table (256 x 256) */
+extern unsigned char g_bRdZRaster_color;   /* flat colour, 8 bpp (palette index) */
+extern int g_dwRdZRaster_zScaleShift;            /* z-buffer shift */
 extern int g_aRdRaster_OneOverNFixed[];           /* 65536 / n (span length) */
 extern float g_dwRdRaster_aOneOverNFlex[];        /* 1.0f / n */
 extern char *g_dwRdColormap_pCurMap;          /* the colormap; +0x338: the translucency table */
 extern char *g_pRdCamera_CurCamera;     /* 0x007f0fc8; +4: the canvas (+4 colour buffer, +0x10 z-buffer, +0x14 z shift) */
-extern int UINT_008dde48;            /* texture u mask << 16 */
-extern int UINT_008dde50;            /* v rounding bias (0x8000 / 0x7fff, Grad_*) */
-extern int UINT_008dde54;            /* mip level (Grad_*) */
-extern int UINT_008dde58;            /* texture v mask << log2 width */
-extern int UINT_008dde68;            /* width of the mip level (selects the C span filler) */
-extern int UINT_008dde78;            /* u rounding bias */
-extern unsigned char *UINT_008dde7c; /* texels of the mip level */
-extern int UINT_008dde8c;            /* log2 width of the mip level */
+extern int g_dwRdZRaster_uWrap;            /* texture u mask << 16 */
+extern int g_dwRdZRaster_dVdXModifier;            /* v rounding bias (0x8000 / 0x7fff, Grad_*) */
+extern int g_dwRdZRaster_mipMapNum;            /* mip level (Grad_*) */
+extern int g_dwRdZRaster_vWrap;            /* texture v mask << log2 width */
+extern int g_dwRdZRaster_texPitch;            /* width of the mip level (selects the C span filler) */
+extern int g_dwRdZRaster_dUdXModifier;            /* u rounding bias */
+extern unsigned char *g_dwRdZRaster_pPixels; /* texels of the mip level */
+extern int g_dwRdZRaster_texRowShift;            /* log2 width of the mip level */
 extern float DAT_004dda90, g_aRdroid_MipDistances, DAT_004dda98;  /* mip distance thresholds (10, 20, 40) */
 extern void Mem_DumpLog(void);       /* an empty function: the 8 bpp "span filler" of the FlatLit drivers */
 
@@ -80,13 +80,13 @@ typedef int (*q4_edge_fn)(q4_edge *);
 typedef void (*q4_span_fn)(q4_edge *, q4_edge *);
 
 #define Q4_I(p, off) (*(int *)((char *)(p) + (off)))
-#define Q4_VX(i) (PTR_007f44fc[(i) * 3])
-#define Q4_VY(i) (PTR_007f44fc[(i) * 3 + 1])
-#define Q4_VZ(i) (PTR_007f44fc[(i) * 3 + 2])
-#define Q4_U(i) (UINT_007f4584[(i) * 2])
-#define Q4_V(i) (UINT_007f4584[(i) * 2 + 1])
-#define Q4_LT(i) (UINT_007f44f8[i])
-#define Q4_ZI(i) (UINT_007f4588[i])
+#define Q4_VX(i) (g_pRdZRaster_aVertices[(i) * 3])
+#define Q4_VY(i) (g_pRdZRaster_aVertices[(i) * 3 + 1])
+#define Q4_VZ(i) (g_pRdZRaster_aVertices[(i) * 3 + 2])
+#define Q4_U(i) (g_dwRdZRaster_aTexVertices[(i) * 2])
+#define Q4_V(i) (g_dwRdZRaster_aTexVertices[(i) * 2 + 1])
+#define Q4_LT(i) (g_dwRdZRaster_aIntensities[i])
+#define Q4_ZI(i) (g_dwRdZRaster_aOneOverZ[i])
 #define q4_u32(f) (*(int *)&(f))
 /* the helpers below are always inlined: the pragma's -O2 alone does not inline them into the macro-made functions */
 #define Q4_INLINE static inline __attribute__((always_inline))
@@ -128,8 +128,8 @@ Q4_INLINE int q4_next(int i, int dir)
 {
     int n = i + dir;
     if (n < 0)
-        return UINT_007f4460 - 1;
-    return n > UINT_007f4460 - 1 ? 0 : n;
+        return g_dwRdZRaster_numVertices - 1;
+    return n > g_dwRdZRaster_numVertices - 1 ? 0 : n;
 }
 
 /* ==== SpanR_Flat .. SpanR_Flat_12: the affine edge set-up ====
@@ -146,7 +146,7 @@ int NAME(q4_edge *e)                                                            
     int i = e->idx, n, h;                                                                                   \
     float cy, sub, inv;                                                                                     \
     long double t, dz;                                                                                      \
-    if (i == UINT_007f44f4)                                                                                 \
+    if (i == g_dwRdZRaster_yMaxVert)                                                                                 \
         return 1;                                                                                           \
     for (;;) {                                                                                              \
         n = q4_next(i, DIR);                                                                                \
@@ -157,7 +157,7 @@ int NAME(q4_edge *e)                                                            
         if (h > 0)                                                                                          \
             break;                                                                                          \
         i = n;                                                                                              \
-        if (n == UINT_007f44f4)                                                                             \
+        if (n == g_dwRdZRaster_yMaxVert)                                                                             \
             return 1;                                                                                       \
     }                                                                                                       \
     if (h < 2) {                                                                                            \
@@ -196,30 +196,30 @@ int NAME(q4_edge *e)                                                            
         (start) = q4_floor_i(q4_f(((long double)tf_ * sub + (a0)) * 65536.0f));                            \
     } while (0)
 
-/* OVERRIDES: rdRaster_SpanR_Flat */
-Q4_EDGE_FN(rdRaster_SpanR_Flat, UINT_007f44ec, 0, 0)
-/* OVERRIDES: rdRaster_SpanR_Flat_2 */
-Q4_EDGE_FN(rdRaster_SpanR_Flat_2, UINT_007f4580, 0, 0)
-/* OVERRIDES: rdRaster_SpanR_Flat_3 */
-Q4_EDGE_FN(rdRaster_SpanR_Flat_3, UINT_007f44ec, 0, 0)
-/* OVERRIDES: rdRaster_SpanR_Flat_4 */
-Q4_EDGE_FN(rdRaster_SpanR_Flat_4, UINT_007f4580, 0, 0)
-/* OVERRIDES: rdRaster_SpanR_Flat_5 */
-Q4_EDGE_FN(rdRaster_SpanR_Flat_5, UINT_007f44ec, 0, 1)
-/* OVERRIDES: rdRaster_SpanR_Flat_6 */
-Q4_EDGE_FN(rdRaster_SpanR_Flat_6, UINT_007f4580, 0, 1)
-/* OVERRIDES: rdRaster_SpanR_Flat_7 */
-Q4_EDGE_FN(rdRaster_SpanR_Flat_7, UINT_007f44ec, 1, 0)
-/* OVERRIDES: rdRaster_SpanR_Flat_8 */
-Q4_EDGE_FN(rdRaster_SpanR_Flat_8, UINT_007f4580, 1, 0)
-/* OVERRIDES: rdRaster_SpanR_Flat_9 */
-Q4_EDGE_FN(rdRaster_SpanR_Flat_9, UINT_007f44ec, 1, 0)
-/* OVERRIDES: rdRaster_SpanR_Flat_10 */
-Q4_EDGE_FN(rdRaster_SpanR_Flat_10, UINT_007f4580, 1, 0)
-/* OVERRIDES: rdRaster_SpanR_Flat_11 */
-Q4_EDGE_FN(rdRaster_SpanR_Flat_11, UINT_007f44ec, 1, 1)
-/* OVERRIDES: rdRaster_SpanR_Flat_12 */
-Q4_EDGE_FN(rdRaster_SpanR_Flat_12, UINT_007f4580, 1, 1)
+/* OVERRIDES: rdZRaster_SetupLeftEdgeNGonLS */
+Q4_EDGE_FN(rdZRaster_SetupLeftEdgeNGonLS, g_dwRdZRaster_leftVertexStep, 0, 0)
+/* OVERRIDES: rdZRaster_SetupRightEdgeNGonLS */
+Q4_EDGE_FN(rdZRaster_SetupRightEdgeNGonLS, g_dwRdZRaster_rightVertexStep, 0, 0)
+/* OVERRIDES: rdZRaster_SetupLeftEdgeNGonFS */
+Q4_EDGE_FN(rdZRaster_SetupLeftEdgeNGonFS, g_dwRdZRaster_leftVertexStep, 0, 0)
+/* OVERRIDES: rdZRaster_SetupRightEdgeNGonFS */
+Q4_EDGE_FN(rdZRaster_SetupRightEdgeNGonFS, g_dwRdZRaster_rightVertexStep, 0, 0)
+/* OVERRIDES: rdZRaster_SetupLeftEdgeNGonGS */
+Q4_EDGE_FN(rdZRaster_SetupLeftEdgeNGonGS, g_dwRdZRaster_leftVertexStep, 0, 1)
+/* OVERRIDES: rdZRaster_SetupRightEdgeNGonGS */
+Q4_EDGE_FN(rdZRaster_SetupRightEdgeNGonGS, g_dwRdZRaster_rightVertexStep, 0, 1)
+/* OVERRIDES: rdZRaster_SetupLeftEdgeNGonLAT */
+Q4_EDGE_FN(rdZRaster_SetupLeftEdgeNGonLAT, g_dwRdZRaster_leftVertexStep, 1, 0)
+/* OVERRIDES: rdZRaster_SetupRightEdgeNGonLAT */
+Q4_EDGE_FN(rdZRaster_SetupRightEdgeNGonLAT, g_dwRdZRaster_rightVertexStep, 1, 0)
+/* OVERRIDES: rdZRaster_SetupLeftEdgeNGonFAT */
+Q4_EDGE_FN(rdZRaster_SetupLeftEdgeNGonFAT, g_dwRdZRaster_leftVertexStep, 1, 0)
+/* OVERRIDES: rdZRaster_SetupRightEdgeNGonFAT */
+Q4_EDGE_FN(rdZRaster_SetupRightEdgeNGonFAT, g_dwRdZRaster_rightVertexStep, 1, 0)
+/* OVERRIDES: rdZRaster_SetupLeftEdgeNGonGAT */
+Q4_EDGE_FN(rdZRaster_SetupLeftEdgeNGonGAT, g_dwRdZRaster_leftVertexStep, 1, 1)
+/* OVERRIDES: rdZRaster_SetupRightEdgeNGonGAT */
+Q4_EDGE_FN(rdZRaster_SetupRightEdgeNGonGAT, g_dwRdZRaster_rightVertexStep, 1, 1)
 
 /* ==== the span prologue shared by the fillers ====
  * The span covers the pixel columns xl .. xr - 1 with xl = ceil(L.x), xr = ceil(R.x) (16.16; xr as unsigned >> 16);
@@ -268,7 +268,7 @@ Q4_EDGE_FN(rdRaster_SpanR_Flat_12, UINT_007f4580, 1, 1)
     {                                                                                                       \
         PIXT *pix = BUF(c4, L->y, xl);                                                                      \
         unsigned short *zp = Q4_ZBUF(c4, L->y, xl);                                                         \
-        int sh = UINT_008ddea4;                                                                             \
+        int sh = g_dwRdZRaster_zScaleShift;                                                                             \
         do {                                                                                                \
             int zs = z >> sh;                                                                               \
             if ((unsigned short)zs > *zp) {                                                                 \
@@ -291,76 +291,76 @@ Q4_EDGE_FN(rdRaster_SpanR_Flat_12, UINT_007f4580, 1, 1)
 void NAME(q4_edge *L, q4_edge *R)                                                                           \
 {                                                                                                           \
     Q4_SPAN_PROLOGUE(0);                                                                                    \
-    Q4_SPAN_LOOP(unsigned char, Q4_BUF8, *pix = DAT_008dde98, 0)                                            \
+    Q4_SPAN_LOOP(unsigned char, Q4_BUF8, *pix = g_bRdZRaster_color, 0)                                            \
 }
 #define Q4_SPAN_FLAT16(NAME)                                                                                \
 void NAME(q4_edge *L, q4_edge *R)                                                                           \
 {                                                                                                           \
     Q4_SPAN_PROLOGUE(0);                                                                                    \
-    Q4_SPAN_LOOP(unsigned short, Q4_BUF16, *pix = DAT_008dde70, 0)                                          \
+    Q4_SPAN_LOOP(unsigned short, Q4_BUF16, *pix = g_wRdZRaster_RGBcolor, 0)                                          \
 }
-/* OVERRIDES: rdRaster_Span8_FlatZ */
-Q4_SPAN_FLAT8(rdRaster_Span8_FlatZ)
-/* OVERRIDES: rdRaster_Span16_FlatZ */
-Q4_SPAN_FLAT16(rdRaster_Span16_FlatZ)
-/* OVERRIDES: rdRaster_Span8_FlatZ_2 */
-Q4_SPAN_FLAT8(rdRaster_Span8_FlatZ_2)
-/* OVERRIDES: rdRaster_Span16_FlatZ_2 */
-Q4_SPAN_FLAT16(rdRaster_Span16_FlatZ_2)
+/* OVERRIDES: rdZRaster_DrawScanLineNGonLS_8 */
+Q4_SPAN_FLAT8(rdZRaster_DrawScanLineNGonLS_8)
+/* OVERRIDES: rdZRaster_DrawScanLineNGonLS_16 */
+Q4_SPAN_FLAT16(rdZRaster_DrawScanLineNGonLS_16)
+/* OVERRIDES: rdZRaster_DrawScanLineNGonFS_8 */
+Q4_SPAN_FLAT8(rdZRaster_DrawScanLineNGonFS_8)
+/* OVERRIDES: rdZRaster_DrawScanLineNGonFS_16 */
+Q4_SPAN_FLAT16(rdZRaster_DrawScanLineNGonFS_16)
 
 /* ==== translucent flat colour (Span8/16_TexLitZ, _2): blend table [colour * 256 + destination index] ==== */
 #define Q4_SPAN_TRANS8(NAME)                                                                                \
 void NAME(q4_edge *L, q4_edge *R)                                                                           \
 {                                                                                                           \
     Q4_SPAN_PROLOGUE(0);                                                                                    \
-    Q4_SPAN_LOOP(unsigned char, Q4_BUF8, *pix = UINT_008dde90[DAT_008dde98 * 256 + *pix], 0)                \
+    Q4_SPAN_LOOP(unsigned char, Q4_BUF8, *pix = g_dwRdZRaster_aAlphaMap[g_bRdZRaster_color * 256 + *pix], 0)                \
 }
 #define Q4_SPAN_TRANS16(NAME)                                                                               \
 void NAME(q4_edge *L, q4_edge *R)                                                                           \
 {                                                                                                           \
     Q4_SPAN_PROLOGUE(0);                                                                                    \
     Q4_SPAN_LOOP(unsigned short, Q4_BUF16,                                                                  \
-                 *pix = UINT_008dde5c[UINT_008dde90[DAT_008dde98 * 256 + UINT_008dde44[*pix]]], 0)          \
+                 *pix = g_dwRdZRaster_aRGBMap[g_dwRdZRaster_aAlphaMap[g_bRdZRaster_color * 256 + g_dwRdZRaster_aRGBToPalette[*pix]]], 0)          \
 }
-/* OVERRIDES: rdRaster_Span8_TexLitZ */
-Q4_SPAN_TRANS8(rdRaster_Span8_TexLitZ)
-/* OVERRIDES: rdRaster_Span16_TexLitZ */
-Q4_SPAN_TRANS16(rdRaster_Span16_TexLitZ)
-/* OVERRIDES: rdRaster_Span8_TexLitZ_2 */
-Q4_SPAN_TRANS8(rdRaster_Span8_TexLitZ_2)
-/* OVERRIDES: rdRaster_Span16_TexLitZ_2 */
-Q4_SPAN_TRANS16(rdRaster_Span16_TexLitZ_2)
+/* OVERRIDES: rdZRaster_DrawScanLineNGonTLS_8 */
+Q4_SPAN_TRANS8(rdZRaster_DrawScanLineNGonTLS_8)
+/* OVERRIDES: rdZRaster_DrawScanLineNGonTLS_16 */
+Q4_SPAN_TRANS16(rdZRaster_DrawScanLineNGonTLS_16)
+/* OVERRIDES: rdZRaster_DrawScanLineNGonTFS_8 */
+Q4_SPAN_TRANS8(rdZRaster_DrawScanLineNGonTFS_8)
+/* OVERRIDES: rdZRaster_DrawScanLineNGonTFS_16 */
+Q4_SPAN_TRANS16(rdZRaster_DrawScanLineNGonTFS_16)
 
 /* ==== lit flat colour (Span8/16_FlatZ_3): light table [light row + colour] ==== */
-/* OVERRIDES: rdRaster_Span8_FlatZ_3 */
-void rdRaster_Span8_FlatZ_3(q4_edge *L, q4_edge *R)
+/* OVERRIDES: rdZRaster_DrawScanLineNGonGS_8 */
+void rdZRaster_DrawScanLineNGonGS_8(q4_edge *L, q4_edge *R)
 {
     Q4_SPAN_PROLOGUE(1);
-    Q4_SPAN_LOOP(unsigned char, Q4_BUF8, *pix = UINT_008dde6c[Q4_LROW(l) + DAT_008dde98], 1)
+    Q4_SPAN_LOOP(unsigned char, Q4_BUF8, *pix = g_dwRdZRaster_aMonoMap[Q4_LROW(l) + g_bRdZRaster_color], 1)
 }
-/* OVERRIDES: rdRaster_Span16_FlatZ_3 */
-void rdRaster_Span16_FlatZ_3(q4_edge *L, q4_edge *R)
+/* OVERRIDES: rdZRaster_DrawScanLineNGonGS_16 */
+void rdZRaster_DrawScanLineNGonGS_16(q4_edge *L, q4_edge *R)
 {
     Q4_SPAN_PROLOGUE(1);
-    Q4_SPAN_LOOP(unsigned short, Q4_BUF16, *pix = UINT_008dde5c[Q4_LROW(l) + DAT_008dde98], 1)
+    Q4_SPAN_LOOP(unsigned short, Q4_BUF16, *pix = g_dwRdZRaster_aRGBMap[Q4_LROW(l) + g_bRdZRaster_color], 1)
 }
 
 /* ==== lit translucent flat colour (Span8/16_TexZ) ====
  * 8 bpp: blend[lit colour * 256 + destination]; 16 bpp: light table16[light row + blend[colour * 256 + index of the
  * destination]] (the light is applied after the blend). */
-/* OVERRIDES: rdRaster_Span8_TexZ */
-void rdRaster_Span8_TexZ(q4_edge *L, q4_edge *R)
+/* OVERRIDES: rdZRaster_DrawScanLineNGonTGS_8 */
+void rdZRaster_DrawScanLineNGonTGS_8(q4_edge *L, q4_edge *R)
 {
     Q4_SPAN_PROLOGUE(1);
     Q4_SPAN_LOOP(unsigned char, Q4_BUF8,
-                 *pix = UINT_008dde90[UINT_008dde6c[Q4_LROW(l) + DAT_008dde98] * 256 + *pix], 1)
+                 *pix = g_dwRdZRaster_aAlphaMap[g_dwRdZRaster_aMonoMap[Q4_LROW(l) + g_bRdZRaster_color] * 256 + *pix], 1)
 }
-/* OVERRIDES: rdRaster_Span16_TexZ */
-void rdRaster_Span16_TexZ(q4_edge *L, q4_edge *R)
+/* OVERRIDES: rdZRaster_DrawScanLineNGonTGS_16 */
+void rdZRaster_DrawScanLineNGonTGS_16(q4_edge *L, q4_edge *R)
 {
     Q4_SPAN_PROLOGUE(1);
     Q4_SPAN_LOOP(unsigned short, Q4_BUF16,
-                 *pix = UINT_008dde5c[Q4_LROW(l) + UINT_008dde90[DAT_008dde98 * 256 + UINT_008dde44[*pix]]], 1)
+                 *pix = g_dwRdZRaster_aRGBMap[Q4_LROW(l) + g_dwRdZRaster_aAlphaMap[g_bRdZRaster_color * 256 + g_dwRdZRaster_aRGBToPalette[*pix]]], 1)
 }
 
 /* ==== the drivers ==== */
@@ -391,17 +391,17 @@ Q4_INLINE void q4_zinv(int cnt)
 Q4_INLINE void q4_setup_common(char *p, int zinv)
 {
     int i, cnt;
-    PTR_007f44fc = *(float **)(p + Q4_P_VERTS);
-    UINT_007f4460 = cnt = Q4_I(p, Q4_P_COUNT);
-    UINT_007f44e8 = Q4_I(p, Q4_P_TOP);
-    UINT_007f44f4 = Q4_I(p, Q4_P_BOTTOM);
-    UINT_008ddea4 = Q4_I(Q4_I(g_pRdCamera_CurCamera, 4), 0x14);
+    g_pRdZRaster_aVertices = *(float **)(p + Q4_P_VERTS);
+    g_dwRdZRaster_numVertices = cnt = Q4_I(p, Q4_P_COUNT);
+    g_dwRdZRaster_yMinVert = Q4_I(p, Q4_P_TOP);
+    g_dwRdZRaster_yMaxVert = Q4_I(p, Q4_P_BOTTOM);
+    g_dwRdZRaster_zScaleShift = Q4_I(Q4_I(g_pRdCamera_CurCamera, 4), 0x14);
     if (Q4_I(p, Q4_P_FLIP)) {
-        UINT_007f44ec = -1;
-        UINT_007f4580 = 1;
+        g_dwRdZRaster_leftVertexStep = -1;
+        g_dwRdZRaster_rightVertexStep = 1;
     } else {
-        UINT_007f44ec = 1;
-        UINT_007f4580 = -1;
+        g_dwRdZRaster_leftVertexStep = 1;
+        g_dwRdZRaster_rightVertexStep = -1;
     }
     if (zinv)
         q4_zinv(cnt);
@@ -411,10 +411,10 @@ Q4_INLINE void q4_setup_common(char *p, int zinv)
 #define Q4_WALK(EL, ER, SPAN, UV, LIT)                                                                      \
     do {                                                                                                    \
         q4_edge L, R;                                                                                       \
-        L.idx = UINT_007f44e8;                                                                              \
+        L.idx = g_dwRdZRaster_yMinVert;                                                                              \
         if (EL(&L))                                                                                         \
             return;                                                                                         \
-        R.idx = UINT_007f44e8;                                                                              \
+        R.idx = g_dwRdZRaster_yMinVert;                                                                              \
         if (ER(&R))                                                                                         \
             return;                                                                                         \
         for (;;) {                                                                                          \
@@ -446,113 +446,113 @@ Q4_INLINE void q4_setup_common(char *p, int zinv)
         S16(&L, &R)
 
 /* ==== Draw_FlatLitZ: flat colour (the material's colour index; 16 bpp: light row 63 of the 16 bpp table) ==== */
-/* OVERRIDES: rdRaster_Draw_FlatLitZ */
-void rdRaster_Draw_FlatLitZ(char *p, char *mat)
+/* OVERRIDES: rdZRaster_DrawNGonLS */
+void rdZRaster_DrawNGonLS(char *p, char *mat)
 {
     int bpp = Q4_BPP();
     if (bpp == 8)
-        DAT_008dde98 = (unsigned char)Q4_I(mat, 4);
+        g_bRdZRaster_color = (unsigned char)Q4_I(mat, 4);
     else if (bpp == 16)
-        DAT_008dde70 = (*(unsigned short **)(*(char **)(p + Q4_P_TABLES) + 0x348))[*(unsigned char *)(mat + 4) + 0x3f00];
+        g_wRdZRaster_RGBcolor = (*(unsigned short **)(*(char **)(p + Q4_P_TABLES) + 0x348))[*(unsigned char *)(mat + 4) + 0x3f00];
     q4_setup_common(p, 1);
-    Q4_WALK(rdRaster_SpanR_Flat, rdRaster_SpanR_Flat_2, Q4_SPAN_BPP(bpp, rdRaster_Span8_FlatZ, rdRaster_Span16_FlatZ),
+    Q4_WALK(rdZRaster_SetupLeftEdgeNGonLS, rdZRaster_SetupRightEdgeNGonLS, Q4_SPAN_BPP(bpp, rdZRaster_DrawScanLineNGonLS_8, rdZRaster_DrawScanLineNGonLS_16),
             0, 0);
 }
 
 /* ==== Draw_FlatLitZ_2: flat colour at the polygon's light level (floor of the float argument) ==== */
-/* OVERRIDES: rdRaster_Draw_FlatLitZ_2 */
-void rdRaster_Draw_FlatLitZ_2(char *p, char *mat, float light)
+/* OVERRIDES: rdZRaster_DrawNGonFS */
+void rdZRaster_DrawNGonFS(char *p, char *mat, float light)
 {
     int bpp = Q4_BPP();
     if (bpp == 8)
-        DAT_008dde98 = (*(unsigned char **)(*(char **)(p + Q4_P_TABLES) + 0x330))[Q4_I(mat, 4) + q4_floor_i(light) * 256];
+        g_bRdZRaster_color = (*(unsigned char **)(*(char **)(p + Q4_P_TABLES) + 0x330))[Q4_I(mat, 4) + q4_floor_i(light) * 256];
     else if (bpp == 16)
-        DAT_008dde70 = (*(unsigned short **)(*(char **)(p + Q4_P_TABLES) + 0x348))[Q4_I(mat, 4) + q4_floor_i(light) * 256];
+        g_wRdZRaster_RGBcolor = (*(unsigned short **)(*(char **)(p + Q4_P_TABLES) + 0x348))[Q4_I(mat, 4) + q4_floor_i(light) * 256];
     q4_setup_common(p, 1);
-    Q4_WALK(rdRaster_SpanR_Flat_3, rdRaster_SpanR_Flat_4,
-            Q4_SPAN_BPP(bpp, rdRaster_Span8_FlatZ_2, rdRaster_Span16_FlatZ_2), 0, 0);
+    Q4_WALK(rdZRaster_SetupLeftEdgeNGonFS, rdZRaster_SetupRightEdgeNGonFS,
+            Q4_SPAN_BPP(bpp, rdZRaster_DrawScanLineNGonFS_8, rdZRaster_DrawScanLineNGonFS_16), 0, 0);
 }
 
 /* ==== Draw_FlatLitZ_3: flat colour, per-vertex light (gouraud) ==== */
-/* OVERRIDES: rdRaster_Draw_FlatLitZ_3 */
-void rdRaster_Draw_FlatLitZ_3(char *p, char *mat)
+/* OVERRIDES: rdZRaster_DrawNGonGS */
+void rdZRaster_DrawNGonGS(char *p, char *mat)
 {
     int bpp = Q4_BPP();
-    DAT_008dde98 = *(unsigned char *)(mat + 4);
-    UINT_007f44f8 = *(float **)(p + Q4_P_LIGHT);
+    g_bRdZRaster_color = *(unsigned char *)(mat + 4);
+    g_dwRdZRaster_aIntensities = *(float **)(p + Q4_P_LIGHT);
     if (bpp == 8)
-        UINT_008dde6c = *(unsigned char **)(*(char **)(p + Q4_P_TABLES) + 0x330);
+        g_dwRdZRaster_aMonoMap = *(unsigned char **)(*(char **)(p + Q4_P_TABLES) + 0x330);
     else if (bpp == 16)
-        UINT_008dde5c = *(unsigned short **)(*(char **)(p + Q4_P_TABLES) + 0x348);
+        g_dwRdZRaster_aRGBMap = *(unsigned short **)(*(char **)(p + Q4_P_TABLES) + 0x348);
     q4_setup_common(p, 1);
-    Q4_WALK(rdRaster_SpanR_Flat_5, rdRaster_SpanR_Flat_6,
-            Q4_SPAN_BPP(bpp, rdRaster_Span8_FlatZ_3, rdRaster_Span16_FlatZ_3), 0, 1);
+    Q4_WALK(rdZRaster_SetupLeftEdgeNGonGS, rdZRaster_SetupRightEdgeNGonGS,
+            Q4_SPAN_BPP(bpp, rdZRaster_DrawScanLineNGonGS_8, rdZRaster_DrawScanLineNGonGS_16), 0, 1);
 }
 
 /* translucency set-up of the Draw_TexLitZ drivers: 16 bpp -> 8 bpp index table and the colour's palette index */
 Q4_INLINE void q4_trans16(char *p, unsigned short c16)
 {
-    UINT_008dde44 = *(unsigned char **)(*(char **)(p + Q4_P_TABLES) + 0x34c);
-    DAT_008dde98 = UINT_008dde44[c16];
+    g_dwRdZRaster_aRGBToPalette = *(unsigned char **)(*(char **)(p + Q4_P_TABLES) + 0x34c);
+    g_bRdZRaster_color = g_dwRdZRaster_aRGBToPalette[c16];
 }
 
 /* ==== Draw_TexLitZ: translucent flat colour ==== */
-/* OVERRIDES: rdRaster_Draw_TexLitZ */
-void rdRaster_Draw_TexLitZ(char *p, char *mat)
+/* OVERRIDES: rdZRaster_DrawNGonTLS */
+void rdZRaster_DrawNGonTLS(char *p, char *mat)
 {
     int bpp = Q4_BPP();
     if (bpp == 8)
-        DAT_008dde98 = *(unsigned char *)(mat + 4);
+        g_bRdZRaster_color = *(unsigned char *)(mat + 4);
     else if (bpp == 16) {
         unsigned short *t16 = *(unsigned short **)(*(char **)(p + Q4_P_TABLES) + 0x348);
-        UINT_008dde5c = t16 + 0x3f00;
-        DAT_008dde70 = t16[Q4_I(mat, 4) + 0x3f00];
-        q4_trans16(p, DAT_008dde70);
+        g_dwRdZRaster_aRGBMap = t16 + 0x3f00;
+        g_wRdZRaster_RGBcolor = t16[Q4_I(mat, 4) + 0x3f00];
+        q4_trans16(p, g_wRdZRaster_RGBcolor);
     }
     q4_setup_common(p, 1);
-    UINT_008dde90 = *(unsigned char **)(g_dwRdColormap_pCurMap + 0x338);
-    Q4_WALK(rdRaster_SpanR_Flat, rdRaster_SpanR_Flat_2,
-            Q4_SPAN_BPP(bpp, rdRaster_Span8_TexLitZ, rdRaster_Span16_TexLitZ), 0, 0);
+    g_dwRdZRaster_aAlphaMap = *(unsigned char **)(g_dwRdColormap_pCurMap + 0x338);
+    Q4_WALK(rdZRaster_SetupLeftEdgeNGonLS, rdZRaster_SetupRightEdgeNGonLS,
+            Q4_SPAN_BPP(bpp, rdZRaster_DrawScanLineNGonTLS_8, rdZRaster_DrawScanLineNGonTLS_16), 0, 0);
 }
 
 /* ==== Draw_TexLitZ_2: translucent flat colour at the polygon's light level ==== */
-/* OVERRIDES: rdRaster_Draw_TexLitZ_2 */
-void rdRaster_Draw_TexLitZ_2(char *p, char *mat, float light)
+/* OVERRIDES: rdZRaster_DrawNGonTFS */
+void rdZRaster_DrawNGonTFS(char *p, char *mat, float light)
 {
     int bpp = Q4_BPP();
     if (bpp == 8)
-        DAT_008dde98 = (*(unsigned char **)(*(char **)(p + Q4_P_TABLES) + 0x330))[Q4_I(mat, 4) + q4_floor_i(light) * 256];
+        g_bRdZRaster_color = (*(unsigned char **)(*(char **)(p + Q4_P_TABLES) + 0x330))[Q4_I(mat, 4) + q4_floor_i(light) * 256];
     else if (bpp == 16) {
         unsigned short *t16 = *(unsigned short **)(*(char **)(p + Q4_P_TABLES) + 0x348);
-        UINT_008dde5c = t16 + 0x3f00;
-        DAT_008dde70 = t16[Q4_I(mat, 4) + q4_floor_i(light) * 256];
-        q4_trans16(p, DAT_008dde70);
+        g_dwRdZRaster_aRGBMap = t16 + 0x3f00;
+        g_wRdZRaster_RGBcolor = t16[Q4_I(mat, 4) + q4_floor_i(light) * 256];
+        q4_trans16(p, g_wRdZRaster_RGBcolor);
     }
     q4_setup_common(p, 1);
-    UINT_008dde90 = *(unsigned char **)(g_dwRdColormap_pCurMap + 0x338);
-    Q4_WALK(rdRaster_SpanR_Flat_3, rdRaster_SpanR_Flat_4,
-            Q4_SPAN_BPP(bpp, rdRaster_Span8_TexLitZ_2, rdRaster_Span16_TexLitZ_2), 0, 0);
+    g_dwRdZRaster_aAlphaMap = *(unsigned char **)(g_dwRdColormap_pCurMap + 0x338);
+    Q4_WALK(rdZRaster_SetupLeftEdgeNGonFS, rdZRaster_SetupRightEdgeNGonFS,
+            Q4_SPAN_BPP(bpp, rdZRaster_DrawScanLineNGonTFS_8, rdZRaster_DrawScanLineNGonTFS_16), 0, 0);
 }
 
 /* ==== Draw_TexLitZ_3: translucent flat colour, per-vertex light ==== */
-/* OVERRIDES: rdRaster_Draw_TexLitZ_3 */
-void rdRaster_Draw_TexLitZ_3(char *p, char *mat)
+/* OVERRIDES: rdZRaster_DrawNGonTGS */
+void rdZRaster_DrawNGonTGS(char *p, char *mat)
 {
     int bpp = Q4_BPP();
-    UINT_007f44f8 = *(float **)(p + Q4_P_LIGHT);
+    g_dwRdZRaster_aIntensities = *(float **)(p + Q4_P_LIGHT);
     if (bpp == 8) {
-        DAT_008dde98 = *(unsigned char *)(mat + 4);
-        UINT_008dde6c = *(unsigned char **)(*(char **)(p + Q4_P_TABLES) + 0x330);
+        g_bRdZRaster_color = *(unsigned char *)(mat + 4);
+        g_dwRdZRaster_aMonoMap = *(unsigned char **)(*(char **)(p + Q4_P_TABLES) + 0x330);
     } else if (bpp == 16) {
         unsigned short *t16 = *(unsigned short **)(*(char **)(p + Q4_P_TABLES) + 0x348);
-        UINT_008dde5c = t16;
-        DAT_008dde70 = t16[Q4_I(mat, 4) + 0x3f00];
-        q4_trans16(p, DAT_008dde70);
+        g_dwRdZRaster_aRGBMap = t16;
+        g_wRdZRaster_RGBcolor = t16[Q4_I(mat, 4) + 0x3f00];
+        q4_trans16(p, g_wRdZRaster_RGBcolor);
     }
-    UINT_008dde90 = *(unsigned char **)(g_dwRdColormap_pCurMap + 0x338);
+    g_dwRdZRaster_aAlphaMap = *(unsigned char **)(g_dwRdColormap_pCurMap + 0x338);
     q4_setup_common(p, 1);
-    Q4_WALK(rdRaster_SpanR_Flat_5, rdRaster_SpanR_Flat_6,
-            Q4_SPAN_BPP(bpp, rdRaster_Span8_TexZ, rdRaster_Span16_TexZ), 0, 1);
+    Q4_WALK(rdZRaster_SetupLeftEdgeNGonGS, rdZRaster_SetupRightEdgeNGonGS,
+            Q4_SPAN_BPP(bpp, rdZRaster_DrawScanLineNGonTGS_8, rdZRaster_DrawScanLineNGonTGS_16), 0, 1);
 }
 
 /* ==== Grad_Flat_3: texture gradient set-up of the textured affine drivers ====
@@ -563,25 +563,25 @@ void rdRaster_Draw_TexLitZ_3(char *p, char *mat)
  * index the original would use if no vertex is farther than 0 from the midpoint)).  Fills 1/(z+1) per vertex, then
  * the u and v gradients of the plane through a, b, c (only their signs are used: the u / v rounding biases 0x8000 for
  * a positive x gradient, else 0x7fff for a negative one, and for 0 by the sign of the y gradient), and the mip level
- * from the argument (the polygon's distance) and the mode UINT_007f4464 (the texture's mip count - 1): mode 0 -> 0;
+ * from the argument (the polygon's distance) and the mode g_dwRdZRaster_maxMipMap (the texture's mip count - 1): mode 0 -> 0;
  * 1 -> 1 if d > 20; 2 -> 0 / 1 / 2 by d > 10, d > 20; 3 -> 0..3 by d > 10, 20, 40 (thresholds read from 0x004dda90..98;
  * a NaN compares as "not greater"); another mode leaves the level as it was.
  * x87: the plane gradients follow the original's operand order and store points: A = xa - xc, B = xb - xc,
  * C = ya - yc, D = yb - yc extended, A and B also as floats; R = 1 / (C * float(B) - D * float(A)); E, F (u) extended
  * and as floats, G, H (v) as floats; du/dx = float((E * C - F * D) * float(R)) with E, F extended, the other three use
  * the float E, F, G, H. */
-/* OVERRIDES: rdRaster_Grad_Flat_3 */
-void rdRaster_Grad_Flat_3(int dbits)
+/* OVERRIDES: rdZRaster_CalcAffineGradients */
+void rdZRaster_CalcAffineGradients(int dbits)
 {
     float dist = *(float *)&dbits;
-    int cnt = UINT_007f4460, a, b, c, dir, k;
-    float *V = PTR_007f44fc, *T;
+    int cnt = g_dwRdZRaster_numVertices, a, b, c, dir, k;
+    float *V = g_pRdZRaster_aVertices, *T;
     if (cnt == 3) {
         a = 0;
         b = 1;
         c = 2;
     } else {
-        int start = UINT_007f44e8, end = UINT_007f44f4;
+        int start = g_dwRdZRaster_yMinVert, end = g_dwRdZRaster_yMaxVert;
         float mid, mx = 0.0f;
         a = start;
         b = end;
@@ -616,7 +616,7 @@ void rdRaster_Grad_Flat_3(int dbits)
         float *va = V + a * 3, *vb = V + b * 3, *vc = V + c * 3, *ta, *tb, *tc;
         long double A, B, C, D, R, E, F, G, H;
         float fA, fB, fR, fnR, fE, fF, fG, fH, dudx, dudy, dvdx, dvdy;
-        T = UINT_007f4584;
+        T = g_dwRdZRaster_aTexVertices;
         ta = T + a * 2;
         tb = T + b * 2;
         tc = T + c * 2;
@@ -641,32 +641,32 @@ void rdRaster_Grad_Flat_3(int dbits)
         dudy = q4_f(((long double)fE * fA - (long double)fF * fB) * fnR);
         dvdx = q4_f(((long double)fG * C - (long double)fH * D) * fR);
         dvdy = q4_f(((long double)fG * fA - (long double)fH * fB) * fnR);
-        switch (UINT_007f4464) {
+        switch (g_dwRdZRaster_maxMipMap) {
         case 0:
-            UINT_008dde54 = 0;
+            g_dwRdZRaster_mipMapNum = 0;
             break;
         case 1:
-            UINT_008dde54 = dist > g_aRdroid_MipDistances ? 1 : 0;
+            g_dwRdZRaster_mipMapNum = dist > g_aRdroid_MipDistances ? 1 : 0;
             break;
         case 2:
-            UINT_008dde54 = !(dist > DAT_004dda90) ? 0 : !(dist > g_aRdroid_MipDistances) ? 1 : 2;
+            g_dwRdZRaster_mipMapNum = !(dist > DAT_004dda90) ? 0 : !(dist > g_aRdroid_MipDistances) ? 1 : 2;
             break;
         case 3:
-            UINT_008dde54 = !(dist > DAT_004dda90) ? 0 : !(dist > g_aRdroid_MipDistances) ? 1 : !(dist > DAT_004dda98) ? 2 : 3;
+            g_dwRdZRaster_mipMapNum = !(dist > DAT_004dda90) ? 0 : !(dist > g_aRdroid_MipDistances) ? 1 : !(dist > DAT_004dda98) ? 2 : 3;
             break;
         }
         if (dudx > 0.0f)
-            UINT_008dde78 = 0x8000;
+            g_dwRdZRaster_dUdXModifier = 0x8000;
         else if (!(dudx >= 0.0f) || !(dudy >= 0.0f))
-            UINT_008dde78 = 0x7fff;
+            g_dwRdZRaster_dUdXModifier = 0x7fff;
         else
-            UINT_008dde78 = 0x8000;
+            g_dwRdZRaster_dUdXModifier = 0x8000;
         if (dvdx > 0.0f)
-            UINT_008dde50 = 0x8000;
+            g_dwRdZRaster_dVdXModifier = 0x8000;
         else if (!(dvdx >= 0.0f) || !(dvdy >= 0.0f))
-            UINT_008dde50 = 0x7fff;
+            g_dwRdZRaster_dVdXModifier = 0x7fff;
         else
-            UINT_008dde50 = 0x8000;
+            g_dwRdZRaster_dVdXModifier = 0x8000;
     }
 }
 
@@ -689,7 +689,7 @@ void rdRaster_Grad_Flat_3(int dbits)
     frac = xs - x0;                                                                                         \
     irn = g_aRdRaster_OneOverNFixed[n];                                                                                  \
     sub = q4_f((long double)frac * (1.0f / 65536.0f));                                                      \
-    mip = UINT_008dde54 & 31;                                                                               \
+    mip = g_dwRdZRaster_mipMapNum & 31;                                                                               \
     du = q4_mul16(R->u - L->u, irn);                                                                        \
     u = (q4_mul16(frac, du) + L->u) >> mip;                                                                 \
     du >>= mip;                                                                                             \
@@ -709,19 +709,19 @@ void rdRaster_Grad_Flat_3(int dbits)
         dz = q4_floor_i(q4_f(t * 65536.0f));                                                                \
         z = q4_floor_i(q4_f(((long double)tf_ * sub + L->z) * 65536.0f));                                   \
     }                                                                                                       \
-    v += UINT_008dde50;                                                                                     \
-    u += UINT_008dde78;                                                                                     \
+    v += g_dwRdZRaster_dVdXModifier;                                                                                     \
+    u += g_dwRdZRaster_dUdXModifier;                                                                                     \
     c4 = *(char **)(g_pRdCamera_CurCamera + 4)
 
 #define Q4_TEXEL(u, v)                                                                                      \
-    UINT_008dde7c[(((u) >> 16) & (UINT_008dde48 >> 16)) + (((v) >> ((16 - UINT_008dde8c) & 31)) & UINT_008dde58)]
+    g_dwRdZRaster_pPixels[(((u) >> 16) & (g_dwRdZRaster_uWrap >> 16)) + (((v) >> ((16 - g_dwRdZRaster_texRowShift) & 31)) & g_dwRdZRaster_vWrap)]
 
 /* PIXEL writes *pix from tx (the texel), the destination and l */
 #define Q4_TSPAN_LOOP(PIXT, BUF, KEY, PIXEL, LIT)                                                           \
     {                                                                                                       \
         PIXT *pix = BUF(c4, L->y, xl);                                                                      \
         unsigned short *zp = Q4_ZBUF(c4, L->y, xl);                                                         \
-        int sh = UINT_008ddea4;                                                                             \
+        int sh = g_dwRdZRaster_zScaleShift;                                                                             \
         do {                                                                                                \
             int zs = z >> sh;                                                                               \
             if ((unsigned short)zs > *zp) {                                                                 \
@@ -749,63 +749,63 @@ void NAME(q4_edge *L, q4_edge *R)                                               
 }
 #define Q4_TSPAN8(NAME, LIT, KEY, PIXEL) Q4_TSPAN(NAME, unsigned char, Q4_BUF8, LIT, KEY, PIXEL)
 #define Q4_TSPAN16(NAME, LIT, KEY, PIXEL) Q4_TSPAN(NAME, unsigned short, Q4_BUF16, LIT, KEY, PIXEL)
-#define Q4_BLEND(c, d) UINT_008dde90[(c) * 256 + (d)]
+#define Q4_BLEND(c, d) g_dwRdZRaster_aAlphaMap[(c) * 256 + (d)]
 
 /* unlit (Draw_FlatLit_7 and friends; 16 bpp: light row 63 of the 16 bpp table) */
-/* OVERRIDES: rdRaster_Span_FlatZ */
-Q4_TSPAN8(rdRaster_Span_FlatZ, 0, 0, *pix = tx)
-/* OVERRIDES: rdRaster_Span16_TexLit */
-Q4_TSPAN16(rdRaster_Span16_TexLit, 0, 0, *pix = UINT_008dde5c[tx])
-/* OVERRIDES: rdRaster_Span8_TexLitZ_3 */
-Q4_TSPAN8(rdRaster_Span8_TexLitZ_3, 0, 0, *pix = Q4_BLEND(tx, *pix))
-/* OVERRIDES: rdRaster_Span16_TexLit_2 */
-Q4_TSPAN16(rdRaster_Span16_TexLit_2, 0, 0, *pix = UINT_008dde5c[Q4_BLEND(tx, UINT_008dde44[*pix])])
-/* OVERRIDES: rdRaster_Span8_FlatKeyZw */
-Q4_TSPAN8(rdRaster_Span8_FlatKeyZw, 0, 1, *pix = tx)
-/* OVERRIDES: rdRaster_Span16_TexLitKey */
-Q4_TSPAN16(rdRaster_Span16_TexLitKey, 0, 1, *pix = UINT_008dde5c[tx])
-/* OVERRIDES: rdRaster_Span8_TexLitKeyZw */
-Q4_TSPAN8(rdRaster_Span8_TexLitKeyZw, 0, 1, *pix = Q4_BLEND(tx, *pix))
-/* OVERRIDES: rdRaster_Span16_TexLitKey_2 */
-Q4_TSPAN16(rdRaster_Span16_TexLitKey_2, 0, 1, *pix = UINT_008dde5c[Q4_BLEND(tx, UINT_008dde44[*pix])])
+/* OVERRIDES: rdZRaster_DrawScanLineNGonLAT_8 */
+Q4_TSPAN8(rdZRaster_DrawScanLineNGonLAT_8, 0, 0, *pix = tx)
+/* OVERRIDES: rdZRaster_DrawScanLineNGonLAT_16 */
+Q4_TSPAN16(rdZRaster_DrawScanLineNGonLAT_16, 0, 0, *pix = g_dwRdZRaster_aRGBMap[tx])
+/* OVERRIDES: rdZRaster_DrawScanLineNGonTLAT_8 */
+Q4_TSPAN8(rdZRaster_DrawScanLineNGonTLAT_8, 0, 0, *pix = Q4_BLEND(tx, *pix))
+/* OVERRIDES: rdZRaster_DrawScanLineNGonTLAT_16 */
+Q4_TSPAN16(rdZRaster_DrawScanLineNGonTLAT_16, 0, 0, *pix = g_dwRdZRaster_aRGBMap[Q4_BLEND(tx, g_dwRdZRaster_aRGBToPalette[*pix])])
+/* OVERRIDES: rdZRaster_DrawScanLineNGonMLAT_8 */
+Q4_TSPAN8(rdZRaster_DrawScanLineNGonMLAT_8, 0, 1, *pix = tx)
+/* OVERRIDES: rdZRaster_DrawScanLineNGonMLAT_16 */
+Q4_TSPAN16(rdZRaster_DrawScanLineNGonMLAT_16, 0, 1, *pix = g_dwRdZRaster_aRGBMap[tx])
+/* OVERRIDES: rdZRaster_DrawScanLineNGonMTLAT_8 */
+Q4_TSPAN8(rdZRaster_DrawScanLineNGonMTLAT_8, 0, 1, *pix = Q4_BLEND(tx, *pix))
+/* OVERRIDES: rdZRaster_DrawScanLineNGonMTLAT_16 */
+Q4_TSPAN16(rdZRaster_DrawScanLineNGonMTLAT_16, 0, 1, *pix = g_dwRdZRaster_aRGBMap[Q4_BLEND(tx, g_dwRdZRaster_aRGBToPalette[*pix])])
 
 /* flat lit (Draw_FlatLit_8 and friends: the light tables point at the polygon's light row) */
-/* OVERRIDES: rdRaster_Span_TexLitZ */
-Q4_TSPAN8(rdRaster_Span_TexLitZ, 0, 0, *pix = UINT_008dde6c[tx])
-/* OVERRIDES: rdRaster_Span16_TexLit_3 */
-Q4_TSPAN16(rdRaster_Span16_TexLit_3, 0, 0, *pix = UINT_008dde5c[tx])
-/* OVERRIDES: rdRaster_Span8_TexLitZ_4 */
-Q4_TSPAN8(rdRaster_Span8_TexLitZ_4, 0, 0, *pix = Q4_BLEND(UINT_008dde6c[tx], *pix))
+/* OVERRIDES: rdZRaster_DrawScanLineNGonFAT_8 */
+Q4_TSPAN8(rdZRaster_DrawScanLineNGonFAT_8, 0, 0, *pix = g_dwRdZRaster_aMonoMap[tx])
+/* OVERRIDES: rdZRaster_DrawScanLineNGonFAT_16 */
+Q4_TSPAN16(rdZRaster_DrawScanLineNGonFAT_16, 0, 0, *pix = g_dwRdZRaster_aRGBMap[tx])
+/* OVERRIDES: rdZRaster_DrawScanLineNGonTFAT_8 */
+Q4_TSPAN8(rdZRaster_DrawScanLineNGonTFAT_8, 0, 0, *pix = Q4_BLEND(g_dwRdZRaster_aMonoMap[tx], *pix))
 /* the lit texel's palette index blended with the destination's, then lit again by the same row */
-/* OVERRIDES: rdRaster_Span16_TexLitZ_3 */
-Q4_TSPAN16(rdRaster_Span16_TexLitZ_3, 0, 0,
-         *pix = UINT_008dde5c[Q4_BLEND(UINT_008dde44[UINT_008dde5c[tx]], UINT_008dde44[*pix])])
-/* OVERRIDES: rdRaster_Span8_TexLitKeyZw_2 */
-Q4_TSPAN8(rdRaster_Span8_TexLitKeyZw_2, 0, 1, *pix = UINT_008dde6c[tx])
-/* OVERRIDES: rdRaster_Span16_TexLitKey_3 */
-Q4_TSPAN16(rdRaster_Span16_TexLitKey_3, 0, 1, *pix = UINT_008dde5c[tx])
+/* OVERRIDES: rdZRaster_DrawScanLineNGonTFAT_16 */
+Q4_TSPAN16(rdZRaster_DrawScanLineNGonTFAT_16, 0, 0,
+         *pix = g_dwRdZRaster_aRGBMap[Q4_BLEND(g_dwRdZRaster_aRGBToPalette[g_dwRdZRaster_aRGBMap[tx]], g_dwRdZRaster_aRGBToPalette[*pix])])
+/* OVERRIDES: rdZRaster_DrawScanLineNGonMFAT_8 */
+Q4_TSPAN8(rdZRaster_DrawScanLineNGonMFAT_8, 0, 1, *pix = g_dwRdZRaster_aMonoMap[tx])
+/* OVERRIDES: rdZRaster_DrawScanLineNGonMFAT_16 */
+Q4_TSPAN16(rdZRaster_DrawScanLineNGonMFAT_16, 0, 1, *pix = g_dwRdZRaster_aRGBMap[tx])
 /* keyed translucent: blended first, then lit (the opaque translucent one lights first) */
-/* OVERRIDES: rdRaster_Span8_TexLitKeyZw_3 */
-Q4_TSPAN8(rdRaster_Span8_TexLitKeyZw_3, 0, 1, *pix = UINT_008dde6c[Q4_BLEND(tx, *pix)])
-/* OVERRIDES: rdRaster_Span16_TexLitKey_4 */
-Q4_TSPAN16(rdRaster_Span16_TexLitKey_4, 0, 1, *pix = UINT_008dde5c[Q4_BLEND(tx, UINT_008dde44[*pix])])
+/* OVERRIDES: rdZRaster_DrawScanLineNGonMTFAT_8 */
+Q4_TSPAN8(rdZRaster_DrawScanLineNGonMTFAT_8, 0, 1, *pix = g_dwRdZRaster_aMonoMap[Q4_BLEND(tx, *pix)])
+/* OVERRIDES: rdZRaster_DrawScanLineNGonMTFAT_16 */
+Q4_TSPAN16(rdZRaster_DrawScanLineNGonMTFAT_16, 0, 1, *pix = g_dwRdZRaster_aRGBMap[Q4_BLEND(tx, g_dwRdZRaster_aRGBToPalette[*pix])])
 
 /* gouraud (Draw_FlatLit_9 and friends: light row per pixel) */
-/* OVERRIDES: rdRaster_Span_TexLitZ_2 */
-Q4_TSPAN8(rdRaster_Span_TexLitZ_2, 1, 0, *pix = UINT_008dde6c[Q4_LROW(l) + tx])
-/* OVERRIDES: rdRaster_Span8_TexLitZ_5 */
-Q4_TSPAN8(rdRaster_Span8_TexLitZ_5, 1, 0, *pix = Q4_BLEND(UINT_008dde6c[Q4_LROW(l) + tx], *pix))
-/* OVERRIDES: rdRaster_Span16_TexLitZ_5 */
-Q4_TSPAN16(rdRaster_Span16_TexLitZ_5, 1, 0, *pix = UINT_008dde5c[Q4_LROW(l) + Q4_BLEND(tx, UINT_008dde44[*pix])])
-/* OVERRIDES: rdRaster_Span8_TexLitKeyZw_4 */
-Q4_TSPAN8(rdRaster_Span8_TexLitKeyZw_4, 1, 1, *pix = UINT_008dde6c[Q4_LROW(l) + tx])
-/* OVERRIDES: rdRaster_Span16_TexLitKeyZw */
-Q4_TSPAN16(rdRaster_Span16_TexLitKeyZw, 1, 1, *pix = UINT_008dde5c[Q4_LROW(l) + tx])
-/* OVERRIDES: rdRaster_Span8_TexLitKeyZw_5 */
-Q4_TSPAN8(rdRaster_Span8_TexLitKeyZw_5, 1, 1, *pix = UINT_008dde6c[Q4_LROW(l) + Q4_BLEND(tx, *pix)])
-/* OVERRIDES: rdRaster_Span16_TexLitKeyZw_2 */
-Q4_TSPAN16(rdRaster_Span16_TexLitKeyZw_2, 1, 1,
-         *pix = UINT_008dde5c[Q4_LROW(l) + Q4_BLEND(tx, UINT_008dde44[*pix])])
+/* OVERRIDES: rdZRaster_DrawScanLineNGonGAT_8 */
+Q4_TSPAN8(rdZRaster_DrawScanLineNGonGAT_8, 1, 0, *pix = g_dwRdZRaster_aMonoMap[Q4_LROW(l) + tx])
+/* OVERRIDES: rdZRaster_DrawScanLineNGonTGAT_8 */
+Q4_TSPAN8(rdZRaster_DrawScanLineNGonTGAT_8, 1, 0, *pix = Q4_BLEND(g_dwRdZRaster_aMonoMap[Q4_LROW(l) + tx], *pix))
+/* OVERRIDES: rdZRaster_DrawScanLineNGonTGAT_16 */
+Q4_TSPAN16(rdZRaster_DrawScanLineNGonTGAT_16, 1, 0, *pix = g_dwRdZRaster_aRGBMap[Q4_LROW(l) + Q4_BLEND(tx, g_dwRdZRaster_aRGBToPalette[*pix])])
+/* OVERRIDES: rdZRaster_DrawScanLineNGonMGAT_8 */
+Q4_TSPAN8(rdZRaster_DrawScanLineNGonMGAT_8, 1, 1, *pix = g_dwRdZRaster_aMonoMap[Q4_LROW(l) + tx])
+/* OVERRIDES: rdZRaster_DrawScanLineNGonMGAT_16 */
+Q4_TSPAN16(rdZRaster_DrawScanLineNGonMGAT_16, 1, 1, *pix = g_dwRdZRaster_aRGBMap[Q4_LROW(l) + tx])
+/* OVERRIDES: rdZRaster_DrawScanLineNGonMTGAT_8 */
+Q4_TSPAN8(rdZRaster_DrawScanLineNGonMTGAT_8, 1, 1, *pix = g_dwRdZRaster_aMonoMap[Q4_LROW(l) + Q4_BLEND(tx, *pix)])
+/* OVERRIDES: rdZRaster_DrawScanLineNGonMTGAT_16 */
+Q4_TSPAN16(rdZRaster_DrawScanLineNGonMTGAT_16, 1, 1,
+         *pix = g_dwRdZRaster_aRGBMap[Q4_LROW(l) + Q4_BLEND(tx, g_dwRdZRaster_aRGBToPalette[*pix])])
 
 /* ==== Span16_TexLitZ_4: gouraud, 16 bpp, ordered dither of the light ====
  * The light row is (l + dither) >> 16 (no 0..63 mask) with dither 0, 0xc000, 0x8000, 0x4000 by (column & 1) +
@@ -813,19 +813,19 @@ Q4_TSPAN16(rdRaster_Span16_TexLitKeyZw_2, 1, 1,
  * original).  Texel 0 is drawn (no key).  The original takes the parities as C remainders (-1 for a negative
  * column / row, which then index below its 4-entry table on its stack); spans are on screen, so they are >= 0. */
 static const int q4_dither[4] = {0, 0xc000, 0x8000, 0x4000};
-/* OVERRIDES: rdRaster_Span16_TexLitZ_4 */
-void rdRaster_Span16_TexLitZ_4(q4_edge *L, q4_edge *R)
+/* OVERRIDES: rdZRaster_DrawScanLineNGonGAT_16 */
+void rdZRaster_DrawScanLineNGonGAT_16(q4_edge *L, q4_edge *R)
 {
     Q4_TSPAN_PROLOGUE(1);
     {
         unsigned short *pix = Q4_BUF16(c4, L->y, xl);
         unsigned short *zp = Q4_ZBUF(c4, L->y, xl);
-        int sh = UINT_008ddea4, col = xl + n - 1, row2 = (L->y & 1) * 2;
+        int sh = g_dwRdZRaster_zScaleShift, col = xl + n - 1, row2 = (L->y & 1) * 2;
         do {
             int zs = z >> sh;
             if ((unsigned short)zs > *zp) {
                 unsigned tx = Q4_TEXEL(u, v);
-                *pix = UINT_008dde5c[(((l + q4_dither[(col & 1) + row2]) >> 8) & ~0xff) + tx];
+                *pix = g_dwRdZRaster_aRGBMap[(((l + q4_dither[(col & 1) + row2]) >> 8) & ~0xff) + tx];
                 *zp = (unsigned short)zs;
             }
             pix++;
@@ -848,44 +848,44 @@ Q4_INLINE void q4_tex_setup(char *p, char *mat, int light_mode, int trans, int o
 {
     int bpp = Q4_BPP(), mip;
     char *tb = *(char **)(p + Q4_P_TABLES), *tex = *(char **)(mat + 0x1c), *lev;
-    UINT_007f4464 = Q4_I(tex, 0x18) - 1;
-    UINT_007f4584 = *(float **)(p + Q4_P_UV);
+    g_dwRdZRaster_maxMipMap = Q4_I(tex, 0x18) - 1;
+    g_dwRdZRaster_aTexVertices = *(float **)(p + Q4_P_UV);
     if (light_mode == 2)
-        UINT_007f44f8 = *(float **)(p + Q4_P_LIGHT);
+        g_dwRdZRaster_aIntensities = *(float **)(p + Q4_P_LIGHT);
     if (bpp == 8) {
         if (light_mode == 1)
-            UINT_008dde6c = *(unsigned char **)(tb + 0x330) + (int)((unsigned)li << 8);
+            g_dwRdZRaster_aMonoMap = *(unsigned char **)(tb + 0x330) + (int)((unsigned)li << 8);
         else if (light_mode == 2)
-            UINT_008dde6c = *(unsigned char **)(tb + 0x330);
+            g_dwRdZRaster_aMonoMap = *(unsigned char **)(tb + 0x330);
     } else if (bpp == 16) {
         char *t16 = *(char **)(tb + 0x348);
-        UINT_008dde5c = (unsigned short *)(light_mode == 0 ? t16 + 0x7e00
+        g_dwRdZRaster_aRGBMap = (unsigned short *)(light_mode == 0 ? t16 + 0x7e00
                                            : light_mode == 1 ? t16 + (int)((unsigned)li << 9) : t16);
         if (trans)
-            UINT_008dde44 = *(unsigned char **)(tb + 0x34c);
+            g_dwRdZRaster_aRGBToPalette = *(unsigned char **)(tb + 0x34c);
     }
     if (trans)
-        UINT_008dde90 = *(unsigned char **)(g_dwRdColormap_pCurMap + 0x338);
+        g_dwRdZRaster_aAlphaMap = *(unsigned char **)(g_dwRdColormap_pCurMap + 0x338);
     q4_setup_common(p, 0);
-    rdRaster_Grad_Flat_3(Q4_I(p, 0x64));
-    mip = UINT_008dde54;
+    rdZRaster_CalcAffineGradients(Q4_I(p, 0x64));
+    mip = g_dwRdZRaster_mipMapNum;
     lev = *(char **)(tex + 0x1c + mip * 4);
-    UINT_008dde7c = *(unsigned char **)(lev + 0x5c);
-    UINT_008dde8c = Q4_I(tex, 0xc) - mip;
+    g_dwRdZRaster_pPixels = *(unsigned char **)(lev + 0x5c);
+    g_dwRdZRaster_texRowShift = Q4_I(tex, 0xc) - mip;
     if (opaque)
-        UINT_008dde68 = Q4_I(lev, 0x18);
-    UINT_008dde48 = (int)(((unsigned)Q4_I(tex, 0x10) >> (mip & 31)) << 16);
-    UINT_008dde58 = (int)(((unsigned)Q4_I(tex, 0x14) >> (mip & 31)) << (UINT_008dde8c & 31));
+        g_dwRdZRaster_texPitch = Q4_I(lev, 0x18);
+    g_dwRdZRaster_uWrap = (int)(((unsigned)Q4_I(tex, 0x10) >> (mip & 31)) << 16);
+    g_dwRdZRaster_vWrap = (int)(((unsigned)Q4_I(tex, 0x14) >> (mip & 31)) << (g_dwRdZRaster_texRowShift & 31));
 }
 
 /* the walk with a span filler chosen once after the first two edge set-ups (PRE) and called through UINT_007f44f0 */
 #define Q4_WALK_PTR(EL, ER, PRE, UV, LIT)                                                                   \
     do {                                                                                                    \
         q4_edge L, R;                                                                                       \
-        L.idx = UINT_007f44e8;                                                                              \
+        L.idx = g_dwRdZRaster_yMinVert;                                                                              \
         if (EL(&L))                                                                                         \
             return;                                                                                         \
-        R.idx = UINT_007f44e8;                                                                              \
+        R.idx = g_dwRdZRaster_yMinVert;                                                                              \
         if (ER(&R))                                                                                         \
             return;                                                                                         \
         PRE;                                                                                                \
@@ -906,7 +906,7 @@ Q4_CSPAN(_24) Q4_CSPAN(_25) Q4_CSPAN(_26) Q4_CSPAN(_27) Q4_CSPAN(_28) Q4_CSPAN(_
  * Mem_DumpLog and 16 bpp a C filler specialised for the texture width (W4 .. W256: widths 4, 8, ..., 256; D any
  * other); another depth keeps the previous pointer */
 #define Q4_PICK(bpp, S8, S16, W4, W8, W16, W32, W64, W128, W256, D)                                         \
-    if (UINT_008ddea4) {                                                                                    \
+    if (g_dwRdZRaster_zScaleShift) {                                                                                    \
         if ((bpp) == 8)                                                                                     \
             UINT_007f44f0 = (void *)S8;                                                                     \
         else if ((bpp) == 16)                                                                               \
@@ -914,7 +914,7 @@ Q4_CSPAN(_24) Q4_CSPAN(_25) Q4_CSPAN(_26) Q4_CSPAN(_27) Q4_CSPAN(_28) Q4_CSPAN(_
     } else if ((bpp) == 8)                                                                                  \
         UINT_007f44f0 = (void *)Mem_DumpLog;                                                                \
     else if ((bpp) == 16) {                                                                                 \
-        switch (UINT_008dde68) {                                                                            \
+        switch (g_dwRdZRaster_texPitch) {                                                                            \
         case 4: UINT_007f44f0 = (void *)W4; break;                                                          \
         case 8: UINT_007f44f0 = (void *)W8; break;                                                          \
         case 16: UINT_007f44f0 = (void *)W16; break;                                                        \
@@ -926,35 +926,35 @@ Q4_CSPAN(_24) Q4_CSPAN(_25) Q4_CSPAN(_26) Q4_CSPAN(_27) Q4_CSPAN(_28) Q4_CSPAN(_
         }                                                                                                   \
     }
 
-/* OVERRIDES: rdRaster_Draw_FlatLit_7 */
-void rdRaster_Draw_FlatLit_7(char *p, char *mat)
+/* OVERRIDES: rdZRaster_DrawNGonLAT */
+void rdZRaster_DrawNGonLAT(char *p, char *mat)
 {
     int bpp = Q4_BPP();
     q4_tex_setup(p, mat, 0, 0, 1, 0);
-    Q4_WALK_PTR(rdRaster_SpanR_Flat_7, rdRaster_SpanR_Flat_8,
-                Q4_PICK(bpp, rdRaster_Span_FlatZ, rdRaster_Span16_TexLit, rdRaster_Span16_TexLitZw_24,
+    Q4_WALK_PTR(rdZRaster_SetupLeftEdgeNGonLAT, rdZRaster_SetupRightEdgeNGonLAT,
+                Q4_PICK(bpp, rdZRaster_DrawScanLineNGonLAT_8, rdZRaster_DrawScanLineNGonLAT_16, rdRaster_Span16_TexLitZw_24,
                         rdRaster_Span16_TexLitZw_25, rdRaster_Span16_TexLitZw_26, rdRaster_Span16_TexLitZw_27,
                         rdRaster_Span16_TexLitZw_28, rdRaster_Span16_TexLitZw_29, rdRaster_Span16_TexLitZw_30,
                         rdRaster_Span16_TexLitZw_24), 1, 0);
 }
-/* OVERRIDES: rdRaster_Draw_FlatLit_8 */
-void rdRaster_Draw_FlatLit_8(char *p, char *mat, float light)
+/* OVERRIDES: rdZRaster_DrawNGonFAT */
+void rdZRaster_DrawNGonFAT(char *p, char *mat, float light)
 {
     int bpp = Q4_BPP();
     q4_tex_setup(p, mat, 1, 0, 1, bpp == 8 || bpp == 16 ? q4_floor_i(light) : 0);
-    Q4_WALK_PTR(rdRaster_SpanR_Flat_9, rdRaster_SpanR_Flat_10,
-                Q4_PICK(bpp, rdRaster_Span_TexLitZ, rdRaster_Span16_TexLit_3, rdRaster_Span16_TexLitZw_16,
+    Q4_WALK_PTR(rdZRaster_SetupLeftEdgeNGonFAT, rdZRaster_SetupRightEdgeNGonFAT,
+                Q4_PICK(bpp, rdZRaster_DrawScanLineNGonFAT_8, rdZRaster_DrawScanLineNGonFAT_16, rdRaster_Span16_TexLitZw_16,
                         rdRaster_Span16_TexLitZw_17, rdRaster_Span16_TexLitZw_18, rdRaster_Span16_TexLitZw_19,
                         rdRaster_Span16_TexLitZw_20, rdRaster_Span16_TexLitZw_21, rdRaster_Span16_TexLitZw_22,
                         rdRaster_Span16_TexLitZw_15), 1, 0);
 }
-/* OVERRIDES: rdRaster_Draw_FlatLit_9 */
-void rdRaster_Draw_FlatLit_9(char *p, char *mat)
+/* OVERRIDES: rdZRaster_DrawNGonGAT */
+void rdZRaster_DrawNGonGAT(char *p, char *mat)
 {
     int bpp = Q4_BPP();
     q4_tex_setup(p, mat, 2, 0, 1, 0);
-    Q4_WALK_PTR(rdRaster_SpanR_Flat_11, rdRaster_SpanR_Flat_12,
-                Q4_PICK(bpp, rdRaster_Span_TexLitZ_2, rdRaster_Span16_TexLitZ_4, rdRaster_Span16_TexLitZw_2,
+    Q4_WALK_PTR(rdZRaster_SetupLeftEdgeNGonGAT, rdZRaster_SetupRightEdgeNGonGAT,
+                Q4_PICK(bpp, rdZRaster_DrawScanLineNGonGAT_8, rdZRaster_DrawScanLineNGonGAT_16, rdRaster_Span16_TexLitZw_2,
                         rdRaster_Span16_TexLitZw_3, rdRaster_Span16_TexLitZw_4, rdRaster_Span16_TexLitZw_5,
                         rdRaster_Span16_TexLitZw_6, rdRaster_Span16_TexLitZw_7, rdRaster_Span16_TexLitZw_8,
                         rdRaster_Span16_TexLitZw), 1, 1);
@@ -975,32 +975,32 @@ void NAME(char *p, char *mat, float light)                                      
     q4_tex_setup(p, mat, 1, TRANS, 0, bpp == 8 || bpp == 16 ? q4_floor_i(light) : 0);                       \
     Q4_WALK(EL, ER, Q4_SPAN_BPP(bpp, S8, S16), 1, 0);                                                       \
 }
-/* OVERRIDES: rdRaster_Draw_TexLitZ_4 */
-Q4_TDRAW(rdRaster_Draw_TexLitZ_4, 0, 1, rdRaster_SpanR_Flat_7, rdRaster_SpanR_Flat_8, rdRaster_Span8_TexLitZ_3,
-         rdRaster_Span16_TexLit_2)
-/* OVERRIDES: rdRaster_Draw_TexLitKeyZw */
-Q4_TDRAW(rdRaster_Draw_TexLitKeyZw, 0, 0, rdRaster_SpanR_Flat_7, rdRaster_SpanR_Flat_8, rdRaster_Span8_FlatKeyZw,
-         rdRaster_Span16_TexLitKey)
-/* OVERRIDES: rdRaster_Draw_TexLitKeyZw_2 */
-Q4_TDRAW(rdRaster_Draw_TexLitKeyZw_2, 0, 1, rdRaster_SpanR_Flat_7, rdRaster_SpanR_Flat_8, rdRaster_Span8_TexLitKeyZw,
-         rdRaster_Span16_TexLitKey_2)
-/* OVERRIDES: rdRaster_Draw_TexLitZ_5 */
-Q4_TDRAW_L(rdRaster_Draw_TexLitZ_5, 1, rdRaster_SpanR_Flat_9, rdRaster_SpanR_Flat_10, rdRaster_Span8_TexLitZ_4,
-           rdRaster_Span16_TexLitZ_3)
-/* OVERRIDES: rdRaster_Draw_TexLitKeyZw_3 */
-Q4_TDRAW_L(rdRaster_Draw_TexLitKeyZw_3, 0, rdRaster_SpanR_Flat_9, rdRaster_SpanR_Flat_10, rdRaster_Span8_TexLitKeyZw_2,
-           rdRaster_Span16_TexLitKey_3)
-/* OVERRIDES: rdRaster_Draw_TexLitKeyZw_4 */
-Q4_TDRAW_L(rdRaster_Draw_TexLitKeyZw_4, 1, rdRaster_SpanR_Flat_9, rdRaster_SpanR_Flat_10, rdRaster_Span8_TexLitKeyZw_3,
-           rdRaster_Span16_TexLitKey_4)
-/* OVERRIDES: rdRaster_Draw_TexLitZ_6 */
-Q4_TDRAW(rdRaster_Draw_TexLitZ_6, 2, 1, rdRaster_SpanR_Flat_11, rdRaster_SpanR_Flat_12, rdRaster_Span8_TexLitZ_5,
-         rdRaster_Span16_TexLitZ_5)
-/* OVERRIDES: rdRaster_Draw_TexLitKeyZw_5 */
-Q4_TDRAW(rdRaster_Draw_TexLitKeyZw_5, 2, 0, rdRaster_SpanR_Flat_11, rdRaster_SpanR_Flat_12, rdRaster_Span8_TexLitKeyZw_4,
-         rdRaster_Span16_TexLitKeyZw)
-/* OVERRIDES: rdRaster_Draw_TexLitKeyZw_6 */
-Q4_TDRAW(rdRaster_Draw_TexLitKeyZw_6, 2, 1, rdRaster_SpanR_Flat_11, rdRaster_SpanR_Flat_12, rdRaster_Span8_TexLitKeyZw_5,
-         rdRaster_Span16_TexLitKeyZw_2)
+/* OVERRIDES: rdZRaster_DrawNGonTLAT */
+Q4_TDRAW(rdZRaster_DrawNGonTLAT, 0, 1, rdZRaster_SetupLeftEdgeNGonLAT, rdZRaster_SetupRightEdgeNGonLAT, rdZRaster_DrawScanLineNGonTLAT_8,
+         rdZRaster_DrawScanLineNGonTLAT_16)
+/* OVERRIDES: rdZRaster_DrawNGonMLAT */
+Q4_TDRAW(rdZRaster_DrawNGonMLAT, 0, 0, rdZRaster_SetupLeftEdgeNGonLAT, rdZRaster_SetupRightEdgeNGonLAT, rdZRaster_DrawScanLineNGonMLAT_8,
+         rdZRaster_DrawScanLineNGonMLAT_16)
+/* OVERRIDES: rdZRaster_DrawNGonMTLAT */
+Q4_TDRAW(rdZRaster_DrawNGonMTLAT, 0, 1, rdZRaster_SetupLeftEdgeNGonLAT, rdZRaster_SetupRightEdgeNGonLAT, rdZRaster_DrawScanLineNGonMTLAT_8,
+         rdZRaster_DrawScanLineNGonMTLAT_16)
+/* OVERRIDES: rdZRaster_DrawNGonTFAT */
+Q4_TDRAW_L(rdZRaster_DrawNGonTFAT, 1, rdZRaster_SetupLeftEdgeNGonFAT, rdZRaster_SetupRightEdgeNGonFAT, rdZRaster_DrawScanLineNGonTFAT_8,
+           rdZRaster_DrawScanLineNGonTFAT_16)
+/* OVERRIDES: rdZRaster_DrawNGonMFAT */
+Q4_TDRAW_L(rdZRaster_DrawNGonMFAT, 0, rdZRaster_SetupLeftEdgeNGonFAT, rdZRaster_SetupRightEdgeNGonFAT, rdZRaster_DrawScanLineNGonMFAT_8,
+           rdZRaster_DrawScanLineNGonMFAT_16)
+/* OVERRIDES: rdZRaster_DrawNGonMTFAT */
+Q4_TDRAW_L(rdZRaster_DrawNGonMTFAT, 1, rdZRaster_SetupLeftEdgeNGonFAT, rdZRaster_SetupRightEdgeNGonFAT, rdZRaster_DrawScanLineNGonMTFAT_8,
+           rdZRaster_DrawScanLineNGonMTFAT_16)
+/* OVERRIDES: rdZRaster_DrawNGonTGAT */
+Q4_TDRAW(rdZRaster_DrawNGonTGAT, 2, 1, rdZRaster_SetupLeftEdgeNGonGAT, rdZRaster_SetupRightEdgeNGonGAT, rdZRaster_DrawScanLineNGonTGAT_8,
+         rdZRaster_DrawScanLineNGonTGAT_16)
+/* OVERRIDES: rdZRaster_DrawNGonMGAT */
+Q4_TDRAW(rdZRaster_DrawNGonMGAT, 2, 0, rdZRaster_SetupLeftEdgeNGonGAT, rdZRaster_SetupRightEdgeNGonGAT, rdZRaster_DrawScanLineNGonMGAT_8,
+         rdZRaster_DrawScanLineNGonMGAT_16)
+/* OVERRIDES: rdZRaster_DrawNGonMTGAT */
+Q4_TDRAW(rdZRaster_DrawNGonMTGAT, 2, 1, rdZRaster_SetupLeftEdgeNGonGAT, rdZRaster_SetupRightEdgeNGonGAT, rdZRaster_DrawScanLineNGonMTGAT_8,
+         rdZRaster_DrawScanLineNGonMTGAT_16)
 
 #endif /* GRIM_EXE */

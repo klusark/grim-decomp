@@ -54,11 +54,15 @@ void rdActive_AdvanceFrame(void)
   return;
 }
 
-/* ---- 0x00404ca0  rdCanvas_ResetPolyCount ---- */
-void rdCanvas_ResetPolyCount(void)
+/* ---- 0x00404ca0  rdActive_ClearFrameCounters ---- */
+/* Original name rdActive_ClearFrameCounters (the remaster's GrimFandango (Linux): the second
+   counter reset of rdClearPreStatistics (clears rdActive_drawnFaces, counted in
+   rdActive_AddActiveFace)); was rdCanvas_ResetPolyCount. */
+
+void rdActive_ClearFrameCounters(void)
 
 {
-  UINT_005e6f98 = 0;
+  g_dwRdActive_drawnFaces = 0;
   return;
 }
 
@@ -142,7 +146,7 @@ void rdActive_DrawScene(void)
       g_dwYCurScanLine = g_dwYCurScanLine + 1;
     } while (g_dwYCurScanLine <= g_dwYMaxEdge);
   }
-  rdCanvas_FlushSpans();
+  rdActive_FlushSpans();
   return;
 }
 
@@ -202,7 +206,7 @@ void rdActive_BuildSpans(void)
             iVar10 = (int)(uVar9 - piVar17[0x7d]) >> 0x10;
             if (0 < iVar10) {
               if (0x7ff < g_dwNumActiveSpans) {
-                rdCanvas_FlushSpans();
+                rdActive_FlushSpans();
               }
               iVar3 = piVar17[0x7b];
               iVar4 = piVar17[0x7c];
@@ -362,7 +366,7 @@ LAB_00404f44:
               iVar10 = (int)(uVar9 - piVar17[0x7d]) >> 0x10;
               if (0 < iVar10) {
                 if (0x7ff < g_dwNumActiveSpans) {
-                  rdCanvas_FlushSpans();
+                  rdActive_FlushSpans();
                 }
                 iVar3 = piVar17[0x7b];
                 iVar1 = g_dwNumActiveSpans * 0x2c;
@@ -519,10 +523,12 @@ LAB_004055a9:
 #endif
 
 
-/* ---- 0x004055d0  rdCanvas_FlushSpans ---- */
-/* Calls each polygon's span-draw callback for its accumulated spans and resets the span buffer */
+/* ---- 0x004055d0  rdActive_FlushSpans ---- */
+/* Calls each polygon's span-draw callback for its accumulated spans and resets the span buffer
+   Original name rdActive_FlushSpans (the remaster's GrimFandango (Linux): the only unpaired user of
+   numActiveFaces / numActiveSpans on both sides, same body); was rdCanvas_FlushSpans. */
 
-void rdCanvas_FlushSpans(void)
+void rdActive_FlushSpans(void)
 
 {
   uint *puVar1;
@@ -666,8 +672,8 @@ undefined4 rdActive_AddActiveFace(byte *param_1)
     return 0;
   }
   local_4 = *(float *)(param_1 + 8);
-  if (g_nRdroidGeometryMode <= PUN(int,(float)local_4)) {
-    local_4 = PUN(float,g_nRdroidGeometryMode);
+  if (g_nRdroid_curGeometryMode <= PUN(int,(float)local_4)) {
+    local_4 = PUN(float,g_nRdroid_curGeometryMode);
   }
   param_1 = *(byte **)(param_1 + 0xc);
   if (g_nRdroid_curLightingMode <= (int)param_1) {
@@ -730,7 +736,7 @@ LAB_0040585d:
     if ((-1 < (int)param_1) && ((int)param_1 < 5)) {
       if ((*pbVar5 & 1) == 0) {
         if (g_nRdroid_curZBufferMethod == 1) {
-          rdRaster_Select_Flat(puVar2,pbVar9);
+          rdAFRaster_SetupNGonLW(puVar2,pbVar9);
         }
       }
       else {
@@ -743,7 +749,7 @@ LAB_0040585d:
     case 0x0:
       if ((*pbVar5 & 1) == 0) {
         if (g_nRdroid_curZBufferMethod == 1) {
-          rdRaster_Select_Flat_2(puVar2,pbVar9);
+          rdAFRaster_SetupNGonLS(puVar2,pbVar9);
         }
       }
       else {
@@ -775,7 +781,7 @@ LAB_0040585d:
       *(float *)(pbVar5 + 0x44) = fVar6;
       if ((*pbVar5 & 1) == 0) {
         if (g_nRdroid_curZBufferMethod == 1) {
-          rdRaster_Select_TexLit(puVar2,pbVar9,fVar6);
+          rdAFRaster_SetupNGonFS(puVar2,pbVar9,fVar6);
         }
       }
       else {
@@ -808,7 +814,7 @@ LAB_0040585d:
       *(float *)(pbVar5 + 0x44) = fVar6;
       if ((*pbVar5 & 1) == 0) {
         if (g_nRdroid_curZBufferMethod == 1) {
-          rdRaster_Select_TexLit(puVar2,pbVar9,fVar6);
+          rdAFRaster_SetupNGonFS(puVar2,pbVar9,fVar6);
         }
       }
       else {
@@ -848,7 +854,7 @@ LAB_0040585d:
       }
       if ((*pbVar5 & 1) == 0) {
         if (g_nRdroid_curZBufferMethod == 1) {
-          rdRaster_Select_FlatLit(puVar2,pbVar9);
+          rdAFRaster_SetupNGonGS(puVar2,pbVar9);
         }
       }
       else {
@@ -863,7 +869,7 @@ LAB_0040585d:
         case 0x0:
           if ((*pbVar5 & 1) == 0) {
             if (g_nRdroid_curZBufferMethod == 1) {
-              rdRaster_Select_FlatLit_2(puVar2,pbVar9);
+              rdAFRaster_SetupNGonLAT(puVar2,pbVar9);
             }
           }
           else {
@@ -895,7 +901,7 @@ LAB_0040585d:
           *(float *)(pbVar5 + 0x44) = fVar6;
           if ((*pbVar5 & 1) == 0) {
             if (g_nRdroid_curZBufferMethod == 1) {
-              rdRaster_Select_FlatLit_4(puVar2,pbVar9,fVar6);
+              rdAFRaster_SetupNGonFAT(puVar2,pbVar9,fVar6);
             }
           }
           else {
@@ -928,7 +934,7 @@ LAB_0040585d:
           *(float *)(pbVar5 + 0x44) = fVar6;
           if ((*pbVar5 & 1) == 0) {
             if (g_nRdroid_curZBufferMethod == 1) {
-              rdRaster_Select_FlatLit_4(puVar2,pbVar9,fVar6);
+              rdAFRaster_SetupNGonFAT(puVar2,pbVar9,fVar6);
             }
           }
           else {
@@ -968,7 +974,7 @@ LAB_0040585d:
           }
           if ((*pbVar5 & 1) == 0) {
             if (g_nRdroid_curZBufferMethod == 1) {
-              rdRaster_Select_FlatLit_6(puVar2,pbVar9);
+              rdAFRaster_SetupNGonGAT(puVar2,pbVar9);
             }
           }
           else {
@@ -981,7 +987,7 @@ LAB_0040585d:
         case 0x0:
           if ((*pbVar5 & 1) == 0) {
             if (g_nRdroid_curZBufferMethod == 1) {
-              rdRaster_Select_FlatLit_8(puVar2,pbVar9);
+              rdAFRaster_SetupNGonLIT(puVar2,pbVar9);
             }
           }
           else {
@@ -1013,7 +1019,7 @@ LAB_0040585d:
           *(float *)(pbVar5 + 0x44) = fVar6;
           if ((*pbVar5 & 1) == 0) {
             if (g_nRdroid_curZBufferMethod == 1) {
-              rdRaster_Select_FlatLit_10(puVar2,pbVar9,fVar6);
+              rdAFRaster_SetupNGonFIT(puVar2,pbVar9,fVar6);
             }
           }
           else {
@@ -1046,7 +1052,7 @@ LAB_0040585d:
           *(float *)(pbVar5 + 0x44) = fVar6;
           if ((*pbVar5 & 1) == 0) {
             if (g_nRdroid_curZBufferMethod == 1) {
-              rdRaster_Select_FlatLit_10(puVar2,pbVar9,fVar6);
+              rdAFRaster_SetupNGonFIT(puVar2,pbVar9,fVar6);
             }
           }
           else {
@@ -1086,7 +1092,7 @@ LAB_0040585d:
           }
           if ((*pbVar5 & 1) == 0) {
             if (g_nRdroid_curZBufferMethod == 1) {
-              rdRaster_Select_FlatLit_12(puVar2,pbVar9);
+              rdAFRaster_SetupNGonGIT(puVar2,pbVar9);
             }
           }
           else {
@@ -1100,7 +1106,7 @@ LAB_0040585d:
       case 0x0:
         if ((*pbVar5 & 1) == 0) {
           if (g_nRdroid_curZBufferMethod == 1) {
-            rdRaster_Select_FlatLit_3(puVar2,pbVar9);
+            rdAFRaster_SetupNGonMLAT(puVar2,pbVar9);
           }
         }
         else {
@@ -1132,7 +1138,7 @@ LAB_0040585d:
         *(float *)(pbVar5 + 0x44) = fVar6;
         if ((*pbVar5 & 1) == 0) {
           if (g_nRdroid_curZBufferMethod == 1) {
-            rdRaster_Select_FlatLit_5(puVar2,pbVar9,fVar6);
+            rdAFRaster_SetupNGonMFAT(puVar2,pbVar9,fVar6);
           }
         }
         else {
@@ -1165,7 +1171,7 @@ LAB_0040585d:
         *(float *)(pbVar5 + 0x44) = fVar6;
         if ((*pbVar5 & 1) == 0) {
           if (g_nRdroid_curZBufferMethod == 1) {
-            rdRaster_Select_FlatLit_5(puVar2,pbVar9,fVar6);
+            rdAFRaster_SetupNGonMFAT(puVar2,pbVar9,fVar6);
           }
         }
         else {
@@ -1205,7 +1211,7 @@ LAB_0040585d:
         }
         if ((*pbVar5 & 1) == 0) {
           if (g_nRdroid_curZBufferMethod == 1) {
-            rdRaster_Select_FlatLit_7(puVar2,pbVar9);
+            rdAFRaster_SetupNGonMGAT(puVar2,pbVar9);
           }
         }
         else {
@@ -1218,7 +1224,7 @@ LAB_0040585d:
       case 0x0:
         if ((*pbVar5 & 1) == 0) {
           if (g_nRdroid_curZBufferMethod == 1) {
-            rdRaster_Select_FlatLit_9(puVar2,pbVar9);
+            rdAFRaster_SetupNGonMLIT(puVar2,pbVar9);
           }
         }
         else {
@@ -1250,7 +1256,7 @@ LAB_0040585d:
         *(float *)(pbVar5 + 0x44) = fVar6;
         if ((*pbVar5 & 1) == 0) {
           if (g_nRdroid_curZBufferMethod == 1) {
-            rdRaster_Select_FlatLit_11(puVar2,pbVar9,fVar6);
+            rdAFRaster_SetupNGonMFIT(puVar2,pbVar9,fVar6);
           }
         }
         else {
@@ -1283,7 +1289,7 @@ LAB_0040585d:
         *(float *)(pbVar5 + 0x44) = fVar6;
         if ((*pbVar5 & 1) == 0) {
           if (g_nRdroid_curZBufferMethod == 1) {
-            rdRaster_Select_FlatLit_11(puVar2,pbVar9,fVar6);
+            rdAFRaster_SetupNGonMFIT(puVar2,pbVar9,fVar6);
           }
         }
         else {
@@ -1323,7 +1329,7 @@ LAB_0040585d:
         }
         if ((*pbVar5 & 1) == 0) {
           if (g_nRdroid_curZBufferMethod == 1) {
-            rdRaster_Select_FlatLit_13(puVar2,pbVar9);
+            rdAFRaster_SetupNGonMGIT(puVar2,pbVar9);
           }
         }
         else {
@@ -1332,7 +1338,7 @@ LAB_0040585d:
       }
     }
   }
-  UINT_005e6f98 = UINT_005e6f98 + 1;
+  g_dwRdActive_drawnFaces = g_dwRdActive_drawnFaces + 1;
   g_dwNumActiveFaces = g_dwNumActiveFaces + 1;
   return 1;
 }

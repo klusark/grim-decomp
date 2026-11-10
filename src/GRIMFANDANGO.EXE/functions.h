@@ -20,25 +20,25 @@ undefined * __stdcall Win_KernelWndProc(int a1,int a2,int a3,int a4); /* 0x004ac
 int __cdecl Win_IsFocusWithin(void *hwnd); /* 0x004bff70 */
 
 /* ===== debuglog.c ===== */
-void __cdecl DebugLog_Init(int enable); /* 0x00401040 */
+void __cdecl grimdemo_EnableDebugging(int enable); /* 0x00401040 */
 undefined4 DebugLog_Load(void); /* 0x004020a0 */
-char * DebugLog_Printf2(char *param_1); /* 0x00402330 */
-char * DebugLog_Printf(char *param_1); /* 0x004023a0 */
-char * DebugLog_Error(char *param_1); /* 0x00402410 */
-char * DebugLog_Warning(char *param_1); /* 0x00402480 */
-char * DebugLog_Debug(char *param_1); /* 0x004024f0 */
+char * grimdemo_MessagePrint(char *param_1); /* 0x00402330 */
+char * grimdemo_StatusPrint(char *param_1); /* 0x004023a0 */
+char * grimdemo_ErrorPrint(char *param_1); /* 0x00402410 */
+char * grimdemo_WarningPrint(char *param_1); /* 0x00402480 */
+char * grimdemo_DebugPrint(char *param_1); /* 0x004024f0 */
 void DebugLog_Write(char *param_1,undefined4 param_2); /* 0x00402560 */
 
 /* ===== grim.c ===== */
 int __cdecl Grim_FindDataOnDrives(char *subdir); /* 0x00401140 */
-undefined4 Grim_Init(char *param_1); /* 0x004012b0 */
+undefined4 Main_Startup(char *param_1); /* 0x004012b0 */
 void __cdecl Grim_DecodeRegKeyName(char *s); /* 0x00401640 */
 int Grim_FatalMessageBox(int param_1,int param_2,int param_3,int param_4); /* 0x004018b0 */
 void Grim_ShutdownDisplay(void); /* 0x00401900 */
 void Grim_Shutdown(void); /* 0x00401950 */
 void Grim_EnumDisplayModes(void); /* 0x00401a50 */
 void grimdemo_PleaseShutdown(void); /* 0x00402050 */
-undefined4 Grim_OnDisplayModeChange(void *param_1,int param_2); /* 0x00402060 */
+undefined4 grimdemo_SetPalette(void *param_1,int param_2); /* 0x00402060 */
 int __cdecl Grim_ParseCommandLine(char *cmdline); /* 0x00402c80 */
 void Grim_OpenRegistry(void); /* 0x004034b0 */
 void Grim_ShowSplash(void); /* 0x00403520 */
@@ -160,8 +160,8 @@ void sputLua_TurnActorL(void); /* 0x0049c180 */
 void sputLua_GetActorSectorL(void); /* 0x0049c200 */
 void sputLua_IsActorInSector(void); /* 0x0049c2c0 */
 void sputLua_IsPointInSector(void); /* 0x0049c4c0 */
-int Lua_RunSystemScript(void); /* 0x0049c5e0 */
-int __cdecl Lua_CallSystemFunction(int flag,char *str); /* 0x0049c600 */
+int sputLua_FindSystemFiles(void); /* 0x0049c5e0 */
+int __cdecl sputLua_Boot(int flag,char *str); /* 0x0049c600 */
 void __cdecl sputLua_CameraChange(int fromSetup,int toSetup); /* 0x0049c660 */
 void __cdecl sputLua_PostCameraChange(int setup); /* 0x0049c6e0 */
 void sputLua_RegisterFunctions(int *param_1,int param_2); /* 0x0049ca60 */
@@ -205,7 +205,7 @@ void Lua_CreateControlsTable(uint param_1); /* 0x0049e460 */
 void sputLua_SetSoundPosition(void); /* 0x0049e590 */
 void sputLua_StartFullScreenMovieL(void); /* 0x0049e7e0 */
 void sputLua_PauseMovieL(void); /* 0x0049e860 */
-void Lua_IsMoviePlaying(void); /* 0x0049e960 */
+void sputLua_IsMoviePlayingL(void); /* 0x0049e960 */
 void __fastcall sputLua_FileFindFirst(char *param_1); /* 0x0049e980 */
 void sputLua_FileFindNext(void); /* 0x0049ea20 */
 void sputLua_FileFindDispose(void); /* 0x0049ea90 */
@@ -353,7 +353,7 @@ int __cdecl Display_OpenMode(uint modeIdx,void *palette,int use3D); /* 0x0047414
 void Display_CloseMode(void); /* 0x00474310 */
 void Display_SuspendForDialog(void); /* 0x00474380 */
 void Display_ResumeAfterDialog(void); /* 0x004743d0 */
-int Display_Flip(void); /* 0x00474420 */
+int stdDisplay_Update(void); /* 0x00474420 */
 void * __cdecl stdDisplay_VBufferNew(void *info,int videoMem,int b,int c); /* 0x00474480 */
 void __cdecl stdDisplay_VBufferFree(void *surface); /* 0x004746d0 */
 void __cdecl Surface_Release(void *surface); /* 0x004746f0 */
@@ -365,8 +365,8 @@ int __cdecl stdDisplay_VBufferSetColorKey(void *surface,int color); /* 0x00474ae
 void __cdecl stdDisplay_VBufferDeCompress(void *surface); /* 0x00474b30 */
 int __cdecl stdDisplay_VBufferDeCompressTo(void *src,void *dst); /* 0x00474ba0 */
 void * stdDisplay_VBufferConvertColorFormat(int *param_1,void *param_2); /* 0x00474be0 */
-int Display_SetDIBPalette(undefined4 param_1); /* 0x00474d10 */
-void __cdecl Display_SetPalette(void *palette); /* 0x00474d90 */
+int stdDisplay_SetPalette(undefined4 param_1); /* 0x00474d10 */
+void __cdecl stdDisplay_SetMasterPalette(void *palette); /* 0x00474d90 */
 int __cdecl Palette_ApplyGamma(void *dst,void *src,int count,int gammaIdx); /* 0x00474dd0 */
 int __cdecl stdDisplay_TextOut(char *text,int x,int y); /* 0x00474e40 */
 uint Display_FindClosestDevice(uint *param_1); /* 0x00475000 */
@@ -418,11 +418,11 @@ void __cdecl Svc_Fprintf(void *fp,char *fmt,...); /* 0x00403830 */
 void * __cdecl Svc_Malloc(uint size); /* 0x00403850 */
 void __cdecl Svc_Free(void *p); /* 0x00403860 */
 undefined4 Svc_Identity(undefined4 param_1); /* 0x00403870 */
-void __cdecl Services_InitDefaults(GrimServices *svc); /* 0x00403880 */
-void __cdecl Services_SetCurrent(GrimServices *svc); /* 0x004733a0 */
+void __cdecl HostServicesInitialize(GrimServices *svc); /* 0x00403880 */
+void __cdecl stdStartup(GrimServices *svc); /* 0x004733a0 */
 void Services_Clear(void); /* 0x00473400 */
-void Services_InitPlatform(GrimServices *param_1); /* 0x00473420 */
-undefined4 __cdecl Svc_DebugPrintf(char *fmt,...); /* 0x00478000 */
+void stdInitServices(GrimServices *param_1); /* 0x00473420 */
+undefined4 __cdecl stdPlatform_Printf(char *fmt,...); /* 0x00478000 */
 void __cdecl Services_InitPlatformTable(GrimServices *svc); /* 0x00478080 */
 
 /* ===== reg.c ===== */
@@ -449,7 +449,7 @@ char * __cdecl Str_ToLower(char *s); /* 0x0047b5c0 */
 char * __cdecl stdFnames_FindMedName(char *path); /* 0x0047fd20 */
 char * __cdecl stdFnames_FindExt(char *path); /* 0x0047fd50 */
 void Str_StripExtension(char *param_1); /* 0x0047fda0 */
-void __cdecl Str_CopyBasenameNoExt(char *dst,int size,char *path); /* 0x0047fdc0 */
+void __cdecl stdFnames_CopyShortName(char *dst,int size,char *path); /* 0x0047fdc0 */
 undefined * __cdecl Str_FindChar(char *param_1,int param_2); /* 0x004838c0 */
 uint * String_ContainsSubstring(uint *param_1,char *param_2); /* 0x004aef70 */
 byte * __cdecl FindMatch(char *str,char *pattern); /* 0x004c1c30 */
@@ -459,10 +459,10 @@ int Str_CompareNoCase(char *param_1,char *param_2); /* 0x004c1e90 */
 int Str_CompareNoCaseN(char *param_1,char *param_2,int param_3); /* 0x004c1ee0 */
 
 /* ===== rdroid.c ===== */
-int __cdecl rdroid_Startup(GrimServices *svc); /* 0x00404180 */
+int __cdecl rdStartup(GrimServices *svc); /* 0x00404180 */
 void rdroid_Shutdown(void); /* 0x004041c0 */
-int __cdecl rdroid_Open(int flags); /* 0x004041e0 */
-void rdroid_Close(void); /* 0x00404270 */
+int __cdecl rdOpen(int flags); /* 0x004041e0 */
+void rdClose(void); /* 0x00404270 */
 void rdroid_SetRenderFlags(uint param_1); /* 0x00404290 */
 void rdroid_SetGeometryMode(int param_1); /* 0x004042a0 */
 void rdroid_SetLightingMode(int param_1); /* 0x004042b0 */
@@ -470,11 +470,11 @@ void rdroid_SetTextureMode(int param_1); /* 0x004042c0 */
 void rdroid_SetSortMode(int param_1); /* 0x004042d0 */
 void rdroid_SetOcclusionMode(int param_1); /* 0x004042e0 */
 void rdroid_SetZBufferMode(int param_1); /* 0x004042f0 */
-void rdroid_BeginFrame(void); /* 0x00404300 */
+void rdAdvanceFrame(void); /* 0x00404300 */
 void rdroid_EndFrame(void); /* 0x00404320 */
-void rdroid_InitCaches(void); /* 0x00404330 */
+void rdClearPreStatistics(void); /* 0x00404330 */
 undefined4 rdroid_SetColormap(uint param_1); /* 0x00404350 */
-void rdroid_BuildMathTables(void); /* 0x00404b80 */
+void rdRaster_Startup(void); /* 0x00404b80 */
 
 /* ===== rdcolormap.c ===== */
 undefined4 rdColormap_SetCurrent(uint param_1); /* 0x00404380 */
@@ -488,10 +488,10 @@ int FUN_00404b30(int param_1); /* 0x00404b30 */
 
 /* ===== rdcanvas.c ===== */
 void rdActive_AdvanceFrame(void); /* 0x00404c00 */
-void rdCanvas_ResetPolyCount(void); /* 0x00404ca0 */
+void rdActive_ClearFrameCounters(void); /* 0x00404ca0 */
 void rdActive_DrawScene(void); /* 0x00404cb0 */
 void rdActive_BuildSpans(void); /* 0x00404e00 */
-void rdCanvas_FlushSpans(void); /* 0x004055d0 */
+void rdActive_FlushSpans(void); /* 0x004055d0 */
 void rdActive_BuildEdges(void); /* 0x00405620 */
 undefined4 rdActive_AddActiveFace(byte *param_1); /* 0x00405770 */
 void __cdecl rdCanvas_DrawLine(void *canvas,int x0,int y0,int x1,int y1,ushort color,uint pattern); /* 0x00451950 */
@@ -501,7 +501,7 @@ int __cdecl rdCanvas_Init(uint *canvas,uint flags,uint surface,uint zSurface,uin
 void rdCanvas_Free(int param_1); /* 0x004c0610 */
 
 /* ===== rdcache.c ===== */
-void rdCache_BeginScene3D(void); /* 0x00406650 */
+void rdCache_AdvanceFrame(void); /* 0x00406650 */
 void rdCache_EndScene3D(void); /* 0x00406660 */
 void rdCache_Reset(void); /* 0x00406670 */
 void rdCache_ClearFrameCounters(void); /* 0x00406690 */
@@ -552,8 +552,8 @@ void rdCamera_PerspProjectSquare(float *param_1,float *param_2); /* 0x0040a6a0 *
 void rdCamera_PerspProjectSquareLst(float *param_1,float *param_2,int param_3); /* 0x0040a6e0 */
 void __cdecl rdCamera_SetAmbientLight(void *camera,float ambient); /* 0x0040a750 */
 void __cdecl rdCamera_AddLight(void *camera,void *light,float *pos); /* 0x0040a760 */
-void rdCamera_ClearCanvas(void); /* 0x0040a7d0 */
-void rdCamera_ResetStats(void); /* 0x0040a860 */
+void rdCamera_AdvanceFrame(void); /* 0x0040a7d0 */
+void rdModel3_ClearFrameCounters(void); /* 0x0040a860 */
 int __cdecl rdPrimit3_GetScreenCoord(float *world,float *outScreen); /* 0x0040dc30 */
 
 /* ===== renderer.c ===== */
@@ -613,290 +613,290 @@ int __cdecl rdThing_DrawAlt(void *thing,float *frame); /* 0x00471d80 */
 void rdThing_BuildNodeMatrix(int param_1,int param_2,float *param_3); /* 0x00471e00 */
 
 /* ===== rdraster.c ===== */
-void rdRaster_SetupPoly(float *param_1,int param_2); /* 0x0040ea50 */
-void rdRaster_SetupPolyTex(float *param_1,int param_2); /* 0x0040ef90 */
-void rdRaster_Select_Flat(float *param_1,int param_2); /* 0x0040f5f0 */
-void rdRaster_SpanFlatSetup(int *param_1); /* 0x0040f650 */
-void rdRaster_SpanOutline8(int *param_1); /* 0x0040f6d0 */
-void rdRaster_SpanOutline16(int *param_1); /* 0x0040f710 */
+void rdAFRaster_CalcAffineGradients(float *param_1,int param_2); /* 0x0040ea50 */
+void rdAFRaster_CalcPerspGradients(float *param_1,int param_2); /* 0x0040ef90 */
+void rdAFRaster_SetupNGonLW(float *param_1,int param_2); /* 0x0040f5f0 */
+void rdAFRaster_DrawNGonLW(int *param_1); /* 0x0040f650 */
+void rdAFRaster_DrawSpanNGonLW_8(int *param_1); /* 0x0040f6d0 */
+void rdAFRaster_DrawSpanNGonLW_16(int *param_1); /* 0x0040f710 */
 void rdRaster_EdgeStepFlat(int param_1); /* 0x0040f750 */
-undefined4 rdRaster_EdgeSetup_Flat(undefined4 *param_1,int *param_2,int param_3,int param_4); /* 0x0040f770 */
-void rdRaster_Select_Flat_2(float *param_1,int param_2); /* 0x0040fa20 */
-void rdRaster_SpanTexSetup(int *param_1); /* 0x0040fa80 */
-undefined4 rdRaster_EdgeSetup_Flat_2(undefined4 *param_1,int *param_2,int param_3,int param_4); /* 0x0040fbe0 */
-void rdRaster_Select_TexLit(float *param_1,int param_2,float param_3); /* 0x0040fe90 */
-void rdRaster_SpanLitSetup(int param_1); /* 0x0040ff20 */
-undefined4 rdRaster_EdgeSetup_Flat_3(undefined4 *param_1,int *param_2,int param_3,int param_4); /* 0x0040ffe0 */
-void rdRaster_Select_FlatLit(float *param_1,int param_2); /* 0x00410290 */
-void FUN_00410330(int param_1); /* 0x00410330 */
+undefined4 rdAFRaster_SetupEdgeNGonLW(undefined4 *param_1,int *param_2,int param_3,int param_4); /* 0x0040f770 */
+void rdAFRaster_SetupNGonLS(float *param_1,int param_2); /* 0x0040fa20 */
+void rdAFRaster_DrawNGonLS(int *param_1); /* 0x0040fa80 */
+undefined4 rdAFRaster_SetupEdgeNGonLS(undefined4 *param_1,int *param_2,int param_3,int param_4); /* 0x0040fbe0 */
+void rdAFRaster_SetupNGonFS(float *param_1,int param_2,float param_3); /* 0x0040fe90 */
+void rdAFRaster_DrawNGonFS(int param_1); /* 0x0040ff20 */
+undefined4 rdAFRaster_SetupEdgeNGonFS(undefined4 *param_1,int *param_2,int param_3,int param_4); /* 0x0040ffe0 */
+void rdAFRaster_SetupNGonGS(float *param_1,int param_2); /* 0x00410290 */
+void rdAFRaster_DrawNGonGS(int param_1); /* 0x00410330 */
 void FUN_004104b0(int param_1); /* 0x004104b0 */
-undefined4 rdRaster_EdgeSetup_Flat_4(undefined4 *param_1,int *param_2,int param_3,int param_4); /* 0x004104e0 */
-void rdRaster_Select_FlatLit_2(int *param_1,int param_2); /* 0x004108b0 */
-void FUN_00410970(int param_1); /* 0x00410970 */
-undefined4 rdRaster_EdgeSetup_Flat_5(undefined4 *param_1,int *param_2,int param_3,int param_4); /* 0x00410d80 */
-void rdRaster_Select_FlatLit_3(int *param_1,int param_2); /* 0x00411270 */
-void FUN_00411330(int param_1); /* 0x00411330 */
-void rdRaster_SpanR8_TexKey(int *param_1); /* 0x004113e0 */
-void rdRaster_SpanR16_TexKey(int *param_1); /* 0x004114f0 */
-void rdRaster_Select_FlatLit_4(int *param_1,int param_2,float param_3); /* 0x00411630 */
-void FUN_00411740(int param_1); /* 0x00411740 */
+undefined4 rdAFRaster_SetupEdgeNGonGS(undefined4 *param_1,int *param_2,int param_3,int param_4); /* 0x004104e0 */
+void rdAFRaster_SetupNGonLAT(int *param_1,int param_2); /* 0x004108b0 */
+void rdAFRaster_DrawNGonLAT(int param_1); /* 0x00410970 */
+undefined4 rdAFRaster_SetupEdgeNGonLAT(undefined4 *param_1,int *param_2,int param_3,int param_4); /* 0x00410d80 */
+void rdAFRaster_SetupNGonMLAT(int *param_1,int param_2); /* 0x00411270 */
+void rdAFRaster_DrawNGonMLAT(int param_1); /* 0x00411330 */
+void rdAFRaster_DrawSpanNGonMLAT_8(int *param_1); /* 0x004113e0 */
+void rdAFRaster_DrawSpanNGonMLAT_16(int *param_1); /* 0x004114f0 */
+void rdAFRaster_SetupNGonFAT(int *param_1,int param_2,float param_3); /* 0x00411630 */
+void rdAFRaster_DrawNGonFAT(int param_1); /* 0x00411740 */
 void FUN_00411b70(int param_1); /* 0x00411b70 */
-undefined4 rdRaster_EdgeSetup_Flat_6(undefined4 *param_1,int *param_2,int param_3,int param_4); /* 0x00411ba0 */
-void rdRaster_Select_FlatLit_5(int *param_1,int param_2,float param_3); /* 0x00412090 */
-void FUN_004121a0(int param_1); /* 0x004121a0 */
-void rdRaster_SpanR8_TexKey_2(int *param_1); /* 0x00412280 */
-void rdRaster_SpanR16_TexKey_2(int *param_1); /* 0x004123b0 */
-void rdRaster_Select_FlatLit_6(int *param_1,int param_2); /* 0x004124f0 */
-void FUN_004125c0(int param_1); /* 0x004125c0 */
+undefined4 rdAFRaster_SetupEdgeNGonFAT(undefined4 *param_1,int *param_2,int param_3,int param_4); /* 0x00411ba0 */
+void rdAFRaster_SetupNGonMFAT(int *param_1,int param_2,float param_3); /* 0x00412090 */
+void rdAFRaster_DrawNGonMFAT(int param_1); /* 0x004121a0 */
+void rdAFRaster_DrawSpanNGonMFAT_8(int *param_1); /* 0x00412280 */
+void rdAFRaster_DrawSpanNGonMFAT_16(int *param_1); /* 0x004123b0 */
+void rdAFRaster_SetupNGonGAT(int *param_1,int param_2); /* 0x004124f0 */
+void rdAFRaster_DrawNGonGAT(int param_1); /* 0x004125c0 */
 void FUN_004129f0(int param_1); /* 0x004129f0 */
-undefined4 rdRaster_EdgeSetup_Flat_7(undefined4 *param_1,int *param_2,int param_3,int param_4); /* 0x00412a30 */
-void rdRaster_Select_FlatLit_7(int *param_1,int param_2); /* 0x00413040 */
-void FUN_00413110(int param_1); /* 0x00413110 */
-void rdRaster_SpanR8_TexKey_3(int *param_1); /* 0x004131f0 */
-void rdRaster_SpanR16_TexKey_3(int *param_1); /* 0x00413340 */
-void rdRaster_Select_FlatLit_8(int *param_1,int param_2); /* 0x004134a0 */
-void FUN_00413590(int param_1); /* 0x00413590 */
-undefined4 rdRaster_EdgeSetup_Flat_8(undefined4 *param_1,int *param_2,int param_3,int param_4); /* 0x004139f0 */
-void rdRaster_Select_FlatLit_9(int *param_1,int param_2); /* 0x00413ce0 */
-void FUN_00413dd0(int param_1); /* 0x00413dd0 */
-void rdRaster_SpanP8_TexKeyZw(uint *param_1); /* 0x00413ee0 */
-void rdRaster_SpanP16_TexKeyZw(uint *param_1); /* 0x00414530 */
-void rdRaster_Select_FlatLit_10(int *param_1,int param_2,float param_3); /* 0x00414be0 */
-void FUN_00414d20(int param_1); /* 0x00414d20 */
+undefined4 rdAFRaster_SetupEdgeNGonGAT(undefined4 *param_1,int *param_2,int param_3,int param_4); /* 0x00412a30 */
+void rdAFRaster_SetupNGonMGAT(int *param_1,int param_2); /* 0x00413040 */
+void rdAFRaster_DrawNGonMGAT(int param_1); /* 0x00413110 */
+void rdAFRaster_DrawSpanNGonMGAT_8(int *param_1); /* 0x004131f0 */
+void rdAFRaster_DrawSpanNGonMGAT_16(int *param_1); /* 0x00413340 */
+void rdAFRaster_SetupNGonLIT(int *param_1,int param_2); /* 0x004134a0 */
+void rdAFRaster_DrawNGonLIT(int param_1); /* 0x00413590 */
+undefined4 rdAFRaster_SetupEdgeNGonLIT(undefined4 *param_1,int *param_2,int param_3,int param_4); /* 0x004139f0 */
+void rdAFRaster_SetupNGonMLIT(int *param_1,int param_2); /* 0x00413ce0 */
+void rdAFRaster_DrawNGonMLIT(int param_1); /* 0x00413dd0 */
+void rdAFRaster_DrawSpanNGonMLIT_8(uint *param_1); /* 0x00413ee0 */
+void rdAFRaster_DrawSpanNGonMLIT_16(uint *param_1); /* 0x00414530 */
+void rdAFRaster_SetupNGonFIT(int *param_1,int param_2,float param_3); /* 0x00414be0 */
+void rdAFRaster_DrawNGonFIT(int param_1); /* 0x00414d20 */
 void FUN_00415180(int param_1); /* 0x00415180 */
 void FUN_004151c0(int param_1); /* 0x004151c0 */
-undefined4 rdRaster_EdgeSetup_Flat_9(undefined4 *param_1,int *param_2,int param_3,int param_4); /* 0x004151d0 */
-void rdRaster_Select_FlatLit_11(int *param_1,int param_2,float param_3); /* 0x004154c0 */
-void FUN_00415600(int param_1); /* 0x00415600 */
-void rdRaster_SpanP8_TexKeyZw_2(uint *param_1); /* 0x00415720 */
-void rdRaster_SpanP16_TexKeyZw_2(uint *param_1); /* 0x00415dc0 */
-void rdRaster_Select_FlatLit_12(int *param_1,int param_2); /* 0x00416470 */
-void FUN_00416580(int param_1); /* 0x00416580 */
-void FUN_004169f0(int param_1); /* 0x004169f0 */
-void FUN_00416a30(int param_1); /* 0x00416a30 */
-undefined4 rdRaster_EdgeSetup_Flat_10(undefined4 *param_1,int *param_2,int param_3,int param_4); /* 0x00416a50 */
-undefined4 rdRaster_Select_FlatLit_13(int *param_1,int param_2); /* 0x00416e70 */
-void FUN_00416f80(int param_1); /* 0x00416f80 */
-void rdRaster_SpanP8_TexKeyZw_3(uint *param_1); /* 0x004170a0 */
-void rdRaster_SpanP16_TexKeyZw_3(uint *param_1); /* 0x00417790 */
-void rdRaster_Grad_Flat(float param_1); /* 0x00418550 */
-void rdRaster_Grad_Flat_2(float param_1); /* 0x00418a00 */
-void rdRaster_DrawPoints(int param_1,int param_2); /* 0x00418fe0 */
-void rdRaster_DrawWireframe(int param_1,int param_2); /* 0x00419150 */
-void rdRaster_Draw16_FlatLit(int param_1,int param_2); /* 0x00419450 */
-void rdRaster_Span16_Flat(uint *param_1,uint *param_2); /* 0x004195f0 */
-undefined4 rdRaster_Edge_Flat(int *param_1); /* 0x00419680 */
-undefined4 rdRaster_Edge_Flat_2(int *param_1); /* 0x00419840 */
-void rdRaster_Draw16_TexLit(int param_1,int param_2); /* 0x00419a00 */
-void rdRaster_Span16_Tex(uint *param_1,uint *param_2); /* 0x00419be0 */
-void rdRaster_Draw16_FlatLit_2(int param_1,int param_2,float param_3); /* 0x00419ca0 */
+undefined4 rdAFRaster_SetupEdgeNGonFIT(undefined4 *param_1,int *param_2,int param_3,int param_4); /* 0x004151d0 */
+void rdAFRaster_SetupNGonMFIT(int *param_1,int param_2,float param_3); /* 0x004154c0 */
+void rdAFRaster_DrawNGonMFIT(int param_1); /* 0x00415600 */
+void rdAFRaster_DrawSpanNGonMFIT_8(uint *param_1); /* 0x00415720 */
+void rdAFRaster_DrawSpanNGonMFIT_16(uint *param_1); /* 0x00415dc0 */
+void rdAFRaster_SetupNGonGIT(int *param_1,int param_2); /* 0x00416470 */
+void rdAFRaster_DrawNGonGIT(int param_1); /* 0x00416580 */
+void rdAFRaster_AdvanceLeftEdgeNGonGIT(int param_1); /* 0x004169f0 */
+void rdAFRaster_AdvanceRightEdgeNGonGIT(int param_1); /* 0x00416a30 */
+undefined4 rdAFRaster_SetupEdgeNGonGIT(undefined4 *param_1,int *param_2,int param_3,int param_4); /* 0x00416a50 */
+undefined4 rdAFRaster_SetupNGonMGIT(int *param_1,int param_2); /* 0x00416e70 */
+void rdAFRaster_DrawNGonMGIT(int param_1); /* 0x00416f80 */
+void rdAFRaster_DrawSpanNGonMGIT_8(uint *param_1); /* 0x004170a0 */
+void rdAFRaster_DrawSpanNGonMGIT_16(uint *param_1); /* 0x00417790 */
+void rdNRaster_CalcAffineGradients(float param_1); /* 0x00418550 */
+void rdNRaster_CalcPerspGradients(float param_1); /* 0x00418a00 */
+void rdNRaster_DrawNGonLV(int param_1,int param_2); /* 0x00418fe0 */
+void rdNRaster_DrawNGonLW(int param_1,int param_2); /* 0x00419150 */
+void rdNRaster_DrawNGonLS(int param_1,int param_2); /* 0x00419450 */
+void rdNRaster_DrawScanLineNGonLS_16(uint *param_1,uint *param_2); /* 0x004195f0 */
+undefined4 rdNRaster_SetupLeftEdgeNGonLS(int *param_1); /* 0x00419680 */
+undefined4 rdNRaster_SetupRightEdgeNGonLS(int *param_1); /* 0x00419840 */
+void rdNRaster_DrawNGonTLS(int param_1,int param_2); /* 0x00419a00 */
+void rdNRaster_DrawScanLineNGonTLS_16(uint *param_1,uint *param_2); /* 0x00419be0 */
+void rdNRaster_DrawNGonFS(int param_1,int param_2,float param_3); /* 0x00419ca0 */
 void rdRaster_Span_Flat(uint *param_1,uint *param_2); /* 0x00419e60 */
-void rdRaster_Span16_Flat_2(uint *param_1,uint *param_2); /* 0x00419ee0 */
-undefined4 rdRaster_Edge_Flat_3(int *param_1); /* 0x00419f70 */
-undefined4 rdRaster_Edge_Flat_4(int *param_1); /* 0x0041a130 */
-void rdRaster_Draw16_TexLit_2(int param_1,int param_2,float param_3); /* 0x0041a2f0 */
+void rdNRaster_DrawScanLineNGonFS_16(uint *param_1,uint *param_2); /* 0x00419ee0 */
+undefined4 rdNRaster_SetupLeftEdgeNGonFS(int *param_1); /* 0x00419f70 */
+undefined4 rdNRaster_SetupRightEdgeNGonFS(int *param_1); /* 0x0041a130 */
+void rdNRaster_DrawNGonTFS(int param_1,int param_2,float param_3); /* 0x0041a2f0 */
 void rdRaster_Span_Tex(uint *param_1,uint *param_2); /* 0x0041a4f0 */
-void rdRaster_Span16_Tex_2(uint *param_1,uint *param_2); /* 0x0041a580 */
-void rdRaster_Draw_FlatLit(int param_1,int param_2); /* 0x0041a640 */
-void rdRaster_Span8_Flat(uint *param_1,uint *param_2); /* 0x0041a810 */
-void rdRaster_Span16_Flat_3(uint *param_1,uint *param_2); /* 0x0041a900 */
-undefined4 rdRaster_Edge_Flat_5(int *param_1); /* 0x0041aa10 */
-undefined4 rdRaster_Edge_Flat_6(int *param_1); /* 0x0041ac60 */
-void rdRaster_Draw16_TexLit_3(int param_1,int param_2); /* 0x0041aeb0 */
-void rdRaster_Span_Tex_2(uint *param_1,uint *param_2); /* 0x0041b0d0 */
-void rdRaster_Span16_Tex_3(uint *param_1,uint *param_2); /* 0x0041b1e0 */
-void rdRaster_Draw16_TexLit_4(int param_1,int param_2); /* 0x0041b310 */
-void rdRaster_Span_Flat_2(uint *param_1,uint *param_2); /* 0x0041b6f0 */
-void rdRaster_Span16_Tex_4(uint *param_1,uint *param_2); /* 0x0041b880 */
-undefined4 rdRaster_Edge_Flat_7(int *param_1); /* 0x0041ba30 */
-undefined4 rdRaster_Edge_Flat_8(int *param_1); /* 0x0041bd20 */
-void rdRaster_Draw16_TexLit_5(int param_1,int param_2); /* 0x0041c010 */
-void rdRaster_Span_Tex_3(uint *param_1,uint *param_2); /* 0x0041c260 */
-void rdRaster_Span16_Tex_5(uint *param_1,uint *param_2); /* 0x0041c410 */
-void rdRaster_Draw16_TexLitKey(int param_1,int param_2); /* 0x0041c5e0 */
-void rdRaster_Span_FlatKey(uint *param_1,uint *param_2); /* 0x0041c810 */
-void rdRaster_Span16_TexKey(uint *param_1,uint *param_2); /* 0x0041c9b0 */
-void rdRaster_Draw16_TexLitKey_2(int param_1,int param_2); /* 0x0041cb80 */
-void rdRaster_Span_TexKey(uint *param_1,uint *param_2); /* 0x0041cdd0 */
-void rdRaster_Span16_TexKey_2(uint *param_1,uint *param_2); /* 0x0041cf90 */
-void rdRaster_Draw_FlatLit_2(int param_1,int param_2,float param_3); /* 0x0041d180 */
-void rdRaster_Span16_Tex_6(uint *param_1,uint *param_2); /* 0x0041d560 */
-undefined4 rdRaster_Edge_Flat_9(int *param_1); /* 0x0041d710 */
-undefined4 rdRaster_Edge_Flat_10(int *param_1); /* 0x0041da00 */
-void rdRaster_Draw16_TexLit_6(int param_1,int param_2,float param_3); /* 0x0041dcf0 */
-void rdRaster_Span_Tex_4(uint *param_1,uint *param_2); /* 0x0041df60 */
-void rdRaster_Span16_Tex_7(uint *param_1,uint *param_2); /* 0x0041e120 */
-void rdRaster_Draw_TexLitKey(int param_1,int param_2,float param_3); /* 0x0041e300 */
-void rdRaster_Span8_TexKey(uint *param_1,uint *param_2); /* 0x0041e550 */
-void rdRaster_Span16_TexKey_3(uint *param_1,uint *param_2); /* 0x0041e700 */
-void rdRaster_Draw_TexLitKey_2(int param_1,int param_2,float param_3); /* 0x0041e8d0 */
-void rdRaster_Span_TexKey_2(uint *param_1,uint *param_2); /* 0x0041eb40 */
-void rdRaster_Span_TexKey_3(uint *param_1,uint *param_2); /* 0x0041ed10 */
-void rdRaster_Draw_FlatLit_3(int param_1,int param_2); /* 0x0041eef0 */
-void rdRaster_Span16_Tex_8(uint *param_1,uint *param_2); /* 0x0041f2f0 */
-undefined4 rdRaster_Edge_Flat_11(int *param_1); /* 0x0041f520 */
-undefined4 rdRaster_Edge_Flat_12(int *param_1); /* 0x0041f890 */
-void rdRaster_Draw16_TexLit_7(int param_1,int param_2); /* 0x0041fc00 */
-void rdRaster_Span_Tex_5(uint *param_1,uint *param_2); /* 0x0041fe90 */
+void rdNRaster_DrawScanLineNGonTFS_16(uint *param_1,uint *param_2); /* 0x0041a580 */
+void rdNRaster_DrawNGonGS(int param_1,int param_2); /* 0x0041a640 */
+void rdNRaster_DrawScanLineNGonGS_8(uint *param_1,uint *param_2); /* 0x0041a810 */
+void rdNRaster_DrawScanLineNGonGS_16(uint *param_1,uint *param_2); /* 0x0041a900 */
+undefined4 rdNRaster_SetupLeftEdgeNGonGS(int *param_1); /* 0x0041aa10 */
+undefined4 rdNRaster_SetupRightEdgeNGonGS(int *param_1); /* 0x0041ac60 */
+void rdNRaster_DrawNGonTGS(int param_1,int param_2); /* 0x0041aeb0 */
+void rdNRaster_DrawScanLineNGonTGS_8(uint *param_1,uint *param_2); /* 0x0041b0d0 */
+void rdNRaster_DrawScanLineNGonTGS_16(uint *param_1,uint *param_2); /* 0x0041b1e0 */
+void rdNRaster_DrawNGonLAT(int param_1,int param_2); /* 0x0041b310 */
+void rdNRaster_DrawScanLineNGonLAT_8(uint *param_1,uint *param_2); /* 0x0041b6f0 */
+void rdNRaster_DrawScanLineNGonLAT_16(uint *param_1,uint *param_2); /* 0x0041b880 */
+undefined4 rdNRaster_SetupLeftEdgeNGonLAT(int *param_1); /* 0x0041ba30 */
+undefined4 rdNRaster_SetupRightEdgeNGonLAT(int *param_1); /* 0x0041bd20 */
+void rdNRaster_DrawNGonTLAT(int param_1,int param_2); /* 0x0041c010 */
+void rdNRaster_DrawScanLineNGonTLAT_8(uint *param_1,uint *param_2); /* 0x0041c260 */
+void rdNRaster_DrawScanLineNGonTLAT_16(uint *param_1,uint *param_2); /* 0x0041c410 */
+void rdNRaster_DrawNGonMLAT(int param_1,int param_2); /* 0x0041c5e0 */
+void rdNRaster_DrawScanLineNGonMLAT_8(uint *param_1,uint *param_2); /* 0x0041c810 */
+void rdNRaster_DrawScanLineNGonMLAT_16(uint *param_1,uint *param_2); /* 0x0041c9b0 */
+void rdNRaster_DrawNGonMTLAT(int param_1,int param_2); /* 0x0041cb80 */
+void rdNRaster_DrawScanLineNGonMTLAT_8(uint *param_1,uint *param_2); /* 0x0041cdd0 */
+void rdNRaster_DrawScanLineNGonMTLAT_16(uint *param_1,uint *param_2); /* 0x0041cf90 */
+void rdNRaster_DrawNGonFAT(int param_1,int param_2,float param_3); /* 0x0041d180 */
+void rdNRaster_DrawScanLineNGonFAT_16(uint *param_1,uint *param_2); /* 0x0041d560 */
+undefined4 rdNRaster_SetupLeftEdgeNGonFAT(int *param_1); /* 0x0041d710 */
+undefined4 rdNRaster_SetupRightEdgeNGonFAT(int *param_1); /* 0x0041da00 */
+void rdNRaster_DrawNGonTFAT(int param_1,int param_2,float param_3); /* 0x0041dcf0 */
+void rdNRaster_DrawScanLineNGonTFAT_8(uint *param_1,uint *param_2); /* 0x0041df60 */
+void rdNRaster_DrawScanLineNGonTFAT_16(uint *param_1,uint *param_2); /* 0x0041e120 */
+void rdNRaster_DrawNGonMFAT(int param_1,int param_2,float param_3); /* 0x0041e300 */
+void rdNRaster_DrawScanLineNGonMFAT_8(uint *param_1,uint *param_2); /* 0x0041e550 */
+void rdNRaster_DrawScanLineNGonMFAT_16(uint *param_1,uint *param_2); /* 0x0041e700 */
+void rdNRaster_DrawNGonMTFAT(int param_1,int param_2,float param_3); /* 0x0041e8d0 */
+void rdNRaster_DrawScanLineNGonMTFAT_8(uint *param_1,uint *param_2); /* 0x0041eb40 */
+void rdNRaster_DrawScanLineNGonMTFAT_16(uint *param_1,uint *param_2); /* 0x0041ed10 */
+void rdNRaster_DrawNGonGAT(int param_1,int param_2); /* 0x0041eef0 */
+void rdNRaster_DrawScanLineNGonGAT_16(uint *param_1,uint *param_2); /* 0x0041f2f0 */
+undefined4 rdNRaster_SetupLeftEdgeNGonGAT(int *param_1); /* 0x0041f520 */
+undefined4 rdNRaster_SetupRightEdgeNGonGAT(int *param_1); /* 0x0041f890 */
+void rdNRaster_DrawNGonTGAT(int param_1,int param_2); /* 0x0041fc00 */
+void rdNRaster_DrawScanLineNGonTGAT_8(uint *param_1,uint *param_2); /* 0x0041fe90 */
 void __fastcall FUN_0042003c(int param_1,int param_2); /* 0x0042003c */
-void rdRaster_Span16_Tex_9(uint *param_1,uint *param_2); /* 0x004200c0 */
-void rdRaster_Draw_TexLitKey_3(int param_1,int param_2); /* 0x00420310 */
-void rdRaster_Span8_TexKey_2(uint *param_1,uint *param_2); /* 0x00420580 */
-void rdRaster_Span16_TexKey_4(uint *param_1,uint *param_2); /* 0x004207b0 */
-void rdRaster_Draw16_TexLitKey_3(int param_1,int param_2); /* 0x004209f0 */
-void rdRaster_Span_TexKey_4(uint *param_1,uint *param_2); /* 0x00420c80 */
-void rdRaster_Span16_TexKey_5(uint *param_1,uint *param_2); /* 0x00420ec0 */
-void rdRaster_Draw_FlatLit_4(int param_1,int param_2); /* 0x00421120 */
-void rdRaster_Span16_Tex_10(uint *param_1,uint *param_2); /* 0x00421510 */
-undefined4 rdRaster_Edge_Flat_13(int *param_1); /* 0x00421b60 */
-undefined4 rdRaster_Edge_Flat_14(int *param_1); /* 0x00421dc0 */
-void rdRaster_Draw16_TexLit_8(int param_1,int param_2); /* 0x00421f80 */
-void rdRaster_Span_Tex_6(uint *param_1,uint *param_2); /* 0x004221f0 */
-void rdRaster_Span16_Tex_11(uint *param_1,uint *param_2); /* 0x00422820 */
-void rdRaster_Draw16_TexLitKey_4(int param_1,int param_2); /* 0x00422f00 */
-void rdRaster_Span_FlatKey_2(uint *param_1,uint *param_2); /* 0x00423150 */
-void rdRaster_Span16_TexKey_6(uint *param_1,uint *param_2); /* 0x00423740 */
-void rdRaster_Draw16_TexLitKey_5(int param_1,int param_2); /* 0x00423db0 */
-void rdRaster_Span_TexKey_5(uint *param_1,uint *param_2); /* 0x00424020 */
-void rdRaster_Span16_TexKey_7(uint *param_1,uint *param_2); /* 0x00424670 */
-void rdRaster_Draw_FlatLit_5(int param_1,int param_2,float param_3); /* 0x00424d50 */
-void rdRaster_Span16_Tex_12(uint *param_1,uint *param_2); /* 0x00425150 */
-undefined4 rdRaster_Edge_Flat_15(int *param_1); /* 0x004257a0 */
-undefined4 rdRaster_Edge_Flat_16(int *param_1); /* 0x00425a00 */
-void rdRaster_Draw16_TexLit_9(int param_1,int param_2,float param_3); /* 0x00425bc0 */
-void rdRaster_Span_Tex_7(uint *param_1,uint *param_2); /* 0x00425e50 */
-void rdRaster_Span16_Tex_13(uint *param_1,uint *param_2); /* 0x004264a0 */
-void rdRaster_Draw_TexLitKey_4(int param_1,int param_2,float param_3); /* 0x00426bc0 */
-void rdRaster_Span8_TexKey_3(uint *param_1,uint *param_2); /* 0x00426e30 */
-void rdRaster_Span16_TexKey_8(uint *param_1,uint *param_2); /* 0x00427470 */
-void rdRaster_Draw16_TexLitKey_6(int param_1,int param_2,float param_3); /* 0x00427ae0 */
-void rdRaster_Span_TexKey_6(uint *param_1,uint *param_2); /* 0x00427d70 */
-void rdRaster_Span16_TexKey_9(uint *param_1,uint *param_2); /* 0x004283f0 */
-void rdRaster_Draw_FlatLit_6(int param_1,int param_2); /* 0x00428ae0 */
-void rdRaster_Span16_Tex_14(uint *param_1,uint *param_2); /* 0x00428f00 */
-undefined4 rdRaster_Edge_Flat_17(int *param_1); /* 0x00429870 */
-undefined4 rdRaster_Edge_Flat_18(int *param_1); /* 0x00429b70 */
-void rdRaster_Draw16_TexLit_10(int param_1,int param_2); /* 0x00429dc0 */
-void rdRaster_Span_Tex_8(uint *param_1,uint *param_2); /* 0x0042a070 */
-void rdRaster_Span16_Tex_15(uint *param_1,uint *param_2); /* 0x0042a790 */
-void rdRaster_Draw_TexLitKey_5(int param_1,int param_2); /* 0x0042af60 */
-void rdRaster_Span8_TexKey_4(uint *param_1,uint *param_2); /* 0x0042b1f0 */
-void rdRaster_Span16_TexKey_10(uint *param_1,uint *param_2); /* 0x0042b8e0 */
-void rdRaster_Draw16_TexLitKey_7(int param_1,int param_2); /* 0x0042c010 */
-void rdRaster_Span_TexKey_7(uint *param_1,uint *param_2); /* 0x0042c2c0 */
-void rdRaster_Span16_TexKey_11(uint *param_1,uint *param_2); /* 0x0042c9f0 */
-void rdRaster_Grad_Flat_3(float param_1); /* 0x0042d190 */
-void rdRaster_Grad_Flat_4(float param_1); /* 0x0042d5f0 */
-void rdRaster_DrawPointsZ(int param_1,int param_2); /* 0x0042dba0 */
-void rdRaster_DrawWireframeZ(int param_1,int param_2); /* 0x0042dd10 */
-void rdRaster_Draw_FlatLitZ(int param_1,int param_2); /* 0x0042e010 */
-void rdRaster_Span8_FlatZ(uint *param_1,uint *param_2); /* 0x0042e200 */
-void rdRaster_Span16_FlatZ(uint *param_1,uint *param_2); /* 0x0042e320 */
-undefined4 rdRaster_SpanR_Flat(int *param_1); /* 0x0042e440 */
-undefined4 rdRaster_SpanR_Flat_2(int *param_1); /* 0x0042e630 */
-void rdRaster_Draw_TexLitZ(int param_1,int param_2); /* 0x0042e820 */
-void rdRaster_Span8_TexLitZ(uint *param_1,uint *param_2); /* 0x0042ea50 */
-void rdRaster_Span16_TexLitZ(uint *param_1,uint *param_2); /* 0x0042eb90 */
-void rdRaster_Draw_FlatLitZ_2(int param_1,int param_2,float param_3); /* 0x0042ecf0 */
-void rdRaster_Span8_FlatZ_2(uint *param_1,uint *param_2); /* 0x0042ef00 */
-void rdRaster_Span16_FlatZ_2(uint *param_1,uint *param_2); /* 0x0042f020 */
-undefined4 rdRaster_SpanR_Flat_3(int *param_1); /* 0x0042f140 */
-undefined4 rdRaster_SpanR_Flat_4(int *param_1); /* 0x0042f330 */
-void rdRaster_Draw_TexLitZ_2(int param_1,int param_2,float param_3); /* 0x0042f520 */
-void rdRaster_Span8_TexLitZ_2(uint *param_1,uint *param_2); /* 0x0042f770 */
-void rdRaster_Span16_TexLitZ_2(uint *param_1,uint *param_2); /* 0x0042f8b0 */
-void rdRaster_Draw_FlatLitZ_3(int param_1,int param_2); /* 0x0042fa10 */
-void rdRaster_Span8_FlatZ_3(uint *param_1,uint *param_2); /* 0x0042fc30 */
-void rdRaster_Span16_FlatZ_3(uint *param_1,uint *param_2); /* 0x0042fdc0 */
-undefined4 rdRaster_SpanR_Flat_5(int *param_1); /* 0x0042ff50 */
-undefined4 rdRaster_SpanR_Flat_6(int *param_1); /* 0x004301d0 */
-void rdRaster_Draw_TexLitZ_3(int param_1,int param_2); /* 0x00430450 */
-void rdRaster_Span8_TexZ(uint *param_1,uint *param_2); /* 0x004306c0 */
-void rdRaster_Span16_TexZ(uint *param_1,uint *param_2); /* 0x00430860 */
-void rdRaster_Draw_FlatLit_7(int param_1,int param_2); /* 0x00430a20 */
-void rdRaster_Span_FlatZ(uint *param_1,uint *param_2); /* 0x00430fd0 */
-void rdRaster_Span16_TexLit(uint *param_1,uint *param_2); /* 0x004311d0 */
-undefined4 rdRaster_SpanR_Flat_7(int *param_1); /* 0x00431400 */
-undefined4 rdRaster_SpanR_Flat_8(int *param_1); /* 0x00431710 */
-void rdRaster_Draw_TexLitZ_4(int param_1,int param_2); /* 0x00431a20 */
-void rdRaster_Span8_TexLitZ_3(uint *param_1,uint *param_2); /* 0x00431c90 */
-void rdRaster_Span16_TexLit_2(uint *param_1,uint *param_2); /* 0x00431eb0 */
-void rdRaster_Draw_TexLitKeyZw(int param_1,int param_2); /* 0x00432100 */
-void rdRaster_Span8_FlatKeyZw(uint *param_1,uint *param_2); /* 0x00432350 */
-void rdRaster_Span16_TexLitKey(uint *param_1,uint *param_2); /* 0x00432560 */
-void rdRaster_Draw_TexLitKeyZw_2(int param_1,int param_2); /* 0x004327a0 */
-void rdRaster_Span8_TexLitKeyZw(uint *param_1,uint *param_2); /* 0x00432a10 */
-void rdRaster_Span16_TexLitKey_2(uint *param_1,uint *param_2); /* 0x00432c40 */
-void rdRaster_Draw_FlatLit_8(int param_1,int param_2,float param_3); /* 0x00432ea0 */
-void rdRaster_Span_TexLitZ(uint *param_1,uint *param_2); /* 0x00433480 */
-void rdRaster_Span16_TexLit_3(uint *param_1,uint *param_2); /* 0x004336a0 */
-undefined4 rdRaster_SpanR_Flat_9(int *param_1); /* 0x004338d0 */
-undefined4 rdRaster_SpanR_Flat_10(int *param_1); /* 0x00433be0 */
-void rdRaster_Draw_TexLitZ_5(int param_1,int param_2,float param_3); /* 0x00433ef0 */
-void rdRaster_Span8_TexLitZ_4(uint *param_1,uint *param_2); /* 0x00434180 */
-void rdRaster_Span16_TexLitZ_3(uint *param_1,uint *param_2); /* 0x004343b0 */
-void rdRaster_Draw_TexLitKeyZw_3(int param_1,int param_2,float param_3); /* 0x00434610 */
-void rdRaster_Span8_TexLitKeyZw_2(uint *param_1,uint *param_2); /* 0x00434880 */
-void rdRaster_Span16_TexLitKey_3(uint *param_1,uint *param_2); /* 0x00434aa0 */
-void rdRaster_Draw_TexLitKeyZw_4(int param_1,int param_2,float param_3); /* 0x00434ce0 */
-void rdRaster_Span8_TexLitKeyZw_3(uint *param_1,uint *param_2); /* 0x00434f70 */
-void rdRaster_Span16_TexLitKey_4(uint *param_1,uint *param_2); /* 0x004351a0 */
-void rdRaster_Draw_FlatLit_9(int param_1,int param_2); /* 0x00435400 */
-void rdRaster_Span_TexLitZ_2(uint *param_1,uint *param_2); /* 0x00435a00 */
-void rdRaster_Span16_TexLitZ_4(uint *param_1,uint *param_2); /* 0x00435c70 */
-undefined4 rdRaster_SpanR_Flat_11(int *param_1); /* 0x00435f60 */
-undefined4 rdRaster_SpanR_Flat_12(int *param_1); /* 0x00436300 */
-void rdRaster_Draw_TexLitZ_6(int param_1,int param_2); /* 0x004366a0 */
-void rdRaster_Span8_TexLitZ_5(uint *param_1,uint *param_2); /* 0x00436950 */
-void rdRaster_Span16_TexLitZ_5(uint *param_1,uint *param_2); /* 0x00436be0 */
-void rdRaster_Draw_TexLitKeyZw_5(int param_1,int param_2); /* 0x00436e80 */
-void rdRaster_Span8_TexLitKeyZw_4(uint *param_1,uint *param_2); /* 0x00437110 */
-void rdRaster_Span16_TexLitKeyZw(uint *param_1,uint *param_2); /* 0x00437390 */
-void rdRaster_Draw_TexLitKeyZw_6(int param_1,int param_2); /* 0x00437620 */
-void rdRaster_Span8_TexLitKeyZw_5(uint *param_1,uint *param_2); /* 0x004378d0 */
-void rdRaster_Span16_TexLitKeyZw_2(uint *param_1,uint *param_2); /* 0x00437b60 */
-void rdRaster_Draw_FlatLit_10(int param_1,int param_2); /* 0x00437e10 */
-void rdRaster_Span_FlatZ_2(uint *param_1,uint *param_2); /* 0x004383d0 */
-void rdRaster_Span16_TexZ_2(uint *param_1,uint *param_2); /* 0x00438a90 */
-undefined4 rdRaster_SpanR_Flat_13(int *param_1); /* 0x004391a0 */
-undefined4 rdRaster_SpanR_Flat_14(int *param_1); /* 0x00439400 */
-void rdRaster_Draw_TexLitZ_7(int param_1,int param_2); /* 0x004395c0 */
-void rdRaster_Span8_TexZ_2(uint *param_1,uint *param_2); /* 0x00439840 */
-void rdRaster_Span16_TexZ_3(uint *param_1,uint *param_2); /* 0x00439f50 */
-void rdRaster_Draw_TexLitKeyZw_7(int param_1,int param_2); /* 0x0043a6e0 */
-void rdRaster_Span8_FlatKeyZw_2(uint *param_1,uint *param_2); /* 0x0043a940 */
-void rdRaster_Span16_TexKeyZw(uint *param_1,uint *param_2); /* 0x0043b020 */
-void rdRaster_Draw_TexLitKeyZw_8(int param_1,int param_2); /* 0x0043b760 */
-void rdRaster_Span8_TexKeyZw(uint *param_1,uint *param_2); /* 0x0043b9e0 */
-void rdRaster_Span16_TexKeyZw_2(uint *param_1,uint *param_2); /* 0x0043c130 */
-void rdRaster_Draw_FlatLit_11(int param_1,int param_2,float param_3); /* 0x0043c8d0 */
-void rdRaster_Span_TexZ(uint *param_1,uint *param_2); /* 0x0043ceb0 */
-void rdRaster_Span16_TexZ_4(uint *param_1,uint *param_2); /* 0x0043d5b0 */
-undefined4 rdRaster_SpanR_Flat_15(int *param_1); /* 0x0043dcc0 */
-undefined4 rdRaster_SpanR_Flat_16(int *param_1); /* 0x0043df20 */
-void rdRaster_Draw_TexLitZ_8(int param_1,int param_2,float param_3); /* 0x0043e0e0 */
-void rdRaster_Span8_TexZ_3(uint *param_1,uint *param_2); /* 0x0043e380 */
-void rdRaster_Span16_TexZ_5(uint *param_1,uint *param_2); /* 0x0043eab0 */
-void rdRaster_Draw_TexLitKeyZw_9(int param_1,int param_2,float param_3); /* 0x0043f280 */
-void rdRaster_Span8_TexKeyZw_2(uint *param_1,uint *param_2); /* 0x0043f500 */
-void rdRaster_Span16_TexKeyZw_3(uint *param_1,uint *param_2); /* 0x0043fc30 */
-void rdRaster_Draw_TexLitKeyZw_10(int param_1,int param_2,float param_3); /* 0x00440370 */
-void rdRaster_Span8_TexKeyZw_3(uint *param_1,uint *param_2); /* 0x00440610 */
-void rdRaster_Span16_TexKeyZw_4(uint *param_1,uint *param_2); /* 0x00440d80 */
-void rdRaster_Draw_FlatLit_12(int param_1,int param_2); /* 0x00441520 */
-void rdRaster_Span_TexZ_2(uint *param_1,uint *param_2); /* 0x00441b20 */
-void rdRaster_Span16_TexZ_6(uint *param_1,uint *param_2); /* 0x004422d0 */
-undefined4 rdRaster_SpanR_Flat_17(int *param_1); /* 0x00442ab0 */
-undefined4 rdRaster_SpanR_Flat_18(int *param_1); /* 0x00442db0 */
-void rdRaster_Draw_TexLitZ_9(int param_1,int param_2); /* 0x00443000 */
-void rdRaster_Span8_TexZ_4(uint *param_1,uint *param_2); /* 0x004432c0 */
-void rdRaster_Span16_TexZ_7(uint *param_1,uint *param_2); /* 0x00443ab0 */
-void rdRaster_Draw_TexLitKeyZw_11(int param_1,int param_2); /* 0x00444320 */
-void rdRaster_Span8_TexKeyZw_4(uint *param_1,uint *param_2); /* 0x004445c0 */
-void rdRaster_Span16_TexKeyZw_5(uint *param_1,uint *param_2); /* 0x00444d90 */
-void rdRaster_Draw_TexLitKeyZw_12(int param_1,int param_2); /* 0x00445570 */
-void rdRaster_Span8_TexKeyZw_5(uint *param_1,uint *param_2); /* 0x00445830 */
-void rdRaster_Span16_TexKeyZw_6(uint *param_1,uint *param_2); /* 0x00446030 */
+void rdNRaster_DrawScanLineNGonTGAT_16(uint *param_1,uint *param_2); /* 0x004200c0 */
+void rdNRaster_DrawNGonMGAT(int param_1,int param_2); /* 0x00420310 */
+void rdNRaster_DrawScanLineNGonMGAT_8(uint *param_1,uint *param_2); /* 0x00420580 */
+void rdNRaster_DrawScanLineNGonMGAT_16(uint *param_1,uint *param_2); /* 0x004207b0 */
+void rdNRaster_DrawNGonMTGAT(int param_1,int param_2); /* 0x004209f0 */
+void rdNRaster_DrawScanLineNGonMTGAT_8(uint *param_1,uint *param_2); /* 0x00420c80 */
+void rdNRaster_DrawScanLineNGonMTGAT_16(uint *param_1,uint *param_2); /* 0x00420ec0 */
+void rdNRaster_DrawNGonLIT(int param_1,int param_2); /* 0x00421120 */
+void rdNRaster_DrawScanLineNGonLIT_16(uint *param_1,uint *param_2); /* 0x00421510 */
+undefined4 rdNRaster_SetupLeftEdgeNGonLIT(int *param_1); /* 0x00421b60 */
+undefined4 rdNRaster_SetupRightEdgeNGonLIT(int *param_1); /* 0x00421dc0 */
+void rdNRaster_DrawNGonTLIT(int param_1,int param_2); /* 0x00421f80 */
+void rdNRaster_DrawScanLineNGonTLIT_8(uint *param_1,uint *param_2); /* 0x004221f0 */
+void rdNRaster_DrawScanLineNGonTLIT_16(uint *param_1,uint *param_2); /* 0x00422820 */
+void rdNRaster_DrawNGonMLIT(int param_1,int param_2); /* 0x00422f00 */
+void rdNRaster_DrawScanLineNGonMLIT_8(uint *param_1,uint *param_2); /* 0x00423150 */
+void rdNRaster_DrawScanLineNGonMLIT_16(uint *param_1,uint *param_2); /* 0x00423740 */
+void rdNRaster_DrawNGonMTLIT(int param_1,int param_2); /* 0x00423db0 */
+void rdNRaster_DrawScanLineNGonMTLIT_8(uint *param_1,uint *param_2); /* 0x00424020 */
+void rdNRaster_DrawScanLineNGonMTLIT_16(uint *param_1,uint *param_2); /* 0x00424670 */
+void rdNRaster_DrawNGonFIT(int param_1,int param_2,float param_3); /* 0x00424d50 */
+void rdNRaster_DrawScanLineNGonFIT_16(uint *param_1,uint *param_2); /* 0x00425150 */
+undefined4 rdNRaster_SetupLeftEdgeNGonFIT(int *param_1); /* 0x004257a0 */
+undefined4 rdNRaster_SetupRightEdgeNGonFIT(int *param_1); /* 0x00425a00 */
+void rdNRaster_DrawNGonTFIT(int param_1,int param_2,float param_3); /* 0x00425bc0 */
+void rdNRaster_DrawScanLineNGonTFIT_8(uint *param_1,uint *param_2); /* 0x00425e50 */
+void rdNRaster_DrawScanLineNGonTFIT_16(uint *param_1,uint *param_2); /* 0x004264a0 */
+void rdNRaster_DrawNGonMFIT(int param_1,int param_2,float param_3); /* 0x00426bc0 */
+void rdNRaster_DrawScanLineNGonMFIT_8(uint *param_1,uint *param_2); /* 0x00426e30 */
+void rdNRaster_DrawScanLineNGonMFIT_16(uint *param_1,uint *param_2); /* 0x00427470 */
+void rdNRaster_DrawNGonMTFIT(int param_1,int param_2,float param_3); /* 0x00427ae0 */
+void rdNRaster_DrawScanLineNGonMTFIT_8(uint *param_1,uint *param_2); /* 0x00427d70 */
+void rdNRaster_DrawScanLineNGonMTFIT_16(uint *param_1,uint *param_2); /* 0x004283f0 */
+void rdNRaster_DrawNGonGIT(int param_1,int param_2); /* 0x00428ae0 */
+void rdNRaster_DrawScanLineNGonGIT_16(uint *param_1,uint *param_2); /* 0x00428f00 */
+undefined4 rdNRaster_SetupLeftEdgeNGonGIT(int *param_1); /* 0x00429870 */
+undefined4 rdNRaster_SetupRightEdgeNGonGIT(int *param_1); /* 0x00429b70 */
+void rdNRaster_DrawNGonTGIT(int param_1,int param_2); /* 0x00429dc0 */
+void rdNRaster_DrawScanLineNGonTGIT_8(uint *param_1,uint *param_2); /* 0x0042a070 */
+void rdNRaster_DrawScanLineNGonTGIT_16(uint *param_1,uint *param_2); /* 0x0042a790 */
+void rdNRaster_DrawNGonMGIT(int param_1,int param_2); /* 0x0042af60 */
+void rdNRaster_DrawScanLineNGonMGIT_8(uint *param_1,uint *param_2); /* 0x0042b1f0 */
+void rdNRaster_DrawScanLineNGonMGIT_16(uint *param_1,uint *param_2); /* 0x0042b8e0 */
+void rdNRaster_DrawNGonMTGIT(int param_1,int param_2); /* 0x0042c010 */
+void rdNRaster_DrawScanLineNGonMTGIT_8(uint *param_1,uint *param_2); /* 0x0042c2c0 */
+void rdNRaster_DrawScanLineNGonMTGIT_16(uint *param_1,uint *param_2); /* 0x0042c9f0 */
+void rdZRaster_CalcAffineGradients(float param_1); /* 0x0042d190 */
+void rdZRaster_CalcPerspGradients(float param_1); /* 0x0042d5f0 */
+void rdZRaster_DrawNGonLV(int param_1,int param_2); /* 0x0042dba0 */
+void rdZRaster_DrawNGonLW(int param_1,int param_2); /* 0x0042dd10 */
+void rdZRaster_DrawNGonLS(int param_1,int param_2); /* 0x0042e010 */
+void rdZRaster_DrawScanLineNGonLS_8(uint *param_1,uint *param_2); /* 0x0042e200 */
+void rdZRaster_DrawScanLineNGonLS_16(uint *param_1,uint *param_2); /* 0x0042e320 */
+undefined4 rdZRaster_SetupLeftEdgeNGonLS(int *param_1); /* 0x0042e440 */
+undefined4 rdZRaster_SetupRightEdgeNGonLS(int *param_1); /* 0x0042e630 */
+void rdZRaster_DrawNGonTLS(int param_1,int param_2); /* 0x0042e820 */
+void rdZRaster_DrawScanLineNGonTLS_8(uint *param_1,uint *param_2); /* 0x0042ea50 */
+void rdZRaster_DrawScanLineNGonTLS_16(uint *param_1,uint *param_2); /* 0x0042eb90 */
+void rdZRaster_DrawNGonFS(int param_1,int param_2,float param_3); /* 0x0042ecf0 */
+void rdZRaster_DrawScanLineNGonFS_8(uint *param_1,uint *param_2); /* 0x0042ef00 */
+void rdZRaster_DrawScanLineNGonFS_16(uint *param_1,uint *param_2); /* 0x0042f020 */
+undefined4 rdZRaster_SetupLeftEdgeNGonFS(int *param_1); /* 0x0042f140 */
+undefined4 rdZRaster_SetupRightEdgeNGonFS(int *param_1); /* 0x0042f330 */
+void rdZRaster_DrawNGonTFS(int param_1,int param_2,float param_3); /* 0x0042f520 */
+void rdZRaster_DrawScanLineNGonTFS_8(uint *param_1,uint *param_2); /* 0x0042f770 */
+void rdZRaster_DrawScanLineNGonTFS_16(uint *param_1,uint *param_2); /* 0x0042f8b0 */
+void rdZRaster_DrawNGonGS(int param_1,int param_2); /* 0x0042fa10 */
+void rdZRaster_DrawScanLineNGonGS_8(uint *param_1,uint *param_2); /* 0x0042fc30 */
+void rdZRaster_DrawScanLineNGonGS_16(uint *param_1,uint *param_2); /* 0x0042fdc0 */
+undefined4 rdZRaster_SetupLeftEdgeNGonGS(int *param_1); /* 0x0042ff50 */
+undefined4 rdZRaster_SetupRightEdgeNGonGS(int *param_1); /* 0x004301d0 */
+void rdZRaster_DrawNGonTGS(int param_1,int param_2); /* 0x00430450 */
+void rdZRaster_DrawScanLineNGonTGS_8(uint *param_1,uint *param_2); /* 0x004306c0 */
+void rdZRaster_DrawScanLineNGonTGS_16(uint *param_1,uint *param_2); /* 0x00430860 */
+void rdZRaster_DrawNGonLAT(int param_1,int param_2); /* 0x00430a20 */
+void rdZRaster_DrawScanLineNGonLAT_8(uint *param_1,uint *param_2); /* 0x00430fd0 */
+void rdZRaster_DrawScanLineNGonLAT_16(uint *param_1,uint *param_2); /* 0x004311d0 */
+undefined4 rdZRaster_SetupLeftEdgeNGonLAT(int *param_1); /* 0x00431400 */
+undefined4 rdZRaster_SetupRightEdgeNGonLAT(int *param_1); /* 0x00431710 */
+void rdZRaster_DrawNGonTLAT(int param_1,int param_2); /* 0x00431a20 */
+void rdZRaster_DrawScanLineNGonTLAT_8(uint *param_1,uint *param_2); /* 0x00431c90 */
+void rdZRaster_DrawScanLineNGonTLAT_16(uint *param_1,uint *param_2); /* 0x00431eb0 */
+void rdZRaster_DrawNGonMLAT(int param_1,int param_2); /* 0x00432100 */
+void rdZRaster_DrawScanLineNGonMLAT_8(uint *param_1,uint *param_2); /* 0x00432350 */
+void rdZRaster_DrawScanLineNGonMLAT_16(uint *param_1,uint *param_2); /* 0x00432560 */
+void rdZRaster_DrawNGonMTLAT(int param_1,int param_2); /* 0x004327a0 */
+void rdZRaster_DrawScanLineNGonMTLAT_8(uint *param_1,uint *param_2); /* 0x00432a10 */
+void rdZRaster_DrawScanLineNGonMTLAT_16(uint *param_1,uint *param_2); /* 0x00432c40 */
+void rdZRaster_DrawNGonFAT(int param_1,int param_2,float param_3); /* 0x00432ea0 */
+void rdZRaster_DrawScanLineNGonFAT_8(uint *param_1,uint *param_2); /* 0x00433480 */
+void rdZRaster_DrawScanLineNGonFAT_16(uint *param_1,uint *param_2); /* 0x004336a0 */
+undefined4 rdZRaster_SetupLeftEdgeNGonFAT(int *param_1); /* 0x004338d0 */
+undefined4 rdZRaster_SetupRightEdgeNGonFAT(int *param_1); /* 0x00433be0 */
+void rdZRaster_DrawNGonTFAT(int param_1,int param_2,float param_3); /* 0x00433ef0 */
+void rdZRaster_DrawScanLineNGonTFAT_8(uint *param_1,uint *param_2); /* 0x00434180 */
+void rdZRaster_DrawScanLineNGonTFAT_16(uint *param_1,uint *param_2); /* 0x004343b0 */
+void rdZRaster_DrawNGonMFAT(int param_1,int param_2,float param_3); /* 0x00434610 */
+void rdZRaster_DrawScanLineNGonMFAT_8(uint *param_1,uint *param_2); /* 0x00434880 */
+void rdZRaster_DrawScanLineNGonMFAT_16(uint *param_1,uint *param_2); /* 0x00434aa0 */
+void rdZRaster_DrawNGonMTFAT(int param_1,int param_2,float param_3); /* 0x00434ce0 */
+void rdZRaster_DrawScanLineNGonMTFAT_8(uint *param_1,uint *param_2); /* 0x00434f70 */
+void rdZRaster_DrawScanLineNGonMTFAT_16(uint *param_1,uint *param_2); /* 0x004351a0 */
+void rdZRaster_DrawNGonGAT(int param_1,int param_2); /* 0x00435400 */
+void rdZRaster_DrawScanLineNGonGAT_8(uint *param_1,uint *param_2); /* 0x00435a00 */
+void rdZRaster_DrawScanLineNGonGAT_16(uint *param_1,uint *param_2); /* 0x00435c70 */
+undefined4 rdZRaster_SetupLeftEdgeNGonGAT(int *param_1); /* 0x00435f60 */
+undefined4 rdZRaster_SetupRightEdgeNGonGAT(int *param_1); /* 0x00436300 */
+void rdZRaster_DrawNGonTGAT(int param_1,int param_2); /* 0x004366a0 */
+void rdZRaster_DrawScanLineNGonTGAT_8(uint *param_1,uint *param_2); /* 0x00436950 */
+void rdZRaster_DrawScanLineNGonTGAT_16(uint *param_1,uint *param_2); /* 0x00436be0 */
+void rdZRaster_DrawNGonMGAT(int param_1,int param_2); /* 0x00436e80 */
+void rdZRaster_DrawScanLineNGonMGAT_8(uint *param_1,uint *param_2); /* 0x00437110 */
+void rdZRaster_DrawScanLineNGonMGAT_16(uint *param_1,uint *param_2); /* 0x00437390 */
+void rdZRaster_DrawNGonMTGAT(int param_1,int param_2); /* 0x00437620 */
+void rdZRaster_DrawScanLineNGonMTGAT_8(uint *param_1,uint *param_2); /* 0x004378d0 */
+void rdZRaster_DrawScanLineNGonMTGAT_16(uint *param_1,uint *param_2); /* 0x00437b60 */
+void rdZRaster_DrawNGonLIT(int param_1,int param_2); /* 0x00437e10 */
+void rdZRaster_DrawScanLineNGonLIT_8(uint *param_1,uint *param_2); /* 0x004383d0 */
+void rdZRaster_DrawScanLineNGonLIT_16(uint *param_1,uint *param_2); /* 0x00438a90 */
+undefined4 rdZRaster_SetupLeftEdgeNGonLIT(int *param_1); /* 0x004391a0 */
+undefined4 rdZRaster_SetupRightEdgeNGonLIT(int *param_1); /* 0x00439400 */
+void rdZRaster_DrawNGonTLIT(int param_1,int param_2); /* 0x004395c0 */
+void rdZRaster_DrawScanLineNGonTLIT_8(uint *param_1,uint *param_2); /* 0x00439840 */
+void rdZRaster_DrawScanLineNGonTLIT_16(uint *param_1,uint *param_2); /* 0x00439f50 */
+void rdZRaster_DrawNGonMLIT(int param_1,int param_2); /* 0x0043a6e0 */
+void rdZRaster_DrawScanLineNGonMLIT_8(uint *param_1,uint *param_2); /* 0x0043a940 */
+void rdZRaster_DrawScanLineNGonMLIT_16(uint *param_1,uint *param_2); /* 0x0043b020 */
+void rdZRaster_DrawNGonMTLIT(int param_1,int param_2); /* 0x0043b760 */
+void rdZRaster_DrawScanLineNGonMTLIT_8(uint *param_1,uint *param_2); /* 0x0043b9e0 */
+void rdZRaster_DrawScanLineNGonMTLIT_16(uint *param_1,uint *param_2); /* 0x0043c130 */
+void rdZRaster_DrawNGonFIT(int param_1,int param_2,float param_3); /* 0x0043c8d0 */
+void rdZRaster_DrawScanLineNGonFIT_8(uint *param_1,uint *param_2); /* 0x0043ceb0 */
+void rdZRaster_DrawScanLineNGonFIT_16(uint *param_1,uint *param_2); /* 0x0043d5b0 */
+undefined4 rdZRaster_SetupLeftEdgeNGonFIT(int *param_1); /* 0x0043dcc0 */
+undefined4 rdZRaster_SetupRightEdgeNGonFIT(int *param_1); /* 0x0043df20 */
+void rdZRaster_DrawNGonTFIT(int param_1,int param_2,float param_3); /* 0x0043e0e0 */
+void rdZRaster_DrawScanLineNGonTFIT_8(uint *param_1,uint *param_2); /* 0x0043e380 */
+void rdZRaster_DrawScanLineNGonTFIT_16(uint *param_1,uint *param_2); /* 0x0043eab0 */
+void rdZRaster_DrawNGonMFIT(int param_1,int param_2,float param_3); /* 0x0043f280 */
+void rdZRaster_DrawScanLineNGonMFIT_8(uint *param_1,uint *param_2); /* 0x0043f500 */
+void rdZRaster_DrawScanLineNGonMFIT_16(uint *param_1,uint *param_2); /* 0x0043fc30 */
+void rdZRaster_DrawNGonMTFIT(int param_1,int param_2,float param_3); /* 0x00440370 */
+void rdZRaster_DrawScanLineNGonMTFIT_8(uint *param_1,uint *param_2); /* 0x00440610 */
+void rdZRaster_DrawScanLineNGonMTFIT_16(uint *param_1,uint *param_2); /* 0x00440d80 */
+void rdZRaster_DrawNGonGIT(int param_1,int param_2); /* 0x00441520 */
+void rdZRaster_DrawScanLineNGonGIT_8(uint *param_1,uint *param_2); /* 0x00441b20 */
+void rdZRaster_DrawScanLineNGonGIT_16(uint *param_1,uint *param_2); /* 0x004422d0 */
+undefined4 rdZRaster_SetupLeftEdgeNGonGIT(int *param_1); /* 0x00442ab0 */
+undefined4 rdZRaster_SetupRightEdgeNGonGIT(int *param_1); /* 0x00442db0 */
+void rdZRaster_DrawNGonTGIT(int param_1,int param_2); /* 0x00443000 */
+void rdZRaster_DrawScanLineNGonTGIT_8(uint *param_1,uint *param_2); /* 0x004432c0 */
+void rdZRaster_DrawScanLineNGonTGIT_16(uint *param_1,uint *param_2); /* 0x00443ab0 */
+void rdZRaster_DrawNGonMGIT(int param_1,int param_2); /* 0x00444320 */
+void rdZRaster_DrawScanLineNGonMGIT_8(uint *param_1,uint *param_2); /* 0x004445c0 */
+void rdZRaster_DrawScanLineNGonMGIT_16(uint *param_1,uint *param_2); /* 0x00444d90 */
+void rdZRaster_DrawNGonMTGIT(int param_1,int param_2); /* 0x00445570 */
+void rdZRaster_DrawScanLineNGonMTGIT_8(uint *param_1,uint *param_2); /* 0x00445830 */
+void rdZRaster_DrawScanLineNGonMTGIT_16(uint *param_1,uint *param_2); /* 0x00446030 */
 void rdRaster_SpanR_FlatZw(int *param_1); /* 0x00451fa0 */
 void rdRaster_SpanR_FlatZw_2(int *param_1); /* 0x00452070 */
 void rdRaster_SpanR16_Tex(int *param_1); /* 0x00452150 */
@@ -1133,12 +1133,12 @@ undefined4 stdBitmap_Init(undefined4 *param_1,uint param_2,undefined4 param_3,un
 void stdBitmap_SetSurface(int param_1,int param_2,undefined4 param_3); /* 0x0047b540 */
 int __cdecl stdBitmap_ConvertToDisplay(void *bitmap); /* 0x0047b560 */
 void stdBitmap_DeCompress(int param_1); /* 0x0047b590 */
-void stdBitmap_InitHeader(undefined4 *param_1); /* 0x0047b5f0 */
+void stdPalEffects_ResetEffect(undefined4 *param_1); /* 0x0047b5f0 */
 
 /* ===== stdinput.c ===== */
 undefined * stdControl_Startup(void); /* 0x00476f10 */
 void stdControl_Shutdown(void); /* 0x00476f70 */
-undefined4 Input_Enable(void); /* 0x00476fc0 */
+undefined4 stdControl_Open(void); /* 0x00476fc0 */
 undefined4 Input_Disable(void); /* 0x00476fe0 */
 void stdControl_Flush(void); /* 0x00477010 */
 void Input_ResetState(void); /* 0x00477040 */
@@ -1166,7 +1166,7 @@ int __cdecl grimPlat_QueryDialog(char *text,char *caption,uint flags); /* 0x0048
 void grimPlat_SetDefaultOpenPath(undefined4 param_1); /* 0x00487690 */
 char * grimPlat_GetDefaultOpenPath(void); /* 0x004876b0 */
 int __cdecl grimPlat_OpenFileRequest(char *title,char *filter); /* 0x004876c0 */
-int __cdecl Plat_SaveFileDialog(char *title,char *filter); /* 0x004877d0 */
+int __cdecl grimPlat_SaveFileRequest(char *title,char *filter); /* 0x004877d0 */
 int grimPlat_SpinDialog(int param_1,int param_2,undefined4 *param_3,uint param_4); /* 0x004878c0 */
 int __cdecl grimPlat_TreeDialog(char *title,char **items,int count,int *recursive); /* 0x00487c10 */
 int __cdecl grimPlat_InputDialog(char *title,char *prompt,char *buf,int bufSize,char *defaultText); /* 0x00487e30 */
@@ -1190,7 +1190,7 @@ uint D3D_IsAvailable(void); /* 0x004782d0 */
 int __cdecl D3D_SelectDriver(uint driverIdx,int useZBuffer); /* 0x004782e0 */
 void D3D_ReleaseDriver(void); /* 0x00478660 */
 void __cdecl D3D_SetTextureLimits(int minW,int minH,int maxSize,int d); /* 0x00478700 */
-void D3D_BeginScene(void); /* 0x00478730 */
+void std3D_StartScene(void); /* 0x00478730 */
 void D3D_EndScene(void); /* 0x00478750 */
 undefined4 D3D_BeginExecuteBuffer(void); /* 0x00478770 */
 int __cdecl std3D_AddRenderListVertices(void *verts,uint count); /* 0x004787d0 */
@@ -1206,7 +1206,7 @@ void D3D_LinkTexture(void *param_1); /* 0x004798e0 */
 void D3D_UnlinkTexture(void *param_1); /* 0x00479950 */
 undefined4 D3D_SetVertexLimit(void); /* 0x00479a00 */
 void std3D_UpdateFrameCount(int param_1); /* 0x00479a70 */
-undefined4 D3D_ClearZBuffer(void); /* 0x00479aa0 */
+undefined4 std3D_ClearZBuffer(void); /* 0x00479aa0 */
 uint D3D_FindClosestDriver(int *param_1,int param_2,uint param_3); /* 0x00479b50 */
 uint D3D_FindTextureFormat(int *param_1,int param_2,uint param_3); /* 0x00479be0 */
 void D3D_SetViewportRect(uint *param_1); /* 0x00479cc0 */
@@ -1390,14 +1390,14 @@ void grimlib_RestoreSelectedActorCostume(void); /* 0x004825f0 */
 int __cdecl grimlib_SetDisplay(void *mode,int flags); /* 0x00482620 */
 undefined4 Engine_CloseRenderer(void); /* 0x00482660 */
 void Engine_ShutdownGame(void); /* 0x004826e0 */
-void Engine_SetDebugKeysCallback(undefined4 param_1); /* 0x00482720 */
-void Engine_SetRenderUserCallback(undefined4 param_1); /* 0x00482730 */
-void Engine_SetIdleCallback(uint param_1); /* 0x00482740 */
-void Engine_SetFlipCallback(undefined4 param_1); /* 0x00482750 */
+void grimlib_SetDebugToggleCallback(undefined4 param_1); /* 0x00482720 */
+void grimlib_SetPaletteCallback(undefined4 param_1); /* 0x00482730 */
+void grimlib_SetShutdownCallback(uint param_1); /* 0x00482740 */
+void grimlib_SetPageFlipCallback(undefined4 param_1); /* 0x00482750 */
 void Engine_SetZBufferEnabled(undefined4 param_1); /* 0x00482760 */
 void Engine_SetExtraDataDir(char *param_1); /* 0x00482770 */
-int Engine_RunSystemScript(void); /* 0x00482790 */
-undefined4 Engine_CallSystemFunction(int param_1,char *param_2); /* 0x004827a0 */
+int grimlib_FindSystemFiles(void); /* 0x00482790 */
+undefined4 grimlib_Open(int param_1,char *param_2); /* 0x004827a0 */
 void grimlib_MarkDirtyRect(int *param_1,int param_2); /* 0x00482800 */
 int grimlib_ConfirmClose(void); /* 0x004828d0 */
 void __cdecl Engine_Quit(int exitCode); /* 0x004828e0 */
@@ -1421,7 +1421,7 @@ void Engine_SaveGame(void); /* 0x00482fe0 */
 void Engine_LoadGame(void); /* 0x00483240 */
 void SetPrevMode(uint param_1); /* 0x004835f0 */
 uint Engine_GetSavedValue(void); /* 0x00483600 */
-undefined4 Engine_CreateCameraActor(void); /* 0x00484000 */
+undefined4 sputRender_Open(void); /* 0x00484000 */
 void sputRender_Update(void); /* 0x00484260 */
 void __cdecl sputControl_AddCallback(void *fn); /* 0x0048d1a0 */
 void __cdecl sputControl_Update(undefined4 param_1,undefined4 param_2); /* 0x0048d1c0 */
@@ -1459,10 +1459,10 @@ void Set_FreeSectors(void *param_1); /* 0x004a7100 */
 void __cdecl Set_ActivateSectors(void *set); /* 0x004a7150 */
 
 /* ===== enginemodule.c ===== */
-undefined * __cdecl EngineModule_Init(GrimServices *param_1,undefined **param_2); /* 0x00482540 */
-undefined * EngineModule_Terminate(void); /* 0x00482b60 */
+undefined * __cdecl grimlib_GameInitialize(GrimServices *param_1,undefined **param_2); /* 0x00482540 */
+undefined * grimlib_GameTerminate(void); /* 0x00482b60 */
 int grimlib_GameStartup(void); /* 0x00482ba0 */
-undefined * EngineModule_Stop(void); /* 0x00482cc0 */
+undefined * grimlib_GameShutdown(void); /* 0x00482cc0 */
 
 /* ===== savegame.c ===== */
 int __cdecl SaveGame_Write(void *data,int bytes); /* 0x004831f0 */
@@ -1474,18 +1474,18 @@ void IMuse_SaveToTemp(void); /* 0x00483610 */
 void IMuse_RestoreFromTemp(void); /* 0x00483650 */
 
 /* ===== imusemodule.c ===== */
-undefined4 IMuseModule_Init(GrimServices *param_1,undefined4 *param_2); /* 0x004836b0 */
-void IMuseModule_Stop(void); /* 0x004836f0 */
+undefined4 PolyglotInitialize(GrimServices *param_1,undefined4 *param_2); /* 0x004836b0 */
+void polyglot_shutdown(void); /* 0x004836f0 */
 
 /* ===== polyglot.c ===== */
-void Polyglot_LoadTable(undefined *param_1); /* 0x00483720 */
+void PolyglotConfigure(undefined *param_1); /* 0x00483720 */
 char * __cdecl PolyglotGetString(char *textId); /* 0x004838e0 */
 
 /* ===== render.c ===== */
 uint * Render_GetBackBuffer(void); /* 0x004839f0 */
 void Render_ToggleDebugOverlay(void); /* 0x00483a00 */
-void Render_SetUserCallback(uint param_1); /* 0x00483a80 */
-void Render_SetFlipCallback(void *param_1); /* 0x00483a90 */
+void sputRender_SetPaletteCallback(uint param_1); /* 0x00483a80 */
+void sputRender_SetPageFlipCallback(void *param_1); /* 0x00483a90 */
 int __cdecl sputRender_Save(void *writeFn); /* 0x00483da0 */
 int __cdecl sputRender_Restore(void *readFn); /* 0x00483e20 */
 void Render_SetZBufferEnabled(int param_1); /* 0x00483ea0 */
@@ -1494,7 +1494,7 @@ void __cdecl Render_InvalidateRectLastBuffer(int *rect,int flag); /* 0x00483ed0 
 void __cdecl MarkDirtyRect(int *rect,int flag); /* 0x00483f60 */
 undefined4 sputRender_SetDisplay (uint param_1,uint param_2,undefined4 param_3,undefined4 param_4,undefined4 param_5, undefined4 param_6,int param_7); /* 0x00484030 */
 void sputRender_Close(void); /* 0x004841f0 */
-void Render_Present(void); /* 0x004849a0 */
+void sputRender_PageFlip(void); /* 0x004849a0 */
 void Render_SetPixelFormat(uint *param_1); /* 0x004849d0 */
 undefined4 sputRender_ControlHandler(void); /* 0x00484a50 */
 void Render_InitColorConstants(int param_1); /* 0x00484c40 */
@@ -1525,7 +1525,7 @@ void __cdecl sputRender_SaveScreen(char *filename); /* 0x00487260 */
 void __cdecl Render_SaveZBufferBmp(char *filename); /* 0x004872f0 */
 void __cdecl sputRender_SaveDrawBuffer(char *filename); /* 0x00487340 */
 void __cdecl Render_DrawProgressBar(float fraction); /* 0x004873d0 */
-void Render_SetWaitCursorEnabled(uint param_1); /* 0x004874c0 */
+void sputRender_AllowLoadImage(uint param_1); /* 0x004874c0 */
 void sputRender_DrawLoadingImage(void); /* 0x004874d0 */
 int sputActor_GetNumActorsTalking(void); /* 0x0048f920 */
 
@@ -1541,7 +1541,7 @@ void Actor_DrawDebugWalker(void *param_1); /* 0x00485320 */
 void * __cdecl sputText_CreateActorText(void *actor,char *text,int x,int y); /* 0x0048b2e0 */
 int __cdecl sputActor_SetCostume(void *actor,char *name,int param_3); /* 0x0048f930 */
 void __cdecl sputActor_SetActorHead (void *actor,int joint1,int joint2,int joint3,float maxRoll,float maxPitch,float maxYaw); /* 0x0048f9d0 */
-int __cdecl Actor_CanSeePoint(void *actor,float *point,float *outDistance); /* 0x0048fa60 */
+int __cdecl sputActor_CanActorSeePoint(void *actor,float *point,float *outDistance); /* 0x0048fa60 */
 int __cdecl sputActor_CanActorSeeActor(void *viewer,void *target,float *outDistance); /* 0x0048fb80 */
 void sputActor_Turn(int param_1,float param_2); /* 0x0048fbd0 */
 void sputActor_Forward(int param_1); /* 0x0048fc80 */
@@ -1696,7 +1696,7 @@ int FUN_00489410(void); /* 0x00489410 */
 undefined4 Movie_LockSurface(undefined4 *param_1,undefined4 *param_2); /* 0x00489420 */
 undefined4 Movie_UnlockSurface(void); /* 0x004894b0 */
 int FUN_004894d0(void); /* 0x004894d0 */
-int Movie_IsPlaying(void); /* 0x004894e0 */
+int sputSmush_MoviePlaying(void); /* 0x004894e0 */
 void sputSmush_Pause(int paused); /* 0x004894f0 */
 
 /* ===== primitivelist.c ===== */
@@ -1789,7 +1789,7 @@ void Controls_ResetAll(void); /* 0x0048d050 */
 /* ===== control.c ===== */
 void __cdecl Control_Enable(int control); /* 0x0048d090 */
 void __cdecl Control_Disable(int control); /* 0x0048d0d0 */
-undefined * Control_Capture(void); /* 0x0048d150 */
+undefined * sputControl_Open(void); /* 0x0048d150 */
 undefined4 Control_Release(void); /* 0x0048d170 */
 
 /* ===== sputcontrol.c ===== */
@@ -1863,7 +1863,7 @@ undefined4 Collision_TestActorAgainstOthers(void *param_1); /* 0x004939f0 */
 undefined4 Collision_BoxSlide(float *param_1,float *param_2,float param_3,float param_4,float param_5, float param_6,float param_7,float param_8,float *param_9); /* 0x00494100 */
 
 /* ===== speech.c ===== */
-void __cdecl Speech_SetMode(int mode); /* 0x004931c0 */
+void __cdecl sputActor_SetSpeechMode(int mode); /* 0x004931c0 */
 uint sputActor_GetSpeechMode(void); /* 0x004931e0 */
 
 /* ===== costume.c ===== */
@@ -1882,7 +1882,7 @@ void __cdecl Costume_ApplyComponentState(void *cosInst); /* 0x004955e0 */
 void __cdecl sputCostume_BuildThingStateMatrices(void *component,float *frame); /* 0x004956a0 */
 void sputCostume_Draw2D(int param_1); /* 0x004956f0 */
 void __cdecl sputCostume_Update(void *costumeList,float dt); /* 0x00495730 */
-undefined4 Costume_SaveChoreListFile(char *param_1,uint *param_2,undefined4 param_3); /* 0x00495e90 */
+undefined4 sputCostume_SaveHook(char *param_1,uint *param_2,undefined4 param_3); /* 0x00495e90 */
 undefined4 Costume_InstanceHook(int param_1,int param_2); /* 0x00496020 */
 
 /* ===== shadow.c ===== */
@@ -2643,7 +2643,7 @@ void __cdecl Insane_MemCopy(void *dst,void *src,uint n); /* 0x004c3e10 */
 undefined4 SmushPlay_Pause(void); /* 0x004bd500 */
 undefined4 SmushPlay_Resume(void); /* 0x004bd520 */
 void SmushPlay_SysConfigureColorLookup(undefined4 param_1); /* 0x004bd560 */
-int __cdecl Smush_Open(char *name,int flags,int bufferSize,int x,int y,int w,int h,int a,int sixteenBit); /* 0x004bd570 */
+int __cdecl SmushPlay_StartMovie (char *name,int flags,int bufferSize,int x,int y,int w,int h,int a,int sixteenBit); /* 0x004bd570 */
 undefined4 SmushPlay_StopMovie(void); /* 0x004bd930 */
 int __cdecl SmushPlay_UpdateMovie(int *outDone); /* 0x004bd970 */
 void SmushPlay_SetTranslationTable(uint param_1); /* 0x004bde90 */
@@ -2859,7 +2859,7 @@ void __cdecl SoundModule_SetPan(int id,byte pan); /* 0x004d0b60 */
 int __cdecl SoundModule_GetPan(uint id); /* 0x004d0b90 */
 void __cdecl SoundModule_DriverCommand2(int arg); /* 0x004d0bd0 */
 int SoundModule_DriverCommand3(void); /* 0x004d0bf0 */
-void __cdecl SoundModule_SetDriverRate(uint rate); /* 0x004d0c00 */
+void __cdecl sou_engine_SetRate(uint rate); /* 0x004d0c00 */
 int __cdecl SoundModule_GetPosition(uint id); /* 0x004d0c30 */
 int __cdecl SoundModule_SetParam(int unused,int which,uint a,uint b); /* 0x004d0d70 */
 int __cdecl SoundModule_GetParam(int unused,int which,uint *a,uint *b); /* 0x004d0e00 */

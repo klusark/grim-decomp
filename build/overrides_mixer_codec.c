@@ -91,7 +91,7 @@ extern int g_anBlkSplit8X[16] __asm__("_g_anBlockySplit8X");
 extern int g_anBlkSplit8Y[16] __asm__("_g_anBlockySplit8Y");
 
 /* the state of the frame decoder (see Blocky16_DecodeFrame) */
-extern void *vOutputFn __asm__("_g_pfnBlkOutput");          /* callback receiving the decoded frame (fob_flobdec_blocky16_config) */
+extern void *vOutputFn __asm__("_g_pFob_blit_routine");          /* callback receiving the decoded frame (fob_flobdec_blocky16_config) */
 extern byte *vCur __asm__("_g_pbBlkCur");                    /* buffer the current frame is decoded into */
 extern byte *vExpand __asm__("_g_pbBlkExpand");              /* 64K entry table: 16 bit pixel -> display pixel */
 extern int vShiftR __asm__("_g_nBlkShiftR");                 /* channel shifts of the display format the table was made for */

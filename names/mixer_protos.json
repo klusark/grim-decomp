@@ -228,7 +228,7 @@
  },
  {
   "addr": "004d0c00",
-  "proto": "void SoundModule_SetDriverRate(uint rate)"
+  "proto": "void sou_engine_SetRate(uint rate)"
  },
  {
   "addr": "004d0c30",

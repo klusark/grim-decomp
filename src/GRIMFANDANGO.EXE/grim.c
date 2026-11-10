@@ -36,7 +36,7 @@ int __cdecl Grim_FindDataOnDrives(char *subdir)
     pcVar5 = pcVar4;
     while (((pcVar5 != (char *)0x0 && (*pcVar5 != '\0')) && (!bVar2))) {
       iVar3 = GetDriveTypeA((int)pcVar5);
-      if ((iVar3 == 5) || ((INT_004f5a24 != 0 && (iVar3 == 4)))) {
+      if ((iVar3 == 5) || ((g_nDeveloper != 0 && (iVar3 == 4)))) {
         uVar6 = 0xffffffff;
         pcVar8 = pcVar5;
         do {
@@ -125,12 +125,16 @@ int __cdecl Grim_FindDataOnDrives(char *subdir)
 #undef auStack_140
 
 
-/* ---- 0x004012b0  Grim_Init ---- */
+/* ---- 0x004012b0  Main_Startup ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* grimdemo.c: whole-engine startup: service tables, registry/config, window + 256-colour check,
-   display enumeration, resource system, Lua engine lib registration, iMUSE. */
+   display enumeration, resource system, Lua engine lib registration, iMUSE. Original name
+   Main_Startup (the remaster's GrimFandango (Linux): the same start-up sequence (developer registry
+   key compared with "TRUE" and "pl", rdStartup / rdOpen, the window message hook,
+   stdDisplay_Startup, the shutdown / palette / page-flip / debug-toggle callbacks,
+   grimlib_FindResources)); was Grim_Init. */
 
-undefined4 Grim_Init(char *param_1)
+undefined4 Main_Startup(char *param_1)
 
 {
   unsigned char _frame[0x90] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -158,36 +162,36 @@ undefined4 Grim_Init(char *param_1)
     puVar6 = puVar6 + 1;
   }
   *(undefined1 *)puVar6 = 0;
-  Services_InitDefaults((GrimServices *)&DAT_008ddda0);
+  HostServicesInitialize((GrimServices *)&g_aHs);
   iVar5 = Grim_ParseCommandLine(param_1);
   if (iVar5 == 0) {
     return 0;
   }
-  Services_InitPlatform(&DAT_008ddda0);
+  stdInitServices(&g_aHs);
   _DAT_008dddb4 = UINT_008dddac;
-  Services_SetCurrent((GrimServices *)&DAT_008ddda0);
-  IMuseModule_Init(&DAT_008ddda0,&DAT_008ddd80);
+  stdStartup((GrimServices *)&g_aHs);
+  PolyglotInitialize(&g_aHs,&g_aPolyglotServices);
   (*(code *)UINT_008ddd88)();
-  Polyglot_LoadTable(s_grim_tab_004dd238);
+  PolyglotConfigure(s_grim_tab_004dd238);
   Grim_OpenRegistry();
   Grim_DecodeRegKeyName((char *)&local_80);
   wuRegistry_GetStr((char *)&local_80,acStack_40,0x40,(char *)0x0);
   iVar5 = _stricmp(acStack_40,&DAT_004dd660);
   if (iVar5 == 0) {
-    INT_004f5a24 = 1;
+    g_nDeveloper = 1;
   }
   iVar5 = _stricmp(acStack_40,&DAT_004dd65c);
   if (iVar5 == 0) {
-    INT_004f5a24 = 1;
+    g_nDeveloper = 1;
   }
-  if (INT_004f5a24 == 0) {
+  if (g_nDeveloper == 0) {
     iVar5 = Grim_FindDataOnDrives(s_GrimData_004dd650);
     if (iVar5 == 0) {
       return 0;
     }
   }
-  rdroid_Startup((GrimServices *)&DAT_008ddda0);
-  iVar5 = rdroid_Open(0);
+  rdStartup((GrimServices *)&g_aHs);
+  iVar5 = rdOpen(0);
   if (iVar5 == 0) {
     return 0;
   }
@@ -209,14 +213,14 @@ undefined4 Grim_Init(char *param_1)
     return 0;
   }
   Grim_EnumDisplayModes();
-  if ((INT_004f5a24 != 0) && (g_bWindowedMode != 0)) {
+  if ((g_nDeveloper != 0) && (g_bWindowedMode != 0)) {
     Reg_SetInt(s_ExperimentalDisplay_004dd5e4,1);
   }
   puVar4 = Display_InitFromConfig();
   if (puVar4 == (undefined *)0x0) {
     return 0;
   }
-  puVar4 = EngineModule_Init((GrimServices *)&DAT_008ddda0,(undefined **)&DAT_008dde20);
+  puVar4 = grimlib_GameInitialize((GrimServices *)&g_aHs,(undefined **)&g_aMs);
   if (puVar4 != (undefined *)0x0) {
     return 0;
   }
@@ -230,14 +234,14 @@ undefined4 Grim_Init(char *param_1)
     return 0;
   }
   lua_openlib((int *)&PTR_s_Is3DHardwareEnabled_004dd350,UINT_004dd380);
-  Engine_SetIdleCallback(grimdemo_PleaseShutdown);
-  Engine_SetRenderUserCallback(Grim_OnDisplayModeChange);
-  Engine_SetFlipCallback(Display_Flip);
-  Engine_SetDebugKeysCallback(DebugLog_Init);
+  grimlib_SetShutdownCallback(grimdemo_PleaseShutdown);
+  grimlib_SetPaletteCallback(grimdemo_SetPalette);
+  grimlib_SetPageFlipCallback(stdDisplay_Update);
+  grimlib_SetDebugToggleCallback(grimdemo_EnableDebugging);
   grimlib_FindResources();
   Grim_ShowSplash();
-  DebugLog_Init(1);
-  iVar5 = Engine_RunSystemScript();
+  grimdemo_EnableDebugging(1);
+  iVar5 = grimlib_FindSystemFiles();
   if (iVar5 != 0) {
     uVar7 = 0;
     pcVar2 = PolyglotGetString(s__engn007_Grim_Fandango_could_not_004dd4dc);
@@ -246,7 +250,7 @@ undefined4 Grim_Init(char *param_1)
     ((code *)Grim_FatalMessageBox)(uVar7);
     return 0;
   }
-  iVar5 = Engine_CallSystemFunction(UINT_004f5a10,-(uint)(UINT_004f5a14 != 0) & 0x4f59b0);
+  iVar5 = grimlib_Open(UINT_004f5a10,-(uint)(UINT_004f5a14 != 0) & 0x4f59b0);
   if (iVar5 != 0) {
     return 0;
   }
@@ -255,7 +259,7 @@ undefined4 Grim_Init(char *param_1)
   }
   iVar5 = Win_GetMainHwnd();
   SetActiveWindow(iVar5);
-  _DAT_004f5a00 = 1;
+  _g_dwGrimlib_MinimizeWhenInactive = 1;
   return 1;
 }
 #undef acStack_40
@@ -308,7 +312,7 @@ void Grim_ShutdownDisplay(void)
 {
   if (g_nDisplayDeviceOpen != 0) {
     Engine_CloseRenderer();
-    if (g_pD3dDriver == (void *)0x0) {
+    if (g_pStd3D_CurDevice == (void *)0x0) {
       stdDisplay_VBufferFree((void *)UINT_004f5a34);
     }
     else {
@@ -361,7 +365,7 @@ void Grim_Shutdown(void)
   Engine_ShutdownGame();
   (*(code *)UINT_008dde2c)();
   (*(code *)UINT_008dde24)();
-  rdroid_Close();
+  rdClose();
   rdroid_Shutdown();
   Grim_ShutdownDisplay();
   Display_RestoreMode();
@@ -376,7 +380,7 @@ void Grim_Shutdown(void)
     (*(code *)UINT_008ddd84)();
   }
   Services_Clear();
-  DebugLog_Init(0);
+  grimdemo_EnableDebugging(0);
   return;
 }
 
@@ -541,13 +545,17 @@ void grimdemo_PleaseShutdown(void)
   return;
 }
 
-/* ---- 0x00402060  Grim_OnDisplayModeChange ---- */
-undefined4 Grim_OnDisplayModeChange(void *param_1,int param_2)
+/* ---- 0x00402060  grimdemo_SetPalette ---- */
+/* Original name grimdemo_SetPalette (the remaster's GrimFandango (Linux): the palette callback of
+   Main_Startup, same body (two display palette calls, std3D_SetCurrentPalette with a device)); was
+   Grim_OnDisplayModeChange. */
+
+undefined4 grimdemo_SetPalette(void *param_1,int param_2)
 
 {
-  Display_SetDIBPalette(param_1);
-  Display_SetPalette(param_1);
-  if (g_pD3dDriver != (void *)0x0) {
+  stdDisplay_SetPalette(param_1);
+  stdDisplay_SetMasterPalette(param_1);
+  if (g_pStd3D_CurDevice != (void *)0x0) {
     std3D_SetCurrentPalette(param_1,param_2);
   }
   return 1;
@@ -698,7 +706,7 @@ void Grim_ShowSplash(void)
       } while (iVar1 < *(int *)((int)src + 0x10));
     }
     Surface_Blit(&g_dwStdDisplay_frontBuffer,src,0,0,(int *)0x0,0);
-    Display_Flip();
+    stdDisplay_Update();
     Surface_Blit(&g_dwStdDisplay_frontBuffer,src,0,0,(int *)0x0,0);
     stdBitmap_Free(bitmap);
   }

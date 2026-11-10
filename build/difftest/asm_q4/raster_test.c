@@ -7,7 +7,7 @@
  * and z-buffer allocations (with margins), the rasteriser globals 0x007f4440..0x007f4700 and 0x008dde40..0x008ddec0
  * (the span pointer 0x007f44f0 with orig_X mapped to X), the x87 control word and the x87 stack top.
  * The x87 precision control rotates through 24, 53 and 64 bits; the control words the original loads
- * (0x00900524 default, 0x00900526 floor, 0x0090052a ceil) are set from it as Services_SetCurrent does.
+ * (0x00900524 default, 0x00900526 floor, 0x0090052a ceil) are set from it as stdStartup does.
  *
  * usage: raster_test.exe [cases per function] [function name filter: a substring, or =name]
  * Q4_TIME=1: also time original vs C (cycles per call); Q4_SEED=n: another random sequence;
@@ -277,11 +277,11 @@ static void restore(const snap *s)
 /* ---- the functions ---- */
 enum { K_EDGE, K_SPAN, K_DRAW, K_DRAWL, K_GRAD };
 typedef struct { const char *name; int kind; void *orig, *c; } fn;
-#define FN(kind, n) extern void orig_rdRaster_##n(void), rdRaster_##n(void);
+#define FN(kind, n) extern void orig_##n(void), n(void);
 #include "q4_funcs.h"
 #undef FN
 static const fn fns[] = {
-#define FN(kind, n) {#n, kind, (void *)orig_rdRaster_##n, (void *)rdRaster_##n},
+#define FN(kind, n) {#n, kind, (void *)orig_##n, (void *)n},
 #include "q4_funcs.h"
 #undef FN
 };
@@ -400,7 +400,7 @@ int main(int argc, char **argv)
         const fn *f = &fns[k];
         if (filt && (filt[0] == '=' ? strcmp(f->name, filt + 1) != 0 : !strstr(f->name, filt))) continue;
         /* the dithered filler indexes the light table without the 0..63 mask: keep the light in range */
-        small_light = !strcmp(f->name, "Span16_TexLitZ_4") || !strcmp(f->name, "Draw_FlatLit_9");
+        small_light = !strcmp(f->name, "rdZRaster_DrawScanLineNGonGAT_16") || !strcmp(f->name, "rdZRaster_DrawNGonGAT");
         long f0 = fails;
         uint64_t t_orig = 0, t_c = 0;
         for (long i = 0; i < n; i++) {

@@ -28,7 +28,7 @@ __asm__(".text\n.globl _sputLua_ImResume\n_sputLua_ImResume:\n\tjmp _ImResume\n"
 /* sputLua_CleanBuffer @ 0x004a1ac0 */
 __asm__(".text\n.globl _sputLua_CleanBuffer\n_sputLua_CleanBuffer:\n\tjmp _Render_CleanBuffer\n");
 /* sputLua_Display @ 0x004a1ad0 */
-__asm__(".text\n.globl _sputLua_Display\n_sputLua_Display:\n\tjmp _Render_Present\n");
+__asm__(".text\n.globl _sputLua_Display\n_sputLua_Display:\n\tjmp _sputRender_PageFlip\n");
 /* sputLua_ResetTexturesL @ 0x004a3ad0 */
 __asm__(".text\n.globl _sputLua_ResetTexturesL\n_sputLua_ResetTexturesL:\n\tjmp _std3D_PurgeTextureCache\n");
 /* sputLua_SaveIMuse @ 0x004a3bc0 */

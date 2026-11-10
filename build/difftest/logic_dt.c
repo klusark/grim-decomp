@@ -25,7 +25,7 @@ __asm__(".include \"" DT_ASM "\"\n"
         "\t.text\n");
 
 extern undefined8 __cdecl rdColormap_Build16bitTables__orig(undefined2 *, ushort *, uint, uint, uint, int);
-extern void rdroid_BuildMathTables__orig(void);
+extern void rdRaster_Startup__orig(void);
 extern void Math_SinCosTable__orig(float, float *, float *);
 extern float10 Math_SinDeg__orig(float);
 extern void Palette_FromFloatTable__orig(byte *, byte *, int, double);
@@ -109,17 +109,17 @@ static void run_tests(void)
         }
         report("rdColormap_BuildRGB16", n, bad, first);
     }
-    /* rdroid_BuildMathTables: the three tables 0x008fbfc0..0x00900000 */
+    /* rdRaster_Startup: the three tables 0x008fbfc0..0x00900000 */
     {
         static byte sa[0x4040], sb[0x4040];
         byte *base = (byte *)&g_aRdRaster_OneOverNFixed;
         memset(base, 0, 0x4040);
-        rdroid_BuildMathTables__orig();
+        rdRaster_Startup__orig();
         memcpy(sa, base, 0x4040);
         memset(base, 0, 0x4040);
-        rdroid_BuildMathTables();
+        rdRaster_Startup();
         memcpy(sb, base, 0x4040);
-        report("rdroid_BuildMathTables", 1, memcmp(sa, sb, 0x4040) != 0, "tables differ");
+        report("rdRaster_Startup", 1, memcmp(sa, sb, 0x4040) != 0, "tables differ");
     }
     /* stdMath_SinCos / stdMath_Tan */
     {

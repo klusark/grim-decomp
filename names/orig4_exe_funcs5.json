@@ -1,0 +1,30 @@
+[
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00482540",
+  "old": "EngineModule_Init",
+  "name": "grimlib_GameInitialize",
+  "comment": "Fills the engine module interface and registers the two Lua/engine callback tables (8 + 6 entries) Original name grimlib_GameInitialize (the remaster's GrimFandango (Linux): the module-interface filler Main_Startup calls with hs and ms, same slots (itself, terminate, grimlib_GameStartup, shutdown) and base-module loop); was EngineModule_Init."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00482b60",
+  "old": "EngineModule_Terminate",
+  "name": "grimlib_GameTerminate",
+  "comment": "Module interface slot 1 (EngineModule): called by Engine_ResetSubsystems / when registration fails; drops the service table pointer and clears the initialised flag. Original name grimlib_GameTerminate (the remaster's GrimFandango (Linux): the terminate slot grimlib_GameInitialize fills, same body (clears psputmHS, undoes the modules when bsputmInitialize)); was EngineModule_Terminate."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00482cc0",
+  "old": "EngineModule_Stop",
+  "name": "grimlib_GameShutdown",
+  "comment": "Module interface slot 3 (EngineModule): called by Engine_ShutdownSubsystems in reverse order; releases what _Start created. Original name grimlib_GameShutdown (the remaster's GrimFandango (Linux): the shutdown slot grimlib_GameInitialize fills (shuts the modules down in reverse)); was EngineModule_Stop."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00404b80",
+  "old": "rdroid_BuildMathTables",
+  "name": "rdRaster_Startup",
+  "comment": "Fills the 1/n float table and its fixed-point twin used by the span rasterizer Original name rdRaster_Startup (the remaster's GrimFandango (Linux): the last call of rdStartup, same body (rdRaster_aOneOverNFlex / rdRaster_aOneOverNFixed tables from 0x7f7fc99e / 0x7fffffff)); was rdroid_BuildMathTables."
+ }
+]

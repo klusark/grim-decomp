@@ -7,7 +7,7 @@ cd "$(dirname "$0")/../../.." || exit 1
 N=${1:-1000000}
 D=build/difftest/asm_q4; O=$D/out; mkdir -p $O
 [ -s $O/base_asm_funcs.s ] || git show 2df265d:src/GRIMFANDANGO.EXE/asm_funcs.s > $O/base_asm_funcs.s
-F=$(sed -n 's/^FN([A-Z_]*, *\([A-Za-z0-9_]*\)).*/rdRaster_\1/p' $D/q4_funcs.h)
+F=$(sed -n 's/^FN([A-Z_]*, *\([A-Za-z0-9_]*\)).*/\1/p' $D/q4_funcs.h)
 # the C span fillers the FlatLit drivers choose (Span16_TexLitZw*) are in build/overrides_asm_o2.c: its object of the linked
 # build is linked in (EXTRA_OBJS)
 F="$F $EXTRA_ORIG"

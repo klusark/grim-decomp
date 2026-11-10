@@ -241,7 +241,7 @@ void __cdecl DirtyRect_Flush(void *dst,void *zdst)
         }
         else {
           ((code *)D3D_SetViewportRect)();
-          D3D_ClearZBuffer();
+          std3D_ClearZBuffer();
         }
       }
       iVar1 = item[4];

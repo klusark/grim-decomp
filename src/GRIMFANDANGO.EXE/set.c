@@ -1154,7 +1154,7 @@ void * Set_FindNameInList(int param_1)
   int iVar1;
   void *pvVar2;
   
-  if ((param_1 != 0) && (pvVar2 = g_pSetActorLists, g_pSetActorLists != (void *)0x0)) {
+  if ((param_1 != 0) && (pvVar2 = g_pRoomList, g_pRoomList != (void *)0x0)) {
     do {
       iVar1 = _stricmp(pvVar2,param_1);
       if (iVar1 == 0) {
@@ -1212,8 +1212,8 @@ void * __cdecl Set_NormalizeName(char *setName)
     pcVar6 = pcVar6 + 1;
     pcVar7 = pcVar7 + 1;
   }
-  *(void **)(pcVar2 + 0x84) = g_pSetActorLists;
-  g_pSetActorLists = pcVar2;
+  *(void **)(pcVar2 + 0x84) = g_pRoomList;
+  g_pRoomList = pcVar2;
   return pcVar2;
 }
 

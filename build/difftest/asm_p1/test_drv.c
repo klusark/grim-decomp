@@ -1,4 +1,4 @@
-/* Differential test: the polygon span drivers FUN_00410330 / 00410970 / 00411740 / 004125c0 / 00413590 / 00414d20 /
+/* Differential test: the polygon span drivers rdAFRaster_DrawNGonGS / 00410970 / 00411740 / 004125c0 / 00413590 / 00414d20 /
  * 00416580 (the +0x1b4 callbacks of the rdRaster_Select_* functions).  Every callee (the span routines, Mem_DumpLog,
  * rdRaster_SpanR_FlatZw / _2) is redirected to the recorder, so the order of the calls and their span arguments are
  * compared with the memory. */
@@ -42,28 +42,28 @@ static void setup(int *args)
     G(0x7f3214) = callees[rndn(sizeof callees / sizeof callees[0])];
     args[0] = REC;
 }
-extern void FUN_00410330(void), FUN_00410970(void), FUN_00411740(void), FUN_004125c0(void), FUN_00413590(void),
-    FUN_00414d20(void), FUN_00416580(void);
+extern void rdAFRaster_DrawNGonGS(void), rdAFRaster_DrawNGonLAT(void), rdAFRaster_DrawNGonFAT(void), rdAFRaster_DrawNGonGAT(void), rdAFRaster_DrawNGonLIT(void),
+    rdAFRaster_DrawNGonFIT(void), rdAFRaster_DrawNGonGIT(void);
 #ifdef SLICE
-/* SLICE: the reassembled asm of the build (sliced, renamed orig_FUN_00410330) against the 1.01 bytes */
-extern void orig_FUN_00410330(void), orig_FUN_00410970(void), orig_FUN_00411740(void), orig_FUN_004125c0(void),
-    orig_FUN_00413590(void), orig_FUN_00414d20(void), orig_FUN_00416580(void);
-#define FUN_00410330 orig_FUN_00410330
-#define FUN_00410970 orig_FUN_00410970
-#define FUN_00411740 orig_FUN_00411740
-#define FUN_004125c0 orig_FUN_004125c0
-#define FUN_00413590 orig_FUN_00413590
-#define FUN_00414d20 orig_FUN_00414d20
-#define FUN_00416580 orig_FUN_00416580
+/* SLICE: the reassembled asm of the build (sliced, renamed orig_rdAFRaster_DrawNGonGS) against the 1.01 bytes */
+extern void orig_rdAFRaster_DrawNGonGS(void), orig_rdAFRaster_DrawNGonLAT(void), orig_rdAFRaster_DrawNGonFAT(void), orig_rdAFRaster_DrawNGonGAT(void),
+    orig_rdAFRaster_DrawNGonLIT(void), orig_rdAFRaster_DrawNGonFIT(void), orig_rdAFRaster_DrawNGonGIT(void);
+#define rdAFRaster_DrawNGonGS orig_rdAFRaster_DrawNGonGS
+#define rdAFRaster_DrawNGonLAT orig_rdAFRaster_DrawNGonLAT
+#define rdAFRaster_DrawNGonFAT orig_rdAFRaster_DrawNGonFAT
+#define rdAFRaster_DrawNGonGAT orig_rdAFRaster_DrawNGonGAT
+#define rdAFRaster_DrawNGonLIT orig_rdAFRaster_DrawNGonLIT
+#define rdAFRaster_DrawNGonFIT orig_rdAFRaster_DrawNGonFIT
+#define rdAFRaster_DrawNGonGIT orig_rdAFRaster_DrawNGonGIT
 #endif
 static const Fn fns[] = {
-    {"FUN_00410330", 0x410330, (void *)FUN_00410330, setup, 0},
-    {"FUN_00410970", 0x410970, (void *)FUN_00410970, setup, 0},
-    {"FUN_00411740", 0x411740, (void *)FUN_00411740, setup, 0},
-    {"FUN_004125c0", 0x4125c0, (void *)FUN_004125c0, setup, 0},
-    {"FUN_00413590", 0x413590, (void *)FUN_00413590, setup, 0},
-    {"FUN_00414d20", 0x414d20, (void *)FUN_00414d20, setup, 0},
-    {"FUN_00416580", 0x416580, (void *)FUN_00416580, setup, 0},
+    {"rdAFRaster_DrawNGonGS", 0x410330, (void *)rdAFRaster_DrawNGonGS, setup, 0},
+    {"rdAFRaster_DrawNGonLAT", 0x410970, (void *)rdAFRaster_DrawNGonLAT, setup, 0},
+    {"rdAFRaster_DrawNGonFAT", 0x411740, (void *)rdAFRaster_DrawNGonFAT, setup, 0},
+    {"rdAFRaster_DrawNGonGAT", 0x4125c0, (void *)rdAFRaster_DrawNGonGAT, setup, 0},
+    {"rdAFRaster_DrawNGonLIT", 0x413590, (void *)rdAFRaster_DrawNGonLIT, setup, 0},
+    {"rdAFRaster_DrawNGonFIT", 0x414d20, (void *)rdAFRaster_DrawNGonFIT, setup, 0},
+    {"rdAFRaster_DrawNGonGIT", 0x416580, (void *)rdAFRaster_DrawNGonGIT, setup, 0},
 };
 int main(int argc, char **argv)
 {

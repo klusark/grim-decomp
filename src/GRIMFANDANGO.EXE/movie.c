@@ -12,11 +12,11 @@
 int __cdecl sputSmush_Save(void *fn)
 
 {
-  (*(code *)fn)(&g_nMoviePlaying,4);
+  (*(code *)fn)(&g_nSmushPlaying,4);
   (*(code *)fn)(&g_nSmushPaused,4);
-  (*(code *)fn)(&g_nMovieStopRequested,4);
-  (*(code *)fn)(g_szMovieName,0x80);
-  (*(code *)fn)(&g_nMovieFullscreen,4);
+  (*(code *)fn)(&g_nSmushAbort,4);
+  (*(code *)fn)(g_szCurMovieFile,0x80);
+  (*(code *)fn)(&g_nSmushLooping,4);
   (*(code *)fn)(&g_dwSmushX,4);
   (*(code *)fn)(&g_dwSmushY,4);
   return 0;
@@ -32,15 +32,15 @@ undefined4 sputSmush_Restore(code *param_1)
 
 {
   sputSmush_SetTarget(&g_dwStdDisplay_frontBuffer);
-  (*param_1)(&g_nMoviePlaying,4);
+  (*param_1)(&g_nSmushPlaying,4);
   (*param_1)(&g_nSmushPaused,4);
-  (*param_1)(&g_nMovieStopRequested,4);
-  (*param_1)(g_szMovieName,0x80);
-  (*param_1)(&g_nMovieFullscreen,4);
+  (*param_1)(&g_nSmushAbort,4);
+  (*param_1)(g_szCurMovieFile,0x80);
+  (*param_1)(&g_nSmushLooping,4);
   (*param_1)(&g_dwSmushX,4);
   (*param_1)(&g_dwSmushY,4);
-  if (g_nMoviePlaying != 0) {
-    sputSmush_StartMovie(g_szMovieName,g_nMovieFullscreen,g_dwSmushX,g_dwSmushY);
+  if (g_nSmushPlaying != 0) {
+    sputSmush_StartMovie(g_szCurMovieFile,g_nSmushLooping,g_dwSmushX,g_dwSmushY);
   }
   return 0;
 }
@@ -61,7 +61,7 @@ undefined4 sputSmush_Periodic(void)
   
   local_14 = 0;
   uVar2 = 1;
-  if ((g_nSputSmushStarted == 0) || (g_nMoviePlaying == 0)) {
+  if ((g_nSputSmushStarted == 0) || (g_nSmushPlaying == 0)) {
     return 1;
   }
   if (g_nSmushPaused != 0) {
@@ -69,15 +69,15 @@ undefined4 sputSmush_Periodic(void)
   }
   SmushPlay_SetTranslationTable(&g_wSputRender_ColorLookup);
   timeGetTime();
-  if (g_nMovieStopRequested == 0) {
+  if (g_nSmushAbort == 0) {
     iVar1 = SmushPlay_UpdateMovie((int *)&local_14);
     if (iVar1 != 0) goto LAB_00489259;
   }
-  if ((local_14 == 0) && (g_nMovieStopRequested == 0)) {
+  if ((local_14 == 0) && (g_nSmushAbort == 0)) {
     uVar2 = 0;
   }
   else {
-    g_nMoviePlaying = 0;
+    g_nSmushPlaying = 0;
     SmushPlay_StopMovie();
     SmushPlay_GetFrameRect(aiStack_10,0);
     MarkDirtyRect(aiStack_10,0);
@@ -116,22 +116,23 @@ undefined4 sputSmush_StartMovie(char *param_1,int param_2,uint param_3,uint para
   int iVar1;
   
   if (g_nSputSmushStarted != 0) {
-    if (g_nMoviePlaying != 0) {
+    if (g_nSmushPlaying != 0) {
       SmushPlay_StopMovie();
-      g_nMoviePlaying = 0;
+      g_nSmushPlaying = 0;
     }
     SmushPlay_SetTranslationTable(&g_wSputRender_ColorLookup);
-    g_nMovieFullscreen = param_2;
+    g_nSmushLooping = param_2;
     g_dwSmushX = param_3;
     g_dwSmushY = param_4;
-    iVar1 = Smush_Open(param_1,-(uint)(param_2 != 0) & 0x10,100000,param_3,param_4,
+    iVar1 = SmushPlay_StartMovie
+                      (param_1,-(uint)(param_2 != 0) & 0x10,100000,param_3,param_4,
                        *(int *)((int)g_pPresentBuf + 0xc),*(int *)((int)g_pPresentBuf + 0x10),0,
                        (uint)(UINT_009016ac != 6));
     if (iVar1 == 0) {
-      g_nMoviePlaying = 1;
+      g_nSmushPlaying = 1;
       g_nSmushPaused = iVar1;
-      g_nMovieStopRequested = iVar1;
-      strncpy(g_szMovieName,param_1,0x80);
+      g_nSmushAbort = iVar1;
+      strncpy(g_szCurMovieFile,param_1,0x80);
       _g_dwSmushStartTime = timeGetTime();
       return 0;
     }
@@ -147,7 +148,7 @@ void sputSmush_StopMovie(void)
 
 {
   if (g_nSputSmushStarted != 0) {
-    g_nMovieStopRequested = 1;
+    g_nSmushAbort = 1;
     g_nSmushPaused = 0;
   }
   return;
@@ -240,11 +241,14 @@ int FUN_004894d0(void)
   return g_nSputSmushStarted == 0;
 }
 
-/* ---- 0x004894e0  Movie_IsPlaying ---- */
-int Movie_IsPlaying(void)
+/* ---- 0x004894e0  sputSmush_MoviePlaying ---- */
+/* Original name sputSmush_MoviePlaying (the remaster's GrimFandango (Linux): returns SmushPlaying,
+   called by sputLua_IsMoviePlayingL); was Movie_IsPlaying. */
+
+int sputSmush_MoviePlaying(void)
 
 {
-  return g_nMoviePlaying;
+  return g_nSmushPlaying;
 }
 
 /* ---- 0x004894f0  sputSmush_Pause ---- */

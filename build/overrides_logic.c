@@ -62,11 +62,11 @@ undefined8 __cdecl rdColormap_BuildRGB16(undefined2 *table, ushort *palette, uin
     return 1;
 }
 
-/* ==== rdroid_BuildMathTables (0x00404b80) ====
+/* ==== rdRaster_Startup (0x00404b80) ====
  * Reciprocal tables of the rasteriser: float 1/n for n = 1..2047 (entry 0 = FLT_MAX) at 0x008fe000, the same value as a
  * 16.16 fixed point integer (entry 0 = INT_MAX) at 0x008fbfc0, and the first 16 entries scaled by 65536 at 0x008fdfc0.
  * The decompiler lost the operand of _ftol (the extended precision 65536/n, truncated). */
-void rdroid_BuildMathTables(void)
+void rdRaster_Startup(void)
 {
     float *recip = (float *)&g_dwRdRaster_aOneOverNFlex;
     int *fixed = (int *)&g_aRdRaster_OneOverNFixed;
@@ -439,7 +439,7 @@ LAB_0040dbd3:
  * Draws one cache entry with the z-buffered rasteriser: the polygon mode and the lighting mode select the rdRaster_Draw_*
  * routine (flat or textured, lit or unlit, colour keyed, with or without the alpha pass).  Eleven of the calls were printed
  * without their arguments (find_lost_args: the compiler pushed (cache entry, polygon) once before a conditional jump): they
- * take the same two arguments as their neighbours, and rdRaster_Draw_TexLitZ_2 in the case 1 path a third, 0.0f. */
+ * take the same two arguments as their neighbours, and rdZRaster_DrawNGonTFS in the case 1 path a third, 0.0f. */
 /* Software path with z-buffer */
 
 int __cdecl rdCache_DrawFaceZ(void *mesh)
@@ -461,8 +461,8 @@ int __cdecl rdCache_DrawFaceZ(void *mesh)
   
   pvVar4 = mesh;
   iVar7 = *(int *)((int)mesh + 8);
-  if (g_nRdroidGeometryMode <= *(int *)((int)mesh + 8)) {
-    iVar7 = g_nRdroidGeometryMode;
+  if (g_nRdroid_curGeometryMode <= *(int *)((int)mesh + 8)) {
+    iVar7 = g_nRdroid_curGeometryMode;
   }
   iVar8 = *(int *)((int)mesh + 0xc);
   if (g_nRdroid_curLightingMode <= *(int *)((int)mesh + 0xc)) {
@@ -515,13 +515,13 @@ LAB_00408b6e:
   switch(iVar7) {
   case 1:
     if ((-1 < iVar8) && (iVar8 < 5)) {
-      rdRaster_DrawPointsZ(pvVar4,pbVar10);
+      rdZRaster_DrawNGonLV(pvVar4,pbVar10);
       return 1;
     }
     break;
   case 2:
     if ((-1 < iVar8) && (iVar8 < 5)) {
-      rdRaster_DrawWireframeZ(pvVar4,pbVar10);
+      rdZRaster_DrawNGonLW(pvVar4,pbVar10);
       return 1;
     }
     break;
@@ -529,16 +529,16 @@ LAB_00408b6e:
     switch(iVar8) {
     case 0:
       if ((*(byte *)((int)pvVar4 + 4) & 2) == 0) {
-        rdRaster_Draw_FlatLitZ(pvVar4,pbVar10);
+        rdZRaster_DrawNGonLS(pvVar4,pbVar10);
         return 1;
       }
-      rdRaster_Draw_TexLitZ(pvVar4,pbVar10);
+      rdZRaster_DrawNGonTLS(pvVar4,pbVar10);
       return 1;
     case 1:
       fVar11 = 0.0;
       *(undefined4 *)((int)pvVar4 + 0x44) = 0;
       if ((*(byte *)((int)pvVar4 + 4) & 2) != 0) {
-        rdRaster_Draw_TexLitZ_2(pvVar4,pbVar10,fVar11);
+        rdZRaster_DrawNGonTFS(pvVar4,pbVar10,fVar11);
         return 1;
       }
       break;
@@ -567,7 +567,7 @@ LAB_00408b6e:
       fVar11 = local_4 * 63.0;
       *(float *)((int)pvVar4 + 0x44) = fVar11;
       if ((*(byte *)((int)pvVar4 + 4) & 2) != 0) {
-        rdRaster_Draw_TexLitZ_2(pvVar4,pbVar10,fVar11);
+        rdZRaster_DrawNGonTFS(pvVar4,pbVar10,fVar11);
         return 1;
       }
       break;
@@ -604,15 +604,15 @@ LAB_00408b6e:
         } while (uVar6 < *(uint *)((int)pvVar4 + 0x1c));
       }
       if ((*(byte *)((int)pvVar4 + 4) & 2) == 0) {
-        rdRaster_Draw_FlatLitZ_3(pvVar4,pbVar10);
+        rdZRaster_DrawNGonGS(pvVar4,pbVar10);
         return 1;
       }
-      rdRaster_Draw_TexLitZ_3(pvVar4,pbVar10);
+      rdZRaster_DrawNGonTGS(pvVar4,pbVar10);
       return 1;
     default:
       goto switchD_00408bad_default;
     }
-    rdRaster_Draw_FlatLitZ_2(pvVar4,pbVar10,fVar11);
+    rdZRaster_DrawNGonFS(pvVar4,pbVar10,fVar11);
     return 1;
   case 4:
     if (mesh == (void *)0x0) {
@@ -620,17 +620,17 @@ LAB_00408b6e:
       case 0:
         if ((**(byte **)(pbVar10 + 0x1c) & 1) == 0) {
           if ((*(byte *)((int)pvVar4 + 4) & 2) == 0) {
-            rdRaster_Draw_FlatLit_7(pvVar4,pbVar10);
+            rdZRaster_DrawNGonLAT(pvVar4,pbVar10);
             return 1;
           }
-          rdRaster_Draw_TexLitZ_4(pvVar4,pbVar10);
+          rdZRaster_DrawNGonTLAT(pvVar4,pbVar10);
           return 1;
         }
         if ((*(byte *)((int)pvVar4 + 4) & 2) == 0) {
-          rdRaster_Draw_TexLitKeyZw(pvVar4,pbVar10);
+          rdZRaster_DrawNGonMLAT(pvVar4,pbVar10);
           return 1;
         }
-        rdRaster_Draw_TexLitKeyZw_2(pvVar4,pbVar10);
+        rdZRaster_DrawNGonMTLAT(pvVar4,pbVar10);
         return 1;
       case 1:
         if (*(float *)((int)pvVar4 + 0x48) < 0.0) {
@@ -657,17 +657,17 @@ LAB_00408b6e:
         *(float *)((int)pvVar4 + 0x44) = fVar11;
         if ((**(byte **)(pbVar10 + 0x1c) & 1) == 0) {
           if ((*(byte *)((int)pvVar4 + 4) & 2) == 0) {
-            rdRaster_Draw_FlatLit_8(pvVar4,pbVar10,fVar11);
+            rdZRaster_DrawNGonFAT(pvVar4,pbVar10,fVar11);
             return 1;
           }
-          rdRaster_Draw_TexLitZ_5(pvVar4,pbVar10,fVar11);
+          rdZRaster_DrawNGonTFAT(pvVar4,pbVar10,fVar11);
           return 1;
         }
         if ((*(byte *)((int)pvVar4 + 4) & 2) == 0) {
-          rdRaster_Draw_TexLitKeyZw_3(pvVar4,pbVar10,fVar11);
+          rdZRaster_DrawNGonMFAT(pvVar4,pbVar10,fVar11);
           return 1;
         }
-        rdRaster_Draw_TexLitKeyZw_4(pvVar4,pbVar10,fVar11);
+        rdZRaster_DrawNGonMTFAT(pvVar4,pbVar10,fVar11);
         return 1;
       case 2:
         fVar11 = *(float *)((int)pvVar4 + 0x48) + *(float *)((int)pvVar4 + 0x44);
@@ -695,17 +695,17 @@ LAB_00408b6e:
         *(float *)((int)pvVar4 + 0x44) = fVar11;
         if ((**(byte **)(pbVar10 + 0x1c) & 1) == 0) {
           if ((*(byte *)((int)pvVar4 + 4) & 2) == 0) {
-            rdRaster_Draw_FlatLit_8(pvVar4,pbVar10,fVar11);
+            rdZRaster_DrawNGonFAT(pvVar4,pbVar10,fVar11);
             return 1;
           }
-          rdRaster_Draw_TexLitZ_5(pvVar4,pbVar10,fVar11);
+          rdZRaster_DrawNGonTFAT(pvVar4,pbVar10,fVar11);
           return 1;
         }
         if ((*(byte *)((int)pvVar4 + 4) & 2) == 0) {
-          rdRaster_Draw_TexLitKeyZw_3(pvVar4,pbVar10,fVar11);
+          rdZRaster_DrawNGonMFAT(pvVar4,pbVar10,fVar11);
           return 1;
         }
-        rdRaster_Draw_TexLitKeyZw_4(pvVar4,pbVar10,fVar11);
+        rdZRaster_DrawNGonMTFAT(pvVar4,pbVar10,fVar11);
         return 1;
       case 3:
         uVar6 = 0;
@@ -741,17 +741,17 @@ LAB_00408b6e:
         }
         if ((**(byte **)(pbVar10 + 0x1c) & 1) != 0) {
           if ((*(byte *)((int)pvVar4 + 4) & 2) == 0) {
-            rdRaster_Draw_TexLitKeyZw_5(pvVar4,pbVar10);
+            rdZRaster_DrawNGonMGAT(pvVar4,pbVar10);
             return 1;
           }
-          rdRaster_Draw_TexLitKeyZw_6(pvVar4,pbVar10);
+          rdZRaster_DrawNGonMTGAT(pvVar4,pbVar10);
           return 1;
         }
         if ((*(byte *)((int)pvVar4 + 4) & 2) != 0) {
-          rdRaster_Draw_TexLitZ_6(pvVar4,pbVar10);
+          rdZRaster_DrawNGonTGAT(pvVar4,pbVar10);
           return 1;
         }
-        rdRaster_Draw_FlatLit_9(pvVar4,pbVar10);
+        rdZRaster_DrawNGonGAT(pvVar4,pbVar10);
       }
     }
     else if (mesh == (void *)0x1) {
@@ -759,17 +759,17 @@ LAB_00408b6e:
       case 0:
         if ((**(byte **)(pbVar10 + 0x1c) & 1) == 0) {
           if ((*(byte *)((int)pvVar4 + 4) & 2) == 0) {
-            rdRaster_Draw_FlatLit_10(pvVar4,pbVar10);
+            rdZRaster_DrawNGonLIT(pvVar4,pbVar10);
             return 1;
           }
-          rdRaster_Draw_TexLitZ_7(pvVar4,pbVar10);
+          rdZRaster_DrawNGonTLIT(pvVar4,pbVar10);
           return 1;
         }
         if ((*(byte *)((int)pvVar4 + 4) & 2) == 0) {
-          rdRaster_Draw_TexLitKeyZw_7(pvVar4,pbVar10);
+          rdZRaster_DrawNGonMLIT(pvVar4,pbVar10);
           return 1;
         }
-        rdRaster_Draw_TexLitKeyZw_8(pvVar4,pbVar10);
+        rdZRaster_DrawNGonMTLIT(pvVar4,pbVar10);
         return 1;
       case 1:
         if (*(float *)((int)pvVar4 + 0x48) < 0.0) {
@@ -796,17 +796,17 @@ LAB_00408b6e:
         *(float *)((int)pvVar4 + 0x44) = fVar11;
         if ((**(byte **)(pbVar10 + 0x1c) & 1) == 0) {
           if ((*(byte *)((int)pvVar4 + 4) & 2) == 0) {
-            rdRaster_Draw_FlatLit_11(pvVar4,pbVar10,fVar11);
+            rdZRaster_DrawNGonFIT(pvVar4,pbVar10,fVar11);
             return 1;
           }
-          rdRaster_Draw_TexLitZ_8(pvVar4,pbVar10,fVar11);
+          rdZRaster_DrawNGonTFIT(pvVar4,pbVar10,fVar11);
           return 1;
         }
         if ((*(byte *)((int)pvVar4 + 4) & 2) == 0) {
-          rdRaster_Draw_TexLitKeyZw_9(pvVar4,pbVar10,fVar11);
+          rdZRaster_DrawNGonMFIT(pvVar4,pbVar10,fVar11);
           return 1;
         }
-        rdRaster_Draw_TexLitKeyZw_10(pvVar4,pbVar10,fVar11);
+        rdZRaster_DrawNGonMTFIT(pvVar4,pbVar10,fVar11);
         return 1;
       case 2:
         fVar11 = *(float *)((int)pvVar4 + 0x48) + *(float *)((int)pvVar4 + 0x44);
@@ -834,17 +834,17 @@ LAB_00408b6e:
         *(float *)((int)pvVar4 + 0x44) = fVar11;
         if ((**(byte **)(pbVar10 + 0x1c) & 1) == 0) {
           if ((*(byte *)((int)pvVar4 + 4) & 2) == 0) {
-            rdRaster_Draw_FlatLit_11(pvVar4,pbVar10,fVar11);
+            rdZRaster_DrawNGonFIT(pvVar4,pbVar10,fVar11);
             return 1;
           }
-          rdRaster_Draw_TexLitZ_8(pvVar4,pbVar10,fVar11);
+          rdZRaster_DrawNGonTFIT(pvVar4,pbVar10,fVar11);
           return 1;
         }
         if ((*(byte *)((int)pvVar4 + 4) & 2) == 0) {
-          rdRaster_Draw_TexLitKeyZw_9(pvVar4,pbVar10,fVar11);
+          rdZRaster_DrawNGonMFIT(pvVar4,pbVar10,fVar11);
           return 1;
         }
-        rdRaster_Draw_TexLitKeyZw_10(pvVar4,pbVar10,fVar11);
+        rdZRaster_DrawNGonMTFIT(pvVar4,pbVar10,fVar11);
         return 1;
       case 3:
         uVar6 = 0;
@@ -880,17 +880,17 @@ LAB_00408b6e:
         }
         if ((**(byte **)(pbVar10 + 0x1c) & 1) == 0) {
           if ((*(byte *)((int)pvVar4 + 4) & 2) == 0) {
-            rdRaster_Draw_FlatLit_12(pvVar4,pbVar10);
+            rdZRaster_DrawNGonGIT(pvVar4,pbVar10);
             return 1;
           }
-          rdRaster_Draw_TexLitZ_9(pvVar4,pbVar10);
+          rdZRaster_DrawNGonTGIT(pvVar4,pbVar10);
           return 1;
         }
         if ((*(byte *)((int)pvVar4 + 4) & 2) == 0) {
-          rdRaster_Draw_TexLitKeyZw_11(pvVar4,pbVar10);
+          rdZRaster_DrawNGonMGIT(pvVar4,pbVar10);
           return 1;
         }
-        rdRaster_Draw_TexLitKeyZw_12(pvVar4,pbVar10);
+        rdZRaster_DrawNGonMTGIT(pvVar4,pbVar10);
         return 1;
       }
     }
@@ -1726,7 +1726,7 @@ undefined * __cdecl PerfEnd(int slot)
     char *rec;
 
     if (slot < 0 || 0xc < slot) {
-        (*g_pSvcEngineModule->pAssertFail)(s_slot____1____slot___PerfTotalEnt_004e7f74, s_C__grimsrc_libs_grimlib_Main_spu_004e7f9c, 0x5b6);
+        (*g_pSputmHS->pAssertFail)(s_slot____1____slot___PerfTotalEnt_004e7f74, s_C__grimsrc_libs_grimlib_Main_spu_004e7f9c, 0x5b6);
     }
     QueryPerformanceFrequency((int)&freq);
     freq_d = (double)freq;
@@ -1809,7 +1809,7 @@ int rdCache_AddProcFace(void *mesh, uint vertexCount, byte flags)
     v = *(float **)(e + 0x20);
     *(void **)e = mesh;
     *(uint *)(e + 0x1c) = vertexCount;
-    *(uint *)(e + 0x74) = UINT_00900054;
+    *(uint *)(e + 0x74) = g_dwRdroid_curProcFaceUserData;
     xlo = xhi = v[0];
     ylo = yhi = v[1];
     zlo = zhi = v[2];
@@ -1852,10 +1852,10 @@ int rdCache_AddProcFace(void *mesh, uint vertexCount, byte flags)
         g_dwNumUsedIntensities = g_dwNumUsedIntensities + vertexCount;
     *(uint *)(e + 0x4c) = g_dwRdColormap_pIdentityMap;
     g_dwRdCache_numProcFaces = g_dwRdCache_numProcFaces + 1;
-    if (*(uint *)(e + 0x54) < (uint)g_nDrawBoxMinX)
-        g_nDrawBoxMinX = *(uint *)(e + 0x54);
-    if ((uint)g_nDrawBoxMaxX < *(uint *)(e + 0x58))
-        g_nDrawBoxMaxX = *(uint *)(e + 0x58);
+    if (*(uint *)(e + 0x54) < (uint)g_nRdCache_ulcExtent)
+        g_nRdCache_ulcExtent = *(uint *)(e + 0x54);
+    if ((uint)g_nRdCache_lrcExtent < *(uint *)(e + 0x58))
+        g_nRdCache_lrcExtent = *(uint *)(e + 0x58);
     if (*(uint *)(e + 0x5c) < (uint)g_nDrawBoxMinY)
         g_nDrawBoxMinY = *(uint *)(e + 0x5c);
     if ((uint)g_nDrawBoxMaxY < *(uint *)(e + 0x60))
@@ -2014,11 +2014,11 @@ void sputPrimitive_ChangePrimitive(void)
   return;
 }
 
-/* ==== Services_SetCurrent (0x004733a0) ====
+/* ==== stdStartup (0x004733a0) ====
  * Stores the module service table and captures the x87 control word the game runs with: the other three words used by the
  * rounding helpers keep its low byte and replace the high byte (rounding control): 0x0b = round up (0x0090052a), 0x07 =
  * round down (0x00900526), 0x0c = truncate (0x00900528).  The decompiler printed FNSTCW as a read of an undefined register. */
-void __cdecl Services_SetCurrent(GrimServices *svc)
+void __cdecl stdStartup(GrimServices *svc)
 {
     ushort cw;
 
@@ -2915,11 +2915,11 @@ undefined4 ThingAdjuster(int *component, undefined4 text)
     return 1;
 }
 
-/* ==== Polyglot_LoadTable (0x00483720) ====
+/* ==== PolyglotConfigure (0x00483720) ====
  * polyglot.c: loads the language table (text id -> translated string) from the file `name`: 4 magic bytes ('RCNE' = the rest
  * is XOR 0xdd encrypted), then lines "ID<TAB>text" ended by CR LF.  The line start pointers are kept in a table that is
  * sorted for lookups.  The old text read the magic into the parameter slot. */
-void Polyglot_LoadTable(undefined *name)
+void PolyglotConfigure(undefined *name)
 {
     int file, size, i;
     char *p, *end;
@@ -2927,31 +2927,31 @@ void Polyglot_LoadTable(undefined *name)
     undefined1 *tab;
 
     PTR_s_language_tab_004e8024 = name;
-    file = (*g_pSvcIMuseModule->pFopen)(name, &DAT_004ddb18);
+    file = (*g_pPolyglot_HS->pFopen)(name, &DAT_004ddb18);
     if (file == 0)
         return;
-    (*g_pSvcIMuseModule->pFread)(file, &magic, 4);
-    (*g_pSvcIMuseModule->pFseek)(file, 0, 2);
-    size = (*g_pSvcIMuseModule->pFtell)(file);
-    (*g_pSvcIMuseModule->pFseek)(file, 0, 0);
-    g_pPolyglotText = (char *)(*g_pSvcIMuseModule->pAlloc)(size, s_C__grimsrc_libs_grimlib_Engine_p_004e8038, 0x8f);
-    (*g_pSvcIMuseModule->pFread)(file, g_pPolyglotText, size);
-    (*g_pSvcIMuseModule->pFclose)(file);
-    p = g_pPolyglotText;
+    (*g_pPolyglot_HS->pFread)(file, &magic, 4);
+    (*g_pPolyglot_HS->pFseek)(file, 0, 2);
+    size = (*g_pPolyglot_HS->pFtell)(file);
+    (*g_pPolyglot_HS->pFseek)(file, 0, 0);
+    g_pLanguageMalloc = (char *)(*g_pPolyglot_HS->pAlloc)(size, s_C__grimsrc_libs_grimlib_Engine_p_004e8038, 0x8f);
+    (*g_pPolyglot_HS->pFread)(file, g_pLanguageMalloc, size);
+    (*g_pPolyglot_HS->pFclose)(file);
+    p = g_pLanguageMalloc;
     if (magic == (undefined *)0x454e4352) {
         size -= 4;
         for (i = 0; i < size; i++)
-            g_pPolyglotText[i] = g_pPolyglotText[i + 4] ^ 0xdd;
-        p = g_pPolyglotText;
+            g_pLanguageMalloc[i] = g_pLanguageMalloc[i + 4] ^ 0xdd;
+        p = g_pLanguageMalloc;
     }
     do {                                    /* count the lines */
         tab = Str_FindChar(p, 0xd);
-        UINT_008a8ca4 = UINT_008a8ca4 + 1;
+        g_dwLineCount = g_dwLineCount + 1;
         p = (char *)tab + 2;
-    } while (p < g_pPolyglotText + size - 1);
-    UINT_008a8c9c = (*g_pSvcIMuseModule->pAlloc)(UINT_008a8ca4 * 4, s_C__grimsrc_libs_grimlib_Engine_p_004e8038, 0xa2);
+    } while (p < g_pLanguageMalloc + size - 1);
+    g_dwLanguageLine = (*g_pPolyglot_HS->pAlloc)(g_dwLineCount * 4, s_C__grimsrc_libs_grimlib_Engine_p_004e8038, 0xa2);
     i = 0;
-    p = g_pPolyglotText;
+    p = g_pLanguageMalloc;
     do {                                    /* terminate every line and its id, upper case the id, store the pointer */
         char *tabc;
 
@@ -2961,11 +2961,11 @@ void Polyglot_LoadTable(undefined *name)
         if (tabc != (char *)0)
             *tabc = 0;
         _strupr(p);
-        *(char **)(UINT_008a8c9c + i) = p;
+        *(char **)(g_dwLanguageLine + i) = p;
         p = end + 2;
         i += 4;
-    } while (p < g_pPolyglotText + size - 1);
-    qsort(UINT_008a8c9c, UINT_008a8ca4, 4, Str_ComparePtrs);
+    } while (p < g_pLanguageMalloc + size - 1);
+    qsort(g_dwLanguageLine, g_dwLineCount, 4, Str_ComparePtrs);
 }
 
 /* ==== SoundChanger (0x004971a0) ====

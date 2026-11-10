@@ -509,8 +509,11 @@ void __cdecl rdCamera_AddLight(void *camera,void *light,float *pos)
   return;
 }
 
-/* ---- 0x0040a7d0  rdCamera_ClearCanvas ---- */
-void rdCamera_ClearCanvas(void)
+/* ---- 0x0040a7d0  rdCamera_AdvanceFrame ---- */
+/* Original name rdCamera_AdvanceFrame (the remaster's GrimFandango (Linux): the camera call of
+   rdAdvanceFrame, same body (z-buffer clear: hardware or fill)); was rdCamera_ClearCanvas. */
+
+void rdCamera_AdvanceFrame(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -524,7 +527,7 @@ void rdCamera_ClearCanvas(void)
       (puVar1 = *(uint **)((int)g_pRdCamera_CurCamera + 4),
       (g_dwRdroid_curRenderOptions & 0x100) != 0)) && ((*puVar1 & 2) != 0)) {
     if (0 < g_nRdroid_curAcceleration) {
-      D3D_ClearZBuffer();
+      std3D_ClearZBuffer();
       return;
     }
     if ((*puVar1 & 1) != 0) {
@@ -545,11 +548,15 @@ void rdCamera_ClearCanvas(void)
 #undef local_c
 
 
-/* ---- 0x0040a860  rdCamera_ResetStats ---- */
-void rdCamera_ResetStats(void)
+/* ---- 0x0040a860  rdModel3_ClearFrameCounters ---- */
+/* Original name rdModel3_ClearFrameCounters (the remaster's GrimFandango (Linux): the third counter
+   reset of rdClearPreStatistics (clears rdModel3_numDrawnModels, counted per model in
+   rdThing_Draw)); was rdCamera_ResetStats. */
+
+void rdModel3_ClearFrameCounters(void)
 
 {
-  UINT_007f31ec = 0;
+  g_dwRdModel3_numDrawnModels = 0;
   return;
 }
 

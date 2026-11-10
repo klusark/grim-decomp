@@ -263,7 +263,7 @@ undefined4 sputText_Restore(code *param_1)
         if (puVar5[0x83] != 0) {
           puVar5[0x83] = puVar5 + 0x90;
         }
-        puVar5[0x8d] = g_wTextColors;
+        puVar5[0x8d] = g_abSputRender_colorMap;
         puVar5[1] = 0;
         *puVar5 = g_pTextQueue;
         if (g_pTextQueue != (void *)0x0) {

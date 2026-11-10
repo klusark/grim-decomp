@@ -45,7 +45,7 @@ int __cdecl ChoreFace_Toggle(int show)
     _DAT_004f5a7c = (code *)GetProcAddress(UINT_004f4530,IMG_ADDR(0x004dd6d4));
     if ((((UINT_004f5a70 != 0) && (UINT_004f5a74 != 0)) && (UINT_004f5a78 != 0)) &&
        (_DAT_004f5a7c != (code *)0x0)) {
-      iVar1 = (*_DAT_004f5a7c)(PTR_DAT_004dd040,&DAT_004f4d90);
+      iVar1 = (*_DAT_004f5a7c)(PTR_g_aHs_004dd040,&DAT_004f4d90);
       if (iVar1 == 0) {
         iVar1 = (*(code *)UINT_004f4d98)();
         if (iVar1 == 0) {

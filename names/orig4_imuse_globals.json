@@ -1,0 +1,92 @@
+[
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "10032e40",
+  "old": "DAT_10032e40",
+  "global": "g_dwTgProcessMarker_textCopy",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name TgProcessMarker.textCopy (the remaster's GrimFandango (Linux): the static copy of the marker text in TgProcessMarker (strlen < 0x100, copied, restored after each trigger)); was DAT_10032e40."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "10033560",
+  "old": "DAT_10033560",
+  "global": "g_bPanTable",
+  "oldtype": "undefined1",
+  "names_only": true,
+  "comment": "Original name panTable (the remaster's GrimFandango (Linux): the 17 x 17 sine pan table MxInitialize fills (MIXER.C static)); was DAT_10033560."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "1002df24",
+  "old": "DAT_1002df24",
+  "global": "g_dwMixBufSize",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name mixBufSize (the remaster's GrimFandango (Linux): the size MxInitialize stores (param +8, doubled) and allocates for mixBuf (MIXER.C static)); was DAT_1002df24."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "10031e74",
+  "old": "DAT_10031e74",
+  "global": "g_dwLipSfx1ID",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name lipSfx1ID (the remaster's GrimFandango (Linux): the first sfx lip-sync slot of LoadLip (compared with the sound id, set, cleared), beside lipStreamID); was DAT_10031e74."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "10031e78",
+  "old": "g_dwLipSfx2Data",
+  "global": "g_dwLipSfx2ID",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name lipSfx2ID (the remaster's GrimFandango (Linux): the second sfx lip-sync slot of LoadLip and iMUSE_GetPhoneme (a sound id, not the data: the remaster's lipStreamID / lipSfx1ID / lipSfx2ID / lipSfx3ID are four consecutive ints, as here)); was g_dwLipSfx2Data."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "10031e7c",
+  "old": "g_dwLipSfx3Data",
+  "global": "g_dwLipSfx3ID",
+  "oldtype": "undefined4",
+  "names_only": true,
+  "comment": "Original name lipSfx3ID (the remaster's GrimFandango (Linux): the third sfx lip-sync slot of LoadLip and iMUSE_GetPhoneme (a sound id, not the data)); was g_dwLipSfx3Data."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "1002f3e8",
+  "old": "DAT_1002f3e8",
+  "global": "g_bLipStreamData",
+  "oldtype": "undefined1",
+  "names_only": true,
+  "comment": "Original name lipStreamData (the remaster's GrimFandango (Linux): the buffer LoadLip reads the stream lip-sync file (id 10000) into); was DAT_1002f3e8."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "1002e340",
+  "old": "DAT_1002e340",
+  "global": "g_aLipSfx1Data",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name lipSfx1Data (the remaster's GrimFandango (Linux): the buffer LoadLip reads into for slot lipSfx1ID); was DAT_1002e340."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "1002ec18",
+  "old": "DAT_1002ec18",
+  "global": "g_aLipSfx2Data",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name lipSfx2Data (the remaster's GrimFandango (Linux): the buffer LoadLip reads into for slot lipSfx2ID); was DAT_1002ec18."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "1002fbd0",
+  "old": "DAT_1002fbd0",
+  "global": "g_aLipSfx3Data",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name lipSfx3Data (the remaster's GrimFandango (Linux): the buffer LoadLip reads into for slot lipSfx3ID); was DAT_1002fbd0."
+ }
+]

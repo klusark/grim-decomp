@@ -31,7 +31,7 @@ mut sector_debug_no_arg '((void (__cdecl *)(void *))Sector_DrawAllDebug)(sputRoo
 mut lights_bit 'g_dwDebugFlags & 2) != 0)
             Set_DrawDebugLights' 'g_dwDebugFlags & 1) != 0)
             Set_DrawDebugLights'
-mut mode3_clears_pending '        Render_Present();
-        return;' '        Render_Present();
+mut mode3_clears_pending '        sputRender_PageFlip();
+        return;' '        sputRender_PageFlip();
         g_nSputRender_Reset = 0;
         return;'

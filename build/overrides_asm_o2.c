@@ -759,7 +759,7 @@ undefined4 D3D_InitRenderState(void)
     }
     RS(0xf, 1);
     RS(0x19, D3D_FilterBitsToEnum(UINT_00900534));
-    RS(0x21, *(int *)((byte *)g_pD3dDriver + 0x14) != 0);
+    RS(0x21, *(int *)((byte *)g_pStd3D_CurDevice + 0x14) != 0);
     RS(9, 2);
     RS(0xb, ~g_dwD3dRenderFlags >> 0xf & 1);
     RS(0x1d, g_dwD3dRenderFlags >> 2 & 1);

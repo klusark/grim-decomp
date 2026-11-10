@@ -1,0 +1,1983 @@
+[
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004041e0",
+  "old": "rdroid_Open",
+  "name": "rdOpen",
+  "comment": "Sets the default render state (geometry/lighting modes) and initialises the rasterizer caches Original name rdOpen (the remaster's GrimFandango (Linux): the only unpaired user of rdroid_curColorEffects on both sides, same initialisation sequence); was rdroid_Open."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004055d0",
+  "old": "rdCanvas_FlushSpans",
+  "name": "rdActive_FlushSpans",
+  "comment": "Calls each polygon's span-draw callback for its accumulated spans and resets the span buffer Original name rdActive_FlushSpans (the remaster's GrimFandango (Linux): the only unpaired user of numActiveFaces / numActiveSpans on both sides, same body); was rdCanvas_FlushSpans."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0040ea50",
+  "old": "rdRaster_SetupPoly",
+  "name": "rdAFRaster_CalcAffineGradients",
+  "comment": "Finds the top/bottom vertices of a screen polygon and the attribute gradients (plane equations) for the span fillers Original name rdAFRaster_CalcAffineGradients (the remaster's GrimFandango (Linux): gradients call of rdAFRaster_SetupNGonLAT); was rdRaster_SetupPoly."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0040ef90",
+  "old": "rdRaster_SetupPolyTex",
+  "name": "rdAFRaster_CalcPerspGradients",
+  "comment": "rdRaster_SetupPoly variant that also computes the texture coordinate gradients Original name rdAFRaster_CalcPerspGradients (the remaster's GrimFandango (Linux): gradients call of rdAFRaster_SetupNGonLIT); was rdRaster_SetupPolyTex."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0040f5f0",
+  "old": "rdRaster_Select_Flat",
+  "name": "rdAFRaster_SetupNGonLW",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Select Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.\nPorted to C (build/overrides_asm_s1.c): read against the assembly only, NOT differentially tested (docs/notes/asm_s*.md). Original name rdAFRaster_SetupNGonLW (the remaster's GrimFandango (Linux): dispatch slot in rdActive_AddActiveFace (same geometry, lighting, texture-mode, mask and translucency tests)); was rdRaster_Select_Flat."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0040f650",
+  "old": "rdRaster_SpanFlatSetup",
+  "name": "rdAFRaster_DrawNGonLW",
+  "comment": "Span callback installed by the flat-colour selector: picks the 8/16-bit flat colour and draws the span\nPorted to C (build/overrides_asm_s1.c): read against the assembly only, NOT differentially tested (docs/notes/asm_s*.md). Original name rdAFRaster_DrawNGonLW (the remaster's GrimFandango (Linux): span-function store of rdAFRaster_SetupNGonLW); was rdRaster_SpanFlatSetup."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0040f6d0",
+  "old": "rdRaster_SpanOutline8",
+  "name": "rdAFRaster_DrawSpanNGonLW_8",
+  "comment": "Wireframe span: plots only the two end pixels\nPorted to C (build/overrides_asm_s1.c): read against the assembly only, NOT differentially tested (docs/notes/asm_s*.md). Original name rdAFRaster_DrawSpanNGonLW_8 (the remaster's GrimFandango (Linux): 8-bit span call of rdAFRaster_DrawNGonLW (inlined in the remaster)); was rdRaster_SpanOutline8."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0040f710",
+  "old": "rdRaster_SpanOutline16",
+  "name": "rdAFRaster_DrawSpanNGonLW_16",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: SpanR Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.\nPorted to C (build/overrides_asm_s1.c): read against the assembly only, NOT differentially tested (docs/notes/asm_s*.md). Original name rdAFRaster_DrawSpanNGonLW_16 (the remaster's GrimFandango (Linux): 16-bit span call of rdAFRaster_DrawNGonLW (inlined in the remaster)); was rdRaster_SpanOutline16."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0040f770",
+  "old": "rdRaster_EdgeSetup_Flat",
+  "name": "rdAFRaster_SetupEdgeNGonLW",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: EdgeSetup Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdAFRaster_SetupEdgeNGonLW (the remaster's GrimFandango (Linux): edge-function store of rdAFRaster_SetupNGonLW); was rdRaster_EdgeSetup_Flat."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0040fa20",
+  "old": "rdRaster_Select_Flat_2",
+  "name": "rdAFRaster_SetupNGonLS",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Select Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.\nPorted to C (build/overrides_asm_s1.c): read against the assembly only, NOT differentially tested (docs/notes/asm_s*.md). Original name rdAFRaster_SetupNGonLS (the remaster's GrimFandango (Linux): dispatch slot in rdActive_AddActiveFace (same geometry, lighting, texture-mode, mask and translucency tests)); was rdRaster_Select_Flat_2."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0040fa80",
+  "old": "rdRaster_SpanTexSetup",
+  "name": "rdAFRaster_DrawNGonLS",
+  "comment": "Ported to C (build/overrides_asm_s1.c): read against the assembly only, NOT differentially tested (docs/notes/asm_s*.md). Original name rdAFRaster_DrawNGonLS (the remaster's GrimFandango (Linux): span-function store of rdAFRaster_SetupNGonLS); was rdRaster_SpanTexSetup."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0040fbe0",
+  "old": "rdRaster_EdgeSetup_Flat_2",
+  "name": "rdAFRaster_SetupEdgeNGonLS",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: EdgeSetup Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdAFRaster_SetupEdgeNGonLS (the remaster's GrimFandango (Linux): edge-function store of rdAFRaster_SetupNGonLS); was rdRaster_EdgeSetup_Flat_2."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0040fe90",
+  "old": "rdRaster_Select_TexLit",
+  "name": "rdAFRaster_SetupNGonFS",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Select Tex Lit). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdAFRaster_SetupNGonFS (the remaster's GrimFandango (Linux): dispatch slot in rdActive_AddActiveFace (same geometry, lighting, texture-mode, mask and translucency tests)); was rdRaster_Select_TexLit."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0040ff20",
+  "old": "rdRaster_SpanLitSetup",
+  "name": "rdAFRaster_DrawNGonFS",
+  "comment": "Loads the light step from the poly record (+0x19c) before filling\nPorted to C (build/overrides_asm_s1.c): read against the assembly only, NOT differentially tested (docs/notes/asm_s*.md). Original name rdAFRaster_DrawNGonFS (the remaster's GrimFandango (Linux): span-function store of rdAFRaster_SetupNGonFS); was rdRaster_SpanLitSetup."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0040ffe0",
+  "old": "rdRaster_EdgeSetup_Flat_3",
+  "name": "rdAFRaster_SetupEdgeNGonFS",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: EdgeSetup Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdAFRaster_SetupEdgeNGonFS (the remaster's GrimFandango (Linux): edge-function store of rdAFRaster_SetupNGonFS); was rdRaster_EdgeSetup_Flat_3."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00410290",
+  "old": "rdRaster_Select_FlatLit",
+  "name": "rdAFRaster_SetupNGonGS",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Select Flat Lit). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.\nPorted to C (build/overrides_asm_s1.c): read against the assembly only, NOT differentially tested (docs/notes/asm_s*.md). Original name rdAFRaster_SetupNGonGS (the remaster's GrimFandango (Linux): dispatch slot in rdActive_AddActiveFace (same geometry, lighting, texture-mode, mask and translucency tests)); was rdRaster_Select_FlatLit."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00410330",
+  "old": "FUN_00410330",
+  "name": "rdAFRaster_DrawNGonGS",
+  "comment": "Original name rdAFRaster_DrawNGonGS (the remaster's GrimFandango (Linux): span-function store of rdAFRaster_SetupNGonGS); was FUN_00410330."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004104e0",
+  "old": "rdRaster_EdgeSetup_Flat_4",
+  "name": "rdAFRaster_SetupEdgeNGonGS",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: EdgeSetup Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdAFRaster_SetupEdgeNGonGS (the remaster's GrimFandango (Linux): edge-function store of rdAFRaster_SetupNGonGS); was rdRaster_EdgeSetup_Flat_4."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004108b0",
+  "old": "rdRaster_Select_FlatLit_2",
+  "name": "rdAFRaster_SetupNGonLAT",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Select Flat Lit). Calls 0040ea50. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.\nPorted to C (build/overrides_asm_s1.c): read against the assembly only, NOT differentially tested (docs/notes/asm_s*.md). Original name rdAFRaster_SetupNGonLAT (the remaster's GrimFandango (Linux): dispatch slot in rdActive_AddActiveFace (same geometry, lighting, texture-mode, mask and translucency tests)); was rdRaster_Select_FlatLit_2."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00410970",
+  "old": "FUN_00410970",
+  "name": "rdAFRaster_DrawNGonLAT",
+  "comment": "Original name rdAFRaster_DrawNGonLAT (the remaster's GrimFandango (Linux): span-function store of rdAFRaster_SetupNGonLAT); was FUN_00410970."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00410d80",
+  "old": "rdRaster_EdgeSetup_Flat_5",
+  "name": "rdAFRaster_SetupEdgeNGonLAT",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: EdgeSetup Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdAFRaster_SetupEdgeNGonLAT (the remaster's GrimFandango (Linux): edge-function store of rdAFRaster_SetupNGonLAT); was rdRaster_EdgeSetup_Flat_5."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00411270",
+  "old": "rdRaster_Select_FlatLit_3",
+  "name": "rdAFRaster_SetupNGonMLAT",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Select Flat Lit). Calls 0040ea50. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.\nPorted to C (build/overrides_asm_s1.c): read against the assembly only, NOT differentially tested (docs/notes/asm_s*.md). Original name rdAFRaster_SetupNGonMLAT (the remaster's GrimFandango (Linux): dispatch slot in rdActive_AddActiveFace (same geometry, lighting, texture-mode, mask and translucency tests)); was rdRaster_Select_FlatLit_3."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00411330",
+  "old": "FUN_00411330",
+  "name": "rdAFRaster_DrawNGonMLAT",
+  "comment": "Ported to C (build/overrides_asm_s1.c): read against the assembly only, NOT differentially tested (docs/notes/asm_s*.md). Original name rdAFRaster_DrawNGonMLAT (the remaster's GrimFandango (Linux): span-function store of rdAFRaster_SetupNGonMLAT); was FUN_00411330."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004113e0",
+  "old": "rdRaster_SpanR8_TexKey",
+  "name": "rdAFRaster_DrawSpanNGonMLAT_8",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: SpanR Tex Key). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdAFRaster_DrawSpanNGonMLAT_8 (the remaster's GrimFandango (Linux): 8-bit span call of rdAFRaster_DrawNGonMLAT (inlined in the remaster)); was rdRaster_SpanR8_TexKey."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004114f0",
+  "old": "rdRaster_SpanR16_TexKey",
+  "name": "rdAFRaster_DrawSpanNGonMLAT_16",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: SpanR Tex Key). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdAFRaster_DrawSpanNGonMLAT_16 (the remaster's GrimFandango (Linux): 16-bit span call of rdAFRaster_DrawNGonMLAT); was rdRaster_SpanR16_TexKey."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00411630",
+  "old": "rdRaster_Select_FlatLit_4",
+  "name": "rdAFRaster_SetupNGonFAT",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Select Flat Lit). Calls 0040ea50. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdAFRaster_SetupNGonFAT (the remaster's GrimFandango (Linux): dispatch slot in rdActive_AddActiveFace (same geometry, lighting, texture-mode, mask and translucency tests)); was rdRaster_Select_FlatLit_4."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00411740",
+  "old": "FUN_00411740",
+  "name": "rdAFRaster_DrawNGonFAT",
+  "comment": "Original name rdAFRaster_DrawNGonFAT (the remaster's GrimFandango (Linux): span-function store of rdAFRaster_SetupNGonFAT); was FUN_00411740."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00411ba0",
+  "old": "rdRaster_EdgeSetup_Flat_6",
+  "name": "rdAFRaster_SetupEdgeNGonFAT",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: EdgeSetup Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdAFRaster_SetupEdgeNGonFAT (the remaster's GrimFandango (Linux): edge-function store of rdAFRaster_SetupNGonFAT); was rdRaster_EdgeSetup_Flat_6."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00412090",
+  "old": "rdRaster_Select_FlatLit_5",
+  "name": "rdAFRaster_SetupNGonMFAT",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Select Flat Lit). Calls 0040ea50. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdAFRaster_SetupNGonMFAT (the remaster's GrimFandango (Linux): dispatch slot in rdActive_AddActiveFace (same geometry, lighting, texture-mode, mask and translucency tests)); was rdRaster_Select_FlatLit_5."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004121a0",
+  "old": "FUN_004121a0",
+  "name": "rdAFRaster_DrawNGonMFAT",
+  "comment": "Ported to C (build/overrides_asm_s1.c): read against the assembly only, NOT differentially tested (docs/notes/asm_s*.md). Original name rdAFRaster_DrawNGonMFAT (the remaster's GrimFandango (Linux): span-function store of rdAFRaster_SetupNGonMFAT); was FUN_004121a0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00412280",
+  "old": "rdRaster_SpanR8_TexKey_2",
+  "name": "rdAFRaster_DrawSpanNGonMFAT_8",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: SpanR Tex Key). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdAFRaster_DrawSpanNGonMFAT_8 (the remaster's GrimFandango (Linux): 8-bit span call of rdAFRaster_DrawNGonMFAT (inlined in the remaster)); was rdRaster_SpanR8_TexKey_2."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004123b0",
+  "old": "rdRaster_SpanR16_TexKey_2",
+  "name": "rdAFRaster_DrawSpanNGonMFAT_16",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: SpanR Tex Key). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdAFRaster_DrawSpanNGonMFAT_16 (the remaster's GrimFandango (Linux): 16-bit span call of rdAFRaster_DrawNGonMFAT); was rdRaster_SpanR16_TexKey_2."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004124f0",
+  "old": "rdRaster_Select_FlatLit_6",
+  "name": "rdAFRaster_SetupNGonGAT",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Select Flat Lit). Calls 0040ea50. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.\nPorted to C (build/overrides_asm_s1.c): read against the assembly only, NOT differentially tested (docs/notes/asm_s*.md). Original name rdAFRaster_SetupNGonGAT (the remaster's GrimFandango (Linux): dispatch slot in rdActive_AddActiveFace (same geometry, lighting, texture-mode, mask and translucency tests)); was rdRaster_Select_FlatLit_6."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004125c0",
+  "old": "FUN_004125c0",
+  "name": "rdAFRaster_DrawNGonGAT",
+  "comment": "Original name rdAFRaster_DrawNGonGAT (the remaster's GrimFandango (Linux): span-function store of rdAFRaster_SetupNGonGAT); was FUN_004125c0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00412a30",
+  "old": "rdRaster_EdgeSetup_Flat_7",
+  "name": "rdAFRaster_SetupEdgeNGonGAT",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: EdgeSetup Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdAFRaster_SetupEdgeNGonGAT (the remaster's GrimFandango (Linux): edge-function store of rdAFRaster_SetupNGonGAT); was rdRaster_EdgeSetup_Flat_7."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00413040",
+  "old": "rdRaster_Select_FlatLit_7",
+  "name": "rdAFRaster_SetupNGonMGAT",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Select Flat Lit). Calls 0040ea50. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.\nPorted to C (build/overrides_asm_s1.c): read against the assembly only, NOT differentially tested (docs/notes/asm_s*.md). Original name rdAFRaster_SetupNGonMGAT (the remaster's GrimFandango (Linux): dispatch slot in rdActive_AddActiveFace (same geometry, lighting, texture-mode, mask and translucency tests)); was rdRaster_Select_FlatLit_7."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00413110",
+  "old": "FUN_00413110",
+  "name": "rdAFRaster_DrawNGonMGAT",
+  "comment": "Ported to C (build/overrides_asm_s1.c): read against the assembly only, NOT differentially tested (docs/notes/asm_s*.md). Original name rdAFRaster_DrawNGonMGAT (the remaster's GrimFandango (Linux): span-function store of rdAFRaster_SetupNGonMGAT); was FUN_00413110."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004131f0",
+  "old": "rdRaster_SpanR8_TexKey_3",
+  "name": "rdAFRaster_DrawSpanNGonMGAT_8",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: SpanR Tex Key). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdAFRaster_DrawSpanNGonMGAT_8 (the remaster's GrimFandango (Linux): 8-bit span call of rdAFRaster_DrawNGonMGAT); was rdRaster_SpanR8_TexKey_3."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00413340",
+  "old": "rdRaster_SpanR16_TexKey_3",
+  "name": "rdAFRaster_DrawSpanNGonMGAT_16",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: SpanR Tex Key). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdAFRaster_DrawSpanNGonMGAT_16 (the remaster's GrimFandango (Linux): 16-bit span call of rdAFRaster_DrawNGonMGAT); was rdRaster_SpanR16_TexKey_3."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004134a0",
+  "old": "rdRaster_Select_FlatLit_8",
+  "name": "rdAFRaster_SetupNGonLIT",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Select Flat Lit). Calls 0040ef90. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdAFRaster_SetupNGonLIT (the remaster's GrimFandango (Linux): dispatch slot in rdActive_AddActiveFace (same geometry, lighting, texture-mode, mask and translucency tests)); was rdRaster_Select_FlatLit_8."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00413590",
+  "old": "FUN_00413590",
+  "name": "rdAFRaster_DrawNGonLIT",
+  "comment": "Original name rdAFRaster_DrawNGonLIT (the remaster's GrimFandango (Linux): span-function store of rdAFRaster_SetupNGonLIT); was FUN_00413590."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004139f0",
+  "old": "rdRaster_EdgeSetup_Flat_8",
+  "name": "rdAFRaster_SetupEdgeNGonLIT",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: EdgeSetup Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdAFRaster_SetupEdgeNGonLIT (the remaster's GrimFandango (Linux): edge-function store of rdAFRaster_SetupNGonLIT); was rdRaster_EdgeSetup_Flat_8."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00413ce0",
+  "old": "rdRaster_Select_FlatLit_9",
+  "name": "rdAFRaster_SetupNGonMLIT",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Select Flat Lit). Calls 0040ef90. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdAFRaster_SetupNGonMLIT (the remaster's GrimFandango (Linux): dispatch slot in rdActive_AddActiveFace (same geometry, lighting, texture-mode, mask and translucency tests)); was rdRaster_Select_FlatLit_9."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00413dd0",
+  "old": "FUN_00413dd0",
+  "name": "rdAFRaster_DrawNGonMLIT",
+  "comment": "Ported to C (build/overrides_asm_s1.c): read against the assembly only, NOT differentially tested (docs/notes/asm_s*.md). Original name rdAFRaster_DrawNGonMLIT (the remaster's GrimFandango (Linux): span-function store of rdAFRaster_SetupNGonMLIT); was FUN_00413dd0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00413ee0",
+  "old": "rdRaster_SpanP8_TexKeyZw",
+  "name": "rdAFRaster_DrawSpanNGonMLIT_8",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: SpanP Tex Key Zw). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdAFRaster_DrawSpanNGonMLIT_8 (the remaster's GrimFandango (Linux): 8-bit span call of rdAFRaster_DrawNGonMLIT); was rdRaster_SpanP8_TexKeyZw."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00414530",
+  "old": "rdRaster_SpanP16_TexKeyZw",
+  "name": "rdAFRaster_DrawSpanNGonMLIT_16",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: SpanP Tex Key Zw). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdAFRaster_DrawSpanNGonMLIT_16 (the remaster's GrimFandango (Linux): 16-bit span call of rdAFRaster_DrawNGonMLIT); was rdRaster_SpanP16_TexKeyZw."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00414be0",
+  "old": "rdRaster_Select_FlatLit_10",
+  "name": "rdAFRaster_SetupNGonFIT",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Select Flat Lit). Calls 0040ef90. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdAFRaster_SetupNGonFIT (the remaster's GrimFandango (Linux): dispatch slot in rdActive_AddActiveFace (same geometry, lighting, texture-mode, mask and translucency tests)); was rdRaster_Select_FlatLit_10."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00414d20",
+  "old": "FUN_00414d20",
+  "name": "rdAFRaster_DrawNGonFIT",
+  "comment": "Original name rdAFRaster_DrawNGonFIT (the remaster's GrimFandango (Linux): span-function store of rdAFRaster_SetupNGonFIT); was FUN_00414d20."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004151d0",
+  "old": "rdRaster_EdgeSetup_Flat_9",
+  "name": "rdAFRaster_SetupEdgeNGonFIT",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: EdgeSetup Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdAFRaster_SetupEdgeNGonFIT (the remaster's GrimFandango (Linux): edge-function store of rdAFRaster_SetupNGonFIT); was rdRaster_EdgeSetup_Flat_9."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004154c0",
+  "old": "rdRaster_Select_FlatLit_11",
+  "name": "rdAFRaster_SetupNGonMFIT",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Select Flat Lit). Calls 0040ef90. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdAFRaster_SetupNGonMFIT (the remaster's GrimFandango (Linux): dispatch slot in rdActive_AddActiveFace (same geometry, lighting, texture-mode, mask and translucency tests)); was rdRaster_Select_FlatLit_11."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00415600",
+  "old": "FUN_00415600",
+  "name": "rdAFRaster_DrawNGonMFIT",
+  "comment": "Ported to C (build/overrides_asm_s1.c): read against the assembly only, NOT differentially tested (docs/notes/asm_s*.md). Original name rdAFRaster_DrawNGonMFIT (the remaster's GrimFandango (Linux): span-function store of rdAFRaster_SetupNGonMFIT); was FUN_00415600."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00415720",
+  "old": "rdRaster_SpanP8_TexKeyZw_2",
+  "name": "rdAFRaster_DrawSpanNGonMFIT_8",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: SpanP Tex Key Zw). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdAFRaster_DrawSpanNGonMFIT_8 (the remaster's GrimFandango (Linux): 8-bit span call of rdAFRaster_DrawNGonMFIT); was rdRaster_SpanP8_TexKeyZw_2."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00415dc0",
+  "old": "rdRaster_SpanP16_TexKeyZw_2",
+  "name": "rdAFRaster_DrawSpanNGonMFIT_16",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: SpanP Tex Key Zw). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdAFRaster_DrawSpanNGonMFIT_16 (the remaster's GrimFandango (Linux): 16-bit span call of rdAFRaster_DrawNGonMFIT); was rdRaster_SpanP16_TexKeyZw_2."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00416470",
+  "old": "rdRaster_Select_FlatLit_12",
+  "name": "rdAFRaster_SetupNGonGIT",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Select Flat Lit). Calls 0040ef90. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdAFRaster_SetupNGonGIT (the remaster's GrimFandango (Linux): dispatch slot in rdActive_AddActiveFace (same geometry, lighting, texture-mode, mask and translucency tests)); was rdRaster_Select_FlatLit_12."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00416580",
+  "old": "FUN_00416580",
+  "name": "rdAFRaster_DrawNGonGIT",
+  "comment": "Original name rdAFRaster_DrawNGonGIT (the remaster's GrimFandango (Linux): span-function store of rdAFRaster_SetupNGonGIT); was FUN_00416580."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004169f0",
+  "old": "FUN_004169f0",
+  "name": "rdAFRaster_AdvanceLeftEdgeNGonGIT",
+  "comment": "Ported to C (build/overrides_asm_s1.c): read against the assembly only, NOT differentially tested (docs/notes/asm_s*.md). Original name rdAFRaster_AdvanceLeftEdgeNGonGIT (the remaster's GrimFandango (Linux): the edge function rdAFRaster_SetupEdgeNGonGIT stores with side flag 1); was FUN_004169f0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00416a30",
+  "old": "FUN_00416a30",
+  "name": "rdAFRaster_AdvanceRightEdgeNGonGIT",
+  "comment": "Ported to C (build/overrides_asm_s1.c): read against the assembly only, NOT differentially tested (docs/notes/asm_s*.md). Original name rdAFRaster_AdvanceRightEdgeNGonGIT (the remaster's GrimFandango (Linux): the edge function rdAFRaster_SetupEdgeNGonGIT stores with side flag 0); was FUN_00416a30."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00416a50",
+  "old": "rdRaster_EdgeSetup_Flat_10",
+  "name": "rdAFRaster_SetupEdgeNGonGIT",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: EdgeSetup Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdAFRaster_SetupEdgeNGonGIT (the remaster's GrimFandango (Linux): edge-function store of rdAFRaster_SetupNGonGIT); was rdRaster_EdgeSetup_Flat_10."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00416e70",
+  "old": "rdRaster_Select_FlatLit_13",
+  "name": "rdAFRaster_SetupNGonMGIT",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Select Flat Lit). Calls 0040ef90. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdAFRaster_SetupNGonMGIT (the remaster's GrimFandango (Linux): dispatch slot in rdActive_AddActiveFace (same geometry, lighting, texture-mode, mask and translucency tests)); was rdRaster_Select_FlatLit_13."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00416f80",
+  "old": "FUN_00416f80",
+  "name": "rdAFRaster_DrawNGonMGIT",
+  "comment": "Ported to C (build/overrides_asm_s1.c): read against the assembly only, NOT differentially tested (docs/notes/asm_s*.md). Original name rdAFRaster_DrawNGonMGIT (the remaster's GrimFandango (Linux): span-function store of rdAFRaster_SetupNGonMGIT); was FUN_00416f80."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004170a0",
+  "old": "rdRaster_SpanP8_TexKeyZw_3",
+  "name": "rdAFRaster_DrawSpanNGonMGIT_8",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: SpanP Tex Key Zw). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdAFRaster_DrawSpanNGonMGIT_8 (the remaster's GrimFandango (Linux): 8-bit span call of rdAFRaster_DrawNGonMGIT); was rdRaster_SpanP8_TexKeyZw_3."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00417790",
+  "old": "rdRaster_SpanP16_TexKeyZw_3",
+  "name": "rdAFRaster_DrawSpanNGonMGIT_16",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: SpanP Tex Key Zw). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdAFRaster_DrawSpanNGonMGIT_16 (the remaster's GrimFandango (Linux): 16-bit span call of rdAFRaster_DrawNGonMGIT); was rdRaster_SpanP16_TexKeyZw_3."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00418550",
+  "old": "rdRaster_Grad_Flat",
+  "name": "rdNRaster_CalcAffineGradients",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Grad Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdNRaster_CalcAffineGradients (the remaster's GrimFandango (Linux): gradients call of rdNRaster_DrawNGonLAT); was rdRaster_Grad_Flat."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00418a00",
+  "old": "rdRaster_Grad_Flat_2",
+  "name": "rdNRaster_CalcPerspGradients",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Grad Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdNRaster_CalcPerspGradients (the remaster's GrimFandango (Linux): gradients call of rdNRaster_DrawNGonLIT); was rdRaster_Grad_Flat_2."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00418fe0",
+  "old": "rdRaster_DrawPoints",
+  "name": "rdNRaster_DrawNGonLV",
+  "comment": "Plots each vertex of the polygon as one pixel (8 and 16 bpp) Original name rdNRaster_DrawNGonLV (the remaster's GrimFandango (Linux): dispatch slot in rdCache_DrawFaceN (same geometry, lighting, texture-mode, mask and translucency tests)); was rdRaster_DrawPoints."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00419150",
+  "old": "rdRaster_DrawWireframe",
+  "name": "rdNRaster_DrawNGonLW",
+  "comment": "Draws the polygon edges with rdCanvas_DrawLine Original name rdNRaster_DrawNGonLW (the remaster's GrimFandango (Linux): dispatch slot in rdCache_DrawFaceN (same geometry, lighting, texture-mode, mask and translucency tests)); was rdRaster_DrawWireframe."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00419450",
+  "old": "rdRaster_Draw16_FlatLit",
+  "name": "rdNRaster_DrawNGonLS",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Flat Lit). Calls 004195f0, 00419680, 00419840, 00419e60. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdNRaster_DrawNGonLS (the remaster's GrimFandango (Linux): dispatch slot in rdCache_DrawFaceN (same geometry, lighting, texture-mode, mask and translucency tests)); was rdRaster_Draw16_FlatLit."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004195f0",
+  "old": "rdRaster_Span16_Flat",
+  "name": "rdNRaster_DrawScanLineNGonLS_16",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.\nPorted to C (build/overrides_asm_s1.c): read against the assembly only, NOT differentially tested (docs/notes/asm_s*.md). Original name rdNRaster_DrawScanLineNGonLS_16 (the remaster's GrimFandango (Linux): 16-bit scan-line call of rdNRaster_DrawNGonLS (inlined in the remaster)); was rdRaster_Span16_Flat."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00419680",
+  "old": "rdRaster_Edge_Flat",
+  "name": "rdNRaster_SetupLeftEdgeNGonLS",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Edge Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdNRaster_SetupLeftEdgeNGonLS (the remaster's GrimFandango (Linux): first edge-setup call of rdNRaster_DrawNGonLS); was rdRaster_Edge_Flat."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00419840",
+  "old": "rdRaster_Edge_Flat_2",
+  "name": "rdNRaster_SetupRightEdgeNGonLS",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Edge Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdNRaster_SetupRightEdgeNGonLS (the remaster's GrimFandango (Linux): second edge-setup call of rdNRaster_DrawNGonLS); was rdRaster_Edge_Flat_2."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00419a00",
+  "old": "rdRaster_Draw16_TexLit",
+  "name": "rdNRaster_DrawNGonTLS",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit). Calls 00419680, 00419840, 00419be0, 0041a4f0. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdNRaster_DrawNGonTLS (the remaster's GrimFandango (Linux): dispatch slot in rdCache_DrawFaceN (same geometry, lighting, texture-mode, mask and translucency tests)); was rdRaster_Draw16_TexLit."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00419be0",
+  "old": "rdRaster_Span16_Tex",
+  "name": "rdNRaster_DrawScanLineNGonTLS_16",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdNRaster_DrawScanLineNGonTLS_16 (the remaster's GrimFandango (Linux): 16-bit scan-line call of rdNRaster_DrawNGonTLS (inlined in the remaster)); was rdRaster_Span16_Tex."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00419ca0",
+  "old": "rdRaster_Draw16_FlatLit_2",
+  "name": "rdNRaster_DrawNGonFS",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Flat Lit). Calls 00419e60, 00419ee0, 00419f70, 0041a130. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdNRaster_DrawNGonFS (the remaster's GrimFandango (Linux): dispatch slot in rdCache_DrawFaceN (same geometry, lighting, texture-mode, mask and translucency tests)); was rdRaster_Draw16_FlatLit_2."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00419ee0",
+  "old": "rdRaster_Span16_Flat_2",
+  "name": "rdNRaster_DrawScanLineNGonFS_16",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.\nPorted to C (build/overrides_asm_s1.c): read against the assembly only, NOT differentially tested (docs/notes/asm_s*.md). Original name rdNRaster_DrawScanLineNGonFS_16 (the remaster's GrimFandango (Linux): 16-bit scan-line call of rdNRaster_DrawNGonFS (inlined in the remaster)); was rdRaster_Span16_Flat_2."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00419f70",
+  "old": "rdRaster_Edge_Flat_3",
+  "name": "rdNRaster_SetupLeftEdgeNGonFS",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Edge Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdNRaster_SetupLeftEdgeNGonFS (the remaster's GrimFandango (Linux): first edge-setup call of rdNRaster_DrawNGonFS); was rdRaster_Edge_Flat_3."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0041a130",
+  "old": "rdRaster_Edge_Flat_4",
+  "name": "rdNRaster_SetupRightEdgeNGonFS",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Edge Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.\nPorted to C (build/overrides_asm_o1.c): differential test, 0 differences (docs/notes/asm_o1.md). Original name rdNRaster_SetupRightEdgeNGonFS (the remaster's GrimFandango (Linux): second edge-setup call of rdNRaster_DrawNGonFS); was rdRaster_Edge_Flat_4."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0041a2f0",
+  "old": "rdRaster_Draw16_TexLit_2",
+  "name": "rdNRaster_DrawNGonTFS",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit). Calls 00419f70, 0041a130, 0041a4f0, 0041a580. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.\nPorted to C (build/overrides_asm_o1.c): differential test, 0 differences (docs/notes/asm_o1.md). Original name rdNRaster_DrawNGonTFS (the remaster's GrimFandango (Linux): dispatch slot in rdCache_DrawFaceN (same geometry, lighting, texture-mode, mask and translucency tests)); was rdRaster_Draw16_TexLit_2."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0041a580",
+  "old": "rdRaster_Span16_Tex_2",
+  "name": "rdNRaster_DrawScanLineNGonTFS_16",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.\nPorted to C (build/overrides_asm_o1.c): differential test, 0 differences (docs/notes/asm_o1.md). Original name rdNRaster_DrawScanLineNGonTFS_16 (the remaster's GrimFandango (Linux): 16-bit scan-line call of rdNRaster_DrawNGonTFS (inlined in the remaster)); was rdRaster_Span16_Tex_2."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0041a640",
+  "old": "rdRaster_Draw_FlatLit",
+  "name": "rdNRaster_DrawNGonGS",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Flat Lit). Calls 0041a810, 0041a900, 0041aa10, 0041ac60. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.\nPorted to C (build/overrides_asm_o1.c): differential test, 0 differences (docs/notes/asm_o1.md). Original name rdNRaster_DrawNGonGS (the remaster's GrimFandango (Linux): dispatch slot in rdCache_DrawFaceN (same geometry, lighting, texture-mode, mask and translucency tests)); was rdRaster_Draw_FlatLit."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0041a810",
+  "old": "rdRaster_Span8_Flat",
+  "name": "rdNRaster_DrawScanLineNGonGS_8",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.\nPorted to C (build/overrides_asm_o1.c): differential test, 0 differences (docs/notes/asm_o1.md). Original name rdNRaster_DrawScanLineNGonGS_8 (the remaster's GrimFandango (Linux): 8-bit scan-line call of rdNRaster_DrawNGonGS); was rdRaster_Span8_Flat."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0041a900",
+  "old": "rdRaster_Span16_Flat_3",
+  "name": "rdNRaster_DrawScanLineNGonGS_16",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.\nPorted to C (build/overrides_asm_o1.c): differential test, 0 differences (docs/notes/asm_o1.md). Original name rdNRaster_DrawScanLineNGonGS_16 (the remaster's GrimFandango (Linux): 16-bit scan-line call of rdNRaster_DrawNGonGS); was rdRaster_Span16_Flat_3."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0041aa10",
+  "old": "rdRaster_Edge_Flat_5",
+  "name": "rdNRaster_SetupLeftEdgeNGonGS",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Edge Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.\nPorted to C (build/overrides_asm_o1.c): differential test, 0 differences (docs/notes/asm_o1.md). Original name rdNRaster_SetupLeftEdgeNGonGS (the remaster's GrimFandango (Linux): first edge-setup call of rdNRaster_DrawNGonGS); was rdRaster_Edge_Flat_5."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0041ac60",
+  "old": "rdRaster_Edge_Flat_6",
+  "name": "rdNRaster_SetupRightEdgeNGonGS",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Edge Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.\nPorted to C (build/overrides_asm_o1.c): differential test, 0 differences (docs/notes/asm_o1.md). Original name rdNRaster_SetupRightEdgeNGonGS (the remaster's GrimFandango (Linux): second edge-setup call of rdNRaster_DrawNGonGS); was rdRaster_Edge_Flat_6."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0041aeb0",
+  "old": "rdRaster_Draw16_TexLit_3",
+  "name": "rdNRaster_DrawNGonTGS",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit). Calls 0041aa10, 0041ac60, 0041b0d0, 0041b1e0. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.\nPorted to C (build/overrides_asm_o1.c): differential test, 0 differences (docs/notes/asm_o1.md). Original name rdNRaster_DrawNGonTGS (the remaster's GrimFandango (Linux): dispatch slot in rdCache_DrawFaceN (same geometry, lighting, texture-mode, mask and translucency tests)); was rdRaster_Draw16_TexLit_3."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0041b0d0",
+  "old": "rdRaster_Span_Tex_2",
+  "name": "rdNRaster_DrawScanLineNGonTGS_8",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.\nPorted to C (build/overrides_asm_o1.c): differential test, 0 differences (docs/notes/asm_o1.md). Original name rdNRaster_DrawScanLineNGonTGS_8 (the remaster's GrimFandango (Linux): 8-bit scan-line call of rdNRaster_DrawNGonTGS); was rdRaster_Span_Tex_2."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0041b1e0",
+  "old": "rdRaster_Span16_Tex_3",
+  "name": "rdNRaster_DrawScanLineNGonTGS_16",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.\nPorted to C (build/overrides_asm_o1.c): differential test, 0 differences (docs/notes/asm_o1.md). Original name rdNRaster_DrawScanLineNGonTGS_16 (the remaster's GrimFandango (Linux): 16-bit scan-line call of rdNRaster_DrawNGonTGS); was rdRaster_Span16_Tex_3."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0041b310",
+  "old": "rdRaster_Draw16_TexLit_4",
+  "name": "rdNRaster_DrawNGonLAT",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit). Calls 00418550, 0041b6f0, 0041b880, 0041ba30, 0041bd20. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.\nPorted to C (build/overrides_asm_o1.c): differential test, 0 differences (docs/notes/asm_o1.md). Original name rdNRaster_DrawNGonLAT (the remaster's GrimFandango (Linux): dispatch slot in rdCache_DrawFaceN (same geometry, lighting, texture-mode, mask and translucency tests)); was rdRaster_Draw16_TexLit_4."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0041b6f0",
+  "old": "rdRaster_Span_Flat_2",
+  "name": "rdNRaster_DrawScanLineNGonLAT_8",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.\nPorted to C (build/overrides_asm_o1.c): differential test, 0 differences (docs/notes/asm_o1.md). Original name rdNRaster_DrawScanLineNGonLAT_8 (the remaster's GrimFandango (Linux): 8-bit scan-line call of rdNRaster_DrawNGonLAT); was rdRaster_Span_Flat_2."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0041b880",
+  "old": "rdRaster_Span16_Tex_4",
+  "name": "rdNRaster_DrawScanLineNGonLAT_16",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.\nPorted to C (build/overrides_asm_o1.c): differential test, 0 differences (docs/notes/asm_o1.md). Original name rdNRaster_DrawScanLineNGonLAT_16 (the remaster's GrimFandango (Linux): 16-bit scan-line call of rdNRaster_DrawNGonLAT); was rdRaster_Span16_Tex_4."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0041ba30",
+  "old": "rdRaster_Edge_Flat_7",
+  "name": "rdNRaster_SetupLeftEdgeNGonLAT",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Edge Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.\nPorted to C (build/overrides_asm_o1.c): differential test, 0 differences (docs/notes/asm_o1.md). Original name rdNRaster_SetupLeftEdgeNGonLAT (the remaster's GrimFandango (Linux): first edge-setup call of rdNRaster_DrawNGonLAT); was rdRaster_Edge_Flat_7."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0041bd20",
+  "old": "rdRaster_Edge_Flat_8",
+  "name": "rdNRaster_SetupRightEdgeNGonLAT",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Edge Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.\nPorted to C (build/overrides_asm_o1.c): differential test, 0 differences (docs/notes/asm_o1.md). Original name rdNRaster_SetupRightEdgeNGonLAT (the remaster's GrimFandango (Linux): second edge-setup call of rdNRaster_DrawNGonLAT); was rdRaster_Edge_Flat_8."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0041c010",
+  "old": "rdRaster_Draw16_TexLit_5",
+  "name": "rdNRaster_DrawNGonTLAT",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit). Calls 00418550, 0041ba30, 0041bd20, 0041c260, 0041c410. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.\nPorted to C (build/overrides_asm_o1.c): differential test, 0 differences (docs/notes/asm_o1.md). Original name rdNRaster_DrawNGonTLAT (the remaster's GrimFandango (Linux): dispatch slot in rdCache_DrawFaceN (same geometry, lighting, texture-mode, mask and translucency tests)); was rdRaster_Draw16_TexLit_5."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0041c260",
+  "old": "rdRaster_Span_Tex_3",
+  "name": "rdNRaster_DrawScanLineNGonTLAT_8",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.\nPorted to C (build/overrides_asm_o1.c): differential test, 0 differences (docs/notes/asm_o1.md). Original name rdNRaster_DrawScanLineNGonTLAT_8 (the remaster's GrimFandango (Linux): 8-bit scan-line call of rdNRaster_DrawNGonTLAT); was rdRaster_Span_Tex_3."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0041c410",
+  "old": "rdRaster_Span16_Tex_5",
+  "name": "rdNRaster_DrawScanLineNGonTLAT_16",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.\nPorted to C (build/overrides_asm_o1.c): differential test, 0 differences (docs/notes/asm_o1.md). Original name rdNRaster_DrawScanLineNGonTLAT_16 (the remaster's GrimFandango (Linux): 16-bit scan-line call of rdNRaster_DrawNGonTLAT); was rdRaster_Span16_Tex_5."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0041c5e0",
+  "old": "rdRaster_Draw16_TexLitKey",
+  "name": "rdNRaster_DrawNGonMLAT",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit Key). Calls 00418550, 0041ba30, 0041bd20, 0041c810, 0041c9b0. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.\nPorted to C (build/overrides_asm_o1.c): differential test, 0 differences (docs/notes/asm_o1.md). Original name rdNRaster_DrawNGonMLAT (the remaster's GrimFandango (Linux): dispatch slot in rdCache_DrawFaceN (same geometry, lighting, texture-mode, mask and translucency tests)); was rdRaster_Draw16_TexLitKey."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0041c810",
+  "old": "rdRaster_Span_FlatKey",
+  "name": "rdNRaster_DrawScanLineNGonMLAT_8",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Flat Key). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.\nPorted to C (build/overrides_asm_o1.c): differential test, 0 differences (docs/notes/asm_o1.md). Original name rdNRaster_DrawScanLineNGonMLAT_8 (the remaster's GrimFandango (Linux): 8-bit scan-line call of rdNRaster_DrawNGonMLAT); was rdRaster_Span_FlatKey."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0041c9b0",
+  "old": "rdRaster_Span16_TexKey",
+  "name": "rdNRaster_DrawScanLineNGonMLAT_16",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Key). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.\nPorted to C (build/overrides_asm_o1.c): differential test, 0 differences (docs/notes/asm_o1.md). Original name rdNRaster_DrawScanLineNGonMLAT_16 (the remaster's GrimFandango (Linux): 16-bit scan-line call of rdNRaster_DrawNGonMLAT); was rdRaster_Span16_TexKey."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0041cb80",
+  "old": "rdRaster_Draw16_TexLitKey_2",
+  "name": "rdNRaster_DrawNGonMTLAT",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit Key). Calls 00418550, 0041ba30, 0041bd20, 0041cdd0, 0041cf90. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.\nPorted to C (build/overrides_asm_o1.c): differential test, 0 differences (docs/notes/asm_o1.md). Original name rdNRaster_DrawNGonMTLAT (the remaster's GrimFandango (Linux): dispatch slot in rdCache_DrawFaceN (same geometry, lighting, texture-mode, mask and translucency tests)); was rdRaster_Draw16_TexLitKey_2."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0041cdd0",
+  "old": "rdRaster_Span_TexKey",
+  "name": "rdNRaster_DrawScanLineNGonMTLAT_8",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Key). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.\nPorted to C (build/overrides_asm_o1.c): differential test, 0 differences (docs/notes/asm_o1.md). Original name rdNRaster_DrawScanLineNGonMTLAT_8 (the remaster's GrimFandango (Linux): 8-bit scan-line call of rdNRaster_DrawNGonMTLAT); was rdRaster_Span_TexKey."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0041cf90",
+  "old": "rdRaster_Span16_TexKey_2",
+  "name": "rdNRaster_DrawScanLineNGonMTLAT_16",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Key). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.\nPorted to C (build/overrides_asm_o1.c): differential test, 0 differences (docs/notes/asm_o1.md). Original name rdNRaster_DrawScanLineNGonMTLAT_16 (the remaster's GrimFandango (Linux): 16-bit scan-line call of rdNRaster_DrawNGonMTLAT); was rdRaster_Span16_TexKey_2."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0041d180",
+  "old": "rdRaster_Draw_FlatLit_2",
+  "name": "rdNRaster_DrawNGonFAT",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Flat Lit). Calls 00418550, 0041d710, 0041da00. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.\nPorted to C (build/overrides_asm_o1.c): differential test, 0 differences (docs/notes/asm_o1.md). Original name rdNRaster_DrawNGonFAT (the remaster's GrimFandango (Linux): dispatch slot in rdCache_DrawFaceN (same geometry, lighting, texture-mode, mask and translucency tests)); was rdRaster_Draw_FlatLit_2."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0041d560",
+  "old": "rdRaster_Span16_Tex_6",
+  "name": "rdNRaster_DrawScanLineNGonFAT_16",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.\nPorted to C (build/overrides_asm_o1.c): differential test, 0 differences (docs/notes/asm_o1.md). Original name rdNRaster_DrawScanLineNGonFAT_16 (the remaster's GrimFandango (Linux): 16-bit scan-line call of rdNRaster_DrawNGonFAT); was rdRaster_Span16_Tex_6."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0041d710",
+  "old": "rdRaster_Edge_Flat_9",
+  "name": "rdNRaster_SetupLeftEdgeNGonFAT",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Edge Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.\nPorted to C (build/overrides_asm_o1.c): differential test, 0 differences (docs/notes/asm_o1.md). Original name rdNRaster_SetupLeftEdgeNGonFAT (the remaster's GrimFandango (Linux): first edge-setup call of rdNRaster_DrawNGonFAT); was rdRaster_Edge_Flat_9."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0041da00",
+  "old": "rdRaster_Edge_Flat_10",
+  "name": "rdNRaster_SetupRightEdgeNGonFAT",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Edge Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.\nPorted to C (build/overrides_asm_o1.c): differential test, 0 differences (docs/notes/asm_o1.md). Original name rdNRaster_SetupRightEdgeNGonFAT (the remaster's GrimFandango (Linux): second edge-setup call of rdNRaster_DrawNGonFAT); was rdRaster_Edge_Flat_10."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0041dcf0",
+  "old": "rdRaster_Draw16_TexLit_6",
+  "name": "rdNRaster_DrawNGonTFAT",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit). Calls 00418550, 0041d710, 0041da00, 0041df60, 0041e120. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.\nPorted to C (build/overrides_asm_o1.c): differential test, 0 differences (docs/notes/asm_o1.md). Original name rdNRaster_DrawNGonTFAT (the remaster's GrimFandango (Linux): dispatch slot in rdCache_DrawFaceN (same geometry, lighting, texture-mode, mask and translucency tests)); was rdRaster_Draw16_TexLit_6."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0041df60",
+  "old": "rdRaster_Span_Tex_4",
+  "name": "rdNRaster_DrawScanLineNGonTFAT_8",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.\nPorted to C (build/overrides_asm_o1.c): differential test, 0 differences (docs/notes/asm_o1.md). Original name rdNRaster_DrawScanLineNGonTFAT_8 (the remaster's GrimFandango (Linux): 8-bit scan-line call of rdNRaster_DrawNGonTFAT); was rdRaster_Span_Tex_4."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0041e120",
+  "old": "rdRaster_Span16_Tex_7",
+  "name": "rdNRaster_DrawScanLineNGonTFAT_16",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.\nPorted to C (build/overrides_asm_o1.c): differential test, 0 differences (docs/notes/asm_o1.md). Original name rdNRaster_DrawScanLineNGonTFAT_16 (the remaster's GrimFandango (Linux): 16-bit scan-line call of rdNRaster_DrawNGonTFAT); was rdRaster_Span16_Tex_7."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0041e300",
+  "old": "rdRaster_Draw_TexLitKey",
+  "name": "rdNRaster_DrawNGonMFAT",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit Key). Calls 00418550, 0041d710, 0041da00, 0041e550, 0041e700. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.\nPorted to C (build/overrides_asm_o1.c): differential test, 0 differences (docs/notes/asm_o1.md). Original name rdNRaster_DrawNGonMFAT (the remaster's GrimFandango (Linux): dispatch slot in rdCache_DrawFaceN (same geometry, lighting, texture-mode, mask and translucency tests)); was rdRaster_Draw_TexLitKey."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0041e550",
+  "old": "rdRaster_Span8_TexKey",
+  "name": "rdNRaster_DrawScanLineNGonMFAT_8",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Key). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.\nPorted to C (build/overrides_asm_o1.c): differential test, 0 differences (docs/notes/asm_o1.md). Original name rdNRaster_DrawScanLineNGonMFAT_8 (the remaster's GrimFandango (Linux): 8-bit scan-line call of rdNRaster_DrawNGonMFAT); was rdRaster_Span8_TexKey."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0041e700",
+  "old": "rdRaster_Span16_TexKey_3",
+  "name": "rdNRaster_DrawScanLineNGonMFAT_16",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Key). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.\nPorted to C (build/overrides_asm_o1.c): differential test, 0 differences (docs/notes/asm_o1.md). Original name rdNRaster_DrawScanLineNGonMFAT_16 (the remaster's GrimFandango (Linux): 16-bit scan-line call of rdNRaster_DrawNGonMFAT); was rdRaster_Span16_TexKey_3."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0041e8d0",
+  "old": "rdRaster_Draw_TexLitKey_2",
+  "name": "rdNRaster_DrawNGonMTFAT",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit Key). Calls 00418550, 0041d710, 0041da00, 0041eb40, 0041ed10. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.\nPorted to C (build/overrides_asm_o1.c): differential test, 0 differences (docs/notes/asm_o1.md). Original name rdNRaster_DrawNGonMTFAT (the remaster's GrimFandango (Linux): dispatch slot in rdCache_DrawFaceN (same geometry, lighting, texture-mode, mask and translucency tests)); was rdRaster_Draw_TexLitKey_2."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0041eb40",
+  "old": "rdRaster_Span_TexKey_2",
+  "name": "rdNRaster_DrawScanLineNGonMTFAT_8",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Key). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.\nPorted to C (build/overrides_asm_o1.c): differential test, 0 differences (docs/notes/asm_o1.md). Original name rdNRaster_DrawScanLineNGonMTFAT_8 (the remaster's GrimFandango (Linux): 8-bit scan-line call of rdNRaster_DrawNGonMTFAT); was rdRaster_Span_TexKey_2."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0041ed10",
+  "old": "rdRaster_Span_TexKey_3",
+  "name": "rdNRaster_DrawScanLineNGonMTFAT_16",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Key). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.\nPorted to C (build/overrides_asm_o1.c): differential test, 0 differences (docs/notes/asm_o1.md). Original name rdNRaster_DrawScanLineNGonMTFAT_16 (the remaster's GrimFandango (Linux): 16-bit scan-line call of rdNRaster_DrawNGonMTFAT); was rdRaster_Span_TexKey_3."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0041eef0",
+  "old": "rdRaster_Draw_FlatLit_3",
+  "name": "rdNRaster_DrawNGonGAT",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Flat Lit). Calls 00418550, 0041f520, 0041f890. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.\nPorted to C (build/overrides_asm_o1.c): differential test, 0 differences (docs/notes/asm_o1.md). Original name rdNRaster_DrawNGonGAT (the remaster's GrimFandango (Linux): dispatch slot in rdCache_DrawFaceN (same geometry, lighting, texture-mode, mask and translucency tests)); was rdRaster_Draw_FlatLit_3."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0041f2f0",
+  "old": "rdRaster_Span16_Tex_8",
+  "name": "rdNRaster_DrawScanLineNGonGAT_16",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.\nPorted to C (build/overrides_asm_o1.c): differential test, 0 differences (docs/notes/asm_o1.md). Original name rdNRaster_DrawScanLineNGonGAT_16 (the remaster's GrimFandango (Linux): 16-bit scan-line call of rdNRaster_DrawNGonGAT); was rdRaster_Span16_Tex_8."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0041f520",
+  "old": "rdRaster_Edge_Flat_11",
+  "name": "rdNRaster_SetupLeftEdgeNGonGAT",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Edge Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.\nPorted to C (build/overrides_asm_o1.c): differential test, 0 differences (docs/notes/asm_o1.md). Original name rdNRaster_SetupLeftEdgeNGonGAT (the remaster's GrimFandango (Linux): first edge-setup call of rdNRaster_DrawNGonGAT); was rdRaster_Edge_Flat_11."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0041f890",
+  "old": "rdRaster_Edge_Flat_12",
+  "name": "rdNRaster_SetupRightEdgeNGonGAT",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Edge Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.\nPorted to C (build/overrides_asm_o1.c): differential test, 0 differences (docs/notes/asm_o1.md). Original name rdNRaster_SetupRightEdgeNGonGAT (the remaster's GrimFandango (Linux): second edge-setup call of rdNRaster_DrawNGonGAT); was rdRaster_Edge_Flat_12."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0041fc00",
+  "old": "rdRaster_Draw16_TexLit_7",
+  "name": "rdNRaster_DrawNGonTGAT",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit). Calls 00418550, 0041f520, 0041f890, 0041fe90, 004200c0. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.\nPorted to C (build/overrides_asm_o1.c): differential test, 0 differences (docs/notes/asm_o1.md). Original name rdNRaster_DrawNGonTGAT (the remaster's GrimFandango (Linux): dispatch slot in rdCache_DrawFaceN (same geometry, lighting, texture-mode, mask and translucency tests)); was rdRaster_Draw16_TexLit_7."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0041fe90",
+  "old": "rdRaster_Span_Tex_5",
+  "name": "rdNRaster_DrawScanLineNGonTGAT_8",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.\nPorted to C (build/overrides_asm_o1.c): differential test, 0 differences (docs/notes/asm_o1.md). Original name rdNRaster_DrawScanLineNGonTGAT_8 (the remaster's GrimFandango (Linux): 8-bit scan-line call of rdNRaster_DrawNGonTGAT); was rdRaster_Span_Tex_5."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004200c0",
+  "old": "rdRaster_Span16_Tex_9",
+  "name": "rdNRaster_DrawScanLineNGonTGAT_16",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.\nPorted to C (build/overrides_asm_o1.c): differential test, 0 differences (docs/notes/asm_o1.md). Original name rdNRaster_DrawScanLineNGonTGAT_16 (the remaster's GrimFandango (Linux): 16-bit scan-line call of rdNRaster_DrawNGonTGAT); was rdRaster_Span16_Tex_9."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00420310",
+  "old": "rdRaster_Draw_TexLitKey_3",
+  "name": "rdNRaster_DrawNGonMGAT",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit Key). Calls 00418550, 0041f520, 0041f890, 00420580, 004207b0. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.\nPorted to C (build/overrides_asm_o1.c): differential test, 0 differences (docs/notes/asm_o1.md). Original name rdNRaster_DrawNGonMGAT (the remaster's GrimFandango (Linux): dispatch slot in rdCache_DrawFaceN (same geometry, lighting, texture-mode, mask and translucency tests)); was rdRaster_Draw_TexLitKey_3."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00420580",
+  "old": "rdRaster_Span8_TexKey_2",
+  "name": "rdNRaster_DrawScanLineNGonMGAT_8",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Key). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.\nPorted to C (build/overrides_asm_o1.c): differential test, 0 differences (docs/notes/asm_o1.md). Original name rdNRaster_DrawScanLineNGonMGAT_8 (the remaster's GrimFandango (Linux): 8-bit scan-line call of rdNRaster_DrawNGonMGAT); was rdRaster_Span8_TexKey_2."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004207b0",
+  "old": "rdRaster_Span16_TexKey_4",
+  "name": "rdNRaster_DrawScanLineNGonMGAT_16",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Key). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.\nPorted to C (build/overrides_asm_o1.c): differential test, 0 differences (docs/notes/asm_o1.md). Original name rdNRaster_DrawScanLineNGonMGAT_16 (the remaster's GrimFandango (Linux): 16-bit scan-line call of rdNRaster_DrawNGonMGAT); was rdRaster_Span16_TexKey_4."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004209f0",
+  "old": "rdRaster_Draw16_TexLitKey_3",
+  "name": "rdNRaster_DrawNGonMTGAT",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit Key). Calls 00418550, 0041f520, 0041f890, 00420c80, 00420ec0. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.\nPorted to C (build/overrides_asm_o1.c): differential test, 0 differences (docs/notes/asm_o1.md). Original name rdNRaster_DrawNGonMTGAT (the remaster's GrimFandango (Linux): dispatch slot in rdCache_DrawFaceN (same geometry, lighting, texture-mode, mask and translucency tests)); was rdRaster_Draw16_TexLitKey_3."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00420c80",
+  "old": "rdRaster_Span_TexKey_4",
+  "name": "rdNRaster_DrawScanLineNGonMTGAT_8",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Key). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.\nPorted to C (build/overrides_asm_o1.c): differential test, 0 differences (docs/notes/asm_o1.md). Original name rdNRaster_DrawScanLineNGonMTGAT_8 (the remaster's GrimFandango (Linux): 8-bit scan-line call of rdNRaster_DrawNGonMTGAT); was rdRaster_Span_TexKey_4."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00420ec0",
+  "old": "rdRaster_Span16_TexKey_5",
+  "name": "rdNRaster_DrawScanLineNGonMTGAT_16",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Key). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.\nPorted to C (build/overrides_asm_o1.c): differential test, 0 differences (docs/notes/asm_o1.md). Original name rdNRaster_DrawScanLineNGonMTGAT_16 (the remaster's GrimFandango (Linux): 16-bit scan-line call of rdNRaster_DrawNGonMTGAT); was rdRaster_Span16_TexKey_5."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00421120",
+  "old": "rdRaster_Draw_FlatLit_4",
+  "name": "rdNRaster_DrawNGonLIT",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Flat Lit). Calls 00418a00, 00421b60, 00421dc0. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.\nPorted to C (build/overrides_asm_o1.c): differential test, 0 differences (docs/notes/asm_o1.md). Original name rdNRaster_DrawNGonLIT (the remaster's GrimFandango (Linux): dispatch slot in rdCache_DrawFaceN (same geometry, lighting, texture-mode, mask and translucency tests)); was rdRaster_Draw_FlatLit_4."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00421510",
+  "old": "rdRaster_Span16_Tex_10",
+  "name": "rdNRaster_DrawScanLineNGonLIT_16",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdNRaster_DrawScanLineNGonLIT_16 (the remaster's GrimFandango (Linux): 16-bit scan-line call of rdNRaster_DrawNGonLIT); was rdRaster_Span16_Tex_10."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00421b60",
+  "old": "rdRaster_Edge_Flat_13",
+  "name": "rdNRaster_SetupLeftEdgeNGonLIT",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Edge Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.\nPorted to C (build/overrides_asm_o1.c): differential test, 0 differences (docs/notes/asm_o1.md). Original name rdNRaster_SetupLeftEdgeNGonLIT (the remaster's GrimFandango (Linux): first edge-setup call of rdNRaster_DrawNGonLIT); was rdRaster_Edge_Flat_13."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00421dc0",
+  "old": "rdRaster_Edge_Flat_14",
+  "name": "rdNRaster_SetupRightEdgeNGonLIT",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Edge Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.\nPorted to C (build/overrides_asm_o1.c): differential test, 0 differences (docs/notes/asm_o1.md). Original name rdNRaster_SetupRightEdgeNGonLIT (the remaster's GrimFandango (Linux): second edge-setup call of rdNRaster_DrawNGonLIT); was rdRaster_Edge_Flat_14."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00421f80",
+  "old": "rdRaster_Draw16_TexLit_8",
+  "name": "rdNRaster_DrawNGonTLIT",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit). Calls 00418a00, 00421b60, 00421dc0, 004221f0, 00422820. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.\nPorted to C (build/overrides_asm_o1.c): differential test, 0 differences (docs/notes/asm_o1.md). Original name rdNRaster_DrawNGonTLIT (the remaster's GrimFandango (Linux): dispatch slot in rdCache_DrawFaceN (same geometry, lighting, texture-mode, mask and translucency tests)); was rdRaster_Draw16_TexLit_8."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004221f0",
+  "old": "rdRaster_Span_Tex_6",
+  "name": "rdNRaster_DrawScanLineNGonTLIT_8",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdNRaster_DrawScanLineNGonTLIT_8 (the remaster's GrimFandango (Linux): 8-bit scan-line call of rdNRaster_DrawNGonTLIT); was rdRaster_Span_Tex_6."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00422820",
+  "old": "rdRaster_Span16_Tex_11",
+  "name": "rdNRaster_DrawScanLineNGonTLIT_16",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdNRaster_DrawScanLineNGonTLIT_16 (the remaster's GrimFandango (Linux): 16-bit scan-line call of rdNRaster_DrawNGonTLIT); was rdRaster_Span16_Tex_11."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00422f00",
+  "old": "rdRaster_Draw16_TexLitKey_4",
+  "name": "rdNRaster_DrawNGonMLIT",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit Key). Calls 00418a00, 00421b60, 00421dc0, 00423150, 00423740. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.\nPorted to C (build/overrides_asm_o1.c): differential test, 0 differences (docs/notes/asm_o1.md). Original name rdNRaster_DrawNGonMLIT (the remaster's GrimFandango (Linux): dispatch slot in rdCache_DrawFaceN (same geometry, lighting, texture-mode, mask and translucency tests)); was rdRaster_Draw16_TexLitKey_4."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00423150",
+  "old": "rdRaster_Span_FlatKey_2",
+  "name": "rdNRaster_DrawScanLineNGonMLIT_8",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Flat Key). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdNRaster_DrawScanLineNGonMLIT_8 (the remaster's GrimFandango (Linux): 8-bit scan-line call of rdNRaster_DrawNGonMLIT); was rdRaster_Span_FlatKey_2."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00423740",
+  "old": "rdRaster_Span16_TexKey_6",
+  "name": "rdNRaster_DrawScanLineNGonMLIT_16",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Key). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdNRaster_DrawScanLineNGonMLIT_16 (the remaster's GrimFandango (Linux): 16-bit scan-line call of rdNRaster_DrawNGonMLIT); was rdRaster_Span16_TexKey_6."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00423db0",
+  "old": "rdRaster_Draw16_TexLitKey_5",
+  "name": "rdNRaster_DrawNGonMTLIT",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit Key). Calls 00418a00, 00421b60, 00421dc0, 00424020, 00424670. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.\nPorted to C (build/overrides_asm_o1.c): differential test, 0 differences (docs/notes/asm_o1.md). Original name rdNRaster_DrawNGonMTLIT (the remaster's GrimFandango (Linux): dispatch slot in rdCache_DrawFaceN (same geometry, lighting, texture-mode, mask and translucency tests)); was rdRaster_Draw16_TexLitKey_5."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00424020",
+  "old": "rdRaster_Span_TexKey_5",
+  "name": "rdNRaster_DrawScanLineNGonMTLIT_8",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Key). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdNRaster_DrawScanLineNGonMTLIT_8 (the remaster's GrimFandango (Linux): 8-bit scan-line call of rdNRaster_DrawNGonMTLIT); was rdRaster_Span_TexKey_5."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00424670",
+  "old": "rdRaster_Span16_TexKey_7",
+  "name": "rdNRaster_DrawScanLineNGonMTLIT_16",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Key). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdNRaster_DrawScanLineNGonMTLIT_16 (the remaster's GrimFandango (Linux): 16-bit scan-line call of rdNRaster_DrawNGonMTLIT); was rdRaster_Span16_TexKey_7."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00424d50",
+  "old": "rdRaster_Draw_FlatLit_5",
+  "name": "rdNRaster_DrawNGonFIT",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Flat Lit). Calls 00418a00, 004257a0, 00425a00. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.\nPorted to C (build/overrides_asm_o1.c): differential test, 0 differences (docs/notes/asm_o1.md). Original name rdNRaster_DrawNGonFIT (the remaster's GrimFandango (Linux): dispatch slot in rdCache_DrawFaceN (same geometry, lighting, texture-mode, mask and translucency tests)); was rdRaster_Draw_FlatLit_5."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00425150",
+  "old": "rdRaster_Span16_Tex_12",
+  "name": "rdNRaster_DrawScanLineNGonFIT_16",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdNRaster_DrawScanLineNGonFIT_16 (the remaster's GrimFandango (Linux): 16-bit scan-line call of rdNRaster_DrawNGonFIT); was rdRaster_Span16_Tex_12."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004257a0",
+  "old": "rdRaster_Edge_Flat_15",
+  "name": "rdNRaster_SetupLeftEdgeNGonFIT",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Edge Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.\nPorted to C (build/overrides_asm_o1.c): differential test, 0 differences (docs/notes/asm_o1.md). Original name rdNRaster_SetupLeftEdgeNGonFIT (the remaster's GrimFandango (Linux): first edge-setup call of rdNRaster_DrawNGonFIT); was rdRaster_Edge_Flat_15."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00425a00",
+  "old": "rdRaster_Edge_Flat_16",
+  "name": "rdNRaster_SetupRightEdgeNGonFIT",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Edge Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.\nPorted to C (build/overrides_asm_o1.c): differential test, 0 differences (docs/notes/asm_o1.md). Original name rdNRaster_SetupRightEdgeNGonFIT (the remaster's GrimFandango (Linux): second edge-setup call of rdNRaster_DrawNGonFIT); was rdRaster_Edge_Flat_16."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00425bc0",
+  "old": "rdRaster_Draw16_TexLit_9",
+  "name": "rdNRaster_DrawNGonTFIT",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit). Calls 00418a00, 004257a0, 00425a00, 00425e50, 004264a0. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.\nPorted to C (build/overrides_asm_o1.c): differential test, 0 differences (docs/notes/asm_o1.md). Original name rdNRaster_DrawNGonTFIT (the remaster's GrimFandango (Linux): dispatch slot in rdCache_DrawFaceN (same geometry, lighting, texture-mode, mask and translucency tests)); was rdRaster_Draw16_TexLit_9."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00425e50",
+  "old": "rdRaster_Span_Tex_7",
+  "name": "rdNRaster_DrawScanLineNGonTFIT_8",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdNRaster_DrawScanLineNGonTFIT_8 (the remaster's GrimFandango (Linux): 8-bit scan-line call of rdNRaster_DrawNGonTFIT); was rdRaster_Span_Tex_7."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004264a0",
+  "old": "rdRaster_Span16_Tex_13",
+  "name": "rdNRaster_DrawScanLineNGonTFIT_16",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdNRaster_DrawScanLineNGonTFIT_16 (the remaster's GrimFandango (Linux): 16-bit scan-line call of rdNRaster_DrawNGonTFIT); was rdRaster_Span16_Tex_13."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00426bc0",
+  "old": "rdRaster_Draw_TexLitKey_4",
+  "name": "rdNRaster_DrawNGonMFIT",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit Key). Calls 00418a00, 004257a0, 00425a00, 00426e30, 00427470. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.\nPorted to C (build/overrides_asm_o1.c): differential test, 0 differences (docs/notes/asm_o1.md). Original name rdNRaster_DrawNGonMFIT (the remaster's GrimFandango (Linux): dispatch slot in rdCache_DrawFaceN (same geometry, lighting, texture-mode, mask and translucency tests)); was rdRaster_Draw_TexLitKey_4."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00426e30",
+  "old": "rdRaster_Span8_TexKey_3",
+  "name": "rdNRaster_DrawScanLineNGonMFIT_8",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Key). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdNRaster_DrawScanLineNGonMFIT_8 (the remaster's GrimFandango (Linux): 8-bit scan-line call of rdNRaster_DrawNGonMFIT); was rdRaster_Span8_TexKey_3."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00427470",
+  "old": "rdRaster_Span16_TexKey_8",
+  "name": "rdNRaster_DrawScanLineNGonMFIT_16",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Key). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdNRaster_DrawScanLineNGonMFIT_16 (the remaster's GrimFandango (Linux): 16-bit scan-line call of rdNRaster_DrawNGonMFIT); was rdRaster_Span16_TexKey_8."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00427ae0",
+  "old": "rdRaster_Draw16_TexLitKey_6",
+  "name": "rdNRaster_DrawNGonMTFIT",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit Key). Calls 00418a00, 004257a0, 00425a00, 00427d70, 004283f0. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.\nPorted to C (build/overrides_asm_o1.c): differential test, 0 differences (docs/notes/asm_o1.md). Original name rdNRaster_DrawNGonMTFIT (the remaster's GrimFandango (Linux): dispatch slot in rdCache_DrawFaceN (same geometry, lighting, texture-mode, mask and translucency tests)); was rdRaster_Draw16_TexLitKey_6."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00427d70",
+  "old": "rdRaster_Span_TexKey_6",
+  "name": "rdNRaster_DrawScanLineNGonMTFIT_8",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Key). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdNRaster_DrawScanLineNGonMTFIT_8 (the remaster's GrimFandango (Linux): 8-bit scan-line call of rdNRaster_DrawNGonMTFIT); was rdRaster_Span_TexKey_6."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004283f0",
+  "old": "rdRaster_Span16_TexKey_9",
+  "name": "rdNRaster_DrawScanLineNGonMTFIT_16",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Key). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdNRaster_DrawScanLineNGonMTFIT_16 (the remaster's GrimFandango (Linux): 16-bit scan-line call of rdNRaster_DrawNGonMTFIT); was rdRaster_Span16_TexKey_9."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00428ae0",
+  "old": "rdRaster_Draw_FlatLit_6",
+  "name": "rdNRaster_DrawNGonGIT",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Flat Lit). Calls 00418a00, 00429870, 00429b70. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.\nPorted to C (build/overrides_asm_o1.c): differential test, 0 differences (docs/notes/asm_o1.md). Original name rdNRaster_DrawNGonGIT (the remaster's GrimFandango (Linux): dispatch slot in rdCache_DrawFaceN (same geometry, lighting, texture-mode, mask and translucency tests)); was rdRaster_Draw_FlatLit_6."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00428f00",
+  "old": "rdRaster_Span16_Tex_14",
+  "name": "rdNRaster_DrawScanLineNGonGIT_16",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdNRaster_DrawScanLineNGonGIT_16 (the remaster's GrimFandango (Linux): 16-bit scan-line call of rdNRaster_DrawNGonGIT); was rdRaster_Span16_Tex_14."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00429870",
+  "old": "rdRaster_Edge_Flat_17",
+  "name": "rdNRaster_SetupLeftEdgeNGonGIT",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Edge Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.\nPorted to C (build/overrides_asm_o1.c): differential test, 0 differences (docs/notes/asm_o1.md). Original name rdNRaster_SetupLeftEdgeNGonGIT (the remaster's GrimFandango (Linux): first edge-setup call of rdNRaster_DrawNGonGIT); was rdRaster_Edge_Flat_17."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00429b70",
+  "old": "rdRaster_Edge_Flat_18",
+  "name": "rdNRaster_SetupRightEdgeNGonGIT",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Edge Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.\nPorted to C (build/overrides_asm_o1.c): differential test, 0 differences (docs/notes/asm_o1.md). Original name rdNRaster_SetupRightEdgeNGonGIT (the remaster's GrimFandango (Linux): second edge-setup call of rdNRaster_DrawNGonGIT); was rdRaster_Edge_Flat_18."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00429dc0",
+  "old": "rdRaster_Draw16_TexLit_10",
+  "name": "rdNRaster_DrawNGonTGIT",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit). Calls 00418a00, 00429870, 00429b70, 0042a070, 0042a790. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.\nPorted to C (build/overrides_asm_o1.c): differential test, 0 differences (docs/notes/asm_o1.md). Original name rdNRaster_DrawNGonTGIT (the remaster's GrimFandango (Linux): dispatch slot in rdCache_DrawFaceN (same geometry, lighting, texture-mode, mask and translucency tests)); was rdRaster_Draw16_TexLit_10."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0042a070",
+  "old": "rdRaster_Span_Tex_8",
+  "name": "rdNRaster_DrawScanLineNGonTGIT_8",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdNRaster_DrawScanLineNGonTGIT_8 (the remaster's GrimFandango (Linux): 8-bit scan-line call of rdNRaster_DrawNGonTGIT); was rdRaster_Span_Tex_8."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0042a790",
+  "old": "rdRaster_Span16_Tex_15",
+  "name": "rdNRaster_DrawScanLineNGonTGIT_16",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdNRaster_DrawScanLineNGonTGIT_16 (the remaster's GrimFandango (Linux): 16-bit scan-line call of rdNRaster_DrawNGonTGIT); was rdRaster_Span16_Tex_15."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0042af60",
+  "old": "rdRaster_Draw_TexLitKey_5",
+  "name": "rdNRaster_DrawNGonMGIT",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit Key). Calls 00418a00, 00429870, 00429b70, 0042b1f0, 0042b8e0. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.\nPorted to C (build/overrides_asm_o1.c): differential test, 0 differences (docs/notes/asm_o1.md). Original name rdNRaster_DrawNGonMGIT (the remaster's GrimFandango (Linux): dispatch slot in rdCache_DrawFaceN (same geometry, lighting, texture-mode, mask and translucency tests)); was rdRaster_Draw_TexLitKey_5."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0042b1f0",
+  "old": "rdRaster_Span8_TexKey_4",
+  "name": "rdNRaster_DrawScanLineNGonMGIT_8",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Key). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdNRaster_DrawScanLineNGonMGIT_8 (the remaster's GrimFandango (Linux): 8-bit scan-line call of rdNRaster_DrawNGonMGIT); was rdRaster_Span8_TexKey_4."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0042b8e0",
+  "old": "rdRaster_Span16_TexKey_10",
+  "name": "rdNRaster_DrawScanLineNGonMGIT_16",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Key). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdNRaster_DrawScanLineNGonMGIT_16 (the remaster's GrimFandango (Linux): 16-bit scan-line call of rdNRaster_DrawNGonMGIT); was rdRaster_Span16_TexKey_10."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0042c010",
+  "old": "rdRaster_Draw16_TexLitKey_7",
+  "name": "rdNRaster_DrawNGonMTGIT",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit Key). Calls 00418a00, 00429870, 00429b70, 0042c2c0, 0042c9f0. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdNRaster_DrawNGonMTGIT (the remaster's GrimFandango (Linux): dispatch slot in rdCache_DrawFaceN (same geometry, lighting, texture-mode, mask and translucency tests)); was rdRaster_Draw16_TexLitKey_7."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0042c2c0",
+  "old": "rdRaster_Span_TexKey_7",
+  "name": "rdNRaster_DrawScanLineNGonMTGIT_8",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Key). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdNRaster_DrawScanLineNGonMTGIT_8 (the remaster's GrimFandango (Linux): 8-bit scan-line call of rdNRaster_DrawNGonMTGIT); was rdRaster_Span_TexKey_7."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0042c9f0",
+  "old": "rdRaster_Span16_TexKey_11",
+  "name": "rdNRaster_DrawScanLineNGonMTGIT_16",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Key). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdNRaster_DrawScanLineNGonMTGIT_16 (the remaster's GrimFandango (Linux): 16-bit scan-line call of rdNRaster_DrawNGonMTGIT); was rdRaster_Span16_TexKey_11."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0042d190",
+  "old": "rdRaster_Grad_Flat_3",
+  "name": "rdZRaster_CalcAffineGradients",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Grad Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_CalcAffineGradients (the remaster's GrimFandango (Linux): gradients call of rdZRaster_DrawNGonLAT); was rdRaster_Grad_Flat_3."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0042d5f0",
+  "old": "rdRaster_Grad_Flat_4",
+  "name": "rdZRaster_CalcPerspGradients",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Grad Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_CalcPerspGradients (the remaster's GrimFandango (Linux): gradients call of rdZRaster_DrawNGonLIT); was rdRaster_Grad_Flat_4."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0042dba0",
+  "old": "rdRaster_DrawPointsZ",
+  "name": "rdZRaster_DrawNGonLV",
+  "comment": "Ported to C (build/overrides_asm_s3.c): read against the assembly only, NOT differentially tested (docs/notes/asm_s*.md). Original name rdZRaster_DrawNGonLV (the remaster's GrimFandango (Linux): dispatch slot in rdCache_DrawFaceZ (same geometry, lighting, texture-mode, mask and translucency tests)); was rdRaster_DrawPointsZ."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0042dd10",
+  "old": "rdRaster_DrawWireframeZ",
+  "name": "rdZRaster_DrawNGonLW",
+  "comment": "Original name rdZRaster_DrawNGonLW (the remaster's GrimFandango (Linux): dispatch slot in rdCache_DrawFaceZ (same geometry, lighting, texture-mode, mask and translucency tests)); was rdRaster_DrawWireframeZ."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0042e010",
+  "old": "rdRaster_Draw_FlatLitZ",
+  "name": "rdZRaster_DrawNGonLS",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Flat Lit Z). Calls 0042e200, 0042e320, 0042e440, 0042e630. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_DrawNGonLS (the remaster's GrimFandango (Linux): dispatch slot in rdCache_DrawFaceZ (same geometry, lighting, texture-mode, mask and translucency tests)); was rdRaster_Draw_FlatLitZ."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0042e200",
+  "old": "rdRaster_Span8_FlatZ",
+  "name": "rdZRaster_DrawScanLineNGonLS_8",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Flat Z). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_DrawScanLineNGonLS_8 (the remaster's GrimFandango (Linux): 8-bit scan-line call of rdZRaster_DrawNGonLS); was rdRaster_Span8_FlatZ."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0042e320",
+  "old": "rdRaster_Span16_FlatZ",
+  "name": "rdZRaster_DrawScanLineNGonLS_16",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Flat Z). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_DrawScanLineNGonLS_16 (the remaster's GrimFandango (Linux): 16-bit scan-line call of rdZRaster_DrawNGonLS); was rdRaster_Span16_FlatZ."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0042e440",
+  "old": "rdRaster_SpanR_Flat",
+  "name": "rdZRaster_SetupLeftEdgeNGonLS",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: SpanR Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_SetupLeftEdgeNGonLS (the remaster's GrimFandango (Linux): first edge-setup call of rdZRaster_DrawNGonLS); was rdRaster_SpanR_Flat."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0042e630",
+  "old": "rdRaster_SpanR_Flat_2",
+  "name": "rdZRaster_SetupRightEdgeNGonLS",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: SpanR Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_SetupRightEdgeNGonLS (the remaster's GrimFandango (Linux): second edge-setup call of rdZRaster_DrawNGonLS); was rdRaster_SpanR_Flat_2."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0042e820",
+  "old": "rdRaster_Draw_TexLitZ",
+  "name": "rdZRaster_DrawNGonTLS",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit Z). Calls 0042e440, 0042e630, 0042ea50, 0042eb90. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_DrawNGonTLS (the remaster's GrimFandango (Linux): dispatch slot in rdCache_DrawFaceZ (same geometry, lighting, texture-mode, mask and translucency tests)); was rdRaster_Draw_TexLitZ."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0042ea50",
+  "old": "rdRaster_Span8_TexLitZ",
+  "name": "rdZRaster_DrawScanLineNGonTLS_8",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Z). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_DrawScanLineNGonTLS_8 (the remaster's GrimFandango (Linux): 8-bit scan-line call of rdZRaster_DrawNGonTLS); was rdRaster_Span8_TexLitZ."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0042eb90",
+  "old": "rdRaster_Span16_TexLitZ",
+  "name": "rdZRaster_DrawScanLineNGonTLS_16",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Z). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_DrawScanLineNGonTLS_16 (the remaster's GrimFandango (Linux): 16-bit scan-line call of rdZRaster_DrawNGonTLS); was rdRaster_Span16_TexLitZ."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0042ecf0",
+  "old": "rdRaster_Draw_FlatLitZ_2",
+  "name": "rdZRaster_DrawNGonFS",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Flat Lit Z). Calls 0042ef00, 0042f020, 0042f140, 0042f330. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_DrawNGonFS (the remaster's GrimFandango (Linux): dispatch slot in rdCache_DrawFaceZ (same geometry, lighting, texture-mode, mask and translucency tests)); was rdRaster_Draw_FlatLitZ_2."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0042ef00",
+  "old": "rdRaster_Span8_FlatZ_2",
+  "name": "rdZRaster_DrawScanLineNGonFS_8",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Flat Z). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_DrawScanLineNGonFS_8 (the remaster's GrimFandango (Linux): 8-bit scan-line call of rdZRaster_DrawNGonFS); was rdRaster_Span8_FlatZ_2."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0042f020",
+  "old": "rdRaster_Span16_FlatZ_2",
+  "name": "rdZRaster_DrawScanLineNGonFS_16",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Flat Z). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_DrawScanLineNGonFS_16 (the remaster's GrimFandango (Linux): 16-bit scan-line call of rdZRaster_DrawNGonFS); was rdRaster_Span16_FlatZ_2."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0042f140",
+  "old": "rdRaster_SpanR_Flat_3",
+  "name": "rdZRaster_SetupLeftEdgeNGonFS",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: SpanR Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_SetupLeftEdgeNGonFS (the remaster's GrimFandango (Linux): first edge-setup call of rdZRaster_DrawNGonFS); was rdRaster_SpanR_Flat_3."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0042f330",
+  "old": "rdRaster_SpanR_Flat_4",
+  "name": "rdZRaster_SetupRightEdgeNGonFS",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: SpanR Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_SetupRightEdgeNGonFS (the remaster's GrimFandango (Linux): second edge-setup call of rdZRaster_DrawNGonFS); was rdRaster_SpanR_Flat_4."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0042f520",
+  "old": "rdRaster_Draw_TexLitZ_2",
+  "name": "rdZRaster_DrawNGonTFS",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit Z). Calls 0042f140, 0042f330, 0042f770, 0042f8b0. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_DrawNGonTFS (the remaster's GrimFandango (Linux): dispatch slot in rdCache_DrawFaceZ (same geometry, lighting, texture-mode, mask and translucency tests)); was rdRaster_Draw_TexLitZ_2."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0042f770",
+  "old": "rdRaster_Span8_TexLitZ_2",
+  "name": "rdZRaster_DrawScanLineNGonTFS_8",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Z). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_DrawScanLineNGonTFS_8 (the remaster's GrimFandango (Linux): 8-bit scan-line call of rdZRaster_DrawNGonTFS); was rdRaster_Span8_TexLitZ_2."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0042f8b0",
+  "old": "rdRaster_Span16_TexLitZ_2",
+  "name": "rdZRaster_DrawScanLineNGonTFS_16",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Z). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_DrawScanLineNGonTFS_16 (the remaster's GrimFandango (Linux): 16-bit scan-line call of rdZRaster_DrawNGonTFS); was rdRaster_Span16_TexLitZ_2."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0042fa10",
+  "old": "rdRaster_Draw_FlatLitZ_3",
+  "name": "rdZRaster_DrawNGonGS",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Flat Lit Z). Calls 0042fc30, 0042fdc0, 0042ff50, 004301d0. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_DrawNGonGS (the remaster's GrimFandango (Linux): dispatch slot in rdCache_DrawFaceZ (same geometry, lighting, texture-mode, mask and translucency tests)); was rdRaster_Draw_FlatLitZ_3."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0042fc30",
+  "old": "rdRaster_Span8_FlatZ_3",
+  "name": "rdZRaster_DrawScanLineNGonGS_8",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Flat Z). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_DrawScanLineNGonGS_8 (the remaster's GrimFandango (Linux): 8-bit scan-line call of rdZRaster_DrawNGonGS); was rdRaster_Span8_FlatZ_3."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0042fdc0",
+  "old": "rdRaster_Span16_FlatZ_3",
+  "name": "rdZRaster_DrawScanLineNGonGS_16",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Flat Z). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_DrawScanLineNGonGS_16 (the remaster's GrimFandango (Linux): 16-bit scan-line call of rdZRaster_DrawNGonGS); was rdRaster_Span16_FlatZ_3."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0042ff50",
+  "old": "rdRaster_SpanR_Flat_5",
+  "name": "rdZRaster_SetupLeftEdgeNGonGS",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: SpanR Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_SetupLeftEdgeNGonGS (the remaster's GrimFandango (Linux): first edge-setup call of rdZRaster_DrawNGonGS); was rdRaster_SpanR_Flat_5."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004301d0",
+  "old": "rdRaster_SpanR_Flat_6",
+  "name": "rdZRaster_SetupRightEdgeNGonGS",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: SpanR Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_SetupRightEdgeNGonGS (the remaster's GrimFandango (Linux): second edge-setup call of rdZRaster_DrawNGonGS); was rdRaster_SpanR_Flat_6."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00430450",
+  "old": "rdRaster_Draw_TexLitZ_3",
+  "name": "rdZRaster_DrawNGonTGS",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit Z). Calls 0042ff50, 004301d0, 004306c0, 00430860. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_DrawNGonTGS (the remaster's GrimFandango (Linux): dispatch slot in rdCache_DrawFaceZ (same geometry, lighting, texture-mode, mask and translucency tests)); was rdRaster_Draw_TexLitZ_3."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004306c0",
+  "old": "rdRaster_Span8_TexZ",
+  "name": "rdZRaster_DrawScanLineNGonTGS_8",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Z). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_DrawScanLineNGonTGS_8 (the remaster's GrimFandango (Linux): 8-bit scan-line call of rdZRaster_DrawNGonTGS); was rdRaster_Span8_TexZ."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00430860",
+  "old": "rdRaster_Span16_TexZ",
+  "name": "rdZRaster_DrawScanLineNGonTGS_16",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Z). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_DrawScanLineNGonTGS_16 (the remaster's GrimFandango (Linux): 16-bit scan-line call of rdZRaster_DrawNGonTGS); was rdRaster_Span16_TexZ."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00430a20",
+  "old": "rdRaster_Draw_FlatLit_7",
+  "name": "rdZRaster_DrawNGonLAT",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Flat Lit). Calls 0042d190, 00431400, 00431710. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_DrawNGonLAT (the remaster's GrimFandango (Linux): dispatch slot in rdCache_DrawFaceZ (same geometry, lighting, texture-mode, mask and translucency tests)); was rdRaster_Draw_FlatLit_7."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00430fd0",
+  "old": "rdRaster_Span_FlatZ",
+  "name": "rdZRaster_DrawScanLineNGonLAT_8",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Flat Z). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_DrawScanLineNGonLAT_8 (the remaster's GrimFandango (Linux): 8-bit scan-line call of rdZRaster_DrawNGonLAT); was rdRaster_Span_FlatZ."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004311d0",
+  "old": "rdRaster_Span16_TexLit",
+  "name": "rdZRaster_DrawScanLineNGonLAT_16",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_DrawScanLineNGonLAT_16 (the remaster's GrimFandango (Linux): 16-bit scan-line call of rdZRaster_DrawNGonLAT); was rdRaster_Span16_TexLit."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00431400",
+  "old": "rdRaster_SpanR_Flat_7",
+  "name": "rdZRaster_SetupLeftEdgeNGonLAT",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: SpanR Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_SetupLeftEdgeNGonLAT (the remaster's GrimFandango (Linux): first edge-setup call of rdZRaster_DrawNGonLAT); was rdRaster_SpanR_Flat_7."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00431710",
+  "old": "rdRaster_SpanR_Flat_8",
+  "name": "rdZRaster_SetupRightEdgeNGonLAT",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: SpanR Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_SetupRightEdgeNGonLAT (the remaster's GrimFandango (Linux): second edge-setup call of rdZRaster_DrawNGonLAT); was rdRaster_SpanR_Flat_8."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00431a20",
+  "old": "rdRaster_Draw_TexLitZ_4",
+  "name": "rdZRaster_DrawNGonTLAT",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit Z). Calls 0042d190, 00431400, 00431710, 00431c90, 00431eb0. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_DrawNGonTLAT (the remaster's GrimFandango (Linux): dispatch slot in rdCache_DrawFaceZ (same geometry, lighting, texture-mode, mask and translucency tests)); was rdRaster_Draw_TexLitZ_4."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00431c90",
+  "old": "rdRaster_Span8_TexLitZ_3",
+  "name": "rdZRaster_DrawScanLineNGonTLAT_8",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Z). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_DrawScanLineNGonTLAT_8 (the remaster's GrimFandango (Linux): 8-bit scan-line call of rdZRaster_DrawNGonTLAT); was rdRaster_Span8_TexLitZ_3."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00431eb0",
+  "old": "rdRaster_Span16_TexLit_2",
+  "name": "rdZRaster_DrawScanLineNGonTLAT_16",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_DrawScanLineNGonTLAT_16 (the remaster's GrimFandango (Linux): 16-bit scan-line call of rdZRaster_DrawNGonTLAT); was rdRaster_Span16_TexLit_2."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00432100",
+  "old": "rdRaster_Draw_TexLitKeyZw",
+  "name": "rdZRaster_DrawNGonMLAT",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit Key Zw). Calls 0042d190, 00431400, 00431710, 00432350, 00432560. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_DrawNGonMLAT (the remaster's GrimFandango (Linux): dispatch slot in rdCache_DrawFaceZ (same geometry, lighting, texture-mode, mask and translucency tests)); was rdRaster_Draw_TexLitKeyZw."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00432350",
+  "old": "rdRaster_Span8_FlatKeyZw",
+  "name": "rdZRaster_DrawScanLineNGonMLAT_8",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Flat Key Zw). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_DrawScanLineNGonMLAT_8 (the remaster's GrimFandango (Linux): 8-bit scan-line call of rdZRaster_DrawNGonMLAT); was rdRaster_Span8_FlatKeyZw."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00432560",
+  "old": "rdRaster_Span16_TexLitKey",
+  "name": "rdZRaster_DrawScanLineNGonMLAT_16",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Key). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_DrawScanLineNGonMLAT_16 (the remaster's GrimFandango (Linux): 16-bit scan-line call of rdZRaster_DrawNGonMLAT); was rdRaster_Span16_TexLitKey."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004327a0",
+  "old": "rdRaster_Draw_TexLitKeyZw_2",
+  "name": "rdZRaster_DrawNGonMTLAT",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit Key Zw). Calls 0042d190, 00431400, 00431710, 00432a10, 00432c40. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_DrawNGonMTLAT (the remaster's GrimFandango (Linux): dispatch slot in rdCache_DrawFaceZ (same geometry, lighting, texture-mode, mask and translucency tests)); was rdRaster_Draw_TexLitKeyZw_2."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00432a10",
+  "old": "rdRaster_Span8_TexLitKeyZw",
+  "name": "rdZRaster_DrawScanLineNGonMTLAT_8",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Key Zw). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_DrawScanLineNGonMTLAT_8 (the remaster's GrimFandango (Linux): 8-bit scan-line call of rdZRaster_DrawNGonMTLAT); was rdRaster_Span8_TexLitKeyZw."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00432c40",
+  "old": "rdRaster_Span16_TexLitKey_2",
+  "name": "rdZRaster_DrawScanLineNGonMTLAT_16",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Key). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_DrawScanLineNGonMTLAT_16 (the remaster's GrimFandango (Linux): 16-bit scan-line call of rdZRaster_DrawNGonMTLAT); was rdRaster_Span16_TexLitKey_2."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00432ea0",
+  "old": "rdRaster_Draw_FlatLit_8",
+  "name": "rdZRaster_DrawNGonFAT",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Flat Lit). Calls 0042d190, 004338d0, 00433be0. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_DrawNGonFAT (the remaster's GrimFandango (Linux): dispatch slot in rdCache_DrawFaceZ (same geometry, lighting, texture-mode, mask and translucency tests)); was rdRaster_Draw_FlatLit_8."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00433480",
+  "old": "rdRaster_Span_TexLitZ",
+  "name": "rdZRaster_DrawScanLineNGonFAT_8",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Z). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_DrawScanLineNGonFAT_8 (the remaster's GrimFandango (Linux): 8-bit scan-line call of rdZRaster_DrawNGonFAT); was rdRaster_Span_TexLitZ."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004336a0",
+  "old": "rdRaster_Span16_TexLit_3",
+  "name": "rdZRaster_DrawScanLineNGonFAT_16",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_DrawScanLineNGonFAT_16 (the remaster's GrimFandango (Linux): 16-bit scan-line call of rdZRaster_DrawNGonFAT); was rdRaster_Span16_TexLit_3."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004338d0",
+  "old": "rdRaster_SpanR_Flat_9",
+  "name": "rdZRaster_SetupLeftEdgeNGonFAT",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: SpanR Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_SetupLeftEdgeNGonFAT (the remaster's GrimFandango (Linux): first edge-setup call of rdZRaster_DrawNGonFAT); was rdRaster_SpanR_Flat_9."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00433be0",
+  "old": "rdRaster_SpanR_Flat_10",
+  "name": "rdZRaster_SetupRightEdgeNGonFAT",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: SpanR Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_SetupRightEdgeNGonFAT (the remaster's GrimFandango (Linux): second edge-setup call of rdZRaster_DrawNGonFAT); was rdRaster_SpanR_Flat_10."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00433ef0",
+  "old": "rdRaster_Draw_TexLitZ_5",
+  "name": "rdZRaster_DrawNGonTFAT",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit Z). Calls 0042d190, 004338d0, 00433be0, 00434180, 004343b0. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_DrawNGonTFAT (the remaster's GrimFandango (Linux): dispatch slot in rdCache_DrawFaceZ (same geometry, lighting, texture-mode, mask and translucency tests)); was rdRaster_Draw_TexLitZ_5."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00434180",
+  "old": "rdRaster_Span8_TexLitZ_4",
+  "name": "rdZRaster_DrawScanLineNGonTFAT_8",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Z). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_DrawScanLineNGonTFAT_8 (the remaster's GrimFandango (Linux): 8-bit scan-line call of rdZRaster_DrawNGonTFAT); was rdRaster_Span8_TexLitZ_4."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004343b0",
+  "old": "rdRaster_Span16_TexLitZ_3",
+  "name": "rdZRaster_DrawScanLineNGonTFAT_16",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Z). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_DrawScanLineNGonTFAT_16 (the remaster's GrimFandango (Linux): 16-bit scan-line call of rdZRaster_DrawNGonTFAT); was rdRaster_Span16_TexLitZ_3."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00434610",
+  "old": "rdRaster_Draw_TexLitKeyZw_3",
+  "name": "rdZRaster_DrawNGonMFAT",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit Key Zw). Calls 0042d190, 004338d0, 00433be0, 00434880, 00434aa0. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_DrawNGonMFAT (the remaster's GrimFandango (Linux): dispatch slot in rdCache_DrawFaceZ (same geometry, lighting, texture-mode, mask and translucency tests)); was rdRaster_Draw_TexLitKeyZw_3."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00434880",
+  "old": "rdRaster_Span8_TexLitKeyZw_2",
+  "name": "rdZRaster_DrawScanLineNGonMFAT_8",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Key Zw). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_DrawScanLineNGonMFAT_8 (the remaster's GrimFandango (Linux): 8-bit scan-line call of rdZRaster_DrawNGonMFAT); was rdRaster_Span8_TexLitKeyZw_2."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00434aa0",
+  "old": "rdRaster_Span16_TexLitKey_3",
+  "name": "rdZRaster_DrawScanLineNGonMFAT_16",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Key). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_DrawScanLineNGonMFAT_16 (the remaster's GrimFandango (Linux): 16-bit scan-line call of rdZRaster_DrawNGonMFAT); was rdRaster_Span16_TexLitKey_3."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00434ce0",
+  "old": "rdRaster_Draw_TexLitKeyZw_4",
+  "name": "rdZRaster_DrawNGonMTFAT",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit Key Zw). Calls 0042d190, 004338d0, 00433be0, 00434f70, 004351a0. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_DrawNGonMTFAT (the remaster's GrimFandango (Linux): dispatch slot in rdCache_DrawFaceZ (same geometry, lighting, texture-mode, mask and translucency tests)); was rdRaster_Draw_TexLitKeyZw_4."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00434f70",
+  "old": "rdRaster_Span8_TexLitKeyZw_3",
+  "name": "rdZRaster_DrawScanLineNGonMTFAT_8",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Key Zw). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_DrawScanLineNGonMTFAT_8 (the remaster's GrimFandango (Linux): 8-bit scan-line call of rdZRaster_DrawNGonMTFAT); was rdRaster_Span8_TexLitKeyZw_3."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004351a0",
+  "old": "rdRaster_Span16_TexLitKey_4",
+  "name": "rdZRaster_DrawScanLineNGonMTFAT_16",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Key). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_DrawScanLineNGonMTFAT_16 (the remaster's GrimFandango (Linux): 16-bit scan-line call of rdZRaster_DrawNGonMTFAT); was rdRaster_Span16_TexLitKey_4."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00435400",
+  "old": "rdRaster_Draw_FlatLit_9",
+  "name": "rdZRaster_DrawNGonGAT",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Flat Lit). Calls 0042d190, 00435f60, 00436300. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_DrawNGonGAT (the remaster's GrimFandango (Linux): dispatch slot in rdCache_DrawFaceZ (same geometry, lighting, texture-mode, mask and translucency tests)); was rdRaster_Draw_FlatLit_9."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00435a00",
+  "old": "rdRaster_Span_TexLitZ_2",
+  "name": "rdZRaster_DrawScanLineNGonGAT_8",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Z). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_DrawScanLineNGonGAT_8 (the remaster's GrimFandango (Linux): 8-bit scan-line call of rdZRaster_DrawNGonGAT); was rdRaster_Span_TexLitZ_2."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00435c70",
+  "old": "rdRaster_Span16_TexLitZ_4",
+  "name": "rdZRaster_DrawScanLineNGonGAT_16",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Z). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_DrawScanLineNGonGAT_16 (the remaster's GrimFandango (Linux): 16-bit scan-line call of rdZRaster_DrawNGonGAT); was rdRaster_Span16_TexLitZ_4."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00435f60",
+  "old": "rdRaster_SpanR_Flat_11",
+  "name": "rdZRaster_SetupLeftEdgeNGonGAT",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: SpanR Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_SetupLeftEdgeNGonGAT (the remaster's GrimFandango (Linux): first edge-setup call of rdZRaster_DrawNGonMGAT); was rdRaster_SpanR_Flat_11."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00436300",
+  "old": "rdRaster_SpanR_Flat_12",
+  "name": "rdZRaster_SetupRightEdgeNGonGAT",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: SpanR Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_SetupRightEdgeNGonGAT (the remaster's GrimFandango (Linux): second edge-setup call of rdZRaster_DrawNGonMGAT); was rdRaster_SpanR_Flat_12."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004366a0",
+  "old": "rdRaster_Draw_TexLitZ_6",
+  "name": "rdZRaster_DrawNGonTGAT",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit Z). Calls 0042d190, 00435f60, 00436300, 00436950, 00436be0. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_DrawNGonTGAT (the remaster's GrimFandango (Linux): dispatch slot in rdCache_DrawFaceZ (same geometry, lighting, texture-mode, mask and translucency tests)); was rdRaster_Draw_TexLitZ_6."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00436950",
+  "old": "rdRaster_Span8_TexLitZ_5",
+  "name": "rdZRaster_DrawScanLineNGonTGAT_8",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Z). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_DrawScanLineNGonTGAT_8 (the remaster's GrimFandango (Linux): 8-bit scan-line call of rdZRaster_DrawNGonTGAT); was rdRaster_Span8_TexLitZ_5."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00436be0",
+  "old": "rdRaster_Span16_TexLitZ_5",
+  "name": "rdZRaster_DrawScanLineNGonTGAT_16",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Z). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_DrawScanLineNGonTGAT_16 (the remaster's GrimFandango (Linux): 16-bit scan-line call of rdZRaster_DrawNGonTGAT); was rdRaster_Span16_TexLitZ_5."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00436e80",
+  "old": "rdRaster_Draw_TexLitKeyZw_5",
+  "name": "rdZRaster_DrawNGonMGAT",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit Key Zw). Calls 0042d190, 00435f60, 00436300, 00437110, 00437390. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_DrawNGonMGAT (the remaster's GrimFandango (Linux): dispatch slot in rdCache_DrawFaceZ (same geometry, lighting, texture-mode, mask and translucency tests)); was rdRaster_Draw_TexLitKeyZw_5."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00437110",
+  "old": "rdRaster_Span8_TexLitKeyZw_4",
+  "name": "rdZRaster_DrawScanLineNGonMGAT_8",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Key Zw). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_DrawScanLineNGonMGAT_8 (the remaster's GrimFandango (Linux): 8-bit scan-line call of rdZRaster_DrawNGonMGAT); was rdRaster_Span8_TexLitKeyZw_4."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00437390",
+  "old": "rdRaster_Span16_TexLitKeyZw",
+  "name": "rdZRaster_DrawScanLineNGonMGAT_16",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Key Zw). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_DrawScanLineNGonMGAT_16 (the remaster's GrimFandango (Linux): 16-bit scan-line call of rdZRaster_DrawNGonMGAT); was rdRaster_Span16_TexLitKeyZw."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00437620",
+  "old": "rdRaster_Draw_TexLitKeyZw_6",
+  "name": "rdZRaster_DrawNGonMTGAT",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit Key Zw). Calls 0042d190, 00435f60, 00436300, 004378d0, 00437b60. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_DrawNGonMTGAT (the remaster's GrimFandango (Linux): dispatch slot in rdCache_DrawFaceZ (same geometry, lighting, texture-mode, mask and translucency tests)); was rdRaster_Draw_TexLitKeyZw_6."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004378d0",
+  "old": "rdRaster_Span8_TexLitKeyZw_5",
+  "name": "rdZRaster_DrawScanLineNGonMTGAT_8",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Key Zw). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_DrawScanLineNGonMTGAT_8 (the remaster's GrimFandango (Linux): 8-bit scan-line call of rdZRaster_DrawNGonMTGAT); was rdRaster_Span8_TexLitKeyZw_5."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00437b60",
+  "old": "rdRaster_Span16_TexLitKeyZw_2",
+  "name": "rdZRaster_DrawScanLineNGonMTGAT_16",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Key Zw). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_DrawScanLineNGonMTGAT_16 (the remaster's GrimFandango (Linux): 16-bit scan-line call of rdZRaster_DrawNGonMTGAT); was rdRaster_Span16_TexLitKeyZw_2."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00437e10",
+  "old": "rdRaster_Draw_FlatLit_10",
+  "name": "rdZRaster_DrawNGonLIT",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Flat Lit). Calls 0042d5f0, 004391a0, 00439400. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_DrawNGonLIT (the remaster's GrimFandango (Linux): dispatch slot in rdCache_DrawFaceZ (same geometry, lighting, texture-mode, mask and translucency tests)); was rdRaster_Draw_FlatLit_10."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004383d0",
+  "old": "rdRaster_Span_FlatZ_2",
+  "name": "rdZRaster_DrawScanLineNGonLIT_8",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Flat Z). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_DrawScanLineNGonLIT_8 (the remaster's GrimFandango (Linux): 8-bit scan-line call of rdZRaster_DrawNGonLIT); was rdRaster_Span_FlatZ_2."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00438a90",
+  "old": "rdRaster_Span16_TexZ_2",
+  "name": "rdZRaster_DrawScanLineNGonLIT_16",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Z). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_DrawScanLineNGonLIT_16 (the remaster's GrimFandango (Linux): 16-bit scan-line call of rdZRaster_DrawNGonLIT); was rdRaster_Span16_TexZ_2."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004391a0",
+  "old": "rdRaster_SpanR_Flat_13",
+  "name": "rdZRaster_SetupLeftEdgeNGonLIT",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: SpanR Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_SetupLeftEdgeNGonLIT (the remaster's GrimFandango (Linux): first edge-setup call of rdZRaster_DrawNGonLIT); was rdRaster_SpanR_Flat_13."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00439400",
+  "old": "rdRaster_SpanR_Flat_14",
+  "name": "rdZRaster_SetupRightEdgeNGonLIT",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: SpanR Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_SetupRightEdgeNGonLIT (the remaster's GrimFandango (Linux): second edge-setup call of rdZRaster_DrawNGonLIT); was rdRaster_SpanR_Flat_14."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004395c0",
+  "old": "rdRaster_Draw_TexLitZ_7",
+  "name": "rdZRaster_DrawNGonTLIT",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit Z). Calls 0042d5f0, 004391a0, 00439400, 00439840, 00439f50. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_DrawNGonTLIT (the remaster's GrimFandango (Linux): dispatch slot in rdCache_DrawFaceZ (same geometry, lighting, texture-mode, mask and translucency tests)); was rdRaster_Draw_TexLitZ_7."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00439840",
+  "old": "rdRaster_Span8_TexZ_2",
+  "name": "rdZRaster_DrawScanLineNGonTLIT_8",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Z). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_DrawScanLineNGonTLIT_8 (the remaster's GrimFandango (Linux): 8-bit scan-line call of rdZRaster_DrawNGonTLIT); was rdRaster_Span8_TexZ_2."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00439f50",
+  "old": "rdRaster_Span16_TexZ_3",
+  "name": "rdZRaster_DrawScanLineNGonTLIT_16",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Z). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_DrawScanLineNGonTLIT_16 (the remaster's GrimFandango (Linux): 16-bit scan-line call of rdZRaster_DrawNGonTLIT); was rdRaster_Span16_TexZ_3."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0043a6e0",
+  "old": "rdRaster_Draw_TexLitKeyZw_7",
+  "name": "rdZRaster_DrawNGonMLIT",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit Key Zw). Calls 0042d5f0, 004391a0, 00439400, 0043a940, 0043b020. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_DrawNGonMLIT (the remaster's GrimFandango (Linux): dispatch slot in rdCache_DrawFaceZ (same geometry, lighting, texture-mode, mask and translucency tests)); was rdRaster_Draw_TexLitKeyZw_7."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0043a940",
+  "old": "rdRaster_Span8_FlatKeyZw_2",
+  "name": "rdZRaster_DrawScanLineNGonMLIT_8",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Flat Key Zw). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_DrawScanLineNGonMLIT_8 (the remaster's GrimFandango (Linux): 8-bit scan-line call of rdZRaster_DrawNGonMLIT); was rdRaster_Span8_FlatKeyZw_2."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0043b020",
+  "old": "rdRaster_Span16_TexKeyZw",
+  "name": "rdZRaster_DrawScanLineNGonMLIT_16",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Key Zw). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_DrawScanLineNGonMLIT_16 (the remaster's GrimFandango (Linux): 16-bit scan-line call of rdZRaster_DrawNGonMLIT); was rdRaster_Span16_TexKeyZw."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0043b760",
+  "old": "rdRaster_Draw_TexLitKeyZw_8",
+  "name": "rdZRaster_DrawNGonMTLIT",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit Key Zw). Calls 0042d5f0, 004391a0, 00439400, 0043b9e0, 0043c130. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_DrawNGonMTLIT (the remaster's GrimFandango (Linux): dispatch slot in rdCache_DrawFaceZ (same geometry, lighting, texture-mode, mask and translucency tests)); was rdRaster_Draw_TexLitKeyZw_8."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0043b9e0",
+  "old": "rdRaster_Span8_TexKeyZw",
+  "name": "rdZRaster_DrawScanLineNGonMTLIT_8",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Key Zw). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_DrawScanLineNGonMTLIT_8 (the remaster's GrimFandango (Linux): 8-bit scan-line call of rdZRaster_DrawNGonMTLIT); was rdRaster_Span8_TexKeyZw."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0043c130",
+  "old": "rdRaster_Span16_TexKeyZw_2",
+  "name": "rdZRaster_DrawScanLineNGonMTLIT_16",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Key Zw). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_DrawScanLineNGonMTLIT_16 (the remaster's GrimFandango (Linux): 16-bit scan-line call of rdZRaster_DrawNGonMTLIT); was rdRaster_Span16_TexKeyZw_2."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0043c8d0",
+  "old": "rdRaster_Draw_FlatLit_11",
+  "name": "rdZRaster_DrawNGonFIT",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Flat Lit). Calls 0042d5f0, 0043dcc0, 0043df20. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_DrawNGonFIT (the remaster's GrimFandango (Linux): dispatch slot in rdCache_DrawFaceZ (same geometry, lighting, texture-mode, mask and translucency tests)); was rdRaster_Draw_FlatLit_11."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0043ceb0",
+  "old": "rdRaster_Span_TexZ",
+  "name": "rdZRaster_DrawScanLineNGonFIT_8",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Z). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_DrawScanLineNGonFIT_8 (the remaster's GrimFandango (Linux): 8-bit scan-line call of rdZRaster_DrawNGonFIT); was rdRaster_Span_TexZ."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0043d5b0",
+  "old": "rdRaster_Span16_TexZ_4",
+  "name": "rdZRaster_DrawScanLineNGonFIT_16",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Z). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_DrawScanLineNGonFIT_16 (the remaster's GrimFandango (Linux): 16-bit scan-line call of rdZRaster_DrawNGonFIT); was rdRaster_Span16_TexZ_4."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0043dcc0",
+  "old": "rdRaster_SpanR_Flat_15",
+  "name": "rdZRaster_SetupLeftEdgeNGonFIT",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: SpanR Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_SetupLeftEdgeNGonFIT (the remaster's GrimFandango (Linux): first edge-setup call of rdZRaster_DrawNGonFIT); was rdRaster_SpanR_Flat_15."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0043df20",
+  "old": "rdRaster_SpanR_Flat_16",
+  "name": "rdZRaster_SetupRightEdgeNGonFIT",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: SpanR Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_SetupRightEdgeNGonFIT (the remaster's GrimFandango (Linux): second edge-setup call of rdZRaster_DrawNGonFIT); was rdRaster_SpanR_Flat_16."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0043e0e0",
+  "old": "rdRaster_Draw_TexLitZ_8",
+  "name": "rdZRaster_DrawNGonTFIT",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit Z). Calls 0042d5f0, 0043dcc0, 0043df20, 0043e380, 0043eab0. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_DrawNGonTFIT (the remaster's GrimFandango (Linux): dispatch slot in rdCache_DrawFaceZ (same geometry, lighting, texture-mode, mask and translucency tests)); was rdRaster_Draw_TexLitZ_8."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0043e380",
+  "old": "rdRaster_Span8_TexZ_3",
+  "name": "rdZRaster_DrawScanLineNGonTFIT_8",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Z). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_DrawScanLineNGonTFIT_8 (the remaster's GrimFandango (Linux): 8-bit scan-line call of rdZRaster_DrawNGonTFIT); was rdRaster_Span8_TexZ_3."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0043eab0",
+  "old": "rdRaster_Span16_TexZ_5",
+  "name": "rdZRaster_DrawScanLineNGonTFIT_16",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Z). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_DrawScanLineNGonTFIT_16 (the remaster's GrimFandango (Linux): 16-bit scan-line call of rdZRaster_DrawNGonTFIT); was rdRaster_Span16_TexZ_5."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0043f280",
+  "old": "rdRaster_Draw_TexLitKeyZw_9",
+  "name": "rdZRaster_DrawNGonMFIT",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit Key Zw). Calls 0042d5f0, 0043dcc0, 0043df20, 0043f500, 0043fc30. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_DrawNGonMFIT (the remaster's GrimFandango (Linux): dispatch slot in rdCache_DrawFaceZ (same geometry, lighting, texture-mode, mask and translucency tests)); was rdRaster_Draw_TexLitKeyZw_9."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0043f500",
+  "old": "rdRaster_Span8_TexKeyZw_2",
+  "name": "rdZRaster_DrawScanLineNGonMFIT_8",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Key Zw). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_DrawScanLineNGonMFIT_8 (the remaster's GrimFandango (Linux): 8-bit scan-line call of rdZRaster_DrawNGonMFIT); was rdRaster_Span8_TexKeyZw_2."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0043fc30",
+  "old": "rdRaster_Span16_TexKeyZw_3",
+  "name": "rdZRaster_DrawScanLineNGonMFIT_16",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Key Zw). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_DrawScanLineNGonMFIT_16 (the remaster's GrimFandango (Linux): 16-bit scan-line call of rdZRaster_DrawNGonMFIT); was rdRaster_Span16_TexKeyZw_3."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00440370",
+  "old": "rdRaster_Draw_TexLitKeyZw_10",
+  "name": "rdZRaster_DrawNGonMTFIT",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit Key Zw). Calls 0042d5f0, 0043dcc0, 0043df20, 00440610, 00440d80. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_DrawNGonMTFIT (the remaster's GrimFandango (Linux): dispatch slot in rdCache_DrawFaceZ (same geometry, lighting, texture-mode, mask and translucency tests)); was rdRaster_Draw_TexLitKeyZw_10."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00440610",
+  "old": "rdRaster_Span8_TexKeyZw_3",
+  "name": "rdZRaster_DrawScanLineNGonMTFIT_8",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Key Zw). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_DrawScanLineNGonMTFIT_8 (the remaster's GrimFandango (Linux): 8-bit scan-line call of rdZRaster_DrawNGonMTFIT); was rdRaster_Span8_TexKeyZw_3."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00440d80",
+  "old": "rdRaster_Span16_TexKeyZw_4",
+  "name": "rdZRaster_DrawScanLineNGonMTFIT_16",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Key Zw). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_DrawScanLineNGonMTFIT_16 (the remaster's GrimFandango (Linux): 16-bit scan-line call of rdZRaster_DrawNGonMTFIT); was rdRaster_Span16_TexKeyZw_4."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00441520",
+  "old": "rdRaster_Draw_FlatLit_12",
+  "name": "rdZRaster_DrawNGonGIT",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Flat Lit). Calls 0042d5f0, 00442ab0, 00442db0. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_DrawNGonGIT (the remaster's GrimFandango (Linux): dispatch slot in rdCache_DrawFaceZ (same geometry, lighting, texture-mode, mask and translucency tests)); was rdRaster_Draw_FlatLit_12."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00441b20",
+  "old": "rdRaster_Span_TexZ_2",
+  "name": "rdZRaster_DrawScanLineNGonGIT_8",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Z). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_DrawScanLineNGonGIT_8 (the remaster's GrimFandango (Linux): 8-bit scan-line call of rdZRaster_DrawNGonGIT); was rdRaster_Span_TexZ_2."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004422d0",
+  "old": "rdRaster_Span16_TexZ_6",
+  "name": "rdZRaster_DrawScanLineNGonGIT_16",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Z). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_DrawScanLineNGonGIT_16 (the remaster's GrimFandango (Linux): 16-bit scan-line call of rdZRaster_DrawNGonGIT); was rdRaster_Span16_TexZ_6."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00442ab0",
+  "old": "rdRaster_SpanR_Flat_17",
+  "name": "rdZRaster_SetupLeftEdgeNGonGIT",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: SpanR Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_SetupLeftEdgeNGonGIT (the remaster's GrimFandango (Linux): first edge-setup call of rdZRaster_DrawNGonGIT); was rdRaster_SpanR_Flat_17."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00442db0",
+  "old": "rdRaster_SpanR_Flat_18",
+  "name": "rdZRaster_SetupRightEdgeNGonGIT",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: SpanR Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_SetupRightEdgeNGonGIT (the remaster's GrimFandango (Linux): second edge-setup call of rdZRaster_DrawNGonGIT); was rdRaster_SpanR_Flat_18."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00443000",
+  "old": "rdRaster_Draw_TexLitZ_9",
+  "name": "rdZRaster_DrawNGonTGIT",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit Z). Calls 0042d5f0, 00442ab0, 00442db0, 004432c0, 00443ab0. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_DrawNGonTGIT (the remaster's GrimFandango (Linux): dispatch slot in rdCache_DrawFaceZ (same geometry, lighting, texture-mode, mask and translucency tests)); was rdRaster_Draw_TexLitZ_9."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004432c0",
+  "old": "rdRaster_Span8_TexZ_4",
+  "name": "rdZRaster_DrawScanLineNGonTGIT_8",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Z). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_DrawScanLineNGonTGIT_8 (the remaster's GrimFandango (Linux): 8-bit scan-line call of rdZRaster_DrawNGonTGIT); was rdRaster_Span8_TexZ_4."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00443ab0",
+  "old": "rdRaster_Span16_TexZ_7",
+  "name": "rdZRaster_DrawScanLineNGonTGIT_16",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Z). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_DrawScanLineNGonTGIT_16 (the remaster's GrimFandango (Linux): 16-bit scan-line call of rdZRaster_DrawNGonTGIT); was rdRaster_Span16_TexZ_7."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00444320",
+  "old": "rdRaster_Draw_TexLitKeyZw_11",
+  "name": "rdZRaster_DrawNGonMGIT",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit Key Zw). Calls 0042d5f0, 00442ab0, 00442db0, 004445c0, 00444d90. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_DrawNGonMGIT (the remaster's GrimFandango (Linux): dispatch slot in rdCache_DrawFaceZ (same geometry, lighting, texture-mode, mask and translucency tests)); was rdRaster_Draw_TexLitKeyZw_11."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004445c0",
+  "old": "rdRaster_Span8_TexKeyZw_4",
+  "name": "rdZRaster_DrawScanLineNGonMGIT_8",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Key Zw). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_DrawScanLineNGonMGIT_8 (the remaster's GrimFandango (Linux): 8-bit scan-line call of rdZRaster_DrawNGonMGIT); was rdRaster_Span8_TexKeyZw_4."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00444d90",
+  "old": "rdRaster_Span16_TexKeyZw_5",
+  "name": "rdZRaster_DrawScanLineNGonMGIT_16",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Key Zw). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_DrawScanLineNGonMGIT_16 (the remaster's GrimFandango (Linux): 16-bit scan-line call of rdZRaster_DrawNGonMGIT); was rdRaster_Span16_TexKeyZw_5."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00445570",
+  "old": "rdRaster_Draw_TexLitKeyZw_12",
+  "name": "rdZRaster_DrawNGonMTGIT",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit Key Zw). Calls 0042d5f0, 00442ab0, 00442db0, 00445830, 00446030. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_DrawNGonMTGIT (the remaster's GrimFandango (Linux): dispatch slot in rdCache_DrawFaceZ (same geometry, lighting, texture-mode, mask and translucency tests)); was rdRaster_Draw_TexLitKeyZw_12."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00445830",
+  "old": "rdRaster_Span8_TexKeyZw_5",
+  "name": "rdZRaster_DrawScanLineNGonMTGIT_8",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Key Zw). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_DrawScanLineNGonMTGIT_8 (the remaster's GrimFandango (Linux): 8-bit scan-line call of rdZRaster_DrawNGonMTGIT); was rdRaster_Span8_TexKeyZw_5."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00446030",
+  "old": "rdRaster_Span16_TexKeyZw_6",
+  "name": "rdZRaster_DrawScanLineNGonMTGIT_16",
+  "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Key Zw). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix. Original name rdZRaster_DrawScanLineNGonMTGIT_16 (the remaster's GrimFandango (Linux): 16-bit scan-line call of rdZRaster_DrawNGonMTGIT); was rdRaster_Span16_TexKeyZw_6."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004849a0",
+  "old": "Render_Present",
+  "name": "sputRender_PageFlip",
+  "comment": "Calls the flip callback unless the frame was flagged to skip presentation Original name sputRender_PageFlip (the remaster's GrimFandango (Linux): the only unpaired user of MovieJustFinished on both sides, same body (flip callback, clears MovieJustFinished)); was Render_Present."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004874c0",
+  "old": "Render_SetWaitCursorEnabled",
+  "name": "sputRender_AllowLoadImage",
+  "comment": "Original name sputRender_AllowLoadImage (the remaster's GrimFandango (Linux): the only unpaired writer of LoadImageAllowed on both sides, same body); was Render_SetWaitCursorEnabled."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004931c0",
+  "old": "Speech_SetMode",
+  "name": "sputActor_SetSpeechMode",
+  "comment": "Lua SetSpeechMode: 1 text only, 2 voice only, 3 both Original name sputActor_SetSpeechMode (the remaster's GrimFandango (Linux): the only unpaired user of smSpeechMode, same body, called from sputLua_SetSpeechMode on both sides); was Speech_SetMode."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00495e90",
+  "old": "Costume_SaveChoreListFile",
+  "name": "sputCostume_SaveHook",
+  "comment": "Callback given to Cos_RegisterSaveHook (costume editor): asks for a .lua/.def file name and writes the costume's chore list. Original name sputCostume_SaveHook (the remaster's GrimFandango (Linux): the only unpaired user of psputCosHS, same body and strings (\"Name chore list file...\", \"-- Chore numbering for %s.\")); was Costume_SaveChoreListFile."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004bd570",
+  "old": "Smush_Open",
+  "name": "SmushPlay_StartMovie",
+  "comment": "Original name SmushPlay_StartMovie (the remaster's GrimFandango (Linux): the only unpaired user of CurFileName / fakeBM, same body, called from sputSmush_StartMovie on both sides); was Smush_Open."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004d0c00",
+  "old": "SoundModule_SetDriverRate",
+  "name": "sou_engine_SetRate",
+  "comment": "Original name sou_engine_SetRate (the remaster's GrimFandango (Linux): the only unpaired writer of sou_sample_rate, same body); was SoundModule_SetDriverRate."
+ }
+]

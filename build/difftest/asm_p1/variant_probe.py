@@ -1,18 +1,18 @@
-"""variant_probe.py <overrides.c> <slice.s>: experiment variant for FUN_00410330: the game runs the sliced original
-(orig_FUN_00410330) and the C (renamed p1_c_FUN_00410330) on the same input, compares the pixels of every span and the
+"""variant_probe.py <overrides.c> <slice.s>: experiment variant for rdAFRaster_DrawNGonGS: the game runs the sliced original
+(orig_rdAFRaster_DrawNGonGS) and the C (renamed p1_c_FUN_00410330) on the same input, compares the pixels of every span and the
 four globals, and logs the first mismatches to C:/Users/Joel/grimP1_run/probe330.txt."""
 import sys
 p, s = sys.argv[1], sys.argv[2]
 t = open(p).read()
 key = '#include "functions.h"\n'
-t = t.replace(key, key + "#define FUN_00410330 p1_c_FUN_00410330\n", 1)
+t = t.replace(key, key + "#define rdAFRaster_DrawNGonGS p1_c_FUN_00410330\n", 1)
 asm = open(s).read()
 lines = "".join('"%s\\n"\n' % l.replace("\\", "\\\\").replace('"', '\\"') for l in asm.split("\n"))
 tail = r'''
-#undef FUN_00410330
+#undef rdAFRaster_DrawNGonGS
 __asm__(
 %s".att_syntax prefix\n");
-extern void orig_FUN_00410330(int);
+extern void orig_rdAFRaster_DrawNGonGS(int);
 extern int p1_vsprintf(char *, const char *, __builtin_va_list) __asm__("_vsprintf");
 static void probe_log(const char *fmt, ...)
 {
@@ -28,7 +28,7 @@ static void probe_log(const char *fmt, ...)
 }
 static int probe_calls, probe_bad;
 static unsigned char probe_buf[64][4096], probe_save[64][4096];
-void FUN_00410330(int p)
+void rdAFRaster_DrawNGonGS(int p)
 {
     int bpp = P1_BPP(), k, sp, n;
     int sz = bpp == 8 ? 1 : 2;
@@ -38,7 +38,7 @@ void FUN_00410330(int p)
     (void)f;
     if (probe_calls == 1 || probe_calls %% 20000 == 0)
         probe_log("calls %%d bpp %%d bad %%d\n", probe_calls, bpp, probe_bad);
-    if ((bpp != 8 && bpp != 16) || probe_bad > 40) { orig_FUN_00410330(p); return; }
+    if ((bpp != 8 && bpp != 16) || probe_bad > 40) { orig_rdAFRaster_DrawNGonGS(p); return; }
     /* save the pixels */
     for (k = 0, sp = P1_I32(p + 0x1b8); sp && k < 64; sp = P1_I32(sp + 0x28), k++) {
         int cv = P1_CANVAS();
@@ -47,8 +47,8 @@ void FUN_00410330(int p)
         n = P1_I32(sp + 4) * sz; if (n > 4096 || n < 0) n = 0;
         memcpy(probe_save[k], d, n);
     }
-    orig_FUN_00410330(p);
-    g[0] = DAT_008ddf40; g[1] = UINT_008ddf0c; g[2] = UINT_008ddf30; g[3] = UINT_008ddf24;
+    orig_rdAFRaster_DrawNGonGS(p);
+    g[0] = g_bRdAFRaster_color; g[1] = g_dwRdAFRaster_aMonoMap; g[2] = g_dwRdAFRaster_aRGBMap; g[3] = g_dwRdAFRaster_dOneOverZdXFixed;
     for (k = 0, sp = P1_I32(p + 0x1b8); sp && k < 64; sp = P1_I32(sp + 0x28), k++) {
         int cv = P1_CANVAS();
         char *d = bpp == 8 ? (char *)(P1_I32(sp + 8) * P1_I32(cv + 0x18) + P1_I32(cv + 0x5c) + P1_I32(sp))
@@ -58,7 +58,7 @@ void FUN_00410330(int p)
         memcpy(d, probe_save[k], n);
     }
     p1_c_FUN_00410330(p);
-    h[0] = DAT_008ddf40; h[1] = UINT_008ddf0c; h[2] = UINT_008ddf30; h[3] = UINT_008ddf24;
+    h[0] = g_bRdAFRaster_color; h[1] = g_dwRdAFRaster_aMonoMap; h[2] = g_dwRdAFRaster_aRGBMap; h[3] = g_dwRdAFRaster_dOneOverZdXFixed;
     for (k = 0, sp = P1_I32(p + 0x1b8); sp && k < 64; sp = P1_I32(sp + 0x28), k++) {
         int cv = P1_CANVAS();
         char *d = bpp == 8 ? (char *)(P1_I32(sp + 8) * P1_I32(cv + 0x18) + P1_I32(cv + 0x5c) + P1_I32(sp))

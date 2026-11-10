@@ -749,7 +749,7 @@ void __cdecl rdPuppet_UpdateFrame(void *model,float *frame)
       }
     }
     rdThing_BuildNodeMatrix(model,*(undefined4 *)(iVar4 + 0x58),frame);
-    *(uint *)((int)model + 0x1c) = UINT_004f5eb4;
+    *(uint *)((int)model + 0x1c) = g_dwRdroid_frameTrue;
   }
   return;
 }

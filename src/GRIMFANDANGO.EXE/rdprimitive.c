@@ -151,13 +151,13 @@ void rdPolyline_DrawFace(int param_1,int param_2,undefined4 param_3,undefined4 *
     param_4[1] = *(undefined4 *)(param_2 + 0x18);
     param_4[2] = *(undefined4 *)(param_2 + 0x1c);
     iVar1 = *(int *)(param_2 + 8);
-    iVar8 = g_nRdroidGeometryMode;
-    if (iVar1 <= g_nRdroidGeometryMode) {
+    iVar8 = g_nRdroid_curGeometryMode;
+    if (iVar1 <= g_nRdroid_curGeometryMode) {
       iVar8 = iVar1;
     }
     iVar6 = *(int *)(param_1 + 0x38);
-    if ((iVar8 < *(int *)(param_1 + 0x38)) && (iVar6 = iVar1, g_nRdroidGeometryMode < iVar1)) {
-      iVar6 = g_nRdroidGeometryMode;
+    if ((iVar8 < *(int *)(param_1 + 0x38)) && (iVar6 = iVar1, g_nRdroid_curGeometryMode < iVar1)) {
+      iVar6 = g_nRdroid_curGeometryMode;
     }
     *(int *)(iVar3 + 8) = iVar6;
     if ((((byte)g_dwRdroid_curRenderOptions & 2) == 0) ||
@@ -602,13 +602,13 @@ undefined4 rdSprite_Draw(int param_1,float *param_2)
     local_48 = *(uint *)(iVar4 + 0x24);
     local_44 = *(uint *)(iVar4 + 0x28);
     iVar2 = *(int *)(iVar1 + 100);
-    iVar9 = g_nRdroidGeometryMode;
-    if (iVar2 <= g_nRdroidGeometryMode) {
+    iVar9 = g_nRdroid_curGeometryMode;
+    if (iVar2 <= g_nRdroid_curGeometryMode) {
       iVar9 = iVar2;
     }
     iVar7 = *(int *)(param_1 + 0x38);
-    if ((iVar9 < *(int *)(param_1 + 0x38)) && (iVar7 = iVar2, g_nRdroidGeometryMode < iVar2)) {
-      iVar7 = g_nRdroidGeometryMode;
+    if ((iVar9 < *(int *)(param_1 + 0x38)) && (iVar7 = iVar2, g_nRdroid_curGeometryMode < iVar2)) {
+      iVar7 = g_nRdroid_curGeometryMode;
     }
     *(float *)&DAT_007f5f18 = *(float *)&DAT_007f5f0c;
     *(float *)&DAT_007f5f1c = *(float *)&DAT_007f5f10;

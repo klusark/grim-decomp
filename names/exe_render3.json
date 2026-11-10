@@ -24,7 +24,7 @@
  {"addr": "004872f0", "name": "Render_SaveZBufferBmp", "proto": "void Render_SaveZBufferBmp(char * filename)", "tags": "render,debug"},
  {"addr": "00487340", "name": "sputRender_SaveDrawBuffer", "proto": "void sputRender_SaveDrawBuffer(char * filename)", "comment": "Debug key S: writes the back buffer as a 24-bit .bmp", "tags": "render,debug"},
  {"addr": "004873d0", "name": "Render_DrawProgressBar", "proto": "void Render_DrawProgressBar(float fraction)", "comment": "Draws the save/load progress bar directly on the primary surface", "tags": "render"},
- {"addr": "004874c0", "name": "Render_SetWaitCursorEnabled", "tags": "render"},
+ {"addr": "004874c0", "name": "sputRender_AllowLoadImage", "tags": "render"},
  {"addr": "004874d0", "name": "sputRender_DrawLoadingImage", "comment": "After 3.5 s without a frame, animates wait.bm (BKND resource) on the primary surface every 250 ms", "tags": "render"},
  {"addr": "0048d350", "name": "sputResource_Alloc", "proto": "void * sputResource_Alloc(int fourcc, char * name)", "comment": "sputresource.cpp: Res_Load plus the memory budget check that frees unreferenced resources above g_nMaxRealMemoryUsage", "tags": "resource"},
  {"addr": "004e9a2c", "global": "g_nMaxRealMemoryUsage", "type": "int", "comment": "Resource memory size above which unreferenced resources are freed on load"}

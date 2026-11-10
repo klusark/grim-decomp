@@ -67,7 +67,7 @@ void sputRender_Update(void)
         UINT_008a94b8 = UINT_0090563c;
         sputText_Update(0);
         stdDisplay_VBufferUnlock(&g_dwStdDisplay_backBuffer);
-        Render_Present();
+        sputRender_PageFlip();
         return;
     }
 
@@ -129,7 +129,7 @@ void sputRender_Update(void)
     stdDisplay_VBufferUnlock(&g_dwStdDisplay_backBuffer);
     for (os = ER_PTR(rec, 0x128); os != 0; os = ER_PTR(os, 0xf8))
         ObjectState_Draw(os, 1, &g_dwStdDisplay_backBuffer, (void *)UINT_008c97a4);
-    rdroid_BeginFrame();
+    rdAdvanceFrame();
     Render_BuildActorDrawList();
 
     if (g_dwTotDrawItems != 0 || ((byte)g_dwDebugFlags & 1) != 0) {
@@ -186,7 +186,7 @@ void sputRender_Update(void)
                     if (*(int *)cm == 0)
                         er_colormap_assert();
                 }
-                ((void (__cdecl *)(uint, int))UINT_008c97b8)(*(uint *)(cm + 4) + 0x30, 0);
+                ((void (__cdecl *)(uint, int))g_dwSputRender_pSetPaletteFunc)(*(uint *)(cm + 4) + 0x30, 0);
                 {
                     float *frame = sputActor_GetOrientMatrix(actor);
                     sputCostume_Draw3D(ER_U32(actor, 0xa0), (undefined4)frame);

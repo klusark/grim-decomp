@@ -1,0 +1,1353 @@
+[
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004e9c88",
+  "old": "g_PhonemeTable",
+  "global": "g_dwPhonemeTable",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name phonemeTable (the remaster's GrimFandango (Linux): the table sputActor_Startup sorts with ComparePhonemes); was g_PhonemeTable."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004f5eb4",
+  "old": "UINT_004f5eb4",
+  "global": "g_dwRdroid_frameTrue",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name rdroid_frameTrue (the remaster's GrimFandango (Linux): cleared in rdOpen after the colour effects, as in the remaster); was UINT_004f5eb4."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004f5ebc",
+  "old": "UINT_004f5ebc",
+  "global": "g_dwRDroidOpen",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name bRDroidOpen (the remaster's GrimFandango (Linux): the once flag of rdOpen); was UINT_004f5ebc."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "007f4240",
+  "old": "DAT_007f4240",
+  "global": "g_dwFlexEndScrap",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name flexEndScrap (the remaster's GrimFandango (Linux): rdNRaster_DrawScanLineNGonGIT_16: (float)endScrap); was DAT_007f4240."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "007f4244",
+  "old": "UINT_007f4244",
+  "global": "g_dwEndScrap",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name endScrap (the remaster's GrimFandango (Linux): rdNRaster_DrawScanLineNGonGIT_16: the length % 0x10); was UINT_007f4244."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "007f4248",
+  "old": "DAT_007f4248",
+  "global": "g_dwEndVOverZ",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name endVOverZ (the remaster's GrimFandango (Linux): rdNRaster_DrawScanLineNGonGIT_16: vOverZ + vOverZStep); was DAT_007f4248."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "007f424c",
+  "old": "g_nRdRasterVertCount",
+  "global": "g_nRdNRaster_numVertices",
+  "oldtype": "int",
+  "names_only": true,
+  "comment": "Vertex count of the polygon being rasterized Original name numVertices (the remaster's GrimFandango (Linux): rdNRaster.c static; identical assignment in rdNRaster_DrawNGonFAT, rdNRaster_DrawNGonFIT); was g_nRdRasterVertCount."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "007f4250",
+  "old": "UINT_007f4250",
+  "global": "g_dwRdNRaster_maxMipMap",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name maxMipMap (the remaster's GrimFandango (Linux): rdNRaster.c static; identical assignment in rdNRaster_DrawNGonFAT, rdNRaster_DrawNGonFIT); was UINT_007f4250."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "007f4254",
+  "old": "UINT_007f4254",
+  "global": "g_dwVStep",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name vStep (the remaster's GrimFandango (Linux): the v step of the affine scan lines (v difference * 1/n >> mip level)); was UINT_007f4254."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "007f4258",
+  "old": "DAT_007f4258",
+  "global": "g_dwUOverZ",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name uOverZ (the remaster's GrimFandango (Linux): rdNRaster_DrawScanLineNGonGIT_16: dUOverZdX * x + the edge u/z); was DAT_007f4258."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "007f4260",
+  "old": "UINT_007f4260",
+  "global": "g_dwRdNRaster_aUOverZ",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name aUOverZ (the remaster's GrimFandango (Linux): rdNRaster.c static; the per-vertex u/z array of rdNRaster_CalcPerspGradients); was UINT_007f4260."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "007f42e0",
+  "old": "DAT_007f42e0",
+  "global": "g_dwOneOverEndScrap",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name oneOverEndScrap (the remaster's GrimFandango (Linux): rdNRaster_DrawScanLineNGonGIT_16: the 1/n table at endScrap); was DAT_007f42e0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "007f42e4",
+  "old": "DAT_007f42e4",
+  "global": "g_dwVOverZ",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name vOverZ (the remaster's GrimFandango (Linux): rdNRaster_DrawScanLineNGonGIT_16: dVOverZdX * x + the edge v/z); was DAT_007f42e4."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "007f42e8",
+  "old": "g_nRdRasterStartVertex",
+  "global": "g_nRdNRaster_yMinVert",
+  "oldtype": "int",
+  "names_only": true,
+  "comment": "Index of the top vertex where the rasterizer starts both edges Original name yMinVert (the remaster's GrimFandango (Linux): rdNRaster.c static; identical assignment in rdNRaster_DrawNGonFAT, rdNRaster_DrawNGonFIT); was g_nRdRasterStartVertex."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "007f42ec",
+  "old": "g_nRdRasterStepA",
+  "global": "g_nRdNRaster_leftVertexStep",
+  "oldtype": "int",
+  "names_only": true,
+  "comment": "Vertex index step (+1 or -1) of the first edge walker Original name leftVertexStep (the remaster's GrimFandango (Linux): rdNRaster.c static; 1 / -1 by face +0x50 in rdNRaster_DrawNGonLS); was g_nRdRasterStepA."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "007f42f0",
+  "old": "DAT_007f42f0",
+  "global": "g_dwFlexStartScrap",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name flexStartScrap (the remaster's GrimFandango (Linux): rdNRaster_DrawScanLineNGonGIT_16: (float)startScrap); was DAT_007f42f0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "007f42f4",
+  "old": "DAT_007f42f4",
+  "global": "g_dwOneOverZ",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name oneOverZ (the remaster's GrimFandango (Linux): rdNRaster_DrawScanLineNGonGIT_16: dOneOverZdX * x + the edge 1/z); was DAT_007f42f4."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "007f42fc",
+  "old": "g_nRdRasterEndVertex",
+  "global": "g_nRdNRaster_yMaxVert",
+  "oldtype": "int",
+  "names_only": true,
+  "comment": "Index of the bottom vertex where both polygon edges meet in the rasterizer Original name yMaxVert (the remaster's GrimFandango (Linux): rdNRaster.c static; identical assignment in rdNRaster_DrawNGonFAT, rdNRaster_DrawNGonFIT); was g_nRdRasterEndVertex."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "007f4300",
+  "old": "PTR_007f4300",
+  "global": "g_pDest",
+  "oldtype": "byte *",
+  "names_only": true,
+  "comment": "Original name pDest (the remaster's GrimFandango (Linux): the 8-bit destination pointer of the scan lines (rdNRaster_DrawScanLineNGonLAT_8)); was PTR_007f4300."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "007f4304",
+  "old": "UINT_007f4304",
+  "global": "g_dwRdNRaster_aIntensities",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name aIntensities (the remaster's GrimFandango (Linux): rdNRaster.c static; identical assignment in rdNRaster_DrawNGonGAT, rdNRaster_DrawNGonGIT); was UINT_007f4304."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "007f4308",
+  "old": "g_pRdRasterVerts",
+  "global": "g_pRdNRaster_aVertices",
+  "oldtype": "float *",
+  "names_only": true,
+  "comment": "Screen-space vertex array (12 bytes each) of the polygon being rasterized Original name aVertices (the remaster's GrimFandango (Linux): rdNRaster.c static; identical assignment in rdNRaster_DrawNGonFAT, rdNRaster_DrawNGonFIT); was g_pRdRasterVerts."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "007f4310",
+  "old": "UINT_007f4310",
+  "global": "g_dwRdNRaster_aVOverZ",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name aVOverZ (the remaster's GrimFandango (Linux): rdNRaster.c static; the per-vertex v/z array of rdNRaster_CalcPerspGradients); was UINT_007f4310."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "007f4390",
+  "old": "UINT_007f4390",
+  "global": "g_dwNumSubdivisions",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name numSubdivisions (the remaster's GrimFandango (Linux): rdNRaster_DrawScanLineNGonGIT_16: the length / 0x10); was UINT_007f4390."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "007f4394",
+  "old": "g_nRdRasterStepB",
+  "global": "g_nRdNRaster_rightVertexStep",
+  "oldtype": "int",
+  "names_only": true,
+  "comment": "Vertex index step (+1 or -1) of the second edge walker Original name rightVertexStep (the remaster's GrimFandango (Linux): rdNRaster.c static; -1 / 1 by face +0x50 in rdNRaster_DrawNGonLS); was g_nRdRasterStepB."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "007f4398",
+  "old": "UINT_007f4398",
+  "global": "g_dwRdNRaster_aTexVertices",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name aTexVertices (the remaster's GrimFandango (Linux): rdNRaster.c static; identical assignment in rdNRaster_DrawNGonFAT, rdNRaster_DrawNGonFIT); was UINT_007f4398."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "007f439c",
+  "old": "UINT_007f439c",
+  "global": "g_dwIStep",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name iStep (the remaster's GrimFandango (Linux): the light step of the Gouraud scan lines (rdNRaster_DrawScanLineNGonGAT_16)); was UINT_007f439c."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "007f43a0",
+  "old": "DAT_007f43a0",
+  "global": "g_dwOneOverStartScrap",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name oneOverStartScrap (the remaster's GrimFandango (Linux): rdNRaster_DrawScanLineNGonGIT_16: the 1/n table at startScrap); was DAT_007f43a0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "007f43a4",
+  "old": "DAT_007f43a4",
+  "global": "g_dwEndOneOverZ",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name endOneOverZ (the remaster's GrimFandango (Linux): rdNRaster_DrawScanLineNGonGIT_16: oneOverZ + oneOverZStep); was DAT_007f43a4."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "007f43a8",
+  "old": "PTR_007f43a8",
+  "global": "g_pWDest",
+  "oldtype": "int *",
+  "names_only": true,
+  "comment": "Original name pWDest (the remaster's GrimFandango (Linux): the 16-bit destination pointer of the scan lines (rdNRaster_DrawScanLineNGonLS_16)); was PTR_007f43a8."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "007f43ac",
+  "old": "UINT_007f43ac",
+  "global": "g_dwStartScrap",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name startScrap (the remaster's GrimFandango (Linux): rdNRaster_DrawScanLineNGonGIT_16: 0x10 - x % 0x10); was UINT_007f43ac."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "007f43b0",
+  "old": "UINT_007f43b0",
+  "global": "g_dwEndU",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name endU (the remaster's GrimFandango (Linux): rdNRaster_DrawScanLineNGonGIT_16: endZ * endUOverZ); was UINT_007f43b0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "007f43b4",
+  "old": "UINT_007f43b4",
+  "global": "g_dwEndV",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name endV (the remaster's GrimFandango (Linux): rdNRaster_DrawScanLineNGonGIT_16: endZ * endVOverZ); was UINT_007f43b4."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "007f43b8",
+  "old": "UINT_007f43b8",
+  "global": "g_dwEndZ",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name endZ (the remaster's GrimFandango (Linux): rdNRaster_DrawScanLineNGonGIT_16: 1 / endOneOverZ); was UINT_007f43b8."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "007f43bc",
+  "old": "UINT_007f43bc",
+  "global": "g_dwUStep",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name uStep (the remaster's GrimFandango (Linux): the u step of the affine scan lines (u difference * 1/n >> mip level)); was UINT_007f43bc."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "007f43c0",
+  "old": "DAT_007f43c0",
+  "global": "g_dwCurU",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name curU (the remaster's GrimFandango (Linux): rdNRaster_DrawScanLineNGonGIT_16: curZ * uOverZ); was DAT_007f43c0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "007f43c4",
+  "old": "DAT_007f43c4",
+  "global": "g_dwCurV",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name curV (the remaster's GrimFandango (Linux): rdNRaster_DrawScanLineNGonGIT_16: curZ * vOverZ); was DAT_007f43c4."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "007f43c8",
+  "old": "UINT_007f43c8",
+  "global": "g_dwRdNRaster_aOneOverZ",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name aOneOverZ (the remaster's GrimFandango (Linux): rdNRaster.c static; the per-vertex 1/z array of rdNRaster_CalcPerspGradients); was UINT_007f43c8."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "007f4448",
+  "old": "DAT_007f4448",
+  "global": "g_dwCurZ",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name curZ (the remaster's GrimFandango (Linux): rdNRaster_DrawScanLineNGonGIT_16: 1 / oneOverZ); was DAT_007f4448."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "007f444c",
+  "old": "DAT_007f444c",
+  "global": "g_dwEndUOverZ",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name endUOverZ (the remaster's GrimFandango (Linux): rdNRaster_DrawScanLineNGonGIT_16: uOverZ + uOverZStep); was DAT_007f444c."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "007f4450",
+  "old": "UINT_007f4450",
+  "global": "g_dwFixI",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name fixI (the remaster's GrimFandango (Linux): the 16.16 light level of the Gouraud scan lines (rdNRaster_DrawScanLineNGonGAT_16)); was UINT_007f4450."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "007f4454",
+  "old": "UINT_007f4454",
+  "global": "g_dwFixU",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name fixU (the remaster's GrimFandango (Linux): the 16.16 u of the affine scan lines (rdNRaster_DrawScanLineNGonLAT_8, _16)); was UINT_007f4454."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "007f4458",
+  "old": "UINT_007f4458",
+  "global": "g_dwFixV",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name fixV (the remaster's GrimFandango (Linux): the 16.16 v of the affine scan lines (rdNRaster_DrawScanLineNGonLAT_8, _16)); was UINT_007f4458."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "007f4460",
+  "old": "UINT_007f4460",
+  "global": "g_dwRdZRaster_numVertices",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name numVertices (the remaster's GrimFandango (Linux): rdZRaster.c static; identical assignment in rdZRaster_DrawNGonFAT, rdZRaster_DrawNGonFIT); was UINT_007f4460."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "007f4464",
+  "old": "UINT_007f4464",
+  "global": "g_dwRdZRaster_maxMipMap",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name maxMipMap (the remaster's GrimFandango (Linux): rdZRaster.c static; identical assignment in rdZRaster_DrawNGonFAT, rdZRaster_DrawNGonFIT); was UINT_007f4464."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "007f4468",
+  "old": "UINT_007f4468",
+  "global": "g_dwRdZRaster_aUOverZ",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name aUOverZ (the remaster's GrimFandango (Linux): rdZRaster.c static; the per-vertex u/z array of rdZRaster_CalcPerspGradients); was UINT_007f4468."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "007f44e8",
+  "old": "UINT_007f44e8",
+  "global": "g_dwRdZRaster_yMinVert",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name yMinVert (the remaster's GrimFandango (Linux): rdZRaster.c static; identical assignment in rdZRaster_DrawNGonFAT, rdZRaster_DrawNGonFIT); was UINT_007f44e8."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "007f44ec",
+  "old": "UINT_007f44ec",
+  "global": "g_dwRdZRaster_leftVertexStep",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name leftVertexStep (the remaster's GrimFandango (Linux): rdZRaster.c static; 1 / -1 by face +0x50 in rdZRaster_DrawNGonLIT); was UINT_007f44ec."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "007f44f4",
+  "old": "UINT_007f44f4",
+  "global": "g_dwRdZRaster_yMaxVert",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name yMaxVert (the remaster's GrimFandango (Linux): rdZRaster.c static; identical assignment in rdZRaster_DrawNGonFAT, rdZRaster_DrawNGonFIT); was UINT_007f44f4."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "007f44f8",
+  "old": "UINT_007f44f8",
+  "global": "g_dwRdZRaster_aIntensities",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name aIntensities (the remaster's GrimFandango (Linux): rdZRaster.c static; identical assignment in rdZRaster_DrawNGonGAT, rdZRaster_DrawNGonGIT); was UINT_007f44f8."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "007f44fc",
+  "old": "PTR_007f44fc",
+  "global": "g_pRdZRaster_aVertices",
+  "oldtype": "int *",
+  "names_only": true,
+  "comment": "Original name aVertices (the remaster's GrimFandango (Linux): rdZRaster.c static; identical assignment in rdZRaster_DrawNGonFAT, rdZRaster_DrawNGonFIT); was PTR_007f44fc."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "007f4500",
+  "old": "UINT_007f4500",
+  "global": "g_dwRdZRaster_aVOverZ",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name aVOverZ (the remaster's GrimFandango (Linux): rdZRaster.c static; the per-vertex v/z array of rdZRaster_CalcPerspGradients); was UINT_007f4500."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "007f4580",
+  "old": "UINT_007f4580",
+  "global": "g_dwRdZRaster_rightVertexStep",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name rightVertexStep (the remaster's GrimFandango (Linux): rdZRaster.c static; -1 / 1 by face +0x50 in rdZRaster_DrawNGonLIT); was UINT_007f4580."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "007f4584",
+  "old": "UINT_007f4584",
+  "global": "g_dwRdZRaster_aTexVertices",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name aTexVertices (the remaster's GrimFandango (Linux): rdZRaster.c static; identical assignment in rdZRaster_DrawNGonFAT, rdZRaster_DrawNGonFIT); was UINT_007f4584."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "007f4588",
+  "old": "UINT_007f4588",
+  "global": "g_dwRdZRaster_aOneOverZ",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name aOneOverZ (the remaster's GrimFandango (Linux): rdZRaster.c static; the per-vertex 1/z array of rdZRaster_CalcPerspGradients); was UINT_007f4588."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0080692c",
+  "old": "g_pD3dDriver",
+  "global": "g_pStd3D_CurDevice",
+  "oldtype": "void *",
+  "names_only": true,
+  "comment": "Selected Direct3D driver record (0x22c bytes, name at +0xc8, GUID at +0x21c) Original name std3D_pCurDevice (the remaster's GrimFandango (Linux): the device whose +0x14 / +0x18 flags rdCache_SendFaceListToHardware tests); was g_pD3dDriver."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00825e90",
+  "old": "g_ResFileServices",
+  "global": "g_aLowLevelHS",
+  "oldtype": "GrimServices",
+  "names_only": true,
+  "comment": "Original name lowLevelHS (the remaster's GrimFandango (Linux): the copy of the file services Res_OverrideFileCalls keeps); was g_ResFileServices.",
+  "strict_mode": "warn"
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008c97bc",
+  "old": "g_pfnFlipCallback",
+  "global": "g_pSputRender_PageFlipFunc",
+  "oldtype": "void *",
+  "names_only": true,
+  "comment": "Function that presents the back buffer, called by Render_Present Original name sputRender_pPageFlipFunc (the remaster's GrimFandango (Linux): the callback sputRender_PageFlip calls); was g_pfnFlipCallback."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008c97c0",
+  "old": "g_wTextColors",
+  "global": "g_abSputRender_colorMap",
+  "oldtype": "ushort[3]",
+  "names_only": true,
+  "comment": "16-bit foreground, background and shadow colours of the text object being drawn Original name sputRender_colorMap (the remaster's GrimFandango (Linux): stored into the text objects by sputText_Restore); was g_wTextColors."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008c97ec",
+  "old": "g_pDirtyRectPool",
+  "global": "g_pDirtyRectPool",
+  "oldtype": "void * *",
+  "names_only": true,
+  "comment": "Pool of dirty rectangle records Original name pDirtyRectPool (the remaster's GrimFandango (Linux): Memory_AllocatePool(0x24, 0x20, 8) in sputRender_Startup, freed in sputRender_Shutdown)."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008c97f4",
+  "old": "g_pCacheRectList",
+  "global": "g_pCacheRectList",
+  "oldtype": "void *",
+  "names_only": true,
+  "comment": "Most recently created cached background rectangle Original name CacheRectList (the remaster's GrimFandango (Linux): the list sputRender_RestoreCacheRect walks)."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008c9a80",
+  "old": "g_poolList",
+  "global": "g_pFirstPool",
+  "oldtype": "void * *",
+  "names_only": true,
+  "comment": "Original name pFirstPool (the remaster's GrimFandango (Linux): the pool list head of Memory_AllocatePool); was g_poolList."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ca000",
+  "old": "g_szMovieName",
+  "global": "g_szCurMovieFile",
+  "oldtype": "char[128]",
+  "names_only": true,
+  "comment": "Name of the movie being played, 0x80 bytes Original name CurMovieFile (the remaster's GrimFandango (Linux): saved and restored in sputSmush_Save and _Restore); was g_szMovieName."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ca088",
+  "old": "g_nMoviePlaying",
+  "global": "g_nSmushPlaying",
+  "oldtype": "int",
+  "names_only": true,
+  "comment": "A movie is currently open and playing Original name SmushPlaying (the remaster's GrimFandango (Linux): saved, restored and tested in sputSmush_Save, _Restore, _Periodic); was g_nMoviePlaying."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ca090",
+  "old": "g_nMovieStopRequested",
+  "global": "g_nSmushAbort",
+  "oldtype": "int",
+  "names_only": true,
+  "comment": "Movie_Stop was called; the next poll closes the movie Original name SmushAbort (the remaster's GrimFandango (Linux): saved and restored in sputSmush_Save and _Restore, set in sputSmush_StopMovie); was g_nMovieStopRequested."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ca094",
+  "old": "g_nMovieFullscreen",
+  "global": "g_nSmushLooping",
+  "oldtype": "int",
+  "names_only": true,
+  "comment": "The current movie plays full screen (mode 3) Original name SmushLooping (the remaster's GrimFandango (Linux): the second argument of sputSmush_StartMovie in sputSmush_Restore (the old name said fullscreen)); was g_nMovieFullscreen."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ca0b4",
+  "old": "g_nPrimitivesHidden",
+  "global": "g_nSputPrimitive_Paused",
+  "oldtype": "int",
+  "names_only": true,
+  "comment": "Debug primitives are not drawn while set Original name sputPrimitive_Paused (the remaster's GrimFandango (Linux): set / cleared / tested in sputPrimitive_Pause, _Resume, _Update); was g_nPrimitivesHidden."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ca158",
+  "old": "g_nTextObjectsFrozen",
+  "global": "g_nSputText_Paused",
+  "oldtype": "int",
+  "names_only": true,
+  "comment": "Text objects are not updated while set (movies) Original name sputText_Paused (the remaster's GrimFandango (Linux): set / cleared / tested in sputText_Pause, _Resume, _Update); was g_nTextObjectsFrozen."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ca330",
+  "old": "g_nDrawableActorCount",
+  "global": "g_nTotActors",
+  "oldtype": "int",
+  "names_only": true,
+  "comment": "Number of actors with a model collected into g_pDrawableActors this frame Original name TotActors (the remaster's GrimFandango (Linux): the drawable actor count of sputActor_UpdateActors); was g_nDrawableActorCount."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ca794",
+  "old": "g_pCostumePool",
+  "global": "g_pCosNodePool",
+  "oldtype": "void * *",
+  "names_only": true,
+  "comment": "Pool of 0xb4-byte costume records Original name pCosNodePool (the remaster's GrimFandango (Linux): Memory_AllocatePool(0xb4, 10, 2) in sputCostume_Startup, freed in sputCostume_Shutdown); was g_pCostumePool."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008caba0",
+  "old": "g_dwTimerLastTick",
+  "global": "g_dwLastClockTime",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "timeGetTime value at the last timer update Original name lastClockTime (the remaster's GrimFandango (Linux): the last clock reading of sputTime_Advance and sputTime_AdvanceManual); was g_dwTimerLastTick."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008caba4",
+  "old": "g_dwTimerTotalMs",
+  "global": "g_dwSputTime_gameTime_ms",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Engine time in ms since Timer_Reset Original name sputTime_gameTime_ms (the remaster's GrimFandango (Linux): returned by sputTime_GetGameTime); was g_dwTimerTotalMs."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008caba8",
+  "old": "g_dwTimerFrameMs",
+  "global": "g_dwSputTime_frameTime_ms",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Length of the current frame in ms, capped at 300 Original name sputTime_frameTime_ms (the remaster's GrimFandango (Linux): returned by sputTime_GetFrameTime); was g_dwTimerFrameMs."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008cb08c",
+  "old": "g_pPositionedSoundList",
+  "global": "g_pSoundEventList",
+  "oldtype": "void *",
+  "names_only": true,
+  "comment": "Sounds that follow a world position {next, id, pos, min, max, scale, near} Original name pSoundEventList (the remaster's GrimFandango (Linux): the list sputRoom_RelocateSounds walks); was g_pPositionedSoundList."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008cb0ac",
+  "old": "g_pSetActorLists",
+  "global": "g_pRoomList",
+  "oldtype": "void *",
+  "names_only": true,
+  "comment": "Per set name list of the actors placed in it Original name pRoomList (the remaster's GrimFandango (Linux): the room list sputRoom_Shutdown frees); was g_pSetActorLists."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008d0878",
+  "old": "g_pSvcText",
+  "global": "g_pTextHS",
+  "oldtype": "GrimServices *",
+  "names_only": true,
+  "comment": "Service table pointer used by Temp/Text.c Original name pTextHS (the remaster's GrimFandango (Linux): the services pointer Text_SysInitialize stores); was g_pSvcText."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008d1090",
+  "old": "DAT_008d1090",
+  "global": "g_bMovieFlags",
+  "oldtype": "undefined1",
+  "names_only": true,
+  "comment": "Original name movieFlags (the remaster's GrimFandango (Linux): flags & 0xfffffff in SmushPlay_StartMovie, tested in SmushPlay_UpdateMovie); was DAT_008d1090."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008d1098",
+  "old": "UINT_008d1098",
+  "global": "g_dwVideoCallbacks",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name videoCallbacks (the remaster's GrimFandango (Linux): the video set-up callback SmushPlay_StartMovie checks and calls (w, h, 0x10, sixteenBit)); was UINT_008d1098."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008da508",
+  "old": "g_pfnBlkOutput",
+  "global": "g_pFob_blit_routine",
+  "oldtype": "void *",
+  "names_only": true,
+  "comment": "Callback that receives the decoded Blocky16 frame instead of the default blit Original name fob_blit_routine (the remaster's GrimFandango (Linux): the output callback fob_flobdec_blocky16_config sets (key 1)); was g_pfnBlkOutput."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008dde44",
+  "old": "UINT_008dde44",
+  "global": "g_dwRdZRaster_aRGBToPalette",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name rdZRaster_aRGBToPalette (the remaster's GrimFandango (Linux): identical assignment in rdZRaster_DrawNGonMTFAT, rdZRaster_DrawNGonMTFIT); was UINT_008dde44."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008dde48",
+  "old": "UINT_008dde48",
+  "global": "g_dwRdZRaster_uWrap",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name rdZRaster_uWrap (the remaster's GrimFandango (Linux): the u wrap mask in rdZRaster_DrawNGonLIT); was UINT_008dde48."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008dde4c",
+  "old": "DAT_008dde4c",
+  "global": "g_dwRdZRaster_oneOverZStep",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name rdZRaster_oneOverZStep (the remaster's GrimFandango (Linux): dOneOverZdX * 16 in rdZRaster_DrawNGonLIT); was DAT_008dde4c."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008dde50",
+  "old": "UINT_008dde50",
+  "global": "g_dwRdZRaster_dVdXModifier",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name rdZRaster_dVdXModifier (the remaster's GrimFandango (Linux): the v rounding modifier (0x7fff / 0x8000) of rdZRaster_CalcPerspGradients); was UINT_008dde50."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008dde54",
+  "old": "UINT_008dde54",
+  "global": "g_dwRdZRaster_mipMapNum",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name rdZRaster_mipMapNum (the remaster's GrimFandango (Linux): the mip level chosen in rdZRaster_CalcPerspGradients, used by rdZRaster_DrawNGonLIT); was UINT_008dde54."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008dde58",
+  "old": "UINT_008dde58",
+  "global": "g_dwRdZRaster_vWrap",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name rdZRaster_vWrap (the remaster's GrimFandango (Linux): the v wrap mask in rdZRaster_DrawNGonLIT); was UINT_008dde58."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008dde5c",
+  "old": "UINT_008dde5c",
+  "global": "g_dwRdZRaster_aRGBMap",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name rdZRaster_aRGBMap (the remaster's GrimFandango (Linux): identical assignment in rdZRaster_DrawNGonGAT, rdZRaster_DrawNGonGIT); was UINT_008dde5c."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008dde60",
+  "old": "DAT_008dde60",
+  "global": "g_dwRdZRaster_dUOverZdX",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name rdZRaster_dUOverZdX (the remaster's GrimFandango (Linux): the x gradient of u/z in rdZRaster_CalcPerspGradients); was DAT_008dde60."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008dde64",
+  "old": "DAT_008dde64",
+  "global": "g_dwRdZRaster_dUOverZdY",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name rdZRaster_dUOverZdY (the remaster's GrimFandango (Linux): the y gradient of u/z in rdZRaster_CalcPerspGradients); was DAT_008dde64."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008dde68",
+  "old": "UINT_008dde68",
+  "global": "g_dwRdZRaster_texPitch",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name rdZRaster_texPitch (the remaster's GrimFandango (Linux): the pitch (+0x18) of the mip level in rdZRaster_DrawNGonLIT); was UINT_008dde68."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008dde6c",
+  "old": "UINT_008dde6c",
+  "global": "g_dwRdZRaster_aMonoMap",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name rdZRaster_aMonoMap (the remaster's GrimFandango (Linux): identical assignment in rdZRaster_DrawNGonGAT, rdZRaster_DrawNGonGIT); was UINT_008dde6c."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008dde70",
+  "old": "DAT_008dde70",
+  "global": "g_wRdZRaster_RGBcolor",
+  "oldtype": "undefined2",
+  "names_only": true,
+  "comment": "Original name rdZRaster_RGBcolor (the remaster's GrimFandango (Linux): identical assignment in rdZRaster_DrawNGonLS, rdZRaster_DrawNGonLV); was DAT_008dde70."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008dde74",
+  "old": "DAT_008dde74",
+  "global": "g_dwRdZRaster_vOverZStep",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name rdZRaster_vOverZStep (the remaster's GrimFandango (Linux): dVOverZdX * 16 in rdZRaster_DrawNGonLIT); was DAT_008dde74."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008dde78",
+  "old": "UINT_008dde78",
+  "global": "g_dwRdZRaster_dUdXModifier",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name rdZRaster_dUdXModifier (the remaster's GrimFandango (Linux): the u rounding modifier (0x7fff / 0x8000) of rdZRaster_CalcPerspGradients); was UINT_008dde78."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008dde7c",
+  "old": "UINT_008dde7c",
+  "global": "g_dwRdZRaster_pPixels",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name rdZRaster_pPixels (the remaster's GrimFandango (Linux): the pixels of the mip level in rdZRaster_DrawNGonLIT); was UINT_008dde7c."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008dde80",
+  "old": "DAT_008dde80",
+  "global": "g_dwRdZRaster_dVOverZdX",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name rdZRaster_dVOverZdX (the remaster's GrimFandango (Linux): the x gradient of v/z in rdZRaster_CalcPerspGradients); was DAT_008dde80."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008dde84",
+  "old": "DAT_008dde84",
+  "global": "g_dwRdZRaster_dVOverZdY",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name rdZRaster_dVOverZdY (the remaster's GrimFandango (Linux): the y gradient of v/z in rdZRaster_CalcPerspGradients); was DAT_008dde84."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008dde88",
+  "old": "UINT_008dde88",
+  "global": "g_dwRdZRaster_dOneOverZdXFixed",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name rdZRaster_dOneOverZdXFixed (the remaster's GrimFandango (Linux): dOneOverZdX as 16.16 fixed point in rdZRaster_CalcPerspGradients); was UINT_008dde88."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008dde8c",
+  "old": "UINT_008dde8c",
+  "global": "g_dwRdZRaster_texRowShift",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name rdZRaster_texRowShift (the remaster's GrimFandango (Linux): texture row shift - mip level in rdZRaster_DrawNGonLIT); was UINT_008dde8c."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008dde90",
+  "old": "UINT_008dde90",
+  "global": "g_dwRdZRaster_aAlphaMap",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name rdZRaster_aAlphaMap (the remaster's GrimFandango (Linux): colormap +0x338 in rdZRaster_DrawNGonTLS); was UINT_008dde90."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008dde94",
+  "old": "DAT_008dde94",
+  "global": "g_dwRdZRaster_uOverZStep",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name rdZRaster_uOverZStep (the remaster's GrimFandango (Linux): dUOverZdX * 16 in rdZRaster_DrawNGonLIT); was DAT_008dde94."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008dde98",
+  "old": "DAT_008dde98",
+  "global": "g_bRdZRaster_color",
+  "oldtype": "undefined1",
+  "names_only": true,
+  "comment": "Original name rdZRaster_color (the remaster's GrimFandango (Linux): identical assignment in rdZRaster_DrawNGonGS, rdZRaster_DrawNGonLS); was DAT_008dde98."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008dde9c",
+  "old": "DAT_008dde9c",
+  "global": "g_dwRdZRaster_dOneOverZdY",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name rdZRaster_dOneOverZdY (the remaster's GrimFandango (Linux): the y gradient of 1/z in rdZRaster_CalcPerspGradients); was DAT_008dde9c."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ddea0",
+  "old": "DAT_008ddea0",
+  "global": "g_dwRdZRaster_dOneOverZdX",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name rdZRaster_dOneOverZdX (the remaster's GrimFandango (Linux): the x gradient of 1/z in rdZRaster_CalcPerspGradients); was DAT_008ddea0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ddea4",
+  "old": "UINT_008ddea4",
+  "global": "g_dwRdZRaster_zScaleShift",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name rdZRaster_zScaleShift (the remaster's GrimFandango (Linux): camera +0x14 in rdZRaster_DrawNGonLIT and rdZRaster_DrawNGonLAT); was UINT_008ddea4."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ddea8",
+  "old": "UINT_008ddea8",
+  "global": "g_dwRdNRaster_aAlphaMap",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name rdNRaster_aAlphaMap (the remaster's GrimFandango (Linux): colormap +0x338 in rdNRaster_DrawNGonTLS); was UINT_008ddea8."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ddeac",
+  "old": "UINT_008ddeac",
+  "global": "g_dwRdNRaster_dVdXModifier",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name rdNRaster_dVdXModifier (the remaster's GrimFandango (Linux): the v rounding modifier (0x7fff / 0x8000) of rdNRaster_CalcPerspGradients); was UINT_008ddeac."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ddeb0",
+  "old": "UINT_008ddeb0",
+  "global": "g_dwRdNRaster_aMonoMap",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name rdNRaster_aMonoMap (the remaster's GrimFandango (Linux): identical assignment in rdNRaster_DrawNGonGAT, rdNRaster_DrawNGonGIT); was UINT_008ddeb0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ddeb4",
+  "old": "UINT_008ddeb4",
+  "global": "g_dwRdNRaster_texPitch",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name rdNRaster_texPitch (the remaster's GrimFandango (Linux): the pitch (+0x18) of the mip level in rdNRaster_DrawNGonLIT); was UINT_008ddeb4."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ddeb8",
+  "old": "DAT_008ddeb8",
+  "global": "g_wRdNRaster_RGBcolor",
+  "oldtype": "undefined2",
+  "names_only": true,
+  "comment": "Original name rdNRaster_RGBcolor (the remaster's GrimFandango (Linux): identical assignment in rdNRaster_DrawNGonLS, rdNRaster_DrawNGonLV); was DAT_008ddeb8."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ddebc",
+  "old": "UINT_008ddebc",
+  "global": "g_dwRdNRaster_aRGBMap",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name rdNRaster_aRGBMap (the remaster's GrimFandango (Linux): identical assignment in rdNRaster_DrawNGonGAT, rdNRaster_DrawNGonGIT); was UINT_008ddebc."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ddec0",
+  "old": "DAT_008ddec0",
+  "global": "g_bRdNRaster_color",
+  "oldtype": "undefined1",
+  "names_only": true,
+  "comment": "Original name rdNRaster_color (the remaster's GrimFandango (Linux): identical assignment in rdNRaster_DrawNGonGS, rdNRaster_DrawNGonLS); was DAT_008ddec0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ddec4",
+  "old": "DAT_008ddec4",
+  "global": "g_dwRdNRaster_dUOverZdY",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name rdNRaster_dUOverZdY (the remaster's GrimFandango (Linux): the y gradient of u/z in rdNRaster_CalcPerspGradients); was DAT_008ddec4."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ddec8",
+  "old": "DAT_008ddec8",
+  "global": "g_dwRdNRaster_dUOverZdX",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name rdNRaster_dUOverZdX (the remaster's GrimFandango (Linux): the x gradient of u/z in rdNRaster_CalcPerspGradients); was DAT_008ddec8."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ddecc",
+  "old": "UINT_008ddecc",
+  "global": "g_dwRdNRaster_uWrap",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name rdNRaster_uWrap (the remaster's GrimFandango (Linux): the u wrap mask in rdNRaster_DrawNGonLIT); was UINT_008ddecc."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008dded0",
+  "old": "DAT_008dded0",
+  "global": "g_dwRdNRaster_uOverZStep",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name rdNRaster_uOverZStep (the remaster's GrimFandango (Linux): dUOverZdX * 16 in rdNRaster_DrawNGonLIT); was DAT_008dded0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008dded4",
+  "old": "UINT_008dded4",
+  "global": "g_dwRdNRaster_aRGBToPalette",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name rdNRaster_aRGBToPalette (the remaster's GrimFandango (Linux): identical assignment in rdNRaster_DrawNGonMTFAT, rdNRaster_DrawNGonMTFIT); was UINT_008dded4."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008dded8",
+  "old": "UINT_008dded8",
+  "global": "g_dwRdNRaster_texRowShift",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name rdNRaster_texRowShift (the remaster's GrimFandango (Linux): texture row shift - mip level in rdNRaster_DrawNGonLIT); was UINT_008dded8."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ddedc",
+  "old": "DAT_008ddedc",
+  "global": "g_dwRdNRaster_dVOverZdX",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name rdNRaster_dVOverZdX (the remaster's GrimFandango (Linux): the x gradient of v/z in rdNRaster_CalcPerspGradients); was DAT_008ddedc."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ddee0",
+  "old": "DAT_008ddee0",
+  "global": "g_dwRdNRaster_dVOverZdY",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name rdNRaster_dVOverZdY (the remaster's GrimFandango (Linux): the y gradient of v/z in rdNRaster_CalcPerspGradients); was DAT_008ddee0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ddee4",
+  "old": "UINT_008ddee4",
+  "global": "g_dwRdNRaster_mipMapNum",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name rdNRaster_mipMapNum (the remaster's GrimFandango (Linux): the mip level chosen in rdNRaster_CalcPerspGradients, used by rdNRaster_DrawNGonLIT); was UINT_008ddee4."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ddee8",
+  "old": "UINT_008ddee8",
+  "global": "g_dwRdNRaster_pPixels",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name rdNRaster_pPixels (the remaster's GrimFandango (Linux): the pixels of the mip level in rdNRaster_DrawNGonLIT); was UINT_008ddee8."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ddeec",
+  "old": "DAT_008ddeec",
+  "global": "g_dwRdNRaster_oneOverZStep",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name rdNRaster_oneOverZStep (the remaster's GrimFandango (Linux): dOneOverZdX * 16 in rdNRaster_DrawNGonLIT); was DAT_008ddeec."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ddef0",
+  "old": "DAT_008ddef0",
+  "global": "g_dwRdNRaster_dOneOverZdY",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name rdNRaster_dOneOverZdY (the remaster's GrimFandango (Linux): the y gradient of 1/z in rdNRaster_CalcPerspGradients); was DAT_008ddef0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ddef4",
+  "old": "DAT_008ddef4",
+  "global": "g_dwRdNRaster_dOneOverZdX",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name rdNRaster_dOneOverZdX (the remaster's GrimFandango (Linux): the x gradient of 1/z in rdNRaster_CalcPerspGradients); was DAT_008ddef4."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ddef8",
+  "old": "UINT_008ddef8",
+  "global": "g_dwRdNRaster_dUdXModifier",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name rdNRaster_dUdXModifier (the remaster's GrimFandango (Linux): the u rounding modifier (0x7fff / 0x8000) of rdNRaster_CalcPerspGradients); was UINT_008ddef8."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ddefc",
+  "old": "UINT_008ddefc",
+  "global": "g_dwRdNRaster_vWrap",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name rdNRaster_vWrap (the remaster's GrimFandango (Linux): the v wrap mask in rdNRaster_DrawNGonLIT); was UINT_008ddefc."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ddf00",
+  "old": "DAT_008ddf00",
+  "global": "g_dwRdNRaster_vOverZStep",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name rdNRaster_vOverZStep (the remaster's GrimFandango (Linux): dVOverZdX * 16 in rdNRaster_DrawNGonLIT); was DAT_008ddf00."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ddf04",
+  "old": "UINT_008ddf04",
+  "global": "g_dwRdAFRaster_mipMapNum",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name rdAFRaster_mipMapNum (the remaster's GrimFandango (Linux): identical assignment in rdAFRaster_DrawNGonFAT, rdAFRaster_DrawNGonFIT); was UINT_008ddf04."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ddf08",
+  "old": "DAT_008ddf08",
+  "global": "g_wRdAFRaster_RGBcolor",
+  "oldtype": "undefined2",
+  "names_only": true,
+  "comment": "Original name rdAFRaster_RGBcolor (the remaster's GrimFandango (Linux): identical assignment in rdAFRaster_DrawNGonLS, rdAFRaster_DrawNGonLW); was DAT_008ddf08."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ddf0c",
+  "old": "UINT_008ddf0c",
+  "global": "g_dwRdAFRaster_aMonoMap",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name rdAFRaster_aMonoMap (the remaster's GrimFandango (Linux): identical assignment in rdAFRaster_DrawNGonFAT, rdAFRaster_DrawNGonFIT); was UINT_008ddf0c."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ddf10",
+  "old": "UINT_008ddf10",
+  "global": "g_dwRdAFRaster_texRowShift",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name rdAFRaster_texRowShift (the remaster's GrimFandango (Linux): identical assignment in rdAFRaster_DrawNGonFAT, rdAFRaster_DrawNGonFIT); was UINT_008ddf10."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ddf14",
+  "old": "UINT_008ddf14",
+  "global": "g_dwRdAFRaster_vWrap",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name rdAFRaster_vWrap (the remaster's GrimFandango (Linux): identical assignment in rdAFRaster_DrawNGonFAT, rdAFRaster_DrawNGonFIT); was UINT_008ddf14."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ddf18",
+  "old": "UINT_008ddf18",
+  "global": "g_dwRdAFRaster_dVdXModifier",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name rdAFRaster_dVdXModifier (the remaster's GrimFandango (Linux): identical assignment in rdAFRaster_DrawNGonFAT, rdAFRaster_DrawNGonFIT); was UINT_008ddf18."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ddf1c",
+  "old": "DAT_008ddf1c",
+  "global": "g_dwRdAFRaster_dOneOverZdX",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name rdAFRaster_dOneOverZdX (the remaster's GrimFandango (Linux): identical assignment in rdAFRaster_DrawNGonFIT, rdAFRaster_DrawNGonGIT); was DAT_008ddf1c."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ddf20",
+  "old": "DAT_008ddf20",
+  "global": "g_dwRdAFRaster_dUOverZdX",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name rdAFRaster_dUOverZdX (the remaster's GrimFandango (Linux): identical assignment in rdAFRaster_DrawNGonFIT, rdAFRaster_DrawNGonGIT); was DAT_008ddf20."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ddf24",
+  "old": "UINT_008ddf24",
+  "global": "g_dwRdAFRaster_dOneOverZdXFixed",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name rdAFRaster_dOneOverZdXFixed (the remaster's GrimFandango (Linux): identical assignment in rdAFRaster_DrawNGonFAT, rdAFRaster_DrawNGonFIT); was UINT_008ddf24."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ddf28",
+  "old": "DAT_008ddf28",
+  "global": "g_dwRdAFRaster_oneOverZStep",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name rdAFRaster_oneOverZStep (the remaster's GrimFandango (Linux): identical assignment in rdAFRaster_DrawNGonFIT, rdAFRaster_DrawNGonGIT); was DAT_008ddf28."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ddf2c",
+  "old": "DAT_008ddf2c",
+  "global": "g_dwRdAFRaster_uOverZStep",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name rdAFRaster_uOverZStep (the remaster's GrimFandango (Linux): identical assignment in rdAFRaster_DrawNGonFIT, rdAFRaster_DrawNGonGIT); was DAT_008ddf2c."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ddf30",
+  "old": "UINT_008ddf30",
+  "global": "g_dwRdAFRaster_aRGBMap",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name rdAFRaster_aRGBMap (the remaster's GrimFandango (Linux): identical assignment in rdAFRaster_DrawNGonFAT, rdAFRaster_DrawNGonFIT); was UINT_008ddf30."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ddf34",
+  "old": "DAT_008ddf34",
+  "global": "g_dwRdAFRaster_texPitch",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name rdAFRaster_texPitch (the remaster's GrimFandango (Linux): identical assignment in rdAFRaster_DrawNGonFAT, rdAFRaster_DrawNGonFIT); was DAT_008ddf34."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ddf38",
+  "old": "DAT_008ddf38",
+  "global": "g_dwRdAFRaster_dVOverZdX",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name rdAFRaster_dVOverZdX (the remaster's GrimFandango (Linux): identical assignment in rdAFRaster_DrawNGonFIT, rdAFRaster_DrawNGonGIT); was DAT_008ddf38."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ddf3c",
+  "old": "UINT_008ddf3c",
+  "global": "g_dwRdAFRaster_pPixels",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name rdAFRaster_pPixels (the remaster's GrimFandango (Linux): identical assignment in rdAFRaster_DrawNGonFAT, rdAFRaster_DrawNGonFIT); was UINT_008ddf3c."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ddf40",
+  "old": "DAT_008ddf40",
+  "global": "g_bRdAFRaster_color",
+  "oldtype": "undefined1",
+  "names_only": true,
+  "comment": "Original name rdAFRaster_color (the remaster's GrimFandango (Linux): identical assignment in rdAFRaster_DrawNGonGS, rdAFRaster_DrawNGonLW); was DAT_008ddf40."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ddf44",
+  "old": "UINT_008ddf44",
+  "global": "g_dwRdAFRaster_dUdXModifier",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name rdAFRaster_dUdXModifier (the remaster's GrimFandango (Linux): identical assignment in rdAFRaster_DrawNGonFAT, rdAFRaster_DrawNGonFIT); was UINT_008ddf44."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ddf48",
+  "old": "DAT_008ddf48",
+  "global": "g_dwRdAFRaster_vOverZStep",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name rdAFRaster_vOverZStep (the remaster's GrimFandango (Linux): identical assignment in rdAFRaster_DrawNGonFIT, rdAFRaster_DrawNGonGIT); was DAT_008ddf48."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ddf4c",
+  "old": "UINT_008ddf4c",
+  "global": "g_dwRdAFRaster_uWrap",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name rdAFRaster_uWrap (the remaster's GrimFandango (Linux): identical assignment in rdAFRaster_DrawNGonFAT, rdAFRaster_DrawNGonFIT); was UINT_008ddf4c."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ddf90",
+  "old": "g_nDrawBoxMinX",
+  "global": "g_nRdCache_ulcExtent",
+  "oldtype": "int",
+  "names_only": true,
+  "comment": "Left edge of the screen box touched by the last model draw Original name rdCache_ulcExtent (the remaster's GrimFandango (Linux): the upper-left extent rdCache_AddProcFace widens and sputCostume_InternalDraw3D resets to 0x280); was g_nDrawBoxMinX."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ddf98",
+  "old": "g_nDrawBoxMaxX",
+  "global": "g_nRdCache_lrcExtent",
+  "oldtype": "int",
+  "names_only": true,
+  "comment": "Right edge of the screen box touched by the last model draw Original name rdCache_lrcExtent (the remaster's GrimFandango (Linux): the lower-right extent rdCache_AddProcFace widens and sputCostume_InternalDraw3D resets to 0); was g_nDrawBoxMaxX."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00900008",
+  "old": "g_nRdroidGeometryMode",
+  "global": "g_nRdroid_curGeometryMode",
+  "oldtype": "int",
+  "names_only": true,
+  "comment": "Global upper limit for the geometry mode of drawn meshes Original name rdroid_curGeometryMode (the remaster's GrimFandango (Linux): set to 5 in rdOpen, the geometry clamp of rdCache_DrawFaceN); was g_nRdroidGeometryMode."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0090004c",
+  "old": "UINT_0090004c",
+  "global": "g_dwRdroid_curVertexColorMode",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name rdroid_curVertexColorMode (the remaster's GrimFandango (Linux): cleared in rdOpen after the colour effects, as in the remaster); was UINT_0090004c."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00900054",
+  "old": "UINT_00900054",
+  "global": "g_dwRdroid_curProcFaceUserData",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name rdroid_curProcFaceUserData (the remaster's GrimFandango (Linux): cleared in rdOpen before the colour effects, as in the remaster); was UINT_00900054."
+ }
+]

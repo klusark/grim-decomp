@@ -1,4 +1,4 @@
-/* Differential test: edge stepping functions (x87, rounding with the control words of Services_SetCurrent). */
+/* Differential test: edge stepping functions (x87, rounding with the control words of stdStartup). */
 #include "harness.h"
 #define VERTS 0x30002000u
 #define UVS   0x30003000u

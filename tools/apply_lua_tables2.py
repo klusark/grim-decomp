@@ -41,7 +41,7 @@ for i in range(14):
         continue
     s = bytes(g.get_json("read_memory", program=P, address=f"{nm:08x}", length=48)["data"]).split(b"\0")[0].decode()
     inits.append((f"{fn:08x}", s))
-    ensure_named(f"{fn:08x}", s, f"Subsystem init entry registered through EngineModule_Init; fills the module's 8-entry interface {{init, shutdown, save, restore, ...}}", "services,subsystem-init")
+    ensure_named(f"{fn:08x}", s, f"Subsystem init entry registered through grimlib_GameInitialize; fills the module's 8-entry interface {{init, shutdown, save, restore, ...}}", "services,subsystem-init")
     print(f"{fn:08x} {s}")
 g.rename_or_label(P, "004e7dc0", "g_engineSubsystemInits")
 g.rename_or_label(P, "004e7e00", "g_engineSubsystemInits2")

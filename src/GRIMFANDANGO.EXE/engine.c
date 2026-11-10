@@ -104,45 +104,61 @@ undefined4 Engine_CloseRenderer(void)
 void Engine_ShutdownGame(void)
 
 {
-  if (UINT_008a8c78 != 0) {
+  if (g_dwSputmOpen != 0) {
     g_dwGrimlib_mode = 0;
     Control_Release();
     sputRender_Close();
     sputRoom_SetCurrentRoom((void *)0x0,0);
-    UINT_008a8c78 = 0;
+    g_dwSputmOpen = 0;
   }
   return;
 }
 
-/* ---- 0x00482720  Engine_SetDebugKeysCallback ---- */
-void Engine_SetDebugKeysCallback(undefined4 param_1)
+/* ---- 0x00482720  grimlib_SetDebugToggleCallback ---- */
+/* Original name grimlib_SetDebugToggleCallback (the remaster's GrimFandango (Linux): calls
+   sputLua_SetDebugToggleCallback (the remaster's jumps to it), set in Main_Startup); was
+   Engine_SetDebugKeysCallback. */
+
+void grimlib_SetDebugToggleCallback(undefined4 param_1)
 
 {
   sputLua_SetDebugToggleCallback(param_1);
   return;
 }
 
-/* ---- 0x00482730  Engine_SetRenderUserCallback ---- */
-void Engine_SetRenderUserCallback(undefined4 param_1)
+/* ---- 0x00482730  grimlib_SetPaletteCallback ---- */
+/* Original name grimlib_SetPaletteCallback (the remaster's GrimFandango (Linux): the palette
+   callback set in Main_Startup (the remaster's jumps to sputRender_SetPaletteCallback, as this
+   calls it)); was Engine_SetRenderUserCallback. */
+
+void grimlib_SetPaletteCallback(undefined4 param_1)
 
 {
-  Render_SetUserCallback(param_1);
+  sputRender_SetPaletteCallback(param_1);
   return;
 }
 
-/* ---- 0x00482740  Engine_SetIdleCallback ---- */
-void Engine_SetIdleCallback(uint param_1)
+/* ---- 0x00482740  grimlib_SetShutdownCallback ---- */
+/* Original name grimlib_SetShutdownCallback (the remaster's GrimFandango (Linux): the first
+   callback set in Main_Startup, with grimdemo_PleaseShutdown on both sides, same body); was
+   Engine_SetIdleCallback. */
+
+void grimlib_SetShutdownCallback(uint param_1)
 
 {
-  UINT_008a8c70 = param_1;
+  g_dwGrimlib_shutdownCallback = param_1;
   return;
 }
 
-/* ---- 0x00482750  Engine_SetFlipCallback ---- */
-void Engine_SetFlipCallback(undefined4 param_1)
+/* ---- 0x00482750  grimlib_SetPageFlipCallback ---- */
+/* Original name grimlib_SetPageFlipCallback (the remaster's GrimFandango (Linux): the one-jump
+   wrapper of sputRender_SetPageFlipCallback (the remaster's is a 5-byte jmp), called from
+   Main_Startup); was Engine_SetFlipCallback. */
+
+void grimlib_SetPageFlipCallback(undefined4 param_1)
 
 {
-  Render_SetFlipCallback(param_1);
+  sputRender_SetPageFlipCallback(param_1);
   return;
 }
 
@@ -162,37 +178,44 @@ void Engine_SetExtraDataDir(char *param_1)
   return;
 }
 
-/* ---- 0x00482790  Engine_RunSystemScript ---- */
-int Engine_RunSystemScript(void)
+/* ---- 0x00482790  grimlib_FindSystemFiles ---- */
+/* Original name grimlib_FindSystemFiles (the remaster's GrimFandango (Linux): same body (the result
+   of sputLua_FindSystemFiles negated), called from Main_Startup); was Engine_RunSystemScript. */
+
+int grimlib_FindSystemFiles(void)
 
 {
   int iVar1;
   
-  iVar1 = Lua_RunSystemScript();
+  iVar1 = sputLua_FindSystemFiles();
   return iVar1 == 0;
 }
 
-/* ---- 0x004827a0  Engine_CallSystemFunction ---- */
-undefined4 Engine_CallSystemFunction(int param_1,char *param_2)
+/* ---- 0x004827a0  grimlib_Open ---- */
+/* Original name grimlib_Open (the remaster's GrimFandango (Linux): called from Main_Startup, same
+   body (once flag bSputmOpen, sputLua_Boot, grimlib_mode = 2, sputRender_Open, sputControl_Open));
+   was Engine_CallSystemFunction. */
+
+undefined4 grimlib_Open(int param_1,char *param_2)
 
 {
   int iVar1;
   undefined *puVar2;
   
-  if (UINT_008a8c78 != 0) {
+  if (g_dwSputmOpen != 0) {
     return 1;
   }
-  iVar1 = Lua_CallSystemFunction(param_1,param_2);
+  iVar1 = sputLua_Boot(param_1,param_2);
   if (iVar1 == 0) {
     return 1;
   }
   g_dwGrimlib_mode = 2;
-  Engine_CreateCameraActor();
-  puVar2 = Control_Capture();
+  sputRender_Open();
+  puVar2 = sputControl_Open();
   if (puVar2 == (undefined *)0x0) {
     return 1;
   }
-  UINT_008a8c78 = 1;
+  g_dwSputmOpen = 1;
   return 0;
 }
 
@@ -227,8 +250,8 @@ int grimlib_ConfirmClose(void)
 void __cdecl Engine_Quit(int exitCode)
 
 {
-  if (UINT_008a8c70 != 0) {
-    (*(code *)UINT_008a8c70)(exitCode);
+  if (g_dwGrimlib_shutdownCallback != 0) {
+    (*(code *)g_dwGrimlib_shutdownCallback)(exitCode);
   }
   return;
 }
@@ -370,19 +393,19 @@ void grimlib_Display(void)
   if (g_dwGrimlib_mode == 3) {
     iVar1 = Render_CanvasIsPaletted();
     if (iVar1 == 0) {
-      Render_Present();
+      sputRender_PageFlip();
       PerfEnd(8);
       return;
     }
   }
   else {
     if (g_dwGrimlib_mode == 2) {
-      Render_Present();
+      sputRender_PageFlip();
       PerfEnd(8);
       return;
     }
     if ((g_dwGrimlib_mode == 1) && (UINT_008a8c60 != 0)) {
-      Render_Present();
+      sputRender_PageFlip();
       UINT_008a8c60 = 0;
     }
   }
@@ -523,7 +546,7 @@ void PerfBegin(int param_1)
   #define local_8 (*(longlong *)(_frame + (0x20 - 0x8)))
   
   if ((param_1 < 0) || (0xc < param_1)) {
-    (*g_pSvcEngineModule->pAssertFail)
+    (*g_pSputmHS->pAssertFail)
               (s_slot____1____slot___PerfTotalEnt_004e7f74,
                s_C__grimsrc_libs_grimlib_Main_spu_004e7f9c,0x5ad);
   }
@@ -554,7 +577,7 @@ undefined * __cdecl PerfEnd(int param_1)
   #define dStack_8 (*(double *)(_frame + (0x30 - 0x8)))
   
   if ((param_1 < 0) || (0xc < param_1)) {
-    (*g_pSvcEngineModule->pAssertFail)
+    (*g_pSputmHS->pAssertFail)
               (s_slot____1____slot___PerfTotalEnt_004e7f74,
                s_C__grimsrc_libs_grimlib_Main_spu_004e7f9c,0x5b6);
   }
@@ -698,7 +721,7 @@ void Engine_SaveGame(void)
   local_8 = 0;
   local_4 = 0;
   UINT_008a8c7c = 0;
-  Render_SetWaitCursorEnabled(0);
+  sputRender_AllowLoadImage(0);
   Render_DrawProgressBar(0.1);
   name = g_pSaveFileName;
   if (g_pSaveFileName == (char *)0x0) {
@@ -732,7 +755,7 @@ void Engine_SaveGame(void)
       (*(code *)g_pfnIMuseSaveHook)(SaveGame_Write);
     }
     gzclose(UINT_008a8770);
-    Render_SetWaitCursorEnabled(1);
+    sputRender_AllowLoadImage(1);
   }
   return;
 }
@@ -773,7 +796,7 @@ void Engine_LoadGame(void)
   }
   UINT_008a8770 = (uint)SaveFile_Open(name,&DAT_004ddb18);
   if ((void *)UINT_008a8770 != (void *)0x0) {
-    Render_SetWaitCursorEnabled(0);
+    sputRender_AllowLoadImage(0);
     Render_DrawProgressBar(0.1);
     ImStopAllSounds();
     sputSmush_StopMovie();
@@ -816,7 +839,7 @@ void Engine_LoadGame(void)
     gzclose(UINT_008a8770);
     lua_dofile(s_patch05_bin_004e7fe8);
     g_dwJustLoaded = 1;
-    Render_SetWaitCursorEnabled(1);
+    sputRender_AllowLoadImage(1);
     aiStack_10[0] = 0;
     aiStack_10[1] = 0;
     aiStack_10[2] = 0x280;
@@ -851,10 +874,12 @@ uint Engine_GetSavedValue(void)
   return g_dwGrimlib_prevmode;
 }
 
-/* ---- 0x00484000  Engine_CreateCameraActor ---- */
-/* Creates the hidden actor that carries the camera frame (g_hCameraActor) */
+/* ---- 0x00484000  sputRender_Open ---- */
+/* Creates the hidden actor that carries the camera frame (g_hCameraActor) Original name
+   sputRender_Open (the remaster's GrimFandango (Linux): the render call of grimlib_Open, same body
+   (allocates the camera actor gCamActorIndex, flag 1)); was Engine_CreateCameraActor. */
 
-undefined4 Engine_CreateCameraActor(void)
+undefined4 sputRender_Open(void)
 
 {
   int iVar1;
@@ -921,7 +946,7 @@ void sputRender_Update(void)
       UINT_008a94b8 = UINT_0090563c;
       sputText_Update(0);
       stdDisplay_VBufferUnlock(&g_dwStdDisplay_backBuffer);
-      Render_Present();
+      sputRender_PageFlip();
       return;
     }
     if (g_dwGrimlib_mode == 4) {
@@ -972,7 +997,7 @@ void sputRender_Update(void)
           pvVar5 = *(void **)((int)pvVar5 + 0xf8)) {
         ObjectState_Draw(pvVar5,1,&g_dwStdDisplay_backBuffer,(void *)UINT_008c97a4);
       }
-      rdroid_BeginFrame();
+      rdAdvanceFrame();
       Render_BuildActorDrawList();
       if ((g_dwTotDrawItems != 0) || (((byte)g_dwDebugFlags & 1) != 0)) {
         PerfBegin(5);
@@ -1046,7 +1071,7 @@ void sputRender_Update(void)
                 }
                 iVar2 = piVar1[1];
               }
-              (*(code *)UINT_008c97b8)(iVar2 + 0x30,0);
+              (*(code *)g_dwSputRender_pSetPaletteFunc)(iVar2 + 0x30,0);
               pfVar7 = sputActor_GetOrientMatrix(actor);
               sputCostume_Draw3D(actor[0x28],pfVar7);
               if (((byte)g_dwDebugFlags & 1) != 0) {

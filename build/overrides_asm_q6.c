@@ -30,29 +30,29 @@
 
 /* ---- globals (names as in globals.h; not included, the types here are the ones the code needs) ---- */
 extern char *g_pRdCamera_CurCamera;     /* 0x007f0fc8; +4: the canvas (+4 colour buffer: +0x18 pitch, +0x24 bpp, +0x5c pixels) */
-extern int g_nRdRasterVertCount;     /* 0x007f424c */
-extern int UINT_007f4250;            /* mip count - 1 (Grad_*: the mip mode) */
-extern int g_nRdRasterStartVertex;   /* 0x007f42e8 top vertex */
-extern int g_nRdRasterStepA;         /* 0x007f42ec left edge direction */
-extern int g_nRdRasterEndVertex;     /* 0x007f42fc bottom vertex */
-extern float *g_pRdRasterVerts;      /* 0x007f4308 screen vertices x, y, z (12 bytes each) */
-extern int g_nRdRasterStepB;         /* 0x007f4394 right edge direction */
-extern unsigned char *PTR_007f4300;  /* 8 bpp destination / the texel of the 16 bpp blended spans */
-extern float *UINT_007f4304;         /* per-vertex light */
-extern float *UINT_007f4398;         /* per-vertex u, v */
-extern char *PTR_007f43a8;           /* 16 bpp destination (advanced by the spans) */
-extern unsigned char *UINT_008ddea8; /* light / translucency table */
-extern unsigned char *UINT_008ddeb0; /* 8 bpp shade table */
-extern unsigned short DAT_008ddeb8;  /* 16 bpp colour */
-extern unsigned short *UINT_008ddebc;/* 16 bpp palette (64 rows of 256) */
-extern unsigned char DAT_008ddec0;   /* colour / light level byte */
-extern unsigned char *UINT_008dded4; /* 16 bpp colour -> palette index */
+extern int g_nRdNRaster_numVertices;     /* 0x007f424c */
+extern int g_dwRdNRaster_maxMipMap;            /* mip count - 1 (Grad_*: the mip mode) */
+extern int g_nRdNRaster_yMinVert;   /* 0x007f42e8 top vertex */
+extern int g_nRdNRaster_leftVertexStep;         /* 0x007f42ec left edge direction */
+extern int g_nRdNRaster_yMaxVert;     /* 0x007f42fc bottom vertex */
+extern float *g_pRdNRaster_aVertices;      /* 0x007f4308 screen vertices x, y, z (12 bytes each) */
+extern int g_nRdNRaster_rightVertexStep;         /* 0x007f4394 right edge direction */
+extern unsigned char *g_pDest;  /* 8 bpp destination / the texel of the 16 bpp blended spans */
+extern float *g_dwRdNRaster_aIntensities;         /* per-vertex light */
+extern float *g_dwRdNRaster_aTexVertices;         /* per-vertex u, v */
+extern char *g_pWDest;           /* 16 bpp destination (advanced by the spans) */
+extern unsigned char *g_dwRdNRaster_aAlphaMap; /* light / translucency table */
+extern unsigned char *g_dwRdNRaster_aMonoMap; /* 8 bpp shade table */
+extern unsigned short g_wRdNRaster_RGBcolor;  /* 16 bpp colour */
+extern unsigned short *g_dwRdNRaster_aRGBMap;/* 16 bpp palette (64 rows of 256) */
+extern unsigned char g_bRdNRaster_color;   /* colour / light level byte */
+extern unsigned char *g_dwRdNRaster_aRGBToPalette; /* 16 bpp colour -> palette index */
 extern char *g_dwRdColormap_pCurMap;          /* the colormap; +0x338: the translucency table */
-extern int UINT_007f4460;            /* the z-buffered rasteriser's vertex count (DrawWireframeZ) */
-extern float *PTR_007f44fc;         /* the z-buffered rasteriser's vertices (DrawWireframeZ) */
-extern unsigned short DAT_008dde70;  /* 16 bpp colour (z-buffered half) */
-extern unsigned char DAT_008dde98;   /* 8 bpp colour (z-buffered half) */
-extern unsigned short DAT_00900524, DAT_00900526, DAT_00900528, DAT_0090052a;  /* control words (Services_SetCurrent) */
+extern int g_dwRdZRaster_numVertices;            /* the z-buffered rasteriser's vertex count (DrawWireframeZ) */
+extern float *g_pRdZRaster_aVertices;         /* the z-buffered rasteriser's vertices (DrawWireframeZ) */
+extern unsigned short g_wRdZRaster_RGBcolor;  /* 16 bpp colour (z-buffered half) */
+extern unsigned char g_bRdZRaster_color;   /* 8 bpp colour (z-buffered half) */
+extern unsigned short DAT_00900524, DAT_00900526, DAT_00900528, DAT_0090052a;  /* control words (stdStartup) */
 
 #define Q6_I(p, off) (*(int *)((char *)(p) + (off)))
 #define Q6_U8(p, off) (*(unsigned char *)((char *)(p) + (off)))
@@ -108,25 +108,25 @@ static int q6_next(int i, int dir, int count)
 
 /* ==== DrawPoints: one pixel per vertex (floor of x, y), the material's colour ====
  * 8 bpp: the colour byte of the material (+4); 16 bpp: row 63 of the 16 bpp palette at that index. */
-/* OVERRIDES: rdRaster_DrawPoints */
-void rdRaster_DrawPoints(int p, int mat)
+/* OVERRIDES: rdNRaster_DrawNGonLV */
+void rdNRaster_DrawNGonLV(int p, int mat)
 {
     int bpp = Q6_BPP(), i, x, y;
-    g_pRdRasterVerts = *(float **)(p + 0x20);
-    g_nRdRasterVertCount = Q6_I(p, 0x1c);
+    g_pRdNRaster_aVertices = *(float **)(p + 0x20);
+    g_nRdNRaster_numVertices = Q6_I(p, 0x1c);
     if (bpp == 8) {
-        DAT_008ddec0 = Q6_U8(mat, 4);
-        for (i = 0; i < g_nRdRasterVertCount; i++) {
-            y = q6_floor_i(q6_copy(g_pRdRasterVerts[i * 3 + 1]));
-            x = q6_floor_i(q6_copy(g_pRdRasterVerts[i * 3]));
-            *(unsigned char *)(Q6_I(Q6_CBUF(), 0x18) * y + Q6_I(Q6_CBUF(), 0x5c) + x) = DAT_008ddec0;
+        g_bRdNRaster_color = Q6_U8(mat, 4);
+        for (i = 0; i < g_nRdNRaster_numVertices; i++) {
+            y = q6_floor_i(q6_copy(g_pRdNRaster_aVertices[i * 3 + 1]));
+            x = q6_floor_i(q6_copy(g_pRdNRaster_aVertices[i * 3]));
+            *(unsigned char *)(Q6_I(Q6_CBUF(), 0x18) * y + Q6_I(Q6_CBUF(), 0x5c) + x) = g_bRdNRaster_color;
         }
     } else if (bpp == 16) {
-        DAT_008ddeb8 = (*(unsigned short **)(*(char **)(p + 0x4c) + 0x348))[Q6_U8(mat, 4) + 0x3f00];
-        for (i = 0; i < g_nRdRasterVertCount; i++) {
-            y = q6_floor_i(q6_copy(g_pRdRasterVerts[i * 3 + 1]));
-            x = q6_floor_i(q6_copy(g_pRdRasterVerts[i * 3]));
-            ((unsigned short *)Q6_I(Q6_CBUF(), 0x5c))[((unsigned)Q6_I(Q6_CBUF(), 0x18) >> 1) * y + x] = DAT_008ddeb8;
+        g_wRdNRaster_RGBcolor = (*(unsigned short **)(*(char **)(p + 0x4c) + 0x348))[Q6_U8(mat, 4) + 0x3f00];
+        for (i = 0; i < g_nRdNRaster_numVertices; i++) {
+            y = q6_floor_i(q6_copy(g_pRdNRaster_aVertices[i * 3 + 1]));
+            x = q6_floor_i(q6_copy(g_pRdNRaster_aVertices[i * 3]));
+            ((unsigned short *)Q6_I(Q6_CBUF(), 0x5c))[((unsigned)Q6_I(Q6_CBUF(), 0x18) >> 1) * y + x] = g_wRdNRaster_RGBcolor;
         }
     }
 }
@@ -167,33 +167,33 @@ static void q6_wireframe(float *v, int count, unsigned colour)
     }
 }
 
-/* OVERRIDES: rdRaster_DrawWireframe */
-void rdRaster_DrawWireframe(int p, int mat)
+/* OVERRIDES: rdNRaster_DrawNGonLW */
+void rdNRaster_DrawNGonLW(int p, int mat)
 {
     int bpp = Q6_BPP();
-    g_pRdRasterVerts = *(float **)(p + 0x20);
-    g_nRdRasterVertCount = Q6_I(p, 0x1c);
+    g_pRdNRaster_aVertices = *(float **)(p + 0x20);
+    g_nRdNRaster_numVertices = Q6_I(p, 0x1c);
     if (bpp == 8) {
-        DAT_008ddec0 = Q6_U8(mat, 4);
-        q6_wireframe(g_pRdRasterVerts, g_nRdRasterVertCount, DAT_008ddec0);
+        g_bRdNRaster_color = Q6_U8(mat, 4);
+        q6_wireframe(g_pRdNRaster_aVertices, g_nRdNRaster_numVertices, g_bRdNRaster_color);
     } else if (bpp == 16) {
-        DAT_008ddeb8 = (*(unsigned short **)(*(char **)(p + 0x4c) + 0x348))[Q6_U8(mat, 4) + 0x3f00];
-        q6_wireframe(g_pRdRasterVerts, g_nRdRasterVertCount, DAT_008ddeb8);
+        g_wRdNRaster_RGBcolor = (*(unsigned short **)(*(char **)(p + 0x4c) + 0x348))[Q6_U8(mat, 4) + 0x3f00];
+        q6_wireframe(g_pRdNRaster_aVertices, g_nRdNRaster_numVertices, g_wRdNRaster_RGBcolor);
     }
 }
 
-/* OVERRIDES: rdRaster_DrawWireframeZ */
-void rdRaster_DrawWireframeZ(int p, int mat)
+/* OVERRIDES: rdZRaster_DrawNGonLW */
+void rdZRaster_DrawNGonLW(int p, int mat)
 {
     int bpp = Q6_BPP();
-    PTR_007f44fc = *(float **)(p + 0x20);
-    UINT_007f4460 = Q6_I(p, 0x1c);
+    g_pRdZRaster_aVertices = *(float **)(p + 0x20);
+    g_dwRdZRaster_numVertices = Q6_I(p, 0x1c);
     if (bpp == 8) {
-        DAT_008dde98 = Q6_U8(mat, 4);
-        q6_wireframe(PTR_007f44fc, UINT_007f4460, DAT_008dde98);
+        g_bRdZRaster_color = Q6_U8(mat, 4);
+        q6_wireframe(g_pRdZRaster_aVertices, g_dwRdZRaster_numVertices, g_bRdZRaster_color);
     } else if (bpp == 16) {
-        DAT_008dde70 = (*(unsigned short **)(*(char **)(p + 0x4c) + 0x348))[Q6_U8(mat, 4) + 0x3f00];
-        q6_wireframe(PTR_007f44fc, UINT_007f4460, DAT_008dde70);
+        g_wRdZRaster_RGBcolor = (*(unsigned short **)(*(char **)(p + 0x4c) + 0x348))[Q6_U8(mat, 4) + 0x3f00];
+        q6_wireframe(g_pRdZRaster_aVertices, g_dwRdZRaster_numVertices, g_wRdZRaster_RGBcolor);
     }
 }
 
@@ -210,21 +210,21 @@ static int q6_edge_x(int *e, int dir)
     float yc, dy, s;
     float *v;
     long double d;
-    if (cur == g_nRdRasterEndVertex)
+    if (cur == g_nRdNRaster_yMaxVert)
         return 1;
     for (;;) {
-        next = q6_next(cur, dir, g_nRdRasterVertCount);
-        yc = q6_ceil(q6_copy(g_pRdRasterVerts[cur * 3 + 1]));
+        next = q6_next(cur, dir, g_nRdNRaster_numVertices);
+        yc = q6_ceil(q6_copy(g_pRdNRaster_aVertices[cur * 3 + 1]));
         e[0x10] = q6_floor_i(q6_copy(yc));
-        n = q6_floor_i(q6_copy(q6_ceil(q6_copy(g_pRdRasterVerts[next * 3 + 1])))) - e[0x10];
+        n = q6_floor_i(q6_copy(q6_ceil(q6_copy(g_pRdNRaster_aVertices[next * 3 + 1])))) - e[0x10];
         e[2] = n;
         if (n > 0)
             break;
         cur = next;
-        if (next == g_nRdRasterEndVertex)
+        if (next == g_nRdNRaster_yMaxVert)
             return 1;
     }
-    v = g_pRdRasterVerts;
+    v = g_pRdNRaster_aVertices;
     if (n < 2) {
         e[0] = q6_floor_i(q6_f(v[cur * 3] * 65536.0L));
         e[3] = next;
@@ -239,20 +239,20 @@ static int q6_edge_x(int *e, int dir)
     return 0;
 }
 
-/* OVERRIDES: rdRaster_Edge_Flat */
-int rdRaster_Edge_Flat(int *e)
+/* OVERRIDES: rdNRaster_SetupLeftEdgeNGonLS */
+int rdNRaster_SetupLeftEdgeNGonLS(int *e)
 {
-    return q6_edge_x(e, g_nRdRasterStepA);
+    return q6_edge_x(e, g_nRdNRaster_leftVertexStep);
 }
-/* OVERRIDES: rdRaster_Edge_Flat_2 */
-int rdRaster_Edge_Flat_2(int *e)
+/* OVERRIDES: rdNRaster_SetupRightEdgeNGonLS */
+int rdNRaster_SetupRightEdgeNGonLS(int *e)
 {
-    return q6_edge_x(e, g_nRdRasterStepB);
+    return q6_edge_x(e, g_nRdNRaster_rightVertexStep);
 }
-/* OVERRIDES: rdRaster_Edge_Flat_3 */
-int rdRaster_Edge_Flat_3(int *e)
+/* OVERRIDES: rdNRaster_SetupLeftEdgeNGonFS */
+int rdNRaster_SetupLeftEdgeNGonFS(int *e)
 {
-    return q6_edge_x(e, g_nRdRasterStepA);
+    return q6_edge_x(e, g_nRdNRaster_leftVertexStep);
 }
 
 /* ==== the flat drivers (Draw16_FlatLit, Draw16_TexLit, Draw16_FlatLit_2) ====
@@ -262,32 +262,32 @@ int rdRaster_Edge_Flat_3(int *e)
  * palette, +0x34c 16 bpp -> index), +0x50 winding, +0x6c top, +0x70 bottom. */
 typedef int (*q6_edge_fn)(int *);
 typedef void (*q6_span_fn)(void *, void *);
-extern void rdRaster_Span_Flat(void *, void *), rdRaster_Span16_Flat(void *, void *), rdRaster_Span16_Flat_2(void *, void *);
+extern void rdRaster_Span_Flat(void *, void *), rdNRaster_DrawScanLineNGonLS_16(void *, void *), rdNRaster_DrawScanLineNGonFS_16(void *, void *);
 extern void rdRaster_Span_Tex(void *, void *);
-extern int rdRaster_Edge_Flat_4(int *);
+extern int rdNRaster_SetupRightEdgeNGonFS(int *);
 
 static void q6_poly_globals(int p)
 {
-    g_pRdRasterVerts = *(float **)(p + 0x20);
-    g_nRdRasterVertCount = Q6_I(p, 0x1c);
-    g_nRdRasterStartVertex = Q6_I(p, 0x6c);
-    g_nRdRasterEndVertex = Q6_I(p, 0x70);
+    g_pRdNRaster_aVertices = *(float **)(p + 0x20);
+    g_nRdNRaster_numVertices = Q6_I(p, 0x1c);
+    g_nRdNRaster_yMinVert = Q6_I(p, 0x6c);
+    g_nRdNRaster_yMaxVert = Q6_I(p, 0x70);
     if (Q6_I(p, 0x50)) {
-        g_nRdRasterStepA = -1;
-        g_nRdRasterStepB = 1;
+        g_nRdNRaster_leftVertexStep = -1;
+        g_nRdNRaster_rightVertexStep = 1;
     } else {
-        g_nRdRasterStepA = 1;
-        g_nRdRasterStepB = -1;
+        g_nRdNRaster_leftVertexStep = 1;
+        g_nRdNRaster_rightVertexStep = -1;
     }
 }
 
 static void q6_walk_x(int bpp, q6_edge_fn ea, q6_edge_fn eb, q6_span_fn s8, q6_span_fn s16)
 {
     int a[0x11], b[0x11];
-    a[3] = g_nRdRasterStartVertex;
+    a[3] = g_nRdNRaster_yMinVert;
     if (ea(a))
         return;
-    b[3] = g_nRdRasterStartVertex;
+    b[3] = g_nRdNRaster_yMinVert;
     if (eb(b))
         return;
     for (;;) {
@@ -313,57 +313,57 @@ static void q6_walk_x(int bpp, q6_edge_fn ea, q6_edge_fn eb, q6_span_fn s8, q6_s
 }
 
 /* ==== Draw16_FlatLit: flat colour (8 bpp: the material's index; 16 bpp: palette row 63) ==== */
-/* OVERRIDES: rdRaster_Draw16_FlatLit */
-void rdRaster_Draw16_FlatLit(int p, int mat)
+/* OVERRIDES: rdNRaster_DrawNGonLS */
+void rdNRaster_DrawNGonLS(int p, int mat)
 {
     int bpp = Q6_BPP();
     if (bpp == 8)
-        DAT_008ddec0 = Q6_U8(mat, 4);
+        g_bRdNRaster_color = Q6_U8(mat, 4);
     else if (bpp == 16)
-        DAT_008ddeb8 = (*(unsigned short **)(*(char **)(p + 0x4c) + 0x348))[Q6_U8(mat, 4) + 0x3f00];
+        g_wRdNRaster_RGBcolor = (*(unsigned short **)(*(char **)(p + 0x4c) + 0x348))[Q6_U8(mat, 4) + 0x3f00];
     q6_poly_globals(p);
-    q6_walk_x(bpp, rdRaster_Edge_Flat, rdRaster_Edge_Flat_2, rdRaster_Span_Flat, rdRaster_Span16_Flat);
+    q6_walk_x(bpp, rdNRaster_SetupLeftEdgeNGonLS, rdNRaster_SetupRightEdgeNGonLS, rdRaster_Span_Flat, rdNRaster_DrawScanLineNGonLS_16);
 }
 
 /* ==== Draw16_TexLit: translucent flat colour (the spans remap the frame buffer through the light table) ====
  * 16 bpp: palette row 63, the colour at the material's (dword) index, its palette index as the level. */
-extern void rdRaster_Span16_Tex(void *, void *);
-/* OVERRIDES: rdRaster_Draw16_TexLit */
-void rdRaster_Draw16_TexLit(int p, int mat)
+extern void rdNRaster_DrawScanLineNGonTLS_16(void *, void *);
+/* OVERRIDES: rdNRaster_DrawNGonTLS */
+void rdNRaster_DrawNGonTLS(int p, int mat)
 {
     int bpp = Q6_BPP();
     if (bpp == 8)
-        DAT_008ddec0 = Q6_U8(mat, 4);
+        g_bRdNRaster_color = Q6_U8(mat, 4);
     else if (bpp == 16) {
-        UINT_008ddebc = (unsigned short *)(*(char **)(*(char **)(p + 0x4c) + 0x348) + 0x7e00);
-        DAT_008ddeb8 = (*(unsigned short **)(*(char **)(p + 0x4c) + 0x348))[Q6_I(mat, 4) + 0x3f00];
-        UINT_008dded4 = *(unsigned char **)(*(char **)(p + 0x4c) + 0x34c);
-        DAT_008ddec0 = UINT_008dded4[DAT_008ddeb8];
+        g_dwRdNRaster_aRGBMap = (unsigned short *)(*(char **)(*(char **)(p + 0x4c) + 0x348) + 0x7e00);
+        g_wRdNRaster_RGBcolor = (*(unsigned short **)(*(char **)(p + 0x4c) + 0x348))[Q6_I(mat, 4) + 0x3f00];
+        g_dwRdNRaster_aRGBToPalette = *(unsigned char **)(*(char **)(p + 0x4c) + 0x34c);
+        g_bRdNRaster_color = g_dwRdNRaster_aRGBToPalette[g_wRdNRaster_RGBcolor];
     }
     q6_poly_globals(p);
-    UINT_008ddea8 = *(unsigned char **)(g_dwRdColormap_pCurMap + 0x338);
-    q6_walk_x(bpp, rdRaster_Edge_Flat, rdRaster_Edge_Flat_2, rdRaster_Span_Tex, rdRaster_Span16_Tex);
+    g_dwRdNRaster_aAlphaMap = *(unsigned char **)(g_dwRdColormap_pCurMap + 0x338);
+    q6_walk_x(bpp, rdNRaster_SetupLeftEdgeNGonLS, rdNRaster_SetupRightEdgeNGonLS, rdRaster_Span_Tex, rdNRaster_DrawScanLineNGonTLS_16);
 }
 
 /* ==== Draw16_FlatLit_2: flat colour at the light level floor(light) ==== */
-/* OVERRIDES: rdRaster_Draw16_FlatLit_2 */
-void rdRaster_Draw16_FlatLit_2(int p, int mat, float light)
+/* OVERRIDES: rdNRaster_DrawNGonFS */
+void rdNRaster_DrawNGonFS(int p, int mat, float light)
 {
     int bpp = Q6_BPP();
     if (bpp == 8)
-        DAT_008ddec0 = (*(unsigned char **)(*(char **)(p + 0x4c) + 0x330))[Q6_I(mat, 4) + q6_floor_i(light) * 256];
+        g_bRdNRaster_color = (*(unsigned char **)(*(char **)(p + 0x4c) + 0x330))[Q6_I(mat, 4) + q6_floor_i(light) * 256];
     else if (bpp == 16)
-        DAT_008ddeb8 = (*(unsigned short **)(*(char **)(p + 0x4c) + 0x348))[Q6_I(mat, 4) + q6_floor_i(light) * 256];
+        g_wRdNRaster_RGBcolor = (*(unsigned short **)(*(char **)(p + 0x4c) + 0x348))[Q6_I(mat, 4) + q6_floor_i(light) * 256];
     q6_poly_globals(p);
-    q6_walk_x(bpp, rdRaster_Edge_Flat_3, rdRaster_Edge_Flat_4, rdRaster_Span_Flat, rdRaster_Span16_Flat_2);
+    q6_walk_x(bpp, rdNRaster_SetupLeftEdgeNGonFS, rdNRaster_SetupRightEdgeNGonFS, rdRaster_Span_Flat, rdNRaster_DrawScanLineNGonFS_16);
 }
 
 /* ==== Span16_Tex: 16 bpp translucent flat span ====
  * Pixels ceil(L.x) .. ceil(R.x) - 1 (16.16, unsigned >> 16) of row L.y: the colour is the palette entry of
- * light[level * 256 + index[*PTR_007f4300]] (the 8 bpp destination pointer is read, not advanced: the original's
- * stale pointer); the 16 bpp destination is the global PTR_007f43a8, left after the span. */
-/* OVERRIDES: rdRaster_Span16_Tex */
-void rdRaster_Span16_Tex(void *pl, void *pr)
+ * light[level * 256 + index[*g_pDest]] (the 8 bpp destination pointer is read, not advanced: the original's
+ * stale pointer); the 16 bpp destination is the global g_pWDest, left after the span. */
+/* OVERRIDES: rdNRaster_DrawScanLineNGonTLS_16 */
+void rdNRaster_DrawScanLineNGonTLS_16(void *pl, void *pr)
 {
     unsigned *L = pl, *R = pr, xl = L[0], xr = R[0];
     int n;
@@ -375,11 +375,11 @@ void rdRaster_Span16_Tex(void *pl, void *pr)
     n = (int)((xr >> 16) - xl);
     if (n <= 0)
         return;
-    PTR_007f43a8 = Q6_I(Q6_CBUF(), 0x5c) + (L[0x10] * ((unsigned)Q6_I(Q6_CBUF(), 0x18) >> 1) + xl) * 2;
+    g_pWDest = Q6_I(Q6_CBUF(), 0x5c) + (L[0x10] * ((unsigned)Q6_I(Q6_CBUF(), 0x18) >> 1) + xl) * 2;
     do {
-        *(unsigned short *)PTR_007f43a8 =
-            UINT_008ddebc[UINT_008ddea8[DAT_008ddec0 * 256 + UINT_008dded4[*PTR_007f4300]]];
-        PTR_007f43a8 += 2;
+        *(unsigned short *)g_pWDest =
+            g_dwRdNRaster_aRGBMap[g_dwRdNRaster_aAlphaMap[g_bRdNRaster_color * 256 + g_dwRdNRaster_aRGBToPalette[*g_pDest]]];
+        g_pWDest += 2;
     } while (--n);
 }
 
@@ -392,10 +392,10 @@ void rdRaster_Span16_Tex(void *pl, void *pr)
  * as the vertex after the top and dir is -1 unless |_ftol(xc - xb)| > 1 or |_ftol(xc - xa)| > 1 (32-bit abs, compared as
  * a float), in which case it is +1 when c is at least 1 away in y from the line a -> b (d = yc - ((yb - ya) / (xb - xa)
  * * (xc - xa) + ya), negated unless d >= 0, then d >= 1), else -1. */
-extern int UINT_008ddee4;            /* mip level */
-extern int UINT_008ddef8, UINT_008ddeac; /* u / v rounding bias (0x8000 / 0x7fff) */
-extern float DAT_008ddef4, DAT_008ddef0, DAT_008ddec8, DAT_008ddec4, DAT_008ddedc, DAT_008ddee0;  /* plane gradients */
-extern float UINT_007f43c8[], UINT_007f4260[], UINT_007f4310[];  /* per vertex 1/z, u/z, v/z (Grad_Flat_2) */
+extern int g_dwRdNRaster_mipMapNum;            /* mip level */
+extern int g_dwRdNRaster_dUdXModifier, g_dwRdNRaster_dVdXModifier; /* u / v rounding bias (0x8000 / 0x7fff) */
+extern float g_dwRdNRaster_dOneOverZdX, g_dwRdNRaster_dOneOverZdY, g_dwRdNRaster_dUOverZdX, g_dwRdNRaster_dUOverZdY, g_dwRdNRaster_dVOverZdX, g_dwRdNRaster_dVOverZdY;  /* plane gradients */
+extern float g_dwRdNRaster_aOneOverZ[], g_dwRdNRaster_aUOverZ[], g_dwRdNRaster_aVOverZ[];  /* per vertex 1/z, u/z, v/z (Grad_Flat_2) */
 extern float DAT_004dda90, g_aRdroid_MipDistances, DAT_004dda98;  /* mip distance thresholds (10, 20, 40) */
 
 /* _ftol: truncation of the x87 value to a 64-bit integer, low dword */
@@ -460,10 +460,10 @@ static void q6_pick(float *V, int cnt, int start, int end, int cbits, int *pa, i
 /* the edge walker's pick: the rasteriser globals */
 static void q6_grad_pick(int cbits, int *pa, int *pb, int *pc)
 {
-    q6_pick(g_pRdRasterVerts, g_nRdRasterVertCount, g_nRdRasterStartVertex, g_nRdRasterEndVertex, cbits, pa, pb, pc);
+    q6_pick(g_pRdNRaster_aVertices, g_nRdNRaster_numVertices, g_nRdNRaster_yMinVert, g_nRdNRaster_yMaxVert, cbits, pa, pb, pc);
 }
 
-/* the mip level from the distance and the mode UINT_007f4250 (mip count - 1): 0 -> 0; 1 -> 1 if d > 20; 2 -> 0 / 1 / 2
+/* the mip level from the distance and the mode g_dwRdNRaster_maxMipMap (mip count - 1): 0 -> 0; 1 -> 1 if d > 20; 2 -> 0 / 1 / 2
  * by d > 10, d > 20; 3 -> 0..3 by d > 10, 20, 40 (a NaN compares "not greater"); another mode leaves it as it was */
 static void q6_mip_level(float dist, int mode, int *level)
 {
@@ -485,7 +485,7 @@ static void q6_mip_level(float dist, int mode, int *level)
 
 static void q6_mip(float dist)
 {
-    q6_mip_level(dist, UINT_007f4250, &UINT_008ddee4);
+    q6_mip_level(dist, g_dwRdNRaster_maxMipMap, &g_dwRdNRaster_mipMapNum);
 }
 
 /* Grad_Flat: the u / v rounding biases from the signs of the plane gradients through a, b, c (only their signs are
@@ -535,12 +535,12 @@ static void q6_affine_bias(float *V, float *T, int a, int b, int c, int *ubias, 
         *vbias = 0x8000;
 }
 
-/* OVERRIDES: rdRaster_Grad_Flat */
-void rdRaster_Grad_Flat(int dbits)
+/* OVERRIDES: rdNRaster_CalcAffineGradients */
+void rdNRaster_CalcAffineGradients(int dbits)
 {
     int a, b, c;
     q6_grad_pick(dbits, &a, &b, &c);
-    q6_affine_bias(g_pRdRasterVerts, UINT_007f4398, a, b, c, &UINT_008ddef8, &UINT_008ddeac);
+    q6_affine_bias(g_pRdNRaster_aVertices, g_dwRdNRaster_aTexVertices, a, b, c, &g_dwRdNRaster_dUdXModifier, &g_dwRdNRaster_dVdXModifier);
     q6_mip(*(float *)&dbits);
 }
 
@@ -555,25 +555,25 @@ void rdRaster_Grad_Flat(int dbits)
  * When the vertex next to the top is the bottom (and the polygon is not a triangle), c starts from a stack slot the
  * original never writes (garbage of the caller's frame) and stays so unless a vertex's x differs from the midpoint;
  * the C starts it at 0. */
-/* OVERRIDES: rdRaster_Grad_Flat_2 */
-void rdRaster_Grad_Flat_2(int dbits)
+/* OVERRIDES: rdNRaster_CalcPerspGradients */
+void rdNRaster_CalcPerspGradients(int dbits)
 {
     float dist = *(float *)&dbits;
     int a, b, c, i;
     float *va, *vb, *vc;
-    float *W = UINT_007f43c8, *U = UINT_007f4260, *V = UINT_007f4310;
+    float *W = g_dwRdNRaster_aOneOverZ, *U = g_dwRdNRaster_aUOverZ, *V = g_dwRdNRaster_aVOverZ;
     long double R, dWb, w;
     float fdYa, fdYb, fdXa, fdXb, fR, fnR, fdWa, fdUb, fdUa, fdVb, fdVa;
     q6_grad_pick(0, &a, &b, &c);
-    for (i = 0; i < g_nRdRasterVertCount; i++) {
-        w = 1.0L / g_pRdRasterVerts[i * 3 + 2];
+    for (i = 0; i < g_nRdNRaster_numVertices; i++) {
+        w = 1.0L / g_pRdNRaster_aVertices[i * 3 + 2];
         W[i] = q6_f(w);
-        U[i] = q6_f(UINT_007f4398[i * 2] * w);
-        V[i] = q6_f((long double)UINT_007f4398[i * 2 + 1] * W[i]);
+        U[i] = q6_f(g_dwRdNRaster_aTexVertices[i * 2] * w);
+        V[i] = q6_f((long double)g_dwRdNRaster_aTexVertices[i * 2 + 1] * W[i]);
     }
-    va = g_pRdRasterVerts + a * 3;
-    vb = g_pRdRasterVerts + b * 3;
-    vc = g_pRdRasterVerts + c * 3;
+    va = g_pRdNRaster_aVertices + a * 3;
+    vb = g_pRdNRaster_aVertices + b * 3;
+    vc = g_pRdNRaster_aVertices + c * 3;
     fdYa = q6_f((long double)va[1] - vc[1]);
     fdYb = q6_f((long double)vb[1] - vc[1]);
     fdXa = q6_f((long double)va[0] - vc[0]);
@@ -587,35 +587,35 @@ void rdRaster_Grad_Flat_2(int dbits)
     fdVa = q6_f((long double)V[a] - V[c]);
     fR = q6_f(R);
     fnR = q6_f(-(long double)fR);
-    DAT_008ddef4 = q6_f((dWb * fdYa - (long double)fdWa * fdYb) * fR);
-    DAT_008ddef0 = q6_f((dWb * fdXa - (long double)fdWa * fdXb) * fnR);
-    DAT_008ddec8 = q6_f(((long double)fdUb * fdYa - (long double)fdUa * fdYb) * fR);
-    DAT_008ddec4 = q6_f(((long double)fdUb * fdXa - (long double)fdUa * fdXb) * fnR);
-    DAT_008ddedc = q6_f(((long double)fdVb * fdYa - (long double)fdVa * fdYb) * fR);
-    DAT_008ddee0 = q6_f(((long double)fdVb * fdXa - (long double)fdVa * fdXb) * fnR);
+    g_dwRdNRaster_dOneOverZdX = q6_f((dWb * fdYa - (long double)fdWa * fdYb) * fR);
+    g_dwRdNRaster_dOneOverZdY = q6_f((dWb * fdXa - (long double)fdWa * fdXb) * fnR);
+    g_dwRdNRaster_dUOverZdX = q6_f(((long double)fdUb * fdYa - (long double)fdUa * fdYb) * fR);
+    g_dwRdNRaster_dUOverZdY = q6_f(((long double)fdUb * fdXa - (long double)fdUa * fdXb) * fnR);
+    g_dwRdNRaster_dVOverZdX = q6_f(((long double)fdVb * fdYa - (long double)fdVa * fdYb) * fR);
+    g_dwRdNRaster_dVOverZdY = q6_f(((long double)fdVb * fdXa - (long double)fdVa * fdXb) * fnR);
     q6_mip(dist);
     {
-        long double t = (long double)W[a] * DAT_008ddec8 - (long double)U[a] * DAT_008ddef4;
+        long double t = (long double)W[a] * g_dwRdNRaster_dUOverZdX - (long double)U[a] * g_dwRdNRaster_dOneOverZdX;
         if (t > 0.0L)
-            UINT_008ddef8 = 0x8000;
-        else if (!(t >= 0.0L) || !((long double)W[a] * DAT_008ddec4 - (long double)U[a] * DAT_008ddef0 >= 0.0L))
-            UINT_008ddef8 = 0x7fff;
+            g_dwRdNRaster_dUdXModifier = 0x8000;
+        else if (!(t >= 0.0L) || !((long double)W[a] * g_dwRdNRaster_dUOverZdY - (long double)U[a] * g_dwRdNRaster_dOneOverZdY >= 0.0L))
+            g_dwRdNRaster_dUdXModifier = 0x7fff;
         else
-            UINT_008ddef8 = 0x8000;
-        t = (long double)W[a] * DAT_008ddedc - (long double)V[a] * DAT_008ddef4;
+            g_dwRdNRaster_dUdXModifier = 0x8000;
+        t = (long double)W[a] * g_dwRdNRaster_dVOverZdX - (long double)V[a] * g_dwRdNRaster_dOneOverZdX;
         if (t > 0.0L)
-            UINT_008ddeac = 0x8000;
-        else if (!(t >= 0.0L) || !((long double)W[a] * DAT_008ddee0 - (long double)V[a] * DAT_008ddef0 >= 0.0L))
-            UINT_008ddeac = 0x7fff;
+            g_dwRdNRaster_dVdXModifier = 0x8000;
+        else if (!(t >= 0.0L) || !((long double)W[a] * g_dwRdNRaster_dVOverZdY - (long double)V[a] * g_dwRdNRaster_dOneOverZdY >= 0.0L))
+            g_dwRdNRaster_dVdXModifier = 0x7fff;
         else
-            UINT_008ddeac = 0x8000;
+            g_dwRdNRaster_dVdXModifier = 0x8000;
     }
 }
 
 /* ========================================================================================================
  * The perspective-correct spans of the edge walker (Span16_Tex_10 .. 15, Span_Tex_6 .. 8, Span*_TexKey_3 .. 11,
  * Span_FlatKey_2).  The edges carry three plane values per scan line (e[4] 1/z, e[6] u/z, e[8] v/z, floats; their
- * per-pixel gradients DAT_008ddef4 / ec8 / edc and their 16-pixel steps DAT_008ddeec / ed0 / f00 are set by the
+ * per-pixel gradients g_dwRdNRaster_dOneOverZdX / ec8 / edc and their 16-pixel steps g_dwRdNRaster_oneOverZStep / ed0 / f00 are set by the
  * drivers after Grad_Flat_2).  The span is drawn in runs: a head of 16 - (xl % 16) pixels (C remainder, so 17 .. 31
  * for a negative xl; at most n), runs of 16, and a tail (rest % 16, or 16); for each run u and v are computed exactly
  * at its two ends (u = U / W, v = V / W) and stepped linearly in 16.16 inside it.
@@ -637,16 +637,16 @@ void rdRaster_Grad_Flat_2(int dbits)
  *   kind 15 (Span_Tex_8, Span16_Tex_15, Span8_TexKey_4, Span16_TexKey_10, Span_TexKey_7, Span16_TexKey_11: gouraud):
  *        as 12, the third plane value rounded to a float at the start, and a light value l (16.16, stepped by
  *        (R.l - L.l) * (65536/n) >> 16, 0 when in -1309 .. -1, starting at frac * dl >> 16 + L.l; row (l >> 8) & 0x3f00).
- *   8 / 16 bpp: 8 bpp writes through a local pointer, 16 bpp through PTR_007f43a8 (left after the span).
+ *   8 / 16 bpp: 8 bpp writes through a local pointer, 16 bpp through g_pWDest (left after the span).
  *   KEY: texel 0 is not drawn.  The pixel (q6_ppix): see the enum.
  * A span that starts on a multiple of 16 has no head; when it is then a single pixel (no run, tail 1), the original
  * draws it with u and v registers it never set in that path: they hold the bits of the first plane value after its
  * 16-pixel step (or, in the 8 bpp gouraud spans, the light value), and the C uses the same bits. */
-extern unsigned char *UINT_008ddee8;  /* texels of the mip level */
-extern int UINT_008dded8;             /* log2 width of the mip level */
-extern int UINT_008ddecc;             /* u mask << 16 */
-extern int UINT_008ddefc;             /* v mask << log2 width */
-extern float DAT_008ddeec, DAT_008dded0, DAT_008ddf00;  /* the plane gradients times 16 */
+extern unsigned char *g_dwRdNRaster_pPixels;  /* texels of the mip level */
+extern int g_dwRdNRaster_texRowShift;             /* log2 width of the mip level */
+extern int g_dwRdNRaster_uWrap;             /* u mask << 16 */
+extern int g_dwRdNRaster_vWrap;             /* v mask << log2 width */
+extern float g_dwRdNRaster_oneOverZStep, g_dwRdNRaster_uOverZStep, g_dwRdNRaster_vOverZStep;  /* the plane gradients times 16 */
 extern int g_aRdRaster_OneOverNFixed[];            /* 65536 / n */
 extern float g_dwRdRaster_aOneOverNFlex[];         /* 1.0f / n */
 
@@ -669,8 +669,8 @@ enum {
     Q6P_BLEND8,       /* 8 bpp: blend[tx * 256 + d] */
     Q6P_SHADE_BLEND,  /* 8 bpp: blend[shade[lrow + tx] * 256 + d] */
     Q6P_BLEND_SHADE,  /* 8 bpp: shade[lrow + blend[tx * 256 + d]] */
-    Q6P_BLEND16,      /* 16 bpp: palette[lrow + blend[tx * 256 + index[*PTR_007f4300]]] (the stale 8 bpp pointer) */
-    Q6P_ODD16         /* 16 bpp: palette[blend[index[palette[lrow + tx] << 8] + index[*PTR_007f4300]]]: the original
+    Q6P_BLEND16,      /* 16 bpp: palette[lrow + blend[tx * 256 + index[*g_pDest]]] (the stale 8 bpp pointer) */
+    Q6P_ODD16         /* 16 bpp: palette[blend[index[palette[lrow + tx] << 8] + index[*g_pDest]]]: the original
                        * indexes the 16 bpp -> index table with the colour times 256 (far past the table) */
 };
 
@@ -680,27 +680,27 @@ static int q6_ppix(int mode, unsigned tx, int lrow, unsigned d)
     case Q6P_TEX:
         return tx;
     case Q6P_PAL:
-        return UINT_008ddebc[lrow + tx];
+        return g_dwRdNRaster_aRGBMap[lrow + tx];
     case Q6P_SHADE:
-        return UINT_008ddeb0[lrow + tx];
+        return g_dwRdNRaster_aMonoMap[lrow + tx];
     case Q6P_BLEND8:
-        return UINT_008ddea8[tx * 256 + d];
+        return g_dwRdNRaster_aAlphaMap[tx * 256 + d];
     case Q6P_SHADE_BLEND:
-        return UINT_008ddea8[UINT_008ddeb0[lrow + tx] * 256 + d];
+        return g_dwRdNRaster_aAlphaMap[g_dwRdNRaster_aMonoMap[lrow + tx] * 256 + d];
     case Q6P_BLEND_SHADE:
-        return UINT_008ddeb0[lrow + UINT_008ddea8[tx * 256 + d]];
+        return g_dwRdNRaster_aMonoMap[lrow + g_dwRdNRaster_aAlphaMap[tx * 256 + d]];
     case Q6P_BLEND16:
-        return UINT_008ddebc[lrow + UINT_008ddea8[tx * 256 + UINT_008dded4[*PTR_007f4300]]];
+        return g_dwRdNRaster_aRGBMap[lrow + g_dwRdNRaster_aAlphaMap[tx * 256 + g_dwRdNRaster_aRGBToPalette[*g_pDest]]];
     default:
-        return UINT_008ddebc[UINT_008ddea8[UINT_008dded4[(unsigned)UINT_008ddebc[lrow + tx] << 8] +
-                                            UINT_008dded4[*PTR_007f4300]]];
+        return g_dwRdNRaster_aRGBMap[g_dwRdNRaster_aAlphaMap[g_dwRdNRaster_aRGBToPalette[(unsigned)g_dwRdNRaster_aRGBMap[lrow + tx] << 8] +
+                                            g_dwRdNRaster_aRGBToPalette[*g_pDest]]];
     }
 }
 
 /* the texel at (u, v): texels[(u >> 16 & umask) + (v >> (16 - log2 w) & vmask)] (arithmetic shifts, count mod 32) */
 static unsigned q6_texel(int u, int v)
 {
-    return UINT_008ddee8[((u >> 16) & (UINT_008ddecc >> 16)) + ((v >> ((16 - UINT_008dded8) & 31)) & UINT_008ddefc)];
+    return g_dwRdNRaster_pPixels[((u >> 16) & (g_dwRdNRaster_uWrap >> 16)) + ((v >> ((16 - g_dwRdNRaster_texRowShift) & 31)) & g_dwRdNRaster_vWrap)];
 }
 
 typedef struct {
@@ -717,12 +717,12 @@ static void q6_ppixels(q6_pstate *s, int count)
         int lrow = s->lit ? (s->l >> 8) & 0x3f00 : 0;
         if (!s->key || tx) {
             if (s->bpp16)
-                *(unsigned short *)PTR_007f43a8 = (unsigned short)q6_ppix(s->mode, tx, lrow, 0);
+                *(unsigned short *)g_pWDest = (unsigned short)q6_ppix(s->mode, tx, lrow, 0);
             else
                 *s->d8 = (unsigned char)q6_ppix(s->mode, tx, lrow, *s->d8);
         }
         if (s->bpp16)
-            PTR_007f43a8 += 2;
+            g_pWDest += 2;
         else
             s->d8++;
         s->u += s->du;
@@ -735,13 +735,13 @@ static void q6_ppixels(q6_pstate *s, int count)
 /* the 16.16 start of u or v of a run: floor(float(x * 65536)) >> mip, plus the rounding bias */
 static int q6_pstart(float x, int bias)
 {
-    return (q6_floor_i(q6_f(x * 65536.0L)) >> (UINT_008ddee4 & 31)) + bias;
+    return (q6_floor_i(q6_f(x * 65536.0L)) >> (g_dwRdNRaster_mipMapNum & 31)) + bias;
 }
 
 /* the per-pixel step: floor(float(d)) >> mip */
 static int q6_pstep(long double d)
 {
-    return q6_floor_i(q6_f(d)) >> (UINT_008ddee4 & 31);
+    return q6_floor_i(q6_f(d)) >> (g_dwRdNRaster_mipMapNum & 31);
 }
 
 static void q6_pspan(int *L, int *R, int kind, int bpp16, int key, int mode)
@@ -789,9 +789,9 @@ static void q6_pspan(int *L, int *R, int kind, int bpp16, int key, int mode)
     }
     /* the plane values at the first pixel centre column and u, v there */
     sub = (long double)frac * (1.0f / 65536.0f);
-    p0 = q6_f(sub * DAT_008ddef4 + ((float *)L)[4]);
-    p1 = q6_f(sub * DAT_008ddec8 + ((float *)L)[6]);
-    p2x = sub * DAT_008ddedc + ((float *)L)[8];
+    p0 = q6_f(sub * g_dwRdNRaster_dOneOverZdX + ((float *)L)[4]);
+    p1 = q6_f(sub * g_dwRdNRaster_dUOverZdX + ((float *)L)[6]);
+    p2x = sub * g_dwRdNRaster_dVOverZdX + ((float *)L)[8];
     if (kind == 15) {
         p2 = q6_f(p2x);
         p2x = p2;
@@ -800,32 +800,32 @@ static void q6_pspan(int *L, int *R, int kind, int bpp16, int key, int mode)
     u0 = q6_f(r * p1);
     v0 = q6_f(r * p2x);
     if (bpp16)
-        PTR_007f43a8 = Q6_I(Q6_CBUF(), 0x5c) + (L[0x10] * ((unsigned)Q6_I(Q6_CBUF(), 0x18) >> 1) + xl) * 2;
+        g_pWDest = Q6_I(Q6_CBUF(), 0x5c) + (L[0x10] * ((unsigned)Q6_I(Q6_CBUF(), 0x18) >> 1) + xl) * 2;
     else
         s.d8 = (unsigned char *)(L[0x10] * Q6_I(Q6_CBUF(), 0x18) + Q6_I(Q6_CBUF(), 0x5c) + xl);
     if (head) {
         h = head;
         inv = q6_copy(g_dwRdRaster_aOneOverNFlex[head]);
-        p0 = q6_f(h * DAT_008ddef4 + p0);
-        p1 = q6_f(h * DAT_008ddec8 + p1);
-        p2 = q6_f(h * DAT_008ddedc + p2x);
+        p0 = q6_f(h * g_dwRdNRaster_dOneOverZdX + p0);
+        p1 = q6_f(h * g_dwRdNRaster_dUOverZdX + p1);
+        p2 = q6_f(h * g_dwRdNRaster_dVOverZdX + p2x);
         r = 1.0L / p0;
         u1 = q6_f(r * p1);
         v1 = q6_f(r * p2);
         s.du = q6_pstep(((long double)u1 - u0) * inv * 65536.0f);
         s.dv = q6_pstep(((long double)v1 - v0) * inv * 65536.0f);
-        s.u = q6_pstart(u0, UINT_008ddef8);
-        s.v = q6_pstart(v0, UINT_008ddeac);
+        s.u = q6_pstart(u0, g_dwRdNRaster_dUdXModifier);
+        s.v = q6_pstart(v0, g_dwRdNRaster_dVdXModifier);
         q6_ppixels(&s, head);
-        p0 = q6_f((long double)p0 + DAT_008ddeec);
+        p0 = q6_f((long double)p0 + g_dwRdNRaster_oneOverZStep);
         u0 = u1;
         v0 = v1;
-        p1 = q6_f((long double)p1 + DAT_008dded0);
-        p2 = q6_f((long double)p2 + DAT_008ddf00);
+        p1 = q6_f((long double)p1 + g_dwRdNRaster_uOverZStep);
+        p2 = q6_f((long double)p2 + g_dwRdNRaster_vOverZStep);
     } else {
-        p0 = q6_f((long double)p0 + DAT_008ddeec);
-        p1 = q6_f((long double)p1 + DAT_008dded0);
-        p2 = q6_f(p2x + DAT_008ddf00);
+        p0 = q6_f((long double)p0 + g_dwRdNRaster_oneOverZStep);
+        p1 = q6_f((long double)p1 + g_dwRdNRaster_uOverZStep);
+        p2 = q6_f(p2x + g_dwRdNRaster_vOverZStep);
         /* registers the original leaves as they are in this path (used if the span is a single tail pixel) */
         s.u = s.v = (kind == 15 && !bpp16) ? s.l : q6_u32(p0);
         s.du = s.dv = 0;
@@ -836,82 +836,82 @@ static void q6_pspan(int *L, int *R, int kind, int bpp16, int key, int mode)
         v1 = q6_f(r * p2);
         s.du = q6_pstep(((long double)u1 - u0) * 0.0625f * 65536.0f);
         s.dv = q6_pstep(((long double)v1 - v0) * 0.0625f * 65536.0f);
-        s.u = q6_pstart(u0, UINT_008ddef8);
-        s.v = q6_pstart(v0, UINT_008ddeac);
+        s.u = q6_pstart(u0, g_dwRdNRaster_dUdXModifier);
+        s.v = q6_pstart(v0, g_dwRdNRaster_dVdXModifier);
         q6_ppixels(&s, 16);
-        p0 = q6_f((long double)p0 + DAT_008ddeec);
+        p0 = q6_f((long double)p0 + g_dwRdNRaster_oneOverZStep);
         u0 = u1;
         v0 = v1;
-        p1 = q6_f((long double)p1 + DAT_008dded0);
-        p2 = q6_f((long double)p2 + DAT_008ddf00);
+        p1 = q6_f((long double)p1 + g_dwRdNRaster_uOverZStep);
+        p2 = q6_f((long double)p2 + g_dwRdNRaster_vOverZStep);
     }
     if (tail) {
         t = tail - 1;
         if (t) {
             if (kind == 10) {
                 tf = q6_f((long double)t);
-                r = 1.0L / ((long double)tf * DAT_008ddef4 - DAT_008ddeec + p0);
-                u1 = q6_f(((long double)tf * DAT_008ddec8 - DAT_008dded0 + p1) * r);
-                v1 = q6_f(((long double)tf * DAT_008ddedc - DAT_008ddf00 + p2) * r);
+                r = 1.0L / ((long double)tf * g_dwRdNRaster_dOneOverZdX - g_dwRdNRaster_oneOverZStep + p0);
+                u1 = q6_f(((long double)tf * g_dwRdNRaster_dUOverZdX - g_dwRdNRaster_uOverZStep + p1) * r);
+                v1 = q6_f(((long double)tf * g_dwRdNRaster_dVOverZdX - g_dwRdNRaster_vOverZStep + p2) * r);
                 s.du = q6_pstep(((long double)u1 - u0) / tf * 65536.0f);
                 s.dv = q6_pstep(((long double)v1 - v0) / tf * 65536.0f);
             } else {
                 h = t;
                 inv = q6_copy(g_dwRdRaster_aOneOverNFlex[t]);
-                r = 1.0L / (h * DAT_008ddef4 - DAT_008ddeec + p0);
-                u1 = q6_f((h * DAT_008ddec8 - DAT_008dded0 + p1) * r);
-                v1 = q6_f((h * DAT_008ddedc - DAT_008ddf00 + p2) * r);
+                r = 1.0L / (h * g_dwRdNRaster_dOneOverZdX - g_dwRdNRaster_oneOverZStep + p0);
+                u1 = q6_f((h * g_dwRdNRaster_dUOverZdX - g_dwRdNRaster_uOverZStep + p1) * r);
+                v1 = q6_f((h * g_dwRdNRaster_dVOverZdX - g_dwRdNRaster_vOverZStep + p2) * r);
                 s.du = q6_pstep(((long double)u1 - u0) * inv * 65536.0f);
                 s.dv = q6_pstep(((long double)v1 - v0) * inv * 65536.0f);
             }
-            s.u = q6_pstart(u0, UINT_008ddef8);
-            s.v = q6_pstart(v0, UINT_008ddeac);
+            s.u = q6_pstart(u0, g_dwRdNRaster_dUdXModifier);
+            s.v = q6_pstart(v0, g_dwRdNRaster_dVdXModifier);
         }
         q6_ppixels(&s, t + 1);
     }
     q6_fldcw(&DAT_00900524);
 }
 
-/* OVERRIDES: rdRaster_Span16_Tex_10 */
-void rdRaster_Span16_Tex_10(int *L, int *R) { q6_pspan(L, R, 10, 1, 0, Q6P_PAL); }
-/* OVERRIDES: rdRaster_Span_Tex_6 */
-void rdRaster_Span_Tex_6(int *L, int *R) { q6_pspan(L, R, 10, 0, 0, Q6P_BLEND8); }
-/* OVERRIDES: rdRaster_Span16_Tex_11 */
-void rdRaster_Span16_Tex_11(int *L, int *R) { q6_pspan(L, R, 10, 1, 0, Q6P_BLEND16); }
-/* OVERRIDES: rdRaster_Span_FlatKey_2 */
-void rdRaster_Span_FlatKey_2(int *L, int *R) { q6_pspan(L, R, 10, 0, 1, Q6P_TEX); }
-/* OVERRIDES: rdRaster_Span16_TexKey_6 */
-void rdRaster_Span16_TexKey_6(int *L, int *R) { q6_pspan(L, R, 10, 1, 1, Q6P_PAL); }
-/* OVERRIDES: rdRaster_Span_TexKey_5 */
-void rdRaster_Span_TexKey_5(int *L, int *R) { q6_pspan(L, R, 10, 0, 1, Q6P_BLEND8); }
-/* OVERRIDES: rdRaster_Span16_TexKey_7 */
-void rdRaster_Span16_TexKey_7(int *L, int *R) { q6_pspan(L, R, 10, 1, 1, Q6P_BLEND16); }
-/* OVERRIDES: rdRaster_Span16_Tex_12 */
-void rdRaster_Span16_Tex_12(int *L, int *R) { q6_pspan(L, R, 12, 1, 0, Q6P_PAL); }
-/* OVERRIDES: rdRaster_Span_Tex_7 */
-void rdRaster_Span_Tex_7(int *L, int *R) { q6_pspan(L, R, 12, 0, 0, Q6P_SHADE_BLEND); }
-/* OVERRIDES: rdRaster_Span16_Tex_13 */
-void rdRaster_Span16_Tex_13(int *L, int *R) { q6_pspan(L, R, 12, 1, 0, Q6P_ODD16); }
-/* OVERRIDES: rdRaster_Span8_TexKey_3 */
-void rdRaster_Span8_TexKey_3(int *L, int *R) { q6_pspan(L, R, 12, 0, 1, Q6P_SHADE); }
-/* OVERRIDES: rdRaster_Span16_TexKey_8 */
-void rdRaster_Span16_TexKey_8(int *L, int *R) { q6_pspan(L, R, 12, 1, 1, Q6P_PAL); }
-/* OVERRIDES: rdRaster_Span_TexKey_6 */
-void rdRaster_Span_TexKey_6(int *L, int *R) { q6_pspan(L, R, 12, 0, 1, Q6P_BLEND_SHADE); }
-/* OVERRIDES: rdRaster_Span16_TexKey_9 */
-void rdRaster_Span16_TexKey_9(int *L, int *R) { q6_pspan(L, R, 12, 1, 1, Q6P_BLEND16); }
-/* OVERRIDES: rdRaster_Span_Tex_8 */
-void rdRaster_Span_Tex_8(int *L, int *R) { q6_pspan(L, R, 15, 0, 0, Q6P_SHADE_BLEND); }
-/* OVERRIDES: rdRaster_Span16_Tex_15 */
-void rdRaster_Span16_Tex_15(int *L, int *R) { q6_pspan(L, R, 15, 1, 0, Q6P_ODD16); }
-/* OVERRIDES: rdRaster_Span8_TexKey_4 */
-void rdRaster_Span8_TexKey_4(int *L, int *R) { q6_pspan(L, R, 15, 0, 1, Q6P_SHADE); }
-/* OVERRIDES: rdRaster_Span16_TexKey_10 */
-void rdRaster_Span16_TexKey_10(int *L, int *R) { q6_pspan(L, R, 15, 1, 1, Q6P_PAL); }
-/* OVERRIDES: rdRaster_Span_TexKey_7 */
-void rdRaster_Span_TexKey_7(int *L, int *R) { q6_pspan(L, R, 15, 0, 1, Q6P_BLEND_SHADE); }
-/* OVERRIDES: rdRaster_Span16_TexKey_11 */
-void rdRaster_Span16_TexKey_11(int *L, int *R) { q6_pspan(L, R, 15, 1, 1, Q6P_BLEND16); }
+/* OVERRIDES: rdNRaster_DrawScanLineNGonLIT_16 */
+void rdNRaster_DrawScanLineNGonLIT_16(int *L, int *R) { q6_pspan(L, R, 10, 1, 0, Q6P_PAL); }
+/* OVERRIDES: rdNRaster_DrawScanLineNGonTLIT_8 */
+void rdNRaster_DrawScanLineNGonTLIT_8(int *L, int *R) { q6_pspan(L, R, 10, 0, 0, Q6P_BLEND8); }
+/* OVERRIDES: rdNRaster_DrawScanLineNGonTLIT_16 */
+void rdNRaster_DrawScanLineNGonTLIT_16(int *L, int *R) { q6_pspan(L, R, 10, 1, 0, Q6P_BLEND16); }
+/* OVERRIDES: rdNRaster_DrawScanLineNGonMLIT_8 */
+void rdNRaster_DrawScanLineNGonMLIT_8(int *L, int *R) { q6_pspan(L, R, 10, 0, 1, Q6P_TEX); }
+/* OVERRIDES: rdNRaster_DrawScanLineNGonMLIT_16 */
+void rdNRaster_DrawScanLineNGonMLIT_16(int *L, int *R) { q6_pspan(L, R, 10, 1, 1, Q6P_PAL); }
+/* OVERRIDES: rdNRaster_DrawScanLineNGonMTLIT_8 */
+void rdNRaster_DrawScanLineNGonMTLIT_8(int *L, int *R) { q6_pspan(L, R, 10, 0, 1, Q6P_BLEND8); }
+/* OVERRIDES: rdNRaster_DrawScanLineNGonMTLIT_16 */
+void rdNRaster_DrawScanLineNGonMTLIT_16(int *L, int *R) { q6_pspan(L, R, 10, 1, 1, Q6P_BLEND16); }
+/* OVERRIDES: rdNRaster_DrawScanLineNGonFIT_16 */
+void rdNRaster_DrawScanLineNGonFIT_16(int *L, int *R) { q6_pspan(L, R, 12, 1, 0, Q6P_PAL); }
+/* OVERRIDES: rdNRaster_DrawScanLineNGonTFIT_8 */
+void rdNRaster_DrawScanLineNGonTFIT_8(int *L, int *R) { q6_pspan(L, R, 12, 0, 0, Q6P_SHADE_BLEND); }
+/* OVERRIDES: rdNRaster_DrawScanLineNGonTFIT_16 */
+void rdNRaster_DrawScanLineNGonTFIT_16(int *L, int *R) { q6_pspan(L, R, 12, 1, 0, Q6P_ODD16); }
+/* OVERRIDES: rdNRaster_DrawScanLineNGonMFIT_8 */
+void rdNRaster_DrawScanLineNGonMFIT_8(int *L, int *R) { q6_pspan(L, R, 12, 0, 1, Q6P_SHADE); }
+/* OVERRIDES: rdNRaster_DrawScanLineNGonMFIT_16 */
+void rdNRaster_DrawScanLineNGonMFIT_16(int *L, int *R) { q6_pspan(L, R, 12, 1, 1, Q6P_PAL); }
+/* OVERRIDES: rdNRaster_DrawScanLineNGonMTFIT_8 */
+void rdNRaster_DrawScanLineNGonMTFIT_8(int *L, int *R) { q6_pspan(L, R, 12, 0, 1, Q6P_BLEND_SHADE); }
+/* OVERRIDES: rdNRaster_DrawScanLineNGonMTFIT_16 */
+void rdNRaster_DrawScanLineNGonMTFIT_16(int *L, int *R) { q6_pspan(L, R, 12, 1, 1, Q6P_BLEND16); }
+/* OVERRIDES: rdNRaster_DrawScanLineNGonTGIT_8 */
+void rdNRaster_DrawScanLineNGonTGIT_8(int *L, int *R) { q6_pspan(L, R, 15, 0, 0, Q6P_SHADE_BLEND); }
+/* OVERRIDES: rdNRaster_DrawScanLineNGonTGIT_16 */
+void rdNRaster_DrawScanLineNGonTGIT_16(int *L, int *R) { q6_pspan(L, R, 15, 1, 0, Q6P_ODD16); }
+/* OVERRIDES: rdNRaster_DrawScanLineNGonMGIT_8 */
+void rdNRaster_DrawScanLineNGonMGIT_8(int *L, int *R) { q6_pspan(L, R, 15, 0, 1, Q6P_SHADE); }
+/* OVERRIDES: rdNRaster_DrawScanLineNGonMGIT_16 */
+void rdNRaster_DrawScanLineNGonMGIT_16(int *L, int *R) { q6_pspan(L, R, 15, 1, 1, Q6P_PAL); }
+/* OVERRIDES: rdNRaster_DrawScanLineNGonMTGIT_8 */
+void rdNRaster_DrawScanLineNGonMTGIT_8(int *L, int *R) { q6_pspan(L, R, 15, 0, 1, Q6P_BLEND_SHADE); }
+/* OVERRIDES: rdNRaster_DrawScanLineNGonMTGIT_16 */
+void rdNRaster_DrawScanLineNGonMTGIT_16(int *L, int *R) { q6_pspan(L, R, 15, 1, 1, Q6P_BLEND16); }
 
 /* ==== Span16_Tex_14: the gouraud 16 bpp perspective span of Draw_FlatLit_6 (through its span pointer) ====
  * The same algorithm as the kind-15 spans (pixel palette[lrow + texel], no key), but written (or compiled) with
@@ -920,54 +920,54 @@ void rdRaster_Span16_TexKey_11(int *L, int *R) { q6_pspan(L, R, 15, 1, 1, Q6P_BL
  * float (u = 1/p * U uses the extended value), the tail moves the plane values back by one 16-pixel step and
  * forward by t pixels in place.  The run counter ends at -1.  Without a head the u, v of a single tail pixel are the
  * globals' old values (as in the original, whose registers hold them).  Globals (0x007f4xxx): */
-extern float DAT_007f42f4, DAT_007f4258, DAT_007f42e4;      /* plane values at the first pixel centre */
-extern float DAT_007f43a4, DAT_007f444c, DAT_007f4248;      /* plane values at the current run start */
-extern float DAT_007f4448, UINT_007f43b8;                   /* 1 / p0 there and at the run end (floats) */
-extern float DAT_007f43c0, DAT_007f43c4, UINT_007f43b0, UINT_007f43b4;  /* u, v at the run start and end */
-extern float DAT_007f42f0, DAT_007f43a0, DAT_007f4240, DAT_007f42e0;    /* head / tail count and 1/n (floats) */
-extern int UINT_007f43ac, UINT_007f4390, UINT_007f4244;     /* head, runs, tail */
-extern int UINT_007f439c, UINT_007f4450;                    /* light step, light */
-extern int UINT_007f43bc, UINT_007f4254, UINT_007f4454, UINT_007f4458;  /* du, dv, u, v */
+extern float g_dwOneOverZ, g_dwUOverZ, g_dwVOverZ;      /* plane values at the first pixel centre */
+extern float g_dwEndOneOverZ, g_dwEndUOverZ, g_dwEndVOverZ;      /* plane values at the current run start */
+extern float g_dwCurZ, g_dwEndZ;                   /* 1 / p0 there and at the run end (floats) */
+extern float g_dwCurU, g_dwCurV, g_dwEndU, g_dwEndV;  /* u, v at the run start and end */
+extern float g_dwFlexStartScrap, g_dwOneOverStartScrap, g_dwFlexEndScrap, g_dwOneOverEndScrap;    /* head / tail count and 1/n (floats) */
+extern int g_dwStartScrap, g_dwNumSubdivisions, g_dwEndScrap;     /* head, runs, tail */
+extern int g_dwIStep, g_dwFixI;                    /* light step, light */
+extern int g_dwUStep, g_dwVStep, g_dwFixU, g_dwFixV;  /* du, dv, u, v */
 
 /* one run or head or tail of Span16_Tex_14: count pixels; the loop works on the globals */
 static void q6_tex14_pixels(int count)
 {
     do {
-        unsigned tx = q6_texel(UINT_007f4454, UINT_007f4458);
-        *(unsigned short *)PTR_007f43a8 = UINT_008ddebc[(((UINT_007f4450 >> 16) & 0x3f) << 8) + tx];
-        PTR_007f43a8 += 2;
-        UINT_007f4454 += UINT_007f43bc;
-        UINT_007f4458 += UINT_007f4254;
-        UINT_007f4450 += UINT_007f439c;
+        unsigned tx = q6_texel(g_dwFixU, g_dwFixV);
+        *(unsigned short *)g_pWDest = g_dwRdNRaster_aRGBMap[(((g_dwFixI >> 16) & 0x3f) << 8) + tx];
+        g_pWDest += 2;
+        g_dwFixU += g_dwUStep;
+        g_dwFixV += g_dwVStep;
+        g_dwFixI += g_dwIStep;
     } while (--count);
 }
 
 /* u, v at the run end from the plane values at it; then the steps over the run (times inv) and the start values */
 static void q6_tex14_run(long double inv)
 {
-    long double r = 1.0L / DAT_007f43a4;
-    UINT_007f43b8 = q6_f(r);
-    UINT_007f43b0 = q6_f(r * DAT_007f444c);
-    UINT_007f43b4 = q6_f((long double)UINT_007f43b8 * DAT_007f4248);
-    UINT_007f43bc = q6_pstep(((long double)UINT_007f43b0 - DAT_007f43c0) * inv * 65536.0f);
-    UINT_007f4254 = q6_pstep(((long double)UINT_007f43b4 - DAT_007f43c4) * inv * 65536.0f);
-    UINT_007f4454 = q6_pstart(DAT_007f43c0, UINT_008ddef8);
-    UINT_007f4458 = q6_pstart(DAT_007f43c4, UINT_008ddeac);
+    long double r = 1.0L / g_dwEndOneOverZ;
+    g_dwEndZ = q6_f(r);
+    g_dwEndU = q6_f(r * g_dwEndUOverZ);
+    g_dwEndV = q6_f((long double)g_dwEndZ * g_dwEndVOverZ);
+    g_dwUStep = q6_pstep(((long double)g_dwEndU - g_dwCurU) * inv * 65536.0f);
+    g_dwVStep = q6_pstep(((long double)g_dwEndV - g_dwCurV) * inv * 65536.0f);
+    g_dwFixU = q6_pstart(g_dwCurU, g_dwRdNRaster_dUdXModifier);
+    g_dwFixV = q6_pstart(g_dwCurV, g_dwRdNRaster_dVdXModifier);
 }
 
 /* the 16-pixel step of the plane values; the run end becomes the run start */
 static void q6_tex14_next(void)
 {
-    DAT_007f43a4 = q6_f((long double)DAT_008ddeec + DAT_007f43a4);
-    q6_u32(DAT_007f43c0) = q6_u32(UINT_007f43b0);
-    q6_u32(DAT_007f43c4) = q6_u32(UINT_007f43b4);
-    q6_u32(DAT_007f4448) = q6_u32(UINT_007f43b8);
-    DAT_007f444c = q6_f((long double)DAT_008dded0 + DAT_007f444c);
-    DAT_007f4248 = q6_f((long double)DAT_008ddf00 + DAT_007f4248);
+    g_dwEndOneOverZ = q6_f((long double)g_dwRdNRaster_oneOverZStep + g_dwEndOneOverZ);
+    q6_u32(g_dwCurU) = q6_u32(g_dwEndU);
+    q6_u32(g_dwCurV) = q6_u32(g_dwEndV);
+    q6_u32(g_dwCurZ) = q6_u32(g_dwEndZ);
+    g_dwEndUOverZ = q6_f((long double)g_dwRdNRaster_uOverZStep + g_dwEndUOverZ);
+    g_dwEndVOverZ = q6_f((long double)g_dwRdNRaster_vOverZStep + g_dwEndVOverZ);
 }
 
-/* OVERRIDES: rdRaster_Span16_Tex_14 */
-void rdRaster_Span16_Tex_14(int *L, int *R)
+/* OVERRIDES: rdNRaster_DrawScanLineNGonGIT_16 */
+void rdNRaster_DrawScanLineNGonGIT_16(int *L, int *R)
 {
     int xs = L[0], xr = R[0], xl, n, m, rest, frac;
     long double sub, r;
@@ -982,66 +982,66 @@ void rdRaster_Span16_Tex_14(int *L, int *R)
     q6_fldcw(&DAT_00900528);
     m = xl % 16;
     if (m) {
-        UINT_007f43ac = 16 - m;
-        if (n < UINT_007f43ac)
-            UINT_007f43ac = n;
+        g_dwStartScrap = 16 - m;
+        if (n < g_dwStartScrap)
+            g_dwStartScrap = n;
     } else
-        UINT_007f43ac = 0;
-    rest = n - UINT_007f43ac;
+        g_dwStartScrap = 0;
+    rest = n - g_dwStartScrap;
     if (rest) {
-        UINT_007f4390 = rest / 16;
-        UINT_007f4244 = rest % 16;
-        if (!UINT_007f4244) {
-            UINT_007f4244 = 16;
-            UINT_007f4390--;
+        g_dwNumSubdivisions = rest / 16;
+        g_dwEndScrap = rest % 16;
+        if (!g_dwEndScrap) {
+            g_dwEndScrap = 16;
+            g_dwNumSubdivisions--;
         }
     } else
-        UINT_007f4390 = UINT_007f4244 = 0;
+        g_dwNumSubdivisions = g_dwEndScrap = 0;
     frac = xs - L[0];
     sub = (long double)frac * (1.0f / 65536.0f);
-    DAT_007f42f4 = q6_f(sub * DAT_008ddef4 + ((float *)L)[4]);
-    DAT_007f4258 = q6_f(sub * DAT_008ddec8 + ((float *)L)[6]);
-    DAT_007f42e4 = q6_f(sub * DAT_008ddedc + ((float *)L)[8]);
-    UINT_007f439c = q6_mul16(R[14] - L[14], g_aRdRaster_OneOverNFixed[n]);
-    if (UINT_007f439c < 0 && UINT_007f439c > -0x51e)
-        UINT_007f439c = 0;
-    UINT_007f4450 = q6_mul16(frac, UINT_007f439c) + L[14];
-    r = 1.0L / DAT_007f42f4;
-    DAT_007f4448 = q6_f(r);
-    DAT_007f43c0 = q6_f(r * DAT_007f4258);
-    DAT_007f43c4 = q6_f((long double)DAT_007f4448 * DAT_007f42e4);
-    PTR_007f43a8 = Q6_I(Q6_CBUF(), 0x5c) + (L[0x10] * ((unsigned)Q6_I(Q6_CBUF(), 0x18) >> 1) + xl) * 2;
-    if (UINT_007f43ac) {
-        DAT_007f42f0 = q6_f((long double)UINT_007f43ac);
-        DAT_007f43a0 = q6_copy(g_dwRdRaster_aOneOverNFlex[UINT_007f43ac]);
-        DAT_007f43a4 = q6_f((long double)DAT_008ddef4 * DAT_007f42f0 + DAT_007f42f4);
-        DAT_007f444c = q6_f((long double)DAT_008ddec8 * DAT_007f42f0 + DAT_007f4258);
-        DAT_007f4248 = q6_f((long double)DAT_008ddedc * DAT_007f42f0 + DAT_007f42e4);
-        q6_tex14_run(DAT_007f43a0);
-        if (UINT_007f43ac > 0)
-            q6_tex14_pixels(UINT_007f43ac);
+    g_dwOneOverZ = q6_f(sub * g_dwRdNRaster_dOneOverZdX + ((float *)L)[4]);
+    g_dwUOverZ = q6_f(sub * g_dwRdNRaster_dUOverZdX + ((float *)L)[6]);
+    g_dwVOverZ = q6_f(sub * g_dwRdNRaster_dVOverZdX + ((float *)L)[8]);
+    g_dwIStep = q6_mul16(R[14] - L[14], g_aRdRaster_OneOverNFixed[n]);
+    if (g_dwIStep < 0 && g_dwIStep > -0x51e)
+        g_dwIStep = 0;
+    g_dwFixI = q6_mul16(frac, g_dwIStep) + L[14];
+    r = 1.0L / g_dwOneOverZ;
+    g_dwCurZ = q6_f(r);
+    g_dwCurU = q6_f(r * g_dwUOverZ);
+    g_dwCurV = q6_f((long double)g_dwCurZ * g_dwVOverZ);
+    g_pWDest = Q6_I(Q6_CBUF(), 0x5c) + (L[0x10] * ((unsigned)Q6_I(Q6_CBUF(), 0x18) >> 1) + xl) * 2;
+    if (g_dwStartScrap) {
+        g_dwFlexStartScrap = q6_f((long double)g_dwStartScrap);
+        g_dwOneOverStartScrap = q6_copy(g_dwRdRaster_aOneOverNFlex[g_dwStartScrap]);
+        g_dwEndOneOverZ = q6_f((long double)g_dwRdNRaster_dOneOverZdX * g_dwFlexStartScrap + g_dwOneOverZ);
+        g_dwEndUOverZ = q6_f((long double)g_dwRdNRaster_dUOverZdX * g_dwFlexStartScrap + g_dwUOverZ);
+        g_dwEndVOverZ = q6_f((long double)g_dwRdNRaster_dVOverZdX * g_dwFlexStartScrap + g_dwVOverZ);
+        q6_tex14_run(g_dwOneOverStartScrap);
+        if (g_dwStartScrap > 0)
+            q6_tex14_pixels(g_dwStartScrap);
         q6_tex14_next();
     } else {
-        DAT_007f43a4 = q6_f((long double)DAT_008ddeec + DAT_007f42f4);
-        DAT_007f444c = q6_f((long double)DAT_008dded0 + DAT_007f4258);
-        DAT_007f4248 = q6_f((long double)DAT_008ddf00 + DAT_007f42e4);
+        g_dwEndOneOverZ = q6_f((long double)g_dwRdNRaster_oneOverZStep + g_dwOneOverZ);
+        g_dwEndUOverZ = q6_f((long double)g_dwRdNRaster_uOverZStep + g_dwUOverZ);
+        g_dwEndVOverZ = q6_f((long double)g_dwRdNRaster_vOverZStep + g_dwVOverZ);
     }
-    while (UINT_007f4390-- > 0) {
+    while (g_dwNumSubdivisions-- > 0) {
         q6_tex14_run(0.0625f);
         q6_tex14_pixels(16);
         q6_tex14_next();
     }
-    if (UINT_007f4244) {
-        if (--UINT_007f4244) {
-            DAT_007f4240 = q6_f((long double)UINT_007f4244);
-            DAT_007f42e0 = q6_copy(g_dwRdRaster_aOneOverNFlex[UINT_007f4244]);
-            DAT_007f43a4 = q6_f((long double)DAT_008ddef4 * DAT_007f4240 - DAT_008ddeec + DAT_007f43a4);
-            DAT_007f444c = q6_f((long double)DAT_008ddec8 * DAT_007f4240 - DAT_008dded0 + DAT_007f444c);
-            DAT_007f4248 = q6_f((long double)DAT_008ddedc * DAT_007f4240 - DAT_008ddf00 + DAT_007f4248);
-            q6_tex14_run(DAT_007f42e0);
+    if (g_dwEndScrap) {
+        if (--g_dwEndScrap) {
+            g_dwFlexEndScrap = q6_f((long double)g_dwEndScrap);
+            g_dwOneOverEndScrap = q6_copy(g_dwRdRaster_aOneOverNFlex[g_dwEndScrap]);
+            g_dwEndOneOverZ = q6_f((long double)g_dwRdNRaster_dOneOverZdX * g_dwFlexEndScrap - g_dwRdNRaster_oneOverZStep + g_dwEndOneOverZ);
+            g_dwEndUOverZ = q6_f((long double)g_dwRdNRaster_dUOverZdX * g_dwFlexEndScrap - g_dwRdNRaster_uOverZStep + g_dwEndUOverZ);
+            g_dwEndVOverZ = q6_f((long double)g_dwRdNRaster_dVOverZdX * g_dwFlexEndScrap - g_dwRdNRaster_vOverZStep + g_dwEndVOverZ);
+            q6_tex14_run(g_dwOneOverEndScrap);
         }
-        if (UINT_007f4244 >= 0)
-            q6_tex14_pixels(UINT_007f4244 + 1);
+        if (g_dwEndScrap >= 0)
+            q6_tex14_pixels(g_dwEndScrap + 1);
     }
     q6_fldcw(&DAT_00900524);
 }
@@ -1053,46 +1053,46 @@ void rdRaster_Span16_Tex_14(int *L, int *R)
  * width, masks and the plane gradients times 16 (floats).  Walk: edges Edge_Flat_17 (left, with the plane values) and
  * _18; per scan line Span_TexKey_7 (8 bpp) / Span16_TexKey_11 (16 bpp); the left edge steps its three plane values
  * (float adds), both step x and light. */
-extern int rdRaster_Edge_Flat_17(int *), rdRaster_Edge_Flat_18(int *);
-/* OVERRIDES: rdRaster_Draw16_TexLitKey_7 */
-void rdRaster_Draw16_TexLitKey_7(int p, int mat)
+extern int rdNRaster_SetupLeftEdgeNGonGIT(int *), rdNRaster_SetupRightEdgeNGonGIT(int *);
+/* OVERRIDES: rdNRaster_DrawNGonMTGIT */
+void rdNRaster_DrawNGonMTGIT(int p, int mat)
 {
     int bpp = Q6_BPP(), mip, a[0x11], b[0x11];
     char *tex = *(char **)(mat + 0x1c), *tb = *(char **)(p + 0x4c);
-    UINT_007f4250 = Q6_I(tex, 0x18) - 1;
-    g_pRdRasterVerts = *(float **)(p + 0x20);
-    UINT_007f4398 = *(float **)(p + 0x24);
-    UINT_007f4304 = *(float **)(p + 0x28);
+    g_dwRdNRaster_maxMipMap = Q6_I(tex, 0x18) - 1;
+    g_pRdNRaster_aVertices = *(float **)(p + 0x20);
+    g_dwRdNRaster_aTexVertices = *(float **)(p + 0x24);
+    g_dwRdNRaster_aIntensities = *(float **)(p + 0x28);
     if (bpp == 8)
-        UINT_008ddeb0 = *(unsigned char **)(tb + 0x330);
+        g_dwRdNRaster_aMonoMap = *(unsigned char **)(tb + 0x330);
     else if (bpp == 16) {
-        UINT_008ddebc = *(unsigned short **)(tb + 0x348);
-        UINT_008dded4 = *(unsigned char **)(tb + 0x34c);
+        g_dwRdNRaster_aRGBMap = *(unsigned short **)(tb + 0x348);
+        g_dwRdNRaster_aRGBToPalette = *(unsigned char **)(tb + 0x34c);
     }
-    UINT_008ddea8 = *(unsigned char **)(g_dwRdColormap_pCurMap + 0x338);
+    g_dwRdNRaster_aAlphaMap = *(unsigned char **)(g_dwRdColormap_pCurMap + 0x338);
     q6_poly_globals(p);
-    rdRaster_Grad_Flat_2(Q6_I(p, 0x64));
-    mip = UINT_008ddee4;
-    UINT_008ddee8 = *(unsigned char **)(*(char **)(tex + 0x1c + mip * 4) + 0x5c);
-    UINT_008dded8 = Q6_I(tex, 0xc) - mip;
-    UINT_008ddecc = (int)(((unsigned)Q6_I(tex, 0x10) >> (mip & 31)) << 16);
-    DAT_008ddeec = q6_f((long double)DAT_008ddef4 * 16.0f);
-    DAT_008dded0 = q6_f((long double)DAT_008ddec8 * 16.0f);
-    DAT_008ddf00 = q6_f((long double)DAT_008ddedc * 16.0f);
-    UINT_008ddefc = (int)(((unsigned)Q6_I(tex, 0x14) >> (mip & 31)) << (UINT_008dded8 & 31));
-    a[3] = g_nRdRasterStartVertex;
-    if (rdRaster_Edge_Flat_17(a))
+    rdNRaster_CalcPerspGradients(Q6_I(p, 0x64));
+    mip = g_dwRdNRaster_mipMapNum;
+    g_dwRdNRaster_pPixels = *(unsigned char **)(*(char **)(tex + 0x1c + mip * 4) + 0x5c);
+    g_dwRdNRaster_texRowShift = Q6_I(tex, 0xc) - mip;
+    g_dwRdNRaster_uWrap = (int)(((unsigned)Q6_I(tex, 0x10) >> (mip & 31)) << 16);
+    g_dwRdNRaster_oneOverZStep = q6_f((long double)g_dwRdNRaster_dOneOverZdX * 16.0f);
+    g_dwRdNRaster_uOverZStep = q6_f((long double)g_dwRdNRaster_dUOverZdX * 16.0f);
+    g_dwRdNRaster_vOverZStep = q6_f((long double)g_dwRdNRaster_dVOverZdX * 16.0f);
+    g_dwRdNRaster_vWrap = (int)(((unsigned)Q6_I(tex, 0x14) >> (mip & 31)) << (g_dwRdNRaster_texRowShift & 31));
+    a[3] = g_nRdNRaster_yMinVert;
+    if (rdNRaster_SetupLeftEdgeNGonGIT(a))
         return;
-    b[3] = g_nRdRasterStartVertex;
-    if (rdRaster_Edge_Flat_18(b))
+    b[3] = g_nRdNRaster_yMinVert;
+    if (rdNRaster_SetupRightEdgeNGonGIT(b))
         return;
     for (;;) {
         if (bpp == 8)
-            rdRaster_Span_TexKey_7(a, b);
+            rdNRaster_DrawScanLineNGonMTGIT_8(a, b);
         else if (bpp == 16)
-            rdRaster_Span16_TexKey_11(a, b);
+            rdNRaster_DrawScanLineNGonMTGIT_16(a, b);
         if (--a[2] == 0) {
-            if (rdRaster_Edge_Flat_17(a))
+            if (rdNRaster_SetupLeftEdgeNGonGIT(a))
                 return;
         } else {
             ((float *)a)[4] = q6_f((long double)((float *)a)[4] + ((float *)a)[5]);
@@ -1103,7 +1103,7 @@ void rdRaster_Draw16_TexLitKey_7(int p, int mat)
             a[0x10]++;
         }
         if (--b[2] == 0) {
-            if (rdRaster_Edge_Flat_18(b))
+            if (rdNRaster_SetupRightEdgeNGonGIT(b))
                 return;
         } else {
             b[0] += b[1];
@@ -1129,8 +1129,8 @@ void rdRaster_Draw16_TexLitKey_7(int p, int mat)
  * when the vertex next to the top is the bottom, an index the original would use as is), plus W = float(1 / z) per
  * vertex into rec[1 + i]; mip level from the mode argument and the polygon's distance into +0x1c0, biases into +0x1a0,
  * +0x1a4. */
-/* OVERRIDES: rdRaster_SetupPoly */
-void rdRaster_SetupPoly(int *rec, int mode)
+/* OVERRIDES: rdAFRaster_CalcAffineGradients */
+void rdAFRaster_CalcAffineGradients(int *rec, int mode)
 {
     char *P = *(char **)rec;
     float *V = *(float **)(P + 0x20);
@@ -1151,8 +1151,8 @@ void rdRaster_SetupPoly(int *rec, int mode)
  * all stored as floats, and _ftol(dW/dx * 65536) (extended) into +0x19c.  The biases use the extended dU/dx and dW/dx:
  * u: Wa * dU/dx - Ua * dW/dx (> 0: 0x8000; < 0 or NaN: 0x7fff; 0: by Wa * dU/dy - Ua * dW/dy (floats)); v: Wa *
  * float(dV/dx) - Va * dW/dx, for 0 Wa * dV/dy - Va * dW/dy. */
-/* OVERRIDES: rdRaster_SetupPolyTex */
-void rdRaster_SetupPolyTex(int *rec, int mode)
+/* OVERRIDES: rdAFRaster_CalcPerspGradients */
+void rdAFRaster_CalcPerspGradients(int *rec, int mode)
 {
     char *P = *(char **)rec;
     float *V = *(float **)(P + 0x20), *T, *va, *vb, *vc;
@@ -1217,18 +1217,18 @@ void rdRaster_SetupPolyTex(int *rec, int mode)
 
 /* ==== the selectors (Select_TexLit, Select_FlatLit_4 / 5 / 8 .. 13): fill the polygon record and its callbacks ==== */
 extern void rdRaster_EdgeStepFlat(int), FUN_004104b0(int), FUN_00411b70(int), FUN_004129f0(int);
-extern void FUN_00415180(int), FUN_004151c0(int), FUN_004169f0(int), FUN_00416a30(int);
-extern void rdRaster_SpanLitSetup(int), FUN_00411740(int), FUN_004121a0(int), FUN_00413590(int), FUN_00413dd0(int);
-extern void FUN_00414d20(int), FUN_00415600(int), FUN_00416580(int), FUN_00416f80(int);
-int rdRaster_EdgeSetup_Flat_3(int *, int *, int, int), rdRaster_EdgeSetup_Flat_6(int *, int *, int, int);
-int rdRaster_EdgeSetup_Flat_8(int *, int *, int, int), rdRaster_EdgeSetup_Flat_9(int *, int *, int, int);
-int rdRaster_EdgeSetup_Flat_10(int *, int *, int, int);
+extern void FUN_00415180(int), FUN_004151c0(int), rdAFRaster_AdvanceLeftEdgeNGonGIT(int), rdAFRaster_AdvanceRightEdgeNGonGIT(int);
+extern void rdAFRaster_DrawNGonFS(int), rdAFRaster_DrawNGonFAT(int), rdAFRaster_DrawNGonMFAT(int), rdAFRaster_DrawNGonLIT(int), rdAFRaster_DrawNGonMLIT(int);
+extern void rdAFRaster_DrawNGonFIT(int), rdAFRaster_DrawNGonMFIT(int), rdAFRaster_DrawNGonGIT(int), rdAFRaster_DrawNGonMGIT(int);
+int rdAFRaster_SetupEdgeNGonFS(int *, int *, int, int), rdAFRaster_SetupEdgeNGonFAT(int *, int *, int, int);
+int rdAFRaster_SetupEdgeNGonLIT(int *, int *, int, int), rdAFRaster_SetupEdgeNGonFIT(int *, int *, int, int);
+int rdAFRaster_SetupEdgeNGonGIT(int *, int *, int, int);
 
 /* ==== Select_TexLit: flat colour at the light level floor(light) ====
  * W = float(1 / z) per vertex into rec[1 + i] (unsigned count), the colour byte of the 8 bpp table at the material's
  * index and the level's row into +0x1d0, the span drawer SpanLitSetup and the edge set-up EdgeSetup_Flat_3. */
-/* OVERRIDES: rdRaster_Select_TexLit */
-void rdRaster_Select_TexLit(int *rec, int mat, float light)
+/* OVERRIDES: rdAFRaster_SetupNGonFS */
+void rdAFRaster_SetupNGonFS(int *rec, int mat, float light)
 {
     char *P = *(char **)rec;
     unsigned i;
@@ -1238,8 +1238,8 @@ void rdRaster_Select_TexLit(int *rec, int mat, float light)
     level = q6_floor_i(light);
     P = *(char **)rec;
     rec[0x74] = (*(unsigned char **)(*(char **)(P + 0x4c) + 0x330))[Q6_I(mat, 4) + level * 256];
-    rec[0x6d] = (int)rdRaster_SpanLitSetup;
-    rec[0x7a] = (int)rdRaster_EdgeSetup_Flat_3;
+    rec[0x6d] = (int)rdAFRaster_DrawNGonFS;
+    rec[0x7a] = (int)rdAFRaster_SetupEdgeNGonFS;
 }
 
 /* the texture fields of the record for its mip level (+0x1c0): texels, log2 width, width, masks (texture record:
@@ -1266,34 +1266,34 @@ static void q6_rec_level(int *rec, int bpp, float light)
         rec[0x78] = Q6_I(tb, 0x348) + q6_floor_i(light) * 512;
 }
 
-/* ==== Select_FlatLit_4 / _5: affine textured at the light level; span drawers FUN_00411740 / FUN_004121a0 ==== */
+/* ==== Select_FlatLit_4 / _5: affine textured at the light level; span drawers rdAFRaster_DrawNGonFAT / rdAFRaster_DrawNGonMFAT ==== */
 static void q6_select_lit_affine(int *rec, int mat, float light, void (*span)(int))
 {
     int bpp = Q6_BPP();
-    rdRaster_SetupPoly(rec, Q6_I(*(char **)(mat + 0x1c), 0x18) - 1);
+    rdAFRaster_CalcAffineGradients(rec, Q6_I(*(char **)(mat + 0x1c), 0x18) - 1);
     rec[0x71] = Q6_I(*(char **)(*(char **)(mat + 0x1c) + 0x1c + rec[0x70] * 4), 0x5c);
     q6_rec_level(rec, bpp, light);
     q6_rec_tex(rec, mat);
     rec[0x6d] = (int)span;
-    rec[0x7a] = (int)rdRaster_EdgeSetup_Flat_6;
+    rec[0x7a] = (int)rdAFRaster_SetupEdgeNGonFAT;
 }
-/* OVERRIDES: rdRaster_Select_FlatLit_4 */
-void rdRaster_Select_FlatLit_4(int *rec, int mat, float light) { q6_select_lit_affine(rec, mat, light, FUN_00411740); }
-/* OVERRIDES: rdRaster_Select_FlatLit_5 */
-void rdRaster_Select_FlatLit_5(int *rec, int mat, float light) { q6_select_lit_affine(rec, mat, light, FUN_004121a0); }
+/* OVERRIDES: rdAFRaster_SetupNGonFAT */
+void rdAFRaster_SetupNGonFAT(int *rec, int mat, float light) { q6_select_lit_affine(rec, mat, light, rdAFRaster_DrawNGonFAT); }
+/* OVERRIDES: rdAFRaster_SetupNGonMFAT */
+void rdAFRaster_SetupNGonMFAT(int *rec, int mat, float light) { q6_select_lit_affine(rec, mat, light, rdAFRaster_DrawNGonMFAT); }
 
 /* the perspective selectors: SetupPolyTex, the gradients times 16 (float(g * 16)) */
 static int q6_select_persp(int *rec, int mat)
 {
     int bpp = Q6_BPP();
-    rdRaster_SetupPolyTex(rec, Q6_I(*(char **)(mat + 0x1c), 0x18) - 1);
+    rdAFRaster_CalcPerspGradients(rec, Q6_I(*(char **)(mat + 0x1c), 0x18) - 1);
     Q6_RF(rec, 0x6a) = q6_f((long double)Q6_RF(rec, 0x61) * 16.0f);
     Q6_RF(rec, 0x6b) = q6_f((long double)Q6_RF(rec, 0x63) * 16.0f);
     Q6_RF(rec, 0x6c) = q6_f((long double)Q6_RF(rec, 0x65) * 16.0f);
     return bpp;
 }
 
-/* ==== Select_FlatLit_8 / _9: perspective unlit (16 bpp: palette row 63); FUN_00413590 / FUN_00413dd0, EdgeSetup_8 ==== */
+/* ==== Select_FlatLit_8 / _9: perspective unlit (16 bpp: palette row 63); rdAFRaster_DrawNGonLIT / rdAFRaster_DrawNGonMLIT, EdgeSetup_8 ==== */
 static void q6_select_persp_unlit(int *rec, int mat, void (*span)(int))
 {
     int bpp = q6_select_persp(rec, mat);
@@ -1301,28 +1301,28 @@ static void q6_select_persp_unlit(int *rec, int mat, void (*span)(int))
     if (bpp == 16)
         rec[0x78] = Q6_I(*(char **)(*(char **)rec + 0x4c), 0x348) + 0x7e00;
     rec[0x6d] = (int)span;
-    rec[0x7a] = (int)rdRaster_EdgeSetup_Flat_8;
+    rec[0x7a] = (int)rdAFRaster_SetupEdgeNGonLIT;
 }
-/* OVERRIDES: rdRaster_Select_FlatLit_8 */
-void rdRaster_Select_FlatLit_8(int *rec, int mat) { q6_select_persp_unlit(rec, mat, FUN_00413590); }
-/* OVERRIDES: rdRaster_Select_FlatLit_9 */
-void rdRaster_Select_FlatLit_9(int *rec, int mat) { q6_select_persp_unlit(rec, mat, FUN_00413dd0); }
+/* OVERRIDES: rdAFRaster_SetupNGonLIT */
+void rdAFRaster_SetupNGonLIT(int *rec, int mat) { q6_select_persp_unlit(rec, mat, rdAFRaster_DrawNGonLIT); }
+/* OVERRIDES: rdAFRaster_SetupNGonMLIT */
+void rdAFRaster_SetupNGonMLIT(int *rec, int mat) { q6_select_persp_unlit(rec, mat, rdAFRaster_DrawNGonMLIT); }
 
-/* ==== Select_FlatLit_10 / _11: perspective at the light level; FUN_00414d20 / FUN_00415600, EdgeSetup_9 ==== */
+/* ==== Select_FlatLit_10 / _11: perspective at the light level; rdAFRaster_DrawNGonFIT / rdAFRaster_DrawNGonMFIT, EdgeSetup_9 ==== */
 static void q6_select_persp_level(int *rec, int mat, float light, void (*span)(int))
 {
     int bpp = q6_select_persp(rec, mat);
     q6_rec_level(rec, bpp, light);
     q6_rec_tex(rec, mat);
     rec[0x6d] = (int)span;
-    rec[0x7a] = (int)rdRaster_EdgeSetup_Flat_9;
+    rec[0x7a] = (int)rdAFRaster_SetupEdgeNGonFIT;
 }
-/* OVERRIDES: rdRaster_Select_FlatLit_10 */
-void rdRaster_Select_FlatLit_10(int *rec, int mat, float light) { q6_select_persp_level(rec, mat, light, FUN_00414d20); }
-/* OVERRIDES: rdRaster_Select_FlatLit_11 */
-void rdRaster_Select_FlatLit_11(int *rec, int mat, float light) { q6_select_persp_level(rec, mat, light, FUN_00415600); }
+/* OVERRIDES: rdAFRaster_SetupNGonFIT */
+void rdAFRaster_SetupNGonFIT(int *rec, int mat, float light) { q6_select_persp_level(rec, mat, light, rdAFRaster_DrawNGonFIT); }
+/* OVERRIDES: rdAFRaster_SetupNGonMFIT */
+void rdAFRaster_SetupNGonMFIT(int *rec, int mat, float light) { q6_select_persp_level(rec, mat, light, rdAFRaster_DrawNGonMFIT); }
 
-/* ==== Select_FlatLit_12 / _13: perspective gouraud (the whole colour tables); FUN_00416580 / FUN_00416f80,
+/* ==== Select_FlatLit_12 / _13: perspective gouraud (the whole colour tables); rdAFRaster_DrawNGonGIT / rdAFRaster_DrawNGonMGIT,
  * EdgeSetup_10.  _13 returns 1 (the other selectors return nothing). ==== */
 static void q6_select_persp_gouraud(int *rec, int mat, void (*span)(int))
 {
@@ -1334,14 +1334,14 @@ static void q6_select_persp_gouraud(int *rec, int mat, void (*span)(int))
         rec[0x78] = Q6_I(tb, 0x348);
     q6_rec_tex(rec, mat);
     rec[0x6d] = (int)span;
-    rec[0x7a] = (int)rdRaster_EdgeSetup_Flat_10;
+    rec[0x7a] = (int)rdAFRaster_SetupEdgeNGonGIT;
 }
-/* OVERRIDES: rdRaster_Select_FlatLit_12 */
-void rdRaster_Select_FlatLit_12(int *rec, int mat) { q6_select_persp_gouraud(rec, mat, FUN_00416580); }
-/* OVERRIDES: rdRaster_Select_FlatLit_13 */
-int rdRaster_Select_FlatLit_13(int *rec, int mat)
+/* OVERRIDES: rdAFRaster_SetupNGonGIT */
+void rdAFRaster_SetupNGonGIT(int *rec, int mat) { q6_select_persp_gouraud(rec, mat, rdAFRaster_DrawNGonGIT); }
+/* OVERRIDES: rdAFRaster_SetupNGonMGIT */
+int rdAFRaster_SetupNGonMGIT(int *rec, int mat)
 {
-    q6_select_persp_gouraud(rec, mat, FUN_00416f80);
+    q6_select_persp_gouraud(rec, mat, rdAFRaster_DrawNGonMGIT);
     return 1;
 }
 
@@ -1484,42 +1484,42 @@ static int q6_esetup(int *node, int *rec, int i0, int i1, int flags, void (*down
     return 1;
 }
 
-/* OVERRIDES: rdRaster_EdgeSetup_Flat */
-int rdRaster_EdgeSetup_Flat(int *n, int *r, int i0, int i1) { return q6_esetup(n, r, i0, i1, 0, rdRaster_EdgeStepFlat, rdRaster_EdgeStepFlat); }
-/* OVERRIDES: rdRaster_EdgeSetup_Flat_2 */
-int rdRaster_EdgeSetup_Flat_2(int *n, int *r, int i0, int i1) { return q6_esetup(n, r, i0, i1, 0, rdRaster_EdgeStepFlat, rdRaster_EdgeStepFlat); }
-/* OVERRIDES: rdRaster_EdgeSetup_Flat_3 */
-int rdRaster_EdgeSetup_Flat_3(int *n, int *r, int i0, int i1) { return q6_esetup(n, r, i0, i1, 0, rdRaster_EdgeStepFlat, rdRaster_EdgeStepFlat); }
-/* OVERRIDES: rdRaster_EdgeSetup_Flat_4 */
-int rdRaster_EdgeSetup_Flat_4(int *n, int *r, int i0, int i1) { return q6_esetup(n, r, i0, i1, Q6E_LIGHT, FUN_004104b0, FUN_004104b0); }
-/* OVERRIDES: rdRaster_EdgeSetup_Flat_5 */
-int rdRaster_EdgeSetup_Flat_5(int *n, int *r, int i0, int i1) { return q6_esetup(n, r, i0, i1, Q6E_UV, FUN_00411b70, FUN_00411b70); }
-/* OVERRIDES: rdRaster_EdgeSetup_Flat_6 */
-int rdRaster_EdgeSetup_Flat_6(int *n, int *r, int i0, int i1) { return q6_esetup(n, r, i0, i1, Q6E_UV, FUN_00411b70, FUN_00411b70); }
-/* OVERRIDES: rdRaster_EdgeSetup_Flat_7 */
-int rdRaster_EdgeSetup_Flat_7(int *n, int *r, int i0, int i1) { return q6_esetup(n, r, i0, i1, Q6E_UV | Q6E_LIGHT, FUN_004129f0, FUN_004129f0); }
-/* OVERRIDES: rdRaster_EdgeSetup_Flat_8 */
-int rdRaster_EdgeSetup_Flat_8(int *n, int *r, int i0, int i1) { return q6_esetup(n, r, i0, i1, Q6E_PERSP | Q6E_DIV, FUN_00415180, FUN_004151c0); }
-/* OVERRIDES: rdRaster_EdgeSetup_Flat_9 */
-int rdRaster_EdgeSetup_Flat_9(int *n, int *r, int i0, int i1) { return q6_esetup(n, r, i0, i1, Q6E_PERSP | Q6E_DIV, FUN_00415180, FUN_004151c0); }
-/* OVERRIDES: rdRaster_EdgeSetup_Flat_10 */
-int rdRaster_EdgeSetup_Flat_10(int *n, int *r, int i0, int i1) { return q6_esetup(n, r, i0, i1, Q6E_PERSP | Q6E_LIGHT, FUN_004169f0, FUN_00416a30); }
+/* OVERRIDES: rdAFRaster_SetupEdgeNGonLW */
+int rdAFRaster_SetupEdgeNGonLW(int *n, int *r, int i0, int i1) { return q6_esetup(n, r, i0, i1, 0, rdRaster_EdgeStepFlat, rdRaster_EdgeStepFlat); }
+/* OVERRIDES: rdAFRaster_SetupEdgeNGonLS */
+int rdAFRaster_SetupEdgeNGonLS(int *n, int *r, int i0, int i1) { return q6_esetup(n, r, i0, i1, 0, rdRaster_EdgeStepFlat, rdRaster_EdgeStepFlat); }
+/* OVERRIDES: rdAFRaster_SetupEdgeNGonFS */
+int rdAFRaster_SetupEdgeNGonFS(int *n, int *r, int i0, int i1) { return q6_esetup(n, r, i0, i1, 0, rdRaster_EdgeStepFlat, rdRaster_EdgeStepFlat); }
+/* OVERRIDES: rdAFRaster_SetupEdgeNGonGS */
+int rdAFRaster_SetupEdgeNGonGS(int *n, int *r, int i0, int i1) { return q6_esetup(n, r, i0, i1, Q6E_LIGHT, FUN_004104b0, FUN_004104b0); }
+/* OVERRIDES: rdAFRaster_SetupEdgeNGonLAT */
+int rdAFRaster_SetupEdgeNGonLAT(int *n, int *r, int i0, int i1) { return q6_esetup(n, r, i0, i1, Q6E_UV, FUN_00411b70, FUN_00411b70); }
+/* OVERRIDES: rdAFRaster_SetupEdgeNGonFAT */
+int rdAFRaster_SetupEdgeNGonFAT(int *n, int *r, int i0, int i1) { return q6_esetup(n, r, i0, i1, Q6E_UV, FUN_00411b70, FUN_00411b70); }
+/* OVERRIDES: rdAFRaster_SetupEdgeNGonGAT */
+int rdAFRaster_SetupEdgeNGonGAT(int *n, int *r, int i0, int i1) { return q6_esetup(n, r, i0, i1, Q6E_UV | Q6E_LIGHT, FUN_004129f0, FUN_004129f0); }
+/* OVERRIDES: rdAFRaster_SetupEdgeNGonLIT */
+int rdAFRaster_SetupEdgeNGonLIT(int *n, int *r, int i0, int i1) { return q6_esetup(n, r, i0, i1, Q6E_PERSP | Q6E_DIV, FUN_00415180, FUN_004151c0); }
+/* OVERRIDES: rdAFRaster_SetupEdgeNGonFIT */
+int rdAFRaster_SetupEdgeNGonFIT(int *n, int *r, int i0, int i1) { return q6_esetup(n, r, i0, i1, Q6E_PERSP | Q6E_DIV, FUN_00415180, FUN_004151c0); }
+/* OVERRIDES: rdAFRaster_SetupEdgeNGonGIT */
+int rdAFRaster_SetupEdgeNGonGIT(int *n, int *r, int i0, int i1) { return q6_esetup(n, r, i0, i1, Q6E_PERSP | Q6E_LIGHT, rdAFRaster_AdvanceLeftEdgeNGonGIT, rdAFRaster_AdvanceRightEdgeNGonGIT); }
 
 /* ==== SpanR8/16_TexKey, _2, _3: one affine keyed span node of the span-list renderer ====
  * Node: +0 x, +4 pixel count, +8 row, +0xc u, +0x10 du, +0x14 v, +0x18 dv (16.16), +0x1c z (the plane value 1/z),
- * +0x20 / +0x24 light and its step (_3).  z = floor(float(z * 65536)), stepped by UINT_008ddf24; a non-zero texel
- * (texels UINT_008ddf3c, u mask UINT_008ddf4c, v shift UINT_008ddf10 and mask UINT_008ddf14) is drawn and its
+ * +0x20 / +0x24 light and its step (_3).  z = floor(float(z * 65536)), stepped by g_dwRdAFRaster_dOneOverZdXFixed; a non-zero texel
+ * (texels g_dwRdAFRaster_pPixels, u mask g_dwRdAFRaster_uWrap, v shift g_dwRdAFRaster_texRowShift and mask g_dwRdAFRaster_vWrap) is drawn and its
  * z >> (canvas +0x14) written to the z-buffer (no depth test).  A count of 0 draws nothing. */
-extern unsigned char *UINT_008ddf0c, *UINT_008ddf3c;
-extern unsigned short *UINT_008ddf30;
-extern int UINT_008ddf04, UINT_008ddf10, UINT_008ddf14, UINT_008ddf18, UINT_008ddf24, UINT_008ddf44, UINT_008ddf4c;
-extern float DAT_008ddf1c, DAT_008ddf20, DAT_008ddf38, DAT_008ddf28, DAT_008ddf2c, DAT_008ddf48;
+extern unsigned char *g_dwRdAFRaster_aMonoMap, *g_dwRdAFRaster_pPixels;
+extern unsigned short *g_dwRdAFRaster_aRGBMap;
+extern int g_dwRdAFRaster_mipMapNum, g_dwRdAFRaster_texRowShift, g_dwRdAFRaster_vWrap, g_dwRdAFRaster_dVdXModifier, g_dwRdAFRaster_dOneOverZdXFixed, g_dwRdAFRaster_dUdXModifier, g_dwRdAFRaster_uWrap;
+extern float g_dwRdAFRaster_dOneOverZdX, g_dwRdAFRaster_dUOverZdX, g_dwRdAFRaster_dVOverZdX, g_dwRdAFRaster_oneOverZStep, g_dwRdAFRaster_uOverZStep, g_dwRdAFRaster_vOverZStep;
 
 enum { Q6R_TEX, Q6R_SHADE, Q6R_SHADE_L, Q6R_PAL, Q6R_PAL_L };   /* tx, shade[tx], shade[lrow + tx], pal[...] */
 
 static unsigned q6_rtexel(int u, int v)
 {
-    return UINT_008ddf3c[((u >> 16) & (UINT_008ddf4c >> 16)) + ((v >> ((16 - UINT_008ddf10) & 31)) & UINT_008ddf14)];
+    return g_dwRdAFRaster_pPixels[((u >> 16) & (g_dwRdAFRaster_uWrap >> 16)) + ((v >> ((16 - g_dwRdAFRaster_texRowShift) & 31)) & g_dwRdAFRaster_vWrap)];
 }
 
 static int q6_rpix(int mode, unsigned tx, int l)
@@ -1528,20 +1528,20 @@ static int q6_rpix(int mode, unsigned tx, int l)
     case Q6R_TEX:
         return tx;
     case Q6R_SHADE:
-        return UINT_008ddf0c[tx];
+        return g_dwRdAFRaster_aMonoMap[tx];
     case Q6R_SHADE_L:
-        return UINT_008ddf0c[((l >> 8) & 0x3f00) + tx];
+        return g_dwRdAFRaster_aMonoMap[((l >> 8) & 0x3f00) + tx];
     case Q6R_PAL:
-        return UINT_008ddf30[tx];
+        return g_dwRdAFRaster_aRGBMap[tx];
     default:
-        return UINT_008ddf30[(((l >> 16) & 0x3f) << 8) + tx];
+        return g_dwRdAFRaster_aRGBMap[(((l >> 16) & 0x3f) << 8) + tx];
     }
 }
 
 static void q6_spanr(int *node, int bpp16, int mode)
 {
     char *c4 = Q6_C4();
-    int sh = Q6_I(c4, 0x14), dz = UINT_008ddf24, u = node[3], v = node[5], l = node[8], n;
+    int sh = Q6_I(c4, 0x14), dz = g_dwRdAFRaster_dOneOverZdXFixed, u = node[3], v = node[5], l = node[8], n;
     int z = q6_floor_i(q6_f(Q6_RF(node, 7) * 65536.0L));
     unsigned char *d8 = 0;
     unsigned short *d16 = 0, *zp;
@@ -1571,18 +1571,18 @@ static void q6_spanr(int *node, int bpp16, int mode)
     }
 }
 
-/* OVERRIDES: rdRaster_SpanR8_TexKey */
-void rdRaster_SpanR8_TexKey(int *node) { q6_spanr(node, 0, Q6R_TEX); }
-/* OVERRIDES: rdRaster_SpanR16_TexKey */
-void rdRaster_SpanR16_TexKey(int *node) { q6_spanr(node, 1, Q6R_PAL); }
-/* OVERRIDES: rdRaster_SpanR8_TexKey_2 */
-void rdRaster_SpanR8_TexKey_2(int *node) { q6_spanr(node, 0, Q6R_SHADE); }
-/* OVERRIDES: rdRaster_SpanR16_TexKey_2 */
-void rdRaster_SpanR16_TexKey_2(int *node) { q6_spanr(node, 1, Q6R_PAL); }
-/* OVERRIDES: rdRaster_SpanR8_TexKey_3 */
-void rdRaster_SpanR8_TexKey_3(int *node) { q6_spanr(node, 0, Q6R_SHADE_L); }
-/* OVERRIDES: rdRaster_SpanR16_TexKey_3 */
-void rdRaster_SpanR16_TexKey_3(int *node) { q6_spanr(node, 1, Q6R_PAL_L); }
+/* OVERRIDES: rdAFRaster_DrawSpanNGonMLAT_8 */
+void rdAFRaster_DrawSpanNGonMLAT_8(int *node) { q6_spanr(node, 0, Q6R_TEX); }
+/* OVERRIDES: rdAFRaster_DrawSpanNGonMLAT_16 */
+void rdAFRaster_DrawSpanNGonMLAT_16(int *node) { q6_spanr(node, 1, Q6R_PAL); }
+/* OVERRIDES: rdAFRaster_DrawSpanNGonMFAT_8 */
+void rdAFRaster_DrawSpanNGonMFAT_8(int *node) { q6_spanr(node, 0, Q6R_SHADE); }
+/* OVERRIDES: rdAFRaster_DrawSpanNGonMFAT_16 */
+void rdAFRaster_DrawSpanNGonMFAT_16(int *node) { q6_spanr(node, 1, Q6R_PAL); }
+/* OVERRIDES: rdAFRaster_DrawSpanNGonMGAT_8 */
+void rdAFRaster_DrawSpanNGonMGAT_8(int *node) { q6_spanr(node, 0, Q6R_SHADE_L); }
+/* OVERRIDES: rdAFRaster_DrawSpanNGonMGAT_16 */
+void rdAFRaster_DrawSpanNGonMGAT_16(int *node) { q6_spanr(node, 1, Q6R_PAL_L); }
 
 /* ==== SpanP8/16_TexKeyZw, _2, _3: one perspective keyed span node of the span-list renderer ====
  * Node: +0 x, +4 count, +8 row, +0xc U, +0x10 V, +0x1c W (the plane values at the first pixel), +0x20 / +0x24 light
@@ -1625,7 +1625,7 @@ static void q6_spanp(int *node, int bpp16, int mode, int nohead_colour)
     q6_u32(p2) = node[4];
     z = q6_floor_i(q6_f(p0 * 65536.0L));
     r = 1.0L / p0;
-    dz = UINT_008ddf24;
+    dz = g_dwRdAFRaster_dOneOverZdXFixed;
     if (bpp16)
         d16 = (unsigned short *)(Q6_I(Q6_CBUF(), 0x5c) + (((unsigned)Q6_I(Q6_CBUF(), 0x18) >> 1) * node[2] + node[0]) * 2);
     else
@@ -1654,56 +1654,56 @@ static void q6_spanp(int *node, int bpp16, int mode, int nohead_colour)
         l += dl;                                                                                            \
     }
 #define Q6_SPANP_START()                                                                                      \
-    u = (q6_floor_i(q6_f(u0 * 65536.0L)) >> (UINT_008ddf04 & 31)) + UINT_008ddf44;                          \
-    v = (q6_floor_i(q6_f(v0 * 65536.0L)) >> (UINT_008ddf04 & 31)) + UINT_008ddf18
+    u = (q6_floor_i(q6_f(u0 * 65536.0L)) >> (g_dwRdAFRaster_mipMapNum & 31)) + g_dwRdAFRaster_dUdXModifier;                          \
+    v = (q6_floor_i(q6_f(v0 * 65536.0L)) >> (g_dwRdAFRaster_mipMapNum & 31)) + g_dwRdAFRaster_dVdXModifier
     if (head) {
         h = head;
         inv = q6_copy(g_dwRdRaster_aOneOverNFlex[head]);
-        p0 = q6_f(h * DAT_008ddf1c + p0);
-        p1 = q6_f(h * DAT_008ddf20 + p1);
-        p2 = q6_f(h * DAT_008ddf38 + p2);
+        p0 = q6_f(h * g_dwRdAFRaster_dOneOverZdX + p0);
+        p1 = q6_f(h * g_dwRdAFRaster_dUOverZdX + p1);
+        p2 = q6_f(h * g_dwRdAFRaster_dVOverZdX + p2);
         r = 1.0L / p0;
         u1 = q6_f(r * p1);
         v1 = q6_f(r * p2);
-        du = q6_floor_i(q6_f(((long double)u1 - u0) * inv * 65536.0f)) >> (UINT_008ddf04 & 31);
-        dv = q6_floor_i(q6_f(((long double)v1 - v0) * inv * 65536.0f)) >> (UINT_008ddf04 & 31);
+        du = q6_floor_i(q6_f(((long double)u1 - u0) * inv * 65536.0f)) >> (g_dwRdAFRaster_mipMapNum & 31);
+        dv = q6_floor_i(q6_f(((long double)v1 - v0) * inv * 65536.0f)) >> (g_dwRdAFRaster_mipMapNum & 31);
         Q6_SPANP_START();
         Q6_SPANP_PIXELS(head)
-        p0 = q6_f((long double)p0 + DAT_008ddf28);
+        p0 = q6_f((long double)p0 + g_dwRdAFRaster_oneOverZStep);
         u0 = u1;
         v0 = v1;
-        p1 = q6_f((long double)p1 + DAT_008ddf2c);
-        p2 = q6_f((long double)p2 + DAT_008ddf48);
+        p1 = q6_f((long double)p1 + g_dwRdAFRaster_uOverZStep);
+        p2 = q6_f((long double)p2 + g_dwRdAFRaster_vOverZStep);
     } else {
-        p0 = q6_f((long double)p0 + DAT_008ddf28);
+        p0 = q6_f((long double)p0 + g_dwRdAFRaster_oneOverZStep);
         u = v = nohead_colour ? (int)d16 : (int)zp;
-        p1 = q6_f((long double)p1 + DAT_008ddf2c);
-        p2 = q6_f((long double)p2 + DAT_008ddf48);
+        p1 = q6_f((long double)p1 + g_dwRdAFRaster_uOverZStep);
+        p2 = q6_f((long double)p2 + g_dwRdAFRaster_vOverZStep);
     }
     for (; runs > 0; runs--) {
         r = 1.0L / p0;
         u1 = q6_f(r * p1);
         v1 = q6_f(r * p2);
-        du = q6_floor_i(q6_f(((long double)u1 - u0) * 0.0625f * 65536.0f)) >> (UINT_008ddf04 & 31);
-        dv = q6_floor_i(q6_f(((long double)v1 - v0) * 0.0625f * 65536.0f)) >> (UINT_008ddf04 & 31);
+        du = q6_floor_i(q6_f(((long double)u1 - u0) * 0.0625f * 65536.0f)) >> (g_dwRdAFRaster_mipMapNum & 31);
+        dv = q6_floor_i(q6_f(((long double)v1 - v0) * 0.0625f * 65536.0f)) >> (g_dwRdAFRaster_mipMapNum & 31);
         Q6_SPANP_START();
         Q6_SPANP_PIXELS(16)
-        p0 = q6_f((long double)p0 + DAT_008ddf28);
+        p0 = q6_f((long double)p0 + g_dwRdAFRaster_oneOverZStep);
         u0 = u1;
         v0 = v1;
-        p1 = q6_f((long double)p1 + DAT_008ddf2c);
-        p2 = q6_f((long double)p2 + DAT_008ddf48);
+        p1 = q6_f((long double)p1 + g_dwRdAFRaster_uOverZStep);
+        p2 = q6_f((long double)p2 + g_dwRdAFRaster_vOverZStep);
     }
     if (tail) {
         t = tail - 1;
         if (t) {
             h = t;
             inv = q6_copy(g_dwRdRaster_aOneOverNFlex[t]);
-            r = 1.0L / (h * DAT_008ddf1c - DAT_008ddf28 + p0);
-            u1 = q6_f((h * DAT_008ddf20 - DAT_008ddf2c + p1) * r);
-            v1 = q6_f((h * DAT_008ddf38 - DAT_008ddf48 + p2) * r);
-            du = q6_floor_i(q6_f(((long double)u1 - u0) * inv * 65536.0f)) >> (UINT_008ddf04 & 31);
-            dv = q6_floor_i(q6_f(((long double)v1 - v0) * inv * 65536.0f)) >> (UINT_008ddf04 & 31);
+            r = 1.0L / (h * g_dwRdAFRaster_dOneOverZdX - g_dwRdAFRaster_oneOverZStep + p0);
+            u1 = q6_f((h * g_dwRdAFRaster_dUOverZdX - g_dwRdAFRaster_uOverZStep + p1) * r);
+            v1 = q6_f((h * g_dwRdAFRaster_dVOverZdX - g_dwRdAFRaster_vOverZStep + p2) * r);
+            du = q6_floor_i(q6_f(((long double)u1 - u0) * inv * 65536.0f)) >> (g_dwRdAFRaster_mipMapNum & 31);
+            dv = q6_floor_i(q6_f(((long double)v1 - v0) * inv * 65536.0f)) >> (g_dwRdAFRaster_mipMapNum & 31);
             Q6_SPANP_START();
         }
         Q6_SPANP_PIXELS(t + 1)
@@ -1713,17 +1713,17 @@ static void q6_spanp(int *node, int bpp16, int mode, int nohead_colour)
     q6_fldcw(&DAT_00900524);
 }
 
-/* OVERRIDES: rdRaster_SpanP8_TexKeyZw */
-void rdRaster_SpanP8_TexKeyZw(int *node) { q6_spanp(node, 0, Q6R_TEX, 0); }
-/* OVERRIDES: rdRaster_SpanP16_TexKeyZw */
-void rdRaster_SpanP16_TexKeyZw(int *node) { q6_spanp(node, 1, Q6R_PAL, 1); }
-/* OVERRIDES: rdRaster_SpanP8_TexKeyZw_2 */
-void rdRaster_SpanP8_TexKeyZw_2(int *node) { q6_spanp(node, 0, Q6R_SHADE, 0); }
-/* OVERRIDES: rdRaster_SpanP16_TexKeyZw_2 */
-void rdRaster_SpanP16_TexKeyZw_2(int *node) { q6_spanp(node, 1, Q6R_PAL, 1); }
-/* OVERRIDES: rdRaster_SpanP8_TexKeyZw_3 */
-void rdRaster_SpanP8_TexKeyZw_3(int *node) { q6_spanp(node, 0, Q6R_SHADE_L, 0); }
-/* OVERRIDES: rdRaster_SpanP16_TexKeyZw_3 */
-void rdRaster_SpanP16_TexKeyZw_3(int *node) { q6_spanp(node, 1, Q6R_PAL_L, 0); }
+/* OVERRIDES: rdAFRaster_DrawSpanNGonMLIT_8 */
+void rdAFRaster_DrawSpanNGonMLIT_8(int *node) { q6_spanp(node, 0, Q6R_TEX, 0); }
+/* OVERRIDES: rdAFRaster_DrawSpanNGonMLIT_16 */
+void rdAFRaster_DrawSpanNGonMLIT_16(int *node) { q6_spanp(node, 1, Q6R_PAL, 1); }
+/* OVERRIDES: rdAFRaster_DrawSpanNGonMFIT_8 */
+void rdAFRaster_DrawSpanNGonMFIT_8(int *node) { q6_spanp(node, 0, Q6R_SHADE, 0); }
+/* OVERRIDES: rdAFRaster_DrawSpanNGonMFIT_16 */
+void rdAFRaster_DrawSpanNGonMFIT_16(int *node) { q6_spanp(node, 1, Q6R_PAL, 1); }
+/* OVERRIDES: rdAFRaster_DrawSpanNGonMGIT_8 */
+void rdAFRaster_DrawSpanNGonMGIT_8(int *node) { q6_spanp(node, 0, Q6R_SHADE_L, 0); }
+/* OVERRIDES: rdAFRaster_DrawSpanNGonMGIT_16 */
+void rdAFRaster_DrawSpanNGonMGIT_16(int *node) { q6_spanp(node, 1, Q6R_PAL_L, 0); }
 
 #endif /* GRIM_EXE */

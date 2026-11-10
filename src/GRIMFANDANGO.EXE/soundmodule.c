@@ -569,10 +569,13 @@ int SoundModule_DriverCommand3(void)
 #endif
 
 
-/* ---- 0x004d0c00  SoundModule_SetDriverRate ---- */
+/* ---- 0x004d0c00  sou_engine_SetRate ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-void __cdecl SoundModule_SetDriverRate(uint rate)
+/* Original name sou_engine_SetRate (the remaster's GrimFandango (Linux): the only unpaired writer
+   of sou_sample_rate, same body); was SoundModule_SetDriverRate. */
+
+void __cdecl sou_engine_SetRate(uint rate)
 
 {
   g_dwSou_sample_rate = rate;

@@ -17,7 +17,7 @@ void __cdecl sputText_Update(int drawAll)
   undefined4 *obj;
   int iVar2;
   
-  if (g_nTextObjectsFrozen == 0) {
+  if (g_nSputText_Paused == 0) {
     iVar2 = sputTime_GetFrameTime();
     obj = g_pTextQueue;
     while (obj != (undefined4 *)0x0) {
@@ -45,7 +45,7 @@ void __cdecl sputText_Update(int drawAll)
 void sputText_Pause(void)
 
 {
-  g_nTextObjectsFrozen = 1;
+  g_nSputText_Paused = 1;
   return;
 }
 
@@ -56,6 +56,6 @@ void sputText_Pause(void)
 void sputText_Resume(void)
 
 {
-  g_nTextObjectsFrozen = 0;
+  g_nSputText_Paused = 0;
   return;
 }

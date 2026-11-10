@@ -42,19 +42,21 @@ void __cdecl Control_Disable(int control)
   return;
 }
 
-/* ---- 0x0048d150  Control_Capture ---- */
+/* ---- 0x0048d150  sputControl_Open ---- */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
+/* Original name sputControl_Open (the remaster's GrimFandango (Linux): the control call of
+   grimlib_Open, same body (stdControl_Open, then bControlOpen)); was Control_Capture. */
 
-undefined * Control_Capture(void)
+undefined * sputControl_Open(void)
 
 {
   int iVar1;
   
-  iVar1 = Input_Enable();
+  iVar1 = stdControl_Open();
   if (iVar1 == 0) {
     return (undefined *)0x0;
   }
-  g_nInputCaptured = 1;
+  g_nControlOpen = 1;
   return (undefined *)0x1;
 }
 
@@ -64,13 +66,13 @@ undefined4 Control_Release(void)
 {
   int iVar1;
   
-  if (g_nInputCaptured == 0) {
+  if (g_nControlOpen == 0) {
     return 0;
   }
   iVar1 = Input_Disable();
   if (iVar1 == 0) {
     return 0;
   }
-  g_nInputCaptured = 0;
+  g_nControlOpen = 0;
   return 1;
 }

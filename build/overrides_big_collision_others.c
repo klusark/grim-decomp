@@ -82,7 +82,7 @@ undefined4 Collision_TestActorAgainstOthers(void *param_1)
     A[1] = cto_st((ld_t)CTO_F(self, 0x10) + c0[1]);
     A[2] = cto_st((ld_t)CTO_F(self, 0x14) + c0[2]);
     r0 = cto_st((ld_t)CTO_F(model, 0x5c) * CTO_F(CTO_P(self, 0xa4), 0x3f4));
-    if (g_nDrawableActorCount <= 0)
+    if (g_nTotActors <= 0)
         return 1;
     cursor = (void **)&g_pDrawableActors;
     do {
@@ -228,7 +228,7 @@ undefined4 Collision_TestActorAgainstOthers(void *param_1)
     next:
         i++;
         cursor++;
-    } while (i < g_nDrawableActorCount);
+    } while (i < g_nTotActors);
     return 1;
 }
 #endif /* GRIM_EXE */

@@ -43,11 +43,15 @@ void SmushPlay_SysConfigureColorLookup(undefined4 param_1)
   return;
 }
 
-/* ---- 0x004bd570  Smush_Open ---- */
+/* ---- 0x004bd570  SmushPlay_StartMovie ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+/* Original name SmushPlay_StartMovie (the remaster's GrimFandango (Linux): the only unpaired user
+   of CurFileName / fakeBM, same body, called from sputSmush_StartMovie on both sides); was
+   Smush_Open. */
 
 int __cdecl
-Smush_Open(char *name,int flags,int bufferSize,int x,int y,int w,int h,int a,int sixteenBit)
+SmushPlay_StartMovie
+          (char *name,int flags,int bufferSize,int x,int y,int w,int h,int a,int sixteenBit)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -66,7 +70,7 @@ Smush_Open(char *name,int flags,int bufferSize,int x,int y,int w,int h,int a,int
   #define local_18 (*(undefined4 (*)[6])(_frame + (0x30 - 0x18)))
   
   bVar2 = false;
-  if (UINT_008d1098 == 0) {
+  if (g_dwVideoCallbacks == 0) {
     return 1;
   }
   puVar8 = local_18;
@@ -121,9 +125,9 @@ Smush_Open(char *name,int flags,int bufferSize,int x,int y,int w,int h,int a,int
       _DAT_008d1664 = 0;
       _DAT_008d1668 = 1;
       _DAT_008d1680 = 0;
-      iVar4 = (*(code *)UINT_008d1098)(w,h,0x10,sixteenBit);
+      iVar4 = (*(code *)g_dwVideoCallbacks)(w,h,0x10,sixteenBit);
       if (iVar4 == 0) {
-        _DAT_008d1090 = flags & 0xfffffff;
+        _g_bMovieFlags = flags & 0xfffffff;
         bVar2 = true;
         iVar4 = (**(code **)(g_dwAnimplay_services + 4))
                           (&g_dwAh,name,0xf,UINT_008d121a + 500000,UINT_008d121a + 10000,0x600d);
@@ -206,7 +210,7 @@ int __cdecl SmushPlay_UpdateMovie(int *outDone)
   if ((iVar1 < 0) || (iVar1 == 4)) {
     (**(code **)(g_dwAnimplay_services + 0x14))(&g_dwAh);
     g_dwSmush_pInternalBitmap = 0;
-    if ((DAT_008d1090 & 0x10) == 0) {
+    if ((g_bMovieFlags & 0x10) == 0) {
       *outDone = 1;
       g_dwMovieIsPlaying = 0;
     }

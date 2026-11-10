@@ -81,51 +81,51 @@ static void p1_span_pick(int bpp, int size, void *const *tab16)
 /* the interpolants that every textured driver copies */
 static void p1_copy_tex(int param_1)
 {
-    UINT_008ddf04 = P1_U32(param_1 + 0x1c0);
-    UINT_008ddf3c = P1_U32(param_1 + 0x1c4);
-    UINT_008ddf10 = P1_U32(param_1 + 0x1c8);
-    _DAT_008ddf34 = P1_U32(param_1 + 0x1cc);
-    UINT_008ddf4c = P1_U32(param_1 + 0x1d4);
-    UINT_008ddf14 = P1_U32(param_1 + 0x1d8);
-    UINT_008ddf24 = P1_U32(param_1 + 0x19c);
-    UINT_008ddf44 = P1_U32(param_1 + 0x1a0);
-    UINT_008ddf18 = P1_U32(param_1 + 0x1a4);
+    g_dwRdAFRaster_mipMapNum = P1_U32(param_1 + 0x1c0);
+    g_dwRdAFRaster_pPixels = P1_U32(param_1 + 0x1c4);
+    g_dwRdAFRaster_texRowShift = P1_U32(param_1 + 0x1c8);
+    _g_dwRdAFRaster_texPitch = P1_U32(param_1 + 0x1cc);
+    g_dwRdAFRaster_uWrap = P1_U32(param_1 + 0x1d4);
+    g_dwRdAFRaster_vWrap = P1_U32(param_1 + 0x1d8);
+    g_dwRdAFRaster_dOneOverZdXFixed = P1_U32(param_1 + 0x19c);
+    g_dwRdAFRaster_dUdXModifier = P1_U32(param_1 + 0x1a0);
+    g_dwRdAFRaster_dVdXModifier = P1_U32(param_1 + 0x1a4);
 }
 
 /* the perspective terms of the P16 drivers */
 static void p1_copy_persp(int param_1)
 {
-    _DAT_008ddf28 = P1_U32(param_1 + 0x1a8);
-    _DAT_008ddf2c = P1_U32(param_1 + 0x1ac);
-    _DAT_008ddf48 = P1_U32(param_1 + 0x1b0);
-    _DAT_008ddf1c = P1_U32(param_1 + 0x184);
-    _DAT_008ddf20 = P1_U32(param_1 + 0x18c);
-    _DAT_008ddf38 = P1_U32(param_1 + 0x194);
+    _g_dwRdAFRaster_oneOverZStep = P1_U32(param_1 + 0x1a8);
+    _g_dwRdAFRaster_uOverZStep = P1_U32(param_1 + 0x1ac);
+    _g_dwRdAFRaster_vOverZStep = P1_U32(param_1 + 0x1b0);
+    _g_dwRdAFRaster_dOneOverZdX = P1_U32(param_1 + 0x184);
+    _g_dwRdAFRaster_dUOverZdX = P1_U32(param_1 + 0x18c);
+    _g_dwRdAFRaster_dVOverZdX = P1_U32(param_1 + 0x194);
 }
 
-/* the light-table pointer: +0x1dc at 8 bpp (UINT_008ddf0c), +0x1e0 at 16 bpp (UINT_008ddf30) */
+/* the light-table pointer: +0x1dc at 8 bpp (g_dwRdAFRaster_aMonoMap), +0x1e0 at 16 bpp (g_dwRdAFRaster_aRGBMap) */
 static void p1_copy_light(int param_1, int bpp, int with8)
 {
     if (with8 && bpp == 8)
-        UINT_008ddf0c = P1_U32(param_1 + 0x1dc);
+        g_dwRdAFRaster_aMonoMap = P1_U32(param_1 + 0x1dc);
     else if (bpp == 0x10)
-        UINT_008ddf30 = P1_U32(param_1 + 0x1e0);
+        g_dwRdAFRaster_aRGBMap = P1_U32(param_1 + 0x1e0);
 }
 
-/* OVERRIDES: FUN_00410330 */
-/* ==== FUN_00410330 (0x00410330) ====
- * Span driver of rdRaster_Select_FlatLit: Gouraud-lit flat colour.  The colour index (+0x1d0, a byte) goes to
- * DAT_008ddf40; every span writes its +0x04 pixels from x +0x00, row +0x08, the light value (+0x20, step +0x24) picking
+/* OVERRIDES: rdAFRaster_DrawNGonGS */
+/* ==== rdAFRaster_DrawNGonGS (0x00410330) ====
+ * Span driver of rdAFRaster_SetupNGonGS: Gouraud-lit flat colour.  The colour index (+0x1d0, a byte) goes to
+ * g_bRdAFRaster_color; every span writes its +0x04 pixels from x +0x00, row +0x08, the light value (+0x20, step +0x24) picking
  * the level of the light table: at 8 bpp the byte table +0x1dc[((l >> 8) & 0x3f00) + colour], at 16 bpp the word
  * table +0x1e0[((l >> 16) & 0x3f) * 0x100 + colour]. */
-void FUN_00410330(int param_1)
+void rdAFRaster_DrawNGonGS(int param_1)
 {
     int bpp = P1_BPP();
     int span, n, l, dl, cv;
 
-    DAT_008ddf40 = P1_U8(param_1 + 0x1d0);
+    g_bRdAFRaster_color = P1_U8(param_1 + 0x1d0);
     p1_copy_light(param_1, bpp, 1);
-    UINT_008ddf24 = P1_U32(param_1 + 0x19c);
+    g_dwRdAFRaster_dOneOverZdXFixed = P1_U32(param_1 + 0x19c);
     if (bpp == 8) {
         for (span = P1_I32(param_1 + 0x1b8); span != 0; span = P1_I32(span + 0x28)) {
             uint8_t *dst;
@@ -134,9 +134,9 @@ void FUN_00410330(int param_1)
             cv = P1_CANVAS();
             dst = (uint8_t *)(P1_I32(span + 8) * P1_I32(cv + 0x18) + P1_I32(cv + 0x5c) + P1_I32(span));
             for (n = P1_I32(span + 4); n != 0; n--) {
-                uint idx = ((uint)(l >> 8) & 0x3f00) + UINT_008ddf0c;
+                uint idx = ((uint)(l >> 8) & 0x3f00) + g_dwRdAFRaster_aMonoMap;
                 l += dl;
-                *dst++ = P1_U8(idx + (uint)DAT_008ddf40);
+                *dst++ = P1_U8(idx + (uint)g_bRdAFRaster_color);
             }
         }
     }
@@ -149,18 +149,18 @@ void FUN_00410330(int param_1)
             dst = (uint16_t *)(P1_I32(cv + 0x5c) +
                                (P1_I32(span + 8) * (int)(P1_U32(cv + 0x18) >> 1) + P1_I32(span)) * 2);
             for (n = P1_I32(span + 4); n != 0; n--) {
-                uint idx = (((uint)(l >> 16) & 0x3f) << 8) + (uint)DAT_008ddf40;
+                uint idx = (((uint)(l >> 16) & 0x3f) << 8) + (uint)g_bRdAFRaster_color;
                 l += dl;
-                *dst++ = P1_U16(UINT_008ddf30 + idx * 2);
+                *dst++ = P1_U16(g_dwRdAFRaster_aRGBMap + idx * 2);
             }
         }
     }
     p1_span_zwrite(P1_I32(param_1 + 0x1b8));
 }
 
-/* OVERRIDES: FUN_00410970 */
-/* ==== FUN_00410970 (0x00410970) ==== span driver of rdRaster_Select_FlatLit_2 (affine textured, rdRaster_SpanR16_Tex*) */
-void FUN_00410970(int param_1)
+/* OVERRIDES: rdAFRaster_DrawNGonLAT */
+/* ==== rdAFRaster_DrawNGonLAT (0x00410970) ==== span driver of rdAFRaster_SetupNGonLAT (affine textured, rdRaster_SpanR16_Tex*) */
+void rdAFRaster_DrawNGonLAT(int param_1)
 {
     static void *const tab[7] = {
         (void *)rdRaster_SpanR16_Tex_2, (void *)rdRaster_SpanR16_Tex_3, (void *)rdRaster_SpanR16_Tex_4,
@@ -170,13 +170,13 @@ void FUN_00410970(int param_1)
 
     p1_copy_light(param_1, bpp, 0);
     p1_copy_tex(param_1);
-    p1_span_pick(bpp, _DAT_008ddf34, tab);
+    p1_span_pick(bpp, _g_dwRdAFRaster_texPitch, tab);
     p1_span_run(param_1);
 }
 
-/* OVERRIDES: FUN_00411740 */
-/* ==== FUN_00411740 (0x00411740) ==== span driver (affine textured and lit, rdRaster_SpanR16_Tex_7 .. _12) */
-void FUN_00411740(int param_1)
+/* OVERRIDES: rdAFRaster_DrawNGonFAT */
+/* ==== rdAFRaster_DrawNGonFAT (0x00411740) ==== span driver (affine textured and lit, rdRaster_SpanR16_Tex_7 .. _12) */
+void rdAFRaster_DrawNGonFAT(int param_1)
 {
     static void *const tab[7] = {
         (void *)rdRaster_SpanR16_Tex_8, (void *)rdRaster_SpanR16_Tex_9, (void *)rdRaster_SpanR16_Tex_10,
@@ -186,13 +186,13 @@ void FUN_00411740(int param_1)
 
     p1_copy_light(param_1, bpp, 1);
     p1_copy_tex(param_1);
-    p1_span_pick(bpp, _DAT_008ddf34, tab);
+    p1_span_pick(bpp, _g_dwRdAFRaster_texPitch, tab);
     p1_span_run(param_1);
 }
 
-/* OVERRIDES: FUN_004125c0 */
-/* ==== FUN_004125c0 (0x004125c0) ==== span driver of rdRaster_Select_FlatLit_6 (rdRaster_SpanR16_TexLit_3 .. _9) */
-void FUN_004125c0(int param_1)
+/* OVERRIDES: rdAFRaster_DrawNGonGAT */
+/* ==== rdAFRaster_DrawNGonGAT (0x004125c0) ==== span driver of rdAFRaster_SetupNGonGAT (rdRaster_SpanR16_TexLit_3 .. _9) */
+void rdAFRaster_DrawNGonGAT(int param_1)
 {
     static void *const tab[7] = {
         (void *)rdRaster_SpanR16_TexLit_4, (void *)rdRaster_SpanR16_TexLit_5, (void *)rdRaster_SpanR16_TexLit_6,
@@ -202,13 +202,13 @@ void FUN_004125c0(int param_1)
 
     p1_copy_light(param_1, bpp, 1);
     p1_copy_tex(param_1);
-    p1_span_pick(bpp, _DAT_008ddf34, tab);
+    p1_span_pick(bpp, _g_dwRdAFRaster_texPitch, tab);
     p1_span_run(param_1);
 }
 
-/* OVERRIDES: FUN_00413590 */
-/* ==== FUN_00413590 (0x00413590) ==== perspective span driver (rdRaster_SpanP16_Tex .. _6) */
-void FUN_00413590(int param_1)
+/* OVERRIDES: rdAFRaster_DrawNGonLIT */
+/* ==== rdAFRaster_DrawNGonLIT (0x00413590) ==== perspective span driver (rdRaster_SpanP16_Tex .. _6) */
+void rdAFRaster_DrawNGonLIT(int param_1)
 {
     static void *const tab[7] = {
         (void *)rdRaster_SpanP16_Tex_2, (void *)rdRaster_SpanP16_Tex_3, (void *)rdRaster_SpanP16_Tex_4,
@@ -219,13 +219,13 @@ void FUN_00413590(int param_1)
     p1_copy_light(param_1, bpp, 0);
     p1_copy_tex(param_1);
     p1_copy_persp(param_1);
-    p1_span_pick(bpp, _DAT_008ddf34, tab);
+    p1_span_pick(bpp, _g_dwRdAFRaster_texPitch, tab);
     p1_span_run(param_1);
 }
 
-/* OVERRIDES: FUN_00414d20 */
-/* ==== FUN_00414d20 (0x00414d20) ==== perspective span driver (rdRaster_SpanP16_Tex_7 .. _12) */
-void FUN_00414d20(int param_1)
+/* OVERRIDES: rdAFRaster_DrawNGonFIT */
+/* ==== rdAFRaster_DrawNGonFIT (0x00414d20) ==== perspective span driver (rdRaster_SpanP16_Tex_7 .. _12) */
+void rdAFRaster_DrawNGonFIT(int param_1)
 {
     static void *const tab[7] = {
         (void *)rdRaster_SpanP16_Tex_8, (void *)rdRaster_SpanP16_Tex_9, (void *)rdRaster_SpanP16_Tex_10,
@@ -236,13 +236,13 @@ void FUN_00414d20(int param_1)
     p1_copy_light(param_1, bpp, 1);
     p1_copy_tex(param_1);
     p1_copy_persp(param_1);
-    p1_span_pick(bpp, _DAT_008ddf34, tab);
+    p1_span_pick(bpp, _g_dwRdAFRaster_texPitch, tab);
     p1_span_run(param_1);
 }
 
-/* OVERRIDES: FUN_00416580 */
-/* ==== FUN_00416580 (0x00416580) ==== perspective lit span driver (rdRaster_SpanP16_TexLit_3 .. _9) */
-void FUN_00416580(int param_1)
+/* OVERRIDES: rdAFRaster_DrawNGonGIT */
+/* ==== rdAFRaster_DrawNGonGIT (0x00416580) ==== perspective lit span driver (rdRaster_SpanP16_TexLit_3 .. _9) */
+void rdAFRaster_DrawNGonGIT(int param_1)
 {
     static void *const tab[7] = {
         (void *)rdRaster_SpanP16_TexLit_4, (void *)rdRaster_SpanP16_TexLit_5, (void *)rdRaster_SpanP16_TexLit_6,
@@ -253,7 +253,7 @@ void FUN_00416580(int param_1)
     p1_copy_light(param_1, bpp, 1);
     p1_copy_tex(param_1);
     p1_copy_persp(param_1);
-    p1_span_pick(bpp, _DAT_008ddf34, tab);
+    p1_span_pick(bpp, _g_dwRdAFRaster_texPitch, tab);
     p1_span_run(param_1);
 }
 
@@ -267,7 +267,7 @@ void FUN_00416580(int param_1)
  * +0x1b8 / +0x1bc span list head / tail, +0x1c0 texture shift, +0x1d0 flat colour, +0x1ec / +0x1f0 left / right edge
  * (+0x10 z, +0x18 u, +0x20 v (floats), +0x28 x, +0x30 u, +0x38 v, +0x40 light (16.16)), +0x1f4 x where the polygon
  * became the front one, +0x1f8 crossing count, +0x1fc / +0x200 previous / next in the active list.
- * Span records (0x2c bytes, DAT_004f6f30[g_dwNumActiveSpans], flushed by rdCanvas_FlushSpans at 0x800): +0x00 x, +0x04
+ * Span records (0x2c bytes, DAT_004f6f30[g_dwNumActiveSpans], flushed by rdActive_FlushSpans at 0x800): +0x00 x, +0x04
  * count, +0x08 row (g_dwYCurScanLine), +0x0c / +0x10 u, du (or the colour, or float u / v), +0x14 / +0x18 v, dv,
  * +0x1c z (float), +0x20 / +0x24 light, dlight, +0x28 next. */
 
@@ -329,7 +329,7 @@ static void p1_canvas_emit(int p, uint x)
         return;
     n = g_dwNumActiveSpans;
     if (n >= 0x800) {
-        rdCanvas_FlushSpans();
+        rdActive_FlushSpans();
         n = g_dwNumActiveSpans;
     }
     g_dwNumActiveSpans = n + 1;
@@ -499,16 +499,16 @@ static void p1_prep_draw(int face, int poly, int cel, void *sel, int lit, uint l
  * selector set by the cel's colour-key flag (cel +0x1c -> bit 0) and the texture mode (0, or 1..2).  For each of these
  * the lighting mode picks: 0 the unlit selector, 1 / 2 the lit selector with the level of +0x48 (+ +0x44), stored in
  * +0x44, 3 the per-vertex levels of +0x28 and the per-vertex selector.  Counts the polygon (g_dwNumActiveFaces,
- * UINT_005e6f98) and returns 1 also when no selector applies. */
+ * g_dwRdActive_drawnFaces) and returns 1 also when no selector applies. */
 undefined4 rdActive_AddActiveFace(byte *param_1)
 {
     /* per group: lit (lighting 1 and 2), unlit (0), per-vertex (3) */
     static void *const sel[5][3] = {
-        {(void *)rdRaster_Select_FlatLit_11, (void *)rdRaster_Select_FlatLit_9, (void *)rdRaster_Select_FlatLit_13},
-        {(void *)rdRaster_Select_FlatLit_5, (void *)rdRaster_Select_FlatLit_3, (void *)rdRaster_Select_FlatLit_7},
-        {(void *)rdRaster_Select_FlatLit_10, (void *)rdRaster_Select_FlatLit_8, (void *)rdRaster_Select_FlatLit_12},
-        {(void *)rdRaster_Select_FlatLit_4, (void *)rdRaster_Select_FlatLit_2, (void *)rdRaster_Select_FlatLit_6},
-        {(void *)rdRaster_Select_TexLit, (void *)rdRaster_Select_Flat_2, (void *)rdRaster_Select_FlatLit},
+        {(void *)rdAFRaster_SetupNGonMFIT, (void *)rdAFRaster_SetupNGonMLIT, (void *)rdAFRaster_SetupNGonMGIT},
+        {(void *)rdAFRaster_SetupNGonMFAT, (void *)rdAFRaster_SetupNGonMLAT, (void *)rdAFRaster_SetupNGonMGAT},
+        {(void *)rdAFRaster_SetupNGonFIT, (void *)rdAFRaster_SetupNGonLIT, (void *)rdAFRaster_SetupNGonGIT},
+        {(void *)rdAFRaster_SetupNGonFAT, (void *)rdAFRaster_SetupNGonLAT, (void *)rdAFRaster_SetupNGonGAT},
+        {(void *)rdAFRaster_SetupNGonFS, (void *)rdAFRaster_SetupNGonLS, (void *)rdAFRaster_SetupNGonGS},
     };
     int face = (int)param_1;
     uint idx = g_dwNumActiveFaces;
@@ -518,8 +518,8 @@ undefined4 rdActive_AddActiveFace(byte *param_1)
     if (idx >= 0x400)
         return 0;
     geo = P1_I32(face + 8);
-    if (geo >= g_nRdroidGeometryMode)
-        geo = g_nRdroidGeometryMode;
+    if (geo >= g_nRdroid_curGeometryMode)
+        geo = g_nRdroid_curGeometryMode;
     light = P1_I32(face + 0xc);
     if (light >= g_nRdroid_curLightingMode)
         light = g_nRdroid_curLightingMode;
@@ -556,7 +556,7 @@ undefined4 rdActive_AddActiveFace(byte *param_1)
     grp = -1;
     if (geo == 2) {
         if (light >= 0 && light <= 4)
-            p1_prep_draw(face, poly, cel, (void *)rdRaster_Select_Flat, 0, 0);
+            p1_prep_draw(face, poly, cel, (void *)rdAFRaster_SetupNGonLW, 0, 0);
     }
     else if (geo == 3)
         grp = 4;
@@ -600,7 +600,7 @@ undefined4 rdActive_AddActiveFace(byte *param_1)
         }
     }
     g_dwNumActiveFaces = g_dwNumActiveFaces + 1;
-    UINT_005e6f98 = UINT_005e6f98 + 1;
+    g_dwRdActive_drawnFaces = g_dwRdActive_drawnFaces + 1;
     return 1;
 }
 
@@ -889,8 +889,8 @@ undefined4 rdCache_DrawFaceUser(byte *param_1)
     void (*draw)(int, int, uint);
 
     geo = P1_I32(p + 8);
-    if (geo >= g_nRdroidGeometryMode)
-        geo = g_nRdroidGeometryMode;
+    if (geo >= g_nRdroid_curGeometryMode)
+        geo = g_nRdroid_curGeometryMode;
     light = P1_I32(p + 0xc);
     if (light >= g_nRdroid_curLightingMode)
         light = g_nRdroid_curLightingMode;

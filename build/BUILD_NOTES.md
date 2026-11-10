@@ -1128,3 +1128,27 @@ Root causes fixed at the source (Ghidra, then `tools/export_changed.py`)
   files; 2 of the new tests (gco_kf_badj, ims_ids|id_plus_1) differ for main's build and this one alike.
 * Left: rdRaster_* (the remaster's rdNRaster_* / rdZRaster_* pair 86 of them at 0.45-0.85 similarity: not done), LUA.DLL
   globals beyond the 69, the doubtful list in docs/notes/orig_3.md.
+
+## Original names, round 4 (2026-11-10, agent orig-4, lead)
+
+* The software rasteriser: the three dispatchers (rdCache_DrawFaceN, rdCache_DrawFaceZ, rdActive_AddActiveFace) test
+  geometry / lighting / texture mode, the mask bit and the translucency bit in the same order in both builds, so each
+  v1.01 call pairs with the remaster's call under the same conditions (32 + 32 DrawNGon*, 16 rdAFRaster_SetupNGon*);
+  their callees pair by role (gradients, left / right edge set-up, 8 / 16-bit span, advance by side flag). 260 of the
+  351 generated `rdRaster_*` names and 15 FUN_ are original now; orig-3's similarity votes had crossed pairs
+  (`rdRaster_Draw16_TexLit_4` is DrawNGonLAT, not TLAT). Left: 86 per-texture-width span fillers only v1.01 has, 2
+  z-write spans the remaster inlined, 3 copies the linker folded.
+* EXE functions 2344 -> 2359 named, auto/module-level 378 -> 119, 59 hand-made names replaced (`rdroid_Open` -> rdOpen,
+  `Grim_Init` -> Main_Startup, `IMuseModule_Init` -> PolyglotInitialize, `Display_Flip` -> stdDisplay_Update,
+  `DebugLog_*` -> grimdemo_*Print, ...); globals 590 -> 727 (36 renamed, the rdRaster vertex globals -> rdNRaster's).
+  IMUSE.DLL: `Im_FireTriggers` -> TgProcessMarker, globals 92 -> 100, 10031e78 / 10031e7c corrected to lipSfx2ID /
+  lipSfx3ID; its 150 FUN_ are 124 MSVC runtime + 26 iMUSE code nobody pairs. LUA.DLL: nothing new (the unnamed globals
+  are runtime-only, literals taken by address, LState pieces). Batches names/orig4_*.json, notes docs/notes/orig_4.md.
+* asm_q4 / q5 / q6 pasted `rdRaster_##n`: their *_funcs.h now list the full names. The lead carried the renames into
+  build/difftest/logic_dt.c (`__orig`), build/mixdiff/snd_test.c and build/perf (breakpoints by name).
+* Code and data of the four binaries are byte-identical to main's (rdata: the build-time string only).
+* Clean-room (5319 tests, the other session's uncommitted expected/ files): 10 differ for this build and 10 for main's
+  (built in a worktree from main with raw/ mapped back to the old names; code and data byte-identical to this one). 9
+  differ identically in both (gco_kf_badj, gco_cos_bitmap, gco_font_kerned, gco_font_perm, gco_text_keys,
+  gl1_sound_pos_actor, gl1_sound_pos_max_below_min, ims_save_voice, smv_save_movie: the new / changing tests); the
+  rest is timing noise one run each (sound_fade on main, ims_ids|id_plus_1 here, as in round 3).

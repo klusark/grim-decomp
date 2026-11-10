@@ -40,42 +40,42 @@
 #include <smmintrin.h>
 
 /* ---- the rasteriser globals (names as in globals.h; not included, the types here are the ones the code needs) ---- */
-extern int UINT_007f4460;            /* vertex count of the polygon */
-extern int UINT_007f4464;            /* mip mode: the texture's mip count - 1 */
-extern float UINT_007f4468[];        /* per-vertex u / (z + 1) (Grad_Flat_4) */
-extern int UINT_007f44e8;            /* start vertex (top) */
-extern int UINT_007f44ec;            /* left edge direction (+1 / -1) */
+extern int g_dwRdZRaster_numVertices;            /* vertex count of the polygon */
+extern int g_dwRdZRaster_maxMipMap;            /* mip mode: the texture's mip count - 1 */
+extern float g_dwRdZRaster_aUOverZ[];        /* per-vertex u / (z + 1) (Grad_Flat_4) */
+extern int g_dwRdZRaster_yMinVert;            /* start vertex (top) */
+extern int g_dwRdZRaster_leftVertexStep;            /* left edge direction (+1 / -1) */
 extern void *UINT_007f44f0;          /* span filler chosen by the opaque drivers */
-extern int UINT_007f44f4;            /* end vertex (bottom) */
-extern float *UINT_007f44f8;         /* per-vertex light */
-extern float *PTR_007f44fc;          /* screen vertices x, y, z (12 bytes each) */
-extern float UINT_007f4500[];        /* per-vertex v / (z + 1) */
-extern int UINT_007f4580;            /* right edge direction */
-extern float *UINT_007f4584;         /* per-vertex u, v */
-extern float UINT_007f4588[];        /* per-vertex 1 / (z + 1) */
-extern unsigned char *UINT_008dde44; /* 16 bpp colour -> palette index */
-extern int UINT_008dde48;            /* texture u mask << 16 */
-extern float DAT_008dde4c;           /* 16 * d(1/z)/dx */
-extern int UINT_008dde50;            /* v rounding bias (0x8000 / 0x7fff) */
-extern int UINT_008dde54;            /* mip level */
-extern int UINT_008dde58;            /* texture v mask << log2 width */
-extern unsigned short *UINT_008dde5c;/* light table, 16 bpp (64 rows of 256) */
-extern float DAT_008dde60;           /* d(u/z)/dx */
-extern float DAT_008dde64;           /* d(u/z)/dy */
-extern int UINT_008dde68;            /* width of the mip level (selects the 16 bpp filler without z shift) */
-extern unsigned char *UINT_008dde6c; /* light table, 8 bpp */
-extern float DAT_008dde74;           /* 16 * d(v/z)/dx */
-extern int UINT_008dde78;            /* u rounding bias */
-extern unsigned char *UINT_008dde7c; /* texels of the mip level */
-extern float DAT_008dde80;           /* d(v/z)/dx */
-extern float DAT_008dde84;           /* d(v/z)/dy */
-extern int UINT_008dde88;            /* z step per pixel (16.16) */
-extern int UINT_008dde8c;            /* log2 width of the mip level */
-extern unsigned char *UINT_008dde90; /* translucency table (256 x 256) */
-extern float DAT_008dde94;           /* 16 * d(u/z)/dx */
-extern float DAT_008dde9c;           /* d(1/z)/dy */
-extern float DAT_008ddea0;           /* d(1/z)/dx */
-extern int UINT_008ddea4;            /* z-buffer shift */
+extern int g_dwRdZRaster_yMaxVert;            /* end vertex (bottom) */
+extern float *g_dwRdZRaster_aIntensities;         /* per-vertex light */
+extern float *g_pRdZRaster_aVertices;          /* screen vertices x, y, z (12 bytes each) */
+extern float g_dwRdZRaster_aVOverZ[];        /* per-vertex v / (z + 1) */
+extern int g_dwRdZRaster_rightVertexStep;            /* right edge direction */
+extern float *g_dwRdZRaster_aTexVertices;         /* per-vertex u, v */
+extern float g_dwRdZRaster_aOneOverZ[];        /* per-vertex 1 / (z + 1) */
+extern unsigned char *g_dwRdZRaster_aRGBToPalette; /* 16 bpp colour -> palette index */
+extern int g_dwRdZRaster_uWrap;            /* texture u mask << 16 */
+extern float g_dwRdZRaster_oneOverZStep;           /* 16 * d(1/z)/dx */
+extern int g_dwRdZRaster_dVdXModifier;            /* v rounding bias (0x8000 / 0x7fff) */
+extern int g_dwRdZRaster_mipMapNum;            /* mip level */
+extern int g_dwRdZRaster_vWrap;            /* texture v mask << log2 width */
+extern unsigned short *g_dwRdZRaster_aRGBMap;/* light table, 16 bpp (64 rows of 256) */
+extern float g_dwRdZRaster_dUOverZdX;           /* d(u/z)/dx */
+extern float g_dwRdZRaster_dUOverZdY;           /* d(u/z)/dy */
+extern int g_dwRdZRaster_texPitch;            /* width of the mip level (selects the 16 bpp filler without z shift) */
+extern unsigned char *g_dwRdZRaster_aMonoMap; /* light table, 8 bpp */
+extern float g_dwRdZRaster_vOverZStep;           /* 16 * d(v/z)/dx */
+extern int g_dwRdZRaster_dUdXModifier;            /* u rounding bias */
+extern unsigned char *g_dwRdZRaster_pPixels; /* texels of the mip level */
+extern float g_dwRdZRaster_dVOverZdX;           /* d(v/z)/dx */
+extern float g_dwRdZRaster_dVOverZdY;           /* d(v/z)/dy */
+extern int g_dwRdZRaster_dOneOverZdXFixed;            /* z step per pixel (16.16) */
+extern int g_dwRdZRaster_texRowShift;            /* log2 width of the mip level */
+extern unsigned char *g_dwRdZRaster_aAlphaMap; /* translucency table (256 x 256) */
+extern float g_dwRdZRaster_uOverZStep;           /* 16 * d(u/z)/dx */
+extern float g_dwRdZRaster_dOneOverZdY;           /* d(1/z)/dy */
+extern float g_dwRdZRaster_dOneOverZdX;           /* d(1/z)/dx */
+extern int g_dwRdZRaster_zScaleShift;            /* z-buffer shift */
 extern int g_aRdRaster_OneOverNFixed[];           /* 65536 / n (span length) */
 extern float g_dwRdRaster_aOneOverNFlex[];        /* 1.0f / n */
 extern unsigned short DAT_00900524;  /* x87 control word: default */
@@ -98,13 +98,13 @@ typedef int (*q5_edge_fn)(q5_edge *);
 typedef void (*q5_span_fn)(q5_edge *, q5_edge *);
 
 #define Q5_I(p, off) (*(int *)((char *)(p) + (off)))
-#define Q5_VX(i) (PTR_007f44fc[(i) * 3])
-#define Q5_VY(i) (PTR_007f44fc[(i) * 3 + 1])
-#define Q5_VZ(i) (PTR_007f44fc[(i) * 3 + 2])
-#define Q5_LT(i) (UINT_007f44f8[i])
-#define Q5_ZI(i) (UINT_007f4588[i])
-#define Q5_UZ(i) (UINT_007f4468[i])
-#define Q5_VZI(i) (UINT_007f4500[i])
+#define Q5_VX(i) (g_pRdZRaster_aVertices[(i) * 3])
+#define Q5_VY(i) (g_pRdZRaster_aVertices[(i) * 3 + 1])
+#define Q5_VZ(i) (g_pRdZRaster_aVertices[(i) * 3 + 2])
+#define Q5_LT(i) (g_dwRdZRaster_aIntensities[i])
+#define Q5_ZI(i) (g_dwRdZRaster_aOneOverZ[i])
+#define Q5_UZ(i) (g_dwRdZRaster_aUOverZ[i])
+#define Q5_VZI(i) (g_dwRdZRaster_aVOverZ[i])
 #define q5_u32(f) (*(int *)&(f))
 #define Q5_INLINE static inline __attribute__((always_inline))
 
@@ -157,8 +157,8 @@ Q5_INLINE int q5_next(int i, int dir)
 {
     int n = i + dir;
     if (n < 0)
-        return UINT_007f4460 - 1;
-    return n > UINT_007f4460 - 1 ? 0 : n;
+        return g_dwRdZRaster_numVertices - 1;
+    return n > g_dwRdZRaster_numVertices - 1 ? 0 : n;
 }
 
 /* ==== Grad_Flat_4: the plane equations of the perspective drivers ====
@@ -172,18 +172,18 @@ Q5_INLINE int q5_next(int i, int dir)
  * _ftol((Zb * C - Za * D) * R * 65536) (the unrounded d/dx).  The mip level as Grad_Flat_3.  The u rounding bias:
  * 0x8000 when e = zi(a) * du/dx - u/z(a) * dz/dx > 0, 0x7fff when e < 0 or NaN, else by the same test on the d/dy
  * gradients (0x7fff when < 0 or NaN); v the same. */
-/* OVERRIDES: rdRaster_Grad_Flat_4 */
-void rdRaster_Grad_Flat_4(int dbits)
+/* OVERRIDES: rdZRaster_CalcPerspGradients */
+void rdZRaster_CalcPerspGradients(int dbits)
 {
     float dist = *(float *)&dbits;
-    int cnt = UINT_007f4460, a, b, c, dir, k, i;
-    float *V = PTR_007f44fc;
+    int cnt = g_dwRdZRaster_numVertices, a, b, c, dir, k, i;
+    float *V = g_pRdZRaster_aVertices;
     if (cnt == 3) {
         a = 0;
         b = 1;
         c = 2;
     } else {
-        int start = UINT_007f44e8, end = UINT_007f44f4;
+        int start = g_dwRdZRaster_yMinVert, end = g_dwRdZRaster_yMaxVert;
         float mid, mx = 0.0f;
         a = start;
         b = end;
@@ -212,10 +212,10 @@ void rdRaster_Grad_Flat_4(int dbits)
                 c = k;
             }
         }
-        cnt = UINT_007f4460;
+        cnt = g_dwRdZRaster_numVertices;
     }
     {
-        float *T = UINT_007f4584;
+        float *T = g_dwRdZRaster_aTexVertices;
         for (i = 0; i < cnt; i++) {
             long double zi = 1.0f / ((long double)V[i * 3 + 2] - -1.0f);
             Q5_ZI(i) = q5_f(zi);
@@ -240,45 +240,45 @@ void rdRaster_Grad_Flat_4(int dbits)
         Vb = q5_f((long double)Q5_VZI(b) - Q5_VZI(c));
         Va = q5_f((long double)Q5_VZI(a) - Q5_VZI(c));
         e = ((long double)Zb * C - (long double)Za * D) * R;
-        DAT_008ddea0 = q5_f(e);
-        DAT_008dde9c = q5_f(((long double)Zb * A - (long double)Za * B) * nR);
-        UINT_008dde88 = q5_ftol(e * 65536.0f);
-        DAT_008dde60 = q5_f(((long double)Ub * C - (long double)Ua * D) * R);
-        DAT_008dde64 = q5_f(((long double)Ub * A - (long double)Ua * B) * nR);
-        DAT_008dde80 = q5_f(((long double)Vb * C - (long double)Va * D) * R);
-        DAT_008dde84 = q5_f(((long double)Vb * A - (long double)Va * B) * nR);
+        g_dwRdZRaster_dOneOverZdX = q5_f(e);
+        g_dwRdZRaster_dOneOverZdY = q5_f(((long double)Zb * A - (long double)Za * B) * nR);
+        g_dwRdZRaster_dOneOverZdXFixed = q5_ftol(e * 65536.0f);
+        g_dwRdZRaster_dUOverZdX = q5_f(((long double)Ub * C - (long double)Ua * D) * R);
+        g_dwRdZRaster_dUOverZdY = q5_f(((long double)Ub * A - (long double)Ua * B) * nR);
+        g_dwRdZRaster_dVOverZdX = q5_f(((long double)Vb * C - (long double)Va * D) * R);
+        g_dwRdZRaster_dVOverZdY = q5_f(((long double)Vb * A - (long double)Va * B) * nR);
     }
-    switch (UINT_007f4464) {
+    switch (g_dwRdZRaster_maxMipMap) {
     case 0:
-        UINT_008dde54 = 0;
+        g_dwRdZRaster_mipMapNum = 0;
         break;
     case 1:
-        UINT_008dde54 = dist > g_aRdroid_MipDistances ? 1 : 0;
+        g_dwRdZRaster_mipMapNum = dist > g_aRdroid_MipDistances ? 1 : 0;
         break;
     case 2:
-        UINT_008dde54 = !(dist > DAT_004dda90) ? 0 : !(dist > g_aRdroid_MipDistances) ? 1 : 2;
+        g_dwRdZRaster_mipMapNum = !(dist > DAT_004dda90) ? 0 : !(dist > g_aRdroid_MipDistances) ? 1 : 2;
         break;
     case 3:
-        UINT_008dde54 = !(dist > DAT_004dda90) ? 0 : !(dist > g_aRdroid_MipDistances) ? 1 : !(dist > DAT_004dda98) ? 2 : 3;
+        g_dwRdZRaster_mipMapNum = !(dist > DAT_004dda90) ? 0 : !(dist > g_aRdroid_MipDistances) ? 1 : !(dist > DAT_004dda98) ? 2 : 3;
         break;
     }
     {
-        long double e = (long double)Q5_ZI(a) * DAT_008dde60 - (long double)Q5_UZ(a) * DAT_008ddea0;
+        long double e = (long double)Q5_ZI(a) * g_dwRdZRaster_dUOverZdX - (long double)Q5_UZ(a) * g_dwRdZRaster_dOneOverZdX;
         if (e > 0.0L)
-            UINT_008dde78 = 0x8000;
+            g_dwRdZRaster_dUdXModifier = 0x8000;
         else if (!(e >= 0.0L) ||
-                 !((long double)Q5_ZI(a) * DAT_008dde64 - (long double)Q5_UZ(a) * DAT_008dde9c >= 0.0L))
-            UINT_008dde78 = 0x7fff;
+                 !((long double)Q5_ZI(a) * g_dwRdZRaster_dUOverZdY - (long double)Q5_UZ(a) * g_dwRdZRaster_dOneOverZdY >= 0.0L))
+            g_dwRdZRaster_dUdXModifier = 0x7fff;
         else
-            UINT_008dde78 = 0x8000;
-        e = (long double)Q5_ZI(a) * DAT_008dde80 - (long double)Q5_VZI(a) * DAT_008ddea0;
+            g_dwRdZRaster_dUdXModifier = 0x8000;
+        e = (long double)Q5_ZI(a) * g_dwRdZRaster_dVOverZdX - (long double)Q5_VZI(a) * g_dwRdZRaster_dOneOverZdX;
         if (e > 0.0L)
-            UINT_008dde50 = 0x8000;
+            g_dwRdZRaster_dVdXModifier = 0x8000;
         else if (!(e >= 0.0L) ||
-                 !((long double)Q5_ZI(a) * DAT_008dde84 - (long double)Q5_VZI(a) * DAT_008dde9c >= 0.0L))
-            UINT_008dde50 = 0x7fff;
+                 !((long double)Q5_ZI(a) * g_dwRdZRaster_dVOverZdY - (long double)Q5_VZI(a) * g_dwRdZRaster_dOneOverZdY >= 0.0L))
+            g_dwRdZRaster_dVdXModifier = 0x7fff;
         else
-            UINT_008dde50 = 0x8000;
+            g_dwRdZRaster_dVdXModifier = 0x8000;
     }
 }
 
@@ -297,7 +297,7 @@ int NAME(q5_edge *e)                                                            
 {                                                                                                           \
     int i = e->idx, n, h;                                                                                   \
     float cy, sub, xs, tf;                                                                                  \
-    if (i == UINT_007f44f4)                                                                                 \
+    if (i == g_dwRdZRaster_yMaxVert)                                                                                 \
         return 1;                                                                                           \
     for (;;) {                                                                                              \
         n = q5_next(i, DIR);                                                                                \
@@ -308,7 +308,7 @@ int NAME(q5_edge *e)                                                            
         if (h > 0)                                                                                          \
             break;                                                                                          \
         i = n;                                                                                              \
-        if (n == UINT_007f44f4)                                                                             \
+        if (n == g_dwRdZRaster_yMaxVert)                                                                             \
             return 1;                                                                                       \
     }                                                                                                       \
     sub = q5_f((long double)cy - Q5_VY(i));                                                                 \
@@ -331,9 +331,9 @@ int NAME(q5_edge *e)                                                            
         xs = q5_f(xe);                                                                                      \
         e->x = q5_floor_i(q5_f(xe * 65536.0f));                                                             \
         if (PERSP) {                                                                                        \
-            e->dz = q5_f((long double)tf * DAT_008ddea0 + DAT_008dde9c);                                    \
-            e->duz = q5_f((long double)tf * DAT_008dde60 + DAT_008dde64);                                   \
-            e->dvz = q5_f((long double)tf * DAT_008dde80 + DAT_008dde84);                                   \
+            e->dz = q5_f((long double)tf * g_dwRdZRaster_dOneOverZdX + g_dwRdZRaster_dOneOverZdY);                                    \
+            e->duz = q5_f((long double)tf * g_dwRdZRaster_dUOverZdX + g_dwRdZRaster_dUOverZdY);                                   \
+            e->dvz = q5_f((long double)tf * g_dwRdZRaster_dVOverZdX + g_dwRdZRaster_dVOverZdY);                                   \
         }                                                                                                   \
         if (LIT) {                                                                                          \
             float lf;                                                                                       \
@@ -345,26 +345,26 @@ int NAME(q5_edge *e)                                                            
     }                                                                                                       \
     if (PERSP) {                                                                                            \
         long double dxs = (long double)xs - Q5_VX(i);                                                       \
-        e->z = q5_f(((long double)sub * DAT_008dde9c + Q5_ZI(i)) + dxs * DAT_008ddea0);                     \
-        e->uz = q5_f(((long double)sub * DAT_008dde64 + Q5_UZ(i)) + dxs * DAT_008dde60);                    \
-        e->vz = q5_f((dxs * DAT_008dde80 + Q5_VZI(i)) + (long double)sub * DAT_008dde84);                   \
+        e->z = q5_f(((long double)sub * g_dwRdZRaster_dOneOverZdY + Q5_ZI(i)) + dxs * g_dwRdZRaster_dOneOverZdX);                     \
+        e->uz = q5_f(((long double)sub * g_dwRdZRaster_dUOverZdY + Q5_UZ(i)) + dxs * g_dwRdZRaster_dUOverZdX);                    \
+        e->vz = q5_f((dxs * g_dwRdZRaster_dVOverZdX + Q5_VZI(i)) + (long double)sub * g_dwRdZRaster_dVOverZdY);                   \
     }                                                                                                       \
     e->idx = n;                                                                                             \
     return 0;                                                                                               \
 }
 
-/* OVERRIDES: rdRaster_SpanR_Flat_13 */
-Q5_EDGE_FN(rdRaster_SpanR_Flat_13, UINT_007f44ec, 1, 0)
-/* OVERRIDES: rdRaster_SpanR_Flat_14 */
-Q5_EDGE_FN(rdRaster_SpanR_Flat_14, UINT_007f4580, 0, 0)
-/* OVERRIDES: rdRaster_SpanR_Flat_15 */
-Q5_EDGE_FN(rdRaster_SpanR_Flat_15, UINT_007f44ec, 1, 0)
-/* OVERRIDES: rdRaster_SpanR_Flat_16 */
-Q5_EDGE_FN(rdRaster_SpanR_Flat_16, UINT_007f4580, 0, 0)
-/* OVERRIDES: rdRaster_SpanR_Flat_17 */
-Q5_EDGE_FN(rdRaster_SpanR_Flat_17, UINT_007f44ec, 1, 1)
-/* OVERRIDES: rdRaster_SpanR_Flat_18 */
-Q5_EDGE_FN(rdRaster_SpanR_Flat_18, UINT_007f4580, 0, 1)
+/* OVERRIDES: rdZRaster_SetupLeftEdgeNGonLIT */
+Q5_EDGE_FN(rdZRaster_SetupLeftEdgeNGonLIT, g_dwRdZRaster_leftVertexStep, 1, 0)
+/* OVERRIDES: rdZRaster_SetupRightEdgeNGonLIT */
+Q5_EDGE_FN(rdZRaster_SetupRightEdgeNGonLIT, g_dwRdZRaster_rightVertexStep, 0, 0)
+/* OVERRIDES: rdZRaster_SetupLeftEdgeNGonFIT */
+Q5_EDGE_FN(rdZRaster_SetupLeftEdgeNGonFIT, g_dwRdZRaster_leftVertexStep, 1, 0)
+/* OVERRIDES: rdZRaster_SetupRightEdgeNGonFIT */
+Q5_EDGE_FN(rdZRaster_SetupRightEdgeNGonFIT, g_dwRdZRaster_rightVertexStep, 0, 0)
+/* OVERRIDES: rdZRaster_SetupLeftEdgeNGonGIT */
+Q5_EDGE_FN(rdZRaster_SetupLeftEdgeNGonGIT, g_dwRdZRaster_leftVertexStep, 1, 1)
+/* OVERRIDES: rdZRaster_SetupRightEdgeNGonGIT */
+Q5_EDGE_FN(rdZRaster_SetupRightEdgeNGonGIT, g_dwRdZRaster_rightVertexStep, 0, 1)
 
 /* ==== the perspective span fillers (z-buffered, 8 / 16 bpp) ====
  * The span covers the pixel columns xl .. xr - 1 (xl = ceil(L.x), xr = ceil(R.x), 16.16, both >> 16 signed); nothing
@@ -382,13 +382,13 @@ Q5_EDGE_FN(rdRaster_SpanR_Flat_18, UINT_007f4580, 0, 1)
  * draws) with the z-buffer, the texel texels[(u >> 16 & umask) + (v >> (16 - log2 w) & vmask)], KEY: texel 0 is
  * transparent; z += dz (the integer step 0x008dde88), LIT: the light as q4's gouraud fillers. */
 #define Q5_TEXEL(u, v)                                                                                      \
-    UINT_008dde7c[(((u) >> 16) & (UINT_008dde48 >> 16)) + (((v) >> ((16 - UINT_008dde8c) & 31)) & UINT_008dde58)]
+    g_dwRdZRaster_pPixels[(((u) >> 16) & (g_dwRdZRaster_uWrap >> 16)) + (((v) >> ((16 - g_dwRdZRaster_texRowShift) & 31)) & g_dwRdZRaster_vWrap)]
 #define Q5_BUF8(c4, y, x) ((unsigned char *)(Q5_I(Q5_I(c4, 4), 0x5c) + Q5_I(Q5_I(c4, 4), 0x18) * (y) + (x)))
 #define Q5_BUF16(c4, y, x)                                                                                  \
     ((unsigned short *)(Q5_I(Q5_I(c4, 4), 0x5c) + (((unsigned)Q5_I(Q5_I(c4, 4), 0x18) >> 1) * (y) + (x)) * 2))
 #define Q5_ZBUF(c4, y, x) ((unsigned short *)(Q5_I(Q5_I(c4, 0x10), 0x5c) + Q5_I(Q5_I(c4, 0x10), 0x18) * (y) + (x) * 2))
 #define Q5_LROW(l) ((((l) >> 16) & 0x3f) << 8)
-#define Q5_BLEND(c, d) UINT_008dde90[(c) * 256 + (d)]
+#define Q5_BLEND(c, d) g_dwRdZRaster_aAlphaMap[(c) * 256 + (d)]
 
 /* the pixels of one part: k pixels from pix / zp on */
 #define Q5_PIXELS(k, KEY, PIXEL, LIT)                                                                       \
@@ -416,11 +416,11 @@ Q5_EDGE_FN(rdRaster_SpanR_Flat_18, UINT_007f4580, 0, 1)
 /* u, v and their steps for a part from (u0, v0) to (u1, v1) over 1/k = rk */
 #define Q5_UV(rk)                                                                                           \
     {                                                                                                       \
-        int mip = UINT_008dde54 & 31;                                                                       \
+        int mip = g_dwRdZRaster_mipMapNum & 31;                                                                       \
         du = q5_floor_i(q5_f(((long double)u1 - u0) * (rk) * 65536.0f)) >> mip;                             \
         dv = q5_floor_i(q5_f(((long double)v1 - v0) * (rk) * 65536.0f)) >> mip;                             \
-        u = (q5_floor_i(q5_f((long double)u0 * 65536.0f)) >> mip) + UINT_008dde78;                          \
-        v = (q5_floor_i(q5_f((long double)v0 * 65536.0f)) >> mip) + UINT_008dde50;                          \
+        u = (q5_floor_i(q5_f((long double)u0 * 65536.0f)) >> mip) + g_dwRdZRaster_dUdXModifier;                          \
+        v = (q5_floor_i(q5_f((long double)v0 * 65536.0f)) >> mip) + g_dwRdZRaster_dVdXModifier;                          \
     }
 
 #define Q5_PSPAN(NAME, PIXT, BUF, LIT, KEY, G, PIXEL)                                                       \
@@ -461,15 +461,15 @@ void NAME(q5_edge *L, q5_edge *R)                                               
     }                                                                                                       \
     {                                                                                                       \
         long double f = (long double)frac * (1.0f / 65536.0f);                                              \
-        oz = q5_f(f * DAT_008ddea0 + L->z);                                                                 \
-        ouz = q5_f(f * DAT_008dde60 + L->uz);                                                               \
-        ovz = q5_f(f * DAT_008dde80 + L->vz);                                                               \
+        oz = q5_f(f * g_dwRdZRaster_dOneOverZdX + L->z);                                                                 \
+        ouz = q5_f(f * g_dwRdZRaster_dUOverZdX + L->uz);                                                               \
+        ovz = q5_f(f * g_dwRdZRaster_dVOverZdX + L->vz);                                                               \
         zf = q5_f((long double)oz * 65536.0f);                                                              \
         z = q5_floor_i(zf);                                                                                 \
     }                                                                                                       \
     q5_fldcw(&DAT_00900524);                                                                                \
-    dz = UINT_008dde88;                                                                                     \
-    sh = UINT_008ddea4;                                                                                     \
+    dz = g_dwRdZRaster_dOneOverZdXFixed;                                                                                     \
+    sh = g_dwRdZRaster_zScaleShift;                                                                                     \
     w = 1.0f / (long double)oz;                                                                             \
     c4 = *(char **)(g_pRdCamera_CurCamera + 4);                                                                \
     pix = BUF(c4, L->y, xl);                                                                                \
@@ -479,23 +479,23 @@ void NAME(q5_edge *L, q5_edge *R)                                               
     if (first) {                                                                                            \
         long double k = first;                                                                              \
         float rk = g_dwRdRaster_aOneOverNFlex[first];                                                                    \
-        float oz1 = q5_f(k * DAT_008ddea0 + oz), uz1 = q5_f(k * DAT_008dde60 + ouz),                         \
-              vz1 = q5_f(k * DAT_008dde80 + ovz);                                                           \
+        float oz1 = q5_f(k * g_dwRdZRaster_dOneOverZdX + oz), uz1 = q5_f(k * g_dwRdZRaster_dUOverZdX + ouz),                         \
+              vz1 = q5_f(k * g_dwRdZRaster_dVOverZdX + ovz);                                                           \
         w = 1.0f / (long double)oz1;                                                                        \
         u1 = q5_f(w * uz1);                                                                                 \
         v1 = q5_f(w * vz1);                                                                                 \
         Q5_UV(rk)                                                                                           \
         Q5_PIXELS(first, KEY, PIXEL, LIT)                                                                   \
-        oz = q5_f((long double)oz1 + DAT_008dde4c);                                                         \
+        oz = q5_f((long double)oz1 + g_dwRdZRaster_oneOverZStep);                                                         \
         u0 = u1;                                                                                            \
         v0 = v1;                                                                                            \
-        ouz = q5_f((long double)uz1 + DAT_008dde94);                                                        \
-        ovz = q5_f((long double)vz1 + DAT_008dde74);                                                        \
+        ouz = q5_f((long double)uz1 + g_dwRdZRaster_uOverZStep);                                                        \
+        ovz = q5_f((long double)vz1 + g_dwRdZRaster_vOverZStep);                                                        \
     } else {                                                                                                \
         u = v = (G);                                                                                        \
-        oz = q5_f((long double)oz + DAT_008dde4c);                                                          \
-        ouz = q5_f((long double)ouz + DAT_008dde94);                                                        \
-        ovz = q5_f((long double)ovz + DAT_008dde74);                                                        \
+        oz = q5_f((long double)oz + g_dwRdZRaster_oneOverZStep);                                                          \
+        ouz = q5_f((long double)ouz + g_dwRdZRaster_uOverZStep);                                                        \
+        ovz = q5_f((long double)ovz + g_dwRdZRaster_vOverZStep);                                                        \
     }                                                                                                       \
     for (; chunks > 0; chunks--) {                                                                          \
         w = 1.0f / (long double)oz;                                                                         \
@@ -503,19 +503,19 @@ void NAME(q5_edge *L, q5_edge *R)                                               
         v1 = q5_f(w * ovz);                                                                                 \
         Q5_UV(0.0625f)                                                                                      \
         Q5_PIXELS(16, KEY, PIXEL, LIT)                                                                      \
-        oz = q5_f((long double)oz + DAT_008dde4c);                                                          \
+        oz = q5_f((long double)oz + g_dwRdZRaster_oneOverZStep);                                                          \
         u0 = u1;                                                                                            \
         v0 = v1;                                                                                            \
-        ouz = q5_f((long double)ouz + DAT_008dde94);                                                        \
-        ovz = q5_f((long double)ovz + DAT_008dde74);                                                        \
+        ouz = q5_f((long double)ouz + g_dwRdZRaster_uOverZStep);                                                        \
+        ovz = q5_f((long double)ovz + g_dwRdZRaster_vOverZStep);                                                        \
     }                                                                                                       \
     if (rem) {                                                                                              \
         if (--rem) {                                                                                        \
             long double k = rem;                                                                            \
             float rk = g_dwRdRaster_aOneOverNFlex[rem];                                                                  \
-            w = 1.0f / ((k * DAT_008ddea0 - DAT_008dde4c) + oz);                                            \
-            u1 = q5_f(((k * DAT_008dde60 - DAT_008dde94) + ouz) * w);                                       \
-            v1 = q5_f(((k * DAT_008dde80 - DAT_008dde74) + ovz) * w);                                       \
+            w = 1.0f / ((k * g_dwRdZRaster_dOneOverZdX - g_dwRdZRaster_oneOverZStep) + oz);                                            \
+            u1 = q5_f(((k * g_dwRdZRaster_dUOverZdX - g_dwRdZRaster_uOverZStep) + ouz) * w);                                       \
+            v1 = q5_f(((k * g_dwRdZRaster_dVOverZdX - g_dwRdZRaster_vOverZStep) + ovz) * w);                                       \
             Q5_UV(rk)                                                                                       \
         }                                                                                                   \
         Q5_PIXELS(rem + 1, KEY, PIXEL, LIT)                                                                 \
@@ -532,64 +532,64 @@ void NAME(q5_edge *L, q5_edge *R)                                               
 #define Q5_GZF q5_u32(zf)
 
 /* unlit (Draw_FlatLit_10, Draw_TexLitZ_7, Draw_TexLitKeyZw_7 / _8; 16 bpp: light row 63) */
-/* OVERRIDES: rdRaster_Span_FlatZ_2 */
-Q5_PSPAN8(rdRaster_Span_FlatZ_2, 0, 0, Q5_GZ, *pix = tx)
-/* OVERRIDES: rdRaster_Span16_TexZ_2 */
-Q5_PSPAN16(rdRaster_Span16_TexZ_2, 0, 0, Q5_GPIX, *pix = UINT_008dde5c[tx])
-/* OVERRIDES: rdRaster_Span8_TexZ_2 */
-Q5_PSPAN8(rdRaster_Span8_TexZ_2, 0, 0, Q5_GZ, *pix = Q5_BLEND(tx, *pix))
-/* OVERRIDES: rdRaster_Span16_TexZ_3 */
-Q5_PSPAN16(rdRaster_Span16_TexZ_3, 0, 0, Q5_GZ, *pix = UINT_008dde5c[Q5_BLEND(tx, UINT_008dde44[*pix])])
-/* OVERRIDES: rdRaster_Span8_FlatKeyZw_2 */
-Q5_PSPAN8(rdRaster_Span8_FlatKeyZw_2, 0, 1, Q5_GPIX, *pix = tx)
-/* OVERRIDES: rdRaster_Span16_TexKeyZw */
-Q5_PSPAN16(rdRaster_Span16_TexKeyZw, 0, 1, Q5_GPIX, *pix = UINT_008dde5c[tx])
-/* OVERRIDES: rdRaster_Span8_TexKeyZw */
-Q5_PSPAN8(rdRaster_Span8_TexKeyZw, 0, 1, Q5_GZP, *pix = Q5_BLEND(tx, *pix))
-/* OVERRIDES: rdRaster_Span16_TexKeyZw_2 */
-Q5_PSPAN16(rdRaster_Span16_TexKeyZw_2, 0, 1, Q5_GZP, *pix = UINT_008dde5c[Q5_BLEND(tx, UINT_008dde44[*pix])])
+/* OVERRIDES: rdZRaster_DrawScanLineNGonLIT_8 */
+Q5_PSPAN8(rdZRaster_DrawScanLineNGonLIT_8, 0, 0, Q5_GZ, *pix = tx)
+/* OVERRIDES: rdZRaster_DrawScanLineNGonLIT_16 */
+Q5_PSPAN16(rdZRaster_DrawScanLineNGonLIT_16, 0, 0, Q5_GPIX, *pix = g_dwRdZRaster_aRGBMap[tx])
+/* OVERRIDES: rdZRaster_DrawScanLineNGonTLIT_8 */
+Q5_PSPAN8(rdZRaster_DrawScanLineNGonTLIT_8, 0, 0, Q5_GZ, *pix = Q5_BLEND(tx, *pix))
+/* OVERRIDES: rdZRaster_DrawScanLineNGonTLIT_16 */
+Q5_PSPAN16(rdZRaster_DrawScanLineNGonTLIT_16, 0, 0, Q5_GZ, *pix = g_dwRdZRaster_aRGBMap[Q5_BLEND(tx, g_dwRdZRaster_aRGBToPalette[*pix])])
+/* OVERRIDES: rdZRaster_DrawScanLineNGonMLIT_8 */
+Q5_PSPAN8(rdZRaster_DrawScanLineNGonMLIT_8, 0, 1, Q5_GPIX, *pix = tx)
+/* OVERRIDES: rdZRaster_DrawScanLineNGonMLIT_16 */
+Q5_PSPAN16(rdZRaster_DrawScanLineNGonMLIT_16, 0, 1, Q5_GPIX, *pix = g_dwRdZRaster_aRGBMap[tx])
+/* OVERRIDES: rdZRaster_DrawScanLineNGonMTLIT_8 */
+Q5_PSPAN8(rdZRaster_DrawScanLineNGonMTLIT_8, 0, 1, Q5_GZP, *pix = Q5_BLEND(tx, *pix))
+/* OVERRIDES: rdZRaster_DrawScanLineNGonMTLIT_16 */
+Q5_PSPAN16(rdZRaster_DrawScanLineNGonMTLIT_16, 0, 1, Q5_GZP, *pix = g_dwRdZRaster_aRGBMap[Q5_BLEND(tx, g_dwRdZRaster_aRGBToPalette[*pix])])
 
 /* flat lit (the light tables point at the polygon's light row).  The translucent 16 bpp filler (Span16_TexZ_5) looks
- * the lit colour up as UINT_008dde44[colour * 256] and adds it to the blend row instead of multiplying (as in the
+ * the lit colour up as g_dwRdZRaster_aRGBToPalette[colour * 256] and adds it to the blend row instead of multiplying (as in the
  * original: it reads up to 16 MB past the 64 KB table) */
-/* OVERRIDES: rdRaster_Span_TexZ */
-Q5_PSPAN8(rdRaster_Span_TexZ, 0, 0, Q5_GZ, *pix = UINT_008dde6c[tx])
-/* OVERRIDES: rdRaster_Span16_TexZ_4 */
-Q5_PSPAN16(rdRaster_Span16_TexZ_4, 0, 0, Q5_GPIX, *pix = UINT_008dde5c[tx])
-/* OVERRIDES: rdRaster_Span8_TexZ_3 */
-Q5_PSPAN8(rdRaster_Span8_TexZ_3, 0, 0, Q5_GZ, *pix = Q5_BLEND(UINT_008dde6c[tx], *pix))
-/* OVERRIDES: rdRaster_Span16_TexZ_5 */
-Q5_PSPAN16(rdRaster_Span16_TexZ_5, 0, 0, Q5_GZ,
-           *pix = UINT_008dde5c[UINT_008dde90[UINT_008dde44[UINT_008dde5c[tx] << 8] + UINT_008dde44[*pix]]])
-/* OVERRIDES: rdRaster_Span8_TexKeyZw_2 */
-Q5_PSPAN8(rdRaster_Span8_TexKeyZw_2, 0, 1, Q5_GPIX, *pix = UINT_008dde6c[tx])
-/* OVERRIDES: rdRaster_Span16_TexKeyZw_3 */
-Q5_PSPAN16(rdRaster_Span16_TexKeyZw_3, 0, 1, Q5_GPIX, *pix = UINT_008dde5c[tx])
-/* OVERRIDES: rdRaster_Span8_TexKeyZw_3 */
-Q5_PSPAN8(rdRaster_Span8_TexKeyZw_3, 0, 1, Q5_GZP, *pix = UINT_008dde6c[Q5_BLEND(tx, *pix)])
-/* OVERRIDES: rdRaster_Span16_TexKeyZw_4 */
-Q5_PSPAN16(rdRaster_Span16_TexKeyZw_4, 0, 1, Q5_GZP, *pix = UINT_008dde5c[Q5_BLEND(tx, UINT_008dde44[*pix])])
+/* OVERRIDES: rdZRaster_DrawScanLineNGonFIT_8 */
+Q5_PSPAN8(rdZRaster_DrawScanLineNGonFIT_8, 0, 0, Q5_GZ, *pix = g_dwRdZRaster_aMonoMap[tx])
+/* OVERRIDES: rdZRaster_DrawScanLineNGonFIT_16 */
+Q5_PSPAN16(rdZRaster_DrawScanLineNGonFIT_16, 0, 0, Q5_GPIX, *pix = g_dwRdZRaster_aRGBMap[tx])
+/* OVERRIDES: rdZRaster_DrawScanLineNGonTFIT_8 */
+Q5_PSPAN8(rdZRaster_DrawScanLineNGonTFIT_8, 0, 0, Q5_GZ, *pix = Q5_BLEND(g_dwRdZRaster_aMonoMap[tx], *pix))
+/* OVERRIDES: rdZRaster_DrawScanLineNGonTFIT_16 */
+Q5_PSPAN16(rdZRaster_DrawScanLineNGonTFIT_16, 0, 0, Q5_GZ,
+           *pix = g_dwRdZRaster_aRGBMap[g_dwRdZRaster_aAlphaMap[g_dwRdZRaster_aRGBToPalette[g_dwRdZRaster_aRGBMap[tx] << 8] + g_dwRdZRaster_aRGBToPalette[*pix]]])
+/* OVERRIDES: rdZRaster_DrawScanLineNGonMFIT_8 */
+Q5_PSPAN8(rdZRaster_DrawScanLineNGonMFIT_8, 0, 1, Q5_GPIX, *pix = g_dwRdZRaster_aMonoMap[tx])
+/* OVERRIDES: rdZRaster_DrawScanLineNGonMFIT_16 */
+Q5_PSPAN16(rdZRaster_DrawScanLineNGonMFIT_16, 0, 1, Q5_GPIX, *pix = g_dwRdZRaster_aRGBMap[tx])
+/* OVERRIDES: rdZRaster_DrawScanLineNGonMTFIT_8 */
+Q5_PSPAN8(rdZRaster_DrawScanLineNGonMTFIT_8, 0, 1, Q5_GZP, *pix = g_dwRdZRaster_aMonoMap[Q5_BLEND(tx, *pix)])
+/* OVERRIDES: rdZRaster_DrawScanLineNGonMTFIT_16 */
+Q5_PSPAN16(rdZRaster_DrawScanLineNGonMTFIT_16, 0, 1, Q5_GZP, *pix = g_dwRdZRaster_aRGBMap[Q5_BLEND(tx, g_dwRdZRaster_aRGBToPalette[*pix])])
 
 /* gouraud (light row per pixel); Span16_TexZ_7 has Span16_TexZ_5's lookup */
-/* OVERRIDES: rdRaster_Span_TexZ_2 */
-Q5_PSPAN8(rdRaster_Span_TexZ_2, 1, 0, Q5_GL, *pix = UINT_008dde6c[Q5_LROW(l) + tx])
-/* OVERRIDES: rdRaster_Span16_TexZ_6 */
-Q5_PSPAN16(rdRaster_Span16_TexZ_6, 1, 0, Q5_GPIX, *pix = UINT_008dde5c[Q5_LROW(l) + tx])
-/* OVERRIDES: rdRaster_Span8_TexZ_4 */
-Q5_PSPAN8(rdRaster_Span8_TexZ_4, 1, 0, Q5_GL, *pix = Q5_BLEND(UINT_008dde6c[Q5_LROW(l) + tx], *pix))
-/* OVERRIDES: rdRaster_Span16_TexZ_7 */
-Q5_PSPAN16(rdRaster_Span16_TexZ_7, 1, 0, Q5_GZF,
-           *pix = UINT_008dde5c[UINT_008dde90[UINT_008dde44[UINT_008dde5c[Q5_LROW(l) + tx] << 8] +
-                                              UINT_008dde44[*pix]]])
-/* OVERRIDES: rdRaster_Span8_TexKeyZw_4 */
-Q5_PSPAN8(rdRaster_Span8_TexKeyZw_4, 1, 1, Q5_GPIX, *pix = UINT_008dde6c[Q5_LROW(l) + tx])
-/* OVERRIDES: rdRaster_Span16_TexKeyZw_5 */
-Q5_PSPAN16(rdRaster_Span16_TexKeyZw_5, 1, 1, Q5_GPIX, *pix = UINT_008dde5c[Q5_LROW(l) + tx])
-/* OVERRIDES: rdRaster_Span8_TexKeyZw_5 */
-Q5_PSPAN8(rdRaster_Span8_TexKeyZw_5, 1, 1, Q5_GZF, *pix = UINT_008dde6c[Q5_LROW(l) + Q5_BLEND(tx, *pix)])
-/* OVERRIDES: rdRaster_Span16_TexKeyZw_6 */
-Q5_PSPAN16(rdRaster_Span16_TexKeyZw_6, 1, 1, Q5_GZF,
-           *pix = UINT_008dde5c[Q5_LROW(l) + Q5_BLEND(tx, UINT_008dde44[*pix])])
+/* OVERRIDES: rdZRaster_DrawScanLineNGonGIT_8 */
+Q5_PSPAN8(rdZRaster_DrawScanLineNGonGIT_8, 1, 0, Q5_GL, *pix = g_dwRdZRaster_aMonoMap[Q5_LROW(l) + tx])
+/* OVERRIDES: rdZRaster_DrawScanLineNGonGIT_16 */
+Q5_PSPAN16(rdZRaster_DrawScanLineNGonGIT_16, 1, 0, Q5_GPIX, *pix = g_dwRdZRaster_aRGBMap[Q5_LROW(l) + tx])
+/* OVERRIDES: rdZRaster_DrawScanLineNGonTGIT_8 */
+Q5_PSPAN8(rdZRaster_DrawScanLineNGonTGIT_8, 1, 0, Q5_GL, *pix = Q5_BLEND(g_dwRdZRaster_aMonoMap[Q5_LROW(l) + tx], *pix))
+/* OVERRIDES: rdZRaster_DrawScanLineNGonTGIT_16 */
+Q5_PSPAN16(rdZRaster_DrawScanLineNGonTGIT_16, 1, 0, Q5_GZF,
+           *pix = g_dwRdZRaster_aRGBMap[g_dwRdZRaster_aAlphaMap[g_dwRdZRaster_aRGBToPalette[g_dwRdZRaster_aRGBMap[Q5_LROW(l) + tx] << 8] +
+                                              g_dwRdZRaster_aRGBToPalette[*pix]]])
+/* OVERRIDES: rdZRaster_DrawScanLineNGonMGIT_8 */
+Q5_PSPAN8(rdZRaster_DrawScanLineNGonMGIT_8, 1, 1, Q5_GPIX, *pix = g_dwRdZRaster_aMonoMap[Q5_LROW(l) + tx])
+/* OVERRIDES: rdZRaster_DrawScanLineNGonMGIT_16 */
+Q5_PSPAN16(rdZRaster_DrawScanLineNGonMGIT_16, 1, 1, Q5_GPIX, *pix = g_dwRdZRaster_aRGBMap[Q5_LROW(l) + tx])
+/* OVERRIDES: rdZRaster_DrawScanLineNGonMTGIT_8 */
+Q5_PSPAN8(rdZRaster_DrawScanLineNGonMTGIT_8, 1, 1, Q5_GZF, *pix = g_dwRdZRaster_aMonoMap[Q5_LROW(l) + Q5_BLEND(tx, *pix)])
+/* OVERRIDES: rdZRaster_DrawScanLineNGonMTGIT_16 */
+Q5_PSPAN16(rdZRaster_DrawScanLineNGonMTGIT_16, 1, 1, Q5_GZF,
+           *pix = g_dwRdZRaster_aRGBMap[Q5_LROW(l) + Q5_BLEND(tx, g_dwRdZRaster_aRGBToPalette[*pix])])
 
 /* ==== the 16 bpp perspective fillers without z shift (Span16_TexZw*, Span16_TexLitZw_9 .. 14, _23, _31) ====
  * The opaque drivers choose them by the texture width when the canvas has no z shift.  The same parts and the same
@@ -609,11 +609,11 @@ extern int UINT_007f4c44, UINT_007f4c54, UINT_007f4ca4, UINT_007f4cac, UINT_007f
 
 #define Q5_ZUV(rk)                                                                                          \
     {                                                                                                       \
-        int mip = UINT_008dde54 & 31;                                                                       \
+        int mip = g_dwRdZRaster_mipMapNum & 31;                                                                       \
         UINT_007f4cdc = q5_floor_i(q5_f(((long double)u1 - u0) * (rk) * 65536.0f)) >> mip;                  \
         UINT_007f4c44 = q5_floor_i(q5_f(((long double)v1 - v0) * (rk) * 65536.0f)) >> mip;                  \
-        UINT_007f4cf4 = (q5_floor_i(q5_f((long double)u0 * 65536.0f)) >> mip) + UINT_008dde78;              \
-        UINT_007f4cf8 = (q5_floor_i(q5_f((long double)v0 * 65536.0f)) >> mip) + UINT_008dde50;              \
+        UINT_007f4cf4 = (q5_floor_i(q5_f((long double)u0 * 65536.0f)) >> mip) + g_dwRdZRaster_dUdXModifier;              \
+        UINT_007f4cf8 = (q5_floor_i(q5_f((long double)v0 * 65536.0f)) >> mip) + g_dwRdZRaster_dVdXModifier;              \
     }
 
 #define Q5_ZPART(cnt, LIT, TEXEL, PIXEL)                                                                    \
@@ -631,7 +631,7 @@ extern int UINT_007f4c44, UINT_007f4c54, UINT_007f4ca4, UINT_007f4cac, UINT_007f
             if ((unsigned short)z > zb[i_]) {                                                               \
                 unsigned tx;                                                                                \
                 zb[i_] = (unsigned short)z;                                                                 \
-                tx = UINT_008dde7c[TEXEL];                                                                  \
+                tx = g_dwRdZRaster_pPixels[TEXEL];                                                                  \
                 pp[i_] = PIXEL;                                                                             \
             }                                                                                               \
             z += dz;                                                                                        \
@@ -686,13 +686,13 @@ void NAME(q5_edge *L, q5_edge *R)                                               
     }                                                                                                       \
     {                                                                                                       \
         long double f = (long double)frac * (1.0f / 65536.0f);                                              \
-        oz = q5_f(f * DAT_008ddea0 + L->z);                                                                 \
-        ouz = q5_f(f * DAT_008dde60 + L->uz);                                                               \
-        ovz = q5_f(f * DAT_008dde80 + L->vz);                                                               \
+        oz = q5_f(f * g_dwRdZRaster_dOneOverZdX + L->z);                                                                 \
+        ouz = q5_f(f * g_dwRdZRaster_dUOverZdX + L->uz);                                                               \
+        ovz = q5_f(f * g_dwRdZRaster_dVOverZdX + L->vz);                                                               \
         UINT_007f4cfc = q5_floor_i(q5_f((long double)oz * 65536.0f));                                       \
     }                                                                                                       \
     q5_fldcw(&DAT_00900524);                                                                                \
-    UINT_007f4c54 = UINT_008dde88;                                                                          \
+    UINT_007f4c54 = g_dwRdZRaster_dOneOverZdXFixed;                                                                          \
     w = 1.0f / (long double)oz;                                                                             \
     c4 = *(char **)(g_pRdCamera_CurCamera + 4);                                                                \
     UINT_007f4cc4 = (int)Q5_BUF16(c4, L->y, xl);                                                            \
@@ -702,22 +702,22 @@ void NAME(q5_edge *L, q5_edge *R)                                               
     if (first) {                                                                                            \
         long double k = first;                                                                              \
         float rk = g_dwRdRaster_aOneOverNFlex[first];                                                                    \
-        float oz1 = q5_f(k * DAT_008ddea0 + oz), uz1 = q5_f(k * DAT_008dde60 + ouz),                         \
-              vz1 = q5_f(k * DAT_008dde80 + ovz);                                                           \
+        float oz1 = q5_f(k * g_dwRdZRaster_dOneOverZdX + oz), uz1 = q5_f(k * g_dwRdZRaster_dUOverZdX + ouz),                         \
+              vz1 = q5_f(k * g_dwRdZRaster_dVOverZdX + ovz);                                                           \
         w = 1.0f / (long double)oz1;                                                                        \
         u1 = q5_f(w * uz1);                                                                                 \
         v1 = q5_f(w * vz1);                                                                                 \
         Q5_ZUV(rk)                                                                                          \
         Q5_ZPART(first, LIT, TEXEL, PIXEL)                                                                  \
-        oz = q5_f((long double)oz1 + DAT_008dde4c);                                                         \
+        oz = q5_f((long double)oz1 + g_dwRdZRaster_oneOverZStep);                                                         \
         u0 = u1;                                                                                            \
         v0 = v1;                                                                                            \
-        ouz = q5_f((long double)uz1 + DAT_008dde94);                                                        \
-        ovz = q5_f((long double)vz1 + DAT_008dde74);                                                        \
+        ouz = q5_f((long double)uz1 + g_dwRdZRaster_uOverZStep);                                                        \
+        ovz = q5_f((long double)vz1 + g_dwRdZRaster_vOverZStep);                                                        \
     } else {                                                                                                \
-        oz = q5_f((long double)oz + DAT_008dde4c);                                                          \
-        ouz = q5_f((long double)ouz + DAT_008dde94);                                                        \
-        ovz = q5_f((long double)ovz + DAT_008dde74);                                                        \
+        oz = q5_f((long double)oz + g_dwRdZRaster_oneOverZStep);                                                          \
+        ouz = q5_f((long double)ouz + g_dwRdZRaster_uOverZStep);                                                        \
+        ovz = q5_f((long double)ovz + g_dwRdZRaster_vOverZStep);                                                        \
     }                                                                                                       \
     for (; chunks > 0; chunks--) {                                                                          \
         w = 1.0f / (long double)oz;                                                                         \
@@ -725,19 +725,19 @@ void NAME(q5_edge *L, q5_edge *R)                                               
         v1 = q5_f(w * ovz);                                                                                 \
         Q5_ZUV(0.0625f)                                                                                     \
         Q5_ZPART(16, LIT, TEXEL, PIXEL)                                                                     \
-        oz = q5_f((long double)oz + DAT_008dde4c);                                                          \
+        oz = q5_f((long double)oz + g_dwRdZRaster_oneOverZStep);                                                          \
         u0 = u1;                                                                                            \
         v0 = v1;                                                                                            \
-        ouz = q5_f((long double)ouz + DAT_008dde94);                                                        \
-        ovz = q5_f((long double)ovz + DAT_008dde74);                                                        \
+        ouz = q5_f((long double)ouz + g_dwRdZRaster_uOverZStep);                                                        \
+        ovz = q5_f((long double)ovz + g_dwRdZRaster_vOverZStep);                                                        \
     }                                                                                                       \
     if (rem) {                                                                                              \
         if (--rem) {                                                                                        \
             long double k = rem;                                                                            \
             float rk = g_dwRdRaster_aOneOverNFlex[rem];                                                                  \
-            w = 1.0f / ((k * DAT_008ddea0 - DAT_008dde4c) + oz);                                            \
-            u1 = q5_f(((k * DAT_008dde60 - DAT_008dde94) + ouz) * w);                                       \
-            v1 = q5_f(((k * DAT_008dde80 - DAT_008dde74) + ovz) * w);                                       \
+            w = 1.0f / ((k * g_dwRdZRaster_dOneOverZdX - g_dwRdZRaster_oneOverZStep) + oz);                                            \
+            u1 = q5_f(((k * g_dwRdZRaster_dUOverZdX - g_dwRdZRaster_uOverZStep) + ouz) * w);                                       \
+            v1 = q5_f(((k * g_dwRdZRaster_dVOverZdX - g_dwRdZRaster_vOverZStep) + ovz) * w);                                       \
             Q5_ZUV(rk)                                                                                      \
         }                                                                                                   \
         Q5_ZPART(rem + 1, LIT, TEXEL, PIXEL)                                                                \
@@ -745,10 +745,10 @@ void NAME(q5_edge *L, q5_edge *R)                                               
     q5_fldcw(&DAT_00900524);                                                                                \
 }
 /* the texel index for a fixed width (v shift 16 - log2 w, u mask (w - 1) << 16) and for any width */
-#define Q5_ZT(S, M) (((int)v >> (S)) & UINT_008dde58) | (int)((u & (M)) >> 16)
-#define Q5_ZTG (((int)v >> ((16 - UINT_008dde8c) & 31)) & UINT_008dde58) | ((int)(u & UINT_008dde48) >> 16)
-#define Q5_ZPAL UINT_008dde5c[tx]
-#define Q5_ZPALL UINT_008dde5c[tx + ((l & 0x3f0000) >> 8)]
+#define Q5_ZT(S, M) (((int)v >> (S)) & g_dwRdZRaster_vWrap) | (int)((u & (M)) >> 16)
+#define Q5_ZTG (((int)v >> ((16 - g_dwRdZRaster_texRowShift) & 31)) & g_dwRdZRaster_vWrap) | ((int)(u & g_dwRdZRaster_uWrap) >> 16)
+#define Q5_ZPAL g_dwRdZRaster_aRGBMap[tx]
+#define Q5_ZPALL g_dwRdZRaster_aRGBMap[tx + ((l & 0x3f0000) >> 8)]
 /* OVERRIDES: rdRaster_Span16_TexZw_8 */
 Q5_ZSPAN(rdRaster_Span16_TexZw_8, 0, Q5_ZTG, Q5_ZPAL)
 /* OVERRIDES: rdRaster_Span16_TexZw_9 */
@@ -778,7 +778,7 @@ Q5_ZSPAN(rdRaster_Span16_TexZw_6, 0, Q5_ZT(9, 0x7f0000), Q5_ZPAL)
 /* OVERRIDES: rdRaster_Span16_TexZw_7 */
 Q5_ZSPAN(rdRaster_Span16_TexZw_7, 0, Q5_ZT(8, 0xff0000), Q5_ZPAL)
 /* OVERRIDES: rdRaster_Span16_TexZw */
-Q5_ZSPAN(rdRaster_Span16_TexZw, 1, Q5_ZTG, UINT_008dde5c[tx + ((int)l >> 8)])
+Q5_ZSPAN(rdRaster_Span16_TexZw, 1, Q5_ZTG, g_dwRdZRaster_aRGBMap[tx + ((int)l >> 8)])
 /* OVERRIDES: rdRaster_Span16_TexLitZw_9 */
 Q5_ZSPAN(rdRaster_Span16_TexLitZw_9, 1, Q5_ZT(13, 0x70000), Q5_ZPALL)
 /* OVERRIDES: rdRaster_Span16_TexLitZw_10 */
@@ -812,48 +812,48 @@ Q5_INLINE void q5_tex_setup(char *p, char *mat, int light_mode, int trans, int o
 {
     int bpp = Q5_BPP(), mip;
     char *tb = *(char **)(p + Q5_P_TABLES), *tex = *(char **)(mat + 0x1c), *lev;
-    UINT_007f4464 = Q5_I(tex, 0x18) - 1;
-    PTR_007f44fc = *(float **)(p + Q5_P_VERTS);
-    UINT_007f4584 = *(float **)(p + Q5_P_UV);
+    g_dwRdZRaster_maxMipMap = Q5_I(tex, 0x18) - 1;
+    g_pRdZRaster_aVertices = *(float **)(p + Q5_P_VERTS);
+    g_dwRdZRaster_aTexVertices = *(float **)(p + Q5_P_UV);
     if (light_mode == 2)
-        UINT_007f44f8 = *(float **)(p + Q5_P_LIGHT);
+        g_dwRdZRaster_aIntensities = *(float **)(p + Q5_P_LIGHT);
     if (bpp == 8) {
         if (light_mode == 1)
-            UINT_008dde6c = *(unsigned char **)(tb + 0x330) + (int)((unsigned)li << 8);
+            g_dwRdZRaster_aMonoMap = *(unsigned char **)(tb + 0x330) + (int)((unsigned)li << 8);
         else if (light_mode == 2)
-            UINT_008dde6c = *(unsigned char **)(tb + 0x330);
+            g_dwRdZRaster_aMonoMap = *(unsigned char **)(tb + 0x330);
     } else if (bpp == 16) {
         char *t16 = *(char **)(tb + 0x348);
-        UINT_008dde5c = (unsigned short *)(light_mode == 0 ? t16 + 0x7e00
+        g_dwRdZRaster_aRGBMap = (unsigned short *)(light_mode == 0 ? t16 + 0x7e00
                                            : light_mode == 1 ? t16 + (int)((unsigned)li << 9) : t16);
         if (trans)
-            UINT_008dde44 = *(unsigned char **)(tb + 0x34c);
+            g_dwRdZRaster_aRGBToPalette = *(unsigned char **)(tb + 0x34c);
     }
     if (trans)
-        UINT_008dde90 = *(unsigned char **)(g_dwRdColormap_pCurMap + 0x338);
-    UINT_007f4460 = Q5_I(p, Q5_P_COUNT);
-    UINT_007f44e8 = Q5_I(p, Q5_P_TOP);
-    UINT_007f44f4 = Q5_I(p, Q5_P_BOTTOM);
-    UINT_008ddea4 = Q5_I(Q5_I(g_pRdCamera_CurCamera, 4), 0x14);
+        g_dwRdZRaster_aAlphaMap = *(unsigned char **)(g_dwRdColormap_pCurMap + 0x338);
+    g_dwRdZRaster_numVertices = Q5_I(p, Q5_P_COUNT);
+    g_dwRdZRaster_yMinVert = Q5_I(p, Q5_P_TOP);
+    g_dwRdZRaster_yMaxVert = Q5_I(p, Q5_P_BOTTOM);
+    g_dwRdZRaster_zScaleShift = Q5_I(Q5_I(g_pRdCamera_CurCamera, 4), 0x14);
     if (Q5_I(p, Q5_P_FLIP)) {
-        UINT_007f44ec = -1;
-        UINT_007f4580 = 1;
+        g_dwRdZRaster_leftVertexStep = -1;
+        g_dwRdZRaster_rightVertexStep = 1;
     } else {
-        UINT_007f44ec = 1;
-        UINT_007f4580 = -1;
+        g_dwRdZRaster_leftVertexStep = 1;
+        g_dwRdZRaster_rightVertexStep = -1;
     }
-    rdRaster_Grad_Flat_4(Q5_I(p, Q5_P_DIST));
-    mip = UINT_008dde54;
+    rdZRaster_CalcPerspGradients(Q5_I(p, Q5_P_DIST));
+    mip = g_dwRdZRaster_mipMapNum;
     lev = *(char **)(tex + 0x1c + mip * 4);
-    DAT_008dde4c = q5_f((long double)DAT_008ddea0 * 16.0f);
-    UINT_008dde7c = *(unsigned char **)(lev + 0x5c);
-    UINT_008dde8c = Q5_I(tex, 0xc) - mip;
+    g_dwRdZRaster_oneOverZStep = q5_f((long double)g_dwRdZRaster_dOneOverZdX * 16.0f);
+    g_dwRdZRaster_pPixels = *(unsigned char **)(lev + 0x5c);
+    g_dwRdZRaster_texRowShift = Q5_I(tex, 0xc) - mip;
     if (opaque)
-        UINT_008dde68 = Q5_I(lev, 0x18);
-    UINT_008dde48 = (int)(((unsigned)Q5_I(tex, 0x10) >> (mip & 31)) << 16);
-    DAT_008dde94 = q5_f((long double)DAT_008dde60 * 16.0f);
-    DAT_008dde74 = q5_f((long double)DAT_008dde80 * 16.0f);
-    UINT_008dde58 = (int)(((unsigned)Q5_I(tex, 0x14) >> (mip & 31)) << (UINT_008dde8c & 31));
+        g_dwRdZRaster_texPitch = Q5_I(lev, 0x18);
+    g_dwRdZRaster_uWrap = (int)(((unsigned)Q5_I(tex, 0x10) >> (mip & 31)) << 16);
+    g_dwRdZRaster_uOverZStep = q5_f((long double)g_dwRdZRaster_dUOverZdX * 16.0f);
+    g_dwRdZRaster_vOverZStep = q5_f((long double)g_dwRdZRaster_dVOverZdX * 16.0f);
+    g_dwRdZRaster_vWrap = (int)(((unsigned)Q5_I(tex, 0x14) >> (mip & 31)) << (g_dwRdZRaster_texRowShift & 31));
 }
 
 /* walk the two edges: one span per scan line (SPAN), then step each edge (or set up its next vertex pair); the left
@@ -861,10 +861,10 @@ Q5_INLINE void q5_tex_setup(char *p, char *mat, int light_mode, int trans, int o
 #define Q5_WALK(EL, ER, PRE, SPAN, LIT)                                                                     \
     do {                                                                                                    \
         q5_edge L, R;                                                                                       \
-        L.idx = UINT_007f44e8;                                                                              \
+        L.idx = g_dwRdZRaster_yMinVert;                                                                              \
         if (EL(&L))                                                                                         \
             return;                                                                                         \
-        R.idx = UINT_007f44e8;                                                                              \
+        R.idx = g_dwRdZRaster_yMinVert;                                                                              \
         if (ER(&R))                                                                                         \
             return;                                                                                         \
         PRE;                                                                                                \
@@ -903,7 +903,7 @@ Q5_INLINE void q5_tex_setup(char *p, char *mat, int light_mode, int trans, int o
  * Mem_DumpLog and 16 bpp a filler specialised for the texture width (W8 .. W256: widths 8, 16, ..., 256; D any
  * other); another depth keeps the previous pointer */
 #define Q5_PICK(bpp, S8, S16, W8, W16, W32, W64, W128, W256, D)                                              \
-    if (UINT_008ddea4) {                                                                                    \
+    if (g_dwRdZRaster_zScaleShift) {                                                                                    \
         if ((bpp) == 8)                                                                                     \
             UINT_007f44f0 = (void *)S8;                                                                     \
         else if ((bpp) == 16)                                                                               \
@@ -911,7 +911,7 @@ Q5_INLINE void q5_tex_setup(char *p, char *mat, int light_mode, int trans, int o
     } else if ((bpp) == 8)                                                                                  \
         UINT_007f44f0 = (void *)Mem_DumpLog;                                                                \
     else if ((bpp) == 16) {                                                                                 \
-        switch (UINT_008dde68) {                                                                            \
+        switch (g_dwRdZRaster_texPitch) {                                                                            \
         case 8: UINT_007f44f0 = (void *)W8; break;                                                          \
         case 16: UINT_007f44f0 = (void *)W16; break;                                                        \
         case 32: UINT_007f44f0 = (void *)W32; break;                                                        \
@@ -930,27 +930,27 @@ Q5_INLINE void q5_tex_setup(char *p, char *mat, int light_mode, int trans, int o
         Q5_WALK(EL, ER, Q5_PICK(bpp, S8, S16, W8, W16, W32, W64, W128, W256, D),                            \
                 ((q5_span_fn)UINT_007f44f0)(&L, &R), (LIGHT) == 2);                                         \
     }
-/* OVERRIDES: rdRaster_Draw_FlatLit_10 */
-void rdRaster_Draw_FlatLit_10(char *p, char *mat)
+/* OVERRIDES: rdZRaster_DrawNGonLIT */
+void rdZRaster_DrawNGonLIT(char *p, char *mat)
 {
     float light = 0.0f;
-    Q5_ODRAW(rdRaster_Draw_FlatLit_10, 0, rdRaster_SpanR_Flat_13, rdRaster_SpanR_Flat_14, rdRaster_Span_FlatZ_2,
-             rdRaster_Span16_TexZ_2, rdRaster_Span16_TexZw_9, rdRaster_Span16_TexZw_10, rdRaster_Span16_TexZw_11,
+    Q5_ODRAW(rdZRaster_DrawNGonLIT, 0, rdZRaster_SetupLeftEdgeNGonLIT, rdZRaster_SetupRightEdgeNGonLIT, rdZRaster_DrawScanLineNGonLIT_8,
+             rdZRaster_DrawScanLineNGonLIT_16, rdRaster_Span16_TexZw_9, rdRaster_Span16_TexZw_10, rdRaster_Span16_TexZw_11,
              rdRaster_Span16_TexLitZw_31, rdRaster_Span16_TexZw_12, rdRaster_Span16_TexZw_13, rdRaster_Span16_TexZw_8)
 }
-/* OVERRIDES: rdRaster_Draw_FlatLit_11 */
-void rdRaster_Draw_FlatLit_11(char *p, char *mat, float light)
+/* OVERRIDES: rdZRaster_DrawNGonFIT */
+void rdZRaster_DrawNGonFIT(char *p, char *mat, float light)
 {
-    Q5_ODRAW(rdRaster_Draw_FlatLit_11, 1, rdRaster_SpanR_Flat_15, rdRaster_SpanR_Flat_16, rdRaster_Span_TexZ,
-             rdRaster_Span16_TexZ_4, rdRaster_Span16_TexZw_3, rdRaster_Span16_TexZw_4, rdRaster_Span16_TexZw_5,
+    Q5_ODRAW(rdZRaster_DrawNGonFIT, 1, rdZRaster_SetupLeftEdgeNGonFIT, rdZRaster_SetupRightEdgeNGonFIT, rdZRaster_DrawScanLineNGonFIT_8,
+             rdZRaster_DrawScanLineNGonFIT_16, rdRaster_Span16_TexZw_3, rdRaster_Span16_TexZw_4, rdRaster_Span16_TexZw_5,
              rdRaster_Span16_TexLitZw_23, rdRaster_Span16_TexZw_6, rdRaster_Span16_TexZw_7, rdRaster_Span16_TexZw_2)
 }
-/* OVERRIDES: rdRaster_Draw_FlatLit_12 */
-void rdRaster_Draw_FlatLit_12(char *p, char *mat)
+/* OVERRIDES: rdZRaster_DrawNGonGIT */
+void rdZRaster_DrawNGonGIT(char *p, char *mat)
 {
     float light = 0.0f;
-    Q5_ODRAW(rdRaster_Draw_FlatLit_12, 2, rdRaster_SpanR_Flat_17, rdRaster_SpanR_Flat_18, rdRaster_Span_TexZ_2,
-             rdRaster_Span16_TexZ_6, rdRaster_Span16_TexLitZw_9, rdRaster_Span16_TexLitZw_10,
+    Q5_ODRAW(rdZRaster_DrawNGonGIT, 2, rdZRaster_SetupLeftEdgeNGonGIT, rdZRaster_SetupRightEdgeNGonGIT, rdZRaster_DrawScanLineNGonGIT_8,
+             rdZRaster_DrawScanLineNGonGIT_16, rdRaster_Span16_TexLitZw_9, rdRaster_Span16_TexLitZw_10,
              rdRaster_Span16_TexLitZw_11, rdRaster_Span16_TexLitZw_12, rdRaster_Span16_TexLitZw_13,
              rdRaster_Span16_TexLitZw_14, rdRaster_Span16_TexZw)
 }
@@ -970,36 +970,36 @@ void NAME(char *p, char *mat, float light)                                      
     q5_tex_setup(p, mat, 1, TRANS, 0, bpp == 8 || bpp == 16 ? q5_floor_i(light) : 0);                       \
     Q5_WALK(EL, ER, , Q5_SPAN_BPP(bpp, S8, S16), 0);                                                        \
 }
-/* OVERRIDES: rdRaster_Draw_TexLitZ_7 */
-Q5_TDRAW(rdRaster_Draw_TexLitZ_7, 0, 1, rdRaster_SpanR_Flat_13, rdRaster_SpanR_Flat_14, rdRaster_Span8_TexZ_2,
-         rdRaster_Span16_TexZ_3)
-/* OVERRIDES: rdRaster_Draw_TexLitZ_8 */
-Q5_TDRAW_L(rdRaster_Draw_TexLitZ_8, 1, rdRaster_SpanR_Flat_15, rdRaster_SpanR_Flat_16, rdRaster_Span8_TexZ_3,
-           rdRaster_Span16_TexZ_5)
-/* OVERRIDES: rdRaster_Draw_TexLitZ_9 */
-Q5_TDRAW(rdRaster_Draw_TexLitZ_9, 2, 1, rdRaster_SpanR_Flat_17, rdRaster_SpanR_Flat_18, rdRaster_Span8_TexZ_4,
-         rdRaster_Span16_TexZ_7)
-/* OVERRIDES: rdRaster_Draw_TexLitKeyZw_7 */
-Q5_TDRAW(rdRaster_Draw_TexLitKeyZw_7, 0, 0, rdRaster_SpanR_Flat_13, rdRaster_SpanR_Flat_14,
-         rdRaster_Span8_FlatKeyZw_2, rdRaster_Span16_TexKeyZw)
-/* OVERRIDES: rdRaster_Draw_TexLitKeyZw_8 */
-Q5_TDRAW(rdRaster_Draw_TexLitKeyZw_8, 0, 1, rdRaster_SpanR_Flat_13, rdRaster_SpanR_Flat_14, rdRaster_Span8_TexKeyZw,
-         rdRaster_Span16_TexKeyZw_2)
-/* OVERRIDES: rdRaster_Draw_TexLitKeyZw_9 */
-Q5_TDRAW_L(rdRaster_Draw_TexLitKeyZw_9, 0, rdRaster_SpanR_Flat_15, rdRaster_SpanR_Flat_16, rdRaster_Span8_TexKeyZw_2,
-           rdRaster_Span16_TexKeyZw_3)
-/* OVERRIDES: rdRaster_Draw_TexLitKeyZw_10 */
-Q5_TDRAW_L(rdRaster_Draw_TexLitKeyZw_10, 1, rdRaster_SpanR_Flat_15, rdRaster_SpanR_Flat_16, rdRaster_Span8_TexKeyZw_3,
-           rdRaster_Span16_TexKeyZw_4)
-/* OVERRIDES: rdRaster_Draw_TexLitKeyZw_11 */
-Q5_TDRAW(rdRaster_Draw_TexLitKeyZw_11, 2, 0, rdRaster_SpanR_Flat_17, rdRaster_SpanR_Flat_18, rdRaster_Span8_TexKeyZw_4,
-         rdRaster_Span16_TexKeyZw_5)
-/* OVERRIDES: rdRaster_Draw_TexLitKeyZw_12 */
-Q5_TDRAW(rdRaster_Draw_TexLitKeyZw_12, 2, 1, rdRaster_SpanR_Flat_17, rdRaster_SpanR_Flat_18, rdRaster_Span8_TexKeyZw_5,
-         rdRaster_Span16_TexKeyZw_6)
+/* OVERRIDES: rdZRaster_DrawNGonTLIT */
+Q5_TDRAW(rdZRaster_DrawNGonTLIT, 0, 1, rdZRaster_SetupLeftEdgeNGonLIT, rdZRaster_SetupRightEdgeNGonLIT, rdZRaster_DrawScanLineNGonTLIT_8,
+         rdZRaster_DrawScanLineNGonTLIT_16)
+/* OVERRIDES: rdZRaster_DrawNGonTFIT */
+Q5_TDRAW_L(rdZRaster_DrawNGonTFIT, 1, rdZRaster_SetupLeftEdgeNGonFIT, rdZRaster_SetupRightEdgeNGonFIT, rdZRaster_DrawScanLineNGonTFIT_8,
+           rdZRaster_DrawScanLineNGonTFIT_16)
+/* OVERRIDES: rdZRaster_DrawNGonTGIT */
+Q5_TDRAW(rdZRaster_DrawNGonTGIT, 2, 1, rdZRaster_SetupLeftEdgeNGonGIT, rdZRaster_SetupRightEdgeNGonGIT, rdZRaster_DrawScanLineNGonTGIT_8,
+         rdZRaster_DrawScanLineNGonTGIT_16)
+/* OVERRIDES: rdZRaster_DrawNGonMLIT */
+Q5_TDRAW(rdZRaster_DrawNGonMLIT, 0, 0, rdZRaster_SetupLeftEdgeNGonLIT, rdZRaster_SetupRightEdgeNGonLIT,
+         rdZRaster_DrawScanLineNGonMLIT_8, rdZRaster_DrawScanLineNGonMLIT_16)
+/* OVERRIDES: rdZRaster_DrawNGonMTLIT */
+Q5_TDRAW(rdZRaster_DrawNGonMTLIT, 0, 1, rdZRaster_SetupLeftEdgeNGonLIT, rdZRaster_SetupRightEdgeNGonLIT, rdZRaster_DrawScanLineNGonMTLIT_8,
+         rdZRaster_DrawScanLineNGonMTLIT_16)
+/* OVERRIDES: rdZRaster_DrawNGonMFIT */
+Q5_TDRAW_L(rdZRaster_DrawNGonMFIT, 0, rdZRaster_SetupLeftEdgeNGonFIT, rdZRaster_SetupRightEdgeNGonFIT, rdZRaster_DrawScanLineNGonMFIT_8,
+           rdZRaster_DrawScanLineNGonMFIT_16)
+/* OVERRIDES: rdZRaster_DrawNGonMTFIT */
+Q5_TDRAW_L(rdZRaster_DrawNGonMTFIT, 1, rdZRaster_SetupLeftEdgeNGonFIT, rdZRaster_SetupRightEdgeNGonFIT, rdZRaster_DrawScanLineNGonMTFIT_8,
+           rdZRaster_DrawScanLineNGonMTFIT_16)
+/* OVERRIDES: rdZRaster_DrawNGonMGIT */
+Q5_TDRAW(rdZRaster_DrawNGonMGIT, 2, 0, rdZRaster_SetupLeftEdgeNGonGIT, rdZRaster_SetupRightEdgeNGonGIT, rdZRaster_DrawScanLineNGonMGIT_8,
+         rdZRaster_DrawScanLineNGonMGIT_16)
+/* OVERRIDES: rdZRaster_DrawNGonMTGIT */
+Q5_TDRAW(rdZRaster_DrawNGonMTGIT, 2, 1, rdZRaster_SetupLeftEdgeNGonGIT, rdZRaster_SetupRightEdgeNGonGIT, rdZRaster_DrawScanLineNGonMTGIT_8,
+         rdZRaster_DrawScanLineNGonMTGIT_16)
 
 /* ==== the span fillers of the renderer without z-buffer (0x00451fa0 .. 0x00459750) ====
- * Called per span by the span drivers of build/overrides_asm_p1.c (FUN_00410970 .. FUN_00416580) with a span record:
+ * Called per span by the span drivers of build/overrides_asm_p1.c (rdAFRaster_DrawNGonLAT .. rdAFRaster_DrawNGonGIT) with a span record:
  * +0 x (pixel), +4 count, +8 y; affine: +0xc u, +0x10 du, +0x14 v, +0x18 dv (16.16); perspective: +0xc u/z,
  * +0x10 v/z, +0x1c 1/z (floats); +0x1c the z (float) for the z-buffer writers; +0x20 light, +0x24 its step (16.16).
  * Their state lives in globals (0x007f4ac8 .. 0x007f4b74, 0x008dde40), the texture in 0x008ddf04 .. 0x008ddf4c (mip
@@ -1009,11 +1009,11 @@ extern int DAT_007f4ac8, UINT_007f4acc, UINT_007f4ad0, DAT_007f4ad4, UINT_007f4a
     DAT_007f4af0, DAT_007f4af4, DAT_007f4af8, UINT_007f4b28, UINT_007f4b2c, UINT_007f4b30, DAT_007f4b34, DAT_007f4b38,
     UINT_007f4b3c, UINT_007f4b40, UINT_007f4b44, UINT_007f4b48, UINT_007f4b4c, UINT_007f4b50, UINT_007f4b54,
     DAT_007f4b58, DAT_007f4b5c, DAT_007f4b60, DAT_007f4b64, UINT_007f4b68, UINT_007f4b6c, UINT_007f4b70, UINT_007f4b74;
-extern int UINT_008dde40, UINT_008ddf04, UINT_008ddf10, UINT_008ddf14, UINT_008ddf18, UINT_008ddf24, UINT_008ddf44,
-    UINT_008ddf4c;
-extern float DAT_008ddf1c, DAT_008ddf20, DAT_008ddf28, DAT_008ddf2c, DAT_008ddf38, DAT_008ddf48;
-extern unsigned short *UINT_008ddf30;   /* 16 bpp palette (light row) */
-extern unsigned char *UINT_008ddf3c;    /* texels */
+extern int UINT_008dde40, g_dwRdAFRaster_mipMapNum, g_dwRdAFRaster_texRowShift, g_dwRdAFRaster_vWrap, g_dwRdAFRaster_dVdXModifier, g_dwRdAFRaster_dOneOverZdXFixed, g_dwRdAFRaster_dUdXModifier,
+    g_dwRdAFRaster_uWrap;
+extern float g_dwRdAFRaster_dOneOverZdX, g_dwRdAFRaster_dUOverZdX, g_dwRdAFRaster_oneOverZStep, g_dwRdAFRaster_uOverZStep, g_dwRdAFRaster_dVOverZdX, g_dwRdAFRaster_vOverZStep;
+extern unsigned short *g_dwRdAFRaster_aRGBMap;   /* 16 bpp palette (light row) */
+extern unsigned char *g_dwRdAFRaster_pPixels;    /* texels */
 #define Q5_GF(sym) (*(float *)&(sym))
 #define Q5_CANVAS() (*(char **)(g_pRdCamera_CurCamera + 4))
 
@@ -1034,7 +1034,7 @@ void NAME(int *s)                                                               
     UINT_007f4ad0 = s[1];                                                                                   \
     p = (unsigned short *)UINT_007f4b28;                                                                    \
     z = UINT_007f4b74;                                                                                      \
-    dz = UINT_008ddf24;                                                                                     \
+    dz = g_dwRdAFRaster_dOneOverZdXFixed;                                                                                     \
     c = UINT_007f4ad0;                                                                                      \
     if (SHIFT)                                                                                              \
         sh = UINT_007f4b40 & 31;                                                                            \
@@ -1074,7 +1074,7 @@ Q5_ZWRITE(rdRaster_SpanR_FlatZw_2, 1)
             dl = UINT_007f4b30;                                                                             \
         }                                                                                                   \
         do {                                                                                                \
-            unsigned tx = UINT_008ddf3c[TEXEL];                                                             \
+            unsigned tx = g_dwRdAFRaster_pPixels[TEXEL];                                                             \
             pp[i_] = PIXEL;                                                                                 \
             u -= du;                                                                                        \
             v -= dv;                                                                                        \
@@ -1094,10 +1094,10 @@ Q5_ZWRITE(rdRaster_SpanR_FlatZw_2, 1)
         UINT_007f4b3c += c_ * 2;                                                                            \
     }
 /* texel index: fixed width (v shift 16 - log2 w, u mask), any width */
-#define Q5_NT(S, M) (((int)v >> (S)) & UINT_008ddf14) | (int)((u & (M)) >> 16)
-#define Q5_NTG (((int)v >> ((16 - UINT_008ddf10) & 31)) & UINT_008ddf14) | ((int)(u & UINT_008ddf4c) >> 16)
-#define Q5_NPAL UINT_008ddf30[tx]
-#define Q5_NPALL UINT_008ddf30[tx + ((l & 0x3f0000) >> 8)]
+#define Q5_NT(S, M) (((int)v >> (S)) & g_dwRdAFRaster_vWrap) | (int)((u & (M)) >> 16)
+#define Q5_NTG (((int)v >> ((16 - g_dwRdAFRaster_texRowShift) & 31)) & g_dwRdAFRaster_vWrap) | ((int)(u & g_dwRdAFRaster_uWrap) >> 16)
+#define Q5_NPAL g_dwRdAFRaster_aRGBMap[tx]
+#define Q5_NPALL g_dwRdAFRaster_aRGBMap[tx + ((l & 0x3f0000) >> 8)]
 
 /* ---- SpanR16_*: affine ----
  * u, v (+ light) and their steps from the record, u + the u bias 0x008ddf44, v + the v bias 0x008ddf18; one part. */
@@ -1115,8 +1115,8 @@ void NAME(int *s)                                                               
         UINT_007f4b68 = s[8];                                                                               \
     }                                                                                                       \
     UINT_007f4b3c = Q5_I(cd, 0x5c) + (((unsigned)Q5_I(cd, 0x18) >> 1) * s[2] + s[0]) * 2;                   \
-    UINT_007f4b6c += UINT_008ddf44;                                                                         \
-    UINT_007f4b70 += UINT_008ddf18;                                                                         \
+    UINT_007f4b6c += g_dwRdAFRaster_dUdXModifier;                                                                         \
+    UINT_007f4b70 += g_dwRdAFRaster_dVdXModifier;                                                                         \
     UINT_008dde40 = s[1];                                                                                   \
     n1 = s[1] - 1;                                                                                          \
     UINT_007f4b6c += UINT_007f4b54 * n1;                                                                    \
@@ -1202,26 +1202,26 @@ Q5_INLINE int q5_cvt(float x, int *tr)
     {                                                                                                       \
         UINT_007f4b54 =                                                                                     \
             Q5_CVT(q5_f(((long double)Q5_GF(UINT_007f4b48) - Q5_GF(DAT_007f4b58)) * (rk) * 65536.0f)) >>     \
-            (UINT_008ddf04 & 31);                                                                           \
+            (g_dwRdAFRaster_mipMapNum & 31);                                                                           \
         UINT_007f4adc =                                                                                     \
             Q5_CVT(q5_f(((long double)Q5_GF(UINT_007f4b4c) - Q5_GF(DAT_007f4b5c)) * (rk) * 65536.0f)) >>     \
-            (UINT_008ddf04 & 31);                                                                           \
+            (g_dwRdAFRaster_mipMapNum & 31);                                                                           \
         UINT_007f4b6c =                                                                                     \
-            (Q5_CVT(q5_f((long double)Q5_GF(DAT_007f4b58) * 65536.0f)) >> (UINT_008ddf04 & 31)) + UINT_008ddf44;\
+            (Q5_CVT(q5_f((long double)Q5_GF(DAT_007f4b58) * 65536.0f)) >> (g_dwRdAFRaster_mipMapNum & 31)) + g_dwRdAFRaster_dUdXModifier;\
         vraw = Q5_CVT(q5_f((long double)Q5_GF(DAT_007f4b5c) * 65536.0f));                                   \
     }
 /* u, v (, light) at the part's last pixel */
 #define Q5_PLAST(k, LIT)                                                                                    \
     UINT_008dde40 = (k);                                                                                    \
     UINT_007f4b6c += UINT_007f4b54 * ((k) - 1);                                                             \
-    UINT_007f4b70 = (vraw >> (UINT_008ddf04 & 31)) + (UINT_008ddf18 + UINT_007f4adc * ((k) - 1));           \
+    UINT_007f4b70 = (vraw >> (g_dwRdAFRaster_mipMapNum & 31)) + (g_dwRdAFRaster_dVdXModifier + UINT_007f4adc * ((k) - 1));           \
     if (LIT)                                                                                                \
         UINT_007f4b68 += UINT_007f4b30 * ((k) - 1);
 /* the plane values advance by 16 pixels; u0, v0, w take the part's end values */
 #define Q5_PNEXT()                                                                                          \
-    Q5_GF(DAT_007f4b38) = q5_f((long double)Q5_GF(DAT_007f4b38) + DAT_008ddf28);                            \
-    Q5_GF(DAT_007f4b64) = q5_f((long double)Q5_GF(DAT_007f4b64) + DAT_008ddf2c);                            \
-    Q5_GF(DAT_007f4ad4) = q5_f((long double)Q5_GF(DAT_007f4ad4) + DAT_008ddf48);                            \
+    Q5_GF(DAT_007f4b38) = q5_f((long double)Q5_GF(DAT_007f4b38) + g_dwRdAFRaster_oneOverZStep);                            \
+    Q5_GF(DAT_007f4b64) = q5_f((long double)Q5_GF(DAT_007f4b64) + g_dwRdAFRaster_uOverZStep);                            \
+    Q5_GF(DAT_007f4ad4) = q5_f((long double)Q5_GF(DAT_007f4ad4) + g_dwRdAFRaster_vOverZStep);                            \
     DAT_007f4b58 = UINT_007f4b48;                                                                           \
     DAT_007f4b5c = UINT_007f4b4c;                                                                           \
     DAT_007f4b60 = UINT_007f4b50;
@@ -1263,18 +1263,18 @@ void NAME(int *s)                                                               
     if (UINT_007f4b44) {                                                                                    \
         Q5_GF(DAT_007f4af4) = q5_f((long double)UINT_007f4b44);                                             \
         Q5_GF(DAT_007f4b34) = q5_copy(g_dwRdRaster_aOneOverNFlex[UINT_007f4b44]);                                        \
-        Q5_GF(DAT_007f4b38) = q5_f((long double)Q5_GF(DAT_007f4af4) * DAT_008ddf1c + Q5_GF(DAT_007f4af8));  \
-        Q5_GF(DAT_007f4b64) = q5_f((long double)Q5_GF(DAT_007f4af4) * DAT_008ddf20 + Q5_GF(DAT_007f4ae4));  \
-        Q5_GF(DAT_007f4ad4) = q5_f((long double)Q5_GF(DAT_007f4af4) * DAT_008ddf38 + Q5_GF(DAT_007f4af0));  \
+        Q5_GF(DAT_007f4b38) = q5_f((long double)Q5_GF(DAT_007f4af4) * g_dwRdAFRaster_dOneOverZdX + Q5_GF(DAT_007f4af8));  \
+        Q5_GF(DAT_007f4b64) = q5_f((long double)Q5_GF(DAT_007f4af4) * g_dwRdAFRaster_dUOverZdX + Q5_GF(DAT_007f4ae4));  \
+        Q5_GF(DAT_007f4ad4) = q5_f((long double)Q5_GF(DAT_007f4af4) * g_dwRdAFRaster_dVOverZdX + Q5_GF(DAT_007f4af0));  \
         Q5_PW()                                                                                             \
         Q5_PUV(Q5_GF(DAT_007f4b34))                                                                         \
         Q5_PLAST(UINT_007f4b44, LIT)                                                                        \
         Q5_NPART(LIT, 0, TEXEL, PIXEL)                                                                      \
         Q5_PNEXT()                                                                                          \
     } else {                                                                                                \
-        Q5_GF(DAT_007f4b38) = q5_f((long double)Q5_GF(DAT_007f4af8) + DAT_008ddf28);                        \
-        Q5_GF(DAT_007f4b64) = q5_f((long double)Q5_GF(DAT_007f4ae4) + DAT_008ddf2c);                        \
-        Q5_GF(DAT_007f4ad4) = q5_f((long double)Q5_GF(DAT_007f4af0) + DAT_008ddf48);                        \
+        Q5_GF(DAT_007f4b38) = q5_f((long double)Q5_GF(DAT_007f4af8) + g_dwRdAFRaster_oneOverZStep);                        \
+        Q5_GF(DAT_007f4b64) = q5_f((long double)Q5_GF(DAT_007f4ae4) + g_dwRdAFRaster_uOverZStep);                        \
+        Q5_GF(DAT_007f4ad4) = q5_f((long double)Q5_GF(DAT_007f4af0) + g_dwRdAFRaster_vOverZStep);                        \
     }                                                                                                       \
     for (;;) {                                                                                              \
         k = UINT_007f4b2c--;                                                                                \
@@ -1292,11 +1292,11 @@ void NAME(int *s)                                                               
             Q5_GF(DAT_007f4ac8) = q5_f((long double)k);                                                     \
             Q5_GF(DAT_007f4aec) = q5_copy(g_dwRdRaster_aOneOverNFlex[k]);                                                \
             Q5_GF(DAT_007f4b38) =                                                                           \
-                q5_f(((long double)Q5_GF(DAT_007f4ac8) * DAT_008ddf1c - DAT_008ddf28) + Q5_GF(DAT_007f4b38));\
+                q5_f(((long double)Q5_GF(DAT_007f4ac8) * g_dwRdAFRaster_dOneOverZdX - g_dwRdAFRaster_oneOverZStep) + Q5_GF(DAT_007f4b38));\
             Q5_GF(DAT_007f4b64) =                                                                           \
-                q5_f(((long double)Q5_GF(DAT_007f4ac8) * DAT_008ddf20 - DAT_008ddf2c) + Q5_GF(DAT_007f4b64));\
+                q5_f(((long double)Q5_GF(DAT_007f4ac8) * g_dwRdAFRaster_dUOverZdX - g_dwRdAFRaster_uOverZStep) + Q5_GF(DAT_007f4b64));\
             Q5_GF(DAT_007f4ad4) =                                                                           \
-                q5_f(((long double)Q5_GF(DAT_007f4ac8) * DAT_008ddf38 - DAT_008ddf48) + Q5_GF(DAT_007f4ad4));\
+                q5_f(((long double)Q5_GF(DAT_007f4ac8) * g_dwRdAFRaster_dVOverZdX - g_dwRdAFRaster_vOverZStep) + Q5_GF(DAT_007f4ad4));\
             Q5_PW()                                                                                         \
             Q5_PUV(Q5_GF(DAT_007f4aec))                                                                     \
             Q5_PLAST(k + 1, LIT)                                                                            \

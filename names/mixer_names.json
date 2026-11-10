@@ -307,7 +307,7 @@
  },
  {
   "addr": "004d0c00",
-  "name": "SoundModule_SetDriverRate",
+  "name": "sou_engine_SetRate",
   "tags": "smush,sound"
  },
  {
@@ -713,7 +713,7 @@
  {
   "addr": "004cc250",
   "name": "fob_flobdec_blocky16_config",
-  "comment": "Reads key and value pairs ending with key 0; key 1 sets the output callback g_pfnBlkOutput that Blocky16 hands decoded frames to; other keys are an error",
+  "comment": "Reads key and value pairs ending with key 0; key 1 sets the output callback g_pFob_blit_routine that Blocky16 hands decoded frames to; other keys are an error",
   "tags": "smush,blocky16"
  },
  {
@@ -725,7 +725,7 @@
  {
   "addr": "004ccd00",
   "name": "Blocky16_DecodeFrame",
-  "comment": "Decodes one Blocky16 frame into the buffers g_pbBlkCur, g_pbBlkPrev and g_pbBlkPrev2 using g_stBlockyDecState, g_asBlockyMotion, g_aBlockySplit4 and g_aBlockySplit8 and gives it to the output g_pfnBlkOutput; bitmaps g_pBlkBitmap0, g_pBlkBitmap1, g_pBlkBitmap2; tables g_pbBlkExpand, g_nBlkShiftR, g_nBlkShiftG, g_nBlkShiftB, g_pbBlkOutput, g_nBlkLastSeq",
+  "comment": "Decodes one Blocky16 frame into the buffers g_pbBlkCur, g_pbBlkPrev and g_pbBlkPrev2 using g_stBlockyDecState, g_asBlockyMotion, g_aBlockySplit4 and g_aBlockySplit8 and gives it to the output g_pFob_blit_routine; bitmaps g_pBlkBitmap0, g_pBlkBitmap1, g_pBlkBitmap2; tables g_pbBlkExpand, g_nBlkShiftR, g_nBlkShiftG, g_nBlkShiftB, g_pbBlkOutput, g_nBlkLastSeq",
   "tags": "smush,blocky16"
  },
  {
@@ -754,7 +754,7 @@
  },
  {
   "addr": "008da508",
-  "global": "g_pfnBlkOutput",
+  "global": "g_pFob_blit_routine",
   "type": "void *",
   "comment": "Callback that receives the decoded Blocky16 frame instead of the default blit"
  },

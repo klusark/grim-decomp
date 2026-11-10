@@ -260,7 +260,7 @@ int __cdecl Res_OpenLog(char *filename)
 }
 
 /* ---- 0x00480790  Res_OverrideFileCalls ---- */
-/* Temp/Res.c: keeps a copy of the raw file services in g_ResFileServices and replaces
+/* Temp/Res.c: keeps a copy of the raw file services in g_aLowLevelHS and replaces
    svc->fopen..fprintf with the ResFile_* versions so every open goes through the LAB archive system
    Original name Res_OverrideFileCalls (the remaster's GrimFandango (Linux): aligned call in
    sputResource_Startup); was Res_InstallFileServices. */
@@ -273,13 +273,13 @@ void __cdecl Res_OverrideFileCalls(GrimServices *svc)
   GrimServices *pGVar3;
   
   pGVar2 = svc;
-  pGVar3 = &g_ResFileServices;
+  pGVar3 = &g_aLowLevelHS;
   for (iVar1 = 0x1c; iVar1 != 0; iVar1 = iVar1 + -1) {
     pGVar3->flVersion = pGVar2->flVersion;
     pGVar2 = (GrimServices *)&pGVar2->pPrintf;
     pGVar3 = (GrimServices *)&pGVar3->pPrintf;
   }
-  g_dwLowLevelHS = (uint)&g_ResFileServices;
+  g_dwLowLevelHS = (uint)&g_aLowLevelHS;
   svc->pFopen = Res_FOpen;
   svc->pFclose = Res_FClose;
   svc->pFread = Res_FRead;

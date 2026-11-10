@@ -71,7 +71,7 @@ void __cdecl sputActor_UpdateActors(float dt)
   void *pvVar1;
   int *piVar2;
   
-  g_nDrawableActorCount = 0;
+  g_nTotActors = 0;
   pvVar1 = sputRoom_GetCurrentRoom();
   if (pvVar1 != (void *)0x0) {
     sputActor_UpdateSpeechOnly(dt);
@@ -85,8 +85,8 @@ void __cdecl sputActor_UpdateActors(float dt)
           }
           if ((*(int *)((int)pvVar1 + 0xa0) != 0) &&
              (*(int *)(*(int *)((int)pvVar1 + 0xa0) + 4) != 0)) {
-            (&g_pDrawableActors)[g_nDrawableActorCount] = pvVar1;
-            g_nDrawableActorCount = g_nDrawableActorCount + 1;
+            (&g_pDrawableActors)[g_nTotActors] = pvVar1;
+            g_nTotActors = g_nTotActors + 1;
           }
           Actor_UpdateMovement(pvVar1,dt);
         }
