@@ -1,6 +1,6 @@
 # IMUSE.DLL function index
 
-434 functions, 268 with real names.
+434 functions, 275 with real names.
 
 | address | name | module | lines |
 |---|---|---|---|
@@ -42,25 +42,25 @@
 | 100059a0 | Im_MixLoopB | imuse.c | 72 |
 | 10005b80 | Im_MixLoopC | imuse.c | 1 |
 | 10005db0 | Im_MixLoopD | imuse.c | 1 |
-| 10006070 | FUN_10006070 | imuse.c | 77 |
+| 10006070 | ScriptCall | imuse.c | 80 |
 | 10006360 | FUN_10006360 | imuse.c | 25 |
 | 100063d0 | FUN_100063d0 | imuse.c | 17 |
 | 10006400 | FUN_10006400 | imuse.c | 29 |
 | 10006470 | FUN_10006470 | imuse.c | 24 |
 | 100064d0 | FUN_100064d0 | imuse.c | 1 |
 | 10006560 | FUN_10006560 | imuse.c | 1 |
-| 10006620 | FUN_10006620 | imuse.c | 1 |
+| 10006620 | Script_SetSequence | imuse.c | 1 |
 | 100067a0 | FUN_100067a0 | imuse.c | 5 |
 | 100067b0 | FUN_100067b0 | imuse.c | 70 |
-| 100068b0 | FUN_100068b0 | imuse.c | 1 |
-| 100070e0 | FUN_100070e0 | imuse.c | 1 |
+| 100068b0 | Script_Trans | imuse.c | 1 |
+| 100070e0 | Script_Callback | imuse.c | 1 |
 | 10007110 | FUN_10007110 | imuse.c | 11 |
 | 100089b0 | Im_SoundsFindByName | imuse.c | 81 |
 | 10008b60 | Im_SoundsFreeSlot | imuse.c | 19 |
 | 10008bb0 | iMUSE_GetPhoneme | imuse.c | 35 |
 | 10008c40 | FUN_10008c40 | imuse.c | 46 |
 | 10008ce0 | FUN_10008ce0 | imuse.c | 1 |
-| 10008e00 | FUN_10008e00 | imuse.c | 13 |
+| 10008e00 | timer_callback | imuse.c | 15 |
 | 10008e30 | FUN_10008e30 | imuse.c | 10 |
 | 10008e60 | FUN_10008e60 | imuse.c | 27 |
 | 100093d0 | Im_SoundsPrepare | imuse.c | 59 |
@@ -86,8 +86,8 @@
 | 1000a6d0 | Im_RefillStreamTrack | imuse.c | 67 |
 | 1000a7e0 | Im_InitSubsystems | imuse.c | 48 |
 | 1000a8a0 | Im_ShutdownSubsystems | imuse.c | 20 |
-| 1000a8d0 | Im_PauseImpl | imuse.c | 11 |
-| 1000a8f0 | Im_ResumeImpl | imuse.c | 11 |
+| 1000a8d0 | TrPause | imuse.c | 12 |
+| 1000a8f0 | TrResume | imuse.c | 12 |
 | 1000a910 | Im_SaveImpl | imuse.c | 31 |
 | 1000a970 | Im_RestoreImpl | imuse.c | 44 |
 | 1000aa00 | Im_UpdateGroupVolumes | imuse.c | 18 |
@@ -107,11 +107,11 @@
 | 1000b170 | Im_TriggersInit | imuse.c | 23 |
 | 1000b1a0 | Im_TriggersSave | imuse.c | 29 |
 | 1000b1e0 | Im_TriggersRestore | imuse.c | 27 |
-| 1000b220 | Im_SetTriggerImpl | imuse.c | 1 |
+| 1000b220 | TgSetTrigger | imuse.c | 1 |
 | 1000b2e0 | Im_CheckTriggerImpl | imuse.c | 58 |
 | 1000b380 | Im_ClearTriggerImpl | imuse.c | 60 |
 | 1000b430 | Im_FireTriggers | imuse.c | 123 |
-| 1000b570 | Im_DeferCommandImpl | imuse.c | 1 |
+| 1000b570 | TgDeferCommand | imuse.c | 1 |
 | 1000b5e0 | Im_ProcessDeferred | imuse.c | 29 |
 | 1000b630 | Im_GetTriggerParam | imuse.c | 35 |
 | 1000b6a0 | Im_RunTriggerCommand | imuse.c | 1 |
@@ -220,7 +220,7 @@
 | 100078b0 | SoundsSetMuscriptRemote | imuse_api.c | 9 |
 | 100078c0 | Sounds_PlatformDevice | imuse_api.c | 7 |
 | 100078d0 | SoundsInitialize | imuse_api.c | 15 |
-| 10007920 | FUN_10007920 | imuse_api.c | 40 |
+| 10007920 | sounds_startup | imuse_api.c | 42 |
 | 10007a20 | FUN_10007a20 | imuse_api.c | 22 |
 | 10007a60 | FUN_10007a60 | imuse_api.c | 6 |
 | 10007a70 | FUN_10007a70 | imuse_api.c | 6 |
@@ -228,13 +228,13 @@
 | 10007a90 | FUN_10007a90 | imuse_api.c | 68 |
 | 10007bc0 | FUN_10007bc0 | imuse_api.c | 33 |
 | 10007ca0 | FUN_10007ca0 | imuse_api.c | 239 |
-| 10008140 | FUN_10008140 | imuse_api.c | 39 |
+| 10008140 | sounds_shutdown | imuse_api.c | 41 |
 | 100081f0 | FUN_100081f0 | imuse_api.c | 25 |
 | 10008250 | FUN_10008250 | imuse_api.c | 164 |
 | 10008580 | FUN_10008580 | imuse_api.c | 101 |
 | 10008860 | FUN_10008860 | imuse_api.c | 11 |
 | 100088a0 | FUN_100088a0 | imuse_api.c | 10 |
-| 10008ec0 | Sounds_ResolveName_LoadIfNeeded | imuse_api.c | 221 |
+| 10008ec0 | CacheGetSoundId | imuse_api.c | 227 |
 | 100092f0 | Sounds_EvictOldestIdleSlot | imuse_api.c | 63 |
 | 1000b940 | ImFile_Read | imuse_api.c | 1 |
 | 1000b980 | ImFile_ReadImpl | imuse_api.c | 1 |

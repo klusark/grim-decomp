@@ -773,7 +773,7 @@ undefined4 SoundsFillStreamsWhileMusicCritical(int n)
  * structure it reads back from the stack (wPeriodMin/wPeriodMax became unaff_ESI /
  * unaff_EDI, which made the period 0). Rewritten from the disassembly:
  * period = min(max(wPeriodMin, 50), wPeriodMax). The heartbeat callback
- * (FUN_10008e00, __stdcall with five arguments) must fire within 4 s, retried
+ * (timer_callback, __stdcall with five arguments) must fire within 4 s, retried
  * twice, or the function reports failure. */
 int FUN_10008ce0(void)
 {
@@ -792,7 +792,7 @@ int FUN_10008ce0(void)
     _DAT_1002e338 = 1000 / period;
     _DAT_10031520 = period;
     timeBeginPeriod(period);
-    _DAT_10031d28 = timeSetEvent(_DAT_1002e338, 0, (void *)FUN_10008e00, 0xf, 1);
+    _DAT_10031d28 = timeSetEvent(_DAT_1002e338, 0, (void *)timer_callback, 0xf, 1);
     start = timeGetTime();
     _DAT_10031e84 = 0;
     for (tries = 3; tries > 0; tries--) {
@@ -806,7 +806,7 @@ int FUN_10008ce0(void)
             timeKillEvent(_DAT_10031d28);
             timeEndPeriod(_DAT_10031520);
             timeBeginPeriod(_DAT_10031520);
-            _DAT_10031d28 = timeSetEvent(_DAT_1002e338, 0, (void *)FUN_10008e00, 0xf, 1);
+            _DAT_10031d28 = timeSetEvent(_DAT_1002e338, 0, (void *)timer_callback, 0xf, 1);
             start = timeGetTime();
         }
     }
