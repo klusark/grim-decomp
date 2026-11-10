@@ -1152,3 +1152,34 @@ Root causes fixed at the source (Ghidra, then `tools/export_changed.py`)
   differ identically in both (gco_kf_badj, gco_cos_bitmap, gco_font_kerned, gco_font_perm, gco_text_keys,
   gl1_sound_pos_actor, gl1_sound_pos_max_below_min, ims_save_voice, smv_save_movie: the new / changing tests); the
   rest is timing noise one run each (sound_fade on main, ims_ids|id_plus_1 here, as in round 3).
+
+## Original names, round 5 (2026-11-10, agent orig-5, lead)
+
+* The LEC library registers its service tables under the same strings in both builds ("LECMODULE=insane_x",
+  "ANIMPLAY=insane", ...): read from both binaries, they pair slot by slot, and so do the tables reached through
+  matched globals (shl_modules, lecShareServices, defaultHostServices, sputVideoCallBacks, the resource type table by
+  its four-letter tags). Callee / caller propagation and five more alignment passes did the rest; every pair was read
+  in both texts.
+* EXE functions 2359 -> 2462 named (FUN_ 312 -> 209; 212 renames, 109 replace hand-made names: `InsaneTimer_*` ->
+  `sys_*`, `SoundModule_*` -> `sou_engine_*`, `DsndDriver_*` -> `dsn_*`, `Svc_*` -> `default*`, `Rle_*` ->
+  `msc_rle_*`, `Blocky16_*` -> `fob_*` / `flobdec_*`, `LecShare_Register` / `_Unregister` / `_Release` ->
+  `LecShare_Publish` / `_Unpublish` / `_Unsubscribe`), globals 727 -> 764. IMUSE.DLL 301 -> 302. Batches
+  names/orig5_*.json, notes docs/notes/orig_5.md.
+* The doubtful list: settled `Resource_OpenArchivesInDir` (AddResourcePath, with Res_FileOpen / Res_FileMoveToFront),
+  `Actor_DrawShadowPlane` (sputCostume_DrawMeshShadow), `SetFile_ParseSectors` (ParseCollection), `rdThing_DrawAlt`
+  (rdThing_Draw; the old rdThing_Draw is rdModel3_Draw), `rdModel3_New` (rdModel3_Load; the old one is
+  rdModel3_LoadEntry), `Im_VimaDecompress` (AudioLib_ParseWaveFileHeader: a wave header parser), and an orig-names
+  mistake (0x4a49a0 is sputRoom_LoadRoom, 0x4a4b00 SetFile_Parse again). Kept, with reasons in the notes: Win_WinMain,
+  Display_Select, Lab_ReadDirectory, LightEd_*, Collision_TestActorAgainstOthers, LecShare_Reset, the dirty-rect
+  statics, loadLastSave, mlListSize.
+* What is left is mostly not nameable from the remaster: the EXE's 209 FUN_ are 187 C runtime / zlib (144 of them dead
+  copies) or folded copies and 22 LEC / game code with no remaster symbol; the generated names are v1.01-only spans,
+  Grim's own Lua undump checks and helpers the remaster inlined; of the 1510 unnamed EXE globals ~716 look like real
+  statics, mostly of v1.01-only code. The remaster's ELFs have only .symtab (no DWARF): object sizes and C++ parameter
+  types of 2053 + 137 functions, no struct layouts or field names.
+* rename_refs covers neither build/mixdiff nor build/perf; the agent carried the names there too and a repo-wide scan
+  finds no old name. Code and data of the four binaries are byte-identical to main's (rdata: the build time).
+* Clean-room (5322 tests, the other session's uncommitted expected/ files): this build 7 differ, main's 6, compare of
+  the two logs 1 (ims_cache|keep_after "1" for main, "0" here). Run alone (`--only ims_cache`, three times each) both
+  builds give "0": a timing-dependent new test, not the names. The others are the other session's new tests and
+  sound_fade timing noise, the same for both builds.
