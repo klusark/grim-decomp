@@ -2418,6 +2418,8 @@ LAB_10004dc2:
 }
 
 /* ---- 0x10004e50  FUN_10004e50 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -2462,6 +2464,8 @@ int FUN_10004e50(void)
   *(undefined4 *)(DAT_100143b4 + 0x38 + iVar1) = 0;
   return iVar2;
 }
+#endif
+
 
 /* ---- 0x10004f30  FUN_10004f30 ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
@@ -2544,6 +2548,8 @@ joined_r0x10005011:
 }
 
 /* ---- 0x10005090  FUN_10005090 ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
@@ -2588,6 +2594,8 @@ int FUN_10005090(void)
   *(undefined4 *)(DAT_100143cc + 0x10 + iVar1) = 0;
   return iVar2;
 }
+#endif
+
 
 /* ---- 0x10005160  FUN_10005160 ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
