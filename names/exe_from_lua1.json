@@ -4,7 +4,7 @@
  {"addr": "00487650", "name": "grimPlat_QueryDialog", "proto": "int grimPlat_QueryDialog(char * text, char * caption, uint flags)", "comment": "Win95/grimplat.cpp: MessageBoxA on the game window; returns the IDxxx button code (2 = cancel, 7 = no)", "tags": "platform"},
  {"addr": "00487e30", "name": "grimPlat_InputDialog", "proto": "int grimPlat_InputDialog(char * title, char * prompt, char * buf, int bufSize, char * defaultText)", "comment": "Lua InputDialog: modal text entry dialog", "tags": "platform"},
  {"addr": "00478150", "name": "stdPlatform_GetPhysicalRam", "comment": "Lua GetPhysicalBytes", "tags": "platform"},
- {"addr": "0048d8a0", "name": "Resource_SetMemoryUsage", "proto": "void Resource_SetMemoryUsage(int budget, int b)", "comment": "Lua SetMemoryUsage", "tags": "resource"},
+ {"addr": "0048d8a0", "name": "sputResource_SetMemoryUsage", "proto": "void sputResource_SetMemoryUsage(int budget, int b)", "comment": "Lua SetMemoryUsage", "tags": "resource"},
  {"addr": "0048d090", "name": "Control_Enable", "proto": "void Control_Enable(int control)", "comment": "Lua EnableControl", "tags": "input"},
  {"addr": "0048d0d0", "name": "Control_Disable", "proto": "void Control_Disable(int control)", "comment": "Lua DisableControl", "tags": "input"},
  {"addr": "004e9238", "global": "g_nSputControl_numControlSymbols", "type": "int", "comment": "Number of entries in the 16-byte control descriptor table g_dwSputControl_aControlSymbols"},

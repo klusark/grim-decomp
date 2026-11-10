@@ -153,7 +153,7 @@ int SoundModule_module_startup(void)
         ((SndSvcName)g_pSndServices[8])(s_Sound_Module__Cannot_allocate_sn_004f3e74);
         return -1;
     }
-    return SoundModule_Open(g_nSndOpenRate, g_nSndOpenLimit, g_adwSndBufferSizes[0], g_adwSndBufferSizes[1],
+    return engine_Initialize(g_nSndOpenRate, g_nSndOpenLimit, g_adwSndBufferSizes[0], g_adwSndBufferSizes[1],
                             g_adwSndBufferSizes[2], g_adwSndBufferSizes[3], g_adwSndBufferSizes[4], g_adwSndBufferSizes[5],
                             g_adwSndBufferSizes[6], g_adwSndBufferSizes[7], g_adwSndBufferSizes[8], g_adwSndBufferSizes[9],
                             g_adwSndBufferSizes[10], g_adwSndBufferSizes[11], g_adwSndBufferSizes[12],
@@ -170,7 +170,7 @@ void SoundModule_Shutdown(void)
 
 /* rate / limit, then a zero terminated list of voice buffer sizes (one voice per entry).  Opens the driver with
  * SoundModule_MixCallback.  Returns 0 or -1. */
-int SoundModule_Open(int rate, int limit, uint size, ...)
+int engine_Initialize(int rate, int limit, uint size, ...)
 {
     __builtin_va_list ap;
     int i;

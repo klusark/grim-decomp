@@ -37,7 +37,7 @@ int Grim_FatalMessageBox(int param_1,int param_2,int param_3,int param_4); /* 0x
 void Grim_ShutdownDisplay(void); /* 0x00401900 */
 void Grim_Shutdown(void); /* 0x00401950 */
 void Grim_EnumDisplayModes(void); /* 0x00401a50 */
-void Grim_RequestQuit(void); /* 0x00402050 */
+void grimdemo_PleaseShutdown(void); /* 0x00402050 */
 undefined4 Grim_OnDisplayModeChange(void *param_1,int param_2); /* 0x00402060 */
 int __cdecl Grim_ParseCommandLine(char *cmdline); /* 0x00402c80 */
 void Grim_OpenRegistry(void); /* 0x004034b0 */
@@ -96,7 +96,7 @@ void sputLua_UnShrinkBoxes(void); /* 0x00498e90 */
 void __cdecl sputLua_GetShrinkPosition(void); /* 0x00498ea0 */
 void sputLua_SetSoundParametersL(void); /* 0x00499000 */
 void sputLua_GetSoundParametersL(void); /* 0x004991c0 */
-void Lua_SetDebugKeysCallback(uint param_1); /* 0x00499250 */
+void sputLua_SetDebugToggleCallback(uint param_1); /* 0x00499250 */
 void sputLua_EnginePause(void); /* 0x00499260 */
 void sputLua_EngineResume(void); /* 0x00499270 */
 void sputLua_EngineDisplay(void); /* 0x00499280 */
@@ -391,7 +391,7 @@ undefined4 DDraw_FillSurface(undefined4 *param_1,uint param_2,uint *param_3); /*
 undefined4 DDraw_SetPalette(undefined1 *param_1); /* 0x00476dc0 */
 void * __cdecl DIB_CreateSurface(void *mode,void *surface,void *palette,void *hwnd); /* 0x00476e40 */
 void DIB_ReleaseSurface(void); /* 0x00476ee0 */
-void __cdecl Display_SetPalette3D(void *palette,int flags); /* 0x00478fc0 */
+void __cdecl std3D_SetCurrentPalette(void *palette,int flags); /* 0x00478fc0 */
 void __cdecl Palette_FromFloatTable(byte *out,byte *in,int n,double gamma); /* 0x0047b610 */
 void __cdecl Pixel_Convert(ushort *dst,int dstFormat,ushort *src,int srcFormat,uint count); /* 0x0047b8a0 */
 int Pixel_ConvertOne(int param_1,undefined4 param_2,int param_3); /* 0x0047bbb0 */
@@ -504,7 +504,7 @@ void rdCanvas_Free(int param_1); /* 0x004c0610 */
 void rdCache_BeginScene3D(void); /* 0x00406650 */
 void rdCache_EndScene3D(void); /* 0x00406660 */
 void rdCache_Reset(void); /* 0x00406670 */
-void rdCache_ClearStats(void); /* 0x00406690 */
+void rdCache_ClearFrameCounters(void); /* 0x00406690 */
 undefined1 * rdCache_AllocMesh(void); /* 0x004066a0 */
 void rdCache_Flush(void); /* 0x00406770 */
 int __cdecl rdCache_AddMesh(void *mesh,uint vertexCount,byte flags); /* 0x00406860 */
@@ -987,8 +987,8 @@ void rdRaster_Span16_TexZw_12(uint *param_1,uint *param_2); /* 0x00470780 */
 void rdRaster_Span16_TexZw_13(uint *param_1,uint *param_2); /* 0x004710e0 */
 
 /* ===== rdmaterial.c ===== */
-uint rdMaterial_SetLoadHook(uint param_1); /* 0x00417e90 */
-uint rdMaterial_SetFreeHook(uint param_1); /* 0x00417ea0 */
+uint rdMaterial_RegisterLoader(uint param_1); /* 0x00417e90 */
+uint rdMaterial_RegisterUnloader(uint param_1); /* 0x00417ea0 */
 void * __cdecl rdMaterial_Load(char *name,int a,int b); /* 0x00417eb0 */
 int __cdecl rdMaterial_LoadEntry(char *filename,void *material,int a,int b); /* 0x00417f30 */
 void rdMaterial_Free(undefined4 param_1); /* 0x00418360 */
@@ -1304,7 +1304,7 @@ void Res_FindByHandleOrNull(int *param_1,int *param_2,int param_3); /* 0x0048217
 void Res_NextInList(int *param_1,int *param_2,int param_3); /* 0x004821b0 */
 undefined * __cdecl Res_TouchByData(void *param_1); /* 0x00482200 */
 int Res_CountChildren(uint param_1,uint param_2); /* 0x004824f0 */
-void Res_SetCacheSizeMB(int param_1); /* 0x00482520 */
+void grimlib_SetCacheMax(int param_1); /* 0x00482520 */
 void sputResource_ReportAllocations(void); /* 0x0048e230 */
 
 /* ===== resource.c ===== */
@@ -1324,7 +1324,7 @@ int Resource_OpenLog(char *param_1); /* 0x0048d550 */
 int __cdecl Resource_OpenArchivesInDir(char *dir); /* 0x0048d570 */
 void Resource_CountCostumeRefs(undefined4 param_1); /* 0x0048d810 */
 undefined4 Resource_RegisterTypes(void); /* 0x0048d870 */
-void __cdecl Resource_SetMemoryUsage(int budget,int b); /* 0x0048d8a0 */
+void __cdecl sputResource_SetMemoryUsage(int budget,int b); /* 0x0048d8a0 */
 void Resource_ReloadBitmaps(void); /* 0x0048df50 */
 void Resource_RebuildColormaps(void); /* 0x0048e0a0 */
 void * Resource_MaterialLoadHook(char *param_1); /* 0x0048e170 */
@@ -1750,13 +1750,13 @@ void TextObjects_Unfreeze(void); /* 0x0048ad50 */
 undefined4 sputText_Initialize(GrimServices *param_1,undefined4 *param_2); /* 0x0048acc0 */
 void sputText_Terminate(void); /* 0x0048c4d0 */
 undefined4 sputText_Startup(void); /* 0x0048c500 */
-void sputText_Stop(void); /* 0x0048c6f0 */
+void sputText_Shutdown(void); /* 0x0048c6f0 */
 undefined4 sputText_SaveState(code *param_1); /* 0x0048cbc0 */
-undefined4 sputText_RestoreState(code *param_1); /* 0x0048cd80 */
+undefined4 sputText_Restore(code *param_1); /* 0x0048cd80 */
 
 /* ===== text.c ===== */
 int __cdecl GetTextParamsFromTable(void *ctx,void *table,void *textObj); /* 0x0048c050 */
-char * __cdecl Text_ParseLineId(char *line,char *outId); /* 0x0048c8d0 */
+char * __cdecl sputText_ExtractSayLineData(char *line,char *outId); /* 0x0048c8d0 */
 int sputActor_GetActorTextRate(void); /* 0x00494740 */
 void __cdecl Text_SetSpeed(int speed); /* 0x00494750 */
 void * Text_GetDefaultFont(void); /* 0x004aa930 */
@@ -1893,14 +1893,14 @@ void __cdecl Shadow_DrawClippedPoly(float *verts,int count,float *minXY,float *m
 int sputCostume_Initialize(GrimServices *param_1,undefined4 *param_2); /* 0x004957f0 */
 void sputCostume_Terminate(void); /* 0x00495960 */
 undefined4 sputCostume_Start(void); /* 0x004959a0 */
-void sputCostume_Stop(void); /* 0x004988a0 */
+void sputCostume_Shutdown(void); /* 0x004988a0 */
 
 /* ===== component.c ===== */
 void Component_SetBitmapFrame(undefined4 param_1,int *param_2,undefined4 param_3,int param_4); /* 0x00496060 */
 
 /* ===== bitmapcomponent.c ===== */
 undefined4 BitmapRequester(uint param_1,int param_2,int param_3,int param_4,char *param_5); /* 0x004960a0 */
-undefined4 BitmapComponent_Destroy(undefined4 param_1,undefined4 param_2,void *param_3); /* 0x00496340 */
+undefined4 BitmapFreer(undefined4 param_1,undefined4 param_2,void *param_3); /* 0x00496340 */
 
 /* ===== cmapcomponent.c ===== */
 int * __cdecl CmapComponent_NewInstance(int inst,int component,int create); /* 0x00496370 */
@@ -2028,7 +2028,7 @@ int __cdecl Sound_VoiceSampleCount(int voice); /* 0x004d0cf0 */
 undefined * __cdecl sputRoom_Initialize(uint param_1,undefined **param_2); /* 0x004a48c0 */
 void sputRoom_Terminate(void); /* 0x004a5390 */
 undefined4 sputRoom_Startup(void); /* 0x004a53b0 */
-void sputRoom_Stop(void); /* 0x004a5430 */
+void sputRoom_Shutdown(void); /* 0x004a5430 */
 undefined4 sputRoom_ParseLights(void); /* 0x004a5600 */
 undefined4 sputRoom_ParseSetups(void); /* 0x004a5890 */
 
@@ -2452,7 +2452,7 @@ undefined4 BatchUnsubscribe(int *param_1); /* 0x004c1900 */
 undefined4 FUN_004c1f40(int *param_1,uint param_2); /* 0x004c1f40 */
 void FUN_004c1fb0(void); /* 0x004c1fb0 */
 undefined4 AnimPlay_module_startup(void); /* 0x004c1ff0 */
-void FUN_004c2150(void); /* 0x004c2150 */
+void AnimPlay_module_shutdown(void); /* 0x004c2150 */
 int anm_EasyPlay(char *param_1,int param_2,uint param_3,undefined4 param_4,undefined4 param_5, undefined4 param_6,undefined4 param_7,undefined4 param_8,undefined4 param_9, code *param_10,int param_11,int param_12,int param_13); /* 0x004c21e0 */
 int FUN_004c2590(int param_1); /* 0x004c2590 */
 int FUN_004c25c0(void *param_1,int param_2,int param_3,int param_4,int param_5,int param_6, int param_7,int param_8,int param_9,int param_10); /* 0x004c25c0 */
@@ -2468,9 +2468,9 @@ uint FUN_004c2b40(void); /* 0x004c2b40 */
 undefined4 FUN_004c2b50(int *param_1,uint param_2); /* 0x004c2b50 */
 void FUN_004c2ba0(void); /* 0x004c2ba0 */
 int AnimFrame_module_startup(void); /* 0x004c2be0 */
-void FUN_004c2dc0(void); /* 0x004c2dc0 */
+void AnimFrame_module_shutdown(void); /* 0x004c2dc0 */
 void FUN_004c2eb0(void); /* 0x004c2eb0 */
-undefined4 FUN_004c2ee0(undefined1 *param_1,int param_2); /* 0x004c2ee0 */
+undefined4 anm_DecodeHeader(undefined1 *param_1,int param_2); /* 0x004c2ee0 */
 uint anm_DecodeBody(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4, uint *param_5,uint *param_6,uint *param_7,uint param_8,undefined4 param_9, undefined4 param_10,byte *param_11,int param_12); /* 0x004c2fa0 */
 void FUN_004c34d0(short *param_1,int param_2); /* 0x004c34d0 */
 int FUN_004c3560(int param_1); /* 0x004c3560 */
@@ -2566,7 +2566,7 @@ uint FUN_004ca460(uint param_1,int param_2); /* 0x004ca460 */
 undefined4 FUN_004cba30(int *param_1,uint param_2); /* 0x004cba30 */
 void FUN_004cba70(void); /* 0x004cba70 */
 int DWave_module_startup(void); /* 0x004cbaa0 */
-void FUN_004cbb30(void); /* 0x004cbb30 */
+void DWave_module_shutdown(void); /* 0x004cbb30 */
 char * FUN_004cbb80(int param_1); /* 0x004cbb80 */
 undefined4 FUN_004cbbb0(void); /* 0x004cbbb0 */
 undefined4 FUN_004cbbc0(void); /* 0x004cbbc0 */
@@ -2625,11 +2625,11 @@ int Clock_ElapsedMs(void); /* 0x004ad260 */
 int strpbrk_or_strspn(byte *param_1,byte *param_2); /* 0x004ae220 */
 
 /* ===== insane.c ===== */
-int Insane_Poll(void); /* 0x004bd370 */
-undefined4 Insane_RegisterFilio(uint param_1,undefined4 *param_2); /* 0x004bd3a0 */
-void SmushPlay_SysShutdown(void); /* 0x004bd430 */
+int SmushPlay_GetMovieTime(void); /* 0x004bd370 */
+undefined4 SmushPlay_SysInitialize(uint param_1,undefined4 *param_2); /* 0x004bd3a0 */
+void SmushPlay_SysTerminate(void); /* 0x004bd430 */
 undefined4 SmushPlay_SysStartup(void); /* 0x004bd440 */
-void Insane_Stop(void); /* 0x004bd4d0 */
+void SmushPlay_SysShutdown(void); /* 0x004bd4d0 */
 void Insane_SetOutputParams(uint *param_1); /* 0x004bd540 */
 undefined4 Insane_ReadFrameHeader(int param_1,int param_2); /* 0x004bd7c0 */
 undefined4 Insane_PrepareFrame(int *param_1,undefined4 *param_2,uint *param_3); /* 0x004bdb00 */
@@ -2699,10 +2699,10 @@ void Mixer_MixStereoLR_B(ushort *param_1,int param_2,uint param_3,uint param_4,i
 void Mixer_MixStereo_B(ushort *param_1,int param_2,uint param_3,uint param_4,int param_5); /* 0x004d40d0 */
 
 /* ===== lecshare.c ===== */
-undefined ** LecShare_Startup(undefined *param_1,undefined4 *param_2,undefined4 param_3,undefined4 param_4); /* 0x004c1390 */
-undefined4 LecShare_Shutdown(void); /* 0x004c13f0 */
-int LecShare_StartupModules(void); /* 0x004c1460 */
-undefined4 LecShare_UnwindStartup(void); /* 0x004c1500 */
+undefined ** LecShare_Initialize(undefined *param_1,undefined4 *param_2,undefined4 param_3,undefined4 param_4); /* 0x004c1390 */
+undefined4 LecShare_Terminate(void); /* 0x004c13f0 */
+int LecShare_Startup(void); /* 0x004c1460 */
+undefined4 LecShare_Shutdown(void); /* 0x004c1500 */
 void LecShare_Reset(uint param_1,uint param_2); /* 0x004c1590 */
 int __cdecl LecShare_Register(char *name,void *vtable); /* 0x004c15c0 */
 uint LecShare_Unregister(undefined4 param_1); /* 0x004c1650 */
@@ -2845,7 +2845,7 @@ int __cdecl SoundModule_Register(int *services,uint moduleSize); /* 0x004d0300 *
 void SoundModule_Unregister(void); /* 0x004d03a0 */
 int SoundModule_module_startup(void); /* 0x004d03d0 */
 void SoundModule_Shutdown(void); /* 0x004d0510 */
-int __cdecl SoundModule_Open(int rate,int limit,uint size,...); /* 0x004d0550 */
+int __cdecl engine_Initialize(int rate,int limit,uint size,...); /* 0x004d0550 */
 int SoundModule_Close(void); /* 0x004d0610 */
 int __cdecl SoundModule_AddTrackBuffer(uint size,int limit); /* 0x004d06a0 */
 void __cdecl SoundModule_PlayChunk(byte *p,int id,int volume,int pan,uint flags); /* 0x004d0860 */

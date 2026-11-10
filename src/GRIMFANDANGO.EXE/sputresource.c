@@ -63,8 +63,8 @@ int sputResource_Start(void)
     UINT_008ca1fc = Resource_RegisterTypes();
   }
   Res_InstallFileServices((GrimServices *)g_dwSputResHS);
-  UINT_008ca200 = rdMaterial_SetLoadHook(Resource_MaterialLoadHook);
-  UINT_008ca204 = rdMaterial_SetFreeHook(Resource_MaterialFreeHook);
+  UINT_008ca200 = rdMaterial_RegisterLoader(Resource_MaterialLoadHook);
+  UINT_008ca204 = rdMaterial_RegisterUnloader(Resource_MaterialFreeHook);
   UINT_008a85e8 = (uint)SoundsPeriodic;
   Cos_RegisterSaveVerify(((unsigned)(uintptr_t)Resource_CountCostumeRefs));
   return UINT_008ca1fc == 0;
@@ -78,8 +78,8 @@ void sputResource_Stop(void)
 
 {
   (*(code *)UINT_008ca1e4)();
-  rdMaterial_SetLoadHook(UINT_008ca200);
-  rdMaterial_SetFreeHook(UINT_008ca204);
+  rdMaterial_RegisterLoader(UINT_008ca200);
+  rdMaterial_RegisterUnloader(UINT_008ca204);
   Res_RestoreFileServices((GrimServices *)g_dwSputResHS);
   UINT_008ca1fc = 0;
   return;

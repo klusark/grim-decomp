@@ -4949,7 +4949,7 @@ void FUN_004bdfb0(void)
 void FUN_004bdfe0(undefined4 param_1,undefined4 param_2,undefined4 param_3)
 
 {
-  (**(code **)(UINT_008d11f4 + 0x20))(param_1,param_2,param_3);
+  (**(code **)(g_dwSmushPlayHS + 0x20))(param_1,param_2,param_3);
   return;
 }
 
@@ -4957,7 +4957,7 @@ void FUN_004bdfe0(undefined4 param_1,undefined4 param_2,undefined4 param_3)
 void FUN_004be000(undefined4 param_1)
 
 {
-  (**(code **)(UINT_008d11f4 + 0x24))(param_1);
+  (**(code **)(g_dwSmushPlayHS + 0x24))(param_1);
   return;
 }
 
@@ -4965,7 +4965,7 @@ void FUN_004be000(undefined4 param_1)
 void FUN_004be020(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4)
 
 {
-  (**(code **)(UINT_008d11f4 + 0x28))(param_1,param_2,param_3,param_4);
+  (**(code **)(g_dwSmushPlayHS + 0x28))(param_1,param_2,param_3,param_4);
   return;
 }
 
@@ -4975,10 +4975,10 @@ void FUN_004be020(undefined4 param_1,undefined4 param_2,undefined4 param_3,undef
 undefined4 FUN_004be050(int *param_1,undefined4 param_2)
 
 {
-  PTR_008d11d4 = param_1;
+  g_pSmushPlay_share_services = param_1;
   _DAT_008d1630 = param_2;
   (*(code *)*param_1)(s_LECMODULE_insane_stdio_004f0cf4,&PTR_FUN_004f0c38);
-  (*(code *)*PTR_008d11d4)(s_FILIO_insane_stdio_004f0c64,&PTR_FUN_004f0c48);
+  (*(code *)*g_pSmushPlay_share_services)(s_FILIO_insane_stdio_004f0c64,&PTR_FUN_004f0c48);
   return 0;
 }
 
@@ -4986,8 +4986,8 @@ undefined4 FUN_004be050(int *param_1,undefined4 param_2)
 void FUN_004be090(void)
 
 {
-  (*(code *)PTR_008d11d4[1])(s_FILIO_insane_stdio_004f0c64);
-  (*(code *)PTR_008d11d4[1])(s_LECMODULE_insane_stdio_004f0cf4);
+  (*(code *)g_pSmushPlay_share_services[1])(s_FILIO_insane_stdio_004f0c64);
+  (*(code *)g_pSmushPlay_share_services[1])(s_LECMODULE_insane_stdio_004f0cf4);
   return;
 }
 
@@ -4995,7 +4995,7 @@ void FUN_004be090(void)
 void FUN_004be0c0(undefined4 param_1,undefined4 param_2)
 
 {
-  (**(code **)(UINT_008d11f4 + 0x30))(param_1,param_2);
+  (**(code **)(g_dwSmushPlayHS + 0x30))(param_1,param_2);
   return;
 }
 
@@ -5003,7 +5003,7 @@ void FUN_004be0c0(undefined4 param_1,undefined4 param_2)
 void FUN_004be0e0(undefined4 param_1)
 
 {
-  (**(code **)(UINT_008d11f4 + 0x34))(param_1);
+  (**(code **)(g_dwSmushPlayHS + 0x34))(param_1);
   return;
 }
 
@@ -5011,7 +5011,7 @@ void FUN_004be0e0(undefined4 param_1)
 void FUN_004be100(undefined4 param_1,undefined4 param_2,undefined4 param_3)
 
 {
-  (**(code **)(UINT_008d11f4 + 0x38))(param_1,param_2,param_3);
+  (**(code **)(g_dwSmushPlayHS + 0x38))(param_1,param_2,param_3);
   return;
 }
 
@@ -5019,7 +5019,7 @@ void FUN_004be100(undefined4 param_1,undefined4 param_2,undefined4 param_3)
 void FUN_004be120(undefined4 param_1,undefined4 param_2,undefined4 param_3)
 
 {
-  (**(code **)(UINT_008d11f4 + 0x40))(param_1,param_2,param_3);
+  (**(code **)(g_dwSmushPlayHS + 0x40))(param_1,param_2,param_3);
   return;
 }
 
@@ -5027,7 +5027,7 @@ void FUN_004be120(undefined4 param_1,undefined4 param_2,undefined4 param_3)
 void FUN_004be140(undefined4 param_1)
 
 {
-  (**(code **)(UINT_008d11f4 + 0x48))(param_1);
+  (**(code **)(g_dwSmushPlayHS + 0x48))(param_1);
   return;
 }
 
@@ -5035,7 +5035,7 @@ void FUN_004be140(undefined4 param_1)
 void FUN_004be160(undefined4 param_1,undefined4 param_2,undefined4 param_3)
 
 {
-  (**(code **)(UINT_008d11f4 + 0x4c))(param_1,param_2,param_3);
+  (**(code **)(g_dwSmushPlayHS + 0x4c))(param_1,param_2,param_3);
   return;
 }
 
@@ -5367,7 +5367,7 @@ undefined4 AnimPlay_module_startup(void)
   g_pAnm_animframe_services =
        (int *)(*(code *)g_pAnm_share_services[2])
                         (s_ANIMFRAME_render_004f14b4,g_dwAnimPlay_share_config);
-  UINT_008d6f04 =
+  g_dwAnimPlay_bitmap_services =
        (*(code *)g_pAnm_share_services[2])(s_BITMAP_buffers_004f14a4,g_dwAnimPlay_share_config);
   g_pAnimPlay_timer_services =
        (int *)(*(code *)g_pAnm_share_services[2])(s_TIMER_clocks_004f1494,g_dwAnimPlay_share_config)
@@ -5387,7 +5387,7 @@ undefined4 AnimPlay_module_startup(void)
     (*(code *)g_pAnm_share_services[8])(s_AnimPlay_Module__Cannot_allocate_004f13e4);
     return 0xffffffff;
   }
-  if (UINT_008d6f04 == 0) {
+  if (g_dwAnimPlay_bitmap_services == 0) {
     (*(code *)g_pAnm_share_services[8])(s_AnimPlay_Module__Cannot_allocate_004f13b0);
     return 0xffffffff;
   }
@@ -5398,14 +5398,19 @@ undefined4 AnimPlay_module_startup(void)
   return 0;
 }
 
-/* ---- 0x004c2150  FUN_004c2150 ---- */
-void FUN_004c2150(void)
+/* ---- 0x004c2150  AnimPlay_module_shutdown ---- */
+/* Original name AnimPlay_module_shutdown (the remaster's GrimFandango (Linux): the AnimPlay
+   module's shutdown: releases anm_memory_services, anm_streamer_services, anm_animframe_services,
+   bitmap_services, timer_services, anm_virtherc_services, sound_services (module_shutdown in the
+   remaster)); was FUN_004c2150. */
+
+void AnimPlay_module_shutdown(void)
 
 {
   (*(code *)g_pAnm_share_services[3])(g_pAnm_memory_services);
   (*(code *)g_pAnm_share_services[3])(g_pAnm_streamer_services);
   (*(code *)g_pAnm_share_services[3])(g_pAnm_animframe_services);
-  (*(code *)g_pAnm_share_services[3])(UINT_008d6f04);
+  (*(code *)g_pAnm_share_services[3])(g_dwAnimPlay_bitmap_services);
   (*(code *)g_pAnm_share_services[3])(g_pAnimPlay_timer_services);
   if (g_pAnm_virtherc_services != (int *)0x0) {
     (*(code *)g_pAnm_share_services[3])(g_pAnm_virtherc_services);
@@ -5441,7 +5446,7 @@ int anm_EasyPlay(char *param_1,int param_2,uint param_3,undefined4 param_4,undef
   if (param_2 == 0) {
     param_2 = 0xf;
   }
-  iVar2 = (**(code **)UINT_008d6f04)(&local_414,param_6,param_7,0xffffffff);
+  iVar2 = (**(code **)g_dwAnimPlay_bitmap_services)(&local_414,param_6,param_7,0xffffffff);
   if (iVar2 != 0) {
     (*(code *)g_pAnm_share_services[8])(s_Cannot_allocate_render_bitmap__004f1500);
     return -1;
@@ -5453,7 +5458,7 @@ int anm_EasyPlay(char *param_1,int param_2,uint param_3,undefined4 param_4,undef
     do {
       iStack_408 = param_11 + -1;
       if (param_11 == 0) {
-        (**(code **)(UINT_008d6f04 + 8))(&local_414);
+        (**(code **)(g_dwAnimPlay_bitmap_services + 8))(&local_414);
         return iStack_404;
       }
       iStack_404 = anm_Start(&pvStack_418,param_1,param_2,param_12,param_13,param_3);
@@ -5690,7 +5695,7 @@ int AnimFrame_module_startup(void)
     (*(code *)g_pAnimFrame_share_services[8])(s_AnimFrame_Module__Cannot_allocat_004f1874);
     return -1;
   }
-  UINT_00906c28 =
+  g_dwAnimFrame_virtherc_services =
        (*(code *)g_pAnimFrame_share_services[2])
                  (s_VIRTHERC_debug_004f14dc,g_dwAnimFrame_share_config);
   g_dwAnimFrame_video_services =
@@ -5747,8 +5752,12 @@ int AnimFrame_module_startup(void)
   return 0;
 }
 
-/* ---- 0x004c2dc0  FUN_004c2dc0 ---- */
-void FUN_004c2dc0(void)
+/* ---- 0x004c2dc0  AnimFrame_module_shutdown ---- */
+/* Original name AnimFrame_module_shutdown (the remaster's GrimFandango (Linux): the AnimFrame
+   module's shutdown: releases its services, anm_overlay_buffer, anm_preload_buffer and the
+   anm_flobdec_services (module_shutdown in the remaster)); was FUN_004c2dc0. */
+
+void AnimFrame_module_shutdown(void)
 
 {
   uint uVar1;
@@ -5760,8 +5769,8 @@ void FUN_004c2dc0(void)
   if (g_dwAnimFrame_video_services != 0) {
     (*(code *)g_pAnimFrame_share_services[3])(g_dwAnimFrame_video_services);
   }
-  if (UINT_00906c28 != 0) {
-    (*(code *)g_pAnimFrame_share_services[3])(UINT_00906c28);
+  if (g_dwAnimFrame_virtherc_services != 0) {
+    (*(code *)g_pAnimFrame_share_services[3])(g_dwAnimFrame_virtherc_services);
   }
   if (g_dwAnm_overlay_buffer != 0) {
     (*(code *)g_pAnimFrame_memory_services[1])
@@ -5811,8 +5820,11 @@ void FUN_004c2eb0(void)
   return;
 }
 
-/* ---- 0x004c2ee0  FUN_004c2ee0 ---- */
-undefined4 FUN_004c2ee0(undefined1 *param_1,int param_2)
+/* ---- 0x004c2ee0  anm_DecodeHeader ---- */
+/* Original name anm_DecodeHeader (the remaster's GrimFandango (Linux): walks the chunks and hands
+   each to the anm_flobdec_services entry with the same anm_flobdec_ids id); was FUN_004c2ee0. */
+
+undefined4 anm_DecodeHeader(undefined1 *param_1,int param_2)
 
 {
   byte bVar1;
@@ -5915,8 +5927,8 @@ uint anm_DecodeBody(undefined4 param_1,undefined4 param_2,undefined4 param_3,und
     uVar12 = CONCAT31(CONCAT21(CONCAT11(bVar1,bVar2),bVar3),bVar4);
     bVar5 = param_11[7];
     iVar11 = CONCAT31(CONCAT21(CONCAT11(param_11[4],param_11[5]),param_11[6]),bVar5);
-    if ((UINT_00906c28 != 0) && ((UINT_008d77e8 & 0x80000) != 0)) {
-      (**(code **)(UINT_00906c28 + 0xc))
+    if ((g_dwAnimFrame_virtherc_services != 0) && ((UINT_008d77e8 & 0x80000) != 0)) {
+      (**(code **)(g_dwAnimFrame_virtherc_services + 0xc))
                 (s_Parsing_Block___c_c_c_c____ld__004f191c,bVar1,bVar2,bVar3,bVar4,iVar11);
     }
     uVar10 = 0;
@@ -5984,16 +5996,16 @@ uint anm_DecodeBody(undefined4 param_1,undefined4 param_2,undefined4 param_3,und
         }
         else {
 LAB_004c3182:
-          if ((UINT_00906c28 != 0) && ((UINT_008d77e8 & 0x40000) != 0)) {
-            (**(code **)(UINT_00906c28 + 0xc))
+          if ((g_dwAnimFrame_virtherc_services != 0) && ((UINT_008d77e8 & 0x40000) != 0)) {
+            (**(code **)(g_dwAnimFrame_virtherc_services + 0xc))
                       (s_Found_Unknown_Block___c_c_c_c__004f18fc,param_11[4],param_11[5],param_11[6]
                        ,param_11[7]);
           }
           if (((((bVar4 < 0x30) || (0x7a < bVar4)) || (bVar3 < 0x30)) ||
               ((0x7a < bVar3 || (bVar2 < 0x30)))) ||
              ((0x7a < bVar2 || ((bVar1 < 0x30 || (0x7a < bVar1)))))) {
-            if ((UINT_00906c28 != 0) && ((UINT_008d77e8 & 0x20000) != 0)) {
-              (**(code **)(UINT_00906c28 + 0xc))
+            if ((g_dwAnimFrame_virtherc_services != 0) && ((UINT_008d77e8 & 0x20000) != 0)) {
+              (**(code **)(g_dwAnimFrame_virtherc_services + 0xc))
                         (s_Bad_Header_Found___c_c_c_c__004f18dc,param_11[4],param_11[5],param_11[6],
                          param_11[7]);
             }
@@ -9819,8 +9831,12 @@ int DWave_module_startup(void)
   return (g_pDWave_outputBuffer != (int *)0x0) - 1;
 }
 
-/* ---- 0x004cbb30  FUN_004cbb30 ---- */
-void FUN_004cbb30(void)
+/* ---- 0x004cbb30  DWave_module_shutdown ---- */
+/* Original name DWave_module_shutdown (the remaster's GrimFandango (Linux): the DWave module's
+   shutdown: soundServices, memoryServices, outputBuffer (module_shutdown in the remaster)); was
+   FUN_004cbb30. */
+
+void DWave_module_shutdown(void)
 
 {
   (*(code *)g_pDWave_share_services[3])(g_dwSoundServices);

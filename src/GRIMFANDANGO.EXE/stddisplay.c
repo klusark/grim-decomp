@@ -3325,8 +3325,12 @@ void DIB_ReleaseSurface(void)
   return;
 }
 
-/* ---- 0x00478fc0  Display_SetPalette3D ---- */
-void __cdecl Display_SetPalette3D(void *palette,int flags)
+/* ---- 0x00478fc0  std3D_SetCurrentPalette ---- */
+/* Original name std3D_SetCurrentPalette (the remaster's GrimFandango (Linux): rdColormap_SetCurrent
+   calls it with (colormap + 0x30, 0x5a) when rdroid_curAcceleration > 0); was Display_SetPalette3D.
+    */
+
+void __cdecl std3D_SetCurrentPalette(void *palette,int flags)
 
 {
   Mem_Copy(&DAT_00806618,palette,0x300);

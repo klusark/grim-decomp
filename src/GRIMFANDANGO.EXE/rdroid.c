@@ -163,7 +163,7 @@ void rdroid_EndFrame(void)
 void rdroid_InitCaches(void)
 
 {
-  rdCache_ClearStats();
+  rdCache_ClearFrameCounters();
   rdCanvas_ResetPolyCount();
   rdCamera_ResetStats();
   return;

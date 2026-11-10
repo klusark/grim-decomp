@@ -66,8 +66,8 @@ def main():
         build_src.CUR_PROG = prog
         if cur and build_src.module_for(new) != cur:
             modmap.setdefault(prog, {})[new] = cur
-    json.dump(entries, open(out, "w"), indent=1)
-    json.dump(modmap, open(mod_path, "w"), indent=1, sort_keys=True)
+    json.dump(entries, open(out, "w", newline="\n"), indent=1)
+    json.dump(modmap, open(mod_path, "w", newline="\n"), indent=1, sort_keys=True)
     print(f"{out}: {len(entries)} entries; {len(modmap.get(prog, {}))} module pins for {prog}")
 
 

@@ -858,7 +858,7 @@ void sputText_LocalizeStringL(void)
   if (iVar2 != 0) {
     pcVar3 = local_2a0;
     line = (char *)lua_getstring(iVar1);
-    pcVar3 = Text_ParseLineId(line,pcVar3);
+    pcVar3 = sputText_ExtractSayLineData(line,pcVar3);
     sprintf(local_280,s___s__s_004e8754,local_2a0,pcVar3);
     lua_pushstring(local_280);
   }
@@ -1187,7 +1187,7 @@ void sputText_SayLineL(void)
           iVar2 = lua_isnumber(iVar1);
           if (iVar2 == 0) {
             local_34 = lua_getstring(iVar1);
-            Text_ParseLineId((char *)local_34,local_20);
+            sputText_ExtractSayLineData((char *)local_34,local_20);
           }
           else {
             local_3c = 0;
@@ -1337,7 +1337,7 @@ void sputText_PrintLineL(void)
     if (iVar4 != 0) {
       pcVar6 = local_50;
       pcVar5 = (char *)lua_getstring(iVar2);
-      pcVar6 = Text_ParseLineId(pcVar5,pcVar6);
+      pcVar6 = sputText_ExtractSayLineData(pcVar5,pcVar6);
       if (local_58 < 0) {
         iVar2 = -1;
         pcVar5 = pcVar6;
@@ -1604,7 +1604,7 @@ void sputText_ChangeTextObjectL(void)
         }
         else {
           pcVar3 = (char *)lua_getstring((int)table);
-          pcVar3 = Text_ParseLineId(pcVar3,(char *)0x0);
+          pcVar3 = sputText_ExtractSayLineData(pcVar3,(char *)0x0);
           strncpy((int)textObj + 8,pcVar3,0x1ff);
           *(undefined1 *)((int)textObj + 0x207) = 0;
         }
@@ -1673,7 +1673,7 @@ void sputText_MakeTextObjectL(void)
         GetTextParamsFromTable(&local_30,table,(void *)0x0);
       }
     }
-    pcVar3 = Text_ParseLineId(pcVar3,local_50);
+    pcVar3 = sputText_ExtractSayLineData(pcVar3,local_50);
     pcVar3 = TextObject_New(&local_30,pcVar3,unaff_EBX,unaff_EDI);
     lua_pushusertag(pcVar3,0x54584554);
     iVar1 = Text_MeasureWidth(pcVar3 + 0x208,pcVar3 + 8);
@@ -1747,7 +1747,7 @@ void sputText_BlastText(void)
         GetTextParamsFromTable(&local_30,pvVar4,(void *)0x0);
       }
     }
-    pcVar3 = Text_ParseLineId(pcVar3,local_50);
+    pcVar3 = sputText_ExtractSayLineData(pcVar3,local_50);
     pvVar4 = TextObject_New(&local_30,pcVar3,unaff_EBP,unaff_EDI);
     TextObject_Draw(pvVar4,0);
     surface = (void *)Render_GetBackBuffer();
@@ -2210,8 +2210,11 @@ void sputLua_GetSoundParametersL(void)
 #undef local_c
 
 
-/* ---- 0x00499250  Lua_SetDebugKeysCallback ---- */
-void Lua_SetDebugKeysCallback(uint param_1)
+/* ---- 0x00499250  sputLua_SetDebugToggleCallback ---- */
+/* Original name sputLua_SetDebugToggleCallback (the remaster's GrimFandango (Linux): stores
+   pDebugToggleFunc); was Lua_SetDebugKeysCallback. */
+
+void sputLua_SetDebugToggleCallback(uint param_1)
 
 {
   g_dwDebugToggleFunc = param_1;
@@ -7317,7 +7320,7 @@ void sputLua_SetMemoryUsage(void)
   lVar3 = (longlong)lua_getnumber(iVar2);
   iVar2 = (int)lVar3;
   lVar3 = (longlong)lua_getnumber(iVar1);
-  Resource_SetMemoryUsage((int)lVar3,iVar2);
+  sputResource_SetMemoryUsage((int)lVar3,iVar2);
   return;
 }
 

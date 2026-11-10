@@ -608,10 +608,11 @@ undefined4 Resource_RegisterTypes(void)
   return 1;
 }
 
-/* ---- 0x0048d8a0  Resource_SetMemoryUsage ---- */
-/* Lua SetMemoryUsage */
+/* ---- 0x0048d8a0  sputResource_SetMemoryUsage ---- */
+/* Lua SetMemoryUsage Original name sputResource_SetMemoryUsage (the remaster's GrimFandango
+   (Linux): sets MaxRealMemoryUsage and PurgeAmount when non-zero); was Resource_SetMemoryUsage. */
 
-void __cdecl Resource_SetMemoryUsage(int budget,int b)
+void __cdecl sputResource_SetMemoryUsage(int budget,int b)
 
 {
   if (budget != 0) {

@@ -5,12 +5,14 @@
 #include "globals.h"
 #include "functions.h"
 
-/* ---- 0x004c1390  LecShare_Startup ---- */
+/* ---- 0x004c1390  LecShare_Initialize ---- */
 /* LecShare module registry (LEC shared module system used by INSANE/iMUSE): resets the table and
-   runs each {init, arg} pair of the module list */
+   runs each {init, arg} pair of the module list Original name LecShare_Initialize (the remaster's
+   GrimFandango (Linux): the LecShare set-up SmushPlay_SysInitialize calls with (0, module list,
+   "FILIO=insane_zfilio", ...)); was LecShare_Startup. */
 
 undefined **
-LecShare_Startup(undefined *param_1,undefined4 *param_2,undefined4 param_3,undefined4 param_4)
+LecShare_Initialize(undefined *param_1,undefined4 *param_2,undefined4 param_3,undefined4 param_4)
 
 {
   undefined4 *puVar1;
@@ -32,10 +34,12 @@ LecShare_Startup(undefined *param_1,undefined4 *param_2,undefined4 param_3,undef
   return &PTR_LecShare_Register_004f1200;
 }
 
-/* ---- 0x004c13f0  LecShare_Shutdown ---- */
-/* Calls the shutdown entry of every registered LECMODULE */
+/* ---- 0x004c13f0  LecShare_Terminate ---- */
+/* Calls the shutdown entry of every registered LECMODULE Original name LecShare_Terminate (the
+   remaster's GrimFandango (Linux): calls the terminate slot (+4) of every LECMODULE backwards, from
+   SmushPlay_SysTerminate); was LecShare_Shutdown. */
 
-undefined4 LecShare_Shutdown(void)
+undefined4 LecShare_Terminate(void)
 
 {
   int iVar1;
@@ -57,11 +61,13 @@ undefined4 LecShare_Shutdown(void)
   return 0;
 }
 
-/* ---- 0x004c1460  LecShare_StartupModules ---- */
+/* ---- 0x004c1460  LecShare_Startup ---- */
 /* Calls the startup entry of every registered LECMODULE; on failure unwinds and reports 'LecShare
-   Startup: Failed with module' */
+   Startup: Failed with module' Original name LecShare_Startup (the remaster's GrimFandango (Linux):
+   calls the startup slot (+8) of every LECMODULE in order, from SmushPlay_SysStartup); was
+   LecShare_StartupModules. */
 
-int LecShare_StartupModules(void)
+int LecShare_Startup(void)
 
 {
   uint *puVar1;
@@ -91,7 +97,7 @@ int LecShare_StartupModules(void)
         if (PTR_LecShare_Nop_004f1220 != (undefined *)0x0) {
           (*(code *)PTR_LecShare_Nop_004f1220)(s_LecShare_Startup__Failed_with_mo_004f1230,*puVar4);
         }
-        LecShare_UnwindStartup();
+        LecShare_Shutdown();
         return iVar2;
       }
     }
@@ -103,8 +109,12 @@ int LecShare_StartupModules(void)
   } while( true );
 }
 
-/* ---- 0x004c1500  LecShare_UnwindStartup ---- */
-undefined4 LecShare_UnwindStartup(void)
+/* ---- 0x004c1500  LecShare_Shutdown ---- */
+/* Original name LecShare_Shutdown (the remaster's GrimFandango (Linux): calls the shutdown slot
+   (+0xc) of the started LECMODULEs backwards, from SmushPlay_SysShutdown); was
+   LecShare_UnwindStartup. */
+
+undefined4 LecShare_Shutdown(void)
 
 {
   int *piVar1;

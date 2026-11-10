@@ -99,10 +99,11 @@ int SoundModule_module_startup(void)
     (*(code *)g_pSoundModule_share_services[8])(s_Sound_Module__Cannot_allocate_sn_004f3e74);
     return -1;
   }
-  iVar2 = SoundModule_Open(g_dwSound_samplerate,g_dwSound_reserveram,g_dwSound_bufsize,UINT_008dacb4
-                           ,UINT_008dacb8,UINT_008dacbc,UINT_008dacc0,UINT_008dacc4,UINT_008dacc8,
-                           UINT_008daccc,UINT_008dacd0,UINT_008dacd4,UINT_008dacd8,UINT_008dacdc,
-                           UINT_008dace0,UINT_008dace4,UINT_008dace8,UINT_008dacec,0);
+  iVar2 = engine_Initialize(g_dwSound_samplerate,g_dwSound_reserveram,g_dwSound_bufsize,
+                            UINT_008dacb4,UINT_008dacb8,UINT_008dacbc,UINT_008dacc0,UINT_008dacc4,
+                            UINT_008dacc8,UINT_008daccc,UINT_008dacd0,UINT_008dacd4,UINT_008dacd8,
+                            UINT_008dacdc,UINT_008dace0,UINT_008dace4,UINT_008dace8,UINT_008dacec,0)
+  ;
   return iVar2;
 }
 #endif
@@ -125,12 +126,15 @@ void SoundModule_Shutdown(void)
 #endif
 
 
-/* ---- 0x004d0550  SoundModule_Open ---- */
+/* ---- 0x004d0550  engine_Initialize ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-/* Zero-terminated list of track buffer sizes follows the three fixed arguments */
+/* Zero-terminated list of track buffer sizes follows the three fixed arguments Original name
+   engine_Initialize (the remaster's GrimFandango (Linux): the sound engine set-up
+   SoundModule_module_startup calls with sound_samplerate, sound_reserveram, sound_bufsize, ... on
+   both sides); was SoundModule_Open. */
 
-int __cdecl SoundModule_Open(int rate,int limit,uint size,...)
+int __cdecl engine_Initialize(int rate,int limit,uint size,...)
 
 {
   int iVar1;

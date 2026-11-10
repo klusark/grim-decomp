@@ -1455,7 +1455,7 @@ void __cdecl Actor_SayLine(void *actor,char *text,int background,int volume,int 
   }
   uVar4 = g_dwSmSpeechMode & 1;
   uVar16 = g_dwSmSpeechMode & 2;
-  text_00 = Text_ParseLineId(text,(char *)local_44);
+  text_00 = sputText_ExtractSayLineData(text,(char *)local_44);
   local_24[0] = '\0';
   if (local_44[0] != 0) {
     sprintf(local_24,s__s_wvc_004e9eec,local_44);
@@ -2343,7 +2343,7 @@ void Actor_DrawShadowPlane(void *costumeList,void *shadow)
             if (g_pShadowMaterial != (void *)0x0) {
               rdroid_SetColormap(g_pShadowColormap);
               if (g_nSputRender_b3DAcceleration != 0) {
-                Display_SetPalette3D((void *)((int)g_pShadowColormap + 0x30),0);
+                std3D_SetCurrentPalette((void *)((int)g_pShadowColormap + 0x30),0);
               }
               Shadow_DrawClippedPoly(local_c0,4,local_fc,local_e4,shadow);
               Shadow_DrawClippedPoly(local_90,4,local_fc,local_e4,shadow);
@@ -2470,7 +2470,7 @@ LAB_004951ab:
         else {
           rdroid_SetColormap(*(int *)(iVar5 + 0x4c));
           if (g_nSputRender_b3DAcceleration != 0) {
-            Display_SetPalette3D((void *)(*(int *)(iVar5 + 0x4c) + 0x30),0);
+            std3D_SetCurrentPalette((void *)(*(int *)(iVar5 + 0x4c) + 0x30),0);
             goto LAB_004951ab;
           }
 LAB_004951b3:
@@ -2494,7 +2494,7 @@ LAB_004951b3:
         }
         if (((iVar7 != 0) && (*(int *)(iVar7 + 0x4c) != 0)) &&
            (rdroid_SetColormap(*(int *)(iVar7 + 0x4c)), g_nSputRender_b3DAcceleration != 0)) {
-          Display_SetPalette3D((void *)(*(int *)(iVar7 + 0x4c) + 0x30),0);
+          std3D_SetCurrentPalette((void *)(*(int *)(iVar7 + 0x4c) + 0x30),0);
         }
         Costume_UpdateAttachedFrame(*(void **)(iVar5 + 0x44),param_2);
         iVar8 = *(int *)(*(int *)(iVar5 + 0x44) + 0x40);
@@ -2557,7 +2557,7 @@ LAB_004951b3:
             (*g_pStd_HS->pAssertFail)
                       (s_Bad_Colormap_Reference_004e8090,s_main_sputResource_h_004e80a8,0x9f);
           }
-          Display_SetPalette3D((void *)(piVar4[1] + 0x30),0);
+          std3D_SetCurrentPalette((void *)(piVar4[1] + 0x30),0);
         }
       }
       iStack_10 = g_nDrawBoxMinX;

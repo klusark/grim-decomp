@@ -125,7 +125,7 @@ void sputLua_Update(void)
   int iVar2;
   #define local_1c (*(uint *)(_frame + (0x30 - 0x1c)))
   
-  g_dwSputLua_Update_movieTimeMsec = Insane_Poll();
+  g_dwSputLua_Update_movieTimeMsec = SmushPlay_GetMovieTime();
   uVar1 = Timer_GetFrameMs();
   g_dwSputLua_Update_collectionTime = g_dwSputLua_Update_collectionTime + uVar1;
   if (10000.0 < (float)g_dwSputLua_Update_collectionTime) {

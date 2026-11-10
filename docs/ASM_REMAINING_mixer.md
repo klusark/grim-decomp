@@ -117,7 +117,7 @@ with a differential test, see the notes), so there is no list of reasons.
 | 004d03a0 | `SoundModule_Unregister` |
 | 004d03d0 | `SoundModule_module_startup` |
 | 004d0510 | `SoundModule_Shutdown` |
-| 004d0550 | `SoundModule_Open` |
+| 004d0550 | `engine_Initialize` |
 | 004d0610 | `SoundModule_Close` |
 | 004d06a0 | `SoundModule_AddTrackBuffer` |
 | 004d0860 | `SoundModule_PlayChunk` |

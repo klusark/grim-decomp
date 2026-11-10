@@ -24,7 +24,7 @@ void sputLua_Update(void)
 
     GRIM_lua_cmd_poll();                                /* test hook: run the Lua lines appended to GRIM_LUA_FILE */
 
-    g_dwSputLua_Update_movieTimeMsec = (uint)Insane_Poll();
+    g_dwSputLua_Update_movieTimeMsec = (uint)SmushPlay_GetMovieTime();
     frameMs = Timer_GetFrameMs();
     g_dwSputLua_Update_collectionTime = g_dwSputLua_Update_collectionTime + frameMs;
     if ((float)g_dwSputLua_Update_collectionTime > 10000.0f) {           /* every 10 seconds */

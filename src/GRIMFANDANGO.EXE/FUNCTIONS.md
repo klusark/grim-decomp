@@ -1,6 +1,6 @@
 # GRIMFANDANGO.EXE function index
 
-2604 functions, 2267 with real names.
+2604 functions, 2271 with real names.
 
 | address | name | module | lines |
 |---|---|---|---|
@@ -34,7 +34,7 @@
 | 00401900 | Grim_ShutdownDisplay | grim.c | 18 |
 | 00401950 | Grim_Shutdown | grim.c | 56 |
 | 00401a50 | Grim_EnumDisplayModes | grim.c | 148 |
-| 00402050 | Grim_RequestQuit | grim.c | 8 |
+| 00402050 | grimdemo_PleaseShutdown | grim.c | 9 |
 | 00402060 | Grim_OnDisplayModeChange | grim.c | 10 |
 | 00402c80 | Grim_ParseCommandLine | grim.c | 95 |
 | 004034b0 | Grim_OpenRegistry | grim.c | 22 |
@@ -89,7 +89,7 @@
 | 00498ea0 | sputLua_GetShrinkPosition | lua.c | 1 |
 | 00499000 | sputLua_SetSoundParametersL | lua.c | 101 |
 | 004991c0 | sputLua_GetSoundParametersL | lua.c | 39 |
-| 00499250 | Lua_SetDebugKeysCallback | lua.c | 6 |
+| 00499250 | sputLua_SetDebugToggleCallback | lua.c | 9 |
 | 00499260 | sputLua_EnginePause | lua.c | 9 |
 | 00499270 | sputLua_EngineResume | lua.c | 9 |
 | 00499280 | sputLua_EngineDisplay | lua.c | 1 |
@@ -380,7 +380,7 @@
 | 00476dc0 | DDraw_SetPalette | stddisplay.c | 31 |
 | 00476e40 | DIB_CreateSurface | stddisplay.c | 30 |
 | 00476ee0 | DIB_ReleaseSurface | stddisplay.c | 13 |
-| 00478fc0 | Display_SetPalette3D | stddisplay.c | 18 |
+| 00478fc0 | std3D_SetCurrentPalette | stddisplay.c | 22 |
 | 0047b610 | Palette_FromFloatTable | stddisplay.c | 1 |
 | 0047b8a0 | Pixel_Convert | stddisplay.c | 1 |
 | 0047bbb0 | Pixel_ConvertOne | stddisplay.c | 1 |
@@ -479,7 +479,7 @@
 | 00406650 | rdCache_BeginScene3D | rdcache.c | 9 |
 | 00406660 | rdCache_EndScene3D | rdcache.c | 9 |
 | 00406670 | rdCache_Reset | rdcache.c | 12 |
-| 00406690 | rdCache_ClearStats | rdcache.c | 8 |
+| 00406690 | rdCache_ClearFrameCounters | rdcache.c | 10 |
 | 004066a0 | rdCache_AllocMesh | rdcache.c | 32 |
 | 00406770 | rdCache_Flush | rdcache.c | 62 |
 | 00406860 | rdCache_AddMesh | rdcache.c | 1 |
@@ -944,8 +944,8 @@
 | 0046fe20 | rdRaster_Span16_TexLitZw_31 | rdraster.c | 1 |
 | 00470780 | rdRaster_Span16_TexZw_12 | rdraster.c | 1 |
 | 004710e0 | rdRaster_Span16_TexZw_13 | rdraster.c | 1 |
-| 00417e90 | rdMaterial_SetLoadHook | rdmaterial.c | 11 |
-| 00417ea0 | rdMaterial_SetFreeHook | rdmaterial.c | 9 |
+| 00417e90 | rdMaterial_RegisterLoader | rdmaterial.c | 13 |
+| 00417ea0 | rdMaterial_RegisterUnloader | rdmaterial.c | 12 |
 | 00417eb0 | rdMaterial_Load | rdmaterial.c | 21 |
 | 00417f30 | rdMaterial_LoadEntry | rdmaterial.c | 224 |
 | 00418360 | rdMaterial_Free | rdmaterial.c | 11 |
@@ -1217,7 +1217,7 @@
 | 004821b0 | Res_NextInList | res.c | 23 |
 | 00482200 | Res_TouchByData | res.c | 1 |
 | 004824f0 | Res_CountChildren | res.c | 16 |
-| 00482520 | Res_SetCacheSizeMB | res.c | 8 |
+| 00482520 | grimlib_SetCacheMax | res.c | 9 |
 | 0048e230 | sputResource_ReportAllocations | res.c | 9 |
 | 00480010 | Res_SysInitialize | resource.c | 36 |
 | 00480020 | FUN_00480020 | resource.c | 30 |
@@ -1235,7 +1235,7 @@
 | 0048d570 | Resource_OpenArchivesInDir | resource.c | 186 |
 | 0048d810 | Resource_CountCostumeRefs | resource.c | 9 |
 | 0048d870 | Resource_RegisterTypes | resource.c | 18 |
-| 0048d8a0 | Resource_SetMemoryUsage | resource.c | 13 |
+| 0048d8a0 | sputResource_SetMemoryUsage | resource.c | 14 |
 | 0048df50 | Resource_ReloadBitmaps | resource.c | 82 |
 | 0048e0a0 | Resource_RebuildColormaps | resource.c | 65 |
 | 0048e170 | Resource_MaterialLoadHook | resource.c | 15 |
@@ -1593,11 +1593,11 @@
 | 0048acc0 | sputText_Initialize | sputtext.c | 28 |
 | 0048c4d0 | sputText_Terminate | sputtext.c | 15 |
 | 0048c500 | sputText_Startup | sputtext.c | 59 |
-| 0048c6f0 | sputText_Stop | sputtext.c | 31 |
+| 0048c6f0 | sputText_Shutdown | sputtext.c | 33 |
 | 0048cbc0 | sputText_SaveState | sputtext.c | 52 |
-| 0048cd80 | sputText_RestoreState | sputtext.c | 89 |
+| 0048cd80 | sputText_Restore | sputtext.c | 91 |
 | 0048c050 | GetTextParamsFromTable | text.c | 171 |
-| 0048c8d0 | Text_ParseLineId | text.c | 30 |
+| 0048c8d0 | sputText_ExtractSayLineData | text.c | 32 |
 | 00494740 | sputActor_GetActorTextRate | text.c | 8 |
 | 00494750 | Text_SetSpeed | text.c | 13 |
 | 004aa930 | Text_GetDefaultFont | text.c | 5 |
@@ -1704,10 +1704,10 @@
 | 004957f0 | sputCostume_Initialize | sputcostume.c | 21 |
 | 00495960 | sputCostume_Terminate | sputcostume.c | 16 |
 | 004959a0 | sputCostume_Start | sputcostume.c | 165 |
-| 004988a0 | sputCostume_Stop | sputcostume.c | 26 |
+| 004988a0 | sputCostume_Shutdown | sputcostume.c | 28 |
 | 00496060 | Component_SetBitmapFrame | component.c | 9 |
 | 004960a0 | BitmapRequester | bitmapcomponent.c | 148 |
-| 00496340 | BitmapComponent_Destroy | bitmapcomponent.c | 13 |
+| 00496340 | BitmapFreer | bitmapcomponent.c | 15 |
 | 00496370 | CmapComponent_NewInstance | cmapcomponent.c | 1 |
 | 00496460 | ColormapRequester | cmapcomponent.c | 52 |
 | 00496580 | CmapComponent_Destroy | cmapcomponent.c | 7 |
@@ -1799,7 +1799,7 @@
 | 004a48c0 | sputRoom_Initialize | sputroom.c | 27 |
 | 004a5390 | sputRoom_Terminate | sputroom.c | 12 |
 | 004a53b0 | sputRoom_Startup | sputroom.c | 20 |
-| 004a5430 | sputRoom_Stop | sputroom.c | 30 |
+| 004a5430 | sputRoom_Shutdown | sputroom.c | 31 |
 | 004a5600 | sputRoom_ParseLights | sputroom.c | 144 |
 | 004a5890 | sputRoom_ParseSetups | sputroom.c | 127 |
 | 004a4920 | ZBuffer_Load | zbuffer.c | 8 |
@@ -2205,7 +2205,7 @@
 | 004c1f40 | FUN_004c1f40 | crt_unnamed.c | 14 |
 | 004c1fb0 | FUN_004c1fb0 | crt_unnamed.c | 8 |
 | 004c1ff0 | AnimPlay_module_startup | crt_unnamed.c | 51 |
-| 004c2150 | FUN_004c2150 | crt_unnamed.c | 16 |
+| 004c2150 | AnimPlay_module_shutdown | crt_unnamed.c | 21 |
 | 004c21e0 | anm_EasyPlay | crt_unnamed.c | 73 |
 | 004c2590 | FUN_004c2590 | crt_unnamed.c | 5 |
 | 004c25c0 | FUN_004c25c0 | crt_unnamed.c | 24 |
@@ -2221,9 +2221,9 @@
 | 004c2b50 | FUN_004c2b50 | crt_unnamed.c | 10 |
 | 004c2ba0 | FUN_004c2ba0 | crt_unnamed.c | 8 |
 | 004c2be0 | AnimFrame_module_startup | crt_unnamed.c | 84 |
-| 004c2dc0 | FUN_004c2dc0 | crt_unnamed.c | 41 |
+| 004c2dc0 | AnimFrame_module_shutdown | crt_unnamed.c | 45 |
 | 004c2eb0 | FUN_004c2eb0 | crt_unnamed.c | 19 |
-| 004c2ee0 | FUN_004c2ee0 | crt_unnamed.c | 34 |
+| 004c2ee0 | anm_DecodeHeader | crt_unnamed.c | 37 |
 | 004c2fa0 | anm_DecodeBody | crt_unnamed.c | 185 |
 | 004c34d0 | FUN_004c34d0 | crt_unnamed.c | 24 |
 | 004c3560 | FUN_004c3560 | crt_unnamed.c | 17 |
@@ -2319,7 +2319,7 @@
 | 004cba30 | FUN_004cba30 | crt_unnamed.c | 9 |
 | 004cba70 | FUN_004cba70 | crt_unnamed.c | 7 |
 | 004cbaa0 | DWave_module_startup | crt_unnamed.c | 25 |
-| 004cbb30 | FUN_004cbb30 | crt_unnamed.c | 12 |
+| 004cbb30 | DWave_module_shutdown | crt_unnamed.c | 16 |
 | 004cbb80 | FUN_004cbb80 | crt_unnamed.c | 14 |
 | 004cbbb0 | FUN_004cbbb0 | crt_unnamed.c | 5 |
 | 004cbbc0 | FUN_004cbbc0 | crt_unnamed.c | 5 |
@@ -2372,11 +2372,11 @@
 | 004d610b | FUN_004d610b | crt_unnamed.c | 1 |
 | 004ad260 | Clock_ElapsedMs | clock.c | 16 |
 | 004ae220 | strpbrk_or_strspn | strpbrk.c | 61 |
-| 004bd370 | Insane_Poll | insane.c | 15 |
-| 004bd3a0 | Insane_RegisterFilio | insane.c | 31 |
-| 004bd430 | SmushPlay_SysShutdown | insane.c | 12 |
+| 004bd370 | SmushPlay_GetMovieTime | insane.c | 17 |
+| 004bd3a0 | SmushPlay_SysInitialize | insane.c | 35 |
+| 004bd430 | SmushPlay_SysTerminate | insane.c | 15 |
 | 004bd440 | SmushPlay_SysStartup | insane.c | 28 |
-| 004bd4d0 | Insane_Stop | insane.c | 13 |
+| 004bd4d0 | SmushPlay_SysShutdown | insane.c | 15 |
 | 004bd540 | Insane_SetOutputParams | insane.c | 16 |
 | 004bd7c0 | Insane_ReadFrameHeader | insane.c | 31 |
 | 004bdb00 | Insane_PrepareFrame | insane.c | 79 |
@@ -2436,10 +2436,10 @@
 | 004d3c40 | Mixer_MixStereo_A | mixer.c | 1 |
 | 004d3e60 | Mixer_MixStereoLR_B | mixer.c | 1 |
 | 004d40d0 | Mixer_MixStereo_B | mixer.c | 1 |
-| 004c1390 | LecShare_Startup | lecshare.c | 25 |
-| 004c13f0 | LecShare_Shutdown | lecshare.c | 23 |
-| 004c1460 | LecShare_StartupModules | lecshare.c | 44 |
-| 004c1500 | LecShare_UnwindStartup | lecshare.c | 28 |
+| 004c1390 | LecShare_Initialize | lecshare.c | 27 |
+| 004c13f0 | LecShare_Terminate | lecshare.c | 25 |
+| 004c1460 | LecShare_Startup | lecshare.c | 46 |
+| 004c1500 | LecShare_Shutdown | lecshare.c | 32 |
 | 004c1590 | LecShare_Reset | lecshare.c | 17 |
 | 004c15c0 | LecShare_Register | lecshare.c | 36 |
 | 004c1650 | LecShare_Unregister | lecshare.c | 29 |
@@ -2564,7 +2564,7 @@
 | 004d03a0 | SoundModule_Unregister | soundmodule.c | 1 |
 | 004d03d0 | SoundModule_module_startup | soundmodule.c | 1 |
 | 004d0510 | SoundModule_Shutdown | soundmodule.c | 1 |
-| 004d0550 | SoundModule_Open | soundmodule.c | 1 |
+| 004d0550 | engine_Initialize | soundmodule.c | 1 |
 | 004d0610 | SoundModule_Close | soundmodule.c | 1 |
 | 004d06a0 | SoundModule_AddTrackBuffer | soundmodule.c | 1 |
 | 004d0860 | SoundModule_PlayChunk | soundmodule.c | 1 |

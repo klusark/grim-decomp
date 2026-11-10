@@ -829,10 +829,11 @@ int Res_CountChildren(uint param_1,uint param_2)
   return iVar3;
 }
 
-/* ---- 0x00482520  Res_SetCacheSizeMB ---- */
-/* Cache limit in megabytes (shifted left by 20) */
+/* ---- 0x00482520  grimlib_SetCacheMax ---- */
+/* Cache limit in megabytes (shifted left by 20) Original name grimlib_SetCacheMax (the remaster's
+   GrimFandango (Linux): max_ram = MB << 20); was Res_SetCacheSizeMB. */
 
-void Res_SetCacheSizeMB(int param_1)
+void grimlib_SetCacheMax(int param_1)
 
 {
   g_dwMax_ram = param_1 << 0x14;

@@ -116,7 +116,7 @@ void Engine_ShutdownGame(void)
 void Engine_SetDebugKeysCallback(undefined4 param_1)
 
 {
-  Lua_SetDebugKeysCallback(param_1);
+  sputLua_SetDebugToggleCallback(param_1);
   return;
 }
 

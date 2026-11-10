@@ -18,7 +18,7 @@ int sputCostume_Initialize(GrimServices *param_1,undefined4 *param_2)
   *param_2 = sputCostume_Initialize;
   param_2[1] = sputCostume_Terminate;
   param_2[2] = sputCostume_Start;
-  param_2[3] = sputCostume_Stop;
+  param_2[3] = sputCostume_Shutdown;
   param_2[4] = 0;
   param_2[5] = 0;
   param_2[6] = 0;
@@ -142,7 +142,7 @@ undefined4 sputCostume_Start(void)
   }
   local_38[0] = Component_SetBitmapFrame;
   local_38[1] = BitmapRequester;
-  local_38[2] = BitmapComponent_Destroy;
+  local_38[2] = BitmapFreer;
   local_38[3] = (code *)0x0;
   local_38[4] = (code *)0x0;
   local_38[5] = (code *)0x0;
@@ -213,11 +213,13 @@ undefined4 sputCostume_Start(void)
 #undef local_38
 
 
-/* ---- 0x004988a0  sputCostume_Stop ---- */
+/* ---- 0x004988a0  sputCostume_Shutdown ---- */
 /* Module interface slot 3 (sputCostume): called by Engine_ShutdownSubsystems in reverse order;
-   releases what _Start created. */
+   releases what _Start created. Original name sputCostume_Shutdown (the remaster's GrimFandango
+   (Linux): the module's shutdown slot: writes keyframePath, bitmapPath, ... back to the
+   configuration); was sputCostume_Stop. */
 
-void sputCostume_Stop(void)
+void sputCostume_Shutdown(void)
 
 {
   Config_SetPath(s_KeyframePath_004ea27c,&g_bKeyframePath);

@@ -22,7 +22,7 @@ undefined4 sputSmush_Initialize(undefined4 param_1,undefined4 *param_2)
   param_2[5] = Movie_RestoreState;
   param_2[6] = 0;
   param_2[7] = 0;
-  Insane_RegisterFilio(param_1,&g_aSmushPlayMS);
+  SmushPlay_SysInitialize(param_1,&g_aSmushPlayMS);
   Insane_SetOutputParams(&g_pSputVideoCallBacks);
   g_pPresentBuf = (void *)0x0;
   _g_dwSmushBuf = 1;

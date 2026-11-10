@@ -11,7 +11,7 @@ undefined4 rdColormap_SetCurrent(uint param_1)
 {
   if ((g_dwRdColormap_pCurMap != param_1) &&
      (g_dwRdColormap_pCurMap = param_1, 0 < g_nRdroid_curAcceleration)) {
-    Display_SetPalette3D((void *)(param_1 + 0x30),0x5a);
+    std3D_SetCurrentPalette((void *)(param_1 + 0x30),0x5a);
   }
   return 1;
 }

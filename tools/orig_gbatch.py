@@ -184,7 +184,7 @@ def main():
             e["strict_mode"] = strict
         entries.append(e)
         print(f"{addr} {old} -> {name} ({cur_type or 'no data'}{', ' + strict if strict else ''})")
-    json.dump(entries, open(out, "w"), indent=1)
+    json.dump(entries, open(out, "w", newline="\n"), indent=1)
     print(f"{out}: {len(entries)} entries")
 
 

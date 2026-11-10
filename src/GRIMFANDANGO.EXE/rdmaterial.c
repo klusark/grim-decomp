@@ -5,10 +5,12 @@
 #include "globals.h"
 #include "functions.h"
 
-/* ---- 0x00417e90  rdMaterial_SetLoadHook ---- */
-/* Installs the engine's material loader callback and returns the previous one */
+/* ---- 0x00417e90  rdMaterial_RegisterLoader ---- */
+/* Installs the engine's material loader callback and returns the previous one Original name
+   rdMaterial_RegisterLoader (the remaster's GrimFandango (Linux): swaps pMaterialsLoader); was
+   rdMaterial_SetLoadHook. */
 
-uint rdMaterial_SetLoadHook(uint param_1)
+uint rdMaterial_RegisterLoader(uint param_1)
 
 {
   uint uVar1;
@@ -18,8 +20,11 @@ uint rdMaterial_SetLoadHook(uint param_1)
   return uVar1;
 }
 
-/* ---- 0x00417ea0  rdMaterial_SetFreeHook ---- */
-uint rdMaterial_SetFreeHook(uint param_1)
+/* ---- 0x00417ea0  rdMaterial_RegisterUnloader ---- */
+/* Original name rdMaterial_RegisterUnloader (the remaster's GrimFandango (Linux): swaps
+   pMaterialsUnloader); was rdMaterial_SetFreeHook. */
+
+uint rdMaterial_RegisterUnloader(uint param_1)
 
 {
   uint uVar1;

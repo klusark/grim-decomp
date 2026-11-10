@@ -19,9 +19,9 @@ undefined4 sputText_Initialize(GrimServices *param_1,undefined4 *param_2)
   *param_2 = sputText_Initialize;
   param_2[1] = sputText_Terminate;
   param_2[2] = sputText_Startup;
-  param_2[3] = sputText_Stop;
+  param_2[3] = sputText_Shutdown;
   param_2[4] = sputText_SaveState;
-  param_2[5] = sputText_RestoreState;
+  param_2[5] = sputText_Restore;
   param_2[6] = 0;
   param_2[7] = 0;
   iVar1 = PlatModule_Init(param_1,&g_aGraphMS);
@@ -113,11 +113,13 @@ undefined4 sputText_Startup(void)
   return 1;
 }
 
-/* ---- 0x0048c6f0  sputText_Stop ---- */
+/* ---- 0x0048c6f0  sputText_Shutdown ---- */
 /* Module interface slot 3 (sputText): called by Engine_ShutdownSubsystems in reverse order;
-   releases what _Start created. */
+   releases what _Start created. Original name sputText_Shutdown (the remaster's GrimFandango
+   (Linux): the module's shutdown slot: graphMS / textMS shutdown, lua_unref of every lr*
+   reference); was sputText_Stop. */
 
-void sputText_Stop(void)
+void sputText_Shutdown(void)
 
 {
   (*(code *)UINT_008ca124)();
@@ -200,11 +202,13 @@ undefined4 sputText_SaveState(code *param_1)
 #undef local_4
 
 
-/* ---- 0x0048cd80  sputText_RestoreState ---- */
+/* ---- 0x0048cd80  sputText_Restore ---- */
 /* Module interface slot 5 (sputText): save-game reader, calls the SaveGame_Read callback it is
-   handed; returns non-zero on a short read. */
+   handed; returns non-zero on a short read. Original name sputText_Restore (the remaster's
+   GrimFandango (Linux): the module's restore slot: empties textQueue, reads the text events into
+   pTextEventPool); was sputText_RestoreState. */
 
-undefined4 sputText_RestoreState(code *param_1)
+undefined4 sputText_Restore(code *param_1)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */

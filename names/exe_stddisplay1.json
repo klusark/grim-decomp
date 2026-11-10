@@ -28,7 +28,7 @@
  {"addr": "00474b30", "name": "Surface_Decompress", "proto": "void Surface_Decompress(void * surface)", "comment": "Turns a type 2 (LZSS compressed) surface into a plain system memory surface", "tags": "display"},
  {"addr": "00474d10", "name": "Display_SetDIBPalette", "tags": "display"},
  {"addr": "00474d90", "name": "Display_SetPalette", "proto": "void Display_SetPalette(void * palette)", "tags": "display"},
- {"addr": "00478fc0", "name": "Display_SetPalette3D", "proto": "void Display_SetPalette3D(void * palette, int flags)", "tags": "display"},
+ {"addr": "00478fc0", "name": "std3D_SetCurrentPalette", "proto": "void std3D_SetCurrentPalette(void * palette, int flags)", "tags": "display"},
  {"addr": "00474dd0", "name": "Palette_ApplyGamma", "proto": "int Palette_ApplyGamma(void * dst, void * src, int count, int gammaIdx)", "tags": "display"},
  {"addr": "00474e40", "name": "Display_DrawText", "proto": "int Display_DrawText(char * text, int x, int y)", "comment": "GDI TextOut of the debug font onto the back buffer (DIB or locked DirectDraw DC)", "tags": "display"},
  {"addr": "00475000", "name": "Display_FindClosestDevice", "tags": "display"},

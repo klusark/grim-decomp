@@ -1,0 +1,191 @@
+[
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004bd430",
+  "old": "SmushPlay_SysShutdown",
+  "name": "SmushPlay_SysTerminate",
+  "comment": "Module interface slot 1 (Insane): called by Engine_ResetSubsystems / when registration fails; drops the service table pointer and clears the initialised flag. Original name SmushPlay_SysShutdown (the remaster's GrimFandango (Linux): the only unmatched caller of LecShare_Shutdown; 1 matched neighbours agree, 0 disagree); was Insane_Terminate. Original name SmushPlay_SysTerminate (the remaster's GrimFandango (Linux): slot 1 of the SmushPlay module interface SmushPlay_SysInitialize fills; clears fSmushPlaySysInitialized after LecShare_Terminate); was SmushPlay_SysShutdown."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004bd4d0",
+  "old": "Insane_Stop",
+  "name": "SmushPlay_SysShutdown",
+  "comment": "Module interface slot 3 (Insane): called by Engine_ShutdownSubsystems in reverse order; releases what _Start created. Original name SmushPlay_SysShutdown (the remaster's GrimFandango (Linux): slot 3 of the module interface; clears fSmushPlaySysStarted after LecShare_Shutdown (share_services +0x14 unsubscribe first)); was Insane_Stop."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004bd3a0",
+  "old": "Insane_RegisterFilio",
+  "name": "SmushPlay_SysInitialize",
+  "comment": "Registers the 'FILIO' LecShare module ('insane zfilio') and fills the caller's vtable with the open/read/seek/close entry points Original name SmushPlay_SysInitialize (the remaster's GrimFandango (Linux): stores pSmushPlayHS, LecShare_Initialize(0, modules, \"FILIO=insane_zfilio\", ...), sets fSmushPlaySysInitialized, fills the module interface {Initialize, Terminate, Startup, Shutdown}); was Insane_RegisterFilio."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004bd370",
+  "old": "Insane_Poll",
+  "name": "SmushPlay_GetMovieTime",
+  "comment": "INSANE (SMUSH) movie player glue: steps the player when the file io, decoder and output modules are all registered Original name SmushPlay_GetMovieTime (the remaster's GrimFandango (Linux): tests fSmushPlaySysInitialized and fSmushPlaySysStarted and returns the playing movie's time (sputLua_Update's movieTimeMsec)); was Insane_Poll."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c1390",
+  "old": "LecShare_Startup",
+  "name": "LecShare_Initialize",
+  "comment": "LecShare module registry (LEC shared module system used by INSANE/iMUSE): resets the table and runs each {init, arg} pair of the module list Original name LecShare_Initialize (the remaster's GrimFandango (Linux): the LecShare set-up SmushPlay_SysInitialize calls with (0, module list, \"FILIO=insane_zfilio\", ...)); was LecShare_Startup."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c1460",
+  "old": "LecShare_StartupModules",
+  "name": "LecShare_Startup",
+  "comment": "Calls the startup entry of every registered LECMODULE; on failure unwinds and reports 'LecShare Startup: Failed with module' Original name LecShare_Startup (the remaster's GrimFandango (Linux): calls the startup slot (+8) of every LECMODULE in order, from SmushPlay_SysStartup); was LecShare_StartupModules."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c13f0",
+  "old": "LecShare_Shutdown",
+  "name": "LecShare_Terminate",
+  "comment": "Calls the shutdown entry of every registered LECMODULE Original name LecShare_Terminate (the remaster's GrimFandango (Linux): calls the terminate slot (+4) of every LECMODULE backwards, from SmushPlay_SysTerminate); was LecShare_Shutdown."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c1500",
+  "old": "LecShare_UnwindStartup",
+  "name": "LecShare_Shutdown",
+  "comment": "Original name LecShare_Shutdown (the remaster's GrimFandango (Linux): calls the shutdown slot (+0xc) of the started LECMODULEs backwards, from SmushPlay_SysShutdown); was LecShare_UnwindStartup."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004d0550",
+  "old": "SoundModule_Open",
+  "name": "engine_Initialize",
+  "comment": "Zero-terminated list of track buffer sizes follows the three fixed arguments Original name engine_Initialize (the remaster's GrimFandango (Linux): the sound engine set-up SoundModule_module_startup calls with sound_samplerate, sound_reserveram, sound_bufsize, ... on both sides); was SoundModule_Open."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00478fc0",
+  "old": "Display_SetPalette3D",
+  "name": "std3D_SetCurrentPalette",
+  "comment": "Original name std3D_SetCurrentPalette (the remaster's GrimFandango (Linux): rdColormap_SetCurrent calls it with (colormap + 0x30, 0x5a) when rdroid_curAcceleration > 0); was Display_SetPalette3D."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00402050",
+  "old": "Grim_RequestQuit",
+  "name": "grimdemo_PleaseShutdown",
+  "comment": "Sets g_nQuitApp. Original name grimdemo_PleaseShutdown (the remaster's GrimFandango (Linux): sets bQuitApp); was Grim_RequestQuit."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00406690",
+  "old": "rdCache_ClearStats",
+  "name": "rdCache_ClearFrameCounters",
+  "comment": "Original name rdCache_ClearFrameCounters (the remaster's GrimFandango (Linux): clears rdCache_drawnFaces); was rdCache_ClearStats."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00417e90",
+  "old": "rdMaterial_SetLoadHook",
+  "name": "rdMaterial_RegisterLoader",
+  "comment": "Installs the engine's material loader callback and returns the previous one Original name rdMaterial_RegisterLoader (the remaster's GrimFandango (Linux): swaps pMaterialsLoader); was rdMaterial_SetLoadHook."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00417ea0",
+  "old": "rdMaterial_SetFreeHook",
+  "name": "rdMaterial_RegisterUnloader",
+  "comment": "Original name rdMaterial_RegisterUnloader (the remaster's GrimFandango (Linux): swaps pMaterialsUnloader); was rdMaterial_SetFreeHook."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00482520",
+  "old": "Res_SetCacheSizeMB",
+  "name": "grimlib_SetCacheMax",
+  "comment": "Cache limit in megabytes (shifted left by 20) Original name grimlib_SetCacheMax (the remaster's GrimFandango (Linux): max_ram = MB << 20); was Res_SetCacheSizeMB."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0048c6f0",
+  "old": "sputText_Stop",
+  "name": "sputText_Shutdown",
+  "comment": "Module interface slot 3 (sputText): called by Engine_ShutdownSubsystems in reverse order; releases what _Start created. Original name sputText_Shutdown (the remaster's GrimFandango (Linux): the module's shutdown slot: graphMS / textMS shutdown, lua_unref of every lr* reference); was sputText_Stop."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0048c8d0",
+  "old": "Text_ParseLineId",
+  "name": "sputText_ExtractSayLineData",
+  "comment": "Splits a '/id/text' dialogue line: copies the id into outId and returns the text according to g_nTranslationType (translated, id only, or raw) Original name sputText_ExtractSayLineData (the remaster's GrimFandango (Linux): splits '/id/text' (PolyglotGetString, translationType)); was Text_ParseLineId."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0048cd80",
+  "old": "sputText_RestoreState",
+  "name": "sputText_Restore",
+  "comment": "Module interface slot 5 (sputText): save-game reader, calls the SaveGame_Read callback it is handed; returns non-zero on a short read. Original name sputText_Restore (the remaster's GrimFandango (Linux): the module's restore slot: empties textQueue, reads the text events into pTextEventPool); was sputText_RestoreState."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0048d8a0",
+  "old": "Resource_SetMemoryUsage",
+  "name": "sputResource_SetMemoryUsage",
+  "comment": "Lua SetMemoryUsage Original name sputResource_SetMemoryUsage (the remaster's GrimFandango (Linux): sets MaxRealMemoryUsage and PurgeAmount when non-zero); was Resource_SetMemoryUsage."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00496340",
+  "old": "BitmapComponent_Destroy",
+  "name": "BitmapFreer",
+  "comment": "Costume tag handler, slot 2 of the 'General Bitmap' / 'Animation (old use Bitmap)' tags: frees the key data. (Was named SpriteComponent_Destroy; the tag table in sputCostume_Start pairs it with the bitmap tags.) Original name BitmapFreer (the remaster's GrimFandango (Linux): frees a bitmap component key (RecentBM, Res_RemoveReference, psputCosHS free)); was BitmapComponent_Destroy."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004988a0",
+  "old": "sputCostume_Stop",
+  "name": "sputCostume_Shutdown",
+  "comment": "Module interface slot 3 (sputCostume): called by Engine_ShutdownSubsystems in reverse order; releases what _Start created. Original name sputCostume_Shutdown (the remaster's GrimFandango (Linux): the module's shutdown slot: writes keyframePath, bitmapPath, ... back to the configuration); was sputCostume_Stop."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00499250",
+  "old": "Lua_SetDebugKeysCallback",
+  "name": "sputLua_SetDebugToggleCallback",
+  "comment": "Original name sputLua_SetDebugToggleCallback (the remaster's GrimFandango (Linux): stores pDebugToggleFunc); was Lua_SetDebugKeysCallback."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a5430",
+  "old": "sputRoom_Stop",
+  "name": "sputRoom_Shutdown",
+  "comment": "Module interface slot 3 (sputRoom): called by Engine_ShutdownSubsystems in reverse order; releases what _Start created. Original name sputRoom_Shutdown (the remaster's GrimFandango (Linux): the module's shutdown slot: frees the room list with psputRoomHS); was sputRoom_Stop."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c2150",
+  "old": "FUN_004c2150",
+  "name": "AnimPlay_module_shutdown",
+  "comment": "Original name AnimPlay_module_shutdown (the remaster's GrimFandango (Linux): the AnimPlay module's shutdown: releases anm_memory_services, anm_streamer_services, anm_animframe_services, bitmap_services, timer_services, anm_virtherc_services, sound_services (module_shutdown in the remaster)); was FUN_004c2150."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c2dc0",
+  "old": "FUN_004c2dc0",
+  "name": "AnimFrame_module_shutdown",
+  "comment": "Original name AnimFrame_module_shutdown (the remaster's GrimFandango (Linux): the AnimFrame module's shutdown: releases its services, anm_overlay_buffer, anm_preload_buffer and the anm_flobdec_services (module_shutdown in the remaster)); was FUN_004c2dc0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004cbb30",
+  "old": "FUN_004cbb30",
+  "name": "DWave_module_shutdown",
+  "comment": "Original name DWave_module_shutdown (the remaster's GrimFandango (Linux): the DWave module's shutdown: soundServices, memoryServices, outputBuffer (module_shutdown in the remaster)); was FUN_004cbb30."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c2ee0",
+  "old": "FUN_004c2ee0",
+  "name": "anm_DecodeHeader",
+  "comment": "Original name anm_DecodeHeader (the remaster's GrimFandango (Linux): walks the chunks and hands each to the anm_flobdec_services entry with the same anm_flobdec_ids id); was FUN_004c2ee0."
+ }
+]

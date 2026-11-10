@@ -9,7 +9,7 @@
 undefined4 Smush_Pause(void)
 
 {
-  if (UINT_008d16a8 != 0) {
+  if (g_dwMovieIsPlaying != 0) {
     (**(code **)(UINT_008d1200 + 0x24))(UINT_008d11d8,1);
   }
   return 0;
@@ -19,7 +19,7 @@ undefined4 Smush_Pause(void)
 undefined4 Smush_Resume(void)
 
 {
-  if (UINT_008d16a8 != 0) {
+  if (g_dwMovieIsPlaying != 0) {
     (**(code **)(UINT_008d1200 + 0x24))(UINT_008d11d8,0);
   }
   return 0;
@@ -138,7 +138,7 @@ Smush_Open(char *name,int flags,int bufferSize,int x,int y,int w,int h,int a,int
           if (UINT_008d10a8 != 0) {
             (*(code *)UINT_008d10a8)();
           }
-          UINT_008d16a8 = 1;
+          g_dwMovieIsPlaying = 1;
           return 0;
         }
       }
@@ -160,12 +160,12 @@ Smush_Open(char *name,int flags,int bufferSize,int x,int y,int w,int h,int a,int
 undefined4 Smush_Close(void)
 
 {
-  if (UINT_008d16a8 != 0) {
+  if (g_dwMovieIsPlaying != 0) {
     (**(code **)(UINT_008d1200 + 0x14))(&UINT_008d11d8);
     (**(code **)(UINT_008d169c + 0x10))();
     UINT_008d16b8 = 0;
   }
-  UINT_008d16a8 = 0;
+  g_dwMovieIsPlaying = 0;
   (*(code *)UINT_008d109c)();
   return 0;
 }
@@ -195,7 +195,7 @@ int __cdecl Smush_Advance(int *outDone)
     UINT_008d16b8 = 0;
     if ((DAT_008d1090 & 0x10) == 0) {
       *outDone = 1;
-      UINT_008d16a8 = 0;
+      g_dwMovieIsPlaying = 0;
     }
     else {
       *outDone = 0;
@@ -208,12 +208,12 @@ int __cdecl Smush_Advance(int *outDone)
       (**(code **)(UINT_008d1200 + 4))
                 (&UINT_008d11d8,&UINT_008d10d0,iVar1,UINT_008d121a + 500000,UINT_008d121a + 10000,
                  0x600d);
-      UINT_008d16a8 = 1;
+      g_dwMovieIsPlaying = 1;
     }
   }
   else {
     *outDone = 0;
-    UINT_008d16a8 = 1;
+    g_dwMovieIsPlaying = 1;
   }
   Blocky16_SetOption(1,0,0);
   return 0;

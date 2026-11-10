@@ -41,10 +41,12 @@ void rdCache_Reset(void)
   return;
 }
 
-/* ---- 0x00406690  rdCache_ClearStats ---- */
+/* ---- 0x00406690  rdCache_ClearFrameCounters ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+/* Original name rdCache_ClearFrameCounters (the remaster's GrimFandango (Linux): clears
+   rdCache_drawnFaces); was rdCache_ClearStats. */
 
-void rdCache_ClearStats(void)
+void rdCache_ClearFrameCounters(void)
 
 {
   _g_dwRdCache_drawnFaces = 0;
@@ -477,7 +479,7 @@ LAB_00406d8d:
           local_30 = local_30 | 0x400;
         }
         if (material[uVar15 * 0x26 + 0x29] == 0) {
-          Display_SetPalette3D((void *)(*(int *)(puVar14 + 0x4c) + 0x30),0x5a);
+          std3D_SetCurrentPalette((void *)(*(int *)(puVar14 + 0x4c) + 0x30),0x5a);
         }
         iVar11 = rdMaterial_EnsureTexture(PUN(void *,(float)local_20),material,uVar15,local_4c);
         if (iVar11 == 0) {

@@ -4,7 +4,7 @@
  {"addr": "004956f0", "name": "Costume_TouchComponents", "tags": "costume"},
  {"addr": "00495510", "name": "Costume_ApplyScale", "proto": "void Costume_ApplyScale(void * actor, void * componentList)", "comment": "Scales every model radius by actor+0x30 and stores the reciprocal so the second call undoes it", "tags": "costume"},
  {"addr": "00496060", "name": "Component_SetBitmapFrame", "tags": "costume"},
- {"addr": "00496340", "name": "BitmapComponent_Destroy", "tags": "costume"},
+ {"addr": "00496340", "name": "BitmapFreer", "tags": "costume"},
  {"addr": "00496460", "name": "ColormapRequester", "comment": "Registers a 'cmap' colormap component (CMAP resource, 0x34-byte ResRef); with no name a file dialog asks for one (editor)", "tags": "costume"},
  {"addr": "00496580", "name": "CmapComponent_Destroy", "tags": "costume"},
  {"addr": "004965e0", "name": "MaterialComponent_NewInstance", "proto": "void * MaterialComponent_NewInstance(void * cosInst, int componentIdx, int create)", "tags": "costume"},

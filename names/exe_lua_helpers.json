@@ -6,7 +6,7 @@
  {"addr": "00498bf0", "name": "Config_GetPath", "proto": "void Config_GetPath(char * name, char * buf, char * defaultSubdir)", "comment": "Reads a path setting from the registry (prefix g_szConfigKeyPrefix + name); falls back to GrimDataDir plus the default sub directory", "tags": "startup"},
  {"addr": "00498cf0", "name": "Config_SetPath", "proto": "void Config_SetPath(char * name, char * value)", "tags": "startup"},
  {"addr": "004ea884", "global": "g_szConfigKeyPrefix", "type": "char", "comment": "Registry value name prefix for Config_GetPath / Config_SetPath", "array_length": 8},
- {"addr": "00499250", "name": "Lua_SetDebugKeysCallback", "tags": "lua-binding"},
+ {"addr": "00499250", "name": "sputLua_SetDebugToggleCallback", "tags": "lua-binding"},
  {"addr": "0049c5e0", "name": "Lua_RunSystemScript", "comment": "lua_dofile('_system.lua')", "tags": "lua-binding"},
  {"addr": "0049c600", "name": "Lua_CallSystemFunction", "proto": "int Lua_CallSystemFunction(int flag, char * str)", "comment": "Calls the global Lua function named by the string at 0x004ec3c8 with (flag, str)", "tags": "lua-binding"},
  {"addr": "0049c660", "name": "Lua_CallCamChangeHandler", "proto": "void Lua_CallCamChangeHandler(int fromSetup, int toSetup)", "comment": "system.camChangeHandler(from, to)", "tags": "lua-binding"},

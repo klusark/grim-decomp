@@ -2059,14 +2059,14 @@ extern undefined4 UINT_008d10a4; /* used by 1 fn(s), first 0x004bd970 */
 extern undefined4 UINT_008d10a8; /* used by 1 fn(s), first 0x004bd570 */
 extern int * PTR_008d10c8; /* used by 3 fn(s), first 0x004bd570 */
 extern undefined4 UINT_008d10d0; /* used by 2 fn(s), first 0x004bd570 */
-extern int * PTR_008d11d4; /* used by 5 fn(s), first 0x004bd3a0 */
+extern int * g_pSmushPlay_share_services; /* used by 5 fn(s), first 0x004bd3a0 */
 extern undefined4 UINT_008d11d8; /* used by 5 fn(s), first 0x004bd500 */
 extern int UINT_008d11e0; /* used by 3 fn(s), first 0x004bd570 */
 extern int UINT_008d11e4; /* used by 3 fn(s), first 0x004bd570 */
 extern undefined4 UINT_008d11e8; /* used by 3 fn(s), first 0x004bd570 */
 extern undefined4 UINT_008d11ec; /* used by 3 fn(s), first 0x004bd570 */
 extern undefined DAT_008d11f0; /* used by 1 fn(s), first 0x004bdf70 */
-extern uint UINT_008d11f4; /* used by 10 fn(s), first 0x004bd3a0 */
+extern uint g_dwSmushPlayHS; /* used by 10 fn(s), first 0x004bd3a0 */
 extern int * PTR_008d11f8; /* used by 2 fn(s), first 0x004bdf70 */
 extern undefined4 UINT_008d1200; /* used by 5 fn(s), first 0x004bd500 */
 extern undefined DAT_008d1208; /* used by 1 fn(s), first 0x004bd570 */
@@ -2102,7 +2102,7 @@ extern undefined DAT_008d168c; /* used by 1 fn(s), first 0x004bd570 */
 extern undefined4 UINT_008d169c; /* used by 1 fn(s), first 0x004bd930 */
 extern undefined4 g_dwSmushPlaySysInitialized; /* used by 4 fn(s), first 0x004bd370 */
 extern undefined4 g_dwSmushPlaySysStarted; /* used by 3 fn(s), first 0x004bd370 */
-extern undefined4 UINT_008d16a8; /* used by 6 fn(s), first 0x004bd370 */
+extern undefined4 g_dwMovieIsPlaying; /* used by 6 fn(s), first 0x004bd370 */
 extern undefined DAT_008d16ac; /* used by 1 fn(s), first 0x004bdb00 */
 extern undefined DAT_008d16b0; /* used by 1 fn(s), first 0x004bdad0 */
 extern undefined DAT_008d16b4; /* used by 1 fn(s), first 0x004bd560 */
@@ -2140,7 +2140,7 @@ extern undefined4 UINT_008d5700; /* used by 1 fn(s), first 0x004c15c0 */
 extern undefined DAT_008d5704; /* used by 1 fn(s), first 0x004c15c0 */
 extern uint UINT_008d6efc; /* used by 1 fn(s), first 0x004c1990 */
 extern undefined4 UINT_008d6f00; /* used by 1 fn(s), first 0x004c1990 */
-extern undefined4 UINT_008d6f04; /* used by 3 fn(s), first 0x004c1ff0 */
+extern undefined4 g_dwAnimPlay_bitmap_services; /* used by 3 fn(s), first 0x004c1ff0 */
 extern undefined DAT_008d6f08; /* used by 1 fn(s), first 0x004c1f40 */
 extern undefined DAT_008d6f0c; /* used by 1 fn(s), first 0x004c1f40 */
 extern uint g_dwAnimPlay_share_config; /* used by 2 fn(s), first 0x004c1f40 */
@@ -2743,7 +2743,7 @@ extern undefined4 UINT_00906c18; /* used by 2 fn(s), first 0x004aca30 */
 extern int * g_pAnimFrame_memory_services; /* used by 2 fn(s), first 0x004c2be0 */
 extern undefined4 g_dwAnimFrame_bitmap_services; /* used by 2 fn(s), first 0x004c2be0 */
 extern int * g_pAnimFrame_share_services; /* used by 4 fn(s), first 0x004c2b50 */
-extern undefined4 UINT_00906c28; /* used by 3 fn(s), first 0x004c2be0 */
+extern undefined4 g_dwAnimFrame_virtherc_services; /* used by 3 fn(s), first 0x004c2be0 */
 extern undefined4 g_dwAnimFrame_video_services; /* used by 3 fn(s), first 0x004c2be0 */
 extern int * g_pAnm_share_services; /* used by 6 fn(s), first 0x004c1f40 */
 extern undefined4 UINT_00906c4c; /* used by 4 fn(s), first 0x004cd550 */

@@ -1,7 +1,7 @@
 [
  {"addr": "00492b30", "name": "Actor_SayLine", "proto": "void Actor_SayLine(void * actor, char * text, int background, int volume, int pan, int x, int y)",
   "comment": "Starts speech: resolves the /id/ to a voice file (.wvc/.wav/.imc/.imu), plays it (3D positioned when flag 8), creates the subtitle text object, times text-only speech from its length, and plays the talk chore", "tags": "actor,text"},
- {"addr": "0048c8d0", "name": "Text_ParseLineId", "proto": "char * Text_ParseLineId(char * line, char * outId)", "comment": "Splits a '/id/text' dialogue line: copies the id into outId and returns the text", "tags": "text"},
+ {"addr": "0048c8d0", "name": "sputText_ExtractSayLineData", "proto": "char * sputText_ExtractSayLineData(char * line, char * outId)", "comment": "Splits a '/id/text' dialogue line: copies the id into outId and returns the text", "tags": "text"},
  {"addr": "0048b2e0", "name": "TextObject_Create", "proto": "void * TextObject_Create(void * actor, char * text, int x, int y)", "tags": "text"},
  {"addr": "0048c470", "name": "TextObject_SetLayout", "proto": "void TextObject_SetLayout(void * obj, int width, int justify)", "tags": "text"},
  {"addr": "0048ac00", "name": "TextObject_Free", "proto": "void TextObject_Free(void * obj)", "tags": "text"},

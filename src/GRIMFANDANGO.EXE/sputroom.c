@@ -19,7 +19,7 @@ undefined * __cdecl sputRoom_Initialize(uint param_1,undefined **param_2)
   *param_2 = sputRoom_Initialize;
   param_2[1] = sputRoom_Terminate;
   param_2[2] = sputRoom_Startup;
-  param_2[3] = sputRoom_Stop;
+  param_2[3] = sputRoom_Shutdown;
   param_2[4] = Set_SaveState;
   param_2[5] = sputRoom_Restore;
   param_2[6] = (undefined *)0x0;
@@ -70,11 +70,12 @@ undefined4 sputRoom_Startup(void)
   return 0;
 }
 
-/* ---- 0x004a5430  sputRoom_Stop ---- */
+/* ---- 0x004a5430  sputRoom_Shutdown ---- */
 /* Module interface slot 3 (sputRoom): called by Engine_ShutdownSubsystems in reverse order;
-   releases what _Start created. */
+   releases what _Start created. Original name sputRoom_Shutdown (the remaster's GrimFandango
+   (Linux): the module's shutdown slot: frees the room list with psputRoomHS); was sputRoom_Stop. */
 
-void sputRoom_Stop(void)
+void sputRoom_Shutdown(void)
 
 {
   int iVar1;

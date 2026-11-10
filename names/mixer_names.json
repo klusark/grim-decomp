@@ -235,7 +235,7 @@
  },
  {
   "addr": "004d0550",
-  "name": "SoundModule_Open",
+  "name": "engine_Initialize",
   "comment": "Zero-terminated list of track buffer sizes follows the three fixed arguments",
   "tags": "smush,sound"
  },

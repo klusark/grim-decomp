@@ -1165,8 +1165,8 @@
   "program": "/v101/GRIMFANDANGO.EXE",
   "addr": "004bd430",
   "old": "Insane_Terminate",
-  "name": "SmushPlay_SysShutdown",
-  "comment": "Module interface slot 1 (Insane): called by Engine_ResetSubsystems / when registration fails; drops the service table pointer and clears the initialised flag. Original name SmushPlay_SysShutdown (the remaster's GrimFandango (Linux): the only unmatched caller of LecShare_Shutdown; 1 matched neighbours agree, 0 disagree); was Insane_Terminate."
+  "name": "SmushPlay_SysTerminate",
+  "comment": "Module interface slot 1 (Insane): called by Engine_ResetSubsystems / when registration fails; drops the service table pointer and clears the initialised flag. Original name SmushPlay_SysTerminate (the remaster's GrimFandango (Linux): the only unmatched caller of LecShare_Terminate; 1 matched neighbours agree, 0 disagree); was Insane_Terminate."
  },
  {
   "program": "/v101/GRIMFANDANGO.EXE",

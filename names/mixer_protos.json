@@ -172,7 +172,7 @@
  },
  {
   "addr": "004d0550",
-  "proto": "int SoundModule_Open(int rate, int limit, uint size, ...)"
+  "proto": "int engine_Initialize(int rate, int limit, uint size, ...)"
  },
  {
   "addr": "004d0610",

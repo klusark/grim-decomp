@@ -2155,7 +2155,7 @@ void Actor_DrawShadowPlane(void *costumeList, void *shadow)
             if (g_pShadowMaterial != (void *)0) {
                 rdroid_SetColormap((uint)g_pShadowColormap);
                 if (g_nSputRender_b3DAcceleration != 0)
-                    Display_SetPalette3D((void *)((int)g_pShadowColormap + 0x30), 0);
+                    std3D_SetCurrentPalette((void *)((int)g_pShadowColormap + 0x30), 0);
                 Shadow_DrawClippedPoly(pts, 4, minXY, maxXY, shadow);
                 Shadow_DrawClippedPoly(pts + 12, 4, minXY, maxXY, shadow);
                 Shadow_DrawClippedPoly(pts + 24, 4, minXY, maxXY, shadow);
@@ -2705,7 +2705,7 @@ void sputText_PrintLineL(void)
     if (iVar4 != 0) {
       pcVar6 = local_50;
       pcVar5 = (char *)lua_getstring(iVar2);
-      pcVar6 = Text_ParseLineId(pcVar5,pcVar6);
+      pcVar6 = sputText_ExtractSayLineData(pcVar5,pcVar6);
       if (local_58 < 0) {
         /* display time: (length * ms per character + base ms) * 16.666668 truncated */
         uint *msTab = (uint *)&UINT_004e8480 - 4;

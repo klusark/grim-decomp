@@ -230,7 +230,7 @@ undefined4 Grim_Init(char *param_1)
     return 0;
   }
   lua_openlib((int *)&PTR_s_Is3DHardwareEnabled_004dd350,UINT_004dd380);
-  Engine_SetIdleCallback(Grim_RequestQuit);
+  Engine_SetIdleCallback(grimdemo_PleaseShutdown);
   Engine_SetRenderUserCallback(Grim_OnDisplayModeChange);
   Engine_SetFlipCallback(Display_Flip);
   Engine_SetDebugKeysCallback(DebugLog_Init);
@@ -530,10 +530,11 @@ void Grim_EnumDisplayModes(void)
 #undef local_c
 
 
-/* ---- 0x00402050  Grim_RequestQuit ---- */
-/* Sets g_nQuitApp. */
+/* ---- 0x00402050  grimdemo_PleaseShutdown ---- */
+/* Sets g_nQuitApp. Original name grimdemo_PleaseShutdown (the remaster's GrimFandango (Linux): sets
+   bQuitApp); was Grim_RequestQuit. */
 
-void Grim_RequestQuit(void)
+void grimdemo_PleaseShutdown(void)
 
 {
   g_nQuitApp = 1;
@@ -547,7 +548,7 @@ undefined4 Grim_OnDisplayModeChange(void *param_1,int param_2)
   Display_SetDIBPalette(param_1);
   Display_SetPalette(param_1);
   if (g_pD3dDriver != (void *)0x0) {
-    Display_SetPalette3D(param_1,param_2);
+    std3D_SetCurrentPalette(param_1,param_2);
   }
   return 1;
 }
@@ -583,7 +584,7 @@ LAB_00402f60:
       if ((iVar2 == 0) || (iVar2 = _stricmp(iVar1,&DAT_004dd908), iVar2 == 0)) {
         uVar3 = strtok(0,&DAT_004dd918);
         _DAT_004dd34c = atoi(uVar3);
-        Res_SetCacheSizeMB(_DAT_004dd34c);
+        grimlib_SetCacheMax(_DAT_004dd34c);
         goto LAB_00402f60;
       }
       iVar2 = _stricmp(iVar1,&DAT_004dd904);

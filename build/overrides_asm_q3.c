@@ -913,7 +913,7 @@ undefined4 rdCache_DrawMeshList3D(void)
                 flags |= 0x400;
             tex3c = (uint)(info + mip * 0x98);
             if (Q3I(info, mip * 0x98 + 0xa4) == 0)
-                Display_SetPalette3D(Q3P(e, 0x4c) + 0x30, 0x5a);
+                std3D_SetCurrentPalette(Q3P(e, 0x4c) + 0x30, 0x5a);
             if (rdMaterial_EnsureTexture(mat, (uint *)info, mip, force) == 0) {
                 rdCache_Flush3DBatch();
                 rdCache_Begin3DBatch();

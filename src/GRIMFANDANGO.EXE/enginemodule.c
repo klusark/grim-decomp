@@ -90,7 +90,7 @@ int grimlib_GameStartup(void)
         budget = iVar1 - 0x800000;
       }
     }
-    Resource_SetMemoryUsage(budget,0);
+    sputResource_SetMemoryUsage(budget,0);
     Sounds_PlatformDevice((int)g_pDirectSound);
     iVar1 = Engine_InitSubsystems(&g_aBaseModuleServices,6);
   }

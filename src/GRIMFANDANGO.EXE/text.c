@@ -178,11 +178,13 @@ int __cdecl GetTextParamsFromTable(void *ctx,void *table,void *textObj)
 #undef local_8
 
 
-/* ---- 0x0048c8d0  Text_ParseLineId ---- */
+/* ---- 0x0048c8d0  sputText_ExtractSayLineData ---- */
 /* Splits a '/id/text' dialogue line: copies the id into outId and returns the text according to
-   g_nTranslationType (translated, id only, or raw) */
+   g_nTranslationType (translated, id only, or raw) Original name sputText_ExtractSayLineData (the
+   remaster's GrimFandango (Linux): splits '/id/text' (PolyglotGetString, translationType)); was
+   Text_ParseLineId. */
 
-char * __cdecl Text_ParseLineId(char *line,char *outId)
+char * __cdecl sputText_ExtractSayLineData(char *line,char *outId)
 
 {
   char *pcVar1;
