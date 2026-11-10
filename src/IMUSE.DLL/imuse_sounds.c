@@ -16,7 +16,7 @@ undefined4 __cdecl iMUSE_sounds__9e10(undefined *param_1)
   if (((undefined *)IMG_ADDR(0x1003039f) < param_1) && (param_1 < &DAT_10031520)) {
     return *(undefined4 *)(param_1 + 8);
   }
-  uVar1 = (**(code **)(DAT_10033510 + 0x48))(param_1);
+  uVar1 = (**(code **)(g_dwSounds_pHS + 0x48))(param_1);
   return uVar1;
 }
 
@@ -29,7 +29,7 @@ undefined4 __cdecl iMUSE_sounds__9e40(undefined *param_1,int param_2,int param_3
   undefined4 uVar1;
   
   if ((param_1 < &DAT_100303a0) || ((undefined *)IMG_ADDR(0x1003151f) < param_1)) {
-    uVar1 = (**(code **)(DAT_10033510 + 0x4c))(param_1,param_2,param_3);
+    uVar1 = (**(code **)(g_dwSounds_pHS + 0x4c))(param_1,param_2,param_3);
     return uVar1;
   }
   if (param_3 == 0) {
@@ -80,7 +80,7 @@ undefined4 FUN_10009f10(undefined4 param_1)
 {
   undefined4 uVar1;
   
-  uVar1 = (**(code **)(DAT_10033510 + 0x20))
+  uVar1 = (**(code **)(g_dwSounds_pHS + 0x20))
                     (param_1,s_C__grimsrc_libs_iMUSE_sounds_c_1001e8e0,0xad5);
   FUN_10009f40(uVar1);
   return uVar1;
@@ -115,7 +115,7 @@ void FUN_10009f40(int param_1)
       iVar1 = _DAT_1002ec10 * 8;
       _DAT_1002ec10 = _DAT_1002ec10 * 2;
       _DAT_10031d38 =
-           (int *)(**(code **)(DAT_10033510 + 0x28))
+           (int *)(**(code **)(g_dwSounds_pHS + 0x28))
                             (_DAT_10031d38,iVar1,s_C__grimsrc_libs_iMUSE_sounds_c_1001e8e0,0x9e);
       if (_DAT_10031d38 != (int *)0x0) {
         piVar3 = _DAT_10031d38 + _DAT_1002ec10 / 2;
@@ -144,7 +144,7 @@ void FUN_1000a010(undefined4 param_1)
 
 {
   FUN_1000a030(param_1);
-  (**(code **)(DAT_10033510 + 0x24))(param_1);
+  (**(code **)(g_dwSounds_pHS + 0x24))(param_1);
   return;
 }
 

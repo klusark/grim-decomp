@@ -11,7 +11,7 @@
 undefined4 iMUSE_Dispatch__1fd0(void)
 
 {
-  (**(code **)(DAT_10033510 + 0x24))(DAT_1002d808);
+  (**(code **)(g_dwSounds_pHS + 0x24))(DAT_1002d808);
   return 0;
 }
 
@@ -62,20 +62,20 @@ undefined4 __cdecl iMUSE_Dispatch__2040(undefined4 *param_1)
     puVar2 = puVar2 + 1;
   }
   iVar3 = 0;
-  if (0 < DAT_1001e8c4) {
+  if (0 < g_dwImLargeFadeCount) {
     do {
       iVar1 = iVar3 + 1;
       PTR_10024dc8[iVar3] = 0;
       iVar3 = iVar1;
-    } while (iVar1 < DAT_1001e8c4);
+    } while (iVar1 < g_dwImLargeFadeCount);
   }
   iVar3 = 0;
-  if (0 < DAT_1001e8cc) {
+  if (0 < g_dwImSmallFadeCount) {
     do {
       iVar1 = iVar3 + 1;
       PTR_10025298[iVar3] = 0;
       iVar3 = iVar1;
-    } while (iVar1 < DAT_1001e8cc);
+    } while (iVar1 < g_dwImSmallFadeCount);
   }
   puVar2 = &DAT_10024df0;
   iVar3 = 0x32;
@@ -570,37 +570,37 @@ int __cdecl iMUSE_Dispatch__35a0(uint *param_1)
   int iVar1;
   int *piVar2;
   
-  if (DAT_1001e8c0 < *param_1) {
-    *param_1 = DAT_1001e8c0;
+  if (g_dwImLargeFadeSize < *param_1) {
+    *param_1 = g_dwImLargeFadeSize;
   }
-  if (DAT_1001e8c8 < *param_1) {
+  if (g_dwImSmallFadeSize < *param_1) {
     iVar1 = 0;
     piVar2 = PTR_10024dc8;
-    if (0 < DAT_1001e8c4) {
+    if (0 < g_dwImLargeFadeCount) {
       do {
         if (*piVar2 == 0) {
           PTR_10024dc8[iVar1] = 1;
-          return iVar1 * DAT_1001e8c0 + DAT_10024dcc;
+          return iVar1 * g_dwImLargeFadeSize + DAT_10024dcc;
         }
         iVar1 = iVar1 + 1;
         piVar2 = piVar2 + 1;
-      } while (iVar1 < DAT_1001e8c4);
+      } while (iVar1 < g_dwImLargeFadeCount);
     }
-    *param_1 = DAT_1001e8c8;
+    *param_1 = g_dwImSmallFadeSize;
   }
   iVar1 = 0;
   piVar2 = PTR_10025298;
-  if (DAT_1001e8cc < 1) {
+  if (g_dwImSmallFadeCount < 1) {
     return 0;
   }
   do {
     if (*piVar2 == 0) {
       PTR_10025298[iVar1] = 1;
-      return iVar1 * DAT_1001e8c8 + DAT_10024dd4;
+      return iVar1 * g_dwImSmallFadeSize + DAT_10024dd4;
     }
     iVar1 = iVar1 + 1;
     piVar2 = piVar2 + 1;
-  } while (iVar1 < DAT_1001e8cc);
+  } while (iVar1 < g_dwImSmallFadeCount);
   return 0;
 }
 
@@ -615,23 +615,23 @@ void __cdecl iMUSE_Dispatch__3640(int param_1)
   
   iVar1 = 0;
   iVar2 = DAT_10024dcc;
-  if (0 < DAT_1001e8c4) {
+  if (0 < g_dwImLargeFadeCount) {
     do {
       if (param_1 == iVar2) {
         PTR_10024dc8[iVar1] = 0;
         return;
       }
       iVar1 = iVar1 + 1;
-      iVar2 = iVar2 + DAT_1001e8c0;
-    } while (iVar1 < DAT_1001e8c4);
+      iVar2 = iVar2 + g_dwImLargeFadeSize;
+    } while (iVar1 < g_dwImLargeFadeCount);
   }
   iVar1 = 0;
   iVar2 = DAT_10024dd4;
-  if (0 < DAT_1001e8cc) {
+  if (0 < g_dwImSmallFadeCount) {
     while (param_1 != iVar2) {
       iVar1 = iVar1 + 1;
-      iVar2 = iVar2 + DAT_1001e8c8;
-      if (DAT_1001e8cc <= iVar1) {
+      iVar2 = iVar2 + g_dwImSmallFadeSize;
+      if (g_dwImSmallFadeCount <= iVar1) {
         return;
       }
     }

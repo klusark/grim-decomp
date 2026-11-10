@@ -738,7 +738,7 @@ int iMUSE_dsound__3a80(void)   /* the block of the ring that the play cursor is 
 int SoundsFloodMusicBuffer(void)
 {
     int r = 0;
-    if (_DAT_10031d44 != 0) {
+    if (_g_bImuseInitialized != 0) {
         r = FUN_100077c0();
         while (r == 0) {
             ImProcessStreams();
@@ -752,7 +752,7 @@ int SoundsFloodMusicBuffer(void)
 undefined4 SoundsFillStreamsWhileMusicCritical(int n)
 {
     undefined4 r = 0;
-    if (_DAT_10031d44 != 0 && FUN_100076b0() != 0) {
+    if (_g_bImuseInitialized != 0 && FUN_100076b0() != 0) {
         do {
             ImProcessStreams();
             if (GRIM_ImSimOn())
@@ -782,7 +782,7 @@ int FUN_10008ce0(void)
     int start, tries;
 
     if (GRIM_ImSimOn()) {   /* simulated time: no timer thread, GRIM_ImSimStep drives the heartbeat */
-        _DAT_10031e84 = 1;
+        _g_dwTimerCounter = 1;
         return 1;
     }
     if (timeGetDevCaps(caps, 8) != 0)
@@ -794,15 +794,15 @@ int FUN_10008ce0(void)
     timeBeginPeriod(period);
     _DAT_10031d28 = timeSetEvent(_DAT_1002e338, 0, (void *)timer_callback, 0xf, 1);
     start = timeGetTime();
-    _DAT_10031e84 = 0;
+    _g_dwTimerCounter = 0;
     for (tries = 3; tries > 0; tries--) {
-        if (_DAT_10031e84 != 0)
-            return _DAT_10031e84;
+        if (_g_dwTimerCounter != 0)
+            return _g_dwTimerCounter;
         while ((unsigned)(timeGetTime() - start) < 4000) {
-            if (_DAT_10031e84 != 0)
-                return _DAT_10031e84;
+            if (_g_dwTimerCounter != 0)
+                return _g_dwTimerCounter;
         }
-        if (_DAT_10031e84 == 0) {
+        if (_g_dwTimerCounter == 0) {
             timeKillEvent(_DAT_10031d28);
             timeEndPeriod(_DAT_10031520);
             timeBeginPeriod(_DAT_10031520);
@@ -810,7 +810,7 @@ int FUN_10008ce0(void)
             start = timeGetTime();
         }
     }
-    return _DAT_10031e84;
+    return _g_dwTimerCounter;
 }
 
 /* Im_DSoundCreateBuffer (0x10003930): secondary streaming buffer of n * 0x1800
