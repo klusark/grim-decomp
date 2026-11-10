@@ -13,33 +13,33 @@
 #define VBUF 0x6000            /* ring buffer of a voice in the test */
 
 /* ---- under test ---- */
-extern int orig_FUN_004d0300(int *, unsigned), SoundModule_Register(int *, unsigned);
-extern void orig_FUN_004d03a0(void), SoundModule_Unregister(void);
+extern int orig_FUN_004d0300(int *, unsigned), sou_sound_module(int *, unsigned);
+extern void orig_FUN_004d03a0(void), SoundModule_module_terminate(void);
 extern int orig_FUN_004d03d0(void), SoundModule_Init(void);
-extern void orig_FUN_004d0510(void), SoundModule_Shutdown(void);
+extern void orig_FUN_004d0510(void), SoundModule_module_shutdown(void);
 extern int orig_FUN_004d0550(int, int, unsigned, ...), SoundModule_Open(int, int, unsigned, ...);
 extern int orig_FUN_004d0610(void), SoundModule_Close(void);
 extern int orig_FUN_004d06a0(unsigned, int), SoundModule_AddTrackBuffer(unsigned, int);
-extern void orig_FUN_004d0860(unsigned char *, int, int, int, unsigned), SoundModule_PlayChunk(unsigned char *, int, int, int, unsigned);
-extern void orig_FUN_004d0a50(unsigned), SoundModule_StopSound(unsigned);
-extern void orig_FUN_004d0a80(void), SoundModule_Pause(void);
-extern void orig_FUN_004d0a90(void), SoundModule_Resume(void);
-extern void orig_FUN_004d0aa0(void), SoundModule_StopAll(void);
-extern void orig_FUN_004d0ad0(int, unsigned), SoundModule_SetVolume(int, unsigned);
-extern unsigned orig_FUN_004d0b10(unsigned), SoundModule_GetVolume(unsigned);
-extern void orig_FUN_004d0b60(int, unsigned char), SoundModule_SetPan(int, unsigned char);
-extern int orig_FUN_004d0b90(unsigned), SoundModule_GetPan(unsigned);
-extern void orig_FUN_004d0bd0(int), SoundModule_DriverCommand2(int);
-extern int orig_FUN_004d0bf0(void), SoundModule_DriverCommand3(void);
+extern void orig_FUN_004d0860(unsigned char *, int, int, int, unsigned), sou_engine_Start(unsigned char *, int, int, int, unsigned);
+extern void orig_FUN_004d0a50(unsigned), sou_engine_Stop(unsigned);
+extern void orig_FUN_004d0a80(void), sou_engine_Pause(void);
+extern void orig_FUN_004d0a90(void), sou_engine_Resume(void);
+extern void orig_FUN_004d0aa0(void), sou_engine_StopAll(void);
+extern void orig_FUN_004d0ad0(int, unsigned), sou_engine_SetVol(int, unsigned);
+extern unsigned orig_FUN_004d0b10(unsigned), sou_engine_GetVol(unsigned);
+extern void orig_FUN_004d0b60(int, unsigned char), sou_engine_SetPan(int, unsigned char);
+extern int orig_FUN_004d0b90(unsigned), sou_engine_GetPan(unsigned);
+extern void orig_FUN_004d0bd0(int), sou_engine_SetHVol(int);
+extern int orig_FUN_004d0bf0(void), sou_engine_GetHVol(void);
 extern void orig_FUN_004d0c00(unsigned), sou_engine_SetRate(unsigned);
-extern int orig_FUN_004d0c30(unsigned), SoundModule_GetPosition(unsigned);
+extern int orig_FUN_004d0c30(unsigned), sou_engine_Query(unsigned);
 extern int orig_Sound_VoiceSampleCount(int), Sound_VoiceSampleCount(int);
-extern int orig_FUN_004d0d70(int, int, unsigned, unsigned), SoundModule_SetParam(int, int, unsigned, unsigned);
-extern int orig_FUN_004d0e00(int, int, unsigned *, unsigned *), SoundModule_GetParam(int, int, unsigned *, unsigned *);
+extern int orig_FUN_004d0d70(int, int, unsigned, unsigned), sou_engine_SetParam(int, int, unsigned, unsigned);
+extern int orig_FUN_004d0e00(int, int, unsigned *, unsigned *), sou_engine_GetParam(int, int, unsigned *, unsigned *);
 extern unsigned orig_FUN_004d0eb0(unsigned char), SoundModule_GetChannelVolume(unsigned char);
 extern void orig_FUN_004d0ed0(unsigned char, unsigned char), SoundModule_SetChannelVolume(unsigned char, unsigned char);
 extern void orig_FUN_004d0f00(unsigned char *, unsigned, int, int, int, unsigned), SoundModule_PlayVoc(unsigned char *, unsigned, int, int, int, unsigned);
-extern void orig_FUN_004d1180(unsigned char *, int, int, int, int, unsigned, int, int, int, int), SoundModule_PlaySaud(unsigned char *, int, int, int, int, unsigned, int, int, int, int);
+extern void orig_FUN_004d1180(unsigned char *, int, int, int, int, unsigned, int, int, int, int), sou_engine_start_stream(unsigned char *, int, int, int, int, unsigned, int, int, int, int);
 extern void orig_FUN_004d1690(void), SoundModule_SyncClock(void);
 extern void orig_FUN_004d16a0(int, void *), SoundModule_MixCallback(int, void *);
 extern void orig_FUN_004d2340(double), SoundModule_AdvanceClock(double);
@@ -57,7 +57,7 @@ void FUN_004d23e0(void *d, void *s, unsigned n) { ((void (*)(void *, void *, uns
 void Dsnd_MemCopyCdecl(void *d, void *s, unsigned n) { ((void (*)(void *, void *, unsigned))th_copy)(d, s, n); memcpy(d, s, n); }
 void FUN_004d2400(void *d, int v, unsigned n) { ((void (*)(void *, int, unsigned))th_fill)(d, v, n); memset(d, (unsigned char)v, n); }
 void Dsnd_MemFillCdecl(void *d, int v, unsigned n) { ((void (*)(void *, int, unsigned))th_fill)(d, v, n); memset(d, (unsigned char)v, n); }
-void FUN_004d5e50(void *d, int v, int n) { ((void (*)(void *, int, int))th_fill7f)(d, v, n); memset(d, v, n); }
+void msc_MemSet(void *d, int v, int n) { ((void (*)(void *, int, int))th_fill7f)(d, v, n); memset(d, v, n); }
 
 static int dbg_w;
 static volatile int g_phase;
@@ -149,7 +149,7 @@ static void setup_sound_globals(void)
     for (i = 0; i < 16; i++) FXU32(0x8dacb0 + 4 * i) = i < 1 + (int)R(6) ? 20000 + R(200000) : 0;
 }
 
-int Sound_DriverQuery(void) { return ((int (*)(void))drvtab_ptr(5))(); }
+int sou_engine_GetRate(void) { return ((int (*)(void))drvtab_ptr(5))(); }
 
 static void setup_mix_voice(int i, int heavy)
 {
@@ -292,7 +292,7 @@ int main(int argc, char **argv)
         case 0:  /* Register / Unregister */
             fx_save();
             fx_reset(); effseed = cseed | 1; ra = orig_FUN_004d0300(svc, a2); orig_FUN_004d03a0(); fx_snap_a();
-            fx_restore(); fx_reset(); effseed = cseed | 1; rb = SoundModule_Register(svc, a2) + neg; SoundModule_Unregister();
+            fx_restore(); fx_reset(); effseed = cseed | 1; rb = sou_sound_module(svc, a2) + neg; SoundModule_module_terminate();
             break;
         case 1: { /* Init: services hand out the allocator, clock and driver */
             fx_queue(T_SVC_GET, (int)(intptr_t)memtab); fx_queue(T_SVC_GET, (int)(intptr_t)clktab); fx_queue(T_SVC_GET, (int)(intptr_t)drvtab);
@@ -305,7 +305,7 @@ int main(int argc, char **argv)
         case 2:  /* Shutdown (frees, closes) */
             fx_save();
             fx_reset(); effseed = cseed | 1; orig_FUN_004d0510(); fx_snap_a();
-            fx_restore(); fx_reset(); effseed = cseed | 1; SoundModule_Shutdown();
+            fx_restore(); fx_reset(); effseed = cseed | 1; SoundModule_module_shutdown();
             break;
         case 3: { /* Open with a size list */
             unsigned s1 = R(2) ? 30000 + R(100000) : 0, s2 = R(2) ? 20000 + R(50000) : 0, s3 = 40000;
@@ -353,18 +353,18 @@ int main(int argc, char **argv)
             fx_snap_a();
             fx_restore(); fx_reset(); effseed = cseed | 1;
             switch (w) {
-            case 0: SoundModule_StopSound(id); break;
-            case 1: SoundModule_Pause(); SoundModule_Pause(); SoundModule_Resume(); break;
-            case 2: SoundModule_StopAll(); break;
-            case 3: SoundModule_SetVolume((int)id, (unsigned)a2); break;
-            case 4: rb = (int)SoundModule_GetVolume(id); break;
-            case 5: SoundModule_SetPan((int)id, (unsigned char)a2); break;
-            case 6: rb = SoundModule_GetPan(id); break;
-            case 7: SoundModule_DriverCommand2(a2); rb = SoundModule_DriverCommand3(); break;
+            case 0: sou_engine_Stop(id); break;
+            case 1: sou_engine_Pause(); sou_engine_Pause(); sou_engine_Resume(); break;
+            case 2: sou_engine_StopAll(); break;
+            case 3: sou_engine_SetVol((int)id, (unsigned)a2); break;
+            case 4: rb = (int)sou_engine_GetVol(id); break;
+            case 5: sou_engine_SetPan((int)id, (unsigned char)a2); break;
+            case 6: rb = sou_engine_GetPan(id); break;
+            case 7: sou_engine_SetHVol(a2); rb = sou_engine_GetHVol(); break;
             case 8: sou_engine_SetRate((unsigned)a2); break;
-            case 9: rb = SoundModule_GetPosition(id); break;
+            case 9: rb = sou_engine_Query(id); break;
             case 10: SoundModule_SetChannelVolume(ch, (unsigned char)a2); rb = (int)SoundModule_GetChannelVolume(ch); break;
-            case 11: ya = yb = 0x1234; rb = SoundModule_GetParam(0, w1, &ya, w1 == 1 ? (unsigned *)(uintptr_t)(w2 * 37 + 5) : &yb); SoundModule_SetParam(0, w2, (unsigned)a1, (unsigned)a2); rb += (int)(ya ^ yb); break;
+            case 11: ya = yb = 0x1234; rb = sou_engine_GetParam(0, w1, &ya, w1 == 1 ? (unsigned *)(uintptr_t)(w2 * 37 + 5) : &yb); sou_engine_SetParam(0, w2, (unsigned)a1, (unsigned)a2); rb += (int)(ya ^ yb); break;
             }
             rb += neg;
             break; }
@@ -405,7 +405,7 @@ int main(int argc, char **argv)
                 if (kind == 1) {
                     fx_save();
                     fx_reset(); effseed = cseed | 1; orig_FUN_004d1180(chunkdata, ssz, id, vol, pan, fl, key, chunkNo, knd, whole); fx_snap_a();
-                    fx_restore(); fx_reset(); effseed = cseed | 1; SoundModule_PlaySaud(chunkdata, ssz, id, vol, pan, fl, key, chunkNo, knd, whole);
+                    fx_restore(); fx_reset(); effseed = cseed | 1; sou_engine_start_stream(chunkdata, ssz, id, vol, pan, fl, key, chunkNo, knd, whole);
                 } else {
                     static const unsigned tags[] = {0x53415544, 0x50534144, 0x50564f43, 0x43726561, 0x41414141};
                     be32(chunkdata, tags[R(5)]);
@@ -415,7 +415,7 @@ int main(int argc, char **argv)
                     be32(chunkdata + 0xc, 0); be32(chunkdata + 0x10, magics[R(7)]);
                     fx_save();
                     fx_reset(); effseed = cseed | 1; orig_FUN_004d0860(chunkdata, id, vol, pan, fl); fx_snap_a();
-                    fx_restore(); fx_reset(); effseed = cseed | 1; SoundModule_PlayChunk(chunkdata, id, vol, pan, fl);
+                    fx_restore(); fx_reset(); effseed = cseed | 1; sou_engine_Start(chunkdata, id, vol, pan, fl);
                 }
             }
             break; }

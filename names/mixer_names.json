@@ -1,13 +1,13 @@
 [
  {
   "addr": "004cdc90",
-  "name": "InsaneTimer_Register",
+  "name": "sys_timer_module",
   "comment": "Entry of LECMODULE insane_timer: stores the service table of the module manager and the workspace size, registers the module and the TIMER insane interface",
   "tags": "smush,timer"
  },
  {
   "addr": "004cdce0",
-  "name": "InsaneTimer_Unregister",
+  "name": "InsaneTimer_module_terminate",
   "tags": "smush,timer"
  },
  {
@@ -18,7 +18,7 @@
  },
  {
   "addr": "004cdd60",
-  "name": "InsaneTimer_Shutdown",
+  "name": "InsaneTimer_module_shutdown",
   "tags": "smush,timer"
  },
  {
@@ -40,40 +40,40 @@
  },
  {
   "addr": "004cdef0",
-  "name": "InsaneTimer_Hold",
+  "name": "sys_Disable",
   "comment": "TIMER insane: suspends the periodic callbacks (counter)",
   "tags": "smush,timer"
  },
  {
   "addr": "004cdf00",
-  "name": "InsaneTimer_Release",
+  "name": "sys_Enable",
   "tags": "smush,timer"
  },
  {
   "addr": "004cdf10",
-  "name": "InsaneTimer_AddTimer",
+  "name": "sys_Alloc",
   "comment": "Finds a free slot (1..19) and fills in callback, period, flags and user data; returns the slot number or 0",
   "tags": "smush,timer"
  },
  {
   "addr": "004cdf80",
-  "name": "InsaneTimer_RemoveTimer",
+  "name": "sys_Free",
   "tags": "smush,timer"
  },
  {
   "addr": "004cdfa0",
-  "name": "InsaneTimer_SetPeriod",
+  "name": "sys_Reset",
   "tags": "smush,timer"
  },
  {
   "addr": "004cdfd0",
-  "name": "InsaneTimer_Run",
-  "comment": "Runs InsaneTimer_GetClock-driven steps until the clock has advanced by the given number of ticks",
+  "name": "sys_Delay",
+  "comment": "Runs sys_GetTime-driven steps until the clock has advanced by the given number of ticks",
   "tags": "smush,timer"
  },
  {
   "addr": "004ce000",
-  "name": "InsaneTimer_GetClock",
+  "name": "sys_GetTime",
   "tags": "smush,timer"
  },
  {
@@ -94,13 +94,13 @@
  },
  {
   "addr": "004d2420",
-  "name": "DsndDriver_Register",
+  "name": "sou_dsnd_module",
   "comment": "Entry of LECMODULE insane_dsnd: registers the DirectSound sound driver (SNDDRIVER insane_dsnd)",
   "tags": "smush,dsound"
  },
  {
   "addr": "004d2480",
-  "name": "DsndDriver_Unregister",
+  "name": "DsndDriver_module_terminate",
   "tags": "smush,dsound"
  },
  {
@@ -111,34 +111,34 @@
  },
  {
   "addr": "004d2520",
-  "name": "DsndDriver_Shutdown",
+  "name": "DsndDriver_module_shutdown",
   "tags": "smush,dsound"
  },
  {
   "addr": "004d2550",
-  "name": "DsndDriver_Open",
+  "name": "dsn_initialize",
   "comment": "Opens DirectSound and the mixer and starts the periodic DSound_FillStreamBuffer timer",
   "tags": "smush,dsound"
  },
  {
   "addr": "004d25f0",
-  "name": "DsndDriver_Close",
+  "name": "dsn_terminate",
   "tags": "smush,dsound"
  },
  {
   "addr": "004d2630",
-  "name": "DsndDriver_SetVolume",
+  "name": "dsn_setvol",
   "comment": "Volume 0..127 through a logarithmic table to IDirectSoundBuffer::SetVolume on the stream buffer",
   "tags": "smush,dsound"
  },
  {
   "addr": "004d27b0",
-  "name": "DsndDriver_GetVolume",
+  "name": "dsn_getvol",
   "tags": "smush,dsound"
  },
  {
   "addr": "004d27c0",
-  "name": "DsndDriver_GetSampleRate",
+  "name": "dsn_getrate",
   "tags": "smush,dsound"
  },
  {
@@ -214,13 +214,13 @@
  },
  {
   "addr": "004d0300",
-  "name": "SoundModule_Register",
+  "name": "sou_sound_module",
   "comment": "Entry of LECMODULE insane_sound: the Smush sound track manager (SOUND insane)",
   "tags": "smush,sound"
  },
  {
   "addr": "004d03a0",
-  "name": "SoundModule_Unregister",
+  "name": "SoundModule_module_terminate",
   "tags": "smush,sound"
  },
  {
@@ -230,7 +230,7 @@
  },
  {
   "addr": "004d0510",
-  "name": "SoundModule_Shutdown",
+  "name": "SoundModule_module_shutdown",
   "tags": "smush,sound"
  },
  {
@@ -251,58 +251,58 @@
  },
  {
   "addr": "004d0860",
-  "name": "SoundModule_PlayChunk",
+  "name": "sou_engine_Start",
   "comment": "Dispatches a sound chunk by its four-character tag: Crea(tive VOC), PSAD / SAUD (Smush audio)",
   "tags": "smush,sound"
  },
  {
   "addr": "004d0a50",
-  "name": "SoundModule_StopSound",
+  "name": "sou_engine_Stop",
   "tags": "smush,sound"
  },
  {
   "addr": "004d0a80",
-  "name": "SoundModule_Pause",
+  "name": "sou_engine_Pause",
   "tags": "smush,sound"
  },
  {
   "addr": "004d0a90",
-  "name": "SoundModule_Resume",
+  "name": "sou_engine_Resume",
   "tags": "smush,sound"
  },
  {
   "addr": "004d0aa0",
-  "name": "SoundModule_StopAll",
+  "name": "sou_engine_StopAll",
   "tags": "smush,sound"
  },
  {
   "addr": "004d0ad0",
-  "name": "SoundModule_SetVolume",
+  "name": "sou_engine_SetVol",
   "tags": "smush,sound"
  },
  {
   "addr": "004d0b10",
-  "name": "SoundModule_GetVolume",
+  "name": "sou_engine_GetVol",
   "tags": "smush,sound"
  },
  {
   "addr": "004d0b60",
-  "name": "SoundModule_SetPan",
+  "name": "sou_engine_SetPan",
   "tags": "smush,sound"
  },
  {
   "addr": "004d0b90",
-  "name": "SoundModule_GetPan",
+  "name": "sou_engine_GetPan",
   "tags": "smush,sound"
  },
  {
   "addr": "004d0bd0",
-  "name": "SoundModule_DriverCommand2",
+  "name": "sou_engine_SetHVol",
   "tags": "smush,sound"
  },
  {
   "addr": "004d0bf0",
-  "name": "SoundModule_DriverCommand3",
+  "name": "sou_engine_GetHVol",
   "tags": "smush,sound"
  },
  {
@@ -312,17 +312,17 @@
  },
  {
   "addr": "004d0c30",
-  "name": "SoundModule_GetPosition",
+  "name": "sou_engine_Query",
   "tags": "smush,sound"
  },
  {
   "addr": "004d0d70",
-  "name": "SoundModule_SetParam",
+  "name": "sou_engine_SetParam",
   "tags": "smush,sound"
  },
  {
   "addr": "004d0e00",
-  "name": "SoundModule_GetParam",
+  "name": "sou_engine_GetParam",
   "tags": "smush,sound"
  },
  {
@@ -342,7 +342,7 @@
  },
  {
   "addr": "004d1180",
-  "name": "SoundModule_PlaySaud",
+  "name": "sou_engine_start_stream",
   "tags": "smush,sound"
  },
  {
@@ -419,13 +419,13 @@
   "addr": "004f3f98",
   "global": "g_dwStreamRate",
   "type": "uint",
-  "comment": "Sample rate requested from DsndDriver_Open (at least 22050)"
+  "comment": "Sample rate requested from dsn_initialize (at least 22050)"
  },
  {
   "addr": "004f3f9c",
-  "global": "g_dwStreamVolume",
+  "global": "g_dwCurrentVol",
   "type": "uint",
-  "comment": "Volume 0..127 last passed to DsndDriver_SetVolume"
+  "comment": "Volume 0..127 last passed to dsn_setvol"
  },
  {
   "addr": "004f3fa0",
@@ -437,7 +437,7 @@
   "addr": "008db410",
   "global": "g_pfnStreamMix",
   "type": "void *",
-  "comment": "Mixer callback (count, Mixer_MixVoiceByFormat) given to DsndDriver_Open"
+  "comment": "Mixer callback (count, Mixer_MixVoiceByFormat) given to dsn_initialize"
  },
  {
   "addr": "008dcc54",
@@ -449,7 +449,7 @@
   "addr": "008db41c",
   "global": "g_pDsndDriver_share_services",
   "type": "int *",
-  "comment": "Service table of the module manager handed to DsndDriver_Register"
+  "comment": "Service table of the module manager handed to sou_dsnd_module"
  },
  {
   "addr": "008db424",
@@ -461,17 +461,17 @@
   "addr": "008da5cc",
   "global": "g_pInsaneTimer_share_services",
   "type": "int *",
-  "comment": "Service table of the module manager handed to InsaneTimer_Register"
+  "comment": "Service table of the module manager handed to sys_timer_module"
  },
  {
   "addr": "008da5c8",
-  "global": "g_nTimerClock",
+  "global": "g_nSys_global_timer",
   "type": "int",
   "comment": "Timer clock in ticks (InsaneTimer_Tick adds g_nTimerStep)"
  },
  {
   "addr": "008da860",
-  "global": "g_dwTimerStep",
+  "global": "g_dwSys_timer_count",
   "type": "uint",
   "comment": "Ticks per InsaneTimer_Tick (0x4dae = 20.0 ms in the 1193180 Hz unit)"
  },
@@ -481,7 +481,7 @@
  },
  {
   "addr": "004f3c08",
-  "label": "g_apfnInsaneTimerInterface"
+  "label": "g_pInsaneTimer_timer_services"
  },
  {
   "addr": "004f3dc8",
@@ -497,7 +497,7 @@
  },
  {
   "addr": "004f3f78",
-  "label": "g_apfnDsndDriverInterface"
+  "label": "g_pDsndDriver_snddriver_services"
  },
  {
   "addr": "008da8b0",
@@ -522,7 +522,7 @@
  },
  {
   "addr": "004ce3e0",
-  "name": "VideoBitmap_Create",
+  "name": "bmp_bitmap_Alloc",
   "tags": "smush,video"
  },
  {
@@ -537,7 +537,7 @@
  },
  {
   "addr": "004cf520",
-  "name": "Video_PixelsFromRgba",
+  "name": "gra_ConvertFromLecColor",
   "tags": "smush,video"
  },
  {
@@ -592,13 +592,13 @@
  },
  {
   "addr": "004cc210",
-  "name": "Blocky16_Register",
+  "name": "fob_flobdec_blocky16_module",
   "comment": "Entry of LECMODULE insane_blocky16_flobdec: stores the module manager services and the workspace size, registers the module and the FLOBDEC interface",
   "tags": "smush,blocky16"
  },
  {
   "addr": "004cc290",
-  "name": "Blocky16_Unregister",
+  "name": "Blocky16_module_terminate",
   "comment": "Unregisters the FLOBDEC interface and the module of the Blocky16 decoder",
   "tags": "smush,blocky16"
  },
@@ -610,49 +610,49 @@
  },
  {
   "addr": "004cc340",
-  "name": "Blocky16_Shutdown",
+  "name": "Blocky16_module_shutdown",
   "comment": "Frees the frame buffers and releases the two services of the Blocky16 decoder",
   "tags": "smush,blocky16"
  },
  {
   "addr": "004cc370",
-  "name": "Blocky16_GetInfoString",
+  "name": "Blocky16_flobdec_Info",
   "comment": "Returns the name, description or help text of the Blocky16 module for index 0, 1 or 2",
   "tags": "smush,blocky16"
  },
  {
   "addr": "004cc3a0",
-  "name": "Blocky16_GetFourCC",
+  "name": "Blocky16_flobdec_GetID",
   "comment": "Returns the codec id Bl16 of the decoder",
   "tags": "smush,blocky16"
  },
  {
   "addr": "004cc3c0",
-  "name": "Blocky16_Prepare",
+  "name": "Blocky16_flobdec_DecodeHeader",
   "comment": "Reallocates the three frame buffers when the frame size or depth of the header differs from the current ones",
   "tags": "smush,blocky16"
  },
  {
   "addr": "004cc410",
-  "name": "Blocky16_AllocBuffers",
+  "name": "AllocBuffers",
   "comment": "Allocates the three frame buffers (current, previous, before) for a frame size and clears them; sets up the display expand table memory",
   "tags": "smush,blocky16"
  },
  {
   "addr": "004cc590",
-  "name": "Blocky16_FreeBuffers",
+  "name": "Blocky16_flobdec_Reset",
   "comment": "Frees the three frame buffers and the expand table of the Blocky16 decoder",
   "tags": "smush,blocky16"
  },
  {
   "addr": "004cc620",
-  "name": "Blocky16_DecodeFrameEntry",
+  "name": "Blocky16_flobdec_DecodeBody",
   "comment": "Interface entry of the decoder: drops the seventh argument and calls Blocky16_DecodeFrame",
   "tags": "smush,blocky16"
  },
  {
   "addr": "004cc650",
-  "name": "Blocky16_GetFrameInfo",
+  "name": "Blocky16_flobdec_GetVal",
   "comment": "Reads four 16 bit fields of a frame header of the right size (0x100), returns -1 for any other size",
   "tags": "smush,blocky16"
  },
@@ -688,25 +688,25 @@
  },
  {
   "addr": "004cec40",
-  "name": "Video_FillPixels",
+  "name": "gra_SetBuffer",
   "comment": "Fills a number of pixels of 1 to 4 bytes with one pixel value",
   "tags": "smush,video"
  },
  {
   "addr": "004d5eb0",
-  "name": "Rle_Begin",
+  "name": "msc_rle_DecompressInitialize",
   "comment": "Starts reading a run-length coded byte stream",
   "tags": "smush,rle"
  },
  {
   "addr": "004d5ed0",
-  "name": "Rle_NextByte",
+  "name": "msc_rle_DecompressGetbyte",
   "comment": "Returns the next byte of a run-length coded stream; control byte bit 0 selects a run or literal bytes",
   "tags": "smush,rle"
  },
  {
   "addr": "004d5e70",
-  "name": "Rle_Decode",
+  "name": "msc_rle_DecompressBlock",
   "comment": "Decodes a number of bytes of a run-length coded stream into a buffer",
   "tags": "smush,rle"
  },
@@ -718,14 +718,14 @@
  },
  {
   "addr": "004cc7d0",
-  "name": "Blocky16_BuildSplitMasks",
+  "name": "fob_block_maketiles",
   "comment": "Builds the 8x8 or 4x4 split masks of the Blocky16 codec in g_aBlockySplit8 or g_aBlockySplit4 from the edge points g_anBlockySplit8X, g_anBlockySplit8Y, g_anBlockySplit4X and g_anBlockySplit4Y",
   "tags": "smush,blocky16"
  },
  {
   "addr": "004ccd00",
   "name": "Blocky16_DecodeFrame",
-  "comment": "Decodes one Blocky16 frame into the buffers g_pbBlkCur, g_pbBlkPrev and g_pbBlkPrev2 using g_stBlockyDecState, g_asBlockyMotion, g_aBlockySplit4 and g_aBlockySplit8 and gives it to the output g_pFob_blit_routine; bitmaps g_pBlkBitmap0, g_pBlkBitmap1, g_pBlkBitmap2; tables g_pbBlkExpand, g_nBlkShiftR, g_nBlkShiftG, g_nBlkShiftB, g_pbBlkOutput, g_nBlkLastSeq",
+  "comment": "Decodes one Blocky16 frame into the buffers g_pFob_blk16_render_buffer, g_pFob_blk16_delta_buffer and g_pFob_blk16_key_buffer using g_stBlockyDecState, g_asBlockyMotion, g_aBlockySplit4 and g_aBlockySplit8 and gives it to the output g_pFob_blit_routine; bitmaps g_pBlkBitmap0, g_pBlkBitmap1, g_pBlkBitmap2; tables g_pbBlkExpand, g_nFob_translation_shiftr, g_nFob_translation_shiftg, g_nFob_translation_shiftb, g_pbBlkOutput, g_nBlkLastSeq",
   "tags": "smush,blocky16"
  },
  {
@@ -760,7 +760,7 @@
  },
  {
   "addr": "008da50c",
-  "global": "g_pbBlkCur",
+  "global": "g_pFob_blk16_render_buffer",
   "type": "byte *",
   "comment": "Buffer the current Blocky16 frame is decoded into"
  },
@@ -772,25 +772,25 @@
  },
  {
   "addr": "008da514",
-  "global": "g_nBlkShiftR",
+  "global": "g_nFob_translation_shiftr",
   "type": "int",
   "comment": "Red channel shift of the display format the expand table was made for"
  },
  {
   "addr": "008da518",
-  "global": "g_nBlkShiftG",
+  "global": "g_nFob_translation_shiftg",
   "type": "int",
   "comment": "Green channel shift of the display format the expand table was made for"
  },
  {
   "addr": "008da51c",
-  "global": "g_nBlkShiftB",
+  "global": "g_nFob_translation_shiftb",
   "type": "int",
   "comment": "Blue channel shift of the display format the expand table was made for"
  },
  {
   "addr": "008da520",
-  "global": "g_nBlkDepth",
+  "global": "g_nGlobal_bm_type",
   "type": "int",
   "comment": "Bits per pixel of the Blocky16 frame buffers"
  },
@@ -814,7 +814,7 @@
  },
  {
   "addr": "008da534",
-  "global": "g_nBlkPixels",
+  "global": "g_nFob_buffersize",
   "type": "int",
   "comment": "Number of pixels of a Blocky16 frame buffer"
  },
@@ -826,13 +826,13 @@
  },
  {
   "addr": "00906c74",
-  "global": "g_pbBlkPrev2",
+  "global": "g_pFob_blk16_key_buffer",
   "type": "byte *",
   "comment": "Blocky16 frame buffer holding the frame before the previous one"
  },
  {
   "addr": "0091f080",
-  "global": "g_pbBlkPrev",
+  "global": "g_pFob_blk16_delta_buffer",
   "type": "byte *",
   "comment": "Blocky16 frame buffer holding the previous frame"
  },
@@ -852,13 +852,13 @@
   "addr": "00906c80",
   "global": "g_aBlockySplit8",
   "type": "undefined2",
-  "comment": "Table of 256 split masks for 8x8 blocks, 0x184 bytes each, built by Blocky16_BuildSplitMasks"
+  "comment": "Table of 256 split masks for 8x8 blocks, 0x184 bytes each, built by fob_block_maketiles"
  },
  {
   "addr": "0091f0a0",
   "global": "g_aBlockySplit4",
   "type": "undefined2",
-  "comment": "Table of 256 split masks for 4x4 blocks, 0x80 bytes each, built by Blocky16_BuildSplitMasks"
+  "comment": "Table of 256 split masks for 4x4 blocks, 0x80 bytes each, built by fob_block_maketiles"
  },
  {
   "addr": "009270a0",
@@ -920,7 +920,7 @@
  },
  {
   "addr": "004c2690",
-  "name": "AnimPlay_Destroy",
+  "name": "anm_Stop",
   "comment": "Stops the timers of an AnimPlay frame player, closes the streamer and frees it",
   "tags": "smush,animplay"
  },
@@ -944,25 +944,25 @@
  },
  {
   "addr": "004c5ab0",
-  "name": "Zfile_Close",
+  "name": "Zfile_fle_Close",
   "comment": "Closes a Zfile object: the plain file or the gzip stream, then frees the object",
   "tags": "zlib"
  },
  {
   "addr": "004c5e30",
-  "name": "StdFile_Tell",
+  "name": "StdFile_fle_Tell",
   "comment": "Returns the current position of a StdFile through the file service",
   "tags": "stdfile"
  },
  {
   "addr": "004c5e90",
-  "name": "StdFile_Size",
+  "name": "fle_Size",
   "comment": "Returns the size of a StdFile by seeking to its end and back",
   "tags": "stdfile"
  },
  {
   "addr": "004c5f50",
-  "name": "StdFile_IsEof",
+  "name": "fle_Eof",
   "comment": "True when the position of a StdFile is at or past its size",
   "tags": "stdfile"
  },

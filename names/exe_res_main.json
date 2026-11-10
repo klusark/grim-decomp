@@ -12,7 +12,7 @@
  {"addr": "00481fd0", "name": "ResFile_FillBuffer", "proto": "void ResFile_FillBuffer(void * entry)", "tags": "resource"},
  {"addr": "00482020", "name": "Lab_ReadRaw", "proto": "int Lab_ReadRaw(void * entry, void * buf, int offset, int n)", "comment": "Reads n bytes at offset inside an archive-backed file entry, clamped to the entry size", "tags": "resource"},
  {"addr": "004803a0", "name": "Res_FileClose", "proto": "int Res_FileClose(char * name)", "comment": "Closes an archive: unreferenced resources from it are freed, referenced ones get a private copy of their name and are detached", "tags": "resource"},
- {"addr": "004804c0", "name": "Lab_MoveToFront", "proto": "int Lab_MoveToFront(char * name)", "comment": "Makes the named archive the first one searched", "tags": "resource"},
+ {"addr": "004804c0", "name": "Res_FileMoveToFront", "proto": "int Res_FileMoveToFront(char * name)", "comment": "Makes the named archive the first one searched", "tags": "resource"},
  {"addr": "00481070", "name": "Lab_Find", "proto": "void * Lab_Find(char * name)", "tags": "resource"},
  {"addr": "004813c0", "name": "Lab_Unlink", "tags": "resource"},
  {"addr": "00481630", "name": "res_FindInternalFile", "proto": "int res_FindInternalFile(char * name, void * outEntry)", "comment": "Searches every open archive (or dev directory) for the file; fills a 0x210-byte entry {type, archiveFh, offset, size, inArchive, name}", "tags": "resource"},

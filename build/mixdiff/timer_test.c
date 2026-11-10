@@ -13,25 +13,25 @@ typedef struct { void *cb; int period; unsigned flags; int user, busy, elapsed, 
 extern void orig_Mixer_Update(void), InsaneTimer_Tick(void);
 extern void orig_Mixer_ServiceVoices(void), InsaneTimer_ServiceDeferred(void);
 extern void orig_Mixer_ScheduleVoices(void), InsaneTimer_RunDeferred(void);
-extern int orig_FUN_004cdf10(void *, int, unsigned, int), InsaneTimer_AddTimer(void *, int, unsigned, int);
-extern void orig_FUN_004cdf80(int), InsaneTimer_RemoveTimer(int);
-extern void orig_FUN_004cdfa0(int, int), InsaneTimer_SetPeriod(int, int);
-extern void orig_FUN_004cdfd0(int), InsaneTimer_Run(int);
-extern void orig_FUN_004cdef0(void), InsaneTimer_Hold(void), orig_FUN_004cdf00(void), InsaneTimer_Release(void);
+extern int orig_FUN_004cdf10(void *, int, unsigned, int), sys_Alloc(void *, int, unsigned, int);
+extern void orig_FUN_004cdf80(int), sys_Free(int);
+extern void orig_FUN_004cdfa0(int, int), sys_Reset(int, int);
+extern void orig_FUN_004cdfd0(int), sys_Delay(int);
+extern void orig_FUN_004cdef0(void), sys_Disable(void), orig_FUN_004cdf00(void), sys_Enable(void);
 extern int orig_FUN_004cdd80(void), InsaneTimer_StartThread(void);
 extern void orig_FUN_004cde80(void), InsaneTimer_StopThread(void);
 extern int __stdcall orig_Mixer_TimerThread(int), InsaneTimer_ThreadProc(int);
-extern int orig_FUN_004cdc90(int *, unsigned), InsaneTimer_Register(int *, unsigned);
-extern void orig_FUN_004cdce0(void), InsaneTimer_Unregister(void);
+extern int orig_FUN_004cdc90(int *, unsigned), sys_timer_module(int *, unsigned);
+extern void orig_FUN_004cdce0(void), InsaneTimer_module_terminate(void);
 extern int orig_FUN_004cdd10(void), InsaneTimer_Init(void);
-extern void orig_FUN_004cdd60(void), InsaneTimer_Shutdown(void);
+extern void orig_FUN_004cdd60(void), InsaneTimer_module_shutdown(void);
 
 /* ---- what they call ---- */
 enum { T_CB = 5000, T_GETCLOCK = 1, T_TIMEGET, T_CREATEEVENT, T_WAIT, T_CLOSE, T_CREATETHREAD, T_SETPRIO, T_EXITCODE, T_DEBUGSTR,
        T_SVC_REG = 100, T_SVC_UNREG, T_SVC_GET, T_SVC_FREE, T_SVC_ERR = 108 };
 static void *th_getclock;
 unsigned FUN_004ce000(void) { return ((unsigned (*)(void))th_getclock)(); }
-unsigned InsaneTimer_GetClock(void) { return ((unsigned (*)(void))th_getclock)(); }
+unsigned sys_GetTime(void) { return ((unsigned (*)(void))th_getclock)(); }
 
 #define IMP(name, tag, nargs) \
     void *imp_##name __asm__("__imp__" #name "@" #nargs "0");
@@ -174,13 +174,13 @@ int main(int argc, char **argv)
         case 0: case 1: RUN((orig_Mixer_Update(), 0), (InsaneTimer_Tick(), 0)); break;
         case 2: RUN((orig_Mixer_ServiceVoices(), 0), (InsaneTimer_ServiceDeferred(), 0)); break;
         case 3: RUN((orig_Mixer_ScheduleVoices(), 0), (InsaneTimer_RunDeferred(), 0)); break;
-        case 4: RUN(orig_FUN_004cdf10(th_cbs[1], a1, (unsigned)a2, a1 ^ a2), InsaneTimer_AddTimer(th_cbs[1], a1, (unsigned)a2, a1 ^ a2)); break;
-        case 5: RUN((orig_FUN_004cdf80(a1 % 24 - 2), 0), (InsaneTimer_RemoveTimer(a1 % 24 - 2), 0)); break;
-        case 6: RUN((orig_FUN_004cdfa0(a1 % 24 - 2, a2), 0), (InsaneTimer_SetPeriod(a1 % 24 - 2, a2), 0)); break;
-        case 7: RUN((orig_FUN_004cdfd0(a1 & 63), 0), (InsaneTimer_Run(a1 & 63), 0)); break;
-        case 8: RUN((orig_FUN_004cdef0(), orig_FUN_004cdf00(), orig_FUN_004cdef0(), 0), (InsaneTimer_Hold(), InsaneTimer_Release(), InsaneTimer_Hold(), 0)); break;
-        case 9: RUN(orig_FUN_004cdc90(svc, a1), InsaneTimer_Register(svc, a1)); break;
-        case 10: RUN((orig_FUN_004cdce0(), orig_FUN_004cdd10(), orig_FUN_004cdd60(), 0), (InsaneTimer_Unregister(), InsaneTimer_Init(), InsaneTimer_Shutdown(), 0)); break;
+        case 4: RUN(orig_FUN_004cdf10(th_cbs[1], a1, (unsigned)a2, a1 ^ a2), sys_Alloc(th_cbs[1], a1, (unsigned)a2, a1 ^ a2)); break;
+        case 5: RUN((orig_FUN_004cdf80(a1 % 24 - 2), 0), (sys_Free(a1 % 24 - 2), 0)); break;
+        case 6: RUN((orig_FUN_004cdfa0(a1 % 24 - 2, a2), 0), (sys_Reset(a1 % 24 - 2, a2), 0)); break;
+        case 7: RUN((orig_FUN_004cdfd0(a1 & 63), 0), (sys_Delay(a1 & 63), 0)); break;
+        case 8: RUN((orig_FUN_004cdef0(), orig_FUN_004cdf00(), orig_FUN_004cdef0(), 0), (sys_Disable(), sys_Enable(), sys_Disable(), 0)); break;
+        case 9: RUN(orig_FUN_004cdc90(svc, a1), sys_timer_module(svc, a1)); break;
+        case 10: RUN((orig_FUN_004cdce0(), orig_FUN_004cdd10(), orig_FUN_004cdd60(), 0), (InsaneTimer_module_terminate(), InsaneTimer_Init(), InsaneTimer_module_shutdown(), 0)); break;
         case 11: RUN(orig_FUN_004cdd80(), InsaneTimer_StartThread()); break;
         case 12: RUN((orig_FUN_004cde80(), 0), (InsaneTimer_StopThread(), 0)); break;
         case 13: RUN(orig_Mixer_TimerThread(0), InsaneTimer_ThreadProc(0)); break;

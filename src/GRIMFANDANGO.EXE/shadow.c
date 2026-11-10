@@ -37,11 +37,13 @@ void __cdecl sputCostume_SetShadowColor(int r,int g,int b)
   return;
 }
 
-/* ---- 0x00494bf0  Shadow_DrawClippedPoly ---- */
+/* ---- 0x00494bf0  sputCostume_OutputShadowPoly ---- */
 /* Clips the projected polygon against each sector of the shadow plane and draws it, growing the
-   dirty box */
+   dirty box Original name sputCostume_OutputShadowPoly (the remaster's GrimFandango (Linux):
+   sputCostume_DrawMeshShadow's four polygon calls); was Shadow_DrawClippedPoly. */
 
-void __cdecl Shadow_DrawClippedPoly(float *verts,int count,float *minXY,float *maxXY,void *shadow)
+void __cdecl
+sputCostume_OutputShadowPoly(float *verts,int count,float *minXY,float *maxXY,void *shadow)
 
 {
   unsigned char _frame[0xd0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */

@@ -43,14 +43,14 @@ extern int g_anBlockySplit8Y[16]; /* 0x004f3968 */
 extern int g_anBlockySplit8X[16]; /* 0x004f39a8 */
 extern int g_nBlkLastSeq; /* 0x004f39e8 */
 extern undefined * g_apfnInsaneTimerModule; /* 0x004f3bf8 */
-extern undefined * g_apfnInsaneTimerInterface; /* 0x004f3c08 */
+extern undefined * g_pInsaneTimer_timer_services; /* 0x004f3c08 */
 extern undefined * g_apfnSoundModule; /* 0x004f3dc8 */
 extern undefined * g_apfnSoundInterface; /* 0x004f3dd8 */
 extern undefined * g_apfnDsndDriverModule; /* 0x004f3f68 */
-extern undefined * g_apfnDsndDriverInterface; /* 0x004f3f78 */
+extern undefined * g_pDsndDriver_snddriver_services; /* 0x004f3f78 */
 extern int g_nStreamLastBlock; /* 0x004f3f94 */
 extern uint g_dwStreamRate; /* 0x004f3f98 */
-extern uint g_dwStreamVolume; /* 0x004f3f9c */
+extern uint g_dwCurrentVol; /* 0x004f3f9c */
 extern int g_nStreamSavedVolume; /* 0x004f3fa0 */
 extern uint g_dwMixTableUnits; /* 0x004f40f8 */
 extern float g_flMain_Service_frameRate; /* 0x004f44e4 */
@@ -66,8 +66,8 @@ extern char ** g_ppRegValueNames; /* 0x004f5ea0 */
 extern uint g_dwRegValueCount; /* 0x004f5ea4 */
 extern void * g_pRegRootKey; /* 0x004f5eb0 */
 extern void * g_pRdCamera_CurCamera; /* 0x007f0fc8 */
-extern void * g_pRdCurrentModel; /* 0x007f30d4 */
-extern void * g_pRdCurrentThing; /* 0x007f31e0 */
+extern void * g_pCurModel3; /* 0x007f30d4 */
+extern void * g_pCurThing; /* 0x007f31e0 */
 extern int g_nRdNRaster_numVertices; /* 0x007f424c */
 extern int g_nRdNRaster_yMinVert; /* 0x007f42e8 */
 extern int g_nRdNRaster_leftVertexStep; /* 0x007f42ec */
@@ -210,20 +210,20 @@ extern int g_nBretsFrameCount; /* 0x008d6f1c */
 extern int * g_pZfile_memory_services; /* 0x008d7834 */
 extern int * g_pStdFile_filio_services; /* 0x008d7848 */
 extern void * g_pFob_blit_routine; /* 0x008da508 */
-extern byte * g_pbBlkCur; /* 0x008da50c */
+extern byte * g_pFob_blk16_render_buffer; /* 0x008da50c */
 extern byte * g_pbBlkExpand; /* 0x008da510 */
-extern int g_nBlkShiftR; /* 0x008da514 */
-extern int g_nBlkShiftG; /* 0x008da518 */
-extern int g_nBlkShiftB; /* 0x008da51c */
-extern int g_nBlkDepth; /* 0x008da520 */
+extern int g_nFob_translation_shiftr; /* 0x008da514 */
+extern int g_nFob_translation_shiftg; /* 0x008da518 */
+extern int g_nFob_translation_shiftb; /* 0x008da51c */
+extern int g_nGlobal_bm_type; /* 0x008da520 */
 extern int * g_pBlkBitmap0; /* 0x008da528 */
 extern int * g_pBlkBitmap1; /* 0x008da52c */
 extern int * g_pBlkBitmap2; /* 0x008da530 */
-extern int g_nBlkPixels; /* 0x008da534 */
+extern int g_nFob_buffersize; /* 0x008da534 */
 extern byte * g_pbBlkOutput; /* 0x008da538 */
-extern int g_nTimerClock; /* 0x008da5c8 */
+extern int g_nSys_global_timer; /* 0x008da5c8 */
 extern int * g_pInsaneTimer_share_services; /* 0x008da5cc */
-extern uint g_dwTimerStep; /* 0x008da860 */
+extern uint g_dwSys_timer_count; /* 0x008da860 */
 extern int g_anSndStreamKind[16]; /* 0x008da8b0 */
 extern int g_anSndStreamKey[16]; /* 0x008dad00 */
 extern int g_anSndChunkCount[16]; /* 0x008db0a8 */
@@ -264,9 +264,9 @@ extern int * g_pAnm_streamer_services; /* 0x00906c38 */
 extern int * g_pAnm_memory_services; /* 0x00906c3c */
 extern int * g_pZf_filio_services; /* 0x00906c44 */
 extern uint g_stBlockyDecState; /* 0x00906c48 */
-extern byte * g_pbBlkPrev2; /* 0x00906c74 */
+extern byte * g_pFob_blk16_key_buffer; /* 0x00906c74 */
 extern undefined2 g_aBlockySplit8; /* 0x00906c80, undefined2 in Ghidra */
-extern byte * g_pbBlkPrev; /* 0x0091f080 */
+extern byte * g_pFob_blk16_delta_buffer; /* 0x0091f080 */
 extern undefined2 g_aBlockySplit4; /* 0x0091f0a0, undefined2 in Ghidra */
 extern short g_asBlockyMotion; /* 0x009270a0 */
 
@@ -603,7 +603,7 @@ extern char s_tot_____int_bytes_004e7fd4[]; /* used by 1 fn(s), first 0x004831f0
 extern char s_patch05_bin_004e7fe8[]; /* used by 1 fn(s), first 0x00483240 */
 extern char s_size_____int_vbuf__rasterInfo_si_004e7ff4[]; /* used by 1 fn(s), first 0x00483490 */
 extern char s_grim_tmp_004e8018[]; /* used by 2 fn(s), first 0x00483610 */
-extern undefined *PTR_s_language_tab_004e8024; /* used by 1 fn(s), first 0x00483720 */
+extern undefined *g_pTabFilename; /* used by 1 fn(s), first 0x00483720 */
 extern char s_C__grimsrc_libs_grimlib_Engine_p_004e8038[]; /* used by 1 fn(s), first 0x00483720 */
 extern undefined4 UINT_004e806c; /* used by 2 fn(s), first 0x00402c80 */
 extern uint g_dwLoadImageAllowed; /* used by 2 fn(s), first 0x004874c0 */
@@ -981,10 +981,10 @@ extern undefined *PTR_PTR_004f07a0; /* used by 2 fn(s), first 0x004b64f0 */
 extern undefined4 UINT_004f0888; /* used by 1 fn(s), first 0x004b9ea0 */
 extern undefined *g_pSubscription_info; /* used by 2 fn(s), first 0x004bd440 */
 extern undefined *g_pShl_modules; /* used by 1 fn(s), first 0x004bd3a0 */
-extern undefined *PTR_FUN_004f0c18; /* used by 1 fn(s), first 0x004bdf70 */
-extern undefined *PTR_FUN_004f0c28; /* used by 1 fn(s), first 0x004bdf70 */
-extern undefined *PTR_FUN_004f0c38; /* used by 1 fn(s), first 0x004be050 */
-extern undefined *PTR_FUN_004f0c48; /* used by 1 fn(s), first 0x004be050 */
+extern undefined *g_pGrimmem_module_services; /* used by 1 fn(s), first 0x004bdf70 */
+extern undefined *g_pGrimmem_memory_services; /* used by 1 fn(s), first 0x004bdf70 */
+extern undefined *g_pGrimio_services; /* used by 1 fn(s), first 0x004be050 */
+extern undefined *g_pGrimio_filio_services; /* used by 1 fn(s), first 0x004be050 */
 extern char s_FILIO_insane_stdio_004f0c64[]; /* used by 2 fn(s), first 0x004be050 */
 extern char s_FILIO_insane_zfilio_004f0ca0[]; /* used by 3 fn(s), first 0x004bd3a0 */
 extern undefined DAT_004f0cb4; /* used by 1 fn(s), first 0x004bd440 */
@@ -1036,12 +1036,12 @@ extern char s_LECMODULE_004f1224[]; /* used by 3 fn(s), first 0x004c13f0 */
 extern char s_LecShare_Startup__Failed_with_mo_004f1230[]; /* used by 1 fn(s), first 0x004c1460 */
 extern char s_LecShare_BatchSubscribe_Couldn_t_004f125c[]; /* used by 1 fn(s), first 0x004c1850 */
 extern char s_LecShare_BatchUnsubscribe_Couldn_004f1298[]; /* used by 1 fn(s), first 0x004c1900 */
-extern undefined *PTR_FUN_004f12e0; /* used by 1 fn(s), first 0x004c1f40 */
-extern undefined *PTR_anm_EasyPlay_004f12f0; /* used by 1 fn(s), first 0x004c1f40 */
-extern undefined *PTR_FUN_004f1318; /* used by 1 fn(s), first 0x004c3c90 */
-extern undefined *PTR_FUN_004f131c; /* used by 2 fn(s), first 0x004c3c00 */
-extern undefined *PTR_FUN_004f1328; /* used by 1 fn(s), first 0x004c1f40 */
-extern undefined4 UINT_004f1334; /* used by 1 fn(s), first 0x004c25c0 */
+extern undefined *PTR_anm_animplay_module_004f12e0; /* used by 1 fn(s), first 0x004c1f40 */
+extern undefined *g_pAnm_animplay_services; /* used by 1 fn(s), first 0x004c1f40 */
+extern undefined *PTR_anm_SetRate_004f1318; /* used by 1 fn(s), first 0x004c3c90 */
+extern undefined *PTR_anm_SyncUp_004f131c; /* used by 2 fn(s), first 0x004c3c00 */
+extern undefined *PTR_AnimPlay_anm_DebugInfo_004f1328; /* used by 1 fn(s), first 0x004c1f40 */
+extern undefined4 g_dwAnm_Render_count; /* used by 1 fn(s), first 0x004c25c0 */
 extern char s_DEBUG_insane_animplay_004f1338[]; /* used by 2 fn(s), first 0x004c1f40 */
 extern char s_ANIMPLAY_insane_004f1350[]; /* used by 2 fn(s), first 0x004c1f40 */
 extern char s_LECMODULE_insane_animplay_004f1360[]; /* used by 2 fn(s), first 0x004c1f40 */
@@ -1072,10 +1072,10 @@ extern char s_Insane_AnimPlay_004f16ac[]; /* used by 1 fn(s), first 0x004c2b00 *
 extern char s_Insane_AnimPlay_Debug_Interface_004f16bc[]; /* used by 1 fn(s), first 0x004c2b00 */
 extern char s_This_is_the_debugging_interface_f_004f16dc[]; /* used by 1 fn(s), first 0x004c2b00 */
 extern undefined4 g_dwAnm_overlay_flobdec; /* used by 1 fn(s), first 0x004c2fa0 */
-extern undefined4 UINT_004f1724; /* used by 2 fn(s), first 0x004c34d0 */
-extern undefined *PTR_FUN_004f1728; /* used by 1 fn(s), first 0x004c2b50 */
-extern undefined *PTR_FUN_004f1738; /* used by 1 fn(s), first 0x004c2b50 */
-extern undefined *PTR_FUN_004f1750; /* used by 1 fn(s), first 0x004c2b50 */
+extern undefined4 g_dwAnm_preload_out; /* used by 2 fn(s), first 0x004c34d0 */
+extern undefined *PTR_anm_animframe_module_004f1728; /* used by 1 fn(s), first 0x004c2b50 */
+extern undefined *g_pAnimframe_services; /* used by 1 fn(s), first 0x004c2b50 */
+extern undefined *PTR_AnimFrame_anm_DebugInfo_004f1750; /* used by 1 fn(s), first 0x004c2b50 */
 extern char s_DEBUG_animframe_004f175c[]; /* used by 2 fn(s), first 0x004c2b50 */
 extern char s_ANIMFRAME_insane_004f176c[]; /* used by 2 fn(s), first 0x004c2b50 */
 extern char s_LECMODULE_insane_animframe_004f1780[]; /* used by 2 fn(s), first 0x004c2b50 */
@@ -1099,8 +1099,8 @@ extern undefined4 UINT_004f1a04; /* used by 1 fn(s), first 0x004c3e60 */
 extern char s__c_c_c_c_c_c_c_c_c_c_004f1a08[]; /* used by 2 fn(s), first 0x004c3e60 */
 extern char s_1_1_3_004f1a20[]; /* used by 2 fn(s), first 0x004c3e60 */
 extern undefined DAT_004f1a28; /* used by 1 fn(s), first 0x004c4a00 */
-extern undefined *PTR_FUN_004f1a30; /* used by 1 fn(s), first 0x004c4b20 */
-extern undefined *PTR_FUN_004f1a40; /* used by 1 fn(s), first 0x004c4b20 */
+extern undefined *PTR_fle_streamer_module_004f1a30; /* used by 1 fn(s), first 0x004c4b20 */
+extern undefined *g_pStreamer_services; /* used by 1 fn(s), first 0x004c4b20 */
 extern char s_STREAMER_insane_streamer_004f1a60[]; /* used by 2 fn(s), first 0x004c4b20 */
 extern char s_LECMODULE_insane_streamer_004f1a7c[]; /* used by 2 fn(s), first 0x004c4b20 */
 extern char s_Streamer_Module__Cannot_allocate_004f1a98[]; /* used by 1 fn(s), first 0x004c4b90 */
@@ -1108,8 +1108,8 @@ extern char s_Streamer_Module__Cannot_allocate_004f1acc[]; /* used by 1 fn(s), f
 extern char s_FILIO_io_004f1b00[]; /* used by 1 fn(s), first 0x004c4b90 */
 extern char s_C__grimsrc_libs_lecsmush_insane__004f1b0c[]; /* used by 2 fn(s), first 0x004c4c50 */
 extern char s_File_Streamer__Invalid_frame_siz_004f1b44[]; /* used by 1 fn(s), first 0x004c50a0 */
-extern undefined *PTR_FUN_004f1b70; /* used by 1 fn(s), first 0x004c5280 */
-extern undefined *PTR_FUN_004f1b80; /* used by 1 fn(s), first 0x004c5280 */
+extern undefined *PTR_fle_directory_module_004f1b70; /* used by 1 fn(s), first 0x004c5280 */
+extern undefined *g_pDirectory_services; /* used by 1 fn(s), first 0x004c5280 */
 extern char s_DIRECTORY_insane_directory_004f1ba4[]; /* used by 2 fn(s), first 0x004c5280 */
 extern char s_LECMODULE_insane_directory_004f1bc0[]; /* used by 2 fn(s), first 0x004c5280 */
 extern char s_Directory_Module__Cannot_allocat_004f1bdc[]; /* used by 1 fn(s), first 0x004c52f0 */
@@ -1118,8 +1118,8 @@ extern undefined DAT_004f1c18; /* used by 1 fn(s), first 0x004c5720 */
 extern uint UINT_004f1c20; /* used by 2 fn(s), first 0x004c57d0 */
 extern undefined *PTR_DAT_004f1c28; /* used by 2 fn(s), first 0x004c57d0 */
 extern undefined DAT_004f1cf0; /* used by 1 fn(s), first 0x004c5950 */
-extern undefined *PTR_FUN_004f1cf8; /* used by 1 fn(s), first 0x004c5790 */
-extern undefined *PTR_Zfile_fle_Open_004f1d08; /* used by 1 fn(s), first 0x004c5790 */
+extern undefined *PTR_fle_zfilio_module_004f1cf8; /* used by 1 fn(s), first 0x004c5790 */
+extern undefined *g_pZfilio_services; /* used by 1 fn(s), first 0x004c5790 */
 extern char s_LECMODULE_insane_zfilio_004f1d24[]; /* used by 2 fn(s), first 0x004c5790 */
 extern char s_Too_many_zfilio_extension_set_004f1d3c[]; /* used by 1 fn(s), first 0x004c57d0 */
 extern char s_Zfile_Module__Cannot_allocate_me_004f1d5c[]; /* used by 1 fn(s), first 0x004c5870 */
@@ -1128,8 +1128,8 @@ extern char s_MEMORY_buffers_004f1dbc[]; /* used by 1 fn(s), first 0x004c5870 */
 extern char s_FILIO_chainto_004f1dcc[]; /* used by 2 fn(s), first 0x004c5870 */
 extern char s_Zfile_Memory_Alloc_fail_004f1ddc[]; /* used by 1 fn(s), first 0x004c5950 */
 extern char s_C__grimsrc_libs_lecsmush_insane__004f1df4[]; /* used by 2 fn(s), first 0x004c5950 */
-extern undefined *PTR_FUN_004f1e30; /* used by 1 fn(s), first 0x004c5ce0 */
-extern undefined *PTR_FUN_004f1e40; /* used by 1 fn(s), first 0x004c5ce0 */
+extern undefined *PTR_fle_stdfile_module_004f1e30; /* used by 1 fn(s), first 0x004c5ce0 */
+extern undefined *PTR_StdFile_fle_Open_004f1e40; /* used by 1 fn(s), first 0x004c5ce0 */
 extern char s_FILE_insane_stdfile_004f1e74[]; /* used by 2 fn(s), first 0x004c5ce0 */
 extern char s_LECMODULE_insane_stdfile_004f1e88[]; /* used by 2 fn(s), first 0x004c5ce0 */
 extern char s_StdFile_Module__Cannot_allocate_f_004f1ea4[]; /* used by 1 fn(s), first 0x004c5d50 */
@@ -1164,9 +1164,9 @@ extern char s_empty_distance_tree_with_lengths_004f3268[]; /* used by 1 fn(s), f
 extern char s_incomplete_distance_tree_004f328c[]; /* used by 1 fn(s), first 0x004cb390 */
 extern char s_oversubscribed_distance_tree_004f32a8[]; /* used by 1 fn(s), first 0x004cb390 */
 extern undefined DAT_004f32c8; /* used by 3 fn(s), first 0x004c7c50 */
-extern undefined *PTR_FUN_004f3310; /* used by 1 fn(s), first 0x004cba30 */
-extern undefined *PTR_FUN_004f3320; /* used by 1 fn(s), first 0x004cba30 */
-extern uint UINT_004f3340; /* used by 1 fn(s), first 0x004cbc00 */
+extern undefined *PTR_fob_flobdec_wave_module_004f3310; /* used by 1 fn(s), first 0x004cba30 */
+extern undefined *g_pDWave_flobdec_services; /* used by 1 fn(s), first 0x004cba30 */
+extern uint g_dwDWave_flobdec_DecodeBody_last_id; /* used by 1 fn(s), first 0x004cbc00 */
 extern undefined DAT_004f3348; /* used by 1 fn(s), first 0x004cbf50 */
 extern char s_FLOBDEC_insane_wave_004f3368[]; /* used by 2 fn(s), first 0x004cba30 */
 extern char s_LECMODULE_insane_wave_flobdec_004f337c[]; /* used by 2 fn(s), first 0x004cba30 */
@@ -1181,8 +1181,8 @@ extern char s_Decompresses_Variable_Bit_Rate_A_004f346c[]; /* used by 1 fn(s), f
 extern uint UINT_004f34a0; /* used by 1 fn(s), first 0x004cbc00 */
 extern uint UINT_004f34a8; /* used by 1 fn(s), first 0x004cbc00 */
 extern undefined4 UINT_004f34b0; /* used by 1 fn(s), first 0x004cbc00 */
-extern undefined *PTR_Blocky16_Register_004f34b8; /* used by 1 fn(s), first 0x004cc210 */
-extern undefined *PTR_Blocky16_GetInfoString_004f34c8; /* used by 1 fn(s), first 0x004cc210 */
+extern undefined *PTR_fob_flobdec_blocky16_module_004f34b8; /* used by 1 fn(s), first 0x004cc210 */
+extern undefined *g_pBlock16_flobdec_services; /* used by 1 fn(s), first 0x004cc210 */
 extern undefined2 DAT_004f34e8; /* used by 1 fn(s), first 0x004cc6a0 */
 extern uint UINT_004f38e4; /* used by 1 fn(s), first 0x004cc6a0 */
 extern char s_FLOBDEC_insane_blocky16_004f39ec[]; /* used by 2 fn(s), first 0x004cc210 */
@@ -1198,8 +1198,8 @@ extern undefined DAT_004f3c2c; /* used by 1 fn(s), first 0x004cdd80 */
 extern char s_TIMER_insane_004f3c30[]; /* used by 2 fn(s), first 0x004cdc90 */
 extern char s_LECMODULE_insane_timer_004f3c40[]; /* used by 2 fn(s), first 0x004cdc90 */
 extern char s_Timer_Module__Cannot_allocate_me_004f3c58[]; /* used by 1 fn(s), first 0x004cdd10 */
-extern undefined *PTR_FUN_004f3cc0; /* used by 1 fn(s), first 0x004ce2e0 */
-extern undefined *PTR_VideoBitmap_Create_004f3cd0; /* used by 1 fn(s), first 0x004ce2e0 */
+extern undefined *PTR_bmp_bitmap_module_004f3cc0; /* used by 1 fn(s), first 0x004ce2e0 */
+extern undefined *PTR_bmp_bitmap_Alloc_004f3cd0; /* used by 1 fn(s), first 0x004ce2e0 */
 extern char s_BITMAP_insane_004f3cdc[]; /* used by 2 fn(s), first 0x004ce2e0 */
 extern char s_LECMODULE_insane_bitmap_004f3cec[]; /* used by 2 fn(s), first 0x004ce2e0 */
 extern char s_Video_Module__Cannot_allocate_me_004f3d04[]; /* used by 1 fn(s), first 0x004ce350 */
@@ -1357,7 +1357,7 @@ extern undefined g_dwRdCache_drawnFaces; /* used by 2 fn(s), first 0x00406690 */
 extern undefined4 g_dwNumUsedVertices; /* used by 3 fn(s), first 0x00406670 */
 extern undefined4 g_dwNumUsedTexVertices; /* used by 3 fn(s), first 0x00406670 */
 extern undefined4 g_dwNumUsedIntensities; /* used by 3 fn(s), first 0x00406670 */
-extern undefined4 UINT_007f0fd0; /* used by 2 fn(s), first 0x0040cf20 */
+extern undefined4 g_dwCurGeo; /* used by 2 fn(s), first 0x0040cf20 */
 extern undefined DAT_007f0fd8; /* used by 1 fn(s), first 0x0040d230 */
 extern undefined DAT_007f0fdc; /* used by 1 fn(s), first 0x0040d230 */
 extern undefined DAT_007f0fe0; /* used by 1 fn(s), first 0x0040d230 */
@@ -1389,7 +1389,7 @@ extern undefined4 UINT_007f30e0; /* used by 2 fn(s), first 0x0040d230 */
 extern undefined4 g_dwLightingMode; /* used by 2 fn(s), first 0x0040d230 */
 extern undefined4 g_dwGeometryMode; /* used by 2 fn(s), first 0x0040d230 */
 extern undefined4 g_dwRdModel3_numDrawnModels; /* used by 2 fn(s), first 0x0040a860 */
-extern undefined4 UINT_007f31f0; /* used by 1 fn(s), first 0x0040a8f0 */
+extern undefined4 g_dwModel3Loader; /* used by 1 fn(s), first 0x0040a8f0 */
 extern undefined4 g_dwModel3Unloader; /* used by 1 fn(s), first 0x0040c0d0 */
 extern undefined4 g_dwNumGeoLights; /* used by 2 fn(s), first 0x0040cf20 */
 extern undefined4 g_dwNumMeshLights; /* used by 2 fn(s), first 0x0040d230 */
@@ -2065,9 +2065,9 @@ extern int UINT_008d11e0; /* used by 3 fn(s), first 0x004bd570 */
 extern int UINT_008d11e4; /* used by 3 fn(s), first 0x004bd570 */
 extern undefined4 UINT_008d11e8; /* used by 3 fn(s), first 0x004bd570 */
 extern undefined4 UINT_008d11ec; /* used by 3 fn(s), first 0x004bd570 */
-extern undefined DAT_008d11f0; /* used by 1 fn(s), first 0x004bdf70 */
+extern undefined g_dwGrimmem_share_config; /* used by 1 fn(s), first 0x004bdf70 */
 extern uint g_dwSmushPlayHS; /* used by 10 fn(s), first 0x004bd3a0 */
-extern int * PTR_008d11f8; /* used by 2 fn(s), first 0x004bdf70 */
+extern int * g_pGrimmem_share_services; /* used by 2 fn(s), first 0x004bdf70 */
 extern undefined4 g_dwAnimplay_services; /* used by 5 fn(s), first 0x004bd500 */
 extern undefined DAT_008d1208; /* used by 1 fn(s), first 0x004bd570 */
 extern undefined2 DAT_008d120c; /* used by 1 fn(s), first 0x004bd570 */
@@ -2076,7 +2076,7 @@ extern undefined2 DAT_008d1210; /* used by 1 fn(s), first 0x004bd570 */
 extern undefined2 DAT_008d1212; /* used by 1 fn(s), first 0x004bd570 */
 extern undefined4 UINT_008d1216; /* used by 1 fn(s), first 0x004bd970 */
 extern undefined4 UINT_008d121a; /* used by 2 fn(s), first 0x004bd570 */
-extern undefined DAT_008d1630; /* used by 1 fn(s), first 0x004be050 */
+extern undefined g_dwSmushPlay_share_config; /* used by 1 fn(s), first 0x004be050 */
 extern undefined4 UINT_008d1638; /* used by 1 fn(s), first 0x004bdea0 */
 extern undefined4 UINT_008d163c; /* used by 1 fn(s), first 0x004bdea0 */
 extern undefined4 UINT_008d1640; /* used by 1 fn(s), first 0x004bdea0 */
@@ -2145,7 +2145,7 @@ extern undefined DAT_008d6f08; /* used by 1 fn(s), first 0x004c1f40 */
 extern undefined DAT_008d6f0c; /* used by 1 fn(s), first 0x004c1f40 */
 extern uint g_dwAnimPlay_share_config; /* used by 2 fn(s), first 0x004c1f40 */
 extern uint UINT_008d6f20; /* used by 3 fn(s), first 0x004c23c0 */
-extern undefined4 UINT_008d6f24; /* used by 2 fn(s), first 0x004c2690 */
+extern undefined4 g_dwAnm_audio_halted; /* used by 2 fn(s), first 0x004c2690 */
 extern undefined4 g_dwRenderHandler_totalTime; /* used by 1 fn(s), first 0x004c27a0 */
 extern undefined4 g_dwAnm_flobdec_types; /* used by 2 fn(s), first 0x004c2be0 */
 extern undefined4 g_dwAnm_flobdec_services; /* used by 5 fn(s), first 0x004c2be0 */
@@ -2158,9 +2158,9 @@ extern undefined4 g_dwAnm_overlay_buffer; /* used by 3 fn(s), first 0x004c2be0 *
 extern undefined4 g_dwAnm_preload_buffer; /* used by 4 fn(s), first 0x004c2be0 */
 extern undefined4 g_dwAnm_overlay_size; /* used by 2 fn(s), first 0x004c2be0 */
 extern undefined4 UINT_008d77fc; /* used by 2 fn(s), first 0x004c2be0 */
-extern undefined4 UINT_008d7800; /* used by 2 fn(s), first 0x004c34d0 */
+extern undefined4 g_dwAnm_preload_in; /* used by 2 fn(s), first 0x004c34d0 */
 extern undefined4 g_dwAnm_transform_count; /* used by 1 fn(s), first 0x004c2fa0 */
-extern uint UINT_008d7808; /* used by 1 fn(s), first 0x004c34d0 */
+extern uint g_dwAnm_PreloadPut_lastblock; /* used by 1 fn(s), first 0x004c34d0 */
 extern undefined DAT_008d780c; /* used by 1 fn(s), first 0x004c34d0 */
 extern undefined DAT_008d7810; /* used by 1 fn(s), first 0x004c3bb0 */
 extern int * g_pStreamer_memory_services; /* used by 4 fn(s), first 0x004c4b90 */
@@ -2184,18 +2184,18 @@ extern undefined2 DAT_008d785c; /* used by 1 fn(s), first 0x004cbc00 */
 extern undefined2 DAT_008d785e; /* used by 3 fn(s), first 0x004cbbd0 */
 extern uint UINT_008d7860; /* used by 2 fn(s), first 0x004cbbe0 */
 extern int * g_pDWave_share_services; /* used by 4 fn(s), first 0x004cba30 */
-extern undefined2 DAT_008d7868; /* used by 1 fn(s), first 0x004cbf50 */
+extern undefined2 g_wDWave_aDeltaTable; /* used by 1 fn(s), first 0x004cbf50 */
 extern undefined DAT_008d78e8; /* used by 1 fn(s), first 0x004cbf50 */
 extern uint g_dwDWave_share_config; /* used by 2 fn(s), first 0x004cba30 */
 extern undefined4 g_dwSoundServices; /* used by 3 fn(s), first 0x004cbaa0 */
 extern int * g_pDWave_outputBuffer; /* used by 3 fn(s), first 0x004cbaa0 */
-extern undefined4 UINT_008da4f4; /* used by 1 fn(s), first 0x004cbf50 */
+extern undefined4 g_dwDWave_bDeltaTableInitialized; /* used by 1 fn(s), first 0x004cbf50 */
 extern int * g_pBlocky16_memory_services; /* used by 4 fn(s), first 0x004cc2c0 */
 extern int * g_pBlocky16_bitmap_services; /* used by 4 fn(s), first 0x004cc2c0 */
 extern int * g_pBlocky16_share_services; /* used by 4 fn(s), first 0x004cc210 */
 extern uint g_dwBlocky16_share_config; /* used by 2 fn(s), first 0x004cc210 */
 extern undefined4 g_dwInsaneTimer_memory_services; /* used by 2 fn(s), first 0x004cdd10 */
-extern undefined4 UINT_008da544; /* used by 1 fn(s), first 0x004cdc90 */
+extern undefined4 g_dwTimer_rate; /* used by 1 fn(s), first 0x004cdc90 */
 extern undefined DAT_008da548; /* used by 1 fn(s), first 0x004ce1d0 */
 extern undefined DAT_008da588; /* used by 1 fn(s), first 0x004ce1d0 */
 extern undefined DAT_008da5d0; /* used by 1 fn(s), first 0x004ce1d0 */
@@ -2212,7 +2212,7 @@ extern undefined4 UINT_008da868; /* used by 2 fn(s), first 0x004ce060 */
 extern undefined DAT_008da86c; /* used by 1 fn(s), first 0x004ce060 */
 extern undefined4 UINT_008da870; /* used by 1 fn(s), first 0x004ce060 */
 extern undefined4 UINT_008da874; /* used by 3 fn(s), first 0x004cdd80 */
-extern undefined4 UINT_008da878; /* used by 3 fn(s), first 0x004cdef0 */
+extern undefined4 g_dwSys_disable_flag; /* used by 3 fn(s), first 0x004cdef0 */
 extern undefined4 UINT_008da87c; /* used by 1 fn(s), first 0x004ce060 */
 extern undefined4 UINT_008da880; /* used by 1 fn(s), first 0x004ce060 */
 extern undefined4 UINT_008da884; /* used by 1 fn(s), first 0x004ce1d0 */
@@ -2282,12 +2282,12 @@ extern uint g_dwSoundModule_share_config; /* used by 2 fn(s), first 0x004d0300 *
 extern undefined4 g_dwSound_samplerate; /* used by 2 fn(s), first 0x004d0300 */
 extern uint g_dwSound_name; /* used by 2 fn(s), first 0x004d0300 */
 extern undefined DAT_008db0e8; /* used by 4 fn(s), first 0x004d0550 */
-extern undefined DAT_008db1e8; /* used by 1 fn(s), first 0x004d0300 */
-extern undefined4 UINT_008db1ec; /* used by 3 fn(s), first 0x004d0a80 */
+extern undefined g_dwSound_channel; /* used by 1 fn(s), first 0x004d0300 */
+extern undefined4 g_dwSou_paused_flag; /* used by 3 fn(s), first 0x004d0a80 */
 extern undefined4 g_dwSou_active_flag; /* used by 3 fn(s), first 0x004d0550 */
 extern undefined4 UINT_008db1f8; /* used by 2 fn(s), first 0x004d1690 */
 extern undefined DAT_008db200; /* used by 1 fn(s), first 0x004d2340 */
-extern undefined4 UINT_008db208; /* used by 4 fn(s), first 0x004d24b0 */
+extern undefined4 g_dwDsndDriver_memory_services; /* used by 4 fn(s), first 0x004d24b0 */
 extern undefined DAT_008db20c; /* used by 1 fn(s), first 0x004d2420 */
 extern undefined4 UINT_008db210; /* used by 1 fn(s), first 0x004d2630 */
 extern undefined DAT_008db214; /* used by 1 fn(s), first 0x004d2630 */
@@ -2315,13 +2315,13 @@ extern undefined4 UINT_008dcc58; /* used by 1 fn(s), first 0x004d2630 */
 extern undefined DAT_008dcc70; /* used by 1 fn(s), first 0x004d2e80 */
 extern undefined DAT_008dcc78; /* used by 1 fn(s), first 0x004d3040 */
 extern undefined DAT_008dcda0; /* used by 1 fn(s), first 0x004d2e80 */
-extern undefined4 UINT_008dcdb8; /* used by 1 fn(s), first 0x004d5ed0 */
-extern undefined4 UINT_008dcdbc; /* used by 2 fn(s), first 0x004d5eb0 */
-extern undefined DAT_008dcdc0; /* used by 1 fn(s), first 0x004d5ed0 */
-extern int * PTR_008dcdc4; /* used by 2 fn(s), first 0x004d5eb0 */
-extern undefined DAT_008dcdc8; /* used by 1 fn(s), first 0x004d5f70 */
-extern undefined4 UINT_008ddd68; /* used by 1 fn(s), first 0x004d5f70 */
-extern uint UINT_008ddd6c; /* used by 1 fn(s), first 0x004d5f70 */
+extern undefined4 g_dwMsc_uncompress_count; /* used by 1 fn(s), first 0x004d5ed0 */
+extern undefined4 g_dwMsc_uncompress_state; /* used by 2 fn(s), first 0x004d5eb0 */
+extern undefined g_bMsc_uncompress_val; /* used by 1 fn(s), first 0x004d5ed0 */
+extern int * g_pMsc_uncompress_data; /* used by 2 fn(s), first 0x004d5eb0 */
+extern undefined g_aMsc_error_string; /* used by 1 fn(s), first 0x004d5f70 */
+extern undefined4 g_dwMsc_error_loc; /* used by 1 fn(s), first 0x004d5f70 */
+extern uint g_dwMsc_error_count; /* used by 1 fn(s), first 0x004d5f70 */
 extern undefined g_aPolyglotServices; /* used by 1 fn(s), first 0x004012b0 */
 extern undefined4 UINT_008ddd84; /* used by 1 fn(s), first 0x00401950 */
 extern undefined4 UINT_008ddd88; /* used by 1 fn(s), first 0x004012b0 */
@@ -2907,8 +2907,8 @@ extern undefined4 in_stack_ffffffe8; /* used by 2 fn(s), first 0x0040dc30 */
 #define _DAT_008d0eb4 (*(undefined4 *)&DAT_008d0eb4) /* same address as DAT_008d0eb4, other width */
 #define _DAT_008d0eb8 (*(undefined4 *)&DAT_008d0eb8) /* same address as DAT_008d0eb8, other width */
 #define _g_bMovieFlags (*(undefined *)&g_bMovieFlags) /* same address as g_bMovieFlags, other width */
-#define _DAT_008d11f0 (*(undefined4 *)&DAT_008d11f0) /* same address as DAT_008d11f0, other width */
-#define _DAT_008d1630 (*(undefined4 *)&DAT_008d1630) /* same address as DAT_008d1630, other width */
+#define _g_dwGrimmem_share_config (*(undefined4 *)&g_dwGrimmem_share_config) /* same address as g_dwGrimmem_share_config, other width */
+#define _g_dwSmushPlay_share_config (*(undefined4 *)&g_dwSmushPlay_share_config) /* same address as g_dwSmushPlay_share_config, other width */
 #define _g_aFakeBM (*(undefined4 *)&g_aFakeBM) /* same address as g_aFakeBM, other width */
 #define _DAT_008d164c (*(undefined4 *)&DAT_008d164c) /* same address as DAT_008d164c, other width */
 #define _DAT_008d1650 (*(undefined4 *)&DAT_008d1650) /* same address as DAT_008d1650, other width */
@@ -2938,7 +2938,7 @@ extern undefined4 in_stack_ffffffe8; /* used by 2 fn(s), first 0x0040dc30 */
 #define _DAT_008da5d0 (*(undefined4 *)&DAT_008da5d0) /* same address as DAT_008da5d0, other width */
 #define _DAT_008da86c (*(undefined4 *)&DAT_008da86c) /* same address as DAT_008da86c, other width */
 #define _DAT_008da888 (*(undefined4 *)&DAT_008da888) /* same address as DAT_008da888, other width */
-#define _DAT_008db1e8 (*(undefined4 *)&DAT_008db1e8) /* same address as DAT_008db1e8, other width */
+#define _g_dwSound_channel (*(undefined4 *)&g_dwSound_channel) /* same address as g_dwSound_channel, other width */
 #define _DAT_008db20c (*(undefined4 *)&DAT_008db20c) /* same address as DAT_008db20c, other width */
 #define _DAT_008db214 (*(undefined4 *)&DAT_008db214) /* same address as DAT_008db214, other width */
 #define _DAT_008db218 (*(undefined4 *)&DAT_008db218) /* same address as DAT_008db218, other width */

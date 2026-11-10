@@ -22,8 +22,8 @@
  {"addr": "00407fd0", "name": "rdCache_DrawFaceN", "proto": "int rdCache_DrawFaceN(void * mesh)", "comment": "Software path without z-buffer: clamps the mesh modes to the global limits and calls the rasterizer entry for each face", "tags": "rdroid"},
  {"addr": "00408af0", "name": "rdCache_DrawFaceZ", "proto": "int rdCache_DrawFaceZ(void * mesh)", "comment": "Software path with z-buffer", "tags": "rdroid"},
  {"addr": "0040a760", "name": "rdCamera_AddLight", "proto": "int rdCamera_AddLight(void * camera, void * light, float * position)", "comment": "Up to 64 lights per camera; stores the light pointer and position and precomputes the falloff terms", "tags": "rdroid"},
- {"addr": "0040cf20", "name": "rdThing_Draw", "proto": "int rdThing_Draw(void * thing, float * position)", "comment": "Rdthing.c: frustum-tests the model's bounding sphere, picks the geometry set, updates the puppet and draws the node hierarchy", "tags": "rdroid"},
- {"addr": "0040d140", "name": "rdModel_DrawNode", "comment": "Recursive hierarchy walk (+0x58 child count, +0x5c first child, +0x60 sibling) drawing each node's mesh", "tags": "rdroid"},
+ {"addr": "0040cf20", "name": "rdModel3_Draw", "proto": "int rdModel3_Draw(void * thing, float * position)", "comment": "Rdthing.c: frustum-tests the model's bounding sphere, picks the geometry set, updates the puppet and draws the node hierarchy", "tags": "rdroid"},
+ {"addr": "0040d140", "name": "rdModel3_DrawHNode", "comment": "Recursive hierarchy walk (+0x58 child count, +0x5c first child, +0x60 sibling) drawing each node's mesh", "tags": "rdroid"},
  {"addr": "0040d230", "name": "rdModel3_DrawMeshImpl", "proto": "void rdModel3_DrawMeshImpl(void * mesh, float * matrix)", "tags": "rdroid"},
  {"addr": "0040d880", "name": "rdModel3_DrawFace", "tags": "rdroid"},
  {"addr": "0040dcc0", "name": "rdPrimit3_DrawLine", "comment": "Clips a world-space segment against the camera frustum, projects it and draws it with rdCanvas_DrawLine", "tags": "rdroid"},
@@ -106,7 +106,7 @@
  {"addr": "0090005c", "global": "g_nRdroid_curAcceleration", "type": "int", "comment": "Positive when Direct3D hardware rendering is active"},
  {"addr": "008ddfa0", "global": "g_dwRdCache_numProcFaces", "type": "uint", "comment": "Number of meshes waiting in the rdCache mesh list"},
  {"addr": "007f0fc8", "global": "g_pRdCamera_CurCamera", "type": "void *", "comment": "Camera the RDroid renderer is currently drawing with (canvas at +4, position at +8, frustum at +0x48)"},
- {"addr": "007f31e0", "global": "g_pRdCurrentThing", "type": "void *", "comment": "Thing being drawn by rdThing_Draw"},
- {"addr": "007f30d4", "global": "g_pRdCurrentModel", "type": "void *", "comment": "Model of the thing being drawn by rdThing_Draw"},
+ {"addr": "007f31e0", "global": "g_pCurThing", "type": "void *", "comment": "Thing being drawn by rdModel3_Draw"},
+ {"addr": "007f30d4", "global": "g_pCurModel3", "type": "void *", "comment": "Model of the thing being drawn by rdModel3_Draw"},
  {"addr": "004d75a0", "global": "g_flRdroid_identMatrix34", "type": "float", "array_length": 12, "comment": "Identity 3x4 matrix copied by rdMatrix_BuildTranslate34"}
 ]

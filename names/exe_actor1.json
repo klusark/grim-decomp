@@ -30,7 +30,7 @@
  {"addr": "00446880", "name": "Vec3_Dot", "proto": "float Vec3_Dot(float * a, float * b)", "tags": "math3d"},
  {"addr": "004468a0", "name": "rdVector_Dot3", "proto": "float rdVector_Dot3(float * a, float * b)", "tags": "math3d"},
  {"addr": "0047c3b0", "name": "Math_AsinDegrees", "proto": "float Math_AsinDegrees(float x)", "tags": "math"},
- {"addr": "004500d0", "name": "Vec3_Rotate3x3", "proto": "void Vec3_Rotate3x3(float * vec, float * m)", "comment": "Rotates the vector in place by the 3x3 part of the matrix", "tags": "math3d"},
+ {"addr": "004500d0", "name": "rdMatrix_TransformPoint34Acc", "proto": "void rdMatrix_TransformPoint34Acc(float * vec, float * m)", "comment": "Rotates the vector in place by the 3x3 part of the matrix", "tags": "math3d"},
  {"addr": "0044ffc0", "name": "rdMatrix_TransformVector34Acc", "proto": "void rdMatrix_TransformVector34Acc(float * vec, float * m)", "comment": "Transforms the point in place by the 3x4 matrix", "tags": "math3d"},
  {"addr": "0044ff50", "name": "Vec3_TransformTo", "proto": "void Vec3_TransformTo(float * out, float * v, float * m)", "tags": "math3d"},
  {"addr": "00450ba0", "name": "rdPuppet_UpdateFrame", "proto": "void rdPuppet_UpdateFrame(void * model, float * frame)", "tags": "rdroid"},

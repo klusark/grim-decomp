@@ -164,7 +164,7 @@ void Collision_BoxCorners(int param_1,float param_2,float *param_3,float param_4
     param_5[10] = param_2 + *(float *)(param_1 + 0x70);
     param_5[0xb] = *(float *)(param_1 + 0x68);
     do {
-      Vec3_Rotate3x3(param_5,param_3);
+      rdMatrix_TransformPoint34Acc(param_5,param_3);
       param_5[2] = param_4;
       *pfVar2 = 1.4013e-45;
       pfVar2 = pfVar2 + 1;
@@ -498,14 +498,14 @@ undefined4 Collision_TestActorAgainstOthers(void *param_1)
               local_80[2] = local_a4[1];
             }
             pfVar6 = sputActor_GetOrientMatrix(actor);
-            Vec3_Rotate3x3(local_80 + 1,pfVar6);
+            rdMatrix_TransformPoint34Acc(local_80 + 1,pfVar6);
             local_80[1] = local_80[1] - local_98[0];
             local_80[2] = local_80[2] - local_98[1];
             *(float *)((int)param_1 + 0x18) = *(float *)((int)param_1 + 0xc);
             *(undefined4 *)((int)param_1 + 0x1c) = *(undefined4 *)((int)param_1 + 0x10);
             *(undefined4 *)((int)param_1 + 0x20) = *(undefined4 *)((int)param_1 + 0x14);
             pfVar6 = sputActor_GetOrientMatrix(actor);
-            Vec3_Rotate3x3((float *)&DAT_008ca320,pfVar6);
+            rdMatrix_TransformPoint34Acc((float *)&DAT_008ca320,pfVar6);
             *(float *)&DAT_008ca320 = *(float *)&DAT_008ca320 - local_98[0];
             *(float *)&DAT_008ca324 = *(float *)&DAT_008ca324 - local_98[1];
             *(float *)&DAT_008ca328 = *(float *)&DAT_008ca328 - local_98[2];

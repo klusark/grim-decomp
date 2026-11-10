@@ -1,18 +1,18 @@
-/* Movie sound: run the Smush "Wave" codec (module "LECMODULE insane_wave flobdec", FUN_004cbc00 -> FUN_004cbf50, the VIMA /
+/* Movie sound: run the Smush "Wave" codec (module "LECMODULE insane_wave flobdec", DWave_flobdec_DecodeBody -> VbrAdpcm_Uncompress, the VIMA /
  * IMA ADPCM decoder) of a program image on the Wave chunks of a real SNM movie and record what it hands to the SOUND service.
  * docs/notes/s3.md.
  *
  * The image (the original GRIMFANDANGO.EXE or a rebuilt grimfandango.exe) is mapped at its preferred base (0x400000) like the
- * Windows loader would, without imports, relocations or start-up code: the codec calls nothing but FUN_004cbf50 and the
+ * Windows loader would, without imports, relocations or start-up code: the codec calls nothing but VbrAdpcm_Uncompress and the
  * SOUND callback, and its state is plain globals of the image (every import slot is pointed at a function that exits).
  * Build (32 bit; the program must not occupy 0x400000-0xcfffff itself, and its main thread stack must be small enough to be
  * placed below 0x400000; it starts a suspended copy of itself and reserves the range there before that copy runs):
  *   /c/msys64/mingw32/bin/gcc -O1 -w vimadiff.c -o vimadiff.exe -Wl,--image-base=0x30000000 -Wl,--disable-dynamicbase \
  *       -Wl,--stack,0x80000
  *
- * usage: vimadiff <image> <FUN_004cbc00> <g_dwSoundServices> <g_pDWave_outputBuffer> <UINT_008d7860> <total> <waves> <out>
+ * usage: vimadiff <image> <DWave_flobdec_DecodeBody> <g_dwSoundServices> <g_pDWave_outputBuffer> <UINT_008d7860> <total> <waves> <out>
  *   addresses in hex (the original's, or nm's for a rebuilt image); <total> = the sample total of the FLHD Wave entry
- *   (UINT_008d7860, written by FUN_004cbbe0); <waves> = u32 count, then u32 size + payload per Wave chunk (snmparse.py);
+ *   (UINT_008d7860, written by DWave_flobdec_DecodeHeader); <waves> = u32 count, then u32 size + payload per Wave chunk (snmparse.py);
  *   <out> gets, per chunk: "CALL" u32 len + the buffer passed to the callback (header + PCM, len = BE size field + 8), then
  *   "RET " u32 return value.
  */

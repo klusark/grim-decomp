@@ -1,0 +1,482 @@
+[
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004e8024",
+  "old": "PTR_s_language_tab_004e8024",
+  "global": "g_pTabFilename",
+  "oldtype": "pointer",
+  "names_only": true,
+  "comment": "Original name pTabFilename (the remaster's GrimFandango (Linux): PolyglotConfigure: the language.tab file name pointer, as in the remaster); was PTR_s_language_tab_004e8024.",
+  "strict_mode": "warn"
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004f0c18",
+  "old": "PTR_FUN_004f0c18",
+  "global": "g_pGrimmem_module_services",
+  "oldtype": "pointer",
+  "names_only": true,
+  "comment": "Original name grimmem_module_services (the remaster's GrimFandango (Linux): the LECMODULE=insane_memory table grimmem_memory_module registers); was PTR_FUN_004f0c18.",
+  "strict_mode": "warn"
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004f0c28",
+  "old": "PTR_FUN_004f0c28",
+  "global": "g_pGrimmem_memory_services",
+  "oldtype": "pointer",
+  "names_only": true,
+  "comment": "Original name grimmem_memory_services (the remaster's GrimFandango (Linux): the MEMORY=insane table grimmem_memory_module registers); was PTR_FUN_004f0c28.",
+  "strict_mode": "warn"
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004f0c38",
+  "old": "PTR_FUN_004f0c38",
+  "global": "g_pGrimio_services",
+  "oldtype": "undefined *",
+  "names_only": true,
+  "comment": "Original name grimio_services (the remaster's GrimFandango (Linux): the LECMODULE=insane_stdio table grimio_stdio_module registers); was PTR_FUN_004f0c38."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004f0c48",
+  "old": "PTR_FUN_004f0c48",
+  "global": "g_pGrimio_filio_services",
+  "oldtype": "undefined *",
+  "names_only": true,
+  "comment": "Original name filio_services (the remaster's GrimFandango (Linux): the FILIO=insane_stdio table grimio_stdio_module registers (several files have filio_services)); was PTR_FUN_004f0c48."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004f12f0",
+  "old": "PTR_anm_EasyPlay_004f12f0",
+  "global": "g_pAnm_animplay_services",
+  "oldtype": "undefined *",
+  "names_only": true,
+  "comment": "Original name anm_animplay_services (the remaster's GrimFandango (Linux): the ANIMPLAY=insane table anm_animplay_module registers); was PTR_anm_EasyPlay_004f12f0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004f1334",
+  "old": "UINT_004f1334",
+  "global": "g_dwAnm_Render_count",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name anm_Render::count (the remaster's GrimFandango (Linux): anm_Render's adaptive streamer count (static count of anm_Render)); was UINT_004f1334."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004f1724",
+  "old": "UINT_004f1724",
+  "global": "g_dwAnm_preload_out",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name anm_preload_out (the remaster's GrimFandango (Linux): anm_PreloadGet / anm_PreloadPut: the preload read position (8 at the first block)); was UINT_004f1724."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004f1738",
+  "old": "PTR_FUN_004f1738",
+  "global": "g_pAnimframe_services",
+  "oldtype": "undefined *",
+  "names_only": true,
+  "comment": "Original name animframe_services (the remaster's GrimFandango (Linux): the ANIMFRAME=insane table anm_animframe_module registers); was PTR_FUN_004f1738."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004f1a40",
+  "old": "PTR_FUN_004f1a40",
+  "global": "g_pStreamer_services",
+  "oldtype": "undefined *",
+  "names_only": true,
+  "comment": "Original name streamer_services (the remaster's GrimFandango (Linux): the STREAMER=insane_streamer table fle_streamer_module registers); was PTR_FUN_004f1a40."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004f1b80",
+  "old": "PTR_FUN_004f1b80",
+  "global": "g_pDirectory_services",
+  "oldtype": "undefined *",
+  "names_only": true,
+  "comment": "Original name directory_services (the remaster's GrimFandango (Linux): the DIRECTORY=insane_directory table fle_directory_module registers); was PTR_FUN_004f1b80."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004f1d08",
+  "old": "PTR_Zfile_fle_Open_004f1d08",
+  "global": "g_pZfilio_services",
+  "oldtype": "undefined *",
+  "names_only": true,
+  "comment": "Original name zfilio_services (the remaster's GrimFandango (Linux): the FILIO=insane_zfilio table fle_zfilio_module registers); was PTR_Zfile_fle_Open_004f1d08."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004f3320",
+  "old": "PTR_FUN_004f3320",
+  "global": "g_pDWave_flobdec_services",
+  "oldtype": "undefined *",
+  "names_only": true,
+  "comment": "Original name flobdec_services (the remaster's GrimFandango (Linux): the FLOBDEC=insane_wave table fob_flobdec_wave_module registers); was PTR_FUN_004f3320."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004f3340",
+  "old": "UINT_004f3340",
+  "global": "g_dwDWave_flobdec_DecodeBody_last_id",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name flobdec_DecodeBody::last_id (the remaster's GrimFandango (Linux): the wave flobdec_DecodeBody's static last_id); was UINT_004f3340."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004f34c8",
+  "old": "PTR_Blocky16_GetInfoString_004f34c8",
+  "global": "g_pBlock16_flobdec_services",
+  "oldtype": "undefined *",
+  "names_only": true,
+  "comment": "Original name block16_flobdec_services (the remaster's GrimFandango (Linux): the FLOBDEC=insane_blocky16 table fob_flobdec_blocky16_module registers); was PTR_Blocky16_GetInfoString_004f34c8."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "007f0fd0",
+  "old": "UINT_007f0fd0",
+  "global": "g_dwCurGeo",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name pCurGeo (the remaster's GrimFandango (Linux): rdModel3_Draw / rdModel3_DrawHNode: the current geometry set); was UINT_007f0fd0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "007f31f0",
+  "old": "UINT_007f31f0",
+  "global": "g_dwModel3Loader",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name pModel3Loader (the remaster's GrimFandango (Linux): rdModel3_LoadEntry's loader hook (rdModel3_RegisterLoader)); was UINT_007f31f0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008d11f0",
+  "old": "DAT_008d11f0",
+  "global": "g_dwGrimmem_share_config",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name grimmem_share_config (the remaster's GrimFandango (Linux): grimmem_memory_module's second argument); was DAT_008d11f0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008d11f8",
+  "old": "PTR_008d11f8",
+  "global": "g_pGrimmem_share_services",
+  "oldtype": "int *",
+  "names_only": true,
+  "comment": "Original name grimmem_share_services (the remaster's GrimFandango (Linux): grimmem_memory_module's share services); was PTR_008d11f8."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008d1630",
+  "old": "DAT_008d1630",
+  "global": "g_dwSmushPlay_share_config",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name share_config (the remaster's GrimFandango (Linux): grimio_stdio_module's second argument (the share services are g_pSmushPlay_share_services)); was DAT_008d1630."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008d6f24",
+  "old": "UINT_008d6f24",
+  "global": "g_dwAnm_audio_halted",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name anm_audio_halted (the remaster's GrimFandango (Linux): sync_Timer / anm_Stop: the audio halted flag); was UINT_008d6f24."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008d7800",
+  "old": "UINT_008d7800",
+  "global": "g_dwAnm_preload_in",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name anm_preload_in (the remaster's GrimFandango (Linux): anm_PreloadPut / anm_PreloadGet: the preload write position); was UINT_008d7800."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008d7808",
+  "old": "UINT_008d7808",
+  "global": "g_dwAnm_PreloadPut_lastblock",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name anm_PreloadPut::lastblock (the remaster's GrimFandango (Linux): anm_PreloadPut's static last block number (-1 at the first block)); was UINT_008d7808."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008d7868",
+  "old": "DAT_008d7868",
+  "global": "g_wDWave_aDeltaTable",
+  "oldtype": "undefined2",
+  "names_only": true,
+  "comment": "Original name aDeltaTable (the remaster's GrimFandango (Linux): VbrAdpcm_Uncompress: the delta table built on the first call); was DAT_008d7868."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008da4f4",
+  "old": "UINT_008da4f4",
+  "global": "g_dwDWave_bDeltaTableInitialized",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name bDeltaTableInitialized (the remaster's GrimFandango (Linux): VbrAdpcm_Uncompress: the once flag of the delta table); was UINT_008da4f4."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008da544",
+  "old": "UINT_008da544",
+  "global": "g_dwTimer_rate",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name timer_rate (the remaster's GrimFandango (Linux): sys_timer_module (sys_timer_module)); was UINT_008da544."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008da878",
+  "old": "UINT_008da878",
+  "global": "g_dwSys_disable_flag",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name sys_disable_flag (the remaster's GrimFandango (Linux): sys_Disable / sys_Enable (sys_Disable / _Release)); was UINT_008da878."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008db1e8",
+  "old": "DAT_008db1e8",
+  "global": "g_dwSound_channel",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name sound_channel (the remaster's GrimFandango (Linux): cleared in sou_sound_module between sound_reserveram and sound_flipped, as in the remaster); was DAT_008db1e8."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008db1ec",
+  "old": "UINT_008db1ec",
+  "global": "g_dwSou_paused_flag",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name sou_paused_flag (the remaster's GrimFandango (Linux): sou_engine_Pause / sou_engine_Resume / sou_engine_fill); was UINT_008db1ec."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008db208",
+  "old": "UINT_008db208",
+  "global": "g_dwDsndDriver_memory_services",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name memory_services (the remaster's GrimFandango (Linux): the dsnd module's memory services (module_shutdown, dsn_terminate)); was UINT_008db208."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008dcdb8",
+  "old": "UINT_008dcdb8",
+  "global": "g_dwMsc_uncompress_count",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name msc_uncompress_count (the remaster's GrimFandango (Linux): msc_rle_DecompressGetbyte: the run count); was UINT_008dcdb8."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008dcdbc",
+  "old": "UINT_008dcdbc",
+  "global": "g_dwMsc_uncompress_state",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name msc_uncompress_state (the remaster's GrimFandango (Linux): msc_rle_DecompressInitialize / Getbyte: the state (2 = new run)); was UINT_008dcdbc."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008dcdc0",
+  "old": "DAT_008dcdc0",
+  "global": "g_bMsc_uncompress_val",
+  "oldtype": "undefined1",
+  "names_only": true,
+  "comment": "Original name msc_uncompress_val (the remaster's GrimFandango (Linux): msc_rle_DecompressGetbyte: the repeated byte); was DAT_008dcdc0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008dcdc4",
+  "old": "PTR_008dcdc4",
+  "global": "g_pMsc_uncompress_data",
+  "oldtype": "int *",
+  "names_only": true,
+  "comment": "Original name msc_uncompress_data (the remaster's GrimFandango (Linux): msc_rle_DecompressInitialize / Getbyte: the input pointer); was PTR_008dcdc4."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008dcdc8",
+  "old": "DAT_008dcdc8",
+  "global": "g_aMsc_error_string",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name msc_error_string (the remaster's GrimFandango (Linux): msc_error_SaveString: the 20 x 200 byte message ring); was DAT_008dcdc8."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ddd68",
+  "old": "UINT_008ddd68",
+  "global": "g_dwMsc_error_loc",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name msc_error_loc (the remaster's GrimFandango (Linux): msc_error_SaveString: the ring position (wraps at 0x13)); was UINT_008ddd68."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ddd6c",
+  "old": "UINT_008ddd6c",
+  "global": "g_dwMsc_error_count",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name msc_error_count (the remaster's GrimFandango (Linux): msc_error_SaveString: the message count (up to 0x13)); was UINT_008ddd6c."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "007f30d4",
+  "old": "g_pRdCurrentModel",
+  "global": "g_pCurModel3",
+  "oldtype": "void *",
+  "names_only": true,
+  "comment": "Model of the thing being drawn by rdModel3_Draw Original name pCurModel3 (the remaster's GrimFandango (Linux): rdModel3_Draw: the model being drawn (thing +4)); was g_pRdCurrentModel."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "007f31e0",
+  "old": "g_pRdCurrentThing",
+  "global": "g_pCurThing",
+  "oldtype": "void *",
+  "names_only": true,
+  "comment": "Thing being drawn by rdModel3_Draw Original name pCurThing (the remaster's GrimFandango (Linux): rdModel3_Draw / rdModel3_DrawHNode: the thing being drawn); was g_pRdCurrentThing."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008cab38",
+  "old": "g_pShadowMaterial",
+  "global": "g_pShadowMaterial",
+  "oldtype": "void *",
+  "names_only": true,
+  "comment": "shadow.mat material used for actor shadows Original name pShadowMaterial (the remaster's GrimFandango (Linux): sputCostume_DrawMeshShadow: rdMaterial_Load(\"shadow.mat\"))."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008da50c",
+  "old": "g_pbBlkCur",
+  "global": "g_pFob_blk16_render_buffer",
+  "oldtype": "byte *",
+  "names_only": true,
+  "comment": "Buffer the current Blocky16 frame is decoded into Original name fob_blk16_render_buffer (the remaster's GrimFandango (Linux): AllocBuffers: the third bitmap's pixels (key, delta, render)); was g_pbBlkCur."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008da514",
+  "old": "g_nBlkShiftR",
+  "global": "g_nFob_translation_shiftr",
+  "oldtype": "int",
+  "names_only": true,
+  "comment": "Red channel shift of the display format the expand table was made for Original name fob_translation_shiftr (the remaster's GrimFandango (Linux): AllocBuffers: cleared with the g / b shifts); was g_nBlkShiftR."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008da518",
+  "old": "g_nBlkShiftG",
+  "global": "g_nFob_translation_shiftg",
+  "oldtype": "int",
+  "names_only": true,
+  "comment": "Green channel shift of the display format the expand table was made for Original name fob_translation_shiftg (the remaster's GrimFandango (Linux): AllocBuffers: cleared with the r / b shifts); was g_nBlkShiftG."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008da51c",
+  "old": "g_nBlkShiftB",
+  "global": "g_nFob_translation_shiftb",
+  "oldtype": "int",
+  "names_only": true,
+  "comment": "Blue channel shift of the display format the expand table was made for Original name fob_translation_shiftb (the remaster's GrimFandango (Linux): AllocBuffers: cleared with the r / g shifts); was g_nBlkShiftB."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008da520",
+  "old": "g_nBlkDepth",
+  "global": "g_nGlobal_bm_type",
+  "oldtype": "int",
+  "names_only": true,
+  "comment": "Bits per pixel of the Blocky16 frame buffers Original name global_bm_type (the remaster's GrimFandango (Linux): AllocBuffers / flobdec_DecodeHeader: the bitmap type the buffers were made for); was g_nBlkDepth."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008da534",
+  "old": "g_nBlkPixels",
+  "global": "g_nFob_buffersize",
+  "oldtype": "int",
+  "names_only": true,
+  "comment": "Number of pixels of a Blocky16 frame buffer Original name fob_buffersize (the remaster's GrimFandango (Linux): AllocBuffers: width * height); was g_nBlkPixels."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00906c74",
+  "old": "g_pbBlkPrev2",
+  "global": "g_pFob_blk16_key_buffer",
+  "oldtype": "byte *",
+  "names_only": true,
+  "comment": "Blocky16 frame buffer holding the frame before the previous one Original name fob_blk16_key_buffer (the remaster's GrimFandango (Linux): AllocBuffers: the first bitmap's pixels); was g_pbBlkPrev2."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0091f080",
+  "old": "g_pbBlkPrev",
+  "global": "g_pFob_blk16_delta_buffer",
+  "oldtype": "byte *",
+  "names_only": true,
+  "comment": "Blocky16 frame buffer holding the previous frame Original name fob_blk16_delta_buffer (the remaster's GrimFandango (Linux): AllocBuffers: the second bitmap's pixels); was g_pbBlkPrev."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008da5c8",
+  "old": "g_nTimerClock",
+  "global": "g_nSys_global_timer",
+  "oldtype": "int",
+  "names_only": true,
+  "comment": "Timer clock in ticks (InsaneTimer_Tick adds g_nTimerStep) Original name sys_global_timer (the remaster's GrimFandango (Linux): sys_GetTime (sys_GetTime)); was g_nTimerClock."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008da860",
+  "old": "g_dwTimerStep",
+  "global": "g_dwSys_timer_count",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Ticks per InsaneTimer_Tick (0x4dae = 20.0 ms in the 1193180 Hz unit) Original name sys_timer_count (the remaster's GrimFandango (Linux): sys_GetCount); was g_dwTimerStep."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004f3f9c",
+  "old": "g_dwStreamVolume",
+  "global": "g_dwCurrentVol",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Volume 0..127 last passed to dsn_setvol Original name currentVol (the remaster's GrimFandango (Linux): dsn_setvol / dsn_getvol); was g_dwStreamVolume."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004f3c08",
+  "old": "g_apfnInsaneTimerInterface",
+  "global": "g_pInsaneTimer_timer_services",
+  "oldtype": "undefined *",
+  "names_only": true,
+  "comment": "Original name timer_services (the remaster's GrimFandango (Linux): the TIMER=insane table sys_timer_module registers); was g_apfnInsaneTimerInterface."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004f3f78",
+  "old": "g_apfnDsndDriverInterface",
+  "global": "g_pDsndDriver_snddriver_services",
+  "oldtype": "undefined *",
+  "names_only": true,
+  "comment": "Original name snddriver_services (the remaster's GrimFandango (Linux): the SNDDRIVER=insane_dsnd table sou_dsnd_module registers); was g_apfnDsndDriverInterface."
+ }
+]

@@ -48,7 +48,7 @@
  {"addr": "0048ac00", "name": "List_Unlink", "comment": "Removes a {prev,next} doubly linked node", "tags": "memory"},
  {"addr": "0048f920", "name": "sputActor_GetNumActorsTalking", "tags": "renderer"},
  {"addr": "00494690", "name": "Actor_CountCostumes", "tags": "actor"},
- {"addr": "00494940", "name": "Actor_DrawShadowPlane", "tags": "actor"},
+ {"addr": "00494940", "name": "sputCostume_DrawMeshShadow", "tags": "actor"},
  {"addr": "00495080", "name": "sputCostume_Draw3D", "tags": "actor"},
  {"addr": "0049c750", "name": "sputLua_CollisionHandler", "comment": "Tests a segment against a sector's edges, returning the entry/exit points", "tags": "sector"}
 ]

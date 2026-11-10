@@ -1,5 +1,5 @@
 """Movie sound differential test (docs/notes/s3.md): decode the Wave (VIMA) audio of real SNM movies with the Smush Wave codec
-(FUN_004cbc00 -> FUN_004cbf50) of the original GRIMFANDANGO.EXE and of rebuilt exes, compare the PCM.
+(DWave_flobdec_DecodeBody -> VbrAdpcm_Uncompress) of the original GRIMFANDANGO.EXE and of rebuilt exes, compare the PCM.
 
 usage: python -I moviesound.py <vimadiff.exe> <workdir> <movie.snm>... -- <name>=<rebuilt grimfandango.exe>...
   The movies are gzip'ed SNM files (tools/lab.py extract MOVIE0x.LAB <name>).  For every movie and image: the Wave chunks are
@@ -17,7 +17,7 @@ import sys
 ORIG = "C:/GOG Games/GRIMDATA/GRIMFANDANGO.exe"
 ORIG_ADDRS = ("4cbc00", "8da4ec", "8da4f0", "8d7860")
 NM = "C:/msys64/mingw32/bin/nm.exe"
-SYMS = ("_FUN_004cbc00", "_g_dwSoundServices", "_g_pDWave_outputBuffer", "_UINT_008d7860")
+SYMS = ("_DWave_flobdec_DecodeBody", "_g_dwSoundServices", "_g_pDWave_outputBuffer", "_UINT_008d7860")
 
 
 def addrs_of(image):

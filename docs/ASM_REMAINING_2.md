@@ -23,7 +23,7 @@ Scope: GRIMFANDANGO.EXE >= 0x004a0000, all of LUA.DLL, IMUSE.DLL and CHORE.DLL. 
 | 004a26b0 | `sputLua_RestoreCacheRect` | lua.c | register-passed value or callee-saved register used across a call (unaff_ESI) |
 | 004a4e80 | `SetSoundPosition` | sound.c | x87 value crosses an instruction/call boundary (Ghidra loses ST0: unaff_EBP,unaff_ESI,_ftol(); register-passed value or callee-saved register used across a call (unaff_EBP,unaff_ESI) |
 | 004a5d50 | `sputRoom_AddObjectState` | objstate.c | C++ exception frame (SEH registration) around allocations |
-| 004a7bc0 | `SetFile_ParseSectors` | sector.c | C++ exception frame (SEH registration) around allocations; calls a function whose result Ghidra does not see (Sector_SetSavedType) |
+| 004a7bc0 | `ParseCollection` | sector.c | C++ exception frame (SEH registration) around allocations; calls a function whose result Ghidra does not see (Sector_SetSavedType) |
 | 004a83c0 | `Puck_Rotate` | walker.c | not converted yet (no known artifact); see notes below |
 | 004a85b0 | `Puck_Constrain` | walker.c | not converted yet (no known artifact); see notes below |
 | 004a89b0 | `Walker_SetSectorFrame` | walker.c | not converted yet (no known artifact); see notes below |
@@ -77,8 +77,8 @@ Scope: GRIMFANDANGO.EXE >= 0x004a0000, all of LUA.DLL, IMUSE.DLL and CHORE.DLL. 
 
 | address | name | module | reason |
 |---|---|---|---|
-| 10001000 | `Im_VimaDecodeBlock` | imuse.c | not converted yet (no known artifact); see notes below |
-| 100013c0 | `Im_VimaDecompress` | imuse.c | not converted yet (no known artifact); see notes below |
+| 10001000 | `AudioLib_DetectRawFormat` | imuse.c | not converted yet (no known artifact); see notes below |
+| 100013c0 | `AudioLib_ParseWaveFileHeader` | imuse.c | not converted yet (no known artifact); see notes below |
 | 100017e0 | `Im_DecodeSoundBlock` | imuse.c | not converted yet (no known artifact); see notes below |
 | 10001ba0 | `AudioLib_ResetCompressor` | imuse.c | not converted yet (no known artifact); see notes below |
 | 10001bc0 | `AudioLib_UncompressBlock` | imuse.c | not converted yet (no known artifact); see notes below |

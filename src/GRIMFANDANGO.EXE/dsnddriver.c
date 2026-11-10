@@ -5,20 +5,22 @@
 #include "globals.h"
 #include "functions.h"
 
-/* ---- 0x004d2420  DsndDriver_Register ---- */
+/* ---- 0x004d2420  sou_dsnd_module ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
-/* Entry of LECMODULE insane_dsnd: registers the DirectSound sound driver (SNDDRIVER insane_dsnd) */
+/* Entry of LECMODULE insane_dsnd: registers the DirectSound sound driver (SNDDRIVER insane_dsnd)
+   Original name sou_dsnd_module (the remaster's GrimFandango (Linux): slot 0 of the
+   "LECMODULE=insane_dsnd" service table); was DsndDriver_Register. */
 
-int __cdecl DsndDriver_Register(int *services,uint moduleSize)
+int __cdecl sou_dsnd_module(int *services,uint moduleSize)
 
 {
   g_pDsndDriver_share_services = services;
   g_dwDsndDriver_share_config = moduleSize;
   (*(code *)*services)(s_LECMODULE_insane_dsnd_004f3fec,&g_apfnDsndDriverModule);
   (*(code *)*g_pDsndDriver_share_services)
-            (s_SNDDRIVER_insane_dsnd_004f3fd4,&g_apfnDsndDriverInterface);
+            (s_SNDDRIVER_insane_dsnd_004f3fd4,&g_pDsndDriver_snddriver_services);
   _DAT_008db414 = 0xffffffff;
   _DAT_008db20c = 0xffffffff;
   _DAT_008dcc38 = 0xffffffff;
@@ -28,12 +30,15 @@ int __cdecl DsndDriver_Register(int *services,uint moduleSize)
 #endif
 
 
-/* ---- 0x004d2480  DsndDriver_Unregister ---- */
+/* ---- 0x004d2480  DsndDriver_module_terminate ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
+/* Original name DsndDriver_module_terminate (the remaster's GrimFandango (Linux): slot 1 of the
+   "LECMODULE=insane_dsnd" service table; module_terminate is a static several LEC modules have,
+   written with the module prefix); was DsndDriver_Unregister. */
 
-void DsndDriver_Unregister(void)
+void DsndDriver_module_terminate(void)
 
 {
   (*(code *)g_pDsndDriver_share_services[1])(s_SNDDRIVER_insane_dsnd_004f3fd4);
@@ -63,10 +68,10 @@ int DsndDriver_module_startup(void)
     (*(code *)g_pDsndDriver_share_services[8])(s_DirectSoundDriver_Module__Cannot_004f4018);
     return -1;
   }
-  UINT_008db208 =
+  g_dwDsndDriver_memory_services =
        (*(code *)g_pDsndDriver_share_services[2])
                  (s_MEMORY_mixertable_004f4004,g_dwDsndDriver_share_config);
-  if (UINT_008db208 == 0) {
+  if (g_dwDsndDriver_memory_services == 0) {
     (*(code *)g_pDsndDriver_share_services[8])(s_DirectSoundDriver_Module__Cannot_004f4018);
     return -1;
   }
@@ -75,28 +80,33 @@ int DsndDriver_module_startup(void)
 #endif
 
 
-/* ---- 0x004d2520  DsndDriver_Shutdown ---- */
+/* ---- 0x004d2520  DsndDriver_module_shutdown ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
+/* Original name DsndDriver_module_shutdown (the remaster's GrimFandango (Linux): slot 3 of the
+   "LECMODULE=insane_dsnd" service table; module_shutdown is a static several LEC modules have,
+   written with the module prefix); was DsndDriver_Shutdown. */
 
-void DsndDriver_Shutdown(void)
+void DsndDriver_module_shutdown(void)
 
 {
   (*(code *)g_pDsndDriver_share_services[3])(g_pDsndDriver_timer_services);
-  (*(code *)g_pDsndDriver_share_services[3])(UINT_008db208);
+  (*(code *)g_pDsndDriver_share_services[3])(g_dwDsndDriver_memory_services);
   return;
 }
 #endif
 
 
-/* ---- 0x004d2550  DsndDriver_Open ---- */
+/* ---- 0x004d2550  dsn_initialize ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
-/* Opens DirectSound and the mixer and starts the periodic DSound_FillStreamBuffer timer */
+/* Opens DirectSound and the mixer and starts the periodic DSound_FillStreamBuffer timer Original
+   name dsn_initialize (the remaster's GrimFandango (Linux): slot 0 of the "SNDDRIVER=insane_dsnd"
+   service table); was DsndDriver_Open. */
 
-int __cdecl DsndDriver_Open(int rate,int unused,void *mix)
+int __cdecl dsn_initialize(int rate,int unused,void *mix)
 
 {
   int iVar1;
@@ -109,7 +119,7 @@ int __cdecl DsndDriver_Open(int rate,int unused,void *mix)
   if (iVar1 != 0) {
     return -1;
   }
-  iVar1 = Mixer_Init((int *)UINT_008db208,4,0x400);
+  iVar1 = Mixer_Init((int *)g_dwDsndDriver_memory_services,4,0x400);
   if (iVar1 != 0) {
     return -1;
   }
@@ -124,34 +134,37 @@ int __cdecl DsndDriver_Open(int rate,int unused,void *mix)
 #endif
 
 
-/* ---- 0x004d25f0  DsndDriver_Close ---- */
+/* ---- 0x004d25f0  dsn_terminate ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
+/* Original name dsn_terminate (the remaster's GrimFandango (Linux): slot 1 of the
+   "SNDDRIVER=insane_dsnd" service table); was DsndDriver_Close. */
 
-void DsndDriver_Close(void)
+void dsn_terminate(void)
 
 {
   if (g_nStreamTimerId != 0) {
     (*(code *)g_pDsndDriver_timer_services[1])(g_nStreamTimerId);
   }
   g_nStreamTimerId = 0;
-  FUN_004d2d70(UINT_008db208);
+  sou_mixer_terminate(g_dwDsndDriver_memory_services);
   DsndDriver_ReleaseDirectSound();
   return;
 }
 #endif
 
 
-/* ---- 0x004d2630  DsndDriver_SetVolume ---- */
+/* ---- 0x004d2630  dsn_setvol ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Removing unreachable block (ram,0x004d2765) */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Volume 0..127 through a logarithmic table to IDirectSoundBuffer::SetVolume on the stream buffer
-    */
+   Original name dsn_setvol (the remaster's GrimFandango (Linux): slot 2 of the
+   "SNDDRIVER=insane_dsnd" service table); was DsndDriver_SetVolume. */
 
-void __cdecl DsndDriver_SetVolume(uint volume)
+void __cdecl dsn_setvol(uint volume)
 
 {
   int iVar1;
@@ -198,10 +211,10 @@ void __cdecl DsndDriver_SetVolume(uint volume)
     } while ((int)puVar3 < IMG_ADDR(0x008db410));
     UINT_008dcc58 = 1;
   }
-  g_dwStreamVolume = volume & 0x7f;
-  if (g_dwStreamVolume < 0x80) {
+  g_dwCurrentVol = volume & 0x7f;
+  if (g_dwCurrentVol < 0x80) {
     (**(code_std **)(*(int *)g_pStreamDSBuffer + 0x3c))
-              (g_pStreamDSBuffer,(&UINT_008db210)[g_dwStreamVolume]);
+              (g_pStreamDSBuffer,(&UINT_008db210)[g_dwCurrentVol]);
     return;
   }
   (**(code_std **)(*(int *)g_pStreamDSBuffer + 0x3c))(g_pStreamDSBuffer,UINT_008db40c);
@@ -210,25 +223,29 @@ void __cdecl DsndDriver_SetVolume(uint volume)
 #endif
 
 
-/* ---- 0x004d27b0  DsndDriver_GetVolume ---- */
+/* ---- 0x004d27b0  dsn_getvol ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
+/* Original name dsn_getvol (the remaster's GrimFandango (Linux): slot 3 of the
+   "SNDDRIVER=insane_dsnd" service table); was DsndDriver_GetVolume. */
 
-uint DsndDriver_GetVolume(void)
+uint dsn_getvol(void)
 
 {
-  return g_dwStreamVolume;
+  return g_dwCurrentVol;
 }
 #endif
 
 
-/* ---- 0x004d27c0  DsndDriver_GetSampleRate ---- */
+/* ---- 0x004d27c0  dsn_getrate ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
+/* Original name dsn_getrate (the remaster's GrimFandango (Linux): slot 5 of the
+   "SNDDRIVER=insane_dsnd" service table); was DsndDriver_GetSampleRate. */
 
-int DsndDriver_GetSampleRate(void)
+int dsn_getrate(void)
 
 {
   return 0x5622;

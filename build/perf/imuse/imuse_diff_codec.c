@@ -37,16 +37,16 @@ int main(void) { setvbuf(stdout, NULL, _IONBF, 0);
         for (int d = 0; d < 2; d++) { free(src[d]); free(out[d]); } free(s0);
     }
     printf("Im_ConvertBlock: %d differ\n", bad);
-    /* Im_VimaDecodeBlock: random data */
+    /* AudioLib_DetectRawFormat: random data */
     bad = 0;
     for (int it = 0; it < 4000; it++) {
         int nsrc = 20000; unsigned char *s0 = malloc(nsrc + 64); for (int i = 0; i < nsrc + 64; i++) s0[i] = rnd();
         unsigned o[2][3]; unsigned char *sb[2];
-        for (int d = 0; d < 2; d++) { sb[d] = malloc(nsrc + 64); memcpy(sb[d], s0, nsrc + 64); o[d][0] = o[d][1] = o[d][2] = 0xCAFEBABE; vdb_t f = (vdb_t)GetProcAddress(m[d], "Im_VimaDecodeBlock"); f((unsigned short*)sb[d], 0x2000, &o[d][0], &o[d][1], (int*)&o[d][2]); }
+        for (int d = 0; d < 2; d++) { sb[d] = malloc(nsrc + 64); memcpy(sb[d], s0, nsrc + 64); o[d][0] = o[d][1] = o[d][2] = 0xCAFEBABE; vdb_t f = (vdb_t)GetProcAddress(m[d], "AudioLib_DetectRawFormat"); f((unsigned short*)sb[d], 0x2000, &o[d][0], &o[d][1], (int*)&o[d][2]); }
         if (memcmp(o[0], o[1], 12) || memcmp(sb[0], sb[1], nsrc)) { bad++; if (bad < 3) printf("VimaDecodeBlock DIFF %x %x %x | %x %x %x\n", o[0][0], o[0][1], o[0][2], o[1][0], o[1][1], o[1][2]); }
         free(s0); free(sb[0]); free(sb[1]);
     }
-    printf("Im_VimaDecodeBlock: %d differ\n", bad);
+    printf("AudioLib_DetectRawFormat: %d differ\n", bad);
     /* Im_StrCmpNoCase */
     bad = 0;
     for (int it = 0; it < 20000; it++) {

@@ -1,0 +1,23 @@
+[
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "10007a90",
+  "old": "FUN_10007a90",
+  "name": "ihost_open_sound",
+  "comment": "Original name ihost_open_sound (the remaster's GrimFandango (Linux): same body (0x28-byte stream slots from id 10000, iRes_FOPEN, 0x20-byte name, use count); the only unpaired caller of iRes_FOPEN on both sides); was FUN_10007a90."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "100013c0",
+  "old": "Im_VimaDecompress",
+  "name": "AudioLib_ParseWaveFileHeader",
+  "comment": "Drives Im_VimaDecodeBlock over a compressed sound chunk Original name AudioLib_ParseWaveFileHeader (the remaster's GrimFandango (Linux): same body start (an MCMP header is skipped, RIFF / 'WAVEfmt ' checked, *param_2 = 0 first); callers CacheGetSoundId, the dispatcher's region change and the sound start agree; not a VIMA decoder); was Im_VimaDecompress."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "10001000",
+  "old": "Im_VimaDecodeBlock",
+  "name": "AudioLib_DetectRawFormat",
+  "comment": "Compressed (VIMA-style ADPCM) block decoder using the step/index tables; identity inferred from structure Original name AudioLib_DetectRawFormat (the remaster's GrimFandango (Linux): AudioLib_ParseWaveFileHeader's only callee; same byte-delta statistics over the 8-bit samples); was Im_VimaDecodeBlock."
+ }
+]

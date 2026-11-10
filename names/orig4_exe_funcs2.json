@@ -53,7 +53,7 @@
   "addr": "0040a860",
   "old": "rdCamera_ResetStats",
   "name": "rdModel3_ClearFrameCounters",
-  "comment": "Original name rdModel3_ClearFrameCounters (the remaster's GrimFandango (Linux): the third counter reset of rdClearPreStatistics (clears rdModel3_numDrawnModels, counted per model in rdThing_Draw)); was rdCamera_ResetStats."
+  "comment": "Original name rdModel3_ClearFrameCounters (the remaster's GrimFandango (Linux): the third counter reset of rdClearPreStatistics (clears rdModel3_numDrawnModels, counted per model in rdModel3_Draw)); was rdCamera_ResetStats."
  },
  {
   "program": "/v101/GRIMFANDANGO.EXE",

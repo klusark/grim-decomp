@@ -5,10 +5,12 @@
 #include "globals.h"
 #include "functions.h"
 
-/* ---- 0x004035b0  Svc_Printf ---- */
-/* Default GrimServices.printf: vsprintf into the shared buffer then printf */
+/* ---- 0x004035b0  defaultStatusPrint ---- */
+/* Default GrimServices.printf: vsprintf into the shared buffer then printf Original name
+   defaultStatusPrint (the remaster's GrimFandango (Linux): slot 1 of defaultHostServices
+   (g_aDefaultHostServices)); was Svc_Printf. */
 
-undefined4 __cdecl Svc_Printf(char *fmt,...)
+undefined4 __cdecl defaultStatusPrint(char *fmt,...)
 
 {
   undefined4 uVar1;
@@ -18,8 +20,11 @@ undefined4 __cdecl Svc_Printf(char *fmt,...)
   return uVar1;
 }
 
-/* ---- 0x004035e0  Svc_Printf2 ---- */
-undefined4 Svc_Printf2(undefined4 param_1)
+/* ---- 0x004035e0  defaultMessagePrint ---- */
+/* Original name defaultMessagePrint (the remaster's GrimFandango (Linux): slot 2 of
+   defaultHostServices (g_aDefaultHostServices)); was Svc_Printf2. */
+
+undefined4 defaultMessagePrint(undefined4 param_1)
 
 {
   undefined4 uVar1;
@@ -84,8 +89,11 @@ void __cdecl defaultAssert(char *expr,char *file,int line)
   return;
 }
 
-/* ---- 0x004036d0  Svc_Fn1c ---- */
-void Svc_Fn1c(undefined4 param_1)
+/* ---- 0x004036d0  defaultAtExit ---- */
+/* Original name defaultAtExit (the remaster's GrimFandango (Linux): slot 7 of defaultHostServices
+   (g_aDefaultHostServices)); was Svc_Fn1c. */
+
+void defaultAtExit(undefined4 param_1)
 
 {
   atexit(param_1);
@@ -102,8 +110,11 @@ void * __cdecl Svc_Realloc(void *p,uint size)
   return pvVar1;
 }
 
-/* ---- 0x00403710  Svc_Fopen ---- */
-void * __cdecl Svc_Fopen(char *name,char *mode)
+/* ---- 0x00403710  defaultFileOpen ---- */
+/* Original name defaultFileOpen (the remaster's GrimFandango (Linux): slot 12 of
+   defaultHostServices (g_aDefaultHostServices)); was Svc_Fopen. */
+
+void * __cdecl defaultFileOpen(char *name,char *mode)
 
 {
   undefined *puVar1;
@@ -112,16 +123,22 @@ void * __cdecl Svc_Fopen(char *name,char *mode)
   return puVar1;
 }
 
-/* ---- 0x00403730  Svc_Fclose ---- */
-void Svc_Fclose(undefined4 param_1)
+/* ---- 0x00403730  defaultFileClose ---- */
+/* Original name defaultFileClose (the remaster's GrimFandango (Linux): slot 13 of
+   defaultHostServices (g_aDefaultHostServices)); was Svc_Fclose. */
+
+void defaultFileClose(undefined4 param_1)
 
 {
   fclose(param_1);
   return;
 }
 
-/* ---- 0x00403740  Svc_Fread ---- */
-int __cdecl Svc_Fread(void *file,void *buf,int size)
+/* ---- 0x00403740  defaultFileRead ---- */
+/* Original name defaultFileRead (the remaster's GrimFandango (Linux): slot 14 of
+   defaultHostServices (g_aDefaultHostServices)); was Svc_Fread. */
+
+int __cdecl defaultFileRead(void *file,void *buf,int size)
 
 {
   int iVar1;
@@ -130,8 +147,11 @@ int __cdecl Svc_Fread(void *file,void *buf,int size)
   return iVar1;
 }
 
-/* ---- 0x00403760  Svc_Fgets ---- */
-char * __cdecl Svc_Fgets(void *file,char *buf,int size)
+/* ---- 0x00403760  defaultFileGets ---- */
+/* Original name defaultFileGets (the remaster's GrimFandango (Linux): slot 15 of
+   defaultHostServices (g_aDefaultHostServices)); was Svc_Fgets. */
+
+char * __cdecl defaultFileGets(void *file,char *buf,int size)
 
 {
   char *pcVar1;
@@ -140,8 +160,11 @@ char * __cdecl Svc_Fgets(void *file,char *buf,int size)
   return pcVar1;
 }
 
-/* ---- 0x00403780  Svc_Fwrite ---- */
-int __cdecl Svc_Fwrite(void *file,void *buf,int size)
+/* ---- 0x00403780  defaultFileWrite ---- */
+/* Original name defaultFileWrite (the remaster's GrimFandango (Linux): slot 16 of
+   defaultHostServices (g_aDefaultHostServices)); was Svc_Fwrite. */
+
+int __cdecl defaultFileWrite(void *file,void *buf,int size)
 
 {
   int iVar1;
@@ -150,23 +173,32 @@ int __cdecl Svc_Fwrite(void *file,void *buf,int size)
   return iVar1;
 }
 
-/* ---- 0x004037a0  Svc_Feof ---- */
-uint Svc_Feof(int param_1)
+/* ---- 0x004037a0  defaultFileEOF ---- */
+/* Original name defaultFileEOF (the remaster's GrimFandango (Linux): slot 17 of defaultHostServices
+   (g_aDefaultHostServices)); was Svc_Feof. */
+
+uint defaultFileEOF(int param_1)
 
 {
   return *(uint *)(param_1 + 0xc) & 0x10;
 }
 
-/* ---- 0x004037b0  Svc_Ftell ---- */
-void Svc_Ftell(undefined4 param_1)
+/* ---- 0x004037b0  defaultFileTell ---- */
+/* Original name defaultFileTell (the remaster's GrimFandango (Linux): slot 18 of
+   defaultHostServices (g_aDefaultHostServices)); was Svc_Ftell. */
+
+void defaultFileTell(undefined4 param_1)
 
 {
   ftell(param_1);
   return;
 }
 
-/* ---- 0x004037c0  Svc_Fseek ---- */
-int __cdecl Svc_Fseek(void *file,int offset,int whence)
+/* ---- 0x004037c0  defaultFileSeek ---- */
+/* Original name defaultFileSeek (the remaster's GrimFandango (Linux): slot 19 of
+   defaultHostServices (g_aDefaultHostServices)); was Svc_Fseek. */
+
+int __cdecl defaultFileSeek(void *file,int offset,int whence)
 
 {
   int iVar1;
@@ -175,8 +207,11 @@ int __cdecl Svc_Fseek(void *file,int offset,int whence)
   return iVar1;
 }
 
-/* ---- 0x004037e0  Svc_FileSize ---- */
-int __cdecl Svc_FileSize(char *name)
+/* ---- 0x004037e0  defaultFileSize ---- */
+/* Original name defaultFileSize (the remaster's GrimFandango (Linux): slot 20 of
+   defaultHostServices (g_aDefaultHostServices)); was Svc_FileSize. */
+
+int __cdecl defaultFileSize(char *name)
 
 {
   undefined *puVar1;
@@ -192,8 +227,11 @@ int __cdecl Svc_FileSize(char *name)
   return 0;
 }
 
-/* ---- 0x00403830  Svc_Fprintf ---- */
-void __cdecl Svc_Fprintf(void *fp,char *fmt,...)
+/* ---- 0x00403830  defaultFilePrintf ---- */
+/* Original name defaultFilePrintf (the remaster's GrimFandango (Linux): slot 21 of
+   defaultHostServices (g_aDefaultHostServices)); was Svc_Fprintf. */
+
+void __cdecl defaultFilePrintf(void *fp,char *fmt,...)
 
 {
   vfprintf(fp,fmt,&STACK0X(0x0000000c));
@@ -218,10 +256,12 @@ void __cdecl Svc_Free(void *p)
   return;
 }
 
-/* ---- 0x00403870  Svc_Identity ---- */
-/* Default GrimServices.translate: returns its argument unchanged */
+/* ---- 0x00403870  defaultLockHandle ---- */
+/* Default GrimServices.translate: returns its argument unchanged Original name defaultLockHandle
+   (the remaster's GrimFandango (Linux): slot 26 of defaultHostServices (g_aDefaultHostServices));
+   was Svc_Identity. */
 
-undefined4 Svc_Identity(undefined4 param_1)
+undefined4 defaultLockHandle(undefined4 param_1)
 
 {
   return param_1;

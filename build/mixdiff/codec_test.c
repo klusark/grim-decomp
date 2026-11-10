@@ -8,13 +8,13 @@
 #include <string.h>
 #include "fx.h"
 
-extern void orig_FUN_004cc7d0(int), Blocky16_BuildSplitMasks(int);
+extern void orig_FUN_004cc7d0(int), fob_block_maketiles(int);
 extern int orig_FUN_004cc250(int, ...), Blocky16_SetOption(int, ...);
 extern void orig_4cd550(unsigned char *, unsigned char *, int, int, int, short *, short *, int, int, unsigned char *, unsigned char *, unsigned short *) __asm__("@orig_FUN_004cd550@56");
 extern void Blocky16_DecodeBlocks(unsigned char *, unsigned char *, int, int, int, short *, short *, int, int, unsigned char *, unsigned char *, unsigned short *);
 
 /* only referenced by Blocky16_DecodeFrame, which is not part of this test */
-unsigned __attribute__((fastcall)) Rle_NextByte(unsigned x) { return x; }
+unsigned __attribute__((fastcall)) msc_rle_DecompressGetbyte(unsigned x) { return x; }
 
 static unsigned R(unsigned n) { return (unsigned)(fx_rnd() % n); }
 
@@ -89,7 +89,7 @@ int main(int argc, char **argv)
             for (i = 0; i < 0x18400; i++) FXDATA(0x906c80)[i] = (unsigned char)fx_rnd();
             fx_save();
             fx_reset(); orig_FUN_004cc7d0(size); fx_snap_a();
-            fx_restore(); fx_reset(); Blocky16_BuildSplitMasks(size);
+            fx_restore(); fx_reset(); fob_block_maketiles(size);
             break; }
         case 1: {   /* option reader */
             unsigned v1 = (unsigned)fx_rnd(), v2 = (unsigned)fx_rnd();

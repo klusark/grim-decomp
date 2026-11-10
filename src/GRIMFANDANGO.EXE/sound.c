@@ -166,10 +166,12 @@ undefined4 SetSoundPosition(int param_1)
 #endif
 
 
-/* ---- 0x004d0c20  Sound_DriverQuery ---- */
-/* Calls entry +0x14 of the installed sound driver vtable */
+/* ---- 0x004d0c20  sou_engine_GetRate ---- */
+/* Calls entry +0x14 of the installed sound driver vtable Original name sou_engine_GetRate (the
+   remaster's GrimFandango (Linux): slot 11 of the "SOUND=insane" service table); was
+   Sound_DriverQuery. */
 
-undefined4 Sound_DriverQuery(void)
+undefined4 sou_engine_GetRate(void)
 
 {
   undefined4 uVar1;
@@ -217,7 +219,7 @@ int __cdecl sou_engine_QueryTime(int voice)
   voice = uVar1;
 switchD_004d0d15_default:
   x = (double)voice;
-  Sound_DriverQuery();
+  sou_engine_GetRate();
   lVar2 = _ftol(x);
   return (int)lVar2;
 }

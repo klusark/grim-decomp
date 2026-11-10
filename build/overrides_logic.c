@@ -899,11 +899,11 @@ switchD_00408bad_default:
   return 1;
 }
 #undef local_4
-/* ==== rdModel3_Load (0x0040a980) ====
+/* ==== rdModel3_LoadEntry (0x0040a980) ====
  * Opens the model file; the magic 'MODL' selects rdModel3_LoadEntryBinary, anything else is parsed by rdModel3_LoadEntryText.  The
  * magic was read into the parameter slot of the file name (the C text lost the name for the text loader); both close
  * calls take the file.  Source file Rdmodel3.c (C:\grimjedi\Libs\RDroid\Primitives\Rdmodel3.c). */
-undefined4 rdModel3_Load(int name, undefined4 model)
+undefined4 rdModel3_LoadEntry(int name, undefined4 model)
 {
     int file, ok;
     int magic;
@@ -2099,14 +2099,14 @@ undefined4 SpriteAdjuster(undefined4 *param_1, undefined4 param_2)
     return 1;
 }
 
-/* ==== Actor_DrawShadowPlane (0x00494940) ====
+/* ==== sputCostume_DrawMeshShadow (0x00494940) ====
  * Draws the actor's shadow onto one shadow plane: for every mesh of every model of the costume list the 16 corner points of
- * the bounding boxes are projected through the plane (Plane_IntersectSegment along the shadow direction; a miss ends the
+ * the bounding boxes are projected through the plane (sputRender_SegmentPlaneIntersect along the shadow direction; a miss ends the
  * whole function) and the four boxes' faces are clipped to the plane's sectors and drawn with shadow.mat / shadow.cmp
- * (Shadow_DrawClippedPoly accumulates the screen box in min / max).  Afterwards the touched screen rectangle
+ * (sputCostume_OutputShadowPoly accumulates the screen box in min / max).  Afterwards the touched screen rectangle
  * (x, y, w, h = truncated min and max - min) is invalidated.  The decompiler lost the operands of the four _ftol.
  * Like the original, max.y is never initialised before the first polygon. */
-void Actor_DrawShadowPlane(void *costumeList, void *shadow)
+void sputCostume_DrawMeshShadow(void *costumeList, void *shadow)
 {
     float pts[48];
     float minXY[2], maxXY[3];
@@ -2143,7 +2143,7 @@ void Actor_DrawShadowPlane(void *costumeList, void *shadow)
             for (k = 0; k < 0xc0; k += 0xc) {
                 float *out = (float *)((char *)pts + k);
                 rdMatrix_TransformPoint34(out, (float *)(k + *(int *)(rec + node * 0x7c + 0x58)), (float *)(pointOff + *(int *)(model + 0x20)));
-                if (Plane_IntersectSegment(out, (float *)((char *)shadow + 0x18), out, *(float *)((char *)shadow + 8),
+                if (sputRender_SegmentPlaneIntersect(out, (float *)((char *)shadow + 0x18), out, *(float *)((char *)shadow + 8),
                                            *(float *)((char *)shadow + 0xc), *(float *)((char *)shadow + 0x10),
                                            *(float *)((char *)shadow + 0x14)) == 0)
                     return;
@@ -2156,10 +2156,10 @@ void Actor_DrawShadowPlane(void *costumeList, void *shadow)
                 rdroid_SetColormap((uint)g_pShadowColormap);
                 if (g_nSputRender_b3DAcceleration != 0)
                     std3D_SetCurrentPalette((void *)((int)g_pShadowColormap + 0x30), 0);
-                Shadow_DrawClippedPoly(pts, 4, minXY, maxXY, shadow);
-                Shadow_DrawClippedPoly(pts + 12, 4, minXY, maxXY, shadow);
-                Shadow_DrawClippedPoly(pts + 24, 4, minXY, maxXY, shadow);
-                Shadow_DrawClippedPoly(pts + 36, 4, minXY, maxXY, shadow);
+                sputCostume_OutputShadowPoly(pts, 4, minXY, maxXY, shadow);
+                sputCostume_OutputShadowPoly(pts + 12, 4, minXY, maxXY, shadow);
+                sputCostume_OutputShadowPoly(pts + 24, 4, minXY, maxXY, shadow);
+                sputCostume_OutputShadowPoly(pts + 36, 4, minXY, maxXY, shadow);
             }
         }
     }
@@ -2865,18 +2865,18 @@ undefined4 Walker_UpdateYaw(void *actor, float *pos)
     *(undefined4 *)(a + 0x34) = 0;
     return 0;
 }
-/* ==== ResType_FontHandler (0x0048dbd0) ====
- * Resource type handler for 'FONT' (entry of g_ResTypeTable): op 1 loads (Font_LoadFile, registered and kept locked), op 2
- * frees, op 3 reports the size.  Font_LoadFile returns the font through a pointer: the old text passed the address of the
+/* ==== sputResource_FontHandler (0x0048dbd0) ====
+ * Resource type handler for 'FONT' (entry of g_ResTypeTable): op 1 loads (Text_LoadNativeFont, registered and kept locked), op 2
+ * frees, op 3 reports the size.  Text_LoadNativeFont returns the font through a pointer: the old text passed the address of the
  * parameter slot. */
-void * ResType_FontHandler(int *rec)
+void * sputResource_FontHandler(int *rec)
 {
     int *font;
 
     if (rec[2] != 0x544e4f46)
         return (void *)0;
     if (rec[0] == 1) {
-        if (Font_LoadFile((char *)rec[1], &font) == 0) {
+        if (Text_LoadNativeFont((char *)rec[1], &font) == 0) {
             void *res = Res_SysAddHandle(rec[2], (char *)rec[1], font);
 
             Res_SetPurgable(font, 0);
@@ -2926,7 +2926,7 @@ void PolyglotConfigure(undefined *name)
     undefined *magic;
     undefined1 *tab;
 
-    PTR_s_language_tab_004e8024 = name;
+    g_pTabFilename = name;
     file = (*g_pPolyglot_HS->pFopen)(name, &DAT_004ddb18);
     if (file == 0)
         return;

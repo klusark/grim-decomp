@@ -3,8 +3,8 @@
 #include "ghidra_types.h"
 
 /* ===== imuse.c ===== */
-void __cdecl Im_VimaDecodeBlock(ushort *param_1,uint param_2,undefined4 *param_3,undefined4 *param_4, undefined4 *param_5); /* 0x10001000 */
-uint * __cdecl Im_VimaDecompress(uint *param_1,int *param_2,uint *param_3,uint *param_4,uint *param_5,int *param_6, uint *param_7); /* 0x100013c0 */
+void __cdecl AudioLib_DetectRawFormat (ushort *param_1,uint param_2,undefined4 *param_3,undefined4 *param_4,undefined4 *param_5); /* 0x10001000 */
+uint * __cdecl AudioLib_ParseWaveFileHeader (uint *param_1,int *param_2,uint *param_3,uint *param_4,uint *param_5,int *param_6, uint *param_7); /* 0x100013c0 */
 int __cdecl Im_DecodeSoundBlock(undefined4 *param_1,int param_2,uint param_3,uint param_4,uint param_5, uint param_6); /* 0x100017e0 */
 void __cdecl AudioLib_ResetCompressor(undefined1 *param_1); /* 0x10001ba0 */
 void __cdecl AudioLib_UncompressBlock(byte *param_1,undefined2 *param_2,byte *param_3,uint param_4); /* 0x10001bc0 */
@@ -230,7 +230,7 @@ void FUN_10007a20(void); /* 0x10007a20 */
 void ihost_get_sound_addr(undefined4 param_1); /* 0x10007a60 */
 void ihost_get_map_addr(undefined4 param_1); /* 0x10007a70 */
 int ihost_get_buffer_info(int param_1); /* 0x10007a80 */
-int FUN_10007a90(uint *param_1,int param_2); /* 0x10007a90 */
+int ihost_open_sound(uint *param_1,int param_2); /* 0x10007a90 */
 int ihost_fseek(int param_1,int param_2,int param_3); /* 0x10007bc0 */
 undefined4 * ihost_read(undefined4 *param_1,undefined4 *param_2,undefined4 *param_3); /* 0x10007ca0 */
 void sounds_shutdown(void); /* 0x10008140 */

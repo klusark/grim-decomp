@@ -1,10 +1,10 @@
 /* Differential test of the small functions of build/overrides_asm_o2.c against the original machine code:
- * FUN_004d5fd0 / FUN_004d5e50 (memset), FUN_004d5f70 (log ring vsprintf), Rle_Decode, MaterialInstanceSaveLoad (callback),
+ * FUN_004d5fd0 / msc_MemSet (memset), msc_error_SaveString (log ring vsprintf), msc_rle_DecompressBlock, MaterialInstanceSaveLoad (callback),
  * stdGif_LzwInitEncoder / stdGif_LzwEncodePixel (whole encode runs with the compiled C stdGif_LzwWriteCode /
  * ClearTable / FinishEncode of the current build and a recorder fwrite).
  * Build: EXTRA_OBJ="build/obj/GRIMFANDANGO.EXE/rle.o build/obj/GRIMFANDANGO.EXE/stdgif.o" build/difftest/asm_s5/build.sh \
- *   build/difftest/asm_s5/small_test.c build/difftest/asm_s5/out/small_test.exe FUN_004d5fd0 FUN_004d5e50 FUN_004d5f70 \
- *   Rle_Decode MaterialInstanceSaveLoad stdGif_LzwInitEncoder stdGif_LzwEncodePixel
+ *   build/difftest/asm_s5/small_test.c build/difftest/asm_s5/out/small_test.exe FUN_004d5fd0 msc_MemSet msc_error_SaveString \
+ *   msc_rle_DecompressBlock MaterialInstanceSaveLoad stdGif_LzwInitEncoder stdGif_LzwEncodePixel
  * Run: small_test.exe <cases> */
 #include <windows.h>
 #include <stdio.h>
@@ -15,9 +15,9 @@
 
 extern void o_fill(void *, int, int) __asm__("@orig_FUN_004d5fd0@20");
 extern void n_fill(void *, int, int) __asm__("@FUN_004d5fd0@20");
-extern int orig_FUN_004d5e50(void *, int, int), FUN_004d5e50(void *, int, int);
-extern int orig_FUN_004d5f70(const char *, ...), FUN_004d5f70(const char *, ...);
-extern void orig_Rle_Decode(void *, void *, int), Rle_Decode(void *, void *, int);
+extern int orig_msc_MemSet(void *, int, int), msc_MemSet(void *, int, int);
+extern int orig_msc_error_SaveString(const char *, ...), msc_error_SaveString(const char *, ...);
+extern void orig_msc_rle_DecompressBlock(void *, void *, int), msc_rle_DecompressBlock(void *, void *, int);
 extern int orig_MaterialInstanceSaveLoad(int, int, int, int, void *), MaterialInstanceSaveLoad(int, int, int, int, void *);
 extern unsigned orig_stdGif_LzwInitEncoder(int, int), stdGif_LzwInitEncoder(int, int);
 extern unsigned orig_stdGif_LzwEncodePixel(int, unsigned char), stdGif_LzwEncodePixel(int, unsigned char);
@@ -63,7 +63,7 @@ int main(int argc, char **argv)
         for (int k = 0; k < (int)sizeof buf_0; k++) buf_0[k] = (unsigned char)fx_rnd();
         memcpy(buf_a, buf_0, sizeof buf_0); memcpy(buf_b, buf_0, sizeof buf_0);
         if (i & 1) { o_fill(buf_a + off, val, cnt); n_fill(buf_b + off, val, cnt); ra = rb = 0; }
-        else { ra = orig_FUN_004d5e50(buf_a + off, val, cnt); rb = FUN_004d5e50(buf_b + off, val, cnt); }
+        else { ra = orig_msc_MemSet(buf_a + off, val, cnt); rb = msc_MemSet(buf_b + off, val, cnt); }
         if (ra != rb) fx_fail("memset ret", i);
         cmpbuf("memset", i);
         fx_cases++;
@@ -75,15 +75,15 @@ int main(int argc, char **argv)
         FXU32(0x8ddd68) = R(5) == 0 ? R(30) : R(20);
         FXU32(0x8ddd6c) = R(5) == 0 ? (unsigned)fx_rnd() : R(22);
         fx_save();
-        ra = orig_FUN_004d5f70("x=%d y=%08x s=%s", x, y, "abc");
+        ra = orig_msc_error_SaveString("x=%d y=%08x s=%s", x, y, "abc");
         fx_snap_a(); fx_restore();
-        rb = FUN_004d5f70("x=%d y=%08x s=%s", x, y, "abc");
+        rb = msc_error_SaveString("x=%d y=%08x s=%s", x, y, "abc");
         if (ra != rb) fx_fail("log ret", i);
         if (fx_cmp_a()) fx_fail("log mem", i);
         fx_cases++;
     }
     fx_region_reset();
-    /* Rle_Decode */
+    /* msc_rle_DecompressBlock */
     fx_region(FXDATA(0x8dcdb8), 0x10);
     for (i = 0; i < n; i++) {
         static unsigned char src[8192];
@@ -93,9 +93,9 @@ int main(int argc, char **argv)
         memcpy(buf_a, buf_0, sizeof buf_0); memcpy(buf_b, buf_0, sizeof buf_0);
         for (int k = 0; k < 16; k++) *FXDATA(0x8dcdb8 + k) = (unsigned char)fx_rnd();
         fx_save();
-        orig_Rle_Decode(buf_a + off, src, cnt);
+        orig_msc_rle_DecompressBlock(buf_a + off, src, cnt);
         fx_snap_a(); fx_restore();
-        Rle_Decode(buf_b + off, src, cnt);
+        msc_rle_DecompressBlock(buf_b + off, src, cnt);
         cmpbuf("rle", i);
         if (fx_cmp_a()) fx_fail("rle state", i);
         fx_cases++;

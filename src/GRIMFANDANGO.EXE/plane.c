@@ -5,8 +5,13 @@
 #include "globals.h"
 #include "functions.h"
 
-/* ---- 0x00486a10  Plane_IntersectSegment ---- */
-int __cdecl Plane_IntersectSegment(float *out,float *p1,float *p2,float a,float b,float c,float d)
+/* ---- 0x00486a10  sputRender_SegmentPlaneIntersect ---- */
+/* Original name sputRender_SegmentPlaneIntersect (the remaster's GrimFandango (Linux): same body
+   (plane distance of both points, |d| < 0.1 test, lerp); sputCostume_DrawMeshShadow's call); was
+   Plane_IntersectSegment. */
+
+int __cdecl
+sputRender_SegmentPlaneIntersect(float *out,float *p1,float *p2,float a,float b,float c,float d)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */

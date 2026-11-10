@@ -1,5 +1,5 @@
 [
- {"addr": "0040cf20", "name": "rdThing_DrawModel", "comment": "Model branch of rdThing_Draw: frustum-tests the bounding sphere, picks the geometry set, updates the puppet and draws the node hierarchy", "tags": "rdroid"},
+ {"addr": "0040cf20", "name": "rdThing_DrawModel", "comment": "Model branch of rdModel3_Draw: frustum-tests the bounding sphere, picks the geometry set, updates the puppet and draws the node hierarchy", "tags": "rdroid"},
  {"addr": "0047aab0", "name": "stdLoadImageData", "comment": "Opens the file through the main services and reads a BM bitmap", "tags": "jedi,bitmap"},
  {"addr": "00906c10", "global": "g_pOnExitEnd", "type": "void * *", "comment": "End pointer of the atexit/_onexit function table"},
  {"addr": "00906c14", "global": "g_pOnExitBegin", "type": "void * *", "comment": "Start of the atexit/_onexit function table (realloc-grown)"},

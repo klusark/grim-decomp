@@ -5,12 +5,15 @@
 #include "globals.h"
 #include "functions.h"
 
-/* ---- 0x004c5ab0  Zfile_Close ---- */
+/* ---- 0x004c5ab0  Zfile_fle_Close ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-/* Closes a Zfile object: the plain file or the gzip stream, then frees the object */
+/* Closes a Zfile object: the plain file or the gzip stream, then frees the object Original name
+   Zfile_fle_Close (the remaster's GrimFandango (Linux): slot 1 of the "FILIO=insane_zfilio" service
+   table; fle_Close is a static several LEC modules have, written with the module prefix); was
+   Zfile_Close. */
 
-void __cdecl Zfile_Close(int *z)
+void __cdecl Zfile_fle_Close(int *z)
 
 {
   if (*z != 0) {

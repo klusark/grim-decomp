@@ -1,6 +1,6 @@
 /* Differential test of the glue code of build/overrides_mixer_misc.c against the original machine code: Smush_GetLengthMs, the
  * light editor (text field reader, keyboard hook), LecShare_Resolve, AnimPlay (create, destroy, update, reset, open file),
- * the zlib glue (gz_open, gz_putLong, Zfile_Close) and the StdFile helpers.  Everything the functions call (services of the
+ * the zlib glue (gz_open, gz_putLong, Zfile_fle_Close) and the StdFile helpers.  Everything the functions call (services of the
  * module manager, imports, zlib, the CRT) is a recorder that logs its arguments and returns scripted values.
  * Build: ORIG_SED='s/_strncpy/_test_strncpy/g; s/_malloc/_test_malloc/g; s/__errno/__test_errno/g' EXTRA_CFLAGS="-Dstrncpy=test_strncpy -Dmalloc=test_malloc -D_errno=test_errno" OVERRIDES=build/overrides_mixer_misc.c build/mixdiff/build.sh ...
  * ONLY=<n> selects a group: 0 length, 1 ReadControl, 2 keyboard hook, 3 LecShare, 4 AnimPlay, 5 gz_open, 6 small zlib/StdFile. */
@@ -17,15 +17,15 @@ extern int __stdcall orig_kb(int, unsigned, unsigned) __asm__("_orig_FUN_004bffb
 extern int __stdcall new_kb(int, unsigned, unsigned) __asm__("_LightEd_KeyboardProc@12");
 extern void *orig_LecShare_Resolve(char *, char *), *LecShare_Resolve(char *, char *);
 extern int orig_FUN_004c23c0(void **, char *, int, int, int, unsigned), AnimPlay_Create(void **, char *, int, int, int, unsigned);
-extern void orig_FUN_004c2690(void **), AnimPlay_Destroy(void **);
+extern void orig_FUN_004c2690(void **), anm_Stop(void **);
 extern int orig_FUN_004c27a0(void *, int, int, int, int, int, int, int, int, int), AnimPlay_Update(void *, int, int, int, int, int, int, int, int, int);
 extern int orig_FUN_004c36b0(void *), AnimPlay_ResetState(void *);
 extern int orig_FUN_004c3d30(void *, char *, unsigned, int, int, int), AnimPlay_OpenFile(void *, char *, unsigned, int, int, int);
 extern void *orig_gz_open(char *, char *, int), *gz_open(char *, char *, int);
 extern void orig_gz_putLong(void *, unsigned), gz_putLong(void *, unsigned);
-extern void orig_FUN_004c5ab0(int *), Zfile_Close(int *);
-extern int orig_FUN_004c5e30(void *), StdFile_Tell(void *);
-extern int orig_FUN_004c5f50(void *), StdFile_IsEof(void *);
+extern void orig_FUN_004c5ab0(int *), Zfile_fle_Close(int *);
+extern int orig_FUN_004c5e30(void *), StdFile_fle_Tell(void *);
+extern int orig_FUN_004c5f50(void *), fle_Eof(void *);
 
 enum {
     T_OPEN = 1, T_CLOSE, T_RFH, T_GETTEXT, T_SENDMSG, T_POSCOMP, T_ANGLE, T_SETANGLES, T_MOVEMARKER, T_FOCUS, T_SETFLOAT, T_NEXTHOOK,
@@ -87,8 +87,8 @@ int Sound_VoiceSampleCount(int v) { return CALLN(T_VOICE, (int), v); }
 int FUN_004c3d90(int a, int b, int c) { return CALLN(T_3D90, (int, int, int), a, b, c); }
 int Mem_DumpLog(void) { return CALLN(T_DUMP, (void)); }
 int zlibVersion(int x) { return 0; }
-void FUN_004c2a70(int a, int b) { }
-void FUN_004c2a80(int a, int b) { }
+void frame_Timer(int a, int b) { }
+void sync_Timer(int a, int b) { }
 int zmalloc(int n) __asm__("_test_malloc");
 int zmalloc(int n) { return CALLN(T_ZMALLOC, (int), n); }
 int zcrc(unsigned a, void *b, unsigned c) __asm__("_crc32");
@@ -111,7 +111,7 @@ int *zerrno2(void) { return &errno_cell; }
 int gzclose_x(int a) __asm__("_gzclose");
 int gzclose_x(int a) { return CALLN(T_GZCLOSE, (int), a); }
 int FUN_004c5e90(void *f) { return CALLN(T_SSIZE, (void *), f); }
-int StdFile_Size(void *f) { return CALLN(T_SSIZE, (void *), f); }
+int fle_Size(void *f) { return CALLN(T_SSIZE, (void *), f); }
 
 /* ---- shared state ---- */
 static unsigned char wlog[64];
@@ -337,7 +337,7 @@ int main(int argc, char **argv)
             } else if (sub == 1) {   /* destroy */
                 fx_save();
                 fx_reset(); orig_FUN_004c2690(&animptr); fx_snap_a();
-                fx_restore(); fx_reset(); AnimPlay_Destroy(&animptr);
+                fx_restore(); fx_reset(); anm_Stop(&animptr);
             } else if (sub == 2 || sub == 3) {   /* update */
                 int st[] = { 5, 0, 1, 2, 3, 4, -1, 6, 7 };
                 int tgt = 100 + (int)R(40000);
@@ -381,7 +381,7 @@ int main(int argc, char **argv)
             fx_reset(); heap_used = 0; ra = (int)(uintptr_t)orig_gz_open(path, mode, fd); fx_snap_a();
             fx_restore(); fx_reset(); heap_used = 0; rb = (int)(uintptr_t)gz_open(path, mode, fd) + neg;
             break; }
-        default: {    /* gz_putLong, Zfile_Close, StdFile */
+        default: {    /* gz_putLong, Zfile_fle_Close, StdFile */
             int sub = (int)R(4);
             int z[2];
             void *file = (void *)(uintptr_t)(0x3000 + R(50));
@@ -402,15 +402,15 @@ int main(int argc, char **argv)
                 zz[0] = z[0]; zz[1] = z[1];
                 fx_save();
                 fx_reset(); orig_FUN_004c5ab0(zz); fx_snap_a();
-                fx_restore(); fx_reset(); Zfile_Close(zz);
+                fx_restore(); fx_reset(); Zfile_fle_Close(zz);
             } else if (sub == 2) {
                 fx_save();
                 fx_reset(); ra = orig_FUN_004c5e30(file); fx_snap_a();
-                fx_restore(); fx_reset(); rb = StdFile_Tell(file) + neg;
+                fx_restore(); fx_reset(); rb = StdFile_fle_Tell(file) + neg;
             } else {
                 fx_save();
                 fx_reset(); ra = orig_FUN_004c5f50(file); fx_snap_a();
-                fx_restore(); fx_reset(); rb = StdFile_IsEof(file) + neg;
+                fx_restore(); fx_reset(); rb = fle_Eof(file) + neg;
             }
             break; }
         }

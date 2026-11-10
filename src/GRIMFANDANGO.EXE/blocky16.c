@@ -5,18 +5,21 @@
 #include "globals.h"
 #include "functions.h"
 
-/* ---- 0x004cc210  Blocky16_Register ---- */
+/* ---- 0x004cc210  fob_flobdec_blocky16_module ---- */
 /* Entry of LECMODULE insane_blocky16_flobdec: stores the module manager services and the workspace
-   size, registers the module and the FLOBDEC interface */
+   size, registers the module and the FLOBDEC interface Original name fob_flobdec_blocky16_module
+   (the remaster's GrimFandango (Linux): slot 0 of the "LECMODULE=insane_blocky16_flobdec" service
+   table); was Blocky16_Register. */
 
-undefined4 Blocky16_Register(int *param_1,uint param_2)
+undefined4 fob_flobdec_blocky16_module(int *param_1,uint param_2)
 
 {
   g_pBlocky16_share_services = param_1;
   g_dwBlocky16_share_config = param_2;
-  (*(code *)*param_1)(s_LECMODULE_insane_blocky16_flobde_004f3a04,&PTR_Blocky16_Register_004f34b8);
+  (*(code *)*param_1)(s_LECMODULE_insane_blocky16_flobde_004f3a04,
+                      &PTR_fob_flobdec_blocky16_module_004f34b8);
   (*(code *)*g_pBlocky16_share_services)
-            (s_FLOBDEC_insane_blocky16_004f39ec,&PTR_Blocky16_GetInfoString_004f34c8);
+            (s_FLOBDEC_insane_blocky16_004f39ec,&g_pBlock16_flobdec_services);
   return 0;
 }
 
@@ -50,10 +53,13 @@ int __cdecl fob_flobdec_blocky16_config(int key,...)
 #endif
 
 
-/* ---- 0x004cc290  Blocky16_Unregister ---- */
-/* Unregisters the FLOBDEC interface and the module of the Blocky16 decoder */
+/* ---- 0x004cc290  Blocky16_module_terminate ---- */
+/* Unregisters the FLOBDEC interface and the module of the Blocky16 decoder Original name
+   Blocky16_module_terminate (the remaster's GrimFandango (Linux): slot 1 of the
+   "LECMODULE=insane_blocky16_flobdec" service table; module_terminate is a static several LEC
+   modules have, written with the module prefix); was Blocky16_Unregister. */
 
-void Blocky16_Unregister(void)
+void Blocky16_module_terminate(void)
 
 {
   (*(code *)g_pBlocky16_share_services[1])(s_FLOBDEC_insane_blocky16_004f39ec);
@@ -89,22 +95,28 @@ undefined4 Blocky16_module_startup(void)
   return 0;
 }
 
-/* ---- 0x004cc340  Blocky16_Shutdown ---- */
-/* Frees the frame buffers and releases the two services of the Blocky16 decoder */
+/* ---- 0x004cc340  Blocky16_module_shutdown ---- */
+/* Frees the frame buffers and releases the two services of the Blocky16 decoder Original name
+   Blocky16_module_shutdown (the remaster's GrimFandango (Linux): slot 3 of the
+   "LECMODULE=insane_blocky16_flobdec" service table; module_shutdown is a static several LEC
+   modules have, written with the module prefix); was Blocky16_Shutdown. */
 
-void Blocky16_Shutdown(void)
+void Blocky16_module_shutdown(void)
 
 {
-  Blocky16_FreeBuffers();
+  Blocky16_flobdec_Reset();
   (*(code *)g_pBlocky16_share_services[3])(g_pBlocky16_bitmap_services);
   (*(code *)g_pBlocky16_share_services[3])(g_pBlocky16_memory_services);
   return;
 }
 
-/* ---- 0x004cc370  Blocky16_GetInfoString ---- */
-/* Returns the name, description or help text of the Blocky16 module for index 0, 1 or 2 */
+/* ---- 0x004cc370  Blocky16_flobdec_Info ---- */
+/* Returns the name, description or help text of the Blocky16 module for index 0, 1 or 2 Original
+   name Blocky16_flobdec_Info (the remaster's GrimFandango (Linux): slot 0 of the
+   "FLOBDEC=insane_blocky16" service table; flobdec_Info is a static several LEC modules have,
+   written with the module prefix); was Blocky16_GetInfoString. */
 
-char * Blocky16_GetInfoString(int param_1)
+char * Blocky16_flobdec_Info(int param_1)
 
 {
   if (param_1 == 0) {
@@ -119,20 +131,24 @@ char * Blocky16_GetInfoString(int param_1)
   return s_Decompresses_a_block16_tile_vide_004f3ac0;
 }
 
-/* ---- 0x004cc3a0  Blocky16_GetFourCC ---- */
-/* Returns the codec id Bl16 of the decoder */
+/* ---- 0x004cc3a0  Blocky16_flobdec_GetID ---- */
+/* Returns the codec id Bl16 of the decoder Original name Blocky16_flobdec_GetID (the remaster's
+   GrimFandango (Linux): slot 1 of the "FLOBDEC=insane_blocky16" service table; flobdec_GetID is a
+   static several LEC modules have, written with the module prefix); was Blocky16_GetFourCC. */
 
-undefined4 Blocky16_GetFourCC(void)
+undefined4 Blocky16_flobdec_GetID(void)
 
 {
   return 0x426c3136;
 }
 
-/* ---- 0x004cc3c0  Blocky16_Prepare ---- */
+/* ---- 0x004cc3c0  Blocky16_flobdec_DecodeHeader ---- */
 /* Reallocates the three frame buffers when the frame size or depth of the header differs from the
-   current ones */
+   current ones Original name Blocky16_flobdec_DecodeHeader (the remaster's GrimFandango (Linux):
+   slot 4 of the "FLOBDEC=insane_blocky16" service table; flobdec_DecodeHeader is a static several
+   LEC modules have, written with the module prefix); was Blocky16_Prepare. */
 
-undefined4 Blocky16_Prepare(int param_1)
+undefined4 Blocky16_flobdec_DecodeHeader(int param_1)
 
 {
   short sVar1;
@@ -140,42 +156,44 @@ undefined4 Blocky16_Prepare(int param_1)
   
   sVar1 = *(short *)(param_1 + 2);
   uVar2 = (int)*(short *)(param_1 + 4) + 7U & 0xfffffff8;
-  if ((((*(short *)(param_1 + 6) != g_nBlkDepth) || (g_pBlkBitmap0 == (int *)0x0)) ||
+  if ((((*(short *)(param_1 + 6) != g_nGlobal_bm_type) || (g_pBlkBitmap0 == (int *)0x0)) ||
       ((int)sVar1 != g_pBlkBitmap0[1])) || (uVar2 != g_pBlkBitmap0[2])) {
-    Blocky16_FreeBuffers();
-    Blocky16_AllocBuffers((int)sVar1,uVar2,(int)*(short *)(param_1 + 6));
+    Blocky16_flobdec_Reset();
+    AllocBuffers((int)sVar1,uVar2,(int)*(short *)(param_1 + 6));
   }
   return 0;
 }
 
-/* ---- 0x004cc410  Blocky16_AllocBuffers ---- */
+/* ---- 0x004cc410  AllocBuffers ---- */
 /* Allocates the three frame buffers (current, previous, before) for a frame size and clears them;
-   sets up the display expand table memory */
+   sets up the display expand table memory Original name AllocBuffers (the remaster's GrimFandango
+   (Linux): same body (three bitmaps, maketiles(4)/(8), shift = 0); blocky16 flobdec_DecodeHeader's
+   callee); was Blocky16_AllocBuffers. */
 
-int Blocky16_AllocBuffers(int param_1,int param_2,int param_3)
+int AllocBuffers(int param_1,int param_2,int param_3)
 
 {
   int iVar1;
   
-  g_nBlkPixels = param_2 * param_1;
-  Blocky16_BuildSplitMasks(4);
-  Blocky16_BuildSplitMasks(8);
-  g_nBlkShiftR = 0;
-  g_nBlkShiftG = 0;
-  g_nBlkShiftB = 0;
+  g_nFob_buffersize = param_2 * param_1;
+  fob_block_maketiles(4);
+  fob_block_maketiles(8);
+  g_nFob_translation_shiftr = 0;
+  g_nFob_translation_shiftg = 0;
+  g_nFob_translation_shiftb = 0;
   iVar1 = (*(code *)*g_pBlocky16_bitmap_services)(&g_pBlkBitmap0,param_1,param_2,param_3);
   if (iVar1 == 0) {
     iVar1 = (*(code *)*g_pBlocky16_bitmap_services)(&g_pBlkBitmap1,param_1,param_2,param_3);
     if (iVar1 == 0) {
       iVar1 = (*(code *)*g_pBlocky16_bitmap_services)(&g_pBlkBitmap2,param_1,param_2,param_3);
       if (iVar1 == 0) {
-        g_nBlkDepth = param_3;
-        g_pbBlkPrev2 = (byte *)*g_pBlkBitmap0;
-        g_pbBlkPrev = (byte *)*g_pBlkBitmap1;
-        g_pbBlkCur = (byte *)*g_pBlkBitmap2;
-        FUN_004d5e50(g_pbBlkPrev2,0,g_nBlkPixels * 2);
-        FUN_004d5e50(g_pbBlkPrev,0,g_nBlkPixels * 2);
-        FUN_004d5e50(g_pbBlkCur,0,g_nBlkPixels * 2);
+        g_nGlobal_bm_type = param_3;
+        g_pFob_blk16_key_buffer = (byte *)*g_pBlkBitmap0;
+        g_pFob_blk16_delta_buffer = (byte *)*g_pBlkBitmap1;
+        g_pFob_blk16_render_buffer = (byte *)*g_pBlkBitmap2;
+        msc_MemSet(g_pFob_blk16_key_buffer,0,g_nFob_buffersize * 2);
+        msc_MemSet(g_pFob_blk16_delta_buffer,0,g_nFob_buffersize * 2);
+        msc_MemSet(g_pFob_blk16_render_buffer,0,g_nFob_buffersize * 2);
         g_pbBlkExpand =
              (byte *)(*(code *)*g_pBlocky16_memory_services)
                                (0x20000,s_C__grimsrc_libs_lecsmush_insane__004f3bbc,0x13e);
@@ -192,10 +210,14 @@ int Blocky16_AllocBuffers(int param_1,int param_2,int param_3)
   return iVar1;
 }
 
-/* ---- 0x004cc590  Blocky16_FreeBuffers ---- */
-/* Frees the three frame buffers and the expand table of the Blocky16 decoder */
+/* ---- 0x004cc590  Blocky16_flobdec_Reset ---- */
+/* Frees the three frame buffers and the expand table of the Blocky16 decoder Original name
+   Blocky16_flobdec_Reset (the remaster's GrimFandango (Linux): the body of slot 3 of the
+   "FLOBDEC=insane_blocky16" service table (the slot holds the JMP thunk 0x4cc3b0 to it);
+   flobdec_Reset is a static several LEC modules have, written with the module prefix); was
+   Blocky16_FreeBuffers. */
 
-void Blocky16_FreeBuffers(void)
+void Blocky16_flobdec_Reset(void)
 
 {
   if (g_pBlkBitmap0 != (int *)0x0) {
@@ -212,14 +234,17 @@ void Blocky16_FreeBuffers(void)
               (g_pbBlkExpand,s_C__grimsrc_libs_lecsmush_insane__004f3bbc,0x156);
     g_pbBlkExpand = (byte *)0x0;
   }
-  g_nBlkPixels = 0;
+  g_nFob_buffersize = 0;
   return;
 }
 
-/* ---- 0x004cc620  Blocky16_DecodeFrameEntry ---- */
-/* Interface entry of the decoder: drops the seventh argument and calls Blocky16_DecodeFrame */
+/* ---- 0x004cc620  Blocky16_flobdec_DecodeBody ---- */
+/* Interface entry of the decoder: drops the seventh argument and calls Blocky16_DecodeFrame
+   Original name Blocky16_flobdec_DecodeBody (the remaster's GrimFandango (Linux): slot 5 of the
+   "FLOBDEC=insane_blocky16" service table; flobdec_DecodeBody is a static several LEC modules have,
+   written with the module prefix); was Blocky16_DecodeFrameEntry. */
 
-void Blocky16_DecodeFrameEntry
+void Blocky16_flobdec_DecodeBody
                (void *param_1,uint *param_2,int param_3,int param_4,int param_5,byte *param_6,
                undefined4 param_7,byte param_8)
 
@@ -228,12 +253,14 @@ void Blocky16_DecodeFrameEntry
   return;
 }
 
-/* ---- 0x004cc650  Blocky16_GetFrameInfo ---- */
+/* ---- 0x004cc650  Blocky16_flobdec_GetVal ---- */
 /* Reads four 16 bit fields of a frame header of the right size (0x100), returns -1 for any other
-   size */
+   size Original name Blocky16_flobdec_GetVal (the remaster's GrimFandango (Linux): slot 7 of the
+   "FLOBDEC=insane_blocky16" service table; flobdec_GetVal is a static several LEC modules have,
+   written with the module prefix); was Blocky16_GetFrameInfo. */
 
 undefined4
-Blocky16_GetFrameInfo
+Blocky16_flobdec_GetVal
           (short *param_1,int param_2,int *param_3,int *param_4,int *param_5,int *param_6)
 
 {
@@ -333,14 +360,15 @@ void Blocky16_BuildPixelOffsets(uint param_1)
   return;
 }
 
-/* ---- 0x004cc7d0  Blocky16_BuildSplitMasks ---- */
+/* ---- 0x004cc7d0  fob_block_maketiles ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Builds the 8x8 or 4x4 split masks of the Blocky16 codec in g_aBlockySplit8 or g_aBlockySplit4
    from the edge points g_anBlockySplit8X, g_anBlockySplit8Y, g_anBlockySplit4X and
-   g_anBlockySplit4Y */
+   g_anBlockySplit4Y Original name fob_block_maketiles (the remaster's GrimFandango (Linux):
+   AllocBuffers' calls with 4 and 8); was Blocky16_BuildSplitMasks. */
 
-void __cdecl Blocky16_BuildSplitMasks(int size)
+void __cdecl fob_block_maketiles(int size)
 
 {
   unsigned char _frame[0x180] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -668,10 +696,10 @@ LAB_004ccb89:
 /* ---- 0x004ccd00  Blocky16_DecodeFrame ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-/* Decodes one Blocky16 frame into the buffers g_pbBlkCur, g_pbBlkPrev and g_pbBlkPrev2 using
+/* Decodes one Blocky16 frame into the buffers g_pFob_blk16_render_buffer, g_pFob_blk16_delta_buffer and g_pFob_blk16_key_buffer using
    g_stBlockyDecState, g_asBlockyMotion, g_aBlockySplit4 and g_aBlockySplit8 and gives it to the
    output g_pFob_blit_routine; bitmaps g_pBlkBitmap0, g_pBlkBitmap1, g_pBlkBitmap2; tables
-   g_pbBlkExpand, g_nBlkShiftR, g_nBlkShiftG, g_nBlkShiftB, g_pbBlkOutput, g_nBlkLastSeq */
+   g_pbBlkExpand, g_nFob_translation_shiftr, g_nFob_translation_shiftg, g_nFob_translation_shiftb, g_pbBlkOutput, g_nBlkLastSeq */
 
 int __cdecl Blocky16_DecodeFrame(void *dst,uint *clip,int x,int y,int palette,byte *hdr,byte flags)
 
@@ -695,22 +723,24 @@ int __cdecl Blocky16_DecodeFrame(void *dst,uint *clip,int x,int y,int palette,by
   pbVar5 = hdr + 0x230;
   if (((g_pBlkBitmap0 == (int *)0x0) || (uVar8 != g_pBlkBitmap0[1])) ||
      ((iVar7 + 7U & 0xfffffff8) != g_pBlkBitmap0[2])) {
-    Blocky16_FreeBuffers();
+    Blocky16_flobdec_Reset();
     iVar3 = (int)*(short *)(hdr + 0x228);
     if (*(short *)(hdr + 0x228) == 0) {
       iVar3 = 8;
     }
-    Blocky16_AllocBuffers(uVar8,iVar7 + 7U & 0xfffffff8,iVar3);
+    AllocBuffers(uVar8,iVar7 + 7U & 0xfffffff8,iVar3);
   }
-  iVar3 = (int)g_pbBlkPrev - (int)g_pbBlkCur;
-  iVar4 = (int)g_pbBlkPrev2 - (int)g_pbBlkCur;
+  iVar3 = (int)g_pFob_blk16_delta_buffer - (int)g_pFob_blk16_render_buffer;
+  iVar4 = (int)g_pFob_blk16_key_buffer - (int)g_pFob_blk16_render_buffer;
   if (dst != (void *)0x0) {
     Blocky16_BuildExpandTable(dst);
   }
   if (*(short *)(hdr + 0x10) == 0) {
     Blocky16_BuildPixelOffsets(uVar8);
-    Video_FillPixels(g_pbBlkPrev2,g_pBlkBitmap0,g_pBlkBitmap0[1] * g_pBlkBitmap0[2],hdr + 0x20);
-    Video_FillPixels(g_pbBlkPrev,g_pBlkBitmap0,g_pBlkBitmap0[1] * g_pBlkBitmap0[2],hdr + 0x20);
+    gra_SetBuffer(g_pFob_blk16_key_buffer,g_pBlkBitmap0,g_pBlkBitmap0[1] * g_pBlkBitmap0[2],
+                  hdr + 0x20);
+    gra_SetBuffer(g_pFob_blk16_delta_buffer,g_pBlkBitmap0,g_pBlkBitmap0[1] * g_pBlkBitmap0[2],
+                  hdr + 0x20);
     g_nBlkLastSeq = -1;
   }
   g_nBretsFrameCount = g_nBretsFrameCount + 1;
@@ -718,8 +748,8 @@ int __cdecl Blocky16_DecodeFrame(void *dst,uint *clip,int x,int y,int palette,by
   case 0:
     goto LAB_004ccf61;
   case 1:
-    Blocky16_DecodeHalfRows16(g_pbBlkCur,pbVar5,uVar8,iVar7);
-    g_pbBlkOutput = g_pbBlkCur;
+    Blocky16_DecodeHalfRows16(g_pFob_blk16_render_buffer,pbVar5,uVar8,iVar7);
+    g_pbBlkOutput = g_pFob_blk16_render_buffer;
     break;
   case 2:
     if (((flags & 4) != 0) && (hdr[0x13] == 0)) {
@@ -728,37 +758,37 @@ int __cdecl Blocky16_DecodeFrame(void *dst,uint *clip,int x,int y,int palette,by
     }
     if ((int)*(short *)(hdr + 0x10) == g_nBlkLastSeq + 1) {
       Blocky16_DecodeBlocks
-                (g_pbBlkCur,pbVar5,iVar3 >> 1,iVar4 >> 1,uVar8,&g_asBlockyMotion,
+                (g_pFob_blk16_render_buffer,pbVar5,iVar3 >> 1,iVar4 >> 1,uVar8,&g_asBlockyMotion,
                  (short *)(hdr + 0x18),iVar7,uVar8 * 9 - (uVar8 & 0xfffffff8),
                  (byte *)&g_aBlockySplit4,(byte *)&g_aBlockySplit8,(ushort *)(hdr + 0x28));
-      g_pbBlkOutput = g_pbBlkCur;
+      g_pbBlkOutput = g_pFob_blk16_render_buffer;
     }
     break;
   case 3:
-    pbVar5 = g_pbBlkPrev;
+    pbVar5 = g_pFob_blk16_delta_buffer;
     if (((flags & 4) != 0) && (hdr[0x13] == 0)) {
       g_nBlkLastSeq = (int)*(short *)(hdr + 0x10);
       return 0;
     }
     goto LAB_004ccf61;
   case 4:
-    pbVar5 = g_pbBlkPrev2;
+    pbVar5 = g_pFob_blk16_key_buffer;
     if (((flags & 4) != 0) && (hdr[0x13] == 0)) {
       g_nBlkLastSeq = (int)*(short *)(hdr + 0x10);
       return 0;
     }
 LAB_004ccf61:
-    msc_MemCopy(g_pbBlkCur,pbVar5,uVar8 * iVar7 * 2);
+    msc_MemCopy(g_pFob_blk16_render_buffer,pbVar5,uVar8 * iVar7 * 2);
 LAB_004ccf67:
-    g_pbBlkOutput = g_pbBlkCur;
+    g_pbBlkOutput = g_pFob_blk16_render_buffer;
     break;
   case 5:
-    Rle_Decode(g_pbBlkCur,pbVar5,*(undefined4 *)(hdr + 0x24));
+    msc_rle_DecompressBlock(g_pFob_blk16_render_buffer,pbVar5,*(undefined4 *)(hdr + 0x24));
     goto LAB_004ccf67;
   case 6:
     iVar7 = uVar8 * iVar7;
-    pbVar6 = g_pbBlkCur;
-    g_pbBlkOutput = g_pbBlkCur;
+    pbVar6 = g_pFob_blk16_render_buffer;
+    g_pbBlkOutput = g_pFob_blk16_render_buffer;
     if (iVar7 != 0) {
       do {
         bVar1 = *pbVar5;
@@ -767,30 +797,30 @@ LAB_004ccf67:
         *(undefined2 *)pbVar6 = *(undefined2 *)(hdr + (uint)bVar1 * 2 + 0x28);
         pbVar6 = pbVar6 + 2;
       } while (iVar7 != 0);
-      g_pbBlkOutput = g_pbBlkCur;
+      g_pbBlkOutput = g_pFob_blk16_render_buffer;
     }
     break;
   case 7:
-    Blocky16_DecodeHalfRows8(g_pbBlkCur,pbVar5,uVar8,iVar7,hdr + 0x28);
-    g_pbBlkOutput = g_pbBlkCur;
+    Blocky16_DecodeHalfRows8(g_pFob_blk16_render_buffer,pbVar5,uVar8,iVar7,hdr + 0x28);
+    g_pbBlkOutput = g_pFob_blk16_render_buffer;
     break;
   case 8:
-    Rle_Begin(pbVar5);
+    msc_rle_DecompressInitialize(pbVar5);
     iVar7 = uVar8 * iVar7;
     iVar3 = iVar7;
-    pbVar5 = g_pbBlkCur;
+    pbVar5 = g_pFob_blk16_render_buffer;
     for (; iVar7 != 0; iVar7 = iVar7 + -1) {
-      uVar8 = Rle_NextByte(iVar3);
+      uVar8 = msc_rle_DecompressGetbyte(iVar3);
       *(undefined2 *)pbVar5 = *(undefined2 *)(hdr + (uVar8 & 0xff) * 2 + 0x28);
       iVar3 = extraout_ECX;
       pbVar5 = pbVar5 + 2;
     }
     Mem_DumpLog();
-    g_pbBlkOutput = g_pbBlkCur;
+    g_pbBlkOutput = g_pFob_blk16_render_buffer;
   }
   if ((g_pbBlkOutput != (byte *)0x0) && (dst != (void *)0x0)) {
     pbVar5 = g_pbBlkExpand;
-    if ((g_nBlkShiftR == 0) && (g_nBlkShiftG == 0)) {
+    if ((g_nFob_translation_shiftr == 0) && (g_nFob_translation_shiftg == 0)) {
       pbVar5 = (byte *)0x0;
     }
     if (g_pFob_blit_routine == (void *)0x0) {
@@ -812,20 +842,20 @@ LAB_004ccf67:
       palette = (*(code *)g_pFob_blit_routine)(dst,clip,x,y,g_pBlkBitmap2,palette,pbVar5);
     }
   }
-  pbVar2 = g_pbBlkPrev;
-  pbVar6 = g_pbBlkPrev2;
-  pbVar5 = g_pbBlkCur;
+  pbVar2 = g_pFob_blk16_delta_buffer;
+  pbVar6 = g_pFob_blk16_key_buffer;
+  pbVar5 = g_pFob_blk16_render_buffer;
   if ((int)*(short *)(hdr + 0x10) == g_nBlkLastSeq + 1) {
     if (hdr[0x13] == 1) {
-      g_pbBlkPrev = g_pbBlkCur;
-      g_pbBlkCur = pbVar2;
+      g_pFob_blk16_delta_buffer = g_pFob_blk16_render_buffer;
+      g_pFob_blk16_render_buffer = pbVar2;
       g_nBlkLastSeq = (int)*(short *)(hdr + 0x10);
       return palette;
     }
     if (hdr[0x13] == 2) {
-      g_pbBlkPrev2 = g_pbBlkPrev;
-      g_pbBlkCur = pbVar6;
-      g_pbBlkPrev = pbVar5;
+      g_pFob_blk16_key_buffer = g_pFob_blk16_delta_buffer;
+      g_pFob_blk16_render_buffer = pbVar6;
+      g_pFob_blk16_delta_buffer = pbVar5;
     }
   }
   g_nBlkLastSeq = (int)*(short *)(hdr + 0x10);
@@ -852,12 +882,12 @@ void Blocky16_BuildExpandTable(void *param_1)
       (((*(int *)((int)param_1 + 0x30) != g_pBlkBitmap0[0xc] ||
         (*(int *)((int)param_1 + 0x38) != g_pBlkBitmap0[0xe])) ||
        (*(int *)((int)param_1 + 0x34) != g_pBlkBitmap0[0xd])))) &&
-     (((*(int *)((int)param_1 + 0x30) != g_nBlkShiftR ||
-       (*(int *)((int)param_1 + 0x38) != g_nBlkShiftB)) ||
-      (*(int *)((int)param_1 + 0x34) != g_nBlkShiftG)))) {
-    g_nBlkShiftR = *(int *)((int)param_1 + 0x30);
-    g_nBlkShiftG = *(int *)((int)param_1 + 0x34);
-    g_nBlkShiftB = *(int *)((int)param_1 + 0x38);
+     (((*(int *)((int)param_1 + 0x30) != g_nFob_translation_shiftr ||
+       (*(int *)((int)param_1 + 0x38) != g_nFob_translation_shiftb)) ||
+      (*(int *)((int)param_1 + 0x34) != g_nFob_translation_shiftg)))) {
+    g_nFob_translation_shiftr = *(int *)((int)param_1 + 0x30);
+    g_nFob_translation_shiftg = *(int *)((int)param_1 + 0x34);
+    g_nFob_translation_shiftb = *(int *)((int)param_1 + 0x38);
     for (local_8 = 0; (int)local_8 < 0x10000; local_8 = local_8 + 1) {
       *(undefined2 *)(g_pbBlkExpand + local_8 * 2) = (undefined2)local_8;
     }

@@ -15,7 +15,7 @@
   "global": "g_dwRdModel3_numDrawnModels",
   "oldtype": "uint",
   "names_only": true,
-  "comment": "Original name rdModel3_numDrawnModels (the remaster's GrimFandango (Linux): cleared in rdModel3_ClearFrameCounters, counted per model in rdThing_Draw); was UINT_007f31ec."
+  "comment": "Original name rdModel3_numDrawnModels (the remaster's GrimFandango (Linux): cleared in rdModel3_ClearFrameCounters, counted per model in rdModel3_Draw); was UINT_007f31ec."
  },
  {
   "program": "/v101/GRIMFANDANGO.EXE",

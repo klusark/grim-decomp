@@ -18,8 +18,11 @@ void Res_FileCloseAll(void)
   return;
 }
 
-/* ---- 0x00480360  Lab_OpenByName ---- */
-int __cdecl Lab_OpenByName(char *path)
+/* ---- 0x00480360  Res_FileOpen ---- */
+/* Original name Res_FileOpen (the remaster's GrimFandango (Linux): AddResourcePath's open call (the
+   remaster inlined the LAB / directory variants)); was Lab_OpenByName. */
+
+int __cdecl Res_FileOpen(char *path)
 
 {
   char cVar1;
@@ -127,10 +130,11 @@ int __cdecl Res_FileClose(char *name)
   return 1;
 }
 
-/* ---- 0x004804c0  Lab_MoveToFront ---- */
-/* Makes the named archive the first one searched */
+/* ---- 0x004804c0  Res_FileMoveToFront ---- */
+/* Makes the named archive the first one searched Original name Res_FileMoveToFront (the remaster's
+   GrimFandango (Linux): AddResourcePath's call after each successful open); was Lab_MoveToFront. */
 
-int __cdecl Lab_MoveToFront(char *name)
+int __cdecl Res_FileMoveToFront(char *name)
 
 {
   int *piVar1;

@@ -12,18 +12,18 @@
 
 #ifdef GRIM_EXE
 #include "globals.h"
-#define FUN_004d5f70 FUN_004d5f70__ghidra
+#define msc_error_SaveString msc_error_SaveString__ghidra
 #define FUN_004d5fd0 FUN_004d5fd0__ghidra
-#define FUN_004d5e50 FUN_004d5e50__ghidra
+#define msc_MemSet msc_MemSet__ghidra
 #define MaterialInstanceSaveLoad FUN_004965b0__ghidra
 #define D3D_CreateViewport D3D_CreateViewport__ghidra
 #define DDraw_CreateSurfaces DDraw_CreateSurfaces__ghidra
 #include "functions.h"
 #undef DDraw_CreateSurfaces
 #undef D3D_CreateViewport
-#undef FUN_004d5f70
+#undef msc_error_SaveString
 #undef FUN_004d5fd0
-#undef FUN_004d5e50
+#undef msc_MemSet
 #undef MaterialInstanceSaveLoad
 
 #define W16(sym) (*(ushort *)&(sym))
@@ -59,49 +59,49 @@ void FUN_004d5fd0(byte *dst, int value, int count)
     }
 }
 
-/* ==== FUN_004d5e50 (0x004d5e50): memset wrapper ====
+/* ==== msc_MemSet (0x004d5e50): memset wrapper ====
  * Calls FUN_004d5fd0(dst, value, count).  The original loads the count into EAX before the call, and the callee's
  * pushad / popad keeps it there, so it returns the count. */
-/* OVERRIDES: FUN_004d5e50 */
-int FUN_004d5e50(byte *dst, int value, int count)
+/* OVERRIDES: msc_MemSet */
+int msc_MemSet(byte *dst, int value, int count)
 {
     FUN_004d5fd0(dst, value, count);
     return count;
 }
 
-/* ==== FUN_004d5f70 (0x004d5f70): vsprintf into the Smush log ring ====
- * 20 lines of 200 bytes at 0x008dcdc8; UINT_008ddd68 is the next line (wraps from 19 to 0), UINT_008ddd6c the number of
+/* ==== msc_error_SaveString (0x004d5f70): vsprintf into the Smush log ring ====
+ * 20 lines of 200 bytes at 0x008dcdc8; g_dwMsc_error_loc is the next line (wraps from 19 to 0), g_dwMsc_error_count the number of
  * lines used (stops at 20).  Returns 19, or the new number of lines while it is below 20. */
-/* OVERRIDES: FUN_004d5f70 */
-int FUN_004d5f70(char *fmt, ...)
+/* OVERRIDES: msc_error_SaveString */
+int msc_error_SaveString(char *fmt, ...)
 {
     __builtin_va_list ap;
     uint ret;
 
     __builtin_va_start(ap, fmt);
-    ((int (*)(char *, char *, __builtin_va_list))vsprintf)((char *)&DAT_008dcdc8 + UINT_008ddd68 * 200, fmt, ap);
+    ((int (*)(char *, char *, __builtin_va_list))vsprintf)((char *)&g_aMsc_error_string + g_dwMsc_error_loc * 200, fmt, ap);
     __builtin_va_end(ap);
-    if (UINT_008ddd68 == 0x13)
-        UINT_008ddd68 = 0;
+    if (g_dwMsc_error_loc == 0x13)
+        g_dwMsc_error_loc = 0;
     else
-        UINT_008ddd68 = UINT_008ddd68 + 1;
+        g_dwMsc_error_loc = g_dwMsc_error_loc + 1;
     ret = 0x13;
-    if ((int)UINT_008ddd6c < 0x13) {
-        ret = UINT_008ddd6c + 1;
-        UINT_008ddd6c = ret;
+    if ((int)g_dwMsc_error_count < 0x13) {
+        ret = g_dwMsc_error_count + 1;
+        g_dwMsc_error_count = ret;
     }
     return ret;
 }
 
-/* ==== Rle_Decode (0x004d5e70) ====
+/* ==== msc_rle_DecompressBlock (0x004d5e70) ====
  * Decodes `count` bytes of the run-length stream at `src` into `dst`.  The original passes a stale ECX to the __fastcall
- * Rle_NextByte; the argument is only read in a state (not 0, 1 or 2) that Rle_Begin never leaves, so 0 is passed.  Ends
+ * msc_rle_DecompressGetbyte; the argument is only read in a state (not 0, 1 or 2) that msc_rle_DecompressInitialize never leaves, so 0 is passed.  Ends
  * with a jump to the empty Mem_DumpLog (its return value is not used by any caller). */
-void Rle_Decode(undefined1 *dst, undefined4 src, int count)
+void msc_rle_DecompressBlock(undefined1 *dst, undefined4 src, int count)
 {
-    Rle_Begin((int *)src);
+    msc_rle_DecompressInitialize((int *)src);
     for (; count != 0; count--)
-        *dst++ = (undefined1)Rle_NextByte(0);
+        *dst++ = (undefined1)msc_rle_DecompressGetbyte(0);
     Mem_DumpLog();
 }
 

@@ -1,0 +1,1486 @@
+[
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a4b00",
+  "old": "sputRoom_LoadRoom",
+  "name": "SetFile_Parse",
+  "comment": "Remembers the set being parsed (g_dwLoadingRoom), stores its base file name (+0, 0x7f chars) and parses the sections with SetFile_ParseSections. Earlier taken for sputRoom_LoadRoom (the remaster's GrimFandango (Linux): the only unmatched caller of SetFile_ParseSections; 1 matched neighbours agree, 0 disagree); was SetFile_Parse. Named SetFile_Parse (not in the remaster: gcc inlined it into sputRoom_LoadRoom; the earlier hand-made name, back from the orig-names guess sputRoom_LoadRoom, which is 0x4a49a0); was sputRoom_LoadRoom."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0040cf20",
+  "old": "rdThing_Draw",
+  "name": "rdModel3_Draw",
+  "comment": "Rdthing.c: frustum-tests the model's bounding sphere, picks the geometry set, updates the puppet and draws the node hierarchy Original name rdModel3_Draw (the remaster's GrimFandango (Linux): same body (bounding-sphere frustum test, geometry set, puppet update, node hierarchy; counts rdModel3_numDrawnModels); called by rdThing_Draw's model case); was rdThing_Draw."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0040a980",
+  "old": "rdModel3_Load",
+  "name": "rdModel3_LoadEntry",
+  "comment": "Opens the file; the magic 'MODL' selects rdModel3_LoadBinary, anything else is parsed by rdModel3_LoadText. Source file Rdmodel3.c (C:\\grimjedi\\Libs\\RDroid\\Primitives\\Rdmodel3.c). Original name rdModel3_LoadEntry (the remaster's GrimFandango (Linux): same body (open, 'LDOM' magic -> LoadEntryBinary else LoadEntryText)); was rdModel3_Load."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a49a0",
+  "old": "sputResource_SetHandler",
+  "name": "sputRoom_LoadRoom",
+  "comment": "Resource type 'SET ' loader (ResType_SetHandler op 1): allocates the 0x1b08-byte set record, initialises it, parses the .set file, links it to the set-name entry and re-attaches the walkers of the actors already in that set. Earlier taken for sputResource_SetHandler (the remaster's GrimFandango (Linux): the only unmatched caller of SetFile_Parse; 1 matched neighbours agree, 0 disagree); was Set_LoadFile. Original name sputRoom_LoadRoom (the remaster's GrimFandango (Linux): same body (alloc the set record, LoadRoomEntry, look the name up in the set list, Puck validate, free on failure); sputResource_SetHandler's call); was sputResource_SetHandler."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004035b0",
+  "old": "Svc_Printf",
+  "name": "defaultStatusPrint",
+  "comment": "Default GrimServices.printf: vsprintf into the shared buffer then printf Original name defaultStatusPrint (the remaster's GrimFandango (Linux): slot 1 of defaultHostServices (g_aDefaultHostServices)); was Svc_Printf."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004035e0",
+  "old": "Svc_Printf2",
+  "name": "defaultMessagePrint",
+  "comment": "Original name defaultMessagePrint (the remaster's GrimFandango (Linux): slot 2 of defaultHostServices (g_aDefaultHostServices)); was Svc_Printf2."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004036d0",
+  "old": "Svc_Fn1c",
+  "name": "defaultAtExit",
+  "comment": "Original name defaultAtExit (the remaster's GrimFandango (Linux): slot 7 of defaultHostServices (g_aDefaultHostServices)); was Svc_Fn1c."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00403700",
+  "old": "Svc_Fn2c",
+  "name": "defaultGetTimerTick",
+  "comment": "Original name defaultGetTimerTick (the remaster's GrimFandango (Linux): slot 11 of defaultHostServices (g_aDefaultHostServices)); was Svc_Fn2c."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00403710",
+  "old": "Svc_Fopen",
+  "name": "defaultFileOpen",
+  "comment": "Original name defaultFileOpen (the remaster's GrimFandango (Linux): slot 12 of defaultHostServices (g_aDefaultHostServices)); was Svc_Fopen."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00403730",
+  "old": "Svc_Fclose",
+  "name": "defaultFileClose",
+  "comment": "Original name defaultFileClose (the remaster's GrimFandango (Linux): slot 13 of defaultHostServices (g_aDefaultHostServices)); was Svc_Fclose."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00403740",
+  "old": "Svc_Fread",
+  "name": "defaultFileRead",
+  "comment": "Original name defaultFileRead (the remaster's GrimFandango (Linux): slot 14 of defaultHostServices (g_aDefaultHostServices)); was Svc_Fread."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00403760",
+  "old": "Svc_Fgets",
+  "name": "defaultFileGets",
+  "comment": "Original name defaultFileGets (the remaster's GrimFandango (Linux): slot 15 of defaultHostServices (g_aDefaultHostServices)); was Svc_Fgets."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00403780",
+  "old": "Svc_Fwrite",
+  "name": "defaultFileWrite",
+  "comment": "Original name defaultFileWrite (the remaster's GrimFandango (Linux): slot 16 of defaultHostServices (g_aDefaultHostServices)); was Svc_Fwrite."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004037a0",
+  "old": "Svc_Feof",
+  "name": "defaultFileEOF",
+  "comment": "Original name defaultFileEOF (the remaster's GrimFandango (Linux): slot 17 of defaultHostServices (g_aDefaultHostServices)); was Svc_Feof."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004037b0",
+  "old": "Svc_Ftell",
+  "name": "defaultFileTell",
+  "comment": "Original name defaultFileTell (the remaster's GrimFandango (Linux): slot 18 of defaultHostServices (g_aDefaultHostServices)); was Svc_Ftell."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004037c0",
+  "old": "Svc_Fseek",
+  "name": "defaultFileSeek",
+  "comment": "Original name defaultFileSeek (the remaster's GrimFandango (Linux): slot 19 of defaultHostServices (g_aDefaultHostServices)); was Svc_Fseek."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004037e0",
+  "old": "Svc_FileSize",
+  "name": "defaultFileSize",
+  "comment": "Original name defaultFileSize (the remaster's GrimFandango (Linux): slot 20 of defaultHostServices (g_aDefaultHostServices)); was Svc_FileSize."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00403830",
+  "old": "Svc_Fprintf",
+  "name": "defaultFilePrintf",
+  "comment": "Original name defaultFilePrintf (the remaster's GrimFandango (Linux): slot 21 of defaultHostServices (g_aDefaultHostServices)); was Svc_Fprintf."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00403870",
+  "old": "Svc_Identity",
+  "name": "defaultLockHandle",
+  "comment": "Default GrimServices.translate: returns its argument unchanged Original name defaultLockHandle (the remaster's GrimFandango (Linux): slot 26 of defaultHostServices (g_aDefaultHostServices)); was Svc_Identity."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00404b30",
+  "old": "FUN_00404b30",
+  "name": "rdColormap_Size",
+  "comment": "Original name rdColormap_Size (the remaster's GrimFandango (Linux): same body (0x350 + 0x4100 / 0x10100 / 0x8000 / 0x10000 by the table flags); sputResource_ColormapHandler's size query); was FUN_00404b30."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0040a8f0",
+  "old": "rdModel3_New",
+  "name": "rdModel3_Load",
+  "comment": "Loads a model: calls the custom loader hook if one is installed, otherwise allocates the record, rdModel3_Load, then rdModel3_LoadPostProcess. Source file Rdmodel3.c (C:\\grimjedi\\Libs\\RDroid\\Primitives\\Rdmodel3.c). Original name rdModel3_Load (the remaster's GrimFandango (Linux): same body (loader hook, 0x90-byte model, load, post-process, free on failure); sputResource_ModelHandler's call); was rdModel3_New."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0040d140",
+  "old": "rdModel_DrawNode",
+  "name": "rdModel3_DrawHNode",
+  "comment": "Recursive hierarchy walk (+0x58 child count, +0x5c first child, +0x60 sibling) drawing each node's mesh Original name rdModel3_DrawHNode (the remaster's GrimFandango (Linux): same body (mesh index +0x4c, geoset flag +0x40 bit 1 walks +0x54, draws the mesh, recurses over +0x58 / +0x5c children)); was rdModel_DrawNode."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004500d0",
+  "old": "Vec3_Rotate3x3",
+  "name": "rdMatrix_TransformPoint34Acc",
+  "comment": "Rotates the vector in place by the 3x3 part of the matrix Original name rdMatrix_TransformPoint34Acc (the remaster's GrimFandango (Linux): same body (v = v * R + t in place, 3x4 matrix); rdModel3_Draw's call); was Vec3_Rotate3x3."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00471d80",
+  "old": "rdThing_DrawAlt",
+  "name": "rdThing_Draw",
+  "comment": "Original name rdThing_Draw (the remaster's GrimFandango (Linux): same switch on the thing type (1 model, 4 sprite, 5 particles, 6 polyline) under rdroid_curGeometryMode != 0; rdThing.c); was rdThing_DrawAlt."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00480360",
+  "old": "Lab_OpenByName",
+  "name": "Res_FileOpen",
+  "comment": "Original name Res_FileOpen (the remaster's GrimFandango (Linux): AddResourcePath's open call (the remaster inlined the LAB / directory variants)); was Lab_OpenByName."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004804c0",
+  "old": "Lab_MoveToFront",
+  "name": "Res_FileMoveToFront",
+  "comment": "Makes the named archive the first one searched Original name Res_FileMoveToFront (the remaster's GrimFandango (Linux): AddResourcePath's call after each successful open); was Lab_MoveToFront."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00486a10",
+  "old": "Plane_IntersectSegment",
+  "name": "sputRender_SegmentPlaneIntersect",
+  "comment": "Original name sputRender_SegmentPlaneIntersect (the remaster's GrimFandango (Linux): same body (plane distance of both points, |d| < 0.1 test, lerp); sputCostume_DrawMeshShadow's call); was Plane_IntersectSegment."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004893d0",
+  "old": "Movie_CheckSurfaceFormat",
+  "name": "sputSmush_StartVideo",
+  "comment": "Smush surface callback: 0 when the movie surface has exactly the requested width, height and bits per pixel. Original name sputSmush_StartVideo (the remaster's GrimFandango (Linux): slot 0 of sputVideoCallBacks (g_pSputVideoCallBacks)); was Movie_CheckSurfaceFormat."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00489410",
+  "old": "FUN_00489410",
+  "name": "sputSmush_StopVideo",
+  "comment": "Original name sputSmush_StopVideo (the remaster's GrimFandango (Linux): slot 1 of sputVideoCallBacks (g_pSputVideoCallBacks)); was FUN_00489410."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00489420",
+  "old": "Movie_LockSurface",
+  "name": "sputSmush_LockMovieBuffer",
+  "comment": "Smush surface callback: locks the movie surface and returns its description (pixels, pitch, size, bytes per pixel) and the full-frame rectangle. Original name sputSmush_LockMovieBuffer (the remaster's GrimFandango (Linux): slot 2 of sputVideoCallBacks (g_pSputVideoCallBacks)); was Movie_LockSurface."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004894b0",
+  "old": "Movie_UnlockSurface",
+  "name": "sputSmush_UnLockMovieBuffer",
+  "comment": "Smush surface callback: unlocks the movie surface. Original name sputSmush_UnLockMovieBuffer (the remaster's GrimFandango (Linux): slot 3 of sputVideoCallBacks (g_pSputVideoCallBacks)); was Movie_UnlockSurface."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004894d0",
+  "old": "FUN_004894d0",
+  "name": "sputSmush_SetVideoPalette",
+  "comment": "Original name sputSmush_SetVideoPalette (the remaster's GrimFandango (Linux): slot 5 of sputVideoCallBacks (g_pSputVideoCallBacks)); was FUN_004894d0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0048d570",
+  "old": "Resource_OpenArchivesInDir",
+  "name": "AddResourcePath",
+  "comment": "Opens every *.lab in the directory, then the required archives listed in g_ppRequiredLabs in priority order Original name AddResourcePath (the remaster's GrimFandango (Linux): same sequence: strip the trailing separator, stdFileUtil_NewFind(dir, 3, ext), FindNext loop opening each archive and moving it to the front, DisposeFind, then the fixed list); was Resource_OpenArchivesInDir."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0048d8c0",
+  "old": "ResType_LipSyncHandler",
+  "name": "sputResource_LipSyncHandler",
+  "comment": "Resource type handler for 'SYNC' (entry of g_ResTypeTable): op 1 loads, op 2 frees, op 3 reports the size. Load = grimSound_LipSyncLoad. Original name sputResource_LipSyncHandler (the remaster's GrimFandango (Linux): the 'SYNC' entry of the resource type table (g_ResTypeTable / TypesToRegister)); was ResType_LipSyncHandler."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0048d930",
+  "old": "ResType_BitmapHandler",
+  "name": "sputResource_BackgroundHandler",
+  "comment": "BKND handler: op 1 loads the .bm with stdBitmap and remaps 16-bit frames to the display, op 2 frees it, op 3 reports its size Original name sputResource_BackgroundHandler (the remaster's GrimFandango (Linux): the 'BKND' entry of the resource type table (g_ResTypeTable / TypesToRegister)); was ResType_BitmapHandler."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0048da40",
+  "old": "ResType_CostumeHandler",
+  "name": "sputResource_CostumeHandler",
+  "comment": "COST handler: Cos_Load / Cos_Free Original name sputResource_CostumeHandler (the remaster's GrimFandango (Linux): the 'COST' entry of the resource type table (g_ResTypeTable / TypesToRegister)); was ResType_CostumeHandler."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0048dbd0",
+  "old": "ResType_FontHandler",
+  "name": "sputResource_FontHandler",
+  "comment": "Resource type handler for 'FONT' (entry of g_ResTypeTable): op 1 loads, op 2 frees, op 3 reports the size. Load = Font_LoadFile, kept locked. Original name sputResource_FontHandler (the remaster's GrimFandango (Linux): the 'FONT' entry of the resource type table (g_ResTypeTable / TypesToRegister)); was ResType_FontHandler."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0048de10",
+  "old": "ResType_ModelHandler",
+  "name": "sputResource_ModelHandler",
+  "comment": "Resource type handler for 'MODL' (entry of g_ResTypeTable): op 1 loads, op 2 frees, op 3 reports the size. Load = rdModel3_New (.3do). Original name sputResource_ModelHandler (the remaster's GrimFandango (Linux): the 'MODL' entry of the resource type table (g_ResTypeTable / TypesToRegister)); was ResType_ModelHandler."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0048de70",
+  "old": "ResType_SetHandler",
+  "name": "sputResource_SetHandler",
+  "comment": "Resource type handler for 'SET ' (entry of g_ResTypeTable): op 1 loads, op 2 frees, op 3 reports the size. Load = Set_LoadFile. Original name sputResource_SetHandler (the remaster's GrimFandango (Linux): the 'SET ' entry of the resource type table (g_ResTypeTable / TypesToRegister)); was ResType_SetHandler."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0048dee0",
+  "old": "ResType_ZBufferHandler",
+  "name": "sputResource_ZBufferHandler",
+  "comment": "Resource type handler for 'ZBUF' (entry of g_ResTypeTable): op 1 loads, op 2 frees, op 3 reports the size. Load = ZBuffer_Load (z-buffer bitmap). Original name sputResource_ZBufferHandler (the remaster's GrimFandango (Linux): the 'ZBUF' entry of the resource type table (g_ResTypeTable / TypesToRegister)); was ResType_ZBufferHandler."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0048e1e0",
+  "old": "ResType_MemoryHandler",
+  "name": "sputResource_MemoryHandler",
+  "comment": "Resource type handler for 'MEM ' (entry of g_ResTypeTable): op 1 loads, op 2 frees, op 3 reports the size. Plain memory block: free releases the block and its data. Original name sputResource_MemoryHandler (the remaster's GrimFandango (Linux): the 'MEM ' entry of the resource type table (g_ResTypeTable / TypesToRegister)); was ResType_MemoryHandler."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00494940",
+  "old": "Actor_DrawShadowPlane",
+  "name": "sputCostume_DrawMeshShadow",
+  "comment": "Draws the actor's shadow onto one shadow plane: every mesh face of each model is projected through the plane, clipped to each of the plane's sectors and drawn with shadow.mat / shadow.cmp Original name sputCostume_DrawMeshShadow (the remaster's GrimFandango (Linux): the only function loading shadow.mat / shadow.cmp; caller sputCostume_DrawActorShadow and callees (TransformPoint34, segment-plane intersection, four shadow polygons) agree); was Actor_DrawShadowPlane."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00494bf0",
+  "old": "Shadow_DrawClippedPoly",
+  "name": "sputCostume_OutputShadowPoly",
+  "comment": "Clips the projected polygon against each sector of the shadow plane and draws it, growing the dirty box Original name sputCostume_OutputShadowPoly (the remaster's GrimFandango (Linux): sputCostume_DrawMeshShadow's four polygon calls); was Shadow_DrawClippedPoly."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a4920",
+  "old": "ZBuffer_Load",
+  "name": "sputRoom_LoadZBuffer",
+  "comment": "Loads a ZBUF resource: wrapper of ZBuffer_LoadFile. Original name sputRoom_LoadZBuffer (the remaster's GrimFandango (Linux): the load call of the 'ZBUF' resource handler (sputResource_ZBufferHandler); the remaster inlined ZBuffer_LoadFile); was ZBuffer_Load."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a4980",
+  "old": "ZBuffer_Free",
+  "name": "sputRoom_FreeZBuffer",
+  "comment": "Frees a ZBUF resource (wrapper of ZBuffer_FreeData). Original name sputRoom_FreeZBuffer (the remaster's GrimFandango (Linux): the free call of the 'ZBUF' resource handler (sputResource_ZBufferHandler) on both sides); was ZBuffer_Free."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a4c40",
+  "old": "Set_Free",
+  "name": "sputRoom_FreeRoom",
+  "comment": "Resource type 'SET ' free handler: Set_FreeContents, then frees the set record. Original name sputRoom_FreeRoom (the remaster's GrimFandango (Linux): same body (free the contents, then the record); the free call of sputResource_SetHandler); was Set_Free."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a4c60",
+  "old": "Set_FreeContents",
+  "name": "sputRoom_FreeRoomEntry",
+  "comment": "Releases a set's resources, colormap array, setups and sectors and removes its actor list (killing the shadows of the actors in it). Original name sputRoom_FreeRoomEntry (the remaster's GrimFandango (Linux): sputRoom_FreeRoom's only callee; callees sputRoom_UnReference, sputActor_ResetShadows, sputRoom_RemoveActor agree); was Set_FreeContents."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a7bc0",
+  "old": "SetFile_ParseSectors",
+  "name": "ParseCollection",
+  "comment": "Source: Engine/WalkPlane.cpp (lines 1070-1184, from __FILE__/__LINE__ passed to the allocator) Original name ParseCollection (the remaster's GrimFandango (Linux): the only unpaired callee of sputRoom_ParseSectors on both sides; same parser (section:, numsectors, sector, id, type, default visibility, height, numvertices, numgates, vertices:); WalkPlane.cpp); was SetFile_ParseSectors."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004aa940",
+  "old": "Font_LoadFile",
+  "name": "Text_LoadNativeFont",
+  "comment": "Original name Text_LoadNativeFont (the remaster's GrimFandango (Linux): both callers agree (sputResource_FontHandler, sputText_SetEmergencyFontL); the remaster rewrote the body for its native fonts); was Font_LoadFile."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004bdad0",
+  "old": "FUN_004bdad0",
+  "name": "SmushPlay_FakeBlit",
+  "comment": "Original name SmushPlay_FakeBlit (the remaster's GrimFandango (Linux): SmushPlay_UpdateMovie's callee; same body (InternalBitmap / TranslationTable stores)); was FUN_004bdad0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004bdf70",
+  "old": "FUN_004bdf70",
+  "name": "grimmem_memory_module",
+  "comment": "Original name grimmem_memory_module (the remaster's GrimFandango (Linux): slot 0 of the \"LECMODULE=insane_memory\" service table); was FUN_004bdf70."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004bdfb0",
+  "old": "FUN_004bdfb0",
+  "name": "grimmem_module_terminate",
+  "comment": "Original name grimmem_module_terminate (the remaster's GrimFandango (Linux): slot 1 of the \"LECMODULE=insane_memory\" service table); was FUN_004bdfb0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004bdfe0",
+  "old": "FUN_004bdfe0",
+  "name": "mem_Alloc",
+  "comment": "Original name mem_Alloc (the remaster's GrimFandango (Linux): slot 0 of the \"MEMORY=insane\" service table); was FUN_004bdfe0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004be000",
+  "old": "FUN_004be000",
+  "name": "mem_Free",
+  "comment": "Original name mem_Free (the remaster's GrimFandango (Linux): slot 1 of the \"MEMORY=insane\" service table); was FUN_004be000."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004be020",
+  "old": "FUN_004be020",
+  "name": "mem_Realloc",
+  "comment": "Original name mem_Realloc (the remaster's GrimFandango (Linux): slot 2 of the \"MEMORY=insane\" service table); was FUN_004be020."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004be050",
+  "old": "FUN_004be050",
+  "name": "grimio_stdio_module",
+  "comment": "Original name grimio_stdio_module (the remaster's GrimFandango (Linux): slot 0 of the \"LECMODULE=insane_stdio\" service table); was FUN_004be050."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004be090",
+  "old": "FUN_004be090",
+  "name": "grimio_terminate",
+  "comment": "Original name grimio_terminate (the remaster's GrimFandango (Linux): slot 1 of the \"LECMODULE=insane_stdio\" service table); was FUN_004be090."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004be0c0",
+  "old": "FUN_004be0c0",
+  "name": "grimio_Open",
+  "comment": "Original name grimio_Open (the remaster's GrimFandango (Linux): slot 0 of the \"FILIO=insane_stdio\" service table); was FUN_004be0c0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004be0e0",
+  "old": "FUN_004be0e0",
+  "name": "grimio_Close",
+  "comment": "Original name grimio_Close (the remaster's GrimFandango (Linux): slot 1 of the \"FILIO=insane_stdio\" service table); was FUN_004be0e0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004be100",
+  "old": "FUN_004be100",
+  "name": "grimio_Read",
+  "comment": "Original name grimio_Read (the remaster's GrimFandango (Linux): slot 2 of the \"FILIO=insane_stdio\" service table); was FUN_004be100."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004be120",
+  "old": "FUN_004be120",
+  "name": "grimio_Write",
+  "comment": "Original name grimio_Write (the remaster's GrimFandango (Linux): slot 3 of the \"FILIO=insane_stdio\" service table); was FUN_004be120."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004be140",
+  "old": "FUN_004be140",
+  "name": "grimio_Tell",
+  "comment": "Original name grimio_Tell (the remaster's GrimFandango (Linux): slot 4 of the \"FILIO=insane_stdio\" service table); was FUN_004be140."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004be160",
+  "old": "FUN_004be160",
+  "name": "grimio_Seek",
+  "comment": "Original name grimio_Seek (the remaster's GrimFandango (Linux): slot 5 of the \"FILIO=insane_stdio\" service table); was FUN_004be160."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c15c0",
+  "old": "LecShare_Register",
+  "name": "LecShare_Publish",
+  "comment": "Entries are 3 dwords: name, vtable, reference count Original name LecShare_Publish (the remaster's GrimFandango (Linux): slot 0 of lecShareServices (g_pLecShareServices); the original is Publish (the bridge takes no bare one-word name; as LecShare_Subscribe)); was LecShare_Register."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c1650",
+  "old": "LecShare_Unregister",
+  "name": "LecShare_Unpublish",
+  "comment": "Original name LecShare_Unpublish (the remaster's GrimFandango (Linux): slot 1 of lecShareServices (g_pLecShareServices); the original is Unpublish (the bridge takes no bare one-word name; as LecShare_Subscribe)); was LecShare_Unregister."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c1800",
+  "old": "LecShare_Release",
+  "name": "LecShare_Unsubscribe",
+  "comment": "Drops one reference from the entry owning the given vtable Original name LecShare_Unsubscribe (the remaster's GrimFandango (Linux): slot 3 of lecShareServices (g_pLecShareServices); the original is Unsubscribe (the bridge takes no bare one-word name; as LecShare_Subscribe)); was LecShare_Release."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c1f40",
+  "old": "FUN_004c1f40",
+  "name": "anm_animplay_module",
+  "comment": "Original name anm_animplay_module (the remaster's GrimFandango (Linux): slot 0 of the \"LECMODULE=insane_animplay\" service table); was FUN_004c1f40."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c1fb0",
+  "old": "FUN_004c1fb0",
+  "name": "AnimPlay_module_terminate",
+  "comment": "Original name AnimPlay_module_terminate (the remaster's GrimFandango (Linux): slot 1 of the \"LECMODULE=insane_animplay\" service table; module_terminate is a static several LEC modules have, written with the module prefix); was FUN_004c1fb0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c2590",
+  "old": "FUN_004c2590",
+  "name": "anm_GetTime",
+  "comment": "Original name anm_GetTime (the remaster's GrimFandango (Linux): slot 2 of the \"ANIMPLAY=insane\" service table); was FUN_004c2590."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c2650",
+  "old": "FUN_004c2650",
+  "name": "AnimPlay_anm_Display",
+  "comment": "Original name AnimPlay_anm_Display (the remaster's GrimFandango (Linux): slot 4 of the \"ANIMPLAY=insane\" service table; anm_Display is a static several LEC modules have, written with the module prefix); was FUN_004c2650."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c2690",
+  "old": "AnimPlay_Destroy",
+  "name": "anm_Stop",
+  "comment": "Stops the timers of an AnimPlay frame player, closes the streamer and frees it Original name anm_Stop (the remaster's GrimFandango (Linux): slot 5 of the \"ANIMPLAY=insane\" service table); was AnimPlay_Destroy."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c2720",
+  "old": "FUN_004c2720",
+  "name": "anm_SetRate",
+  "comment": "Original name anm_SetRate (the remaster's GrimFandango (Linux): slot 10 of the \"ANIMPLAY=insane\" service table); was FUN_004c2720."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c2760",
+  "old": "FUN_004c2760",
+  "name": "anm_SyncUp",
+  "comment": "Original name anm_SyncUp (the remaster's GrimFandango (Linux): slot 11 of the \"ANIMPLAY=insane\" service table); was FUN_004c2760."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c2780",
+  "old": "FUN_004c2780",
+  "name": "anm_RenderQuery",
+  "comment": "Original name anm_RenderQuery (the remaster's GrimFandango (Linux): slot 12 of the \"ANIMPLAY=insane\" service table); was FUN_004c2780."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c2a70",
+  "old": "FUN_004c2a70",
+  "name": "frame_Timer",
+  "comment": "Original name frame_Timer (the remaster's GrimFandango (Linux): anm_Start's timer callback; same body); was FUN_004c2a70."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c2a80",
+  "old": "FUN_004c2a80",
+  "name": "sync_Timer",
+  "comment": "Original name sync_Timer (the remaster's GrimFandango (Linux): anm_Start's other timer callback; same body (audio_halted, sound services +8/+0xc)); was FUN_004c2a80."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c2b00",
+  "old": "FUN_004c2b00",
+  "name": "AnimPlay_anm_DebugInfo",
+  "comment": "Original name AnimPlay_anm_DebugInfo (the remaster's GrimFandango (Linux): slot 0 of the \"DEBUG=insane_animplay\" service table; anm_DebugInfo is a static several LEC modules have, written with the module prefix); was FUN_004c2b00."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c2b30",
+  "old": "FUN_004c2b30",
+  "name": "AnimPlay_anm_DebugSetState",
+  "comment": "Original name AnimPlay_anm_DebugSetState (the remaster's GrimFandango (Linux): slot 1 of the \"DEBUG=insane_animplay\" service table; anm_DebugSetState is a static several LEC modules have, written with the module prefix); was FUN_004c2b30."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c2b40",
+  "old": "FUN_004c2b40",
+  "name": "AnimPlay_anm_DebugGetState",
+  "comment": "Original name AnimPlay_anm_DebugGetState (the remaster's GrimFandango (Linux): slot 2 of the \"DEBUG=insane_animplay\" service table; anm_DebugGetState is a static several LEC modules have, written with the module prefix); was FUN_004c2b40."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c2b50",
+  "old": "FUN_004c2b50",
+  "name": "anm_animframe_module",
+  "comment": "Original name anm_animframe_module (the remaster's GrimFandango (Linux): slot 0 of the \"LECMODULE=insane_animframe\" service table); was FUN_004c2b50."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c2ba0",
+  "old": "FUN_004c2ba0",
+  "name": "AnimFrame_module_terminate",
+  "comment": "Original name AnimFrame_module_terminate (the remaster's GrimFandango (Linux): slot 1 of the \"LECMODULE=insane_animframe\" service table; module_terminate is a static several LEC modules have, written with the module prefix); was FUN_004c2ba0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c2eb0",
+  "old": "FUN_004c2eb0",
+  "name": "anm_Reset",
+  "comment": "Original name anm_Reset (the remaster's GrimFandango (Linux): slot 0 of the \"ANIMFRAME=insane\" service table); was FUN_004c2eb0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c34d0",
+  "old": "FUN_004c34d0",
+  "name": "anm_PreloadPut",
+  "comment": "Original name anm_PreloadPut (the remaster's GrimFandango (Linux): slot 4 of the \"ANIMFRAME=insane\" service table); was FUN_004c34d0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c3560",
+  "old": "FUN_004c3560",
+  "name": "anm_PreloadGet",
+  "comment": "Original name anm_PreloadGet (the remaster's GrimFandango (Linux): slot 5 of the \"ANIMFRAME=insane\" service table); was FUN_004c3560."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c35c0",
+  "old": "FUN_004c35c0",
+  "name": "AnimFrame_anm_Display",
+  "comment": "Original name AnimFrame_anm_Display (the remaster's GrimFandango (Linux): slot 3 of the \"ANIMFRAME=insane\" service table; anm_Display is a static several LEC modules have, written with the module prefix); was FUN_004c35c0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c3660",
+  "old": "FUN_004c3660",
+  "name": "AnimFrame_anm_DebugInfo",
+  "comment": "Original name AnimFrame_anm_DebugInfo (the remaster's GrimFandango (Linux): slot 0 of the \"DEBUG=animframe\" service table; anm_DebugInfo is a static several LEC modules have, written with the module prefix); was FUN_004c3660."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c3690",
+  "old": "FUN_004c3690",
+  "name": "AnimFrame_anm_DebugSetState",
+  "comment": "Original name AnimFrame_anm_DebugSetState (the remaster's GrimFandango (Linux): slot 1 of the \"DEBUG=animframe\" service table; anm_DebugSetState is a static several LEC modules have, written with the module prefix); was FUN_004c3690."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c36a0",
+  "old": "FUN_004c36a0",
+  "name": "AnimFrame_anm_DebugGetState",
+  "comment": "Original name AnimFrame_anm_DebugGetState (the remaster's GrimFandango (Linux): slot 2 of the \"DEBUG=animframe\" service table; anm_DebugGetState is a static several LEC modules have, written with the module prefix); was FUN_004c36a0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c3d00",
+  "old": "FUN_004c3d00",
+  "name": "anm_animator_Query",
+  "comment": "Original name anm_animator_Query (the remaster's GrimFandango (Linux): slot 6 of the \"ANIMPLAY=insane\" service table); was FUN_004c3d00."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c3d10",
+  "old": "FUN_004c3d10",
+  "name": "anm_animator_Quit",
+  "comment": "Original name anm_animator_Quit (the remaster's GrimFandango (Linux): slot 7 of the \"ANIMPLAY=insane\" service table); was FUN_004c3d10."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c3db0",
+  "old": "FUN_004c3db0",
+  "name": "anm_animator_Pause",
+  "comment": "Original name anm_animator_Pause (the remaster's GrimFandango (Linux): slot 9 of the \"ANIMPLAY=insane\" service table); was FUN_004c3db0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c4b20",
+  "old": "FUN_004c4b20",
+  "name": "fle_streamer_module",
+  "comment": "Original name fle_streamer_module (the remaster's GrimFandango (Linux): slot 0 of the \"LECMODULE=insane_streamer\" service table); was FUN_004c4b20."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c4b60",
+  "old": "FUN_004c4b60",
+  "name": "Streamer_module_terminate",
+  "comment": "Original name Streamer_module_terminate (the remaster's GrimFandango (Linux): slot 1 of the \"LECMODULE=insane_streamer\" service table; module_terminate is a static several LEC modules have, written with the module prefix); was FUN_004c4b60."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c4c10",
+  "old": "FUN_004c4c10",
+  "name": "Streamer_module_shutdown",
+  "comment": "Original name Streamer_module_shutdown (the remaster's GrimFandango (Linux): slot 3 of the \"LECMODULE=insane_streamer\" service table; module_shutdown is a static several LEC modules have, written with the module prefix); was FUN_004c4c10."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c4c50",
+  "old": "FUN_004c4c50",
+  "name": "fle_StreamerAlloc",
+  "comment": "Original name fle_StreamerAlloc (the remaster's GrimFandango (Linux): slot 0 of the \"STREAMER=insane_streamer\" service table); was FUN_004c4c50."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c4d20",
+  "old": "FUN_004c4d20",
+  "name": "fle_StreamerFree",
+  "comment": "Original name fle_StreamerFree (the remaster's GrimFandango (Linux): slot 1 of the \"STREAMER=insane_streamer\" service table); was FUN_004c4d20."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c4d90",
+  "old": "FUN_004c4d90",
+  "name": "fle_StreamerReset",
+  "comment": "Original name fle_StreamerReset (the remaster's GrimFandango (Linux): slot 6 of the \"STREAMER=insane_streamer\" service table); was FUN_004c4d90."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c4dd0",
+  "old": "FUN_004c4dd0",
+  "name": "fle_StreamerAcquire",
+  "comment": "Original name fle_StreamerAcquire (the remaster's GrimFandango (Linux): slot 4 of the \"STREAMER=insane_streamer\" service table); was FUN_004c4dd0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c4ee0",
+  "old": "FUN_004c4ee0",
+  "name": "fle_StreamerStart",
+  "comment": "Original name fle_StreamerStart (the remaster's GrimFandango (Linux): slot 2 of the \"STREAMER=insane_streamer\" service table); was FUN_004c4ee0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c5080",
+  "old": "FUN_004c5080",
+  "name": "fle_StreamerCheck",
+  "comment": "Original name fle_StreamerCheck (the remaster's GrimFandango (Linux): slot 3 of the \"STREAMER=insane_streamer\" service table); was FUN_004c5080."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c5220",
+  "old": "FUN_004c5220",
+  "name": "fle_StreamerQuerySize",
+  "comment": "Original name fle_StreamerQuerySize (the remaster's GrimFandango (Linux): slot 7 of the \"STREAMER=insane_streamer\" service table); was FUN_004c5220."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c5280",
+  "old": "FUN_004c5280",
+  "name": "fle_directory_module",
+  "comment": "Original name fle_directory_module (the remaster's GrimFandango (Linux): slot 0 of the \"LECMODULE=insane_directory\" service table); was FUN_004c5280."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c52c0",
+  "old": "FUN_004c52c0",
+  "name": "Directory_module_terminate",
+  "comment": "Original name Directory_module_terminate (the remaster's GrimFandango (Linux): slot 1 of the \"LECMODULE=insane_directory\" service table; module_terminate is a static several LEC modules have, written with the module prefix); was FUN_004c52c0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c5330",
+  "old": "FUN_004c5330",
+  "name": "Directory_module_shutdown",
+  "comment": "Original name Directory_module_shutdown (the remaster's GrimFandango (Linux): slot 3 of the \"LECMODULE=insane_directory\" service table; module_shutdown is a static several LEC modules have, written with the module prefix); was FUN_004c5330."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c5380",
+  "old": "FUN_004c5380",
+  "name": "fle_Exists",
+  "comment": "Original name fle_Exists (the remaster's GrimFandango (Linux): slot 5 of the \"DIRECTORY=insane_directory\" service table); was FUN_004c5380."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c53b0",
+  "old": "FUN_004c53b0",
+  "name": "fle_Rename",
+  "comment": "Original name fle_Rename (the remaster's GrimFandango (Linux): slot 6 of the \"DIRECTORY=insane_directory\" service table); was FUN_004c53b0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c53d0",
+  "old": "FUN_004c53d0",
+  "name": "fle_Remove",
+  "comment": "Original name fle_Remove (the remaster's GrimFandango (Linux): slot 7 of the \"DIRECTORY=insane_directory\" service table); was FUN_004c53d0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c53e0",
+  "old": "FUN_004c53e0",
+  "name": "fle_DirectoryLoad",
+  "comment": "Original name fle_DirectoryLoad (the remaster's GrimFandango (Linux): slot 0 of the \"DIRECTORY=insane_directory\" service table); was FUN_004c53e0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c54f0",
+  "old": "FUN_004c54f0",
+  "name": "fle_DirectoryGetCWD",
+  "comment": "Original name fle_DirectoryGetCWD (the remaster's GrimFandango (Linux): slot 1 of the \"DIRECTORY=insane_directory\" service table); was FUN_004c54f0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c5570",
+  "old": "FUN_004c5570",
+  "name": "fle_DirectoryGetParent",
+  "comment": "Original name fle_DirectoryGetParent (the remaster's GrimFandango (Linux): slot 2 of the \"DIRECTORY=insane_directory\" service table); was FUN_004c5570."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c55d0",
+  "old": "FUN_004c55d0",
+  "name": "fle_DirectoryGetPath",
+  "comment": "Original name fle_DirectoryGetPath (the remaster's GrimFandango (Linux): slot 3 of the \"DIRECTORY=insane_directory\" service table); was FUN_004c55d0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c5720",
+  "old": "FUN_004c5720",
+  "name": "fle_VolumeLoadList",
+  "comment": "Original name fle_VolumeLoadList (the remaster's GrimFandango (Linux): slot 4 of the \"DIRECTORY=insane_directory\" service table); was FUN_004c5720."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c5790",
+  "old": "FUN_004c5790",
+  "name": "fle_zfilio_module",
+  "comment": "Original name fle_zfilio_module (the remaster's GrimFandango (Linux): slot 0 of the \"LECMODULE=insane_zfilio\" service table); was FUN_004c5790."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c5840",
+  "old": "FUN_004c5840",
+  "name": "Zfile_module_terminate",
+  "comment": "Original name Zfile_module_terminate (the remaster's GrimFandango (Linux): slot 1 of the \"LECMODULE=insane_zfilio\" service table; module_terminate is a static several LEC modules have, written with the module prefix); was FUN_004c5840."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c5910",
+  "old": "FUN_004c5910",
+  "name": "Zfile_module_shutdown",
+  "comment": "Original name Zfile_module_shutdown (the remaster's GrimFandango (Linux): slot 3 of the \"LECMODULE=insane_zfilio\" service table; module_shutdown is a static several LEC modules have, written with the module prefix); was FUN_004c5910."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c5ab0",
+  "old": "Zfile_Close",
+  "name": "Zfile_fle_Close",
+  "comment": "Closes a Zfile object: the plain file or the gzip stream, then frees the object Original name Zfile_fle_Close (the remaster's GrimFandango (Linux): slot 1 of the \"FILIO=insane_zfilio\" service table; fle_Close is a static several LEC modules have, written with the module prefix); was Zfile_Close."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c5b00",
+  "old": "FUN_004c5b00",
+  "name": "Zfile_fle_Read",
+  "comment": "Original name Zfile_fle_Read (the remaster's GrimFandango (Linux): slot 2 of the \"FILIO=insane_zfilio\" service table; fle_Read is a static several LEC modules have, written with the module prefix); was FUN_004c5b00."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c5bc0",
+  "old": "FUN_004c5bc0",
+  "name": "Zfile_fle_Write",
+  "comment": "Original name Zfile_fle_Write (the remaster's GrimFandango (Linux): slot 3 of the \"FILIO=insane_zfilio\" service table; fle_Write is a static several LEC modules have, written with the module prefix); was FUN_004c5bc0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c5c20",
+  "old": "FUN_004c5c20",
+  "name": "Zfile_fle_Tell",
+  "comment": "Original name Zfile_fle_Tell (the remaster's GrimFandango (Linux): slot 4 of the \"FILIO=insane_zfilio\" service table; fle_Tell is a static several LEC modules have, written with the module prefix); was FUN_004c5c20."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c5c50",
+  "old": "FUN_004c5c50",
+  "name": "Zfile_fle_Seek",
+  "comment": "Original name Zfile_fle_Seek (the remaster's GrimFandango (Linux): slot 5 of the \"FILIO=insane_zfilio\" service table; fle_Seek is a static several LEC modules have, written with the module prefix); was FUN_004c5c50."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c5cb0",
+  "old": "FUN_004c5cb0",
+  "name": "Zfile_fle_Flush",
+  "comment": "Original name Zfile_fle_Flush (the remaster's GrimFandango (Linux): slot 6 of the \"FILIO=insane_zfilio\" service table; fle_Flush is a static several LEC modules have, written with the module prefix); was FUN_004c5cb0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c5ce0",
+  "old": "FUN_004c5ce0",
+  "name": "fle_stdfile_module",
+  "comment": "Original name fle_stdfile_module (the remaster's GrimFandango (Linux): slot 0 of the \"LECMODULE=insane_stdfile\" service table); was FUN_004c5ce0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c5d20",
+  "old": "FUN_004c5d20",
+  "name": "StdFile_module_terminate",
+  "comment": "Original name StdFile_module_terminate (the remaster's GrimFandango (Linux): slot 1 of the \"LECMODULE=insane_stdfile\" service table; module_terminate is a static several LEC modules have, written with the module prefix); was FUN_004c5d20."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c5d90",
+  "old": "FUN_004c5d90",
+  "name": "StdFile_module_shutdown",
+  "comment": "Original name StdFile_module_shutdown (the remaster's GrimFandango (Linux): slot 3 of the \"LECMODULE=insane_stdfile\" service table; module_shutdown is a static several LEC modules have, written with the module prefix); was FUN_004c5d90."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c5db0",
+  "old": "FUN_004c5db0",
+  "name": "StdFile_fle_Open",
+  "comment": "Original name StdFile_fle_Open (the remaster's GrimFandango (Linux): slot 0 of the \"FILE=insane_stdfile\" service table; fle_Open is a static several LEC modules have, written with the module prefix); was FUN_004c5db0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c5dd0",
+  "old": "FUN_004c5dd0",
+  "name": "StdFile_fle_Close",
+  "comment": "Original name StdFile_fle_Close (the remaster's GrimFandango (Linux): slot 1 of the \"FILE=insane_stdfile\" service table; fle_Close is a static several LEC modules have, written with the module prefix); was FUN_004c5dd0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c5df0",
+  "old": "FUN_004c5df0",
+  "name": "StdFile_fle_Read",
+  "comment": "Original name StdFile_fle_Read (the remaster's GrimFandango (Linux): slot 2 of the \"FILE=insane_stdfile\" service table; fle_Read is a static several LEC modules have, written with the module prefix); was FUN_004c5df0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c5e10",
+  "old": "FUN_004c5e10",
+  "name": "StdFile_fle_Write",
+  "comment": "Original name StdFile_fle_Write (the remaster's GrimFandango (Linux): slot 3 of the \"FILE=insane_stdfile\" service table; fle_Write is a static several LEC modules have, written with the module prefix); was FUN_004c5e10."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c5e30",
+  "old": "StdFile_Tell",
+  "name": "StdFile_fle_Tell",
+  "comment": "Returns the current position of a StdFile through the file service Original name StdFile_fle_Tell (the remaster's GrimFandango (Linux): slot 4 of the \"FILE=insane_stdfile\" service table; fle_Tell is a static several LEC modules have, written with the module prefix); was StdFile_Tell."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c5e50",
+  "old": "FUN_004c5e50",
+  "name": "StdFile_fle_Seek",
+  "comment": "Original name StdFile_fle_Seek (the remaster's GrimFandango (Linux): slot 5 of the \"FILE=insane_stdfile\" service table; fle_Seek is a static several LEC modules have, written with the module prefix); was FUN_004c5e50."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c5e70",
+  "old": "FUN_004c5e70",
+  "name": "StdFile_fle_Flush",
+  "comment": "Original name StdFile_fle_Flush (the remaster's GrimFandango (Linux): slot 6 of the \"FILE=insane_stdfile\" service table; fle_Flush is a static several LEC modules have, written with the module prefix); was FUN_004c5e70."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c5e90",
+  "old": "StdFile_Size",
+  "name": "fle_Size",
+  "comment": "Returns the size of a StdFile by seeking to its end and back Original name fle_Size (the remaster's GrimFandango (Linux): slot 7 of the \"FILE=insane_stdfile\" service table); was StdFile_Size."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c5ee0",
+  "old": "FUN_004c5ee0",
+  "name": "fle_GetS",
+  "comment": "Original name fle_GetS (the remaster's GrimFandango (Linux): slot 8 of the \"FILE=insane_stdfile\" service table); was FUN_004c5ee0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c5f50",
+  "old": "StdFile_IsEof",
+  "name": "fle_Eof",
+  "comment": "True when the position of a StdFile is at or past its size Original name fle_Eof (the remaster's GrimFandango (Linux): slot 9 of the \"FILE=insane_stdfile\" service table); was StdFile_IsEof."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c5f80",
+  "old": "FUN_004c5f80",
+  "name": "fle_PrintF",
+  "comment": "Original name fle_PrintF (the remaster's GrimFandango (Linux): slot 10 of the \"FILE=insane_stdfile\" service table); was FUN_004c5f80."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c5fe0",
+  "old": "FUN_004c5fe0",
+  "name": "fle_GetC",
+  "comment": "Original name fle_GetC (the remaster's GrimFandango (Linux): slot 11 of the \"FILE=insane_stdfile\" service table); was FUN_004c5fe0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c6010",
+  "old": "FUN_004c6010",
+  "name": "fle_PutC",
+  "comment": "Original name fle_PutC (the remaster's GrimFandango (Linux): slot 12 of the \"FILE=insane_stdfile\" service table); was FUN_004c6010."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004cba30",
+  "old": "FUN_004cba30",
+  "name": "fob_flobdec_wave_module",
+  "comment": "Original name fob_flobdec_wave_module (the remaster's GrimFandango (Linux): slot 0 of the \"LECMODULE=insane_wave_flobdec\" service table); was FUN_004cba30."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004cba70",
+  "old": "FUN_004cba70",
+  "name": "DWave_module_terminate",
+  "comment": "Original name DWave_module_terminate (the remaster's GrimFandango (Linux): slot 1 of the \"LECMODULE=insane_wave_flobdec\" service table; module_terminate is a static several LEC modules have, written with the module prefix); was FUN_004cba70."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004cbb80",
+  "old": "FUN_004cbb80",
+  "name": "DWave_flobdec_Info",
+  "comment": "Original name DWave_flobdec_Info (the remaster's GrimFandango (Linux): slot 0 of the \"FLOBDEC=insane_wave\" service table; flobdec_Info is a static several LEC modules have, written with the module prefix); was FUN_004cbb80."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004cbbb0",
+  "old": "FUN_004cbbb0",
+  "name": "DWave_flobdec_GetID",
+  "comment": "Original name DWave_flobdec_GetID (the remaster's GrimFandango (Linux): slot 1 of the \"FLOBDEC=insane_wave\" service table; flobdec_GetID is a static several LEC modules have, written with the module prefix); was FUN_004cbbb0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004cbbc0",
+  "old": "FUN_004cbbc0",
+  "name": "DWave_flobdec_GetType",
+  "comment": "Original name DWave_flobdec_GetType (the remaster's GrimFandango (Linux): slot 2 of the \"FLOBDEC=insane_wave\" service table; flobdec_GetType is a static several LEC modules have, written with the module prefix); was FUN_004cbbc0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004cbbd0",
+  "old": "FUN_004cbbd0",
+  "name": "DWave_flobdec_Reset",
+  "comment": "Original name DWave_flobdec_Reset (the remaster's GrimFandango (Linux): slot 3 of the \"FLOBDEC=insane_wave\" service table; flobdec_Reset is a static several LEC modules have, written with the module prefix); was FUN_004cbbd0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004cbbe0",
+  "old": "FUN_004cbbe0",
+  "name": "DWave_flobdec_DecodeHeader",
+  "comment": "Original name DWave_flobdec_DecodeHeader (the remaster's GrimFandango (Linux): slot 4 of the \"FLOBDEC=insane_wave\" service table; flobdec_DecodeHeader is a static several LEC modules have, written with the module prefix); was FUN_004cbbe0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004cbc00",
+  "old": "FUN_004cbc00",
+  "name": "DWave_flobdec_DecodeBody",
+  "comment": "Original name DWave_flobdec_DecodeBody (the remaster's GrimFandango (Linux): slot 5 of the \"FLOBDEC=insane_wave\" service table; flobdec_DecodeBody is a static several LEC modules have, written with the module prefix); was FUN_004cbc00."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004cbf50",
+  "old": "FUN_004cbf50",
+  "name": "VbrAdpcm_Uncompress",
+  "comment": "Original name VbrAdpcm_Uncompress (the remaster's GrimFandango (Linux): only callee of the wave flobdec_DecodeBody in both builds (VBR ADPCM)); was FUN_004cbf50."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004cc210",
+  "old": "Blocky16_Register",
+  "name": "fob_flobdec_blocky16_module",
+  "comment": "Entry of LECMODULE insane_blocky16_flobdec: stores the module manager services and the workspace size, registers the module and the FLOBDEC interface Original name fob_flobdec_blocky16_module (the remaster's GrimFandango (Linux): slot 0 of the \"LECMODULE=insane_blocky16_flobdec\" service table); was Blocky16_Register."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004cc290",
+  "old": "Blocky16_Unregister",
+  "name": "Blocky16_module_terminate",
+  "comment": "Unregisters the FLOBDEC interface and the module of the Blocky16 decoder Original name Blocky16_module_terminate (the remaster's GrimFandango (Linux): slot 1 of the \"LECMODULE=insane_blocky16_flobdec\" service table; module_terminate is a static several LEC modules have, written with the module prefix); was Blocky16_Unregister."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004cc340",
+  "old": "Blocky16_Shutdown",
+  "name": "Blocky16_module_shutdown",
+  "comment": "Frees the frame buffers and releases the two services of the Blocky16 decoder Original name Blocky16_module_shutdown (the remaster's GrimFandango (Linux): slot 3 of the \"LECMODULE=insane_blocky16_flobdec\" service table; module_shutdown is a static several LEC modules have, written with the module prefix); was Blocky16_Shutdown."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004cc370",
+  "old": "Blocky16_GetInfoString",
+  "name": "Blocky16_flobdec_Info",
+  "comment": "Returns the name, description or help text of the Blocky16 module for index 0, 1 or 2 Original name Blocky16_flobdec_Info (the remaster's GrimFandango (Linux): slot 0 of the \"FLOBDEC=insane_blocky16\" service table; flobdec_Info is a static several LEC modules have, written with the module prefix); was Blocky16_GetInfoString."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004cc3a0",
+  "old": "Blocky16_GetFourCC",
+  "name": "Blocky16_flobdec_GetID",
+  "comment": "Returns the codec id Bl16 of the decoder Original name Blocky16_flobdec_GetID (the remaster's GrimFandango (Linux): slot 1 of the \"FLOBDEC=insane_blocky16\" service table; flobdec_GetID is a static several LEC modules have, written with the module prefix); was Blocky16_GetFourCC."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004cc3b0",
+  "old": "Blocky16_FreeBuffers",
+  "name": "Blocky16_flobdec_Reset",
+  "comment": "Original name Blocky16_flobdec_Reset (the remaster's GrimFandango (Linux): slot 3 of the \"FLOBDEC=insane_blocky16\" service table; flobdec_Reset is a static several LEC modules have, written with the module prefix); was Blocky16_FreeBuffers."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004cc590",
+  "old": "Blocky16_FreeBuffers",
+  "name": "Blocky16_flobdec_Reset",
+  "comment": "Frees the three frame buffers and the expand table of the Blocky16 decoder Original name Blocky16_flobdec_Reset (the remaster's GrimFandango (Linux): the body of slot 3 of the \"FLOBDEC=insane_blocky16\" service table (the slot holds the JMP thunk 0x4cc3b0 to it); flobdec_Reset is a static several LEC modules have, written with the module prefix); was Blocky16_FreeBuffers."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004cc3c0",
+  "old": "Blocky16_Prepare",
+  "name": "Blocky16_flobdec_DecodeHeader",
+  "comment": "Reallocates the three frame buffers when the frame size or depth of the header differs from the current ones Original name Blocky16_flobdec_DecodeHeader (the remaster's GrimFandango (Linux): slot 4 of the \"FLOBDEC=insane_blocky16\" service table; flobdec_DecodeHeader is a static several LEC modules have, written with the module prefix); was Blocky16_Prepare."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004cc410",
+  "old": "Blocky16_AllocBuffers",
+  "name": "AllocBuffers",
+  "comment": "Allocates the three frame buffers (current, previous, before) for a frame size and clears them; sets up the display expand table memory Original name AllocBuffers (the remaster's GrimFandango (Linux): same body (three bitmaps, maketiles(4)/(8), shift = 0); blocky16 flobdec_DecodeHeader's callee); was Blocky16_AllocBuffers."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004cc620",
+  "old": "Blocky16_DecodeFrameEntry",
+  "name": "Blocky16_flobdec_DecodeBody",
+  "comment": "Interface entry of the decoder: drops the seventh argument and calls Blocky16_DecodeFrame Original name Blocky16_flobdec_DecodeBody (the remaster's GrimFandango (Linux): slot 5 of the \"FLOBDEC=insane_blocky16\" service table; flobdec_DecodeBody is a static several LEC modules have, written with the module prefix); was Blocky16_DecodeFrameEntry."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004cc650",
+  "old": "Blocky16_GetFrameInfo",
+  "name": "Blocky16_flobdec_GetVal",
+  "comment": "Reads four 16 bit fields of a frame header of the right size (0x100), returns -1 for any other size Original name Blocky16_flobdec_GetVal (the remaster's GrimFandango (Linux): slot 7 of the \"FLOBDEC=insane_blocky16\" service table; flobdec_GetVal is a static several LEC modules have, written with the module prefix); was Blocky16_GetFrameInfo."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004cc7d0",
+  "old": "Blocky16_BuildSplitMasks",
+  "name": "fob_block_maketiles",
+  "comment": "Builds the 8x8 or 4x4 split masks of the Blocky16 codec in g_aBlockySplit8 or g_aBlockySplit4 from the edge points g_anBlockySplit8X, g_anBlockySplit8Y, g_anBlockySplit4X and g_anBlockySplit4Y Original name fob_block_maketiles (the remaster's GrimFandango (Linux): AllocBuffers' calls with 4 and 8); was Blocky16_BuildSplitMasks."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004cdc90",
+  "old": "InsaneTimer_Register",
+  "name": "sys_timer_module",
+  "comment": "Entry of LECMODULE insane_timer: stores the service table of the module manager and the workspace size, registers the module and the TIMER insane interface Original name sys_timer_module (the remaster's GrimFandango (Linux): slot 0 of the \"LECMODULE=insane_timer\" service table); was InsaneTimer_Register."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004cdce0",
+  "old": "InsaneTimer_Unregister",
+  "name": "InsaneTimer_module_terminate",
+  "comment": "Original name InsaneTimer_module_terminate (the remaster's GrimFandango (Linux): slot 1 of the \"LECMODULE=insane_timer\" service table; module_terminate is a static several LEC modules have, written with the module prefix); was InsaneTimer_Unregister."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004cdd60",
+  "old": "InsaneTimer_Shutdown",
+  "name": "InsaneTimer_module_shutdown",
+  "comment": "Original name InsaneTimer_module_shutdown (the remaster's GrimFandango (Linux): slot 3 of the \"LECMODULE=insane_timer\" service table; module_shutdown is a static several LEC modules have, written with the module prefix); was InsaneTimer_Shutdown."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004cdef0",
+  "old": "InsaneTimer_Hold",
+  "name": "sys_Disable",
+  "comment": "TIMER insane: suspends the periodic callbacks (counter) Original name sys_Disable (the remaster's GrimFandango (Linux): slot 2 of the \"TIMER=insane\" service table); was InsaneTimer_Hold."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004cdf00",
+  "old": "InsaneTimer_Release",
+  "name": "sys_Enable",
+  "comment": "Original name sys_Enable (the remaster's GrimFandango (Linux): slot 3 of the \"TIMER=insane\" service table); was InsaneTimer_Release."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004cdf10",
+  "old": "InsaneTimer_AddTimer",
+  "name": "sys_Alloc",
+  "comment": "Finds a free slot (1..19) and fills in callback, period, flags and user data; returns the slot number or 0 Original name sys_Alloc (the remaster's GrimFandango (Linux): slot 0 of the \"TIMER=insane\" service table); was InsaneTimer_AddTimer."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004cdf80",
+  "old": "InsaneTimer_RemoveTimer",
+  "name": "sys_Free",
+  "comment": "Original name sys_Free (the remaster's GrimFandango (Linux): slot 1 of the \"TIMER=insane\" service table); was InsaneTimer_RemoveTimer."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004cdfa0",
+  "old": "InsaneTimer_SetPeriod",
+  "name": "sys_Reset",
+  "comment": "Original name sys_Reset (the remaster's GrimFandango (Linux): slot 4 of the \"TIMER=insane\" service table); was InsaneTimer_SetPeriod."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004cdfd0",
+  "old": "InsaneTimer_Run",
+  "name": "sys_Delay",
+  "comment": "Runs InsaneTimer_GetClock-driven steps until the clock has advanced by the given number of ticks Original name sys_Delay (the remaster's GrimFandango (Linux): slot 5 of the \"TIMER=insane\" service table); was InsaneTimer_Run."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004ce000",
+  "old": "InsaneTimer_GetClock",
+  "name": "sys_GetTime",
+  "comment": "Original name sys_GetTime (the remaster's GrimFandango (Linux): slot 6 of the \"TIMER=insane\" service table); was InsaneTimer_GetClock."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004ce010",
+  "old": "FUN_004ce010",
+  "name": "sys_GetCount",
+  "comment": "Original name sys_GetCount (the remaster's GrimFandango (Linux): slot 7 of the \"TIMER=insane\" service table); was FUN_004ce010."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004ce020",
+  "old": "FUN_004ce020",
+  "name": "sys_ExtSync",
+  "comment": "Original name sys_ExtSync (the remaster's GrimFandango (Linux): slot 8 of the \"TIMER=insane\" service table); was FUN_004ce020."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004ce2e0",
+  "old": "FUN_004ce2e0",
+  "name": "bmp_bitmap_module",
+  "comment": "Original name bmp_bitmap_module (the remaster's GrimFandango (Linux): slot 0 of the \"LECMODULE=insane_bitmap\" service table); was FUN_004ce2e0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004ce320",
+  "old": "FUN_004ce320",
+  "name": "Video_module_terminate",
+  "comment": "Original name Video_module_terminate (the remaster's GrimFandango (Linux): slot 1 of the \"LECMODULE=insane_bitmap\" service table; module_terminate is a static several LEC modules have, written with the module prefix); was FUN_004ce320."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004ce3b0",
+  "old": "FUN_004ce3b0",
+  "name": "Video_module_shutdown",
+  "comment": "Original name Video_module_shutdown (the remaster's GrimFandango (Linux): slot 3 of the \"LECMODULE=insane_bitmap\" service table; module_shutdown is a static several LEC modules have, written with the module prefix); was FUN_004ce3b0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004ce3e0",
+  "old": "VideoBitmap_Create",
+  "name": "bmp_bitmap_Alloc",
+  "comment": "Original name bmp_bitmap_Alloc (the remaster's GrimFandango (Linux): slot 0 of the \"BITMAP=insane\" service table); was VideoBitmap_Create."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004ce840",
+  "old": "FUN_004ce840",
+  "name": "bmp_bitmap_AllocRaw",
+  "comment": "Original name bmp_bitmap_AllocRaw (the remaster's GrimFandango (Linux): slot 1 of the \"BITMAP=insane\" service table); was FUN_004ce840."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004ce980",
+  "old": "FUN_004ce980",
+  "name": "bmp_bitmap_Free",
+  "comment": "Original name bmp_bitmap_Free (the remaster's GrimFandango (Linux): slot 2 of the \"BITMAP=insane\" service table); was FUN_004ce980."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004ce9b0",
+  "old": "FUN_004ce9b0",
+  "name": "gra_SetBitmap",
+  "comment": "Original name gra_SetBitmap (the remaster's GrimFandango (Linux): same body (memset or convert colour + SetBuffer); called from the animator render); was FUN_004ce9b0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004cec40",
+  "old": "Video_FillPixels",
+  "name": "gra_SetBuffer",
+  "comment": "Fills a number of pixels of 1 to 4 bytes with one pixel value Original name gra_SetBuffer (the remaster's GrimFandango (Linux): gra_SetBitmap's call (buffer, bitmap, w*h, colour)); was Video_FillPixels."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004cf520",
+  "old": "Video_PixelsFromRgba",
+  "name": "gra_ConvertFromLecColor",
+  "comment": "Original name gra_ConvertFromLecColor (the remaster's GrimFandango (Linux): gra_SetBitmap's call (dst, bitmap, 1, 0, &colour)); was Video_PixelsFromRgba."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004d0300",
+  "old": "SoundModule_Register",
+  "name": "sou_sound_module",
+  "comment": "Entry of LECMODULE insane_sound: the Smush sound track manager (SOUND insane) Original name sou_sound_module (the remaster's GrimFandango (Linux): slot 0 of the \"LECMODULE=insane_sound\" service table); was SoundModule_Register."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004d03a0",
+  "old": "SoundModule_Unregister",
+  "name": "SoundModule_module_terminate",
+  "comment": "Original name SoundModule_module_terminate (the remaster's GrimFandango (Linux): slot 1 of the \"LECMODULE=insane_sound\" service table; module_terminate is a static several LEC modules have, written with the module prefix); was SoundModule_Unregister."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004d0510",
+  "old": "SoundModule_Shutdown",
+  "name": "SoundModule_module_shutdown",
+  "comment": "Original name SoundModule_module_shutdown (the remaster's GrimFandango (Linux): slot 3 of the \"LECMODULE=insane_sound\" service table; module_shutdown is a static several LEC modules have, written with the module prefix); was SoundModule_Shutdown."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004d0860",
+  "old": "SoundModule_PlayChunk",
+  "name": "sou_engine_Start",
+  "comment": "Dispatches a sound chunk by its four-character tag: Crea(tive VOC), PSAD / SAUD (Smush audio) Original name sou_engine_Start (the remaster's GrimFandango (Linux): slot 0 of the \"SOUND=insane\" service table); was SoundModule_PlayChunk."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004d0a50",
+  "old": "SoundModule_StopSound",
+  "name": "sou_engine_Stop",
+  "comment": "Original name sou_engine_Stop (the remaster's GrimFandango (Linux): slot 1 of the \"SOUND=insane\" service table); was SoundModule_StopSound."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004d0a80",
+  "old": "SoundModule_Pause",
+  "name": "sou_engine_Pause",
+  "comment": "Original name sou_engine_Pause (the remaster's GrimFandango (Linux): slot 2 of the \"SOUND=insane\" service table); was SoundModule_Pause."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004d0a90",
+  "old": "SoundModule_Resume",
+  "name": "sou_engine_Resume",
+  "comment": "Original name sou_engine_Resume (the remaster's GrimFandango (Linux): slot 3 of the \"SOUND=insane\" service table); was SoundModule_Resume."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004d0aa0",
+  "old": "SoundModule_StopAll",
+  "name": "sou_engine_StopAll",
+  "comment": "Original name sou_engine_StopAll (the remaster's GrimFandango (Linux): slot 4 of the \"SOUND=insane\" service table); was SoundModule_StopAll."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004d0ad0",
+  "old": "SoundModule_SetVolume",
+  "name": "sou_engine_SetVol",
+  "comment": "Original name sou_engine_SetVol (the remaster's GrimFandango (Linux): slot 6 of the \"SOUND=insane\" service table); was SoundModule_SetVolume."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004d0b10",
+  "old": "SoundModule_GetVolume",
+  "name": "sou_engine_GetVol",
+  "comment": "Original name sou_engine_GetVol (the remaster's GrimFandango (Linux): slot 5 of the \"SOUND=insane\" service table); was SoundModule_GetVolume."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004d0b60",
+  "old": "SoundModule_SetPan",
+  "name": "sou_engine_SetPan",
+  "comment": "Original name sou_engine_SetPan (the remaster's GrimFandango (Linux): slot 8 of the \"SOUND=insane\" service table); was SoundModule_SetPan."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004d0b90",
+  "old": "SoundModule_GetPan",
+  "name": "sou_engine_GetPan",
+  "comment": "Original name sou_engine_GetPan (the remaster's GrimFandango (Linux): slot 7 of the \"SOUND=insane\" service table); was SoundModule_GetPan."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004d0bd0",
+  "old": "SoundModule_DriverCommand2",
+  "name": "sou_engine_SetHVol",
+  "comment": "Original name sou_engine_SetHVol (the remaster's GrimFandango (Linux): slot 10 of the \"SOUND=insane\" service table); was SoundModule_DriverCommand2."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004d0bf0",
+  "old": "SoundModule_DriverCommand3",
+  "name": "sou_engine_GetHVol",
+  "comment": "Original name sou_engine_GetHVol (the remaster's GrimFandango (Linux): slot 9 of the \"SOUND=insane\" service table); was SoundModule_DriverCommand3."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004d0c20",
+  "old": "Sound_DriverQuery",
+  "name": "sou_engine_GetRate",
+  "comment": "Calls entry +0x14 of the installed sound driver vtable Original name sou_engine_GetRate (the remaster's GrimFandango (Linux): slot 11 of the \"SOUND=insane\" service table); was Sound_DriverQuery."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004d0c30",
+  "old": "SoundModule_GetPosition",
+  "name": "sou_engine_Query",
+  "comment": "Original name sou_engine_Query (the remaster's GrimFandango (Linux): slot 13 of the \"SOUND=insane\" service table); was SoundModule_GetPosition."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004d0d70",
+  "old": "SoundModule_SetParam",
+  "name": "sou_engine_SetParam",
+  "comment": "Original name sou_engine_SetParam (the remaster's GrimFandango (Linux): slot 15 of the \"SOUND=insane\" service table); was SoundModule_SetParam."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004d0e00",
+  "old": "SoundModule_GetParam",
+  "name": "sou_engine_GetParam",
+  "comment": "Original name sou_engine_GetParam (the remaster's GrimFandango (Linux): slot 14 of the \"SOUND=insane\" service table); was SoundModule_GetParam."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004d1180",
+  "old": "SoundModule_PlaySaud",
+  "name": "sou_engine_start_stream",
+  "comment": "Receives one chunk of a Smush audio stream (first chunk: picks a voice; later chunks: appended to its ring buffer). Per-voice stream state lives in g_anSndStreamKey, g_anSndStreamKind and g_anSndChunkCount. Original name sou_engine_start_stream (the remaster's GrimFandango (Linux): the only unpaired callee of sou_engine_Start (SoundModule_PlayChunk) on both sides; same SAUD block copies with msc_MemCopy); was SoundModule_PlaySaud."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004d2420",
+  "old": "DsndDriver_Register",
+  "name": "sou_dsnd_module",
+  "comment": "Entry of LECMODULE insane_dsnd: registers the DirectSound sound driver (SNDDRIVER insane_dsnd) Original name sou_dsnd_module (the remaster's GrimFandango (Linux): slot 0 of the \"LECMODULE=insane_dsnd\" service table); was DsndDriver_Register."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004d2480",
+  "old": "DsndDriver_Unregister",
+  "name": "DsndDriver_module_terminate",
+  "comment": "Original name DsndDriver_module_terminate (the remaster's GrimFandango (Linux): slot 1 of the \"LECMODULE=insane_dsnd\" service table; module_terminate is a static several LEC modules have, written with the module prefix); was DsndDriver_Unregister."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004d2520",
+  "old": "DsndDriver_Shutdown",
+  "name": "DsndDriver_module_shutdown",
+  "comment": "Original name DsndDriver_module_shutdown (the remaster's GrimFandango (Linux): slot 3 of the \"LECMODULE=insane_dsnd\" service table; module_shutdown is a static several LEC modules have, written with the module prefix); was DsndDriver_Shutdown."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004d2550",
+  "old": "DsndDriver_Open",
+  "name": "dsn_initialize",
+  "comment": "Opens DirectSound and the mixer and starts the periodic DSound_FillStreamBuffer timer Original name dsn_initialize (the remaster's GrimFandango (Linux): slot 0 of the \"SNDDRIVER=insane_dsnd\" service table); was DsndDriver_Open."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004d25f0",
+  "old": "DsndDriver_Close",
+  "name": "dsn_terminate",
+  "comment": "Original name dsn_terminate (the remaster's GrimFandango (Linux): slot 1 of the \"SNDDRIVER=insane_dsnd\" service table); was DsndDriver_Close."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004d2630",
+  "old": "DsndDriver_SetVolume",
+  "name": "dsn_setvol",
+  "comment": "Volume 0..127 through a logarithmic table to IDirectSoundBuffer::SetVolume on the stream buffer Original name dsn_setvol (the remaster's GrimFandango (Linux): slot 2 of the \"SNDDRIVER=insane_dsnd\" service table); was DsndDriver_SetVolume."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004d27b0",
+  "old": "DsndDriver_GetVolume",
+  "name": "dsn_getvol",
+  "comment": "Original name dsn_getvol (the remaster's GrimFandango (Linux): slot 3 of the \"SNDDRIVER=insane_dsnd\" service table); was DsndDriver_GetVolume."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004d27c0",
+  "old": "DsndDriver_GetSampleRate",
+  "name": "dsn_getrate",
+  "comment": "Original name dsn_getrate (the remaster's GrimFandango (Linux): slot 5 of the \"SNDDRIVER=insane_dsnd\" service table); was DsndDriver_GetSampleRate."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004d2d70",
+  "old": "FUN_004d2d70",
+  "name": "sou_mixer_terminate",
+  "comment": "Original name sou_mixer_terminate (the remaster's GrimFandango (Linux): dsn_terminate's (DsndDriver_Close's) mixer call; frees the mixer tables through Mixer_Free); was FUN_004d2d70."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004d5e50",
+  "old": "FUN_004d5e50",
+  "name": "msc_MemSet",
+  "comment": "Ported to C (build/overrides_asm_o2.c): differential test, 0 differences (docs/notes/asm_o2.md). Original name msc_MemSet (the remaster's GrimFandango (Linux): gra_SetBitmap's / AllocBuffers' fill call (dst, 0, n)); was FUN_004d5e50."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004d5e70",
+  "old": "Rle_Decode",
+  "name": "msc_rle_DecompressBlock",
+  "comment": "Decodes a number of bytes of a run-length coded stream into a buffer\nPorted to C (build/overrides_asm_o2.c): differential test, 0 differences (docs/notes/asm_o2.md). Original name msc_rle_DecompressBlock (the remaster's GrimFandango (Linux): same body (Initialize, Getbyte loop, Terminate)); was Rle_Decode."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004d5eb0",
+  "old": "Rle_Begin",
+  "name": "msc_rle_DecompressInitialize",
+  "comment": "Starts reading a run-length coded byte stream Original name msc_rle_DecompressInitialize (the remaster's GrimFandango (Linux): same body (data = p, state = 2)); was Rle_Begin."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004d5ed0",
+  "old": "Rle_NextByte",
+  "name": "msc_rle_DecompressGetbyte",
+  "comment": "Returns the next byte of a run-length coded stream; control byte bit 0 selects a run or literal bytes Original name msc_rle_DecompressGetbyte (the remaster's GrimFandango (Linux): same body (RLE state 0/1/2)); was Rle_NextByte."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004d5f70",
+  "old": "FUN_004d5f70",
+  "name": "msc_error_SaveString",
+  "comment": "Ported to C (build/overrides_asm_o2.c): differential test, 0 differences (docs/notes/asm_o2.md). Original name msc_error_SaveString (the remaster's GrimFandango (Linux): same body (20 strings of 200 bytes, loc/count wrap at 0x13)); was FUN_004d5f70."
+ }
+]

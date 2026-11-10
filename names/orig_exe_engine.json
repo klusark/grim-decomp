@@ -46,7 +46,7 @@
   "addr": "0040b8e0",
   "old": "rdModel3_LoadBinary",
   "name": "rdModel3_LoadEntryBinary",
-  "comment": "Reader of the binary 'MODL' model format (materials, geometry sets, meshes, hierarchy nodes). Source file Rdmodel3.c (C:\\grimjedi\\Libs\\RDroid\\Primitives\\Rdmodel3.c). Original name rdModel3_LoadEntryBinary (the remaster's GrimFandango (Linux): the only unmatched callee of rdModel3_Load; 2 matched neighbours agree, 1 disagree); was rdModel3_LoadBinary."
+  "comment": "Reader of the binary 'MODL' model format (materials, geometry sets, meshes, hierarchy nodes). Source file Rdmodel3.c (C:\\grimjedi\\Libs\\RDroid\\Primitives\\Rdmodel3.c). Original name rdModel3_LoadEntryBinary (the remaster's GrimFandango (Linux): the only unmatched callee of rdModel3_LoadEntry; 2 matched neighbours agree, 1 disagree); was rdModel3_LoadBinary."
  },
  {
   "program": "/v101/GRIMFANDANGO.EXE",
@@ -718,7 +718,7 @@
   "addr": "004936e0",
   "old": "Actor_DrawShadows",
   "name": "sputCostume_DrawActorShadow",
-  "comment": "Draws the shadows of an actor: slots at extra+0x1f8, 0x54 bytes each (+0 active, +4 valid, +8..+0x14 plane normal and d, +0x18..0x20 shadow point). valid 0: always; -1: only when pos.n+d <= 0; 1: only when >= 0 (pos = actor+0xc). Set by SetActorShadowPlane (Actor_SetShadowPlane 0x493570, which resets valid to 0) and SetActorShadowValid (Lua_SetActorShadowValid 0x4a1fd0 -> 0x493630). Original name sputCostume_DrawActorShadow (the remaster's GrimFandango (Linux): the only unmatched caller of Actor_DrawShadowPlane; 1 matched neighbours agree, 0 disagree); was Actor_DrawShadows."
+  "comment": "Draws the shadows of an actor: slots at extra+0x1f8, 0x54 bytes each (+0 active, +4 valid, +8..+0x14 plane normal and d, +0x18..0x20 shadow point). valid 0: always; -1: only when pos.n+d <= 0; 1: only when >= 0 (pos = actor+0xc). Set by SetActorShadowPlane (Actor_SetShadowPlane 0x493570, which resets valid to 0) and SetActorShadowValid (Lua_SetActorShadowValid 0x4a1fd0 -> 0x493630). Original name sputCostume_DrawActorShadow (the remaster's GrimFandango (Linux): the only unmatched caller of sputCostume_DrawMeshShadow; 1 matched neighbours agree, 0 disagree); was Actor_DrawShadows."
  },
  {
   "program": "/v101/GRIMFANDANGO.EXE",
@@ -1025,15 +1025,15 @@
   "program": "/v101/GRIMFANDANGO.EXE",
   "addr": "004a49a0",
   "old": "Set_LoadFile",
-  "name": "sputResource_SetHandler",
-  "comment": "Resource type 'SET ' loader (ResType_SetHandler op 1): allocates the 0x1b08-byte set record, initialises it, parses the .set file, links it to the set-name entry and re-attaches the walkers of the actors already in that set. Original name sputResource_SetHandler (the remaster's GrimFandango (Linux): the only unmatched caller of SetFile_Parse; 1 matched neighbours agree, 0 disagree); was Set_LoadFile."
+  "name": "sputRoom_LoadRoom",
+  "comment": "Resource type 'SET ' loader (sputResource_SetHandler op 1): allocates the 0x1b08-byte set record, initialises it, parses the .set file, links it to the set-name entry and re-attaches the walkers of the actors already in that set. Original name sputRoom_LoadRoom (the remaster's GrimFandango (Linux): the only unmatched caller of SetFile_Parse; 1 matched neighbours agree, 0 disagree); was Set_LoadFile."
  },
  {
   "program": "/v101/GRIMFANDANGO.EXE",
   "addr": "004a4b00",
   "old": "SetFile_Parse",
-  "name": "sputRoom_LoadRoom",
-  "comment": "Remembers the set being parsed (g_dwLoadingRoom), stores its base file name (+0, 0x7f chars) and parses the sections with sputRoom_LoadRoomEntry. Original name sputRoom_LoadRoom (the remaster's GrimFandango (Linux): the only unmatched caller of sputRoom_LoadRoomEntry; 1 matched neighbours agree, 0 disagree); was SetFile_Parse."
+  "name": "SetFile_Parse",
+  "comment": "Remembers the set being parsed (g_dwLoadingRoom), stores its base file name (+0, 0x7f chars) and parses the sections with sputRoom_LoadRoomEntry. Original name SetFile_Parse (the remaster's GrimFandango (Linux): the only unmatched caller of sputRoom_LoadRoomEntry; 1 matched neighbours agree, 0 disagree); was SetFile_Parse."
  },
  {
   "program": "/v101/GRIMFANDANGO.EXE",
@@ -1061,7 +1061,7 @@
   "addr": "004a5c90",
   "old": "SetFile_SectorsSectionHandler",
   "name": "sputRoom_ParseSectors",
-  "comment": "Section handler 'sectors' registered by sputRoom_Start: runs SetFile_ParseSectors for the set being parsed. Original name sputRoom_ParseSectors (the remaster's GrimFandango (Linux): the only unmatched caller of SetFile_ParseSectors; 1 matched neighbours agree, 0 disagree); was SetFile_SectorsSectionHandler."
+  "comment": "Section handler 'sectors' registered by sputRoom_Start: runs ParseCollection for the set being parsed. Original name sputRoom_ParseSectors (the remaster's GrimFandango (Linux): the only unmatched caller of ParseCollection; 1 matched neighbours agree, 0 disagree); was SetFile_SectorsSectionHandler."
  },
  {
   "program": "/v101/GRIMFANDANGO.EXE",

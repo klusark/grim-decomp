@@ -5,13 +5,15 @@
 #include "globals.h"
 #include "functions.h"
 
-/* ---- 0x004d0300  SoundModule_Register ---- */
+/* ---- 0x004d0300  sou_sound_module ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
-/* Entry of LECMODULE insane_sound: the Smush sound track manager (SOUND insane) */
+/* Entry of LECMODULE insane_sound: the Smush sound track manager (SOUND insane) Original name
+   sou_sound_module (the remaster's GrimFandango (Linux): slot 0 of the "LECMODULE=insane_sound"
+   service table); was SoundModule_Register. */
 
-int __cdecl SoundModule_Register(int *services,uint moduleSize)
+int __cdecl sou_sound_module(int *services,uint moduleSize)
 
 {
   bool bVar1;
@@ -27,7 +29,7 @@ int __cdecl SoundModule_Register(int *services,uint moduleSize)
   g_pSoundModule_snddriver_services = (int *)0x0;
   g_dwSound_samplerate = 0x5622;
   g_dwSound_reserveram = 64000;
-  _DAT_008db1e8 = 0;
+  _g_dwSound_channel = 0;
   g_dwSound_flipped = 0;
   g_dwSound_ticks = 0;
   g_dwSound_name = 0;
@@ -45,12 +47,15 @@ int __cdecl SoundModule_Register(int *services,uint moduleSize)
 #endif
 
 
-/* ---- 0x004d03a0  SoundModule_Unregister ---- */
+/* ---- 0x004d03a0  SoundModule_module_terminate ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
+/* Original name SoundModule_module_terminate (the remaster's GrimFandango (Linux): slot 1 of the
+   "LECMODULE=insane_sound" service table; module_terminate is a static several LEC modules have,
+   written with the module prefix); was SoundModule_Unregister. */
 
-void SoundModule_Unregister(void)
+void SoundModule_module_terminate(void)
 
 {
   (*(code *)g_pSoundModule_share_services[1])(s_SOUND_insane_004f3e4c);
@@ -109,12 +114,15 @@ int SoundModule_module_startup(void)
 #endif
 
 
-/* ---- 0x004d0510  SoundModule_Shutdown ---- */
+/* ---- 0x004d0510  SoundModule_module_shutdown ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
+/* Original name SoundModule_module_shutdown (the remaster's GrimFandango (Linux): slot 3 of the
+   "LECMODULE=insane_sound" service table; module_shutdown is a static several LEC modules have,
+   written with the module prefix); was SoundModule_Shutdown. */
 
-void SoundModule_Shutdown(void)
+void SoundModule_module_shutdown(void)
 
 {
   (*(code *)g_pSoundModule_share_services[3])(g_pSoundModule_memory_services);
@@ -277,19 +285,21 @@ int __cdecl SoundModule_AddTrackBuffer(uint size,int limit)
     return -2;
   }
 LAB_004d0827:
-  FUN_004d5e50((&UINT_008dad58)[uVar1 * 0xd],0x7f,*(undefined4 *)(iVar5 + IMG_ADDR(0x008dad68)));
+  msc_MemSet((&UINT_008dad58)[uVar1 * 0xd],0x7f,*(undefined4 *)(iVar5 + IMG_ADDR(0x008dad68)));
   g_dwSou_chans = g_dwSou_chans + 1;
   return 0;
 }
 #endif
 
 
-/* ---- 0x004d0860  SoundModule_PlayChunk ---- */
+/* ---- 0x004d0860  sou_engine_Start ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-/* Dispatches a sound chunk by its four-character tag: Crea(tive VOC), PSAD / SAUD (Smush audio) */
+/* Dispatches a sound chunk by its four-character tag: Crea(tive VOC), PSAD / SAUD (Smush audio)
+   Original name sou_engine_Start (the remaster's GrimFandango (Linux): slot 0 of the "SOUND=insane"
+   service table); was SoundModule_PlayChunk. */
 
-void __cdecl SoundModule_PlayChunk(byte *p,int id,int volume,int pan,uint flags)
+void __cdecl sou_engine_Start(byte *p,int id,int volume,int pan,uint flags)
 
 {
   byte bVar1;
@@ -314,14 +324,14 @@ void __cdecl SoundModule_PlayChunk(byte *p,int id,int volume,int pan,uint flags)
       if (uVar2 != 0x53415544) {
         return;
       }
-      SoundModule_PlaySaud
+      sou_engine_start_stream
                 (p,CONCAT31(CONCAT21(CONCAT11(p[4],p[5]),p[6]),p[7]) + 8,id,volume,pan,flags,0,0,1,0
                 );
       return;
     }
     if ((((p[8] == 0) && (p[9] == 0)) && (p[0xc] == 0)) &&
        (((p[0xd] == 0 && (p[0x10] == 0)) && (p[0x11] == 0)))) {
-      SoundModule_PlaySaud
+      sou_engine_start_stream
                 (p + 0x14,CONCAT31(CONCAT21(CONCAT11(p[4],p[5]),p[6]),p[7]) + -0xc,id,volume,pan,
                  flags,(uint)CONCAT11(p[10],p[0xb]),(uint)CONCAT11(p[0xe],p[0xf]),
                  (uint)CONCAT11(p[0x12],p[0x13]),1);
@@ -333,7 +343,7 @@ void __cdecl SoundModule_PlayChunk(byte *p,int id,int volume,int pan,uint flags)
     else {
       iVar3 = pan + (char)p[0x11];
     }
-    SoundModule_PlaySaud
+    sou_engine_start_stream
               (p + 0x12,CONCAT31(CONCAT21(CONCAT11(p[4],p[5]),p[6]),p[7]) + -10,id,
                (int)((uint)p[0x10] * volume) >> 7,iVar3,(int)*(short *)(p + 0xe) | flags,
                (int)*(short *)(p + 8),(int)*(short *)(p + 10),(int)*(short *)(p + 0xc),1);
@@ -343,10 +353,13 @@ void __cdecl SoundModule_PlayChunk(byte *p,int id,int volume,int pan,uint flags)
 #endif
 
 
-/* ---- 0x004d0a50  SoundModule_StopSound ---- */
+/* ---- 0x004d0a50  sou_engine_Stop ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-void __cdecl SoundModule_StopSound(uint id)
+/* Original name sou_engine_Stop (the remaster's GrimFandango (Linux): slot 1 of the "SOUND=insane"
+   service table); was SoundModule_StopSound. */
+
+void __cdecl sou_engine_Stop(uint id)
 
 {
   uint *puVar1;
@@ -369,42 +382,48 @@ void __cdecl SoundModule_StopSound(uint id)
 #endif
 
 
-/* ---- 0x004d0a80  SoundModule_Pause ---- */
+/* ---- 0x004d0a80  sou_engine_Pause ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
+/* Original name sou_engine_Pause (the remaster's GrimFandango (Linux): slot 2 of the "SOUND=insane"
+   service table); was SoundModule_Pause. */
 
-void SoundModule_Pause(void)
+void sou_engine_Pause(void)
 
 {
-  UINT_008db1ec = UINT_008db1ec + 1;
+  g_dwSou_paused_flag = g_dwSou_paused_flag + 1;
   return;
 }
 #endif
 
 
-/* ---- 0x004d0a90  SoundModule_Resume ---- */
+/* ---- 0x004d0a90  sou_engine_Resume ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
+/* Original name sou_engine_Resume (the remaster's GrimFandango (Linux): slot 3 of the
+   "SOUND=insane" service table); was SoundModule_Resume. */
 
-void SoundModule_Resume(void)
+void sou_engine_Resume(void)
 
 {
-  if (UINT_008db1ec != 0) {
-    UINT_008db1ec = UINT_008db1ec - 1;
+  if (g_dwSou_paused_flag != 0) {
+    g_dwSou_paused_flag = g_dwSou_paused_flag - 1;
   }
   return;
 }
 #endif
 
 
-/* ---- 0x004d0aa0  SoundModule_StopAll ---- */
+/* ---- 0x004d0aa0  sou_engine_StopAll ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
+/* Original name sou_engine_StopAll (the remaster's GrimFandango (Linux): slot 4 of the
+   "SOUND=insane" service table); was SoundModule_StopAll. */
 
-void SoundModule_StopAll(void)
+void sou_engine_StopAll(void)
 
 {
   uint *puVar1;
@@ -425,10 +444,13 @@ void SoundModule_StopAll(void)
 #endif
 
 
-/* ---- 0x004d0ad0  SoundModule_SetVolume ---- */
+/* ---- 0x004d0ad0  sou_engine_SetVol ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-void __cdecl SoundModule_SetVolume(int id,uint volume)
+/* Original name sou_engine_SetVol (the remaster's GrimFandango (Linux): slot 6 of the
+   "SOUND=insane" service table); was SoundModule_SetVolume. */
+
+void __cdecl sou_engine_SetVol(int id,uint volume)
 
 {
   undefined1 *puVar1;
@@ -454,10 +476,13 @@ void __cdecl SoundModule_SetVolume(int id,uint volume)
 #endif
 
 
-/* ---- 0x004d0b10  SoundModule_GetVolume ---- */
+/* ---- 0x004d0b10  sou_engine_GetVol ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-uint __cdecl SoundModule_GetVolume(uint id)
+/* Original name sou_engine_GetVol (the remaster's GrimFandango (Linux): slot 5 of the
+   "SOUND=insane" service table); was SoundModule_GetVolume. */
+
+uint __cdecl sou_engine_GetVol(uint id)
 
 {
   int iVar1;
@@ -483,10 +508,13 @@ uint __cdecl SoundModule_GetVolume(uint id)
 #endif
 
 
-/* ---- 0x004d0b60  SoundModule_SetPan ---- */
+/* ---- 0x004d0b60  sou_engine_SetPan ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-void __cdecl SoundModule_SetPan(int id,byte pan)
+/* Original name sou_engine_SetPan (the remaster's GrimFandango (Linux): slot 8 of the
+   "SOUND=insane" service table); was SoundModule_SetPan. */
+
+void __cdecl sou_engine_SetPan(int id,byte pan)
 
 {
   byte *pbVar1;
@@ -508,10 +536,13 @@ void __cdecl SoundModule_SetPan(int id,byte pan)
 #endif
 
 
-/* ---- 0x004d0b90  SoundModule_GetPan ---- */
+/* ---- 0x004d0b90  sou_engine_GetPan ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-int __cdecl SoundModule_GetPan(uint id)
+/* Original name sou_engine_GetPan (the remaster's GrimFandango (Linux): slot 7 of the
+   "SOUND=insane" service table); was SoundModule_GetPan. */
+
+int __cdecl sou_engine_GetPan(uint id)
 
 {
   int iVar1;
@@ -534,10 +565,13 @@ int __cdecl SoundModule_GetPan(uint id)
 #endif
 
 
-/* ---- 0x004d0bd0  SoundModule_DriverCommand2 ---- */
+/* ---- 0x004d0bd0  sou_engine_SetHVol ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-void __cdecl SoundModule_DriverCommand2(int arg)
+/* Original name sou_engine_SetHVol (the remaster's GrimFandango (Linux): slot 10 of the
+   "SOUND=insane" service table); was SoundModule_DriverCommand2. */
+
+void __cdecl sou_engine_SetHVol(int arg)
 
 {
   if (g_pSoundModule_snddriver_services != (int *)0x0) {
@@ -548,12 +582,14 @@ void __cdecl SoundModule_DriverCommand2(int arg)
 #endif
 
 
-/* ---- 0x004d0bf0  SoundModule_DriverCommand3 ---- */
+/* ---- 0x004d0bf0  sou_engine_GetHVol ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
+/* Original name sou_engine_GetHVol (the remaster's GrimFandango (Linux): slot 9 of the
+   "SOUND=insane" service table); was SoundModule_DriverCommand3. */
 
-int SoundModule_DriverCommand3(void)
+int sou_engine_GetHVol(void)
 
 {
   int iVar1;
@@ -587,10 +623,13 @@ void __cdecl sou_engine_SetRate(uint rate)
 #endif
 
 
-/* ---- 0x004d0c30  SoundModule_GetPosition ---- */
+/* ---- 0x004d0c30  sou_engine_Query ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-int __cdecl SoundModule_GetPosition(uint id)
+/* Original name sou_engine_Query (the remaster's GrimFandango (Linux): slot 13 of the
+   "SOUND=insane" service table); was SoundModule_GetPosition. */
+
+int __cdecl sou_engine_Query(uint id)
 
 {
   int iVar1;
@@ -637,10 +676,13 @@ int __cdecl SoundModule_GetPosition(uint id)
 #endif
 
 
-/* ---- 0x004d0d70  SoundModule_SetParam ---- */
+/* ---- 0x004d0d70  sou_engine_SetParam ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-int __cdecl SoundModule_SetParam(int unused,int which,uint a,uint b)
+/* Original name sou_engine_SetParam (the remaster's GrimFandango (Linux): slot 15 of the
+   "SOUND=insane" service table); was SoundModule_SetParam. */
+
+int __cdecl sou_engine_SetParam(int unused,int which,uint a,uint b)
 
 {
   switch(which) {
@@ -673,10 +715,13 @@ int __cdecl SoundModule_SetParam(int unused,int which,uint a,uint b)
 #endif
 
 
-/* ---- 0x004d0e00  SoundModule_GetParam ---- */
+/* ---- 0x004d0e00  sou_engine_GetParam ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-int __cdecl SoundModule_GetParam(int unused,int which,uint *a,uint *b)
+/* Original name sou_engine_GetParam (the remaster's GrimFandango (Linux): slot 14 of the
+   "SOUND=insane" service table); was SoundModule_GetParam. */
+
+int __cdecl sou_engine_GetParam(int unused,int which,uint *a,uint *b)
 
 {
   byte bVar1;
@@ -897,15 +942,17 @@ void __cdecl SoundModule_PlayVoc(byte *src,uint size,int id,int volume,int pan,u
 #endif
 
 
-/* ---- 0x004d1180  SoundModule_PlaySaud ---- */
+/* ---- 0x004d1180  sou_engine_start_stream ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Receives one chunk of a Smush audio stream (first chunk: picks a voice; later chunks: appended to
    its ring buffer). Per-voice stream state lives in g_anSndStreamKey, g_anSndStreamKind and
-   g_anSndChunkCount. */
+   g_anSndChunkCount. Original name sou_engine_start_stream (the remaster's GrimFandango (Linux):
+   the only unpaired callee of sou_engine_Start (SoundModule_PlayChunk) on both sides; same SAUD
+   block copies with msc_MemCopy); was SoundModule_PlaySaud. */
 
 void __cdecl
-SoundModule_PlaySaud
+sou_engine_start_stream
           (byte *data,int size,int id,int volume,int pan,uint flags,int key,int chunkNo,int kind,
           int whole)
 
@@ -1209,7 +1256,7 @@ void __cdecl sou_engine_fill(int frames,void *mix)
   
   g_dwSound_ticks = g_dwSound_ticks + 1;
   SoundModule_AdvanceClock(((double)frames * 1193180.0) / (double)(int)g_dwSou_sample_rate);
-  if (UINT_008db1ec == 0) {
+  if (g_dwSou_paused_flag == 0) {
     if (g_dwSou_engine_fill_first != 0) {
       g_dwSou_engine_fill_first = 0;
       puVar7 = &UINT_008da928;

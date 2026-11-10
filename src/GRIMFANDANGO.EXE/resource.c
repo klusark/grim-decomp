@@ -336,17 +336,17 @@ undefined4 grimlib_FindResources(void)
   wuRegistry_GetStr(s_GrimDataDir_004dd94c,acStack_100,0x80,&DAT_004f5a98);
   iVar1 = _stricmp(local_80,acStack_100);
   if (iVar1 != 0) {
-    Resource_OpenArchivesInDir(acStack_100);
+    AddResourcePath(acStack_100);
   }
   if (g_szExtraDataDir[0] != '\0') {
     iVar1 = _stricmp(g_szExtraDataDir,acStack_100);
     if (iVar1 != 0) {
-      Resource_OpenArchivesInDir(g_szExtraDataDir);
+      AddResourcePath(g_szExtraDataDir);
     }
   }
   iVar1 = _stricmp(local_80,g_szExtraDataDir);
   if (iVar1 != 0) {
-    Resource_OpenArchivesInDir(local_80);
+    AddResourcePath(local_80);
   }
   return 1;
 }
@@ -399,11 +399,14 @@ int Resource_OpenLog(char *param_1)
   return iVar1 == 1;
 }
 
-/* ---- 0x0048d570  Resource_OpenArchivesInDir ---- */
+/* ---- 0x0048d570  AddResourcePath ---- */
 /* Opens every *.lab in the directory, then the required archives listed in g_ppRequiredLabs in
-   priority order */
+   priority order Original name AddResourcePath (the remaster's GrimFandango (Linux): same sequence:
+   strip the trailing separator, stdFileUtil_NewFind(dir, 3, ext), FindNext loop opening each
+   archive and moving it to the front, DisposeFind, then the fixed list); was
+   Resource_OpenArchivesInDir. */
 
-int __cdecl Resource_OpenArchivesInDir(char *dir)
+int __cdecl AddResourcePath(char *dir)
 
 {
   unsigned char _frame[0x1a0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -518,20 +521,20 @@ int __cdecl Resource_OpenArchivesInDir(char *dir)
       pcVar8 = pcVar8 + 1;
       pcVar12 = pcVar12 + 1;
     }
-    iVar5 = Lab_OpenByName(local_18c);
+    iVar5 = Res_FileOpen(local_18c);
     if (iVar5 != 0) {
-      Lab_MoveToFront(local_18c);
+      Res_FileMoveToFront(local_18c);
     }
     iVar5 = strrchr(local_18c,0x5c);
     *(undefined1 *)(iVar5 + 1) = 0;
     iVar5 = stdFileUtil_FindNext(find,local_10c);
   }
   stdFileUtil_DisposeFind(find);
-  iVar5 = Lab_OpenByName(local_18c);
+  iVar5 = Res_FileOpen(local_18c);
   if (iVar5 == 0) {
     return 0;
   }
-  Lab_MoveToFront(local_18c);
+  Res_FileMoveToFront(local_18c);
   uVar3 = 0;
   if (g_nRequiredLabCount != 0) {
     pppcVar7 = &g_ppRequiredLabs;
@@ -569,9 +572,9 @@ int __cdecl Resource_OpenArchivesInDir(char *dir)
         pcVar8 = pcVar8 + 1;
         pcVar12 = pcVar12 + 1;
       }
-      iVar5 = Lab_OpenByName(local_18c);
+      iVar5 = Res_FileOpen(local_18c);
       if (iVar5 != 0) {
-        Lab_MoveToFront(local_18c);
+        Res_FileMoveToFront(local_18c);
       }
       puVar2 = (undefined1 *)strrchr(local_18c,0x5c);
       *puVar2 = 0;

@@ -3,7 +3,7 @@
  *   - the light editor's text field reader and keyboard hook (LightEd_ReadControl, LightEd_KeyboardProc),
  *   - LecShare_Subscribe (lookup of a shared module through the override list),
  *   - AnimPlay, the Smush frame player (create, destroy, once-per-frame update, reset, open),
- *   - the small glue around zlib 1.1.3 gzio.c (gz_open with the file service table, gz_putLong, Zfile_Close) and the
+ *   - the small glue around zlib 1.1.3 gzio.c (gz_open with the file service table, gz_putLong, Zfile_fle_Close) and the
  *     StdFile position helpers.
  * Differential tests: build/mixdiff/misc_test.c (docs/notes/mixer.md). */
 #include "ghidra_types.h"
@@ -262,7 +262,7 @@ typedef struct AnimPlay {           /* 0x70 bytes */
 } AnimPlay;
 
 extern uint g_dwAnimDebugFlags __asm__("_UINT_008d6f20");   /* bit 17: report failures, bits 30, 31: draw the sync overlay */
-extern int g_nAnimLipsyncOn __asm__("_UINT_008d6f24");
+extern int g_nAnimLipsyncOn __asm__("_g_dwAnm_audio_halted");
 extern int g_nAnimDelayTotal __asm__("_g_dwRenderHandler_totalTime");     /* sum of the frame delays */
 
 #define ANIM_FILE s_C__grimsrc_libs_lecsmush_insane__004f1608     /* source file name given to the allocator */
@@ -304,14 +304,14 @@ int anm_Start(void **pout, char *name, int fps, int streamArg1, int streamArg2, 
         Mem_DumpLog();
         goto freeStream;
     }
-    p->timerSync = SVC_CALL(g_pAnimPlay_timer_services, 0, int, (void *, int, int, void *))(FUN_004c2a70, 1, 2, p);
+    p->timerSync = SVC_CALL(g_pAnimPlay_timer_services, 0, int, (void *, int, int, void *))(frame_Timer, 1, 2, p);
     if (p->timerSync == 0) {
         if (ANIM_REPORT())
             ANIM_MSG(s_AnimPlay_Module__Cannot_allocate_004f15ac);
         Mem_DumpLog();
         goto freeStream;
     }
-    p->timerFrame = SVC_CALL(g_pAnimPlay_timer_services, 0, int, (void *, int, int, void *))(FUN_004c2a80, p->targetDelay, 8, p);
+    p->timerFrame = SVC_CALL(g_pAnimPlay_timer_services, 0, int, (void *, int, int, void *))(sync_Timer, p->targetDelay, 8, p);
     if (p->timerFrame != 0) {
         p->failed = 0;
         return 0;
@@ -330,7 +330,7 @@ fail:
 }
 
 /* Stops both timers, closes the file and the streamer and frees the player. */
-void AnimPlay_Destroy(void **ppIn)
+void anm_Stop(void **ppIn)
 {
     AnimPlay **pp = (AnimPlay **)ppIn;
     AnimPlay *p = *pp;
@@ -493,7 +493,7 @@ void gz_putLong(void *file, uint x)
 }
 
 /* Closes a Zfile: the plain file through the file service, or the gzip stream; then frees the object. */
-void Zfile_Close(int *z)
+void Zfile_fle_Close(int *z)
 {
     if (z[0] != 0) {
         if (z[1] == 0)
@@ -615,17 +615,17 @@ destroy:
 }
 
 /* Position in a StdFile. */
-int StdFile_Tell(void *file)
+int StdFile_fle_Tell(void *file)
 {
     return SVC_CALL(g_pStdFile_filio_services, 4, int, (void *))(file);
 }
 
 /* True when the position of a StdFile is at (or past) its size. */
-int StdFile_IsEof(void *file)
+int fle_Eof(void *file)
 {
-    int size = StdFile_Size(file);
+    int size = fle_Size(file);
 
-    return StdFile_Tell(file) >= size;
+    return StdFile_fle_Tell(file) >= size;
 }
 
 #endif /* GRIM_EXE */

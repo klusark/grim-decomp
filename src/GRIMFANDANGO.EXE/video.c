@@ -98,10 +98,12 @@ void Video_BlitConvert(int *param_1,uint *param_2,int param_3,int param_4,int *p
 #undef local_420
 
 
-/* ---- 0x004cec40  Video_FillPixels ---- */
-/* Fills a number of pixels of 1 to 4 bytes with one pixel value */
+/* ---- 0x004cec40  gra_SetBuffer ---- */
+/* Fills a number of pixels of 1 to 4 bytes with one pixel value Original name gra_SetBuffer (the
+   remaster's GrimFandango (Linux): gra_SetBitmap's call (buffer, bitmap, w*h, colour)); was
+   Video_FillPixels. */
 
-void Video_FillPixels(char *param_1,int param_2,int param_3,char *param_4)
+void gra_SetBuffer(char *param_1,int param_2,int param_3,char *param_4)
 
 {
   char cVar1;
@@ -112,11 +114,11 @@ void Video_FillPixels(char *param_1,int param_2,int param_3,char *param_4)
   uVar3 = (undefined3)((uint)iVar2 >> 8);
   switch(iVar2) {
   case 0:
-    FUN_004d5e50(param_1,CONCAT31(uVar3,*param_4),param_3);
+    msc_MemSet(param_1,CONCAT31(uVar3,*param_4),param_3);
     return;
   case 1:
     if (*param_4 == param_4[1]) {
-      FUN_004d5e50(param_1,CONCAT31(uVar3,*param_4),param_3 * 2);
+      msc_MemSet(param_1,CONCAT31(uVar3,*param_4),param_3 * 2);
       return;
     }
     if (param_3 != 0) {
@@ -130,7 +132,7 @@ void Video_FillPixels(char *param_1,int param_2,int param_3,char *param_4)
     break;
   case 2:
     if ((*param_4 == param_4[1]) && (param_4[2] == param_4[1])) {
-      FUN_004d5e50(param_1,*param_4,param_3 * 3);
+      msc_MemSet(param_1,*param_4,param_3 * 3);
       return;
     }
     if (param_3 != 0) {
@@ -147,7 +149,7 @@ void Video_FillPixels(char *param_1,int param_2,int param_3,char *param_4)
   case 3:
     cVar1 = param_4[1];
     if (((*param_4 == cVar1) && (param_4[2] == cVar1)) && (param_4[3] == cVar1)) {
-      FUN_004d5e50(param_1,*param_4,param_3 * 4);
+      msc_MemSet(param_1,*param_4,param_3 * 4);
       return;
     }
     for (; param_3 != 0; param_3 = param_3 + -1) {
@@ -335,10 +337,13 @@ int __cdecl Video_PixelsToRgba(void *src,void *fmt,int count,byte *palette,byte 
 #endif
 
 
-/* ---- 0x004cf520  Video_PixelsFromRgba ---- */
+/* ---- 0x004cf520  gra_ConvertFromLecColor ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-int __cdecl Video_PixelsFromRgba(void *dst,void *fmt,int count,int unused,byte *src)
+/* Original name gra_ConvertFromLecColor (the remaster's GrimFandango (Linux): gra_SetBitmap's call
+   (dst, bitmap, 1, 0, &colour)); was Video_PixelsFromRgba. */
+
+int __cdecl gra_ConvertFromLecColor(void *dst,void *fmt,int count,int unused,byte *src)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */

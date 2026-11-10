@@ -1041,7 +1041,7 @@ def fix_call_args(body, vt, ctx, stats):
                     (ak is None and re.match(r"\s*\(?\s*&?\s*(?:UINT|INT|DAT|_DAT)_[0-9a-f]{8}\b", a))):
                 # a dword variable (or a dword read through a pointer) for a float parameter: the machine code pushes
                 # its bits (Ghidra writes (float) for a FILD conversion). rdMatrix_LookAt passed the roll (undefined4)
-                # to rdMatrix_BuildFromVectorAngle34's float angle, and C converted 5.0's bits to 1084227584.0; rdThing_Draw passed the
+                # to rdMatrix_BuildFromVectorAngle34's float angle, and C converted 5.0's bits to 1084227584.0; rdModel3_Draw passed the
                 # model radius `*(undefined4 *)(model + 0x5c)` to rdClip_SphereInFrustrum (found by grim_tools/cleanroom)
                 args[i] = f"PUN(float,{a.strip()})"
             elif pk == "int" and ak == "float" and is_dword_type(pt) and not NUM_RE.fullmatch(a.strip()):
@@ -1563,7 +1563,7 @@ def build(prog):
             if m == "crt":
                 # crt.c is left out of the link (the host runtime replaces it); an
                 # unnamed function in the CRT region still has to be defined, since
-                # tables in .data may point at it (FUN_004bdf70, LecShare's module list)
+                # tables in .data may point at it (grimmem_memory_module, LecShare's module list)
                 m = "crt_unnamed"
             assigned.append((f, m))
         state["run"] = []

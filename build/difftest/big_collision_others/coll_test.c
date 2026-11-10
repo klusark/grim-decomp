@@ -107,7 +107,7 @@ void Vec3_TransformTo(float *out, float *v, float *m)
     out[1] = m[3] * x + m[4] * y + z * m[5];
     out[2] = m[6] * x + m[8] * z + y * m[7];
 }
-void Vec3_Rotate3x3(float *vec, float *m)
+void rdMatrix_TransformPoint34Acc(float *vec, float *m)
 {
     Ev *e = ev(5); put3(e, 1, vec); e->v[5] = (unsigned)(uintptr_t)m;
     unsigned va = (unsigned)(uintptr_t)vec;

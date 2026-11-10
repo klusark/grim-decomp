@@ -267,7 +267,7 @@ void Set_DrawDebugLights(int param_1)
         local_38[0] = local_5c;
         local_38[1] = local_60;
         do {
-          Vec3_Rotate3x3(vec,local_30);
+          rdMatrix_TransformPoint34Acc(vec,local_30);
           rdPrimit3_DrawLine(pfVar2 + -0x10,vec,(int *)0x0,(int *)0x0,(int *)0x0,(int *)0x0,
                              (uint)PIECE(UINT_008c97cc,2,2),0xffffffff);
           vec = vec + 3;
@@ -691,14 +691,16 @@ int __cdecl sputRoom_Restore(void *readFn)
 #undef uStack_74
 
 
-/* ---- 0x004a49a0  sputResource_SetHandler ---- */
+/* ---- 0x004a49a0  sputRoom_LoadRoom ---- */
 /* Resource type 'SET ' loader (ResType_SetHandler op 1): allocates the 0x1b08-byte set record,
    initialises it, parses the .set file, links it to the set-name entry and re-attaches the walkers
-   of the actors already in that set. Original name sputResource_SetHandler (the remaster's
+   of the actors already in that set. Earlier taken for sputResource_SetHandler (the remaster's
    GrimFandango (Linux): the only unmatched caller of SetFile_Parse; 1 matched neighbours agree, 0
-   disagree); was Set_LoadFile. */
+   disagree); was Set_LoadFile. Original name sputRoom_LoadRoom (the remaster's GrimFandango
+   (Linux): same body (alloc the set record, LoadRoomEntry, look the name up in the set list, Puck
+   validate, free on failure); sputResource_SetHandler's call); was sputResource_SetHandler. */
 
-undefined4 * sputResource_SetHandler(char *param_1)
+undefined4 * sputRoom_LoadRoom(char *param_1)
 
 {
   int *piVar1;
@@ -716,7 +718,7 @@ undefined4 * sputResource_SetHandler(char *param_1)
       puVar5 = puVar5 + 1;
     }
     Set_InitRecord(puVar2);
-    iVar4 = sputRoom_LoadRoom(param_1,puVar2);
+    iVar4 = SetFile_Parse(param_1,puVar2);
     if (iVar4 != 0) {
       pvVar3 = (void *)Set_FindNameInList(param_1);
       if (pvVar3 == (void *)0x0) {
@@ -734,7 +736,7 @@ undefined4 * sputResource_SetHandler(char *param_1)
       return puVar2;
     }
   }
-  Set_Free(puVar2);
+  sputRoom_FreeRoom(puVar2);
   return (undefined4 *)0x0;
 }
 
@@ -818,22 +820,26 @@ void __cdecl sputRoom_UnReference(void *set)
   return;
 }
 
-/* ---- 0x004a4c40  Set_Free ---- */
-/* Resource type 'SET ' free handler: Set_FreeContents, then frees the set record. */
+/* ---- 0x004a4c40  sputRoom_FreeRoom ---- */
+/* Resource type 'SET ' free handler: Set_FreeContents, then frees the set record. Original name
+   sputRoom_FreeRoom (the remaster's GrimFandango (Linux): same body (free the contents, then the
+   record); the free call of sputResource_SetHandler); was Set_Free. */
 
-void Set_Free(undefined4 param_1)
+void sputRoom_FreeRoom(undefined4 param_1)
 
 {
-  Set_FreeContents(param_1);
+  sputRoom_FreeRoomEntry(param_1);
   (*g_pSputRoomHS->pFree)(param_1);
   return;
 }
 
-/* ---- 0x004a4c60  Set_FreeContents ---- */
+/* ---- 0x004a4c60  sputRoom_FreeRoomEntry ---- */
 /* Releases a set's resources, colormap array, setups and sectors and removes its actor list
-   (killing the shadows of the actors in it). */
+   (killing the shadows of the actors in it). Original name sputRoom_FreeRoomEntry (the remaster's
+   GrimFandango (Linux): sputRoom_FreeRoom's only callee; callees sputRoom_UnReference,
+   sputActor_ResetShadows, sputRoom_RemoveActor agree); was Set_FreeContents. */
 
-void Set_FreeContents(char *param_1)
+void sputRoom_FreeRoomEntry(char *param_1)
 
 {
   int iVar1;

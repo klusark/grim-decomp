@@ -25,7 +25,7 @@ void __cdecl Actor_ComputeScreenBox(void *actor)
   *(undefined4 *)((int)actor + 0x74) = 0;
   *(undefined4 *)((int)actor + 0x78) = 0;
   frame = sputActor_GetOrientMatrix(actor);
-  iVar2 = rdThing_DrawAlt(*(void **)(*(int *)((int)actor + 0xa0) + 4),frame);
+  iVar2 = rdThing_Draw(*(void **)(*(int *)((int)actor + 0xa0) + 4),frame);
   if (iVar2 != 0) {
     *(undefined4 *)((int)actor + 0x68) = 1;
     iVar2 = g_nRdCache_ulcExtent;
@@ -539,7 +539,7 @@ void __cdecl Actor_UpdateLookAt(void *actor,float dt)
       }
     }
     rdMatrix_BuildFromVectorAngle34(afStack_30,afStack_9c,fStack_c8);
-    Vec3_Rotate3x3(local_c0,afStack_30);
+    rdMatrix_TransformPoint34Acc(local_c0,afStack_30);
     Matrix_GetAngles(local_c0,&fStack_b4);
     if ((*(byte *)((int)actor + 8) & 2) == 0) {
       iVar9 = 3;
@@ -2042,7 +2042,7 @@ void sputCostume_DrawActorShadow(int param_1)
                      *(float *)(param_1 + 0x14) * PUN(float,shadow[4]) +
                      *(float *)(param_1 + 0xc) * PUN(float,shadow[2]) + PUN(float,shadow[5]), iVar1 != -1 ||
             (fVar2 <= 0.0)) && ((iVar1 != 1 || (0.0 <= fVar2)))))))) {
-        Actor_DrawShadowPlane(*(void **)(param_1 + 0xa0),shadow);
+        sputCostume_DrawMeshShadow(*(void **)(param_1 + 0xa0),shadow);
       }
       iVar3 = iVar3 + 0x54;
     } while (iVar3 < 0x3f0);
@@ -2284,15 +2284,18 @@ void __cdecl sputActor_FreeActor(void *actor)
   return;
 }
 
-/* ---- 0x00494940  Actor_DrawShadowPlane ---- */
+/* ---- 0x00494940  sputCostume_DrawMeshShadow ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 /* Draws the actor's shadow onto one shadow plane: every mesh face of each model is projected
    through the plane, clipped to each of the plane's sectors and drawn with shadow.mat / shadow.cmp
-    */
+   Original name sputCostume_DrawMeshShadow (the remaster's GrimFandango (Linux): the only function
+   loading shadow.mat / shadow.cmp; caller sputCostume_DrawActorShadow and callees
+   (TransformPoint34, segment-plane intersection, four shadow polygons) agree); was
+   Actor_DrawShadowPlane. */
 
-void Actor_DrawShadowPlane(void *costumeList,void *shadow)
+void sputCostume_DrawMeshShadow(void *costumeList,void *shadow)
 
 {
   unsigned char _frame[0x110] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -2348,7 +2351,7 @@ void Actor_DrawShadowPlane(void *costumeList,void *shadow)
               rdMatrix_TransformPoint34
                         (out,(float *)(iVar7 + *(int *)(iVar5 + iVar4 * 0x7c + 0x58)),
                          (float *)(local_f4 + *(int *)(iVar2 + 0x20)));
-              iVar6 = Plane_IntersectSegment
+              iVar6 = sputRender_SegmentPlaneIntersect
                                 (out,(float *)((int)shadow + 0x18),out,*(float *)((int)shadow + 8),
                                  *(float *)((int)shadow + 0xc),*(float *)((int)shadow + 0x10),
                                  *(float *)((int)shadow + 0x14));
@@ -2368,10 +2371,10 @@ void Actor_DrawShadowPlane(void *costumeList,void *shadow)
               if (g_nSputRender_b3DAcceleration != 0) {
                 std3D_SetCurrentPalette((void *)((int)g_pShadowColormap + 0x30),0);
               }
-              Shadow_DrawClippedPoly(local_c0,4,local_fc,local_e4,shadow);
-              Shadow_DrawClippedPoly(local_90,4,local_fc,local_e4,shadow);
-              Shadow_DrawClippedPoly(local_60,4,local_fc,local_e4,shadow);
-              Shadow_DrawClippedPoly(local_30,4,local_fc,local_e4,shadow);
+              sputCostume_OutputShadowPoly(local_c0,4,local_fc,local_e4,shadow);
+              sputCostume_OutputShadowPoly(local_90,4,local_fc,local_e4,shadow);
+              sputCostume_OutputShadowPoly(local_60,4,local_fc,local_e4,shadow);
+              sputCostume_OutputShadowPoly(local_30,4,local_fc,local_e4,shadow);
             }
           }
           local_d8 = local_d8 + 1;
@@ -2505,7 +2508,7 @@ LAB_004951b3:
           pvVar6 = (void *)Render_GetBackBuffer();
           stdDisplay_VBufferLock(pvVar6);
         }
-        iVar7 = rdThing_DrawAlt(*(void **)(iVar5 + 0x40),param_2);
+        iVar7 = rdThing_Draw(*(void **)(iVar5 + 0x40),param_2);
         if ((iVar7 == 0) || (piVar1 == (int *)0x0)) {
           piVar1[0x1a] = 0;
         }
@@ -2549,8 +2552,8 @@ LAB_004951b3:
           rdModel3_ActivateClipPlane(1);
           rdModel3_SetClipPlane(piVar1 + 0x11,piVar1 + 3);
         }
-        iVar8 = rdThing_DrawAlt(*(void **)(iVar5 + 0x40),
-                                (float *)(*(int *)(iVar8 + 0x20) + *(int *)(iVar5 + 0x48) * 0x30));
+        iVar8 = rdThing_Draw(*(void **)(iVar5 + 0x40),
+                             (float *)(*(int *)(iVar8 + 0x20) + *(int *)(iVar5 + 0x48) * 0x30));
         if ((iVar8 != 0) && (piVar1 != (int *)0x0)) {
           piVar1[0x1a] = 1;
         }

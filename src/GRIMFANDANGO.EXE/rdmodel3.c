@@ -26,20 +26,22 @@ void rdModel3_NewEntry(undefined4 *param_1)
   return;
 }
 
-/* ---- 0x0040a8f0  rdModel3_New ---- */
+/* ---- 0x0040a8f0  rdModel3_Load ---- */
 /* Loads a model: calls the custom loader hook if one is installed, otherwise allocates the record,
    rdModel3_Load, then rdModel3_LoadPostProcess. Source file Rdmodel3.c
-   (C:\grimjedi\Libs\RDroid\Primitives\Rdmodel3.c). */
+   (C:\grimjedi\Libs\RDroid\Primitives\Rdmodel3.c). Original name rdModel3_Load (the remaster's
+   GrimFandango (Linux): same body (loader hook, 0x90-byte model, load, post-process, free on
+   failure); sputResource_ModelHandler's call); was rdModel3_New. */
 
-undefined4 * rdModel3_New(undefined4 param_1)
+undefined4 * rdModel3_Load(undefined4 param_1)
 
 {
   undefined4 *puVar1;
   int iVar2;
   undefined4 *puVar3;
   
-  if (UINT_007f31f0 != 0) {
-    puVar1 = (undefined4 *)(*(code *)UINT_007f31f0)(param_1,0);
+  if (g_dwModel3Loader != 0) {
+    puVar1 = (undefined4 *)(*(code *)g_dwModel3Loader)(param_1,0);
     if (puVar1 == (undefined4 *)0x0) {
       return (undefined4 *)0x0;
     }
@@ -55,7 +57,7 @@ undefined4 * rdModel3_New(undefined4 param_1)
       *puVar3 = 0;
       puVar3 = puVar3 + 1;
     }
-    iVar2 = rdModel3_Load(param_1,puVar1);
+    iVar2 = rdModel3_LoadEntry(param_1,puVar1);
     if (iVar2 != 0) {
       rdModel3_LoadPostProcess(puVar1);
       return puVar1;
@@ -65,13 +67,15 @@ undefined4 * rdModel3_New(undefined4 param_1)
   return (undefined4 *)0x0;
 }
 
-/* ---- 0x0040a980  rdModel3_Load ---- */
+/* ---- 0x0040a980  rdModel3_LoadEntry ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Opens the file; the magic 'MODL' selects rdModel3_LoadBinary, anything else is parsed by
-   rdModel3_LoadText. Source file Rdmodel3.c (C:\grimjedi\Libs\RDroid\Primitives\Rdmodel3.c). */
+   rdModel3_LoadText. Source file Rdmodel3.c (C:\grimjedi\Libs\RDroid\Primitives\Rdmodel3.c).
+   Original name rdModel3_LoadEntry (the remaster's GrimFandango (Linux): same body (open, 'LDOM'
+   magic -> LoadEntryBinary else LoadEntryText)); was rdModel3_Load. */
 
-undefined4 rdModel3_Load(int param_1,undefined4 param_2)
+undefined4 rdModel3_LoadEntry(int param_1,undefined4 param_2)
 
 {
   int iVar1;

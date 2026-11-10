@@ -208,7 +208,7 @@ the archive list and are opened directly.
 2. the "extra data directory" (`Engine_SetExtraDataDir`, normally unset);
 3. the **working directory** of the process.
 
-For each directory `Resource_OpenArchivesInDir` opens every `*.LAB` in alphabetical order (later = in front: a
+For each directory `AddResourcePath` opens every `*.LAB` in alphabetical order (later = in front: a
 `DATA005.LAB` patch archive wins over `DATA000.LAB`), then opens **the directory itself as a pseudo-archive**
 (`LabDir_Open`, "developer mode"), then the 30 subdirectories of the table `g_ppRequiredLabs`
 (`Animation\ Backgrounds\ Costumes\ Colormaps\ Fonts\ Materials\ Models\ Movies\ Objects\ Scripts\ Sets\ Voices\
@@ -381,12 +381,12 @@ Names below are Ghidra names (see README for the naming conventions); `src/<PROG
 | **Resources, archives** | `lab.c`, `labdir.c`, `resfile.c`, `res.c`, `resource.c`, `restype.c`, `resref.c` | see 6. `restype.c`: one handler per FOURCC (`BKND COST CMAP SET FONT KEYF MAT MODL ZBUF SYNC MEM`), `ResType_*Handler`: op 1 load, 2 free, 3 size. |
 | **Lua VM and API** | `LUA.DLL` (`lvm`/`ldo`/`llex`/`lparser`/`lundump`/`lapi`/`lgc`..., Lua 3.1 + tasks), EXE `lua.c` (the `Lua_*` API, `sputLua_Startup`), `sputlua.c` | asm: `lua.c`. See 7, 8. |
 | **Renderer** | `rdroid.c`, `rdcache.c` (batching, `rdCache_Flush`), `rdraster.c` (~340 software rasterizer variants `rdRaster_<Role><Bpp>_<Features>`, auto-named), `rdcanvas.c`, `rdclip.c`, `rdprimit3.c`, `rdmodel.c` (`rdModel3_DrawMeshImpl`), `rdmodel3.c` (`.3do` loader, `rdModel3_*`), `rdthing.c`, `rdpuppet.c` (animation tracks), `rdlight.c`, `rdmaterial.c`, `rdcolormap.c`, `render.c` (`Render_*` back buffer, progress bar), `sputrender.c`, `stddisplay.c`/`std3d.c` (DirectDraw/Direct3D, DIB) | the default display device is a windowed DIB with the **software** rasterizer (`Display_InitFromConfig` in `overrides.c`). |
-| **Sets, setups, sectors, camera** | `set.c` (`grimlib_MakeCurrentSet`, `sputRender_UseSetup`, `sputRender_SyncCamera`), `setup.c`, `sector.c` + `sputroom.c` (`sputRoom_LoadRoom*`: the text `.set` format: `section: setups / colormaps / lights / sectors`), `rdcamera.c` (`rdCamera_*` projection) | camera setups come from the set file (position, interest, roll, fov, nclip, fclip); Lua: `MakeCurrentSet`, `GetCameraPosition`, ... |
+| **Sets, setups, sectors, camera** | `set.c` (`grimlib_MakeCurrentSet`, `sputRender_UseSetup`, `sputRender_SyncCamera`), `setup.c`, `sector.c` + `sputroom.c` (`SetFile_Parse*`: the text `.set` format: `section: setups / colormaps / lights / sectors`), `rdcamera.c` (`rdCamera_*` projection) | camera setups come from the set file (position, interest, roll, fov, nclip, fclip); Lua: `MakeCurrentSet`, `GetCameraPosition`, ... |
 | **Actors, costumes, chores** | `actor.c` (`Actor_*`; record 0xa8 bytes, `extra` 0x4a0 bytes with walk/turn rates and the walker), `actors.c`, `sputactor.c`; costumes and chores: **`CHORE.DLL`** (`Cos_*`, `src/CHORE.DLL/costume.c`) driven by `costume.c`, `sputcostume.c` and the tag handlers `*component.c` (`ModelComponent_*`, `MeshComponent_*`, `KeyframeComponent_*`, `SpriteComponent_*`, `ImuseSoundComponent_*`, `LuaVarComponent_*`) | a costume is a list of chores; a chore is a set of keyed tracks (`.cos` file). Lua: `PlayActorChore`, `SetActorCostume`, ... asm: `actor.c`, `walker.c`. |
 | **Walker and path planning** | `walker.c` (`Walker_*`: sector-constrained movement, turning, `Planner_*` path search over sectors), `actor.c` (`Actor_UpdateWalker`, `Actor_FollowPath`, `sputActor_Forward`), `collision.c` | walk step = frame time x actor time scale x walk rate (extra+0x18); example mod a changes it. |
 | **Sound (iMUSE)** | **`IMUSE.DLL`** (iMUSE core, `hmi.c` HMI SOS audio, streams, DirectSound), EXE `imuse.c`/`imusemodule.c`/`mixer.c`/`sound.c` (positioned sounds), Lua `Im*` | HMI libraries come from the working directory (6). |
 | **Movies (Smush)** | `movie.c` (`Movie_*`), `smush.c`, `insane.c` + `lecshare.c` (the LecShare module registry and the INSANE player), `sputsmush.c` | `GRIM_NOMOVIE=1` skips them; Lua: `StartMovie`, `StartFullscreenMovie`. |
-| **Text, fonts, localisation** | `text.c` (`Text_*`, `Font_LoadFile`), `textobject.c` (`TextObject_*`, 0x260-byte text objects), `sputtext.c`, `glyph.c` (`Glyph_Blit*`), `polyglot.c` (`GRIM.TAB`, `/sytx123/` string ids) | Lua: `SayLine`, `MakeTextObject`, `PrintLine`, ... |
+| **Text, fonts, localisation** | `text.c` (`Text_*`, `Text_LoadNativeFont`), `textobject.c` (`TextObject_*`, 0x260-byte text objects), `sputtext.c`, `glyph.c` (`Glyph_Blit*`), `polyglot.c` (`GRIM.TAB`, `/sytx123/` string ids) | Lua: `SayLine`, `MakeTextObject`, `PrintLine`, ... |
 | **Input** | `stdinput.c` (DirectInput: `Input_*`), `control.c`/`controls.c`/`sputcontrol.c` (control table, `Controls_ResetAll`), Lua `EnableControl`, `GetControlState` | the keyboard is read through DirectInput with a cooperative level set in `Input_CreateKeyboard` (`overrides.c`); `_controls.lua` maps keys to game verbs. |
 | **Save / load** | `savegame.c` (`SaveGame_Write/Read`), `savefile.c` + zlib in `crt_unnamed.c` (`gzopen`...), `engine.c` (`Engine_SaveGame/LoadGame`), the `<Module>_SaveState/_RestoreState` slots, Lua `Save`/`Load`/`lua_Save`..., `JustLoaded` | saves of the rebuilt game load fine; saves of the original game do not (iMUSE pointers). |
 
@@ -545,7 +545,7 @@ python -I tools/build_src.py && python -I tools/gen_asm.py GRIMFANDANGO.EXE --se
 make -C build link
 ```
 
-Batch format: `[{"addr": "0048d570", "name": "Resource_OpenArchivesInDir", "proto": "...", "comment": "...", "tags": "resource"}]`
+Batch format: `[{"addr": "0048d570", "name": "AddResourcePath", "proto": "...", "comment": "...", "tags": "resource"}]`
 (`{"addr": ..., "global": "g_x", "type": "int", ...}` for globals). Rules that bit before (details in
 `build/BUILD_NOTES.md`):
 

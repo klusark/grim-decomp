@@ -33,7 +33,7 @@
  {"addr": "004869b0", "name": "Render_CleanBuffer", "comment": "Lua CleanBuffer: after a restore, copies the background back onto the back buffer", "tags": "render"},
  {"addr": "00486a00", "name": "sputRender_ForceRefresh", "tags": "render"},
  {"addr": "008c97f0", "global": "g_nSputRender_Reset", "type": "int", "comment": "The next sputRender_Update must redraw the whole scene"},
- {"addr": "00486a10", "name": "Plane_IntersectSegment", "proto": "int Plane_IntersectSegment(float * out, float * p1, float * p2, float a, float b, float c, float d)", "tags": "math"},
+ {"addr": "00486a10", "name": "sputRender_SegmentPlaneIntersect", "proto": "int sputRender_SegmentPlaneIntersect(float * out, float * p1, float * p2, float a, float b, float c, float d)", "tags": "math"},
  {"addr": "008c977c", "global": "g_pSputRender_Camera", "type": "float *", "comment": "Points into the current setup record at its camera block (position, interest, frame)"},
  {"addr": "008ca758", "global": "g_pActors", "type": "void *", "comment": "Array of 0xa8-byte actor records"},
  {"addr": "008cf280", "global": "g_pWalkPlane_wp_head", "type": "void *", "comment": "Head of the current set's sector list"}

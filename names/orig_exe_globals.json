@@ -2115,7 +2115,7 @@
   "global": "g_pInsaneTimer_share_services",
   "oldtype": "int *",
   "names_only": true,
-  "comment": "Service table of the module manager handed to InsaneTimer_Register Original name share_services (the remaster's GrimFandango (Linux): static of the InsaneTimer module, 2/2 aligned uses in InsaneTimer_module_startup); was g_pTimerServices."
+  "comment": "Service table of the module manager handed to sys_timer_module Original name share_services (the remaster's GrimFandango (Linux): static of the InsaneTimer module, 2/2 aligned uses in InsaneTimer_module_startup); was g_pTimerServices."
  },
  {
   "program": "/v101/GRIMFANDANGO.EXE",
@@ -2250,7 +2250,7 @@
   "global": "g_pDsndDriver_share_services",
   "oldtype": "int *",
   "names_only": true,
-  "comment": "Service table of the module manager handed to DsndDriver_Register Original name share_services (the remaster's GrimFandango (Linux): static of the DsndDriver module, 2/2 aligned uses in DsndDriver_module_startup); was g_pDsndServices."
+  "comment": "Service table of the module manager handed to sou_dsnd_module Original name share_services (the remaster's GrimFandango (Linux): static of the DsndDriver module, 2/2 aligned uses in DsndDriver_module_startup); was g_pDsndServices."
  },
  {
   "program": "/v101/GRIMFANDANGO.EXE",

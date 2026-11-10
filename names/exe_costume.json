@@ -15,7 +15,7 @@
  {"addr": "00496d10", "name": "ThingFreer", "tags": "costume"},
  {"addr": "00496d70", "name": "MeshInstancer", "tags": "costume"},
  {"addr": "00496e20", "name": "MeshRequester", "comment": "Registers a MODL/MMDL component attached to a mesh node ('Mesh N: name'); with no node name the editor shows 'Select mesh node to add'", "tags": "costume"},
- {"addr": "00471d80", "name": "rdThing_DrawAlt", "proto": "int rdThing_DrawAlt(void * thing, float * frame)", "tags": "rdroid"},
+ {"addr": "00471d80", "name": "rdThing_Draw", "proto": "int rdThing_Draw(void * thing, float * frame)", "tags": "rdroid"},
  {"addr": "00471a40", "name": "rdThing_New", "tags": "rdroid"},
  {"addr": "00471bd0", "name": "rdThing_SetModel3", "proto": "void rdThing_SetModel3(void * thing, void * model)", "tags": "rdroid"},
  {"addr": "00471af0", "name": "rdThing_Free", "tags": "rdroid"},

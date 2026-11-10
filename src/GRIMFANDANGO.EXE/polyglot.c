@@ -22,7 +22,7 @@ void PolyglotConfigure(undefined *param_1)
   undefined *puVar4;
   undefined1 *puVar5;
   
-  PTR_s_language_tab_004e8024 = param_1;
+  g_pTabFilename = param_1;
   iVar1 = (*g_pPolyglot_HS->pFopen)(param_1,&DAT_004ddb18);
   if (iVar1 != 0) {
     (*g_pPolyglot_HS->pFread)(iVar1,&param_1,4);

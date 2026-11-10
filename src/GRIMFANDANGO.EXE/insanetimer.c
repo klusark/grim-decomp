@@ -5,31 +5,36 @@
 #include "globals.h"
 #include "functions.h"
 
-/* ---- 0x004cdc90  InsaneTimer_Register ---- */
+/* ---- 0x004cdc90  sys_timer_module ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Entry of LECMODULE insane_timer: stores the service table of the module manager and the workspace
-   size, registers the module and the TIMER insane interface */
+   size, registers the module and the TIMER insane interface Original name sys_timer_module (the
+   remaster's GrimFandango (Linux): slot 0 of the "LECMODULE=insane_timer" service table); was
+   InsaneTimer_Register. */
 
-int __cdecl InsaneTimer_Register(int *services,uint workspaceSize)
+int __cdecl sys_timer_module(int *services,uint workspaceSize)
 
 {
   g_pInsaneTimer_share_services = services;
   g_dwInsaneTimer_share_config = workspaceSize;
   (*(code *)*services)(s_LECMODULE_insane_timer_004f3c40,&g_apfnInsaneTimerModule);
-  (*(code *)*g_pInsaneTimer_share_services)(s_TIMER_insane_004f3c30,&g_apfnInsaneTimerInterface);
-  UINT_008da544 = 300;
+  (*(code *)*g_pInsaneTimer_share_services)(s_TIMER_insane_004f3c30,&g_pInsaneTimer_timer_services);
+  g_dwTimer_rate = 300;
   return 0;
 }
 #endif
 
 
-/* ---- 0x004cdce0  InsaneTimer_Unregister ---- */
+/* ---- 0x004cdce0  InsaneTimer_module_terminate ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
+/* Original name InsaneTimer_module_terminate (the remaster's GrimFandango (Linux): slot 1 of the
+   "LECMODULE=insane_timer" service table; module_terminate is a static several LEC modules have,
+   written with the module prefix); was InsaneTimer_Unregister. */
 
-void InsaneTimer_Unregister(void)
+void InsaneTimer_module_terminate(void)
 
 {
   (*(code *)g_pInsaneTimer_share_services[1])(s_TIMER_insane_004f3c30);
@@ -66,12 +71,15 @@ int InsaneTimer_module_startup(void)
 #endif
 
 
-/* ---- 0x004cdd60  InsaneTimer_Shutdown ---- */
+/* ---- 0x004cdd60  InsaneTimer_module_shutdown ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
+/* Original name InsaneTimer_module_shutdown (the remaster's GrimFandango (Linux): slot 3 of the
+   "LECMODULE=insane_timer" service table; module_shutdown is a static several LEC modules have,
+   written with the module prefix); was InsaneTimer_Shutdown. */
 
-void InsaneTimer_Shutdown(void)
+void InsaneTimer_module_shutdown(void)
 
 {
   (*(code *)g_pInsaneTimer_share_services[3])(g_dwInsaneTimer_memory_services);
@@ -107,7 +115,7 @@ int InsaneTimer_StartThread(void)
       *puVar2 = 0;
       puVar2 = puVar2 + 8;
     } while ((int)puVar2 < IMG_ADDR(0x008da858));
-    g_dwTimerStep = 0x4dae;
+    g_dwSys_timer_count = 0x4dae;
     UINT_008da858 = CreateThread(0,0,((unsigned)(uintptr_t)InsaneTimer_ThreadProc),0,0,(int)local_4);
     SetThreadPriority(UINT_008da858,2);
     _DAT_004f3c2c = 0xffffffff;
@@ -186,42 +194,46 @@ void InsaneTimer_StopThread(void)
 #endif
 
 
-/* ---- 0x004cdef0  InsaneTimer_Hold ---- */
+/* ---- 0x004cdef0  sys_Disable ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
-/* TIMER insane: suspends the periodic callbacks (counter) */
+/* TIMER insane: suspends the periodic callbacks (counter) Original name sys_Disable (the remaster's
+   GrimFandango (Linux): slot 2 of the "TIMER=insane" service table); was InsaneTimer_Hold. */
 
-void InsaneTimer_Hold(void)
+void sys_Disable(void)
 
 {
-  UINT_008da878 = UINT_008da878 + 1;
+  g_dwSys_disable_flag = g_dwSys_disable_flag + 1;
   return;
 }
 #endif
 
 
-/* ---- 0x004cdf00  InsaneTimer_Release ---- */
+/* ---- 0x004cdf00  sys_Enable ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
+/* Original name sys_Enable (the remaster's GrimFandango (Linux): slot 3 of the "TIMER=insane"
+   service table); was InsaneTimer_Release. */
 
-void InsaneTimer_Release(void)
+void sys_Enable(void)
 
 {
-  UINT_008da878 = UINT_008da878 - 1;
+  g_dwSys_disable_flag = g_dwSys_disable_flag - 1;
   return;
 }
 #endif
 
 
-/* ---- 0x004cdf10  InsaneTimer_AddTimer ---- */
+/* ---- 0x004cdf10  sys_Alloc ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Finds a free slot (1..19) and fills in callback, period, flags and user data; returns the slot
-   number or 0 */
+   number or 0 Original name sys_Alloc (the remaster's GrimFandango (Linux): slot 0 of the
+   "TIMER=insane" service table); was InsaneTimer_AddTimer. */
 
-int __cdecl InsaneTimer_AddTimer(void *callback,int period,uint flags,int user)
+int __cdecl sys_Alloc(void *callback,int period,uint flags,int user)
 
 {
   int iVar1;
@@ -251,10 +263,13 @@ int __cdecl InsaneTimer_AddTimer(void *callback,int period,uint flags,int user)
 #endif
 
 
-/* ---- 0x004cdf80  InsaneTimer_RemoveTimer ---- */
+/* ---- 0x004cdf80  sys_Free ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-void __cdecl InsaneTimer_RemoveTimer(int slot)
+/* Original name sys_Free (the remaster's GrimFandango (Linux): slot 1 of the "TIMER=insane" service
+   table); was InsaneTimer_RemoveTimer. */
+
+void __cdecl sys_Free(int slot)
 
 {
   if ((0 < slot) && (slot < 0x14)) {
@@ -265,10 +280,13 @@ void __cdecl InsaneTimer_RemoveTimer(int slot)
 #endif
 
 
-/* ---- 0x004cdfa0  InsaneTimer_SetPeriod ---- */
+/* ---- 0x004cdfa0  sys_Reset ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-void __cdecl InsaneTimer_SetPeriod(int slot,int period)
+/* Original name sys_Reset (the remaster's GrimFandango (Linux): slot 4 of the "TIMER=insane"
+   service table); was InsaneTimer_SetPeriod. */
+
+void __cdecl sys_Reset(int slot,int period)
 
 {
   if ((0 < slot) && (slot < 0x14)) {
@@ -280,36 +298,40 @@ void __cdecl InsaneTimer_SetPeriod(int slot,int period)
 #endif
 
 
-/* ---- 0x004cdfd0  InsaneTimer_Run ---- */
+/* ---- 0x004cdfd0  sys_Delay ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Runs InsaneTimer_GetClock-driven steps until the clock has advanced by the given number of ticks
-    */
+   Original name sys_Delay (the remaster's GrimFandango (Linux): slot 5 of the "TIMER=insane"
+   service table); was InsaneTimer_Run. */
 
-void __cdecl InsaneTimer_Run(int ticks)
+void __cdecl sys_Delay(int ticks)
 
 {
   int iVar1;
   int iVar2;
   
-  iVar2 = g_nTimerClock;
-  iVar1 = ticks + g_nTimerClock;
+  iVar2 = g_nSys_global_timer;
+  iVar1 = ticks + g_nSys_global_timer;
   do {
-    if (iVar1 <= g_nTimerClock) {
+    if (iVar1 <= g_nSys_global_timer) {
       return;
     }
-    InsaneTimer_GetClock();
-  } while (iVar2 <= g_nTimerClock);
+    sys_GetTime();
+  } while (iVar2 <= g_nSys_global_timer);
   return;
 }
 #endif
 
 
-/* ---- 0x004ce000  InsaneTimer_GetClock ---- */
-int InsaneTimer_GetClock(void)
+/* ---- 0x004ce000  sys_GetTime ---- */
+/* Original name sys_GetTime (the remaster's GrimFandango (Linux): slot 6 of the "TIMER=insane"
+   service table); was InsaneTimer_GetClock. */
+
+int sys_GetTime(void)
 
 {
-  return g_nTimerClock;
+  return g_nSys_global_timer;
 }
 
 /* ---- 0x004ce060  InsaneTimer_Tick ---- */
@@ -326,17 +348,17 @@ void InsaneTimer_Tick(void)
   uint *puVar3;
   int iVar4;
   
-  g_nTimerClock = g_nTimerClock + g_dwTimerStep;
-  if (UINT_008da878 == 0) {
+  g_nSys_global_timer = g_nSys_global_timer + g_dwSys_timer_count;
+  if (g_dwSys_disable_flag == 0) {
     iVar4 = 1;
     _DAT_008da86c = 1;
     UINT_008da870 = UINT_008da868;
     UINT_008da868 = 0;
     puVar3 = &UINT_008da60c;
     do {
-      uVar2 = g_dwTimerStep;
+      uVar2 = g_dwSys_timer_count;
       if (puVar3[-5] != 0) {
-        *puVar3 = *puVar3 + g_dwTimerStep;
+        *puVar3 = *puVar3 + g_dwSys_timer_count;
         puVar3[2] = puVar3[2] + uVar2;
         if (((((byte)puVar3[-3] & 5) == 1) && (uVar2 = puVar3[-4], uVar2 != 0)) &&
            (uVar1 = *puVar3, (int)uVar2 <= (int)uVar1)) {

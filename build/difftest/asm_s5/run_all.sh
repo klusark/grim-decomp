@@ -7,7 +7,7 @@ cd "$(dirname "$0")/../../.." || exit 1
 d=1; [ "$1" = quick ] && d=20
 B=build/difftest/asm_s5/build.sh; T=build/difftest/asm_s5; O=$T/out
 E=build/obj/GRIMFANDANGO.EXE
-EXTRA_OBJ="$E/rle.o $E/stdgif.o" bash $B $T/small_test.c $O/small_test.exe FUN_004d5fd0 FUN_004d5e50 FUN_004d5f70 Rle_Decode MaterialInstanceSaveLoad stdGif_LzwInitEncoder stdGif_LzwEncodePixel >/dev/null && $O/small_test.exe $((3000/d))
+EXTRA_OBJ="$E/rle.o $E/stdgif.o" bash $B $T/small_test.c $O/small_test.exe FUN_004d5fd0 msc_MemSet msc_error_SaveString msc_rle_DecompressBlock MaterialInstanceSaveLoad stdGif_LzwInitEncoder stdGif_LzwEncodePixel >/dev/null && $O/small_test.exe $((3000/d))
 bash $B $T/dx_test.c $O/dx_test.exe Input_PollKeyboard Input_PollMouse Input_FlushJoystick std3D_DrawRenderList D3D_CreateViewport >/dev/null && $O/dx_test.exe $((50000/d)) | tail -1
 bash $B $T/cos_test.c $O/cos_test.exe ThingInstancer SpriteInstancer >/dev/null && $O/cos_test.exe $((200000/d))
 bash $B $T/lua_test.c $O/lua_test.exe sputLua_Startup >/dev/null && $O/lua_test.exe $((5000/d)) | tail -1

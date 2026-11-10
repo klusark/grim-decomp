@@ -3,7 +3,7 @@
  * No function of this slice is written in C yet. The slice holds the rdRaster span routines (0x45ba90-0x4710e0, asm-heavy
  * texture spans with register-carried state), the D3D / DirectDraw / DirectInput setup and poll code (their vtable slot
  * numbers and EAX/stack return values are not clear enough to port from the dumps alone), the stdPic / stdGif codecs,
- * sputLua_Startup (unnamed lua_* globals and indirect calls), Rle_Decode (ECX carried between calls), the exception-
+ * sputLua_Startup (unnamed lua_* globals and indirect calls), msc_rle_DecompressBlock (ECX carried between calls), the exception-
  * handler stubs (EBP-frame cleanup funnels), and sputRender_Update / Walker_AvoidActorPath / Collision_TestActorAgainstOthers /
  * Sector_ContainsPoint, which are already left assembled elsewhere.  Each of those stays in src/GRIMFANDANGO.EXE/asm_funcs.s.
  *

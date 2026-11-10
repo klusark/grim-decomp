@@ -162,10 +162,13 @@ void LecShare_Reset(uint param_1,uint param_2)
   return;
 }
 
-/* ---- 0x004c15c0  LecShare_Register ---- */
-/* Entries are 3 dwords: name, vtable, reference count */
+/* ---- 0x004c15c0  LecShare_Publish ---- */
+/* Entries are 3 dwords: name, vtable, reference count Original name LecShare_Publish (the
+   remaster's GrimFandango (Linux): slot 0 of lecShareServices (g_pLecShareServices); the original
+   is Publish (the bridge takes no bare one-word name; as LecShare_Subscribe)); was
+   LecShare_Register. */
 
-int __cdecl LecShare_Register(char *name,void *vtable)
+int __cdecl LecShare_Publish(char *name,void *vtable)
 
 {
   int iVar1;
@@ -200,8 +203,12 @@ int __cdecl LecShare_Register(char *name,void *vtable)
   return 1;
 }
 
-/* ---- 0x004c1650  LecShare_Unregister ---- */
-uint LecShare_Unregister(undefined4 param_1)
+/* ---- 0x004c1650  LecShare_Unpublish ---- */
+/* Original name LecShare_Unpublish (the remaster's GrimFandango (Linux): slot 1 of lecShareServices
+   (g_pLecShareServices); the original is Unpublish (the bridge takes no bare one-word name; as
+   LecShare_Subscribe)); was LecShare_Unregister. */
+
+uint LecShare_Unpublish(undefined4 param_1)
 
 {
   int iVar1;
@@ -359,10 +366,13 @@ void * __cdecl LecShare_Subscribe(char *name,char *pattern)
 #endif
 
 
-/* ---- 0x004c1800  LecShare_Release ---- */
-/* Drops one reference from the entry owning the given vtable */
+/* ---- 0x004c1800  LecShare_Unsubscribe ---- */
+/* Drops one reference from the entry owning the given vtable Original name LecShare_Unsubscribe
+   (the remaster's GrimFandango (Linux): slot 3 of lecShareServices (g_pLecShareServices); the
+   original is Unsubscribe (the bridge takes no bare one-word name; as LecShare_Subscribe)); was
+   LecShare_Release. */
 
-undefined4 LecShare_Release(uint param_1)
+undefined4 LecShare_Unsubscribe(uint param_1)
 
 {
   uint *puVar1;

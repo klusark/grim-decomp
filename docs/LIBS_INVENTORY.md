@@ -123,7 +123,7 @@ system library implements the same thing.
 | `stdCompress` LZSS | `stdfileutil.c` 0x473a00 `stdCompress_Decompress/DecompressLoop`, 2 fns | none (not zlib, not LZNT1) | LucasArts' own LZ variant; the intermittent write-past-end after Load was seen here | no (do not replace) |
 | LAB archive reader | `lab.c` 0x480120-0x482020, 12 fns; `labdir.c` | none | custom container (`LABN`); uses CRT stdio | no |
 | Smush/Insane movie player + codecs | EXE `smush.c`, `insane.c`, `sputsmush.c`, `smushcomponent.c`, LecShare module chain, ~30 fns (5 asm), `Insane_Blit*` | Media Foundation / DirectShow | `.snm` is a proprietary stream (video codecs 1/2/..., VIMA audio), timing is driven by the engine | no |
-| VIMA ADPCM + iMUSE mixer | IMUSE.DLL `Im_VimaDecompress`, `Im_VimaDecodeBlock`, `AudioLib_ResetCompressor`, `AudioLib_UncompressBlock`, `Im_MixLoopA-D`, 0x10001000-0x10006000, ~40 fns | Windows ACM IMA-ADPCM (`imaadp32.acm`) | VIMA is a variable-bit-width IMA variant, not ACM-compatible | no |
+| VIMA ADPCM + iMUSE mixer | IMUSE.DLL `AudioLib_ParseWaveFileHeader`, `AudioLib_DetectRawFormat`, `AudioLib_ResetCompressor`, `AudioLib_UncompressBlock`, `Im_MixLoopA-D`, 0x10001000-0x10006000, ~40 fns | Windows ACM IMA-ADPCM (`imaadp32.acm`) | VIMA is a variable-bit-width IMA variant, not ACM-compatible | no |
 | software mixer | EXE `mixer.c` 0x4c0ed0-0x4d40d0, 21 fns (20 asm): voice mixing into a DirectSound stream buffer | XAudio2 / WASAPI mixing | rounding/clipping of the mixing loops is part of the sound | high, no |
 | RDroid software rasteriser | EXE `rdraster.c` 0x40ea50-0x4710e0, 372 fns (all asm), `rdclip`, `rdprimit*`, `rdcanvas` | Direct3D / OpenGL | pixel-exact output, x87 floor/ceil edge set-up | no |
 | DirectX wrappers | EXE `stddisplay.c` 60 fns, `std3d.c` 35, `stdinput.c` 22, `mixer.c` DSound part | system `ddraw/dinput/dsound/d3d` (already the case: they ARE the system libraries, called through COM) | - | already system |
@@ -135,7 +135,7 @@ system library implements the same thing.
 | math helpers | `math.c` 11, `math3d.c` 36 (vector/matrix), `Math_Floor` etc. | DirectXMath / `<cmath>` | float rounding order differs; the code is tuned for x87 evaluation order (GetShrinkPos failed when reordered, BUILD_NOTES) | high |
 | Win32 time / timers | `timer.c`, `clock.c`, `sputtime.c` | system (already `timeGetTime`, `time`) | - | already system |
 | localisation tables | `polyglot.c` 2 fns | none | game data | n/a |
-| debug log text engine | `debuglog.c` 8 fns, `Svc_Printf*` | `vsprintf` (already) | see printf row | already host |
+| debug log text engine | `debuglog.c` 8 fns, `defaultStatusPrint*` | `vsprintf` (already) | see printf row | already host |
 | LecShare module registry | `lecshare.c` 14 fns | none | LucasArts component system | no |
 | phoneme / lip-sync | `phoneme.c`, `grimSound_LipSync*` | none | game data format | no |
 

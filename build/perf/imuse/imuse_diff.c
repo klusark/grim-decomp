@@ -6,7 +6,7 @@ typedef unsigned (*decomp_t)(void*, int*, unsigned*, unsigned*, unsigned*, int*,
 int main(int argc, char **argv) {
     HMODULE a = LoadLibraryA("imuse_a.dll"), c = LoadLibraryA("imuse_c.dll");
     if (!a || !c) { printf("load fail\n"); return 1; }
-    decomp_t fa = (decomp_t)GetProcAddress(a, "Im_VimaDecompress"), fc = (decomp_t)GetProcAddress(c, "Im_VimaDecompress");
+    decomp_t fa = (decomp_t)GetProcAddress(a, "AudioLib_ParseWaveFileHeader"), fc = (decomp_t)GetProcAddress(c, "AudioLib_ParseWaveFileHeader");
     FILE *m = fopen(argv[1], "r"); char lab[300], nm[200]; long off, sz; int total = 0, bad = 0;
     while (fscanf(m, "%s %ld %ld %s", lab, &off, &sz, nm) == 4) {
         FILE *f = fopen(lab, "rb"); fseek(f, off, SEEK_SET);

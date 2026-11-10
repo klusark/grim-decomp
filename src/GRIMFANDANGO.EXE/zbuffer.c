@@ -5,10 +5,12 @@
 #include "globals.h"
 #include "functions.h"
 
-/* ---- 0x004a4920  ZBuffer_Load ---- */
-/* Loads a ZBUF resource: wrapper of ZBuffer_LoadFile. */
+/* ---- 0x004a4920  sputRoom_LoadZBuffer ---- */
+/* Loads a ZBUF resource: wrapper of ZBuffer_LoadFile. Original name sputRoom_LoadZBuffer (the
+   remaster's GrimFandango (Linux): the load call of the 'ZBUF' resource handler
+   (sputResource_ZBufferHandler); the remaster inlined ZBuffer_LoadFile); was ZBuffer_Load. */
 
-void ZBuffer_Load(undefined4 param_1)
+void sputRoom_LoadZBuffer(undefined4 param_1)
 
 {
   ZBuffer_LoadFile(param_1);
@@ -37,10 +39,12 @@ undefined4 ZBuffer_LoadFile(char *param_1)
   return uVar1;
 }
 
-/* ---- 0x004a4980  ZBuffer_Free ---- */
-/* Frees a ZBUF resource (wrapper of ZBuffer_FreeData). */
+/* ---- 0x004a4980  sputRoom_FreeZBuffer ---- */
+/* Frees a ZBUF resource (wrapper of ZBuffer_FreeData). Original name sputRoom_FreeZBuffer (the
+   remaster's GrimFandango (Linux): the free call of the 'ZBUF' resource handler
+   (sputResource_ZBufferHandler) on both sides); was ZBuffer_Free. */
 
-void ZBuffer_Free(undefined4 param_1)
+void sputRoom_FreeZBuffer(undefined4 param_1)
 
 {
   ZBuffer_FreeData(param_1);

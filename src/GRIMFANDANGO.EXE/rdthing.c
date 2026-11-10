@@ -5,11 +5,13 @@
 #include "globals.h"
 #include "functions.h"
 
-/* ---- 0x0040cf20  rdThing_Draw ---- */
+/* ---- 0x0040cf20  rdModel3_Draw ---- */
 /* Rdthing.c: frustum-tests the model's bounding sphere, picks the geometry set, updates the puppet
-   and draws the node hierarchy */
+   and draws the node hierarchy Original name rdModel3_Draw (the remaster's GrimFandango (Linux):
+   same body (bounding-sphere frustum test, geometry set, puppet update, node hierarchy; counts
+   rdModel3_numDrawnModels); called by rdThing_Draw's model case); was rdThing_Draw. */
 
-int __cdecl rdThing_Draw(void *thing,float *position)
+int __cdecl rdModel3_Draw(void *thing,float *position)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -23,44 +25,44 @@ int __cdecl rdThing_Draw(void *thing,float *position)
   uint *puVar8;
   #define local_c (*(float (*)[3])(_frame + (0x20 - 0xc)))
   
-  g_pRdCurrentThing = thing;
-  g_pRdCurrentModel = *(void **)((int)thing + 4);
-  rdMatrix_TransformPoint34(local_c,(float *)((int)g_pRdCurrentModel + 0x78),position);
-  Vec3_Rotate3x3(local_c,(float *)((int)g_pRdCamera_CurCamera + 8));
+  g_pCurThing = thing;
+  g_pCurModel3 = *(void **)((int)thing + 4);
+  rdMatrix_TransformPoint34(local_c,(float *)((int)g_pCurModel3 + 0x78),position);
+  rdMatrix_TransformPoint34Acc(local_c,(float *)((int)g_pRdCamera_CurCamera + 8));
   if (*(int *)((int)thing + 0x44) == 0) {
     g_dwThingFrustrumCull = 1;
   }
   else {
     g_dwThingFrustrumCull =
          rdClip_SphereInFrustrum
-                   (*(undefined4 *)((int)g_pRdCamera_CurCamera + 0x48),local_c,PUN(float,*(undefined4 *)((int)g_pRdCurrentModel + 0x5c)));
+                   (*(undefined4 *)((int)g_pRdCamera_CurCamera + 0x48),local_c,PUN(float,*(undefined4 *)((int)g_pCurModel3 + 0x5c)));
   }
   if (g_dwThingFrustrumCull != 2) {
     g_dwThingFrustrumCull = 1;
     if (*(int *)((int)thing + 0x34) == -1) {
-      iVar5 = *(int *)((int)g_pRdCurrentModel + 0x50);
+      iVar5 = *(int *)((int)g_pCurModel3 + 0x50);
     }
     else {
-      iVar5 = *(int *)((int)g_pRdCurrentThing + 0x34);
+      iVar5 = *(int *)((int)g_pCurThing + 0x34);
     }
-    UINT_007f0fd0 = (int)g_pRdCurrentModel + iVar5 * 8 + 0x24;
-    rdPuppet_UpdateFrame(g_pRdCurrentThing,position);
+    g_dwCurGeo = (int)g_pCurModel3 + iVar5 * 8 + 0x24;
+    rdPuppet_UpdateFrame(g_pCurThing,position);
     pvVar4 = g_pRdCamera_CurCamera;
-    g_dwCurTextureMode = *(uint *)((int)g_pRdCurrentThing + 0x38);
+    g_dwCurTextureMode = *(uint *)((int)g_pCurThing + 0x38);
     if (g_nRdroid_curGeometryMode <= (int)g_dwCurTextureMode) {
       g_dwCurTextureMode = g_nRdroid_curGeometryMode;
     }
     if ((((byte)g_dwRdroid_curRenderOptions & 2) == 0) ||
        (*(float *)((int)g_pRdCamera_CurCamera + 0x54) < 1.0)) {
-      UINT_007f30dc = *(uint *)((int)g_pRdCurrentThing + 0x3c);
-      if (g_nRdroid_curLightingMode <= (int)*(uint *)((int)g_pRdCurrentThing + 0x3c)) {
+      UINT_007f30dc = *(uint *)((int)g_pCurThing + 0x3c);
+      if (g_nRdroid_curLightingMode <= (int)*(uint *)((int)g_pCurThing + 0x3c)) {
         UINT_007f30dc = g_nRdroid_curLightingMode;
       }
     }
     else {
       UINT_007f30dc = 0;
     }
-    UINT_007f189c = *(uint *)((int)g_pRdCurrentThing + 0x40);
+    UINT_007f189c = *(uint *)((int)g_pCurThing + 0x40);
     if (g_nRdroid_curTextureMode <= (int)UINT_007f189c) {
       UINT_007f189c = g_nRdroid_curTextureMode;
     }
@@ -81,7 +83,7 @@ int __cdecl rdThing_Draw(void *thing,float *position)
                       (position[10] - *pfVar6) * (position[10] - *pfVar6) +
                       (position[9] - pfVar6[-1]) * (position[9] - pfVar6[-1]);
             }
-            fVar3 = *(float *)(uVar1 + 0x34) + *(float *)((int)g_pRdCurrentModel + 0x5c);
+            fVar3 = *(float *)(uVar1 + 0x34) + *(float *)((int)g_pCurModel3 + 0x5c);
             if (fVar2 < fVar3 * fVar3) {
               (&g_apGeoLights)[g_dwNumGeoLights] = uVar1;
               g_dwNumGeoLights = g_dwNumGeoLights + 1;
@@ -93,7 +95,7 @@ int __cdecl rdThing_Draw(void *thing,float *position)
         } while (uVar7 < *(uint *)((int)pvVar4 + 0x58));
       }
     }
-    rdModel_DrawNode(*(undefined4 *)((int)g_pRdCurrentModel + 0x58));
+    rdModel3_DrawHNode(*(undefined4 *)((int)g_pCurModel3 + 0x58));
     g_dwRdModel3_numDrawnModels = g_dwRdModel3_numDrawnModels + 1;
     return 1;
   }
@@ -299,8 +301,12 @@ undefined4 rdThing_SetPolyline(undefined4 *param_1,undefined4 param_2)
   return 1;
 }
 
-/* ---- 0x00471d80  rdThing_DrawAlt ---- */
-int __cdecl rdThing_DrawAlt(void *thing,float *frame)
+/* ---- 0x00471d80  rdThing_Draw ---- */
+/* Original name rdThing_Draw (the remaster's GrimFandango (Linux): same switch on the thing type (1
+   model, 4 sprite, 5 particles, 6 polyline) under rdroid_curGeometryMode != 0; rdThing.c); was
+   rdThing_DrawAlt. */
+
+int __cdecl rdThing_Draw(void *thing,float *frame)
 
 {
   int iVar1;
@@ -312,7 +318,7 @@ int __cdecl rdThing_DrawAlt(void *thing,float *frame)
     case 3:
       return 0;
     case 1:
-      iVar1 = rdThing_Draw(thing,frame);
+      iVar1 = rdModel3_Draw(thing,frame);
       return iVar1;
     case 4:
       iVar1 = rdSprite_Draw(thing,frame);
