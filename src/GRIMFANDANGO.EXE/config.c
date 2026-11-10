@@ -77,9 +77,9 @@ void __cdecl Config_GetPath(char *name,char *buf,char *defaultSubdir)
     pcVar5 = pcVar5 + 1;
     pcVar7 = pcVar7 + 1;
   }
-  Reg_GetString(local_80,buf,0x80,&DAT_004f5a98);
+  wuRegistry_GetStr(local_80,buf,0x80,&DAT_004f5a98);
   if (*buf == '\0') {
-    iVar4 = Reg_GetString(s_GrimDataDir_004dd94c,buf,0x80,&DAT_004f5a98);
+    iVar4 = wuRegistry_GetStr(s_GrimDataDir_004dd94c,buf,0x80,&DAT_004f5a98);
     if (iVar4 != 0) {
       uVar2 = 0xffffffff;
       pcVar5 = &DAT_004e9c60;
@@ -222,7 +222,7 @@ void __cdecl Config_SetPath(char *name,char *value)
       pcVar5 = pcVar5 + 1;
       pcVar7 = pcVar7 + 1;
     }
-    Reg_SetString(local_80,value);
+    wuRegistry_SaveStr(local_80,value);
   }
   return;
 }

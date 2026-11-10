@@ -181,7 +181,7 @@
  },
  {
   "addr": "004c3df0",
-  "name": "Insane_MemCopyCdecl",
+  "name": "msc_MemCopy",
   "tags": "smush"
  },
  {
@@ -352,7 +352,7 @@
  },
  {
   "addr": "004d16a0",
-  "name": "SoundModule_MixCallback",
+  "name": "sou_engine_fill",
   "comment": "Mixes all active tracks into the driver buffer (called by DSound_FillStreamBuffer through the driver)",
   "tags": "smush,sound"
  },
@@ -712,7 +712,7 @@
  },
  {
   "addr": "004cc250",
-  "name": "Blocky16_SetOption",
+  "name": "fob_flobdec_blocky16_config",
   "comment": "Reads key and value pairs ending with key 0; key 1 sets the output callback g_pfnBlkOutput that Blocky16 hands decoded frames to; other keys are an error",
   "tags": "smush,blocky16"
  },
@@ -897,7 +897,7 @@
  },
  {
   "addr": "004bdf00",
-  "name": "Smush_GetLengthMs",
+  "name": "SmushPlay_GetMovieLength",
   "comment": "Opens a movie file, reads its header and returns the movie length in milliseconds (16 bit header field times 66.67); 0 if it cannot be opened",
   "tags": "smush"
  },
@@ -909,7 +909,7 @@
  },
  {
   "addr": "004c16c0",
-  "name": "LecShare_Resolve",
+  "name": "LecShare_Subscribe",
   "tags": "lecshare"
  },
  {
@@ -932,13 +932,13 @@
  },
  {
   "addr": "004c36b0",
-  "name": "AnimPlay_ResetState",
+  "name": "anm_animator_Initialize",
   "comment": "Resets the decoder state fields of an AnimPlay frame player and its streamer",
   "tags": "smush,animplay"
  },
  {
   "addr": "004c3d30",
-  "name": "AnimPlay_OpenFile",
+  "name": "anm_animator_NewAnim",
   "comment": "Opens the movie file of an AnimPlay frame player through the streamer",
   "tags": "smush,animplay"
  },

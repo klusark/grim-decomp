@@ -429,7 +429,7 @@ int VideoBitmap_ConvertPixels(byte *src, void *srcFmt_, int count, byte *palette
     if (srcFmt->bitsPerPixel == dstFmt->bitsPerPixel && srcFmt->type == dstFmt->type &&
         ((srcFmt->type != 1 && srcFmt->type != 2) ||
          (srcFmt->shiftR == dstFmt->shiftR && srcFmt->shiftG == dstFmt->shiftG && srcFmt->shiftB == dstFmt->shiftB))) {
-        Insane_MemCopyCdecl(dst, src, dstFmt->bytesPerPixel * count);
+        msc_MemCopy(dst, src, dstFmt->bytesPerPixel * count);
         return 0;
     }
     if (expandTable != 0) {

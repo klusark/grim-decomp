@@ -174,7 +174,7 @@ LAB_0040ec61:
     param_1[0x70] = 0.0;
   }
   else if (param_2 == 1) {
-    if (_DAT_004dda94 < *(float *)(PUN(int,(float)fVar5) + 100)) {
+    if (_g_aRdroid_MipDistances < *(float *)(PUN(int,(float)fVar5) + 100)) {
       param_1[0x70] = 1.4013e-45;
     }
     else {
@@ -183,7 +183,7 @@ LAB_0040ec61:
   }
   else if (param_2 == 2) {
     if (_DAT_004dda90 < *(float *)(PUN(int,(float)fVar5) + 100)) {
-      if (_DAT_004dda94 < *(float *)(PUN(int,(float)fVar5) + 100)) {
+      if (_g_aRdroid_MipDistances < *(float *)(PUN(int,(float)fVar5) + 100)) {
         param_1[0x70] = 2.8026e-45;
       }
       else {
@@ -196,7 +196,7 @@ LAB_0040ec61:
   }
   else if (param_2 == 3) {
     if (_DAT_004dda90 < *(float *)(PUN(int,(float)fVar5) + 100)) {
-      if (_DAT_004dda94 < *(float *)(PUN(int,(float)fVar5) + 100)) {
+      if (_g_aRdroid_MipDistances < *(float *)(PUN(int,(float)fVar5) + 100)) {
         if (_DAT_004dda98 < *(float *)(PUN(int,(float)fVar5) + 100)) {
           param_1[0x70] = 4.2039e-45;
         }
@@ -446,7 +446,7 @@ LAB_0040f132:
     goto LAB_0040f4ea;
   }
   if (param_2 == 1) {
-    if (*(float *)(PUN(int,(float)fVar13) + 100) <= _DAT_004dda94) {
+    if (*(float *)(PUN(int,(float)fVar13) + 100) <= _g_aRdroid_MipDistances) {
       pfVar21[0x70] = 0.0;
       goto LAB_0040f4ea;
     }
@@ -456,7 +456,7 @@ LAB_0040f132:
       pfVar21[0x70] = 0.0;
       goto LAB_0040f4ea;
     }
-    if (_DAT_004dda94 < *(float *)(PUN(int,(float)fVar13) + 100)) {
+    if (_g_aRdroid_MipDistances < *(float *)(PUN(int,(float)fVar13) + 100)) {
       pfVar21[0x70] = 2.8026e-45;
       goto LAB_0040f4ea;
     }
@@ -467,7 +467,7 @@ LAB_0040f132:
       pfVar21[0x70] = 0.0;
       goto LAB_0040f4ea;
     }
-    if (_DAT_004dda94 < *(float *)(PUN(int,(float)fVar13) + 100)) {
+    if (_g_aRdroid_MipDistances < *(float *)(PUN(int,(float)fVar13) + 100)) {
       if (_DAT_004dda98 < *(float *)(PUN(int,(float)fVar13) + 100)) {
         pfVar21[0x70] = 4.2039e-45;
       }
@@ -3247,10 +3247,10 @@ void rdRaster_SpanP8_TexKeyZw(uint *param_1)
     fVar6 = fVar5 * fVar2;
     fVar5 = fVar5 * fVar3;
     bVar10 = (byte)UINT_008ddf04;
-    local_2c = (int)ROUND((fVar6 - (float)local_18) * (float)(&UINT_008fe000)[local_40] * 65536.0)
-               >> (bVar10 & 0x1f);
-    local_30 = (int)ROUND((fVar5 - (float)local_1c) * (float)(&UINT_008fe000)[local_40] * 65536.0)
-               >> (bVar10 & 0x1f);
+    local_2c = (int)ROUND((fVar6 - (float)local_18) * (float)(&g_dwRdRaster_aOneOverNFlex)[local_40]
+                          * 65536.0) >> (bVar10 & 0x1f);
+    local_30 = (int)ROUND((fVar5 - (float)local_1c) * (float)(&g_dwRdRaster_aOneOverNFlex)[local_40]
+                          * 65536.0) >> (bVar10 & 0x1f);
     puVar13 = (undefined2 *)
               (((int)ROUND((float)local_18 * 65536.0) >> (bVar10 & 0x1f)) + UINT_008ddf44);
     puVar15 = (undefined2 *)
@@ -3320,11 +3320,11 @@ void rdRaster_SpanP8_TexKeyZw(uint *param_1)
       fVar2 = 1.0 / ((fVar3 * _DAT_008ddf1c - _DAT_008ddf28) + (float)local_c);
       bVar10 = (byte)UINT_008ddf04;
       local_2c = (int)ROUND((((fVar3 * _DAT_008ddf20 - _DAT_008ddf2c) + (float)local_10) * fVar2 -
-                            (float)local_18) * (float)(&UINT_008fe000)[iVar14] * 65536.0) >>
-                 (bVar10 & 0x1f);
+                            (float)local_18) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar14] *
+                            65536.0) >> (bVar10 & 0x1f);
       local_30 = (int)ROUND((((fVar3 * _DAT_008ddf38 - _DAT_008ddf48) + (float)local_14) * fVar2 -
-                            (float)local_1c) * (float)(&UINT_008fe000)[iVar14] * 65536.0) >>
-                 (bVar10 & 0x1f);
+                            (float)local_1c) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar14] *
+                            65536.0) >> (bVar10 & 0x1f);
       puVar13 = (undefined2 *)
                 (((int)ROUND((float)local_18 * 65536.0) >> (bVar10 & 0x1f)) + UINT_008ddf44);
       puVar15 = (undefined2 *)
@@ -3478,10 +3478,10 @@ void rdRaster_SpanP16_TexKeyZw(uint *param_1)
     fVar5 = fVar4 * fVar1;
     fVar4 = fVar4 * fVar2;
     bVar9 = (byte)UINT_008ddf04;
-    local_30 = (int)ROUND((fVar5 - (float)local_18) * (float)(&UINT_008fe000)[local_44] * 65536.0)
-               >> (bVar9 & 0x1f);
-    local_34 = (int)ROUND((fVar4 - (float)local_1c) * (float)(&UINT_008fe000)[local_44] * 65536.0)
-               >> (bVar9 & 0x1f);
+    local_30 = (int)ROUND((fVar5 - (float)local_18) * (float)(&g_dwRdRaster_aOneOverNFlex)[local_44]
+                          * 65536.0) >> (bVar9 & 0x1f);
+    local_34 = (int)ROUND((fVar4 - (float)local_1c) * (float)(&g_dwRdRaster_aOneOverNFlex)[local_44]
+                          * 65536.0) >> (bVar9 & 0x1f);
     puVar12 = (undefined2 *)
               (((int)ROUND((float)local_18 * 65536.0) >> (bVar9 & 0x1f)) + UINT_008ddf44);
     puVar14 = (undefined2 *)
@@ -3553,11 +3553,11 @@ void rdRaster_SpanP16_TexKeyZw(uint *param_1)
       fVar1 = 1.0 / ((fVar2 * _DAT_008ddf1c - _DAT_008ddf28) + (float)local_c);
       bVar9 = (byte)UINT_008ddf04;
       local_30 = (int)ROUND((((fVar2 * _DAT_008ddf20 - _DAT_008ddf2c) + (float)local_10) * fVar1 -
-                            (float)local_18) * (float)(&UINT_008fe000)[iVar13] * 65536.0) >>
-                 (bVar9 & 0x1f);
+                            (float)local_18) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar13] *
+                            65536.0) >> (bVar9 & 0x1f);
       local_34 = (int)ROUND((((fVar2 * _DAT_008ddf38 - _DAT_008ddf48) + (float)local_14) * fVar1 -
-                            (float)local_1c) * (float)(&UINT_008fe000)[iVar13] * 65536.0) >>
-                 (bVar9 & 0x1f);
+                            (float)local_1c) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar13] *
+                            65536.0) >> (bVar9 & 0x1f);
       puVar12 = (undefined2 *)
                 (((int)ROUND((float)local_18 * 65536.0) >> (bVar9 & 0x1f)) + UINT_008ddf44);
       puVar14 = (undefined2 *)
@@ -4062,10 +4062,10 @@ void rdRaster_SpanP8_TexKeyZw_2(uint *param_1)
     fVar5 = fVar4 * fVar1;
     fVar4 = fVar4 * fVar2;
     bVar9 = (byte)UINT_008ddf04;
-    local_30 = (int)ROUND((fVar5 - (float)local_18) * (float)(&UINT_008fe000)[local_44] * 65536.0)
-               >> (bVar9 & 0x1f);
-    local_34 = (int)ROUND((fVar4 - (float)local_1c) * (float)(&UINT_008fe000)[local_44] * 65536.0)
-               >> (bVar9 & 0x1f);
+    local_30 = (int)ROUND((fVar5 - (float)local_18) * (float)(&g_dwRdRaster_aOneOverNFlex)[local_44]
+                          * 65536.0) >> (bVar9 & 0x1f);
+    local_34 = (int)ROUND((fVar4 - (float)local_1c) * (float)(&g_dwRdRaster_aOneOverNFlex)[local_44]
+                          * 65536.0) >> (bVar9 & 0x1f);
     puVar12 = (undefined2 *)
               (((int)ROUND((float)local_18 * 65536.0) >> (bVar9 & 0x1f)) + UINT_008ddf44);
     puVar14 = (undefined2 *)
@@ -4137,11 +4137,11 @@ void rdRaster_SpanP8_TexKeyZw_2(uint *param_1)
       fVar1 = 1.0 / ((fVar2 * _DAT_008ddf1c - _DAT_008ddf28) + (float)local_c);
       bVar9 = (byte)UINT_008ddf04;
       local_30 = (int)ROUND((((fVar2 * _DAT_008ddf20 - _DAT_008ddf2c) + (float)local_10) * fVar1 -
-                            (float)local_18) * (float)(&UINT_008fe000)[iVar13] * 65536.0) >>
-                 (bVar9 & 0x1f);
+                            (float)local_18) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar13] *
+                            65536.0) >> (bVar9 & 0x1f);
       local_34 = (int)ROUND((((fVar2 * _DAT_008ddf38 - _DAT_008ddf48) + (float)local_14) * fVar1 -
-                            (float)local_1c) * (float)(&UINT_008fe000)[iVar13] * 65536.0) >>
-                 (bVar9 & 0x1f);
+                            (float)local_1c) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar13] *
+                            65536.0) >> (bVar9 & 0x1f);
       puVar12 = (undefined2 *)
                 (((int)ROUND((float)local_18 * 65536.0) >> (bVar9 & 0x1f)) + UINT_008ddf44);
       puVar14 = (undefined2 *)
@@ -4296,10 +4296,10 @@ void rdRaster_SpanP16_TexKeyZw_2(uint *param_1)
     fVar5 = fVar4 * fVar1;
     fVar4 = fVar4 * fVar2;
     bVar9 = (byte)UINT_008ddf04;
-    local_30 = (int)ROUND((fVar5 - (float)local_18) * (float)(&UINT_008fe000)[local_44] * 65536.0)
-               >> (bVar9 & 0x1f);
-    local_34 = (int)ROUND((fVar4 - (float)local_1c) * (float)(&UINT_008fe000)[local_44] * 65536.0)
-               >> (bVar9 & 0x1f);
+    local_30 = (int)ROUND((fVar5 - (float)local_18) * (float)(&g_dwRdRaster_aOneOverNFlex)[local_44]
+                          * 65536.0) >> (bVar9 & 0x1f);
+    local_34 = (int)ROUND((fVar4 - (float)local_1c) * (float)(&g_dwRdRaster_aOneOverNFlex)[local_44]
+                          * 65536.0) >> (bVar9 & 0x1f);
     puVar12 = (undefined2 *)
               (((int)ROUND((float)local_18 * 65536.0) >> (bVar9 & 0x1f)) + UINT_008ddf44);
     puVar14 = (undefined2 *)
@@ -4371,11 +4371,11 @@ void rdRaster_SpanP16_TexKeyZw_2(uint *param_1)
       fVar1 = 1.0 / ((fVar2 * _DAT_008ddf1c - _DAT_008ddf28) + (float)local_c);
       bVar9 = (byte)UINT_008ddf04;
       local_30 = (int)ROUND((((fVar2 * _DAT_008ddf20 - _DAT_008ddf2c) + (float)local_10) * fVar1 -
-                            (float)local_18) * (float)(&UINT_008fe000)[iVar13] * 65536.0) >>
-                 (bVar9 & 0x1f);
+                            (float)local_18) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar13] *
+                            65536.0) >> (bVar9 & 0x1f);
       local_34 = (int)ROUND((((fVar2 * _DAT_008ddf38 - _DAT_008ddf48) + (float)local_14) * fVar1 -
-                            (float)local_1c) * (float)(&UINT_008fe000)[iVar13] * 65536.0) >>
-                 (bVar9 & 0x1f);
+                            (float)local_1c) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar13] *
+                            65536.0) >> (bVar9 & 0x1f);
       puVar12 = (undefined2 *)
                 (((int)ROUND((float)local_18 * 65536.0) >> (bVar9 & 0x1f)) + UINT_008ddf44);
       puVar14 = (undefined2 *)
@@ -4897,10 +4897,10 @@ void rdRaster_SpanP8_TexKeyZw_3(uint *param_1)
     fVar5 = fVar4 * fVar1;
     fVar4 = fVar4 * fVar2;
     bVar9 = (byte)UINT_008ddf04;
-    local_34 = (int)ROUND((fVar5 - (float)local_1c) * (float)(&UINT_008fe000)[local_4c] * 65536.0)
-               >> (bVar9 & 0x1f);
-    local_38 = (int)ROUND((fVar4 - (float)local_20) * (float)(&UINT_008fe000)[local_4c] * 65536.0)
-               >> (bVar9 & 0x1f);
+    local_34 = (int)ROUND((fVar5 - (float)local_1c) * (float)(&g_dwRdRaster_aOneOverNFlex)[local_4c]
+                          * 65536.0) >> (bVar9 & 0x1f);
+    local_38 = (int)ROUND((fVar4 - (float)local_20) * (float)(&g_dwRdRaster_aOneOverNFlex)[local_4c]
+                          * 65536.0) >> (bVar9 & 0x1f);
     puVar10 = (undefined2 *)
               (((int)ROUND((float)local_1c * 65536.0) >> (bVar9 & 0x1f)) + UINT_008ddf44);
     puVar14 = (undefined2 *)
@@ -4974,11 +4974,11 @@ void rdRaster_SpanP8_TexKeyZw_3(uint *param_1)
       fVar1 = 1.0 / ((fVar2 * _DAT_008ddf1c - _DAT_008ddf28) + (float)local_10);
       bVar9 = (byte)UINT_008ddf04;
       local_34 = (int)ROUND((((fVar2 * _DAT_008ddf20 - _DAT_008ddf2c) + (float)local_14) * fVar1 -
-                            (float)local_1c) * (float)(&UINT_008fe000)[iVar13] * 65536.0) >>
-                 (bVar9 & 0x1f);
+                            (float)local_1c) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar13] *
+                            65536.0) >> (bVar9 & 0x1f);
       local_38 = (int)ROUND((((fVar2 * _DAT_008ddf38 - _DAT_008ddf48) + (float)local_18) * fVar1 -
-                            (float)local_20) * (float)(&UINT_008fe000)[iVar13] * 65536.0) >>
-                 (bVar9 & 0x1f);
+                            (float)local_20) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar13] *
+                            65536.0) >> (bVar9 & 0x1f);
       puVar10 = (undefined2 *)
                 (((int)ROUND((float)local_1c * 65536.0) >> (bVar9 & 0x1f)) + UINT_008ddf44);
       puVar14 = (undefined2 *)
@@ -5140,10 +5140,10 @@ void rdRaster_SpanP16_TexKeyZw_3(uint *param_1)
     fVar5 = fVar4 * fVar1;
     fVar4 = fVar4 * fVar2;
     bVar9 = (byte)UINT_008ddf04;
-    local_34 = (int)ROUND((fVar5 - (float)local_1c) * (float)(&UINT_008fe000)[local_4c] * 65536.0)
-               >> (bVar9 & 0x1f);
-    local_38 = (int)ROUND((fVar4 - (float)local_20) * (float)(&UINT_008fe000)[local_4c] * 65536.0)
-               >> (bVar9 & 0x1f);
+    local_34 = (int)ROUND((fVar5 - (float)local_1c) * (float)(&g_dwRdRaster_aOneOverNFlex)[local_4c]
+                          * 65536.0) >> (bVar9 & 0x1f);
+    local_38 = (int)ROUND((fVar4 - (float)local_20) * (float)(&g_dwRdRaster_aOneOverNFlex)[local_4c]
+                          * 65536.0) >> (bVar9 & 0x1f);
     puVar12 = (undefined2 *)
               (((int)ROUND((float)local_1c * 65536.0) >> (bVar9 & 0x1f)) + UINT_008ddf44);
     puVar14 = (undefined2 *)
@@ -5219,11 +5219,11 @@ void rdRaster_SpanP16_TexKeyZw_3(uint *param_1)
       fVar1 = 1.0 / ((fVar2 * _DAT_008ddf1c - _DAT_008ddf28) + (float)local_10);
       bVar9 = (byte)UINT_008ddf04;
       local_34 = (int)ROUND((((fVar2 * _DAT_008ddf20 - _DAT_008ddf2c) + (float)local_14) * fVar1 -
-                            (float)local_1c) * (float)(&UINT_008fe000)[iVar13] * 65536.0) >>
-                 (bVar9 & 0x1f);
+                            (float)local_1c) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar13] *
+                            65536.0) >> (bVar9 & 0x1f);
       local_38 = (int)ROUND((((fVar2 * _DAT_008ddf38 - _DAT_008ddf48) + (float)local_18) * fVar1 -
-                            (float)local_20) * (float)(&UINT_008fe000)[iVar13] * 65536.0) >>
-                 (bVar9 & 0x1f);
+                            (float)local_20) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar13] *
+                            65536.0) >> (bVar9 & 0x1f);
       puVar12 = (undefined2 *)
                 (((int)ROUND((float)local_1c * 65536.0) >> (bVar9 & 0x1f)) + UINT_008ddf44);
       puVar14 = (undefined2 *)
@@ -5432,14 +5432,14 @@ LAB_004186b9:
   }
   if (UINT_007f4250 == 1) {
     UINT_008ddee4 = 0;
-    if (param_1 <= _DAT_004dda94) goto LAB_0041894c;
+    if (param_1 <= _g_aRdroid_MipDistances) goto LAB_0041894c;
   }
   else if (UINT_007f4250 == 2) {
     if (param_1 <= _DAT_004dda90) {
       UINT_008ddee4 = 0;
       goto LAB_0041894c;
     }
-    if (_DAT_004dda94 < param_1) {
+    if (_g_aRdroid_MipDistances < param_1) {
       UINT_008ddee4 = 2;
       goto LAB_0041894c;
     }
@@ -5450,7 +5450,7 @@ LAB_004186b9:
       UINT_008ddee4 = 0;
       goto LAB_0041894c;
     }
-    if (_DAT_004dda94 < param_1) {
+    if (_g_aRdroid_MipDistances < param_1) {
       if (_DAT_004dda98 < param_1) {
         UINT_008ddee4 = 3;
       }
@@ -5680,14 +5680,14 @@ LAB_00418b68:
   }
   if (UINT_007f4250 == 1) {
     UINT_008ddee4 = 0;
-    if (param_1 <= _DAT_004dda94) goto LAB_00418ede;
+    if (param_1 <= _g_aRdroid_MipDistances) goto LAB_00418ede;
   }
   else if (UINT_007f4250 == 2) {
     if (param_1 <= _DAT_004dda90) {
       UINT_008ddee4 = 0;
       goto LAB_00418ede;
     }
-    if (_DAT_004dda94 < param_1) {
+    if (_g_aRdroid_MipDistances < param_1) {
       UINT_008ddee4 = 2;
       goto LAB_00418ede;
     }
@@ -5698,7 +5698,7 @@ LAB_00418b68:
       UINT_008ddee4 = 0;
       goto LAB_00418ede;
     }
-    if (_DAT_004dda94 < param_1) {
+    if (_g_aRdroid_MipDistances < param_1) {
       if (_DAT_004dda98 < param_1) {
         UINT_008ddee4 = 3;
       }
@@ -6955,7 +6955,7 @@ void rdRaster_Span8_Flat(uint *param_1,uint *param_2)
   iVar7 = ((int)uVar6 >> 0x10) - ((int)uVar3 >> 0x10);
   if (0 < iVar7) {
     lVar2 = (longlong)(int)(param_2[0xe] - param_1[0xe]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + iVar7 * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + iVar7 * 4);
     param_2 = (uint *)((uint)lVar2 >> 0x10 | (int)((ulonglong)lVar2 >> 0x20) << 0x10);
     if (((int)param_2 < 0) && (-0x51e < (int)param_2)) {
       param_2 = (uint *)0x0;
@@ -7016,7 +7016,7 @@ void rdRaster_Span16_Flat_3(uint *param_1,uint *param_2)
   iVar6 = ((int)uVar5 >> 0x10) - ((int)uVar3 >> 0x10);
   if (0 < iVar6) {
     lVar2 = (longlong)(int)(param_2[0xe] - param_1[0xe]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + iVar6 * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + iVar6 * 4);
     param_2 = (uint *)((uint)lVar2 >> 0x10 | (int)((ulonglong)lVar2 >> 0x20) << 0x10);
     if (((int)param_2 < 0) && (-0x51e < (int)param_2)) {
       param_2 = (uint *)0x0;
@@ -7334,7 +7334,7 @@ void rdRaster_Span_Tex_2(uint *param_1,uint *param_2)
   iVar7 = ((int)uVar6 >> 0x10) - ((int)uVar3 >> 0x10);
   if (0 < iVar7) {
     lVar2 = (longlong)(int)(param_2[0xe] - param_1[0xe]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + iVar7 * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + iVar7 * 4);
     param_2 = (uint *)((uint)lVar2 >> 0x10 | (int)((ulonglong)lVar2 >> 0x20) << 0x10);
     if (((int)param_2 < 0) && (-0x51e < (int)param_2)) {
       param_2 = (uint *)0x0;
@@ -7398,7 +7398,7 @@ void rdRaster_Span16_Tex_3(uint *param_1,uint *param_2)
   iVar6 = ((int)uVar5 >> 0x10) - ((int)uVar3 >> 0x10);
   if (0 < iVar6) {
     lVar2 = (longlong)(int)(param_2[0xe] - param_1[0xe]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + iVar6 * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + iVar6 * 4);
     param_2 = (uint *)((uint)lVar2 >> 0x10 | (int)((ulonglong)lVar2 >> 0x20) << 0x10);
     if (((int)param_2 < 0) && (-0x51e < (int)param_2)) {
       param_2 = (uint *)0x0;
@@ -7615,13 +7615,13 @@ void rdRaster_Span_Flat_2(uint *param_1,uint *param_2)
   iVar8 = (uVar7 >> 0x10) - ((int)uVar5 >> 0x10);
   if (0 < iVar8) {
     lVar3 = (longlong)(int)(param_2[10] - param_1[10]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + iVar8 * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + iVar8 * 4);
     uVar7 = (uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10;
     bVar6 = (byte)UINT_008ddee4;
     UINT_007f43bc = (int)uVar7 >> (bVar6 & 0x1f);
     lVar3 = (longlong)(int)(uVar5 - uVar1) * (longlong)(int)uVar7;
     lVar4 = (longlong)(int)(param_2[0xc] - param_1[0xc]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + iVar8 * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + iVar8 * 4);
     uVar7 = (uint)lVar4 >> 0x10 | (int)((ulonglong)lVar4 >> 0x20) << 0x10;
     UINT_007f4254 = (int)uVar7 >> (bVar6 & 0x1f);
     lVar4 = (longlong)(int)(uVar5 - uVar1) * (longlong)(int)uVar7;
@@ -7688,13 +7688,13 @@ void rdRaster_Span16_Tex_4(uint *param_1,uint *param_2)
   iVar8 = (uVar7 >> 0x10) - ((int)uVar5 >> 0x10);
   if (0 < iVar8) {
     lVar3 = (longlong)(int)(param_2[10] - param_1[10]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + iVar8 * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + iVar8 * 4);
     uVar7 = (uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10;
     bVar6 = (byte)UINT_008ddee4;
     UINT_007f43bc = (int)uVar7 >> (bVar6 & 0x1f);
     lVar3 = (longlong)(int)(uVar5 - uVar1) * (longlong)(int)uVar7;
     lVar4 = (longlong)(int)(param_2[0xc] - param_1[0xc]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + iVar8 * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + iVar8 * 4);
     uVar7 = (uint)lVar4 >> 0x10 | (int)((ulonglong)lVar4 >> 0x20) << 0x10;
     UINT_007f4254 = (int)uVar7 >> (bVar6 & 0x1f);
     lVar4 = (longlong)(int)(uVar5 - uVar1) * (longlong)(int)uVar7;
@@ -8043,13 +8043,13 @@ void rdRaster_Span_Tex_3(uint *param_1,uint *param_2)
   iVar8 = (uVar7 >> 0x10) - ((int)uVar5 >> 0x10);
   if (0 < iVar8) {
     lVar3 = (longlong)(int)(param_2[10] - param_1[10]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + iVar8 * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + iVar8 * 4);
     uVar7 = (uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10;
     bVar6 = (byte)UINT_008ddee4;
     UINT_007f43bc = (int)uVar7 >> (bVar6 & 0x1f);
     lVar3 = (longlong)(int)(uVar5 - uVar1) * (longlong)(int)uVar7;
     lVar4 = (longlong)(int)(param_2[0xc] - param_1[0xc]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + iVar8 * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + iVar8 * 4);
     uVar7 = (uint)lVar4 >> 0x10 | (int)((ulonglong)lVar4 >> 0x20) << 0x10;
     UINT_007f4254 = (int)uVar7 >> (bVar6 & 0x1f);
     lVar4 = (longlong)(int)(uVar5 - uVar1) * (longlong)(int)uVar7;
@@ -8117,13 +8117,13 @@ void rdRaster_Span16_Tex_5(uint *param_1,uint *param_2)
   iVar8 = (uVar7 >> 0x10) - ((int)uVar5 >> 0x10);
   if (0 < iVar8) {
     lVar3 = (longlong)(int)(param_2[10] - param_1[10]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + iVar8 * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + iVar8 * 4);
     uVar7 = (uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10;
     bVar6 = (byte)UINT_008ddee4;
     UINT_007f43bc = (int)uVar7 >> (bVar6 & 0x1f);
     lVar3 = (longlong)(int)(uVar5 - uVar1) * (longlong)(int)uVar7;
     lVar4 = (longlong)(int)(param_2[0xc] - param_1[0xc]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + iVar8 * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + iVar8 * 4);
     uVar7 = (uint)lVar4 >> 0x10 | (int)((ulonglong)lVar4 >> 0x20) << 0x10;
     UINT_007f4254 = (int)uVar7 >> (bVar6 & 0x1f);
     lVar4 = (longlong)(int)(uVar5 - uVar1) * (longlong)(int)uVar7;
@@ -8317,13 +8317,13 @@ void rdRaster_Span_FlatKey(uint *param_1,uint *param_2)
   iVar8 = (uVar7 >> 0x10) - ((int)uVar5 >> 0x10);
   if (0 < iVar8) {
     lVar3 = (longlong)(int)(param_2[10] - param_1[10]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + iVar8 * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + iVar8 * 4);
     uVar7 = (uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10;
     bVar6 = (byte)UINT_008ddee4;
     UINT_007f43bc = (int)uVar7 >> (bVar6 & 0x1f);
     lVar3 = (longlong)(int)(uVar5 - uVar1) * (longlong)(int)uVar7;
     lVar4 = (longlong)(int)(param_2[0xc] - param_1[0xc]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + iVar8 * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + iVar8 * 4);
     uVar7 = (uint)lVar4 >> 0x10 | (int)((ulonglong)lVar4 >> 0x20) << 0x10;
     UINT_007f4254 = (int)uVar7 >> (bVar6 & 0x1f);
     lVar4 = (longlong)(int)(uVar5 - uVar1) * (longlong)(int)uVar7;
@@ -8393,13 +8393,13 @@ void rdRaster_Span16_TexKey(uint *param_1,uint *param_2)
   iVar8 = (uVar7 >> 0x10) - ((int)uVar5 >> 0x10);
   if (0 < iVar8) {
     lVar3 = (longlong)(int)(param_2[10] - param_1[10]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + iVar8 * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + iVar8 * 4);
     uVar7 = (uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10;
     bVar6 = (byte)UINT_008ddee4;
     UINT_007f43bc = (int)uVar7 >> (bVar6 & 0x1f);
     lVar3 = (longlong)(int)(uVar5 - uVar1) * (longlong)(int)uVar7;
     lVar4 = (longlong)(int)(param_2[0xc] - param_1[0xc]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + iVar8 * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + iVar8 * 4);
     uVar7 = (uint)lVar4 >> 0x10 | (int)((ulonglong)lVar4 >> 0x20) << 0x10;
     UINT_007f4254 = (int)uVar7 >> (bVar6 & 0x1f);
     lVar4 = (longlong)(int)(uVar5 - uVar1) * (longlong)(int)uVar7;
@@ -8593,13 +8593,13 @@ void rdRaster_Span_TexKey(uint *param_1,uint *param_2)
   iVar8 = (uVar7 >> 0x10) - ((int)uVar5 >> 0x10);
   if (0 < iVar8) {
     lVar3 = (longlong)(int)(param_2[10] - param_1[10]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + iVar8 * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + iVar8 * 4);
     uVar7 = (uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10;
     bVar6 = (byte)UINT_008ddee4;
     UINT_007f43bc = (int)uVar7 >> (bVar6 & 0x1f);
     lVar3 = (longlong)(int)(uVar5 - uVar1) * (longlong)(int)uVar7;
     lVar4 = (longlong)(int)(param_2[0xc] - param_1[0xc]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + iVar8 * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + iVar8 * 4);
     uVar7 = (uint)lVar4 >> 0x10 | (int)((ulonglong)lVar4 >> 0x20) << 0x10;
     UINT_007f4254 = (int)uVar7 >> (bVar6 & 0x1f);
     lVar4 = (longlong)(int)(uVar5 - uVar1) * (longlong)(int)uVar7;
@@ -8669,13 +8669,13 @@ void rdRaster_Span16_TexKey_2(uint *param_1,uint *param_2)
   iVar8 = (uVar7 >> 0x10) - ((int)uVar5 >> 0x10);
   if (0 < iVar8) {
     lVar3 = (longlong)(int)(param_2[10] - param_1[10]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + iVar8 * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + iVar8 * 4);
     uVar7 = (uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10;
     bVar6 = (byte)UINT_008ddee4;
     UINT_007f43bc = (int)uVar7 >> (bVar6 & 0x1f);
     lVar3 = (longlong)(int)(uVar5 - uVar1) * (longlong)(int)uVar7;
     lVar4 = (longlong)(int)(param_2[0xc] - param_1[0xc]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + iVar8 * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + iVar8 * 4);
     uVar7 = (uint)lVar4 >> 0x10 | (int)((ulonglong)lVar4 >> 0x20) << 0x10;
     UINT_007f4254 = (int)uVar7 >> (bVar6 & 0x1f);
     lVar4 = (longlong)(int)(uVar5 - uVar1) * (longlong)(int)uVar7;
@@ -8898,13 +8898,13 @@ void rdRaster_Span16_Tex_6(uint *param_1,uint *param_2)
   iVar8 = (uVar7 >> 0x10) - ((int)uVar5 >> 0x10);
   if (0 < iVar8) {
     lVar3 = (longlong)(int)(param_2[10] - param_1[10]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + iVar8 * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + iVar8 * 4);
     uVar7 = (uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10;
     bVar6 = (byte)UINT_008ddee4;
     UINT_007f43bc = (int)uVar7 >> (bVar6 & 0x1f);
     lVar3 = (longlong)(int)(uVar5 - uVar1) * (longlong)(int)uVar7;
     lVar4 = (longlong)(int)(param_2[0xc] - param_1[0xc]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + iVar8 * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + iVar8 * 4);
     uVar7 = (uint)lVar4 >> 0x10 | (int)((ulonglong)lVar4 >> 0x20) << 0x10;
     UINT_007f4254 = (int)uVar7 >> (bVar6 & 0x1f);
     lVar4 = (longlong)(int)(uVar5 - uVar1) * (longlong)(int)uVar7;
@@ -9256,13 +9256,13 @@ void rdRaster_Span_Tex_4(uint *param_1,uint *param_2)
   iVar8 = (uVar7 >> 0x10) - ((int)uVar5 >> 0x10);
   if (0 < iVar8) {
     lVar3 = (longlong)(int)(param_2[10] - param_1[10]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + iVar8 * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + iVar8 * 4);
     uVar7 = (uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10;
     bVar6 = (byte)UINT_008ddee4;
     UINT_007f43bc = (int)uVar7 >> (bVar6 & 0x1f);
     lVar3 = (longlong)(int)(uVar5 - uVar1) * (longlong)(int)uVar7;
     lVar4 = (longlong)(int)(param_2[0xc] - param_1[0xc]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + iVar8 * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + iVar8 * 4);
     uVar7 = (uint)lVar4 >> 0x10 | (int)((ulonglong)lVar4 >> 0x20) << 0x10;
     UINT_007f4254 = (int)uVar7 >> (bVar6 & 0x1f);
     lVar4 = (longlong)(int)(uVar5 - uVar1) * (longlong)(int)uVar7;
@@ -9332,13 +9332,13 @@ void rdRaster_Span16_Tex_7(uint *param_1,uint *param_2)
   iVar8 = (uVar7 >> 0x10) - ((int)uVar5 >> 0x10);
   if (0 < iVar8) {
     lVar3 = (longlong)(int)(param_2[10] - param_1[10]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + iVar8 * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + iVar8 * 4);
     uVar7 = (uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10;
     bVar6 = (byte)UINT_008ddee4;
     UINT_007f43bc = (int)uVar7 >> (bVar6 & 0x1f);
     lVar3 = (longlong)(int)(uVar5 - uVar1) * (longlong)(int)uVar7;
     lVar4 = (longlong)(int)(param_2[0xc] - param_1[0xc]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + iVar8 * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + iVar8 * 4);
     uVar7 = (uint)lVar4 >> 0x10 | (int)((ulonglong)lVar4 >> 0x20) << 0x10;
     UINT_007f4254 = (int)uVar7 >> (bVar6 & 0x1f);
     lVar4 = (longlong)(int)(uVar5 - uVar1) * (longlong)(int)uVar7;
@@ -9538,13 +9538,13 @@ void rdRaster_Span8_TexKey(uint *param_1,uint *param_2)
   iVar8 = (uVar7 >> 0x10) - ((int)uVar5 >> 0x10);
   if (0 < iVar8) {
     lVar3 = (longlong)(int)(param_2[10] - param_1[10]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + iVar8 * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + iVar8 * 4);
     uVar7 = (uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10;
     bVar6 = (byte)UINT_008ddee4;
     UINT_007f43bc = (int)uVar7 >> (bVar6 & 0x1f);
     lVar3 = (longlong)(int)(uVar5 - uVar1) * (longlong)(int)uVar7;
     lVar4 = (longlong)(int)(param_2[0xc] - param_1[0xc]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + iVar8 * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + iVar8 * 4);
     uVar7 = (uint)lVar4 >> 0x10 | (int)((ulonglong)lVar4 >> 0x20) << 0x10;
     UINT_007f4254 = (int)uVar7 >> (bVar6 & 0x1f);
     lVar4 = (longlong)(int)(uVar5 - uVar1) * (longlong)(int)uVar7;
@@ -9615,13 +9615,13 @@ void rdRaster_Span16_TexKey_3(uint *param_1,uint *param_2)
   iVar8 = (uVar7 >> 0x10) - ((int)uVar5 >> 0x10);
   if (0 < iVar8) {
     lVar3 = (longlong)(int)(param_2[10] - param_1[10]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + iVar8 * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + iVar8 * 4);
     uVar7 = (uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10;
     bVar6 = (byte)UINT_008ddee4;
     UINT_007f43bc = (int)uVar7 >> (bVar6 & 0x1f);
     lVar3 = (longlong)(int)(uVar5 - uVar1) * (longlong)(int)uVar7;
     lVar4 = (longlong)(int)(param_2[0xc] - param_1[0xc]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + iVar8 * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + iVar8 * 4);
     uVar7 = (uint)lVar4 >> 0x10 | (int)((ulonglong)lVar4 >> 0x20) << 0x10;
     UINT_007f4254 = (int)uVar7 >> (bVar6 & 0x1f);
     lVar4 = (longlong)(int)(uVar5 - uVar1) * (longlong)(int)uVar7;
@@ -9818,13 +9818,13 @@ void rdRaster_Span_TexKey_2(uint *param_1,uint *param_2)
   iVar8 = (uVar7 >> 0x10) - ((int)uVar5 >> 0x10);
   if (0 < iVar8) {
     lVar3 = (longlong)(int)(param_2[10] - param_1[10]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + iVar8 * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + iVar8 * 4);
     uVar7 = (uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10;
     bVar6 = (byte)UINT_008ddee4;
     UINT_007f43bc = (int)uVar7 >> (bVar6 & 0x1f);
     lVar3 = (longlong)(int)(uVar5 - uVar1) * (longlong)(int)uVar7;
     lVar4 = (longlong)(int)(param_2[0xc] - param_1[0xc]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + iVar8 * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + iVar8 * 4);
     uVar7 = (uint)lVar4 >> 0x10 | (int)((ulonglong)lVar4 >> 0x20) << 0x10;
     UINT_007f4254 = (int)uVar7 >> (bVar6 & 0x1f);
     lVar4 = (longlong)(int)(uVar5 - uVar1) * (longlong)(int)uVar7;
@@ -9898,13 +9898,13 @@ void rdRaster_Span_TexKey_3(uint *param_1,uint *param_2)
   iVar9 = (uVar8 >> 0x10) - ((int)uVar5 >> 0x10);
   if (0 < iVar9) {
     lVar3 = (longlong)(int)(param_2[10] - param_1[10]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + iVar9 * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + iVar9 * 4);
     uVar8 = (uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10;
     bVar7 = (byte)UINT_008ddee4;
     UINT_007f43bc = (int)uVar8 >> (bVar7 & 0x1f);
     lVar3 = (longlong)(int)(uVar5 - uVar1) * (longlong)(int)uVar8;
     lVar4 = (longlong)(int)(param_2[0xc] - param_1[0xc]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + iVar9 * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + iVar9 * 4);
     uVar8 = (uint)lVar4 >> 0x10 | (int)((ulonglong)lVar4 >> 0x20) << 0x10;
     UINT_007f4254 = (int)uVar8 >> (bVar7 & 0x1f);
     lVar4 = (longlong)(int)(uVar5 - uVar1) * (longlong)(int)uVar8;
@@ -10143,7 +10143,7 @@ void rdRaster_Span16_Tex_8(uint *param_1,uint *param_2)
   iVar10 = (uVar9 >> 0x10) - ((int)uVar5 >> 0x10);
   if (0 < iVar10) {
     iVar6 = uVar5 - uVar7;
-    iVar1 = *(int *)(&DAT_008fbfc0 + iVar10 * 4);
+    iVar1 = *(int *)(&g_aRdRaster_OneOverNFixed + iVar10 * 4);
     lVar2 = (longlong)(int)(param_2[10] - param_1[10]) * (longlong)iVar1;
     uVar7 = (uint)lVar2 >> 0x10 | (int)((ulonglong)lVar2 >> 0x20) << 0x10;
     bVar8 = (byte)UINT_008ddee4;
@@ -10538,7 +10538,7 @@ void rdRaster_Span_Tex_5(uint *param_1,uint *param_2)
   iVar10 = (uVar9 >> 0x10) - ((int)uVar5 >> 0x10);
   if (0 < iVar10) {
     iVar6 = uVar5 - uVar7;
-    iVar1 = *(int *)(&DAT_008fbfc0 + iVar10 * 4);
+    iVar1 = *(int *)(&g_aRdRaster_OneOverNFixed + iVar10 * 4);
     lVar2 = (longlong)(int)(param_2[10] - param_1[10]) * (longlong)iVar1;
     uVar7 = (uint)lVar2 >> 0x10 | (int)((ulonglong)lVar2 >> 0x20) << 0x10;
     bVar8 = (byte)UINT_008ddee4;
@@ -10663,7 +10663,7 @@ void rdRaster_Span16_Tex_9(uint *param_1,uint *param_2)
   iVar10 = (uVar9 >> 0x10) - ((int)uVar5 >> 0x10);
   if (0 < iVar10) {
     iVar6 = uVar5 - uVar7;
-    iVar1 = *(int *)(&DAT_008fbfc0 + iVar10 * 4);
+    iVar1 = *(int *)(&g_aRdRaster_OneOverNFixed + iVar10 * 4);
     lVar2 = (longlong)(int)(param_2[10] - param_1[10]) * (longlong)iVar1;
     uVar7 = (uint)lVar2 >> 0x10 | (int)((ulonglong)lVar2 >> 0x20) << 0x10;
     bVar8 = (byte)UINT_008ddee4;
@@ -10890,7 +10890,7 @@ void rdRaster_Span8_TexKey_2(uint *param_1,uint *param_2)
   iVar10 = (uVar9 >> 0x10) - ((int)uVar5 >> 0x10);
   if (0 < iVar10) {
     iVar6 = uVar5 - uVar7;
-    iVar1 = *(int *)(&DAT_008fbfc0 + iVar10 * 4);
+    iVar1 = *(int *)(&g_aRdRaster_OneOverNFixed + iVar10 * 4);
     lVar2 = (longlong)(int)(param_2[10] - param_1[10]) * (longlong)iVar1;
     uVar7 = (uint)lVar2 >> 0x10 | (int)((ulonglong)lVar2 >> 0x20) << 0x10;
     bVar8 = (byte)UINT_008ddee4;
@@ -10980,7 +10980,7 @@ void rdRaster_Span16_TexKey_4(uint *param_1,uint *param_2)
   iVar10 = (uVar9 >> 0x10) - ((int)uVar5 >> 0x10);
   if (0 < iVar10) {
     iVar6 = uVar5 - uVar7;
-    iVar1 = *(int *)(&DAT_008fbfc0 + iVar10 * 4);
+    iVar1 = *(int *)(&g_aRdRaster_OneOverNFixed + iVar10 * 4);
     lVar2 = (longlong)(int)(param_2[10] - param_1[10]) * (longlong)iVar1;
     uVar7 = (uint)lVar2 >> 0x10 | (int)((ulonglong)lVar2 >> 0x20) << 0x10;
     bVar8 = (byte)UINT_008ddee4;
@@ -11208,7 +11208,7 @@ void rdRaster_Span_TexKey_4(uint *param_1,uint *param_2)
   iVar10 = (uVar9 >> 0x10) - ((int)uVar5 >> 0x10);
   if (0 < iVar10) {
     iVar6 = uVar5 - uVar7;
-    iVar1 = *(int *)(&DAT_008fbfc0 + iVar10 * 4);
+    iVar1 = *(int *)(&g_aRdRaster_OneOverNFixed + iVar10 * 4);
     lVar2 = (longlong)(int)(param_2[10] - param_1[10]) * (longlong)iVar1;
     uVar7 = (uint)lVar2 >> 0x10 | (int)((ulonglong)lVar2 >> 0x20) << 0x10;
     bVar8 = (byte)UINT_008ddee4;
@@ -11300,7 +11300,7 @@ void rdRaster_Span16_TexKey_5(uint *param_1,uint *param_2)
   iVar10 = (uVar9 >> 0x10) - ((int)uVar5 >> 0x10);
   if (0 < iVar10) {
     iVar6 = uVar5 - uVar7;
-    iVar1 = *(int *)(&DAT_008fbfc0 + iVar10 * 4);
+    iVar1 = *(int *)(&g_aRdRaster_OneOverNFixed + iVar10 * 4);
     lVar2 = (longlong)(int)(param_2[10] - param_1[10]) * (longlong)iVar1;
     uVar7 = (uint)lVar2 >> 0x10 | (int)((ulonglong)lVar2 >> 0x20) << 0x10;
     bVar8 = (byte)UINT_008ddee4;
@@ -11604,10 +11604,12 @@ void rdRaster_Span16_Tex_10(uint *param_1,uint *param_2)
       fVar3 = fVar2 * fVar5;
       fVar2 = fVar2 * fVar1;
       bVar8 = (byte)UINT_008ddee4;
-      fVar14 = (float)((int)ROUND((fVar3 - (float)local_c) * (float)(&UINT_008fe000)[local_28] *
-                                  65536.0) >> (bVar8 & 0x1f));
-      local_20 = (int)ROUND((fVar2 - (float)local_10) * (float)(&UINT_008fe000)[local_28] * 65536.0)
-                 >> (bVar8 & 0x1f);
+      fVar14 = (float)((int)ROUND((fVar3 - (float)local_c) *
+                                  (float)(&g_dwRdRaster_aOneOverNFlex)[local_28] * 65536.0) >>
+                      (bVar8 & 0x1f));
+      local_20 = (int)ROUND((fVar2 - (float)local_10) *
+                            (float)(&g_dwRdRaster_aOneOverNFlex)[local_28] * 65536.0) >>
+                 (bVar8 & 0x1f);
       fVar11 = (float)(((int)ROUND((float)local_c * 65536.0) >> (bVar8 & 0x1f)) + UINT_008ddef8);
       fVar13 = (float)(((int)ROUND((float)local_10 * 65536.0) >> (bVar8 & 0x1f)) + UINT_008ddeac);
       if (0 < (int)local_28) {
@@ -12090,10 +12092,12 @@ void rdRaster_Span_Tex_6(uint *param_1,uint *param_2)
       fVar3 = fVar2 * fVar5;
       fVar2 = fVar2 * fVar1;
       bVar8 = (byte)UINT_008ddee4;
-      local_20 = (int)ROUND((fVar3 - (float)local_c) * (float)(&UINT_008fe000)[local_2c] * 65536.0)
-                 >> (bVar8 & 0x1f);
-      local_24 = (int)ROUND((fVar2 - (float)local_10) * (float)(&UINT_008fe000)[local_2c] * 65536.0)
-                 >> (bVar8 & 0x1f);
+      local_20 = (int)ROUND((fVar3 - (float)local_c) *
+                            (float)(&g_dwRdRaster_aOneOverNFlex)[local_2c] * 65536.0) >>
+                 (bVar8 & 0x1f);
+      local_24 = (int)ROUND((fVar2 - (float)local_10) *
+                            (float)(&g_dwRdRaster_aOneOverNFlex)[local_2c] * 65536.0) >>
+                 (bVar8 & 0x1f);
       fVar13 = (float)(((int)ROUND((float)local_c * 65536.0) >> (bVar8 & 0x1f)) + UINT_008ddef8);
       fVar15 = (float)(((int)ROUND((float)local_10 * 65536.0) >> (bVar8 & 0x1f)) + UINT_008ddeac);
       pbVar11 = pbVar10;
@@ -12304,10 +12308,12 @@ void rdRaster_Span16_Tex_11(uint *param_1,uint *param_2)
       fVar3 = fVar2 * fVar5;
       fVar2 = fVar2 * fVar1;
       bVar9 = (byte)UINT_008ddee4;
-      local_20 = (int)ROUND((fVar3 - (float)local_c) * (float)(&UINT_008fe000)[local_2c] * 65536.0)
-                 >> (bVar9 & 0x1f);
-      local_24 = (int)ROUND((fVar2 - (float)local_10) * (float)(&UINT_008fe000)[local_2c] * 65536.0)
-                 >> (bVar9 & 0x1f);
+      local_20 = (int)ROUND((fVar3 - (float)local_c) *
+                            (float)(&g_dwRdRaster_aOneOverNFlex)[local_2c] * 65536.0) >>
+                 (bVar9 & 0x1f);
+      local_24 = (int)ROUND((fVar2 - (float)local_10) *
+                            (float)(&g_dwRdRaster_aOneOverNFlex)[local_2c] * 65536.0) >>
+                 (bVar9 & 0x1f);
       fVar13 = (float)(((int)ROUND((float)local_c * 65536.0) >> (bVar9 & 0x1f)) + UINT_008ddef8);
       fVar14 = (float)(((int)ROUND((float)local_10 * 65536.0) >> (bVar9 & 0x1f)) + UINT_008ddeac);
       if (0 < (int)local_2c) {
@@ -12645,10 +12651,12 @@ void rdRaster_Span_FlatKey_2(uint *param_1,uint *param_2)
       fVar4 = fVar3 * fVar6;
       fVar3 = fVar3 * fVar1;
       bVar10 = (byte)UINT_008ddee4;
-      local_20 = (int)ROUND((fVar4 - (float)local_c) * (float)(&UINT_008fe000)[local_2c] * 65536.0)
-                 >> (bVar10 & 0x1f);
-      local_24 = (int)ROUND((fVar3 - (float)local_10) * (float)(&UINT_008fe000)[local_2c] * 65536.0)
-                 >> (bVar10 & 0x1f);
+      local_20 = (int)ROUND((fVar4 - (float)local_c) *
+                            (float)(&g_dwRdRaster_aOneOverNFlex)[local_2c] * 65536.0) >>
+                 (bVar10 & 0x1f);
+      local_24 = (int)ROUND((fVar3 - (float)local_10) *
+                            (float)(&g_dwRdRaster_aOneOverNFlex)[local_2c] * 65536.0) >>
+                 (bVar10 & 0x1f);
       fVar12 = (float)(((int)ROUND((float)local_c * 65536.0) >> (bVar10 & 0x1f)) + UINT_008ddef8);
       fVar14 = (float)(((int)ROUND((float)local_10 * 65536.0) >> (bVar10 & 0x1f)) + UINT_008ddeac);
       if (0 < (int)local_2c) {
@@ -12858,10 +12866,12 @@ void rdRaster_Span16_TexKey_6(uint *param_1,uint *param_2)
       fVar3 = fVar2 * fVar5;
       fVar2 = fVar2 * fVar1;
       bVar9 = (byte)UINT_008ddee4;
-      fVar15 = (float)((int)ROUND((fVar3 - (float)local_c) * (float)(&UINT_008fe000)[local_2c] *
-                                  65536.0) >> (bVar9 & 0x1f));
-      local_24 = (int)ROUND((fVar2 - (float)local_10) * (float)(&UINT_008fe000)[local_2c] * 65536.0)
-                 >> (bVar9 & 0x1f);
+      fVar15 = (float)((int)ROUND((fVar3 - (float)local_c) *
+                                  (float)(&g_dwRdRaster_aOneOverNFlex)[local_2c] * 65536.0) >>
+                      (bVar9 & 0x1f));
+      local_24 = (int)ROUND((fVar2 - (float)local_10) *
+                            (float)(&g_dwRdRaster_aOneOverNFlex)[local_2c] * 65536.0) >>
+                 (bVar9 & 0x1f);
       fVar12 = (float)(((int)ROUND((float)local_c * 65536.0) >> (bVar9 & 0x1f)) + UINT_008ddef8);
       fVar13 = (float)(((int)ROUND((float)local_10 * 65536.0) >> (bVar9 & 0x1f)) + UINT_008ddeac);
       if (0 < (int)local_2c) {
@@ -13190,10 +13200,12 @@ void rdRaster_Span_TexKey_5(uint *param_1,uint *param_2)
       fVar3 = fVar2 * fVar5;
       fVar2 = fVar2 * fVar1;
       bVar8 = (byte)UINT_008ddee4;
-      local_24 = (int)ROUND((fVar3 - (float)local_c) * (float)(&UINT_008fe000)[local_30] * 65536.0)
-                 >> (bVar8 & 0x1f);
-      local_28 = (int)ROUND((fVar2 - (float)local_10) * (float)(&UINT_008fe000)[local_30] * 65536.0)
-                 >> (bVar8 & 0x1f);
+      local_24 = (int)ROUND((fVar3 - (float)local_c) *
+                            (float)(&g_dwRdRaster_aOneOverNFlex)[local_30] * 65536.0) >>
+                 (bVar8 & 0x1f);
+      local_28 = (int)ROUND((fVar2 - (float)local_10) *
+                            (float)(&g_dwRdRaster_aOneOverNFlex)[local_30] * 65536.0) >>
+                 (bVar8 & 0x1f);
       fVar11 = (float)(((int)ROUND((float)local_c * 65536.0) >> (bVar8 & 0x1f)) + UINT_008ddef8);
       fVar13 = (float)(((int)ROUND((float)local_10 * 65536.0) >> (bVar8 & 0x1f)) + UINT_008ddeac);
       if (0 < (int)local_30) {
@@ -13404,10 +13416,12 @@ void rdRaster_Span16_TexKey_7(uint *param_1,uint *param_2)
       fVar3 = fVar2 * fVar5;
       fVar2 = fVar2 * fVar1;
       bVar9 = (byte)UINT_008ddee4;
-      fVar15 = (float)((int)ROUND((fVar3 - (float)local_c) * (float)(&UINT_008fe000)[local_2c] *
-                                  65536.0) >> (bVar9 & 0x1f));
-      local_24 = (int)ROUND((fVar2 - (float)local_10) * (float)(&UINT_008fe000)[local_2c] * 65536.0)
-                 >> (bVar9 & 0x1f);
+      fVar15 = (float)((int)ROUND((fVar3 - (float)local_c) *
+                                  (float)(&g_dwRdRaster_aOneOverNFlex)[local_2c] * 65536.0) >>
+                      (bVar9 & 0x1f));
+      local_24 = (int)ROUND((fVar2 - (float)local_10) *
+                            (float)(&g_dwRdRaster_aOneOverNFlex)[local_2c] * 65536.0) >>
+                 (bVar9 & 0x1f);
       fVar12 = (float)(((int)ROUND((float)local_c * 65536.0) >> (bVar9 & 0x1f)) + UINT_008ddef8);
       fVar13 = (float)(((int)ROUND((float)local_10 * 65536.0) >> (bVar9 & 0x1f)) + UINT_008ddeac);
       if (0 < (int)local_2c) {
@@ -13775,10 +13789,12 @@ void rdRaster_Span16_Tex_12(uint *param_1,uint *param_2)
       fVar2 = fVar1 * fVar5;
       fVar1 = fVar1 * fVar3;
       bVar8 = (byte)UINT_008ddee4;
-      fVar14 = (float)((int)ROUND((fVar2 - (float)local_c) * (float)(&UINT_008fe000)[local_28] *
-                                  65536.0) >> (bVar8 & 0x1f));
-      local_20 = (int)ROUND((fVar1 - (float)local_10) * (float)(&UINT_008fe000)[local_28] * 65536.0)
-                 >> (bVar8 & 0x1f);
+      fVar14 = (float)((int)ROUND((fVar2 - (float)local_c) *
+                                  (float)(&g_dwRdRaster_aOneOverNFlex)[local_28] * 65536.0) >>
+                      (bVar8 & 0x1f));
+      local_20 = (int)ROUND((fVar1 - (float)local_10) *
+                            (float)(&g_dwRdRaster_aOneOverNFlex)[local_28] * 65536.0) >>
+                 (bVar8 & 0x1f);
       fVar11 = (float)(((int)ROUND((float)local_c * 65536.0) >> (bVar8 & 0x1f)) + UINT_008ddef8);
       fVar13 = (float)(((int)ROUND((float)local_10 * 65536.0) >> (bVar8 & 0x1f)) + UINT_008ddeac);
       if (0 < (int)local_28) {
@@ -13842,11 +13858,12 @@ void rdRaster_Span16_Tex_12(uint *param_1,uint *param_2)
         fVar3 = 1.0 / ((fVar4 * _DAT_008ddef4 - _DAT_008ddeec) + PUN(float,param_1));
         bVar8 = (byte)UINT_008ddee4;
         fVar14 = (float)((int)ROUND((((fVar4 * _DAT_008ddec8 - _DAT_008dded0) + PUN(float,param_2)) *
-                                     fVar3 - (float)local_c) * (float)(&UINT_008fe000)[iVar7] *
-                                    65536.0) >> (bVar8 & 0x1f));
+                                     fVar3 - (float)local_c) *
+                                    (float)(&g_dwRdRaster_aOneOverNFlex)[iVar7] * 65536.0) >>
+                        (bVar8 & 0x1f));
         local_20 = (int)ROUND((((fVar4 * _DAT_008ddedc - _DAT_008ddf00) + (float)local_8) * fVar3 -
-                              (float)local_10) * (float)(&UINT_008fe000)[iVar7] * 65536.0) >>
-                   (bVar8 & 0x1f);
+                              (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar7] *
+                              65536.0) >> (bVar8 & 0x1f);
         fVar11 = (float)(((int)ROUND((float)local_c * 65536.0) >> (bVar8 & 0x1f)) + UINT_008ddef8);
         fVar13 = (float)(((int)ROUND((float)local_10 * 65536.0) >> (bVar8 & 0x1f)) + UINT_008ddeac);
       }
@@ -14265,10 +14282,12 @@ void rdRaster_Span_Tex_7(uint *param_1,uint *param_2)
       fVar2 = fVar1 * fVar5;
       fVar1 = fVar1 * fVar3;
       bVar8 = (byte)UINT_008ddee4;
-      local_20 = (int)ROUND((fVar2 - (float)local_c) * (float)(&UINT_008fe000)[local_2c] * 65536.0)
-                 >> (bVar8 & 0x1f);
-      local_24 = (int)ROUND((fVar1 - (float)local_10) * (float)(&UINT_008fe000)[local_2c] * 65536.0)
-                 >> (bVar8 & 0x1f);
+      local_20 = (int)ROUND((fVar2 - (float)local_c) *
+                            (float)(&g_dwRdRaster_aOneOverNFlex)[local_2c] * 65536.0) >>
+                 (bVar8 & 0x1f);
+      local_24 = (int)ROUND((fVar1 - (float)local_10) *
+                            (float)(&g_dwRdRaster_aOneOverNFlex)[local_2c] * 65536.0) >>
+                 (bVar8 & 0x1f);
       fVar13 = (float)(((int)ROUND((float)local_c * 65536.0) >> (bVar8 & 0x1f)) + UINT_008ddef8);
       fVar15 = (float)(((int)ROUND((float)local_10 * 65536.0) >> (bVar8 & 0x1f)) + UINT_008ddeac);
       pbVar11 = pbVar10;
@@ -14337,11 +14356,11 @@ void rdRaster_Span_Tex_7(uint *param_1,uint *param_2)
         fVar3 = 1.0 / ((fVar4 * _DAT_008ddef4 - _DAT_008ddeec) + PUN(float,param_1));
         bVar8 = (byte)UINT_008ddee4;
         local_20 = (int)ROUND((((fVar4 * _DAT_008ddec8 - _DAT_008dded0) + PUN(float,param_2)) * fVar3 -
-                              (float)local_c) * (float)(&UINT_008fe000)[iVar7] * 65536.0) >>
-                   (bVar8 & 0x1f);
+                              (float)local_c) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar7] *
+                              65536.0) >> (bVar8 & 0x1f);
         local_24 = (int)ROUND((((fVar4 * _DAT_008ddedc - _DAT_008ddf00) + (float)local_8) * fVar3 -
-                              (float)local_10) * (float)(&UINT_008fe000)[iVar7] * 65536.0) >>
-                   (bVar8 & 0x1f);
+                              (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar7] *
+                              65536.0) >> (bVar8 & 0x1f);
         fVar13 = (float)(((int)ROUND((float)local_c * 65536.0) >> (bVar8 & 0x1f)) + UINT_008ddef8);
         fVar15 = (float)(((int)ROUND((float)local_10 * 65536.0) >> (bVar8 & 0x1f)) + UINT_008ddeac);
       }
@@ -14487,10 +14506,12 @@ void rdRaster_Span16_Tex_13(uint *param_1,uint *param_2)
       fVar2 = fVar1 * fVar5;
       fVar1 = fVar1 * fVar3;
       bVar9 = (byte)UINT_008ddee4;
-      local_20 = (int)ROUND((fVar2 - (float)local_c) * (float)(&UINT_008fe000)[local_2c] * 65536.0)
-                 >> (bVar9 & 0x1f);
-      local_24 = (int)ROUND((fVar1 - (float)local_10) * (float)(&UINT_008fe000)[local_2c] * 65536.0)
-                 >> (bVar9 & 0x1f);
+      local_20 = (int)ROUND((fVar2 - (float)local_c) *
+                            (float)(&g_dwRdRaster_aOneOverNFlex)[local_2c] * 65536.0) >>
+                 (bVar9 & 0x1f);
+      local_24 = (int)ROUND((fVar1 - (float)local_10) *
+                            (float)(&g_dwRdRaster_aOneOverNFlex)[local_2c] * 65536.0) >>
+                 (bVar9 & 0x1f);
       fVar13 = (float)(((int)ROUND((float)local_c * 65536.0) >> (bVar9 & 0x1f)) + UINT_008ddef8);
       fVar14 = (float)(((int)ROUND((float)local_10 * 65536.0) >> (bVar9 & 0x1f)) + UINT_008ddeac);
       if (0 < (int)local_2c) {
@@ -14566,11 +14587,11 @@ void rdRaster_Span16_Tex_13(uint *param_1,uint *param_2)
         fVar3 = 1.0 / ((fVar4 * _DAT_008ddef4 - _DAT_008ddeec) + PUN(float,param_1));
         bVar9 = (byte)UINT_008ddee4;
         local_20 = (int)ROUND((((fVar4 * _DAT_008ddec8 - _DAT_008dded0) + PUN(float,param_2)) * fVar3 -
-                              (float)local_c) * (float)(&UINT_008fe000)[iVar8] * 65536.0) >>
-                   (bVar9 & 0x1f);
+                              (float)local_c) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar8] *
+                              65536.0) >> (bVar9 & 0x1f);
         local_24 = (int)ROUND((((fVar4 * _DAT_008ddedc - _DAT_008ddf00) + (float)local_8) * fVar3 -
-                              (float)local_10) * (float)(&UINT_008fe000)[iVar8] * 65536.0) >>
-                   (bVar9 & 0x1f);
+                              (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar8] *
+                              65536.0) >> (bVar9 & 0x1f);
         fVar13 = (float)(((int)ROUND((float)local_c * 65536.0) >> (bVar9 & 0x1f)) + UINT_008ddef8);
         fVar14 = (float)(((int)ROUND((float)local_10 * 65536.0) >> (bVar9 & 0x1f)) + UINT_008ddeac);
       }
@@ -14844,10 +14865,12 @@ void rdRaster_Span8_TexKey_3(uint *param_1,uint *param_2)
       fVar2 = fVar1 * fVar5;
       fVar1 = fVar1 * fVar3;
       bVar8 = (byte)UINT_008ddee4;
-      local_24 = (int)ROUND((fVar2 - (float)local_c) * (float)(&UINT_008fe000)[local_30] * 65536.0)
-                 >> (bVar8 & 0x1f);
-      local_28 = (int)ROUND((fVar1 - (float)local_10) * (float)(&UINT_008fe000)[local_30] * 65536.0)
-                 >> (bVar8 & 0x1f);
+      local_24 = (int)ROUND((fVar2 - (float)local_c) *
+                            (float)(&g_dwRdRaster_aOneOverNFlex)[local_30] * 65536.0) >>
+                 (bVar8 & 0x1f);
+      local_28 = (int)ROUND((fVar1 - (float)local_10) *
+                            (float)(&g_dwRdRaster_aOneOverNFlex)[local_30] * 65536.0) >>
+                 (bVar8 & 0x1f);
       fVar11 = (float)(((int)ROUND((float)local_c * 65536.0) >> (bVar8 & 0x1f)) + UINT_008ddef8);
       fVar13 = (float)(((int)ROUND((float)local_10 * 65536.0) >> (bVar8 & 0x1f)) + UINT_008ddeac);
       if (0 < (int)local_30) {
@@ -14909,11 +14932,11 @@ void rdRaster_Span8_TexKey_3(uint *param_1,uint *param_2)
         fVar3 = 1.0 / ((fVar4 * _DAT_008ddef4 - _DAT_008ddeec) + PUN(float,param_1));
         bVar8 = (byte)UINT_008ddee4;
         local_24 = (int)ROUND((((fVar4 * _DAT_008ddec8 - _DAT_008dded0) + PUN(float,param_2)) * fVar3 -
-                              (float)local_c) * (float)(&UINT_008fe000)[iVar7] * 65536.0) >>
-                   (bVar8 & 0x1f);
+                              (float)local_c) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar7] *
+                              65536.0) >> (bVar8 & 0x1f);
         local_28 = (int)ROUND((((fVar4 * _DAT_008ddedc - _DAT_008ddf00) + (float)local_8) * fVar3 -
-                              (float)local_10) * (float)(&UINT_008fe000)[iVar7] * 65536.0) >>
-                   (bVar8 & 0x1f);
+                              (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar7] *
+                              65536.0) >> (bVar8 & 0x1f);
         fVar11 = (float)(((int)ROUND((float)local_c * 65536.0) >> (bVar8 & 0x1f)) + UINT_008ddef8);
         fVar13 = (float)(((int)ROUND((float)local_10 * 65536.0) >> (bVar8 & 0x1f)) + UINT_008ddeac);
       }
@@ -15060,10 +15083,12 @@ void rdRaster_Span16_TexKey_8(uint *param_1,uint *param_2)
       fVar2 = fVar1 * fVar5;
       fVar1 = fVar1 * fVar3;
       bVar9 = (byte)UINT_008ddee4;
-      fVar15 = (float)((int)ROUND((fVar2 - (float)local_c) * (float)(&UINT_008fe000)[local_2c] *
-                                  65536.0) >> (bVar9 & 0x1f));
-      local_24 = (int)ROUND((fVar1 - (float)local_10) * (float)(&UINT_008fe000)[local_2c] * 65536.0)
-                 >> (bVar9 & 0x1f);
+      fVar15 = (float)((int)ROUND((fVar2 - (float)local_c) *
+                                  (float)(&g_dwRdRaster_aOneOverNFlex)[local_2c] * 65536.0) >>
+                      (bVar9 & 0x1f));
+      local_24 = (int)ROUND((fVar1 - (float)local_10) *
+                            (float)(&g_dwRdRaster_aOneOverNFlex)[local_2c] * 65536.0) >>
+                 (bVar9 & 0x1f);
       fVar12 = (float)(((int)ROUND((float)local_c * 65536.0) >> (bVar9 & 0x1f)) + UINT_008ddef8);
       fVar13 = (float)(((int)ROUND((float)local_10 * 65536.0) >> (bVar9 & 0x1f)) + UINT_008ddeac);
       if (0 < (int)local_2c) {
@@ -15125,11 +15150,12 @@ void rdRaster_Span16_TexKey_8(uint *param_1,uint *param_2)
         fVar3 = 1.0 / ((fVar4 * _DAT_008ddef4 - _DAT_008ddeec) + PUN(float,param_1));
         bVar9 = (byte)UINT_008ddee4;
         fVar15 = (float)((int)ROUND((((fVar4 * _DAT_008ddec8 - _DAT_008dded0) + PUN(float,param_2)) *
-                                     fVar3 - (float)local_c) * (float)(&UINT_008fe000)[iVar8] *
-                                    65536.0) >> (bVar9 & 0x1f));
+                                     fVar3 - (float)local_c) *
+                                    (float)(&g_dwRdRaster_aOneOverNFlex)[iVar8] * 65536.0) >>
+                        (bVar9 & 0x1f));
         local_24 = (int)ROUND((((fVar4 * _DAT_008ddedc - _DAT_008ddf00) + (float)local_8) * fVar3 -
-                              (float)local_10) * (float)(&UINT_008fe000)[iVar8] * 65536.0) >>
-                   (bVar9 & 0x1f);
+                              (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar8] *
+                              65536.0) >> (bVar9 & 0x1f);
         fVar12 = (float)(((int)ROUND((float)local_c * 65536.0) >> (bVar9 & 0x1f)) + UINT_008ddef8);
         fVar13 = (float)(((int)ROUND((float)local_10 * 65536.0) >> (bVar9 & 0x1f)) + UINT_008ddeac);
       }
@@ -15396,10 +15422,12 @@ void rdRaster_Span_TexKey_6(uint *param_1,uint *param_2)
       fVar2 = fVar1 * fVar5;
       fVar1 = fVar1 * fVar3;
       bVar8 = (byte)UINT_008ddee4;
-      local_24 = (int)ROUND((fVar2 - (float)local_c) * (float)(&UINT_008fe000)[local_30] * 65536.0)
-                 >> (bVar8 & 0x1f);
-      local_28 = (int)ROUND((fVar1 - (float)local_10) * (float)(&UINT_008fe000)[local_30] * 65536.0)
-                 >> (bVar8 & 0x1f);
+      local_24 = (int)ROUND((fVar2 - (float)local_c) *
+                            (float)(&g_dwRdRaster_aOneOverNFlex)[local_30] * 65536.0) >>
+                 (bVar8 & 0x1f);
+      local_28 = (int)ROUND((fVar1 - (float)local_10) *
+                            (float)(&g_dwRdRaster_aOneOverNFlex)[local_30] * 65536.0) >>
+                 (bVar8 & 0x1f);
       fVar11 = (float)(((int)ROUND((float)local_c * 65536.0) >> (bVar8 & 0x1f)) + UINT_008ddef8);
       fVar13 = (float)(((int)ROUND((float)local_10 * 65536.0) >> (bVar8 & 0x1f)) + UINT_008ddeac);
       if (0 < (int)local_30) {
@@ -15463,11 +15491,11 @@ void rdRaster_Span_TexKey_6(uint *param_1,uint *param_2)
         fVar3 = 1.0 / ((fVar4 * _DAT_008ddef4 - _DAT_008ddeec) + PUN(float,param_1));
         bVar8 = (byte)UINT_008ddee4;
         local_24 = (int)ROUND((((fVar4 * _DAT_008ddec8 - _DAT_008dded0) + PUN(float,param_2)) * fVar3 -
-                              (float)local_c) * (float)(&UINT_008fe000)[iVar7] * 65536.0) >>
-                   (bVar8 & 0x1f);
+                              (float)local_c) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar7] *
+                              65536.0) >> (bVar8 & 0x1f);
         local_28 = (int)ROUND((((fVar4 * _DAT_008ddedc - _DAT_008ddf00) + (float)local_8) * fVar3 -
-                              (float)local_10) * (float)(&UINT_008fe000)[iVar7] * 65536.0) >>
-                   (bVar8 & 0x1f);
+                              (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar7] *
+                              65536.0) >> (bVar8 & 0x1f);
         fVar11 = (float)(((int)ROUND((float)local_c * 65536.0) >> (bVar8 & 0x1f)) + UINT_008ddef8);
         fVar13 = (float)(((int)ROUND((float)local_10 * 65536.0) >> (bVar8 & 0x1f)) + UINT_008ddeac);
       }
@@ -15615,10 +15643,12 @@ void rdRaster_Span16_TexKey_9(uint *param_1,uint *param_2)
       fVar2 = fVar1 * fVar5;
       fVar1 = fVar1 * fVar3;
       bVar9 = (byte)UINT_008ddee4;
-      fVar15 = (float)((int)ROUND((fVar2 - (float)local_c) * (float)(&UINT_008fe000)[local_2c] *
-                                  65536.0) >> (bVar9 & 0x1f));
-      local_24 = (int)ROUND((fVar1 - (float)local_10) * (float)(&UINT_008fe000)[local_2c] * 65536.0)
-                 >> (bVar9 & 0x1f);
+      fVar15 = (float)((int)ROUND((fVar2 - (float)local_c) *
+                                  (float)(&g_dwRdRaster_aOneOverNFlex)[local_2c] * 65536.0) >>
+                      (bVar9 & 0x1f));
+      local_24 = (int)ROUND((fVar1 - (float)local_10) *
+                            (float)(&g_dwRdRaster_aOneOverNFlex)[local_2c] * 65536.0) >>
+                 (bVar9 & 0x1f);
       fVar12 = (float)(((int)ROUND((float)local_c * 65536.0) >> (bVar9 & 0x1f)) + UINT_008ddef8);
       fVar13 = (float)(((int)ROUND((float)local_10 * 65536.0) >> (bVar9 & 0x1f)) + UINT_008ddeac);
       if (0 < (int)local_2c) {
@@ -15688,11 +15718,12 @@ void rdRaster_Span16_TexKey_9(uint *param_1,uint *param_2)
         fVar3 = 1.0 / ((fVar4 * _DAT_008ddef4 - _DAT_008ddeec) + PUN(float,param_1));
         bVar9 = (byte)UINT_008ddee4;
         fVar15 = (float)((int)ROUND((((fVar4 * _DAT_008ddec8 - _DAT_008dded0) + PUN(float,param_2)) *
-                                     fVar3 - (float)local_c) * (float)(&UINT_008fe000)[iVar8] *
-                                    65536.0) >> (bVar9 & 0x1f));
+                                     fVar3 - (float)local_c) *
+                                    (float)(&g_dwRdRaster_aOneOverNFlex)[iVar8] * 65536.0) >>
+                        (bVar9 & 0x1f));
         local_24 = (int)ROUND((((fVar4 * _DAT_008ddedc - _DAT_008ddf00) + (float)local_8) * fVar3 -
-                              (float)local_10) * (float)(&UINT_008fe000)[iVar8] * 65536.0) >>
-                   (bVar9 & 0x1f);
+                              (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar8] *
+                              65536.0) >> (bVar9 & 0x1f);
         fVar12 = (float)(((int)ROUND((float)local_c * 65536.0) >> (bVar9 & 0x1f)) + UINT_008ddef8);
         fVar13 = (float)(((int)ROUND((float)local_10 * 65536.0) >> (bVar9 & 0x1f)) + UINT_008ddeac);
       }
@@ -15963,7 +15994,7 @@ void rdRaster_Span16_Tex_14(uint *param_1,uint *param_2)
     *(float *)&DAT_007f4258 = fVar3 * _DAT_008ddec8 + (float)param_1[6];
     *(float *)&DAT_007f42e4 = fVar3 * _DAT_008ddedc + (float)param_1[8];
     lVar2 = (longlong)(int)(param_2[0xe] - param_1[0xe]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + uVar5 * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + uVar5 * 4);
     UINT_007f439c = (uint)lVar2 >> 0x10 | (int)((ulonglong)lVar2 >> 0x20) << 0x10;
     iVar6 = 0;
     if (((int)UINT_007f439c < 0) && (-0x51e < (int)UINT_007f439c)) {
@@ -15984,7 +16015,7 @@ void rdRaster_Span16_Tex_14(uint *param_1,uint *param_2)
     }
     else {
       *(float *)&DAT_007f42f0 = (float)(int)UINT_007f43ac;
-      *(float *)&DAT_007f43a0 = (float)(&UINT_008fe000)[UINT_007f43ac];
+      *(float *)&DAT_007f43a0 = (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f43ac];
       _DAT_007f43a4 = _DAT_008ddef4 * *(float *)&DAT_007f42f0 + *(float *)&DAT_007f42f4;
       _DAT_007f444c = _DAT_008ddec8 * *(float *)&DAT_007f42f0 + *(float *)&DAT_007f4258;
       _DAT_007f4248 = _DAT_008ddedc * *(float *)&DAT_007f42f0 + *(float *)&DAT_007f42e4;
@@ -16064,7 +16095,7 @@ void rdRaster_Span16_Tex_14(uint *param_1,uint *param_2)
       UINT_007f4244 = UINT_007f4244 - 1;
       if (UINT_007f4244 != 0) {
         *(float *)&DAT_007f4240 = (float)(int)UINT_007f4244;
-        *(float *)&DAT_007f42e0 = (float)(&UINT_008fe000)[UINT_007f4244];
+        *(float *)&DAT_007f42e0 = (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4244];
         _DAT_007f43a4 = (_DAT_008ddef4 * *(float *)&DAT_007f4240 - _DAT_008ddeec) + _DAT_007f43a4;
         _DAT_007f444c = (_DAT_008ddec8 * *(float *)&DAT_007f4240 - _DAT_008dded0) + _DAT_007f444c;
         _DAT_007f4248 = (_DAT_008ddedc * *(float *)&DAT_007f4240 - _DAT_008ddf00) + _DAT_007f4248;
@@ -16489,7 +16520,7 @@ void rdRaster_Span_Tex_8(uint *param_1,uint *param_2)
     local_24 = (uint)(fVar4 * _DAT_008ddec8 + (float)param_1[6]);
     fVar4 = fVar4 * _DAT_008ddedc + (float)param_1[8];
     lVar1 = (longlong)(int)(param_2[0xe] - param_1[0xe]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + uVar7 * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + uVar7 * 4);
     local_2c = (uint)lVar1 >> 0x10 | (int)((ulonglong)lVar1 >> 0x20) << 0x10;
     if (((int)local_2c < 0) && (-0x51e < (int)local_2c)) {
       local_2c = 0;
@@ -16517,10 +16548,12 @@ void rdRaster_Span_Tex_8(uint *param_1,uint *param_2)
       fVar3 = fVar2 * fVar6;
       fVar2 = fVar2 * fVar4;
       bVar11 = (byte)UINT_008ddee4;
-      local_24 = (int)ROUND((fVar3 - (float)local_10) * (float)(&UINT_008fe000)[local_34] * 65536.0)
-                 >> (bVar11 & 0x1f);
-      local_28 = (int)ROUND((fVar2 - (float)local_14) * (float)(&UINT_008fe000)[local_34] * 65536.0)
-                 >> (bVar11 & 0x1f);
+      local_24 = (int)ROUND((fVar3 - (float)local_10) *
+                            (float)(&g_dwRdRaster_aOneOverNFlex)[local_34] * 65536.0) >>
+                 (bVar11 & 0x1f);
+      local_28 = (int)ROUND((fVar2 - (float)local_14) *
+                            (float)(&g_dwRdRaster_aOneOverNFlex)[local_34] * 65536.0) >>
+                 (bVar11 & 0x1f);
       uVar14 = ((int)ROUND((float)local_10 * 65536.0) >> (bVar11 & 0x1f)) + UINT_008ddef8;
       uVar7 = ((int)ROUND((float)local_14 * 65536.0) >> (bVar11 & 0x1f)) + UINT_008ddeac;
       pbVar10 = pbVar9;
@@ -16590,11 +16623,11 @@ void rdRaster_Span_Tex_8(uint *param_1,uint *param_2)
         fVar4 = 1.0 / ((fVar5 * _DAT_008ddef4 - _DAT_008ddeec) + PUN(float,param_1));
         bVar11 = (byte)UINT_008ddee4;
         local_24 = (int)ROUND((((fVar5 * _DAT_008ddec8 - _DAT_008dded0) + (float)local_8) * fVar4 -
-                              (float)local_10) * (float)(&UINT_008fe000)[iVar8] * 65536.0) >>
-                   (bVar11 & 0x1f);
+                              (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar8] *
+                              65536.0) >> (bVar11 & 0x1f);
         local_28 = (int)ROUND((((fVar5 * _DAT_008ddedc - _DAT_008ddf00) + (float)local_c) * fVar4 -
-                              (float)local_14) * (float)(&UINT_008fe000)[iVar8] * 65536.0) >>
-                   (bVar11 & 0x1f);
+                              (float)local_14) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar8] *
+                              65536.0) >> (bVar11 & 0x1f);
         uVar14 = ((int)ROUND((float)local_10 * 65536.0) >> (bVar11 & 0x1f)) + UINT_008ddef8;
         uVar7 = ((int)ROUND((float)local_14 * 65536.0) >> (bVar11 & 0x1f)) + UINT_008ddeac;
       }
@@ -16726,7 +16759,7 @@ void rdRaster_Span16_Tex_15(uint *param_1,uint *param_2)
     local_24 = (uint)(fVar4 * _DAT_008ddec8 + (float)param_1[6]);
     fVar4 = fVar4 * _DAT_008ddedc + (float)param_1[8];
     lVar1 = (longlong)(int)(param_2[0xe] - param_1[0xe]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + uVar7 * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + uVar7 * 4);
     local_2c = (uint)lVar1 >> 0x10 | (int)((ulonglong)lVar1 >> 0x20) << 0x10;
     if (((int)local_2c < 0) && (-0x51e < (int)local_2c)) {
       local_2c = 0;
@@ -16755,10 +16788,12 @@ void rdRaster_Span16_Tex_15(uint *param_1,uint *param_2)
       fVar3 = fVar2 * fVar6;
       fVar2 = fVar2 * fVar4;
       bVar10 = (byte)UINT_008ddee4;
-      local_24 = (int)ROUND((fVar3 - (float)local_c) * (float)(&UINT_008fe000)[local_34] * 65536.0)
-                 >> (bVar10 & 0x1f);
-      local_28 = (int)ROUND((fVar2 - (float)local_10) * (float)(&UINT_008fe000)[local_34] * 65536.0)
-                 >> (bVar10 & 0x1f);
+      local_24 = (int)ROUND((fVar3 - (float)local_c) *
+                            (float)(&g_dwRdRaster_aOneOverNFlex)[local_34] * 65536.0) >>
+                 (bVar10 & 0x1f);
+      local_28 = (int)ROUND((fVar2 - (float)local_10) *
+                            (float)(&g_dwRdRaster_aOneOverNFlex)[local_34] * 65536.0) >>
+                 (bVar10 & 0x1f);
       fVar9 = (float)(((int)ROUND((float)local_c * 65536.0) >> (bVar10 & 0x1f)) + UINT_008ddef8);
       fVar13 = (float)(((int)ROUND((float)local_10 * 65536.0) >> (bVar10 & 0x1f)) + UINT_008ddeac);
       if (0 < (int)local_34) {
@@ -16839,11 +16874,11 @@ void rdRaster_Span16_Tex_15(uint *param_1,uint *param_2)
         fVar4 = 1.0 / ((fVar5 * _DAT_008ddef4 - _DAT_008ddeec) + PUN(float,param_2));
         bVar10 = (byte)UINT_008ddee4;
         local_24 = (int)ROUND((((fVar5 * _DAT_008ddec8 - _DAT_008dded0) + PUN(float,param_1)) * fVar4 -
-                              (float)local_c) * (float)(&UINT_008fe000)[iVar8] * 65536.0) >>
-                   (bVar10 & 0x1f);
+                              (float)local_c) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar8] *
+                              65536.0) >> (bVar10 & 0x1f);
         local_28 = (int)ROUND((((fVar5 * _DAT_008ddedc - _DAT_008ddf00) + (float)local_8) * fVar4 -
-                              (float)local_10) * (float)(&UINT_008fe000)[iVar8] * 65536.0) >>
-                   (bVar10 & 0x1f);
+                              (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar8] *
+                              65536.0) >> (bVar10 & 0x1f);
         fVar9 = (float)(((int)ROUND((float)local_c * 65536.0) >> (bVar10 & 0x1f)) + UINT_008ddef8);
         fVar13 = (float)(((int)ROUND((float)local_10 * 65536.0) >> (bVar10 & 0x1f)) + UINT_008ddeac)
         ;
@@ -17115,7 +17150,7 @@ void rdRaster_Span8_TexKey_4(uint *param_1,uint *param_2)
     local_28 = (uint)(fVar4 * _DAT_008ddec8 + (float)param_1[6]);
     fVar4 = fVar4 * _DAT_008ddedc + (float)param_1[8];
     lVar1 = (longlong)(int)(param_2[0xe] - param_1[0xe]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + uVar7 * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + uVar7 * 4);
     local_30 = (uint)lVar1 >> 0x10 | (int)((ulonglong)lVar1 >> 0x20) << 0x10;
     if (((int)local_30 < 0) && (-0x51e < (int)local_30)) {
       local_30 = 0;
@@ -17144,10 +17179,12 @@ void rdRaster_Span8_TexKey_4(uint *param_1,uint *param_2)
       fVar3 = fVar2 * fVar6;
       fVar2 = fVar2 * fVar4;
       bVar9 = (byte)UINT_008ddee4;
-      local_28 = (int)ROUND((fVar3 - (float)local_10) * (float)(&UINT_008fe000)[local_38] * 65536.0)
-                 >> (bVar9 & 0x1f);
-      local_2c = (int)ROUND((fVar2 - (float)local_14) * (float)(&UINT_008fe000)[local_38] * 65536.0)
-                 >> (bVar9 & 0x1f);
+      local_28 = (int)ROUND((fVar3 - (float)local_10) *
+                            (float)(&g_dwRdRaster_aOneOverNFlex)[local_38] * 65536.0) >>
+                 (bVar9 & 0x1f);
+      local_2c = (int)ROUND((fVar2 - (float)local_14) *
+                            (float)(&g_dwRdRaster_aOneOverNFlex)[local_38] * 65536.0) >>
+                 (bVar9 & 0x1f);
       uVar12 = ((int)ROUND((float)local_10 * 65536.0) >> (bVar9 & 0x1f)) + UINT_008ddef8;
       uVar7 = ((int)ROUND((float)local_14 * 65536.0) >> (bVar9 & 0x1f)) + UINT_008ddeac;
       if (0 < (int)local_38) {
@@ -17211,11 +17248,11 @@ void rdRaster_Span8_TexKey_4(uint *param_1,uint *param_2)
         fVar4 = 1.0 / ((fVar5 * _DAT_008ddef4 - _DAT_008ddeec) + PUN(float,param_1));
         bVar9 = (byte)UINT_008ddee4;
         local_28 = (int)ROUND((((fVar5 * _DAT_008ddec8 - _DAT_008dded0) + (float)local_8) * fVar4 -
-                              (float)local_10) * (float)(&UINT_008fe000)[iVar8] * 65536.0) >>
-                   (bVar9 & 0x1f);
+                              (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar8] *
+                              65536.0) >> (bVar9 & 0x1f);
         local_2c = (int)ROUND((((fVar5 * _DAT_008ddedc - _DAT_008ddf00) + (float)local_c) * fVar4 -
-                              (float)local_14) * (float)(&UINT_008fe000)[iVar8] * 65536.0) >>
-                   (bVar9 & 0x1f);
+                              (float)local_14) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar8] *
+                              65536.0) >> (bVar9 & 0x1f);
         uVar12 = ((int)ROUND((float)local_10 * 65536.0) >> (bVar9 & 0x1f)) + UINT_008ddef8;
         uVar7 = ((int)ROUND((float)local_14 * 65536.0) >> (bVar9 & 0x1f)) + UINT_008ddeac;
       }
@@ -17346,7 +17383,7 @@ void rdRaster_Span16_TexKey_10(uint *param_1,uint *param_2)
     local_24 = (uint)(fVar4 * _DAT_008ddec8 + (float)param_1[6]);
     fVar4 = fVar4 * _DAT_008ddedc + (float)param_1[8];
     lVar1 = (longlong)(int)(param_2[0xe] - param_1[0xe]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + uVar7 * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + uVar7 * 4);
     local_2c = (uint)lVar1 >> 0x10 | (int)((ulonglong)lVar1 >> 0x20) << 0x10;
     if (((int)local_2c < 0) && (-0x51e < (int)local_2c)) {
       local_2c = 0;
@@ -17375,10 +17412,12 @@ void rdRaster_Span16_TexKey_10(uint *param_1,uint *param_2)
       fVar3 = fVar2 * fVar6;
       fVar2 = fVar2 * fVar4;
       bVar11 = (byte)UINT_008ddee4;
-      local_24 = (int)ROUND((fVar3 - (float)local_c) * (float)(&UINT_008fe000)[local_34] * 65536.0)
-                 >> (bVar11 & 0x1f);
-      local_28 = (int)ROUND((fVar2 - (float)local_10) * (float)(&UINT_008fe000)[local_34] * 65536.0)
-                 >> (bVar11 & 0x1f);
+      local_24 = (int)ROUND((fVar3 - (float)local_c) *
+                            (float)(&g_dwRdRaster_aOneOverNFlex)[local_34] * 65536.0) >>
+                 (bVar11 & 0x1f);
+      local_28 = (int)ROUND((fVar2 - (float)local_10) *
+                            (float)(&g_dwRdRaster_aOneOverNFlex)[local_34] * 65536.0) >>
+                 (bVar11 & 0x1f);
       fVar10 = (float)(((int)ROUND((float)local_c * 65536.0) >> (bVar11 & 0x1f)) + UINT_008ddef8);
       fVar14 = (float)(((int)ROUND((float)local_10 * 65536.0) >> (bVar11 & 0x1f)) + UINT_008ddeac);
       if (0 < (int)local_34) {
@@ -17445,11 +17484,11 @@ void rdRaster_Span16_TexKey_10(uint *param_1,uint *param_2)
         fVar4 = 1.0 / ((fVar5 * _DAT_008ddef4 - _DAT_008ddeec) + PUN(float,param_2));
         bVar11 = (byte)UINT_008ddee4;
         local_24 = (int)ROUND((((fVar5 * _DAT_008ddec8 - _DAT_008dded0) + PUN(float,param_1)) * fVar4 -
-                              (float)local_c) * (float)(&UINT_008fe000)[iVar8] * 65536.0) >>
-                   (bVar11 & 0x1f);
+                              (float)local_c) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar8] *
+                              65536.0) >> (bVar11 & 0x1f);
         local_28 = (int)ROUND((((fVar5 * _DAT_008ddedc - _DAT_008ddf00) + (float)local_8) * fVar4 -
-                              (float)local_10) * (float)(&UINT_008fe000)[iVar8] * 65536.0) >>
-                   (bVar11 & 0x1f);
+                              (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar8] *
+                              65536.0) >> (bVar11 & 0x1f);
         fVar10 = (float)(((int)ROUND((float)local_c * 65536.0) >> (bVar11 & 0x1f)) + UINT_008ddef8);
         fVar14 = (float)(((int)ROUND((float)local_10 * 65536.0) >> (bVar11 & 0x1f)) + UINT_008ddeac)
         ;
@@ -17713,7 +17752,7 @@ void rdRaster_Span_TexKey_7(uint *param_1,uint *param_2)
     local_28 = (uint)(fVar4 * _DAT_008ddec8 + (float)param_1[6]);
     fVar4 = fVar4 * _DAT_008ddedc + (float)param_1[8];
     lVar1 = (longlong)(int)(param_2[0xe] - param_1[0xe]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + uVar7 * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + uVar7 * 4);
     local_30 = (uint)lVar1 >> 0x10 | (int)((ulonglong)lVar1 >> 0x20) << 0x10;
     if (((int)local_30 < 0) && (-0x51e < (int)local_30)) {
       local_30 = 0;
@@ -17741,10 +17780,12 @@ void rdRaster_Span_TexKey_7(uint *param_1,uint *param_2)
       fVar3 = fVar2 * fVar6;
       fVar2 = fVar2 * fVar4;
       bVar9 = (byte)UINT_008ddee4;
-      local_28 = (int)ROUND((fVar3 - (float)local_10) * (float)(&UINT_008fe000)[local_38] * 65536.0)
-                 >> (bVar9 & 0x1f);
-      local_2c = (int)ROUND((fVar2 - (float)local_14) * (float)(&UINT_008fe000)[local_38] * 65536.0)
-                 >> (bVar9 & 0x1f);
+      local_28 = (int)ROUND((fVar3 - (float)local_10) *
+                            (float)(&g_dwRdRaster_aOneOverNFlex)[local_38] * 65536.0) >>
+                 (bVar9 & 0x1f);
+      local_2c = (int)ROUND((fVar2 - (float)local_14) *
+                            (float)(&g_dwRdRaster_aOneOverNFlex)[local_38] * 65536.0) >>
+                 (bVar9 & 0x1f);
       uVar12 = ((int)ROUND((float)local_10 * 65536.0) >> (bVar9 & 0x1f)) + UINT_008ddef8;
       uVar7 = ((int)ROUND((float)local_14 * 65536.0) >> (bVar9 & 0x1f)) + UINT_008ddeac;
       if (0 < (int)local_38) {
@@ -17812,11 +17853,11 @@ void rdRaster_Span_TexKey_7(uint *param_1,uint *param_2)
         fVar4 = 1.0 / ((fVar5 * _DAT_008ddef4 - _DAT_008ddeec) + PUN(float,param_1));
         bVar9 = (byte)UINT_008ddee4;
         local_28 = (int)ROUND((((fVar5 * _DAT_008ddec8 - _DAT_008dded0) + (float)local_8) * fVar4 -
-                              (float)local_10) * (float)(&UINT_008fe000)[iVar8] * 65536.0) >>
-                   (bVar9 & 0x1f);
+                              (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar8] *
+                              65536.0) >> (bVar9 & 0x1f);
         local_2c = (int)ROUND((((fVar5 * _DAT_008ddedc - _DAT_008ddf00) + (float)local_c) * fVar4 -
-                              (float)local_14) * (float)(&UINT_008fe000)[iVar8] * 65536.0) >>
-                   (bVar9 & 0x1f);
+                              (float)local_14) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar8] *
+                              65536.0) >> (bVar9 & 0x1f);
         uVar12 = ((int)ROUND((float)local_10 * 65536.0) >> (bVar9 & 0x1f)) + UINT_008ddef8;
         uVar7 = ((int)ROUND((float)local_14 * 65536.0) >> (bVar9 & 0x1f)) + UINT_008ddeac;
       }
@@ -17949,7 +17990,7 @@ void rdRaster_Span16_TexKey_11(uint *param_1,uint *param_2)
     local_24 = (uint)(fVar4 * _DAT_008ddec8 + (float)param_1[6]);
     fVar4 = fVar4 * _DAT_008ddedc + (float)param_1[8];
     lVar1 = (longlong)(int)(param_2[0xe] - param_1[0xe]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + uVar7 * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + uVar7 * 4);
     local_2c = (uint)lVar1 >> 0x10 | (int)((ulonglong)lVar1 >> 0x20) << 0x10;
     if (((int)local_2c < 0) && (-0x51e < (int)local_2c)) {
       local_2c = 0;
@@ -17978,10 +18019,12 @@ void rdRaster_Span16_TexKey_11(uint *param_1,uint *param_2)
       fVar3 = fVar2 * fVar6;
       fVar2 = fVar2 * fVar4;
       bVar11 = (byte)UINT_008ddee4;
-      local_24 = (int)ROUND((fVar3 - (float)local_c) * (float)(&UINT_008fe000)[local_34] * 65536.0)
-                 >> (bVar11 & 0x1f);
-      local_28 = (int)ROUND((fVar2 - (float)local_10) * (float)(&UINT_008fe000)[local_34] * 65536.0)
-                 >> (bVar11 & 0x1f);
+      local_24 = (int)ROUND((fVar3 - (float)local_c) *
+                            (float)(&g_dwRdRaster_aOneOverNFlex)[local_34] * 65536.0) >>
+                 (bVar11 & 0x1f);
+      local_28 = (int)ROUND((fVar2 - (float)local_10) *
+                            (float)(&g_dwRdRaster_aOneOverNFlex)[local_34] * 65536.0) >>
+                 (bVar11 & 0x1f);
       fVar10 = (float)(((int)ROUND((float)local_c * 65536.0) >> (bVar11 & 0x1f)) + UINT_008ddef8);
       fVar14 = (float)(((int)ROUND((float)local_10 * 65536.0) >> (bVar11 & 0x1f)) + UINT_008ddeac);
       if (0 < (int)local_34) {
@@ -18056,11 +18099,11 @@ void rdRaster_Span16_TexKey_11(uint *param_1,uint *param_2)
         fVar4 = 1.0 / ((fVar5 * _DAT_008ddef4 - _DAT_008ddeec) + PUN(float,param_2));
         bVar11 = (byte)UINT_008ddee4;
         local_24 = (int)ROUND((((fVar5 * _DAT_008ddec8 - _DAT_008dded0) + PUN(float,param_1)) * fVar4 -
-                              (float)local_c) * (float)(&UINT_008fe000)[iVar8] * 65536.0) >>
-                   (bVar11 & 0x1f);
+                              (float)local_c) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar8] *
+                              65536.0) >> (bVar11 & 0x1f);
         local_28 = (int)ROUND((((fVar5 * _DAT_008ddedc - _DAT_008ddf00) + (float)local_8) * fVar4 -
-                              (float)local_10) * (float)(&UINT_008fe000)[iVar8] * 65536.0) >>
-                   (bVar11 & 0x1f);
+                              (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar8] *
+                              65536.0) >> (bVar11 & 0x1f);
         fVar10 = (float)(((int)ROUND((float)local_c * 65536.0) >> (bVar11 & 0x1f)) + UINT_008ddef8);
         fVar14 = (float)(((int)ROUND((float)local_10 * 65536.0) >> (bVar11 & 0x1f)) + UINT_008ddeac)
         ;
@@ -18255,14 +18298,14 @@ void rdRaster_Grad_Flat_3(float param_1)
   }
   if (UINT_007f4464 == 1) {
     UINT_008dde54 = 0;
-    if (param_1 <= _DAT_004dda94) goto LAB_0042d542;
+    if (param_1 <= _g_aRdroid_MipDistances) goto LAB_0042d542;
   }
   else if (UINT_007f4464 == 2) {
     if (param_1 <= _DAT_004dda90) {
       UINT_008dde54 = 0;
       goto LAB_0042d542;
     }
-    if (_DAT_004dda94 < param_1) {
+    if (_g_aRdroid_MipDistances < param_1) {
       UINT_008dde54 = 2;
       goto LAB_0042d542;
     }
@@ -18273,7 +18316,7 @@ void rdRaster_Grad_Flat_3(float param_1)
       UINT_008dde54 = 0;
       goto LAB_0042d542;
     }
-    if (_DAT_004dda94 < param_1) {
+    if (_g_aRdroid_MipDistances < param_1) {
       if (_DAT_004dda98 < param_1) {
         UINT_008dde54 = 3;
       }
@@ -18496,14 +18539,14 @@ void rdRaster_Grad_Flat_4(float param_1)
   }
   if (UINT_007f4464 == 1) {
     UINT_008dde54 = 0;
-    if (param_1 <= _DAT_004dda94) goto LAB_0042da90;
+    if (param_1 <= _g_aRdroid_MipDistances) goto LAB_0042da90;
   }
   else if (UINT_007f4464 == 2) {
     if (param_1 <= _DAT_004dda90) {
       UINT_008dde54 = 0;
       goto LAB_0042da90;
     }
-    if (_DAT_004dda94 < param_1) {
+    if (_g_aRdroid_MipDistances < param_1) {
       UINT_008dde54 = 2;
       goto LAB_0042da90;
     }
@@ -18514,7 +18557,7 @@ void rdRaster_Grad_Flat_4(float param_1)
       UINT_008dde54 = 0;
       goto LAB_0042da90;
     }
-    if (_DAT_004dda94 < param_1) {
+    if (_g_aRdroid_MipDistances < param_1) {
       if (_DAT_004dda98 < param_1) {
         UINT_008dde54 = 3;
       }
@@ -18876,7 +18919,7 @@ void rdRaster_Span8_FlatZ(uint *param_1,uint *param_2)
   }
   iVar9 = (uVar8 >> 0x10) - iVar7;
   if (0 < iVar9) {
-    fVar4 = ((float)param_2[4] - (float)param_1[4]) * (float)(&UINT_008fe000)[iVar9];
+    fVar4 = ((float)param_2[4] - (float)param_1[4]) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar9];
     iVar12 = (int)ROUND((fVar4 * (float)(int)(uVar5 - uVar1) * 1.5258789e-05 + (float)param_1[4]) *
                         65536.0);
     iVar2 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
@@ -18943,7 +18986,7 @@ void rdRaster_Span16_FlatZ(uint *param_1,uint *param_2)
   }
   iVar9 = (uVar8 >> 0x10) - iVar6;
   if (0 < iVar9) {
-    fVar3 = ((float)param_2[4] - (float)param_1[4]) * (float)(&UINT_008fe000)[iVar9];
+    fVar3 = ((float)param_2[4] - (float)param_1[4]) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar9];
     iVar11 = (int)ROUND((fVar3 * (float)(int)(uVar4 - uVar1) * 1.5258789e-05 + (float)param_1[4]) *
                         65536.0);
     iVar2 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
@@ -19272,7 +19315,7 @@ void rdRaster_Span8_TexLitZ(uint *param_1,uint *param_2)
   }
   iVar10 = (uVar9 >> 0x10) - iVar7;
   if (0 < iVar10) {
-    fVar4 = ((float)param_2[4] - (float)param_1[4]) * (float)(&UINT_008fe000)[iVar10];
+    fVar4 = ((float)param_2[4] - (float)param_1[4]) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar10];
     iVar2 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     iVar3 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     pbVar6 = (byte *)(*(int *)(iVar2 + 0x18) * param_1[0x10] + *(int *)(iVar2 + 0x5c) + iVar7);
@@ -19336,7 +19379,7 @@ void rdRaster_Span16_TexLitZ(uint *param_1,uint *param_2)
   }
   iVar9 = (uVar8 >> 0x10) - iVar6;
   if (0 < iVar9) {
-    fVar3 = ((float)param_2[4] - (float)param_1[4]) * (float)(&UINT_008fe000)[iVar9];
+    fVar3 = ((float)param_2[4] - (float)param_1[4]) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar9];
     iVar2 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     puVar10 = (ushort *)
               (*(int *)(iVar2 + 0x5c) + ((*(uint *)(iVar2 + 0x18) >> 1) * param_1[0x10] + iVar6) * 2
@@ -19530,7 +19573,7 @@ void rdRaster_Span8_FlatZ_2(uint *param_1,uint *param_2)
   }
   iVar9 = (uVar8 >> 0x10) - iVar7;
   if (0 < iVar9) {
-    fVar4 = ((float)param_2[4] - (float)param_1[4]) * (float)(&UINT_008fe000)[iVar9];
+    fVar4 = ((float)param_2[4] - (float)param_1[4]) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar9];
     iVar12 = (int)ROUND((fVar4 * (float)(int)(uVar5 - uVar1) * 1.5258789e-05 + (float)param_1[4]) *
                         65536.0);
     iVar2 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
@@ -19597,7 +19640,7 @@ void rdRaster_Span16_FlatZ_2(uint *param_1,uint *param_2)
   }
   iVar9 = (uVar8 >> 0x10) - iVar6;
   if (0 < iVar9) {
-    fVar3 = ((float)param_2[4] - (float)param_1[4]) * (float)(&UINT_008fe000)[iVar9];
+    fVar3 = ((float)param_2[4] - (float)param_1[4]) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar9];
     iVar11 = (int)ROUND((fVar3 * (float)(int)(uVar4 - uVar1) * 1.5258789e-05 + (float)param_1[4]) *
                         65536.0);
     iVar2 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
@@ -19928,7 +19971,7 @@ void rdRaster_Span8_TexLitZ_2(uint *param_1,uint *param_2)
   }
   iVar10 = (uVar9 >> 0x10) - iVar7;
   if (0 < iVar10) {
-    fVar4 = ((float)param_2[4] - (float)param_1[4]) * (float)(&UINT_008fe000)[iVar10];
+    fVar4 = ((float)param_2[4] - (float)param_1[4]) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar10];
     iVar2 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     iVar3 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
     pbVar6 = (byte *)(*(int *)(iVar2 + 0x18) * param_1[0x10] + *(int *)(iVar2 + 0x5c) + iVar7);
@@ -19992,7 +20035,7 @@ void rdRaster_Span16_TexLitZ_2(uint *param_1,uint *param_2)
   }
   iVar9 = (uVar8 >> 0x10) - iVar6;
   if (0 < iVar9) {
-    fVar3 = ((float)param_2[4] - (float)param_1[4]) * (float)(&UINT_008fe000)[iVar9];
+    fVar3 = ((float)param_2[4] - (float)param_1[4]) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar9];
     iVar2 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     puVar10 = (ushort *)
               (*(int *)(iVar2 + 0x5c) + ((*(uint *)(iVar2 + 0x18) >> 1) * param_1[0x10] + iVar6) * 2
@@ -20197,14 +20240,14 @@ void rdRaster_Span8_FlatZ_3(uint *param_1,uint *param_2)
   local_8 = (uVar11 >> 0x10) - iVar9;
   if (0 < (int)local_8) {
     lVar3 = (longlong)(int)(param_2[0xe] - param_1[0xe]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + local_8 * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + local_8 * 4);
     param_1 = (uint *)((uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10);
     if (((int)param_1 < 0) && (-0x51e < (int)param_1)) {
       param_1 = (uint *)0x0;
     }
     lVar3 = (longlong)(int)(uVar6 - uVar1) * (longlong)(int)param_1;
     iVar7 = ((uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10) + puVar5[0xe];
-    fVar4 = ((float)param_2[4] - (float)puVar5[4]) * (float)(&UINT_008fe000)[local_8];
+    fVar4 = ((float)param_2[4] - (float)puVar5[4]) * (float)(&g_dwRdRaster_aOneOverNFlex)[local_8];
     param_2 = (uint *)(int)ROUND((fVar4 * (float)(int)(uVar6 - uVar1) * 1.5258789e-05 +
                                  (float)puVar5[4]) * 65536.0);
     iVar2 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
@@ -20277,14 +20320,14 @@ void rdRaster_Span16_FlatZ_3(uint *param_1,uint *param_2)
   local_8 = (uVar11 >> 0x10) - iVar10;
   if (0 < (int)local_8) {
     lVar3 = (longlong)(int)(param_2[0xe] - param_1[0xe]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + local_8 * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + local_8 * 4);
     param_1 = (uint *)((uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10);
     if (((int)param_1 < 0) && (-0x51e < (int)param_1)) {
       param_1 = (uint *)0x0;
     }
     lVar3 = (longlong)(int)(uVar6 - uVar1) * (longlong)(int)param_1;
     iVar7 = ((uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10) + puVar5[0xe];
-    fVar4 = ((float)param_2[4] - (float)puVar5[4]) * (float)(&UINT_008fe000)[local_8];
+    fVar4 = ((float)param_2[4] - (float)puVar5[4]) * (float)(&g_dwRdRaster_aOneOverNFlex)[local_8];
     iVar12 = (int)ROUND((fVar4 * (float)(int)(uVar6 - uVar1) * 1.5258789e-05 + (float)puVar5[4]) *
                         65536.0);
     iVar2 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
@@ -20648,7 +20691,7 @@ void rdRaster_Span8_TexZ(uint *param_1,uint *param_2)
   local_c = (uVar13 >> 0x10) - iVar11;
   if (0 < (int)local_c) {
     lVar5 = (longlong)(int)(param_2[0xe] - param_1[0xe]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + local_c * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + local_c * 4);
     param_1 = (uint *)((uint)lVar5 >> 0x10 | (int)((ulonglong)lVar5 >> 0x20) << 0x10);
     if (((int)param_1 < 0) && (-0x51e < (int)param_1)) {
       param_1 = (uint *)0x0;
@@ -20657,7 +20700,7 @@ void rdRaster_Span8_TexZ(uint *param_1,uint *param_2)
     pfVar1 = (float *)(param_2 + 4);
     param_2 = (uint *)(((uint)lVar5 >> 0x10 | (int)((ulonglong)lVar5 >> 0x20) << 0x10) + puVar7[0xe]
                       );
-    fVar6 = (*pfVar1 - (float)puVar7[4]) * (float)(&UINT_008fe000)[local_c];
+    fVar6 = (*pfVar1 - (float)puVar7[4]) * (float)(&g_dwRdRaster_aOneOverNFlex)[local_c];
     local_8 = (uint)ROUND((fVar6 * (float)(int)(uVar8 - uVar2) * 1.5258789e-05 + (float)puVar7[4]) *
                           65536.0);
     iVar3 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
@@ -20734,7 +20777,7 @@ void rdRaster_Span16_TexZ(uint *param_1,uint *param_2)
   local_c = (uVar12 >> 0x10) - iVar10;
   if (0 < (int)local_c) {
     lVar4 = (longlong)(int)(param_2[0xe] - param_1[0xe]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + local_c * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + local_c * 4);
     param_1 = (uint *)((uint)lVar4 >> 0x10 | (int)((ulonglong)lVar4 >> 0x20) << 0x10);
     if (((int)param_1 < 0) && (-0x51e < (int)param_1)) {
       param_1 = (uint *)0x0;
@@ -20743,7 +20786,7 @@ void rdRaster_Span16_TexZ(uint *param_1,uint *param_2)
     pfVar1 = (float *)(param_2 + 4);
     param_2 = (uint *)(((uint)lVar4 >> 0x10 | (int)((ulonglong)lVar4 >> 0x20) << 0x10) + puVar6[0xe]
                       );
-    fVar5 = (*pfVar1 - (float)puVar6[4]) * (float)(&UINT_008fe000)[local_c];
+    fVar5 = (*pfVar1 - (float)puVar6[4]) * (float)(&g_dwRdRaster_aOneOverNFlex)[local_c];
     iVar13 = (int)ROUND((fVar5 * (float)(int)(uVar7 - uVar2) * 1.5258789e-05 + (float)puVar6[4]) *
                         65536.0);
     iVar3 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
@@ -21008,15 +21051,16 @@ void rdRaster_Span_FlatZ(uint *param_1,uint *param_2)
   if (0 < (int)local_10) {
     iVar4 = uVar6 - uVar5;
     lVar1 = (longlong)(int)(param_2[10] - param_1[10]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + local_10 * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + local_10 * 4);
     uVar5 = (uint)lVar1 >> 0x10 | (int)((ulonglong)lVar1 >> 0x20) << 0x10;
     bVar8 = (byte)UINT_008dde54;
     lVar1 = (longlong)iVar4 * (longlong)(int)uVar5;
     lVar2 = (longlong)(int)(param_2[0xc] - param_1[0xc]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + local_10 * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + local_10 * 4);
     uVar6 = (uint)lVar2 >> 0x10 | (int)((ulonglong)lVar2 >> 0x20) << 0x10;
     lVar2 = (longlong)iVar4 * (longlong)(int)uVar6;
-    fVar3 = ((float)param_2[4] - (float)param_1[4]) * (float)(&UINT_008fe000)[local_10];
+    fVar3 = ((float)param_2[4] - (float)param_1[4]) * (float)(&g_dwRdRaster_aOneOverNFlex)[local_10]
+    ;
     param_2 = (uint *)(int)ROUND(((float)iVar4 * 1.5258789e-05 * fVar3 + (float)param_1[4]) *
                                  65536.0);
     uVar9 = ((int)(((uint)lVar1 >> 0x10 | (int)((ulonglong)lVar1 >> 0x20) << 0x10) + param_1[10]) >>
@@ -21101,15 +21145,15 @@ void rdRaster_Span16_TexLit(uint *param_1,uint *param_2)
   if (0 < (int)local_c) {
     iVar5 = uVar7 - uVar6;
     lVar2 = (longlong)(int)(param_2[10] - param_1[10]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + local_c * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + local_c * 4);
     uVar6 = (uint)lVar2 >> 0x10 | (int)((ulonglong)lVar2 >> 0x20) << 0x10;
     bVar9 = (byte)UINT_008dde54;
     lVar2 = (longlong)iVar5 * (longlong)(int)uVar6;
     lVar3 = (longlong)(int)(param_2[0xc] - param_1[0xc]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + local_c * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + local_c * 4);
     uVar7 = (uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10;
     lVar3 = (longlong)iVar5 * (longlong)(int)uVar7;
-    fVar4 = ((float)param_2[4] - (float)param_1[4]) * (float)(&UINT_008fe000)[local_c];
+    fVar4 = ((float)param_2[4] - (float)param_1[4]) * (float)(&g_dwRdRaster_aOneOverNFlex)[local_c];
     uVar11 = ((int)(((uint)lVar2 >> 0x10 | (int)((ulonglong)lVar2 >> 0x20) << 0x10) + param_1[10])
              >> (bVar9 & 0x1f)) + UINT_008dde78;
     iVar10 = ((int)(((uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10) + param_1[0xc])
@@ -21487,15 +21531,16 @@ void rdRaster_Span8_TexLitZ_3(uint *param_1,uint *param_2)
   if (0 < (int)local_10) {
     iVar4 = uVar6 - uVar5;
     lVar1 = (longlong)(int)(param_2[10] - param_1[10]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + local_10 * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + local_10 * 4);
     uVar5 = (uint)lVar1 >> 0x10 | (int)((ulonglong)lVar1 >> 0x20) << 0x10;
     bVar8 = (byte)UINT_008dde54;
     lVar1 = (longlong)iVar4 * (longlong)(int)uVar5;
     lVar2 = (longlong)(int)(param_2[0xc] - param_1[0xc]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + local_10 * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + local_10 * 4);
     uVar6 = (uint)lVar2 >> 0x10 | (int)((ulonglong)lVar2 >> 0x20) << 0x10;
     lVar2 = (longlong)iVar4 * (longlong)(int)uVar6;
-    fVar3 = ((float)param_2[4] - (float)param_1[4]) * (float)(&UINT_008fe000)[local_10];
+    fVar3 = ((float)param_2[4] - (float)param_1[4]) * (float)(&g_dwRdRaster_aOneOverNFlex)[local_10]
+    ;
     param_2 = (uint *)(int)ROUND(((float)iVar4 * 1.5258789e-05 * fVar3 + (float)param_1[4]) *
                                  65536.0);
     uVar9 = ((int)(((uint)lVar1 >> 0x10 | (int)((ulonglong)lVar1 >> 0x20) << 0x10) + param_1[10]) >>
@@ -21583,15 +21628,15 @@ void rdRaster_Span16_TexLit_2(uint *param_1,uint *param_2)
   if (0 < (int)local_c) {
     iVar4 = uVar6 - uVar5;
     lVar1 = (longlong)(int)(param_2[10] - param_1[10]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + local_c * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + local_c * 4);
     uVar5 = (uint)lVar1 >> 0x10 | (int)((ulonglong)lVar1 >> 0x20) << 0x10;
     bVar8 = (byte)UINT_008dde54;
     lVar1 = (longlong)iVar4 * (longlong)(int)uVar5;
     lVar2 = (longlong)(int)(param_2[0xc] - param_1[0xc]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + local_c * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + local_c * 4);
     uVar6 = (uint)lVar2 >> 0x10 | (int)((ulonglong)lVar2 >> 0x20) << 0x10;
     lVar2 = (longlong)iVar4 * (longlong)(int)uVar6;
-    fVar3 = ((float)param_2[4] - (float)param_1[4]) * (float)(&UINT_008fe000)[local_c];
+    fVar3 = ((float)param_2[4] - (float)param_1[4]) * (float)(&g_dwRdRaster_aOneOverNFlex)[local_c];
     param_2 = (uint *)(int)ROUND(((float)iVar4 * 1.5258789e-05 * fVar3 + (float)param_1[4]) *
                                  65536.0);
     uVar11 = ((int)(((uint)lVar1 >> 0x10 | (int)((ulonglong)lVar1 >> 0x20) << 0x10) + param_1[10])
@@ -21812,15 +21857,15 @@ void rdRaster_Span8_FlatKeyZw(uint *param_1,uint *param_2)
   if (0 < (int)local_c) {
     iVar6 = uVar8 - uVar7;
     lVar3 = (longlong)(int)(param_2[10] - param_1[10]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + local_c * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + local_c * 4);
     uVar7 = (uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10;
     bVar10 = (byte)UINT_008dde54;
     lVar3 = (longlong)iVar6 * (longlong)(int)uVar7;
     lVar4 = (longlong)(int)(param_2[0xc] - param_1[0xc]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + local_c * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + local_c * 4);
     uVar8 = (uint)lVar4 >> 0x10 | (int)((ulonglong)lVar4 >> 0x20) << 0x10;
     lVar4 = (longlong)iVar6 * (longlong)(int)uVar8;
-    fVar5 = ((float)param_2[4] - (float)param_1[4]) * (float)(&UINT_008fe000)[local_c];
+    fVar5 = ((float)param_2[4] - (float)param_1[4]) * (float)(&g_dwRdRaster_aOneOverNFlex)[local_c];
     param_2 = (uint *)(int)ROUND(((float)iVar6 * 1.5258789e-05 * fVar5 + (float)param_1[4]) *
                                  65536.0);
     uVar12 = ((int)(((uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10) + param_1[10])
@@ -21906,15 +21951,15 @@ void rdRaster_Span16_TexLitKey(uint *param_1,uint *param_2)
   if (0 < (int)local_c) {
     iVar6 = uVar8 - uVar7;
     lVar3 = (longlong)(int)(param_2[10] - param_1[10]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + local_c * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + local_c * 4);
     uVar7 = (uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10;
     bVar10 = (byte)UINT_008dde54;
     lVar3 = (longlong)iVar6 * (longlong)(int)uVar7;
     lVar4 = (longlong)(int)(param_2[0xc] - param_1[0xc]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + local_c * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + local_c * 4);
     uVar8 = (uint)lVar4 >> 0x10 | (int)((ulonglong)lVar4 >> 0x20) << 0x10;
     lVar4 = (longlong)iVar6 * (longlong)(int)uVar8;
-    fVar5 = ((float)param_2[4] - (float)param_1[4]) * (float)(&UINT_008fe000)[local_c];
+    fVar5 = ((float)param_2[4] - (float)param_1[4]) * (float)(&g_dwRdRaster_aOneOverNFlex)[local_c];
     uVar12 = ((int)(((uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10) + param_1[10])
              >> (bVar10 & 0x1f)) + UINT_008dde78;
     iVar11 = ((int)(((uint)lVar4 >> 0x10 | (int)((ulonglong)lVar4 >> 0x20) << 0x10) + param_1[0xc])
@@ -22133,15 +22178,15 @@ void rdRaster_Span8_TexLitKeyZw(uint *param_1,uint *param_2)
   if (0 < (int)local_c) {
     iVar6 = uVar8 - uVar7;
     lVar3 = (longlong)(int)(param_2[10] - param_1[10]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + local_c * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + local_c * 4);
     uVar7 = (uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10;
     bVar10 = (byte)UINT_008dde54;
     lVar3 = (longlong)iVar6 * (longlong)(int)uVar7;
     lVar4 = (longlong)(int)(param_2[0xc] - param_1[0xc]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + local_c * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + local_c * 4);
     uVar8 = (uint)lVar4 >> 0x10 | (int)((ulonglong)lVar4 >> 0x20) << 0x10;
     lVar4 = (longlong)iVar6 * (longlong)(int)uVar8;
-    fVar5 = ((float)param_2[4] - (float)param_1[4]) * (float)(&UINT_008fe000)[local_c];
+    fVar5 = ((float)param_2[4] - (float)param_1[4]) * (float)(&g_dwRdRaster_aOneOverNFlex)[local_c];
     param_2 = (uint *)(int)ROUND(((float)iVar6 * 1.5258789e-05 * fVar5 + (float)param_1[4]) *
                                  65536.0);
     uVar12 = ((int)(((uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10) + param_1[10])
@@ -22228,15 +22273,15 @@ void rdRaster_Span16_TexLitKey_2(uint *param_1,uint *param_2)
   if (0 < (int)local_c) {
     iVar6 = uVar8 - uVar7;
     lVar3 = (longlong)(int)(param_2[10] - param_1[10]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + local_c * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + local_c * 4);
     uVar7 = (uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10;
     bVar10 = (byte)UINT_008dde54;
     lVar3 = (longlong)iVar6 * (longlong)(int)uVar7;
     lVar4 = (longlong)(int)(param_2[0xc] - param_1[0xc]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + local_c * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + local_c * 4);
     uVar8 = (uint)lVar4 >> 0x10 | (int)((ulonglong)lVar4 >> 0x20) << 0x10;
     lVar4 = (longlong)iVar6 * (longlong)(int)uVar8;
-    fVar5 = ((float)param_2[4] - (float)param_1[4]) * (float)(&UINT_008fe000)[local_c];
+    fVar5 = ((float)param_2[4] - (float)param_1[4]) * (float)(&g_dwRdRaster_aOneOverNFlex)[local_c];
     uVar12 = ((int)(((uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10) + param_1[10])
              >> (bVar10 & 0x1f)) + UINT_008dde78;
     iVar11 = ((int)(((uint)lVar4 >> 0x10 | (int)((ulonglong)lVar4 >> 0x20) << 0x10) + param_1[0xc])
@@ -22516,15 +22561,16 @@ void rdRaster_Span_TexLitZ(uint *param_1,uint *param_2)
   if (0 < (int)local_10) {
     iVar4 = uVar6 - uVar5;
     lVar1 = (longlong)(int)(param_2[10] - param_1[10]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + local_10 * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + local_10 * 4);
     uVar5 = (uint)lVar1 >> 0x10 | (int)((ulonglong)lVar1 >> 0x20) << 0x10;
     bVar8 = (byte)UINT_008dde54;
     lVar1 = (longlong)iVar4 * (longlong)(int)uVar5;
     lVar2 = (longlong)(int)(param_2[0xc] - param_1[0xc]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + local_10 * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + local_10 * 4);
     uVar6 = (uint)lVar2 >> 0x10 | (int)((ulonglong)lVar2 >> 0x20) << 0x10;
     lVar2 = (longlong)iVar4 * (longlong)(int)uVar6;
-    fVar3 = ((float)param_2[4] - (float)param_1[4]) * (float)(&UINT_008fe000)[local_10];
+    fVar3 = ((float)param_2[4] - (float)param_1[4]) * (float)(&g_dwRdRaster_aOneOverNFlex)[local_10]
+    ;
     param_2 = (uint *)(int)ROUND(((float)iVar4 * 1.5258789e-05 * fVar3 + (float)param_1[4]) *
                                  65536.0);
     uVar9 = ((int)(((uint)lVar1 >> 0x10 | (int)((ulonglong)lVar1 >> 0x20) << 0x10) + param_1[10]) >>
@@ -22611,15 +22657,15 @@ void rdRaster_Span16_TexLit_3(uint *param_1,uint *param_2)
   if (0 < (int)local_c) {
     iVar5 = uVar7 - uVar6;
     lVar2 = (longlong)(int)(param_2[10] - param_1[10]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + local_c * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + local_c * 4);
     uVar6 = (uint)lVar2 >> 0x10 | (int)((ulonglong)lVar2 >> 0x20) << 0x10;
     bVar9 = (byte)UINT_008dde54;
     lVar2 = (longlong)iVar5 * (longlong)(int)uVar6;
     lVar3 = (longlong)(int)(param_2[0xc] - param_1[0xc]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + local_c * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + local_c * 4);
     uVar7 = (uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10;
     lVar3 = (longlong)iVar5 * (longlong)(int)uVar7;
-    fVar4 = ((float)param_2[4] - (float)param_1[4]) * (float)(&UINT_008fe000)[local_c];
+    fVar4 = ((float)param_2[4] - (float)param_1[4]) * (float)(&g_dwRdRaster_aOneOverNFlex)[local_c];
     uVar11 = ((int)(((uint)lVar2 >> 0x10 | (int)((ulonglong)lVar2 >> 0x20) << 0x10) + param_1[10])
              >> (bVar9 & 0x1f)) + UINT_008dde78;
     iVar10 = ((int)(((uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10) + param_1[0xc])
@@ -23001,15 +23047,16 @@ void rdRaster_Span8_TexLitZ_4(uint *param_1,uint *param_2)
   if (0 < (int)local_10) {
     iVar4 = uVar6 - uVar5;
     lVar1 = (longlong)(int)(param_2[10] - param_1[10]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + local_10 * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + local_10 * 4);
     uVar5 = (uint)lVar1 >> 0x10 | (int)((ulonglong)lVar1 >> 0x20) << 0x10;
     bVar8 = (byte)UINT_008dde54;
     lVar1 = (longlong)iVar4 * (longlong)(int)uVar5;
     lVar2 = (longlong)(int)(param_2[0xc] - param_1[0xc]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + local_10 * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + local_10 * 4);
     uVar6 = (uint)lVar2 >> 0x10 | (int)((ulonglong)lVar2 >> 0x20) << 0x10;
     lVar2 = (longlong)iVar4 * (longlong)(int)uVar6;
-    fVar3 = ((float)param_2[4] - (float)param_1[4]) * (float)(&UINT_008fe000)[local_10];
+    fVar3 = ((float)param_2[4] - (float)param_1[4]) * (float)(&g_dwRdRaster_aOneOverNFlex)[local_10]
+    ;
     param_2 = (uint *)(int)ROUND(((float)iVar4 * 1.5258789e-05 * fVar3 + (float)param_1[4]) *
                                  65536.0);
     uVar9 = ((int)(((uint)lVar1 >> 0x10 | (int)((ulonglong)lVar1 >> 0x20) << 0x10) + param_1[10]) >>
@@ -23097,15 +23144,15 @@ void rdRaster_Span16_TexLitZ_3(uint *param_1,uint *param_2)
   if (0 < (int)local_c) {
     iVar4 = uVar6 - uVar5;
     lVar1 = (longlong)(int)(param_2[10] - param_1[10]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + local_c * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + local_c * 4);
     uVar5 = (uint)lVar1 >> 0x10 | (int)((ulonglong)lVar1 >> 0x20) << 0x10;
     bVar8 = (byte)UINT_008dde54;
     lVar1 = (longlong)iVar4 * (longlong)(int)uVar5;
     lVar2 = (longlong)(int)(param_2[0xc] - param_1[0xc]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + local_c * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + local_c * 4);
     uVar6 = (uint)lVar2 >> 0x10 | (int)((ulonglong)lVar2 >> 0x20) << 0x10;
     lVar2 = (longlong)iVar4 * (longlong)(int)uVar6;
-    fVar3 = ((float)param_2[4] - (float)param_1[4]) * (float)(&UINT_008fe000)[local_c];
+    fVar3 = ((float)param_2[4] - (float)param_1[4]) * (float)(&g_dwRdRaster_aOneOverNFlex)[local_c];
     param_2 = (uint *)(int)ROUND(((float)iVar4 * 1.5258789e-05 * fVar3 + (float)param_1[4]) *
                                  65536.0);
     iVar11 = ((int)(((uint)lVar2 >> 0x10 | (int)((ulonglong)lVar2 >> 0x20) << 0x10) + param_1[0xc])
@@ -23333,15 +23380,15 @@ void rdRaster_Span8_TexLitKeyZw_2(uint *param_1,uint *param_2)
   if (0 < (int)local_c) {
     iVar6 = uVar8 - uVar7;
     lVar3 = (longlong)(int)(param_2[10] - param_1[10]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + local_c * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + local_c * 4);
     uVar7 = (uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10;
     bVar10 = (byte)UINT_008dde54;
     lVar3 = (longlong)iVar6 * (longlong)(int)uVar7;
     lVar4 = (longlong)(int)(param_2[0xc] - param_1[0xc]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + local_c * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + local_c * 4);
     uVar8 = (uint)lVar4 >> 0x10 | (int)((ulonglong)lVar4 >> 0x20) << 0x10;
     lVar4 = (longlong)iVar6 * (longlong)(int)uVar8;
-    fVar5 = ((float)param_2[4] - (float)param_1[4]) * (float)(&UINT_008fe000)[local_c];
+    fVar5 = ((float)param_2[4] - (float)param_1[4]) * (float)(&g_dwRdRaster_aOneOverNFlex)[local_c];
     param_2 = (uint *)(int)ROUND(((float)iVar6 * 1.5258789e-05 * fVar5 + (float)param_1[4]) *
                                  65536.0);
     uVar12 = ((int)(((uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10) + param_1[10])
@@ -23429,15 +23476,15 @@ void rdRaster_Span16_TexLitKey_3(uint *param_1,uint *param_2)
   if (0 < (int)local_c) {
     iVar6 = uVar8 - uVar7;
     lVar3 = (longlong)(int)(param_2[10] - param_1[10]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + local_c * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + local_c * 4);
     uVar7 = (uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10;
     bVar10 = (byte)UINT_008dde54;
     lVar3 = (longlong)iVar6 * (longlong)(int)uVar7;
     lVar4 = (longlong)(int)(param_2[0xc] - param_1[0xc]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + local_c * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + local_c * 4);
     uVar8 = (uint)lVar4 >> 0x10 | (int)((ulonglong)lVar4 >> 0x20) << 0x10;
     lVar4 = (longlong)iVar6 * (longlong)(int)uVar8;
-    fVar5 = ((float)param_2[4] - (float)param_1[4]) * (float)(&UINT_008fe000)[local_c];
+    fVar5 = ((float)param_2[4] - (float)param_1[4]) * (float)(&g_dwRdRaster_aOneOverNFlex)[local_c];
     uVar12 = ((int)(((uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10) + param_1[10])
              >> (bVar10 & 0x1f)) + UINT_008dde78;
     iVar11 = ((int)(((uint)lVar4 >> 0x10 | (int)((ulonglong)lVar4 >> 0x20) << 0x10) + param_1[0xc])
@@ -23659,15 +23706,15 @@ void rdRaster_Span8_TexLitKeyZw_3(uint *param_1,uint *param_2)
   if (0 < (int)local_c) {
     iVar6 = uVar8 - uVar7;
     lVar3 = (longlong)(int)(param_2[10] - param_1[10]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + local_c * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + local_c * 4);
     uVar7 = (uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10;
     bVar10 = (byte)UINT_008dde54;
     lVar3 = (longlong)iVar6 * (longlong)(int)uVar7;
     lVar4 = (longlong)(int)(param_2[0xc] - param_1[0xc]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + local_c * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + local_c * 4);
     uVar8 = (uint)lVar4 >> 0x10 | (int)((ulonglong)lVar4 >> 0x20) << 0x10;
     lVar4 = (longlong)iVar6 * (longlong)(int)uVar8;
-    fVar5 = ((float)param_2[4] - (float)param_1[4]) * (float)(&UINT_008fe000)[local_c];
+    fVar5 = ((float)param_2[4] - (float)param_1[4]) * (float)(&g_dwRdRaster_aOneOverNFlex)[local_c];
     param_2 = (uint *)(int)ROUND(((float)iVar6 * 1.5258789e-05 * fVar5 + (float)param_1[4]) *
                                  65536.0);
     uVar12 = ((int)(((uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10) + param_1[10])
@@ -23755,15 +23802,15 @@ void rdRaster_Span16_TexLitKey_4(uint *param_1,uint *param_2)
   if (0 < (int)local_c) {
     iVar6 = uVar8 - uVar7;
     lVar3 = (longlong)(int)(param_2[10] - param_1[10]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + local_c * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + local_c * 4);
     uVar7 = (uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10;
     bVar10 = (byte)UINT_008dde54;
     lVar3 = (longlong)iVar6 * (longlong)(int)uVar7;
     lVar4 = (longlong)(int)(param_2[0xc] - param_1[0xc]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + local_c * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + local_c * 4);
     uVar8 = (uint)lVar4 >> 0x10 | (int)((ulonglong)lVar4 >> 0x20) << 0x10;
     lVar4 = (longlong)iVar6 * (longlong)(int)uVar8;
-    fVar5 = ((float)param_2[4] - (float)param_1[4]) * (float)(&UINT_008fe000)[local_c];
+    fVar5 = ((float)param_2[4] - (float)param_1[4]) * (float)(&g_dwRdRaster_aOneOverNFlex)[local_c];
     uVar12 = ((int)(((uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10) + param_1[10])
              >> (bVar10 & 0x1f)) + UINT_008dde78;
     iVar11 = ((int)(((uint)lVar4 >> 0x10 | (int)((ulonglong)lVar4 >> 0x20) << 0x10) + param_1[0xc])
@@ -24057,7 +24104,7 @@ void rdRaster_Span_TexLitZ_2(uint *param_1,uint *param_2)
   local_10 = (uVar11 >> 0x10) - iVar15;
   if (0 < (int)local_10) {
     iVar6 = uVar8 - uVar7;
-    iVar1 = *(int *)(&DAT_008fbfc0 + local_10 * 4);
+    iVar1 = *(int *)(&g_aRdRaster_OneOverNFixed + local_10 * 4);
     lVar2 = (longlong)(int)(param_2[10] - param_1[10]) * (longlong)iVar1;
     uVar7 = (uint)lVar2 >> 0x10 | (int)((ulonglong)lVar2 >> 0x20) << 0x10;
     bVar10 = (byte)UINT_008dde54;
@@ -24070,7 +24117,8 @@ void rdRaster_Span_TexLitZ_2(uint *param_1,uint *param_2)
     if (((int)local_8 < 0) && (-0x51e < (int)local_8)) {
       local_8 = 0;
     }
-    fVar5 = ((float)param_2[4] - (float)param_1[4]) * (float)(&UINT_008fe000)[local_10];
+    fVar5 = ((float)param_2[4] - (float)param_1[4]) * (float)(&g_dwRdRaster_aOneOverNFlex)[local_10]
+    ;
     param_2 = (uint *)(int)ROUND((fVar5 * (float)iVar6 * 1.5258789e-05 + (float)param_1[4]) *
                                  65536.0);
     uVar11 = ((int)(((uint)lVar2 >> 0x10 | (int)((ulonglong)lVar2 >> 0x20) << 0x10) + param_1[10])
@@ -24177,7 +24225,7 @@ void rdRaster_Span16_TexLitZ_4(uint *param_1,uint *param_2)
   local_18 = (uVar10 >> 0x10) - iVar13;
   if (0 < (int)local_18) {
     iVar7 = uVar12 - uVar8;
-    iVar1 = *(int *)(&DAT_008fbfc0 + local_18 * 4);
+    iVar1 = *(int *)(&g_aRdRaster_OneOverNFixed + local_18 * 4);
     lVar2 = (longlong)(int)(param_2[10] - param_1[10]) * (longlong)iVar1;
     uVar8 = (uint)lVar2 >> 0x10 | (int)((ulonglong)lVar2 >> 0x20) << 0x10;
     bVar9 = (byte)UINT_008dde54;
@@ -24195,7 +24243,8 @@ void rdRaster_Span16_TexLitZ_4(uint *param_1,uint *param_2)
     local_10 = ((uint)((longlong)iVar7 * (longlong)(int)local_c) >> 0x10 |
                (int)((ulonglong)((longlong)iVar7 * (longlong)(int)local_c) >> 0x20) << 0x10) +
                param_1[0xe];
-    fVar5 = ((float)param_2[4] - (float)param_1[4]) * (float)(&UINT_008fe000)[local_18];
+    fVar5 = ((float)param_2[4] - (float)param_1[4]) * (float)(&g_dwRdRaster_aOneOverNFlex)[local_18]
+    ;
     local_24 = (uint)ROUND(fVar5 * 65536.0);
     param_2 = (uint *)(int)ROUND((fVar5 * (float)iVar7 * 1.5258789e-05 + (float)param_1[4]) *
                                  65536.0);
@@ -24623,7 +24672,7 @@ void rdRaster_Span8_TexLitZ_5(uint *param_1,uint *param_2)
   local_10 = (uVar11 >> 0x10) - iVar15;
   if (0 < (int)local_10) {
     iVar6 = uVar8 - uVar7;
-    iVar1 = *(int *)(&DAT_008fbfc0 + local_10 * 4);
+    iVar1 = *(int *)(&g_aRdRaster_OneOverNFixed + local_10 * 4);
     lVar2 = (longlong)(int)(param_2[10] - param_1[10]) * (longlong)iVar1;
     uVar7 = (uint)lVar2 >> 0x10 | (int)((ulonglong)lVar2 >> 0x20) << 0x10;
     bVar10 = (byte)UINT_008dde54;
@@ -24636,7 +24685,8 @@ void rdRaster_Span8_TexLitZ_5(uint *param_1,uint *param_2)
     if (((int)local_8 < 0) && (-0x51e < (int)local_8)) {
       local_8 = 0;
     }
-    fVar5 = ((float)param_2[4] - (float)param_1[4]) * (float)(&UINT_008fe000)[local_10];
+    fVar5 = ((float)param_2[4] - (float)param_1[4]) * (float)(&g_dwRdRaster_aOneOverNFlex)[local_10]
+    ;
     param_2 = (uint *)(int)ROUND((fVar5 * (float)iVar6 * 1.5258789e-05 + (float)param_1[4]) *
                                  65536.0);
     uVar11 = ((int)(((uint)lVar2 >> 0x10 | (int)((ulonglong)lVar2 >> 0x20) << 0x10) + param_1[10])
@@ -24735,7 +24785,7 @@ void rdRaster_Span16_TexLitZ_5(uint *param_1,uint *param_2)
   local_c = (uVar11 >> 0x10) - iVar15;
   if (0 < (int)local_c) {
     iVar6 = uVar8 - uVar7;
-    iVar1 = *(int *)(&DAT_008fbfc0 + local_c * 4);
+    iVar1 = *(int *)(&g_aRdRaster_OneOverNFixed + local_c * 4);
     lVar2 = (longlong)(int)(param_2[10] - param_1[10]) * (longlong)iVar1;
     uVar7 = (uint)lVar2 >> 0x10 | (int)((ulonglong)lVar2 >> 0x20) << 0x10;
     bVar10 = (byte)UINT_008dde54;
@@ -24748,7 +24798,7 @@ void rdRaster_Span16_TexLitZ_5(uint *param_1,uint *param_2)
     if (((int)local_8 < 0) && (-0x51e < (int)local_8)) {
       local_8 = 0;
     }
-    fVar5 = ((float)param_2[4] - (float)param_1[4]) * (float)(&UINT_008fe000)[local_c];
+    fVar5 = ((float)param_2[4] - (float)param_1[4]) * (float)(&g_dwRdRaster_aOneOverNFlex)[local_c];
     param_2 = (uint *)(int)ROUND((fVar5 * (float)iVar6 * 1.5258789e-05 + (float)param_1[4]) *
                                  65536.0);
     iVar13 = ((int)(((uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10) + param_1[0xc])
@@ -24994,7 +25044,7 @@ void rdRaster_Span8_TexLitKeyZw_4(uint *param_1,uint *param_2)
   local_10 = (uVar13 >> 0x10) - iVar16;
   if (0 < (int)local_10) {
     iVar8 = uVar10 - uVar9;
-    iVar2 = *(int *)(&DAT_008fbfc0 + local_10 * 4);
+    iVar2 = *(int *)(&g_aRdRaster_OneOverNFixed + local_10 * 4);
     lVar4 = (longlong)(int)(param_2[10] - param_1[10]) * (longlong)iVar2;
     uVar9 = (uint)lVar4 >> 0x10 | (int)((ulonglong)lVar4 >> 0x20) << 0x10;
     bVar12 = (byte)UINT_008dde54;
@@ -25010,7 +25060,8 @@ void rdRaster_Span8_TexLitKeyZw_4(uint *param_1,uint *param_2)
     local_c = ((uint)((longlong)iVar8 * (longlong)(int)local_8) >> 0x10 |
               (int)((ulonglong)((longlong)iVar8 * (longlong)(int)local_8) >> 0x20) << 0x10) +
               param_1[0xe];
-    fVar7 = ((float)param_2[4] - (float)param_1[4]) * (float)(&UINT_008fe000)[local_10];
+    fVar7 = ((float)param_2[4] - (float)param_1[4]) * (float)(&g_dwRdRaster_aOneOverNFlex)[local_10]
+    ;
     param_2 = (uint *)(((int)(((uint)lVar5 >> 0x10 | (int)((ulonglong)lVar5 >> 0x20) << 0x10) +
                              param_1[0xc]) >> (bVar12 & 0x1f)) + UINT_008dde50);
     uVar13 = ((int)(((uint)lVar4 >> 0x10 | (int)((ulonglong)lVar4 >> 0x20) << 0x10) + param_1[10])
@@ -25103,7 +25154,7 @@ void rdRaster_Span16_TexLitKeyZw(uint *param_1,uint *param_2)
   local_10 = (uVar12 >> 0x10) - iVar15;
   if (0 < (int)local_10) {
     iVar7 = uVar9 - uVar8;
-    iVar2 = *(int *)(&DAT_008fbfc0 + local_10 * 4);
+    iVar2 = *(int *)(&g_aRdRaster_OneOverNFixed + local_10 * 4);
     lVar3 = (longlong)(int)(param_2[10] - param_1[10]) * (longlong)iVar2;
     uVar8 = (uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10;
     bVar11 = (byte)UINT_008dde54;
@@ -25119,7 +25170,8 @@ void rdRaster_Span16_TexLitKeyZw(uint *param_1,uint *param_2)
     local_c = ((uint)((longlong)iVar7 * (longlong)(int)local_8) >> 0x10 |
               (int)((ulonglong)((longlong)iVar7 * (longlong)(int)local_8) >> 0x20) << 0x10) +
               param_1[0xe];
-    fVar6 = ((float)param_2[4] - (float)param_1[4]) * (float)(&UINT_008fe000)[local_10];
+    fVar6 = ((float)param_2[4] - (float)param_1[4]) * (float)(&g_dwRdRaster_aOneOverNFlex)[local_10]
+    ;
     iVar14 = ((int)(((uint)lVar4 >> 0x10 | (int)((ulonglong)lVar4 >> 0x20) << 0x10) + param_1[0xc])
              >> (bVar11 & 0x1f)) + UINT_008dde50;
     uVar12 = ((int)(((uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10) + param_1[10])
@@ -25360,7 +25412,7 @@ void rdRaster_Span8_TexLitKeyZw_5(uint *param_1,uint *param_2)
   local_10 = (uVar13 >> 0x10) - iVar16;
   if (0 < (int)local_10) {
     iVar8 = uVar10 - uVar9;
-    iVar2 = *(int *)(&DAT_008fbfc0 + local_10 * 4);
+    iVar2 = *(int *)(&g_aRdRaster_OneOverNFixed + local_10 * 4);
     lVar4 = (longlong)(int)(param_2[10] - param_1[10]) * (longlong)iVar2;
     uVar9 = (uint)lVar4 >> 0x10 | (int)((ulonglong)lVar4 >> 0x20) << 0x10;
     bVar12 = (byte)UINT_008dde54;
@@ -25376,7 +25428,8 @@ void rdRaster_Span8_TexLitKeyZw_5(uint *param_1,uint *param_2)
     local_c = ((uint)((longlong)iVar8 * (longlong)(int)local_8) >> 0x10 |
               (int)((ulonglong)((longlong)iVar8 * (longlong)(int)local_8) >> 0x20) << 0x10) +
               param_1[0xe];
-    fVar7 = ((float)param_2[4] - (float)param_1[4]) * (float)(&UINT_008fe000)[local_10];
+    fVar7 = ((float)param_2[4] - (float)param_1[4]) * (float)(&g_dwRdRaster_aOneOverNFlex)[local_10]
+    ;
     param_2 = (uint *)(((int)(((uint)lVar5 >> 0x10 | (int)((ulonglong)lVar5 >> 0x20) << 0x10) +
                              param_1[0xc]) >> (bVar12 & 0x1f)) + UINT_008dde50);
     uVar13 = ((int)(((uint)lVar4 >> 0x10 | (int)((ulonglong)lVar4 >> 0x20) << 0x10) + param_1[10])
@@ -25470,7 +25523,7 @@ void rdRaster_Span16_TexLitKeyZw_2(uint *param_1,uint *param_2)
   local_10 = (uVar12 >> 0x10) - iVar15;
   if (0 < (int)local_10) {
     iVar7 = uVar9 - uVar8;
-    iVar2 = *(int *)(&DAT_008fbfc0 + local_10 * 4);
+    iVar2 = *(int *)(&g_aRdRaster_OneOverNFixed + local_10 * 4);
     lVar3 = (longlong)(int)(param_2[10] - param_1[10]) * (longlong)iVar2;
     uVar8 = (uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10;
     bVar11 = (byte)UINT_008dde54;
@@ -25486,7 +25539,8 @@ void rdRaster_Span16_TexLitKeyZw_2(uint *param_1,uint *param_2)
     local_c = ((uint)((longlong)iVar7 * (longlong)(int)local_8) >> 0x10 |
               (int)((ulonglong)((longlong)iVar7 * (longlong)(int)local_8) >> 0x20) << 0x10) +
               param_1[0xe];
-    fVar6 = ((float)param_2[4] - (float)param_1[4]) * (float)(&UINT_008fe000)[local_10];
+    fVar6 = ((float)param_2[4] - (float)param_1[4]) * (float)(&g_dwRdRaster_aOneOverNFlex)[local_10]
+    ;
     param_2 = (uint *)(((int)(((uint)lVar4 >> 0x10 | (int)((ulonglong)lVar4 >> 0x20) << 0x10) +
                              param_1[0xc]) >> (bVar11 & 0x1f)) + UINT_008dde50);
     uVar12 = ((int)(((uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10) + param_1[10])
@@ -25821,10 +25875,12 @@ void rdRaster_Span_FlatZ_2(uint *param_1,uint *param_2)
       fVar3 = fVar2 * fVar6;
       fVar2 = fVar2 * fVar4;
       bVar10 = (byte)UINT_008dde54;
-      local_2c = (int)ROUND((fVar3 - (float)local_10) * (float)(&UINT_008fe000)[local_3c] * 65536.0)
-                 >> (bVar10 & 0x1f);
-      local_30 = (int)ROUND((fVar2 - (float)local_14) * (float)(&UINT_008fe000)[local_3c] * 65536.0)
-                 >> (bVar10 & 0x1f);
+      local_2c = (int)ROUND((fVar3 - (float)local_10) *
+                            (float)(&g_dwRdRaster_aOneOverNFlex)[local_3c] * 65536.0) >>
+                 (bVar10 & 0x1f);
+      local_30 = (int)ROUND((fVar2 - (float)local_14) *
+                            (float)(&g_dwRdRaster_aOneOverNFlex)[local_3c] * 65536.0) >>
+                 (bVar10 & 0x1f);
       uVar13 = ((int)ROUND((float)local_10 * 65536.0) >> (bVar10 & 0x1f)) + UINT_008dde78;
       uVar8 = ((int)ROUND((float)local_14 * 65536.0) >> (bVar10 & 0x1f)) + UINT_008dde50;
       if (0 < (int)local_3c) {
@@ -25894,11 +25950,11 @@ void rdRaster_Span_FlatZ_2(uint *param_1,uint *param_2)
         fVar4 = 1.0 / ((fVar5 * _DAT_008ddea0 - _DAT_008dde4c) + PUN(float,param_2));
         bVar10 = (byte)UINT_008dde54;
         local_2c = (int)ROUND((((fVar5 * _DAT_008dde60 - _DAT_008dde94) + (float)local_8) * fVar4 -
-                              (float)local_10) * (float)(&UINT_008fe000)[iVar9] * 65536.0) >>
-                   (bVar10 & 0x1f);
+                              (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar9] *
+                              65536.0) >> (bVar10 & 0x1f);
         local_30 = (int)ROUND((((fVar5 * _DAT_008dde80 - _DAT_008dde74) + (float)local_c) * fVar4 -
-                              (float)local_14) * (float)(&UINT_008fe000)[iVar9] * 65536.0) >>
-                   (bVar10 & 0x1f);
+                              (float)local_14) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar9] *
+                              65536.0) >> (bVar10 & 0x1f);
         uVar13 = ((int)ROUND((float)local_10 * 65536.0) >> (bVar10 & 0x1f)) + UINT_008dde78;
         uVar8 = ((int)ROUND((float)local_14 * 65536.0) >> (bVar10 & 0x1f)) + UINT_008dde50;
       }
@@ -26063,10 +26119,12 @@ void rdRaster_Span16_TexZ_2(uint *param_1,uint *param_2)
       fVar3 = fVar2 * fVar6;
       fVar2 = fVar2 * fVar4;
       bVar10 = (byte)UINT_008dde54;
-      local_24 = (int)ROUND((fVar3 - (float)local_14) * (float)(&UINT_008fe000)[local_3c] * 65536.0)
-                 >> (bVar10 & 0x1f);
-      local_30 = (int)ROUND((fVar2 - (float)local_18) * (float)(&UINT_008fe000)[local_3c] * 65536.0)
-                 >> (bVar10 & 0x1f);
+      local_24 = (int)ROUND((fVar3 - (float)local_14) *
+                            (float)(&g_dwRdRaster_aOneOverNFlex)[local_3c] * 65536.0) >>
+                 (bVar10 & 0x1f);
+      local_30 = (int)ROUND((fVar2 - (float)local_18) *
+                            (float)(&g_dwRdRaster_aOneOverNFlex)[local_3c] * 65536.0) >>
+                 (bVar10 & 0x1f);
       puVar12 = (undefined2 *)
                 (((int)ROUND((float)local_14 * 65536.0) >> (bVar10 & 0x1f)) + UINT_008dde78);
       puVar15 = (undefined2 *)
@@ -26144,11 +26202,11 @@ void rdRaster_Span16_TexZ_2(uint *param_1,uint *param_2)
         fVar4 = 1.0 / ((fVar2 * _DAT_008ddea0 - _DAT_008dde4c) + (float)local_8);
         bVar10 = (byte)UINT_008dde54;
         local_24 = (int)ROUND((((fVar2 * _DAT_008dde60 - _DAT_008dde94) + (float)local_c) * fVar4 -
-                              (float)local_14) * (float)(&UINT_008fe000)[iVar9] * 65536.0) >>
-                   (bVar10 & 0x1f);
+                              (float)local_14) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar9] *
+                              65536.0) >> (bVar10 & 0x1f);
         local_30 = (int)ROUND((((fVar2 * _DAT_008dde80 - _DAT_008dde74) + (float)local_10) * fVar4 -
-                              (float)local_18) * (float)(&UINT_008fe000)[iVar9] * 65536.0) >>
-                   (bVar10 & 0x1f);
+                              (float)local_18) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar9] *
+                              65536.0) >> (bVar10 & 0x1f);
         puVar12 = (undefined2 *)
                   (((int)ROUND((float)local_14 * 65536.0) >> (bVar10 & 0x1f)) + UINT_008dde78);
         puVar15 = (undefined2 *)
@@ -26579,10 +26637,12 @@ void rdRaster_Span8_TexZ_2(uint *param_1,uint *param_2)
       fVar3 = fVar2 * fVar6;
       fVar2 = fVar2 * fVar4;
       bVar10 = (byte)UINT_008dde54;
-      local_2c = (int)ROUND((fVar3 - (float)local_10) * (float)(&UINT_008fe000)[local_3c] * 65536.0)
-                 >> (bVar10 & 0x1f);
-      local_30 = (int)ROUND((fVar2 - (float)local_14) * (float)(&UINT_008fe000)[local_3c] * 65536.0)
-                 >> (bVar10 & 0x1f);
+      local_2c = (int)ROUND((fVar3 - (float)local_10) *
+                            (float)(&g_dwRdRaster_aOneOverNFlex)[local_3c] * 65536.0) >>
+                 (bVar10 & 0x1f);
+      local_30 = (int)ROUND((fVar2 - (float)local_14) *
+                            (float)(&g_dwRdRaster_aOneOverNFlex)[local_3c] * 65536.0) >>
+                 (bVar10 & 0x1f);
       uVar14 = ((int)ROUND((float)local_10 * 65536.0) >> (bVar10 & 0x1f)) + UINT_008dde78;
       uVar8 = ((int)ROUND((float)local_14 * 65536.0) >> (bVar10 & 0x1f)) + UINT_008dde50;
       if (0 < (int)local_3c) {
@@ -26654,11 +26714,11 @@ void rdRaster_Span8_TexZ_2(uint *param_1,uint *param_2)
         fVar4 = 1.0 / ((fVar5 * _DAT_008ddea0 - _DAT_008dde4c) + PUN(float,param_2));
         bVar10 = (byte)UINT_008dde54;
         local_2c = (int)ROUND((((fVar5 * _DAT_008dde60 - _DAT_008dde94) + (float)local_8) * fVar4 -
-                              (float)local_10) * (float)(&UINT_008fe000)[iVar9] * 65536.0) >>
-                   (bVar10 & 0x1f);
+                              (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar9] *
+                              65536.0) >> (bVar10 & 0x1f);
         local_30 = (int)ROUND((((fVar5 * _DAT_008dde80 - _DAT_008dde74) + (float)local_c) * fVar4 -
-                              (float)local_14) * (float)(&UINT_008fe000)[iVar9] * 65536.0) >>
-                   (bVar10 & 0x1f);
+                              (float)local_14) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar9] *
+                              65536.0) >> (bVar10 & 0x1f);
         uVar14 = ((int)ROUND((float)local_10 * 65536.0) >> (bVar10 & 0x1f)) + UINT_008dde78;
         uVar8 = ((int)ROUND((float)local_14 * 65536.0) >> (bVar10 & 0x1f)) + UINT_008dde50;
       }
@@ -26822,10 +26882,12 @@ void rdRaster_Span16_TexZ_3(uint *param_1,uint *param_2)
       fVar3 = fVar2 * fVar6;
       fVar2 = fVar2 * fVar4;
       bVar10 = (byte)UINT_008dde54;
-      local_30 = (int)ROUND((fVar3 - (float)local_10) * (float)(&UINT_008fe000)[local_40] * 65536.0)
-                 >> (bVar10 & 0x1f);
-      local_34 = (int)ROUND((fVar2 - (float)local_14) * (float)(&UINT_008fe000)[local_40] * 65536.0)
-                 >> (bVar10 & 0x1f);
+      local_30 = (int)ROUND((fVar3 - (float)local_10) *
+                            (float)(&g_dwRdRaster_aOneOverNFlex)[local_40] * 65536.0) >>
+                 (bVar10 & 0x1f);
+      local_34 = (int)ROUND((fVar2 - (float)local_14) *
+                            (float)(&g_dwRdRaster_aOneOverNFlex)[local_40] * 65536.0) >>
+                 (bVar10 & 0x1f);
       uVar13 = ((int)ROUND((float)local_10 * 65536.0) >> (bVar10 & 0x1f)) + UINT_008dde78;
       uVar8 = ((int)ROUND((float)local_14 * 65536.0) >> (bVar10 & 0x1f)) + UINT_008dde50;
       if (0 < (int)local_40) {
@@ -26903,11 +26965,11 @@ void rdRaster_Span16_TexZ_3(uint *param_1,uint *param_2)
         fVar4 = 1.0 / ((fVar5 * _DAT_008ddea0 - _DAT_008dde4c) + PUN(float,param_2));
         bVar10 = (byte)UINT_008dde54;
         local_30 = (int)ROUND((((fVar5 * _DAT_008dde60 - _DAT_008dde94) + (float)local_8) * fVar4 -
-                              (float)local_10) * (float)(&UINT_008fe000)[iVar9] * 65536.0) >>
-                   (bVar10 & 0x1f);
+                              (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar9] *
+                              65536.0) >> (bVar10 & 0x1f);
         local_34 = (int)ROUND((((fVar5 * _DAT_008dde80 - _DAT_008dde74) + (float)local_c) * fVar4 -
-                              (float)local_14) * (float)(&UINT_008fe000)[iVar9] * 65536.0) >>
-                   (bVar10 & 0x1f);
+                              (float)local_14) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar9] *
+                              65536.0) >> (bVar10 & 0x1f);
         uVar13 = ((int)ROUND((float)local_10 * 65536.0) >> (bVar10 & 0x1f)) + UINT_008dde78;
         uVar8 = ((int)ROUND((float)local_14 * 65536.0) >> (bVar10 & 0x1f)) + UINT_008dde50;
       }
@@ -27196,10 +27258,12 @@ void rdRaster_Span8_FlatKeyZw_2(uint *param_1,uint *param_2)
       fVar4 = fVar3 * fVar6;
       fVar3 = fVar3 * fVar5;
       bVar12 = (byte)UINT_008dde54;
-      local_2c = (int)ROUND((fVar4 - (float)local_14) * (float)(&UINT_008fe000)[local_3c] * 65536.0)
-                 >> (bVar12 & 0x1f);
-      local_30 = (int)ROUND((fVar3 - (float)local_18) * (float)(&UINT_008fe000)[local_3c] * 65536.0)
-                 >> (bVar12 & 0x1f);
+      local_2c = (int)ROUND((fVar4 - (float)local_14) *
+                            (float)(&g_dwRdRaster_aOneOverNFlex)[local_3c] * 65536.0) >>
+                 (bVar12 & 0x1f);
+      local_30 = (int)ROUND((fVar3 - (float)local_18) *
+                            (float)(&g_dwRdRaster_aOneOverNFlex)[local_3c] * 65536.0) >>
+                 (bVar12 & 0x1f);
       pcVar15 = (char *)(((int)ROUND((float)local_14 * 65536.0) >> (bVar12 & 0x1f)) + UINT_008dde78)
       ;
       pcVar16 = (char *)(((int)ROUND((float)local_18 * 65536.0) >> (bVar12 & 0x1f)) + UINT_008dde50)
@@ -27273,11 +27337,11 @@ void rdRaster_Span8_FlatKeyZw_2(uint *param_1,uint *param_2)
         fVar5 = 1.0 / ((fVar6 * _DAT_008ddea0 - _DAT_008dde4c) + (float)local_8);
         bVar12 = (byte)UINT_008dde54;
         local_2c = (int)ROUND((((fVar6 * _DAT_008dde60 - _DAT_008dde94) + (float)local_c) * fVar5 -
-                              (float)local_14) * (float)(&UINT_008fe000)[iVar11] * 65536.0) >>
-                   (bVar12 & 0x1f);
+                              (float)local_14) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar11] *
+                              65536.0) >> (bVar12 & 0x1f);
         local_30 = (int)ROUND((((fVar6 * _DAT_008dde80 - _DAT_008dde74) + (float)local_10) * fVar5 -
-                              (float)local_18) * (float)(&UINT_008fe000)[iVar11] * 65536.0) >>
-                   (bVar12 & 0x1f);
+                              (float)local_18) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar11] *
+                              65536.0) >> (bVar12 & 0x1f);
         pcVar15 = (char *)(((int)ROUND((float)local_14 * 65536.0) >> (bVar12 & 0x1f)) +
                           UINT_008dde78);
         pcVar16 = (char *)(((int)ROUND((float)local_18 * 65536.0) >> (bVar12 & 0x1f)) +
@@ -27446,10 +27510,12 @@ void rdRaster_Span16_TexKeyZw(uint *param_1,uint *param_2)
       fVar3 = fVar2 * fVar5;
       fVar2 = fVar2 * fVar4;
       bVar11 = (byte)UINT_008dde54;
-      local_30 = (int)ROUND((fVar3 - (float)local_14) * (float)(&UINT_008fe000)[local_40] * 65536.0)
-                 >> (bVar11 & 0x1f);
-      local_34 = (int)ROUND((fVar2 - (float)local_18) * (float)(&UINT_008fe000)[local_40] * 65536.0)
-                 >> (bVar11 & 0x1f);
+      local_30 = (int)ROUND((fVar3 - (float)local_14) *
+                            (float)(&g_dwRdRaster_aOneOverNFlex)[local_40] * 65536.0) >>
+                 (bVar11 & 0x1f);
+      local_34 = (int)ROUND((fVar2 - (float)local_18) *
+                            (float)(&g_dwRdRaster_aOneOverNFlex)[local_40] * 65536.0) >>
+                 (bVar11 & 0x1f);
       puVar13 = (undefined2 *)
                 (((int)ROUND((float)local_14 * 65536.0) >> (bVar11 & 0x1f)) + UINT_008dde78);
       puVar15 = (undefined2 *)
@@ -27523,11 +27589,11 @@ void rdRaster_Span16_TexKeyZw(uint *param_1,uint *param_2)
         fVar4 = 1.0 / ((fVar5 * _DAT_008ddea0 - _DAT_008dde4c) + (float)local_8);
         bVar11 = (byte)UINT_008dde54;
         local_30 = (int)ROUND((((fVar5 * _DAT_008dde60 - _DAT_008dde94) + (float)local_c) * fVar4 -
-                              (float)local_14) * (float)(&UINT_008fe000)[iVar10] * 65536.0) >>
-                   (bVar11 & 0x1f);
+                              (float)local_14) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar10] *
+                              65536.0) >> (bVar11 & 0x1f);
         local_34 = (int)ROUND((((fVar5 * _DAT_008dde80 - _DAT_008dde74) + (float)local_10) * fVar4 -
-                              (float)local_18) * (float)(&UINT_008fe000)[iVar10] * 65536.0) >>
-                   (bVar11 & 0x1f);
+                              (float)local_18) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar10] *
+                              65536.0) >> (bVar11 & 0x1f);
         puVar13 = (undefined2 *)
                   (((int)ROUND((float)local_14 * 65536.0) >> (bVar11 & 0x1f)) + UINT_008dde78);
         puVar15 = (undefined2 *)
@@ -27815,10 +27881,12 @@ void rdRaster_Span8_TexKeyZw(uint *param_1,uint *param_2)
       fVar3 = fVar2 * fVar5;
       fVar2 = fVar2 * fVar4;
       bVar10 = (byte)UINT_008dde54;
-      local_30 = (int)ROUND((fVar3 - (float)local_14) * (float)(&UINT_008fe000)[local_40] * 65536.0)
-                 >> (bVar10 & 0x1f);
-      local_34 = (int)ROUND((fVar2 - (float)local_18) * (float)(&UINT_008fe000)[local_40] * 65536.0)
-                 >> (bVar10 & 0x1f);
+      local_30 = (int)ROUND((fVar3 - (float)local_14) *
+                            (float)(&g_dwRdRaster_aOneOverNFlex)[local_40] * 65536.0) >>
+                 (bVar10 & 0x1f);
+      local_34 = (int)ROUND((fVar2 - (float)local_18) *
+                            (float)(&g_dwRdRaster_aOneOverNFlex)[local_40] * 65536.0) >>
+                 (bVar10 & 0x1f);
       puVar15 = (ushort *)
                 (((int)ROUND((float)local_14 * 65536.0) >> (bVar10 & 0x1f)) + UINT_008dde78);
       puVar17 = (ushort *)
@@ -27892,11 +27960,11 @@ void rdRaster_Span8_TexKeyZw(uint *param_1,uint *param_2)
         fVar4 = 1.0 / ((fVar5 * _DAT_008ddea0 - _DAT_008dde4c) + (float)local_8);
         bVar10 = (byte)UINT_008dde54;
         local_30 = (int)ROUND((((fVar5 * _DAT_008dde60 - _DAT_008dde94) + (float)local_c) * fVar4 -
-                              (float)local_14) * (float)(&UINT_008fe000)[iVar9] * 65536.0) >>
-                   (bVar10 & 0x1f);
+                              (float)local_14) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar9] *
+                              65536.0) >> (bVar10 & 0x1f);
         local_34 = (int)ROUND((((fVar5 * _DAT_008dde80 - _DAT_008dde74) + (float)local_10) * fVar4 -
-                              (float)local_18) * (float)(&UINT_008fe000)[iVar9] * 65536.0) >>
-                   (bVar10 & 0x1f);
+                              (float)local_18) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar9] *
+                              65536.0) >> (bVar10 & 0x1f);
         puVar15 = (ushort *)
                   (((int)ROUND((float)local_14 * 65536.0) >> (bVar10 & 0x1f)) + UINT_008dde78);
         puVar17 = (ushort *)
@@ -28063,10 +28131,12 @@ void rdRaster_Span16_TexKeyZw_2(uint *param_1,uint *param_2)
       fVar2 = fVar1 * fVar5;
       fVar1 = fVar1 * fVar3;
       bVar9 = (byte)UINT_008dde54;
-      local_30 = (int)ROUND((fVar2 - (float)local_14) * (float)(&UINT_008fe000)[local_20] * 65536.0)
-                 >> (bVar9 & 0x1f);
-      local_34 = (int)ROUND((fVar1 - (float)local_18) * (float)(&UINT_008fe000)[local_20] * 65536.0)
-                 >> (bVar9 & 0x1f);
+      local_30 = (int)ROUND((fVar2 - (float)local_14) *
+                            (float)(&g_dwRdRaster_aOneOverNFlex)[local_20] * 65536.0) >>
+                 (bVar9 & 0x1f);
+      local_34 = (int)ROUND((fVar1 - (float)local_18) *
+                            (float)(&g_dwRdRaster_aOneOverNFlex)[local_20] * 65536.0) >>
+                 (bVar9 & 0x1f);
       puVar11 = (ushort *)
                 (((int)ROUND((float)local_14 * 65536.0) >> (bVar9 & 0x1f)) + UINT_008dde78);
       puVar15 = (ushort *)
@@ -28147,11 +28217,11 @@ void rdRaster_Span16_TexKeyZw_2(uint *param_1,uint *param_2)
         fVar3 = 1.0 / ((fVar1 * _DAT_008ddea0 - _DAT_008dde4c) + (float)local_8);
         bVar9 = (byte)UINT_008dde54;
         local_30 = (int)ROUND((((fVar1 * _DAT_008dde60 - _DAT_008dde94) + (float)local_c) * fVar3 -
-                              (float)local_14) * (float)(&UINT_008fe000)[iVar8] * 65536.0) >>
-                   (bVar9 & 0x1f);
+                              (float)local_14) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar8] *
+                              65536.0) >> (bVar9 & 0x1f);
         local_34 = (int)ROUND((((fVar1 * _DAT_008dde80 - _DAT_008dde74) + (float)local_10) * fVar3 -
-                              (float)local_18) * (float)(&UINT_008fe000)[iVar8] * 65536.0) >>
-                   (bVar9 & 0x1f);
+                              (float)local_18) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar8] *
+                              65536.0) >> (bVar9 & 0x1f);
         puVar11 = (ushort *)
                   (((int)ROUND((float)local_14 * 65536.0) >> (bVar9 & 0x1f)) + UINT_008dde78);
         puVar15 = (ushort *)
@@ -28494,10 +28564,12 @@ void rdRaster_Span_TexZ(uint *param_1,uint *param_2)
       fVar3 = fVar2 * fVar6;
       fVar2 = fVar2 * fVar4;
       bVar10 = (byte)UINT_008dde54;
-      local_2c = (int)ROUND((fVar3 - (float)local_10) * (float)(&UINT_008fe000)[local_3c] * 65536.0)
-                 >> (bVar10 & 0x1f);
-      local_30 = (int)ROUND((fVar2 - (float)local_14) * (float)(&UINT_008fe000)[local_3c] * 65536.0)
-                 >> (bVar10 & 0x1f);
+      local_2c = (int)ROUND((fVar3 - (float)local_10) *
+                            (float)(&g_dwRdRaster_aOneOverNFlex)[local_3c] * 65536.0) >>
+                 (bVar10 & 0x1f);
+      local_30 = (int)ROUND((fVar2 - (float)local_14) *
+                            (float)(&g_dwRdRaster_aOneOverNFlex)[local_3c] * 65536.0) >>
+                 (bVar10 & 0x1f);
       uVar13 = ((int)ROUND((float)local_10 * 65536.0) >> (bVar10 & 0x1f)) + UINT_008dde78;
       uVar8 = ((int)ROUND((float)local_14 * 65536.0) >> (bVar10 & 0x1f)) + UINT_008dde50;
       if (0 < (int)local_3c) {
@@ -28569,11 +28641,11 @@ void rdRaster_Span_TexZ(uint *param_1,uint *param_2)
         fVar4 = 1.0 / ((fVar5 * _DAT_008ddea0 - _DAT_008dde4c) + PUN(float,param_2));
         bVar10 = (byte)UINT_008dde54;
         local_2c = (int)ROUND((((fVar5 * _DAT_008dde60 - _DAT_008dde94) + (float)local_8) * fVar4 -
-                              (float)local_10) * (float)(&UINT_008fe000)[iVar9] * 65536.0) >>
-                   (bVar10 & 0x1f);
+                              (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar9] *
+                              65536.0) >> (bVar10 & 0x1f);
         local_30 = (int)ROUND((((fVar5 * _DAT_008dde80 - _DAT_008dde74) + (float)local_c) * fVar4 -
-                              (float)local_14) * (float)(&UINT_008fe000)[iVar9] * 65536.0) >>
-                   (bVar10 & 0x1f);
+                              (float)local_14) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar9] *
+                              65536.0) >> (bVar10 & 0x1f);
         uVar13 = ((int)ROUND((float)local_10 * 65536.0) >> (bVar10 & 0x1f)) + UINT_008dde78;
         uVar8 = ((int)ROUND((float)local_14 * 65536.0) >> (bVar10 & 0x1f)) + UINT_008dde50;
       }
@@ -28739,10 +28811,12 @@ void rdRaster_Span16_TexZ_4(uint *param_1,uint *param_2)
       fVar3 = fVar2 * fVar6;
       fVar2 = fVar2 * fVar4;
       bVar10 = (byte)UINT_008dde54;
-      local_24 = (int)ROUND((fVar3 - (float)local_14) * (float)(&UINT_008fe000)[local_3c] * 65536.0)
-                 >> (bVar10 & 0x1f);
-      local_30 = (int)ROUND((fVar2 - (float)local_18) * (float)(&UINT_008fe000)[local_3c] * 65536.0)
-                 >> (bVar10 & 0x1f);
+      local_24 = (int)ROUND((fVar3 - (float)local_14) *
+                            (float)(&g_dwRdRaster_aOneOverNFlex)[local_3c] * 65536.0) >>
+                 (bVar10 & 0x1f);
+      local_30 = (int)ROUND((fVar2 - (float)local_18) *
+                            (float)(&g_dwRdRaster_aOneOverNFlex)[local_3c] * 65536.0) >>
+                 (bVar10 & 0x1f);
       puVar12 = (undefined2 *)
                 (((int)ROUND((float)local_14 * 65536.0) >> (bVar10 & 0x1f)) + UINT_008dde78);
       puVar15 = (undefined2 *)
@@ -28820,11 +28894,11 @@ void rdRaster_Span16_TexZ_4(uint *param_1,uint *param_2)
         fVar4 = 1.0 / ((fVar2 * _DAT_008ddea0 - _DAT_008dde4c) + (float)local_8);
         bVar10 = (byte)UINT_008dde54;
         local_24 = (int)ROUND((((fVar2 * _DAT_008dde60 - _DAT_008dde94) + (float)local_c) * fVar4 -
-                              (float)local_14) * (float)(&UINT_008fe000)[iVar9] * 65536.0) >>
-                   (bVar10 & 0x1f);
+                              (float)local_14) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar9] *
+                              65536.0) >> (bVar10 & 0x1f);
         local_30 = (int)ROUND((((fVar2 * _DAT_008dde80 - _DAT_008dde74) + (float)local_10) * fVar4 -
-                              (float)local_18) * (float)(&UINT_008fe000)[iVar9] * 65536.0) >>
-                   (bVar10 & 0x1f);
+                              (float)local_18) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar9] *
+                              65536.0) >> (bVar10 & 0x1f);
         puVar12 = (undefined2 *)
                   (((int)ROUND((float)local_14 * 65536.0) >> (bVar10 & 0x1f)) + UINT_008dde78);
         puVar15 = (undefined2 *)
@@ -29258,10 +29332,12 @@ void rdRaster_Span8_TexZ_3(uint *param_1,uint *param_2)
       fVar3 = fVar2 * fVar6;
       fVar2 = fVar2 * fVar4;
       bVar10 = (byte)UINT_008dde54;
-      local_2c = (int)ROUND((fVar3 - (float)local_10) * (float)(&UINT_008fe000)[local_3c] * 65536.0)
-                 >> (bVar10 & 0x1f);
-      local_30 = (int)ROUND((fVar2 - (float)local_14) * (float)(&UINT_008fe000)[local_3c] * 65536.0)
-                 >> (bVar10 & 0x1f);
+      local_2c = (int)ROUND((fVar3 - (float)local_10) *
+                            (float)(&g_dwRdRaster_aOneOverNFlex)[local_3c] * 65536.0) >>
+                 (bVar10 & 0x1f);
+      local_30 = (int)ROUND((fVar2 - (float)local_14) *
+                            (float)(&g_dwRdRaster_aOneOverNFlex)[local_3c] * 65536.0) >>
+                 (bVar10 & 0x1f);
       uVar14 = ((int)ROUND((float)local_10 * 65536.0) >> (bVar10 & 0x1f)) + UINT_008dde78;
       uVar8 = ((int)ROUND((float)local_14 * 65536.0) >> (bVar10 & 0x1f)) + UINT_008dde50;
       if (0 < (int)local_3c) {
@@ -29335,11 +29411,11 @@ void rdRaster_Span8_TexZ_3(uint *param_1,uint *param_2)
         fVar4 = 1.0 / ((fVar5 * _DAT_008ddea0 - _DAT_008dde4c) + PUN(float,param_2));
         bVar10 = (byte)UINT_008dde54;
         local_2c = (int)ROUND((((fVar5 * _DAT_008dde60 - _DAT_008dde94) + (float)local_8) * fVar4 -
-                              (float)local_10) * (float)(&UINT_008fe000)[iVar9] * 65536.0) >>
-                   (bVar10 & 0x1f);
+                              (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar9] *
+                              65536.0) >> (bVar10 & 0x1f);
         local_30 = (int)ROUND((((fVar5 * _DAT_008dde80 - _DAT_008dde74) + (float)local_c) * fVar4 -
-                              (float)local_14) * (float)(&UINT_008fe000)[iVar9] * 65536.0) >>
-                   (bVar10 & 0x1f);
+                              (float)local_14) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar9] *
+                              65536.0) >> (bVar10 & 0x1f);
         uVar14 = ((int)ROUND((float)local_10 * 65536.0) >> (bVar10 & 0x1f)) + UINT_008dde78;
         uVar8 = ((int)ROUND((float)local_14 * 65536.0) >> (bVar10 & 0x1f)) + UINT_008dde50;
       }
@@ -29504,10 +29580,12 @@ void rdRaster_Span16_TexZ_5(uint *param_1,uint *param_2)
       fVar3 = fVar2 * fVar6;
       fVar2 = fVar2 * fVar4;
       bVar10 = (byte)UINT_008dde54;
-      local_30 = (int)ROUND((fVar3 - (float)local_10) * (float)(&UINT_008fe000)[local_40] * 65536.0)
-                 >> (bVar10 & 0x1f);
-      local_34 = (int)ROUND((fVar2 - (float)local_14) * (float)(&UINT_008fe000)[local_40] * 65536.0)
-                 >> (bVar10 & 0x1f);
+      local_30 = (int)ROUND((fVar3 - (float)local_10) *
+                            (float)(&g_dwRdRaster_aOneOverNFlex)[local_40] * 65536.0) >>
+                 (bVar10 & 0x1f);
+      local_34 = (int)ROUND((fVar2 - (float)local_14) *
+                            (float)(&g_dwRdRaster_aOneOverNFlex)[local_40] * 65536.0) >>
+                 (bVar10 & 0x1f);
       uVar13 = ((int)ROUND((float)local_10 * 65536.0) >> (bVar10 & 0x1f)) + UINT_008dde78;
       uVar8 = ((int)ROUND((float)local_14 * 65536.0) >> (bVar10 & 0x1f)) + UINT_008dde50;
       if (0 < (int)local_40) {
@@ -29593,11 +29671,11 @@ void rdRaster_Span16_TexZ_5(uint *param_1,uint *param_2)
         fVar4 = 1.0 / ((fVar5 * _DAT_008ddea0 - _DAT_008dde4c) + PUN(float,param_2));
         bVar10 = (byte)UINT_008dde54;
         local_30 = (int)ROUND((((fVar5 * _DAT_008dde60 - _DAT_008dde94) + (float)local_8) * fVar4 -
-                              (float)local_10) * (float)(&UINT_008fe000)[iVar9] * 65536.0) >>
-                   (bVar10 & 0x1f);
+                              (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar9] *
+                              65536.0) >> (bVar10 & 0x1f);
         local_34 = (int)ROUND((((fVar5 * _DAT_008dde80 - _DAT_008dde74) + (float)local_c) * fVar4 -
-                              (float)local_14) * (float)(&UINT_008fe000)[iVar9] * 65536.0) >>
-                   (bVar10 & 0x1f);
+                              (float)local_14) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar9] *
+                              65536.0) >> (bVar10 & 0x1f);
         uVar13 = ((int)ROUND((float)local_10 * 65536.0) >> (bVar10 & 0x1f)) + UINT_008dde78;
         uVar8 = ((int)ROUND((float)local_14 * 65536.0) >> (bVar10 & 0x1f)) + UINT_008dde50;
       }
@@ -29894,10 +29972,12 @@ void rdRaster_Span8_TexKeyZw_2(uint *param_1,uint *param_2)
       fVar3 = fVar2 * fVar5;
       fVar2 = fVar2 * fVar4;
       bVar11 = (byte)UINT_008dde54;
-      local_30 = (int)ROUND((fVar3 - (float)local_14) * (float)(&UINT_008fe000)[local_40] * 65536.0)
-                 >> (bVar11 & 0x1f);
-      local_34 = (int)ROUND((fVar2 - (float)local_18) * (float)(&UINT_008fe000)[local_40] * 65536.0)
-                 >> (bVar11 & 0x1f);
+      local_30 = (int)ROUND((fVar3 - (float)local_14) *
+                            (float)(&g_dwRdRaster_aOneOverNFlex)[local_40] * 65536.0) >>
+                 (bVar11 & 0x1f);
+      local_34 = (int)ROUND((fVar2 - (float)local_18) *
+                            (float)(&g_dwRdRaster_aOneOverNFlex)[local_40] * 65536.0) >>
+                 (bVar11 & 0x1f);
       puVar14 = (undefined1 *)
                 (((int)ROUND((float)local_14 * 65536.0) >> (bVar11 & 0x1f)) + UINT_008dde78);
       puVar15 = (undefined1 *)
@@ -29971,11 +30051,11 @@ void rdRaster_Span8_TexKeyZw_2(uint *param_1,uint *param_2)
         fVar4 = 1.0 / ((fVar5 * _DAT_008ddea0 - _DAT_008dde4c) + (float)local_8);
         bVar11 = (byte)UINT_008dde54;
         local_30 = (int)ROUND((((fVar5 * _DAT_008dde60 - _DAT_008dde94) + (float)local_c) * fVar4 -
-                              (float)local_14) * (float)(&UINT_008fe000)[iVar10] * 65536.0) >>
-                   (bVar11 & 0x1f);
+                              (float)local_14) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar10] *
+                              65536.0) >> (bVar11 & 0x1f);
         local_34 = (int)ROUND((((fVar5 * _DAT_008dde80 - _DAT_008dde74) + (float)local_10) * fVar4 -
-                              (float)local_18) * (float)(&UINT_008fe000)[iVar10] * 65536.0) >>
-                   (bVar11 & 0x1f);
+                              (float)local_18) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar10] *
+                              65536.0) >> (bVar11 & 0x1f);
         puVar14 = (undefined1 *)
                   (((int)ROUND((float)local_14 * 65536.0) >> (bVar11 & 0x1f)) + UINT_008dde78);
         puVar15 = (undefined1 *)
@@ -30145,10 +30225,12 @@ void rdRaster_Span16_TexKeyZw_3(uint *param_1,uint *param_2)
       fVar3 = fVar2 * fVar5;
       fVar2 = fVar2 * fVar4;
       bVar11 = (byte)UINT_008dde54;
-      local_30 = (int)ROUND((fVar3 - (float)local_14) * (float)(&UINT_008fe000)[local_40] * 65536.0)
-                 >> (bVar11 & 0x1f);
-      local_34 = (int)ROUND((fVar2 - (float)local_18) * (float)(&UINT_008fe000)[local_40] * 65536.0)
-                 >> (bVar11 & 0x1f);
+      local_30 = (int)ROUND((fVar3 - (float)local_14) *
+                            (float)(&g_dwRdRaster_aOneOverNFlex)[local_40] * 65536.0) >>
+                 (bVar11 & 0x1f);
+      local_34 = (int)ROUND((fVar2 - (float)local_18) *
+                            (float)(&g_dwRdRaster_aOneOverNFlex)[local_40] * 65536.0) >>
+                 (bVar11 & 0x1f);
       puVar13 = (undefined2 *)
                 (((int)ROUND((float)local_14 * 65536.0) >> (bVar11 & 0x1f)) + UINT_008dde78);
       puVar15 = (undefined2 *)
@@ -30222,11 +30304,11 @@ void rdRaster_Span16_TexKeyZw_3(uint *param_1,uint *param_2)
         fVar4 = 1.0 / ((fVar5 * _DAT_008ddea0 - _DAT_008dde4c) + (float)local_8);
         bVar11 = (byte)UINT_008dde54;
         local_30 = (int)ROUND((((fVar5 * _DAT_008dde60 - _DAT_008dde94) + (float)local_c) * fVar4 -
-                              (float)local_14) * (float)(&UINT_008fe000)[iVar10] * 65536.0) >>
-                   (bVar11 & 0x1f);
+                              (float)local_14) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar10] *
+                              65536.0) >> (bVar11 & 0x1f);
         local_34 = (int)ROUND((((fVar5 * _DAT_008dde80 - _DAT_008dde74) + (float)local_10) * fVar4 -
-                              (float)local_18) * (float)(&UINT_008fe000)[iVar10] * 65536.0) >>
-                   (bVar11 & 0x1f);
+                              (float)local_18) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar10] *
+                              65536.0) >> (bVar11 & 0x1f);
         puVar13 = (undefined2 *)
                   (((int)ROUND((float)local_14 * 65536.0) >> (bVar11 & 0x1f)) + UINT_008dde78);
         puVar15 = (undefined2 *)
@@ -30517,10 +30599,12 @@ void rdRaster_Span8_TexKeyZw_3(uint *param_1,uint *param_2)
       fVar3 = fVar2 * fVar5;
       fVar2 = fVar2 * fVar4;
       bVar10 = (byte)UINT_008dde54;
-      local_30 = (int)ROUND((fVar3 - (float)local_14) * (float)(&UINT_008fe000)[local_40] * 65536.0)
-                 >> (bVar10 & 0x1f);
-      local_34 = (int)ROUND((fVar2 - (float)local_18) * (float)(&UINT_008fe000)[local_40] * 65536.0)
-                 >> (bVar10 & 0x1f);
+      local_30 = (int)ROUND((fVar3 - (float)local_14) *
+                            (float)(&g_dwRdRaster_aOneOverNFlex)[local_40] * 65536.0) >>
+                 (bVar10 & 0x1f);
+      local_34 = (int)ROUND((fVar2 - (float)local_18) *
+                            (float)(&g_dwRdRaster_aOneOverNFlex)[local_40] * 65536.0) >>
+                 (bVar10 & 0x1f);
       puVar15 = (ushort *)
                 (((int)ROUND((float)local_14 * 65536.0) >> (bVar10 & 0x1f)) + UINT_008dde78);
       puVar17 = (ushort *)
@@ -30596,11 +30680,11 @@ void rdRaster_Span8_TexKeyZw_3(uint *param_1,uint *param_2)
         fVar4 = 1.0 / ((fVar5 * _DAT_008ddea0 - _DAT_008dde4c) + (float)local_8);
         bVar10 = (byte)UINT_008dde54;
         local_30 = (int)ROUND((((fVar5 * _DAT_008dde60 - _DAT_008dde94) + (float)local_c) * fVar4 -
-                              (float)local_14) * (float)(&UINT_008fe000)[iVar9] * 65536.0) >>
-                   (bVar10 & 0x1f);
+                              (float)local_14) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar9] *
+                              65536.0) >> (bVar10 & 0x1f);
         local_34 = (int)ROUND((((fVar5 * _DAT_008dde80 - _DAT_008dde74) + (float)local_10) * fVar4 -
-                              (float)local_18) * (float)(&UINT_008fe000)[iVar9] * 65536.0) >>
-                   (bVar10 & 0x1f);
+                              (float)local_18) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar9] *
+                              65536.0) >> (bVar10 & 0x1f);
         puVar15 = (ushort *)
                   (((int)ROUND((float)local_14 * 65536.0) >> (bVar10 & 0x1f)) + UINT_008dde78);
         puVar17 = (ushort *)
@@ -30768,10 +30852,12 @@ void rdRaster_Span16_TexKeyZw_4(uint *param_1,uint *param_2)
       fVar2 = fVar1 * fVar5;
       fVar1 = fVar1 * fVar3;
       bVar9 = (byte)UINT_008dde54;
-      local_30 = (int)ROUND((fVar2 - (float)local_14) * (float)(&UINT_008fe000)[local_20] * 65536.0)
-                 >> (bVar9 & 0x1f);
-      local_34 = (int)ROUND((fVar1 - (float)local_18) * (float)(&UINT_008fe000)[local_20] * 65536.0)
-                 >> (bVar9 & 0x1f);
+      local_30 = (int)ROUND((fVar2 - (float)local_14) *
+                            (float)(&g_dwRdRaster_aOneOverNFlex)[local_20] * 65536.0) >>
+                 (bVar9 & 0x1f);
+      local_34 = (int)ROUND((fVar1 - (float)local_18) *
+                            (float)(&g_dwRdRaster_aOneOverNFlex)[local_20] * 65536.0) >>
+                 (bVar9 & 0x1f);
       puVar11 = (ushort *)
                 (((int)ROUND((float)local_14 * 65536.0) >> (bVar9 & 0x1f)) + UINT_008dde78);
       puVar15 = (ushort *)
@@ -30852,11 +30938,11 @@ void rdRaster_Span16_TexKeyZw_4(uint *param_1,uint *param_2)
         fVar3 = 1.0 / ((fVar1 * _DAT_008ddea0 - _DAT_008dde4c) + (float)local_8);
         bVar9 = (byte)UINT_008dde54;
         local_30 = (int)ROUND((((fVar1 * _DAT_008dde60 - _DAT_008dde94) + (float)local_c) * fVar3 -
-                              (float)local_14) * (float)(&UINT_008fe000)[iVar8] * 65536.0) >>
-                   (bVar9 & 0x1f);
+                              (float)local_14) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar8] *
+                              65536.0) >> (bVar9 & 0x1f);
         local_34 = (int)ROUND((((fVar1 * _DAT_008dde80 - _DAT_008dde74) + (float)local_10) * fVar3 -
-                              (float)local_18) * (float)(&UINT_008fe000)[iVar8] * 65536.0) >>
-                   (bVar9 & 0x1f);
+                              (float)local_18) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar8] *
+                              65536.0) >> (bVar9 & 0x1f);
         puVar11 = (ushort *)
                   (((int)ROUND((float)local_14 * 65536.0) >> (bVar9 & 0x1f)) + UINT_008dde78);
         puVar15 = (ushort *)
@@ -31190,7 +31276,7 @@ void rdRaster_Span_TexZ_2(uint *param_1,uint *param_2)
     local_34 = (uint)(fVar3 * _DAT_008dde60 + (float)param_1[6]);
     local_30 = (uint)(fVar3 * _DAT_008dde80 + (float)param_1[8]);
     lVar2 = (longlong)(int)(param_2[0xe] - param_1[0xe]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + uVar9 * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + uVar9 * 4);
     local_38 = (uint)lVar2 >> 0x10 | (int)((ulonglong)lVar2 >> 0x20) << 0x10;
     if (((int)local_38 < 0) && (-0x51e < (int)local_38)) {
       local_38 = 0;
@@ -31221,10 +31307,12 @@ void rdRaster_Span_TexZ_2(uint *param_1,uint *param_2)
       fVar4 = fVar3 * fVar7;
       fVar3 = fVar3 * fVar6;
       bVar11 = (byte)UINT_008dde54;
-      local_30 = (int)ROUND((fVar4 - (float)local_10) * (float)(&UINT_008fe000)[local_24] * 65536.0)
-                 >> (bVar11 & 0x1f);
-      local_34 = (int)ROUND((fVar3 - (float)local_14) * (float)(&UINT_008fe000)[local_24] * 65536.0)
-                 >> (bVar11 & 0x1f);
+      local_30 = (int)ROUND((fVar4 - (float)local_10) *
+                            (float)(&g_dwRdRaster_aOneOverNFlex)[local_24] * 65536.0) >>
+                 (bVar11 & 0x1f);
+      local_34 = (int)ROUND((fVar3 - (float)local_14) *
+                            (float)(&g_dwRdRaster_aOneOverNFlex)[local_24] * 65536.0) >>
+                 (bVar11 & 0x1f);
       uVar16 = ((int)ROUND((float)local_10 * 65536.0) >> (bVar11 & 0x1f)) + UINT_008dde78;
       uVar9 = ((int)ROUND((float)local_14 * 65536.0) >> (bVar11 & 0x1f)) + UINT_008dde50;
       if (0 < (int)local_24) {
@@ -31301,11 +31389,11 @@ void rdRaster_Span_TexZ_2(uint *param_1,uint *param_2)
         fVar3 = 1.0 / ((fVar5 * _DAT_008ddea0 - _DAT_008dde4c) + PUN(float,param_1));
         bVar11 = (byte)UINT_008dde54;
         local_30 = (int)ROUND((((fVar5 * _DAT_008dde60 - _DAT_008dde94) + (float)local_8) * fVar3 -
-                              (float)local_10) * (float)(&UINT_008fe000)[iVar10] * 65536.0) >>
-                   (bVar11 & 0x1f);
+                              (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar10] *
+                              65536.0) >> (bVar11 & 0x1f);
         local_34 = (int)ROUND((((fVar5 * _DAT_008dde80 - _DAT_008dde74) + (float)local_c) * fVar3 -
-                              (float)local_14) * (float)(&UINT_008fe000)[iVar10] * 65536.0) >>
-                   (bVar11 & 0x1f);
+                              (float)local_14) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar10] *
+                              65536.0) >> (bVar11 & 0x1f);
         uVar16 = ((int)ROUND((float)local_10 * 65536.0) >> (bVar11 & 0x1f)) + UINT_008dde78;
         uVar9 = ((int)ROUND((float)local_14 * 65536.0) >> (bVar11 & 0x1f)) + UINT_008dde50;
       }
@@ -31456,7 +31544,7 @@ void rdRaster_Span16_TexZ_6(uint *param_1,uint *param_2)
     local_30 = (uint)(fVar5 * _DAT_008dde60 + (float)param_1[6]);
     fVar5 = fVar5 * _DAT_008dde80 + (float)param_1[8];
     lVar2 = (longlong)(int)(param_2[0xe] - param_1[0xe]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + uVar14 * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + uVar14 * 4);
     local_38 = (uint)lVar2 >> 0x10 | (int)((ulonglong)lVar2 >> 0x20) << 0x10;
     if (((int)local_38 < 0) && (-0x51e < (int)local_38)) {
       local_38 = 0;
@@ -31490,10 +31578,12 @@ void rdRaster_Span16_TexZ_6(uint *param_1,uint *param_2)
       fVar4 = fVar3 * fVar7;
       fVar3 = fVar3 * fVar5;
       bVar13 = (byte)UINT_008dde54;
-      local_30 = (int)ROUND((fVar4 - (float)local_14) * (float)(&UINT_008fe000)[local_28] * 65536.0)
-                 >> (bVar13 & 0x1f);
-      local_34 = (int)ROUND((fVar3 - (float)local_18) * (float)(&UINT_008fe000)[local_28] * 65536.0)
-                 >> (bVar13 & 0x1f);
+      local_30 = (int)ROUND((fVar4 - (float)local_14) *
+                            (float)(&g_dwRdRaster_aOneOverNFlex)[local_28] * 65536.0) >>
+                 (bVar13 & 0x1f);
+      local_34 = (int)ROUND((fVar3 - (float)local_18) *
+                            (float)(&g_dwRdRaster_aOneOverNFlex)[local_28] * 65536.0) >>
+                 (bVar13 & 0x1f);
       puVar12 = (undefined2 *)
                 (((int)ROUND((float)local_14 * 65536.0) >> (bVar13 & 0x1f)) + UINT_008dde78);
       puVar17 = (undefined2 *)
@@ -31574,11 +31664,11 @@ void rdRaster_Span16_TexZ_6(uint *param_1,uint *param_2)
         fVar5 = 1.0 / ((fVar3 * _DAT_008ddea0 - _DAT_008dde4c) + (float)local_8);
         bVar13 = (byte)UINT_008dde54;
         local_30 = (int)ROUND((((fVar3 * _DAT_008dde60 - _DAT_008dde94) + (float)local_c) * fVar5 -
-                              (float)local_14) * (float)(&UINT_008fe000)[iVar10] * 65536.0) >>
-                   (bVar13 & 0x1f);
+                              (float)local_14) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar10] *
+                              65536.0) >> (bVar13 & 0x1f);
         local_34 = (int)ROUND((((fVar3 * _DAT_008dde80 - _DAT_008dde74) + (float)local_10) * fVar5 -
-                              (float)local_18) * (float)(&UINT_008fe000)[iVar10] * 65536.0) >>
-                   (bVar13 & 0x1f);
+                              (float)local_18) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar10] *
+                              65536.0) >> (bVar13 & 0x1f);
         puVar12 = (undefined2 *)
                   (((int)ROUND((float)local_14 * 65536.0) >> (bVar13 & 0x1f)) + UINT_008dde78);
         puVar17 = (undefined2 *)
@@ -32018,7 +32108,7 @@ void rdRaster_Span8_TexZ_4(uint *param_1,uint *param_2)
     local_34 = (uint)(fVar3 * _DAT_008dde60 + (float)param_1[6]);
     local_30 = (uint)(fVar3 * _DAT_008dde80 + (float)param_1[8]);
     lVar2 = (longlong)(int)(param_2[0xe] - param_1[0xe]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + uVar9 * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + uVar9 * 4);
     local_38 = (uint)lVar2 >> 0x10 | (int)((ulonglong)lVar2 >> 0x20) << 0x10;
     if (((int)local_38 < 0) && (-0x51e < (int)local_38)) {
       local_38 = 0;
@@ -32048,10 +32138,12 @@ void rdRaster_Span8_TexZ_4(uint *param_1,uint *param_2)
       fVar4 = fVar3 * fVar7;
       fVar3 = fVar3 * fVar6;
       bVar12 = (byte)UINT_008dde54;
-      local_30 = (int)ROUND((fVar4 - (float)local_10) * (float)(&UINT_008fe000)[local_24] * 65536.0)
-                 >> (bVar12 & 0x1f);
-      local_34 = (int)ROUND((fVar3 - (float)local_14) * (float)(&UINT_008fe000)[local_24] * 65536.0)
-                 >> (bVar12 & 0x1f);
+      local_30 = (int)ROUND((fVar4 - (float)local_10) *
+                            (float)(&g_dwRdRaster_aOneOverNFlex)[local_24] * 65536.0) >>
+                 (bVar12 & 0x1f);
+      local_34 = (int)ROUND((fVar3 - (float)local_14) *
+                            (float)(&g_dwRdRaster_aOneOverNFlex)[local_24] * 65536.0) >>
+                 (bVar12 & 0x1f);
       uVar17 = ((int)ROUND((float)local_10 * 65536.0) >> (bVar12 & 0x1f)) + UINT_008dde78;
       uVar9 = ((int)ROUND((float)local_14 * 65536.0) >> (bVar12 & 0x1f)) + UINT_008dde50;
       if (0 < (int)local_24) {
@@ -32132,11 +32224,11 @@ void rdRaster_Span8_TexZ_4(uint *param_1,uint *param_2)
         fVar3 = 1.0 / ((fVar5 * _DAT_008ddea0 - _DAT_008dde4c) + PUN(float,param_1));
         bVar12 = (byte)UINT_008dde54;
         local_30 = (int)ROUND((((fVar5 * _DAT_008dde60 - _DAT_008dde94) + (float)local_8) * fVar3 -
-                              (float)local_10) * (float)(&UINT_008fe000)[iVar10] * 65536.0) >>
-                   (bVar12 & 0x1f);
+                              (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar10] *
+                              65536.0) >> (bVar12 & 0x1f);
         local_34 = (int)ROUND((((fVar5 * _DAT_008dde80 - _DAT_008dde74) + (float)local_c) * fVar3 -
-                              (float)local_14) * (float)(&UINT_008fe000)[iVar10] * 65536.0) >>
-                   (bVar12 & 0x1f);
+                              (float)local_14) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar10] *
+                              65536.0) >> (bVar12 & 0x1f);
         uVar17 = ((int)ROUND((float)local_10 * 65536.0) >> (bVar12 & 0x1f)) + UINT_008dde78;
         uVar9 = ((int)ROUND((float)local_14 * 65536.0) >> (bVar12 & 0x1f)) + UINT_008dde50;
       }
@@ -32288,7 +32380,7 @@ void rdRaster_Span16_TexZ_7(uint *param_1,uint *param_2)
     local_34 = (uint)(fVar5 * _DAT_008dde60 + (float)param_1[6]);
     fVar5 = fVar5 * _DAT_008dde80 + (float)param_1[8];
     lVar2 = (longlong)(int)(param_2[0xe] - param_1[0xe]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + uVar14 * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + uVar14 * 4);
     local_3c = (uint)lVar2 >> 0x10 | (int)((ulonglong)lVar2 >> 0x20) << 0x10;
     if (((int)local_3c < 0) && (-0x51e < (int)local_3c)) {
       local_3c = 0;
@@ -32321,10 +32413,12 @@ void rdRaster_Span16_TexZ_7(uint *param_1,uint *param_2)
       fVar4 = fVar3 * fVar7;
       fVar3 = fVar3 * fVar5;
       bVar13 = (byte)UINT_008dde54;
-      local_34 = (int)ROUND((fVar4 - (float)local_14) * (float)(&UINT_008fe000)[local_28] * 65536.0)
-                 >> (bVar13 & 0x1f);
-      local_38 = (int)ROUND((fVar3 - (float)local_18) * (float)(&UINT_008fe000)[local_28] * 65536.0)
-                 >> (bVar13 & 0x1f);
+      local_34 = (int)ROUND((fVar4 - (float)local_14) *
+                            (float)(&g_dwRdRaster_aOneOverNFlex)[local_28] * 65536.0) >>
+                 (bVar13 & 0x1f);
+      local_38 = (int)ROUND((fVar3 - (float)local_18) *
+                            (float)(&g_dwRdRaster_aOneOverNFlex)[local_28] * 65536.0) >>
+                 (bVar13 & 0x1f);
       fVar17 = (float)(((int)ROUND((float)local_14 * 65536.0) >> (bVar13 & 0x1f)) + UINT_008dde78);
       param_2 = (uint *)(((int)ROUND((float)local_18 * 65536.0) >> (bVar13 & 0x1f)) + UINT_008dde50)
       ;
@@ -32418,11 +32512,11 @@ void rdRaster_Span16_TexZ_7(uint *param_1,uint *param_2)
         fVar5 = 1.0 / ((fVar17 * _DAT_008ddea0 - _DAT_008dde4c) + (float)local_8);
         bVar13 = (byte)UINT_008dde54;
         local_34 = (int)ROUND((((fVar17 * _DAT_008dde60 - _DAT_008dde94) + (float)local_c) * fVar5 -
-                              (float)local_14) * (float)(&UINT_008fe000)[iVar10] * 65536.0) >>
-                   (bVar13 & 0x1f);
+                              (float)local_14) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar10] *
+                              65536.0) >> (bVar13 & 0x1f);
         local_38 = (int)ROUND((((fVar17 * _DAT_008dde80 - _DAT_008dde74) + (float)local_10) * fVar5
-                              - (float)local_18) * (float)(&UINT_008fe000)[iVar10] * 65536.0) >>
-                   (bVar13 & 0x1f);
+                              - (float)local_18) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar10] *
+                              65536.0) >> (bVar13 & 0x1f);
         fVar17 = (float)(((int)ROUND((float)local_14 * 65536.0) >> (bVar13 & 0x1f)) + UINT_008dde78)
         ;
         param_2 = (uint *)(((int)ROUND((float)local_18 * 65536.0) >> (bVar13 & 0x1f)) +
@@ -32714,7 +32808,7 @@ void rdRaster_Span8_TexKeyZw_4(uint *param_1,uint *param_2)
     fVar6 = fVar5 * _DAT_008dde60 + (float)param_1[6];
     fVar5 = fVar5 * _DAT_008dde80 + (float)param_1[8];
     lVar2 = (longlong)(int)(param_2[0xe] - param_1[0xe]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + uVar9 * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + uVar9 * 4);
     local_3c = (uint)lVar2 >> 0x10 | (int)((ulonglong)lVar2 >> 0x20) << 0x10;
     if (((int)local_3c < 0) && (-0x51e < (int)local_3c)) {
       local_3c = 0;
@@ -32748,10 +32842,12 @@ void rdRaster_Span8_TexKeyZw_4(uint *param_1,uint *param_2)
       fVar4 = fVar3 * fVar6;
       fVar3 = fVar3 * fVar5;
       bVar13 = (byte)UINT_008dde54;
-      local_34 = (int)ROUND((fVar4 - (float)local_18) * (float)(&UINT_008fe000)[local_48] * 65536.0)
-                 >> (bVar13 & 0x1f);
-      local_38 = (int)ROUND((fVar3 - (float)local_1c) * (float)(&UINT_008fe000)[local_48] * 65536.0)
-                 >> (bVar13 & 0x1f);
+      local_34 = (int)ROUND((fVar4 - (float)local_18) *
+                            (float)(&g_dwRdRaster_aOneOverNFlex)[local_48] * 65536.0) >>
+                 (bVar13 & 0x1f);
+      local_38 = (int)ROUND((fVar3 - (float)local_1c) *
+                            (float)(&g_dwRdRaster_aOneOverNFlex)[local_48] * 65536.0) >>
+                 (bVar13 & 0x1f);
       puVar16 = (undefined1 *)
                 (((int)ROUND((float)local_18 * 65536.0) >> (bVar13 & 0x1f)) + UINT_008dde78);
       puVar17 = (undefined1 *)
@@ -32829,11 +32925,11 @@ void rdRaster_Span8_TexKeyZw_4(uint *param_1,uint *param_2)
         fVar5 = 1.0 / ((fVar6 * _DAT_008ddea0 - _DAT_008dde4c) + (float)local_c);
         bVar13 = (byte)UINT_008dde54;
         local_34 = (int)ROUND((((fVar6 * _DAT_008dde60 - _DAT_008dde94) + (float)local_10) * fVar5 -
-                              (float)local_18) * (float)(&UINT_008fe000)[iVar10] * 65536.0) >>
-                   (bVar13 & 0x1f);
+                              (float)local_18) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar10] *
+                              65536.0) >> (bVar13 & 0x1f);
         local_38 = (int)ROUND((((fVar6 * _DAT_008dde80 - _DAT_008dde74) + (float)local_14) * fVar5 -
-                              (float)local_1c) * (float)(&UINT_008fe000)[iVar10] * 65536.0) >>
-                   (bVar13 & 0x1f);
+                              (float)local_1c) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar10] *
+                              65536.0) >> (bVar13 & 0x1f);
         puVar16 = (undefined1 *)
                   (((int)ROUND((float)local_18 * 65536.0) >> (bVar13 & 0x1f)) + UINT_008dde78);
         puVar17 = (undefined1 *)
@@ -32984,7 +33080,7 @@ void rdRaster_Span16_TexKeyZw_5(uint *param_1,uint *param_2)
     fVar5 = fVar4 * _DAT_008dde60 + (float)param_1[6];
     fVar4 = fVar4 * _DAT_008dde80 + (float)param_1[8];
     lVar1 = (longlong)(int)(param_2[0xe] - param_1[0xe]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + uVar8 * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + uVar8 * 4);
     local_3c = (uint)lVar1 >> 0x10 | (int)((ulonglong)lVar1 >> 0x20) << 0x10;
     if (((int)local_3c < 0) && (-0x51e < (int)local_3c)) {
       local_3c = 0;
@@ -33019,10 +33115,12 @@ void rdRaster_Span16_TexKeyZw_5(uint *param_1,uint *param_2)
       fVar3 = fVar2 * fVar5;
       fVar2 = fVar2 * fVar4;
       bVar12 = (byte)UINT_008dde54;
-      local_34 = (int)ROUND((fVar3 - (float)local_18) * (float)(&UINT_008fe000)[local_48] * 65536.0)
-                 >> (bVar12 & 0x1f);
-      local_38 = (int)ROUND((fVar2 - (float)local_1c) * (float)(&UINT_008fe000)[local_48] * 65536.0)
-                 >> (bVar12 & 0x1f);
+      local_34 = (int)ROUND((fVar3 - (float)local_18) *
+                            (float)(&g_dwRdRaster_aOneOverNFlex)[local_48] * 65536.0) >>
+                 (bVar12 & 0x1f);
+      local_38 = (int)ROUND((fVar2 - (float)local_1c) *
+                            (float)(&g_dwRdRaster_aOneOverNFlex)[local_48] * 65536.0) >>
+                 (bVar12 & 0x1f);
       puVar15 = (undefined2 *)
                 (((int)ROUND((float)local_18 * 65536.0) >> (bVar12 & 0x1f)) + UINT_008dde78);
       puVar16 = (undefined2 *)
@@ -33102,11 +33200,11 @@ void rdRaster_Span16_TexKeyZw_5(uint *param_1,uint *param_2)
         fVar4 = 1.0 / ((fVar5 * _DAT_008ddea0 - _DAT_008dde4c) + (float)local_c);
         bVar12 = (byte)UINT_008dde54;
         local_34 = (int)ROUND((((fVar5 * _DAT_008dde60 - _DAT_008dde94) + (float)local_10) * fVar4 -
-                              (float)local_18) * (float)(&UINT_008fe000)[iVar9] * 65536.0) >>
-                   (bVar12 & 0x1f);
+                              (float)local_18) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar9] *
+                              65536.0) >> (bVar12 & 0x1f);
         local_38 = (int)ROUND((((fVar5 * _DAT_008dde80 - _DAT_008dde74) + (float)local_14) * fVar4 -
-                              (float)local_1c) * (float)(&UINT_008fe000)[iVar9] * 65536.0) >>
-                   (bVar12 & 0x1f);
+                              (float)local_1c) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar9] *
+                              65536.0) >> (bVar12 & 0x1f);
         puVar15 = (undefined2 *)
                   (((int)ROUND((float)local_18 * 65536.0) >> (bVar12 & 0x1f)) + UINT_008dde78);
         puVar16 = (undefined2 *)
@@ -33393,7 +33491,7 @@ void rdRaster_Span8_TexKeyZw_5(uint *param_1,uint *param_2)
     local_34 = (uint)(fVar5 * _DAT_008dde60 + (float)param_1[6]);
     fVar5 = fVar5 * _DAT_008dde80 + (float)param_1[8];
     lVar2 = (longlong)(int)(param_2[0xe] - param_1[0xe]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + uVar9 * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + uVar9 * 4);
     local_3c = (uint)lVar2 >> 0x10 | (int)((ulonglong)lVar2 >> 0x20) << 0x10;
     if (((int)local_3c < 0) && (-0x51e < (int)local_3c)) {
       local_3c = 0;
@@ -33425,10 +33523,12 @@ void rdRaster_Span8_TexKeyZw_5(uint *param_1,uint *param_2)
       fVar4 = fVar3 * fVar7;
       fVar3 = fVar3 * fVar5;
       bVar13 = (byte)UINT_008dde54;
-      local_34 = (int)ROUND((fVar4 - (float)local_14) * (float)(&UINT_008fe000)[local_28] * 65536.0)
-                 >> (bVar13 & 0x1f);
-      local_38 = (int)ROUND((fVar3 - (float)local_18) * (float)(&UINT_008fe000)[local_28] * 65536.0)
-                 >> (bVar13 & 0x1f);
+      local_34 = (int)ROUND((fVar4 - (float)local_14) *
+                            (float)(&g_dwRdRaster_aOneOverNFlex)[local_28] * 65536.0) >>
+                 (bVar13 & 0x1f);
+      local_38 = (int)ROUND((fVar3 - (float)local_18) *
+                            (float)(&g_dwRdRaster_aOneOverNFlex)[local_28] * 65536.0) >>
+                 (bVar13 & 0x1f);
       fVar20 = (float)(((int)ROUND((float)local_14 * 65536.0) >> (bVar13 & 0x1f)) + UINT_008dde78);
       param_2 = (uint *)(((int)ROUND((float)local_18 * 65536.0) >> (bVar13 & 0x1f)) + UINT_008dde50)
       ;
@@ -33508,11 +33608,11 @@ void rdRaster_Span8_TexKeyZw_5(uint *param_1,uint *param_2)
         fVar5 = 1.0 / ((fVar20 * _DAT_008ddea0 - _DAT_008dde4c) + (float)local_8);
         bVar13 = (byte)UINT_008dde54;
         local_34 = (int)ROUND((((fVar20 * _DAT_008dde60 - _DAT_008dde94) + (float)local_c) * fVar5 -
-                              (float)local_14) * (float)(&UINT_008fe000)[iVar10] * 65536.0) >>
-                   (bVar13 & 0x1f);
+                              (float)local_14) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar10] *
+                              65536.0) >> (bVar13 & 0x1f);
         local_38 = (int)ROUND((((fVar20 * _DAT_008dde80 - _DAT_008dde74) + (float)local_10) * fVar5
-                              - (float)local_18) * (float)(&UINT_008fe000)[iVar10] * 65536.0) >>
-                   (bVar13 & 0x1f);
+                              - (float)local_18) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar10] *
+                              65536.0) >> (bVar13 & 0x1f);
         fVar20 = (float)(((int)ROUND((float)local_14 * 65536.0) >> (bVar13 & 0x1f)) + UINT_008dde78)
         ;
         param_2 = (uint *)(((int)ROUND((float)local_18 * 65536.0) >> (bVar13 & 0x1f)) +
@@ -33665,7 +33765,7 @@ void rdRaster_Span16_TexKeyZw_6(uint *param_1,uint *param_2)
     local_34 = (uint)(fVar5 * _DAT_008dde60 + (float)param_1[6]);
     fVar5 = fVar5 * _DAT_008dde80 + (float)param_1[8];
     lVar2 = (longlong)(int)(param_2[0xe] - param_1[0xe]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + uVar14 * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + uVar14 * 4);
     local_3c = (uint)lVar2 >> 0x10 | (int)((ulonglong)lVar2 >> 0x20) << 0x10;
     if (((int)local_3c < 0) && (-0x51e < (int)local_3c)) {
       local_3c = 0;
@@ -33699,10 +33799,12 @@ void rdRaster_Span16_TexKeyZw_6(uint *param_1,uint *param_2)
       fVar4 = fVar3 * fVar7;
       fVar3 = fVar3 * fVar5;
       bVar13 = (byte)UINT_008dde54;
-      local_34 = (int)ROUND((fVar4 - (float)local_14) * (float)(&UINT_008fe000)[local_28] * 65536.0)
-                 >> (bVar13 & 0x1f);
-      local_38 = (int)ROUND((fVar3 - (float)local_18) * (float)(&UINT_008fe000)[local_28] * 65536.0)
-                 >> (bVar13 & 0x1f);
+      local_34 = (int)ROUND((fVar4 - (float)local_14) *
+                            (float)(&g_dwRdRaster_aOneOverNFlex)[local_28] * 65536.0) >>
+                 (bVar13 & 0x1f);
+      local_38 = (int)ROUND((fVar3 - (float)local_18) *
+                            (float)(&g_dwRdRaster_aOneOverNFlex)[local_28] * 65536.0) >>
+                 (bVar13 & 0x1f);
       fVar20 = (float)(((int)ROUND((float)local_14 * 65536.0) >> (bVar13 & 0x1f)) + UINT_008dde78);
       param_2 = (uint *)(((int)ROUND((float)local_18 * 65536.0) >> (bVar13 & 0x1f)) + UINT_008dde50)
       ;
@@ -33786,11 +33888,11 @@ void rdRaster_Span16_TexKeyZw_6(uint *param_1,uint *param_2)
         fVar5 = 1.0 / ((fVar20 * _DAT_008ddea0 - _DAT_008dde4c) + (float)local_8);
         bVar13 = (byte)UINT_008dde54;
         local_34 = (int)ROUND((((fVar20 * _DAT_008dde60 - _DAT_008dde94) + (float)local_c) * fVar5 -
-                              (float)local_14) * (float)(&UINT_008fe000)[iVar10] * 65536.0) >>
-                   (bVar13 & 0x1f);
+                              (float)local_14) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar10] *
+                              65536.0) >> (bVar13 & 0x1f);
         local_38 = (int)ROUND((((fVar20 * _DAT_008dde80 - _DAT_008dde74) + (float)local_10) * fVar5
-                              - (float)local_18) * (float)(&UINT_008fe000)[iVar10] * 65536.0) >>
-                   (bVar13 & 0x1f);
+                              - (float)local_18) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar10] *
+                              65536.0) >> (bVar13 & 0x1f);
         fVar20 = (float)(((int)ROUND((float)local_14 * 65536.0) >> (bVar13 & 0x1f)) + UINT_008dde78)
         ;
         param_2 = (uint *)(((int)ROUND((float)local_18 * 65536.0) >> (bVar13 & 0x1f)) +
@@ -35062,7 +35164,7 @@ void rdRaster_SpanP16_Tex(uint *param_1)
   }
   else {
     *(float *)&DAT_007f4af4 = (float)(int)uVar5;
-    *(float *)&DAT_007f4b34 = (float)(&UINT_008fe000)[uVar5];
+    *(float *)&DAT_007f4b34 = (float)(&g_dwRdRaster_aOneOverNFlex)[uVar5];
     _DAT_007f4b38 = *(float *)&DAT_007f4af4 * _DAT_008ddf1c + *(float *)&DAT_007f4af8;
     _DAT_007f4b64 = *(float *)&DAT_007f4af4 * _DAT_008ddf20 + *(float *)&DAT_007f4ae4;
     _DAT_007f4ad4 = *(float *)&DAT_007f4af4 * _DAT_008ddf38 + *(float *)&DAT_007f4af0;
@@ -35155,7 +35257,7 @@ void rdRaster_SpanP16_Tex(uint *param_1)
     UINT_007f4acc = uVar7 - 1;
     if (UINT_007f4acc != 0) {
       *(float *)&DAT_007f4ac8 = (float)(int)UINT_007f4acc;
-      *(float *)&DAT_007f4aec = (float)(&UINT_008fe000)[UINT_007f4acc];
+      *(float *)&DAT_007f4aec = (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4acc];
       _DAT_007f4b38 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf1c - _DAT_008ddf28) + _DAT_007f4b38;
       _DAT_007f4b64 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf20 - _DAT_008ddf2c) + _DAT_007f4b64;
       _DAT_007f4ad4 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf38 - _DAT_008ddf48) + _DAT_007f4ad4;
@@ -35265,7 +35367,7 @@ void rdRaster_SpanP16_Tex_2(uint *param_1)
   }
   else {
     *(float *)&DAT_007f4af4 = (float)(int)uVar8;
-    *(float *)&DAT_007f4b34 = (float)(&UINT_008fe000)[uVar8];
+    *(float *)&DAT_007f4b34 = (float)(&g_dwRdRaster_aOneOverNFlex)[uVar8];
     _DAT_007f4b38 = *(float *)&DAT_007f4af4 * _DAT_008ddf1c + *(float *)&DAT_007f4af8;
     _DAT_007f4b64 = *(float *)&DAT_007f4af4 * _DAT_008ddf20 + *(float *)&DAT_007f4ae4;
     _DAT_007f4ad4 = *(float *)&DAT_007f4af4 * _DAT_008ddf38 + *(float *)&DAT_007f4af0;
@@ -35357,7 +35459,7 @@ void rdRaster_SpanP16_Tex_2(uint *param_1)
     UINT_007f4acc = uVar8 - 1;
     if (UINT_007f4acc != 0) {
       *(float *)&DAT_007f4ac8 = (float)(int)UINT_007f4acc;
-      *(float *)&DAT_007f4aec = (float)(&UINT_008fe000)[UINT_007f4acc];
+      *(float *)&DAT_007f4aec = (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4acc];
       _DAT_007f4b38 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf1c - _DAT_008ddf28) + _DAT_007f4b38;
       _DAT_007f4b64 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf20 - _DAT_008ddf2c) + _DAT_007f4b64;
       _DAT_007f4ad4 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf38 - _DAT_008ddf48) + _DAT_007f4ad4;
@@ -35470,7 +35572,7 @@ void rdRaster_SpanP16_Tex_3(uint *param_1)
   }
   else {
     *(float *)&DAT_007f4af4 = (float)(int)uVar8;
-    *(float *)&DAT_007f4b34 = (float)(&UINT_008fe000)[uVar8];
+    *(float *)&DAT_007f4b34 = (float)(&g_dwRdRaster_aOneOverNFlex)[uVar8];
     _DAT_007f4b38 = *(float *)&DAT_007f4af4 * _DAT_008ddf1c + *(float *)&DAT_007f4af8;
     _DAT_007f4b64 = *(float *)&DAT_007f4af4 * _DAT_008ddf20 + *(float *)&DAT_007f4ae4;
     _DAT_007f4ad4 = *(float *)&DAT_007f4af4 * _DAT_008ddf38 + *(float *)&DAT_007f4af0;
@@ -35562,7 +35664,7 @@ void rdRaster_SpanP16_Tex_3(uint *param_1)
     UINT_007f4acc = uVar8 - 1;
     if (UINT_007f4acc != 0) {
       *(float *)&DAT_007f4ac8 = (float)(int)UINT_007f4acc;
-      *(float *)&DAT_007f4aec = (float)(&UINT_008fe000)[UINT_007f4acc];
+      *(float *)&DAT_007f4aec = (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4acc];
       _DAT_007f4b38 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf1c - _DAT_008ddf28) + _DAT_007f4b38;
       _DAT_007f4b64 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf20 - _DAT_008ddf2c) + _DAT_007f4b64;
       _DAT_007f4ad4 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf38 - _DAT_008ddf48) + _DAT_007f4ad4;
@@ -35675,7 +35777,7 @@ void rdRaster_SpanP16_Tex_4(uint *param_1)
   }
   else {
     *(float *)&DAT_007f4af4 = (float)(int)uVar8;
-    *(float *)&DAT_007f4b34 = (float)(&UINT_008fe000)[uVar8];
+    *(float *)&DAT_007f4b34 = (float)(&g_dwRdRaster_aOneOverNFlex)[uVar8];
     _DAT_007f4b38 = *(float *)&DAT_007f4af4 * _DAT_008ddf1c + *(float *)&DAT_007f4af8;
     _DAT_007f4b64 = *(float *)&DAT_007f4af4 * _DAT_008ddf20 + *(float *)&DAT_007f4ae4;
     _DAT_007f4ad4 = *(float *)&DAT_007f4af4 * _DAT_008ddf38 + *(float *)&DAT_007f4af0;
@@ -35767,7 +35869,7 @@ void rdRaster_SpanP16_Tex_4(uint *param_1)
     UINT_007f4acc = uVar8 - 1;
     if (UINT_007f4acc != 0) {
       *(float *)&DAT_007f4ac8 = (float)(int)UINT_007f4acc;
-      *(float *)&DAT_007f4aec = (float)(&UINT_008fe000)[UINT_007f4acc];
+      *(float *)&DAT_007f4aec = (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4acc];
       _DAT_007f4b38 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf1c - _DAT_008ddf28) + _DAT_007f4b38;
       _DAT_007f4b64 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf20 - _DAT_008ddf2c) + _DAT_007f4b64;
       _DAT_007f4ad4 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf38 - _DAT_008ddf48) + _DAT_007f4ad4;
@@ -35880,7 +35982,7 @@ void rdRaster_SpanP16_TexLit(uint *param_1)
   }
   else {
     *(float *)&DAT_007f4af4 = (float)(int)uVar8;
-    *(float *)&DAT_007f4b34 = (float)(&UINT_008fe000)[uVar8];
+    *(float *)&DAT_007f4b34 = (float)(&g_dwRdRaster_aOneOverNFlex)[uVar8];
     _DAT_007f4b38 = *(float *)&DAT_007f4af4 * _DAT_008ddf1c + *(float *)&DAT_007f4af8;
     _DAT_007f4b64 = *(float *)&DAT_007f4af4 * _DAT_008ddf20 + *(float *)&DAT_007f4ae4;
     _DAT_007f4ad4 = *(float *)&DAT_007f4af4 * _DAT_008ddf38 + *(float *)&DAT_007f4af0;
@@ -35972,7 +36074,7 @@ void rdRaster_SpanP16_TexLit(uint *param_1)
     UINT_007f4acc = uVar8 - 1;
     if (UINT_007f4acc != 0) {
       *(float *)&DAT_007f4ac8 = (float)(int)UINT_007f4acc;
-      *(float *)&DAT_007f4aec = (float)(&UINT_008fe000)[UINT_007f4acc];
+      *(float *)&DAT_007f4aec = (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4acc];
       _DAT_007f4b38 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf1c - _DAT_008ddf28) + _DAT_007f4b38;
       _DAT_007f4b64 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf20 - _DAT_008ddf2c) + _DAT_007f4b64;
       _DAT_007f4ad4 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf38 - _DAT_008ddf48) + _DAT_007f4ad4;
@@ -36085,7 +36187,7 @@ void rdRaster_SpanP16_Tex_5(uint *param_1)
   }
   else {
     *(float *)&DAT_007f4af4 = (float)(int)uVar8;
-    *(float *)&DAT_007f4b34 = (float)(&UINT_008fe000)[uVar8];
+    *(float *)&DAT_007f4b34 = (float)(&g_dwRdRaster_aOneOverNFlex)[uVar8];
     _DAT_007f4b38 = *(float *)&DAT_007f4af4 * _DAT_008ddf1c + *(float *)&DAT_007f4af8;
     _DAT_007f4b64 = *(float *)&DAT_007f4af4 * _DAT_008ddf20 + *(float *)&DAT_007f4ae4;
     _DAT_007f4ad4 = *(float *)&DAT_007f4af4 * _DAT_008ddf38 + *(float *)&DAT_007f4af0;
@@ -36177,7 +36279,7 @@ void rdRaster_SpanP16_Tex_5(uint *param_1)
     UINT_007f4acc = uVar8 - 1;
     if (UINT_007f4acc != 0) {
       *(float *)&DAT_007f4ac8 = (float)(int)UINT_007f4acc;
-      *(float *)&DAT_007f4aec = (float)(&UINT_008fe000)[UINT_007f4acc];
+      *(float *)&DAT_007f4aec = (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4acc];
       _DAT_007f4b38 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf1c - _DAT_008ddf28) + _DAT_007f4b38;
       _DAT_007f4b64 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf20 - _DAT_008ddf2c) + _DAT_007f4b64;
       _DAT_007f4ad4 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf38 - _DAT_008ddf48) + _DAT_007f4ad4;
@@ -36290,7 +36392,7 @@ void rdRaster_SpanP16_Tex_6(uint *param_1)
   }
   else {
     *(float *)&DAT_007f4af4 = (float)(int)uVar8;
-    *(float *)&DAT_007f4b34 = (float)(&UINT_008fe000)[uVar8];
+    *(float *)&DAT_007f4b34 = (float)(&g_dwRdRaster_aOneOverNFlex)[uVar8];
     _DAT_007f4b38 = *(float *)&DAT_007f4af4 * _DAT_008ddf1c + *(float *)&DAT_007f4af8;
     _DAT_007f4b64 = *(float *)&DAT_007f4af4 * _DAT_008ddf20 + *(float *)&DAT_007f4ae4;
     _DAT_007f4ad4 = *(float *)&DAT_007f4af4 * _DAT_008ddf38 + *(float *)&DAT_007f4af0;
@@ -36382,7 +36484,7 @@ void rdRaster_SpanP16_Tex_6(uint *param_1)
     UINT_007f4acc = uVar8 - 1;
     if (UINT_007f4acc != 0) {
       *(float *)&DAT_007f4ac8 = (float)(int)UINT_007f4acc;
-      *(float *)&DAT_007f4aec = (float)(&UINT_008fe000)[UINT_007f4acc];
+      *(float *)&DAT_007f4aec = (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4acc];
       _DAT_007f4b38 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf1c - _DAT_008ddf28) + _DAT_007f4b38;
       _DAT_007f4b64 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf20 - _DAT_008ddf2c) + _DAT_007f4b64;
       _DAT_007f4ad4 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf38 - _DAT_008ddf48) + _DAT_007f4ad4;
@@ -36495,7 +36597,7 @@ void rdRaster_SpanP16_Tex_7(uint *param_1)
   }
   else {
     *(float *)&DAT_007f4af4 = (float)(int)uVar5;
-    *(float *)&DAT_007f4b34 = (float)(&UINT_008fe000)[uVar5];
+    *(float *)&DAT_007f4b34 = (float)(&g_dwRdRaster_aOneOverNFlex)[uVar5];
     _DAT_007f4b38 = *(float *)&DAT_007f4af4 * _DAT_008ddf1c + *(float *)&DAT_007f4af8;
     _DAT_007f4b64 = *(float *)&DAT_007f4af4 * _DAT_008ddf20 + *(float *)&DAT_007f4ae4;
     _DAT_007f4ad4 = *(float *)&DAT_007f4af4 * _DAT_008ddf38 + *(float *)&DAT_007f4af0;
@@ -36588,7 +36690,7 @@ void rdRaster_SpanP16_Tex_7(uint *param_1)
     UINT_007f4acc = uVar7 - 1;
     if (UINT_007f4acc != 0) {
       *(float *)&DAT_007f4ac8 = (float)(int)UINT_007f4acc;
-      *(float *)&DAT_007f4aec = (float)(&UINT_008fe000)[UINT_007f4acc];
+      *(float *)&DAT_007f4aec = (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4acc];
       _DAT_007f4b38 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf1c - _DAT_008ddf28) + _DAT_007f4b38;
       _DAT_007f4b64 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf20 - _DAT_008ddf2c) + _DAT_007f4b64;
       _DAT_007f4ad4 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf38 - _DAT_008ddf48) + _DAT_007f4ad4;
@@ -36698,7 +36800,7 @@ void rdRaster_SpanP16_Tex_8(uint *param_1)
   }
   else {
     *(float *)&DAT_007f4af4 = (float)(int)uVar8;
-    *(float *)&DAT_007f4b34 = (float)(&UINT_008fe000)[uVar8];
+    *(float *)&DAT_007f4b34 = (float)(&g_dwRdRaster_aOneOverNFlex)[uVar8];
     _DAT_007f4b38 = *(float *)&DAT_007f4af4 * _DAT_008ddf1c + *(float *)&DAT_007f4af8;
     _DAT_007f4b64 = *(float *)&DAT_007f4af4 * _DAT_008ddf20 + *(float *)&DAT_007f4ae4;
     _DAT_007f4ad4 = *(float *)&DAT_007f4af4 * _DAT_008ddf38 + *(float *)&DAT_007f4af0;
@@ -36790,7 +36892,7 @@ void rdRaster_SpanP16_Tex_8(uint *param_1)
     UINT_007f4acc = uVar8 - 1;
     if (UINT_007f4acc != 0) {
       *(float *)&DAT_007f4ac8 = (float)(int)UINT_007f4acc;
-      *(float *)&DAT_007f4aec = (float)(&UINT_008fe000)[UINT_007f4acc];
+      *(float *)&DAT_007f4aec = (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4acc];
       _DAT_007f4b38 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf1c - _DAT_008ddf28) + _DAT_007f4b38;
       _DAT_007f4b64 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf20 - _DAT_008ddf2c) + _DAT_007f4b64;
       _DAT_007f4ad4 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf38 - _DAT_008ddf48) + _DAT_007f4ad4;
@@ -36903,7 +37005,7 @@ void rdRaster_SpanP16_Tex_9(uint *param_1)
   }
   else {
     *(float *)&DAT_007f4af4 = (float)(int)uVar8;
-    *(float *)&DAT_007f4b34 = (float)(&UINT_008fe000)[uVar8];
+    *(float *)&DAT_007f4b34 = (float)(&g_dwRdRaster_aOneOverNFlex)[uVar8];
     _DAT_007f4b38 = *(float *)&DAT_007f4af4 * _DAT_008ddf1c + *(float *)&DAT_007f4af8;
     _DAT_007f4b64 = *(float *)&DAT_007f4af4 * _DAT_008ddf20 + *(float *)&DAT_007f4ae4;
     _DAT_007f4ad4 = *(float *)&DAT_007f4af4 * _DAT_008ddf38 + *(float *)&DAT_007f4af0;
@@ -36995,7 +37097,7 @@ void rdRaster_SpanP16_Tex_9(uint *param_1)
     UINT_007f4acc = uVar8 - 1;
     if (UINT_007f4acc != 0) {
       *(float *)&DAT_007f4ac8 = (float)(int)UINT_007f4acc;
-      *(float *)&DAT_007f4aec = (float)(&UINT_008fe000)[UINT_007f4acc];
+      *(float *)&DAT_007f4aec = (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4acc];
       _DAT_007f4b38 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf1c - _DAT_008ddf28) + _DAT_007f4b38;
       _DAT_007f4b64 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf20 - _DAT_008ddf2c) + _DAT_007f4b64;
       _DAT_007f4ad4 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf38 - _DAT_008ddf48) + _DAT_007f4ad4;
@@ -37108,7 +37210,7 @@ void rdRaster_SpanP16_Tex_10(uint *param_1)
   }
   else {
     *(float *)&DAT_007f4af4 = (float)(int)uVar8;
-    *(float *)&DAT_007f4b34 = (float)(&UINT_008fe000)[uVar8];
+    *(float *)&DAT_007f4b34 = (float)(&g_dwRdRaster_aOneOverNFlex)[uVar8];
     _DAT_007f4b38 = *(float *)&DAT_007f4af4 * _DAT_008ddf1c + *(float *)&DAT_007f4af8;
     _DAT_007f4b64 = *(float *)&DAT_007f4af4 * _DAT_008ddf20 + *(float *)&DAT_007f4ae4;
     _DAT_007f4ad4 = *(float *)&DAT_007f4af4 * _DAT_008ddf38 + *(float *)&DAT_007f4af0;
@@ -37200,7 +37302,7 @@ void rdRaster_SpanP16_Tex_10(uint *param_1)
     UINT_007f4acc = uVar8 - 1;
     if (UINT_007f4acc != 0) {
       *(float *)&DAT_007f4ac8 = (float)(int)UINT_007f4acc;
-      *(float *)&DAT_007f4aec = (float)(&UINT_008fe000)[UINT_007f4acc];
+      *(float *)&DAT_007f4aec = (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4acc];
       _DAT_007f4b38 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf1c - _DAT_008ddf28) + _DAT_007f4b38;
       _DAT_007f4b64 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf20 - _DAT_008ddf2c) + _DAT_007f4b64;
       _DAT_007f4ad4 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf38 - _DAT_008ddf48) + _DAT_007f4ad4;
@@ -37313,7 +37415,7 @@ void rdRaster_SpanP16_TexLit_2(uint *param_1)
   }
   else {
     *(float *)&DAT_007f4af4 = (float)(int)uVar8;
-    *(float *)&DAT_007f4b34 = (float)(&UINT_008fe000)[uVar8];
+    *(float *)&DAT_007f4b34 = (float)(&g_dwRdRaster_aOneOverNFlex)[uVar8];
     _DAT_007f4b38 = *(float *)&DAT_007f4af4 * _DAT_008ddf1c + *(float *)&DAT_007f4af8;
     _DAT_007f4b64 = *(float *)&DAT_007f4af4 * _DAT_008ddf20 + *(float *)&DAT_007f4ae4;
     _DAT_007f4ad4 = *(float *)&DAT_007f4af4 * _DAT_008ddf38 + *(float *)&DAT_007f4af0;
@@ -37405,7 +37507,7 @@ void rdRaster_SpanP16_TexLit_2(uint *param_1)
     UINT_007f4acc = uVar8 - 1;
     if (UINT_007f4acc != 0) {
       *(float *)&DAT_007f4ac8 = (float)(int)UINT_007f4acc;
-      *(float *)&DAT_007f4aec = (float)(&UINT_008fe000)[UINT_007f4acc];
+      *(float *)&DAT_007f4aec = (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4acc];
       _DAT_007f4b38 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf1c - _DAT_008ddf28) + _DAT_007f4b38;
       _DAT_007f4b64 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf20 - _DAT_008ddf2c) + _DAT_007f4b64;
       _DAT_007f4ad4 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf38 - _DAT_008ddf48) + _DAT_007f4ad4;
@@ -37518,7 +37620,7 @@ void rdRaster_SpanP16_Tex_11(uint *param_1)
   }
   else {
     *(float *)&DAT_007f4af4 = (float)(int)uVar8;
-    *(float *)&DAT_007f4b34 = (float)(&UINT_008fe000)[uVar8];
+    *(float *)&DAT_007f4b34 = (float)(&g_dwRdRaster_aOneOverNFlex)[uVar8];
     _DAT_007f4b38 = *(float *)&DAT_007f4af4 * _DAT_008ddf1c + *(float *)&DAT_007f4af8;
     _DAT_007f4b64 = *(float *)&DAT_007f4af4 * _DAT_008ddf20 + *(float *)&DAT_007f4ae4;
     _DAT_007f4ad4 = *(float *)&DAT_007f4af4 * _DAT_008ddf38 + *(float *)&DAT_007f4af0;
@@ -37610,7 +37712,7 @@ void rdRaster_SpanP16_Tex_11(uint *param_1)
     UINT_007f4acc = uVar8 - 1;
     if (UINT_007f4acc != 0) {
       *(float *)&DAT_007f4ac8 = (float)(int)UINT_007f4acc;
-      *(float *)&DAT_007f4aec = (float)(&UINT_008fe000)[UINT_007f4acc];
+      *(float *)&DAT_007f4aec = (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4acc];
       _DAT_007f4b38 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf1c - _DAT_008ddf28) + _DAT_007f4b38;
       _DAT_007f4b64 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf20 - _DAT_008ddf2c) + _DAT_007f4b64;
       _DAT_007f4ad4 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf38 - _DAT_008ddf48) + _DAT_007f4ad4;
@@ -37723,7 +37825,7 @@ void rdRaster_SpanP16_Tex_12(uint *param_1)
   }
   else {
     *(float *)&DAT_007f4af4 = (float)(int)uVar8;
-    *(float *)&DAT_007f4b34 = (float)(&UINT_008fe000)[uVar8];
+    *(float *)&DAT_007f4b34 = (float)(&g_dwRdRaster_aOneOverNFlex)[uVar8];
     _DAT_007f4b38 = *(float *)&DAT_007f4af4 * _DAT_008ddf1c + *(float *)&DAT_007f4af8;
     _DAT_007f4b64 = *(float *)&DAT_007f4af4 * _DAT_008ddf20 + *(float *)&DAT_007f4ae4;
     _DAT_007f4ad4 = *(float *)&DAT_007f4af4 * _DAT_008ddf38 + *(float *)&DAT_007f4af0;
@@ -37815,7 +37917,7 @@ void rdRaster_SpanP16_Tex_12(uint *param_1)
     UINT_007f4acc = uVar8 - 1;
     if (UINT_007f4acc != 0) {
       *(float *)&DAT_007f4ac8 = (float)(int)UINT_007f4acc;
-      *(float *)&DAT_007f4aec = (float)(&UINT_008fe000)[UINT_007f4acc];
+      *(float *)&DAT_007f4aec = (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4acc];
       _DAT_007f4b38 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf1c - _DAT_008ddf28) + _DAT_007f4b38;
       _DAT_007f4b64 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf20 - _DAT_008ddf2c) + _DAT_007f4b64;
       _DAT_007f4ad4 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf38 - _DAT_008ddf48) + _DAT_007f4ad4;
@@ -37930,7 +38032,7 @@ void rdRaster_SpanP16_TexLit_3(uint *param_1)
   }
   else {
     *(float *)&DAT_007f4af4 = (float)(int)uVar6;
-    *(float *)&DAT_007f4b34 = (float)(&UINT_008fe000)[uVar6];
+    *(float *)&DAT_007f4b34 = (float)(&g_dwRdRaster_aOneOverNFlex)[uVar6];
     _DAT_007f4b38 = *(float *)&DAT_007f4af4 * _DAT_008ddf1c + *(float *)&DAT_007f4af8;
     _DAT_007f4b64 = *(float *)&DAT_007f4af4 * _DAT_008ddf20 + *(float *)&DAT_007f4ae4;
     _DAT_007f4ad4 = *(float *)&DAT_007f4af4 * _DAT_008ddf38 + *(float *)&DAT_007f4af0;
@@ -38034,7 +38136,7 @@ void rdRaster_SpanP16_TexLit_3(uint *param_1)
     UINT_007f4acc = uVar7 - 1;
     if (UINT_007f4acc != 0) {
       *(float *)&DAT_007f4ac8 = (float)(int)UINT_007f4acc;
-      *(float *)&DAT_007f4aec = (float)(&UINT_008fe000)[UINT_007f4acc];
+      *(float *)&DAT_007f4aec = (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4acc];
       _DAT_007f4b38 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf1c - _DAT_008ddf28) + _DAT_007f4b38;
       _DAT_007f4b64 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf20 - _DAT_008ddf2c) + _DAT_007f4b64;
       _DAT_007f4ad4 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf38 - _DAT_008ddf48) + _DAT_007f4ad4;
@@ -38153,7 +38255,7 @@ void rdRaster_SpanP16_TexLit_4(uint *param_1)
   }
   else {
     *(float *)&DAT_007f4af4 = (float)(int)uVar9;
-    *(float *)&DAT_007f4b34 = (float)(&UINT_008fe000)[uVar9];
+    *(float *)&DAT_007f4b34 = (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9];
     _DAT_007f4b38 = *(float *)&DAT_007f4af4 * _DAT_008ddf1c + *(float *)&DAT_007f4af8;
     _DAT_007f4b64 = *(float *)&DAT_007f4af4 * _DAT_008ddf20 + *(float *)&DAT_007f4ae4;
     _DAT_007f4ad4 = *(float *)&DAT_007f4af4 * _DAT_008ddf38 + *(float *)&DAT_007f4af0;
@@ -38258,7 +38360,7 @@ void rdRaster_SpanP16_TexLit_4(uint *param_1)
     UINT_007f4acc = uVar9 - 1;
     if (UINT_007f4acc != 0) {
       *(float *)&DAT_007f4ac8 = (float)(int)UINT_007f4acc;
-      *(float *)&DAT_007f4aec = (float)(&UINT_008fe000)[UINT_007f4acc];
+      *(float *)&DAT_007f4aec = (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4acc];
       _DAT_007f4b38 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf1c - _DAT_008ddf28) + _DAT_007f4b38;
       _DAT_007f4b64 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf20 - _DAT_008ddf2c) + _DAT_007f4b64;
       _DAT_007f4ad4 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf38 - _DAT_008ddf48) + _DAT_007f4ad4;
@@ -38381,7 +38483,7 @@ void rdRaster_SpanP16_TexLit_5(uint *param_1)
   }
   else {
     *(float *)&DAT_007f4af4 = (float)(int)uVar9;
-    *(float *)&DAT_007f4b34 = (float)(&UINT_008fe000)[uVar9];
+    *(float *)&DAT_007f4b34 = (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9];
     _DAT_007f4b38 = *(float *)&DAT_007f4af4 * _DAT_008ddf1c + *(float *)&DAT_007f4af8;
     _DAT_007f4b64 = *(float *)&DAT_007f4af4 * _DAT_008ddf20 + *(float *)&DAT_007f4ae4;
     _DAT_007f4ad4 = *(float *)&DAT_007f4af4 * _DAT_008ddf38 + *(float *)&DAT_007f4af0;
@@ -38486,7 +38588,7 @@ void rdRaster_SpanP16_TexLit_5(uint *param_1)
     UINT_007f4acc = uVar9 - 1;
     if (UINT_007f4acc != 0) {
       *(float *)&DAT_007f4ac8 = (float)(int)UINT_007f4acc;
-      *(float *)&DAT_007f4aec = (float)(&UINT_008fe000)[UINT_007f4acc];
+      *(float *)&DAT_007f4aec = (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4acc];
       _DAT_007f4b38 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf1c - _DAT_008ddf28) + _DAT_007f4b38;
       _DAT_007f4b64 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf20 - _DAT_008ddf2c) + _DAT_007f4b64;
       _DAT_007f4ad4 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf38 - _DAT_008ddf48) + _DAT_007f4ad4;
@@ -38609,7 +38711,7 @@ void rdRaster_SpanP16_TexLit_6(uint *param_1)
   }
   else {
     *(float *)&DAT_007f4af4 = (float)(int)uVar9;
-    *(float *)&DAT_007f4b34 = (float)(&UINT_008fe000)[uVar9];
+    *(float *)&DAT_007f4b34 = (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9];
     _DAT_007f4b38 = *(float *)&DAT_007f4af4 * _DAT_008ddf1c + *(float *)&DAT_007f4af8;
     _DAT_007f4b64 = *(float *)&DAT_007f4af4 * _DAT_008ddf20 + *(float *)&DAT_007f4ae4;
     _DAT_007f4ad4 = *(float *)&DAT_007f4af4 * _DAT_008ddf38 + *(float *)&DAT_007f4af0;
@@ -38714,7 +38816,7 @@ void rdRaster_SpanP16_TexLit_6(uint *param_1)
     UINT_007f4acc = uVar9 - 1;
     if (UINT_007f4acc != 0) {
       *(float *)&DAT_007f4ac8 = (float)(int)UINT_007f4acc;
-      *(float *)&DAT_007f4aec = (float)(&UINT_008fe000)[UINT_007f4acc];
+      *(float *)&DAT_007f4aec = (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4acc];
       _DAT_007f4b38 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf1c - _DAT_008ddf28) + _DAT_007f4b38;
       _DAT_007f4b64 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf20 - _DAT_008ddf2c) + _DAT_007f4b64;
       _DAT_007f4ad4 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf38 - _DAT_008ddf48) + _DAT_007f4ad4;
@@ -38837,7 +38939,7 @@ void rdRaster_SpanP16_TexLit_7(uint *param_1)
   }
   else {
     *(float *)&DAT_007f4af4 = (float)(int)uVar9;
-    *(float *)&DAT_007f4b34 = (float)(&UINT_008fe000)[uVar9];
+    *(float *)&DAT_007f4b34 = (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9];
     _DAT_007f4b38 = *(float *)&DAT_007f4af4 * _DAT_008ddf1c + *(float *)&DAT_007f4af8;
     _DAT_007f4b64 = *(float *)&DAT_007f4af4 * _DAT_008ddf20 + *(float *)&DAT_007f4ae4;
     _DAT_007f4ad4 = *(float *)&DAT_007f4af4 * _DAT_008ddf38 + *(float *)&DAT_007f4af0;
@@ -38942,7 +39044,7 @@ void rdRaster_SpanP16_TexLit_7(uint *param_1)
     UINT_007f4acc = uVar9 - 1;
     if (UINT_007f4acc != 0) {
       *(float *)&DAT_007f4ac8 = (float)(int)UINT_007f4acc;
-      *(float *)&DAT_007f4aec = (float)(&UINT_008fe000)[UINT_007f4acc];
+      *(float *)&DAT_007f4aec = (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4acc];
       _DAT_007f4b38 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf1c - _DAT_008ddf28) + _DAT_007f4b38;
       _DAT_007f4b64 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf20 - _DAT_008ddf2c) + _DAT_007f4b64;
       _DAT_007f4ad4 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf38 - _DAT_008ddf48) + _DAT_007f4ad4;
@@ -39065,7 +39167,7 @@ void rdRaster_SpanP16_TexLit_8(uint *param_1)
   }
   else {
     *(float *)&DAT_007f4af4 = (float)(int)uVar9;
-    *(float *)&DAT_007f4b34 = (float)(&UINT_008fe000)[uVar9];
+    *(float *)&DAT_007f4b34 = (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9];
     _DAT_007f4b38 = *(float *)&DAT_007f4af4 * _DAT_008ddf1c + *(float *)&DAT_007f4af8;
     _DAT_007f4b64 = *(float *)&DAT_007f4af4 * _DAT_008ddf20 + *(float *)&DAT_007f4ae4;
     _DAT_007f4ad4 = *(float *)&DAT_007f4af4 * _DAT_008ddf38 + *(float *)&DAT_007f4af0;
@@ -39170,7 +39272,7 @@ void rdRaster_SpanP16_TexLit_8(uint *param_1)
     UINT_007f4acc = uVar9 - 1;
     if (UINT_007f4acc != 0) {
       *(float *)&DAT_007f4ac8 = (float)(int)UINT_007f4acc;
-      *(float *)&DAT_007f4aec = (float)(&UINT_008fe000)[UINT_007f4acc];
+      *(float *)&DAT_007f4aec = (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4acc];
       _DAT_007f4b38 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf1c - _DAT_008ddf28) + _DAT_007f4b38;
       _DAT_007f4b64 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf20 - _DAT_008ddf2c) + _DAT_007f4b64;
       _DAT_007f4ad4 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf38 - _DAT_008ddf48) + _DAT_007f4ad4;
@@ -39293,7 +39395,7 @@ void rdRaster_SpanP16_TexLit_9(uint *param_1)
   }
   else {
     *(float *)&DAT_007f4af4 = (float)(int)uVar9;
-    *(float *)&DAT_007f4b34 = (float)(&UINT_008fe000)[uVar9];
+    *(float *)&DAT_007f4b34 = (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9];
     _DAT_007f4b38 = *(float *)&DAT_007f4af4 * _DAT_008ddf1c + *(float *)&DAT_007f4af8;
     _DAT_007f4b64 = *(float *)&DAT_007f4af4 * _DAT_008ddf20 + *(float *)&DAT_007f4ae4;
     _DAT_007f4ad4 = *(float *)&DAT_007f4af4 * _DAT_008ddf38 + *(float *)&DAT_007f4af0;
@@ -39398,7 +39500,7 @@ void rdRaster_SpanP16_TexLit_9(uint *param_1)
     UINT_007f4acc = uVar9 - 1;
     if (UINT_007f4acc != 0) {
       *(float *)&DAT_007f4ac8 = (float)(int)UINT_007f4acc;
-      *(float *)&DAT_007f4aec = (float)(&UINT_008fe000)[UINT_007f4acc];
+      *(float *)&DAT_007f4aec = (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4acc];
       _DAT_007f4b38 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf1c - _DAT_008ddf28) + _DAT_007f4b38;
       _DAT_007f4b64 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf20 - _DAT_008ddf2c) + _DAT_007f4b64;
       _DAT_007f4ad4 = (*(float *)&DAT_007f4ac8 * _DAT_008ddf38 - _DAT_008ddf48) + _DAT_007f4ad4;
@@ -39489,7 +39591,7 @@ void rdRaster_Span16_TexLitZw(uint *param_1,uint *param_2)
   UINT_007f4cac = uVar9;
   if (0 < (int)uVar9) {
     iVar7 = uVar6 - *param_1;
-    iVar1 = *(int *)(&DAT_008fbfc0 + uVar9 * 4);
+    iVar1 = *(int *)(&g_aRdRaster_OneOverNFixed + uVar9 * 4);
     lVar2 = (longlong)(int)(param_2[10] - param_1[10]) * (longlong)iVar1;
     uVar6 = (uint)lVar2 >> 0x10 | (int)((ulonglong)lVar2 >> 0x20) << 0x10;
     bVar8 = (byte)UINT_008dde54;
@@ -39504,7 +39606,7 @@ void rdRaster_Span16_TexLitZw(uint *param_1,uint *param_2)
     if (((int)UINT_007f4cb4 < 0) && (-0x51e < (int)UINT_007f4cb4)) {
       UINT_007f4cb4 = 0;
     }
-    fVar5 = ((float)param_2[4] - (float)param_1[4]) * (float)(&UINT_008fe000)[uVar9];
+    fVar5 = ((float)param_2[4] - (float)param_1[4]) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9];
     UINT_007f4c54 = (uint)ROUND(fVar5 * 65536.0);
     iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     UINT_007f4cc4 =
@@ -39602,7 +39704,7 @@ void rdRaster_Span16_TexLitZw_2(uint *param_1,uint *param_2)
   UINT_007f4cac = (uVar11 >> 0x10) - iVar13;
   if (0 < (int)UINT_007f4cac) {
     iVar8 = uVar7 - *param_1;
-    iVar1 = *(int *)(&DAT_008fbfc0 + UINT_007f4cac * 4);
+    iVar1 = *(int *)(&g_aRdRaster_OneOverNFixed + UINT_007f4cac * 4);
     lVar3 = (longlong)(int)(param_2[10] - param_1[10]) * (longlong)iVar1;
     uVar7 = (uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10;
     bVar10 = (byte)UINT_008dde54;
@@ -39617,7 +39719,8 @@ void rdRaster_Span16_TexLitZw_2(uint *param_1,uint *param_2)
     if (((int)UINT_007f4cb4 < 0) && (-0x51e < (int)UINT_007f4cb4)) {
       UINT_007f4cb4 = 0;
     }
-    fVar6 = ((float)param_2[4] - (float)param_1[4]) * (float)(&UINT_008fe000)[UINT_007f4cac];
+    fVar6 = ((float)param_2[4] - (float)param_1[4]) *
+            (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4cac];
     UINT_007f4c54 = (uint)ROUND(fVar6 * 65536.0);
     iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     UINT_007f4cc4 =
@@ -39726,7 +39829,7 @@ void rdRaster_Span16_TexLitZw_3(uint *param_1,uint *param_2)
   UINT_007f4cac = (uVar11 >> 0x10) - iVar13;
   if (0 < (int)UINT_007f4cac) {
     iVar8 = uVar7 - *param_1;
-    iVar1 = *(int *)(&DAT_008fbfc0 + UINT_007f4cac * 4);
+    iVar1 = *(int *)(&g_aRdRaster_OneOverNFixed + UINT_007f4cac * 4);
     lVar3 = (longlong)(int)(param_2[10] - param_1[10]) * (longlong)iVar1;
     uVar7 = (uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10;
     bVar10 = (byte)UINT_008dde54;
@@ -39741,7 +39844,8 @@ void rdRaster_Span16_TexLitZw_3(uint *param_1,uint *param_2)
     if (((int)UINT_007f4cb4 < 0) && (-0x51e < (int)UINT_007f4cb4)) {
       UINT_007f4cb4 = 0;
     }
-    fVar6 = ((float)param_2[4] - (float)param_1[4]) * (float)(&UINT_008fe000)[UINT_007f4cac];
+    fVar6 = ((float)param_2[4] - (float)param_1[4]) *
+            (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4cac];
     UINT_007f4c54 = (uint)ROUND(fVar6 * 65536.0);
     iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     UINT_007f4cc4 =
@@ -39850,7 +39954,7 @@ void rdRaster_Span16_TexLitZw_4(uint *param_1,uint *param_2)
   UINT_007f4cac = (uVar11 >> 0x10) - iVar13;
   if (0 < (int)UINT_007f4cac) {
     iVar8 = uVar7 - *param_1;
-    iVar1 = *(int *)(&DAT_008fbfc0 + UINT_007f4cac * 4);
+    iVar1 = *(int *)(&g_aRdRaster_OneOverNFixed + UINT_007f4cac * 4);
     lVar3 = (longlong)(int)(param_2[10] - param_1[10]) * (longlong)iVar1;
     uVar7 = (uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10;
     bVar10 = (byte)UINT_008dde54;
@@ -39865,7 +39969,8 @@ void rdRaster_Span16_TexLitZw_4(uint *param_1,uint *param_2)
     if (((int)UINT_007f4cb4 < 0) && (-0x51e < (int)UINT_007f4cb4)) {
       UINT_007f4cb4 = 0;
     }
-    fVar6 = ((float)param_2[4] - (float)param_1[4]) * (float)(&UINT_008fe000)[UINT_007f4cac];
+    fVar6 = ((float)param_2[4] - (float)param_1[4]) *
+            (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4cac];
     UINT_007f4c54 = (uint)ROUND(fVar6 * 65536.0);
     iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     UINT_007f4cc4 =
@@ -39974,7 +40079,7 @@ void rdRaster_Span16_TexLitZw_5(uint *param_1,uint *param_2)
   UINT_007f4cac = (uVar11 >> 0x10) - iVar13;
   if (0 < (int)UINT_007f4cac) {
     iVar8 = uVar7 - *param_1;
-    iVar1 = *(int *)(&DAT_008fbfc0 + UINT_007f4cac * 4);
+    iVar1 = *(int *)(&g_aRdRaster_OneOverNFixed + UINT_007f4cac * 4);
     lVar3 = (longlong)(int)(param_2[10] - param_1[10]) * (longlong)iVar1;
     uVar7 = (uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10;
     bVar10 = (byte)UINT_008dde54;
@@ -39989,7 +40094,8 @@ void rdRaster_Span16_TexLitZw_5(uint *param_1,uint *param_2)
     if (((int)UINT_007f4cb4 < 0) && (-0x51e < (int)UINT_007f4cb4)) {
       UINT_007f4cb4 = 0;
     }
-    fVar6 = ((float)param_2[4] - (float)param_1[4]) * (float)(&UINT_008fe000)[UINT_007f4cac];
+    fVar6 = ((float)param_2[4] - (float)param_1[4]) *
+            (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4cac];
     UINT_007f4c54 = (uint)ROUND(fVar6 * 65536.0);
     iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     UINT_007f4cc4 =
@@ -40098,7 +40204,7 @@ void rdRaster_Span16_TexLitZw_6(uint *param_1,uint *param_2)
   UINT_007f4cac = (uVar11 >> 0x10) - iVar13;
   if (0 < (int)UINT_007f4cac) {
     iVar8 = uVar7 - *param_1;
-    iVar1 = *(int *)(&DAT_008fbfc0 + UINT_007f4cac * 4);
+    iVar1 = *(int *)(&g_aRdRaster_OneOverNFixed + UINT_007f4cac * 4);
     lVar3 = (longlong)(int)(param_2[10] - param_1[10]) * (longlong)iVar1;
     uVar7 = (uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10;
     bVar10 = (byte)UINT_008dde54;
@@ -40113,7 +40219,8 @@ void rdRaster_Span16_TexLitZw_6(uint *param_1,uint *param_2)
     if (((int)UINT_007f4cb4 < 0) && (-0x51e < (int)UINT_007f4cb4)) {
       UINT_007f4cb4 = 0;
     }
-    fVar6 = ((float)param_2[4] - (float)param_1[4]) * (float)(&UINT_008fe000)[UINT_007f4cac];
+    fVar6 = ((float)param_2[4] - (float)param_1[4]) *
+            (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4cac];
     UINT_007f4c54 = (uint)ROUND(fVar6 * 65536.0);
     iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     UINT_007f4cc4 =
@@ -40222,7 +40329,7 @@ void rdRaster_Span16_TexLitZw_7(uint *param_1,uint *param_2)
   UINT_007f4cac = (uVar11 >> 0x10) - iVar13;
   if (0 < (int)UINT_007f4cac) {
     iVar8 = uVar7 - *param_1;
-    iVar1 = *(int *)(&DAT_008fbfc0 + UINT_007f4cac * 4);
+    iVar1 = *(int *)(&g_aRdRaster_OneOverNFixed + UINT_007f4cac * 4);
     lVar3 = (longlong)(int)(param_2[10] - param_1[10]) * (longlong)iVar1;
     uVar7 = (uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10;
     bVar10 = (byte)UINT_008dde54;
@@ -40237,7 +40344,8 @@ void rdRaster_Span16_TexLitZw_7(uint *param_1,uint *param_2)
     if (((int)UINT_007f4cb4 < 0) && (-0x51e < (int)UINT_007f4cb4)) {
       UINT_007f4cb4 = 0;
     }
-    fVar6 = ((float)param_2[4] - (float)param_1[4]) * (float)(&UINT_008fe000)[UINT_007f4cac];
+    fVar6 = ((float)param_2[4] - (float)param_1[4]) *
+            (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4cac];
     UINT_007f4c54 = (uint)ROUND(fVar6 * 65536.0);
     iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     UINT_007f4cc4 =
@@ -40346,7 +40454,7 @@ void rdRaster_Span16_TexLitZw_8(uint *param_1,uint *param_2)
   UINT_007f4cac = (uVar11 >> 0x10) - iVar13;
   if (0 < (int)UINT_007f4cac) {
     iVar8 = uVar7 - *param_1;
-    iVar1 = *(int *)(&DAT_008fbfc0 + UINT_007f4cac * 4);
+    iVar1 = *(int *)(&g_aRdRaster_OneOverNFixed + UINT_007f4cac * 4);
     lVar3 = (longlong)(int)(param_2[10] - param_1[10]) * (longlong)iVar1;
     uVar7 = (uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10;
     bVar10 = (byte)UINT_008dde54;
@@ -40361,7 +40469,8 @@ void rdRaster_Span16_TexLitZw_8(uint *param_1,uint *param_2)
     if (((int)UINT_007f4cb4 < 0) && (-0x51e < (int)UINT_007f4cb4)) {
       UINT_007f4cb4 = 0;
     }
-    fVar6 = ((float)param_2[4] - (float)param_1[4]) * (float)(&UINT_008fe000)[UINT_007f4cac];
+    fVar6 = ((float)param_2[4] - (float)param_1[4]) *
+            (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4cac];
     UINT_007f4c54 = (uint)ROUND(fVar6 * 65536.0);
     iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     UINT_007f4cc4 =
@@ -40506,7 +40615,7 @@ void rdRaster_Span16_TexZw(uint *param_1,uint *param_2)
     fVar5 = fVar4 * _DAT_008dde60 + (float)param_1[6];
     fVar4 = fVar4 * _DAT_008dde80 + (float)param_1[8];
     lVar1 = (longlong)(int)(param_2[0xe] - param_1[0xe]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + UINT_007f4cac * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + UINT_007f4cac * 4);
     UINT_007f4cb4 = (uint)lVar1 >> 0x10 | (int)((ulonglong)lVar1 >> 0x20) << 0x10;
     if (((int)UINT_007f4cb4 < 0) && (-0x51e < (int)UINT_007f4cb4)) {
       UINT_007f4cb4 = 0;
@@ -40537,11 +40646,11 @@ void rdRaster_Span16_TexZw(uint *param_1,uint *param_2)
       fVar2 = fVar2 * fVar4;
       bVar9 = (byte)UINT_008dde54;
       UINT_007f4cdc =
-           (int)ROUND((fVar3 - (float)local_c) * (float)(&UINT_008fe000)[uVar7] * 65536.0) >>
-           (bVar9 & 0x1f);
+           (int)ROUND((fVar3 - (float)local_c) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar7] *
+                      65536.0) >> (bVar9 & 0x1f);
       UINT_007f4c44 =
-           (int)ROUND((fVar2 - (float)local_10) * (float)(&UINT_008fe000)[uVar7] * 65536.0) >>
-           (bVar9 & 0x1f);
+           (int)ROUND((fVar2 - (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar7] *
+                      65536.0) >> (bVar9 & 0x1f);
       iVar8 = uVar7 - 1;
       UINT_007f4cfc = UINT_007f4cfc + UINT_008dde88 * iVar8;
       UINT_007f4cf4 =
@@ -40638,11 +40747,11 @@ void rdRaster_Span16_TexZw(uint *param_1,uint *param_2)
         bVar9 = (byte)UINT_008dde54;
         UINT_007f4cdc =
              (int)ROUND((((fVar5 * _DAT_008dde60 - _DAT_008dde94) + PUN(float,param_1)) * fVar4 -
-                        (float)local_c) * (float)(&UINT_008fe000)[iVar8] * 65536.0) >>
+                        (float)local_c) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar8] * 65536.0) >>
              (bVar9 & 0x1f);
         UINT_007f4c44 =
              (int)ROUND((((fVar5 * _DAT_008dde80 - _DAT_008dde74) + (float)local_8) * fVar4 -
-                        (float)local_10) * (float)(&UINT_008fe000)[iVar8] * 65536.0) >>
+                        (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar8] * 65536.0) >>
              (bVar9 & 0x1f);
         UINT_007f4cf4 = ((int)ROUND((float)local_c * 65536.0) >> (bVar9 & 0x1f)) + UINT_008dde78;
         UINT_007f4cf8 = ((int)ROUND((float)local_10 * 65536.0) >> (bVar9 & 0x1f)) + UINT_008dde50;
@@ -40777,7 +40886,7 @@ void rdRaster_Span16_TexLitZw_9(uint *param_1,uint *param_2)
     fVar6 = fVar5 * _DAT_008dde60 + (float)param_1[6];
     fVar5 = fVar5 * _DAT_008dde80 + (float)param_1[8];
     lVar2 = (longlong)(int)(param_2[0xe] - param_1[0xe]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + UINT_007f4cac * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + UINT_007f4cac * 4);
     UINT_007f4cb4 = (uint)lVar2 >> 0x10 | (int)((ulonglong)lVar2 >> 0x20) << 0x10;
     if (((int)UINT_007f4cb4 < 0) && (-0x51e < (int)UINT_007f4cb4)) {
       UINT_007f4cb4 = 0;
@@ -40808,11 +40917,11 @@ void rdRaster_Span16_TexLitZw_9(uint *param_1,uint *param_2)
       fVar3 = fVar3 * fVar5;
       bVar10 = (byte)UINT_008dde54;
       UINT_007f4cdc =
-           (int)ROUND((fVar4 - (float)local_c) * (float)(&UINT_008fe000)[uVar8] * 65536.0) >>
-           (bVar10 & 0x1f);
+           (int)ROUND((fVar4 - (float)local_c) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar8] *
+                      65536.0) >> (bVar10 & 0x1f);
       UINT_007f4c44 =
-           (int)ROUND((fVar3 - (float)local_10) * (float)(&UINT_008fe000)[uVar8] * 65536.0) >>
-           (bVar10 & 0x1f);
+           (int)ROUND((fVar3 - (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar8] *
+                      65536.0) >> (bVar10 & 0x1f);
       iVar9 = uVar8 - 1;
       uVar12 = UINT_007f4cfc + UINT_008dde88 * iVar9;
       uVar14 = ((int)ROUND((float)local_c * 65536.0) >> (bVar10 & 0x1f)) + UINT_008dde78 +
@@ -40932,11 +41041,11 @@ LAB_00462ecc:
         bVar10 = (byte)UINT_008dde54;
         UINT_007f4cdc =
              (int)ROUND((((fVar6 * _DAT_008dde60 - _DAT_008dde94) + PUN(float,param_1)) * fVar5 -
-                        (float)local_c) * (float)(&UINT_008fe000)[iVar9] * 65536.0) >>
+                        (float)local_c) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar9] * 65536.0) >>
              (bVar10 & 0x1f);
         UINT_007f4c44 =
              (int)ROUND((((fVar6 * _DAT_008dde80 - _DAT_008dde74) + (float)local_8) * fVar5 -
-                        (float)local_10) * (float)(&UINT_008fe000)[iVar9] * 65536.0) >>
+                        (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar9] * 65536.0) >>
              (bVar10 & 0x1f);
         UINT_007f4cf4 = ((int)ROUND((float)local_c * 65536.0) >> (bVar10 & 0x1f)) + UINT_008dde78;
         UINT_007f4cf8 = ((int)ROUND((float)local_10 * 65536.0) >> (bVar10 & 0x1f)) + UINT_008dde50;
@@ -41085,7 +41194,7 @@ void rdRaster_Span16_TexLitZw_10(uint *param_1,uint *param_2)
     fVar6 = fVar5 * _DAT_008dde60 + (float)param_1[6];
     fVar5 = fVar5 * _DAT_008dde80 + (float)param_1[8];
     lVar2 = (longlong)(int)(param_2[0xe] - param_1[0xe]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + UINT_007f4cac * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + UINT_007f4cac * 4);
     UINT_007f4cb4 = (uint)lVar2 >> 0x10 | (int)((ulonglong)lVar2 >> 0x20) << 0x10;
     if (((int)UINT_007f4cb4 < 0) && (-0x51e < (int)UINT_007f4cb4)) {
       UINT_007f4cb4 = 0;
@@ -41116,11 +41225,11 @@ void rdRaster_Span16_TexLitZw_10(uint *param_1,uint *param_2)
       fVar3 = fVar3 * fVar5;
       bVar10 = (byte)UINT_008dde54;
       UINT_007f4cdc =
-           (int)ROUND((fVar4 - (float)local_c) * (float)(&UINT_008fe000)[uVar8] * 65536.0) >>
-           (bVar10 & 0x1f);
+           (int)ROUND((fVar4 - (float)local_c) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar8] *
+                      65536.0) >> (bVar10 & 0x1f);
       UINT_007f4c44 =
-           (int)ROUND((fVar3 - (float)local_10) * (float)(&UINT_008fe000)[uVar8] * 65536.0) >>
-           (bVar10 & 0x1f);
+           (int)ROUND((fVar3 - (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar8] *
+                      65536.0) >> (bVar10 & 0x1f);
       iVar9 = uVar8 - 1;
       uVar12 = UINT_007f4cfc + UINT_008dde88 * iVar9;
       uVar14 = ((int)ROUND((float)local_c * 65536.0) >> (bVar10 & 0x1f)) + UINT_008dde78 +
@@ -41240,11 +41349,11 @@ LAB_004639bc:
         bVar10 = (byte)UINT_008dde54;
         UINT_007f4cdc =
              (int)ROUND((((fVar6 * _DAT_008dde60 - _DAT_008dde94) + PUN(float,param_1)) * fVar5 -
-                        (float)local_c) * (float)(&UINT_008fe000)[iVar9] * 65536.0) >>
+                        (float)local_c) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar9] * 65536.0) >>
              (bVar10 & 0x1f);
         UINT_007f4c44 =
              (int)ROUND((((fVar6 * _DAT_008dde80 - _DAT_008dde74) + (float)local_8) * fVar5 -
-                        (float)local_10) * (float)(&UINT_008fe000)[iVar9] * 65536.0) >>
+                        (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar9] * 65536.0) >>
              (bVar10 & 0x1f);
         UINT_007f4cf4 = ((int)ROUND((float)local_c * 65536.0) >> (bVar10 & 0x1f)) + UINT_008dde78;
         UINT_007f4cf8 = ((int)ROUND((float)local_10 * 65536.0) >> (bVar10 & 0x1f)) + UINT_008dde50;
@@ -41393,7 +41502,7 @@ void rdRaster_Span16_TexLitZw_11(uint *param_1,uint *param_2)
     fVar6 = fVar5 * _DAT_008dde60 + (float)param_1[6];
     fVar5 = fVar5 * _DAT_008dde80 + (float)param_1[8];
     lVar2 = (longlong)(int)(param_2[0xe] - param_1[0xe]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + UINT_007f4cac * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + UINT_007f4cac * 4);
     UINT_007f4cb4 = (uint)lVar2 >> 0x10 | (int)((ulonglong)lVar2 >> 0x20) << 0x10;
     if (((int)UINT_007f4cb4 < 0) && (-0x51e < (int)UINT_007f4cb4)) {
       UINT_007f4cb4 = 0;
@@ -41424,11 +41533,11 @@ void rdRaster_Span16_TexLitZw_11(uint *param_1,uint *param_2)
       fVar3 = fVar3 * fVar5;
       bVar10 = (byte)UINT_008dde54;
       UINT_007f4cdc =
-           (int)ROUND((fVar4 - (float)local_c) * (float)(&UINT_008fe000)[uVar8] * 65536.0) >>
-           (bVar10 & 0x1f);
+           (int)ROUND((fVar4 - (float)local_c) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar8] *
+                      65536.0) >> (bVar10 & 0x1f);
       UINT_007f4c44 =
-           (int)ROUND((fVar3 - (float)local_10) * (float)(&UINT_008fe000)[uVar8] * 65536.0) >>
-           (bVar10 & 0x1f);
+           (int)ROUND((fVar3 - (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar8] *
+                      65536.0) >> (bVar10 & 0x1f);
       iVar9 = uVar8 - 1;
       uVar12 = UINT_007f4cfc + UINT_008dde88 * iVar9;
       uVar14 = ((int)ROUND((float)local_c * 65536.0) >> (bVar10 & 0x1f)) + UINT_008dde78 +
@@ -41548,11 +41657,11 @@ LAB_004644ac:
         bVar10 = (byte)UINT_008dde54;
         UINT_007f4cdc =
              (int)ROUND((((fVar6 * _DAT_008dde60 - _DAT_008dde94) + PUN(float,param_1)) * fVar5 -
-                        (float)local_c) * (float)(&UINT_008fe000)[iVar9] * 65536.0) >>
+                        (float)local_c) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar9] * 65536.0) >>
              (bVar10 & 0x1f);
         UINT_007f4c44 =
              (int)ROUND((((fVar6 * _DAT_008dde80 - _DAT_008dde74) + (float)local_8) * fVar5 -
-                        (float)local_10) * (float)(&UINT_008fe000)[iVar9] * 65536.0) >>
+                        (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar9] * 65536.0) >>
              (bVar10 & 0x1f);
         UINT_007f4cf4 = ((int)ROUND((float)local_c * 65536.0) >> (bVar10 & 0x1f)) + UINT_008dde78;
         UINT_007f4cf8 = ((int)ROUND((float)local_10 * 65536.0) >> (bVar10 & 0x1f)) + UINT_008dde50;
@@ -41701,7 +41810,7 @@ void rdRaster_Span16_TexLitZw_12(uint *param_1,uint *param_2)
     fVar6 = fVar5 * _DAT_008dde60 + (float)param_1[6];
     fVar5 = fVar5 * _DAT_008dde80 + (float)param_1[8];
     lVar2 = (longlong)(int)(param_2[0xe] - param_1[0xe]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + UINT_007f4cac * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + UINT_007f4cac * 4);
     UINT_007f4cb4 = (uint)lVar2 >> 0x10 | (int)((ulonglong)lVar2 >> 0x20) << 0x10;
     if (((int)UINT_007f4cb4 < 0) && (-0x51e < (int)UINT_007f4cb4)) {
       UINT_007f4cb4 = 0;
@@ -41732,11 +41841,11 @@ void rdRaster_Span16_TexLitZw_12(uint *param_1,uint *param_2)
       fVar3 = fVar3 * fVar5;
       bVar10 = (byte)UINT_008dde54;
       UINT_007f4cdc =
-           (int)ROUND((fVar4 - (float)local_c) * (float)(&UINT_008fe000)[uVar8] * 65536.0) >>
-           (bVar10 & 0x1f);
+           (int)ROUND((fVar4 - (float)local_c) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar8] *
+                      65536.0) >> (bVar10 & 0x1f);
       UINT_007f4c44 =
-           (int)ROUND((fVar3 - (float)local_10) * (float)(&UINT_008fe000)[uVar8] * 65536.0) >>
-           (bVar10 & 0x1f);
+           (int)ROUND((fVar3 - (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar8] *
+                      65536.0) >> (bVar10 & 0x1f);
       iVar9 = uVar8 - 1;
       uVar12 = UINT_007f4cfc + UINT_008dde88 * iVar9;
       uVar14 = ((int)ROUND((float)local_c * 65536.0) >> (bVar10 & 0x1f)) + UINT_008dde78 +
@@ -41856,11 +41965,11 @@ LAB_00464f9c:
         bVar10 = (byte)UINT_008dde54;
         UINT_007f4cdc =
              (int)ROUND((((fVar6 * _DAT_008dde60 - _DAT_008dde94) + PUN(float,param_1)) * fVar5 -
-                        (float)local_c) * (float)(&UINT_008fe000)[iVar9] * 65536.0) >>
+                        (float)local_c) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar9] * 65536.0) >>
              (bVar10 & 0x1f);
         UINT_007f4c44 =
              (int)ROUND((((fVar6 * _DAT_008dde80 - _DAT_008dde74) + (float)local_8) * fVar5 -
-                        (float)local_10) * (float)(&UINT_008fe000)[iVar9] * 65536.0) >>
+                        (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar9] * 65536.0) >>
              (bVar10 & 0x1f);
         UINT_007f4cf4 = ((int)ROUND((float)local_c * 65536.0) >> (bVar10 & 0x1f)) + UINT_008dde78;
         UINT_007f4cf8 = ((int)ROUND((float)local_10 * 65536.0) >> (bVar10 & 0x1f)) + UINT_008dde50;
@@ -42009,7 +42118,7 @@ void rdRaster_Span16_TexLitZw_13(uint *param_1,uint *param_2)
     fVar6 = fVar5 * _DAT_008dde60 + (float)param_1[6];
     fVar5 = fVar5 * _DAT_008dde80 + (float)param_1[8];
     lVar2 = (longlong)(int)(param_2[0xe] - param_1[0xe]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + UINT_007f4cac * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + UINT_007f4cac * 4);
     UINT_007f4cb4 = (uint)lVar2 >> 0x10 | (int)((ulonglong)lVar2 >> 0x20) << 0x10;
     if (((int)UINT_007f4cb4 < 0) && (-0x51e < (int)UINT_007f4cb4)) {
       UINT_007f4cb4 = 0;
@@ -42040,11 +42149,11 @@ void rdRaster_Span16_TexLitZw_13(uint *param_1,uint *param_2)
       fVar3 = fVar3 * fVar5;
       bVar10 = (byte)UINT_008dde54;
       UINT_007f4cdc =
-           (int)ROUND((fVar4 - (float)local_c) * (float)(&UINT_008fe000)[uVar8] * 65536.0) >>
-           (bVar10 & 0x1f);
+           (int)ROUND((fVar4 - (float)local_c) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar8] *
+                      65536.0) >> (bVar10 & 0x1f);
       UINT_007f4c44 =
-           (int)ROUND((fVar3 - (float)local_10) * (float)(&UINT_008fe000)[uVar8] * 65536.0) >>
-           (bVar10 & 0x1f);
+           (int)ROUND((fVar3 - (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar8] *
+                      65536.0) >> (bVar10 & 0x1f);
       iVar9 = uVar8 - 1;
       uVar12 = UINT_007f4cfc + UINT_008dde88 * iVar9;
       uVar14 = ((int)ROUND((float)local_c * 65536.0) >> (bVar10 & 0x1f)) + UINT_008dde78 +
@@ -42164,11 +42273,11 @@ LAB_00465a8c:
         bVar10 = (byte)UINT_008dde54;
         UINT_007f4cdc =
              (int)ROUND((((fVar6 * _DAT_008dde60 - _DAT_008dde94) + PUN(float,param_1)) * fVar5 -
-                        (float)local_c) * (float)(&UINT_008fe000)[iVar9] * 65536.0) >>
+                        (float)local_c) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar9] * 65536.0) >>
              (bVar10 & 0x1f);
         UINT_007f4c44 =
              (int)ROUND((((fVar6 * _DAT_008dde80 - _DAT_008dde74) + (float)local_8) * fVar5 -
-                        (float)local_10) * (float)(&UINT_008fe000)[iVar9] * 65536.0) >>
+                        (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar9] * 65536.0) >>
              (bVar10 & 0x1f);
         UINT_007f4cf4 = ((int)ROUND((float)local_c * 65536.0) >> (bVar10 & 0x1f)) + UINT_008dde78;
         UINT_007f4cf8 = ((int)ROUND((float)local_10 * 65536.0) >> (bVar10 & 0x1f)) + UINT_008dde50;
@@ -42317,7 +42426,7 @@ void rdRaster_Span16_TexLitZw_14(uint *param_1,uint *param_2)
     fVar6 = fVar5 * _DAT_008dde60 + (float)param_1[6];
     fVar5 = fVar5 * _DAT_008dde80 + (float)param_1[8];
     lVar2 = (longlong)(int)(param_2[0xe] - param_1[0xe]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + UINT_007f4cac * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + UINT_007f4cac * 4);
     UINT_007f4cb4 = (uint)lVar2 >> 0x10 | (int)((ulonglong)lVar2 >> 0x20) << 0x10;
     if (((int)UINT_007f4cb4 < 0) && (-0x51e < (int)UINT_007f4cb4)) {
       UINT_007f4cb4 = 0;
@@ -42348,11 +42457,11 @@ void rdRaster_Span16_TexLitZw_14(uint *param_1,uint *param_2)
       fVar3 = fVar3 * fVar5;
       bVar10 = (byte)UINT_008dde54;
       UINT_007f4cdc =
-           (int)ROUND((fVar4 - (float)local_c) * (float)(&UINT_008fe000)[uVar8] * 65536.0) >>
-           (bVar10 & 0x1f);
+           (int)ROUND((fVar4 - (float)local_c) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar8] *
+                      65536.0) >> (bVar10 & 0x1f);
       UINT_007f4c44 =
-           (int)ROUND((fVar3 - (float)local_10) * (float)(&UINT_008fe000)[uVar8] * 65536.0) >>
-           (bVar10 & 0x1f);
+           (int)ROUND((fVar3 - (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar8] *
+                      65536.0) >> (bVar10 & 0x1f);
       iVar9 = uVar8 - 1;
       uVar12 = UINT_007f4cfc + UINT_008dde88 * iVar9;
       uVar14 = ((int)ROUND((float)local_c * 65536.0) >> (bVar10 & 0x1f)) + UINT_008dde78 +
@@ -42472,11 +42581,11 @@ LAB_0046657c:
         bVar10 = (byte)UINT_008dde54;
         UINT_007f4cdc =
              (int)ROUND((((fVar6 * _DAT_008dde60 - _DAT_008dde94) + PUN(float,param_1)) * fVar5 -
-                        (float)local_c) * (float)(&UINT_008fe000)[iVar9] * 65536.0) >>
+                        (float)local_c) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar9] * 65536.0) >>
              (bVar10 & 0x1f);
         UINT_007f4c44 =
              (int)ROUND((((fVar6 * _DAT_008dde80 - _DAT_008dde74) + (float)local_8) * fVar5 -
-                        (float)local_10) * (float)(&UINT_008fe000)[iVar9] * 65536.0) >>
+                        (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar9] * 65536.0) >>
              (bVar10 & 0x1f);
         UINT_007f4cf4 = ((int)ROUND((float)local_c * 65536.0) >> (bVar10 & 0x1f)) + UINT_008dde78;
         UINT_007f4cf8 = ((int)ROUND((float)local_10 * 65536.0) >> (bVar10 & 0x1f)) + UINT_008dde50;
@@ -42583,17 +42692,17 @@ void rdRaster_Span16_TexLitZw_15(uint *param_1,uint *param_2)
   if (0 < (int)uVar8) {
     iVar6 = uVar5 - *param_1;
     lVar2 = (longlong)(int)(param_2[10] - param_1[10]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + uVar8 * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + uVar8 * 4);
     uVar5 = (uint)lVar2 >> 0x10 | (int)((ulonglong)lVar2 >> 0x20) << 0x10;
     bVar7 = (byte)UINT_008dde54;
     UINT_007f4cdc = (int)uVar5 >> (bVar7 & 0x1f);
     lVar2 = (longlong)iVar6 * (longlong)(int)uVar5;
     lVar3 = (longlong)(int)(param_2[0xc] - param_1[0xc]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + uVar8 * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + uVar8 * 4);
     uVar5 = (uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10;
     UINT_007f4c44 = (int)uVar5 >> (bVar7 & 0x1f);
     lVar3 = (longlong)iVar6 * (longlong)(int)uVar5;
-    fVar4 = ((float)param_2[4] - (float)param_1[4]) * (float)(&UINT_008fe000)[uVar8];
+    fVar4 = ((float)param_2[4] - (float)param_1[4]) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar8];
     UINT_007f4c54 = (uint)ROUND(fVar4 * 65536.0);
     iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     UINT_007f4cc4 =
@@ -42684,17 +42793,18 @@ void rdRaster_Span16_TexLitZw_16(uint *param_1,uint *param_2)
   if (0 < (int)UINT_007f4cac) {
     iVar7 = uVar6 - *param_1;
     lVar3 = (longlong)(int)(param_2[10] - param_1[10]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + UINT_007f4cac * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + UINT_007f4cac * 4);
     uVar6 = (uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10;
     bVar9 = (byte)UINT_008dde54;
     UINT_007f4cdc = (int)uVar6 >> (bVar9 & 0x1f);
     lVar3 = (longlong)iVar7 * (longlong)(int)uVar6;
     lVar4 = (longlong)(int)(param_2[0xc] - param_1[0xc]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + UINT_007f4cac * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + UINT_007f4cac * 4);
     uVar6 = (uint)lVar4 >> 0x10 | (int)((ulonglong)lVar4 >> 0x20) << 0x10;
     UINT_007f4c44 = (int)uVar6 >> (bVar9 & 0x1f);
     lVar4 = (longlong)iVar7 * (longlong)(int)uVar6;
-    fVar5 = ((float)param_2[4] - (float)param_1[4]) * (float)(&UINT_008fe000)[UINT_007f4cac];
+    fVar5 = ((float)param_2[4] - (float)param_1[4]) *
+            (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4cac];
     UINT_007f4c54 = (uint)ROUND(fVar5 * 65536.0);
     iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     UINT_007f4cc4 =
@@ -42793,17 +42903,18 @@ void rdRaster_Span16_TexLitZw_17(uint *param_1,uint *param_2)
   if (0 < (int)UINT_007f4cac) {
     iVar7 = uVar6 - *param_1;
     lVar3 = (longlong)(int)(param_2[10] - param_1[10]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + UINT_007f4cac * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + UINT_007f4cac * 4);
     uVar6 = (uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10;
     bVar9 = (byte)UINT_008dde54;
     UINT_007f4cdc = (int)uVar6 >> (bVar9 & 0x1f);
     lVar3 = (longlong)iVar7 * (longlong)(int)uVar6;
     lVar4 = (longlong)(int)(param_2[0xc] - param_1[0xc]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + UINT_007f4cac * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + UINT_007f4cac * 4);
     uVar6 = (uint)lVar4 >> 0x10 | (int)((ulonglong)lVar4 >> 0x20) << 0x10;
     UINT_007f4c44 = (int)uVar6 >> (bVar9 & 0x1f);
     lVar4 = (longlong)iVar7 * (longlong)(int)uVar6;
-    fVar5 = ((float)param_2[4] - (float)param_1[4]) * (float)(&UINT_008fe000)[UINT_007f4cac];
+    fVar5 = ((float)param_2[4] - (float)param_1[4]) *
+            (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4cac];
     UINT_007f4c54 = (uint)ROUND(fVar5 * 65536.0);
     iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     UINT_007f4cc4 =
@@ -42902,17 +43013,18 @@ void rdRaster_Span16_TexLitZw_18(uint *param_1,uint *param_2)
   if (0 < (int)UINT_007f4cac) {
     iVar7 = uVar6 - *param_1;
     lVar3 = (longlong)(int)(param_2[10] - param_1[10]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + UINT_007f4cac * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + UINT_007f4cac * 4);
     uVar6 = (uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10;
     bVar9 = (byte)UINT_008dde54;
     UINT_007f4cdc = (int)uVar6 >> (bVar9 & 0x1f);
     lVar3 = (longlong)iVar7 * (longlong)(int)uVar6;
     lVar4 = (longlong)(int)(param_2[0xc] - param_1[0xc]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + UINT_007f4cac * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + UINT_007f4cac * 4);
     uVar6 = (uint)lVar4 >> 0x10 | (int)((ulonglong)lVar4 >> 0x20) << 0x10;
     UINT_007f4c44 = (int)uVar6 >> (bVar9 & 0x1f);
     lVar4 = (longlong)iVar7 * (longlong)(int)uVar6;
-    fVar5 = ((float)param_2[4] - (float)param_1[4]) * (float)(&UINT_008fe000)[UINT_007f4cac];
+    fVar5 = ((float)param_2[4] - (float)param_1[4]) *
+            (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4cac];
     UINT_007f4c54 = (uint)ROUND(fVar5 * 65536.0);
     iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     UINT_007f4cc4 =
@@ -43011,17 +43123,18 @@ void rdRaster_Span16_TexLitZw_19(uint *param_1,uint *param_2)
   if (0 < (int)UINT_007f4cac) {
     iVar7 = uVar6 - *param_1;
     lVar3 = (longlong)(int)(param_2[10] - param_1[10]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + UINT_007f4cac * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + UINT_007f4cac * 4);
     uVar6 = (uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10;
     bVar9 = (byte)UINT_008dde54;
     UINT_007f4cdc = (int)uVar6 >> (bVar9 & 0x1f);
     lVar3 = (longlong)iVar7 * (longlong)(int)uVar6;
     lVar4 = (longlong)(int)(param_2[0xc] - param_1[0xc]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + UINT_007f4cac * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + UINT_007f4cac * 4);
     uVar6 = (uint)lVar4 >> 0x10 | (int)((ulonglong)lVar4 >> 0x20) << 0x10;
     UINT_007f4c44 = (int)uVar6 >> (bVar9 & 0x1f);
     lVar4 = (longlong)iVar7 * (longlong)(int)uVar6;
-    fVar5 = ((float)param_2[4] - (float)param_1[4]) * (float)(&UINT_008fe000)[UINT_007f4cac];
+    fVar5 = ((float)param_2[4] - (float)param_1[4]) *
+            (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4cac];
     UINT_007f4c54 = (uint)ROUND(fVar5 * 65536.0);
     iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     UINT_007f4cc4 =
@@ -43120,17 +43233,18 @@ void rdRaster_Span16_TexLitZw_20(uint *param_1,uint *param_2)
   if (0 < (int)UINT_007f4cac) {
     iVar7 = uVar6 - *param_1;
     lVar3 = (longlong)(int)(param_2[10] - param_1[10]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + UINT_007f4cac * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + UINT_007f4cac * 4);
     uVar6 = (uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10;
     bVar9 = (byte)UINT_008dde54;
     UINT_007f4cdc = (int)uVar6 >> (bVar9 & 0x1f);
     lVar3 = (longlong)iVar7 * (longlong)(int)uVar6;
     lVar4 = (longlong)(int)(param_2[0xc] - param_1[0xc]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + UINT_007f4cac * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + UINT_007f4cac * 4);
     uVar6 = (uint)lVar4 >> 0x10 | (int)((ulonglong)lVar4 >> 0x20) << 0x10;
     UINT_007f4c44 = (int)uVar6 >> (bVar9 & 0x1f);
     lVar4 = (longlong)iVar7 * (longlong)(int)uVar6;
-    fVar5 = ((float)param_2[4] - (float)param_1[4]) * (float)(&UINT_008fe000)[UINT_007f4cac];
+    fVar5 = ((float)param_2[4] - (float)param_1[4]) *
+            (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4cac];
     UINT_007f4c54 = (uint)ROUND(fVar5 * 65536.0);
     iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     UINT_007f4cc4 =
@@ -43229,17 +43343,18 @@ void rdRaster_Span16_TexLitZw_21(uint *param_1,uint *param_2)
   if (0 < (int)UINT_007f4cac) {
     iVar7 = uVar6 - *param_1;
     lVar3 = (longlong)(int)(param_2[10] - param_1[10]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + UINT_007f4cac * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + UINT_007f4cac * 4);
     uVar6 = (uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10;
     bVar9 = (byte)UINT_008dde54;
     UINT_007f4cdc = (int)uVar6 >> (bVar9 & 0x1f);
     lVar3 = (longlong)iVar7 * (longlong)(int)uVar6;
     lVar4 = (longlong)(int)(param_2[0xc] - param_1[0xc]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + UINT_007f4cac * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + UINT_007f4cac * 4);
     uVar6 = (uint)lVar4 >> 0x10 | (int)((ulonglong)lVar4 >> 0x20) << 0x10;
     UINT_007f4c44 = (int)uVar6 >> (bVar9 & 0x1f);
     lVar4 = (longlong)iVar7 * (longlong)(int)uVar6;
-    fVar5 = ((float)param_2[4] - (float)param_1[4]) * (float)(&UINT_008fe000)[UINT_007f4cac];
+    fVar5 = ((float)param_2[4] - (float)param_1[4]) *
+            (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4cac];
     UINT_007f4c54 = (uint)ROUND(fVar5 * 65536.0);
     iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     UINT_007f4cc4 =
@@ -43338,17 +43453,18 @@ void rdRaster_Span16_TexLitZw_22(uint *param_1,uint *param_2)
   if (0 < (int)UINT_007f4cac) {
     iVar7 = uVar6 - *param_1;
     lVar3 = (longlong)(int)(param_2[10] - param_1[10]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + UINT_007f4cac * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + UINT_007f4cac * 4);
     uVar6 = (uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10;
     bVar9 = (byte)UINT_008dde54;
     UINT_007f4cdc = (int)uVar6 >> (bVar9 & 0x1f);
     lVar3 = (longlong)iVar7 * (longlong)(int)uVar6;
     lVar4 = (longlong)(int)(param_2[0xc] - param_1[0xc]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + UINT_007f4cac * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + UINT_007f4cac * 4);
     uVar6 = (uint)lVar4 >> 0x10 | (int)((ulonglong)lVar4 >> 0x20) << 0x10;
     UINT_007f4c44 = (int)uVar6 >> (bVar9 & 0x1f);
     lVar4 = (longlong)iVar7 * (longlong)(int)uVar6;
-    fVar5 = ((float)param_2[4] - (float)param_1[4]) * (float)(&UINT_008fe000)[UINT_007f4cac];
+    fVar5 = ((float)param_2[4] - (float)param_1[4]) *
+            (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4cac];
     UINT_007f4c54 = (uint)ROUND(fVar5 * 65536.0);
     iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     UINT_007f4cc4 =
@@ -43508,11 +43624,11 @@ void rdRaster_Span16_TexZw_2(uint *param_1,uint *param_2)
       fVar1 = fVar1 * fVar3;
       bVar9 = (byte)UINT_008dde54;
       UINT_007f4cdc =
-           (int)ROUND((fVar2 - (float)local_10) * (float)(&UINT_008fe000)[uVar7] * 65536.0) >>
-           (bVar9 & 0x1f);
+           (int)ROUND((fVar2 - (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar7] *
+                      65536.0) >> (bVar9 & 0x1f);
       UINT_007f4c44 =
-           (int)ROUND((fVar1 - (float)local_14) * (float)(&UINT_008fe000)[uVar7] * 65536.0) >>
-           (bVar9 & 0x1f);
+           (int)ROUND((fVar1 - (float)local_14) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar7] *
+                      65536.0) >> (bVar9 & 0x1f);
       iVar8 = uVar7 - 1;
       UINT_007f4cfc = UINT_007f4cfc + UINT_008dde88 * iVar8;
       UINT_007f4cf4 =
@@ -43603,11 +43719,11 @@ void rdRaster_Span16_TexZw_2(uint *param_1,uint *param_2)
         bVar9 = (byte)UINT_008dde54;
         UINT_007f4cdc =
              (int)ROUND((((fVar4 * _DAT_008dde60 - _DAT_008dde94) + (float)local_8) * fVar3 -
-                        (float)local_10) * (float)(&UINT_008fe000)[iVar8] * 65536.0) >>
+                        (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar8] * 65536.0) >>
              (bVar9 & 0x1f);
         UINT_007f4c44 =
              (int)ROUND((((fVar4 * _DAT_008dde80 - _DAT_008dde74) + (float)local_c) * fVar3 -
-                        (float)local_14) * (float)(&UINT_008fe000)[iVar8] * 65536.0) >>
+                        (float)local_14) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar8] * 65536.0) >>
              (bVar9 & 0x1f);
         UINT_007f4cf4 = ((int)ROUND((float)local_10 * 65536.0) >> (bVar9 & 0x1f)) + UINT_008dde78;
         UINT_007f4cf8 = ((int)ROUND((float)local_14 * 65536.0) >> (bVar9 & 0x1f)) + UINT_008dde50;
@@ -43762,11 +43878,11 @@ void rdRaster_Span16_TexZw_3(uint *param_1,uint *param_2)
       fVar2 = fVar2 * fVar4;
       bVar10 = (byte)UINT_008dde54;
       UINT_007f4cdc =
-           (int)ROUND((fVar3 - (float)local_10) * (float)(&UINT_008fe000)[uVar8] * 65536.0) >>
-           (bVar10 & 0x1f);
+           (int)ROUND((fVar3 - (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar8] *
+                      65536.0) >> (bVar10 & 0x1f);
       UINT_007f4c44 =
-           (int)ROUND((fVar2 - (float)local_14) * (float)(&UINT_008fe000)[uVar8] * 65536.0) >>
-           (bVar10 & 0x1f);
+           (int)ROUND((fVar2 - (float)local_14) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar8] *
+                      65536.0) >> (bVar10 & 0x1f);
       iVar9 = uVar8 - 1;
       uVar14 = UINT_007f4cfc + UINT_008dde88 * iVar9;
       uVar11 = ((int)ROUND((float)local_10 * 65536.0) >> (bVar10 & 0x1f)) + UINT_008dde78 +
@@ -43875,11 +43991,11 @@ LAB_0046912c:
         bVar10 = (byte)UINT_008dde54;
         UINT_007f4cdc =
              (int)ROUND((((fVar5 * _DAT_008dde60 - _DAT_008dde94) + (float)local_8) * fVar4 -
-                        (float)local_10) * (float)(&UINT_008fe000)[iVar9] * 65536.0) >>
+                        (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar9] * 65536.0) >>
              (bVar10 & 0x1f);
         UINT_007f4c44 =
              (int)ROUND((((fVar5 * _DAT_008dde80 - _DAT_008dde74) + (float)local_c) * fVar4 -
-                        (float)local_14) * (float)(&UINT_008fe000)[iVar9] * 65536.0) >>
+                        (float)local_14) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar9] * 65536.0) >>
              (bVar10 & 0x1f);
         UINT_007f4cf4 = ((int)ROUND((float)local_10 * 65536.0) >> (bVar10 & 0x1f)) + UINT_008dde78;
         UINT_007f4cf8 = ((int)ROUND((float)local_14 * 65536.0) >> (bVar10 & 0x1f)) + UINT_008dde50;
@@ -44046,11 +44162,11 @@ void rdRaster_Span16_TexZw_4(uint *param_1,uint *param_2)
       fVar2 = fVar2 * fVar4;
       bVar10 = (byte)UINT_008dde54;
       UINT_007f4cdc =
-           (int)ROUND((fVar3 - (float)local_10) * (float)(&UINT_008fe000)[uVar8] * 65536.0) >>
-           (bVar10 & 0x1f);
+           (int)ROUND((fVar3 - (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar8] *
+                      65536.0) >> (bVar10 & 0x1f);
       UINT_007f4c44 =
-           (int)ROUND((fVar2 - (float)local_14) * (float)(&UINT_008fe000)[uVar8] * 65536.0) >>
-           (bVar10 & 0x1f);
+           (int)ROUND((fVar2 - (float)local_14) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar8] *
+                      65536.0) >> (bVar10 & 0x1f);
       iVar9 = uVar8 - 1;
       uVar14 = UINT_007f4cfc + UINT_008dde88 * iVar9;
       uVar11 = ((int)ROUND((float)local_10 * 65536.0) >> (bVar10 & 0x1f)) + UINT_008dde78 +
@@ -44159,11 +44275,11 @@ LAB_00469a8c:
         bVar10 = (byte)UINT_008dde54;
         UINT_007f4cdc =
              (int)ROUND((((fVar5 * _DAT_008dde60 - _DAT_008dde94) + (float)local_8) * fVar4 -
-                        (float)local_10) * (float)(&UINT_008fe000)[iVar9] * 65536.0) >>
+                        (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar9] * 65536.0) >>
              (bVar10 & 0x1f);
         UINT_007f4c44 =
              (int)ROUND((((fVar5 * _DAT_008dde80 - _DAT_008dde74) + (float)local_c) * fVar4 -
-                        (float)local_14) * (float)(&UINT_008fe000)[iVar9] * 65536.0) >>
+                        (float)local_14) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar9] * 65536.0) >>
              (bVar10 & 0x1f);
         UINT_007f4cf4 = ((int)ROUND((float)local_10 * 65536.0) >> (bVar10 & 0x1f)) + UINT_008dde78;
         UINT_007f4cf8 = ((int)ROUND((float)local_14 * 65536.0) >> (bVar10 & 0x1f)) + UINT_008dde50;
@@ -44330,11 +44446,11 @@ void rdRaster_Span16_TexZw_5(uint *param_1,uint *param_2)
       fVar2 = fVar2 * fVar4;
       bVar10 = (byte)UINT_008dde54;
       UINT_007f4cdc =
-           (int)ROUND((fVar3 - (float)local_10) * (float)(&UINT_008fe000)[uVar8] * 65536.0) >>
-           (bVar10 & 0x1f);
+           (int)ROUND((fVar3 - (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar8] *
+                      65536.0) >> (bVar10 & 0x1f);
       UINT_007f4c44 =
-           (int)ROUND((fVar2 - (float)local_14) * (float)(&UINT_008fe000)[uVar8] * 65536.0) >>
-           (bVar10 & 0x1f);
+           (int)ROUND((fVar2 - (float)local_14) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar8] *
+                      65536.0) >> (bVar10 & 0x1f);
       iVar9 = uVar8 - 1;
       uVar14 = UINT_007f4cfc + UINT_008dde88 * iVar9;
       uVar11 = ((int)ROUND((float)local_10 * 65536.0) >> (bVar10 & 0x1f)) + UINT_008dde78 +
@@ -44443,11 +44559,11 @@ LAB_0046a3ec:
         bVar10 = (byte)UINT_008dde54;
         UINT_007f4cdc =
              (int)ROUND((((fVar5 * _DAT_008dde60 - _DAT_008dde94) + (float)local_8) * fVar4 -
-                        (float)local_10) * (float)(&UINT_008fe000)[iVar9] * 65536.0) >>
+                        (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar9] * 65536.0) >>
              (bVar10 & 0x1f);
         UINT_007f4c44 =
              (int)ROUND((((fVar5 * _DAT_008dde80 - _DAT_008dde74) + (float)local_c) * fVar4 -
-                        (float)local_14) * (float)(&UINT_008fe000)[iVar9] * 65536.0) >>
+                        (float)local_14) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar9] * 65536.0) >>
              (bVar10 & 0x1f);
         UINT_007f4cf4 = ((int)ROUND((float)local_10 * 65536.0) >> (bVar10 & 0x1f)) + UINT_008dde78;
         UINT_007f4cf8 = ((int)ROUND((float)local_14 * 65536.0) >> (bVar10 & 0x1f)) + UINT_008dde50;
@@ -44614,11 +44730,11 @@ void rdRaster_Span16_TexLitZw_23(uint *param_1,uint *param_2)
       fVar2 = fVar2 * fVar4;
       bVar10 = (byte)UINT_008dde54;
       UINT_007f4cdc =
-           (int)ROUND((fVar3 - (float)local_10) * (float)(&UINT_008fe000)[uVar8] * 65536.0) >>
-           (bVar10 & 0x1f);
+           (int)ROUND((fVar3 - (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar8] *
+                      65536.0) >> (bVar10 & 0x1f);
       UINT_007f4c44 =
-           (int)ROUND((fVar2 - (float)local_14) * (float)(&UINT_008fe000)[uVar8] * 65536.0) >>
-           (bVar10 & 0x1f);
+           (int)ROUND((fVar2 - (float)local_14) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar8] *
+                      65536.0) >> (bVar10 & 0x1f);
       iVar9 = uVar8 - 1;
       uVar14 = UINT_007f4cfc + UINT_008dde88 * iVar9;
       uVar11 = ((int)ROUND((float)local_10 * 65536.0) >> (bVar10 & 0x1f)) + UINT_008dde78 +
@@ -44727,11 +44843,11 @@ LAB_0046ad4c:
         bVar10 = (byte)UINT_008dde54;
         UINT_007f4cdc =
              (int)ROUND((((fVar5 * _DAT_008dde60 - _DAT_008dde94) + (float)local_8) * fVar4 -
-                        (float)local_10) * (float)(&UINT_008fe000)[iVar9] * 65536.0) >>
+                        (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar9] * 65536.0) >>
              (bVar10 & 0x1f);
         UINT_007f4c44 =
              (int)ROUND((((fVar5 * _DAT_008dde80 - _DAT_008dde74) + (float)local_c) * fVar4 -
-                        (float)local_14) * (float)(&UINT_008fe000)[iVar9] * 65536.0) >>
+                        (float)local_14) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar9] * 65536.0) >>
              (bVar10 & 0x1f);
         UINT_007f4cf4 = ((int)ROUND((float)local_10 * 65536.0) >> (bVar10 & 0x1f)) + UINT_008dde78;
         UINT_007f4cf8 = ((int)ROUND((float)local_14 * 65536.0) >> (bVar10 & 0x1f)) + UINT_008dde50;
@@ -44898,11 +45014,11 @@ void rdRaster_Span16_TexZw_6(uint *param_1,uint *param_2)
       fVar2 = fVar2 * fVar4;
       bVar10 = (byte)UINT_008dde54;
       UINT_007f4cdc =
-           (int)ROUND((fVar3 - (float)local_10) * (float)(&UINT_008fe000)[uVar8] * 65536.0) >>
-           (bVar10 & 0x1f);
+           (int)ROUND((fVar3 - (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar8] *
+                      65536.0) >> (bVar10 & 0x1f);
       UINT_007f4c44 =
-           (int)ROUND((fVar2 - (float)local_14) * (float)(&UINT_008fe000)[uVar8] * 65536.0) >>
-           (bVar10 & 0x1f);
+           (int)ROUND((fVar2 - (float)local_14) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar8] *
+                      65536.0) >> (bVar10 & 0x1f);
       iVar9 = uVar8 - 1;
       uVar14 = UINT_007f4cfc + UINT_008dde88 * iVar9;
       uVar11 = ((int)ROUND((float)local_10 * 65536.0) >> (bVar10 & 0x1f)) + UINT_008dde78 +
@@ -45011,11 +45127,11 @@ LAB_0046b6ac:
         bVar10 = (byte)UINT_008dde54;
         UINT_007f4cdc =
              (int)ROUND((((fVar5 * _DAT_008dde60 - _DAT_008dde94) + (float)local_8) * fVar4 -
-                        (float)local_10) * (float)(&UINT_008fe000)[iVar9] * 65536.0) >>
+                        (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar9] * 65536.0) >>
              (bVar10 & 0x1f);
         UINT_007f4c44 =
              (int)ROUND((((fVar5 * _DAT_008dde80 - _DAT_008dde74) + (float)local_c) * fVar4 -
-                        (float)local_14) * (float)(&UINT_008fe000)[iVar9] * 65536.0) >>
+                        (float)local_14) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar9] * 65536.0) >>
              (bVar10 & 0x1f);
         UINT_007f4cf4 = ((int)ROUND((float)local_10 * 65536.0) >> (bVar10 & 0x1f)) + UINT_008dde78;
         UINT_007f4cf8 = ((int)ROUND((float)local_14 * 65536.0) >> (bVar10 & 0x1f)) + UINT_008dde50;
@@ -45182,11 +45298,11 @@ void rdRaster_Span16_TexZw_7(uint *param_1,uint *param_2)
       fVar2 = fVar2 * fVar4;
       bVar10 = (byte)UINT_008dde54;
       UINT_007f4cdc =
-           (int)ROUND((fVar3 - (float)local_10) * (float)(&UINT_008fe000)[uVar8] * 65536.0) >>
-           (bVar10 & 0x1f);
+           (int)ROUND((fVar3 - (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar8] *
+                      65536.0) >> (bVar10 & 0x1f);
       UINT_007f4c44 =
-           (int)ROUND((fVar2 - (float)local_14) * (float)(&UINT_008fe000)[uVar8] * 65536.0) >>
-           (bVar10 & 0x1f);
+           (int)ROUND((fVar2 - (float)local_14) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar8] *
+                      65536.0) >> (bVar10 & 0x1f);
       iVar9 = uVar8 - 1;
       uVar14 = UINT_007f4cfc + UINT_008dde88 * iVar9;
       uVar11 = ((int)ROUND((float)local_10 * 65536.0) >> (bVar10 & 0x1f)) + UINT_008dde78 +
@@ -45295,11 +45411,11 @@ LAB_0046c00c:
         bVar10 = (byte)UINT_008dde54;
         UINT_007f4cdc =
              (int)ROUND((((fVar5 * _DAT_008dde60 - _DAT_008dde94) + (float)local_8) * fVar4 -
-                        (float)local_10) * (float)(&UINT_008fe000)[iVar9] * 65536.0) >>
+                        (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar9] * 65536.0) >>
              (bVar10 & 0x1f);
         UINT_007f4c44 =
              (int)ROUND((((fVar5 * _DAT_008dde80 - _DAT_008dde74) + (float)local_c) * fVar4 -
-                        (float)local_14) * (float)(&UINT_008fe000)[iVar9] * 65536.0) >>
+                        (float)local_14) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar9] * 65536.0) >>
              (bVar10 & 0x1f);
         UINT_007f4cf4 = ((int)ROUND((float)local_10 * 65536.0) >> (bVar10 & 0x1f)) + UINT_008dde78;
         UINT_007f4cf8 = ((int)ROUND((float)local_14 * 65536.0) >> (bVar10 & 0x1f)) + UINT_008dde50;
@@ -45401,17 +45517,17 @@ void rdRaster_Span16_TexLitZw_24(uint *param_1,uint *param_2)
   if (0 < (int)uVar8) {
     iVar6 = uVar5 - *param_1;
     lVar2 = (longlong)(int)(param_2[10] - param_1[10]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + uVar8 * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + uVar8 * 4);
     uVar5 = (uint)lVar2 >> 0x10 | (int)((ulonglong)lVar2 >> 0x20) << 0x10;
     bVar7 = (byte)UINT_008dde54;
     UINT_007f4cdc = (int)uVar5 >> (bVar7 & 0x1f);
     lVar2 = (longlong)iVar6 * (longlong)(int)uVar5;
     lVar3 = (longlong)(int)(param_2[0xc] - param_1[0xc]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + uVar8 * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + uVar8 * 4);
     uVar5 = (uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10;
     UINT_007f4c44 = (int)uVar5 >> (bVar7 & 0x1f);
     lVar3 = (longlong)iVar6 * (longlong)(int)uVar5;
-    fVar4 = ((float)param_2[4] - (float)param_1[4]) * (float)(&UINT_008fe000)[uVar8];
+    fVar4 = ((float)param_2[4] - (float)param_1[4]) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar8];
     UINT_007f4c54 = (uint)ROUND(fVar4 * 65536.0);
     iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     UINT_007f4cc4 =
@@ -45502,17 +45618,18 @@ void rdRaster_Span16_TexLitZw_25(uint *param_1,uint *param_2)
   if (0 < (int)UINT_007f4cac) {
     iVar7 = uVar6 - *param_1;
     lVar3 = (longlong)(int)(param_2[10] - param_1[10]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + UINT_007f4cac * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + UINT_007f4cac * 4);
     uVar6 = (uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10;
     bVar9 = (byte)UINT_008dde54;
     UINT_007f4cdc = (int)uVar6 >> (bVar9 & 0x1f);
     lVar3 = (longlong)iVar7 * (longlong)(int)uVar6;
     lVar4 = (longlong)(int)(param_2[0xc] - param_1[0xc]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + UINT_007f4cac * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + UINT_007f4cac * 4);
     uVar6 = (uint)lVar4 >> 0x10 | (int)((ulonglong)lVar4 >> 0x20) << 0x10;
     UINT_007f4c44 = (int)uVar6 >> (bVar9 & 0x1f);
     lVar4 = (longlong)iVar7 * (longlong)(int)uVar6;
-    fVar5 = ((float)param_2[4] - (float)param_1[4]) * (float)(&UINT_008fe000)[UINT_007f4cac];
+    fVar5 = ((float)param_2[4] - (float)param_1[4]) *
+            (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4cac];
     UINT_007f4c54 = (uint)ROUND(fVar5 * 65536.0);
     iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     UINT_007f4cc4 =
@@ -45611,17 +45728,18 @@ void rdRaster_Span16_TexLitZw_26(uint *param_1,uint *param_2)
   if (0 < (int)UINT_007f4cac) {
     iVar7 = uVar6 - *param_1;
     lVar3 = (longlong)(int)(param_2[10] - param_1[10]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + UINT_007f4cac * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + UINT_007f4cac * 4);
     uVar6 = (uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10;
     bVar9 = (byte)UINT_008dde54;
     UINT_007f4cdc = (int)uVar6 >> (bVar9 & 0x1f);
     lVar3 = (longlong)iVar7 * (longlong)(int)uVar6;
     lVar4 = (longlong)(int)(param_2[0xc] - param_1[0xc]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + UINT_007f4cac * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + UINT_007f4cac * 4);
     uVar6 = (uint)lVar4 >> 0x10 | (int)((ulonglong)lVar4 >> 0x20) << 0x10;
     UINT_007f4c44 = (int)uVar6 >> (bVar9 & 0x1f);
     lVar4 = (longlong)iVar7 * (longlong)(int)uVar6;
-    fVar5 = ((float)param_2[4] - (float)param_1[4]) * (float)(&UINT_008fe000)[UINT_007f4cac];
+    fVar5 = ((float)param_2[4] - (float)param_1[4]) *
+            (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4cac];
     UINT_007f4c54 = (uint)ROUND(fVar5 * 65536.0);
     iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     UINT_007f4cc4 =
@@ -45720,17 +45838,18 @@ void rdRaster_Span16_TexLitZw_27(uint *param_1,uint *param_2)
   if (0 < (int)UINT_007f4cac) {
     iVar7 = uVar6 - *param_1;
     lVar3 = (longlong)(int)(param_2[10] - param_1[10]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + UINT_007f4cac * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + UINT_007f4cac * 4);
     uVar6 = (uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10;
     bVar9 = (byte)UINT_008dde54;
     UINT_007f4cdc = (int)uVar6 >> (bVar9 & 0x1f);
     lVar3 = (longlong)iVar7 * (longlong)(int)uVar6;
     lVar4 = (longlong)(int)(param_2[0xc] - param_1[0xc]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + UINT_007f4cac * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + UINT_007f4cac * 4);
     uVar6 = (uint)lVar4 >> 0x10 | (int)((ulonglong)lVar4 >> 0x20) << 0x10;
     UINT_007f4c44 = (int)uVar6 >> (bVar9 & 0x1f);
     lVar4 = (longlong)iVar7 * (longlong)(int)uVar6;
-    fVar5 = ((float)param_2[4] - (float)param_1[4]) * (float)(&UINT_008fe000)[UINT_007f4cac];
+    fVar5 = ((float)param_2[4] - (float)param_1[4]) *
+            (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4cac];
     UINT_007f4c54 = (uint)ROUND(fVar5 * 65536.0);
     iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     UINT_007f4cc4 =
@@ -45829,17 +45948,18 @@ void rdRaster_Span16_TexLitZw_28(uint *param_1,uint *param_2)
   if (0 < (int)UINT_007f4cac) {
     iVar7 = uVar6 - *param_1;
     lVar3 = (longlong)(int)(param_2[10] - param_1[10]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + UINT_007f4cac * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + UINT_007f4cac * 4);
     uVar6 = (uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10;
     bVar9 = (byte)UINT_008dde54;
     UINT_007f4cdc = (int)uVar6 >> (bVar9 & 0x1f);
     lVar3 = (longlong)iVar7 * (longlong)(int)uVar6;
     lVar4 = (longlong)(int)(param_2[0xc] - param_1[0xc]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + UINT_007f4cac * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + UINT_007f4cac * 4);
     uVar6 = (uint)lVar4 >> 0x10 | (int)((ulonglong)lVar4 >> 0x20) << 0x10;
     UINT_007f4c44 = (int)uVar6 >> (bVar9 & 0x1f);
     lVar4 = (longlong)iVar7 * (longlong)(int)uVar6;
-    fVar5 = ((float)param_2[4] - (float)param_1[4]) * (float)(&UINT_008fe000)[UINT_007f4cac];
+    fVar5 = ((float)param_2[4] - (float)param_1[4]) *
+            (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4cac];
     UINT_007f4c54 = (uint)ROUND(fVar5 * 65536.0);
     iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     UINT_007f4cc4 =
@@ -45938,17 +46058,18 @@ void rdRaster_Span16_TexLitZw_29(uint *param_1,uint *param_2)
   if (0 < (int)UINT_007f4cac) {
     iVar7 = uVar6 - *param_1;
     lVar3 = (longlong)(int)(param_2[10] - param_1[10]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + UINT_007f4cac * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + UINT_007f4cac * 4);
     uVar6 = (uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10;
     bVar9 = (byte)UINT_008dde54;
     UINT_007f4cdc = (int)uVar6 >> (bVar9 & 0x1f);
     lVar3 = (longlong)iVar7 * (longlong)(int)uVar6;
     lVar4 = (longlong)(int)(param_2[0xc] - param_1[0xc]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + UINT_007f4cac * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + UINT_007f4cac * 4);
     uVar6 = (uint)lVar4 >> 0x10 | (int)((ulonglong)lVar4 >> 0x20) << 0x10;
     UINT_007f4c44 = (int)uVar6 >> (bVar9 & 0x1f);
     lVar4 = (longlong)iVar7 * (longlong)(int)uVar6;
-    fVar5 = ((float)param_2[4] - (float)param_1[4]) * (float)(&UINT_008fe000)[UINT_007f4cac];
+    fVar5 = ((float)param_2[4] - (float)param_1[4]) *
+            (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4cac];
     UINT_007f4c54 = (uint)ROUND(fVar5 * 65536.0);
     iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     UINT_007f4cc4 =
@@ -46047,17 +46168,18 @@ void rdRaster_Span16_TexLitZw_30(uint *param_1,uint *param_2)
   if (0 < (int)UINT_007f4cac) {
     iVar7 = uVar6 - *param_1;
     lVar3 = (longlong)(int)(param_2[10] - param_1[10]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + UINT_007f4cac * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + UINT_007f4cac * 4);
     uVar6 = (uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10;
     bVar9 = (byte)UINT_008dde54;
     UINT_007f4cdc = (int)uVar6 >> (bVar9 & 0x1f);
     lVar3 = (longlong)iVar7 * (longlong)(int)uVar6;
     lVar4 = (longlong)(int)(param_2[0xc] - param_1[0xc]) *
-            (longlong)*(int *)(&DAT_008fbfc0 + UINT_007f4cac * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + UINT_007f4cac * 4);
     uVar6 = (uint)lVar4 >> 0x10 | (int)((ulonglong)lVar4 >> 0x20) << 0x10;
     UINT_007f4c44 = (int)uVar6 >> (bVar9 & 0x1f);
     lVar4 = (longlong)iVar7 * (longlong)(int)uVar6;
-    fVar5 = ((float)param_2[4] - (float)param_1[4]) * (float)(&UINT_008fe000)[UINT_007f4cac];
+    fVar5 = ((float)param_2[4] - (float)param_1[4]) *
+            (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4cac];
     UINT_007f4c54 = (uint)ROUND(fVar5 * 65536.0);
     iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     UINT_007f4cc4 =
@@ -46217,11 +46339,11 @@ void rdRaster_Span16_TexZw_8(uint *param_1,uint *param_2)
       fVar1 = fVar1 * fVar3;
       bVar9 = (byte)UINT_008dde54;
       UINT_007f4cdc =
-           (int)ROUND((fVar2 - (float)local_10) * (float)(&UINT_008fe000)[uVar7] * 65536.0) >>
-           (bVar9 & 0x1f);
+           (int)ROUND((fVar2 - (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar7] *
+                      65536.0) >> (bVar9 & 0x1f);
       UINT_007f4c44 =
-           (int)ROUND((fVar1 - (float)local_14) * (float)(&UINT_008fe000)[uVar7] * 65536.0) >>
-           (bVar9 & 0x1f);
+           (int)ROUND((fVar1 - (float)local_14) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar7] *
+                      65536.0) >> (bVar9 & 0x1f);
       iVar8 = uVar7 - 1;
       UINT_007f4cfc = UINT_007f4cfc + UINT_008dde88 * iVar8;
       UINT_007f4cf4 =
@@ -46312,11 +46434,11 @@ void rdRaster_Span16_TexZw_8(uint *param_1,uint *param_2)
         bVar9 = (byte)UINT_008dde54;
         UINT_007f4cdc =
              (int)ROUND((((fVar4 * _DAT_008dde60 - _DAT_008dde94) + (float)local_8) * fVar3 -
-                        (float)local_10) * (float)(&UINT_008fe000)[iVar8] * 65536.0) >>
+                        (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar8] * 65536.0) >>
              (bVar9 & 0x1f);
         UINT_007f4c44 =
              (int)ROUND((((fVar4 * _DAT_008dde80 - _DAT_008dde74) + (float)local_c) * fVar3 -
-                        (float)local_14) * (float)(&UINT_008fe000)[iVar8] * 65536.0) >>
+                        (float)local_14) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar8] * 65536.0) >>
              (bVar9 & 0x1f);
         UINT_007f4cf4 = ((int)ROUND((float)local_10 * 65536.0) >> (bVar9 & 0x1f)) + UINT_008dde78;
         UINT_007f4cf8 = ((int)ROUND((float)local_14 * 65536.0) >> (bVar9 & 0x1f)) + UINT_008dde50;
@@ -46471,11 +46593,11 @@ void rdRaster_Span16_TexZw_9(uint *param_1,uint *param_2)
       fVar2 = fVar2 * fVar4;
       bVar10 = (byte)UINT_008dde54;
       UINT_007f4cdc =
-           (int)ROUND((fVar3 - (float)local_10) * (float)(&UINT_008fe000)[uVar8] * 65536.0) >>
-           (bVar10 & 0x1f);
+           (int)ROUND((fVar3 - (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar8] *
+                      65536.0) >> (bVar10 & 0x1f);
       UINT_007f4c44 =
-           (int)ROUND((fVar2 - (float)local_14) * (float)(&UINT_008fe000)[uVar8] * 65536.0) >>
-           (bVar10 & 0x1f);
+           (int)ROUND((fVar2 - (float)local_14) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar8] *
+                      65536.0) >> (bVar10 & 0x1f);
       iVar9 = uVar8 - 1;
       uVar14 = UINT_007f4cfc + UINT_008dde88 * iVar9;
       uVar11 = ((int)ROUND((float)local_10 * 65536.0) >> (bVar10 & 0x1f)) + UINT_008dde78 +
@@ -46584,11 +46706,11 @@ LAB_0046e83c:
         bVar10 = (byte)UINT_008dde54;
         UINT_007f4cdc =
              (int)ROUND((((fVar5 * _DAT_008dde60 - _DAT_008dde94) + (float)local_8) * fVar4 -
-                        (float)local_10) * (float)(&UINT_008fe000)[iVar9] * 65536.0) >>
+                        (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar9] * 65536.0) >>
              (bVar10 & 0x1f);
         UINT_007f4c44 =
              (int)ROUND((((fVar5 * _DAT_008dde80 - _DAT_008dde74) + (float)local_c) * fVar4 -
-                        (float)local_14) * (float)(&UINT_008fe000)[iVar9] * 65536.0) >>
+                        (float)local_14) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar9] * 65536.0) >>
              (bVar10 & 0x1f);
         UINT_007f4cf4 = ((int)ROUND((float)local_10 * 65536.0) >> (bVar10 & 0x1f)) + UINT_008dde78;
         UINT_007f4cf8 = ((int)ROUND((float)local_14 * 65536.0) >> (bVar10 & 0x1f)) + UINT_008dde50;
@@ -46755,11 +46877,11 @@ void rdRaster_Span16_TexZw_10(uint *param_1,uint *param_2)
       fVar2 = fVar2 * fVar4;
       bVar10 = (byte)UINT_008dde54;
       UINT_007f4cdc =
-           (int)ROUND((fVar3 - (float)local_10) * (float)(&UINT_008fe000)[uVar8] * 65536.0) >>
-           (bVar10 & 0x1f);
+           (int)ROUND((fVar3 - (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar8] *
+                      65536.0) >> (bVar10 & 0x1f);
       UINT_007f4c44 =
-           (int)ROUND((fVar2 - (float)local_14) * (float)(&UINT_008fe000)[uVar8] * 65536.0) >>
-           (bVar10 & 0x1f);
+           (int)ROUND((fVar2 - (float)local_14) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar8] *
+                      65536.0) >> (bVar10 & 0x1f);
       iVar9 = uVar8 - 1;
       uVar14 = UINT_007f4cfc + UINT_008dde88 * iVar9;
       uVar11 = ((int)ROUND((float)local_10 * 65536.0) >> (bVar10 & 0x1f)) + UINT_008dde78 +
@@ -46868,11 +46990,11 @@ LAB_0046f19c:
         bVar10 = (byte)UINT_008dde54;
         UINT_007f4cdc =
              (int)ROUND((((fVar5 * _DAT_008dde60 - _DAT_008dde94) + (float)local_8) * fVar4 -
-                        (float)local_10) * (float)(&UINT_008fe000)[iVar9] * 65536.0) >>
+                        (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar9] * 65536.0) >>
              (bVar10 & 0x1f);
         UINT_007f4c44 =
              (int)ROUND((((fVar5 * _DAT_008dde80 - _DAT_008dde74) + (float)local_c) * fVar4 -
-                        (float)local_14) * (float)(&UINT_008fe000)[iVar9] * 65536.0) >>
+                        (float)local_14) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar9] * 65536.0) >>
              (bVar10 & 0x1f);
         UINT_007f4cf4 = ((int)ROUND((float)local_10 * 65536.0) >> (bVar10 & 0x1f)) + UINT_008dde78;
         UINT_007f4cf8 = ((int)ROUND((float)local_14 * 65536.0) >> (bVar10 & 0x1f)) + UINT_008dde50;
@@ -47039,11 +47161,11 @@ void rdRaster_Span16_TexZw_11(uint *param_1,uint *param_2)
       fVar2 = fVar2 * fVar4;
       bVar10 = (byte)UINT_008dde54;
       UINT_007f4cdc =
-           (int)ROUND((fVar3 - (float)local_10) * (float)(&UINT_008fe000)[uVar8] * 65536.0) >>
-           (bVar10 & 0x1f);
+           (int)ROUND((fVar3 - (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar8] *
+                      65536.0) >> (bVar10 & 0x1f);
       UINT_007f4c44 =
-           (int)ROUND((fVar2 - (float)local_14) * (float)(&UINT_008fe000)[uVar8] * 65536.0) >>
-           (bVar10 & 0x1f);
+           (int)ROUND((fVar2 - (float)local_14) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar8] *
+                      65536.0) >> (bVar10 & 0x1f);
       iVar9 = uVar8 - 1;
       uVar14 = UINT_007f4cfc + UINT_008dde88 * iVar9;
       uVar11 = ((int)ROUND((float)local_10 * 65536.0) >> (bVar10 & 0x1f)) + UINT_008dde78 +
@@ -47152,11 +47274,11 @@ LAB_0046fafc:
         bVar10 = (byte)UINT_008dde54;
         UINT_007f4cdc =
              (int)ROUND((((fVar5 * _DAT_008dde60 - _DAT_008dde94) + (float)local_8) * fVar4 -
-                        (float)local_10) * (float)(&UINT_008fe000)[iVar9] * 65536.0) >>
+                        (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar9] * 65536.0) >>
              (bVar10 & 0x1f);
         UINT_007f4c44 =
              (int)ROUND((((fVar5 * _DAT_008dde80 - _DAT_008dde74) + (float)local_c) * fVar4 -
-                        (float)local_14) * (float)(&UINT_008fe000)[iVar9] * 65536.0) >>
+                        (float)local_14) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar9] * 65536.0) >>
              (bVar10 & 0x1f);
         UINT_007f4cf4 = ((int)ROUND((float)local_10 * 65536.0) >> (bVar10 & 0x1f)) + UINT_008dde78;
         UINT_007f4cf8 = ((int)ROUND((float)local_14 * 65536.0) >> (bVar10 & 0x1f)) + UINT_008dde50;
@@ -47323,11 +47445,11 @@ void rdRaster_Span16_TexLitZw_31(uint *param_1,uint *param_2)
       fVar2 = fVar2 * fVar4;
       bVar10 = (byte)UINT_008dde54;
       UINT_007f4cdc =
-           (int)ROUND((fVar3 - (float)local_10) * (float)(&UINT_008fe000)[uVar8] * 65536.0) >>
-           (bVar10 & 0x1f);
+           (int)ROUND((fVar3 - (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar8] *
+                      65536.0) >> (bVar10 & 0x1f);
       UINT_007f4c44 =
-           (int)ROUND((fVar2 - (float)local_14) * (float)(&UINT_008fe000)[uVar8] * 65536.0) >>
-           (bVar10 & 0x1f);
+           (int)ROUND((fVar2 - (float)local_14) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar8] *
+                      65536.0) >> (bVar10 & 0x1f);
       iVar9 = uVar8 - 1;
       uVar14 = UINT_007f4cfc + UINT_008dde88 * iVar9;
       uVar11 = ((int)ROUND((float)local_10 * 65536.0) >> (bVar10 & 0x1f)) + UINT_008dde78 +
@@ -47436,11 +47558,11 @@ LAB_0047045c:
         bVar10 = (byte)UINT_008dde54;
         UINT_007f4cdc =
              (int)ROUND((((fVar5 * _DAT_008dde60 - _DAT_008dde94) + (float)local_8) * fVar4 -
-                        (float)local_10) * (float)(&UINT_008fe000)[iVar9] * 65536.0) >>
+                        (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar9] * 65536.0) >>
              (bVar10 & 0x1f);
         UINT_007f4c44 =
              (int)ROUND((((fVar5 * _DAT_008dde80 - _DAT_008dde74) + (float)local_c) * fVar4 -
-                        (float)local_14) * (float)(&UINT_008fe000)[iVar9] * 65536.0) >>
+                        (float)local_14) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar9] * 65536.0) >>
              (bVar10 & 0x1f);
         UINT_007f4cf4 = ((int)ROUND((float)local_10 * 65536.0) >> (bVar10 & 0x1f)) + UINT_008dde78;
         UINT_007f4cf8 = ((int)ROUND((float)local_14 * 65536.0) >> (bVar10 & 0x1f)) + UINT_008dde50;
@@ -47607,11 +47729,11 @@ void rdRaster_Span16_TexZw_12(uint *param_1,uint *param_2)
       fVar2 = fVar2 * fVar4;
       bVar10 = (byte)UINT_008dde54;
       UINT_007f4cdc =
-           (int)ROUND((fVar3 - (float)local_10) * (float)(&UINT_008fe000)[uVar8] * 65536.0) >>
-           (bVar10 & 0x1f);
+           (int)ROUND((fVar3 - (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar8] *
+                      65536.0) >> (bVar10 & 0x1f);
       UINT_007f4c44 =
-           (int)ROUND((fVar2 - (float)local_14) * (float)(&UINT_008fe000)[uVar8] * 65536.0) >>
-           (bVar10 & 0x1f);
+           (int)ROUND((fVar2 - (float)local_14) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar8] *
+                      65536.0) >> (bVar10 & 0x1f);
       iVar9 = uVar8 - 1;
       uVar14 = UINT_007f4cfc + UINT_008dde88 * iVar9;
       uVar11 = ((int)ROUND((float)local_10 * 65536.0) >> (bVar10 & 0x1f)) + UINT_008dde78 +
@@ -47720,11 +47842,11 @@ LAB_00470dbc:
         bVar10 = (byte)UINT_008dde54;
         UINT_007f4cdc =
              (int)ROUND((((fVar5 * _DAT_008dde60 - _DAT_008dde94) + (float)local_8) * fVar4 -
-                        (float)local_10) * (float)(&UINT_008fe000)[iVar9] * 65536.0) >>
+                        (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar9] * 65536.0) >>
              (bVar10 & 0x1f);
         UINT_007f4c44 =
              (int)ROUND((((fVar5 * _DAT_008dde80 - _DAT_008dde74) + (float)local_c) * fVar4 -
-                        (float)local_14) * (float)(&UINT_008fe000)[iVar9] * 65536.0) >>
+                        (float)local_14) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar9] * 65536.0) >>
              (bVar10 & 0x1f);
         UINT_007f4cf4 = ((int)ROUND((float)local_10 * 65536.0) >> (bVar10 & 0x1f)) + UINT_008dde78;
         UINT_007f4cf8 = ((int)ROUND((float)local_14 * 65536.0) >> (bVar10 & 0x1f)) + UINT_008dde50;
@@ -47891,11 +48013,11 @@ void rdRaster_Span16_TexZw_13(uint *param_1,uint *param_2)
       fVar2 = fVar2 * fVar4;
       bVar10 = (byte)UINT_008dde54;
       UINT_007f4cdc =
-           (int)ROUND((fVar3 - (float)local_10) * (float)(&UINT_008fe000)[uVar8] * 65536.0) >>
-           (bVar10 & 0x1f);
+           (int)ROUND((fVar3 - (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar8] *
+                      65536.0) >> (bVar10 & 0x1f);
       UINT_007f4c44 =
-           (int)ROUND((fVar2 - (float)local_14) * (float)(&UINT_008fe000)[uVar8] * 65536.0) >>
-           (bVar10 & 0x1f);
+           (int)ROUND((fVar2 - (float)local_14) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar8] *
+                      65536.0) >> (bVar10 & 0x1f);
       iVar9 = uVar8 - 1;
       uVar14 = UINT_007f4cfc + UINT_008dde88 * iVar9;
       uVar11 = ((int)ROUND((float)local_10 * 65536.0) >> (bVar10 & 0x1f)) + UINT_008dde78 +
@@ -48004,11 +48126,11 @@ LAB_0047171c:
         bVar10 = (byte)UINT_008dde54;
         UINT_007f4cdc =
              (int)ROUND((((fVar5 * _DAT_008dde60 - _DAT_008dde94) + (float)local_8) * fVar4 -
-                        (float)local_10) * (float)(&UINT_008fe000)[iVar9] * 65536.0) >>
+                        (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar9] * 65536.0) >>
              (bVar10 & 0x1f);
         UINT_007f4c44 =
              (int)ROUND((((fVar5 * _DAT_008dde80 - _DAT_008dde74) + (float)local_c) * fVar4 -
-                        (float)local_14) * (float)(&UINT_008fe000)[iVar9] * 65536.0) >>
+                        (float)local_14) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar9] * 65536.0) >>
              (bVar10 & 0x1f);
         UINT_007f4cf4 = ((int)ROUND((float)local_10 * 65536.0) >> (bVar10 & 0x1f)) + UINT_008dde78;
         UINT_007f4cf8 = ((int)ROUND((float)local_14 * 65536.0) >> (bVar10 & 0x1f)) + UINT_008dde50;

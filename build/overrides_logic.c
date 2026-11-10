@@ -19,14 +19,14 @@ static inline int round_half_away(long double x)
     return (int)(long long)(x > 0.0L ? x - (-0.5L) : x - 0.5L);
 }
 
-/* ==== rdColormap_Build16bitTables (0x004047e0) ====
+/* ==== rdColormap_BuildRGB16 (0x004047e0) ====
  * Builds the colour look-up tables of a 16 bit display from a 256 entry RGB palette: 64 light levels of 256 entries
  * each (512 bytes per level).  The first 8 palette entries are only shifted into the pixel format (the same value on
  * every level); the other 248 fade from the palette colour (level 63) towards the colour (r, g, b) (level 0) in 64
  * equal steps.  `fmt` holds the pixel format: left shifts of red / green / blue at +0x14 / +0x18 / +0x1c and the right
  * shifts that drop the unused low bits of an 8 bit channel at +0x20 / +0x24 / +0x28.  The decompiler lost the operands of
  * the three _ftol calls.  (All arithmetic is exact: multiples of 1/64 below 256.)  Returns 1. */
-undefined8 __cdecl rdColormap_Build16bitTables(undefined2 *table, ushort *palette, uint r, uint g, uint b, int fmt)
+undefined8 __cdecl rdColormap_BuildRGB16(undefined2 *table, ushort *palette, uint r, uint g, uint b, int fmt)
 {
     const int *f = (const int *)fmt;
     const byte *pal = (const byte *)palette;
@@ -68,8 +68,8 @@ undefined8 __cdecl rdColormap_Build16bitTables(undefined2 *table, ushort *palett
  * The decompiler lost the operand of _ftol (the extended precision 65536/n, truncated). */
 void rdroid_BuildMathTables(void)
 {
-    float *recip = (float *)&UINT_008fe000;
-    int *fixed = (int *)&DAT_008fbfc0;
+    float *recip = (float *)&g_dwRdRaster_aOneOverNFlex;
+    int *fixed = (int *)&g_aRdRaster_OneOverNFixed;
     float *scaled = (float *)&UINT_008fdfc0;
     int n;
 
@@ -125,7 +125,7 @@ undefined4 __cdecl rdCamera_BuildFOV(int *cam)
         pl = *(float **)(c + 0x48);
         hw = (float)((long double)wRaw * 0.5f);
         hh = (float)((long double)hRaw * 0.5f);
-        sine = (float)Math_SinDeg(halfFov);
+        sine = (float)stdMath_Tan(halfFov);
         scale = (float)((long double)hw / sine);
         *(float *)(c + 0x3c) = scale;
         pl[7] = (float)(((long double)hh / scale) / aspect);
@@ -146,11 +146,11 @@ undefined4 __cdecl rdCamera_BuildFOV(int *cam)
  * `uvoff` (param_7) is added to every texture coordinate.  param_2 is the geometry mode, param_3 the lighting mode, param_4
  * is not used.  What is gathered and which clipper runs (the first one for a perspective camera, camera type 1, the second
  * for any other):
- *   geometry 0, or 3 with lighting 0..2   positions                        rdClip_Face3_Pos_2 / rdClip_Face3_PosB_2
- *   geometry 1, 2                         positions                        rdClip_Face3_Pos   / rdClip_Face3_PosB
- *   geometry 3, lighting 3                positions, intensity             rdClip_Face3_PosUvLit   / rdClip_Face3_PosUv
- *   geometry 4, lighting 0..2             positions, uv                    rdClip_Face3_PosUvLit_2 / rdClip_Face3_PosUvFlags
- *   geometry 4, lighting 3                positions, uv, intensity         rdClip_Face3_PosUvLitColor / rdClip_Face3_PosUvLitFlags
+ *   geometry 0, or 3 with lighting 0..2   positions                        rdClip_Face3S / rdClip_Face3SOrtho
+ *   geometry 1, 2                         positions                        rdClip_Face3W   / rdClip_Face3WOrtho
+ *   geometry 3, lighting 3                positions, intensity             rdClip_Face3GS   / rdClip_Face3GSOrtho
+ *   geometry 4, lighting 0..2             positions, uv                    rdClip_Face3T / rdClip_Face3TOrtho
+ *   geometry 4, lighting 3                positions, uv, intensity         rdClip_Face3GT / rdClip_Face3GTOrtho
  *   anything else                         nothing (dst untouched)
  * The intensity is the pool value (plus the extra one when src+0x18 is set, summed in extended precision) clamped to 0..1.
  * Every clipper is cdecl, takes (frustum, positions, [uv,] [intensities,] count) and returns the new vertex count in EAX,
@@ -211,7 +211,7 @@ void rdPrimit3_ClipFace(undefined4 param_1,undefined4 param_2,int param_3,undefi
     case 1:
     case 2:
         clipface_copy_pos(src, dst);
-        dst[0] = (clipface_persp() ? (rdClipFn3)rdClip_Face3_Pos : (rdClipFn3)rdClip_Face3_PosB)(param_1, (float *)dst[3], src[0]);
+        dst[0] = (clipface_persp() ? (rdClipFn3)rdClip_Face3W : (rdClipFn3)rdClip_Face3WOrtho)(param_1, (float *)dst[3], src[0]);
         return;
     case 0:
         break;
@@ -227,7 +227,7 @@ void rdPrimit3_ClipFace(undefined4 param_1,undefined4 param_2,int param_3,undefi
                 o[2] = p[2];
                 clipface_light(src, dst, i);
             }
-            dst[0] = (clipface_persp() ? (rdClipFn4)rdClip_Face3_PosUvLit : (rdClipFn4)rdClip_Face3_PosUv)(
+            dst[0] = (clipface_persp() ? (rdClipFn4)rdClip_Face3GS : (rdClipFn4)rdClip_Face3GSOrtho)(
                 param_1, (float *)dst[3], (float *)dst[5], src[0]);
             return;
         }
@@ -246,10 +246,10 @@ void rdPrimit3_ClipFace(undefined4 param_1,undefined4 param_2,int param_3,undefi
                 clipface_light(src, dst, i);
         }
         if (param_3 == 3)
-            dst[0] = (clipface_persp() ? (rdClipFn5)rdClip_Face3_PosUvLitColor : (rdClipFn5)rdClip_Face3_PosUvLitFlags)(
+            dst[0] = (clipface_persp() ? (rdClipFn5)rdClip_Face3GT : (rdClipFn5)rdClip_Face3GTOrtho)(
                 param_1, (float *)dst[3], (float *)dst[4], (float *)dst[5], src[0]);
         else
-            dst[0] = (clipface_persp() ? (rdClipFn4)rdClip_Face3_PosUvLit_2 : (rdClipFn4)rdClip_Face3_PosUvFlags)(
+            dst[0] = (clipface_persp() ? (rdClipFn4)rdClip_Face3T : (rdClipFn4)rdClip_Face3TOrtho)(
                 param_1, (float *)dst[3], (float *)dst[4], src[0]);
         return;
     default:
@@ -257,13 +257,13 @@ void rdPrimit3_ClipFace(undefined4 param_1,undefined4 param_2,int param_3,undefi
     }
     /* geometry 0, geometry 3 with lighting 0..2 */
     clipface_copy_pos(src, dst);
-    dst[0] = (clipface_persp() ? (rdClipFn3)rdClip_Face3_Pos_2 : (rdClipFn3)rdClip_Face3_PosB_2)(param_1, (float *)dst[3], src[0]);
+    dst[0] = (clipface_persp() ? (rdClipFn3)rdClip_Face3S : (rdClipFn3)rdClip_Face3SOrtho)(param_1, (float *)dst[3], src[0]);
 }
 /* ==== rdModel3_DrawFace (0x0040d880) ====
  * Allocates a draw cache entry for a mesh of a model, copies its geometry / lighting modes (capped by the global limits),
- * runs the vertices through the clipper or the plain copy (rdPrimit3_ClipFace / rdPrimit3_CopyFaceVerts, 7 and 6 arguments),
+ * runs the vertices through the clipper or the plain copy (rdPrimit3_ClipFace / rdPrimit3_NoClipFace, 7 and 6 arguments),
  * clips the polygon against the extra plane, derives the lighting mode from the mesh alpha and the keyframe interpolation,
- * and queues it with rdCache_AddMesh.  The compiler pushed the arguments of the two vertex routines before the branch that
+ * and queues it with rdCache_AddProcFace.  The compiler pushed the arguments of the two vertex routines before the branch that
  * selects one of them, so the decompiler printed the call of rdPrimit3_ClipFace with its first argument only (the C version
  * therefore crashed at start-up). */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
@@ -285,7 +285,7 @@ undefined4 rdModel3_DrawFace(int param_1,int param_2)
   #define local_18 (*(float (*)[3])(_frame + (0x40 - 0x18)))
   #define local_c (*(float (*)[3])(_frame + (0x40 - 0xc)))
   
-  iVar2 = rdCache_AllocMesh();
+  iVar2 = rdCache_GetProcEntry();
   if (iVar2 == 0) {
     return 0;
   }
@@ -310,25 +310,25 @@ undefined4 rdModel3_DrawFace(int param_1,int param_2)
   UINT_007f1490 = *(uint *)(iVar2 + 0x20);
   UINT_007f1478 = *(uint *)(iVar2 + 0x24);
   UINT_007f147c = *(uint *)(iVar2 + 0x28);
-  _DAT_007f30a8 = *(undefined4 *)(param_1 + 0x14);
+  _g_aVertexSrc = *(undefined4 *)(param_1 + 0x14);
   _DAT_007f30ac = *(undefined4 *)(param_1 + 0x18);
   _DAT_007f30b0 = *(undefined4 *)(param_1 + 0x1c);
   if (g_dwMeshFrustrumCull == 0) {
-    rdPrimit3_CopyFaceVerts
+    rdPrimit3_NoClipFace
               (*(undefined4 *)(iVar2 + 8),*(undefined4 *)(iVar2 + 0xc),*(undefined4 *)(iVar2 + 0x10)
-               ,&DAT_007f30a8,&g_dwVertexDst,param_1 + 0x28);
+               ,&g_aVertexSrc,&g_dwVertexDst,param_1 + 0x28);
   }
   else {
     rdPrimit3_ClipFace(*(undefined4 *)((int)g_pRdCamera_CurCamera + 0x48),*(undefined4 *)(iVar2 + 8),*(int *)(iVar2 + 0xc),
-               *(undefined4 *)(iVar2 + 0x10),(uint *)&DAT_007f30a8,&g_dwVertexDst,(float *)(param_1 + 0x28));
+               *(undefined4 *)(iVar2 + 0x10),(uint *)&g_aVertexSrc,&g_dwVertexDst,(float *)(param_1 + 0x28));
   }
   if (g_dwVertexDst < 3) {
     return 0;
   }
-  if (UINT_007f3204 != 0) {
-    Vec3_Copy(local_c,(float *)&DAT_004ddb70,(float *)((int)g_pRdCamera_CurCamera + 8));
-    Matrix34_TransformPoint(local_18,(float *)&DAT_007f3208,(float *)((int)g_pRdCamera_CurCamera + 8));
-    uVar3 = Polygon_ClipToPlane(local_c,local_18,UINT_007f1474,UINT_007f1478,UINT_007f147c,
+  if (g_dwClipPlaneActive != 0) {
+    rdMatrix_TransformVector34(local_c,(float *)&DAT_004ddb70,(float *)((int)g_pRdCamera_CurCamera + 8));
+    rdMatrix_TransformPoint34(local_18,(float *)&DAT_007f3208,(float *)((int)g_pRdCamera_CurCamera + 8));
+    uVar3 = rdClip_FaceToPlane(local_c,local_18,UINT_007f1474,UINT_007f1478,UINT_007f147c,
                                 g_dwVertexDst);
     if ((int)uVar3 < 2) {
       return 0;
@@ -367,7 +367,7 @@ undefined4 rdModel3_DrawFace(int param_1,int param_2)
     iVar5 = *(int *)(*(int *)(param_1 + 0x20) + 100);
   }
   *(int *)(iVar2 + 0x3c) = iVar5;
-  bVar6 = UINT_004f5ec0 != g_dwRdColormap_pCurMap;
+  bVar6 = g_dwRdColormap_pIdentityMap != g_dwRdColormap_pCurMap;
   if (*(float *)(iVar2 + 0x40) < 1.0) {
     if (*(int *)(iVar2 + 0xc) == 2) {
       if ((*(float *)(iVar2 + 0x44) < 1.0) || (bVar6)) {
@@ -428,21 +428,21 @@ LAB_0040dbd3:
   *(undefined4 *)(iVar2 + 4) = *(undefined4 *)(param_1 + 4);
   *(undefined4 *)(iVar2 + 0x48) = *(undefined4 *)(param_1 + 0x30);
   *(undefined4 *)(iVar2 + 0x38) = *(undefined4 *)(param_1 + 0x20);
-  rdCache_AddMesh((void *)0x0,g_dwVertexDst,flags);
+  rdCache_AddProcFace((void *)0x0,g_dwVertexDst,flags);
   return 1;
 }
 #undef local_18
 #undef local_20
 #undef local_24
 #undef local_c
-/* ==== rdCache_DrawMeshZ (0x00408af0) ====
+/* ==== rdCache_DrawFaceZ (0x00408af0) ====
  * Draws one cache entry with the z-buffered rasteriser: the polygon mode and the lighting mode select the rdRaster_Draw_*
  * routine (flat or textured, lit or unlit, colour keyed, with or without the alpha pass).  Eleven of the calls were printed
  * without their arguments (find_lost_args: the compiler pushed (cache entry, polygon) once before a conditional jump): they
  * take the same two arguments as their neighbours, and rdRaster_Draw_TexLitZ_2 in the case 1 path a third, 0.0f. */
 /* Software path with z-buffer */
 
-int __cdecl rdCache_DrawMeshZ(void *mesh)
+int __cdecl rdCache_DrawFaceZ(void *mesh)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -940,16 +940,16 @@ void * __cdecl rdPrimit3_DrawPolygon(float *verts, int count, void *material)
     for (i = 0; i < count; i++) {
         float *out = cv + 3 * i;
 
-        Matrix34_TransformPoint(out, verts + 3 * i, (float *)(cam + 8));
+        rdMatrix_TransformPoint34(out, verts + 3 * i, (float *)(cam + 8));
         cen[0] = cen[0] + out[0];
         cen[1] = out[1] + cen[1];
         cen[2] = out[2] + cen[2];
     }
-    vc = rdClip_Face3_Pos_2(*(undefined4 *)(cam + 0x48), cv, count);
+    vc = rdClip_Face3S(*(undefined4 *)(cam + 0x48), cv, count);
     if ((int)vc < 3)
         return (void *)0;
     (**(code **)(cam + 0x50))(proj, cv, vc);
-    e = (uint *)rdCache_AllocMesh();
+    e = (uint *)rdCache_GetProcEntry();
     e[0] = 0;
     e[0x11] = 0;
     e[0x12] = 0;
@@ -972,7 +972,7 @@ void * __cdecl rdPrimit3_DrawPolygon(float *verts, int count, void *material)
     avg[1] = (float)((long double)cen[1] / count);
     avg[2] = (float)((long double)cen[2] / count);
     e[0x14] = (((long double)n[0] * avg[0] + (long double)n[1] * avg[1]) + (long double)n[2] * avg[2]) > 0.0L ? 1 : 0;
-    rdCache_AddMesh((void *)0, vc, 1);
+    rdCache_AddProcFace((void *)0, vc, 1);
     return e;
 }
 /* ==== rdModel3_CalcRadii (0x0040c8c0) ====
@@ -1099,14 +1099,14 @@ int __cdecl rdSprite_DrawThing(void *thing, void *sprite)
     uint k, count;
     float *pt;
 
-    Matrix34_TransformPoint(campos, (float *)((char *)sprite + 0x24), (float *)(cam + 8));
+    rdMatrix_TransformPoint34(campos, (float *)((char *)sprite + 0x24), (float *)(cam + 8));
     if ((g_bRdroid_curCullFlags & 2) == 0)
         visible = *(int *)(t + 0x44);
     else
-        visible = Frustum_TestSphere(*(undefined4 *)(cam + 0x48), campos, *(float *)(data + 0x3c));   /* (the radius's bits, not a conversion: grim_tools/cleanroom) */
+        visible = rdClip_SphereInFrustrum(*(undefined4 *)(cam + 0x48), campos, *(float *)(data + 0x3c));   /* (the radius's bits, not a conversion: grim_tools/cleanroom) */
     if (visible == 2)
         return 0;
-    Matrix_Mul34(mat, (float *)(cam + 8), sprite);
+    rdMatrix_Multiply34(mat, (float *)(cam + 8), sprite);
     alpha = ((byte)g_dwRdroid_curRenderOptions & 2) == 0 ? 0.0f : *(float *)(cam + 0x54);
     if (alpha < 1.0f)
         mode = (0.0f < alpha) ? *(int *)(data + 0x20) : 1;
@@ -1115,11 +1115,11 @@ int __cdecl rdSprite_DrawThing(void *thing, void *sprite)
     if (*(int *)(data + 0x20) <= mode)
         mode = *(int *)(data + 0x20);
     count = *(uint *)(data + 0x24);
-    Matrix_TransformPoints(mat, *(float **)(data + 0x28), (float *)&UINT_007f5180, count);
+    rdMatrix_TransformPointLst34(mat, *(float **)(data + 0x28), (float *)&UINT_007f5180, count);
     size = *(float *)(data + 0x34);
     pt = (float *)&UINT_007f5180;
     for (k = 0; k < count; k++, pt += 3) {
-        char *e = (char *)rdCache_AllocMesh();
+        char *e = (char *)rdCache_GetProcEntry();
         float *q = (float *)&DAT_007f5000;
         uint vc;
 
@@ -1129,7 +1129,7 @@ int __cdecl rdSprite_DrawThing(void *thing, void *sprite)
         q[3] = pt[0] + size;  q[4] = pt[1];  q[5] = pt[2] - size;
         q[6] = pt[0] + size;  q[7] = pt[1];  q[8] = pt[2] + size;
         q[9] = pt[0] - size;  q[10] = pt[1]; q[11] = pt[2] + size;
-        vc = rdClip_Face3_Pos_2(*(undefined4 *)(cam + 0x48), q, 4);
+        vc = rdClip_Face3S(*(undefined4 *)(cam + 0x48), q, 4);
         if (2 < vc) {
             (**(code **)(cam + 0x50))(*(undefined4 *)(e + 0x20), q, vc);
             *(int *)(e + 0xc) = mode;
@@ -1139,14 +1139,14 @@ int __cdecl rdSprite_DrawThing(void *thing, void *sprite)
             *(undefined4 *)(e + 0x38) = *(undefined4 *)(data + 0x38);
             *(undefined4 *)(e + 0x3c) = *(undefined4 *)(*(int *)(data + 0x2c) + k * 4);
             *(undefined4 *)(e + 0x50) = 0;
-            rdCache_AddMesh((void *)0, vc, 1);
+            rdCache_AddProcFace((void *)0, vc, 1);
         }
     }
     return 1;
 }
-/* ==== stdMath_SinCos (0x0047bd20), Math_SinDeg (0x0047c120) ====
+/* ==== stdMath_SinCos (0x0047bd20), stdMath_Tan (0x0047c120) ====
  * Sine / cosine of an angle in degrees from a quarter-wave table of 4096 floats (0x004df600, cosine = the same table
- * read backwards; Math_SinDeg has its own table at 0x004e3600) with linear interpolation: `index = angle * 16384 / 360`
+ * read backwards; stdMath_Tan has its own table at 0x004e3600) with linear interpolation: `index = angle * 16384 / 360`
  * runs over four quadrants of 4096 entries.  The code reads the table through biased base addresses
  * (0x004db600 = table - 0x4000 bytes, ...) which the decompiler printed as string addresses; they are the plain
  * `table[i - 4096 * quadrant]`.  Two details of the original are kept: every intermediate that the code stores in a
@@ -1206,9 +1206,9 @@ void stdMath_SinCos(float deg, float *outSin, float *outCos)
     }
 }
 
-float10 Math_SinDeg(float deg)
+float10 stdMath_Tan(float deg)
 {
-    const float *U = (const float *)&DAT_004e3600;
+    const float *U = (const float *)&g_aTanTable;
     volatile float a, t, frac, r;
     int q, i1, i2;
     float v0, v1;
@@ -1250,8 +1250,8 @@ int rdPrimit3_GetScreenCoord(float *world, float *outScreen)
     char *cam = (char *)g_pRdCamera_CurCamera;
     float local[3], proj[3];
 
-    Matrix34_TransformPoint(local, world, (float *)(cam + 8));
-    if (rdClip_PointInFrustum(*(void **)(cam + 0x48), local) == 0)
+    rdMatrix_TransformPoint34(local, world, (float *)(cam + 8));
+    if (rdClip_Point3(*(void **)(cam + 0x48), local) == 0)
         return 0;
     ((void (*)(float *, float *))*(code **)(cam + 0x4c))(proj, local);
     if (outScreen != (float *)0) {
@@ -1272,7 +1272,7 @@ void rdPrimit3_DrawPoint(float *world, float radius, uint a3, uint a4, uint a5)
     float p[3], q[3], s1[3], s2[3], size;
     int ix, iy;
 
-    Matrix34_TransformPoint(p, world, (float *)(cam + 8));
+    rdMatrix_TransformPoint34(p, world, (float *)(cam + 8));
     q[0] = p[0] + radius;
     q[1] = p[1];
     q[2] = p[2];
@@ -1300,8 +1300,8 @@ undefined4 rdPrimit3_DrawLine(float *a, float *b, int *outA, int *outB, int *cli
     float v1[3], v2[3], s1[3], s2[3];
     int x1, y1, x2, y2;
 
-    Matrix34_TransformPoint(v1, a, (float *)(cam + 8));
-    Matrix34_TransformPoint(v2, b, (float *)(cam + 8));
+    rdMatrix_TransformPoint34(v1, a, (float *)(cam + 8));
+    rdMatrix_TransformPoint34(v2, b, (float *)(cam + 8));
     if (rdClip_Line3(*(void **)(cam + 0x48), v1, v2, clipA, clipB) == 0)
         return 0;
     ((void (*)(float *, float *))*(code **)(cam + 0x4c))(s1, v1);
@@ -1359,20 +1359,20 @@ void Palette_FromFloatTable(byte *out, byte *in, int n, double gamma)
     }
 }
 
-/* ==== Pixel_Convert (0x0047b8a0), Pixel_ConvertOne (0x0047bbb0) ====
+/* ==== stdColor_ColorConvertOneRow (0x0047b8a0), stdColor_ColorConvertOnePixel (0x0047bbb0) ====
  * Converts `count` pixels between the RGB layouts described by two format records (bits per pixel at +4, bits per channel
  * at +8 / +0xc / +0x10, left shifts at +0x14 / +0x18 / +0x1c, expansion shifts for 24 bit at +0x20 / +0x24 / +0x28).
  * 24 -> 16: each channel is scaled with a 16.16 factor dst_max / src_max and an ordered-dither offset from the 4x4 table
  * at 0x004d86a0 (rows by a counter that advances per call, columns by the pixel count), blue lands at bit 0; 16 -> 16:
  * the same scaling without dither; 16 -> 24: shifts the channels up to 8 bits.  The factors are computed on the x87 stack
  * (dst_max * (1 / src_max) * 65536, truncated); the decompiler lost them.  Any other combination does nothing. */
-void Pixel_Convert(ushort *dst, int dstFormat, ushort *src, int srcFormat, uint count)
+void stdColor_ColorConvertOneRow(ushort *dst, int dstFormat, ushort *src, int srcFormat, uint count)
 {
     const int *d = (const int *)dstFormat;
     const int *s = (const int *)srcFormat;
     int scaleR, scaleG, scaleB;
 
-    UINT_00806c80 = UINT_00806c80 + 1;
+    g_dwStdColor_ColorConvertOneRow_row = g_dwStdColor_ColorConvertOneRow_row + 1;
     {
         long double inv;
         inv = 1.0L / (long double)((1 << (s[2] & 31)) - 1);
@@ -1384,7 +1384,7 @@ void Pixel_Convert(ushort *dst, int dstFormat, ushort *src, int srcFormat, uint 
     }
     if (s[1] == 0x18 && d[1] == 0x10) {
         const byte *p = (const byte *)src;
-        const int *dither = (const int *)&DAT_004d86a0 + (UINT_00806c80 & 3) * 4;
+        const int *dither = (const int *)&DAT_004d86a0 + (g_dwStdColor_ColorConvertOneRow_row & 3) * 4;
         do {
             int dv = dither[count & 3];
             *dst = (ushort)((((int)(p[0] * scaleR + dv) >> 16) << (d[5] & 31)) |
@@ -1422,11 +1422,11 @@ void Pixel_Convert(ushort *dst, int dstFormat, ushort *src, int srcFormat, uint 
 
 /* Converts one pixel: the converted value is written over the third argument (the format pointer passed in its slot), so
  * the bytes it does not set (the upper ones) are the upper bytes of that pointer. */
-int Pixel_ConvertOne(int dstFormat, undefined4 pixel, int srcFormat)
+int stdColor_ColorConvertOnePixel(int dstFormat, undefined4 pixel, int srcFormat)
 {
     uint in = pixel;
     uint out = srcFormat;
-    Pixel_Convert((ushort *)&out, dstFormat, (ushort *)&in, srcFormat, 1);
+    stdColor_ColorConvertOneRow((ushort *)&out, dstFormat, (ushort *)&in, srcFormat, 1);
     return out;
 }
 /* ==== Palette_ApplyGamma (0x00474dd0) ====
@@ -1475,11 +1475,11 @@ void Render_BuildColorTable(int fmt, float gamma)
     g_flSputRender_GammaCorrection = gamma;
 }
 
-/* ==== Render_FillRect (0x004870e0) ====
+/* ==== sputRender_DimRegion (0x004870e0) ====
  * Scales the brightness of a rectangle of the 16 bit back buffer: every pixel is split into its channels with the
  * display's masks and shifts (UINT_00905608.. / 00905614..), each channel is multiplied by `scale` and truncated.
  * (The Ghidra prototype had three float arguments; the code only reads one, used for all channels.) */
-void Render_FillRect(int x, int y, int w, int h, float scale)
+void sputRender_DimRegion(int x, int y, int w, int h, float scale)
 {
     const uint *fmt = (const uint *)&g_dwStdDisplay_backBuffer;   /* the back buffer record: bits per channel at +0x28.., shifts at +0x34.. */
     uint mr = 0xffffffffu >> ((32 - fmt[10]) & 31);
@@ -1488,7 +1488,7 @@ void Render_FillRect(int x, int y, int w, int h, float scale)
     ushort *row;
     int cy, cx;
 
-    Surface_Lock(&g_dwStdDisplay_backBuffer);
+    stdDisplay_VBufferLock(&g_dwStdDisplay_backBuffer);
     row = (ushort *)(UINT_0090563c + y * UINT_009055f8 + x * 2);
     for (cy = h; cy > 0; cy--) {
         ushort *p = row;
@@ -1501,7 +1501,7 @@ void Render_FillRect(int x, int y, int w, int h, float scale)
         }
         row = (ushort *)((char *)row + UINT_009055f8);
     }
-    Surface_Unlock(&g_dwStdDisplay_backBuffer);
+    stdDisplay_VBufferUnlock(&g_dwStdDisplay_backBuffer);
 }
 
 /* ==== Render_DrawProgressBar (0x004873d0) ====
@@ -1519,7 +1519,7 @@ void Render_DrawProgressBar(float fraction)
         fraction = 1.0f;
     filled = (int)(long long)((long double)fraction * 540.0f);
     sputRender_ColorCorrect((ushort *)&color, 1);
-    Surface_Lock(&g_dwStdDisplay_frontBuffer);
+    stdDisplay_VBufferLock(&g_dwStdDisplay_frontBuffer);
     line = (char *)(UINT_00901698 * 0x1c7 + UINT_009016dc);
     p = (ushort *)(line + 100);
     for (n = 0x21c; n != 0; n--)
@@ -1537,15 +1537,15 @@ void Render_DrawProgressBar(float fraction)
     p = (ushort *)(line + 100);
     for (n = 0x21c; n != 0; n--)
         *p++ = (ushort)color;
-    Surface_Unlock(&g_dwStdDisplay_frontBuffer);
+    stdDisplay_VBufferUnlock(&g_dwStdDisplay_frontBuffer);
 }
 
-/* ==== Render_DrawIris (0x00486d00) ====
+/* ==== sputRender_DrawIrisEffect (0x00486d00) ====
  * Blacks out the 640 x 480 back buffer outside a rectangle around (x, y) that has closed by `percent` (0 = open):
  * (y * p) rows at the top, ((480 - y) * p) rows at the bottom, and in the rows between (x * p) pixels at the left and
  * ((640 - x) * p) at the right.  The decompiler lost the four _ftol operands.  The surface address and pitch are read
  * before the surface is locked, as in the original. */
-void Render_DrawIris(float percent, int x, int y)
+void sputRender_DrawIrisEffect(float percent, int x, int y)
 {
     int top, left, bottom, right, row;
     uint pitch, base;
@@ -1560,7 +1560,7 @@ void Render_DrawIris(float percent, int x, int y)
     right = (int)(long long)((long double)(0x280 - x) * percent);
     base = UINT_0090563c;
     pitch = UINT_009055f8;
-    Surface_Lock(&g_dwStdDisplay_backBuffer);
+    stdDisplay_VBufferLock(&g_dwStdDisplay_backBuffer);
     for (row = 0; row < top; row++)                   /* top rows: all black */
         memset((char *)base + (uint)row * pitch, 0, 0x500);
     if (row < 0)
@@ -1576,7 +1576,7 @@ void Render_DrawIris(float percent, int x, int y)
     }
     for (; row < 0x1e0; row++)                         /* bottom rows: all black */
         memset((char *)base + row * pitch, 0, 0x500);
-    Surface_Unlock(&g_dwStdDisplay_backBuffer);
+    stdDisplay_VBufferUnlock(&g_dwStdDisplay_backBuffer);
 }
 
 /* ==== sputRender_ScreenShot (0x00486f90) ====
@@ -1600,11 +1600,11 @@ void *sputRender_ScreenShot(int w, int h)
     info[0] = w;
     info[1] = h;
     g_dwGrimlib_mode = savedMode;
-    thumb = Surface_Create(info, 0, 0, 0);
+    thumb = stdDisplay_VBufferNew(info, 0, 0, 0);
     stepX = (float)(640.0f / (long double)w);
     stepY = (float)(480.0f / (long double)h);
-    Surface_Lock(thumb);
-    Surface_Lock(bg);
+    stdDisplay_VBufferLock(thumb);
+    stdDisplay_VBufferLock(bg);
     for (row = 0; row < h; row++) {
         char *src = (char *)(*(int *)((char *)bg + 0x5c) + (int)(long long)yacc * *(int *)((char *)bg + 0x18));
         ushort *dst = (ushort *)(*(int *)((char *)thumb + 0x5c) + row * *(int *)((char *)thumb + 0x18));
@@ -1616,15 +1616,15 @@ void *sputRender_ScreenShot(int w, int h)
         }
         yacc += stepY;
     }
-    Surface_Unlock(thumb);
-    Surface_Unlock(bg);
+    stdDisplay_VBufferUnlock(thumb);
+    stdDisplay_VBufferUnlock(bg);
     g_nSputRender_Reset = 1;
     return thumb;
 }
 /* ==== sputLua_DimRegion (0x004a1a00), sputLua_RestoreCacheRect (0x004a26b0) ====
- * Lua DimRegion(x, y, w, h, amount) scales the brightness of a screen rectangle (Render_FillRect); the first four numbers
+ * Lua DimRegion(x, y, w, h, amount) scales the brightness of a screen rectangle (sputRender_DimRegion); the first four numbers
  * are truncated by _ftol, the decompiler lost their operands.  RestoreCacheRect(rect) takes a cache rect userdata (tag
- * word 0x11111111), reads its number (truncated, passed on to CacheRect_Restore which ignores it). */
+ * word 0x11111111), reads its number (truncated, passed on to sputRender_RestoreCacheRect which ignores it). */
 void sputLua_DimRegion(void)
 {
     int a1 = lua_lua2C(1);
@@ -1640,7 +1640,7 @@ void sputLua_DimRegion(void)
     w = (int)(long long)lua_getnumber(a3);
     h = (int)(long long)lua_getnumber(a4);
     amount = lua_getnumber(a5);
-    Render_FillRect(x, y, w, h, amount);
+    sputRender_DimRegion(x, y, w, h, amount);
 }
 
 void sputLua_RestoreCacheRect(void)
@@ -1649,17 +1649,17 @@ void sputLua_RestoreCacheRect(void)
     int *rect = (int *)lua_getuserdata(arg);
 
     if (rect != (int *)0 && *rect == 0x11111111)
-        ((void (*)(int))CacheRect_Restore)((int)(long long)lua_getnumber(arg));
+        ((void (*)(int))sputRender_RestoreCacheRect)((int)(long long)lua_getnumber(arg));
 }
 
-/* ==== PositionedSound_Apply (0x004a4e80) ====
+/* ==== SetSoundPosition (0x004a4e80) ====
  * Moves the volume and pan of one positioned sound (entry: +8..0x10 position, +0x14 min, +0x18 max, +0x1c scale,
  * +0x20 near distance).  d = position - camera position (current setup of the current set, set+0xac, stride 300),
- * normalised by Vec3_NormalizeApprox (which returns the rough length).  With t = length - near >= 0 the volume is
+ * normalised by rdVector_Normalize3QuickAcc (which returns the rough length).  With t = length - near >= 0 the volume is
  * (max - min) / scale * (scale - t) + min, truncated, clamped as UNSIGNED values to [min, max] (so a negative result comes
  * out as max); parameter 0x600.  The pan is (clamp(dot(camera right vector, d) * set+0x1b00, -1, 1) + 1) * 64, at most
  * 127; parameter 0x700.  The sums stay in extended precision.  The decompiler lost the operands of both _ftol. */
-undefined4 PositionedSound_Apply(int entry)
+undefined4 SetSoundPosition(int entry)
 {
     char *set = (char *)sputRoom_GetCurrentRoom();
     char *cam;
@@ -1672,7 +1672,7 @@ undefined4 PositionedSound_Apply(int entry)
     d[0] = *(float *)(entry + 8) - *(float *)cam;
     d[1] = *(float *)(entry + 0xc) - *(float *)(cam + 4);
     d[2] = *(float *)(entry + 0x10) - *(float *)(cam + 8);
-    t = (long double)Vec3_NormalizeApprox(d) - *(float *)(entry + 0x20);
+    t = (long double)rdVector_Normalize3QuickAcc(d) - *(float *)(entry + 0x20);
     if (t >= 0.0L) {
         uint max = *(uint *)(entry + 0x18), min = *(uint *)(entry + 0x14);
         float scale = *(float *)(entry + 0x1c);
@@ -1701,24 +1701,24 @@ undefined4 PositionedSound_Apply(int entry)
 }
 
 /* ==== Smush_SetFile (0x004bdf00) ====
- * Opens the video file `id` through the file table (PTR_008d10c8), reads the header of its first frame, closes it again
+ * Opens the video file `id` through the file table (g_pSmushPlay_file_services), reads the header of its first frame, closes it again
  * and returns (short at +2 of the header) * 66.666664, truncated (the decompiler lost the operand of the _ftol). */
 undefined * __cdecl Smush_SetFile(uint id)
 {
     byte hdr[0x428];
-    int h = (*(code *)*PTR_008d10c8)(id, &DAT_004dda54);
+    int h = (*(code *)*g_pSmushPlay_file_services)(id, &DAT_004dda54);
 
     if (h == 0)
         return (undefined *)0;
-    Insane_ReadFrameHeader(h, (int)hdr);
-    (*(code *)PTR_008d10c8[1])(h);
+    smushplay_GetInfo(h, (int)hdr);
+    (*(code *)g_pSmushPlay_file_services[1])(h);
     return (undefined *)(int)(long long)((long double)(int)*(short *)(hdr + 2) * 66.666664f);
 }
 
-/* ==== Profile_End (0x00482e80) ====
+/* ==== PerfEnd (0x00482e80) ====
  * Stops the stopwatch of profile slot 0..12: elapsed = (counter - start) / frequency * 1000 milliseconds, stored in the slot
  * record (48 bytes at 0x004e7b48: start at +0, result at +8) and returned truncated (the operand of _ftol was lost). */
-undefined * __cdecl Profile_End(int slot)
+undefined * __cdecl PerfEnd(int slot)
 {
     long long freq, now;
     double freq_d;
@@ -1737,11 +1737,11 @@ undefined * __cdecl Profile_End(int slot)
     return (undefined *)(int)(long long)ms;
 }
 
-/* ==== Actor_UpdateTalk (0x00490210) ====
+/* ==== sputActor_UpdateActorSpeech (0x00490210) ====
  * Lip sync: while the actor speaks (talk flag +0x1dc, voice handle +0x1c8) the current phoneme is read from iMUSE and the
  * matching talk chore is completed; the text timer (+0x1cc) runs down by dt * 1000 (the decompiler lost the operand of
  * that _ftol) and ends the speech with the voice or when it expires. */
-void __cdecl Actor_UpdateTalk(void *actor, float dt)
+void __cdecl sputActor_UpdateActorSpeech(void *actor, float dt)
 {
     char *talk = *(char **)((char *)actor + 0xa4);
     int phoneme;
@@ -1780,7 +1780,7 @@ void __cdecl Actor_UpdateTalk(void *actor, float dt)
     sputActor_ShutUp(actor);
 }
 
-/* ==== rdCache_AddMesh (0x00406860) ====
+/* ==== rdCache_AddProcFace (0x00406860) ====
  * Appends a mesh to the draw cache (entries of 0x78 bytes at 0x008ddfc0, at most 1024) and computes its bounds from the
  * vertex array (entry +0x20, 12 bytes per vertex): x / y min and max (the indices of the lowest and highest y vertex go to
  * +0x6c / +0x70), z min / max (+0x64 / +0x68).  Meshes with an empty x or y extent are not added.  The integer screen box
@@ -1795,7 +1795,7 @@ static inline int ceil_to_int(float x)
     return (int)(long long)x;
 }
 
-int rdCache_AddMesh(void *mesh, uint vertexCount, byte flags)
+int rdCache_AddProcFace(void *mesh, uint vertexCount, byte flags)
 {
     uint idx = g_dwRdCache_numProcFaces;
     char *e;
@@ -1850,7 +1850,7 @@ int rdCache_AddMesh(void *mesh, uint vertexCount, byte flags)
         g_dwNumUsedTexVertices = g_dwNumUsedTexVertices + vertexCount;
     if (flags & 4)
         g_dwNumUsedIntensities = g_dwNumUsedIntensities + vertexCount;
-    *(uint *)(e + 0x4c) = UINT_004f5ec0;
+    *(uint *)(e + 0x4c) = g_dwRdColormap_pIdentityMap;
     g_dwRdCache_numProcFaces = g_dwRdCache_numProcFaces + 1;
     if (*(uint *)(e + 0x54) < (uint)g_nDrawBoxMinX)
         g_nDrawBoxMinX = *(uint *)(e + 0x54);
@@ -2083,7 +2083,7 @@ undefined4 SpriteAdjuster(undefined4 *param_1, undefined4 param_2)
     vals[2] = (int)(long long)((long double)*(float *)(key + 0xac) * 100.0f - (-0.2f));
     vals[3] = (int)(long long)((long double)*(float *)(key + 0xb0) * 100.0f - (-0.2f));
     vals[4] = (int)(long long)((long double)*(float *)(key + 0xb4) * 100.0f - (-0.2f));
-    if (Plat_PromptDialog(param_2, (int)labels, (undefined4 *)vals, 5) == 0)
+    if (grimPlat_SpinDialog(param_2, (int)labels, (undefined4 *)vals, 5) == 0)
         return 0;
     *(float *)(key + 0x4c) = (float)vals[0] * 0.01f;
     *(float *)(key + 0x50) = (float)vals[1] * 0.01f;
@@ -2142,7 +2142,7 @@ void Actor_DrawShadowPlane(void *costumeList, void *shadow)
                 continue;
             for (k = 0; k < 0xc0; k += 0xc) {
                 float *out = (float *)((char *)pts + k);
-                Matrix34_TransformPoint(out, (float *)(k + *(int *)(rec + node * 0x7c + 0x58)), (float *)(pointOff + *(int *)(model + 0x20)));
+                rdMatrix_TransformPoint34(out, (float *)(k + *(int *)(rec + node * 0x7c + 0x58)), (float *)(pointOff + *(int *)(model + 0x20)));
                 if (Plane_IntersectSegment(out, (float *)((char *)shadow + 0x18), out, *(float *)((char *)shadow + 8),
                                            *(float *)((char *)shadow + 0xc), *(float *)((char *)shadow + 0x10),
                                            *(float *)((char *)shadow + 0x14)) == 0)
@@ -2283,9 +2283,9 @@ void __cdecl ShrinkBoxes(float radius)
     }
 }
 
-/* ==== Str_ToLower (0x0047b5c0), Res_TouchByData (0x00482200), sputActor_SetSelectedActor (0x00490320) ====
+/* ==== Str_ToLower (0x0047b5c0), Res_Touch (0x00482200), sputActor_SetSelectedActor (0x00490320) ====
  * Small functions the decompiler got wrong only in what they return: Str_ToLower ends with 0 (the last character, the
- * terminator, in EAX), Res_TouchByData returns whatever Res_MoveToFront left in EAX (that function is declared void) and
+ * terminator, in EAX), Res_Touch returns whatever Res_MoveToFront left in EAX (that function is declared void) and
  * sputActor_SetSelectedActor passes the actor to sputActor_GetActorHandle without a second argument. */
 char * __cdecl Str_ToLower(char *s)
 {
@@ -2294,7 +2294,7 @@ char * __cdecl Str_ToLower(char *s)
     return (char *)0;
 }
 
-undefined * __cdecl Res_TouchByData(void *data)
+undefined * __cdecl Res_Touch(void *data)
 {
     void *res = Res_FindByData(data);
 
@@ -2411,13 +2411,13 @@ void sputLua_WorldToScreenL(void)
     lua_pushnil();
 }
 
-/* ==== Lua_DispatchControlHandlers (0x0049e0b0) ====
+/* ==== sputLua_NotifyControlHandlers (0x0049e0b0) ====
  * Calls system.buttonHandler / system.axisHandler (a function, or a table holding the function under the same name, which
  * is then called with the table as first argument) for every enabled control (16 byte records at 0x004e87c8: flags, input
  * id, last value) whose state changed.  Button controls (flags & 4) report (index, 1 or nil, x, y); axis controls report
  * (index, value).  The last value of a button is its integer state, that of an axis the float (the same slot).  Ghidra
  * typed the loop counter and the handler references float, which broke the conversions. */
-undefined4 Lua_DispatchControlHandlers(void)
+undefined4 sputLua_NotifyControlHandlers(void)
 {
     int btnIsMethod = 0, axisIsMethod = 0;
     int hasBtn = 0, hasAxis = 0;
@@ -2469,7 +2469,7 @@ undefined4 Lua_DispatchControlHandlers(void)
         if ((rec[-2] & 1) == 0)
             continue;
         if ((rec[-2] & 4) == 0) {
-            float v = Input_GetAxis(rec[-1]);
+            float v = stdControl_ReadAxis(rec[-1]);
 
             if ((rec[-2] & 8) != 0)
                 v = -v;
@@ -2484,7 +2484,7 @@ undefined4 Lua_DispatchControlHandlers(void)
         } else {
             uint x = 0;
             int y;
-            int state = Input_GetButtonState(rec[-1], (int *)&x, &y);
+            int state = stdControl_ReadKey(rec[-1], (int *)&x, &y);
 
             if (state != (int)*rec && hasBtn != 0) {
                 if (btnIsMethod != 0)
@@ -2541,8 +2541,8 @@ void Actor_UpdateMovement(void *actor, float dt)
 /* ==== Actor_PuckOrient (0x00490f50) ====
  * ActorPuckOrient, at the end of the actor update when actor+4 & 0x10: rebuilds the actor matrix, takes the angle between its
  * up row (actor+0x50) and the up vector of the walker frame (walker+0x24); over 2 degrees the actor turns about
- * up x normal by min(angle, frame seconds * turn rate (actor+0xa4 +0x1c)), multiplies the matrices (Matrix_Multiply) and
- * sets the three angles from the matrix (Matrix_ToAngles).  The Ghidra prototype typed the actor parameter float, which
+ * up x normal by min(angle, frame seconds * turn rate (actor+0xa4 +0x1c)), multiplies the matrices (rdMatrix_PostMultiply34) and
+ * sets the three angles from the matrix (rdMatrix_ExtractAngles34).  The Ghidra prototype typed the actor parameter float, which
  * made the generated code treat the pointer as a number (crash with the original save grim21); it is a pointer. */
 void __cdecl Actor_PuckOrient(void *actor)
 {
@@ -2561,14 +2561,14 @@ void __cdecl Actor_PuckOrient(void *actor)
     walker = *(char **)(state + 0x1b4);
     if (walker == (char *)0)
         return;
-    Angles_ToMatrix(a + 0x38, a + 0x24, a + 0xc);
+    rdMatrix_Build34(a + 0x38, a + 0x24, a + 0xc);
     up[0] = *(float *)(a + 0x50);
     up[1] = *(float *)(a + 0x54);
     up[2] = *(float *)(a + 0x58);
     fu[0] = *(float *)(walker + 0x24);
     fu[1] = *(float *)(walker + 0x28);
     fu[2] = *(float *)(walker + 0x2c);
-    dot = Vec3_Dot2(up, fu);
+    dot = rdVector_Dot3(up, fu);
     angx = 90.0L - (long double)stdMath_ArcSin3(dot);     /* the test below uses the unrounded value */
     ang = (float)angx;
     if (!(((angx < 0.0L) ? -angx : angx) > 2.0L))
@@ -2582,19 +2582,19 @@ void __cdecl Actor_PuckOrient(void *actor)
     axis[1] = (float)((long double)fu[0] * up[2] - (long double)fu[2] * up[0]);
     axis[2] = (float)((long double)fu[1] * up[0] - (long double)fu[0] * up[1]);
     rdVector_Normalize3Acc(axis);
-    Matrix_AxisAngle(rot, axis, ang);
-    Matrix_Multiply(a + 0x38, rot);
-    Matrix_ToAngles(a + 0x38, a + 0x24);
-    Angles_ToMatrix(a + 0x38, a + 0x24, a + 0xc);
+    rdMatrix_BuildFromVectorAngle34(rot, axis, ang);
+    rdMatrix_PostMultiply34(a + 0x38, rot);
+    rdMatrix_ExtractAngles34(a + 0x38, a + 0x24);
+    rdMatrix_Build34(a + 0x38, a + 0x24, a + 0xc);
 }
-/* ==== Actor_CreateSubtitle (0x0048b2e0) ====
+/* ==== sputText_CreateActorText (0x0048b2e0) ====
  * Creates the speech text object above the actor and clamps it to the screen: the anchor is the actor's stored speech
  * position (actor+0x6c) while it speaks off screen, otherwise the projected head position (when the actor is in the
  * current set and visible), otherwise the default position; x defaults to the anchor's centre, y to the anchor's top minus
  * the text height; the text box keeps 40 / 10 pixels from the screen edges.  There is no floating point in it: Ghidra typed
  * the integer anchor float, which the cast rewrite then converted.  The text context is a copy of g_SubtitleTextCtx
  * (12 dwords) with the clip rectangle pointer at [1] and the text colour at [5]. */
-void * __cdecl Actor_CreateSubtitle(void *actor, char *text, int x, int y)
+void * __cdecl sputText_CreateActorText(void *actor, char *text, int x, int y)
 {
     char *a = (char *)actor;
     int rect[4], ctx[12], pt[3], proj[3];
@@ -2616,7 +2616,7 @@ void * __cdecl Actor_CreateSubtitle(void *actor, char *text, int x, int y)
     if (*(int *)(a + 0x68) == 0 || g_dwGrimlib_mode == 3) {
         anchor = pt;
         if (*(int *)(a + 0xa0) == 0 || (*(byte *)(a + 4) & 2) != 0) {
-            char *setName = Set_GetCurrentName();
+            char *setName = sputRoom_GetCurrentRoomName();
 
             if (_stricmp((int)(a + 0x7c), setName) == 0 && rdPrimit3_GetScreenCoord((float *)(a + 0xc), (float *)proj) != 0) {
                 pt[0] = proj[0];
@@ -2626,7 +2626,7 @@ void * __cdecl Actor_CreateSubtitle(void *actor, char *text, int x, int y)
     } else {
         anchor = (int *)(a + 0x6c);
     }
-    half = Text_MeasureWidth(ctx, text) / 2;
+    half = Text_GetStringWidth(ctx, text) / 2;
     if (x == -1)
         x = anchor[2] / 2 + anchor[0];
     if (x - half < 0x28)
@@ -2635,7 +2635,7 @@ void * __cdecl Actor_CreateSubtitle(void *actor, char *text, int x, int y)
         x = (UINT_008a94bc - half) - 0x28;
     ctx[4] = *(int *)(*(int *)ctx[2] + 8);
     ctx[3] = x;
-    h = Text_MeasureHeight(ctx, text);
+    h = Text_GetStringHeight(ctx, text);
     if (y == -1)
         y = anchor[1] - h;
     if (y < 10)
@@ -2714,13 +2714,13 @@ void sputText_PrintLineL(void)
       }
       iVar2 = 0;
       pvVar3 = TextObject_New((void *)local_5c,pcVar6,0,0);
-      TextObject_Activate(pvVar3,local_58,iVar2);
+      sputText_AddToQueue(pvVar3,local_58,iVar2);
     }
   }
   return;
 }
 
-/* ==== Surface_Create (0x00474480) ====
+/* ==== stdDisplay_VBufferNew (0x00474480) ====
  * Std/Win95/Stddisplay.c: creates a surface record (0xd8 bytes) from a 19-dword format / size description `info` (copied to
  * +0xc: width +0xc, height +0x10, bits per pixel +0x24) and, when `videoMem` is set and the display device is a DirectDraw one,
  * a DirectDraw surface (offscreen plain, in system memory when `b` is 0) with its palette built from the 256 RGB triplets of
@@ -2728,7 +2728,7 @@ void sputText_PrintLineL(void)
  * text had dropped the file / line arguments of both allocations (the allocator stores them in the block header) and
  * printed the palette entries as unnamed stack slots.  The line numbers are a base word (0x004de1d0, in front of the file
  * name string's data) plus 0xd / 0x2a, like in the other allocations of this file. */
-void * __cdecl Surface_Create(void *info, int videoMem, int b, int palette)
+void * __cdecl stdDisplay_VBufferNew(void *info, int videoMem, int b, int palette)
 {
     char *file = s_C__grimjedi_Libs_Std_Win95_Stddi_004dea18;
     int lineBase = (int)*(short *)(file - 0x848);
@@ -2817,7 +2817,7 @@ undefined4 Walker_UpdateYaw(void *actor, float *pos)
 {
     char *a = (char *)actor;
     char *st;
-    float *frame = Actor_GetFrame(actor);
+    float *frame = sputActor_GetOrientMatrix(actor);
     float v[3], rot[12], ang, rate;
     long double angx, step;
 
@@ -2827,8 +2827,8 @@ undefined4 Walker_UpdateYaw(void *actor, float *pos)
     st = *(char **)(a + 0xa4);
     rate = *(float *)(st + 0x24);                       /* roll about the frame's up axis */
     if (rate < 0.0f || rate > 0.0f) {
-        Matrix_AxisAngle(rot, Actor_GetFrame(actor) + 6, rate);
-        Vec3_Transform(v, rot);
+        rdMatrix_BuildFromVectorAngle34(rot, sputActor_GetOrientMatrix(actor) + 6, rate);
+        rdMatrix_TransformVector34Acc(v, rot);
     }
     v[0] = v[0] + pos[0];
     v[1] = pos[1] + v[1];
@@ -2877,13 +2877,13 @@ void * ResType_FontHandler(int *rec)
         return (void *)0;
     if (rec[0] == 1) {
         if (Font_LoadFile((char *)rec[1], &font) == 0) {
-            void *res = Res_Register(rec[2], (char *)rec[1], font);
+            void *res = Res_SysAddHandle(rec[2], (char *)rec[1], font);
 
-            Res_SetLocked(font, 0);
+            Res_SetPurgable(font, 0);
             return res;
         }
     } else if (rec[0] == 2) {
-        Font_Free((void *)rec[3]);
+        Text_FreeFont((void *)rec[3]);
         return (void *)1;
     } else if (rec[0] == 3) {
         rec[4] = 1;
@@ -2905,7 +2905,7 @@ undefined4 ThingAdjuster(int *component, undefined4 text)
 
     labels[0] = s_Resolve_parent_offset__0___off__004ea5e0;
     value = (*(int *)(obj + 0x34) != 0);
-    if (Plat_PromptDialog(text, (int)labels, (undefined4 *)&value, 1) == 0)
+    if (grimPlat_SpinDialog(text, (int)labels, (undefined4 *)&value, 1) == 0)
         return 0;
     tok = strtok(text, &DAT_004ea52c);
     *(int *)(obj + 0x34) = value;
@@ -2969,7 +2969,7 @@ void Polyglot_LoadTable(undefined *name)
 }
 
 /* ==== SoundChanger (0x004971a0) ====
- * Costume tag handler for 'iMuse Streamed / Resident Sound FX' (registered by sputCostume_Start through
+ * Costume tag handler for 'iMuse Streamed / Resident Sound FX' (registered by sputCostume_Startup through
  * Cos_NewStateBasedTag / Cos_NewIntTag): when the chore key fires it starts the sound unless it already plays (state 0 and
  * not playing): a streamed sound ('imss') through SoundStartVoiceStream, a resident one ('imls') through
  * SoundsLoadStartSound with positional parameters from the current set; state 1 stops it again, state 2 sets iMUSE hook 0x80.
@@ -3006,7 +3006,7 @@ void __cdecl SoundChanger(int tag, int snd, undefined4 p3, int slot, uint p5, ui
         loud = o2 & 0xff;
         if ((int)loud <= (int)*(uint *)(snd + 0x28))
             loud = *(uint *)(snd + 0x28);
-        Sound_SetPosition(handle, (int)actors + actor * 0xa8 + 0xc, loud, quiet, *(uint *)&o1, *(uint *)&o5);   /* (the floats' bits) */
+        sputRoom_SetSoundPosition(handle, (int)actors + actor * 0xa8 + 0xc, loud, quiet, *(uint *)&o1, *(uint *)&o5);   /* (the floats' bits) */
         return;
     }
     if (state[slot] == 1) {
@@ -3235,7 +3235,7 @@ Collision_BoxSlide(float *param_1,float *param_2,float param_3,float param_4,flo
   }
   vv[2] = fVar3 * fVar5;
   fVar10 = rdVector_Normalize3Acc(vv);
-  fVar11 = Vec3_Dot2(vv,nn);
+  fVar11 = rdVector_Dot3(vv,nn);
   fVar11 = stdMath_ArcSin3(fVar11);
   if (90.0 - fVar11 < 90.0) {
     return 0;
@@ -3244,8 +3244,8 @@ Collision_BoxSlide(float *param_1,float *param_2,float param_3,float param_4,flo
   axis[1] = nn[0] * vv[2] - nn[2] * vv[0];
   axis[2] = nn[1] * vv[0] - nn[0] * vv[1];
   rdVector_Normalize3Acc(axis);
-  Matrix_AxisAngle(local_30,axis,(90.0 - fVar11) - 90.0);
-  Vec3_Transform(vv,local_30);
+  rdMatrix_BuildFromVectorAngle34(local_30,axis,(90.0 - fVar11) - 90.0);
+  rdMatrix_TransformVector34Acc(vv,local_30);
   *pfVar8 = fVar10 * vv[0] + *pfVar8;
   pfVar8[1] = fVar10 * vv[1] + pfVar8[1];
   pfVar8[2] = fVar10 * vv[2] + pfVar8[2];

@@ -5,11 +5,12 @@
 #include "globals.h"
 #include "functions.h"
 
-/* ---- 0x1000a210  iMUSE_stream__a210 ---- */
+/* ---- 0x1000a210  StStartStream ---- */
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
-    */
+   Original name StStartStream (the remaster's GrimFandango (Linux): aligned call in
+   DpConcludeRestore, DpStartSound); was iMUSE_stream__a210. */
 
-uint * __cdecl iMUSE_stream__a210(uint param_1,uint param_2,uint param_3)
+uint * __cdecl StStartStream(uint param_1,uint param_2,uint param_3)
 
 {
   uint *puVar1;
@@ -18,21 +19,21 @@ uint * __cdecl iMUSE_stream__a210(uint param_1,uint param_2,uint param_3)
   int iVar4;
   uint *puVar5;
   
-  puVar1 = (uint *)iMUSE_dsound__4640(param_2);
+  puVar1 = (uint *)FmGetBufInfo(param_2);
   if ((puVar1 != (uint *)0x0) && (param_3 < (uint)((int)puVar1[1] >> 2))) {
-    piVar2 = &DAT_10031e98;
+    piVar2 = &g_dwStreams;
     iVar4 = 0;
     while ((*piVar2 == 0 || (piVar2[3] != param_2))) {
       piVar2 = piVar2 + 0xc;
       iVar4 = iVar4 + 1;
       if (2 < iVar4) {
-        puVar5 = &DAT_10031e98;
+        puVar5 = &g_dwStreams;
         iVar4 = 0;
         do {
           if (*puVar5 == 0) {
             *puVar5 = param_1;
             puVar5[1] = 0;
-            uVar3 = iMUSE_dsound__45c0(param_1,0,2);
+            uVar3 = FmSeek(param_1,0,2);
             puVar5[2] = uVar3;
             puVar5[3] = param_2;
             puVar5[4] = *puVar1;
@@ -56,25 +57,27 @@ uint * __cdecl iMUSE_stream__a210(uint param_1,uint param_2,uint param_3)
   return (uint *)0x0;
 }
 
-/* ---- 0x1000a2d0  iMUSE_stream__a2d0 ---- */
+/* ---- 0x1000a2d0  StStopStream ---- */
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
-    */
+   Original name StStopStream (the remaster's GrimFandango (Linux): aligned call in DpStopTrack);
+   was iMUSE_stream__a2d0. */
 
-undefined4 __cdecl iMUSE_stream__a2d0(undefined4 *param_1)
+undefined4 __cdecl StStopStream(undefined4 *param_1)
 
 {
   *param_1 = 0;
-  if (DAT_10031e90 == param_1) {
-    DAT_10031e90 = (undefined4 *)0x0;
+  if (g_dwLastStreamLoaded == param_1) {
+    g_dwLastStreamLoaded = (undefined4 *)0x0;
   }
   return 0;
 }
 
-/* ---- 0x1000a420  iMUSE_stream__a420 ---- */
+/* ---- 0x1000a420  StReadData ---- */
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
-    */
+   Original name StReadData (the remaster's GrimFandango (Linux): aligned call in DpProcessTrack,
+   DpSwitchStream, GoToNextRegion); was iMUSE_stream__a420. */
 
-int __cdecl iMUSE_stream__a420(int param_1,uint param_2)
+int __cdecl StReadData(int param_1,uint param_2)
 
 {
   uint uVar1;
@@ -83,7 +86,7 @@ int __cdecl iMUSE_stream__a420(int param_1,uint param_2)
   undefined4 *puVar4;
   undefined4 *puVar5;
   
-  uVar1 = Im_FindTrack(param_1);
+  uVar1 = StGetValidSize(param_1);
   if ((uVar1 < param_2) || (*(uint *)(param_1 + 0x20) < param_2)) {
     iVar2 = 0;
   }
@@ -129,7 +132,7 @@ int __cdecl iMUSE_stream__a490(int param_1,int param_2,uint param_3)
   undefined4 *puVar5;
   undefined4 *puVar6;
   
-  uVar2 = Im_FindTrack(param_1);
+  uVar2 = StGetValidSize(param_1);
   if ((param_3 + param_2 <= uVar2) && (param_3 <= *(uint *)(param_1 + 0x20))) {
     iVar1 = *(int *)(param_1 + 0x14);
     iVar4 = *(int *)(param_1 + 0x28) + param_2;
@@ -156,17 +159,18 @@ int __cdecl iMUSE_stream__a490(int param_1,int param_2,uint param_3)
   return 0;
 }
 
-/* ---- 0x1000a500  iMUSE_stream__a500 ---- */
+/* ---- 0x1000a500  StEraseFromFront ---- */
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
-    */
+   Original name StEraseFromFront (the remaster's GrimFandango (Linux): aligned call in
+   DpSwitchStream, StFeedStream); was iMUSE_stream__a500. */
 
-undefined4 __cdecl iMUSE_stream__a500(int param_1,uint param_2)
+undefined4 __cdecl StEraseFromFront(int param_1,uint param_2)
 
 {
   uint uVar1;
   
-  DAT_10031e94 = 1;
-  uVar1 = Im_FindTrack(param_1);
+  g_dwBailFlag = 1;
+  uVar1 = StGetValidSize(param_1);
   if (uVar1 < param_2) {
     return 0xffffffff;
   }
@@ -178,17 +182,18 @@ undefined4 __cdecl iMUSE_stream__a500(int param_1,uint param_2)
   return 0;
 }
 
-/* ---- 0x1000a540  iMUSE_stream__a540 ---- */
+/* ---- 0x1000a540  StEraseFromMid ---- */
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
-    */
+   Original name StEraseFromMid (the remaster's GrimFandango (Linux): aligned call in
+   PrepareToJump); was iMUSE_stream__a540. */
 
-undefined4 __cdecl iMUSE_stream__a540(int param_1,uint param_2)
+undefined4 __cdecl StEraseFromMid(int param_1,uint param_2)
 
 {
   uint uVar1;
   
-  DAT_10031e94 = 1;
-  uVar1 = Im_FindTrack(param_1);
+  g_dwBailFlag = 1;
+  uVar1 = StGetValidSize(param_1);
   if (uVar1 < param_2) {
     return 0xffffffff;
   }
@@ -200,29 +205,31 @@ undefined4 __cdecl iMUSE_stream__a540(int param_1,uint param_2)
   return 0;
 }
 
-/* ---- 0x1000a5a0  iMUSE_stream__a5a0 ---- */
+/* ---- 0x1000a5a0  StSpliceStream ---- */
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
-    */
+   Original name StSpliceStream (the remaster's GrimFandango (Linux): aligned call in
+   DpConcludeRestore, DpSwitchStream, PrepareToJump); was iMUSE_stream__a5a0. */
 
-undefined4 __cdecl iMUSE_stream__a5a0(undefined4 *param_1,undefined4 param_2,undefined4 param_3)
+undefined4 __cdecl StSpliceStream(undefined4 *param_1,undefined4 param_2,undefined4 param_3)
 
 {
-  DAT_10031e94 = 1;
+  g_dwBailFlag = 1;
   *param_1 = param_2;
   param_1[1] = param_3;
   param_1[2] = 0;
   param_1[0xb] = 0;
-  if (DAT_10031e90 == param_1) {
-    DAT_10031e90 = (undefined4 *)0x0;
+  if (g_dwLastStreamLoaded == param_1) {
+    g_dwLastStreamLoaded = (undefined4 *)0x0;
   }
   return 0;
 }
 
-/* ---- 0x1000b760  iMUSE_stream__b760 ---- */
+/* ---- 0x1000b760  UtAddToList ---- */
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
-    */
+   Original name UtAddToList (the remaster's GrimFandango (Linux): aligned call in TrRestore,
+   TrStartSound); was iMUSE_stream__b760. */
 
-undefined4 __cdecl iMUSE_stream__b760(int *param_1,int *param_2)
+undefined4 __cdecl UtAddToList(int *param_1,int *param_2)
 
 {
   if (((param_2 != (int *)0x0) && (*param_2 == 0)) && (param_2[1] == 0)) {
@@ -237,11 +244,12 @@ undefined4 __cdecl iMUSE_stream__b760(int *param_1,int *param_2)
   return 0xfffffffb;
 }
 
-/* ---- 0x1000b7a0  iMUSE_stream__b7a0 ---- */
+/* ---- 0x1000b7a0  UtRemoveFromList ---- */
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
-    */
+   Original name UtRemoveFromList (the remaster's GrimFandango (Linux): aligned call in DpStopTrack,
+   GoToNextRegion, TrStopTrack); was iMUSE_stream__b7a0. */
 
-undefined4 __cdecl iMUSE_stream__b7a0(int *param_1,int *param_2)
+undefined4 __cdecl UtRemoveFromList(int *param_1,int *param_2)
 
 {
   int *piVar1;

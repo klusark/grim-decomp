@@ -24,7 +24,7 @@ void __cdecl Actor_ComputeScreenBox(void *actor)
   *(undefined4 *)((int)actor + 0x70) = 0;
   *(undefined4 *)((int)actor + 0x74) = 0;
   *(undefined4 *)((int)actor + 0x78) = 0;
-  frame = Actor_GetFrame(actor);
+  frame = sputActor_GetOrientMatrix(actor);
   iVar2 = rdThing_DrawAlt(*(void **)(*(int *)((int)actor + 0xa0) + 4),frame);
   if (iVar2 != 0) {
     *(undefined4 *)((int)actor + 0x68) = 1;
@@ -75,8 +75,8 @@ void Actor_DrawDebugWalker(void *param_1)
     }
     if (*(int *)(*(int *)((int)param_1 + 0xa4) + 0x3f8) != 0) {
       iVar1 = *(int *)(*(int *)(*(int *)((int)param_1 + 0xa0) + 4) + 4);
-      b = Actor_GetFrame(param_1);
-      Matrix34_TransformPoint(local_c,(float *)(iVar1 + 0x78),b);
+      b = sputActor_GetOrientMatrix(param_1);
+      rdMatrix_TransformPoint34(local_c,(float *)(iVar1 + 0x78),b);
       rdPrimit3_DrawPoint(local_c,*(float *)(iVar1 + 0x5c) *
                                   *(float *)(*(int *)((int)param_1 + 0xa4) + 0x3f4),0x41200000,
                           0xffff,0xffffffff);
@@ -88,13 +88,14 @@ void Actor_DrawDebugWalker(void *param_1)
 #undef local_c
 
 
-/* ---- 0x0048b2e0  Actor_CreateSubtitle ---- */
+/* ---- 0x0048b2e0  sputText_CreateActorText ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Creates the speech text object above the actor (projected head position when on screen), clamped
-   to the screen edges */
+   to the screen edges Original name sputText_CreateActorText (the remaster's GrimFandango (Linux):
+   aligned call in sputActor_SayLine); was Actor_CreateSubtitle. */
 
-void * __cdecl Actor_CreateSubtitle(void *actor,char *text,int x,int y)
+void * __cdecl sputText_CreateActorText(void *actor,char *text,int x,int y)
 
 {
   unsigned char _frame[0x70] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -145,7 +146,7 @@ void * __cdecl Actor_CreateSubtitle(void *actor,char *text,int x,int y)
   if ((*(int *)((int)actor + 0x68) == 0) || (g_dwGrimlib_mode == 3)) {
     pfVar2 = local_50;
     if ((*(int *)((int)actor + 0xa0) == 0) || ((*(byte *)((int)actor + 4) & 2) != 0)) {
-      pcVar3 = Set_GetCurrentName();
+      pcVar3 = sputRoom_GetCurrentRoomName();
       iVar5 = _stricmp((int)actor + 0x7c,pcVar3);
       if (iVar5 == 0) {
         iVar5 = rdPrimit3_GetScreenCoord((float *)((int)actor + 0xc),local_5c);
@@ -160,7 +161,7 @@ void * __cdecl Actor_CreateSubtitle(void *actor,char *text,int x,int y)
     pfVar2 = (void *)((int)actor + 0x6c);
   }
   actor = pfVar2;
-  iVar5 = Text_MeasureWidth(&local_30,text);
+  iVar5 = Text_GetStringWidth(&local_30,text);
   iVar5 = iVar5 / 2;
   if (x == -1) {
     x = *(int *)((int)actor + 8) / 2 + *(int *)actor;
@@ -173,7 +174,7 @@ void * __cdecl Actor_CreateSubtitle(void *actor,char *text,int x,int y)
   }
   local_20 = *(uint *)(*(int *)local_28 + 8);
   local_24 = x;
-  iVar5 = Text_MeasureHeight(&local_30,text);
+  iVar5 = Text_GetStringHeight(&local_30,text);
   if (y == -1) {
     y = *(int *)((int)actor + 4) - iVar5;
   }
@@ -232,20 +233,21 @@ int __cdecl sputActor_SetCostume(void *actor,char *name,int param_3)
     param_3 = 0;
     pvVar1 = *(void **)((int)actor + 0xa0);
   }
-  pvVar1 = Costume_ReplaceTop(pvVar1,costumeRes,param_3);
+  pvVar1 = sputCostume_SetCostume(pvVar1,costumeRes,param_3);
   *(void **)((int)actor + 0xa0) = pvVar1;
   Cos_InstSetUserData(**(int **)((int)actor + 0xa0),((int)actor - (int)g_pActors) / 0xa8);
-  Actor_SetFrustumCull(actor,~*(uint *)((int)actor + 4) >> 2 & 1);
+  sputActor_SetFrustrumCull(actor,~*(uint *)((int)actor + 4) >> 2 & 1);
   return 1;
 }
 
-/* ---- 0x0048f9d0  Actor_SetHead ---- */
+/* ---- 0x0048f9d0  sputActor_SetActorHead ---- */
 /* WARNING: Variable defined which should be unmapped: local_14 */
-/* Lua SetActorHead: head-tracking joints and limits */
+/* Lua SetActorHead: head-tracking joints and limits Original name sputActor_SetActorHead (the
+   remaster's GrimFandango (Linux): aligned call in sputLua_SetActorHeadL); was Actor_SetHead. */
 
 void __cdecl
-Actor_SetHead(void *actor,int joint1,int joint2,int joint3,float maxRoll,float maxPitch,float maxYaw
-             )
+sputActor_SetActorHead
+          (void *actor,int joint1,int joint2,int joint3,float maxRoll,float maxPitch,float maxYaw)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -298,7 +300,7 @@ int __cdecl Actor_CanSeePoint(void *actor,float *point,float *outDistance)
   if (((iVar1 != 0) && (index = *(uint *)(iVar1 + 0xc), -1 < (int)index)) &&
      (*(int *)(iVar1 + 4) != 0)) {
     pfVar3 = local_30;
-    frame = Actor_GetFrame(actor);
+    frame = sputActor_GetOrientMatrix(actor);
     rdPuppet_BuildJointMatrices(*(void **)(iVar1 + 4),frame,index,pfVar3);
     local_3c[0] = *point - local_c[0];
     local_3c[1] = point[1] - local_c[1];
@@ -309,11 +311,11 @@ int __cdecl Actor_CanSeePoint(void *actor,float *point,float *outDistance)
     local_48[1] = local_3c[1];
     local_48[2] = 0.0;
     rdVector_Normalize3Acc(local_48);
-    pfVar3 = Actor_GetFrame(actor);
+    pfVar3 = sputActor_GetOrientMatrix(actor);
     fVar4 = pfVar3[3] * local_48[0];
-    pfVar3 = Actor_GetFrame(actor);
+    pfVar3 = sputActor_GetOrientMatrix(actor);
     fVar2 = pfVar3[4] * local_48[1];
-    pfVar3 = Actor_GetFrame(actor);
+    pfVar3 = sputActor_GetOrientMatrix(actor);
     if (*(float *)(iVar1 + 0x24) <= pfVar3[5] * local_48[2] + fVar2 + fVar4) {
       return 1;
     }
@@ -326,10 +328,12 @@ int __cdecl Actor_CanSeePoint(void *actor,float *point,float *outDistance)
 #undef local_c
 
 
-/* ---- 0x0048fb80  Actor_CanSee ---- */
-/* Lua CanActorSee / GetVisibleThings line-of-sight test */
+/* ---- 0x0048fb80  sputActor_CanActorSeeActor ---- */
+/* Lua CanActorSee / GetVisibleThings line-of-sight test Original name sputActor_CanActorSeeActor
+   (the remaster's GrimFandango (Linux): aligned call in sputLua_CanActorSeeL,
+   sputLua_GetVisibleThingsL); was Actor_CanSee. */
 
-int __cdecl Actor_CanSee(void *viewer,void *target,float *outDistance)
+int __cdecl sputActor_CanActorSeeActor(void *viewer,void *target,float *outDistance)
 
 {
   int iVar1;
@@ -339,7 +343,7 @@ int __cdecl Actor_CanSee(void *viewer,void *target,float *outDistance)
     if (*(char *)((int)viewer + 0x7c) != '\0') {
       iVar1 = _stricmp((int)target + 0x7c,(int)viewer + 0x7c);
       if (iVar1 == 0) {
-        pfVar2 = Actor_GetFrame(target);
+        pfVar2 = sputActor_GetOrientMatrix(target);
         iVar1 = Actor_CanSeePoint(viewer,pfVar2 + 9,outDistance);
         return iVar1;
       }
@@ -494,23 +498,23 @@ void __cdecl Actor_UpdateLookAt(void *actor,float dt)
     local_c0[1] = 1.0;
     local_c0[2] = 0.0;
     if (*(int *)((int)actor + 0x68) == 0) {
-      pfVar6 = Actor_GetFrame(actor);
+      pfVar6 = sputActor_GetOrientMatrix(actor);
       rdPuppet_UpdateFrame(*(void **)(iVar1 + 4),pfVar6);
     }
     index = *(uint *)(iVar1 + 0x14);
     pfVar6 = afStack_60;
-    pfVar7 = Actor_GetFrame(actor);
+    pfVar7 = sputActor_GetOrientMatrix(actor);
     rdPuppet_BuildJointMatrices(*(void **)(iVar1 + 4),pfVar7,index,pfVar6);
-    Matrix34_InvertRigid(afStack_90,afStack_60);
+    rdMatrix_InvertOrtho34(afStack_90,afStack_60);
     pfVar6 = *(float **)((int)actor + 0xa4);
     if (((*pfVar6 == 0.0) && (pfVar6[1] == 0.0)) && (pfVar6[2] == 0.0)) {
       pfVar6 = afStack_90;
       bVar5 = true;
-      pfVar7 = Actor_GetFrame(actor);
-      Vec3_Copy(afStack_a8,pfVar7 + 3,pfVar6);
+      pfVar7 = sputActor_GetOrientMatrix(actor);
+      rdMatrix_TransformVector34(afStack_a8,pfVar7 + 3,pfVar6);
     }
     else {
-      Matrix34_TransformPoint(afStack_a8,pfVar6,afStack_90);
+      rdMatrix_TransformPoint34(afStack_a8,pfVar6,afStack_90);
       rdVector_Normalize3Acc(afStack_a8);
     }
     Vec3_Cross(afStack_9c,local_c0,afStack_a8);
@@ -532,7 +536,7 @@ void __cdecl Actor_UpdateLookAt(void *actor,float dt)
         fStack_c8 = -fVar10;
       }
     }
-    Matrix_AxisAngle(afStack_30,afStack_9c,fStack_c8);
+    rdMatrix_BuildFromVectorAngle34(afStack_30,afStack_9c,fStack_c8);
     Vec3_Rotate3x3(local_c0,afStack_30);
     Matrix_GetAngles(local_c0,&fStack_b4);
     if ((*(byte *)((int)actor + 8) & 2) == 0) {
@@ -591,13 +595,14 @@ void __cdecl Actor_UpdateLookAt(void *actor,float dt)
 #undef local_c4
 
 
-/* ---- 0x00490210  Actor_UpdateTalk ---- */
+/* ---- 0x00490210  sputActor_UpdateActorSpeech ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Lip sync: reads the current phoneme from iMUSE, plays the matching talk chore, ends speech when
-   the voice or the text timer runs out */
+   the voice or the text timer runs out Original name sputActor_UpdateActorSpeech (the remaster's
+   GrimFandango (Linux): aligned call in sputActor_UpdateSpeechOnly); was Actor_UpdateTalk. */
 
-void __cdecl Actor_UpdateTalk(void *actor,float dt)
+void __cdecl sputActor_UpdateActorSpeech(void *actor,float dt)
 
 {
   int *piVar1;
@@ -905,7 +910,7 @@ void sputActor_EnablePuck(void *param_1,int param_2)
     }
     Mem_CheckAlloc(p,s_C__grimsrc_libs_grimlib_Engine_s_004e9e40,0x665);
     Puck_SetPos(p,(float *)((int)param_1 + 0xc));
-    pfVar2 = Actor_GetFrame(param_1);
+    pfVar2 = sputActor_GetOrientMatrix(param_1);
     local_18[0] = pfVar2[3] + *(float *)((int)param_1 + 0xc);
     local_18[1] = *(float *)((int)param_1 + 0x10) + pfVar2[4];
     local_18[2] = *(float *)((int)param_1 + 0x14) + pfVar2[5];
@@ -980,7 +985,7 @@ void sputActor_SetActorRotation(int param_1,undefined4 *param_2,int param_3)
   *(uint *)(param_1 + 8) = *(uint *)(param_1 + 8) & 0xfffffffe;
   if ((*(int *)(param_1 + 0xa4) != 0) &&
      (this = *(float **)(*(int *)(param_1 + 0xa4) + 0x1b4), this != (float *)0x0)) {
-    Angles_ToMatrixNoPos(local_30,param_2);
+    rdMatrix_BuildRotate34(local_30,param_2);
     local_24[0] = local_24[0] + *this;
     local_24[1] = this[1] + local_24[1];
     local_24[2] = this[2] + local_24[2];
@@ -993,7 +998,7 @@ void sputActor_SetActorRotation(int param_1,undefined4 *param_2,int param_3)
     if (0.0 < local_24[0]) {
       local_40 = -fVar3;
     }
-    Walker_TurnHeading(this,local_40);
+    Puck_Rotate(this,local_40);
     iVar1 = *(int *)(param_1 + 0xa4);
     if ((0.0 < *(float *)(iVar1 + 0x1c)) && (param_3 != 0)) {
       *(float *)(iVar1 + 0x1c) = *(float *)(iVar1 + 0x1c) * -1.0;
@@ -1079,8 +1084,11 @@ void __cdecl Actor_SetTurnChores(void *actor,int leftChore,int rightChore,void *
   return;
 }
 
-/* ---- 0x00490c80  Actor_SetRestChore ---- */
-void __cdecl Actor_SetRestChore(void *actor,int chore,void *costume)
+/* ---- 0x00490c80  sputActor_SetRestChore ---- */
+/* Original name sputActor_SetRestChore (the remaster's GrimFandango (Linux): aligned call in
+   sputLua_SetActorRestChoreL); was Actor_SetRestChore. */
+
+void __cdecl sputActor_SetRestChore(void *actor,int chore,void *costume)
 
 {
   int *piVar1;
@@ -1139,10 +1147,10 @@ int __cdecl sputActor_PushCostume(void *actor,char *name,int param_3)
     param_3 = 0;
     pvVar1 = *(void **)((int)actor + 0xa0);
   }
-  pvVar1 = Costume_Push(pvVar1,costumeRes,param_3);
+  pvVar1 = sputCostume_PushCostume(pvVar1,costumeRes,param_3);
   *(void **)((int)actor + 0xa0) = pvVar1;
   Cos_InstSetUserData(**(int **)((int)actor + 0xa0),((int)actor - (int)g_pActors) / 0xa8);
-  Actor_SetFrustumCull(actor,~*(uint *)((int)actor + 4) >> 2 & 1);
+  sputActor_SetFrustrumCull(actor,~*(uint *)((int)actor + 4) >> 2 & 1);
   return 1;
 }
 
@@ -1191,14 +1199,14 @@ void __cdecl Actor_PuckOrient(void *actor)
     iVar1 = (int)actor + 0xc;
     iVar2 = (int)actor + 0x24;
     iVar3 = (int)actor + 0x38;
-    Angles_ToMatrix(iVar3,iVar2,iVar1);
+    rdMatrix_Build34(iVar3,iVar2,iVar1);
     local_48[0] = *(float *)((int)actor + 0x50);
     local_48[1] = *(float *)((int)actor + 0x54);
     local_48[2] = *(float *)((int)actor + 0x58);
     local_54[0] = *(float *)(iVar4 + 0x24);
     local_54[1] = *(float *)(iVar4 + 0x28);
     local_54[2] = *(float *)(iVar4 + 0x2c);
-    fVar7 = Vec3_Dot2(local_48,local_54);
+    fVar7 = rdVector_Dot3(local_48,local_54);
     fVar7 = stdMath_ArcSin3(fVar7);
     pvVar5 = PUN(void *,(float)(90.0 - fVar7));
     pvVar6 = pvVar5;
@@ -1219,10 +1227,10 @@ void __cdecl Actor_PuckOrient(void *actor)
       local_3c[1] = local_54[0] * local_48[2] - local_54[2] * local_48[0];
       local_3c[2] = local_54[1] * local_48[0] - local_54[0] * local_48[1];
       rdVector_Normalize3Acc(local_3c);
-      Matrix_AxisAngle(local_30,local_3c,PUN(float,actor));
-      Matrix_Multiply(iVar3,local_30);
-      Matrix_ToAngles(iVar3,iVar2);
-      Angles_ToMatrix(iVar3,iVar2,iVar1);
+      rdMatrix_BuildFromVectorAngle34(local_30,local_3c,PUN(float,actor));
+      rdMatrix_PostMultiply34(iVar3,local_30);
+      rdMatrix_ExtractAngles34(iVar3,iVar2);
+      rdMatrix_Build34(iVar3,iVar2,iVar1);
     }
   }
   return;
@@ -1254,9 +1262,9 @@ void Actor_UpdateWalker(int param_1)
   if ((*(int *)(*(int *)(param_1 + 0xa4) + 0x10) != 0) && ((*(byte *)(param_1 + 8) & 1) == 0)) {
     iVar2 = *(int *)(param_1 + 0xa4);
     fVar5 = sputTime_GetFrameTimeFlex();
-    Walker_TurnHeading(*(void **)(iVar2 + 0x1b4),
-                       (float)*(int *)(iVar2 + 0x10) *
-                       *(float *)(iVar2 + 0x1c) * fVar5 * *(float *)(iVar2 + 0x41c));
+    Puck_Rotate(*(void **)(iVar2 + 0x1b4),
+                (float)*(int *)(iVar2 + 0x10) *
+                *(float *)(iVar2 + 0x1c) * fVar5 * *(float *)(iVar2 + 0x41c));
   }
   iVar2 = *(int *)(param_1 + 0xa4);
   if (*(int *)(iVar2 + 0xc) != 0) {
@@ -1418,12 +1426,13 @@ LAB_0049162b:
   return;
 }
 
-/* ---- 0x00492b30  Actor_SayLine ---- */
+/* ---- 0x00492b30  sputActor_SayLine ---- */
 /* Starts speech: resolves the /id/ to a voice file (.wvc/.wav/.imc/.imu), plays it (3D positioned
    when flag 8), creates the subtitle text object, times text-only speech from its length, and plays
-   the talk chore */
+   the talk chore Original name sputActor_SayLine (the remaster's GrimFandango (Linux): aligned call
+   in sputText_SayLineL); was Actor_SayLine. */
 
-void __cdecl Actor_SayLine(void *actor,char *text,int background,int volume,int pan,int x,int y)
+void __cdecl sputActor_SayLine(void *actor,char *text,int background,int volume,int pan,int x,int y)
 
 {
   unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1547,7 +1556,7 @@ LAB_00492e5e:
         if ((*(byte *)((int)actor + 4) & 8) != 0) {
           uVar19 = 10000;
 LAB_00492dfb:
-          Sound_SetPosition(uVar19,(int)actor + 0xc,0x14,0x7f,0x41000000,0x3f4ccccd);
+          sputRoom_SetSoundPosition(uVar19,(int)actor + 0xc,0x14,0x7f,0x41000000,0x3f4ccccd);
         }
       }
       uVar16 = 0xffffffff;
@@ -1580,7 +1589,7 @@ LAB_00492e6b:
     *(undefined4 *)(*(int *)((int)actor + 0xa4) + 0x1cc) = 0xffffffff;
   }
   if ((uVar4 != 0) || (*(char *)(*(int *)((int)actor + 0xa4) + 0x1dc) == '\0')) {
-    pvVar8 = Actor_CreateSubtitle(actor,text_00,x,y);
+    pvVar8 = sputText_CreateActorText(actor,text_00,x,y);
     *(void **)(*(int *)((int)actor + 0xa4) + 0x1ec) = pvVar8;
     if (*(char *)(*(int *)((int)actor + 0xa4) + 0x1dc) == '\0') {
       uVar4 = 0xffffffff;
@@ -1593,7 +1602,7 @@ LAB_00492e6b:
       *(uint *)(*(int *)((int)actor + 0xa4) + 0x1cc) =
            (~uVar4 - 1) * (0xb - g_nTextRate) * 0xf + 0x280;
     }
-    TextObject_Activate(pvVar8,-1,0xd);
+    sputText_AddToQueue(pvVar8,-1,0xd);
     ppvVar7 = &g_pTalkingActors;
     if (background == 0) {
       do {
@@ -1881,8 +1890,11 @@ int __cdecl sputActor_ActorHasShadow(void *actor)
   return 0;
 }
 
-/* ---- 0x00493540  Actor_ActivateShadow ---- */
-void __cdecl Actor_ActivateShadow(void *actor,int shadowIdx,int active)
+/* ---- 0x00493540  sputActor_ActivateActorShadow ---- */
+/* Original name sputActor_ActivateActorShadow (the remaster's GrimFandango (Linux): aligned call in
+   sputLua_ActivateActorShadow); was Actor_ActivateShadow. */
+
+void __cdecl sputActor_ActivateActorShadow(void *actor,int shadowIdx,int active)
 
 {
   *(int *)(*(int *)((int)actor + 0xa4) + (shadowIdx + 6) * 0x54) = active;
@@ -2018,7 +2030,7 @@ void sputCostume_DrawActorShadow(int param_1)
   int iVar3;
   
   if (*(int *)(param_1 + 0xa4) != 0) {
-    Profile_Begin(0xb);
+    PerfBegin(0xb);
     iVar3 = 0x1f8;
     do {
       shadow = (int *)(*(int *)(param_1 + 0xa4) + iVar3);
@@ -2032,20 +2044,21 @@ void sputCostume_DrawActorShadow(int param_1)
       }
       iVar3 = iVar3 + 0x54;
     } while (iVar3 < 0x3f0);
-    Profile_End(0xb);
+    PerfEnd(0xb);
   }
   return;
 }
 
-/* ---- 0x00493790  Actor_GetFrame ---- */
+/* ---- 0x00493790  sputActor_GetOrientMatrix ---- */
 /* Returns the actor's 12-float frame (position + 3x3 rotation), rebuilding it from pos/rot when
-   dirty */
+   dirty Original name sputActor_GetOrientMatrix (the remaster's GrimFandango (Linux): aligned call
+   in sputActor_DrawToClean, sputActor_EnablePuck, sputRender_Update); was Actor_GetFrame. */
 
-float * __cdecl Actor_GetFrame(void *actor)
+float * __cdecl sputActor_GetOrientMatrix(void *actor)
 
 {
   if (*(int *)((int)actor + 0x34) == 0) {
-    Angles_ToMatrix((int)actor + 0x38,(int)actor + 0x24,(int)actor + 0xc);
+    rdMatrix_Build34((int)actor + 0x38,(int)actor + 0x24,(int)actor + 0xc);
     *(undefined4 *)((int)actor + 0x34) = 1;
   }
   return (float *)((int)actor + 0x38);
@@ -2085,9 +2098,9 @@ void __cdecl sputActor_DrawToClean(void *actor)
   if (iVar2 != 0) {
     uVar3 = *(undefined4 *)(iVar2 + 0x10);
     uVar4 = *(undefined4 *)(iVar2 + 4);
-    uVar7 = Render_GetBackgroundSurface();
+    uVar7 = sputRender_CleanArtBuffer();
     *(undefined4 *)(*(int *)(*(int *)(iVar1 + 0x48) + 4) + 4) = uVar7;
-    uVar7 = Render_GetZBufferSurface();
+    uVar7 = sputRender_CleanZBuffer();
     *(undefined4 *)(*(int *)(*(int *)(iVar1 + 0x48) + 4) + 0x10) = uVar7;
     piVar10 = *(int **)actor;
     iVar2 = *piVar10;
@@ -2132,11 +2145,11 @@ void __cdecl sputActor_DrawToClean(void *actor)
       iStack_c = iVar2;
       iStack_8 = iVar2;
       iStack_4 = iVar2;
-      pfVar9 = Actor_GetFrame(actor);
-      Matrix_BuildTransform2(pfVar9,piVar10);
+      pfVar9 = sputActor_GetOrientMatrix(actor);
+      rdMatrix_PreScale34(pfVar9,piVar10);
     }
-    pfVar9 = Actor_GetFrame(actor);
-    Actor_DrawCostumes(*(undefined4 *)((int)actor + 0xa0),pfVar9);
+    pfVar9 = sputActor_GetOrientMatrix(actor);
+    sputCostume_Draw3D(*(undefined4 *)((int)actor + 0xa0),pfVar9);
     *(undefined4 *)((int)actor + 0x34) = 0;
     rdCache_Flush();
     *(undefined4 *)(*(int *)(*(int *)(iVar1 + 0x48) + 4) + 4) = uVar4;
@@ -2190,8 +2203,11 @@ void sputActor_SetClipPlane(int param_1,undefined4 *param_2,undefined4 *param_3)
   return;
 }
 
-/* ---- 0x00494710  Actor_SetClipActive ---- */
-void Actor_SetClipActive(int param_1,undefined4 param_2)
+/* ---- 0x00494710  sputActor_SetClipPlaneActive ---- */
+/* Original name sputActor_SetClipPlaneActive (the remaster's GrimFandango (Linux): aligned call in
+   sputLua_SetActorClipActive); was Actor_SetClipActive. */
+
+void sputActor_SetClipPlaneActive(int param_1,undefined4 param_2)
 
 {
   if (*(int *)(param_1 + 0xa4) == 0) {
@@ -2201,8 +2217,12 @@ void Actor_SetClipActive(int param_1,undefined4 param_2)
   return;
 }
 
-/* ---- 0x00494780  Actor_SetFrustumCull ---- */
-void Actor_SetFrustumCull(int param_1,int param_2)
+/* ---- 0x00494780  sputActor_SetFrustrumCull ---- */
+/* Original name sputActor_SetFrustrumCull (the remaster's GrimFandango (Linux): aligned call in
+   sputActor_PushCostume, sputActor_SetCostume, sputLua_SetActorFrustrumCull); was
+   Actor_SetFrustumCull. */
+
+void sputActor_SetFrustrumCull(int param_1,int param_2)
 
 {
   int iVar1;
@@ -2226,20 +2246,21 @@ void Actor_SetFrustumCull(int param_1,int param_2)
   return;
 }
 
-/* ---- 0x004947c0  Actor_Destroy ---- */
+/* ---- 0x004947c0  sputActor_FreeActor ---- */
 /* Removes the actor from its set, kills shadows, frees costumes, walker, extra and colormap
-   reference */
+   reference Original name sputActor_FreeActor (the remaster's GrimFandango (Linux): aligned call in
+   sputActor_Restore, sputActor_Shutdown); was Actor_Destroy. */
 
-void __cdecl Actor_Destroy(void *actor)
+void __cdecl sputActor_FreeActor(void *actor)
 
 {
   void *p;
   
   if (*(char *)((int)actor + 0x7c) != '\0') {
-    Actor_RemoveFromSet((char *)((int)actor + 0x7c),actor);
+    sputRoom_RemoveActor((char *)((int)actor + 0x7c),actor);
   }
   sputActor_ResetShadows(actor);
-  Costume_FreeList(*(void **)((int)actor + 0xa0),0);
+  sputCostume_FreeCostumeNodes(*(void **)((int)actor + 0xa0),0);
   *(undefined4 *)((int)actor + 0xa0) = 0;
   if (*(int *)((int)actor + 0xa4) != 0) {
     p = *(void **)(*(int *)((int)actor + 0xa4) + 0x1b4);
@@ -2322,7 +2343,7 @@ void Actor_DrawShadowPlane(void *costumeList,void *shadow)
             iVar7 = 0;
             do {
               out = (float *)((int)local_c0 + iVar7);
-              Matrix34_TransformPoint
+              rdMatrix_TransformPoint34
                         (out,(float *)(iVar7 + *(int *)(iVar5 + iVar4 * 0x7c + 0x58)),
                          (float *)(local_f4 + *(int *)(iVar2 + 0x20)));
               iVar6 = Plane_IntersectSegment
@@ -2391,24 +2412,29 @@ void Actor_DrawShadowPlane(void *costumeList,void *shadow)
 #endif
 
 
-/* ---- 0x00495080  Actor_DrawCostumes ---- */
-void Actor_DrawCostumes(undefined4 param_1,undefined4 param_2)
+/* ---- 0x00495080  sputCostume_Draw3D ---- */
+/* Original name sputCostume_Draw3D (the remaster's GrimFandango (Linux): aligned call in
+   sputActor_DrawToClean, sputRender_Update); was Actor_DrawCostumes. */
+
+void sputCostume_Draw3D(undefined4 param_1,undefined4 param_2)
 
 {
-  ((code *)Actor_DrawCostumeMeshes)(param_1,param_2,0,0);
+  ((code *)sputCostume_InternalDraw3D)(param_1,param_2,0,0);
   return;
 }
 
-/* ---- 0x004950a0  Actor_DrawCostumeMeshes ---- */
+/* ---- 0x004950a0  sputCostume_InternalDraw3D ---- */
 /* Draws the meshes of an actor's costume. Enables the user clip plane when extra+0x3fc != 0 (normal
    extra+0x400, point extra+0x40c). For a model hung on a node (component+0x44 != 0) whose node
    index (+0x48) equals extra+0x420 (SetActorInvClipNode) the plane through the actor position
    (actor+0xc) with the second row of the actor matrix (actor+0x44..0x4c, the facing) as normal is
    used for that mesh only, then the clip is switched off. Meshes are clipped per polygon in eye
    space (MeshFace_Draw 0x40d880 -> Polygon_ClipToPlane 0x44ea50: keep dist >= 0); Mesh_Draw
-   0x40d230 skips a mesh whose centre is more than its radius behind the plane. */
+   0x40d230 skips a mesh whose centre is more than its radius behind the plane. Original name
+   sputCostume_InternalDraw3D (the remaster's GrimFandango (Linux): aligned call in
+   sputCostume_Draw3D); was Actor_DrawCostumeMeshes. */
 
-void Actor_DrawCostumeMeshes(int *param_1,float *param_2)
+void sputCostume_InternalDraw3D(int *param_1,float *param_2)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -2437,11 +2463,11 @@ void Actor_DrawCostumeMeshes(int *param_1,float *param_2)
   iVar5 = Cos_InstGetUserData(*param_1);
   piVar1 = (int *)((int)g_pActors + iVar5 * 0xa8);
   if ((piVar1[0x29] == 0) || (*(int *)(piVar1[0x29] + 0x3fc) == 0)) {
-    Renderer_EnableClipPlane(0);
+    rdModel3_ActivateClipPlane(0);
   }
   else {
-    Renderer_EnableClipPlane(1);
-    Renderer_SetClipPlane(piVar1[0x29] + 0x400,piVar1[0x29] + 0x40c);
+    rdModel3_ActivateClipPlane(1);
+    rdModel3_SetClipPlane(piVar1[0x29] + 0x400,piVar1[0x29] + 0x40c);
   }
   Costume_ApplyScale(piVar1,(void *)param_1[2]);
   iVar5 = param_1[2];
@@ -2475,7 +2501,7 @@ LAB_004951ab:
           }
 LAB_004951b3:
           pvVar6 = (void *)Render_GetBackBuffer();
-          Surface_Lock(pvVar6);
+          stdDisplay_VBufferLock(pvVar6);
         }
         iVar7 = rdThing_DrawAlt(*(void **)(iVar5 + 0x40),param_2);
         if ((iVar7 == 0) || (piVar1 == (int *)0x0)) {
@@ -2486,7 +2512,7 @@ LAB_004951b3:
         }
         if (g_nSputRender_b3DAcceleration == 0) {
           pvVar6 = (void *)Render_GetBackBuffer();
-          Surface_Unlock(pvVar6);
+          stdDisplay_VBufferUnlock(pvVar6);
         }
       }
       else {
@@ -2496,13 +2522,13 @@ LAB_004951b3:
            (rdroid_SetColormap(*(int *)(iVar7 + 0x4c)), g_nSputRender_b3DAcceleration != 0)) {
           std3D_SetCurrentPalette((void *)(*(int *)(iVar7 + 0x4c) + 0x30),0);
         }
-        Costume_UpdateAttachedFrame(*(void **)(iVar5 + 0x44),param_2);
+        sputCostume_BuildThingStateMatrices(*(void **)(iVar5 + 0x44),param_2);
         iVar8 = *(int *)(*(int *)(iVar5 + 0x44) + 0x40);
         iVar7 = *(int *)(*(int *)(iVar8 + 4) + 0x58) + *(int *)(iVar5 + 0x48) * 0xb8;
         iVar2 = *(int *)(*(int *)(*(int *)(iVar5 + 0x40) + 4) + 0x58);
         if (g_nSputRender_b3DAcceleration == 0) {
           pvVar6 = (void *)Render_GetBackBuffer();
-          Surface_Lock(pvVar6);
+          stdDisplay_VBufferLock(pvVar6);
         }
         if ((*(int *)(iVar5 + 0x3c) != 0) && (**(int **)(iVar5 + 0x40) != 4)) {
           iVar3 = (*(int **)(iVar5 + 0x40))[1];
@@ -2518,8 +2544,8 @@ LAB_004951b3:
         }
         piVar1[0x1a] = 0;
         if ((piVar1[0x29] != 0) && (*(int *)(piVar1[0x29] + 0x420) == *(int *)(iVar5 + 0x48))) {
-          Renderer_EnableClipPlane(1);
-          Renderer_SetClipPlane(piVar1 + 0x11,piVar1 + 3);
+          rdModel3_ActivateClipPlane(1);
+          rdModel3_SetClipPlane(piVar1 + 0x11,piVar1 + 3);
         }
         iVar8 = rdThing_DrawAlt(*(void **)(iVar5 + 0x40),
                                 (float *)(*(int *)(iVar8 + 0x20) + *(int *)(iVar5 + 0x48) * 0x30));
@@ -2527,7 +2553,7 @@ LAB_004951b3:
           piVar1[0x1a] = 1;
         }
         if ((piVar1[0x29] != 0) && (*(int *)(piVar1[0x29] + 0x420) == *(int *)(iVar5 + 0x48))) {
-          Renderer_EnableClipPlane(0);
+          rdModel3_ActivateClipPlane(0);
         }
         if ((*(int *)(iVar5 + 0x3c) != 0) && (**(int **)(iVar5 + 0x40) != 4)) {
           *(float *)(iVar2 + 100) = *(float *)(iVar7 + 100) + *(float *)(iVar2 + 100);
@@ -2540,7 +2566,7 @@ LAB_004951b3:
         }
         if (g_nSputRender_b3DAcceleration == 0) {
           pvVar6 = (void *)Render_GetBackBuffer();
-          Surface_Unlock(pvVar6);
+          stdDisplay_VBufferUnlock(pvVar6);
         }
       }
       piVar4 = (int *)*piVar1;
@@ -2585,8 +2611,11 @@ LAB_004951b3:
 #undef uStack_1c
 
 
-/* ---- 0x004a5eb0  Actor_RemoveFromSet ---- */
-void __cdecl Actor_RemoveFromSet(char *setName,void *actor)
+/* ---- 0x004a5eb0  sputRoom_RemoveActor ---- */
+/* Original name sputRoom_RemoveActor (the remaster's GrimFandango (Linux): aligned call in
+   sputActor_FreeActor, body similarity); was Actor_RemoveFromSet. */
+
+void __cdecl sputRoom_RemoveActor(char *setName,void *actor)
 
 {
   int iVar1;
@@ -2624,10 +2653,12 @@ void __cdecl Actor_RemoveFromSet(char *setName,void *actor)
   return;
 }
 
-/* ---- 0x004a5f60  Actor_PutInSet ---- */
-/* sputRoom.cpp: moves the actor into the named set's actor list (actor+0x7c holds the set name) */
+/* ---- 0x004a5f60  sputRoom_AddActor ---- */
+/* sputRoom.cpp: moves the actor into the named set's actor list (actor+0x7c holds the set name)
+   Original name sputRoom_AddActor (the remaster's GrimFandango (Linux): aligned call in
+   sputActor_Restore, sputLua_PutActorInSetL); was Actor_PutInSet. */
 
-void __cdecl Actor_PutInSet(void *actor,char *setName)
+void __cdecl sputRoom_AddActor(void *actor,char *setName)
 
 {
   char *setName_00;
@@ -2665,7 +2696,7 @@ LAB_004a5fa6:
   setName_00 = setName + 0x7c;
   if ((setName_00 != (char *)0x0) || (actor != (void *)0x0)) {
     if ((setName != (char *)0x0) && (setName_00 != (char *)0x0)) {
-      Actor_RemoveFromSet(setName_00,setName);
+      sputRoom_RemoveActor(setName_00,setName);
     }
     if (actor == (void *)0x0) {
       setName[0x68] = '\0';

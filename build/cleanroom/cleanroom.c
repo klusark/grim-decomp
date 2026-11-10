@@ -18,8 +18,8 @@
  * windows. */
 
 #ifdef GRIM_EXE
-/* WRAPS: Reg_Open Reg_Close Reg_HasValue Reg_GetInt Reg_GetFloat Reg_GetBinary Reg_GetString Reg_GetValueType */
-/* WRAPS: Reg_SetInt Reg_SetFloat Reg_SetBinary Reg_SetString Lua_Print_NoOp */
+/* WRAPS: Reg_Open Reg_Close Reg_HasValue Reg_GetInt wuRegistry_GetFloat Reg_GetBinary wuRegistry_GetStr wuRegistry_QueryType */
+/* WRAPS: Reg_SetInt wuRegistry_SaveFloat Reg_SetBinary wuRegistry_SaveStr Lua_Print_NoOp */
 
 /* the host C runtime (msvcrt); no system headers: compat.h and the decompiled code define their own names */
 typedef struct _iobuf FILE;
@@ -53,14 +53,14 @@ extern void __real_Reg_Open(void *root, unsigned subkey, char *version);
 extern void __real_Reg_Close(void);
 extern int __real_Reg_HasValue(char *name);
 extern int __real_Reg_GetInt(char *name, int def);
-extern float __real_Reg_GetFloat(char *name, float def);
+extern float __real_wuRegistry_GetFloat(char *name, float def);
 extern int __real_Reg_GetBinary(char *name, void *data, int size);
-extern int __real_Reg_GetString(char *name, char *buf, int size, char *def);
-extern int __real_Reg_GetValueType(char *name);
+extern int __real_wuRegistry_GetStr(char *name, char *buf, int size, char *def);
+extern int __real_wuRegistry_QueryType(char *name);
 extern int __real_Reg_SetInt(char *name, int value);
-extern int __real_Reg_SetFloat(char *name, float value);
+extern int __real_wuRegistry_SaveFloat(char *name, float value);
 extern int __real_Reg_SetBinary(char *name, void *data, int size);
-extern void __real_Reg_SetString(char *name, char *value);
+extern void __real_wuRegistry_SaveStr(char *name, char *value);
 extern void __real_Lua_Print_NoOp(void);
 extern void sputRender_SaveDrawBuffer(char *filename);
 
@@ -267,12 +267,12 @@ int __wrap_Reg_GetInt(char *name, int def)
     return ini_type(e->value) == T_NUMBER ? (int)strtod(e->value, 0) : def;
 }
 
-float __wrap_Reg_GetFloat(char *name, float def)
+float __wrap_wuRegistry_GetFloat(char *name, float def)
 {
     IniEntry *e;
     union { unsigned char b[4]; float f; } u;
     if (!ini_on())
-        return __real_Reg_GetFloat(name, def);
+        return __real_wuRegistry_GetFloat(name, def);
     if (!(e = ini_lookup(name)))
         return def;
     if (ini_is_hex(e->value))
@@ -280,13 +280,13 @@ float __wrap_Reg_GetFloat(char *name, float def)
     return ini_type(e->value) == T_NUMBER ? (float)strtod(e->value, 0) : def;
 }
 
-int __wrap_Reg_GetString(char *name, char *buf, int size, char *def)
+int __wrap_wuRegistry_GetStr(char *name, char *buf, int size, char *def)
 {
     IniEntry *e;
     const char *v;
     unsigned n;
     if (!ini_on())
-        return __real_Reg_GetString(name, buf, size, def);
+        return __real_wuRegistry_GetStr(name, buf, size, def);
     if (!(e = ini_lookup(name)) || size < 1)
         return 0;   /* like the original, the buffer is left alone when the value does not exist */
     v = e->value;
@@ -311,11 +311,11 @@ int __wrap_Reg_GetBinary(char *name, void *data, int size)
     return e && ini_is_hex(e->value) && ini_hex_bytes(e->value, (unsigned char *)data, size) >= 0;
 }
 
-int __wrap_Reg_GetValueType(char *name)
+int __wrap_wuRegistry_QueryType(char *name)
 {
     IniEntry *e;
     if (!ini_on())
-        return __real_Reg_GetValueType(name);
+        return __real_wuRegistry_QueryType(name);
     e = ini_lookup(name);
     return e ? ini_type(e->value) : T_NONE;
 }
@@ -331,23 +331,23 @@ int __wrap_Reg_SetInt(char *name, int value)
     return 1;
 }
 
-int __wrap_Reg_SetFloat(char *name, float value)
+int __wrap_wuRegistry_SaveFloat(char *name, float value)
 {
     char s[32];
     if (!ini_on())
-        return __real_Reg_SetFloat(name, value);
+        return __real_wuRegistry_SaveFloat(name, value);
     sprintf(s, "%.9g", (double)value);
     ini_store(name, s);
     ini_save();
     return 1;
 }
 
-void __wrap_Reg_SetString(char *name, char *value)
+void __wrap_wuRegistry_SaveStr(char *name, char *value)
 {
     unsigned n;
     char *s;
     if (!ini_on()) {
-        __real_Reg_SetString(name, value);
+        __real_wuRegistry_SaveStr(name, value);
         return;
     }
     n = __builtin_strlen(value);

@@ -26,7 +26,7 @@ undefined4 ThingAdjuster(int *param_1,undefined4 param_2)
   iVar1 = *param_1;
   local_24 = (uint)s_Resolve_parent_offset__0___off__004ea5e0;
   param_1 = (int *)(uint)(*(int *)(iVar1 + 0x34) != 0);
-  iVar3 = Plat_PromptDialog(param_2,&local_24,&param_1,1);
+  iVar3 = grimPlat_SpinDialog(param_2,&local_24,&param_1,1);
   if (iVar3 != 0) {
     iVar3 = strtok(uVar2,&DAT_004ea52c);
     *(int **)(iVar1 + 0x34) = param_1;
@@ -43,11 +43,15 @@ undefined4 ThingAdjuster(int *param_1,undefined4 param_2)
 #endif
 
 
-/* ---- 0x00496930  ModelComponent_SetVisibleFlag ---- */
-void ModelComponent_SetVisibleFlag(undefined4 param_1,int param_2,undefined4 param_3,int param_4)
+/* ---- 0x00496930  ThingChanger ---- */
+/* Original name ThingChanger (the remaster's GrimFandango (Linux): the same handler slot (changer)
+   of the same costume tag registration in sputCostume_Startup); was ModelComponent_SetVisibleFlag.
+    */
+
+void ThingChanger(undefined4 param_1,int param_2,undefined4 param_3,int param_4)
 
 {
-  *(uint *)(param_2 + 0x38) = (uint)(*(int *)(&DAT_004e9ef8 + param_4 * 4) != 0);
+  *(uint *)(param_2 + 0x38) = (uint)(*(int *)(&g_aThingCommands + param_4 * 4) != 0);
   return;
 }
 
@@ -126,7 +130,7 @@ void * __cdecl ThingInstancer(void *cosInst,int componentIdx,int create)
   }
   Res_SetReference(ref,pvVar1,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0xa91);
   thing = (void *)rdThing_New(0);
-  rdThing_SetModel(thing,pvVar1);
+  rdThing_SetModel3(thing,pvVar1);
   uVar5 = rdPuppet_New(thing);
   *(undefined4 *)((int)thing + 0x14) = uVar5;
   ref[0x10] = thing;
@@ -152,12 +156,14 @@ void * __cdecl ThingInstancer(void *cosInst,int componentIdx,int create)
 #endif
 
 
-/* ---- 0x00496b40  ModelComponent_Stop ---- */
+/* ---- 0x00496b40  ThingStopper ---- */
 /* Costume tag handler for 'MAIN RDroid Thing (3DO) / RDroid Thing (3DO)' (registered by
    sputCostume_Start through Cos_NewStateBasedTag/Cos_NewIntTag): slot 3, restores the default
-   visibility flag (+0x38 = (+0x44 == 0)). */
+   visibility flag (+0x38 = (+0x44 == 0)). Original name ThingStopper (the remaster's GrimFandango
+   (Linux): the same handler slot (stopper) of the same costume tag registration in
+   sputCostume_Startup); was ModelComponent_Stop. */
 
-undefined4 ModelComponent_Stop(int param_1)
+undefined4 ThingStopper(int param_1)
 
 {
   *(uint *)(param_1 + 0x38) = (uint)(*(int *)(param_1 + 0x44) == 0);
@@ -202,17 +208,17 @@ int ThingRequester(uint param_1,int param_2,int param_3,int param_4,char *param_
   }
   if (param_5 == (char *)0x0) {
     if (g_bModelPath != '\0') {
-      Plat_SetDialogDirectory(&g_bModelPath);
+      grimPlat_SetDefaultOpenPath(&g_bModelPath);
     }
-    iVar3 = Plat_OpenFileDialog(s_Select_model_file_to_add____004ea600,
-                                s_Model_files____3do__004ea61c);
+    iVar3 = grimPlat_OpenFileRequest
+                      (s_Select_model_file_to_add____004ea600,s_Model_files____3do__004ea61c);
     if (iVar3 == 0) {
       return false;
     }
-    uVar2 = ((code *)Plat_GetDialogFileName)(0x7f);
+    uVar2 = ((code *)grimPlat_GetDefaultOpenPath)(0x7f);
     ((code *)strncpy)(&g_bModelPath,uVar2);
     DAT_008caa37 = 0;
-    param_5 = Str_Basename(g_szGrimlib_aFilename);
+    param_5 = stdFnames_FindMedName(g_szGrimlib_aFilename);
     data = sputResource_Alloc(0x4c444f4d,g_szGrimlib_aFilename);
   }
   else {
@@ -249,8 +255,11 @@ int ThingRequester(uint param_1,int param_2,int param_3,int param_4,char *param_
 #undef local_24
 
 
-/* ---- 0x00496d10  ModelComponent_Destroy ---- */
-undefined4 ModelComponent_Destroy(undefined4 param_1,undefined4 param_2,void *param_3)
+/* ---- 0x00496d10  ThingFreer ---- */
+/* Original name ThingFreer (the remaster's GrimFandango (Linux): the same handler slot (freer) of
+   the same costume tag registration in sputCostume_Startup); was ModelComponent_Destroy. */
+
+undefined4 ThingFreer(undefined4 param_1,undefined4 param_2,void *param_3)
 
 {
   Res_RemoveReference(param_3);

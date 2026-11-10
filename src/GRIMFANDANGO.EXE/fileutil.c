@@ -20,11 +20,11 @@ undefined4 FileUtil_SysInitialize(GrimServices *param_1,undefined4 *param_2)
     g_dwFileUtilSysInitialized = 1;
     if (param_2 != (undefined4 *)0x0) {
       *param_2 = FileUtil_SysInitialize;
-      param_2[1] = FileUtil_Sys_Terminate;
-      param_2[2] = FileUtil_Sys_Start;
-      param_2[3] = FileUtil_Sys_Stop;
-      param_2[4] = FileUtil_Sys_SaveState;
-      param_2[5] = SaveFile_CheckFUTBHeader;
+      param_2[1] = FileUtil_SysTerminate;
+      param_2[2] = FileUtil_SysStartup;
+      param_2[3] = FileUtil_SysShutdown;
+      param_2[4] = FileUtil_SysSave;
+      param_2[5] = FileUtil_SysRestore;
       param_2[6] = zlibVersion;
       param_2[7] = zlibVersion;
     }
@@ -33,50 +33,55 @@ undefined4 FileUtil_SysInitialize(GrimServices *param_1,undefined4 *param_2)
   return uVar1;
 }
 
-/* ---- 0x00488ce0  FileUtil_Sys_Terminate ---- */
+/* ---- 0x00488ce0  FileUtil_SysTerminate ---- */
 /* Module interface slot 1 (FileUtil_Sys): called by Engine_ResetSubsystems / when registration
-   fails; drops the service table pointer and clears the initialised flag. */
+   fails; drops the service table pointer and clears the initialised flag. Original name
+   FileUtil_SysTerminate (the remaster's GrimFandango (Linux): aligned call in
+   FileUtil_SysInitialize); was FileUtil_Sys_Terminate. */
 
-void FileUtil_Sys_Terminate(void)
+void FileUtil_SysTerminate(void)
 
 {
   g_dwFileUtilSysInitialized = 0;
   return;
 }
 
-/* ---- 0x00488cf0  FileUtil_Sys_Start ---- */
+/* ---- 0x00488cf0  FileUtil_SysStartup ---- */
 /* Module interface slot 2 (FileUtil_Sys): called by Engine_InitSubsystems, returns 0 on success
-   (non-zero makes the whole start-up unwind).  */
+   (non-zero makes the whole start-up unwind). Original name FileUtil_SysStartup (the remaster's
+   GrimFandango (Linux): aligned call in FileUtil_SysInitialize); was FileUtil_Sys_Start. */
 
-undefined4 FileUtil_Sys_Start(void)
+undefined4 FileUtil_SysStartup(void)
 
 {
   undefined4 uVar1;
   
   uVar1 = 1;
-  if ((g_dwFileUtilSysInitialized != 0) && (UINT_008c9a98 == 0)) {
-    UINT_008c9a98 = 1;
+  if ((g_dwFileUtilSysInitialized != 0) && (g_dwFileUtilSysStarted == 0)) {
+    g_dwFileUtilSysStarted = 1;
     uVar1 = 0;
   }
   return uVar1;
 }
 
-/* ---- 0x00488d20  FileUtil_Sys_Stop ---- */
+/* ---- 0x00488d20  FileUtil_SysShutdown ---- */
 /* Module interface slot 3 (FileUtil_Sys): called by Engine_ShutdownSubsystems in reverse order;
-   releases what _Start created. */
+   releases what _Start created. Original name FileUtil_SysShutdown (the remaster's GrimFandango
+   (Linux): aligned call in FileUtil_SysInitialize); was FileUtil_Sys_Stop. */
 
-void FileUtil_Sys_Stop(void)
+void FileUtil_SysShutdown(void)
 
 {
-  UINT_008c9a98 = 0;
+  g_dwFileUtilSysStarted = 0;
   return;
 }
 
-/* ---- 0x00488d30  FileUtil_Sys_SaveState ---- */
+/* ---- 0x00488d30  FileUtil_SysSave ---- */
 /* Module interface slot 4 (FileUtil_Sys): save-game writer, calls the SaveGame_Write callback it is
-   handed for every field. */
+   handed for every field. Original name FileUtil_SysSave (the remaster's GrimFandango (Linux):
+   aligned call in FileUtil_SysInitialize); was FileUtil_Sys_SaveState. */
 
-undefined4 FileUtil_Sys_SaveState(code *param_1)
+undefined4 FileUtil_SysSave(code *param_1)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */

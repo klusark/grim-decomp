@@ -16,25 +16,26 @@ undefined4 sputActor_Initialize(uint param_1,undefined4 *param_2)
   g_dwSputActHS = param_1;
   *param_2 = sputActor_Initialize;
   param_2[1] = sputActor_Terminate;
-  param_2[2] = sputActor_Start;
-  param_2[3] = sputActor_Stop;
-  param_2[4] = sputActor_SaveState;
+  param_2[2] = sputActor_Startup;
+  param_2[3] = sputActor_Shutdown;
+  param_2[4] = sputActor_Save;
   param_2[5] = sputActor_Restore;
   param_2[6] = 0;
   param_2[7] = 0;
   g_pTalkingActors = (void *)0x0;
-  UINT_008ca768 = 1;
+  g_dwSputActInitialize = 1;
   UINT_008ca314 = 0;
   _DAT_008ca318 = 0;
   _DAT_008ca31c = 0;
   return 0;
 }
 
-/* ---- 0x0048e330  sputActor_SaveState ---- */
+/* ---- 0x0048e330  sputActor_Save ---- */
 /* Module interface slot 4 (sputActor): save-game writer, calls the SaveGame_Write callback it is
-   handed for every field. */
+   handed for every field. Original name sputActor_Save (the remaster's GrimFandango (Linux):
+   aligned call in sputActor_Initialize); was sputActor_SaveState. */
 
-undefined4 sputActor_SaveState(code *param_1)
+undefined4 sputActor_Save(code *param_1)
 
 {
   unsigned char _frame[0xc0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -381,7 +382,7 @@ undefined4 sputActor_Restore(code *param_1)
   if (0 < g_nMaxActors) {
     iVar8 = 0;
     do {
-      Actor_Destroy((void *)((int)g_pActors + iVar8));
+      sputActor_FreeActor((void *)((int)g_pActors + iVar8));
       iVar9 = iVar9 + 1;
       iVar8 = iVar8 + 0xa8;
     } while (iVar9 < g_nMaxActors);
@@ -456,7 +457,7 @@ undefined4 sputActor_Restore(code *param_1)
       piVar10 = setName + 0x1f;
       (*param_1)(piVar10,0x20);
       (*param_1)(&iStack_13c,4);
-      ResRef_Release(*setName);
+      Res_ResolveToSerialNumber(*setName);
       if ((char)*piVar10 != '\0') {
         uVar6 = 0xffffffff;
         do {
@@ -481,7 +482,7 @@ undefined4 sputActor_Restore(code *param_1)
           puVar12 = (undefined4 *)((int)puVar12 + 1);
         }
         *(char *)(setName + 0x1f) = '\0';
-        Actor_PutInSet(auStack_40,(char *)setName);
+        sputRoom_AddActor(auStack_40,(char *)setName);
       }
       setName[0x28] = 0;
       (*param_1)(&iStack_148,4);
@@ -501,7 +502,7 @@ undefined4 sputActor_Restore(code *param_1)
           (*param_1)(auStack_fc,0x40);
           (*param_1)(&uStack_bc,4);
           (*param_1)(aiStack_b4,4);
-          ResRef_Release(&iStack_b8);
+          Res_ResolveToSerialNumber(&iStack_b8);
           if (iStack_b8 == 0) {
             (*g_pStd_HS->pAssertFail)
                       (s_Bad_costume_Reference_004e9e90,s_main_sputResource_h_004e80a8,0xb8);
@@ -782,24 +783,25 @@ void sputActor_Terminate(void)
 
 {
   g_dwSputActHS = 0;
-  if (UINT_008ca768 != 0) {
-    UINT_008ca768 = 0;
+  if (g_dwSputActInitialize != 0) {
+    g_dwSputActInitialize = 0;
   }
   return;
 }
 
-/* ---- 0x00490e80  sputActor_Start ---- */
+/* ---- 0x00490e80  sputActor_Startup ---- */
 /* Module interface slot 2 (sputActor): called by Engine_InitSubsystems, returns 0 on success
    (non-zero makes the whole start-up unwind). _Start allocates the 0x2a000-byte actor table and
-   sorts the phoneme table; _Stop destroys every actor. */
+   sorts the phoneme table; _Stop destroys every actor. Original name sputActor_Startup (the
+   remaster's GrimFandango (Linux): aligned call in sputActor_Initialize); was sputActor_Start. */
 
-undefined4 sputActor_Start(void)
+undefined4 sputActor_Startup(void)
 
 {
   int iVar1;
   undefined4 *puVar2;
   
-  if (UINT_008ca76c != 0) {
+  if (g_dwSputActStartup != 0) {
     return 1;
   }
   g_pActors = (void *)(**(code **)(g_dwSputActHS + 0x20))
@@ -809,16 +811,17 @@ undefined4 sputActor_Start(void)
     *puVar2 = 0;
     puVar2 = puVar2 + 1;
   }
-  qsort(&g_PhonemeTable,g_nPhonemeCount,8,FUN_00490e50);
-  UINT_008ca76c = 1;
+  qsort(&g_PhonemeTable,g_nPhonemeCount,8,ComparePhonemes);
+  g_dwSputActStartup = 1;
   return 0;
 }
 
-/* ---- 0x00490ef0  sputActor_Stop ---- */
+/* ---- 0x00490ef0  sputActor_Shutdown ---- */
 /* Module interface slot 3 (sputActor): called by Engine_ShutdownSubsystems in reverse order;
-   releases what _Start created. */
+   releases what _Start created. Original name sputActor_Shutdown (the remaster's GrimFandango
+   (Linux): aligned call in sputActor_Initialize); was sputActor_Stop. */
 
-void sputActor_Stop(void)
+void sputActor_Shutdown(void)
 
 {
   int iVar1;
@@ -828,7 +831,7 @@ void sputActor_Stop(void)
   if (0 < g_nMaxActors) {
     iVar1 = 0;
     do {
-      Actor_Destroy((void *)((int)g_pActors + iVar1));
+      sputActor_FreeActor((void *)((int)g_pActors + iVar1));
       iVar2 = iVar2 + 1;
       iVar1 = iVar1 + 0xa8;
     } while (iVar2 < g_nMaxActors);
@@ -836,6 +839,6 @@ void sputActor_Stop(void)
   if (g_pActors != (void *)0x0) {
     (**(code **)(g_dwSputActHS + 0x24))(g_pActors);
   }
-  UINT_008ca76c = 0;
+  g_dwSputActStartup = 0;
   return;
 }

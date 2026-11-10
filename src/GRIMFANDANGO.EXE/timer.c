@@ -5,15 +5,21 @@
 #include "globals.h"
 #include "functions.h"
 
-/* ---- 0x004a3be0  Timer_GetTotalMs ---- */
-uint Timer_GetTotalMs(void)
+/* ---- 0x004a3be0  sputTime_GetGameTime ---- */
+/* Original name sputTime_GetGameTime (the remaster's GrimFandango (Linux): aligned call in
+   sputRender_IrisDown, sputRender_IrisUp, sputRender_Update); was Timer_GetTotalMs. */
+
+uint sputTime_GetGameTime(void)
 
 {
   return g_dwTimerTotalMs;
 }
 
-/* ---- 0x004a3bf0  Timer_GetFrameMs ---- */
-uint Timer_GetFrameMs(void)
+/* ---- 0x004a3bf0  sputTime_GetFrameTime ---- */
+/* Original name sputTime_GetFrameTime (the remaster's GrimFandango (Linux): aligned call in
+   grimlib_UpdateManual, sputLua_Update, sputText_Update); was Timer_GetFrameMs. */
+
+uint sputTime_GetFrameTime(void)
 
 {
   return g_dwTimerFrameMs;
@@ -29,12 +35,14 @@ float __cdecl sputTime_GetFrameTimeFlex(void)
   return g_flSputTime_frameTimeSeconds;
 }
 
-/* ---- 0x004a3c10  Timer_UpdateFromWallClock ---- */
+/* ---- 0x004a3c10  sputTime_Advance ---- */
 /* Frame time from the wall clock: DAT_008caba8 = timeGetTime() - last, capped at 300 ms;
    DAT_008caba4 += it (total ms); DAT_008cabac = ms * 0.001 (frame seconds, read by
-   Timer_GetFrameSeconds). The real-time path; jitters with the machine. */
+   Timer_GetFrameSeconds). The real-time path; jitters with the machine. Original name
+   sputTime_Advance (the remaster's GrimFandango (Linux): aligned call in grimlib_UpdateManual); was
+   Timer_UpdateFromWallClock. */
 
-void Timer_UpdateFromWallClock(void)
+void sputTime_Advance(void)
 
 {
   uint uVar1;
@@ -55,12 +63,13 @@ void Timer_UpdateFromWallClock(void)
   return;
 }
 
-/* ---- 0x004a3c80  Timer_UpdateFixedStep ---- */
+/* ---- 0x004a3c80  sputTime_AdvanceManual ---- */
 /* Frame time given by the caller (ms, capped at 300): same globals as Timer_UpdateFromWallClock,
    but the length of the frame is the argument, not the clock. Used with a fixed frame time (see
-   Game_FrameUpdate). */
+   Game_FrameUpdate). Original name sputTime_AdvanceManual (the remaster's GrimFandango (Linux):
+   aligned call in grimlib_UpdateManual, sputRender_Dim); was Timer_UpdateFixedStep. */
 
-void Timer_UpdateFixedStep(uint param_1)
+void sputTime_AdvanceManual(uint param_1)
 
 {
   g_dwTimerFrameMs = param_1;

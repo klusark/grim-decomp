@@ -15,6 +15,10 @@ ltable__c190 -> luaH_free work), whole words only:
     or when every entry of the file that has the name is the renamed function's (same "addr" and program);
   * tools/*.py, build/*.py, docs/*.md, build/cleanroom/*.md (not docs/notes or build/BUILD_NOTES.md, which are history,
     nor build/difftest): when no other program has a function of that name.
+With --difftest only build/difftest is processed (*.c, *.h, *.s, *.S, *.sh, *.py, *.ld, *.sed, *.lua, not out/), and
+also `orig_<old>` (the original machine code build/mixdiff/slice_orig.py cuts out of a baseline assembly; slice_orig.py
+finds a current name under its old label). The harnesses predate the renames, so the batch given is one that maps the
+earliest old name of each address to its current name (tools/orig_history.py writes it).
 Prints every file it changes and the occurrences it left alone (shared names in unguarded text) for review.
 Run it once per batch, on files that still have the old names: it is not idempotent for chains and swaps (a second
 run would carry luaH_free on to luaH_hashnodecreate)."""
@@ -105,11 +109,17 @@ def main():
                 owners.setdefault(n, set()).add(p)
     word = {p: re.compile(r"\b(" + "|".join(map(re.escape, sorted(m, key=len, reverse=True))) + r")\b") if m else None
             for p, m in ren.items()}
-    # whole words, and the assembler names "_Name" of __asm__("_Name") declarations
+    # whole words, the assembler names "_Name" of __asm__("_Name") declarations and of `.def _Name` / `.globl _Name`
+    # lines in __asm__ blocks, and the ld --wrap symbols
+    # __wrap_Name / __real_Name of build/cleanroom/*.c (their WRAPS lines name the function itself)
     # globals also as Ghidra's other-width view `_DAT_x` and its piece `DAT_x_2`
     falt = "|".join(re.escape(o) for m in ren.values() for o in m if o not in gold)
     galt = "|".join(re.escape(o) for o in sorted(gold, key=len, reverse=True))
-    allold = re.compile("|".join(([r"(?:\b|(?<=\"_))(" + falt + r")\b"] if falt else [r"(?!x)x()"]) +
+    # (build/difftest also: orig_Name, the original machine code that build/mixdiff/slice_orig.py cuts out of a
+    # baseline assembly; slice_orig.py maps a current name to the old label of its baseline)
+    pre = r"|(?<=orig_)" if "--difftest" in sys.argv else ""
+    allold = re.compile("|".join(([r"(?:\b|(?<=\"_)|(?<=[ \t,]_)|(?<=__wrap_)|(?<=__real_)" + pre + r")(" + falt + r")\b"] if falt
+                                  else [r"(?!x)x()"]) +
                                  ([r"\b(_?)(" + galt + r")(_\d+)?\b"] if galt else [])))
     skipped = []
 
@@ -151,6 +161,26 @@ def main():
         return allold.sub(rep, text)
 
     changed = []
+    if "--difftest" in sys.argv:
+        # only the differential-test harnesses of build/difftest (sources, scripts, linker scripts; not the
+        # generated out/ trees, logs or binaries); C and assembler text follows the #ifdef GRIM_* guards
+        for path in sorted(glob.glob(os.path.join(ROOT, "build", "difftest", "**", "*"), recursive=True)):
+            rel = os.path.relpath(path, ROOT)
+            ext = os.path.splitext(path)[1]
+            if (not os.path.isfile(path) or ext not in (".c", ".h", ".s", ".S", ".sh", ".py", ".ld", ".sed", ".lua")
+                    or "/out/" in rel.replace("\\", "/") + "/"):
+                continue
+            text = open(path, encoding="utf-8", errors="surrogateescape").read()
+            new = sub_free(text, rel, progs_of_line=ext in (".c", ".h", ".s", ".S"))
+            if new != text:
+                changed.append(path)
+                if not dry:
+                    open(path, "w", encoding="utf-8", errors="surrogateescape", newline="").write(new)
+        for c in changed:
+            print("changed", os.path.relpath(c, ROOT))
+        for s in skipped:
+            print("LEFT (shared name, check by hand)", s)
+        return
     # hand-written C
     for path in sorted(glob.glob(os.path.join(ROOT, "build", "*.c")) + glob.glob(os.path.join(ROOT, "build", "*.h")) +
                        glob.glob(os.path.join(ROOT, "build", "cleanroom", "*.[ch]"))):

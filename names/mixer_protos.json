@@ -152,7 +152,7 @@
  },
  {
   "addr": "004c3df0",
-  "proto": "void Insane_MemCopyCdecl(void * dst, void * src, uint n)"
+  "proto": "void msc_MemCopy(void * dst, void * src, uint n)"
  },
  {
   "addr": "004d0300",
@@ -236,7 +236,7 @@
  },
  {
   "addr": "004d0cf0",
-  "proto": "int Sound_VoiceSampleCount(int voice)"
+  "proto": "int sou_engine_QueryTime(int voice)"
  },
  {
   "addr": "004d0d70",
@@ -268,7 +268,7 @@
  },
  {
   "addr": "004d16a0",
-  "proto": "void SoundModule_MixCallback(int frames, void * mix)"
+  "proto": "void sou_engine_fill(int frames, void * mix)"
  },
  {
   "addr": "004d2340",
@@ -341,7 +341,7 @@
  },
  {
   "addr": "004cc250",
-  "proto": "int Blocky16_SetOption(int key, ...)",
+  "proto": "int fob_flobdec_blocky16_config(int key, ...)",
   "cc": "__cdecl"
  },
  {
@@ -376,7 +376,7 @@
  },
  {
   "addr": "004bdf00",
-  "proto": "int Smush_GetLengthMs(char * path)",
+  "proto": "int SmushPlay_GetMovieLength(char * path)",
   "cc": "__cdecl"
  },
  {
@@ -391,7 +391,7 @@
  },
  {
   "addr": "004c16c0",
-  "proto": "void * LecShare_Resolve(char * name, char * pattern)",
+  "proto": "void * LecShare_Subscribe(char * name, char * pattern)",
   "cc": "__cdecl"
  },
  {
@@ -411,12 +411,12 @@
  },
  {
   "addr": "004c36b0",
-  "proto": "int AnimPlay_ResetState(void * p)",
+  "proto": "int anm_animator_Initialize(void * p)",
   "cc": "__cdecl"
  },
  {
   "addr": "004c3d30",
-  "proto": "int AnimPlay_OpenFile(void * p, char * name, uint flags, int a4, int a5, int a6)",
+  "proto": "int anm_animator_NewAnim(void * p, char * name, uint flags, int a4, int a5, int a6)",
   "cc": "__cdecl"
  },
  {

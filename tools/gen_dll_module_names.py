@@ -51,7 +51,7 @@ LUA_KNOWN = {
     0x73b0: ('luaM_free', ''), 0x73f0: ('luaM_growaux', ''),
     0x7450: ('luaO_redimension', 'next prime size for a hash; table overflow past the last prime'),
     0x8d40: ('luaS_init', ''), 0x9000: ('luaS_newlstr', ''), 0x9110: ('luaS_newfixedstring', ''),
-    0xa7d0: ('luaY_code_byte', 'code size overflow'), 0xaa40: ('luaY_syntaxerror', 'lua.stx error reporting'),
+    0xa7d0: ('check_pc', 'code size overflow'), 0xaa40: ('close_func', 'lua.stx error reporting'),
     0xabd0: ('luaY_parse', 'generated LALR parser from lua.stx'), 0xb860: ('luaY_next_constant', 'constant table overflow'),
     0xc200: ('luaH_save', 'Grim save-game table writer (asserts writtenItems == numItems)'),
     0xc850: ('luaT_init', ''), 0xc920: ('luaT_realtag', "not result of `newtag'"),
@@ -68,7 +68,7 @@ IMUSE_RANGES = [
     (0x4aa0, 'iMUSE_api', 'exported Im* entry points'),
     (0x5360, 'iMUSE_Mixer', 'iMUSE_Mixer.c (software mixing / resampling)'),
     (0x7410, 'iMUSE_sounds', 'iMUSE_sounds.c (sound resource slots)'),
-    (0xa1e0, 'iMUSE_stream', 'stream tracks (Im_RefillStreamTrack and friends) - module name inferred'),
+    (0xa1e0, 'iMUSE_stream', 'stream tracks (Stream_LoadData and friends) - module name inferred'),
     (0xb870, 'hmi', 'HMI SOS FX hooks and helpers - module name inferred'),
     (0xd210, None, 'MSVC C runtime'),
 ]

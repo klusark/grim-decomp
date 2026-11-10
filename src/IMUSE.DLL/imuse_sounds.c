@@ -28,7 +28,7 @@ undefined4 __cdecl iMUSE_sounds__9e40(undefined *param_1,int param_2,int param_3
 {
   undefined4 uVar1;
   
-  if ((param_1 < &DAT_100303a0) || ((undefined *)IMG_ADDR(0x1003151f) < param_1)) {
+  if ((param_1 < &g_aMcmpFileHandles) || ((undefined *)IMG_ADDR(0x1003151f) < param_1)) {
     uVar1 = (**(code **)(g_dwSounds_pHS + 0x4c))(param_1,param_2,param_3);
     return uVar1;
   }

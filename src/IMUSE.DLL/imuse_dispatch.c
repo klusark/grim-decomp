@@ -5,29 +5,32 @@
 #include "globals.h"
 #include "functions.h"
 
-/* ---- 0x10001fd0  iMUSE_Dispatch__1fd0 ---- */
-/* Unidentified function of iMUSE_Dispatch.c (command dispatch, fades, triggers) */
+/* ---- 0x10001fd0  DpTerminate ---- */
+/* Original name DpTerminate (the remaster's GrimFandango (Linux): aligned call in TrTerminate); was
+   iMUSE_Dispatch__1fd0. */
 
-undefined4 iMUSE_Dispatch__1fd0(void)
+undefined4 DpTerminate(void)
 
 {
-  (**(code **)(g_dwSounds_pHS + 0x24))(DAT_1002d808);
+  (**(code **)(g_dwSounds_pHS + 0x24))(g_dwMemAddr);
   return 0;
 }
 
-/* ---- 0x10001ff0  iMUSE_Dispatch__1ff0 ---- */
-/* Unidentified function of iMUSE_Dispatch.c (command dispatch, fades, triggers) */
+/* ---- 0x10001ff0  DpGetDp ---- */
+/* Original name DpGetDp (the remaster's GrimFandango (Linux): aligned call in TrInitialize,
+   TrRestore); was iMUSE_Dispatch__1ff0. */
 
-undefined4 * __cdecl iMUSE_Dispatch__1ff0(int param_1)
+undefined4 * __cdecl DpGetDp(int param_1)
 
 {
-  return &DAT_100252a0 + param_1 * 0x215;
+  return &g_dwDispatches + param_1 * 0x215;
 }
 
-/* ---- 0x10002010  iMUSE_Dispatch__2010 ---- */
-/* Unidentified function of iMUSE_Dispatch.c (command dispatch, fades, triggers) */
+/* ---- 0x10002010  DpSave ---- */
+/* Original name DpSave (the remaster's GrimFandango (Linux): aligned call in TrSave); was
+   iMUSE_Dispatch__2010. */
 
-undefined4 __cdecl iMUSE_Dispatch__2010(undefined4 *param_1,uint param_2)
+undefined4 __cdecl DpSave(undefined4 *param_1,uint param_2)
 
 {
   int iVar1;
@@ -36,7 +39,7 @@ undefined4 __cdecl iMUSE_Dispatch__2010(undefined4 *param_1,uint param_2)
   if (param_2 < 0x8540) {
     return 0xfffffffb;
   }
-  puVar2 = &DAT_100252a0;
+  puVar2 = &g_dwDispatches;
   for (iVar1 = 0x2150; iVar1 != 0; iVar1 = iVar1 + -1) {
     *param_1 = *puVar2;
     puVar2 = puVar2 + 1;
@@ -45,17 +48,18 @@ undefined4 __cdecl iMUSE_Dispatch__2010(undefined4 *param_1,uint param_2)
   return 0x8540;
 }
 
-/* ---- 0x10002040  iMUSE_Dispatch__2040 ---- */
-/* Unidentified function of iMUSE_Dispatch.c (command dispatch, fades, triggers) */
+/* ---- 0x10002040  DpBeginRestore ---- */
+/* Original name DpBeginRestore (the remaster's GrimFandango (Linux): aligned call in TrRestore);
+   was iMUSE_Dispatch__2040. */
 
-undefined4 __cdecl iMUSE_Dispatch__2040(undefined4 *param_1)
+undefined4 __cdecl DpBeginRestore(undefined4 *param_1)
 
 {
   int iVar1;
   undefined4 *puVar2;
   int iVar3;
   
-  puVar2 = &DAT_100252a0;
+  puVar2 = &g_dwDispatches;
   for (iVar3 = 0x2150; iVar3 != 0; iVar3 = iVar3 + -1) {
     *puVar2 = *param_1;
     param_1 = param_1 + 1;
@@ -73,7 +77,7 @@ undefined4 __cdecl iMUSE_Dispatch__2040(undefined4 *param_1)
   if (0 < g_dwImSmallFadeCount) {
     do {
       iVar1 = iVar3 + 1;
-      PTR_10025298[iVar3] = 0;
+      g_pSmallFadeFlags[iVar3] = 0;
       iVar3 = iVar1;
     } while (iVar1 < g_dwImSmallFadeCount);
   }
@@ -87,10 +91,11 @@ undefined4 __cdecl iMUSE_Dispatch__2040(undefined4 *param_1)
   return 0x8540;
 }
 
-/* ---- 0x100020c0  iMUSE_Dispatch__20c0 ---- */
-/* Unidentified function of iMUSE_Dispatch.c (command dispatch, fades, triggers) */
+/* ---- 0x100020c0  DpConcludeRestore ---- */
+/* Original name DpConcludeRestore (the remaster's GrimFandango (Linux): aligned call in TrRestore);
+   was iMUSE_Dispatch__20c0. */
 
-undefined4 iMUSE_Dispatch__20c0(void)
+undefined4 DpConcludeRestore(void)
 
 {
   uint *puVar1;
@@ -99,16 +104,16 @@ undefined4 iMUSE_Dispatch__20c0(void)
   int *piVar4;
   
   iVar3 = 0;
-  if (0 < DAT_1003350c) {
+  if (0 < g_dwTrackCount) {
     piVar4 = &DAT_10025abc;
     do {
       piVar4[4] = 0;
       if ((*(int *)(piVar4[-0x207] + 0xc) != 0) && (*piVar4 != 0)) {
-        puVar1 = iMUSE_stream__a210(*(uint *)(piVar4[-0x207] + 0xc),piVar4[1],0x4000);
+        puVar1 = StStartStream(*(uint *)(piVar4[-0x207] + 0xc),piVar4[1],0x4000);
         *piVar4 = (int)puVar1;
         if ((puVar1 != (uint *)0x0) &&
-           (iMUSE_stream__a5a0((undefined4 *)*piVar4,*(undefined4 *)(piVar4[-0x207] + 0xc),
-                               piVar4[-0x202]), piVar4[-0x201] != 0)) {
+           (StSpliceStream((undefined4 *)*piVar4,*(undefined4 *)(piVar4[-0x207] + 0xc),
+                           piVar4[-0x202]), piVar4[-0x201] != 0)) {
           puVar2 = iMUSE_Dispatch__3570();
           piVar4[2] = (int)puVar2;
           if (puVar2 != (undefined4 *)0x0) {
@@ -120,15 +125,16 @@ undefined4 iMUSE_Dispatch__20c0(void)
       }
       iVar3 = iVar3 + 1;
       piVar4 = piVar4 + 0x215;
-    } while (iVar3 < DAT_1003350c);
+    } while (iVar3 < g_dwTrackCount);
   }
   return 0;
 }
 
-/* ---- 0x10002170  iMUSE_Dispatch__2170 ---- */
-/* Unidentified function of iMUSE_Dispatch.c (command dispatch, fades, triggers) */
+/* ---- 0x10002170  DpStartSound ---- */
+/* Original name DpStartSound (the remaster's GrimFandango (Linux): aligned call in TrStartSound);
+   was iMUSE_Dispatch__2170. */
 
-undefined4 __cdecl iMUSE_Dispatch__2170(int param_1,uint param_2)
+undefined4 __cdecl DpStartSound(int param_1,uint param_2)
 
 {
   int *piVar1;
@@ -144,7 +150,7 @@ undefined4 __cdecl iMUSE_Dispatch__2170(int param_1,uint param_2)
     piVar1[0x207] = 0;
   }
   else {
-    puVar2 = iMUSE_stream__a210(*(uint *)(param_1 + 0xc),param_2,0x4000);
+    puVar2 = StStartStream(*(uint *)(param_1 + 0xc),param_2,0x4000);
     piVar1[0x207] = (int)puVar2;
     if (puVar2 == (uint *)0x0) {
       return 0xffffffff;
@@ -153,18 +159,19 @@ undefined4 __cdecl iMUSE_Dispatch__2170(int param_1,uint param_2)
     piVar1[0x209] = 0;
     piVar1[0x20a] = 0;
   }
-  iVar3 = Im_DispatchAllocBuffers(piVar1);
+  iVar3 = GoToNextRegion(piVar1);
   if ((iVar3 != 0) && (iVar3 != -3)) {
-    iMUSE_Dispatch__2200(*piVar1);
+    DpStopTrack(*piVar1);
     return 0xffffffff;
   }
   return 0;
 }
 
-/* ---- 0x10002200  iMUSE_Dispatch__2200 ---- */
-/* Unidentified function of iMUSE_Dispatch.c (command dispatch, fades, triggers) */
+/* ---- 0x10002200  DpStopTrack ---- */
+/* Original name DpStopTrack (the remaster's GrimFandango (Linux): aligned call in DpStartSound,
+   TrStopTrack); was iMUSE_Dispatch__2200. */
 
-undefined4 __cdecl iMUSE_Dispatch__2200(int param_1)
+undefined4 __cdecl DpStopTrack(int param_1)
 
 {
   int *piVar1;
@@ -173,12 +180,12 @@ undefined4 __cdecl iMUSE_Dispatch__2200(int param_1)
   
   iVar2 = *(int *)(param_1 + 8);
   if (*(undefined4 **)(iVar2 + 0x81c) != (undefined4 *)0x0) {
-    iMUSE_stream__a2d0(*(undefined4 **)(iVar2 + 0x81c));
+    StStopStream(*(undefined4 **)(iVar2 + 0x81c));
     piVar1 = (int *)(iVar2 + 0x824);
     iVar3 = *(int *)(iVar2 + 0x824);
     while (iVar3 != 0) {
       *(undefined4 *)(iVar3 + 8) = 0;
-      iMUSE_stream__b7a0(piVar1,(int *)*piVar1);
+      UtRemoveFromList(piVar1,(int *)*piVar1);
       iVar3 = *piVar1;
     }
   }
@@ -188,28 +195,29 @@ undefined4 __cdecl iMUSE_Dispatch__2200(int param_1)
   return 0;
 }
 
-/* ---- 0x10002a00  iMUSE_Dispatch__2a00 ---- */
-/* Unidentified function of iMUSE_Dispatch.c (command dispatch, fades, triggers) */
+/* ---- 0x10002a00  DpPredictStreams ---- */
+/* Original name DpPredictStreams (the remaster's GrimFandango (Linux): aligned call in
+   StProcessStreams, StQueryStream, TrIntHandler); was iMUSE_Dispatch__2a00. */
 
-void iMUSE_Dispatch__2a00(void)
+void DpPredictStreams(void)
 
 {
   int *piVar1;
   int iVar2;
   
-  piVar1 = &DAT_100252a0;
-  Im_GuardEnter();
+  piVar1 = &g_dwDispatches;
+  ImWaveHalt();
   iVar2 = 0;
-  if (0 < DAT_1003350c) {
+  if (0 < g_dwTrackCount) {
     do {
       if (((*(int *)(*piVar1 + 0xc) != 0) && (piVar1[0x207] != 0)) && (piVar1[0x209] != 0)) {
-        iMUSE_Dispatch__3130(piVar1);
+        PredictStream(piVar1);
       }
       iVar2 = iVar2 + 1;
       piVar1 = piVar1 + 0x215;
-    } while (iVar2 < DAT_1003350c);
+    } while (iVar2 < g_dwTrackCount);
   }
-  Im_GuardLeave();
+  ImWaveProceed();
   return;
 }
 
@@ -311,11 +319,12 @@ uint __cdecl iMUSE_Dispatch__30d0(int param_1,int param_2,int param_3)
   return 0;
 }
 
-/* ---- 0x10003130  iMUSE_Dispatch__3130 ---- */
+/* ---- 0x10003130  PredictStream ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
-/* Unidentified function of iMUSE_Dispatch.c (command dispatch, fades, triggers) */
+/* Original name PredictStream (the remaster's GrimFandango (Linux): aligned call in
+   DpPredictStreams, DpProcessTrack); was iMUSE_Dispatch__3130. */
 
-void __cdecl iMUSE_Dispatch__3130(int *param_1)
+void __cdecl PredictStream(int *param_1)
 
 {
   undefined4 *puVar1;
@@ -331,18 +340,18 @@ void __cdecl iMUSE_Dispatch__3130(int *param_1)
       iVar5 = iVar5 + *(int *)(iVar3 + 0x10);
       iVar2 = iVar3;
     }
-    iVar3 = Im_FindTrack(param_1[0x207]);
+    iVar3 = StGetValidSize(param_1[0x207]);
     *(int *)(iVar2 + 0x10) = *(int *)(iVar2 + 0x10) + (iVar3 - iVar5);
-    _DAT_10024dd8 = *(undefined4 *)(*param_1 + 0x38);
+    _g_dwPredictStream_jumpHook = *(undefined4 *)(*param_1 + 0x38);
     for (puVar1 = (undefined4 *)param_1[0x209]; puVar1 != (undefined4 *)0x0;
         puVar1 = (undefined4 *)puVar1[1]) {
       if (puVar1[5] == 0) {
-        piVar4 = iMUSE_Dispatch__31d0(param_1 + 7,(int)puVar1,(int *)&DAT_10024dd8);
+        piVar4 = iMUSE_Dispatch__31d0(param_1 + 7,(int)puVar1,(int *)&g_dwPredictStream_jumpHook);
         if (piVar4 == (int *)0x0) {
           iMUSE_Dispatch__3430(param_1,(int)puVar1);
         }
         else {
-          iMUSE_Dispatch__3250(param_1,puVar1,(int)piVar4,0);
+          PrepareToJump(param_1,puVar1,(int)piVar4,0);
         }
       }
     }
@@ -379,10 +388,11 @@ int * __cdecl iMUSE_Dispatch__31d0(int *param_1,int param_2,int *param_3)
   return piVar5;
 }
 
-/* ---- 0x10003250  iMUSE_Dispatch__3250 ---- */
-/* Unidentified function of iMUSE_Dispatch.c (command dispatch, fades, triggers) */
+/* ---- 0x10003250  PrepareToJump ---- */
+/* Original name PrepareToJump (the remaster's GrimFandango (Linux): aligned call in GoToNextRegion,
+   PredictStream); was iMUSE_Dispatch__3250. */
 
-void __cdecl iMUSE_Dispatch__3250(int *param_1,undefined4 *param_2,int param_3,int param_4)
+void __cdecl PrepareToJump(int *param_1,undefined4 *param_2,int param_3,int param_4)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -406,45 +416,49 @@ void __cdecl iMUSE_Dispatch__3250(int *param_1,undefined4 *param_2,int param_3,i
       return;
     }
   }
-  DAT_1002d80c = ((uint)(*(int *)(param_3 + 0x14) * param_1[2]) / 1000) * param_1[1] * param_1[3] >>
-                 3;
-  if ((param_4 != 0) || ((DAT_1002d80c - param_2[3]) + *(int *)(param_3 + 8) <= (uint)param_2[4])) {
+  g_dwPrepareToJump_fadeSize =
+       ((uint)(*(int *)(param_3 + 0x14) * param_1[2]) / 1000) * param_1[1] * param_1[3] >> 3;
+  if ((param_4 != 0) ||
+     ((g_dwPrepareToJump_fadeSize - param_2[3]) + *(int *)(param_3 + 8) <= (uint)param_2[4])) {
     uVar6 = (param_2[3] - *(int *)(param_3 + 8)) + param_2[4];
-    if (uVar6 <= DAT_1002d80c) {
-      DAT_1002d80c = uVar6;
+    if (uVar6 <= g_dwPrepareToJump_fadeSize) {
+      g_dwPrepareToJump_fadeSize = uVar6;
     }
-    DAT_1002d80c = DAT_1002d80c - ((param_1[1] >> 3) * param_1[3] - 1U & DAT_1002d80c);
+    g_dwPrepareToJump_fadeSize =
+         g_dwPrepareToJump_fadeSize -
+         ((param_1[1] >> 3) * param_1[3] - 1U & g_dwPrepareToJump_fadeSize);
     if ((*(uint *)(param_3 + 8) < 2000) && (*(uint *)(param_3 + 8) < *(uint *)(param_3 + 0xc))) {
-      DAT_1002d80c = 0;
+      g_dwPrepareToJump_fadeSize = 0;
     }
     if (param_1[0x20d] != 0) {
-      DAT_1002d80c = 0;
+      g_dwPrepareToJump_fadeSize = 0;
     }
-    if (((DAT_1002d80c == 0) || (local_4 = iMUSE_Dispatch__3570(), local_4 != (undefined4 *)0x0)) &&
+    if (((g_dwPrepareToJump_fadeSize == 0) ||
+        (local_4 = iMUSE_Dispatch__3570(), local_4 != (undefined4 *)0x0)) &&
        (puVar4 = iMUSE_Dispatch__3570(), puVar4 != (undefined4 *)0x0)) {
       iVar5 = *(int *)(param_3 + 8) - param_2[3];
       param_2[4] = iVar5;
-      uVar6 = DAT_1002d80c + iVar5;
+      uVar6 = g_dwPrepareToJump_fadeSize + iVar5;
       for (puVar2 = (undefined4 *)param_1[0x209]; puVar2 != param_2;
           puVar2 = (undefined4 *)puVar2[1]) {
         uVar6 = uVar6 + puVar2[4];
       }
-      iMUSE_stream__a540(param_1[0x207],uVar6);
+      StEraseFromMid(param_1[0x207],uVar6);
       piVar1 = param_2 + 1;
       iVar5 = param_2[1];
       while (iVar5 != 0) {
         *(undefined4 *)(iVar5 + 8) = 0;
-        iMUSE_stream__b7a0(piVar1,(int *)*piVar1);
+        UtRemoveFromList(piVar1,(int *)*piVar1);
         iVar5 = *piVar1;
       }
-      iMUSE_stream__a5a0((undefined4 *)param_1[0x207],*(undefined4 *)(*param_1 + 0xc),
-                         *(undefined4 *)(param_3 + 0xc));
-      if (DAT_1002d80c != 0) {
+      StSpliceStream((undefined4 *)param_1[0x207],*(undefined4 *)(*param_1 + 0xc),
+                     *(undefined4 *)(param_3 + 0xc));
+      if (g_dwPrepareToJump_fadeSize != 0) {
         *piVar1 = (int)local_4;
         *local_4 = param_2;
         local_4[1] = 0;
         local_4[3] = *(undefined4 *)(param_3 + 8);
-        local_4[4] = DAT_1002d80c;
+        local_4[4] = g_dwPrepareToJump_fadeSize;
         local_4[5] = 1;
         param_2 = local_4;
       }
@@ -478,15 +492,15 @@ void __cdecl iMUSE_Dispatch__3430(int *param_1,int param_2)
     for (iVar2 = param_1[0x209]; iVar2 != param_2; iVar2 = *(int *)(iVar2 + 4)) {
       uVar3 = uVar3 + *(int *)(iVar2 + 0x10);
     }
-    iMUSE_stream__a540(param_1[0x207],uVar3);
+    StEraseFromMid(param_1[0x207],uVar3);
     iVar2 = *piVar1;
     while (iVar2 != 0) {
       *(undefined4 *)(iVar2 + 8) = 0;
-      iMUSE_stream__b7a0(piVar1,(int *)*piVar1);
+      UtRemoveFromList(piVar1,(int *)*piVar1);
       iVar2 = *piVar1;
     }
-    iMUSE_stream__a5a0((undefined4 *)param_1[0x207],*(undefined4 *)(*param_1 + 0xc),
-                       *(int *)(param_2 + 0xc) + *(int *)(param_2 + 0x10));
+    StSpliceStream((undefined4 *)param_1[0x207],*(undefined4 *)(*param_1 + 0xc),
+                   *(int *)(param_2 + 0xc) + *(int *)(param_2 + 0x10));
   }
   return;
 }
@@ -543,7 +557,7 @@ undefined4 * iMUSE_Dispatch__3570(void)
   undefined4 *puVar1;
   int iVar2;
   
-  puVar1 = &DAT_10024de8;
+  puVar1 = &g_dwStreamZones;
   iVar2 = 0;
   do {
     if (puVar1[2] == 0) {
@@ -580,7 +594,7 @@ int __cdecl iMUSE_Dispatch__35a0(uint *param_1)
       do {
         if (*piVar2 == 0) {
           PTR_10024dc8[iVar1] = 1;
-          return iVar1 * g_dwImLargeFadeSize + DAT_10024dcc;
+          return iVar1 * g_dwImLargeFadeSize + g_dwLargeFadeBufs;
         }
         iVar1 = iVar1 + 1;
         piVar2 = piVar2 + 1;
@@ -589,14 +603,14 @@ int __cdecl iMUSE_Dispatch__35a0(uint *param_1)
     *param_1 = g_dwImSmallFadeSize;
   }
   iVar1 = 0;
-  piVar2 = PTR_10025298;
+  piVar2 = g_pSmallFadeFlags;
   if (g_dwImSmallFadeCount < 1) {
     return 0;
   }
   do {
     if (*piVar2 == 0) {
-      PTR_10025298[iVar1] = 1;
-      return iVar1 * g_dwImSmallFadeSize + DAT_10024dd4;
+      g_pSmallFadeFlags[iVar1] = 1;
+      return iVar1 * g_dwImSmallFadeSize + g_dwSmallFadeBufs;
     }
     iVar1 = iVar1 + 1;
     piVar2 = piVar2 + 1;
@@ -614,7 +628,7 @@ void __cdecl iMUSE_Dispatch__3640(int param_1)
   int iVar2;
   
   iVar1 = 0;
-  iVar2 = DAT_10024dcc;
+  iVar2 = g_dwLargeFadeBufs;
   if (0 < g_dwImLargeFadeCount) {
     do {
       if (param_1 == iVar2) {
@@ -626,7 +640,7 @@ void __cdecl iMUSE_Dispatch__3640(int param_1)
     } while (iVar1 < g_dwImLargeFadeCount);
   }
   iVar1 = 0;
-  iVar2 = DAT_10024dd4;
+  iVar2 = g_dwSmallFadeBufs;
   if (0 < g_dwImSmallFadeCount) {
     while (param_1 != iVar2) {
       iVar1 = iVar1 + 1;
@@ -635,7 +649,7 @@ void __cdecl iMUSE_Dispatch__3640(int param_1)
         return;
       }
     }
-    PTR_10025298[iVar1] = 0;
+    g_pSmallFadeFlags[iVar1] = 0;
   }
   return;
 }

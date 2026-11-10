@@ -19,8 +19,8 @@
 #define DSB_LOCK    0x2c
 #define DSB_UNLOCK  0x4c
 
-/* ==== Im_DSoundHeartbeat (0x10003730) ====
- * Called twice per 20 ms heartbeat step by Im_HeartbeatBody, alternating between two phases (DAT_1002d848 toggles):
+/* ==== DwQuery (0x10003730) ====
+ * Called twice per 20 ms heartbeat step by TrIntHandler, alternating between two phases (DAT_1002d848 toggles):
  *   odd:  lock the next 0x1800-byte block of the DirectSound ring (the one after DAT_100170ec, the block last written, unless
  *         the play cursor is already in it) and tell the mixer where to write: *buf_out / *count_out (dwords) / *rate_out.
  *         When the lock wrapped around the end of the ring (second part DAT_1002d854 / DAT_1002d820) the mixer writes into
@@ -28,7 +28,7 @@
  *   even: copy the scratch block (if it was used) and unlock.
  * DAT_1002d840 (buffer being re-created) and DAT_1002d844 (shut down) turn the whole step off.
  * The decompiler had lost the third parameter (*rate_out, 0x5622 = 22050 Hz) and the stdcall convention of the COM calls. */
-int Im_DSoundHeartbeat(int **buf_out, uint *count_out, int *rate_out)
+int DwQuery(int **buf_out, uint *count_out, int *rate_out)
 {
     int cur, next;
     uint i;
@@ -38,7 +38,7 @@ int Im_DSoundHeartbeat(int **buf_out, uint *count_out, int *rate_out)
         return 0;
     DAT_1002d848 = DAT_1002d848 ^ 1;
     if (DAT_1002d848 == 0) {                                   /* phase 2: hand the block back to DirectSound */
-        if (DAT_1002d84c == 0)
+        if (g_dwCurrentWriteIndex == 0)
             return 0;
         if (DAT_1002d854 != 0 && DAT_1002d820 != 0) {          /* the mixer wrote into the scratch block */
             for (i = 0; i < DAT_1002d82c; i++)
@@ -47,7 +47,7 @@ int Im_DSoundHeartbeat(int **buf_out, uint *count_out, int *rate_out)
                 ((char *)DAT_1002d854)[i] = ((char *)DAT_1002d818)[DAT_1002d82c + i];
         }
         COM(PTR_1002d83c, DSB_UNLOCK, DAT_1002d850, DAT_1002d82c, DAT_1002d854, DAT_1002d820);
-        DAT_1002d84c = 0;
+        g_dwCurrentWriteIndex = 0;
         return 0;
     }
     cur = iMUSE_dsound__3a80();                                /* block of the ring the play cursor is in */
@@ -70,13 +70,13 @@ int Im_DSoundHeartbeat(int **buf_out, uint *count_out, int *rate_out)
         *count_out = DAT_1002d82c >> 2;
     }
     *rate_out = 0x5622;
-    DAT_1002d84c = 1;
+    g_dwCurrentWriteIndex = 1;
     return 0;
 }
 
-/* ==== Im_DSoundShutdown (0x100038d0) ====
+/* ==== DwTerminate (0x100038d0) ====
  * Releases the two DirectSound objects (COM Release, vtable slot 2, __stdcall) and frees the scratch block. */
-undefined4 Im_DSoundShutdown(void)
+undefined4 DwTerminate(void)
 {
     DAT_1002d844 = 1;
     if (PTR_1002d838 != 0)
@@ -89,16 +89,16 @@ undefined4 Im_DSoundShutdown(void)
     return 0;
 }
 
-/* ==== FUN_10007a80 (0x10007a80) ====
+/* ==== ihost_get_buffer_info (0x10007a80) ====
  * &sound_slots[i] of the 16-byte slot table at DAT_1002ebe0.  Ghidra prints the table's address as a plain number inside
  * an arithmetic expression, which tools/build_src.py cannot tell from a constant; the DLL is loaded away from 0x10000000 and
  * the table lives in the rebuilt .data section, so the address has to be relocated (IMG_ADDR). */
-int FUN_10007a80(int param_1)
+int ihost_get_buffer_info(int param_1)
 {
     return param_1 * 0x10 + IMG_ADDR(0x1002ebe0);
 }
 
-/* ==== Im_MixerInit (0x10005360) ====
+/* ==== MxInitialize (0x10005360) ====
  * Builds the two lookup tables of the software mixer and allocates its accumulator.  The decompiler lost the arithmetic that
  * is done in x87 registers between the calls of the _ftol helper (hmi__bae0), so it is written from the disassembly:
  *   pan weights  DAT_10033560[i][j] (17 x 17 bytes) = (int)((sin(j * 3.1415 * 0.03125) * i + 0.5) * 8.0)
@@ -109,7 +109,7 @@ static long double x87_fsin(long double x)
     __asm__("fsin" : "+t"(x));
     return x;
 }
-undefined4 Im_MixerInit(undefined4 *param_1)
+undefined4 MxInitialize(undefined4 *param_1)
 {
     int i, j, k, n;
     unsigned char *pan = (unsigned char *)&DAT_10033560;
@@ -137,7 +137,7 @@ undefined4 Im_MixerInit(undefined4 *param_1)
 /* ==== Trigger and deferred-command layer (0x1000b220 0x1000b570 0x1000b6a0 0x1000b710 0x10004f70) ====
  * iMUSE can attach a command to a marker of a sound (ImSetTrigger: when the marker passes, "run command <cmd> with these ten
  * parameter words") and queue one for later (ImDeferCommand).  Commands 0..0x1d are the numbers of the Im* API calls handled
- * by Im_DispatchCommand; a larger value is a callback address.
+ * by ImSoundCall; a larger value is a callback address.
  *
  * What the shipped code really does (the disassembly is the reference; the original C source must have used va_arg):
  *  - ImSetTrigger / ImDeferCommand pass their LAST parameter p9 for every one of the ten stored words (see their decompiled
@@ -146,15 +146,15 @@ undefined4 Im_MixerInit(undefined4 *param_1)
  *    which is the same.  The commands therefore only do something useful when the word happens to be meaningful; the script
  *    layer (Script_Trans) sets such triggers with garbage in the unused words.  Kept as it is: the behaviour of the game
  *    depends on it.
- *  - Im_DispatchCommand reads the word at [esp+0x3c] (argument 15, four words beyond what the callers push) for commands
+ *  - ImSoundCall reads the word at [esp+0x3c] (argument 15, four words beyond what the callers push) for commands
  *    0x11 (set trigger) and 0x14 (defer): garbage in the original.  Here: the last argument, a11 (identical to every other
  *    argument as passed by the two callers).
- * Trigger slots: 8 of 0x4d dwords at DAT_10032320 {0 owner sound, 1..0x40 marker string (256 bytes), 0x41 command,
+ * Trigger slots: 8 of 0x4d dwords at g_dwTrigs {0 owner sound, 1..0x40 marker string (256 bytes), 0x41 command,
  * 0x42..0x4b parameters, 0x4c kept-after-fire flag}.  Deferred slots: 8 of 12 dwords at DAT_10032cc0 {0 time, 1 command,
  * 2..11 parameters}. */
 undefined4 TgSetTrigger(int sound, char *marker, int cmd, int p0, int p1, int p2, int p3, int p4, int p5, int p6, int p7, int p8, int p9)
 {
-    int *slot = (int *)&DAT_10032320;
+    int *slot = (int *)&g_dwTrigs;
     int n, len;
     char *dst;
 
@@ -196,7 +196,7 @@ undefined4 TgDeferCommand(int time, int cmd, int p0, int p1, int p2, int p3, int
             e[2] = p0; e[3] = p1; e[4] = p2; e[5] = p3; e[6] = p4;
             e[7] = p5; e[8] = p6; e[9] = p7; e[10] = p8; e[11] = p9;
             e[0] = time;
-            g_dwDefersOn = 1;                      /* something to look at in Im_ProcessDeferred */
+            g_dwDefersOn = 1;                      /* something to look at in TgIntHandler */
             return 0;
         }
     }
@@ -217,13 +217,13 @@ void Im_RunTriggerCommand(undefined4 *slot, undefined4 marker)
         return;
     }
     if ((unsigned)cmd < 0x1e) {
-        Im_DispatchCommand(cmd, w, w, w, w, w, w, w, w, w, w);
+        ImSoundCall(cmd, w, w, w, w, w, w, w, w, w, w);
         return;
     }
     ((int (*)(int, int, int, int, int, int, int, int, int, int, int))cmd)(marker, w, w, w, w, w, w, w, w, w, w);
 }
 
-/* A deferred command whose time has come (Im_ProcessDeferred): the slot is {time, command, ten words}. */
+/* A deferred command whose time has come (TgIntHandler): the slot is {time, command, ten words}. */
 void Im_RunDeferredCommand(int e)
 {
     int cmd = ((int *)e)[1];
@@ -234,7 +234,7 @@ void Im_RunDeferredCommand(int e)
             return;
         cmd = (int)DAT_100336a8;
     } else if ((unsigned)cmd < 0x1e) {
-        Im_DispatchCommand(cmd, w, w, w, w, w, w, w, w, w, w);
+        ImSoundCall(cmd, w, w, w, w, w, w, w, w, w, w);
         return;
     }
     ((int (*)(int, int, int, int, int, int, int, int, int, int))cmd)(w, w, w, w, w, w, w, w, w, w);
@@ -243,7 +243,7 @@ void Im_RunDeferredCommand(int e)
 /* Command dispatcher: cmd = number of the Im* call, a2..a11 = ten argument words.  Every call takes ITS arguments from the
  * LAST of the argument words it needs (the same word for all of them: compiled from va_arg expressions evaluated in the
  * wrong order).  Commands 0x15..0x18 do not exist. */
-uint Im_DispatchCommand(uint cmd, int a2, int a3, int a4, int a5, int a6, int a7, int a8, int a9, int a10, int a11)
+uint ImSoundCall(uint cmd, int a2, int a3, int a4, int a5, int a6, int a7, int a8, int a9, int a10, int a11)
 {
     if (g_dwIm_initialized == 0 || cmd > 0x1d)
         return 0xffffffff;

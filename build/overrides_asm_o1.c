@@ -26,7 +26,7 @@
 #define RD_CANVAS() (*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4))
 
 /* Rasteriser state globals used by the span loops (Ghidra names, read at their real width) */
-#define RD_RECIP(n)  (((int *)&DAT_008fbfc0)[n])   /* 0x10000 / n, filled at start-up */
+#define RD_RECIP(n)  (((int *)&g_aRdRaster_OneOverNFixed)[n])   /* 0x10000 / n, filled at start-up */
 #define rd_u         R32(UINT_007f4454)            /* texture u (16.16, after the shift) */
 #define rd_uStep     R32(UINT_007f43bc)
 #define rd_v         R32(UINT_007f4458)            /* texture v */

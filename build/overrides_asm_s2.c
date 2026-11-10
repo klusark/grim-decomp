@@ -16,7 +16,7 @@
  * Fills one horizontal span of an 8 bit paletted target.  param_1 / param_2 are the left and right edge records
  * (16.16 x at +0x00, a 16.16 per-scanline value at +0x38, another at +0x40 for the target row).  The start and end
  * columns are rounded up to whole pixels; the span is `count` pixels long; each pixel gets a value from the 64 level
- * table (DAT_008fbfc0, 1/n in 16.16) and a shade byte through UINT_008ddeb0 + ((x >> 8) & 0x3f00) + DAT_008ddec0. */
+ * table (g_aRdRaster_OneOverNFixed, 1/n in 16.16) and a shade byte through UINT_008ddeb0 + ((x >> 8) & 0x3f00) + DAT_008ddec0. */
 void rdRaster_Span8_Flat(uint *param_1, uint *param_2)
 {
     uint xl_raw = *param_1;                 /* left x, 16.16 */
@@ -42,7 +42,7 @@ void rdRaster_Span8_Flat(uint *param_1, uint *param_2)
         return;
 
     /* per-pixel step: (dz) * reciprocal(count), as 16.16 */
-    prod = (long long)(int)(param_2[0xe] - param_1[0xe]) * (long long)((int *)&DAT_008fbfc0)[count];
+    prod = (long long)(int)(param_2[0xe] - param_1[0xe]) * (long long)((int *)&g_aRdRaster_OneOverNFixed)[count];
     step = (int)(prod >> 16);
     if (step < 0 && step > -0x51e)
         step = 0;
@@ -91,7 +91,7 @@ void rdRaster_Span16_Flat_3(uint *param_1, uint *param_2)
     if (count <= 0)
         return;
 
-    prod = (long long)(int)(param_2[0xe] - param_1[0xe]) * (long long)((int *)&DAT_008fbfc0)[count];
+    prod = (long long)(int)(param_2[0xe] - param_1[0xe]) * (long long)((int *)&g_aRdRaster_OneOverNFixed)[count];
     step = (int)(prod >> 16);
     if (step < 0 && step > -0x51e)
         step = 0;

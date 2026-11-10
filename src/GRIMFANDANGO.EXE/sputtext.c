@@ -20,13 +20,13 @@ undefined4 sputText_Initialize(GrimServices *param_1,undefined4 *param_2)
   param_2[1] = sputText_Terminate;
   param_2[2] = sputText_Startup;
   param_2[3] = sputText_Shutdown;
-  param_2[4] = sputText_SaveState;
+  param_2[4] = sputText_Save;
   param_2[5] = sputText_Restore;
   param_2[6] = 0;
   param_2[7] = 0;
-  iVar1 = PlatModule_Init(param_1,&g_aGraphMS);
+  iVar1 = Graph_SysInitialize(param_1,&g_aGraphMS);
   if (iVar1 == 0) {
-    iVar1 = TextModule_Init(param_1,&g_aTextMS);
+    iVar1 = Text_SysInitialize(param_1,&g_aTextMS);
     if (iVar1 == 0) {
       g_dwSputtextInitialize = 1;
       return 0;
@@ -62,16 +62,16 @@ undefined4 sputText_Startup(void)
 {
   int iVar1;
   
-  if (UINT_008ca13c == 0) {
+  if (g_dwSputtextStartup == 0) {
     iVar1 = (*(code *)UINT_008ca120)();
     if (iVar1 == 0) {
       iVar1 = (*(code *)UINT_008ca0c0)();
       if (iVar1 == 0) {
-        UINT_004e84a0 = Text_GetDefaultFont();
+        UINT_004e84a0 = Text_GetSystemFont();
         UINT_004e84d0 = UINT_004e84a0;
         UINT_004e8500 = UINT_004e84a0;
         g_hFont = UINT_004e84a0;
-        Lua_OpenEngineLib(&g_pTextFunctionsToRegister,UINT_004e85d8);
+        sputLua_RegisterFunctions(&g_pTextFunctionsToRegister,UINT_004e85d8);
         lua_pushstring(&DAT_004e8454);
         g_dwLrX = lua_ref(1);
         lua_pushstring(&DAT_004e8450);
@@ -104,8 +104,8 @@ undefined4 sputText_Startup(void)
         g_dwLrPan = lua_ref(1);
         lua_pushstring(s_background_004e875c);
         g_dwLrBackground = lua_ref(1);
-        g_pTextEventPool = (void **)Pool_Create(0x260,0x10,8);
-        UINT_008ca13c = 1;
+        g_pTextEventPool = (void **)Memory_AllocatePool(0x260,0x10,8);
+        g_dwSputtextStartup = 1;
         return 0;
       }
     }
@@ -141,18 +141,19 @@ void sputText_Shutdown(void)
   lua_unref(g_dwLrPan);
   lua_unref(g_dwLrBackground);
   if (g_pTextEventPool != (void **)0x0) {
-    Pool_Destroy(g_pTextEventPool);
+    Memory_FreePool(g_pTextEventPool);
     g_pTextEventPool = (void **)0x0;
   }
-  UINT_008ca13c = 0;
+  g_dwSputtextStartup = 0;
   return;
 }
 
-/* ---- 0x0048cbc0  sputText_SaveState ---- */
+/* ---- 0x0048cbc0  sputText_Save ---- */
 /* Module interface slot 4 (sputText): save-game writer, calls the SaveGame_Write callback it is
-   handed for every field. */
+   handed for every field. Original name sputText_Save (the remaster's GrimFandango (Linux): aligned
+   call in sputText_Initialize); was sputText_SaveState. */
 
-undefined4 sputText_SaveState(code *param_1)
+undefined4 sputText_Save(code *param_1)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -229,7 +230,7 @@ undefined4 sputText_Restore(code *param_1)
     param_1 = (code *)0x0;
     if (0 < local_4) {
       do {
-        puVar5 = (undefined4 *)Pool_Alloc(g_pTextEventPool);
+        puVar5 = (undefined4 *)Memory_AllocFixed(g_pTextEventPool);
         (*pcVar3)(puVar5 + 2,0x200);
         piVar1 = puVar5 + 0x82;
         (*pcVar3)(piVar1,4);
@@ -254,7 +255,7 @@ undefined4 sputText_Restore(code *param_1)
         (*pcVar3)(puVar5 + 0x95,4);
         (*pcVar3)(puVar5 + 0x96,4);
         (*pcVar3)(puVar5 + 0x97,4);
-        pvVar6 = Res_DataFromHandle((void *)*puVar2);
+        pvVar6 = Res_HandleFromSerialNumber((void *)*puVar2);
         *puVar2 = pvVar6;
         if (*piVar1 != 0) {
           *piVar1 = (int)&UINT_008a94b8;
@@ -275,10 +276,10 @@ undefined4 sputText_Restore(code *param_1)
     (*pcVar3)(&UINT_004e84a0,4);
     (*pcVar3)(&UINT_004e84d0,4);
     (*pcVar3)(&UINT_004e8500,4);
-    g_hFont = Text_GetDefaultFont();
-    UINT_004e84a0 = (uint)Res_DataFromHandle((void *)UINT_004e84a0);
-    UINT_004e84d0 = (uint)Res_DataFromHandle((void *)UINT_004e84d0);
-    UINT_004e8500 = (uint)Res_DataFromHandle((void *)UINT_004e8500);
+    g_hFont = Text_GetSystemFont();
+    UINT_004e84a0 = (uint)Res_HandleFromSerialNumber((void *)UINT_004e84a0);
+    UINT_004e84d0 = (uint)Res_HandleFromSerialNumber((void *)UINT_004e84d0);
+    UINT_004e8500 = (uint)Res_HandleFromSerialNumber((void *)UINT_004e8500);
     if (UINT_004e84a0 == 0) {
       UINT_004e84a0 = g_hFont;
     }

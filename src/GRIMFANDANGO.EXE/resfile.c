@@ -5,12 +5,13 @@
 #include "globals.h"
 #include "functions.h"
 
-/* ---- 0x00480890  ResFile_Open ---- */
+/* ---- 0x00480890  Res_FOpen ---- */
 /* Returns a 1-based handle into the 128-entry g_ResFileTable. Read-mode names without a path are
    looked up inside the open LAB archives first (entry = archive handle + offset + size); otherwise
-   the underlying fopen is used. */
+   the underlying fopen is used. Original name Res_FOpen (the remaster's GrimFandango (Linux): the
+   same file-services slot filled by Res_OverrideFileCalls); was ResFile_Open. */
 
-int __cdecl ResFile_Open(char *name,char *mode)
+int __cdecl Res_FOpen(char *name,char *mode)
 
 {
   unsigned char _frame[0x230] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -73,7 +74,7 @@ int __cdecl ResFile_Open(char *name,char *mode)
     }
     iVar4 = tolower((int)*mode);
     if (((iVar4 == 0x72) && (iVar4 = strchr(name,0x5c), iVar4 == 0)) &&
-       (iVar4 = Lab_FindFile(name,local_218), iVar4 != 0)) {
+       (iVar4 = res_FindInternalFile(name,local_218), iVar4 != 0)) {
       if (local_208 != 0) {
         *puVar3 = local_214;
         *(undefined4 *)(iVar1 + IMG_ADDR(0x00825f5c)) = 0;
@@ -107,10 +108,12 @@ int __cdecl ResFile_Open(char *name,char *mode)
 #undef local_21c
 
 
-/* ---- 0x00480a00  ResFile_Close ---- */
-/* Source: Temp/Res.c (line 1844, from __FILE__/__LINE__ passed to the allocator) */
+/* ---- 0x00480a00  Res_FClose ---- */
+/* Source: Temp/Res.c (line 1844, from __FILE__/__LINE__ passed to the allocator) Original name
+   Res_FClose (the remaster's GrimFandango (Linux): the same file-services slot filled by
+   Res_OverrideFileCalls); was ResFile_Close. */
 
-int __cdecl ResFile_Close(int fh)
+int __cdecl Res_FClose(int fh)
 
 {
   int iVar1;
@@ -136,11 +139,12 @@ int __cdecl ResFile_Close(int fh)
   return 0;
 }
 
-/* ---- 0x00480a70  ResFile_Read ---- */
+/* ---- 0x00480a70  Res_FRead ---- */
 /* Buffered (4 KB) read; archive-backed handles read through Lab_ReadRaw with the entry offset
-   applied */
+   applied Original name Res_FRead (the remaster's GrimFandango (Linux): the same file-services slot
+   filled by Res_OverrideFileCalls); was ResFile_Read. */
 
-uint __cdecl ResFile_Read(int fh,void *buf,uint n)
+uint __cdecl Res_FRead(int fh,void *buf,uint n)
 
 {
   int iVar1;
@@ -213,11 +217,13 @@ uint __cdecl ResFile_Read(int fh,void *buf,uint n)
   return iVar4 + iVar2;
 }
 
-/* ---- 0x00480bb0  ResFile_Gets ---- */
+/* ---- 0x00480bb0  Res_FGets ---- */
 /* pFgets of the resource file services (Res_InstallFileServices): reads a line from the 4 KB buffer
-   of an archive entry or forwards to the real file. */
+   of an archive entry or forwards to the real file. Original name Res_FGets (the remaster's
+   GrimFandango (Linux): the same file-services slot filled by Res_OverrideFileCalls); was
+   ResFile_Gets. */
 
-char * ResFile_Gets(int param_1,char *param_2,uint param_3)
+char * Res_FGets(int param_1,char *param_2,uint param_3)
 
 {
   int iVar1;
@@ -279,10 +285,12 @@ char * ResFile_Gets(int param_1,char *param_2,uint param_3)
   return param_2;
 }
 
-/* ---- 0x00480ce0  ResFile_Write ---- */
-/* pFwrite of the resource file services: only real files can be written. */
+/* ---- 0x00480ce0  Res_FWrite ---- */
+/* pFwrite of the resource file services: only real files can be written. Original name Res_FWrite
+   (the remaster's GrimFandango (Linux): the same file-services slot filled by
+   Res_OverrideFileCalls); was ResFile_Write. */
 
-undefined4 ResFile_Write(int param_1,undefined4 param_2,undefined4 param_3)
+undefined4 Res_FWrite(int param_1,undefined4 param_2,undefined4 param_3)
 
 {
   undefined4 uVar1;
@@ -303,10 +311,11 @@ undefined4 ResFile_Write(int param_1,undefined4 param_2,undefined4 param_3)
   return 0;
 }
 
-/* ---- 0x00480d50  ResFile_Eof ---- */
-/* pFeof of the resource file services. */
+/* ---- 0x00480d50  Res_FEOF ---- */
+/* pFeof of the resource file services. Original name Res_FEOF (the remaster's GrimFandango (Linux):
+   the same file-services slot filled by Res_OverrideFileCalls); was ResFile_Eof. */
 
-undefined4 ResFile_Eof(int param_1)
+undefined4 Res_FEOF(int param_1)
 
 {
   int iVar1;
@@ -328,11 +337,12 @@ undefined4 ResFile_Eof(int param_1)
   return *(undefined4 *)(&DAT_00824f2c + iVar1);
 }
 
-/* ---- 0x00480dc0  ResFile_Tell ---- */
+/* ---- 0x00480dc0  Res_FTell ---- */
 /* pFtell of the resource file services: the current position of an archive entry (relative to its
-   start) or of the real file. */
+   start) or of the real file. Original name Res_FTell (the remaster's GrimFandango (Linux): the
+   same file-services slot filled by Res_OverrideFileCalls); was ResFile_Tell. */
 
-undefined4 ResFile_Tell(int param_1)
+undefined4 Res_FTell(int param_1)
 
 {
   int iVar1;
@@ -354,10 +364,12 @@ undefined4 ResFile_Tell(int param_1)
   return *(undefined4 *)(&DAT_00824f18 + iVar1);
 }
 
-/* ---- 0x00480e30  ResFile_Seek ---- */
-/* Source: Temp/Res.c (line 2225, from __FILE__/__LINE__ passed to the allocator) */
+/* ---- 0x00480e30  Res_FSeek ---- */
+/* Source: Temp/Res.c (line 2225, from __FILE__/__LINE__ passed to the allocator) Original name
+   Res_FSeek (the remaster's GrimFandango (Linux): the same file-services slot filled by
+   Res_OverrideFileCalls); was ResFile_Seek. */
 
-int __cdecl ResFile_Seek(int fh,int offset,int whence)
+int __cdecl Res_FSeek(int fh,int offset,int whence)
 
 {
   int iVar1;
@@ -407,8 +419,11 @@ int __cdecl ResFile_Seek(int fh,int offset,int whence)
   return 0;
 }
 
-/* ---- 0x00480f40  ResFile_Size ---- */
-int __cdecl ResFile_Size(char *name)
+/* ---- 0x00480f40  Res_FSize ---- */
+/* Original name Res_FSize (the remaster's GrimFandango (Linux): the same file-services slot filled
+   by Res_OverrideFileCalls); was ResFile_Size. */
+
+int __cdecl Res_FSize(char *name)
 
 {
   unsigned char _frame[0x230] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -416,7 +431,7 @@ int __cdecl ResFile_Size(char *name)
   #define local_218 (*(undefined1 (*)[8])(_frame + (0x230 - 0x218)))
   #define local_210 (*(uint *)(_frame + (0x230 - 0x210)))
   
-  iVar1 = Lab_FindFile(name,local_218);
+  iVar1 = res_FindInternalFile(name,local_218);
   if (iVar1 != 0) {
     return local_210;
   }
@@ -427,10 +442,12 @@ int __cdecl ResFile_Size(char *name)
 #undef local_218
 
 
-/* ---- 0x00480f90  ResFile_Printf ---- */
-/* Source: Temp/Res.c (line 2342, from __FILE__/__LINE__ passed to the allocator) */
+/* ---- 0x00480f90  Res_FPrintf ---- */
+/* Source: Temp/Res.c (line 2342, from __FILE__/__LINE__ passed to the allocator) Original name
+   Res_FPrintf (the remaster's GrimFandango (Linux): the same file-services slot filled by
+   Res_OverrideFileCalls); was ResFile_Printf. */
 
-int __cdecl ResFile_Printf(int fh,char *fmt,...)
+int __cdecl Res_FPrintf(int fh,char *fmt,...)
 
 {
   unsigned char _frame[0x410];  /* Ghidra stack frame, see tools/frame_locals.py */

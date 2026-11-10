@@ -14,7 +14,7 @@
    "cc": "__cdecl"
   },
   "004870e0": {
-   "proto": "void Render_FillRect(int x, int y, int w, int h, float scale)",
+   "proto": "void sputRender_DimRegion(int x, int y, int w, int h, float scale)",
    "cc": "__cdecl"
   },
   "0048a4b0": {

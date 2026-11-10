@@ -72,10 +72,12 @@ void Polyglot_LoadTable(undefined *param_1)
 #endif
 
 
-/* ---- 0x004838e0  Polyglot_Lookup ---- */
-/* Binary search of the language table for a /xxxx/ text id */
+/* ---- 0x004838e0  PolyglotGetString ---- */
+/* Binary search of the language table for a /xxxx/ text id Original name PolyglotGetString (the
+   remaster's GrimFandango (Linux): aligned call in sputText_ExtractSayLineData); was
+   Polyglot_Lookup. */
 
-char * __cdecl Polyglot_Lookup(char *textId)
+char * __cdecl PolyglotGetString(char *textId)
 
 {
   unsigned char _frame[0x120] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */

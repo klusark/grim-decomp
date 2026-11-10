@@ -5,11 +5,13 @@
 #include "globals.h"
 #include "functions.h"
 
-/* ---- 0x00498140  SmushComponent_Destroy ---- */
+/* ---- 0x00498140  SmushFreer ---- */
 /* Costume tag handler for 'Smush Movie' (registered by sputCostume_Start through
-   Cos_NewStateBasedTag/Cos_NewIntTag): slot 2, frees the key data. */
+   Cos_NewStateBasedTag/Cos_NewIntTag): slot 2, frees the key data. Original name SmushFreer (the
+   remaster's GrimFandango (Linux): the same handler slot (freer) of the same costume tag
+   registration in sputCostume_Startup); was SmushComponent_Destroy. */
 
-undefined4 SmushComponent_Destroy(undefined4 param_1,undefined4 param_2,undefined4 param_3)
+undefined4 SmushFreer(undefined4 param_1,undefined4 param_2,undefined4 param_3)
 
 {
   (*g_pSputCosHS->pFree)(param_3);
@@ -54,16 +56,17 @@ int SmushRequester(uint param_1,int param_2,int param_3,int param_4,char *param_
   pcVar4 = param_5;
   if (param_5 == (char *)0x0) {
     if (g_bSmushPath != '\0') {
-      Plat_SetDialogDirectory(&g_bSmushPath);
+      grimPlat_SetDefaultOpenPath(&g_bSmushPath);
     }
-    iVar2 = Plat_OpenFileDialog(s_Select_smush_file____004ea7ec,s_Smush_files____snm__004ea804);
+    iVar2 = grimPlat_OpenFileRequest(s_Select_smush_file____004ea7ec,s_Smush_files____snm__004ea804)
+    ;
     if (iVar2 == 0) {
       return false;
     }
-    uVar3 = ((code *)Plat_GetDialogFileName)(0x7f);
+    uVar3 = ((code *)grimPlat_GetDefaultOpenPath)(0x7f);
     ((code *)strncpy)(&g_bSmushPath,uVar3);
     DAT_008cab37 = 0;
-    pcVar4 = Str_Basename(g_szGrimlib_aFilename);
+    pcVar4 = stdFnames_FindMedName(g_szGrimlib_aFilename);
   }
   uVar6 = 0xffffffff;
   pcVar8 = pcVar4;

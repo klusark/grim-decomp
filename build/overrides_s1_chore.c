@@ -1,5 +1,5 @@
 /* CHORE.DLL slot allocators, round s (agent s1, docs/notes/s1.md): the fix of the intermittent clean-room crash in
- * save_load (Res_RemoveReference <- ModelComponent_Destroy <- Cos_FreeComponent <- Cos_FreeCostume <- Cos_Free <- Cos_Restore).
+ * save_load (Res_RemoveReference <- ThingFreer <- Cos_FreeComponent <- Cos_FreeCostume <- Cos_Free <- Cos_Restore).
  *
  * Both functions hand out a free record of a table that grows by 8 records: the costume slots (0x3c bytes, +0x38 = 1 when
  * free; size 0x100143b0, table 0x100143b4, records in use 0x100143ac) and the costume instance records (0x14 bytes, +0x10

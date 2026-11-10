@@ -96,7 +96,7 @@ VideoBitmap_ConvertPixels
       (((*(int *)((int)srcFmt + 0x30) == *(int *)((int)dstFmt + 0x30) &&
         (*(int *)((int)srcFmt + 0x34) == *(int *)((int)dstFmt + 0x34))) &&
        (*(int *)((int)srcFmt + 0x38) == *(int *)((int)dstFmt + 0x38))))))) {
-    Insane_MemCopyCdecl(dst,src,*(int *)((int)dstFmt + 0xc) * count);
+    msc_MemCopy(dst,src,*(int *)((int)dstFmt + 0xc) * count);
     return 0;
   }
   if (expandTable != (byte *)0x0) {

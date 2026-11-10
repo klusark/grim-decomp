@@ -15,7 +15,7 @@
 #define FUN_004d5f70 FUN_004d5f70__ghidra
 #define FUN_004d5fd0 FUN_004d5fd0__ghidra
 #define FUN_004d5e50 FUN_004d5e50__ghidra
-#define FUN_004965b0 FUN_004965b0__ghidra
+#define MaterialInstanceSaveLoad FUN_004965b0__ghidra
 #define D3D_CreateViewport D3D_CreateViewport__ghidra
 #define DDraw_CreateSurfaces DDraw_CreateSurfaces__ghidra
 #include "functions.h"
@@ -24,7 +24,7 @@
 #undef FUN_004d5f70
 #undef FUN_004d5fd0
 #undef FUN_004d5e50
-#undef FUN_004965b0
+#undef MaterialInstanceSaveLoad
 
 #define W16(sym) (*(ushort *)&(sym))
 #define S16(sym) (*(short *)&(sym))
@@ -105,11 +105,11 @@ void Rle_Decode(undefined1 *dst, undefined4 src, int count)
     Mem_DumpLog();
 }
 
-/* ==== FUN_004965b0 (0x004965b0): colormap component callback ====
+/* ==== MaterialInstanceSaveLoad (0x004965b0): colormap component callback ====
  * Stored in a component handler table (sputcostume.c); called with five arguments, it calls the fifth with the fourth
  * plus 8 and 4 (a cdecl reader callback: address, size) and returns 1. */
-/* OVERRIDES: FUN_004965b0 */
-undefined4 FUN_004965b0(undefined4 a1, undefined4 a2, undefined4 a3, int data, code *read)
+/* OVERRIDES: MaterialInstanceSaveLoad */
+undefined4 MaterialInstanceSaveLoad(undefined4 a1, undefined4 a2, undefined4 a3, int data, code *read)
 {
     ((void (*)(int, int))read)(data + 8, 4);
     return 1;
@@ -350,13 +350,13 @@ void Input_FlushJoystick(void)
         input_key_event(e, ((byte *)state)[0xc + i], now);
 }
 
-/* ==== D3D_ExecuteBuffer (0x00478b40) ====
+/* ==== std3D_DrawRenderList (0x00478b40) ====
  * Appends D3DOP_EXIT (opcode 0xb, size 0, count 0) to the instruction stream at PTR_00806918, unlocks the execute
  * buffer (IDirect3DExecuteBuffer::Unlock, 0x14), sets the D3DEXECUTEDATA (0x30 bytes: vertex count UINT_0080695c,
  * instruction offset UINT_0080691c - UINT_008063ec, length PTR_00806918 - UINT_0080691c; SetExecuteData, 0x18) and
  * executes it on the device (IDirect3DDevice::Execute, 0x20) with the viewport PTR_0080660c, D3DEXECUTE_UNCLIPPED.
  * Returns 1 on success, 0 if the unlock or the execute failed. */
-int D3D_ExecuteBuffer(void)
+int std3D_DrawRenderList(void)
 {
     uint data[12];
     int i;
@@ -481,7 +481,7 @@ void * __cdecl ThingInstancer(void *cosInst, int componentIdx, int create)
         ref[i] = 0;
     Res_SetReference(ref, model, s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0, 0xa91);
     thing = (int *)rdThing_New(0);
-    rdThing_SetModel(thing, model);
+    rdThing_SetModel3(thing, model);
     thing[0x14 / 4] = (int)rdPuppet_New(thing);
     ref[0x40 / 4] = (int)thing;
     ref[0x3c / 4] = record[0x34 / 4];
@@ -569,14 +569,14 @@ undefined4 sputLua_Startup(void)
     if (UINT_008cab80 != 0)
         return 1;
     (*(code *)UINT_008cab58)();
-    Reg_GetString(s_TextAllowed_004ec55c, text, 0x20, (char *)&DAT_004f5a98);
+    wuRegistry_GetStr(s_TextAllowed_004ec55c, text, 0x20, (char *)&DAT_004f5a98);
     GRIM_RegisterModApiLib();    /* build patch */
     if (_stricmp((byte *)text, (byte *)&DAT_004ec554) != 0)
         *(undefined4 *)lua_assume_binary_exref = 1;
     lua_iolibopen();
     lua_strlibopen();
     lua_mathlibopen();
-    Lua_OpenEngineLib((int *)&PTR_s_EnginePause_004ea8b0, UINT_004eb168);
+    sputLua_RegisterFunctions((int *)&PTR_s_EnginePause_004ea8b0, UINT_004eb168);
     GRIM_RegisterModApi();       /* build patch */
     lua_recognizelib(IMG_ADDR(0x004ea890), 4);
     g_nLrSystemTable = Lua_CreateSystemTable();
@@ -596,9 +596,9 @@ undefined4 sputLua_Startup(void)
     lua_setglobal(&DAT_004ec528);
     lua_pushobject(lua_setfallback(s_concat_004ec520, sputLua_ConcatFallback));
     g_dwLrOldConcatFallback = lua_ref(1);
-    *(void **)lua_savehook_exref = (void *)Lua_SaveUserdataHook;
-    *(void **)lua_restorehook_exref = (void *)Lua_RestoreUserdataHook;
-    sputControl_AddCallback((void *)Lua_DispatchControlHandlers);
+    *(void **)lua_savehook_exref = (void *)sputLua_SaveIndirector;
+    *(void **)lua_restorehook_exref = (void *)sputLua_RestoreIndirector;
+    sputControl_AddCallback((void *)sputLua_NotifyControlHandlers);
     return 0;
 }
 
@@ -666,13 +666,13 @@ undefined * __stdcall FUN_004761b0(int a1, int a2, int a3, int a4)
 }
 
 
-/* ==== Display_DrawText (0x00474e40) ====
+/* ==== stdDisplay_TextOut (0x00474e40) ====
  * Debug text in yellow-green (0x00ffff), transparent background, with the debug font.  Display type 0 (+0x100 of the
  * display device): onto the DIB's DC UINT_007f6498, the old font selected back afterwards.  Type 1: onto the DC of the
  * back buffer (UINT_00803f9c set) or of the primary surface (IDirectDrawSurface GetDC 0x44 / ReleaseDC 0x68; the old
  * font is not restored and SetBkMode comes before SelectObject here).  Returns 1, or 0 for another type or when GetDC
  * fails. */
-int __cdecl Display_DrawText(char *text, int x, int y)
+int __cdecl stdDisplay_TextOut(char *text, int x, int y)
 {
     int type = *(int *)((byte *)g_pDisplayDevice + 0x100);
     int *surf;

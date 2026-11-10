@@ -41,15 +41,16 @@ void __cdecl luaX_setinput(undefined4 param_1)
   *puVar1 = 10;
   puVar1[6] = 1;
   puVar1[1] = param_1;
-  llex__5c70((int)puVar1);
+  firstline((int)puVar1);
   luaL_resetbuffer();
   return;
 }
 
-/* ---- 0x10005c70  llex__5c70 ---- */
-/* Unidentified function of llex.c (lexer) */
+/* ---- 0x10005c70  firstline ---- */
+/* Named firstline (not in the remaster, gcc inlined it there): Lua 3.1 source name (llex.c: skips a
+   first line starting with '#', called by luaX_setinput); was llex__5c70. */
 
-void __cdecl llex__5c70(int param_1)
+void __cdecl firstline(int param_1)
 
 {
   int *piVar1;
@@ -316,7 +317,7 @@ uint __cdecl luaY_lex(float *param_1)
         *puVar2 = uVar4;
         if (uVar4 == 0x2e) {
           luaL_addchar(0);
-          lparser__a730(s_ambiguous_syntax__decimal_point_x_10026e5c);
+          luaY_error(s_ambiguous_syntax__decimal_point_x_10026e5c);
         }
       }
 LAB_10006398:
@@ -505,7 +506,7 @@ LAB_10006563:
           piVar7[1] = (int)((byte *)piVar7[1] + 1);
         }
         *puVar2 = uVar4;
-        uVar4 = llex__6cb0(puVar2,param_1);
+        uVar4 = read_long_string(puVar2,param_1);
         return uVar4;
       }
       return 0x5b;
@@ -539,7 +540,7 @@ LAB_10006563:
     case 0xffffffff:
       luaL_addchar(0);
       if (0 < (int)puVar2[5]) {
-        luaY_error(s_input_ends_inside_a__if_10026e44,&DAT_1002bedc);
+        luaY_syntaxerror(s_input_ends_inside_a__if_10026e44,&DAT_1002bedc);
       }
       return 0;
     }
@@ -716,7 +717,7 @@ void __cdecl inclinenumber(uint *param_1)
     uVar5 = 1;
   case 5:
     if (param_1[5] == 4) {
-      luaY_error(s_too_many_nested__ifs_10026ed4,&DAT_10026eec);
+      luaY_syntaxerror(s_too_many_nested__ifs_10026ed4,&DAT_10026eec);
     }
     readname(param_1,(int)local_18);
     uVar3 = param_1[5];
@@ -736,7 +737,7 @@ void __cdecl inclinenumber(uint *param_1)
     break;
   case 6:
     if (param_1[(param_1[5] + 2) * 3] != 0) {
-      luaY_error(s_unmatched__else_10026ebc,s__else_10026ecc);
+      luaY_syntaxerror(s_unmatched__else_10026ebc,s__else_10026ecc);
     }
     param_1[(param_1[5] + 2) * 3] = 1;
     uVar2 = param_1[5];
@@ -751,18 +752,18 @@ void __cdecl inclinenumber(uint *param_1)
     token = local_18;
     msg = s_unknown_pragma_10026eac;
 LAB_10006a8e:
-    luaY_error(msg,(char *)token);
+    luaY_syntaxerror(msg,(char *)token);
   }
   skipspace(param_1);
   if (*param_1 != 10) {
     if (*param_1 != 0xffffffff) {
-      luaY_error(s_invalid_pragma_format_10026e94,(char *)local_18);
+      luaY_syntaxerror(s_invalid_pragma_format_10026e94,(char *)local_18);
     }
-    llex__6c30(param_1);
+    ifskip(param_1);
     return;
   }
   inclinenumber(param_1);
-  llex__6c30(param_1);
+  ifskip(param_1);
   return;
 }
 #undef local_18
@@ -810,7 +811,7 @@ uint __cdecl checkcond(byte *param_1)
   if ((int)uVar2 < 0) {
     uVar2 = FUN_1000f5c0((uint)*param_1);
     if ((uVar2 == 0) && (*param_1 != 0x5f)) {
-      luaY_error(s_invalid__if_condition_10026f08,(char *)param_1);
+      luaY_syntaxerror(s_invalid__if_condition_10026f08,(char *)param_1);
       return 0;
     }
     bVar1 = luaS_globaldefined(param_1);
@@ -838,7 +839,7 @@ void __cdecl readname(uint *param_1,int param_2)
     if ((uVar3 == 0) && (*param_1 != 0x5f)) break;
     if (0x13 < iVar4) {
       *(undefined1 *)(param_2 + 0x14) = 0;
-      luaY_error(s_pragma_too_long_10026f20,(char *)param_2);
+      luaY_syntaxerror(s_pragma_too_long_10026f20,(char *)param_2);
     }
     *(char *)(iVar4 + param_2) = (char)*param_1;
     iVar4 = iVar4 + 1;
@@ -858,10 +859,11 @@ void __cdecl readname(uint *param_1,int param_2)
   return;
 }
 
-/* ---- 0x10006c30  llex__6c30 ---- */
-/* Unidentified function of llex.c (lexer) */
+/* ---- 0x10006c30  ifskip ---- */
+/* Named ifskip (not in the remaster, gcc inlined it there): Lua 3.1 source name (llex.c: skips
+   input while the $if level is false, 'input ends inside a $if'); was llex__6c30. */
 
-void __cdecl llex__6c30(uint *param_1)
+void __cdecl ifskip(uint *param_1)
 
 {
   int *piVar1;
@@ -873,7 +875,7 @@ void __cdecl llex__6c30(uint *param_1)
       inclinenumber(param_1);
     }
     else if (*param_1 == 0xffffffff) {
-      luaY_error(s_input_ends_inside_a__if_10026e44,&DAT_1002bedc);
+      luaY_syntaxerror(s_input_ends_inside_a__if_10026e44,&DAT_1002bedc);
     }
     else {
       *(int *)param_1[1] = *(int *)param_1[1] + -1;
@@ -892,10 +894,11 @@ void __cdecl llex__6c30(uint *param_1)
   return;
 }
 
-/* ---- 0x10006cb0  llex__6cb0 ---- */
-/* Unidentified function of llex.c (lexer) */
+/* ---- 0x10006cb0  read_long_string ---- */
+/* Named read_long_string (not in the remaster, gcc inlined it there): Lua 3.1 source name (llex.c:
+   [[ ... ]] strings with nesting, called by luaY_lex); was llex__6cb0. */
 
-undefined4 __cdecl llex__6cb0(uint *param_1,undefined4 *param_2)
+undefined4 __cdecl read_long_string(uint *param_1,undefined4 *param_2)
 
 {
   byte bVar1;

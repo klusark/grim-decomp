@@ -3,8 +3,8 @@
 Usage: python apply_names.py names/exe_core.json [more.json ...]
 
 Each file is a JSON list of entries:
-  {"addr": "00488980", "name": "Pool_Create",            # function rename
-   "proto": "Pool * Pool_Create(int itemSize, int initialCount, int growBy)",   # optional
+  {"addr": "00488980", "name": "Memory_AllocatePool",            # function rename
+   "proto": "Pool * Memory_AllocatePool(int itemSize, int initialCount, int growBy)",   # optional
    "comment": "...",                                     # optional plate comment
    "tags": "memory,pool",                                # optional
    "program": "/v101/GRIMFANDANGO.EXE"}                  # optional, default EXE

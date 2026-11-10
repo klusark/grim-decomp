@@ -20,7 +20,7 @@ undefined * __cdecl sputRoom_Initialize(uint param_1,undefined **param_2)
   param_2[1] = sputRoom_Terminate;
   param_2[2] = sputRoom_Startup;
   param_2[3] = sputRoom_Shutdown;
-  param_2[4] = Set_SaveState;
+  param_2[4] = sputRoom_Save;
   param_2[5] = sputRoom_Restore;
   param_2[6] = (undefined *)0x0;
   param_2[7] = (undefined *)0x0;
@@ -65,7 +65,7 @@ undefined4 sputRoom_Startup(void)
   Set_RegisterHandle(s_setups_004ec72c,sputRoom_ParseSetups);
   Set_RegisterHandle(s_lights_004ec724,sputRoom_ParseLights);
   Set_RegisterHandle(s_sectors_004ec71c,sputRoom_ParseSectors);
-  g_pSoundPool = (void **)Pool_Create(0x24,0x10,8);
+  g_pSoundPool = (void **)Memory_AllocatePool(0x24,0x10,8);
   g_dwSputRoomStartup = 1;
   return 0;
 }
@@ -96,7 +96,7 @@ void sputRoom_Shutdown(void)
     pvVar3 = pvVar2;
   }
   if (g_pSoundPool != (void **)0x0) {
-    Pool_Destroy(g_pSoundPool);
+    Memory_FreePool(g_pSoundPool);
     g_pSoundPool = (void **)0x0;
   }
   g_dwSputRoomStartup = 0;
@@ -156,7 +156,7 @@ undefined4 sputRoom_ParseLights(void)
           iVar3 = sscanf((char *)g_dwStdConffile_aLine,s_light__s_004ec7c4,local_100);
           if (iVar3 == 1) {
             pbVar6 = pbVar8 + 0x68;
-            rdLight_Init(pbVar8 + 0x94);
+            rdLight_NewEntry(pbVar8 + 0x94);
             uVar4 = 0xffffffff;
             pbVar8 = local_100;
             do {

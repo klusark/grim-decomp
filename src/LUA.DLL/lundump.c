@@ -74,7 +74,7 @@ undefined4 * __cdecl LoadFunction(int *param_1)
   
   puVar1 = (uint *)*param_1;
   puVar2 = luaF_newclosure();
-  uVar3 = lundump__cfa0((int *)puVar1);
+  uVar3 = LoadWord((int *)puVar1);
   puVar2[5] = uVar3;
   uVar4 = LoadTString(puVar1);
   puVar2[6] = uVar4;
@@ -88,24 +88,26 @@ undefined4 * __cdecl LoadFunction(int *param_1)
   return puVar2;
 }
 
-/* ---- 0x1000cfa0  lundump__cfa0 ---- */
-/* Unidentified function of lundump.c (precompiled chunk loader) */
+/* ---- 0x1000cfa0  LoadWord ---- */
+/* Named LoadWord (not in the remaster, gcc inlined it there): Lua 3.1 source name (lundump.c: two
+   ezgetc bytes, high first); was lundump__cfa0. */
 
-uint __cdecl lundump__cfa0(int *param_1)
+uint __cdecl LoadWord(int *param_1)
 
 {
   uint uVar1;
   uint uVar2;
   
-  uVar1 = lundump__cfd0(param_1);
-  uVar2 = lundump__cfd0(param_1);
+  uVar1 = ezgetc(param_1);
+  uVar2 = ezgetc(param_1);
   return uVar1 << 8 | uVar2;
 }
 
-/* ---- 0x1000cfd0  lundump__cfd0 ---- */
-/* Unidentified function of lundump.c (precompiled chunk loader) */
+/* ---- 0x1000cfd0  ezgetc ---- */
+/* Named ezgetc (not in the remaster, gcc inlined it there): Lua 3.1 source name (lundump.c: zgetc,
+   unexpected end of file on EOZ); was lundump__cfd0. */
 
-uint __cdecl lundump__cfd0(int *param_1)
+uint __cdecl ezgetc(int *param_1)
 
 {
   int iVar1;
@@ -176,8 +178,8 @@ uint __cdecl luaU_LoadCode(int *param_1)
   uint uVar2;
   uint uVar3;
   
-  uVar1 = lundump__cfa0(param_1);
-  uVar2 = lundump__cfa0(param_1);
+  uVar1 = LoadWord(param_1);
+  uVar2 = LoadWord(param_1);
   uVar3 = uVar1 << 0x10 | uVar2;
   if ((uVar1 != 0) && (uVar3 == uVar2)) {
     luaL_verror(s_code_too_long___ld_bytes__10028030,uVar3);
@@ -195,7 +197,7 @@ undefined4 __cdecl LoadTString(uint *param_1)
   uint *puVar1;
   undefined4 uVar2;
   
-  puVar1 = lundump__d0f0(param_1);
+  puVar1 = Undump_LoadString(param_1);
   if (puVar1 == (uint *)0x0) {
     return 0;
   }
@@ -203,16 +205,18 @@ undefined4 __cdecl LoadTString(uint *param_1)
   return uVar2;
 }
 
-/* ---- 0x1000d0f0  lundump__d0f0 ---- */
-/* Unidentified function of lundump.c (precompiled chunk loader) */
+/* ---- 0x1000d0f0  Undump_LoadString ---- */
+/* Named Undump_LoadString (the bridge refuses the bare name LoadString beside LoadTString) (not in
+   the remaster, gcc inlined it there): Lua 3.1 source name (lundump.c: LoadWord size,
+   luaL_openspace, LoadBlock); was lundump__d0f0. */
 
-uint * __cdecl lundump__d0f0(uint *param_1)
+uint * __cdecl Undump_LoadString(uint *param_1)
 
 {
   uint uVar1;
   uint *puVar2;
   
-  uVar1 = lundump__cfa0((int *)param_1);
+  uVar1 = LoadWord((int *)param_1);
   if (uVar1 == 0) {
     return (uint *)0x0;
   }
@@ -267,7 +271,7 @@ void __cdecl luaU_LoadLocals(int param_1,uint *param_2)
   uint uVar3;
   int iVar4;
   
-  uVar1 = lundump__cfa0((int *)param_2);
+  uVar1 = LoadWord((int *)param_2);
   if (uVar1 != 0) {
     uVar2 = (**(code **)(g_dwLuaHS + 0x20))
                       (uVar1 * 8 + 8,s_C__grimsrc_libs_lua_src_lundump__1002800c,0xa4);
@@ -275,7 +279,7 @@ void __cdecl luaU_LoadLocals(int param_1,uint *param_2)
     *(undefined4 *)(param_1 + 0x1c) = uVar2;
     if (0 < (int)uVar1) {
       do {
-        uVar3 = lundump__cfa0((int *)param_2);
+        uVar3 = LoadWord((int *)param_2);
         *(uint *)(*(int *)(param_1 + 0x1c) + 4 + iVar4 * 8) = uVar3;
         uVar2 = LoadTString(param_2);
         *(undefined4 *)(*(int *)(param_1 + 0x1c) + iVar4 * 8) = uVar2;
@@ -303,7 +307,7 @@ void __cdecl luaU_LoadConstants(int param_1,undefined4 *param_2)
   int iVar5;
   float fVar6;
   
-  uVar2 = lundump__cfa0((int *)*param_2);
+  uVar2 = LoadWord((int *)*param_2);
   *(uint *)(param_1 + 0xc) = uVar2;
   if (uVar2 != 0) {
     uVar3 = (**(code **)(g_dwLuaHS + 0x20))
@@ -313,7 +317,7 @@ void __cdecl luaU_LoadConstants(int param_1,undefined4 *param_2)
     if (0 < (int)uVar2) {
       do {
         puVar1 = (undefined4 *)(*(int *)(param_1 + 8) + iVar5 * 8);
-        uVar4 = lundump__cfd0((int *)*param_2);
+        uVar4 = ezgetc((int *)*param_2);
         if (uVar4 == 0x46) {
           *puVar1 = 0xfffffffc;
           puVar1[1] = 0;
@@ -429,7 +433,7 @@ void __cdecl lundump__d3c0(int param_1,int *param_2)
       piVar1[1] = (int)((byte *)piVar1[1] + 1);
     }
     if (uVar2 != 0x23) break;
-    uVar2 = lundump__cfa0((int *)*param_2);
+    uVar2 = LoadWord((int *)*param_2);
     puVar3 = LoadFunction(param_2);
     *(undefined4 **)(*(int *)(param_1 + 8) + 4 + uVar2 * 8) = puVar3;
   }
@@ -453,14 +457,14 @@ void __cdecl luaU_loadheader(undefined4 *param_1)
   puVar2 = param_1;
   puVar1 = (uint *)*param_1;
   luaU_LoadSignature((int *)puVar1);
-  uVar3 = lundump__cfd0((int *)puVar1);
+  uVar3 = ezgetc((int *)puVar1);
   if (0x31 < (int)uVar3) {
     luaL_verror(s_binary_file__s_too_new__version__1002810c,puVar1[4],uVar3,0x31);
   }
   if ((int)uVar3 < 0x31) {
     luaL_verror(s_binary_file__s_too_old__version__100280c8,puVar1[4],uVar3,0x31);
   }
-  uVar3 = lundump__cfd0((int *)puVar1);
+  uVar3 = ezgetc((int *)puVar1);
   if (uVar3 == 4) {
     luaU_LoadBlock(puVar1,&param_1,4);
     if (PUN(float,param_1) != 1.2345679e-24) {
@@ -504,8 +508,7 @@ void __cdecl luaU_LoadSignature(int *param_1)
   char *pcVar3;
   
   cVar1 = DAT_1002816c;
-  for (pcVar3 = &DAT_1002816c;
-      (cVar1 != '\0' && (uVar2 = lundump__cfd0(param_1), uVar2 == (int)*pcVar3));
+  for (pcVar3 = &DAT_1002816c; (cVar1 != '\0' && (uVar2 = ezgetc(param_1), uVar2 == (int)*pcVar3));
       pcVar3 = pcVar3 + 1) {
     cVar1 = pcVar3[1];
   }

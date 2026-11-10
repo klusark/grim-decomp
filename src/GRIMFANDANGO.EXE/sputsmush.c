@@ -17,13 +17,13 @@ undefined4 sputSmush_Initialize(undefined4 param_1,undefined4 *param_2)
   *param_2 = sputSmush_Initialize;
   param_2[1] = &DAT_004891a0;
   param_2[2] = sputSmush_Startup;
-  param_2[3] = sputSmush_Stop;
-  param_2[4] = Movie_SaveState;
-  param_2[5] = Movie_RestoreState;
+  param_2[3] = sputSmush_Shutdown;
+  param_2[4] = sputSmush_Save;
+  param_2[5] = sputSmush_Restore;
   param_2[6] = 0;
   param_2[7] = 0;
   SmushPlay_SysInitialize(param_1,&g_aSmushPlayMS);
-  Insane_SetOutputParams(&g_pSputVideoCallBacks);
+  SmushPlay_SysSetVideoCallbacks(&g_pSputVideoCallBacks);
   g_pPresentBuf = (void *)0x0;
   _g_dwSmushBuf = 1;
   return 0;
@@ -42,7 +42,7 @@ undefined4 sputSmush_Startup(void)
   int iVar1;
   #define local_c (*(char (*)[12])(_frame + (0x20 - 0xc)))
   
-  iVar1 = Reg_GetString(s_StartSmush_004e8358,local_c,10,&DAT_004f5a98);
+  iVar1 = wuRegistry_GetStr(s_StartSmush_004e8358,local_c,10,&DAT_004f5a98);
   if ((iVar1 != 0) && (iVar1 = _stricmp(local_c,s_FALSE_004e8350), iVar1 == 0)) {
     return 0;
   }
@@ -56,12 +56,13 @@ undefined4 sputSmush_Startup(void)
 #undef local_c
 
 
-/* ---- 0x00489190  sputSmush_Stop ---- */
+/* ---- 0x00489190  sputSmush_Shutdown ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Module slot 3 of sputSmush: jumps through the Smush player's shutdown pointer when movies are
-   available. */
+   available. Original name sputSmush_Shutdown (the remaster's GrimFandango (Linux): aligned call in
+   sputSmush_Initialize); was sputSmush_Stop. */
 
-void sputSmush_Stop(void)
+void sputSmush_Shutdown(void)
 
 {
   if (g_nSputSmushStarted != 0) {

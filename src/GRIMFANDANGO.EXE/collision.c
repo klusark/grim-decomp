@@ -75,7 +75,7 @@ void Collision_PushOutOfBox
         local_4 = local_14[1];
       }
     }
-    Matrix34_TransformPoint(param_1,&local_c,param_8);
+    rdMatrix_TransformPoint34(param_1,&local_c,param_8);
   }
   return;
 }
@@ -397,8 +397,8 @@ undefined4 Collision_TestActorAgainstOthers(void *param_1)
   #define local_4 (*(uint *)(_frame + (0xf0 - 0x4)))
   
   iVar8 = *(int *)(*(int *)(*(int *)((int)param_1 + 0xa0) + 4) + 4);
-  pfVar6 = Actor_GetFrame(param_1);
-  Vec3_Copy(local_98,(float *)(iVar8 + 0x78),pfVar6);
+  pfVar6 = sputActor_GetOrientMatrix(param_1);
+  rdMatrix_TransformVector34(local_98,(float *)(iVar8 + 0x78),pfVar6);
   fVar3 = local_98[0] + *(float *)((int)param_1 + 0xc);
   local_5c[2] = 0.0;
   local_68[0] = *(float *)((int)param_1 + 0x10) + local_98[1];
@@ -412,9 +412,9 @@ undefined4 Collision_TestActorAgainstOthers(void *param_1)
          (*(int *)(*(int *)((int)actor + 0xa4) + 0x3f0) != 0)) {
         iVar8 = *(int *)(*(int *)(*(int *)((int)actor + 0xa0) + 4) + 4);
         pfVar6 = (float *)(iVar8 + 0x78);
-        pfVar7 = Actor_GetFrame(actor);
+        pfVar7 = sputActor_GetOrientMatrix(actor);
         pvStack_d0 = (void *)0x493ac7;
-        Matrix34_TransformPoint(local_68 + 2,pfVar6,pfVar7);
+        rdMatrix_TransformPoint34(local_68 + 2,pfVar6,pfVar7);
         local_50[1] = fVar3 - local_68[2];
         local_50[0] = local_68[0] - local_5c[0];
         fVar5 = local_68[1] - local_5c[1];
@@ -446,7 +446,7 @@ undefined4 Collision_TestActorAgainstOthers(void *param_1)
             local_8c[1] = local_50[1];
             local_8c[2] = local_50[0];
             local_80[0] = fVar5;
-            pfVar7 = Actor_GetFrame(actor);
+            pfVar7 = sputActor_GetOrientMatrix(actor);
             pvStack_d0 = (void *)0x493d0d;
             Vec3_TransformTo(local_a4,local_8c + 1,pfVar7);
             local_a4[0] = local_a4[0] + *pfVar6;
@@ -469,7 +469,7 @@ undefined4 Collision_TestActorAgainstOthers(void *param_1)
             local_8c[1] = (local_98[0] + *(float *)((int)param_1 + 0x18)) - local_68[2];
             local_8c[2] = (*(float *)((int)param_1 + 0x1c) + local_98[1]) - local_5c[0];
             local_80[0] = (*(float *)((int)param_1 + 0x20) + local_98[2]) - local_5c[1];
-            pfVar7 = Actor_GetFrame(actor);
+            pfVar7 = sputActor_GetOrientMatrix(actor);
             pvStack_d0 = (void *)0x493ee1;
             Vec3_TransformTo(local_50 + 2,local_8c + 1,pfVar7);
             local_50[2] = local_50[2] + *pfVar6;
@@ -485,7 +485,7 @@ undefined4 Collision_TestActorAgainstOthers(void *param_1)
             pfStack_e0 = local_50 + 2;
             iVar8 = ((code *)Collision_BoxSlide)(local_a4);
             if (iVar8 == 0) {
-              Actor_GetFrame(actor);
+              sputActor_GetOrientMatrix(actor);
               pfVar6 = local_44 + 2;
               ppfVar9 = &pfStack_e0;
               for (iVar8 = 6; iVar8 != 0; iVar8 = iVar8 + -1) {
@@ -497,14 +497,14 @@ undefined4 Collision_TestActorAgainstOthers(void *param_1)
               local_80[1] = local_a4[0];
               local_80[2] = local_a4[1];
             }
-            pfVar6 = Actor_GetFrame(actor);
+            pfVar6 = sputActor_GetOrientMatrix(actor);
             Vec3_Rotate3x3(local_80 + 1,pfVar6);
             local_80[1] = local_80[1] - local_98[0];
             local_80[2] = local_80[2] - local_98[1];
             *(float *)((int)param_1 + 0x18) = *(float *)((int)param_1 + 0xc);
             *(undefined4 *)((int)param_1 + 0x1c) = *(undefined4 *)((int)param_1 + 0x10);
             *(undefined4 *)((int)param_1 + 0x20) = *(undefined4 *)((int)param_1 + 0x14);
-            pfVar6 = Actor_GetFrame(actor);
+            pfVar6 = sputActor_GetOrientMatrix(actor);
             Vec3_Rotate3x3((float *)&DAT_008ca320,pfVar6);
             *(float *)&DAT_008ca320 = *(float *)&DAT_008ca320 - local_98[0];
             *(float *)&DAT_008ca324 = *(float *)&DAT_008ca324 - local_98[1];
@@ -518,7 +518,7 @@ undefined4 Collision_TestActorAgainstOthers(void *param_1)
               *(uint *)((int)param_1 + 8) = *(uint *)((int)param_1 + 8) | 1;
               pvStack_d0 = param_1;
               pvStack_d4 = (void *)0x4940aa;
-              ((code *)Walker_ReplanPath)();
+              ((code *)sputActor_ActorWalkTo)();
             }
           }
           pvStack_d4 = param_1;
@@ -762,7 +762,7 @@ Collision_BoxSlide(float *param_1,float *param_2,float param_3,float param_4,flo
   }
   local_44[1] = fVar3 * fVar5;
   fVar10 = rdVector_Normalize3Acc(&local_48);
-  fVar11 = Vec3_Dot2(&local_48,&local_3c);
+  fVar11 = rdVector_Dot3(&local_48,&local_3c);
   fVar11 = stdMath_ArcSin3(fVar11);
   if (90.0 - fVar11 < 90.0) {
     return 0;
@@ -771,8 +771,8 @@ Collision_BoxSlide(float *param_1,float *param_2,float param_3,float param_4,flo
   param_4 = local_3c * local_44[1] - local_38[1] * local_48;
   param_5 = local_38[0] * local_48 - local_3c * local_44[0];
   rdVector_Normalize3Acc(&param_3);
-  Matrix_AxisAngle(local_30,&param_3,(90.0 - fVar11) - 90.0);
-  Vec3_Transform(&local_48,local_30);
+  rdMatrix_BuildFromVectorAngle34(local_30,&param_3,(90.0 - fVar11) - 90.0);
+  rdMatrix_TransformVector34Acc(&local_48,local_30);
   *pfVar8 = fVar10 * local_48 + *pfVar8;
   pfVar8[1] = fVar10 * local_44[0] + pfVar8[1];
   pfVar8[2] = fVar10 * local_44[1] + pfVar8[2];

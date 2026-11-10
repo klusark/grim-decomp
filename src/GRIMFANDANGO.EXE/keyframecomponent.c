@@ -48,7 +48,7 @@ void KeyframeChanger(undefined4 param_1,int *param_2,undefined4 param_3,int para
       Res_SetReference((void *)(*param_2 + 0x54 + track * 0x34),data,
                        s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0xe3a);
       *(undefined4 *)(*param_2 + 0x18c) = param_8;
-      rdPuppet_SetTrackUserData(puppet,track,sputCostume_PuppetHook);
+      rdPuppet_SetCallback(puppet,track,sputCostume_PuppetHook);
       bVar2 = true;
       goto LAB_00497960;
     }
@@ -64,8 +64,8 @@ LAB_00497960:
     if (bVar2) {
       rdPuppet_AdvanceTrack(puppet,track,(float)param_5 * 0.001);
     }
-    rdPuppet_ClearTrackNodes(puppet,track);
-    rdPuppet_SetTrackFlags(puppet,track,0x20);
+    rdPuppet_ResetTrack(puppet,track);
+    rdPuppet_SetStatus(puppet,track,0x20);
     rdPuppet_PlayTrack(puppet,track);
     return;
   case 1:
@@ -81,16 +81,16 @@ LAB_00497960:
     if (bVar2) {
       rdPuppet_AdvanceTrack(puppet,track,(float)param_5 * 0.001);
     }
-    rdPuppet_ClearTrackNodes(puppet,track);
-    rdPuppet_SetTrackFlags(puppet,track,0x40);
+    rdPuppet_ResetTrack(puppet,track);
+    rdPuppet_SetStatus(puppet,track,0x40);
     rdPuppet_PlayTrack(puppet,track);
     return;
   case 3:
     if (bVar2) {
       rdPuppet_AdvanceTrack(puppet,track,(float)param_5 * 0.001);
     }
-    rdPuppet_ClearTrackNodes(puppet,track);
-    rdPuppet_SetTrackFlags(puppet,track,0x80);
+    rdPuppet_ResetTrack(puppet,track);
+    rdPuppet_SetStatus(puppet,track,0x80);
     rdPuppet_PlayTrack(puppet,track);
     return;
   case 4:
@@ -125,12 +125,12 @@ LAB_00497bc4:
     break;
   case 8:
     if ((*(byte *)((int)puppet + track * 0x134 + 8) & 8) == 0) {
-      rdPuppet_StopTrack(puppet,track);
+      rdPuppet_RemoveTrack(puppet,track);
       return;
     }
     break;
   case 9:
-    rdPuppet_SetTrackFlags(puppet,track,0x10);
+    rdPuppet_SetStatus(puppet,track,0x10);
     return;
   case 10:
     *(uint *)((int)puppet + track * 0x134 + 8) =
@@ -177,14 +177,16 @@ void sputCostume_PuppetHook(int param_1,int param_2,uint param_3)
   return;
 }
 
-/* ---- 0x00497d10  KeyframeComponent_NewInstance ---- */
+/* ---- 0x00497d10  KeyframeInstancer ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Costume tag handler for 'RDroid Keyframe (KEY)' (registered by sputCostume_Start through
    Cos_NewStateBasedTag/Cos_NewIntTag): slot 5, instance data for a keyframe component (ResRef to
-   the animation, 'Bad keyframe Reference' assertion); with param 0 it frees it. */
+   the animation, 'Bad keyframe Reference' assertion); with param 0 it frees it. Original name
+   KeyframeInstancer (the remaster's GrimFandango (Linux): the same handler slot (instancer) of the
+   same costume tag registration in sputCostume_Startup); was KeyframeComponent_NewInstance. */
 
-int * __cdecl KeyframeComponent_NewInstance(int inst,int component,int create)
+int * __cdecl KeyframeInstancer(int inst,int component,int create)
 
 {
   void *data;
@@ -263,17 +265,18 @@ int KeyframeRequester(uint param_1,int param_2,int param_3,int param_4,uint para
     }
     if (param_5 == 0) {
       if (g_bKeyframePath != '\0') {
-        Plat_SetDialogDirectory(&g_bKeyframePath);
+        grimPlat_SetDefaultOpenPath(&g_bKeyframePath);
       }
-      iVar3 = Plat_OpenFileDialog(s_Select_keyframe_file_to_add____004ea76c,
-                                  s_Keyframe_files____key__004ea78c);
+      iVar3 = grimPlat_OpenFileRequest
+                        (s_Select_keyframe_file_to_add____004ea76c,s_Keyframe_files____key__004ea78c
+                        );
       if (iVar3 == 0) {
         return false;
       }
-      uVar2 = ((code *)Plat_GetDialogFileName)(0x7f);
+      uVar2 = ((code *)grimPlat_GetDefaultOpenPath)(0x7f);
       ((code *)strncpy)(&g_bKeyframePath,uVar2);
       DAT_008ca837 = 0;
-      local_24 = (uint)Str_Basename(g_szGrimlib_aFilename);
+      local_24 = (uint)stdFnames_FindMedName(g_szGrimlib_aFilename);
       data = sputResource_Alloc(0x4659454b,g_szGrimlib_aFilename);
     }
     else {
@@ -338,7 +341,7 @@ undefined4 KeyframeAdjuster(int *param_1,undefined4 param_2)
   iVar1 = *param_1;
   local_30 = *(uint *)(iVar1 + 0x34);
   local_2c = *(uint *)(iVar1 + 0x38);
-  iVar2 = Plat_PromptDialog(param_2,&local_28,&local_30,2);
+  iVar2 = grimPlat_SpinDialog(param_2,&local_28,&local_30,2);
   if (iVar2 != 0) {
     iVar2 = strtok(param_2,&DAT_004ea52c);
     *(uint *)(iVar1 + 0x34) = local_30;
@@ -357,11 +360,13 @@ undefined4 KeyframeAdjuster(int *param_1,undefined4 param_2)
 #undef local_30
 
 
-/* ---- 0x004980b0  KeyframeComponent_Destroy ---- */
+/* ---- 0x004980b0  KeyframeFreer ---- */
 /* Costume tag handler, slot 2 of the 'RDroid Keyframe (KEY)' tag: frees the key data. (Was named
-   BitmapComponent_Destroy.) */
+   BitmapComponent_Destroy.) Original name KeyframeFreer (the remaster's GrimFandango (Linux): the
+   same handler slot (freer) of the same costume tag registration in sputCostume_Startup); was
+   KeyframeComponent_Destroy. */
 
-undefined4 KeyframeComponent_Destroy(undefined4 param_1,undefined4 param_2,void *param_3)
+undefined4 KeyframeFreer(undefined4 param_1,undefined4 param_2,void *param_3)
 
 {
   Res_RemoveReference(param_3);
@@ -369,11 +374,13 @@ undefined4 KeyframeComponent_Destroy(undefined4 param_1,undefined4 param_2,void 
   return 1;
 }
 
-/* ---- 0x004980e0  KeyframeComponent_Stop ---- */
+/* ---- 0x004980e0  KeyframeStopper ---- */
 /* Stops the puppet track (6 slots of 0x134 bytes at puppet+8) playing this keyframe unless it is
-   flagged persistent */
+   flagged persistent Original name KeyframeStopper (the remaster's GrimFandango (Linux): the same
+   handler slot (stopper) of the same costume tag registration in sputCostume_Startup); was
+   KeyframeComponent_Stop. */
 
-undefined4 KeyframeComponent_Stop(int *param_1)
+undefined4 KeyframeStopper(int *param_1)
 
 {
   void *puppet;
@@ -389,7 +396,7 @@ undefined4 KeyframeComponent_Stop(int *param_1)
   do {
     if (*piVar1 == param_1[2]) {
       if ((*(byte *)((int)puppet + track * 0x134 + 8) & 8) == 0) {
-        rdPuppet_StopTrack(puppet,track);
+        rdPuppet_RemoveTrack(puppet,track);
       }
       return 1;
     }

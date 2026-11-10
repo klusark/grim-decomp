@@ -35,7 +35,7 @@ void sputRender_Update(void)
 {
     uint mode = g_dwGrimlib_mode;
     int rect[4];
-    uint vec[3];                /* scale vector passed to Matrix_BuildTransform2 (float bit patterns) */
+    uint vec[3];                /* scale vector passed to rdMatrix_PreScale34 (float bit patterns) */
     byte *set, *rec, *os, *actor, *entry, *cm;
     uint *list = &g_dwDrawItems;
     int setup, n, k, cnt;
@@ -46,8 +46,8 @@ void sputRender_Update(void)
 
     if (mode == 3) {
         float dt;
-        Movie_SetTarget(&g_dwStdDisplay_backBuffer);
-        if (Movie_PollPlayback() != 0) {
+        sputSmush_SetTarget(&g_dwStdDisplay_backBuffer);
+        if (sputSmush_Periodic() != 0) {
             cnt = g_nNumPages;
             g_dwGrimlib_mode = 2;
             rect[0] = 0; rect[1] = 0; rect[2] = 0x280; rect[3] = 0x1e0;
@@ -59,14 +59,14 @@ void sputRender_Update(void)
                 } while (n < g_nNumPages);
             }
             sputRender_ForceRefresh();
-            UINT_008c97f8 = 1;
+            g_dwMovieJustFinished = 1;
         }
         dt = sputTime_GetFrameTimeFlex();
-        Actors_UpdateTalking(dt);
-        Surface_Lock(&g_dwStdDisplay_backBuffer);
+        sputActor_UpdateSpeechOnly(dt);
+        stdDisplay_VBufferLock(&g_dwStdDisplay_backBuffer);
         UINT_008a94b8 = UINT_0090563c;
-        TextObjects_Update(0);
-        Surface_Unlock(&g_dwStdDisplay_backBuffer);
+        sputText_Update(0);
+        stdDisplay_VBufferUnlock(&g_dwStdDisplay_backBuffer);
         Render_Present();
         return;
     }
@@ -103,7 +103,7 @@ void sputRender_Update(void)
             g_pRenderedSet = set;
             setup = *(int *)(set + 0xb4);
             g_nSputRender_Update_RenderSetup = setup;
-            Set_SwitchSetup(set, setup);
+            sputRender_UseSetup(set, setup);
             sputLua_PostCameraChange(g_nSputRender_Update_RenderSetup);
         }
     }
@@ -118,43 +118,43 @@ void sputRender_Update(void)
     for (os = ER_PTR(rec, 0x128); os != 0; os = ER_PTR(os, 0xf8))
         ObjectState_Draw(os, 3, g_pSputRender_CleanBuffer, g_pSputRender_CleanZBuffer);
 
-    Profile_Begin(4);
+    PerfBegin(4);
     if (g_nDoTheFlip != 0)
         DirtyRect_Flush(&g_dwStdDisplay_backBuffer, (void *)UINT_008c97a4);
-    Profile_End(4);
-    Movie_SetTarget(&g_dwStdDisplay_backBuffer);
-    Movie_PollPlayback();
-    Surface_Lock(&g_dwStdDisplay_backBuffer);
-    Primitives_DrawAll(1);
-    Surface_Unlock(&g_dwStdDisplay_backBuffer);
+    PerfEnd(4);
+    sputSmush_SetTarget(&g_dwStdDisplay_backBuffer);
+    sputSmush_Periodic();
+    stdDisplay_VBufferLock(&g_dwStdDisplay_backBuffer);
+    sputPrimitive_Update(1);
+    stdDisplay_VBufferUnlock(&g_dwStdDisplay_backBuffer);
     for (os = ER_PTR(rec, 0x128); os != 0; os = ER_PTR(os, 0xf8))
         ObjectState_Draw(os, 1, &g_dwStdDisplay_backBuffer, (void *)UINT_008c97a4);
     rdroid_BeginFrame();
     Render_BuildActorDrawList();
 
     if (g_dwTotDrawItems != 0 || ((byte)g_dwDebugFlags & 1) != 0) {
-        Profile_Begin(5);
+        PerfBegin(5);
         n = 0;
         if ((int)g_dwTotDrawItems > 0) {
             do {
                 entry = (byte *)list[n];
                 actor = (byte *)g_pActors + *(int *)(entry + 8) * 0xa8;
                 if (entry[0] == 0)
-                    Costume_TouchComponents(*(int *)ER_PTR(actor, 0xa0));
+                    sputCostume_Draw2D(*(int *)ER_PTR(actor, 0xa0));
                 n++;
             } while (n < (int)g_dwTotDrawItems);
         }
-        Profile_End(5);
+        PerfEnd(5);
         if (((byte)g_dwDebugFlags & 1) != 0) {
-            Surface_Lock(&g_dwStdDisplay_backBuffer);
+            stdDisplay_VBufferLock(&g_dwStdDisplay_backBuffer);
             if (((byte)g_dwDebugFlags & 8) != 0)
                 ((void (__cdecl *)(void *))Sector_DrawAllDebug)(sputRoom_GetCurrentRoom());
             else
                 Render_DrawDebugGrid();
-            Surface_Unlock(&g_dwStdDisplay_backBuffer);
+            stdDisplay_VBufferUnlock(&g_dwStdDisplay_backBuffer);
         }
 
-        Profile_Begin(6);
+        PerfBegin(6);
         /* the draw list from the last entry to the first */
         for (k = n; k != 0; k--) {
             entry = (byte *)list[k - 1];
@@ -163,7 +163,7 @@ void sputRender_Update(void)
                 vec[0] = ER_U32(actor, 0x30);
                 vec[1] = ER_U32(actor, 0x30);
                 vec[2] = ER_U32(actor, 0x30);
-                Matrix_BuildTransform2(Actor_GetFrame(actor), (undefined4)vec);
+                rdMatrix_PreScale34(sputActor_GetOrientMatrix(actor), (undefined4)vec);
             }
             switch (*(byte *)list[k - 1]) {
             case 0:
@@ -188,18 +188,18 @@ void sputRender_Update(void)
                 }
                 ((void (__cdecl *)(uint, int))UINT_008c97b8)(*(uint *)(cm + 4) + 0x30, 0);
                 {
-                    float *frame = Actor_GetFrame(actor);
-                    Actor_DrawCostumes(ER_U32(actor, 0xa0), (undefined4)frame);
+                    float *frame = sputActor_GetOrientMatrix(actor);
+                    sputCostume_Draw3D(ER_U32(actor, 0xa0), (undefined4)frame);
                 }
                 if (((byte)g_dwDebugFlags & 1) != 0)
                     Actor_DrawDebugWalker(actor);
                 break;
             case 1:
                 if (g_nSputRender_b3DAcceleration == 0)
-                    Surface_Lock(&g_dwStdDisplay_backBuffer);
+                    stdDisplay_VBufferLock(&g_dwStdDisplay_backBuffer);
                 Actor_ComputeScreenBox(actor);
                 if (g_nSputRender_b3DAcceleration == 0)
-                    Surface_Unlock(&g_dwStdDisplay_backBuffer);
+                    stdDisplay_VBufferUnlock(&g_dwStdDisplay_backBuffer);
                 Render_InvalidateRectLastBuffer((int *)(actor + 0x6c), 1);
                 break;
             }
@@ -210,20 +210,20 @@ void sputRender_Update(void)
                 vec[0] = *(uint *)&r;
                 vec[1] = vec[0];
                 vec[2] = vec[0];
-                Matrix_BuildTransform2(Actor_GetFrame(actor), (undefined4)vec);
+                rdMatrix_PreScale34(sputActor_GetOrientMatrix(actor), (undefined4)vec);
             }
         }
-        Profile_End(6);
-        Profile_Begin(7);
+        PerfEnd(6);
+        PerfBegin(7);
         rdroid_EndFrame();
-        Profile_End(7);
+        PerfEnd(7);
         for (os = ER_PTR(rec, 0x128); os != 0; os = ER_PTR(os, 0xf8))
             ObjectState_Draw(os, 2, &g_dwStdDisplay_backBuffer, (void *)UINT_008c97a4);
     }
 
-    Surface_Lock(&g_dwStdDisplay_backBuffer);
-    Primitives_DrawAll(2);
-    Surface_Unlock(&g_dwStdDisplay_backBuffer);
+    stdDisplay_VBufferLock(&g_dwStdDisplay_backBuffer);
+    sputPrimitive_Update(2);
+    stdDisplay_VBufferUnlock(&g_dwStdDisplay_backBuffer);
     if (((byte)g_dwDebugFlags & 1) != 0) {
         cur = sputRoom_GetCurrentRoom();
         if (((byte)g_dwDebugFlags & 2) != 0)
@@ -237,7 +237,7 @@ void sputRender_Update(void)
          * high dword is 0), so a clock behind the start time gives a large positive value, not a negative one.
          * The compares are x87 FCOM + TEST AH: "C0" (below or unordered) and "C0|C3" (below, equal or unordered).
          * `volatile` keeps every step on v as written (at -O2 gcc rewrote the FCHS / 1 - v pair and flipped NaN signs). */
-        uint diff = Timer_GetTotalMs() - g_dwIrisStart;
+        uint diff = sputTime_GetGameTime() - g_dwIrisStart;
         volatile long double v = (long double)(unsigned long long)diff / (long double)g_flIrisDuration;
         float out;
         if (!(v >= 0.0L))
@@ -254,17 +254,17 @@ void sputRender_Update(void)
         if (!(g_flIrisDuration > 0.0f))
             v = 1.0L - v;
         out = (float)v;
-        Render_DrawIris(out, g_nIrisX, g_nIrisY);
+        sputRender_DrawIrisEffect(out, g_nIrisX, g_nIrisY);
         if (!(g_flIrisDuration >= 0.0f)) {
             rect[0] = 0; rect[1] = 0; rect[2] = 0x280; rect[3] = 0x1e0;
             MarkDirtyRect(rect, 0);
         }
     }
 
-    Surface_Lock(&g_dwStdDisplay_backBuffer);
+    stdDisplay_VBufferLock(&g_dwStdDisplay_backBuffer);
     UINT_008a94b8 = UINT_0090563c;
-    TextObjects_Update(1);
-    Surface_Unlock(&g_dwStdDisplay_backBuffer);
+    sputText_Update(1);
+    stdDisplay_VBufferUnlock(&g_dwStdDisplay_backBuffer);
     g_nSputRender_Reset = 0;
 }
 #endif

@@ -17,16 +17,17 @@ void __cdecl luaH_free(undefined4 *param_1)
   while (param_1 != (undefined4 *)0x0) {
     puVar1 = (undefined4 *)*param_1;
     g_dwLState_nblocks = g_dwLState_nblocks + (-1 - ((uint)param_1[3] >> 4));
-    ltable__c1d0((int)param_1);
+    freeHash((int)param_1);
     param_1 = puVar1;
   }
   return;
 }
 
-/* ---- 0x1000c1d0  ltable__c1d0 ---- */
-/* Unidentified function of ltable.c (hash tables, with Grim save support) */
+/* ---- 0x1000c1d0  freeHash ---- */
+/* Named freeHash (not in the remaster, gcc inlined it there): Lua 3.1 source name (ltable.c: frees
+   the node vector and the table, used by luaH_free); was ltable__c1d0. */
 
-void __cdecl ltable__c1d0(int param_1)
+void __cdecl freeHash(int param_1)
 
 {
   (**(code **)(g_dwLuaHS + 0x24))(*(undefined4 *)(param_1 + 8));
@@ -415,7 +416,7 @@ int __cdecl luaH_next(int param_1,int *param_2)
   
   iVar1 = *(int *)(param_1 + 4);
   if (*param_2 == -7) {
-    iVar1 = ltable__c810(iVar1,0);
+    iVar1 = hashnext(iVar1,0);
     return iVar1;
   }
   iVar2 = present(iVar1,param_2);
@@ -423,14 +424,15 @@ int __cdecl luaH_next(int param_1,int *param_2)
   if ((*piVar3 == -7) || (piVar3[2] == -7)) {
     luaL_argerror(2,IMG_ADDR(0x10027d38));
   }
-  iVar1 = ltable__c810(iVar1,iVar2 + 1);
+  iVar1 = hashnext(iVar1,iVar2 + 1);
   return iVar1;
 }
 
-/* ---- 0x1000c810  ltable__c810 ---- */
-/* Unidentified function of ltable.c (hash tables, with Grim save support) */
+/* ---- 0x1000c810  hashnext ---- */
+/* Named hashnext (not in the remaster, gcc inlined it there): Lua 3.1 source name (ltable.c: the
+   next node with non-nil key and value, used by luaH_next); was ltable__c810. */
 
-int __cdecl ltable__c810(int param_1,int param_2)
+int __cdecl hashnext(int param_1,int param_2)
 
 {
   int *piVar1;

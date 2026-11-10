@@ -48,7 +48,7 @@ int __cdecl rdroid_Open(int flags)
     g_nRdroid_curOcclusionMethod = 0;
     _g_bRdroid_curCullFlags = 1;
     UINT_00900054 = 0;
-    stdBitmap_InitHeader(&UINT_00900020);
+    stdBitmap_InitHeader(&g_dwRdroid_curColorEffects);
     UINT_0090004c = 0;
     UINT_004f5eb4 = 0;
     rdroid_InitCaches();
@@ -173,8 +173,8 @@ void rdroid_InitCaches(void)
 undefined4 rdroid_SetColormap(uint param_1)
 
 {
-  if (UINT_004f5ec0 != param_1) {
-    UINT_004f5ec0 = param_1;
+  if (g_dwRdColormap_pIdentityMap != param_1) {
+    g_dwRdColormap_pIdentityMap = param_1;
   }
   if (g_dwRdColormap_pCurMap == 0) {
     rdColormap_SetCurrent(param_1);
@@ -199,8 +199,8 @@ void rdroid_BuildMathTables(void)
   longlong lVar3;
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
-  UINT_008fe000 = 0x7f7fc99e;
-  _DAT_008fbfc0 = 0x7fffffff;
+  g_dwRdRaster_aOneOverNFlex = 0x7f7fc99e;
+  _g_aRdRaster_OneOverNFixed = 0x7fffffff;
   local_4 = 1;
   iVar2 = 0;
   do {
@@ -214,7 +214,7 @@ void rdroid_BuildMathTables(void)
   do {
     iVar1 = iVar2 + 4;
     *(float *)((int)&UINT_008fdfc0 + iVar2) =
-         *(float *)((int)&UINT_008fe000 + iVar2) * _DAT_004ddb30;
+         *(float *)((int)&g_dwRdRaster_aOneOverNFlex + iVar2) * _DAT_004ddb30;
     iVar2 = iVar1;
   } while (iVar1 < 0x40);
   return;

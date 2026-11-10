@@ -255,11 +255,11 @@ FASTFN void __cdecl Mem_Copy(void *dst, void *src, uint n)
 }
 
 /* Insane_BlitRows16 (0x4bddb0): copies `rows` rows of `bytes` bytes (movie frame -> screen buffer), optionally through a
- * 16-bit look-up table (UINT_008d16bc). The plain copy dominated a movie loop. */
+ * 16-bit look-up table (g_dwSmushPlay_TranslationTable). The plain copy dominated a movie loop. */
 FASTFN void Insane_BlitRows16(ushort *param_1, int param_2, int param_3, int param_4, int param_5, int param_6)
 {
     int n = param_5 >> 2;
-    if (UINT_008d16bc == 0) {
+    if (g_dwSmushPlay_TranslationTable == 0) {
         while (param_6 != 0) {
             const char *s = (const char *)param_1;
             char *d = (char *)param_3;
@@ -273,7 +273,7 @@ FASTFN void Insane_BlitRows16(ushort *param_1, int param_2, int param_3, int par
             param_6--;
         }
     } else {
-        const ushort *tab = (const ushort *)UINT_008d16bc;
+        const ushort *tab = (const ushort *)g_dwSmushPlay_TranslationTable;
         while (param_6 != 0) {
             const ushort *s = param_1;
             uint *d = (uint *)param_3;

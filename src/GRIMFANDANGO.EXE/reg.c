@@ -25,7 +25,7 @@ void Reg_Open(void *param_1,uint param_2,char *param_3)
   g_pRegRootKey = param_1;
   iVar1 = RegCreateKeyExA((int)param_1,param_2,0,IMG_ADDR(0x004f5a98),0,0xf003f,0,(int)&local_88,(int)local_84);
   if (iVar1 == 0) {
-    iVar2 = Reg_GetString(s_Version_004dda60,acStack_80,0x80,(char *)0x0);
+    iVar2 = wuRegistry_GetStr(s_Version_004dda60,acStack_80,0x80,(char *)0x0);
     if (iVar2 != 0) {
       iVar2 = _stricmp(acStack_80,param_3);
       if (iVar2 != 0) {
@@ -36,7 +36,7 @@ void Reg_Open(void *param_1,uint param_2,char *param_3)
     }
   }
   if (iVar1 == 0) {
-    Reg_SetString(s_Version_004dda60,param_3);
+    wuRegistry_SaveStr(s_Version_004dda60,param_3);
     RegCloseKey(local_88);
   }
   Reg_CacheValueNames();
@@ -253,8 +253,11 @@ int __cdecl Reg_HasValue(char *name)
 #undef local_84
 
 
-/* ---- 0x00403d90  Reg_SetFloat ---- */
-int __cdecl Reg_SetFloat(char *name,float value)
+/* ---- 0x00403d90  wuRegistry_SaveFloat ---- */
+/* Original name wuRegistry_SaveFloat (the remaster's GrimFandango (Linux): aligned call in
+   sputLua_WriteRegistryValue); was Reg_SetFloat. */
+
+int __cdecl wuRegistry_SaveFloat(char *name,float value)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -305,8 +308,11 @@ int __cdecl Reg_GetInt(char *name,int defaultValue)
 #undef uStack_c
 
 
-/* ---- 0x00403e90  Reg_GetFloat ---- */
-float __cdecl Reg_GetFloat(char *name,float defaultValue)
+/* ---- 0x00403e90  wuRegistry_GetFloat ---- */
+/* Original name wuRegistry_GetFloat (the remaster's GrimFandango (Linux): aligned call in
+   sputLua_ReadRegistryValue); was Reg_GetFloat. */
+
+float __cdecl wuRegistry_GetFloat(char *name,float defaultValue)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -380,8 +386,11 @@ int __cdecl Reg_GetBinary(char *name,void *data,int size)
   return 0;
 }
 
-/* ---- 0x00404010  Reg_SetString ---- */
-void __cdecl Reg_SetString(char *name,char *value)
+/* ---- 0x00404010  wuRegistry_SaveStr ---- */
+/* Original name wuRegistry_SaveStr (the remaster's GrimFandango (Linux): aligned call in
+   sputLua_WriteRegistryValue); was Reg_SetString. */
+
+void __cdecl wuRegistry_SaveStr(char *name,char *value)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -407,8 +416,11 @@ void __cdecl Reg_SetString(char *name,char *value)
 #undef local_4
 
 
-/* ---- 0x00404070  Reg_GetString ---- */
-int __cdecl Reg_GetString(char *name,char *buf,int size,char *defaultValue)
+/* ---- 0x00404070  wuRegistry_GetStr ---- */
+/* Original name wuRegistry_GetStr (the remaster's GrimFandango (Linux): aligned call in
+   sputLua_ReadRegistryValue, sputLua_Startup, sputSmush_Startup); was Reg_GetString. */
+
+int __cdecl wuRegistry_GetStr(char *name,char *buf,int size,char *defaultValue)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -444,10 +456,12 @@ int __cdecl Reg_GetString(char *name,char *buf,int size,char *defaultValue)
 #undef iStack_8
 
 
-/* ---- 0x00404120  Reg_GetValueType ---- */
-/* Returns the registry value type (1 = REG_SZ, 3 = REG_BINARY) or 0 */
+/* ---- 0x00404120  wuRegistry_QueryType ---- */
+/* Returns the registry value type (1 = REG_SZ, 3 = REG_BINARY) or 0 Original name
+   wuRegistry_QueryType (the remaster's GrimFandango (Linux): aligned call in
+   sputLua_ReadRegistryValue); was Reg_GetValueType. */
 
-int __cdecl Reg_GetValueType(char *name)
+int __cdecl wuRegistry_QueryType(char *name)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */

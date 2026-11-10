@@ -17,7 +17,7 @@ void __cdecl DebugLog_Init(int enable)
   if (enable != 0) {
     if (UINT_004f5a54 == 0) {
       if (((UINT_004f5a18 != 0) && (INT_004f5a24 != 0)) &&
-         (UINT_004f44e0 = ResFile_Open(s_debug_log_004dd46c,&DAT_004dd478), UINT_004f44e0 == 0)) {
+         (UINT_004f44e0 = Res_FOpen(s_debug_log_004dd46c,&DAT_004dd478), UINT_004f44e0 == 0)) {
         uVar1 = ((code *)Win_GetMainHwnd)(s_Unable_to_open_debug_log_in_the_c_004dd424,s_Uh_oh__004dd464,0);
         ((code *)Grim_FatalMessageBox)(uVar1);
         return;
@@ -42,7 +42,7 @@ void __cdecl DebugLog_Init(int enable)
       UINT_004f5a04 = 0;
     }
     if (UINT_004f44e0 != 0) {
-      ResFile_Close(UINT_004f44e0);
+      Res_FClose(UINT_004f44e0);
       UINT_004f44e0 = 0;
     }
   }
@@ -175,6 +175,6 @@ char * DebugLog_Debug(char *param_1)
 void DebugLog_Write(char *param_1,undefined4 param_2)
 
 {
-  ResFile_Printf(UINT_004f44e0,param_1,param_2);
+  Res_FPrintf(UINT_004f44e0,param_1,param_2);
   return;
 }

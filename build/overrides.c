@@ -403,7 +403,7 @@ uint stdFile_Read(undefined4 param_1, undefined4 param_2, undefined4 param_3)
 }
 
 /* stdFile_Gets (0x4734a0): fgets; "\r\n" read as "\n" in a text file. Returns fgets's result (the original left it
- * in EAX; ResFile_Gets passes it on). */
+ * in EAX; Res_FGets passes it on). */
 char *stdFile_Gets(undefined4 param_1, undefined4 param_2, undefined4 param_3)
 {
     void *f = (void *)param_1;
@@ -472,7 +472,7 @@ void Actor_UpdateWalker(int actor)
     walk_scale_init();
     if (ACT_I(extra, 0x10) != 0 && (ACT_I(actor, 8) & 1) == 0) {
         dt = sputTime_GetFrameTimeFlex();
-        Walker_TurnHeading(walker, (float)ACT_I(extra, 0x10) * ACT_F(extra, 0x1c) * dt * ACT_F(extra, 0x41c));
+        Puck_Rotate(walker, (float)ACT_I(extra, 0x10) * ACT_F(extra, 0x1c) * dt * ACT_F(extra, 0x41c));
     }
     extra = ACT_I(actor, 0xa4);
     if (ACT_I(extra, 0xc) != 0) {
@@ -595,7 +595,7 @@ float __thiscall Puck_PointAt(void *this, float *point, float maxTurn)
         angle = maxTurn;
     if (0.0f < v[0])
         angle = angle * -1.0f;
-    Walker_TurnHeading(this, angle);
+    Puck_Rotate(this, angle);
     return angle;
 }
 
@@ -653,26 +653,26 @@ float __thiscall Sector_EdgeDistance(void *this, int edge, float *point)
 #include "globals.h"
 #include "functions.h"
 
-/* The iMUSE re-entrancy guard (DAT_100172c0, Enter/Leave around nearly every Im* call) is a plain counter:
+/* The iMUSE re-entrancy guard (g_dwWvSlicingHalted, Enter/Leave around nearly every Im* call) is a plain counter:
  * Enter is INC without LOCK, Leave is load / test / dec / store. The WINMM heartbeat thread and the main thread
  * leave at the same moment now and then, both read 2 and store 1, and the counter stays 1 for good: ImHeartbeat
  * (which only runs at 0) never runs again, no stream is consumed and SoundsFloodMusicBuffer (sputRoom_LoadResources)
  * spins forever (seen with fast set switches and with the original binary too). Same semantics, made atomic. */
-/* OVERRIDES: Im_GuardEnter Im_GuardLeave */
+/* OVERRIDES: ImWaveHalt ImWaveProceed */
 __asm__(".text\n"
-        ".def _Im_GuardEnter; .scl 2; .type 32; .endef\n"
-        ".globl _Im_GuardEnter\n"
-        "_Im_GuardEnter:\n"
-        "    lock incl _DAT_100172c0\n"
+        ".def _ImWaveHalt; .scl 2; .type 32; .endef\n"
+        ".globl _ImWaveHalt\n"
+        "_ImWaveHalt:\n"
+        "    lock incl _g_dwWvSlicingHalted\n"
         "    ret\n"
-        ".def _Im_GuardLeave; .scl 2; .type 32; .endef\n"
-        ".globl _Im_GuardLeave\n"
-        "_Im_GuardLeave:\n"
-        "1:  movl _DAT_100172c0, %eax\n"
+        ".def _ImWaveProceed; .scl 2; .type 32; .endef\n"
+        ".globl _ImWaveProceed\n"
+        "_ImWaveProceed:\n"
+        "1:  movl _g_dwWvSlicingHalted, %eax\n"
         "    testl %eax, %eax\n"
         "    jz 2f\n"
         "    leal -1(%eax), %ecx\n"
-        "    lock cmpxchgl %ecx, _DAT_100172c0\n"
+        "    lock cmpxchgl %ecx, _g_dwWvSlicingHalted\n"
         "    jnz 1b\n"
         "2:  ret\n");
 
@@ -1163,7 +1163,7 @@ int __cdecl SaveGame_Read(void *buf, int n)
 
 #ifdef GRIM_EXE
 /* ---- Engine_LoadGame (0x483240) with a post-load pass for the text objects' speaker pointers ----
- * A speech text object (flag 4, made by Actor_SayLine) keeps a RAW pointer to its actor at +0x254. sputText saves it as is
+ * A speech text object (flag 4, made by sputActor_SayLine) keeps a RAW pointer to its actor at +0x254. sputText saves it as is
  * and nothing remaps it on load, so it is only right when the actor table sits at the address it had when the game was
  * saved: the original game (heap addresses differ from run to run, and sputActor_AllocateActor reallocs the table) loaded such a save
  * with a stale pointer and sputText_ExpireTextQueueL then zeroed a word of some other heap block; in the rebuilt engine the same stale
@@ -1218,9 +1218,9 @@ void Engine_LoadGame(void)
         Render_SetWaitCursorEnabled(0);
         Render_DrawProgressBar(0.1);
         ImStopAllSounds();
-        Movie_Stop();
-        Movie_PollPlayback();
-        Engine_ResetState();
+        sputSmush_StopMovie();
+        sputSmush_Periodic();
+        Res_FreeAll();
         g_pShadowMaterial = 0;
         Resource_SetNoPurge(1);
         SaveGame_Read(&hdrLen, 4);
@@ -1239,7 +1239,7 @@ void Engine_LoadGame(void)
         (*(code *)UINT_008a880c)(SaveGame_Read);
         (*(code *)UINT_008a882c)(SaveGame_Read);
         g_dwGrimlib_mode = 4;
-        SaveGame_Read(&UINT_008a8c48, 4);
+        SaveGame_Read(&g_dwGrimlib_prevmode, 4);
         Render_DrawProgressBar(0.75);
         lua_Restore(SaveGame_Read);
         Render_DrawProgressBar(1.0);
@@ -1249,7 +1249,7 @@ void Engine_LoadGame(void)
         Resource_SetNoPurge(0);
         set = sputRoom_GetCurrentRoom();
         setupIdx = set == 0 ? 0 : *(int *)((int)set + 0xb4);
-        Set_SwitchSetup(set, setupIdx);
+        sputRender_UseSetup(set, setupIdx);
         gzclose((int)UINT_008a8770);
         lua_dofile(s_patch05_bin_004e7fe8);
         g_dwJustLoaded = 1;
@@ -1425,7 +1425,7 @@ undefined4 __cdecl lua_setfallback(byte *name, int fallback)
     lua_pushstring(name);
     lua_pushCclosure(fallback, 0);
     luaA_callObject(luaT_setfallback, 2, (void *)1);
-    return lapi__12e0();
+    return put_luaObjectonTop();
 }
 
 /* ==== agentJ: small x87-dependent functions of LUA.DLL, written out ====
@@ -1495,11 +1495,11 @@ void __cdecl luaY_code_number(float f)
     if (f >= 0.0f && f <= 65534.0f) {
         int n = (int)(long long)f;   /* like _ftol */
         if ((float)n == f) {
-            luaY_code_opcode_arg(3, 3, (unsigned)n, 1);
+            code_oparg(3, 3, (unsigned)n, 1);
             return;
         }
     }
-    lparser__b8c0(luaY_real_constant(f));
+    code_constant(luaY_real_constant(f));
 }
 
 /* lua_gettask(obj): the task id (a float stored in a task object) or -1 */
@@ -1670,7 +1670,7 @@ void __cdecl luaV_pack(int first, int n, undefined4 *result)
 }
 
 /* the "n" field of table `t` as an int, or 0xfffe when it is missing or not a number */
-int __cdecl lbuiltin__3ba0(int t)
+int __cdecl getnarg(int t)
 {
     int v;
     lua_pushobject(t);
@@ -1701,12 +1701,12 @@ void __cdecl luaU_loadheader(undefined4 *ld)
     uint *z = (uint *)ld[0];                /* the stream; z[4] is its name for error messages */
     int version, size;
     luaU_LoadSignature((int *)z);
-    version = (int)lundump__cfd0((int *)z);
+    version = (int)ezgetc((int *)z);
     if (version > 0x31)
         luaL_verror(s_binary_file__s_too_new__version__1002810c, z[4], version, 0x31);
     if (version < 0x31)
         luaL_verror(s_binary_file__s_too_old__version__100280c8, z[4], version, 0x31);
-    size = (int)lundump__cfd0((int *)z);
+    size = (int)ezgetc((int *)z);
     if (size == 4) {
         float f;
         luaU_LoadBlock(z, (undefined4 *)&f, 4);
@@ -1736,7 +1736,7 @@ void __cdecl luaU_loadheader(undefined4 *ld)
  * `fn` is the function prototype being filled in (constants at +8, count at +0xc) */
 void __cdecl luaU_LoadConstants(int fn, undefined4 *ld)
 {
-    uint n = lundump__cfa0((int *)ld[0]);
+    uint n = LoadWord((int *)ld[0]);
     int i;
     *(uint *)(fn + 0xc) = n;
     if (n == 0)
@@ -1744,7 +1744,7 @@ void __cdecl luaU_LoadConstants(int fn, undefined4 *ld)
     *(undefined4 *)(fn + 8) = (*(undefined4 (**)(uint, char *, int))(g_dwLuaHS + 0x20))(n * 8, s_C__grimsrc_libs_lua_src_lundump__1002800c, 0xb3);
     for (i = 0; i < (int)n; i++) {
         undefined4 *k = (undefined4 *)(*(int *)(fn + 8) + i * 8);   /* the {tag, value} slot */
-        uint type = lundump__cfd0((int *)ld[0]);
+        uint type = ezgetc((int *)ld[0]);
         if (type == 'F') {
             k[0] = (undefined4)-4;          /* function constant: filled in later */
             k[1] = 0;
@@ -2045,7 +2045,7 @@ uint __cdecl luaY_lex(float *value)
                 LX_SAVE_AND_NEXT();
                 if (ls[0] == '.') {                              /* "1..x": a number followed by a concatenation */
                     luaL_addchar(0);
-                    lparser__a730(s_ambiguous_syntax__decimal_point_x_10026e5c);
+                    luaY_error(s_ambiguous_syntax__decimal_point_x_10026e5c);
                 }
             }
             goto fraction;
@@ -2114,11 +2114,11 @@ uint __cdecl luaY_lex(float *value)
             if (ls[0] != '[')
                 return '[';
             LX_SAVE_AND_NEXT();
-            return llex__6cb0(ls, (undefined4 *)value);
+            return read_long_string(ls, (undefined4 *)value);
         case LX_EOZ:
             luaL_addchar(0);
             if ((int)ls[5] > 0)
-                luaY_error(s_input_ends_inside_a__if_10026e44, (char *)&DAT_1002bedc);
+                luaY_syntaxerror(s_input_ends_inside_a__if_10026e44, (char *)&DAT_1002bedc);
             return 0;
         }
     }
@@ -2369,7 +2369,7 @@ undefined4 luaD_call(code *param_1, void *param_2)
         case -5:
             obj[0] = -11;
             fn = obj[1];
-            res = ldo__44e0((undefined *)fn, pos);
+            res = callC((undefined *)fn, pos);
             break;
         case -4:
             obj[0] = -10;

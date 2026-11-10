@@ -38,7 +38,7 @@ void Glyph_Blit16(int param_1,undefined4 param_2,int *param_3)
              ((int)*(char *)(param_1 + 6) + param_3[4]) * iVar4 + *piVar3);
   puVar10 = (undefined1 *)param_3[0xb];
   if (puVar10 == (undefined1 *)0x0) {
-    puVar10 = &DAT_008d0880;
+    puVar10 = &g_bLookup;
   }
   iVar6 = param_3[5];
   iVar7 = param_3[7];
@@ -107,7 +107,7 @@ void Glyph_Blit8(int param_1,int param_2,int *param_3)
            ((param_3[4] + *(int *)(param_2 + 0x14)) * iVar3 + (int)*(char *)(param_1 + 5) +
             param_3[3] + *(int *)*param_3);
   if (puVar9 == (undefined1 *)0x0) {
-    puVar9 = &DAT_008d0880;
+    puVar9 = &g_bLookup;
   }
   for (; iVar6 != 0; iVar6 = iVar6 + -1) {
     puVar5 = puVar4;
@@ -217,7 +217,7 @@ void Glyph_Blit16Clipped(int param_1,undefined4 param_2,int *param_3)
     puVar7 = (undefined1 *)param_3[0xb];
     puVar16 = (undefined2 *)((iVar11 + iVar6) * iVar2 + iVar3 * iVar12 + *(int *)*param_3);
     if (puVar7 == (undefined1 *)0x0) {
-      puVar7 = &DAT_008d0880;
+      puVar7 = &g_bLookup;
     }
     iVar5 = param_3[5];
     iVar15 = param_3[7];
@@ -315,7 +315,7 @@ void Glyph_Blit8Clipped(int param_1,int param_2,int *param_3)
     iVar14 = *(int *)(param_1 + 8) + iVar4;
     puVar7 = (undefined1 *)(iVar1 * iVar12 + *(int *)*param_3 + iVar4 + iVar8);
     if (puVar11 == (undefined1 *)0x0) {
-      puVar11 = &DAT_008d0880;
+      puVar11 = &g_bLookup;
     }
     iVar4 = (iVar6 - iVar8) - iVar4;
     for (; iVar13 != 0; iVar13 = iVar13 + -1) {

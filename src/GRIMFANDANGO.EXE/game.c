@@ -44,7 +44,7 @@ void Main_Service(void)
     }
     _g_dwDeadmanCounter = 300;
     g_dwGrimlib_mode = uVar1;
-    ((code *)Engine_UpdateFrame)(g_dwZg_App_bAppActive);
+    ((code *)grimlib_UpdateManual)(g_dwZg_App_bAppActive);
     g_dwMain_Service_frameCount = g_dwMain_Service_frameCount + 1;
     g_fixedFrameMs = 0;
     _g_dwMain_Service_frameTime = timeGetTime();
@@ -58,19 +58,19 @@ void Main_Service(void)
     }
     if (_g_bDrawFrameRate != 0) {
       sprintf(&g_bStd_genBuffer,s__02_3f_004dd680,(double)g_flMain_Service_frameRate);
-      Display_DrawText(&g_bStd_genBuffer,4,4);
-      ((code *)Engine_InvalidateRect)(&local_18);
+      stdDisplay_TextOut(&g_bStd_genBuffer,4,4);
+      ((code *)grimlib_MarkDirtyRect)(&local_18);
     }
     if (g_nDrawPerfData != 0) {
       puVar3 = &g_dwGrimlib_PerfData;
       do {
         sprintf(&g_bStd_genBuffer,s__s__02_3f_004dd674,puVar3 + -10,*puVar3);
-        Display_DrawText(&g_bStd_genBuffer,4,y);
+        stdDisplay_TextOut(&g_bStd_genBuffer,4,y);
         local_18 = 4;
         local_10 = 0xbe;
         local_c = 0x14;
         local_14 = y;
-        ((code *)Engine_InvalidateRect)(&local_18);
+        ((code *)grimlib_MarkDirtyRect)(&local_18);
         *puVar3 = 0;
         puVar3[1] = 0;
         y = y + 0x14;
@@ -78,7 +78,7 @@ void Main_Service(void)
       } while ((int)y < 0x122);
     }
     if (g_dwZg_App_bAppActive != 0) {
-      Engine_PresentFrame();
+      grimlib_Display();
     }
     if (g_nQuitApp != 0) {
       ((code *)Win_RemoveMessageHook)();

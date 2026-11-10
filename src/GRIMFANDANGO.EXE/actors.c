@@ -29,7 +29,7 @@ void sputActor_NukeCostumeStacks(void)
           sputCostume_PrintCostumeInfo(costume);
           pvVar1 = g_pActors;
         }
-        Costume_FreeList(*(void **)((int)pvVar1 + iVar2 + 0xa0),1);
+        sputCostume_FreeCostumeNodes(*(void **)((int)pvVar1 + iVar2 + 0xa0),1);
         *(undefined4 *)((int)g_pActors + iVar2 + 0xa0) = 0;
         pvVar1 = g_pActors;
       }
@@ -40,10 +40,12 @@ void sputActor_NukeCostumeStacks(void)
   return;
 }
 
-/* ---- 0x0048fcc0  Actors_UpdateTalking ---- */
-/* Advances lip sync for the four actors in g_pTalkingActors */
+/* ---- 0x0048fcc0  sputActor_UpdateSpeechOnly ---- */
+/* Advances lip sync for the four actors in g_pTalkingActors Original name
+   sputActor_UpdateSpeechOnly (the remaster's GrimFandango (Linux): aligned call in
+   sputActor_UpdateActors, sputRender_Update); was Actors_UpdateTalking. */
 
-void __cdecl Actors_UpdateTalking(float dt)
+void __cdecl sputActor_UpdateSpeechOnly(float dt)
 
 {
   void **ppvVar1;
@@ -51,17 +53,19 @@ void __cdecl Actors_UpdateTalking(float dt)
   ppvVar1 = &g_pTalkingActors;
   do {
     if (*ppvVar1 != (void *)0x0) {
-      Actor_UpdateTalk(*ppvVar1,dt);
+      sputActor_UpdateActorSpeech(*ppvVar1,dt);
     }
     ppvVar1 = ppvVar1 + 1;
   } while ((int)ppvVar1 < IMG_ADDR(0x008ca320));
   return;
 }
 
-/* ---- 0x0048fcf0  Actors_UpdateAll ---- */
-/* Per-frame update of every actor in the current set: talking, movement, collision */
+/* ---- 0x0048fcf0  sputActor_UpdateActors ---- */
+/* Per-frame update of every actor in the current set: talking, movement, collision Original name
+   sputActor_UpdateActors (the remaster's GrimFandango (Linux): aligned call in
+   grimlib_UpdateManual); was Actors_UpdateAll. */
 
-void __cdecl Actors_UpdateAll(float dt)
+void __cdecl sputActor_UpdateActors(float dt)
 
 {
   void *pvVar1;
@@ -70,7 +74,7 @@ void __cdecl Actors_UpdateAll(float dt)
   g_nDrawableActorCount = 0;
   pvVar1 = sputRoom_GetCurrentRoom();
   if (pvVar1 != (void *)0x0) {
-    Actors_UpdateTalking(dt);
+    sputActor_UpdateSpeechOnly(dt);
     piVar2 = *(int **)(*(int *)((int)pvVar1 + 0x1abc) + 0x80);
     if (piVar2 != (int *)0x0) {
       do {

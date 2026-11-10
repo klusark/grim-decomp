@@ -4915,10 +4915,10 @@ FUN_004bdad0(uint param_1,uint param_2,uint param_3,uint param_4,uint param_5,ui
             uint param_7)
 
 {
-  UINT_008d16b8 = param_5;
+  g_dwSmush_pInternalBitmap = param_5;
   _DAT_008d16b0 = param_7;
-  if (UINT_008d16bc == 0) {
-    UINT_008d16bc = param_7;
+  if (g_dwSmushPlay_TranslationTable == 0) {
+    g_dwSmushPlay_TranslationTable = param_7;
   }
   return 0;
 }
@@ -5939,7 +5939,7 @@ uint anm_DecodeBody(undefined4 param_1,undefined4 param_2,undefined4 param_3,und
           if (((bVar6) && (g_dwAnm_overlay_buffer != 0)) &&
              (((&g_dwAnm_flobdec_types)[uVar10] & 0x10) != 0)) {
             if (iVar11 + 8U < g_dwAnm_overlay_size) {
-              Insane_MemCopyCdecl((void *)g_dwAnm_overlay_buffer,param_11,iVar11 + 8U);
+              msc_MemCopy((void *)g_dwAnm_overlay_buffer,param_11,iVar11 + 8U);
               g_dwAnm_overlay_flobdec = uVar10;
             }
             else {
@@ -6015,15 +6015,15 @@ LAB_004c3182:
       }
       else if (uVar12 == 0x6e70616c) {
         if (*(short *)(param_11 + 0x14) == 0) {
-          Insane_MemCopyCdecl(param_5 + *(short *)(param_11 + 0x16) * 4,param_11 + 0x1c,
-                              (int)*(short *)(param_11 + 0x18) << 2);
+          msc_MemCopy(param_5 + *(short *)(param_11 + 0x16) * 4,param_11 + 0x1c,
+                      (int)*(short *)(param_11 + 0x18) << 2);
           *param_7 = *param_7 | *(uint *)(param_11 + 0x10);
           g_dwAnm_transform_count = 0;
         }
         else {
-          Insane_MemCopyCdecl(&g_aAnm_transform_palette,param_5,0x400);
-          Insane_MemCopyCdecl(&g_aAnm_transform_palette + *(short *)(param_11 + 0x16) * 0x10,
-                              param_11 + 0x1c,(int)*(short *)(param_11 + 0x18) << 2);
+          msc_MemCopy(&g_aAnm_transform_palette,param_5,0x400);
+          msc_MemCopy(&g_aAnm_transform_palette + *(short *)(param_11 + 0x16) * 0x10,param_11 + 0x1c
+                      ,(int)*(short *)(param_11 + 0x18) << 2);
           g_dwAnm_transform_count = (uint)*(short *)(param_11 + 0x14);
         }
       }
@@ -6065,7 +6065,7 @@ void FUN_004c34d0(short *param_1,int param_2)
   uVar1 = UINT_008d7808;
   if ((uVar2 == UINT_008d7808 + 1) &&
      (uVar1 = uVar2, (int)(param_2 + UINT_008d7800) < (int)UINT_008d77fc)) {
-    Insane_MemCopyCdecl((void *)(UINT_008d7800 + g_dwAnm_preload_buffer),param_1 + 5,param_2 - 10);
+    msc_MemCopy((void *)(UINT_008d7800 + g_dwAnm_preload_buffer),param_1 + 5,param_2 - 10);
     UINT_008d7800 = (UINT_008d7800 - 10) + param_2;
   }
   UINT_008d7808 = uVar1;
@@ -6423,7 +6423,7 @@ void FUN_004c3c90(int param_1,int param_2,void *param_3,uint *param_4)
 {
   *(uint *)(param_1 + 0xc) = *(uint *)(param_1 + 0x3c);
   if ((*(uint *)(param_1 + 0x3c) & 0x2000) == 0) {
-    Insane_MemCopyCdecl(param_3,(void *)(param_2 + 0x16),0x400);
+    msc_MemCopy(param_3,(void *)(param_2 + 0x16),0x400);
     *param_4 = *param_4 | 3;
   }
   *(int *)(param_1 + 0x2c) = (int)*(short *)(param_2 + 2);
@@ -6999,7 +6999,7 @@ int fle_StreamerDispense(undefined4 *param_1,int param_2)
       param_1[0xb] = param_2;
       uVar2 = (param_2 + param_1[10]) - (int)param_1[1];
       if (0 < (int)uVar2) {
-        Insane_MemCopyCdecl((void *)param_1[1],(void *)*param_1,uVar2);
+        msc_MemCopy((void *)param_1[1],(void *)*param_1,uVar2);
       }
       if ((param_1[5] == 0) && (iVar1 = param_1[8], iVar1 != 0)) {
         param_1[8] = 0;

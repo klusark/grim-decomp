@@ -173,7 +173,7 @@ int __cdecl rdMaterial_LoadEntry(char *filename,void *material,int a,int b)
         pbVar7 = (byte *)(iStack_420 + *(int *)((int)material + 0xac));
         *(undefined4 *)pbVar7 = uStack_410;
         *(undefined4 *)(pbVar7 + 4) = uStack_40c;
-        iVar1 = Math_Log2Int(uStack_418);
+        iVar1 = stdCalcBitPos(uStack_418);
         *(int *)(pbVar7 + 0xc) = iVar1;
         *(uint *)(pbVar7 + 0x10) = uStack_418 - 1;
         uVar4 = 0;
@@ -204,17 +204,17 @@ int __cdecl rdMaterial_LoadEntry(char *filename,void *material,int a,int b)
             pbVar6[0x261] = 0;
             pbVar6[0x262] = 0;
             pbVar6[0x263] = 0;
-            surface = Surface_Create(&uStack_3d8,a,b,0);
+            surface = stdDisplay_VBufferNew(&uStack_3d8,a,b,0);
             *(void **)pbVar11 = surface;
             if (surface == (void *)0x0) goto LAB_0041833a;
             if ((*pbVar7 & 1) != 0) {
-              Surface_SetColorKey(surface,*(int *)(pbVar7 + 8));
+              stdDisplay_VBufferSetColorKey(surface,*(int *)(pbVar7 + 8));
             }
-            Surface_Lock(*(void **)pbVar11);
+            stdDisplay_VBufferLock(*(void **)pbVar11);
             (*g_pRdroid_HS->pFread)
                       (iVar3,*(undefined4 *)(*(int *)pbVar11 + 0x5c),
                        *(undefined4 *)(*(int *)pbVar11 + 0x14));
-            Surface_Unlock(*(void **)pbVar11);
+            stdDisplay_VBufferUnlock(*(void **)pbVar11);
             uStack_3d8 = uStack_3d8 >> 1;
             uStack_3d4 = uStack_3d4 >> 1;
             uVar4 = uVar4 + 1;
@@ -243,7 +243,7 @@ int __cdecl rdMaterial_LoadEntry(char *filename,void *material,int a,int b)
       (*g_pRdroid_HS->pFread)(iVar3,auStack_300,0x300);
     }
     uVar12 = 0x1f;
-    pcVar2 = Str_FileNameFromPath(filename);
+    pcVar2 = stdFileFromPath(filename);
     strncpy((int)material + 4,pcVar2,uVar12);
     *(undefined1 *)((int)material + 0x23) = 0;
     (*g_pRdroid_HS->pFclose)(iVar3);
@@ -329,7 +329,7 @@ void rdMaterial_FreeContents(int param_1)
         local_8 = (uint)puVar2;
         do {
           local_8 = local_8 + 4;
-          Surface_Free(*(void **)local_8);
+          stdDisplay_VBufferFree(*(void **)local_8);
           if (puVar4[0x1d] != 0) {
             (**(code_std **)(*(int *)*puVar4 + 8))((int *)*puVar4);
             (**(code_std **)(*(int *)puVar4[-1] + 8))((int *)puVar4[-1]);
@@ -354,34 +354,36 @@ void rdMaterial_FreeContents(int param_1)
 #undef local_8
 
 
-/* ---- 0x004184a0  rdMaterial_EnsureTexture ---- */
-/* Touches the cel's Direct3D texture or creates it (D3D_CreateTexture) on first use */
+/* ---- 0x004184a0  rdMaterial_AddToTextureCache ---- */
+/* Touches the cel's Direct3D texture or creates it (D3D_CreateTexture) on first use Original name
+   rdMaterial_AddToTextureCache (the remaster's GrimFandango (Linux): aligned call in
+   rdCache_SendFaceListToHardware); was rdMaterial_EnsureTexture. */
 
-int __cdecl rdMaterial_EnsureTexture(void *a,uint *material,int cel,int alt)
+int __cdecl rdMaterial_AddToTextureCache(void *a,uint *material,int cel,int alt)
 
 {
   int iVar1;
   
   if (alt == 0) {
     if (material[cel * 0x26 + 0x29] != 0) {
-      D3D_TouchTexture(material + cel * 0x26 + 0xb);
+      std3D_UpdateFrameCount(material + cel * 0x26 + 0xb);
       return 1;
     }
-    iVar1 = D3D_CreateTexture((void *)material[cel + 7],material + cel * 0x26 + 0xb,*material & 1,0)
-    ;
+    iVar1 = std3D_AddToTextureCache
+                      ((void *)material[cel + 7],material + cel * 0x26 + 0xb,*material & 1,0);
     if (iVar1 == 0) {
       return 0;
     }
   }
   else if (material[cel * 0x26 + 0xc1] == 0) {
-    iVar1 = D3D_CreateTexture((void *)material[cel + 7],material + cel * 0x26 + 0xa3,*material & 1,
-                              alt);
+    iVar1 = std3D_AddToTextureCache
+                      ((void *)material[cel + 7],material + cel * 0x26 + 0xa3,*material & 1,alt);
     if (iVar1 == 0) {
       return 0;
     }
   }
   else {
-    D3D_TouchTexture(material + cel * 0x26 + 0xa3);
+    std3D_UpdateFrameCount(material + cel * 0x26 + 0xa3);
   }
   return 1;
 }

@@ -5,8 +5,12 @@
 #include "globals.h"
 #include "functions.h"
 
-/* ---- 0x004801a0  ResType_Register ---- */
-int __cdecl ResType_Register(int fourcc,void *handler)
+/* ---- 0x004801a0  Res_SysRegisterHandler ---- */
+/* Original name Res_SysRegisterHandler (the remaster's GrimFandango (Linux): the one-handler
+   registration that sputResource_Startup loops over (inlined there), body similarity); was
+   ResType_Register. */
+
+int __cdecl Res_SysRegisterHandler(int fourcc,void *handler)
 
 {
   int *piVar1;
@@ -26,7 +30,7 @@ int __cdecl ResType_Register(int fourcc,void *handler)
       return 2;
     }
   }
-  puVar2 = (uint *)Pool_Alloc(g_dwResTypePool);
+  puVar2 = (uint *)Memory_AllocFixed(g_dwResTypePool);
   if (puVar2 == (uint *)0x0) {
     return 3;
   }
@@ -77,18 +81,18 @@ int __cdecl ResType_DefaultHandler(void *msg)
   local_4 = 0;
   if (*(int *)msg == 1) {
     if (*(int *)((int)msg + 8) != 0x52455346) {
-      fh = ResFile_Open(*(char **)((int)msg + 4),&DAT_004ddb18);
+      fh = Res_FOpen(*(char **)((int)msg + 4),&DAT_004ddb18);
       if (fh != 0) {
-        n = ResFile_Size(*(char **)((int)msg + 4));
+        n = Res_FSize(*(char **)((int)msg + 4));
         data = (void *)(**(code **)(g_dwResHS + 0x5c))(n);
         if (data != (void *)0x0) {
           buf = (void *)(**(code **)(g_dwResHS + 0x68))(data);
-          ResFile_Read(fh,buf,n);
+          Res_FRead(fh,buf,n);
           (**(code **)(g_dwResHS + 0x6c))(data);
-          Res_Register(*(int *)((int)msg + 8),*(char **)((int)msg + 4),data);
+          Res_SysAddHandle(*(int *)((int)msg + 8),*(char **)((int)msg + 4),data);
         }
         local_4 = (uint)(data != (void *)0x0);
-        ResFile_Close(fh);
+        Res_FClose(fh);
         return local_4;
       }
       local_4 = 4;
@@ -119,7 +123,7 @@ void * ResType_LipSyncHandler(int *param_1)
     if (iVar1 == 1) {
       data = grimSound_LipSyncLoad((uint *)param_1[1]);
       if (data != (uint *)0x0) {
-        pvVar2 = Res_Register(param_1[2],(char *)param_1[1],data);
+        pvVar2 = Res_SysAddHandle(param_1[2],(char *)param_1[1],data);
         return pvVar2;
       }
     }
@@ -161,7 +165,7 @@ int __cdecl ResType_BitmapHandler(void *msg)
           (*(int *)((int)pvVar2 + 0x28) == 1)) && (iVar1 = 0, 0 < *(int *)((int)pvVar2 + 100))) {
         do {
           surface = *(void **)(*(int *)((int)pvVar2 + 0x78) + iVar1 * 4);
-          Surface_Lock(surface);
+          stdDisplay_VBufferLock(surface);
           iVar3 = 0;
           if (0 < *(int *)((int)surface + 0x10)) {
             do {
@@ -172,7 +176,7 @@ int __cdecl ResType_BitmapHandler(void *msg)
               iVar3 = iVar3 + 1;
             } while (iVar3 < *(int *)((int)surface + 0x10));
           }
-          Surface_Unlock(surface);
+          stdDisplay_VBufferUnlock(surface);
           pixels = (ushort *)((int)surface + 0x60);
           pixels[0] = 0xf81f;
           pixels[1] = 0;
@@ -180,7 +184,7 @@ int __cdecl ResType_BitmapHandler(void *msg)
           iVar1 = iVar1 + 1;
         } while (iVar1 < *(int *)((int)pvVar2 + 100));
       }
-      pvVar2 = Res_Register(*(int *)((int)msg + 8),*(char **)((int)msg + 4),pvVar2);
+      pvVar2 = Res_SysAddHandle(*(int *)((int)msg + 8),*(char **)((int)msg + 4),pvVar2);
       return (int)pvVar2;
     }
   }
@@ -217,7 +221,7 @@ int __cdecl ResType_CostumeHandler(void *msg)
     if (pvVar2 == (void *)0x0) {
       return 0;
     }
-    pvVar2 = Res_Register(*(int *)((int)msg + 8),*(char **)((int)msg + 4),pvVar2);
+    pvVar2 = Res_SysAddHandle(*(int *)((int)msg + 8),*(char **)((int)msg + 4),pvVar2);
   }
   else {
     if (iVar1 == 2) {
@@ -280,11 +284,11 @@ void * sputResource_ColormapHandler(int *param_1)
   if (iVar1 == 1) {
     pvVar2 = rdColormap_Load((char *)param_1[1]);
     if (pvVar2 != (void *)0x0) {
-      rdColormap_Build16bitTables
+      rdColormap_BuildRGB16
                 (*(undefined2 **)((int)pvVar2 + 0x348),(ushort *)((int)pvVar2 + 0x30),0,0,0,
                  (int)&local_38);
       sputRender_ColorCorrect(*(ushort **)((int)pvVar2 + 0x348),0x4000);
-      pvVar2 = Res_Register(param_1[2],(char *)param_1[1],pvVar2);
+      pvVar2 = Res_SysAddHandle(param_1[2],(char *)param_1[1],pvVar2);
       return pvVar2;
     }
   }
@@ -338,14 +342,14 @@ void * ResType_FontHandler(int *param_1)
   if (iVar2 == 1) {
     iVar2 = Font_LoadFile((char *)param_1[1],&param_1);
     if (iVar2 == 0) {
-      pvVar3 = Res_Register(piVar1[2],(char *)piVar1[1],param_1);
-      Res_SetLocked(param_1,0);
+      pvVar3 = Res_SysAddHandle(piVar1[2],(char *)piVar1[1],param_1);
+      Res_SetPurgable(param_1,0);
       return pvVar3;
     }
   }
   else {
     if (iVar2 == 2) {
-      Font_Free((void *)param_1[3]);
+      Text_FreeFont((void *)param_1[3]);
       return (void *)0x1;
     }
     if (iVar2 == 3) {
@@ -384,7 +388,7 @@ void * sputResource_KeyframeHandler(int *param_1)
       return (void *)0x0;
     }
     *(undefined4 *)((int)pvVar3 + 0x30) = 0x41700000;
-    pvVar3 = Res_Register(param_1[2],(char *)param_1[1],pvVar3);
+    pvVar3 = Res_SysAddHandle(param_1[2],(char *)param_1[1],pvVar3);
     return pvVar3;
   }
   if (iVar1 == 2) {
@@ -442,8 +446,8 @@ void * sputResource_MaterialHandler(int *param_1)
         return (void *)0x0;
       }
     }
-    pvVar2 = Res_Register(param_1[2],(char *)param_1[1],material);
-    Res_SetLocked(material,0);
+    pvVar2 = Res_SysAddHandle(param_1[2],(char *)param_1[1],material);
+    Res_SetPurgable(material,0);
   }
   else {
     if (iVar1 == 2) {
@@ -474,7 +478,7 @@ void * ResType_ModelHandler(int *param_1)
     if (iVar1 == 1) {
       pvVar2 = (void *)rdModel3_New(param_1[1]);
       if (pvVar2 != (void *)0x0) {
-        pvVar2 = Res_Register(param_1[2],(char *)param_1[1],pvVar2);
+        pvVar2 = Res_SysAddHandle(param_1[2],(char *)param_1[1],pvVar2);
         return pvVar2;
       }
     }
@@ -507,7 +511,7 @@ void * ResType_SetHandler(int *param_1)
     if (iVar1 == 1) {
       pvVar2 = (void *)sputResource_SetHandler(param_1[1]);
       if (pvVar2 != (void *)0x0) {
-        pvVar2 = Res_Register(param_1[2],(char *)param_1[1],pvVar2);
+        pvVar2 = Res_SysAddHandle(param_1[2],(char *)param_1[1],pvVar2);
         return pvVar2;
       }
     }
@@ -540,7 +544,7 @@ void * ResType_ZBufferHandler(int *param_1)
     if (iVar1 == 1) {
       pvVar2 = (void *)((code *)ZBuffer_Load)(param_1[1]);
       if (pvVar2 != (void *)0x0) {
-        pvVar2 = Res_Register(param_1[2],(char *)param_1[1],pvVar2);
+        pvVar2 = Res_SysAddHandle(param_1[2],(char *)param_1[1],pvVar2);
         return pvVar2;
       }
     }

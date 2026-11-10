@@ -5,12 +5,14 @@
 #include "globals.h"
 #include "functions.h"
 
-/* ---- 0x00497840  ImuseIntComponent_Create ---- */
+/* ---- 0x00497840  IMuseRequester ---- */
 /* Costume tag handler for 'iMuse Sequence / iMuse State' (registered by sputCostume_Start through
    Cos_NewStateBasedTag/Cos_NewIntTag): slot 1 of the iMuse Sequence / iMuse State integer tags:
-   registers the key with Cos_RegisterComponent. */
+   registers the key with Cos_RegisterComponent. Original name IMuseRequester (the remaster's
+   GrimFandango (Linux): the same handler slot (requester) of the same costume tag registration in
+   sputCostume_Startup); was ImuseIntComponent_Create. */
 
-int ImuseIntComponent_Create(uint param_1,int param_2,int param_3,int param_4)
+int IMuseRequester(uint param_1,int param_2,int param_3,int param_4)
 
 {
   char *pcVar1;

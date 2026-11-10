@@ -20,13 +20,15 @@ undefined4 Blocky16_Register(int *param_1,uint param_2)
   return 0;
 }
 
-/* ---- 0x004cc250  Blocky16_SetOption ---- */
+/* ---- 0x004cc250  fob_flobdec_blocky16_config ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Reads key and value pairs ending with key 0; key 1 sets the output callback g_pfnBlkOutput that
-   Blocky16 hands decoded frames to; other keys are an error */
+   Blocky16 hands decoded frames to; other keys are an error Original name
+   fob_flobdec_blocky16_config (the remaster's GrimFandango (Linux): aligned call in
+   SmushPlay_UpdateMovie); was Blocky16_SetOption. */
 
-int __cdecl Blocky16_SetOption(int key,...)
+int __cdecl fob_flobdec_blocky16_config(int key,...)
 
 {
   undefined4 *puVar1;
@@ -746,7 +748,7 @@ int __cdecl Blocky16_DecodeFrame(void *dst,uint *clip,int x,int y,int palette,by
       return 0;
     }
 LAB_004ccf61:
-    Insane_MemCopyCdecl(g_pbBlkCur,pbVar5,uVar8 * iVar7 * 2);
+    msc_MemCopy(g_pbBlkCur,pbVar5,uVar8 * iVar7 * 2);
 LAB_004ccf67:
     g_pbBlkOutput = g_pbBlkCur;
     break;
@@ -914,7 +916,7 @@ void Blocky16_DecodeHalfRows16(void *param_1,ushort *param_2,int param_3,int par
       local_10 = local_10 - 1;
     } while (local_10 != 0);
   }
-  Insane_MemCopyCdecl(param_1,(undefined4 *)((int)param_1 + uVar5),uVar5);
+  msc_MemCopy(param_1,(undefined4 *)((int)param_1 + uVar5),uVar5);
   puVar8 = (undefined2 *)((int)param_1 + param_3 * 4);
   if (param_4 != 2 && -1 < param_4 + -2) {
     uVar5 = param_4 - 1U >> 1;
@@ -989,7 +991,7 @@ void Blocky16_DecodeHalfRows8(void *param_1,byte *param_2,int param_3,int param_
       local_10 = local_10 - 1;
     } while (local_10 != 0);
   }
-  Insane_MemCopyCdecl(param_1,(undefined4 *)((int)param_1 + uVar6),uVar6);
+  msc_MemCopy(param_1,(undefined4 *)((int)param_1 + uVar6),uVar6);
   puVar9 = (undefined2 *)((int)param_1 + param_3 * 4);
   if (param_4 != 2 && -1 < param_4 + -2) {
     uVar6 = param_4 - 1U >> 1;

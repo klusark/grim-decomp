@@ -47,7 +47,7 @@ void * __cdecl CacheRect_Create(int x,int y,int w,int h)
   }
   aiStack_4c[1] = h;
   aiStack_4c[0] = w;
-  pvVar2 = Surface_Create(aiStack_4c,0,0,0);
+  pvVar2 = stdDisplay_VBufferNew(aiStack_4c,0,0,0);
   puVar1[5] = pvVar2;
   Surface_Blit(pvVar2,g_pSputRender_CleanBuffer,0,0,srcRect,0);
   piVar4 = (int *)((int)g_pSputRender_CleanZBuffer + 0xc);
@@ -59,7 +59,7 @@ void * __cdecl CacheRect_Create(int x,int y,int w,int h)
   }
   aiStack_4c[0] = w;
   aiStack_4c[1] = h;
-  pvVar2 = Surface_Create(aiStack_4c,0,0,0);
+  pvVar2 = stdDisplay_VBufferNew(aiStack_4c,0,0,0);
   puVar1[6] = pvVar2;
   Surface_Blit(pvVar2,g_pSputRender_CleanZBuffer,0,0,srcRect,0);
   puVar1[7] = g_pCacheRectList;
@@ -69,10 +69,12 @@ void * __cdecl CacheRect_Create(int x,int y,int w,int h)
 #undef aiStack_4c
 
 
-/* ---- 0x00486c50  CacheRect_Restore ---- */
-/* Lua RestoreCacheRect: copies the most recent cached rectangle back and invalidates it */
+/* ---- 0x00486c50  sputRender_RestoreCacheRect ---- */
+/* Lua RestoreCacheRect: copies the most recent cached rectangle back and invalidates it Original
+   name sputRender_RestoreCacheRect (the remaster's GrimFandango (Linux): aligned call in
+   sputLua_RestoreCacheRect); was CacheRect_Restore. */
 
-void CacheRect_Restore(void)
+void sputRender_RestoreCacheRect(void)
 
 {
   int *piVar1;
@@ -101,10 +103,10 @@ void CacheRect_FreeAll(void)
   while (pvVar1 != (void *)0x0) {
     g_pCacheRectList = *(void **)((int)pvVar1 + 0x1c);
     if (*(void **)((int)pvVar1 + 0x14) != (void *)0x0) {
-      Surface_Free(*(void **)((int)pvVar1 + 0x14));
+      stdDisplay_VBufferFree(*(void **)((int)pvVar1 + 0x14));
     }
     if (*(void **)((int)pvVar1 + 0x18) != (void *)0x0) {
-      Surface_Free(*(void **)((int)pvVar1 + 0x18));
+      stdDisplay_VBufferFree(*(void **)((int)pvVar1 + 0x18));
     }
     (*g_pSputRendHS->pFree)(pvVar1);
     pvVar1 = g_pCacheRectList;

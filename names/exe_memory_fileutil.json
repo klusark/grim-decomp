@@ -1,8 +1,8 @@
 [
- {"addr": "00488980", "name": "Pool_Create", "proto": "Pool * Pool_Create(int itemSize, int initialCount, int growBy)",
+ {"addr": "00488980", "name": "Memory_AllocatePool", "proto": "Pool * Memory_AllocatePool(int itemSize, int initialCount, int growBy)",
   "comment": "Temp/Memory.c: fixed-size item pool. Items are 8-byte-headed (next, pool) blocks carved from grown chunks; pools are kept in the g_poolList singly linked list.", "tags": "memory"},
- {"addr": "00488a70", "name": "Pool_Destroy", "proto": "void Pool_Destroy(Pool * pool)", "tags": "memory"},
- {"addr": "00488b10", "name": "Pool_Alloc", "proto": "void * Pool_Alloc(Pool * pool)", "comment": "Pops an item off the free list, growing the pool by growBy when empty. Returns the payload (item header + 8).", "tags": "memory"},
+ {"addr": "00488a70", "name": "Memory_FreePool", "proto": "void Memory_FreePool(Pool * pool)", "tags": "memory"},
+ {"addr": "00488b10", "name": "Memory_AllocFixed", "proto": "void * Memory_AllocFixed(Pool * pool)", "comment": "Pops an item off the free list, growing the pool by growBy when empty. Returns the payload (item header + 8).", "tags": "memory"},
  {"addr": "00488ba0", "name": "Pool_Free", "proto": "void Pool_Free(void * item)", "comment": "Pushes the item back onto its pool's free list (pool pointer lives at item-4).", "tags": "memory"},
  {"addr": "00488c00", "name": "Pool_Grow", "proto": "void Pool_Grow(Pool * pool, int count)", "comment": "Allocates one chunk of `count` items and threads them onto the free list.", "tags": "memory"},
  {"addr": "008c9a80", "global": "g_poolList", "type": "Pool *", "comment": "Head of the linked list of all live Pool objects (Memory.c)"},
@@ -16,7 +16,7 @@
  {"addr": "008c9a64", "global": "g_pfnSpewStartup", "type": "void *", "comment": "spew.dll!Spew_Startup"},
  {"addr": "008c9a68", "global": "g_pfnSpewShutdown", "type": "void *", "comment": "spew.dll!Spew_Shutdown"},
 
- {"addr": "00488d80", "name": "SaveFile_CheckFUTBHeader", "proto": "int SaveFile_CheckFUTBHeader(void (*readFn)(void *, int))",
+ {"addr": "00488d80", "name": "FileUtil_SysRestore", "proto": "int FileUtil_SysRestore(void (*readFn)(void *, int))",
   "comment": "Reads three dwords through readFn and expects 'FUTB', 1, 0. Returns 0 when the header matches, 1 otherwise.", "tags": "savegame"},
 
  {"addr": "00488de0", "name": "DirScan_Create", "proto": "DirScan * DirScan_Create(char * dir, int mode, char * ext)",
@@ -49,7 +49,7 @@
  {"addr": "00401040", "name": "DebugLog_Init", "proto": "void DebugLog_Init(int enable)", "comment": "Opens debug.log / resource.log and installs the debug-print callbacks into the service table", "tags": "debug"},
 
  {"addr": "004f5a24", "global": "g_devMode", "type": "int", "comment": "Set when the registry/config says the game runs from a developer install (allows network drives, extra logging)"},
- {"addr": "004f5a48", "global": "g_fixedFrameMs", "type": "int", "comment": "One-shot fixed frame time passed to Engine_UpdateFrame, zeroed every frame"},
+ {"addr": "004f5a48", "global": "g_fixedFrameMs", "type": "int", "comment": "One-shot fixed frame time passed to grimlib_UpdateManual, zeroed every frame"},
  {"addr": "004f5a58", "global": "g_frameCounter", "type": "uint"},
  {"addr": "004f44e4", "global": "g_flMain_Service_frameRate", "type": "float"},
  {"addr": "004f5a38", "global": "g_displayModes", "type": "void *", "comment": "Array of 16-byte {modeCount, modes*, driverCount, drivers*} records, one per display device"},

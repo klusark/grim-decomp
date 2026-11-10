@@ -68,7 +68,7 @@ int __cdecl rdPuppet_NewEntry(void *puppet,void *thing)
   do {
     puVar1[-1] = 0;
     *puVar1 = 0;
-    rdPuppet_StopTrack(puppet,track);
+    rdPuppet_RemoveTrack(puppet,track);
     puVar1 = puVar1 + 0x4d;
     track = track + 1;
   } while (track < 6);
@@ -98,7 +98,7 @@ uint __cdecl rdPuppet_AddTrack(void *puppet,uint keyframe,uint lowPri,uint highP
     track = 0;
     do {
       if (((*puVar3 & 8) != 0) && ((*puVar3 & 0x140) == 0)) {
-        rdPuppet_StopTrack(puppet,track);
+        rdPuppet_RemoveTrack(puppet,track);
         break;
       }
       track = track + 1;
@@ -116,12 +116,15 @@ uint __cdecl rdPuppet_AddTrack(void *puppet,uint keyframe,uint lowPri,uint highP
   puVar3[6] = 0;
   puVar3[3] = highPri;
   *puVar3 = *puVar3 | 1;
-  rdPuppet_ClearTrackNodes(puppet,track);
+  rdPuppet_ResetTrack(puppet,track);
   return track;
 }
 
-/* ---- 0x00450640  rdPuppet_StopTrack ---- */
-void __cdecl rdPuppet_StopTrack(void *puppet,int track)
+/* ---- 0x00450640  rdPuppet_RemoveTrack ---- */
+/* Original name rdPuppet_RemoveTrack (the remaster's GrimFandango (Linux): aligned call in
+   rdPuppet_AddTrack, rdPuppet_AdvanceTrack, rdPuppet_NewEntry); was rdPuppet_StopTrack. */
+
+void __cdecl rdPuppet_RemoveTrack(void *puppet,int track)
 
 {
   undefined4 *puVar1;
@@ -138,8 +141,11 @@ void __cdecl rdPuppet_StopTrack(void *puppet,int track)
   return;
 }
 
-/* ---- 0x004506a0  rdPuppet_SetTrackFlags ---- */
-undefined4 rdPuppet_SetTrackFlags(int param_1,int param_2,uint param_3)
+/* ---- 0x004506a0  rdPuppet_SetStatus ---- */
+/* Original name rdPuppet_SetStatus (the remaster's GrimFandango (Linux): aligned call in
+   KeyframeChanger); was rdPuppet_SetTrackFlags. */
+
+undefined4 rdPuppet_SetStatus(int param_1,int param_2,uint param_3)
 
 {
   uint *puVar1;
@@ -149,10 +155,12 @@ undefined4 rdPuppet_SetTrackFlags(int param_1,int param_2,uint param_3)
   return 1;
 }
 
-/* ---- 0x004506d0  rdPuppet_SetTrackUserData ---- */
-/* Writes the last dword (+0x12c) of the track record */
+/* ---- 0x004506d0  rdPuppet_SetCallback ---- */
+/* Writes the last dword (+0x12c) of the track record Original name rdPuppet_SetCallback (the
+   remaster's GrimFandango (Linux): aligned call in KeyframeChanger); was rdPuppet_SetTrackUserData.
+    */
 
-void rdPuppet_SetTrackUserData(int param_1,int param_2,undefined4 param_3)
+void rdPuppet_SetCallback(int param_1,int param_2,undefined4 param_3)
 
 {
   *(undefined4 *)(param_1 + (param_2 + 1) * 0x134) = param_3;
@@ -337,7 +345,7 @@ void __cdecl rdPuppet_AdvanceTrack(void *puppet,int track,float dt)
       }
     }
     if (bVar4) {
-      rdPuppet_StopTrack(puppet,track);
+      rdPuppet_RemoveTrack(puppet,track);
       return;
     }
     puVar1[0x49] = puVar1[0x48];
@@ -383,7 +391,7 @@ void __cdecl rdPuppet_UpdateTracks(void *puppet,float seconds)
              (fVar2 = PUN(float,puVar3[6]) - PUN(float,puVar3[7]) * seconds, puVar3[6] = PUN(uint,(float)fVar2),
              fVar2 <= 0.0)) {
             if ((*puVar3 & 0x100) == 0) {
-              rdPuppet_StopTrack(puppet,track);
+              rdPuppet_RemoveTrack(puppet,track);
             }
             else {
               *puVar3 = *puVar3 & 0xfffffff7 | 0x10;
@@ -410,10 +418,12 @@ void __cdecl rdPuppet_UpdateTracks(void *puppet,float seconds)
 #endif
 
 
-/* ---- 0x00450b50  rdPuppet_ClearTrackNodes ---- */
-/* Zeroes the 64 node weights of a track and marks it status 3 */
+/* ---- 0x00450b50  rdPuppet_ResetTrack ---- */
+/* Zeroes the 64 node weights of a track and marks it status 3 Original name rdPuppet_ResetTrack
+   (the remaster's GrimFandango (Linux): aligned call in KeyframeChanger, rdPuppet_AddTrack); was
+   rdPuppet_ClearTrackNodes. */
 
-void rdPuppet_ClearTrackNodes(int param_1,int param_2)
+void rdPuppet_ResetTrack(int param_1,int param_2)
 
 {
   undefined4 *puVar1;
@@ -725,7 +735,7 @@ void __cdecl rdPuppet_UpdateFrame(void *model,float *frame)
           local_48[0] = PUN(float,puVar14[0xe]) + local_48[0];
           local_48[1] = PUN(float,puVar14[0xf]) + local_48[1];
           local_48[2] = PUN(float,puVar14[0x10]) + fVar20;
-          Angles_ToMatrix(local_50 + *(int *)((int)model + 0x20),local_48,local_3c);
+          rdMatrix_Build34(local_50 + *(int *)((int)model + 0x20),local_48,local_3c);
           iVar13 = *(int *)((int)model + 0x24) + local_60;
           if (((*(float *)(*(int *)((int)model + 0x24) + local_60) != 0.0) ||
               (*(float *)(iVar13 + 4) != 0.0)) || (*(float *)(iVar13 + 8) != 0.0)) {
@@ -807,10 +817,10 @@ int rdKeyframe_Load(char *param_1)
     if (iVar2 != 0) {
       (*g_pRdroid_HS->pFread)(iVar1,&param_1,4);
       if (param_1 == (char *)0x4b455946) {
-        iVar3 = rdKeyframe_LoadBinary(iVar1,iVar2);
+        iVar3 = rdKeyframe_LoadEntryBinary(iVar1,iVar2);
         if (iVar3 != 0) {
           uVar5 = 0x1f;
-          pcVar4 = Str_FileNameFromPath(pcVar4);
+          pcVar4 = stdFileFromPath(pcVar4);
           strncpy(iVar2,pcVar4,uVar5);
           *(undefined1 *)(iVar2 + 0x1f) = 0;
           (*g_pRdroid_HS->pFclose)(iVar1);
@@ -874,7 +884,7 @@ undefined4 rdKeyframe_LoadEntry(char *param_1,int param_2)
   iVar2 = param_2;
   rdKeyframe_NewEntry(param_2);
   uVar12 = 0x1f;
-  pcVar3 = Str_FileNameFromPath(param_1);
+  pcVar3 = stdFileFromPath(param_1);
   strncpy(iVar2,pcVar3,uVar12);
   *(undefined1 *)(iVar2 + 0x1f) = 0;
   iVar4 = ((code *)stdConffile_Open)(param_1);
@@ -1093,11 +1103,12 @@ LAB_004c0cbf:
 #undef uStack_68
 
 
-/* ---- 0x004c0ce0  rdKeyframe_LoadBinary ---- */
+/* ---- 0x004c0ce0  rdKeyframe_LoadEntryBinary ---- */
 /* Reader of the binary 'KEYF' animation format. Source file Rdkeyframe.c
-   (C:\grimjedi\Libs\RDroid\Engine\Rdkeyframe.c). */
+   (C:\grimjedi\Libs\RDroid\Engine\Rdkeyframe.c). Original name rdKeyframe_LoadEntryBinary (the
+   remaster's GrimFandango (Linux): aligned call in rdKeyframe_Load); was rdKeyframe_LoadBinary. */
 
-undefined4 rdKeyframe_LoadBinary(undefined4 param_1,int param_2)
+undefined4 rdKeyframe_LoadEntryBinary(undefined4 param_1,int param_2)
 
 {
   int *piVar1;

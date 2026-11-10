@@ -1,0 +1,2277 @@
+[
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00403d90",
+  "old": "Reg_SetFloat",
+  "name": "wuRegistry_SaveFloat",
+  "comment": "Original name wuRegistry_SaveFloat (the remaster's GrimFandango (Linux): aligned call in sputLua_WriteRegistryValue); was Reg_SetFloat."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00403e90",
+  "old": "Reg_GetFloat",
+  "name": "wuRegistry_GetFloat",
+  "comment": "Original name wuRegistry_GetFloat (the remaster's GrimFandango (Linux): aligned call in sputLua_ReadRegistryValue); was Reg_GetFloat."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00404010",
+  "old": "Reg_SetString",
+  "name": "wuRegistry_SaveStr",
+  "comment": "Original name wuRegistry_SaveStr (the remaster's GrimFandango (Linux): aligned call in sputLua_WriteRegistryValue); was Reg_SetString."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00404070",
+  "old": "Reg_GetString",
+  "name": "wuRegistry_GetStr",
+  "comment": "Original name wuRegistry_GetStr (the remaster's GrimFandango (Linux): aligned call in sputLua_ReadRegistryValue, sputLua_Startup, sputSmush_Startup); was Reg_GetString."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00404120",
+  "old": "Reg_GetValueType",
+  "name": "wuRegistry_QueryType",
+  "comment": "Returns the registry value type (1 = REG_SZ, 3 = REG_BINARY) or 0 Original name wuRegistry_QueryType (the remaster's GrimFandango (Linux): aligned call in sputLua_ReadRegistryValue); was Reg_GetValueType."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004047e0",
+  "old": "rdColormap_Build16bitTables",
+  "name": "rdColormap_BuildRGB16",
+  "comment": "Converts the 256-entry palette into 16-bit pixel values for 64 light levels using the pixel-format shifts Original name rdColormap_BuildRGB16 (the remaster's GrimFandango (Linux): aligned call in rdColormap_LoadEntry, sputResource_ColormapHandler); was rdColormap_Build16bitTables."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00404c00",
+  "old": "rdCanvas_InitEdgeTables",
+  "name": "rdActive_AdvanceFrame",
+  "comment": "Clears the per-scanline edge buckets for the current canvas height Original name rdActive_AdvanceFrame (the remaster's GrimFandango (Linux): aligned call in rdCache_Flush); was rdCanvas_InitEdgeTables."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00404cb0",
+  "old": "rdCanvas_ScanConvert",
+  "name": "rdActive_DrawScene",
+  "comment": "Rdcanvas.c: active-edge scanline loop over all queued polygons; merges edges per scanline, emits spans, flushes them Original name rdActive_DrawScene (the remaster's GrimFandango (Linux): aligned call in rdCache_Flush); was rdCanvas_ScanConvert."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00404e00",
+  "old": "rdCanvas_EmitSpans",
+  "name": "rdActive_BuildSpans",
+  "comment": "Walks the active edge list for one scanline, computing 0x2c-byte span records with interpolated z/u/v/light Original name rdActive_BuildSpans (the remaster's GrimFandango (Linux): aligned call in rdActive_DrawScene); was rdCanvas_EmitSpans."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00405620",
+  "old": "rdCanvas_BuildEdgeLists",
+  "name": "rdActive_BuildEdges",
+  "comment": "For every queued polygon, runs its edge-setup callback on each edge and inserts the edges into the per-scanline buckets Original name rdActive_BuildEdges (the remaster's GrimFandango (Linux): aligned call in rdActive_DrawScene); was rdCanvas_BuildEdgeLists."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00405770",
+  "old": "rdCanvas_PreparePolygon",
+  "name": "rdActive_AddActiveFace",
+  "comment": "Original name rdActive_AddActiveFace (the remaster's GrimFandango (Linux): aligned call in rdActive_BuildEdges); was rdCanvas_PreparePolygon."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004066a0",
+  "old": "rdCache_AllocMesh",
+  "name": "rdCache_GetProcEntry",
+  "comment": "Returns the next free cached-mesh record, flushing first when the list or a 0x8000-entry pool is full Original name rdCache_GetProcEntry (the remaster's GrimFandango (Linux): aligned call in rdModel3_DrawFace, rdSprite_Draw); was rdCache_AllocMesh."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00406860",
+  "old": "rdCache_AddMesh",
+  "name": "rdCache_AddProcFace",
+  "comment": "Appends a mesh to the cache list and computes its screen bounds / depth Original name rdCache_AddProcFace (the remaster's GrimFandango (Linux): aligned call in rdModel3_DrawFace, rdSprite_Draw); was rdCache_AddMesh."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00406aa0",
+  "old": "rdCache_DrawMeshList3D",
+  "name": "rdCache_SendFaceListToHardware",
+  "comment": "Direct3D path: uploads the material textures (rdMaterial_EnsureTexture) and batches the cached meshes into execute buffers Original name rdCache_SendFaceListToHardware (the remaster's GrimFandango (Linux): aligned call in rdCache_Flush); was rdCache_DrawMeshList3D."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00407ed0",
+  "old": "rdCache_Begin3DBatch",
+  "name": "std3D_ResetRenderList",
+  "comment": "Original name std3D_ResetRenderList (the remaster's GrimFandango (Linux): aligned call in rdCache_SendFaceListToHardware); was rdCache_Begin3DBatch."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00407ef0",
+  "old": "rdCache_Flush3DBatch",
+  "name": "rdCache_DrawRenderList",
+  "comment": "Original name rdCache_DrawRenderList (the remaster's GrimFandango (Linux): aligned call in rdCache_SendFaceListToHardware); was rdCache_Flush3DBatch."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00407f90",
+  "old": "rdCache_CompareBatchEntries",
+  "name": "rdCache_TriCompare",
+  "comment": "qsort comparator of rdCache_Flush3DBatch: orders entries by material, then by their position in the list. Original name rdCache_TriCompare (the remaster's GrimFandango (Linux): aligned call in rdCache_DrawRenderList); was rdCache_CompareBatchEntries."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00407fd0",
+  "old": "rdCache_DrawMesh",
+  "name": "rdCache_DrawFaceN",
+  "comment": "Software path without z-buffer: clamps the mesh modes to the global limits and calls the rasterizer entry for each face Original name rdCache_DrawFaceN (the remaster's GrimFandango (Linux): aligned call in rdCache_Flush); was rdCache_DrawMesh."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00408af0",
+  "old": "rdCache_DrawMeshZ",
+  "name": "rdCache_DrawFaceZ",
+  "comment": "Software path with z-buffer Original name rdCache_DrawFaceZ (the remaster's GrimFandango (Linux): aligned call in rdCache_Flush); was rdCache_DrawMeshZ."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00409580",
+  "old": "rdModel_ComputeMeshLighting",
+  "name": "rdCache_DrawFaceUser",
+  "comment": "Rdcamera.c: picks the light level of a mesh from the current geometry/lighting/texture modes (gouraud, flat, per-vertex) and hands it to the mesh draw callback at +0x14 Original name rdCache_DrawFaceUser (the remaster's GrimFandango (Linux): aligned call in rdCache_Flush); was rdModel_ComputeMeshLighting."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00409d20",
+  "old": "FUN_00409d20",
+  "name": "rdCache_ProcFaceCompare",
+  "comment": "Original name rdCache_ProcFaceCompare (the remaster's GrimFandango (Linux): aligned call in rdCache_Flush); was FUN_00409d20."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0040a1d0",
+  "old": "rdCamera_SetZoom",
+  "name": "rdCamera_SetAspectRatio",
+  "comment": "Original name rdCamera_SetAspectRatio (the remaster's GrimFandango (Linux): aligned call in sputRender_SyncCamera); was rdCamera_SetZoom."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0040a430",
+  "old": "rdCamera_SetFrame",
+  "name": "rdCamera_Update",
+  "comment": "Original name rdCamera_Update (the remaster's GrimFandango (Linux): aligned call in sputLua_SetCameraInterestL, sputLua_SetCameraPositionL, sputRender_SyncCamera); was rdCamera_SetFrame."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0040a870",
+  "old": "Renderer_EnableClipPlane",
+  "name": "rdModel3_ActivateClipPlane",
+  "comment": "Original name rdModel3_ActivateClipPlane (the remaster's GrimFandango (Linux): aligned call in sputCostume_InternalDraw3D); was Renderer_EnableClipPlane."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0040a880",
+  "old": "Renderer_SetClipPlane",
+  "name": "rdModel3_SetClipPlane",
+  "comment": "Original name rdModel3_SetClipPlane (the remaster's GrimFandango (Linux): aligned call in sputCostume_InternalDraw3D); was Renderer_SetClipPlane."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0040c280",
+  "old": "rdModel3_BuildBoundingBoxCorners",
+  "name": "rdModel3_BuildShadowModel",
+  "comment": "Allocates 0xc0 bytes per mesh and fills the 8 corner points of its bounding box from the min/max values. Source file Rdmodel3.c (C:\\grimjedi\\Libs\\RDroid\\Primitives\\Rdmodel3.c). Original name rdModel3_BuildShadowModel (the remaster's GrimFandango (Linux): aligned call in rdModel3_LoadPostProcess); was rdModel3_BuildBoundingBoxCorners."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0040e500",
+  "old": "rdPrimit3_CopyFaceVerts",
+  "name": "rdPrimit3_NoClipFace",
+  "comment": "Copies the face's vertex attributes (position, uv, intensity) into the cache pools without clipping Original name rdPrimit3_NoClipFace (the remaster's GrimFandango (Linux): aligned call in rdModel3_DrawFace); was rdPrimit3_CopyFaceVerts."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004184a0",
+  "old": "rdMaterial_EnsureTexture",
+  "name": "rdMaterial_AddToTextureCache",
+  "comment": "Touches the cel's Direct3D texture or creates it (D3D_CreateTexture) on first use Original name rdMaterial_AddToTextureCache (the remaster's GrimFandango (Linux): aligned call in rdCache_SendFaceListToHardware); was rdMaterial_EnsureTexture."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004468a0",
+  "old": "Vec3_Dot2",
+  "name": "rdVector_Dot3",
+  "comment": "Original name rdVector_Dot3 (the remaster's GrimFandango (Linux): aligned call in Intersection); was Vec3_Dot2."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00446a10",
+  "old": "Vec3_NormalizeApprox",
+  "name": "rdVector_Normalize3QuickAcc",
+  "comment": "Rough vector length: with the absolute values sorted max >= mid >= min, len = max + 0.34375 * mid + 0.25 * min. Also divides the vector by it (in place, in floats) and returns the length. Original name rdVector_Normalize3QuickAcc (the remaster's GrimFandango (Linux): aligned call in SetSoundPosition); was Vec3_NormalizeApprox."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00446ec0",
+  "old": "rdClip_PointInFrustum",
+  "name": "rdClip_Point3",
+  "comment": "Near/far, then left/right/top/bottom; perspective frustums scale the side planes by depth Original name rdClip_Point3 (the remaster's GrimFandango (Linux): aligned call in rdPrimit3_GetScreenCoord); was rdClip_PointInFrustum."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004478c0",
+  "old": "rdClip_Face3_Pos",
+  "name": "rdClip_Face3W",
+  "comment": "Frustum clip of a face with position-only vertices (output into the rdClip work buffers at g_RdClipVerts). Attribute set inferred from the parameter list Original name rdClip_Face3W (the remaster's GrimFandango (Linux): the matching branch of the rdPrimit3_ClipFace switch (geometry/lighting mode, perspective or ortho camera)); was rdClip_Face3_Pos."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00448260",
+  "old": "rdClip_Face3_PosB",
+  "name": "rdClip_Face3WOrtho",
+  "comment": "Second position-only face clipper (likely the orthographic variant) Original name rdClip_Face3WOrtho (the remaster's GrimFandango (Linux): the matching branch of the rdPrimit3_ClipFace switch (geometry/lighting mode, perspective or ortho camera)); was rdClip_Face3_PosB."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004489b0",
+  "old": "rdClip_Face3_Pos_2",
+  "name": "rdClip_Face3S",
+  "comment": "Original name rdClip_Face3S (the remaster's GrimFandango (Linux): the matching branch of the rdPrimit3_ClipFace switch (geometry/lighting mode, perspective or ortho camera)); was rdClip_Face3_Pos_2."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00449350",
+  "old": "rdClip_Face3_PosB_2",
+  "name": "rdClip_Face3SOrtho",
+  "comment": "Original name rdClip_Face3SOrtho (the remaster's GrimFandango (Linux): the matching branch of the rdPrimit3_ClipFace switch (geometry/lighting mode, perspective or ortho camera)); was rdClip_Face3_PosB_2."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00449aa0",
+  "old": "rdClip_Face3_PosUvLit",
+  "name": "rdClip_Face3GS",
+  "comment": "Face clipper interpolating position, texture coordinate and intensity Original name rdClip_Face3GS (the remaster's GrimFandango (Linux): the matching branch of the rdPrimit3_ClipFace switch (geometry/lighting mode, perspective or ortho camera)); was rdClip_Face3_PosUvLit."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0044a6d0",
+  "old": "rdClip_Face3_PosUv",
+  "name": "rdClip_Face3GSOrtho",
+  "comment": "Original name rdClip_Face3GSOrtho (the remaster's GrimFandango (Linux): the matching branch of the rdPrimit3_ClipFace switch (geometry/lighting mode, perspective or ortho camera)); was rdClip_Face3_PosUv."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0044b0a0",
+  "old": "rdClip_Face3_PosUvLit_2",
+  "name": "rdClip_Face3T",
+  "comment": "Original name rdClip_Face3T (the remaster's GrimFandango (Linux): the matching branch of the rdPrimit3_ClipFace switch (geometry/lighting mode, perspective or ortho camera)); was rdClip_Face3_PosUvLit_2."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0044be80",
+  "old": "rdClip_Face3_PosUvFlags",
+  "name": "rdClip_Face3TOrtho",
+  "comment": "Original name rdClip_Face3TOrtho (the remaster's GrimFandango (Linux): the matching branch of the rdPrimit3_ClipFace switch (geometry/lighting mode, perspective or ortho camera)); was rdClip_Face3_PosUvFlags."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0044c9d0",
+  "old": "rdClip_Face3_PosUvLitColor",
+  "name": "rdClip_Face3GT",
+  "comment": "Original name rdClip_Face3GT (the remaster's GrimFandango (Linux): the matching branch of the rdPrimit3_ClipFace switch (geometry/lighting mode, perspective or ortho camera)); was rdClip_Face3_PosUvLitColor."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0044da40",
+  "old": "rdClip_Face3_PosUvLitFlags",
+  "name": "rdClip_Face3GTOrtho",
+  "comment": "Original name rdClip_Face3GTOrtho (the remaster's GrimFandango (Linux): the matching branch of the rdPrimit3_ClipFace switch (geometry/lighting mode, perspective or ortho camera)); was rdClip_Face3_PosUvLitFlags."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0044e7d0",
+  "old": "Frustum_TestSphere",
+  "name": "rdClip_SphereInFrustrum",
+  "comment": "Original name rdClip_SphereInFrustrum (the remaster's GrimFandango (Linux): aligned call in rdModel3_DrawMeshImpl, rdSprite_Draw, rdThing_Draw); was Frustum_TestSphere."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0044ea50",
+  "old": "Polygon_ClipToPlane",
+  "name": "rdClip_FaceToPlane",
+  "comment": "Original name rdClip_FaceToPlane (the remaster's GrimFandango (Linux): aligned call in rdModel3_DrawFace); was Polygon_ClipToPlane."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0044eeb0",
+  "old": "Angles_ToMatrix",
+  "name": "rdMatrix_Build34",
+  "comment": "Original name rdMatrix_Build34 (the remaster's GrimFandango (Linux): aligned call in rdModel3_BuildExpandedRadius, rdModel3_CalcModelBoundingBox, rdThing_SetModel3); was Angles_ToMatrix."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0044efd0",
+  "old": "Matrix34_InvertRigid",
+  "name": "rdMatrix_InvertOrtho34",
+  "comment": "Rigid inverse of a 3x4 matrix: rotation transposed, translation = -(R^T t). Was misnamed Matrix_Transpose. Not a true inverse when the matrix has scale. Original name rdMatrix_InvertOrtho34 (the remaster's GrimFandango (Linux): aligned call in rdCamera_Update, rdModel3_DrawMeshImpl); was Matrix34_InvertRigid."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0044f080",
+  "old": "Angles_ToMatrixNoPos",
+  "name": "rdMatrix_BuildRotate34",
+  "comment": "Original name rdMatrix_BuildRotate34 (the remaster's GrimFandango (Linux): aligned call in rdVector_Rotate3Acc, sputActor_SetActorRotation); was Angles_ToMatrixNoPos."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0044f1a0",
+  "old": "Matrix_BuildTranslation",
+  "name": "rdMatrix_BuildTranslate34",
+  "comment": "Identity 3x4 (from g_flRdroid_identMatrix34) with the translation column set Original name rdMatrix_BuildTranslate34 (the remaster's GrimFandango (Linux): aligned call in rdModel3_BuildExpandedRadius, rdModel3_CalcModelBoundingBox); was Matrix_BuildTranslation."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0044f1d0",
+  "old": "Matrix_BuildTranslation2",
+  "name": "rdMatrix_BuildScale34",
+  "comment": "Original name rdMatrix_BuildScale34 (the remaster's GrimFandango (Linux): aligned call in rdMatrix_PreScale34); was Matrix_BuildTranslation2."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0044f210",
+  "old": "Matrix_AxisAngle",
+  "name": "rdMatrix_BuildFromVectorAngle34",
+  "comment": "Original name rdMatrix_BuildFromVectorAngle34 (the remaster's GrimFandango (Linux): aligned call in Rotate, rdMatrix_LookAt); was Matrix_AxisAngle."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0044f490",
+  "old": "Camera_BuildBasis",
+  "name": "rdMatrix_LookAt",
+  "comment": "Camera basis from (position, interest, roll) into out[0..11]: out+0 right = normalise(forward x rolledUp), out+0xc forward = normalise(interest - position), out+0x18 up = right-forward cross, out+0x24 position. The up used is (0,0,1) rolled about the forward by roll with Matrix_AxisAngle ((0,1,0) or (-0,-1,-0) when the forward is within 0.999 of vertical). Original name rdMatrix_LookAt (the remaster's GrimFandango (Linux): aligned call in sputLua_SetCameraInterestL, sputLua_SetCameraPositionL, sputLua_SetCameraRollL); was Camera_BuildBasis."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0044f650",
+  "old": "Matrix_ToAngles",
+  "name": "rdMatrix_ExtractAngles34",
+  "comment": "Original name rdMatrix_ExtractAngles34 (the remaster's GrimFandango (Linux): aligned call in rdCamera_Update); was Matrix_ToAngles."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0044f8a0",
+  "old": "Matrix_Mul34",
+  "name": "rdMatrix_Multiply34",
+  "comment": "3x4 affine matrix product Original name rdMatrix_Multiply34 (the remaster's GrimFandango (Linux): aligned call in rdModel3_BuildExpandedRadius, rdModel3_CalcModelBoundingBox, rdModel3_DrawMeshImpl); was Matrix_Mul34."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0044fa70",
+  "old": "Matrix_BuildRotation",
+  "name": "rdMatrix_PreMultiply34",
+  "comment": "Rotation 3x4 from pitch/yaw/roll angles in degrees Original name rdMatrix_PreMultiply34 (the remaster's GrimFandango (Linux): aligned call in rdMatrix_PreScale34); was Matrix_BuildRotation."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0044fc60",
+  "old": "Matrix_Multiply",
+  "name": "rdMatrix_PostMultiply34",
+  "comment": "Original name rdMatrix_PostMultiply34 (the remaster's GrimFandango (Linux): aligned call in rdModel3_BuildExpandedRadius, rdModel3_CalcModelBoundingBox); was Matrix_Multiply."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0044fe80",
+  "old": "Matrix_SetTranslation",
+  "name": "rdMatrix_PostTranslate34",
+  "comment": "Original name rdMatrix_PostTranslate34 (the remaster's GrimFandango (Linux): aligned call in rdModel3_BuildExpandedRadius, rdModel3_CalcModelBoundingBox); was Matrix_SetTranslation."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0044feb0",
+  "old": "Matrix_BuildTransform2",
+  "name": "rdMatrix_PreScale34",
+  "comment": "Original name rdMatrix_PreScale34 (the remaster's GrimFandango (Linux): aligned call in sputActor_DrawToClean, sputRender_Update); was Matrix_BuildTransform2."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0044fee0",
+  "old": "Vec3_Copy",
+  "name": "rdMatrix_TransformVector34",
+  "comment": "Original name rdMatrix_TransformVector34 (the remaster's GrimFandango (Linux): aligned call in rdMatrix_LookAt, rdModel3_DrawFace, rdSprite_Draw); was Vec3_Copy."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0044ffc0",
+  "old": "Vec3_Transform",
+  "name": "rdMatrix_TransformVector34Acc",
+  "comment": "Transforms the point in place by the 3x4 matrix Original name rdMatrix_TransformVector34Acc (the remaster's GrimFandango (Linux): aligned call in rdSprite_Draw, rdVector_Rotate3Acc, sputLua_WalkActorVectorL); was Vec3_Transform."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00450060",
+  "old": "Matrix34_TransformPoint",
+  "name": "rdMatrix_TransformPoint34",
+  "comment": "out = a * R + t for a 3x4 matrix (rotation in [0..8], translation in [9..11]). Was misnamed Vec3_Sub. rdModel_DrawMesh uses it with a zeroed translation (saved and restored around the call) to rotate light directions. Original name rdMatrix_TransformPoint34 (the remaster's GrimFandango (Linux): aligned call in rdModel3_BuildExpandedRadius, rdModel3_CalcModelBoundingBox, rdThing_Draw); was Matrix34_TransformPoint."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00450170",
+  "old": "Matrix_TransformPoints",
+  "name": "rdMatrix_TransformPointLst34",
+  "comment": "Original name rdMatrix_TransformPointLst34 (the remaster's GrimFandango (Linux): aligned call in rdModel3_DrawMeshImpl); was Matrix_TransformPoints."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00450260",
+  "old": "FUN_00450260",
+  "name": "rdFace_FreeEntry",
+  "comment": "Original name rdFace_FreeEntry (the remaster's GrimFandango (Linux): aligned call in rdModel3_FreeEntry); was FUN_00450260."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00450410",
+  "old": "Math3D_PointsCollinear",
+  "name": "rdMath_PointsCollinear",
+  "comment": "True when the normalised edges p1-p0 and p2-p0 are parallel (|dot| within 0.999..1.001). Original name rdMath_PointsCollinear (the remaster's GrimFandango (Linux): aligned call in rdModel3_CalcFaceNormals); was Math3D_PointsCollinear."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00450640",
+  "old": "rdPuppet_StopTrack",
+  "name": "rdPuppet_RemoveTrack",
+  "comment": "Original name rdPuppet_RemoveTrack (the remaster's GrimFandango (Linux): aligned call in rdPuppet_AddTrack, rdPuppet_AdvanceTrack, rdPuppet_NewEntry); was rdPuppet_StopTrack."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004506a0",
+  "old": "rdPuppet_SetTrackFlags",
+  "name": "rdPuppet_SetStatus",
+  "comment": "Original name rdPuppet_SetStatus (the remaster's GrimFandango (Linux): aligned call in KeyframeChanger); was rdPuppet_SetTrackFlags."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004506d0",
+  "old": "rdPuppet_SetTrackUserData",
+  "name": "rdPuppet_SetCallback",
+  "comment": "Writes the last dword (+0x12c) of the track record Original name rdPuppet_SetCallback (the remaster's GrimFandango (Linux): aligned call in KeyframeChanger); was rdPuppet_SetTrackUserData."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00450b50",
+  "old": "rdPuppet_ClearTrackNodes",
+  "name": "rdPuppet_ResetTrack",
+  "comment": "Zeroes the 64 node weights of a track and marks it status 3 Original name rdPuppet_ResetTrack (the remaster's GrimFandango (Linux): aligned call in KeyframeChanger, rdPuppet_AddTrack); was rdPuppet_ClearTrackNodes."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00451460",
+  "old": "rdLight_Init",
+  "name": "rdLight_NewEntry",
+  "comment": "Defaults: type 2, on, white (0xffffff), intensity 1.0 Original name rdLight_NewEntry (the remaster's GrimFandango (Linux): aligned call in sputRoom_ParseLights); was rdLight_Init."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00471bd0",
+  "old": "rdThing_SetModel",
+  "name": "rdThing_SetModel3",
+  "comment": "Original name rdThing_SetModel3 (the remaster's GrimFandango (Linux): aligned call in ThingInstancer); was rdThing_SetModel."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004735b0",
+  "old": "Str_FileNameFromPath",
+  "name": "stdFileFromPath",
+  "comment": "Original name stdFileFromPath (the remaster's GrimFandango (Linux): aligned call in rdColormap_LoadEntry, rdMaterial_LoadEntry, rdModel3_LoadEntryText); was Str_FileNameFromPath."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004735d0",
+  "old": "Math_Log2Int",
+  "name": "stdCalcBitPos",
+  "comment": "Original name stdCalcBitPos (the remaster's GrimFandango (Linux): aligned call in rdMaterial_LoadEntry); was Math_Log2Int."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004735f0",
+  "old": "stdFile_ReadByte",
+  "name": "stdFGetc",
+  "comment": "Original name stdFGetc (the remaster's GrimFandango (Linux): aligned call in stdGif_Load, stdLbm_Load, stdPcx_Load); was stdFile_ReadByte."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00473610",
+  "old": "stdFile_WriteByte",
+  "name": "stdFPutc",
+  "comment": "Original name stdFPutc (the remaster's GrimFandango (Linux): aligned call in stdPcx_Write); was stdFile_WriteByte."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00474480",
+  "old": "Surface_Create",
+  "name": "stdDisplay_VBufferNew",
+  "comment": "Std/Win95/Stddisplay.c: creates a surface record (0xd8 bytes) from a 19-dword format/size description Original name stdDisplay_VBufferNew (the remaster's GrimFandango (Linux): aligned call in rdMaterial_LoadEntry, stdBmp_LoadEntry, stdPic_LoadEntry); was Surface_Create."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004746d0",
+  "old": "Surface_Free",
+  "name": "stdDisplay_VBufferFree",
+  "comment": "Original name stdDisplay_VBufferFree (the remaster's GrimFandango (Linux): aligned call in sputLua_FreeImage, sputRender_Close, stdDisplay_VBufferConvertColorFormat); was Surface_Free."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00474750",
+  "old": "Surface_Lock",
+  "name": "stdDisplay_VBufferLock",
+  "comment": "Original name stdDisplay_VBufferLock (the remaster's GrimFandango (Linux): aligned call in rdMaterial_LoadEntry, stdBmp_LoadEntry, stdPic_LoadEntry); was Surface_Lock."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004747b0",
+  "old": "Surface_Unlock",
+  "name": "stdDisplay_VBufferUnlock",
+  "comment": "Original name stdDisplay_VBufferUnlock (the remaster's GrimFandango (Linux): aligned call in rdMaterial_LoadEntry, stdBmp_LoadEntry, stdPic_LoadEntry); was Surface_Unlock."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00474ae0",
+  "old": "Surface_SetColorKey",
+  "name": "stdDisplay_VBufferSetColorKey",
+  "comment": "Original name stdDisplay_VBufferSetColorKey (the remaster's GrimFandango (Linux): aligned call in rdMaterial_LoadEntry, stdBitmap_ConvertColorFormat); was Surface_SetColorKey."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00474b30",
+  "old": "Surface_Decompress",
+  "name": "stdDisplay_VBufferDeCompress",
+  "comment": "Turns a type 2 (LZSS compressed) surface into a plain system memory surface Original name stdDisplay_VBufferDeCompress (the remaster's GrimFandango (Linux): aligned call in stdBitmap_DeCompress); was Surface_Decompress."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00474ba0",
+  "old": "Surface_CopyConvert",
+  "name": "stdDisplay_VBufferDeCompressTo",
+  "comment": "Original name stdDisplay_VBufferDeCompressTo (the remaster's GrimFandango (Linux): aligned call in sputRender_Decompress, sputRender_UseSetup); was Surface_CopyConvert."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00474be0",
+  "old": "Surface_CreateFromBitmap",
+  "name": "stdDisplay_VBufferConvertColorFormat",
+  "comment": "Original name stdDisplay_VBufferConvertColorFormat (the remaster's GrimFandango (Linux): aligned call in stdBitmap_ConvertColorFormat); was Surface_CreateFromBitmap."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00474e40",
+  "old": "Display_DrawText",
+  "name": "stdDisplay_TextOut",
+  "comment": "GDI TextOut of the debug font onto the back buffer (DIB or locked DirectDraw DC)\nPorted to C (build/overrides_asm_o2.c): differential test, 0 differences (docs/notes/asm_o2.md). Original name stdDisplay_TextOut (the remaster's GrimFandango (Linux): aligned call in Main_Service); was Display_DrawText."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00476f10",
+  "old": "Input_Init",
+  "name": "stdControl_Startup",
+  "comment": "Creates DirectInput, the keyboard and mouse devices and scans the joysticks Original name stdControl_Startup (the remaster's GrimFandango (Linux): aligned call in sputControl_Startup); was Input_Init."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00476f70",
+  "old": "Input_Shutdown",
+  "name": "stdControl_Shutdown",
+  "comment": "Original name stdControl_Shutdown (the remaster's GrimFandango (Linux): aligned call in sputControl_Shutdown); was Input_Shutdown."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004770d0",
+  "old": "Input_Update",
+  "name": "stdControl_ReadControls",
+  "comment": "Once per frame: polls keyboard, joysticks and mouse and records press/release times Original name stdControl_ReadControls (the remaster's GrimFandango (Linux): aligned call in sputControl_Update); was Input_Update."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00477160",
+  "old": "Input_GetAxis",
+  "name": "stdControl_ReadAxis",
+  "comment": "Original name stdControl_ReadAxis (the remaster's GrimFandango (Linux): aligned call in sputLua_GetControlStateL, sputLua_NotifyControlHandlers); was Input_GetAxis."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00477230",
+  "old": "Input_GetButtonState",
+  "name": "stdControl_ReadKey",
+  "comment": "Original name stdControl_ReadKey (the remaster's GrimFandango (Linux): aligned call in sputLua_GetControlStateL, sputLua_NotifyControlHandlers, sputRender_ControlHandler); was Input_GetButtonState."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00478840",
+  "old": "D3D_BeginInstructions",
+  "name": "std3D_RenderListVerticesFinish",
+  "comment": "Emits the PROCESSVERTICES instruction for everything added so far Original name std3D_RenderListVerticesFinish (the remaster's GrimFandango (Linux): aligned call in rdCache_DrawRenderList); was D3D_BeginInstructions."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004788c0",
+  "old": "D3D_AddTriangles",
+  "name": "std3D_AddRenderListTris",
+  "comment": "Emits TRIANGLE instructions, grouped by texture handle, switching render state and texture as needed Original name std3D_AddRenderListTris (the remaster's GrimFandango (Linux): aligned call in rdCache_DrawRenderList); was D3D_AddTriangles."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00479070",
+  "old": "D3D_ClampTextureSize",
+  "name": "std3D_GetValidDimensions",
+  "comment": "Original name std3D_GetValidDimensions (the remaster's GrimFandango (Linux): aligned call in rdCache_SendFaceListToHardware); was D3D_ClampTextureSize."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00479110",
+  "old": "D3D_ResetTextures",
+  "name": "std3D_PurgeTextureCache",
+  "comment": "Lua ResetTextures: frees every texture record Original name std3D_PurgeTextureCache (the remaster's GrimFandango (Linux): aligned call in rdCache_SendFaceListToHardware); was D3D_ResetTextures."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00479170",
+  "old": "D3D_CreateTexture",
+  "name": "std3D_AddToTextureCache",
+  "comment": "Builds a 0x98-byte texture record {sysSurface, vidSurface, ..., +0x74 handle, +0x78 valid, +0x80 w, +0x88 h, +0x88 size, +0x8c frameStamp, +0x90 prev, +0x94 next}; scales to the driver's size limits and converts 8-bit sources to 16-bit Original name std3D_AddToTextureCache (the remaster's GrimFandango (Linux): aligned call in rdMaterial_AddToTextureCache); was D3D_CreateTexture."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00479a70",
+  "old": "D3D_TouchTexture",
+  "name": "std3D_UpdateFrameCount",
+  "comment": "Original name std3D_UpdateFrameCount (the remaster's GrimFandango (Linux): aligned call in rdMaterial_AddToTextureCache); was D3D_TouchTexture."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0047b2b0",
+  "old": "stdBitmap_CopyFrom",
+  "name": "stdBitmap_ConvertColorFormat",
+  "comment": "Deep copy of a 0x7c-byte bitmap record including its surfaces Original name stdBitmap_ConvertColorFormat (the remaster's GrimFandango (Linux): aligned call in sputRender_SaveDrawBuffer, sputRender_SaveScreen); was stdBitmap_CopyFrom."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0047b380",
+  "old": "stdBitmap_Convert",
+  "name": "stdBitmap_VBufferToBitmap",
+  "comment": "Allocates a new bitmap and blits every surface into the requested pixel format Original name stdBitmap_VBufferToBitmap (the remaster's GrimFandango (Linux): aligned call in sputRender_SaveDrawBuffer, sputRender_SaveScreen); was stdBitmap_Convert."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0047b590",
+  "old": "stdBitmap_DecompressAll",
+  "name": "stdBitmap_DeCompress",
+  "comment": "Original name stdBitmap_DeCompress (the remaster's GrimFandango (Linux): aligned call in stdBitmap_Load, stdWriteImage); was stdBitmap_DecompressAll."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0047b8a0",
+  "old": "Pixel_Convert",
+  "name": "stdColor_ColorConvertOneRow",
+  "comment": "Converts pixels between the 16-bit RGB layouts described by the format records Original name stdColor_ColorConvertOneRow (the remaster's GrimFandango (Linux): aligned call in stdColor_ColorConvertOnePixel, stdDisplay_VBufferConvertColorFormat); was Pixel_Convert."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0047bbb0",
+  "old": "Pixel_ConvertOne",
+  "name": "stdColor_ColorConvertOnePixel",
+  "comment": "Original name stdColor_ColorConvertOnePixel (the remaster's GrimFandango (Linux): aligned call in stdBitmap_ConvertColorFormat, stdDisplay_VBufferConvertColorFormat); was Pixel_ConvertOne."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0047c120",
+  "old": "Math_SinDeg",
+  "name": "stdMath_Tan",
+  "comment": "Table/polynomial sine of an angle in degrees Original name stdMath_Tan (the remaster's GrimFandango (Linux): aligned call in rdCamera_BuildFOV; the second (tangent) table and its quadrant signs); was Math_SinDeg."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0047d050",
+  "old": "stdBmp_Save",
+  "name": "stdBmp_Write",
+  "comment": "Original name stdBmp_Write (the remaster's GrimFandango (Linux): aligned call in stdWriteImage); was stdBmp_Save."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0047ef10",
+  "old": "stdPcx_Save",
+  "name": "stdPcx_Write",
+  "comment": "Original name stdPcx_Write (the remaster's GrimFandango (Linux): aligned call in stdWriteImage); was stdPcx_Save."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0047fd20",
+  "old": "Str_Basename",
+  "name": "stdFnames_FindMedName",
+  "comment": "Original name stdFnames_FindMedName (the remaster's GrimFandango (Linux): aligned call in BitmapRequester, ColormapRequester, MaterialRequester); was Str_Basename."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0047fd50",
+  "old": "Str_FileExtension",
+  "name": "stdFnames_FindExt",
+  "comment": "Original name stdFnames_FindExt (the remaster's GrimFandango (Linux): aligned call in stdWriteImage); was Str_FileExtension."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004800a0",
+  "old": "Resource_Filio_Terminate",
+  "name": "Res_SysTerminate",
+  "comment": "Module interface slot 1 (Resource_Filio): called by Engine_ResetSubsystems / when registration fails; drops the service table pointer and clears the initialised flag. Original name Res_SysTerminate (the remaster's GrimFandango (Linux): aligned call in Res_SysInitialize); was Resource_Filio_Terminate."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004800b0",
+  "old": "Resource_Filio_Start",
+  "name": "Res_SysStartup",
+  "comment": "Module interface slot 2 (Resource_Filio): called by Engine_InitSubsystems, returns 0 on success (non-zero makes the whole start-up unwind). Pools for the LAB archive records are created in _Start. Original name Res_SysStartup (the remaster's GrimFandango (Linux): aligned call in Res_SysInitialize); was Resource_Filio_Start."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00480120",
+  "old": "Lab_CloseAll",
+  "name": "Res_FileCloseAll",
+  "comment": "Original name Res_FileCloseAll (the remaster's GrimFandango (Linux): aligned call in Res_SysShutdown, sputResource_CloseResources); was Lab_CloseAll."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00480140",
+  "old": "Resource_Filio_Stop",
+  "name": "Res_SysShutdown",
+  "comment": "Module interface slot 3 (Resource_Filio): called by Engine_ShutdownSubsystems in reverse order; releases what _Start created. Original name Res_SysShutdown (the remaster's GrimFandango (Linux): aligned call in Res_SysInitialize); was Resource_Filio_Stop."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004801a0",
+  "old": "ResType_Register",
+  "name": "Res_SysRegisterHandler",
+  "comment": "Original name Res_SysRegisterHandler (the remaster's GrimFandango (Linux): the one-handler registration that sputResource_Startup loops over (inlined there), body similarity); was ResType_Register."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00480230",
+  "old": "Res_Register",
+  "name": "Res_SysAddHandle",
+  "comment": "Called by type handlers after loading to create the resource record Original name Res_SysAddHandle (the remaster's GrimFandango (Linux): aligned call in sputResource_ColormapHandler, sputResource_KeyframeHandler, sputResource_MaterialHandler); was Res_Register."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004802b0",
+  "old": "Res_GetFilePath",
+  "name": "Res_FindExternalFile",
+  "comment": "Original name Res_FindExternalFile (the remaster's GrimFandango (Linux): aligned call in sputSmush_GetMovieLength); was Res_GetFilePath."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004803a0",
+  "old": "Lab_Close",
+  "name": "Res_FileClose",
+  "comment": "Closes an archive: unreferenced resources from it are freed, referenced ones get a private copy of their name and are detached Original name Res_FileClose (the remaster's GrimFandango (Linux): aligned call in Res_FileCloseAll); was Lab_Close."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00480560",
+  "old": "Res_SetLocked",
+  "name": "Res_SetPurgable",
+  "comment": "Locks (flag 8) a resource against Res_FreeUnreferenced; returns the previous unlocked state Original name Res_SetPurgable (the remaster's GrimFandango (Linux): aligned call in sputResource_MatLoader, sputResource_MatUnloader, sputResource_MaterialHandler); was Res_SetLocked."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004805b0",
+  "old": "Res_FreeUnreferenced",
+  "name": "Res_SysPurgeBySize",
+  "comment": "Walks the LRU list from the oldest end freeing unreferenced, unlocked resources until bytesWanted is reached; calls the yield hook every 5 items Original name Res_SysPurgeBySize (the remaster's GrimFandango (Linux): aligned call in sputResource_Alloc); was Res_FreeUnreferenced."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00480790",
+  "old": "Res_InstallFileServices",
+  "name": "Res_OverrideFileCalls",
+  "comment": "Temp/Res.c: keeps a copy of the raw file services in g_ResFileServices and replaces svc->fopen..fprintf with the ResFile_* versions so every open goes through the LAB archive system Original name Res_OverrideFileCalls (the remaster's GrimFandango (Linux): aligned call in sputResource_Startup); was Res_InstallFileServices."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00480890",
+  "old": "ResFile_Open",
+  "name": "Res_FOpen",
+  "comment": "Returns a 1-based handle into the 128-entry g_ResFileTable. Read-mode names without a path are looked up inside the open LAB archives first (entry = archive handle + offset + size); otherwise the underlying fopen is used. Original name Res_FOpen (the remaster's GrimFandango (Linux): the same file-services slot filled by Res_OverrideFileCalls); was ResFile_Open."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00480a00",
+  "old": "ResFile_Close",
+  "name": "Res_FClose",
+  "comment": "Source: Temp/Res.c (line 1844, from __FILE__/__LINE__ passed to the allocator) Original name Res_FClose (the remaster's GrimFandango (Linux): the same file-services slot filled by Res_OverrideFileCalls); was ResFile_Close."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00480a70",
+  "old": "ResFile_Read",
+  "name": "Res_FRead",
+  "comment": "Buffered (4 KB) read; archive-backed handles read through Lab_ReadRaw with the entry offset applied Original name Res_FRead (the remaster's GrimFandango (Linux): the same file-services slot filled by Res_OverrideFileCalls); was ResFile_Read."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00480bb0",
+  "old": "ResFile_Gets",
+  "name": "Res_FGets",
+  "comment": "pFgets of the resource file services (Res_InstallFileServices): reads a line from the 4 KB buffer of an archive entry or forwards to the real file. Original name Res_FGets (the remaster's GrimFandango (Linux): the same file-services slot filled by Res_OverrideFileCalls); was ResFile_Gets."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00480ce0",
+  "old": "ResFile_Write",
+  "name": "Res_FWrite",
+  "comment": "pFwrite of the resource file services: only real files can be written. Original name Res_FWrite (the remaster's GrimFandango (Linux): the same file-services slot filled by Res_OverrideFileCalls); was ResFile_Write."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00480d50",
+  "old": "ResFile_Eof",
+  "name": "Res_FEOF",
+  "comment": "pFeof of the resource file services. Original name Res_FEOF (the remaster's GrimFandango (Linux): the same file-services slot filled by Res_OverrideFileCalls); was ResFile_Eof."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00480dc0",
+  "old": "ResFile_Tell",
+  "name": "Res_FTell",
+  "comment": "pFtell of the resource file services: the current position of an archive entry (relative to its start) or of the real file. Original name Res_FTell (the remaster's GrimFandango (Linux): the same file-services slot filled by Res_OverrideFileCalls); was ResFile_Tell."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00480e30",
+  "old": "ResFile_Seek",
+  "name": "Res_FSeek",
+  "comment": "Source: Temp/Res.c (line 2225, from __FILE__/__LINE__ passed to the allocator) Original name Res_FSeek (the remaster's GrimFandango (Linux): the same file-services slot filled by Res_OverrideFileCalls); was ResFile_Seek."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00480f40",
+  "old": "ResFile_Size",
+  "name": "Res_FSize",
+  "comment": "Original name Res_FSize (the remaster's GrimFandango (Linux): the same file-services slot filled by Res_OverrideFileCalls); was ResFile_Size."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00480f90",
+  "old": "ResFile_Printf",
+  "name": "Res_FPrintf",
+  "comment": "Source: Temp/Res.c (line 2342, from __FILE__/__LINE__ passed to the allocator) Original name Res_FPrintf (the remaster's GrimFandango (Linux): the same file-services slot filled by Res_OverrideFileCalls); was ResFile_Printf."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00481100",
+  "old": "Res_DataFromHandle",
+  "name": "Res_HandleFromSerialNumber",
+  "comment": "Original name Res_HandleFromSerialNumber (the remaster's GrimFandango (Linux): aligned call in sputLua_RestoreIndirector, sputRoom_Restore, sputText_Restore); was Res_DataFromHandle."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00481140",
+  "old": "Res_Find",
+  "name": "Res_Loaded",
+  "comment": "Original name Res_Loaded (the remaster's GrimFandango (Linux): aligned call in sputLua_GetCurrentSetupL, sputLua_PutActorInSetL); was Res_Find."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00481210",
+  "old": "Res_LoadInternal",
+  "name": "res_Load",
+  "comment": "Asks the type handler to load {op=1, name, type}; on status 1 finds the new record and asks the handler for its size {op=3} Original name res_Load (the remaster's GrimFandango (Linux): aligned call in Res_Load, Res_SysLoad); was Res_LoadInternal."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00481630",
+  "old": "Lab_FindFile",
+  "name": "res_FindInternalFile",
+  "comment": "Searches every open archive (or dev directory) for the file; fills a 0x210-byte entry {type, archiveFh, offset, size, inArchive, name} Original name res_FindInternalFile (the remaster's GrimFandango (Linux): aligned call in Res_FOpen, Res_FSize); was Lab_FindFile."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00481cf0",
+  "old": "LabDir_FindEntry",
+  "name": "res_FindDirectoryEntry",
+  "comment": "Directory-backed archive lookup; fills the entry with the full path and the file size Original name res_FindDirectoryEntry (the remaster's GrimFandango (Linux): aligned call in Res_FindExternalFile, res_FindInternalFile); was LabDir_FindEntry."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00482170",
+  "old": "Res_FindByHandleOrNull",
+  "name": "Res_GetFirstType",
+  "comment": "Original name Res_GetFirstType (the remaster's GrimFandango (Linux): aligned call in sputRoom_Save); was Res_FindByHandleOrNull."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004821b0",
+  "old": "Res_NextInList",
+  "name": "Res_GetNextType",
+  "comment": "Original name Res_GetNextType (the remaster's GrimFandango (Linux): aligned call in sputRoom_Save); was Res_NextInList."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00482200",
+  "old": "Res_TouchByData",
+  "name": "Res_Touch",
+  "comment": "Moves the record owning the data pointer to the front of the LRU list Original name Res_Touch (the remaster's GrimFandango (Linux): aligned call in sputRoom_GetSetupBackground, sputRoom_GetSetupZBackground, sputRoom_LoadResources); was Res_TouchByData."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00482220",
+  "old": "ResRef_Release",
+  "name": "Res_ResolveToSerialNumber",
+  "comment": "Res.c: clears a ResRef (0x34 bytes) after its record is found Original name Res_ResolveToSerialNumber (the remaster's GrimFandango (Linux): aligned call in sputActor_Restore); was ResRef_Release."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00482380",
+  "old": "Resource_Filio_RestoreState",
+  "name": "Res_SysLoad",
+  "comment": "Module interface slot 5 (Resource_Filio): save-game reader, calls the SaveGame_Read callback it is handed; returns non-zero on a short read. Original name Res_SysLoad (the remaster's GrimFandango (Linux): aligned call in Res_SysInitialize); was Resource_Filio_RestoreState."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00482460",
+  "old": "Engine_ResetState",
+  "name": "Res_FreeAll",
+  "comment": "Called when nuking resources and before a restore Original name Res_FreeAll (the remaster's GrimFandango (Linux): aligned call in Res_SysShutdown, sputLua_NukeResourcesL); was Engine_ResetState."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004824c0",
+  "old": "Set_GetRefCount",
+  "name": "Res_NumRefs",
+  "comment": "Original name Res_NumRefs (the remaster's GrimFandango (Linux): aligned call in sputRoom_Save); was Set_GetRefCount."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00482800",
+  "old": "Engine_InvalidateRect",
+  "name": "grimlib_MarkDirtyRect",
+  "comment": "Original name grimlib_MarkDirtyRect (the remaster's GrimFandango (Linux): aligned call in Main_Service); was Engine_InvalidateRect."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00482820",
+  "old": "Set_ChangeSetup",
+  "name": "grimlib_MakeCurrentSetup",
+  "comment": "Changes the camera setup of the current set: resets the set's sound parameters (Set_SetSoundParams: min 20, max 127, scale 8.0, pan scale 1.5, near 0.8), runs the camera change handler and moves every positioned sound again (PositionedSounds_UpdateAll). Original name grimlib_MakeCurrentSetup (the remaster's GrimFandango (Linux): aligned call in grimlib_NextSetup, grimlib_PreviousSetup, sputLua_MakeCurrentSetupL); was Set_ChangeSetup."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00482990",
+  "old": "Engine_UpdateFrame",
+  "name": "grimlib_UpdateManual",
+  "comment": "Engine_UpdateFrame(draw, fixedMs). Runs the frame: sound (SoundsPeriodic), then the timer (Timer_UpdateFromWallClock when fixedMs==0, Timer_UpdateFixedStep(fixedMs) otherwise), the Lua tasks (FUN_0049c8f0) and the actor update (FUN_0048fcf0 with the frame seconds). Original name grimlib_UpdateManual (the remaster's GrimFandango (Linux): aligned call in Main_Service); was Engine_UpdateFrame."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00482ae0",
+  "old": "Engine_SetIMuseState",
+  "name": "gimlib_SetImuseState",
+  "comment": "Lua ImSetState Original name gimlib_SetImuseState (the remaster's GrimFandango (Linux): aligned call in sputLua_ImSetState); was Engine_SetIMuseState."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00482af0",
+  "old": "Engine_PresentFrame",
+  "name": "grimlib_Display",
+  "comment": "Profile slot 8: presents the back buffer when the game state is 3 Original name grimlib_Display (the remaster's GrimFandango (Linux): aligned call in Main_Service); was Engine_PresentFrame."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00482e30",
+  "old": "Profile_Begin",
+  "name": "PerfBegin",
+  "comment": "Source: Main/sputmain.cpp (line 1453, from __FILE__/__LINE__ passed to the allocator) Original name PerfBegin (the remaster's GrimFandango (Linux): aligned call in grimlib_Display, sputCostume_DrawActorShadow, sputRender_Update); was Profile_Begin."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00482e80",
+  "old": "Profile_End",
+  "name": "PerfEnd",
+  "comment": "Source: Main/sputmain.cpp (line 1462, from __FILE__/__LINE__ passed to the allocator) Original name PerfEnd (the remaster's GrimFandango (Linux): aligned call in grimlib_Display, sputCostume_DrawActorShadow, sputRender_Update); was Profile_End."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00483490",
+  "old": "SaveGame_LoadThumbnail",
+  "name": "sputMain_GetSaveGameImage",
+  "comment": "Returns a 250x188 16-bit bitmap read from the head of a save file Original name sputMain_GetSaveGameImage (the remaster's GrimFandango (Linux): aligned call in sputLua_GetSaveGameImage); was SaveGame_LoadThumbnail."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004835f0",
+  "old": "Engine_SetSavedValue",
+  "name": "SetPrevMode",
+  "comment": "Stores the dword that Engine_SaveGame writes after the module hooks Original name SetPrevMode (the remaster's GrimFandango (Linux): aligned call in sputLua_RenderModeUser); was Engine_SetSavedValue."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004838e0",
+  "old": "Polyglot_Lookup",
+  "name": "PolyglotGetString",
+  "comment": "Binary search of the language table for a /xxxx/ text id Original name PolyglotGetString (the remaster's GrimFandango (Linux): aligned call in sputText_ExtractSayLineData); was Polyglot_Lookup."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00483b50",
+  "old": "Set_SwitchSetup",
+  "name": "sputRender_UseSetup",
+  "comment": "Makes setupIdx current: applies its camera, copies its frame into the camera actor, blits the background bitmap into g_pSputRender_CleanBuffer and the depth bitmap into g_pSputRender_CleanZBuffer (clearing it when absent), draws the object states and invalidates the view Original name sputRender_UseSetup (the remaster's GrimFandango (Linux): aligned call in sputRender_SetDisplay, sputRender_SetGamma, sputRender_Update); was Set_SwitchSetup."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00483da0",
+  "old": "Render_SaveState",
+  "name": "sputRender_Save",
+  "comment": "Original name sputRender_Save (the remaster's GrimFandango (Linux): aligned call in sputRender_Initialize); was Render_SaveState."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00483e20",
+  "old": "Render_RestoreState",
+  "name": "sputRender_Restore",
+  "comment": "Original name sputRender_Restore (the remaster's GrimFandango (Linux): aligned call in sputRender_Initialize); was Render_RestoreState."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00484a50",
+  "old": "FUN_00484a50",
+  "name": "sputRender_ControlHandler",
+  "comment": "Original name sputRender_ControlHandler (the remaster's GrimFandango (Linux): aligned call in sputRender_Initialize); was FUN_00484a50."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00486070",
+  "old": "sputRender_Start",
+  "name": "sputRender_Startup",
+  "comment": "Module interface slot 2 (sputRender): called by Engine_InitSubsystems, returns 0 on success (non-zero makes the whole start-up unwind). _Start creates the dirty-rectangle pool, _Stop frees the cache rects and the pool. Original name sputRender_Startup (the remaster's GrimFandango (Linux): aligned call in sputRender_Initialize); was sputRender_Start."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004860d0",
+  "old": "sputRender_Stop",
+  "name": "sputRender_Shutdown",
+  "comment": "Module interface slot 3 (sputRender): called by Engine_ShutdownSubsystems in reverse order; releases what _Start created. Original name sputRender_Shutdown (the remaster's GrimFandango (Linux): aligned call in sputRender_Initialize); was sputRender_Stop."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004862e0",
+  "old": "Render_ScreenToWorld",
+  "name": "sputRender_ReverseProject",
+  "comment": "Reads the depth image at (x,y) and un-projects the pixel through the current camera frame Original name sputRender_ReverseProject (the remaster's GrimFandango (Linux): aligned call in sputLua_ScreenToWorldL); was Render_ScreenToWorld."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00486760",
+  "old": "Render_ConvertBackground",
+  "name": "sputRender_Decompress",
+  "comment": "Converts a compressed (type 2) background bitmap into g_pSputRender_DecompressionBuffer and remaps its pixels Original name sputRender_Decompress (the remaster's GrimFandango (Linux): aligned call in sputRender_UseSetup); was Render_ConvertBackground."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00486b00",
+  "old": "Render_GetBackgroundSurface",
+  "name": "sputRender_CleanArtBuffer",
+  "comment": "Original name sputRender_CleanArtBuffer (the remaster's GrimFandango (Linux): aligned call in sputActor_DrawToClean); was Render_GetBackgroundSurface."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00486b10",
+  "old": "Render_GetZBufferSurface",
+  "name": "sputRender_CleanZBuffer",
+  "comment": "Original name sputRender_CleanZBuffer (the remaster's GrimFandango (Linux): aligned call in sputActor_DrawToClean); was Render_GetZBufferSurface."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00486b30",
+  "old": "Render_SetDrawEnabled",
+  "name": "sputRender_SetPageFlip",
+  "comment": "Original name sputRender_SetPageFlip (the remaster's GrimFandango (Linux): aligned call in sputLua_EngineDisplay); was Render_SetDrawEnabled."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00486c50",
+  "old": "CacheRect_Restore",
+  "name": "sputRender_RestoreCacheRect",
+  "comment": "Lua RestoreCacheRect: copies the most recent cached rectangle back and invalidates it Original name sputRender_RestoreCacheRect (the remaster's GrimFandango (Linux): aligned call in sputLua_RestoreCacheRect); was CacheRect_Restore."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00486d00",
+  "old": "Render_DrawIris",
+  "name": "sputRender_DrawIrisEffect",
+  "comment": "Blacks out the back buffer outside a rectangle centred on (x,y) that has closed by `percent` (0 = fully open, 1 = closed) Original name sputRender_DrawIrisEffect (the remaster's GrimFandango (Linux): aligned call in sputRender_Update); was Render_DrawIris."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00486eb0",
+  "old": "Render_StartIrisClose",
+  "name": "sputRender_IrisDown",
+  "comment": "Lua IrisDown: starts an iris transition closing over durationMs Original name sputRender_IrisDown (the remaster's GrimFandango (Linux): aligned call in sputLua_IrisDown); was Render_StartIrisClose."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00486ef0",
+  "old": "Render_StartIrisOpen",
+  "name": "sputRender_IrisUp",
+  "comment": "Lua IrisUp: starts an iris transition opening over durationMs (negative duration) Original name sputRender_IrisUp (the remaster's GrimFandango (Linux): aligned call in sputLua_IrisUp); was Render_StartIrisOpen."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004870e0",
+  "old": "Render_FillRect",
+  "name": "sputRender_DimRegion",
+  "comment": "Original name sputRender_DimRegion (the remaster's GrimFandango (Linux): aligned call in sputLua_DimRegion); was Render_FillRect."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004874d0",
+  "old": "Render_UpdateWaitCursor",
+  "name": "sputRender_DrawLoadingImage",
+  "comment": "After 3.5 s without a frame, animates wait.bm (BKND resource) on the primary surface every 250 ms Original name sputRender_DrawLoadingImage (the remaster's GrimFandango (Linux): aligned call in res_Load); was Render_UpdateWaitCursor."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00487690",
+  "old": "Plat_SetDialogDirectory",
+  "name": "grimPlat_SetDefaultOpenPath",
+  "comment": "Original name grimPlat_SetDefaultOpenPath (the remaster's GrimFandango (Linux): aligned call in BitmapRequester, ColormapRequester, MaterialRequester); was Plat_SetDialogDirectory."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004876b0",
+  "old": "Plat_GetDialogFileName",
+  "name": "grimPlat_GetDefaultOpenPath",
+  "comment": "Original name grimPlat_GetDefaultOpenPath (the remaster's GrimFandango (Linux): aligned call in BitmapRequester, ColormapRequester, MaterialRequester); was Plat_GetDialogFileName."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004876c0",
+  "old": "Plat_OpenFileDialog",
+  "name": "grimPlat_OpenFileRequest",
+  "comment": "Original name grimPlat_OpenFileRequest (the remaster's GrimFandango (Linux): aligned call in BitmapRequester, ColormapRequester, MaterialRequester); was Plat_OpenFileDialog."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004878c0",
+  "old": "Plat_PromptDialog",
+  "name": "grimPlat_SpinDialog",
+  "comment": "Editor prompt dialog with labelled numeric fields Original name grimPlat_SpinDialog (the remaster's GrimFandango (Linux): aligned call in KeyframeAdjuster, SoundAdjuster, ThingAdjuster); was Plat_PromptDialog."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00487c10",
+  "old": "Plat_TreeSelectDialog",
+  "name": "grimPlat_TreeDialog",
+  "comment": "Editor 'Tree Select' dialog; returns the chosen index or -1 Original name grimPlat_TreeDialog (the remaster's GrimFandango (Linux): aligned call in MeshRequester); was Plat_TreeSelectDialog."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00488930",
+  "old": "Memory_Sys_Terminate",
+  "name": "Memory_SysTerminate",
+  "comment": "Module interface slot 1 (Memory_Sys): called by Engine_ResetSubsystems / when registration fails; drops the service table pointer and clears the initialised flag. Original name Memory_SysTerminate (the remaster's GrimFandango (Linux): aligned call in Memory_SysInitialize); was Memory_Sys_Terminate."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00488940",
+  "old": "Memory_Sys_Start",
+  "name": "Memory_SysStartup",
+  "comment": "Module interface slot 2 (Memory_Sys): called by Engine_InitSubsystems, returns 0 on success (non-zero makes the whole start-up unwind). Original name Memory_SysStartup (the remaster's GrimFandango (Linux): aligned call in Memory_SysInitialize); was Memory_Sys_Start."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00488970",
+  "old": "Memory_Sys_Stop",
+  "name": "Memory_SysShutdown",
+  "comment": "Module interface slot 3 (Memory_Sys): called by Engine_ShutdownSubsystems in reverse order; releases what _Start created. Original name Memory_SysShutdown (the remaster's GrimFandango (Linux): aligned call in Memory_SysInitialize); was Memory_Sys_Stop."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00488980",
+  "old": "Pool_Create",
+  "name": "Memory_AllocatePool",
+  "comment": "Temp/Memory.c: fixed-size item pool. Items are 8-byte-headed (next, pool) blocks carved from grown chunks; pools are kept in the g_poolList singly linked list. Original name Memory_AllocatePool (the remaster's GrimFandango (Linux): aligned call in Res_SysStartup, sputRoom_Startup, sputText_Startup); was Pool_Create."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00488a70",
+  "old": "Pool_Destroy",
+  "name": "Memory_FreePool",
+  "comment": "Source: Temp/Memory.c (lines 896-897, from __FILE__/__LINE__ passed to the allocator) Original name Memory_FreePool (the remaster's GrimFandango (Linux): aligned call in sputCostume_Shutdown, sputRoom_Shutdown, sputText_Shutdown); was Pool_Destroy."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00488b10",
+  "old": "Pool_Alloc",
+  "name": "Memory_AllocFixed",
+  "comment": "Pops an item off the free list, growing the pool by growBy when empty. Returns the payload (item header + 8). Original name Memory_AllocFixed (the remaster's GrimFandango (Linux): aligned call in Res_SysRegisterHandler, sputText_Restore); was Pool_Alloc."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00488ce0",
+  "old": "FileUtil_Sys_Terminate",
+  "name": "FileUtil_SysTerminate",
+  "comment": "Module interface slot 1 (FileUtil_Sys): called by Engine_ResetSubsystems / when registration fails; drops the service table pointer and clears the initialised flag. Original name FileUtil_SysTerminate (the remaster's GrimFandango (Linux): aligned call in FileUtil_SysInitialize); was FileUtil_Sys_Terminate."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00488cf0",
+  "old": "FileUtil_Sys_Start",
+  "name": "FileUtil_SysStartup",
+  "comment": "Module interface slot 2 (FileUtil_Sys): called by Engine_InitSubsystems, returns 0 on success (non-zero makes the whole start-up unwind). Original name FileUtil_SysStartup (the remaster's GrimFandango (Linux): aligned call in FileUtil_SysInitialize); was FileUtil_Sys_Start."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00488d20",
+  "old": "FileUtil_Sys_Stop",
+  "name": "FileUtil_SysShutdown",
+  "comment": "Module interface slot 3 (FileUtil_Sys): called by Engine_ShutdownSubsystems in reverse order; releases what _Start created. Original name FileUtil_SysShutdown (the remaster's GrimFandango (Linux): aligned call in FileUtil_SysInitialize); was FileUtil_Sys_Stop."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00488d30",
+  "old": "FileUtil_Sys_SaveState",
+  "name": "FileUtil_SysSave",
+  "comment": "Module interface slot 4 (FileUtil_Sys): save-game writer, calls the SaveGame_Write callback it is handed for every field. Original name FileUtil_SysSave (the remaster's GrimFandango (Linux): aligned call in FileUtil_SysInitialize); was FileUtil_Sys_SaveState."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00488d80",
+  "old": "SaveFile_CheckFUTBHeader",
+  "name": "FileUtil_SysRestore",
+  "comment": "Reads three dwords through readFn and expects 'FUTB', 1, 0. Returns 0 when the header matches, 1 otherwise. Original name FileUtil_SysRestore (the remaster's GrimFandango (Linux): aligned call in FileUtil_SysInitialize); was SaveFile_CheckFUTBHeader."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00489030",
+  "old": "Movie_SaveState",
+  "name": "sputSmush_Save",
+  "comment": "Original name sputSmush_Save (the remaster's GrimFandango (Linux): aligned call in sputSmush_Initialize); was Movie_SaveState."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00489090",
+  "old": "Movie_RestoreState",
+  "name": "sputSmush_Restore",
+  "comment": "Module slot 5 of sputSmush: reads the movie state saved by Movie_SaveState (playing/paused/stop flag, file name, fullscreen, position) and restarts the movie with Movie_Start if one was playing. Original name sputSmush_Restore (the remaster's GrimFandango (Linux): aligned call in sputSmush_Initialize); was Movie_RestoreState."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00489190",
+  "old": "sputSmush_Stop",
+  "name": "sputSmush_Shutdown",
+  "comment": "Module slot 3 of sputSmush: jumps through the Smush player's shutdown pointer when movies are available. Original name sputSmush_Shutdown (the remaster's GrimFandango (Linux): aligned call in sputSmush_Initialize); was sputSmush_Stop."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004891b0",
+  "old": "Movie_PollPlayback",
+  "name": "sputSmush_Periodic",
+  "comment": "Original name sputSmush_Periodic (the remaster's GrimFandango (Linux): aligned call in sputRender_Update); was Movie_PollPlayback."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00489280",
+  "old": "Movie_SetTarget",
+  "name": "sputSmush_SetTarget",
+  "comment": "Original name sputSmush_SetTarget (the remaster's GrimFandango (Linux): aligned call in grimlib_PlayMovie, sputRender_Dim, sputRender_Update); was Movie_SetTarget."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004892a0",
+  "old": "Movie_Start",
+  "name": "sputSmush_StartMovie",
+  "comment": "Original name sputSmush_StartMovie (the remaster's GrimFandango (Linux): aligned call in grimlib_PlayMovie, sputSmush_Restore); was Movie_Start."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00489370",
+  "old": "Movie_Stop",
+  "name": "sputSmush_StopMovie",
+  "comment": "Original name sputSmush_StopMovie (the remaster's GrimFandango (Linux): aligned call in sputLua_DetachFromResourcesL); was Movie_Stop."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00489550",
+  "old": "Primitives_DrawAll",
+  "name": "sputPrimitive_Update",
+  "comment": "Original name sputPrimitive_Update (the remaster's GrimFandango (Linux): aligned call in sputRender_Update); was Primitives_DrawAll."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004895d0",
+  "old": "Primitives_Hide",
+  "name": "sputPrimitive_Pause",
+  "comment": "Invalidates every primitive and stops drawing them (movie playback) Original name sputPrimitive_Pause (the remaster's GrimFandango (Linux): aligned call in sputRender_Dim); was Primitives_Hide."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004895f0",
+  "old": "Primitives_Show",
+  "name": "sputPrimitive_Resume",
+  "comment": "Original name sputPrimitive_Resume (the remaster's GrimFandango (Linux): aligned call in sputRender_Dim); was Primitives_Show."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00489600",
+  "old": "sputPrimitive_SaveState",
+  "name": "sputPrimitive_Save",
+  "comment": "Module interface slot 4 (sputPrimitive): save-game writer, calls the SaveGame_Write callback it is handed for every field. Original name sputPrimitive_Save (the remaster's GrimFandango (Linux): aligned call in sputPrimitive_Initialize); was sputPrimitive_SaveState."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004896b0",
+  "old": "sputPrimitive_RestoreState",
+  "name": "sputPrimitive_Restore",
+  "comment": "Module interface slot 5 (sputPrimitive): save-game reader, calls the SaveGame_Read callback it is handed; returns non-zero on a short read. Original name sputPrimitive_Restore (the remaster's GrimFandango (Linux): aligned call in sputPrimitive_Initialize); was sputPrimitive_RestoreState."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004897f0",
+  "old": "sputPrimitive_Start",
+  "name": "sputPrimitive_Startup",
+  "comment": "Module interface slot 2 (sputPrimitive): called by Engine_InitSubsystems, returns 0 on success (non-zero makes the whole start-up unwind). _Start registers the DrawLine/DrawPolygon/... Lua table, _Stop clears the primitive list. Original name sputPrimitive_Startup (the remaster's GrimFandango (Linux): aligned call in sputPrimitive_Initialize); was sputPrimitive_Start."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00489820",
+  "old": "sputPrimitive_Stop",
+  "name": "sputPrimitive_Shutdown",
+  "comment": "Module interface slot 3 (sputPrimitive): called by Engine_ShutdownSubsystems in reverse order; releases what _Start created. Original name sputPrimitive_Shutdown (the remaster's GrimFandango (Linux): aligned call in sputPrimitive_Initialize); was sputPrimitive_Stop."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0048ac40",
+  "old": "TextObjects_Update",
+  "name": "sputText_Update",
+  "comment": "Expires timed text objects, draws the visible ones (flag 8 or drawAll) and counts down their time Original name sputText_Update (the remaster's GrimFandango (Linux): aligned call in sputRender_Update); was TextObjects_Update."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0048ad40",
+  "old": "TextObjects_Freeze",
+  "name": "sputText_Pause",
+  "comment": "Original name sputText_Pause (the remaster's GrimFandango (Linux): aligned call in sputRender_Dim); was TextObjects_Freeze."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0048ad50",
+  "old": "TextObjects_Unfreeze",
+  "name": "sputText_Resume",
+  "comment": "Original name sputText_Resume (the remaster's GrimFandango (Linux): aligned call in sputRender_Dim); was TextObjects_Unfreeze."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0048b2e0",
+  "old": "Actor_CreateSubtitle",
+  "name": "sputText_CreateActorText",
+  "comment": "Creates the speech text object above the actor (projected head position when on screen), clamped to the screen edges Original name sputText_CreateActorText (the remaster's GrimFandango (Linux): aligned call in sputActor_SayLine); was Actor_CreateSubtitle."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0048c470",
+  "old": "TextObject_Activate",
+  "name": "sputText_AddToQueue",
+  "comment": "Links a new text object into g_pTextQueue with its lifetime (ms, -1 = until killed) and flags (1 keep, 2 hidden, 4 speech, 8 always draw) Original name sputText_AddToQueue (the remaster's GrimFandango (Linux): aligned call in sputActor_SayLine, sputText_MakeTextObjectL, sputText_PrintLineL); was TextObject_Activate."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0048cbc0",
+  "old": "sputText_SaveState",
+  "name": "sputText_Save",
+  "comment": "Module interface slot 4 (sputText): save-game writer, calls the SaveGame_Write callback it is handed for every field. Original name sputText_Save (the remaster's GrimFandango (Linux): aligned call in sputText_Initialize); was sputText_SaveState."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0048d1c0",
+  "old": "Engine_RunShutdownHooks",
+  "name": "sputControl_Update",
+  "comment": "Runs the registered shutdown hooks (Engine_RegisterShutdownHook) then dumps the memory log Original name sputControl_Update (the remaster's GrimFandango (Linux): aligned call in grimlib_UpdateManual); was Engine_RunShutdownHooks."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0048d2e0",
+  "old": "sputControl_Start",
+  "name": "sputControl_Startup",
+  "comment": "Module interface slot 2 (sputControl): called by Engine_InitSubsystems, returns 0 on success (non-zero makes the whole start-up unwind). _Start initialises input and resets all controls. Original name sputControl_Startup (the remaster's GrimFandango (Linux): aligned call in sputControl_Initialize); was sputControl_Start."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0048d330",
+  "old": "sputControl_Stop",
+  "name": "sputControl_Shutdown",
+  "comment": "Module interface slot 3 (sputControl): called by Engine_ShutdownSubsystems in reverse order; releases what _Start created. Original name sputControl_Shutdown (the remaster's GrimFandango (Linux): aligned call in sputControl_Initialize); was sputControl_Stop."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0048d3e0",
+  "old": "Resource_CloseArchives",
+  "name": "sputResource_CloseResources",
+  "comment": "Lua DetachFromResources: closes the LAB files so the CD can be swapped Original name sputResource_CloseResources (the remaster's GrimFandango (Linux): aligned call in sputLua_AttachToResourcesL, sputLua_DetachFromResourcesL, sputLua_SearchForFileOrSwapCDsL); was Resource_CloseArchives."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0048d3f0",
+  "old": "Resource_OpenArchives",
+  "name": "grimlib_FindResources",
+  "comment": "Lua AttachToResources: reopens the game's LAB files Original name grimlib_FindResources (the remaster's GrimFandango (Linux): aligned call in sputLua_AttachToResourcesL, sputLua_SearchForFileOrSwapCDsL); was Resource_OpenArchives."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0048d790",
+  "old": "sputResource_Start",
+  "name": "sputResource_Startup",
+  "comment": "Module interface slot 2 (sputResource): called by Engine_InitSubsystems, returns 0 on success (non-zero makes the whole start-up unwind). _Start installs the ResFile services and registers the resource types. Original name sputResource_Startup (the remaster's GrimFandango (Linux): aligned call in sputResource_Initialize); was sputResource_Start."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0048d830",
+  "old": "sputResource_Stop",
+  "name": "sputResource_Shutdown",
+  "comment": "Module interface slot 3 (sputResource): called by Engine_ShutdownSubsystems in reverse order; releases what _Start created. Original name sputResource_Shutdown (the remaster's GrimFandango (Linux): aligned call in sputResource_Initialize); was sputResource_Stop."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0048e170",
+  "old": "Resource_MaterialLoadHook",
+  "name": "sputResource_MatLoader",
+  "comment": "rdMaterial load hook (rdMaterial_SetLoadHook): loads the 'MAT ' resource and counts a reference (+0x24), locking it on the first one. Original name sputResource_MatLoader (the remaster's GrimFandango (Linux): aligned call in sputResource_Startup); was Resource_MaterialLoadHook."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0048e1b0",
+  "old": "Resource_MaterialFreeHook",
+  "name": "sputResource_MatUnloader",
+  "comment": "rdMaterial free hook (rdMaterial_SetFreeHook): drops a reference and unlocks the resource when the count reaches 0. Original name sputResource_MatUnloader (the remaster's GrimFandango (Linux): aligned call in sputResource_Startup); was Resource_MaterialFreeHook."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0048e330",
+  "old": "sputActor_SaveState",
+  "name": "sputActor_Save",
+  "comment": "Module interface slot 4 (sputActor): save-game writer, calls the SaveGame_Write callback it is handed for every field. Original name sputActor_Save (the remaster's GrimFandango (Linux): aligned call in sputActor_Initialize); was sputActor_SaveState."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0048f9d0",
+  "old": "Actor_SetHead",
+  "name": "sputActor_SetActorHead",
+  "comment": "Lua SetActorHead: head-tracking joints and limits Original name sputActor_SetActorHead (the remaster's GrimFandango (Linux): aligned call in sputLua_SetActorHeadL); was Actor_SetHead."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0048fb80",
+  "old": "Actor_CanSee",
+  "name": "sputActor_CanActorSeeActor",
+  "comment": "Lua CanActorSee / GetVisibleThings line-of-sight test Original name sputActor_CanActorSeeActor (the remaster's GrimFandango (Linux): aligned call in sputLua_CanActorSeeL, sputLua_GetVisibleThingsL); was Actor_CanSee."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0048fcc0",
+  "old": "Actors_UpdateTalking",
+  "name": "sputActor_UpdateSpeechOnly",
+  "comment": "Advances lip sync for the four actors in g_pTalkingActors Original name sputActor_UpdateSpeechOnly (the remaster's GrimFandango (Linux): aligned call in sputActor_UpdateActors, sputRender_Update); was Actors_UpdateTalking."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0048fcf0",
+  "old": "Actors_UpdateAll",
+  "name": "sputActor_UpdateActors",
+  "comment": "Per-frame update of every actor in the current set: talking, movement, collision Original name sputActor_UpdateActors (the remaster's GrimFandango (Linux): aligned call in grimlib_UpdateManual); was Actors_UpdateAll."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00490210",
+  "old": "Actor_UpdateTalk",
+  "name": "sputActor_UpdateActorSpeech",
+  "comment": "Lip sync: reads the current phoneme from iMUSE, plays the matching talk chore, ends speech when the voice or the text timer runs out Original name sputActor_UpdateActorSpeech (the remaster's GrimFandango (Linux): aligned call in sputActor_UpdateSpeechOnly); was Actor_UpdateTalk."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00490c80",
+  "old": "Actor_SetRestChore",
+  "name": "sputActor_SetRestChore",
+  "comment": "Original name sputActor_SetRestChore (the remaster's GrimFandango (Linux): aligned call in sputLua_SetActorRestChoreL); was Actor_SetRestChore."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00490e50",
+  "old": "FUN_00490e50",
+  "name": "ComparePhonemes",
+  "comment": "Original name ComparePhonemes (the remaster's GrimFandango (Linux): aligned call in sputActor_Startup); was FUN_00490e50."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00490e80",
+  "old": "sputActor_Start",
+  "name": "sputActor_Startup",
+  "comment": "Module interface slot 2 (sputActor): called by Engine_InitSubsystems, returns 0 on success (non-zero makes the whole start-up unwind). _Start allocates the 0x2a000-byte actor table and sorts the phoneme table; _Stop destroys every actor. Original name sputActor_Startup (the remaster's GrimFandango (Linux): aligned call in sputActor_Initialize); was sputActor_Start."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00490ef0",
+  "old": "sputActor_Stop",
+  "name": "sputActor_Shutdown",
+  "comment": "Module interface slot 3 (sputActor): called by Engine_ShutdownSubsystems in reverse order; releases what _Start created. Original name sputActor_Shutdown (the remaster's GrimFandango (Linux): aligned call in sputActor_Initialize); was sputActor_Stop."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00491650",
+  "old": "Walker_ReplanPath",
+  "name": "sputActor_ActorWalkTo",
+  "comment": "Original name sputActor_ActorWalkTo (the remaster's GrimFandango (Linux): aligned call in sputLua_WalkActorToAvoidingL, sputLua_WalkActorToL); was Walker_ReplanPath."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00492b30",
+  "old": "Actor_SayLine",
+  "name": "sputActor_SayLine",
+  "comment": "Starts speech: resolves the /id/ to a voice file (.wvc/.wav/.imc/.imu), plays it (3D positioned when flag 8), creates the subtitle text object, times text-only speech from its length, and plays the talk chore Original name sputActor_SayLine (the remaster's GrimFandango (Linux): aligned call in sputText_SayLineL); was Actor_SayLine."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00493540",
+  "old": "Actor_ActivateShadow",
+  "name": "sputActor_ActivateActorShadow",
+  "comment": "Original name sputActor_ActivateActorShadow (the remaster's GrimFandango (Linux): aligned call in sputLua_ActivateActorShadow); was Actor_ActivateShadow."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00493790",
+  "old": "Actor_GetFrame",
+  "name": "sputActor_GetOrientMatrix",
+  "comment": "Returns the actor's 12-float frame (position + 3x3 rotation), rebuilding it from pos/rot when dirty Original name sputActor_GetOrientMatrix (the remaster's GrimFandango (Linux): aligned call in sputActor_DrawToClean, sputActor_EnablePuck, sputRender_Update); was Actor_GetFrame."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00494710",
+  "old": "Actor_SetClipActive",
+  "name": "sputActor_SetClipPlaneActive",
+  "comment": "Original name sputActor_SetClipPlaneActive (the remaster's GrimFandango (Linux): aligned call in sputLua_SetActorClipActive); was Actor_SetClipActive."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00494750",
+  "old": "Text_SetSpeed",
+  "name": "sputActor_SetActorTextRate",
+  "comment": "Original name sputActor_SetActorTextRate (the remaster's GrimFandango (Linux): aligned call in sputLua_SetTextSpeed); was Text_SetSpeed."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00494780",
+  "old": "Actor_SetFrustumCull",
+  "name": "sputActor_SetFrustrumCull",
+  "comment": "Original name sputActor_SetFrustrumCull (the remaster's GrimFandango (Linux): aligned call in sputActor_PushCostume, sputActor_SetCostume, sputLua_SetActorFrustrumCull); was Actor_SetFrustumCull."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004947c0",
+  "old": "Actor_Destroy",
+  "name": "sputActor_FreeActor",
+  "comment": "Removes the actor from its set, kills shadows, frees costumes, walker, extra and colormap reference Original name sputActor_FreeActor (the remaster's GrimFandango (Linux): aligned call in sputActor_Restore, sputActor_Shutdown); was Actor_Destroy."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00494880",
+  "old": "Walker_SetFadeTime",
+  "name": "sputActor_SetWalkSystemFadeTime",
+  "comment": "Lua SetWalkSystemFadeTime Original name sputActor_SetWalkSystemFadeTime (the remaster's GrimFandango (Linux): aligned call in sputLua_SetWalkSystemFadeTime); was Walker_SetFadeTime."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00494e50",
+  "old": "Costume_ReplaceTop",
+  "name": "sputCostume_SetCostume",
+  "comment": "Original name sputCostume_SetCostume (the remaster's GrimFandango (Linux): aligned call in sputActor_SetCostume); was Costume_ReplaceTop."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00494e80",
+  "old": "Costume_Push",
+  "name": "sputCostume_PushCostume",
+  "comment": "Source: Engine/sputCostume.cpp (line 1146, from __FILE__/__LINE__ passed to the allocator) Original name sputCostume_PushCostume (the remaster's GrimFandango (Linux): aligned call in sputActor_PushCostume, sputCostume_SetCostume); was Costume_Push."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00495080",
+  "old": "Actor_DrawCostumes",
+  "name": "sputCostume_Draw3D",
+  "comment": "Original name sputCostume_Draw3D (the remaster's GrimFandango (Linux): aligned call in sputActor_DrawToClean, sputRender_Update); was Actor_DrawCostumes."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004950a0",
+  "old": "Actor_DrawCostumeMeshes",
+  "name": "sputCostume_InternalDraw3D",
+  "comment": "Draws the meshes of an actor's costume. Enables the user clip plane when extra+0x3fc != 0 (normal extra+0x400, point extra+0x40c). For a model hung on a node (component+0x44 != 0) whose node index (+0x48) equals extra+0x420 (SetActorInvClipNode) the plane through the actor position (actor+0xc) with the second row of the actor matrix (actor+0x44..0x4c, the facing) as normal is used for that mesh only, then the clip is switched off. Meshes are clipped per polygon in eye space (MeshFace_Draw 0x40d880 -> Polygon_ClipToPlane 0x44ea50: keep dist >= 0); Mesh_Draw 0x40d230 skips a mesh whose centre is more than its radius behind the plane. Original name sputCostume_InternalDraw3D (the remaster's GrimFandango (Linux): aligned call in sputCostume_Draw3D); was Actor_DrawCostumeMeshes."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004956a0",
+  "old": "Costume_UpdateAttachedFrame",
+  "name": "sputCostume_BuildThingStateMatrices",
+  "comment": "Recursively positions a model hung on a parent model's node Original name sputCostume_BuildThingStateMatrices (the remaster's GrimFandango (Linux): aligned call in sputCostume_InternalDraw3D); was Costume_UpdateAttachedFrame."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004956f0",
+  "old": "Costume_TouchComponents",
+  "name": "sputCostume_Draw2D",
+  "comment": "Original name sputCostume_Draw2D (the remaster's GrimFandango (Linux): aligned call in sputRender_Update); was Costume_TouchComponents."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004959a0",
+  "old": "sputCostume_Start",
+  "name": "sputCostume_Startup",
+  "comment": "Module interface slot 2 (sputCostume): called by Engine_InitSubsystems, returns 0 on success (non-zero makes the whole start-up unwind). Original name sputCostume_Startup (the remaster's GrimFandango (Linux): aligned call in sputCostume_Initialize); was sputCostume_Start."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00496060",
+  "old": "Component_SetBitmapFrame",
+  "name": "BitmapChanger",
+  "comment": "Original name BitmapChanger (the remaster's GrimFandango (Linux): the same handler slot (changer) of the same costume tag registration in sputCostume_Startup); was Component_SetBitmapFrame."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00496370",
+  "old": "CmapComponent_NewInstance",
+  "name": "ColormapInstancer",
+  "comment": "Costume tag handler for 'RDroid Colormap' (registered by sputCostume_Start through Cos_NewStateBasedTag/Cos_NewIntTag): slot 5, instance data for a colormap component (0x38 bytes holding a ResRef to the colormap, 'Bad Colormap Reference' assertion); with param 0 it frees the instance. Original name ColormapInstancer (the remaster's GrimFandango (Linux): the same handler slot (instancer) of the same costume tag registration in sputCostume_Startup); was CmapComponent_NewInstance."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00496580",
+  "old": "CmapComponent_Destroy",
+  "name": "ColormapFreer",
+  "comment": "Original name ColormapFreer (the remaster's GrimFandango (Linux): the same handler slot (freer) of the same costume tag registration in sputCostume_Startup); was CmapComponent_Destroy."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004965b0",
+  "old": "FUN_004965b0",
+  "name": "MaterialInstanceSaveLoad",
+  "comment": "Ported to C (build/overrides_asm_o2.c): differential test, 0 differences (docs/notes/asm_o2.md). Original name MaterialInstanceSaveLoad (the remaster's GrimFandango (Linux): the same handler slot (instancesaveload) of the same costume tag registration in sputCostume_Startup); was FUN_004965b0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004965d0",
+  "old": "MaterialComponent_OnKey",
+  "name": "MaterialChanger",
+  "comment": "Costume tag handler for 'RDroid Animated Material' (registered by sputCostume_Start through Cos_NewStateBasedTag/Cos_NewIntTag): slot 0, stores the key value as the current frame of the animated material (+8). Original name MaterialChanger (the remaster's GrimFandango (Linux): the same handler slot (changer) of the same costume tag registration in sputCostume_Startup); was MaterialComponent_OnKey."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004965e0",
+  "old": "MaterialComponent_NewInstance",
+  "name": "MaterialInstancer",
+  "comment": "Costume tag handler, slot 5 of the 'RDroid Animated Material' tag: instance data for an animated material. (Was named CmapComponent_NewInstance.) Original name MaterialInstancer (the remaster's GrimFandango (Linux): the same handler slot (instancer) of the same costume tag registration in sputCostume_Startup); was MaterialComponent_NewInstance."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00496930",
+  "old": "ModelComponent_SetVisibleFlag",
+  "name": "ThingChanger",
+  "comment": "Original name ThingChanger (the remaster's GrimFandango (Linux): the same handler slot (changer) of the same costume tag registration in sputCostume_Startup); was ModelComponent_SetVisibleFlag."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00496b40",
+  "old": "ModelComponent_Stop",
+  "name": "ThingStopper",
+  "comment": "Costume tag handler for 'MAIN RDroid Thing (3DO) / RDroid Thing (3DO)' (registered by sputCostume_Start through Cos_NewStateBasedTag/Cos_NewIntTag): slot 3, restores the default visibility flag (+0x38 = (+0x44 == 0)). Original name ThingStopper (the remaster's GrimFandango (Linux): the same handler slot (stopper) of the same costume tag registration in sputCostume_Startup); was ModelComponent_Stop."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00496d10",
+  "old": "ModelComponent_Destroy",
+  "name": "ThingFreer",
+  "comment": "Original name ThingFreer (the remaster's GrimFandango (Linux): the same handler slot (freer) of the same costume tag registration in sputCostume_Startup); was ModelComponent_Destroy."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00496d40",
+  "old": "MeshComponent_OnKey",
+  "name": "MeshChanger",
+  "comment": "Costume tag handler for 'RDroid Thing Mesh' (registered by sputCostume_Start through Cos_NewStateBasedTag/Cos_NewIntTag): slot 0, shows or hides the mesh according to the key value (table DAT_004e9f38). Original name MeshChanger (the remaster's GrimFandango (Linux): the same handler slot (changer) of the same costume tag registration in sputCostume_Startup); was MeshComponent_OnKey."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00496d70",
+  "old": "MeshComponent_NewInstance",
+  "name": "MeshInstancer",
+  "comment": "Costume tag handler, slot 5 of the 'RDroid Thing Mesh' tag: per-instance data of a mesh component. (Was named SpriteComponent_NewInstance.) Original name MeshInstancer (the remaster's GrimFandango (Linux): the same handler slot (instancer) of the same costume tag registration in sputCostume_Startup); was MeshComponent_NewInstance."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00496e10",
+  "old": "MeshComponent_Stop",
+  "name": "MeshStopper",
+  "comment": "Costume tag handler for 'RDroid Thing Mesh' (registered by sputCostume_Start through Cos_NewStateBasedTag/Cos_NewIntTag): slot 3, sets the visible flag (+8) to 1 again. Original name MeshStopper (the remaster's GrimFandango (Linux): the same handler slot (stopper) of the same costume tag registration in sputCostume_Startup); was MeshComponent_Stop."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00497180",
+  "old": "FUN_00497180",
+  "name": "MeshAdjuster",
+  "comment": "Original name MeshAdjuster (the remaster's GrimFandango (Linux): the same handler slot (adjuster) of the same costume tag registration in sputCostume_Startup); was FUN_00497180."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00497640",
+  "old": "ImuseSoundComponent_Destroy",
+  "name": "SoundFreer",
+  "comment": "Costume tag handler for 'iMuse Streamed / Resident Sound FX' (registered by sputCostume_Start through Cos_NewStateBasedTag/Cos_NewIntTag): slot 2, frees the key data. Original name SoundFreer (the remaster's GrimFandango (Linux): the same handler slot (freer) of the same costume tag registration in sputCostume_Startup); was ImuseSoundComponent_Destroy."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00497660",
+  "old": "ImuseSoundComponent_Stop",
+  "name": "SoundStopper",
+  "comment": "Costume tag handler for 'iMuse Streamed / Resident Sound FX' (registered by sputCostume_Start through Cos_NewStateBasedTag/Cos_NewIntTag): slot 3, SoundsStopSound. Original name SoundStopper (the remaster's GrimFandango (Linux): the same handler slot (stopper) of the same costume tag registration in sputCostume_Startup); was ImuseSoundComponent_Stop."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00497680",
+  "old": "LuaVarComponent_OnKey",
+  "name": "LuaVarChanger",
+  "comment": "Costume tag handler for 'Lua Variable' (registered by sputCostume_Start through Cos_NewStateBasedTag/Cos_NewIntTag): slot 0, sets the named Lua global to the key value (lua_pushnumber + lua_setglobal). Original name LuaVarChanger (the remaster's GrimFandango (Linux): the same handler slot (changer) of the same costume tag registration in sputCostume_Startup); was LuaVarComponent_OnKey."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004977f0",
+  "old": "LuaVarComponent_Destroy",
+  "name": "LuaVarFreer",
+  "comment": "Costume tag handler for 'Lua Variable' (registered by sputCostume_Start through Cos_NewStateBasedTag/Cos_NewIntTag): slot 2, frees the key data. Original name LuaVarFreer (the remaster's GrimFandango (Linux): the same handler slot (freer) of the same costume tag registration in sputCostume_Startup); was LuaVarComponent_Destroy."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00497810",
+  "old": "LuaVarComponent_Stop",
+  "name": "LuaVarStopper",
+  "comment": "Costume tag handler for 'Lua Variable' (registered by sputCostume_Start through Cos_NewStateBasedTag/Cos_NewIntTag): slot 3, sets the Lua global to nil. Original name LuaVarStopper (the remaster's GrimFandango (Linux): the same handler slot (stopper) of the same costume tag registration in sputCostume_Startup); was LuaVarComponent_Stop."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00497840",
+  "old": "ImuseIntComponent_Create",
+  "name": "IMuseRequester",
+  "comment": "Costume tag handler for 'iMuse Sequence / iMuse State' (registered by sputCostume_Start through Cos_NewStateBasedTag/Cos_NewIntTag): slot 1 of the iMuse Sequence / iMuse State integer tags: registers the key with Cos_RegisterComponent. Original name IMuseRequester (the remaster's GrimFandango (Linux): the same handler slot (requester) of the same costume tag registration in sputCostume_Startup); was ImuseIntComponent_Create."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00497d10",
+  "old": "KeyframeComponent_NewInstance",
+  "name": "KeyframeInstancer",
+  "comment": "Costume tag handler for 'RDroid Keyframe (KEY)' (registered by sputCostume_Start through Cos_NewStateBasedTag/Cos_NewIntTag): slot 5, instance data for a keyframe component (ResRef to the animation, 'Bad keyframe Reference' assertion); with param 0 it frees it. Original name KeyframeInstancer (the remaster's GrimFandango (Linux): the same handler slot (instancer) of the same costume tag registration in sputCostume_Startup); was KeyframeComponent_NewInstance."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004980b0",
+  "old": "KeyframeComponent_Destroy",
+  "name": "KeyframeFreer",
+  "comment": "Costume tag handler, slot 2 of the 'RDroid Keyframe (KEY)' tag: frees the key data. (Was named BitmapComponent_Destroy.) Original name KeyframeFreer (the remaster's GrimFandango (Linux): the same handler slot (freer) of the same costume tag registration in sputCostume_Startup); was KeyframeComponent_Destroy."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004980e0",
+  "old": "KeyframeComponent_Stop",
+  "name": "KeyframeStopper",
+  "comment": "Stops the puppet track (6 slots of 0x134 bytes at puppet+8) playing this keyframe unless it is flagged persistent Original name KeyframeStopper (the remaster's GrimFandango (Linux): the same handler slot (stopper) of the same costume tag registration in sputCostume_Startup); was KeyframeComponent_Stop."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00498140",
+  "old": "SmushComponent_Destroy",
+  "name": "SmushFreer",
+  "comment": "Costume tag handler for 'Smush Movie' (registered by sputCostume_Start through Cos_NewStateBasedTag/Cos_NewIntTag): slot 2, frees the key data. Original name SmushFreer (the remaster's GrimFandango (Linux): the same handler slot (freer) of the same costume tag registration in sputCostume_Startup); was SmushComponent_Destroy."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00498550",
+  "old": "SpriteComponent_OnKey",
+  "name": "SpriteChanger",
+  "comment": "Costume tag handler for 'Sprite' (registered by sputCostume_Start through Cos_NewStateBasedTag/Cos_NewIntTag): slot 0, shows (key>0, selects frame key-1) or hides the sprite. Original name SpriteChanger (the remaster's GrimFandango (Linux): the same handler slot (changer) of the same costume tag registration in sputCostume_Startup); was SpriteComponent_OnKey."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049c660",
+  "old": "Lua_CallCamChangeHandler",
+  "name": "sputLua_CameraChange",
+  "comment": "system.camChangeHandler(from, to) Original name sputLua_CameraChange (the remaster's GrimFandango (Linux): aligned call in grimlib_MakeCurrentSetup); was Lua_CallCamChangeHandler."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049ca60",
+  "old": "Lua_OpenEngineLib",
+  "name": "sputLua_RegisterFunctions",
+  "comment": "lua_openlib() wrapper used to register the 279-entry engine opcode table at 0x004ea8b0 Original name sputLua_RegisterFunctions (the remaster's GrimFandango (Linux): aligned call in sputLua_Startup, sputPrimitive_Startup, sputText_Startup); was Lua_OpenEngineLib."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049dfa0",
+  "old": "Lua_SaveUserdataHook",
+  "name": "sputLua_SaveIndirector",
+  "comment": "lua_savehook: STAT userdata is written as setup<<16 | index in the setup's object state list Original name sputLua_SaveIndirector (the remaster's GrimFandango (Linux): aligned call in sputLua_Startup); was Lua_SaveUserdataHook."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049e020",
+  "old": "Lua_RestoreUserdataHook",
+  "name": "sputLua_RestoreIndirector",
+  "comment": "lua_restorehook: rebuilds STAT, FONT and TEXT userdata pointers from their saved ids Original name sputLua_RestoreIndirector (the remaster's GrimFandango (Linux): aligned call in sputLua_Startup); was Lua_RestoreUserdataHook."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049e0b0",
+  "old": "Lua_DispatchControlHandlers",
+  "name": "sputLua_NotifyControlHandlers",
+  "comment": "Calls system.buttonHandler / system.axisHandler for every enabled control whose state changed (last value kept at control+8) Original name sputLua_NotifyControlHandlers (the remaster's GrimFandango (Linux): aligned call in sputLua_Startup); was Lua_DispatchControlHandlers."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a3be0",
+  "old": "Timer_GetTotalMs",
+  "name": "sputTime_GetGameTime",
+  "comment": "Original name sputTime_GetGameTime (the remaster's GrimFandango (Linux): aligned call in sputRender_IrisDown, sputRender_IrisUp, sputRender_Update); was Timer_GetTotalMs."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a3bf0",
+  "old": "Timer_GetFrameMs",
+  "name": "sputTime_GetFrameTime",
+  "comment": "Original name sputTime_GetFrameTime (the remaster's GrimFandango (Linux): aligned call in grimlib_UpdateManual, sputLua_Update, sputText_Update); was Timer_GetFrameMs."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a3c10",
+  "old": "Timer_UpdateFromWallClock",
+  "name": "sputTime_Advance",
+  "comment": "Frame time from the wall clock: DAT_008caba8 = timeGetTime() - last, capped at 300 ms; DAT_008caba4 += it (total ms); DAT_008cabac = ms * 0.001 (frame seconds, read by Timer_GetFrameSeconds). The real-time path; jitters with the machine. Original name sputTime_Advance (the remaster's GrimFandango (Linux): aligned call in grimlib_UpdateManual); was Timer_UpdateFromWallClock."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a3c80",
+  "old": "Timer_UpdateFixedStep",
+  "name": "sputTime_AdvanceManual",
+  "comment": "Frame time given by the caller (ms, capped at 300): same globals as Timer_UpdateFromWallClock, but the length of the frame is the argument, not the clock. Used with a fixed frame time (see Game_FrameUpdate). Original name sputTime_AdvanceManual (the remaster's GrimFandango (Linux): aligned call in grimlib_UpdateManual, sputRender_Dim); was Timer_UpdateFixedStep."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a3d70",
+  "old": "sputTime_Start",
+  "name": "sputTime_Startup",
+  "comment": "Module interface slot 2 (sputTime): called by Engine_InitSubsystems, returns 0 on success (non-zero makes the whole start-up unwind). _Start resets the frame timer. Original name sputTime_Startup (the remaster's GrimFandango (Linux): aligned call in sputTime_Initialize); was sputTime_Start."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a3da0",
+  "old": "sputTime_Stop",
+  "name": "sputTime_Shutdown",
+  "comment": "Module interface slot 3 (sputTime): called by Engine_ShutdownSubsystems in reverse order; releases what _Start created. Original name sputTime_Shutdown (the remaster's GrimFandango (Linux): aligned call in sputTime_Initialize); was sputTime_Stop."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a3db0",
+  "old": "Setup_GetBackgroundBitmap",
+  "name": "sputRoom_GetSetupBackground",
+  "comment": "sputRoom.cpp: loads the setup's BKND bitmap (name at setup+0x80, ResRef at +0xc0, dfltroom.bm when missing) and returns the current frame surface Original name sputRoom_GetSetupBackground (the remaster's GrimFandango (Linux): aligned call in sputRender_UseSetup); was Setup_GetBackgroundBitmap."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a3ef0",
+  "old": "Setup_GetZBufferBitmap",
+  "name": "sputRoom_GetSetupZBackground",
+  "comment": "Loads the setup's ZBUF depth bitmap (name at setup+0xa0, ResRef at +0xf4) Original name sputRoom_GetSetupZBackground (the remaster's GrimFandango (Linux): aligned call in sputRender_UseSetup); was Setup_GetZBufferBitmap."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a3fe0",
+  "old": "PositionedSounds_UpdateAll",
+  "name": "sputRoom_RelocateSounds",
+  "comment": "Original name sputRoom_RelocateSounds (the remaster's GrimFandango (Linux): aligned call in grimlib_MakeCurrentSetup); was PositionedSounds_UpdateAll."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a4010",
+  "old": "Set_SetSoundParams",
+  "name": "sputRoom_SetSoundParameters",
+  "comment": "Original name sputRoom_SetSoundParameters (the remaster's GrimFandango (Linux): aligned call in grimlib_MakeCurrentSetup, sputLua_SetSoundParametersL, sputRoom_SetCurrentRoom); was Set_SetSoundParams."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a40a0",
+  "old": "Sound_SetPosition",
+  "name": "sputRoom_SetSoundPosition",
+  "comment": "Original name sputRoom_SetSoundPosition (the remaster's GrimFandango (Linux): aligned call in SoundChanger, sputActor_SayLine, sputLua_SetSoundPosition); was Sound_SetPosition."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a41d0",
+  "old": "Set_GetCurrentName",
+  "name": "sputRoom_GetCurrentRoomName",
+  "comment": "Original name sputRoom_GetCurrentRoomName (the remaster's GrimFandango (Linux): aligned call in sputLua_GetCurrentSetupL, sputText_CreateActorText); was Set_GetCurrentName."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a41e0",
+  "old": "Set_SaveState",
+  "name": "sputRoom_Save",
+  "comment": "Writes every referenced set (current setup, lock, object states per setup), the current set, its sound parameters and the sector states Original name sputRoom_Save (the remaster's GrimFandango (Linux): aligned call in sputRoom_Initialize); was Set_SaveState."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a4b40",
+  "old": "Set_ReleaseResources",
+  "name": "sputRoom_UnReference",
+  "comment": "Drops the colormap, background, depth and object state references of an unlocked set Original name sputRoom_UnReference (the remaster's GrimFandango (Linux): aligned call in sputRoom_SetCurrentRoom); was Set_ReleaseResources."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a4e80",
+  "old": "PositionedSound_Apply",
+  "name": "SetSoundPosition",
+  "comment": "Moves the volume and pan of one positioned sound (entry: +8..0x10 pos, +0x14 min, +0x18 max, +0x1c scale, +0x20 near distance 0.8). d = pos - camera pos (current setup, set+0xac, setup stride 300), normalised by Vec3_NormalizeApprox (which returns the rough length). If len - near >= 0: volume = ftol((scale - t) * (max - min) / scale + min) with t = len - near, clamped as UNSIGNED values to [min, max] (so a negative result comes out as max); param 0x600. Pan = ftol((clamp(dot(cameraRight(setup+0x50), d) * set+0x1b00 (1.5), -1, 1) + 1) * 64), at most 127; param 0x700. Original name SetSoundPosition (the remaster's GrimFandango (Linux): aligned call in sputRoom_RelocateSounds, sputRoom_SetSoundPosition); was PositionedSound_Apply."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a5550",
+  "old": "SetFile_ParseSections",
+  "name": "sputRoom_LoadRoomEntry",
+  "comment": "Opens the .set file with stdConffile and calls Set_IsHandleValid (the registered section handler dispatcher) for every 'section: <name>' line; returns 0 if a handler rejects its section. Original name sputRoom_LoadRoomEntry (the remaster's GrimFandango (Linux): aligned call in sputRoom_LoadRoom); was SetFile_ParseSections."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a5cc0",
+  "old": "Light_Get",
+  "name": "sputRoom_GetLight",
+  "comment": "Light record: +0x20 position, +0x2c/+0x38 orientation, +0x30 type (1 parallel/global, 2 omni, 3 spot), +0x34 on, +0x44 intensity, +0x4c/+0x54 cone angles Original name sputRoom_GetLight (the remaster's GrimFandango (Linux): aligned call in sputLua_IsLightOn, sputLua_SetLightType, sputLua_TurnLightOn); was Light_Get."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a5d50",
+  "old": "ObjectState_Create",
+  "name": "sputRoom_AddObjectState",
+  "comment": "Lua NewObjectState (userdata tag 'STAT'): record {?, type, setupIdx, ...} linked into setup+0x128 Original name sputRoom_AddObjectState (the remaster's GrimFandango (Linux): aligned call in sputLua_NewObjectState, sputRoom_Restore); was ObjectState_Create."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a5f60",
+  "old": "Actor_PutInSet",
+  "name": "sputRoom_AddActor",
+  "comment": "sputRoom.cpp: moves the actor into the named set's actor list (actor+0x7c holds the set name) Original name sputRoom_AddActor (the remaster's GrimFandango (Linux): aligned call in sputActor_Restore, sputLua_PutActorInSetL); was Actor_PutInSet."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a83c0",
+  "old": "Walker_TurnHeading",
+  "name": "Puck_Rotate",
+  "comment": "Original name Puck_Rotate (the remaster's GrimFandango (Linux): Puck::Rotate; aligned call in PointAt, sputActor_SetActorRotation); was Walker_TurnHeading."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a9420",
+  "old": "Planner_GetPath",
+  "name": "GetPath",
+  "comment": "Original name GetPath (the remaster's GrimFandango (Linux): aligned call in sputActor_ActorWalkTo); was Planner_GetPath."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004aa7b0",
+  "old": "TextModule_Init",
+  "name": "Text_SysInitialize",
+  "comment": "Original name Text_SysInitialize (the remaster's GrimFandango (Linux): aligned call in sputText_Initialize); was TextModule_Init."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004aa810",
+  "old": "TextModule_Terminate",
+  "name": "Text_SysTerminate",
+  "comment": "Module interface slot 1 (TextModule): called by Engine_ResetSubsystems / when registration fails; drops the service table pointer and clears the initialised flag. Original name Text_SysTerminate (the remaster's GrimFandango (Linux): aligned call in Text_SysInitialize); was TextModule_Terminate."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004aa820",
+  "old": "TextModule_Start",
+  "name": "Text_SysStartup",
+  "comment": "Module interface slot 2 (TextModule): called by Engine_InitSubsystems, returns 0 on success (non-zero makes the whole start-up unwind). _Start fills the identity translation table and wraps the default font. Original name Text_SysStartup (the remaster's GrimFandango (Linux): aligned call in Text_SysInitialize); was TextModule_Start."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004aa860",
+  "old": "TextModule_Stop",
+  "name": "Text_SysShutdown",
+  "comment": "Module interface slot 3 (TextModule): called by Engine_ShutdownSubsystems in reverse order; releases what _Start created. Original name Text_SysShutdown (the remaster's GrimFandango (Linux): aligned call in Text_SysInitialize); was TextModule_Stop."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004aa880",
+  "old": "TextModule_SaveState",
+  "name": "Text_SysSave",
+  "comment": "Module interface slot 4 (TextModule): save-game writer, calls the SaveGame_Write callback it is handed for every field. Original name Text_SysSave (the remaster's GrimFandango (Linux): aligned call in Text_SysInitialize); was TextModule_SaveState."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004aa8d0",
+  "old": "TextModule_CheckHeader",
+  "name": "Text_SysRestore",
+  "comment": "Expects 'TxtB', 1, 0 from the read function Original name Text_SysRestore (the remaster's GrimFandango (Linux): aligned call in Text_SysInitialize); was TextModule_CheckHeader."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004aa930",
+  "old": "Text_GetDefaultFont",
+  "name": "Text_GetSystemFont",
+  "comment": "Original name Text_GetSystemFont (the remaster's GrimFandango (Linux): aligned call in sputText_Restore, sputText_Startup); was Text_GetDefaultFont."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004aa990",
+  "old": "Font_Free",
+  "name": "Text_FreeFont",
+  "comment": "Original name Text_FreeFont (the remaster's GrimFandango (Linux): aligned call in sputText_SetEmergencyFontL); was Font_Free."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004aaa20",
+  "old": "Text_CharWidth",
+  "name": "Text_GetCharKernedWidth",
+  "comment": "Source: Temp/Text.c (line 624, from __FILE__/__LINE__ passed to the allocator) Original name Text_GetCharKernedWidth (the remaster's GrimFandango (Linux): aligned call in sputText_GetTextCharPositionL); was Text_CharWidth."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004aaa80",
+  "old": "Text_MeasureWidth",
+  "name": "Text_GetStringWidth",
+  "comment": "Widest laid-out line of the text Original name Text_GetStringWidth (the remaster's GrimFandango (Linux): aligned call in sputText_ChangeTextObjectL, sputText_GetTextObjectDimensionsL, sputText_MakeTextObjectL); was Text_MeasureWidth."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004aab10",
+  "old": "Text_MeasureHeight",
+  "name": "Text_GetStringHeight",
+  "comment": "Source: Temp/Text.c (line 688, from __FILE__/__LINE__ passed to the allocator) Original name Text_GetStringHeight (the remaster's GrimFandango (Linux): aligned call in sputText_ChangeTextObjectL, sputText_GetTextObjectDimensionsL, sputText_MakeTextObjectL); was Text_MeasureHeight."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004ab210",
+  "old": "Text_LayoutString",
+  "name": "text_FindNextBreak",
+  "comment": "Advances through the string computing glyph positions for the given width (ctx at +0x208) Original name text_FindNextBreak (the remaster's GrimFandango (Linux): aligned call in Text_GetStringHeight, Text_GetStringWidth); was Text_LayoutString."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004abe90",
+  "old": "PlatModule_Init",
+  "name": "Graph_SysInitialize",
+  "comment": "Original name Graph_SysInitialize (the remaster's GrimFandango (Linux): aligned call in sputText_Initialize); was PlatModule_Init."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004abef0",
+  "old": "PlatModule_Terminate",
+  "name": "Graph_SysTerminate",
+  "comment": "Module interface slot 1 (PlatModule): called by Engine_ResetSubsystems / when registration fails; drops the service table pointer and clears the initialised flag. Original name Graph_SysTerminate (the remaster's GrimFandango (Linux): aligned call in Graph_SysInitialize); was PlatModule_Terminate."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004abf00",
+  "old": "PlatModule_Start",
+  "name": "Graph_SysStartup",
+  "comment": "Module interface slot 2 (PlatModule): called by Engine_InitSubsystems, returns 0 on success (non-zero makes the whole start-up unwind). Original name Graph_SysStartup (the remaster's GrimFandango (Linux): aligned call in Graph_SysInitialize); was PlatModule_Start."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004abf30",
+  "old": "PlatModule_Stop",
+  "name": "Graph_SysShutdown",
+  "comment": "Module interface slot 3 (PlatModule): called by Engine_ShutdownSubsystems in reverse order; releases what _Start created. Original name Graph_SysShutdown (the remaster's GrimFandango (Linux): aligned call in Graph_SysInitialize); was PlatModule_Stop."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004bd500",
+  "old": "Smush_Pause",
+  "name": "SmushPlay_Pause",
+  "comment": "Original name SmushPlay_Pause (the remaster's GrimFandango (Linux): aligned call in sputSmush_Pause); was Smush_Pause."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004bd520",
+  "old": "Smush_Resume",
+  "name": "SmushPlay_Resume",
+  "comment": "Original name SmushPlay_Resume (the remaster's GrimFandango (Linux): aligned call in sputSmush_Pause); was Smush_Resume."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004bd540",
+  "old": "Insane_SetOutputParams",
+  "name": "SmushPlay_SysSetVideoCallbacks",
+  "comment": "Copies six dwords (destination surface geometry) into g_InsaneOutput Original name SmushPlay_SysSetVideoCallbacks (the remaster's GrimFandango (Linux): aligned call in sputSmush_Initialize); was Insane_SetOutputParams."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004bd560",
+  "old": "Smush_Idle",
+  "name": "SmushPlay_SysConfigureColorLookup",
+  "comment": "Original name SmushPlay_SysConfigureColorLookup (the remaster's GrimFandango (Linux): aligned call in sputSmush_Periodic); was Smush_Idle."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004bd7c0",
+  "old": "Insane_ReadFrameHeader",
+  "name": "smushplay_GetInfo",
+  "comment": "Reads a packed 0x16-byte header field by field through the file io vtable at g_pInsaneFileOps Original name smushplay_GetInfo (the remaster's GrimFandango (Linux): aligned call in SmushPlay_GetMovieLength); was Insane_ReadFrameHeader."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004bd930",
+  "old": "Smush_Close",
+  "name": "SmushPlay_StopMovie",
+  "comment": "Original name SmushPlay_StopMovie (the remaster's GrimFandango (Linux): aligned call in sputSmush_Periodic, sputSmush_StartMovie); was Smush_Close."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004bd970",
+  "old": "Smush_Advance",
+  "name": "SmushPlay_UpdateMovie",
+  "comment": "Original name SmushPlay_UpdateMovie (the remaster's GrimFandango (Linux): aligned call in sputSmush_Periodic); was Smush_Advance."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004bde90",
+  "old": "Smush_SetColorTable",
+  "name": "SmushPlay_SetTranslationTable",
+  "comment": "Original name SmushPlay_SetTranslationTable (the remaster's GrimFandango (Linux): aligned call in sputSmush_Periodic, sputSmush_StartMovie); was Smush_SetColorTable."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004bdea0",
+  "old": "Smush_GetFrameRect",
+  "name": "SmushPlay_GetFrameRect",
+  "comment": "Original name SmushPlay_GetFrameRect (the remaster's GrimFandango (Linux): aligned call in sputSmush_Periodic); was Smush_GetFrameRect."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004bdf00",
+  "old": "Smush_GetLengthMs",
+  "name": "SmushPlay_GetMovieLength",
+  "comment": "Opens a movie file, reads its header and returns the movie length in milliseconds (16 bit header field times 66.67); 0 if it cannot be opened Original name SmushPlay_GetMovieLength (the remaster's GrimFandango (Linux): aligned call in sputSmush_GetMovieLength); was Smush_GetLengthMs."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c0ce0",
+  "old": "rdKeyframe_LoadBinary",
+  "name": "rdKeyframe_LoadEntryBinary",
+  "comment": "Reader of the binary 'KEYF' animation format. Source file Rdkeyframe.c (C:\\grimjedi\\Libs\\RDroid\\Engine\\Rdkeyframe.c). Original name rdKeyframe_LoadEntryBinary (the remaster's GrimFandango (Linux): aligned call in rdKeyframe_Load); was rdKeyframe_LoadBinary."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c16c0",
+  "old": "LecShare_Resolve",
+  "name": "LecShare_Subscribe",
+  "comment": "Looks a module up by name (wildcards allowed), honouring the application's override list Original name Subscribe, written LecShare_Subscribe because the bridge refuses one-token names (the remaster's GrimFandango (Linux): aligned call in BatchSubscribe); was LecShare_Resolve."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c1990",
+  "old": "LecShare_Subscribe",
+  "name": "GetCatalogEntry",
+  "comment": "Original name GetCatalogEntry (the remaster's GrimFandango (Linux): aligned call in Subscribe); was LecShare_Subscribe."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c1b60",
+  "old": "LecShare_CountMatching",
+  "name": "GetCatalogCount",
+  "comment": "Original name GetCatalogCount (the remaster's GrimFandango (Linux): aligned call in Subscribe); was LecShare_CountMatching."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c1c30",
+  "old": "Str_WildcardMatch",
+  "name": "FindMatch",
+  "comment": "Original name FindMatch (the remaster's GrimFandango (Linux): aligned call in Subscribe); was Str_WildcardMatch."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c36b0",
+  "old": "AnimPlay_ResetState",
+  "name": "anm_animator_Initialize",
+  "comment": "Resets the decoder state fields of an AnimPlay frame player and its streamer Original name anm_animator_Initialize (the remaster's GrimFandango (Linux): aligned call in anm_Start); was AnimPlay_ResetState."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c3d30",
+  "old": "AnimPlay_OpenFile",
+  "name": "anm_animator_NewAnim",
+  "comment": "Opens the movie file of an AnimPlay frame player through the streamer Original name anm_animator_NewAnim (the remaster's GrimFandango (Linux): aligned call in anm_Start); was AnimPlay_OpenFile."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c3df0",
+  "old": "Insane_MemCopyCdecl",
+  "name": "msc_MemCopy",
+  "comment": "Original name msc_MemCopy (the remaster's GrimFandango (Linux): aligned call in anm_DecodeBody, fle_StreamerDispense); was Insane_MemCopyCdecl."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004cc250",
+  "old": "Blocky16_SetOption",
+  "name": "fob_flobdec_blocky16_config",
+  "comment": "Reads key and value pairs ending with key 0; key 1 sets the output callback g_pfnBlkOutput that Blocky16 hands decoded frames to; other keys are an error Original name fob_flobdec_blocky16_config (the remaster's GrimFandango (Linux): aligned call in SmushPlay_UpdateMovie); was Blocky16_SetOption."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004d0cf0",
+  "old": "Sound_VoiceSampleCount",
+  "name": "sou_engine_QueryTime",
+  "comment": "Converts the byte count of a 0x34-byte voice record to samples depending on its format code (halved for 8/16-bit mono formats 1,2,4) Original name sou_engine_QueryTime (the remaster's GrimFandango (Linux): aligned call in SmushPlay_GetMovieTime, anm_Render); was Sound_VoiceSampleCount."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004d16a0",
+  "old": "SoundModule_MixCallback",
+  "name": "sou_engine_fill",
+  "comment": "Mixes all active tracks into the driver buffer (called by DSound_FillStreamBuffer through the driver) Original name sou_engine_fill (the remaster's GrimFandango (Linux): aligned call in engine_Initialize); was SoundModule_MixCallback."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00478b40",
+  "old": "D3D_ExecuteBuffer",
+  "name": "std3D_DrawRenderList",
+  "comment": "Terminates and executes the buffer on the device\nPorted to C (build/overrides_asm_o2.c): differential test, 0 differences (docs/notes/asm_o2.md). Original name std3D_DrawRenderList (the remaster's GrimFandango (Linux): the argument-less flush call of rdCache_DrawRenderList (the remaster stub shares its address with std3D_AddRenderListVertices)); was D3D_ExecuteBuffer."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00482670",
+  "old": "Set_MakeCurrent",
+  "name": "grimlib_MakeCurrentSet",
+  "comment": "Lua MakeCurrentSet (NULL unloads the current set) Original name grimlib_MakeCurrentSet (the remaster's GrimFandango (Linux): aligned call in sputLua_MakeCurrentSetL, body similarity); was Set_MakeCurrent."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a5eb0",
+  "old": "Actor_RemoveFromSet",
+  "name": "sputRoom_RemoveActor",
+  "comment": "Original name sputRoom_RemoveActor (the remaster's GrimFandango (Linux): aligned call in sputActor_FreeActor, body similarity); was Actor_RemoveFromSet."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00494dc0",
+  "old": "Costume_FreeList",
+  "name": "sputCostume_FreeCostumeNodes",
+  "comment": "Original name sputCostume_FreeCostumeNodes (the remaster's GrimFandango (Linux): aligned call in sputActor_FreeActor); was Costume_FreeList."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004787d0",
+  "old": "D3D_AddVertices",
+  "name": "std3D_AddRenderListVertices",
+  "comment": "Copies 32-byte TLVERTEX records into the execute buffer Original name std3D_AddRenderListVertices (the remaster's GrimFandango (Linux): the (vertices, count) call of rdCache_DrawRenderList); was D3D_AddVertices."
+ }
+]

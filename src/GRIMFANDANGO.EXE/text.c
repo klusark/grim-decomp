@@ -193,7 +193,7 @@ char * __cdecl sputText_ExtractSayLineData(char *line,char *outId)
   if (outId != (char *)0x0) {
     *outId = '\0';
   }
-  pcVar1 = Polyglot_Lookup(line);
+  pcVar1 = PolyglotGetString(line);
   pcVar2 = pcVar1;
   if (((outId != (char *)0x0) && (line != (char *)0x0)) && (*line == '/')) {
     pcVar2 = (char *)strchr(line + 1,0x2f);
@@ -222,8 +222,11 @@ int sputActor_GetActorTextRate(void)
   return g_nTextRate;
 }
 
-/* ---- 0x00494750  Text_SetSpeed ---- */
-void __cdecl Text_SetSpeed(int speed)
+/* ---- 0x00494750  sputActor_SetActorTextRate ---- */
+/* Original name sputActor_SetActorTextRate (the remaster's GrimFandango (Linux): aligned call in
+   sputLua_SetTextSpeed); was Text_SetSpeed. */
+
+void __cdecl sputActor_SetActorTextRate(int speed)
 
 {
   if (speed < 1) {
@@ -237,8 +240,11 @@ void __cdecl Text_SetSpeed(int speed)
   return;
 }
 
-/* ---- 0x004aa930  Text_GetDefaultFont ---- */
-void * Text_GetDefaultFont(void)
+/* ---- 0x004aa930  Text_GetSystemFont ---- */
+/* Original name Text_GetSystemFont (the remaster's GrimFandango (Linux): aligned call in
+   sputText_Restore, sputText_Startup); was Text_GetDefaultFont. */
+
+void * Text_GetSystemFont(void)
 
 {
   return g_pDefaultFont;
@@ -260,8 +266,11 @@ int __cdecl Font_LoadFile(char *filename,void **outFont)
   return iVar2;
 }
 
-/* ---- 0x004aa990  Font_Free ---- */
-void __cdecl Font_Free(void *font)
+/* ---- 0x004aa990  Text_FreeFont ---- */
+/* Original name Text_FreeFont (the remaster's GrimFandango (Linux): aligned call in
+   sputText_SetEmergencyFontL); was Font_Free. */
+
+void __cdecl Text_FreeFont(void *font)
 
 {
   if ((font != (void *)0x0) && (font != g_pDefaultFont)) {
@@ -294,10 +303,12 @@ int __cdecl Text_NextChar(char **pText)
   return uVar1;
 }
 
-/* ---- 0x004aaa20  Text_CharWidth ---- */
-/* Source: Temp/Text.c (line 624, from __FILE__/__LINE__ passed to the allocator) */
+/* ---- 0x004aaa20  Text_GetCharKernedWidth ---- */
+/* Source: Temp/Text.c (line 624, from __FILE__/__LINE__ passed to the allocator) Original name
+   Text_GetCharKernedWidth (the remaster's GrimFandango (Linux): aligned call in
+   sputText_GetTextCharPositionL); was Text_CharWidth. */
 
-int __cdecl Text_CharWidth(void *ctx,int ch)
+int __cdecl Text_GetCharKernedWidth(void *ctx,int ch)
 
 {
   int iVar1;
@@ -314,10 +325,12 @@ int __cdecl Text_CharWidth(void *ctx,int ch)
   return iVar3;
 }
 
-/* ---- 0x004aaa80  Text_MeasureWidth ---- */
-/* Widest laid-out line of the text */
+/* ---- 0x004aaa80  Text_GetStringWidth ---- */
+/* Widest laid-out line of the text Original name Text_GetStringWidth (the remaster's GrimFandango
+   (Linux): aligned call in sputText_ChangeTextObjectL, sputText_GetTextObjectDimensionsL,
+   sputText_MakeTextObjectL); was Text_MeasureWidth. */
 
-int __cdecl Text_MeasureWidth(void *ctx,char *text)
+int __cdecl Text_GetStringWidth(void *ctx,char *text)
 
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -344,7 +357,7 @@ int __cdecl Text_MeasureWidth(void *ctx,char *text)
   }
   uVar1 = (*g_pSvcText->pHLock)(iVar2);
   do {
-    text = (char *)Text_LayoutString(local_30,uVar1,text,&local_34,0,1);
+    text = (char *)text_FindNextBreak(local_30,uVar1,text,&local_34,0,1);
     if ((int)uVar3 <= (int)local_34) {
       uVar3 = local_34;
     }
@@ -356,11 +369,14 @@ int __cdecl Text_MeasureWidth(void *ctx,char *text)
 #undef local_34
 
 
-/* ---- 0x004aab10  Text_MeasureHeight ---- */
+/* ---- 0x004aab10  Text_GetStringHeight ---- */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
-/* Source: Temp/Text.c (line 688, from __FILE__/__LINE__ passed to the allocator) */
+/* Source: Temp/Text.c (line 688, from __FILE__/__LINE__ passed to the allocator) Original name
+   Text_GetStringHeight (the remaster's GrimFandango (Linux): aligned call in
+   sputText_ChangeTextObjectL, sputText_GetTextObjectDimensionsL, sputText_MakeTextObjectL); was
+   Text_MeasureHeight. */
 
-int Text_MeasureHeight(void *ctx,char *text)
+int Text_GetStringHeight(void *ctx,char *text)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -385,7 +401,7 @@ int Text_MeasureHeight(void *ctx,char *text)
   }
   uVar2 = (*g_pSvcText->pHLock)(iVar1);
   do {
-    text = (char *)Text_LayoutString(local_30,uVar2,text,0,0,1);
+    text = (char *)text_FindNextBreak(local_30,uVar2,text,0,0,1);
     iVar3 = iVar3 + (*(int *)(**(int **)((int)ctx + 8) + 4) * *(int *)((int)ctx + 0x24) + 0xffffU >>
                     0x10);
   } while (text != (char *)0x0);
@@ -777,11 +793,13 @@ undefined4 Text_BuildLineTable(undefined4 param_1,int *param_2)
 #undef uStack_42
 
 
-/* ---- 0x004ab210  Text_LayoutString ---- */
-/* Advances through the string computing glyph positions for the given width (ctx at +0x208) */
+/* ---- 0x004ab210  text_FindNextBreak ---- */
+/* Advances through the string computing glyph positions for the given width (ctx at +0x208)
+   Original name text_FindNextBreak (the remaster's GrimFandango (Linux): aligned call in
+   Text_GetStringHeight, Text_GetStringWidth); was Text_LayoutString. */
 
-char * Text_LayoutString(void *param_1,void *param_2,char *param_3,int *param_4,uint *param_5,
-                        int param_6)
+char * text_FindNextBreak(void *param_1,void *param_2,char *param_3,int *param_4,uint *param_5,
+                         int param_6)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1010,7 +1028,7 @@ void __cdecl Text_DrawString(void *ctx,void *font,char *text)
   ctx_00 = ctx;
   ch = 0;
   local_10 = *(uint *)((int)ctx + 0x28);
-  DAT_008d0880 = *(undefined1 *)((int)ctx + 0x18);
+  g_bLookup = *(undefined1 *)((int)ctx + 0x18);
   *(uint *)((int)ctx + 0x28) = local_10 & 0xfffffff7;
   DAT_008d0900 = *(undefined1 *)((int)ctx + 0x1c);
   DAT_008d097f = *(undefined1 *)((int)ctx + 0x14);
@@ -1022,7 +1040,7 @@ LAB_004ab6fb:
   uVar4 = local_10 & 1;
   local_8 = uVar4;
   do {
-    local_c = Text_LayoutString(ctx_00,font,text,&ctx,&local_14,0);
+    local_c = text_FindNextBreak(ctx_00,font,text,&ctx,&local_14,0);
     iVar1 = *(int *)((int)ctx_00 + 0xc);
     local_4 = *(uint *)((int)ctx_00 + 0x10);
     if (uVar4 == 0) {

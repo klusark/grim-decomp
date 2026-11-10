@@ -190,18 +190,18 @@ directory; resolve the addresses with `nm -n build/obj/GRIMFANDANGO.EXE/grimfand
 
 > The order below is the original exe's (checked with grim_tools/cleanroom: a name that is both loose in the working
 > directory and in a `.LAB` there is read from the loose file). A build of this tree read such a name from the `.LAB`
-> for a while: `Lab_FindFile` passed the directory lookup three of its five arguments, so a loose file was only found
+> for a while: `res_FindInternalFile` passed the directory lookup three of its five arguments, so a loose file was only found
 > through the `fopen` fallback, for names no archive has (fixed in `build/overrides_cleanroom.c`).
 
-All reads of game data go through one layer, `ResFile_Open` (`src/GRIMFANDANGO.EXE/resfile.c`), the file services that
-Lua, the resource loader and the set parser use (`Res_InstallFileServices`). For a read-mode open of a name without a
-directory part it first asks the **list of open archives** (`Lab_FindFile`, `lab.c`) and only when no archive has the
+All reads of game data go through one layer, `Res_FOpen` (`src/GRIMFANDANGO.EXE/resfile.c`), the file services that
+Lua, the resource loader and the set parser use (`Res_OverrideFileCalls`). For a read-mode open of a name without a
+directory part it first asks the **list of open archives** (`res_FindInternalFile`, `lab.c`) and only when no archive has the
 file does it fall back to a plain `fopen(name)` relative to the working directory. Names containing a backslash skip
 the archive list and are opened directly.
 
 ### The archive list and its priority
 
-`Resource_OpenArchives` (`resource.c`) fills the list at start-up, for three directories in this order, each of which
+`grimlib_FindResources` (`resource.c`) fills the list at start-up, for three directories in this order, each of which
 **ends up in front of the ones before it**:
 
 1. the registry value `GrimDataDir` of the game key (here `C:\GOG Games\GRIMDATA\`) - skipped if equal to the working directory;
@@ -381,7 +381,7 @@ Names below are Ghidra names (see README for the naming conventions); `src/<PROG
 | **Resources, archives** | `lab.c`, `labdir.c`, `resfile.c`, `res.c`, `resource.c`, `restype.c`, `resref.c` | see 6. `restype.c`: one handler per FOURCC (`BKND COST CMAP SET FONT KEYF MAT MODL ZBUF SYNC MEM`), `ResType_*Handler`: op 1 load, 2 free, 3 size. |
 | **Lua VM and API** | `LUA.DLL` (`lvm`/`ldo`/`llex`/`lparser`/`lundump`/`lapi`/`lgc`..., Lua 3.1 + tasks), EXE `lua.c` (the `Lua_*` API, `sputLua_Startup`), `sputlua.c` | asm: `lua.c`. See 7, 8. |
 | **Renderer** | `rdroid.c`, `rdcache.c` (batching, `rdCache_Flush`), `rdraster.c` (~340 software rasterizer variants `rdRaster_<Role><Bpp>_<Features>`, auto-named), `rdcanvas.c`, `rdclip.c`, `rdprimit3.c`, `rdmodel.c` (`rdModel3_DrawMeshImpl`), `rdmodel3.c` (`.3do` loader, `rdModel3_*`), `rdthing.c`, `rdpuppet.c` (animation tracks), `rdlight.c`, `rdmaterial.c`, `rdcolormap.c`, `render.c` (`Render_*` back buffer, progress bar), `sputrender.c`, `stddisplay.c`/`std3d.c` (DirectDraw/Direct3D, DIB) | the default display device is a windowed DIB with the **software** rasterizer (`Display_InitFromConfig` in `overrides.c`). |
-| **Sets, setups, sectors, camera** | `set.c` (`Set_MakeCurrent`, `Set_SwitchSetup`, `sputRender_SyncCamera`), `setup.c`, `sector.c` + `sputroom.c` (`sputRoom_LoadRoom*`: the text `.set` format: `section: setups / colormaps / lights / sectors`), `rdcamera.c` (`rdCamera_*` projection) | camera setups come from the set file (position, interest, roll, fov, nclip, fclip); Lua: `MakeCurrentSet`, `GetCameraPosition`, ... |
+| **Sets, setups, sectors, camera** | `set.c` (`grimlib_MakeCurrentSet`, `sputRender_UseSetup`, `sputRender_SyncCamera`), `setup.c`, `sector.c` + `sputroom.c` (`sputRoom_LoadRoom*`: the text `.set` format: `section: setups / colormaps / lights / sectors`), `rdcamera.c` (`rdCamera_*` projection) | camera setups come from the set file (position, interest, roll, fov, nclip, fclip); Lua: `MakeCurrentSet`, `GetCameraPosition`, ... |
 | **Actors, costumes, chores** | `actor.c` (`Actor_*`; record 0xa8 bytes, `extra` 0x4a0 bytes with walk/turn rates and the walker), `actors.c`, `sputactor.c`; costumes and chores: **`CHORE.DLL`** (`Cos_*`, `src/CHORE.DLL/costume.c`) driven by `costume.c`, `sputcostume.c` and the tag handlers `*component.c` (`ModelComponent_*`, `MeshComponent_*`, `KeyframeComponent_*`, `SpriteComponent_*`, `ImuseSoundComponent_*`, `LuaVarComponent_*`) | a costume is a list of chores; a chore is a set of keyed tracks (`.cos` file). Lua: `PlayActorChore`, `SetActorCostume`, ... asm: `actor.c`, `walker.c`. |
 | **Walker and path planning** | `walker.c` (`Walker_*`: sector-constrained movement, turning, `Planner_*` path search over sectors), `actor.c` (`Actor_UpdateWalker`, `Actor_FollowPath`, `sputActor_Forward`), `collision.c` | walk step = frame time x actor time scale x walk rate (extra+0x18); example mod a changes it. |
 | **Sound (iMUSE)** | **`IMUSE.DLL`** (iMUSE core, `hmi.c` HMI SOS audio, streams, DirectSound), EXE `imuse.c`/`imusemodule.c`/`mixer.c`/`sound.c` (positioned sounds), Lua `Im*` | HMI libraries come from the working directory (6). |
@@ -400,7 +400,7 @@ All four were built, run and measured on this machine. The "clean" runs use a mo
 *Where the speed comes from.* `Actor_UpdateWalker` (0x491110) computes the step of every walking actor as
 `frameSeconds x actor time scale (extra+0x41c) x walk rate (extra+0x18)` and hands it, as float bits, to
 `Walker_WalkSectors`; Lua's `SetActorWalkRate` only stores the rate. The function is assembled, so the mod rewrites it
-in `build/overrides.c` from the disassembly (float arguments of `Walker_TurnHeading`/`Walker_WalkSectors` travel in
+in `build/overrides.c` from the disassembly (float arguments of `Puck_Rotate`/`Walker_WalkSectors` travel in
 integer slots, hence `float_bits()`) and multiplies the step by a global:
 
 ```c
@@ -508,7 +508,7 @@ tools/run_game.sh -d C:/Users/Joel/mymod -t dev
 
 The file has to exist when the game starts (6: the working directory is indexed once). The left image is the same boot
 from a mod directory without the file, so the change comes from the loose `mo.set` (the set parser reads it through
-`ResFile_Open("mo.set")`, which finds the working directory in front of `DATA001.LAB`).
+`Res_FOpen("mo.set")`, which finds the working directory in front of `DATA001.LAB`).
 
 ## 11. Debugging
 
@@ -516,7 +516,7 @@ from a mod directory without the file, so the change comes from the loose `mo.se
 * **gdb**: `gdb -batch -ex "set environment _NO_DEBUG_HEAP=1" -ex run -ex "bt 25" --args build/run/grimfandango.exe`
   from the game's working directory (the debug heap's 0xBAADF00D fills change behaviour; `OutputDebugStringA` shows up
   as a gdb `warning:`). A `SIGILL` in a `LAB_`/`FUN_`/`stub_` symbol means a stubbed function was reached. Break on the
-  assembled/C symbols by name: `break *ResFile_Open` (use `*` - the symbols carry no prologue information),
+  assembled/C symbols by name: `break *Res_FOpen` (use `*` - the symbols carry no prologue information),
   read arguments with `*(char**)($esp+4)`; `printf` + `continue` in a `commands` block gives a call trace without
   stopping the game (this is how the file lookup order in 6 was determined). Attaching with `-p <pid>` works with
   `/mingw32/bin/gdb` for a process started outside gdb.

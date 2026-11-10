@@ -53,11 +53,12 @@ void rdCache_ClearFrameCounters(void)
   return;
 }
 
-/* ---- 0x004066a0  rdCache_AllocMesh ---- */
+/* ---- 0x004066a0  rdCache_GetProcEntry ---- */
 /* Returns the next free cached-mesh record, flushing first when the list or a 0x8000-entry pool is
-   full */
+   full Original name rdCache_GetProcEntry (the remaster's GrimFandango (Linux): aligned call in
+   rdModel3_DrawFace, rdSprite_Draw); was rdCache_AllocMesh. */
 
-undefined1 * rdCache_AllocMesh(void)
+undefined1 * rdCache_GetProcEntry(void)
 
 {
   int iVar1;
@@ -78,12 +79,12 @@ undefined1 * rdCache_AllocMesh(void)
   }
   iVar1 = g_dwRdCache_numProcFaces * 0x78;
   (&UINT_008ddfe0)[g_dwRdCache_numProcFaces * 0x1e] =
-       (uint)(&DAT_0062bfa8 + g_dwNumUsedVertices * 0xc);
+       (uint)(&g_aRdCache_Vertices + g_dwNumUsedVertices * 0xc);
   *(undefined **)(&DAT_008ddfe4 + iVar1) = &DAT_0068bfb0 + g_dwNumUsedTexVertices * 8;
-  (&UINT_008ddfe8)[uVar2 * 0x1e] = (uint)(&DAT_0060bfa8 + g_dwNumUsedIntensities * 4);
-  (&UINT_008ddfec)[uVar2 * 0x1e] = (uint)(&DAT_0060bfa8 + g_dwNumUsedIntensities * 4);
-  (&UINT_008ddff0)[uVar2 * 0x1e] = (uint)(&DAT_005e6fa0 + g_dwNumUsedIntensities * 4);
-  (&UINT_008ddff4)[uVar2 * 0x1e] = (uint)(&DAT_006d0fb0 + g_dwNumUsedIntensities * 4);
+  (&UINT_008ddfe8)[uVar2 * 0x1e] = (uint)(&g_aRdCache_Intensities + g_dwNumUsedIntensities * 4);
+  (&UINT_008ddfec)[uVar2 * 0x1e] = (uint)(&g_aRdCache_Intensities + g_dwNumUsedIntensities * 4);
+  (&UINT_008ddff0)[uVar2 * 0x1e] = (uint)(&g_aGreenIntensities + g_dwNumUsedIntensities * 4);
+  (&UINT_008ddff4)[uVar2 * 0x1e] = (uint)(&g_aBlueIntensities + g_dwNumUsedIntensities * 4);
   return &g_bRdCache_aProcFaces + iVar1;
 }
 
@@ -100,7 +101,7 @@ void rdCache_Flush(void)
   
   if (g_dwRdCache_numProcFaces != 0) {
     if (g_nRdroid_curSortingMethod == 2) {
-      qsort(&g_bRdCache_aProcFaces,g_dwRdCache_numProcFaces,0x78,FUN_00409d20);
+      qsort(&g_bRdCache_aProcFaces,g_dwRdCache_numProcFaces,0x78,rdCache_ProcFaceCompare);
     }
     if (g_nRdroid_curAcceleration < 1) {
       if (g_nRdroid_curOcclusionMethod == 0) {
@@ -110,10 +111,10 @@ void rdCache_Flush(void)
           if (g_dwRdCache_numProcFaces != 0) {
             do {
               if ((*pbVar1 & 1) == 0) {
-                rdCache_DrawMesh(pbVar1);
+                rdCache_DrawFaceN(pbVar1);
               }
               else {
-                ((code *)rdModel_ComputeMeshLighting)();
+                ((code *)rdCache_DrawFaceUser)();
               }
               pbVar1 = pbVar1 + 0x78;
               uVar2 = uVar2 + 1;
@@ -126,10 +127,10 @@ void rdCache_Flush(void)
           if (g_dwRdCache_numProcFaces != 0) {
             do {
               if ((*pbVar1 & 1) == 0) {
-                rdCache_DrawMeshZ(pbVar1);
+                rdCache_DrawFaceZ(pbVar1);
               }
               else {
-                ((code *)rdModel_ComputeMeshLighting)();
+                ((code *)rdCache_DrawFaceUser)();
               }
               pbVar1 = pbVar1 + 0x78;
               uVar2 = uVar2 + 1;
@@ -138,12 +139,12 @@ void rdCache_Flush(void)
         }
       }
       else if (g_nRdroid_curOcclusionMethod == 1) {
-        rdCanvas_InitEdgeTables();
-        rdCanvas_ScanConvert();
+        rdActive_AdvanceFrame();
+        rdActive_DrawScene();
       }
     }
     else {
-      rdCache_DrawMeshList3D();
+      rdCache_SendFaceListToHardware();
     }
     _g_dwRdCache_drawnFaces = _g_dwRdCache_drawnFaces + g_dwRdCache_numProcFaces;
     rdCache_Reset();
@@ -151,12 +152,14 @@ void rdCache_Flush(void)
   return;
 }
 
-/* ---- 0x00406860  rdCache_AddMesh ---- */
+/* ---- 0x00406860  rdCache_AddProcFace ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-/* Appends a mesh to the cache list and computes its screen bounds / depth */
+/* Appends a mesh to the cache list and computes its screen bounds / depth Original name
+   rdCache_AddProcFace (the remaster's GrimFandango (Linux): aligned call in rdModel3_DrawFace,
+   rdSprite_Draw); was rdCache_AddMesh. */
 
-int __cdecl rdCache_AddMesh(void *mesh,uint vertexCount,byte flags)
+int __cdecl rdCache_AddProcFace(void *mesh,uint vertexCount,byte flags)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -244,7 +247,7 @@ int __cdecl rdCache_AddMesh(void *mesh,uint vertexCount,byte flags)
       if ((flags & 4) != 0) {
         g_dwNumUsedIntensities = g_dwNumUsedIntensities + vertexCount;
       }
-      (&UINT_008de00c)[uVar7 * 0x1e] = UINT_004f5ec0;
+      (&UINT_008de00c)[uVar7 * 0x1e] = g_dwRdColormap_pIdentityMap;
       g_dwRdCache_numProcFaces = g_dwRdCache_numProcFaces + 1;
       if (*(uint *)(&DAT_008de014 + iVar1) < (uint)g_nDrawBoxMinX) {
         g_nDrawBoxMinX = *(uint *)(&DAT_008de014 + iVar1);
@@ -269,14 +272,15 @@ int __cdecl rdCache_AddMesh(void *mesh,uint vertexCount,byte flags)
 #endif
 
 
-/* ---- 0x00406aa0  rdCache_DrawMeshList3D ---- */
+/* ---- 0x00406aa0  rdCache_SendFaceListToHardware ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Direct3D path: uploads the material textures (rdMaterial_EnsureTexture) and batches the cached
-   meshes into execute buffers */
+   meshes into execute buffers Original name rdCache_SendFaceListToHardware (the remaster's
+   GrimFandango (Linux): aligned call in rdCache_Flush); was rdCache_DrawMeshList3D. */
 
-undefined4 rdCache_DrawMeshList3D(void)
+undefined4 rdCache_SendFaceListToHardware(void)
 
 {
   unsigned char _frame[0x90] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -349,18 +353,18 @@ undefined4 rdCache_DrawMeshList3D(void)
     bVar8 = true;
     local_20 = _DAT_0090002c * 0.5;
   }
-  if (((UINT_00900020 != 0) || (UINT_00900024 != 0)) || (UINT_00900028 != 0)) {
+  if (((g_dwRdroid_curColorEffects != 0) || (UINT_00900024 != 0)) || (UINT_00900028 != 0)) {
     bVar6 = true;
     bVar7 = true;
   }
   if (((bVar5) || (bVar6)) || (UINT_0090004c == 1)) {
     local_44 = local_44 | 0x8000;
   }
-  rdCache_Begin3DBatch();
+  std3D_ResetRenderList();
   puVar14 = &g_bRdCache_aProcFaces;
   local_64 = 0;
   if (g_dwRdCache_numProcFaces == 0) {
-    rdCache_Flush3DBatch();
+    rdCache_DrawRenderList();
     return 1;
   }
   do {
@@ -372,11 +376,11 @@ undefined4 rdCache_DrawMeshList3D(void)
       local_c = *(uint *)(puVar14 + 0x40);
     }
     local_30 = local_44;
-    if (UINT_00806940 <= UINT_0068bfa8 + *(int *)(puVar14 + 0x1c)) {
-      rdCache_Flush3DBatch();
-      rdCache_Begin3DBatch();
+    if (g_dwStd3D_maxVertices <= g_dwTotalVerts + *(int *)(puVar14 + 0x1c)) {
+      rdCache_DrawRenderList();
+      std3D_ResetRenderList();
     }
-    uVar9 = UINT_0068bfa8;
+    uVar9 = g_dwTotalVerts;
     local_8 = *(uint *)(puVar14 + 8);
     if (g_nRdroidGeometryMode <= (int)local_8) {
       local_8 = g_nRdroidGeometryMode;
@@ -437,7 +441,7 @@ LAB_00406cbf:
           local_28 = uVar15;
         }
         else if (uVar13 == 2) {
-          if (_DAT_004dda94 < *(float *)(puVar14 + 100)) {
+          if (_g_aRdroid_MipDistances < *(float *)(puVar14 + 100)) {
 LAB_00406d8d:
             uVar15 = 1;
             local_28 = uVar15;
@@ -449,7 +453,7 @@ LAB_00406d8d:
         }
         else if (uVar13 == 3) {
           if (_DAT_004dda90 < *(float *)(puVar14 + 100)) {
-            if (*(float *)(puVar14 + 100) <= _DAT_004dda94) goto LAB_00406d8d;
+            if (*(float *)(puVar14 + 100) <= _g_aRdroid_MipDistances) goto LAB_00406d8d;
             uVar15 = 2;
             local_28 = uVar15;
           }
@@ -460,7 +464,7 @@ LAB_00406d8d:
         }
         else if (uVar13 == 4) {
           if (_DAT_004dda90 < *(float *)(puVar14 + 100)) {
-            if (*(float *)(puVar14 + 100) <= _DAT_004dda94) goto LAB_00406d8d;
+            if (*(float *)(puVar14 + 100) <= _g_aRdroid_MipDistances) goto LAB_00406d8d;
             if (_DAT_004dda98 < *(float *)(puVar14 + 100)) {
               uVar15 = 3;
               local_28 = uVar15;
@@ -481,12 +485,12 @@ LAB_00406d8d:
         if (material[uVar15 * 0x26 + 0x29] == 0) {
           std3D_SetCurrentPalette((void *)(*(int *)(puVar14 + 0x4c) + 0x30),0x5a);
         }
-        iVar11 = rdMaterial_EnsureTexture(PUN(void *,(float)local_20),material,uVar15,local_4c);
+        iVar11 = rdMaterial_AddToTextureCache(PUN(void *,(float)local_20),material,uVar15,local_4c);
         if (iVar11 == 0) {
-          rdCache_Flush3DBatch();
-          rdCache_Begin3DBatch();
-          D3D_ResetTextures();
-          iVar11 = rdMaterial_EnsureTexture(PUN(void *,(float)local_20),material,uVar15,local_4c);
+          rdCache_DrawRenderList();
+          std3D_ResetRenderList();
+          std3D_PurgeTextureCache();
+          iVar11 = rdMaterial_AddToTextureCache(PUN(void *,(float)local_20),material,uVar15,local_4c);
           if (iVar11 == 0) {
             return 0;
           }
@@ -498,7 +502,7 @@ LAB_00406d8d:
           iVar11 = uVar15 * 0x26 + 0xa3;
         }
         local_40 = (uint)(material + iVar11);
-        D3D_ClampTextureSize
+        std3D_GetValidDimensions
                   (*(undefined4 *)(material[uVar15 + 7] + 0xc),
                    *(undefined4 *)(material[uVar15 + 7] + 0x10),&local_38,&local_3c);
         local_7c[0] = (float)(local_38 << ((byte)uVar15 & 0x1f));
@@ -698,11 +702,11 @@ LAB_00407a22:
           local_24 = 0;
           do {
             iVar11 = *(int *)(puVar14 + 0x20);
-            *(float *)(&DAT_006f0fb8 + UINT_0068bfa8 * 0x20) =
+            *(float *)(&g_aHWVertices + g_dwTotalVerts * 0x20) =
                  ROUND(*(float *)(local_24 + *(int *)(puVar14 + 0x20)));
             local_14 = *(uint *)(local_24 + 4 + iVar11);
             iVar11 = *(int *)(puVar14 + 0x20);
-            iVar12 = UINT_0068bfa8 * 0x20;
+            iVar12 = g_dwTotalVerts * 0x20;
             *(float *)(&DAT_006f0fbc + iVar12) = ROUND((float)local_14);
             if (*(float *)(local_24 + 8 + iVar11) == 0.0) {
               fVar3 = 0.0;
@@ -762,7 +766,7 @@ LAB_00407a22:
             }
             local_30 = local_30 | 0x8000;
             if (bVar7) {
-              if (UINT_00900020 == 0) {
+              if (g_dwRdroid_curColorEffects == 0) {
                 local_1c = 0;
               }
               if (UINT_00900024 == 0) {
@@ -811,7 +815,7 @@ LAB_00407a22:
               local_18 = 0xff;
             }
             local_18 = local_18 & 0xff;
-            UINT_0068bfa8 = UINT_0068bfa8 + 1;
+            g_dwTotalVerts = g_dwTotalVerts + 1;
             *(uint *)(&DAT_006f0fc8 + iVar12) =
                  ((local_1c | PUN(uint,(float)local_20)) << 8 | local_10) << 8 | local_18;
             uVar15 = *(uint *)(puVar14 + 0x1c);
@@ -823,11 +827,11 @@ LAB_00407a22:
         }
         uVar15 = *(uint *)(puVar14 + 0x1c);
         if (uVar15 < 4) {
-          iVar11 = UINT_006f0fb0 * 0x14;
+          iVar11 = g_dwTotalSolidTris * 0x14;
           *(uint *)(&DAT_00606fa8 + iVar11) = uVar9;
           *(uint *)(&DAT_00606fa4 + iVar11) = uVar9 + 1;
-          *(uint *)(&DAT_00606fa0 + iVar11) = uVar9 + 2;
-          UINT_006f0fb0 = UINT_006f0fb0 + 1;
+          *(uint *)(&g_aHWSolidTris + iVar11) = uVar9 + 2;
+          g_dwTotalSolidTris = g_dwTotalSolidTris + 1;
           *(uint *)(&DAT_00606fac + iVar11) = local_30;
           *(undefined4 *)(&DAT_00606fb0 + iVar11) = 0;
         }
@@ -838,8 +842,8 @@ LAB_00407a22:
           uVar15 = 0;
           local_8 = 1;
           if (0 < PUN(int,(float)local_20)) {
-            piVar10 = (int *)(&DAT_00606fa4 + UINT_006f0fb0 * 0x14);
-            UINT_006f0fb0 = UINT_006f0fb0 + PUN(int,(float)local_20);
+            piVar10 = (int *)(&DAT_00606fa4 + g_dwTotalSolidTris * 0x14);
+            g_dwTotalSolidTris = g_dwTotalSolidTris + PUN(int,(float)local_20);
             do {
               piVar10[1] = uVar13 + uVar9;
               *piVar10 = local_8 + uVar9;
@@ -1032,11 +1036,11 @@ LAB_004071fa:
           local_24 = 0;
           do {
             iVar11 = *(int *)(puVar14 + 0x20);
-            *(float *)(&DAT_006f0fb8 + UINT_0068bfa8 * 0x20) =
+            *(float *)(&g_aHWVertices + g_dwTotalVerts * 0x20) =
                  ROUND(*(float *)(local_24 + local_2c));
-            uVar13 = UINT_0068bfa8;
+            uVar13 = g_dwTotalVerts;
             uVar15 = *(uint *)(puVar14 + 0x20);
-            *(float *)(&DAT_006f0fbc + UINT_0068bfa8 * 0x20) =
+            *(float *)(&DAT_006f0fbc + g_dwTotalVerts * 0x20) =
                  ROUND(*(float *)(local_24 + 4 + iVar11));
             if (*(float *)(local_24 + 8 + uVar15) == 0.0) {
               fVar3 = 0.0;
@@ -1050,7 +1054,7 @@ LAB_004071fa:
               *(float *)(local_24 + 8 + uVar15) =
                    (float)(int)local_2c + *(float *)(local_24 + 8 + uVar15);
               fVar3 = 1.0 / *(float *)(local_24 + 8 + *(uint *)(puVar14 + 0x20));
-              uVar13 = UINT_0068bfa8;
+              uVar13 = g_dwTotalVerts;
               local_2c = *(uint *)(puVar14 + 0x20);
             }
             local_14 = uVar13 * 0x20;
@@ -1099,7 +1103,7 @@ LAB_004071fa:
               local_30 = local_30 | 0x8000;
             }
             if (bVar7) {
-              if (UINT_00900020 == 0) {
+              if (g_dwRdroid_curColorEffects == 0) {
                 uVar15 = 0;
                 local_1c = 0;
               }
@@ -1154,7 +1158,7 @@ LAB_004071fa:
                  ((local_1c | PUN(uint,(float)local_20)) << 8 | local_10) << 8 | local_18;
             iVar11 = local_8 * 8;
             iVar12 = local_8 * 8;
-            UINT_0068bfa8 = UINT_0068bfa8 + 1;
+            g_dwTotalVerts = g_dwTotalVerts + 1;
             local_8 = local_8 + 1;
             *(float *)(&DAT_006f0fd0 + local_14) = *(float *)(iVar2 + iVar11) / local_7c[0];
             uVar15 = *(uint *)(puVar14 + 0x1c);
@@ -1164,11 +1168,11 @@ LAB_004071fa:
         }
         uVar15 = *(uint *)(puVar14 + 0x1c);
         if (uVar15 < 4) {
-          iVar11 = UINT_0060bfa0 * 0x14;
+          iVar11 = g_dwTotalNormalTris * 0x14;
           *(uint *)(&DAT_006cbfb8 + iVar11) = uVar9;
           *(uint *)(&DAT_006cbfb4 + iVar11) = uVar9 + 1;
-          *(uint *)(&DAT_006cbfb0 + iVar11) = uVar9 + 2;
-          UINT_0060bfa0 = UINT_0060bfa0 + 1;
+          *(uint *)(&g_aHWNormalTris + iVar11) = uVar9 + 2;
+          g_dwTotalNormalTris = g_dwTotalNormalTris + 1;
           *(uint *)(&DAT_006cbfbc + iVar11) = local_30;
           *(uint *)(&DAT_006cbfc0 + iVar11) = local_40;
         }
@@ -1179,8 +1183,8 @@ LAB_004071fa:
           uVar15 = 0;
           local_8 = 1;
           if (0 < PUN(int,(float)local_20)) {
-            piVar10 = (int *)(&DAT_006cbfb4 + UINT_0060bfa0 * 0x14);
-            UINT_0060bfa0 = UINT_0060bfa0 + PUN(int,(float)local_20);
+            piVar10 = (int *)(&DAT_006cbfb4 + g_dwTotalNormalTris * 0x14);
+            g_dwTotalNormalTris = g_dwTotalNormalTris + PUN(int,(float)local_20);
             do {
               piVar10[1] = uVar13 + uVar9;
               *piVar10 = local_8 + uVar9;
@@ -1206,7 +1210,7 @@ LAB_00407e89:
     puVar14 = puVar14 + 0x78;
     local_64 = local_64 + 1;
     if (g_dwRdCache_numProcFaces <= local_64) {
-      rdCache_Flush3DBatch();
+      rdCache_DrawRenderList();
       return 1;
     }
   } while( true );
@@ -1243,50 +1247,57 @@ LAB_00407e89:
 #endif
 
 
-/* ---- 0x00407ed0  rdCache_Begin3DBatch ---- */
-void rdCache_Begin3DBatch(void)
+/* ---- 0x00407ed0  std3D_ResetRenderList ---- */
+/* Original name std3D_ResetRenderList (the remaster's GrimFandango (Linux): aligned call in
+   rdCache_SendFaceListToHardware); was rdCache_Begin3DBatch. */
+
+void std3D_ResetRenderList(void)
 
 {
   D3D_BeginExecuteBuffer();
-  UINT_0060bfa0 = 0;
-  UINT_006f0fb0 = 0;
-  UINT_0068bfa8 = 0;
+  g_dwTotalNormalTris = 0;
+  g_dwTotalSolidTris = 0;
+  g_dwTotalVerts = 0;
   return;
 }
 
-/* ---- 0x00407ef0  rdCache_Flush3DBatch ---- */
-void rdCache_Flush3DBatch(void)
+/* ---- 0x00407ef0  rdCache_DrawRenderList ---- */
+/* Original name rdCache_DrawRenderList (the remaster's GrimFandango (Linux): aligned call in
+   rdCache_SendFaceListToHardware); was rdCache_Flush3DBatch. */
+
+void rdCache_DrawRenderList(void)
 
 {
   int iVar1;
   
-  if (UINT_0068bfa8 != 0) {
-    iVar1 = D3D_AddVertices(&DAT_006f0fb8,UINT_0068bfa8);
+  if (g_dwTotalVerts != 0) {
+    iVar1 = std3D_AddRenderListVertices(&g_aHWVertices,g_dwTotalVerts);
     if (iVar1 == 0) {
-      D3D_ExecuteBuffer();
-      D3D_AddVertices(&DAT_006f0fb8,UINT_0068bfa8);
+      std3D_DrawRenderList();
+      std3D_AddRenderListVertices(&g_aHWVertices,g_dwTotalVerts);
     }
-    D3D_BeginInstructions();
+    std3D_RenderListVerticesFinish();
     if (g_nRdroid_curZBufferMethod == 2) {
-      qsort(&DAT_006cbfb0,UINT_0060bfa0,0x14,rdCache_CompareBatchEntries);
+      qsort(&g_aHWNormalTris,g_dwTotalNormalTris,0x14,rdCache_TriCompare);
     }
-    if (UINT_006f0fb0 != 0) {
-      D3D_AddTriangles(&DAT_00606fa0,UINT_006f0fb0);
+    if (g_dwTotalSolidTris != 0) {
+      std3D_AddRenderListTris(&g_aHWSolidTris,g_dwTotalSolidTris);
     }
-    if (UINT_0060bfa0 != 0) {
-      D3D_AddTriangles(&DAT_006cbfb0,UINT_0060bfa0);
+    if (g_dwTotalNormalTris != 0) {
+      std3D_AddRenderListTris(&g_aHWNormalTris,g_dwTotalNormalTris);
     }
-    D3D_ExecuteBuffer();
+    std3D_DrawRenderList();
     return;
   }
   return;
 }
 
-/* ---- 0x00407f90  rdCache_CompareBatchEntries ---- */
+/* ---- 0x00407f90  rdCache_TriCompare ---- */
 /* qsort comparator of rdCache_Flush3DBatch: orders entries by material, then by their position in
-   the list. */
+   the list. Original name rdCache_TriCompare (the remaster's GrimFandango (Linux): aligned call in
+   rdCache_DrawRenderList); was rdCache_CompareBatchEntries. */
 
-int rdCache_CompareBatchEntries(int param_1,int param_2)
+int rdCache_TriCompare(int param_1,int param_2)
 
 {
   int iVar1;
@@ -1298,11 +1309,12 @@ int rdCache_CompareBatchEntries(int param_1,int param_2)
   return (-(uint)(iVar1 != 0) & 2) - 1;
 }
 
-/* ---- 0x00407fd0  rdCache_DrawMesh ---- */
+/* ---- 0x00407fd0  rdCache_DrawFaceN ---- */
 /* Software path without z-buffer: clamps the mesh modes to the global limits and calls the
-   rasterizer entry for each face */
+   rasterizer entry for each face Original name rdCache_DrawFaceN (the remaster's GrimFandango
+   (Linux): aligned call in rdCache_Flush); was rdCache_DrawMesh. */
 
-int __cdecl rdCache_DrawMesh(void *mesh)
+int __cdecl rdCache_DrawFaceN(void *mesh)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1787,12 +1799,13 @@ undefined4 FUN_00408800(void)
   return 1;
 }
 
-/* ---- 0x00408af0  rdCache_DrawMeshZ ---- */
+/* ---- 0x00408af0  rdCache_DrawFaceZ ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-/* Software path with z-buffer */
+/* Software path with z-buffer Original name rdCache_DrawFaceZ (the remaster's GrimFandango (Linux):
+   aligned call in rdCache_Flush); was rdCache_DrawMeshZ. */
 
-int __cdecl rdCache_DrawMeshZ(void *mesh)
+int __cdecl rdCache_DrawFaceZ(void *mesh)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */

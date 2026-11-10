@@ -91,7 +91,7 @@ extern int g_anBlkSplit8X[16] __asm__("_g_anBlockySplit8X");
 extern int g_anBlkSplit8Y[16] __asm__("_g_anBlockySplit8Y");
 
 /* the state of the frame decoder (see Blocky16_DecodeFrame) */
-extern void *vOutputFn __asm__("_g_pfnBlkOutput");          /* callback receiving the decoded frame (Blocky16_SetOption) */
+extern void *vOutputFn __asm__("_g_pfnBlkOutput");          /* callback receiving the decoded frame (fob_flobdec_blocky16_config) */
 extern byte *vCur __asm__("_g_pbBlkCur");                    /* buffer the current frame is decoded into */
 extern byte *vExpand __asm__("_g_pbBlkExpand");              /* 64K entry table: 16 bit pixel -> display pixel */
 extern int vShiftR __asm__("_g_nBlkShiftR");                 /* channel shifts of the display format the table was made for */
@@ -117,7 +117,7 @@ static inline void st16(void *p, ushort v) { __builtin_memcpy(p, &v, 2); }
 
 /* Reads (key, value) pairs ending with key 0.  Key 1 sets the callback that receives the decoded frame instead of the
  * default blit (see Blocky16_DecodeFrame); any other key is an error (-1). */
-int Blocky16_SetOption(int key, ...)
+int fob_flobdec_blocky16_config(int key, ...)
 {
     __builtin_va_list ap;
 
@@ -518,7 +518,7 @@ typedef int (*BlkOutputFn)(void *dst, uint *clip, int x, int y, int *bitmap, int
 /* Decodes one frame (header + data) into the current buffer and hands it to the output.  dst is the destination bitmap
  * (0: only decode, keeping the buffers up to date), clip the optional clip rectangle, x / y the position, `palette` is
  * passed through to the output and returned (the return value is 1 after the default output, the callback's result after
- * the callback of Blocky16_SetOption, 0 if the frame was skipped).
+ * the callback of fob_flobdec_blocky16_config, 0 if the frame was skipped).
  * Methods (hdr->method): 0 raw 16 bit pixels, 1 8x8 block opcodes of the older codec (Blocky16_DecodeHalfRows16), 2 the block codec
  * (Blocky16_DecodeBlocks; only if it is the frame after the last one), 3 / 4 copy of the previous frame / the one before,
  * 5 run-length coded raw pixels, 6 8 bit indexes into the header's colour table, 7 Blocky16_DecodeHalfRows8, 8 run-length coded
@@ -557,7 +557,7 @@ int Blocky16_DecodeFrame(void *dst, uint *clip, int x, int y, int palette, byte 
     vFrameCount++;
     switch (hdr->method) {
     case 0:
-        Insane_MemCopyCdecl(vCur, data, width * height * 2);
+        msc_MemCopy(vCur, data, width * height * 2);
         vOutput = vCur;
         break;
     case 1:
@@ -581,7 +581,7 @@ int Blocky16_DecodeFrame(void *dst, uint *clip, int x, int y, int palette, byte 
             vLastSeq = hdr->seq;
             return 0;
         }
-        Insane_MemCopyCdecl(vCur, hdr->method == 3 ? vPrev : vPrev2, width * height * 2);
+        msc_MemCopy(vCur, hdr->method == 3 ? vPrev : vPrev2, width * height * 2);
         vOutput = vCur;
         break;
     case 5:

@@ -132,18 +132,20 @@ int sputRoom_LoadRoom(char *param_1,uint param_2)
   
   uVar3 = 0x7f;
   g_dwLoadingRoom = param_2;
-  pcVar1 = Str_Basename(param_1);
+  pcVar1 = stdFnames_FindMedName(param_1);
   strncpy(param_2,pcVar1,uVar3);
   *(undefined1 *)(param_2 + 0x7f) = 0;
-  iVar2 = SetFile_ParseSections(param_1);
+  iVar2 = sputRoom_LoadRoomEntry(param_1);
   return iVar2 != 0;
 }
 
-/* ---- 0x004a5550  SetFile_ParseSections ---- */
+/* ---- 0x004a5550  sputRoom_LoadRoomEntry ---- */
 /* Opens the .set file with stdConffile and calls Set_IsHandleValid (the registered section handler
-   dispatcher) for every 'section: <name>' line; returns 0 if a handler rejects its section. */
+   dispatcher) for every 'section: <name>' line; returns 0 if a handler rejects its section.
+   Original name sputRoom_LoadRoomEntry (the remaster's GrimFandango (Linux): aligned call in
+   sputRoom_LoadRoom); was SetFile_ParseSections. */
 
-undefined4 SetFile_ParseSections(undefined4 param_1)
+undefined4 sputRoom_LoadRoomEntry(undefined4 param_1)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1102,7 +1104,7 @@ float __thiscall WalkPlane_Intersection(void *this,int a1,int a2,int a3)
       local_10 = *(float *)(a1 + 8) - *(float *)(a2 + 8);
       rdVector_Normalize3Acc(&local_c);
       rdVector_Normalize3Acc(&local_18);
-      fVar13 = Vec3_Dot2(&local_c,&local_18);
+      fVar13 = rdVector_Dot3(&local_c,&local_18);
       fVar13 = stdMath_ArcSin3(fVar13);
       if (fVar13 <= 0.0) {
         return -90.2 - fVar13;
@@ -1527,7 +1529,7 @@ float * __thiscall Sector_EdgeFollowDirection(void *this,float *walker)
         local_1c = *(float *)(*(int *)((int)this + uVar10 * 4 + 0x38) + 0xc) -
                    *(float *)(*(int *)((int)this + *(int *)((int)this + 0x74) * 4 + 0x38) + 0xc);
         rdVector_Normalize3Acc(&local_24);
-        fVar12 = Vec3_Dot2(&local_24,walker + 6);
+        fVar12 = rdVector_Dot3(&local_24,walker + 6);
         fVar12 = stdMath_ArcSin3(fVar12);
         if ((90.0 - fVar12 < 1.0) || (179.0 < 90.0 - fVar12)) {
           uVar8 = *(int *)((int)this + 0x74) - 1;
@@ -1557,7 +1559,7 @@ float * __thiscall Sector_EdgeFollowDirection(void *this,float *walker)
       local_1c = *(float *)(*(int *)((int)this + uVar8 * 4 + 0x38) + 0xc) -
                  *(float *)(*(int *)((int)this + iVar1 * 4 + 0x38) + 0xc);
       rdVector_Normalize3Acc(&local_24);
-      fVar12 = Vec3_Dot2(&local_24,walker + 6);
+      fVar12 = rdVector_Dot3(&local_24,walker + 6);
       fVar12 = stdMath_ArcSin3(fVar12);
       if (90.0 - fVar12 < 1.0) {
         *(int *)((int)this + 0x74) = (*(int *)((int)this + 0x74) + 1) % *(int *)((int)this + 0x34);

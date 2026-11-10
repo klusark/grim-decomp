@@ -165,18 +165,18 @@ undefined4 * stdPcx_Load(undefined4 param_1,int param_2,int param_3)
         uStack_b4 = uStack_7d & 0xff;
         aiStack_cc[0] = (int)sStack_3e / (int)(uStack_b4 >> 3);
         aiStack_cc[1] = sStack_76 + 1;
-        pvVar4 = Surface_Create(aiStack_cc,param_2,param_3,0);
+        pvVar4 = stdDisplay_VBufferNew(aiStack_cc,param_2,param_3,0);
         *(void **)bitmap[0x1e] = pvVar4;
         if (*(int *)bitmap[0x1e] != 0) {
           *(int *)(*(int *)bitmap[0x1e] + 0xc) = sStack_78 + 1;
-          Surface_Lock(*(void **)bitmap[0x1e]);
+          stdDisplay_VBufferLock(*(void **)bitmap[0x1e]);
           pbVar8 = *(byte **)(*(int *)bitmap[0x1e] + 0x5c);
           if (*(int *)(*(int *)bitmap[0x1e] + 0x14) != 0) {
             do {
-              bVar1 = stdFile_ReadByte(iVar3);
+              bVar1 = stdFGetc(iVar3);
               if ((bVar1 & 0xc0) == 0xc0) {
                 uVar5 = bVar1 & 0x3f;
-                bVar2 = stdFile_ReadByte(iVar3);
+                bVar2 = stdFGetc(iVar3);
                 if ((bVar1 & 0x3f) != 0) {
                   pbVar11 = pbVar8;
                   for (uVar7 = uVar5 >> 2; uVar7 != 0; uVar7 = uVar7 - 1) {
@@ -197,12 +197,12 @@ undefined4 * stdPcx_Load(undefined4 param_1,int param_2,int param_3)
             } while ((uint)((int)pbVar8 - *(int *)(*(int *)bitmap[0x1e] + 0x5c)) <
                      *(uint *)(*(int *)bitmap[0x1e] + 0x14));
           }
-          Surface_Unlock(*(void **)bitmap[0x1e]);
+          stdDisplay_VBufferUnlock(*(void **)bitmap[0x1e]);
           iVar6 = (*g_pStd_HS->pAlloc)
                             (0x300,s_C__grimjedi_Libs_Std_General_Std_004e78b8,DAT_004e78b4 + 0x6c);
           bitmap[0x18] = iVar6;
           if (iVar6 != 0) {
-            stdFile_ReadByte(iVar3);
+            stdFGetc(iVar3);
             (*g_pStd_HS->pFread)(iVar3,bitmap[0x18],0x300);
             (*g_pStd_HS->pFclose)(iVar3);
             return bitmap;
@@ -225,8 +225,11 @@ undefined4 * stdPcx_Load(undefined4 param_1,int param_2,int param_3)
 #undef uStack_b8
 
 
-/* ---- 0x0047ef10  stdPcx_Save ---- */
-undefined4 stdPcx_Save(undefined4 param_1,int param_2)
+/* ---- 0x0047ef10  stdPcx_Write ---- */
+/* Original name stdPcx_Write (the remaster's GrimFandango (Linux): aligned call in stdWriteImage);
+   was stdPcx_Save. */
+
+undefined4 stdPcx_Write(undefined4 param_1,int param_2)
 
 {
   unsigned char _frame[0xb0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -317,10 +320,10 @@ undefined4 stdPcx_Save(undefined4 param_1,int param_2)
             } while (bVar1 == ((undefined1 *)(uVar11 + iVar4))[uVar5]);
           }
           if ((1 < bVar6) || (0xbf < bVar1)) {
-            stdFile_WriteByte(CONCAT31(uVar8,bVar6) | 0xc0,iVar7);
+            stdFPutc(CONCAT31(uVar8,bVar6) | 0xc0,iVar7);
             uVar8 = extraout_var;
           }
-          stdFile_WriteByte(CONCAT31(uVar8,*(undefined1 *)(uVar11 + iVar4)),iVar7);
+          stdFPutc(CONCAT31(uVar8,*(undefined1 *)(uVar11 + iVar4)),iVar7);
           uVar11 = uVar11 + uStack_94;
           uVar5 = **(uint **)(param_2 + 0x78);
           uVar9 = *(uint *)(uVar5 + 0xc);
@@ -330,7 +333,7 @@ undefined4 stdPcx_Save(undefined4 param_1,int param_2)
       iVar4 = **(int **)(param_2 + 0x78);
     } while (uStack_8c < *(uint *)(iVar4 + 0x10));
   }
-  stdFile_WriteByte(0xc,iVar7);
+  stdFPutc(0xc,iVar7);
   (*g_pStd_HS->pFwrite)(iVar7,*(undefined4 *)(param_2 + 0x60),0x300);
   (*g_pStd_HS->pFclose)(iVar7);
   return 1;

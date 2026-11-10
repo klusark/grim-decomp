@@ -83,17 +83,19 @@ void nextvar(void)
       piVar3 = (int *)*piVar3;
     } while (piVar3 != (int *)0x0);
     if (piVar3 != (int *)0x0) {
-      lbuiltin__2e40(piVar3);
+      pushstring(piVar3);
       luaA_pushobject(piVar3 + 4);
     }
   }
   return;
 }
 
-/* ---- 0x10002e40  lbuiltin__2e40 ---- */
-/* Unidentified function of lbuiltin.c (built-in functions) */
+/* ---- 0x10002e40  pushstring ---- */
+/* Named pushstring (not in the remaster, gcc inlined it there): Lua 3.1 source name (lbuiltin.c:
+   TObject {LUA_T_STRING, ts} pushed with luaA_pushobject, used by nextvar / foreachvar); was
+   lbuiltin__2e40. */
 
-void __cdecl lbuiltin__2e40(undefined4 param_1)
+void __cdecl pushstring(undefined4 param_1)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -139,7 +141,7 @@ void foreachvar(void)
       *(undefined4 *)(g_pLuaState[8] + iVar1) = 0xfffffffe;
       *(undefined4 **)(g_pLuaState[8] + 4 + iVar1) = puVar2;
       luaA_pushobject(&uStack_8);
-      lbuiltin__2e40(puVar2);
+      pushstring(puVar2);
       luaA_pushobject(puVar2 + 4);
       g_pLuaState[2] = g_pLuaState[2] + 1;
       luaD_call((g_pLuaState[7] - g_pLuaState[8] >> 3) + -2,1);
@@ -870,7 +872,7 @@ void luaI_call(void)
   iVar2 = luaL_tablearg(2);
   puVar3 = (uint *)luaL_opt_string(3,&DAT_1002bedc);
   iVar4 = lua_lua2C(4);
-  iVar5 = lbuiltin__3ba0(iVar2);
+  iVar5 = getnarg(iVar2);
   iVar6 = 0;
   if (iVar4 != 0) {
     lua_pushobject(iVar4);
@@ -912,12 +914,13 @@ void luaI_call(void)
 #undef iStack_c
 
 
-/* ---- 0x10003ba0  lbuiltin__3ba0 ---- */
+/* ---- 0x10003ba0  getnarg ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-/* Unidentified function of lbuiltin.c (built-in functions) */
+/* Named getnarg (not in the remaster, gcc inlined it there): Lua 3.1 source name (lbuiltin.c:
+   rawgettable(table, "n"), number or MAX_WORD, used by luaI_call); was lbuiltin__3ba0. */
 
-int __cdecl lbuiltin__3ba0(int param_1)
+int __cdecl getnarg(int param_1)
 
 {
   int iVar1;

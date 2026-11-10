@@ -16,23 +16,24 @@ undefined4 sputPrimitive_Initialize(undefined4 param_1,undefined4 *param_2)
   _g_pSputPrimitiveHS = param_1;
   *param_2 = sputPrimitive_Initialize;
   param_2[1] = sputPrimitive_Terminate;
-  param_2[2] = sputPrimitive_Start;
-  param_2[3] = sputPrimitive_Stop;
-  param_2[4] = sputPrimitive_SaveState;
-  param_2[5] = sputPrimitive_RestoreState;
+  param_2[2] = sputPrimitive_Startup;
+  param_2[3] = sputPrimitive_Shutdown;
+  param_2[4] = sputPrimitive_Save;
+  param_2[5] = sputPrimitive_Restore;
   param_2[6] = 0;
   param_2[7] = 0;
   g_dwSputPrimitiveInitialize = 1;
   return 0;
 }
 
-/* ---- 0x00489600  sputPrimitive_SaveState ---- */
+/* ---- 0x00489600  sputPrimitive_Save ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Module interface slot 4 (sputPrimitive): save-game writer, calls the SaveGame_Write callback it
-   is handed for every field. */
+   is handed for every field. Original name sputPrimitive_Save (the remaster's GrimFandango (Linux):
+   aligned call in sputPrimitive_Initialize); was sputPrimitive_SaveState. */
 
-undefined4 sputPrimitive_SaveState(code *param_1)
+undefined4 sputPrimitive_Save(code *param_1)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -66,13 +67,15 @@ undefined4 sputPrimitive_SaveState(code *param_1)
 #endif
 
 
-/* ---- 0x004896b0  sputPrimitive_RestoreState ---- */
+/* ---- 0x004896b0  sputPrimitive_Restore ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Module interface slot 5 (sputPrimitive): save-game reader, calls the SaveGame_Read callback it is
-   handed; returns non-zero on a short read. */
+   handed; returns non-zero on a short read. Original name sputPrimitive_Restore (the remaster's
+   GrimFandango (Linux): aligned call in sputPrimitive_Initialize); was sputPrimitive_RestoreState.
+    */
 
-undefined4 sputPrimitive_RestoreState(code *param_1)
+undefined4 sputPrimitive_Restore(code *param_1)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -150,30 +153,32 @@ void sputPrimitive_Terminate(void)
   return;
 }
 
-/* ---- 0x004897f0  sputPrimitive_Start ---- */
+/* ---- 0x004897f0  sputPrimitive_Startup ---- */
 /* Module interface slot 2 (sputPrimitive): called by Engine_InitSubsystems, returns 0 on success
    (non-zero makes the whole start-up unwind). _Start registers the DrawLine/DrawPolygon/... Lua
-   table, _Stop clears the primitive list. */
+   table, _Stop clears the primitive list. Original name sputPrimitive_Startup (the remaster's
+   GrimFandango (Linux): aligned call in sputPrimitive_Initialize); was sputPrimitive_Start. */
 
-undefined4 sputPrimitive_Start(void)
+undefined4 sputPrimitive_Startup(void)
 
 {
-  if (UINT_008ca0ac != 0) {
+  if (g_dwSputPrimitiveStartup != 0) {
     return 1;
   }
-  Lua_OpenEngineLib(&PTR_s_DrawLine_004e8398,UINT_004e83c8);
-  UINT_008ca0ac = 1;
+  sputLua_RegisterFunctions(&g_pPrimitiveFunctionsToRegister,UINT_004e83c8);
+  g_dwSputPrimitiveStartup = 1;
   return 0;
 }
 
-/* ---- 0x00489820  sputPrimitive_Stop ---- */
+/* ---- 0x00489820  sputPrimitive_Shutdown ---- */
 /* Module interface slot 3 (sputPrimitive): called by Engine_ShutdownSubsystems in reverse order;
-   releases what _Start created. */
+   releases what _Start created. Original name sputPrimitive_Shutdown (the remaster's GrimFandango
+   (Linux): aligned call in sputPrimitive_Initialize); was sputPrimitive_Stop. */
 
-void sputPrimitive_Stop(void)
+void sputPrimitive_Shutdown(void)
 
 {
   PrimitiveList_Clear((int *)&g_dwPrimitiveQ);
-  UINT_008ca0ac = 0;
+  g_dwSputPrimitiveStartup = 0;
   return;
 }

@@ -73,10 +73,12 @@ void Res_RemoveReference(void *ref)
   return;
 }
 
-/* ---- 0x00482220  ResRef_Release ---- */
-/* Res.c: clears a ResRef (0x34 bytes) after its record is found */
+/* ---- 0x00482220  Res_ResolveToSerialNumber ---- */
+/* Res.c: clears a ResRef (0x34 bytes) after its record is found Original name
+   Res_ResolveToSerialNumber (the remaster's GrimFandango (Linux): aligned call in
+   sputActor_Restore); was ResRef_Release. */
 
-void ResRef_Release(undefined4 *param_1)
+void Res_ResolveToSerialNumber(undefined4 *param_1)
 
 {
   void *pvVar1;

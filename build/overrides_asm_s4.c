@@ -88,7 +88,7 @@ void __cdecl rdPuppet_UpdateTracks(void *puppet, float seconds)
             frec[6] = (float)t;
             if (!(t > 0.0L)) {
                 if ((*rec & 0x100) == 0)
-                    rdPuppet_StopTrack(puppet, track);
+                    rdPuppet_RemoveTrack(puppet, track);
                 else
                     *rec = (*rec & 0xfffffff7) | 0x10;
             }

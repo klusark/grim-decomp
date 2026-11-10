@@ -173,8 +173,8 @@ void __cdecl sputActor_DrawToClean(void *actor)
         return;
     savedZ = *(uint *)(bg + 0x10);
     savedBg = *(uint *)(bg + 4);
-    *(uint *)(*(int *)(*(int *)(setup + 0x48) + 4) + 4) = Render_GetBackgroundSurface();
-    *(uint *)(*(int *)(*(int *)(setup + 0x48) + 4) + 0x10) = Render_GetZBufferSurface();
+    *(uint *)(*(int *)(*(int *)(setup + 0x48) + 4) + 4) = sputRender_CleanArtBuffer();
+    *(uint *)(*(int *)(*(int *)(setup + 0x48) + 4) + 0x10) = sputRender_CleanZBuffer();
     pal = *(int **)actor;
     if (*pal == 0) {   /* no colormap of its own: the set's */
         set = sputRoom_GetCurrentRoom();
@@ -196,22 +196,22 @@ void __cdecl sputActor_DrawToClean(void *actor)
     ((void (*)(int, int))Render_GetUserCallback())(cmap + 0x30, 0);
     if (*(int *)((int)actor + 0x30) != 0x3f800000) {
         scale[0] = scale[1] = scale[2] = *(int *)((int)actor + 0x30);
-        Matrix_BuildTransform2(Actor_GetFrame(actor), (undefined4)scale);
+        rdMatrix_PreScale34(sputActor_GetOrientMatrix(actor), (undefined4)scale);
     }
-    Actor_DrawCostumes(*(undefined4 *)((int)actor + 0xa0), (undefined4)Actor_GetFrame(actor));
+    sputCostume_Draw3D(*(undefined4 *)((int)actor + 0xa0), (undefined4)sputActor_GetOrientMatrix(actor));
     *(undefined4 *)((int)actor + 0x34) = 0;
     rdCache_Flush();
     *(uint *)(*(int *)(*(int *)(setup + 0x48) + 4) + 4) = savedBg;
     *(uint *)(*(int *)(*(int *)(setup + 0x48) + 4) + 0x10) = savedZ;
 }
 
-/* LabDir_FindEntry (0x481cf0): a directory opened as an archive: finds `name` (lower case, with its hash) in the file
+/* res_FindDirectoryEntry (0x481cf0): a directory opened as an archive: finds `name` (lower case, with its hash) in the file
  * list LabDir_Open made (entries of {hash, name, -} from dir + 0x118), remembers the hit in the 16-entry cache, and fills
  * the entry: type, the name at +0x14, the path "<dir>\<name>" at +0x115, not in an archive (+4 = 0), the file size
- * (+8), offset and flag 0. Written from the machine code; before Lab_FindFile passed its arguments this was never
+ * (+8), offset and flag 0. Written from the machine code; before res_FindInternalFile passed its arguments this was never
  * reached with a valid hash, and the decompiled C of it misread entries (grim_tools/cleanroom save_load, tp_*). */
 extern int GRIM_host_sprintf(char *, const char *, ...) __asm__("_sprintf");
-undefined4 LabDir_FindEntry(int param_1, undefined4 param_2, byte *param_3, int param_4, undefined4 *param_5)
+undefined4 res_FindDirectoryEntry(int param_1, undefined4 param_2, byte *param_3, int param_4, undefined4 *param_5)
 {
     int *e = *(int **)(param_1 + 0x118);
     uint n;
@@ -225,9 +225,9 @@ undefined4 LabDir_FindEntry(int param_1, undefined4 param_2, byte *param_3, int 
         for (a = param_3, b = (const byte *)e[1]; *a == *b && *a != 0; a++, b++)
             ;
         if (*a == *b) {
-            *(int **)((int)&DAT_00825f00 + UINT_008a85e0 * 4) = e;
-            *(int *)((int)&DAT_008a8578 + UINT_008a85e0 * 4) = param_1;
-            UINT_008a85e0 = (UINT_008a85e0 + 1) & 0xf;
+            *(int **)((int)&g_aFoundFiles + g_dwLastFound * 4) = e;
+            *(int *)((int)&g_aFoundFileNodes + g_dwLastFound * 4) = param_1;
+            g_dwLastFound = (g_dwLastFound + 1) & 0xf;
             break;
         }
     }
@@ -244,13 +244,13 @@ undefined4 LabDir_FindEntry(int param_1, undefined4 param_2, byte *param_3, int 
     return 1;
 }
 
-/* Lab_FindFile (0x481630): looks the name up in every open archive, front to back. The original passes the same five
- * arguments (archive, 0, lower-case name, hash, entry) to Lab_FindEntry for a .LAB and to LabDir_FindEntry for a
- * directory opened as an archive; the decompiled C passed only three to LabDir_FindEntry, which then compared the
+/* res_FindInternalFile (0x481630): looks the name up in every open archive, front to back. The original passes the same five
+ * arguments (archive, 0, lower-case name, hash, entry) to Lab_FindEntry for a .LAB and to res_FindDirectoryEntry for a
+ * directory opened as an archive; the decompiled C passed only three to res_FindDirectoryEntry, which then compared the
  * hash with garbage and never found a loose file: a name that is both loose in the working directory and in a .LAB
  * was read from the .LAB, where the original reads the loose file, the directory being in front of the archives
  * (grim_tools/cleanroom lab_dofile, docs/MODDING.md section 6). */
-int __cdecl Lab_FindFile(char *name, void *outEntry)
+int __cdecl res_FindInternalFile(char *name, void *outEntry)
 {
     char lower[260];
     uint hash = Res_HashName(name, lower);
@@ -258,7 +258,7 @@ int __cdecl Lab_FindFile(char *name, void *outEntry)
 
     for (lab = g_pResFileList; lab != 0 && found == 0; lab = (int *)*lab) {
         if ((*(byte *)((int)lab + 0x114) & 2) == 0)
-            found = LabDir_FindEntry((int)lab, 0, (byte *)lower, (int)hash, (undefined4 *)outEntry);
+            found = res_FindDirectoryEntry((int)lab, 0, (byte *)lower, (int)hash, (undefined4 *)outEntry);
         else
             found = Lab_FindEntry(lab, 0, lower, hash, outEntry);
     }

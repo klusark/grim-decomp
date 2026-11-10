@@ -151,8 +151,11 @@ int __cdecl rdCamera_SetProjectType(void *camera,int type)
   return 1;
 }
 
-/* ---- 0x0040a1d0  rdCamera_SetZoom ---- */
-void __cdecl rdCamera_SetZoom(void *camera,float zoom)
+/* ---- 0x0040a1d0  rdCamera_SetAspectRatio ---- */
+/* Original name rdCamera_SetAspectRatio (the remaster's GrimFandango (Linux): aligned call in
+   sputRender_SyncCamera); was rdCamera_SetZoom. */
+
+void __cdecl rdCamera_SetAspectRatio(void *camera,float zoom)
 
 {
   *(float *)((int)camera + 0x40) = zoom;
@@ -223,7 +226,7 @@ undefined4 rdCamera_BuildFOV(int *param_1)
   else if (*param_1 == 1) {
     fVar2 = (float)(*(int *)(iVar1 + 0x20) - *(int *)(iVar1 + 0x18)) * 0.5;
     fVar3 = (float)(*(int *)(iVar1 + 0x24) - *(int *)(iVar1 + 0x1c)) * 0.5;
-    fVar4 = (float10)Math_SinDeg((float)param_1[0xe] * 0.5);
+    fVar4 = (float10)stdMath_Tan((float)param_1[0xe] * 0.5);
     param_1[0xf] = PUN(int,(float)(fVar2 / (float)fVar4));
     *(float *)(param_1[0x12] + 0x1c) = (fVar3 / (fVar2 / (float)fVar4)) / (float)param_1[0x10];
     *(float *)(param_1[0x12] + 0x24) = -fVar2 / (float)param_1[0xf];
@@ -243,21 +246,25 @@ undefined4 rdCamera_BuildFOV(int *param_1)
 #endif
 
 
-/* ---- 0x0040a430  rdCamera_SetFrame ---- */
-void __cdecl rdCamera_SetFrame(float *frame)
+/* ---- 0x0040a430  rdCamera_Update ---- */
+/* Original name rdCamera_Update (the remaster's GrimFandango (Linux): aligned call in
+   sputLua_SetCameraInterestL, sputLua_SetCameraPositionL, sputRender_SyncCamera); was
+   rdCamera_SetFrame. */
+
+void __cdecl rdCamera_Update(float *frame)
 
 {
   int iVar1;
   float *pfVar2;
   
-  Matrix34_InvertRigid((float *)((int)g_pRdCamera_CurCamera + 8),frame);
+  rdMatrix_InvertOrtho34((float *)((int)g_pRdCamera_CurCamera + 8),frame);
   pfVar2 = (float *)&UINT_008ddf60;
   for (iVar1 = 0xc; iVar1 != 0; iVar1 = iVar1 + -1) {
     *pfVar2 = *frame;
     frame = frame + 1;
     pfVar2 = pfVar2 + 1;
   }
-  Matrix_ToAngles(&UINT_008ddf60,&DAT_008ddf50);
+  rdMatrix_ExtractAngles34(&UINT_008ddf60,&g_aRdCamera_camPYR);
   return;
 }
 
@@ -565,8 +572,8 @@ int __cdecl rdPrimit3_GetScreenCoord(float *world,float *outScreen)
   #define fStack_10 (*(float *)(_frame + (0x20 - 0x10)))
   #define local_c (*(float (*)[3])(_frame + (0x20 - 0xc)))
   
-  Matrix34_TransformPoint(local_c,world,(float *)((int)g_pRdCamera_CurCamera + 8));
-  iVar1 = rdClip_PointInFrustum(*(void **)((int)g_pRdCamera_CurCamera + 0x48),local_c);
+  rdMatrix_TransformPoint34(local_c,world,(float *)((int)g_pRdCamera_CurCamera + 8));
+  iVar1 = rdClip_Point3(*(void **)((int)g_pRdCamera_CurCamera + 0x48),local_c);
   if (iVar1 != 0) {
     (**(code **)((int)g_pRdCamera_CurCamera + 0x4c))((_stkneg + 24),local_c);
     if (outScreen != (float *)0x0) {

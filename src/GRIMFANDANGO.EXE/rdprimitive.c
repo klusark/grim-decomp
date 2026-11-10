@@ -37,11 +37,11 @@ undefined4 rdPolyline_Draw(int param_1,float *param_2)
   local_20 = (uint)&DAT_007f4e80;
   local_18 = 0;
   local_14 = 0;
-  Matrix_Mul34(local_78,(float *)((int)g_pRdCamera_CurCamera + 8),param_2);
+  rdMatrix_Multiply34(local_78,(float *)((int)g_pRdCamera_CurCamera + 8),param_2);
   local_38[0] = 0.0;
   local_38[1] = *(float *)(iVar1 + 0x20);
   local_38[2] = 0.0;
-  Matrix34_TransformPoint(local_88 + 1,local_38,local_78);
+  rdMatrix_TransformPoint34(local_88 + 1,local_38,local_78);
   *(float *)&DAT_007f4e84 = local_88[2] - -0.001;
   *(float *)&DAT_007f4e80 = local_88[1] - *(float *)(iVar1 + 0x28);
   *(float *)&DAT_007f4e88 = local_7c - *(float *)(iVar1 + 0x28);
@@ -141,7 +141,7 @@ void rdPolyline_DrawFace(int param_1,int param_2,undefined4 param_3,undefined4 *
   #define local_18 (*(uint *)(_frame + (0x40 - 0x18)))
   #define local_4 (*(uint *)(_frame + (0x40 - 0x4)))
   
-  iVar3 = rdCache_AllocMesh();
+  iVar3 = rdCache_GetProcEntry();
   if (iVar3 != 0) {
     local_20 = (uint)&DAT_007f4d00;
     local_4 = *(uint *)(iVar3 + 0x20);
@@ -198,7 +198,7 @@ void rdPolyline_DrawFace(int param_1,int param_2,undefined4 param_3,undefined4 *
       }
       iVar1 = *(int *)(iVar3 + 0xc);
       if (iVar1 != 0) {
-        bVar9 = UINT_004f5ec0 != g_dwRdColormap_pCurMap;
+        bVar9 = g_dwRdColormap_pIdentityMap != g_dwRdColormap_pCurMap;
         if (*(float *)(iVar3 + 0x40) < 1.0) {
           if (iVar1 == 2) {
             if ((*(float *)(iVar3 + 0x44) < 1.0) || (bVar9)) {
@@ -262,7 +262,7 @@ void rdPolyline_DrawFace(int param_1,int param_2,undefined4 param_3,undefined4 *
       *(undefined4 *)(iVar3 + 4) = *(undefined4 *)(param_2 + 4);
       *(undefined4 *)(iVar3 + 0x48) = *(undefined4 *)(param_2 + 0x30);
       *(undefined4 *)(iVar3 + 0x38) = *(undefined4 *)(param_2 + 0x20);
-      rdCache_AddMesh((void *)0x0,local_2c,flags);
+      rdCache_AddProcFace((void *)0x0,local_2c,flags);
     }
   }
   return;
@@ -293,18 +293,19 @@ int __cdecl rdSprite_DrawThing(void *thing,void *sprite)
   #define local_30 (*(float (*)[12])(_frame + (0x50 - 0x30)))
   
   iVar1 = *(int *)((int)thing + 4);
-  Matrix34_TransformPoint
+  rdMatrix_TransformPoint34
             (local_3c,(float *)((int)sprite + 0x24),(float *)((int)g_pRdCamera_CurCamera + 8));
   if ((g_bRdroid_curCullFlags & 2) == 0) {
     iVar2 = *(int *)((int)thing + 0x44);
   }
   else {
-    iVar2 = Frustum_TestSphere(*(undefined4 *)((int)g_pRdCamera_CurCamera + 0x48),local_3c,PUN(float,*(undefined4 *)(iVar1 + 0x3c)));
+    iVar2 = rdClip_SphereInFrustrum
+                      (*(undefined4 *)((int)g_pRdCamera_CurCamera + 0x48),local_3c,PUN(float,*(undefined4 *)(iVar1 + 0x3c)));
   }
   if (iVar2 == 2) {
     return 0;
   }
-  Matrix_Mul34(local_30,(float *)((int)g_pRdCamera_CurCamera + 8),sprite);
+  rdMatrix_Multiply34(local_30,(float *)((int)g_pRdCamera_CurCamera + 8),sprite);
   if (((byte)g_dwRdroid_curRenderOptions & 2) == 0) {
     sprite = (void *)0x0;
   }
@@ -325,13 +326,13 @@ int __cdecl rdSprite_DrawThing(void *thing,void *sprite)
   if ((int)*(void **)(iVar1 + 0x20) <= (int)thing) {
     thing = *(void **)(iVar1 + 0x20);
   }
-  Matrix_TransformPoints
+  rdMatrix_TransformPointLst34
             (local_30,*(float **)(iVar1 + 0x28),(float *)&UINT_007f5180,*(int *)(iVar1 + 0x24));
   local_40 = 0;
   if (*(int *)(iVar1 + 0x24) != 0) {
     puVar3 = &UINT_007f5184;
     do {
-      iVar2 = rdCache_AllocMesh();
+      iVar2 = rdCache_GetProcEntry();
       if (iVar2 == 0) {
         return 0;
       }
@@ -347,8 +348,8 @@ int __cdecl rdSprite_DrawThing(void *thing,void *sprite)
       *(float *)&DAT_007f5020 = PUN(float,puVar3[1]) + *(float *)(iVar1 + 0x34);
       *(float *)&DAT_007f5024 = PUN(float,puVar3[-1]) - *(float *)(iVar1 + 0x34);
       *(float *)&DAT_007f502c = PUN(float,puVar3[1]) + *(float *)(iVar1 + 0x34);
-      vertexCount = rdClip_Face3_Pos_2(*(undefined4 *)((int)g_pRdCamera_CurCamera + 0x48),
-                                       &DAT_007f5000,4);
+      vertexCount = rdClip_Face3S(*(undefined4 *)((int)g_pRdCamera_CurCamera + 0x48),&DAT_007f5000,4
+                                 );
       if (2 < vertexCount) {
         (**(code **)((int)g_pRdCamera_CurCamera + 0x50))
                   (*(undefined4 *)(iVar2 + 0x20),&DAT_007f5000,vertexCount);
@@ -359,7 +360,7 @@ int __cdecl rdSprite_DrawThing(void *thing,void *sprite)
         *(undefined4 *)(iVar2 + 0x38) = *(undefined4 *)(iVar1 + 0x38);
         *(undefined4 *)(iVar2 + 0x3c) = *(undefined4 *)(*(int *)(iVar1 + 0x2c) + local_40 * 4);
         *(undefined4 *)(iVar2 + 0x50) = 0;
-        rdCache_AddMesh((void *)0x0,vertexCount,1);
+        rdCache_AddProcFace((void *)0x0,vertexCount,1);
       }
       local_40 = local_40 + 1;
       puVar3 = puVar3 + 3;
@@ -564,9 +565,9 @@ undefined4 rdSprite_Draw(int param_1,float *param_2)
   #define local_14 (*(uint *)(_frame + (0x90 - 0x14)))
   
   iVar1 = *(int *)(param_1 + 4);
-  Matrix34_TransformPoint(&local_64,param_2 + 9,(float *)((int)g_pRdCamera_CurCamera + 8));
-  Vec3_Copy(&local_70,(float *)(iVar1 + 0xac),param_2);
-  Vec3_Transform(&local_70,(float *)((int)g_pRdCamera_CurCamera + 8));
+  rdMatrix_TransformPoint34(&local_64,param_2 + 9,(float *)((int)g_pRdCamera_CurCamera + 8));
+  rdMatrix_TransformVector34(&local_70,(float *)(iVar1 + 0xac),param_2);
+  rdMatrix_TransformVector34Acc(&local_70,(float *)((int)g_pRdCamera_CurCamera + 8));
   if (0.0 <= local_70) {
     local_78[0] = -*(float *)(iVar1 + 0x54);
   }
@@ -577,9 +578,10 @@ undefined4 rdSprite_Draw(int param_1,float *param_2)
     iVar4 = *(int *)(param_1 + 0x44);
   }
   else {
-    iVar4 = Frustum_TestSphere(*(undefined4 *)((int)g_pRdCamera_CurCamera + 0x48),&local_64,PUN(float,*(undefined4 *)(iVar1 + 0x24)));
+    iVar4 = rdClip_SphereInFrustrum
+                      (*(undefined4 *)((int)g_pRdCamera_CurCamera + 0x48),&local_64,PUN(float,*(undefined4 *)(iVar1 + 0x24)));
   }
-  if ((iVar4 != 2) && (iVar4 = rdCache_AllocMesh(), iVar4 != 0)) {
+  if ((iVar4 != 2) && (iVar4 = rdCache_GetProcEntry(), iVar4 != 0)) {
     *(float *)&DAT_007f5f0c = local_6c[0] + local_60[0];
     *(float *)&DAT_007f5f10 = local_6c[1] + local_60[1];
     *(float *)&DAT_007f5f08 = local_64 + (local_70 - local_78[0]);
@@ -595,7 +597,7 @@ undefined4 rdSprite_Draw(int param_1,float *param_2)
     local_1c = *(uint *)(iVar1 + 0xa8);
     local_18 = 0;
     local_14 = 0;
-    local_4c = (uint)&DAT_007f5d88;
+    local_4c = (uint)&g_aRdSprite_FaceVerts;
     local_30 = *(uint *)(iVar4 + 0x20);
     local_48 = *(uint *)(iVar4 + 0x24);
     local_44 = *(uint *)(iVar4 + 0x28);
@@ -651,7 +653,7 @@ undefined4 rdSprite_Draw(int param_1,float *param_2)
       }
       iVar2 = *(int *)(iVar4 + 0xc);
       if (iVar2 != 0) {
-        bVar10 = UINT_004f5ec0 == g_dwRdColormap_pCurMap;
+        bVar10 = g_dwRdColormap_pIdentityMap == g_dwRdColormap_pCurMap;
         if (*(float *)(iVar4 + 0x40) < 1.0) {
           if (iVar2 == 2) {
             if ((*(float *)(iVar4 + 0x44) < 1.0) || (!bVar10)) {
@@ -711,7 +713,7 @@ undefined4 rdSprite_Draw(int param_1,float *param_2)
       *(undefined4 *)(iVar4 + 4) = *(undefined4 *)(iVar1 + 0x60);
       *(undefined4 *)(iVar4 + 0x48) = *(undefined4 *)(iVar1 + 0x8c);
       *(undefined4 *)(iVar4 + 0x38) = *(undefined4 *)(iVar1 + 0x7c);
-      rdCache_AddMesh((void *)0x0,local_58,flags);
+      rdCache_AddProcFace((void *)0x0,local_58,flags);
       return 1;
     }
   }

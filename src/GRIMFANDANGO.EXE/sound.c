@@ -5,8 +5,11 @@
 #include "globals.h"
 #include "functions.h"
 
-/* ---- 0x004a3fe0  PositionedSounds_UpdateAll ---- */
-void PositionedSounds_UpdateAll(void)
+/* ---- 0x004a3fe0  sputRoom_RelocateSounds ---- */
+/* Original name sputRoom_RelocateSounds (the remaster's GrimFandango (Linux): aligned call in
+   grimlib_MakeCurrentSetup); was PositionedSounds_UpdateAll. */
+
+void sputRoom_RelocateSounds(void)
 
 {
   undefined4 *puVar1;
@@ -14,14 +17,18 @@ void PositionedSounds_UpdateAll(void)
   PositionedSounds_DropFinished();
   for (puVar1 = g_pPositionedSoundList; puVar1 != (undefined4 *)0x0; puVar1 = (undefined4 *)*puVar1)
   {
-    PositionedSound_Apply(puVar1);
+    SetSoundPosition(puVar1);
   }
   return;
 }
 
-/* ---- 0x004a40a0  Sound_SetPosition ---- */
-void Sound_SetPosition(uint param_1,undefined **param_2,uint param_3,uint param_4,uint param_5,
-                      uint param_6)
+/* ---- 0x004a40a0  sputRoom_SetSoundPosition ---- */
+/* Original name sputRoom_SetSoundPosition (the remaster's GrimFandango (Linux): aligned call in
+   SoundChanger, sputActor_SayLine, sputLua_SetSoundPosition); was Sound_SetPosition. */
+
+void sputRoom_SetSoundPosition
+               (uint param_1,undefined **param_2,uint param_3,uint param_4,uint param_5,uint param_6
+               )
 
 {
   int iVar1;
@@ -32,7 +39,7 @@ void Sound_SetPosition(uint param_1,undefined **param_2,uint param_3,uint param_
     return;
   }
   puVar2 = PositionedSound_Add(param_1,param_2,param_3,param_4,param_5,param_6);
-  PositionedSound_Apply(puVar2);
+  SetSoundPosition(puVar2);
   return;
 }
 
@@ -80,7 +87,7 @@ PositionedSound_Add(uint param_1,undefined **param_2,uint param_3,uint param_4,u
   undefined4 *puVar1;
   
   PositionedSounds_DropFinished();
-  puVar1 = (undefined4 *)Pool_Alloc(g_pSoundPool);
+  puVar1 = (undefined4 *)Memory_AllocFixed(g_pSoundPool);
   puVar1[1] = param_1;
   *puVar1 = g_pPositionedSoundList;
   puVar1[2] = *param_2;
@@ -94,7 +101,7 @@ PositionedSound_Add(uint param_1,undefined **param_2,uint param_3,uint param_4,u
   return (undefined *)puVar1;
 }
 
-/* ---- 0x004a4e80  PositionedSound_Apply ---- */
+/* ---- 0x004a4e80  SetSoundPosition ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Moves the volume and pan of one positioned sound (entry: +8..0x10 pos, +0x14 min, +0x18 max,
@@ -103,9 +110,10 @@ PositionedSound_Add(uint param_1,undefined **param_2,uint param_3,uint param_4,u
    >= 0: volume = ftol((scale - t) * (max - min) / scale + min) with t = len - near, clamped as
    UNSIGNED values to [min, max] (so a negative result comes out as max); param 0x600. Pan =
    ftol((clamp(dot(cameraRight(setup+0x50), d) * set+0x1b00 (1.5), -1, 1) + 1) * 64), at most 127;
-   param 0x700. */
+   param 0x700. Original name SetSoundPosition (the remaster's GrimFandango (Linux): aligned call in
+   sputRoom_RelocateSounds, sputRoom_SetSoundPosition); was PositionedSound_Apply. */
 
-undefined4 PositionedSound_Apply(int param_1)
+undefined4 SetSoundPosition(int param_1)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -130,7 +138,7 @@ undefined4 PositionedSound_Apply(int param_1)
     iVar1 = *(int *)((int)pvVar2 + 0xac) + 0x20 + *(int *)((int)pvVar2 + 0xb4) * 300;
     local_8 = *(float *)(param_1 + 0xc) - *(float *)(iVar1 + 4);
     local_4 = *(float *)(param_1 + 0x10) - *(float *)(iVar1 + 8);
-    fVar7 = Vec3_NormalizeApprox(&local_c);
+    fVar7 = rdVector_Normalize3QuickAcc(&local_c);
     if (0.0 <= fVar7 - *(float *)(param_1 + 0x20)) {
       uVar5 = *(uint *)(param_1 + 0x18);
       uVar4 = *(uint *)(param_1 + 0x14);
@@ -176,13 +184,15 @@ undefined4 Sound_DriverQuery(void)
   return 0xffffffff;
 }
 
-/* ---- 0x004d0cf0  Sound_VoiceSampleCount ---- */
+/* ---- 0x004d0cf0  sou_engine_QueryTime ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Converts the byte count of a 0x34-byte voice record to samples depending on its format code
-   (halved for 8/16-bit mono formats 1,2,4) */
+   (halved for 8/16-bit mono formats 1,2,4) Original name sou_engine_QueryTime (the remaster's
+   GrimFandango (Linux): aligned call in SmushPlay_GetMovieTime, anm_Render); was
+   Sound_VoiceSampleCount. */
 
-int __cdecl Sound_VoiceSampleCount(int voice)
+int __cdecl sou_engine_QueryTime(int voice)
 
 {
   uint uVar1;

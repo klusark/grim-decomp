@@ -5,8 +5,11 @@
 #include "globals.h"
 #include "functions.h"
 
-/* ---- 0x00489550  Primitives_DrawAll ---- */
-void __cdecl Primitives_DrawAll(uint layerMask)
+/* ---- 0x00489550  sputPrimitive_Update ---- */
+/* Original name sputPrimitive_Update (the remaster's GrimFandango (Linux): aligned call in
+   sputRender_Update); was Primitives_DrawAll. */
+
+void __cdecl sputPrimitive_Update(uint layerMask)
 
 {
   if (g_nPrimitivesHidden == 0) {
@@ -15,10 +18,12 @@ void __cdecl Primitives_DrawAll(uint layerMask)
   return;
 }
 
-/* ---- 0x004895d0  Primitives_Hide ---- */
-/* Invalidates every primitive and stops drawing them (movie playback) */
+/* ---- 0x004895d0  sputPrimitive_Pause ---- */
+/* Invalidates every primitive and stops drawing them (movie playback) Original name
+   sputPrimitive_Pause (the remaster's GrimFandango (Linux): aligned call in sputRender_Dim); was
+   Primitives_Hide. */
 
-void Primitives_Hide(void)
+void sputPrimitive_Pause(void)
 
 {
   PrimitiveList_Invalidate(&g_dwPrimitiveQ,3);
@@ -26,8 +31,11 @@ void Primitives_Hide(void)
   return;
 }
 
-/* ---- 0x004895f0  Primitives_Show ---- */
-void Primitives_Show(void)
+/* ---- 0x004895f0  sputPrimitive_Resume ---- */
+/* Original name sputPrimitive_Resume (the remaster's GrimFandango (Linux): aligned call in
+   sputRender_Dim); was Primitives_Show. */
+
+void sputPrimitive_Resume(void)
 
 {
   g_nPrimitivesHidden = 0;

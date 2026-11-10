@@ -156,7 +156,7 @@ rdModel3_LoadEntryText
   
   FUN_004addf0();
   ((code *)rdModel3_NewEntry)();
-  Str_FileNameFromPath(in_stack_0002048c);
+  stdFileFromPath(in_stack_0002048c);
   ((code *)strncpy)();
   *(undefined1 *)(in_stack_00020490 + 0x1f) = 0;
   iVar2 = ((code *)stdConffile_Open)();
@@ -873,7 +873,7 @@ void rdModel3_LoadPostProcess(undefined4 param_1)
   rdModel3_CalcFaceNormals(param_1);
   rdModel3_CalcVertexNormals(param_1);
   rdModel3_CountNodeChildren(param_1);
-  rdModel3_BuildBoundingBoxCorners(param_1);
+  rdModel3_BuildShadowModel(param_1);
   return;
 }
 
@@ -930,7 +930,7 @@ void rdModel3_FreeEntry(int param_1)
               uVar1 = 0;
               if (piVar3[7] != 0) {
                 do {
-                  FUN_00450260(iVar4);
+                  rdFace_FreeEntry(iVar4);
                   iVar4 = iVar4 + 0x4c;
                   uVar1 = uVar1 + 1;
                 } while (uVar1 < (uint)piVar3[7]);
@@ -980,11 +980,13 @@ void rdModel3_FreeEntry(int param_1)
 #undef local_8
 
 
-/* ---- 0x0040c280  rdModel3_BuildBoundingBoxCorners ---- */
+/* ---- 0x0040c280  rdModel3_BuildShadowModel ---- */
 /* Allocates 0xc0 bytes per mesh and fills the 8 corner points of its bounding box from the min/max
-   values. Source file Rdmodel3.c (C:\grimjedi\Libs\RDroid\Primitives\Rdmodel3.c). */
+   values. Source file Rdmodel3.c (C:\grimjedi\Libs\RDroid\Primitives\Rdmodel3.c). Original name
+   rdModel3_BuildShadowModel (the remaster's GrimFandango (Linux): aligned call in
+   rdModel3_LoadPostProcess); was rdModel3_BuildBoundingBoxCorners. */
 
-void rdModel3_BuildBoundingBoxCorners(int param_1)
+void rdModel3_BuildShadowModel(int param_1)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1201,17 +1203,17 @@ void rdModel3_CalcModelBoundingBox(int param_1,int param_2,float *param_3)
   #define local_60 (*(float (*)[12])(_frame + (0xc0 - 0x60)))
   #define local_30 (*(undefined1 (*)[48])(_frame + (0xc0 - 0x30)))
   
-  Angles_ToMatrix(local_30,param_2 + 0x7c,param_2 + 0x70);
-  Matrix_BuildTranslation(local_90,(float *)(param_2 + 100));
-  Matrix_Multiply(local_90,local_30);
+  rdMatrix_Build34(local_30,param_2 + 0x7c,param_2 + 0x70);
+  rdMatrix_BuildTranslate34(local_90,(float *)(param_2 + 100));
+  rdMatrix_PostMultiply34(local_90,local_30);
   iVar3 = *(int *)(param_2 + 0x54);
   if (iVar3 != 0) {
     local_9c[0] = -*(float *)(iVar3 + 100);
     local_9c[1] = -*(float *)(iVar3 + 0x68);
     local_9c[2] = -*(float *)(iVar3 + 0x6c);
-    Matrix_SetTranslation(local_90,local_9c);
+    rdMatrix_PostTranslate34(local_90,local_9c);
   }
-  Matrix_Mul34(local_60,param_3,local_90);
+  rdMatrix_Multiply34(local_60,param_3,local_90);
   iVar3 = *(int *)(param_2 + 0x4c);
   if (iVar3 != -1) {
     iVar1 = *(int *)(param_1 + 0x28);
@@ -1219,7 +1221,7 @@ void rdModel3_CalcModelBoundingBox(int param_1,int param_2,float *param_3)
     a = *(float **)(iVar1 + 0x30 + iVar3 * 0x7c);
     if (*(int *)(iVar1 + 0x48 + iVar3 * 0x7c) != 0) {
       do {
-        Matrix34_TransformPoint(&local_a8,a,local_60);
+        rdMatrix_TransformPoint34(&local_a8,a,local_60);
         if (*(float *)(param_1 + 0x6c) < local_a8) {
           *(float *)(param_1 + 0x6c) = local_a8;
         }
@@ -1333,17 +1335,17 @@ void rdModel3_BuildExpandedRadius(int param_1,int param_2,float *param_3)
   #define local_60 (*(float (*)[12])(_frame + (0xc0 - 0x60)))
   #define local_30 (*(undefined1 (*)[48])(_frame + (0xc0 - 0x30)))
   
-  Angles_ToMatrix(local_30,param_2 + 0x7c,param_2 + 0x70);
-  Matrix_BuildTranslation(local_90,(float *)(param_2 + 100));
-  Matrix_Multiply(local_90,local_30);
+  rdMatrix_Build34(local_30,param_2 + 0x7c,param_2 + 0x70);
+  rdMatrix_BuildTranslate34(local_90,(float *)(param_2 + 100));
+  rdMatrix_PostMultiply34(local_90,local_30);
   iVar4 = *(int *)(param_2 + 0x54);
   if (iVar4 != 0) {
     local_9c[0] = -*(float *)(iVar4 + 100);
     local_9c[1] = -*(float *)(iVar4 + 0x68);
     local_9c[2] = -*(float *)(iVar4 + 0x6c);
-    Matrix_SetTranslation(local_90,local_9c);
+    rdMatrix_PostTranslate34(local_90,local_9c);
   }
-  Matrix_Mul34(local_60,param_3,local_90);
+  rdMatrix_Multiply34(local_60,param_3,local_90);
   iVar4 = *(int *)(param_2 + 0x4c);
   if (iVar4 != -1) {
     iVar1 = *(int *)(param_1 + 0x28);
@@ -1351,7 +1353,7 @@ void rdModel3_BuildExpandedRadius(int param_1,int param_2,float *param_3)
     a = *(float **)(iVar1 + 0x30 + iVar4 * 0x7c);
     if (*(int *)(iVar1 + 0x48 + iVar4 * 0x7c) != 0) {
       do {
-        Matrix34_TransformPoint(local_a8,a,local_60);
+        rdMatrix_TransformPoint34(local_a8,a,local_60);
         fVar2 = SQRT(local_a8[2] * local_a8[2] +
                      local_a8[1] * local_a8[1] + local_a8[0] * local_a8[0]);
         if (*(float *)&g_dwMaxGeoRadius < fVar2) {
@@ -1431,7 +1433,7 @@ void rdModel3_CalcFaceNormals(uint param_1)
                   uVar5 = uVar1 % uVar4;
                   uVar4 = puVar8[1];
                   iVar3 = *piVar6;
-                  iVar3 = Math3D_PointsCollinear
+                  iVar3 = rdMath_PointsCollinear
                                     (iVar3 + *(int *)(uVar4 + uVar7 * 4) * 0xc,
                                      iVar3 + *(int *)(uVar4 + uVar5 * 4) * 0xc,
                                      iVar3 + *(int *)(uVar4 + local_18 * 4) * 0xc);

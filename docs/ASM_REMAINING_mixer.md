@@ -39,7 +39,7 @@ with a differential test, see the notes), so there is no list of reasons.
 
 | address | name |
 |---|---|
-| 004cc250 | `Blocky16_SetOption` |
+| 004cc250 | `fob_flobdec_blocky16_config` |
 | 004cc7d0 | `Blocky16_BuildSplitMasks` |
 | 004ccd00 | `Blocky16_DecodeFrame` |
 | 004cd550 | `Blocky16_DecodeBlocks` |
@@ -53,7 +53,7 @@ with a differential test, see the notes), so there is no list of reasons.
 |---|---|
 | 004c1090 | `DSound_Shutdown` |
 | 004c1110 | `DSound_SetPrimaryVolume` |
-| 004c3df0 | `Insane_MemCopyCdecl` |
+| 004c3df0 | `msc_MemCopy` |
 | 004c3e10 | `Insane_MemCopy` |
 | 004cdc90 | `InsaneTimer_Register` |
 | 004cdce0 | `InsaneTimer_Unregister` |
@@ -94,15 +94,15 @@ with a differential test, see the notes), so there is no list of reasons.
 
 | address | name |
 |---|---|
-| 004bdf00 | `Smush_GetLengthMs` |
+| 004bdf00 | `SmushPlay_GetMovieLength` |
 | 004bf560 | `LightEd_ReadControl` |
 | 004bffb0 | `LightEd_KeyboardProc` |
-| 004c16c0 | `LecShare_Resolve` |
+| 004c16c0 | `LecShare_Subscribe` |
 | 004c23c0 | `anm_Start` |
 | 004c2690 | `AnimPlay_Destroy` |
 | 004c27a0 | `anm_Render` |
-| 004c36b0 | `AnimPlay_ResetState` |
-| 004c3d30 | `AnimPlay_OpenFile` |
+| 004c36b0 | `anm_animator_Initialize` |
+| 004c3d30 | `anm_animator_NewAnim` |
 | 004c3e60 | `gz_open` |
 | 004c49c0 | `gz_putLong` |
 | 004c5ab0 | `Zfile_Close` |
@@ -133,7 +133,7 @@ with a differential test, see the notes), so there is no list of reasons.
 | 004d0bf0 | `SoundModule_DriverCommand3` |
 | 004d0c00 | `SoundModule_SetDriverRate` |
 | 004d0c30 | `SoundModule_GetPosition` |
-| 004d0cf0 | `Sound_VoiceSampleCount` |
+| 004d0cf0 | `sou_engine_QueryTime` |
 | 004d0d70 | `SoundModule_SetParam` |
 | 004d0e00 | `SoundModule_GetParam` |
 | 004d0eb0 | `SoundModule_GetChannelVolume` |
@@ -141,7 +141,7 @@ with a differential test, see the notes), so there is no list of reasons.
 | 004d0f00 | `SoundModule_PlayVoc` |
 | 004d1180 | `SoundModule_PlaySaud` |
 | 004d1690 | `SoundModule_SyncClock` |
-| 004d16a0 | `SoundModule_MixCallback` |
+| 004d16a0 | `sou_engine_fill` |
 | 004d2340 | `SoundModule_AdvanceClock` |
 
 ### build/overrides_mixer_video.c (14)

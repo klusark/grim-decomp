@@ -18,8 +18,8 @@ undefined * __cdecl sputResource_Initialize(uint param_1,undefined **param_2)
   g_dwSputResHS = param_1;
   *param_2 = sputResource_Initialize;
   param_2[1] = sputResource_Terminate;
-  param_2[2] = sputResource_Start;
-  param_2[3] = sputResource_Stop;
+  param_2[2] = sputResource_Startup;
+  param_2[3] = sputResource_Shutdown;
   puVar1 = (undefined *)Res_SysInitialize(param_1,&g_aResModServices);
   if (puVar1 == (undefined *)0x0) {
     _DAT_008ca1f8 = 1;
@@ -45,42 +45,44 @@ void sputResource_Terminate(void)
   return;
 }
 
-/* ---- 0x0048d790  sputResource_Start ---- */
+/* ---- 0x0048d790  sputResource_Startup ---- */
 /* Module interface slot 2 (sputResource): called by Engine_InitSubsystems, returns 0 on success
    (non-zero makes the whole start-up unwind). _Start installs the ResFile services and registers
-   the resource types. */
+   the resource types. Original name sputResource_Startup (the remaster's GrimFandango (Linux):
+   aligned call in sputResource_Initialize); was sputResource_Start. */
 
-int sputResource_Start(void)
+int sputResource_Startup(void)
 
 {
   int iVar1;
   
-  if (UINT_008ca1fc != 0) {
+  if (g_dwSputResStartup != 0) {
     return true;
   }
   iVar1 = (*(code *)UINT_008ca1e0)();
   if (iVar1 == 0) {
-    UINT_008ca1fc = Resource_RegisterTypes();
+    g_dwSputResStartup = Resource_RegisterTypes();
   }
-  Res_InstallFileServices((GrimServices *)g_dwSputResHS);
-  UINT_008ca200 = rdMaterial_RegisterLoader(Resource_MaterialLoadHook);
-  UINT_008ca204 = rdMaterial_RegisterUnloader(Resource_MaterialFreeHook);
-  UINT_008a85e8 = (uint)SoundsPeriodic;
+  Res_OverrideFileCalls((GrimServices *)g_dwSputResHS);
+  g_dwPrdMatLoader = rdMaterial_RegisterLoader(sputResource_MatLoader);
+  g_dwPrdMatUnloader = rdMaterial_RegisterUnloader(sputResource_MatUnloader);
+  g_dwRes_pPeriodicCallback = (uint)SoundsPeriodic;
   Cos_RegisterSaveVerify(((unsigned)(uintptr_t)Resource_CountCostumeRefs));
-  return UINT_008ca1fc == 0;
+  return g_dwSputResStartup == 0;
 }
 
-/* ---- 0x0048d830  sputResource_Stop ---- */
+/* ---- 0x0048d830  sputResource_Shutdown ---- */
 /* Module interface slot 3 (sputResource): called by Engine_ShutdownSubsystems in reverse order;
-   releases what _Start created. */
+   releases what _Start created. Original name sputResource_Shutdown (the remaster's GrimFandango
+   (Linux): aligned call in sputResource_Initialize); was sputResource_Stop. */
 
-void sputResource_Stop(void)
+void sputResource_Shutdown(void)
 
 {
   (*(code *)UINT_008ca1e4)();
-  rdMaterial_RegisterLoader(UINT_008ca200);
-  rdMaterial_RegisterUnloader(UINT_008ca204);
+  rdMaterial_RegisterLoader(g_dwPrdMatLoader);
+  rdMaterial_RegisterUnloader(g_dwPrdMatUnloader);
   Res_RestoreFileServices((GrimServices *)g_dwSputResHS);
-  UINT_008ca1fc = 0;
+  g_dwSputResStartup = 0;
   return;
 }

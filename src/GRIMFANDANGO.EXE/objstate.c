@@ -5,11 +5,12 @@
 #include "globals.h"
 #include "functions.h"
 
-/* ---- 0x004a5d50  ObjectState_Create ---- */
+/* ---- 0x004a5d50  sputRoom_AddObjectState ---- */
 /* Lua NewObjectState (userdata tag 'STAT'): record {?, type, setupIdx, ...} linked into setup+0x128
-    */
+   Original name sputRoom_AddObjectState (the remaster's GrimFandango (Linux): aligned call in
+   sputLua_NewObjectState, sputRoom_Restore); was ObjectState_Create. */
 
-void * __cdecl ObjectState_Create(int setupIdx,int type,char *bitmap,char *zbitmap,int visible)
+void * __cdecl sputRoom_AddObjectState(int setupIdx,int type,char *bitmap,char *zbitmap,int visible)
 
 {
   int iVar1;
@@ -96,7 +97,7 @@ void __fastcall StateImage_Release(int param_1)
     Res_RemoveReference((void *)(param_1 + 0x34));
   }
   if (*(void **)(param_1 + 0x68) != (void *)0x0) {
-    Surface_Free(*(void **)(param_1 + 0x68));
+    stdDisplay_VBufferFree(*(void **)(param_1 + 0x68));
     *(undefined4 *)(param_1 + 0x68) = 0;
   }
   *(undefined4 *)(param_1 + 0x6c) = 0xffffffff;
@@ -130,7 +131,7 @@ void __thiscall StateImage_Load(void *this,int load)
       Res_RemoveReference((void *)((int)this + 0x34));
     }
     if (*(void **)((int)this + 0x68) != (void *)0x0) {
-      Surface_Free(*(void **)((int)this + 0x68));
+      stdDisplay_VBufferFree(*(void **)((int)this + 0x68));
       *(undefined4 *)((int)this + 0x68) = 0;
     }
   }
@@ -187,14 +188,15 @@ void __thiscall StateImage_CaptureFrom(void *this,void *surface)
   void *dst;
   
   if (*(void **)((int)this + 0x68) != (void *)0x0) {
-    Surface_Free(*(void **)((int)this + 0x68));
+    stdDisplay_VBufferFree(*(void **)((int)this + 0x68));
   }
   if (*(int *)((int)this + 0x34) != 0) {
     if (*(int *)((int)this + 0x34) == 0) {
       (*g_pStd_HS->pAssertFail)(s_Bad_Bitmap_Reference_004e8114,s_main_sputResource_h_004e80a8,0x90)
       ;
     }
-    dst = Surface_Create((void *)(**(int **)(*(int *)((int)this + 0x38) + 0x78) + 0xc),0,0,0);
+    dst = stdDisplay_VBufferNew((void *)(**(int **)(*(int *)((int)this + 0x38) + 0x78) + 0xc),0,0,0)
+    ;
     *(void **)((int)this + 0x68) = dst;
     if (dst != (void *)0x0) {
       Surface_Blit(dst,surface,0,0,(int *)((int)this + 4),0);
@@ -234,7 +236,7 @@ void __thiscall StateImage_Draw(void *this,void *dst)
         iVar1 = iVar4;
         if (*piVar2 == 2) {
           uVar3 = StateImage_GetFrameSurface((int)this);
-          Render_ConvertBackground(uVar3);
+          sputRender_Decompress(uVar3);
           y = *(int *)(iVar5 + 0x70);
           iVar5 = *(int *)(iVar5 + 0x6c);
           piVar2 = (int *)0x0;

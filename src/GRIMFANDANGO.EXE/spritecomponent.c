@@ -58,17 +58,18 @@ undefined4 SpriteRequester(uint param_1,int param_2,int param_3,float param_4,ch
   if ((param_3 != 0) && (param_4 == 216341.2)) {
     if (param_5 == (char *)0x0) {
       if (g_bMaterialPath != '\0') {
-        Plat_SetDialogDirectory(&g_bMaterialPath);
+        grimPlat_SetDefaultOpenPath(&g_bMaterialPath);
       }
-      iVar7 = Plat_OpenFileDialog(s_Select_mat_file_for_sprite____004ea834,
-                                  s_Material_files____mat__004ea5a4);
+      iVar7 = grimPlat_OpenFileRequest
+                        (s_Select_mat_file_for_sprite____004ea834,s_Material_files____mat__004ea5a4)
+      ;
       if (iVar7 == 0) {
         return 0;
       }
-      uVar4 = ((code *)Plat_GetDialogFileName)(0x7f);
+      uVar4 = ((code *)grimPlat_GetDefaultOpenPath)(0x7f);
       ((code *)strncpy)(&g_bMaterialPath,uVar4);
       DAT_008ca9b7 = 0;
-      pcVar5 = Str_Basename(g_szGrimlib_aFilename);
+      pcVar5 = stdFnames_FindMedName(g_szGrimlib_aFilename);
       param_5 = pcVar5;
     }
     else {
@@ -158,12 +159,14 @@ undefined4 SpriteRequester(uint param_1,int param_2,int param_3,float param_4,ch
 #undef local_50
 
 
-/* ---- 0x00498550  SpriteComponent_OnKey ---- */
+/* ---- 0x00498550  SpriteChanger ---- */
 /* Costume tag handler for 'Sprite' (registered by sputCostume_Start through
    Cos_NewStateBasedTag/Cos_NewIntTag): slot 0, shows (key>0, selects frame key-1) or hides the
-   sprite. */
+   sprite. Original name SpriteChanger (the remaster's GrimFandango (Linux): the same handler slot
+   (changer) of the same costume tag registration in sputCostume_Startup); was
+   SpriteComponent_OnKey. */
 
-void SpriteComponent_OnKey(undefined4 param_1,int param_2,undefined4 param_3,int param_4)
+void SpriteChanger(undefined4 param_1,int param_2,undefined4 param_3,int param_4)
 
 {
   if (param_4 == 0) {
@@ -291,7 +294,7 @@ undefined4 SpriteAdjuster(undefined4 *param_1,undefined4 param_2)
   local_3c = (uint)lVar3;
   lVar3 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
   local_38 = (uint)lVar3;
-  iVar2 = Plat_PromptDialog(param_2,&local_34,&local_48,5);
+  iVar2 = grimPlat_SpinDialog(param_2,&local_34,&local_48,5);
   if (iVar2 != 0) {
     *(float *)(*piVar1 + 0x4c) = (float)(int)local_48 * 0.01;
     *(float *)(*piVar1 + 0x50) = (float)(int)local_44 * 0.01;

@@ -18,7 +18,7 @@ int SmushPlay_GetMovieTime(void)
   
   if (((g_dwSmushPlaySysInitialized != 0) && (g_dwSmushPlaySysStarted != 0)) &&
      (g_dwMovieIsPlaying != 0)) {
-    iVar1 = Sound_VoiceSampleCount(0);
+    iVar1 = sou_engine_QueryTime(0);
     return iVar1;
   }
   return 0;
@@ -40,8 +40,7 @@ undefined4 SmushPlay_SysInitialize(uint param_1,undefined4 *param_2)
   uVar1 = 1;
   if (g_dwSmushPlaySysInitialized == 0) {
     g_pSmushPlay_share_services =
-         (int *)LecShare_Initialize(0,&PTR_FUN_004f0ba0,s_FILIO_insane_zfilio_004f0ca0,&DAT_004f5a98
-                                   );
+         (int *)LecShare_Initialize(0,&g_pShl_modules,s_FILIO_insane_zfilio_004f0ca0,&DAT_004f5a98);
     if (g_pSmushPlay_share_services == (int *)0x0) {
       return 1;
     }
@@ -125,10 +124,12 @@ void SmushPlay_SysShutdown(void)
   return;
 }
 
-/* ---- 0x004bd540  Insane_SetOutputParams ---- */
-/* Copies six dwords (destination surface geometry) into g_InsaneOutput */
+/* ---- 0x004bd540  SmushPlay_SysSetVideoCallbacks ---- */
+/* Copies six dwords (destination surface geometry) into g_InsaneOutput Original name
+   SmushPlay_SysSetVideoCallbacks (the remaster's GrimFandango (Linux): aligned call in
+   sputSmush_Initialize); was Insane_SetOutputParams. */
 
-void Insane_SetOutputParams(uint *param_1)
+void SmushPlay_SysSetVideoCallbacks(uint *param_1)
 
 {
   int iVar1;
@@ -143,10 +144,12 @@ void Insane_SetOutputParams(uint *param_1)
   return;
 }
 
-/* ---- 0x004bd7c0  Insane_ReadFrameHeader ---- */
-/* Reads a packed 0x16-byte header field by field through the file io vtable at g_pInsaneFileOps */
+/* ---- 0x004bd7c0  smushplay_GetInfo ---- */
+/* Reads a packed 0x16-byte header field by field through the file io vtable at g_pInsaneFileOps
+   Original name smushplay_GetInfo (the remaster's GrimFandango (Linux): aligned call in
+   SmushPlay_GetMovieLength); was Insane_ReadFrameHeader. */
 
-undefined4 Insane_ReadFrameHeader(int param_1,int param_2)
+undefined4 smushplay_GetInfo(int param_1,int param_2)
 
 {
   undefined4 uVar1;
@@ -154,23 +157,23 @@ undefined4 Insane_ReadFrameHeader(int param_1,int param_2)
   if (param_1 == 0) {
     return 0;
   }
-  uVar1 = (*(code *)PTR_008d10c8[4])(param_1);
-  (*(code *)PTR_008d10c8[5])(param_1,0x10,0);
-  (*(code *)PTR_008d10c8[2])(param_1,param_2,1);
-  (*(code *)PTR_008d10c8[2])(param_1,param_2 + 1,1);
-  (*(code *)PTR_008d10c8[2])(param_1,param_2 + 2,2);
-  (*(code *)PTR_008d10c8[2])(param_1,param_2 + 4,2);
-  (*(code *)PTR_008d10c8[2])(param_1,param_2 + 6,2);
-  (*(code *)PTR_008d10c8[2])(param_1,(short *)(param_2 + 8),2);
-  (*(code *)PTR_008d10c8[2])(param_1,(short *)(param_2 + 10),2);
-  (*(code *)PTR_008d10c8[2])(param_1,param_2 + 0xc,2);
-  (*(code *)PTR_008d10c8[2])(param_1,param_2 + 0xe,4);
-  (*(code *)PTR_008d10c8[2])(param_1,(int *)(param_2 + 0x12),4);
-  (*(code *)PTR_008d10c8[2])(param_1,param_2 + 0x16,0x400);
-  (*(code *)PTR_008d10c8[2])(param_1,param_2 + 0x416,2);
+  uVar1 = (*(code *)g_pSmushPlay_file_services[4])(param_1);
+  (*(code *)g_pSmushPlay_file_services[5])(param_1,0x10,0);
+  (*(code *)g_pSmushPlay_file_services[2])(param_1,param_2,1);
+  (*(code *)g_pSmushPlay_file_services[2])(param_1,param_2 + 1,1);
+  (*(code *)g_pSmushPlay_file_services[2])(param_1,param_2 + 2,2);
+  (*(code *)g_pSmushPlay_file_services[2])(param_1,param_2 + 4,2);
+  (*(code *)g_pSmushPlay_file_services[2])(param_1,param_2 + 6,2);
+  (*(code *)g_pSmushPlay_file_services[2])(param_1,(short *)(param_2 + 8),2);
+  (*(code *)g_pSmushPlay_file_services[2])(param_1,(short *)(param_2 + 10),2);
+  (*(code *)g_pSmushPlay_file_services[2])(param_1,param_2 + 0xc,2);
+  (*(code *)g_pSmushPlay_file_services[2])(param_1,param_2 + 0xe,4);
+  (*(code *)g_pSmushPlay_file_services[2])(param_1,(int *)(param_2 + 0x12),4);
+  (*(code *)g_pSmushPlay_file_services[2])(param_1,param_2 + 0x16,0x400);
+  (*(code *)g_pSmushPlay_file_services[2])(param_1,param_2 + 0x416,2);
   if (((0 < *(short *)(param_2 + 8)) && (0 < *(short *)(param_2 + 10))) &&
      (0 < *(int *)(param_2 + 0x12))) {
-    (*(code *)PTR_008d10c8[5])(param_1,uVar1,0);
+    (*(code *)g_pSmushPlay_file_services[5])(param_1,uVar1,0);
     return 0;
   }
   return 0xfffffffe;
@@ -345,7 +348,7 @@ void Insane_BlitRows16(ushort *param_1,int param_2,int param_3,int param_4,int p
   uint uVar4;
   
   iVar2 = param_5 >> 2;
-  if (UINT_008d16bc == 0) {
+  if (g_dwSmushPlay_TranslationTable == 0) {
     if (param_6 != 0) {
       param_5 = param_6;
       do {
@@ -365,7 +368,7 @@ void Insane_BlitRows16(ushort *param_1,int param_2,int param_3,int param_4,int p
     }
   }
   else {
-    uVar4 = UINT_008d16bc;
+    uVar4 = g_dwSmushPlay_TranslationTable;
     if (param_6 != 0) {
       do {
         if (iVar2 != 0) {
@@ -377,7 +380,7 @@ void Insane_BlitRows16(ushort *param_1,int param_2,int param_3,int param_4,int p
                  CONCAT22(*(undefined2 *)(uVar4 + (uint)puVar1[1] * 2),
                           *(undefined2 *)(uVar4 + (uint)*puVar1 * 2));
             puVar1 = puVar1 + 2;
-            uVar4 = UINT_008d16bc;
+            uVar4 = g_dwSmushPlay_TranslationTable;
           } while (iVar3 != 0);
         }
         param_3 = param_3 + param_4;
@@ -392,10 +395,13 @@ void Insane_BlitRows16(ushort *param_1,int param_2,int param_3,int param_4,int p
 #endif
 
 
-/* ---- 0x004c3df0  Insane_MemCopyCdecl ---- */
+/* ---- 0x004c3df0  msc_MemCopy ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-void __cdecl Insane_MemCopyCdecl(void *dst,void *src,uint n)
+/* Original name msc_MemCopy (the remaster's GrimFandango (Linux): aligned call in anm_DecodeBody,
+   fle_StreamerDispense); was Insane_MemCopyCdecl. */
+
+void __cdecl msc_MemCopy(void *dst,void *src,uint n)
 
 {
   Insane_MemCopy(dst,src,n);

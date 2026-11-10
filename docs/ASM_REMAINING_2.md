@@ -21,23 +21,23 @@ Scope: GRIMFANDANGO.EXE >= 0x004a0000, all of LUA.DLL, IMUSE.DLL and CHORE.DLL. 
 |---|---|---|---|
 | 004a1a00 | `sputLua_DimRegion` | lua.c | register-passed value or callee-saved register used across a call (unaff_EDI,unaff_ESI) |
 | 004a26b0 | `sputLua_RestoreCacheRect` | lua.c | register-passed value or callee-saved register used across a call (unaff_ESI) |
-| 004a4e80 | `PositionedSound_Apply` | sound.c | x87 value crosses an instruction/call boundary (Ghidra loses ST0: unaff_EBP,unaff_ESI,_ftol(); register-passed value or callee-saved register used across a call (unaff_EBP,unaff_ESI) |
-| 004a5d50 | `ObjectState_Create` | objstate.c | C++ exception frame (SEH registration) around allocations |
+| 004a4e80 | `SetSoundPosition` | sound.c | x87 value crosses an instruction/call boundary (Ghidra loses ST0: unaff_EBP,unaff_ESI,_ftol(); register-passed value or callee-saved register used across a call (unaff_EBP,unaff_ESI) |
+| 004a5d50 | `sputRoom_AddObjectState` | objstate.c | C++ exception frame (SEH registration) around allocations |
 | 004a7bc0 | `SetFile_ParseSectors` | sector.c | C++ exception frame (SEH registration) around allocations; calls a function whose result Ghidra does not see (Sector_SetSavedType) |
-| 004a83c0 | `Walker_TurnHeading` | walker.c | not converted yet (no known artifact); see notes below |
+| 004a83c0 | `Puck_Rotate` | walker.c | not converted yet (no known artifact); see notes below |
 | 004a85b0 | `Puck_Constrain` | walker.c | not converted yet (no known artifact); see notes below |
 | 004a89b0 | `Walker_SetSectorFrame` | walker.c | not converted yet (no known artifact); see notes below |
 | 004a8b00 | `Walker_DrawDebugAxes` | walker.c | register-passed value or callee-saved register used across a call (in_ECX) |
 | 004a9d00 | `ShrinkBoxes` | sector.c | address of a parameter slot is taken (scanf-style outputs / reused slots); address of a parameter slot is taken (scanf-style outputs / reused slots) |
 | 004aa410 | `ObjectState_Construct` | objstate.c | C++ exception frame (SEH registration) around allocations |
 | 004aa4c0 | `ObjectState_Destruct` | objstate.c | C++ exception frame (SEH registration) around allocations |
-| 004ab210 | `Text_LayoutString` | text.c | address of a parameter slot is taken (scanf-style outputs / reused slots) |
+| 004ab210 | `text_FindNextBreak` | text.c | address of a parameter slot is taken (scanf-style outputs / reused slots) |
 | 004ab5d0 | `Text_DrawString` | text.c | not converted yet (no known artifact); see notes below |
 | 004bdf00 | `Smush_SetFile` | smush.c | x87 value crosses an instruction/call boundary (Ghidra loses ST0: unaff_ESI,_ftol(); register-passed value or callee-saved register used across a call (unaff_ESI) |
 | 004bf560 | `LightEd_ReadControl` | lighted.c | x87 value crosses an instruction/call boundary (Ghidra loses ST0: unaff_EDI,unaff_ESI,_ftol(); register-passed value or callee-saved register used across a call (unaff_EDI,unaff_ESI) |
 | 004c1090 | `DSound_Shutdown` | mixer.c | not converted yet (no known artifact); see notes below |
 | 004c1110 | `DSound_SetPrimaryVolume` | mixer.c | x87 value crosses an instruction/call boundary (Ghidra loses ST0: unaff_EDI,unaff_ESI,_ftol(); register-passed value or callee-saved register used across a call (unaff_EDI,unaff_ESI) |
-| 004c16c0 | `LecShare_Resolve` | lecshare.c | not converted yet (no known artifact); see notes below |
+| 004c16c0 | `LecShare_Subscribe` | lecshare.c | not converted yet (no known artifact); see notes below |
 | 004c3e60 | `gz_open` | zlib.c | not converted yet (no known artifact); see notes below |
 | 004c49c0 | `gz_putLong` | zlib.c | address of a parameter slot is taken (scanf-style outputs / reused slots); address of a parameter slot is taken (scanf-style outputs / reused slots) |
 | 004ca660 | `inflate_codes` | zlib.c | address of a parameter slot is taken (scanf-style outputs / reused slots) |
@@ -45,7 +45,7 @@ Scope: GRIMFANDANGO.EXE >= 0x004a0000, all of LUA.DLL, IMUSE.DLL and CHORE.DLL. 
 | 004ce060 | `Mixer_Update` | mixer.c | not converted yet (no known artifact); see notes below |
 | 004ce1d0 | `Mixer_ServiceVoices` | mixer.c | not converted yet (no known artifact); see notes below |
 | 004ce260 | `Mixer_ScheduleVoices` | mixer.c | not converted yet (no known artifact); see notes below |
-| 004d0cf0 | `Sound_VoiceSampleCount` | sound.c | x87 value crosses an instruction/call boundary (Ghidra loses ST0: _ftol(); a parameter slot is reused for a float |
+| 004d0cf0 | `sou_engine_QueryTime` | sound.c | x87 value crosses an instruction/call boundary (Ghidra loses ST0: _ftol(); a parameter slot is reused for a float |
 | 004d27d0 | `DSound_FillStreamBuffer` | mixer.c | not converted yet (no known artifact); see notes below |
 | 004d2c60 | `DSound_GetPlayBlock` | mixer.c | not converted yet (no known artifact); see notes below |
 | 004d2e60 | `Mixer_Output` | mixer.c | not converted yet (no known artifact); see notes below |
@@ -80,43 +80,43 @@ Scope: GRIMFANDANGO.EXE >= 0x004a0000, all of LUA.DLL, IMUSE.DLL and CHORE.DLL. 
 | 10001000 | `Im_VimaDecodeBlock` | imuse.c | not converted yet (no known artifact); see notes below |
 | 100013c0 | `Im_VimaDecompress` | imuse.c | not converted yet (no known artifact); see notes below |
 | 100017e0 | `Im_DecodeSoundBlock` | imuse.c | not converted yet (no known artifact); see notes below |
-| 10001ba0 | `Im_CodecInit` | imuse.c | not converted yet (no known artifact); see notes below |
-| 10001bc0 | `Im_ConvertBlock` | imuse.c | not converted yet (no known artifact); see notes below |
+| 10001ba0 | `AudioLib_ResetCompressor` | imuse.c | not converted yet (no known artifact); see notes below |
+| 10001bc0 | `AudioLib_UncompressBlock` | imuse.c | not converted yet (no known artifact); see notes below |
 | 10001c30 | `Im_ConvertBlockImpl` | imuse.c | not converted yet (no known artifact); see notes below |
-| 10001f10 | `Im_DispatchInit` | imuse.c | not converted yet (no known artifact); see notes below |
-| 10001fd0 | `iMUSE_Dispatch__1fd0` | imuse_dispatch.c | not converted yet (no known artifact); see notes below |
-| 10001ff0 | `iMUSE_Dispatch__1ff0` | imuse_dispatch.c | not converted yet (no known artifact); see notes below |
-| 10002010 | `iMUSE_Dispatch__2010` | imuse_dispatch.c | not converted yet (no known artifact); see notes below |
-| 10002040 | `iMUSE_Dispatch__2040` | imuse_dispatch.c | not converted yet (no known artifact); see notes below |
-| 100020c0 | `iMUSE_Dispatch__20c0` | imuse_dispatch.c | not converted yet (no known artifact); see notes below |
-| 10002170 | `iMUSE_Dispatch__2170` | imuse_dispatch.c | not converted yet (no known artifact); see notes below |
-| 10002200 | `iMUSE_Dispatch__2200` | imuse_dispatch.c | not converted yet (no known artifact); see notes below |
-| 10002260 | `Im_SwitchStreamImpl` | imuse.c | not converted yet (no known artifact); see notes below |
-| 10002570 | `Im_DispatchMixTrack` | imuse.c | not converted yet (no known artifact); see notes below |
-| 10002a00 | `iMUSE_Dispatch__2a00` | imuse_dispatch.c | not converted yet (no known artifact); see notes below |
-| 10002a60 | `Im_DispatchAllocBuffers` | imuse.c | not converted yet (no known artifact); see notes below |
+| 10001f10 | `DpInitialize` | imuse.c | not converted yet (no known artifact); see notes below |
+| 10001fd0 | `DpTerminate` | imuse_dispatch.c | not converted yet (no known artifact); see notes below |
+| 10001ff0 | `DpGetDp` | imuse_dispatch.c | not converted yet (no known artifact); see notes below |
+| 10002010 | `DpSave` | imuse_dispatch.c | not converted yet (no known artifact); see notes below |
+| 10002040 | `DpBeginRestore` | imuse_dispatch.c | not converted yet (no known artifact); see notes below |
+| 100020c0 | `DpConcludeRestore` | imuse_dispatch.c | not converted yet (no known artifact); see notes below |
+| 10002170 | `DpStartSound` | imuse_dispatch.c | not converted yet (no known artifact); see notes below |
+| 10002200 | `DpStopTrack` | imuse_dispatch.c | not converted yet (no known artifact); see notes below |
+| 10002260 | `DpSwitchStream` | imuse.c | not converted yet (no known artifact); see notes below |
+| 10002570 | `DpProcessTrack` | imuse.c | not converted yet (no known artifact); see notes below |
+| 10002a00 | `DpPredictStreams` | imuse_dispatch.c | not converted yet (no known artifact); see notes below |
+| 10002a60 | `GoToNextRegion` | imuse.c | not converted yet (no known artifact); see notes below |
 | 10002d30 | `Im_DispatchFetchNext` | imuse.c | address of a parameter slot is taken (scanf-style outputs / reused slots) |
 | 10002fe0 | `iMUSE_Dispatch__2fe0` | imuse_dispatch.c | not converted yet (no known artifact); see notes below |
 | 100030d0 | `iMUSE_Dispatch__30d0` | imuse_dispatch.c | not converted yet (no known artifact); see notes below |
-| 10003130 | `iMUSE_Dispatch__3130` | imuse_dispatch.c | not converted yet (no known artifact); see notes below |
+| 10003130 | `PredictStream` | imuse_dispatch.c | not converted yet (no known artifact); see notes below |
 | 100031d0 | `iMUSE_Dispatch__31d0` | imuse_dispatch.c | not converted yet (no known artifact); see notes below |
-| 10003250 | `iMUSE_Dispatch__3250` | imuse_dispatch.c | not converted yet (no known artifact); see notes below |
+| 10003250 | `PrepareToJump` | imuse_dispatch.c | not converted yet (no known artifact); see notes below |
 | 10003430 | `iMUSE_Dispatch__3430` | imuse_dispatch.c | not converted yet (no known artifact); see notes below |
 | 100034b0 | `iMUSE_Dispatch__34b0` | imuse_dispatch.c | not converted yet (no known artifact); see notes below |
 | 10003510 | `iMUSE_Dispatch__3510` | imuse_dispatch.c | not converted yet (no known artifact); see notes below |
 | 10003570 | `iMUSE_Dispatch__3570` | imuse_dispatch.c | not converted yet (no known artifact); see notes below |
 | 100035a0 | `iMUSE_Dispatch__35a0` | imuse_dispatch.c | not converted yet (no known artifact); see notes below |
 | 10003640 | `iMUSE_Dispatch__3640` | imuse_dispatch.c | not converted yet (no known artifact); see notes below |
-| 100036b0 | `Im_DSoundInit` | imuse.c | not converted yet (no known artifact); see notes below |
-| 10003730 | `Im_DSoundHeartbeat` | imuse.c | not converted yet (no known artifact); see notes below |
-| 100038d0 | `Im_DSoundShutdown` | imuse.c | not converted yet (no known artifact); see notes below |
+| 100036b0 | `DwInitialize` | imuse.c | not converted yet (no known artifact); see notes below |
+| 10003730 | `DwQuery` | imuse.c | not converted yet (no known artifact); see notes below |
+| 100038d0 | `DwTerminate` | imuse.c | not converted yet (no known artifact); see notes below |
 | 10003a80 | `iMUSE_dsound__3a80` | imuse_dsound.c | not converted yet (no known artifact); see notes below |
-| 10003ac0 | `Im_DSoundReset` | imuse.c | not converted yet (no known artifact); see notes below |
-| 10003ae0 | `Im_DSoundSave` | imuse.c | not converted yet (no known artifact); see notes below |
-| 10003b10 | `Im_DSoundRestore` | imuse.c | not converted yet (no known artifact); see notes below |
-| 10003b40 | `Im_FadeParamImpl` | imuse.c | not converted yet (no known artifact); see notes below |
-| 10003c70 | `Im_FadesClearSound` | imuse.c | not converted yet (no known artifact); see notes below |
-| 10003cb0 | `Im_FadesHeartbeat` | imuse.c | not converted yet (no known artifact); see notes below |
+| 10003ac0 | `FdInitialize` | imuse.c | not converted yet (no known artifact); see notes below |
+| 10003ae0 | `FdSave` | imuse.c | not converted yet (no known artifact); see notes below |
+| 10003b10 | `FdRestore` | imuse.c | not converted yet (no known artifact); see notes below |
+| 10003b40 | `FdFadeParam` | imuse.c | not converted yet (no known artifact); see notes below |
+| 10003c70 | `FdStopFade` | imuse.c | not converted yet (no known artifact); see notes below |
+| 10003cb0 | `FdIntHandler` | imuse.c | not converted yet (no known artifact); see notes below |
 | 10003d70 | `ImInitFilelist` | imuse_api.c | not converted yet (no known artifact); see notes below |
 | 10003dc0 | `ImSaveFilelist` | imuse_api.c | not converted yet (no known artifact); see notes below |
 | 10003e50 | `ImRestoreFilelist` | imuse_api.c | not converted yet (no known artifact); see notes below |
@@ -130,19 +130,19 @@ Scope: GRIMFANDANGO.EXE >= 0x004a0000, all of LUA.DLL, IMUSE.DLL and CHORE.DLL. 
 | 10004380 | `ImFlushSounds` | imuse_api.c | register-passed value or callee-saved register used across a call (in_EAX) |
 | 10004460 | `FUN_10004460` | imuse_api.c | not converted yet (no known artifact); see notes below |
 | 100044b0 | `FUN_100044b0` | imuse_api.c | not converted yet (no known artifact); see notes below |
-| 10004540 | `iMUSE_dsound__4540` | imuse_dsound.c | not converted yet (no known artifact); see notes below |
-| 10004570 | `iMUSE_dsound__4570` | imuse_dsound.c | not converted yet (no known artifact); see notes below |
-| 100045a0 | `iMUSE_dsound__45a0` | imuse_dsound.c | not converted yet (no known artifact); see notes below |
-| 100045c0 | `iMUSE_dsound__45c0` | imuse_dsound.c | not converted yet (no known artifact); see notes below |
-| 10004600 | `iMUSE_dsound__4600` | imuse_dsound.c | not converted yet (no known artifact); see notes below |
-| 10004640 | `iMUSE_dsound__4640` | imuse_dsound.c | not converted yet (no known artifact); see notes below |
+| 10004540 | `FmGetSoundAddr` | imuse_dsound.c | not converted yet (no known artifact); see notes below |
+| 10004570 | `FmGetMapAddr` | imuse_dsound.c | not converted yet (no known artifact); see notes below |
+| 100045a0 | `FmValidateSoundId` | imuse_dsound.c | not converted yet (no known artifact); see notes below |
+| 100045c0 | `FmSeek` | imuse_dsound.c | not converted yet (no known artifact); see notes below |
+| 10004600 | `FmRead` | imuse_dsound.c | not converted yet (no known artifact); see notes below |
+| 10004640 | `FmGetBufInfo` | imuse_dsound.c | not converted yet (no known artifact); see notes below |
 | 10004660 | `FUN_10004660` | imuse_dsound.c | not converted yet (no known artifact); see notes below |
 | 10004750 | `FUN_10004750` | imuse_dsound.c | not converted yet (no known artifact); see notes below |
 | 10004820 | `Im_ApplyFXPreset` | imuse.c | not converted yet (no known artifact); see notes below |
 | 10004970 | `FUN_10004970` | imuse.c | not converted yet (no known artifact); see notes below |
-| 100049b0 | `Im_GroupsInit` | imuse.c | not converted yet (no known artifact); see notes below |
-| 100049e0 | `Im_SetGroupVolImpl` | imuse.c | not converted yet (no known artifact); see notes below |
-| 10004a80 | `Im_GetGroupVol` | imuse.c | not converted yet (no known artifact); see notes below |
+| 100049b0 | `GrInitialize` | imuse.c | not converted yet (no known artifact); see notes below |
+| 100049e0 | `GrSetGroupVol` | imuse.c | not converted yet (no known artifact); see notes below |
+| 10004a80 | `GrGetGroupEffVol` | imuse.c | not converted yet (no known artifact); see notes below |
 | 10004aa0 | `ImInitialize` | imuse_api.c | not converted yet (no known artifact); see notes below |
 | 10004b20 | `ImPrintf` | imuse_api.c | not converted yet (no known artifact); see notes below |
 | 10004b40 | `ImPause` | imuse_api.c | not converted yet (no known artifact); see notes below |
@@ -167,14 +167,14 @@ Scope: GRIMFANDANGO.EXE >= 0x004a0000, all of LUA.DLL, IMUSE.DLL and CHORE.DLL. 
 | 10004ec0 | `ImSwitchStream` | imuse_api.c | not converted yet (no known artifact); see notes below |
 | 10004f00 | `ImQueryStream` | imuse_api.c | not converted yet (no known artifact); see notes below |
 | 10004f30 | `ImFeedStream` | imuse_api.c | not converted yet (no known artifact); see notes below |
-| 10004f70 | `Im_DispatchCommand` | imuse.c | not converted yet (no known artifact); see notes below |
+| 10004f70 | `ImSoundCall` | imuse.c | not converted yet (no known artifact); see notes below |
 | 10005190 | `ImHeartbeat` | imuse_api.c | not converted yet (no known artifact); see notes below |
 | 10005300 | `ImStartRecording` | imuse_api.c | not converted yet (no known artifact); see notes below |
 | 10005350 | `ImStopRecording` | imuse_api.c | not converted yet (no known artifact); see notes below |
-| 10005360 | `Im_MixerInit` | imuse.c | x87 value crosses an instruction/call boundary (Ghidra loses ST0: fsin() |
-| 10005490 | `Im_MixerReset` | imuse.c | not converted yet (no known artifact); see notes below |
-| 100054c0 | `Im_MixerHeartbeat` | imuse.c | not converted yet (no known artifact); see notes below |
-| 100054f0 | `Im_MixSamples` | imuse.c | not converted yet (no known artifact); see notes below |
+| 10005360 | `MxInitialize` | imuse.c | x87 value crosses an instruction/call boundary (Ghidra loses ST0: fsin() |
+| 10005490 | `MxTerminate` | imuse.c | not converted yet (no known artifact); see notes below |
+| 100054c0 | `MxBeginMix` | imuse.c | not converted yet (no known artifact); see notes below |
+| 100054f0 | `Mixer_MxMix` | imuse.c | not converted yet (no known artifact); see notes below |
 | 10005610 | `MxEndMix` | imuse.c | not converted yet (no known artifact); see notes below |
 | 100057a0 | `Im_MixLoopA` | imuse.c | not converted yet (no known artifact); see notes below |
 | 100059a0 | `Im_MixLoopB` | imuse.c | not converted yet (no known artifact); see notes below |
@@ -227,21 +227,21 @@ Scope: GRIMFANDANGO.EXE >= 0x004a0000, all of LUA.DLL, IMUSE.DLL and CHORE.DLL. 
 | 100078d0 | `SoundsInitialize` | imuse_api.c | not converted yet (no known artifact); see notes below |
 | 10007920 | `sounds_startup` | imuse_api.c | not converted yet (no known artifact); see notes below |
 | 10007a20 | `FUN_10007a20` | imuse_api.c | not converted yet (no known artifact); see notes below |
-| 10007a60 | `FUN_10007a60` | imuse_api.c | not converted yet (no known artifact); see notes below |
-| 10007a70 | `FUN_10007a70` | imuse_api.c | not converted yet (no known artifact); see notes below |
-| 10007a80 | `FUN_10007a80` | imuse_api.c | not converted yet (no known artifact); see notes below |
-| 10007bc0 | `FUN_10007bc0` | imuse_api.c | not converted yet (no known artifact); see notes below |
+| 10007a60 | `ihost_get_sound_addr` | imuse_api.c | not converted yet (no known artifact); see notes below |
+| 10007a70 | `ihost_get_map_addr` | imuse_api.c | not converted yet (no known artifact); see notes below |
+| 10007a80 | `ihost_get_buffer_info` | imuse_api.c | not converted yet (no known artifact); see notes below |
+| 10007bc0 | `ihost_fseek` | imuse_api.c | not converted yet (no known artifact); see notes below |
 | 10007ca0 | `ihost_read` | imuse_api.c | address of a parameter slot is taken (scanf-style outputs / reused slots) |
 | 10008140 | `sounds_shutdown` | imuse_api.c | not converted yet (no known artifact); see notes below |
 | 100081f0 | `FUN_100081f0` | imuse_api.c | not converted yet (no known artifact); see notes below |
-| 10008250 | `FUN_10008250` | imuse_api.c | not converted yet (no known artifact); see notes below |
-| 10008580 | `FUN_10008580` | imuse_api.c | address of a parameter slot is taken (scanf-style outputs / reused slots) |
-| 10008860 | `FUN_10008860` | imuse_api.c | not converted yet (no known artifact); see notes below |
-| 100088a0 | `FUN_100088a0` | imuse_api.c | not converted yet (no known artifact); see notes below |
+| 10008250 | `sounds_save` | imuse_api.c | not converted yet (no known artifact); see notes below |
+| 10008580 | `sounds_restore` | imuse_api.c | address of a parameter slot is taken (scanf-style outputs / reused slots) |
+| 10008860 | `sounds_pause` | imuse_api.c | not converted yet (no known artifact); see notes below |
+| 100088a0 | `sounds_resume` | imuse_api.c | not converted yet (no known artifact); see notes below |
 | 100088d0 | `SoundStartVoiceStream` | soundstartvoicestream.c | not converted yet (no known artifact); see notes below |
 | 10008970 | `SoundStopVoiceStream` | soundstopvoicestream.c | not converted yet (no known artifact); see notes below |
 | 10008990 | `SoundGetVoiceTime` | soundgetvoicetime.c | not converted yet (no known artifact); see notes below |
-| 100089b0 | `Im_SoundsFindByName` | imuse.c | not converted yet (no known artifact); see notes below |
+| 100089b0 | `LoadLip` | imuse.c | not converted yet (no known artifact); see notes below |
 | 10008b60 | `Im_SoundsFreeSlot` | imuse.c | not converted yet (no known artifact); see notes below |
 | 10008bb0 | `iMUSE_GetPhoneme` | imuse.c | not converted yet (no known artifact); see notes below |
 | 10008c40 | `FUN_10008c40` | imuse.c | not converted yet (no known artifact); see notes below |
@@ -249,16 +249,16 @@ Scope: GRIMFANDANGO.EXE >= 0x004a0000, all of LUA.DLL, IMUSE.DLL and CHORE.DLL. 
 | 10008e30 | `FUN_10008e30` | imuse.c | not converted yet (no known artifact); see notes below |
 | 10008e60 | `FUN_10008e60` | imuse.c | not converted yet (no known artifact); see notes below |
 | 10008ec0 | `CacheGetSoundId` | imuse_api.c | not converted yet (no known artifact); see notes below |
-| 100092f0 | `Sounds_EvictOldestIdleSlot` | imuse_api.c | not converted yet (no known artifact); see notes below |
+| 100092f0 | `CachePurgeOldestStoppedSound` | imuse_api.c | not converted yet (no known artifact); see notes below |
 | 100093d0 | `Im_SoundsPrepare` | imuse.c | address of a parameter slot is taken (scanf-style outputs / reused slots) |
 | 10009530 | `FUN_10009530` | imuse.c | not converted yet (no known artifact); see notes below |
 | 10009560 | `FUN_10009560` | imuse.c | not converted yet (no known artifact); see notes below |
 | 100095d0 | `grimSound_LipSyncLoad` | imuse.c | not converted yet (no known artifact); see notes below |
 | 100096b0 | `grimSound_LipSyncFree` | imuse.c | not converted yet (no known artifact); see notes below |
 | 10009700 | `FUN_10009700` | imuse.c | not converted yet (no known artifact); see notes below |
-| 10009710 | `Im_SoundsLoad` | imuse.c | address of a parameter slot is taken (scanf-style outputs / reused slots) |
-| 10009b20 | `Im_SoundsUnload` | imuse.c | not converted yet (no known artifact); see notes below |
-| 10009b90 | `Im_SoundsReadBlock` | imuse.c | not converted yet (no known artifact); see notes below |
+| 10009710 | `iRes_FOPEN` | imuse.c | address of a parameter slot is taken (scanf-style outputs / reused slots) |
+| 10009b20 | `iRes_FCLOSE` | imuse.c | not converted yet (no known artifact); see notes below |
+| 10009b90 | `iRes_FREAD` | imuse.c | not converted yet (no known artifact); see notes below |
 | 10009e10 | `iMUSE_sounds__9e10` | imuse_sounds.c | not converted yet (no known artifact); see notes below |
 | 10009e40 | `iMUSE_sounds__9e40` | imuse_sounds.c | not converted yet (no known artifact); see notes below |
 | 10009eb0 | `iMUSE_sounds__9eb0` | imuse_sounds.c | not converted yet (no known artifact); see notes below |
@@ -273,53 +273,53 @@ Scope: GRIMFANDANGO.EXE >= 0x004a0000, all of LUA.DLL, IMUSE.DLL and CHORE.DLL. 
 | 1000a110 | `iMUSE_SetHook` | imuse.c | not converted yet (no known artifact); see notes below |
 | 1000a140 | `iMUSE_GetHook` | imuse.c | not converted yet (no known artifact); see notes below |
 | 1000a160 | `iMUSE_SetVoiceEffect` | imuse.c | not converted yet (no known artifact); see notes below |
-| 1000a1e0 | `Im_TracksInit` | imuse.c | not converted yet (no known artifact); see notes below |
-| 1000a210 | `iMUSE_stream__a210` | imuse_stream.c | not converted yet (no known artifact); see notes below |
-| 1000a2d0 | `iMUSE_stream__a2d0` | imuse_stream.c | not converted yet (no known artifact); see notes below |
-| 1000a300 | `Im_ProcessStreamsImpl` | imuse.c | not converted yet (no known artifact); see notes below |
-| 1000a420 | `iMUSE_stream__a420` | imuse_stream.c | not converted yet (no known artifact); see notes below |
+| 1000a1e0 | `StInitialize` | imuse.c | not converted yet (no known artifact); see notes below |
+| 1000a210 | `StStartStream` | imuse_stream.c | not converted yet (no known artifact); see notes below |
+| 1000a2d0 | `StStopStream` | imuse_stream.c | not converted yet (no known artifact); see notes below |
+| 1000a300 | `StProcessStreams` | imuse.c | not converted yet (no known artifact); see notes below |
+| 1000a420 | `StReadData` | imuse_stream.c | not converted yet (no known artifact); see notes below |
 | 1000a490 | `iMUSE_stream__a490` | imuse_stream.c | not converted yet (no known artifact); see notes below |
-| 1000a500 | `iMUSE_stream__a500` | imuse_stream.c | not converted yet (no known artifact); see notes below |
-| 1000a540 | `iMUSE_stream__a540` | imuse_stream.c | not converted yet (no known artifact); see notes below |
-| 1000a580 | `Im_FindTrack` | imuse.c | not converted yet (no known artifact); see notes below |
-| 1000a5a0 | `iMUSE_stream__a5a0` | imuse_stream.c | not converted yet (no known artifact); see notes below |
-| 1000a5e0 | `Im_QueryStreamTrack` | imuse.c | not converted yet (no known artifact); see notes below |
-| 1000a620 | `Im_FeedStreamTrack` | imuse.c | not converted yet (no known artifact); see notes below |
-| 1000a6d0 | `Im_RefillStreamTrack` | imuse.c | not converted yet (no known artifact); see notes below |
-| 1000a7e0 | `Im_InitSubsystems` | imuse.c | not converted yet (no known artifact); see notes below |
-| 1000a8a0 | `Im_ShutdownSubsystems` | imuse.c | not converted yet (no known artifact); see notes below |
+| 1000a500 | `StEraseFromFront` | imuse_stream.c | not converted yet (no known artifact); see notes below |
+| 1000a540 | `StEraseFromMid` | imuse_stream.c | not converted yet (no known artifact); see notes below |
+| 1000a580 | `StGetValidSize` | imuse.c | not converted yet (no known artifact); see notes below |
+| 1000a5a0 | `StSpliceStream` | imuse_stream.c | not converted yet (no known artifact); see notes below |
+| 1000a5e0 | `StQueryStream` | imuse.c | not converted yet (no known artifact); see notes below |
+| 1000a620 | `StFeedStream` | imuse.c | not converted yet (no known artifact); see notes below |
+| 1000a6d0 | `Stream_LoadData` | imuse.c | not converted yet (no known artifact); see notes below |
+| 1000a7e0 | `TrInitialize` | imuse.c | not converted yet (no known artifact); see notes below |
+| 1000a8a0 | `TrTerminate` | imuse.c | not converted yet (no known artifact); see notes below |
 | 1000a8d0 | `TrPause` | imuse.c | not converted yet (no known artifact); see notes below |
 | 1000a8f0 | `TrResume` | imuse.c | not converted yet (no known artifact); see notes below |
-| 1000a910 | `Im_SaveImpl` | imuse.c | not converted yet (no known artifact); see notes below |
-| 1000a970 | `Im_RestoreImpl` | imuse.c | not converted yet (no known artifact); see notes below |
-| 1000aa00 | `Im_UpdateGroupVolumes` | imuse.c | not converted yet (no known artifact); see notes below |
-| 1000aa40 | `Im_HeartbeatBody` | imuse.c | not converted yet (no known artifact); see notes below |
-| 1000ab00 | `Im_StartSoundImpl` | imuse.c | not converted yet (no known artifact); see notes below |
-| 1000abb0 | `Im_StopSoundImpl` | imuse.c | not converted yet (no known artifact); see notes below |
-| 1000ac00 | `Im_StopAllSoundsImpl` | imuse.c | not converted yet (no known artifact); see notes below |
-| 1000ac20 | `Im_GetNextSoundImpl` | imuse.c | not converted yet (no known artifact); see notes below |
-| 1000ac60 | `Im_QueryStreamImpl` | imuse.c | not converted yet (no known artifact); see notes below |
-| 1000ace0 | `Im_FeedStreamImpl` | imuse.c | not converted yet (no known artifact); see notes below |
-| 1000ad50 | `Im_FreeTrack` | imuse.c | not converted yet (no known artifact); see notes below |
-| 1000ada0 | `Im_SetParamImpl` | imuse.c | not converted yet (no known artifact); see notes below |
-| 1000af50 | `Im_GetParamImpl` | imuse.c | not converted yet (no known artifact); see notes below |
-| 1000b0a0 | `Im_SetHookImpl` | imuse.c | not converted yet (no known artifact); see notes below |
-| 1000b0e0 | `Im_GetHookImpl` | imuse.c | not converted yet (no known artifact); see notes below |
+| 1000a910 | `TrSave` | imuse.c | not converted yet (no known artifact); see notes below |
+| 1000a970 | `TrRestore` | imuse.c | not converted yet (no known artifact); see notes below |
+| 1000aa00 | `TrUpdateVols` | imuse.c | not converted yet (no known artifact); see notes below |
+| 1000aa40 | `TrIntHandler` | imuse.c | not converted yet (no known artifact); see notes below |
+| 1000ab00 | `TrStartSound` | imuse.c | not converted yet (no known artifact); see notes below |
+| 1000abb0 | `TrStopSound` | imuse.c | not converted yet (no known artifact); see notes below |
+| 1000ac00 | `TrStopAllSounds` | imuse.c | not converted yet (no known artifact); see notes below |
+| 1000ac20 | `TrGetNextSound` | imuse.c | not converted yet (no known artifact); see notes below |
+| 1000ac60 | `TrQueryStream` | imuse.c | not converted yet (no known artifact); see notes below |
+| 1000ace0 | `TrFeedStream` | imuse.c | not converted yet (no known artifact); see notes below |
+| 1000ad50 | `TrStopTrack` | imuse.c | not converted yet (no known artifact); see notes below |
+| 1000ada0 | `TrSetParam` | imuse.c | not converted yet (no known artifact); see notes below |
+| 1000af50 | `TrGetParam` | imuse.c | not converted yet (no known artifact); see notes below |
+| 1000b0a0 | `TrSetHook` | imuse.c | not converted yet (no known artifact); see notes below |
+| 1000b0e0 | `TrGetHook` | imuse.c | not converted yet (no known artifact); see notes below |
 | 1000b110 | `Im_AllocTrackOrSteal` | imuse.c | not converted yet (no known artifact); see notes below |
-| 1000b170 | `Im_TriggersInit` | imuse.c | not converted yet (no known artifact); see notes below |
-| 1000b1a0 | `Im_TriggersSave` | imuse.c | not converted yet (no known artifact); see notes below |
-| 1000b1e0 | `Im_TriggersRestore` | imuse.c | not converted yet (no known artifact); see notes below |
+| 1000b170 | `TgInitialize` | imuse.c | not converted yet (no known artifact); see notes below |
+| 1000b1a0 | `TgSave` | imuse.c | not converted yet (no known artifact); see notes below |
+| 1000b1e0 | `TgRestore` | imuse.c | not converted yet (no known artifact); see notes below |
 | 1000b220 | `TgSetTrigger` | imuse.c | address of a parameter slot is taken (scanf-style outputs / reused slots) |
-| 1000b2e0 | `Im_CheckTriggerImpl` | imuse.c | not converted yet (no known artifact); see notes below |
-| 1000b380 | `Im_ClearTriggerImpl` | imuse.c | not converted yet (no known artifact); see notes below |
+| 1000b2e0 | `TgCheckTrigger` | imuse.c | not converted yet (no known artifact); see notes below |
+| 1000b380 | `TgClearTrigger` | imuse.c | not converted yet (no known artifact); see notes below |
 | 1000b430 | `Im_FireTriggers` | imuse.c | not converted yet (no known artifact); see notes below |
 | 1000b570 | `TgDeferCommand` | imuse.c | address of a parameter slot is taken (scanf-style outputs / reused slots) |
-| 1000b5e0 | `Im_ProcessDeferred` | imuse.c | not converted yet (no known artifact); see notes below |
-| 1000b630 | `Im_GetTriggerParam` | imuse.c | not converted yet (no known artifact); see notes below |
+| 1000b5e0 | `TgIntHandler` | imuse.c | not converted yet (no known artifact); see notes below |
+| 1000b630 | `TgGetPendCount` | imuse.c | not converted yet (no known artifact); see notes below |
 | 1000b6a0 | `Im_RunTriggerCommand` | imuse.c | not converted yet (no known artifact); see notes below |
 | 1000b710 | `Im_RunDeferredCommand` | imuse.c | not converted yet (no known artifact); see notes below |
-| 1000b760 | `iMUSE_stream__b760` | imuse_stream.c | not converted yet (no known artifact); see notes below |
-| 1000b7a0 | `iMUSE_stream__b7a0` | imuse_stream.c | not converted yet (no known artifact); see notes below |
+| 1000b760 | `UtAddToList` | imuse_stream.c | not converted yet (no known artifact); see notes below |
+| 1000b7a0 | `UtRemoveFromList` | imuse_stream.c | not converted yet (no known artifact); see notes below |
 | 1000b810 | `iMUSE_stream__b810` | imuse_stream.c | not converted yet (no known artifact); see notes below |
 | 1000b840 | `iMUSE_stream__b840` | imuse_stream.c | not converted yet (no known artifact); see notes below |
 | 1000b8d0 | `FUN_1000b8d0` | imuse_stream.c | not converted yet (no known artifact); see notes below |
@@ -411,8 +411,8 @@ Scope: GRIMFANDANGO.EXE >= 0x004a0000, all of LUA.DLL, IMUSE.DLL and CHORE.DLL. 
   luaI_startscript), luaY_lex, luaY_parse, match, string.format, tostring, the undump helpers and lua_printstack are C now
   (hand-written ones are in build/overrides.c, blocks marked `agentJ`).  Remaining: setjmp users (lua_updatetasks,
   luaD_protectedrun, protectedparser), lvm__dd/lstate pieces listed above, and the MSVC C runtime.
-- EXE >= 0x4a0000: hand-written C for sputLua_DimRegion, sputLua_RestoreCacheRect, PositionedSound_Apply, Smush_SetFile,
+- EXE >= 0x4a0000: hand-written C for sputLua_DimRegion, sputLua_RestoreCacheRect, SetSoundPosition, Smush_SetFile,
   DSound_SetPrimaryVolume (build/jtmp/ov_exe_h.c) and for CHORE Cos_New*Tag, Cos_Save, Cos_Restore, FUN_100041e0
   (build/jtmp/ov_chore_j.c) were written but NOT enabled: not verified before the wrap-up.  Ghidra return types of
-  Walker_TurnHeading/SetConstraint/SetSectorFrame (void), Text_NextChar (int) and luaD_callC (int) were fixed, so those
+  Puck_Rotate/SetConstraint/SetSectorFrame (void), Text_NextChar (int) and luaD_callC (int) were fixed, so those
   can be switched to C by adding them to names/asm_exclude_agentJ.json and testing.

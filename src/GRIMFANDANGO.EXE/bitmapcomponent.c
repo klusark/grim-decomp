@@ -43,17 +43,18 @@ undefined4 BitmapRequester(uint param_1,int param_2,int param_3,int param_4,char
   local_24 = 0;
   if (param_5 == (char *)0x0) {
     if (g_bBitmapPath != '\0') {
-      Plat_SetDialogDirectory(&g_bBitmapPath);
+      grimPlat_SetDefaultOpenPath(&g_bBitmapPath);
     }
-    iVar7 = Plat_OpenFileDialog(s_Select_image_file_to_add____004ea4b8,
-                                s_Graphics_files____pcx____gif___l_004ea4d4);
+    iVar7 = grimPlat_OpenFileRequest
+                      (s_Select_image_file_to_add____004ea4b8,
+                       s_Graphics_files____pcx____gif___l_004ea4d4);
     if (iVar7 == 0) {
       return 0;
     }
-    uVar4 = ((code *)Plat_GetDialogFileName)(0x7f);
+    uVar4 = ((code *)grimPlat_GetDefaultOpenPath)(0x7f);
     ((code *)strncpy)(&g_bBitmapPath,uVar4);
     DAT_008ca8b7 = 0;
-    name = Str_Basename(g_szGrimlib_aFilename);
+    name = stdFnames_FindMedName(g_szGrimlib_aFilename);
   }
   else {
     strncpy(local_20,param_5,0x1f);

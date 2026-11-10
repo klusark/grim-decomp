@@ -44,7 +44,7 @@ void Setup_DrawDebugCamera(int param_1)
   iVar1 = sputActor_ActorDeref(g_nCamActorIndex);
   if (*(int *)(iVar1 + 0xa0) != 0) {
     iVar1 = ((code *)sputActor_ActorDeref)(g_nCamActorIndex,param_1 + 0x50);
-    ((code *)Actor_DrawCostumes)(*(undefined4 *)(iVar1 + 0xa0));
+    ((code *)sputCostume_Draw3D)(*(undefined4 *)(iVar1 + 0xa0));
   }
   return;
 }
@@ -52,11 +52,13 @@ void Setup_DrawDebugCamera(int param_1)
 #undef local_c
 
 
-/* ---- 0x004a3db0  Setup_GetBackgroundBitmap ---- */
+/* ---- 0x004a3db0  sputRoom_GetSetupBackground ---- */
 /* sputRoom.cpp: loads the setup's BKND bitmap (name at setup+0x80, ResRef at +0xc0, dfltroom.bm
-   when missing) and returns the current frame surface */
+   when missing) and returns the current frame surface Original name sputRoom_GetSetupBackground
+   (the remaster's GrimFandango (Linux): aligned call in sputRender_UseSetup); was
+   Setup_GetBackgroundBitmap. */
 
-void * __cdecl Setup_GetBackgroundBitmap(void *set,int setupIdx)
+void * __cdecl sputRoom_GetSetupBackground(void *set,int setupIdx)
 
 {
   int *ref;
@@ -111,7 +113,7 @@ void * __cdecl Setup_GetBackgroundBitmap(void *set,int setupIdx)
     *(undefined1 *)(iVar1 + 0xa0) = 0;
   }
   else {
-    Res_TouchByData(*(void **)(iVar1 + 0xc4));
+    Res_Touch(*(void **)(iVar1 + 0xc4));
   }
   if (*ref == 0) {
     (*g_pStd_HS->pAssertFail)(s_Bad_Bitmap_Reference_004e8114,s_main_sputResource_h_004e80a8,0x90);
@@ -124,10 +126,12 @@ LAB_004a3eb6:
   return *(void **)(*(int *)(iVar3 + 0x78) + *(int *)(*(int *)(iVar1 + 0xc4) + 0x68) * 4);
 }
 
-/* ---- 0x004a3ef0  Setup_GetZBufferBitmap ---- */
-/* Loads the setup's ZBUF depth bitmap (name at setup+0xa0, ResRef at +0xf4) */
+/* ---- 0x004a3ef0  sputRoom_GetSetupZBackground ---- */
+/* Loads the setup's ZBUF depth bitmap (name at setup+0xa0, ResRef at +0xf4) Original name
+   sputRoom_GetSetupZBackground (the remaster's GrimFandango (Linux): aligned call in
+   sputRender_UseSetup); was Setup_GetZBufferBitmap. */
 
-void * __cdecl Setup_GetZBufferBitmap(void *set,int setupIdx)
+void * __cdecl sputRoom_GetSetupZBackground(void *set,int setupIdx)
 
 {
   int *ref;
@@ -175,7 +179,7 @@ LAB_004a3f66:
       (*g_pStd_HS->pAssertFail)
                 (s_Bad_ZBuffer_Reference_004ec614,s_main_sputResource_h_004e80a8,0x95);
     }
-    Res_TouchByData(*(void **)(iVar1 + 0xf8));
+    Res_Touch(*(void **)(iVar1 + 0xf8));
   }
   if (*ref == 0) {
     return (void *)0x0;
