@@ -1020,3 +1020,22 @@ Root causes fixed at the source (Ghidra, then `tools/export_changed.py`)
   exe (build/difftest/s3/vimadiff.c loads the original or rebuilt exe in a suspended child and feeds the Wave chunks).
 * build/link.py: a program whose file does not compile is reported as "NOT linked" and `make link` fails (it used to
   return 0 and keep the previous binary).
+
+## Whole-game autorun again, shutdown crash (2026-11-09, lead)
+
+* Whole-game autorun on 045e8bd (private copies in C:\Users\Joel\grimW_*, commands in grimW_work: `sh wg_start.sh &&
+  sh wg_watch.sh`, one chapter from its checkpoint `sh wr_resume.sh <slot> <tag>`): **FAILED at ch54** (sewer hub:
+  `AUTORUN FAIL nav: no way from 0.78 -0.35 to -0.24 -0.07 in sewer hub for 18 seconds`; Manny enters ladderup_box but
+  the level never changes). Not a regression: the 2df265d build fails the same way, alone from grim54.gsv and in a full
+  run. The autorun itself has 14 commits since its 2026-10-30 pass (nav planner, known links), so it may be autorun
+  drift; the 2026-10-30 autorun (grim_tools ca8eb27, grimW_ar1030) did not get past ch51 in its one try (see below).
+* Seen once: access violation in Render_BuildActorDrawList (`fsubs (%eax)`, eax = g_pCameraSetup) on the first frame
+  after the switch to "temple back stairs" in ch49: a stale camera setup pointer across a set switch. Not reproduced.
+* **Every exit of the rebuilt game crashed** (fixed in da70a81): CHORE.DLL's hand-written FUN_10004970 had turned
+  IMUSE.DLL's unrelated FUN_10004970 (same name: the DLLs share the image base) into a trap stub, and iMUSE's shutdown
+  calls it. That is the c000001d in imuse.dll of the autorun's ca8eb27 attempt and the 0xC000041D exit code of every
+  clean-room run; clean-room runs now exit with 0. build_src.load_overrides() is per program now.
+* Seen once in the clean-room suite: access violation in Lua_GetCameraLookVector (test args_GetCameraLookVector_num).
+  With a number argument it reads setup[n] (n * 300 bytes into the set's setup array) without a bounds check, so a set
+  with one setup is read past its end; the original does the same and survives because its heap leaves readable memory
+  there. Heap-layout dependent, like the CHORE.DLL slot bug; reruns passed.
